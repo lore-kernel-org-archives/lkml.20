@@ -1,89 +1,111 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2E84078D7;
-	Mon, 21 Sep 2026 19:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E963EDAB5;
+	Mon, 21 Sep 2026 19:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790020766; cv=none; b=YH2/TcHFdze7m6OxnNER9z1HFuY9k3pE2bLzWPYqJTK7jiyehgvK11HhIZkY9TwXqYnyUjsbpLK30LIp/IctZu+h1OdGPogtMMgDs+CgHxGc3iAQ+P5uXdck75t48UIW05e5mVnxw1PzWuTVSzYZ9cf2zt/Yq7tWUEEgx4EK7p4=
+	t=1790020771; cv=none; b=E1zCWNpPaH0Vw4rElXhoYvrVa2ZQ09fSviVoUdYxbBRH2gSYdYs2eRCdxBQZSNr/+z2a6paq6zQI8Nf/sQqROxIyrWQoRtQxL7oEUAQ2L5O3ao6X5q0M42YTJ0Jdh7RIBxnp4gZPLUMWXbfvn665RWscDtkLuf+XHJt/sfVjBiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790020766; c=relaxed/simple;
-	bh=hZBaJieRUltWL78Xa6YSzSqoN1Erz4TgkJc8CyvQ4Vo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kPJV1x9IMY8xtYVgZWX84wUMx5rVs+YvGUbs+sjFz4OIdUfZ/34RxxpOQDCpYALDinvN7FVRUxpeqOnBnNbC0m30tRXlXxfTpq80yg/e7YhtdSk8FoF726CvX1GtgLjHRvyY1DsmRJ2aYgU4LSJ4lj3jyMWPODcZwc+BXqtTyHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from [192.168.2.104] (91.79.36.28) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Mon, 21 Sep
- 2026 22:59:10 +0300
-Message-ID: <354d72f6-35bc-49f0-a4f4-3555b03f0ad8@auroraos.dev>
-Date: Mon, 21 Sep 2026 22:59:10 +0300
+	s=arc-20240116; t=1790020771; c=relaxed/simple;
+	bh=tDFDEt8IUs532azdvJKDW9TvNkB4b+8sjasg9lClwBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NZNCwb4vF2RHRt54l7qKOwhDhI2PWzIdVtqzP/3569f6VHAtAQxFpj3ad+KkpKlJ5tggD8oW2iHX71lpcQKFRCYikE1eVx+TGjnmbgewa1j/ogafCVCKixAeCL3ymPP2ovKTltVvIzKzmDqTvCc49FMcqPj58xljrPKxtLY3TKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=araOXMAq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="araOXMAq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542F91F000FF;
+	Mon, 21 Sep 2026 19:59:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790020770;
+	bh=GX1kDtjAfCXSGF7xrHyk2v4uUNilnK+1K3CoVNBtw4A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=araOXMAq3aGf5lhsHaF9EYdes13PfMxi/AKztAHU3Va9Nn/vDgBSHqo0RuqeabItb
+	 oNtT8BI+9WhQK8aNHeB4p9DzopBjegRomly7sPn5r0P6tX7YLA7OEiadHOlHz1p3Po
+	 0VRvp+5bka4Xj+WWdxNA/7dio0SkeoRI17P+Y0ba9o+uQWj0w05brmPZmTKxsTn9T5
+	 eP2rj5gGHKTms7HdD42p0zHYEeGtpIJcstNChorLw7RXgTT55bYgqWnIG8AhDR8Yut
+	 jAnt6ui6lqRaHEYMrQx5RSmAvq0KzO9sZYYAsJDB7eJ6B5lTlV3T9gsx0VW4f0eoni
+	 3JhTcsw/W2k5g==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>,
+ Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+ Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Binbin Zhou <zhoubinbin@loongson.cn>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>
+Subject:
+ [PATCH v1 04/17] iommu/arm-smmu-v3: Switch to use
+ acpi_bus_get_primary_device()
+Date: Mon, 21 Sep 2026 21:47:52 +0200
+Message-ID: <2073406.usQuhbGJ8B@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
+In-Reply-To: <7995179.EvYhyI6sBW@rafael.j.wysocki>
+References: <7995179.EvYhyI6sBW@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] ch9200: do return USB errors from
- control_write()
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <netdev-bot+sashiko@kernel.org>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
-	<linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
- <178954341078.22033.8722936070498955076@kernel.org>
- <b43350d5-09d7-4fc4-9791-16bb4322d794@auroraos.dev>
- <20260918182124.487edd13@kernel.org>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-In-Reply-To: <20260918182124.487edd13@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On 9/19/26 4:21 AM, Jakub Kicinski wrote:
-[...]
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
->>> There is a second point about the resulting contract.  On success
->>> usb_control_msg() returns the transferred length, so control_write() now
->>> returns a positive value (2 for these register writes) rather than 0:
->>>
->>>         err = usb_control_msg(dev->udev, ...);
->>>         if (err >= 0 && err < size)
->>>                 err = -EINVAL;
->>>
->>> Would the obvious caller-side follow-up "if (retval) return retval;" then
->>> treat every successful 2-byte register write as a failure?  Would it be
->>> better to normalize success to 0 in control_write(), or to check
->>> "retval < 0" in each caller and update the callers in the same patch so
->>> the errors being returned are actually acted upon?
->>    That's what the patch I linked to does...
-> 
-> Please fix the issues in one series or not at all.
+Replace acpi_get_first_physical_node() that is slated for removal
+with acpi_bus_get_primary_device() that takes a reference to the
+device it is about to return.
 
-   OK. Series against net-next, right?
+This addresses a potential use-after-free that may occur if the
+device returned by acpi_get_first_physical_node() is removed right
+after dropping its ACPI companion's physical_node_lock in that
+function.
 
-> We have too many patches in flight these days to be chasing people's
-> linked series. Too many LLM-happy "helpers".
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-   IMHO these 2 patches are not so heavily linked, that's why I posted
-them separately... And no AI was involved, of course. :-)
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index 5732f3ba0122..98f105798b89 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -5307,7 +5307,7 @@ static void acpi_smmu_dsdt_probe_tegra241_cmdqv(struct acpi_iort_node *node,
+ 	adev = acpi_dev_get_first_match_dev("NVDA200C", uid, -1);
+ 	if (adev) {
+ 		/* Tegra241 CMDQV driver is responsible for put_device() */
+-		smmu->impl_dev = get_device(acpi_get_first_physical_node(adev));
++		smmu->impl_dev = acpi_bus_get_primary_device(adev);
+ 		smmu->options |= ARM_SMMU_OPT_TEGRA241_CMDQV;
+ 		dev_info(smmu->dev, "found companion CMDQV device: %s\n",
+ 			 dev_name(smmu->impl_dev));
+-- 
+2.51.0
 
-> Please explain how you discovered the issue and how you tested the fix.
 
-   As I noted in the description of the patch [1], the issue was reported
-by the static analyzer. For the patch [2], I saw a problem with my own eyes.
-   I don't have the hardware, so no testing; there was some hope that e.g.
-Matthew Garret (the driver's original submitter) could be able to test but
-his email bounced...
 
-[1] https://lore.kernel.org/all/20260914202503.52920-1-s.shtylyov@auroraos.dev/
-[2] https://lore.kernel.org/all/20260915185805.38712-1-s.shtylyov@auroraos.dev/
-
-MBR, Sergey
 
