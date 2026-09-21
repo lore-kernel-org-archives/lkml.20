@@ -1,258 +1,417 @@
-Received: from mail-ej2-f23.google.com (mail-ej2-f23.google.com [74.125.228.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012050.outbound.protection.outlook.com [52.101.66.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7218044C518
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECDF36E46E;
+	Mon, 21 Sep 2026 08:19:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978746; cv=pass; b=AG4ErwktwK/yR+Hyo5jQAQaB4k3Heb98FGVgiHSS+WaYBAeBHx866wLUdPiAJu6pE5RVX373dz5pySVCRunaYRhQL9E3FBzC77Alak4gjqvWlpC/GavU5qKb2rPSCsU9Yk2ufdkJA7oXja9AnLAL8iTazBnGMDHgaKvh4BFGOFI=
+	t=1789978769; cv=fail; b=fbIFBUvmizkApFcma1n0aSyCr159nsVrroQTc4E7oek5LmFg0soaIseCQJxWz0XkYo2H9jk3uEQ7ICP6eL/4zEep+6wHtLhZQ2Lgy3hyu+3yvjaFGrrywCsziv3Hy8fa845dXD/KFC0suUSeJ8Ay+s27o6ee1Mxl2MF9v6uuuc4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978746; c=relaxed/simple;
-	bh=GvYhP394c77Ut6MdVvePKLF4OaMpg1dVWEEgs3+1G5M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P6Z0e+b/W4NoMNcH+xeoWHlkuQ2iyehMVBiOAIWkCyxs7Zbjrr2/3GTaP+psYRBZblZ7MEoxVrJexYK9tVg/IvN6SYheS+ChukMTtnTzs3xy8uBLR+MFe95LLBDC4d2EQFhrWsP518a66i+CYL1VlSF6iCxGxUuVPaOVptDztYc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pP/6Zwsg; arc=pass smtp.client-ip=74.125.228.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789978769; c=relaxed/simple;
+	bh=wkDeSrr8yLmRDDRNUPinF/cPLt1wsXPKSGnG7zoQ5M0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=FPz8pnFlXpo15B/sn/Wz8yCLNyKkJ+9DSCBw+WZWG8qZQP0/67RCrNcpIK/gjUjqcjOtQsa67vwWYyXMw8QDdzsRA6+qYT98xHpFx4dLzR+jZQ7GgqP/N3TecouqXHZ3N3jeF4vitWkjU6O8b3LVm8iKdqhvmYOVkG0rJzinb1o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YVGHfmDz; arc=fail smtp.client-ip=52.101.66.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pP/6Zwsg"
-Received: by mail-ej2-f23.google.com with SMTP id a640c23a62f3a-c25ef7a3ce9so312846366b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 01:18:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789978732; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ai2PmdZ39l1evGPHiH/XPksK/jlegRm41HI+OeDsgvFvSD8EmJnPX6wg7F/wYQ3OoJ
-         3agyHbQFbXGxd+jeRLaHnoPp5vB1kfP8hudoFJ1mQKgQwEidSum6gjd+dl1IHF5h+MeT
-         dgWTJn+8Ph5GoXTGhLyXK7zUw+U6RbWX8FAnpfsMOy/V0gIwpnpSLWnRCRlegdaZP/7q
-         R+bpZ4N9t51PfkZQ9uQZLGMTq59t0oyzyuhMkcpVQ0npQLnS7NvTFPAnZqtuoxniAxN2
-         NYxZ6siVwjdRRZLoy+HMJB8w+qcF7iV4qNdZZnQEFZsa3e5exsh6tzfMirneMvFYA6GI
-         lKkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=19st/Yec1gLE3J88KstsEKV+9NC3IJ8lZ4oG8CuGVVg=;
-        fh=1Z180bDtvdbOLihebzYm4euZhqzydW8+oAX/vP3+ylY=;
-        b=QfY4TwXXfj0DO3y0i0MFrRvx7si2CiRY8xP32LNOjxxZelJHFw+ukn5Np3J2tU2PiM
-         +XGbiPSDbYzNOpiiOQVD8QxVfnP48G9UFlQDOVvx+UYe6VH6fLRkaXKXizB58yqAHw0Q
-         9Yw0XLe0ruZHHeUWlHJXHH5oceNVePmpArRT33PCXEt6NC5ubAoMqOegR/YSqZKODH6d
-         iAPD5PjnnlTCyU5ZhF7Nm82TB1s0UYb5n3PBFN6ZMfLoEvm36We40gNXSYwYeofdJygQ
-         hDvwAVczSiAJLeND1mnogAXdMJucbZKS7Wfsorz2gBSTCu/L5uCjaAPVXpPzgaSNchpi
-         UvFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789978732; x=1790583532; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=19st/Yec1gLE3J88KstsEKV+9NC3IJ8lZ4oG8CuGVVg=;
-        b=pP/6ZwsgnwEtKQHxXzWAeVQ6hYuvL/3ZSpOJ4U8Jc7h2htlnatWCimWwOdl6ZMGChZ
-         MYR3LNwRD6m5aVmK5ceJTPTsC2XUnjpOGLy1KJIc4TZdGWoSXfg4oKLtJELNJfFoSxty
-         w4D0zCkmdw5HJpXuhpUXvHMGL7TLV5ewGGrAQOPDoAylvNVkTVzX1nl679gEYOdeCdua
-         9dJq0Ba1n4UEQadRzsNIhX4hs5AGfVDcGbd1OZYsJceJuS84jPEhkY6jXczwAXCbqwlW
-         NQZyQmdAPBN1gVtXVAZd0jLBLneOHG2bWY9GsHUq6P/9uhUJMvd3dAs8B7XZf/BiERvo
-         PSeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789978732; x=1790583532;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=19st/Yec1gLE3J88KstsEKV+9NC3IJ8lZ4oG8CuGVVg=;
-        b=BRvANiiof2DQpDvD047VBf6bl1+/LpWCl1sGJ3KaQqu1Pee669CblrVUhvw+t6jWKp
-         wviIIoPRUeTTJ58egMBwhryUjym5KGAyt0Bw6bRXFJmlZ8CclN2Rsq8+Cz9c9Ga6ybLp
-         5Qaf5XKA+gtlOeGtEj/VByN1gt++F/0yyohGA8KwfWLKAosO19I1j5fGZPgnw+grqilr
-         ASpMYbNxUcKoIKDCumznPOE3Ynt3ujQCo8hvuGrpRJncCSaqn8wVxMlLpmF+ZLaHOVI5
-         rRXlvOquOAdeN7S7Ho0KXV7H0i687ZctDCsIeY+7vPAcgQ1ScZLJMC3K3EcjFuJQjZw1
-         wBCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwECL4GhCigP0aoj/zJKSFaEYEzluDXQ+vH7X0BbCQgTu4otEswCoYSxbsaFx/XAuEVCXj0lc77i3hiDg=@vger.kernel.org
-X-Gm-Message-State: AFuF++makBdgwSnQmKW5kPnMU2touwduTw3X59UDKCuGjBF/Fdhbjnxb
-	mSg721Iv/Ay3vzdRAkrb0Nq8ZWDNOFwX2AivDx7gvxOJiQk1Y/RSvAHZfmW/bNrdtFd8aUsBFZ0
-	0YaKTWOZy2pVrJ+PwLOtVXy1tRSl9luY=
-X-Gm-Gg: AYBFou0N3aiOFZCSTs8fNLaNrKd1wc8RdL7yfQrsyNJALO+EPN+Zig4WcU4nL3nCCVP
-	z2M7Bvs/R5dm5gInUB57scReBjedu+Lx9KSa+4ngYmOofiVkUhtotyz6BxLHwv1BekdWNF0Adxs
-	hmgqXWLkblY6D4EYnyJ1+Ln+SD2+wQulAonZ3T3Q8hk0V8AoLb7dm0h8FT0oEWuTx1vwtF6ZlXY
-	G849UddCrMIyGbjl3Ty5QrZPnbqM7EZ/cJPvR/6bdFtEICzBQ+xYYywQ1osZhqWXvR8suvZwX80
-	GcsR6/qMyTJ+7rtJVnzaKdcTqyYiEajYnr37hD9KcXQhbUEHOOkOwf1p
-X-Received: by 2002:a17:906:c113:b0:c29:4415:2ec6 with SMTP id
- a640c23a62f3a-c2a157d8b58mr725032966b.12.1789978731612; Mon, 21 Sep 2026
- 01:18:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YVGHfmDz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OWc21WW+RV6RALs7GzHecXa9sRXgo7zn17ty8Rzz2ISWP/ZBn+syRu4fVo0SExKenjbCAGyqE6hX3xbHRK7HWcv3VRa7Glj4fcjDQvTwZKT81FqRM9NTrKbXOO3SVEZNcomyKEFfbfnDp37nxKEKyciOD5Radrq2MmsVZ605C/A6JnBAKjTRDcZrBxBLBSZZK3HWuCV2dpnb0w2I9InVWIvDJ05CX3WcRjZhS/7K4TeswF0qdNwp45xxO1joyuiZwG3Qhl97okmBx8OQOo3n9VtDq0KTN1IS9h6k+hnnuXc3qej715FcAC/+aoHwsDEXwsWUZJSPmAM13X89R2BfTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QvnPw7uWEwwHNymLUK8VN2/FZ1/mTC9WJeRpheEEwS8=;
+ b=BYpBCjCcjXLj2fZAt6u4UF9g0NsjMfS7rGYmduKrBs9LQ+7jJ03fwGrISid7/2YEVq1S4C1oTcWNsFQoYG8nMUHJ0XKJV8Trim3fYI0llurhXZDYtBZ0pd+3K+tWkqM6uuIfIaOS/BqYDw17tZi1m4zrusgXs8dcgR3GLWmNxddkWawR1bCVpwW/xzVIfHelJrlqkmCgecxFkqzV5v8kX8oUna+OY+ASqoiuvuamejLBdXoFOq3xCFexWTIEmmjgEDTfeztyZfZjvzf8uM0aqpRxDfkjRWWu4Ax4NBVusXWJrRaP1xcxvW6vLUNmH2vAdI6YNoNnC2HaCuD/7dvh4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QvnPw7uWEwwHNymLUK8VN2/FZ1/mTC9WJeRpheEEwS8=;
+ b=YVGHfmDz6nG80rplgK887u8180M8lrl3PHdlCg3PkIWT8SZsdvIAkB1+YH39nS0UoSqpxHVIrNRxL2Q5O/B9FGvYPCQ2N62KGRG4G99Re9svjzOv9j6PkiuG6RlXs4Nxrov+JyPp9WHAhrt8VwvUjX5uTaOa7OGTkhrzDi4NdRhKB+CmWpKwN4TXFYlQ1SbHeJ/kTpj7nMyyaCxPkKkSfcLlvj9FY6+CfJvSZwksFr7Ae+tQBJqLKiJWRfharWqKB9odIcWAQik5Ec0xmcvY0uUxSz1BMgHr1vuuyd20LAiccePymne+amrVdJ/jAqECRXlFldyPN2CRSzxJqO7p+w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by AM0PR04MB038800.eurprd04.prod.outlook.com
+ (2603:10a6:20b:801::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 08:19:24 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 08:19:24 +0000
+Message-ID: <1d47addb-24b7-4891-bb19-b754cda22711@oss.nxp.com>
+Date: Mon, 21 Sep 2026 11:19:20 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 04/11] ufs: host: Add common Hibern8 TX FSM polling
+ helper
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>, linux-scsi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
+ eballetb@redhat.com, echanude@redhat.com
+References: <20260917091555.1443076-1-larisa.grigore@oss.nxp.com>
+ <20260917091555.1443076-5-larisa.grigore@oss.nxp.com>
+ <aqwPYEvGiamxNW3T@SMW015318>
+Content-Language: en-US
+From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+In-Reply-To: <aqwPYEvGiamxNW3T@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM8P190CA0015.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:219::20) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920203239.2876221-2-Jeremy.Jean@oss.cyber.gouv.fr> <20260920203239.2876221-5-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20260920203239.2876221-5-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 21 Sep 2026 10:18:41 +0200
-X-Gm-Features: AcwNN1VwgrBl2ccVf6rNXeXgU9lenbvSiFwbNGMs9vX16ZwVYtqDauUDpgmmuWU
-Message-ID: <CAOQ4uxiLpwc5HgQd0bc5fH2FABMbZPjyMgm+L-ohyFkyy7ENjA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] selftests: overlayfs: keep index copy up with
- mixed lower idmaps
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>, 
-	brauner@kernel.org
-Cc: miklos@szeredi.hu, linux-unionfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|AM0PR04MB038800:EE_
+X-MS-Office365-Filtering-Correlation-Id: de9c892a-873b-46bf-1390-08df17b90be0
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|366016|1800799024|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+ pf19Dribgf3YTtaJQ8Ct+qbY6iP0LzOlzJHLGDsqoqud8KXGxLzl+VbDeEwbI6pNpTSbnaGbiUZcu+BpzWwtkTPkknfV51LcCHnvcd3bn4nY8EpbyvBUvWiF5pFTnH5FhJzlNm1U2C0ZpPDsz0iK6hF3fWpXcGgkV72M3bmjF1x2DNZAbgRDRH7BBPgikAUPzNEnaDtEywdKr5RbrN/eWSu4k3AELjHsrzp8CYYWUgnH+mI6l9rMTPwwB7NABNJ75YXgGQirbQTNV/fKOJfF7OzKm17nQFcaW6sjQ7N3An68rMSvw+O9rzuX3x8oDXLoeH18bl5GEMIFWGqdfHilt9PEWX73I6W6nQjJSB5VtbaXjzgGDwl52cIRvmo2xMzFRQKaiwbo2ly+ecWx+8QDYEVgIUBERvKLjYm7ryivHbxpzm1eTeW74uYx+7tU2QfLl4MpGaiculimrEMKP30xrlPv21Q0MOu96ftAS6N2RonNuzJ3+igMAG6SN7kyaWMZA7kiKeFSjbgGeW468NYGrjsBIyiT/OtZg2WNFOgsnEHjB0QLUL2C7bx7kM99ALsKJ/LZQRrwyiWlaxKmURy1hJzZlqMemUmnne76WAPzu2zpKxMSiSXVvmleL97qlxWfjvOZeIuIbdotxaoG+/fwfqdeEIDtVza8sn9zxGLuQXc=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?dW81K0RRRFVrbStSSkhhSnJWTmJDbDNFc1JoZG1WcWhrYnV2VlltNXdnTmtR?=
+ =?utf-8?B?UURTYnBJaVdJdnBEY1lLaGQzUm52b2RENlFDWGJFOXpxdUI2aXF2bHAyZjM1?=
+ =?utf-8?B?bGZEVlFzck50UmJJYmJSZHRaWjhJOEQrbjViRE93endzU1JaQTdQdVY2bi92?=
+ =?utf-8?B?Mi9nVC9vTkFMZEJZYVFHS1VTczNQazNtL0hteXQvdGgvUlFiOTFPT1NDc21F?=
+ =?utf-8?B?MU5hM2cxQnJLanF4MjlUSkFDaitNeDZYUFBUNE9ra1RhVHNkNWhxQzJwY21v?=
+ =?utf-8?B?VHVhMklCbDNvb1dqMG9OMlRUcE12VW9MNnhSVitGRnc4VWRMVVduclEvTnlU?=
+ =?utf-8?B?UFU0N3VHRUZmMjlDKy9JWUlvWGhyRVZOL2ZXeXZicGFhNHdsKzVOQzhpSWwv?=
+ =?utf-8?B?NEN2a1lyUXJCTVVFdFNNZ1dLY013U2ZLUmhxRll5enF4SGtwRUZVZ2dFd29O?=
+ =?utf-8?B?U21Tc2JpODA4RUlIakYzZDRtNVpzRWNyRmxvQWs0TnI4WXNkM1k0NGQxRTQw?=
+ =?utf-8?B?TnZtS21IVnMzZURRRC9ock5mb0IwZEpvNHVVWmNibmpYS2F0WXM4VGEzc2o3?=
+ =?utf-8?B?V1JBUU5RZFpRZXVBMW1McVdwVGNQaTViSkdwQnhyckRhdHhrYk1hRjdzVUYv?=
+ =?utf-8?B?bE9wMTVQdjd4NWdpdUszUjlHYjZpQmgrbHRMK2JHNUt6emh2SEtpUktDK3po?=
+ =?utf-8?B?ZzBNbytidFJpRzMvTHYxZE1nR3UwajdzQlhKdVh1bzVaaUZjQmkxT2N5QWNr?=
+ =?utf-8?B?WUZPb29XcXFEMlJBQThHcjgzOW9LV3NRQ2hJMEFuSVhsZC8yR2t1Z0E2THVp?=
+ =?utf-8?B?aE9scjRYOEF6UGx6UmhuSUpPM3F2b05YdzczeXlzM3hpZEprL0F0V2NjK1NR?=
+ =?utf-8?B?SVVicldlVTY0QUlYZTJrbVcxd2ZSVlZsMG0wRmg3c3g0OFpTNXEwZjZIWlcz?=
+ =?utf-8?B?Myt2OVhNdjY5cjI2aUMvZDZCVkYzT1MrNllOMnJacjRaTHdubzZvakE0VjRi?=
+ =?utf-8?B?eHcweW1WUkhOQ2JxNE5YMWtQazBjbWpBampwS2VlY2hYeE9IaTFpdmNnb2hU?=
+ =?utf-8?B?TmdrQUowVzNPN2ZHTDVBaWM0ZmlUcldCUXNEMWRoVEpNaG5WMHZzR1BaeVNL?=
+ =?utf-8?B?NUN1SDZjWmtGVFVzeGNzbUVFd3JUZ25laDVKZDNYYVBsSmZHMithNTJYeGto?=
+ =?utf-8?B?ejRMVWtZdFZlcEt3UnFUb0VMemMwWm9uaWszZUdHT0dxUFhmN0x4WjVUL3hR?=
+ =?utf-8?B?M2VWaW1aaGQ0L2JJV2NydEo0RFIwOEV6dithNXdCM01wM2NFM2RkTm5IdFBB?=
+ =?utf-8?B?Zk1EdU1oTjF5ajdyeUluZEp2alJVTEx1Y1YzOHRrNUFmalpwSzlyVXhNZDRw?=
+ =?utf-8?B?aHBUUG81aFUwSjJCampJeExZWldIL0czM21iTDk1S1Nuc0lLQXphQzBmdUlO?=
+ =?utf-8?B?TUc3aWQ2Tzl0OGRscm5zNHQ2V1E4YUxhaU8wRmIwQWtoWUtaejE5MUdWS0Ns?=
+ =?utf-8?B?Z1lZRXMxSWNKTUhabWYrOHZKOWpWLzZ2ZWVYUWExSmNUSWxnTlRvVlEzSm0x?=
+ =?utf-8?B?TE1TbllkTmRIaDExRkRFMUlNMmYrZnJFZCtXZEYxS2xmc2t2MFBnckxxVURw?=
+ =?utf-8?B?eXdIb1NMbC9rTVo1Ty9XZXVaWmowcHlVZWo4MUgvWjJ5bTRCWGtqT0lyL0ZZ?=
+ =?utf-8?B?Z0Y5RGQwQ3F0QTBTLzQ4MHN3emZ3WTJ6U3FpUHllZnRndHpVNXdqejEzWENK?=
+ =?utf-8?B?NUNvSDVucVFmakFhSUQ3dlBmVjZ3KzdmV25KalBkRkhqY29hU1ZTUWNJaGh3?=
+ =?utf-8?B?RGJzSFUrRFVqVmFzWXBmK3pDSE5GREZEQ0dHdzN2OVlPZWhYcHEyc0hUeDUr?=
+ =?utf-8?B?SGxkWFhTK3pxS2s0TmJsaHFzWUtTQU92OGhOSWc3Rk9iNmpvWmpVRDFOUjcw?=
+ =?utf-8?B?c2x6OW45T0FQUHBybm1rajE2VHdxUk9VSGVZUTNYUG10Y3lRdlJLQmRoVmZ4?=
+ =?utf-8?B?Mk5Vem5zN1lLNFI4dmpheDdhVXBjN2lXQTRQNmdPYXFnWlNKS1dhVC9CZUtI?=
+ =?utf-8?B?MWs3ZC9RdGdkZlVDSmxrUEFZVjVsTXk2Z3ZSazZvZ3VBMHo5clhZRms3NzN5?=
+ =?utf-8?B?dTlRMWxDWklUWHZpZEFaekRTUDZuYlpwK3JoSkpEdTF4UGNJZEpKTThUNGcx?=
+ =?utf-8?B?THF5UlB5ckNUY3E1eHlydityVG1EbDdOempCWm9Oa1N4czh5Zm1QQkRxRVdp?=
+ =?utf-8?B?VFMxOHRNVk9MNjlud0kwbWJYZ2RJS2I5SGpzN1N3b0F5VXZod09GK1VmYmRC?=
+ =?utf-8?B?VXo1Rlh2NlVBTkJUKzFlMzR2S2F5VjVPMlhNalE2ZGRkRW1sbk0xZz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de9c892a-873b-46bf-1390-08df17b90be0
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 08:19:24.6482
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ohagEJxA6il2ZliajaXxcW3/VJyjSQl63RE//oTbiFH4oHr0YTRwSWn5FYegEnoBT5BfNomK5BPqYDhAe7T4ng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB038800
 
-On Sun, Sep 20, 2026 at 10:33=E2=80=AFPM J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->
-> Add a copy-up test for mixed-idmap lower layers with
-> index=3Don,nfs_export=3Doff.
->
-> Write through one hardlink alias and read through the other.
-> Check that both aliases still point to the same copied-up inode.
-> Check that the copied-up inode keeps the expected mapped owner.
->
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  .../filesystems/overlayfs/idmapped_mounts.c   | 103 ++++++++++++++++++
->  1 file changed, 103 insertions(+)
->
-> diff --git a/tools/testing/selftests/filesystems/overlayfs/idmapped_mount=
-s.c b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
-> index 0e94bd464f1c..ae99698c280a 100644
-> --- a/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
-> +++ b/tools/testing/selftests/filesystems/overlayfs/idmapped_mounts.c
-> @@ -219,6 +219,42 @@ static int setup_extra_layer(const char *base, const=
- char *name)
->         return 0;
->  }
->
-> +static int write_path(const char *path, const char *buf)
-> +{
-> +       size_t len =3D strlen(buf);
-> +       int fd;
-> +
-> +       fd =3D open(path, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-> +       if (fd < 0)
-> +               return -1;
-> +       if (write(fd, buf, len) !=3D len) {
-> +               close(fd);
-> +               return -1;
-> +       }
-> +       if (close(fd))
-> +               return -1;
-> +       return 0;
-> +}
-> +
-> +static int read_fd_contents(int dirfd, const char *name, char *buf, size=
-_t len)
-> +{
-> +       ssize_t n;
-> +       int fd;
-> +
-> +       fd =3D openat(dirfd, name, O_RDONLY);
-> +       if (fd < 0)
-> +               return -1;
-> +       n =3D read(fd, buf, len - 1);
-> +       if (n < 0) {
-> +               close(fd);
-> +               return -1;
-> +       }
-> +       buf[n] =3D '\0';
-> +       if (close(fd))
-> +               return -1;
-> +       return 0;
-> +}
-> +
->  /*
->   * Mount an overlay inside user namespace @u1 (so the overlay sb's s_use=
-r_ns is
->   * not the initial namespace) and idmap that overlay mount with @u2.  Ru=
-ns in a
-> @@ -588,4 +624,71 @@ TEST_F(idmapped_overlay, nfs_export_same_sb_mixed_id=
-maps)
->         EXPECT_EQ(close(ovl), 0);
->  }
->
-> +/*
-> + * index=3Don without nfs_export still preserves lower hardlinks on copy=
- up when
-> + * same-superblock lower layers use different idmaps.  The copied-up ali=
-as must
-> + * keep the same contents, inode identity, and owner as the path-selecte=
-d lower.
-> + */
-> +TEST_F(idmapped_overlay, index_copy_up_same_sb_mixed_idmaps)
-> +{
-> +       static const char lower_data[] =3D "lower\n";
-> +       static const char upper_data[] =3D "upper\n";
-> +       char lower1[PATH_MAX], lower2[PATH_MAX], upper[PATH_MAX], work[PA=
-TH_MAX];
-> +       char path[PATH_MAX], alias[PATH_MAX], buf[32];
-> +       struct stat st_file, st_alias, st_upper;
-> +       int fd_lower1, fd_lower2, ovl, fd;
-> +
-> +       if (!ovl_supported())
-> +               SKIP(return, "overlayfs not supported");
-> +
-> +       snprintf(lower1, sizeof(lower1), "%s/l", self->base);
-> +       snprintf(lower2, sizeof(lower2), "%s/l2", self->base);
-> +       snprintf(upper, sizeof(upper), "%s/u", self->base);
-> +       snprintf(work, sizeof(work), "%s/w", self->base);
-> +       ASSERT_EQ(setup_extra_layer(self->base, "l2"), 0);
-> +
-> +       snprintf(path, sizeof(path), "%s/l2/file", self->base);
-> +       snprintf(alias, sizeof(alias), "%s/l2/alias", self->base);
-> +       ASSERT_EQ(write_path(path, lower_data), 0);
-> +       ASSERT_EQ(chown(path, ID_HOST + 7, ID_HOST + 7), 0);
-> +       ASSERT_EQ(link(path, alias), 0);
-> +
-> +       fd_lower1 =3D idmapped_layer_fd(lower1, ID_HOST, ID_NS, ID_RANGE)=
-;
-> +       ASSERT_GE(fd_lower1, 0);
-> +       fd_lower2 =3D layer_fd(lower2);
-> +       ASSERT_GE(fd_lower2, 0);
-> +
-> +       ovl =3D ovl_mount_lower_fds(upper, work, fd_lower1, fd_lower2, "o=
-n", "off");
-> +       ASSERT_GE(ovl, 0);
-> +       EXPECT_EQ(close(fd_lower1), 0);
-> +       EXPECT_EQ(close(fd_lower2), 0);
-> +       ASSERT_EQ(ovl_idmap(ovl), 0);
-> +
-> +       fd =3D openat(ovl, "file", O_WRONLY | O_TRUNC);
-> +       ASSERT_GE(fd, 0);
-> +       ASSERT_EQ(write(fd, upper_data, sizeof(upper_data) - 1),
-> +                 sizeof(upper_data) - 1);
-> +       EXPECT_EQ(close(fd), 0);
-> +
-> +       ASSERT_EQ(read_fd_contents(ovl, "alias", buf, sizeof(buf)), 0);
-> +       EXPECT_STREQ(upper_data, buf);
-> +
-> +       ASSERT_EQ(fstatat(ovl, "file", &st_file, 0), 0);
-> +       ASSERT_EQ(fstatat(ovl, "alias", &st_alias, 0), 0);
-> +       EXPECT_EQ(st_file.st_ino, st_alias.st_ino);
-> +       EXPECT_EQ(st_file.st_nlink, 2);
-> +       EXPECT_EQ(st_alias.st_nlink, 2);
-> +       EXPECT_EQ(st_file.st_uid, ID_NS + 7);
-> +       EXPECT_EQ(st_file.st_gid, ID_NS + 7);
-> +       EXPECT_EQ(st_alias.st_uid, ID_NS + 7);
-> +       EXPECT_EQ(st_alias.st_gid, ID_NS + 7);
-> +
-> +       snprintf(path, sizeof(path), "%s/u/file", self->base);
-> +       ASSERT_EQ(stat(path, &st_upper), 0);
-> +       EXPECT_EQ(st_upper.st_uid, ID_HOST + 7);
-> +       EXPECT_EQ(st_upper.st_gid, ID_HOST + 7);
-> +
-> +       EXPECT_EQ(close(ovl), 0);
-> +}
-> +
->  TEST_HARNESS_MAIN
-> --
-> 2.47.3
->
+On 9/17/2026 7:03 PM, Frank Li wrote:
+> On Thu, Sep 17, 2026 at 11:15:48AM +0200, Larisa Grigore wrote:
+>> Factor out the common logic used to poll TX_FSM_STATE until the TX lanes
+>> enter Hibern8 into ufshcd_check_hibern8().
+>>
+>> The HiSilicon and Qualcomm drivers currently implement similar checks
+>> using the UniPro TX_FSM_STATE attribute after link/PHY bring-up. Move
+>> this logic to a common helper in ufshcd so it can be shared across host
+>> controller drivers.
+>>
+>> Switch the HiSilicon and Qualcomm drivers to use the new helper and drop
+>> their local implementations. While at it, normalize the "TX lane failed to
+>> reach Hibern8" error path to return -ETIMEDOUT instead of the raw
+>> TX_FSM_STATE value (qcom) or -1 (hisi), so all callers get a proper errno.
+>> This is an intentional, harmless change of the returned error value; the
+>> pass/fail behaviour at the call sites is unchanged.
+>>
+>> Unlike the initial implementation, the timeout error is now reported only
+>> once by ufshcd_dme_check_tx_hibern8() after its final check, instead of
+>> per lane.
+>>
+>> This also prepares for reusing the same UniPro-specific Hibern8 check in
+>> a subsequent commit.
+>>
+>> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+>> ---
+>>   drivers/ufs/core/ufshcd.c   | 73 +++++++++++++++++++++++++++++++++++++
+>>   drivers/ufs/host/ufs-hisi.c | 48 +-----------------------
+>>   drivers/ufs/host/ufs-qcom.c | 42 +--------------------
+>>   include/ufs/ufshcd.h        |  3 ++
+>>   4 files changed, 78 insertions(+), 88 deletions(-)
+>>
+>> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+>> index 2ba244cf40ac..c1c61377e28a 100644
+>> --- a/drivers/ufs/core/ufshcd.c
+>> +++ b/drivers/ufs/core/ufshcd.c
+>> @@ -4448,6 +4448,79 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
+>>   }
+>>   EXPORT_SYMBOL_GPL(ufshcd_dme_get_attr);
+>>
+>> +/**
+>> + * ufshcd_poll_tx_hibern8_lanes - Check TX_FSM_STATE of all TX lanes once
+>> + * @hba: host controller instance
+>> + * @num_lanes: number of TX lanes to check
+>> + *
+>> + * Read TX_FSM_STATE for every lane and verify it reached Hibern8.
+>> + *
+>> + * Return: 0 if all lanes are in Hibern8, -EAGAIN if any lane is not (yet)
+>> + * in Hibern8, or a negative errno (e.g. -ETIMEDOUT from a hard UIC command
+>> + * timeout) if the attribute read fails.
+>> + */
+>> +static int ufshcd_poll_tx_hibern8_lanes(struct ufs_hba *hba,
+>> +					unsigned int num_lanes)
+>> +{
+>> +	u32 tx_fsm_val = 0;
+>> +	unsigned int i;
+>> +	int err;
+>> +
+>> +	for (i = 0; i < num_lanes; i++) {
+>> +		err = ufshcd_dme_get(hba,
+>> +				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+>> +					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(i)),
+>> +				&tx_fsm_val);
+>> +		if (err) {
+>> +			dev_err(hba->dev,
+>> +				"%s: unable to get TX_FSM_STATE for lane %u, err %d\n",
+>> +				__func__, i, err);
+>> +			return err;
+>> +		}
+>> +
+>> +		if (tx_fsm_val != TX_STATE_HIBERN8)
+>> +			return -EAGAIN;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/**
+>> + * ufshcd_dme_check_tx_hibern8 - Check if all TX lanes entered Hibern8 state
+>> + * @hba: host controller instance
+>> + * @num_lanes: number of TX lanes to check
+>> + * @timeout_ms: overall timeout in milliseconds shared by all lanes
+>> + *
+>> + * Return: 0 on success, negative errno on failure.
+>> + */
+>> +int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba, unsigned int num_lanes,
+>> +				unsigned int timeout_ms)
+>> +{
+>> +	int err, ret;
+>> +
+>> +	if (!num_lanes)
+>> +		return -EINVAL;
+>> +
+>> +	/*
+>> +	 * Poll every lane until ufshcd_poll_tx_hibern8_lanes() stops returning
+>> +	 * -EAGAIN, i.e. all lanes reached HIBERN8 (err == 0) or a real error
+>> +	 * was hit.
+>> +	 */
+>> +	ret = read_poll_timeout(ufshcd_poll_tx_hibern8_lanes, err,
+>> +				err != -EAGAIN, 200,
+>> +				(u64)timeout_ms * USEC_PER_MSEC, false,
+>> +				hba, num_lanes);
+>> +	if (ret) {
+>> +		dev_err(hba->dev,
+>> +			"%s: timeout waiting for TX lanes to enter HIBERN8\n",
+>> +			__func__);
+>> +		return -ETIMEDOUT;
+> 
+> nit: return ret;
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> 
+Thank you!
+>> +	}
+>> +
+>> +	return err;
+>> +}
+>> +EXPORT_SYMBOL_GPL(ufshcd_dme_check_tx_hibern8);
+>> +
+>>   /**
+>>    * ufshcd_dme_rmw - get modify set a DME attribute
+>>    * @hba: per adapter instance
+>> diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
+>> index bd223bda1ce2..b84075dfe00d 100644
+>> --- a/drivers/ufs/host/ufs-hisi.c
+>> +++ b/drivers/ufs/host/ufs-hisi.c
+>> @@ -22,50 +22,6 @@
+>>   #include <ufs/ufshci.h>
+>>   #include <ufs/ufs_quirks.h>
+>>
+>> -static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+>> -{
+>> -	int err = 0;
+>> -	u32 tx_fsm_val_0 = 0;
+>> -	u32 tx_fsm_val_1 = 0;
+>> -	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+>> -
+>> -	do {
+>> -		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+>> -				      &tx_fsm_val_0);
+>> -		err |= ufshcd_dme_get(hba,
+>> -		    UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+>> -		if (err || (tx_fsm_val_0 == TX_STATE_HIBERN8 &&
+>> -			tx_fsm_val_1 == TX_STATE_HIBERN8))
+>> -			break;
+>> -
+>> -		/* sleep for max. 200us */
+>> -		usleep_range(100, 200);
+>> -	} while (time_before(jiffies, timeout));
+>> -
+>> -	/*
+>> -	 * we might have scheduled out for long during polling so
+>> -	 * check the state again.
+>> -	 */
+>> -	if (time_after(jiffies, timeout)) {
+>> -		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
+>> -				     &tx_fsm_val_0);
+>> -		err |= ufshcd_dme_get(hba,
+>> -		 UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
+>> -	}
+>> -
+>> -	if (err) {
+>> -		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+>> -			__func__, err);
+>> -	} else if (tx_fsm_val_0 != TX_STATE_HIBERN8 ||
+>> -			 tx_fsm_val_1 != TX_STATE_HIBERN8) {
+>> -		err = -1;
+>> -		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
+>> -			__func__, tx_fsm_val_0, tx_fsm_val_1);
+>> -	}
+>> -
+>> -	return err;
+>> -}
+>> -
+>>   static void ufs_hisi_clk_init(struct ufs_hba *hba)
+>>   {
+>>   	struct ufs_hisi_host *host = ufshcd_get_variant(hba);
+>> @@ -224,9 +180,7 @@ static int ufs_hisi_link_startup_pre_change(struct ufs_hba *hba)
+>>
+>>   	/* Unipro VS_mphy_disable */
+>>   	ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(0xD0C1, 0x0), 0x0);
+>> -	err = ufs_hisi_check_hibern8(hba);
+>> -	if (err)
+>> -		dev_err(hba->dev, "ufs_hisi_check_hibern8 error\n");
+>> +	err = ufshcd_dme_check_tx_hibern8(hba, 2, HBRN8_POLL_TOUT_MS);
+>>
+>>   	if (!(host->caps & UFS_HISI_CAP_PHY10nm))
+>>   		ufshcd_writel(hba, UFS_HCLKDIV_NORMAL_VALUE, UFS_REG_HCLKDIV);
+>> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+>> index 1e492dac8d93..815ca82a0878 100644
+>> --- a/drivers/ufs/host/ufs-qcom.c
+>> +++ b/drivers/ufs/host/ufs-qcom.c
+>> @@ -382,46 +382,6 @@ static int ufs_qcom_init_lane_clks(struct ufs_qcom_host *host)
+>>   	return 0;
+>>   }
+>>
+>> -static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+>> -{
+>> -	int err;
+>> -	u32 tx_fsm_val;
+>> -	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
+>> -
+>> -	do {
+>> -		err = ufshcd_dme_get(hba,
+>> -				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+>> -					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+>> -				&tx_fsm_val);
+>> -		if (err || tx_fsm_val == TX_STATE_HIBERN8)
+>> -			break;
+>> -
+>> -		/* sleep for max. 200us */
+>> -		usleep_range(100, 200);
+>> -	} while (time_before(jiffies, timeout));
+>> -
+>> -	/*
+>> -	 * we might have scheduled out for long during polling so
+>> -	 * check the state again.
+>> -	 */
+>> -	if (time_after(jiffies, timeout))
+>> -		err = ufshcd_dme_get(hba,
+>> -				UIC_ARG_MIB_SEL(TX_FSM_STATE,
+>> -					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+>> -				&tx_fsm_val);
+>> -
+>> -	if (err) {
+>> -		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+>> -				__func__, err);
+>> -	} else if (tx_fsm_val != TX_STATE_HIBERN8) {
+>> -		err = tx_fsm_val;
+>> -		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
+>> -				__func__, err);
+>> -	}
+>> -
+>> -	return err;
+>> -}
+>> -
+>>   static void ufs_qcom_select_unipro_mode(struct ufs_qcom_host *host)
+>>   {
+>>   	ufshcd_rmwl(host->hba, QUNIPRO_SEL, QUNIPRO_SEL, REG_UFS_CFG1);
+>> @@ -607,7 +567,7 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
+>>   		break;
+>>   	case POST_CHANGE:
+>>   		/* check if UFS PHY moved from DISABLED to HIBERN8 */
+>> -		err = ufs_qcom_check_hibern8(hba);
+>> +		err = ufshcd_dme_check_tx_hibern8(hba, 1, HBRN8_POLL_TOUT_MS);
+>>   		ufs_qcom_enable_hw_clk_gating(hba);
+>>   		ufs_qcom_ice_enable(host);
+>>   		ufs_qcom_config_ice_allocator(host);
+>> diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+>> index dfd302f2dc7c..0d9d0a26eb20 100644
+>> --- a/include/ufs/ufshcd.h
+>> +++ b/include/ufs/ufshcd.h
+>> @@ -1556,6 +1556,9 @@ extern int ufshcd_dme_set_attr(struct ufs_hba *hba, u32 attr_sel,
+>>   			       u8 attr_set, u32 mib_val, u8 peer);
+>>   extern int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
+>>   			       u32 *mib_val, u8 peer);
+>> +extern int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba,
+>> +				       unsigned int num_lanes,
+>> +				       unsigned int timeout_ms);
+>>   extern int ufshcd_change_power_mode(struct ufs_hba *hba,
+>>   				    struct ufs_pa_layer_attr *pwr_mode,
+>>   				    enum ufshcd_pmc_policy pmc_policy);
+>> --
+>> 2.43.0
+>>
+>>
 
-If Christian says this is a legit setup you may add:
-
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-
-Otherwise, we do not need two tests and we do not need any opt-in mount
-options, not index and not nfs_export, the mount should just fail.
-
-Thanks,
-Amir.
