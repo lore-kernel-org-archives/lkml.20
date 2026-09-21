@@ -1,56 +1,56 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26967358368
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE433515E8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967252; cv=none; b=kgxGqea3SXWqpKsD0HRJDkN/VS3WTCn1NchHqXkbFW/ngYo3Ml28MLAUaxPakxn7x8hZHVzvRuyUzde/z3c39hjmqnLDpUlO1dCPkyFaY++zOf8KE9EBdlR2AcnMR9qsX/usWDoTCr3hE5tWpfEMHJD3I6v95NbZSe3HzfXF10c=
+	t=1789967253; cv=none; b=ATYBpKpkzkg+vzOAXSe4TMHCLJyn6fpIVSBXflgNhZ2X8JMk64Vrnsp6SeheGPfr3PB7PuUuxIVXeRJSAgEItcPrLQeuGofwZEwbUtYMA/imxKBd1nGSFjqAtLyqTqcDQTOFYMwN7Tvc/fBcFQBS8vUt1zMUiMLBnO7QTfXU5a8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967252; c=relaxed/simple;
-	bh=9CG5+TIVVVhdILbf2bNJOX9PamwB0I16qey/intpr9s=;
+	s=arc-20240116; t=1789967253; c=relaxed/simple;
+	bh=o5M0jZ5YfiZRF6sAzgtdJjRODspLtXN1XHtc9RmBpFQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Qi6xbq12aYekQDMXOBN/X/2xMNJU3mPcaxuF2r9LFzXVnU/8KR8kTP99YHdK5t9k2w9A4T4JH7D8kuTWJWLvNz+MPV1w9hCIHQs+6WioY+BRpeoJKuCHvoqMRyHiKsShbCZB9Xr1giwiD1OESM2tfP9QoYcGZD88/yFa+pBDPVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Xp+ehLiw; arc=none smtp.client-ip=209.85.215.199
+	 To:Cc:Content-Type; b=Gab7p3F1ieunRkafnhh305UfNpcQ1HPbXJ4j3a3KJ5amX636TiEpnJ0POF4OI1S1bM6d4yDRPwXP9lcAR7x19YOCxow9A/kJUSA1zwVZCW1Ao5HQWI2xAwBiQALVY5m+kKYV6PA5Wgv4kvo/B6qzOhsCtMS/PNHuZxZdaZAlpXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dtGSvGHF; arc=none smtp.client-ip=209.85.215.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Xp+ehLiw"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c89704da8c7so3489081a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dtGSvGHF"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so3651323a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789967249; x=1790572049; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789967251; x=1790572051; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SXQ1t7M/ttKG1gpCPiapMoUFSHKPI4WUjvFCcDFwkq8=;
-        b=Xp+ehLiwzScPa8GKyn6kVsZc6Lijw4hb5PioDrVaspph1rcew0/5VMdEHPa/VWnZkQ
-         tydcRWxZROAAwOHLra0nckFKpsQ252EtIGCdTSBb8184YoNt3Cq8PetaSDH4MsKyMD0v
-         5qaZuSFSGtVpWGmHQB04+wOu8SvLlvYa1csyLsTAsnAqGgSWJWJXZyAZX+L79Y+0AQzi
-         zK/QyiioeCOTMeu7TKTMaBaRNAi6vMZaf6rdixb+NC0csmr4Xxztwfuc5BBv/BAm8AuX
-         Gzkts++mAmlPeGyyjV+ncJs2iWpqbKuNU+01Ax0NdKnezFStvkkk+XUQyn3koCGOBFmY
-         nOZw==
+        bh=NRpHFZt5ixyx6D+aLau/jDSAEqIDn3ZK4zKoAUbdefo=;
+        b=dtGSvGHFQgdrF6U185Pc/DDVzYcvNpnKAwy9p4XQqgJsNwVo5KOHtdERLPm3iNUmsn
+         gFUpmDsQgII5gDb515n5Mshvcj7qd77aBQiEYY7vbkzOEGyj+G4WBhm3DbtEigzJv1qP
+         62FY6/GcbFa1K61BlaVYziCGEGKzwHWtAidOlHvmhWJo7zPfczvChkg4Gao5954AVy73
+         KI+d0CSYnbpHF3eJTvNK8T5kdC6jKEs3YBmuV3BnrfzdUi27lR14plN0JqXuHmu0sF8C
+         Vd+phiYccbhXRioDXTxZCpyl4+g0M/ZKIbwoGxrsjU8RlKiWjlaJoBVgQHSLG6GJwTN/
+         tNig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789967249; x=1790572049;
+        d=1e100.net; s=20260707; t=1789967251; x=1790572051;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SXQ1t7M/ttKG1gpCPiapMoUFSHKPI4WUjvFCcDFwkq8=;
-        b=I544F0rmxjSEr8p9MIQCyYI0BGBdpWuF4VrqTK1nPdih3TfX749DS93wzvHG9Oruqi
-         4kM6IB7BLPc588ywY0TW4jrB3gXEuSA48nRquvYmtrwawU24jPTmDOQT8ueuDOx9BW3F
-         fUtXuAEXUkN0F8LDrdaO/33mkJZQDFyZBfDcF8fR840SvLru4AslP9AoSyUeTgXu+v52
-         ilN9DLET1fNg4o5FeMX/RtQvKxwL80Oeu7IFehPqptji3E6c4TCoW8jlyW0t8kB6su01
-         tyJ/PVTlrU8CZH+DWp8GlSxV2B17X5kT7+mgldPVQH8FAzrCwSKxi1G5oy/JbcPrNCze
-         QXAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIInbiYO3S+dvXEAuykEGoxPfF30CHKn0FXPjlJI3Yc1juFS/tFUsyCD3NJhaFtS42M4ymGoRbW0XBz40=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6edQSr9eRxi1IQVWzhcbwWlTV2frytoABAi1DoyXVMO7TbTXH
-	NHULpgBNEKUVHymMkRCFnmhaGqYkWp+TGj7e8lalaWUezfs0aP+HFotHyyORpwiAS3FBBNwA7Gk
-	6Wxfq2IPIFA==
-X-Received: from dlbou20.prod.google.com ([2002:a05:7022:1114:b0:144:d82d:aebb])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:a08:b0:3dd:a006:5598
- with SMTP id adf61e73a8af0-3dda00655e9mr8559353637.38.1789967249392; Sun, 20
- Sep 2026 22:07:29 -0700 (PDT)
-Date: Sun, 20 Sep 2026 22:06:23 -0700
+        bh=NRpHFZt5ixyx6D+aLau/jDSAEqIDn3ZK4zKoAUbdefo=;
+        b=Jxb/mnVeUvaYcN04CgeXoZcqSuTptGK6a6hZW9n7DVRHvAJ49xZaDjRyrIJddB/EyE
+         SlAIRQcdmVwyE8yqgaeeLPEvWBjLX7hhZexaD8R1dDSqaU1b/5wNabAmBBEG7fMo5CJ4
+         zHKQRxpUs8auHiWUBRrWh+kCvfej3JiF3YvSV03571GF+SfaXOeEneKrGawHSrC74s4Q
+         V32kW6rvcHsaE6ZojlD4YIL5VgyNggT8G0TIdA3f0Ccly/XmgpXaYRoQ4FVKDyMT+xs6
+         WOGSAIuOD941UWQQ0SvqCZ4WtQSX4H54VD/sC4g/c8WMKYygdgTZC+rzzLqgofTSuiXi
+         0y7A==
+X-Forwarded-Encrypted: i=1; AKwUvBywEofqjWBttO1gigQ3ZjkrJkETmc1ADRo3MAibDYk45Jb6veH2L8nUDSC/iL7+25SwU8V2ktESOBwWcgg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJxm7IHAMfCyfcaQyJyIul95CLYrVfn8+z0YQ9zqxQz+Tw3OfE
+	3m/GGg3praAP0eWQTzmBq3C5eajgzIOf3FzMBn2aNFiT2niW3crJTLRMU1oaqQj8Ff9ALBljIFS
+	0B4wCBRsleA==
+X-Received: from dly25-n2.prod.google.com ([2002:a05:701b:2059:20b0:144:cf85:b103])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3bc8:b0:39e:237c:50e0
+ with SMTP id 98e67ed59e1d1-39e54c05010mr17269403a91.13.1789967251278; Sun, 20
+ Sep 2026 22:07:31 -0700 (PDT)
+Date: Sun, 20 Sep 2026 22:06:24 -0700
 In-Reply-To: <cover.1789966896.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <503b656ff0cef2a2d6126b74e7cb4f3c2c7f823f.1789966896.git.irogers@google.com>
-Subject: [PATCH v2 05/49] perf python: Clean up pylint warnings in tracepoint.py
+Message-ID: <d05062e2b188b513f66a91d2ee7c2c03f7407486.1789966896.git.irogers@google.com>
+Subject: [PATCH v2 06/49] perf python: Clean up pylint warnings in twatch.py
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	linux-perf-users@vger.kernel.org, namhyung@kernel.org
@@ -70,41 +70,117 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	mingo@redhat.com, peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Clean up pylint warnings in tracepoint.py so that it passes pylint
-without warning suppression comments:
-- Catch ImportError instead of bare 'except:' (W0702: bare-except) when
-  importing setproctitle.
+Clean up pylint warnings in twatch.py so that it passes pylint without
+warning suppression comments:
+- Convert tab indentation to 4 spaces (W0311: bad-indentation).
 - Remove unnecessary trailing semicolon (W0301: unnecessary-semicolon)
-  after evlist.enable().
+  after evsel.open().
+- Convert floating multi-line string comments to '#' comments (W0105:
+  pointless-string-statement).
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/tracepoint.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/perf/python/twatch.py | 80 ++++++++++++++++++-------------------
+ 1 file changed, 39 insertions(+), 41 deletions(-)
 
-diff --git a/tools/perf/python/tracepoint.py b/tools/perf/python/tracepoint.py
-index 15b0c8268996..9d49a25b3b1e 100755
---- a/tools/perf/python/tracepoint.py
-+++ b/tools/perf/python/tracepoint.py
-@@ -9,7 +9,7 @@ def change_proctitle():
-     try:
-         import setproctitle
-         setproctitle.setproctitle("tracepoint.py")
--    except:
-+    except ImportError:
-         print("Install the setproctitle python package to help with top and friends")
+diff --git a/tools/perf/python/twatch.py b/tools/perf/python/twatch.py
+index 04f3db29b9bc..ad35b1620781 100755
+--- a/tools/perf/python/twatch.py
++++ b/tools/perf/python/twatch.py
+@@ -9,53 +9,51 @@
+ import perf
  
- def main():
-@@ -29,7 +29,7 @@ def main():
+ def main(context_switch = 0, thread = -1):
+-	cpus = perf.cpu_map()
+-	threads = perf.thread_map(thread)
+-	evsel = perf.evsel(type	  = perf.TYPE_SOFTWARE,
+-			   config = perf.COUNT_SW_DUMMY,
+-			   task = 1, comm = 1, mmap = 0, freq = 0,
+-			   wakeup_events = 1, watermark = 1,
+-			   sample_id_all = 1, context_switch = context_switch,
+-			   sample_type = perf.SAMPLE_PERIOD | perf.SAMPLE_TID | perf.SAMPLE_CPU)
+-
+-	"""What we want are just the PERF_RECORD_ lifetime events for threads,
+-	 using the default, PERF_TYPE_HARDWARE + PERF_COUNT_HW_CYCLES & freq=1
+-	 (the default), makes perf reenable irq_vectors:local_timer_entry, when
+-	 disabling nohz, not good for some use cases where all we want is to get
+-	 threads comes and goes... So use (perf.TYPE_SOFTWARE, perf_COUNT_SW_DUMMY,
+-	 freq=0) instead."""
+-
+-	evsel.open(cpus = cpus, threads = threads);
+-	evlist = perf.evlist(cpus, threads)
+-	evlist.add(evsel)
+-	evlist.mmap()
+-	while True:
+-		evlist.poll(timeout = -1)
+-		for cpu in cpus:
+-			event = evlist.read_on_cpu(cpu)
+-			if not event:
+-				continue
+-			print("cpu: {0}, pid: {1}, tid: {2} {3}".format(event.sample_cpu,
++    cpus = perf.cpu_map()
++    threads = perf.thread_map(thread)
++    evsel = perf.evsel(type	  = perf.TYPE_SOFTWARE,
++               config = perf.COUNT_SW_DUMMY,
++               task = 1, comm = 1, mmap = 0, freq = 0,
++               wakeup_events = 1, watermark = 1,
++               sample_id_all = 1, context_switch = context_switch,
++               sample_type = perf.SAMPLE_PERIOD | perf.SAMPLE_TID | perf.SAMPLE_CPU)
++
++    # What we want are just the PERF_RECORD_ lifetime events for threads,
++    # using the default, PERF_TYPE_HARDWARE + PERF_COUNT_HW_CYCLES & freq=1
++    # (the default), makes perf reenable irq_vectors:local_timer_entry, when
++    # disabling nohz, not good for some use cases where all we want is to get
++    # threads comes and goes... So use (perf.TYPE_SOFTWARE, perf_COUNT_SW_DUMMY,
++    # freq=0) instead.
++
++    evsel.open(cpus = cpus, threads = threads)
++    evlist = perf.evlist(cpus, threads)
++    evlist.add(evsel)
++    evlist.mmap()
++    while True:
++        evlist.poll(timeout = -1)
++        for cpu in cpus:
++            event = evlist.read_on_cpu(cpu)
++            if not event:
++                continue
++            print("cpu: {0}, pid: {1}, tid: {2} {3}".format(event.sample_cpu,
+                                                                         event.sample_pid,
+                                                                         event.sample_tid,
+                                                                         event))
  
-     evlist.open()
-     evlist.mmap()
--    evlist.enable();
-+    evlist.enable()
+ if __name__ == '__main__':
+-    """
+-	To test the PERF_RECORD_SWITCH record, pick a pid and replace
+-	in the following line.
++    #     To test the PERF_RECORD_SWITCH record, pick a pid and replace
++    # in the following line.
  
-     while True:
-         evlist.poll(timeout = -1)
+-	Example output:
++    # Example output:
+ 
+-cpu: 3, pid: 31463, tid: 31593 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31593, switch_out: 1 }
+-cpu: 1, pid: 31463, tid: 31489 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31489, switch_out: 1 }
+-cpu: 2, pid: 31463, tid: 31496 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31496, switch_out: 1 }
+-cpu: 3, pid: 31463, tid: 31491 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31491, switch_out: 0 }
++    # cpu: 3, pid: 31463, tid: 31593 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31593, switch_out: 1 }
++    # cpu: 1, pid: 31463, tid: 31489 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31489, switch_out: 1 }
++    # cpu: 2, pid: 31463, tid: 31496 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31496, switch_out: 1 }
++    # cpu: 3, pid: 31463, tid: 31491 { type: context_switch, next_prev_pid: 31463, next_prev_tid: 31491, switch_out: 0 }
++    #
++    # It is possible as well to use event.misc & perf.PERF_RECORD_MISC_SWITCH_OUT
++    # to figure out if this is a context switch in or out of the monitored threads.
+ 
+-	It is possible as well to use event.misc & perf.PERF_RECORD_MISC_SWITCH_OUT
+-	to figure out if this is a context switch in or out of the monitored threads.
+-
+-	If bored, please add command line option parsing support for these options :-)
+-    """
+-    # main(context_switch = 1, thread = 31463)
++    # If bored, please add command line option parsing support for these options :-)
++    #     # main(context_switch = 1, thread = 31463)
+     main()
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
