@@ -1,200 +1,96 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC183AF66E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4231933A6EB;
+	Mon, 21 Sep 2026 09:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981250; cv=none; b=SpYG3wcdpIhe/69QzKPJD7HA3OHVkOIJz58YZeog/hCtJYzfpajP4N66M0U5JVlHcKGn0W3Y5XSZCf7bIE4faTmMkBVHjmkchzTk7LMv7wleS5T1+qSokwzurVK31YwAyodqjl1+Lva67VQiG+iPVHRC0vXRTlym0BG12yCyqXU=
+	t=1789981294; cv=none; b=GCEezqlEeaj3IQrQmqQaP9RprF1m792p/lCFEioUtqs7sQmVy9tda6C/Ea59tpy8+lkSU44w8EAild9pG7GeFxhMKQXWX95zDHOXLZ27kbGEcv+EWgcPIuZt6Su/ixf0CO8gy4eAnieHEc6PoKnGa3BxAXVca8cbCCd1ImdDmgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981250; c=relaxed/simple;
-	bh=MRMX39NXDxilIrfwoUA/S4FInqd9Uu+Hv6ah/bpTHhg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HFYxGR6BoXNz9pv+znb+PoaT6JSO0ldyXs2QT/zujlyWNzkbpM+t38ttlQu2Z0BpzKYlNwtBRqXjHKwk96amMkGO/5WiOeMIkgiicw9Zf3bn3d+0EfBGYpaTliz3PMk0lF/zgJ4J8pJi2ogZftN5NL4OuBUKDrNu6gXWCLqiulc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vq9jwxVd; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tjwD4GPQ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RpGGXtJP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2jZkD7Je; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789981294; c=relaxed/simple;
+	bh=Ie1mOH4+KopURAQkynVReYv74glgCETVQLn/XvA1oYE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=VJwqztSm52pqMBFzDQeC8VHT87o9ZQ+sm9bgr4OjfrHM5faB62Q6HY518I0WI+r9beEj55Ko17hhBM1aRW51y4Ezdo9fA3CIa9aa+QAm0HorVaZm3+DvkuOlSQJSwlKo53xVYpGvxjLPvBQS4+p5hrvp4PtePjNU5jAwl1CotX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Chhjx5IP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vq9jwxVd";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tjwD4GPQ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RpGGXtJP";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2jZkD7Je"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1FBDF1FDD9;
-	Mon, 21 Sep 2026 09:00:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789981243; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wDGbpQhbAoKwstdbxO3RxACQhKS6WnNQ72Q4Vsx1hGw=;
-	b=vq9jwxVdh9kk5ZZmt+wiSahm2Q49vq+PISt+bMI2PMlcoCls4ofx7VkN5v9hrFvGhAwy1/
-	J0pjfyYMwxqN7fw68ei5Zan5e1dJ2Qq64GT8XAQvoKnDJ/Z9/PEN+/4b3tYm1c0s3xPAZo
-	xrvRTkrLuWgzuyjdf0NBi2zhrSg0iNw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789981243;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wDGbpQhbAoKwstdbxO3RxACQhKS6WnNQ72Q4Vsx1hGw=;
-	b=tjwD4GPQb17Btr1PRqdQT006cAUyxUjKW6HfguordmXaIGo827H66F8TFECkl+Z8+1zcTG
-	ho8QQuJBQG2VluBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789981239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wDGbpQhbAoKwstdbxO3RxACQhKS6WnNQ72Q4Vsx1hGw=;
-	b=RpGGXtJPJk4rwLwWmr6I6oQQVbQ/ed4LxZ9KEmlyFynD2rt0CCY/UgsB7BrGWF2NbqgZjd
-	DONqmB0Y4j9kY9b2YcZksDeWLEI7PHiZHhI0XYrKYr3TWTxTxNpYBLzLvgzbqKFD7RqLA1
-	GxiQqh29dRx7L2RLox4UZogzR+AiAZ0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789981239;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wDGbpQhbAoKwstdbxO3RxACQhKS6WnNQ72Q4Vsx1hGw=;
-	b=2jZkD7JeljcfGXWg3Ta19v2pWuTptmd8PMev6YC/lT0sw/I8eG9yAOnH117fCmcL17NGJL
-	vam4RF7VPjmmN/Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9E01E1368D;
-	Mon, 21 Sep 2026 09:00:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id JExEHDbysGqjWgAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 21 Sep 2026 09:00:38 +0000
-Message-ID: <0d816796-3641-4982-9b28-484b226021f5@suse.de>
-Date: Mon, 21 Sep 2026 11:00:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Chhjx5IP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90091F000FF;
+	Mon, 21 Sep 2026 09:01:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789981292;
+	bh=/edLhwlXxK5WLjsufiNiRMm+DEeITmeYwM/BGG2po/Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Chhjx5IPpvXRMaHsZG/SYYAZuH7PK7n2Ec/3Da0nuAZu2Bk861eWfapQfsfDdsl/7
+	 rsyyZPgxGIf57xVvjWO+fVXbki6UkV55Fmn6mvwB4D9GANc4KKcR1h18C1/Uwrhg8n
+	 3ZYxlX/sV4K72MH/TPfb7Rwkb2unicftgkfsccl/HFKx91WR+XbP2J0OP58zinaVnE
+	 5r7eUrIN4ALdbOQBuqhLZWsfVvRBir7ZoN+3kPzIlXtrpekUxIdetWfpa+p0C1cm5W
+	 /5dtahPFzZVR8zMWnY+OXQ6nYGcCJwMGjB6ZYhAqUQIkNlCmrN/UETOFx03GGlmWBz
+	 MWSKb8uHoLXpw==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v12 2/7] firmware: hwrng: arm_smccc_trng: Register as an
+ SMCCC device
+In-Reply-To: <arDuqtfrRcBmWRic@arm.com>
+References: <20260921053807.354802-1-aneesh.kumar@kernel.org>
+ <20260921053807.354802-3-aneesh.kumar@kernel.org>
+ <arDuqtfrRcBmWRic@arm.com>
+Date: Mon, 21 Sep 2026 14:31:24 +0530
+Message-ID: <yq5acxu73rmj.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmet-fcloop: fail LS request synchronously when remote
- port is gone
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Daniel Wagner <wagi@kernel.org>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- syzbot+77955102efac681ec73b@syzkaller.appspotmail.com
-References: <20260920163804.67858-1-ngocthang2710.1999@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260920163804.67858-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FREEMAIL_TO(0.00)[gmail.com,broadcom.com,lst.de,grimberg.me,nvidia.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[77955102efac681ec73b];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,appspotmail.com:email]
+Content-Type: text/plain
 
-On 9/20/26 6:38 PM, Nguyen Ngoc Thang wrote:
-> fcloop_t2h_ls_req() handles a missing remoteport by queueing the request
-> on tport->ls_list and completing it with -ECONNREFUSED from a work item.
-> 
-> nvmet_fc_delete_assoc_work() sends the Disconnect Association LS this
-> way. When it runs during nvmet_fc_unregister_targetport(), the work is
-> queued after flush_workqueue() has started, so it is not waited for.
-> nvmet_fc_free_pending_reqs() then frees the still-pending lsop and the
-> late work item calls lsreq->done() on freed memory:
-> 
->    BUG: KASAN: slab-use-after-free in fcloop_rport_lsrqst_work+0x242/0x2e0
->    Workqueue: nvmet-wq fcloop_tport_lsrqst_work
->    Allocated by nvmet_fc_xmt_disconnect_assoc
->    Freed by nvmet_fc_free_pending_reqs
->             nvmet_fc_unregister_targetport
->             fcloop_delete_target_port
-> 
-> Return -ECONNREFUSED directly instead. __nvmet_fc_send_ls_req() unwinds
-> and nvmet_fc_xmt_disconnect_assoc() frees the lsop, so no completion is
-> left outstanding.
-> 
-> Reported-by: syzbot+77955102efac681ec73b@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=77955102efac681ec73b
-> Fixes: bbccbf791e6f ("nvmet-fc: free pending reqs on tgtport unregister")
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
->   drivers/nvme/target/fcloop.c | 17 +++++++----------
->   1 file changed, 7 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/nvme/target/fcloop.c b/drivers/nvme/target/fcloop.c
-> index b63af3b643a6..9f9fb40f8a97 100644
-> --- a/drivers/nvme/target/fcloop.c
-> +++ b/drivers/nvme/target/fcloop.c
-> @@ -456,21 +456,18 @@ fcloop_t2h_ls_req(struct nvmet_fc_target_port *targetport, void *hosthandle,
->   	 * 1:1 tgtport vs remoteport
->   	 */
->   
-> +	/*
-> +	 * Fail synchronously: an async completion can run after
-> +	 * nvmet_fc_unregister_targetport() has freed the pending lsreq.
-> +	 */
-> +	if (!tport->remoteport)
-> +		return -ECONNREFUSED;
-> +
->   	tls_req = kmem_cache_alloc(lsreq_cache, GFP_KERNEL);
->   	if (!tls_req)
->   		return -ENOMEM;
->   	tls_req->lsreq = lsreq;
->   	INIT_LIST_HEAD(&tls_req->ls_list);
-> -
-> -	if (!tport->remoteport) {
-> -		tls_req->status = -ECONNREFUSED;
-> -		spin_lock(&tport->lock);
-> -		list_add_tail(&tls_req->ls_list, &tport->ls_list);
-> -		spin_unlock(&tport->lock);
-> -		queue_work(nvmet_wq, &tport->ls_work);
-> -		return ret;
-> -	}
-> -
->   	tls_req->status = 0;
->   	ret = nvme_fc_rcv_ls_req(tport->remoteport, &tls_req->ls_rsp,
->   				 lsreq->rqstaddr, lsreq->rqstlen);
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-Can you create a blktest for this?
-Otherwise look good.
+> On Mon, Sep 21, 2026 at 11:08:02AM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> The SMCCC TRNG interface is a firmware-provided SMCCC service rather than a
+>> standalone platform device. Now that the SMCCC core has an SMCCC bus,
+>> create an arm-smccc-trng device for the discovered TRNG service and convert
+>> the hwrng driver to an SMCCC driver.
+>> 
+>> The SMCCC id table preserves module autoloading for systems where the TRNG
+>> driver is built as a module.
+>> 
+>> The sysfs device path changes from the old smccc_trng platform-device path
+>> to an arm-smccc device path. No known userspace dependency on the old path
+>> was found; a Debian Code Search lookup for the existing platform-device
+>> name/path did not find any users.
+>> 
+>> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+>> Tested-by: Andre Przywara <andre.przywara@arm.com>
+>> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+>> ---
+>>  arch/arm/include/asm/archrandom.h       |  2 +-
+>>  arch/arm64/include/asm/archrandom.h     |  2 +-
+>>  drivers/char/hw_random/arm_smccc_trng.c | 32 ++++++++-----
+>>  drivers/firmware/smccc/smccc.c          | 62 +++++++++++++++++++++----
+>>  4 files changed, 76 insertions(+), 22 deletions(-)
+>
+> I asked you two times already to cc the hw_random maintainers. Not
+> adding them again but not merging this stuff without their ack either.
+> So, up to you.
+>
 
-Cheers,
+Sorry, I missed that. I'll repost and Cc the hw_random maintainers.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+-aneesh
