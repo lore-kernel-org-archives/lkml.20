@@ -1,137 +1,124 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0297194C96
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 02:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83242571A0;
+	Mon, 21 Sep 2026 02:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789958615; cv=none; b=SpRKacVH8AYVwrpydJlyrsQa4n/x3hLxgjrQ1VF6E73vf6CWfmjHFbRNq7kGPn2es0iuwr9n6JZI/AaGjuV3I/4j/OjZcYNy5U/UFjP+YzOOF6tul/i6sDbiIqZxPCBdhUP5rE9OsZA5DkDM7LhtuXGY33ostge+GUZtO2Msb8o=
+	t=1789958617; cv=none; b=RcxG8idDEYTWzQWPKbhWBg4Tfnv/aGX5pwoMXFbAdHNIrH6863cC6OfSmpSklhV3Gcsod+UkUIFzTG2W503WdLKe+E7PIAXCT6QvD0pvPoLTxCTylebeBre+de+ggqhErYjLz4hl1jPz+5vbUL6G2QtkDHvxEWC42mZCm5/A7RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789958615; c=relaxed/simple;
-	bh=2qCydK8u3BZHbP6bXSOaSC6oTwDHyDpQPRSmcbNzz4A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FK386o2byauexwnJcSrZQ6N1EnuegpEq5QlgmR7HV5qqTtuEd37vRjWIRueYb+wRI2Hoe2/0A+0A9And12EduWNlCa5GrTrMezzJPKpJlTvPWXr6Mg9QBaXYvN7mbltIery1hClmx8JI+MxfddzjqQFVbTCDsfjsbWtx+wLjmp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ilc4uIPV; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789958617; c=relaxed/simple;
+	bh=fyrd2o4Z+GYCOsJnAcJKgPGxHo9SOmGGaIKS1snfiUA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KjZPKFj6Fpk3fCEeT26DU85/1zkHVO2NvyPLxVgCL3PouK83b3wUFTiP/mlqSmxC20kJO8mQZUnHn31t5ZhxcO2TSc8l3PkNVo7n3njIDqOkSzdbFcOeMxunb9LHzO/qiVwoB+z0Fup1xsAn0i3Qe3TSegmeScqGnlJjnklyBvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=ezLTnLx1; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ilc4uIPV"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so1053202a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:43:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789958613; x=1790563413; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XjC/UZqLFtMb5vJyxy966HHDm1SdiObcPJD69fIKS4Q=;
-        b=ilc4uIPV7qgnbFjNemL4roqgUH/7xxEyFoDY90lrVFHRKoRnr4Ad3fC0eBopA0Tfqv
-         5+N6FAWOw4GpqY0sdI77MwZa+Lr0zMIlTsgN/V9aXcVP4OyzW5LQD5izc3M75Ik/9Oyw
-         Zg4Vuf4nrWZaiA38L120csPNf0mCCjnsbVBLDGH8LCWlk5Ij0C3Ax3kPAJU9p3rKAKtI
-         CirlX/Mko1ECH99rbezGtyXc7TEhiA7A1BoqJixXPJoIdBZDoRY8PEMkjBC+ggTj65Hv
-         jsTJs5kZQTb67lELMratPfX6j67E9FIt8AwkOQHZOHNWsKJJn7JX86CYVMZvqPPS1GBV
-         e1Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789958613; x=1790563413;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XjC/UZqLFtMb5vJyxy966HHDm1SdiObcPJD69fIKS4Q=;
-        b=bUwlCU+8KoDHPDE7AdjmpTomvm+CWK0N3/1fW8wyka+RF8AJUeI1heA/NHB/cxZQr0
-         tihwsQWRkirxbWmWVfwxzV8kAHiDOJDr7UlrTvOi0B+WAASxvluDgfkeQcKqbZtGjU8L
-         uROFm2g2mg/KpN7WVkmojGk/FfmwFKSktKW6VnsRlAUaFQkEviM6ciFo+FcvpzH29Akl
-         IQqX39mHshLysaq0r1Hwpqg3o/mDENuAfXkT5N8AfyuWJ7sFTMwf0V1oLTbM8zQ416FV
-         8l4EG3XEbQinpODQEgwwOvpWDd8HPuotYx29O5/PdHy3Xvd/RyqC9fbeVaGcoqWS6sku
-         5Drw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNCA+R4H4T56kfcAumQ34npHeAxk3JqChrH+jlRC64O4T7nEvreEHnI8usHjLqBrZt8tHvLTR2GavpKYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ku2sKv76NbRz5P3e7s4RFKefFYUEXAqumkzuu662ayCXc/Nmux
-	I2ldEtpMdvFvGze3Q0uON3RXI+9uak0LEwsJbs5ecyVHenJ3cuxaylaEckZ7dg==
-X-Gm-Gg: AYBFou0HwPbzrSPgx7fID5KwrqApQQQotjacKUT+L86C8mRzrQMZ6Qmw3uqAGYQpoA1
-	mI2oW0EWSj1aROASfINpoGiKXpcPFmAB0dRDRtSNkT4DRN8NlBEtQBPXg741tqpldSwDbEZg5I9
-	SBmiUZJt+oXhCKXXc5b6ya+UOEz3CGRO1xZvW/8uNpgvZINBeTZk7Ndlw73bTst/WWyaT1V9qD1
-	3w171D6epmaSBRMp06WeX+Ng96t+m2Cg8iAhnGtzo5CadzvDk5Rak4aAyI6aN2DqTaRf/1Pi/B1
-	RfY4VsuSYQ7ccPdLiCk1nSw85YESOuQmbaATpOls1AsGHzkJHuEf7TWa1B3e2vUmPAjm4xepoKv
-	0rGQi0BSrkNu2lixEaVkPy4Vbs7TBFXMdGkHWHgp4HqVKv+PUZLzTAQuBeGu1q1BnpCL4EoQiB+
-	vErw9xp3lqZhD5G0HeR9kdLfEetOnbW2gbtS4MSHQ5y75lGaHg1WowuB/zevgJ4Ot6/k7wvJWXN
-	tsKGLH9OAyTBTh85CGVZ/oabsFdgqAHofgPwm1yinm60Jn4jCpLreo=
-X-Received: by 2002:a17:90b:55c4:b0:3a0:34a4:187e with SMTP id 98e67ed59e1d1-3a034a41dc3mr3254394a91.15.1789958613234;
-        Sun, 20 Sep 2026 19:43:33 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02900f84fsm10384623a91.2.2026.09.20.19.43.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 19:43:32 -0700 (PDT)
-Message-ID: <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-Date: Mon, 21 Sep 2026 10:43:28 +0800
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="ezLTnLx1"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L0lCV41932259;
+	Sun, 20 Sep 2026 19:43:14 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=i
+	XRBClo1pFJvZ9okzNzgBPJ+nmUvNua8e/InUdLEx4s=; b=ezLTnLx1xJf1vEhuB
+	e1uuGuotXqJzdYvhduaUT5E5rUMFqUtNdNSggijFJme52sQ2x5y6hpU80aisLtfc
+	5X+t19NFaY+yiCl/6n0viaXgOD8bBi/XCUPt1ytolww8vguY1PSyHz8lgxT8WagU
+	BZWqwAhpqlvs/w5l+B2ryJXSrebSB0hl7ZGdOLrRzwG8w9Kn4jB1XnybfrxO3/FC
+	WZYcGoytG72qp6lUrsHO4ZUQkabHZjzblpf+d2c6WcxM8fGlZeqXbBbz/7Ubonum
+	DvavTc6IrcCXGIJJKt/lP1CpeOS7qYC5THsAoViJJtCOsM0849Y7Ug1zc7C4d97T
+	5jP8w==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gsqrmms3n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 20 Sep 2026 19:43:14 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 20 Sep 2026 19:43:13 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Sun, 20 Sep 2026 19:43:13 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id 17F873F703F;
+	Sun, 20 Sep 2026 19:43:08 -0700 (PDT)
+Date: Mon, 21 Sep 2026 08:13:02 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <davem@davemloft.net>, <gakula@marvell.com>,
+        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <sgoutham@marvell.com>, <andrew+netdev@lunn.ch>, <edumazet@google.com>,
+        <kuba@kernel.org>, <pabeni@redhat.com>, <leon@kernel.org>
+Subject: Re: [PATCH net] octeontx2-af: Fix memory scaling limitation in
+ SR-IOV mode
+Message-ID: <arCZtoQL_9ushLgP@rkannoth-OptiPlex-7090>
+References: <20260916022111.1083017-1-rkannoth@marvell.com>
+ <178986440480.2160803.16078325840590029895@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane disable
- clearing FB_EN
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-8-a0987203069@gmail.com>
- <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <178986440480.2160803.16078325840590029895@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDAzNiBTYWx0ZWRfX/u09WK/iVgjW
+ oUi/OsQOEb67B0KWbaQPmk1ctwckux3X6Gf0LNqbr7ohzKoobMs0c4PaOnPTNVxAX/bZlbxXf6h
+ D+DnM7GjCUPZmUJTb8ht33SCHvIcNQRMfwtMbEwxtapXGjUtDjjT2k63K5UnFWu+gSDRD5jqe4w
+ jlJIgWpnh6Qmw+BPHQ5S8fmjjQCPhLhXoGUmcii4EN40djpO4KYyQ7B5LzyBayMhZ23FUZlbgcf
+ qEYRgKRp1QPYDQn5ZRHW0qsD/QmhdbH7QeplTK63RlKpipX5x3lvechI43IZiy5WbKqUekGIy1w
+ u6gjei11kDBYWKx7JC6OmJPfgLWtuHYA8Ua6dhF67dMV33UzE39rQG0PoB9rZQEcfJ6W/RWFK0s
+ HPWsQPK2xFs3VrGTfo+rRqOjkfArbX93Lbw/NpW/lnyXmITyjstsBsx+8G9kbrutD6SNtamOTLu
+ wFuhj9qq9flA5gITjew==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDAzNiBTYWx0ZWRfXw7QG4lpcBDKJ
+ nKlPWZ/ytmmX9MZD5fgxoNlfuii9U36HRNtUT2u+DL4fGOSTkxui3ItONfyOXIn0ZWwpqRU0sfJ
+ 3waDdlvjvEYMDlRNla6cQ4sseRFjwSw=
+X-Proofpoint-GUID: hpA37y6WJdilId9UQjjLg2gHJPNaO0zL
+X-Authority-Analysis: v=2.4 cv=Ga2CDgXL c=1 sm=1 tr=0 ts=6ab099c2 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=EAYMVhzMl8SCOHhVQcBL:22 a=VwQbUJbxAAAA:8
+ a=1nBesQhVAAIfmHikrbwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: hpA37y6WJdilId9UQjjLg2gHJPNaO0zL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_01,2026-09-16_02,2025-10-01_01
 
+On 2026-09-20 at 06:03:24, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 2 (1) · Medium: 1 (1) · Low: 0 (1)
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [High] New hard allocation ceiling in qmem_alloc() rejects the very SR-
+>   IOV/mailbox allocations the commit claims to fix.
+Targets CMA exhaustion from many allocations, not max single-chunk size;
+supported CN20K configs remain below the boundary.
 
-Icenowy Zheng 於 2026/9/18 下午 01:52 寫道:
-> 在 2026-09-18五的 11:01 +0800，Joey Lu写道：
->> vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
->> VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so disabling
->> the primary plane on DC8200-family hardware actually leaves the
->> framebuffer enable bit instead of clearing it.
->>
->> This bug predates this series: it was carried over unchanged from
->> vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
->> introduce per-variant hardware ops table" split the DC8200-specific
->> implementation out into vs_dc8200.c.
->>
->> Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon
->> display controllers")
-> Maybe it'd be better to fix this before adding DC variant abstraction,
-> for easier backporting.
+> - [High] Long-lived CPU/device-shared hardware rings and contexts are
+>   converted from coherent DMA memory to an unsynchronized streaming…
+OcteonTX2 is fully DMA-coherent
+
+> - [Medium] net: octeontx2: fragile high-order buddy allocations replace
+>   CMA
+Deliberate move off shared CMA; CN20K mailbox HW needs physically contiguous memory,
+so noncontiguous DMA APIs are not applicable; production failure mode was CMA depletion,
+not buddy fragmentation.
 >
-> Thanks,
-> Icenowy
-Makes sense. Should I send it as a standalone patch targeting
-drm-misc-fixes (separate from this series), or do you have a
-different preference for how to split it?
->
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
->> b/drivers/gpu/drm/verisilicon/vs_dc8200.c
->> index f72da10295e1b..25b5906a1c5fc 100644
->> --- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
->> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
->> @@ -70,8 +70,8 @@ static void
->> vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int out
->>   
->>   static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc,
->> unsigned int output)
->>   {
->> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->> -			VSDC_FB_CONFIG_EX_FB_EN);
->> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->> +			  VSDC_FB_CONFIG_EX_FB_EN);
->>   
->>   	vs_dc8200_plane_commit(dc, output);
->>   }
+> Pre-existing issues:
+> - [High] Untrusted mailbox queue counts overflow the signed size
+>   computation in qmem_alloc() and bypass the newly added order check,…
+> - [Medium] `struct qmem.base` is produced by qmem_alloc() as a CPU
+>   virtual address (previously dma_alloc_attrs(), now kzalloc()), but the…
+> - [Low] qmem_alloc() publishes the devm-allocated descriptor into *q
+>   (af/common.h:87-90) before both failure returns: the newly added `if…
+Will address pre-existing issues in seperate followup patch.
