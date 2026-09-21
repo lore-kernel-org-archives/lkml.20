@@ -1,272 +1,336 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765A54C7546
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 15:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005178; cv=none; b=PkfKDdAt/Ig8rivKvlxxE+9qpM1BZUd8oO2BvjxCC5aSsbIJaRGS9jeOUodcTDd3XG7OZYkqTOAcxHHTgDIFum//Xo37vjH/XWChZDesWuOj8SDLkq9h1VAF9Wd5MDIZYkCmApMiZ4ddgCC3WfrgqEOjdiMGyiWgY81keZTC78c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005178; c=relaxed/simple;
-	bh=8gYOgwL82gLctBDUo5hY0Mf4FC393MJ0QflOqBAlaI8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bffaN5P5CM7qGjPiF86A6jxo9RSflroGpzpLKENYXoSdD3D9J4KUfbYpxzn+pGgzyVF4Skxbwegcd3DTk/LZseDUYVMBxt/+5hYbDUkIB4BuV63asvmChZD4RPvJiTA2jCDNOV565C5Z0QUcNKomsPgrIbQyKnvw1LZs8XDoWdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HYLmtnvG; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EF54C6504;
+	Mon, 21 Sep 2026 15:39:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790005179; cv=fail; b=oi9TJGB7xJDB5cLuGaZNF+bOkMqUKfR4N4i9SA6WXSyhCSfno6W7M/ORnL8HEQQpqNcgM9KOrYlERJcDzfLUQnqSL52R8rhSWEoJDXswzeeXFUF+U34AZHPMyCy9g6uymrG1fL/3Qsql9DyQrrE7M/Lk8LcUQhE7ReNb5KpCQoI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790005179; c=relaxed/simple;
+	bh=vhH3HxKjCe14fjzkA4gJHolmB+xGngj2F7BX0noyrm8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=lbeYIbhQiImLmJCfU/JUN0wMvu23VsQYjx/P4dZukmzpg7pf8eGwqdryA9d9fWe+V5fsoVHyl+fp1gV577lH7jzxqxd7yw5m8RqLY4X1jIbW99G1LZjOM+vP1Q5KYprgvn3gadGJ985KVTrO5BmaatvpNRT/MYKux/I9pOD039I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=GmTP9FK7; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=srjIvMUX; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HYLmtnvG"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8625b35df89so252147b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 08:39:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790005175; x=1790609975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aQQ4QUI52Sa5O7i3Cjz9FO5zM2Do0eGarq+pPmIyhnc=;
-        b=HYLmtnvGDt3N+3cD67nR65l6U43wDXTEls/J77w1RchPea2tivAOmkXBY75Abb+sxN
-         keb0QTVZgrzT9fm1II3gK6HLS8y5LwIb8ADpHtM1O59APPt5EQC+KW8jlOzwaXRdp0/l
-         icQLd2VEOwNf336swQ95wNEKHw9+tCpk5zHmm1j8cqep/j22eJ7J+7qrAnmefqs3Z2eu
-         WxiSKpw5GVeRW0v3lz8qTm7EheNFWKqkcPGRNKj8zn8Gl2/hLFSkDUIcYWpdQUTgu1uw
-         yhDI1BLDL1sqkABd58AGmiVeqkS8iYMvCHE8XvEyDlkrTjjQkmO/HxLcPOVUsYZyX34R
-         earA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790005175; x=1790609975;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aQQ4QUI52Sa5O7i3Cjz9FO5zM2Do0eGarq+pPmIyhnc=;
-        b=KLhdvtw1p+wDU/zpkyhJrH7Tt5fIztnTrfWcwVjgoAw+CvpWmvC80aiBEs5u4P2er8
-         tohertjT07amo9Mya+coALvjpwn1BruxY91/xavraBoGE/1XyqvdgZL/43YrQ+0c1Mr1
-         dHRpyj6Duj9h4MZ2xpJWRScj0YVfk0sDprQUyAGwiN9pwQ9h+kkV2wta2Ce6UxUbGVuy
-         7k4rIpMSZ6NC6Pis/HqPXB11ADPhMP7lhMH7ugno1U9PZUj8CNVVb1kkzBtUZ2137HH8
-         epzBUa8GeZvUS6nnYgkrZU3PeJhUh1cso8xZyycerE5a+wgloXhGD+H6towqsYde/x7a
-         tzRw==
-X-Gm-Message-State: AFuF++mXQQUmL0Wo1Yhx5ce+h0MXEutzRG0uLWJ+tJRXxT3xL5lSr4AY
-	XWoLIZ/PZF3Vr8VhqwwFz6dM/mip6oFye1Rfejj7cAvTlXMftT74zNDI
-X-Gm-Gg: AYBFou1QCj4UMC/6KDnoyrBJv9ROrRv9Eo4oDwIqg1bsqmax4J8cyjxcgTft6jRd283
-	9Pe5X+pRlEbgpdJbougYjjtBXfvB7W4weZX+pLI+s6WBckPiVL+Z+45AqogLFKDDClGqS1JQkuE
-	yc+o2qn+cdgd3d6cq8j/yy8nIjTzivsX2s5tLsFrGS9Oh2dpMRXzd00FLKT6niVZGWSMq5kMBxZ
-	qOwTSBqF+wu6uuNkmEzbIo7hRtBli4ixmuHc/2COfppoVxxndAPJ6Ty8sn+cE3Obo47gphujS8o
-	5fA+uYsld3qalHYfbgO3C7hmZjX46/rLkRf2aT548TaTU0c48usFjMeuMTIAtnVRC04w2tViwzh
-	b2nd6Pv6mQq8zRVQAiDmkYfxyORMetuoxOGJd+1tYDcrgmJ4fVuQNSGEBT83wf1Uo1DPd3grSgl
-	AUM6fnocLJ5UV/wxmbcWuWg+MpLOThQGbEnPJct9ZUXa99+YDE34eV2FKTPlq66oMUog==
-X-Received: by 2002:a05:6a00:148f:b0:869:86ae:e94f with SMTP id d2e1a72fcca58-87bbef82b42mr18320b3a.4.1790005174987;
-        Mon, 21 Sep 2026 08:39:34 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6ae7d71sm3448186b3a.2.2026.09.21.08.39.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:39:34 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marco Elver <elver@google.com>,
-	Jukka Rissanen <jukka.rissanen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH 5/5] Bluetooth: 6lowpan: quiesce peers before channel deletion
-Date: Mon, 21 Sep 2026 23:39:02 +0800
-Message-Id: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-5@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-0@gmail.com>
-References: <pm-series-6lowpan-lifecycle-82fab5876048c8c9503c-0@gmail.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="GmTP9FK7";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="srjIvMUX"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LF8Z8b3932523;
+	Mon, 21 Sep 2026 10:39:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=vUgQoNltn9KdHkZgzshNia3+DADynVdIxxjqDQdqI
+	A8=; b=GmTP9FK7Kb9iU6JwWf6RNxdxvTd9QUIZwFrUKVc8AISSZQZ0G8qvifKl6
+	Xc4Tdg1yFB0+XPETPdbuqe0EdDzikTBYcC9Cuj0Hnr7Yi8AOcTcDO4RnKobFJgtr
+	cQOWww+7CesmLjHH2fPXaLXkmRqppPLFrlLAIrYe/PX8iLyA6BjzvCWkRKNz3yjL
+	RibUzMnriFrPo20U/YjLrEGluQZqx0MF14A9RYyJ3F2WAJE6iBTABpE43kOPRQ6+
+	UYcbpTGswZ/li82Jiqkfud/G63QMRq4scUF8u1Yw8CjmWCWueTJmjdLdyC7lNwoT
+	1yjzI0UVik4cqls1TdI3lRBPiXTQA==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010060.outbound.protection.outlook.com [40.93.198.60])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gtx9fbe1s-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 10:39:06 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G4nCqPwTXlchjtwk/18aJ3FiaveKCZp+78VRq0S6du+2mrPHjsXc5Ka00yGZPG6mDKI4ti/pRUf/s00BPWoXtUOyl9oejMNIt/2Z6FinXnhBJAeVPQYi7Offb9yQ+PXtFcqu/EAnEw1tdlRUa3yHeWS58TSEMY7kdO5yx7Zco+ueICfpCK/KQBTPzBKB0ibkdUPH3oHTZ+va7mEMDVHwGLQGnnYH5qmgX0gEyNlEdJW0hn9vnd/kIIQbFvIT+w3pgb/BKkQKhMJxpiTlcGqLe3nDZWcbl6QGcBlCclLjjpnRkp+7Tvrl11pZJaVn9B+QKj3c23t9Hi1d17k/XouqtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vUgQoNltn9KdHkZgzshNia3+DADynVdIxxjqDQdqIA8=;
+ b=R3p1C1iEebFruKTM7nPcyuflvOQxhHpTVpe953kqMKcCbn8ZZeFx9qCwgw8CP/LkBm0Y/ArogXp5qkLlfYtk721dFaV4ErZBJ1Oe/iOVAWmOm3eIF0lLMG2UvDlFTyMG7VLRz0y+lxBEtCU4Vbrw27hzcFU9jRLvV24POjX0FvGOcV/3Ruzp5BoQn7keD8pyAOmdEopgkE9VLAkdRThfgpu1vQJKnd71fTY5CSlfUO3pmHY7+8iWpClYnNMx9k07TXypxhjnh72D3/eCqu7t1CyH36FHZsGmGg27aUjsQ9Z1f0RuPcoQ3X6WcvaG87CfXKOPk0i+MhWS5VY8CI0hcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=cadence.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vUgQoNltn9KdHkZgzshNia3+DADynVdIxxjqDQdqIA8=;
+ b=srjIvMUXlZPKJD7mSrE36mZZ10dCA/H7S1cL9BG2w1YNIJc1VdDT0sKmq7OftCJVdH5SYioUMOM/bps3hGkh6Q5xYYzcTWAEXW7l7Wki9ke6kHW9rlMftr+eV6timptqyjUZiwhFitJe8QUPZhniV41NPxTwk6GEXROhoSh+Jvo=
+Received: from PH7P220CA0107.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::13)
+ by CH3PR10MB6810.namprd10.prod.outlook.com (2603:10b6:610:140::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Mon, 21 Sep
+ 2026 15:39:01 +0000
+Received: from SJ1PEPF000023CD.namprd02.prod.outlook.com
+ (2603:10b6:510:32d:cafe::45) by PH7P220CA0107.outlook.office365.com
+ (2603:10b6:510:32d::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 15:39:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ1PEPF000023CD.mail.protection.outlook.com (10.167.244.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 15:39:01 +0000
+Received: from DLEE204.ent.ti.com (157.170.170.84) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
+ 2026 10:38:42 -0500
+Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE204.ent.ti.com
+ (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
+ 2026 10:38:42 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 21 Sep 2026 10:38:42 -0500
+Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com [10.24.51.87])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68LFcabY3254021;
+	Mon, 21 Sep 2026 10:38:36 -0500
+Message-ID: <29e041a2-7c60-44c3-8735-de110dbc2e62@ti.com>
+Date: Mon, 21 Sep 2026 21:08:35 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] dt-bindings: drm/bridge: Update reg-name and reg
+To: Harikrishna Shenoy <h-shenoy@ti.com>, <robh@kernel.org>,
+        <Laurent.pinchart@ideasonboard.com>, <airlied@gmail.com>,
+        <andrzej.hajda@intel.com>, <conor+dt@kernel.org>,
+        <devicetree@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+        <jernej.skrabec@gmail.com>, <jonas@kwiboo.se>, <krzk+dt@kernel.org>,
+        <linux-kernel@vger.kernel.org>, <maarten.lankhorst@linux.intel.com>,
+        <mripard@kernel.org>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+        <s-jain1@ti.com>, <simona@ffwll.ch>, <sjakhade@cadence.com>,
+        <tzimmermann@suse.de>, <u-kumar1@ti.com>, <yamonkar@cadence.com>,
+        <pthombar@cadence.com>, <nm@ti.com>
+References: <20251126092949.298530-1-h-shenoy@ti.com>
+Content-Language: en-US
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <20251126092949.298530-1-h-shenoy@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CD:EE_|CH3PR10MB6810:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5667f06d-7c5e-4577-bbad-08df17f675ca
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|82310400026|23010399003|36860700016|921020|13003099007|6133799003|3023799007|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	8Jhd3GivVjjyWlbLGWye9CLUPYKTiNSpQ5s0tSIu3+UrKpXlCQ6JOtce8s9J88hqYXx40BzC/NGv9p13oKyvu6GwBEfO9b/PXW5SgtDM5saCZ6WyhcBLKyPk2+eDWCsYkffiA4wU3TsEVmVCU+naURihhFLGTOTBy1NxKKF9J95JGGYghSjkxVq/M9WrFxiK/kYccRocCjfarzIEnUXvKTYkWJzEjOPvGeiV/RKKM6og6d4v0GAcao/trnJ2nahCCCgBmHqZe2chQB6tvq76GMsIbdhwTPvzqV0yLnNP5p1p1NAgUiZnJ0/Pnj9VkGgxliSjECHuIXNanbEPnGC90xRlXwV5UBvEKGp8xVgSG5iT18x7AwX/Hdkq1z9SJdxntuPRGfOP3RxHuK0k3wDP6+y2vGO20WlCmk3WAOKLlYHBAOvVc5y8xCnf98RCa9vEQQId4DF02it0AYHVzVpBXwTbIqABcuFn2IKW8471phFWST6PxU0D+RB9FzJuf6DsVeKfzl8I7bPJNIuIaoJQWi9xNYVLXy9Wn1KBed7huPUIfbOFHl8lpseiweM+bx/+esAfJgEvbSxk5ikIYoi0f5eFvINfBGU/2kjfFiWysIOtDhEPtCQPTgHMCP1Rcv3MDmu7NnpTEtUD2U/CpMF1185frrgACDl6cDefaRT8+TOoxp2p7cpKogS59/TaCk6QqTKJ2smaR3ztnbMJIbYPZg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(23010399003)(36860700016)(921020)(13003099007)(6133799003)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	DZkqQUckagPnnenbxdilLkO6wkDKkL2nATIZDp4aeXq/4aE4EWE7VeSY5zFbUDsi1jXdVXo8nYrWBBSEK75hnfc10squBCrYcDExO+2lGC87BxmITl/aA2hhuKzWscKy01Wm+aRytHzu9b7YHeo65e56u0LPhrPgqlZPvML60O0KzJkjUzHKBq4Px9zD1HvjV0xknQnvgwRl8d9T2TRRGJGi3d2zGk7Sp8eT4/rT8A4+ygcgv18o7UDRcaaBQExAOQgbHjl4TU6qbRC0jczpRObqzIh5YbFdwamBmqSI/ElAKDY9Tp6wVwXoF8weOaIZQteytfpcsZWlBOd9QZ8uvtl3r1a08um0NzUzWeJ50ETwTnXPAsTV3UagjNU1Gt/F9sUplGvjLjywcrPt5+KZtrSkozgshpIub9/1uUDUJuqRly3PzzT5qs9gqTpi4f+Y
+X-Exchange-RoutingPolicyChecked:
+	5CN7BJHqlKIeqgBifcN9HYERgvuTZXWOWNFmN7mc51b5qwRIa6i/C+ql4ZX4KHjCrBSCGeYbljuhaZo3NGzXkCA0xe257GCuzyCh8U4FE5+4GXlhDSGnH2wVoMiKGEiUdsSoetxnaiMGkeODT4CZC3jcJ7IgUwN8cTjg3eUsPb5f04ak9gteduPPbMHUsl1b03zxXyt1DUvbsGM20QmHRF6GcWkiYb3Q2ciMR/BN4+snew9I5dFdceDM7Vo9XsRd/yCB6OuY5FkIKuvKtHlLiA9qMG5A++IYUodbUkm9Iuxf7TpHbFZA2BixQruZoIr4bsv13sbjS+D6IhBoTSwY6g==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 15:39:01.4161
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5667f06d-7c5e-4577-bbad-08df17f675ca
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023CD.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB6810
+X-Authority-Analysis: v=2.4 cv=Vou2kO2n c=1 sm=1 tr=0 ts=6ab14f9a cx=c_pps
+ a=9D7zFwNo98o+tMWDMQIn6w==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=NEAV23lmAAAA:8 a=jytzg7UV7PX_-fJ671gA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIyNyBTYWx0ZWRfX42rvncmvX2qE
+ EyLwCHIu2Cxhl72hXf0JZE+v+FfDembwYxKxkNyCyrl7DKb3X3atQw7z3JPbVI+RaGd7DXUg+Dn
+ 1Ioco5ktXHbrn7OXyTf5m6g2kBKzFbHb+ljQKp32b5BrsIkyKRYmOGhx0U/IP6BBkRKZjzMz8jD
+ IMBM4EJkY+9/LR5F8KzkaQbR0wRt3G8qFz17bR5zgcgoCk+ulNNyU8q9F99TCDFVKYbZrkJBcrP
+ YFaaxEFNGlfvmXOyzaT2sgYKz5CxmxJIUnE2U9lcEAUmA1/b5AsxKG6n0Kh7B8YdfspsaoItm3g
+ cp3E1rSjAbfOszTq9FK/qV7c3symM0xHflzGSXtcYiIfNAF6TCh2DWmDDFPG7+MTfJZrt+SXCmo
+ VLcYTcUKYFwtRa3knTrpyXL6E9J385i0aAh7i3RI3CiQs8WArW6AUC2ZqMWv1JKTtcp5eDMoVsW
+ gIWyMWx7CzOS1wQknmg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIyNyBTYWx0ZWRfXx3Tf726dXbCS
+ QMopTPsGVrGsKFciKZpcNPhDOrPCF5RHXIJnpr9EMsLIIZ4nCVSUCy37POE75xQ45FxiaFxNtqG
+ ePadM1MBo7me1skr7nn6b9IwdloAfY8=
+X-Proofpoint-ORIG-GUID: L0OsAVv24MlzrBJNfliKPIqkuyg2moqH
+X-Proofpoint-GUID: L0OsAVv24MlzrBJNfliKPIqkuyg2moqH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0 phishscore=0
+ clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210227
 
-6LoWPAN removes a peer and drops its channel reference from the close
-callback. A transmitter which already observed the RCU-published peer
-can still use the freed channel. Keeping the allocation alive alone is
-insufficient: a transmitter which passed the deletion check can enqueue
-a packet after L2CAP has purged the transmit queue.
+On 26/11/25 14:59, Harikrishna Shenoy wrote:
+> Move register name constraints and reg description lists to appropriate
+> compatibility sections to ensure correct register names are used with each
+> compatible value. The j721e-integ registers are specific to TI SoCs and not
+> required for other compatibles.
+> 
+> Add DSC register descriptions to align bindings with hardware capabilities.
+> Structure the reg and reg-names constraints as lists according to
+> compatibles using oneOf schema construct.
+> 
+> Fixes: 7169d082e7e6 ("dt-bindings: drm/bridge: MHDP8546 bridge binding changes for HDCP")
+> Signed-off-by: Harikrishna Shenoy <h-shenoy@ti.com>
 
-Move peer cleanup to teardown, before FLAG_DEL and the transmit purge.
-Mark the channel closed, unlink the peer under devices_lock, then drop
-the lock and wait for network RCU readers with synchronize_net(). Free
-the peer and release the initial channel reference only after those
-transmitters have returned. Queue last-peer network-device deletion
-before releasing the channel's ownership reference.
+Reviewed-by: Devarsh Thakkar <devarsht@ti.com>
 
-Disabling 6LoWPAN must also close the listener before sweeping existing
-peers. Otherwise a request holding the old listener can publish a child
-after the sweep. Serialize the transition with set_lock: requests which
-complete admission before listener teardown are included in the sweep,
-and requests which reach the closed listener are rejected.
+Regards
+Devarsh
 
-The transmit/removal race produced this report:
-
-    [   59.413897] BUG: KASAN: slab-use-after-free in send_pkt+0x3b1/0x3e0
-    [   59.415014] Write of size 8 at addr ffff88810cf0e4a0 by task python3/583
-    [ ... report excerpt omitted ... ]
-    [   59.490444] Freed by task 504:
-    [ ... report excerpt omitted ... ]
-    [   59.493046]  kfree+0x307/0x580
-    [   59.493497]  l2cap_chan_put+0x273/0x3a0
-    [   59.494020]  l2cap_disconnect_req+0x613/0x890
-    [ ... report excerpt omitted ... ]
-
-Fixes: 6b8d4a6a0314 ("Bluetooth: 6LoWPAN: Use connected oriented channel instead of fixed one")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
- net/bluetooth/6lowpan.c | 64 +++++++++++++++++++++--------------------
- 1 file changed, 33 insertions(+), 31 deletions(-)
-
-diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
-index 5c49dc146086..60d2c6d1be99 100644
---- a/net/bluetooth/6lowpan.c
-+++ b/net/bluetooth/6lowpan.c
-@@ -61,7 +61,6 @@ enum {
- 
- struct lowpan_peer {
- 	struct list_head list;
--	struct rcu_head rcu;
- 	struct l2cap_chan *chan;
- 
- 	/* peer addresses in various formats */
-@@ -100,7 +99,6 @@ static inline bool peer_del(struct lowpan_btle_dev *dev,
- 			    struct lowpan_peer *peer)
- {
- 	list_del_rcu(&peer->list);
--	kfree_rcu(peer, rcu);
- 
- 	if (atomic_dec_and_test(&dev->peer_count)) {
- 		BT_DBG("last peer");
-@@ -776,16 +774,15 @@ static void delete_netdev(struct work_struct *work)
- 	/* The entry pointer is deleted by the netdev destructor. */
- }
- 
--static void chan_close_cb(struct l2cap_chan *chan)
-+static void chan_teardown_cb(struct l2cap_chan *chan, int err)
- {
- 	struct lowpan_btle_dev *entry;
- 	struct lowpan_btle_dev *dev = NULL;
--	struct lowpan_peer *peer;
--	int err = -ENOENT;
-+	struct lowpan_peer *peer = NULL;
- 	bool last = false;
--	bool queued;
- 
- 	BT_DBG("chan %p conn %p", chan, chan->conn);
-+	chan->state = BT_CLOSED;
- 
- 	spin_lock(&devices_lock);
- 
-@@ -794,7 +791,6 @@ static void chan_close_cb(struct l2cap_chan *chan)
- 		peer = __peer_lookup_chan(dev, chan);
- 		if (peer) {
- 			last = peer_del(dev, peer);
--			err = 0;
- 
- 			BT_DBG("dev %p removing %speer %p", dev,
- 			       last ? "last " : "1 ", peer);
-@@ -802,19 +798,28 @@ static void chan_close_cb(struct l2cap_chan *chan)
- 		}
- 	}
- 
--	if (!err && last && dev && !atomic_read(&dev->peer_count)) {
--		spin_unlock(&devices_lock);
-+	spin_unlock(&devices_lock);
- 
--		cancel_delayed_work_sync(&dev->notify_peers);
-+	if (peer) {
-+		/* ndo_start_xmit() holds network RCU while using peer->chan. */
-+		synchronize_net();
-+		kfree(peer);
- 
--		ifdown(dev->netdev);
-+		if (last && dev) {
-+			bool queued;
- 
--		queued = schedule_module_work(&entry->delete_netdev,
--					      delete_netdev, THIS_MODULE);
--		WARN_ON_ONCE(!queued);
--	} else {
--		spin_unlock(&devices_lock);
-+			cancel_delayed_work_sync(&dev->notify_peers);
-+
-+			ifdown(dev->netdev);
-+
-+			queued = schedule_module_work(&entry->delete_netdev,
-+						      delete_netdev, THIS_MODULE);
-+			WARN_ON_ONCE(!queued);
-+		}
- 	}
-+
-+	if (test_and_clear_bit(FLAG_RELEASE_CREATOR, &chan->flags))
-+		l2cap_chan_put(chan);
- }
- 
- static void chan_state_change_cb(struct l2cap_chan *chan, int state, int err)
-@@ -873,6 +878,9 @@ static long chan_get_sndtimeo_cb(struct l2cap_chan *chan)
- static int chan_new_connection_cb(struct l2cap_chan *chan,
- 				  struct l2cap_chan *new_chan)
- {
-+	if (chan->state != BT_LISTEN)
-+		return -EINVAL;
-+
- 	if (!l2cap_chan_set_ops(new_chan, &bt_6lowpan_chan_ops, THIS_MODULE))
- 		return -ENODEV;
- 
-@@ -880,19 +888,11 @@ static int chan_new_connection_cb(struct l2cap_chan *chan,
- 	return 0;
- }
- 
--static void chan_teardown_cb(struct l2cap_chan *chan, int err)
--{
--	chan->state = BT_CLOSED;
--
--	if (test_and_clear_bit(FLAG_RELEASE_CREATOR, &chan->flags))
--		l2cap_chan_put(chan);
--}
--
- static const struct l2cap_ops bt_6lowpan_chan_ops = {
- 	.name			= "L2CAP 6LoWPAN channel",
- 	.new_connection		= chan_new_connection_cb,
- 	.recv			= chan_recv_cb,
--	.close			= chan_close_cb,
-+	.close			= l2cap_chan_no_close,
- 	.state_change		= chan_state_change_cb,
- 	.ready			= chan_ready_cb,
- 	.resume			= chan_resume_cb,
-@@ -1103,20 +1103,22 @@ static void disconnect_all_peers(void)
- 
- static void do_enable_set(bool flag)
- {
--	if (!flag || enable_6lowpan != flag)
--		/* Disconnect existing connections if 6lowpan is
--		 * disabled
--		 */
--		disconnect_all_peers();
-+	bool disconnect;
-+
-+	mutex_lock(&set_lock);
- 
-+	disconnect = !flag || enable_6lowpan != flag;
- 	enable_6lowpan = flag;
- 
--	mutex_lock(&set_lock);
- 	if (listen_chan) {
- 		l2cap_chan_close_unlocked(listen_chan, 0);
- 		l2cap_chan_put(listen_chan);
-+		listen_chan = NULL;
- 	}
- 
-+	if (disconnect)
-+		disconnect_all_peers();
-+
- 	listen_chan = bt_6lowpan_listen();
- 	mutex_unlock(&set_lock);
- }
--- 
-2.43.0
+> ---
+> 
+> Links to some discussions pointing to need for a fixes patch:
+> https://lore.kernel.org/all/20250903220312.GA2903503-robh@kernel.org/
+> https://lore.kernel.org/all/d2367789-6b54-4fc2-bb7c-609c0fe084d3@ti.com/
+> 
+> Link to v3:
+> <https://lore.kernel.org/all/20251121123437.860390-1-h-shenoy@ti.com/>
+> 
+> Changelog v3 --> v4:
+> - Update top level constraints and commit message.
+> - Update logs with processed schema- https://gist.github.com/h-shenoy/a422f7278859cd95447e674963caabd9
+> 
+> Link to v2:
+> <https://lore.kernel.org/all/20251119122447.514729-1-h-shenoy@ti.com/>
+> 
+> Changelog v2 --> v3:
+> -Add the reg description list and reg-name list in top level constraints
+> using oneOf for either of compatible.
+> Logs after testing some cases: https://gist.github.com/h-shenoy/a422f7278859cd95447e674963caabd9
+> 
+> Link to v1:
+> <https://lore.kernel.org/all/20251107131535.1841393-1-h-shenoy@ti.com/>
+> 
+> Changelog v1 --> v2:
+> -Update the reg description list for each compatible and add register space
+> for dsc to make the bindings reflect what hardware supports although
+> the driver doesn't support dsc yet.
+> 
+> Note: j721e-integ are not optional registers for ti-compatible.
+> 
+>   .../display/bridge/cdns,mhdp8546.yaml         | 85 ++++++++++++++-----
+>   1 file changed, 66 insertions(+), 19 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml
+> index c2b369456e4e2..4cec0f4c22a2b 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8546.yaml
+> @@ -17,23 +17,45 @@ properties:
+>         - ti,j721e-mhdp8546
+>   
+>     reg:
+> -    minItems: 1
+> -    items:
+> -      - description:
+> -          Register block of mhdptx apb registers up to PHY mapped area (AUX_CONFIG_P).
+> -          The AUX and PMA registers are not part of this range, they are instead
+> -          included in the associated PHY.
+> -      - description:
+> -          Register block for DSS_EDP0_INTG_CFG_VP registers in case of TI J7 SoCs.
+> -      - description:
+> -          Register block of mhdptx sapb registers.
+> +    oneOf:
+> +      - items:
+> +          - description:
+> +              Register block of mhdptx apb registers up to PHY mapped area (AUX_CONFIG_P).
+> +              The AUX and PMA registers are not part of this range, they are instead
+> +              included in the associated PHY.
+> +          - description:
+> +              Register block for DSS_EDP0_INTG_CFG_VP registers in case of TI J7 SoCs.
+> +          - description:
+> +              Register block of mhdptx sapb registers.
+> +          - description:
+> +              Register block for mhdptx DSC encoder registers.
+> +        minItems: 2
+> +
+> +      - items:
+> +          - description:
+> +              Register block of mhdptx apb registers up to PHY mapped area (AUX_CONFIG_P).
+> +              The AUX and PMA registers are not part of this range, they are instead
+> +              included in the associated PHY.
+> +          - description:
+> +              Register block of mhdptx sapb registers.
+> +          - description:
+> +              Register block for mhdptx DSC encoder registers.
+> +        minItems: 1
+>   
+>     reg-names:
+> -    minItems: 1
+> -    items:
+> -      - const: mhdptx
+> -      - const: j721e-intg
+> -      - const: mhdptx-sapb
+> +    oneOf:
+> +      - items:
+> +          - const: mhdptx
+> +          - const: j721e-intg
+> +          - const: mhdptx-sapb
+> +          - const: dsc
+> +        minItems: 2
+> +
+> +      - items:
+> +          - const: mhdptx
+> +          - const: mhdptx-sapb
+> +          - const: dsc
+> +        minItems: 1
+>   
+>     clocks:
+>       maxItems: 1
+> @@ -100,18 +122,43 @@ allOf:
+>         properties:
+>           reg:
+>             minItems: 2
+> -          maxItems: 3
+> +          items:
+> +            - description:
+> +                Register block of mhdptx apb registers up to PHY mapped area (AUX_CONFIG_P).
+> +                The AUX and PMA registers are not part of this range, they are instead
+> +                included in the associated PHY.
+> +            - description:
+> +                Register block for DSS_EDP0_INTG_CFG_VP registers in case of TI J7 SoCs.
+> +            - description:
+> +                Register block of mhdptx sapb registers.
+> +            - description:
+> +                Register block for mhdptx DSC encoder registers.
+>           reg-names:
+>             minItems: 2
+> -          maxItems: 3
+> +          items:
+> +            - const: mhdptx
+> +            - const: j721e-intg
+> +            - const: mhdptx-sapb
+> +            - const: dsc
+>       else:
+>         properties:
+>           reg:
+>             minItems: 1
+> -          maxItems: 2
+> +          items:
+> +            - description:
+> +                Register block of mhdptx apb registers up to PHY mapped area (AUX_CONFIG_P).
+> +                The AUX and PMA registers are not part of this range, they are instead
+> +                included in the associated PHY.
+> +            - description:
+> +                Register block of mhdptx sapb registers.
+> +            - description:
+> +                Register block for mhdptx DSC encoder registers.
+>           reg-names:
+>             minItems: 1
+> -          maxItems: 2
+> +          items:
+> +            - const: mhdptx
+> +            - const: mhdptx-sapb
+> +            - const: dsc
+>   
+>   required:
+>     - compatible
 
