@@ -1,626 +1,196 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19010016.outbound.protection.outlook.com [52.103.7.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A9251599C
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790024462; cv=none; b=lyyIAwpuzstxTDffLFM9OiBfChX8aCLNNYVENkvEx8PMNuGswCJsEQBj7mC9P9jBFJbHqkDv49Mo28tR0OUdAtAPLBMyBWO05LHzgtpoDtnEPoQED96TtzvqFokqBpu9tqRDEKGR8wHRtjk/kyFUbbvp+AuNB0gx801bssYQNbs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790024462; c=relaxed/simple;
-	bh=6bOqs+StLJsPQ5uvaJoGvsHyNvBMdSSKxiU4ObsOTiE=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dTT50fOqg40RxvPCmqls+imre8My80Y/lrHPU21RSOH4AF1tpeHpwvQZFTM9/Qt/RLraBkF3BgCh2Nv8IczvAQ1xGmOF7bv3w55YiQzdegpgIuWe+O8mOTDjKNOuN0FMYH7YcW0f8n7Q9i+LxGg9Kz5ZP9weGM4RYYP3DD6lr1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=H9CM+S6w; arc=none smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40355172C9;
+	Mon, 21 Sep 2026 21:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.7.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790024463; cv=fail; b=uBBqB4gYtAL+s5IUE0YEMw87/y79bPdinaPF1tg3brHcwkF4f6UT9ulkA9NjP+IUTCwep0AeNCMZVTVD45Udxntp2PckfLJ4RuZ1yBhtRNa71yeLGgtR9t+0zmgSdk24SNAi0JATlV45yXF7VfgbLzndqMVH7v1MBV/HF4GtsFI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790024463; c=relaxed/simple;
+	bh=bNlE4LZltsGQ8FXoJwy3KhbnlclI4Xlf1FOjKl4Xj3g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=traUXzW4qvt9664dzoVWgBYODoQBRWyeVa9+2VIX6I8heb/20yIQRsyj2RbMlNQxXubxOt8TDSfVawWSKixFqAE659zl5EZjrJH+qrIuNLhwSqtCnnpoltyLU6aKo0tiUGD6fsl8MDQcjEIV1VJPPrs2Z+PDWnx78qXNDGV8to4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=iWuDBaBf; arc=fail smtp.client-ip=52.103.7.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="H9CM+S6w"
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-89666eea29cso25292187b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 14:00:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1790024456; x=1790629256; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=R9yjuK1GvA7WV81vpr4lLFMgvL9Udfn1vNj/C/kFbiw=;
-        b=H9CM+S6weOxJY6aBr8fhpYgBysQRQzCHTGYOu6dn8RumdAm2MHA2q4jqxrxdH+1hHF
-         ZuzLstYOJKGQ0LyyLnUhRLFpLsIScYeLD9UOKnpuKIhfSAmSypguiIDdX9NVirGiqHvw
-         zS4UH9m8ndGVMt3hRl0No7S44dkFAWzbZ+QCCDIWIvd80TSKWGjZ1iZrM9HeNWx0Rms1
-         sajFmietps/JGqiP7AOC2ImaN24pa0NDSS7FKzfBaqVngFFKVVM4Y6tYUblerR7ansun
-         sGrrYeErX3/P0b03d7EZzbkQ51Wyqz42n8BbjIpjF8v70KTINXK3v/5y3rJUcAgEYXEy
-         Pbtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790024456; x=1790629256;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=R9yjuK1GvA7WV81vpr4lLFMgvL9Udfn1vNj/C/kFbiw=;
-        b=iygR1XAF6ZV+iZdllnyUQlyXZNpkUPJg1paJ30iHqJ3FLifPfn8h1OoIMkVMWtWE/P
-         Hqv3A5pdfXvyqh8W8bUMOirfN2H3lhY7YL+A1bAzAsoC0txIj4HBVAPVPpwdNc/QZcbs
-         txB9KxoDYJm8/atMWXWIMnjNNV89N/5nf/IIgZ76kx4BK3mqRiWEQvofmOGKS5JIwllG
-         oJeJGJ1iY9+IgXzFSUkIDSnZnRiKcB3L/48aWLJx74TiHzxJ4Qvk5AEmb3z5yOq7fiz/
-         tTHHHh7DrimuOeNeODXtpwJgVDxVn/t/gZuw8wo6od9TS+QaKg7ui4cnvCAeQ/tTK/vx
-         cbCw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvpNjG0ZQjLP9+1KGnQBr69GpucUjCMpkmC2IaHLd185ySeicG6T0eM0lkq9Iz7P/yn0hsdPiF3/bdygg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1EoZkvVtLsqWnfJ+5NLMvx1yCw2IDwWBj9trVey7yM0LlxPtE
-	Of8QqKYl9sYpbZWrH0hPZu/CJ2RrcnkI90FeGQmIs+N0GdoJNFUE1Z3upvxnQF+eruI=
-X-Gm-Gg: AYBFou2ADoN8vN8kNsuFaoNTbWqMkYyQ1DoCBfqWXPtYu/s0oUjKSPluYXqUMwBIs6W
-	4NvNz4HDJLMLlf9B9k1a22rvbjnLPnIbvAH4Zk0b3eg9eqXHHwMEEX1k+AElqFfF9eD+uBc1jyj
-	dQEFW96dWAt0Cgvl0ONQlsCTNizIYkVPSugBqvnFc5pUqjNPSDingwm/gdXhf+7WM5QzdIhdDZF
-	aZz5nQkI5z+smfjbDGgZdejqesJBn/NurfstPMOEYt7+HJOAV4R1J1JU5iRHRNX6Xlwq8HS+RDf
-	nmDkYQPrahpIg0+J32MuZtdwfUMu+LLKra5Mtbk3K2y+TNl2yP4zVKTOEu+l7vllNQ9+yon7jI4
-	CCYuuFk9PIHlHxE/wcyIw5CcpOvhOF4m8dfqz+A/Kqpi6yni77kK1jh1wRPn6zM77FBl070/z+A
-	9q6QQeFv4BhZya9jPF3kMqmvuNt4fc++zsNOaPFTcCJIxh3f61SElAvTjYznX6EQZ9LM6Swm6jr
-	GB80GcbWVy6T1lnc4YPMbfhSpohcVFrktAkS8FzvO0ay6iAU08qsItzVIoRH7lEyYbJ4Fo4i/Ks
-	GW+DchoIpOM7aOSyI74=
-X-Received: by 2002:a05:690c:60c7:b0:873:5bd1:98bc with SMTP id 00721157ae682-89737319ab8mr34742607b3.46.1790024456175;
-        Mon, 21 Sep 2026 14:00:56 -0700 (PDT)
-Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a23c738bdfsm1445297b3.11.2026.09.21.14.00.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 14:00:55 -0700 (PDT)
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: linux-kselftest@vger.kernel.org,
-	legion@kernel.org,
-	kees@kernel.org,
-	will@kernel.org,
-	ruanjinjie@huawei.com,
-	atomlin@atomlin.com,
-	rppt@kernel.org,
-	jani.nikula@intel.com,
-	hamzamahfooz@linux.microsoft.com,
-	joey.gouly@arm.com,
-	tglx@kernel.org,
-	nsc@kernel.org,
-	alexandre.chartre@oracle.com,
-	james.morse@arm.com,
-	dianders@chromium.org,
-	bp@alien8.de,
-	jpoimboe@kernel.org,
-	shuah@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kbuild@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	jaredwhite@microsoft.com,
-	johan@kernel.org,
-	pbonzini@redhat.com,
-	mingo@redhat.com,
-	linux-mm@kvack.org,
-	seanjc@google.com,
-	mark.rutland@arm.com,
-	vdonnefort@google.com,
-	tarunsahu@google.com,
-	gshan@redhat.com,
-	skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org,
-	xur@google.com,
-	djbw@kernel.org,
-	oupton@kernel.org,
-	nogikh@google.com,
-	sumitg@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	zengheng4@huawei.com,
-	peterz@infradead.org,
-	corbet@lwn.net,
-	suzuki.poulose@arm.com,
-	luto@kernel.org,
-	hpa@zytor.com,
-	zhangpengjie2@huawei.com,
-	x86@kernel.org,
-	yuzenghui@huawei.com,
-	jic23@kernel.org,
-	ardb@kernel.org,
-	pasha.tatashin@soleen.com,
-	petr.pavlu@suse.com,
-	ryan.roberts@arm.com,
-	kexec@lists.infradead.org,
-	pratyush@kernel.org,
-	dave.hansen@linux.intel.com,
-	rdunlap@infradead.org,
-	kvm@vger.kernel.org,
-	fuad.tabba@linux.dev,
-	maz@kernel.org,
-	mbenes@suse.cz,
-	jgross@suse.com,
-	seiden@linux.ibm.com,
-	pierre.gondois@arm.com,
-	song@kernel.org,
-	nathan@kernel.org,
-	pmladek@suse.com,
-	graf@amazon.com,
-	chao.gao@intel.com,
-	zhenglifeng1@huawei.com,
-	arnd@arndb.de,
-	sidnayyar@google.com,
-	linux-arm-kernel@lists.infradead.org,
-	vladimir.murzin@arm.com,
-	kas@kernel.org
-Subject: [RFC PATCH 46/46] KVM: arm64: Implement Caretaker vCPU run loop and LUO detach/attach lifecycle
-Date: Mon, 21 Sep 2026 17:00:34 -0400
-Message-ID: <20260921210034.180424-8-pasha.tatashin@soleen.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260921210034.180424-1-pasha.tatashin@soleen.com>
-References: <20260920193650.3373435-1-pasha.tatashin@soleen.com>
- <20260921210034.180424-1-pasha.tatashin@soleen.com>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="iWuDBaBf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nSCzwBrUiwIii/wmEihDd89UnQUgZhXnb/LnL6rvBjX8hei9h7WJZNvCJyb6hfWBx759zLy+Zoi4VxUqhOUi3g3pnoUhhNlhe1RdL5CM86MZmh6BF+zw9bVXpTzfh9CTHJOEKqXzYX/IeLrcQAr2lEYrKPdnZ/n+c+w0919ETQ/zFsEY8slw5SglG0AlQqC0NzvIxCDcbh+Z7SV5t76baaZdWyk0OalY6CbqQqK16UNa6ELXCUjZXhi/dhLJiH8VmtMdWwF6zRCKuGDmJpIL6AKZSJKnvzdo/Xth6Q7DjdCijX6iz4L1w2cBxuGu0vbMt17fLQgbL7s0bASiWy1VPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XDUdYglEw4voFU9liO1TVxPWx7/gv+xVSQsxdX/Amnk=;
+ b=iJPER+n/eofIA6YNcgt1YmTO6VA6lN4gEIXVwfIONluqSKn1vpOw/JK3J4AtXqm4tQ7RLl+8LuCO/FSR6terhTZLHzc6tp1BCpmFAuONghZ/YC3rmWRH8Bd0JHMOPuxw1fkgWQVpbeZLp+cuNRA3rmkJetQGvuCflK10KYWcAE2PdZf7QQptnBIi7VfztwEgLqzP5S2nilKt/USkRHkZPXizd//R5SIirw39QyZTJo8KtP3SGb8T9eDoa0CkheWUd4ZZONJoRrwLZ6Oixv5oi749aJx//hwMeAtXzYB9KsiD4aa11EOfQvoXmdYYa5Chn1Spl9mzfPGlTwylFQm2Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XDUdYglEw4voFU9liO1TVxPWx7/gv+xVSQsxdX/Amnk=;
+ b=iWuDBaBfwUI64YtUMDy3nWQ2qHmGdWCxQARmkbbGuJ7kgx2CrKiDxGDd8wRWmtEp7v+o5FxVJmHoYnw/yMlvUO09e/kb5VrYkf1GfA60JsDBS/M+9gqzJbXQRF/YUuOjxO33aiO0BKqxitkgEXh7QTildtye8KvUG5uvvxgQpOVPazsB852pytHQUB/HlWtuzytAY3X1giLLZi2CtXKtJul3rKMhq0NOdMFAdyUih2BcRKcDFJdoLZy2l/1VEAUqCs9WbQVZdzO2QFdD4cVinQuFitIEIv/uHwwyIstNF17tj4aEfVLbFDsQ9TtjCOUryAwwmNvDwbUqDfnbCHj7bQ==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by DS2PR02MB914464.namprd02.prod.outlook.com (2603:10b6:8:359::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 21:00:58 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 21:00:58 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Naman Jain <namjain@linux.microsoft.com>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "x86@kernel.org"
+	<x86@kernel.org>, "H . Peter Anvin" <hpa@zytor.com>, Wei Liu
+	<wei.liu@kernel.org>, "K . Y . Srinivasan" <kys@microsoft.com>, Haiyang Zhang
+	<haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>
+CC: Michael Kelley <mhklinux@outlook.com>, Long Li <longli@microsoft.com>, Nam
+ Cao <namcao@linutronix.de>, Joerg Roedel <joro@8bytes.org>, Suravee
+ Suthikulpanit <suravee.suthikulpanit@amd.com>, Vasant Hegde
+	<vasant.hegde@amd.com>, Will Deacon <will@kernel.org>, Robin Murphy
+	<robin.murphy@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, Manivannan
+ Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas
+	<bhelgaas@google.com>, Kees Cook <kees@kernel.org>, "Rafael J . Wysocki"
+	<rafael@kernel.org>, Radu Rendec <radu@rendec.net>, Sean Christopherson
+	<seanjc@google.com>, Kai Huang <kai.huang@intel.com>, Dmitry Ilvokhin
+	<d@ilvokhin.com>, Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Thierry Reding
+	<treding@nvidia.com>, Jiri Wiesner <jwiesner@suse.de>, Daniel J Blueman
+	<daniel@quora.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>
+Subject: RE: [PATCH v5 3/4] x86/irq: Use irq_chip_retrigger_hierarchy() in
+ msi_set_affinity()
+Thread-Topic: [PATCH v5 3/4] x86/irq: Use irq_chip_retrigger_hierarchy() in
+ msi_set_affinity()
+Thread-Index: AQHdRDrm5AgKJ8CtT0ib2GFTADoC8bbZkBVA
+Date: Mon, 21 Sep 2026 21:00:58 +0000
+Message-ID:
+ <SN6PR02MB41570F45986408BA60D75A3CD4842@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260914111836.2119301-1-namjain@linux.microsoft.com>
+ <20260914111836.2119301-4-namjain@linux.microsoft.com>
+In-Reply-To: <20260914111836.2119301-4-namjain@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|DS2PR02MB914464:EE_
+x-ms-office365-filtering-correlation-id: 5395d706-5eb1-4c1b-30bf-08df18236f8d
+x-ms-exchange-slblob-mailprops:
+ Vs63Iqe4sQkGaLwEdeYxLY7yqos8lGqVczr5qfg1JLwEvbUu/yjS0QuZE7mlQm0BStxz60/7DeFRFybNIQbxr3C/p2PgW/IyRl6jMWtNqo1Gk8LQ2rLvX1E6g1ZRgqeKtKXvFzCCI+K/hpwZAfFY2kueCGP9rCcr69gQdC16KF+wgYmHRD+fICwOvWcxRXIS90wJ3TvrJLdJ3jYnxsfzyspiXY9PPZy7ijsajo0gpLMGsRFQyLk4eNTCfyPAlVUNFccsWJ97oFI2BmO2gNR6I+hxIzX7BkBBM7GMNI44yYfWXdgrPE4eRgDltaL95rNDrOd6z9z5y7Gx+vIUI76pIN4v3rUUjCgCsAQkQ3+yZyk72xthua/G9lNpBsZas7rZor/6QEC/Sd0r7m3bxi/sHR4zPt+E+n206kGqYiaMNTLv0W6S3pnTgUcIdGN53UJ/ovKXEJLDWY+IiDJkI626mdeHyqvzWIyr2/d/SHeK8PI6rGMnguVdNyjSQ84i3+oAbsPoma4O5kJdHcTfPfyHAfoI9f9lU2Jn0QlmrWv9EMvSnTDvI55pY7xWz2X7ASUXAmPvpDYS+VairZAazlPmvCclq2V7Onx2XtMFUy5/pZSD8dCXkWhNDd3Mnlf5KJfZ8D9XDQjdtYQWPzYxzy09kP9clnir0HG8HJsYwHMASk3IzztxCgEr7q7/0cXsvqUHC6gW7Y8VIBvq97EW0FLX3Gutj6cvHZU8MF37InULJ3U=
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|15080799012|37011999003|12121999013|25010399006|55001999006|51005399006|24021099003|41001999006|31061999003|8062599012|13091999003|19110799012|8060799015|40105399003|2607281247196008|102099032|440099028|3412199025|1710799026;
+x-microsoft-antispam-message-info:
+ =?iso-8859-2?Q?5mVMdToaRtXYajFEl/DrrdiS2o8RvcwafPHeo6iBelVljsPbWYCC94NSIu?=
+ =?iso-8859-2?Q?VFHD8nUM6H6uIoH4MCTekU/cDKHJSsV9pqO8a22T8mHlLouBaBQxEkXbLh?=
+ =?iso-8859-2?Q?QovWlvUtDDy3p92RrmcwUOhVbWDYHAtHHqkl4bJabJpHYyFqmxCWMaZ5hb?=
+ =?iso-8859-2?Q?D9H1HCzg2mDJ2p09emZlFKqOl7f2avM2QEcyFyQQfMnsSKy0g3QIhkQ6y7?=
+ =?iso-8859-2?Q?7xJ1r56X7FjabNmJrwuaSD5YdKRFb8Fq1P7AeE89BxC3lxKnwCVCrwqaGc?=
+ =?iso-8859-2?Q?T6OZip80r+jCbr9zHktMG7OMtq0YH23qhrIr9+Zi5AV86DlFWVJFAHTC6l?=
+ =?iso-8859-2?Q?W7sMTIEj9xyD3u+g+Y9MugKZz17RDKST+VbEaPozP+EhiGFPZhMxIdM5Av?=
+ =?iso-8859-2?Q?bUYck+40NYCU33uZ/Jkc/TAWIZ7IdB1tpbwoD56l7eTSrU2WIW0Hs6cSZh?=
+ =?iso-8859-2?Q?gHolZ501JNc6s5QAOQPufl2R8k2VEDa6kniSXbAq6a+C5wG1i7Iguj7s96?=
+ =?iso-8859-2?Q?RN3//AyTR9H9VTuuVdfGGqeFlpXK//4EWUTXh7odvufzHZ4v5l2sU1ViBf?=
+ =?iso-8859-2?Q?lqME6GEm0y6fGUmR6MnMhIK/y8AVp9pa9tD+RLFxcDjYQ/yraYK/RtrBht?=
+ =?iso-8859-2?Q?p3NudGpeX0W6Cp8uQnhlcrLifuVB9lp+vREIbtGl+QVW3ytepoJXA11aLN?=
+ =?iso-8859-2?Q?S+mshxiE5P2CEMeYXy30lVAkiOJk6Vj+CINFjyvelThY40tNKyOJTvwJ0X?=
+ =?iso-8859-2?Q?iU2M2HU0ucFcOcRmaCjSg5uQH+ZxeT7+ZfZ8Zk9d+QHXFDLhlhvI0pcO/z?=
+ =?iso-8859-2?Q?luMrLL1F/hmY+jFgpo2SwPEPyHKLIk266PhsiWIBYinehEB98Eyq7B6rPj?=
+ =?iso-8859-2?Q?cr91p6QYwXuSHPCq3IepJK5PAcZpQcLALBMFtMZElgsj2M/gkty7SqBC9e?=
+ =?iso-8859-2?Q?oJLRkLBF9hkjaQVHq51iRz5K6zFk/xrb1jnd9K8UkTqYksxxRbRuB0Ike5?=
+ =?iso-8859-2?Q?4I2bdr2K97i0o3Ak5Y+dsnltATnpwbrJ/3o72k1MsW6gtjgpv3VtffzTHa?=
+ =?iso-8859-2?Q?PJhaMJDCrqWWo8baXBd7nhcYc1Y5z41ptt9l9/moViB2/OI065KCV/oLhh?=
+ =?iso-8859-2?Q?xk90U7H4mGYK2ULOxJqW23IqjWBjQUTrpbaUC6qPdsuTVdJF1h?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-2?Q?eOq3E/0/kLJ06MXuRR0uUdkUL5n8WM+igGfCW/XkkmbJduy5QGnaj2XvqS?=
+ =?iso-8859-2?Q?AqsdGCCDGBe/0pys8D4/83smWeelDPKEjO3BkoyZqIFlyEl1ReurVN1HpF?=
+ =?iso-8859-2?Q?ccIOojbSUw6UfEW+ODIYiSOO1s9vV4/6NkrsG/Rg4lrJnQpDQWCR6DHZZ6?=
+ =?iso-8859-2?Q?3v4zyjljzsFRrt9+tzWRFTcdjmEGkDLfmWxNq/0Z904bj2aG9hE7KGy2ls?=
+ =?iso-8859-2?Q?6nkdy5dx6Wc4L/ubBVyaSzR53jkr6tS/184x9PtIWYgCUw2vTeC2OHdhzH?=
+ =?iso-8859-2?Q?FQxLD9bqhm/aQtSOmCg5fr9RmCtFG6dug32esdJeRIS7A6bSqKC3UKmeIQ?=
+ =?iso-8859-2?Q?J73B52G6YHOWg/E8CqMG0BIm5hQhFXAa96EnlrxN8yTikXIVcSYu4juNSx?=
+ =?iso-8859-2?Q?1IhVx7iJZUnguErXQu1Jsc/zCexTVhumHrtgd7BwufnqdMMnwhdfsEyqdm?=
+ =?iso-8859-2?Q?h5ijuTsITaj1O4dB9hKG1r4FIXyDBxRWBE+rkZPNP85hKila+QE7SdLOXi?=
+ =?iso-8859-2?Q?fAzOtdWKcDauSTbthjgOc+2WNIr86rg4aR9t9FfjZH462sEGThogt9vn32?=
+ =?iso-8859-2?Q?/f8QYV1OKoQMtg+zRTln8K4GRs6bQFvlAvBtDoV/Hg04J47Pi/iYQxD3CD?=
+ =?iso-8859-2?Q?wgFMVXg8HHpaweTU5ASWUHyPKMyvU3RtGYUUWLdQQ85KpooRAdz7+MZje3?=
+ =?iso-8859-2?Q?grreZMYGFxiyaJs0cS55wtFMMFwrQZ8EEKNq1rtrX5mcCZmEcbe07du2zV?=
+ =?iso-8859-2?Q?58seClc1LxwnzDQVypMUqxC/rvjRf7jXez3xr3LvXJ99XyLlOCCwcjvM3H?=
+ =?iso-8859-2?Q?k2DJwQKMuqFf+pDoe1sgB9TQeRL3mocBgT+ufsD27iqe4B3zZp45gJ6x1x?=
+ =?iso-8859-2?Q?wh45vyl9TxvAMXcsOblQ3voksjjYcOxFu8bD6MbtW2hGsAec5xJ+3WrcTr?=
+ =?iso-8859-2?Q?gP1P0wgcmXlQdsjS3h81k6SKGf1mahmUf2G08qe0HAhDytTeLCn9HE8LZD?=
+ =?iso-8859-2?Q?4Nvs4W4w+dKQR+WwfZVeBSjaTUWuHf/H1vJrSSdq5zfBBPZWi6X5lJwULN?=
+ =?iso-8859-2?Q?YjlxLf+ZE0ujgQFdxTivu+XFG/ACFwV3dZ+RHE2A/eQcj/h1Xy/BZK+6KI?=
+ =?iso-8859-2?Q?ve02emIx3eBhRDyG9JttHKFErGiFlL9Giuachb98HRwPh0CblQV99hAboq?=
+ =?iso-8859-2?Q?JRF7Cf5RKtHOFg0WT7vzGk6MB1grMyZ/pUEGVB+Iu9lVbLiD9xbHN35mKD?=
+ =?iso-8859-2?Q?pqnEgoLx50LMssTyriF/Rrn1X2qcMflJpRZWfpWXH71xzRY2bfuPZYoajb?=
+ =?iso-8859-2?Q?uuoo2XPxAs7nuCw/LGKKWdf78j2AHCzpt2MM47WlgtjPutxixv8lo3fK9j?=
+ =?iso-8859-2?Q?eJyAIK9pyqUDAarpq/gloictt0nZOfWMZknA6+vFqd51Q801chhhs=3D?=
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5395d706-5eb1-4c1b-30bf-08df18236f8d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Sep 2026 21:00:58.4137
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR02MB914464
 
-Complete ARM64 Caretaker vCPU execution loop, detach-time state
-serialization, and LUO integration in arch/arm64/kvm/caretaker.c.
+From: Naman Jain <namjain@linux.microsoft.com> Sent: Monday, September 14, =
+2026 4:19 AM
+>=20
+> msi_set_affinity() re-injects a pending interrupt on its new target by
+> looking at the outermost domain chip and invoking its irq_retrigger()
+> callback. Since this mirrors the behavior of
+> irq_chip_retrigger_hierarchy(), use the helper directly instead.
 
-Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
----
- arch/arm64/kvm/Kconfig     |   1 +
- arch/arm64/kvm/Makefile    |  12 ++
- arch/arm64/kvm/caretaker.c | 243 ++++++++++++++++++++++++++++++++++++-
- arch/arm64/kvm/kvm_luo.c   | 103 ++++++++++++++++
- 4 files changed, 357 insertions(+), 2 deletions(-)
+This commit message glosses over the key point. I think the full
+statement is that in all cases where msi_set_affinity() is called, the
+irqchip's .irq_retrigger function is set to irq_chip_retrigger_hierarchy().
+Both are set only in x86_init_dev_msi_info(). So it is equivalent to
+just call irq_chip_retrigger_hierarchy() directly.
 
-diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
-index fd25b3c0d8ca..9c43010873a3 100644
---- a/arch/arm64/kvm/Kconfig
-+++ b/arch/arm64/kvm/Kconfig
-@@ -38,6 +38,7 @@ menuconfig KVM
- 	select GUEST_PERF_EVENTS if PERF_EVENTS
- 	select KVM_GUEST_MEMFD
- 	select HAVE_KVM_ARCH_VCPU_PRESERVE
-+	select HAVE_KVM_ARCH_CARETAKER
- 	help
- 	  Support hosting virtualized guest machines.
- 
-diff --git a/arch/arm64/kvm/Makefile b/arch/arm64/kvm/Makefile
-index d5e888d1bd50..58550a0a8160 100644
---- a/arch/arm64/kvm/Makefile
-+++ b/arch/arm64/kvm/Makefile
-@@ -12,6 +12,18 @@ obj-$(CONFIG_KVM) += hyp/
- 
- CFLAGS_sys_regs.o += -Wno-override-init
- CFLAGS_handle_exit.o += -Wno-override-init
-+KASAN_SANITIZE_caretaker.o := n
-+KCSAN_SANITIZE_caretaker.o := n
-+UBSAN_SANITIZE_caretaker.o := n
-+KCOV_INSTRUMENT_caretaker.o := n
-+CFLAGS_REMOVE_caretaker.o = $(CC_FLAGS_FTRACE)
-+CFLAGS_caretaker.o += $(call cc-option,-mbranch-protection=none) \
-+		      -fno-stack-protector \
-+		      $(call cc-option,-ftrivial-auto-var-init=uninitialized) \
-+		      $(call cc-option,-fno-jump-tables)
-+AFLAGS_caretaker_vmenter.o += -D__KVM_VHE_HYPERVISOR__
-+
-+kvm-$(CONFIG_KVM_CARETAKER) += caretaker.o caretaker_vmenter.o
- 
- kvm-y += arm.o mmu.o mmio.o psci.o hypercalls.o pvtime.o \
- 	 inject_fault.o va_layout.o handle_exit.o config.o \
-diff --git a/arch/arm64/kvm/caretaker.c b/arch/arm64/kvm/caretaker.c
-index 6980c1f6b998..8cd73099a60a 100644
---- a/arch/arm64/kvm/caretaker.c
-+++ b/arch/arm64/kvm/caretaker.c
-@@ -193,6 +193,9 @@ int arm64_kvm_caretaker_preserve(struct kvm_vcpu *vcpu,
- 	cap->ctx.vtcr_el2 = mmu->vtcr;
- 	cap->ctx.vttbr_el2 = kvm_get_vttbr(mmu);
- 
-+	if (irqchip_in_kernel(vcpu->kvm) && !vgic_initialized(vcpu->kvm))
-+		kvm_vgic_map_resources(vcpu->kvm);
-+
- 	if (vgic_initialized(vcpu->kvm)) {
- 		int i;
- 
-@@ -504,8 +507,8 @@ __caretaker_text static void caretaker_vgic_v3_save(struct vgic_v3_cpu_if *cpu_i
- 	used_lrs = min3(used_lrs, max_lrs, (unsigned int)VGIC_V3_MAX_LRS);
- 
- 	for (i = 0; i < used_lrs; i++) {
--		cpu_if->vgic_lr[i] = __gic_v3_get_lr(i);
--		__gic_v3_set_lr(0, i);
-+		cpu_if->vgic_lr[i] = caretaker_gic_v3_get_lr(i);
-+		caretaker_gic_v3_set_lr(0, i);
- 	}
- 
- 	cpu_if->vgic_vmcr = read_sysreg_s(SYS_ICH_VMCR_EL2);
-@@ -921,3 +924,239 @@ static void arm64_caretaker_sync_vcpu(struct kvm_vcpu *vcpu,
- 	kvm_make_request(KVM_REQ_IRQ_PENDING, vcpu);
- }
- 
-+static __caretaker_text void
-+arm64_caretaker_op_pre_run(void *data)
-+{
-+	struct caretaker_arm64_page *cap = data;
-+
-+	local_daif_mask();
-+	arm64_caretaker_save_ptrauth(&cap->ptrauth_keys);
-+
-+	/* Pre-job: load guest context */
-+	cpu_preserved_inval(cap);
-+
-+	arm64_caretaker_load_sysregs(&cap->ctx.ctxt);
-+
-+	if (cap->ctx.vgic_initialized)
-+		caretaker_vgic_v3_restore(cap);
-+
-+	write_sysreg(cap->ctx.cntvoff_el2, cntvoff_el2);
-+	write_sysreg_el0(cap->ctx.cntv_cval_el0, SYS_CNTV_CVAL);
-+	write_sysreg_el0(cap->ctx.cntv_ctl_el0, SYS_CNTV_CTL);
-+	isb();
-+
-+	if (cap->ctx.vtcr_el2 && cap->ctx.vttbr_el2) {
-+		write_sysreg(cap->ctx.vtcr_el2, vtcr_el2);
-+		write_sysreg(cap->ctx.vttbr_el2, vttbr_el2);
-+		asm(ALTERNATIVE("nop", "isb", ARM64_WORKAROUND_SPECULATIVE_AT));
-+		__tlbi(vmalle1);
-+		asm volatile("ic iallu");
-+		dsb(nsh);
-+		isb();
-+	}
-+
-+	write_sysreg(CPACR_EL1_FPEN_EL0EN | CPACR_EL1_FPEN_EL1EN |
-+		     CPACR_EL1_ZEN_EL0EN | CPACR_EL1_ZEN_EL1EN,
-+		     cpacr_el1);
-+	isb();
-+
-+	fpsimd_load_state(&cap->ctx.ctxt.fp_regs);
-+
-+	gicv3_caretaker_enable_sgi();
-+	write_sysreg_s(ICC_CTLR_EL1_EOImode_drop, SYS_ICC_CTLR_EL1);
-+	write_sysreg_s(ICC_SRE_EL1_SRE, SYS_ICC_SRE_EL1);
-+	write_sysreg_s(0, SYS_ICC_BPR1_EL1);
-+	gicv3_caretaker_clear_active_priorities();
-+	write_sysreg_s(ICC_PMR_EL1_MASK, SYS_ICC_PMR_EL1);
-+	write_sysreg_s(ICC_IGRPEN1_EL1_MASK, SYS_ICC_IGRPEN1_EL1);
-+	caretaker_gic_drain_iar();
-+	dsb(sy);
-+	isb();
-+}
-+
-+static __caretaker_text void
-+arm64_caretaker_op_post_run(void *data)
-+{
-+	struct cpu_preserved_stack_context *sctx;
-+	struct caretaker_arm64_page *cap = data;
-+	int cpu = cap->abi.cb.pcpu_id;
-+	phys_addr_t pgd_pa;
-+
-+	/* Post-run: restore host hypervisor mode then save guest context */
-+	write_sysreg_s(0, SYS_CNTHP_CTL_EL2);
-+	caretaker_restore_host_el2();
-+
-+	fpsimd_save_state(&cap->ctx.ctxt.fp_regs);
-+
-+	cap->ctx.cntv_cval_el0 = read_sysreg_el0(SYS_CNTV_CVAL);
-+	cap->ctx.cntv_ctl_el0 = read_sysreg_el0(SYS_CNTV_CTL);
-+
-+	if (cap->ctx.vgic_initialized)
-+		caretaker_vgic_v3_save(&cap->ctx.vgic_v3);
-+
-+	arm64_caretaker_save_sysregs(&cap->ctx.ctxt);
-+
-+	sctx = cpu_preserved_get_stack_context();
-+	if (sctx && sctx->session_pgd_pa)
-+		pgd_pa = sctx->session_pgd_pa;
-+	else
-+		pgd_pa = cpu_preserved_get_pgd(cpu);
-+
-+	if (!pgd_pa)
-+		pgd_pa = READ_ONCE(arm64_caretaker_pgd_pa);
-+
-+	write_sysreg(0, ttbr0_el1);
-+	if (pgd_pa && read_sysreg(ttbr1_el1) != pgd_pa) {
-+		write_sysreg(pgd_pa, ttbr1_el1);
-+		isb();
-+		arm64_flush_host_tlb_local();
-+	}
-+
-+	cpu_preserved_clean(cap);
-+
-+	if (smp_load_acquire(&cap->abi.cb.state) >= KVM_CARETAKER_STOPPING ||
-+	    kvm_caretaker_should_exit(&cap->vcpu)) {
-+		local_daif_mask();
-+		isb();
-+
-+		caretaker_gic_drain_iar();
-+		gicv3_caretaker_clear_active_priorities();
-+		write_sysreg_s(0, SYS_ICC_IGRPEN1_EL1);
-+		write_sysreg_s(0, SYS_ICC_PMR_EL1);
-+		write_sysreg_s(0, SYS_ICC_BPR1_EL1);
-+		gicv3_caretaker_clear_sgi();
-+		dsb(sy);
-+		isb();
-+	}
-+
-+	arm64_caretaker_detach_serialize(cap);
-+
-+	arm64_caretaker_restore_ptrauth(&cap->ptrauth_keys);
-+	caretaker_restore_host_el2();
-+}
-+
-+static struct kvm_caretaker_ops arm64_caretaker_ops __cpu_preserved_data = {
-+	.enter_guest = arm64_caretaker_op_enter,
-+	.decode_exit = arm64_caretaker_op_decode_exit,
-+	.handle_arch_exit = arm64_caretaker_op_handle_exit,
-+	.advance_rip = arm64_caretaker_op_advance_rip,
-+	.arm_timer = arm64_caretaker_op_arm_timer,
-+	.disarm_timer = arm64_caretaker_op_disarm_timer,
-+	.pre_run = arm64_caretaker_op_pre_run,
-+	.post_run = arm64_caretaker_op_post_run,
-+};
-+
-+static __caretaker_text enum oncore_exit_reason
-+caretaker_arch_run_page(struct caretaker_arm64_page *cap, u64 deadline_ticks)
-+{
-+	enum oncore_exit_reason reason;
-+	int cpu;
-+
-+	if (!cap)
-+		return ONCORE_EXIT_ERROR;
-+
-+	cpu_preserved_inval(&cap->abi.cb);
-+	cpu = cap->abi.cb.pcpu_id;
-+	if (cpu < 0 || cpu >= ARRAY_SIZE(arm64_caretaker_faults))
-+		cpu = arm64_caretaker_get_pcpu();
-+
-+	cap->abi.cb.pcpu_id = cpu;
-+	if (cmpxchg(&cap->abi.cb.state, KVM_CARETAKER_PAUSED,
-+		    KVM_CARETAKER_RUNNING) != KVM_CARETAKER_PAUSED ||
-+	    cpu_preserved_should_exit(cpu)) {
-+		arm64_caretaker_detach_serialize(cap);
-+		smp_store_release(&cap->abi.cb.state, KVM_CARETAKER_STOPPED);
-+		cpu_preserved_clean(&cap->abi.cb);
-+		return ONCORE_EXIT_ATTACH_SIGNALED;
-+	}
-+	cpu_preserved_clean(&cap->abi.cb);
-+
-+	cap->vcpu.ops = &arm64_caretaker_ops;
-+
-+	reason = kvm_caretaker_vcpu_run(&cap->vcpu, deadline_ticks);
-+
-+	cpu_preserved_inval(&cap->abi.cb);
-+	if (reason == ONCORE_EXIT_ATTACH_SIGNALED ||
-+	    reason == ONCORE_EXIT_ERROR ||
-+	    cpu_preserved_should_exit(cpu) ||
-+	    cmpxchg(&cap->abi.cb.state, KVM_CARETAKER_RUNNING,
-+		    KVM_CARETAKER_PAUSED) != KVM_CARETAKER_RUNNING) {
-+		reason = ONCORE_EXIT_ATTACH_SIGNALED;
-+		arm64_caretaker_detach_serialize(cap);
-+		smp_store_release(&cap->abi.cb.state, KVM_CARETAKER_STOPPED);
-+		cpu_preserved_clean(&cap->abi.cb);
-+	} else {
-+		cpu_preserved_clean(&cap->abi.cb);
-+	}
-+
-+	return reason;
-+}
-+
-+__caretaker_text enum oncore_exit_reason
-+kvm_arch_vcpu_caretaker_run(void *data, u64 deadline_ticks)
-+{
-+	struct kvm_caretaker_cb_ser *cb = data;
-+
-+	/*
-+	 * @data is always a struct kvm_caretaker_cb_ser: kvm_caretaker_vcpu_preserve()
-+	 * installs it with oncore_job_set_data() before activating the job.
-+	 */
-+	if (!cb)
-+		return ONCORE_EXIT_ERROR;
-+
-+	return caretaker_arch_run_page(container_of(cb,
-+						    struct caretaker_arm64_page,
-+						    abi.cb),
-+				       deadline_ticks);
-+}
-+
-+void kvm_arch_vcpu_luo_pre_retrieve_caretaker(struct kvm_vcpu *vcpu,
-+					      struct kvm_vcpu_ser *ser)
-+{
-+	if ((ser->flags & KVM_VCPU_LUO_FLAG_CARETAKER) && ser->cb.phys) {
-+		struct kvm_caretaker_arch_ser *abi = phys_to_virt(ser->cb.phys);
-+		int pcpu = abi->cb.pcpu_id;
-+
-+		if (pcpu >= 0) {
-+			kvm_caretaker_wait_for_attach(&abi->cb, pcpu);
-+			cpu_preserved_inval(abi);
-+			if (ser->arch_state.phys) {
-+				struct kvm_vcpu_arch_ser *state =
-+					phys_to_virt(ser->arch_state.phys);
-+
-+				cpu_preserved_inval(state);
-+				cpu_preserved_inval_sz(state,
-+						       struct_size(state, sysregs,
-+								   state->num_sysregs));
-+			}
-+		}
-+	}
-+}
-+
-+void kvm_arch_vcpu_luo_attach_caretaker(struct kvm_vcpu *vcpu,
-+					struct kvm_vcpu_ser *ser)
-+{
-+	if ((ser->flags & KVM_VCPU_LUO_FLAG_CARETAKER) && ser->cb.phys) {
-+		struct kvm_caretaker_arch_ser *abi = phys_to_virt(ser->cb.phys);
-+
-+		arm64_caretaker_sync_vcpu(vcpu, abi);
-+	}
-+
-+	kvm_caretaker_post_attach_vcpu(vcpu);
-+}
-+
-+void arm64_kvm_caretaker_unpreserve(struct kvm_vcpu_ser *ser)
-+{
-+	if (ser->cb.phys) {
-+		kho_unpreserve_free(phys_to_virt(ser->cb.phys));
-+		ser->cb.phys = 0;
-+	}
-+}
-+
-+void arm64_kvm_caretaker_finish(struct kvm_vcpu_ser *ser)
-+{
-+	if (ser->cb.phys) {
-+		kho_restore_free(phys_to_virt(ser->cb.phys));
-+		ser->cb.phys = 0;
-+	}
-+}
-diff --git a/arch/arm64/kvm/kvm_luo.c b/arch/arm64/kvm/kvm_luo.c
-index 59c56836cda8..ae8baef49f97 100644
---- a/arch/arm64/kvm/kvm_luo.c
-+++ b/arch/arm64/kvm/kvm_luo.c
-@@ -6,6 +6,7 @@
-  * ARM64 KVM LUO preservation and retrieval handlers.
-  */
- 
-+#include <linux/cpu_preserve.h>
- #include <linux/kexec_handover.h>
- #include <linux/kho/abi/kvm_arm64.h>
- #include <linux/kvm_host.h>
-@@ -17,15 +18,100 @@
- #include <kvm/arm_arch_timer.h>
- #include <kvm/arm_vgic.h>
- 
-+#include "caretaker.h"
- #include "sys_regs.h"
- #include "vgic/vgic.h"
- 
-+#ifdef CONFIG_KVM_CARETAKER
-+struct arm64_stage2_kho_walk {
-+	struct kvm_kho_folios_ser *kp;
-+	unsigned int count;
-+};
-+
-+static int stage2_kho_visitor(const struct kvm_pgtable_visit_ctx *ctx,
-+			      enum kvm_pgtable_walk_flags visit)
-+{
-+	struct arm64_stage2_kho_walk *w = ctx->arg;
-+
-+	if (kvm_pte_valid(ctx->old) && ctx->level != KVM_PGTABLE_LAST_LEVEL &&
-+	    FIELD_GET(KVM_PTE_TYPE, ctx->old) == KVM_PTE_TYPE_TABLE) {
-+		u64 phys = kvm_pte_to_phys(ctx->old);
-+		struct page *p = phys_to_page(phys);
-+
-+		if (!p)
-+			return 0;
-+
-+		if (!w->kp) {
-+			w->count++;
-+			return 0;
-+		}
-+
-+		if (w->kp->nr_folios >= w->count)
-+			return -ENOSPC;
-+
-+		if (kho_preserve_folio(page_folio(p)))
-+			return -ENOMEM;
-+
-+		w->kp->folios_pa[w->kp->nr_folios++] = phys;
-+	}
-+	return 0;
-+}
-+#endif
-+
- int kvm_arch_vm_luo_preserve(struct kvm *kvm, struct kvm_luo_ser *ser)
- {
-+#ifdef CONFIG_KVM_CARETAKER
-+	struct kvm_s2_mmu *mmu = &kvm->arch.mmu;
-+	struct arm64_stage2_kho_walk walk = {};
-+	struct kvm_pgtable_walker walker = {
-+		.cb = stage2_kho_visitor,
-+		.flags = KVM_PGTABLE_WALK_TABLE_PRE,
-+		.arg = &walk,
-+	};
-+	struct kvm_kho_folios_ser *kp;
-+	int ret;
-+#endif
-+
- 	ser->type = kvm_phys_shift(&kvm->arch.mmu);
- 	if (kvm_vm_is_protected(kvm))
- 		ser->type |= KVM_VM_TYPE_ARM_PROTECTED;
- 
-+#ifdef CONFIG_KVM_CARETAKER
-+	kvm->caretaker_vm = NULL;
-+
-+	if (mmu->pgd_phys)
-+		walk.count++;
-+	if (mmu->pgt) {
-+		ret = kvm_pgtable_walk(mmu->pgt, 0, BIT(mmu->pgt->ia_bits), &walker);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	kp = kvm_kho_folios_alloc(walk.count);
-+	if (IS_ERR(kp))
-+		return PTR_ERR(kp);
-+	walk.kp = kp;
-+
-+	if (mmu->pgd_phys) {
-+		ret = kho_preserve_folio(page_folio(phys_to_page(mmu->pgd_phys)));
-+		if (ret) {
-+			kvm_kho_folios_unpreserve(kp);
-+			return ret;
-+		}
-+		kp->folios_pa[kp->nr_folios++] = mmu->pgd_phys;
-+	}
-+
-+	if (mmu->pgt) {
-+		ret = kvm_pgtable_walk(mmu->pgt, 0, BIT(mmu->pgt->ia_bits), &walker);
-+		if (ret) {
-+			kvm_kho_folios_unpreserve(kp);
-+			return ret;
-+		}
-+	}
-+
-+	kvm->kho_folios = kp;
-+	KHOSER_STORE_PTR(ser->kho_folios, kp);
-+#endif
- 	return 0;
- }
- 
-@@ -36,6 +122,10 @@ int kvm_arch_vm_luo_retrieve(struct kvm *kvm, struct kvm_luo_ser *ser)
- 
- void kvm_arch_vm_luo_unpreserve(struct kvm *kvm, struct kvm_luo_ser *ser)
- {
-+#ifdef CONFIG_KVM_CARETAKER
-+	if (kvm)
-+		kvm->caretaker_vm = NULL;
-+#endif
- }
- 
- void kvm_arch_vm_luo_finish(struct kvm_luo_ser *ser)
-@@ -119,6 +209,17 @@ int kvm_arch_vcpu_luo_preserve(struct kvm_vcpu *vcpu, struct kvm_vcpu_ser *ser)
- 	kfree(indices);
- 
- 	KHOSER_STORE_PTR(ser->arch_state, state);
-+
-+	if (ser->flags & KVM_VCPU_LUO_FLAG_CARETAKER) {
-+		int ret = arm64_kvm_caretaker_preserve(vcpu, ser);
-+
-+		if (ret) {
-+			kho_unpreserve_free(state);
-+			ser->arch_state.phys = 0;
-+			return ret;
-+		}
-+	}
-+
- 	return 0;
- }
- 
-@@ -186,6 +287,7 @@ int kvm_arch_vcpu_luo_retrieve(struct kvm_vcpu *vcpu, struct kvm_vcpu_ser *ser)
- 
- void kvm_arch_vcpu_luo_unpreserve(struct kvm_vcpu_ser *ser)
- {
-+	arm64_kvm_caretaker_unpreserve(ser);
- 	if (ser->arch_state.phys) {
- 		kho_unpreserve_free(phys_to_virt(ser->arch_state.phys));
- 		ser->arch_state.phys = 0;
-@@ -194,6 +296,7 @@ void kvm_arch_vcpu_luo_unpreserve(struct kvm_vcpu_ser *ser)
- 
- void kvm_arch_vcpu_luo_finish(struct kvm_vcpu_ser *ser)
- {
-+	arm64_kvm_caretaker_finish(ser);
- 	if (ser->arch_state.phys) {
- 		kho_restore_free(phys_to_virt(ser->arch_state.phys));
- 		ser->arch_state.phys = 0;
--- 
-2.55.0.1082.g2b9226bbc0-goog
+>=20
+> Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> Reviewed-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+> Reviewed-by: Thomas Gleixner <tglx@kernel.org>
+> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+> ---
+>  arch/x86/kernel/apic/msi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
+> index 66bc5d3e79db3..9160227b9b32a 100644
+> --- a/arch/x86/kernel/apic/msi.c
+> +++ b/arch/x86/kernel/apic/msi.c
+> @@ -137,7 +137,7 @@ msi_set_affinity(struct irq_data *irqd, const struct =
+cpumask *mask, bool force)
+>  	 * IRR.
+>  	 */
+>  	if (lapic_vector_set_in_irr(cfg->vector))
+> -		irq_data_get_irq_chip(irqd)->irq_retrigger(irqd);
+> +		irq_chip_retrigger_hierarchy(irqd);
+>=20
+>  	return ret;
+>  }
+> --
+> 2.43.0
+>=20
 
