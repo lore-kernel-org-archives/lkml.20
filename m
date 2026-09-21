@@ -1,100 +1,183 @@
-Received: from 0001.3ffe.de (0001.3ffe.de [159.69.201.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186CF49A3C3;
-	Mon, 21 Sep 2026 12:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A1C495AF3;
+	Mon, 21 Sep 2026 12:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994933; cv=none; b=OjrNbnNVO3cXvbNheACRpZ1Z9M+MitAdf7gYP1yVpRaOEdHVosU8uDPzcAedThRbyel/ztRI6aEI55Nnc4rYKGleBHS1cXPDgBtlDhLsCfz3E5I/9kYZK2e2iNowE2GMGH34KgH2Ir1PVL/di3VlIPH8ccmy+pHPj/yyaPuNBec=
+	t=1789994937; cv=none; b=Ro3+os++gpuZTVWiKhwQ4aoZp4jW4qfs/KU8j07Nkla5X6kNrDW/Y0Hf5kWTe8kX5i9spRwyuJ7dghOxhIiwjrLn2c19/u3zk8KLqEyzE1hnfXgofmLCWT9/1RUFraTuFD4YIWLkGNBxHf2wkzq/NdUMPE86olamuQPD2eoEbio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994933; c=relaxed/simple;
-	bh=8oYAGsVvEhdzXCWG+jA1/MT2C7mPbAr8X9h6EIfIhiA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=S4GOBmUkpHb9RiNzMrmXIykO0xqBpWDoD0ejbcXTo5hhAJv2nvxACemihFf2QWsi9hQCziNb8q9ADLqavU3kurm0mcWHEdwyB1hFCyTWyVhaYEWJK2BWt87lleAwTxKFC6NzC57h+wzxR4lgq2khfM/hv6ocTsThmcC7j94EX08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc; spf=pass smtp.mailfrom=walle.cc; dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b=HMNcECOF; arc=none smtp.client-ip=159.69.201.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=walle.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
+	s=arc-20240116; t=1789994937; c=relaxed/simple;
+	bh=Lvz1+adIfTVALde6cIc9D2krFiJkrABbwz95Yp9nPFQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FnDrstjamqQ1kKbSOZUqHxT6zVrmbsfJKxqCza3P4sgPqFj6Px7fP969B5YjLR9+UGYRYHfoZg4Q386sbCxVpae3Ck5UqGEx3ZjvXPgzxwjnGxqeMpIMLDzskg8T00kbCF0TFpIvivlyObW46n2C6ZuPdfomEhAw08YRQs6AjT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UE6SO3WY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b="HMNcECOF"
-Received: from localhost (unknown [213.135.10.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id 0FDAD5C;
-	Mon, 21 Sep 2026 14:48:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc; s=mail2022082101;
-	t=1789994927;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8oYAGsVvEhdzXCWG+jA1/MT2C7mPbAr8X9h6EIfIhiA=;
-	b=HMNcECOFvWrzAxv7X6rh6ufMZzeR20RIFNOZLJPrJoTwjVmGqMgRjQhC8o3iWXnsMrK3go
-	snIUKwUa8cCa6Qs1+nOuaHbEAtgEGa4E6KiJyMQGCnZllwH26bM3dbh16VOcVhJzwN7rLQ
-	bpJ3pFruahOgtooN+AKT/f14q2LOyGObddcToHTinFpWEuwJfvTHByrSWU/W9LXps+Lt4y
-	1FEtrgXQZYf3eAQ21ST63nOtDZ81TivcweH/LVk/lkZPNqQuylwn+h/8If71DMM3sWkpVT
-	RWhNknTq27bzWl/SyXdCXMxqP4MZmopKytnGg0x+O6PoMmsrTHqwHwIP0yvY+w==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UE6SO3WY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BBE1F000FF;
+	Mon, 21 Sep 2026 12:48:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789994932;
+	bh=NFKSxMIgnM898Y7oTLkz3ataAvKd+EhOD1s4RO4tj3U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UE6SO3WY/k6pXgr3BejY0rHDo2ynd6BaUlT/AIlFdd8aM5xlG+04BJet4FBMpEqek
+	 691IzMIrJ/nI62ercdIsl436gXX0iawHxYoUNOSeNwSih0MzvVY4bT+DcEwhi0CK7d
+	 xJDnvQkwpPONuQIiiIieNvXQ4eJ1P8yzOvY+6dsPe1XCqPv8Zr4EeWsVkE9BW8XAdI
+	 nTau/53RsFNf51Of017LHrMAJA6VvxCvV9LBZoBrCgvbz0ASLW+z7g8NA7ZZpVEE7w
+	 CUbEdzSPxRJXNg05JbI0IyixBTS+7gHUCrhfd2Yp9gVq5OwJ89i1U2wZvKuwM007fU
+	 hnmOSsIuC7Xpg==
+Subject: Re: [PATCH] net/mlx5: Fix rev_entry reference leak in
+ mlx5_tc_ct_shared_counter_get()
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, leon@kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, mbloch@nvidia.com, netdev@vger.kernel.org,
+ ozsh@mellanox.com, pabeni@redhat.com, roid@nvidia.com, saeedm@nvidia.com,
+ tariqt@nvidia.com, stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 12:48:50 +0000
+Message-ID: <178999493051.2160803.6214466192510331412@kernel.org>
+In-Reply-To: <20260917113131.2149024-1-vulab@iscas.ac.cn>
+References: <20260917113131.2149024-1-vulab@iscas.ac.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=dc334a3fcc535e0315e8224ae25d35c7ceb07b6cf064276ea636de9843ad;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 21 Sep 2026 14:48:44 +0200
-Message-Id: <DLL08SC6PWNS.2BUBIQYMBWIKQ@walle.cc>
-Subject: Re: [PATCH v7 09/15] gpiolib: regmap: add gpio_regmap_get_chip()
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Michael
- Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
- "Jerome Brunet" <jbrunet@baylibre.com>, "Linus Walleij"
- <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Jiri Slaby"
- <jirislaby@kernel.org>, "Andy Shevchenko"
- <andriy.shevchenko@linux.intel.com>, =?utf-8?q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Long Zhao"
- <zl020895@163.com>, "Lee Jones" <lee@kernel.org>, <mfd@lists.linux.dev>,
- <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, <linux-serial@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <michael@walle.cc>
-To: <longzhao@ambarella.com>, "Arnd Bergmann" <arnd@arndb.de>, "Krzysztof
- Kozlowski" <krzk@kernel.org>, "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>, <soc@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>
-X-Mailer: aerc 0.20.0
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <20260915-cv75-v5-v7-9-3297d3fbc9c0@ambarella.com>
-In-Reply-To: <20260915-cv75-v5-v7-9-3297d3fbc9c0@ambarella.com>
+MIME-Version: 1.0
 
---dc334a3fcc535e0315e8224ae25d35c7ceb07b6cf064276ea636de9843ad
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On Tue Sep 15, 2026 at 1:15 PM CEST, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Let drivers that implement a custom irqchip retrieve the gpio_chip
-> after registration. Attach a caller-provided irq_domain only when it
-> is present.
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-So why do we need this? Why can't gpio-regmap register the
-irq_domain?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
--michael
+- [Medium] The commit message misidentifies the condition that makes the
+  leak reachable.
+- [Medium] The Fixes: tag points at the wrong commit.
 
---dc334a3fcc535e0315e8224ae25d35c7ceb07b6cf064276ea636de9843ad
-Content-Type: application/pgp-signature; name="signature.asc"
+--
 
------BEGIN PGP SIGNATURE-----
+net/mlx5: Fix rev_entry reference leak in mlx5_tc_ct_shared_counter_get()
 
-iKcEABMJAC8WIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCarEnrREcbWljaGFlbEB3
-YWxsZS5jYwAKCRASJzzuPgIf+LpuAYDE0AkurPddl0z6QE+hTeG4NZcB/7h42HL0
-OIorjxt6Yf4Z474zjfRls7Q8TEb5PWABgPO0XMEiJFECr8eYcTJCzY4GwwWiB1JR
-x0gMJHh8+WSi92hntm19knMXwoCPPyL1+A==
-=LBa0
------END PGP SIGNATURE-----
+This adds a mlx5_tc_ct_entry_put() on the fall-through path of
+mlx5_tc_ct_shared_counter_get() so that the reverse entry reference taken by
+mlx5_tc_ct_entry_get() is dropped when the shared counter cannot be reused.
+The put itself looks correct; the questions below are about the described
+trigger condition and the Fixes tag.
 
---dc334a3fcc535e0315e8224ae25d35c7ceb07b6cf064276ea636de9843ad--
+> Fixes: 1edae2335adf ("net/mlx5e: CT: Use the same counter for both directions")
+> Cc: stable@vger.kernel.org
+
+[Severity: Medium]
+Is this the right commit to blame?  What this patch balances is the entry
+reference taken by mlx5_tc_ct_entry_get() in
+mlx5_tc_ct_shared_counter_get(), and that reference-taking lookup plus the
+matching put on the success path came from a2173131526d ("net/mlx5e: CT:
+manage the lifetime of the ct entry object"), not from 1edae2335adf.
+
+git blame on the pre-patch file attributes this whole block to
+a2173131526d:
+
+	spin_lock_bh(&ct_priv->ht_lock);
+	rev_entry = mlx5_tc_ct_entry_get(ct_priv, &rev_tuple);
+
+	if (IS_ERR(rev_entry)) {
+		spin_unlock_bh(&ct_priv->ht_lock);
+		goto create_counter;
+	}
+
+	if (rev_entry && refcount_inc_not_zero(&rev_entry->counter->refcount)) {
+		...
+		mlx5_tc_ct_entry_put(rev_entry);
+		return shared_counter;
+	}
+
+1edae2335adf only contributed the tuple-reversal code above it; at that
+point the reverse tuple was looked up with a plain rhashtable_lookup_fast()
+and no entry reference was taken, so there was nothing to leak.
+
+With Cc: stable, does the current tag select the wrong backport range?
+Trees that contain 1edae2335adf but not a2173131526d (1edae2335adf landed
+in v5.9, a2173131526d in v5.12) would be picked, and there
+mlx5_tc_ct_shared_counter_get() holds no rev_entry reference at all, so the
+hunk cannot apply as written and a hand-resolved backport that added the put
+anyway would underflow the rev_entry refcount.
+
+> When the reverse entry is found but its counter is already being
+> released, refcount_inc_not_zero() fails and the reference taken by
+> mlx5_tc_ct_entry_get() is never dropped before falling through to
+> create_counter.
+
+[Severity: Medium]
+Can the "counter is already being released" case actually happen for a
+non-NULL rev_entry?
+
+mlx5_tc_ct_entry_get() only returns a non-NULL, non-ERR entry after both the
+valid test and the entry refcount succeed:
+
+	if (entry && mlx5_tc_ct_entry_valid(entry) &&
+	    refcount_inc_not_zero(&entry->refcnt)) {
+		return entry;
+
+So the returned rev_entry is VALID and holds a live reference, which means
+it cannot be inside mlx5_tc_ct_entry_del() - the only teardown site calling
+mlx5_tc_ct_counter_put().  The other mlx5_tc_ct_counter_put() call, in the
+err_orig path of mlx5_tc_ct_entry_add_rules(), runs before
+MLX5_CT_ENTRY_FLAG_VALID is set, so such an entry is never returned by the
+lookup either.  A shared counter owned by a live VALID entry therefore
+always has refcount >= 1.
+
+Is the reachable trigger instead the private-counter case?
+mlx5_tc_ct_counter_create() kzallocs the counter and never calls
+refcount_set():
+
+	counter->is_shared = false;
+	counter->counter = mlx5_fc_create(ct_priv->dev, true);
+
+so private counters keep refcount == 0 permanently, and
+mlx5_tc_ct_entry_add_rules() picks between the two kinds at runtime:
+
+	if (nf_ct_acct_enabled(dev_net(ct_priv->netdev)))
+		entry->counter = mlx5_tc_ct_counter_create(ct_priv);
+	else
+		entry->counter = mlx5_tc_ct_shared_counter_get(ct_priv, entry);
+
+nf_ct_acct_enabled() reads net->ct.sysctl_acct, the writable per-netns
+net.netfilter.nf_conntrack_acct sysctl, so both counter kinds coexist after
+accounting is toggled from enabled to disabled.  A new entry then takes the
+shared path, finds a live reverse entry owning a private refcount == 0
+counter, refcount_inc_not_zero() fails, and the rev_entry reference is
+leaked.
+
+Could the changelog describe that path instead?  As written the fixed branch
+reads like dead code, which makes reachability hard to judge for stable, and
+it hides the companion cleanup question: should
+mlx5_tc_ct_counter_create() refcount_set() the private counter, or should
+the consumer test is_shared explicitly?
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
+> index 6c87a1c7db095..c1841ce74d9ac 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc_ct.c
+> @@ -1082,6 +1082,9 @@ mlx5_tc_ct_shared_counter_get(struct mlx5_tc_ct_priv *ct_priv,
+>  
+>  	spin_unlock_bh(&ct_priv->ht_lock);
+>  
+> +	if (rev_entry)
+> +		mlx5_tc_ct_entry_put(rev_entry);
+> +
+>  create_counter:
+>  
+>  	shared_counter = mlx5_tc_ct_counter_create(ct_priv);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917113131.2149024-1-vulab%40iscas.ac.cn
