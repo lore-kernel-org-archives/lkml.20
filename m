@@ -1,144 +1,115 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD99C364940
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D6A3AC0CD;
+	Mon, 21 Sep 2026 07:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974366; cv=none; b=KBgrGFuEdegdNNlxYJUkYdk9toF3+AlgI0q20GjUY+DD4NaQ1RdIiXyM/OPIQoxRcIaMj32A0BMm4O1hiH3FttTeUpvA+vjg6CVqvVQ2bo8izIBHv11uZkIfWsI9l1R4IJTuyqUV1JtVAJX59WywKN1meea6y0tWjo8lORQmsdg=
+	t=1789974376; cv=none; b=WxK1+cXCljGj0+zXyMX0wfmMS/X/VDqmz5hlOTc8Hs9gWAj6umup4jJuGEi6W306DxlCga2AaonrxO+nakmRJdPTQAOri6nGtyXLB6ji1ESp7qGzMXl2i2hUdgIaJw/ZUyr9ZHRgYk5hU3eQJYOc/FRf5Z/fkLc85W4HTIC14PE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974366; c=relaxed/simple;
-	bh=EBJQpWLY6zS3lPstVd9MZs+Q/9KBP95hHmwtpJd2xBA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=GPPQqm5MEfTcze07IDq6tq4AxVLytgeqoLRKnVGTWrJdawE40XBwrJQXXc7REuRKZQw/1yO1CvETeDEKNfNLBsJIrz/RLjff75qIq00/UColw4JswPpVyPkdExi16dmkxfX0tvkpl8SwNy2QyUKPdqRut0HgDs5UmKYflPnOCsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oIGWPfNv; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789974376; c=relaxed/simple;
+	bh=/5m4aZ65LSN4IxjKX08SXAMvhKoumaooVWqP8+wIShc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I2DD2/OlzS5FWyj2ndo5ImlBTTbnss+7aDIt2H07hyp5kLaz3EaFcxMN/fYelxjjdjR6kdnfVPZN0vu/PNjU2BEDTpzGPyni9KaRoeOAZHbyb6GUp1Q2igFt9ewD+hQzDkTI+IQqg2ElQwyx1IlfE/EvG6wKa8ca/Q33NX6kMs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eD4SlotA; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oIGWPfNv"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id CB902C2C652;
-	Mon, 21 Sep 2026 07:06:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BC2FD60339;
-	Mon, 21 Sep 2026 07:06:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 79EEC10328ED0;
-	Mon, 21 Sep 2026 09:05:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789974357; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lc3Q5bHjC9Y5EjOyv/5Amr9ZepClgh/msjX52TvdD9I=;
-	b=oIGWPfNvDSRbuhkeQtz7bxBJxWZYBW2cPZXT+UaEDez5iBFH2fF/5qtRmniX5pWZGz8E3K
-	q74f2AJxyvO54Nw2fgwxH0oY7iv3GFATtVa9GXDdxGNpeQhgcdnuS6q/aZMlIuCUtu+/sb
-	4iQ+/XyCd2B1VnpR+ZPSGkDM+9JVT+5mDsBCyziy25sxPBu9ZcbPg0GoNguKP1G05ucFLL
-	BMFC/U3CxdZw/9Kl6afCteUQDoNtTYjQ7SnsgvWqFB0O14Y0n8Bh2fmJ6XlJf9nitdwE1Z
-	dm61Uq7NAkZqZJzwTtkc5Gro/DbLRu4zBMjgv+5b5LNTZXEZV46O9KlQTh9fTg==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eD4SlotA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789974375; x=1821510375;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=/5m4aZ65LSN4IxjKX08SXAMvhKoumaooVWqP8+wIShc=;
+  b=eD4SlotA4p6rlRj8pOy1Q9fNgCr7mIljozRMAGVubNSIqxyTEC1SYYTP
+   WMjOSJ/IDn+bLeS5FnlXWH678o8xWt0SUPeiA+7sHyFKaKHBbtz4CkNKd
+   6xMIlx5elwV8mnD0P/lp685UIDPd0NjeEVNJj94oqq1Qexr1NUMtnmcve
+   OsUodfuJCTC0g45wfSZKEHXfx4THV388pMX2Ze5MFai5ZlsxdQ1MZw+Pe
+   HR2ONP1Ue82DCKrg6aJ4xMxMZ7wyNbNXDqqD508lvq2aPyTkQRGTco+Zf
+   4Wp/GfxnFSMZFMlFtnajo0vK8RxZzDvlH7m0MHryJZ0vYG7S/yehrb88m
+   Q==;
+X-CSE-ConnectionGUID: oJv9ss7TTqCaOIiVGLNPfQ==
+X-CSE-MsgGUID: WiDlbllVTgqANkrNaixB6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="90485952"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="90485952"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 00:06:14 -0700
+X-CSE-ConnectionGUID: bNJQaRoSQtaGEKTvysCowQ==
+X-CSE-MsgGUID: 9dwpuAJhQgSfjSLJTMuWYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="3831815"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 00:06:11 -0700
+Message-ID: <76c44332-2a6d-479f-aaf6-fab08e4cb60b@linux.intel.com>
+Date: Mon, 21 Sep 2026 15:06:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 10/12] perf/x86: Expose number of Topdown metric events
+ to KVM
+To: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
+ Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20260918193937.569414-1-zide.chen@intel.com>
+ <20260918193937.569414-11-zide.chen@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260918193937.569414-11-zide.chen@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 09:05:40 +0200
-Message-Id: <DLKSY3W6CGW1.3C0J6DHKV8P2Z@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v11 13/74] drm/bridge: Fix NULL deref in
- drm_bridge_add() for legacy bridges
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Dave Stevenson"
- <dave.stevenson@raspberrypi.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Chen-Yu Tsai" <wens@kernel.org>,
- "Samuel Holland" <samuel@sholland.org>, =?utf-8?q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
- <kernel-list@raspberrypi.com>, "Raphael Gallais-Pou"
- <rgallaispou@gmail.com>, "Sandy Huang" <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
- <andy.yan@rock-chips.com>, "Algea Cao" <algea.cao@rock-chips.com>, "Daniel
- Stone" <daniels@collabora.com>, "Liu Ying" <victor.liu@nxp.com>, "Phong LE"
- <ple@baylibre.com>, "Helge Deller" <deller@gmx.de>, <kernel@collabora.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
- <linux-rockchip@lists.infradead.org>, <linux-fbdev@vger.kernel.org>,
- "Sashiko" <sashiko-bot@kernel.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Cristian Ciocaltea"
- <cristian.ciocaltea@collabora.com>
-X-Mailer: aerc 0.22.0
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
- <20260901-dw-hdmi-qp-scramb-v11-13-bc12954a0688@collabora.com>
- <ap_Tr_Viqy29f515@houat>
-In-Reply-To: <ap_Tr_Viqy29f515@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-On Tue Sep 8, 2026 at 11:24 AM CEST, Maxime Ripard wrote:
-> On Tue, Sep 01, 2026 at 09:50:37PM +0300, Cristian Ciocaltea wrote:
->> Legacy bridge drivers that embed struct drm_bridge in a zero-initialized
->> allocation, rather than obtaining it from devm_drm_bridge_alloc(), never
->> run INIT_LIST_HEAD() on bridge->list, leaving next and prev NULL.
->> list_empty() compares next against &bridge->list, so it reports such a
->> list head as non-empty.  list_del_init() therefore runs and dereferences
->> the NULL pointers, panicking the kernel during probe.  Only builds with
->> CONFIG_DEBUG_LIST survive, with a list corruption report.
->>
->> This affects rk3066_hdmi and the i.MX8 LDB bridges, which still embed a
->> bridge in a devm_kzalloc()'d struct.
->>
->> Initialize the list head when it is found to be NULL, so that the bridge
->> ends up with a valid empty list head and list_del_init() is only reached
->> for bridges that can actually be linked.
->>
->> Fixes: 17805a15d175 ("drm/bridge: add list of removed refcounted bridges=
-")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://lore.kernel.org/all/20260731175016.C5D591F00AC4@smtp.ker=
-nel.org/
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/drm_bridge.c | 9 ++++++++-
->>  1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
->> index 2c457ad74f3b..a8b6df5c13ea 100644
->> --- a/drivers/gpu/drm/drm_bridge.c
->> +++ b/drivers/gpu/drm/drm_bridge.c
->> @@ -453,9 +453,16 @@ void drm_bridge_add(struct drm_bridge *bridge)
->>  	 * If the bridge was previously added and then removed, it is now
->>  	 * in bridge_lingering_list. Remove it or bridge_lingering_list will b=
-e
->>  	 * corrupted when adding this bridge to bridge_list below.
->> +	 *
->> +	 * Legacy drivers that allocate the bridge with kzalloc() rather than
->> +	 * devm_drm_bridge_alloc() leave list.next NULL. Such a bridge cannot
->> +	 * be on any list, and list_del_init() would dereference NULL, so
->> +	 * initialize the list head first.
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+
+On 9/19/2026 3:39 AM, Zide Chen wrote:
+> The number of Topdown metric events varies by CPU: ICL/TGL/RKL
+> support 4, while SPR/GNR/DMR and some hybrid CPUs support 8.
 >
-> "legacy" bridges are ambigous and was also used for non-atomic bridges.
-> That being said, it's now *required* that bridges use
-> devm_drm_bridge_alloc() instead of kzalloc, and we warn in
-> drm_bridge_add if it hasn't.
+> Add num_topdown_events to struct x86_pmu_capability and populate it
+> in perf_get_x86_pmu_capability() so that KVM can determine how many
+> PERF_METRICS fields are valid on the host CPU and correctly identify
+> the reserved bits in IA32_PERF_METRICS.
 >
-> So I don't think we should merge this patch.
-
-I agree.
-
-I theory all drivers are be already using devm_drm_bridge_alloc() by now.
-
-In practice rk3066_hdmi is actually still using kzalloc, it should be fixed
-to use devm_drm_bridge_alloc(). Are you OK with doing it in v12?
-
-By "i.MX8 LDB" I guess you mean fsl-ldb.c, which was converted in
-9c399719cfb9 ("drm: convert many bridge drivers from devm_kzalloc() to
-devm_drm_bridge_alloc() API").
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> ---
+> v9: new patch
+> ---
+>  arch/x86/events/core.c            | 1 +
+>  arch/x86/include/asm/perf_event.h | 1 +
+>  2 files changed, 2 insertions(+)
+>
+> diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+> index 8b3ea0adb965..01c1c9447f30 100644
+> --- a/arch/x86/events/core.c
+> +++ b/arch/x86/events/core.c
+> @@ -3164,6 +3164,7 @@ void perf_get_x86_pmu_capability(struct x86_pmu_capability *cap)
+>  	cap->events_mask_len	= x86_pmu.events_mask_len;
+>  	cap->pebs_ept		= x86_pmu.pebs_ept;
+>  	cap->mediated		= !!(pmu.capabilities & PERF_PMU_CAP_MEDIATED_VPMU);
+> +	cap->num_topdown_events	= x86_pmu.num_topdown_events;
+>  }
+>  EXPORT_SYMBOL_FOR_KVM(perf_get_x86_pmu_capability);
+>  
+> diff --git a/arch/x86/include/asm/perf_event.h b/arch/x86/include/asm/perf_event.h
+> index ceb6188e5217..3c02389b2ea6 100644
+> --- a/arch/x86/include/asm/perf_event.h
+> +++ b/arch/x86/include/asm/perf_event.h
+> @@ -306,6 +306,7 @@ struct x86_pmu_capability {
+>  	int		bit_width_fixed;
+>  	unsigned int	events_mask;
+>  	int		events_mask_len;
+> +	int		num_topdown_events;
+>  	unsigned int	pebs_ept	:1;
+>  	unsigned int	mediated	:1;
+>  };
