@@ -1,139 +1,92 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CB3357D09
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D7B2367DF
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 05:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789968431; cv=none; b=j6RNs0NLFvLnqIgpMQVpxqM4k6OC9oI941tyY1VLAeZEHL4kOn9Tcp2qJdx33FbiKDwJjRYS+OtxbdUIgTN4G9O1FDkslTN+UGWQWKpYO6IeVlEKCUgijZLsrvKgddkZB09kq4K27PEYIZH27BwIxoGkg6+NpHFWDouh9ItCCjw=
+	t=1789968643; cv=none; b=EOlcEjCvvt7XbKXRVZCrBs11J12Bsy3pexFBOE5c9QVq2fFoCKvK+eWZM6GTH/K4JQj4LcRv6h8Up6wyrJIHdl4H0wFpPfrx+qYWht9jVxfVKPWAUodAlqFF0v+iZe46cnmJrUr7ihsiRgE+cpHDDjTrAKcyGQe5vFFVtCNcmFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789968431; c=relaxed/simple;
-	bh=K4dXuFjdLrygWeliwvNV/H7rdoqVo5eXsrZKXIh50eQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Be/qnX/bqE505eL92Co/x86ccDLHLSNlIJiFHPyzPJWEIMXcAA4AXddoGN/PZn813H9aZpb941f0wtq4SnvMXXYTr7e13bzdobttJhwslqNQXUpidIFWy80CH5zyrphUyGwN3agZd+vU+71yTDo4Odwi+ZqQZNplbB4a6Tsi+w8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djF6GEmG; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789968643; c=relaxed/simple;
+	bh=+GFyEruLPpVHhivtOE/9dTjxf+78VADPZmw++4Vb7LY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=aok99twqiOmg3RxEDiFP3ypomkpmPDIyV7uZc9W7M5HvT+rg+s1Q18vDF0Z24wKWV+pj+JnNSb5JDYdRbxBXe7NuDxz3G+tKSMU+T4mEmVOREAv1iJ9dg9NL6+0XQKDMpf13Ih7cODM4RYJiwapPwuN+pVIhZ34a1N5gkdca2ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=kE2KZl1I; arc=none smtp.client-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djF6GEmG"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39d654f02baso2154482a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:27:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789968425; x=1790573225; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xd8o2pAawE0z2eISzR2WyTi70wnc7/XhLNuD2B4d+0U=;
-        b=djF6GEmGU86IVo3BorEOrk4ox1l4b9E5ym/I0UaxOqeNzMMgIt1PA8F7reLvucP+kp
-         anhUqkgYs93cMXz6JrTDp1w0PamdLwVjZV6K/vTukPeMl3RzbW+ReJq96DjM9O6uU8/P
-         98/JaNPUQlXYuaeLVlHFRR4P/ON4W4q8tiE+XWQemfjaZuDuwXzF4U3pmvD0VBFRFv3N
-         2dDRvvdkoC3Nsak+iXNJ4pKysYc/ld7aUB4uq5uZ+FUiFtPYt+hJFzr+LpqilY54ev8g
-         NBGQVfalMZmEHIQqkRDOC5Jt3p18ksFtcVzgEI4m9u0xufTR2UotN0/t2kjqD1LkcI+1
-         /FLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789968425; x=1790573225;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xd8o2pAawE0z2eISzR2WyTi70wnc7/XhLNuD2B4d+0U=;
-        b=Y/zqZKuZB3EhAdFOxWjJ1pwLoann7cB9dJGfAixVOBkOtLtK0qm59tTXfVtZeU0Fvk
-         mY/BOOa5Fqw5Qghr74C9Mck3pwvO2oNw9O8T0bEhIB7dWsW/w42RD2XKBfWcSQ0Vu7Y/
-         a7c5YqaQyP41PT/CFngaO4T/tICwNYURdSVWgdE8wpzff0cEPalxjrXywH31bmNcTmDZ
-         DjZnCs/cu8XMV0g4AszN7m0dzMJWr280XzjJSu5eXxkuIP6YaGafT1NRX7SUjaHrr0x7
-         AV0Wo0BhwFzgYhswYgnoDIeR9ArGsPHbMMHABRYkreldA7pcwgSpkU9hRKwx8EfX886m
-         AZ9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxfkxu6tbADDqw9o5zVMzOj3izlknJU/6DYqEKnQ7ukIHgB571VsCuB7TDZSU1pHlTvOiMe3CuYxHxp1dU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lY/GU1HXbPmE1tFQg/+VWOdIxJVD87FY4J6fiEPBpnPhCMv5x+
-	snWUURQL2VwieY34pS7i5Lz6Fc5WoNfNVXu5adXSfxF9tPyZnluaa8lo
-X-Gm-Gg: AYBFou2EPf3kAp+LBEKD7hO6maUkesQhKoSaH0cks4ETQo9nCIsuCqYQIcY3tJrdzl4
-	LB3yjbM8GU5aAAuH2itckkr6RQUpDAmFZ8Hd9dIdrs6tujkXKDIfNK6voUTxrqJsicvCGqv2vUF
-	AVGKm3JExaKSScV/nj4svaqqbMmYzetsob96PLqWmSW4k7BdZPfKyKGwrl5u5YYw4x1fLqhDpUg
-	Ox8sjvXQJvBC8rkaCqZUToG/M2Cys2vu/QH4Zf/z/HuJfrTC70EYgZSzLHQAp1PGvh9JSGyJvox
-	CUR1oG77TBWgpi2DnOUQE2hA9OmNcAHNENV2h5XOwPGS2ZMp3/I0FvaZWSNtjJQAtXzW6i/+jlZ
-	JQtD9y+6tcZSJVq4xLdjzZOmwLBO1pBrw+qst0JnL4aBVTlJx0cdp9eYrD4Y7VLomBeL71YRyfK
-	nFRc/uG3VySA5Sn6agaukd1DGjl3IgJHv4nITqCHrKe0SVzYrg4ageCEgN14cKq3KiTFvzXpzIp
-	ABpZzym2RaJy4g4Csk++bkS+QLdH1ZqjI+Os1aAznB4ZXBLVxT83FMGLLnxXF4eXEuWVqoZ05sL
-	jWKM5MOhSg==
-X-Received: by 2002:a17:90b:39ae:b0:39e:6c69:34d2 with SMTP id 98e67ed59e1d1-39e6c693659mr8697371a91.54.1789968424789;
-        Sun, 20 Sep 2026 22:27:04 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e554e5529sm6677054a91.4.2026.09.20.22.27.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 22:27:04 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: bhelgaas@google.com,
-	airlied@redhat.com
-Cc: benh@kernel.crashing.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	benquike@gmail.com
-Subject: [PATCH v2 1/2] PCI/VGA: fix inverted vga_tryget() return check in vga_arb_write()
-Date: Mon, 21 Sep 2026 05:27:01 +0000
-Message-ID: <20260921052702.1725696-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260919222629.3798073-1-benquike@gmail.com>
-References: <20260919222629.3798073-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="kE2KZl1I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1789968630; x=1790227830;
+	bh=i2wIboFCo+kxs04aAU6+cy0CY230tavUIgMU5s1ifaQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kE2KZl1IXAuYSx8USsyxZrbIA3M82psf3fGpdj2RAHJt8si+YKLfsPSCR2KGVeduf
+	 cFfSl1Xq694rkdQrEaOIDODL5gJRkjzb1Va+BCbI253DdDAZVD+ozu82O948Sc3uNr
+	 57ktxsAHz+mFtgTvvwW9u4cyHFQH4DaA2Kg87c4ZNSRLgoRBialP7RFfMdmuZquV93
+	 DsRWJuvWyDLBccb9P8NjoZ6ujBJUSeQUpdYVZSMSZeUtxinlZJC2UYUSHHg64Tiebt
+	 WFl5Z6MwCFgfkEYexqnTAzOUQ6sXgqahTVRZRfAzZ6WsVSJ/KN/SdPdQcJ0sTHkw1l
+	 gx+3nedQQ7h8A==
+X-Pm-Submission-Id: 4hpBdd10M2z1DDrL
+From: Esben Haabendal <esben@geanix.com>
+To: "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Lars-Peter Clausen" <lars@metafoo.de>,  "Rob Herring"
+ <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
+ Dooley" <conor+dt@kernel.org>,  "Martin Kepplinger" <martink@posteo.de>,
+  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
+ <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
+  "Andy Shevchenko"
+ <andy@kernel.org>,  "Martin Kepplinger"
+ <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
+ <christoph.muellner@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,  "Joshua
+ Crofts" <joshua.crofts1@gmail.com>
+Subject: Re: [PATCH v9 07/10] iio: accel: mma8452: Add comment block for
+ struct mma8452_data
+In-Reply-To: <178995195773.928090.4574643769779647971.b4-review@b4>
+References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
+	<20260916-mma8452-open-drain-v9-7-0dd24fa2f3d7@geanix.com>
+	<x2D4xvt8eFZ96xjrBQ2gs1ndmhubt4vjxF6N8-D-mfGU2v0C_e0onChpvBGSClYhr3BLqmPXsVzNjVKDdy0IfA==@protonmail.internalid>
+	<178995195773.928090.4574643769779647971.b4-review@b4>
+Date: Mon, 21 Sep 2026 07:30:28 +0200
+Message-ID: <87fqz39nnv.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-In vga_arb_write(), the "trylock" command handler calls
-vga_tryget(pdev, io_state) and checks:
+"Jonathan Cameron" <jic23@kernel.org> writes:
 
-  if (vga_tryget(pdev, io_state)) {
-      /* Update the client's locks lists... */
+>> The struct mma8452_data is central for this driver, and it makes sense to
+>> have a description of the fields in it to make it easier to work with the
+>> driver.
+>>
+>> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index b70bc8638128..223bef4f7baf 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+>> @@ -104,6 +104,21 @@
+>>
+>>  #define MMA8452_AUTO_SUSPEND_DELAY_MS		2000
+>>
+>> +/**
+>> + * struct mma8452_data - IIO device private data structure
+>> + * @client:			the I2C client object
+>> + * @lock:			mutex for synchronziation of register
+>
+> From sashiko.
+> [Severity: Low]
+> This isn't a bug, but there's a typo here (synchronziation).
+> -
+> If nothing else shows up I'll fix it up whilst applying.
 
-However, vga_tryget() returns 0 on success and a negative errno (-EBUSY)
-when the VGA resources are already locked. Because the check tests for a
-non-zero return value, a successful vga_tryget() skips incrementing
-priv->cards[i].io_cnt / mem_cnt and skips reporting success, leaking the
-acquired VGA lock, whereas a failed vga_tryget() (-EBUSY) erroneously
-records the lock in priv->cards[i] so a subsequent "unlock" or file
-release decrements the lock count without holding the lock.
+I will fix it in v10.
 
-Check if (vga_tryget(pdev, io_state) == 0) in vga_arb_write().
-
-Tested in QEMU against Linux 7.3.0-rc3 by opening /dev/vga_arbiter and
-writing "trylock io+mem" followed by closing the file descriptor. On the
-unfixed kernel, write("trylock io+mem") acquires the VGA lock
-(locks=io+mem(1:1)) but takes the error branch and returns -EBUSY (-16)
-without recording the lock in priv->cards[], permanently leaking the
-lock on close(); with this patch applied, write("trylock io+mem")
-succeeds (ret = 14) and close() cleanly releases the lock
-(locks=none(0:0)).
-
-Fixes: deb2d2ecd43d ("PCI/GPU: implement VGA arbitration on Linux")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Split the vga_tryget() return check fix in vga_arb_write() from the
-  PCI_INVALID_CARD hot-unplug cleanup fix into a 2-patch series, and fix
-  the commit message to reference vga_arb_write(), as noted by Sashiko.
-- Update Fixes: tag from the file-move commit 1d38fe6ee6a8 to
-  deb2d2ecd43d ("PCI/GPU: implement VGA arbitration on Linux").
-
- drivers/pci/vgaarb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-index 3de05aee7859..350ab9624eb9 100644
---- a/drivers/pci/vgaarb.c
-+++ b/drivers/pci/vgaarb.c
-@@ -1272,7 +1272,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
- 			goto done;
- 		}
- 
--		if (vga_tryget(pdev, io_state)) {
-+		if (vga_tryget(pdev, io_state) == 0) {
- 			/* Update the client's locks lists... */
- 			for (i = 0; i < MAX_USER_CARDS; i++) {
- 				if (priv->cards[i].pdev == pdev) {
--- 
-2.49.0
+/Esben
