@@ -1,179 +1,911 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53B43AF66E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989382; cv=pass; b=X7l5Au59jyOVn4A5pvBT1RNaW+q1152emD7ytfRDF9xv9uhY/CYOS2om2yO0Ss+7RHgNj33IMbCKVxsmIe7QNvpEMLmYliam2pVnc4xg8VIupeaeSDQ3AqGEpw2DXaGzdXUCcAPXYnUNO76xcTy1/h0LK7XHq6dlDPOWzvR3hOw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989382; c=relaxed/simple;
-	bh=UY27w1Rfg6xCtMs7QTO53sEOpBKzcS6nCTvac4TS40A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RTRtbIA9WEcDwFF6f3sOZk1yi/eM1AQtfOV0xE7IuCoOFVl9HSKd6PJSrXFgmuLedAuesWSiaWpFC0Bi7V/ioi+IeodzS533abFSnVo3BcY/Jj9npdz4yNRxVnwAMe8M4qSpRyw/LjEgoevrmJ92vWpE8e6Xz64Zkk7jV38czfk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hSdI+FYs; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D78E489FD8
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 11:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789989390; cv=none; b=QNlt7VDhVy/+/sfy1kPpEQ6SPA/KTBYw9b9F1TcX9chlKPDsdsYGrXX3ORjVA2KMBnoIyZTB/6YrYq4J1I7Kwxr3+TtgfqypBRRjWG3vohHm4nyt47QE9Fc15PQSb77BQNLYINs2vdxJXX5cqYMzgC72K9GGsZyZm7pP3L/CFKk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789989390; c=relaxed/simple;
+	bh=G6CSjY6qjOYN2nw4/gPkOoeK/3pp8ZCwCWvOb3IKMKk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kk+bDKfLrfSpxEagTckhI25ONZqebOYB9Y2HAl6db+EU83j2gBVoUAYyWCWMUgS7eqXNjGejVam/b26vUT0HgKq3nOLo44KHjozGMr6SX3Czdf9BMYJ4Y0SL7cUAT+XFbDDutair+djD1GhnfnXnc3cRfqIflUN73Wign0Lta24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=d8HTh4g+; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hSdI+FYs"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43db0c16so19858487b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:16:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789989379; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pCe9JBUQR3Cb55SfH8r9KtdswaJ5sU6LEVk9n3LWu4BGu+j3F+1VEswODG5FwrTV/g
-         9OZP67EVD11ZfLQEj4U/F3EqhV+Tar29AI86gieXq4WpQEe9Ev+pLEeU9Q7IKYchf4gE
-         0DSWfEGndjHUdjBcHeAKJR+r8EyA3j+H+ErSzkjfmihNwrntYOfcdkMQKEbdY3fQpWO3
-         LfXQ6Z5e69ZyKJN+ixnjvcmUkJYm99+ai/L0F8Kc9Vl92Sv9h8tAS7Oc6axNqJJwhvbM
-         dQSjqC6ZsLd8lqCNSZ98TknpW+s05wjpHYhRg+wANDXZTI1AOwx8DALCASZC6XQzfsd6
-         97zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=pOZGG9rQS4x6RO0sAzFbkNSMIY91sIYWznb6POPYtaM=;
-        fh=nqRJhsR4BtAAEgHcmUfhSvOvA2GgfOsXxebTskeW0qk=;
-        b=BAdltXsZt3del51+q4kFY/n/A7HNl1Gz31HEzhH2aOZq6K44SlqZTfgg+8uZiBqZYu
-         DMs9F/zSllO4pcNDOB0wwWcICqKmn9OBr5eBRp7VwKjtOneltXp8KAJfhrnownYPiYiQ
-         nVyDxeQPeWBW9j9x/LH9cf4+ZcELxRTdQ+WwYDiUXIawkUUGv3MUUFdSleNN87H6VexP
-         zT9/PBZpM1fjSX09s+6Kn+40GPGeutozNf90s17sZMH/TqcczqQhBCloZSZPswc81Ypi
-         palcn5TQgrMgzmY3bJ3H6kMUYze5MIDP3EdtcgWng1u1310iGGOWgFVmZifZnPy4drqd
-         G1ig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="d8HTh4g+"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so24976055ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 04:16:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789989379; x=1790594179; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pOZGG9rQS4x6RO0sAzFbkNSMIY91sIYWznb6POPYtaM=;
-        b=hSdI+FYsDeu6UasZMF5RDReUq7JWGuq3otRkujWb6JLFMDEjm8ireuFceohum0h0uJ
-         VQEjyp9lPc0C81/aeF/w+QVzbZiF3esQpfF1rDs/7Z+cAfqITqj0iJbqtcV9xlZw3xRj
-         N8aDF20fNmOBCQEO7/8B2rbelnKNWBx/hwHNR8Id6QDIz7vsqXQOUN/u5jw9vkYIJ6fs
-         1zOZhXYMmJM4thxlNzFMLlyOla9g9lqrihXX9jg/7HQ1bwdIbOefrCR6KjgbwsnIQpXm
-         6UzK7I4XVnfaw6mfZ/Q8iILOu2rpjSsnXBu62BaH8jmkKpo3g1JZ/tHUM4bRyRmWhAHz
-         a/QA==
+        d=bytedance.com; s=google; t=1789989386; x=1790594186; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xeMiGJ2SVpHxKgYYhwuFjvWQcTsb5P9v/SPH3HjgQHc=;
+        b=d8HTh4g+ySkJ0H0l8ags+0GJB1q1cbrFexcXiALcsMupV92nVvUwYL1a5JKpgVe3Q7
+         wlqmK0sKp3Ugbj4VeOuCUH1VqJgwjZtEaf7lGC04bqVHFwUG86NcyRNalR+g2kmIy7Ht
+         PLNNrjJDVGf4GZYAZZc2GtYgkwOQ1waJpTcpWEUBhsDV8M/aGl8HoiJUKmmTS+kowkwf
+         8IxMt4IdZ40D/NCMXu+RY6Wt2ZQ6cUjZaoMdlUXDlLIIEWThJ9GIMoEvBxxNXONU8KGI
+         haC85p+tVARvheTXH4FpLMv24+1uau6lrPOUH6FG+8gwPDrIFvHhDfrRw7mWM16sPiVr
+         Y2GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789989379; x=1790594179;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pOZGG9rQS4x6RO0sAzFbkNSMIY91sIYWznb6POPYtaM=;
-        b=OeMqC/ly6/pHWleB+9aBRDJxkBEKHZbtAT3aZ6AXLUnxx4oZS7jZW+4kDiI3gpdky9
-         MrOc1Wf5/hB/u8Ri2rL79iNTko6nKRWseESlUotPooD1+0nP+K7KlTU/37eSKsPguh6P
-         HTURxg9r3myxq1LhVYyuzH6bJglWRbBTn7dKswG05wFjbT3PNshSqbMcXyK6AUVQ2gTz
-         7vJbZMQ77OybiXqVeoeKj+3cA6jyX/5xJ5AXr/qZIlqTweueynBwzgxwvpCTZ4PkSmBD
-         iepBJITPNEXskmCbJe9mqyWchaJGNXiBAMKdSM8RkxDabNgxX5goOoWFXHcrdYmfnQwg
-         5oBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgR72vf2oDbZR9bPh1ukpiuOeteRxWZ8wySh9/G18EqzwRlI+b9XA+Ec0UQsLljP3+ztUcFW+H/4nL8SU=@vger.kernel.org
-X-Gm-Message-State: AFuF++muPvHVErTB9ADdgxwOj7bc0aBWRWE6PYcghMA4hBvDXh3ysZmC
-	Tfl2Lh3aQY5vci7ouRpnDwctHU8c/Diyo1ralUwGeEbtdhvq1MN2ajD2g/WYxjV6FGsZGsLAKQl
-	MbqEfuSwHK5smm7/iVwM5BQJJRfn0PvU=
-X-Gm-Gg: AYBFou25vAjoYyEkYzwFBgwaP7i5dQ53zVihdvXJ3r+es9dFLV3x25v/0dntAUhcCc3
-	ValrszXe0cHdLA3sGbnOFxxCrWRyL0BL22XPxPmD8R4bqtLUos6NcXfZSLovChX40aPgZWYLLGv
-	EOVxmyUTnseMW37OIMPjztBRruQhb5Y6MPgJedkCRjFs8x3cwyyln8q25tmMJCQh0zN8gwCVQob
-	+Q6XE1xY2/+D41F1tojMKIcybxl1AaI9Q1O0pHxDMg+HDS0cgzeYUmf62Ej0QTHm/Jk1WXbyvND
-	bjHciEvBwjf2hGPju7YfTABF5sI5ez2lw3tnsmeDCZeHQst23jeZnD9zUQ==
-X-Received: by 2002:a05:690e:418b:b0:671:4ed:6b63 with SMTP id
- 956f58d0204a3-6717fdf34d0mr2345152d50.71.1789989379554; Mon, 21 Sep 2026
- 04:16:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789989386; x=1790594186;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xeMiGJ2SVpHxKgYYhwuFjvWQcTsb5P9v/SPH3HjgQHc=;
+        b=RmDJlQEukaKCVCHrLw+yD4FMDCbRrGXndvQInZ3Wm6At8DOgAQRCLz2DjwHl+UTHKV
+         DlEOYtp8qGmJFTIw5taqWHvBV40/zpv5JFg1UWDyo7fe0GkIf6kD7OAsshZWxUqXG+sd
+         nU0q70t7DXL7GzUgz2vLaYtuImMbRijpFcdHnxpRRdSFJj9lgYnrHNzm0jz8HU8cAfUD
+         +8DvHU/O5EnRzau1vEwv9523Sjb4sWaebIu9mGE+4Mat3I3IcF3rO7GabQ0BqjuYH/9s
+         hycSF+XPzj0FRSqMoEe6DxJUEAl8DHnrDbu0+b3qwfYi5OSRawaqZ8aMXM5vd3iIr0Zb
+         JG/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxhv/QDaQU1pBOK8Mu6paX2zr2PW0chmRzRTkVHw9r4ToSgNfSdmVo93tdnAdF3gCutCPXA15cyEDy+R00=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKNdQN+q6tbJdcfuuNJ+83iLUmU2/8eqW41BJwKbl/7zz/+qLh
+	hGKzcsDyM0Pcapx4rGYxmu68RGbh0ozPRLETI0suP4SlFlYZXaMtZe5OlpGHC1HKJWs=
+X-Gm-Gg: AYBFou0vqi0gC0ERoLxhsPLeNyumHPdwwc4hTn+XDw6XiNaRGQs1eN+wwVsMAEAElex
+	BqvHEqgkkEaIAGrOoX9oSjGKbOSSmdbokWRmCUe37WWXkisCRk2lFTRjPuc/QlpoFFGdSeWxz5+
+	RYD0MuO1G2ALepo5q8FBOyHWZd2FyP0n9YkbUzPE/P95l4amQ2ZlZu5Ou1/4B7+ibViseQ5plRK
+	zAYNVY543h/JKdFFDgaiv7zo0yyWMaodWH3WNW/OsHR6pLhn2dH13Jrmr8hmsN4ufg7O8S3JOmc
+	dStttHoOYBI3D3IaoEV4O5QMtQqv9JI5ZNDzsjTqH7Hl4iYRnw9/ZGWmRLzlFtMK0FGypEI7mdt
+	c4A74b+NsKRLlcHvjBm2FxDXfKD8PFeyhIc+nuahw4Q7nvq+KilbrCPrzIFKfAxmUk1jwslTyn+
+	SFc0XJ2KbqgQ2RP/Q6VMg80HgG/x3vo7zedeK0utcVLhzCd1RdXG/+MYAmxOpLzd9Udmk8Y37DK
+	9E8wpA+38tWdSBLuy9D4aCU0/GMUHGNSB0C
+X-Received: by 2002:a17:903:1103:b0:2dd:ad74:6d16 with SMTP id d9443c01a7336-2ddb1baf462mr156833115ad.28.1789989386189;
+        Mon, 21 Sep 2026 04:16:26 -0700 (PDT)
+Received: from FJ7FR2JRQ3.bytedance.net ([240e:694:e20:401::8])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba651sm31831125ad.53.2026.09.21.04.16.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 04:16:25 -0700 (PDT)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
+	Conor Dooley <conor@kernel.org>,
+	Anup Patel <anup@brainfault.org>
+Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Will Deacon <will@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Yuanzhu <yuanzhu@bytedance.com>,
+	Yicong Yang <yang.yicong@picoheart.com>,
+	Susheng Yang <yang.susheng@zte.com.cn>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Subject: [PATCH v10 RESEND 2/9] riscv: add support for SBI Supervisor Software Events extension
+Date: Mon, 21 Sep 2026 19:14:59 +0800
+Message-ID: <d067d9d2a8f33d480ebdcce276328a336aa26073.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
+References: <cover.1789974241.git.zhangzhanpeng.jasper@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913045001.1126563-1-lgs201920130244@gmail.com> <aqgO5PfShs5FG--f@SMW015318>
-In-Reply-To: <aqgO5PfShs5FG--f@SMW015318>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Mon, 21 Sep 2026 19:16:07 +0800
-X-Gm-Features: AcwNN1U2EQbqeVHXltNz7b04PkxaH8i1uZCpkC4vS2xVRRfVK0ht_Ajux6vb24U
-Message-ID: <CANUHTR-2haN5Z6ajc8ELGF57JvTHOCcFG_ZzXRdR7XwgC3PKog@mail.gmail.com>
-Subject: Re: [PATCH] dmaengine: fsl-dpaa2-qdma: fix ppriv memory leaks
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Peng Ma <peng.ma@nxp.com>, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+From: Clément Léger <cleger@rivosinc.com>
 
-Thanks for the review.
+The SBI SSE extension allows firmware to notify supervisor software of
+events that must be delivered independently of normal S-mode interrupts.
+Firmware saves the minimal state required to enter the supervisor handler,
+and Linux builds the synthetic handler context around it.
 
-On Mon, 14 Sept 2026 at 23:12, Frank Li <Frank.li@oss.nxp.com> wrote:
->
-> On Sun, Sep 13, 2026 at 12:50:01PM +0800, Guangshuo Li wrote:
-> > dpaa2_qdma_setup() allocates priv->ppriv separately from priv, but the
-> > allocation is not released on all teardown paths.
-> >
-> > If dpdmai_get_rx_queue() or dpdmai_get_tx_queue() fails after
-> > priv->ppriv has been allocated, dpaa2_qdma_setup() returns through the
-> > error path without freeing it.
-> >
-> > The normal remove path has the same issue. dpaa2_qdma_remove() frees
-> > priv without first releasing priv->ppriv, losing the only reference to
-> > the separately allocated array.
-> >
-> > Free priv->ppriv on setup failures that occur after its allocation and
-> > during normal driver removal before freeing priv.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: 7fdf9b05c73b ("dmaengine: fsl-dpaa2-qdma: Add NXP dpaa2 qDMA controller driver for Layerscape SoCs")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
->
-> qdma_setup() is called by probe() only use devm_ allocate function
->
-> Frank
->
-> >  drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c b/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c
-> > index bf771251264d..0f0fe0291a06 100644
-> > --- a/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c
-> > +++ b/drivers/dma/fsl-dpaa2-qdma/dpaa2-qdma.c
-> > @@ -365,7 +365,7 @@ static int __cold dpaa2_qdma_setup(struct fsl_mc_device *ls_dev)
-> >                                         i, 0, &priv->rx_queue_attr[i]);
-> >               if (err) {
-> >                       dev_err(dev, "dpdmai_get_rx_queue() failed\n");
-> > -                     goto exit;
-> > +                     goto err_free_ppriv;
-> >               }
-> >               ppriv->rsp_fqid = priv->rx_queue_attr[i].fqid;
-> >
-> > @@ -373,7 +373,7 @@ static int __cold dpaa2_qdma_setup(struct fsl_mc_device *ls_dev)
-> >                                         i, 0, &priv->tx_queue_attr[i]);
-> >               if (err) {
-> >                       dev_err(dev, "dpdmai_get_tx_queue() failed\n");
-> > -                     goto exit;
-> > +                     goto err_free_ppriv;
-> >               }
-> >               ppriv->req_fqid = priv->tx_queue_attr[i].fqid;
-> >               ppriv->prio = DPAA2_QDMA_DEFAULT_PRIORITY;
-> > @@ -382,6 +382,9 @@ static int __cold dpaa2_qdma_setup(struct fsl_mc_device *ls_dev)
-> >       }
-> >
-> >       return 0;
-> > +
-> > +err_free_ppriv:
-> > +     kfree(priv->ppriv);
-> >  exit:
-> >       dpdmai_close(priv->mc_io, 0, ls_dev->mc_handle);
-> >       return err;
-> > @@ -787,6 +790,7 @@ static void dpaa2_qdma_remove(struct fsl_mc_device *ls_dev)
-> >       dpaa2_dpdmai_free_channels(dpaa2_qdma);
-> >
-> >       dma_async_device_unregister(&dpaa2_qdma->dma_dev);
-> > +     kfree(priv->ppriv);
-> >       kfree(priv);
-> >       kfree(dpaa2_qdma);
-> >  }
-> > --
-> > 2.43.0
-> >
+SSE can arrive while Linux is already in an exception entry path. At that
+point sscratch and tp may be in the middle of the normal trap-entry
+exchange, so they cannot always identify current. Store current in a
+per-CPU slot and use the hart ID passed by firmware to recover it.
 
-Agreed. I'll switch priv->ppriv to devm_kcalloc() and send a v2.
+Give each event, including each CPU instance of a local event, a dedicated
+stack and shadow call stack. Synchronize vmapped stack ranges before
+unmasking events so that the handler cannot take a vmalloc fault while
+running in an NMI-like context.
 
-Thanks,
-Guangshuo
+The handler is a synthetic supervisor episode, but completion must resume
+the context interrupted by the SSE. Preserve stvec and, when the hypervisor
+extension is present, hstatus across the handler. Read the interrupted a6
+and a7 values from the SSE attributes, construct pt_regs for the
+interrupted context, and write back any changes made by the handler.
+
+Nested exceptions on the SSE event stack temporarily replace both
+TASK_TI_KERNEL_SP and TASK_TI_USER_SP. Preserve their original values
+across the handler and restore them before completing the event, so a
+nested exception cannot leave the interrupted task referring to the event
+stack.
+
+Keep an explicit EVENT_REGISTER not-supported result distinct from other
+firmware failures. This lets clients select another delivery mechanism
+only when firmware has positively rejected the requested event.
+
+Signed-off-by: Clément Léger <cleger@rivosinc.com>
+Co-developed-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Co-developed-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+---
+ MAINTAINERS                          |  12 ++
+ arch/riscv/include/asm/asm.h         |  14 +-
+ arch/riscv/include/asm/scs.h         |   7 +
+ arch/riscv/include/asm/sse.h         |  82 +++++++++
+ arch/riscv/include/asm/thread_info.h |   1 +
+ arch/riscv/kernel/Makefile           |   1 +
+ arch/riscv/kernel/asm-offsets.c      |  14 ++
+ arch/riscv/kernel/entry.S            |  14 ++
+ arch/riscv/kernel/sbi_sse.c          | 246 +++++++++++++++++++++++++++
+ arch/riscv/kernel/sbi_sse_entry.S    | 226 ++++++++++++++++++++++++
+ 10 files changed, 614 insertions(+), 3 deletions(-)
+ create mode 100644 arch/riscv/include/asm/sse.h
+ create mode 100644 arch/riscv/kernel/sbi_sse.c
+ create mode 100644 arch/riscv/kernel/sbi_sse_entry.S
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cc3cae2e378b..7a6af19f7e30 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23595,6 +23595,18 @@ F:	arch/riscv/boot/dts/spacemit/
+ N:	spacemit
+ K:	spacemit
+ 
++RISC-V SUPERVISOR SOFTWARE EVENTS
++M:	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
++M:	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
++R:	Yunhui Cui <cuiyunhui@bytedance.com>
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	arch/riscv/include/asm/sse.h
++F:	arch/riscv/kernel/sbi_sse.c
++F:	arch/riscv/kernel/sbi_sse_entry.S
++F:	drivers/firmware/riscv/riscv_sbi_sse.c
++F:	include/linux/riscv_sbi_sse.h
++
+ RISC-V TENSTORRENT SoC SUPPORT
+ M:	Drew Fustini <dfustini@oss.tenstorrent.com>
+ M:	Joel Stanley <jms@oss.tenstorrent.com>
+diff --git a/arch/riscv/include/asm/asm.h b/arch/riscv/include/asm/asm.h
+index b8bf842d4c13..e1196caea02d 100644
+--- a/arch/riscv/include/asm/asm.h
++++ b/arch/riscv/include/asm/asm.h
+@@ -91,16 +91,24 @@
+ .endm
+ 
+ #ifdef CONFIG_SMP
+-.macro asm_per_cpu dst sym tmp
+-	lw    \tmp, TASK_TI_CPU_NUM(tp)
+-	slli  \tmp, \tmp, RISCV_LGPTR
++.macro asm_per_cpu_with_cpu dst sym tmp cpu
++	slli  \tmp, \cpu, RISCV_LGPTR
+ 	la    \dst, __per_cpu_offset
+ 	add   \dst, \dst, \tmp
+ 	REG_L \tmp, 0(\dst)
+ 	la    \dst, \sym
+ 	add   \dst, \dst, \tmp
+ .endm
++
++.macro asm_per_cpu dst sym tmp
++	lw \tmp, TASK_TI_CPU_NUM(tp)
++	asm_per_cpu_with_cpu \dst \sym \tmp \tmp
++.endm
+ #else /* CONFIG_SMP */
++.macro asm_per_cpu_with_cpu dst sym tmp cpu
++	la    \dst, \sym
++.endm
++
+ .macro asm_per_cpu dst sym tmp
+ 	la    \dst, \sym
+ .endm
+diff --git a/arch/riscv/include/asm/scs.h b/arch/riscv/include/asm/scs.h
+index 023a412fe38d..0d70a35bc01a 100644
+--- a/arch/riscv/include/asm/scs.h
++++ b/arch/riscv/include/asm/scs.h
+@@ -17,6 +17,11 @@
+ 	load_per_cpu gp, irq_shadow_call_stack_ptr, \tmp
+ .endm
+ 
++/* Load the per-CPU IRQ shadow call stack to gp. */
++.macro scs_load_sse_stack reg_evt
++	REG_L gp, SSE_REG_EVT_SHADOW_STACK(\reg_evt)
++.endm
++
+ /* Load task_scs_sp(current) to gp. */
+ .macro scs_load_current
+ 	REG_L	gp, TASK_TI_SCS_SP(tp)
+@@ -40,6 +45,8 @@
+ .endm
+ .macro scs_load_irq_stack tmp
+ .endm
++.macro scs_load_sse_stack reg_evt
++.endm
+ .macro scs_load_current
+ .endm
+ .macro scs_load_current_if_task_changed prev
+diff --git a/arch/riscv/include/asm/sse.h b/arch/riscv/include/asm/sse.h
+new file mode 100644
+index 000000000000..cbd8618c6e00
+--- /dev/null
++++ b/arch/riscv/include/asm/sse.h
+@@ -0,0 +1,82 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2024 Rivos Inc.
++ */
++#ifndef __ASM_SSE_H
++#define __ASM_SSE_H
++
++#include <linux/printk.h>
++#include <linux/types.h>
++
++#include <asm/sbi.h>
++
++static inline bool riscv_sse_available(void)
++{
++#ifdef CONFIG_RISCV_SBI
++	return sbi_probe_extension(SBI_EXT_SSE) > 0;
++#else
++	return false;
++#endif
++}
++
++static inline void riscv_sse_mask_current_hart(void)
++{
++#ifdef CONFIG_RISCV_SBI
++	struct sbiret ret;
++
++	if (!riscv_sse_available())
++		return;
++
++	ret = sbi_ecall(SBI_EXT_SSE, SBI_SSE_HART_MASK, 0, 0, 0, 0, 0, 0);
++	if (ret.error && ret.error != SBI_ERR_ALREADY_STOPPED)
++		pr_emerg("SSE hart mask failed: %ld\n", ret.error);
++#endif
++}
++
++#ifdef CONFIG_RISCV_SBI_SSE
++
++struct sse_event_interrupted_state {
++	unsigned long a6;
++	unsigned long a7;
++};
++
++struct sse_event_arch_data {
++	void *stack;
++	void *shadow_stack;
++	unsigned long tmp;
++	struct sse_event_interrupted_state *interrupted;
++	phys_addr_t interrupted_phys;
++	u32 evt_id;
++	unsigned long hart_id;
++	unsigned int cpu_id;
++};
++
++struct riscv_sse_interrupted_context {
++	struct pt_regs *regs;
++	unsigned long hstatus;
++};
++
++static inline bool sse_event_is_global(u32 evt)
++{
++	return !!(evt & SBI_SSE_EVENT_GLOBAL);
++}
++
++void arch_sse_event_update_cpu(struct sse_event_arch_data *arch_evt, int cpu);
++int arch_sse_init_event(struct sse_event_arch_data *arch_evt, u32 evt_id,
++			int cpu);
++void arch_sse_free_event(struct sse_event_arch_data *arch_evt);
++int arch_sse_register_event(struct sse_event_arch_data *arch_evt);
++void arch_sse_init_cpu(void);
++
++void sse_handle_event(struct sse_event_arch_data *arch_evt,
++		      struct pt_regs *regs);
++asmlinkage void handle_sse(void);
++asmlinkage void noinstr do_sse(struct sse_event_arch_data *arch_evt,
++			       struct pt_regs *regs, unsigned long hstatus);
++
++const struct riscv_sse_interrupted_context *
++riscv_sse_get_interrupted_context(void);
++
++#endif
++
++#endif
+diff --git a/arch/riscv/include/asm/thread_info.h b/arch/riscv/include/asm/thread_info.h
+index 55019fdfa9ec..d14b45610c73 100644
+--- a/arch/riscv/include/asm/thread_info.h
++++ b/arch/riscv/include/asm/thread_info.h
+@@ -36,6 +36,7 @@
+ #define OVERFLOW_STACK_SIZE     SZ_4K
+ 
+ #define IRQ_STACK_SIZE		THREAD_SIZE
++#define SSE_STACK_SIZE		THREAD_SIZE
+ 
+ #ifndef __ASSEMBLER__
+ 
+diff --git a/arch/riscv/kernel/Makefile b/arch/riscv/kernel/Makefile
+index ebe1c3588177..1e34f87e97c0 100644
+--- a/arch/riscv/kernel/Makefile
++++ b/arch/riscv/kernel/Makefile
+@@ -101,6 +101,7 @@ obj-$(CONFIG_DYNAMIC_FTRACE)	+= mcount-dyn.o
+ obj-$(CONFIG_PERF_EVENTS)	+= perf_callchain.o
+ obj-$(CONFIG_HAVE_PERF_REGS)	+= perf_regs.o
+ obj-$(CONFIG_RISCV_SBI)		+= sbi.o sbi_ecall.o
++obj-$(CONFIG_RISCV_SBI_SSE)	+= sbi_sse.o sbi_sse_entry.o
+ ifeq ($(CONFIG_RISCV_SBI), y)
+ obj-$(CONFIG_SMP)		+= sbi-ipi.o
+ obj-$(CONFIG_SMP) += cpu_ops_sbi.o
+diff --git a/arch/riscv/kernel/asm-offsets.c b/arch/riscv/kernel/asm-offsets.c
+index a75f0cfea1e9..15363703cdd6 100644
+--- a/arch/riscv/kernel/asm-offsets.c
++++ b/arch/riscv/kernel/asm-offsets.c
+@@ -15,6 +15,8 @@
+ #include <asm/ptrace.h>
+ #include <asm/cpu_ops_sbi.h>
+ #include <asm/stacktrace.h>
++#include <asm/sbi.h>
++#include <asm/sse.h>
+ #include <asm/suspend.h>
+ 
+ void asm_offsets(void);
+@@ -533,6 +535,18 @@ void asm_offsets(void)
+ 	DEFINE(FREGS_A6,	    offsetof(struct __arch_ftrace_regs, a6));
+ 	DEFINE(FREGS_A7,	    offsetof(struct __arch_ftrace_regs, a7));
+ #endif
++
++#ifdef CONFIG_RISCV_SBI_SSE
++	OFFSET(SSE_REG_EVT_STACK, sse_event_arch_data, stack);
++	OFFSET(SSE_REG_EVT_SHADOW_STACK, sse_event_arch_data, shadow_stack);
++	OFFSET(SSE_REG_EVT_TMP, sse_event_arch_data, tmp);
++	OFFSET(SSE_REG_HART_ID, sse_event_arch_data, hart_id);
++	OFFSET(SSE_REG_CPU_ID, sse_event_arch_data, cpu_id);
++
++	DEFINE(SBI_EXT_SSE, SBI_EXT_SSE);
++	DEFINE(SBI_SSE_EVENT_COMPLETE, SBI_SSE_EVENT_COMPLETE);
++	DEFINE(ASM_NR_CPUS, CONFIG_NR_CPUS);
++#endif
+ #ifdef CONFIG_RISCV_SBI
+ 	DEFINE(SBI_EXT_FWFT, SBI_EXT_FWFT);
+ 	DEFINE(SBI_EXT_FWFT_SET, SBI_EXT_FWFT_SET);
+diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
+index d799c4e56f80..0b79fa7241ea 100644
+--- a/arch/riscv/kernel/entry.S
++++ b/arch/riscv/kernel/entry.S
+@@ -424,6 +424,15 @@ SYM_FUNC_END(call_on_irq_stack)
+  * arguments are passed to schedule_tail.
+  */
+ SYM_FUNC_START(__switch_to)
++#ifdef CONFIG_RISCV_SBI_SSE
++	/*
++	 * Mark the interval where tp changes from prev to next. SSE entry uses
++	 * the interrupted tp while this per-CPU pointer is NULL.
++	 */
++	asm_per_cpu t0, __sbi_sse_entry_task, t1
++	REG_S zero, 0(t0)
++#endif
++
+ 	/* Save context into prev->thread */
+ 	li    a4,  TASK_THREAD_RA
+ 	add   a3, a0, a4
+@@ -470,6 +479,11 @@ SYM_FUNC_START(__switch_to)
+ 	REG_L s11, TASK_THREAD_S11_RA(a4)
+ 	/* The offset of thread_info in task_struct is zero. */
+ 	move tp, a1
++#ifdef CONFIG_RISCV_SBI_SSE
++	/* Publish next only after tp contains its task_struct pointer. */
++	asm_per_cpu t0, __sbi_sse_entry_task, t1
++	REG_S tp, 0(t0)
++#endif
+ 	/* Switch to the next shadow call stack */
+ 	scs_load_current
+ 	ret
+diff --git a/arch/riscv/kernel/sbi_sse.c b/arch/riscv/kernel/sbi_sse.c
+new file mode 100644
+index 000000000000..7dd496e2bdb0
+--- /dev/null
++++ b/arch/riscv/kernel/sbi_sse.c
+@@ -0,0 +1,246 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2025 Rivos Inc.
++ */
++#include <linux/nmi.h>
++#include <linux/sched.h>
++#include <linux/scs.h>
++#include <linux/bitfield.h>
++#include <linux/percpu-defs.h>
++#include <linux/string.h>
++
++#include <asm/asm-prototypes.h>
++#include <asm/switch_to.h>
++#include <asm/irq_stack.h>
++#include <asm/sbi.h>
++#include <asm/sse.h>
++#include <asm/tlbflush.h>
++
++DEFINE_PER_CPU(struct task_struct *, __sbi_sse_entry_task);
++static DEFINE_PER_CPU(struct riscv_sse_interrupted_context *,
++			      riscv_sse_interrupted_context);
++
++const struct riscv_sse_interrupted_context *
++riscv_sse_get_interrupted_context(void)
++{
++	return this_cpu_read(riscv_sse_interrupted_context);
++}
++
++void __weak sse_handle_event(struct sse_event_arch_data *arch_evt, struct pt_regs *regs)
++{
++}
++
++void noinstr do_sse(struct sse_event_arch_data *arch_evt,
++		    struct pt_regs *regs, unsigned long hstatus)
++{
++	struct riscv_sse_interrupted_context context = { regs, hstatus };
++	struct riscv_sse_interrupted_context *previous;
++	struct sbiret sret;
++
++	nmi_enter();
++	instrumentation_begin();
++
++	/* Retrieve missing GPRs from SBI */
++	sret = sbi_ecall(SBI_EXT_SSE, SBI_SSE_EVENT_ATTR_READ, arch_evt->evt_id,
++			 SBI_SSE_ATTR_INTERRUPTED_A6,
++			 (SBI_SSE_ATTR_INTERRUPTED_A7 -
++			  SBI_SSE_ATTR_INTERRUPTED_A6) + 1,
++			 (unsigned long)arch_evt->interrupted_phys, 0, 0);
++	if (sret.error) {
++		pr_warn("Failed to read interrupted registers for event %x: %ld\n",
++			arch_evt->evt_id, sret.error);
++		/* Let the client quiesce its source without using incomplete regs. */
++		sse_handle_event(arch_evt, NULL);
++		goto out;
++	}
++
++	memcpy(&regs->a6, arch_evt->interrupted,
++	       sizeof(*arch_evt->interrupted));
++
++	/* Make the interrupted frame visible while clients handle this event. */
++	previous = this_cpu_read(riscv_sse_interrupted_context);
++	this_cpu_write(riscv_sse_interrupted_context, &context);
++	sse_handle_event(arch_evt, regs);
++	this_cpu_write(riscv_sse_interrupted_context, previous);
++
++	if (memcmp(&regs->a6, arch_evt->interrupted,
++		   sizeof(*arch_evt->interrupted))) {
++		memcpy(arch_evt->interrupted, &regs->a6,
++		       sizeof(*arch_evt->interrupted));
++		sret = sbi_ecall(SBI_EXT_SSE, SBI_SSE_EVENT_ATTR_WRITE,
++				 arch_evt->evt_id, SBI_SSE_ATTR_INTERRUPTED_A6,
++				 (SBI_SSE_ATTR_INTERRUPTED_A7 -
++				  SBI_SSE_ATTR_INTERRUPTED_A6) + 1,
++				 (unsigned long)arch_evt->interrupted_phys, 0, 0);
++		/*
++		 * If writeback fails, COMPLETE resumes with firmware's original
++		 * a6/a7 rather than treating the shared buffer as committed.
++		 */
++		if (sret.error)
++			pr_warn("Failed to write interrupted registers for event %x: %ld\n",
++				arch_evt->evt_id, sret.error);
++	}
++
++out:
++	instrumentation_end();
++	nmi_exit();
++}
++
++static void *alloc_to_stack_pointer(void *alloc)
++{
++	return alloc ? alloc + SSE_STACK_SIZE : NULL;
++}
++
++static void *stack_pointer_to_alloc(void *stack)
++{
++	return stack ? stack - SSE_STACK_SIZE : NULL;
++}
++
++static void arch_sse_flush_tlb_range(struct sse_event_arch_data *arch_evt,
++				     unsigned long start, unsigned long size)
++{
++	unsigned long end = start + size;
++
++	if (sse_event_is_global(arch_evt->evt_id))
++		flush_tlb_kernel_range(start, end);
++	else
++		local_flush_tlb_kernel_range(start, end);
++}
++
++static void arch_sse_shadow_stack_cpu_sync(struct sse_event_arch_data *arch_evt)
++{
++#ifdef CONFIG_SHADOW_CALL_STACK
++	if (arch_evt->shadow_stack)
++		arch_sse_flush_tlb_range(arch_evt,
++					 (unsigned long)arch_evt->shadow_stack,
++					 SCS_SIZE);
++#endif
++}
++
++#ifdef CONFIG_VMAP_STACK
++static void *sse_stack_alloc(unsigned int cpu)
++{
++	void *stack = arch_alloc_vmap_stack(SSE_STACK_SIZE, cpu_to_node(cpu));
++
++	return alloc_to_stack_pointer(stack);
++}
++
++static void sse_stack_free(void *stack)
++{
++	vfree(stack_pointer_to_alloc(stack));
++}
++
++static void arch_sse_stack_cpu_sync(struct sse_event_arch_data *arch_evt)
++{
++	void *p_stack = arch_evt->stack;
++	unsigned long stack = (unsigned long)stack_pointer_to_alloc(p_stack);
++
++	/*
++	 * Flush the tlb to avoid taking any exception when accessing the
++	 * vmapped stack inside the SSE handler
++	 */
++	arch_sse_flush_tlb_range(arch_evt, stack, SSE_STACK_SIZE);
++
++	arch_sse_shadow_stack_cpu_sync(arch_evt);
++}
++#else /* CONFIG_VMAP_STACK */
++static void *sse_stack_alloc(unsigned int cpu)
++{
++	void *stack = kmalloc(SSE_STACK_SIZE, GFP_KERNEL);
++
++	return alloc_to_stack_pointer(stack);
++}
++
++static void sse_stack_free(void *stack)
++{
++	kfree(stack_pointer_to_alloc(stack));
++}
++
++static void arch_sse_stack_cpu_sync(struct sse_event_arch_data *arch_evt)
++{
++	arch_sse_shadow_stack_cpu_sync(arch_evt);
++}
++#endif /* CONFIG_VMAP_STACK */
++
++static int sse_init_scs(int cpu, struct sse_event_arch_data *arch_evt)
++{
++	void *stack;
++
++	if (!scs_is_enabled())
++		return 0;
++
++	stack = scs_alloc(cpu_to_node(cpu));
++	if (!stack)
++		return -ENOMEM;
++
++	arch_evt->shadow_stack = stack;
++
++	return 0;
++}
++
++void arch_sse_event_update_cpu(struct sse_event_arch_data *arch_evt, int cpu)
++{
++	arch_evt->cpu_id = cpu;
++	arch_evt->hart_id = cpuid_to_hartid_map(cpu);
++}
++
++void arch_sse_init_cpu(void)
++{
++	__this_cpu_write(__sbi_sse_entry_task, current);
++}
++
++int arch_sse_init_event(struct sse_event_arch_data *arch_evt, u32 evt_id,
++			int cpu)
++{
++	void *stack;
++
++	arch_evt->interrupted = kmalloc_obj(*arch_evt->interrupted, GFP_KERNEL);
++	if (!arch_evt->interrupted)
++		return -ENOMEM;
++
++	arch_evt->evt_id = evt_id;
++	stack = sse_stack_alloc(cpu);
++	if (!stack)
++		goto err_free_interrupted;
++
++	arch_evt->stack = stack;
++
++	if (sse_init_scs(cpu, arch_evt)) {
++		sse_stack_free(arch_evt->stack);
++		goto err_free_interrupted;
++	}
++
++	/* kmalloc keeps the two adjacent SBI attribute words contiguous. */
++	arch_evt->interrupted_phys = virt_to_phys(arch_evt->interrupted);
++
++	arch_sse_event_update_cpu(arch_evt, cpu);
++
++	return 0;
++
++err_free_interrupted:
++	kfree(arch_evt->interrupted);
++	arch_evt->interrupted = NULL;
++	return -ENOMEM;
++}
++
++void arch_sse_free_event(struct sse_event_arch_data *arch_evt)
++{
++	scs_free(arch_evt->shadow_stack);
++	sse_stack_free(arch_evt->stack);
++	kfree(arch_evt->interrupted);
++}
++
++int arch_sse_register_event(struct sse_event_arch_data *arch_evt)
++{
++	struct sbiret sret;
++
++	arch_sse_stack_cpu_sync(arch_evt);
++
++	sret = sbi_ecall(SBI_EXT_SSE, SBI_SSE_EVENT_REGISTER, arch_evt->evt_id,
++			 (unsigned long)handle_sse, (unsigned long)arch_evt, 0,
++			 0, 0);
++	if (sret.error == SBI_ERR_NOT_SUPPORTED)
++		return -EOPNOTSUPP;
++
++	return sbi_err_map_linux_errno(sret.error);
++}
+diff --git a/arch/riscv/kernel/sbi_sse_entry.S b/arch/riscv/kernel/sbi_sse_entry.S
+new file mode 100644
+index 000000000000..e0e8efba12dd
+--- /dev/null
++++ b/arch/riscv/kernel/sbi_sse_entry.S
+@@ -0,0 +1,226 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (C) 2025 Rivos Inc.
++ */
++
++#include <linux/init.h>
++#include <linux/linkage.h>
++
++#include <asm/alternative-macros.h>
++#include <asm/asm.h>
++#include <asm/csr.h>
++#include <asm/hwcap.h>
++#include <asm/scs.h>
++
++/* When entering handle_sse, the following registers are set:
++ * a6: contains the hartid
++ * a7: contains a sse_event_arch_data struct pointer
++ */
++SYM_CODE_START(handle_sse)
++	/* Save stack temporarily */
++	REG_S sp, SSE_REG_EVT_TMP(a7)
++	/* Set entry stack */
++	REG_L sp, SSE_REG_EVT_STACK(a7)
++
++	addi sp, sp, -(PT_SIZE_ON_STACK)
++	REG_S ra, PT_RA(sp)
++	REG_S s0, PT_S0(sp)
++	REG_S s1, PT_S1(sp)
++	REG_S s2, PT_S2(sp)
++	REG_S s3, PT_S3(sp)
++	REG_S s4, PT_S4(sp)
++	REG_S s5, PT_S5(sp)
++	REG_S s6, PT_S6(sp)
++	REG_S s7, PT_S7(sp)
++	REG_S s8, PT_S8(sp)
++	REG_S s9, PT_S9(sp)
++	REG_S s10, PT_S10(sp)
++	REG_S s11, PT_S11(sp)
++	REG_S tp, PT_TP(sp)
++	REG_S t0, PT_T0(sp)
++	REG_S t1, PT_T1(sp)
++	REG_S t2, PT_T2(sp)
++	REG_S t3, PT_T3(sp)
++	REG_S t4, PT_T4(sp)
++	REG_S t5, PT_T5(sp)
++	REG_S t6, PT_T6(sp)
++	REG_S gp, PT_GP(sp)
++	REG_S a0, PT_A0(sp)
++	REG_S a1, PT_A1(sp)
++	REG_S a2, PT_A2(sp)
++	REG_S a3, PT_A3(sp)
++	REG_S a4, PT_A4(sp)
++	REG_S a5, PT_A5(sp)
++
++	/* Retrieve entry sp */
++	REG_L a4, SSE_REG_EVT_TMP(a7)
++	/* Save CSRs */
++	csrr a0, CSR_EPC
++	csrr a1, CSR_SSTATUS
++	csrr a2, CSR_STVAL
++	csrr a3, CSR_SCAUSE
++
++	REG_S a0, PT_EPC(sp)
++	REG_S a1, PT_STATUS(sp)
++	REG_S a2, PT_BADADDR(sp)
++	REG_S a3, PT_CAUSE(sp)
++	REG_S a4, PT_SP(sp)
++
++	/* Disable user memory access and floating/vector computing */
++	li t0, SR_SUM | SR_FS_VS
++	csrc CSR_STATUS, t0
++
++	load_global_pointer
++	scs_load_sse_stack a7
++
++#ifdef CONFIG_SMP
++	REG_L t4, SSE_REG_HART_ID(a7)
++	lw t3, SSE_REG_CPU_ID(a7)
++
++	bne t4, a6, .Lfind_hart_id_slowpath
++
++.Lcpu_id_found:
++#else
++	mv t3, zero
++#endif
++
++	asm_per_cpu_with_cpu t2 __sbi_sse_entry_task t1 t3
++	REG_L tp, 0(t2)
++	bnez tp, .Lcurrent_task_found
++
++	/* __switch_to() marks its transition window with a NULL entry task. */
++	REG_L tp, PT_TP(sp)
++
++.Lcurrent_task_found:
++	/* Nested exceptions temporarily replace these with the SSE stack. */
++	REG_L s6, TASK_TI_KERNEL_SP(tp)
++	REG_L s7, TASK_TI_USER_SP(tp)
++
++	mv a1, sp /* pt_regs on stack */
++
++	/*
++	 * Run the SSE handler with the normal exception vector, but restore the
++	 * interrupted stvec before completing the event. SSE can arrive while
++	 * the kernel is using a temporary trap vector in a sensitive entry path.
++	 */
++	csrr s3, CSR_STVEC
++	la t0, handle_exception
++	csrw CSR_STVEC, t0
++
++	/*
++	 * Preserve the full HS-mode virtualization state across the handler.
++	 * hstatus is live supervisor state rather than an SSE interrupted
++	 * attribute, and OpenSBI consumes hstatus.SPV during event completion.
++	 * Saving the whole CSR keeps the handler episode transparent to KVM and
++	 * avoids having to infer which hstatus bits may matter to a guest resume.
++	 */
++	li s5, 0
++	ALTERNATIVE("nop", "csrr s5, hstatus", 0, RISCV_ISA_EXT_H, 1)
++
++	/*
++	 * Save sscratch for restoration since we might have interrupted the
++	 * kernel in early exception path and thus, we don't know the content of
++	 * sscratch.
++	 */
++	csrrw s4, CSR_SSCRATCH, x0
++
++	mv a0, a7
++	mv a2, s5
++
++	call do_sse
++
++	/* Leave no reference to the event stack in the interrupted task. */
++	REG_S s7, TASK_TI_USER_SP(tp)
++	REG_S s6, TASK_TI_KERNEL_SP(tp)
++
++	csrw CSR_SSCRATCH, s4
++	ALTERNATIVE("nop", "csrw hstatus, s5", 0, RISCV_ISA_EXT_H, 1)
++	csrw CSR_STVEC, s3
++
++	REG_L a0, PT_STATUS(sp)
++	REG_L a1, PT_EPC(sp)
++	REG_L a2, PT_BADADDR(sp)
++	REG_L a3, PT_CAUSE(sp)
++	csrw CSR_SSTATUS, a0
++	csrw CSR_EPC, a1
++	csrw CSR_STVAL, a2
++	csrw CSR_SCAUSE, a3
++
++	REG_L ra, PT_RA(sp)
++	REG_L s0, PT_S0(sp)
++	REG_L s1, PT_S1(sp)
++	REG_L s2, PT_S2(sp)
++	REG_L s3, PT_S3(sp)
++	REG_L s4, PT_S4(sp)
++	REG_L s5, PT_S5(sp)
++	REG_L s6, PT_S6(sp)
++	REG_L s7, PT_S7(sp)
++	REG_L s8, PT_S8(sp)
++	REG_L s9, PT_S9(sp)
++	REG_L s10, PT_S10(sp)
++	REG_L s11, PT_S11(sp)
++	REG_L tp, PT_TP(sp)
++	REG_L t0, PT_T0(sp)
++	REG_L t1, PT_T1(sp)
++	REG_L t2, PT_T2(sp)
++	REG_L t3, PT_T3(sp)
++	REG_L t4, PT_T4(sp)
++	REG_L t5, PT_T5(sp)
++	REG_L t6, PT_T6(sp)
++	REG_L gp, PT_GP(sp)
++	REG_L a0, PT_A0(sp)
++	REG_L a1, PT_A1(sp)
++	REG_L a2, PT_A2(sp)
++	REG_L a3, PT_A3(sp)
++	REG_L a4, PT_A4(sp)
++	REG_L a5, PT_A5(sp)
++
++	REG_L sp, PT_SP(sp)
++
++	li a7, SBI_EXT_SSE
++	li a6, SBI_SSE_EVENT_COMPLETE
++	ecall
++
++	/*
++	 * COMPLETE must resume the interrupted context and never return. Trap
++	 * through the normal vector instead of falling into adjacent assembly.
++	 */
++	la t0, handle_exception
++	csrw CSR_STVEC, t0
++	ebreak
++	/* The fatal trap must not return; execution should never reach here. */
++
++#ifdef CONFIG_SMP
++.Lfind_hart_id_slowpath:
++
++	/* Restore current task struct from __sbi_sse_entry_task */
++	li t1, ASM_NR_CPUS
++	/* Slowpath to find the CPU id associated to the hart id */
++	la t0, __cpuid_to_hartid_map
++	li t3, 0
++
++.Lhart_id_loop:
++	REG_L t2, 0(t0)
++	beq t2, a6, .Lcpu_id_found
++
++	/* Increment pointer and CPU number */
++	addi t3, t3, 1
++	addi t0, t0, RISCV_SZPTR
++	bltu t3, t1, .Lhart_id_loop
++
++	/*
++	 * This should never happen since we expect the hart_id to match one
++	 * of our CPU, but better be safe than sorry
++	 */
++	la tp, init_task
++	la a0, sse_hart_id_panic_string
++	la t0, panic
++	jalr t0
++#endif
++
++SYM_CODE_END(handle_sse)
++ASM_NOKPROBE(handle_sse)
++
++SYM_DATA_START_LOCAL(sse_hart_id_panic_string)
++    .ascii "Unable to match hart_id with cpu\0"
++SYM_DATA_END(sse_hart_id_panic_string)
+-- 
+2.50.1 (Apple Git-155)
+
