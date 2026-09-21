@@ -1,109 +1,214 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B2265192
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3320468C31
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 09:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982480; cv=none; b=WdFTQ9/l1owQO0iYa1st4T2bu5sgCgQrhjmjx+3eyRkt/cbOMgEND03XQVLe8pMDFUfadhZqQbzAZWcq12Bn0qLqSz+ki3/v+OGj9XX7y1SoNbB2EXGi0emJn2MoACLihpTWgRyDknYoFAAs2KQOMcPuZTeEuYqEsIAVi6KCBcw=
+	t=1789982484; cv=none; b=RIbIFOLXLZbAOGw8lPdarKEZZ2z5E9jcst/D3VWsnc6CQ5KdF/xH767EhWR1ebktpWtbqu5u5ERTi0DhUadktNr048ig8yA3NDBqdLDbpWsKnVWa35J1Uo6gQ21vPoYFfuJEVqTrdArNazBUp9tpu8kkJnB/kMB7JaxOpjcQla0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982480; c=relaxed/simple;
-	bh=p9wumlVh+NigARe/hNHlq/5AWXnSuIRVak+u8Msihxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Ja1YC/TxnOSjkhWkQRAvpZ3W1YzIujylrXIU1R2pIrh0dT4NhJzFcLFchc3bSAjGd7wAftTnbPq4LygcM9Wxk4IFw+5gD1T9az9ko8NLpH5gxVlf1VWZ58CSFM2iCECTp2surCQSWme77l4Iy5JNbbmoq6nfk32kY5bCpQhmnNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lW8SsG4/; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789982484; c=relaxed/simple;
+	bh=SoD6rbNlmdBhL/S9+WOTUPuzd+nRVogzcLA/JJFQNZM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=dLcm78XhmiT/kN7qPtJ3+qp6dPSxic71RCdTf7i1WYVqGp8F42vCpytx7iPzJtyvxvoWtEmA9Vh0QbpdQGOPytIN7vld5cFQRqNbsArj3yBjtlbJ6blk1h+Y9s0tp7WuyBX5G6khDRevxZcoGa797/O5YZFX3IhVQiWb3+zv3us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bPUBDz2V; arc=none smtp.client-ip=95.215.58.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lW8SsG4/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
-	Content-Type; bh=GFSIsMQcKZfV6HFvSNGKjPObHTYhy+3ZyOIcsVhIHz8=;
-	b=lW8SsG4/82mGFu85K2dkdcA9wXqw5hVQbf2hwEuT1nnrj7SVa/24nyljLpNw/z
-	yE3LcRMshosKcDPmOxoLfQ8c6LpYtt0zKhUEnBeO+qdi+CuZjvdVHH2VrFIPDBWd
-	MHFkQ5u9Gf6mORiYZveMClE20sbL/F/Z1Sbo7SXANK334=
-Received: from localhost (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgDXpxjk9rBq1NUKAg--.36668S2;
-	Mon, 21 Sep 2026 17:20:37 +0800 (CST)
-Date: Mon, 21 Sep 2026 17:20:34 +0800
-From: Hao Zhang <hao_zhang_kdev@163.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] KVM: arm64: pvtime: Don't lose stolen time on failed
- updates
-Message-ID: <arD24ru13owcE1Ms@192.168.1.215>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bPUBDz2V"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SoD6rbNlmdBhL/S9+WOTUPuzd+nRVogzcLA/JJFQNZM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789982480; v=1; x=1790587280;
+ b=bPUBDz2VIyGxyOartNajvdI+c+JjY7hBzrcjVlofzPUL37v9FEcKoJqURJ+2UuSja2hv7j/h
+ PmlAHbUFkOIMZTdyjDVpYocVAyStm7FniK73fDL63jeUrpUu/tN6Glsm7osTxofWvzw2iwtdgsy
+ UEvtC8siMo/2TMxAN9LtXYvg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b70590be7f446065;
+	Mon, 21 Sep 2026 09:21:19 +0000
+X-Mizu-Trace-ID: b70590be7f446065
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Ye Liu <liuye@kylinos.cn>,
+	David Hildenbrand <david@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	Gregory Price <gourry@gourry.net>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	rientjes@google.com,
+	shakeel.butt@linux.dev,
+	xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev,
+	will@kernel.org,
+	boqun@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	tony.luck@intel.com,
+	reinette.chatre@intel.com,
+	x86@kernel.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	pavel@kernel.org,
+	lance.yang@linux.dev,
+	mhiramat@kernel.org,
+	pmladek@suse.com,
+	longman@redhat.com,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	dietmar.eggemann@arm.com,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	mark.rutland@arm.com,
+	Dave.Martin@arm.com,
+	james.morse@arm.com,
+	babu.moger@amd.com
+Subject: [PATCH v4 00/15] sched: introduce for_each_process_rculock and for_each_thread_rculock
+Date: Mon, 21 Sep 2026 17:20:46 +0800
+Message-Id: <20260921092101.89285-1-ye.liu@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-CM-TRANSID:PCgvCgDXpxjk9rBq1NUKAg--.36668S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zr4fuF1rAFWxXr47KF4DJwb_yoW8tw18pr
-	ZakrWqgw1xK3yIqw4UKrn5Xw45uayqyr1YqryxGF4Ikr4Yqws3Jr4FgFyUuF43Zr9avayk
-	XF1FyFy7ur1qy3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUl1kUUUUU=
-X-CM-SenderInfo: pkdrs65kdqwshngh4qqrwthudrp/xtbC+QW9sGqw9uUi9QAA3v
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Hao Zhang <zhanghao1@kylinos.cn>
+From: Ye Liu <liuye@kylinos.cn>
 
-kvm_update_stolen_time() advances last_steal before checking whether
-kvm_put_guest() successfully writes the updated value to guest memory.
+Introduce for_each_process_rculock(), for_each_thread_rculock() and
+for_each_process_thread_rculock() macros that combine the existing
+iteration macros with scoped_guard(rcu), so that the RCU read lock
+is automatically acquired before iteration and released when the
+loop exits — including via break, goto, or return.
 
-If the write fails, the updated stolen time is not visible to the guest,
-but the corresponding run delay has already been consumed from KVM's
-accounting state.  A later successful update therefore starts from the
-advanced last_steal value and permanently loses that interval.
+The rest of the series converts manual rcu_read_lock()/
+rcu_read_unlock() and guard(rcu)() pairs across mm/, kernel/, fs/,
+lib/ and security/ to use the new macros.
 
-Stolen-time updates are best-effort, but a failed update must not
-consume accounting state.  Otherwise, a transient write failure turns
-into a permanent loss even if a later update succeeds.
+Suggested by Michal Hocko for the oom_kill path [2].
 
-Read the current run delay into a local variable and update last_steal
-only after kvm_put_guest() succeeds.  This leaves the unreported delay
-pending so that a later update can account for it.
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
 
-Fixes: 53f985584e3c ("KVM: arm64: pvtime: Fix stolen time accounting across migration")
-Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
 ---
- arch/arm64/kvm/pvtime.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Changes since v3 [4]:
+  - Fix patch 5 (cpu/hotplug): title and commit message incorrectly
+    said "thread iterator" and "for_each_thread_rculock" while the
+    code converts for_each_process() to for_each_process_rculock().
 
-diff --git a/arch/arm64/kvm/pvtime.c b/arch/arm64/kvm/pvtime.c
-index 4ceabaa4c30b..9b4f0645d92b 100644
---- a/arch/arm64/kvm/pvtime.c
-+++ b/arch/arm64/kvm/pvtime.c
-@@ -17,6 +17,7 @@ void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
- 	u64 last_steal = vcpu->arch.steal.last_steal;
- 	u64 offset = offsetof(struct pvclock_vcpu_stolen_time, stolen_time);
- 	u64 steal = 0;
-+	u64 run_delay;
- 	int idx;
- 
- 	if (base == INVALID_GPA)
-@@ -25,9 +26,10 @@ void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
- 	idx = srcu_read_lock(&kvm->srcu);
- 	if (!kvm_get_guest(kvm, base + offset, steal)) {
- 		steal = le64_to_cpu(steal);
--		vcpu->arch.steal.last_steal = READ_ONCE(current->sched_info.run_delay);
--		steal += vcpu->arch.steal.last_steal - last_steal;
--		kvm_put_guest(kvm, base + offset, cpu_to_le64(steal));
-+		run_delay = READ_ONCE(current->sched_info.run_delay);
-+		steal += run_delay - last_steal;
-+		if (!kvm_put_guest(kvm, base + offset, cpu_to_le64(steal)))
-+			vcpu->arch.steal.last_steal = run_delay;
- 	}
- 	srcu_read_unlock(&kvm->srcu, idx);
- }
+Note: Patches 4, 11, and 13 received automated reviews from sashiko-bot
+in the v3 thread [4] that were verified as false positives:
 
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-2.15.0
+  - Patch 4: claimed the folio lock is dropped before collect_procs(),
+    leading to a NULL deref on folio->mapping; the lock is held in all
+    call paths.
+  - Patch 11: claimed mixing goto/scope-based cleanup in
+    alloc_retstack_tasklist(); the goto free label handles memory
+    cleanup, not lock management.
+  - Patch 13: claimed mixing goto/scope-based cleanup in
+    __set_oom_adj(); goto err_unlock manages oom_adj_mutex while
+    scoped_guard(rcu) manages the RCU read lock — different resources.
 
+Changes since v2 [3]:
+  - Split the kernel/ patch into per-subsystem patches, as the
+    combined patch could not be applied (Peter Zijlstra, Steven
+    Rostedt).
+  - Move changelog below the --- separator so it is excluded from
+    the commit message (Lorenzo Stoakes).
+  - Indent loop body in macro definitions to show scoped_guard
+    scope (Lorenzo Stoakes).
+
+Changes since v1 [1]:
+  - Rename macros from *_rcu to *_rculock, as suggested by Steven
+    Rostedt and acked by Thomas Gleixner, to avoid confusion with
+    existing *_rcu() list iterators that expect the caller to hold
+    the RCU read lock.
+  - Improve the comment on for_each_process_thread_rculock() to
+    document that 'break' only exits the inner loop and 'goto' is
+    needed to exit both loops (Thomas Gleixner).
+  - Rename the stale 'unlock:' label to 'out:' in hung_task.c, as
+    noted by Günther Noack.
+  - Clarify in patch 4 that page_pgoff() is safe outside the RCU
+    read-side critical section (SJ Park).
+  - CC all relevant maintainers on every patch (Lorenzo Stoakes).
+  - Drop the mm: prefix from patch 1, as the macros are in
+    include/linux/sched/signal.h (Michal Hocko).
+
+[1] https://lore.kernel.org/all/20260904083001.553587-1-ye.liu@linux.dev/
+[2] https://lore.kernel.org/all/20260813092933.562028-1-ye.liu@linux.dev/
+[3] https://lore.kernel.org/all/20260907081334.1152889-1-ye.liu@linux.dev/
+[4] https://lore.kernel.org/all/20260911075800.491472-1-ye.liu@linux.dev/
+
+Ye Liu (15):
+  sched: introduce for_each_process_rculock and for_each_thread_rculock
+  mm/oom_kill: convert process/thread iterators to for_each_*_rculock
+  mm/ksm: convert process iterator to for_each_process_rculock
+  mm/memory-failure: convert process iterator to
+    for_each_process_rculock
+  cpu/hotplug: convert process iterator to for_each_process_rculock
+  freezer: convert thread iterator to for_each_thread_rculock
+  hung_task: convert process/thread iterators to for_each_*_rculock
+  locking/lockdep: convert process/thread iterators to
+    for_each_*_rculock
+  rcu: convert process/thread iterator to
+    for_each_process_thread_rculock
+  sched: convert process/thread iterators to for_each_*_rculock
+  tracing/fgraph: convert process/thread iterator to
+    for_each_process_thread_rculock
+  unwind: convert process/thread iterator to
+    for_each_process_thread_rculock
+  fs: convert process/thread iterators to for_each_*_rculock
+  lib: convert process iterator to for_each_process_rculock
+  security/landlock: convert thread iterator to for_each_thread_rculock
+
+ fs/proc/base.c               |  4 +---
+ fs/resctrl/rdtgroup.c        |  8 ++------
+ include/linux/sched/signal.h | 26 ++++++++++++++++++++++++++
+ kernel/cpu.c                 |  4 +---
+ kernel/freezer.c             |  4 +---
+ kernel/hung_task.c           | 11 ++++-------
+ kernel/locking/lockdep.c     |  4 +---
+ kernel/rcu/update.c          |  4 +---
+ kernel/sched/core.c          |  3 +--
+ kernel/sched/debug.c         |  4 +---
+ kernel/trace/fgraph.c        |  8 ++------
+ kernel/unwind/deferred.c     |  3 +--
+ lib/is_single_threaded.c     |  5 +----
+ mm/ksm.c                     |  4 +---
+ mm/memory-failure.c          | 16 ++++------------
+ mm/oom_kill.c                | 20 +++++---------------
+ security/landlock/tsync.c    |  8 ++------
+ 17 files changed, 55 insertions(+), 81 deletions(-)
+
+--
+2.25.1
