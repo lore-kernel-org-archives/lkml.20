@@ -1,160 +1,231 @@
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012018.outbound.protection.outlook.com [40.107.200.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF152EEE67;
-	Mon, 21 Sep 2026 06:39:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972759; cv=none; b=d3yVLwDVZ2wOMLUwQ+FGjPOvzAmqRycoAl6eGimvrW4zXuF9Paoe4zmzbXzubshdHYTicrhgXrJAoB3G2287i8N0sB6SN/OSiliOND9AVGlL3dHciggcu0/ZXDn4oOfHBpAnn+mB6Ae0poAirxzsKMtlr7+2EVFTIkZ7KJvMXmw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972759; c=relaxed/simple;
-	bh=NaISpYsHMEZBjRuJVGOqDl6OVc79Bis1jd6WaCc/MEQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=QgfP/kwRZJSP+S81CzxoIgFLHrp4P4W0lUu6Xw2pPgrSj4CgjNj2sQcBiCnDEg19Sn0StcW0tAHJEGjecMNk+1rBtnc/Awn2d2bm/NvUBlfmlpjVhzEzSPOzBLOMSaZXMhMl6YN6ClT71jW4RXt+0tJbKqOr8O/enqelRK2qoE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=UsucVU+g; arc=none smtp.client-ip=217.72.192.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEB72C11D9;
+	Mon, 21 Sep 2026 06:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789972821; cv=fail; b=Al07sVLJCKEZLE7Jo83Gg1K55c+XHuhVJXvNZDWpmpcGdvjApRSqJf5LunCdJ0prYFSzf5J0gqF4hLxJoyal2c6/Lopbeg1l71zdJJqxc7VUIRHFBVjRIFQMrtbXU+zW+48sWTj4fCzzgWKBcAInfeFk2+teBuJcd0Oit/mUomc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789972821; c=relaxed/simple;
+	bh=dITOFR7PDdhNNdYMkUQ7K+qP92Mwp90+Hp0cmoTJUEs=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=aUSHWg/brKu0BJN5eav4rahvU+3+jG9hsnoX59z6oMPc7EKn8EzAlEKcf6QC6f39sa3Xq79g5u0jtW0YtQvX5/rlGDf9/09CJ9eAUcX++1UVl5Pd6svQ5GDeiKUvZJXHpRXQuhu9fnFEZkNNacfqy9coeS3djjAto+2WbCPcIqk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Y4CPi8mp; arc=fail smtp.client-ip=40.107.200.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="UsucVU+g"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1789972746; x=1790577546; i=markus.elfring@web.de;
-	bh=NaISpYsHMEZBjRuJVGOqDl6OVc79Bis1jd6WaCc/MEQ=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:From:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=UsucVU+gp24c8i4RQlQr3BUHKM1FbkpNLdcUhXH5240/FXwqGPFb1/KhOyiazZA7
-	 n0FsTkTpZ+YZBz5QjOv9je+yYa0j4OuE3pxQo9uRYKBh4vX6DpEhk3L30ZEErcByT
-	 1TL8iPWaq0PSa/IJGM2UqB+8nzEVkRm+hKRUg5Ldogpz4YtjtYN2vSXWdNlYQV8Ni
-	 BOsena/OcgUY1oC03TTNMlSRYDLLUT1LGUBzRHaV3xJ/Er+4vgK1Vbfwib1acSdvQ
-	 0tzdFZB4xhqkdG3VjnYUNAQUcd6qFQ7PO2VwhlLNBAb5NvJ7CHLULLDZqo66Txgcg
-	 rEevE1Q6ljfYGAZ6eg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N2SKz-1wm6z83MB5-016TVc; Mon, 21
- Sep 2026 08:39:05 +0200
-Message-ID: <0562677e-2811-4ccb-bcd5-b00583724612@web.de>
-Date: Mon, 21 Sep 2026 08:38:43 +0200
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Y4CPi8mp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M7izwJbRPSD8huCqTho9DpoaQ3e+nHyrmPoGDDuGQ0lH0XecmRCQOkjCa/mdRfO0ZSCHka5Gk7UcTBWFeUgYF92X+ZfzjlNQuv/PVeqq4IHUtvIZj0HhbwXSeOgRhJtf1A9yzEHBnOl0oHTgUnt2Z+79FqDz1xn0XGq26eWfhQuYJs9Elt+svyyWTmNLI5qcGRLVoSlH1Q6qUWVD7oC4GHPLbVHTKsJVrljvvBCbJDFScSpwLdfUAv37QkVeo6AjipC208/nkdYn2Lb2yZx6tNll614wxxPvu6T+WsxHOUUVmAA2c+ImNqBd4zqaCXXBKuvGFGcmz+7IoF6y7O6xHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R6kySTsP8vV9/dxK8KPEdvHotJRta/vYzUtrr4a4PgI=;
+ b=GqWpUQVot0E7dmGdlSHsAm1blKPKHJMq3VfOA757rrpEG8cobOxmyMtn5vkb+cWTdpkvcANh7SBx1YIlgEoV+LbVSUSmWoJFuPFLxKyQ3UHsAjBQ/kKdy8WabcnbqZ8dl4NXuOKR2KVAt9OLB8j8lcw6gdr/sBwey975X2v+QA25y/Y7WYjNTCiREQeHLDjBNWc3ADSlP06uaW7XNBulh3Fv4ZSb8ORLw/wLzCMsiuwnx7CB4kyQvIQH3gYFopvQCWCWxuGQwgykHicTvUadqHDseeGJMU8XEXlyj2eq5t4/O8BPV6MxKhXLPWVKIf77P13cSah3+8xpNDvbVtq3Bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R6kySTsP8vV9/dxK8KPEdvHotJRta/vYzUtrr4a4PgI=;
+ b=Y4CPi8mpLaSnEh3yrS3kwbMwzj3l7OeuYh14A0JtajgUPKusfDTwCezociMC24yRt6WYsRDD0ZOx7vrJaZCtCR6+rt4x6Qmhp6U9UwXx9YzOhJO4qmF4cKpRRDPtzQQF7UatNbicj+0wF2YjNBqUyEAHYES2zX4aSyXWtP/ekXBl7qPw3OTfBaB/XGUY1AATfdfuUO+2lrsgQz1Iy/YgUdebIfPRNgOkatQNv8NI7PC0+RcBgSJIlGnX1t5ftbXvJIZIuG/eC46YCDdNQdYytN5XwgipLwt0rNTgptvB4au1cAG7xBSrEIH7e6rLmbg/xp/2Ef12eYCwzVCG6ynCDg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by DS7PR03MB5381.namprd03.prod.outlook.com (2603:10b6:5:2c2::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 06:40:17 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
+ 06:40:17 +0000
+Message-ID: <a7641b0d-ff7e-451f-834b-23514e6789fd@altera.com>
+Date: Mon, 21 Sep 2026 14:40:11 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: Fw: [PATCH v3 0/4] stratix10: Add Interrupt support for
+ asynchronous communication with SDM
+To: Dinh Nguyen <dinguyen@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mahesh Rao <mahesh.rao@altera.com>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <cover.1786600929.git.tze.yee.ng@altera.com>
+ <SJ0PR03MB5950C6799C40C5724B048197A1842@SJ0PR03MB5950.namprd03.prod.outlook.com>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <SJ0PR03MB5950C6799C40C5724B048197A1842@SJ0PR03MB5950.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0022.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::14) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Markus Elfring <Markus.Elfring@web.de>
-Subject: [RFC] Referencing local variables with SmPL?
-To: cocci@inria.fr, kernel-janitors@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>
-Content-Language: en-GB, de-DE
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:+rl9oiJ67cIN59raX4fWyJQ/sL/Qhr26D93qOkqaubw6hVfvyeu
- SEYcVRgb0zcfH9vAA61wYNZ0DQfLPI6KJwxofbahq0avej+8wmbom0mym6qQfdWxxHVE82Y
- MxqgVasWmgoSby84kcAaPqDs4y2O2BfJD8luLw4ath41T8JnfM8VPdfu9KgoaA4lA/mYOUX
- qY9QZ3ByVjkRsUy10UA8g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:QmJOmetLWpg=;V6J0qY6gPgtjU4gJSsOKi0K9Blh
- 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
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|DS7PR03MB5381:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa92de36-18f7-401f-96a7-08df17ab32c2
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|13003099007|11063799006|5023799004|6133799003|4133799003|10067099003|4143699003|56012099006|55112099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	VHxK/M86LSAd5qLlCwIaWZ3VkmRF6onnF478NfuMN0/AEvFEU3dmgGaL8totlKEn510mGQHA6XhdciZWKxDQR/HVcAvp6A9hgO12vH69s784JnjeKpH8AZyAcL8X4PwDg2xuK0SALYsmyGR3zdXivOqEK+uu8p5jfOUVIrk0PVWcqalq/OgP/ORqLziBLmcJlT6ShDRsrgG4jVS2TB5REL8vmuT7s9b6j8X2WHuzYqXzAJogxAUzjuGAvBMwqmwZwYqfJ3tfGoUHV+DCG6zqFa2P0lAO+jzPcDlbr2dm4BTauR5wXKRGXT8GaJcRpDZ0RIrKVcdAsLdNhBaa1UokNPMalSt8WKvsaiZMHa+0r0SgEM+ANcpqMdBkLJ7td/hAga66yhBItkqtC0d6U5pqIQTMUai3FK24FP0tWnlGhhqHe2oFREu/8LjNEoQu5S85oNGBatpuxMUGAZ5FbR+cya36W9LEblPiuVbpjyDnXunaHzb2IuFClYa+MKBpSR+hRqNhWmyXqOcOglZ9JnGb5kcBtZ28iKTicJvzx74H+pbaS+4RM0ogFcSOvKcHtAdOCKrJ0hpN3MfiXxfouC+H6xT8e+B74MWEBwa+kV/aUJ/dODZNajm4sqrjiJ2eAhV3
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(13003099007)(11063799006)(5023799004)(6133799003)(4133799003)(10067099003)(4143699003)(56012099006)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cjZCRngxZkp6VHFFblptQnpoZ3d5VnJVTEJjVnp2NXRvTWxQRlFQMXRMaDdz?=
+ =?utf-8?B?ejBpamdVMU9veFdONlVkTkNyWmQvVFpzaE9VMDltSURsWTdkSy9qOFJmU1Ry?=
+ =?utf-8?B?RkE2YitlTlVEbStNdHRZMHRTUXZZc0RXZFRKVnRNNENxY2QxNlBibDVOU01n?=
+ =?utf-8?B?Y21jN0ZaRGpFeTJpY0RtRHl0Rm05MnNOTEhHenh1bjAxOEZjdFpYVjBKRjNo?=
+ =?utf-8?B?c1VoU0t0RmxpZzlzTzcveVNsRUZuNkhiVTByVFZSSjZHSngxVkl3bHhORUZu?=
+ =?utf-8?B?d0dmNFdCKy9INHNnWHZNVzI3VFY3NTF0MDlyVWlxZ1pscHEreXpISEwzemdT?=
+ =?utf-8?B?cDBDN3U5REpoamVqMVhqRHNFVWpSdXp4RG5qNVNrZ2FjN3FDdTUrOWU1QnVF?=
+ =?utf-8?B?SGRxbnZNdy90dzhJN1p6WGV0ZlBURFFOVk8yelNaQU43bmR1c2xLOUhkSWkz?=
+ =?utf-8?B?L1pMeVd1Uko1MC9YR3ZOeUhGYUQ3emNubEdadXdMRStqbFdjV1NqRlFFMU9R?=
+ =?utf-8?B?UHZRZ1hjMXZ2LzYrWGtsWEFjVGdJZldwcG10bkJZbElWRW9SUFltWm8wOUt2?=
+ =?utf-8?B?MlBWU2hQbkJPNUxUemZtMEFXWkpWNUJHeVNHOVRIV0FVY3Nuejc0YzF1Y1JZ?=
+ =?utf-8?B?b1hhRlZza1dCdTJKOXZzdmhYamptM216bTJWcXhCNnIrN0Y4TkdzWnMzNUxs?=
+ =?utf-8?B?ai96NWdQY085YjlMQUpab1ZhVDkwbjJVYXNCeXd2N3ZtazcrOFZERHdpZFNG?=
+ =?utf-8?B?TnRwbnBVRlMyck90UVdrRk4zQjFXVTF1aUlmcVNsYnI4a0wrQll3NFgvR00w?=
+ =?utf-8?B?RUFlVnBhekRPQmhNRktkMlc1YUdLMmk0NXkrWlBBbHkveDBtMnQ4dFNDSTBI?=
+ =?utf-8?B?ZUN4RlN1MTdkejZWeEJOa29IbVdVVFdVS01Nc01JU3ZXQTBOUG01OVBuTGtJ?=
+ =?utf-8?B?MFBWak1CUHdTY05QRHhyeGo1cHd6YkY3L2JidTRRK1RheFEzc2ZRTUU1UGIr?=
+ =?utf-8?B?UE55cFJyTDMxWkJFd3dnNE52U3R5RzhETzZlRUYwMTNRQ1gvNVlSVm1jR3Zu?=
+ =?utf-8?B?T0JtK0ZpWFBJTjVVcGtDUDdRQnJHUmdYZ2tmMTlMZFIxNEpGczY3WWVqN2Rh?=
+ =?utf-8?B?ak92WE0zWHludnNPeEpieXhCbkFGVFBaZCtOOVNPUzNuM1RKYzJ0TUltSWVE?=
+ =?utf-8?B?MkxRanVPcmczMjZVQTFFY05SdkNGajNubGgyeHdXcmo3L2lZa1ZtWFVkSytr?=
+ =?utf-8?B?RGU4UVYyblo4Z0thUGUxc0Nza0hGemRZMm4wMklNaXVnZWYzcTh5UjJrNTJY?=
+ =?utf-8?B?V2htbkcvTjZwRmNtTWpRN2cvZkpYNWpYS0FUR2tjaVBVaFJxQ1JZemN1YTJa?=
+ =?utf-8?B?eEFEWnF2L0xkKzFNbDhibFJ6Mjl3Z3hXRGVCV3B2RDlLTGtCb2ZHWVMyNVk0?=
+ =?utf-8?B?WnY5anlSdEVKbEpqVWJEb0pJMnQ2aTNuQ0gwcUk5OGdqZmVtOXlWR2crRkIy?=
+ =?utf-8?B?NU1RaTJCTmNJMEw2VEdOOWU4ZGtMVGJRbjVRZnVWTk9mbVdKRUVJR0FNeGF0?=
+ =?utf-8?B?dHdXeXk5QkZ3NVdSYS9SblhienljSWtMQkdZd1lnNlllbWs0b1dWMHhUS0h6?=
+ =?utf-8?B?N3JPRWdUMDFqc3cyWUNLbG5HbEtra2NCcFZrcmdhb3QwUVhrMjBIUkRXTVYz?=
+ =?utf-8?B?MGd3ZHVIU1dkT2Zjb2k2WHZJVnIwS2JTTVlKT0hUdEF4ZGRMOXFNZXM1Qkl4?=
+ =?utf-8?B?UTBkZHhDNFB6R3ZWQ0RSNVh1MDRrS09ab050Szk0bzYwRW9odE5hTGNBbHRZ?=
+ =?utf-8?B?NE5YS2Y5NDhFbWQ0R00xODNwdGZtM2ZxTGQyQWFsWHRaVVVXL2E3MHMyenhv?=
+ =?utf-8?B?ZXJDL2ZVSUo0RGhpY1FMZm5TZHRjOVl6cWUyemtmQ3B1dWdWay9JOVIvM0lT?=
+ =?utf-8?B?YktCVmh1L256Wm9oWE1DRHpDUTdTWkZNT3dMTjQyeDdsWkdKMUVkaUZybHJ1?=
+ =?utf-8?B?QTRDRWEyZEg4czR3dmVsVHNhbjFsck5Kc09XVTZISGxHeDNPcGd5bmQyL1dr?=
+ =?utf-8?B?Y0o0UnhnQ1hVQXlrQTFvNlpyMWZnUlVDT1RPbGVGSEVIaHRxU012b0JjS3hD?=
+ =?utf-8?B?N083U3lDTlg5Yy9aa05GTEpWMkszWEhEaGtYZlIyS2V0aDhXNlpCVm0waXJX?=
+ =?utf-8?B?dmJHV2RzREhTbVJFa0xuREt0WFFJNzBPdGcvS1hBeHArc3QvU0FWRWNYWGRO?=
+ =?utf-8?B?bCtObVVyUkoxQW8zTEVzWXBiT2FoN0pFYUI0Z3BzaDdzWlNEdWpSMXN0NVVO?=
+ =?utf-8?B?NEFvY3JyVUtBVi9Zd0dRTy80Lyt0WFZoUlpQdERUMkFzL0tkdDl2QT09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa92de36-18f7-401f-96a7-08df17ab32c2
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:40:17.0920
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M9rlpr4eCWJP3XekakyyZvqYZnFHUJ7CdfQG8ad9BokIAz6YFMEBLY3C8ZomvJiOwHrNhi3YPyUenkOQjb4k4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5381
 
-Hello,
+On 21/9/2026 2:37 pm, NG, TZE YEE wrote:
+> 
+> *From:* NG, TZE YEE
+> *Sent:* Thursday, August 13, 2026 2:35 PM
+> *To:* Dinh Nguyen <dinguyen@kernel.org>; Rob Herring <robh@kernel.org>; 
+> Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley 
+> <conor+dt@kernel.org>; Rao, Mahesh <mahesh.rao@altera.com>; linux- 
+> kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; 
+> devicetree@vger.kernel.org <devicetree@vger.kernel.org>
+> *Subject:* [PATCH v3 0/4] stratix10: Add Interrupt support for 
+> asynchronous communication with SDM
+> From: Tze Yee Ng <tze.yee.ng@altera.com>
+> 
+> This patch-set adds support for interrupt from Secure Device Manager (SDM)
+> to Stratix10 SoC for asynchronous communication.
+> 
+> Following things are added in this patch-set:
+> - Add support for interrupt from SDM to Stratix10 SoC.
+> - Add documentation for SDM interrupt in Stratix10 SoC.
+> - Enable SDM interrupt in Stratix10 SoC.
+> - Enable SDM interrupt in Agilex SoC.
+> 
+> I am taking over this series from Mahesh Rao and posting v3 on his behalf.
+> Reference:
+> https://lore.kernel.org/r/20250812-sip_svc_irq- 
+> v2-0-53098e11705a@altera.com <https:// 
+> nam10.safelinks.protection.outlook.com/? 
+> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250812-sip_svc_irq- 
+> v2-0-53098e11705a%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657134969%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=hOumheIvzlbZt1UApZy2F9CCpJFiH25iWSaYeCcdjKo%3D&reserved=0>
+> 
+> Changes in v3:
+> - Reflow commit message body to ~75 columns (fix Dinh's comment in v2
+>    review)
+> - Add a newline before stratix10_async_workqueue_handler
+>    description (fix Dinh's comment in v2 review)
+> - Treat of_irq_get() failure as irq <= 0, since 0 is also a
+>    failing value (fix Dinh's comment in v2 review)
+> - Fix IRQ disable race: only call disable_irq_nosync() when
+>    queue_work() newly queues work, and disable the fired irq
+>    argument rather than actrl->irq
+> - Do not invoke client callbacks under trx_list_lock; copy
+>    cb/cb_arg under the lock and call the callback after unlock
+> - Use disable_irq() + flush_work() + devm_free_irq() on
+>    teardown, and treat unset IRQ as 0
+> - Demote successful IRQ registration log from dev_alert() to
+>    dev_info(), and demote async poll failure log from
+>    dev_err() to dev_dbg()
+> - Clarify INTEL_SIP_SMC_ASYNC_POLL_ON_IRQ kdoc to match
+>    a1-a4 bitmap usage
+> - Drop Reviewed-by: Matthew Gerlach from all patches
+>    (no longer at Altera)
+> - Link to RESEND v2:
+> https://lore.kernel.org/r/20250812-sip_svc_irq- 
+> v2-0-53098e11705a@altera.com <https:// 
+> nam10.safelinks.protection.outlook.com/? 
+> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250812-sip_svc_irq- 
+> v2-0-53098e11705a%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657165509%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=uDzBqNLWQSLSTmXyM72mbyHy5JfchKhk9a6xhrFF5pc%3D&reserved=0>
+> 
+> Changes in v2:
+> - Separated from the larger SIP SVC upstream series into a
+>    dedicated interrupt-support series as requested
+> - Link to v1:
+> https://lore.kernel.org/r/20250722-sip_svc_irq-v1-0- 
+> c5b9e02c1ce6@altera.com <https:// 
+> nam10.safelinks.protection.outlook.com/? 
+> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250722-sip_svc_irq-v1-0- 
+> c5b9e02c1ce6%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657185496%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=dSLMGTCQPtY6nHXWwKPeen2XIuPzs1vZ6NKBcMYVwEA%3D&reserved=0>
+> 
+> Mahesh Rao (4):
+>    dt-bindings: firmware: Add interrupt specification for Intel Stratix
+>      10 Service Layer.
+>    dts: stratix10: Add support for SDM mailbox interrupt for Intel
+>      Stratix10 SoC FPGA.
+>    dts: agilex: Add support for SDM mailbox interrupt for Intel Agilex
+>      SoC FPGA.
+>    firmware: stratix10-svc: Add for SDM mailbox doorbell interrupt
+> 
+>   .../firmware/intel,stratix10-svc.yaml         |  10 ++
+>   .../boot/dts/altera/socfpga_stratix10.dtsi    |   4 +
+>   arch/arm64/boot/dts/intel/socfpga_agilex.dtsi |   2 +
+>   drivers/firmware/stratix10-svc.c              | 135 ++++++++++++++++--
+>   include/linux/firmware/intel/stratix10-smc.h  |  21 +++
+>   5 files changed, 161 insertions(+), 11 deletions(-)
+> 
+> -- 
+> 2.43.7
+> 
 
-Declarations (and definitions) of local variables tend to be required
-for various control flows.
-https://en.cppreference.com/c/language/declarations
+Hi,
 
-Function implementations can occasionally use multiple variables with different scopes.
-https://github.com/coccinelle/coccinelle/issues/322
+Gentle ping on this patch. It has been over a month with no feedback.
 
-Thus it seems to be challenging to refer to relevant data specifications
-in a consistent way for source code search and transformation approaches also
-by the means of the semantic patch language.
-How will corresponding development ideas evolve?
+Happy to address any review comments.
 
-Regards,
-Markus
+Thanks,
+Tze Yee
+
