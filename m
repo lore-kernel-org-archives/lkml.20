@@ -1,37 +1,47 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D333BD659;
-	Mon, 21 Sep 2026 07:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64BC3B42CC
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977051; cv=none; b=jC34SFwyhOP77Yk9N2V+BGjC7K8+0w6F86oHWMCJtnjoU9qXDL56IU24u3QbRNqljb2W3t9n/8EOgQFTPQp3kOdmpjjG5Hz1JCOZmNjaFGN+XYQxBb/+0S7sNvYLKsh538sCg1pnuSOj2rtS9v6F+m3zQrVMcjJHbNyrqXJER8c=
+	t=1789977100; cv=none; b=tKT5O+QPYmBpCo5OulNldmIfdL0ftCzuNQx9VW48kqIUcnwAoatnjZUWSkV3T6LFpudNULRjs+WvZCXb6fl5QEAYustb6DFOG853vqRu62RRoHV/Eele5mz83J6iyoGVQlvgMovUajn2kVMxYwssOdz06akVskAjwhXNt5YpL74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977051; c=relaxed/simple;
-	bh=Y6kMXdClUc7ZWMjsxAXSNswiVSuHviDLcRAVkJPOItE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jGT15/bLkoZsFIoawzp0gTrDPphVM2VBSovKMg3GrUDqlUDZ7om9ftKAaolvsr/zEYKoIwqJCMkIjQHBTXGtEPfyYxGYU9RkLJN7TfhoH69qaynv7Jvz+NaMs2Mkq4K1lALEUitI0eAb0DoBl/yH5GeG1zdMe24R55eB7RjnOzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=TUMpwzEl; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789977100; c=relaxed/simple;
+	bh=zmSW8MeeCiUJXRx7DYO3Mc8UdpxyYdidkc5y/zSLeHk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=e0IJydmEaojkmMSy6IszX9nH55vuJ3O8yJ+qLVRuPCItnFOrmm6OMgzKSSNdjwOBCVO/fEuPcvRvkymcdjAbo77eifCMk6HMue0H6SeikwNuR/N9ied9fj7fJ2uxsTwVSl4Tp4UHMSVid+fS5UsUUr+oUOoxi9nOOzEQNRkGF48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=2SC+D+H5; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="TUMpwzEl"
-Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e8a87ecf;
-	Mon, 21 Sep 2026 15:50:40 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: William Hubbs <w.d.hubbs@gmail.com>,
-	Chris Brannon <chris@the-brannons.com>,
-	Kirk Reiser <kirk@reisers.ca>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Cc: speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	jianhao.xu@seu.edu.cn
-Subject: [PATCH] speakup: handle serial IRQ request failure
-Date: Mon, 21 Sep 2026 15:50:35 +0800
-Message-Id: <20260921075035.9393-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="2SC+D+H5"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=0hTFfzvopA4qzraAldDoaQfK85SV+y5NrYAhfhIxIDw=;
+	b=2SC+D+H5kdLsIDgS/cp790uMvV3AW5bev/sjkfVNQr5pubGCmXMLa5bsbGARZRF6V42CBDd5f
+	X0jOPRPmHOxyB9hnJDaRHtbEU45OBpeuv7kwCt99mB5ZpKWJIxff5FuNqRhlU+wEn+jyR9540uu
+	cve8L8mewLRwOEGhR0SQwAY=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hpFWf19TTz1K9D1;
+	Mon, 21 Sep 2026 15:40:30 +0800 (CST)
+Received: from kwepemf200011.china.huawei.com (unknown [7.202.181.237])
+	by mail.maildlp.com (Postfix) with ESMTPS id 1274C4048B;
+	Mon, 21 Sep 2026 15:51:32 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemf200011.china.huawei.com (7.202.181.237) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 21 Sep 2026 15:51:31 +0800
+From: Weili Qian <qianweili@huawei.com>
+To: <gregkh@linuxfoundation.org>, <--to=herbert@gondor.apana.org.au>,
+	<--to=zhangfei.gao@linaro.org>, <--to=wangzhou1@hisilicon.com>,
+	<--cc=linux-crypto@vger.kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <--cc=huangchenghai2@huawei.com>,
+	<--cc=liulongfang@huawei.com>
+Subject: [PATCH 0/2] uacce: add device usage sysfs interface
+Date: Mon, 21 Sep 2026 15:51:29 +0800
+Message-ID: <20260921075131.1062155-1-qianweili@huawei.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,102 +49,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c2f216bd03a1kunm56737cc93b327
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGEpLVkwaTUJNGExPT0JDT1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
-	9ITFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=TUMpwzEl15pHGF/Zz8nFPKy1IgVTKVDoIJ4wHoKNJFJEI9myG6yrP7mB22QKyT6DiN9jihnGuXOiehci/JwInAC1iqIel7Q2A9ueZL2WrWXA3JiSzvwxS3f7zsrQjZiM5gg9rfejvx3r0znF2OI2ltLiU21nvVWCBk0zQOKJVSQ=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=41t5TtyVu4+QfwAZNULlrsOwlHFLImY5LkU2J2B9cqk=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemf200011.china.huawei.com (7.202.181.237)
 
-start_serial_interrupt() currently logs a failed request_irq() but
-continues enabling UART interrupts and reports a successful serial
-synthesizer probe. A later release then calls free_irq() without a
-matching registration.
+Add a read-only dev_usage sysfs attribute so userspace can query device
+usage through sysfs. Patch 1 adds the attribute and the get_dev_usage
+callback to the UACCE framework; patch 2 implements the callback in the
+HiSilicon QM driver.
 
-Return the request error to spk_serial_init() and unwind the I/O region
-and serial state when registration fails. This keeps the UART disabled
-and prevents teardown from freeing an IRQ that was never requested.
+Weili Qian (2):
+  uacce: add device usage sysfs interface
+  crypto: hisilicon/qm - implement uacce get_dev_usage callback
 
-A QEMU x86_64 test used a non-shared handler to occupy COM1 IRQ4 before
-the Speakup serial path requested the same IRQ with IRQF_SHARED. On the
-unfixed kernel, the probe continued successfully and release emitted
-"Trying to free already-free IRQ 4". On the fixed kernel, probe failed
-and no unmatched free_irq() warning was emitted. The IRQ conflict was
-deliberately injected to exercise the error path and is not expected
-during normal operation.
+ Documentation/ABI/testing/sysfs-driver-uacce |  9 ++++
+ drivers/crypto/hisilicon/debugfs.c           | 17 -------
+ drivers/crypto/hisilicon/qm.c                | 52 ++++++++++++++++++++
+ drivers/crypto/hisilicon/qm_common.h         |  1 +
+ drivers/misc/uacce/uacce.c                   | 19 +++++++
+ include/linux/uacce.h                        |  5 ++
+ 6 files changed, 86 insertions(+), 17 deletions(-)
 
-Fixes: c6e3fd22cd53 ("Staging: add speakup to the staging directory")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/accessibility/speakup/serialio.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
-index 3418ea31d..56efc76a7 100644
---- a/drivers/accessibility/speakup/serialio.c
-+++ b/drivers/accessibility/speakup/serialio.c
-@@ -17,7 +17,7 @@
- #define SERIAL_PORT_DFNS
- #endif
- 
--static void start_serial_interrupt(int irq);
-+static int start_serial_interrupt(int irq);
- 
- static const struct old_serial_port rs_table[] = {
- 	SERIAL_PORT_DFNS
-@@ -106,7 +106,13 @@ const struct old_serial_port *spk_serial_init(int index)
- 	speakup_info.port_tts = ser->port;
- 	serstate = ser;
- 
--	start_serial_interrupt(ser->irq);
-+	err = start_serial_interrupt(ser->irq);
-+	if (err) {
-+		synth_release_region(ser->port, 8);
-+		speakup_info.port_tts = 0;
-+		serstate = NULL;
-+		return NULL;
-+	}
- 
- 	return ser;
- }
-@@ -125,18 +131,20 @@ static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
--static void start_serial_interrupt(int irq)
-+static int start_serial_interrupt(int irq)
- {
- 	int rv;
- 
- 	if (!synth->read_buff_add)
--		return;
-+		return 0;
- 
- 	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
- 			 "serial", (void *)synth_readbuf_handler);
- 
--	if (rv)
-+	if (rv) {
- 		pr_err("Unable to request Speakup serial I R Q\n");
-+		return rv;
-+	}
- 	/* Set MCR */
- 	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
- 	     speakup_info.port_tts + UART_MCR);
-@@ -148,6 +156,7 @@ static void start_serial_interrupt(int irq)
- 	inb(speakup_info.port_tts + UART_IIR);
- 	inb(speakup_info.port_tts + UART_MSR);
- 	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
-+	return 0;
- }
- 
- static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
 -- 
-2.34.1
+2.43.0
 
