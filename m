@@ -1,197 +1,92 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7891947532E
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49C93769FB;
+	Mon, 21 Sep 2026 19:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019879; cv=none; b=G/ThPfPuQNmaek+LOjA0bGwyFtJAbTzuEEIoJIYNG55fLut3bs8TcC9lF0YEfUKrp72yEqLWLew0RLugOZOJyRqwNKBcWfCV6LEeZqS7tVZl4UTlcOnJfjfZ5bICNExkgpdLrIS4v1WtQ70tv2KdOH9JB2PPOgvi2T3t9kMTS0U=
+	t=1790019939; cv=none; b=mpnWffzi9+jc9RnoXDeJrng04syLoQF70cMZQ1SYysEYCNKY7DtFLKtQaKqtbquca5tAZ0WkSCd1Hy7HHyupbTXb6apLysfSVlF+Ar6SpVN9bXWqwYPar2/nkcZoCY7JjNNViaMQ4Ksu1DBjioEyuGegwhhQQCaWv/g/Yv7yH50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019879; c=relaxed/simple;
-	bh=97s/8iT6zoeWzj5BFrEjbnzOOXlWZdXh//bjwqi4OXk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=g72gVSd33JAcXOF/gUxwiBkcLUcwRfk42M5/4Alct4n4F6sTqT4HdhBauXRLbH5G3bLP8xyc554lptyHW7uSQz8ib/fC6AEp8kEWi8JGASGfxnWN5qR3JS9gUQ6i/cS5kfpIeNcF3y2CpWZNzRudPXYour0PoBmwc+ZPyDeUZJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pNjUD6Wb; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790019939; c=relaxed/simple;
+	bh=Pu7f8dHTmAVbcbO5Am1juduR/q4XXo7nAJWewjSIgI8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=JVAq95q3jiRdCeDjtVqdrXFxFEoR3g0f06lQgiveaDfucK1eX67hbw9g7pJN/5Uw7UFTSpmRp8VclPZQFQ5oj26rDyq0ckWufNcFfs6cCmSqKjHpDdcwA437/hKcH32kHWh175NLCLbNgjIWJigxSvDV7TxtC/FolyWhN6RyD7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vGeqROWP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pNjUD6Wb"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91ede8035so41229835ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:44:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vGeqROWP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450941F000FF;
+	Mon, 21 Sep 2026 19:45:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790019878; x=1790624678; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=7EWfsQUamIev2TGG4Ye/VRFYZNi1syArJoSYx9L81TM=;
-        b=pNjUD6WbURdMR1fZMclQZgtrt94TDEAOLFI7lzTW/a8PfejEZgaOqczn5ROLbxm64e
-         7Wzg+dATmgk0mxrdJj60ldJJsPCzAcwt5j6IqkqwhB05vOdRJyrEO536CpfgKmlY5csG
-         PWcGmzldT/W97HuHJKV1yX3h8dr6E/r6obifnxWwVFWMWSVTp35AIvj2VRXRjzpGt3+c
-         g1JXFWKjuDTItGGMnIjpyHk2ztRuGfMlolIW7q4Ya/YyksOUfzNmeYWSxx/3gwCYKZJS
-         YKxKxYOFK/cntQgzywYL/XPwhNpQwmRPQyKINfzQytEpFKDK5m+W4y4+8+RvE91yz9O0
-         scHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019878; x=1790624678;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7EWfsQUamIev2TGG4Ye/VRFYZNi1syArJoSYx9L81TM=;
-        b=yDm4iLK6/gZHApELatu7be5yhHJib7Z+/VWH9DR1ZJVvSdvMmw5VbKlMJJXj4ZJnRO
-         81pGnGt91dKd4ZNntQdF/0bUmGSeu8mdqyl/l3G1rbJZfJOMEY1abrlL4tqoa0aaowCE
-         OhPAX3tfO/p0Lxr+Uj0qGykZnEV12JXzdiUAF0RjkKoKfPtmp92UDOVuuSZVjBrHtVKo
-         hwd23YVxk9MkgjAlAMt9dwFa068L9Qy7yqY141sF16CpJwEe+CjJy3UBvTEVwHW1/qdA
-         K1YdsaFX73Pb/6617ijK9OsROG3OiyCGY1MNt9wZ8+BoPV6S3xfZFjdnotIqyxePrf6i
-         kuzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwfDkQiGCHGP59WypbDeDll3u/H5AikEO2RoIMzrmg6QRgz1sZfKyzZSIwn8riS8BXZjlnj7iAoHWmxTvw=@vger.kernel.org
-X-Gm-Message-State: AFuF++medqBWAeD1YtISWjEDdxGkBcOUAunxp7cWjClMfOxR6XQT0Fgf
-	J6dqsD7v5yu59El+aOzKFAFtW+w/xcmWuMtp/IICtm1p9kjXghT3PZ0L
-X-Gm-Gg: AYBFou2DEAW0CWVuv7INJxhYSlzQoCik0UqxyftaZ33+Qr429Zo4KuxP9+F1gc+ifeH
-	HIdTCRReOXuH1Hg156M8cgnVqOHV/byxIiUXJ5HlkCVLmODJY6x//KIXLvjETnEzMyOuVjAMM2L
-	SSWRGAi0klgoX8bQkqdj6ahRby5TL8Omwq05FocHXY2h8LN7RaEiminnwszGQJqiwDSXsUXyhdr
-	rkpd5P70ugVEOIla3XBdqjUcPMnspZ9Ob9Y4679WG1ATJy+SIv6BwLhuC42YONX16i0bQZHoqGH
-	CgVGJpusgxP0o0k6mbdaimEo72QMY6AJZ331KpYe4Et0hR30jSEDlFZc+IzrdMYorQ/gMDxvepP
-	EV/6rePXUs4TUkDcg5xGcQ6SWwloKKXcGmzlrDIFBnm3+z+5FXdf9gB3fwUC/ownkpSHfhrg7AC
-	yDpX1/8BV+7NP4To590oN4HbW74eV61IxG34E5GDjP4VBjDgR19n42IaO/A28AaDb790XQ6KAUW
-	/ThpwcCmMxla73bKP/OOtrukQ6mbQ4isCLF/ZEFCLrg+fZRwE0Dii3PowO7H8DugZ2P
-X-Received: by 2002:a17:903:1448:b0:2dd:c100:943f with SMTP id d9443c01a7336-2ddc1009c5fmr105596185ad.61.1790019877522;
-        Mon, 21 Sep 2026 12:44:37 -0700 (PDT)
-Received: from ?IPv6:2a03:83e0:115c:1:9de9:26b9:a969:69d7? ([2620:10d:c090:500::5:f95e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5eabe0b5sm261383eec.1.2026.09.21.12.44.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:44:37 -0700 (PDT)
-Message-ID: <951923920747d8dcba3d56ca8858e106d9c7ba4e.camel@gmail.com>
-Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
- across zero-extending movs
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Vineet Gupta
-	 <vineet.gupta@linux.dev>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>,  Andrii Nakryiko <andrii@kernel.org>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau	
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song	
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis	
- <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John
- Fastabend	 <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf	
- <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, "open
- list:KERNEL SELFTEST FRAMEWORK"	 <linux-kselftest@vger.kernel.org>
-Date: Mon, 21 Sep 2026 12:44:34 -0700
-In-Reply-To: <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
-	 <20260910164635.459558-4-vineet.gupta@linux.dev>
-	 <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
-	 <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
-	 <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
-	 <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
-	 <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
-	 <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
-	 <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
-	 <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
-	 <DLL8Q69N7BUD.1HI0MKU2M2UGE@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	d=linux-foundation.org; s=korg; t=1790019938;
+	bh=VmdfqmBH4jrhaxwTCYSeFkpBAeDxBk63Act7QDZ3RcA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=vGeqROWPC+MoRonoRVJLURAv4yAo8Fhxj7II7mEW8uh5O2dmMGBK1DkNsf3qD1iYP
+	 F0t2Nh9vLrlUE39++lWcI0DY/IMFfOT8G7kyPI3ZjX5X0FyMvGJa95n08kCprxcZof
+	 Vkoi1X4y8Q2RfEB2jsGN29k+a9T5AOyE4L5tr7Rc=
+Date: Mon, 21 Sep 2026 12:45:36 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>,
+ Nhat Pham <nphamcs@gmail.com>, Chris Li <chrisl@kernel.org>, Kairui Song
+ <kasong@tencent.com>, Kairui Song <ryncsn@gmail.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Kemeng Shi
+ <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song
+ <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, David
+ Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal
+ Hocko <mhocko@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Qi
+ Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Wei Xu
+ <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>, Kunwu Chan
+ <kunwu.chan@gmail.com>, Tal Zussman <tz2294@columbia.edu>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v6 0/3] mm: zswap: free cold writeback folios promptly
+Message-Id: <20260921124536.7a1857853ad7629f061a106b@linux-foundation.org>
+In-Reply-To: <20260921151306.625134-1-alex@ghiti.fr>
+References: <20260921151306.625134-1-alex@ghiti.fr>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2026-09-21 at 19:27 +0000, Alexei Starovoitov wrote:
-> On Mon Sep 21, 2026 at 7:10 PM UTC, Eduard Zingerman wrote:
-> > On Mon, 2026-09-21 at 18:59 +0000, Alexei Starovoitov wrote:
-> > > On Mon Sep 21, 2026 at 5:28 PM UTC, Eduard Zingerman wrote:
-> > > > On Wed, 2026-09-16 at 17:30 -0700, Alexei Starovoitov wrote:
-> > > > > On Wed, Sep 16, 2026 at 5:08=E2=80=AFPM Vineet Gupta <vineet.gupt=
-a@linux.dev> wrote:
-> > > > > >=20
-> > > > > > It ended up with full testsuite run parity - after 4 incrementa=
-l patches.
-> > > > > > But the pattern of all those patches was adding some predicate =
-/
-> > > > > > special-casing to reg->add_const
-> > > > > >=20
-> > > > > > hunk 1
-> > > > > >=20
-> > > > > > -       if (src_reg->add_const)
-> > > > > > +       if (src_reg->add_const && src_reg->delta)
-> > > > >=20
-> > > > > why? It should not.
-> > > > > My point is that zero is not special.
-> > > > > It should be handled within the current framework.
-> > > > > All these extra hunks are not correct.
-> > > > > ADD_CONST_32 logic should work for delta =3D=3D 0 just like
-> > > > > it works for delta =3D=3D 1.
-> > > >=20
-> > > > After thinking about it some more, I agree that having an orthogona=
-l
-> > > > encoding would be nice. However, it appears that the split should b=
-e
-> > > > somewhat different:
-> > > >=20
-> > > >   struct bpf_reg_state {
-> > > >     ...
-> > > >     s32 delta;
-> > > >     u32 id;
-> > > >     enum id_link_kind { full, zext, sext } link_kind;
-> > > >     ...
-> > > >   }
-> > > >=20
-> > > > Where:
-> > > > - id =3D=3D 0 =3D> no id link
-> > > > - full =3D> all 64-bits of the register are identical to
-> > > >           all 64-bits of a scalar value `id' (let's call it X).
-> > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D full}, rB{X,full}=
- =3D> rA =3D=3D rB
-> > > > - zext =3D> lower 32-bits of the register are identical to
-> > > >           lower 32-bits of a scalar value X,
-> > > >           upper 32-bits of the register are null.
-> > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,zext} =
-=3D> rA % 32 =3D=3D rB % 32
-> > > > - sext =3D> lower 32-bits of the register are identical to
-> > > >           lower 32-bits of a scalar value X,
-> > > >           upper 32-bits of the register are either 0 or 1,
-> > > >           depending on the bit 31 value.
-> > > >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,sext} =
-=3D> sext(rA % 32) =3D=3D sext(rB % 32)
-> > >=20
-> > > hmm.
-> > > there is also 32-bit link with delta, right?
-> >=20
-> > My point is that delta is independent of 32-bit/64-bit property.
-> > `delta' can be used to propagate in both directions:
-> > - full 64 bit -> 32 bit sign/zero-extened
-> > - 32 bit sign/zero-extened -> full 64-bit
->=20
-> both? how ?
-> I was under impression that in 32-bit domain delta is one way.
-> rX =3D ...
-> wY =3D wX
-> wY +=3D 5
->=20
-> if wY =3D=3D 10
-> We cannot do -5 to rX
+On Mon, 21 Sep 2026 17:13:01 +0200 Alexandre Ghiti <alex@ghiti.fr> wrote:
 
-Why?
-It is still valid to transfer r32 and tnum_subreg knowledge from wY to rX.
+> When zswap writes an entry back, it allocates an order-0 swap cache folio,
+> decompresses into it, and issues the write. The folio is cold by
+> construction, yet today it is left on the LRU for page reclaim to find and
+> free later. That wastes a reclaim scan and keeps cold memory resident
+> longer than necessary.
+> 
+> Rather than implement this in zswap, extend the existing dropbehind
+> mechanism to swap cache folios and have zswap opt into it (Yosry). A
+> PG_dropbehind folio is already dropped from its cache once writeback
+> completes instead of being left for reclaim; for a swap cache folio that
+> "drop" is removing it from the swap cache.
 
-  wY + 5 =3D=3D rX % 32 + 5 =3D> hence rX % 32 knowledge can be recovered.
+Thanks, I updated mm.git's mm-unstable branch to this version.
 
-If rX itself had some delta, e.g.:
+> Changes in v6:
+> - No functional change: this version only updates changelogs and collects
+>   tags.
 
-  rX =3D ...
-  rX +=3D 7
-  wY =3D wX
-  wY +=3D 5
+Confirmed.
 
-Then it would still be possible:
+> - Patch 1: fix the changelog. The first paragraph describes the behaviour
+>   before the patch, so it must name swap_cache_alloc_folio(), not the
+>   __swap_cache_alloc_folio() this patch introduces, and the last paragraph
+>   now says the helper is renamed as well as that the LRU insertion is
+>   deferred (Kairui).
+> - Patch 2: fix the changelog. The swap cluster lock is a spinlock taken
+>   with interrupts disabled and does not sleep; the folio lock is what the
+>   drop blocks on, and that is why the completion needs task context. Also
+>   spell out why it blocks instead of using folio_trylock() (Barry).
+> - Collect Reviewed-by tags. Thanks to Kairui, Barry and Nhat for the
+>   reviews! Kairui's tag on patch 1 was given on the posting of the zswap
+>   writeback refault series [1], which carries the same patch.
 
-  wY + 5 =3D=3D (rX - 7) % 32 + 5 =3D rX % 32 - 2.
-
-Again, in case of this direction, only lower 32-bits of the 'full'
-register can be inferred.
-
-> and we cannot use your above 'full' encoding for wY +=3D 5.
-> Currently we use BPF_ADD_CONST32 for wY +=3D 5
-> I don't see how 'full' can work.
