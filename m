@@ -1,186 +1,102 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5276150E583
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0AA50E5AD
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790017822; cv=none; b=Vc5C18KKTEygBv+eBo9XrAIefTH7OHzgxw92vEtmzhn5juGGh8h/V3j4b/M/UOPaA2f2SSPu1QsxjkD3C5zS5nSFAP/zOdGYOzNxv7vBWJdVlZEhC350rNHmlByHiwDdsiI5IkhXbBfHWBiqLi695oVHTu4igmUgUGfMSOvsfWU=
+	t=1790017889; cv=none; b=uj7QZWz4GyXvPotVx/htt6/vy3wiCWe4dOebqvsCbNIresZrCM1NIgyK8c8GbijdfFzRiDIUrQChlZQn/KBYATs60hYlerXDc44UUYfPdmIbOu8NYDeRNErmx3+BxbCUTMh+8ABOEvuQ/QQPz9dc/rV+W88yT+u6PxaRoKLVsEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790017822; c=relaxed/simple;
-	bh=fLE4kBRgNTrXXygiginl/GXPxW8+G8PbmvTmG7jemJI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dnAAeqMNzfUsrQg/QtKFLYajEBel+RZPlH/kBKJ6GXrLhCm5Llm192kML6oUfWWrvTXXsQzWbQLczheQ4sGq0G2Wsmw/i9eEG49iPm1LLeRSlcOb8tL6ro5V9hgZEATrzVdnzX6q4HcbSILFDKk/c0you7+kAg/W2P7u3NmVvjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nSRshtni; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790017889; c=relaxed/simple;
+	bh=WEAj10ZEs87gYY2qAkhw9t06wdwrhpg3Amds8V9RA8s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g3H+WWw3ivoEH0ubzKk4xEvmHKPQ4h2vxbkSy98EeaVPzjcIhLv7QJSsxEzrQkIdLFANkRAuYUKmeWLKNoDhKDRsUmDmuhpXtFs33hHt0G/BKaVg/PYiSWCmvnUYyz3ZUi76qlPf9B/P1m1OJbiUlR8UWzXYmUO1f/pq/fK082M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PtYt9lom; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nSRshtni"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so30487975ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 12:10:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790017820; x=1790622620; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9GQz6TWkhxOvlxYTvUXGyKqMCgFXGx1b0EjZiCciSS0=;
-        b=nSRshtniGviRrXdBvwF+UMm2ClEQCd0Y16dWJaLBAvuvIsgknQ97fLAp+5z9mWoLRL
-         +S6GAJBwHBb/flHbslHM/vD5XaphH1t1W2KWJ56mX2xuOq/lZC+ojq5E2LHnSxsAazT7
-         x3ijNRVPDPeCPNyfF0QdGQ7NTKwwGIqdFcKqipMHRzXcwCedG2benIy8+f7sj2PaZ7ji
-         ePb2leZhMmRVlcwzybSbCIRPRlItMt/hEPG14ijJ1Q2thVIAVR8b1GCpsLxRN9ts3NW2
-         QKWYXbBgBgHysv4t3/kGHZ8PTj6ZYPeIUOPNXz8WuqjQifWfTJGE8YihM7DLfhmiDRve
-         43+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790017820; x=1790622620;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9GQz6TWkhxOvlxYTvUXGyKqMCgFXGx1b0EjZiCciSS0=;
-        b=cB3hmfRoPYliNf0IY1KjKgNiZlfTZ6juWyROgrvUCBKqnefpPgOeLCB3JLd5sxU2Wh
-         rnekxO4nJibyaC6byjssjB9xnp0q7XEjfiEw5mkgywcCgHVvIwd65UdssZj6/pLXrTan
-         zxtY8Kc+2F5bcfGQdadry/kWtbg+gHL0770VugTXsKwsQZBYnQz1eSIAyil0AXd6piqc
-         uYT36e7d2M4/c03pSCuR0BRJ1kR4LGjsr/cPSK2bRQoutz35LFqElefP0AOH972fYkZf
-         rHHOJV0He/ynMWbhWe2lDPUxqS2U3AZ/a3BGR/6FvAZrThZ8Yv3PCTUMO7YNweQvSmtX
-         jJGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzoSuyipXg9SKCT3SBoN1f1frWvgIOBzJVv/Jw/JU5RBrqnSCQ8Lj07U/dKwQq8ZrGgMFqj8o1OS3A5xl4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltpKetHBxUbd9tZ617uJw25BY5r7IcEARybpzXIorF9NWMBEN8
-	hMe1Ib4L368ZVzsIUycBUajMbFSTsGx0KSUDEppPRcst937EA1vGDqdY
-X-Gm-Gg: AYBFou1WYzt/pNpi2ouwEm1fFbCiGiITzv1VXYULScbk6I5SadHLh2sH6lKfwXDphnZ
-	AB2CqKzhTfnhtR7T4wr+sGwjNvtmQWdsAVWDFuvRFxltJ8iMBwoiGHwZCCNJdK8lay1MfTv/YpR
-	sZkXNvVYARLpkbBaxHOvXWB2vnKNbJJVjFs6Sgur8I9x2tXTwm2OxgjwrcftEaJwxdR1Q2EGtVl
-	HsW1U47vzCmhpk3J8TJvpufw94g5sgeybAFjgig3EGELpThcpzJMjaJP+1FLfb47Ro8Ll/S9OiB
-	ev+5XOSdnQEk2J5dys8RrelM7eJPAyAqVol5fDrXE+6b+uBFofdtPgMPEuUUn4u/2jAStqjS427
-	Z1phgtNcjUQCLD06F3pxHzm/2Ib9PIucpYA6gCDdu5N3HxNAg2+Kkdi+dDgmOOMTNDGNBibkGXU
-	ND9HOTcdm86c8yIgUyqpL1v2TZlItUF32YFwQ79ptGACjwJbXQSWJpMVYC1RH8tXeka6W4kDplM
-	TYnYYOa1d2bSRgwJTpiYAxUGv8gYoGn97AOp4XWE4/sdPQm9zNVAOjZww==
-X-Received: by 2002:a17:903:f90:b0:2dd:ad74:6d17 with SMTP id d9443c01a7336-2df5b26afa5mr982235ad.29.1790017820525;
-        Mon, 21 Sep 2026 12:10:20 -0700 (PDT)
-Received: from ?IPv6:2a03:83e0:115c:1:9de9:26b9:a969:69d7? ([2620:10d:c090:500::5:f95e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ec0d55esm46896eec.20.2026.09.21.12.10.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:10:20 -0700 (PDT)
-Message-ID: <e9aad352ba82dadd97a17867108b5db1865fa38d.camel@gmail.com>
-Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
- across zero-extending movs
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Vineet Gupta
-	 <vineet.gupta@linux.dev>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>,  Andrii Nakryiko <andrii@kernel.org>, Kumar
- Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau	
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song	
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis	
- <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, John
- Fastabend	 <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf	
- <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, "open
- list:KERNEL SELFTEST FRAMEWORK"	 <linux-kselftest@vger.kernel.org>
-Date: Mon, 21 Sep 2026 12:10:17 -0700
-In-Reply-To: <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
-	 <20260910164635.459558-4-vineet.gupta@linux.dev>
-	 <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
-	 <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
-	 <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
-	 <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
-	 <CAADnVQ+Si9Au8J_j2nt+ZzFq6WPaz8hpmh0n=_dFysZmSOeipA@mail.gmail.com>
-	 <ff18ccb77a554000a030199e8c1fbb7d8d298e18.camel@gmail.com>
-	 <DLL84IMPTRQF.3DOQQTN2KCAEW@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PtYt9lom"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 04365C5CD60
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:12:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A29355FFB2;
+	Mon, 21 Sep 2026 19:11:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AB39A103291F6;
+	Mon, 21 Sep 2026 21:11:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790017881; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=dewX2pr+tBAQH8D0s9SUEjbVC8fLT3dYu3csMq8B8W8=;
+	b=PtYt9lomWlr+jUBbaDTWTFj8kj14mtSlnL/d707qwuTR+P/HioGV3kR7S1ZeR2l8DHk0E3
+	qzkwQ75GuhMtyX/7wUbmZF3Aey86/xl4b3seWvB+O8Fu59Pn+oR5Ks2xsAvQYTtGGa7QUG
+	4aSQ84UQrOdrXcZdQOUMlKgUgi4G9VAFxbc/+LGYqcc7q9isZ+9UN4+QlBlny78bRTGQkY
+	+66aEXKHv7W+Y4Vnx59PMG1y+i2ljiRpDl1IS0Yb/JTB8epS3IZ/lYu/v9YgKa11+n6sfc
+	3d1mhZSiwqTtPrizZWx6R8OWPsVKrSP9pd4j+PmIH83cMwvLUBJEJRK43DSbng==
+Date: Mon, 21 Sep 2026 21:11:19 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: "Sverdlin, Alexander" <alexander.sverdlin@siemens.com>
+Cc: "linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] rtc: pcf85063: disable the clkout output by default
+Message-ID: <20260921191119118349f0@mail.local>
+References: <20260824080801.709764-1-alexander.sverdlin@siemens.com>
+ <20260824082456e0edd7c6@mail.local>
+ <2ce03d3b4cd9cce8e32fe1fe1ffbea5760bf9ef3.camel@siemens.com>
+ <202608252107336920b1e4@mail.local>
+ <f4ae12f3fba06fc00c74f76555d684c1fa706179.camel@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f4ae12f3fba06fc00c74f76555d684c1fa706179.camel@siemens.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 2026-09-21 at 18:59 +0000, Alexei Starovoitov wrote:
-> On Mon Sep 21, 2026 at 5:28 PM UTC, Eduard Zingerman wrote:
-> > On Wed, 2026-09-16 at 17:30 -0700, Alexei Starovoitov wrote:
-> > > On Wed, Sep 16, 2026 at 5:08=E2=80=AFPM Vineet Gupta <vineet.gupta@li=
-nux.dev> wrote:
-> > > >=20
-> > > > It ended up with full testsuite run parity - after 4 incremental pa=
-tches.
-> > > > But the pattern of all those patches was adding some predicate /
-> > > > special-casing to reg->add_const
-> > > >=20
-> > > > hunk 1
-> > > >=20
-> > > > -       if (src_reg->add_const)
-> > > > +       if (src_reg->add_const && src_reg->delta)
-> > >=20
-> > > why? It should not.
-> > > My point is that zero is not special.
-> > > It should be handled within the current framework.
-> > > All these extra hunks are not correct.
-> > > ADD_CONST_32 logic should work for delta =3D=3D 0 just like
-> > > it works for delta =3D=3D 1.
-> >=20
-> > After thinking about it some more, I agree that having an orthogonal
-> > encoding would be nice. However, it appears that the split should be
-> > somewhat different:
-> >=20
-> >   struct bpf_reg_state {
-> >     ...
-> >     s32 delta;
-> >     u32 id;
-> >     enum id_link_kind { full, zext, sext } link_kind;
-> >     ...
-> >   }
-> >=20
-> > Where:
-> > - id =3D=3D 0 =3D> no id link
-> > - full =3D> all 64-bits of the register are identical to
-> >           all 64-bits of a scalar value `id' (let's call it X).
-> >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D full}, rB{X,full} =3D=
-> rA =3D=3D rB
-> > - zext =3D> lower 32-bits of the register are identical to
-> >           lower 32-bits of a scalar value X,
-> >           upper 32-bits of the register are null.
-> >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,zext} =3D> r=
-A % 32 =3D=3D rB % 32
-> > - sext =3D> lower 32-bits of the register are identical to
-> >           lower 32-bits of a scalar value X,
-> >           upper 32-bits of the register are either 0 or 1,
-> >           depending on the bit 31 value.
-> >           =E2=88=80 rA{.id =3D=3D X, .link =3D=3D ?}, rB{X,sext} =3D> s=
-ext(rA % 32) =3D=3D sext(rB % 32)
->=20
-> hmm.
-> there is also 32-bit link with delta, right?
+On 26/08/2026 06:13:08+0000, Sverdlin, Alexander wrote:
+> Hi Alexandre,
+> 
+> On Tue, 2026-08-25 at 23:07 +0200, Alexandre Belloni wrote:
+> > > > > The PCF85063 powers up with its CLKOUT pin driving the 32.768 kHz. While
+> > > > > it's possible to request a specific default frequency in the DT via
+> > > > > assigned-clocks/assigned-clock-rates on the RTC node itself, even without
+> > > > > a real consumer referencing the clock, there is no such possibility to
+> > > > > disable the clock output by default.
+> > > > 
+> > > > Are you sure about this? The CCF should disable the clock if it is not
+> > > > used.
+> > > 
+> > > There is late_initcall_sync(clk_disable_unused) (marked __init), but for the
+> > > clock providers registered later, say, via modules, there is no such mechanism.
+> > > And I double-checked this putting some debug prints into the driver,
+> > > nothing from struct clk_ops is being called without a consumer in DT.
+> > > 
+> > 
+> > Right, so what about the patch attached which seems to work fine with my
+> > rv3032.
+> 
+> The patch would work for me as well, will you publish it officially?
+> 
+> BTW, it's racy, if __clk_register() would be called between
+> 
+> 	clk_disable_unused();
+> 
+> ... and...
+> 
+> 	WRITE_ONCE(clk_disable_unused_done, true);
+> 
+> ... the workqueue will not be scheduled. But overall it's a nice idea!
+> 
+> Maybe we just need to drop late_initcall_sync() entirely, this would simplify
+> the things a bit?
+> 
 
-My point is that delta is independent of 32-bit/64-bit property.
-`delta' can be used to propagate in both directions:
-- full 64 bit -> 32 bit sign/zero-extened
-- 32 bit sign/zero-extened -> full 64-bit
+I forgot to copy you but Bryan asked whether this works for you:
+https://lore.kernel.org/linux-clk/20260626-clk-sync-state-v1-0-4156d8196dc8@redhat.com/
 
-> > The reason for such subdivision is that:
-> >=20
-> >   (X + delta) % 32 =3D=3D X % 32 + delta % 32 =3D=3D X % 32 + delta iff=
- delta < 2^32
-> >=20
-> > Meaning that a non-zero delta can still be used to infer the state of
-> > the lower 32-bits, e.g.:
-> > - if  r1 =3D (X + delta) % 32
-> > - and r2 =3D X
-> > - and there is a comparison `if r1 < 42 goto ...`
-> >=20
-> > This comparison adds constraints on lower bits of r1,
-> > and it is correct to transfer these constraints to lower bits of r2
-> > by subtracting delta from r1 and using lower bits of the result.
->=20
-> Not sure what you're arguing about.
-> My only point is that 32-bit link with delta makes special
-> handling of zext unnecessary.
-> I still don't hear a strong reason why it needs to be handled
-> outside of 32-bit-link-with-delta.
-
-I'm arguing that the following encoding:
-- ADD_CONST_32 (delta is valid, sign extend flag invalid)
-- ADD_CONST_64 (delta is valid, sign extend flag invalid)
-- sign extend flag (delta is invalid)
-
-I strictly worse.
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
