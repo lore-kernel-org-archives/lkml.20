@@ -1,45 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27FC4F3EDE;
-	Mon, 21 Sep 2026 23:28:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAC9489FAB;
+	Mon, 21 Sep 2026 23:28:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033298; cv=none; b=GpKEP/2AwUxoN3uOAKs84NdjIHkm2gRCoDJdojs7cOjhcKVAgw9hHSg4J9UP33UfcEeHtmsZMeVno//7zYgZ4zNJB+Ey8TnO7eLkWCPNcZAhyeTH6rNeQXikRImbdpa6iN/xUD1BdepT4xgpRJRfj4N9LC6TGZhCQCNbD60k88E=
+	t=1790033302; cv=none; b=LPcfcsM2I0uxrOwBt/2hRjZdM8bBp/NMI8EPI5lQqhlvKFpNK+Fa54HsWDbv5fKylP++UaaoBMZ7m6XOepEvIuDKj/EF1m+bVgxFAe8gVGZv/Gx3Wm8Qrv6NoYvXYWlb11Zl71wyEF2tvgS1pjGHrRWYFH9ynUX+ZIAsK4B/GvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033298; c=relaxed/simple;
-	bh=OhE7HP1ED6ouM/A0A8HzsX/EDG2EJeUmthFB9sdoZEw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cn2ETISoNHPKsxE8yEuPxG5qS8EhipJyqEJvYU1ty15ICgib0T4fsICeZvqLDtlo57D6LtGHAAokd4MxpGpAPEZmNbIgx0kKs8D2jiDJJh2W4IITOKuNEKxWC9XcntxmXVfGismHAHBHzRXtdNK8wX0YkSaXU1nuLmbIcIlV6FM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EziB2wZY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033302; c=relaxed/simple;
+	bh=+AO/v9nGlpiWxBEyyBhfU0XYgqE2xZJnTRMqOr3Gqfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YpioePWhfDrbXkm9wcTVH0zQZ0wvNiQI4buc9Z9TZN03kiAQz9qcoktVlW2FqDl7B3hCbzDNwzBWeegtzcUl8hL4pt+CrlUDDr3wMaCSJIJgE0PQArqojZLmUb0A4EFtZp5ECZLONhfmRl+AKLSvK1391zZ7+oWDzBwkhSBrrhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVBRn4HA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EziB2wZY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E6F1F00899;
-	Mon, 21 Sep 2026 23:28:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVBRn4HA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C956F1F000FF;
+	Mon, 21 Sep 2026 23:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033283;
-	bh=EkOF2OKm9prgMnT5W8OmhhbFvcCajkN61ox3piMn6x8=;
+	s=k20260515; t=1790033291;
+	bh=s9i/ToZsbA5iXctbYEYVjf65fydob/mr01EsHElgSTk=;
 	h=From:To:Cc:Subject:Date;
-	b=EziB2wZY5ldb6jGtQfjR5xqLKJW8nUkve3p0mr5LX8lubAJxvPMN7Yt48G9NkbaA0
-	 PcEGdUKG1Q/jUDGSbx7GfDUR2PBEdFcNu7K1SYXRMXW0oOYSsDheBnDsoYdnzvIpjw
-	 d2roMLD8emkcB7flPaJA2/G6PHqRmfr35b8zZC7nOXE2za+ELroihhZkmshW1mfHmR
-	 yb5J17j+HpaT+5O8+qb25JVN5XzFU8qxU901x+hmFmKwMHs0R6hoLHo18f0prJ42at
-	 i86kCaAhTrCBAyQxpWTnv6n1Rz0skOlAttZ9m0aQCrskh/m1++TxuwTfal9ytVKSr8
-	 3kipa4sxzlIXw==
+	b=XVBRn4HAER+wIB/E1iVk+dVgAHu83sRTjn6y74APepGBQ1VZ6N+hHkfvdjHVgdiLU
+	 J/LRnQ4ScTBfL+ekBqAafSEEuJ6co4rYknZEwK5+woBeM5s7SyTrp0tvH5h3LAMO37
+	 UM89JozSTA+pvcbol3QHFY+V8Otsz5aQBJSTVUnnFjoSvmUCVQfv4ikou3XYUQXcNq
+	 OyZ6hYfM613SOlbK6nSqhTb5rBX/3hGQPvBHsX4Th4yS/rgzmkiedmEzdD/z/Vn0Vt
+	 eIkgWdBpMnVmK/TeRzYlLfOdl/QTdrgNknxCOxyeFHxFnkRnO+WMddXzvFqJkuThw1
+	 bXZQjn7aqx1iw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: dri-devel@lists.freedesktop.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Yassine Oudjana <y.oudjana@protonmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-clk@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: gpu: Allow Hi6220 Mali resets
-Date: Mon, 21 Sep 2026 18:27:58 -0500
-Message-ID: <20260921232758.3136548-1-robh@kernel.org>
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] dt-bindings: clock: mediatek: Add MT8516 fallbacks
+Date: Mon, 21 Sep 2026 18:28:06 -0500
+Message-ID: <20260921232807.3137010-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -49,59 +53,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi6220 Mali nodes provide both ao_g3d and media_g3d resets. Require
-those two resets and their names for the Hi6220 compatible. Other Mali
-Utgard nodes have at most one reset and do not use reset names.
+MT8516 topckgen and apmixedsys nodes use the common syscon fallback
+form. Add the MT8516 compatibles to the branches that allow the
+syscon fallback.
 
+Fixes: cd9fdd06b0e8 ("dt-bindings: arm: mediatek: topckgen: Convert to DT schema")
+Fixes: 16a146735df3 ("dt-bindings: arm: mediatek: apmixedsys: Convert to DT schema")
 Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../bindings/gpu/arm,mali-utgard.yaml         | 25 ++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/clock/mediatek,apmixedsys.yaml          | 2 +-
+ Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
-index c8d0d9192d92..d68fe8c7d010 100644
---- a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
-@@ -112,7 +112,13 @@ properties:
-     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml b/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml
+index 591a9e862c7d..438723d25320 100644
+--- a/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml
++++ b/Documentation/devicetree/bindings/clock/mediatek,apmixedsys.yaml
+@@ -26,7 +26,6 @@ properties:
+           - mediatek,mt7988-apmixedsys
+           - mediatek,mt8135-apmixedsys
+           - mediatek,mt8173-apmixedsys
+-          - mediatek,mt8516-apmixedsys
+       - items:
+           - const: mediatek,mt7623-apmixedsys
+           - const: mediatek,mt2701-apmixedsys
+@@ -42,6 +41,7 @@ properties:
+               - mediatek,mt7629-apmixedsys
+               - mediatek,mt8167-apmixedsys
+               - mediatek,mt8183-apmixedsys
++              - mediatek,mt8516-apmixedsys
+           - const: syscon
  
-   resets:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+
-+  reset-names:
-+    items:
-+      - const: ao_g3d
-+      - const: media_g3d
+   reg:
+diff --git a/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml b/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml
+index c080fb0a1618..6594d491e215 100644
+--- a/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml
++++ b/Documentation/devicetree/bindings/clock/mediatek,topckgen.yaml
+@@ -23,7 +23,6 @@ properties:
+           - mediatek,mt7622-topckgen
+           - mediatek,mt8135-topckgen
+           - mediatek,mt8173-topckgen
+-          - mediatek,mt8516-topckgen
+       - items:
+           - const: mediatek,mt7623-topckgen
+           - const: mediatek,mt2701-topckgen
+@@ -43,6 +42,7 @@ properties:
+               - mediatek,mt7988-topckgen
+               - mediatek,mt8167-topckgen
+               - mediatek,mt8183-topckgen
++              - mediatek,mt8516-topckgen
+           - const: syscon
  
-   operating-points-v2: true
- 
-@@ -130,6 +136,23 @@ required:
- additionalProperties: false
- 
- allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: hisilicon,hi6220-mali
-+    then:
-+      properties:
-+        resets:
-+          minItems: 2
-+      required:
-+        - reset-names
-+    else:
-+      properties:
-+        resets:
-+          maxItems: 1
-+        reset-names: false
-+
-   - if:
-       properties:
-         compatible:
+   reg:
 -- 
 2.53.0
 
