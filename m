@@ -1,220 +1,456 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBC42E7622;
-	Mon, 21 Sep 2026 06:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4374E36EAAC;
+	Mon, 21 Sep 2026 06:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972843; cv=fail; b=RgRhoHH00vxVgkFCR9h3Czy9iCGK7GrkTSGmKxAWz7d1R/rzZWSLq0ciGIBMN1QHQ/kEXhWOt1wUfAgiJRMZXCXZPyyYutSCIsVd0mtUHsj4grExs2eantYrTriYeGY7Mlco8gA4Fyvz6OipPUSjx7Wq5X0A2BxUE+Wvpg89MI0=
+	t=1789972907; cv=fail; b=jRT199OH9DBkeubB3fNPoV3thVTtUpu5sxSGAO76mzI8RCP+4oRKVGviZGBjV5AmCy+s8jobEuv5c402defZmQO4iZTxEeICIozEbqw8SmDfskuXH2Ky25aIP5JhXGVKNnet93Fq2uIwA02uKCQzvXsLnYSjoebQT2FR9ZJniEo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972843; c=relaxed/simple;
-	bh=mLLmam9Mpx828kMki2TUpkC69qoBHYx0vSmvoH6lSNk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=dcfJjU2TSSSetNVCpnJOkdlByOqYaCqfrIkX+tp3ESLhvaxT99gCYsaozPxSEqv4XKZwsW0wXFYKfrIxfXDh8ivr0/b5iNpCAbCmcwMRWD7lMhvAdmtcCCCQ3cZEW5ZfMp4Ymg8rU9mQaectiIF/2xsio4/In3Vh5QDSOkNfWUY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=WNgyu8eW; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=vURB5nqG; arc=fail smtp.client-ip=148.163.154.28
+	s=arc-20240116; t=1789972907; c=relaxed/simple;
+	bh=pcYCbD2dnXwEJlar83uj04CBrqgiOweaNAJFH5IW/U0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RAoqvZg7vNBAekaM2JxF2B6jtiLrPcM3iFg9TMV7t+QjdTI6V/898x466HscS3f/d37KkcgWGN9e+uKa0hkUuYax/6L1W1cVwXAjFTyMpiT1z5hsgFtYssTDBWMc2PBWLy+9EHHLcMGfcQkeV9YBvWJplQtpI0QMNHno6BEfRJA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=qO85jQFn; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=tkoupHHb; arc=fail smtp.client-ip=148.163.150.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="WNgyu8eW";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="vURB5nqG"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L5GJwA2770128;
-	Mon, 21 Sep 2026 01:40:30 -0500
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="qO85jQFn";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="tkoupHHb"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68L3Zho14049388;
+	Mon, 21 Sep 2026 01:41:21 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=A+8OPNDTMUtNRwvm6okuvzvDQl5XdfF+zgDgtOpY5
-	Lw=; b=WNgyu8eWsRw88PFdqyws7yhvmAG0v97/oi6GmYUK5h+rgCy8Me8gvUGAM
-	1plfNIjjayVOvSPD2DXV9I8xoiuXNnM4EnxH6u7V6BTBVqLVMzynt8YHMoc0L8H2
-	wUSBi1PMfRv0EVKxk9o8lxuPlSjKiqHYuSplTnkQIQ/z9sWDcmzo28rmB7nU3V+f
-	5QObPIo4WZda3S0bXmc3u/OVRlx4odGpQbTEAbRZPLycX7vP4e3vrmDczevggPw7
-	xGqQRY2LGwiVElXS4y9Sx92pIVXfbjyz0uKxW9nc75tahWTVcF6KrfgDCXn+aAgi
-	Qt9KD7b9xXRbfRJgJqAZi/yvphLMw==
-Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013066.outbound.protection.outlook.com [40.107.201.66])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gtx9f8ewy-1
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=DEVSBES28QEy2
+	uAZYZT6Q+jAMpuPxonohsrrMDApaBI=; b=qO85jQFnoxq4Uwbg2Himfq1PIgOxj
+	KTQiVFTgzHqF4gcFcL+l7un6O3puXx5QqCV9WwOEaPlF3uF6/nyoClt6nfJv44yk
+	6CVJioD/vlUnXgjUW2v5TsaJUCs+QoQLIwDUn3yLcfrqK95o775Glg37YxQW8mgq
+	zBE5zznHkUo4tL2bNCaIljBc0Sc0n4FW3NpLzTNjkwLTj7EvrX582TEAoTa7orHs
+	7KHo94aWM4k/pTjnoYUYPaZ5lE5z5mxAbA683drvobIaZ/EP9DeQQRHLw0ce04Uv
+	xx7459xKZa5ztGBrHPqAJTz4DHmYPqLVboE0YxTSjPLtTIR6e2MY5pN+A==
+Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gtcbnmmej-2
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 01:40:30 -0500 (CDT)
+	Mon, 21 Sep 2026 01:41:21 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mMcvarQQjw+1r9b/yofoswsnztCfO0BpJoKPr27DJBh3nS80ZK6+TO2bOATXhm842OwqB+rl4BwWj10BdOBooXkg8qnV1KdOgb1lmNaqrkakIUSp9ZcPoxOqXf4hR5N0vv57w7QfNfElzgcPZICyZ3kp0e7GorQt3mVYR5aU+hMSm5VU3ZNJFmtxP/XD1xXbsLUieUd4pdIok5t+HlmaDAe2tiQdPIM2/AYsrXskRzvqm8q/ypJQy/bymPIQtuZ0kXRbE+hFlUSfCjV1p1dVAdzub0zSEyMTzszINRzWmv/PdHj20F0kQNYlPcfzaVv+/+PI6PKMkYr5Zrj1eHJitg==
+ b=AzKopScl7Fd7B7b/cLfz9ODyioEvdTPXh14PtWwut7XlgpLJE30ca1CEXSqmcZQ+zRzk7CAcqC8HilpWSefmVHNmTM/wBYIrK5Mee/7EFNQjuaAK3tlOhxSo7R0TJtusT9IwvQYmCZO5s+Rm3uhl6aQEgdzYbFOIjhFAsfg6efc4+CMQ8VZySZZmN5aPCQyfHY2GrVjzS8YjE8ov2Hxr/0WbQxpOuO4rnDT0056pfugw5JF27rz4wsYG7HjczB22Aw8vRnQ3MpdslsIVlWhegAn5xL4FoSIpQ8q6A+kXMjv0l7r5pdkrZL/7aUtSW5n7QUwq+xgpIu6GDNl2VGUlOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A+8OPNDTMUtNRwvm6okuvzvDQl5XdfF+zgDgtOpY5Lw=;
- b=ScrcY8nsZqwKSaPAtVb5Xr/j0fauOvGPUf67CVBPykZY+tvQomcIy6cyY6pnzmKEu963o9XCwTS76OgcUG7WRyexIw5idxBp/0BNqdG3UUcxC8PzE0VsmZOX1dZZwwvEYiqgRMa4UhfNvRnb9sYL4xGi4jd+G2sFoYCp9EiLwnuWKAyEERX3M4azHGMn2BxAZIIXgN+pzj1xRpqoInN7HCMiegA7sgWj3Nb5Xy80AYfhnzTXyp4YDur8mYCMk+NTGRJOMXN2dFvspMRlgQS/LCEWP5m8dZVN3Dct1sodWzLYKEAxAQoWlsgib97S7tX6WponyyikuGpOdjYI4YJSRA==
+ bh=DEVSBES28QEy2uAZYZT6Q+jAMpuPxonohsrrMDApaBI=;
+ b=gAJCRMJq0NvKlxS8r/r2h10SPZVvl3/YFz/72MUx2/KS5dnNNdz90Lfx0idAsadPHzHHEBasprcMfZoiMzSronhVbBdAIugqpA94oSbv3aeo/FwdBQ212cMpnnZs2ldNnaEoUSexhWn0atHuLWJ1ZubMd9kf0BzAoao2CuBYT/QYAJnqd1ChGPhwrBF4mrb/QqTBQFCHEBQcAKwahKShw2GUtvjAZ8RQtUoJmf+cCeKds6al+/9Y24FlFPVQqQp3mSV7u1F8n0ERK97gl0WQFhGjgAjDFIRfUFarFzLLK5wthCHcS9CaIcqoV9AKQCER+qq2VKyevuaH/+wOU1e72w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+ 198.47.23.194) smtp.rcpttodomain=amd.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A+8OPNDTMUtNRwvm6okuvzvDQl5XdfF+zgDgtOpY5Lw=;
- b=vURB5nqGjrhY5RW/D+F6UGS31gIOGB64ix3e19dwSmZ24TiIv3B3OliPX5kUb6cyAwh0Tdhd63Y8PiZWObpS/KZWFmUgua0K/nj/O99dwn25OF8CYB3MoJXpOzqaW+JGlqd/q4ss1qpz/eiLIpDuWe0u9SB2OqGsNsCEk+7OWkk=
-Received: from BYAPR21CA0029.namprd21.prod.outlook.com (2603:10b6:a03:114::39)
- by MW4PR10MB5882.namprd10.prod.outlook.com (2603:10b6:303:18f::8) with
+ bh=DEVSBES28QEy2uAZYZT6Q+jAMpuPxonohsrrMDApaBI=;
+ b=tkoupHHbti3IkOESDHUNd81fpxQPUPajP+VXcoIrg9osvadRdw9VjYK5QjDkggtOOCr9bji1siAhZHURnNB76MciAFHcuBFHuH43hPAgec1WmD7WXz5MUugaFVys+m5OxMEl6XN1BHoaUlMBVSn6KE8WV63KNgj2BGWLKydCqb0=
+Received: from SJ2PR07CA0003.namprd07.prod.outlook.com (2603:10b6:a03:505::26)
+ by IA1PR10MB7167.namprd10.prod.outlook.com (2603:10b6:208:3f1::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Mon, 21 Sep
- 2026 06:40:27 +0000
-Received: from SJ5PEPF00000207.namprd05.prod.outlook.com
- (2603:10b6:a03:114:cafe::7) by BYAPR21CA0029.outlook.office365.com
- (2603:10b6:a03:114::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Mon,
- 21 Sep 2026 06:40:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ 2026 06:41:16 +0000
+Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
+ (2603:10b6:a03:505:cafe::a1) by SJ2PR07CA0003.outlook.office365.com
+ (2603:10b6:a03:505::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Mon,
+ 21 Sep 2026 06:41:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
  smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
  action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- SJ5PEPF00000207.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 06:40:27 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 06:41:16 +0000
+Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
- 2026 01:40:12 -0500
-Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 01:41:09 -0500
+Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE209.ent.ti.com
+ (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 21 Sep
- 2026 01:40:12 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 01:41:09 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 21 Sep 2026 01:40:12 -0500
-Received: from [10.24.53.39] (akashdeep-hp-z2-tower-g5-workstation.dhcp.ti.com [10.24.53.39])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68L6e8SR1519418;
-	Mon, 21 Sep 2026 01:40:09 -0500
-Message-ID: <7795b166-b0fc-4bc0-9dd3-f0fa8251de6d@ti.com>
-Date: Mon, 21 Sep 2026 12:10:08 +0530
+ Transport; Mon, 21 Sep 2026 01:41:09 -0500
+Received: from LAPTOP-70RJ5B8Q ([10.250.165.249])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68L6f3bg2431589;
+	Mon, 21 Sep 2026 01:41:04 -0500
+From: Baojun Xu <baojun.xu@ti.com>
+To: <broonie@kernel.org>
+CC: <tiwai@suse.de>, <andriy.shevchenko@linux.intel.com>,
+        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
+        <shenghao-ding@ti.com>, <baojun.xu@ti.com>,
+        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <k-yi@ti.com>, <henry.lo@ti.com>, <robinchen@ti.com>,
+        <niranjan.hy@ti.com>, <pin-hao.huang@hp.com>,
+        <Syed.SabaKareem@amd.com>
+Subject: [PATCH v5] ASoC: tas2783-sdw: add firmware download status check
+Date: Mon, 21 Sep 2026 14:40:53 +0800
+Message-ID: <20260921064053.932-1-baojun.xu@ti.com>
+X-Mailer: git-send-email 2.55.0.windows.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: ti: k3-pinctrl: Add virtual GPIO select mux
- macros
-To: Vignesh Raghavendra <vigneshr@ti.com>, <nm@ti.com>, <kristo@kernel.org>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <sebin.francis@ti.com>, Kendall Willis <k-willis@ti.com>
-References: <20260917111539.3844577-1-a-kaur@ti.com>
- <39d5525a-1276-47af-8659-70a86cda8a1b@ti.com>
-Content-Language: en-US
-From: Akashdeep Kaur <a-kaur@ti.com>
-In-Reply-To: <39d5525a-1276-47af-8659-70a86cda8a1b@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000207:EE_|MW4PR10MB5882:EE_
-X-MS-Office365-Filtering-Correlation-Id: d97f44b6-73e8-4bcb-eef8-08df17ab390a
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|IA1PR10MB7167:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22293b0c-d2c4-4106-4a97-08df17ab566d
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|6133799003|10067099003|56012099006|4143699003|22082099003|18002099003;
+ BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|10067099003|56012099006|3023799007|6133799003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	v1Q23LxZsdJJ14Ar1rAT3uhQ9vYSnpdPcC+X+1Bd+SwAcqEp+EhVqMfs70PStJaNjQTEUGk6k26r8w/1WIyZsSC5AgdaU/JKoRVRT4R0v2QKLAmJ34+Nn4M+iu18i1E1nFtHpnrARK5IOaukQTZMc6FCIb5zSflftVdbMsx/p6SwLt+9X8Fsw7+7zQTY2GXLplOMVIqKmjtCTl1DNbUlV30b/svuC0Fx5ASidoc1qPQLLo87OPDxCCSxL+QezCUgt6vM4xJxnj6WKjvao/oTPRSWEkVLQYob/pvWA7CEPih+MPSYX3wedkRJntfC/4m580MksL0Wt0h5L7gbhchRXmJup4GBTlGW84XfoS5Ic6IfFBA6azJM9ow6rGJ+fIPw1lq1L7CZJ7cYAvLsZoapP+TyFtw2npyBTbCQQK/HMIRbvbx0W7RiAoCjWXc2bE6ukNinpDqfgpk+9dC317JaIJFxioKyiQhwpzxpBk8Zl6fTUZH35/If8SobHSfAhAuG4SI1O+g6uYPUYGRc9n3L39J0I4xyJ4yhhQc8qiDQ5kn32bfJi3s4NQK57vwsjRPObN3kvPzcLi8lFgc+f0xNeQrDtVzEZ8YmijAVv0D18kfNqii1j+g60rrMNCCm59mFRUtHPLMw2M8WZS/YVJBWgQzsxVcv+jZ44HEWSsALM8be9NpLf4TVws9wr8MCKtWq
+ Onj3k26HM0JhH8ZS9O4dbWDm9s1SK9CphD/DfT84oQm3K1FiXhmdM8bHAkYe1rP1qZ1jMeAaRDhjxMWCec546J/Pbhi0TFkaPAAWc1nkpMSH3YibRhGvVO6K4Tjbp400PIKKVFuNw9hb+lQt5Q4GQ8HYwhbYKGc5wGBbTslQ8U1IYdkaTCkhCg9lwTFmr7Hkpq0eEKGY25tahlvNebdlZPPweobVVLsW06jONH3psy8Gt14DAoOmrpgDRILeQpKhiubzGsGRd/1RngOxRRTkbW5FnBq1lyuZW2K4/AyPalAVRy01rN56WfbKD/yIXRud/rK9Kze9TSjBFmmRaCRdb9GPS3yC6SjeyDSlpY6Zfp7jhKL2BG/mb5FiqwieonZgMB9OMR8annwd18ixySBAEOsV1r64i7omqgAJN5hcaZ4UfsSx4I1W3kE2RVnfHPAP8fS7egxrVME8TxOdl0RyELvnjnZy91BWTMa8J7k+fl8BDfebr6Zq+kijExsY4sYnpAfJhHtFy8DQFf1KQJ2eNS9dFGT9FUDiY3eVaCEOkMkH64rD7PyPYw/XcUvX5w2zFJ8wqVnKcGjfaZ1Xmd9dL9abuD2I8q5ZQoedExChZapuHY6xzl3RjzEbAKZHuAW6gaPeiqHE+GRcKDLYArWtMLrwFSuTsnrP4MI0LCd0ZKtaPqbpEG+xyQ3t2PDjjh3lvG6/NbEIj96pGUCWXHBxuQ==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(6133799003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+ CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	bWTfmCy4HGzTGNSpr+7xTvAQWA1sjmOO4+DwUX4CJK6blYaRClh+khHK3trSyT+tD607WNhQ3Ztxd1CkWkRHkj33fS2kOylebgRzDiA+T0emjpaRQ6VsSn8VKCuQYkFmM9bvKA4eVGO5Wi4zE55/Q9OEihxQvHQVa3677Y5uesS/N2LgcGQHdlOGdzcQGfs9Zrq35W/qFnQSGuQngTlz6SRaQSz3eLri8GSIFxT/A7bBFNUb7OgjE0z6d2cQ59Vj4h+SnukfpPL2JOO6X1aZT1x11fyiIFcFOGkZPqUEAGPnqP01MY/o4joggRI11NRSbwkuDjJ8fl5gTi9I4rjv5ZO+GkDZ70+g6yfWE7Um81+9nNm7SlRJWBsl94a1u/p3E86WV/lw7d/k2tHDwPCwqlO+wR1/30wgZ9n/W3LnRGtsA6ok5FhOJwPUTWIh3bdc
+ H3Eb/QI/AGUYu3hdsNx7TyFWPpYVKjcHnYZeYcjydnRdDun5ivr4gm73DLjIuYZIR6tB5UTbxWxv1wnCCP7BFMLlAdybcKLKWhF8VIt6xf6drj7mAlIUeYMPdrJglT6A6HJZ+QJyutoS/UIwH7Ar91CKpdmthsCOthnX8f2H7XBM8gCYGmYQSfUpTe/MoCcqCKIlOYtlOlOcbSqA7gQYVR4YAACF+w9tiIyAdsygNWY7AaahtfCa/49dFQCrYrbLmh4iYJ+HKNR7ELTLcaQQuadETB6r2qVyEkGVq4KbAewWcj/aWFKoI+IOA6pnhX9GXu60idfxP98wk5b/Spf7AJL0Z+d5C/7UddjCeN/SCfbD0tO/PY7GrmjbHAGQ/PTKo7shTX++TlcOy6WY6S2X5wj2M1nSoer0bwSbVJQvccOulpXnK9AmaDbrrLZJZ84P
 X-Exchange-RoutingPolicyChecked:
-	IPiI7983pJkPwoBHHftOByGJ7hsu7VsVb1timyPhPI+svNnphXIY4TS9gQe3/KKVbctTFAL5ND0fe6kUHzAJfjN+JGuvmajb7APvK+khX8GJ1rzsm2W8MDTYCXYb4ps3bq3vpjMr5vY8Pm1X9XmBNAl0QOkBm/8ACAmVDO0bqMB6cr9BahZvhlCEkDDV2F4fc9cZv/7bhbV9yDqqNfLb212sdQfHOqiiyNboWgQNm8KgFu7zR3MGUra3tF0moAHA112y8UDh8D8j7hGYYv1TDrRyQk+iFg7XQJ9EmHKnTB6UdbGZ4QsawIRZOI/OQZG0eS6+zQdvobbeOZftWUpChA==
+	4Y1Qgk3vHvdrML7/KQxyQzkoz81/2I7gLkGn/rYy3JhWFteRNBOH97CfhXBJLbxOT9nf85xCxeFWe3oIVkeTWmqeRX3vxAGDb2MR16+l35XuPTpRfrY9d/fuk0jIMBSSxAD5gpSe2pjE6BHmSQ7gp4edbTfUyY86t8EY2HHODHbrnGQM1DFAu+EkVLNOtNSmw0l8wrFIYGkoSGbX/Yjgu9fwOLPoYUm8+UC9d98PEjaaWWtmEQCWcrpqYE45uyJJyFv2m48C75li0IQml40uY28g05v7uECDCw6zr7HMOE6DMQZQl5zPaOKTZGMRMTN/dkd9Yo7DdF4d7k2wOVUzKQ==
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:40:27.2869
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:41:16.5486
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d97f44b6-73e8-4bcb-eef8-08df17ab390a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22293b0c-d2c4-4106-4a97-08df17ab566d
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000207.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB5882
-X-Authority-Analysis: v=2.4 cv=Vou2kO2n c=1 sm=1 tr=0 ts=6ab0d15e cx=c_pps
- a=2KosHvP3s5kmPOqSYQ0Nog==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB7167
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA5NCBTYWx0ZWRfXzspyWNcN4TkL
+ 6VvnbsZIniAe/vJvMVrHV6+s6KLIyvWtsD8QuWSME7VrgJyZmlcT+dW/vmOaL9gF54p2zhfXDqd
+ U9V+6auSTttX3WD+zsB8eC+tkmaY4ig=
+X-Authority-Analysis: v=2.4 cv=P7CvFSAu c=1 sm=1 tr=0 ts=6ab0d191 cx=c_pps
+ a=oQiTq6cBShE1BE+bdGc2Dw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=We7qAqze--YcBpNh1UUA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA5NCBTYWx0ZWRfX70dlFnqx/5in
- RpbZfW2Ed8xe2aqqzMxQaaWPHtQg/Mrgigr00PvjT1VzmZ1UEGqcYZaAURCKnvinrqCFP/TxkRO
- eprTvULtl0Dm6jlSiwhx58fmoFEvZUYuglCf6oqtcPNgGZpGKgM5hmS2jcTES9W4WEerkAlCHbi
- Ophz4OuyR8CRAnvLgVWM5p8h1P+dKA0cCjHahxdKVSVYLhrLPQZJDgLmaq5Q9rXxGsV0X7MwJ5e
- WO+HYstWCkr4Ys1pN/Zp0iQjQ3JeB+Jxu4+owlqgNIdoXo+d220u/2CIo8QK4OCq36dBzIoIj6z
- nirMCXYJn8R1xDuuh6KXurtobZzGsEAAmcBOjkG1vWF3guiYSvUyz4XVq/ZfC5ez0c8izc4ja6d
- u5Me2Bm4LCgzbNQxiv++n4/fNrAJl7PnTRwqe5NSDTCH3qKxcErIwuV9L4Uqh8KriLjUhY8p3U/
- Na0mZ5EEIwLe7kfZM7g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA5NCBTYWx0ZWRfX9+M5YRfdthqH
- y7CQyj8kB642RPhFjHjJipOrSRoBNmGE2wlRafmwnEMqL6gZN/DirmSOyf3N3e3aZEa50Kdkbts
- ohDoe5SDkozNhMg5A0bdkDu1uhx2OhM=
-X-Proofpoint-ORIG-GUID: 0FfUB4e2-ygbEbMT7VsE3mQUOq1C7Oow
-X-Proofpoint-GUID: 0FfUB4e2-ygbEbMT7VsE3mQUOq1C7Oow
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
+ a=Mo2TJmvQneBMscMcN9kA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA5NCBTYWx0ZWRfX0RU4+QV5UQSX
+ kgb6uqmwmmoFP17DhCxWe5uCl97qf0jGyhWLJuEI7dYEL/Vb6ErGxHNBPBZ8ind2hZmgpzeyDvx
+ OxcUOYc3uxKsqKBOTzTjiDJfyRHfHSB9AVyuCeToZNv0HxKMAb9ajt0ORUpL7CaGs4kALQtz1SH
+ kHKwdwsAFYuNXs8L2yst52db5COzF7T6mD5HODeS0ph17Y7CEOKzO+7+qwU7bdx5lmUYYsKkMML
+ 62WasRo6G4uZ+RC8Yp1Aw9SOWWPXY/2F7LVqYAXJe0lOS8hJAt/3nQY26VN3dBoguP1U4V9aunk
+ N0qGUszb2BN6NIGUVOjbl5r7Mz/fgz7MFXrU9KkLkLn/D7H2Vo0KJ63HQ40KeedKdYSaDmltprw
+ p0dX02zA0bXPNcq83SlUf8N3rIsOjkqPNmnlNiNxzQDBGPrtFTkUqmwip6a7FkxtcLDjvFHwbJI
+ erS2ZdtVBQ/DV3D3FWA==
+X-Proofpoint-GUID: ppkS7OHk0ckCY_EWqCzdvHGQPCwynQs3
+X-Proofpoint-ORIG-GUID: ppkS7OHk0ckCY_EWqCzdvHGQPCwynQs3
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0 phishscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ clxscore=1015 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 suspectscore=0 adultscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609210094
 
-Hi Vignesh,
+Currently, the firmware download is unnecessarily triggered on every
+system resume from suspend, causing significant wake-up latency. However,
+this step is redundant if the AMP remains powered on.
+Furthermore, PRAM access is skipped if the firmware version read from
+registers matches the expected value, indicating that the memory content
+was retained across the AMP reset.
 
-On 18/09/26 13:57, Vignesh Raghavendra wrote:
-> 
-> 
-> On 17/09/26 16:45, Akashdeep Kaur wrote:
->> Add virtual GPIO select mux macros to allow users to select GPIO
->> controller bank for pins. The two GPIO controller instances in the
->> MAIN domain share physical pins, and the vgpio_sel field routes each
-...
->>   
->> +#define VGPIO_SEL_SHIFT         (4)
->>   #define WKUP_LVL_EN_SHIFT	(7)
->>   #define WKUP_LVL_POL_SHIFT	(8)
->>   #define DEBOUNCE_SHIFT		(11)
->> @@ -111,6 +112,9 @@
->>   #define PIN_WKUP_EN_LEVEL_HIGH		(WKUP_ENABLE | WKUP_ON_LEVEL | WKUP_LEVEL_HIGH)
->>   #define PIN_WKUP_EN			(WKUP_ENABLE | WKUP_ON_EDGE)
->>   
->> +#define PIN_VGPIO_SEL0                  (0 << VGPIO_SEL_SHIFT)
->> +#define PIN_VGPIO_SEL2                  (1 << VGPIO_SEL_SHIFT)
->> +
-> 
-> Unfortunately, this field has different meaning in different SoCs. Here
-> is the definition from J784s4:
-> 
-> Note this field  is irrelevant when Muxmode is not 7.
-> for MAIN GPIO
-> 00 = GPIO0 or 1 depending on the specific pin (meaning if mode 7 has
-> GPIO0.x then it is GPIO0 and if GPIO1.x then GPIO1)
-> 01 - GPIO2 or 3 depending on the specific pin (meaning if mode 7 has
-> GPIO0.x then it is GPIO2 and if GPIO1.x then GPIO3)
-> 10 - GPIO4 or 5 depending on the specific pin (meaning if mode 7 has
-> GPIO0.x then it is GPIO4 and if GPIO1.x then GPIO5)
-> 11 - GPIO6 or 7 depending on the specific pin (meaning if mode 7 has
-> GPIO0.x then it is GPIO6 and if GPIO1.x then GPIO7)
-> Note this field  is irrelevant when Muxmode is not 7.
-> 
-> Thus, macros need to be generic or it should just open code the constant.
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
+---
+v5:
+- Add fw_version field for PRAM status check.
+- Adjust register range from pages 1–127, 253 to pages 0–1, 253.
+- Include PRAM and YRAM ranges in tas2783_sdca_mbq_size.
+- Set max_register to the end of PRAM.
+- Add PRAM status check before firmware download to skip reloading if PRAM
+  content is retained.
+- Add a retry mechanism after download failure to handle register write
+  issues on initial power-up.
+- Call regcache_drop_region() after firmware download to ensure correct
+  firmware version reading.
+- Read firmware version after download for subsequent comparison.
+- Remove the "separate two monos to stereo" workaround as it causes missing
+  audio on the right channel; stereo configuration should be handled by the
+  DisCo table.
+- Add AMP reset in the driver remove path.
+- Update PRAM_ADDR_END from 0x7f to 0x80 in tas2783.h.
+- Add address definition for the firmware version register in tas2783.h.
+v4:
+ - Since first_hw_init is only required for download reduction, remove it
+   when this feature is not enabled.
+v3:
+ - Updated description about memory page download reduce.
+ - Removed the logic that skips memory page downloads.
+v2:
+ - Update register address from 0x07 to 7 and keep the line within the
+   80-character limit.‌
+ - ‌Remove stray/unnecessary changes.‌
+ - ‌Change variable type to unsigned int to comply with API requirements.‌
+ - ‌Replace usleep_range() with fsleep().‌
+ - ‌Set idle_bias_on to 0 to enable low-power mode.
+ - Reactivate the AMP after resume.
+---
+ sound/soc/codecs/tas2783-sdw.c | 100 +++++++++++++++++++--------------
+ sound/soc/codecs/tas2783.h     |   4 +-
+ 2 files changed, 62 insertions(+), 42 deletions(-)
 
-Thank you for the feedback and the detailed J784S4 example. You're
-absolutely right that the naming was too AM62L-specific. I've addressed 
-this in v2 by using generic value-based naming (PIN_VGPIO_SEL0/1/2/3) 
-and adding all four values. The commit message now clarifies that the 
-meaning is SoC-specific.
-
-Thanks and Regards,
-Akashdeep Kaur
-> 
->>   /* Default mux configuration for gpio-ranges to use with pinctrl */
->>   #define PIN_GPIO_RANGE_IOPAD	(PIN_INPUT | 7)
->>   
-> 
+diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
+index 85ab3fd83c7b..1a88a15bcb02 100644
+--- a/sound/soc/codecs/tas2783-sdw.c
++++ b/sound/soc/codecs/tas2783-sdw.c
+@@ -97,6 +97,7 @@ struct tas2783_prv {
+ 	u8 rca_binaryname[64];
+ 	u8 dev_name[32];
+ 	bool hw_init;
++	unsigned int fw_version;
+ 	/* wq for firmware download */
+ 	wait_queue_head_t fw_wait;
+ 	bool fw_dl_task_done;
+@@ -315,8 +316,8 @@ static int tas2783_sdca_mbq_size(struct device *dev, u32 reg)
+ 	case 0x300 ... 0x340: /* Data port 3. */
+ 	case 0x400 ... 0x440: /* Data port 4. */
+ 	case 0x500 ... 0x540: /* Data port 5. */
+-	case 0x800000 ... 0x803fff: /* Page 0 ~ 127. */
+-	case 0x807e80 ... 0x807eff: /* Page 253. */
++	case TASDEV_REG_SDW(0, 0, 0) ... TASDEV_REG_SDW(0x00, 0x01, 0x80):
++	case TASDEV_REG_SDW(0, 0xfd, 0) ... TASDEV_REG_SDW(0, 0xfd, 0x80):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_UDMPU23,
+ 			  TAS2783_SDCA_CTL_UDMPU_CLUSTER, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_FU21, TAS2783_SDCA_CTL_FU_MUTE,
+@@ -431,6 +432,8 @@ static int tas2783_sdca_mbq_size(struct device *dev, u32 reg)
+ 
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x12, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x13, 0):
++	case PRAM_ADDR_START ... PRAM_ADDR_END:
++	case YRAM_ADDR_START ... YRAM_ADDR_END:
+ 		return 4;
+ 
+ 	default:
+@@ -517,7 +520,7 @@ static const struct regmap_config tas_regmap = {
+ 	.volatile_reg = tas2783_volatile_register,
+ 	.reg_defaults = tas2783_reg_default,
+ 	.num_reg_defaults = ARRAY_SIZE(tas2783_reg_default),
+-	.max_register = 0x41008000 + TASDEV_REG_SDW(0xa1, 0x60, 0x7f),
++	.max_register = 0x41000000 + PRAM_ADDR_END,
+ 	.cache_type = REGCACHE_MAPLE,
+ 	.use_single_read = true,
+ 	.use_single_write = true,
+@@ -745,6 +748,7 @@ static void tas2783_fw_ready(const struct firmware *fmw, void *context)
+ 	const u8 *buf = NULL;
+ 	s32  img_sz, ret = 0, cur_file = 0;
+ 	s32 offset = 0;
++	u32 val[4], fw_version;
+ 
+ 	struct tas_fw_hdr *hdr __free(kfree) = kzalloc_obj(*hdr);
+ 	struct tas_fw_file *file __free(kfree) = kzalloc_obj(*file);
+@@ -786,6 +790,11 @@ static void tas2783_fw_ready(const struct firmware *fmw, void *context)
+ 	}
+ 
+ 	mutex_lock(&tas_dev->pde_lock);
++	ret = regmap_bulk_read(tas_dev->regmap, TAS2783_FW_VERSION, &val, 4);
++	fw_version = (val[0] << 24) | (val[1] << 16) | (val[2] << 8) | val[3];
++	dev_dbg(tas_dev->dev, "Get Firmware version: %08x == %08x?, err=%d",
++		fw_version, tas_dev->fw_version, ret);
++
+ 	while (offset < (img_sz - FW_FL_HDR)) {
+ 		offset += tas_fw_get_next_file(&buf[offset], file);
+ 		dev_dbg(tas_dev->dev,
+@@ -794,6 +803,13 @@ static void tas2783_fw_ready(const struct firmware *fmw, void *context)
+ 			file->version, file->length,
+ 			file->dest_addr, file->fw_data);
+ 
++		if (tas_dev->fw_version == fw_version &&
++		    file->dest_addr >= PRAM_ADDR_START &&
++		    (file->dest_addr + file->length) <= PRAM_ADDR_END) {
++			cur_file++;
++			dev_dbg(tas_dev->dev, "Ignore PRAM block");
++			continue;
++		}
+ 		ret = sdw_nwrite_no_pm(tas_dev->sdw_peripheral,
+ 				       file->dest_addr,
+ 				       file->length,
+@@ -801,17 +817,34 @@ static void tas2783_fw_ready(const struct firmware *fmw, void *context)
+ 		if (ret < 0) {
+ 			dev_err(tas_dev->dev,
+ 				"FW download failed: %d", ret);
+-			break;
++			/*
++			 * We do retry here for some special case of download
++			 * failed after Power-On.
++			 */
++			ret = sdw_nwrite_no_pm(tas_dev->sdw_peripheral,
++					       file->dest_addr,
++					       file->length,
++					       file->fw_data);
++			if (ret < 0) {
++				dev_err(tas_dev->dev,
++					"FW download failed again: %d", ret);
++				break;
++			}
+ 		}
+ 		cur_file++;
+ 	}
+ 	mutex_unlock(&tas_dev->pde_lock);
++	regcache_drop_region(tas_dev->regmap, 0, UINT_MAX);
+ 
+ 	if (cur_file == 0) {
+ 		dev_err(tas_dev->dev, "fw with no files");
+ 		ret = -EINVAL;
+ 	} else {
+ 		tas2783_update_calibdata(tas_dev);
++		ret = regmap_bulk_read(tas_dev->regmap, TAS2783_FW_VERSION,
++					&val, 4);
++		tas_dev->fw_version = (val[0] << 24) | (val[1] << 16) |
++				       (val[2] << 8) | val[3];
+ 	}
+ 
+ out:
+@@ -951,7 +984,7 @@ static s32 tas_sdw_hw_params(struct snd_pcm_substream *substream,
+ 							TAS2783_SDCA_POW_STATE_ON);
+ 			if (!ret)
+ 				break;
+-			usleep_range(2000, 2200);
++			fsleep(2200);
+ 		} while (retry--);
+ 	}
+ 
+@@ -962,30 +995,6 @@ static s32 tas_sdw_hw_params(struct snd_pcm_substream *substream,
+ 	snd_sdw_params_to_config(substream, params,
+ 				 &stream_config, &port_config);
+ 
+-	/*
+-	 * The two mono amps each render one channel of the stereo stream:
+-	 * snd_sdw_params_to_config() hands every codec the full mask for
+-	 * playback, which leaves the pair in mirror mode and one channel
+-	 * unreproduced.  Claim a single channel instead, keyed off the
+-	 * machine-assigned component prefix rather than the SoundWire
+-	 * address, which is board-specific: soc_sdw_ti_amp.c names the amps
+-	 * tas2783-1..4.
+-	 *
+-	 * Which side an amp then renders does not follow from the bit that
+-	 * is set - sdw_compute_slave_ports() advances the payload offset by
+-	 * the popcount of ch_mask and never looks at which bit it is - but
+-	 * from the amp's position in the codec order of the DAI link, which
+-	 * on these boards matches the prefix numbering.
+-	 */
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
+-	    params_channels(params) == 2 && component->name_prefix) {
+-		const char *idx_str = strrchr(component->name_prefix, '-');
+-		unsigned long idx;
+-
+-		if (idx_str && !kstrtoul(idx_str + 1, 10, &idx) && idx)
+-			port_config.ch_mask = (idx & 1) ? BIT(0) : BIT(1);
+-	}
+-
+ 	/* port 1 for playback */
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 		port_config.num = 1;
+@@ -1074,7 +1083,7 @@ static const struct snd_soc_component_driver soc_codec_driver_tasdevice = {
+ 	.num_dapm_widgets = ARRAY_SIZE(tas_dapm_widgets),
+ 	.dapm_routes = tas_audio_map,
+ 	.num_dapm_routes = ARRAY_SIZE(tas_audio_map),
+-	.idle_bias_on = 1,
++	.idle_bias_on = 0,
+ 	.endianness = 1,
+ };
+ 
+@@ -1207,25 +1216,30 @@ static s32 tas_fw_load(struct tas2783_prv *tas_dev, struct sdw_slave *slave)
+ static s32 tas_io_init(struct device *dev, struct sdw_slave *slave)
+ {
+ 	struct tas2783_prv *tas_dev = dev_get_drvdata(dev);
++	uint val;
+ 	s32 ret;
+ 
+ 	if (tas_dev->hw_init)
+ 		return 0;
+ 
+-	tas_dev->fw_dl_success = false;
++	ret = regmap_read(tas_dev->regmap, TASDEV_REG_SDW(0, 0, 7), &val);
+ 
+-	ret = regmap_write(tas_dev->regmap, TAS2783_SW_RESET, 0x1);
+-	if (ret) {
+-		dev_err(dev, "sw reset failed, err=%d", ret);
+-		return ret;
+-	}
+-	usleep_range(2000, 2200);
++	/* Check if the AMP is in reset status. */
++	if (val == 0x20) {
++		tas_dev->fw_dl_success = false;
+ 
+-	tas_dev->fw_use_fallback = false;
+-	ret = tas_fw_load(tas_dev, slave);
+-	if (!ret && tas_dev->fw_use_fallback)
+-		ret = tas_fw_load(tas_dev, slave);
++		ret = regmap_write(tas_dev->regmap, TAS2783_SW_RESET, 0x1);
++		if (ret) {
++			dev_err(dev, "sw reset failed, err=%d", ret);
++			return ret;
++		}
++		fsleep(2200);
+ 
++		tas_dev->fw_use_fallback = false;
++		ret = tas_fw_load(tas_dev, slave);
++		if (!ret && tas_dev->fw_use_fallback)
++			ret = tas_fw_load(tas_dev, slave);
++	}
+ 	if (!ret) {
+ 		if (tas_dev->sa_func_data)
+ 			ret = sdca_regmap_write_init(dev, tas_dev->regmap,
+@@ -1234,6 +1248,8 @@ static s32 tas_io_init(struct device *dev, struct sdw_slave *slave)
+ 			ret = regmap_multi_reg_write(tas_dev->regmap, tas2783_init_seq,
+ 						     ARRAY_SIZE(tas2783_init_seq));
+ 
++		/* Re-active AMP after resume. */
++		regmap_write(tas_dev->regmap, TASDEV_REG_SDW(0, 0, 2), 0);
+ 		if (ret)
+ 			dev_err(tas_dev->dev,
+ 				"init writes failed, err=%d", ret);
+@@ -1413,6 +1429,7 @@ static s32 tas_sdw_probe(struct sdw_slave *peripheral,
+ 	tas_dev->dev = dev;
+ 	tas_dev->sdw_peripheral = peripheral;
+ 	tas_dev->hw_init = false;
++	tas_dev->fw_version = 0;
+ 	mutex_init(&tas_dev->calib_lock);
+ 	mutex_init(&tas_dev->pde_lock);
+ 
+@@ -1437,6 +1454,7 @@ static void tas_sdw_remove(struct sdw_slave *peripheral)
+ 	struct tas2783_prv *tas_dev = dev_get_drvdata(&peripheral->dev);
+ 
+ 	pm_runtime_disable(tas_dev->dev);
++	regmap_write(tas_dev->regmap, TAS2783_SW_RESET, 0x1);
+ 	tas_remove(tas_dev);
+ 	mutex_destroy(&tas_dev->calib_lock);
+ 	mutex_destroy(&tas_dev->pde_lock);
+diff --git a/sound/soc/codecs/tas2783.h b/sound/soc/codecs/tas2783.h
+index d5996c73526c..2f034617e356 100644
+--- a/sound/soc/codecs/tas2783.h
++++ b/sound/soc/codecs/tas2783.h
+@@ -35,10 +35,12 @@
+ #define TAS2783_AMP_LEVEL_MASK	GENMASK(5, 1)
+ 
+ #define PRAM_ADDR_START		TASDEV_REG_SDW(0x8c, 0x01, 0x8)
+-#define PRAM_ADDR_END		TASDEV_REG_SDW(0x8c, 0xff, 0x7f)
++#define PRAM_ADDR_END		TASDEV_REG_SDW(0x8c, 0xff, 0x80)
+ #define YRAM_ADDR_START		TASDEV_REG_SDW(0x00, 0x02, 0x8)
+ #define YRAM_ADDR_END		TASDEV_REG_SDW(0x00, 0x37, 0x7f)
+ 
++#define TAS2783_FW_VERSION	TASDEV_REG_SDW(0x00, 0x20, 0x3c)
++
+ /* Calibration data */
+ #define TAS2783_CAL_R0		TASDEV_REG_SDW(0, 0x16, 0x4C)
+ #define TAS2783_CAL_INVR0	TASDEV_REG_SDW(0, 0x16, 0x5C)
+-- 
+2.25.1
 
