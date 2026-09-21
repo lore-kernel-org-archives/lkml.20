@@ -1,109 +1,80 @@
-Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
+Received: from va-2-59.ptr.blmpb.com (va-2-59.ptr.blmpb.com [209.127.231.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE3C3BC668
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3B6370AF5
+	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 07:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975545; cv=none; b=MSTt1xAEfAkBoIOXK/vQGrS3S8+3Yjw/4VcgjmtdByCAUSDH4pOPGwn8y7tuHbxB7QIA8oeCGx0wbQLXHgIbnO7rVx7UJhlu50eugnHurgRicoLS/EwbTDQBE4qgX8DZhd6r9DnunjoI+kMDxTssqh4Or1mKfKCe+i3uCMU4HZc=
+	t=1789975557; cv=none; b=ubkMJamcMhgE7He+YrgLq0fmpZirkDGN5LyZXay/ZuJcqJDaHDLOXcCy3x3UbeMIj0Loi3RDAfYDJDDmgjZibqAssVgqWmt8puZZwbRHq+8yMhp2QyA8jK1WaA1kiPG+OvVA1mCGECOosWjWXqyChj5n1ztc104spb0cxZDED7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975545; c=relaxed/simple;
-	bh=SahGD8wStb0BEVF7yvvFemwPhMiROYcEgpClXUQfv20=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R6sO5wV6ZL2FEsPgvwpB8FbddtWXK1aUeMn1IcPHPg5vqjJxVDorc2iyPx6g+roMFmdUTpJtE3Uv5CXrvb1TtRK+2jxTnttuYgQWXBE5YDFkEoeav0gwMOqe6LmY1rWdBRLBZSGch+9lwLDlIV64+KtDxGdD7WRZ+lOTzaRBxro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qxnypM6+; arc=none smtp.client-ip=91.218.175.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789975557; c=relaxed/simple;
+	bh=ttOxI5Y229QMz9DbVBXaGOtOLX5sVcTcavTN6OTo46Y=;
+	h=Subject:Date:Cc:In-Reply-To:Content-Type:To:From:Mime-Version:
+	 References:Message-Id; b=Qp62+GoNtihsWmID1PIReslIUsZ/WGJEvQ1FDY4fQMeEM1VbN56itV1Fp6iV1I2lx2Hr+PVvnq8KVl+H54kLhuBniLjSst6XIbMjxsuJvMNUqM2IuhJ+CztaZ5+p/cOEKBHrQJ7AYXFgfGHMIfz3j+HtBrgKWBg1lMikTotWrLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=PZ2yi49t; arc=none smtp.client-ip=209.127.231.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qxnypM6+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SahGD8wStb0BEVF7yvvFemwPhMiROYcEgpClXUQfv20=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789975537; v=1; x=1790580337;
- b=qxnypM6+uUXKE0+wizVi1a0TkfwqU8fcG55x2xSHwjQKMc68D5ufFsX1kCVyUFVynpVyoZP3
- pVGlI34XJY/+YFFgEDWlAH3bxJOCPlnTzACAcCHC6KFJfxsKzdbbpeBtbVGxfBVgh9Vql6vjiud
- ibpLL5nUiPI6m2r1Xd48bdRs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 87622ab0229e8090;
-	Mon, 21 Sep 2026 07:25:37 +0000
-X-Mizu-Trace-ID: 87622ab0229e8090
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b83c1421ecso6146e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 00:25:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzNpVY90jZA483e61eYImOY5omeJYzunlAOJe0aGuR8HdDnwhSh/UmrG0zEaJY010vmbcmSAge6cUSmRWQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kK7PxYhMBTBuaBNWP+g7hS1N2RW2ao3rg7hp81B2DZGXDcGILT
-	XIm9TX2kO0TAnTsnGm5v5kTgMTtfIleHh3CG3WFfx+fdDwOkmTIDgI7f0Qa88WMikBm6NRB493B
-	3ANgRzJXVRSeBuBJ94FA8j88b/7gzQqdIKRsJj3Sx
-X-Received: by 2002:a05:6512:10cd:b0:5b4:9dba:7403 with SMTP id
- 2adb3069b0e04-5b8c7eaef8bmr111208e87.13.1789975532579; Mon, 21 Sep 2026
- 00:25:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="PZ2yi49t"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789975550;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=Ad85azF8NuUWbQOZeE/AypEFZ0EAh0ubTf77I/hzDg0=;
+ b=PZ2yi49tnQ50CGjZ9BvgD3dZ/B943X9edyAQZ07l7TNXaS1AQu0dDcqVqkMt+Eby0mLzdm
+ c4cGSWJPtCB2RxxNxaAoxumGzuEXNFW/EIrKmmCzUb53FoFvWFW1BzcmpBjwxEQt7TxZex
+ q72O5RqzsEGBI6kXpf79znjMyMVbim1TociZOi4mHlEvg56pZA4gLgwppRbgGl0rKBH9+J
+ U6RVzRI3ubPGWI0a4JHNOGojalDbX37MovfSFvu255RBMQD5cUCM4vIMhwCC4TSRZc59VF
+ M/LAzynwEECmg6/5jWfVfzOEJuthyrtts1SPIwK6kc7jg5H1jtqHlZZRbo5MNA==
+Subject: [RFC PATCH v3 1/3] Bluetooth: dt-bindings: Add AIC vendor prefix
+Date: Mon, 21 Sep 2026 15:25:41 +0800
+Received: from bmxpxe-virtual-desktop.. ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Mon, 21 Sep 2026 15:25:48 +0800
+Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>, 
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <zhirunliu@aicsemi.com>, 
+	<dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, <liheng.wei@bedmex.com>, 
+	<yanli.yang@bedmex.com>
+In-Reply-To: <cover.1789974593.git.yanli.yang@bedmex.com>
+X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26ab0dbfd+0fed7e+vger.kernel.org+yanli.yang@bedmex.com>
+To: <linux-bluetooth@vger.kernel.org>
+From: "Yanli Yang" <yanli.yang@bedmex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260921063718.1604533-1-fuad.tabba@linux.dev> <arDYHSlFHm_XzGvN@kernel.org>
-In-Reply-To: <arDYHSlFHm_XzGvN@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 21 Sep 2026 08:24:56 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTz0-qS8RRhdT8XjAgWqKhgjjzbRsZ_jwTBVqM-8pXk7Vw@mail.gmail.com>
-X-Gm-Features: AcwNN1VMg6PbfnlRIzn1fjVR1-_CkT5UjrC7WdHauJujyrzeyYN_lrO0wc8jZWk
-Message-ID: <CA+EHjTz0-qS8RRhdT8XjAgWqKhgjjzbRsZ_jwTBVqM-8pXk7Vw@mail.gmail.com>
-Subject: Re: [PATCH v2] KVM: arm64: Restore the VM's feature bitmap when
- kvm_setup_vcpu() fails
-To: Oliver Upton <oupton@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Will Deacon <will@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Jack Thomson <jackabt@amazon.com>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <cover.1789974593.git.yanli.yang@bedmex.com>
+Message-Id: <b6dc98c56da4c5ef8da3fad8004d6e0245a73b2a.1789974593.git.yanli.yang@bedmex.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.34.1
 
-Hi Oliver,
+Add the vendor prefix for AIC Semiconductor (Shanghai) Co., Ltd.,
+used by the AIC8800D80 Bluetooth bindings.
 
-On Mon, 21 Sep 2026 00:09:17 -0700, Oliver Upton <oupton@kernel.org> wrote:
-[...]
-> > Nothing in the tree loads a vCPU whose init failed, so this is latent.
-> > The upcoming series that enables KVM_PRE_FAULT_MEMORY for arm64 exposes
-> > it: the generic kvm_vcpu_pre_fault_memory() calls vcpu_load() whether
-> > or not the vCPU has been initialised.
->
-> That's a bug, not a feature. We should require an initialized vcpu for
-> the ioctl.
+Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
+Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
+Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-That one is for Lorenzo then :) I'll reword the message so the stale
-bitmap comes first and the pre-fault crash is just how it showed up.
-
-[...]
-> The bitmap copy is a bit confusing because there's only two possible
-> situations:
->
->  - KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED is unset and the bitmap was
->    previously zero
->
->  - KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED is set and @init->features is
->    identical to vcpu_features (see kvm_vcpu_init_changed())
->
-> While there's nothing wrong with your diff, I'd prefer if the above
-> detail was represented directly.
->
->         ret = kvm_setup_vcpu(vcpu);
->         if (ret) {
->                 /*
->                  * Clear the bitmap if setup fails on the first vCPU to be
->                  * initialized.
->                  */
->                 if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags))
->                         bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
->
->                 goto out_unlock;
->         }
-
-I'd gone for the restore so the failure path didn't depend on the
-flag, but those two states are all there is and your version makes
-that explicit. I'll use it in v3.
-
-Thanks,
-/fuad
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..8d35a4b7d8ed 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -76,6 +76,8 @@ patternProperties:
+     description: Aeroflex Gaisler AB
+   "^aesop,.*":
+     description: AESOP Embedded Forum
++  "^aic,.*":
++    description: AIC Semiconductor (Shanghai) Co., Ltd.
+   "^airoha,.*":
+     description: Airoha
+   "^al,.*":
+-- 
+2.34.1
