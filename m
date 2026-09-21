@@ -1,86 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0AD3C1991
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA4A48F82F;
+	Mon, 21 Sep 2026 13:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789995947; cv=none; b=dg0zMq679ImJIjAB240NZFkT1DQ0ER7pYSPq48aRud2ghK7TPUKyYZBW1GYqDblKRexBKsvAHc+YC4If44+ViDHADfXbcjhxoqfvs2s3awoQaVtSbBsiGZathW2DZd6NigbpTOnrZpMGwvHyVr8McQD3XfCfY+Az+R228caLUHU=
+	t=1789996068; cv=none; b=FrKJ/NceFlHkzGwrbORxovAp2TiJc8sMrh3jIArTc2VsmEl2eWblS0aem0sEpfnC+ES2uDn2yMwgH/nfrO4Sr9ZwfF4fbAB/CiNVlPYEURfyHLaykH9ZSUpmFauAgnO+K4hAYJhc7uH1cp9fabIVhowXxrT58Q9d1YXAZS+wL5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789995947; c=relaxed/simple;
-	bh=eqL1+pxbQbl2lD+yMbd0BnhFooll2P4VKDlpZNXroxA=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ElZrko4Ck/TZMlDyXvx/AHSt2OjJ5u6zWsU4xoUnzYix+yppIn+KzmAvpZhxqOampf4XFYMy8shLwOMrAUeoqNzGmDCkitsAVhcGJnnHZ3ZVaUSuZBhwH4v4/Le2tJa4o6uJN1t86OaX5IPjNDJ4zmiB1gCD9IAIGXIhPjCzR2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GytY8D3g; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GytY8D3g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D5E1F00898
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 13:05:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789995945;
-	bh=eqL1+pxbQbl2lD+yMbd0BnhFooll2P4VKDlpZNXroxA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=GytY8D3g9KdWyEtZtKTjUOE80hf8ad6hTWTO7J8PIUu0jHamYH88cX4PcpnIU4nuX
-	 Fb8JSRH3Z0LaZ3h+Pgb3AsvbFcuues6Bk5RIOba2lut9pliLRttQMlHxKmbOKAH2Yb
-	 Nh31eBZsWGEI2G7idQAW6xUecITXNq9iS7i2sMvQYIN8j20/cjTTq0TQ6EdLNUZCxP
-	 brZjpAm9BYFp8WBMt10OoutEA4CgYr68ypEaveyMCAvHgvpTrPjaxrgg+a+wjsUKDl
-	 ZZdNaF8bHTM+FswX6m4wAozccXVphUzMTrQ9GpTxAviLX5rpXaGuogEyWTAZoGR6sv
-	 p4hlu95urNk3Q==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a612404718so13331631fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 06:05:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxBQfZmzkM83AiBmyHOe5XTNHR63TSxB1RE+lP0SpjNncmsVCnkZFJw9v0Cu9w1hQtOEg0WJUxx/nWzI5Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLB5WdP/fz6QjF0s7pV8oCNGovp4OwvRwBQK1tG6U8a6c46zwP
-	Gs56E+uhLXU7v3fhqyrX9e1PqnIQvYNGUPSbCnRDYnaQ4S7Vnx9WBgm4JMhMaMpVfw2ulO9AkVK
-	YqJcF2McC/6XChyhlA5/XZBobD272p3ZvqNGGlVnsjw==
-X-Received: by 2002:a05:651c:b13:b0:3a5:fb20:4e63 with SMTP id
- 38308e7fff4ca-3a5fbf54e10mr22033851fa.17.1789995943840; Mon, 21 Sep 2026
- 06:05:43 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 09:05:42 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 09:05:42 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <3e3a7197.9e4e.1a0c3e88117.Coremail.zl020895@163.com>
+	s=arc-20240116; t=1789996068; c=relaxed/simple;
+	bh=l6GJEM5nV4C1CujJgX7nkAWlxQBwLRdR8Onb+3XI2bY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ka18WwKbERhK+33XW9gpIlD0xLkj0ld5Hw0k6Y6iGcoZjV6BhJeqDSyaoouBjQwo4J/H0C0YQom9lVoXMDQv70QJhOMUYiPeB1AH8XAEbhw9XI1mb/C5n9sFLNZKxAuK0IaMPvWDsXnUunjOFAN4Gue8ebkjZtF7ugLLnO8W9cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 3C7EC40BC7;
+	Mon, 21 Sep 2026 15:07:42 +0200 (CEST)
+From: Gabriel Goller <g.goller@proxmox.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Roopa Prabhu <roopa@cumulusnetworks.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] ipv4: fib: treat an unbuildable encapsulation as a nexthop mismatch
+Date: Mon, 21 Sep 2026 15:07:30 +0200
+Message-ID: <20260921130736.210845-1-g.goller@proxmox.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
- <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com> <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
- <3e3a7197.9e4e.1a0c3e88117.Coremail.zl020895@163.com>
-Date: Mon, 21 Sep 2026 09:05:42 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MfSSHuPxOrP95aW5HXXE74f5X-yjr-KNavz_=tU__H33w@mail.gmail.com>
-X-Gm-Features: AcwNN1XpPns_pQlHseY9Ez4-fOhLH2UhBc-jukWmFLjbznkNpQwaq4oL4Cj_puk
-Message-ID: <CAMRc=MfSSHuPxOrP95aW5HXXE74f5X-yjr-KNavz_=tU__H33w@mail.gmail.com>
-Subject: Re: Re:Re: [PATCH v8 09/18] gpiolib: regmap: add gpio_regmap_get_chip()
-To: zl020895 <zl020895@163.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, longzhao@ambarella.com, 
-	Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>, 
-	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Michael Walle <mwalle@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1789996061375
 
-On Mon, 21 Sep 2026 14:19:49 +0200, zl020895 <zl020895@163.com> said:
-> Hi Bart,
->
-> Done, sent as a follow-up:
-> https://lore.kernel.org/all/20260921-gpio-doc-followup-v1-1-618738124f4c@ambarella.com/
->
+fib_encap_match() builds the requested lwtunnel state and compares it
+against the nexthop of a candidate route. When lwtunnel_build_state()
+failed it left result at 0, which is interpreted as "the nexthop
+matches", so fib_nh_match() continues to compare only oif and gateway.
 
-No, don't send follow-ups before anything is picked up. Also: Michael Walle,
-who's the maintainer for gpio-regmap was not Cc'ed on this so I'll wait for his
-Ack or change requests.
+So if there comes along a RTM_DELROUTE which carries an encapsulation
+the kernel rejects, it could delete a different route with a different
+encapsulation.
 
-Bart
+Report a mismatch instead. This also covers LWTUNNEL_ENCAP_NONE, which
+lwtunnel_build_state() rejects with -EINVAL, so the separate check for
+it can go away. It used to claim a match for an encapsulation type the
+kernel refuses to build.
+
+Fixes: 571e722676fe ("ipv4: support for fib route lwtunnel encap attributes")
+Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
+---
+
+v1 (https://lore.kernel.org/netdev/20260918152836.1173368-1-g.goller@proxmox.com/):
+ * removed the LWTUNNEL_ENCAP_NONE check as it is in lwtunnel_build_state
+   already (thanks @Ido)
+
+
+ net/ipv4/fib_semantics.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
+
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index 50e96f86ca59..001da9fc86cc 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -911,17 +911,14 @@ static int fib_encap_match(struct net *net, u16 encap_type,
+ 			   struct netlink_ext_ack *extack)
+ {
+ 	struct lwtunnel_state *lwtstate;
+-	int ret, result = 0;
++	int result;
+ 
+-	if (encap_type == LWTUNNEL_ENCAP_NONE)
+-		return 0;
++	if (lwtunnel_build_state(net, encap_type, encap, AF_INET, cfg,
++				 &lwtstate, extack))
++		return 1;
+ 
+-	ret = lwtunnel_build_state(net, encap_type, encap, AF_INET,
+-				   cfg, &lwtstate, extack);
+-	if (!ret) {
+-		result = lwtunnel_cmp_encap(lwtstate, nh->fib_nh_lws);
+-		lwtstate_free(lwtstate);
+-	}
++	result = lwtunnel_cmp_encap(lwtstate, nh->fib_nh_lws);
++	lwtstate_free(lwtstate);
+ 
+ 	return result;
+ }
+-- 
+2.47.3
+
+
