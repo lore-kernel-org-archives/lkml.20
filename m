@@ -1,113 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC113495500;
-	Mon, 21 Sep 2026 15:14:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403DB4A3F34;
+	Mon, 21 Sep 2026 15:14:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003655; cv=none; b=Ph5khz/QwEAYUgvijalB7iXfupMRQsZxsrr1hWM4uvaXssn2TvvKG6YrAasxi5LFLK53XCtLXKWaPcRPaSc1NmqftOzuZsFQUqpElVaCFgGvc7ZzTiQJX2kIX+xmBMFcPMSnGNIMcIHWEeMRlm7sdBCroQylTWIVliu40yEpe5E=
+	t=1790003656; cv=none; b=LpMuwNuLoIux9JSmmb3g82CL96EDu99OZ2lG0Q+b/DOJBVEdXHuIma9Z7n3sw3ybNXQsRJh6dYo6+pz8irGtNmBAGxQ7iqWVFpuWjiJ0LryZwJD9Sa5VPbzEWTUFEAE6Muulhxi86ZzEWLpOirefV5LuZLhtoNexwMeWgec+DeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003655; c=relaxed/simple;
-	bh=bR6K029sGNSyhgaZTWyi7W10rvwXcbXNTGYn/TM7BYg=;
+	s=arc-20240116; t=1790003656; c=relaxed/simple;
+	bh=V8uEpj3nim/mWnF+DAzb/sgomJixghaCpEwApMJMGKQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cqSq2N84ipe0tdaq1WHmJefmd5ypZiD3mPcUoT80rtrdF4TjdWLubWFrhu+FRUP8N3VVdX10K7ZbGhYlksC7pcJDpzRVWH7/u5JVu0szvqqCK3M7Gw38FOzzu+gay39l5RmsXiVTj+ZfJj31NlwWF4tnw4beZL5HrxgpK4SQMr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCxq22/+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z5jD4fII93fm4OcnPy2+sCoy4ugZmwc/dLp0fsY9zN7G6ZpcDfF1ita0N8eBfCXGs514QEyWYoiBOAq2ryNbgf+unzd7L1wIjJbxcUF2b0jMrbGf4qddlEz/gv+0KLJeNYJxY1pO22pYFwhGzwLWsWaK7O3OMXCgXg3ZhUJoBz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUBFYUgw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCxq22/+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9121F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUBFYUgw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516B71F00893;
 	Mon, 21 Sep 2026 15:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003653;
-	bh=A1vpA9Vu/anVUkgqQq6JZrIZF54n9p7jw4+5ezh/lQY=;
+	s=k20260515; t=1790003654;
+	bh=Rpgx4CLN3b9dZK0aGYB6vRewYDqVU6M4yiv44MWiT8M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RCxq22/+ukarhuU4fLef1DBuO4WHwye2i/enhDbY/fN5vk+yc2q8glQdtTR4ar+R4
-	 kpaMNBUNGuZ2D9F7anJo8Tc7jUFessC92tZxVWklyiekG+W3GLDrLW80AZc4gMsvO8
-	 F1m0hqtosUiriuVusd21Dt9o31B5JZSVyrosgeImxruP1y7EXTOX3z3gam7EzpER3H
-	 z0Wcet/tUJg/ft7kI5gfVs//vOKXF69BeEsw6tJu8u7I5VNU37z9OJeWUJlLvNafDM
-	 ot7CzGLz37k3RgxiKDycEa/R/E80OkP5L0jlyZpjZRxgTAKetXHsS+LVitSS+VLOrv
-	 G3p3Ha4HzcvCQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 010351AC56A7; Mon, 21 Sep 2026 16:14:09 +0100 (BST)
-Date: Mon, 21 Sep 2026 17:14:09 +0200
-From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
-	linux-mediatek@lists.infradead.org,
-	Martin =?utf-8?Q?Povi=C5=A1er?= <povik@protonmail.com>,
-	Hector Martin <marcan@marcan.st>,
-	Sasha Finkelstein <k@chaosmail.tech>
-Subject: Re: [PATCH 00/28] Add speaker and headset jack support for Apple
- Silicon Macs
-Message-ID: <arFJwcfSWqyawDYp@sirena.co.uk>
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+	b=eUBFYUgwjmVYJtQjoJ3sAU+3Xx35J9pncdvBniJGHyIP+rbu1NhjF2xLtGk9tyeZ6
+	 /w3che3koWRMDgbTg/xxw5Md1t8mXPleH5ivV9yPTZvVHmNs+oKdScYGW5tlF+TDGS
+	 gcMQQ50GcgeFXMEP9m3Kk2mGL06AWPTRZcmh+7P9LrHj+wM0snhCT7wBoo6PQOwjM/
+	 fNNqpuSJ+WtGOBxbFhQROX093Vyrmitvyf57T+Jk+8QRQXox056a50adq6Du/PdwK9
+	 aQuQ9zYoX/4wKHGqBdD/kZQfR+8cMV0rzE+0AdDUbK3zY7/FeOZV+F/Tsnrb0k3jH8
+	 Wg4bLh74YKS5A==
+Date: Mon, 21 Sep 2026 17:14:10 +0200
+From: krzk@kernel.org
+To: Hui Peng <benquike@gmail.com>
+Cc: alex.aring@gmail.com, horms@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, netdev@vger.kernel.org, davem@davemloft.net, 
+	linux-kernel@vger.kernel.org, dsahern@kernel.org, edumazet@google.com, idosch@nvidia.com
+Subject: Re: [PATCH] ipv6: exthdrs: copy old IPv6 header before
+ skb_mac_header_rebuild() in ipv6_rpl_srh_rcv()
+Message-ID: <arFJv0KqUdo_tp_y@quoll>
+References: <20260919210618.3028986-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jhwW/VhgT1w2TOjQ"
-Content-Disposition: inline
-In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
-X-Cookie: Too clever is dumb.
-
-
---jhwW/VhgT1w2TOjQ
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260919210618.3028986-1-benquike@gmail.com>
 
-On Sun, Sep 20, 2026 at 02:53:39PM +1000, James Calligeros wrote:
-> Hi folks,
->=20
-> This series finalises support for the main
-> audio subsystem on Apple Silicon Macs. It adds a machine driver
-> called macaudio, which is based on an RFC sent many years ago
-> by Martin Povi=C5=A1er[1]. The driver uses the DPCM model to dynamically
-> glue a backend DAI (combination of MCA ports and codecs) to a
-> frontend PCM. While this theoretically allows us to route any
-> backend to any frontend, this is not used in practice; the "Primary"
-> frontend is always used for the headset codec and the "Secondary"
-> is always used for the speakers.
 
-This has got a lot of different stuff in it, there's several different
-sets of fixes, a number of framework features, as well as the new driver
-and a huge pile of DT updates.  It would be a lot more digestable were
-these things to be split out, especially the fixes.
+On Sat, 19 Sep 2026 21:06:18 +0000, Hui Peng wrote:
+> In ipv6_rpl_srh_rcv(), after pulling the compressed RPL SRH and calling
+> skb_push(skb, chdr_len) to expand the buffer for the decompressed SRH,
+> the function calls skb_mac_header_rebuild(skb) BEFORE copying the saved
+> IPv6 header from oldhdr to ipv6_hdr(skb).
+> 
+> When chdr_len - pull_len < skb->mac_len (for example, an 8-byte
+> expansion with a 14-byte Ethernet MAC header), the newly rebuilt MAC
+> header at [skb->data - skb->mac_len, skb->data) overlaps with the old
+> IPv6 header at [oldhdr, oldhdr + 40). Calling
+> skb_mac_header_rebuild(skb) first overwrites the beginning of oldhdr
+> (version, traffic class, flow label, payload_len, nexthdr, hop_limit,
+> and the start of saddr) with the Ethernet header bytes, and the
+> subsequent memmove(ipv6_hdr(skb), oldhdr, sizeof(struct ipv6hdr)) copies
+> those corrupted bytes into the new IPv6 header. Moreover, oldhdr's
+> nexthdr is only updated to NEXTHDR_ROUTING before the pull, which also
+> gets clobbered by the overlapping MAC rebuild.
+> 
+> Fix this by copying the 40-byte IPv6 header from oldhdr to skb->data
+> immediately after skb_push(skb, chdr_len) and before calling
+> skb_reset_network_header(skb) and skb_mac_header_rebuild(skb), and
+> explicitly setting ipv6_hdr(skb)->nexthdr = NEXTHDR_ROUTING.
+> 
+> Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> 
+> ---
+>  net/ipv6/exthdrs.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
 
---jhwW/VhgT1w2TOjQ
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxSb4ACgkQJNaLcl1U
-h9ApuAf/ZwCUmddLEXrzSNnteIkRCaFhvQG/Ig3/Uo79xixZgarNV9EQrRh0cr/+
-wF4WqgVixB1t/yQr/ZvXeb2E1cuVxIY5MnqrXVqnFDxy0gZmr3kd1mKGvub6VstW
-E1auraBBQFDoz4/mBlBstM8YiWqmdgerxvqEGsHkjWMagDD/d8YG618XoY668mGW
-jn/w9JtTv9eyrrO3SX4N+MlVvLii06XTCi9Oegvjdo/uvF5tcICk9fZRY7bqXLGF
-KE1vXeSEdwr2ivDAjwMvYd1fjdBx1Ew+UL2mvTO3F1lAeA7o3zVieczdoP97C98C
-XEk5G4Q7u56Q1J2d8Vo0C0yXTyTVCg==
-=6yVp
------END PGP SIGNATURE-----
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
 
---jhwW/VhgT1w2TOjQ--
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem, how to document usage of LLM and how what you should not
+do if this was posted in a good faith.
+
+Best regards,
+Krzysztof
+
+
+
