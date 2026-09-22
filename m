@@ -1,252 +1,291 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013060.outbound.protection.outlook.com [40.93.196.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9210E47C0EE;
-	Tue, 22 Sep 2026 13:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083980; cv=fail; b=A8T/wT3z+xEDNXzzLKaJdNQPJF07MKBotG2o3uivC0fYlTZ9in05a55yvT6fmRTuwHXTqZKnuzezcRRjTDYkIH3SB5eEfzFT+KJ7ptUnK3N99quVMlh1X+pqS9VlTYETktkQjKhLEs8icT9Mnmbb8jlVjJj1g2ih72oTLAXUpeA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083980; c=relaxed/simple;
-	bh=4RDfvenx1DgRBn9S+3i5jsZuvM15Y1kxtNxmaalO5GU=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=a4PpSE0xFYmJ1NbX57LcXBYKmlE4rE3xU3JrXjoq8VMzQFdIEa6PazJRqsrCnwon5ktEtieF2Eoh6kckAV8dcoA0sF1j6SE5yvvnQ0SX2o24ye78BHeezfZu4uFAg96/nDS6vW4Smgivdu0K65lLQfLbaoYMDcwmjtXu8SngGMM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dNLTgiNA; arc=fail smtp.client-ip=40.93.196.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7AD53CA9A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790084022; cv=none; b=Nt3VRyOOzvJZnmiBlXlxw21B+LijtgQwcVphN5J1sHV5ZFPy9YurV+G30GsfURkBvoa8cBPmCg5twgT6QXovYkV3mobsabx0De+hNT0Q8CvPtpk/kbYe0rnYSfDQWaBljf0uiMTF1MS++yeHzAY2bEFBCKVQxlzf9xGubXvekmk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790084022; c=relaxed/simple;
+	bh=Ql6MI6/k6ufAB79dkpGcNbDfwC1zD5p7MkWUMqW4dV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EkHzVvYc8q9CL67aSV9hoRxbB6HDL99KFGlu0WTyUrK0tr49hjDtxSSEdiLTJYjk8xvc7Eomex2QYrkHgGofXPfK1XgNG/7FjkjC4z1JZ1+aAbR0ctQ1PhG+OCEHTfKziBkhsYif7U2Kp8qRxaz/LmnW+/gwrBhliDf03EYtW+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Rv4mdAPE; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dNLTgiNA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q4r9tSz/g7skvOXtyC4N+1W42qmDZYTGp617Q0lqy4EK9PJORFhPUjED1MRmItE+DTd5dzY05gKTY1EeOrKwzLx6jxL6sVLpjpzxEXfZ5PuIE7D0wdaa2Jj20e5FwtPGm2hrsxEVoPlBAZrf2mi0L+vdNt3KFhSGjn9Hfso8L8fJMF8isxrhqfTm0KC/uBVOPHwWNidNymNcjwFWdj5fmfjx4pgWNtDOnNk4zAchNxNQKyJaw9B85P5m+HtPBOlMXBVml/ea2v73jPrYXzzmQ9LrxyrxYRl+Ilg8vr6gmkeKaPslRG2ceAeoi6xcCYZodVUuUV03TAU/OBRp92U03A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4RDfvenx1DgRBn9S+3i5jsZuvM15Y1kxtNxmaalO5GU=;
- b=IQY9fwZk3q4MazWh/5KRqXn2wpz67yh1ex8wvMIjDajldedUTwzDciw5hj/WJQ95as6qxhZNbfydX6D/m2BoM2TQegXMUDgU/MlKCWvQtd2CFca89SkaG30IosJpl8yQnfueNCCXyZI7t2vNdRSRG7eXEZ7OC/K3gy1dhxi6vBsN3+LKiodR2WpBvZKRLxbw3pruYmtuzcPHlj9F8cPPG7AsX99l4k+IEG4GvozpfbFQEb2C1IfqvQIa2dv99tOgl22ljqEV8H8ciiiq0iylB/l6GHuYsgw6fLAT0BBe8xY9sHGa8XTxBWPwMhBHPSN8cPNcFdcBHaaBpqVQTPQXhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4RDfvenx1DgRBn9S+3i5jsZuvM15Y1kxtNxmaalO5GU=;
- b=dNLTgiNAroa3wKnflBuHo9OdAkT63TrRaEOFuXGVxJEhNLIXO8I2i66pB1I9kyPI5QDIqBEL9U+rT+fdQ5uWquoGvLb7j6sAfMdV2gxgQMagCkZ+rvyURvBp43alVwZNbc1aHm9mfb3KuOKdP/+SwB3nectREUjp2jBqZOeflqAn+TbSOSnXiQc95vPzIf82Kq0dmPKj3CJKuK1ocSy6RSHn20MxXSuXOTAyAlyIgy9T/dcRDjjtjOXiPEztc7194xyk0CW1uvZTPZpAt6tbA8g/ibK/6+qTj2iwx3A9YfZnj/akzA85TZCf2W1NOkHH/nM9GAGZ1FA0KOh2c95Y5A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by BL1PR12MB5732.namprd12.prod.outlook.com (2603:10b6:208:387::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Tue, 22 Sep
- 2026 13:32:54 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 13:32:52 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 22:32:49 +0900
-Message-Id: <DLLVT33ESJA5.1XE4J08AEZNMX@nvidia.com>
-Cc: "Kohei Ito" <koheiito.dev@gmail.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-gpio@vger.kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH 3/3] sample: rust: Add GPIO consumer sample driver
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Bartosz Golaszewski" <brgl@kernel.org>
-References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
- <20260906-add-rust-gpio-consumer-v1-3-24d192f93760@gmail.com>
- <CAMRc=Meei7Z1f1n0M_Hy1LdxG=NVhkFeEiT3=p5QVpw6BTv3EA@mail.gmail.com>
- <6aa662d7.0ca013b1.1575e3.0a60@mx.google.com>
- <DLENO35F39LL.2YNA66D9FCXYH@nvidia.com>
- <CAMRc=McV2YKgbmnknLZTSGoSa_9eCHDiOLzuPPyPHHnj=vRuvw@mail.gmail.com>
- <6ab12d24.a3d4836d.3b68e.d0f8@mx.google.com>
- <CAMRc=MfZckBMT-4PEDxr-PjRbUPO4FY3OZw8ks3w+uoEyixbAQ@mail.gmail.com>
-In-Reply-To: <CAMRc=MfZckBMT-4PEDxr-PjRbUPO4FY3OZw8ks3w+uoEyixbAQ@mail.gmail.com>
-X-ClientProxiedBy: TYCP286CA0360.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:7c::6) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Rv4mdAPE"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so35461125e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:33:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790084018; x=1790688818; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C2Z6J0Xb+XGgk1d/nTkGyflldNnpf7sHk7JSW+3DTk4=;
+        b=Rv4mdAPEO5fg2ZdjGtP0PRYwVoxOc0kpCvXOJOdO6EPSN6IyE/d4o1B6o4qzslE+fS
+         /suZDMGT4yD1u3Co0ADkQyXK56wmcqCJpxNjGOFF6qGiY1ruo3jrEbRN8VXtGViQsu8u
+         AN44BzE0Jn4YzfR9jYawqS6EkwQUkuuBsLwl6XUk1oNf2IKlk2KtXR/JrTtEOmN/x7Iz
+         M84ps9UwBNc5dzxa+/gTa4lTps+GIhRLdpKhuuflm1ACdo5n0zG0/lSbJT+moIJTO4Jf
+         CgZ5w03MjknxS1biJoOFcxlsisvHNwG3HX9nvlBxszTs8/EMxvnRb9s4EmXhfpvu0TPR
+         HGgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790084018; x=1790688818;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C2Z6J0Xb+XGgk1d/nTkGyflldNnpf7sHk7JSW+3DTk4=;
+        b=GjjO4Q/Yd676wWy12D/CN5kiEWuEOdizQzwUxvdPNTowCBJNfOfWiBv7nzeoZgG5zw
+         6+/v1eNZ8dgtwwdetFowSWqY3Ld2Ar4ufe/Cg8W5BwE+ACXzWovI55KiLr8LRjsCzAXK
+         tXFfzv6IbWH0X1uV8z/ReMJFuLoOrHycDcYpR1oVcEgL3w0/fF7sbVvotDvryFw3mQqJ
+         LYoWyZpHj+WHSsqvbHMSHykDAYlQSNViJtq7b6tPDmVCYF+XLWyj6s5wiU0VhEYu50bz
+         GHshzyBKYje7A5phdIzGS+GZAdDsz9WcJb9J4pZ+ia3WUBeDF7NrtI7vPWb5diPvk+lB
+         LjTQ==
+X-Forwarded-Encrypted: i=1; AKwUvByz1ny7VxYlJv6vGHFFSKnMp0/K0l3qlEktATNOZ0kArJVqYzs8SxNXeD0qxDf3K6WH9dKp1RqlmTO/Hv4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpsaoECoHcwNnz0tMU0Q08hHncM9CgM08HLANqL6RJ4sJRikby
+	wgsh3aSXMtQKPWp9cJNUYJiKOvA+EF85pzYMLRbtJZUYAIa57qz8kze922ZAh5Re34k=
+X-Gm-Gg: AYBFou0wAJJeZNdCfzxcnENV4eUBSbYGJjrRZ0kqHZ+zmDRurIMEe7Rlfv02RjXyQ1L
+	ftF7J4CdiSJ4Z2kAvq+ia0coQocKxnKq+T861zco8bz5s2NMqwFquiFp3hV3/iK4CTkdHa1MJVP
+	DaPpKx+BiskahTryBRKfBUN3LUiFS4mrT0I8XrgmJC9RXkX47hd1E2srWQuNw1pzSMcx4y5LCgp
+	iohAXuxYKT22Lu35xQkLOH8oQ0EfYpwjZ3tNPBTJ+TTuf+i05wGA2VX1YCKXxMrYBZbpMCX0mwk
+	aMMZcobkIppviw1FeJUsV53gPPPqhRoyKYz4fY/yKyZg0aR1wUCfwMHEQrJhSQ9TbKLYZsL2aDW
+	KAnwfE5CZiyiNgNbVsoJD6kVpe6qQGD+z+slFOavbUYj4UhLW80EHkZJtcOVBBdRNNef7wHK3nc
+	cowhfK3BxWOvEVaU8jojEYN2Sk+TecjD9o7X4ddr93qRHmyOW1AAR7PoeQOGP5aPS9Krsldw7fj
+	L7QzlmvTN/JedRjnYokyCwqMy3+gbED6y3cTSTl83EqFCC38PGt9IXjO28Xi0VKBUEXMok=
+X-Received: by 2002:a05:600c:a085:b0:49d:25b0:cc60 with SMTP id 5b1f17b1804b1-49fc5747f7bmr216383615e9.29.1790084018052;
+        Tue, 22 Sep 2026 06:33:38 -0700 (PDT)
+Received: from zovi.suse.cz (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz. [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdace76e8sm70243845e9.1.2026.09.22.06.33.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 06:33:37 -0700 (PDT)
+From: Petr Pavlu <petr.pavlu@suse.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rudolf Marek <r.marek@assembler.cz>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Duncan Sands <duncan.sands@free.fr>,
+	Chas Williams <3chas3@gmail.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>
+Cc: linux-watchdog@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-hwmon@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	netdev@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org,
+	linux-rtc@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] Remove obsolete __MODULE_STRING()
+Date: Tue, 22 Sep 2026 15:32:20 +0200
+Message-ID: <20260922-module-string-v1-0-c18766690185@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|BL1PR12MB5732:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28d7eb61-17ff-4200-8d27-08df18ae00b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|10070799003|366016|56012099006|6133799003|10067099003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	44O05s5nQpOfjaBrwaSwfNrcfdvWWmrdMkpmqhssc3LDaXEqX/xWJPpxkjJfc465LTy7u9zfUJBXrSkvlU5chuNu52ldH8hqDuCiB1+nQRhMjGNNdwlwz338xM2jbXJkNf0LgGjBTUXuYca2qkjhJnfNiiPuiOlOmV3NS8XY76b97+eK5h7yU2C8mPL2b509Tt6wFcVt1Jyclvh1rUpEJ7W9si3rxhxSqQIEdZENcNRiGo9w14WLijMIgLUB0xQejHq7fr1znQ5AUi+vBqR6sl23yluN3/owWX0pYJjkDbNANe9HSfKXotYFWDfytnwnWz7i4YDFXIJIYsnP8sFakJ+r+WxbhsY7zLAxZMIIHUHOp7+rfSnEyHMGxbGw9jEzOYO/uKzC17we/P5eNDGTuUzBvyi4jFOtDFb5X52vx5ohtscamK0BlI00Z9zG01AmX8RR1b77GBHiWNt+n3ALVH+4YnwwLbewhukt/MzCvoI1qc9+yoyNn6lBLY3TcF97/hUAJsLTOS9eAWwDqAwT2bJ7QljMFCamwKCuT69dBqkex84S7DFowZRGmTMcvRK4X1o+3xP6vcDxRTGHn+quAyAKH5Af+puwiMA9tGyUbCvfmcDYdklJQVawc5c4rywGcJtlEChZ7md3L3FnKise+gpf7ZtyPnUh734EX6D2foU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(10070799003)(366016)(56012099006)(6133799003)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MW9NWVJ2b3gvalJVdGFrZkRzMUdncENXcUViRVU0SElaaEJWRWlEY3YvTG5T?=
- =?utf-8?B?Qlg1YkdGVllRa3UweE1iUUdpbFVUODVTSzV0N1M5SW02bHZpeW53bUordGtw?=
- =?utf-8?B?MWMxMUJRZHAweGRTQnMrMTZ3OE9tVUNkZGJ2S2ZVN3RlRzQyNGhPaXZRdFY4?=
- =?utf-8?B?S21LY0dDaUNiRGJDbnVwUWpXWDhudHBFRU9SNS9XeTlqakNOOUlENlovL1Jx?=
- =?utf-8?B?OGd1YVdiTE1HVHpjaFRzY0FTWEw1TGdDOXJMa3NiL050V0RaSzFkVzVoNTRx?=
- =?utf-8?B?Yk9VdTgxUXNNeWZBeDd3TkZ4b054RG9PNEJOMzlrcUxUczI5RjF0RTVDa0o3?=
- =?utf-8?B?YmxveGRjUnIrWFNPTWQ1WEZXRGdDSEhRTThSQ2k3RHBOeVZsOE1STm5GWGJN?=
- =?utf-8?B?dlVBK2FERXQvV01hSGR3NnkyT0hTa0tJcHpuQ2Vmd0JpT3NJbE05WmY0OGhh?=
- =?utf-8?B?Z2E5c3R2ZXIwR0NJZVNweVBYcjhWMzRJZjlsZ01mNlFTTUF0b0cvZEhlTFdX?=
- =?utf-8?B?REF6by9zUE5oWlVJbXA1cTFzaEF0dzJZcE14WW5LZjAvYUsyQkFQS2tMS0wv?=
- =?utf-8?B?QXdzSXB6ZDRWWStzL2xvdyt1ZXJrRU1kRGlHYTMyM29NcHNqRVlrRkhEQXlK?=
- =?utf-8?B?VDVKeEpZOURBdkpQV2tDMU15OU5Yb3dqNkNIMTZSTnZ2VXBwV0Rwc0t2SjQr?=
- =?utf-8?B?QlhtZWU2UE5aa3JBQUtVQkFZajlpL2JkUFNaVFJTU2hET0piU3g3VnhBaVk5?=
- =?utf-8?B?K2sxTjZ3TGlnU2RWY1ZYOTd2aWJObTJiR1lhZGxaYWVPcVVKQWJRT3MzMWtP?=
- =?utf-8?B?VUZHVmFsL0ZSdk45SUhiV1BTV0Y4VjV3bzF5MkE4UTIxaFlWSTlpSTJ6UU5E?=
- =?utf-8?B?am5rRnRGMjBqeEtWYTM2TkVaV1ZvUmZVcm5YcjlTMVgyaUorMDhEOXlFY3d2?=
- =?utf-8?B?dU9SZkFnWEFPYXhueTY0ZE95N2R1dG9FQlpHNmdIQklaREZmYUVnZEVlS3dJ?=
- =?utf-8?B?SE5ZWTUxRWg2R1kwZHlBRVVMTTIxZ1BEN0pzYXl5OHlONFdIU1YrbnZjME5J?=
- =?utf-8?B?T2lCNlp1RUU4SFYwWVVyeDdWKzJIanRrWUJ6aTJWdi9zTU5xOUJWN0wyME9o?=
- =?utf-8?B?b1FlWG9OZDZncElicHoxY3pvVUVmRkVFMTJ4c0RRQkk2L0FhTm1VTGkyUC9X?=
- =?utf-8?B?VlVvVzBtRmRhQkpGNHRGMHRSTythM1lXelluYkdlY2U5NVowczZBbElmZzN1?=
- =?utf-8?B?N2lYNWIzd1IvcWNScWNvc2JCeTdCanMzZnhWZ1RBVjE1UEt3V0NSNVMxdGp2?=
- =?utf-8?B?YzdoMlNEd2tJTGozVUVjTWt4YlFnVFMxaWhrd0VzU2d6SGs1VmI0Rks2d29w?=
- =?utf-8?B?RWRRQ2xwcVR1Y3JOVW43VUNheVpHZ1FVa1FPT1B5N3pqU3c1QzNhTjIva1ZR?=
- =?utf-8?B?S0Jqa2EzM1hDYlR4QldaUTBmd2IwR2JNWHlaZ1o0RDBZVEQ5WDlrVDk1MkZ6?=
- =?utf-8?B?SlRlZUJWN3I1QVBFQ3FLMncyZkhWMnBMdVJtMEwzZHNPdmVtdXFZck1uRGtq?=
- =?utf-8?B?MUFHd0Q5V2VzL0ZDNStVQ25Ha3U5WmJ4aW1jQVNpMi90SUFpSjZQdFpyS3Nw?=
- =?utf-8?B?aFJoSU93a1haUTdmT21hSTl2L2lyUzM3dldOQjkreGR2UHVURTk4ZVFJRVhQ?=
- =?utf-8?B?aVVFSFZuTnFYUEpNQ1NzejJjNlNhdDd1SWNtWU5MeTB6NnhaL1dLYWV2NUtC?=
- =?utf-8?B?Q1NDajdDM25XaU5tU0VPeTZZUW5FUHFvMVByY3hzN2g0SHEyRmgyUXhOWjcz?=
- =?utf-8?B?YmRnOGtPcWh5RUhjaG5ON1g4WDJXOWFKZEtEZVQ1ZVNmQ2xoSHNQbDIwekIw?=
- =?utf-8?B?OFEyNzZTM3FoQXE2NFN0R2VleFlCZjhEZ0JwV2FTTXp6cVdWRFNDbEoyL2V6?=
- =?utf-8?B?QlIzT21ycUhwRHlieE9DOFR2K0Nmb2FJUjg3dzNqdGNRUTJNK0Y0dTVDbjVW?=
- =?utf-8?B?YWVrVlA5K1JLTElydnBmampFWE1QL1o1bklXT283a1pRQTBhMGF4cWJ5TWp4?=
- =?utf-8?B?bGhaN2FCT0N5aGM2RXZrNllFc1VTZW9BZUd1Z05ZY2Jhc3hDS1VMZ1ZPNncv?=
- =?utf-8?B?aWZ3dzBMV3pDaHhQVTBwb1JNMWkxVTRUeENUUjF6YjZ2OVJEODFUVFZRVlZx?=
- =?utf-8?B?N0ZVUkQvb3JHajFOMWVEdjArdExxbjc3RW44SHVncW9mczJVZm1lMFlCL2Jq?=
- =?utf-8?B?Tkl3b2JEOEVYYThRVzFBV1FzSFFpQWx3Q1l5TDFJaWI0UkZxOW4zYmhFTG5u?=
- =?utf-8?B?M1F0NkhoaTVINmVqZnZPWEIrUDRGZU4vWXUzUWZtcW9JZE9uaTFjTnpoU3lQ?=
- =?utf-8?Q?VUWAJuAZ2nGhGW2glTWXkPZDn9mDvmy5x1S4aCW1Pb0OY?=
-X-MS-Exchange-AntiSpam-MessageData-1: mGYsmYQH8q7uUg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28d7eb61-17ff-4200-8d27-08df18ae00b0
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 13:32:52.6597
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N5lqyN2ElJdqyvVJg0K86zgIf2h3/bMG6I91PKYp/Tz7lfm0BnRSohVDgiCfwW0IK1gPkbpJ/wsGa+T87cxTqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5732
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260919-module-string-d64816f203d9
+Content-Transfer-Encoding: 8bit
 
-On Mon Sep 21, 2026 at 11:38 PM JST, Bartosz Golaszewski wrote:
-> On Mon, 21 Sep 2026 15:12:01 +0200, Kohei Ito <koheiito.dev@gmail.com> sa=
-id:
->> Hi Bartosz, Alexandre,
->>
->> Thanks both for the feedback.
->>
->> On Mon, Sep 14, 2026 at 04:36:48AM -0400, Bartosz Golaszewski wrote:
->>> On Mon, 14 Sep 2026 03:41:29 +0200, Alexandre Courbot
->>> <acourbot@nvidia.com> said:
->>> > On Sun Sep 13, 2026 at 5:46 PM JST, Kohei Ito wrote:
->>> >> Hi, Bartosz,
->>> >>
->>> >> On Thu, Sep 10, 2026 at 12:37:17AM -0700, Bartosz Golaszewski wrote:
->>> >>> On Sun, 6 Sep 2026 10:45:51 +0200, Kohei Ito <koheiito.dev@gmail.co=
-m> said:
->>> >>> > Add a sample driver to demonstrate the use of the Rust GPIO APIs.
->>> >>> >
->>> >>> > Signed-off-by: Kohei Ito <koheiito.dev@gmail.com>
->>> >>> > ---
->>> >>>
->>> >>> I don't like samples as they rarely get built or tested. We seem to=
- already
->>> >>> have kunit support for rust, wouldn't it make more sense to impleme=
-nt a kunit
->>> >>> module for rust GPIO abstractions? If we don't have provider abstra=
-ctions, you
->>> >>> should be able to reuse gpio-sim as the GPIO controller for testing=
- just by
->>> >>> instantiating simulated GPIO devices.
->>> >>
->>> >> Thank you for your suggestion.
->>> >>
->>> >> I assume the kunit module you have in mind would be implemented like
->>> >> `gpiolib-kunit.c`. Based on your comment, I agree that a kunit-based
->>> >> approach is more appropriate than a sample driver.
->>> >>
->>> >> However, as far as I know, we don't yet have Rust abstractions for
->>> >> platform_device registration and software_node, which are required t=
-o
->>> >> implement a kunit-based module for testing GPIO consumer APIs. Given=
- the
->>> >> current state of Rust for Linux, I think creating a sample driver is=
- a
->>> >> more practical approach for now. I would like to consider migrating =
-to a
->>> >> kunit-based module as future work.
->>> >
->>> > The problem is that this sample driver never probes, so in effect it =
-is
->>> > only ever compile-tested. Without support for the provider API, you n=
-eed
->>> > to include a small C fixture providing a GPIO chip for it to be actua=
-lly
->>> > runtime-tested.
->>> >
->>> > Doing the same using KUnit would involve building the `gpio_chip` usi=
-ng a
->>> > bunch of unsafe statements working with the C bindings (which would t=
-hen
->>> > in turn require `gpio/driver.h` to be added), so I guess we'll want t=
-o
->>> > wait until we have a proper Rust provider API to go that direction.
->>> >
->>>
->>> No, I was thinking about the gpio-sim module which is implemented as a =
-platform
->>> driver which you can describe with a software node and then register to=
- create
->>> a simulated GPIO provider against which the consumer APIs in rust could=
- be
->>> tested.
->>>
->>> To that end, we'd need to just register a platform device from rust and=
- AFAICT,
->>> there are already APIs for that, except for the software nodes.
->>>
->>> Bart
->>
->> I looked into this further, but couldn't find any Rust abstraction for
->> registering a new `platform_device` (no file contains a platform device
->> registration function such as `platform_device_register()`,
->> `platform_device_register_*()`, or `platform_device_alloc()`/
->> `platform_device_add()`). So, we can't write a fully Rust kunit module
->> for the GPIO consumer API, at least for v7.3-rc3.
->>
->
-> Right, I must have misremembered this.
->
->> The best approach I think is a combination of a Rust consumer driver and
->> a C kunit module dedicated to testing the consumer driver. This is
->> almost the same as `drivers/gpio/gpiolib-kunit.c`, except that instead
->> of directly exercising the GPIO consumer APIs, the module I'm suggesting
->> exercises them indirectly, through the Rust consumer driver.
->>
->
-> Can't you just call a C function registering the platform device from uns=
-afe
-> rust?
+__MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+MODULE_PARM support for older modules" [1] in 2002-12. That change also
+moved it to the graveyard section at the end of linux/module.h
 
-You should be able to. It's a but laborious, but better than not having
-tests at all, and acceptable as a temporary solution IMHO.
+Replace the remaining uses of __MODULE_STRING() with __stringify() and
+remove the macro.
 
-Of course an even better solution would be to provide a safe abstraction
-for registering platform devices. :) I don't know exactly how much work
-that would be, but there is already a `platform` module, so supposedly
-we wouldn't be starting from absolute scratch.
+Apologies for the wide distribution. Acked-bys are appreciated.
 
+[1] https://git.kernel.org/tglx/history/c/136839a1b4
+
+---
+Petr Pavlu (3):
+      watchdog: Replace __MODULE_STRING() with __stringify()
+      drivers: Replace __MODULE_STRING() with __stringify()
+      module: Remove obsolete __MODULE_STRING()
+
+ drivers/comedi/comedi_fops.c                          |  5 +++--
+ drivers/gpu/drm/drm_fb_helper.c                       |  3 ++-
+ drivers/hwmon/fschmd.c                                |  3 ++-
+ drivers/hwmon/nct7904.c                               |  5 +++--
+ drivers/hwmon/sch56xx-common.c                        |  3 ++-
+ drivers/hwmon/w83793.c                                |  5 +++--
+ drivers/i2c/busses/i2c-kempld.c                       |  3 ++-
+ drivers/net/ethernet/atheros/atl1e/atl1e_param.c      |  9 +++++----
+ drivers/net/ethernet/atheros/atlx/atl1.c              |  3 ++-
+ drivers/net/ethernet/atheros/atlx/atl2.c              | 11 ++++++-----
+ drivers/net/ethernet/intel/e1000/e1000_param.c        | 15 ++++++++-------
+ drivers/net/ethernet/intel/e1000e/param.c             | 16 ++++++----------
+ drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_param.c |  7 ++++---
+ drivers/platform/cznic/turris-omnia-mcu-watchdog.c    |  3 ++-
+ drivers/rtc/rtc-ds1374.c                              |  3 ++-
+ drivers/thunderbolt/tb.c                              |  3 ++-
+ drivers/thunderbolt/tunnel.c                          |  5 +++--
+ drivers/tty/serial/8250/8250_platform.c               |  3 ++-
+ drivers/usb/atm/speedtch.c                            | 15 ++++++++-------
+ drivers/usb/atm/usbatm.c                              | 17 +++++++++--------
+ drivers/watchdog/acquirewdt.c                         |  3 ++-
+ drivers/watchdog/advantech_ec_wdt.c                   |  3 ++-
+ drivers/watchdog/advantechwdt.c                       |  5 +++--
+ drivers/watchdog/airoha_wdt.c                         |  5 +++--
+ drivers/watchdog/alim1535_wdt.c                       |  5 +++--
+ drivers/watchdog/alim7101_wdt.c                       |  5 +++--
+ drivers/watchdog/arm_smc_wdt.c                        |  3 ++-
+ drivers/watchdog/armada_37xx_wdt.c                    |  3 ++-
+ drivers/watchdog/aspeed_wdt.c                         |  3 ++-
+ drivers/watchdog/at91rm9200_wdt.c                     |  5 +++--
+ drivers/watchdog/at91sam9_wdt.c                       |  5 +++--
+ drivers/watchdog/atcwdt200_wdt.c                      |  5 +++--
+ drivers/watchdog/ath79_wdt.c                          |  5 +++--
+ drivers/watchdog/bcm2835_wdt.c                        |  3 ++-
+ drivers/watchdog/bcm47xx_wdt.c                        |  5 +++--
+ drivers/watchdog/bcm7038_wdt.c                        |  3 ++-
+ drivers/watchdog/booke_wdt.c                          |  3 ++-
+ drivers/watchdog/cadence_wdt.c                        |  5 +++--
+ drivers/watchdog/cgbc_wdt.c                           |  7 ++++---
+ drivers/watchdog/da9052_wdt.c                         |  5 +++--
+ drivers/watchdog/da9055_wdt.c                         |  3 ++-
+ drivers/watchdog/davinci_wdt.c                        |  5 +++--
+ drivers/watchdog/db8500_wdt.c                         |  5 +++--
+ drivers/watchdog/dw_wdt.c                             |  3 ++-
+ drivers/watchdog/ebc-c384_wdt.c                       |  5 +++--
+ drivers/watchdog/eurotechwdt.c                        |  3 ++-
+ drivers/watchdog/exar_wdt.c                           |  5 +++--
+ drivers/watchdog/f71808e_wdt.c                        |  9 +++++----
+ drivers/watchdog/gef_wdt.c                            |  3 ++-
+ drivers/watchdog/geodewdt.c                           |  5 +++--
+ drivers/watchdog/gpio_wdt.c                           |  3 ++-
+ drivers/watchdog/hpwdt.c                              |  3 ++-
+ drivers/watchdog/i6300esb.c                           |  9 +++++----
+ drivers/watchdog/iTCO_wdt.c                           |  5 +++--
+ drivers/watchdog/ib700wdt.c                           |  5 +++--
+ drivers/watchdog/ibmasr.c                             |  3 ++-
+ drivers/watchdog/ie6xx_wdt.c                          |  5 +++--
+ drivers/watchdog/imgpdc_wdt.c                         |  5 +++--
+ drivers/watchdog/imx2_wdt.c                           |  5 +++--
+ drivers/watchdog/imx7ulp_wdt.c                        |  3 ++-
+ drivers/watchdog/imx_sc_wdt.c                         |  3 ++-
+ drivers/watchdog/indydog.c                            |  3 ++-
+ drivers/watchdog/intel_oc_wdt.c                       |  5 +++--
+ drivers/watchdog/it87_wdt.c                           |  7 ++++---
+ drivers/watchdog/jz4740_wdt.c                         |  7 ++++---
+ drivers/watchdog/keembay_wdt.c                        |  5 +++--
+ drivers/watchdog/kempld_wdt.c                         |  7 ++++---
+ drivers/watchdog/lenovo_se10_wdt.c                    |  5 +++--
+ drivers/watchdog/lenovo_se30_wdt.c                    |  5 +++--
+ drivers/watchdog/lenovo_se30g2_se60_wdt.c             |  5 +++--
+ drivers/watchdog/loongson1_wdt.c                      |  5 +++--
+ drivers/watchdog/lpc18xx_wdt.c                        |  5 +++--
+ drivers/watchdog/ma35d1_wdt.c                         |  3 ++-
+ drivers/watchdog/max63xx_wdt.c                        |  7 ++++---
+ drivers/watchdog/max77620_wdt.c                       |  3 ++-
+ drivers/watchdog/mena21_wdt.c                         |  3 ++-
+ drivers/watchdog/menf21bmc_wdt.c                      |  3 ++-
+ drivers/watchdog/menz69_wdt.c                         |  3 ++-
+ drivers/watchdog/meson_gxbb_wdt.c                     |  5 +++--
+ drivers/watchdog/meson_wdt.c                          |  3 ++-
+ drivers/watchdog/mixcomwd.c                           |  3 ++-
+ drivers/watchdog/mpc8xxx_wdt.c                        |  5 +++--
+ drivers/watchdog/mt7621_wdt.c                         |  3 ++-
+ drivers/watchdog/mtk_wdt.c                            |  3 ++-
+ drivers/watchdog/nct6694_wdt.c                        |  3 ++-
+ drivers/watchdog/ni903x_wdt.c                         |  5 +++--
+ drivers/watchdog/nic7018_wdt.c                        |  5 +++--
+ drivers/watchdog/nv_tco.c                             |  5 +++--
+ drivers/watchdog/octeon-wdt-main.c                    |  5 +++--
+ drivers/watchdog/omap_wdt.c                           |  3 ++-
+ drivers/watchdog/orion_wdt.c                          |  3 ++-
+ drivers/watchdog/pc87413_wdt.c                        |  7 ++++---
+ drivers/watchdog/pcwd.c                               |  5 +++--
+ drivers/watchdog/pcwd_pci.c                           |  5 +++--
+ drivers/watchdog/pcwd_usb.c                           |  5 +++--
+ drivers/watchdog/pika_wdt.c                           |  5 +++--
+ drivers/watchdog/pnx4008_wdt.c                        |  5 +++--
+ drivers/watchdog/pseries-wdt.c                        |  7 ++++---
+ drivers/watchdog/rc32434_wdt.c                        |  5 +++--
+ drivers/watchdog/renesas_wdt.c                        |  3 ++-
+ drivers/watchdog/rn5t618_wdt.c                        |  3 ++-
+ drivers/watchdog/rt2880_wdt.c                         |  3 ++-
+ drivers/watchdog/rti_wdt.c                            |  5 +++--
+ drivers/watchdog/rzg2l_wdt.c                          |  3 ++-
+ drivers/watchdog/rzv2h_wdt.c                          |  3 ++-
+ drivers/watchdog/s32g_wdt.c                           |  5 +++--
+ drivers/watchdog/s3c2410_wdt.c                        |  7 ++++---
+ drivers/watchdog/sama5d4_wdt.c                        |  5 +++--
+ drivers/watchdog/sbc60xxwdt.c                         |  5 +++--
+ drivers/watchdog/sbc7240_wdt.c                        |  5 +++--
+ drivers/watchdog/sbc8360.c                            |  3 ++-
+ drivers/watchdog/sbc_epx_c3.c                         |  3 ++-
+ drivers/watchdog/sbsa_gwdt.c                          |  5 +++--
+ drivers/watchdog/sc1200wdt.c                          |  3 ++-
+ drivers/watchdog/sch311x_wdt.c                        |  5 +++--
+ drivers/watchdog/shwdt.c                              |  7 ++++---
+ drivers/watchdog/simatic-ipc-wdt.c                    |  3 ++-
+ drivers/watchdog/sl28cpld_wdt.c                       |  3 ++-
+ drivers/watchdog/smsc37b787_wdt.c                     |  3 ++-
+ drivers/watchdog/softdog.c                            |  5 +++--
+ drivers/watchdog/sp5100_tco.c                         |  7 ++++---
+ drivers/watchdog/starfive-wdt.c                       |  7 ++++---
+ drivers/watchdog/stmp3xxx_rtc_wdt.c                   |  5 +++--
+ drivers/watchdog/stpmic1_wdt.c                        |  3 ++-
+ drivers/watchdog/sun4v_wdt.c                          |  5 +++--
+ drivers/watchdog/sunplus_wdt.c                        |  3 ++-
+ drivers/watchdog/sunxi_wdt.c                          |  3 ++-
+ drivers/watchdog/tegra_wdt.c                          |  5 +++--
+ drivers/watchdog/tqmx86_wdt.c                         |  3 ++-
+ drivers/watchdog/ts4800_wdt.c                         |  3 ++-
+ drivers/watchdog/twl4030_wdt.c                        |  3 ++-
+ drivers/watchdog/txx9wdt.c                            |  7 ++++---
+ drivers/watchdog/uniphier_wdt.c                       |  5 +++--
+ drivers/watchdog/via_wdt.c                            |  5 +++--
+ drivers/watchdog/visconti_wdt.c                       |  3 ++-
+ drivers/watchdog/w83627hf_wdt.c                       |  5 +++--
+ drivers/watchdog/w83877f_wdt.c                        |  5 +++--
+ drivers/watchdog/w83977f_wdt.c                        |  5 +++--
+ drivers/watchdog/wafer5823wdt.c                       |  5 +++--
+ drivers/watchdog/watchdog_dev.c                       |  5 +++--
+ drivers/watchdog/wdat_wdt.c                           |  5 +++--
+ drivers/watchdog/wdt.c                                |  5 +++--
+ drivers/watchdog/wdt977.c                             |  5 +++--
+ drivers/watchdog/wdt_pci.c                            |  5 +++--
+ drivers/watchdog/wm831x_wdt.c                         |  3 ++-
+ drivers/watchdog/wm8350_wdt.c                         |  3 ++-
+ drivers/watchdog/xen_wdt.c                            |  5 +++--
+ drivers/watchdog/xilinx_wwdt.c                        |  5 +++--
+ drivers/watchdog/ziirave_wdt.c                        |  3 ++-
+ include/linux/module.h                                |  4 ----
+ 150 files changed, 428 insertions(+), 288 deletions(-)
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260919-module-string-d64816f203d9
