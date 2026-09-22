@@ -1,33 +1,68 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5BF754B1B8;
-	Tue, 22 Sep 2026 13:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C231E5540A6
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083282; cv=none; b=ZNYeyegtdMZUmd6zVnAI/nrnzPqyMFcfi9WCzL18rEm4LO0/7UXCVWNc+u5IJZQ5RZvp/Xd6ex239qS2Oq+jx+wrwNSnKIs9Oct2/v8iFbxrmpuefkC115/2GlfhkZWQj/8QpyoX4EqCYxCq26Yrv5EI+yp4gq3PQK18k/Xtgoo=
+	t=1790083314; cv=none; b=ogAjJaiREdgitgUF1d3rgndHGaSuRzJIKIuWje7f027USzIfggukUTpUoyJsVe0xt4sZCUK3LyoDIDDuhuvqfX+JKcVCIhNPMh6O6zLsBuBhHlKeptuqw/hGRz4ucXGIT/iKpRXUePvYr6vH6cGnpvKgMMZ7hEBzOm2eZhpgrY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083282; c=relaxed/simple;
-	bh=xrhxmYRJ3exYToZIwckZeEM/ye2FI4uMt5lT4VUw7/s=;
+	s=arc-20240116; t=1790083314; c=relaxed/simple;
+	bh=4uifs47mEzmyBoeOxvbxfVk2BkBVG8/x2kWmzdGQkAY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qWvQLHkH3iZpKRv8BDTQc0ypqdvOgGFdNkoI5e3ma7maBxJOtcwaui1G7qkKefvu92kILv5jyHHXDVpA9kMmE023ABE74GfSjGklXFuenFUM2GcoiB451cPAGeS1A6kki7yDSZkpfgNpDXPt5VabQwoxqUFKb8KSO9N0kxsJEkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Fezc+pwV; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=H/qFiCYLd3SPWK48LYGRk8VHyYaEntIU62K8LbIJAdECwVn1s7HNZe71ki1TM5NVVEESuGmf51xGcRkIYfXv3+hNs2WZFANscJI5jaHjOEnhpwxF7T+dgb5o5X9c6rvSz3MDCwpVusEgHVDOdessqh4nwTnureg4CY3fXnTcjOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=fKhtmud3; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Fezc+pwV"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0641B1576;
-	Tue, 22 Sep 2026 06:21:15 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 288CE3F528;
-	Tue, 22 Sep 2026 06:21:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790083278; bh=xrhxmYRJ3exYToZIwckZeEM/ye2FI4uMt5lT4VUw7/s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Fezc+pwVgB2Q4yk8pMzu0lSh4oRsM2AoyznvJEKbquznTYI8da3CnVeUBg5R+vc4H
-	 EAaYOCenq71LSbSO9o8g+QEAXUpImhKENpTJvw/AQNx4pmVGKL78IA0b5kpccsoJrr
-	 SfO7aYxh7TtA8H3nK9IGl2MolrdU+LMBzoipwCM8=
-Message-ID: <749ab0c9-810d-4989-8fa5-1706124f05bc@arm.com>
-Date: Tue, 22 Sep 2026 14:21:13 +0100
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="fKhtmud3"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso30088915e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:21:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1790083311; x=1790688111; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0lryHDGBzH0yt6rZeb3UHP0vuOu2NeBF2okLNiTIg9o=;
+        b=fKhtmud3g+zX2HQ6ijL3Lxeq86uHLxYI31rZgl4YMjkHkoJBZ7Y0a2eBg41LObJ56C
+         b2qzyuJGUPDvFWYTp5w6s1kiyHa54jkS02reCSWbv+SjKK+FaY+E1kzUGCcyAAesJNnZ
+         VsL0AR7GZv2oDA8NNNz6Ftzd1MISaurOGMnlP3FEtloOpUhmMdGWkXkePhz5SYuhZVRX
+         Iycrx8oXo54EoQYd0MO/QeyLi0Gg1JS47DOvnTS1qg0sO1PLl0MtuJsqiaA0YhXWNz1S
+         3luqEX0ul0qyImoWRXWX8O6tFHGhpgobeWTvv8xa5crnRYg8w5PbpoBQbPMAnGUY+4TK
+         0L0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790083311; x=1790688111;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0lryHDGBzH0yt6rZeb3UHP0vuOu2NeBF2okLNiTIg9o=;
+        b=lUwk+8utd1Iz3OG5KQRgiN79FYoeAXige4Fw6I8TQbek23eRvj/JTMdVnXdB3tjDNK
+         GTBKL01Jn4qM7I3VMc0jo8CT2yPJV3a43Khj1lbXv045Q2g5/9NHxCefRDcSVaO8h5qx
+         7N8uZJrgTj7aWn9UTflD9od2zCIKGeOaGshvtyrsgMlMWMOAoxH0m8b0YSLtAeQ6bRG4
+         c7G4iu2lhHMDjbaqV+DPTBP6HL3TNPEO3bsGZqplsll/AoWTfB8Z93RkY6tV9PE8baLP
+         GSKrrtQoumVP4sRoiYw6fWTKMX8IJyX9XMZTQ/xD5b8P3fdLzSkei7X311Zkm2V5RWuJ
+         MJZw==
+X-Forwarded-Encrypted: i=1; AKwUvByjcSclVxqfFu5Bmhtav2fYvy7MGJaHzRfgIkNQUOa/TDsYF7dxbITqAAnDlffWYhqzHiROioa8+KvLBYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ke8e2V51hl9Sy+8p87NHqY+3H/A0TYAe6orQia1/7x+4i8xlj5
+	17IZB0OSiGtyJS18pZ1l6TG3v04inY+r9C1vC2XWDJeJR58/AQDRhWUSOeieA8F5CGQ=
+X-Gm-Gg: AYBFou3PPPhwxHRJN+HvHEq9N0WzEBZ+10JXnyw8apHY6sedC0lfGul+hFLVG37oE02
+	Y1e8dVigugCXWx+MNoQeRaYueI0Zax249pwyp0SJpyAGtkIJXq9Q3QPWJEcKeiBPRoR9Z43EbLE
+	9r8oGIMuhm7BteQ6Z5TU8jqRsdBD5Tz5ec5GzJIr6OSZeN9O29pX6+giPvd2uS3VJdyow8iY4Hs
+	Yi10h0Gm5ocWttX5U6Rwlc9TfUXQJ03eVpWd5YQy9RVGoZgIohMx80UGCa+f55g4+Ud3NeDP1qM
+	2JNdrtlXZkVvBAMfEa1RUX9WFxBjqSQSrc50CrvisCLCsF+nB0I1hnTjmoW9pMHPQn3tk35boFO
+	C8654/SMBDsq81DU8xnhmqCtsWL4+K1NFbc5+gTIDw5sP4MQbX3MaeevDuGlwYoOKBW2W2sAl0a
+	V24TMBSe7FpYMobELnjltZP+4ajQo7GnxZtDJy9/UbByOSXOtNrxYzfOTGnjTjwQe3uv7RHEQo1
+	GiFxGk+yEzURMvKnLf9hr0MAAT9E0WLIbZdGuWmhcxrcwYUTJqQJKcof1XokQ==
+X-Received: by 2002:a05:600c:8b03:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49fc566e609mr187887745e9.3.1790083311001;
+        Tue, 22 Sep 2026 06:21:51 -0700 (PDT)
+Received: from ?IPV6:2a01:599:842:c46f:7b1d:31f2:7a17:2f4c? ([2a01:599:842:c46f:7b1d:31f2:7a17:2f4c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad2a3e0sm70823335e9.5.2026.09.22.06.21.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 06:21:50 -0700 (PDT)
+Message-ID: <8cb38ff6-1210-4c5a-b0bc-b0b50dd2b9aa@9elements.com>
+Date: Tue, 22 Sep 2026 15:21:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,199 +70,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
- <aqvCwM_73qMpqzvV@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <aqvCwM_73qMpqzvV@arm.com>
+Subject: Re: [PATCH v7 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+ support
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>, joel@jms.id.au
+Cc: andrew@codeconstruct.com.au, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com,
+ andrew@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
+Content-Language: en-US
+From: Tan Siewert <tan.siewert@9elements.com>
+In-Reply-To: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 17/09/2026 11:36, Catalin Marinas wrote:
-> Hi Suzuki,
+On 9/22/26 2:34 PM, Prasanth Kumar Padarthi wrote:
+> Add support for the ASRock Rack B650D4U BMC, based on the ASPEED AST2600 SoC.
 > 
-> On Thu, Sep 17, 2026 at 10:03:14AM +0100, Suzuki K Poulose wrote:
->> On 16/09/2026 17:39, Catalin Marinas wrote:
->>> On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
->>>> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
->>>> index 75c3e463df2ef..dc3a87902a60c 100644
->>>> --- a/arch/arm64/mm/fault.c
->>>> +++ b/arch/arm64/mm/fault.c
->>>> @@ -914,6 +914,24 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
->>>>    	return 0;
->>>>    }
->>>> +static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
->>>> +{
->>>> +	const struct fault_info *inf = esr_to_fault_info(esr);
->>>> +	unsigned long addr = untagged_addr(far);
->>>> +
->>>> +	die_kernel_fault(inf->name, addr, esr, regs);
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
->>>> +{
->>>> +	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
->>>> +	    fixup_exception(regs, esr))
->>>> +		return 0;
->>>> +
->>>> +	return 1;
->>>> +}
->>>
->>> We discussed briefly offline. With the latest patches around, would we
->>> ever end up with private memory mapped in the VMM and hence the GPF? If
->>> not, I would still keep this handling but add a
->>> WARN_ON_ONCE(user_mode(regs)).
->>>
->>> However, can we end up delegating a non-guest_memfd memslot page as
->>> protected?
->>>
->>> I played a bit with codex and it reckons it's possible if a guest_memfd
->>> memslot is deleted after its IPA range has been initialised with
->>> RIPAS=RAM. Removing the memslot unmaps and undelegates any data pages
->>> but leaves the RMM state as RAM. The VMM can then install an ordinary
->>> memslot over the same GPA range.
->>
->> This should be prevented by the following predicates:
->>
->> 1) Realms only support guest_memfd backed memslots for mappable memory.
->> 2) Memslots cannot be created after the Realm is created, as is with the
->> protected VMs. (This check seems to have been lost over the iterations,
->>   but should be reinstated).
+> The series adds the board compatible string and describes the BMC memory, SPI NOR flash layout, UART console, GPIO line names, graphics reserved memory, I2C EEPROM, and MAC0 connected to an RTL8211F Ethernet PHY.
 > 
-> If that's the intended model, I think it should work. But v18 doesn't
-> enforce either of them. I noticed the second predicate for pKVM only -
-> your 'Widen the scope of "protected" VMs' patch makes this restriction
-> explicit to pKVM.
+> MAC0 obtains its MAC address from the EEPROM on I2C7 and uses RGMII-ID mode.
 > 
-> For the first one, if !kvm_slot_has_gmem(), it simply continues with the
-> registration.
+> Changes in v7:
 > 
->>> A subsequent private-IPA S2 fault sees the non-guest_memfd slot, takes
->>> user_mem_abort(), GUPs the user page and passes it to
->>> realm_map_protected(). The userspace mapping remains present, so a later
->>> EL0 access can generate a GPF.
->>
->> The Realm mem abort code should prevent this by ensuring that the
->> memslot is backed by gmem for private_faults. With the mandate of
->> in-place conversion, even the shared pages must come from the
->> gmem backed memslots.
+> * Correct the GPIOP bank line names for the reset, power and NMI button/control signals according to the confirmed board mapping.
+> * Remove the obsolete GPIOF5 reset-button line name.
+> * Leave the binding patch unchanged.
 > 
-> IIUC this only works if the memslot is gmem but I can't see what
-> prevents ordinary slots from being assigned to realms. I think we can
-> enter the user_mem_abort() -> realm_map_ipa() for ordinary slots unless
-> we prevent the deletion of the original slots and enforce gmem only
-> slots early.
+> The B650D4U DTB builds successfully using aspeed_g5_defconfig.
 
+What? The B650D4U has an AST2600, so using `aspeed_g5_defconfig` means 
+you're using a config set for the AST2*5*00...
 
-I had another look and we could handle this via 
-kvm_fault_is_gmem_abort() see in arch/arm64/kvm/mmu.c:
+Also, please preserve the trailers from previous serieses (i.e. Andrew's 
+Reviewed-by trailer) if you don't change anything significantly for the 
+parts that got reviewed.
 
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 87e49251e0447..af5a4bf961aae 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1731,6 +1731,9 @@ static int gmem_abort(const struct 
-kvm_s2_fault_desc *s2fd)
-         gfn_t gfn;
-         int ret;
-
-+       if (!kvm_slot_has_gmem(s2fd->memslot))
-+               return -EINVAL;
-+
-         if (!perm_fault) {
-                 memcache = get_mmu_memcache(vcpu);
-                 ret = topup_mmu_memcache(vcpu, memcache);
-@@ -2277,10 +2280,12 @@ static bool private_ipa_fault(struct kvm *kvm, 
-phys_addr_t fault_ipa);
-  static bool kvm_fault_is_gmem_abort(struct kvm *kvm,
-                                     const struct kvm_s2_fault_desc *s2fd)
-  {
--       if (!kvm_slot_has_gmem(s2fd->memslot))
--               return false;
-         if (kvm_memslot_is_gmem_only(s2fd->memslot))
-                 return true;
-+       /*
-+        * For Realms, all private faults must be backed by GMEM.
-+        * TODO: Handle Trusted device private memory mappings.
-+        */
-         if (private_ipa_fault(kvm, s2fd->fault_ipa))
-                 return true;
-         return false;
-
-
-
-
-Also, I have the following hunk for preventing memslot modifications.
-I will add this to v20 integration branch, which is almost ready ;-)
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 582b48e34486b..87e49251e0447 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -2783,6 +2783,18 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
-         }
-  }
-
-+static bool kvm_prevents_memslot_change(struct kvm *kvm, enum 
-kvm_mr_change change)
-+{
-+       /* Cannot modify memslots once a pVM has run or Realm created */
-+       if (change != KVM_MR_DELETE && change != KVM_MR_MOVE)
-+               return false;
-+
-+       if ((kvm_vm_is_protected_pkvm(kvm) && 
-pkvm_hyp_vm_is_created(kvm)) ||
-+            kvm_realm_is_created(kvm))
-+               return true;
-+       return false;
-+}
-+
-  int kvm_arch_prepare_memory_region(struct kvm *kvm,
-                                    const struct kvm_memory_slot *old,
-                                    struct kvm_memory_slot *new,
-@@ -2791,12 +2803,9 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
-         hva_t hva, reg_end;
-         int ret = 0;
-
--       if (kvm_vm_is_protected_pkvm(kvm)) {
--               /* Cannot modify memslots once a pVM has run. */
--               if (pkvm_hyp_vm_is_created(kvm) &&
--                   (change == KVM_MR_DELETE || change == KVM_MR_MOVE)) {
-+       if (kvm_vm_is_protected(kvm)) {
-+               if (kvm_prevents_memslot_change(kvm, change))
-                         return -EPERM;
--               }
-
-                 if (new &&
-                     new->flags & (KVM_MEM_LOG_DIRTY_PAGES | 
-KVM_MEM_READONLY)) {
-diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-index fc0297103f08b..6ec4e4487dff9 100644
---- a/arch/arm64/kvm/rmi.c
-+++ b/arch/arm64/kvm/rmi.c
-@@ -1596,6 +1596,7 @@ int kvm_activate_realm(struct kvm *kvm)
-         if (kvm_realm_state(kvm) >= REALM_STATE_ACTIVE)
-                 return 0;
-
-+       guard(mutex)(&kvm->slots_lock);
-         guard(mutex)(&kvm->arch.config_lock);
-         /* Check again with the lock held */
-         if (kvm_realm_state(kvm) >= REALM_STATE_ACTIVE)
-
-
-Cheers
-Suzuki
-
+Tan
