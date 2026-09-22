@@ -1,430 +1,218 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643774A2E32
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C716C4A3F14
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790105139; cv=none; b=VIZGlBKBL7SDFf2+BWwW3bN6pIHnhOYu7eiurKoiLemwOVToOYOe02EcfgtA0G1XYfXGA8QD2UHkG/GDDEQT+/Cb4YJVIS3XWOm6fKEO9LwPYrs9vrOQEMY10giSWEaMN8dC0ao+1UnhCiFRLUowcDn4W+qvqZyZj6ZTMQPP+/o=
+	t=1790105151; cv=none; b=SrRTVaZaMaI5oqYjfK0SDpcDci2Goe2qkOgkpPyy1Lj9SjFZu5BMgXrqypuqHC0Sw+Sk1Uquc1f+a9KzqtsmOoPpBOqRKuGOfkj+1kW5GBDMPezPzhvEZN13NYt97GQwxPCXBo7+gcPI9WenUYj2InhmF8kAF82y1QKe5HMMFXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790105139; c=relaxed/simple;
-	bh=8spCMQsob0cbxv0j4UMVHPSzWk2o5wd/oncgmW1WbhE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HUxfrfjvEQrntfJ+ZXhSlOgf91bGTjiTU4LScCqxaJKDlvU0iMlSJDw6Es9Tc+mWKX1VdKY5Tk2H0EESlK3UGBV/j/idL0s2kdtRxr4kRgtt8dkQdqgzMUcbfUvE3Oj24JKrYVBcjrUcU1Xjlpyol55nfLFskFTqziMkmZI1UKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EDCxgERT; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790105151; c=relaxed/simple;
+	bh=r98Q+kuvWzjCrx/8WWgWEzee71wpL1zD1M5HxGJqpjg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dJM1EcPkn0gRhRl8hnJ/u/zl1gT0eP4b9WN5jGqgNBC91vkgKpkWHbKypo41wdNhejqTCjMYPHHXthZqjiqh4XXKwwPYep0YTRDR20bzcK1BrYafpHQpgNXx2RdhQpNqesmBw74/EWwjiV1YCnZs6mij+PoKNt4q2zpO4N/D3yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CbrcBypn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IKRNLFfn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EDCxgERT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790105136;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b6TM6uu+FM58oALQCRrt4iHL681e2T+gM7AtXU+yYTA=;
-	b=EDCxgERTshi0RBmcW5tZ40xxceecF1q75TUw7Qd1g6NRpLBIaY/FAVv4EkZ+pfOwsuYZP+
-	OcKYxbsVEeEl0Eev/Vi9Yqj+zwk6O2YZEyJdub9WG16TpQHPBhB6pGWqANEiPVGj+NZTOS
-	t3fLUGVCBtkc33AibTc2jQ1jBKuy06E=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-133-IRN1w4lsMay6e_AHh4r-gw-1; Tue,
- 22 Sep 2026 15:25:28 -0400
-X-MC-Unique: IRN1w4lsMay6e_AHh4r-gw-1
-X-Mimecast-MFC-AGG-ID: IRN1w4lsMay6e_AHh4r-gw_1790105124
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 209BD1809C98;
-	Tue, 22 Sep 2026 19:25:24 +0000 (UTC)
-Received: from wsxc.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 281A830001B9;
-	Tue, 22 Sep 2026 19:25:08 +0000 (UTC)
-From: Ricardo Robaina <rrobaina@redhat.com>
-To: audit@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-openrisc@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	bpf@vger.kernel.org
-Cc: paul@paul-moore.com,
-	eparis@redhat.com,
-	sgrubb@redhat.com,
-	oleg@redhat.com,
-	richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linmag7@gmail.com,
-	linux@armlinux.org.uk,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	guoren@kernel.org,
-	monstr@monstr.eu,
-	tsbogend@alpha.franken.de,
-	jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com,
-	James.Bottomley@HansenPartnership.com,
-	deller@gmx.de,
-	ysato@users.sourceforge.jp,
-	dalias@libc.org,
-	glaubitz@physik.fu-berlin.de,
-	davem@davemloft.net,
-	andreas@gaisler.com,
-	richard@nod.at,
-	anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net,
-	chris@zankel.net,
-	jcmvbkbc@gmail.com,
-	tglx@kernel.org,
-	peterz@infradead.org,
-	luto@kernel.org,
-	Ricardo Robaina <rrobaina@redhat.com>
-Subject: [PATCH v3 14/14] audit: rename audit_syscall_entry_regs() to audit_syscall_entry()
-Date: Tue, 22 Sep 2026 16:20:06 -0300
-Message-ID: <0bb32d256099870f3f9ca2632cccf58538f882ed.1790088067.git.rrobaina@redhat.com>
-In-Reply-To: <cover.1790088067.git.rrobaina@redhat.com>
-References: <cover.1790088067.git.rrobaina@redhat.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CbrcBypn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IKRNLFfn"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI73kq1153712
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:25:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DpoZFkZdgs13xlkwMgnRw9MvGQ+ZQQ9iQmjkSWg2E4Q=; b=CbrcBypnVrO/fN+p
+	CnXEsVZ6d9JTGpgRxJYCZkWWs7XrdTX3I3rFbDICopGo27Y9blozFkSFlYMAI3Rm
+	pt+pa5m8ThJ0Dhp6hqxEJTUfTBbxHyHA/VDlbGsskz9u83yI4UMBBANB4DfZGDwf
+	9CstNdBXE161t5jy06BnGL5uerZpZIHylqNk6EmwftpvsnkT6KIZwZlAgpXPCZ6N
+	t9Tg9HmwaPw5q36tD5dkFbNWFOsOOUClaKAqc6n/DNVgWDpvxiuQSnvJ67n7Xsnf
+	NWlCqM0E+561Lathorab64INAqC3bhnfN19mZq/P2as00f1nTWIYGXOYIEwLFI5T
+	wdz0tw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guvw7h0j7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:25:48 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-32b8c2b30c4so171331eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:25:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790105147; x=1790709947; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DpoZFkZdgs13xlkwMgnRw9MvGQ+ZQQ9iQmjkSWg2E4Q=;
+        b=IKRNLFfnERfC83r9NvVFFyHYlLDG3jSbMwNm0ZOwq7SpaPG7W2w+Lk0Kq/ZDt2aUw2
+         lMpNH5uTnobePznPQ5f0n+Dl/KfoSlaNu7ro9AaVC1kNwkFNEhXrHaKAFuifX1aJ4GSt
+         WljCrp3uT1X9jmC98mu49uck/BAkCsdKxcXZclG9chSWO636GykrRNOf1/iTNo8tWRA3
+         fKnUycIPw6/skyWNIFlUzJ8Lqu3gK//EDZSNKomBwMNpQi4FvYLmRVsuTUyZbbUY7ipV
+         CbMCGrS12TGMFvhzHeIFCZjAuzbXXlDpKb1twtm6zqoeF4ls57/PHYXM8XrBA1Pu895u
+         gy5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790105147; x=1790709947;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DpoZFkZdgs13xlkwMgnRw9MvGQ+ZQQ9iQmjkSWg2E4Q=;
+        b=cgF4ISWciHI+CY7w+OkvYjgnFQ1E4mMkRmKLJPvG+Su7OzaWPaSSg6qf2zVcRTE7Jk
+         Y94C5Hbskw+lBhuBKjQMs9Am/eTS/CfpBZlfB7XIJPp5y/MtrUPhHvCEwxkr6Pyx11hI
+         JnFUczpb48mS1ISXkWq1JQ9xQNKZeeeG8q+jgmY5pHOEtEAPbSnoHIZ9bSihLBOg9Q1J
+         We2f0rqsGLkLOHGqCv6DHNAS0A4z23S5KAYsvZ6nIWUIEGmFTpVoAhhXjQm3JMKV6Wtn
+         JmJFI9ISlfb8kG5aFd4UMGzkl5mVOMpZC7o6s0Y6xlg9jI9vQqcJl+BpLjlev4RZDUei
+         HSuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwDH1VQr2Q6epuwufQ4cAlYgH0d/6j8UPrAMLoaqqsoHT8u6fctb7lRYMsosfXISQWOb8PkXeI+yyUE+xU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lv+herabnKOG9cGdqktWSKIfJo4PQVU8fAbwm/Z9thpetkzr/K
+	ODvzoKT6FOyG6TiNUdBM09zlUfruuzVHrPcGWUWAQ4M0dKgEFpYIXIrp/5giQ6Dg5E03+Js2m8D
+	IUw9qKtXLiVs9Fsx4Tplkk8+JgtrPFPl7VoAeqOBPS1YDjUBmMCLG22PiaYG8YTRNiC4=
+X-Gm-Gg: AYBFou2uVVk46MIpeXGmVgA71UBdhOOq/Qk5v9Qx+B2vZqQwlhxDiyJdAHB7EJub75e
+	sARkskfVACoMULCs8b8fnq9MW87h8U8BnZp6UhAfqBAg4GZGelYIQrWVt4DyzJtD+ED+OT5HrZz
+	noWVsUz4tjOv777HXMNKzVoD4e1yfOvJ4o9KXojVDzJeKaiyCbgh+wyIvHEJ+1VoaYLSyiV2sBy
+	Qa4rx2XaTN/zdfubxj1b3KG1rnCR4EMWZrNV0Y9UCV02ij3vm654lUcXPipYJPgyGuTqDtYCuoA
+	/x2sPHWgf/cEZ+I5IPN9hnBtrX6DKRz52yO3iiIQLadxWd9foT1vsUdTwm2g+ZV+wRjeYeDZTMz
+	3dP0ZwKfnqftAU7wqat/i45HuffHPtBH6pf/dipYEFCInnZmW6lB0zA==
+X-Received: by 2002:a05:7300:fb0a:b0:339:66ff:51b3 with SMTP id 5a478bee46e88-33e8e2b67b8mr229575eec.37.1790105147347;
+        Tue, 22 Sep 2026 12:25:47 -0700 (PDT)
+X-Received: by 2002:a05:7300:fb0a:b0:339:66ff:51b3 with SMTP id 5a478bee46e88-33e8e2b67b8mr229545eec.37.1790105146727;
+        Tue, 22 Sep 2026 12:25:46 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96e48e3esm357539eec.26.2026.09.22.12.25.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 12:25:46 -0700 (PDT)
+Date: Tue, 22 Sep 2026 12:25:42 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v19 01/20] KVM: arm64: protected VM: Handle user writes
+ to CNTVCT_EL0/CNTPCT_EL0
+Message-ID: <20260922122542.00006868@oss.qualcomm.com>
+In-Reply-To: <20260920212845.707-2-suzuki.poulose@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-2-suzuki.poulose@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI4NSBTYWx0ZWRfXwskDR7Xrmpyy
+ +Jp/plTd+y4hNt++XuVkL3QKCslpysGyvxX2PeQKfGBAHjR6ug+UZtVkEW0yK8OVSjdbrqTj983
+ TvbGabupYvBZ3UKez04TdhMQ8l0Qq6Y=
+X-Authority-Analysis: v=2.4 cv=ZYqIpcVA c=1 sm=1 tr=0 ts=6ab2d63c cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=wrk9ooTvwJDonXvhXhMA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: NjAfiPPQImj5ZZs5bsJiu-RAXTo1axYu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI4NSBTYWx0ZWRfX1/UAVtGUgfHO
+ 0xi2roJFk42zE/rL8jpyFW/9myURWCrLWtfYx5t6XVwG5UPnmQlgZEX4eB6UaND2iwotwZmMfqw
+ mVNtSuUz2bpFc1rTqNetroiD0XRtlw0M10xVdkAX9bV6FgCoZL27F38/xsvHKoCK6ZNYWbRJCRG
+ xDsXNpeU47CHQBCTMctvsdPZ7Myi2HLy6lXB0IHBX84GFuFQZxfNJexgC/geDMvt7wiLvwjB4vh
+ 8T5R1x/OJn7Efm8lMcKLoZtpbtUJpJf3vZcIQAXLycDZfxt9THS2m+ZKaoMS8eGFqK1XYIsom6K
+ O162FJl3NFTf4x4S39LyKrlzER2AZWyYTCfoM9PK5uZt3dopzhQZv8EJEg3+iRjhjWyoRASXVit
+ e6P9tQ2HlaWoTyNdTSzbr40/27mQp/9lI/i3ey5yazLwR64CGhI1TRvxTee/I504kd+99qpUB8/
+ C8p64JBzZYjz/YQTIpQ==
+X-Proofpoint-GUID: NjAfiPPQImj5ZZs5bsJiu-RAXTo1axYu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220285
 
-Now that every architecture has been converted to the pt_regs-based
-audit_syscall_entry_regs(), the legacy audit_syscall_entry() and
-__audit_syscall_entry() helpers that took the individual syscall
-argument registers (a0-a3) no longer have any callers.
+On Sun, 20 Sep 2026 22:28:26 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-Remove those legacy helpers and rename audit_syscall_entry_regs() and
-__audit_syscall_entry_regs() back to audit_syscall_entry() and
-__audit_syscall_entry(), restoring the original naming.
+Hi Suzuki,
 
-The _regs variants were introduced separately, and the architectures
-converted one per patch, specifically so this final rename is the only
-step that removes the old prototype. That keeps the series bisectable:
-every commit builds, and no caller is ever left referencing a helper
-that has been removed.
+> Protected VMs doesn't allow setting offsets for virtual and phyiscal
 
-Suggested-by: Will Deacon <will@kernel.org>
-Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
----
- arch/arm/kernel/ptrace.c        |  2 +-
- arch/arm64/kernel/ptrace.c      |  2 +-
- arch/csky/kernel/ptrace.c       |  2 +-
- arch/microblaze/kernel/ptrace.c |  2 +-
- arch/mips/kernel/ptrace.c       |  2 +-
- arch/openrisc/kernel/ptrace.c   |  2 +-
- arch/parisc/kernel/ptrace.c     |  4 +--
- arch/sh/kernel/ptrace_32.c      |  2 +-
- arch/sparc/kernel/ptrace_64.c   |  2 +-
- arch/um/kernel/ptrace.c         |  2 +-
- arch/xtensa/kernel/ptrace.c     |  2 +-
- include/linux/audit.h           | 21 +++---------
- kernel/auditsc.c                | 58 ++-------------------------------
- kernel/entry/syscall-common.c   |  2 +-
- 14 files changed, 19 insertions(+), 86 deletions(-)
+physical
 
-diff --git a/arch/arm/kernel/ptrace.c b/arch/arm/kernel/ptrace.c
-index 3c5d7fd733ec..e103ec2661cd 100644
---- a/arch/arm/kernel/ptrace.c
-+++ b/arch/arm/kernel/ptrace.c
-@@ -868,7 +868,7 @@ asmlinkage int syscall_trace_enter(struct pt_regs *regs)
- 	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
- 		trace_sys_enter(regs, scno);
- 
--	audit_syscall_entry_regs(scno, regs);
-+	audit_syscall_entry(scno, regs);
- 
- 	return scno;
- }
-diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-index 2bcbeafe26a3..65532b2a8cd4 100644
---- a/arch/arm64/kernel/ptrace.c
-+++ b/arch/arm64/kernel/ptrace.c
-@@ -2476,7 +2476,7 @@ int syscall_trace_enter(struct pt_regs *regs)
- 	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
- 		trace_sys_enter(regs, regs->syscallno);
- 
--	audit_syscall_entry_regs(regs->syscallno, regs);
-+	audit_syscall_entry(regs->syscallno, regs);
- 
- 	return regs->syscallno;
- }
-diff --git a/arch/csky/kernel/ptrace.c b/arch/csky/kernel/ptrace.c
-index e61b1408737c..5c3051bcd78c 100644
---- a/arch/csky/kernel/ptrace.c
-+++ b/arch/csky/kernel/ptrace.c
-@@ -329,7 +329,7 @@ asmlinkage int syscall_trace_enter(struct pt_regs *regs)
- 	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
- 		trace_sys_enter(regs, syscall_get_nr(current, regs));
- 
--	audit_syscall_entry_regs(regs_syscallid(regs), regs);
-+	audit_syscall_entry(regs_syscallid(regs), regs);
- 	return 0;
- }
- 
-diff --git a/arch/microblaze/kernel/ptrace.c b/arch/microblaze/kernel/ptrace.c
-index d0a540b7370f..5fe9e3a150f4 100644
---- a/arch/microblaze/kernel/ptrace.c
-+++ b/arch/microblaze/kernel/ptrace.c
-@@ -147,7 +147,7 @@ asmlinkage unsigned long do_syscall_trace_enter(struct pt_regs *regs)
- 		 */
- 		ret = -1L;
- 
--	audit_syscall_entry_regs(regs->r12, regs);
-+	audit_syscall_entry(regs->r12, regs);
- 
- 	return ret ?: regs->r12;
- }
-diff --git a/arch/mips/kernel/ptrace.c b/arch/mips/kernel/ptrace.c
-index c6f4e801cfae..7a09b4671a54 100644
---- a/arch/mips/kernel/ptrace.c
-+++ b/arch/mips/kernel/ptrace.c
-@@ -1338,7 +1338,7 @@ asmlinkage long syscall_trace_enter(struct pt_regs *regs)
- 	if (unlikely(test_thread_flag(TIF_SYSCALL_TRACEPOINT)))
- 		trace_sys_enter(regs, regs->regs[2]);
- 
--	audit_syscall_entry_regs(current_thread_info()->syscall, regs);
-+	audit_syscall_entry(current_thread_info()->syscall, regs);
- 
- 	/*
- 	 * Negative syscall numbers are mistaken for rejected syscalls, but
-diff --git a/arch/openrisc/kernel/ptrace.c b/arch/openrisc/kernel/ptrace.c
-index 78294c84e4de..eca613b84ff8 100644
---- a/arch/openrisc/kernel/ptrace.c
-+++ b/arch/openrisc/kernel/ptrace.c
-@@ -301,7 +301,7 @@ asmlinkage long do_syscall_trace_enter(struct pt_regs *regs)
- 		 */
- 		ret = -1L;
- 
--	audit_syscall_entry_regs(regs->gpr[11], regs);
-+	audit_syscall_entry(regs->gpr[11], regs);
- 
- 	return ret ? : regs->gpr[11];
- }
-diff --git a/arch/parisc/kernel/ptrace.c b/arch/parisc/kernel/ptrace.c
-index 4e62d6bd6466..948e0cf29ba4 100644
---- a/arch/parisc/kernel/ptrace.c
-+++ b/arch/parisc/kernel/ptrace.c
-@@ -359,10 +359,10 @@ long do_syscall_trace_enter(struct pt_regs *regs)
- 
- #ifdef CONFIG_64BIT
- 	if (!is_compat_task())
--		audit_syscall_entry_regs(regs->gr[20], regs);
-+		audit_syscall_entry(regs->gr[20], regs);
- 	else
- #endif
--		audit_syscall_entry_regs(regs->gr[20] & 0xffffffff, regs);
-+		audit_syscall_entry(regs->gr[20] & 0xffffffff, regs);
- 
- 	/*
- 	 * Sign extend the syscall number to 64bit since it may have been
-diff --git a/arch/sh/kernel/ptrace_32.c b/arch/sh/kernel/ptrace_32.c
-index c82d336611ef..e138f529ee7e 100644
---- a/arch/sh/kernel/ptrace_32.c
-+++ b/arch/sh/kernel/ptrace_32.c
-@@ -466,7 +466,7 @@ asmlinkage long do_syscall_trace_enter(struct pt_regs *regs)
- 	if (unlikely(test_thread_flag(TIF_SYSCALL_TRACEPOINT)))
- 		trace_sys_enter(regs, regs->regs[0]);
- 
--	audit_syscall_entry_regs(regs->regs[3], regs);
-+	audit_syscall_entry(regs->regs[3], regs);
- 
- 	return 0;
- }
-diff --git a/arch/sparc/kernel/ptrace_64.c b/arch/sparc/kernel/ptrace_64.c
-index 6197de10b45c..b162585b4a74 100644
---- a/arch/sparc/kernel/ptrace_64.c
-+++ b/arch/sparc/kernel/ptrace_64.c
-@@ -1098,7 +1098,7 @@ asmlinkage int syscall_trace_enter(struct pt_regs *regs)
- 	if (unlikely(test_thread_flag(TIF_SYSCALL_TRACEPOINT)))
- 		trace_sys_enter(regs, regs->u_regs[UREG_G1]);
- 
--	audit_syscall_entry_regs(regs->u_regs[UREG_G1], regs);
-+	audit_syscall_entry(regs->u_regs[UREG_G1], regs);
- 
- 	return ret;
- }
-diff --git a/arch/um/kernel/ptrace.c b/arch/um/kernel/ptrace.c
-index 17c285e49ddc..bdc1b18bb342 100644
---- a/arch/um/kernel/ptrace.c
-+++ b/arch/um/kernel/ptrace.c
-@@ -123,7 +123,7 @@ static void send_sigtrap(struct uml_pt_regs *regs, int error_code)
-  */
- int syscall_trace_enter(struct pt_regs *regs)
- {
--	audit_syscall_entry_regs(UPT_SYSCALL_NR(&regs->regs), regs);
-+	audit_syscall_entry(UPT_SYSCALL_NR(&regs->regs), regs);
- 
- 	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
- 		trace_sys_enter(regs, UPT_SYSCALL_NR(&regs->regs));
-diff --git a/arch/xtensa/kernel/ptrace.c b/arch/xtensa/kernel/ptrace.c
-index 86e4679b5869..327e00c2ebde 100644
---- a/arch/xtensa/kernel/ptrace.c
-+++ b/arch/xtensa/kernel/ptrace.c
-@@ -561,7 +561,7 @@ int do_syscall_trace_enter(struct pt_regs *regs)
- 	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
- 		trace_sys_enter(regs, syscall_get_nr(current, regs));
- 
--	audit_syscall_entry_regs(regs->syscall, regs);
-+	audit_syscall_entry(regs->syscall, regs);
- 	return 1;
- }
- 
-diff --git a/include/linux/audit.h b/include/linux/audit.h
-index 22ffad5b2060..9ce5962bc537 100644
---- a/include/linux/audit.h
-+++ b/include/linux/audit.h
-@@ -323,9 +323,7 @@ extern int  audit_alloc(struct task_struct *task);
- extern void __audit_free(struct task_struct *task);
- extern void __audit_uring_entry(u8 op);
- extern void __audit_uring_exit(int success, long code);
--extern void __audit_syscall_entry(int major, unsigned long a0, unsigned long a1,
--				  unsigned long a2, unsigned long a3);
--extern void __audit_syscall_entry_regs(int major, struct pt_regs *regs);
-+extern void __audit_syscall_entry(int major, struct pt_regs *regs);
- extern void __audit_syscall_exit(int ret_success, long ret_value);
- extern void __audit_getname(struct filename *name);
- extern void __audit_inode(struct filename *name, const struct dentry *dentry,
-@@ -374,17 +372,10 @@ static inline void audit_uring_exit(int success, long code)
- 	if (unlikely(audit_context()))
- 		__audit_uring_exit(success, code);
- }
--static inline void audit_syscall_entry(int major, unsigned long a0,
--				       unsigned long a1, unsigned long a2,
--				       unsigned long a3)
-+static inline void audit_syscall_entry(int major, struct pt_regs *regs)
- {
- 	if (unlikely(audit_context()))
--		__audit_syscall_entry(major, a0, a1, a2, a3);
--}
--static inline void audit_syscall_entry_regs(int major, struct pt_regs *regs)
--{
--	if (unlikely(audit_context()))
--		__audit_syscall_entry_regs(major, regs);
-+		__audit_syscall_entry(major, regs);
- }
- static inline void audit_syscall_exit(void *pt_regs)
- {
-@@ -617,11 +608,7 @@ static inline void audit_uring_entry(u8 op)
- { }
- static inline void audit_uring_exit(int success, long code)
- { }
--static inline void audit_syscall_entry(int major, unsigned long a0,
--				       unsigned long a1, unsigned long a2,
--				       unsigned long a3)
--{ }
--static inline void audit_syscall_entry_regs(int major, struct pt_regs *regs)
-+static inline void audit_syscall_entry(int major, struct pt_regs *regs)
- { }
- static inline void audit_syscall_exit(void *pt_regs)
- { }
-diff --git a/kernel/auditsc.c b/kernel/auditsc.c
-index 89f5c518c6f0..cf45c782b03d 100644
---- a/kernel/auditsc.c
-+++ b/kernel/auditsc.c
-@@ -1974,60 +1974,6 @@ void __audit_uring_exit(int success, long code)
- /**
-  * __audit_syscall_entry - fill in an audit record at syscall entry
-  * @major: major syscall type (function)
-- * @a1: additional syscall register 1
-- * @a2: additional syscall register 2
-- * @a3: additional syscall register 3
-- * @a4: additional syscall register 4
-- *
-- * Fill in audit context at syscall entry.  This only happens if the
-- * audit context was created when the task was created and the state or
-- * filters demand the audit context be built.  If the state from the
-- * per-task filter or from the per-syscall filter is AUDIT_STATE_RECORD,
-- * then the record will be written at syscall exit time (otherwise, it
-- * will only be written if another part of the kernel requests that it
-- * be written).
-- */
--void __audit_syscall_entry(int major, unsigned long a1, unsigned long a2,
--			   unsigned long a3, unsigned long a4)
--{
--	struct audit_context *context = audit_context();
--	enum audit_state     state;
--
--	if (!audit_enabled || !context)
--		return;
--
--	WARN_ON(context->context != AUDIT_CTX_UNUSED);
--	WARN_ON(context->name_count);
--	if (context->context != AUDIT_CTX_UNUSED || context->name_count) {
--		audit_panic("unrecoverable error in audit_syscall_entry()");
--		return;
--	}
--
--	state = context->state;
--	if (state == AUDIT_STATE_DISABLED)
--		return;
--
--	context->dummy = !audit_n_rules;
--	if (!context->dummy && state == AUDIT_STATE_BUILD) {
--		context->prio = 0;
--		if (auditd_test_task(current))
--			return;
--	}
--
--	context->arch	    = syscall_get_arch(current);
--	context->major      = major;
--	context->argv[0]    = a1;
--	context->argv[1]    = a2;
--	context->argv[2]    = a3;
--	context->argv[3]    = a4;
--	context->context = AUDIT_CTX_SYSCALL;
--	context->current_state  = state;
--	ktime_get_coarse_real_ts64(&context->stamp.ctime);
--}
--
--/**
-- * __audit_syscall_entry_regs - fill in an audit record at syscall entry
-- * @major: major syscall type (function)
-  * @regs: the task's register state at syscall entry
-  *
-  * Fill in audit context at syscall entry.  This only happens if the
-@@ -2038,7 +1984,7 @@ void __audit_syscall_entry(int major, unsigned long a1, unsigned long a2,
-  * will only be written if another part of the kernel requests that it
-  * be written).
-  */
--void __audit_syscall_entry_regs(int major, struct pt_regs *regs)
-+void __audit_syscall_entry(int major, struct pt_regs *regs)
- {
- 	struct audit_context *context = audit_context();
- 	enum audit_state     state;
-@@ -2049,7 +1995,7 @@ void __audit_syscall_entry_regs(int major, struct pt_regs *regs)
- 	WARN_ON(context->context != AUDIT_CTX_UNUSED);
- 	WARN_ON(context->name_count);
- 	if (context->context != AUDIT_CTX_UNUSED || context->name_count) {
--		audit_panic("unrecoverable error in audit_syscall_entry_regs()");
-+		audit_panic("unrecoverable error in audit_syscall_entry()");
- 		return;
- 	}
- 
-diff --git a/kernel/entry/syscall-common.c b/kernel/entry/syscall-common.c
-index 70941008beb6..471db2a8e09d 100644
---- a/kernel/entry/syscall-common.c
-+++ b/kernel/entry/syscall-common.c
-@@ -23,6 +23,6 @@ void syscall_enter_audit(struct pt_regs *regs)
- {
- 	long syscall = syscall_get_nr(current, regs);
- 
--	__audit_syscall_entry_regs(syscall, regs);
-+	__audit_syscall_entry(syscall, regs);
- }
- #endif
--- 
-2.55.0
+> counters, as the offset is always fixed to 0. The VM ioclt is filtered
+
+ioctl
+
+> out based on the cap. However we don't prevent the userspace from trying
+> to write to the CNTVCT/CNTPCT registers. This would lead to KVM triggering
+> a WARN() in timer_set_offset() as the vm_offset pointer is set to NULL.
+> 
+> Fix this by always "fixing" the timer offsets to 0 and marking that the
+> timer offset is set in the kvm->arch.flags at KVM init time for protected
+> VMs. A userspace writing to the CNT*CT_EL0 would observe success, without
+> any real effect. This was chosen over preventing the writes to these
+> registers and returning -EPERM.
+
+Why?  I don't mind the decision but telling us what was chosen is something
+we can see in the code - patch description should give us the stuff we
+can't see.
+
+One comment on the comment below.  
+> 
+> Reported by Sashiko
+> 
+> Link: https://lore.kernel.org/all/20260908164641.416911F00A3A@smtp.kernel.org
+> Fixes: f7d05ee84a6a ("KVM: arm64: Prevent host from managing timer offsets for protected VMs")
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> Changes since v18:
+>  - Retain NULL vm_offset for protected VMs to avoid host tampering with the
+>    offset.
+>  - Moved the flag setting into kvm_timer_init_vm(), where it should have been
+>    in the first place
+> ---
+>  arch/arm64/kvm/arch_timer.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
+> index 6ac3321f4c575..226cd5a495c8b 100644
+> --- a/arch/arm64/kvm/arch_timer.c
+> +++ b/arch/arm64/kvm/arch_timer.c
+> @@ -1110,8 +1110,7 @@ void kvm_timer_vcpu_init(struct kvm_vcpu *vcpu)
+>  		timer_context_init(vcpu, i);
+>  
+>  	/* Synchronize offsets across timers of a VM if not already provided */
+> -	if (!vcpu_is_protected(vcpu) &&
+> -	    !test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+> +	if (!test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+>  		timer_set_offset(vcpu_vtimer(vcpu), kvm_phys_timer_read());
+>  		timer_set_offset(vcpu_ptimer(vcpu), 0);
+>  	}
+> @@ -1133,6 +1132,15 @@ void kvm_timer_init_vm(struct kvm *kvm)
+>  	 */
+>  	for (int i = 0; i < NR_KVM_TIMERS; i++)
+>  		kvm->arch.timer_data.ppi[i] = get_vgic_ppi(kvm, default_ppi[i]);
+> +
+> +	/*
+> +	 * Protected VMs don't allow any offset being set from userspace,
+> +	 * either set via writes to the counters or using the dedicated
+This sentence confused me.  Second clause isn't obviously the ways that
+are being blocked. Maybe shorten to:
+
+	Protected VMs don't allow the offset to be set from userspace,
+	whether via writes to the counters or the dedicated ioctl.
+
+> +	 * ioctl. Pretend the offset has already been set and rely on the
+> +	 * default offset being 0.
+> +	 */
+> +	if (kvm_vm_is_protected(kvm))
+> +		set_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &kvm->arch.flags);
+>  }
+>  
+>  void kvm_timer_cpu_up(void)
 
