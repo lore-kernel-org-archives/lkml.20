@@ -1,115 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22186576ECF;
-	Tue, 22 Sep 2026 17:22:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9704C56855C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790097760; cv=none; b=SOTLpooKItpBkAnzoknjMc/4jJDbojORtztu1HA/AS1A+yZjCiIc/4dGeqfSeMjyYeABv7jx69vH28ZOnb3ujLAdMEug5O945+7uMfqE6bDtxu4HpQzRItyViz14PIl6/ng0F8iF39NkC9dzokg6BTAGrAJhyiluR2FlvQcLsvU=
+	t=1790097826; cv=none; b=WER5j+P/EvPbZUyX3kf/7e1M0LNVMpawAOz/rplx2AkzkkpnKdJf+0+D7LvbPaW81vYvF/PA3re+uEkrlhNx2Cx7l5dL2V27s/QzPENS/Rf/Q+4B2LRVazzMiXbR8cvN3xdEi1jORIhbtNriRnwH5KVyxXj1C+0Uu7Xewhp0owY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790097760; c=relaxed/simple;
-	bh=ykI6bqtAnan0fCwbd3pxLqU3hmd3EO2QMgG3+lJljBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rewz76oSQUhK9nCr7nCOtqHAT+mY8thdl3CR8IY9CNIL+jIbF7JZ6D+yznecVBA9/yAaMAKPwKITxRGfs++wCi1/LVaW2Q8xtEgBhDLHcnf0MfzHSfPpd2YqmbEWXy81uqb24GeEYehQAUyyT2bfK1UCM0v4dMDsiqMf5UTQ/I8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9l/h2sg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790097826; c=relaxed/simple;
+	bh=YagJ7G/Lr2bkyPLb96nex2Ieu1fELferKNmlqik77Pg=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=YogpRZdfb05huRCU38pSI9RwqNNKquEgzbo9jhPOJ4qJJCu8T8br3nifrhTvbzKRHCpF5PKCATxTmCqEVu8zski4WACjd3Wgjyyui03MXxfVJ1lYwR8GTwGb3T+/vHucLEakyuWFJ7YSgqwphVffU9naOzAwIwTglyqS3d/X58Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dxRdjVco; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9l/h2sg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04DCD1F000FF;
-	Tue, 22 Sep 2026 17:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790097759;
-	bh=UNh8IajC2C7W4xAVN/5A4Te3DbNvUnFRUUUmja4mmRU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F9l/h2sgeG6pItIpsl4UOUD5LPuOPYalAOj3lX7iN1SKQRQx/7vSe8Y8wJYuJaFa9
-	 tegjTwQVFA9hXGIt+1oJvFwKspvEmTZEeRl/rL3Z+1/vMB7N90Y9ljH8EiqVFiWGMa
-	 llb7G+u8p4G82Y3NfZpa4T6VyMnit/o1genoOGjAzyku0OZj1fvAIP0nPa5BRjaZ1s
-	 0LsiYA1bWAjQ698sUHV9gBhPhcHOkUs5jCvX2Aqi8QkSHyLlAciZyH7C9FEowKSWF8
-	 GvrRJLzG6nhqL2FhCQxRW0vNDBGCdIskECu8iSBeB5zhpcl0fRPI9Q5+bVasWrDLde
-	 t0gfKdsjFaNOA==
-Date: Tue, 22 Sep 2026 18:22:15 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Guo Ren <guoren@kernel.org>, 
-	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
-	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
-	Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
-	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
-	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 00/12] mm: make userland page table freeing RCU-safe
-Message-ID: <arK4XnDTuFpwPV38@gremlin>
-References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
- <arKv4qbF04KB2WxQ@casper.infradead.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dxRdjVco"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so237740a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:23:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790097825; x=1790702625; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ql6e6uyZc8xZzxZ3KoRlBfpeEOGwWkJ5hNC8a9M29d8=;
+        b=dxRdjVcoLsnFcCZhSW7boiZa9GWAyA9oTvoHs3GxJSiw+lm0gVHBSZpJFnOSOJaD0s
+         NgeHv4VUPkENZPxLcU90YFpkfTGPZqlOoySmejuRj+TVuID6Aq35g8g/x9FiEnnO/Cn6
+         ojebIkvtr083C+t0fZSS0oFJ3c09BBVH2C5tVe06Ewgxd4e/3y+Ms6wR+zTIIKlBd2gI
+         QFCH36SibkjBuclExMD6fhGVYo1vJczPVTTOk3eEQIiCyj1e/lWrNDbiappama75zVQq
+         gUEzxrclcY+iy80WgXqNMm9HIRlEdqFmLYAznae7+oqPeW+rt5qUIIYf9opBKN7KEamE
+         tdbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790097825; x=1790702625;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ql6e6uyZc8xZzxZ3KoRlBfpeEOGwWkJ5hNC8a9M29d8=;
+        b=T3zaUkkcB75hsemvXWVDesToju/F5isMxaIusVkYATxDWVL40wJ0Vuf6WJJyYbeW/p
+         UGEtzbyhK6Cgy1g4U2gLG7CJa/eDaBzLm/JmPlDEJQcqBB5vcVCLVEVWgXLUzqTTJW7v
+         sW7VKfvSllggw0wO67g8JGgd1qx0N4daT3lJc8yDCPZh/RdAHjUYCw301DkQmtvVHTr+
+         PdC02RwUq4JvolSzdZOVly4/agrHyxsCys99l9Ix9Rup5O44lzpg5XLW8YGmO2g+nbTO
+         sAEo+FJqcnVRfdmVKS5vy09pI/HrSHy3eF+GBcC6j/QJ3fFsiYCFh/kedlqoDUY8c3Rd
+         KAoA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPRS3aELg4Wfbhithqiu8+aOBRkq/6UuzKCOseciS9/1kkS9ckUKbvcqHIIFKK/3YygpdxeYUNsu8ASX8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKbCPHdTddIy6hUnBI0D6eigwR9+PCuk/Mu8KK7I6kGGM50nsu
+	xN4n54iiUbxy4azvb//rtwvoV0NpPQesMxowbG6o3CasknnxdmmjDEdbeL14/7oaD52jcJHInFO
+	5/gp2jQ==
+X-Received: from pgdg5.prod.google.com ([2002:a05:6a02:51c5:b0:cc5:111b:b53f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1848:b0:2dd:c100:7cb7
+ with SMTP id d9443c01a7336-2df69de9aaamr563645ad.51.1790097824659; Tue, 22
+ Sep 2026 10:23:44 -0700 (PDT)
+Date: Tue, 22 Sep 2026 10:23:43 -0700
+In-Reply-To: <arKxjsxuO1F5ExrY@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arKv4qbF04KB2WxQ@casper.infradead.org>
+Mime-Version: 1.0
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+ <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org> <arKxjsxuO1F5ExrY@kernel.org>
+Message-ID: <arK5n9HrbZMCOHOt@google.com>
+Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
+From: Sean Christopherson <seanjc@google.com>
+To: Oliver Upton <oupton@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 22, 2026 at 05:42:10PM +0100, Matthew Wilcox wrote:
-> On Tue, Sep 22, 2026 at 04:35:31PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > m68k-motorola required the biggest change - since RCU page table freeing
-> > uses call_rcu(), this means page table freeing can arise from softirq
-> > context.
-> >
-> > This was fixed with an IRQ-safe spin lock used in both get_pointer_table()
-> > and free_pointer_table().
->
-> You don't need to use an irq-safe spinlock for softirqs.  It does work,
-> but it's overkill since it disables hardirqs.  If you use spin_lock_bh(),
-> only softirqs are prevented from running (and it's safe to call
-> spin_lock_bh() when in softirq context, just like it's safe to call
-> spin_lock_irqsave() in hardirq or softirq context).
+On Tue, Sep 22, 2026, Oliver Upton wrote:
+> Hi Lorenzo,
+> 
+> On Tue, Sep 22, 2026 at 03:17:55PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > +bool __weak kvm_arch_vcpu_allow_pre_fault_memory(struct kvm_vcpu *vcpu)
+> > +{
+> > +	return true;
+> > +}
+> > +
+> >  void kvm_vcpu_on_spin(struct kvm_vcpu *me, bool yield_to_kernel_mode)
+> >  {
+> >  	int nr_vcpus, start, i, idx, yielded;
+> > @@ -4365,6 +4370,9 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+> >  	    range->gpa + range->size <= range->gpa)
+> >  		return -EINVAL;
+> >  
+> > +	if (!kvm_arch_vcpu_allow_pre_fault_memory(vcpu))
+> > +		return -ENOEXEC;
+> > +
+> 
+> nit: it'd be better to let the arch hook return an error of its choosing
+> but in reality this is only going to be used by arm64.
 
-Right yup, I know _bh() is fine for softirq, I think this was being overly
-cautious (for sparc32 you do actually need irq saving).
+Heh, except x86 already has something similar.
 
-But this is m68k :) functionally there's really not that much difference, and
-it's over very few instrucitons so the delta here is likely to be functionally
-little to nothing.
+	if (!vcpu->kvm->arch.pre_fault_allowed)
+		return -EOPNOTSUPP;
 
-If I need to respin again I'll fix it up!
+As does s390:
+	
+	if (kvm_is_ucontrol(vcpu->kvm))
+		return -EINVAL;
 
---
-Cheers, Lorenzo
+I also don't like that this is subtly about avoiding vcpu_load(); it will be all
+too easy to overlook that detail in the future.
+
+Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
+generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
+the return value, the connection to vcpu_load() is obvious, and we don't need to
+add another pre-check if future (or cleaned-up existing?) ioctls want to do
+vcpu_load() in common code.
+
+I'd also be tempted to say it can be a macro, not a __weak function.  E.g.
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 27fe0cd5b2d7..99613df254cf 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1533,6 +1533,7 @@ static inline bool __vcpu_has_feature(const struct kvm_arch *ka, int feature)
+ #define vcpu_has_feature(v, f)	__vcpu_has_feature(&(v)->kvm->arch, (f))
+ 
+ #define kvm_vcpu_initialized(v) vcpu_get_flag(v, VCPU_INITIALIZED)
++#define kvm_is_vcpu_loadable kvm_vcpu_initialized
+ 
+ int kvm_trng_call(struct kvm_vcpu *vcpu);
+ #ifdef CONFIG_KVM
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 3dd04605f2e5..02401b080507 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -1053,6 +1053,9 @@ int kvm_trylock_all_vcpus(struct kvm *kvm);
+ int kvm_lock_all_vcpus(struct kvm *kvm);
+ void kvm_unlock_all_vcpus(struct kvm *kvm);
+ 
++#ifndef kvm_is_vcpu_loadable
++#define kvm_is_vcpu_loadable(v) true
++#endif
+ void vcpu_load(struct kvm_vcpu *vcpu);
+ void vcpu_put(struct kvm_vcpu *vcpu);
