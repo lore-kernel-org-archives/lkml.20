@@ -1,156 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F0E19F12D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8643438BA;
+	Tue, 22 Sep 2026 00:50:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790038211; cv=none; b=dFkCQKq2aHxQUhbdt1kY4M1tBZpJ6aXo/65WFdm6AWN89pvM0kzaigHKmoeOhMf9zVCC0OjBdJeXQUsc9OxxKwVbpefbIowEftXk0JYj2Yt1rxu+xdSgPAbv0QSepCaR5fDF6SNXHOBk7IUoXMUjHbfxLbH1MLgS8KClu0mm4ds=
+	t=1790038258; cv=none; b=NPc/fZlaecwVjrr58tZN3HGLmqzyUXPLz/SnoBPe3hpiL/MQe/AXdYOs/ag2qhv4E+LcfIYHHlIuJOu4GE90r1q/L4QEfF19fjHbqXwvq1gNvNoPhGgqJe47GHe2gZ+Kd5PFgk51l0bJvqVZKDZHcBf8znGrPov9ZxKAVsiyWDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790038211; c=relaxed/simple;
-	bh=9edUGcd8chdIGybVJv9rjIZsgeN7lZHGmOVNjMi3idw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eAhCTBZSNY9a+aXZiGflsEfELVqwu1dj3VbL0OqIARM4vqUTCg6XXXciVQo23VlFUN/PPbV/jXgs7lW3LJYtzlIhzdKnCQNq4DKrm9HDjCmTp7vRcmas/7oPDL9NASmC35YQ/aWIYjf9+WPOvWwWs/gzIC/ZINa4mBOnU+Bwx1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bA/h5eOZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790038258; c=relaxed/simple;
+	bh=YOLCm5FEtJIoAHb/Ji+85gBMLrz8YBnJO2jDp3A+PyI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=KycZ+iBzx4AJZveSBS+OA9GrHJZMuyuEhAnlHCQmSWmDm+w92nXxuQ7ZExttrly931Rfz57E9m33jZRfQ7+OAyPnbFwcgRxmAFPHGAC8uqM6gwrDo3ylw9Pmjyz5INz8++0HQ8tsB7D3TVr9M3VHvUTmvIjt9/LYHC0NufZH0js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=fkeImGOV; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bA/h5eOZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BB9D3C2BCB3;
-	Tue, 22 Sep 2026 00:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790038210;
-	bh=9edUGcd8chdIGybVJv9rjIZsgeN7lZHGmOVNjMi3idw=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=bA/h5eOZE347xasat/9RITSH/Sz8DAULRq0732mXYvFDEuEHGysTUHaUK+oBb8eom
-	 7WELuqnMvseBa4mIOqgngCJu2TFIjT3uw2xdCkSO100cOwoIRoBtk8JnZouYWss85X
-	 BBt4Vo2DbkU6f9vOyKv0QOe28GpJD8rSMPSo5BzfQ9MV89DSJnXD7UNEBk7PoHx9TV
-	 coU4iPO6CSAZKnHnz5dmj2lfsZp8JS+w8RjWt9VdV00JcnJENA4e3s01dQwFMcjFE/
-	 CuSb4LP909/ul5tD88rzhdceM9c9Iw6bJKPU5S6g7nMwnRIczHJSHru3Q0klYY/eu/
-	 wZU1lrXKsst7A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B1BAC982ED;
-	Tue, 22 Sep 2026 00:50:10 +0000 (UTC)
-From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 20:50:07 -0400
-Subject: [PATCH] soc: fsl: dpio: publish the dpaa2_io object only after it
- is initialised
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="fkeImGOV"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68M0oZHd93076243, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790038236; bh=YOLCm5FEtJIoAHb/Ji+85gBMLrz8YBnJO2jDp3A+PyI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=fkeImGOV0a9EOP+78k9eFmCRyqMv628R+n8msrzniMNme20ntxAeK2PFsPwTSnl92
+	 StUDGIGqZs292dNcbAa3IcFra/UeiTihPzNTZBU7LNmp6VeqGb4hFaL6CwdeNVg6GI
+	 ZHNhdiU3b0UdYBj96zvlEgmEQOux2YuQJBTJ5XXQTN7Q92rYLnA9jtGw1sfVPq2jJ0
+	 7NvYq7ZrFPLgrGJsxtVCaNDKq9PVYHg0JM1PPog7TUXKijrBVRnljr7JuZvijd8krA
+	 B+jgiw4BNmAGd1i0TU6bdjXfztNbv/i7dqepKifyZavCmPpxq3DD+20B/+171S/nDR
+	 P7kz5wtx0ja5Q==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68M0oZHd93076243
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 22 Sep 2026 08:50:36 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 22 Sep 2026 08:50:36 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 22 Sep 2026 08:50:35 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 22 Sep 2026 08:50:35 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Jeff Johnson
+	<jeff.johnson@oss.qualcomm.com>, Johannes Berg <johannes@sipsolutions.net>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+  Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Topic: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Index: AQHdSeAeQzf2/kHhyEaOG4CaLogmfLbYsc0AgAAGuQCAABezgIAASM4AgAAWAACAAI0MQP//gOSAgACGXzA=
+Date: Tue, 22 Sep 2026 00:50:35 +0000
+Message-ID: <2694defa2e284ee894005c59197325a0@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-7-luka.gejak@linux.dev>
+ <45eb7d5908f8fff9a18cba603fd3a4abfe8695f9.camel@sipsolutions.net>
+ <31285267ebc43aab631a4199059a247a8d937814@linux.dev>
+ <c208152fc5cb45e19ae7d4660394dbf2bc5e0271.camel@sipsolutions.net>
+ <bcd5a280-8184-4457-ae52-47a9e0fe763c@oss.qualcomm.com>
+ <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
+ <fe3c6884a96b476799f415a06314f1ba@realtek.com>
+ <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
+In-Reply-To: <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-dpio-v1-1-9e24539059c1@vt.edu>
-X-B4-Tracking: v=1; b=H4sIAL7QsWoC/yXMzQqDMBAE4FeRPXdLEqXSvkrpIT8b3UKjZK0Ux
- HdvosdvmJkNhDKTwKPZINPKwlMq0JcG/GjTQMihGIwyN3U3Gj8Ow8wTxjb2wUdFsdNQ2nOmyL/
- j6fk6LV/3Jr/UeW04K4Qu2+THGh1c+2uL2Xew738AeU/5iwAAAA==
-X-Change-ID: 20260921-mb-dpio-f3f7dcf0ef41
-To: Ioana Ciornei <ioana.ciornei@nxp.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-arm-kernel@lists.infradead.org, Jaidev Shastri <jaidevshastri@vt.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790038209; l=3325;
- i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=wQTHCaf4jEy7NfQ0KFHxtOmt2diC3tsR4u0sPVS95G0=;
- b=EYwNFa/Y9LJO+l8U8Qu5Ve+uOVx+7ScthfwXG/thxilxOOhjz+LUF7h93j94QS/dHFtb8psGJ
- HKatJQwCKkeBDVb57JSN788q3+DIRuGUGlOgN7bvgpgyAFpcFCvDFYm
-X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
- pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
-X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
- auth_id=1044
-X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
-Reply-To: jaidevshastri@vt.edu
 
-From: Jaidev Shastri <jaidevshastri@vt.edu>
-
-dpaa2_io_create() adds the new object to dpio_list and dpio_by_cpu[]
-under dpio_list_lock, but service_select_by_cpu() reads dpio_by_cpu[]
-without the lock on behalf of dpaa2_io_service_select() and
-dpaa2_io_service_register().
-
-obj->dev is assigned after the lock is dropped, so a reader can pick the
-object up and pass a NULL supplier to device_link_add(), which fails
-with -EINVAL and fails the consumer's probe. The publication is a plain
-store, so a reader that does not take the lock is also not ordered
-against the stores that set obj->swp, the notification list and the
-object's spinlocks.
-
-dpaa2-eth probes from the deferred probe worker and retries whenever
-another device binds, so it runs while the remaining DPIO objects are
-still being created on multi-core LS2 and LX2 parts.
-
-Finish the object before publishing it and store dpio_by_cpu[] with
-smp_store_release(), paired with smp_load_acquire() in
-service_select_by_cpu(). service_select() takes the lock and is
-unchanged.
-
-Found with MBCheck, a static herd7-based memory consistency checker.
-
-Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
----
- drivers/soc/fsl/dpio/dpio-service.c | 27 +++++++++++++++++++--------
- 1 file changed, 19 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/soc/fsl/dpio/dpio-service.c b/drivers/soc/fsl/dpio/dpio-service.c
-index 317ca50b0..2dbd14aed 100644
---- a/drivers/soc/fsl/dpio/dpio-service.c
-+++ b/drivers/soc/fsl/dpio/dpio-service.c
-@@ -70,8 +70,12 @@ static inline struct dpaa2_io *service_select_by_cpu(struct dpaa2_io *d,
- 	if (cpu < 0)
- 		cpu = raw_smp_processor_id();
- 
--	/* If a specific cpu was requested, pick it up immediately */
--	return dpio_by_cpu[cpu];
-+	/*
-+	 * If a specific cpu was requested, pick it up immediately. Pairs with
-+	 * the smp_store_release() in dpaa2_io_create(): the object is only
-+	 * used once every field written before the publication is visible.
-+	 */
-+	return smp_load_acquire(&dpio_by_cpu[cpu]);
- }
- 
- static inline struct dpaa2_io *service_select(struct dpaa2_io *d)
-@@ -177,12 +181,6 @@ struct dpaa2_io *dpaa2_io_create(const struct dpaa2_io_desc *desc,
- 	if (obj->dpio_desc.receives_notifications)
- 		qbman_swp_push_set(obj->swp, 0, 1);
- 
--	spin_lock(&dpio_list_lock);
--	list_add_tail(&obj->node, &dpio_list);
--	if (desc->cpu >= 0 && !dpio_by_cpu[desc->cpu])
--		dpio_by_cpu[desc->cpu] = obj;
--	spin_unlock(&dpio_list_lock);
--
- 	obj->dev = dev;
- 
- 	memset(&obj->rx_dim, 0, sizeof(obj->rx_dim));
-@@ -191,6 +189,19 @@ struct dpaa2_io *dpaa2_io_create(const struct dpaa2_io_desc *desc,
- 	obj->bytes = 0;
- 	obj->frames = 0;
- 
-+	/*
-+	 * dpaa2_io_service_select() reads dpio_by_cpu[] without taking
-+	 * dpio_list_lock, so the object must be complete before it is
-+	 * published and the publication needs release semantics.
-+	 */
-+	spin_lock(&dpio_list_lock);
-+	list_add_tail(&obj->node, &dpio_list);
-+	if (desc->cpu >= 0 && !dpio_by_cpu[desc->cpu]) {
-+		/* Pairs with the smp_load_acquire() in service_select_by_cpu(). */
-+		smp_store_release(&dpio_by_cpu[desc->cpu], obj);
-+	}
-+	spin_unlock(&dpio_list_lock);
-+
- 	return obj;
- }
- 
-
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-mb-dpio-f3f7dcf0ef41
-
-Best regards,
---  
-Jaidev Shastri <jaidevshastri@vt.edu>
-
-
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBTZXB0ZW1iZXIgMjIs
+IDIwMjYgYXQgMDM6MjgsICJQaW5nLUtlIFNoaWgiIDxwa3NoaWhAcmVhbHRlay5jb20+IHdyb3Rl
+Og0KPiANCj4gDQo+ID4NCj4gPiBMdWthIEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4gd3Jv
+dGU6DQo+ID4NCj4gPiA+DQo+ID4gPiBTZXB0ZW1iZXIgMjIsIDIwMjYgYXQgMTozNSBBTSwgIkpl
+ZmYgSm9obnNvbiIgPGplZmYuam9obnNvbkBvc3MucXVhbGNvbW0uY29tPiB3cm90ZToNCj4gPiA+
+DQo+ID4gPg0KPiA+ID4NCj4gPiA+ICBPbiA5LzIxLzIwMjYgMTE6MTQgQU0sIEpvaGFubmVzIEJl
+cmcgd3JvdGU6DQo+ID4gPg0KPiA+ID4gID4NCj4gPiA+ICA+IE9uIE1vbiwgMjAyNi0wOS0yMSBh
+dCAxNjo0OSArMDAwMCwgTHVrYSBHZWphayB3cm90ZToNCj4gPiA+ICA+DQo+ID4gPiAgPiA+DQo+
+ID4gPiAgPiA+IEl0IGlzIHN1cHBvc2VkIHRvIHdvcmsgaW4gdGhlIHNhbWUgd2F5IGl0IHdvcmtz
+IGZvciBvdGhlciBkcml2ZXINCj4gPiA+ICA+ID4gbWFpbnRhaW5lcnMuIEkgd291bGQgcmV2aWV3
+IHBhdGNoZXMgYW5kIHByb3ZpZGUgbXkgYWNrZWQgYnkgb3INCj4gPiA+ICA+ID4gcmV2aWV3ZWQg
+YnkgdGhlbSBhbmQgUGluZy1LZSB3b3VsZCBhcHBseSB0aGVtIHRvIGhpcyBydHctbmV4dCBicmFu
+Y2guDQo+ID4gPiAgPiA+DQo+ID4gPiAgPg0KPiA+ID4gID4gSSBkb24ndCB0aGluayB3ZSBoYXZl
+IGEgbG90IG9mIGZvbGtzIGJlbG93IHRoZSBkcml2ZXIgbWFpbnRhaW5lcnMgd2hvIHMNCj4gPiA+
+ICA+IGVuZCBtZSBwdWxsIHJlcXVlc3RzIChleGNlcHQgVG9rZSBtYXliZT8pIC0gYnV0IGFzIGxv
+bmcgYXMgSSBkb24ndCBuZWVkDQo+ID4gPiAgPiB0byBkZWFsIHdpdGggaXQgSSdtIGhhcHB5LCB5
+b3UgY2FuIGZpZ3VyZSBpdCBvdXQgYmV0d2VlbiB5b3Vyc2VsdmVzIDopDQo+ID4gPiAgPg0KPiA+
+ID4gIEZvciBhdGguZ2l0IHRoZXJlIGFyZSBzdWItbWFpbnRhaW5lcnMgZm9yIGF0aDVrIChNdWx0
+aXBsZSksIGF0aDlrIChUb2tlKSwNCj4gPiA+ICBjYXJsOTE3MCAoQ2hyaXN0aWFuKSwgYW5kIHdj
+bjM2eHggKExvaWMpLg0KPiA+ID4NCj4gPiA+ICBUb2tlIGhhcyBhIGxpbnV4LXdpcmVsZXNzIHBh
+dGNod29yayBhY2NvdW50IHNvIHRoZSBhdGg5ayBwYXRjaGVzIGFyZSBpbml0aWFsbHkNCj4gPiA+
+ICBhc3NpZ25lZCB0byBoaW0gaW4gcGF0Y2h3b3JrLCBhbmQgaGUgQWNrcyBvbiB0aGUgbGlzdCBh
+bmQgYXNzaWducyB0aGUNCj4gPiA+ICBwYXRjaHdvcmsgcmVjb3JkcyB0byBtZSB3aGVuIGhlIGFw
+cHJvdmVzIHBhdGNoZXMuDQo+ID4gPg0KPiA+ID4gIEZvciB0aGUgb3RoZXJzIHRoZSBtYWludGFp
+bmVycyBqdXN0IEFjayBvbiB0aGUgbGlzdCwgYW5kIEkgdGFrZSB0aGVtIGZyb20gdGhlcmUuDQo+
+ID4gPg0KPiA+ID4gIFNvIHRoZSBxdWVzdGlvbiBpcyBkbyBob3cgZG8geW91IHdhbnQgdG8gaGFu
+ZGxlIHRoaXMgaW4gcGF0Y2h3b3JrPw0KPiA+ID4NCj4gPiA+ICAvamVmZg0KPiA+ID4NCj4gPiA+
+DQo+ID4gPiAgV2hhdCBkbyB5b3UgdGhpbmsgbWFrZXMgbW9yZSBzZW5zZSBoZXJlOiBwYXRjaHdv
+cmsgZGVsZWdhdGUNCj4gPiA+ICBhY2Nlc3MgbGlrZSBUb2tlIGhhcyBmb3IgYXRoOWssIG9yIG9u
+IGxpc3QgYWNrIGJhc2VkPyBJJ2QgbGVhbg0KPiA+ID4gIHRvd2FyZHMgZGVsZWdhdGUgYWNjZXNz
+IGlmIGl0J3Mgbm90IGEgYmlnIGFzayBvbiB5b3VyIGVuZCwgYnV0DQo+ID4gPiAgaGFwcHkgdG8g
+Z28gd2l0aCB3aGF0ZXZlciB3b3JrcyBiZXN0IG9wZXJhdGlvbmFsbHkgZm9yIHlvdS4NCj4gPiA+
+DQo+ID4gSSdtIGhhcHB5IHRoYXQgcGVvcGxlIGpvaW4gcnR3ODggcmV2aWV3ZXJzLg0KPiA+DQo+
+ID4gUGVyc29uYWxseSBJIHByZWZlciBwZW9wbGUgZ2l2ZSBSZXZpZXdlZC1ieSB0YWcgdG8gdGhl
+IHBhdGNoZXMsIGFuZA0KPiA+IEkgY2FuIG15c2VsZiB0YWtlIHRoZSBwYXRjaGVzIGJ5IHBhdGNo
+d29yayBzdGF0ZSBhbmQgc2VuZCBwdWxsLXJlcXVlc3QNCj4gPiB0byBKb2hhbm5lcy4NCj4gPg0K
+PiA+IFdpdGggYWRkaXRpb25hbCBmbG93cyBvZiBwYXRjaHdvcmsgYW5kIHB1bGwtcmVxdWVzdCwg
+aXQgbG9va3MgbXVjaA0KPiA+IGhhcmQgdG8gbWFpbnRhaW4sIHNpbmNlIEkgZG9uJ3QgdGhpbmsg
+dGhlcmUgd2lsbCBiZSBhIGxvdCBvZiBwYXRjaGVzIG9mDQo+ID4gZHJpdmVycy9uZXQvd2lyZWxl
+c3MvcmVhbHRlay9ydHc4OC9ydHc4NzIzYioue2MsaH0NCj4gPg0KPiA+IEJ5IHRoZSB3YXksIGlm
+IHlvdSBhcmUgaW50ZXJlc3RlZCBpbiBydHc4OCwgbWF5YmUgYWRkIGEgIlI6Ig0KPiA+IGVudHJ5
+IHRvIGJlIGEgcmV2aWV3ZXIgb2YgcnR3ODg/DQo+ID4NCj4gPiBQaW5nLUtlDQo+ID4NCj4gDQo+
+IEhpIFBpbmctS2UsDQo+IA0KPiBJIGFncmVlIHRoYXQgYXBwcm9hY2ggaXMgc2ltcGxlciBhbmQg
+SSBhbSBwZXJmZWN0bHkgZmluZSB3aXRoDQo+IGl0LCBpZiBpdCB3b3JrcyBiZXR0ZXIgZm9yIHlv
+dS4gQW5kIGFib3V0IGJlaW5nIHJ0dzg4IHJldmlld2VyOiBJDQo+IHdvdWxkIGhhcHBpbHkgdGFr
+ZSB0aGF0IHJvbGUsIHNvIEkgd2lsbCBzZW5kIGEgc2VwYXJhdGUgcGF0Y2gNCj4gb3V0c2lkZSB0
+aGlzIHNlcmllcy4NCg0KSSB0aGluayB5b3UgY2FuIGNoYW5nZSB0aGUgY29udGVudCBvZiB0aGlz
+IHBhdGNoIHRvIGFkZCB5b3Vyc2VsZiB0bw0KcnR3ODggcmV2aWV3ZXIuIE5vIG5lZWQgb3RoZXIg
+cGF0Y2guIA0KDQpJbiBmYWN0LCBldmVuIHlvdSBhcmVuJ3QgaW4gbGlzdCBvZiBNQUlOVEFJTkVS
+UywgeW91IGNhbiBzdGlsbCByZXZpZXcNCnBhdGNoZXMuIEp1c3Qgc3Vic2NyaWJlIGxpbnV4LXdp
+cmVsZXNzIG1haWxpbmcgbGlzdCAoSSB0aGluayB5b3UgZGlkKSwNCmFuZCByZXBseSBwYXRjaGVz
+IHlvdSBoYXZlIHJldmlld2VkLiANCg0KUGluZy1LZQ0KDQo=
