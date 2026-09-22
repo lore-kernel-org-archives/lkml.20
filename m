@@ -1,266 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3602154281D;
-	Tue, 22 Sep 2026 12:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D1743B6DA;
+	Tue, 22 Sep 2026 12:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080062; cv=none; b=SIMOWANu6xceACrZvqGCV4TPJ/yWE1Ro9fzfyhjuqZDjcGfYgea6R/w+rTvn2XR8WEdoILEDF38/tzWWNrKjyzQvaLGuo900T5TiscnrGvQH6F+mHfELGxT5b3le+C0sFlworzKiz0E1BKYEUpoW6y0KM4VrlRXqbnU82ATbD9A=
+	t=1790080072; cv=none; b=hJE6zJ9vJv2sW63QKIfPeK9OkE09HjqR17yf2mlRXM3SLpo2Snt+sfakdwGkYj+eujBoIszyI95JZn+R53YCot5+GxQBuna3SZHG704cxyB3Jd0plQDTzXfxRhBC/jFpyLdvD/Vq5wAWm13Q29YXlPnd8czr8k0flWKzZGgLl1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080062; c=relaxed/simple;
-	bh=Y+hIDSycxSkmcW2fwShdG/1YSOl2of5puIAQv+44AW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u63wXLAHqwXgKl/K14Y6cyd6Tmmi9r10Ssv5wYhYdefRFeGpMsJvz0sgq9V6GBV7CffyYxeNHhTt5HXzXlEhMiJmuO+QTGgCOfOeHFc0bPVwC8Gxr7IiUTsNWWta8C+k6PDIZf4BwhkqudK5E8ubBqiLEwNLAtEIyr2g6HuphPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LerDFv/g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790080072; c=relaxed/simple;
+	bh=Z9OBTdIX8f7OAhs5VeelW2/TsHyjmAyRxASOGqoeuCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EoPjglFNB94gT3VNk5D2PzbUxc5QQWDcKgjdnvW7HCne2BSnm3eaPnWpzrhhZK2Si4V9NPHjIySupBRZo31VOHJA7pVuGEnb1LOw88DOFjs1Ejo5I0JwezG9J2EK193n9vbYEnIBqaVJhlNhFBtJabFufRNqt+IBctWbbA/fFT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N1xRLb0J; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LerDFv/g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 282BF1F00899;
-	Tue, 22 Sep 2026 12:27:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790080061;
-	bh=56iPBEObqEQyLLnKTG226uN4zi7yH1BIqjbv2lqlrNk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LerDFv/gP5eVHizYRdo8Tn6rFe7L3qRKHqTT/zMcs5aMZguA0Nvi3ey/OdU1QJpvt
-	 vZPdCtOZnxxb1z+nHq14sk1E6xXYaWflBGSJln0SPYMB+V+76U9JGy68pJJfqhYZ9q
-	 7WWdbG/8OTmlJLd7YKkr+gPqPr5kcgfhk1VaQnz+V+T9b+JOUGVE6VB5g55bO/wT9e
-	 xi6sX4dXxE6sp2bAyjPq8Fg2PJ4Sf0hFOmmuSdQ5rYhlex1cLtkODVoj4SY17sHqE3
-	 dOu2XgzMz4W0N0VjGnOGsHDG4Fx6qgrhGFKFcyL6Nn5hO9yLz4VW6Zrsf7fDQjrk49
-	 4zmzdQPF8aK1Q==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: [PATCH v3 7/7] perf mem record: Use the IBS swfilt filter when available
-Date: Tue, 22 Sep 2026 14:26:23 +0200
-Message-ID: <20260922122623.1029132-8-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922122623.1029132-1-acme@kernel.org>
-References: <20260922122623.1029132-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N1xRLb0J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790080070; x=1821616070;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Z9OBTdIX8f7OAhs5VeelW2/TsHyjmAyRxASOGqoeuCI=;
+  b=N1xRLb0JOFSW+rRSOrj1XjFxUl2FV7SKNScxutHTbyrPjybfkoF6D55K
+   cX9A8NUOD3ueoP4oNKyk7+2WmJDN33toBdhBczXpvfKQkeUzPg/rvywl1
+   0OL+KZNr+YbeKJzUg0fCtt1NW7Y9cb5l6OAx7YQyAMY2BjZESXairnDja
+   bZMqsRPoYWsmHiS43FIKyUCcCduysJ9jL4vZD2oZ85SuF1ausnLuw5pT7
+   8r2L3Yiy4Qk5VsNZ3AiO+PE4kWaIa7Qr6eqKMF1nQYm585UuGqGTsslKg
+   JC+rHiZOMXWK5AOxlH2jMVxEcih0aBXAoHcTNf7QXrFlwpoj1tNuwEP0X
+   A==;
+X-CSE-ConnectionGUID: Qd8Wwf1rQdO9t6D4a3+AZw==
+X-CSE-MsgGUID: 6AFzTnyGTyWAlZWa52LFAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="102027572"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="102027572"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:27:49 -0700
+X-CSE-ConnectionGUID: UeWf61Z1Ts+0FQYfb8yUcQ==
+X-CSE-MsgGUID: F+HmhtM2Tk+xrJxmCqmMTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="4408441"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa013.fm.intel.com with ESMTP; 22 Sep 2026 05:27:47 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 343D799; Tue, 22 Sep 2026 14:27:46 +0200 (CEST)
+Date: Tue, 22 Sep 2026 14:27:46 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: jens.glathe@oldschoolsolutions.biz
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/3] usb: typec: mux: ps883x: support TYPEC_DP_STATE_F
+Message-ID: <arJ0QsQpW8UYph-4@black.igk.intel.com>
+References: <20260922-ps883x-disable-usb4-v4-0-0a7b5b70cba3@oldschoolsolutions.biz>
+ <20260922-ps883x-disable-usb4-v4-1-0a7b5b70cba3@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-ps883x-disable-usb4-v4-1-0a7b5b70cba3@oldschoolsolutions.biz>
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+On Tue, Sep 22, 2026 at 02:20:19PM +0200, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> 
+> Several docks, including the Lenovo 40B0 and SSK SC220, still send the
+> legacy TYPEC_DP_STATE_F mode request (deprecated since DisplayPort Alt
+> Mode spec version 1.0b).
+> 
+> Group it with TYPEC_DP_STATE_D.
+> 
+> Assisted-by: Grok(xAI):4.6
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-IBS events with exclude_{user,kernel} bits, as used for per-thread
-recording when kernel samples are not allowed, are rejected by the
-kernel on hardware without the privilege filter, so per-thread 'perf mem
-record' fails on AMD:
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-  $ perf mem record -o /dev/null -- true
-  Error:
-  Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
-  Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
+> ---
+>  drivers/usb/typec/mux/ps883x.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
+> index 64e0a61b776a1..a5696aef054ee 100644
+> --- a/drivers/usb/typec/mux/ps883x.c
+> +++ b/drivers/usb/typec/mux/ps883x.c
+> @@ -207,6 +207,7 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
+>  
+>  			switch (state->mode)  {
+>  			case TYPEC_DP_STATE_D:
+> +			case TYPEC_DP_STATE_F:
+>  				cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
+>  				fallthrough;
+>  			case TYPEC_DP_STATE_C:
+> 
+> -- 
+> 2.53.0
+> 
 
-Kernel v6.14 added swfilt, a software privilege filter exposed as the
-'swfilt' format term, making those events usable per-thread:
-
-  $ perf record -e ibs_op/ldlat=0,swfilt=1/ -- true
-
-Give the ibs_op memory events extra tables with the swfilt term in the
-event names, selected in perf_pmu__arch_init() when the PMU exposes the
-term, keeping the names that need system wide mode otherwise, with the
-knowledge that IBS needs this staying in the arch code: the generic
-mem-events table and name builder don't know about it.  The variant is
-used even for records that end up without exclude bits: 'perf record'
-adds those bits itself when the first open fails, after the name was
-built, and that retry needs the term.  With the term in the event name,
-the per-thread 'perf mem record' done by the 'data type profiling' shell
-test works on AMD kernels with swfilt, so the skip 29f320d2 added to it
-no longer triggers there, and the 'Test data symbol' shell test adjusts
-its event regex for the added term.
-
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
-Suggested-by: Ravi Bangoria <ravi.bangoria@amd.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/arch/x86/util/mem-events.c      | 24 ++++++++++++++++++++++
- tools/perf/arch/x86/util/mem-events.h      |  2 ++
- tools/perf/arch/x86/util/pmu.c             | 10 +++++++--
- tools/perf/tests/shell/test_data_symbol.sh |  6 ++++--
- tools/perf/util/mem-events.c               | 11 ++++++----
- 5 files changed, 45 insertions(+), 8 deletions(-)
-
-diff --git a/tools/perf/arch/x86/util/mem-events.c b/tools/perf/arch/x86/util/mem-events.c
-index b38f519020ff8c6f..2052750cd707c7e5 100644
---- a/tools/perf/arch/x86/util/mem-events.c
-+++ b/tools/perf/arch/x86/util/mem-events.c
-@@ -21,14 +21,38 @@ struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,			NULL,				NULL,		false,	0),
- };
- 
-+/*
-+ * IBS events with exclude_{user,kernel} bits set, as used by perf to
-+ * record per-thread when kernel samples are not allowed, are rejected
-+ * by the kernel on hardware without the privilege filter unless the
-+ * swfilt software filter is used, so there are extra sets of tables
-+ * with the swfilt term in the event names, selected in
-+ * perf_pmu__arch_init() when the PMU exposes the term.  The term is not
-+ * conditional on the event already having exclude bits: perf record
-+ * adds those bits itself when the first open fails with EACCES on an
-+ * unprivileged setup, after the name was built, and that retry only
-+ * succeeds with the term in it.
-+ */
- struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s//",		NULL,	false,	0),
- };
- 
-+struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E("mem-ldst",	"%s/swfilt=1/",	NULL,	false,	0),
-+};
-+
- struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0),
- };
-+
-+struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E("mem-ldst",	"%s/ldlat=%u,swfilt=1/",	NULL,	true,	0),
-+};
-diff --git a/tools/perf/arch/x86/util/mem-events.h b/tools/perf/arch/x86/util/mem-events.h
-index 11e09a256f5bb084..f707de38037017c1 100644
---- a/tools/perf/arch/x86/util/mem-events.h
-+++ b/tools/perf/arch/x86/util/mem-events.h
-@@ -6,6 +6,8 @@ extern struct perf_mem_event perf_mem_events_intel[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX];
- 
- extern struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX];
- 
- #endif /* _X86_MEM_EVENTS_H */
-diff --git a/tools/perf/arch/x86/util/pmu.c b/tools/perf/arch/x86/util/pmu.c
-index 2c24ef3140da5e9b..fd4491fda117e51a 100644
---- a/tools/perf/arch/x86/util/pmu.c
-+++ b/tools/perf/arch/x86/util/pmu.c
-@@ -333,6 +333,7 @@ static void uncore_cha_imc_adjust_cpumask_for_snc(struct perf_pmu *pmu, bool cha
- void perf_pmu__arch_init(struct perf_pmu *pmu)
- {
- 	struct perf_pmu_caps *ldlat_cap;
-+	bool swfilt_format;
- 
- 	if (!strcmp(pmu->name, INTEL_PT_PMU_NAME)) {
- 		pmu->auxtrace = true;
-@@ -348,7 +349,10 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 		if (strcmp(pmu->name, "ibs_op"))
- 			return;
- 
--		pmu->mem_events = perf_mem_events_amd;
-+		swfilt_format = perf_pmu__has_format(pmu, "swfilt");
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_swfilt :
-+				  perf_mem_events_amd;
- 
- 		if (!perf_pmu__caps_parse(pmu))
- 			return;
-@@ -358,7 +362,9 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 			return;
- 
- 		perf_mem_events__loads_ldlat = 0;
--		pmu->mem_events = perf_mem_events_amd_ldlat;
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_ldlat_swfilt :
-+				  perf_mem_events_amd_ldlat;
- 	} else {
- 		if (pmu->is_core) {
- 			if (perf_pmu__have_event(pmu, "mem-loads-aux"))
-diff --git a/tools/perf/tests/shell/test_data_symbol.sh b/tools/perf/tests/shell/test_data_symbol.sh
-index d61b5659a46d9a77..52c837fddb639595 100755
---- a/tools/perf/tests/shell/test_data_symbol.sh
-+++ b/tools/perf/tests/shell/test_data_symbol.sh
-@@ -65,15 +65,17 @@ if (($is_amd >= 1)); then
- 	# --ldlat on AMD:
- 	# o Zen4 and earlier uarch does not support ldlat
- 	# o Even on supported platforms, it's disabled (--ldlat=0) by default.
-+	# o Kernels with the swfilt term add it even when ldlat is not
-+	#   supported, so only check ldlat when the term is present.
- 	ldlat=${BASH_REMATCH[1]}
--	if [[ -n $ldlat ]]; then
-+	if [[ $ldlat == *ldlat=* ]]; then
- 		if ! [[ "$ldlat" =~ ldlat=0 ]]; then
- 			echo "ERROR: ldlat not initialized to 0?"
- 			exit 1
- 		fi
- 
- 		mem_events="$(perf mem record -v --ldlat=150 -e list 2>&1)"
--		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150/.*available ]]; then
-+		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150[,/].*available ]]; then
- 			echo "ERROR: --ldlat not honored?"
- 			exit 1
- 		fi
-diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
-index 0b49fce251fcc184..0b07011939d7d7c3 100644
---- a/tools/perf/util/mem-events.c
-+++ b/tools/perf/util/mem-events.c
-@@ -82,6 +82,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 					     char *buf, size_t buf_size)
- {
- 	struct perf_mem_event *e;
-+	const char *name;
- 
- 	if (i >= PERF_MEM_EVENTS__MAX || !pmu)
- 		return NULL;
-@@ -90,24 +91,26 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 	if (!e || !e->name)
- 		return NULL;
- 
-+	name = e->name;
-+
- 	if (i == PERF_MEM_EVENTS__LOAD || i == PERF_MEM_EVENTS__LOAD_STORE) {
- 		if (e->ldlat) {
- 			if (!e->aux_event) {
- 				/* ARM and Most of Intel */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name,
-+					  name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			} else {
- 				/* Intel with mem-loads-aux event */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name, pmu->name,
-+					  name, pmu->name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			}
- 		} else {
- 			if (!e->aux_event) {
- 				/* AMD and POWER */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name);
-+					  name, pmu->name);
- 			} else {
- 				return NULL;
- 			}
-@@ -117,7 +120,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 
- 	if (i == PERF_MEM_EVENTS__STORE) {
- 		scnprintf(buf, buf_size,
--			  e->name, pmu->name);
-+			  name, pmu->name);
- 		return buf;
- 	}
- 
 -- 
-2.55.0
-
+heikki
