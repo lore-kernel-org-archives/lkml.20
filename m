@@ -1,159 +1,154 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5793F4DD2;
-	Tue, 22 Sep 2026 07:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A931947CC71
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061724; cv=none; b=mOmxUh1t0pbxTHRQsAr2TnheAa3KakzQCco+yXaFJorpqkIDSNKUEVwak40dXGlrVv0UtLJ3IpqlJCz6pS0pbOih/x2JcU7PRp+6Y5PTJsCs9j/Rn5itb7IfUgx8JIVq40/dx/vNfH9Fl+/4oohk3seKN+1e7S+t0jy4bLtiTOo=
+	t=1790061725; cv=none; b=F5pllXjy5NM1jsAa8M/Q/ZaZpIux2CuhiSymKKPFO81gyPYPx3jmlLR44h+vbFnVH0FNefJsHilZVE2Jo0Rk8D/gyw3Oihx6RD7htZbP8yWsKXfrwGKl2o4l8WFBhmMRjn5gndla05fYHNVT2Nnql/VIURslpMuvXbcIDvuOUc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061724; c=relaxed/simple;
-	bh=IwROk44CZaQG+siuubT32QXiRJHbp5/a/TuPA93r2pQ=;
+	s=arc-20240116; t=1790061725; c=relaxed/simple;
+	bh=MnwjxHsRvv6B7ebV4jOBaeSUOdh4EX9DSXNEM3ODyYs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KBZ0JNreQaU3AL+QHFBq1gX1sYYt+KLD6kQzuO/nQCrpAuqot5nEQan2VZ/d0ntRbHxUUi6Z2MDeyY23ZNZEaWJKvQsmwnygUnby/7QBrfRbuxFpv2hN7C+sim4OStueXnajSWZ/K6jPcjWxQNdAfrdYo4dgrsb4HvFjkrcZDsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KE/Z9R2T; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	 MIME-Version:Content-Type; b=Ic5+laSnP2fJpgcO3f57TK5gVC8pu6Dqv4WvGcvFwUv7kpTuLvjDPg9HAN6Xtb/VOjoD0Q1THmL2+h1VyvDtXh99Xbrla3fFTw+npDriVQcRUk/pAJiRSXarAQ6oGXS24/v/mPSooGM7nHK0BrKY0wUlnQOx0iXCq9oOxKQzxQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cX9JLXY9; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KE/Z9R2T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zr
-	VKOIfZyNfdBaup7kUIwUMlr9Bdz0dloClPNSFyXyY=; b=KE/Z9R2TNx2wgoebvF
-	Xp3y2RGTU/lQJApoJp9D3yOeaKZbQturjIfqg0K+gPjBQe7kdvDGxEsAdvBs/gtt
-	5QGz4pkIBEO26soQR9BU9mi/L/SWUjRpGfax+cmfn7n2rlTMKM+ECqunocUciR3v
-	8gV/rYpzAtZAiE40MiRcI2k2o=
-Received: from nec8-i7 (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wC3n0dnLLJqbRFHAA--.18780S2;
-	Tue, 22 Sep 2026 15:21:12 +0800 (CST)
-From: chenyuan_fl@163.com
-To: bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Yuan Chen <chenyuan@kylinos.cn>
-Subject: [PATCH bpf-next v6 2/3] bpf, arena: fix range_tree_set inconsistency on kmalloc_nolock failure
-Date: Tue, 22 Sep 2026 15:21:02 +0800
-Message-ID: <20260922072102.3570856-1-chenyuan_fl@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <CABFh=a6QOjBv1c7B0fw0AEqaBXiQJRh=8on5DUfqPC7hYuGBxg@mail.gmail.com>
-References: <CABFh=a6QOjBv1c7B0fw0AEqaBXiQJRh=8on5DUfqPC7hYuGBxg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cX9JLXY9"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c08393dfso3124108a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:22:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790061723; x=1790666523; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YwywWDLrZalzz03FLTpDP9g/tBAvW+/0SJTZpW2eZ4M=;
+        b=cX9JLXY9ZzuzueGaBeNkOosGlWrBoNQ51gqgemit1k96eNxTZ7FNlFC9joRbJA+43Y
+         jDZ0gf/RN9hg3NZUrjaSQg5KPCRV9bnbNMikkZQShOMz4kh7FOUZmHASy1XqLHSi+/f3
+         zBuI+/q8xDZNPoC4gV2UIJWa39H6CIjUYwY4xggHJq+HGi8TQ6h7iYkt+V6s5sMSkKMu
+         D9UYMFFZTaotJLC7rVJwfoy+PU/uIx8i3rMqs4xvanTo+Q9BzW9JNtgaj8ztdMu2MMDK
+         H4wZnm7LyAhmc7Ys59ohClY9YRU6VHFLyoHHcllU8qjmqVkxj4O4ma+TDPUx/KJBNYnh
+         dUdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790061723; x=1790666523;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YwywWDLrZalzz03FLTpDP9g/tBAvW+/0SJTZpW2eZ4M=;
+        b=L+dxd8/c1wMZHCE4cfWH2uNcOyrS9mH7rn1znYEWgIdaRICgXHxiqqoRheEo1IrSVr
+         ZTWTtHeaWC8OMYrfuExQpZ7orNNmVMCXp3TsIjPpsMjUj1pcVMJ/WxiPiysyv0iqqTgu
+         G/oKZcHlpghADpOr9txSvfKCBsUm/876/4N0YuSkGawhSm8vqTz3LWkiKTfLWorxXQBD
+         VysMWdCBzL7ImCUWEflNi08IverLGgvxpqv7FApJXkrot9gDAADoikwsdUhtMOtydFqU
+         8aEQHFF8Q4Cw1CobczhL7cumEK+IXkbgvCSz0wHysSDo4jrVUt11Y2ioMIzUhNiN6Yd/
+         OmpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0F8tT7YsfxlcFHx+Xo5UQa+kl6yH4hwGzGBpcS9u46BvnLL9OfLCj/DtAbYqBm/uU9c4qH8W9+eGUmGM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndykD4jHd8huuSJJp7v9ejKCpUPM8Gtx7lbhgIXFyfJqcs+sCd
+	S+RFEaWJTF1uvSQgzvYtcoA60yyRfyqc/0DNmJxojLCLfy+BKaw8l2Pe
+X-Gm-Gg: AYBFou1iONDDJg2gjWQECIL4KhXueilE9VWsApQxtr3G5JUtePBjpKcFqm3PAUa7XPU
+	xfb5XJDU2FAUg5IR2/fiAQ32ICOjToR4G76azcbHIU/G8+2yuSzcWGCEEIkZWsIAVW6LN3WL9gQ
+	sBnFnSR+01OmBVUUy4kxnfq2qECR968sc4w+Wk9MAL6zh6uTF2CGiWCQXz0gXnBeEkaLUJVElnj
+	4LJh134z2SOY1bALIJRN2c1KehEnQmnNS4G8L7MSvkFS3d9dan3ilXK3D4gPjPEskBdI1IK65kl
+	kAQZ3UV4Zsz36uKfAZi4TAzksr7BXhnRD+sZ13RXarNZwSQOg/dBGvQMvmah7B6LnGvlsK6crfi
+	cx/O80z7g69VAGTvZSEG0QmjXOsoEQ0+fdmTpLXnGeNsEV0qrysBt9KHthNJss+mYu423jyRuT+
+	twRrPK1XJkT3KOe8YYaJKW3rRz98YiRcG2z3wto6VdbLpMG7aTdJ73A5uJ3RO5jOZgtODHca0/0
+	7ajqYhVoXSRYlLPTw/ISW1OEilhbK//ULuIWoc=
+X-Received: by 2002:a05:6a20:734f:b0:3dd:a007:cb35 with SMTP id adf61e73a8af0-3ddec82175emr329149637.49.1790061722924;
+        Tue, 22 Sep 2026 00:22:02 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a1e:2e81:7320:b94b:d1b8:4cbd:b7e1])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc756a317ccsm443117a12.14.2026.09.22.00.22.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 00:22:02 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: [PATCH v2] xen-blkfront: unbind irq before tearing down ring and shadow requests
+Date: Tue, 22 Sep 2026 15:21:55 +0800
+Message-ID: <20260922072155.34625-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <arD7FHmbqJlLHmyE@macbook.local>
+References: <arD7FHmbqJlLHmyE@macbook.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC3n0dnLLJqbRFHAA--.18780S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCw13AF1kWr48GF4xAFy8Grg_yoW5CFWrpw
-	15KrWrJrsxJ3y7Ww1Fvr48uFyrCw1fXw4ktrZxGw4kA3W5Ar97AFn0kF4jkFWDAFy8Cr15
-	tF1jv3y7GF4UuFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U9Z2fUUUUU=
-X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbDAQhsKmqyLGhFvQAA3r
 
-From: Yuan Chen <chenyuan@kylinos.cn>
+In blkif_free_ring(), the driver tears down the ring's persistent grants,
+shadow request arrays, and shared ring structure (xenbus_teardown_ring),
+and only calls unbind_from_irqhandler() at the very end.
 
-range_tree_set() pre-allocates the node needed for a brand-new range
-before calling range_tree_clear(), so an allocation failure returns
--ENOMEM without having modified the tree (previously the overlapping
-nodes were already removed by range_tree_clear() before the allocation
-was attempted, permanently losing the cleared sub-ranges).
+While blkif_free_ring() is freeing persistent grants and clearing the
+shadow array, the event channel interrupt (blkif_interrupt) is still
+registered and active.  If an interrupt arrives from the backend during
+this teardown window, blkif_interrupt() reads rinfo->ring.sring and,
+via blkif_completion(), accesses rinfo->shadow[id].grants_used and
+rinfo->shadow[id].sg.  blkif_free_ring() tears these structures down
+without holding rinfo->ring_lock, and the handler only checks
+info->connected at entry, so this is a real race resulting in a
+use-after-free or NULL pointer dereference.
 
-Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+Fix this by moving unbind_from_irqhandler() to the beginning of
+blkif_free_ring().  Calling unbind_from_irqhandler() first frees the
+IRQ and synchronizes with any in-flight interrupt handlers on other CPUs
+before ring memory and shadow request structures are deallocated,
+matching the teardown order in drivers/net/xen-netfront.c.
+
+Fixes: 11659569f720 ("xen/blkfront: split per device io_lock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
 ---
- kernel/bpf/range_tree.c | 45 +++++++++++++++++++++++++++++++----------
- 1 file changed, 34 insertions(+), 11 deletions(-)
+v2:
+ - Update Fixes tag to 11659569f720 ("xen/blkfront: split per device io_lock")
+   per Roger Pau Monné.
+ - Add comment in blkif_free_ring() noting that interrupt teardown must precede
+   freeing queue-related data.
 
-diff --git a/kernel/bpf/range_tree.c b/kernel/bpf/range_tree.c
-index 15b588377a76..0420ab715f20 100644
---- a/kernel/bpf/range_tree.c
-+++ b/kernel/bpf/range_tree.c
-@@ -199,6 +199,7 @@ int is_range_tree_set(struct range_tree *rt, u32 start, u32 len)
- int range_tree_set(struct range_tree *rt, u32 start, u32 len)
- {
- 	u32 last = start + len - 1;
-+	struct range_node *new_rn = NULL;
- 	struct range_node *right;
- 	struct range_node *left;
- 	int err;
-@@ -208,20 +209,40 @@ int range_tree_set(struct range_tree *rt, u32 start, u32 len)
- 	if (left && left->rn_start <= start && left->rn_last >= last)
- 		return 0;
+ drivers/block/xen-blkfront.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 8dad7bf5f664..86f5dd3aced1 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -1210,6 +1210,14 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
+ 	struct blkfront_info *info = rinfo->dev_info;
+ 	int i, j, segs;
  
 +	/*
-+	 * The pre-clear probe only decides whether a fresh node is needed;
-+	 * adjacency on either side is invariant across the clear, so it can
-+	 * run before the tree is modified and -ENOMEM leaves it untouched.
-+	 * The merge below re-fetches its handles after the clear instead of
-+	 * relying on the overlapping nodes being updated in place.
++	 * Interrupt teardown must be done ahead of freeing queue-related
++	 * data, otherwise the interrupt handler can race with the cleanup.
 +	 */
-+	left = range_it_iter_first(rt, start - 1, start - 1);
-+	right = range_it_iter_first(rt, last + 1, last + 1);
-+	if (!left && !right) {
-+		new_rn = kmalloc_nolock(sizeof(struct range_node),
-+					__GFP_ACCOUNT, NUMA_NO_NODE);
-+		if (!new_rn)
-+			return -ENOMEM;
-+	}
++	if (rinfo->irq)
++		unbind_from_irqhandler(rinfo->irq, rinfo);
++	rinfo->evtchn = rinfo->irq = 0;
 +
- 	/* Clear out everything in the range we want to set. */
- 	err = range_tree_clear(rt, start, len);
- 	if (err)
--		return err;
-+		goto out_free_new;
- 
- 	/* Do we have a left-adjacent range ? */
- 	left = range_it_iter_first(rt, start - 1, start - 1);
--	if (left && left->rn_last + 1 != start)
--		return -EFAULT;
-+	if (left && left->rn_last + 1 != start) {
-+		err = -EFAULT;
-+		goto out_free_new;
-+	}
- 
- 	/* Do we have a right-adjacent range ? */
- 	right = range_it_iter_first(rt, last + 1, last + 1);
--	if (right && right->rn_start != last + 1)
--		return -EFAULT;
-+	if (right && right->rn_start != last + 1) {
-+		err = -EFAULT;
-+		goto out_free_new;
-+	}
- 
- 	if (left && right) {
- 		/* Combine left and right adjacent ranges */
-@@ -241,14 +262,16 @@ int range_tree_set(struct range_tree *rt, u32 start, u32 len)
- 		right->rn_start = start;
- 		range_it_insert(right, rt);
- 	} else {
--		left = kmalloc_nolock(sizeof(struct range_node), __GFP_ACCOUNT, NUMA_NO_NODE);
--		if (!left)
--			return -ENOMEM;
--		left->rn_start = start;
--		left->rn_last = last;
--		range_it_insert(left, rt);
-+		/* No adjacent ranges; use the pre-allocated node */
-+		new_rn->rn_start = start;
-+		new_rn->rn_last = last;
-+		range_it_insert(new_rn, rt);
- 	}
- 	return 0;
-+
-+out_free_new:
-+	kfree_nolock(new_rn);
-+	return err;
+ 	/*
+ 	 * Remove indirect pages, this only happens when using indirect
+ 	 * descriptors but not persistent grants
+@@ -1292,10 +1300,6 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
+ 	/* Free resources associated with old device channel. */
+ 	xenbus_teardown_ring((void **)&rinfo->ring.sring, info->nr_ring_pages,
+ 			     rinfo->ring_ref);
+-
+-	if (rinfo->irq)
+-		unbind_from_irqhandler(rinfo->irq, rinfo);
+-	rinfo->evtchn = rinfo->irq = 0;
  }
  
- void range_tree_destroy(struct range_tree *rt)
+ static void blkif_free(struct blkfront_info *info, int suspend)
 -- 
-2.54.0
+2.53.0
 
