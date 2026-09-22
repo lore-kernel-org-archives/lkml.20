@@ -1,199 +1,94 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AF137A829
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E519E3769FD;
+	Tue, 22 Sep 2026 01:49:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790041656; cv=none; b=k+g+iT0I0dCYDT+IOCnM3SezljwNHKJL9KIcUNJHzu3t8RISxsolsRMoh5gwuif8sm/R0e5HEldlknAvDQuA45FQtI6NAPIoBqM8t/5uUCfOiFhihBohd/dricY+IdQ5XBpXOkXOVJyE+BoTwu5SaiMyjmzJSs4siX/wxRK139k=
+	t=1790041759; cv=none; b=RJLzeCc5pYSP5S3gC8QxZyR/pp5WFQXz57ffm9zYntjX8q/NE9EVmFQ+hQo+wJ/RAJ6d23YosZtlq2hN1UwwguMZAspHKl0m0itqeI3MYwOxzhQrBBbzKOCUrTGczCnYgd2XBViU5CEowCDGImZagfpBDbdphWkTOh3rRd7UHqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790041656; c=relaxed/simple;
-	bh=JRet0lN6fAyPGKcEZAkelJe6hquf64NfYxR4H5/x8y8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GG1Wj6wepPADTvuvYgESZMQDDagYpI/hzEGyeG2TSgJj9JJVdH4aBc3zEv/CftXTLD9DM7SWCTB4nZGl5ECLECMb2bSazF2XN3fwjZOyAOxumeYYioRKr/ZL+osuehBc3Y6X6Va3NthO+0wumyL3wwhcrN8fcEYrOS3NdPtF2NM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cPoqgfDA; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790041759; c=relaxed/simple;
+	bh=l8D2tVzmXwVbuyLciTw9IU0TOLnoooEh/a9AyO+wwxI=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=SXjH1J2Fb1Alk3iPGB9VIKtKy4XtZ+eRro+KJFFExoQ9VxTgxjQTAAXdHob1Cv4uzxI2R9ick06N6CtRnQu1awgedZNntvz4ttmAVOPnq6P9gzK0diHlglBdxyJdfA5t7/Kezcyw7betllT4YZhkV/iGv+ADYTmCF4qM3X0e8VU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=XEF5Aifi; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cPoqgfDA"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2db33db4de9so43735ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790041654; x=1790646454; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i6+2inLQAeVlBcJ3LlCplkJMtCvXJB/NM/8WbN3/bwA=;
-        b=cPoqgfDAxj97Oo9a6bbkse48nLAf0Wkeai8frA62+SXicakUQaQ9zVgTI3sKQ2ZbNr
-         9nRpjgbi2zSJjmJcurXDMInCWSL3quqv5r/5A43TtJ8zJ22Qc/5ZTU+IYpHV5lGpdhp8
-         pGegpqUoE1Rz4UUbnmDdgb4FTwRXAXoxMNprqwKtZOZFnJ3j19vo10mvg9Mho3zUyaRh
-         AKPPqMPFgL7yT+jZGQGO/WM4MqJV4NFWV8bugHsVkY+ysnST03IpPB2UbB3zVIMPnEOK
-         PI3OzSWt50V8LLYMfEOViN1evuImrB5W6MG7Eikp4S3EmQA92fMC8nY9mHvzbqyRUqYy
-         4gDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790041654; x=1790646454;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i6+2inLQAeVlBcJ3LlCplkJMtCvXJB/NM/8WbN3/bwA=;
-        b=ZSF9sGhuQVFUD/5ArNfSmY1Avr87FCM3uwyfUkvetnA01GYWNIbV/sNfsplSPOvUE7
-         ucd4gpCLtOreFRt1xnvvh8pE+TTdpHVnTG/Fk1ANZsQbo+t1D0VOXma1quCrTHPPq7dB
-         1XgRd4dnEe4WpRUSHFjkrdH4O3P/W8T+51ofIyUJfwsA5kqUxJeR/OYVSzBNt3kAW2hd
-         mlSNb6cM+f8zXscPI1Q01ADXDS6UDQ3nouq+PBTbKi0fKVuLp5s3LS3Eo6zbggW2rHLK
-         vimpCOJ9gxYympSZpPmNtXWThVdSBERA2LMZ3RGWX8r4miJlV7AkQvQ/WWdCMYwrXOJd
-         HRZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVLaI32KNp8eyuTHl47I2qUI8sB63WR7KFJOzginLKxZAWKIfLzlS31xeQSycyoIRScvC8w59IxvzA210=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqU4+lX3tZv4dVkOvdlhDNxDdNedIYPGUEXXs2x7SNKtwVT+tN
-	FShTvl2Q/tBFz5tsSshB1BBTGuheo6SsXJu/lVCNwPRnv0c0ApM9k7rNrC+yZtJwsQ==
-X-Gm-Gg: AYBFou1+GbRTZ054R2HtDPLQRJKaV7IrEFhluDz6ZjAYwUsbaXLcCaYb5m/VcfdPQ6z
-	qiuH5jqV+IV+zmSqLRU1MsSbp1b5QYc5WsW364OYpb+MrpBlfAjsGOLz+EggYyRX2FbPf91rC24
-	rDm//yk1dkhoPmJvzi9XXZxYljUZFtOVNqTmpVW1BRKUZzN26NExB3Ow7DGR8bs8i7yNSLTpVcs
-	etO5lgR5qqdQoeejciXoHLit8mvQ9tZb656d8K2tSwBhPQmnz0yWAM8SNDLDRc8twG4JYJ7lCeR
-	a4FGMiH2CcGQlzFh97PEuJbpXJapLsYCmYgWFAFCwM5nEoGkrQSChCUwL6aCa9AEp/N6U39DIM/
-	zxytg8Z8u4vMhReGkoM9ycHrAZeRCFg4mLW1Dxd8GSkC1L408V5uQqRuzDxKSJznf0SSnoDj9s4
-	jL87qJzjTjHRQ7XkVWgUJnk+D52Sj+x+cPol51opS4p1fy4ErDgMr2UOEqQToE1ni7e2MukZX/U
-	cSpJA85ywtgfQC7h7+GY2EKADl2ni5i2FRlM1x7sGNYISeODzPSyzeOSp/vv/sqVpikQm7hg4CK
-	V/qU
-X-Received: by 2002:a17:903:2f4d:b0:2c7:f688:f22f with SMTP id d9443c01a7336-2df5b835b4amr3114135ad.13.1790041653508;
-        Mon, 21 Sep 2026 18:47:33 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5751f2sm342687a91.9.2026.09.21.18.47.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 18:47:32 -0700 (PDT)
-Date: Tue, 22 Sep 2026 01:47:28 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Cc: Alex Williamson <alex.williamson@nvidia.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>, kvm <kvm@vger.kernel.org>, 
-	Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, linux-pci <linux-pci@vger.kernel.org>, 
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
-Subject: Re: [RFC PATCH 1/5] PCI: Refuse function reset of an SR-IOV PF with
- enabled VFs
-Message-ID: <arHP3Sj19YX-J-vx@google.com>
-References: <20260812045325.2733631-1-alex.williamson@nvidia.com>
- <20260812045325.2733631-2-alex.williamson@nvidia.com>
- <an5JbIzz40svS3xe@google.com>
- <20260814083737.66bb83fb@nvidia.com>
- <20260817121810.GC933791@ziepe.ca>
- <CO1PR11MB48354AC2854C4D8E9984FD8E8CA62@CO1PR11MB4835.namprd11.prod.outlook.com>
- <20260818140304.GC5482@ziepe.ca>
- <20260818143906.1f58aecb@nvidia.com>
- <CO1PR11MB4835146C50242D76568724DE8CAD2@CO1PR11MB4835.namprd11.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="XEF5Aifi"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=u4OeW3luyIICrk7TMlGAc08jfnsvhFPtK/vh0dt3e8U=;
+	b=XEF5AifigFLHzC6vPt7jWVXHWqO7TWWcV78nB/QcHJKH+wQYNSJ4PBgCX/HuDvg+1I0z2IrXa
+	jThMnLDdz1DVJ7xjwM1N2r4i+3rTj7noDOt9HSYkB4YMxcNdPt4j9ZVsyzkGZJjNigM7EHNfuEe
+	W5AohBmvbW1es3JjuhpjoMw=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hpjR63t71zLlXD;
+	Tue, 22 Sep 2026 09:38:10 +0800 (CST)
+Received: from whupemk200014.china.huawei.com (unknown [7.152.185.79])
+	by mail.maildlp.com (Postfix) with ESMTPS id B3C0F4048B;
+	Tue, 22 Sep 2026 09:49:12 +0800 (CST)
+Received: from [10.174.179.24] (10.174.179.24) by
+ whupemk200014.china.huawei.com (7.152.185.79) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 22 Sep 2026 09:49:11 +0800
+Subject: Re: [PATCH v2 1/3] firmware: arm_ffa: Split the response out of
+ ffa_msg_send_direct_req2()
+To: Jamie Nguyen <jamien@nvidia.com>
+CC: Lorenzo Pieralisi <lpieralisi@kernel.org>, Sudeep Holla
+	<sudeep.holla@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Will
+ Deacon <will@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown
+	<lenb@kernel.org>, Dat Mach <dmach@nvidia.com>, <linux-acpi@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260901192906.133670-1-jamien@nvidia.com>
+ <20260901192906.133670-2-jamien@nvidia.com>
+ <348dfed7-6aa2-77a2-a0a9-3aeed22f46b8@huawei.com>
+ <20260921174941.2406319-1-jamien@nvidia.com>
+From: Hanjun Guo <guohanjun@huawei.com>
+Message-ID: <bd33caf3-76d0-eff8-23e2-a9e51136d5e3@huawei.com>
+Date: Tue, 22 Sep 2026 09:49:10 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CO1PR11MB4835146C50242D76568724DE8CAD2@CO1PR11MB4835.namprd11.prod.outlook.com>
+In-Reply-To: <20260921174941.2406319-1-jamien@nvidia.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk200014.china.huawei.com (7.152.185.79)
 
-On Thu, Aug 27, 2026 at 05:35:17AM +0000, Tian, Kevin wrote:
->> From: Alex Williamson <alex.williamson@nvidia.com>
->> Sent: Wednesday, August 19, 2026 4:39 AM
->>
->> On Tue, 18 Aug 2026 11:03:04 -0300
->> Jason Gunthorpe <jgg@ziepe.ca> wrote:
->>
->> > On Tue, Aug 18, 2026 at 07:07:20AM +0000, Tian, Kevin wrote:
->> > > 3) resetting a PF due to ad-hoc FW error
->> > >
->> > > e.g. pdsc_check_pci_health() calls pci_reset_function() when FW
->> > > reports broken PCI. Sounds a similar condition to AER.
->> > >
->> > > but as it calls pci_reset_function() this series causes a regression
->> > > in case of active VFs. Is it desired?
->> >
->> > mlx5 does something similar. RAS flows require detecting the PF has
->> > blown up and resetting it to bring it back.
->> >
->> > This has to work while VFs exist and bound to kernel drivers or vfio.
->> >
->> > In the VFIO KVM case I would expect the VM to experiance a RAS error
->> > on its vPCI device and trigger a VF flr
->>
->> This would need to be a device level RAS flow as we're sorely lacking
->> on forwarding reset notification to VF drivers or providing any
->> mechanism for recovery from the vfio error eventfd.
->>
->> > But we have to sort all this out through the hypervisor to not crash
->> > the machine or otherwise :)
->>
->> In general guarding the high level pci_reset_function() family on
->> (pci_num_vfs() == 0) seems to have more pros than cons and the
->> restriction matches the scoped intent of the interface.
->>
->> The low level __pci_reset_function_locked() interface remains
->> untouched, and as the prefix implies, relies on the caller to do
->> necessary verification and preparation.  A "reset the PF regardless of
->> VFs" seems like an underscore prefix sort of operation.  We'll need to
->> export the pci_dev_save_and_disable() and pci_dev_restore() functions
->> to provide handlers the full suite of tools they need to replace the
->> existing function and port those we find (maybe also questioning the
->> author's intent on VF reset and recovery).
->>
->> Of course making the guard parameterized with wrappers to expand this
->> family of calls is also an option,
->> pci_reset_function_locked_with_vfs()...
->
->+1 for wrappers. Maybe call it pci_force_reset_function_locked() which
->is slightly forward-looking if in future other conditions may reject the
->reset request using the base function.
->
->>
->> The mlx5 driver doesn't actually seem to be affected by these changes,
->> doing its own link toggle or a PCI bus reset, not a
->> pci_reset_function() call.
->>
->> On the other improvements, triggering a pci_reset_function_locked() on
->> unbind after SR-IOV is disabled, when needs_reset is indicated, looks
->> pretty trivial.
->>
->> The blocking domain operation looks like it might be simplest to
->> implement in the IOMMU core.  We can set a flag for a default blocking
->> domain on the IOMMU group when we take_dma_ownership of the group.
->> Then
->> release_dma_ownership picks the blocking rather than default domain.
->
->IMHO we should change release_dma_ownership() to always picks the
->blocking. No new flag.
->
->this take/release interfaces are invented for drivers which manage dma
->on their own, so it sounds reasonable to not assume the operated device
->is in a good shape after the ownership is released.
->
->Then only a clean reset can unwind it.
->
->>
->> This is then unwound in use_default_domain, called via dma_configure,
->> attaching the device to the default domain in probe of the next driver.
->> Therefore until probe by another driver, a device used by vfio would
->> remain in a blocking domain even while unused and unbound.
->>
->
->so unwinding it blindly at dma_configure time is also problematic, as the
->device may still have a bad state to hurt the kernel.
->
->Instead use_default_domain should fail in such case (in blocked with
->owner_cnt being '0') then a reset is expected to unwind it (Nicolin's
->work will carry the resetting status to pci_dev_reset_iommu_done())
+On 2026/9/22 1:49, Jamie Nguyen wrote:
+>> The kernel document was updated for this, please update the
+>> rest of two patches as well.
+> 
+> I'll update all three patches to use:
+> 
+>      Assisted-by: LLM
+> 
+>> As you noted in the cover letter, the AML thread will stall here if no
+>> response, block the ACPI interpreter and the ACPI global lock when
+>> the field is Lock-flagged, so do we have some warnings if that happened?
+> 
+> There's no warning today. Would a rate-limited warning after a prolonged
+> wait be useful here? I'm hesitant because that would also affect non-ACPI
+> callers of this helper, and I don't believe FF-A defines a threshold after
+> which the wait is abnormal.
 
-Thinking about this more, it might be tricky in multiple ways,
+Let's keep the code as it is.
 
-- This will only work if drivers do reset after dma ownership is
-   released. Looking at the code, vfio currently resets the device first
-   and then dma ownership is released.
-- For some devices with no reset mechanism, vfio-pci uses bus or slot
-   resets. This will need extra care to propagate the
-   reset_iommu_prepare/reset_iommu_done to subordinate devices to bring
-   the device out of blocking domain.
-- AFAIU looking at vfio-pci code, some devices do not have proper reset
-   mechanism, not even slot/bus, so those devices would be stuck in the
-   blocking domain state. Probably need a mechanism to let IOMMU know
-   that there is no reset mechanism?
+> 
+>> resp_regs[1] is confusing, comment here it links to X1 register
+>> is better.
+> 
+> I'll clarify that resp_regs[1] is X2; resp_regs[0] is X1.
 
-Thanks,
-Sami
+Sorry, but it was confusing me :)
+
+Thanks
+Hanjun
