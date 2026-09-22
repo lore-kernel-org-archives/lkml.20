@@ -1,298 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011067.outbound.protection.outlook.com [52.101.70.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAA7386C21;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370EB3B8BC4;
 	Tue, 22 Sep 2026 08:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064981; cv=none; b=HBzrOuyzTWKcTe2BePjqO38iORoLGNcP+ku81zUdfbr2EiaX8Ou1FLEIU3DjNm5vwoQnDxnFL3dFMjMw4/+5SpqzLEKOwsu4lfNF//TqBEnCqaLBjLb/DGTBMsQchv78fv1sfP0QVNGYdohFxtreFHthL6qBc+oXiyUD7R/NB5w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064981; c=relaxed/simple;
-	bh=BuTVsnydVMlOpXAKBEWqj71dcPdmU1jkMss8beXiBjo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=de9oWlAPiSDp+lEdoG0F8LAAi9h+hBqevDj0kCFKXyGf/bsOkSREtduWmdLy9sDctFD1MaxNxreSP5AbG5OSYqZxqz3GTbPlDv4u2NIXn11KoD/AnXn2fOns6kTMLiNnhCo5Mkm5jKlsQhMUT2QblHKU52iQ+IH8kDaewf/tyhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnriIg+Z; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790064982; cv=fail; b=YJhWPN6E2lOX339gioTkTQfp62OpyaliEy9Qa7b8zy/laCGE7I/dgPqbwCuLQRRu4ZGOtnHI+b3VB4cltmC/0LDbzRt6lLvMoVc+E/OjLft357lGFiSYIHwjEKc0eEpWxnXIJYjR9xzw1Felf+UbkOKH5LV9eLBFQ3UVY2NA20o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790064982; c=relaxed/simple;
+	bh=qLvIaPpgEaSJCH+R8dIDq5ck9PLw1pWpFpAYDrE7oig=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=q+l1Afp/NUk/IsmdFVjRJfI9q2FUNJOCarAXaVAVtyCuuPIpfPBKWUNcpXoRMhaCDdGRPi/YI8fwo84/21ZDE2EqSDyuiH5VbocA3cQOmjvke3krEeM6R8gUuDBBMILBSNthTIqn2eiPvVkMVv2EERlrlI/qnduEblRMczYqyXQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=CiKy7JZg; arc=fail smtp.client-ip=52.101.70.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnriIg+Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EB411F000FF;
-	Tue, 22 Sep 2026 08:16:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790064978;
-	bh=gOk4uYV7AmQiIV5I3BISJRVheE9g6ivZNXTPgLuvCDE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AnriIg+ZhXJyWVxHbinL0tNToxHlkD048VcwpjOs390gXHXcW5OLm/D/kyHTFL6oL
-	 UyIU1LJWKEKnyLVNSgtl1hnE719qfz9ucONGEiS46d5HmRMQ94Ojmhh6BMsZe/yVcA
-	 1N0p/7v0vazn+xe4xoHxkoiLVB4vODt7XBEkqcGzROECCGFq5XqMNXvEUBBpkNWioF
-	 ACOvfJmP2pMDaYyL8/N3D+0HxxZRIak0Pzg7GWVOqwxpW3faueHaDcg5ts1P9ZzpdN
-	 u47nwbXKRFoi7zzpaCqajyLsnqs4QVbIz2ryAy/2KYOm8vRAVdo31LTTuxJ+8ql7P0
-	 0TLvGwJJ2pAJA==
-Subject: Re: [PATCH net] net: ti: am65-cpsw-switchdev: flush dynamic FDB
- entries by port on delete
-From: netdev-bot+sashiko@kernel.org
-To: danishanwar@ti.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, s-vadapalli@ti.com, rogerq@kernel.org,
- kees@kernel.org, stefan.wiehler@nokia.com, c-vankar@ti.com, horms@kernel.org,
- arnd@arndb.de, vigneshr@ti.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Date: Tue, 22 Sep 2026 08:16:16 +0000
-Message-ID: <179006497666.2160803.14768308117153644313@kernel.org>
-In-Reply-To: <20260918075926.3616434-1-danishanwar@ti.com>
-References: <20260918075926.3616434-1-danishanwar@ti.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="CiKy7JZg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B+3Vl47lf3AMXFoCIJJ2t6Z/GUqF4ARUQv1qEDSurTGODI3BLPy+HH4B1MdjZ1x3FoOchCJ76bBqGIJ7SVj2/iepVhFRl2m3O49YMMv7FyNtmUEBksraNzB2haGN3jcEYhCBFtgI5JXoqrUMZ0EWJYh7zwoqoz7hLxCipN23RXsiiNxkQMn+cKglCxvfxbFhob7glw8Tt4RKbeqkgxleftQWJfRN1pc1c7q3m1F79zC/KvhngE1ahfzfY7kkf8+mYy4JiJdw0f/OlKfO90AdQedudiGEk5tVfH44QdptEBwtLxoE9nDdj3aUzzdcOxO26pKaYYDMgZO2b2buS+MWFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C4UXtHLK5FAk8BLOvt2xHDnk4lsAil0puPmrfGhCSjU=;
+ b=mzfDQgelvToDbfxEtz/y6ilLD572ESCQx6T+not3bMCthiOP6p7edbNto8ZcAHDfCFFy2AU34ig7MFp87JsvZcVUhy+eB3cDRoXkirzIWwKJVhsYR7dQ0RTpJZNB5UJcOHOf+8rZWsa5rvFW8nzwTshOSMQt3asjJIUmEP8MAo2AJHSofb8wMY13iZ766Mgp6wLmpUlKqZRz28eLVdVGn4W627xmwR7fUukEyzzCnSHttH1/rxmg1iBf/zbjHYvZczDczCgGfrrCyxe5nFPS/88Vw4XoSrHDy89LXLla9w9CoCg/CjfrSD9olcQz3K65iyhAUfaHuQSfzYNfV49Qzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=xiaopeng.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C4UXtHLK5FAk8BLOvt2xHDnk4lsAil0puPmrfGhCSjU=;
+ b=CiKy7JZgUq9nT1z/3Hndtxv5Z8pfL7otRGToopV/iM0nHyJBeOLnUkpMmqqALW18ik6xEsn0p5qHIuvK0xG7KJLrvGgxIBvZ50pgbKHY0zKRm35lOFizAY0hE1Xg172AYrRl5T6978YkmqhVudhWFDVVddFsMVuXUMo11Oxj+WWAddmUCbOn96Pblw4ztKCq58h7i3Bvoxvnt8Us1N8WFKbaWtfBHGiLPKl1wgAViR+bGJNjdzSUK10u/I9mrSudOot4GJsyzqFspu3OoqnaT9NHyu7ixaMco49PqRGRiVVpz/+0d9QDCvescHJYMEkgDoez65PXCtZx7jQFaY6EUg==
+Received: from DB9PR05CA0005.eurprd05.prod.outlook.com (2603:10a6:10:1da::10)
+ by DU0PR10MB6779.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:478::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Tue, 22 Sep
+ 2026 08:16:14 +0000
+Received: from DU2PEPF00028D0A.eurprd03.prod.outlook.com
+ (2603:10a6:10:1da:cafe::40) by DB9PR05CA0005.outlook.office365.com
+ (2603:10a6:10:1da::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Tue,
+ 22 Sep 2026 08:16:14 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU2PEPF00028D0A.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 08:16:14 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 22 Sep
+ 2026 10:22:41 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 22 Sep
+ 2026 10:16:13 +0200
+Message-ID: <6c95cadf-c73a-4b2b-8d21-97753087b372@foss.st.com>
+Date: Tue, 22 Sep 2026 10:16:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: vgxy61: reject out of range MIPI CSI-2 lane
+ numbers
+To: Guo Zihao <guozh23@xiaopeng.com>
+CC: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	<hverkuil@kernel.org>, Sylvain Petinot <sylvain.petinot@foss.st.com>, "Sakari
+ Ailus" <sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Liu Chao <liuc63@xiaopeng.com>
+References: <20260918060352.1879381-1-guozh23@xiaopeng.com>
+ <0729208e-e1ab-4960-aa03-810bd4915001@foss.st.com>
+ <20260922064604.847150-1-guozh23@xiaopeng.com>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20260922064604.847150-1-guozh23@xiaopeng.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0A:EE_|DU0PR10MB6779:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5d3b195-8b92-4ec6-8bbc-08df1881c51d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PZ6px9xk8LAxurrEsYCDV2GiWkalkN/3WUR3X+0BPcBj7ljQ6aG8KynCkt9KiaMOPCzxTRN/QEGbSgYBj8FO8Uu2Cx/BFgbnNAMfUTSM8SLCJ+Xlwvtt/5pu18LuWIl1FG+j03fPao75hEqfVoMs6GRH+eFaDZEU1HP8NSKovAjJJsm7H/F0dfFT4Zw7mWoUPCGWuKEYvyC4jxBEjLP1g3NZuwlGzJo94Xm1uYeuWcYHmXoXMeSvWNvOgPVrtdpX+jjKb8sfKoNaClkmtmmFdwfM4tQ7CGMwlsvCqf5yYXxNhuUGKN7/Unq5V3teLzBaKGkDTW/XRX3cjXb1nxHIzDhqReSmzYelMgC6b6ix7VhQgVFMP9NAMj4J6vb5IJHl5/pEZCjUgKuH6lQ/X++rRF+GEZ4ZS6DrxmMs2svj6wVVkJ7Jxu1yD+G0hjsUdnHw9K3SqzDsvKEpz71jRz2R08dRqsvPW0sCfJiymoEfWoQ2/3vzzEE2uhVhzey2r2M6kWgFXxlKk/k70SRInHgEdqLNRbCbyJUVprQCl9VgTwNM3DxgaRJijNXZCgYpuTk4D2F4WMICWy0AION9Eumgr28OZ/PdjvyquYGl94fxHXBJUBruzKn0QtNfzILkCsl+Odpaifv5dtHj20M0mIJVIJb5TocgzID/14ACZQVNbOh/GhrbYNcadaWqnXQQgmv6s8OsGjJp7MKkeQxPyWKw9Q==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/RGLGlaKagYB7iUhHgdW6LxHyTBBmej+jllzZPfqeL3tFVgaxGjBnbyoIA/GtT8wDcjpVTy/Elg48bDUeNcoqQu9FPhY1667KtY1gPCQJvAHSUI6E4sgqkHxIAxyE3Jlo7Ax6AMfn8r14CXjovfuuAvXol0oI3gnw2dGBr3c1qNjWtd5pnULVgV2d1AVgCU5tSt+nAiT3/eyZqWHWUeyhw2+NF+3skxOOaGunY7kdASE0yHT4Ds8MUO+jf8XxLNAB6/z/aoNJmZQbVlNmYlTogWEPzbdaFU97pX7HuVpgcm/brRbs64CYb28vsRnC3SU+uImD/s/Y6a15nd3h7XKmhQw73bmdbWqtUU7YnkqFnLaGLvc4fNRyrQkQr7uQhEJGrxfgLK70VsozPol8Sy7ccc534RRlC3SbIHVIsXA9roZDz826vUGuRuYFyBiMPts
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 08:16:14.5569
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5d3b195-8b92-4ec6-8bbc-08df1881c51d
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D0A.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6779
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Hi,
 
-Critical: 0 · High: 1 · Medium: 2 (1) · Low: 0 (1)
+Le 22/09/2026 à 08:46, Guo Zihao a écrit :
+> Hi Benjamin,
+> 
+> Thanks for the review. The maintainers are in copy now.
+> 
+> On the lane checking: l_nb is the number of lanes, while clock_lane and
+> data_lanes[] are the lane indices. The check at line 1453 accepts
+> num_data_lanes being 1, 2 or 4, but an endpoint such as
+> 
+>         data-lanes = <1 2 3 99>;
+> 
+> has a valid count of 4 and an out of range index in the last entry. The
+> indices are stored as unsigned char in struct v4l2_mbus_config_mipi_csi2,
+> so an endpoint value of 99 arrives as 99, and anything from 5 up writes
+> past the five element phy2log array.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Ah you're right, my mistake. I'll review v2.
 
-- [High] New cross-module ALE helper
-  `cpsw_ale_del_ucast_dynamic_by_port()` is added to…
-- [Medium] In am65_cpsw_switchdev_event_work() the `!fdb->added_by_user`
-  gate is dropped for SWITCHDEV_FDB_DEL_TO_DEVICE, but only the `vid ==…
-- [Medium] Dropping the `!fdb->added_by_user` gate makes every hardware-
-  learned (dynamic) bridge FDB delete run an unbounded full ALE table…
-
-Pre-existing issues:
-- [Medium] cpsw_ale_del_ucast_dynamic_by_port() performs a full-table
-  read-modify-write walk over the ALE indirect access window…
-- [Low] The identical stale-dynamic-FDB defect remains in the sibling
-  legacy switchdev driver drivers/net/ethernet/ti/cpsw_switchdev.c…
-
---
-
-net: ti: am65-cpsw-switchdev: flush dynamic FDB entries by port on delete
-
-The patch drops the added_by_user gate in the SWITCHDEV_FDB_DEL_TO_DEVICE
-arm of am65_cpsw_switchdev_event_work() so dynamic FDB deletes reach the
-ALE, and adds cpsw_ale_del_ucast_dynamic_by_port() to clear dynamic rows
-for a MAC on a port regardless of vid when the bridge reports vid=0.
-
-> diff --git a/drivers/net/ethernet/ti/am65-cpsw-switchdev.c b/drivers/net/ethernet/ti/am65-cpsw-switchdev.c
-> index 53cdac272b58..8b4640809cf5 100644
-> --- a/drivers/net/ethernet/ti/am65-cpsw-switchdev.c
-> +++ b/drivers/net/ethernet/ti/am65-cpsw-switchdev.c
-> @@ -397,13 +397,23 @@ static void am65_cpsw_switchdev_event_work(struct work_struct *work)
->  			   fdb->addr, fdb->vid, fdb->added_by_user,
->  			   fdb->offloaded, port_id);
->  
-> -		if (!fdb->added_by_user || fdb->is_local)
-> +		if (fdb->is_local)
->  			break;
->  		if (memcmp(port->slave.mac_addr, (u8 *)fdb->addr, ETH_ALEN) == 0)
->  			port_id = HOST_PORT_NUM;
->  
-> -		cpsw_ale_del_ucast(cpsw->ale, (u8 *)fdb->addr, port_id,
-> -				   fdb->vid ? ALE_VLAN : 0, fdb->vid);
-> +		if (!fdb->added_by_user && !fdb->vid)
-> +			/* vid=0 here just means "bridge doesn't know the
-> +			 * real vid" (vlan_filtering=0) -- the dynamic entry
-> +			 * may be stored under any nonzero vid, or several.
-> +			 * Delete by (addr, port) instead of guessing a vid.
-> +			 */
-> +			cpsw_ale_del_ucast_dynamic_by_port(cpsw->ale,
-> +							   (u8 *)fdb->addr,
-> +							   port_id);
-> +		else
-> +			cpsw_ale_del_ucast(cpsw->ale, (u8 *)fdb->addr, port_id,
-> +					   fdb->vid ? ALE_VLAN : 0, fdb->vid);
-
-[Severity: Medium]
-What happens to dynamic deletes that carry a nonzero vid (bridge with
-vlan_filtering=1)?  They now land in the else arm, and
-cpsw_ale_del_ucast() resolves the row through cpsw_ale_match_addr(),
-which compares only entry type, vlan_id and MAC:
-
-drivers/net/ethernet/ti/cpsw_ale.c:cpsw_ale_match_addr() {
-	...
-		if (cpsw_ale_get_vlan_id(ale_entry) != vid)
-			continue;
-		cpsw_ale_get_addr(ale_entry, entry_addr);
-		if (ether_addr_equal(entry_addr, addr))
-			return idx;
-	...
-}
-
-The port argument of cpsw_ale_del_ucast() is never used, and no
-ucast_type filtering happens, so the row that gets blanked may belong to
-a different port or be an ALE_UCAST_PERSISTANT row.
-
-The MAC roaming case looks reachable: br_fdb_update() emits a dynamic
-RTM_DELNEIGH for the old port while the ALE has already re-learned the
-MAC on the new port:
-
-net/bridge/br_fdb.c:br_fdb_update() {
-	...
-			if (unlikely(source != READ_ONCE(fdb->dst) &&
-				     !test_bit(BR_FDB_STICKY, &fdb->flags))) {
-				br_switchdev_fdb_notify(br, fdb, RTM_DELNEIGH);
-				WRITE_ONCE(fdb->dst, source);
-	...
-}
-
-The ADD arm still keeps its added_by_user gate, so nothing reprograms the
-row afterwards.  Before this patch the gate made that path unreachable
-for dynamic entries.
-
-Should the vid != 0 dynamic case also go through a port-aware and
-ucast_type-aware delete, so both arms of the new conditional agree on
-which rows a dynamic delete may clear?
-
-[Severity: Medium]
-With the added_by_user gate gone, every hardware-learned delete now runs
-a full ALE table walk in cpsw_ale_del_ucast_dynamic_by_port() while the
-rtnl_lock() taken at the top of am65_cpsw_switchdev_event_work() is held.
-The helper has no early exit, since it deliberately clears rows under all
-vids, so each event costs ale_entries times six MMIO accesses (64 entries
-on cpsw2g, 512 on am64-cpswxg, more on j721e-cpswxg).
-
-The event rate is driven by network traffic: learning, ageing, flush and
-especially roaming, where one RTM_DELNEIGH is emitted per roam.  An
-off-box host can keep this going by sourcing frames with the MAC of a
-host known on another bridge port.
-
-Is the added rtnl hold time and MMIO load per untrusted FDB event
-acceptable here, or would an early exit / bounded search be preferable?
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but the legacy sibling driver
-drivers/net/ethernet/ti/cpsw_switchdev.c still has the exact code this
-patch replaces in its SWITCHDEV_FDB_DEL_TO_DEVICE arm:
-
-drivers/net/ethernet/ti/cpsw_switchdev.c:cpsw_switchdev_event_work() {
-	...
-		if (!fdb->added_by_user || fdb->is_local)
-			break;
-	...
-		cpsw_ale_del_ucast(cpsw->ale, (u8 *)fdb->addr, port,
-				   fdb->vid ? ALE_VLAN : 0, fdb->vid);
-	...
-}
-
-cpsw_new.c also sets ALE_VLAN_AWARE unconditionally in switch mode, so
-both premises stated in the changelog seem to hold there as well.  Since
-the new helper is declared in the shared cpsw_ale.h consumed by both
-drivers, was leaving cpsw_switchdev.c unconverted intentional?  A note in
-the changelog about the scope would help.
-
->  		break;
->  	default:
->  		break;
-> diff --git a/drivers/net/ethernet/ti/cpsw_ale.c b/drivers/net/ethernet/ti/cpsw_ale.c
-> index e202bba49480..1a2aceda3dbe 100644
-> --- a/drivers/net/ethernet/ti/cpsw_ale.c
-> +++ b/drivers/net/ethernet/ti/cpsw_ale.c
-
-[ ... ]
-
-> @@ -441,6 +441,40 @@ static int cpsw_ale_find_ageable(struct cpsw_ale *ale)
->  	return -ENOENT;
->  }
->  
-> +int cpsw_ale_del_ucast_dynamic_by_port(struct cpsw_ale *ale, const u8 *addr,
-> +				       int port)
-> +{
-> +	u32 ale_entry[ALE_ENTRY_WORDS];
-> +	int type, ucast_type, idx;
-> +	u8 entry_addr[6];
-> +	int deleted = 0;
-> +
-> +	for (idx = 0; idx < ale->params.ale_entries; idx++) {
-> +		cpsw_ale_read(ale, idx, ale_entry);
-
-[Severity: Medium]
-This is a pre-existing property of cpsw_ale.c rather than something the
-patch introduces, but the new helper adds one more unlocked
-read-modify-write walk over the shared ALE indirect access window:
-
-drivers/net/ethernet/ti/cpsw_ale.c:cpsw_ale_read() {
-	writel_relaxed(idx, ale->params.ale_regs + ALE_TABLE_CONTROL);
-	for (i = 0; i < ALE_ENTRY_WORDS; i++)
-		ale_entry[i] = readl_relaxed(ale->params.ale_regs +
-					     ALE_TABLE + 4 * i);
-	...
-}
-
-There are no locks anywhere in cpsw_ale.c, and other table transactions
-such as am65_cpsw_nuss_ndo_slave_set_rx_mode() ->
-cpsw_ale_flush_multicast() run under netif_addr_lock_bh() rather than the
-rtnl_lock held by the switchdev worker.  Should anything ever interleave,
-one transaction's staged words can be committed under the other's index,
-and cpsw_ale_flush_multicast() writes back every ADDR/VLAN_ADDR row it
-reads, which could restore a row this helper just cleared.
-
-Is there an assumption documented somewhere that all ALE table accessors
-run under rtnl?
-
-> +		type = cpsw_ale_get_entry_type(ale_entry);
-> +		if (type != ALE_TYPE_ADDR && type != ALE_TYPE_VLAN_ADDR)
-> +			continue;
-> +		if (cpsw_ale_get_mcast(ale_entry))
-> +			continue;
-> +		ucast_type = cpsw_ale_get_ucast_type(ale_entry);
-> +		if (ucast_type == ALE_UCAST_PERSISTANT ||
-> +		    ucast_type == ALE_UCAST_OUI)
-> +			continue;
-> +		if (cpsw_ale_get_port_num(ale_entry, ale->port_num_bits) != port)
-> +			continue;
-> +		cpsw_ale_get_addr(ale_entry, entry_addr);
-> +		if (!ether_addr_equal(entry_addr, addr))
-> +			continue;
-> +
-> +		memset(ale_entry, 0, sizeof(ale_entry));
-> +		cpsw_ale_set_entry_type(ale_entry, ALE_TYPE_FREE);
-> +		cpsw_ale_write(ale, idx, ale_entry);
-> +		deleted++;
-> +	}
-> +
-> +	return deleted ? 0 : -ENOENT;
-> +}
-
-[Severity: High]
-Is an EXPORT_SYMBOL_GPL() missing here?  The neighbouring ALE entry
-points used across module boundaries all have one:
-
-drivers/net/ethernet/ti/cpsw_ale.c
-	EXPORT_SYMBOL_GPL(cpsw_ale_add_ucast);
-	...
-	EXPORT_SYMBOL_GPL(cpsw_ale_del_ucast);
-
-The only caller, am65_cpsw_switchdev_event_work() in
-am65-cpsw-switchdev.c, is linked into a different module than
-cpsw_ale.o:
-
-drivers/net/ethernet/ti/Makefile
-	ti-cpsw-ale-y += cpsw_ale.o
-	...
-	obj-$(CONFIG_TI_K3_AM65_CPSW_NUSS) += ti-am65-cpsw-nuss.o ti-cpsw-sl.o ti-cpsw-ale.o
-	ti-am65-cpsw-nuss-y := am65-cpsw-nuss.o am65-cpsw-ethtool.o
-	ti-am65-cpsw-nuss-$(CONFIG_TI_K3_AM65_CPSW_SWITCHDEV) += am65-cpsw-switchdev.o
-
-With CONFIG_TI_K3_AM65_CPSW_NUSS=m and
-CONFIG_TI_K3_AM65_CPSW_SWITCHDEV=y, does modpost report
-"cpsw_ale_del_ucast_dynamic_by_port" [drivers/net/ethernet/ti/ti-am65-cpsw-nuss.ko]
-undefined?  Built-in configurations would hide this.
-
->  
->  static void cpsw_ale_flush_mcast(struct cpsw_ale *ale, u32 *ale_entry,
->  				 int port_mask)
->  {
-
-[ ... ]
+> 
+> For clock_lane the write to phy2log[clock_lane] at line 1461 happens
+> before the log2phy[0] != 0 check at line 1480. vd55g1 and vd56g3, which
+> build the same kind of map from the same properties, check clock_lane
+> before the map is built rather than after.
+> 
+> v2 keeps both checks.
+> 
+> On the tooling question: yes, this was written with the help of an LLM,
+> and v2 carries the Assisted-by tag as the process documentation asks. I
+> went through the code and the reasoning myself before sending it.
+> 
+> Regards,
+> Guo
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918075926.3616434-1-danishanwar%40ti.com
+Regards,
+Benjamin
+
