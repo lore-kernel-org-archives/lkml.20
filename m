@@ -1,60 +1,61 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529DD37F32A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E468D4399E2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065918; cv=none; b=ME8PUu6J7qZyzFLKZE/ATeyJXQM24bQcQaJiNExQFuxu59pC0LG6hfPv/cy5jRgSx3z8WxO4CscNU/H9OU8Uys1jPL60iq90ThAc+UK8cP6Tbb0C9caWoFHBS7wUCB58Qigf/no3nCqUf1MbFbKy3u0RC+VGb8X9N1usUql0Vko=
+	t=1790065920; cv=none; b=sKbqmezw7gTbhMYxRlOAd+qe7a42QPkomasGnmwkqjJMZsCzHMAHeqiHTFmTav5BjDJmcMrRMpWj7sSBkc72dYknStV0Ro3o87Qf93wsS7xLxbmKJYuKdI1cvOUnJQfj/NCkl75SXXPXA2+4RkwYDp3/N7eN6LDpB7DaXl8T5AM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065918; c=relaxed/simple;
-	bh=A7hEuCLZWRdGFblp///+ebIF29mgq6p9oSmiBLCXlLU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eIJQwaEt+zsiYTdzBhRvM9CW7S2+Scv7Qs9ZCuyiiBG8WROVJHAbM5ySBZJEbRqUwde8ydvhlb2z1Qu8muZhsw/AzFkJedzqxfP3OR5sSt+8/8Bd6Ghmm78CPlqR475HOQaCaV2augGKnuB3bBlpwc+EPDfNrhSExM2/ERaaM0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LEKGXJEI; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790065920; c=relaxed/simple;
+	bh=BreWabxS1IgcOVfBlTLTzSYVlReuPHPcupRntXaUElQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eLQLp0XaAo28T1E2Ak+j2f+ja6QHJqOwJfehGdbHkzTjow3+05oywAAW3k787RveQMxf1/P9kt5bGs2kqw1lsErlPmx2Kuzg9jy2if8UqHhZk/Z8WDCRJnrKP4ovuUFDUfuxEmIS2cVIh4g8ZvWq18qjuyrc7JY3lUgoKDQ1EuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gQjpVUdG; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LEKGXJEI"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79f7so26502085ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:31:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gQjpVUdG"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2d91a931f66so27292445ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:31:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1790065915; x=1790670715; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fdu061GCn59M+R7cqh6VYjsrqQSSKRxNFPR4yXO2TzY=;
-        b=LEKGXJEIzHeof7MqC3BR8w23MyReLogdSnB/KofytWBFWR0k9lXOtsI6gxFVo4vUkr
-         J+gFmE1CDJtXiWx4qdL+N6dhRlZJKkpyxKz9VhCAH4MMZeKMBp28LiOTiA2b4kDcT1oT
-         uRKVR/hiClQrtw6Yo7erb68yJtP8KkalSy8wdoA/WowCLbz0QFzouWa3YSGMRrFn9FJg
-         U2khp9aL8NrEnDZK3oQZzN19XcuAGFBLdMQ8GSS8ketmgIiINoCL9mCcws08mkPLiiia
-         k4TGcD4O19KZMH+9z/TjhHFC61Rr4IfN7EUIQOfH94DkZknww8wcb/l08BpcBcMORBs/
-         Iw9A==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TSWCHr4BZPj+fsKkGeyMKL1NbC35VprK/V45h09li18=;
+        b=gQjpVUdGYCtnnUQUJuc3dn72/8SrsyKTiGo13H2mTMxAXvel5o0H2PTjcRa/zw+Chd
+         RKNm68IN/MUCBilscJyoRgEsJvVJrAnHdUYzPwLpiBMlLgcNn/wW/LEXH+wbGCSJnqxr
+         r8VDZKbjqjbMXVp0Gda3qG0XUdxMqdTxOt5hftspDAK3dsxf9oWhOv1SeftdtqHLC3kr
+         cgtTkDXvuNkgYfjiZNaLr0/FtyN45hv8vnxjWfLKOzOj/+QCj+op93BLZvIKJ/k0k7m+
+         8qNhzKIqdQFAfbC1Zo6/r/bcpiFPhzz3GDHpe1N3/gMpqOJjrpXq2A72xsYDazDJHwRe
+         40yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790065915; x=1790670715;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fdu061GCn59M+R7cqh6VYjsrqQSSKRxNFPR4yXO2TzY=;
-        b=DSjEYH9R6HBCrrncw/v80NV2sPf212sq7Ubznin2cy8SjRaQvOwcJVh6s6w1STV4zM
-         v3KHO3HLd7WGB4SuCYIikPQ1GWxxprFFhQRFpTmeToAiS2VtuTTzwn4JnVtqnK5f/o/C
-         OD4gdrXfNMYi0Ur5UmRibzBRItX+w6bjbv17xCH1FqO6QAFgv6twAPzI0Tt6ECxExhaB
-         Fg1lwvOS04eJ8h+sKRT4EZa15yqeO/8AR8HenK05TSbT+FglHpK5H6r+3fMfIVJuOYYp
-         w6c4mL8nJCBdS3i15K8gWBQZmJmFTC9rpZkuobMQkTM5TAnnQs0Is+LywLl+nyogMbsl
-         qrcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwauD3CFuROxq1kFD+AvBazjEzwKqh59l6Fx6gmQPSFUwaoA1gFjc5fGs2cQAeZplgLicyqkStW2XndL3I=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0jK2TnDgYWTFhdB/sRxGRne8nKamfpK2Rzu2msiDsHBom59gH
-	F6M6cR3hx9umLsPklxZqUewoOOMGzYdUu2wAv641ac3kRwSVd2r8cyKN
-X-Gm-Gg: AYBFou03XUvAlvS+xQv75lvYuvlAAmUoCE/hBn/BOFwaYvyGdWB/3QDwRXtbTVgboT6
-	OL4D+nipSzj4BVYVL6UWKzLh4gPITutJ5OP4+xyTNSTN3bSbbl9CvlW21EwaPh6sUDnCGSwYwPF
-	OPrfEoLmGOEnUFnL1epv1ilqC5d2a/tt8x13cX34HlnCnqMamwDMbPqaufJ6UdpJe7ZofiBEFdr
-	st50S5FdXZoWJfa1tXlHXmLXpGWm7dadW4rfDIyJXa9zmKOYX1PpJfCdt9rEgmCi9INCrBrKLoX
-	JQtXmvo7ouaFzmREBb3cruQE8Y6yNrMuSJT0H3CJaiZ0QhKd1PePYW3bJIEGUr+kHQVQstcALxP
-	E31LkwH35dGlThEmc0QN4MJXDysoVtrtkSV3v99VdI29o/Dd+NqM5tyvlENJIPbYu7vor+R2/9w
-	PEll/Irsac1aqlzp4UxlvJGpeU1P0lXum6SWWAc9Vqz6IG5o6smg5k9jxdFk/q6Wf9XyKtVUhrK
-	T/+Gx7b1oKP+A2zXHVTtPy1eQDcmXbxPZOPU7WQ2rtTWbIot5qqWi0ULh2QP77vC7OtjJIllvE+
-	/52PtAFzDA==
-X-Received: by 2002:a17:902:cccd:b0:2dd:c0ff:e724 with SMTP id d9443c01a7336-2df60b674b8mr5358005ad.54.1790065914611;
-        Tue, 22 Sep 2026 01:31:54 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TSWCHr4BZPj+fsKkGeyMKL1NbC35VprK/V45h09li18=;
+        b=sUt+m9mEc69PITA/3N0IdeD5gbGCjSKUX1rD3Zrs+Fdxy/sqKJvO2qQIvJU1OrRvOs
+         bgxVnkl34a+Dz2mzSld84L3i2UF4hSRmiKw3d//LYSe1lK+B3chJd2JOTYcnqNaI7hMP
+         7jQfgQKHeJxsLoyTHI35RcX95CgC68/kvumsClIysKkGHpUVfBKriY9+7/G2nxR0CfDf
+         5O6RoNNgY4hMu80bdRu39+TFgFpHAn5Kao+qHxTcgALmLEEMOIITU0lc2duDi028LNap
+         n8ZumERO/sOUKjTGD4/klHaBJYgjM6Wz27dQfnbg0egbpqYGztRbQ/Z/RDGevfqwzpZP
+         zHuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGffx1ACdYlg+PsrqR7GYficsbrtyGDjw7V8VTOKxEAJNBK8dv37jo7U9gEoMemY57H3NcHJefIsFPqcQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfwADnnk+Qxvr1tBDifmrBFtNQKSEAxnI6ugohdNIWtnG2tD8O
+	voTJrro3PTdTrSkPHwxURc1TA77Ww5+uD3sjHqW1o2pqcoTPrQ8Uwd6F
+X-Gm-Gg: AYBFou2AYmVRTeHujnRvoiHhaeiZXI0JqPPdbuwovznvqlHvqQ435s3qUhU7on5DQA0
+	Cph2sAaLuQTP4NiRWqpuw1BC4Jxat2qlDpm3h5nUrIae7M0neUgUn3vOT0f5FG1F9r+97iXwUS4
+	rOk6nEoK9HtcLj39/gnv5PAemA0SL/yA/MeJ7IGC1OCEUTGYU9QWgNM+XNN+NbxIGLvEh3aRouq
+	jVKOBpIvNSBWQlr8kM2sF7RmuGGXayePm5cSL5EOolvHBTIarfyBHFvz8xuiBtItoGrSAQruyw1
+	IWgcsHhrBJBHcx2ylUvG6ZIc7uwN4CCey96JA94ShG6kR8fnWRkJzQ4ydR42dMy3L3Z+gepGF2i
+	lo8WomiLzhbJ7kqScqGCImPjbnmaGyL+A5KDwDvZJEnNjuYo10uqhkKav2/E4y4MXPd+araDzZl
+	5d8REIKUIPT3K38/fjX9KXVq5zZQIZp0FuzaC1OAcknyC+OS5cvwTvW36jBf+TD7HUN5/fNsMdu
+	bfuFs8CBKg2W92JTwC+mQZuGRc0OIcbD5wve7BJ9ShASvhVdecUVJJ05KGcGBGkx4EGpHrOqyxa
+	Rtf4yKbH2LZvNzsQB1S3
+X-Received: by 2002:a17:902:f60c:b0:2db:3b35:1ac6 with SMTP id d9443c01a7336-2df609b1b44mr6069175ad.5.1790065915093;
+        Tue, 22 Sep 2026 01:31:55 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
         by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0197d3sm5848175ad.13.2026.09.22.01.31.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
@@ -67,55 +68,80 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: Hui Peng <benquike@gmail.com>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] serial: fix IRQ chain race, baud fallback, and uartclk overflow
-Date: Tue, 22 Sep 2026 08:30:48 +0000
-Message-ID: <20260922083152.4055969-1-benquike@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] serial: 8250: hold hash_mutex across IRQ chain linking in serial_link_irq_chain()
+Date: Tue, 22 Sep 2026 08:30:49 +0000
+Message-ID: <20260922083152.4055969-2-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <20260922083152.4055969-1-benquike@gmail.com>
+References: <20260922083152.4055969-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This series fixes three bugs in the 8250 and serial core drivers:
+In serial_link_irq_chain(), serial_get_or_create_irq_info() acquires and
+releases hash_mutex before returning struct irq_info *i to the caller.
+Before serial_link_irq_chain() links the port into i->head, a concurrent
+serial_unlink_irq_chain() on the same shared IRQ line can observe a
+single-port i->head under hash_mutex, remove i from irq_lists, and
+kfree(i), causing a use-after-free when serial_link_irq_chain() accesses
+i->lock and i->head. In addition, if request_irq() fails at the end of
+serial_link_irq_chain(), serial_do_unlink(i, up) calls hlist_del(&i->node)
+and kfree(i) without holding hash_mutex.
 
-1. Hold hash_mutex across IRQ chain lookup, linking, and error-path
-   unlinking in serial_link_irq_chain() to prevent a use-after-free race
-   with concurrent serial_unlink_irq_chain().
-2. Allow a third loop iteration (try < 3) in uart_get_baud_rate() so that
-   when both the requested and old baud rates are out of range and try == 1
-   clips the rate into termios, the clipped baud rate is evaluated and
-   returned on try == 2 instead of returning 0 and causing a divide-by-zero
-   in uart_get_divisor().
-3. Reject baud_base > UINT_MAX / 16 in uart_set_info() alongside the
-   uartclk == 0 check so that multiplying baud_base by 16 cannot wrap
-   around in 32-bit unsigned arithmetic to a small non-zero uartclk.
+Move guard(mutex)(&hash_mutex) from serial_get_or_create_irq_info() to its
+sole caller serial_link_irq_chain() so that hash_mutex is held across the
+lookup/allocation of struct irq_info, the insertion into i->head, and any
+error-path serial_do_unlink() cleanup.
 
+Tested in QEMU against Linux 7.3.0-rc3 by configuring /dev/ttyS1 and
+/dev/ttyS2 to share IRQ 3 with ASYNC_SHARE_IRQ via TIOCSSERIAL and
+concurrently opening and closing both ports from two threads in a tight
+loop with KASAN enabled, verifying 0 KASAN faults or warnings.
+
+Fixes: 25db8ad5c567 ("serial, 8250: remove NR_IRQ usage")
+Fixes: 99fc860fae83 ("serial: 8250: extract serial_get_or_create_irq_info()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
 Changes in v3:
-- Patch 2/3: Collect Reviewed-by from Ilpo Järvinen.
-- Patch 3/3: Add missing #include <linux/limits.h> for UINT_MAX and move
-  the new_info->baud_base > UINT_MAX / 16 check to the uartclk == 0 check,
-  as suggested by Ilpo Järvinen.
+- No changes.
 
 Changes in v2:
 - Split the 8250_core.c and serial_core.c fixes into a 3-patch series,
-  add Cc: stable@vger.kernel.org, and document how each patch was tested in
-  QEMU, as requested by Greg Kroah-Hartman and John Ogness.
-
-Hui Peng (3):
-  serial: 8250: hold hash_mutex across IRQ chain linking in
-    serial_link_irq_chain()
-  serial: core: allow third iteration in uart_get_baud_rate() fallback
-  serial: core: reject baud_base values that overflow port->uartclk in
-    uart_set_info()
+  add Cc: stable@vger.kernel.org, and document how the patch was tested,
+  as requested by Greg Kroah-Hartman.
 
  drivers/tty/serial/8250/8250_core.c | 4 ++--
- drivers/tty/serial/serial_core.c    | 5 +++--
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
+index b875d394796f..0bc810f285a4 100644
+--- a/drivers/tty/serial/8250/8250_core.c
++++ b/drivers/tty/serial/8250/8250_core.c
+@@ -134,8 +134,6 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
+ {
+ 	struct irq_info *i;
+ 
+-	guard(mutex)(&hash_mutex);
+-
+ 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
+ 		if (i->irq == up->port.irq)
+ 			return i;
+@@ -156,6 +154,8 @@ static int serial_link_irq_chain(struct uart_8250_port *up)
+ 	struct irq_info *i;
+ 	int ret;
+ 
++	guard(mutex)(&hash_mutex);
++
+ 	i = serial_get_or_create_irq_info(up);
+ 	if (IS_ERR(i))
+ 		return PTR_ERR(i);
 -- 
 2.49.0
