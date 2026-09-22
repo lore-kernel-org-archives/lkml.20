@@ -1,187 +1,197 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1ED4A6893;
-	Tue, 22 Sep 2026 19:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598CE2773EC
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106012; cv=none; b=MHzkEZmOjKZzIOq3uqgGkVc9jo+vL9MT9b0pm/oKughHyry5SPajLz3UhFCxwE8FV0LmbOqhsrhOxWOhgQ5G8i9enWHpxwsxiOnD/i9yQwfBcC0qkbQiaVAT4R8+LXFdekRZttebFSdLE/bj3wxkDooY51q+qJlQ0vHu/2F9xtg=
+	t=1790106043; cv=none; b=tjjScCSRpltPoUawwEbSyF1TujejlBXxavTvNRxgHG0jjrZrVOQY/QFNLU4PLNqMrdzu2oqla8jr+iSl+nFH2X9EM5XhBaWBiRRStZWiijn9c80pxCw0hzFyS2YloRM5F5Yy27nEZ/VpULI35HvWJ2GbnEL/6Clo7uZlq7iqYFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106012; c=relaxed/simple;
-	bh=kI9wzxnTnd8LDl6IJ7n+XvQ+xH2oAzp04EfRawdJOt0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vFNMAcMy509hTdZWGpWEQrrxZlC6JcOty3h/Ff3cTnF0KSXN/6Ul3yYcgKK5QGJF1kfVVb2Ke7wOqISVw4vW/LDRf1vvNfjTHN4r+V8Gmeku8WyYhTZ0fOmYCQriKZOtd5QGxVKWH3qsPCtGfW/bRYW3sRssSkJJQuQwmeScX94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=f5MExzBY; arc=none smtp.client-ip=212.227.15.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1790106043; c=relaxed/simple;
+	bh=VfZhuL2X1gTRZxO0OzhM4JExH2t49JX4CNGTbuUaWiA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DWq7zOiLAc1EYcNaysvDoG2c7X6dxrHyWTbMwSd/WswJ6iPRBEQ3KrS1WQ014TjANEiywr9z/XRfz4h9fpMzLgx6ebuO9wO0iq2alxt67afYqIoWtdhbmhu0mQW6X1VW2rPTYizMrn3tbk3Ye22LdswkS1JsYmnnJm2cKi73mJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MCpZrl2X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dXoXzPHu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="f5MExzBY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1790106005; x=1790710805; i=w_armin@gmx.de;
-	bh=x4lwUrK2u8zW5UX36D2xKHU48N0ZJHlWWyo5Cl9IZY4=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=f5MExzBYvnQKyk9x1RGK9aP+MNLBE5qZqVHQZ/T/slGsFM2crCx/tkHEWXqQR3zU
-	 ldcj1JygpYJquyVDKI7pDP+BY0EbWGmRivYVzVfIzNTDEwYdhucitOVXoU/sIdOrL
-	 E/GV9PAs63p3pcXoOsTNyCiO/YqAFEQuFrSmoYYL7S21E3tRzDTpj5slykLGEoCr5
-	 W1XSuyURzjVQtznYuc/70Udo9lWKEtIglI7a9wvXCtKFOqP+LSyFIb60gulMqA1Br
-	 Ppc+U+Sox75nAWbPk1NC+kL41xpORNLJTYeg40WYO7aTZPwrIPDdsOGzs+YQCGH7m
-	 3UafCUgT9Vdhi4CRDQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1McpNo-1wZDZ02oiY-00cBJF; Tue, 22
- Sep 2026 21:40:05 +0200
-Message-ID: <50986455-fb18-4c92-9c3b-74d625f3f6fa@gmx.de>
-Date: Tue, 22 Sep 2026 21:40:00 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MCpZrl2X";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dXoXzPHu"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7Cs2368041
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:40:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	isSEF0IU9c1OXuHxBNGq9pSATtA3AQIYhgVBzOHtvqs=; b=MCpZrl2XliLUV5m+
+	AwX/zkHOD/sII1crCEGtG2U/jgpLCl9R5xl7SrsC9BMPS8yupRZaRWKjoSPcfPr1
+	G+zk8nVeK5HU3gGbbimKtGhjfcB7JoInF0tNJb+6FNetlQpNQBt5qKW7rHavrjBQ
+	kng7Ib17Sxzb4DCO4X0lKQv7HIR0DRlKG41W9jQGC1kpLBZfLxU36+a0/t6N+XvA
+	kx3fALA9mTbiRnv0fp89c0relqYJ1KxDBP1EpWE4H4FCFMukDUHfMMSyo/UcI5jZ
+	ylDWRa5BwwCWg2GQvwmoLWMtT+zUqPbUTBsfFLPwAt3NMJG1jsSw6iLmigngpwMP
+	wU2fSQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gurntahjk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:40:40 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33310847fcaso232676eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:40:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790106040; x=1790710840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=isSEF0IU9c1OXuHxBNGq9pSATtA3AQIYhgVBzOHtvqs=;
+        b=dXoXzPHu00H6QXZ4W62UlASH+KCXoGsshg84SyvgU5TBQwA2z7n3TpXZO+c4hXZK+U
+         HAMKGLw93+P268nX/JY1XzEZ7vpfmhI3XRyGufr2W3YJm+Jsb83yzYoW3jyq5Zi/eFn4
+         7EwAleJndcyZZue86hpmijBxLzztsjAKIlSdnEB0DochwSA0QhZjNn0Bl3B9WHW3rNhm
+         FekeXLCjOGo8/esSqoqsslNxkbBUD29BKQzRwxe40ndFfSIiaxm/dOpRftmqS3xDnck9
+         G3R+1dL+ZefDD9/+5wFir2WKcxpDwdVCwSmybqI9hSpUN7ZEd/V/h5iSlNqnRiU+rdQk
+         mUgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790106040; x=1790710840;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=isSEF0IU9c1OXuHxBNGq9pSATtA3AQIYhgVBzOHtvqs=;
+        b=if/D46Fs27IitiudV+LDnmymJ4NVovgsIguVfzJY4yxzqc5lMINBwhMXU3KPqE9OGz
+         wxBNVvFRbyIH5s/zc21tX3vBa/nUFzCKycfckgtccvxFbd3wy3rJ1Yu54BVW1579Nfgx
+         ngv5PD9A4WkHkjTmHaCBVX2vLgBHDV3VZIU4cbK6l9ulkaTqPwPr1hZfaXuikoxYiwIK
+         taUViPcOanQAGLnA8habCysuxMXQ+pi0ivlfa53efyrQm+ckxcGNpUMjKs7UUiMdjBTq
+         pfizay6H9wL9MMu8jfaFuoI14++B39dS7xZzRFwMVZTONjrMS7mSmqV1AfNJ2lt5Rucz
+         6CWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGX6q4t17rTkvMqr5ZJXDGfGwrNi0entjC3ryohffohQcdOadFffSHYSkzdh9+DyXN+2DGJJufi/PPtvs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJfl4zlUGXSlsapjKj/gXK++VbwCv63bJKmOZRZZQcNiTAVJ/T
+	84wOX68iGqb4VYtZZveyBD9wXyF4bFW0KmfY6SuP9fNl+JlxveVsUDRfRBQKZ6GuWlgRQ+NZSoN
+	q4i02L+YIzQrXa9f0qODjYIYDwGrEfczxSRKKueLXi9bYin+iZd73I+oAHf6Tfvo0VBE=
+X-Gm-Gg: AYBFou22XZLCXL0NwE/YH/UMzlRVHhwo0sxgHfCaALGvHaNqoScYjefZGlIJU4XTt+q
+	M0XoR9HmcjmHYD0o+YEzJwgbRdwT+nnR8jcWsJcJ2gG5iMYsptSrWmmPKiWKydywAKERpx8Xs4m
+	Ig7RFirdAhj6lqejTwGZeU+IIaALB3H2lvGxW3HGhNABe/dg2Un+/SiHAUmS+1ndPI62JQrbYEO
+	bjGvO7OrZYYGo5XSdO7TtDnn66KY+aegu8w1wciFPGzpUdrJpdSSD7WWaIMIUh1+OGeI8eb3BT4
+	06T+1hgn80N2J8OY3fal8tEgs97rKi/HvZ+HmpssBdAdhszsIfmKrYkHMH39MVdWF73hoX8pCeY
+	yF+5gacObdPLtdIO88sx/qXykBI0BQtThOQwKuNH26w87WL7hszhSTA==
+X-Received: by 2002:a05:693c:83c3:10b0:33b:e842:c0ff with SMTP id 5a478bee46e88-33e88b2f9cemr356553eec.0.1790106039625;
+        Tue, 22 Sep 2026 12:40:39 -0700 (PDT)
+X-Received: by 2002:a05:693c:83c3:10b0:33b:e842:c0ff with SMTP id 5a478bee46e88-33e88b2f9cemr356508eec.0.1790106038976;
+        Tue, 22 Sep 2026 12:40:38 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7c63bsm412187eec.10.2026.09.22.12.40.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 12:40:38 -0700 (PDT)
+Date: Tue, 22 Sep 2026 12:40:33 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v19 05/20] KVM: arm64: Track the type of VM in kvm_arch
+Message-ID: <20260922123928.0000443e@oss.qualcomm.com>
+In-Reply-To: <20260920212845.707-6-suzuki.poulose@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-6-suzuki.poulose@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: use IS_ENABLED() to simplify built-in or module
- checks
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
- Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Cc: "open list:ACPI" <linux-acpi@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260921081411.4819-1-lalitshankarch@gmail.com>
- <CAJZ5v0gvYn3ga6vL3BYt+5GFRheg_sjF8AX_HBXfHaLv+tPGKA@mail.gmail.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <CAJZ5v0gvYn3ga6vL3BYt+5GFRheg_sjF8AX_HBXfHaLv+tPGKA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:3VMUpDUnFgTl0hvlhI2S0yVak7NqCJeL7U7dfkdRUqnE9v6Ap9i
- 4U6pFqGijtQ91V5FVpq4QOMYtvw/Jx2hAxDmiLRgones3Yuw3WURTxgTCrJbuQNig2uytON
- yGcnJh11/KmdbMNFr/m5L2qPNmrlUyCtuXoD9q5cUniNWNd3V2J05J+pS0bJVXuEv6AemzV
- s5V8XNRbThRxkr56kwQjQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:yr+4D7HIiBc=;1SWyLv9u97FODLO9RZtHDBpkl30
- GjEQBVmd4aFkiXir0XS3Lrrzy779YxvWRLLyjaz9RJl3NjdNKM6+0MGksasU+76FNTceLqrg+
- Ukcc62wT9PhkKdLHjWBvg6XB4etWeo5WmEXMFcvx8yPxORodW0CRX5U3iF3LtRUpBR47XXnSt
- S8S48922afaqp2/ZnrR5oSswaqvUyrlaS5rPm7VOpJ/bQqKGXUphPso/9urG6TSYZ2+OaKrzz
- S7MxanISFbJ/khchXTRj2/NtYd6vyzTTsjczT5eR+b9AA+cj3QoE0q0rsvTHNmlMgsnEaJ58b
- xnucxP4/cMiISwOOgF2gyYtlKbXvF0AXUCIDPIs6QnXGMiNVtEcnbDJJNW/0a53co5Nr0RKLy
- 3OK8s9BvRAD41BAEyw8BK96c2PJWUq0JnLojtrNPiJLSSviKfFq5RVRhbELl/LKzHxHxAe4jv
- AhMLWtab7K+fhAUEIiT5ut9boMdHkEu4AGOs77GpDiOIADDk2lQV+6dcGg6Nlx+AZDfeGOtna
- zAcUsEdyYV8vNKkwB9fcmZFMOs64YztOJ900PcDr6tyQiRR/jm55El08MC7cIFZA3pCgGr21R
- EWd6YmLPGWuys1eM6wS0Xj2lbNI1JqXETSjdMAw8dSxV8+OSnL51I7SJiOnppZEP182uYOFWh
- nHOkGBP+j7dXiNV8UQ+Cze7bvmMCT4lddxLtTI+B2/3fdISj3jBD9FLj42ROAZfBLSiZW+o0R
- 9n1ysmpqrx9dDmntp4Ip3/pEnpYDys+sRn7IoPUSJyiKufKWRALuuXpqnVnDsxdaPYRLDaYjR
- DrSkDq3i01w2pyLanO8Tdh9B3vLFWNMVCjiVzr9/CS9e0REBWQF6c0qyWwx9j3goGPxVnvbsZ
- MxG6Gg56pP8Nwrx2jg5q7LH+DdLD8bPNzRCiNkAqjwP2xpjjMqUuWFhs16sNlM2PeHi6a77Ul
- Y7cG0Tk0+ZgH2mGuJeQXDoJ50iS1wvmznIRsMmyvs46jaKC2jV7k8Rbk5O3UuH2kXpuNDOZ1D
- uWznZ0nsjI6Bth67ShlP7vDfUukcwoVkfAxSdlFBV7DTvKmyMkCP1VNKNLo1t6t7G+7Y48WZo
- YNewF0FkeheN8Bw6XEsRHIXxTbxynYx5C05NjSednzULjI0f3gzbSrJYjwkmyfdW0aGUr0Wpd
- BJWKGLmjSWxVqNSZ4iXSiv5G4xvUAGQxjw8oGz3ZopKrqsXiNPgM3AZwwb5XovoR28GqMVKJ9
- 1ay+w5wHde2K0FBK+9OlQL8Ty9iMwBu6KUBpYqDRqAsMa4jGm+JN+gsYdazjrGJe34QG3gyiy
- 6U/pfxl0Yoaa5R1WJYk6KRBF4xykz+o0O8DzicvZfTVz+/xJLQ7A5M4NlIQzWXtCHzz6OrC5v
- MKT4wgFPIN54TI0g1kqp17swGlPR65NsNjbYK5TWQ3nMqhbryq/h/YWmbAdvt8qZ5zZv8qlBz
- FF/h0nu4GhZpQiBWzViSPtkkRLIpHEK/aZbMmRwM7GmiHs7JzW10WB4D9lw107phzcXWN5FLe
- dcR6fT6YeNG0XGOVI4yViuYBpX0fjkMyWXzzuYCVsR1Jd68U1VbN8UAkyVUqDgzlRYJ60B1P1
- 2S8uudaod+SEdeOKfgfCJ1Z11ExKhAXfNtycehaI1F8gUQ+VTEf93aFFu839aukbWiyZcVdFN
- S/LG+yY+Y6nt3PAjkis4rKtBW/JxPX8Qa4RS2vh1bFDNrCX6UXQ3UeKSyApcn27VIRmjotTLP
- dDMKZcFeeIp+ySw6Ofgvb/Ci901HARhEze/J+6ftlJs5eORSCm/6LbcK8HmbOooRvS8O1Ps+e
- k9myCGzKo/QI8gsvO6x1zSTcrXs0ACT9FGok39WkyOQKzqDxL2ppSp/wOehoD2SvOMCrDGlPb
- 4ef2Zz0mMKj3TUD20D9uaUE72P1M7tPEuZs5SZAvHZtOz1ajsT4kE4YyuWuXCcNoznF+v/rv8
- rFiAGD10ZxvQfSbnlQ+deha8upS/UePmIv5hAyurIUUsMYHUbunmtPISd8imPMh65WIOs8Xb6
- HU31O32Wj3+bg3UmyT7GhEV2Yaz6UZtb07nfFqALK8zx1niOZ0z7WUj6l59nK87MRn0QnoJxf
- uso0TLuInpTzig48Fr26xSG+ttVqP3ls7MO6Wj2nZqBEGGTTmnRKsqg82PRih9wEZ/ssHVDXE
- qxfnejJirkNLSG7dzlr9WOIqf3nLc+GhzWRycSfRXu/LPFkICmShK83yUPDRDPB9Mv+KOVtiY
- 8FFOrxVPUyZ6AlKIeBleudKq/IQgTbExvNU4CT3+s7F0zMj6+MaMcpAZRN2snxphEUDWDuqrg
- Ot3RF1U2jBukyEH7IbmxL5R3hAw+hMdYljRuh4Xt5fEkLrpUWBnMdtoj7CcqYxsM7TqV4xDsY
- kPU3VFf0io0LuoBMV4TJgxpx7Si/BZTjVdVG41KM22rVqcLFFDl5o95bvtIWWsKar81nDZP/1
- +jHU8/jvg0EIhsHHxigZLOvDXethGy8XfyepFb3JxKn2qq/W8z1QMqbgwdRviemp8709ZQgpH
- 1YBB6j3GAQ4P4j3gXABAJFE3P5mnjn0VjkwgCL2m/brLWLcHlhPDiwIqoHxQ9ei7tt8Mzqvho
- E4Ah7P7mI6szW4BSRP0zjTnuh1uR8y2TnNwSG903AFeMzf/yeWDyA6ZWGXrX4iXc0WPLoxgja
- 0JnsgMB+7fxds1qgyxum7JxXpLJ3OTpaOv2x3aOmEG7IHaMlx5uJBb/m53+XbPg+DSiPtnfUr
- UiaffGLFbbpwi/NISXmsBcwKBb35FtjfqtJDsAHgREzrkgiM/JIyu7bYAgIhQ77hsrx4tFK4f
- t53EK9JG3QALZBZM/mKGQK5vnGmpJrLDjaQUB9WdG9DGH5wa9h1gT/GWXtuBKvg/BN0cI3a4+
- TPdAx1okuaeRv9EEJXvf1TwrUBf2k235dN13xtrPVVrVlt8TgETdya4Jtwya6DMekkygd5R7p
- MHjPhDj4ZufzS3wMWlYPE/EnlpJacYX+0BqtpwsC5wwdYrB+UZJ6ppVyL/Ui9Jr+4f7wcclej
- Pe4vK1eVCpClfwtoq3bp3RUKYc4tAF1AmA3itIXii0ICllC7qUvzNxlcPKKL7hIvb2xQLhlOB
- kAczYyiokY856X9jqmNm4ba6hiBtLkeWLGXBl07poMKYm13khmYLuBwiJWQO+DlJ0a8t6UDZa
- U50oEiR6YHODjwoM9kgZ0Oq0b1EnwqvGYNAI3eHB3BPiC1oOhWU7tqO97SvOSOD2wyLbuHzmL
- RVCwXAhIUZDBqUREZc3qOxM5c7YIc3szj6MyhmJ+mRGmIgmTTk/1GtwExZi/68hQeQhKtHCdj
- vpvLhBTqqAhofEEUfM+u8L6AnYO74cDi3XZy4u/IrJcHQkArKSSy58juaTgYRP3RYrahKrNM8
- 2F4TzAeC5YPw09pElqcxk6qiZPcTTBEKP07dUdJ9yV2y+k7Oqw9QbpcnL6ayzgicX+Vqr9Mwv
- 4lDgk346uJr2aivJBcCj/f+qlqbpHYUVFvKkuLpo+peoVsmFuEm15PQirkhVvQqFUh0P7BnwB
- XJrBtWE7nEmh/4Jeojs/zP9Z8TxObthniTz/CpuYdS7v0nAUqTTL28zlc2mZWu2PwgsHsHb5x
- J5cGoiLRk+Pwkv6ua6Pr8c3LaPUOs1uEb6e+vWV6obw8nSq84D22Rf6JifWdN4ZJO+jOXBEBx
- fbfiULO5Mse6LvIpoMd90GMIkN/z+EOnIT2UVwTtURblfrbHPHFoobVotFMKzgOWK7fX0XxP1
- UCD0n8RFinyMsmTvWb7TE96W8w5280Gd4o2Ecv5oz3Mko7K4hctGQH9t21FZZkvUh3fs7Bs3P
- 8nCanB2o+VU3r72QI0prhdiyjWiVdQx6iTeeP5grnZF1jAY+waSZZ7QmVTXTkmptopgSwkkIF
- XB6DZyWlEtxztuFqtfvw+qr/j9sgsk0Kji8/THKbLnIA367TVb+PixupEjx5diePbkObh65/G
- gjbpEyI+0PkUCyNbH9nRs8i+7Csia8wy5I2myyswR9G3VM+QZal0sKMnwqVd354bWhXnyy9XH
- JD/bTzabDOsxGbAxDYdBdVDZF90+yTVBl5b2noIDK+Q8K6mhLx5tUqr18mBo7jqG8erBP44sm
- H90zNWk49lqMfWhMNeBzHZT3jAmdu1IvLC0sGRCLKqIzwbrvSTewi9J9Qryp/sbS09A0/cqEW
- nWqVXFA+RYfeTwUD2MmEHIVim60aNvCw6qqvk9d+kIUIRwzXnrg5EXuEut0rplAIx33dcL5r7
- LlSE2akeq7KNwZ47HCy0RoQlMGsgTRkgFhugDbqhanWy2+26z/OF1AV9kEL/PP3RapziCPKNb
- LyOVtYDc9t3goeIDByf34AJBSEE5r1zyjtGp0sf1Hk7mYkqyS21O5RboLHlvjLxjeYzZd7poi
- A8d0gGoMu2B/eiB3f4Pd4veKILF5VuD+8KRrFjJzOp3zYdWDZvb4QIkUyofc28Eyo45jMZeLh
- zc+KIE6fX6Dm66QOmwPT4nlNbfEeU+oO0MbYpsh8ZMkxC2SJzYC5TrwxuwyX4O85mg2l8hZsK
- JBQW32yAfQHrRwo0II15+IVD407BqxgRM1TdjKScJd6Mml7oew4794nayXZrlPBFkHhy7MxNM
- WpJxqVT4wAlC92r0bvRkbrBqyy12MXdBdyHfw4+YSG3fAbXIndYhHJpzJ0fszOc0DrxCAfEgT
- FQ986BQCoIoL/duewcWIJWHG0rtgqsf5jt1Igcej2/gwOXEZDmbqmvK13On2ECdDF4M2DVae+
- g1a25bNO/LQRFkBjT5mO7RlS9scQhORbQVMJnCNU6+bUHrJbydZcBhwcwGiSKya1wXS3Z0hvB
- hKQQFtuZhB+FhQDOfdPpuItqhculdqVV8lAjIetUEQWV3CeWR+BSfRbQKHUi1o6KLWFkI+Dn1
- 7mBKeswfpV3Yz31EzUeeWW6FTXFm76b3pw0ntY/ouNJT97zHfMAb872m2wT9AagvykY41/6WT
- 0tjxJYiYw1VziNJO2dIHYiZihkdan0YEOiQRL9DMqH8ydGZgB9RWuMu7WzVmCeqWk9s0zcyKV
- T7XOr0375luRwEmnDhOJK6Qy+S0AI2QOUTv6h1wixrNK0nX+4A8OgnRndvIHTsGY6rItJQ72O
- bZkkQFmPuh0LBU7ELgNoDGjcYnZ0j1GyYNT+8S+EGtBDrqCgJ23Oopo2r/GXsRuhT/0m0X/M+
- 7S361LR0ZxKaYSvVEevl6MN0NAShgvv+/mdnXQX5IcUk0YsLtLAjxmCvdLDvwmBX/lcT1i4DC
- UT7FpWzhBPjBhDkWcgj7Vn3EaZ7KtmG3lsXBINS4pCtF4RDPngU5ZdLBP7X8FyTrmY+QttUGB
- 3ErGs7N+3slRcJJ5fuUbfBqzdGqX355PFFLlg0bbWBW/V/X47V7fbUw566MoV7MoM/sWR003J
- bcGnGydL5fxGDNHFXCs8qWCZMNEn+pkoBJkE/XjF1bE71oa+EEFd3ULTxlatPnP87DsgAWoht
- Sk+MWW5fwbrRZcsQ1MiXXnDVWvhC/D48go4LTQCLWXU8t/IASw3996hrVbQOETP04yD6p1tVX
- Ots7O7mabayoZKaUVUJSlTCPGPR6I+tsiKr12rqa2sbl8+0YkiuVLZWP2WFw74OMSdKn7zyDC
- T7htfUzxrO0OW5UvAwfPStcNfrWOPgo1jVSrPLWq/+yvbDNN+ldhAbDlagD389WTWgP5hCx3n
- RJn/3leaMHGMhvDnC7THyLV7rj7jVjJk1uSm1Bvn0mtcgty4v/Lryv5nGtKSLcKyC+wxZsy7h
- hG8mlsg9dlL/FkRh6C/uyrot5VuRUZHVpf04qcRQzKgKlvyoRhWZGtAvLrYh4FAob+em5VC3P
- uc1rTsHCIPyg4Qn76OGG/TDIyMrBYGfMx5MBgVHqpMFX2MBez4BDQsz/Sz6xVZM7oUe5HbyiW
- /PcoXjTlMU5d8i4qqL8ylfo3+/uRtq5Fd0w2Meu6g/e8oV3uJKRKEL8+J/tKErfRQIjKg/aOJ
- W7Fh5/DqyILyfraQw/JrvDR+IENSHrE7CEWvUcyoBEtRzd+9owJP7LHJr1AD5zcPayPc4q900
- eh/okrKXk1SS0M1zwV1r37RZ6rsj1YhpC48azEUJ3TZeoRt6sAXfvwmoqyeyFeFg6WnCCizGF
- 4MfQYmWkp2x8HhZlTd/M0a2cxm+nT02SPc7bcksBU8WaDHd6DVmusu5zVO5MHL3LJw+r8u7Fk
- yS8uvkZrFm3VuYB69HDU1TndmtW9a9j8zk8PCz96dZjozIFimyt3pkcvCS7PaO8NiS9aJvFWJ
- Mdhfpiuwp3lm1B2ZHwJc/m7jMIA7mWlpQ6i0ZEnNqc7g==
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: RK0tyhDGcls93j6qs_Lw6PthYI_FW0F6
+X-Authority-Analysis: v=2.4 cv=eauo7LEH c=1 sm=1 tr=0 ts=6ab2d9b8 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=7CQSdrXTAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Rj_uqbnfv5dchc8eNrcA:9
+ a=CjuIK1q_8ugA:10 a=PxkB5W3o20Ba91AHUih5:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI4OCBTYWx0ZWRfX5h+65rs3KDBV
+ qI7AetlwGUcyVZG8hn8e7G/Tc9SIcxNAaYSJJm1gQ2T/lx5HQ1dTCOyLNAEMBCyYr0Dm5pX3pDa
+ TxEveClsrxekoQgNfmgzaVOQT+HnY19dGGfOMSKBD8k23wtTo8G01OyjZxNEpiNS0/CeAuJW78C
+ eU6Gb25ldSionD1gzCDH8Q61kqRBFM7TEbWwPIlRgR/86ke/Gecax/iwXKcVqDW9vuChd+ST2CI
+ uLR10y7JqJa53EzmgpkLYutOIt3KdxDnbQkX8PXs89r5xkZ/iZIx0m+HSyZ/5Jg+3CSFUUZjsZM
+ JDq2oA4eCo/FnWZdWxhzE3hI5zrSlme0oAofhO/ZK8R8r9+RNOkg3oQjEbKRrKDDsuqgQcpEVAQ
+ BQMY2DllViOEB6tfx1cFkLXeIWocrib1l5zkUzFIOdWDnwqH7ZGEfC4qIufnYGv+8BSaSYaJ8aU
+ nc15n/h7tHli05+WNeQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI4OCBTYWx0ZWRfX4ZLDV6b5TtxA
+ HNTIYjtgLdyeCn7LO0Dgzf3tXA/9mBAjlgkEHv5Ocss1RNoX76w8x7/B1GRrvAKanvFunzS4TRK
+ Cx0s5A7tzPC/3JOYVzU2SwMPfJMG5qs=
+X-Proofpoint-GUID: RK0tyhDGcls93j6qs_Lw6PthYI_FW0F6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220288
 
-Am 22.09.26 um 18:43 schrieb Rafael J. Wysocki (Intel):
+On Sun, 20 Sep 2026 22:28:30 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-> +Armin
->
-> On Mon, Sep 21, 2026 at 10:14=E2=80=AFAM Lalit Shankar Chowdhury
-> <lalitshankarch@gmail.com> wrote:
->> Replace the remaining built-in/module check for CONFIG_ACPI_WMI
->> with IS_ENABLED() macro.
+> KVM arm64 has different types of VMs with all the different modes in which
+> the hypervisor code can be run. e.g., VHE, nVHE, pKVM etc. Then there is
+> protected VM and normal VMs with pKVM. We might soon add other types,
+> e.g., Arm CCA Realm.
 
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+Let's have some optimism!  
 
->> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
->> ---
->>   include/linux/acpi.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
->> index ddacac812094..b590f520dc57 100644
->> --- a/include/linux/acpi.h
->> +++ b/include/linux/acpi.h
->> @@ -434,7 +434,7 @@ extern acpi_handle ec_get_handle(void);
->>
->>   extern bool acpi_is_pnp_device(struct acpi_device *);
->>
->> -#if defined(CONFIG_ACPI_WMI) || defined(CONFIG_ACPI_WMI_MODULE)
->> +#if IS_ENABLED(CONFIG_ACPI_WMI)
->>
->>   typedef void (*wmi_notify_handler) (union acpi_object *data, void *co=
-ntext);
->>
->> --
->> 2.53.0
->>
->>
+
+> 
+> Realms support is restricted to VHE host and thus "kvm_vm_is_protected()"
+> checks in the pkvm hyp specific code doesn't need to change, as the only
+> protected guests it deals with is "protected pKVM" guests. To tighten this
+> init_pkvm_hyp_vm() restricts the hyp copy of the vm_flavor to the ones it
+> supports.
+> 
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+
+Seems sensible to me.  One trivial thing inline.
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+> ---
+>  arch/arm64/include/asm/kvm_host.h | 22 +++++++++++++++++++---
+>  arch/arm64/include/asm/kvm_pkvm.h |  4 ++--
+>  arch/arm64/kvm/arm.c              | 31 ++++++++++++++++++++++++++-----
+>  arch/arm64/kvm/handle_exit.c      |  2 +-
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c    |  6 +++++-
+>  arch/arm64/kvm/mmu.c              |  2 +-
+>  arch/arm64/kvm/pkvm.c             |  6 ++----
+>  7 files changed, 56 insertions(+), 17 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 286489a69dff5..9b1cf9c59e81f 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -257,7 +257,6 @@ struct kvm_protected_vm {
+>  	pkvm_handle_t handle;
+>  	struct kvm_hyp_memcache teardown_mc;
+>  	struct kvm_hyp_memcache stage2_teardown_mc;
+> -	bool is_protected;
+>  	bool is_created;
+>  
+>  	/*
+> @@ -306,9 +305,19 @@ enum fgt_group_id {
+>  	__NR_FGT_GROUP_IDS__
+>  };
+>  
+> +enum kvm_arm_vm_flavor {
+> +	VM_NVHE,
+> +	VM_VHE,
+> +	VM_PKVM,		/* Normal guests on pKVM */
+> +	MARKER(__VM_PROTECTED),
+> +	VM_PROTECTED_PKVM,	/* Protected VM */
+> +	VM_FLAVOR_MAX,
+Trivial but given whole point is this is an end marker, drop the
+trailing ,  No point in making it easy to break the ordering!
+
+> +};
+> +
