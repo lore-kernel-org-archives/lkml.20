@@ -1,232 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C05542EE8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185164248DC;
+	Tue, 22 Sep 2026 12:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081238; cv=none; b=pOG6KaQWTX3xtTBcQ6Hq8Pi37exCQALtT2/lyzRmBSktL01tShZxS6/ZZIBzlYUDUV1sBC00DpCFC4jTbm1hXNe05QOpuJnZxhnZeguWWCEgszav//5O899jPutm/h4qK4iqHgVMX2mzStE7LbhgmmT3OOGop0ouTngK2Fdu8uM=
+	t=1790081240; cv=none; b=ZBuSV2r3gsEFOzs2epPGt+93qpIpWzij+Gfyd872kPhyMPGOOcwuWbcT+BFiaAz/8OjQzMwY/zVwVuDG7CimwBV4MJBwQcv1nf072DN6U6OoPn6B/3cUMCtE4DJfg+OgsV+a0ixDGfQ5dhcSRT9L6hERAHpq1Fn0OzqiqcHOYc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081238; c=relaxed/simple;
-	bh=jbQUTCe0ICwWOioxGPSxPQ50mAT7yEYTFcxWXz3Ogj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hCDy0N1uVYANNB33yPZXY8u/2IynycptIovdhNjXOCtV1uB9JE+FLOx1Ep29m2GKtYRHNDm1IPkqEdaJdNneeH1aP6tAlAqdejElc3IS/FRcNHMWHLztrgx5D/AjV3fwOFNuj9fT3MEXSkapeYgNfEwyQSTS1Ahx1cAvu1LJ/yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=G1zuI4YW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WiNXb+ES; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790081240; c=relaxed/simple;
+	bh=8ZKyqOu0mEmRU4MJJjqfKU5OT/hrxhKmNGxrkJ1omVE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=jTHODBDjbrTfN+qVeWhfHPHtTPKmSeObFYVu+C3PwUiBbR+S75bR+0I6qpzaWwTfkB1077Op+OzGZWejsbTM9cPH1kQAn+phVrAwBOfrxafuZfBFjRASlhAQRxh0eaM82YiVbQeE5s1r73G+qefImF7OdWBEA0CTuljSZ9kLa/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W8tUvca5; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="G1zuI4YW";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WiNXb+ES"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790081234;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cr6ub0HQ36E9YAIRyboF6gdXSYsRFPX75mape4tZPCw=;
-	b=G1zuI4YWw6mbOIMfoky61H1svKlnni6e4/1Gq3JeNu/QrxM5tjwnG3OrcxRulgIURt4fLv
-	/7vrtJ/xebvHnBDzVfqI6E+p52QJgn7fo6Ryt3XtUZtXira4RFlVj1kcWTcL8WR2csMJQF
-	SLv0metlTnU9h/WM8joVruQU5n6h7zg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-sRj9fMY1NiKR2imNba28JA-1; Tue, 22 Sep 2026 08:47:13 -0400
-X-MC-Unique: sRj9fMY1NiKR2imNba28JA-1
-X-Mimecast-MFC-AGG-ID: sRj9fMY1NiKR2imNba28JA_1790081232
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e6862e924so30154675e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:47:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790081232; x=1790686032; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cr6ub0HQ36E9YAIRyboF6gdXSYsRFPX75mape4tZPCw=;
-        b=WiNXb+ESh7LBvwsIza680rzB+zFHa7gc/0cTuukeQdYt0ABzTXxxzisRaGYDatYxiU
-         fPeIlX28/SebenXoUk//nQE1Dhg+SJRcCDtmQI58bUctsHWJl7Jromx75nBxW2speHi/
-         OHR8BF3f05PgU2GuuSIyIxTKm1MTMPkrmaQ9bPXrq2gXeZQSJyROvd5YB6+kSZZAKjnB
-         lvLxGuSmBThCFuzg3BuhnLrdeUe7dosrFeGz5wq07en2aLY1SfzuNFAnNtjc1nyydQ5h
-         82IPGJJBh0LRu3JSGX/8A6W2tIgzz2Ivq/2d8b9kajphQ7okyjN/s/VepIF1n/71nuZv
-         1B3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790081232; x=1790686032;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cr6ub0HQ36E9YAIRyboF6gdXSYsRFPX75mape4tZPCw=;
-        b=D/O8/PyNihxzYNOtzeqaxY8JUp6gRT9riG6xfel9ktLvtO93HmxSV5quE8DtdA0BDx
-         cQyDwVVSszakSSXnJmgkFtkSZTPPzo2Y4X9jQR1LgLHGUk8vaS4t3CKqWg0YrGpnzDRx
-         9LmX6YHfQp3M1xgq0Bo9AeFeIkOPUoNyG/lOM8v8EqWlMkGvJ+9NEZCTLzaiaKgrIlBq
-         /dHVE/WXNEWKKFBMEysceBFQSxa+YvgIXe/hMeOvQTAGfrnFFjx1hMNsqrMs7Lia0PLx
-         YinS/v5kazKuhRa+hNFl85ddmAYbKGxRWPC85eI5mAXl3twrkeAMAif3KUju0HVocbX8
-         X5cA==
-X-Forwarded-Encrypted: i=1; AKwUvBwg6/eILt4cVPmbs1nT7RSm8ujQ/EkbrazQGLBr5oBHzTI5qZCO9kyoYY5ogt61J6WufhgcqQNnkMgjimA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdSHd+8MjhOjGH/aR6NI80QIfG/cAmU07a6MSON6f94twN9xyX
-	idonqkuM6WTl4DcxhsSKH66VUvX2YRgaB+xE8PPbUnn55jDQy4Lx5qxlejZDHWEthuxseO8L5ve
-	8ijgQbJS54em/nPgmlg9GjccDS6soWR1BhD3vtGDcyrmofhsO9ar3mWBJvSH/HvKUDw==
-X-Gm-Gg: AYBFou37qgL/S0tZjKJg85uYAuIrkowdGGarl+oAm/HEFDrFwpWblEmHd3z9noXIesj
-	BXba2hNYl2ws65kha8Vftf0JJQ/pzTHPBYoftmcKKpKal+KuEvHeRoGQj7Sq6y9HXqsyK7RmvVI
-	ifpEEJR76SniIN7cQLucYCivPFCvypmByEgeo/v1QHQKhlJCwGssda2rdfjJGPTMNW7kEDpXksF
-	dMlLNgkrtJXw4a8GRXwEwXxZ0Ri02VazQO9CRD7fSZIMFae8SAP6hjOKKOfRGmLRTQTSyzzmB/q
-	pcN/G0o0L4GfdO8A8JXAkPmPHHSA8V3BPg4YBCQuc2fSnJm33I1LrO3N8wETDTY3F6V1GfjwmOQ
-	OF+aP6wUgtTMLjZGRGTc4tJrDyWn8bej9zZat1s+Aq9CCRckUoNI=
-X-Received: by 2002:a05:600c:4e0a:b0:49d:29ab:540b with SMTP id 5b1f17b1804b1-49fc5723f3cmr203501335e9.15.1790081231741;
-        Tue, 22 Sep 2026 05:47:11 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e0a:b0:49d:29ab:540b with SMTP id 5b1f17b1804b1-49fc5723f3cmr203500975e9.15.1790081231215;
-        Tue, 22 Sep 2026 05:47:11 -0700 (PDT)
-Received: from sgarzare-redhat (host-82-53-134-131.retail.telecomitalia.it. [82.53.134.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f3402sm37398835e9.0.2026.09.22.05.47.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:47:10 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:47:01 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: =?utf-8?Q?Bart=C5=82omiej?= Dmitruk <bartlomiej.dmitruk@isec.pl>
-Cc: Bryan Tan <bryan-bt.tan@broadcom.com>, 
-	Vishnu Dasa <vishnu.dasa@broadcom.com>, bcm-kernel-feedback-list@broadcom.com, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] vsock/vmci: make the cached_peer dgram decision
- race-safe
-Message-ID: <arJ3bKG7vRjMI5Bo@sgarzare-redhat>
-References: <20260919123208.29032-1-bartlomiej.dmitruk@isec.pl>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W8tUvca5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790081238; x=1821617238;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=8ZKyqOu0mEmRU4MJJjqfKU5OT/hrxhKmNGxrkJ1omVE=;
+  b=W8tUvca5PHakNVU8W3KdzzvE0tupjrBHcBYq7mWmCNvvzo2dZlTE+5ZE
+   GE6IsywKUUP9K+YwIRfUU7qVELFGEHd/bkVvcWUzoqN1qmxTzafPTcbtu
+   OZkUu5zYfywIp+Sp8IgFF+E4cF42/yeqQP+4FwMzeDseUF0y6VY9EXsUP
+   /EfAQaJvRkp8IQ+/BudyKZObao6Yv+hte28+9qKD+zWydQVsEMzRI1eND
+   p8pU5bO6BxsFhkzUCVg0fkxyuZ7a9hpPLz+/bAYXGi8BigZXPq5ad6Klm
+   W4FBDVXx0TDjs6eHegtpalGJWsxZV3jQVfQodlSa7RD8WmGvNlllO+liG
+   A==;
+X-CSE-ConnectionGUID: CtV3F+JGRmOcwzbDpOboog==
+X-CSE-MsgGUID: pc0tHu51RJqcmwNb4FXOXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="94509130"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="94509130"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:47:15 -0700
+X-CSE-ConnectionGUID: ZNKd8pjLSDqm/Bu8+RVLxA==
+X-CSE-MsgGUID: Y5imD72iRmm/cXg8yK2ddw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="272318929"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:47:02 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 22 Sep 2026 15:46:56 +0300 (EEST)
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+cc: Linux ACPI <linux-acpi@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Mika Westerberg <mika.westerberg@linux.intel.com>, 
+    Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+    Hanjun Guo <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+    linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>, 
+    Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org, 
+    Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+    "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+    Mark Pearson <mpearson-lenovo@squebb.ca>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    David Rhodes <david.rhodes@cirrus.com>, 
+    Richard Fitzgerald <rf@opensource.cirrus.com>, 
+    Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+    linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>, 
+    Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
+    Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+    Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+    Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+    Cezary Rojewski <cezary.rojewski@intel.com>, 
+    Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+    Bard Liao <yung-chuan.liao@linux.intel.com>, 
+    Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+    Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+    Binbin Zhou <zhoubinbin@loongson.cn>, 
+    Andreas Noever <andreas.noever@gmail.com>, 
+    Mika Westerberg <westeri@kernel.org>, 
+    Yehezkel Bernat <YehezkelShB@gmail.com>
+Subject: Re: [PATCH v1 08/17] platform/x86: x86-android-tablets: Use
+ acpi_bus_get_primary_device()
+In-Reply-To: <3912360.MHq7AAxBmi@rafael.j.wysocki>
+Message-ID: <b5e7637d-e189-6ac7-6e47-9f4a21aab2ca@linux.intel.com>
+References: <7995179.EvYhyI6sBW@rafael.j.wysocki> <3912360.MHq7AAxBmi@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260919123208.29032-1-bartlomiej.dmitruk@isec.pl>
+Content-Type: multipart/mixed; boundary="8323328-1698044991-1790081216=:1233"
 
-On Sat, Sep 19, 2026 at 02:31:56PM +0200, Bartłomiej Dmitruk wrote:
->vmci_transport_allow_dgram() cached its result in vsock->cached_peer and
->vsock->cached_peer_allow_dgram with an unsynchronized check-then-set. The
->function runs both in the lockless receive tasklet
->(vmci_transport_recv_dgram_cb(), no socket lock) and in the lock_sock() send
->path; lock_sock() does not exclude bottom halves, so the two contexts race on
->those fields and can return a stale 'allow' for a VMCI_PRIVILEGE_FLAG_RESTRICTED
->peer. It is also a plain data race. The in-code comment claiming the fields
->are never modified outside create/destruct is contradicted by the send path.
->
->Keep the O(1) cache -- it avoids an O(N) vmci_ctx_get() lookup on every
->datagram in the bottom-half receive path -- but pack the peer CID and the
->decision into a single word accessed with READ_ONCE()/WRITE_ONCE(). A race
->then only forces a recompute and can never return a stale allow.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-I honestly don't understand this part...
+--8323328-1698044991-1790081216=:1233
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
->
->This was found by code inspection; I do not have VMCI hardware to test on
->(compile-tested only).
->
->Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
->Signed-off-by: Bartłomiej Dmitruk <bartlomiej.dmitruk@isec.pl>
->Assisted-by: Claude (Anthropic)
->---
->v2: keep an O(1) cache made race-safe rather than dropping it entirely; an
->    earlier revision removed the cache, which the Sashiko AI review flagged as
->    an O(N)-per-datagram fast-path regression. Split out per Stefano
->    Garzarella; independent of namespace support.
->v1: https://lore.kernel.org/netdev/20260917220225.56200-1-bartlomiej.dmitruk@isec.pl/
->
->diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
->index 5549298c1..97968ac53 100644
->--- a/include/net/af_vsock.h
->+++ b/include/net/af_vsock.h
->@@ -39,10 +39,13 @@ struct vsock_sock {
-> 	 * modified outsided of socket create or destruct.
-> 	 */
-> 	bool trusted;
->-	bool cached_peer_allow_dgram;	/* Dgram communication allowed to
->-					 * cached peer?
->-					 */
->-	u32 cached_peer;  /* Context ID of last dgram destination check. */
->+	/* Cached dgram access decision for the last peer, packed as
->+	 * (cid << 32) | VALID | ALLOW and accessed via READ_ONCE()/
->+	 * WRITE_ONCE() so the lockless receive tasklet and the
->+	 * lock_sock() send path cannot race to a stale decision.
->+	 * See vmci_transport_allow_dgram().
->+	 */
->+	u64 cached_peer_access;
-> 	const struct cred *owner;
-> 	/* Rest are SOCK_STREAM only. */
-> 	long connect_timeout;
->diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
->--- a/net/vmw_vsock/vmci_transport.c
->+++ b/net/vmw_vsock/vmci_transport.c
->@@ -524,23 +524,38 @@
->  * only if it is trusted as described in vmci_transport_is_trusted.
->  */
->
->+/* Packing for vsk->cached_peer_access. */
->+#define VMCI_DGRAM_ACCESS_VALID		BIT_ULL(0)
->+#define VMCI_DGRAM_ACCESS_ALLOW		BIT_ULL(1)
->+#define VMCI_DGRAM_ACCESS_CID_SHIFT	32
->+
-> static bool vmci_transport_allow_dgram(struct vsock_sock *vsock, u32 peer_cid)
-> {
->+	u64 access;
->+
-> 	if (VMADDR_CID_HYPERVISOR == peer_cid)
-> 		return true;
->
->-	if (vsock->cached_peer != peer_cid) {
->-		vsock->cached_peer = peer_cid;
->-		if (!vmci_transport_is_trusted(vsock, peer_cid) &&
->-		    (vmci_context_get_priv_flags(peer_cid) &
->-		     VMCI_PRIVILEGE_FLAG_RESTRICTED)) {
->-			vsock->cached_peer_allow_dgram = false;
->-		} else {
->-			vsock->cached_peer_allow_dgram = true;
->-		}
->-	}
->+	/* Cache the trusted/restricted decision for the last peer to avoid the
->+	 * O(N) vmci_ctx_get() lookup on every datagram.  Read/update it through
->+	 * a single word so a race between the lockless receive tasklet and the
->+	 * lock_sock() send path only forces a recompute -- it can never 
->return a
+On Mon, 21 Sep 2026, Rafael J. Wysocki wrote:
 
-Is this a real issue?
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+>=20
+> Replace acpi_get_first_physical_node() that is slated for removal
+> with acpi_bus_get_primary_device() that takes a reference to the
+> device it is about to return.
+>=20
+> This addresses a potential use-after-free that may occur if the
+> device returned by acpi_get_first_physical_node() is removed right
+> after dropping its ACPI companion's physical_node_lock in that
+> function.
+>=20
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> ---
+>  drivers/platform/x86/x86-android-tablets/core.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/x86-android-tablets/core.c b/drivers/pl=
+atform/x86/x86-android-tablets/core.c
+> index cfff7f5eac5d..2c262f117235 100644
+> --- a/drivers/platform/x86/x86-android-tablets/core.c
+> +++ b/drivers/platform/x86/x86-android-tablets/core.c
+> @@ -390,7 +390,6 @@ static int gpio_secondary_fwnode_init(struct device *=
+parent,
+>  {
+>  =09const struct software_node *const *swnode;
+>  =09struct fwnode_handle *fwnode;
+> -=09struct device *phys_dev;
+>  =09int ret;
+> =20
+>  =09if (!node_group)
+> @@ -418,7 +417,8 @@ static int gpio_secondary_fwnode_init(struct device *=
+parent,
+>  =09=09if (WARN_ON(!fwnode))
+>  =09=09=09return -ENOENT;
+> =20
+> -=09=09phys_dev =3D acpi_get_first_physical_node(to_acpi_device(dev));
+> +=09=09struct device *phys_dev __free(put_device) =3D
+> +=09=09=09=09acpi_bus_get_primary_device(to_acpi_device(dev));
+>  =09=09if (!phys_dev)
+>  =09=09=09return dev_err_probe(parent, -ENODEV,
+>  =09=09=09=09=09     "No physical device for ACPI GPIO dev: %pfwP\n",
+>=20
 
-We have this in the code:
+Seems to be based on the latest code,
 
-	 * NOTE: We access the socket struct without holding the lock here.
-	 * This is ok because the field we are interested is never modified
-	 * outside of the create and destruct socket functions.
-	 */
-	vsk = vsock_sk(sk);
-	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
-		return VMCI_ERROR_NO_ACCESS;
+Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 
+--=20
+ i.
 
->+	 * stale allow for a restricted peer.
->+	 */
->+	access = READ_ONCE(vsock->cached_peer_access);
-
-How this will work on 32-bit systems?
-
-Stefano
-
->+	if ((access & VMCI_DGRAM_ACCESS_VALID) &&
->+	    (u32)(access >> VMCI_DGRAM_ACCESS_CID_SHIFT) == peer_cid)
->+		return !!(access & VMCI_DGRAM_ACCESS_ALLOW);
->
->-	return vsock->cached_peer_allow_dgram;
->+	access = VMCI_DGRAM_ACCESS_VALID |
->+		 ((u64)peer_cid << VMCI_DGRAM_ACCESS_CID_SHIFT);
->+	if (vmci_transport_is_trusted(vsock, peer_cid) ||
->+	    !(vmci_context_get_priv_flags(peer_cid) &
->+	      VMCI_PRIVILEGE_FLAG_RESTRICTED))
->+		access |= VMCI_DGRAM_ACCESS_ALLOW;
->+
->+	WRITE_ONCE(vsock->cached_peer_access, access);
->+	return !!(access & VMCI_DGRAM_ACCESS_ALLOW);
-> }
->
-> static int
->
-
+--8323328-1698044991-1790081216=:1233--
