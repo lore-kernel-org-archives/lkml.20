@@ -1,199 +1,189 @@
-Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701CC53163B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0FB53163E
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072181; cv=none; b=mU7+Cche2F1rfRXjCTE9sSNJd/5S87LDcyU5EFYTxjuo9cZHi6t/MPD9sRtrUNeCQ4/FBp5ravexDxY6ySCvNqLL/UaFgK1zv0Do3Vk/ogQ3dlgU/7VBa+omGUy/nLOY7N52qFqqQefyyXJAbQF8EcgzjgKU/5Q9udgIyrFVPvc=
+	t=1790072183; cv=none; b=WoyEOJpSCysqUYi4OTWEtGRd/u1orwB2iEWzywE5Cp+sy/sxpxeJBbLELLpvGviaMF3O9r5XJZsWpqhcY74rhBmHttQY7xa8HRtFPrxCtL9dSiT6Qew1d6aoV2FjcgWGVjHKgd3QUk/gnNK+ni7G1Fw28ugdyFDmRebQFqLMg6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072181; c=relaxed/simple;
-	bh=5jon+ifDWFP5QwYioELCR5y1JdhGgZVy832hXqPL/DU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VIChxRDUbPORbyoYhpbsystNYygiTbnazsSN+wTXuROPsUnB+QI0Lwpv61/vY+J43KIobwY7m7VkswOSZXqGcZOnImu2StNBzVumCh2mVxwL9jUsLL/ey3xr8WyKIQ9BxC0V16KxJoACStmM9tBwdwSG1+hDXnXvzac+j52pkg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bExyxdh5; arc=none smtp.client-ip=95.215.58.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790072183; c=relaxed/simple;
+	bh=Zew9DiXYlMGO7HlKp34cAJvD9oAnKwFFouDwY6ExCmc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LpuHUdQPTED89BaEUViVose3z12h9daA5px/GWI0kjDkAlpa7LFLoD1qWG6otXW9A2TfNMvIDb3GqIZcl4Q9CIw1H2p5tvEb9H+5G+q9OqqBSfCpraSDlCNOxkKq6+ojMFiyYJGw3fBLuMFJBfB5hEaP1ZNQcvuQXwEvZrS0BPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LTsnY6Ln; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ikMbzTQb; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bExyxdh5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5jon+ifDWFP5QwYioELCR5y1JdhGgZVy832hXqPL/DU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790072168; v=1; x=1790676968;
- b=bExyxdh5sDOiZYr1QNADmKoB6kGZkhKROLcRmrFJcy01VhZyyHcR9oVg3/IILTftOWSqVUqU
- 4sfnqqMGsjMvA9sw7dFGmNnRlOlhHO5jr83EzwXHsYhONhKVmWInKzMoS+4F9h5b3oxkAHZm1Vy
- dVptl4/7nSPP4KrEFTWwj4lw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 2d792f7ed8adce60;
-	Tue, 22 Sep 2026 10:16:07 +0000
-X-Mizu-Trace-ID: 2d792f7ed8adce60
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <07aced0d-35d4-4c4f-95e4-9d3168e24617@linux.dev>
-Date: Tue, 22 Sep 2026 11:16:04 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LTsnY6Ln";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ikMbzTQb"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M7ZXKR2173114
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:16:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=halr08AGvM3e7+vdJKHgPMGEd8gTfjGSRjK
+	ghooAsEw=; b=LTsnY6LnOyo4DLUfSMZ+678xnHJf03VFaWmvyU8KjhDxzvmrvbs
+	28ZEHHwt9uJC9csT2dmXmheaa+I0MLPSiWUAgIfdgHsTwQufnvACPrH4NZDPcIq+
+	r8owxhqA+79N9LzI1ip2vE5y7g1MhpdTWAFf18K8nQ3Qv7TKIoZrgnhvPE/OwVxr
+	rkZZH+UDy4YUxGy+iKmB4YAZo19RYNU/HWVsWXnZS3SxxDVCdgJiutQ5P0jqoXGB
+	/VkRY63H685d3QPBRq8VTofTJt/UZag1hTlY4nztmrU/kgBbQ7IzRU7pUxX+W4xJ
+	kV9OJqZTLrL5cbqTnivJMts2HFByYUxg5tw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gufsq9w1u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:16:10 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so4550121a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:16:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790072170; x=1790676970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=halr08AGvM3e7+vdJKHgPMGEd8gTfjGSRjKghooAsEw=;
+        b=ikMbzTQbvvAN57uz2pSAi3bYp8ADIy+oVKZuaMUwe7NoivWXnkFtPrf0AtAlCTmjzC
+         C6TotDm6b4Tknu7RBd4TMpzW66Rzqj28qR+i8QWO6QswM/oQls55szcmjI+pC5u1JeRa
+         5Cs5jGVWO5Qnt2RcqOt0GV38yVGuaTz+lYQBU47xVFeuc6L+AHHpaqQHyotRxRxquM2N
+         ZFYsTjV4S/XBSHPNfwaA2ruQQ0+NGegFm07g9hhKo3fSfF/cekI5i+HMT5e9VijVMzYE
+         sOLmLNxhYUQ8VwsjC03AxTImsLP1dhUyvJdNPZUqDSB6rz/mnTROiWZ/GOpJhknuK9b+
+         vgOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790072170; x=1790676970;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=halr08AGvM3e7+vdJKHgPMGEd8gTfjGSRjKghooAsEw=;
+        b=FaHMw0MTDe7NqkoeR9Yqu7mflbOAXfix/Jc92csrXVpWhjsYZ5r40IryuDYhFwoGjc
+         Gd9QuHFHCWmK3cLRPr3pfiizwWdPiEI5phWJkHJhBc2sUJ0Cg9W32RjIvyryiygDbsXW
+         TMO7C/R2yhf/shOwHCsiuTlwxWK3S/aSghK9GvL/OvGEHBCXl0d1nV1RPebA2qjSxYv+
+         ZrynWkgsHFjzik8veM4BQnI4cH6r81uvorD+zyccm442MFJgyOo4w5PszDlqkbzb2jz/
+         btXi6g2HIyVp9d7vJ3/R80njBsUD1b/44lbQNcFv7uCXIifFj1+Y4QQoy8TMDXXqlrRx
+         62ig==
+X-Forwarded-Encrypted: i=1; AKwUvBxMbyfAeZpFWKO4KSldOTOAadNA88DbcOHmiiv9YcjDdqUdTQthLdtNtWPrFDcsliEL3siHfsS0PiA1/9I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdt0PIAYJZaFEr6RY7wLSh07xHphoCMQ6ShThFPxX1TobK5VX2
+	AVG8xVAlZsJ/FC5AIOmPWAPoKsA+QjY0wQzpiZ9uYNj8LPeQrbPaCR3enmr2akbatYhOF9bvGCX
+	tmcciVuBDPpYV2guMmM8KvgjNUflonlwo2LmniAdK9zlRpThyUJMEjUUdp//Owz1gXfU=
+X-Gm-Gg: AYBFou3ofMfKzdO+KWK98i+7KLE3PehE/S9W7rZkH5yzmgWblaHKdNmaQxj2lwAOJrp
+	tUM/FGTblsiR8SHMnDIqKLOGpj0UlUGyWppyCsQ1v+PRphjCPf2VRjGYzDqZV+47k3/kTD7ppS6
+	6tGth8RB+/czlmXv24u1BsHXEt8Tvs14cXcrE8QRaOvZp2nq3EYawf0bSh9t1jrq+yGYmHan/51
+	wxgDfvYM9oi9yFfWC56e/H8EnsStLvvFcu4MQaQmhmmIK2htSmH+BY3AI7cC+RXUdEg7qCOpD2X
+	aq4lFG2BwTLgw9OiVvDmayw6mnE58HS7CXEzbksTK7I0MNOshgD1iGSHv/8nv5HA+8PM8I+mgG3
+	6bnIbZFBPnzP3snu9lABxwm+KoNwHmSr9VGA=
+X-Received: by 2002:a17:90b:4d88:b0:39d:fcbe:fdcf with SMTP id 98e67ed59e1d1-3a073098737mr780546a91.1.1790072169950;
+        Tue, 22 Sep 2026 03:16:09 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d88:b0:39d:fcbe:fdcf with SMTP id 98e67ed59e1d1-3a073098737mr780510a91.1.1790072169331;
+        Tue, 22 Sep 2026 03:16:09 -0700 (PDT)
+Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f294e4acsm4141064c88.1.2026.09.22.03.16.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 03:16:08 -0700 (PDT)
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v1] arm64: dts: qcom: glymur-crd: Enable DMIC4 and DMIC5 on CRD
+Date: Tue, 22 Sep 2026 15:45:50 +0530
+Message-Id: <20260922101550.2216689-1-mohammad.rafi.shaik@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/8] block: fail a short atomic pin in
- bio_iov_iter_get_pages()
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Christian Brauner <brauner@kernel.org>, "Darrick J. Wong"
- <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260921-blkdev-fixes-v4-0-e2801f71ede9@columbia.edu>
- <20260921-blkdev-fixes-v4-5-e2801f71ede9@columbia.edu>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20260921-blkdev-fixes-v4-5-e2801f71ede9@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: jrU3ii158q_sVB7W0akGQ2sPQed99225
+X-Proofpoint-GUID: jrU3ii158q_sVB7W0akGQ2sPQed99225
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE0NyBTYWx0ZWRfX+f3rkVs44+uA
+ K2gMCOZGaQW2AaSFn4DXoYvVWV3O3MF2CsA+Orcp7Mm7LOeWDZv23Q08TNUCeBqygndJnnixZTX
+ 2TgtIt7W9v9ezdiFysKblmMQQTNsi8A=
+X-Authority-Analysis: v=2.4 cv=NKBAaE6g c=1 sm=1 tr=0 ts=6ab2556b cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=x1nICoucR8wNQKwiGQYA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE0NyBTYWx0ZWRfX4OLM58tKHFzW
+ hstObjMjK74t9NSvieYZNEBU6eZn6qY1dE40jN5Yl/zi0KLxSpb4qz/q0yDPm0xxV6uQshcVD0C
+ bBi6TCo1AxzAvDHPlFN2iH3EKOQ0LvzS5+JESaj9I7z4q0CDf2PhV+ld9n2E3Qilux/9ONfEbE7
+ NDFZee36m8ps9rxJ97DXiJC0ItEVjuMY6dNYv/VECf/BnACBP98CztvlddJ1g/RVSKvhWBI/1Ju
+ qUCioevVWG0y1lqzYcTwaM0wFpES/9pjIE3J7XS3/Dg0dq2KAd05MaVELhtGfANgjLCD/PK7z2t
+ MybxqARxBS7jiO/n5Dd77+lWFSI6YEttUB0vvZOgt1dlqg0UGEEaZsX6+BV0vfKjVvGFOaZuj/P
+ 9BWOwcEGx8IeD2b24ZvZO7DvTc8PM+AyLJVmpGoFVPn7ZGlhY6YXqXscQvvS+tgodu5M2epbS8q
+ r6l/Zk5dCdEhVMvltpg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ clxscore=1015 phishscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220147
 
-On 9/22/26 03:54, Tal Zussman wrote:
-> On a partial page pin, __blkdev_direct_IO_simple() and
-> __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC set
-> and leave the rest to the buffered fallback, tearing an IOCB_ATOMIC
-> write.
-> 
-> This can be triggered deterministically. A 16K pwritev2(RWF_ATOMIC)
-> whose last page is PROT_NONE, on a scsi_debug device with atomic_wr=1,
-> completes short with only three of the four pages written, violating
-> RWF_ATOMIC semantics.
-> 
-> Make bio_iov_iter_get_pages() release the pins and return -EINVAL when
-> a REQ_ATOMIC bio doesn't cover the whole iterator, since an atomic
-> write is submitted as a single bio and a short one would be torn. That
-> covers iomap as well, where a partially unmapped buffer could trip the
-> WARN_ON_ONCE() in iomap_dio_bio_iter_one(). The async block device path
-> currently sets REQ_ATOMIC after pinning, so set it before, and move
-> REQ_NOWAIT along with it.
-> 
-> Fixes: caf336f81b3a ("block: Add fops atomic write support")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->   block/bio.c  | 29 ++++++++++++++++++++++-------
->   block/fops.c | 12 ++++++------
->   2 files changed, 28 insertions(+), 13 deletions(-)
-> 
-> diff --git a/block/bio.c b/block/bio.c
-> index f95b63c0604a..14429a5d4e68 100644
-> --- a/block/bio.c
-> +++ b/block/bio.c
-> @@ -1285,6 +1285,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
->   			   unsigned mem_align_mask, unsigned len_align_mask)
->   {
->   	iov_iter_extraction_t flags = 0;
-> +	int ret;
->   
->   	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
->   		return -EIO;
-> @@ -1304,34 +1305,48 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
->   		flags |= ITER_ALLOW_P2PDMA;
->   
->   	do {
-> -		ssize_t ret;
-> +		ssize_t size;
->   
-> -		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
-> +		size = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
->   				BIO_MAX_SIZE - bio->bi_iter.bi_size,
->   				&bio->bi_vcnt, bio->bi_max_vecs,
->   				mem_align_mask, flags);
-> -		if (ret <= 0) {
-> +		if (size <= 0) {
->   			/*
->   			 * A misaligned vector fails the whole I/O.  Release any
->   			 * pages pinned by earlier iterations before returning
->   			 * since this bio won't be submitted to release them.
->   			 */
-> -			if (ret == -EINVAL) {
-> +			if (size == -EINVAL) {
+Add the LPASS LPI pinctrl state for the third DMIC clock line, which
+drives DMIC4 and DMIC5.
 
-*
+CRD has additional digital microphones connected to this clock line, so
+reference the new pinctrl state from the VA macro and route the
+microphone bias supply to DMIC4 and DMIC5 to make them usable.
 
->   				bio_release_pages(bio, false);
->   				bio_clear_flag(bio, BIO_PAGE_PINNED);
->   				bio->bi_vcnt = 0;
->   			}
->   			if (!bio->bi_vcnt)
-> -				return ret;
-> +				return size;
->   			break;
->   		}
-> -		bio->bi_iter.bi_size += ret;
-> +		bio->bi_iter.bi_size += size;
->   	} while (iov_iter_count(iter) && !bio_full(bio, 0));
->   
->   	if (is_pci_p2pdma_page(bio->bi_io_vec->bv_page))
->   		bio->bi_opf |= REQ_NOMERGE;
-> -	return bio_iov_iter_align_down(bio, iter,
-> +	ret = bio_iov_iter_align_down(bio, iter,
->   			&bio->bi_io_vec[bio->bi_vcnt - 1], len_align_mask);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * An atomic write is submitted as a single bio, so it has to cover
-> +	 * the whole iterator or it would be torn.
-> +	 */
-> +	if ((bio->bi_opf & REQ_ATOMIC) && iov_iter_count(iter)) {
-> +		bio_release_pages(bio, false);
-> +		bio_clear_flag(bio, BIO_PAGE_PINNED);
-> +		bio->bi_vcnt = 0;
-> +		return -EINVAL;
+Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/glymur-crd.dtsi |  6 ++++--
+ arch/arm64/boot/dts/qcom/glymur.dtsi     | 16 ++++++++++++++++
+ 2 files changed, 20 insertions(+), 2 deletions(-)
 
-There is some commonality here with iov_iter_extract_bvecs() failing, 
-above *. You could add an error out label for both error scenarios.
-
-If that does not work:
-Reviewed-by: John Garry <john.garry@linux.dev>
-
-> +	}
-> +	return 0;
->   }
->   
->   static struct folio *folio_alloc_greedy(gfp_t gfp, size_t *size,
-> diff --git a/block/fops.c b/block/fops.c
-> index a3a709697b40..90777e8a9a6c 100644
-> --- a/block/fops.c
-> +++ b/block/fops.c
-> @@ -342,6 +342,12 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
->   	bio->bi_end_io = blkdev_bio_end_io_async;
->   	bio->bi_ioprio = iocb->ki_ioprio;
->   
-> +	if (iocb->ki_flags & IOCB_ATOMIC)
-> +		bio->bi_opf |= REQ_ATOMIC;
-> +
-> +	if (iocb->ki_flags & IOCB_NOWAIT)
-> +		bio->bi_opf |= REQ_NOWAIT;
-> +
->   	/*
->   	 * Users don't rely on the iterator being in any particular
->   	 * state for async I/O returning -EIOCBQUEUED, hence we can
-> @@ -371,12 +377,6 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
->   			goto out_bio_put;
->   	}
->   
-> -	if (iocb->ki_flags & IOCB_ATOMIC)
-> -		bio->bi_opf |= REQ_ATOMIC;
-> -
-> -	if (iocb->ki_flags & IOCB_NOWAIT)
-> -		bio->bi_opf |= REQ_NOWAIT;
-> -
->   	if (iocb->ki_flags & IOCB_HIPRI) {
->   		bio->bi_opf |= REQ_POLLED;
->   		submit_bio(bio);
-> 
+diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+index ccdc322157e0..02e342ecfe4a 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+@@ -247,7 +247,9 @@ sound {
+ 				"VA DMIC0", "vdd-micb",
+ 				"VA DMIC1", "vdd-micb",
+ 				"VA DMIC2", "vdd-micb",
+-				"VA DMIC3", "vdd-micb";
++				"VA DMIC3", "vdd-micb",
++				"VA DMIC4", "vdd-micb",
++				"VA DMIC5", "vdd-micb";
+ 
+ 		wsa-dai-link {
+ 			link-name = "WSA Playback";
+@@ -695,7 +697,7 @@ touchscreen@38 {
+ };
+ 
+ &lpass_vamacro {
+-	pinctrl-0 = <&dmic01_default>, <&dmic23_default>;
++	pinctrl-0 = <&dmic01_default>, <&dmic23_default>, <&dmic45_default>;
+ 	pinctrl-names = "default";
+ 	qcom,dmic-sample-rate = <4800000>;
+ 	vdd-micb-supply = <&vreg_l1b_e0_1p8>;
+diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+index de7c395d9c35..c941b473ce25 100644
+--- a/arch/arm64/boot/dts/qcom/glymur.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+@@ -4768,6 +4768,22 @@ data-pins {
+ 				};
+ 			};
+ 
++			dmic45_default: dmic45-default-state {
++				clk-pins {
++					pins = "gpio17";
++					function = "dmic4_clk";
++					drive-strength = <8>;
++					output-high;
++				};
++
++				data-pins {
++					pins = "gpio18";
++					function = "dmic4_data";
++					drive-strength = <8>;
++					input-enable;
++				};
++			};
++
+ 			wsa_swr_active: wsa-swr-active-state {
+ 				clk-pins {
+ 					pins = "gpio10";
+-- 
+2.34.1
 
