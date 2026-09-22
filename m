@@ -1,82 +1,269 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B268954147A;
-	Tue, 22 Sep 2026 12:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC593403E3;
+	Tue, 22 Sep 2026 12:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079511; cv=none; b=Mso+aIgg7Datj3Ag9ZlO/DUHjV3ootnXXkCyos6yCnpOXjocso5VLy4XSB7N0rTllJHXz4uEIr1RhXqZDDAoK3ig3WRRJEpb6xIZ9iiqqbMWRdvv3l5Yb4aYFxj5Gi/2gsf4aN/UMGN8oXhh2W4bqdroQO5LbO6ryBnnK261WKI=
+	t=1790079523; cv=none; b=H5tkgSfG1dT4X8OEovSlX/ObBNlk2i+XJpmXg5LNkttOshmu0fGUshXsWiZXuvPQRpqc983djVa6hP0zFkU1cG/uZK+thfkp2I9Hv/48fWM4bxis2IrcnL4lsSa+sBhLWEpxrdJF2UWNeAgtXE51dNr4fC3yGjEhZnpXn4JMWfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079511; c=relaxed/simple;
-	bh=XnTjQ59ZCsiFN7d715NkJvR8ea2j8/XgdgbYql7zwSw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Dmod3UqnQApsPdfxvc6/hnQBLuk71loUQZ0nueOh6swNc1Kf6rv9bULO01i1SYoGHhXVyL1f1VE8T3rG4PwFWejurdJZnrBc9q00ucIwUA1QDB6BHHXFwAUkQrejUf7iD0HWlkwXqf2GIBw6GoVlMaKghXFEf47y+UWtZGbsya4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.2.5.213])
-	by gateway (Coremail) with SMTP id _____8AxHNITcrJqVqAOAA--.42720S3;
-	Tue, 22 Sep 2026 20:18:27 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.2.5.213])
-	by front1 (Coremail) with SMTP id qMiowJAxHs8ScrJqzMAjAA--.45156S2;
-	Tue, 22 Sep 2026 20:18:26 +0800 (CST)
-From: Bibo Mao <maobibo@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>
-Cc: Len Brown <lenb@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
-	lixianglai@loongson.cn
-Subject: [PATCH v4 4/4] MAINTAINERS: Add entry for drivers/acpi/loongarch
-Date: Tue, 22 Sep 2026 20:10:58 +0800
-Message-Id: <20260922121058.972734-5-maobibo@loongson.cn>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260922121058.972734-1-maobibo@loongson.cn>
-References: <20260922121058.972734-1-maobibo@loongson.cn>
+	s=arc-20240116; t=1790079523; c=relaxed/simple;
+	bh=h9apuZrWj2lrN/w3EvAP7FFMqf2ytwdn02qHiPbOQnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mQdhWBVvi5LkSwIZOB42ShlUMr/OVr9vhdnbS3aukO1HPrG7EJuHcElfWIM01E6uL4Z2RQpb6OYs4ri1NFH08yjbrv86z67I7Abx1Ao1ksTFvrbDSx3ozAiRnrdk224bkXLS8fVQ+BqOz3mViMyVjJngcb2AedrxKjwrmqhN2cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=exTlfNlr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NurHdi+v; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KdavMFAt; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=1j6dr31L; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="exTlfNlr";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NurHdi+v";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KdavMFAt";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="1j6dr31L"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CB0321FF20;
+	Tue, 22 Sep 2026 12:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790079515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v2Tk4+Pw6RpU7AefGmYvZqxsKo5DjRGYdxiV/DVpLAg=;
+	b=exTlfNlrsZx6rUVP90135aynRjgiYrPV5sU+LVmAb3I+gah0VZ3ynJeqtHJCGFLhV3tLHq
+	FDsjNsE2d4xX3jUbhXUelVWFMCF6VHvi+51FDa2ux13+BuQUdjIDs9sLMgzGJMJkHoLOX8
+	1QPAm/TFusZYzML0WWHh5zk3TvorkfY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790079515;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v2Tk4+Pw6RpU7AefGmYvZqxsKo5DjRGYdxiV/DVpLAg=;
+	b=NurHdi+v8YTmU5j2yIDWLME3exqqbUao/HOaEFSEYHEMc0X7XoQMGgvY12+Ajk+Bw/Wzc3
+	gFbupaEjoKDxi8DA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=KdavMFAt;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=1j6dr31L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790079510; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v2Tk4+Pw6RpU7AefGmYvZqxsKo5DjRGYdxiV/DVpLAg=;
+	b=KdavMFAtqn5buFmG7X1bT4XQN6NbH73HBSH0ebH94TPP7FaC8SbCrbdVFSSuSk9tG5pn2F
+	RwljaS1a1iILWXsVs+G9dzWlr0yANy+MdtncKAqs/X/B4d8QDGWEEKjorcRlKid+s8D8Wq
+	z5uOB8zxWAfLgIJhxBhz7TZQ9HsnSSQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790079510;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v2Tk4+Pw6RpU7AefGmYvZqxsKo5DjRGYdxiV/DVpLAg=;
+	b=1j6dr31LX8lAu9k3pWVtr7O/+IGu/gaJi5+l9IPu1DchDERB2WSIyZDeEsRygnWujYd5oU
+	sZI834C3d8J6yYAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 92483136D9;
+	Tue, 22 Sep 2026 12:18:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 08YfFxZysmptJgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 22 Sep 2026 12:18:30 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 01A2CA13D4; Tue, 22 Sep 2026 14:18:21 +0200 (CEST)
+Date: Tue, 22 Sep 2026 14:18:21 +0200
+From: Jan Kara <jack@suse.cz>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
+	Yichong Chen <chenyichong@uniontech.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] isofs: advance to the next block when a record ends at
+ the block end
+Message-ID: <h532mtcbip4jyfr4cgqqs5jydwzhrvzuniex5zdrqz3nppweho@t5ivq66e5n2l>
+References: <20260922054853.469681-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxHs8ScrJqzMAjAA--.45156S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
-	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
-	nUUI43ZEXa7xR_UUUUUUUUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922054853.469681-1-matthias.goergens@gmail.com>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: CB0321FF20
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[archive.org:url,suse.com:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Flag: NO
 
-ACPI defines few LoongArch specific tables which need parsing code
-added in drivers/acpi/loongarch. Add maintainer entries for this newly
-created folder.
+On Tue 22-09-26 13:48:53, Matthias Goergens wrote:
+> Since commit b2eb2e288604 ("isofs: Drop support of directory entries
+> straddling blocks") some ISO 9660 images list incomplete directories:
+> find returns fewer entries than before, and some of the names readdir
+> does return cannot be looked up.  The log fills with
+> 
+>   iso9660: Corrupted directory entry in block 0 of inode 55232
+> 
+> and on some images the walk reads a byte past the end of a buffer:
+> 
+>   BUG: KASAN: use-after-free in isofs_readdir+0x93b/0xc40
+> 
+> Affected are images with a directory record ending exactly at the end of
+> a logical block, which ECMA-119 allows and current tools produce.  On
+> the Debian 13.7.0 amd64 DVD-1, which has three, find returns 9163
+> entries instead of 9461:
+> 
+>   https://cdimage.debian.org/debian-cd/13.7.0/amd64/iso-dvd/debian-13.7.0-amd64-DVD-1.iso
+> 
+> The KASAN report is from a shareware CD with one in its root directory:
+> 
+>   https://archive.org/download/simtel-1-0295/SIMTEL1_0295.ISO
+> 
+> A local one, which lists 46 of its 65 files:
+> 
+>   mkdir tree
+>   for i in $(seq -f '%04g' 1 65); do echo hi > tree/FILE$i.TXT; done
+>   xorrisofs -iso-level 1 -o boundary.iso tree/
+> 
+> genisoimage pads the tail of a block instead of filling it exactly, so
+> its images have no such records.
+> 
+> That commit removed the reassembly of records crossing a block boundary.
+> Its condition was "offset >= bufsize", so it also handled a record
+> ending exactly at the end (offset == bufsize): drop the buffer,
+> increment the block, reset the offset.  Nothing does that now, so
+> do_isofs_readdir() and isofs_find_entry() read the next record's length
+> byte from bh->b_data + bufsize, one past the buffer.  Depending on that
+> byte the walk either treats the rest of the block as padding and skips
+> the next block of entries, or fails the record as corrupt and stops.
+> 
+> Straddling records stay rejected: isofs_dir_record_valid() fails them
+> because their length exceeds the remaining space, which is what that
+> commit relied on.  One ending exactly at the end fits in its block and
+> is accepted, so it is the advance, not the reassembly, that has to come
+> back.
+> 
+> Do it at the top of the loop: do_isofs_readdir() reaches the next
+> iteration from the multi-extent branch, "." and "..", the
+> hidden/associated skip (showassoc is off by default, so no mount option
+> is needed) and the fall-through, and all of them need covering.  The
+> record was validated to end within the block, so offset never exceeds
+> bufsize.
+> 
+> Fixes: b2eb2e288604 ("isofs: Drop support of directory entries straddling blocks")
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 
-Signed-off-by: Bibo Mao <maobibo@loongson.cn>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Thanks for the analysis and the fix! In fact I got notified about the
+problem last week and fixed it (sligthly differently) [1]. I've now added
+you as a reporter at least to give you some credit.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..f9ae86a42dec 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -347,6 +347,15 @@ S:	Maintained
- F:	drivers/acpi/riscv/
- F:	include/linux/acpi_rimt.h
- 
-+ACPI FOR LOONGARCH (ACPI/LoongArch)
-+M:	Bibo Mao <maobibo@loongson.cn>
-+M:	Huacai Chen <chenhuacai@kernel.org>
-+L:	linux-acpi@vger.kernel.org
-+L:	loongarch@lists.linux.dev
-+S:	Maintained
-+F:	drivers/acpi/loongarch/
-+F:	include/linux/acpi_iovt.h
-+
- ACPI PCC(Platform Communication Channel) MAILBOX DRIVER
- M:	Sudeep Holla <sudeep.holla@kernel.org>
- L:	linux-acpi@vger.kernel.org
+BTW, it is a good observation that there's yet another instance of
+directory reading code in isofs_read_level3_size(). That deserves a similar
+simplification as what commit b2eb2e288604 did (just without introducing
+the bug this time :)).
+
+								Honza
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs.git/commit/?id=bda8d8d49ca14e7f3bdc39fdc4330a48b32d6b6f
+
+
+> ---
+> Not tagged for stable: b2eb2e288604 is in 7.3-rc1..rc3 and has not
+> appeared in a released kernel.
+> 
+> Validated under qemu with KASAN and UBSAN against the images above,
+> using a kernel built from the commit before b2eb2e288604 as the
+> reference for correct behaviour.
+> 
+> do_isofs_readdir(), isofs_find_entry() and isofs_read_level3_size() all
+> open-code this same block-end transition.  Happy to follow up with a
+> helper that shares it, kept out of here to keep the regression fix
+> minimal.
+> 
+>  fs/isofs/dir.c   | 12 ++++++++++++
+>  fs/isofs/namei.c | 12 ++++++++++++
+>  2 files changed, 24 insertions(+)
+> 
+> diff --git a/fs/isofs/dir.c b/fs/isofs/dir.c
+> index c7ca7603e97a..00a609c901dd 100644
+> --- a/fs/isofs/dir.c
+> +++ b/fs/isofs/dir.c
+> @@ -104,6 +104,18 @@ static int do_isofs_readdir(struct inode *inode, struct file *file,
+>  	while (ctx->pos < inode->i_size) {
+>  		int de_len;
+>  
+> +		/*
+> +		 * The previous record was validated to end within its
+> +		 * block; if it ended exactly at the end, the next record
+> +		 * starts at the beginning of the next block.
+> +		 */
+> +		if (offset == bufsize) {
+> +			brelse(bh);
+> +			bh = NULL;
+> +			block++;
+> +			offset = 0;
+> +		}
+> +
+>  		if (!bh) {
+>  			bh = isofs_bread(inode, block);
+>  			if (!bh)
+> diff --git a/fs/isofs/namei.c b/fs/isofs/namei.c
+> index 010682f5901a..5f5ed36d12e3 100644
+> --- a/fs/isofs/namei.c
+> +++ b/fs/isofs/namei.c
+> @@ -68,6 +68,18 @@ isofs_find_entry(struct inode *dir, struct dentry *dentry,
+>  		int de_len, match, i, dlen;
+>  		char *dpnt;
+>  
+> +		/*
+> +		 * The previous record was validated to end within its
+> +		 * block; if it ended exactly at the end, the next record
+> +		 * starts at the beginning of the next block.
+> +		 */
+> +		if (offset == bufsize) {
+> +			brelse(bh);
+> +			bh = NULL;
+> +			block++;
+> +			offset = 0;
+> +		}
+> +
+>  		if (!bh) {
+>  			bh = isofs_bread(dir, block);
+>  			if (!bh)
+> -- 
+> 2.55.0
+> 
 -- 
-2.39.3
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
