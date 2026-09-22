@@ -1,127 +1,103 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F51539762
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2040539774;
+	Tue, 22 Sep 2026 11:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075295; cv=none; b=PSUkPjUQZGCm3znthGe5MNBshN4L+7QKphIZW/HIUrwc2cXbHzmZAZv4R6evt4IBOrJR+duETin/Ii/5vQmdvNqCgrESUl0raeNkFjRERq6q9reYhIMFuEPlwFRHZDJirRtMKXAGvrCPfEg5R6klLGEdCXEPTPuyG5ury6VRMcM=
+	t=1790075338; cv=none; b=OxErr+vDBTqDAenKhusAzbGWpZ02kDe3kO+FPln7gkjcslDziVLGRtGylBMatWNs9gzlw83Z0Mx1hZMhX4RQfluzcxEE6YOoOsrqU+goLbkr2Y5hvD3gZi8yQ8+sgzjCmVWOa7m8H/0aiCYH++KEB+IgK+gRtdwEq9Hq5eTa3n0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075295; c=relaxed/simple;
-	bh=1RWl0PR05GJY94GTZEo2wCPawRYp5T88Nd+pKPOM9W8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dEKHWtQqfzdONYXnDcsLmydOkw4EU0USzHqR5PI5qdzyqXxHKbfC92GNlQbOYbMqm52WnNnrktPlAFZpBgdU8piON5kiFalOGtEZP7snovBfdvLi8cH5X2fvxOZxLk9xJ37vtOIAlZJgGTmtU6MdtV7O1faDF+Vg+doiq03AMTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=JYeJjj+Q; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790075338; c=relaxed/simple;
+	bh=9HJlPMXZt1Oe7sRztWY6mkw2AEFppgWFpyodapDPlmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lNCS8ZZMPRT6yfS+9NKcS/hWL5Lq9F958UgL7Q/n8J0smE4N5WVMqA/hfNdj/pLQ2Pk21L6sscpEZyXwDRiQnh30TNJni2ZJfkexpW9vmhrC/ZG+oArI86eDvo4DLVkcmJ5XPSU076eFmM9YtottmWzRqA0vbjBGPKxzL7CEn1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C68WpyvL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="JYeJjj+Q"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso19536905e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:08:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790075291; x=1790680091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N7KS/ZpH17dTPDD8GscfCjkQWEGGxCfVsoh2ihMqdpY=;
-        b=JYeJjj+Q+pbezXy7UoVLP8gHW2LnFrCvKi3/nfur+3R+GIZTQm3sBbJlDTMSRjR9rP
-         GTc/C/mkda+fs9YMTq5tPDlKo7oV4pKkE13cMsGeFbKBEG4F75LxAPTXFm4Gh+kpYz8w
-         88J5eDT+jhXaXXWuE3tsYE8iLSysjW9o40N35Ajyk1ydiIhZtjseU00MYArKD56SDKln
-         e7rY++PHhHUhBlQQxOSTzmFsBhplO9rUmq2M/kaGQPg/wzpgm20JXmGUwk8zqwoX6/mF
-         vQupCWZqQgkGz48+jxD9/AzupI78so8CQXAVquYhCNcLbZtIKfVqbUDppAsciQM89sh1
-         5nKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790075291; x=1790680091;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N7KS/ZpH17dTPDD8GscfCjkQWEGGxCfVsoh2ihMqdpY=;
-        b=VXdfAd/xwSQv7OT9iQyN0oIq+WSL75oSuTAfIhM0pKa5iyIOzzzHZS9wL9zvucVYg2
-         vIGeGdzEnSt5tm2MINjQwXsJ4iMBDbfpMqaW5mlNmQMX7QAxVNGGNxPAANdU8J1R2bx/
-         KodCNuF1a3FULXEkcg1WF1IRV/w7FY8mAFBpYzYFz1tKEXm+TwYGAN8vdN6wTSfPxYuL
-         XZNw+0885Eg1VGJ3jI0I69UkTlSTBhJP0Q5fioD8yB33fCZTL8GI4qnIhF4uPvqt6FJG
-         XXM2bSrenNXLoJHPTYuJ6M0l9460X3xZEnhDHwtGdMi+sfXJzI5OHiM9H365j/6Dc3w4
-         n1qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqZpWtWNj9FbqOy2BicgSQEReXm1N++zG+jBEI+psJdaSYx7cNU3wC4CXJu9QASNcM4ey3mZrmzAwXLZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kejqdsBsJavV3v3Gwf2H8qOIubKrMjNXoWO4ZEXVR8NWAZF9Lw
-	aRCh/D2xF8ZkXD0/hJMCTlnenx3weLTrwfdBM+v7wln4rIZ1tGDdLdGqqmCN4UPRdKM=
-X-Gm-Gg: AYBFou30nYvlanCVPTyZhe1GE6RcJ7IYXAIklbg+w3HENqCitTYPqpPpfieTsVJPlpJ
-	QNzwFDHQniXY2D0vy5q4i5hae5E26+4GDczn7sdnWQ5fps3zZSNoOWdU1vOWh6zqlWxq5Yt2mkA
-	d76WhQLtMC65Opw9iKMKoyQ+NhrsEFrzxvqdgMg/0KX4t3oISRaE+bZo4ejfYDsFTzQnf1aHooG
-	m1V1n8USi03jtxSLtS2U/c0Qv70Mn4hhSOaSn5kkTpG7l9WesJvHmskrqs25ROod6vrYDE4Zo8A
-	JJlodSSuzM1V93d3s7LsIYopomV3Ge6OWEow+q3oFtFPHM7EY5ecwhB4ei7OWFU+2kYcbKfPTpc
-	4KspZF1Y/63ESerbPCEXz/GNG6j7Jel7o3VXBVv6FfFpHlXY/wRd/j64/xixpQmCSN2CKGSoOq6
-	RSMeyUdm0ZrhK14oLM2pXxoi+j/wfvncpsomswwtdj01tmZC9JjHlXz2EkY6tfnsrbSU7j13ZSm
-	U4UnJA=
-X-Received: by 2002:a05:600c:3486:b0:49f:ce73:7ac with SMTP id 5b1f17b1804b1-49fce73084emr122080755e9.35.1790075291456;
-        Tue, 22 Sep 2026 04:08:11 -0700 (PDT)
-Received: from localhost ([2a02:168:9d56:1:e1c4:67b1:23e:28ed])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fdad2a3e0sm59275215e9.5.2026.09.22.04.08.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 04:08:10 -0700 (PDT)
-From: Bruno Produit <bruno.produit@trailofbits.com>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: Kyle Zeng <kylebot@openai.com>,
-	jfs-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
-	syzbot+f1521383cec5f7baaa94@syzkaller.appspotmail.com,
-	Bruno Produit <bruno.produit@trailofbits.com>
-Subject: [PATCH] jfs: pin metapage during synchronous writeback
-Date: Tue, 22 Sep 2026 13:07:54 +0200
-Message-ID: <20260922110754.1804555-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C68WpyvL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389C61F000FF;
+	Tue, 22 Sep 2026 11:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790075337;
+	bh=lVyM4uSRQe4zagUkjvqSwMHe9bzVnEvtY2U1tg6ZCW8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C68WpyvLLExwx6r+W9Xaf/fqB5P65iaOFCppaaVkylizbXj4VLETX+f4C0DSEM6cU
+	 RR+Mwr3B/eUK1CE6DaJwXOLxJPoIXMSHqaFhYJfRyY9FW6LQnJfVSMN6tMVajkqXaK
+	 2RGUrqAFWSfxUGmj0LgNyKjYsGzlsDG+2/vMjJ9EpQTfWROszOfMpuRODql+09OyLu
+	 nGD8FGKzh7b0oSxHrt4apTqsb9G+jdAZkCs8Rpw9KYn10X9UMFfBfRR2cTUHBwylnw
+	 6JpUvrkvFw+ohR03TDz6qsjE+DLo2uw2cFOYHtJUzUNM4x5zhZ6QxMvZUR+BQu+q5i
+	 jRHNMvMmuO7HA==
+Date: Tue, 22 Sep 2026 12:08:52 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: davem@davemloft.net, david+nfc@ixit.cz, edumazet@google.com,
+	kuba@kernel.org, linma@zju.edu.cn, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
+	pabeni@redhat.com, stable@vger.kernel.org,
+	Ren Wei <weir@nebusec.ai>
+Subject: Re: [PATCH] nfc: llcp: Fix local use-after-free in
+ nfc_llcp_general_bytes()
+Message-ID: <20260922110852.GC13925@horms.kernel.org>
+References: <20260917163836.2162706-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917163836.2162706-1-vulab@iscas.ac.cn>
 
-From: Kyle Zeng <kylebot@openai.com>
++ Ren Wei
 
-release_metapage() decrements mp->count to zero before it starts a
-synchronous write. metapage_write_one() drops the folio lock while it
-waits for writeback, but release_metapage() retains mp and dereferences
-it after taking the folio lock again.
+On Thu, Sep 17, 2026 at 04:38:36PM +0000, Wentao Liang wrote:
+> nfc_llcp_general_bytes() drops the reference on the llcp local structure
+> with nfc_llcp_local_put() and then still reads local->gb for the return
+> value. If that was the last reference, the local structure is freed and
+> the read happens on freed memory.
+> 
+> Capture the pointer to the general bytes before dropping the reference
+> so the local structure is no longer used after the put.
+> 
+> Fixes: 6709d4b7bc2e ("net: nfc: Fix use-after-free caused by nfc_llcp_find_local")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Once writeback clears META_dirty and ends, reclaim can lock the folio
-first. metapage_release_folio() then observes a zero count and frees mp,
-leaving release_metapage() with a dangling pointer.
+I believe this duplicates a more comprehensive approach by Ren Wei:
+- [PATCH 1/1] nfc: llcp: Pass caller buffer to nfc_llcp_general_bytes to fix UAF and memory leaks
+  https://lore.kernel.org/all/006437e618b55acc0df69d94255244a490b11461.1786029423.git.rakukuip@gmail.com/
 
-Increment mp->count across the unlocked interval. This makes
-metapage_release_folio() reject the folio until release_metapage()
-holds the folio lock again and can safely drop the temporary reference.
+Please check prior work before posting patches.
 
-Fixes: 7fab479bebb9 ("[PATCH] JFS: Support page sizes greater than 4K")
-Reported-by: syzbot+f1521383cec5f7baaa94@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f1521383cec5f7baaa94
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
----
-The syzkaller issue seems to be the same, although the syzbot repro
-does not trigger KASAN on my side. Trail of Bits has another reproducer
-for this bug that triggers a KASAN use-after-free and can it share if needed
-
- fs/jfs/jfs_metapage.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
-index 41fe12e..d1962a4 100644
---- a/fs/jfs/jfs_metapage.c
-+++ b/fs/jfs/jfs_metapage.c
-@@ -882,9 +882,12 @@ void release_metapage(struct metapage * mp)
- 		folio_mark_dirty(folio);
- 		if (test_bit(META_sync, &mp->flag)) {
- 			clear_bit(META_sync, &mp->flag);
-+			/* Pin mp while metapage_write_one() drops the folio lock. */
-+			mp->count++;
- 			if (metapage_write_one(folio))
- 				jfs_error(mp->sb, "metapage_write_one() failed\n");
- 			folio_lock(folio);
-+			mp->count--;
- 		}
- 	} else if (mp->lsn)	/* discard_metapage doesn't remove it */
- 		remove_from_logsync(mp);
--- 
-2.53.0
+> ---
+>  net/nfc/llcp_core.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+> index db5bc6a878dd..d0f17fbacfee 100644
+> --- a/net/nfc/llcp_core.c
+> +++ b/net/nfc/llcp_core.c
+> @@ -638,6 +638,7 @@ static int nfc_llcp_build_gb(struct nfc_llcp_local *local)
+>  u8 *nfc_llcp_general_bytes(struct nfc_dev *dev, size_t *general_bytes_len)
+>  {
+>  	struct nfc_llcp_local *local;
+> +	u8 *gb;
+>  
+>  	local = nfc_llcp_find_local(dev);
+>  	if (local == NULL) {
+> @@ -648,10 +649,11 @@ u8 *nfc_llcp_general_bytes(struct nfc_dev *dev, size_t *general_bytes_len)
+>  	nfc_llcp_build_gb(local);
+>  
+>  	*general_bytes_len = local->gb_len;
+> +	gb = local->gb;
+>  
+>  	nfc_llcp_local_put(local);
+>  
+> -	return local->gb;
+> +	return gb;
+>  }
+>  
+>  int nfc_llcp_set_remote_gb(struct nfc_dev *dev, const u8 *gb, u8 gb_len)
+> -- 
+> 2.34.1
+> 
