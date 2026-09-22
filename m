@@ -1,235 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C598524B1C;
-	Tue, 22 Sep 2026 09:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709D239D6C9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068506; cv=none; b=pNtaIBcqBPAJKSHsBpFh8mGshCBqLOTB3K02LKmYV6h3mXepKj2xUR94XLQNvgcfOoQu+E7RLlEuKCY6FET7OFcBQoKwObdKEr7pIZhsgXmfu/5M3lFcMMOzA0Fe16OAXSC0yXWwlpLF9/8UMsHf5oEWisbTGRDmb4GM0Limaps=
+	t=1790068509; cv=none; b=oGTHg5HcGQGOuOqXAFUXjj5l9y0cxmOJc1EGIIfBl+B7UY6kKU+EPwWFtsRnli82RaqoJvfvUwVfo222exdLHnTHzy+4AtnaD0ru/VPlEYBtC5VCvxST9LMGZKJHIH3tN8sZ7PpUZT6hYUhGaMJuElnG11RNpgU7D0/VEwVPrH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068506; c=relaxed/simple;
-	bh=ab8nojDd73ZNjmJo1aiLMxxM7qmfGdiSHYSuowmH5E4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=jmbP0wLQeVyh4x+wKl1O9IBgRKwsupykex3+ZbDwni/MCxlof+buZ97Z9pB2ugd1gNh/E4sfEpZISt//mWhxrMW8MznkAM8agPAeIIqJiOs6zq0nKKQ3+cyBq4sNMAT2Hg5vAd91LkT/VDQWZa6LYwOlvN6NYQSb/US9yNh/icw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3RVMBcu; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790068509; c=relaxed/simple;
+	bh=8aE5deZqZPFwMCXvNfgGk0kvRqPcCOhyMdfVtngPmno=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hvrnvgKqPSjVOYLdDmTEE+IXsIfh7O/+hlbmV4gTqfSIMLYWhqBtpioeMgU1jA2zuiUom2z3DXT1PTvCjFlH27gb4wCqfKaBNKKtX7IqkUo7FQKO06S/N19CRJJHVhw5Ih3eX/QwLFTbWyFPyMvuBsMinG3OWmNVwI7OQb0LYlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jkWEtPfd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KCmaEslT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3RVMBcu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790068504; x=1821604504;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ab8nojDd73ZNjmJo1aiLMxxM7qmfGdiSHYSuowmH5E4=;
-  b=n3RVMBcuhNnmlSKpe5G9vknDjX5QVWROpwDcNWXj0Y8uSt4ZYsHf04JT
-   7YqCOmpeDueWv/LbmUPVTVoZM2qSEIPSLLABvSOPp711sMJ/JeE0QW53x
-   LaPapvT8fYyYJjMvP5RCIzRiDBfTcE8pb//RWxWBu3SvhQ2xSEZa6gXob
-   t+ju85v8QQF3kkgy17s0AEb7KRhDHAyPhbqFmZzSuvaFTlS0dV/rhysvG
-   +3pR+vP+Fl6hahg6CkomwKSoyrrYKLR2Gt3+vrxiAZfmIzf4+Qec1XgiJ
-   rovFviSQGAvGhlCe7dWxtOAL/QsV6cwMRex6xk69B8RcXFTU8U+9F8Mvg
-   A==;
-X-CSE-ConnectionGUID: jrjajtdXQr6SI6nSMr/CMA==
-X-CSE-MsgGUID: gwpK4bJYTtGgpKTbTDaeFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1155600"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1155600"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 02:15:03 -0700
-X-CSE-ConnectionGUID: 92HoGGBQRbWJZJ8hBVsOwQ==
-X-CSE-MsgGUID: UkAs628ASamF7FqlFRDwiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="273218286"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 02:15:01 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 22 Sep 2026 12:14:58 +0300 (EEST)
-To: Armin Wolf <W_Armin@gmx.de>
-cc: Denis Benato <denis.benato@linux.dev>, LKML <linux-kernel@vger.kernel.org>, 
-    platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
-    Liang Haowen <nbg2974@gmail.com>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>
-Subject: Re: Placement of ASUS Aura and platform/x86 ASUS files relocation
-In-Reply-To: <8e8168cd-4f6b-41e0-81c5-5d7b07b1df13@gmx.de>
-Message-ID: <7b4c6859-aed8-6117-5d80-1ad1f1470260@linux.intel.com>
-References: <0ca263c3-7885-4a5c-bfe5-0e8e4d189666@linux.dev> <e0882d84-f5ea-44a8-881f-4095129e4d2d@gmx.de> <c26da468-9a5a-46c1-8dbd-1784b69b3c73@linux.dev> <8e8168cd-4f6b-41e0-81c5-5d7b07b1df13@gmx.de>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jkWEtPfd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KCmaEslT"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M7VS4S3186116
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=; b=jkWEtPfd+a9OyVHJ
+	4UDX5+PU5SxeXgJ/2Ny027y/HSSbKye5ovB2dHpO12sr/FT2XekHd0JvrZQ0hDE4
+	68qmRoGYZSOyosM9/C0r1Cp52AQHYI8VR6toLE4i/1Zb2ewTlvg+WVU8ltsyPV1U
+	+C6K7IIYC2o36DFf0vyiyrqUDtM0X+0iZrKKwF2CuSN2JGm40CmZPt8WBBDl03Dv
+	AJOvJADQWwdWMKq2mmaXXw2n7OWTJbU2HZYUslqgjjurXpR1BClHfPZ+H1dhFRXt
+	VaioNrbfrZC1GlEXXLCR+x2g+WGD6qvfcPBFQn2FeGBYA2vS3jI+y49OTRsx/KTa
+	Wfn9eQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gueybhtn4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:06 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9349ba88188so82274085a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:15:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790068506; x=1790673306; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=;
+        b=KCmaEslT7XCzW5RsJNbhhZ3gc/QQf1YzqQiJsyJHgYx3AuFuPw+b2IE0j9cbyxQYi4
+         iTrLQnzQaO1URjc5X1JwF/J3lfZ8EjxMoOH0po6ggYIPrfmR4pPRboYd/ZbDAlR3JBt8
+         L3rbXG+6aV7cNAbP4osuHdwhzu3t+AxNA/lXi+gOlHzzXh12twl1KQOF97oyvE0BxEvy
+         FqyG/bF8vw+kRaQ7bBK9S6Zdy6QPaMMLN5kzxSSvFx/xQk3a/bKKEPppSue5JaIfni+a
+         ISrffgSrlQZgjF6NlDhjYmxoNMad/z+P5XZILS4AZafcRCyzqpYs+Lijej+baHttP8Px
+         zJ9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790068506; x=1790673306;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=;
+        b=V4XZD5WJI6Nwc3/U7UEelul0Zi0jVy25VeqJ4kg2fyY84ekIn9jBK6PI0WjlrwqDUD
+         C5dNJJXMY3jFxSgKkMzScvaigcBZW7bm3Yv0gNmZebaTcJMaxRv5K2wOaSCNtx5mCEMf
+         SqzRFBV7qcKyQztodecS0kkcc59wybubGfvntJri5qM77IXaFpLp9kEZjv7CopsjG7oB
+         byU8RyhpvAKzgDME42yb9sh2WOMscP7/wvasGFYphrt1v4IW07VYr4p8T/A0xQKGq8N2
+         kduPN+h5H09yV+/Bnq6vOT0j8dNXQbQLbHVonoyrWY6oQrPJySRbjC4eNQvOYNyPgqbK
+         8rjA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlj4gOmKSYx/qwYNusYBlP3QxibzkdJC9rlqnBi0E2NEBQLc4DsOWB5IoPHYE98aFP5cgOsLj/KJqmSxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcFzFF/9heIAAU+7OEDjK16Nhj5EnLC0HVmZ3TjdKDqyCxgClV
+	J5deQMOzxeKSbaoh89GxGX6FxYg5n2BpkhRqWmZ6AtvQatZemkxRZrsfrzQjwyBopA2UaQRiUEe
+	9CGkVzDSWMdVc0hqY+eoXT8hxZ+KV33C8sRmWFwsljNUaDoIhYl8MaEW8DluBK0fhysU=
+X-Gm-Gg: AYBFou29zg0dz5uJEMKJoynDaRURAm0a78eFP2Yk6Hbc30Edp6IhyTahrREyIOCUymx
+	Y4mLNVNpkG0LDXUu1LVmGox9CDo8w+4umGI15PYa1A/IEBnjHL5y8gryQiMdwwipp68wE5Et2qh
+	fLT8r+gdzGguh/t5Mbsn/gjSWrxrJnsltcNQf7ll/6PjddAGDMHzvaUsDZ3kvm6uw+YVUH+qel2
+	noPgqYFSjVnQmBKxwTUst8ds8QZf2M4RYb4u8mPVm80+lhQL/RsM8Sgl/ZwLpAwkQTd6kXFS3+U
+	eGhR2mRMGACGJKEu1Wi1YvVeut/oqRdSUschCY3rHmxLQhpryV3EXxHIybQ8baxp0ty4l/mBOIU
+	vkMZqpHnudjT0XPMWEV9thg==
+X-Received: by 2002:a05:620a:45a2:b0:939:b8da:1242 with SMTP id af79cd13be357-93c15ba3243mr481848685a.0.1790068505733;
+        Tue, 22 Sep 2026 02:15:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:45a2:b0:939:b8da:1242 with SMTP id af79cd13be357-93c15ba3243mr481845085a.0.1790068505388;
+        Tue, 22 Sep 2026 02:15:05 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5b0c6csm51663066b.31.2026.09.22.02.15.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 02:15:04 -0700 (PDT)
+Message-ID: <eefde985-c807-4905-a33f-616a1898ad72@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 11:15:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1444408434-1790068498=:1233"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-1444408434-1790068498=:1233
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API
+ devices
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Felipe Balbi <balbi@ti.com>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Oleg Keri <okerixx@gmail.com>
+References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
+ <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=bP6Ds/+Z c=1 sm=1 tr=0 ts=6ab2471a cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=KKAkSRfTAAAA:8 a=SmOWCKbkXSXCNfC1NdcA:9
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: Kr0kqA4YSqe2qJexodqDBeCX1UVFnHII
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfX8CnUTUi0a+VD
+ ZwcFiz0JJsN4lXfqFVMtL8vz9SqJQm+uer6RZ3Lb01DfhgZvtpEd+dWdp7E/7KF0r4gOg4AZsmT
+ U54PiE0YCQUGHVQJplEbpkRwfB3ChdLgsov5cdIEk7WkDy3yaJ7YT9qimLZ0q/UlvTjUGcA8zxT
+ KooOMLhL3DT4G8UVjamEW532SGglaMaFOoh5vurLv/CvblwBwp00g6cbH36Cer3BYsZ+P6zZJ3T
+ EOUPqsGpZPNEO2dcmhdL99EINJ84f7oEWx1xsUQx5yNhx3o1eWGP0weu/mAdJCtlZZ3tOE55Nr5
+ 9al5GYTv34f80v3Wbj7kSJutnhpt9T1+Vgh0z7mGMwe9MmcMyGZ//1j5IfhTbRhmo/5DNZ43iVI
+ Ijle6npd1NrYw5PguXsIJPH/xXyBirAtnsqZDi3qmfLq1Np7veG8usYL1E3/BKCUhSpI632h27O
+ Tk9mP8CAof1qiSyhUFg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfX/W7Rzssmaafu
+ Z8k03q/tkgymgqcEoCfFiz9dYdxTz7Cq6Lm32KaCv1vtxrt5RpxjLnVAqKlYJEJwSvc9iRZLueq
+ sTCk13k0N63VIq5H6gfmOUnWa83Ap7s=
+X-Proofpoint-GUID: Kr0kqA4YSqe2qJexodqDBeCX1UVFnHII
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220133
 
-Hi all,
+On 9/18/26 3:56 PM, Bryan O'Donoghue wrote:
+> Add the ability to use a PHY pointer which interacts with the standard PHY
+> API.
+> 
+> In the first instance the code will try to use the new PHY interface. If no
+> PHYs are present in the DT then the legacy method will be attempted.
+> 
+> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
 
-It seems this thread has went under the radar for me so thanks for the=20
-pointer in the other thread (this was within the large pile of yet to be=20
-processed email from the Summer time, I likely won't have time for them=20
-until the next merge window, if ever...). I'm sorry about that.
+This and the following patch conflict upon applying after:
 
-On Wed, 26 Aug 2026, Armin Wolf wrote:
-> Am 05.08.26 um 14:20 schrieb Denis Benato:
-> > On 8/4/26 20:22, Armin Wolf wrote:
-> > > Am 04.08.26 um 19:46 schrieb Denis Benato:
-> > >=20
-> > > > Hi all,
-> > > >=20
-> > > > I write this mail to ask a few questions related to the various ASU=
-S
-> > > > devices in the kernel both present and futures and how to organize =
-that
-> > > > work.
-> > > >=20
-> > > > To understand this mail one needs to know that AURA is the name of =
-the
-> > > > lighting ASUS gave to its
-> > > > products: each device is divided in one or more zones and each zone
-> > > > supports setting an effect like
-> > > > static (1 color), strobe (2 colors and speed), rainbow (0 colors), =
-rain
-> > > > (0 colors and speed), laser (1 color and direction) and these, to b=
-e
-> > > > represented in such a way features are not being lost requires a ne=
-d
-> > > > interface
-> > > > that Derek said he wanted to develop as many other hardware would
-> > > > benefit from it: I will therefore need
-> > > > to specialize it for ASUS things: where is it better to put any .c/=
-=2Eh
-> > > > file related to this interface? Is platform-x86 OK?
-> > > >=20
-> > > > The Aura interface has components (all or only certain aspects) wor=
-king
-> > > > via: scsi, (hid) usb + i2c and wmi.
-> > > >=20
-> > > > 1. Liang Haowen has an ASUS nvme enclosure that supports the AURA
-> > > > protocol as scsi commands:
-> > > > we want those to be in the kernel, but we don't know where to put t=
-he
-> > > > aura userspace interface (see above).
-> > > Hi,
-> > >=20
-> > > it depends on the userspace interface. If you use the LED sysfs API (=
-with
-> > > some extensions for the effects), then i suggest
-> > > that you place the driver in drivers/leds, because the NVME enclosure=
- is
-> > > not a platform device.
-> > >=20
-> > Yeah we will have to bind the LED interface once to the nvme enclosure,=
- up
-> > to 8 different interface to the keyboard (one per zone so we can set th=
-e
-> > physical keyboard in rain and the rear logo in static for example)
-> > and also TUFs manage power states via asus-wmi so one interface spawned=
- by
-> > i2c will need to be bound
-> > to asus-wmi too.
-> >=20
-> > The userspace interface will need to be used by different drivers, in
-> > different instances and even more than
-> > one driver on the same instance.
-> > > I assume you refer to the ROG Arion? If the SCSI commands are used to
-> > > issue i2c/smbus requests, then you should also
-> > > place the i2c controller driver under /drivers/i2c/busses.
-> > >=20
-> > It is indeed a ROG Arion.
-> > > > 2. ASUS has product called "RTX Spark" coming that are arm and will
-> > > > support acpi: I have no idea if the asus-wmi
-> > > > interface would be reused, but if they decide to do so (and the ker=
-nel
-> > > > can be made to boot lol) would platform/x86 still be the best place=
- for
-> > > > ASUS drivers?
-> > > In such a case, moving the affected drivers to drivers/platform/asus/
-> > > would be a good idea. There is currently a patch series pending
-> > > for enabling ACPI-WMI on arm, so _theoretically_ the asus-wmi driver
-> > > should work.
-> > >=20
-> > Splendid news!
-> > > > 3. During the upstreaming of asus-armoury Hans de Goede asked if it=
-'s
-> > > > preferred to have an asus directory containing asus drivers, but th=
-e
-> > > > discussion died there. Now that I see there is a patchest that will=
- also
-> > > > move asus files
-> > > > would it be a good time to spawn this discussion?
-> > > IMHO having a separate asus directory for all asus-related platform
-> > > drivers would indeed be very nice. You could reuse the
-> > > drivers/platform/asus directory
-> > > for that, and leave the older asus-related drivers inside
-> > > drivers/platform/x86 for the time being.
-> > >=20
-> > > Alternatively, you could move all the affected drivers to
-> > > drivers/platform/x86/asus, and after that move this directory to
-> > > drivers/platform.
-> > >=20
-> > This looks cleaner to me if ASUS will produce ARM products that actuall=
-y use
-> > that interface,
-> > but will wait to hear what others think.
+aedd77ea8168 ("media: qcom: camss: use fwnode_graph_for_each_endpoint_scoped() to simplify code")
 
-Given the information in the recent thread, this is indeed going to happen=
-=20
-in the near future. Hans' suggestion was to put generic (x86 + arm) WMI=20
-drivers under drivers/platform/wmi/ (or drivers/platform/wmi/asus/, I=20
-suppose).
-
-I'm not strictly against drivers/platform/asus/ either, if you prefer that=
-=20
-and expect it to have something that would not fall well under=20
-drivers/platform/wmi/.
-
-Anything under drivers/platform/x86/ would not work well for non-x86=20
-drivers because of Kconfig menu structuring.
-
-Same goes for drivers/platform/wmi/asus/ for non-wmi drivers, Kconfig=20
-menu structuring would not work for non-WMI drivers placed under there.
-
-So it largely boils down to having a Kconfig structure that makes sense=20
-(no non-X drivers under drivers/platform/X/).
-
-In any case, if it comes having to move it again, moving entire directory=
-=20
-is relatively easy so this placement is not a life and dead decision (I=20
-can probably handle the transition with some sed tricks on the patches=20
-if there's parallel development).
-
-> > If I do that will platform/x86 still be the correct place to send patch=
-es? I
-> > don't want to "move" the driver away from platform/x86 mailing list jus=
-t
-> > because the directory changed.
->=20
-> Sorry for the delay.
->=20
-> AFAIK as long as the driver is still heavily connected to the x86 platfor=
-m,
-> you can continue to use this mailing list.
-> That is what i am doing with the core ACPI-WMI driver.
-
-platform-drivers-x86 has x86 in it's name but in practice the platform=20
-drivers scope has expanded. Changing the ML name is rather expensive=20
-operation so we stick with the old name even if it now carries this
-baggage. So any platform drivers stuff can be discussed on this list=20
-regardless where they're under drivers/platform/ and MAINTAINERS entries=20
-made to point to platform-drivers-x86 ML=C2=A0as is e.g. with Arm64 platfor=
-m=20
-drivers already (chrome/, mips/, and raspberrypi/ have own MLs but others=
-=20
-do use platform-drivers-x86 list).
-
---=20
- i.
-
---8323328-1444408434-1790068498=:1233--
+Konrad
