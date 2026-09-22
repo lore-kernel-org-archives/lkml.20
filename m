@@ -1,77 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB044A3410
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE76D4457D9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066025; cv=none; b=DV8Syy1h3v91wOTkkjAT75xwsuaGwgBHohX7t2JTqN/7fcxJbtvIsySeJyUiQi55Bqmww3UF/2AyGLtxywPWw3MlISfLk3PhGytVAJg6s3IW0BibZqyvvFApc7LswQCjY6/sD6hJ3izMxHD6q8ISiPZuHLUEzuO8yZKmG/wpWC4=
+	t=1790066102; cv=none; b=tTJ8vlAXiS5FmAXp6/hcRFNsFY+HG9ujX2n8a5ZPXVC0iygE4tUWToDMfUYOHcL8uC2wzNzmO4vMItWqYLqpd3HXptJz64dwQFwPVDonG6GK5xhdyQq2AYFAV7BFRMM663YP78Wyboh0T9jXejJEBbt4AQF3jC/kj7KMAjM/xa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066025; c=relaxed/simple;
-	bh=a2jdZ9Lke6+A6sooRkBfgYI9NYMfLcSpnTEWQfg5qms=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=unAZ+96cNHW22lZ8X2M4EufN4KCwjLDQ2vcbw/cdAphrlU4qUkjwI/z+FOzYJTJAsWcWfn8JBeCWTOrsK+OSjDDFUTKhb371uw7NH//iGVxHetaBVR20w/CbroTOyeRL1tDa4B8F9qXnWQdJqi8CLgCYNhI5QM1Shffppx0x100=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NYhg8Q5j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790066102; c=relaxed/simple;
+	bh=/MQ9q/kMBz035pPCnw9vOBp/PRzg9yLdoKxGmuxx3uw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XjUHud/0WdAJnTuBoMlC5sdcQY4Gpb2DdVbsZbLJq0F+PFdIuKTop3xq/6mFr3VqdYgWBGpmOSj0zCxPuIb/I2eP+kf+EGHOQfwnoMitQyMePTfn0xGHoyN5A5jTlM/uZWDK2KmO9cis0sbdFN8YuD1VrlKktOK+D5EK8Mc9tlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WUZNK4I3; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NYhg8Q5j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FFDE1F0089A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:33:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790066018;
-	bh=a2jdZ9Lke6+A6sooRkBfgYI9NYMfLcSpnTEWQfg5qms=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=NYhg8Q5jhOApc6IyRQvX2486Wg6MuIenR+Lo6BVjpALnW17DlG9IDmFDnHRJdyDA1
-	 tCgq/4oxUjgteROu5j7RusqVJNWUYe4fLR9ersrWAC/DhVcAiG53cMpMXSN4GNrjLx
-	 9iVS25hxHvMrI260chno6b7LW2F0UpmeL/jqafjHJPsrQKSqcILZnhh9hQPSEOgGsw
-	 0gOl5H4ZzTuVdoM9wZKzNpwan0ZToeqJQVabCor6xmPfDJzC4pwQzWwHVxEKq7A3/4
-	 b12Awe0VyAkhSoqEEJeSnxw1cfeq+lLwklvUoUBgP+Wb2eJU4vdYEPejQlGg4V4FX4
-	 EwWXKdViluWNA==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b845so3170550e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:33:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw14vtd03zVe997mAvAbcRfo/lcDRWd3h5dxkWCyHTomt/CsTGIcXwsbjIf4OYS2o15iGDfBzSPtrXpIlE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyKWi1uxHIlJmykLqiETed4piMFPZKO2C7QStQhiYF4gGZyqjJ
-	YGVdYC7D/HwbVTXZwSE6A+xskmbWYf2LZ/Xmy4+Mm5XfuceG5JYjOGMmXSZkS1rWi10JKiTDJqj
-	UZzkU134+q0c4zf+oLUbrXJnersGE+CfNoIrarnH6aw==
-X-Received: by 2002:a05:6512:2216:b0:5b6:1a7c:aa1f with SMTP id
- 2adb3069b0e04-5b8c19838e4mr4189989e87.55.1790066016806; Tue, 22 Sep 2026
- 01:33:36 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:33:35 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:33:35 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260921195636.1925869-3-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WUZNK4I3"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ece3so2945781f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:35:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790066099; x=1790670899; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6vCaHzev1h/MoHQH435Co/njJMhx1fq16i2vRv4vluc=;
+        b=WUZNK4I3gs/n/SLhPw/0Q9mXJdnqA+J/UphS8qjja67DhSLDZktAf8akSnSXNTSbJq
+         OdS+EIhUjSI5pqbjGVwWSVsrICOP4F4afN0obJU5B+bsyzLZC9dYq/4WZiuqf8iXIQ2E
+         umsUhEYlCqXc8797ma5H8ziwz6aWpZH7qlVlT8hqoor8ePFz9WoXnhS6WUwkCiXOJ2xj
+         8XbEj1ogJgr6OqQrHm6HzysRZmwJgS+o7LJ3XpaG3qT4ssiv7dL0Avkp0DKMcPca0jou
+         Fc+wfO86vr0RzLfJXL+8fxS4MWzVRlttpp5IvGW/jlorwGsGzIzP4gP3KcnUVR4hRBwF
+         lsQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790066099; x=1790670899;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6vCaHzev1h/MoHQH435Co/njJMhx1fq16i2vRv4vluc=;
+        b=RWd6t/WXTTK9IDe+CuUxStsP7s6WeZorGvOhn3Myd854MRIKo0D2MNne7L/+oYmJqt
+         WuNSsC95BcyCj5cxfvAvUdDDrBIpMN4iMKqoIQ6rAFXBX5FCoDes3bYqwgLdODyrtYAT
+         Cbjai8KnYXIGeyfrHJ+hnKhcjVVz0R4wJ0ILMcJho9ZTbGDMmBnMZtnU2MspyfEu6olv
+         tmcZeumfZRJCJEMpDHj2H+gyeW9glWFoHCiK59n2P/JfUoYeEnMRMSn2Z/62p/1+H3jJ
+         O4VOQ97vEC6gdK1Vg0/pw43WgMV015q2I1PQvy9vb62TMNpc6sOR5YPTDSgVjAoo+mIT
+         DSrg==
+X-Forwarded-Encrypted: i=1; AKwUvByTycoxBhiWKOOzT7rqTrbZy+DUi09sClOYJsrH242KCQHMufJskMAxYrGZ6UHzXem/hCh9MFa5qhxTce4=@vger.kernel.org
+X-Gm-Message-State: AFuF++noEh2hTFKkdI6ydbLqx2Qo3euNrJ94nMGxQXqIz3f7hYRvhwmd
+	9BYvAQxNp/xEByvQPMxdQWLFGWUcu7o3UL4oWrNQIDOfnL+yvFfiYCpaFTmEeSd31Og=
+X-Gm-Gg: AYBFou3jXlpmNZkTX2NfaIfc9ZrDcYmI1Px2xSxdJ4QbiaIGwEpPoaGwW+picV9aEmb
+	6pvS9FcfpgKw+07JOViAACi1Q+SB+kD0Sz+hleFCexD9abP8c9C9eIOPo03OBQOH+tkSbfh8GOS
+	jCrb+Ku8+G1g0rtZoWzVIyFWiVhL+nI5Z1NQLw1YUgBtGfiVlim7dDyzUEnRJEidd1NlgdneLuq
+	wiBxPi0XEARHO4fjTTbM99TwPq2tZvJ+n98kWWPijbWnXzYPoEeTkF7IN4M3HF/BdXqAdZQ3pE4
+	rJp9p2HXar0yBzoOfVJoM9qAqFMXV0vHyfeLDxw+c+qvlIUXS9+Nd8gcUjuknG/6RFj+o8Q+B00
+	9obgTaR4qgvJOgs/9H/0Jyywt9uUBKzbZ06LFPzNQT2vNdThEwglh6xsJeADPiqV4BSCwPQo+fF
+	+vhxStjaorEXd/6tLmjfqcN+g1SFIsS5TL9oXIJyYPWd6U8KyommI1RYYCteyVOAmsIyRRFLnDb
+	onr2ClSmlk58yu0IMs2Ln1x/l2e7mt71mBJFkAB
+X-Received: by 2002:a05:6000:3113:b0:487:10a9:57cb with SMTP id ffacd0b85a97d-4871e3778e6mr19151883f8f.49.1790066099179;
+        Tue, 22 Sep 2026 01:34:59 -0700 (PDT)
+Received: from ?IPV6:2001:a61:13f0:9e01:9a7c:db93:afba:8f7f? ([2001:a61:13f0:9e01:9a7c:db93:afba:8f7f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488627314d2sm3372106f8f.2.2026.09.22.01.34.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 01:34:58 -0700 (PDT)
+Message-ID: <d3639d68-0213-4b70-a771-aa5dc3ec9767@suse.com>
+Date: Tue, 22 Sep 2026 10:34:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921195636.1925869-1-mukesh.ojha@oss.qualcomm.com> <20260921195636.1925869-3-mukesh.ojha@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 01:33:35 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Me0BUbbPsxPzd2N6gsOiYb1_6fskb88mUSP5V=1EgvN_w@mail.gmail.com>
-X-Gm-Features: AcwNN1X5hurPWeLm0TXp4m9zhGTvn7whTEqJAwd-jqZtFt1xSczig6idQw_NH6I
-Message-ID: <CAMRc=Me0BUbbPsxPzd2N6gsOiYb1_6fskb88mUSP5V=1EgvN_w@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] firmware: qcom_scm: align PAS resource table retry
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] usb: uas: quiesce SCSI before stopping endpoints on
+ unbind
+To: Jiayi Li <lijiayi@kylinos.cn>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+ Michal Pecio <michal.pecio@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ linux-kernel@vger.kernel.org
+References: <20260922031102.141043-1-lijiayi@kylinos.cn>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20260922031102.141043-1-lijiayi@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 21 Sep 2026 21:56:36 +0200, Mukesh Ojha
-<mukesh.ojha@oss.qualcomm.com> said:
-> The initial PAS resource-table buffer can be too small. TrustZone
-> returns the required size and the wrapper retries the SCM call.
-> Although qcom_tzmem_alloc() aligns the allocated buffer,
-> the size passed to TrustZone remained unaligned.
->
-> Align the retry size to a page boundary so that both the buffer
-> and its advertised size satisfy the PAS/TrustZone contract.
->
-> Fixes: 8b9d2050cfa0 ("firmware: qcom_scm: Add qcom_scm_pas_get_rsc_table() to get resource table")
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+
+
+On 22.09.26 05:11, Jiayi Li wrote:
+> Unbinding uas while READ commands are in flight can leave the storage
+> device unusable after the driver is rebound.  The first post-bind
+> INQUIRY Data-In transfer completes with -EOVERFLOW, and SCSI error
+> handling eventually offlines the device:
+> 
+>    scsi host7: uas
+>    scsi 7:0:0:0: tag#4 data cmplt err -75 uas-tag 1 inflight: CMD
+>    scsi 7:0:0:0: tag#4 CDB: Inquiry 12 00 00 00 24 00
+>    scsi 7:0:0:0: tag#4 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD
+>    usb 2-2: reset SuperSpeed USB device number 2 using xhci_hcd
+>    scsi host7: uas_eh_device_reset_handler success
+>    ...
+>    scsi 7:0:0:0: tag#7 CDB: Test Unit Ready 00 00 00 00 00 00
+>    scsi host7: uas_eh_device_reset_handler success
+>    sd 7:0:0:0: Device offlined - not ready after error recovery
+> 
+> A command URB may already have delivered a SCSI command when usbcore
+> disables the interface endpoints and kills the data and status URBs
+> before ->disconnect.  uas_disconnect() then removes the SCSI host only
+> after killing its anchored URBs, so SCSI teardown cannot first quiesce
+> the accepted commands.  A newly bound UAS instance can encounter the
+> residual transport state.
+> 
+> The failure reproduced with a VIA Labs 2109:0715 storage bridge on both
+> Zhaoxin 1d17:9204 and Intel 8086:a2af xHCI controllers.  USB device reset
+> and xHCI unbind/rebind did not recover the device; physical reconnection
+> did.
+> 
+> Set soft_unbind so the endpoints remain available during driver unbind.
+> Cancel pending scanning and remove the SCSI host before setting resetting
+> and killing the anchored URBs.  Use the same teardown order for every
+> disconnect path and rely on SCSI host removal to handle a device that can
+> no longer communicate.
+> 
+> With the change, 10 of 10 zero-delay unbind/rebind iterations with 30
+> READ commands in flight reattached the disk and completed a post-bind
+> O_DIRECT read.  Unbind took 82 to 109 ms, with no UAS completion error or
+> command timeout after rebind.
+> 
+> Signed-off-by: Jiayi Li <lijiayi@kylinos.cn>
+Acked-by: Oliver Neukum <oneukum@suse.com>
 > ---
+> Changes in v2:
+> - Remove the USB_STATE_NOTATTACHED-based disconnect classification.
+> - Use the same teardown ordering for all disconnect paths.
+> - Reword the commit message.
+> 
+> Link: https://lore.kernel.org/lkml/20260920012358.3362053-1-lijiayi@kylinos.cn/
+> 
+>   drivers/usb/storage/uas.c | 16 +++++++++-------
+>   1 file changed, 9 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+> index 8655edbd66b16..8752cecb45915 100644
+> --- a/drivers/usb/storage/uas.c
+> +++ b/drivers/usb/storage/uas.c
+> @@ -1217,6 +1217,14 @@ static void uas_disconnect(struct usb_interface *intf)
+>   	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
+>   	unsigned long flags;
+>   
+> +	/*
+> +	 * Prevent SCSI scanning (if it hasn't started yet)
+> +	 * or wait for the SCSI-scanning routine to stop.
+> +	 */
+> +	cancel_work_sync(&devinfo->scan_work);
+> +
+> +	scsi_remove_host(shost);
+> +
+>   	spin_lock_irqsave(&devinfo->lock, flags);
+>   	devinfo->resetting = 1;
+>   	spin_unlock_irqrestore(&devinfo->lock, flags);
+> @@ -1227,13 +1235,6 @@ static void uas_disconnect(struct usb_interface *intf)
+>   	usb_kill_anchored_urbs(&devinfo->data_urbs);
+>   	uas_zap_pending(devinfo, DID_NO_CONNECT);
+>   
+> -	/*
+> -	 * Prevent SCSI scanning (if it hasn't started yet)
+> -	 * or wait for the SCSI-scanning routine to stop.
+> -	 */
+> -	cancel_work_sync(&devinfo->scan_work);
+> -
+> -	scsi_remove_host(shost);
+>   	uas_free_streams(devinfo);
+>   	scsi_host_put(shost);
+>   }
+> @@ -1267,6 +1268,7 @@ static struct usb_driver uas_driver = {
+>   	.suspend = uas_suspend,
+>   	.resume = uas_resume,
+>   	.reset_resume = uas_reset_resume,
+> +	.soft_unbind = 1,
+>   	.shutdown = uas_shutdown,
+>   	.id_table = uas_usb_ids,
+>   };
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
