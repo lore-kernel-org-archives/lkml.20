@@ -1,147 +1,152 @@
-Received: from out199-5.us.a.mail.aliyun.com (out199-5.us.a.mail.aliyun.com [47.90.199.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8F937207D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.199.5
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B05C377004;
+	Thu,  8 Oct 2026 03:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429416; cv=none; b=PU4QtFL4G+zwe7RloQLdSGHRRb5S/LNuj1DrjQTbhky9gafng2l+Ih0QOzMz1BVdP+eOK7mtDrWigqiMZn0tTkNuxWNo3C7cGOSF/hn4COxocvyxdyHGDYd1VxNqNjWuA6m+kaDOrsj+95RbDO34pB/zy3OF5/hRd97qLSYoEXg=
+	t=1791429557; cv=none; b=tGZ/NAAHOOy7PictgGYNZmS8WRGk9EK0nOAy7J4SP/bNY6knDprIirFrYa5KQ5B4q7dHCf0ZIPQBwxJkeXzRK0gW4O+oCL3yAIRq8IKubv/mnJn+Cx8l/pofy4AcvXwZYDRVbrG4mMrXZxWz82A5YI6JFKVJLUelbOiICyJN+Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429416; c=relaxed/simple;
-	bh=h7vW9TwyRDKmnR9AbRyZseO1LqWqOkZtsVtX1td4ryU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ktfCP4GeB2M+0HG/Wi3knYM2N4J0ODCwYJ5d4nR4PvRVNvmAeNqFB8FQaefEmTRCgbS6fpyHRNeA9vHyhlESuZIVzGipzBcrmX0fI+cOVCMBkeaSqiv+P17KLmX1MSMAhQL5FmJeUbZBS2+2l3p5Xv1iw+zgq7uNEKipOTcV4ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lJdtan7X; arc=none smtp.client-ip=47.90.199.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791429557; c=relaxed/simple;
+	bh=ygZeOiN67Rzk+FnquSronkA+wHQJCrOrkL8Gahj1UQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZDhBDFPFU1ELw6hiMVZvOdwa52i+NYhAGWoJMaf31y0N6ePO4kiQSuHHFrI0P6rruTwBq/nl0qMx4VFPsmo82ATaE2PdyNEAqeogytiRUMn+NUDNZlqDXc5CGHeAn42lQBvDbWWAJERPQJ1KB4H+HkoLfoZGXUEFoQifa6zsitU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=GQBpAUDt; arc=none smtp.client-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lJdtan7X"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791429399; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=gYC58sdTkm8+Fm/Mk5bZ1bqmLj44HUBXCl/MsXafSqk=;
-	b=lJdtan7XmHluQ+X9XUxobhhyzSdYhlvrnkkODs43A2Of3w2E95HGNsdeASz9/MDjFzAEEEAH1UFkyMROieLFPO8F5ws9G81r9JB7Guw4rL4R+O3gARq8wA9DLCU46crwE902lqKpupWlINPHK9Du6zdv6ieivOGgYYJbjkK8A38=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XCJIB-._1791429397;
-Received: from 30.74.144.149(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCJIB-._1791429397 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 11:16:38 +0800
-Message-ID: <b1aaff8f-c4b1-4c2c-939e-7051e7f9b6b8@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 11:16:36 +0800
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="GQBpAUDt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=GQBpAUDtorvm29I2PbDRVgZks3wqK/2xaJWLcaRHer42TMDW4zAfYTwb/pdePVvJXPgMyFqmuSVY2
+	 nUEJe/pNbmSbZo6SQULEPrWGsWBZ3isz3GfumSO8nHKcATR2+3MMmicann56GE+GcZ+SWtMzmNsyz+
+	 f0w9zHPgM1CX9rNc=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ac70bae06d-b1d6d;
+	Thu, 08 Oct 2026 11:19:11 +0800 (CST)
+X-RM-TRANSID:2ee76ac70bae06d-b1d6d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.99])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ac70ba7eb5-03ba6;
+	Thu, 08 Oct 2026 11:19:11 +0800 (CST)
+X-RM-TRANSID:2ee46ac70ba7eb5-03ba6
+From: lvjunyu <lvjunyu@cmss.chinamobile.com>
+To: pablo@netfilter.org
+Cc: fw@strlen.de,
+	phil@nwl.cc,
+	netfilter-devel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	lvjunyu <lvjunyu@cmss.chinamobile.com>
+Subject: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
+Date: Tue, 22 Sep 2026 14:23:05 +0800
+Message-ID: <20260922062305.752147-1-lvjunyu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: Make swapoff interruptible when unusing mms/shmem
-To: Chris Down <chris@chrisdown.name>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Hugh Dickins <hughd@google.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Ying Huang <huang.ying.caritas@gmail.com>,
- Kelley Nielsen <kelleynnn@gmail.com>,
- Vineeth Pillai <vineeth@bitbyteword.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com
-References: <ar2YlFYjYUZ49ZA5@chrisdown.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <ar2YlFYjYUZ49ZA5@chrisdown.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+When MASQUERADE --random-fully rewrites the outer UDP source port and
+address of a VXLAN-encapsulated packet whose inner header has
+CHECKSUM_PARTIAL, the outer UDP checksum is not updated correctly.
+
+udp_set_csum() takes the LCO (Local Checksum Offload) branch for
+encapsulated CHECKSUM_PARTIAL non-GSO packets, writing a complete
+(folded and complemented) checksum into uh->check while leaving
+csum_start pointing at the inner transport header.  In this state:
+
+  - inet_proto_csum_replace2() is a no-op (pseudohdr=false,
+    CHECKSUM_PARTIAL)
+  - nf_csum_update() -> inet_proto_csum_replace4(pseudohdr=true)
+    takes the pseudo-header branch which treats uh->check as an
+    uncomplemented seed, applying the address delta with the wrong
+    sign
+
+Fix this by using the offload target (csum_start + csum_offset) to
+distinguish the LCO state from the seed/offload state, and temporarily
+flipping ip_summed to CHECKSUM_NONE so both the address and port updates
+use csum_replace*() (the complete-checksum path).
+
+Test results (10 connections, single netns vxlan + veth environment):
+  Before fix: ~1080ms avg first-connection latency, 10 SYN retransmits,
+              UdpInCsumErrors incremented per connection
+  After fix:  ~29ms avg first-connection latency, 0 SYN retransmits,
+              UdpInCsumErrors unchanged
+
+Fixes: faec18dbb0405 ("netfilter: nat: remove l4proto->manip_pkt")
+Cc: stable@vger.kernel.org
+Signed-off-by: lvjunyu <lvjunyu@cmss.chinamobile.com>
+
+---
+
+Changes in v3:
+- Reword comment to distinguish port delta (no-op) from address
+  delta (wrong sign) as suggested by Sashiko AI review
+
+Changes in v2:
+- Fix both address and port delta (v1 only fixed port delta)
+- Use offload-target test instead of skb->encapsulation as the LCO
+  discriminator (addresses Sashiko AI review feedback)
+- Update comment to describe both CHECKSUM_PARTIAL states
+
+v2: https://lore.kernel.org/netdev/20260921130312.686493-1-lvjunyu@cmss.chinamobile.com/
+---
+ net/netfilter/nf_nat_proto.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
+index 64b9bac228e..6779e9f2812 100644
+--- a/net/netfilter/nf_nat_proto.c
++++ b/net/netfilter/nf_nat_proto.c
+@@ -54,9 +54,39 @@ __udp_manip_pkt(struct sk_buff *skb,
+ 		portptr = &hdr->dest;
+ 	}
+ 	if (do_csum) {
++		/* When udp_set_csum() takes the LCO branch (encapsulated
++		 * CHECKSUM_PARTIAL, non-GSO), uh->check holds a complete
++		 * (folded and complemented) checksum while csum_start
++		 * points at the inner transport header, not at this outer
++		 * udphdr.  In that state:
++		 *   - nf_csum_update() -> inet_proto_csum_replace4(pseudohdr=true)
++		 *     takes the pseudo-header branch and applies the address
++		 *     delta with the wrong sign (to an uncomplemented seed).
++		 *   - inet_proto_csum_replace2(pseudohdr=false) is a no-op:
++		 *     neither branch is taken for CHECKSUM_PARTIAL when
++		 *     pseudohdr is false.
++		 * Temporarily flip ip_summed so both use the csum_replace*()
++		 * path that correctly updates the complete checksum.
++		 *
++		 * The seed/offload branch of udp_set_csum() sets csum_start
++		 * to the outer UDP header, so the offload-target test
++		 * below distinguishes the two states.
++		 */
++		bool lco = skb->ip_summed == CHECKSUM_PARTIAL &&
++			   !skb_is_gso(skb) &&
++			   (skb->head + skb->csum_start + skb->csum_offset) !=
++			   (unsigned char *)&hdr->check;
++
++		if (lco)
++			skb->ip_summed = CHECKSUM_NONE;
++
+ 		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
+ 		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
+ 					 false);
++
++		if (lco)
++			skb->ip_summed = CHECKSUM_PARTIAL;
++
+ 		if (!hdr->check)
+ 			hdr->check = CSUM_MANGLED_0;
+ 	}
+--
+2.43.0
 
 
-
-On 10/1/26 7:17 AM, Chris Down wrote:
-> try_to_unuse() only checks for a pending signal between mms, and
-> shmem_unuse() doesn't check at all. That means that once swapoff gets to
-> a process or a shmem file with a lot swapped out, nothing can interrupt
-> it until every last page of it has been read back in.
-> 
-> Just as one example of where this can concretely show up, freezing tasks
-> for suspend or hibernation has to wait for swapoff to notice the
-> freezer's fake signal, and gives up after freeze_timeout_msecs (20
-> seconds by default).
-> 
-> Here's a facetious example where one swaps out 2GiB of one process to a
-> swap file on ext4, starts swapoff, and half a second later tries to
-> freeze with pm_test=freezer. Writing to /sys/power/state then fails with
-> EBUSY and this in dmesg:
-> 
->      Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
->      task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
->      Call trace:
->       [...]
->       io_schedule+0x44/0x70
->       folio_wait_bit_common+0x1ec/0x3d0
->       __folio_lock+0x24/0x40
->       unuse_pte_range+0x2d0/0x348
->       unuse_vma+0x158/0x248
->       unuse_mm+0xfc/0x150
->       try_to_unuse+0x104/0x3f8
->       __do_sys_swapoff+0x220/0x5d8
->       [...]
-> 
-> The same goes for anything else that wants swapoff to stop, like an
-> admin hitting ^C in a panic, of course.
-> 
-> Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-> try_to_unuse() was driven by find_next_to_unuse() which checks for a
-> signal before every entry, so let's restore that behaviour.
-> 
-> Just as an example of the improvements, here's how long freezing takes
-> in the same test while swapoff is happening on my computer:
-> 
->                        before                  after
->      400MiB anon       8.925s                  0.028s
->      400MiB shmem      1.639s                  0.003s
->      2GiB anon         failed after 20.003s    0.011s
-> 
-> Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-> Signed-off-by: Chris Down <chris@chrisdown.name>
-> ---
-
-Make sense to me. But ...
-
->   mm/shmem.c    | 4 ++++
->   mm/swapfile.c | 2 ++
->   2 files changed, 6 insertions(+)
-> 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index ae08cff4500c..72c8a61db76f 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type)
->   		if (ret < 0)
->   			break;
->   
-> +		if (signal_pending(current)) {
-> +			ret = -EINTR;
-> +			break;
-> +		}
->   		start = indices[folio_batch_count(&fbatch) - 1];
->   	} while (true);
->   
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 254ce86fa923..c3288910b3e3 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
->   	pmd = pmd_offset(pud, addr);
->   	do {
->   		cond_resched();
-> +		if (signal_pending(current))
-> +			return -EINTR;
-
-Should we return -ERESTARTSYS instead based on the similar issue 
-discussed in the following patch?
-
-https://lore.kernel.org/all/20260720044103.905191-1-richardycc@google.com/
-
->   		next = pmd_addr_end(addr, end);
->   		ret = unuse_pte_range(vma, pmd, addr, next, type);
->   		if (ret)
-> 
-> base-commit: 2ddb90ee544ae97215afc4698dc223293997cc43
 
