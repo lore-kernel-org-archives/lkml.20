@@ -1,94 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B4C535FC3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997655221DA;
+	Tue, 22 Sep 2026 10:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074733; cv=none; b=u9r2dxXXnm+MnAGvDSBf2r7YXwgNJrTKFij0e3ZF7e/zT8fBnPS/Z65hq1YVGY98PgkhttUTrcFx5OaEi2wpdZAV/NXjguNDHPHCdi6a+Q3E+IkOpcN6WhbwHSRsCI6xepOnM6P0u9NxA2fVpVMaSj7og6n+4jMLiSfNBJkf37c=
+	t=1790074731; cv=none; b=u6kYk4wvhWLoxmSVxomsRLtGJHSsboeDJ5rSwUG9hEesOPAke0Uk2mTAERkKLj1YrMMNYiYg/qv0j4tKJyYlGoKeriAOK9ZBmYtUodNe+1ZHJIybWqMiGKNzNQEKsbNq3YiO47Tp4t/CJz/N8Ya9C4wQpYAXFkt3Au5anWPocLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074733; c=relaxed/simple;
-	bh=503RZmhHuB49hcMMHyhvEKRa7joa1Czu0UxId6pYLn8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cqll6jcMpjFXPXd4dbwyr75LnuRtRjCTFi9PaRV+13PDJFNkeq6csan5SNr1GFKmvusxh8bovaFWxLPpcXiHlUuri/ewzwyXZqMMdHteV8/CFzQ9gDXHWKyPYcJp/KgIw+59CCST690vk24m1FkirSrTGAjbM3h7MLSuf9g9Ee4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOkx3hGU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790074731; c=relaxed/simple;
+	bh=fbAc7ebwCqxuH0VG1ksDAeVSDAb6yVypBrz5cAKdMRs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=myUgYLNrUcm3bWmzQItce7hFzWDJPZ0DpcYcGHESXW1CtAmycgV7z5D+TjlOEaC5KjHg2AKwl8JbSzIU/JNQQmk20Bl8QCyIjA5P8sFVmtv6zv6pkIaCsmhDRF67hyoyg/klblOJ+enqNaXzUrrNChghd3gyivR3TMaaw+2PblU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=fNWUDqX8; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOkx3hGU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D84C1F000FF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:58:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074729;
-	bh=503RZmhHuB49hcMMHyhvEKRa7joa1Czu0UxId6pYLn8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nOkx3hGUl25hdOM6H8GEff1F9lmGyMGL5B+aHbi+jf4DPkg8awP2mR0qpwPAmwL81
-	 D+Cz3GUV0J0YVZYZI2B30ZEnX+bdAAoLlYjcQtM0/fNqGVm06IqeRxJRXUjmo0MiZj
-	 o9IHYE1larAI0VigviXS3nyqxG1fOZcK1xRNGx/uup24wVLw1XqcINqx4dtEhlycrf
-	 SzRsYYRNSfresp/A0Y02ARFycbX8Ve2oy9n9To3mvK8LySlUyRX8qJx4kObf0y3RKi
-	 ghQPT+lUK2kBFrjB52Vt8sCUj2I8iY0X4yHH/5c3Q4fjc2Z/8Dk6BIOHynglPqBQn/
-	 X8bke+58rOC1w==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff04155bso34488471fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:58:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwFegoWxWd4BYAhnV4+Xzr8/nfEOo36NjdmmqT1vopeBD5r2vs8ZoCB5oxSgZI4sztvFI6MR1NnvBU768k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdLB95bra7CwuuaDzx0oL+d8UjEjQxdDXq5pVZOCRk9nuUrKG1
-	fAaM24HidO5b93I+XsrUsppidZgZRe+cvkEgmY2Af8pPNkPaZQa7UbD9nrhs0S76BgEQIHwtVr0
-	YBT+V+qb/c0HPwWQOc0ysO3Fd45FEXRw=
-X-Received: by 2002:a2e:b8ca:0:b0:3a1:5172:c287 with SMTP id
- 38308e7fff4ca-3a5fbeb3c28mr28047001fa.5.1790074727534; Tue, 22 Sep 2026
- 03:58:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="fNWUDqX8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=QC6dGDqXkFixLgf757zeEyQ66heKcQh39eXEjVnWscw=; b=fNWUDqX8vriA1q8ith05IO5rqS
+	D3MlLBl/jttxfHlkHKZycMHYCwtD8FoZtGqYuyHDICmM/msHYfoexppcdh23KTi3Y4j7jUtuvzhea
+	n/AV62kIe6FYySLnORFFBdyKhO0phHdRmlve2y+BG3zRFKjOC/piXjLKrfd+Jt+Pusm20EVSd4b2q
+	5AhfW+REXE6P1YUqDLMt9wvXUOOWNOlv5UiX1cxJlXGA5bc4CydjY28aS795B9b+vyrtGjq+hG4zR
+	KPvbAkRhVxmDZ+DdHvSjSyqy9IP+XQ+kBYyvyHOR176SB0b/3mBWXJ9g68ZynlZGhiSSGDopSAG3l
+	+/t7vypg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x8yCt-002vqp-2w;
+	Tue, 22 Sep 2026 10:58:40 +0000
+Date: Tue, 22 Sep 2026 03:58:34 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Zhang Yunfei <zhangyunfei1@kylinos.cn>
+Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com, 
+	mengyuanlou@net-swift.com, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com, 
+	weirongguang@kylinos.cn, u.kleine-koenig@baylibre.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2 2/2] net: ngbe: clear DRV_LOAD bit when
+ ngbe_open() fails
+Message-ID: <arJev7h-_lEii1Z2@gmail.com>
+References: <20260922100836.1147718-1-zhangyunfei1@kylinos.cn>
+ <20260922100836.1147718-3-zhangyunfei1@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807060848.832929-1-luoxueqin@kylinos.cn> <d02f335a-c97d-49ad-85c0-2eacd744eb0c@hisilicon.com>
- <651d6392-984e-4363-8ef6-94a23be615d7@arm.com>
-In-Reply-To: <651d6392-984e-4363-8ef6-94a23be615d7@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 22 Sep 2026 12:57:15 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gQfycqWaGpGQzYq6T_HOXiumFi0SD4sGJhn4eUS1FHCg@mail.gmail.com>
-X-Gm-Features: AcwNN1Wby-rXjqfv0v1XIHNQU4vGq0TGDTF64LITUG1nSspF8SSKp1AzEAfWb4I
-Message-ID: <CAJZ5v0gQfycqWaGpGQzYq6T_HOXiumFi0SD4sGJhn4eUS1FHCg@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] cpufreq: cppc: Handle Highest Performance changes
- at runtime
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: Jie Zhan <zhanjie9@hisilicon.com>, Xueqin Luo <luoxueqin@kylinos.cn>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, Lifeng Zheng <zhenglifeng1@huawei.com>, 
-	Pierre Gondois <pierre.gondois@arm.com>, Sumit Gupta <sumitg@nvidia.com>, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
-	Ionela Voinescu <Ionela.Voinescu@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922100836.1147718-3-zhangyunfei1@kylinos.cn>
+X-Debian-User: leitao
 
-On Mon, Sep 21, 2026 at 9:47=E2=80=AFPM Christian Loehle
-<christian.loehle@arm.com> wrote:
->
-> On 9/7/26 09:49, Jie Zhan wrote:
-> >
-> >
-> > On 8/7/2026 2:08 PM, Xueqin Luo wrote:
-> >> Hi Rafael, Pierre,
-> >>
-> >> This series adds support for handling ACPI CPPC Highest Performance
-> >> register changes at runtime, triggered by Notify(0x85) on a processor
-> >> device.
-> >>
-> >> When the platform changes the Highest Performance value (e.g. due to
-> >> thermal or power budget adjustments), the OSPM must re-evaluate the
-> >> cached capability and propagate the change to the cpufreq policy,
-> >> the scheduler's CPU capacity model, and the frequency invariance
-> >> engine.
-> > Any real use case of this on platforms that run cppc_cpufreq drivers?
-> > Some addtional motivation may help.
-> >
-> > For example, a processor can age over time and its core frequency degra=
-des.
-> > It's good if platforms can make OSPM and userspace aware of this.
->
-> +1
+On Tue, Sep 22, 2026 at 06:08:36PM +0800, Zhang Yunfei wrote:
+> ngbe_open() sets the WX_CFG_PORT_CTL_DRV_LOAD bit via
+> wx_control_hw(wx, true) to tell the management firmware that the
+> host driver has taken over the port (NCSI/OOB firmware stops using
+> its management channel). Every error path of ngbe_open() returns
+> without clearing it, leaving rings, IRQs and the PHY torn down
+> while the firmware still believes the host owns the port, an
+> inconsistent driver-firmware handshake state that persists until
+> the next successful ifup.
+> 
+> Roll the bit back on all open error paths, matching ngbe_close()
+> and ngbe_dev_shutdown(), which already clear it.
 
-FWIW, this may be related to platform operating mode changes between
-"performance" and "powersave" (longer battery life) if the top-most
-OPP is a high-cost one.
+silly question, why unwind, rather than not taking hw control until the
+port is actually up, as the last thing in ngbe_open()?
+
+Looking at txgbe, it does something like:
+
+	static int txgbe_open(struct net_device *netdev) {
+	.....
+		txgbe_up_complete(wx);
+
+		return 0;
+	}
+
+Would ngbe_open() be able to follow a similar approach?
+
+--breno
