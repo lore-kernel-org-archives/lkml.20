@@ -1,109 +1,137 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FFE301486;
-	Tue, 22 Sep 2026 10:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC91C4EE866
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073586; cv=none; b=R3xe5i1JKbGq+2Or5iIysQBh5XAE6sH6oybZjjiXRU4vrDu9/rGI/zsdSosofUQCxOV1yd4bTTC6wuiZzgrkEEQXB5eZs0zdG63On9KO1eCM1GbExOI/n43mA4xlXUrpp1DG8rNCawrJfLY0+aDQBCdAwrDZp3Yw/j3J6zonFNY=
+	t=1790073590; cv=none; b=MiHCqsL6bY9p3uz1rR1ZG2ebO9z2rTr00XQt6vx8ruy5VCp4LbMG1pgUYNY9ziqN9sqXkH4P4TCC08Sai4yOcSBkMGwUmRVmyz561fwAa03kYTdEi0kkyUGPf0ehnZZYd23c/moOET6pnMG4y8ZBXfjuOv+c0R6Gt5cIdrAWLEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073586; c=relaxed/simple;
-	bh=wifZY/d5vFSvhmi1LxdZcopZYwRMLPQMjxZ/vhPfDjk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JFUDH3BRNOHAJhzmbb9W0CPeADHYcB9aJnozQ8FHQfELVoH4gy5B9geGToOa7TkTYUtUdHzK+zXu913krt4TE6Tm/Y+7Ol3F1CtU5TUN9YaXETjm7MemzAmi+Ah2csWoaR69gKktee20Xp3pKxpvhhuqD28U4FULmCPfRwXzSU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=LAJ1KE5f; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1790073590; c=relaxed/simple;
+	bh=rQa40uWPapC60ioHBAw/KM6gw3RzpNXJjEMK0MR9cNM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B6oQdaqZioFk6nPZD70lxb81G8DucF48YAZB3xDLBHUhV92q/PtcE9R5KiaOWKnG0Yd54FgsiA2lVDAGkbgW0qCASpErZHMI1pkZceYjkB8y6JokzgkwsApdH4Wyoun6I08Bdv85jLBm4JjlcRiHpy+L3kNExTlClnnGBShgvXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bQd/boaC; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="LAJ1KE5f"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zkVHXvH6aSNeIiHZsZBLuLPhi5KT7D0PnrCA/uC+Aww=; b=LAJ1KE5fYZ3ToH2JjALIy5lMHl
-	M59CT9fHAa0I8HqTqLbRMlnd8o7XvcrxwQXQ6N5/lNLK5KUBcpIkeqh5xwIsQsCF8VO1QMRu2Z/0q
-	WX+cDPCgXBS6yzxPgKsUAXJ0sShUnGzJiy6uHMD+mA/E5U1zQp+MF/MwH588ohKVp40f7XrAV2D2r
-	z1o1STvQfbXYwaW89gLnyAarb1UbHwFj8HQdGkcs8ImImluh0IcAEH/0XjoV5I4CAYQqIEMmP7z7F
-	AKvnZhso8fTnU9daXknVjmAVBb5oTTAjvQ1/ZcIqnO/MulZ1ik0pzxnwUI7OU0bnQvnGja5vlJkgA
-	aihXbVZA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x8xuL-002vHv-1e;
-	Tue, 22 Sep 2026 10:39:29 +0000
-Date: Tue, 22 Sep 2026 03:39:21 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Miaohe Lin <linmiaohe@huawei.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, 
-	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com, 
-	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, 
-	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or, 
-	shakeel.butt@linux.dev
-Subject: Re: [PATCH v5 0/9] mm/memory-failure: keep hardware-poisoned pages
- out of the next kexec
-Message-ID: <arJaHrZfWSQXFgWP@gmail.com>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <d6e35901-f74d-bf81-75d3-bac4b26d9d72@huawei.com>
- <arJBkNOgbR8NrgFP@gmail.com>
- <16baab50-692c-308b-d60d-1b0a328df1e3@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bQd/boaC"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86e6d007703so3301203b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:39:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790073588; x=1790678388; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=II0vtlBLX3teC8UAtU2N6RuSR3r58GGPZ14MkNA6Dmw=;
+        b=bQd/boaCN08Dbd6rn77jhbI9IA7j8bjywTPHvNx5VfaWLn/tFTvOzM9x/yxmq2untT
+         Dw7Li2noEsyaPjUJ9RiWBybg5znKAiGPxcpf32YSNbc96yJyeoh2wCY8dCwocSNOc/Jb
+         tgI5MZrl00JG+lYCDUcuCdUkwmi2hA+5co2wO1SWM1IqBi8jIitInL8AzPk63uEUR8Fa
+         +T9hP22itcKOc3liUn+Ycbr/uo1ll4moqTRfZqUQAMKWDfIdXY6oPzrJ6AaSFy67ewSL
+         DonyVUr/T6amxo0jwPqAxixGEHPJ7HthKxzcx2UYDOs9513n87wMu4/O1noKNoBZfVPa
+         vzCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790073588; x=1790678388;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=II0vtlBLX3teC8UAtU2N6RuSR3r58GGPZ14MkNA6Dmw=;
+        b=O6IaXzrj9YoUV/g8NPUwRUcwsOEh73FdWbGhwWS6acmpqFY2q9DcNkBwkiMKyHV/bW
+         06FAqo/9vHgqdMb1JVpJS7swLTRDPDbWHPqn9kZOlXM0o4O0nejnPaZ0XLccpH9e/6H3
+         3SEux2YjjMhdaC0uFGsQIR23SshV33TQGSb6BbCKoK02cyg5IBHYe2BFnezGnRSsWb5C
+         IyHQpPKRqllLrxKAMPgNLJnN1GBG6kIbzqU+OIX4KX8ckgNBCMDK3eSwQNaY/eDMM1Oc
+         ydQd3gpC+4No9hUJGlpjebBitKqgIbBPzQGZKHgH1hvYOAXgAx7Sr3qELUBvISukgDbU
+         d3sg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdZd7mCQ2rPxH1NsxXWD6MazxElPm/ZAJGruixSooFhXHpJdmS74Mong5mPagn28OKcZuyKh4alTdUQKc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgWv954N9anVzEcTWdrMz9LHiHi24Uo+U0w6N8tv7iSZa8yxEL
+	ZtdKfFtq7CHppQjJ+GSF/v/Z1uDJeRRX7r2bFQncLQbwbgJk06rPKC/x
+X-Gm-Gg: AYBFou1CvJKlU251gLGHwrWAG1NYItR6KINlIfOjUsZwqFzCwi8Cm1TbtSvvS/m9JIX
+	J/MzBHjVTyQu4DaSVlRYEQIY2Er37i1MpCmJgPIaYLwB240m/exJuhgupGmHJULqEjDShO6vWu5
+	fvB+ppRRwgRlg/Po5wzxS4Cgp0backaZY3lO9TuYeQb1ACkEhnqSV0gTobIh9jze3XFadVg6eXW
+	lFXyfHoL4x/Lp/3GWFNiMJNfjSwCuyg7hjBdGhYC8d9dCD4mGBu5A6u27dU7FBCDeGQDgiC0+h8
+	bGv1b4KEURZq/tKFrPLQ6wmiPi4KUJuXHxCLmjjEFNBybU9VxZ+Mh4gYdTa6AI+OIA3UN9rCiwb
+	vPEBlC1nXT9PbyRXx7N8v/kAtXtBIVb3xQcTCTDx3MRFtwOiLyuN/R585Kk2cwb0MWRiQteKuwo
+	yH2ffLb4tTihwqAHvaisUDnl3M+GTOzeqIwosPLZ1LNvQFtaZgplib1QSsY+QF3H93qckMpx9UW
+	DOViZ+K6c0=
+X-Received: by 2002:a05:6a20:e390:b0:3dd:a006:ed9b with SMTP id adf61e73a8af0-3ddec82345bmr811522637.49.1790073587913;
+        Tue, 22 Sep 2026 03:39:47 -0700 (PDT)
+Received: from amd.ban-spse ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e61271695sm4397515eec.8.2026.09.22.03.39.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 03:39:47 -0700 (PDT)
+From: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+To: Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>,
+	Xianglai Li <lixianglai@loongson.cn>,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+Subject: [PATCH] LoongArch: KVM: Return the actual error code in kvm_ipi_create()
+Date: Tue, 22 Sep 2026 10:39:31 +0000
+Message-ID: <20260922103931.215091-1-nagachaithanya9911@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <16baab50-692c-308b-d60d-1b0a328df1e3@huawei.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 05:29:14PM +0800, Miaohe Lin wrote:
-> On 2026/9/22 17:14, Breno Leitao wrote:
-> > Hello Miaohe,
-> > 
-> > On Tue, Sep 22, 2026 at 02:27:59PM +0800, Miaohe Lin wrote:
-> >>> A bit is never cleared, which is a known limitation: it stands for a
-> >>> whole unit, so an unpoison of one frame cannot tell whether the unit as a
-> >>> whole is good again.
-> >>
-> >> Thanks for your patches. I have a question about unpoison: If a bit is never
-> >> cleared, after we do some memory-failure+unpoison tests, kexec will lose the
-> >> tested memory without reboot?
-> > 
-> > Correct, A bit stands for a 2M unit, so every tested page that falls in
-> > a distinct unit costs 2M in each kernel after the kexec.
-> > 
-> > Worth being precise about the state today: the unpoison itself works.
-> > The frame goes back to the allocator and num_poisoned_pages drops. Only
-> > the bit stays, so the next kernel poisons the frame again. Test loop
-> > in, memory out, and nothing gives it back.
-> > 
-> > Important to say that nothing block us from unpoison the bitmap, and in
-> > fact my initial patchset had it. I also _think_ we should unpoison the
-> > bitmap once we unpoison the page. 
-> > 
-> > I have just kept it out of this patch in order to simplify the patchset and
-> > get the basis correct, and then evolve on top of it.
-> > 
-> 
-> Makes sense to me. Thanks for your work.
+kvm_ipi_create() registers the IPI device on the IOCSR bus and jumps to
+the error label when that fails. The error path then discards the error
+code that kvm_io_bus_register_dev() reported and returns -EFAULT
+instead:
 
-Ack. I will continue it without the unpoisioned bits for now, and as
-soon as this series lands, I will add the unpoision mechanism on top of
-this infrastructure.
+	ret = kvm_io_bus_register_dev(kvm, KVM_IOCSR_BUS, IOCSR_IPI_BASE,
+				      IOCSR_IPI_SIZE, device);
+	mutex_unlock(&kvm->slots_lock);
+	if (ret < 0) {
+		kvm_pr_unimpl("%s: Initialize IOCSR dev failed, ret = %d\n",
+			      __func__, ret);
+		goto err;
+	}
+	...
+err:
+	kfree(s);
+	return -EFAULT;
 
-Thanks for your support so far. I will send a new version soon, with
-the fixes I am accumulating so far.
+kvm_io_bus_register_dev() fails with -ENOMEM or -ENOSPC, so userspace
+creating a KVM_DEV_TYPE_LOONGARCH_IPI device is told that it passed a
+bad address when the real problem is that the host is out of memory or
+out of IOCSR bus slots. -EFAULT is reserved for faulting user addresses,
+and the remaining -EFAULT returns in this file are get_user() failures,
+where it is correct.
 
---breno
+Return ret instead. It is guaranteed to hold a valid negative errno
+because the ret < 0 branch above is the only path that reaches the error
+label. This also matches kvm_eiointc_create(), which already propagates
+the kvm_io_bus_register_dev() error code unchanged.
+
+Only compile-tested; the fix is a straight propagation of an error code
+that the adjacent kvm_pr_unimpl() already logs.
+
+Fixes: c532de5a67a7 ("LoongArch: KVM: Add IPI device support")
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+---
+ arch/loongarch/kvm/intc/ipi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/loongarch/kvm/intc/ipi.c b/arch/loongarch/kvm/intc/ipi.c
+index 7b333a4a0430..672ec053a997 100644
+--- a/arch/loongarch/kvm/intc/ipi.c
++++ b/arch/loongarch/kvm/intc/ipi.c
+@@ -431,7 +431,7 @@ static int kvm_ipi_create(struct kvm_device *dev, u32 type)
+ 
+ err:
+ 	kfree(s);
+-	return -EFAULT;
++	return ret;
+ }
+ 
+ static void kvm_ipi_destroy(struct kvm_device *dev)
+-- 
+2.43.0
+
