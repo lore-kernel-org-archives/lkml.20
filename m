@@ -1,120 +1,171 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013029.outbound.protection.outlook.com [40.107.162.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23483793A8;
-	Tue, 22 Sep 2026 02:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044306; cv=none; b=OfU2uK5EdsFeE/N03OmnC3bfsh283ujNMxM9efUOWOmIszdOWRSX8KiaQPVxM7OKv/cYswBnP61aAGsmnEG3ZNvMKKpZpul7+jHCoO4+NoO0R6oTGRCI7LLFLrtZmQilf1p8N0JG8++PI1E71+qV7stsp6KMxPerwj7LIhGe+Cw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044306; c=relaxed/simple;
-	bh=u8gbXTYoEIjUB7Qmya/d5oMK8aMpmcc/irjlk00YvH4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R4FuySoXNWvGZ1CDXkCXeyTM0g6PufJi1imD9XmU7ERuieM6vY2q4nVd/FbYEUnJgPCH6LXtQeNKVsYVH41Jr8KLuZz1G1CGOyWYoaQwjc63fgITdfl0udLVwv54KBOXGS/1xHOtrXZKRukhH3cSGfxufJElLny5RtioxYqmbMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=cFN0pho7; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B2C395AC3;
+	Tue, 22 Sep 2026 02:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790044324; cv=fail; b=RX0HIeKL2TldTUuEs7wegmMW6o3xQcq7rhwUcu/GqVJ6vcIu9ycKCAE7dSa9j7Lh4tAhl6rIttH9oYfpfzujN1u05kQmzXc5dxhNwbil5AQ4DTvsaTHvxiocjAwKX6Gr5JhLRt9APUcMTRRzVW3iTaqnUgOP41LuhyW4CUR2jvM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790044324; c=relaxed/simple;
+	bh=Q88WshSW/McJnrLqIRMiejAdpUQQsnebHsvx5AKV66w=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=t+kuYX7tdOqti32YkRYvmPyXc1YHUTI5cKzBNMrG+VtpNUETSrE/VSXCD5/L5PPkUS8SbPFWUGeQ9vBMImD6rNWeN2AJX+OM7+KDVN0sxoAuiPVAULCmmROo7rpTUsc0lWfx2NGj1jZ269y9XCkjcIub1A6Reeb17RBNDAGcK08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=RBj4l2yz; arc=fail smtp.client-ip=40.107.162.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="cFN0pho7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1790044297; x=1790303497;
-	bh=zDBB5h9LrgeJeS21qXelLX0Umo+oovh6GkKLBft31xg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=cFN0pho7XVHMM6N5jGshbGxZPdWcwVSzghrb/a2SWphlpXmGo0qXK7Nno1zKQDMxm
-	 391GnGs1GTSYmYfwKUXQ+KpWWqoNtAI3x5uJkF2iKKQizWJojp/kCIpoW7TsXyiCUE
-	 DRXGOfiO9gVEtpjj9fqa9JnenfoxhzQaL/uMxCnTBrwl53gfY51VSWsOAFNk1KGZ6c
-	 JFt9bkew0ikY5rbdoiURsleC5BgiQsI4G0pkv9tJkLRMUUsL0G2nKe5Ih6SpZGh85P
-	 /g2l3fudJgVhcuRzzJfI+5qUEk0AMwiE5HymDsCHgoGbwBgzsZEO/cHSeEVog84YQt
-	 FOQPHXMij5zjA==
-Date: Tue, 22 Sep 2026 02:31:32 +0000
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Matthew Maurer <mmaurer@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: Sagar Taunk <sagartaunk@proton.me>
-Subject: Re: [PATCH net v3] rust: net: netlink: validate attribute length before casting to `c_int`
-Message-ID: <KZuCCqRjSSbylbLLVhoUD9-xyBpzD9jUB4vGC16N0_hIra8SNxFeh9lEJ6FIMYMgKqf41J_swYT_HVx3w13k0cSrYYkBljOF56suy3gpgAU=@proton.me>
-In-Reply-To: <20260918100016.100988-1-sagartaunk@proton.me>
-References: <20260918100016.100988-1-sagartaunk@proton.me>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: 919b550a0812367024e10ab45b8f8d9a554fa4ee
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="RBj4l2yz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=J9JydvNQ4oonXwouA0fwewiJfOAHDEzHNBEYM/UMyQj9TBD/L2lwSE2cVemb9PBGhAo3pelAQpn/7SY4ptukhCXwDlm7gPxS2nftdKRsulkCjc6TIqh8A95UVxMSZoM/fWYd8Ifm2Xt0Y9iPJiHDiphnaXmPruaYcJHiYMiRy22Ocw9xRk9E/x4olEwDqoznHMcuYKTyBTIoKzailk1i9+QWPhK/QeAWwZ46+cVZ7NlPMDzJhVGzI9vGDbGEkH1ktqQ2Sy1bHus4GixEXIdEmxllKBdUC2d8r0y3UmJVueTkp2J1+jsxd8d2jLsJAzWkjVjZJCqIFph/ZdrkbkUUDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hjZh5preDoP3lNKg0QQhRmL58mqJRNY7Do8KjLfI7zg=;
+ b=czOPEtI8OYF+9f6lQ2M5h+wtslf7qRiHJt0lysbMfCpklWFjRwub89hrQL7FFpXQ6U5MWBl0S5epxLXP3c3urTSMcaxednfDS7nSWfgqziTROtQMKv8YtlxqrQiA1AFJJHEfxVFIAvWVZxBqUillkNi9Zs07yJe2H2Uyl5isW6ivrxRyxfl/OozNiuKJdmA5xPhG4gaSU6U2nt4g3+Abdkre6MlY3v4V0jLVMphTkdjgZb3jjTA39GJpHZJPto7KuMeuLoZxiV3Zx+ln5SRCOHxvK2BXtLXGGLwbxPGEwXdtvnLNRjbCx0qxXukL3vbHPlhMxHQnmo9aXqQNPPWVgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hjZh5preDoP3lNKg0QQhRmL58mqJRNY7Do8KjLfI7zg=;
+ b=RBj4l2yzg4Qj5WRBpY6URDoo75Z14tCejUoaR7y9BIPcuadj6CFZ3sno/pTOOWLbbI3vmYaeUapGYG+VX4MS91znGOL97uEbpkrA3/dZdL7iN6SWvN9H+uK1KZec06zW2D8csxRf9VEYez6sjmx251Kcwzbxvbxlz6EfTDNCXyMYVoyS1/RxFsSsNvOd+elOh0ZHjMP9loBjzoQshKC2RgXVlpx92ffYoZmfHbsNO9m2cbwPseavcq+Wedd8L0tH9qSXIZbBcT1vY2GPX6kgbsvTV/6cTwBDf2npbikiZSz8VSU6Of7RwmurHyDVRoj7G91dYW/muR5xOdZKOT1Hew==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
+ by AM7PR04MB6903.eurprd04.prod.outlook.com (2603:10a6:20b:10d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Tue, 22 Sep
+ 2026 02:31:59 +0000
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc]) by AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc%3]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 02:31:59 +0000
+Message-ID: <37b1e459-21e8-49d4-9baf-af330a68505c@oss.nxp.com>
+Date: Tue, 22 Sep 2026 10:31:51 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 21/21] ASoC: rt5514-spi: Free the DSP context on component
+ remove
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Charles Keepax
+ <ckeepax@opensource.cirrus.com>, Oder Chiou <oder_chiou@realtek.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
+References: <20260921104640.1941554-1-chancel.liu@oss.nxp.com>
+ <20260921104640.1941554-22-chancel.liu@oss.nxp.com>
+ <arEv2rLNkSo_2yXm@sirena.co.uk>
+Content-Language: en-US
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+In-Reply-To: <arEv2rLNkSo_2yXm@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR02CA0031.apcprd02.prod.outlook.com
+ (2603:1096:4:195::16) To AM9PR04MB8353.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3ef::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8353:EE_|AM7PR04MB6903:EE_
+X-MS-Office365-Filtering-Correlation-Id: a54ffad1-88a0-4106-1e37-08df1851ad4b
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|7416014|366016|1800799024|376014|6133799003|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	DKVGFjg2MchFciX3n9USLeaGmm2hsAcKI4twnrsdf5MvG+yIgJC3DHgrQkNVDE759A7Kjnv2sTu85cKOl4foXrNbmrESTjvymsTy/7p5eVBCja/K4Eu/f1mTZZTs79SxNxCNeLMXu9zmg94DSCgWFJULmPJPerPRS4bqhrJgOG2xvOD45zbIZn9mGSnXfH9/G0vwXP7EQ9rwCBo2WB9rIufQTYdr9ZYGE3t8QT+VXGZedlzmpS4/3hcJxdWwJRj1BVgbf9WjA0nlCmXvQiMIEGpVhJl4OEC2xAq2JonV/sNQP93vmW42ZyOMfwJhAryM0PiXNF+bwUv3wMZlTcZxoAGQAxyLfefKZQENMlZuLsJMLUL94Shj0sp4HDlVZK3kEHYoAoeEd/JRX7XrB4Mot8Fgm+TUIyJskR8ke/bkV12TXKWOyU9a5evyuF9AlvpXyjpfiWF4K3Cdbqu+BTH6knreolm9oF2x0zU8Btex0QVEuQm26OqnNKGnkcSP7x/+xZ008r3bdWlmMhGTDDTAjp7gshDHV81AGnsl8TFT+AVZ0zx7yGvYpzDMFDYEh1eWIv+h69LL7tqu8pLIjTlXaN5ILZ9iJvyq8F4O1sksHLhQLkU1lkFcq7k7UsvTXsbrR9XnNXobvLYP6/wQ1dRNGNif2WPNRv9QpSKh9nXoxzo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8353.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(366016)(1800799024)(376014)(6133799003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?akZaZ3RsRnk0RkVzbXQ2UFNSNys1aHFNdkFZcEFNVUY5RVNXd0tzQitRTUJZ?=
+ =?utf-8?B?dnNXWllUS3ZjQ1hOUGREQlpVSGM3WDV6UTJnUE9LbXNSdjE0a3VWc3lOaTVu?=
+ =?utf-8?B?YTNPUEMvU2xQb3Q1M3krU3Fya2hNbnRBb1VFOUNJdm0wTFVSY1FTbVNQUzFC?=
+ =?utf-8?B?WWgrekVzOXVLUU1YR1FHWVZGa2tHYkN4ejNVMFRkSjJ4RUNuTzlmbFFwSU02?=
+ =?utf-8?B?QURENE13dE9RVXBCdmt2NzFLN3VPb0pteVUrL0tlcTM4TzZNQ001M3NVS2xJ?=
+ =?utf-8?B?cjNmNXpiaU1KaURvVkx6VFlGZGtIUnZra1J3RXZJbHBQV3l4Si9BbEJYTHd5?=
+ =?utf-8?B?d0RIWVU0UVIrckdnOTR3d2l1Tng3anlZaDRxa0QvZWI5MkxmWVp0aEVlbldF?=
+ =?utf-8?B?SU4yckJKTHBtNEZ5TmRyTEQxNXJpUE1qejRjbnAzTHJEK284SThXRHFxTW1M?=
+ =?utf-8?B?dEpVOSs3QXpwYUMwdjVEVVlWVm9CUkRzNnVRUzRPdkFnSE82VXlTM0xVTmdN?=
+ =?utf-8?B?MlY5UmVZV3JReFZrM2VLQi9pNmlMRzZoRVhWNmtuY1lETWg1QXJBRllsWUR2?=
+ =?utf-8?B?UTJTSzdLcjgyVi9zbloySW9SYTNrVHIweHR2Z1BFczFKNkl6TkUrVzhpZ09l?=
+ =?utf-8?B?WUg0WkNsSlEyakJIQ1pUbk16RHhFNmFxZURhejkxUDFHemIyVTBMV2V6OENZ?=
+ =?utf-8?B?K2M5VjlaM2I4dzJaRFR2NEpUV2Z4ZThlMHdzT1JvbUpxMlR5OWZzaFl1U3Z3?=
+ =?utf-8?B?L2FZekhFV1Y4SXBiNUFwMkg5YW1mNWg2NjRTbFg1S3hHdDJBWklWSkEvNGdZ?=
+ =?utf-8?B?S3hKY2F0QXJsNWRHc0wrd0hoUGhGYUVlMUk1MkdoR3VTMk90ZkhwWHEyWWtm?=
+ =?utf-8?B?dDM3enQ1T1c1V0dOSXUrb0lrQ3hQUys3YmJNM01yOEtMejFQMlpLaVBjRFVX?=
+ =?utf-8?B?MldUVW9MY1RjVm51eTJFT1hYdUdpVWU1RnRnL3g2MkhCOGt0aGV1bnI5aUw4?=
+ =?utf-8?B?M1BlMThKQlQrb0tKam5ac3c1Vml2RXFFeGJmRCtRanh3Y0FLZCt5SUIzVVJT?=
+ =?utf-8?B?Vmk0L0NoMFUwV2F1bjl0eGRrQ0R6UmVid2M2YmxTVmtjK1hjQ0wzcE16ZUxx?=
+ =?utf-8?B?Z3RxWDUxWWQrUWhzaDI1Z2xxYWdITmtPYm1VY1gzMlRDZEI4MGc5VHdPVmdB?=
+ =?utf-8?B?SHRLVjR2cmI4bjNpV1dWSDltOVpOK1NzSWc5N2NGbnFBUE5mSmRrNW9wdGJm?=
+ =?utf-8?B?UmlWazFHYmx1WEVuS2lFNTYwZHJ2aUN3cGZ0MzhqMUNrSFNXSEZudTMwZUxt?=
+ =?utf-8?B?d2M4K2dOOVlTaEtnNlVNMWZITlhNeW5aSXM2MlJqcFl4Q0RPdGh3YkowVnF2?=
+ =?utf-8?B?V0VJclJicUY2MUlwMng5M1hoTW16STNjU3ZJdFR0RHFqWjY4Z0N5VzliQ1Uz?=
+ =?utf-8?B?Q0E4d2ZocUpsRlVHZjIwWnB4eWlZSXZUYUduWldVQm5RRmovVWRyd0RhZVEr?=
+ =?utf-8?B?SzFJM2lWc1JVc3V3RC9rV2RuNit3TEZxOGNPcC85WlE5MlNKamJMbGo5c0N0?=
+ =?utf-8?B?SGdZdzJyeXNyaHRudXBwSys2d2RET09ZTDNKK2hrSmVIVUFVSmZOY2FtVTZv?=
+ =?utf-8?B?VlBMUzRzbWEvMTkzRG9YTFF5YWV0QjFZdUd5V0FCWXZFQmJ5R3R4dkNjWG55?=
+ =?utf-8?B?ZEE3Ty81Ti8zUnk1aE9IWVJzcTdqUXU4UnV6aUFBNTlBZ3pOaVpxZGZzbnJG?=
+ =?utf-8?B?VGFvMndDbkR0akZ1MGZ5Vi9aU05DYnpIRU1HZkExbXNaQ3ZTU3QzRTRwSDdj?=
+ =?utf-8?B?eGpqMkNQSC9Jc2RobFhsTVBNRDZjdDI1L2tadmVjMUJrLzlkeTFWSkY0Vndu?=
+ =?utf-8?B?T3F1WUZHOGhHdXJMd1pUdTNoVitxNWRWa1drek9vQVZtaHZtVzlETkZtV01y?=
+ =?utf-8?B?YnFMaFNuelZKV2xhcW85M0JZK1kwSlZSVWNvdEJOd2I0NmlYdkZ5ZDVGMHMv?=
+ =?utf-8?B?K2NvMXo3SDQ3YnJrTythRkhJY0pEZmVKb3pzZ2UxVHZWUTJxdnBtekFwUHBn?=
+ =?utf-8?B?dm1TblBtcVZnc1hBMWlZRERzN2RMNmRDTzk2c25uOFdIWHJtSVZVSGRmY01H?=
+ =?utf-8?B?N2g1RFJDZFFpQnlueHV5VUhSclVnamRaNWJOMEZvdEw1WGtxa041M0NZek9a?=
+ =?utf-8?B?MGhLb09CK2FoUFpnMm1CRjlHaUV5WnJ6UCtjU05vZzk2dEFkYnBYOHUzT2lp?=
+ =?utf-8?B?SzJqSFdFa0hvb1NsSHhSRlRVQktrM2RENzNpRC9DOU9VcTlJdFlONUM4cVRj?=
+ =?utf-8?B?T1pzdlRPTDFGVUJOZFlibFhFUkVEeW53MjBDMFlaUGxucmNCT21FQT09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a54ffad1-88a0-4106-1e37-08df1851ad4b
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8353.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:31:59.2335
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LWpbmfhpp+NCVh/OOZhRK7ol7yycvXqzeWbc5aYiQjgYE4AS+u+Nz11iittdeB93EVrLbGy8pmcU7cuFmGmrxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6903
 
+On 9/21/2026 9:23 PM, Mark Brown wrote:
+> On Mon, Sep 21, 2026 at 07:46:40PM +0900, Chancel Liu wrote:
+>>  	if (rt5514_spi->irq) {
+>> -		ret = devm_request_threaded_irq(&rt5514_spi->dev,
+>> -			rt5514_spi->irq, NULL, rt5514_spi_irq,
+>> -			IRQF_TRIGGER_RISING | IRQF_ONESHOT, "rt5514-spi",
+>> -			rt5514_dsp);
+>> -		if (ret)
+>> +		ret = request_threaded_irq(rt5514_spi->irq, NULL,
+>> +					   rt5514_spi_irq,
+>> +					   IRQF_TRIGGER_RISING | IRQF_ONESHOT,
+>> +					   "rt5514-spi", rt5514_dsp);
+>> +		if (ret) {
+>>  			dev_err(&rt5514_spi->dev,
+>>  				"%s Failed to request IRQ: %d\n", __func__,
+>>  				ret);
+>> -		else
+>> -			device_init_wakeup(rt5514_dsp->dev, true);
+>> +			kfree(rt5514_dsp);
+>> +			return ret;
+>> +		}
+>> +
+>> +		device_init_wakeup(rt5514_dsp->dev, true);
+> 
+> Previously we would ignore the error and carry on without the IRQ, now
+> we pay attention.  I don't know if the device actually worked or not.
 
+You're right, I'll keep the original behaviour in the next revision.
 
-
-Hello, are there any updates for this?
-
-Also, I wanted to ask is it fine if I keep fixing stuff pointed out by sash=
-iko for now ? (I.e pre-existing issues pointed out by it in other's patches=
- or should I ask the original authors of it first ?)
-Thanks,
-Sagar Taunk
-
--------- Original Message --------
-On Friday, 09/18/26 at 15:30 Sagar Taunk <sagartaunk@proton.me> wrote:
-`put()` trusted an unchecked `as` cast from `usize` to `c_int`.
-When the length exceeds `i32::MAX` that cast wraps around to a
-negative value.
-
-This ultimately resulted in a kernel panic when the reinterpreted
-value via `__nla_reserve()` and `skb_put()` became enormous.
-
-Validate payload and header both fit together in a `u16`, rejecting
-any payload that wouldn't leave room for `NLA_HDRLEN`.
-
-Fixes: 5eaa5fbb6e6c ("rust: netlink: add raw netlink abstraction")
-
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
----
- rust/kernel/net/netlink.rs | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
-index a2f4bd171dcf..36f2e39c3ab7 100644
---- a/rust/kernel/net/netlink.rs
-+++ b/rust/kernel/net/netlink.rs
-@@ -11,6 +11,7 @@
- use kernel::{
-     alloc::{self, AllocError},
-     error::to_result,
-+    num::casts::u16_as_usize,
-     prelude::*,
-     types::Opaque,
-     ThisModule,
-@@ -90,9 +91,17 @@ fn put<T>(&mut self, attrtype: c_int, value: &T) -> Resu=
-lt
-     where
-         T: ?Sized + IntoBytes + Immutable,
-     {
-+        // `nla_len` is a 16-bit field that encodes the total attribute le=
-ngth
-+        // (header + payload). Subtracting the header size from `u16::MAX`=
- gives
-+        // the largest payload that still fits within that field.
-+        const MAX_PAYLOAD_LEN: usize =3D u16_as_usize(u16::MAX) - size_of:=
-:<bindings::nlattr>();
-+
-         let skb =3D self.skb.skb.as_ptr();
-         let len =3D size_of_val(value);
-         let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
-+        if len > MAX_PAYLOAD_LEN {
-+            return Err(EMSGSIZE);
-+        }
-         // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
-the provided value is
-         // readable and initialized for its `size_of` bytes.
-         to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
-ptr) })
---
-2.55.0
-
+Regards,
+Chancel Liu
 
