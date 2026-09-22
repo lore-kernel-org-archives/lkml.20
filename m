@@ -1,199 +1,128 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770FA569F34
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:59:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096383; cv=pass; b=d6e3gOQvnnEWc8CZcvcvnBXSzccmIGNtiafXtXTQi/oxDmUO9/TkNGdqOKvP63MwmADT43bJPLkP3x8DlHeN9J+u96dqwPaE0mQWgksAwZsgx8s2rit7n8s1jIvG0Za1fwOvGi7lYdBlD7WlGrjweqyrEbDWJ8Fs7Gp0mh26ZsM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096383; c=relaxed/simple;
-	bh=LRn3GFzuUdLoBRg+/HP+f5teFv/89kmI0cipOvvuRfI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UAFG/WTRrpq6DpI/0a7+p9AFjIwVYGZxZ6J/cdgqeXEj/CEOHT7SwppWsDkQ38l2TpFlQBB0M6hkNdJLNH4Jgs5WXw9asrCQmtLupHWHlCaE+UD3et/YV0ZYPP56WFWaZAOZRSlKHtN83A0Zes4EscBrClW9WOcd5kJ898uP/84=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rGoBhlVO; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078BD5632A0;
+	Tue, 22 Sep 2026 17:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790096406; cv=none; b=p9vA3EShy+V7F6FIK0xaOwt8HQUjzpILMpqZSDahwfw030yJVc+6aLVKWJt/JQlN0F8apYa7YjQZ+mROxzwRhfN9d/U+WKc76CyTo6VSAPY/gfUY+ODCl3tWDuTjmhzPxBKnTF1kvUd964ob7czc4KEkoY7U4lwC3uWEFSgWMok=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790096406; c=relaxed/simple;
+	bh=BQAsf3GwicofIOUhI7z5DCoHRx49TvH2Grc+f+IVVAA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kl+qVl3gPdtfufaohgshPm3KYyU4sUGZ+pXqiCxUnVytg4hU9NbnilNCvOPdP23cffP8JhJIJYmOugC+Q6pN9Yks49AzlxJwtRIBStjTbQi/t5fHdQfODV7hbQ9hwAMC2YJ+TcBrMNThpwKRc4rRZrmB0XQCsZ8a2pHorgHrr8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGHNR++N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rGoBhlVO"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52faa58bff5so4301cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:59:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790096380; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eO57GxsD59N7i0MeO+lSlvKBYDUW/QpSkFEXMtbzLLXwAMeT3EJTna39ebXqCNBRXH
-         G7UI9uNssvYvBoTMuz4e4B9Eo3C4cpgeq8jgrKxSRSiXLT4NlwCdoZdORFord9WANN3l
-         6erobwKSNPcBYF2Y6JbpXoXh8915Y8xNjr7PXqR1XI0naP0WoPggjpqKAIMIWDcd3fCA
-         9Vm8lAxtBo8XfzgTGl4/f7MQ6UQrKPVE0N+Ugyk4636AXK515lKbgGb7JEHGQ+G4eOd+
-         4jn9YnYexJAm0xCqNpkEQNqiVBRF8Q0JRNWNcwLroqlyPrTUbomHq+QeKb+qqnaVcnhU
-         w4bQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HsqDw8925+XtaD9Vzbpc0jDahGyyPw4OUMTbUv1Lnh8=;
-        fh=XqfL4tRy7fNxlDTCCEMIhIRSYM35NYf/Rt8gxbofBbo=;
-        b=fhwFike2OlV5WxyerMVKZNrKYfJZfFQFDPcWuaxxdTKlCXn3hUggt1dQYYqfjXQKCF
-         ++TVLZJyRMQZ1WcpgBJvTy158200Jjgjq23znCo4T9YMbDmqq5n+8tSm8V8++xUq00wV
-         c7Sb1ujCUqufHQYK142BT1VX/gbZw0bWGllOCth/5CT1uP/eTGT+hyYWQkjWM0rtVW6u
-         TGgIthKAZI6+GIf7eXywmf5nbltye1xh4hhYsLJgkMJFemIx1nwQ7/eMqmcrZzSXQe/5
-         4R8RnUkJwP4KZwkVud27PpLks/fNPvKB4nfaSYf04WPwQWbub5h6oyD1yDPOjxmdqWL/
-         Y0PQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790096380; x=1790701180; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HsqDw8925+XtaD9Vzbpc0jDahGyyPw4OUMTbUv1Lnh8=;
-        b=rGoBhlVO0Jd3iktSiyOPyJu5xmKomRHa97tUnuj1unnjBd2bkchOh3UqkZx58TX/Vd
-         O3XWqKK6qjdmcvH7ghod6BEV7d7ejB0RywJwzCJs+OlGPw6nXTXChxgUlKROB5P3NVsu
-         UkxIGuQrkj0SF+++8MQ2uZjSbxMnfPF1IllaqeYRhPLXzHXTZslFie9d+bJmZsPkZUEf
-         pRNIqIVh/sh21AfD/QU8JlvYA3mpst9IHY2zcPsnHr2rcsvkLE79uwwqs0urYw5DYavS
-         MoDeV26vPSxxM6fhQ4lnpncU1yhX9y6CWxYlJWbIDSgGHnRdOZdIaVHE+O+TbAxjNLI2
-         YSEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790096380; x=1790701180;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HsqDw8925+XtaD9Vzbpc0jDahGyyPw4OUMTbUv1Lnh8=;
-        b=Qw7J/RCtstOkSmofcdG2lucKEYOc0tujxdMhdkqYvIEzTb5PMJssaFgpN0/WXEKiuR
-         xxizoxQUGb2NLd3x0EqKdcoqc4Y3AXS+ZMEunFn8ijlHyaGaZVZKIcLFFEy7hR7uG+La
-         MaYAKj0el3+hDmKc6rz2FV/dhcbFyLkjyrEqhhD+Z23aj/uLP6uS0zxYWXSfBaeGbD5h
-         3jP/0Bh0EeEapdLs4mej/4cl8Wqkiqd2gorfHj9Uhe54OaWvrxLW4g+TYi6wNPEFMfXB
-         U9mQX51iw8Rvvb3dRTraRV2h+DOSRULE1Vz5cuwZCQfiRoVluKC/xEwCpCHU/tR9EUoE
-         3BUA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2PJ5fadrwJRFod2z6Nd8vyubVzTTzLNFgJvWNSGeba5aBr7nC//aZVe+gn0ZgLF5qhm1obrBwIbo2/Ds=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTTvYW+S2SlvTHXX/pHYzR+Kip7RbLxJGlHDmKqkNNCse7bdhZ
-	kgDW/YoVFJokrUZcRyBCiQ/eoJaBJLeCldxtvUVsJHFVn9tx7tXyt1jUazReI35xjgBK3UsAdFL
-	lfN8kBLcsOQiZzESWT5zTbRqx5732SszNyr6sv1AC
-X-Gm-Gg: AYBFou2L+QODMQdsMsvXSL5Wz9woDBYRWt23hf3dMm6eRPNBVCjSQMS+XotPq7OEqof
-	5GwCMwh5mSCqgdZdnptHtJtmQXCRTCRCNon1tdmmeFpsOy93lbVeJlhkeZBWwSM4toJ8SQiC6Ha
-	SCoRw2lcJ7XiCXL0EmcbOIZ2vzMZDMao9zQP3Gcxd/5XdIjkjMX2twx33t/9tMYOGsr1QlkhAzU
-	s9mldEbyMziCPBlbOocpwd3BKGAqJsoUyH4tq9ZlvAWHPfzCznCATeHUMQTbW0dx7hZpm6CTDjj
-	ARNchtsdkDi9byDxem9Y8/569SG6PtsFxP3TWyzppfbnphmlHmcguylvAnYHAEZIQy1MlvAZ8KX
-	i1xjjYKg=
-X-Received: by 2002:ac8:58ca:0:b0:52f:9ed4:8d76 with SMTP id
- d75a77b69052e-532e8669213mr4171531cf.14.1790096379504; Tue, 22 Sep 2026
- 09:59:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGHNR++N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BE91F000FF;
+	Tue, 22 Sep 2026 16:59:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790096404;
+	bh=e1wJMpHGmgVSXq/apVaQv39c3+7htkTrGoZWFd8MsVI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jGHNR++NPSVXNuPYrmF1QmiPjnD/wNjMRKlPDurqcKffL2GkIhAUP4ocDQVyfo8zB
+	 GNlRK91S/zHEleP3JLgn18qTRbR1BJTvYlO8Aql02ef4twDUU9DHaorsU5UvJLfma1
+	 qnbw0qOfKVc9phA+PRoRFN+z7RA2o8RqwnaQRVo/tjp0+WwX59SdfdtL5aq/+cmfoI
+	 Qe5NRKVHXie9bnKJIDMmncQ2ZeALgipiKShVTcW62KLl4q/jatWuO42BVXUN5fzNn4
+	 4nx/2q8fkO2ez/+5dkJaxy1NaPZ3SyuY0PwQ8xDdviIzhn9z0UJVbv+MaEsT+3reWx
+	 X3h2vvNu4Afvg==
+Message-ID: <e6d30881-c590-43db-8912-dbf03c459032@kernel.org>
+Date: Tue, 22 Sep 2026 18:59:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789966896.git.irogers@google.com> <7c56d15d6e61fabe8b94f5a98713305f15bf0848.1789966896.git.irogers@google.com>
- <56ea4b35-f73f-4e6e-95e4-f255eb089c5c@linaro.org>
-In-Reply-To: <56ea4b35-f73f-4e6e-95e4-f255eb089c5c@linaro.org>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 22 Sep 2026 09:59:27 -0700
-X-Gm-Features: AcwNN1Wxe4iKMPSdX4ghjuoW7LHjABByJQUuMgDPKi-P4xHVkR2Yf5ncUcs5YLY
-Message-ID: <CAP-5=fXF=7AHVm2wKqvtFcQ1byc=-4kKvLb_1dQkge4tcQjX1Q@mail.gmail.com>
-Subject: Re: [PATCH v2 13/49] perf build: Make mypy build test opt-out (NO_MYPY=1)
-To: James Clark <james.clark@linaro.org>
-Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com, leo.yan@linux.dev, 
-	linux-kernel@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
-	tmricht@linux.ibm.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
-	linux-perf-users@vger.kernel.org, namhyung@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 08/17] platform/x86: x86-android-tablets: Use
+ acpi_bus_get_primary_device()
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
+ <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>,
+ Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+ Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Binbin Zhou <zhoubinbin@loongson.cn>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>
+References: <7995179.EvYhyI6sBW@rafael.j.wysocki>
+ <3912360.MHq7AAxBmi@rafael.j.wysocki>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <3912360.MHq7AAxBmi@rafael.j.wysocki>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 6:11=E2=80=AFAM James Clark <james.clark@linaro.org=
-> wrote:
->
-> On 21/09/2026 06:06, Ian Rogers wrote:
-> > Commit 168910d0f937 ("perf build: Add mypy build tests") added mypy as =
-an
-> > opt-in compile-time check (MYPY=3D1) because of existing mypy errors ac=
-ross
-> > perf Python scripts.
-> >
-> > Now that all Python scripts in tools/perf have been cleaned up and pass
-> > mypy without errors, make the mypy build test opt-out (default on when
-> > mypy is installed, disabled with NO_MYPY=3D1), matching NO_SHELLCHECK=
-=3D1.
-> > Set MYPYPATH to tools/perf/python so local imports resolve during type
-> > checking, and clean *.mypy_log files in 'make clean'.
-> >
-> > Assisted-by: Antigravity:gemini-3.1-pro
-> > Signed-off-by: Ian Rogers <irogers@google.com>
->
-> Is there some minimum version or other setup requirement? I get this:
->
->
-> pmu-events/amd_metrics.py:181: error: Unsupported operand types for +
-> ("Event" and "object")  [operator]
-> pmu-events/amd_metrics.py:182: error: Unsupported operand types for +
-> ("Event" and "object")  [operator]
-> pmu-events/amd_metrics.py:230: error: Argument 1 to "d_ratio" has
-> incompatible type "object"; expected "int | float | Expression"  [arg-typ=
-e]
-> pmu-events/amd_metrics.py:231: error: Unsupported left operand type for
-> + ("object")  [operator]
-> pmu-events/amd_metrics.py:236: error: Argument 1 to "d_ratio" has
-> incompatible type "object"; expected "int | float | Expression"  [arg-typ=
-e]
-> pmu-events/amd_metrics.py:236: error: Unsupported left operand type for
-> + ("object")  [operator]
-> Found 6 errors in 1 file (checked 1 source file)
-> make[3]: *** [pmu-events/Build:192:
-> /home/james/workspace/linux/build/local/pmu-events/amd_metrics.py.mypy_lo=
-g]
-> Error 1
-> make[2]: *** [Makefile.perf:562:
-> /home/james/workspace/linux/build/local/pmu-events/pmu-events-in.o] Error=
- 2
-> make[2]: *** Waiting for unfinished jobs....
-> python/ilist.py:13: error: Cannot find implementation or library stub
-> for module named "textual"  [import-not-found]
-> python/ilist.py:14: error: Cannot find implementation or library stub
-> for module named "textual.app"  [import-not-found]
-> python/ilist.py:15: error: Cannot find implementation or library stub
-> for module named "textual.binding"  [import-not-found]
-> python/ilist.py:16: error: Cannot find implementation or library stub
-> for module named "textual.containers"  [import-not-found]
-> python/ilist.py:17: error: Cannot find implementation or library stub
-> for module named "textual.css.query"  [import-not-found]
-> python/ilist.py:17: note: See
-> https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-> python/ilist.py:18: error: Cannot find implementation or library stub
-> for module named "textual.command"  [import-not-found]
-> python/ilist.py:19: error: Cannot find implementation or library stub
-> for module named "textual.screen"  [import-not-found]
-> python/ilist.py:20: error: Cannot find implementation or library stub
-> for module named "textual.widgets"  [import-not-found]
-> python/ilist.py:21: error: Cannot find implementation or library stub
-> for module named "textual.widgets.tree"  [import-not-found]
-> Found 9 errors in 1 file (checked 1 source file)
-> make[3]: *** [Build:91:
-> /home/james/workspace/linux/build/local/python/ilist.py.mypy_log] Error 1
-> make[3]: *** Waiting for unfinished jobs....
-> python/treport.py:12: error: Cannot find implementation or library stub
-> for module named "textual"  [import-not-found]
-> python/treport.py:13: error: Cannot find implementation or library stub
-> for module named "textual.app"  [import-not-found]
-> python/treport.py:14: error: Cannot find implementation or library stub
-> for module named "textual.binding"  [import-not-found]
-> python/treport.py:15: error: Cannot find implementation or library stub
-> for module named "textual.color"  [import-not-found]
-> python/treport.py:16: error: Cannot find implementation or library stub
-> for module named "textual.scroll_view"  [import-not-found]
-> python/treport.py:17: error: Cannot find implementation or library stub
-> for module named "textual.strip"  [import-not-found]
-> python/treport.py:18: error: Cannot find implementation or library stub
-> for module named "textual.widgets"  [import-not-found]
-> python/treport.py:19: error: Cannot find implementation or library stub
-> for module named "textual.widgets.tree"  [import-not-found]
-> python/treport.py:19: note: See
-> https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-> Found 8 errors in 1 file (checked 1 source file)
+Hi,
 
-Thanks James! So there are 2 issues, and I'll fix the code in v3. The
-first issue is that in older mypys the join the plus operator isn't
-computed correctly and this can be fixed with a type annotation. The
-textual issue is resolvable by running mypy with
---ignore-missing-imports.
+On 21-Sep-26 21:50, Rafael J. Wysocki wrote:
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> 
+> Replace acpi_get_first_physical_node() that is slated for removal
+> with acpi_bus_get_primary_device() that takes a reference to the
+> device it is about to return.
+> 
+> This addresses a potential use-after-free that may occur if the
+> device returned by acpi_get_first_physical_node() is removed right
+> after dropping its ACPI companion's physical_node_lock in that
+> function.
+> 
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Thanks,
-Ian
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Regards,
+
+Hans
+
+> ---
+>  drivers/platform/x86/x86-android-tablets/core.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/x86-android-tablets/core.c b/drivers/platform/x86/x86-android-tablets/core.c
+> index cfff7f5eac5d..2c262f117235 100644
+> --- a/drivers/platform/x86/x86-android-tablets/core.c
+> +++ b/drivers/platform/x86/x86-android-tablets/core.c
+> @@ -390,7 +390,6 @@ static int gpio_secondary_fwnode_init(struct device *parent,
+>  {
+>  	const struct software_node *const *swnode;
+>  	struct fwnode_handle *fwnode;
+> -	struct device *phys_dev;
+>  	int ret;
+>  
+>  	if (!node_group)
+> @@ -418,7 +417,8 @@ static int gpio_secondary_fwnode_init(struct device *parent,
+>  		if (WARN_ON(!fwnode))
+>  			return -ENOENT;
+>  
+> -		phys_dev = acpi_get_first_physical_node(to_acpi_device(dev));
+> +		struct device *phys_dev __free(put_device) =
+> +				acpi_bus_get_primary_device(to_acpi_device(dev));
+>  		if (!phys_dev)
+>  			return dev_err_probe(parent, -ENODEV,
+>  					     "No physical device for ACPI GPIO dev: %pfwP\n",
+
