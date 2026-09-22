@@ -1,34 +1,33 @@
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82B64BFE95;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F984BF94F;
 	Tue, 22 Sep 2026 06:17:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790057869; cv=none; b=OJ8l26UeclVjQfK0yWZ0jVimfyVRAH7lyUaMC5j9CDk8wPKvjkGd3MACPlnqdWEP0g14OkMfTT8Onk27K3TD/vEX9Ax9ggoOTI10aH2G086yQIP2rVgWkna9WLSIpXDokPzgg3U/ZKp7WQwpKpsjzMTd8Y7Kxz8TY6ZKgfbxSrY=
+	t=1790057869; cv=none; b=WFgofKsFPgrA14follMn4JZ7MX8VeIQnVXrsKuqDCvhS9yVWlF1Hpki0VQEPoHcaVXDV0nD9AuEIf8Mys8u+UWGb+211dHW1iKtaiYRCX+ADWvD0U4YsDuoN0X9AjSPCKJQkHd5rDOMe04pfgFwU0Bd8FCqaDyQombqo7C+HH7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790057869; c=relaxed/simple;
-	bh=SZZDOxjSbhFTa00lyQhARQyw0jJ19hBFtbzPZiAJf9U=;
+	bh=TMC/lfc+5oFMfDMPWbiQ9mLH12CvS8Mph8VMxN/fWCo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bqYumJrPzQ7pne+p8718H7vwn0Xl1nxrvQxcQBmGDCaxGSw6t0F0sj9cZwbdaPZ5W6ipHOw6WHRavJsejJnya4GowJIpgsD+jQTRVlPlGczqk9qa3jgrKuBOKn+oiAtbt3KNeShWKmNavHy64ViqX82EJVI+GkNVravqjHXrTgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=pb4P6Nay; arc=none smtp.client-ip=178.238.236.174
+	 In-Reply-To:To:Cc; b=AwcAJd4NJeqdRnqVOsj9HHvOnBzHg8Klne9mM1H9gyIRcmhEzs2EVdZTmZrnDCqUs+uF8CtNLEZY9e4Il4y/kOIBSmY6XocBDz/HftXszDLEud0fSpnBvFJ4JvVDYS96hwwOgicnDFjy7cvY+kJJSNmfcFA9Jnh7Eu/lkVlryRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=OKu3NPR3; arc=none smtp.client-ip=178.238.236.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="pb4P6Nay"
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="OKu3NPR3"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
 	Reply-To:Content-ID:Content-Description;
-	bh=+7KDxv/cOzYl/nJudk7vFNU85IqTSwiD51deVVxls2Q=; t=1790057866; x=1791267466; 
-	b=pb4P6NayGIfQTZ0xf59sGzdtgyP8SYcVq2pkhQbsCRWRh0LwclOMmqrI2XxYFKC0NG5n4uWX0PT
-	7LKPSxwvW6D+GEHpmmtl2QmA6/zONQkWaXP38PQp3um4mA2R+mK+WtHeaVjRJ0hGNJCfs1IgZI8tY
-	mNeGIe5GT76rj8bTsKDNmihEfTvqrnJ/GtcCtiw2W378B6CODKNLJo42gdRUSmhQoMke5aZpEWjFn
-	OjkYsm90mYRAOc2Ra8NRS6BErPoSTJLcaYfSMYDCvqGqO6GHRGFO03DM4pMAwVt9T1KFVfAeQTi1h
-	6d2Mm3vqyI5HwCGI5/af2RloKe0MzREgfK7Q==;
+	bh=ELRD9D9yQHZnUKwCihLb3MnasJ8QLZIMU47gaHub3Qk=; t=1790057866; x=1791267466; 
+	b=OKu3NPR3N4gUJXLUhWcifIbq94oBXwqwnwJ03XFokUDZxwR8oHdu1DRSGt2uyFD6T/SsnSbO8hs
+	C5KLEcM7WtEkF0ohlA4dKcOgVv/4Yhcw3bFU4fVtwJUfv6lR+gJCkhBXkMq7zXQf09v3aFn/FJqbf
+	BQz8Mf5mPDcg2YT5cppHzxFttZjGiXraSUCXU2vaelSAnYQ9ckmiw5TumqSQ9/DzQcVgq0aXbbogR
+	q1/jxO2CzXSPI12NMfauroUcNEBuk1a/zGxM3pE2hW0AYvw/IZYOFcq/J/dWkX+ZgCVRE5giiGacJ
+	uzmC573XU4jVgE6cZVEYjKTc5KF67ZahrLdA==;
 From: Andreas Kemnade <andreas@kemnade.info>
-Date: Tue, 22 Sep 2026 08:17:02 +0200
-Subject: [PATCH RFC 5/9] drm/bridge: tc358762: add SPI master support to
- control panels
+Date: Tue, 22 Sep 2026 08:17:03 +0200
+Subject: [PATCH RFC 6/9] drm/bridge: tc358762: read back ID register
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +36,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-b2-panel-via-bridge-v1-5-45ff36b364cf@kemnade.info>
+Message-Id: <20260922-b2-panel-via-bridge-v1-6-45ff36b364cf@kemnade.info>
 References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
 In-Reply-To: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -58,153 +57,110 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
  Andreas Kemnade <andreas@kemnade.info>
 X-Mailer: b4 0.16.1-dev-53874
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4107; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=SZZDOxjSbhFTa00lyQhARQyw0jJ19hBFtbzPZiAJf9U=;
- b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFmbZBNDvi1598qg3py1O2PfsTkimQ1Rvw8dFWrlmbGGd
- 4Hr+n7ZjlIWBjEuBlkxRZZf1gpun1Se5QZPjbCHmcPKBDKEgYtTACayKoKR4chWjaNmEtc0bWs5
- v762E+ZRPu21I+x7yLqZ+eymi5PkNjD8M4o13uGv1Fq2e0/PqxABC//9TxZeWe16xviZ2M3SmI8
- ebAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3066; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=TMC/lfc+5oFMfDMPWbiQ9mLH12CvS8Mph8VMxN/fWCo=;
+ b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFmbZBMlp0xQKZ5dco+1zn6jYfKW985W/kHeB2OEY1mLc
+ hZdNDzbUcrCIMbFICumyPLLWsHtk8qz3OCpEfYwc1iZQIYwcHEKwEREwxj+lxpofgxhCNv28lma
+ y76DLH4PBKq8RZ03ppjuV4+MK5kxgeGvRFlE2epbT/98V/CoMbsixlGwLuSx4g9h/hNJnKu0FM7
+ yAQA=
 X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
  fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-To allow to use panels with their SPI port connected to the bridge, add
-SPI master support. Due to lack of a complete datasheet, mode and speed
-are not configurable. It is also unclear how CS behaves.
+to check if reading works and in preparation for the PLL setup, read back
+the ID register value. Also this produces better errors if chip is not
+connected. In the Epson Moverio BT200, the DSI busses are on a (probably
+not hot-) detachable cable.
 
 Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 72 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 71 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/tc358762.c | 40 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index ec72e6e92b46..8024e49e2868 100644
+index 8024e49e2868..1bea89fb03a8 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -16,6 +16,9 @@
- #include <linux/module.h>
- #include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/spi/spi.h>
+@@ -50,6 +50,8 @@
+ #define DSI_LANEENABLE_L0EN	BIT(1)
+ #define DSI_LANEENABLE_L1EN	BIT(2)
+ 
++#define RDPKTLN			0x0410 /* Packet length */
 +
-+#include <linux/unaligned.h>
+ /* LCDC/DPI Registers */
+ #define LCDCTRL			0x0420 /* Video Path Control */
+ #define LCDCTRL_MSF		BIT(0) /* Magic square in RGB666 */
+@@ -97,6 +99,8 @@
+ #define SYSCTRL_PCLKDIV_DIV_2	2
+ #define SYSCTRL_PCLKDIV_DIV_3	4
  
- #include <video/mipi_display.h>
- #include <video/videomode.h>
-@@ -72,7 +75,11 @@
- 
- /* SPI Master Registers */
- #define SPICMR			0x0450
--#define SPITCR			0x0454
-+#define SPI_SEL_CS0		0x0002
++#define IDREG			0x04A0 /* Chip and Revision ID */
 +
-+#define SPITCR1			0x0454
-+
-+#define WCMDQUE			0x0500
+ #define LPX_PERIOD		3
  
- /* System Controller Registers */
- #define SYSCTRL			0x0464
-@@ -98,6 +105,7 @@ struct tc358762 {
- 	struct regulator *regulator;
- 	struct drm_bridge *panel_bridge;
- 	struct gpio_desc *reset_gpio;
-+	struct spi_controller *spi;
- 	bool pre_enabled;
- 	int error;
- 	bool use_vtg;
-@@ -252,11 +260,25 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
- 
- 	tc358762_write(ctx, LCDCTRL, lcdctrl);
- 
-+	/*
-+	 * value just copied from vendor driver, no idea which settings
-+	 * are configured
-+	 */
-+	if (ctx->spi)
-+		tc358762_write(ctx, SPITCR1, 0x00000122);
-+
- 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
- 	tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
- 
- 	msleep(100);
- 
-+	/*
-+	 * no idea when CS is actually asserted, maybe once per handling of
-+	 * one packet written to WCMDQUE? Maybe just after setting SPI_SEL_CS0
-+	 */
-+	if (ctx->spi)
-+		tc358762_write(ctx, SPICMR, SPI_SEL_CS0);
-+
- 	ret = tc358762_clear_error(ctx);
- 	if (ret < 0)
- 		dev_err(ctx->dev, "error initializing bridge (%d)\n", ret);
-@@ -308,6 +330,40 @@ static int tc358762_parse_dt(struct tc358762 *ctx)
- 	return 0;
+ struct tc358762 {
+@@ -119,6 +123,27 @@ static int tc358762_clear_error(struct tc358762 *ctx)
+ 	return ret;
  }
  
-+static int tc358762_spi_transfer_one(struct spi_controller *ctlr,
-+				     struct spi_device *spi,
-+				     struct spi_transfer *t)
++static int tc358762_read(struct tc358762 *ctx, u16 addr, u32 *val)
 +{
-+	struct tc358762 *ctx = spi_controller_get_devdata(ctlr);
 +	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
-+	/*
-+	 * limits to be determined, just define something which is
-+	 * enough for current use case.
-+	 */
-+	u8 data[8];
++	ssize_t ret;
++	u8 addr_buf[2];
++	u8 buf[4];
 +
-+	if (!ctx->pre_enabled)
-+		return -ENODEV;
++	put_unaligned_le16(addr, addr_buf);
 +
-+	if (t->len > sizeof(data) - 2)
-+		return -EOVERFLOW;
++	ret = mipi_dsi_generic_read(dsi, addr_buf, 2, buf, sizeof(buf));
++	if (ret < 0) {
++		dev_err(ctx->dev, "gen read failed: %d\n", ret);
++		return ret;
++	}
++	dev_dbg(ctx->dev, "read return %02x %02x %02x %02x\n",
++		buf[0], buf[1], buf[2], buf[3]);
 +
-+	/*
-+	 * half duplex is supported by the bridge,
-+	 * but due to lack of testing possibilities, support only simplex write
-+	 */
-+	if (t->rx_buf)
-+		return -EINVAL;
-+
-+	if (!t->tx_buf)
-+		return -EINVAL;
-+
-+	put_unaligned_le16(WCMDQUE, data);
-+	memcpy(data + 2, t->tx_buf, t->len);
-+
-+	return mipi_dsi_generic_write(dsi, data, t->len + 2);
++	*val = get_unaligned_le32(buf);
++	return ret;
 +}
 +
- static int tc358762_configure_regulators(struct tc358762 *ctx)
+ static void tc358762_write(struct tc358762 *ctx, u16 addr, u32 val)
  {
- 	ctx->regulator = devm_regulator_get(ctx->dev, "vddc");
-@@ -321,6 +377,7 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
- {
- 	struct device *dev = &dsi->dev;
- 	struct tc358762 *ctx;
-+	struct device_node *spi_node;
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+@@ -182,6 +207,7 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
+ 	struct drm_display_mode *mode;
+ 	u32 lcdctrl;
  	int ret;
++	u32 id;
  
- 	ctx = devm_drm_bridge_alloc(dev, struct tc358762, bridge,
-@@ -333,6 +390,19 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
- 	ctx->dev = dev;
- 	ctx->pre_enabled = false;
+ 	ret = regulator_enable(ctx->regulator);
+ 	if (ret < 0)
+@@ -205,6 +231,8 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
+ 	 */
+ 	tc358762_write(ctx, LCDCTRL, 0);
  
-+	if (IS_ENABLED(CONFIG_SPI)) {
-+		spi_node = of_get_child_by_name(dev->of_node, "spi");
-+		if (spi_node) {
-+			ctx->spi = devm_spi_alloc_host(dev, 0);
-+			spi_controller_set_devdata(ctx->spi, ctx);
-+			ctx->spi->transfer_one = tc358762_spi_transfer_one;
-+			ctx->spi->dev.of_node = spi_node;
-+			ret = devm_spi_register_controller(dev, ctx->spi);
-+			if (ret < 0)
-+				return dev_err_probe(dev, ret, "register spi controller  failed\n");
-+		}
-+	}
++	tc358762_write(ctx, RDPKTLN, 3);
 +
- 	/* Always use VTG */
- 	ctx->use_vtg = true;
+ 	tc358762_write(ctx, SYSCTRL,
+ 		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
+ 		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
+@@ -283,6 +311,18 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
+ 	if (ret < 0)
+ 		dev_err(ctx->dev, "error initializing bridge (%d)\n", ret);
+ 
++	/*
++	 * This generates an ack with error if the device is reinitialized
++	 * without reset, ignore the error here, the second read should be
++	 * successful.
++	 */
++	tc358762_read(ctx, IDREG, &id);
++	ret = tc358762_read(ctx, IDREG, &id);
++	if (ret < 0)
++		dev_err(ctx->dev, "read id  failed (%d)\n", ret);
++	else if (id != 0x6200)
++		dev_info(ctx->dev, "unknown chip with id %x\n", id);
++
+ 	ctx->pre_enabled = true;
+ }
  
 
 -- 
