@@ -1,154 +1,371 @@
-Received: from mail-pz2-f18.google.com (mail-pz2-f18.google.com [74.125.228.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4982D4D1781
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058586; cv=pass; b=EGJfN6aNHimjcXAoLZ1PdJIwkm+ulOYKPWFJ20pQcB6J9q1DI/fnFzx4X3Qd2AQyag0j5w9zIZOp+n+X/zPHHfMFCtM0Mi/mxTad+QuvV2ayy93kEGEOYgB3rkoUTPl+dPME6ahJ7RJFLKwFLOIRBa1p0lChWpXrRUzCGQ5yOmc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058586; c=relaxed/simple;
-	bh=WMopLKvR/pUfd2YF3exYBV6b9DrcmKXGK/JBv+4BYaY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ld7EHPxIJ6UCfsXjRiUQVLCtccGP1FIXIN+1DsnY9ADGDpehDcs5l+OF/KNmeodXU9pDI9GY6JnyrWulmgpHmUGs0o9lRdnTuW6+p3IfuFfRAGC6yKW6fshW+5rejNvJBoHuRkS2yDDn11h/CNCwUjMCk/Exp5Fg0r0fnP1r7Vw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ads0/kQN; arc=pass smtp.client-ip=74.125.228.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FE24DE714
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790058672; cv=none; b=WAnsaUyeSldRiuzNmZvGYP2c4woqQ8H/BYAK8NTaOk2CTDAeX/zWDPCiDnelKRcwdfQgiFR7nNKsiBpt1PIWh9U4PZDVLfhCFGxDL7kP1QZLYk+GQ9Fcv1n0TH5xxtItQukySbKSwO7NIutqdzKY1AsOxb7oYJR0W6qCh9/rYLI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790058672; c=relaxed/simple;
+	bh=8ych7vh/bUCvdKAZ8mScexBW4iPgAwZvpCc332syeiE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q8NuxOeRgut2GbaIm+csGPs7L1Kj9MAQecqLfxQ2KEYPuWZX/Cgy0+Up8hCqBenslWuAGWG9VdqwPrBXuDMztyyX/2AYiJzjH653fzRaMOcG8kWWVtPo2Oe6JO2+1aodCICpn/mKhg/uuM4Ujnb1MSalh8Q/do1ZU+6A7lT34jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=geyAvd+X; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=aVxiHD0j; arc=none smtp.client-ip=140.77.166.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ads0/kQN"
-Received: by mail-pz2-f18.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso3072486a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:29:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790058584; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o7SHF5bPLPVxxLcp6zVwn0x3RxsdiSNf0+QL5c7c3XpbSOElxcFXNwSQVYKWRwXxJg
-         l6DP50qdLvYNL03hzNsnOxQmLBFHV2RAcfi3i5iv/FaBi2B5FWr1M/0m32NGhw2g2kLr
-         knJW3+Zf3NVp6bnG0cKycH0MCIOh4FUqyR9hSE+Tz0EDycquZyyPhZjw2QEziB6ueCY8
-         Lt7uXhJSgpYK6NPcOnkObvrvYVNJVj1QcBBKtvUkJvr+RlPtmp69RbPlDStFg+EY8xW6
-         GXwL7LhS2wxe8KjQLLFn9l3yJvsbYgqJZBUdZSs+s4/lxVoIO29tyJDTNSgAwej+XOPH
-         szBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ing5JC6tleS+Y5q+zrefvE9RUeGgTougjus6FkCTzfE=;
-        fh=l3VSZp9KwogGyKd4fS6DN1yCUPRfhDrA7rrCs5H9vUQ=;
-        b=WEGbVWlvA1U7Ckw13zEmhEH9KA7Rh6pCguKGRGGguIhTA53i41SPl85SDAIbNEkjI1
-         PIBD/GY2RS7h9ljtDIC+juHpldmgOMzRfM1My7s7MhdvyyLytM98ahNyNvv/FDuazSDQ
-         w3gmRU7sLZ8UFpyBNoVg54MbnLdUovavAKUUL7xfoZxUgip4ABdKKv3VQP4OpQEkUOoN
-         saTPUgJr5+54Gf7JAb/1YbKFuvUDcIlQdjdLVm6TfNXHqRzIErFHyEqq/j9WXYUekWk7
-         B6wNlgM6SLNEpimhxOnBzngzU9IkEq1iWjE2OKfi94qCMlmH76M1q0EgoUVRpi6W4nEB
-         H/Wg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790058584; x=1790663384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ing5JC6tleS+Y5q+zrefvE9RUeGgTougjus6FkCTzfE=;
-        b=Ads0/kQN2vtUwcoG8QLHfoFhrM+QXCLgy/bTVR2HYnnIY/tlRnZDMrR1g/ejfPLW0f
-         XEqhj/WqZ802LJZ7RuAMIHTLdCiEJNP+LXRYmkbWZOMaxFtTgoULmZBaTBYU43qIMuRg
-         eIb+208ZJcLaJM6BQWjPm4rByHAB2LYTJExPetdZDiuJJorlmnCl6CTfjmyXPUlr0JEI
-         g6pnNgmi9NzUJcjyt9kcE9or1OD7eKBNnA/6qaOeMD5tkteCx4YYXwsTW0d+lKmvXFHu
-         EMmjBDyFg2J6FBPAtik4LbD/e9XeMCrY/JgA2HCUq3fA+0ISgOx6eWz+1BkZYDjY1B6Z
-         9icw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790058584; x=1790663384;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ing5JC6tleS+Y5q+zrefvE9RUeGgTougjus6FkCTzfE=;
-        b=gGcqa+b9j3xgFaudRHrQz/eSF29LZONM0rV+h6NU1rK1UfRNyCdm3BxQhKHiotL0yL
-         Mygih5r1i4Q7GfhJjH7U1xObHpc9wNXoKyZ3NgakZKsgHIZHIa9nrkY/m9a5yv5RxJ2R
-         1P7XHAtq0DVShz7Q/aVJqdapCh90ZC1es1C1v9qeU6gBDVb0rNkLw3NCJQtHcbTMwgH1
-         cPY6rxhwbM8F+mE1oQCcVgpj0kSGnk1H54Bfab31VLbf5WExBlr6DtlKCGfp2UMt14EL
-         PPElKbUjWuibxyshb8UKzhZrpsxy94VDLrOHUiMAHE/taPwp9t+tvot2++yaKWhu7axZ
-         JAUw==
-X-Forwarded-Encrypted: i=1; AKwUvBzo1lrwJpP9H+zsvSxkXXb+5Z7jeHr+L6jvfjaaeBKGs2lkVTMudPjk9r04k2ijmzaGz1gAwUTisiS6pPg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVYQAS5ZFxjfbRMpv19oBbuaHS3WbE270HrzKCmBMxUM0J6biW
-	dtPYJMrXlmwOJyIp4YeQZl/N2JP+apJiEuQhuhy2Z97C6Gmh+AaTyTs9lfY25lTbc44DkHHCpoH
-	loOdX+eC/5zON+MkLLmfvDBwG69503lw=
-X-Gm-Gg: AYBFou1pv4gsRWllRP1/qwdlAvHnt+FORs/UR2HmT2d/hOCZU+CfNz1TxWIU2QjJxau
-	DxZ0uFUl4iMgDbdD1XhbbQMAK/qr3hR7yR5ahkabYo3V9raQyjGknD+7s5FJeWTmCcYg/M7UHb0
-	afsNCcsk7A9aQTFXrWxnhK+HHoiVZW0ecqm8fmiwpaFCbR2LlFzUicS9xO+rHLNPc8Y9A1uNQ0V
-	5bzHDKU8nSe6XiDEaTxb3WhHX8CamYVcyt6DTfQ14Vfc6sBFZwT6QVZ8PPjPvw7Z/PemAEkrsMH
-	+mjEJAlWfQqteh0K3YDsM9B2Ba9k96QlP6O4MZxPMO+xc+CSuG6td5DDMwZx1j/GEA9+tc+anuP
-	ALfKY6j/hlAN0
-X-Received: by 2002:a17:90b:48ce:b0:3a0:4066:d3b0 with SMTP id
- 98e67ed59e1d1-3a07327d177mr173825a91.59.1790058584580; Mon, 21 Sep 2026
- 23:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="geyAvd+X";
+	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="aVxiHD0j"
+Received: from localhost (localhost [127.0.0.1])
+	by sonata.ens-lyon.org (Postfix) with ESMTP id F1B04A4870;
+	Tue, 22 Sep 2026 08:30:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
+	t=1790058650; bh=8ych7vh/bUCvdKAZ8mScexBW4iPgAwZvpCc332syeiE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=geyAvd+XWfnJ4ptcgYjvffkGklAPL3i5EL4qT/D+AwnB+oJS5AQmNyEMhkxQRdRKF
+	 6/Of4URTG+zcX3ykAl2IziQHDxdDTTCyaBD7a36RDDno46rA//1k7BwUhfd0seSgOG
+	 gjAoDV37BOAB0IA1LwGp527s0PdYVBOF3MEbla/ZqLLu4kV+3XL8eWu5YwM6W3YqBp
+	 nowSm/Djioea5x+QcARJiOJsl5+LMH1wvDaurFfy1vyd8CdBNU8f3u/gs5z2P04pSj
+	 vcscGL82sSIh29XEIFD4wOR2icD8R3OK//D33VILM0jSxGnuSLh6kSMf5TTyFVRg5U
+	 twe+588VMv6Ug==
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id eBQ_bYRfzN81; Tue, 22 Sep 2026 08:30:49 +0200 (CEST)
+Received: from end (unknown [212.133.41.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by sonata.ens-lyon.org (Postfix) with ESMTPSA id A70B6A1B39;
+	Tue, 22 Sep 2026 08:30:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
+	t=1790058649; bh=8ych7vh/bUCvdKAZ8mScexBW4iPgAwZvpCc332syeiE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=aVxiHD0jpXZHz4tSwve4MkH3cVkfLz15oPnNFdAwyYy3loohs0/d8WAOPwHd2APdr
+	 OFiImQ228r+uJuUG27nMwBNEdtjePOOtdrBpyEY2xpysw7ttX9u52Zu4Ywgs4rHvw+
+	 9de9MfEUrL5LrG90gd1uZyMnP4ML1jfJjvhoUEDwLHiQRdmaP5cGtAmG2LHsYVLPUe
+	 hy3eVPpLBoMoJeLOKYge09CrHkeT82V1YgqgtAonx1eiyWqXfS0WE5fX4vkQ0K2kt8
+	 wt5f+CVCgVn6m+aI0EPBinH6HfLjPd7hn34HRHBjBYgdtAVQQXKG3HMi5rHIYAElKs
+	 RYppMgkcRzsTw==
+Received: from samy by end with local (Exim 4.100)
+	(envelope-from <samuel.thibault@ens-lyon.org>)
+	id 1x8u1g-00000005qM4-0Sni;
+	Tue, 22 Sep 2026 08:30:48 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: gregkh@linuxfoundation.org
+Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	w.d.hubbs@gmail.com,
+	chris@the-brannons.com,
+	kirk@reisers.ca,
+	speakup@linux-speakup.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] speakup: Drop now-unused serialio operations
+Date: Tue, 22 Sep 2026 08:30:47 +0200
+Message-ID: <20260922063047.1392828-1-samuel.thibault@ens-lyon.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921180250.3223545-dts-florian.krischer@fkr.dev>
-In-Reply-To: <20260921180250.3223545-dts-florian.krischer@fkr.dev>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 22 Sep 2026 09:29:32 +0300
-X-Gm-Features: AcwNN1VHLuPJpyDqBJ6Nhj2r3qY1EQ09O50v17uUs5s9CMRX1Up_T9siUpW14aM
-Message-ID: <CAPVz0n1OrUwmwfhLEdMtfnQELMFyf-Br4itWTXin3b8pSSE1rQ@mail.gmail.com>
-Subject: Re: [PATCH] ARM: tegra: Add embedded controller to ASUS SL101
-To: Florian Krischer <florian.krischer@fkr.dev>
-Cc: Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-tegra@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=BF=D0=BD, 21 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 21:03 Flor=
-ian Krischer <florian.krischer@fkr.dev> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> The ASUS Eee Pad Slider SL101 has an embedded controller for its
-> built-in sliding keyboard.
->
-> Describe the EC on the PTA/GEN2 I2C mux leg. The EC responds at 0x19,
-> with DockRAM at 0x1b. AP_WAKE is GPIO S2 and EC_REQUEST is GPIO S3.
->
-> The node has been tested on a physical SL101 with EC model
-> ASUS-EP102-DOCK and firmware SL101-0202. With the ASUS Transformer EC
-> MFD/serio driver and the SL101 event-protocol fixups, the built-in
-> keyboard works through serio/atkbd.
->
-> This patch depends on the ASUS Transformer EC binding that provides the
-> "asus,sl101-ec-dock" compatible.
->
-> Signed-off-by: Florian Krischer <florian.krischer@fkr.dev>
-> ---
->  arch/arm/boot/dts/nvidia/tegra20-asus-sl101.dts | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> --- a/arch/arm/boot/dts/nvidia/tegra20-asus-sl101.dts
-> +++ b/arch/arm/boot/dts/nvidia/tegra20-asus-sl101.dts
-> @@ -59,3 +59,16 @@
->                 };
->         };
->  };
-> +
-> +&lvds_ddc {
-> +       embedded-controller@19 {
-> +               compatible =3D "asus,sl101-ec-dock";
-> +               reg =3D <0x19>, <0x1b>;
-> +               reg-names =3D "ec", "dockram";
-> +
-> +               interrupt-parent =3D <&gpio>;
-> +               interrupts =3D <TEGRA_GPIO(S, 2) IRQ_TYPE_LEVEL_LOW>;
-> +
-> +               request-gpios =3D <&gpio TEGRA_GPIO(S, 3) GPIO_ACTIVE_LOW=
->;
-> +       };
-> +};
-> --
+The only users of serialio (acntpc, decpc, dtlk, keypc) don't actually
+define a read_buff_add method, so start_stop_serial_interrupt were not doing
+anything. The other functions were not referenced at all any more since
+bbe6fb5b96bd ("staging: speakup: migrate bns to tty")
 
-Hello Florian!
+Signed-off-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+---
+ drivers/accessibility/speakup/serialio.c      | 179 ------------------
+ .../accessibility/speakup/speakup_acntpc.c    |   1 -
+ drivers/accessibility/speakup/speakup_decpc.c |   1 -
+ drivers/accessibility/speakup/speakup_dtlk.c  |   1 -
+ drivers/accessibility/speakup/speakup_keypc.c |   1 -
+ drivers/accessibility/speakup/spk_priv.h      |   6 -
+ 6 files changed, 189 deletions(-)
 
-This patch is fragmentary and should not be applied. I have prepared a
-patch[1] that adds EC nodes to all supported generations of Tegra
-based ASUS transformers, but I did not submit it yet, because until EC
-is picked there is no sense in this. Patch will just hang and
-eventually be lost.
+diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
+index 3418ea31d28f..b8d89dc30704 100644
+--- a/drivers/accessibility/speakup/serialio.c
++++ b/drivers/accessibility/speakup/serialio.c
+@@ -17,8 +17,6 @@
+ #define SERIAL_PORT_DFNS
+ #endif
+ 
+-static void start_serial_interrupt(int irq);
+-
+ static const struct old_serial_port rs_table[] = {
+ 	SERIAL_PORT_DFNS
+ };
+@@ -45,111 +43,6 @@ struct spk_io_ops spk_serial_io_ops = {
+ };
+ EXPORT_SYMBOL_GPL(spk_serial_io_ops);
+ 
+-const struct old_serial_port *spk_serial_init(int index)
+-{
+-	int baud = 9600, quot = 0;
+-	unsigned int cval = 0;
+-	int cflag = CREAD | HUPCL | CLOCAL | B9600 | CS8;
+-	const struct old_serial_port *ser;
+-	int err;
+-
+-	if (index >= ARRAY_SIZE(rs_table)) {
+-		pr_info("no port info for ttyS%d\n", index);
+-		return NULL;
+-	}
+-	ser = rs_table + index;
+-
+-	/*	Divisor, byte size and parity */
+-	quot = ser->baud_base / baud;
+-	cval = cflag & (CSIZE | CSTOPB);
+-#if defined(__powerpc__) || defined(__alpha__)
+-	cval >>= 8;
+-#else /* !__powerpc__ && !__alpha__ */
+-	cval >>= 4;
+-#endif /* !__powerpc__ && !__alpha__ */
+-	if (cflag & PARENB)
+-		cval |= UART_LCR_PARITY;
+-	if (!(cflag & PARODD))
+-		cval |= UART_LCR_EPAR;
+-	if (synth_request_region(ser->port, 8)) {
+-		/* try to take it back. */
+-		pr_info("Ports not available, trying to steal them\n");
+-		__release_region(&ioport_resource, ser->port, 8);
+-		err = synth_request_region(ser->port, 8);
+-		if (err) {
+-			pr_warn("Unable to allocate port at %x, errno %i",
+-				ser->port, err);
+-			return NULL;
+-		}
+-	}
+-
+-	/*	Disable UART interrupts, set DTR and RTS high
+-	 *	and set speed.
+-	 */
+-	outb(cval | UART_LCR_DLAB, ser->port + UART_LCR);	/* set DLAB */
+-	outb(quot & 0xff, ser->port + UART_DLL);	/* LS of divisor */
+-	outb(quot >> 8, ser->port + UART_DLM);		/* MS of divisor */
+-	outb(cval, ser->port + UART_LCR);		/* reset DLAB */
+-
+-	/* Turn off Interrupts */
+-	outb(0, ser->port + UART_IER);
+-	outb(UART_MCR_DTR | UART_MCR_RTS, ser->port + UART_MCR);
+-
+-	/* If we read 0xff from the LSR, there is no UART here. */
+-	if (inb(ser->port + UART_LSR) == 0xff) {
+-		synth_release_region(ser->port, 8);
+-		serstate = NULL;
+-		return NULL;
+-	}
+-
+-	mdelay(1);
+-	speakup_info.port_tts = ser->port;
+-	serstate = ser;
+-
+-	start_serial_interrupt(ser->irq);
+-
+-	return ser;
+-}
+-
+-static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
+-{
+-	unsigned long flags;
+-	int c;
+-
+-	spin_lock_irqsave(&speakup_info.spinlock, flags);
+-	while (inb_p(speakup_info.port_tts + UART_LSR) & UART_LSR_DR) {
+-		c = inb_p(speakup_info.port_tts + UART_RX);
+-		synth->read_buff_add((u_char)c);
+-	}
+-	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
+-	return IRQ_HANDLED;
+-}
+-
+-static void start_serial_interrupt(int irq)
+-{
+-	int rv;
+-
+-	if (!synth->read_buff_add)
+-		return;
+-
+-	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
+-			 "serial", (void *)synth_readbuf_handler);
+-
+-	if (rv)
+-		pr_err("Unable to request Speakup serial I R Q\n");
+-	/* Set MCR */
+-	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
+-	     speakup_info.port_tts + UART_MCR);
+-	/* Turn on Interrupts */
+-	outb(UART_IER_MSI | UART_IER_RLSI | UART_IER_RDI,
+-	     speakup_info.port_tts + UART_IER);
+-	inb(speakup_info.port_tts + UART_LSR);
+-	inb(speakup_info.port_tts + UART_RX);
+-	inb(speakup_info.port_tts + UART_IIR);
+-	inb(speakup_info.port_tts + UART_MSR);
+-	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
+-}
+-
+ static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
+ {
+ 	int timeout = SPK_XMITR_TIMEOUT;
+@@ -169,50 +62,6 @@ static void spk_serial_tiocmset(struct spk_synth *in_synth, unsigned int set, un
+ 	outb((old & ~clear) | set, speakup_info.port_tts + UART_MCR);
+ }
+ 
+-int spk_serial_synth_probe(struct spk_synth *synth)
+-{
+-	const struct old_serial_port *ser;
+-	int failed = 0;
+-
+-	if ((synth->ser >= SPK_LO_TTY) && (synth->ser <= SPK_HI_TTY)) {
+-		ser = spk_serial_init(synth->ser);
+-		if (!ser) {
+-			failed = -1;
+-		} else {
+-			outb_p(0, ser->port);
+-			mdelay(1);
+-			outb_p('\r', ser->port);
+-		}
+-	} else {
+-		failed = -1;
+-		pr_warn("ttyS%i is an invalid port\n", synth->ser);
+-	}
+-	if (failed) {
+-		pr_info("%s: not found\n", synth->long_name);
+-		return -ENODEV;
+-	}
+-	pr_info("%s: ttyS%i, Driver Version %s\n",
+-		synth->long_name, synth->ser, synth->version);
+-	synth->alive = 1;
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(spk_serial_synth_probe);
+-
+-void spk_stop_serial_interrupt(void)
+-{
+-	if (speakup_info.port_tts == 0)
+-		return;
+-
+-	if (!synth->read_buff_add)
+-		return;
+-
+-	/* Turn off interrupts */
+-	outb(0, speakup_info.port_tts + UART_IER);
+-	/* Free IRQ */
+-	free_irq(serstate->irq, (void *)synth_readbuf_handler);
+-}
+-EXPORT_SYMBOL_GPL(spk_stop_serial_interrupt);
+-
+ static int spk_serial_wait_for_xmitr(struct spk_synth *in_synth)
+ {
+ 	int tmout = SPK_XMITR_TIMEOUT;
+@@ -288,31 +137,3 @@ static int spk_serial_out(struct spk_synth *in_synth, const char ch)
+ 	}
+ 	return 0;
+ }
+-
+-const char *spk_serial_synth_immediate(struct spk_synth *synth,
+-				       const char *buff)
+-{
+-	u_char ch;
+-
+-	while ((ch = *buff)) {
+-		if (ch == '\n')
+-			ch = synth->procspeech;
+-		if (spk_serial_wait_for_xmitr(synth))
+-			outb(ch, speakup_info.port_tts);
+-		else
+-			return buff;
+-		buff++;
+-	}
+-	return NULL;
+-}
+-EXPORT_SYMBOL_GPL(spk_serial_synth_immediate);
+-
+-void spk_serial_release(struct spk_synth *synth)
+-{
+-	spk_stop_serial_interrupt();
+-	if (speakup_info.port_tts == 0)
+-		return;
+-	synth_release_region(speakup_info.port_tts, 8);
+-	speakup_info.port_tts = 0;
+-}
+-EXPORT_SYMBOL_GPL(spk_serial_release);
+diff --git a/drivers/accessibility/speakup/speakup_acntpc.c b/drivers/accessibility/speakup/speakup_acntpc.c
+index a27e6bbf05da..1cc6147cafac 100644
+--- a/drivers/accessibility/speakup/speakup_acntpc.c
++++ b/drivers/accessibility/speakup/speakup_acntpc.c
+@@ -305,7 +305,6 @@ static int synth_probe(struct spk_synth *synth)
+ 
+ static void accent_release(struct spk_synth *synth)
+ {
+-	spk_stop_serial_interrupt();
+ 	if (speakup_info.port_tts)
+ 		synth_release_region(speakup_info.port_tts - 1,
+ 				     SYNTH_IO_EXTENT);
+diff --git a/drivers/accessibility/speakup/speakup_decpc.c b/drivers/accessibility/speakup/speakup_decpc.c
+index 1bf36d1e5477..4837cac8bafa 100644
+--- a/drivers/accessibility/speakup/speakup_decpc.c
++++ b/drivers/accessibility/speakup/speakup_decpc.c
+@@ -487,7 +487,6 @@ static int synth_probe(struct spk_synth *synth)
+ 
+ static void dtpc_release(struct spk_synth *synth)
+ {
+-	spk_stop_serial_interrupt();
+ 	if (speakup_info.port_tts)
+ 		synth_release_region(speakup_info.port_tts, SYNTH_IO_EXTENT);
+ 	speakup_info.port_tts = 0;
+diff --git a/drivers/accessibility/speakup/speakup_dtlk.c b/drivers/accessibility/speakup/speakup_dtlk.c
+index fa826568937b..0a57f7ea894c 100644
+--- a/drivers/accessibility/speakup/speakup_dtlk.c
++++ b/drivers/accessibility/speakup/speakup_dtlk.c
+@@ -377,7 +377,6 @@ static int synth_probe(struct spk_synth *synth)
+ 
+ static void dtlk_release(struct spk_synth *synth)
+ {
+-	spk_stop_serial_interrupt();
+ 	if (speakup_info.port_tts)
+ 		synth_release_region(speakup_info.port_tts - 1,
+ 				     SYNTH_IO_EXTENT);
+diff --git a/drivers/accessibility/speakup/speakup_keypc.c b/drivers/accessibility/speakup/speakup_keypc.c
+index 9356f6379560..1e2edc5c4b8b 100644
+--- a/drivers/accessibility/speakup/speakup_keypc.c
++++ b/drivers/accessibility/speakup/speakup_keypc.c
+@@ -306,7 +306,6 @@ static int synth_probe(struct spk_synth *synth)
+ 
+ static void keynote_release(struct spk_synth *synth)
+ {
+-	spk_stop_serial_interrupt();
+ 	if (synth_port)
+ 		synth_release_region(synth_port, SYNTH_IO_EXTENT);
+ 	synth_port = 0;
+diff --git a/drivers/accessibility/speakup/spk_priv.h b/drivers/accessibility/speakup/spk_priv.h
+index 9da57ead17cb..704ff9f120d3 100644
+--- a/drivers/accessibility/speakup/spk_priv.h
++++ b/drivers/accessibility/speakup/spk_priv.h
+@@ -32,9 +32,6 @@
+ #define SYNTH_DEFAULT_DEV "ttyS0"
+ #define SYNTH_DEFAULT_SER 0
+ 
+-const struct old_serial_port *spk_serial_init(int index);
+-void spk_stop_serial_interrupt(void);
+-void spk_serial_release(struct spk_synth *synth);
+ void spk_ttyio_release(struct spk_synth *synth);
+ void spk_ttyio_register_ldisc(void);
+ void spk_ttyio_unregister_ldisc(void);
+@@ -49,10 +46,7 @@ ssize_t spk_var_show(struct kobject *kobj, struct kobj_attribute *attr,
+ ssize_t spk_var_store(struct kobject *kobj, struct kobj_attribute *attr,
+ 		      const char *buf, size_t count);
+ 
+-int spk_serial_synth_probe(struct spk_synth *synth);
+ int spk_ttyio_synth_probe(struct spk_synth *synth);
+-const char *spk_serial_synth_immediate(struct spk_synth *synth,
+-				       const char *buff);
+ const char *spk_ttyio_synth_immediate(struct spk_synth *synth,
+ 				      const char *buff);
+ void spk_do_catch_up(struct spk_synth *synth);
+-- 
+2.47.3
 
-[1] https://codeberg.org/clamor-s/linux/commit/5d7b9ca285781e0eac35e346a951=
-d949a61a2f0c#diff-8ffbb7ecec9cab371ba8535ba3c046f01371afd3
