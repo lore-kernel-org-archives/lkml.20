@@ -1,68 +1,96 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4683538DC69;
-	Tue, 22 Sep 2026 12:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98822545DA6
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081283; cv=none; b=P1Iqf+7U1Jxbx5MvB8EvEmN81j3jDo6FkAZivnb8CxFtQhwaQCR5Es1OAi7o2qBVuu/tBAqx+sClVYGscPjOXqFDrA4OauKtaPnLecoeeklvhEYPdvCFFFPPbNWG41qFX5MdXr/S5mpaOcTZQ2/iDUV+ybsxT8XRqnAJGEF+n6E=
+	t=1790081290; cv=none; b=MJSTy3rC/SmWr1fpGE4liZ0ySV20CdJXdQBQIgK9v/k4aFER6s/eB3VX5TdrBHf0eGG2w5wB3miTOxm0g5YlXdmsKOQfyihvxJ3NUvgyL6qoUPbOBlha47AoLXTklbx8QMb6q8ZMqVAnkPErzpbvdJUstWsoK8pVakj0qPJDlvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081283; c=relaxed/simple;
-	bh=w5rTtIc34TBD/Z95LMLCoJEjRn01eaOde1yWbZKNdzo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k3v7xiHbLklyzgp5U6f7L3dBuLKwxPxIEBPbBLsl3TQjH6mtkVisuI9nT5KkNR9Eicq/rICTeHV2wkqY7QGE97/IH+YreIBseF0wkjtT4VbsjHSlYwWsGAgrFfBQ36vIxdOkdZXzEvx9fljEzc4v1n2HVZVoYYH1Pwt6SlLCY/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MGqvxvkE; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790081290; c=relaxed/simple;
+	bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cecAeNk5LwJK0lOi+rogw539zgyaPHnMHDPcsh0CuEyVmdld/jzBAHWvWztKtfBbGp/euJLkAiaF3YdA6lPpsg6C23Uq2Sa454fnfm44GAUvtYs3rOVXn/7cQlaHyys7n/QVBVO4bbypK2pQ6YU4hJGTHs5WCu3PpRkisNEoegs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aYsHQOUJ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MGqvxvkE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+kUOP7ye1D0usoHFJvLHG3xOqZFziwv2m2KGtDa1lPc=; b=MGqvxvkEmdKTlBF848AIK5f+NG
-	yWeOGLaUW4bL20u7Mw1tcq4FKTN3c0XO/CpfrWgeFcZHYHnDvi0D6K6Xrc7nURUBVKdaSrm47yNDB
-	ZYla/EOK2wDY+ePXYUky77mAGJ0WsPcEdCIp206m5KhmqaNj+eZP4yQV+GPKmabwWaGU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x8zuY-006aib-7X; Tue, 22 Sep 2026 14:47:50 +0200
-Date: Tue, 22 Sep 2026 14:47:50 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v8 2/6] net: dsa: motorcomm: use max_ports in
- series for port bounds checking
-Message-ID: <e54c308b-3297-4abc-af95-5ef9c925931f@lunn.ch>
-References: <20260917082236.3427168-1-kyle.switch@motor-comm.com>
- <20260917082236.3427168-3-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aYsHQOUJ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so3665112a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:48:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790081288; x=1790686088; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
+        b=aYsHQOUJk8gURJi/wRAffvbYAr+oEuDTWRAItRq/qCgXtqxo3hvP3NZs5BSqDmhwmM
+         yiXCaIYl9kiVqJmvFS/nH818r5prYUCi0RF5OSTM+8XznXvBcBPnuL2XqcVINEjvCWpt
+         t6ahYriwMQ9DmqX97K+Ro58vmGGR7CA0XN60P0BrOFupN+b/cLCST1QaZNaviWJ2uQux
+         ESeQazpkBDC8rUXDcQoyAO0mQ01UMV44omwe7b+BgNCp7d3jCrlf+Lb4x5DK4njRe9lA
+         dmzKI8iSY3u/4Tp5XuLzMaGVIhnTLMXS3OyrMNk/U+U1sBSnKj+RsmbZS5ZOLUEvJI/t
+         Voiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790081288; x=1790686088;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QVFwYIiKUZVL+YjJoBnUJAKPe/wKV4GXCUpDX8JPQGA=;
+        b=QbEYRDtTmLdQkrdPA0YN/xVwTju3+x0u/yzsSsHzXodCt/cLP422s721tgBt8stIx0
+         pA0ptrSId5E7FAKfdIn5Fos+RGTaaoBjqWSR1jmUlTtxrQrLiaAm/uvxBhj2CPkZvkOu
+         ut0fvdevg+6cQHaHZhX0DdbW96bot9+TifCJUmmfUdklBJSVdtij+f2k9oNyB2ff7hPZ
+         OSZFBZGM5V+23rGni/DHi9BG+td243OZQXMMToC0RZ9nh69VsI7/RGNRS73U/inN3eh+
+         xwWb1izryCmTs8a3f+MeENKv8IdiYlNbMxrzV/uJZo0Te47+/CPKUKEfMIlethlvDI5E
+         8IGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoWP/f9Bk6/mHPGNNQYHJW8BUz6AYOmn4/eVNrk8c9C/hlS0/ZxKoMhfng79t+eIfLRA5Edvp+KnrMlcg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8kCYZzVxF+2A5QtUBGtd+oKwbwWNjqFhAYrYNUdshmGumBiOe
+	51YfJTPGlLGzhpZvwBxZARtfHdyurvc+9OK1YerUd0CIXD26yg4pXRc=
+X-Gm-Gg: AYBFou1NZ5oTHyag17K1dktK3ZhXJed7VDr8Ie93v3U1LpGddiaCZ7Hn4DwqFzw9Hl/
+	aelS4NjWrwn6d+ljbp0Z9KTMJj+P1LosCZGLMsgUMlCm3JBvxi5ZaF9UWxzn43sI+dZphKPqarX
+	ECzYfeCtYFzZTTb/DwV5J1kqv4xo+LQWn8WtEgA2RzUv8VBtGb83A5pVoQOHWGk+DFCe3emGqCX
+	STBkLUGq9ka5GfzTSno8M+ujVx+ToHTRoNuh4l8SVAWZJJSnjZfmhfOvDlLGdwWsTiCS92gt/Nr
+	RD8xnzLgNgRXxecGsvJUOOV1isxN11AdD4OVN+a+hLTnAVqQz3mOX9UpMaty4i/XoREm2eA2XIx
+	6iJuLv8xQwbVhYUhc8+hQAyNAtiuNKnoh145Ld/KI0dEL/FSFhUfX6aQVCe8/TtX74078KAeLtY
+	lYUvPvel7zDSj7RJCtdLxrOkKwxx91QvQJI7Vzu14hhSRt8btmMbejDRTEXzOs9E1BUhx8Xvw9T
+	9EC824X6haL+Cr8FmFe3/RcMot0
+X-Received: by 2002:a17:90b:582e:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-3a0730d0610mr995564a91.12.1790081287829;
+        Tue, 22 Sep 2026 05:48:07 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e574c49sm3442051a91.8.2026.09.22.05.48.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:48:07 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: rppt@kernel.org
+Cc: akpm@linux-foundation.org,
+	peterx@redhat.com,
+	surenb@google.com,
+	aarcange@redhat.com,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in move_swap_pte()
+Date: Tue, 22 Sep 2026 21:47:59 +0900
+Message-ID: <20260922124759.1676901-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <arIj-DZ3BtxMEzLB@kernel.org>
+References: <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com> <arIj-DZ3BtxMEzLB@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917082236.3427168-3-kyle.switch@motor-comm.com>
+Content-Transfer-Encoding: 8bit
 
-> @@ -402,7 +403,8 @@ yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
->  	mbus->read = yt921x_mbus_int_read;
->  	mbus->write = yt921x_mbus_int_write;
->  	mbus->parent = dev;
-> -	mbus->phy_mask = (u32)~GENMASK(YT921X_PORT_NUM - 1, 0);
-> +	max_ports = priv->series->max_ports;
-> +	mbus->phy_mask = (u32)~GENMASK(max_ports - 1, 0);
+Thank you for the review.
 
-A separate patch, but can this be changed to GENMASK_U32() so the cast
-is not needed? There maybe be other instances in this driver which can
-be changed as well.
-
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-
-    Andrew
+I'll rewrite the changelog for readability and add the Assisted-by tag
+in v2.
