@@ -1,188 +1,215 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E697640DFC8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790116900; cv=pass; b=uRLYd5m3DRa/amO7X/jORLuBqIbcv0Ld+OL2BszCncTSW6SeVqNbp+RGCy/u70UyjuR+7d8KDNHUvd2orBhJER+kgsGos0iBGGTnD/gloshGo2+xKlb6vHU5KkV0NJXi08vo+RqmGYhiZSE8Mo/PthKpMwDtxOpeIo86SLXkSC4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790116900; c=relaxed/simple;
-	bh=XMksKNqknHGvAxIQkpO2ziabukN5n22iaTUCcWfVNCk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TPOM0HgsAK2QHbx3+js8Objhf87i/e/KYD2xfwJ4dYERorEqYHb9lqVKi07EXtLfKC6SaDtO1Bg2DBud6sHulsT7tI+USnWYzbsDgZ7er9q26o5ZcdN4p7a57FLiIFEtALXLhiyUcBJ2SxosJZtI0u5wEd08eLextFvGITzQAtg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nAdZCq6Y; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA2C529401
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790116952; cv=none; b=Ms7Z9zvc9jksonyPVFTMaqHOt4TvphzUTul7lRyLl2WHcDduiU0nE7hbJDLJV3jb+V+GSPoYKGIr1XZKOWDTy6tXKtJ5amrEkB9i56I7H+/VmLEZX9m4uqmfqZl0fcCb0pR5GJq0wBREDxkGifd5uZ/XZ2o+piOrDBq6aThIGJs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790116952; c=relaxed/simple;
+	bh=TuulLzPlORgXvFolK/4BKymKSY5UdUG0I9DOV79/2LA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CscA5hto/RxkDRESAX/sqHshonH1ZvYEcRtUacJq3HxJ7qrzsnqHivPu6jjOYxhl8xYNVfHuVeOurD3ehv4Axtj0TYBn+eiXrmhU3Qe1xJOVJD1uABu+PS5NnWl/s1XON7MN+tfP3pc4UfnYZzOPtyILJFOrldHnnaQK6rdebcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=my4HTeXu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ILtFyRuo; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nAdZCq6Y"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so165958a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:41:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790116892; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sFRlSqJ+5SCGFg+mnrRfUIQLRPI7sh2VIP+kF5N6LsBqXUevAJY2n4OCmIkuVKAWOx
-         8GT3Lt7WSZ1+QrvVAxbLgcMU5bywvKBHfN9kYDps71vrgaK8goXjlKVTQakWXDThssuX
-         p7mir1TJ+KqJnrEYZcgbI8ef1RYX6z8kortsWOS3FiPU1MZ3+N4mpEY11v6frxeNflpJ
-         FMoiW1FkI6HNhEtTKZTQAsJlvKkJu6IFxBzr9KBjhwFNljRr72xbzj7WPgRK9j4SCuiI
-         y76G9HOD6m1MUcs/MX9HJfrwq+mGCvqCDEg6WMPsz8ndO07RrC79leg65Z3UYEeAsDVM
-         hUnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EifBlIWLbbiNu1pyTH5rLVkrLNZbYLjk13b2Gi+S+cY=;
-        fh=vP7hP3ygDMDyLkF7BcT2ylppigGBBYpFNhbeXdcdJuw=;
-        b=K7CDpCNto5USY2JFMZpHOuU1R8JBSlZ8BzmLlSqpyV7vJCdZIqBXmxfMiVNKrU4ZLp
-         FxLnhV6I43i0lQVMxfQmSKTC7eUv4rP1Fu1QICIthEdYic8ZVdMFGfFZdYqA9XsCSiyk
-         HxWKNB3kk+2Oic3BQagCHlHmusm/NuW438IK6a57+44zzbkpVpucjsbL++TfqtrQ25sC
-         r8VOkid/A3N/yZKiZSPkbdWjbAN7IvHuF6+q8KHoaG4Ahow+nqtVPPmRbiWhx2QfknaM
-         j/SbpebpAghWqjoTEo5XvM934dhRDuPtKOHVH0sToYEYMhuZhvgjQ8DwEqL788rWuKE9
-         zm2A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="my4HTeXu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ILtFyRuo"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7Sd7900491
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:42:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2xvk7yaRvmx3POKolJ3kCG15kscgZd6Hbrm/vBfl0Qo=; b=my4HTeXumBECvXzV
+	j4c3b7Ko5e6iN9r2j3NaIr1WpIryDMswNKztKULaiH8U/S7ed7WOZ7+wYlE1HGpZ
+	Hjt7hlE+tqLbaKwoCMBzhnekwiW98RiuAjhMEWROURtje/dnsQNi5K9t8cLsfksg
+	OK5dM07a0eZwN2xql6E+x7ZfZEREKFLZPhzP9ZLMIgCam6nPMdqMyypmmVAAAYrv
+	cun2124+4GbE74oUkP+6ObMz39ad7IIGsV7TCdtRhCrD78bkU6Z2gexaPF3J59kR
+	LDm5IvrdJQsW9cIS9LhubQ23adBqpJUs9wuxdR6EaJcni9Eeo5LQzoGg++obw/VM
+	PV28Qg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gunjyv56g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:42:24 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3284bbaa89dso1064585eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:42:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790116892; x=1790721692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EifBlIWLbbiNu1pyTH5rLVkrLNZbYLjk13b2Gi+S+cY=;
-        b=nAdZCq6Y3nb99AlXrAzEH6iyWM0tz9i1kwlJqyF0SJZxBBkj9dL6I+5EDfeUMcwASY
-         pEvL6J9rfc5cFG03Vzunv0qitINC8DAppGHNMzUJPd1o2b9fzTZ5MU39p4wK+46Lx07r
-         kjW87AUluoaVe7KI8fS0Y2WwDvbS+glftP5SiAFBzHIrTvzlwPm36rxSc2r+GL5mMKgu
-         MdZImC2Zu2nHwNp5TOOpyeT6w2eENqMiBFEH3/lGeXNrNha+RGl2v86A3GrmwhsrqmcC
-         CcjUqhcffeZ4FgMcjSM5PM3hs+02v0G7B8OzE8i1JKqJ9xRnr++5vcAQIE3KwG5oQTRH
-         om9w==
+        d=oss.qualcomm.com; s=google; t=1790116944; x=1790721744; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=2xvk7yaRvmx3POKolJ3kCG15kscgZd6Hbrm/vBfl0Qo=;
+        b=ILtFyRuoul5qDT04Sr38TVkpnLLidnNaHt4kiE0isfngZCnS/osDgwLxP1O3pHgaCI
+         DeKP5m40Q4lblrBqaeOZdT/Z7RkyjxiEydRQq8wkz9fatnXqzF7Rhf9Tam1wJeOx0BB6
+         NvO3OutbY/7KQ+mkeXUKNZ/pF0CkBDlExh+eoAwK6AVAjB0OwddWXGNzf5uGOlHyP2Xe
+         nykWXrDmF6Pv9p4WnU2WQlIPPBePkMYNVFMOV4VX3F9vCkdPFAjTeRRThI5p2Ztz9SIZ
+         gtkIU2mw1Yq6Nrg6GOgH5gMPSmgt/jTegG8Gej2CelVToP8sBs2iFM1CSNqZs17f7Sub
+         beLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790116892; x=1790721692;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790116944; x=1790721744;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EifBlIWLbbiNu1pyTH5rLVkrLNZbYLjk13b2Gi+S+cY=;
-        b=mD5bYLZGaW0qhNshUre/BBuMv1DAmmOlOwh9C2SsBCqFM6+k0qIOEC7azjf1mtGhsz
-         uLTvS89gnoG5JqGeTXVIT2Gj63jV6jX4qI8D3HtUMzzjv19ZlfHghvyrmUuqiSoBXzZR
-         nQoGMj6uzYuNp5QQLi2dkm8jb3F1wsmglJJ4GTHABGgxi6Tbvnm9YOGHVcsDRgLRWh9H
-         JPHqI/Q4C/UkCc/uk35bhC5zwPpp+PriySMBkK59r1HslZNVjUCE2R4gqLmdVhD/csdK
-         ojSVoKmSj1IE8Yor5AY+LYhtKbk3C+BXqLQepU8S2TfDAsF7FctZH5qb14cFs7V6v38f
-         ljLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfGRaffBDfr3pGyOimqd2+nTpCJZZJW9+0dcLCCYiA3Wz6vSprrfULWd1YLaqIZAdkEzMdOU1KuF+MzXQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2h6dFwraRaRogZvJ0qzLSLhtFscSZCULqjBBqD3VJN7wu3Q0R
-	FyolaSwDgjIS9xh/8WQ+AeBzTksT9GB1qDXl1BKRIuFXh5kEHeEzZevW1uRiXXfH4lHA1jG/lCP
-	Wl/hXKY1xFUmQBd6eshyYmFfe5hq1nSc=
-X-Gm-Gg: AYBFou33iuUwV/546lhAkMrYfY+PgFZzhms8r7PFpKaN8T3ZUe/a6mAuDUf7onrMlOl
-	ufeXPLcUYkWU4XQQ42tfuMjle+q4+OqarcKBLLwSEdpSpfyztHLLGlsda1fRtUWeUY70gJK/2Ft
-	GxkA4H0R6oTYcDIGQeC1Pls2yhI8Q/r7Uv1MHiKS+U4uBek5Vo00UrFPsXzwPjLYN9aR8B3MGYf
-	jlhjTLKGE5Fpxtk69cOQgMfEpIcoIzG6lIt0iGxzw453sK5rELGps7XvupO7zGxbLCdr4Xcs7xq
-	+SWXvVyc0sJm0+R/1wxYueSf6fTrt0LchuS3f4WryTt5wr2kF7bdTlBvsHbLyUlQiC51vW/OKm3
-	MB4asMAIZfBK5Qsi+tEHWJLUWAPNUk50nH3EiRPjoJz9CXwbCi9Pi
-X-Received: by 2002:a17:90a:1609:b0:3a0:8050:2ecf with SMTP id
- 98e67ed59e1d1-3a080503167mr173387a91.25.1790116892014; Tue, 22 Sep 2026
- 15:41:32 -0700 (PDT)
+        bh=2xvk7yaRvmx3POKolJ3kCG15kscgZd6Hbrm/vBfl0Qo=;
+        b=WetDilWAZMtc8MCwsXIRFQKbXrsTDcuMJmpF+QMBXi9dh3ecwdZN4bk0RtuqKjcfHk
+         BtcO88kzV/xKklGhvzC8Y+qeSeg1eOhkQ5SciJCRYgGFmM6CGSBp8KziCKtD17j77FB5
+         8uQA96FTIyaMRQEbsUHZOZwIwddsdAnL7zCbeplP++gF5UP69J5+t708fE8Cl3SHflIF
+         xxBHU0yrk9+FmQ9ubdekScGBo4q3nsLz2/+AIrohU9QGFESt19T8ffRpRb1DzddeXrDn
+         ksv4j3icgaMMA42UyRUqs/c5dowqYFR5xiwG71iVVTtrcsQNL0F9TyB5IiWi69OUU50L
+         9Gjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmGuQNDOVhlc3JP/pohg7t1EQHx5gr9Lw0zlDUvOpltsi4k9U+aEmG5hHWpSlHpDkhtpTewGQeVY5zf/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2bpdjsxF+lzP2DMPk4GekeS4YypqWLLc7yuxnd4XwFrRJ2PQ3
+	BKSo+G6onXJbpWea2b5qqJ4MwUtAycVf0WS6W8HV1U2NZuFJo0u9MqCqH0H8qMrrk8geYZRTUWc
+	tx7dC3TjbRLgDd1bPXh3GTd4I0smKrOvdlMH5bwAWZlMhDEqgKd5gWbZXrzymp49lWdU=
+X-Gm-Gg: AYBFou3tJDRk5sE7eVaQrWYmzR5fR22d+nZcuGkAFqAAd0MCaiDQKzzSZwQAXFnPJ/x
+	ee8ysl4dtnKdDFaOe+OnP4x8kb+s8QySLd3SQSAUTLnzzhnVfPqOBS+71lmB85DE0T6srxR780Z
+	Tkge7XTq1AcYz9RqmnYj6AX1fhUlZTZwohD+JfcJozND0IhAEMhy4zBhUfIPB6szHb7NCh+uacI
+	RqvS2l8uo6QT3e6dLJ1KQi/b6eRRt1p7q6+/3tI+lhFcElI6BxoCoJLTV9oK+6W5ebPatIp3wYE
+	MXUhcjSdk9uxAW1EjB6/TmUre6V5JT/nE1+ZOB/usNq2zdXQkPmIkd+aOBdwN8zLc5/fLHLcmP1
+	G/TArFszE0VQpDiTEAds9Vu9NO/hGIFOWgY1dom96vz2/WsXiNGCCe7w=
+X-Received: by 2002:a05:693c:6211:b0:33b:de13:9574 with SMTP id 5a478bee46e88-33e8dbc4479mr743996eec.19.1790116943630;
+        Tue, 22 Sep 2026 15:42:23 -0700 (PDT)
+X-Received: by 2002:a05:693c:6211:b0:33b:de13:9574 with SMTP id 5a478bee46e88-33e8dbc4479mr743958eec.19.1790116942985;
+        Tue, 22 Sep 2026 15:42:22 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96e48e3esm1266199eec.26.2026.09.22.15.42.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 15:42:22 -0700 (PDT)
+Date: Tue, 22 Sep 2026 15:42:19 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v19 11/20] KVM: arm64: Mandate VGIC v3 for for VMs
+ running on hyp that don't trust the host
+Message-ID: <20260922154219.00000999@oss.qualcomm.com>
+In-Reply-To: <20260920212845.707-12-suzuki.poulose@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-12-suzuki.poulose@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922010333.1226537-1-ihor.solodrai@linux.dev>
- <DLLGYV7DI406.JRNDNAZ4S29I@gmail.com> <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
-In-Reply-To: <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Tue, 22 Sep 2026 15:41:17 -0700
-X-Gm-Features: AcwNN1UI69p9OfuPaja62sel_0aSwzvzcRKESR-BvjHad32ywPLzgeMec1HUoDk
-Message-ID: <CAEf4BzY4LQ7TDCpxuVDwCzLZDr6gDYP44UwLEjqtcdRBj+bT_g@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v1 0/6] bpf: Scope callback arguments to their frame
-To: Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Amery Hung <ameryhung@gmail.com>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nicholas Carlini <npc@anthropic.com>, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: rD8zr7Onx-0A4THQW3d0jk9w-BwXTsSa
+X-Authority-Analysis: v=2.4 cv=KqHYSmWN c=1 sm=1 tr=0 ts=6ab30451 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=7nvTRwv7b12_b2Z3:21 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=99P15FIpgWgLHUSX_UoA:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMyBTYWx0ZWRfX1PkrcY0k2khY
+ RpsHL6Jdd7qkIZDkZjKFXDrSONARcfr6wFiMQwjI+82fTSb+hTh2934rHaioL8yREUh4n2gHjbD
+ cpDobAm1ci9tOr0tTUkMOcSEK4rbXiWeKUBOtURa8eRXT8U7cAE20Jx+bnrMabwivZJL0ySe3gN
+ 7I6NZ1epewRJ1CtANwd4bdszegtEGuRETaWlm87dnpCDQnyMAiaIPCtquOjONadsrezfynkO+Q3
+ eeeBxZ2IG3J4QPSt00iwGon0aSWs4YlEo/TShNj5M5DRm3Qn0o1BrQthFIxAamaEvUrdnJn4eZ2
+ zTzW87lqMryebtHfwNx8UM5Z4AIM++aeA9x/Li1yZQ+GoaYe/9LShbNmX/LyUoG81J/oDFAW+CP
+ z2Hi3vqobDdWe0ZcS08BoDrtwZjhbddDJtbDCx5xjBY6RebytAgUguyEa/i1iqSISJ6ngTM6Nlw
+ 1w4wRwIALkknRrMAl9w==
+X-Proofpoint-ORIG-GUID: rD8zr7Onx-0A4THQW3d0jk9w-BwXTsSa
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMyBTYWx0ZWRfX/nKUL9rULQZ0
+ TA0T19Ft0F/KX7VQHLWG7OHc7NXKk9iqPi75ORNPQlpFRg1fuh5EWBYPh+uXuGFcY8eoxqRDqCL
+ LPcTNGqbgLxCLB0XxB/0QdXSGumTrMk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220303
 
-On Mon, Sep 21, 2026 at 11:13=E2=80=AFPM Ihor Solodrai <ihor.solodrai@linux=
-.dev> wrote:
->
-> On 2026-09-21 6:55 p.m., Alexei Starovoitov wrote:
-> > On Mon, Sep 21, 2026 at 06:03 PM Ihor Solodrai <ihor.solodrai@linux.dev=
-> wrote:
-> >
-> >> Neither has a local fix: both arguments point into a helper's own
-> >> frame, with nothing longer-lived to anchor them to.
-> >
-> > It's the same problem as a pointer to callee's stack.
-> > check_stack_write_fixed_off() deals with it like this:
-> >    if (state !=3D cur && reg->type =3D=3D PTR_TO_STACK) {
-> >            verbose(env, "cannot spill pointers to stack into stack fram=
-e of the caller\n");
-> >            return -EINVAL;
-> >    }
-> > CONST_PTR_TO_DYNPTR wasn't spillable before 7.3, so nothing depends
-> > on parking it in the caller's frame. Reject it there too ?
-> > and then no need for REF_TYPE_FRAME complexity?
->
-> If we focus on the nasty bpf_user_ringbuf_drain() bug specifically,
-> then yes, check_stack_write_fixed_off() change patches it:
->
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index d62c0f74cff5..f261423e9282 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -3668,7 +3668,8 @@ static int check_stack_write_fixed_off(struct
-> bpf_verifier_env *env,
->                          verbose(env, "invalid size of register spill\n")=
-;
->                          return -EACCES;
->                  }
-> -               if (state !=3D cur && reg->type =3D=3D PTR_TO_STACK) {
-> +               if (state !=3D cur && (reg->type =3D=3D PTR_TO_STACK ||
-> +                                    reg->type =3D=3D CONST_PTR_TO_DYNPTR=
-)) {
->                          verbose(env, "cannot spill pointers to stack
-> into stack frame of the caller\n");
->                          return -EINVAL;
->                  }
->
-> However it doesn't cover some of the new test cases:
->    - user_ringbuf_callback_park_data_slice
->    - user_ringbuf_callback_park_kfunc_slice
->    - user_ringbuf_callback_park_clone
->    - user_ringbuf_callback_park_clone_then_slice
->
-> (not counting the diag message diff)
->
-> The original suggestion that came with the bug report was a
-> cb_dynptr_id field in bpf_func_state set up in
-> set_user_ringbuf_callback_state() and read in prepare_func_exit() to
-> release it there.
->
-> The cb_dynptr_id seemed way too specific, I didn't like it. So I've
-> tried to figure out a feasible generalization of the problem, and came
-> to "verifier can't track a lifetime of a ref tied to a frame", and
-> then to this series.
->
-> I think we need to decide whether the REF_TYPE_FRAME is a useful
-> mechanism in principle, and whether it's sufficiently generic. It at
-> least covers the cases in this series and more.
->
-> For example AI also flagged for me parking the vma argument
-> (PTR_TO_BTF_ID) of the bpf_find_vma() callback. It's low severity,
-> which is why I excluded that from the series, but "reject a reg type"
-> wouldn't work there AFAIU (we would break many legitimate programs).
->
-> Opinions?
->
+On Sun, 20 Sep 2026 22:28:36 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-It does seem like we miss a reference representing single frame
-lifetime which we can then use as a parent for all things that
-shouldn't survive past the current frame. There is a separate fix
-right now to invalidate dynptr created in subprog's frame. Seems like
-that one should be expressible the same way: local dynptr's parent is
-"frame lifetime" reference.
+> pKVM and RMM, both do not trust the host. Add a helper to detect the VMs
 
-We can even relax this "cannot spill pointers to stack into stack
-frame of the caller" error, potentially, by just turning that
-PTR_TO_STACK into SCALAR at exit from current frame and let program
-verification go, no harm.
+Maybe don't mention RMM yet, or make it clear that isn't here in this
+patch.
 
-So for me it seems like a necessary and useful addition.
+> that have "distrusting" hyp. Use this for blocking ioremap of vgic-v2 into
+> stage2 and prevent creation of VGIC other than v3.
+> 
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+Other than minor comments, it feels to me like these first 11
+patches are good cleanup even without the RMM stuff that follows.
+Perhaps can get these upstream faster than the rest?
+
+Jonathan
+
+> ---
+> Changes since v18:
+>  - Cover pKVM guests for VGIC v3 mandate.
+>  - Merge the VGIC mandate check in here.
+> ---
+>  arch/arm64/include/asm/kvm_host.h | 3 +++
+>  arch/arm64/kvm/mmu.c              | 2 +-
+>  arch/arm64/kvm/vgic/vgic-init.c   | 2 ++
+>  3 files changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 3211543a85b38..bb156a633ab75 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -328,6 +328,8 @@ enum fgt_group_id {
+>  enum kvm_arm_vm_flavor {
+>  	VM_NVHE,
+>  	VM_VHE,
+> +	/* VMs running on a hyp that doesn't trust */
+> +	MARKER(__VM_DISTRUSTING_HYP),
+>  	VM_PKVM,		/* Normal guests on pKVM */
+>  	MARKER(__VM_PROTECTED),
+>  	VM_PROTECTED_PKVM,	/* Protected VM */
+> @@ -1546,6 +1548,7 @@ struct kvm *kvm_arch_alloc_vm(void);
+>  #define kvm_vm_is_unprotected_pkvm(kvm)		\
+>  	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PKVM))
+>  
+> +#define kvm_vm_hyp_is_distrusting(kvm)	((kvm)->arch.vm_flavor >= __VM_DISTRUSTING_HYP)
+>  
+>  int kvm_arm_vcpu_finalize(struct kvm_vcpu *vcpu, int feature);
+>  bool kvm_arm_vcpu_is_finalized(struct kvm_vcpu *vcpu);
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index cf293d09e940a..413c4b114d75d 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1251,7 +1251,7 @@ int kvm_phys_addr_ioremap(struct kvm *kvm, phys_addr_t guest_ipa,
+>  				     KVM_PGTABLE_PROT_R |
+>  				     (writable ? KVM_PGTABLE_PROT_W : 0);
+>  
+> -	if (is_protected_kvm_enabled())
+> +	if (kvm_vm_hyp_is_distrusting(kvm))
+>  		return -EPERM;
+>  
+>  	size += offset_in_page(guest_ipa);
+> diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
+> index 4012df6002ea6..874025513afcc 100644
+> --- a/arch/arm64/kvm/vgic/vgic-init.c
+> +++ b/arch/arm64/kvm/vgic/vgic-init.c
+> @@ -84,6 +84,8 @@ int kvm_vgic_create(struct kvm *kvm, u32 type)
+>  		!kvm_vgic_global_state.can_emulate_gicv2)
+>  		return -ENODEV;
+>  
+> +	if (kvm_vm_hyp_is_distrusting(kvm) && type != KVM_DEV_TYPE_ARM_VGIC_V3)
+> +		return -ENODEV;
+>  	/*
+>  	 * Ensure mutual exclusion with vCPU creation and any vCPU ioctls by:
+>  	 *
+
