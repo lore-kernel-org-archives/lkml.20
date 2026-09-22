@@ -1,131 +1,150 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+Received: from mail-vs1-f97.google.com (mail-vs1-f97.google.com [209.85.217.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBDD47ACF7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE77D3314B7
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790054982; cv=none; b=Bx8ZND2BWbRxmWnJdwJxHWYNdcuzbNOHlHXEAfaowhl7Xb9TWpmuUh1GRZpwv+RSjnm86MQeo3WvtTan/UGmeMyWtFYleIwhdMB780eirAtXzY2POdoIZ194b4UDu5Df7i4D/FzJfZOd/pq7DEy3SLmELuLN/fjRgY2tpjzOlVY=
+	t=1790055042; cv=none; b=qxyznVIPDnx3oTnZ8jmDHBZmrQEHssuMu5If7K6Vf2FNBme3kAh+hM0j5zoIxrfmpVu97HPnPMX59u0pyiH+ag67Va6sVBmp/myhB8wXK/dMiarCm9UHLHMxOYZIQ7Pvah/J/TULPbuEhxKQO2+JpoSvPs0LNAmkzir1vHbnGUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790054982; c=relaxed/simple;
-	bh=7L6N4e57iAs8u8LgWYn6PXcM9/P3MSfihZk8phX3sNY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=hKix+ukF2kHToJmyESXrqNLI3tYN9qG999nLNYiKYZ6cQkHTcpGlt2AlNwhI+uGUzo5QLjvKhKZ8muVZmfQsv9rHHWWLfAxcy3j+t0TlINY8u2b7MREStAIAEtM/40ciodFy0pj8peRZSb5zsA6abMghk+yI+qmaUfxYX7JWZM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6c197ff1f3aso1371641eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:29:38 -0700 (PDT)
+	s=arc-20240116; t=1790055042; c=relaxed/simple;
+	bh=Bbie4m0HNMWMQpApjQgU8Cz6XHFA01t9Ywz48rA3up4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QLQ7Ylr2U3U+VhcJ8tKPGsf8AEUxu2Ny9u5mWKuqb2M9fSbCiosdgmAX2/vetsK3AAPA46gjI1brQqhtp/3maoIjR5oYSucaNza6h1BpzFbwe329iBAvgyWeQ8toneI3XKJEPgdEW8HBw7/3nq/FWDvrAv+9iWxwzI6r/sSXCA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=RY4Ac3PL; arc=none smtp.client-ip=209.85.217.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="RY4Ac3PL"
+Received: by mail-vs1-f97.google.com with SMTP id ada2fe7eead31-782e0fc1e55so469649137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:30:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790054976; x=1790659776;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NxDW7iRGQwEDz9FqCLpHq6mi7QSACw3JmBmlyXnKu+Y=;
-        b=zPBjZXU9/fmuWpwRUam1qVqThAChQQt2mTVtCVy8jC1DvCvjk2a4JG/EH2Rly01CfS
-         pgmaZcLVUPxmHzx12w5B9XYCpXloaXd1oksZs8klFBUG1xCPvHgGPamvzKpqi2TUo9Lx
-         EBDvM9kPj2leO3eWV5CF/EEfEHyyqqCHvNNk9RQcjhOYFumvlaCmNKQZKMa1Eli6TALI
-         3DQ786cayQ8cdZiWFdAeWq5MAl90ZW3ru9ju9XFw/dUiG31QoiztAnCTWG9NtZpI1oX1
-         7m7PX92zFEgDLTe3fwnk8qICRUoRgSi/bb1zOkpUUoE6LvPe751zDGFzNXIkHcJWoynZ
-         6FxA==
-X-Forwarded-Encrypted: i=1; AKwUvBzWCnjfedU6huSQ8zyaxETzzeEr9pNZXVWM9yyg0+rekfr7PvRslSAc4TmFmVC5mNJcmcfuM8PtERfxLak=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUz8kx7wJGMDzlv45fezkOe/LcHsR/XxLu2n7OouBMMh6oJKE6
-	xnIR9uatCDw/bvJudCgSqvloEysSTDWP9umH2mibGDSRKFWubpWMiRrOw8nRXlHnfAodLiJyJSB
-	cEf2e/Zo8v3xbHj19ls0mzjubcJgM+RB+bxeIslTY3Q+G7qkO0sCqasFwjC4=
+        d=1e100.net; s=20260707; t=1790055037; x=1790659837;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ebnLov+Q2rs5repZqDCuiaG4HicuyOeFYO5yUX8XiEs=;
+        b=ETH/OvECiZW4uokuKcEyseC/O0DB69WXEiEKyLf6JZr9dbMOyiVm8POLBULR6rdNxe
+         459B/970G65jY3tpQRtoJGKEzQmGR/PE0ruCx8wcAUN3AuMdFScYU8NQAzV9r2wgJbew
+         fioCxNlfCqVpTBguNRnazaCjjFWkwwvRDdXl7N9LrjJ6mD+OVf45qlpGxIHjMTl9Rn1Y
+         hZlF773asxhDOJiAErJ6i1zx74Gc4Lt8S0GSNbPenap+htFXMC9v61laSsnnfaS2mfnK
+         1J1gMpJBcSweN5Y3iTnifcaPPjlRH7n9IGUBAScA8eXXpkjYoGH7LikUikeQWYpsQq12
+         rdPg==
+X-Forwarded-Encrypted: i=1; AKwUvByWE8HaireDipS31mqXKDWHmPfVdBJgL89B5DUcb8a7vtIK8uNaZjgpzReDZsmY7S0pmTOkseIIXZMHAu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkZHGP0HMzFr0O5CtLNBAjS9Jz2WUSVFIJktg/rl0nyFkwrTsl
+	Zugbxal+dp7ub8j1fHRW9S6l4lhXeEfnPM3zNLkQzX4pN885MzoGArxWoUfeYEo7ueS9TEbd1o1
+	fGTeJHGCIu25b4B8/X7BAnbzH1urYrDfBpqOPI9RDi3wBEH89zAAO1UZ7OrXYFByTSeWoexZc21
+	wT1HsnJaFHuop4J2LbI+41CWMSP6lYopPL0FhPL4KmcjesAVDPRZ+Vio+I0t123mNZYbh9vBEi5
+	icFB+SdvWqOjxmQ/h92XOCWEA==
+X-Gm-Gg: AYBFou39k6CDgNmHHjyPQlA8ro3KsvmbmYxNjlhcle2dafW56v5PCwgW05htieB1ms8
+	ctdVvatHlte0tOPj1R956Chnj4GpPHldPC0QEMxPOuv5Bn/MDVGzuixDVTidmxyKgkqkJJwv+tQ
+	4/vZtuZQ9tiJaN/YjUq+Eb6ad3T4gjVpSvBBT9zbz97LXhJYCScacXrqU6nX21QdobUV6xYZHbH
+	TnQqMk0ARb38HxdLIgP13z6Iw3+yy/wMC9UJgWqCzSUyeEo2Pz27lfHrSK1AeyBU2wQGXnpLmu1
+	IJ+1VfK17fHy95lUnd67pb0lmz9PFDcpdbEGbqQ7tVa1BgVZBmbuK1WnQufbpX0eDwf1qX8Omye
+	M2N8tESkz0jcrijrt62Hqmvr0nhgrFMM/T+Q1Flj792UMe6wbJZvm1qfAsFcGUVmp0b9zcHF8Q8
+	nKfzA4FH3u4AaXuPfP40glTdpCbhYTj4NDejrdxqQdhRvn
+X-Received: by 2002:a05:6102:4b13:b0:7a1:f951:f307 with SMTP id ada2fe7eead31-7a55d79e3eamr5890266137.26.1790055036913;
+        Mon, 21 Sep 2026 22:30:36 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-7ab19373022sm4894137.12.2026.09.21.22.30.36
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 21 Sep 2026 22:30:36 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so6845191a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:30:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790055036; x=1790659836; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ebnLov+Q2rs5repZqDCuiaG4HicuyOeFYO5yUX8XiEs=;
+        b=RY4Ac3PLo5MPXj1i4zbyQ3ZKFOaVEUtiX5R6ixkM9PkiiwBOms6k/FMinlpoaI0wq5
+         sKdW5cshRoF4U6sut9jifljVq2u6NE1ahdSBQ3el2kdea8rcVsqV6Ftf5Z6JaW1Ncn58
+         BgX6fgUpFmIfvqXLJsxaREHWaa2bOB/Hml9rY=
+X-Forwarded-Encrypted: i=1; AKwUvBzf5d5JY46qhynmkV9Hn0ndLjs0KRKevpiWELldHJZIaGBgqIHbpolyYXkBn+kVsHIr1lcwicjKoB9XiNQ=@vger.kernel.org
+X-Received: by 2002:a17:90b:1805:b0:39e:6c6a:6570 with SMTP id 98e67ed59e1d1-3a07321be51mr35244a91.51.1790055035647;
+        Mon, 21 Sep 2026 22:30:35 -0700 (PDT)
+X-Received: by 2002:a17:90b:1805:b0:39e:6c6a:6570 with SMTP id 98e67ed59e1d1-3a07321be51mr35220a91.51.1790055035183;
+        Mon, 21 Sep 2026 22:30:35 -0700 (PDT)
+Received: from localhost.localdomain ([192.19.203.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f29dc903sm2029025c88.3.2026.09.21.22.30.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 22:30:34 -0700 (PDT)
+From: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	vikas.gupta@broadcom.com,
+	Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+Subject: [PATCH net-next v2 0/6] bnge: Support async events while down 
+Date: Tue, 22 Sep 2026 10:58:58 +0530
+Message-ID: <20260922052904.59237-1-bhargava.marreddy@broadcom.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:a0b:b0:6c9:8460:c85d with SMTP id
- 006d021491bc7-6ca9d44ebd6mr10566817eaf.69.1790054976499; Mon, 21 Sep 2026
- 22:29:36 -0700 (PDT)
-Date: Mon, 21 Sep 2026 22:29:36 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab21240.e548f532.1ca396.0018.GAE@google.com>
-Subject: [syzbot] [comedi?] UBSAN: shift-out-of-bounds in dt2811_attach
-From: syzbot <syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com>
-To: abbotti@mev.co.uk, hsweeten@visionengravers.com, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hello,
+Hi,
 
-syzbot found the following issue on:
+This series refactors the bnge driver's Notification Queue 0 (NQ0) 
+lifecycle so that NQ0 remains persistent across interface close/open 
+cycles instead of being torn down and rebuilt each time.
 
-HEAD commit:    93f51579e7df Linux 7.3-rc4
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17b45005580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=a4cedab706d0a8a3f988
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=106ff005580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10d054c9580000
+This persistent NQ0 setup lays the groundwork for additional async events
+in future patches.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-93f51579.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/00f02ade84ed/vmlinux-93f51579.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/93be890b3b79/bzImage-93f51579.xz
+v2:
+  - Dropped patch 7/7 ("bnge: Process async events while administratively down"):
+    - Link events while down are unnecessary to process since bnge_open() already 
+     queries and updates PHY settings via bnge_update_phy_setting().
+    - Keeps the series focused strictly on the NQ0/NAPI lifecycle refactoring.
+  - Corrected the order of operations in bnge_quiesce_nq0() to disable NAPI
+    first, synchronize IRQ, and then ring the doorbell to prevent NAPI
+    rescheduling race conditions.
+  - Added support for dynamic MSI-X vector reallocation by introducing
+    bnge_reinit_nq0() during interface open.
+  - Fixed potential NULL pointer dereferences in core ring cleanups (e.g. bn->rx_ring,
+    bn->tx_ring, and bn->grp_info) on allocation failure paths and failed opens.
+  - Fixed a resource leak in bnge_init_nic() where RX ring pair buffers
+    were leaked if chip initialization failed.
+  - Corrected the MSI-X vector demand check in bnge_resc.c to ensure
+    sufficient vectors are allocated for both NQ0/aux and main rings.
+  - Changed CPU affinity hint failure from a fatal error to a warning.
+  - Added robust NULL pointer and safety checks in ring allocation and
+    cleanup paths to prevent potential kernel crashes on allocation failures.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
+v1: https://lore.kernel.org/all/20260901191728.643212-1-bhargava.marreddy@broadcom.com/
 
-------------[ cut here ]------------
-UBSAN: shift-out-of-bounds in drivers/comedi/drivers/dt2811.c:570:31
-shift exponent -251 is negative
-CPU: 0 UID: 0 PID: 5925 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
- __ubsan_handle_shift_out_of_bounds+0x279/0x2a0 lib/ubsan.c:494
- dt2811_attach.cold+0x19/0x1e drivers/comedi/drivers/dt2811.c:570
- comedi_device_attach+0x40e/0x6b0 drivers/comedi/drivers.c:1101
- do_devconfig_ioctl+0x1b3/0x6d0 drivers/comedi/comedi_fops.c:930
- comedi_unlocked_ioctl+0x860/0x3310 drivers/comedi/comedi_fops.c:2302
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe50959e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffcc3e899c8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fe509825fa0 RCX: 00007fe50959e159
-RDX: 0000200000000100 RSI: 0000000040946400 RDI: 0000000000000003
-RBP: 00007fe50963506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fe509825fac R14: 00007fe509825fa0 R15: 00007fe509825fa0
- </TASK>
----[ end trace ]---
+Bhargava Marreddy (6):
+  bnge: Extract bnapi allocation and cleanup into helpers
+  bnge: Extract per-NQ ring allocation and init helpers
+  bnge: Move bnapi and ring_grp allocation to probe/remove
+  bnge: Drop obsolete bn->bnapi NULL checks in open/close paths
+  bnge: Quiesce NQ0 around ring teardown in bnge_free_core()
+  bnge: Create NQ0 during probe and keep active across open/close
 
+ .../net/ethernet/broadcom/bnge/bnge_ethtool.c |   2 +-
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 514 ++++++++++++++----
+ .../net/ethernet/broadcom/bnge/bnge_netdev.h  |  11 +
+ .../net/ethernet/broadcom/bnge/bnge_resc.c    |   2 +-
+ .../net/ethernet/broadcom/bnge/bnge_rmem.c    |  26 +-
+ .../net/ethernet/broadcom/bnge/bnge_rmem.h    |   4 +-
+ .../net/ethernet/broadcom/bnge/bnge_txrx.c    |  15 +
+ 7 files changed, 470 insertions(+), 104 deletions(-)
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+-- 
+2.47.3
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
