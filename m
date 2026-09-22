@@ -1,40 +1,76 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146A74C77C8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149C54C651E
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058403; cv=none; b=lBmIdhnTfep01oNAQWgDq/aGEPiHJ1/bjsTSfSqCkcpGIeOgFHb9pmtwuhfR7nfFC+xm+gQc3vvfuido/dZ7RY3SE0h7zdtgKm3Z9p24s/9Yn9rendHdgjoOCB//rv8bmfLaWK5qsWoo/8wpMv5u5OsnmAX0QcvWdA5aKQ1bG1A=
+	t=1790058406; cv=none; b=rQITyx1i5keahBd8KRP3tQi9wPO0u8ELHNOev6F4BQnLRWFsgcJiIs85elu6VnW2X84a+fayWlX4JVuCijI8ueWm3lx82Bw9tx7L6Mzr8Zj/XUJM8oVJ9NiZe4PraUucjz7Yn1a33cPZef64cf4LYIFIebi/Qj/P6YMBwG+pndk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058403; c=relaxed/simple;
-	bh=BmDfjV5U8Q/dGbavXGe5D/dQfPTztZ/W+SpM+Hv93Pw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UVKspfTuO7QufPKTOOD2GFZbEkvj3ZpdL/8EslIHgQ2ABYe/w0Hc+BQB3/XD1SUO/PWIsa9ufup8cmzZWRRYgLAf8UWQSjWNMzIAwDXLq7AD4M8c/UOaSyvaqh6sHuyTeZFDFQdkRsPRueoAi00DJT8OhyI+iuD4lpdyP0PniJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cyodkQVm; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790058406; c=relaxed/simple;
+	bh=gCCZTNytWnIxWCYHEoPTrOwIW/6pCspfX62WAIvm7w0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PJUqo8tNnMnoOh/x6yE+WHnbAaPkUU688hZTQbxhORzp+lT088j1i9528tGaN9CaX8W4YAwMLJA4qPkX4B4bNiu6WYUS5YmdeqHVguKB+87wo789KGJpbKP2gGTYXoZuwqaWoPMQm0yN2N/CRfXea8nLmdWUgRFZVfv+JZOJcBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3Qf0WxV; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cyodkQVm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ne
-	+YDeBeBLmZ5HVMnxArvXwI5LD0u5tZg4h/rvcJthA=; b=cyodkQVmIXB+eDUASB
-	7kkMUjP5Y+UUmN34ki/SgE9GZuOOSWNG+1GF/iT4ZWiidl6UOx9Pn+rPNV+KaeNZ
-	kiNb2CaduoeDe2ZTQBF+2pjsTlK5o7rIgVDEHL69XgCSUm6GY5uZJqYbE0noVZTe
-	kwuIEpmx2IwJHOjfymlDkKeT0=
-Received: from wang-MACHR-WX9.. (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgB37E96H7Jq1OMEAw--.34383S2;
-	Tue, 22 Sep 2026 14:26:05 +0800 (CST)
-From: Wang Wensheng <wsw9603@163.com>
-To: pmladek@suse.com,
-	rostedt@goodmis.org,
-	john.ogness@linutronix.de,
-	senozhatsky@chromium.org,
-	linux-kernel@vger.kernel.org
-Cc: wsw9603@163.com
-Subject: [PATCH] printk_ringbuffer: Avoid needless read of prb_desc
-Date: Tue, 22 Sep 2026 14:25:20 +0800
-Message-ID: <20260922062520.248439-1-wsw9603@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3Qf0WxV"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so17764625e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:26:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790058403; x=1790663203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+vbqlDVlDE9plp1xBzyFomZPRR9qR+IwVJ7RoXadrJk=;
+        b=W3Qf0WxV/aiS0u30iTUkTFHKFVAZynfYDwACCP/07qhF2l0A8NKnM0hOlnSQ1+7pxc
+         j2LU/pxrbO5VcJzUKWjWQafAto5XIMiNNrDd2MnL7bzMHyl/OntqO0KddyKSkHkPj3Pn
+         mE6AeHc00epaqn+lc1L9b4QgDoePAykGvGRXKtI6eSiXN1Xy2M9KNXhJaPEFimnzGPVA
+         MffsbIaVRrW2g0RxRG334QqSNEXEp1XkQA5YFrlxsJlGhoT4ZIO4sP/NTDVCDwiDUGiM
+         rtgSbFDXEB2ftMp6RIhNB+6CVxM3rYsUgu52TUgkmuqcW5ux0d7zg3M/00YO/SLj1orc
+         uFhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790058403; x=1790663203;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+vbqlDVlDE9plp1xBzyFomZPRR9qR+IwVJ7RoXadrJk=;
+        b=tfE/HV5sZVIAv7S+rAnrkz3fxxKOp6TrLmG8O9dNZ9uUTSwijMOfXBxl5EQs2Bcka/
+         To/S6v2RmAGBdq2/DwELKkf+tCUQZPvsU3EZbgXCEx6CdLn9mQM1E1Jsbl+hMhYYuy+L
+         SyxJHjLtlSl4VtVg2T0pm8Mx6kMcJF7def7LbAWGORGXCw6R/uk/FdxoSpe7C2kL83dM
+         DWwDeyrdYZXWmvRmYOJiQAqjN4n6hgBAQccRfwfSpiolZWUJWzlsO7w+Y4D+krNASkeU
+         A53Oou0RouIZr4ZoNuXlTu8+bpF+sfiPfPmAkrivVwT9k6aMH8EwgytL6FGtfoe6gYXz
+         0uKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZE0jZgRzX5V1EkLs6cm7pwItjY1eYd+4mBkhjxSL+g1QWl8PtEagWNsmdZfYF0NZubiE1OgUQ5sY6PhA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8j7pJVYPAxO0bQIwcpFGCj9AsjZw8n8Dor++0Iod5byWy6FEV
+	2cJeaItBkz3F+6FEmiszkPt6czXQNkKRBnkBzCb3Ohe1L6AhyiX2+FG9
+X-Gm-Gg: AYBFou0fcVZyxQ97EDNV06OnMF7clv+UMgKMBMMM5ixKNgIm8JHtsc2QhmEqoHPTasy
+	o5vwbdT6+M6Vc41bv9LUOgUuFrC8rvR4R52L89XyV/wHtaIFepYXRo8OhOc5GAph4V4Av7LKwAf
+	46Jl+dEjWefUnfVRfIAmmkeMxgN4bkKQQ+X5HBQxWuE137mdOLRbt6j5IAgR+Vhx2YTJ7vpcIxb
+	C7t1MjSZWts+a9bMSotr3fsI1WCpmvbZyHVHYp+w3gJ4GREMG0C4KKNh5ku4T4PpWRcAmrc/Gt8
+	yj08nLqZFxstPbhES8BMT7JRr9GUsWH75V3VpbBSke5uEpin9JNW2Bc5DHS2Pn2+Hy5fqtz0Ef5
+	bT78vY8dwNriCRhKrqrXB3Hb6MfrGr+bKpPgzPHXjtGIIgg5c8McxVjwQRAyrGVnEgaGakBBp3h
+	NvtVbyjWZ/2mvdtfmItxD1jzE0QtDuumiF7It3e4RMl0fX7f5SbFOG2QLqGlUKIDwhv4c+gRQY2
+	DRe
+X-Received: by 2002:a05:600c:5020:b0:49d:726:cc9f with SMTP id 5b1f17b1804b1-49fc56716f3mr171280135e9.5.1790058403025;
+        Mon, 21 Sep 2026 23:26:43 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f04f7sm41006555e9.0.2026.09.21.23.26.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 23:26:42 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH rtw-next] wifi: rtw88: honour the transmit power mac80211 asks for
+Date: Tue, 22 Sep 2026 08:26:41 +0200
+Message-ID: <20260922062641.1313856-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <dc09d252a96c4992ad18e2ba70cfad31@realtek.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,71 +78,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgB37E96H7Jq1OMEAw--.34383S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ur1Utw15Jr17JFW7CF15Jwb_yoW5Jr4rpr
-	s3Ka9rKr4kZ34rXr17uFy8ZF9xu3Z7A3yrWa4DZ3ySvF1xtr4Fq3ZFvryFyr15GrWDAr9I
-	y3s0939rAa1jvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pirOzxUUUUU=
-X-CM-SenderInfo: pzvzmliqt6il2tof0z/xtbC3h0uNmqyH314CgAA3T
 
-Since commit f244b4dc53e5 ("printk: ringbuffer: Improve prb_next_seq()
-performance"), desc_read() allows @desc_out to be NULL. We can drop the
-local `desc` variable in desc_reopen_last() and prb_first_seq(). Also
-update the comment for desc_read().
+On Tue, 22 Sep 2026, Ping-Ke Shih wrote:
 
-Signed-off-by: Wang Wensheng <wsw9603@163.com>
----
- kernel/printk/printk_ringbuffer.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+> How did you measure the TX power decreasing as your expectation?
 
-diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
-index 85c0c854b3ce..607666d37455 100644
---- a/kernel/printk/printk_ringbuffer.c
-+++ b/kernel/printk/printk_ringbuffer.c
-@@ -443,8 +443,8 @@ static enum desc_state get_desc_state(unsigned long id,
-  * descriptor is in an inconsistent state (miss or reserved), the caller can
-  * only expect the descriptor's @state_var field to be valid.
-  *
-- * The sequence number and caller_id can be optionally retrieved. Like all
-- * non-state_var data, they are only valid if the descriptor is in a
-+ * The sequence number, caller_id, and desc can be optionally retrieved. Like
-+ * all non-state_var data, they are only valid if the descriptor is in a
-  * consistent state.
-  */
- static enum desc_state desc_read(struct prb_desc_ring *desc_ring,
-@@ -1335,7 +1335,6 @@ static struct prb_desc *desc_reopen_last(struct prb_desc_ring *desc_ring,
- {
- 	unsigned long prev_state_val;
- 	enum desc_state d_state;
--	struct prb_desc desc;
- 	struct prb_desc *d;
- 	unsigned long id;
- 	u32 cid;
-@@ -1346,7 +1345,7 @@ static struct prb_desc *desc_reopen_last(struct prb_desc_ring *desc_ring,
- 	 * To reduce unnecessarily reopening, first check if the descriptor
- 	 * state and caller ID are correct.
- 	 */
--	d_state = desc_read(desc_ring, id, &desc, NULL, &cid);
-+	d_state = desc_read(desc_ring, id, NULL, NULL, &cid);
- 	if (d_state != desc_committed || cid != caller_id)
- 		return NULL;
- 
-@@ -2007,14 +2006,13 @@ u64 prb_first_seq(struct printk_ringbuffer *rb)
- {
- 	struct prb_desc_ring *desc_ring = &rb->desc_ring;
- 	enum desc_state d_state;
--	struct prb_desc desc;
- 	unsigned long id;
- 	u64 seq;
- 
- 	for (;;) {
- 		id = atomic_long_read(&rb->desc_ring.tail_id); /* LMM(prb_first_seq:A) */
- 
--		d_state = desc_read(desc_ring, id, &desc, &seq, NULL); /* LMM(prb_first_seq:B) */
-+		d_state = desc_read(desc_ring, id, NULL, &seq, NULL); /* LMM(prb_first_seq:B) */
- 
- 		/*
- 		 * This loop will not be infinite because the tail is
--- 
-2.43.0
+Two ways. The exact check is the tx_pwr_tbl debugfs table on the AP
+before and after "iw phy phy0 set txpower fixed <mBm>": with fixed 1000
+on the RTL8822BU every rate that sat above 10 dBm moved to the 7 dBm
+index (10 dBm less the 3 dB two-path share) and the rates already below
+it kept their index; fixed 100 gave index 0 instead of the wrap that
+patch 1 of v2 fixes; fixed 2000 and "auto" left every index as the
+stock driver programs it.
 
+Over the air, a second radio (an RTL8821CU in station mode on a second
+unit, at a fixed distance) read the AP's beacons at about -52 dBm with
+"auto", -59 with fixed 1000, -62 with fixed 500 and -66 with fixed 100,
+and about -52 again after "auto". The drop is smaller than the request
+because the beacon goes out at the 1 Mbit/s CCK rate, whose calibrated
+index already sits below the channel maximum, so the table is the exact
+check and the second radio confirms direction and order.
+
+> And, curiously, what is the purpose you added this? which application?
+
+A handheld measuring instrument that carries the module as its access
+point. The hardware team wanted to be able to run the module a fixed
+number of dB below the regulatory maximum for an RF exposure
+assessment. On the other products of the family the module is an
+ath9k_htc one, where "iw set txpower" is the knob we use; on this one
+the same command was accepted and mac80211 reported it as in force
+while the chip kept transmitting at the maximum.
+
+When I wrote v1 I did not know that rtw88 already exposes
+set_sar_specs. I have since verified it on the RTL8822BU: it caps the
+per-path index from the given dBm and covers our exposure case, so we
+will use it. That leaves the patch as a consistency question rather
+than a need of ours: should rtw88 honour the level mac80211 hands over,
+as ath9k and most other drivers do, instead of accepting it and letting
+mac80211 report it as applied? If you want that, a v2 with your review
+points addressed is ready and I will send it. If you prefer SAR to be
+the only way to lower the power on these chips, I will drop it.
+
+> Miss to add pwr_param->pwr_user to rtw_debugfs_get_tx_pwr_tbl() to
+> show the correct final TX power and pwr_user factor.
+
+Done in v2: a "usr" column, and the effective ceiling column now takes
+it into account.
+
+> > +	if (changed & IEEE80211_CONF_CHANGE_CHANNEL)
+> > +		rtw_set_channel(rtwdev);
+> > +	else if (changed & IEEE80211_CONF_CHANGE_POWER)
+>
+> Should it be 'if' instead of 'else if'?
+
+rtw_set_channel() ends with rtw_phy_set_tx_power_level(), so when the
+channel changed the tables are already programmed with the level kept
+in rtw_hal, and a second pass would program the same values again. The
+explicit call is only needed when the level changed on its own, so I
+kept the else. If you prefer the plain if for readability I will change
+it.
+
+> In reverse X'mas tree order.
+
+Fixed in v2.
+
+> > +	return (s8)clamp_t(s32, idx, -chip->max_power_index - 1,
+> > +			   chip->max_power_index) - base;
+>
+> Should it clamp after 'idx - base' ?
+
+The function returns an offset relative to the by-rate base, like the
+limit and SAR values it is compared with, and that offset has to go
+negative to pull a rate below its base; clamping idx - base would forbid
+exactly that. What has to stay inside the chip's index range is the
+requested absolute index, so that is what is clamped, and the final sum
+is clamped in patch 1 of v2. In v2 the clamp is on its own line before
+the subtraction so the order is visible.
+
+Mehmet
