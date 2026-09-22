@@ -1,82 +1,91 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C1E5293E2;
-	Tue, 22 Sep 2026 09:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C0D52CCDD;
+	Tue, 22 Sep 2026 09:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067821; cv=none; b=bIXa6W56jDqox8Oyi/j+kKBZIgax0yY/nFf/kkbuNLearOaagL6WbVtVImHR8wIN2FfvYcwfZ899MNoju5hGPcbIl/MjionbBt152SqbClWVEJ+P2YsAWWGSh7yL2VAjc3stXc+p7/Rs+BAPD6kwdE1SDpeaCeqI6+80izcw8X0=
+	t=1790067828; cv=none; b=LgiOs7HYMjW1iRIJajiJd0+L03oQdj8e8UEOmJovg48oOgsDJFym+eyzuUA0RAkYzOkZ2mFa+EFrc991IjUTElVugXRZQEsQKVKmmTuc1AEs6Ydri2GWy/lJLsi7wuMYanofoxuA6W+NkqkteQkpONIm9Rvtdz2IXNMOMrmhNak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067821; c=relaxed/simple;
-	bh=aYT+mVzhxslav4KMaqbakCWbpNHc8NrsSWL/s9tf+JM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uNWSxzvArYBFjKS6+XJfeJkjaejBZYlQypcDgODb8R48DlnAN5mOj5dJNq891cwD8sKyfhgP3jfHf5hQHtXQsvsA9kN769c5ytoFBBuYI1XJnWpxe3WXwE3WpjkJwPqgau0YeU98IXfDEQ1OIhy1ODK4V+Nfa0G9hDx9DY9ZAd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=T9lObZWE; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790067828; c=relaxed/simple;
+	bh=sMJE4hNbjphW0GvkigJLBEzXqY1LqCjd/zuEvelbozM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=KQmihAJ9NZ5VH1XouKQF0Tzpqvjf/bs2lTSVS8U2fugXIKsbxB9ZT0SI9O8lfW/XetNkKnAuIan2xo8PqJB/uztGIoeEaIVaDGXu2tn7VWR+3JpptecTzyCWo/mMSwM7SAq9c7TLf6z4RloRwqCjpjqB6ysjaaRBYL313mmD2Uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=er9AjLnn; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="T9lObZWE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=8uLeZHTq/tLb8yUdK4wo9lY1ExTBRxuRwq6XRjmQByg=;
-	t=1790067819; x=1791277419; b=T9lObZWE4oX7ETYow+JmjrzX3X+PqmP5xwrbSuajrlWfqNz
-	5U4IIOYt+zuy7m9lqg7EfL2TKv0tclzFC9nEoOgiEj7madjnuWqhiOGLWOy3ekpsXu+qVbn194eQg
-	fI/gX7WRqHP+7cmm9/KvH+s8VI3wmHPQ/U9JJF1w6pZ/SnA6+LCLy+gxBT+9iagsxkcIS96wjhmgo
-	rNzPJUNVAUfgLwduFnK7jKtecDGOqN+JfNklhYNS0Vi4Gw8F3qktymKwfvYBBR+MfmBLiWTSSN+6d
-	w1g6GhQ4j6fkXvF7mP9hrfw00H0FtgpLWmehBJcDE1YKYGNuYo41b3MLttmHjpLw==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x8wPO-00000006mxx-46Ou;
-	Tue, 22 Sep 2026 11:03:27 +0200
-Message-ID: <6c7170af0a7cbe62573fae461b94556f850318ee.camel@sipsolutions.net>
-Subject: Re: [PATCH v6 3/4] net: dropreason: use new __print_sym() in tracing
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Ilya Maximets <i.maximets@ovn.org>, Matthieu Baerts <matttbe@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>,  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Aaron Conole <aconole@redhat.com>, Eelco Chaudron	 <echaudro@redhat.com>,
- dev@openvswitch.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, Adrian Moreno	
- <amorenoz@redhat.com>, Antoine Tenart <atenart@kernel.org>
-Date: Tue, 22 Sep 2026 11:03:26 +0200
-In-Reply-To: <dca799b4-23f5-4b6f-be73-bad5a3d88007@ovn.org> (sfid-20260922_110114_464147_BE59E097)
-References: <20260921101538.97286-6-johannes@sipsolutions.net>
-	 <20260921101538.97286-9-johannes@sipsolutions.net>
-	 <98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
-	 <7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
-	 <99e5f7c0d7debc8a59bac96e93f09600bf488ca8.camel@sipsolutions.net>
-	 <4a0240a7b9ff87302620a95c73f4f265cd428618.camel@sipsolutions.net>
-	 <dca799b4-23f5-4b6f-be73-bad5a3d88007@ovn.org>
-	 (sfid-20260922_110114_464147_BE59E097)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="er9AjLnn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=sMJE4hNbjphW0GvkigJLBEzXqY1LqCjd/zuEvelbozM=; b=e
+	r9AjLnnLYALemIC2MdYQiKsDylh2yKtRFp1tzUhGSrgiJV4PbY5vs4DZt7Sd/XIZ
+	hB5tvgBvP+zdnfbYSXB3+MkiZKJ4wqyAAeFnD9ET05UPPdB64719VMt2K8gX8jlA
+	08dDlknEf7R9T+I5ZZ4hVq11QJcckS0/dAhYvEDHoM=
+Date: Tue, 22 Sep 2026 17:02:23 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re:Re: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com>
+ <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
+ <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
+X-NTES-SC: AL_Qu2SAvyduE8v5SWRZukcn0wRhug/UMa4u/sm3YNXc84FpwPw5QMjZmNDNHL32tKTBxilqxOseRpTx8lTXqZ3SWk2S31eMJkw9vz6qHwtgQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Message-ID: <14afb3f3.803a.1a0c85a1b75.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:gygvCgD3PyYfRLJq18cVAA--.40048W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxh9f0GqyRB-tfAAA3E
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Tue, 2026-09-22 at 11:01 +0200, Ilya Maximets wrote:
->=20
-> Matthieu mentioned we'll need CONFIG_TRACEPOINTS in the selftest config
-> shard: tools/testing/selftests/net/openvswitch/config
-
-Right, I was going to comment on that but then while I was writing and
-testing all your emails came in and I forgot.
-
-> Is that a new dependency or was it always there we just missed adding it
-> to the config before?  (it's included in the common net config, so that
-> is probably the reason why CI doesn't fail)
-
-It can't really be new, perf to capture this was always used, I'm just
-changing how the output is formatted.
-
-Perhaps better to have that as a separate fix/cleanup?
-
-johannes
+SGkgTGludXMsCgpJIHNlZSwgdGhhbmtzIGZvciB0aGUgY2xhcmlmaWNhdGlvbi4gCkkgd2lsbCBh
+ZGQgdGhlIGBBc3Npc3RlZC1ieTogTExNYCB0YWcgaW4gZWFjaCBwYXRjaCBmb3IgdGhlIG5leHQg
+cmVzcGluLgoKQmVzdCByZWdhcmRzLApMb25nIFpoYW8KCkF0IDIwMjYtMDktMjIgMTY6NTI6NTIs
+ICJMaW51cyBXYWxsZWlqIiA8bGludXN3QGtlcm5lbC5vcmc+IHdyb3RlOgo+T24gVHVlLCBTZXAg
+MjIsIDIwMjYgYXQgMTA6NDTigK9BTSB6bDAyMDg5NSA8emwwMjA4OTVAMTYzLmNvbT4gd3JvdGU6
+Cj4KPj4gTm8gTExNIHdhcyB1c2VkIGZvciBjb2Rpbmcgb3IgdGVzdGluZy4gRGlmZmVyZW50IGRl
+dmVsb3BlcnMgYXJlIHJlc3BvbnNpYmxlIGZvcgo+PiBkaWZmZXJlbnQgcGFydHMgb2YgdGhlIGNv
+ZGUuIExMTSB3YXMgb25seSB1c2VkIHRvIHBvbGlzaCBjb21taXQgbWVzc2FnZXMuCj4+IENvdWxk
+IHlvdSBhZHZpc2Ugd2hldGhlciBJIHN0aWxsIG5lZWQgdG8gZGlzY2xvc2UgdGhpcz8KPgo+V2Ug
+YWRkIGl0IGV2ZW4gaWYgaXQganVzdCB1c2VkIGZvciBjb21taXQgbWVzc2FnZXMsIHdlIGRvbid0
+IHJlYWxseQo+ZGlmZmVyZW50aWF0ZS4KPgo+TWF5YmUgdGhpcyBpcyB0byBjb2Fyc2UgYnV0IGl0
+J3Mgd2hhdCB3ZSBoYXZlLgo+Cj5UaGUgdGFnIGRvZXNuJ3QgcmVhbGx5IG1lYW4gbXVjaCwgaXQg
+anVzdCBtZWFuICJhbiBMTE0gd2FzCj5pbnZvbHZlZCB3aXRoIHNvbWV0aGluZyByZWxhdGVkIHRv
+IHRoaXMgcGF0Y2giLCBpdCBjb3VsZAo+aGF2ZSBiZWVuIHVzZWQganVzdCBmb3IgdGVzdGluZyBv
+ciByZXZpZXcuCj4KPlNpbmNlIHdlIGhhdmUgU2FzaGlrbyByZXZpZXdpbmcgZXZlcnl0aGluZyBJ
+IGd1ZXNzIGluIHRoZW9yeQo+d2Ugc2hvdWxkIGV2ZW4gYWRkIGl0IGlmIHdlIGxvb2tlZCBhdCB0
+aGUgU2FzaGlrbyByZXZpZXdzLAo+YnV0IG5vYm9keSBkb2VzIHRoYXQuIFNvIGl0J3MgYSBiaXQg
+YXJiaXRyYXJ5LiBOb2JvZHkncyBnb25uYQo+YmUgdXBzZXQgYWJvdXQgZWl0aGVyLCBpdCdzIGp1
+c3Qgc29tZSBoZWxwZnVsIG1ldGFkYXRhLgo+Cj5Zb3VycywKPkxpbnVzIFdhbGxlaWoK
