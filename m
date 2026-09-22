@@ -1,198 +1,388 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011000.outbound.protection.outlook.com [52.101.52.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFD5382292
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044105; cv=fail; b=MkRkBPhNVzouylgvQe16ASJVmnxfNCzVaGazSvczD4L23+UwQ6gWyU/iqujp+spt+EypT+y2muH8hDWjg7RdCbSXfVQqHEY7D76wrrsnJquWgY5/F/x4c29cIS/2vZ2vPxDgvqBbqvJ36M8pNiPT4VYuLoEk02L/BzO8/RehbT4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044105; c=relaxed/simple;
-	bh=/gDxKqAgazHQn4PZ3sBQAVk4Q44/RwbdsDED0Ra8gzc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=O3fdLc2sFuGMy5g1p0qkYiNO5kdTmU2DxaqomQTF1zP+aQn5QOivD90M9Z18eCbC/JZDe7nO716wz37qUpLkRpPzhNmSfpgX93hqtfCWyEse5b75qGOGAbnU4FW23X8umvFnyv5mIHLiiotSi6ItPbBoklDGWe+jSIpb7zUv04I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YAs5puYF; arc=fail smtp.client-ip=52.101.52.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C05038F64D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790044116; cv=none; b=AyV5gxE4FUGDOyeJOgswdHZ3+OuKl0GtRMD8M93UAzpTf9d4qv41KqknOHfW/grJ6y03w+/AGL7jH7AXoLM+BpeTCJk8CL99HnZmpMIZPcCUnTTs54s6usZDwAFyYjXNAyUsircQXEnRkhXX6FXcsY4/hqrUuHnIOFK2l6WIzDI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790044116; c=relaxed/simple;
+	bh=1mhltqxNnCEQ1bcCikw9zgimeks9K7E+TczS0kwNUMw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ef4gmKOmed+JPBsbMp4A9HNifiXfAhlUS51ede3ttBRAX68xf5B6uoaqDfYoahMbb6UzeeI0mNQO5MOYQ1e4Hmksp61L5tGqvD7xQYF7FXKi/19BgNiVGiVGZAMKbNiKKEr7+AkrmD9t53qDxgBUZimRHBc8iDroVPfsXdGOzpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=gOS4p/MZ; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YAs5puYF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WCkX/MMMvd/DmvvQ5XO8s/VRAM5rgia4Rdhtp6nQB6vjC+edMNdvhh8056emV0fmeKxoSnIfNyBOSB4NXb4lj5mSkiFntIzceIYeH01OBaLfD5n8y248yGt4ukeIbMaOllz53V3LDQRt4wlchiOuwMZsCk2AvSW+cky/DbTdtCZP48gKg71pBFQqDvLxcTpOYpMiPURDyDsoe7Qm5yDBbziAxDz6e5Tu0rgG1ioKoXZbc4HFlsV5f4N9OnCc5g91wI/2G4HgN3k+0T5TbVBusN2rrvgXp8HrJdlw9XrAEKr+wq7MYMLw7VMO10SsqdKakLqwXDdnVlraHjL83mH9Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XMnuaMSMzk/oW/050DuEpohLP67xSNgZYzMdUaRFw10=;
- b=XNrT0ZzgmaqvYJXCNErVX86u1j8iB8G5HVQNWp63Xou50tEsz8jvoflAM4IAgoxA5EuUYLUhgZ/8BbbhpHg+DN06+p8FOJD3ajmeP5NHHqIvuIh+WakZ/bWjoZZnUiplFhMAD2tNZHVyS5jiFNM1h6quJXoeC3hyOEDQJfAR9HfVq2PIjgooWMu11a+x5Fv5DDtwvw+AQ3wIsjPHzk5Hlgtip5grletLzHdpBEjqpe5pX06I5/xPLSSRB6ESW2mA8IWRvaSYaHCizkfnBgpdoFpC35nc1FZCnVK/WsEYYZKPaj5a6TIsl6QgMfEH+wAlUXLiSyNnH+TyfizlhBFECQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XMnuaMSMzk/oW/050DuEpohLP67xSNgZYzMdUaRFw10=;
- b=YAs5puYFkZBk4cT9w969BoYrVfPnLk+6vDuGKP3qoJha95dzQGneGMw7sm/P3KJ9QcnLHlJJL//sdniQkeTiMF2R6KKFl4mNupBh8JegVUCSNp5GeDQ8e7syWYTwvtPP0UMAVjpc9o/h1m6OCvgoHStxYbABQMKswUJHMiUcmzbo8heQdrWNBRJOfYrCaHwVnVd6A16pG+x0fpee3Jzunw98wb+53X9KluTR0MxqHyVsMm9F9affBPykl3OobpgBAE7V+bKX72QtUT4xw5P/oswi1N9XSfSZXBcgEl1kFRdi0ZPHnJdPODoLdRyjiqz2It38wpYzlqGCUu1o5+LCkg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- IA0PR12MB7750.namprd12.prod.outlook.com (2603:10b6:208:431::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 02:28:15 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 02:28:15 +0000
-Message-ID: <c07e7aae-fe20-4631-8ffd-dbce9e3a18a8@nvidia.com>
-Date: Mon, 21 Sep 2026 19:28:12 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/33] gpu: nova-core: add GMC transport receive path
-To: Timur Tabi <ttabi@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- "dakr@kernel.org" <dakr@kernel.org>
-Cc: "lossin@kernel.org" <lossin@kernel.org>,
- "a.hindborg@kernel.org" <a.hindborg@kernel.org>,
- "boqun.feng@gmail.com" <boqun.feng@gmail.com>, Zhi Wang <zhiw@nvidia.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "tmgross@umich.edu"
- <tmgross@umich.edu>, "alex.gaynor@gmail.com" <alex.gaynor@gmail.com>,
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ojeda@kernel.org" <ojeda@kernel.org>,
- "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "aliceryhl@google.com" <aliceryhl@google.com>,
- "bhelgaas@google.com" <bhelgaas@google.com>,
- "gary@garyguo.net" <gary@garyguo.net>, Alistair Popple <apopple@nvidia.com>
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-12-jhubbard@nvidia.com>
- <67be0443888888cd67a89aeaa4e6c0ddd452b5c3.camel@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <67be0443888888cd67a89aeaa4e6c0ddd452b5c3.camel@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH8PR02CA0023.namprd02.prod.outlook.com
- (2603:10b6:510:2d0::15) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="gOS4p/MZ"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcb5cb3so39429256d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:28:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1790044112; x=1790648912; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HscWMACQBaXdyi2sA4ZdN71wnPrvQNOWSxMsTvhV6Ow=;
+        b=gOS4p/MZxN1xotHEZgcAjYlBtny/eJM1fu/EfC3N+5dfz44x8oYkflUTC56UG8BhOe
+         iRqhZ3r2v1DKXiSj02Hc56rqiQ4otMzMDvq71roZDyEQwXRpsjaUwZ+Xc6nCovjS73rw
+         CxpOHZlMAxETLLUq5c0sk10OVpHBsErS2pWblEkNbSHmwoPVi5ZiO7m+r1MEM71Q6wwI
+         8gd414eq04o96iajy0l2mQ7qgO3hzRWrKShkVNOR6jqkYaPcfYwrv3ZYf3oRs5jcUHYX
+         8kMWT4ytye4vN2AWqiLb7SbJWAV8bc9uW0OabkQGx8TbJNBS99dHCq4nREw0jl5kvbtE
+         QxPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790044112; x=1790648912;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HscWMACQBaXdyi2sA4ZdN71wnPrvQNOWSxMsTvhV6Ow=;
+        b=dzm1rK/5afx41WSD89R67DfdmtWcUhJen6QWwTwAxVJLKNCXUjeAsEtl2+GwhBfUfb
+         9Kpn8SFX3FDPhf/ijVkq5qVMI0ZCgFHnZTcq8Qt7Oau7E3HVYpyqiA6LJ+6cYZnVwV7t
+         G2rTySou/ZEJ8tH6BUDf74+vcizRs4g+/k8x0acg2Bi/Zjg0Ie5jPelXcJUEzsItsoyM
+         mV5Fq+IHdQ3SMvXBzOSove1ZHVJD+I5kvcYs85fVIf6tZAd26oZ01Q8LnV1av1S7wRsa
+         4du06Hcdli6WjVDFiE/nn1sOwZW7N6mNnT8k+luFQ0A2qLhrY0BiYu7y+mJodB4FU2p2
+         mIUg==
+X-Forwarded-Encrypted: i=1; AKwUvByw3WtFPJ0OFrhn0JyPTGoJp9WF4MfsaTaiCJMSxqWxW3+vNxYOrt5Xxk6Ggzc/SASoKnLZyN7ezZtpKU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nolaaA1swrmKJoZdurKHwpLVK+AywH35Rqk/JxEU2quWrevn1x
+	dT8UVFMBZz0HWGBr8N7OwOjb27rTSmoe3b4g0A1iEG2DJGsSv1sifhMKdVVQBJvBK14=
+X-Gm-Gg: AYBFou0FZJCjOnEIzC7AG1KXwGfhmAMtjHoY2jr5cqkYBcFecLYxXAPoNkoOAqz4cgS
+	/9ONkd+FcXs4dzKtyLCorBjPcctPtiOIKr7y/ZQOdGhUHzDZsDFo9afBeQQq5zFklBrbAeaVJMj
+	tNfcMLEY5Yc2uUyEyLNdIfLi1EZvJXv8jgyNo2HT5OVIzoqZRMWte4GMD/10EHMPq/ygGNo60Yr
+	e3q8HxoiYXG2kc7UU+LrqyskoscYHgLVCiPQoTGCYN5VwQo1x3ZZC8pk/iuJqbiR+zm8buOLUHM
+	6vtPBjcLrGFc3CAP1Z7A/Vy/mh5TLKIK1y1X5ri17F8hT9zSWFIeF3TEoqUNXNUBnuoN0Na2rL6
+	GT2qt2JqtG8Wh8EF/nOwIhIioFKQkfyOLORbuk6p31X39CPNEiGdJGswe4CMl4ouh7DMCcjKvpa
+	ggha2sgabLmwyrdc/hXLI0F/hJhvpjKlIIE+2GyR/weaa9iz2xAuUx+i/DPo3mezeHMgkuKGt4x
+	weuln0D6/3cZ2k=
+X-Received: by 2002:a05:620a:a414:20b0:93b:d7a1:ba0e with SMTP id af79cd13be357-93c166802c5mr232637985a.57.1790044112434;
+        Mon, 21 Sep 2026 19:28:32 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.243])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d19ff89sm22030785a.24.2026.09.21.19.28.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 19:28:31 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 22 Sep 2026 02:23:24 +0000
+Subject: [PATCH v5 05/13] x86/ftrace: Take a Tasks Trace reader around
+ ftrace_caller's call-out
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB7750:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9af9469b-2a0e-4363-2ca1-08df185127c8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	tRjS59m/fRpoDznTGU3EVD7QrpqqpnxIMBRTg9hSVSHNGbWbFyj+Cfy88GQkU5KJxxGqLK3OeWAqM0p0EqqEKaJWbndCf5RA6oYuBFeJqakfX9ATAkVZOhf2fMWemI249QdocPWt3yctXYYmdgro4X/LoJsp0593AGfXATNDYuLArGxnF94+flJZpQP0Z7y7L8FRBKHB+Yr15XHU57ehvyuua74yLcjVfhK+m429sbbi2k5qLcCRO51t1Vwa3tZ3ulr9a9DFikR3ILY0hhg40x8qTOhnlLXVWmJqfLt1qA3tmLfC1hqSbLuXHT+0byZPx79OTqohyCDnfPOkdxvvNN80beBkSewWXNjttD/Z1g5lrzGJC32rKLsOSGkPDG6ZvGax+TWjxVhRmywNffUB82j/Y67oCJOtri2Ynn7EuTVKVV0+hDpDmrwlj7qOTgXYc5c0EGlko6Am2KVPLNmc7nZdIDR692pDZ0QBzZb9kY9uWJg4kmReUuue47hvf5uzIUnsPjWy1cRytNyw9j6JVHkwZRyM4H0DTTBxG9aUC06rV5rD1qacEdpgYFE7QCnypCoUoZS7bAH3DwIH8rBa4RQS9CKKi+ZaddOC9uUz7+GQvhpmJDbzkkqb4k1OyWqkr+d2EoazYwkXtIooIFMsFEIlYDtaIcmyBba0YPeTVtw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YmpVaWFiRkxpMGxhWFhQdHViZ2RkRUJhaDhaTzFrZUhrYW9CWW5PSHJkc2Q0?=
- =?utf-8?B?b1BjYVpPdDkrRWdocVByUGl1MUJEUmN5dWFsdlMvMlF0bGNtWmx5b25wL2lY?=
- =?utf-8?B?cGlpVk9KUlo3aC9hQ1dLMmplZlZQV1VNSGIzSjlFaU45RHdLOGFOKzQ0cGJK?=
- =?utf-8?B?alN2aGp3WWVVR3RRQzVQa2JvVUw4MFI5dFBmcmJ5UDMwTzlqWmNFZ01xQU5T?=
- =?utf-8?B?YTZ0Q3cva0VSazhFVVR3WHgxV2hJV29ZWDM5VTFzS0dBejNRYjl1WmxkSXk1?=
- =?utf-8?B?UzVFUG5aNHhtKzlvbmZBc3A3VDQ1ak5Kb0RWYitEUDVZY1NYaDZjVXZmR3Ry?=
- =?utf-8?B?YU9xbkNLRHp6L0tBT3kzWkZyaDZRZlRoOFBhQTNWUWZqTm9NNU9PT0phaitL?=
- =?utf-8?B?VGJ1NGxFRXpucGNHamdDMGNPRnphTHBPb01CRGVDSHVPVzRrQ044bWVkbWhl?=
- =?utf-8?B?ODNpL0NRWFlla1p5M3g2UHlUSGRxMHlvRFpRM3VoNlUrRE9mZ2Fkd3hsSUJL?=
- =?utf-8?B?SUNtM3ZkN2pXN2xKNDVrNi80V05PNEhid0VoTVArMTRYY3RSSDVZN3JxZmNi?=
- =?utf-8?B?bkgvZDUvL1NEbHUvTG9SWi96OXA3VGYvaEg4ZEtmc2RaTUx3a3ZxYU80aHNU?=
- =?utf-8?B?OFNxNElHVUt4QTdtT3BnajBMUmo0SzQ2RTNoM3dIWDdINnFEMG5CVkJrVW4r?=
- =?utf-8?B?THRsQnlTYkwrV0V5T2d4ekx5TXhUYm54eFg0Q0gyOE9ncGR2VkFmeUJVakhL?=
- =?utf-8?B?dUZHSDdnK29hVjBsbE5RRlVlekp1VENPS2w1RzFHS29EeTJnbHlRMkg0cnVD?=
- =?utf-8?B?RzBXS1dBYWN0YkdDZE83REpxeUp0RVpVTWJvNHRvdkJLa0FGQjRiTlJLbE1z?=
- =?utf-8?B?R2xRUkZySUJNekFWaEt1OEE3NEx3WjNNYmo5RnIyRVp5RzVLeDg4emgxTUVr?=
- =?utf-8?B?bnFWYjgvSDFXOW1nbHp0MlJKVGtjZXpUTlV1ZEkwcmdOQU5xS2FQdVJzSy9C?=
- =?utf-8?B?S2ppMnhubFpNNXNxdTU4UkFoLzNMSDlSYlVGRExLWlo3enN5SVB4cklNSVM1?=
- =?utf-8?B?Q2JjZU1ITlJTRXcrWXIycWZDTkE1dVBYTFF4MU1zYllhc3pEUjlmSXhrK1Rs?=
- =?utf-8?B?aDBiWER2U0RHSVdMdld6a28yazZLcTU0NVoyUmpRdXU2Z2kyNUptckRNelJY?=
- =?utf-8?B?a2czcXdzQ1NCYTFYa2hmaGFUMGVsc2IvZEE0VVUxQnBjenpvWTdvRWlRQVdO?=
- =?utf-8?B?VlZIbFVUQWRsaVJ2UXBjc3VtbmRNeXVxSEc1d3VkWVBuaEUzNXA4Q0x1SGpU?=
- =?utf-8?B?MVdrT09ZdHB1T1pqL3M5ZXNGcFIxalgwZ2NsZy9Hb2hyeUZkR3ZiMXhld3l1?=
- =?utf-8?B?dk9OZzNyN3d4T2w5NTAwQkdiNDdwMC9lNCtmek05N1J2NWtESmx5cEpLV3NR?=
- =?utf-8?B?UTcwalRydUxlU3U3cm5PMnZNd2ZNeCtwcHVZZ3BMWWtvWVlLSm1OMDRvZkxT?=
- =?utf-8?B?aEFnYlZseVozTWhWejVqTGd1QUxPTXpvMkZjQXZqTnoxMm5YN0xFZFBkS3Nm?=
- =?utf-8?B?d1M3ME5NM1lEY0VyU1hzbDR2emdyeFJ5R1NxS1hJM3Q3czgyQW8vTWZHTTR3?=
- =?utf-8?B?eFc5dmlGT2Z5bGR0VTNoS3lpQlpnUmdQM2xFeUN5Qk01UEs0Y0dpVk5lc1kv?=
- =?utf-8?B?Q0hyb0x2Q0lQeEo1L2xmV0piNTNTYllXWVFaMnBYSTRyTXlONE1BMG5EM3Ft?=
- =?utf-8?B?bEYrNDdoeG56V0U2Yy9MRnE4bXc3ZFkrdEhxYllGall1ZVVnNkxTcGlkaEht?=
- =?utf-8?B?NVJDdFJSNnhaODkveFlkMjJyVnFuY0lEbVVENnJDcmgyWjQwUnhCMTZIWmxr?=
- =?utf-8?B?UDhRM25nTU5JS3I4MzA2YnRTbW5JS1VjSlRKZngvaDBVbmFqUGk4YlN6UnhO?=
- =?utf-8?B?OXNGMXZEMGJrTXNlbENRT21KeUw4Nm12MWtMcURodzRCSGcxL1FkRGU5ZnJD?=
- =?utf-8?B?U1Rnd2NseFUyYitRWFVtS2lRTldQbFBPdDI5c1ZHV0RmS04zSjFGVXVzVVFF?=
- =?utf-8?B?UXcvdjJNbFJLY0ZWYW1wYVNtNG5YVEhnSWg5STZUOVIwczdNdXdaMGxNNm0y?=
- =?utf-8?B?RGl2S0E5UURHQW56Sld6V3RybWhQSUtyN2JSNjFEcDJ5L1pwOFZpNzdsbkZD?=
- =?utf-8?B?KzI4RmxESUFQQmplSFhIRzlRbVdFTHgvSUEwcWtEb3ltbzBvdlcxNExmRzZ1?=
- =?utf-8?B?SzY4K2ZZRkhaRHJhbjJOdTRqb25MM2ptVHRrMDlONEd5ZlFoalpDQ3FBTEdj?=
- =?utf-8?B?M1Q3Si9Ddzh6NGJ3T0N2OEtXaU1rSXo5WFpnN09aWEJqbU1lQVRRUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9af9469b-2a0e-4363-2ca1-08df185127c8
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:28:15.0481
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JqmbL/IA7PdRjtlzg1n9w16U55suH+gRyp5WwRn8aAUsvbfZ2sg9mQumfdNfA6ti3v4GhRNqXyR/hKNlwbQf5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7750
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b4-rcu-tasks-preempt-qs-v5-5-410f57770bad@toxicpanda.com>
+References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ rcu@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1790043820; l=10955;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=1mhltqxNnCEQ1bcCikw9zgimeks9K7E+TczS0kwNUMw=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QF9CdIkGApa945J1vk2W+WTwCDI23VixB6KL4xohl05jh4SjouoFpLKPU7RYPX/mzDNzARG4WqR
+ 0vsgs6UviVQA=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On 9/18/26 2:57 PM, Timur Tabi wrote:
-> On Thu, 2026-09-17 at 18:06 -0700, John Hubbard wrote:
->>
->> +/// The check of [`QueueElementHeader::validate`] that a queue element header fails.
->> +#[derive(Debug, Clone, Copy)]
->> +pub(crate) enum QueueElementHeaderError {
->> +    /// The first word is not `"MCTP"`.
->> +    BadMagic,
->> +    /// The MCTP header carries a version other than the one that this driver uses.
->> +    BadMctpVersion,
->> +    /// The NVDM header names a vendor other than NVIDIA, or a message type other than
->> +    /// vendor-defined.
->> +    BadNvdmVendor,
->> +    /// The element length is shorter than the queue element header and the message together,
->> or
->> +    /// above the maximum element size.
->> +    BadLength,
->>  }
-> 
-> Can you add a comment somewhere explaining why we're adding a new error type, instead of just
-> using the standard error codes?
+For HAVE_RCU_TRAMPOLINE_READERS the ftrace trampolines must be Tasks
+Trace RCU readers while they call out, since that -- and not the absence
+of a voluntary context switch -- is what synchronize_rcu_tasks() will
+wait for before ftrace_shutdown() frees a dynamic trampoline or its ops.
 
-Yes. v4 adds a sentence to the enum's doc comment: the receive path
-logs the variant when it poisons the queue, so that the log names the
-check that failed. An errno carries one code and cannot.
+Open-code rcu_read_lock_trace() and rcu_read_unlock_trace() in
+ftrace_caller and ftrace_regs_caller: bump current->trc_reader_nesting
+and, for the outermost reader, do the SRCU-fast per-CPU increment on
+rcu_tasks_trace_srcu_struct and stash the counter pointer in
+current->trc_reader_scp, exactly as the C inlines do (including the
+smp_mb() when CONFIG_TASKS_TRACE_RCU_NO_MB is not set).  The lock sits
+before the function_trace_op load, because between that load and the
+call the ops pointer is protected only by Tasks RCU, and the unlock
+after the call returns.  Note at rcu_read_lock_trace() that it now has
+open-coded copies that have to be kept in step.  The sequences are inside the region that
+create_trampoline() copies for per-ops trampolines; their %rip-relative
+references are fixed up by text_poke_apply_relocation() like
+CALL_DEPTH_ACCOUNT's.  %rax and %rcx are dead at both points.
 
-Although now that the IRQ series removes queue poisoning, I need to
-reconsider this, since I expect IRQ to get merged before this series.
+Two pieces of core text still run outside that reader while holding
+the address of a Tasks-RCU-protected trampoline they are about to
+enter: the static stubs themselves, whose direct-call tails keep a BPF
+trampoline address on the stack until the final RET, and, under
+CONFIG_MITIGATION_RETHUNK, the return thunk that RET expands to.  Add an
+ftrace_static_tramp_end marker after ftrace_stub_direct_tramp and linker
+symbols around .text..__x86.return_thunk and .text..__x86.rethunk_safe,
+and provide arch_rcu_tasks_trampoline_text() covering
+[ftrace_caller, ftrace_static_tramp_end) and both thunk ranges so the
+irq-exit check treats a task interrupted there as a holdout.
 
-> 
->> -    /// Validates this header against the expected NVIDIA NVDM format and type.
->> -    pub(crate) fn validate(self, expected_type: NvdmType) -> bool {
->> +    pub(crate) fn has_nvidia_vendor(self) -> bool {
->>          u8::from(self.msg_type()) == MSG_TYPE_VENDOR_PCI
->>              && u16::from(self.vendor_id()) == Vendor::NVIDIA.as_raw()
->> +    }
-> 
-> When would we ever receive a non-Nvidia message?  Normally this check is done if we're receiving
-> messages from an external source.
+All of this is built only under CONFIG_TASKS_RCU_TRAMPOLINE_READERS,
+which x86 does not enable until a later patch.
 
-No, never, at least, not from a working GSP-RM.
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ arch/x86/kernel/asm-offsets.c  |  8 +++++
+ arch/x86/kernel/ftrace.c       | 43 ++++++++++++++++++++++++++
+ arch/x86/kernel/ftrace_64.S    | 69 ++++++++++++++++++++++++++++++++++++++++++
+ arch/x86/kernel/vmlinux.lds.S  |  4 +++
+ include/linux/rcupdate_trace.h |  6 ++++
+ 5 files changed, 130 insertions(+)
 
-It is basically checking for message corruption.
+diff --git a/arch/x86/kernel/asm-offsets.c b/arch/x86/kernel/asm-offsets.c
+index 081816888f7a..876c3986419a 100644
+--- a/arch/x86/kernel/asm-offsets.c
++++ b/arch/x86/kernel/asm-offsets.c
+@@ -9,6 +9,7 @@
+ #include <linux/crypto.h>
+ #include <crypto/aria.h>
+ #include <linux/sched.h>
++#include <linux/srcu.h>
+ #include <linux/stddef.h>
+ #include <linux/hardirq.h>
+ #include <linux/suspend.h>
+@@ -46,6 +47,13 @@ static void __used common(void)
+ #ifdef CONFIG_STACKPROTECTOR
+ 	OFFSET(TASK_stack_canary, task_struct, stack_canary);
+ #endif
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++	OFFSET(TASK_trc_reader_nesting, task_struct, trc_reader_nesting);
++	OFFSET(TASK_trc_reader_scp, task_struct, trc_reader_scp);
++	OFFSET(SRCU_srcu_ctrp, srcu_struct, srcu_ctrp);
++	OFFSET(SRCU_CTR_srcu_locks, srcu_ctr, srcu_locks);
++	OFFSET(SRCU_CTR_srcu_unlocks, srcu_ctr, srcu_unlocks);
++#endif
+ 
+ 	BLANK();
+ 	OFFSET(pbe_address, pbe, address);
+diff --git a/arch/x86/kernel/ftrace.c b/arch/x86/kernel/ftrace.c
+index 17d6edfcb7e0..9babaed483eb 100644
+--- a/arch/x86/kernel/ftrace.c
++++ b/arch/x86/kernel/ftrace.c
+@@ -275,6 +275,49 @@ static inline void tramp_free(void *tramp)
+ 	execmem_free(tramp);
+ }
+ 
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++extern void ftrace_static_tramp_end(void);
++extern char __return_thunk_start[], __return_thunk_end[];
++extern char __rethunk_safe_start[], __rethunk_safe_end[];
++
++/*
++ * The SRCU-fast increments in TRACE_RCU_READ_LOCK/UNLOCK (ftrace_64.S) are the
++ * this_cpu_inc() form.
++ */
++static_assert(!IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
++
++/*
++ * See rcu_tasks_trampoline_text().  Some core kernel text behaves like a
++ * trampoline for Tasks RCU purposes because a task executing there outside
++ * any Tasks Trace reader may still be about to enter a Tasks-RCU-protected
++ * trampoline whose address it already holds:
++ *
++ *  - the static ftrace_caller / ftrace_regs_caller / ftrace_stub_direct_tramp
++ *    stubs, which carry a direct-call target on the stack until their final
++ *    RET, and
++ *  - the return thunks that RET expands to under CONFIG_MITIGATION_RETHUNK,
++ *    which run after leaving the stubs above and before landing in that
++ *    target.
++ */
++bool arch_rcu_tasks_trampoline_text(unsigned long ip)
++{
++	if (ip >= (unsigned long)ftrace_caller &&
++	    ip <  (unsigned long)ftrace_static_tramp_end)
++		return true;
++#ifdef CONFIG_MITIGATION_RETPOLINE
++	if (ip >= (unsigned long)__return_thunk_start &&
++	    ip <  (unsigned long)__return_thunk_end)
++		return true;
++#endif
++#ifdef CONFIG_MITIGATION_SRSO
++	if (ip >= (unsigned long)__rethunk_safe_start &&
++	    ip <  (unsigned long)__rethunk_safe_end)
++		return true;
++#endif
++	return false;
++}
++#endif /* CONFIG_TASKS_RCU_TRAMPOLINE_READERS */
++
+ /* Defined as markers to the end of the ftrace default trampolines */
+ extern void ftrace_regs_caller_end(void);
+ extern void ftrace_caller_end(void);
+diff --git a/arch/x86/kernel/ftrace_64.S b/arch/x86/kernel/ftrace_64.S
+index 62c1c93aa1c6..5d8cb3861978 100644
+--- a/arch/x86/kernel/ftrace_64.S
++++ b/arch/x86/kernel/ftrace_64.S
+@@ -7,6 +7,7 @@
+ #include <linux/cfi_types.h>
+ #include <linux/linkage.h>
+ #include <asm/asm-offsets.h>
++#include <asm/percpu.h>
+ #include <asm/ptrace.h>
+ #include <asm/ftrace.h>
+ #include <asm/nospec-branch.h>
+@@ -145,6 +146,53 @@ SYM_FUNC_END(ftrace_stub_graph)
+ 
+ #ifdef CONFIG_DYNAMIC_FTRACE
+ 
++/*
++ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace(), see
++ * include/linux/rcupdate_trace.h and CONFIG_HAVE_RCU_TRAMPOLINE_READERS: the
++ * trampoline and the ftrace_ops it is about to load are kept alive by Tasks
++ * RCU only while we are inside this reader, so the lock must precede the
++ * function_trace_op load and the unlock must follow the call.  These live
++ * inside the region copied into dynamic trampolines; the %rip-relative
++ * references are fixed up by text_poke_apply_relocation() in
++ * create_trampoline().  Clobbers %rax, %rcx and flags.
++ */
++.macro TRACE_RCU_READ_LOCK
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++	movq	PER_CPU_VAR(current_task), %rcx
++	movl	TASK_trc_reader_nesting(%rcx), %eax
++	incl	TASK_trc_reader_nesting(%rcx)
++	testl	%eax, %eax
++	jnz	.Ltrl_nested_\@
++	movq	rcu_tasks_trace_srcu_struct+SRCU_srcu_ctrp(%rip), %rax
++	incq	%gs:SRCU_CTR_srcu_locks(%rax)
++	movq	%rax, TASK_trc_reader_scp(%rcx)
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++	lock addl $0, -4(%rsp)		/* smp_mb() */
++#endif
++.Ltrl_nested_\@:
++#endif
++.endm
++
++.macro TRACE_RCU_READ_UNLOCK
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++	movq	PER_CPU_VAR(current_task), %rcx
++	movl	TASK_trc_reader_nesting(%rcx), %eax
++	subl	$1, %eax
++	jnz	.Ltru_nested_\@
++	/* Outermost: pick up scp before an interrupt can see nesting == 0. */
++	movq	TASK_trc_reader_scp(%rcx), %rax
++	movl	$0, TASK_trc_reader_nesting(%rcx)
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++	lock addl $0, -4(%rsp)		/* smp_mb() */
++#endif
++	incq	%gs:SRCU_CTR_srcu_unlocks(%rax)
++	jmp	.Ltru_done_\@
++.Ltru_nested_\@:
++	movl	%eax, TASK_trc_reader_nesting(%rcx)
++.Ltru_done_\@:
++#endif
++.endm
++
+ SYM_FUNC_START(__fentry__)
+ 	ANNOTATE_NOENDBR
+ 	CALL_DEPTH_ACCOUNT
+@@ -163,6 +211,8 @@ SYM_FUNC_START(ftrace_caller)
+ 	leaq MCOUNT_REG_SIZE+8(%rsp), %rcx
+ 	movq %rcx, RSP(%rsp)
+ 
++	TRACE_RCU_READ_LOCK
++
+ SYM_INNER_LABEL(ftrace_caller_op_ptr, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	/* Load the ftrace_ops into the 3rd parameter */
+@@ -181,6 +231,8 @@ SYM_INNER_LABEL(ftrace_call, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	call ftrace_stub
+ 
++	TRACE_RCU_READ_UNLOCK
++
+ 	/* Handlers can change the RIP */
+ 	movq RIP(%rsp), %rax
+ 	movq %rax, MCOUNT_REG_SIZE(%rsp)
+@@ -209,6 +261,8 @@ SYM_FUNC_START(ftrace_regs_caller)
+ 
+ 	CALL_DEPTH_ACCOUNT
+ 
++	TRACE_RCU_READ_LOCK
++
+ SYM_INNER_LABEL(ftrace_regs_caller_op_ptr, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	/* Load the ftrace_ops into the 3rd parameter */
+@@ -246,6 +300,8 @@ SYM_INNER_LABEL(ftrace_regs_call, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	call ftrace_stub
+ 
++	TRACE_RCU_READ_UNLOCK
++
+ 	/* Copy flags back to SS, to restore them */
+ 	movq EFLAGS(%rsp), %rax
+ 	movq %rax, MCOUNT_REG_SIZE(%rsp)
+@@ -328,6 +384,19 @@ SYM_FUNC_START(ftrace_stub_direct_tramp)
+ 	RET
+ SYM_FUNC_END(ftrace_stub_direct_tramp)
+ 
++/*
++ * [ftrace_caller, ftrace_static_tramp_end) is treated as trampoline text by
++ * rcu_tasks_trampoline_text(): outside TRACE_RCU_READ_LOCK/UNLOCK the stubs
++ * may still hold a direct-call trampoline address (ORIG_RAX / the return
++ * address they RET to) that only Tasks RCU keeps alive.  With return thunks
++ * the RET itself runs elsewhere; arch_rcu_tasks_trampoline_text() covers
++ * those too.
++ */
++SYM_CODE_START_NOALIGN(ftrace_static_tramp_end)
++	UNWIND_HINT_UNDEFINED
++	ANNOTATE_NOENDBR
++SYM_CODE_END(ftrace_static_tramp_end)
++
+ #else /* ! CONFIG_DYNAMIC_FTRACE */
+ 
+ SYM_FUNC_START(__fentry__)
+diff --git a/arch/x86/kernel/vmlinux.lds.S b/arch/x86/kernel/vmlinux.lds.S
+index 2438b89a4620..e546283dc267 100644
+--- a/arch/x86/kernel/vmlinux.lds.S
++++ b/arch/x86/kernel/vmlinux.lds.S
+@@ -151,7 +151,9 @@ SECTIONS
+ 		 * definition.
+ 		 */
+ 		. = srso_alias_untrain_ret | (1 << 2) | (1 << 8) | (1 << 14) | (1 << 20);
++		__rethunk_safe_start = .;
+ 		*(.text..__x86.rethunk_safe)
++		__rethunk_safe_end = .;
+ #endif
+ 		ALIGN_ENTRY_TEXT_END
+ 
+@@ -162,7 +164,9 @@ SECTIONS
+ 		SOFTIRQENTRY_TEXT
+ #ifdef CONFIG_MITIGATION_RETPOLINE
+ 		*(.text..__x86.indirect_thunk)
++		__return_thunk_start = .;
+ 		*(.text..__x86.return_thunk)
++		__return_thunk_end = .;
+ #endif
+ 		STATIC_CALL_TEXT
+ 		*(.gnu.warning)
+diff --git a/include/linux/rcupdate_trace.h b/include/linux/rcupdate_trace.h
+index 273c59a03251..dcdb11643496 100644
+--- a/include/linux/rcupdate_trace.h
++++ b/include/linux/rcupdate_trace.h
+@@ -92,6 +92,12 @@ static inline void rcu_read_unlock_tasks_trace(struct srcu_ctr __percpu *scp)
+  * the all the other tasks exit their critical sections.
+  *
+  * For more details, please see the documentation for rcu_read_lock().
++ *
++ * CONFIG_HAVE_RCU_TRAMPOLINE_READERS architectures open-code this pair in
++ * their ftrace and BPF trampolines (arch/x86/kernel/ftrace_64.S,
++ * arch/x86/kernel/kprobes/opt.c, arch/x86/net/bpf_jit_comp.c,
++ * arch/arm64/kernel/entry-ftrace.S, arch/arm64/net/bpf_jit_comp.c,
++ * samples/ftrace/ftrace-direct.h); changes here need to be mirrored there.
+  */
+ static inline void rcu_read_lock_trace(void)
+ {
 
-The FSP receive path makes the same check, and so does Open RM's
-GspMsgQueueReceiveStatus() in 615.71.09.
-
-v4 keeps it and adds the missing doc comment on has_nvidia_vendor().
-
-
-thanks,
 -- 
-John Hubbard
+2.55.0
 
