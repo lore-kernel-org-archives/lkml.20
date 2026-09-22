@@ -1,64 +1,64 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBA751C05C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8DF47D46C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790110809; cv=none; b=GXVLbWX2fxLBXeKp0bkPRJ/QVl+VRAN380rBkZlUE/awEzq30VuxFSk33/aUxgNVE6CrHiWMXE+9peJN326+B/H2k8TbcGz2kR5egHB0ioPFU6qtJPwFRHX0k89bbDjFC2ufNQ/ON6cwWKY1RWgkv2mQSxWNOtyLcwGmuQGerE0=
+	t=1790110816; cv=none; b=tSdsfzpupjziqP75wg9yYtiPRry5h+mlQu7aOiYt8LTn06CbKhbt/RAaFcDk2/z2b6390Q0xa1weIR3+N7l6+tsYsHxI+2hU+2ZAperGy6phvnaDfFmcfaqo25uVl29U8WzrKYWT15MHO2Ys90RKGPLqD1YvynjJ1wP2p4TEj6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790110809; c=relaxed/simple;
-	bh=WeijqWAwv9BserVdyqI954+yAH2UJjKhpmnxyXRFO80=;
+	s=arc-20240116; t=1790110816; c=relaxed/simple;
+	bh=EfkQyGvJKcJIlERuYYl99LlLoocWM/vzIQceRWFC7Tc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Nod7xj2rJZPTo0jfbr42ZZBeRYHB/sgn3/e0TYIIP3cT1u6zjCdztpoRSpD8+YTeOzbPBXwnectLd/aEOoU+EFQhnxOIvyOfIxmGj0S0D5O9Ie8LVNe6h20xIWTVK8cJcDj3yueA9SfSqzwI5OOODaaAsX8VJW/DgPERi752q2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QdNdgzF9; arc=none smtp.client-ip=74.125.229.12
+	 MIME-Version; b=qVscR/JUxceaVEizAJvFSW310zgSg7GmW306eIE3prvOKOwmcL4FBA6qP2i47XhlnM4hdGNf7W0XTBpOJp6xrvbp24SCwy0KvttiP5woTwyJ275fa0f+wFeCdcQW6YCYG0572ZyodXKyT8fj2HP8S495Os5/jVfO8z4B8Q/3hhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nteFhT8i; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QdNdgzF9"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bf5a1c4d9so233972eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:59:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nteFhT8i"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-3396cec93b6so250139eec.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:00:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790110792; x=1790715592; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790110800; x=1790715600; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2xV0AvwkeiiBqPhm2MrCjRMYdzfQvhw3JDcu+V/HPB0=;
-        b=QdNdgzF98t8XC7LTxrhd3uv6zbOCWwhCiG/j89oW8JCR29HKOA876eTzgK1Y+0IFtM
-         lq0UIcMMTnQ3MgEd1QpfkqmvQZSH53590bLlk+jjvM/JtI1SQW/QN/ZaaU2R86TNgpPj
-         A/S6fK6g/1LTOcc/IiON6g8BAkGtOzQodSlggJZv2YAqXlxnkGjHOKEiAl5xqRiseCdD
-         vxgsTxHVp4OXS0NHAlfJPv8fUXeQn6/Lxlm6DUC1CuaZbMjUxb21gu5EQskwWeWlEJQL
-         BcxchcIzfenOCbmAkDtc9DWovNWYrLyeY5Fnmx5ay2zgDHuv1abigO/f79M8Ow/bh+wy
-         96iw==
+        bh=Td911GW/RuVeylqJZh+mg3PMQ4kx9/FZxzP7fXWcQL4=;
+        b=nteFhT8ikcT8uSOS6GhxMTKGk78Sm+wmngeuLT/gn2Qi3ZAOQXE5U4npEcmw/oRHk2
+         I2etmKeTLIZAlwav2Rc2QKnW5axSvVA90LyTuQBpwd1B2njIN3SnrliKTjXh2HkFmkSs
+         MWvK+gxVAX0Qb2HHD1v8m8wDg+xgCx/GI27kI1VKiaAsNJqtFRpNZXxoOXUdmU4s4uZ+
+         Nh4SZxk/Rh6fuDg5uU3tkA5G8DMIwwNH01i8fo+fRY/F5rseAYxp5D3nOPS+Me47GJHS
+         3ebOQzRuYKzYHnR/2Nx+LLlUKsThFci3VTowY3ys+ATRPIniA8cQDK1mpUwFs5/tbWHs
+         +ghA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790110792; x=1790715592;
+        d=1e100.net; s=20260707; t=1790110800; x=1790715600;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2xV0AvwkeiiBqPhm2MrCjRMYdzfQvhw3JDcu+V/HPB0=;
-        b=Rpsw2TaQS/o3/mLkGsO5IfU2ljRn5AwHIDKZ+BmtdsQ19Xf1FvCu7/PWR7ZjAFuLY7
-         GerZ7kZjUc5gr+61zt1c56AiTt74u7OUYOoMAjyX+TAjHqMuVFVvA8jzK9UOxE8AGsxi
-         vF2JtOOsfiArfXYXSIBinXNZU+9iS7HQn+V6uu1khx8nzkEBDYVjaVkmhx2+mVbC9N59
-         sLO1tja8vYUf3FZCmVrK+P4W7rJzE4SI1rm4geaEHZOnU8V1JkUi3cM5qbV+zCucIje6
-         RZ3+yoC/LIY+O7T6Nvlo6HfQki7LRdBwpxBRou/Bj4coAxZWsqdXhxiVu4XugHCauD74
-         9ibQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmMvNZR6sxyyexKNYzHThDuFytPQ8W3/cFyeTaFhzo/uhX1GQRKecGXSaB9tV0kpTyQ0L4+nu36uN5XVA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k//GvRMHFYf1WnKqXkT145uVBWiGuT9TLtCYFmMRsDAGKW7qAC
-	KWgrxjogy7LSGIt/Gy6AMDUyRTQBq3XsoCoiDRE3/TuF5cCkCPN9B+7S
-X-Gm-Gg: AYBFou2+2zzVaBicdtVOEN/wYlDvx2hnc2MIxWbuAEIwCulbgw2kDMvigXccOqH2X7Q
-	47yFDvVzBMuU9NSmk4+u5dUCMAp846Hhn0NHGRK4YtFoMh85W4Z2fDP0Gead+Cnpg6wkBvWx0Lh
-	1fqMDVHPrLADL3UvpTk8Sa1xNJmr6EbSTEPLGYLozemb6lv/+3Ap9XEuGGI/w2wPmv7P/joR9j9
-	eDlZvbuTxRUL64aC8a3Aw+TNG/efpA1H6CFTk2Uy+Lz8mLnKrj1zFx/DNzerdByGKnBd3PCNgsv
-	7olZCqCrrGzE1MlwaCmM1kdyAOG5/Z8Jiqvyf1COecAsXGRPPo9dVJSnw4LVDHtmPYvnkqgZkUS
-	xsxfmbsTCL1YNbvH0tqST5TSCdyzVi5FZc45AeKeQ3QaKM1E2KaIpLK2ElilszqVPT8RUI62eED
-	yY8oTfx/Bi6LxGBxYU2JyV5gLHS1a0a2WLbOC3SM+94KBLB7wMuyUh1Ye1xjmxZutfDYYh+OCSS
-	mlub8mGAcXWKJdVONQ4p8VNesAnfsvWceyJ0IRwsypqFL+e+yBBfSmhSt0NTSkBtI3G8vfoPzw=
-X-Received: by 2002:a05:7300:2414:b0:333:f186:8747 with SMTP id 5a478bee46e88-33e8d9cdb09mr440054eec.23.1790110792234;
-        Tue, 22 Sep 2026 13:59:52 -0700 (PDT)
+        bh=Td911GW/RuVeylqJZh+mg3PMQ4kx9/FZxzP7fXWcQL4=;
+        b=PmfXsUCwkqrV81hiGnUCNXHah091RZ0clrzezmrXjkMZs9XW9SY8oogmBj+h2+uGe6
+         odMtcifdZOwTqyp28RLtFcEm5ZMcGQRNJwzlufSK+1I5lPJZwmNHrcZyIvgLz2UyVzaV
+         ILfbTXWL7K3VI0Kp2ziVytn7qgux6x1uRhmF5e3tztFybL73DczmbZbdEXd4kiwvTXcS
+         pbmVzp+z0hJya/XFPc/HZPVMrq0lKCJ37isbimQefLhPYhYQ7eaN7XNrN/4/i0XSVcFQ
+         iYNj//hPEX3szCdqOTdbl5li8PTUCUIzSZyHLWQZHJx1lWFSkcfhGm6vHR7rkj29tJEd
+         fwwA==
+X-Forwarded-Encrypted: i=1; AKwUvByCyjx7prREMOvGFUB9MfmokLg+2hOuyigYSLv4O1LSiIUFV26B2GT/GfPFSMwmVGuFBjVweQj7yCq0hXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJSZy8dtXvy9aoFgxk2JDeoakcpqfDv6/WFbQlmmiNp18wYdpU
+	r8n5xRahYozID+0nqCNHQbPcgPQZVdcBYnd/78cxPLDsm+VXXAI/dPyF
+X-Gm-Gg: AYBFou35AVBW3D7izHM055pVjsO93wb11ozxmIs6apOiM0Py7JHozV6H+NFyWPEAe+j
+	wWhyrQ/VfdTmsbxPbi+V4TZW/k8aM80D2PqtREiOxCWrVFd2a75rWHJxGCBAZom/sem7ony16ou
+	wTKYiYz/t3FfUj6ZhiPBmRoMzlxXGow8yGMankWTpDltCZd5gONCSKNIyMdGJ6WxxuZ9levy6HX
+	hfuXOgFSphyW/w9vVIi8KU0T68R31DDakRhmNx66nOYLbcpJg94O/cxUVcK6jyfGx6Ad77MezkJ
+	uMb/6ViSll2WWBQcfUmhIBm1gtfiaXhol2OI/PocqVh90Fm+N3W2daaYyPIzkOaamMfX0e8YZqJ
+	bETsUPBh4HaxiSTe76C7+ojnxWF40Uk6H1jXmEunk7WXQHEfWTcHrq9X45Qv5OnpIjSIJJlHY26
+	ieI4OblG0K3hl3URCENTLsGr7/XfZLYFZRRnDwCKafiyVJWPhcCcA+xawBp1YKdYo9oBMikSIrE
+	Krw/OkobDPnKDJmd37Tn8fqHsGXjSkHHld0ev6nl/x+2jgouS6lzfuPVkk9A2PKVJP5cao7OG0=
+X-Received: by 2002:a05:7300:ce09:b0:33c:1dab:89ba with SMTP id 5a478bee46e88-33e8e0b95f7mr439345eec.36.1790110799660;
+        Tue, 22 Sep 2026 13:59:59 -0700 (PDT)
 Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:f16e:2102:25ad:9cdb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96d497e1sm760952eec.25.2026.09.22.13.59.47
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96d497e1sm760952eec.25.2026.09.22.13.59.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 13:59:51 -0700 (PDT)
+        Tue, 22 Sep 2026 13:59:59 -0700 (PDT)
 From: "Hemendra M. Naik" <hemendranaik@gmail.com>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
@@ -74,9 +74,9 @@ Cc: davem@davemloft.net,
 	vishy0777@gmail.com,
 	tahiliani@nitk.edu.in,
 	"Hemendra M. Naik" <hemendranaik@gmail.com>
-Subject: [PATCH net-next v8 1/3] net/sched: sch_fq_pie: add per-flow statistics via class ops
-Date: Wed, 23 Sep 2026 02:29:22 +0530
-Message-Id: <20260922205924.32173-2-hemendranaik@gmail.com>
+Subject: [PATCH net-next v8 2/3] selftests: tc-testing: add fq_pie per-flow class stats test
+Date: Wed, 23 Sep 2026 02:29:23 +0530
+Message-Id: <20260922205924.32173-3-hemendranaik@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260922205924.32173-1-hemendranaik@gmail.com>
 References: <20260922205924.32173-1-hemendranaik@gmail.com>
@@ -88,171 +88,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-FQ-PIE schedules independent PIE controllers per flow but exposes no
-per-flow AQM state. Without class-level statistics there is no way to
-observe the per-flow drop probability, queue delay, deficit or dequeue
-rate from userspace.
+Add tc-testing case 83c0: build a TBF + fq_pie hierarchy on $DUMMY, push
+traffic through it with ping, and verify that 'tc -s class show' reports
+an fq_pie class.
 
-Extend tc_fq_pie_xstats with a type discriminator and tc_fq_pie_cl_stats
-for per-flow metrics. The nine existing __u32 counters keep their
-offsets, type is appended at offset 36 and class_stats follows it,
-growing the structure from 36 to 64 bytes.
-
-Wire up fq_pie_class_ops with walk, dump, and dump_stats only so that
-'tc -s class show' reports per-flow state (prob, delay, deficit,
-avg_dq_rate, dq_rate_estimating). Filter attachment callbacks
-(.tcf_block, .bind_tcf, .unbind_tcf) are omitted on purpose.
-
-Derive delay with div_u64() from the full 64-bit nanosecond. 
-Widen avg_dq_rate to u64 before scaling it by PSCHED_TICKS_PER_SEC.
+The per-flow counters themselves (prob, delay, deficit) are printed with
+the companion iproute2 change, "tc: fq_pie: add support for printing
+per-flow PIE statistics"
 
 Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
 Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
 Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
 ---
- include/uapi/linux/pkt_sched.h | 16 +++++++
- net/sched/sch_fq_pie.c         | 86 +++++++++++++++++++++++++++++++++-
- 2 files changed, 101 insertions(+), 1 deletion(-)
+ .../tc-testing/tc-tests/qdiscs/fq_pie.json    | 27 +++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
-index 490efd288526..9c0c9787f0c3 100644
---- a/include/uapi/linux/pkt_sched.h
-+++ b/include/uapi/linux/pkt_sched.h
-@@ -953,6 +953,20 @@ enum {
- };
- #define TCA_FQ_PIE_MAX   (__TCA_FQ_PIE_MAX - 1)
- 
-+enum {
-+	TCA_FQ_PIE_XSTATS_QDISC,
-+	TCA_FQ_PIE_XSTATS_CLASS,
-+};
-+
-+struct tc_fq_pie_cl_stats {
-+	__u64 prob;			/* current probability */
-+	__u32 delay;			/* current delay in microseconds */
-+	__s32 deficit;			/* number of remaining byte credits */
-+	__u32 avg_dq_rate;		/* current average dq_rate in
-+					 * bytes/second
-+					 */
-+	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
-+};
- struct tc_fq_pie_xstats {
- 	__u32 packets_in;	/* total number of packets enqueued */
- 	__u32 dropped;		/* packets dropped due to fq_pie_action */
-@@ -963,6 +977,8 @@ struct tc_fq_pie_xstats {
- 	__u32 new_flows_len;	/* count of flows in new list */
- 	__u32 old_flows_len;	/* count of flows in old list */
- 	__u32 memory_usage;	/* total memory across all queues */
-+	__u32 type;
-+	struct tc_fq_pie_cl_stats class_stats;
- };
- 
- /* CBS */
-diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
-index 5982847df8f8..3a3ef83f328b 100644
---- a/net/sched/sch_fq_pie.c
-+++ b/net/sched/sch_fq_pie.c
-@@ -511,7 +511,9 @@ static int fq_pie_dump(struct Qdisc *sch, struct sk_buff *skb)
- static int fq_pie_dump_stats(struct Qdisc *sch, struct gnet_dump *d)
- {
- 	struct fq_pie_sched_data *q = qdisc_priv(sch);
--	struct tc_fq_pie_xstats st = { 0 };
-+	struct tc_fq_pie_xstats st = {
-+		.type	= TCA_FQ_PIE_XSTATS_QDISC,
-+	};
- 	struct list_head *pos;
- 
- 	sch_tree_lock(sch);
-@@ -563,7 +565,89 @@ static void fq_pie_destroy(struct Qdisc *sch)
- 	kvfree(q->flows);
- }
- 
-+static struct Qdisc *fq_pie_leaf(struct Qdisc *sch, unsigned long arg)
-+{
-+	return NULL;
-+}
-+
-+static unsigned long fq_pie_find(struct Qdisc *sch, u32 classid)
-+{
-+	return 0;
-+}
-+
-+static int fq_pie_dump_class(struct Qdisc *sch, unsigned long cl,
-+			     struct sk_buff *skb, struct tcmsg *tcm)
-+{
-+	tcm->tcm_handle |= TC_H_MIN(cl);
-+	return 0;
-+}
-+
-+static int fq_pie_dump_class_stats(struct Qdisc *sch, unsigned long cl,
-+				   struct gnet_dump *d)
-+{
-+	struct fq_pie_sched_data *q = qdisc_priv(sch);
-+	struct gnet_stats_queue qs = { 0 };
-+	struct tc_fq_pie_xstats xstats;
-+	u32 idx = cl - 1;
-+
-+	if (idx < q->flows_cnt) {
-+		const struct fq_pie_flow *flow = &q->flows[idx];
-+
-+		memset(&xstats, 0, sizeof(xstats));
-+		xstats.type = TCA_FQ_PIE_XSTATS_CLASS;
-+		xstats.class_stats.prob =
-+			READ_ONCE(flow->vars.prob) << BITS_PER_BYTE;
-+		xstats.class_stats.delay =
-+			div_u64(PSCHED_TICKS2NS(READ_ONCE(flow->vars.qdelay)),
-+				NSEC_PER_USEC);
-+		xstats.class_stats.deficit = READ_ONCE(flow->deficit);
-+		xstats.class_stats.dq_rate_estimating =
-+			READ_ONCE(q->p_params.dq_rate_estimator);
-+
-+		if (xstats.class_stats.dq_rate_estimating) {
-+			xstats.class_stats.avg_dq_rate =
-+				((u64)READ_ONCE(flow->vars.avg_dq_rate)
-+				* PSCHED_TICKS_PER_SEC) >> PIE_SCALE;
-+		}
-+
-+		qs.qlen    = READ_ONCE(flow->qlen);
-+		qs.backlog = READ_ONCE(flow->backlog);
-+	}
-+	if (gnet_stats_copy_queue(d, NULL, &qs, qs.qlen) < 0)
-+		return -1;
-+	if (idx < q->flows_cnt)
-+		return gnet_stats_copy_app(d, &xstats, sizeof(xstats));
-+	return 0;
-+}
-+
-+static void fq_pie_walk(struct Qdisc *sch, struct qdisc_walker *arg)
-+{
-+	struct fq_pie_sched_data *q = qdisc_priv(sch);
-+	unsigned int i;
-+
-+	if (arg->stop)
-+		return;
-+
-+	for (i = 0; i < q->flows_cnt; i++) {
-+		if (list_empty(&q->flows[i].flowchain)) {
-+			arg->count++;
-+			continue;
-+		}
-+		if (!tc_qdisc_stats_dump(sch, i + 1, arg))
-+			break;
-+	}
-+}
-+
-+static const struct Qdisc_class_ops fq_pie_class_ops = {
-+	.leaf		=	fq_pie_leaf,
-+	.find		=	fq_pie_find,
-+	.dump		=	fq_pie_dump_class,
-+	.dump_stats	=	fq_pie_dump_class_stats,
-+	.walk		=	fq_pie_walk,
-+};
-+
- static struct Qdisc_ops fq_pie_qdisc_ops __read_mostly = {
-+	.cl_ops		= &fq_pie_class_ops,
- 	.id		= "fq_pie",
- 	.priv_size	= sizeof(struct fq_pie_sched_data),
- 	.enqueue	= fq_pie_qdisc_enqueue,
+diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
+index 229fe1bf4a90..15b2667285eb 100644
+--- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
++++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
+@@ -40,5 +40,32 @@
+         "matchPattern": "qdisc fq_pie 1: root refcnt [0-9]+ limit 1p",
+         "matchCount": "1",
+         "teardown": ["$TC qdisc del dev $DEV1 handle 1: root"]
++    },
++    {
++        "id": "83c0",
++        "name": "FQ-PIE class stats accessible via tc class show",
++        "category": [
++            "qdisc",
++            "fq_pie"
++        ],
++        "plugins": {
++            "requires": "nsPlugin"
++        },
++        "setup": [
++            "$IP link set dev $DUMMY up || true",
++            "$IP addr add 10.10.11.10/24 dev $DUMMY || true",
++            "$TC qdisc add dev $DUMMY root handle 1: tbf rate 8bit burst 100b latency 100ms",
++            "$TC qdisc add dev $DUMMY parent 1:1 handle 2: fq_pie limit 100 flows 1",
++            "ping -c 50 -i 0.001 -W 0.01 -s 56 10.10.11.11 -I $DUMMY > /dev/null 2>&1 || true"
++        ],
++        "cmdUnderTest": "$TC -s class show dev $DUMMY",
++        "expExitCode": "0",
++        "verifyCmd": "$TC -s class show dev $DUMMY",
++        "matchPattern": "class fq_pie 2:[0-9]+ .*prob .*delay .*deficit",
++        "matchCount": "1",
++        "teardown": [
++            "$TC qdisc del dev $DUMMY handle 1: root",
++            "$IP addr del 10.10.11.10/24 dev $DUMMY || true"
++        ]
+     }
+ ]
 -- 
 2.34.1
 
