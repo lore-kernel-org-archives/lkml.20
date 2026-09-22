@@ -1,207 +1,535 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031553955DB;
-	Tue, 22 Sep 2026 14:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088544; cv=fail; b=t5Imav2UR0oT+Hj71D51e0m+n1xiqd+X3US3V+BO/7ZaD9i52nGBwFr4OtAay25gWBfT9TDWrZY0EFPKNqfUBpHDNyQXd6+aUFj3/iL9No6ACCthrGmcRe361z7byYso5IW23kYo/VRx1TgbaEdkcz2FCq9IVUjSdJhooiERvKw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088544; c=relaxed/simple;
-	bh=bDurHpf+w3uUVKmUXbJZsV+DIMq/AALn2YlWxjaLm9I=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dE6ogAavjJxSnTtX1wZvaGU0S/wGM3ttwl/rJgOZ6u6GtwQ+LhZ/eepNYHxBLDJ8l24SOJGTi0vkoFZ1idSDhUPkZcdnAA3vLSRQ6X22jC+VxWY6nxv0fJjCW7rLQnhRxSglAU4f1+LBpKUq4u8dBF6KjBu7iq+K67+pUGVVCD4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ftZanY7+; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85064F3EDC
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790088557; cv=none; b=OO/dXnlpzmoKHxkoFFI3i3owWb5ieDGkL4A6O4moB/qZCN+MHeTorVafe8cxlMbiTPZJe81/qnMhyvI3UvpkGcjuMP1ZKFzVNr8GnGLSF87klRnQKudI/tIPmDJ7QTsby2RoqBDoUIy+i0z/QSEV2u2KyxuxGgEBqRLbOBDo5gs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790088557; c=relaxed/simple;
+	bh=UxKZDEjByunVRhpBdiEHA4lVszn7c/xwz4sFrzirDbM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SxuzU4z7kFzwlLjIOB05RleHy6lLZoZYyyhUbxCNw+1VOsmH8ZpiTKeEiZmuZk3n03kFAkme5B2ZlP50P4mH7TXydbjdJKeIPd3l6k9dyUdrgrFbBEzXihAqa+iZ8cc1UdtVwa1khmTuNHZhaGevvUn5JzFUDtUXOJzOcNFT87E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WArv8ikU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JKO1A/e9; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ftZanY7+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790088543; x=1821624543;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=bDurHpf+w3uUVKmUXbJZsV+DIMq/AALn2YlWxjaLm9I=;
-  b=ftZanY7+BeDB3Yy+jDb9G7LcmFNki1IJsqEQ1m5HDZmPpBQiS23nJepb
-   knA0Nml9qcR+nH8pTg6P0ApqzaF4cjcqClspWYQ14wi5SzjoOhCVtAng9
-   rRy4RgWMTElQD1ALOH3RVBm5tKvTpzpEVrvQX73s7ULzAd8vFgwBt7k+Y
-   YgzFFWgw6Pd1mIGwnChZ3H0JTs0bwit93jZCenIHlTOfexIBkMN/u/7Oc
-   6K5Ns045FbYsnj6SeLGFg7/dUAyT0VCFMuKvLRZW8oz5mpPPT3rnZ5p+3
-   BPmyo5uHRoHm626y2Koq3cTcTKq8mI8LfTiaywodKd2DbIAHJS5oixqwE
-   g==;
-X-CSE-ConnectionGUID: HdPx8U/1SASDGBRMDcyJdg==
-X-CSE-MsgGUID: wYGJzuyGRSCKCLElHHHWxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="94526979"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="94526979"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 07:49:02 -0700
-X-CSE-ConnectionGUID: JlF5twluQ2isQOUtV32xXg==
-X-CSE-MsgGUID: Gzb1aWE4Sn6NmueYluiOgQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="281233925"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 07:49:02 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 07:49:01 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 07:49:01 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.64) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 07:49:01 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iMLjY+0K1kd9P5I8RZ7tqsYvgdsLve2XR1xKVkxZLXFiBKOa34eoTrPXM17M6E3sbKGw38LdOeg4yMVOomj9Lu3esztfe5R1NaMXe5YygAf5Kt0PQF1tq3B1HbXzs3CfHlgC8URIOZ66Y6M1rRK1NdHK0hCffl7VrwzKnDg+s44bmFNTtkm77p4GBlqsEos61qOBKWlRkJP3IoLQHkk56M1AmChrKmsEJuZT+d/fLhY4UBXIQhonCT6SA4umvTeVOW8z9hdBhVa3cFMMYZqwRW0edT/KSJhCVnTcYQfVeYXlt4YT+tpqT2CLZRLTs5iI1tAfx9OfRPGIiGLQAU56lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bDurHpf+w3uUVKmUXbJZsV+DIMq/AALn2YlWxjaLm9I=;
- b=ThIHDZ1Jcz3opHfiZN6Dd95zwSbV3oSnYxykQlVCyWlGitaqT5KPemagoomY6cRH6LG0DjsC7ATQlizNqCKaxxu+la2IJBhsfuKonx+8K/Yh9rBg8JZAiigJjLwzR8FakUgDTIsPAhXxYsaxTtfJ1xcIks2v291rr3IKUt2vF4QPZp2qe92eA41Z/wTQkAYwsLrsyKk1dJk/uhok6KVajck6prydb+8llOAvRc2+Iu9yOM7qEfVqL4t1Qx81i8fh9qXRFfeKEkcRFEsRKjkNHWGDjhFaVCfmfgIsnluksyRBrW1VkyVrnE/Pc1emsbREiTTneAXbzcIW5hdv6xZegA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by SA1PR11MB9849.namprd11.prod.outlook.com (2603:10b6:806:4d7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 14:48:58 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
- 14:48:58 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>, "Hunter, Adrian"
-	<adrian.hunter@intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Xu, Yilun"
-	<yilun.xu@intel.com>, "tony.lindgren@linux.intel.com"
-	<tony.lindgren@linux.intel.com>, "artem.bityutskiy@linux.intel.com"
-	<artem.bityutskiy@linux.intel.com>, "nik.borisov@suse.com"
-	<nik.borisov@suse.com>, "Mehta, Sohil" <sohil.mehta@intel.com>, "Duan,
- Zhenzhong" <zhenzhong.duan@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
-	"Fang, Peter" <peter.fang@intel.com>, "Maloor, Kishen"
-	<kishen.maloor@intel.com>, "x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v2 2/5] x86/virt/tdx: Configure add-on features on TDX
- module init
-Thread-Topic: [PATCH v2 2/5] x86/virt/tdx: Configure add-on features on TDX
- module init
-Thread-Index: AQHdRPzQX5taAxNGkkCppHYESMqxcrbQHrAAgAjT8wCAAcZegA==
-Date: Tue, 22 Sep 2026 14:48:58 +0000
-Message-ID: <9cbc8edd0a2f21e69521a7f2dd9f1a1114f2362d.camel@intel.com>
-References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
-	 <20260915102658.713079-3-yilun.xu@linux.intel.com>
-	 <2f6ac9afef52386fc491145222ea46e54c24a73f.camel@intel.com>
-	 <arEYMCfdvmiqE4aR@yilunxu-OptiPlex-7050>
-In-Reply-To: <arEYMCfdvmiqE4aR@yilunxu-OptiPlex-7050>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|SA1PR11MB9849:EE_
-x-ms-office365-filtering-correlation-id: 1391ee39-a13e-4ea8-3659-08df18b8a22c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|1800799024|23010399003|366016|376014|10067099003|56012099006|18002099003|22082099003|11063799006|4143699003|38070700021;
-x-microsoft-antispam-message-info: ZUm0zAz8Q4EyvVB2mCWgcNn1icK1IvV6tSarAVoc6ROe4arPkMG0RiGuyhQ8/EOt4V5pvXNBtW8jcXJTIy9LdmTUCz/gUI4PZVUlczB3u7v6YZIFFS39bLjbs54yVbljzEzyFzMneeODwCDQsjkxUYSj6vxiz26LsDbPA4fm7aCH32rU+v8HUd/b+/R1e/iBMU00+H7gKpnl3s3DdqWSHChj7Gj0Cw8zaFNzhoz9UM0rXxnTIoQFjRjpeww4LyebzENTrtcpebguwmNatlg6PZEyTQA745U8v2WPc5cHU/5zWxZaCVXlqvdnTz93kXUHeN1jL9Dt3ruK43q2+ZWieTjqKGzlhVjM7WZDoi2VzEGETuYcMd8L11GOU0hzSrRho8amOu4b7whyiNlzu40Ts113Y3QvunftGf8mjZfAM60p59Vs4+bzQ8UuM9r92aB2lYgdAFnLTrg1FS58j0+9IeWEYfuQM1RPtqSfvLPzc6+DZ9Bkto4Pc9GSylwg+PAOLJk96YULMZyQWS6PCNBeQWtzIUKnUbh4MTYGPV25jrPsMD8PPu87DSt88jDIXzDLbWJXkeDMq13eFamAQ+0bYDMZDLi7KoQgVzjuBm2dR3sh3H6T5QU5bp1q7/l9Bwj5j/4qnR1eX8gF+X2ykKt326+IUm3J53bj9E41OJ6WWge1YBfIaPv4Yk2a6+7WY/LK26jZiTLETpMvYhVlN9VCJDx9Q7cXSYVJxXSs3v2nGCw=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006)(4143699003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SFJ3WnpJcDlobGNQKzNubDBTSWcwVCt2OFpkMTNmVE1INDllT1YxY3VReHl1?=
- =?utf-8?B?T0JYR1hYalZWc1Z2eXBhbVRCU1U3Vm9TejRNT3lQZVZyM0NRNGhFblE4Yy9I?=
- =?utf-8?B?MCt3QU0wUE5mMk5JS3EzdHdHOEdpSUVyZ21zYUVzeTRlaWJiR2h4dUc5M3du?=
- =?utf-8?B?MXJVK2lNdW5mQzBJTC9VYm5aWXQwdDE5eXpjb0NpQ0tRdlViU2M1ZWtuZVQr?=
- =?utf-8?B?Y0Z3aGRHWDZzU1lyUFh1WTFZeXVGdTEzbkNNWXJMcGdzcjVkdE84dUJxT0xl?=
- =?utf-8?B?TWpibjgxN3NxZDh0RGdMc0tyeFMxK1pPa1ZpdHd5TThWUktsVmQzZ1NqVUJO?=
- =?utf-8?B?cHZRczNhVjhGeDl4Tmw1UWxac0s0N0hYQnJxWDVYNUU2TzNpbFZJYkhUa0dI?=
- =?utf-8?B?V1NJSTR1SngrSDdPQzBabEFESk1sMVNCQzhmd2k5RkZkSHpNRTFNSEIrcUZp?=
- =?utf-8?B?Zjk5VXZIOS9yUncxOENxZ0lTbTBUTDBaaUpiako5QlpHTUF6YlgwMDBpKy91?=
- =?utf-8?B?ZzhrRm93WmxBWCtCREpLUllJazdyMnIycS8wSWc4ckdkUGZuME5uTjlJMkdy?=
- =?utf-8?B?Q3E0RjZLTkV2S3QxSERqTlpMb1p5bWlrZGtOSG5hdHRyd1Z5WjlKWmhNVEFj?=
- =?utf-8?B?MzNCRWtmQTVkaUlndUR3b1hkWEVvM0RWL1NVV0h1WmluM09Pei9FMWFnd0M0?=
- =?utf-8?B?NGZybkRRWW43VlI0VmdJaFhLZExiOVZpL2IvblpxOVRJS2o0TVlUdXV3VDBP?=
- =?utf-8?B?SlE1VFJRdlpZdjRWWCs5NkRZbE5SaFNscXJGVVJwTVRGWVNNaDFhaUpMNktB?=
- =?utf-8?B?dDRwTElxc3FvejViVkw2c01PenJ6STRnZVl2VGdFNFEwK295VGd5RXc4Y3Jn?=
- =?utf-8?B?NGtlZnpKNUtrcEM4aSs1TktFNHMxbzhFN3JuRU1sWmU4WEtiSkdTa2FXZHVR?=
- =?utf-8?B?aVgwSldOejNTMjBWMVBlTVM1blJxMTRUNzAyUWM4NE5QdXpYckJhcGJJMHZp?=
- =?utf-8?B?M0gwa3JSelFxZnFvb3E3ZTFwM3g5cXpiMUdFV0JJZ2E0UXZCTVBJS3pxckhC?=
- =?utf-8?B?dDdEMnZVNUFhVFZGcm4zZGZMTDdSMjEwamVBRzVJY2FRQ1dsa1pSYUhLMG1r?=
- =?utf-8?B?ZWk5N2h0QlBSZkpFcnhWRTBheHBRUFFvODFDMFB4OWpqVjRzbHFFSGhaZW5G?=
- =?utf-8?B?MlJOdFdXelEzVVVtOVJTN2RmMmxvYWpnYjFSclhwQ0RVUnZhZjhpMEVZSjRh?=
- =?utf-8?B?UENYT0crZ0dXYkxmVUxjL1lvSGprUmtnWURGVkI0TTkvYUxSSWNNUmw2WVZY?=
- =?utf-8?B?cFg3d3dEWnVxbWdMUkVMVmtZNUZRcVV2M083eVZtTnROL1hJSVo5QkYyMlJF?=
- =?utf-8?B?WFNzekVVK2pNZnA0MThGTEJ1MnBndlAzbVdRd1I5TkdWbUJESVVNNThPUVNh?=
- =?utf-8?B?RFU5ZTVuS1AwVlUvTmtyZlNhY1podGVkalFTVHRuTmhGTlBCb0xjQ29NaGpN?=
- =?utf-8?B?L29EU1ZycEkyVElPd2U1eUF6NUY3MlgwcVF0WE90a0pDZ3JjR3FhNDdVVHJo?=
- =?utf-8?B?N0ZWT0UrQWt4eTR5TVRQOGpXWDNVM0pmemtuL1dZdEhLSXExN2t1Nzd2REwy?=
- =?utf-8?B?WmZqMHJ2WkRVYTMwcGc0MnRnaVhvMzYxdi9jWEdIdmwza0xjMXJEWVh5NGo3?=
- =?utf-8?B?QjFOYUR1dzFPMWJYWEZvVnpUMytaSnNSM2N4S2F3QlNEZTArcE1IZmRVajdj?=
- =?utf-8?B?VXBhenI1SnB1YVNqck0xMTFDTTRJNmtUejUwYnE1WHBkdEdDMUVPaEdZT084?=
- =?utf-8?B?dUxVY3lVRGk2VENibHdXNDhqUXdVYk9QMzQyelNmVmNDNUZTcUNOSmd5Z29E?=
- =?utf-8?B?NlFjaGN4UnpYa3pjdHFOb1J4ekJjNERySjF0QmpKbjZIVVQzS2wvVGY5cGR6?=
- =?utf-8?B?V3VDUnlpOS9pamFsa3prZjdOOStwanRqTUFEdWdyZFdSQVh4OXFRWVM2b3NU?=
- =?utf-8?B?ZXJMcmZNa2RsZlpFajRmQjdyK2xuWWg2SHRNK1JOcGZhUmlGUytTMFZtSHJ5?=
- =?utf-8?B?RHk4aFR2Q1AwdmpGUGpoKzJiTk9JZkIyQ2dFZmwwalpNbC9rd1M0V3dLN2lT?=
- =?utf-8?B?azNLbGFveVM2Snpqc3c1Ulk4YUliUHNWMmJFZW42NmxvMGtVMFArZlB2MnJJ?=
- =?utf-8?B?eHdTN1hMdnkrNFR3R3N4d0Q1TU83dGwxMW1MNnFrY1BaVU9DSjhhMkhYdFRI?=
- =?utf-8?B?WEE2dkE5eFNvUHlHOWlLWGpmeTQ1STNiY2FSV0QyZWdOclJKMTA0WWpOTjNJ?=
- =?utf-8?B?aHRsb3FXTEFYRmRMWXVtSzZWTlN3V1FoTWRraEpkcmsxVzhvSEFKSVlVSGdI?=
- =?utf-8?Q?a8iVHdWuTD1ZNAO8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5E4297947AD7504E9BB04CF765D5147F@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WArv8ikU";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JKO1A/e9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790088553;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iw4CTk0iW47NSV3WHeuH9qz99UVvDdoWrM85ghkzkys=;
+	b=WArv8ikUP74b95jn/ruw0gcGb8B/V8BfCtkBpHrXib7TSiZphNe0r+mmeQsaaAi/zV5C3T
+	szCe4E1dd8tEoa3gBpdUyuGm0buaozD6ssi6PWHwuXwnmvgprElr6J6SvtpoEl/VS7yf6R
+	G+awn58KQvtZzTBqVdmcoBK6VS+cU0Q=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-531-BVIkWDo9PleWRo84bUtRJA-1; Tue, 22 Sep 2026 10:49:12 -0400
+X-MC-Unique: BVIkWDo9PleWRo84bUtRJA-1
+X-Mimecast-MFC-AGG-ID: BVIkWDo9PleWRo84bUtRJA_1790088551
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-487038a4a88so11194f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:49:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790088551; x=1790693351; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iw4CTk0iW47NSV3WHeuH9qz99UVvDdoWrM85ghkzkys=;
+        b=JKO1A/e9fK1JQnLG7sdlf09cR5Q79Ah2c+qqA0zY/K3F8GxIIclYumLvreUlciiwcT
+         ma8TNPKh5+zHEqylgjG/bOwQaAxZ3gPKlg5BcmI+DK6KxWvJG0KpwixA3XdcZ+mCedJw
+         orZxt8UtOmHO+IqI17gEHFnho2yUuX508PXgI6jv62RM2PJXhNGavy25Y38c7lli81gg
+         twG1VAGICwKFVchn7ofPNpPUciNYT6P+D5KwPzZDiFeUKa4Z81kYRqKfmA1qB0gNp5yu
+         BbF58hDKJNMEgscAzgHIwsUfeOMM4psioOJ1iXK/hPR6JDwtxjq8WOKsHkoW011jEpAr
+         XicQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790088551; x=1790693351;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iw4CTk0iW47NSV3WHeuH9qz99UVvDdoWrM85ghkzkys=;
+        b=s9VuFM3VuX5TgI7e05xB0ZN2oAfkhrlAFSxhJfGNRG1d6OlnNUwexwllXwdRSVyP5a
+         kcMXvdWrjwyti1GOlWe3ItGk3RYn1vhTmwbcq0WThCQI6v+K4n/TeUlKg559oHsYnYXU
+         PeIkk/dvOa6n9bYLos2iSVrC9adgf53Os9NYT9sTWH2bfzwu9DHFRFfsU515wOjc6lRD
+         iREtI41ITDgWbwDcedyQwKrgkDjpVe44xfB3/15jNJQbSvdnhQt2/txyCiqjLU+u+N7X
+         PoV5AnP/XLmPVTN6Zkb7WoXHu3n24UA1VrSRwsUpF7xb/PWg4N/sfel6Q4/0/3aqbjvN
+         IZ3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzTIGjc3wmYazAS738OnaQMPGH76l9J2ciw671/9YrtpE2LHOlLDHUnlw4+z0JCIyviWa9loQsEFBWFr5o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lq3U0+f1Gtt9bXKJoyhYv7MHu7OFWqZn+brlZT2TOnaGniy7v5
+	ehRVO2OqHpndT6hFAhJsUtxO7xZbedU8k6v0lEGeC59obs7zr5oxQHfhClN8GLgq/bh7EQG25hH
+	yFrT60QuIK+3ahsWzz5ufVlSD9/+mjk8MWquml61JozgSh1nRLiq1TjpzR0i+jaugNA==
+X-Gm-Gg: AYBFou0pVQuEo0rnMB1G3rfROwTYepTLewXR6ALH2qp1houL3VBF6X9Wd7LNiztSLI+
+	9S6+O3fXfGyNMX8Mw6RY5d/pB8o2DpkuiTC9b7o8dyXcXi/lEjmyMK4ek/Ywu0K8ZQsEC3l6cpP
+	g5PwGw4LyLI8OYqyYpfWla2q9YI4/rk6iihGXDrb6KCIRQjKrDAwnM/mZVft+4N02uIm/s08Vvr
+	NmGKkJVNsjc9GR1SS4nRqEXOau7liIPsMBW1zMCPASPii720KErWVHY9zQUfvV174jhHl1BCvfs
+	k51N7ACfM16Kki64Mu2tECaQpwQgys0tllohzEzv0CVX1xw8RmGB3A93ec1dln1bcK6Y7sJ1HmI
+	ZbdtA1ZD49hoomwfYpbCm2jz0mGqCmx0750LvCphGW3bxhiIZ2J8=
+X-Received: by 2002:a05:6000:2001:b0:487:725:8210 with SMTP id ffacd0b85a97d-4871e2273eamr23277269f8f.21.1790088550826;
+        Tue, 22 Sep 2026 07:49:10 -0700 (PDT)
+X-Received: by 2002:a05:6000:2001:b0:487:725:8210 with SMTP id ffacd0b85a97d-4871e2273eamr23277227f8f.21.1790088550277;
+        Tue, 22 Sep 2026 07:49:10 -0700 (PDT)
+Received: from sgarzare-redhat (host-82-53-134-131.retail.telecomitalia.it. [82.53.134.131])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862731a53sm5611371f8f.4.2026.09.22.07.49.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 07:49:09 -0700 (PDT)
+Date: Tue, 22 Sep 2026 16:49:05 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 2/2] vsock/test: cover receive queue hints
+Message-ID: <arKSUIi7iGJ57rdM@sgarzare-redhat>
+References: <20260920194710.1114748-1-devnexen@gmail.com>
+ <20260920194710.1114748-3-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: S7XbUj9Q6Da+4X5T1lfUpJAudXU/dgOlp8AVRZPoKz8d1auKJp60wuinc++U1xYH24VtEeLE5nhhR95iNWydNwsnPGYPHfR+d4/ARfR3k8paHBfMoYkfk5U3N4aj+YCxfVPZSGVmnNXQTASiokS1EhLnupqeys+X1yVk4l1wn7VAG8i8t8YvvOeECgHnc+fXGevoO7d82pkgT5Z8yvRSSurKNyAacjDzVmaAikKkXVhVpACXYlPUTZNHT3PUpl0J3T3/IFE8xmuz8d+KB/rZBWcfhVB5IMrOC3lanEALZqZKfEEXKBiwss6xC4oxF/edpiYwwY1bRqN634zJA/yMdA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1391ee39-a13e-4ea8-3659-08df18b8a22c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 14:48:58.2946
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nYIRFwrGq+1flFunm9vxcomQEr7d0tvrYMISUMPuvlp+ZDuXzlCF3R7zZ7PZ+OXO0BjzaVfIjyRXw5xfEayNRcgO5vq1/+Iz1gRYf90WWxw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB9849
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260920194710.1114748-3-devnexen@gmail.com>
 
-T24gTW9uLCAyMDI2LTA5LTIxIGF0IDE5OjQyICswODAwLCBYdSBZaWx1biB3cm90ZToNCj4gPiBJ
-dCBzZWVtcyBpbmNvbnNpc3RlbnQgdGhhdCBnbG9iYWxfa2V5aWQgaXMgcGFzc2VkIGluIGV2ZW4g
-dGhvdWdoIGl0IGlzDQo+ID4gYmFzaWNhbGx5IGdsb2JhbCBzdGF0ZSwgd2hpbGUgYWRkb25fZmVh
-dHVyZXMwIGlzIHJldHJpZXZlZCBmcm9tIHRoZSBnbG9iYWwNCj4gPiBzdGF0ZS4gUGFzc2luZyB0
-aGUgcmVzdWx0IG9mIGdldF90ZHhfYWRkb25fZmVhdHVyZXMwKCkgaW4gZnJvbSB0aGUgY2FsbGVy
-DQo+ID4gZG9lc24ndCBtYWtlIGEgdG9uIG9mIHNlbnNlLiBBbmQgd2UgYWxyZWFkeSByZWZlcmVu
-Y2UgdGR4X2dsb2JhbF9rZXlpZA0KPiA+IGdsb2JhbGx5IGZyb20gYW5vdGhlciBzZWFtY2FsbCB3
-cmFwcGVyLiBTbyBJJ2QgdGhpbmsgZHJvcHBpbmcgdGhlIGFyZyB3aGVuDQo+ID4geW91IGNyZWF0
-ZSB0aGUgd3JhcHBlciB3b3VsZCBiZSBiZXN0IGluIHRoZSBlbmQuDQo+ID4gDQo+ID4gVGhlIHNt
-YWxsZXN0IGNoYW5nZSB0byBzdGF5IGNvbnNpc3RlbnQgd291bGQgYmUgZ28gYWRkIGFuIGFkZG9u
-X2ZlYXR1cmVzMA0KPiA+IGFyZyB0byB0ZHhfc3lzX2NvbmZpZygpLCBidXQgaXQncyBoYXJkIHRv
-IGp1c3RpZnkgYXMgZ29vZCBjb2RlLiBJJ2QgbWF5YmUgZ28NCj4gPiB3aXRoIHRoZSBnbG9iYWxf
-a2V5aWQgY2hhbmdlIGFuZCBpdCBwcm9iYWJseSBpcyBhIHNlcGFyYXRlIHBhdGNoLCBidXQgd2Ug
-YXJlDQo+ID4gYnJ1c2hpbmcgdXAgYWdhaW5zdCBtaXhpbmcgY2xlYW51cCBhbmQgZmVhdHVyZSBl
-bmFibGluZy4uLiB0aG91Z2h0cz8NCj4gDQo+IEknbSBub3Qgc3VyZS4gTXkgdGhvdWdodCB3b3Vs
-ZCBiZSByZW1vdmluZyAidTY0IGdsb2JhbF9rZXlpZCIgYXJndW1lbnQNCj4gZm9yIHRoZSBuZXcg
-YWRkZWQgdGR4X3N5c19jb25maWcoKSwgdG8gbWFrZSB0aGlzIHBhdGNoIHJlYXNvbmFibGUuDQoN
-Ck9rLg0KDQo+IA0KPiBBbmQgdGhlIGNsZWFuaW5nIHVwIG9mIGl0cyBjYWxsZXIgLSBjb25maWdf
-dGR4X21vZHVsZSgpIC0gY291bGQgYmUgaW4gYQ0KPiBzZXBhcmF0ZSBjbGVhbnVwIHBhdGNoIG91
-dCBvZiB0aGlzIHNlcmllcywgbWFrZSBzZW5zZT8NCg0KSG1tLCBJJ20gbm90IHN1cmUgYWJvdXQg
-dGhhdC4gSSdkIHRoaW5rIHlvdSB3b3VsZCBuZWVkIG9uZSBwYXRjaCB0byByZW1vdmUNCmdsb2Jh
-bF9rZXlpZCBhcmcgYW5kIHVzZSB0aGUgZ2xvYmFsIHJlZmVyZW5jZS4gVGhhdCBzdGFuZHMgb24g
-aXRzIG93bi4NCg0KQW5vdGhlciBwYXRjaCB0byBleHRyYWN0IHRoZSBoZWxwZXIuIEJUVywgc2lu
-Y2UgdGhlIGdvYWwgb2YgdGhpcyBzZXJpZXMgaXMgdG8NCmdldCBhY2tlZCwgSSdkIHRoaW5rIHRo
-ZSBjbGVhbnVwIHBhdGNoZXMgY291bGQgc3RpbGwgZ28gYWhlYWQuDQoNCj4gDQo+IG1ha2UgVz0x
-IGRvZXNuJ3QgY29tcGxhaW4sIGJ1dCBtYXliZSBzaGFzaGlrbyB3aWxsLg0KDQoNCg==
+On Sun, Sep 20, 2026 at 08:47:10PM +0100, David Carlier wrote:
+>Add io_uring receive tests checking IORING_CQE_F_SOCK_NONEMPTY across a
+>partial receive, draining while the peer stays connected, EOF, a
+>nonblocking receive on an empty queue, a zero-length request, and a
+>multishot receive with provided buffers.
+>
+>Signed-off-by: David Carlier <devnexen@gmail.com>
+>---
+> tools/testing/vsock/vsock_uring_test.c | 367 +++++++++++++++++++++++++
+> 1 file changed, 367 insertions(+)
+>
+>diff --git a/tools/testing/vsock/vsock_uring_test.c b/tools/testing/vsock/vsock_uring_test.c
+>index 5c3078969659..318e17bd28bc 100644
+>--- a/tools/testing/vsock/vsock_uring_test.c
+>+++ b/tools/testing/vsock/vsock_uring_test.c
+>@@ -13,7 +13,10 @@
+> #include <liburing.h>
+> #include <unistd.h>
+> #include <sys/mman.h>
+>+#include <sys/ioctl.h>
+> #include <linux/kernel.h>
+>+#include <linux/sockios.h>
+>+#include <errno.h>
+> #include <error.h>
+>
+> #include "util.h"
+>@@ -28,6 +31,10 @@
+>
+> #define VSOCK_TEST_DATA_MAX_IOV 3
+>
+>+#define HINT_CHUNK_SIZE		4096
+>+#define HINT_BUF_GROUP		1
+>+#define HINT_BUF_ENTRIES	4
+>+
+> struct vsock_io_uring_test {
+> 	/* Number of valid elements in 'vecs'. */
+> 	int vecs_cnt;
+>@@ -211,6 +218,341 @@ void test_stream_uring_msg_zc_client(const struct test_opts *opts)
+> 		vsock_io_uring_client(opts, &test_data_array[i], true);
+> }
+>
+>+struct uring_inq_ctx {
+>+	struct io_uring ring;
+>+	int fd;
+>+};
+>+
+>+static void inq_server_init(struct uring_inq_ctx *ctx,
+>+			    const struct test_opts *opts)
+>+{
+>+	ctx->fd = vsock_stream_accept(VMADDR_CID_ANY, opts->peer_port, NULL);
+>+	if (ctx->fd < 0) {
+>+		perror("accept");
+>+		exit(EXIT_FAILURE);
+>+	}
+>+
+>+	if (io_uring_queue_init(RING_ENTRIES_NUM, &ctx->ring, 0))
+>+		error(1, errno, "io_uring_queue_init");
+>+}
+>+
+>+static void inq_server_exit(struct uring_inq_ctx *ctx)
+>+{
+>+	io_uring_queue_exit(&ctx->ring);
+>+	close(ctx->fd);
+>+}
+>+
+>+/* Submit a single receive and report both its result and its CQE flags. */
+>+static int inq_recv(struct uring_inq_ctx *ctx, void *buf, size_t len,
+>+		    int flags, unsigned int *cflags)
+>+{
+>+	struct io_uring_sqe *sqe;
+>+	struct io_uring_cqe *cqe;
+>+	int res;
+>+
+>+	sqe = io_uring_get_sqe(&ctx->ring);
+>+	io_uring_prep_recv(sqe, ctx->fd, buf, len, flags);
+>+
+>+	if (io_uring_submit(&ctx->ring) != 1)
+>+		error(1, errno, "io_uring_submit");
+>+
+>+	if (io_uring_wait_cqe(&ctx->ring, &cqe))
+>+		error(1, errno, "io_uring_wait_cqe");
+>+
+>+	res = cqe->res;
+>+	*cflags = cqe->flags;
+>+	io_uring_cqe_seen(&ctx->ring, cqe);
+>+
+>+	return res;
+>+}
+>+
+>+static void expect_res(int res, int expected, const char *what)
+
+Maybe this can go in util.c/h so we can reuse in the future.
+
+>+{
+>+	if (res != expected) {
+>+		fprintf(stderr, "%s: expected %d, got %d\n", what, expected,
+>+			res);
+>+		exit(EXIT_FAILURE);
+>+	}
+>+}
+>+
+>+static void expect_nonempty(unsigned int cflags, bool expected,
+
+nit: can you add uring or something like that in the function name since 
+it seem io_uring related.
+
+>+			    const char *what)
+>+{
+>+	bool nonempty = !!(cflags & IORING_CQE_F_SOCK_NONEMPTY);
+>+
+>+	if (nonempty != expected) {
+>+		fprintf(stderr, "%s: expected SOCK_NONEMPTY %d, got %d\n",
+>+			what, expected, nonempty);
+>+		exit(EXIT_FAILURE);
+>+	}
+>+}
+>+
+>+/* Wait until the whole payload is queued, so the hint is deterministic. */
+>+static void inq_wait_queued(int fd, int len)
+>+{
+>+	if (!vsock_ioctl_int(fd, SIOCINQ, len)) {
+>+		fprintf(stderr, "SIOCINQ not supported\n");
+>+		exit(EXIT_FAILURE);
+
+Should we avoid to fail if it isn't supported and just skip the test?
+
+>+	}
+>+}
+>+
+>+static void inq_send_chunks(const struct test_opts *opts, int chunks)
+>+{
+>+	char buf[HINT_CHUNK_SIZE];
+>+	int fd, i;
+>+
+>+	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
+>+	if (fd < 0) {
+>+		perror("connect");
+>+		exit(EXIT_FAILURE);
+>+	}
+>+
+>+	memset(buf, 0xa5, sizeof(buf));
+>+	for (i = 0; i < chunks; i++)
+>+		send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
+>+
+>+	control_writeln("SENT");
+>+	control_expectln("DONE");
+>+	close(fd);
+>+}
+>+
+>+static void test_stream_uring_inq_client(const struct test_opts *opts)
+>+{
+>+	inq_send_chunks(opts, 2);
+>+}
+>+
+>+static void test_stream_uring_inq_server(const struct test_opts *opts)
+>+{
+>+	char buf[HINT_CHUNK_SIZE];
+>+	struct uring_inq_ctx ctx;
+>+	unsigned int cflags;
+>+	int res;
+>+
+>+	inq_server_init(&ctx, opts);
+>+
+>+	control_expectln("SENT");
+>+	inq_wait_queued(ctx.fd, 2 * HINT_CHUNK_SIZE);
+>+
+>+	/* Data remains after this receive, so the flag must be set. */
+>+	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
+>+	expect_res(res, HINT_CHUNK_SIZE, "partial receive");
+>+	expect_nonempty(cflags, true, "partial receive");
+>+
+>+	/* This receive drains the queue while the peer stays connected. */
+>+	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
+>+	expect_res(res, HINT_CHUNK_SIZE, "draining receive");
+>+	expect_nonempty(cflags, false, "draining receive");
+>+
+>+	control_writeln("DONE");
+>+	inq_server_exit(&ctx);
+>+}
+>+
+>+static void test_stream_uring_inq_eof_client(const struct test_opts *opts)
+>+{
+>+	char buf[HINT_CHUNK_SIZE];
+>+	int fd;
+>+
+>+	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
+>+	if (fd < 0) {
+>+		perror("connect");
+>+		exit(EXIT_FAILURE);
+>+	}
+>+
+>+	memset(buf, 0x5a, sizeof(buf));
+>+	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
+>+	control_writeln("SENT");
+>+
+>+	control_expectln("DRAINED");
+>+	close(fd);
+>+	control_writeln("CLOSED");
+>+
+>+	control_expectln("DONE");
+
+Why we need this barrier?
+
+Note: the test runners already add barriers before starting new tests, 
+please check if we need it. Also in the other tests, maybe we need 
+some of them (e.g. to avoid the peer will close the socket), but I'm not 
+sure if we need all of them.
+
+Thanks,
+Stefano
+
+>+}
+>+
+>+static void test_stream_uring_inq_eof_server(const struct test_opts *opts)
+>+{
+>+	char buf[HINT_CHUNK_SIZE];
+>+	struct uring_inq_ctx ctx;
+>+	unsigned int cflags;
+>+	int res;
+>+
+>+	inq_server_init(&ctx, opts);
+>+
+>+	control_expectln("SENT");
+>+	inq_wait_queued(ctx.fd, HINT_CHUNK_SIZE);
+>+
+>+	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
+>+	expect_res(res, HINT_CHUNK_SIZE, "drain before EOF");
+>+	expect_nonempty(cflags, false, "drain before EOF");
+>+
+>+	control_writeln("DRAINED");
+>+	control_expectln("CLOSED");
+>+
+>+	/* The queue is empty and the peer is gone.  The hint stays non-zero
+>+	 * so that this receive happens and reports EOF, as TCP does after a
+>+	 * FIN.
+>+	 */
+>+	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
+>+	expect_res(res, 0, "receive at EOF");
+>+	expect_nonempty(cflags, true, "receive at EOF");
+>+
+>+	control_writeln("DONE");
+>+	inq_server_exit(&ctx);
+>+}
+>+
+>+static void test_stream_uring_inq_empty_client(const struct test_opts *opts)
+>+{
+>+	int fd;
+>+
+>+	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
+>+	if (fd < 0) {
+>+		perror("connect");
+>+		exit(EXIT_FAILURE);
+>+	}
+>+
+>+	control_writeln("READY");
+>+	control_expectln("DONE");
+>+	close(fd);
+>+}
+>+
+>+static void test_stream_uring_inq_empty_server(const struct test_opts *opts)
+>+{
+>+	char buf[HINT_CHUNK_SIZE];
+>+	struct uring_inq_ctx ctx;
+>+	unsigned int cflags;
+>+	int res;
+>+
+>+	inq_server_init(&ctx, opts);
+>+
+>+	control_expectln("READY");
+>+
+>+	/* A failed receive must not leave a stale positive hint. */
+>+	res = inq_recv(&ctx, buf, sizeof(buf), MSG_DONTWAIT, &cflags);
+>+	expect_res(res, -EAGAIN, "empty nonblocking receive");
+>+	expect_nonempty(cflags, false, "empty nonblocking receive");
+>+
+>+	control_writeln("DONE");
+>+	inq_server_exit(&ctx);
+>+}
+>+
+>+static void test_stream_uring_inq_zerolen_client(const struct test_opts *opts)
+>+{
+>+	inq_send_chunks(opts, 1);
+>+}
+>+
+>+static void test_stream_uring_inq_zerolen_server(const struct test_opts *opts)
+>+{
+>+	char buf[HINT_CHUNK_SIZE];
+>+	struct uring_inq_ctx ctx;
+>+	unsigned int cflags;
+>+	int res;
+>+
+>+	inq_server_init(&ctx, opts);
+>+
+>+	control_expectln("SENT");
+>+	inq_wait_queued(ctx.fd, HINT_CHUNK_SIZE);
+>+
+>+	/* A zero-length request is not an error and still describes the
+>+	 * queue behind it.
+>+	 */
+>+	res = inq_recv(&ctx, buf, 0, 0, &cflags);
+>+	expect_res(res, 0, "zero-length receive");
+>+	expect_nonempty(cflags, true, "zero-length receive");
+>+
+>+	control_writeln("DONE");
+>+	inq_server_exit(&ctx);
+>+}
+>+
+>+static void test_stream_uring_inq_mshot_client(const struct test_opts *opts)
+>+{
+>+	char buf[HINT_CHUNK_SIZE];
+>+	int fd;
+>+
+>+	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
+>+	if (fd < 0) {
+>+		perror("connect");
+>+		exit(EXIT_FAILURE);
+>+	}
+>+
+>+	memset(buf, 0x3c, sizeof(buf));
+>+	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
+>+	control_writeln("SENT");
+>+
+>+	control_expectln("DRAINED");
+>+	close(fd);
+>+	control_writeln("CLOSED");
+>+
+>+	control_expectln("DONE");
+>+}
+>+
+>+static void test_stream_uring_inq_mshot_server(const struct test_opts *opts)
+>+{
+>+	static char bufs[HINT_BUF_ENTRIES][HINT_CHUNK_SIZE];
+>+	struct io_uring_buf_ring *br;
+>+	struct uring_inq_ctx ctx;
+>+	struct io_uring_sqe *sqe;
+>+	struct io_uring_cqe *cqe;
+>+	int i, ret;
+>+
+>+	inq_server_init(&ctx, opts);
+>+
+>+	br = io_uring_setup_buf_ring(&ctx.ring, HINT_BUF_ENTRIES,
+>+				     HINT_BUF_GROUP, 0, &ret);
+>+	if (!br) {
+>+		fprintf(stderr, "io_uring_setup_buf_ring: %d\n", ret);
+>+		exit(EXIT_FAILURE);
+>+	}
+>+
+>+	for (i = 0; i < HINT_BUF_ENTRIES; i++)
+>+		io_uring_buf_ring_add(br, bufs[i], HINT_CHUNK_SIZE, i,
+>+				      io_uring_buf_ring_mask(HINT_BUF_ENTRIES),
+>+				      i);
+>+	io_uring_buf_ring_advance(br, HINT_BUF_ENTRIES);
+>+
+>+	sqe = io_uring_get_sqe(&ctx.ring);
+>+	io_uring_prep_recv_multishot(sqe, ctx.fd, NULL, 0, 0);
+>+	sqe->flags |= IOSQE_BUFFER_SELECT;
+>+	sqe->buf_group = HINT_BUF_GROUP;
+>+
+>+	if (io_uring_submit(&ctx.ring) != 1)
+>+		error(1, errno, "io_uring_submit");
+>+
+>+	control_expectln("SENT");
+>+
+>+	/* The payload completion drains the queue and keeps the request
+>+	 * armed, so the hint must report the queue as empty.
+>+	 */
+>+	if (io_uring_wait_cqe(&ctx.ring, &cqe))
+>+		error(1, errno, "io_uring_wait_cqe");
+>+
+>+	expect_res(cqe->res, HINT_CHUNK_SIZE, "multishot payload");
+>+	expect_nonempty(cqe->flags, false, "multishot payload");
+>+	if (!(cqe->flags & IORING_CQE_F_MORE)) {
+>+		fprintf(stderr, "multishot payload: request not rearmed\n");
+>+		exit(EXIT_FAILURE);
+>+	}
+>+	io_uring_cqe_seen(&ctx.ring, cqe);
+>+
+>+	control_writeln("DRAINED");
+>+	control_expectln("CLOSED");
+>+
+>+	/* EOF ends multishot regardless of the hint. */
+>+	if (io_uring_wait_cqe(&ctx.ring, &cqe))
+>+		error(1, errno, "io_uring_wait_cqe");
+>+
+>+	expect_res(cqe->res, 0, "multishot EOF");
+>+	if (cqe->flags & IORING_CQE_F_MORE) {
+>+		fprintf(stderr, "multishot EOF: request still armed\n");
+>+		exit(EXIT_FAILURE);
+>+	}
+>+	io_uring_cqe_seen(&ctx.ring, cqe);
+>+
+>+	control_writeln("DONE");
+>+	io_uring_free_buf_ring(&ctx.ring, br, HINT_BUF_ENTRIES,
+>+			       HINT_BUF_GROUP);
+>+	inq_server_exit(&ctx);
+>+}
+>+
+> static struct test_case test_cases[] = {
+> 	{
+> 		.name = "SOCK_STREAM io_uring test",
+>@@ -222,6 +564,31 @@ static struct test_case test_cases[] = {
+> 		.run_server = test_stream_uring_msg_zc_server,
+> 		.run_client = test_stream_uring_msg_zc_client,
+> 	},
+>+	{
+>+		.name = "SOCK_STREAM io_uring receive queue hint",
+>+		.run_server = test_stream_uring_inq_server,
+>+		.run_client = test_stream_uring_inq_client,
+>+	},
+>+	{
+>+		.name = "SOCK_STREAM io_uring receive hint at EOF",
+>+		.run_server = test_stream_uring_inq_eof_server,
+>+		.run_client = test_stream_uring_inq_eof_client,
+>+	},
+>+	{
+>+		.name = "SOCK_STREAM io_uring receive hint on empty queue",
+>+		.run_server = test_stream_uring_inq_empty_server,
+>+		.run_client = test_stream_uring_inq_empty_client,
+>+	},
+>+	{
+>+		.name = "SOCK_STREAM io_uring receive hint zero-length",
+>+		.run_server = test_stream_uring_inq_zerolen_server,
+>+		.run_client = test_stream_uring_inq_zerolen_client,
+>+	},
+>+	{
+>+		.name = "SOCK_STREAM io_uring multishot receive hint",
+>+		.run_server = test_stream_uring_inq_mshot_server,
+>+		.run_client = test_stream_uring_inq_mshot_client,
+>+	},
+> 	{},
+> };
+>
+>-- 
+>2.55.0
+>
+
