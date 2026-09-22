@@ -1,234 +1,152 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206732C08D0;
-	Tue, 22 Sep 2026 12:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080497; cv=none; b=DNR4VnZiZc2gOMHek+zE5r6jPDkF/RCyJaC/7ipUMx48puOY4Dm9NhFGjnr02tGkcdvwXEbiMZS0sJZRTrdIJMLoe4u4l+JWuHY2R1A/zoZ8sx6m7m3hnQITkjE9Q4HFFRwoAtDBBYqDQpMbzSTMyWd1/d1ulvcn+4LzuWDnWSw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080497; c=relaxed/simple;
-	bh=TFhrQlMEGgMHz2W9rVsCr3+0JhHuhHn0+XE1zAx6XcA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fZFNy3FFZ2ok7cqGD3YdciX9LbZD7AMhMZcHcN9g3G4Iq+TciTF0y/eXtKi0bV9WEZE9kHzFWBElmZRA0Iw6J76m6pVUIHNc1D5q3ZpigegmBTvpIEznpY7E3lu6iosKyDu4GSvoSyXn2UyPp26i5OefpllzupWP/JtX54dEpk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=ApDtHShH; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B2D5372DE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790080512; cv=pass; b=mGp7DT2lQlJMjRmxAGc8B+bDAbc+t5nL6aJhNDtI2teqlIA1te11Vl7Gw70HVe7ldhp06lBZRFXiP/fZUdgcfVbQBEtx5Cs4LX88ClEQKC4AOY70amLGJFKjJ6XMhpvgKlAlhHH+VykBbynH8G1GHlXXJdZuNAYCSqqE0uG56Q0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790080512; c=relaxed/simple;
+	bh=ALQACn46SAuo6ABqMmWIs/jscEBUUZDaANiX89ENIH0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=Tuvt+YlKNNvlacDj/VVjJIa/Gp3eQH5tS6ezvCj9ek6lnos2KTrYp0NXVhf+gUYQlCR+Bf4Z21610NbCj4JLul4knHT+CDd+lJyWDMqY9dGuorA9Nc+q6FtjI6XpgzjRxAv1MxeVWkqMsub3OSVi89ZtZrU899hx4O8fCkBV5uc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k4p3m//6; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="ApDtHShH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=/b2H83sBKLfZiu8TvApIXihDp5UwTxcEl76P0l59dTc=; b=ApDtHShHX9N6Hse7lBfOPq8nb+
-	TgSY0Dz571CzSHnonuArzlVIuV7weX7CI3axguEuQWcj0BzXmXuLDDqrzOazmizDLYycePe+wsP6J
-	SXQEt3zut1yHJ+rcqSJTH7kKPtZxQrXcDcuP5MtN6UzaKC+czp1RebfbbNH2/YmUuYt4NGYNItEl8
-	vWOYEyEWHdXMSNzv8P3B4eTZ7c6pdJ4pnYmV/+Y6jCBUOAoTz5qF4FPI1NuSEecEh2ShBZ3T/aKEz
-	wg1V5O840zlQLXVW+DXm18LCxo4pi4E48gE8KqJJ5derJP9tKG2ucy8SJjybNSKzyS0BsuPtFRwIP
-	HWocWaJA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x8zhO-002yym-2k;
-	Tue, 22 Sep 2026 12:34:15 +0000
-Date: Tue, 22 Sep 2026 05:34:06 -0700
-From: Breno Leitao <leitao@debian.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, 
-	kexec@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or, 
-	shakeel.butt@linux.dev, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, 
-	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v5 7/9] drivers/base/memory: count inherited poisoned
- frames into the block
-Message-ID: <arJqVWN-prvI_0NP@gmail.com>
-References: <20260915-hwpoison-kho-v5-7-3bc7a57bd503@debian.org>
- <de41b78a-8471-4832-be0c-35d410a4499a@kernel.org>
- <aqpczrtIwSG948iv@gmail.com>
- <b8ad366a-a019-4462-9dce-f687f60ee7f2@kernel.org>
- <aqvHHHuWJ-y4WRJZ@gmail.com>
- <caac2cb9-8faa-49bc-ae8a-47c5fd7b7e58@kernel.org>
- <aq1RaH0eE0hZfNpr@gmail.com>
- <fb2237be-f7bc-4ad6-bcb0-7c3ef53136ef@kernel.org>
- <arE3UjqPsxctWckg@gmail.com>
- <ad2ed3ed-959a-4af3-a2f5-4c21e5af62d6@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k4p3m//6"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20c35575so492962d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:35:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790080510; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d2mQwthoJoV9JjtXDgI5AIi2sgMq447vjiATb2afnEFALAMB+Og1A4ziv2xz4egSe6
+         PDOdyJm8OAl2q1BwjmKOQkxnl3GCRNTYBPBRgUiquAggPMbgGHxVFptcI0//EnG51RVk
+         5tljPoIR4O1tmqT/nx/xzrAnWQyjSAHX9Clzu00F5yuIaLRBG4dVAKM8z1/zCzwa9Vti
+         yYxHEp8fw2lYrlp08V3cQ+I1tsAj+CEAH3FsvQbnw4XDhIr+TZD5I2hHMqW6/TFcISFr
+         U+u7Zjrc/N8qXF1T9UmnPCneMdVpikDY47hU9559ANtSRfJUJWdx44iwG3fawkQyc0Qi
+         G5/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t43upwUK0feeI320sY22/K/H7Nx8XNjdpVO2i6jn6cI=;
+        fh=goBUguyG40hnLMA0UjGu3RZu1x1pSjwPoRDnXi3RZgQ=;
+        b=Ud6FZuK+Yky2Tm69Md0y+pDN4MFHmeX59K53ff5x7pxiW0ng4uTy/y+MEl/Pt+VZsQ
+         H0xvSm9IUJksWS6q/3f2inXaVcH0hhzF0fHw3MAgjHfxbCBLsHMs/R1mtEOTah44LTm6
+         ddXKYKDNXAqv+DwicxOR6HVB8IntYfnu/DM/R3ZtlVgR2Vn+sKTKmCUjXWAP0j1krNSk
+         StqjVh3hNRli/K5M2ZZ04tO7QIzokW6SEvHxkAsYiPAObJnkdB0J4X8fJOhuelahTlZV
+         yFNuT6/J/P6VZ0RdRF9xURE6ZwNQYZ31m+cpeOCMudxgWBhlwA06q4Gwhyn+9Fwe5k7j
+         e9Fw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790080510; x=1790685310; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t43upwUK0feeI320sY22/K/H7Nx8XNjdpVO2i6jn6cI=;
+        b=k4p3m//6V0+Rbj6cPKa/V6v4U8qO8VAJYWkYDYjmAii0iyYKVYDTCllEp5+reHYaF8
+         oBtsGtuzBTkFROgMLRlYwqL37WEBuF8o6lXLe7pbR4IuQBB+VUKs0OuvA3/bkXeKQ4n3
+         thKV7waI5tPr5VfwdunzX6pzvbcZiMd8Ken0pQ++bgrz3R0tnjmJjkI2USd0le/jB35k
+         n2rBWtNm+Jv7N/kaeJRG+x0W2k4TklT7VBXgVK9zzm/PIEDPxxdnwoPxdY7Pqi0TdlCC
+         0jv2KOjO/guGEYMu3wFaFYGVmJuKFcqgH1D/tloMDQU4UBdA2QEsGuoYXcy4IhfxEP1h
+         5/CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790080510; x=1790685310;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t43upwUK0feeI320sY22/K/H7Nx8XNjdpVO2i6jn6cI=;
+        b=BHyqUMMllpLlWLMSYcMv4uH0leQoWOiUXShkV59zNQPg//1zrIyVAUlpRAW4Uh+bMR
+         e+AIJ9BSjS9EH9tO+OzUpuykZNLGIJv02UcSHmfoDdmTGOxR8o/f1yvqkW4UY+DadkrI
+         HGZxmSy+k27G5K/eNvHMcz8uzcM6qCDRfBwCmoGbAmA3q4ouNl5cIOgo+15pb9UGw2Ll
+         9XLXIKlUilLrCEKVjA3SjuUVqd+oKljNeol91atyl6lP5IqfWgpNAv8facap93Nwb+g0
+         HL0XzXixzJc/PhFixYqzxGgKlvPKWCpIORT/zXXHuYHUIEgyWNvE7BLkhpj+UmOKiCd/
+         y2WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwikjXXA0eA49O9/58hDByJ4szXWa2iW6eGpPgImgsDY/zy3F7ObItmDmJam6DTehet57axGRJOrgbXMk8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPIck7kw2uw6ESfzBcX35LfWc2htMlOgnF1XZRMX+s4O2039Nz
+	ekeStc0P5cRcWQ/dvnlR5KOLDhCNFcplF5r3nUqR8Zk8WcXieCE1S4Tt1ri2gMtkQ291Mf1fwpO
+	1nGvpf34wjBcP5VKZ6AhFChD+q552knk=
+X-Gm-Gg: AYBFou21EBC9ALZ5CrkvDqa8uwWMpGjcI6RaI5KE5+dBKD2SXNHvKdtBpwb9/D0Elq6
+	vRbm1hSjxPb98LRvh7uB1+1IzP/kphCzo5WeWQg8lWnr502MBxag2/mszWGP1//ws6+knvMbZ8j
+	k/sAvpKxHvx0T7WHnm7UCTCmuJMuuy249xu2ZBl3X6gA3uDP0nMP+vNwIuJjuMMjhE8QTrnCdxX
+	oNy1szk5XaC18y/dz1ngW8m8ptxIq60Cnzt151/rIGy0xvET/FxaQnYDjDNWZToKRrO0kx+QXeo
+	GBgHy3KdQLPubYywydGEAfOguY7bL7bNQuo+jaOezgMAnuz3PaWwGC6C
+X-Received: by 2002:a53:c847:0:b0:66d:14db:b5a4 with SMTP id
+ 956f58d0204a3-67182e32973mr6312973d50.1.1790080509741; Tue, 22 Sep 2026
+ 05:35:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ad2ed3ed-959a-4af3-a2f5-4c21e5af62d6@kernel.org>
-X-Debian-User: leitao
+References: <20260922120330.127262-1-itai.handler@gmail.com>
+In-Reply-To: <20260922120330.127262-1-itai.handler@gmail.com>
+From: Itai Handler <itai.handler@gmail.com>
+Date: Tue, 22 Sep 2026 15:34:58 +0300
+X-Gm-Features: AclHuK9M1FiHPYW0MDamOqCGXrHsZodxWnPTe6_1DsJAstTJCmij7YJNysXMWIE
+Message-ID: <CAFpOueSSGssTvQ6q2q-piK4uzdaoUQBvtU4H_yjvN7hyfVa0uQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/1] dm-crypt: allow encryption sector size up to PAGE_SIZE
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+	Mikulas Patocka <mpatocka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Milan Broz <gmazyland@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello David,
+On Tue, Sep 22, 2026 at 3:04=E2=80=AFPM Itai Handler <itai.handler@gmail.co=
+m> wrote:
 
-On Tue, Sep 22, 2026 at 01:33:51PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/21/26 16:31, Breno Leitao wrote:
-> > On Fri, Sep 18, 2026 at 10:16:25PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/18/26 17:22, Breno Leitao wrote:
-> >>>
-> >>> Right, we have two source for poisoned page information, today.
-> >>>
-> >>> 1) LINUX_EFI_POISONED_MEMORY: Used to track memory block that got
-> >>>    poisioned, and will be passed around during kexec.
-> >>> 2) PG_hwpoison on struct page: Used by the memory subsystem to avoid
-> >>>    touching it.
-> >>
-> >> How are both kept in sync? See below.
-> > 
-> > The EFI table is only written when there is a memory failure. That is
-> > the only thing that writes to it:
-> > 
-> > 	action_result() -> efi_hwpoison_record_pfn() -> set_bit()
-> > 
-> > You can see it on patch "mm/memory-failure: efi: record
-> > hardware-poisoned frames into the poisoned-memory table"
-> > 
-> > Then, when the kernel kexecs into a second kernel, the EFI config table
-> > is queried and the pages are poisoned from it at boot, as they are
-> > getting into the buddy allocator, in __free_pages_core().
-> 
-> I am not sure that is really the right place. That means we only poison free
-> memory.
-
-Right, and that is a real gap. A frame only reaches __free_pages_core()
-if it is handed to the buddy allocator, so anything this kernel already
-took from memblock -- the memmap itself, early page tables, percpu --
-can be sitting on a recorded frame with nobody noticing.
-
-> Shouldn't we poison as soon as we initialize the memmap, and check
-> whether any memblock allocations ended up on that poisoned memory and bail out?
-
-
-That is close to what I had until v2, where the bitmap was walked at EFI
-parse time and every set unit was memblock_reserve()d:
-
-	for (off = 0; off < bitmap_size; off += PAGE_SIZE) {
-		...
-		for_each_set_bit(bit, map, nbits) {
-			u64 unit = off * BITS_PER_BYTE + bit;
-
-			memblock_reserve(phys_base + unit * unit_size, unit_size);
-			nr_units++;
-		}
-		...
-	}
-
-Set the full v2 patch at
-https://lore.kernel.org/all/20260821-hwpoison-kho-v2-6-5743791e48e6@debian.org/
-
-Kiryl raised some concerns, such as x86 does not keep memblock past
-boot, and kexec picks placement from iomem_resource via
-walk_system_ram_res(), which memblock_reserve() does not touch. So the
-frames stay out of buddy, but the next image can still be placed on
-them, and since nothing sets PG_hwpoison none of the existing hwpoison
-users see them either.
-
-Most of the discussion happened here:
-https://lore.kernel.org/all/aog_uH5fTsJzXjjx@thinkstation/
-
-v3 then poisoned the frames from mm_core_init(), right after
-memblock_free_all(), taking them back off buddy. That breaks with
-CONFIG_DEFERRED_STRUCT_PAGE_INIT, where the struct pages above
-first_deferred_pfn do not exist yet at that point, and Kiryl's other
-point was that the shape was wrong regardless: flag the frame on its
-first add to buddy, not after buddy is up.
-
-See the discussion at:
-https://lore.kernel.org/all/apGbDOnPm5VXP5ez@thinkstation/
-
-Which is how it ended up in __free_pages_core().
-
-> >> The inconsistency is what worries me.
-> >>
-> >> And that we have pages we are told are hwpoisoned but we seem to ignore that and
-> >> carry on with our kernel letting it boot?
-> > 
-> > The walk exists precisely because of that inconsistency: the counter has
-> > to match the frames that actually carry the flag, and the bitmap says
-> > more than that.
-> > 
-> > If we drop the page walk, then there is change for inconsistency, but,
-> > as-is, there is no inconsistency.
-> > 
-> > So, I am planning to keep the page walk above, when there is a poisoned
-> > page in the memory block, avoiding any inconsitency.
+> A patch doing that is posted:
 >
-> How about we keep it very simple and don't mix information from two different
-> sources? That is, remove that bitmap scan here entirely. We should process the
-> bitmap exactly once when initializing the memmap.
-> 
-> From that point on, the memmap should be our reliable source of information.
+>   https://lore.kernel.org/cryptsetup/20260922100554.28692-1-itai.handler@=
+gmail.com/
+>
+> It is not merged yet.
 
-Sure, is this approach better?
+That cryptsetup patch has since been declined, four minutes after I sent
+this series. Correcting the record here rather than leaving the
+reference dangling:
 
-  - the bitmap is read as the struct pages are initialised, and the only
-    thing it does there is SetPageHWPoison();
+  https://lore.kernel.org/cryptsetup/d3823e0b-3387-4b3a-b5e8-a3d5f266308a@r=
+edhat.com/
 
-  - __free_pages_core() keeps the hook but tests PageHWPoison() instead
-    of the table, so a recorded frame is still held back before it can
-    enter buddy;
+Ondrej Kozina's reasoning is that the missing upper bound in LUKS2
+header validation is deliberate: bounding it would stop an older
+cryptsetup from even dumping a header that a newer dm-crypt might
+support, and the corruption case is already covered by the LUKS2 header
+checksum. Both points are correct, and I have withdrawn the patch.
 
-  - nothing else queries the table.
+It does not change the position of this one, and it is worth spelling
+out why:
 
-One caveat on "exactly once": if that means one pass at one point in
-boot, it is what v3[1] did -- hwpoison_init_boot() from mm_core_init(),
-right after memblock_free_all() -- and it does not work. With
-CONFIG_DEFERRED_STRUCT_PAGE_INIT the struct pages above
-first_deferred_pfn are not there yet at that point.
+- cryptsetup caps the encryption sector size at 4096 on every path that
+  *writes* a LUKS header, and this patch does not touch that. No tool
+  creates a LUKS device above 4096, so the portability of what
+  cryptsetup produces is unchanged.
 
-Link: https://lore.kernel.org/all/20260826-hwpoison-kho-v3-5-6f79c4b605bc@debian.org/
+- A LUKS header declaring more than 4096 can therefore only come from a
+  deliberate edit, and as Ondrej notes LUKS2 metadata does not protect
+  against deliberate harmful edits in general - changing 512 to 4096
+  breaks a device just as effectively.
 
-So I _think_ we want to do it once per frame, as that frame's struct
-page comes up. __init_single_page() is the single function they all pass
-through. Is __init_single_page() the right place to query the bitmap and
-mark is as poisoned?
+So the paragraph above should be read as: this is a case that requires
+hand-editing metadata, upstream cryptsetup considers guarding it the
+wrong trade-off, and I agree.
 
-> For this code here, just remember globally whether we hwpoisoned any page. If
-> so, just walk the memmap. If not (the 99.9999% of all systems, no need to scan
-> anything).
+Two remarks from that thread bear on this patch. Neither is an ack of
+it, but both are worth having in this thread:
 
-Yes, and the counter already exists: num_poisoned_pages and we can query
-it. I am also planning to add something similar in the EFI table, like
-an ->empty field, which will be cleared when a bit is set, avoiding
-doing bitmap walk on the happy path (not a single poisoned page).
+  "There may be support for larger sectors in future dm-crypt."
 
-Anyway, range_hwpoison() short-circuits on it today,
+  "Since dm-crypt constructor currently stops you from activating such
+   device (w/ sector_size > 4096), it's ok."
 
-      if (!size || !atomic_long_read(&num_poisoned_pages))
-              return poison;
+That is, cryptsetup deliberately leaves this limit to the dm-crypt
+constructor. This patch keeps it exactly there. It only changes the
+limit from a fixed 4096 to PAGE_SIZE, which is the bound dm-verity
+already applies to its own block size.
 
-so memblk_nr_poison_init() can gate on the same thing and walk the
-memmap, with no EFI call left in drivers/base/memory.c at all. That
-disposes of the misleading name there too, which was where this
-started.
-
-Now, the half I am less sure about is checking whether a memblock
-allocation landed on a recorded frame. Poisoning at memmap init cannot
-prevent that -- the memmap is itself a memblock allocation, so the
-struct pages do not exist while the early allocations are being made --
-it can only detect it afterwards, as a pass over memblock.reserved
-before memblock_free_all().
-
-The alternative is to bring v2's memblock_reserve() back purely to keep
-the early allocator off those frames, and still poison at memmap init
-so the flag is there for everyone else. That gets both properties, at
-the cost of frames that are Reserved and HWPoison and never in buddy,
-which I have not thought through for unpoison.
-
-Thanks for the suggestions!
---breno
+Itai
