@@ -1,77 +1,78 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4D72F0C7E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:53:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837042264A3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790042014; cv=none; b=ITBXBsfeXrqtBRTBmihSKmTwSqgeFQP6oColAR7OjEIfEo1s0OL12VWl6GtuYhxHbM2P9eDJ7qrImIW26c4Sgi8ehl0tCsDmz7QbMN8hyWLmQmS93bWArRaeRlkxyap+MQIv7JOs/cRybg8fw5KNtfVHaASFs3dV5lsbBIsj1zk=
+	t=1790042071; cv=none; b=SMEc41+UmJQeDs/GxBqFBVEXvLtX+RjMnhqiCcmQwLGwqmD44q2bz7lFsEoKdbosn2Y0mDkV9xSuWTZBm/J+5sREEZONwvrqrF9cCMEaOlNBYV9fxMwOOEsqsHunRqpf4K/g6qx6SdCWsB1YMuEqp8BevqzdfjSTh2lPDjv0k1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790042014; c=relaxed/simple;
-	bh=3BgYikqSax4HF0A6zgnHHnuQB1alfzJJhKARWIQRbhE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PncAyV0l/nGDXCrN1Pg0NqF5MEIYa01R0n3/ho4nDMsAvBwZKfTZRk6eMk9PFnx+RLROyVaL14hQpGdNpD/FN4r+BCs+3e9x35q4/4QHEhXRvRJt3lpH++spZrwPDXSqYXbtqxt93YTD4wdlIs0xLlB4nbEPnCwXPv9c116yfng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g0A7KPqD; arc=none smtp.client-ip=74.125.230.234
+	s=arc-20240116; t=1790042071; c=relaxed/simple;
+	bh=snnKOJNe4BYR9TTA68LXccoNtMP9wegNSvGiytmU0dM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nBPr4NtqAYLFifbq/of8RvyB5AvnP2F9fDZIVQ3Eh03V8plNbfHVcUd1+AJG29CUQXMQYoURJaI41Ephdn7CUWBdYh53x7rqYU8LU4xt4lNkE/q92VF8AEGG4OTAlRZEZSKudNe6ffXzB4i2M5+t1oHcIMPKe+NH34+5Zzx0guI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=owyRvgtN; arc=none smtp.client-ip=74.125.227.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g0A7KPqD"
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93be29bb454so410215185a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:53:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="owyRvgtN"
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c67e5292fdso1308880e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:54:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790042012; x=1790646812; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790042069; x=1790646869; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ByHXe55/uuBbCQG8Zppw6bo6YHny9xMuvL7YZ42cUcg=;
-        b=g0A7KPqDAU/BRD52u0DeQ795PUnt4z2wxmWUcKMnccLBXUfZ/JecrDV7N2Dsc0n0Qw
-         +wu8Vrbb57fIYTs1FWnNHxI/p6G2uwMe0rJTc2SnmS7sD4SzFLA11m54grNk7CNkmAcw
-         VHwYPVqmn/CjO7amfRXJ4Hw12rfg31Duqk2jJ9YVnB568rFnY030N32UkUdx98MJE5Tl
-         Tsx+EDhBgx2QvDT+i7/v3OA576RpLZCvGQ7grePqO9dhY5YcdON3QUGnSTEvKdMhZQK/
-         aD8f4uITXi3r2S8lAadDQNpxiTwnlTZnENhQGuBfLPWPj4jb8xrAXZGjvainyQ7dAN8B
-         AmVg==
+        bh=8cyk+VZJdV3suIAqf0J24P3aiMZPO/cLIo47aUCTTlQ=;
+        b=owyRvgtNEBTJxRU2R/wcZxU/6Bvs7vbIOgNM7dMr396kScrVSYjSieZ+D5h2zKpBrQ
+         UVL7hwnMckmzZklATZiA3XklVFkW9zmQEGAaFrkvKpJantXhwvV6aSsUbXl1A30Oz0Cd
+         6WYZA4tYZaV5isS/8KF+X8UDpfU25hPDZJknktQzlIL+ypACPsGJVQD2pEn30FBH/M9Z
+         4gzjlhm0FN0C8r1DsoV5tn7WcSBUNA8jWW/13l2MGecedgZS860h1R1G1PU9MCQ1+BZE
+         VRQ3fhVfzRZqKtwURmhLB2W9r30CifoK7hYVEpqMqtoP6E4z35JuX+DOUkdx+oiKqoJG
+         eGDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790042012; x=1790646812;
+        d=1e100.net; s=20260707; t=1790042069; x=1790646869;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ByHXe55/uuBbCQG8Zppw6bo6YHny9xMuvL7YZ42cUcg=;
-        b=HM9sHGfDREuJPZE4hFubK3ngMDLfeWLMRDu1S9lqkIvGkLjKz/UW9xxB2SDidlxmKJ
-         fOTOZaZGzPWInU4DJepSAiQ7mVFSLLAttxwG+4+A6uXChUnapiZZW5mA2xKf7sdeO8P0
-         CXE3M2PbR8HFlnNQP1fRMotXEa6KFUPqg6vHVRiS1ipiZYTCIe5SH3chStYM+OHXTX/g
-         sTIsjj9W3Ey3G5tZUavIhBlpQFAYqTuo+FsVlYk0LSqg6BlQtYG3d1NloIox9+yTVgTk
-         fx+ld3QYBP6nxV/PXOYCRe0lbxFQvL+SKAEGDFMAFT1sFimRctqO0VCHaHvozFOS2xzF
-         a5qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxoAsxIvM1xxH7JETzFs8JBxxsJrP7nNxnDfxY1kVIuVFMyDYx+N9m4F+AySfK7/iBxnO9G1cIYb2CzHF8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFOMnjLnyIpZMOpei0DzaGW74wBtnAcHAda/RPY6+tJvX4/vlX
-	4uA2nuIWvdgN1WAaH/x5f0H/qm7vzt6sNKP0BkpCbi1pALndERuVYTo=
-X-Gm-Gg: AYBFou0cbqwdbaQwDTQfNPTTh1WqA5AMmARHCewpsy1AxjT7o1VICxcvDwhDYhuJ8HT
-	s1avGu7pjr+M0RnWJA7DDlq7GOKqdOIj8oT0yxRPBbhuyraZYPuVLuxgsidm2KCLKx61vM0ca4V
-	9aPblPY65dMdupJMNwsMqydsgv1kO1lNyjHm/oNgk6w6jg2lkNdKqpCCJJK1f9Xy6+p06BLooSb
-	OHIljsK3H2/WH83qv8Vp98rkyIjRRgmpMS+9egvin5WUjvu6UXrXkJLQvq285wf3MpaYuygbKEs
-	lkMKceqEquDj+lwnWmCoRTb/Z+srO1Spf3t6EQ8Obaw18Gfh6f2ETqsrCDqI/sXzLolls4wO3Cj
-	GmWW1fVNN6rqa3VwE8ChkvBzvlmGLujK4/bsDqywAzNKHssubaX0acC6jvG2lWf2eq19Ks6ujZP
-	cvPjDEtwoUG1b1C/2btjMPB+zRsbL7dmS2Iz/j3xdhY2SPQ5n8TTGNkltNlUE6NDbP/X81Bhe/d
-	JerPl2hCnWdSZQgiE/oiXKrsxFK5aZe90LKptl6qScH6jS3GkYmgfmiB/mzMbSoeNmKpEajper7
-	Y/gL3mqXDX17R6zd20r/erUK6JlK
-X-Received: by 2002:a05:6214:2128:b0:910:345b:4c5e with SMTP id 6a1803df08f44-914008bbd47mr17891176d6.37.1790042012011;
-        Mon, 21 Sep 2026 18:53:32 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91402536633sm3857706d6.49.2026.09.21.18.53.30
+        bh=8cyk+VZJdV3suIAqf0J24P3aiMZPO/cLIo47aUCTTlQ=;
+        b=sUXo7QNj2cgL9auZuIpuVnCVwlt5qYLLruvtY4PCpV4TrePsyQfKXNYK80GIZnOkdJ
+         K76h8dZqowf8rsoGEi3ED/5rIigPysZISUpvQ/SyadtbCq/fJOLp/R2XypCABq74Kqo9
+         F0tgeo3LTKYlNKSdm6B7n1E76IS1mbN0hrXv5TCnPMGrtQKtjNjAJ2P+vfJYs5pFWtA3
+         TEYN45K6X89bnHaVTz9JxPPMIhHIgzZWFAjegqGLbpJQ7xHtLyDTonh/TooSidGQoEr2
+         mJRlUDeSXJlCsFmD/6EJEXGTf8oX0ftEn8J3Y04ifB1I6fOZpSVskwgFA7izp5rZy3UV
+         fVcg==
+X-Forwarded-Encrypted: i=1; AKwUvByNvIkzqhxz45I+woAcyNpHsMTKKDIx0k6EX9wSv7YhQlG/JQpVr52eUWU5NyRMORKb9VaPM2uglpftel0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nihsnEzhC5TA9EUuopkG5dvbf5aFcfSjhyAq8b9h55c3YItNDb
+	/rzxLhUCMi8lJHlZ9PREhzmd8s0deU15y1kK2zHq06uJzvVCkk+d9J8s
+X-Gm-Gg: AYBFou2l7uzndqVir3Jw9A+JYyvnHmXON5p6GAPY0q03PsLqX6K5RziZeUSv8FZsdjz
+	bSaQM467Fr68uFINnUIIspy4vjZQtGN9ef0tS2Y9QUbJipiE+Ue+aFvtgYCHZcgTg/4SGX9Nu9q
+	PnmQ1JPDzA2uucS6Je/vbP535JR+FCOsU9jI0XktskMusWB5P+JUGCitvFtVMUr+vaj3DdSi9zm
+	6c67VKK7qFdNpLunSRjZwZBq2K0NzTQmc8igwNBfywqNETjSLK8nZKch5tofjKzIyOH+hlekexC
+	pV1ZuDaF0EZhYSiRyMrZjy8kh/KFPaXNU4UPdFJAreI2Y3ndLwaSh4hDwl2mIX3qCc0DcJ8kXZO
+	xMztepT8XeX8JyMVmLW+LH7MfX3AXhdJ2QGTxKBJ+vrVLWrBJ7dtIm+gFovvJwfQQtSzPxaUlGQ
+	uwvezRVPmvrHDrkxgXmFGx89pQKhSqgGi3dgW0L4lDBFennKI5ZDk6dv4Wv6QfM+lqciQFc5rX4
+	eWQbfQuSIKuwAHwxkRNMpn2No1S/tWVTjuRZMKK
+X-Received: by 2002:a05:6122:3281:b0:5bf:8955:a8ce with SMTP id 71dfb90a1353d-5c9b58fa150mr7030545e0c.1.1790042069444;
+        Mon, 21 Sep 2026 18:54:29 -0700 (PDT)
+Received: from localhost.localdomain ([2804:5698:1029:f600:548c:a202:2a24:b2c2])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9e7d09aa0sm314462e0c.10.2026.09.21.18.54.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 18:53:30 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	linux-sound@vger.kernel.org,
+        Mon, 21 Sep 2026 18:54:29 -0700 (PDT)
+From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Mario Limonciello <superm1@kernel.org>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: rt5663: Cancel jack detect work on unbind
-Date: Mon, 21 Sep 2026 21:53:27 -0400
-Message-ID: <20260922015327.637137-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Willian Oliveira <williandossantosdeoliveira287@gmail.com>
+Subject: [PATCH] drm/amdgpu/gfx6: fix firmware leak on teardown
+Date: Mon, 21 Sep 2026 22:54:10 -0300
+Message-ID: <20260922015411.116292-1-williandossantosdeoliveira287@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,77 +81,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ASoC: rt5663: Cancel jack detect work on unbind
+The firmware requested in gfx_v6_0_init_microcode() is not released
+when the GFX block is torn down, leaking the firmware resources.
 
-jack_detect_work and jd_unplug_work live in struct rt5663_priv, which
-devres frees after rt5663_i2c_remove() returns.  The IRQ queues the
-first work, a button press queues the second, and jd_unplug_work
-rearms itself while the jack stays inserted.  Both callbacks load
-rt5663->component before checking it, and nothing clears that pointer.
-rt5663_suspend() cancels the works; unbind does not.
+Add gfx_v6_0_free_microcode() and call it from gfx_v6_0_sw_fini()
+to release the PFP, ME, CE and RLC firmware.
 
-rt5663_remove() alone does not cover unbind.
-snd_soc_del_component_unlocked() skips it when component->card is
-NULL, which is true if the codec was never bound or the card was
-already unbound.  The jack IRQ is requested before the component is
-registered, so it can arm the work with no card, and it stays live
-across a card unbind.
-
-rt5663_i2c_remove() alone is not enough either.
-rt5663_set_jack_detect() queues jack_detect_work even when clearing
-the jack.  On a bound I2C unbind that call comes from
-snd_soc_link_exit() after rt5663_i2c_remove() has returned.
-
-Cancel both works after free_irq() in rt5663_i2c_remove(), and again
-in rt5663_remove().  Cancel jack_detect_work first; it can queue
-jd_unplug_work.
-
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: df7c52168ee1 ("ASoC: add rt5663 codec driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
 ---
-Found by inspection; not runtime tested.
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- sound/soc/codecs/rt5663.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
-index 262d3bba1f3d..2430bce31b3b 100644
---- a/sound/soc/codecs/rt5663.c
-+++ b/sound/soc/codecs/rt5663.c
-@@ -3179,6 +3179,13 @@ static void rt5663_remove(struct snd_soc_component *component)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 95e939363db6..a5553d181d97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -322,6 +322,14 @@ static const u32 verde_rlc_save_restore_register_list[] =
+ 	0x00000000
+ };
+ 
++static void gfx_v6_0_free_microcode(struct amdgpu_device *adev)
++{
++	amdgpu_ucode_release(&adev->gfx.pfp_fw);
++	amdgpu_ucode_release(&adev->gfx.me_fw);
++	amdgpu_ucode_release(&adev->gfx.ce_fw);
++	amdgpu_ucode_release(&adev->gfx.rlc_fw);
++}
++
+ static int gfx_v6_0_init_microcode(struct amdgpu_device *adev)
  {
- 	struct rt5663_priv *rt5663 = snd_soc_component_get_drvdata(component);
+ 	const char *chip_name;
+@@ -3254,6 +3262,7 @@ static int gfx_v6_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 		amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
  
-+	/*
-+	 * Bound teardown runs this after snd_soc_link_exit().  set_jack()
-+	 * there can queue jack_detect_work, which can queue jd_unplug_work.
-+	 */
-+	cancel_delayed_work_sync(&rt5663->jack_detect_work);
-+	cancel_delayed_work_sync(&rt5663->jd_unplug_work);
-+
- 	regmap_write(rt5663->regmap, RT5663_RESET, 0);
+ 	amdgpu_gfx_rlc_fini(adev);
++	gfx_v6_0_free_microcode(adev);
+ 
+ 	return 0;
  }
- 
-@@ -3728,6 +3735,13 @@ static void rt5663_i2c_remove(struct i2c_client *i2c)
- 	if (i2c->irq)
- 		free_irq(i2c->irq, rt5663);
- 
-+	/*
-+	 * component .remove is skipped when component->card is NULL.
-+	 * jack_detect_work can queue jd_unplug_work, so cancel it first.
-+	 */
-+	cancel_delayed_work_sync(&rt5663->jack_detect_work);
-+	cancel_delayed_work_sync(&rt5663->jd_unplug_work);
-+
- 	regulator_bulk_disable(ARRAY_SIZE(rt5663->supplies), rt5663->supplies);
- }
- 
-
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
 -- 
-2.53.0
+2.47.3
+
