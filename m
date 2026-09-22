@@ -1,105 +1,159 @@
-Received: from mail-pj2-f34.google.com (mail-pj2-f34.google.com [74.125.227.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43E02868B5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34FA2264A3;
+	Tue, 22 Sep 2026 00:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790036269; cv=none; b=Z/Znx5qYIcL1uSoPjBGHpD4UCdsuUOjS8qx3UuWS8JHvaUYkuzCDxew5uIKb5k+MHC6ILi9ZO1DXj0VjPHHeipQH4avRlKqXMSioQpKraI9WHw6vMqgssYuXW2C5PiO327pOvxNGQewytWniep8xrQ5TcBNpjmsyzJirCNnnxl0=
+	t=1790036360; cv=none; b=BCx0WxTrcnjb/7keKq7qwiSpmZj1k+/bvlMqU4NC+0eiWVd/qBlk11ZYhjGguJSttSo8l7RMfABvIQYJC7R24Qfp6PpUrb4k45aRj2/yB2liznF8+0SyUFKvwTa6+eIk/5/HTmXxdTNcLaQvsVw+qWMbRcWF47969cKgps0Ya00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790036269; c=relaxed/simple;
-	bh=u+qYaHk4FhI6AKTBtEqajiVbAdcU0mep39YThATDWfE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gOgwhEYqLM9ucsMdryjhXdsddEJ3qyhkNyprNFpqyb4Qo55CcIWb9mjEBdYBHKAAlYZ7LIcGtyuL68yflU0EyScVP1ihdl/5QIwwROKrxKBuR3BTLSxbutdyDoEOr/eEq1TwjLJlcyLAYFC82U/iYybF6WROHSHPIKB+np+mu7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nWJZI5nE; arc=none smtp.client-ip=74.125.227.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790036360; c=relaxed/simple;
+	bh=9ynVDx+M+tsHxddJCjeo530HuQORa+JDd70XIZw2fMM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ePMMPSOrkIR4x3dcqp+TyXu/Ml9qKh0vBQcXmBMb9wgzxRw6/7HNBxilm/N3dnMYMEupmaXMoIgeeaSf6W0yWEo0qSJTe6QTLhHLmtM0+wH0KoYDWtoEs8lpUUH+nc7DHV2BIw844ut2V4EC3DJEw9jxKLF9v8a3uaL37gAA+NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=l2PShznm; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nWJZI5nE"
-Received: by mail-pj2-f34.google.com with SMTP id d9443c01a7336-2d747eb79f7so24312175ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:17:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790036267; x=1790641067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q01jEK+Fv5Yz/6Fpb8bxfLq3szcVIomFVIfW+quCfqw=;
-        b=nWJZI5nEbRrjKk3hU8pA/OWlhu6UtEZMbZYxbWaezroCgBFrNVE/2TPnF0DNEQHhKF
-         /v4zGsqnvAHjrT/Z2IJP65Fox+GPINbNEU2E5eGh+M0Pc5ahPlpQ5I2EJav2s7cL1g9q
-         iFbV3HyyWAFUFxrdgdviEAy5Y7X2LA68pzT75ExYQS9h5wixWTLk87YsNkiyM2xlAxmX
-         VBaydJh4iVET11ZFna/A3LebHOiI96RhV0hoWXEyo8q1ff+qNXHFbhkeYkNSg8lDE9j6
-         PEKBSX6riQCOyDOWXYhjYfvsPGTH1YA86PK4GSumYNbW720AKW4XfdJDXvw+IEr2oVMp
-         fw8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790036267; x=1790641067;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q01jEK+Fv5Yz/6Fpb8bxfLq3szcVIomFVIfW+quCfqw=;
-        b=nw+n4vcyrw7woYWz6J32DfN2L0+P2LpdMOWvEXalv+/CpsPK6vFS6+xV3gtzMwVU5h
-         dT6b+Gl94SyjKFIuUfenPpV47S7LO5bd55/55TBk2mBOOCyPcAlG7qaAVMfR0YNs4j2k
-         Vl/A0mI+hUNW9mBTA+EQ7mG46/Mj8Od8wguxJXO5ybi1o3qNAoU8COI45/2/bizxruu/
-         lY/nAYGuyjwc6k4ktf4PzO0N+OT5/FbQr6xERdGB7h1u5pa6BbML05kUVXfdv59OiVA+
-         0uoLZKOy4/T6V70vfLqU4HHe0qVA+R377UWTaeeQH1+8Ww3PP2iM9sLQUD7/DT/iuWUA
-         K3OA==
-X-Forwarded-Encrypted: i=1; AKwUvByuqJdSrwhScmJ4h9iLQa8FEwzeEUy8j7YeBYOKJs2LGVtEjH+98OVOxfxjomb6111354Wb0tVjD+5cO1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAZTA+Rvb9XWoOEvw5BFnwwRwHSGlXC2n1K+6gkvBtGpjf8tJx
-	WmVS+WI23C0u/qIlkLD8H88lU87/oNsEvDcUZW+5OaGo7f6ZVMV+mYP9
-X-Gm-Gg: AYBFou3mckKn8K7LY0/nS7upe3pNFEcmz+lw2lVAOvDcRTy0lrow+ytX3Y8lYFJpAQy
-	9MVi1aGKpndV363QM2UW40mh/BbZAe2GQKslGYfclKcwyZa4fzwz2A5pzPXO9gw3Xo5eCuPVYFe
-	6RvNcomGU6GIweaCEIDiDi3bR4bkcptHuGgHkrXoneg+6ZamcBTkCyS1dDJc2OKYm3me7Y0aaE6
-	cLO2uDP3USH8uPU1M01cmzrLLjrZO/OM4zWSMBFkyGU58C61ziRBXs5Y2XsdSGTcjZAwcgC0Qpp
-	gDC/MZIYOE7lypekYJevfleSw5NI0tnw8SVV3GtxdmyPsf/MX6HjP8zUVTIKjlejXxENssA04RJ
-	FiTTCplU1XQad72YZ/qlDYkoZxxS8pK049aZDvPUT+leWi2jxht3pbEbvp9jyO+pp6dL9UTGB1z
-	EsVjHIbAZGssf05+03KEJXm2EXDqjgQ3TEKwekX4WhXnZZilDZwoNrP4Gw7Uh4klw=
-X-Received: by 2002:a17:903:26c3:b0:2d3:7c58:b0e1 with SMTP id d9443c01a7336-2ddb16e734emr168049675ad.0.1790036266904;
-        Mon, 21 Sep 2026 17:17:46 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::c570])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d056dafsm512335ad.72.2026.09.21.17.17.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 17:17:46 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: westeri@kernel.org
-Cc: andreas.noever@gmail.com,
-	YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: stream: Make read return framing error to the userspace
-Date: Mon, 21 Sep 2026 18:17:42 -0600
-Message-ID: <20260922001742.14332-1-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921111921.3289289-1-mika.westerberg@linux.intel.com>
-References: <20260921111921.3289289-1-mika.westerberg@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="l2PShznm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=sg2FEsDZy/ikb2xP2ZYdfBuEwcQDzSuOZTV0h5Qesl0=;
+	b=l2PShznmTvJVT0zCvP5rWxjOSAvzKWW3wTqQ7qg2mo2lxKemJTJXTjkQsWwTVE
+	E17Igx7QeRRzbVMNrNH+EgfYWltFMhTGByp8iKsOxmqrxmRI8fKXSlQKk8OO92mr
+	50rzBBZs4t5vgAIHTb9cTj/Z79rOAcN8Gyuwp6gFi5bNM=
+Received: from [IPV6:2409:8900:1ee3:222c:420f:a5a2:eb51:8645] (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDHz+puybFqvlbRAg--.32355S2;
+	Tue, 22 Sep 2026 08:18:55 +0800 (CST)
+Message-ID: <bc5546de-6548-4abd-a1d5-d62e6a4d744c@163.com>
+Date: Tue, 22 Sep 2026 08:18:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] ntfs: mount hibernated volumes read-only regardless of
+ errors=
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org,
+ Baolin Liu <liubaolin@kylinos.cn>
+References: <20260921091907.1491879-1-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260921091907.1491879-1-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgDHz+puybFqvlbRAg--.32355S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuF4fGr4xKFWfJr17tryxZrb_yoWrtw1fpF
+	ZrJwn8tr4kKr129rn2yay2k3Wru392kayUKr18Aw4xXr95ArnIq34xKw1F934Ikr9Yqw48
+	XF4j9ay3WFWUAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UVUDXUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q+UX2qxyW+p6AAA3R
 
-On Mon, Sep 21, 2026 at 11:19 AM UTC, Mika Westerberg wrote:
-> +                     if (!nbytes) {
-> +                             pr_warn("corrupted frame received, flags %#x\n",
-> +                                     sf->frame.flags);
-> +                             tbstream_dev_consume_rx(sdev);
-> +                             ret = -EIO;
-> +                     }
-> +                     break;
 
-One question: EPOLLIN is set unconditionally in the rx callback
-regardless of frame flags, and tbstream_dev_fops_poll() only checks
-tbstream_ring_available() (pure ring depth), never frame flags.
-EPOLLERR is used elsewhere in this file but only for device-level
-invalidity, not per-frame corruption. So userspace still has no way
-to learn a corrupted frame is queued via poll() before calling
-read() and getting -EIO. I'm just wondering, is this intentional,
-or worth a follow-up?
 
-Also, fwiw, this doesn't apply cleanly against current usb-next for
-me, git apply fails on the rx_callback hunk. Looks like it's against
-a tree predating the busy-polling changes.
+在 2026/9/21 17:19, Hongling Zeng 写道:
+> The hibernation check in load_system_files() only converts the
+> superblock to read-only under errors=remount-ro.  With the default
+> errors=continue (and with errors=panic), a hibernated volume is
+> mounted read-write and the mount-time $LogFile emptying writes to it,
+> although a hibernated volume must not be written to at all.
+> 
+> Drop the on_errors term so that a hibernated volume, or a volume whose
+> hibernation state cannot be determined, always mounts read-only.
+> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+> remounts to read-write, and the $LogFile emptying is skipped by its
+> !sb_rdonly() check.
+> 
+> The check itself must not apply the errors= policy either: it runs
+> before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
+> call ntfs_error() internally on corruption or I/O errors, which under
+> errors=panic would panic the machine before the read-only fallback has
+> made its decision.  Temporarily substitute errors=remount-ro for
+> errors=panic around the check: nested ntfs_error() calls then fall
+> back to read-only, and any read-only transition they trigger is
+> preserved even when the error is not propagated to the check's return
+> value or recorded in NVolErrors().  This is safe during initial mount,
+> before the super block is published.
+> 
+> If the check reports hibernation or fails, set SB_RDONLY and record
+> NVolErrors() unconditionally: hibernation safety takes precedence over
+> the errors= policy.  A volume with errors recorded during the check or
+> earlier in the mount, e.g. when loading the LogFile, also stays
+> read-only, matching what ntfs_reconfigure() enforces for remounts.
+> 
+> Fixes: 6251f0b0de7d ("ntfs: update super block operations")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+> Change in v6:
+>   - Temporarily substitute errors=remount-ro for errors=panic during
+>     the hibernation check.  ntfs_error() does not always set
+>     NVolErrors(), so the v5 restore condition could re-enable write
+>     access after a real error.
+> ---
+>   fs/ntfs/super.c | 25 ++++++++++++++++++++-----
+>   1 file changed, 20 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index f4a73e45773d..da2c8f310a7f 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+>   	struct ntfs_attr_search_ctx *ctx;
+>   	struct restart_page_header *rp;
+>   	int err;
+> +	u8 saved_on_errors;
+>   
+>   	ntfs_debug("Entering.");
+>   	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
+> @@ -1572,8 +1573,19 @@ static bool load_system_files(struct ntfs_volume *vol)
+>   	 * NVolErrors() without setting the dirty volume flag and mount
+>   	 * read-only.  This will prevent read-write remounting and it will also
+>   	 * prevent all writes.
+> +	 *
+> +	 * Nested lookup and inode-loading errors must not panic before the
+> +	 * read-only fallback has run.  Temporarily use errors=remount-ro
+> +	 * instead of errors=panic, preserving any read-only transition even
+> +	 * if an error is not propagated to the check's return value or
+> +	 * recorded in NVolErrors().  This is safe during initial mount,
+> +	 * before the super block is published.
+>   	 */
+> +	saved_on_errors = vol->on_errors;
+> +	if (saved_on_errors == ON_ERRORS_PANIC)
+> +		vol->on_errors = ON_ERRORS_REMOUNT_RO;
+>   	err = check_windows_hibernation_status(vol);
+> +	vol->on_errors = saved_on_errors;
+>   	if (unlikely(err)) {
+>   		static const char *es1a = "Failed to determine if Windows is hibernated";
+>   		static const char *es1b = "Windows is hibernated";
+> @@ -1581,12 +1593,15 @@ static bool load_system_files(struct ntfs_volume *vol)
+>   		const char *es1;
+>   
+>   		es1 = err < 0 ? es1a : es1b;
+> -		/* If a read-write mount, convert it to a read-only mount. */
+> -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+> -			sb->s_flags |= SB_RDONLY;
+> -			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+> -		}
+> +		/* Hibernation safety takes precedence over the errors= policy. */
+> +		sb->s_flags |= SB_RDONLY;
+>   		NVolSetErrors(vol);
+> +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+> +	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
+> +		/* Match the read-write remount restriction for recorded errors. */
+> +		sb->s_flags |= SB_RDONLY;
+> +		ntfs_error(sb,
+> +			   "Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
+>   	}
+>   
+>   	/* If (still) a read-write mount, empty the logfile. */
+Looks good to me.
 
-Not a blocker either way.
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
-Reviewed-by: Ivy Lopez <skunkolee@gmail.com>
