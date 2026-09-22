@@ -1,114 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A9123C4F3;
-	Tue, 22 Sep 2026 17:15:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841B3577E30;
+	Tue, 22 Sep 2026 17:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790097334; cv=none; b=eYUWZyrwWAjyz+ZTiXR2qRskGRWgKgU8y60ULEujv7cxAT2SYlJRq38Jqo6+SH64YfhR/L1y0bkZwkE5ESC2+/J3+QMf6xWF46fsr3esNBvaIWYt7JAfDy560dk0T65E/7J/5PtSUKUaw8AguJPoQCPJg89uC7Z1Zcs08Ty8KN0=
+	t=1790097338; cv=none; b=spI5VncjVIQzOpIC4yNOALjw5PbGCM0GGXoK6fQcJ07cdGtZvRNDXnErc4Oo7MDLX3/A3O95SMykVu83VDHmihgid8cRSzqwYV3t2ziLip7rus0qKbxZpvtSGJuLbLGon6KAuKLDIO4NfNluv+4vEKL/2RL5lqJSbEQBEjCtPu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790097334; c=relaxed/simple;
-	bh=o7XCPms2Bib6bRfira2F3Orb6WqbjrC4QrVJj6MkpzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gfQC7Ybt+nE9LHHNp+J9kJEYrrbDNce7MJlIqPkVa6td9/UyA/48nfJ7Hs4PIWST6Bko+1LSXEN30mcK1ZyOghRF+W8E0Rr5cQQDppZ79u4FCk4ns0gCLIk0oA29GCZY2kC6IEXm3gQO7BlKpvOT9BhDXORzDJ7OFIg/huWjrJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEpya1Hj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790097338; c=relaxed/simple;
+	bh=aIvSiXa3+TYx7bi3V5dw42Ue3KZMD0siULIfE/dvEQI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bY6wzv862CHB3Cdln40a/B3/JG3SxXtQhdn58M+tcrHJ2WKv36ewahjuG/ky9zVHmn1+C+PyJe+ZdoazWKLBaly0MK4qCrGG5viwRKMUnUrVdJZcNXqg9fL5rF7xTauR4mgX9BtSR66SsIrg308PbTKE+7oZ3prWrZANaO7jshg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=hqU0CByS; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEpya1Hj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333831F000FF;
-	Tue, 22 Sep 2026 17:15:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790097332;
-	bh=ruPuFqV56/fcI5FeCOr8sioenZxbHL6buJ4gcKubV/Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oEpya1Hj4XKvcWRL9lJFg4zKI+YFLQPcbPAfGtQREOU4UW54RaTi6aXCk5E/as3Iy
-	 IJhgBCmXlOM2Wq0tfAFzfgep8aHOoU471XmgfPanYQN5X+4ZLOGpgsh/ohLqCKhToV
-	 aFsXXxj1ywJNoxsDsGyrmPfqs+BareTc8HGrwA8CWGjboHoqOfM7Wx19criKxyW4Fy
-	 nI/sw403O5eOKSBet+uJMW08vMz1Rh3FJPFkNd10VJnNn5ftQXfDIZsKL5lmmrWBp3
-	 y47ktNnM97xIipUkSwYZvwYcWwhftvMrOXfUxOsPMERcosLOcnnyumlYDQvR0DnlNd
-	 /V2LdXZkgp6aw==
-Date: Tue, 22 Sep 2026 18:15:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/3] dt-bindings: usb: dwc3: Add JHB100 device
- controller PHY adapter
-Message-ID: <20260922-colonize-uncaring-c604b3529275@spud>
-References: <20260918071103.24482-1-minda.chen@starfivetech.com>
- <20260918071103.24482-2-minda.chen@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="hqU0CByS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=aIvSiXa3+TYx7bi3V5dw42Ue3KZMD0siULIfE/dvEQI=; b=hqU0CB
+	ySEEvdprfEWb4xkQGlSn5w5HAV/81c1nWMKXoCFV55o1L37ZqwMu/yLZKBSdEWulJow0fgW1ASBzY
+	akE5fpIwK2d3Cm5JM6y0v9JOjic5dzKmjiu8B2tTMnwD+ANo53TYLzNHPueeDA2khb7BSrcIZNizZ
+	tVYFnVzuAMxjRvQKEl0PTqx8IsS8zAlRlk0pEishPQZnfVlkn3R3bYE8gAE2x7H1uZQBnpAzAj32o
+	sAQPZjjvtrjXzWcXej3uU34edcyi+cS1G5MWFUQmCnjZHQyMd2ZAcTrReEFqoovKkqMq68UMJdJ9z
+	aSPmsCJSow5ChZrzopeDLdjz5ITQ==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x944f-00000001udR-0YDT;
+	Tue, 22 Sep 2026 17:14:33 +0000
+Message-ID: <ad1c4de51f1fbbfc7345036af8f39fb450c1f3c7.camel@surriel.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>, Gregory Price <gourry@gourry.net>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>,
+  Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, Michal
+ Hocko <mhocko@kernel.org>,  Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+ David Hildenbrand	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Kemeng Shi	 <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>,
+ YoungJun Park	 <youngjun.park@lge.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
+ Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Wenchao Hao
+ <haowenchao22@gmail.com>, Jonathan Corbet	 <corbet@lwn.net>, Hugh Dickins
+ <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Tejun Heo
+ <tj@kernel.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>,
+ Meta kernel team <kernel-team@meta.com>, Linux Memory Management List	
+ <linux-mm@kvack.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Tue, 22 Sep 2026 13:14:31 -0400
+In-Reply-To: <CACePvbXG5kjZmRsdd0a4HfbnNa6w5s9b_1OCySbwvY+HuCqOVg@mail.gmail.com>
+References: 
+	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+	 <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org>
+	 <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
+	 <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
+	 <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+	 <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
+	 <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+	 <arEVDBlfsUYKK004@gourry-fedora-PF4VCD3F>
+	 <CACePvbXG5kjZmRsdd0a4HfbnNa6w5s9b_1OCySbwvY+HuCqOVg@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KHIdktmF23MupoFW"
-Content-Disposition: inline
-In-Reply-To: <20260918071103.24482-2-minda.chen@starfivetech.com>
 
---KHIdktmF23MupoFW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, 2026-09-21 at 06:11 -1000, Chris Li wrote:
+> On Mon, Sep 21, 2026 at 2:53=E2=80=AFAM Gregory Price <gourry@gourry.net>
+> wrote:
+>=20
+> >=20
+> > You can't know the compressibility of memory until after you
+> > compress
+> > it, and requiring a user to predict the future by forcing them to
+> > limit
+> > the total amount of workload compressibility does not scale with
+> > the
+> > number of workloads of variable compressibility of data.
+>=20
+> You likely just need to pull a SQL query on your fleet to get that
+> number.
 
-On Fri, Sep 18, 2026 at 03:11:01PM +0800, Minda Chen wrote:
-> Add dt-binding of JHB100 server host field USB device controller PHY
-> adapter register IO region and its regs-name.
-
-I don't understand the rationale here or the other binding patch.
-Why is it not always 2 regs? Either the device has 2 or it has 1, there
-shouldn't be variability unless there's more than one instance and the
-dfferent instances have different numbers?
-
-Cheers,
-Conor.
+This feature is not being developed for just one
+user. It has to work for everybody.
 
 >=20
-> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-> ---
->  .../devicetree/bindings/usb/starfive,jhb100-dwc3.yaml | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
+> > That should tell you that your model of reasoning about this issue
+> > is
+> > ill-suited to address the problem.
 >=20
-> diff --git a/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.y=
-aml b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
-> index fbabe99e9d5c..b2fd98c06ba0 100644
-> --- a/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
-> +++ b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
-> @@ -20,7 +20,16 @@ properties:
->      const: starfive,jhb100-dwc3
-> =20
->    reg:
-> -    maxItems: 1
-> +    minItems: 1
-> +    items:
-> +      - description: Core DWC3 region
-> +      - description: DWC3 device controller adapter region
-> +
-> +  reg-names:
-> +    minItems: 1
-> +    items:
-> +      - const: core
-> +      - const: adapter
-> =20
->    interrupts:
->      maxItems: 1
-> --=20
-> 2.17.1
+> That is what I'm suspecting. Nobody in a sane mind would want to
+> zswap
+> 100% of the RAM and maintain reasonable SLO.
 >=20
+It could make a lot of sense to have some default
+limit upstream, that says the zswap pool is not
+allowed to take more than half of memory, because
+at that point the compressed content will be
+crowding other things out of memory.
 
---KHIdktmF23MupoFW
-Content-Type: application/pgp-signature; name=signature.asc
+That seems like the kind of limit that is large
+enough that very few people will run into it,=C2=A0
+while also being small enough to prevent actual
+corner case trouble.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarK3sQAKCRB4tDGHoIJi
-0szQAQCwh/dFafRZJB+jn62w8Y2QCRUr/K2AbBr0TrPFgM4FhgD9EGSlYvTElJBw
-EVOd58UALAYKOueaN3htPnZsmZEmNAU=
-=l681
------END PGP SIGNATURE-----
-
---KHIdktmF23MupoFW--
+--=20
+All Rights Reversed.
