@@ -1,38 +1,37 @@
-Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
+Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B117528431
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:55:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED5352B1F4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067302; cv=none; b=MJ/ajCWYMMwyHgRvEg0ZNKlZgg+e+1ZHjH7z4Drvk9LjSWOoFdKdYZo7enu+FTKq+c4sTserAhUrgbPxiAOel5qwHjsOXLpIzt8TtGNv07IkctEfzevSMB+mI4Tr30H/MnV538J6LfFPtRyGTC97qq5SEMnFKnc1i74S6h7afnw=
+	t=1790067307; cv=none; b=mzsGtKdo8mFEl4izq7pa7AJyT4ESbopl1aaHP+4W7HBgs+Jb6QLOADSTbajL5MbNHBFLVEIvf2w/UlEj2MAa3VJAKYNe5KKeu+ECnApoo4UjKYj/KgVH4KbQANiEKcKs6AKuhRxkzKJnL5ZINVdsMQQ7RihXkC9kWYnsQHKW+6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067302; c=relaxed/simple;
-	bh=988pi3oTdtsnoS5j0ActZjzPjSaiob3jbZgYYhq8UUM=;
+	s=arc-20240116; t=1790067307; c=relaxed/simple;
+	bh=RqklO2bnVUUdxOx30CGmegn1deBHfBqHXY4iYTWrDmU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=I/Y0KVDusHeVXmJiw3iCwgXbX+uQW0GI7IfuQSMECkH7MPwWrjxs9R49o5HN1UFJHAS5wZqDgo6mCFwwhK4Y4sF2hCCgIqH2bz2t5YLNyqBIMh4+88k6k8UQkQOXyR05TzedEst6R2KR0EUnLDeBGLXMTwj+BPo/XAEUCZeUqT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jjWOtt7W; arc=none smtp.client-ip=91.218.175.250
+	 In-Reply-To:To:Cc; b=ty5dVydt9FNRnPo9KjFrnTicAkk2XwQUeVSBWkztk2Xd2QQbw6bxe/U1Ho6tsKs0aCa8g80+tNjjiC64tLi1Lf0NcBsbsfu0Cq4cgpRg7pQU7OTzvVdiJmKhdgJbWJ0noKG60XENF4+Ykc+TNUVTKL5O1S4146XHSQ//Ki0A4vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uEUFG+/k; arc=none smtp.client-ip=91.218.175.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jjWOtt7W"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uEUFG+/k"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=988pi3oTdtsnoS5j0ActZjzPjSaiob3jbZgYYhq8UUM=;
+DKIM-Signature: a=rsa-sha256; bh=RqklO2bnVUUdxOx30CGmegn1deBHfBqHXY4iYTWrDmU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790067298; v=1; x=1790672098;
- b=jjWOtt7Wwdw+7deOVWe+RlTVKbG2ojFs0jRO4hUj4FwYNbp1rijsngDUmTPOVUyiqdzZB9dq
- J++McUz8Pd2MjTFvJFVh/GlaD6rYK0aGiR4HPGDmRzMzOu4jX384ORR+R1aKgAzHeEYkoY6S2lg
- M8VxuachIl5ZyWQuVcP06js4=
+ t=1790067303; v=1; x=1790672103;
+ b=uEUFG+/kP1/UHZ0s4s0rhpizbRhSbSSrFOKTEL/xcvH/NvqU+aPH4XXmykC9rAKVe1s7xhTZ
+ Q7R3a4YHfQMqVo0ySYpqZlONt7ASxTvGKnbW+n8CwDOxmznVue7gQedj4HNWm//0C06Wib6fHjD
+ qvnDehdOwqAeveGPC4m6UF9M=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7a67b773cacf3de3;
-	Tue, 22 Sep 2026 08:54:58 +0000
-X-Mizu-Trace-ID: 7a67b773cacf3de3
+Received: by smtp.migadu.com with ESMTPS id c341bbbc24247b6b;
+	Tue, 22 Sep 2026 08:55:02 +0000
+X-Mizu-Trace-ID: c341bbbc24247b6b
 X-Migadu-Flow: FLOW_OUT
 From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Tue, 22 Sep 2026 16:54:43 +0800
-Subject: [PATCH net-next 1/5] seg6: split final End process out of flavor
- processing
+Date: Tue, 22 Sep 2026 16:54:44 +0800
+Subject: [PATCH net-next 2/5] seg6: add RFC8986 flavor support for End.X
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-srv6_flavors_endx-v1-1-4d01c05c47b7@kylinos.cn>
+Message-Id: <20260922-srv6_flavors_endx-v1-2-4d01c05c47b7@kylinos.cn>
 References: <20260922-srv6_flavors_endx-v1-0-4d01c05c47b7@kylinos.cn>
 In-Reply-To: <20260922-srv6_flavors_endx-v1-0-4d01c05c47b7@kylinos.cn>
 To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
@@ -55,59 +54,53 @@ X-Mailer: b4 0.14.3
 
 From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-Move the final End forwarding step out of end_flv8986_core() and return
-success to the caller instead.
+Previously End.X only supported NEXT-C-SID, with a plain fallback to
+input_action_end_x_core(). Add PSP End.X processing by reusing
+end_flv8986_core().
 
-Currently end_flv8986_core() performs both RFC8986 flavor processing and
-final End forwarding by calling input_action_end_finish(). That couples
-flavor handling with the End-specific forwarding path, which makes it
-hard to reuse the same flavor logic for other End variants.
-
-Split the two steps so input_action_end() does:
-  1) end_flv8986_core() for flavor processing
-  2) input_action_end_finish() for final forwarding
-
-This keeps end_flv8986_core() focused on RFC8986/PSP flavor semantics
-and makes it easier to plug the same flavor core into End.X/T later.
+Add SEG6_LOCAL_FLV8986_SUPP_OPS to SEG6_LOCAL_END_X_FLV_SUPP_OPS so
+End.X advertises PSP flavor support.
 
 Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
- net/ipv6/seg6_local.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ net/ipv6/seg6_local.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index d1070aec7b72..584e6aca3893 100644
+index 584e6aca3893..7462da1da362 100644
 --- a/net/ipv6/seg6_local.c
 +++ b/net/ipv6/seg6_local.c
-@@ -804,7 +804,7 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
- 		goto drop;
- 	}
+@@ -121,7 +121,8 @@ struct bpf_lwt_prog {
  
--	return input_action_end_finish(skb, slwt);
-+	return 0;
+ #define SEG6_LOCAL_END_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
+ 					 SEG6_LOCAL_FLV8986_SUPP_OPS)
+-#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	SEG6_F_LOCAL_FLV_NEXT_CSID
++#define SEG6_LOCAL_END_X_FLV_SUPP_OPS	(SEG6_F_LOCAL_FLV_NEXT_CSID | \
++					 SEG6_LOCAL_FLV8986_SUPP_OPS)
  
- drop:
- 	kfree_skb(skb);
-@@ -816,6 +816,7 @@ static int input_action_end(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ struct seg6_flavors_info {
+ 	/* Flavor operations */
+@@ -841,12 +842,19 @@ static int input_action_end_x(struct sk_buff *skb, struct seg6_local_lwt *slwt)
  {
  	const struct seg6_flavors_info *finfo = &slwt->flv_info;
  	__u32 fops = finfo->flv_ops;
 +	int ret;
++
++	if (!fops)
++		return input_action_end_x_core(skb, slwt);
  
- 	if (!fops)
- 		return input_action_end_core(skb, slwt);
-@@ -829,7 +830,10 @@ static int input_action_end(struct sk_buff *skb, struct seg6_local_lwt *slwt)
- 	 * information extracted from the packet, e.g. presence/absence of SRH,
- 	 * Segment Left = 0, etc.
- 	 */
--	return end_flv8986_core(skb, slwt);
+ 	/* check for the presence of NEXT-C-SID since it applies first */
+ 	if (seg6_next_csid_enabled(fops))
+ 		return end_x_next_csid_core(skb, slwt);
+ 
+-	return input_action_end_x_core(skb, slwt);
 +	ret = end_flv8986_core(skb, slwt);
 +	if (ret)
 +		return ret;
-+	return input_action_end_finish(skb, slwt);
++	return input_action_end_x_finish(skb, slwt);
  }
  
- /* regular endpoint, and forward to specified nexthop */
+ static int input_action_end_t(struct sk_buff *skb, struct seg6_local_lwt *slwt)
 
 -- 
 2.55.0
