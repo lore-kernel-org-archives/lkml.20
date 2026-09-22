@@ -1,82 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D00485CEF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928FE1DDC33;
+	Tue, 22 Sep 2026 07:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061870; cv=none; b=D7NAAmf4bnE2os0LQYzkp6redpMWu7UtJxBP6XFWThybi+hVaxz0HuOIseJg5EdfDRMF1GMiZZy8RlKpGC7OC8Mf8k2M3Hobu6fWaTfGvlQO/A5zcyHKfuXGZIzimVy9Ci4J5wvUg+RUskn4JA7rSWVZtGHcBYU0TSTukuc/0wc=
+	t=1790061878; cv=none; b=pZX1QH1hHx8WPA05AamSQita/PQXr/ZaiTFyGiII5YLtFMu0762HJEWZJIJtw0VFk69FNNO3/b39rysghY3ug3EwH1PclRZg+t/J9yMIIO/ItTW4YX0PsGVwH1wdVoNL9b52RjmjthF1AXE+t0pu4nit+DDoTxeA5LjcN4KFnL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061870; c=relaxed/simple;
-	bh=dnHoQ9hJxT1jx4dONrAt87VQ3Ef84mxygQ9fqqx65vM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hzdXp7kWhCagFrmnmyM6cwJqE5Q2xWaxGDt8KTXnaU219nCjqDfogZkMCMkm2okNjm45c3p2yA2lfnrX1dGkdptJo3l1AYl9hjHg4KWglPuUrWC7lqA5uL12B2ZYWH5SdEEbwcDz+1zEuhwXu4Uu5QUDNNARYrB0WJY7N48f3gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+ZiLe9N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790061878; c=relaxed/simple;
+	bh=AphToBMiKdpkW4jJyGrkF0MLgHLvibg8+sFDnX92rXU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WkG6yrk36EbSmWkytkPawSVlD3QYqQvyLEyETErLQuz8MDaqWIWxbwssxKLWNetB3bhJC7PIck97IvMWsYH6HcbH3NwsCzQnFskZ1J5JKIqFc9B2ZnqCjqIlTqJwCkpjOxQcAMaFdnFSnAP7W/jv0IpCPat9aQhAtUa+pkuyBmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZljLmvs9; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+ZiLe9N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4072F1F008BE
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790061867;
-	bh=dnHoQ9hJxT1jx4dONrAt87VQ3Ef84mxygQ9fqqx65vM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f+ZiLe9N+4HhobIOiXEkHSOzJPiavcqREHehqAwNFiC6345vzVqQ0XkFyy0KZLSon
-	 mL8vlDLDMcccOzT/PVl1scbUyc58IKW+EpJhksVggpBN7qVRYVOFrfk1dfoi8DTMLq
-	 XTsyDObN9lrEAZIOn9ddRz8TKaRrnEs+mS0QUYuqlPXuQqg0i/3o4HQSnBnBN2RlkL
-	 t/d7Mf/CRnjOGt/CFEOYqI1b2ZQ3umC3r4HNuAtWJ9HEwmjNVNMvGGPEdmhDctmzKK
-	 /MlckJ13teVFVlHezc3sFsPaWvdMGeBM/MWBUTpKBBKPDweGpMgVU1disO8Pej0Myh
-	 3y51cbIY09riw==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d47b5987so247699e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:24:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxL5SNaZAKf3WoJGMM9GsYmi64lqpN1BsdBtcKVwVfkfwzf3d+InvMPbirLy+e5V0pYJmxb1YPUG1dpCWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lh+0EHmi0BVxbpOqnSFrj1vGL+0KV19d75lnMsD/xqOHRjQJjE
-	VpolMWjhHSh2Lj3AwaeF9qZXUYCqBM3cwkN7R4Scs7EPty4epu2cSMwqPAdhHPmVJPqjK0Sg9XS
-	Nc2T0ZcFTi6hker6aOG/3sPjxzymG5nc=
-X-Received: by 2002:a05:6512:b95:b0:5ae:ba8f:f9fa with SMTP id
- 2adb3069b0e04-5b8c18411aemr4246334e87.18.1790061865764; Tue, 22 Sep 2026
- 00:24:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZljLmvs9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=OdJLflAlPG2srZDj55Kplumdt/HlutALrygg5uboHCg=; b=ZljLmvs9ZpjUSMwVeNapnu9yQW
+	bR4eSE1Y7mhFS2+g1kSyyZU24sd90De3F+IE+8ZpWQVqbI4UWfI6MOO4EVCOAbHIUb8G7FTPXNZQ+
+	zHhaaauBp6/etPY1cYGIeFssIs2ve4iIpnkAdMSCgCeePrOBqlC533SUpgdp0sGs+CAEgqcxpmRqv
+	u4ZE9wd8xRrgZ4lMPZ6mTWTm9KKnv1dwpvdTxIK+BF0ikHIhWB+3qiN4AA2gjbKN0OaIkEOpj/tvr
+	0I6kaNTzsihN5aPn/nWepBC4pMSUTPZn7Wp/hm297NaxViUbCXbGY1nvj/M57y6tysU2MxwEFz833
+	sZlyoGcw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8ur3-00000007UwY-1ISQ;
+	Tue, 22 Sep 2026 07:23:53 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id D97213008D6; Tue, 22 Sep 2026 09:23:52 +0200 (CEST)
+Date: Tue, 22 Sep 2026 09:23:52 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Lu Wang <wanglu.priv@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Kees Cook <kees@kernel.org>, Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Qais Yousef <qyousef@layalina.io>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Srikar Dronamraju <srikar@linux.ibm.com>,
+	Vineeth Remanan Pillai <vineethr@linux.ibm.com>,
+	Ricardo Neri-Calderon <ricardo.neri-calderon@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>, Hyunwoo Kim <imv4bel@gmail.com>,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	Zhan Xusheng <zhanxusheng1024@gmail.com>,
+	Yi Lai <yi1.lai@intel.com>,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Zenghui Yu <zenghui.yu@linux.dev>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+	stable@kernel.org
+Subject: Re: [PATCH v2 2/6] sched/cache: Honor migrate_llc_task semantics in
+ active load balance
+Message-ID: <20260922072352.GW4121339@noisy.programming.kicks-ass.net>
+References: <cover.1790035273.git.tim.c.chen@linux.intel.com>
+ <cb39f64a17fc2b76097264aaec74a2d6dfff4315.1790035273.git.tim.c.chen@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-11-282ff5d98dda@ambarella.com>
-In-Reply-To: <20260921-cv75-v5-v8-11-282ff5d98dda@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 09:24:14 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk1WEwWRFdLjkbY3YSJmbQ3oLaoNAv3Ca6ZJ2ebubp2jA@mail.gmail.com>
-X-Gm-Features: AclHuK9erJBC7wstRYz1ZiKk7AbclZKt0-cY_QBUwQ7InLcjPRkXXHSAcSuac_8
-Message-ID: <CAD++jLk1WEwWRFdLjkbY3YSJmbQ3oLaoNAv3Ca6ZJ2ebubp2jA@mail.gmail.com>
-Subject: Re: [PATCH v8 11/18] gpio: pl061: use IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cb39f64a17fc2b76097264aaec74a2d6dfff4315.1790035273.git.tim.c.chen@linux.intel.com>
 
-On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+On Mon, Sep 21, 2026 at 05:37:23PM -0700, Tim Chen wrote:
+> From: Lu Wang <wanglu.priv@gmail.com>
+> 
+> CAS introduced the migrate_llc_task migration type to direct tasks
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Use the standard IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH helpers
-> instead of open-coded edge and level comparisons.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
+FWIW, every time I read this I get confused, CAS maps to
+Compare-And-Swap, aka cmpxchg on x86.
