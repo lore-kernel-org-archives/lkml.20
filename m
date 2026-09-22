@@ -1,52 +1,46 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271901DF98F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5D8314D1F;
+	Tue, 22 Sep 2026 09:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068796; cv=none; b=fCdXhnos7VMR542MzmEMbiXmXNiYB7Dcss65eTP9eClb72SmMcSo25Cu0Q330gzui8Dw53ybk4uoYUymEcxniXvrm5c+HodSb0nxbrUXCtZ5yOFa2GaehHxdiA0Olw3TcRgfGnc9sB7/IWooqPnkQCU2dLeP90PqqvZW2XZrj58=
+	t=1790068850; cv=none; b=ggYrZ4+SsE2vWQH3bMDgI0MCHv4yoGeWCS9F4XbLSupB/iwFeaVqPYhzrbwqMpsD4MZR2wZB4jqW6YLkssHLpxs309VbYC8jthmmdyJjr/y4uu+w0j1YC8yo3xGXNSfV5g8b780Y9pxZ+0dU+PE4BcnHC2HivcWGE/Lt6tp4VKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068796; c=relaxed/simple;
-	bh=uLkd0JPyhsHUlYTDpYDC4lnwFB2XZIZu3LCtxX/nbow=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kS2UNTktCWiPJtYmKePW5TRZKiphdxSrSxVRSH0d55u+zySlcMBZVs8ZE1k7z1F3yDgb1etAbOrVNvfVUkZdAORxuiFm9w0INFctDmnqzBk1Tka08q/hdkQUmBceMyAFJLkhN880Xasd02ALjK+c2XlNnR4oks3YMX2oqjR77Eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: bff618a8b66611f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:6efb3fd7-d9b1-4cf2-8fa4-4546d1d859ba,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:1c0997d5cf5cc766609df1a475496f19,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: bff618a8b66611f19a56ed5b684f684d-20260922
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 475929106; Tue, 22 Sep 2026 17:19:44 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: abbotti@mev.co.uk,
-	hsweeten@visionengravers.com,
+	s=arc-20240116; t=1790068850; c=relaxed/simple;
+	bh=ufHQwVLWhbEqSDudZEAnnILdx9qDHelU/xGM0QyoWGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DgMYBhxNToQ/CEjrIpQPONODmSVIXzPdpjuKZp8RYNcAvhuvWP9cgx8GzcGOPhbfSR1wC6WCu7bJ1irMN2+9vEU260mIIUj/LKz8IpKdlX3USi705hKEuKmpd/JYsh9hSOCjg0ZUOFZp4Kl+jYg7SV/dxivfp3ZSTzpWTtlIUo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwGJuFnp; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwGJuFnp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A111F000FF;
+	Tue, 22 Sep 2026 09:20:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790068848;
+	bh=dYkHamlC0XvL4sfwKvaCSqNhRE91tdB+Ax+AruYP6lc=;
+	h=From:To:Cc:Subject:Date;
+	b=HwGJuFnpjyM9k6k+oCT2JqJu2mw7v3tyJW/5e1pKdVs/V9X70gyZOPYq5y3GTp39n
+	 S4/Qw3WWlzKsQfAPOw3QXTjD3pFAIBPXE+gn2KQl/yRwZsoUvNFciOPs8uPSoSYK4n
+	 deQrdkoWqGaToY+umNDVjCV2d7UJxcbZrphE/3rwoahPReu1NZwzIMfNbgmS69Ka2a
+	 muiBn+1ZOWoPPBisPEZ6M0oIkLQF5OEgnDCYBkdXnDmKx8mhFK4e3X5CB3VJ4pPt6u
+	 4+JJAz550HW0OWoEl3xjfhr2hAfmx0xd3ZMhF32jFYVKoqHMMG59B5cKx6Za2vj7KP
+	 0X0UADqXcecLA==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	biju.das.jz@bp.renesas.com,
+	geert+renesas@glider.be
+Cc: claudiu.beznea@tuxon.dev,
+	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-Cc: syzkaller-bugs@googlegroups.com,
-	gregkh@linuxfoundation.org,
-	Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH] comedi: dt2811: fix shift-out-of-bounds in IRQ check
-Date: Tue, 22 Sep 2026 17:19:39 +0800
-Message-ID: <02c46315293a26169d2a3862a2047959a1651ef4.1790061387.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <6ab21240.e548f532.1ca396.0018.GAE@google.com>
-References: <6ab21240.e548f532.1ca396.0018.GAE@google.com>
+	linux-renesas-soc@vger.kernel.org,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	stable@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: [PATCH] dmaengine: sh: rz-dmac: Fix off-by-one in residue lmdesc lookup
+Date: Tue, 22 Sep 2026 12:20:37 +0300
+Message-ID: <20260922092037.224884-1-claudiu.beznea@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,41 +48,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID: <20260922091939.GKvofurpBYesWLI8gPcW8CiW4eRuvtPwH7-hn1IVL8o@z>
 
-The IRQ number passed via comedi_devconfig->options[1] is a signed int
-that comes from userspace.  The check `it->options[1] <= 7` does not
-reject negative values, so a negative IRQ number reaches
-`BIT(it->options[1])`, which is undefined behavior and triggers a UBSAN
-shift-out-of-bounds warning:
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-  UBSAN: shift-out-of-bounds in drivers/comedi/drivers/dt2811.c:570:31
-  shift exponent -251 is negative
+lmdesc->nxla is the address of the next descriptor, so comparing it
+against CRLA, which is the address of the current descriptor,
+finds the descriptor before the active one, not the active one.
+The residue loops below then summed one lmdesc too many on top of
+that.
 
-Add an explicit lower bound check (`it->options[1] >= 0`) so that only
-valid IRQ numbers 0..7 are accepted before the shift.
+Compare each descriptor's own address to CRLA instead, and add tb
+after advancing to the next lmdesc.
 
-Fixes: f2975a9b2ab9 ("staging: comedi: dt2811: add async command support for AI subdevice")
-Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6ab21240.e548f532.1ca396.0018.GAE@google.com/#R
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Fixes: 21323b118c16 ("dmaengine: sh: rz-dmac: Add device_tx_status() callback")
+Fixes: 172bfb57481c ("dmaengine: sh: rz-dmac: Add cyclic DMA support")
+Cc: stable@vger.kernel.org
+Suggested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
- drivers/comedi/drivers/dt2811.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma/sh/rz-dmac.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/comedi/drivers/dt2811.c b/drivers/comedi/drivers/dt2811.c
-index 0438b8c90e44..53cb17993ae7 100644
---- a/drivers/comedi/drivers/dt2811.c
-+++ b/drivers/comedi/drivers/dt2811.c
-@@ -567,7 +567,7 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
- 	dt2811_reset(dev);
+diff --git a/drivers/dma/sh/rz-dmac.c b/drivers/dma/sh/rz-dmac.c
+index ca76f1bb45c4..fdd7131e890a 100644
+--- a/drivers/dma/sh/rz-dmac.c
++++ b/drivers/dma/sh/rz-dmac.c
+@@ -937,7 +937,7 @@ static u32 rz_dmac_calculate_residue_bytes_in_vd(struct rz_dmac_chan *channel,
+ 	struct rz_dmac *dmac = to_rz_dmac(chan->device);
+ 	u32 residue = 0, i = 0;
  
- 	/* IRQ's 2,3,5,7 are valid for async command support */
--	if (it->options[1] <= 7  && (BIT(it->options[1]) & 0xac)) {
-+	if (it->options[1] >= 0 && it->options[1] <= 7 && (BIT(it->options[1]) & 0xac)) {
- 		ret = request_irq(it->options[1], dt2811_interrupt, 0,
- 				  dev->board_name, dev);
- 		if (ret == 0)
+-	while (lmdesc->nxla != crla) {
++	while (rz_dmac_lmdesc_addr(channel, lmdesc) != crla) {
+ 		lmdesc = rz_dmac_get_next_lmdesc(channel->lmdesc.base, lmdesc);
+ 		if (++i >= DMAC_NR_LMDESC)
+ 			return 0;
+@@ -948,13 +948,13 @@ static u32 rz_dmac_calculate_residue_bytes_in_vd(struct rz_dmac_chan *channel,
+ 		u32 start_lmdesc_addr = rz_dmac_lmdesc_addr(channel, desc->start_lmdesc);
+ 
+ 		while (lmdesc->nxla != start_lmdesc_addr) {
+-			residue += lmdesc->tb;
+ 			lmdesc = rz_dmac_get_next_lmdesc(channel->lmdesc.base, lmdesc);
++			residue += lmdesc->tb;
+ 		}
+ 	} else {
+ 		while (lmdesc->chcfg & CHCFG_DEM) {
+-			residue += lmdesc->tb;
+ 			lmdesc = rz_dmac_get_next_lmdesc(channel->lmdesc.base, lmdesc);
++			residue += lmdesc->tb;
+ 		}
+ 	}
+ 
 -- 
-2.25.1
+2.43.0
 
