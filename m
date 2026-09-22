@@ -1,129 +1,101 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758743F788F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDAA3F9F30
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790052255; cv=none; b=iXCpgEVsROHKyWJcAUaWaftOhMKOIGMcFgEQ9EUxpVtzYixJ/Vi7GLX8OtzbM7WvWqyXo3O7hFt5VkEgEOULukvhOgaQyEan8qDpC5ciK+Z67U75tpcbf44x+TPlbu/7AFPdQbaBNjTJiWZV5QOGwt33hRkzNAKFeVNQEt19ABw=
+	t=1790052278; cv=none; b=T2lDhKtDmHfSUjMcB6Tyx6zeutL43SxE2RhY1gI8eXbTfm9z/KdAyEjimSFXLO7BbdTWls5E50yJ9YL9LkgInnFiKP0gyzgIDj4dWSrWIZKRS0r1LcEo4KWOUDGa6yEU4fFvF5VC9BSmvaw8pPjr6VJ4qPtzwijvFQ+j/nzW5do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790052255; c=relaxed/simple;
-	bh=opW3UCyYmUGIh685jbNut0YC/KSIFOxVldRZxwjwqf8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=POocv3/u4B72Zsm+1B7Qa4WJdfeH+/uOGwwKjsTH45lVDpPYtcthqhxfG/H3sCL8hr3gZpqO8pyAbPO8cFjmLGoFGnuU6X0/46/hzS0SPIIFqZle51el7HCZEAEqAZ3KB6maii01HK5QscXVczfgWSEczX3lwH73voc7Mz5ugi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JCs/Gi5z; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790052278; c=relaxed/simple;
+	bh=O9TtdOhD8pGjJ5szyUuOrZgrl+8A101U3MBnFYDvhY8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fGA/cA7uyWzwwXzuhKIBUcOEV/e/LdA8e7cJYw3e2HrHb/HVOymRMlC5wVl9mtyfk+scf4PIki/NapqIr7+jpZ5yE4QbTwMb1eQjEJN4xkSLh+2RS2LKg8zoVYcXHHKELjOT2hRvTxk/na9UQ29GMYOqGIPzNoHug0rL+J6pqw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PSPTnB4z; arc=none smtp.client-ip=95.215.58.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JCs/Gi5z"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-398cb5615deso4329732a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:44:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790052252; x=1790657052; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nd2sNIwsDlUojlzUKsazShmKean8n/g0XREbYRxOeao=;
-        b=JCs/Gi5zIsBW2gU4j05Wt5wOYcGAR3qiK9Dhk9x0TJzUujKDoX6uid4zemMzJYT1KI
-         JVaTaqXNDpSDO64+8TR8aazTJ3ijcRnfpuiVKuq4dhQclUG2N26UwL7mqYPt0IXYocFw
-         fL9BB/0jfojTT55ff5tN1SpzFfY0dN17C5Pxg1Q9Sz+S4HFIL7zS/Lm39m0h+mGiXf+8
-         QUC3NXFtAfdkkLDwBk5Ukkyt6zvQe2YZlkmomcEguYWs0J7l3/x9Oe3GQdKLS0+h8Iag
-         PZLYe07wQGdWj5Yt421+meDNZMtLcfr598QT+w+ZQQzA40i6SqyLpf8k+9O78MAjsXCR
-         vNhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790052252; x=1790657052;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nd2sNIwsDlUojlzUKsazShmKean8n/g0XREbYRxOeao=;
-        b=m05aOU2RRemRXPWoqwOQ7bKr1mO7wEHstClOnYCkcu/meyK5xfKLLH8XjRUBU+kPOX
-         OBsGjO3DPkubgjXIMHEHZ4HGYmtrZTWvpCEbYJp9XDAdmB3fXb9dcz1LtiL5dftF4vHO
-         UEvw7KdJMq6ew9V2w33OeKtf3H0rE8PRfhNkJfgfEfJqjox2DAed/cP5h2CUwqwKOBI+
-         AS6X6yDYHIB1YzubtH3IYZFz7/bQo2gHmqf7nBw30ZYeGd48GAzZxBt6KYbal/N3BAdP
-         bABfbSx5Jgd0rSLAndCIp6RnqWPtXmEiHYAn1qpsGsKosAEwCOZv0ytOnz2VsNWtOLkg
-         z2yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9CRd4Dp9YGPxfIuebaQWcBUVI1g8aeEMZypKixB1NWmO2XGfDoHwbzuY8Ft+McWhjOleques3R0GorQQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVFWByo7SlUPPdt0+AVKOfyYYrHyimTOsPdRoiSd0DfczutyQa
-	RDneY313jqwwmB+nFV+8KDpHYxjOq1MvDzl2l540mjEx6xcSc6rb/VsA
-X-Gm-Gg: AYBFou2Ds/ZKNA4Xq+llBUA/rKy8sjxrbOMvQZMB2WY+Py8ab3hi3B2sYIlmwCqyl/B
-	lcWx1XdJPajP/xsMSCEgYyPiqs9k/p7zpc6isMMq35PJcHkXwUUezPwhCre92Xl3l7bLYQFt6ln
-	X9xVdrgCIxNiFy6ei/XRLKRDM6N+3SMmKiu46GQ/vK07vHR9k0s3Ms8hN1TUbHsQpq+lrJs65p2
-	xF1aftxVDKF2TDYIilkhMWeQgIAeoJTEWsCTUO+IR1/M0ZhNjjFSrPjBtJTLaFrUilVDVDkY57/
-	A5dvF5gJyrCz6BNCsR5mdn+SVWVd1KaA3ZL4anrJ1Q2QscuUB3etjdfu8OmL34/XedsYeqG6C+R
-	nurONB7FWk+yUGtvPWyjjsMogZM35TpUj94XzQbFOa/DJBaTmgRDsHgYXvJzOZYztD4ICIBLim9
-	lIgck8bVoRLxJI6/K6lwqzYEhKA+RPFa5V2uPv9BqVpIbgtP2oY+KV66FrYkoAzk6hIGSFp8uOc
-	cayVD5kW3Df0/xC4s0lHPSd6QEiCJy2BeuMZaJSJowQyRRc7GS/RUGVcCUi9WDR2JcIkkVhcg==
-X-Received: by 2002:a17:90b:580c:b0:39e:4c81:6c96 with SMTP id 98e67ed59e1d1-39e54f8a187mr19084529a91.28.1790052252288;
-        Mon, 21 Sep 2026 21:44:12 -0700 (PDT)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:6cb2:ad3:ad92:1570])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5751f2sm943802a91.9.2026.09.21.21.44.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 21:44:11 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: code@tyhicks.com
-Cc: blum@kernel.org,
-	chenyichong@uniontech.com,
-	a.velichayshiy@ispras.ru,
-	kees@kernel.org,
-	liubaolin@kylinos.cn,
-	eilaimemedsnaimel@gmail.com,
-	ebiggers@kernel.org,
-	roberto.sassu@polito.it,
-	ecryptfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
-Subject: [PATCH] ecryptfs: validate auth_tok key payload size before use
-Date: Tue, 22 Sep 2026 10:14:00 +0530
-Message-ID: <20260922044400.14078-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PSPTnB4z"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=O9TtdOhD8pGjJ5szyUuOrZgrl+8A101U3MBnFYDvhY8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790052271; v=1; x=1790657071;
+ b=PSPTnB4zSxw4Mu49Z0TQhV1FNPlOwzFXABfcbLftXqQKLWeNRNr6oL60cCkVQlc0FULpn0Yb
+ +gYjqTpa1UfXszW/jk0eE40uHRK2besbBxrZ0EpN9YBsDdDiS7APJNSdXyp2cZlNpyokx+Do3Dr
+ xWmwF19PBWWFEU81MNODolls=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 1c91c1c822023d95;
+	Tue, 22 Sep 2026 04:44:31 +0000
+X-Mizu-Trace-ID: 1c91c1c822023d95
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <10159c57-091e-474a-a154-4f675a39dcc2@linux.dev>
+Date: Tue, 22 Sep 2026 12:44:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] nvdimm/pmem: Remove test_and_clear_pmem_poison()
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>,
+ David Hildenbrand <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Ira Weiny
+ <iweiny@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ linux-mm@kvack.org, nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
+ <20260903053535.17611-3-kaitao.cheng@linux.dev>
+ <arIBvO3cFQ53ivG3@localhost.localdomain>
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <arIBvO3cFQ53ivG3@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ecryptfs_verify_auth_tok_from_key() casts a "user" type key's raw
-payload directly to struct ecryptfs_auth_tok without checking that
-the key actually holds enough data to back that struct. Since a
-user-type key's payload length is fully attacker-controlled via
-add_key(2), an undersized key whose description matches
-global_default_fnek_sig lets later code (e.g.
-ecryptfs_write_tag_70_packet()) read fields such as
-session_key_encryption_key/session_key_encryption_key_bytes past the
-end of the actual allocation, causing a slab-out-of-bounds read.
+在 2026/9/22 12:19, Oscar Salvador (SUSE) 写道:
+> On Thu, Sep 03, 2026 at 01:35:35PM +0800, Kaitao Cheng wrote:
+>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+>>
+>> TestClearPageHWPoison() is now defined regardless of whether
+>> CONFIG_MEMORY_FAILURE is enabled, returning false when memory failure
+>> handling is unavailable.
+>>
+>> The test_and_clear_pmem_poison() wrapper duplicates this configuration
+>> handling and has no other pmem-specific behavior.
+>>
+>> Call TestClearPageHWPoison() directly and remove the redundant wrapper.
+>> This also removes the need to include page-flags.h from pmem.h.
+>>
+>> No functional change is intended.
+>>
+>> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> 
+> Nice cleanup, but as David noted, please squash patch#1 into this one.
 
-Reject the key up front if its datalen is smaller than
-sizeof(struct ecryptfs_auth_tok).
+Although NVDIMM is currently the only external user of TestClearPageHWPoison,
+I still consider it a generic declaration. Combining the two patches might
+give the impression that TestClearPageHWPoison exists solely to serve a
+specific driver.
 
-Fixes: 0e1fc5ef470cc ("eCryptfs: verify authentication tokens before their use")
-Reported-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e4391e0d6e7c89b8c84e
-Tested-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- fs/ecryptfs/keystore.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+That said, I’m not opposed to merging the two patches, as doing so would
+make the submission more concise.
 
-diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
-index 51651314b7a6..81768a0e43b1 100644
---- a/fs/ecryptfs/keystore.c
-+++ b/fs/ecryptfs/keystore.c
-@@ -462,6 +461,14 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
- 		goto out;
- 	}
- 
-+	if (auth_tok_key->datalen < sizeof(struct ecryptfs_auth_tok)) {
-+		printk(KERN_ERR "Auth tok key payload too small (have %d bytes; need %zu)\n",
-+		       auth_tok_key->datalen, sizeof(struct ecryptfs_auth_tok));
-+		rc = -EINVAL;
-+		*auth_tok = NULL;
-+		goto out;
-+	}
-+
- 	if (ecryptfs_verify_version((*auth_tok)->version)) {
- 		printk(KERN_ERR "Data structure version mismatch. Userspace "
- 		       "tools must match eCryptfs kernel module with major "
+I think both approaches have their own advantages and disadvantages,
+which is why I haven’t sent a v2 yet.
+
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> 
+>  
+
+
 -- 
-2.43.0
+Thanks
+Kaitao Cheng
 
