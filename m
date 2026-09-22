@@ -1,180 +1,263 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011041.outbound.protection.outlook.com [40.93.194.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0B3330B01
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:26:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044003; cv=fail; b=PTAegcxEC98/ekJW4nXqfMLrr/26XlVKBOjNX90562WeJ1/hFKIpbczXIQqsI02QZVLG2Y9sNzwXpWBAy4YilSAiGcxE/QBasRhpv1kqljA4Ef79N2U2zUsKhdQ3LK9S3WToOK8CBF2vmvthbbNFz0Qp3b0YThbq/6cR7ClE+TU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044003; c=relaxed/simple;
-	bh=c+kwy5SeTnyMg/5fNPncZxRWEb/+lpyCb5KqosW0X/Q=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=Y/zBSru5YCdNk+AXPmrLh8xr9IXjGOfTjFiXiUeSZZdTsTYMjibLTEoe8D0KKvgw5j63Ppo/AJsO2A4yt/eCrFVvyG6RbUPglKGWyFNknSXxIA+V8N5L/BoZjZvMZt8R4VmSEGb2lIsxrMkvGgR5MMtptcP5/Dk/Cj8FbC6CV6o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ge6tW47h; arc=fail smtp.client-ip=40.93.194.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434A238C410
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790044009; cv=none; b=hJ6VuC+OPpyOEvsNxV8h/fau65qk2ImicnPmzay1dCE2L1nvgqIgO4Q7Gcvykz36tr+m9GgJ1AVbMAa8StTaWRhMVZ6YxAYxpSIPpis1dNAc7irgDy6yqHxBYawN6dOMDzlLyF9VkhACIOAGnInx73SDOKiSJ1wRimV3jp5aXFA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790044009; c=relaxed/simple;
+	bh=97rXNEsO0S02JFiFJq38moNkWCht7E9TlyxYtLTVeYI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RZPovecKHd7Vu8j3WjP6xqHsRmxo9suxwaRMQDvxnajt2yXLNAC0VJoSEVS8OHd6PsfgUhftNmshPe5sYRsA42D69e4hEKoyKTghCzY6Z2MMxAubnHbU1Cq2OIC8H8Pt84TOpgABDO8jnABV6qEb/Y2eam/o4QPgPZ6mjf4Mgek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=XSRleOQg; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ge6tW47h"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MTLtRm17MmkyAaS7h1mnx6yHNOIZT1ZQ9aPQvsat2nWNY/HTbX4nvG8/VRXUZtn1OGMxqlXrU9JGyUIZjAgYRNUf0TlBYfCYtVQfMamp+RP9HQa5dc9NTruYD1IaTwe6qt30fkK8ZKk5TAzZ7dNRHM2tUXCohQ1BJbhr5lKaFJyNK5pOSEBJU7s7uxDm53YMh5axXEwyJ+pNwGmzDOgqNBOFvGAYUA26Ss5Dh4OLTT8rhLs5tW7VTS7BiaLcn1bUPLs82Kf7L8/mm6l8lsRo8RSsmFoos9+Qq7u69W/IQg1tqii20pY4W9ISd6B7UQ29hhOgNdXFxyl38ZYS98vYrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DJ/vdy9uGmQLcel9fYnGf8Ws3cx6xUjgkhPvSdYb01Q=;
- b=nprUf1Nrl08tVE7ay40fitvov6aB4AXpeRWLqIOndDZ0HzffTHuAEcAmsp9Q16xGhR0B01BuBMBS4PbkAiZ/L/ZC5Ds0jrIWsE6YSEsXfuN/RSGZqqQwYfvUyRwG97+DMzB/bOQYeCjP/azW5LZIwZgPa6kociMpvy2mC0eA2DJYayhUuUvc/CyMyb/lghrcmwn5zFRlTei0Qs1E+jrj7DmLc+ctmQ+GTlqchK26cGm5QvWBjNCOPze94aqzK9sSRqjvJXKkPR607BGRIabB8aBWd4cMAq4evEyzdtrJK2wc55AWggvs19B3NpmtHKopk1QD0hntwuBxYSwmh/VRPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DJ/vdy9uGmQLcel9fYnGf8Ws3cx6xUjgkhPvSdYb01Q=;
- b=Ge6tW47hJhx6uODA8aasku963FE99MCfIOpkA+op2iO517fKucHi8PDm96jWZYaE9havl++EaxL+QtDH1WCPnORwP9cin2Hh1EBJIUDjjkKW+95PA8L220LLm7cN8vJQ5wCD/Tu5RrazB0+CqUl9w+gO24YVbF5qGl7n+6g/QTzZK/8KeMOTL7a+Kx3RpxIAhHr5/3mS7HRMVDkaNpDwisb07l7ErR2WdfUtLP8k09ksD7tAoVEbEoyurxcJqYRi1h1YnKdZvnpwKzwrXAXUjgI4EtuWHfXk4DLPUVP/zJwXMj5yklywNNyHC80OlYBNDK4LcgPIKOfxYFtKf2TVjQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CY8PR12MB7413.namprd12.prod.outlook.com (2603:10b6:930:5f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 02:26:37 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 02:26:36 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 21 Sep 2026 22:26:34 -0400
-Message-Id: <DLLHMYHNE9HU.ED6S3JI0KPF@nvidia.com>
-Subject: Re: [PATCH v8 12/14] treewide: introduce arch_has_pmd_leaves()
-Cc: <corbet@lwn.net>, <tsbogend@alpha.franken.de>, <maddy@linux.ibm.com>,
- <mpe@ellerman.id.au>, <agordeev@linux.ibm.com>,
- <gerald.schaefer@linux.ibm.com>, <hca@linux.ibm.com>, <gor@linux.ibm.com>,
- <x86@kernel.org>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
- <hughd@google.com>, <dave.hansen@linux.intel.com>, <djbw@kernel.org>,
- <vishal.l.verma@intel.com>, <dave.jiang@intel.com>,
- <akpm@linux-foundation.org>, <yintirui@huawei.com>, <dev.jain@arm.com>,
- <usama.arif@linux.dev>
-To: "Luiz Capitulino" <luizcap@redhat.com>, <linux-kernel@vger.kernel.org>,
- <linux-mm@kvack.org>, <david@kernel.org>, <baolin.wang@linux.alibaba.com>,
- <lance.yang@linux.dev>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <cover.1789695931.git.luizcap@redhat.com>
- <50af0b07cbb36e911ecd1f90698bfebcdaa8a390.1789695931.git.luizcap@redhat.com>
-In-Reply-To: <50af0b07cbb36e911ecd1f90698bfebcdaa8a390.1789695931.git.luizcap@redhat.com>
-X-ClientProxiedBy: YQZPR01CA0104.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:83::7) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="XSRleOQg"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb7so369118785a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:26:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1790044006; x=1790648806; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n57jpnbqR3xEpFvVL4pj+x/9TynCnpwMD9+qM+zc540=;
+        b=XSRleOQgjUQzCCbGEqntpF1vr5U/KVWqAt+XGZTZyL7fS/CGUQWvFYjOql/DtI5/ub
+         Nmg95FYAnqGSAU1R/dqqGGRjGJMTw12mQNR+E++vzI+/sbf8ai7wIXNQ+Lm0KJNIjGFj
+         H9bd+G2Bltwo/mRIntAlADHD8ps41xJql+bya1+EyOFPjE6skdbc/Chdbp0DUN3rgl2l
+         d+Zkv5KxY27DLAV4SoE8EhalcodDzL+OsYpn+N8YNQobrt7sFVqNBQPn/l4IKKv0P43O
+         5O1XnoEd8Potdb0IatO8OmwzK0n4U13eXoXdtpodtRQUJcaoWuiKyygELPsQcC/1d06D
+         jgZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790044006; x=1790648806;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n57jpnbqR3xEpFvVL4pj+x/9TynCnpwMD9+qM+zc540=;
+        b=ESskqiC9fdllwcg4wZz4UddRi1IApqvFHpDi2MVEi49Nyvswqn15cpDVSTgNWqx/ht
+         n87W85ISYopEVgkm2rDe4skDNQh4W/i/x46+GrxZPo6/My2LRRhZuGHLVENx4qUA9r5m
+         xHM8bEMQeQ3F75jZLrerxNw01MdHgTSiY3suToIbBDoaIpvEb4MuBr+QEf7kyxxnXEeX
+         j4zXoCaZ8zjOVUFVb4MD8vilZIdthNlkSoXBZNyHvQNb1v3drxHzyabMFWjzck2hfmoB
+         E8wOijFV0mqnJi2m9Ft3Dq9MSAvOXuVtSA6cb8uN4CW+JF+r1Xype1V5spLy8UX9aj2y
+         FY1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw3BT5VLlywodXsS5CbrML4zQTV2JFqlnCCQnYqdyGR/ekQI7Dq0kG18lkhEKyZ+iuAJw+pXctUFE4dKu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++myzXiskIWLSGz2RHR38MWkmU9yqCI7WtVl4DMTHnJDp18nVjmf
+	y2j8RgWH8MgN6rz1NMZviodFDNxHXZCgQXMda6aG4PYaH65H2EeiBvPGkTSQ1wj8s8M=
+X-Gm-Gg: AYBFou0nZlwHOY25ha/SHLSkf4eM4ehFHbqKHORPSIHFcMmpjQTm7YAutjngdGug/Tl
+	IjwUq+AUDz05BVnN4cEPOlctVHh/m8sS+xUe/eJzmEkDMIJJYARrg54gNQfS/tgDb6wlwa6PCY6
+	c6Gf3BBCKNLEmid8xPgt9ndgebclyNVsnNATw4PcPNatQ/8/IiDcBlDX+qCYI0aqFm0ckxybvz8
+	qMtesbVzL6qBbXZen85P/L1695ex/96jBj5uF0XVLuIRbWu7BphDZvum1I624kKmdksIbAaRo4O
+	hs+hY/xjPUWdmxzio+iHxJDCR9rjVVugylQcpc7gUIDyBHBFPBUIOk1hJsXxEP5krYj2sdtv1Gz
+	31YGAWeTSUj3PNvdq6dg0fmTFHFvCpZxHeqjiCnyTyoqy5OkyhlLThcs3Dq7NGE9zWOZu0gbU2e
+	cr5K0FaqcSvZN50gAYsRZJxep3NZGJYraoVXAE4gLrDQCoSUv+iBEYxugK8UL5ihWEXmpDn21dd
+	XU+4YI8mLyL3xU=
+X-Received: by 2002:a05:620a:458f:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93c15e783eamr375359285a.45.1790044005713;
+        Mon, 21 Sep 2026 19:26:45 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.251])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d131c4dsm21683685a.15.2026.09.21.19.26.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 19:26:45 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 22 Sep 2026 02:23:22 +0000
+Subject: [PATCH v5 03/13] kprobes: Expose the optprobe jump window to Tasks
+ RCU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CY8PR12MB7413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35f296df-a928-4645-8c1c-08df1850ed2e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|22082099003|18002099003|11063799006|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	cm5lgEO64RrFVTx6R/Z8nm6LJuRnYb8b2/JNqveoDRucOmZdqDdF4AxQ55EfHitUUBYOKENLvIAF/bJuifvI48h3V0Jz8cmzuO/9kWVlPKLbtTANaBye5vDLYOVxq+IlUp6iHIC29Oq+MKNM12XBBjuYAVowE5lPJhS2W0UIxTCIaMoLg73edt21GWqZEDj79DJn0v6dLMfMaJb+pnEYyhqDtk4EUINTvM7fHzIK+fRbrVUbGpXngMWh9TF5oL/yEBHeezTIU254WK3Q9jDqnb6yX07CL+7hACWyrAf8LNPrRhOHdKtJTcynIaAIiiZ08BfqZeKt9SaftTpvXcUOJ+tVQon7Wa2W1cPc7PyvkGr376gwZnp2QWBDHl52KXDupx1180ux670Wgi+DZjY65lkzttoMJcooiICtkrEEmYYFNpxGMe2mKipntsbPHTupBnaxqq8OiVGsdIh3Vy8Ld4sBNmF9fl8qQG0hXD6uw20fLln51oeRZHjsaNkba1Tl1xaW2eU5RbBoRJ6SLwrYJJSmu8Tpqi200/lUzlTOW99Mxv89/b9u96/m6TONCKfY/52IpDv0huecmQVnGPKzSIK5fmAUBhEt/LwGceG19/A1HDk62k/buxMsSGSpwzM1RrIjOAf4ghgE23gJ0BMiUd5YXbAF8ClVbzDzANLBlEs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OEtHNk9LRkYwRGFYR3BmZzlISjZCWWVORiswWGFuQmo4UXllYkJyQXhQcjlS?=
- =?utf-8?B?RllyTHJQZmpvTnJBTk5wZjBWTjAzK0F6aVhyeGNEeTlqc1JUcVFpTU1aL3pY?=
- =?utf-8?B?Yk1MaFFCcEFHdDhUWUNZKzN5Q3JZcG9KdkM0d2J4MURYK2pydUJScm9ySGwy?=
- =?utf-8?B?cGt3UThUNTZXTnVNRmorMzdRaDUwd2tQUE9RMXZybG15d2Ira0NQZEN6dDB1?=
- =?utf-8?B?Z1NIbUdibEczRGdncTdlQ0VlU1lSaUFYbC9qREVpVFFxK25nbm1HMHpDYURw?=
- =?utf-8?B?NGUxa0xkYXl1RlIyRVZOK0tYZit6QUFRbk0ydHNPUHp5MGJaRWJmekRRandi?=
- =?utf-8?B?MmpjS2dqL3pZT1hBaUp6UVU5MjcvbkIybkUvVE8xMktoWWVsZWVMMEtyZnZV?=
- =?utf-8?B?NFBiaGtKTGxHSUtxL0ljbm9MaGdkMmt5OVNaRkZvS2pZcXFXbXRCTmpmM2JT?=
- =?utf-8?B?Njc2VDlhVTZZS0lIeTVGMnRCVklZdGRPU0pqbXZZQ1Y5NkRDTi9FVm51OWFP?=
- =?utf-8?B?TlQyOHVsb1MzNFJwcGkyVTJpeVE0ZFhXbjhrbU1KVFMyZGo4dXVKenNocUp3?=
- =?utf-8?B?ZTY2a050azdjQTJocHZRMDFGQ3k2TG8zZGx5RnRoaFJLbE9JT1BobnZ2SXN4?=
- =?utf-8?B?Znc0Q1kyazMzQ0pDbnpYMThBdjdaQWw0OEJvNWpvUlBGdWVHb3FJVXp3Rkd6?=
- =?utf-8?B?SUZxMGx3Q1lvZnlOTjFNSnRJa0ozMmZLRkFSSnF0TG1uRzdPcVBxRXBzTnZH?=
- =?utf-8?B?c1dvZTVieHV6dHgyMVJYdE5zZ2VvQytzak04alprcGZwbzhmMjdkVDVBL1Fa?=
- =?utf-8?B?SnFNVkw2RUlGMlo1MHpoeWNUeXhSSmZJNVRjNHlLUVM0T0JCajlMQ2YvR1VX?=
- =?utf-8?B?THhvQklHZ0srNUd3SGpSSmZKb3pVM3FHT3V5bU9hUnUvcXdjaytOTXpTRVFL?=
- =?utf-8?B?bzU0OXgvOWNML0pWZkJsS3o5S3VKRTVjMS81NHRQOHljcHpZdW0vTDAyV0Fw?=
- =?utf-8?B?NjhEVzRIK1g5Wk1IeDZGT3R2SWR5dWhXOVdXSzAvdlc4TkNwM3RlRnZEU21p?=
- =?utf-8?B?aXl3RlpMZVBxMThHNzhnUGV6YlZEZW9Od0NUWVFkRFRGUmhPMnNnWGFDYjZj?=
- =?utf-8?B?RTQ2aENialdQTlg0dWh0Z1Y2cDJhV2Rid0RTR1JheS9zSFcwbWhQWlFiV2NQ?=
- =?utf-8?B?dS9tV2pCdHhVTXAyNVhQTWloVTQvR2FxVk1NQVk1Z3JlVERzK29CQUFKWE5Z?=
- =?utf-8?B?UnJ0TWFxWjhFZkNQdnRkRys5b3RVOVBsTHdZZVdwaUg5WjllRC91aFRpWmVi?=
- =?utf-8?B?VDlPN2RLeStPemF0UHVsc1drR0FtcU9LS2pKRjRHNG1CWEE0Z09hd2ZodWFK?=
- =?utf-8?B?WTNHbS9LQzVTc3NWWWhoVXRjVTUrY05NNUc2Tm9KcHVBR3AxUjl6d0VQSEdO?=
- =?utf-8?B?ZzdQeFJFd2FIdXdYZUdFYXJPTGs4ajNYWFFNTE9FUWpZbzdNcVpwbk12RVZ3?=
- =?utf-8?B?dGlJTzY4RGxvdHdLRFovUHZYSFRRL2lCM1g1azlBMHRZTW1rR1NNWktzUWw0?=
- =?utf-8?B?MjUwb2xSOGFOM1kyZm1MVGVmbVlYQlpqN0w4UFV0U3BGaytDODBxL1ZEaUxV?=
- =?utf-8?B?b3R5TkhPK1dMcDhUZlNMQ0txbnVVc3Z6ckdNMVBtTStyWUhlUENJZnllc2dv?=
- =?utf-8?B?c3VpR1FVemUraS9KSW1QUlJSL2FvcmNjNjV0VW84VVJySjRMWkRZZlBRMlFk?=
- =?utf-8?B?ZDVsWE9pSTJlcVN5eVBkUFpVcGRFYVQ2ZzNaSmlUbndhTkpjOXlGTzNBRDJz?=
- =?utf-8?B?OEFJVWdLZGZpMFIrcWJQam5RN1VjUERJT3ZpUyt3Y08vQ2ZOT0FIUVN0WU9K?=
- =?utf-8?B?ZzNCNVgwMUVKdWJHUkpuWU05VVdJOGdZbnhrSnh4bE4wUHd5QVpuY3JwRzNu?=
- =?utf-8?B?cHJaRGdIN1diWGNtQzBIbjZWbUJiaWREOUl4SEFXVUJWNFZZbHVWSTh5RHhz?=
- =?utf-8?B?dkdWVUNHQU1KeUN0ekZOVU8wY0xXc3Bsd0ZKNkUrL2Y3alRyS0w4MDVBbytL?=
- =?utf-8?B?RzROczJXVis0TFlySFpucm90Ykd5bHNWT20zWFgxS2EvYlUrSFR4K21YLzNY?=
- =?utf-8?B?RWtSSGdEa0pmekpqVGZWcjZvL2pWcjdhWWt3UGdiSjdYbHhMb1VBdTRxNnM1?=
- =?utf-8?B?dFNBZnRMRjlwaDVoMFNEb1FlWE9Sd2h4S2NsS2Uvd2haR0NYdUJsUnc2Smpm?=
- =?utf-8?B?dmxKR0N4Rk4zNGRHWXB3T2FMckR2RlNSNXBlR2RoRlpLQWNIUWdCUTVKVzF5?=
- =?utf-8?Q?AljuuEiZCDRdM+nY1t?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35f296df-a928-4645-8c1c-08df1850ed2e
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:26:36.6782
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WohOSJYWG3C8ipn+khlnfk4FK+ZyYTRQgsi6xKQEevOx3EQJKxZNVcqDZhia/9CN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7413
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com>
+References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ rcu@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1790043820; l=7473;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=97rXNEsO0S02JFiFJq38moNkWCht7E9TlyxYtLTVeYI=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QDgns7oV6kZusWmA4JvFz3vXN+lrAHSlz7TH5kJB91LDL9uOpEUIYQaSIenbGihoBc2IuMs6vNX
+ 0WqfawsK3hAU=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Thu Sep 17, 2026 at 9:45 PM EDT, Luiz Capitulino wrote:
-> Now that all the has_transparent_hugepage() callers have been converted
-> to pgtable_has_pmd_leaves(), this commit does two things:
->
-> 1. Rename has_transparent_hugepage() arch implementations to
->    arch_has_pmd_leaves(), since that's what the helper checks for
->
-> 2. Introduce the default implementation of arch_has_pmd_leaves() as
->    IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE). This means that if
->    the arch doesn't implement arch_has_pmd_leaves() we default to checkin=
-g
->    CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE as a way to determine if
->    PMD-sized pages are supported
->
-> Note that arch_has_pmd_leaves() is supposed to be called only by
-> pgtable_leaf_support_init(). The remaining exception is hugepage_init()
-> which will be converted in a future commit.
->
-> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
-> ---
->  arch/mips/include/asm/pgtable.h               |  4 ++--
->  arch/mips/mm/pgtable.c                        |  6 +++---
->  arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
->  arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
->  arch/powerpc/include/asm/book3s/64/pgtable.h  | 10 +++++-----
->  arch/powerpc/include/asm/book3s/64/radix.h    |  2 +-
->  arch/powerpc/mm/book3s64/hash_pgtable.c       |  4 ++--
->  arch/s390/include/asm/pgtable.h               |  4 ++--
->  arch/x86/include/asm/pgtable.h                |  4 ++--
->  include/linux/pgtable.h                       |  4 ++--
->  mm/huge_memory.c                              |  2 +-
->  mm/memory.c                                   |  2 +-
->  12 files changed, 23 insertions(+), 23 deletions(-)
->
+kprobe_optimizer() is the one synchronize_rcu_tasks() user that is not
+about trampoline text: it waits for tasks that were interrupted on an
+instruction boundary inside the bytes it is about to overwrite with the
+optimized jump, so that none of them resumes into the middle of the new
+instruction.  Those bytes are ordinary kernel or module text with no
+Tasks Trace reader around them, so on CONFIG_TASKS_RCU_TRAMPOLINE_READERS
+kernels the irq-exit quiescent-state check has to be told about them.
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+Add kprobe_in_optimized_region(), a lockless and conservative form of
+get_optimized_kprobe() that reports whether any registered kprobe lies
+within MAX_OPTIMIZED_LENGTH before the given address regardless of its
+optimization state, and have rcu_tasks_trampoline_text() consult it for
+core and module text so that a task interrupted there becomes a holdout
+rather than a quiescent event. The hash walk only runs while
+kprobe_optimizer() is actually inside its synchronize_rcu_tasks(),
+tracked by a flag it sets around the call; otherwise the check is a
+single load. That check cannot see a task that was already preempted in
+the region before the flag went up (possibly before the kprobe even
+existed), and the new grace period does not otherwise wait for a
+preempted task to run again, so before synchronize_rcu_tasks() the
+optimizer calls rcu_tasks_wait_irq_preempted() to wait until no parked
+task's recorded irq-exit preemption IP is inside such a region; its
+leading synchronize_rcu() also publishes the flag to every (interrupts-
+disabled) check in flight. The kprobe hash is RCU-protected and every
+free path waits for a grace period after unhashing, so the lockless walk
+from the irq-exit path is safe.
 
+On other configurations the flag is set and cleared but nothing reads
+it and rcu_tasks_wait_irq_preempted() is a stub; the classic
+implementation already waits for such tasks.
 
---=20
-Best Regards,
-Yan, Zi
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ include/linux/kprobes.h |  8 +++++++-
+ kernel/kprobes.c        | 50 +++++++++++++++++++++++++++++++++++++++++++++++++
+ kernel/rcu/tasks.h      | 11 ++++++++---
+ 3 files changed, 65 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/kprobes.h b/include/linux/kprobes.h
+index e6de7ae55bda..74cc48c04417 100644
+--- a/include/linux/kprobes.h
++++ b/include/linux/kprobes.h
+@@ -530,11 +530,17 @@ static inline bool is_kprobe_insn_slot(unsigned long addr)
+ }
+ #endif /* !CONFIG_KPROBES */
+ 
+-#ifndef CONFIG_OPTPROBES
++#ifdef CONFIG_OPTPROBES
++bool kprobe_in_optimized_region(unsigned long addr);
++#else /* !CONFIG_OPTPROBES */
+ static inline bool is_kprobe_optinsn_slot(unsigned long addr)
+ {
+ 	return false;
+ }
++static inline bool kprobe_in_optimized_region(unsigned long addr)
++{
++	return false;
++}
+ #endif /* !CONFIG_OPTPROBES */
+ 
+ #ifdef CONFIG_KRETPROBES
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 6337da5cab9e..e460fba83e4a 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -511,6 +511,48 @@ static struct kprobe *get_optimized_kprobe(kprobe_opcode_t *addr)
+ 	return NULL;
+ }
+ 
++/*
++ * True while kprobe_optimizer() is waiting for its Tasks RCU grace period.
++ * Only in that window can an interruption inside an optprobe's jump region
++ * matter to it, so kprobe_in_optimized_region() does no work otherwise.
++ */
++static bool kprobe_optimizer_waiting;
++
++/**
++ * kprobe_in_optimized_region - Could @addr be inside bytes a jump-optimized
++ *	kprobe replaces?
++ * @addr: kernel text address, typically an interrupted instruction pointer
++ *
++ * kprobe_optimizer() relies on synchronize_rcu_tasks() to wait for tasks that
++ * were interrupted on an instruction boundary inside the region about to be
++ * overwritten by the optimized jump.  Where Tasks RCU is built on
++ * reader-marked trampolines that region has no reader, so the irq-exit
++ * quiescent-state check asks this instead (see rcu_tasks_trampoline_text()).
++ * This is the lockless, conservative form of get_optimized_kprobe(): it does
++ * not care whether the kprobe found is, or ever will be, optimized.  May be
++ * called from any context with preemption disabled; the kprobe hash is
++ * RCU-protected and every free path waits for a grace period after unhashing.
++ *
++ * The hash walk only runs while the optimizer is actually waiting.  A task
++ * that was preempted in such a region before the flag went up is invisible
++ * to that check, so the optimizer first waits those out by their recorded
++ * preemption IP (rcu_tasks_wait_irq_preempted(), whose leading
++ * synchronize_rcu() also publishes the flag to every check in flight).
++ */
++bool kprobe_in_optimized_region(unsigned long addr)
++{
++	int i;
++
++	if (!READ_ONCE(kprobe_optimizer_waiting))
++		return false;
++
++	for (i = 1; i < MAX_OPTIMIZED_LENGTH / sizeof(kprobe_opcode_t); i++)
++		if (get_kprobe((kprobe_opcode_t *)addr - i))
++			return true;
++	return false;
++}
++NOKPROBE_SYMBOL(kprobe_in_optimized_region);
++
+ /* Optimization staging list, protected by 'kprobe_mutex' */
+ static LIST_HEAD(optimizing_list);
+ static LIST_HEAD(unoptimizing_list);
+@@ -644,8 +686,16 @@ static void kprobe_optimizer(void)
+ 		 * to 2nd-Nth byte of jump instruction. This wait is for avoiding it.
+ 		 * Note that on non-preemptive kernel, this is transparently converted
+ 		 * to synchronoze_sched() to wait for all interrupts to have completed.
++		 * kprobe_optimizer_waiting lets a reader-marked-trampoline Tasks RCU
++		 * recognise tasks interrupted in such a region while we wait, and
++		 * rcu_tasks_wait_irq_preempted() (a no-op elsewhere) first waits
++		 * out any that were preempted there before we said so; see
++		 * kprobe_in_optimized_region().
+ 		 */
++		WRITE_ONCE(kprobe_optimizer_waiting, true);
++		rcu_tasks_wait_irq_preempted(kprobe_in_optimized_region);
+ 		synchronize_rcu_tasks();
++		WRITE_ONCE(kprobe_optimizer_waiting, false);
+ 
+ 		/* Step 3: Optimize kprobes after quiesence period */
+ 		do_optimize_kprobes();
+diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+index f03be742be48..eb1388dd8a61 100644
+--- a/kernel/rcu/tasks.h
++++ b/kernel/rcu/tasks.h
+@@ -1005,7 +1005,9 @@ bool __weak arch_rcu_tasks_trampoline_text(unsigned long ip)
+  *    trampolines, kprobe slots and other dynamically allocated text; this
+  *    deliberately does not ask is_ftrace_trampoline() and friends, since
+  *    text being torn down may already be unregistered there);
+- *  - whatever the architecture adds via arch_rcu_tasks_trampoline_text().
++ *  - whatever the architecture adds via arch_rcu_tasks_trampoline_text();
++ *  - the bytes after a kprobe that a pending jump optimization is about to
++ *    overwrite, the one synchronize_rcu_tasks() user with no trampoline.
+  *
+  * A false positive only makes the task a holdout until its next quiescent
+  * event.  Called with interrupts disabled from the irq-exit path.
+@@ -1013,8 +1015,11 @@ bool __weak arch_rcu_tasks_trampoline_text(unsigned long ip)
+ bool rcu_tasks_trampoline_text(unsigned long ip)
+ {
+ 	if (core_kernel_text(ip))
+-		return arch_rcu_tasks_trampoline_text(ip);
+-	return !is_module_text_address(ip);
++		return arch_rcu_tasks_trampoline_text(ip) ||
++		       kprobe_in_optimized_region(ip);
++	if (is_module_text_address(ip))
++		return kprobe_in_optimized_region(ip);
++	return true;
+ }
+ NOKPROBE_SYMBOL(rcu_tasks_trampoline_text);
+ 
+
+-- 
+2.55.0
 
