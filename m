@@ -1,238 +1,271 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CDA53ECFE
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:04:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078661; cv=none; b=mzmkzsdAScgiB/oraCAWcYL7iY97/JkM3MyrmVloju2ilR5Ieafijg8RABoyon01IPuxNzzv+pg17LER/2gk4RZHfcAy/1gwvQWN+CnG3m/KnJU4GmIQ0NPToOjlCh6/JmcHl6NwO/lPCegeHttFdvFqpXj+vLMHNIGFj5OTsdI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078661; c=relaxed/simple;
-	bh=QCsvfQrSkWjLowRc3y9Ttb88/geE361R+uvwZVVvJYI=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KFterJu1KyOuCf395t3M9DAw42usTFcqT07LMslLdgfBaduu0oz45hBR7R90g5sWZpbDMek9UgXbYR6Wot9a+xxTt1EFsdkqaUeeLHbb/YOMCr4HhognUsGJm5BlT3jnfmY5QEqsgQEKL3QwhRIGsCtVtgvXt1UkcIMKYvyVX7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQ9Ekith; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F8A53ED19
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790078665; cv=pass; b=dAPkiBJ6fQshNb0QCBBpWb/cYaTSsDnyJiSAK3p88dIDnKcAErfqfyDASfSAfJBeZaOTWgrz0l4lHX71w2dfFznW4YwArN/MPkTrim4IjNT++sI7W8+wSMfI7ldl5FObIJsrwfLP0j/H26DiJ4JzF/lJGknBAMDsnfMkQf566gA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790078665; c=relaxed/simple;
+	bh=saOqqMO6ORxyXnY0o31VkIfdYDLd6fh7SS1hLcwbeg4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SfzuxZkXrd0WuqlghXKPvI2arGYnr8zWkyS8HDLpWpWJhjMnI9eJE1nU8yJxqbWmAKXBbId1AzJwPdBBrpY7J0CKIS1ynN3aUlMDTL1SeCO7L1vpXJ8su+Z69KV5R5icb50am2xHDP0ecZoYHSW9KXtOvT9bIVzO6wpiaCHBBlw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=JdQU4ozc; arc=pass smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQ9Ekith"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6baf77afso1872635e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:04:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="JdQU4ozc"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-86ec25cf7ecso744441b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:04:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790078662; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oCh9NOL9WhhzBOfioiNGyL88WcpqT5fQlzatmY9KQ5vkLvBdHnEi6yy3z8rgR2fm77
+         3WJbnoBJ0JoHDt6n9r8qW/ZIikY0Bdppp+4SbspBzwHN2f8x6EDAYLHgv2CtyHyp/EhY
+         0qiNmvp1i/HLnQvRdIydxMoapQ60XMuWVH3O13PJ6viYTsGuNz+JzHY/euv+/vAe4mMN
+         zM41+eSrcpqbOF/DcpZ/xzldNl/NbtvJJwxB1uCjAZtq/Tt0zNf9yiSPZuqH/SBahfOY
+         FItwb8pcJEefar9F8EDg1n5FU4owjv7GslI6w4Ig8sR+72p3XnIufnoaZTAm/y0KWGX/
+         PWqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CUpeNq3+QaUFHKyKU5yfrM/FkR0pBOt5e12bFHIM/Rs=;
+        fh=NdKlR6ylTHYb+hLK5aUU/8//hHdLFYLUlL5+A7dyQvA=;
+        b=qnVLcTUFfoWdIxNvBWzUCbkJO0sLUXYZEnzUL1xF6KYNVuRfMXLnKlp7U2w9SOfjbM
+         03ea/biaK1lcDUQlxNaGtWfoO/7F4PB9nyMC9wgsSg/CRyYaI485D8v1PNxC9HHlxMlW
+         LGkAtO5uj4q2/tbxJWnYWvScY0eBM/XKxh/K+MG05LW7aDKussznHual0del9HAyi2xp
+         tn1XgwWq2ixQHGlN+WiP4Yqj4jz30fzalauaJcGwGhPQOYkpK7qyGpy3sFJn8AFattl9
+         zUtT9IewQ9UCF26qssvpEB4DYwRU9mTtjOcsbCGBZbygl5cln6t7FF89fi+mbBIkCJXu
+         7uaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790078658; x=1790683458; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=++m38Aaq2XMveWLm1TyY2Eu7VcfzPn1RmXlweEV+1QE=;
-        b=sQ9EkithlsxOQ1DJX6CSV9NKzA+NmY4GuO/b3ZNvWh9Rj6ebgx6VzOAKwUNhkJFAgZ
-         tPggGBNnrM+sTqerHgKzu24ghFBlwLDZNTjX1U9ZgpWF9nU7TE/tDEHKk2L5UT5eNa2X
-         /Eeemw+buc71BiEMLKy1YS/MsEhwiTIuBGbUx14lR1AzN6hjkAbaolXWvKomgNwVDe8i
-         PP7JzhxthC+j3ZjaNvKyYqT8KpZQ3bQaKVYH+9uou/p8Neneu49aQhbabYkl91a/CKrt
-         eHw8y8mmQFmGg66QUsxlF5c5ZftSCy7z2AEaESu/JaxEgvFEonMi2Js5foxWQHLmVmqT
-         Oqmg==
+        d=sartura.hr; s=sartura; t=1790078662; x=1790683462; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CUpeNq3+QaUFHKyKU5yfrM/FkR0pBOt5e12bFHIM/Rs=;
+        b=JdQU4ozcJCsLbPnqyumtwe0XM0EpQs2SblMpMjsIkYAUzVeO19hHsxxu0hC+MrusyY
+         0JTSVVr6aeFyuY3w4KQzreBHKue8RAC/81mH7YVBeGvtrG23EmUtxnWhwXPozDTwdzzs
+         NPjumF2YIDGD5hMhtSmxY7NFsmGI1oP9yf88Gq00dSSNZk1cmtCKmHLecUmYpxtoja1Y
+         zxK5MBlPrf44emPF9ei+UwLlde2bAGQFdxPVX5hzrEXPGnrikEVLKWZcpMHUxoFlm6VN
+         13HtiMJDQUkG8HDnnlRmCkdYtxhEAaFynWV0vtZxxKb5rjalKZymZNrxlmKgkGh83Jj1
+         +tWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790078658; x=1790683458;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=++m38Aaq2XMveWLm1TyY2Eu7VcfzPn1RmXlweEV+1QE=;
-        b=fRwaTcQDQ2nfkUGvBgSlMaO51+hkBCFvNzX2VnAEWXQCjbt2Dku5XnaoMofHbHiojV
-         +m7Vo89axQqFlie75ZR8Sh1ufmUDhTFUagEuWzZUPFqRLx25WEIwh2SeP371PV4vw6mw
-         Sxf5/Rex1tgbJX9LnAV2SWZX76dTfmETQSFI7uRFX0CSosvoetOfjB//f00o5eTcWjnD
-         /Tki+Rfz2+WQdGrp2TeHIlnufMGrhzq3Jq6lpYAg0Jb+SrXVf6Ayip0Lq7eJoMqFEOhx
-         INn7jMJFIdixsIC0Kqe1haN2g4OnbdbCrtrXXPphOOVTVuRnURMThOBJ+btgORbeUzTJ
-         UVjA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5XKjikgBXmai5plevkynqq5YKICwWebFggKfNvw3M9ZFO9Ouq+5K5qHMPdhl4cuuxxppqtEZKzcHuj+s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuLjAwp+ek684CFe06vU4nLoUnxngWovN5Gl7qhbKxdfBdB67z
-	KVlUOuXqzJfy969vRqcEFedpJd//CbI0925B8dmimwztwvTrL3lQje0f
-X-Gm-Gg: AYBFou0isJ7C5fj2iv1mc/pq9NbMTXH9K6d/E/uFRb4ECK22nzIyYbNwjyNKsu65pG/
-	IgHVjM/Vp10IEilJe4qTzxcuPJUCBJk1B41p48zZG9LVxafE8mctWsQ7NvsPHlfLZW6z68+ZO/3
-	KALpXhyh0npulKVPnFnyZMjakEvJLedrzRlAWfb6cmnJ43+vDvwwcPkX7mgnK6cm7wRQKVNKogQ
-	M8cgpCK/invD20UU3eOFdrotVmZnljz7U75yP3mvD9X4gtK2giNIpZi5sG2XHgsXgnn8JWGS4DO
-	bOeETiBJWqIyGPaW765MrRGz2qkmU9DxxOyn7mQUPDETQNOm0GYykkc3gJEYOIt/V/3+0c1IpUD
-	unQjMlnHECqf+h2C453Xyh6KDLqnpc7ZrOaeU5rqj87sw49Gd0mrcvP2GfKP7JoX+wpL+k2zNMT
-	4ayEIn9hkulDe5p+W0VmTgKT+5DeEaczB5Z+E6pvdvpl4373+McexvdmqDAQglOAsJR7tU85u3L
-	2VrXw4ceBT/eFKnljU=
-X-Received: by 2002:a05:600c:1c13:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49fc7dc1e75mr220807915e9.1.1790078657621;
-        Tue, 22 Sep 2026 05:04:17 -0700 (PDT)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdab0c240sm32469425e9.4.2026.09.22.05.04.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:04:17 -0700 (PDT)
-From: Itai Handler <itai.handler@gmail.com>
-To: Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dm-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Milan Broz <gmazyland@gmail.com>
-Subject: [PATCH v2 1/1] dm-crypt: allow encryption sector size up to PAGE_SIZE
-Date: Tue, 22 Sep 2026 15:03:30 +0300
-Message-Id: <20260922120330.127262-2-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260922120330.127262-1-itai.handler@gmail.com>
-References: <20260922120330.127262-1-itai.handler@gmail.com>
+        d=1e100.net; s=20260707; t=1790078662; x=1790683462;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CUpeNq3+QaUFHKyKU5yfrM/FkR0pBOt5e12bFHIM/Rs=;
+        b=fLUfpkybnd/9OznelyE/NIdqgbkTZX4rvcbEN1UsQn+Na+MhC/AcyJNA9vW75u5Lpa
+         fA681s9sqWevySLtDDuqVGou80AaiZATyzhr/4XTrwty9ULAt4PUMnGJ0XQ5njeerPES
+         rz5bOFhfAIp5bE0/HqWeqa9IYooPEhasqfcBmSh/WXdGJgFK5xZcAOePCuav/AQ3HNyI
+         JiSWfoVN8jqRtxYYBkoezUBn7Ixzf0STVZFcBM+wyEI5hi9Am53pQLytomdduaqY0a9b
+         Dhu00HttNgAA0l/gDG5pS7DOW4LMEJ+KOkJ+3Acg93c5iisq9IFyTyBhtBoB3qz1NvVU
+         b76w==
+X-Forwarded-Encrypted: i=1; AKwUvBx/qnnz1nKeLH1v+iDEV2DtR2f1iALbKvoeeHt0mNzsbfyKYthlbgMprJbQheWD1B1zno6vJQ+dUg3tFzo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLcTj3GGPU3ZZnXyywCx/l8/LHfRSLXou2YDOzpVYe0qUExu+R
+	krBijkYxbXZgejyuuYol1a8DoZcIpcohOgDkAxHF6/mVx4t8w2l03IXH18mAS2jCTCaQPnhT0Ha
+	C/mRBW9TDMurKHgfbofSd/ufS/wRGngCGxKAPYjgY7A==
+X-Gm-Gg: AYBFou1AZcCExHVI8rMg3Q2P61XI0yB3zZL0pDrMeLl/0ZlvxWuODZzwNCVNw4W7Svc
+	LjewuCheD1t3bOnE7J329G425ddGMy86wFZgIf+ohgwinVLL5d6+gNGP4lTgGvsIHL8sM7J5048
+	Izj8gVuGZqV/mVtscWZocvhFS4DnPVmu71mAJhOxbuyAR0UsJXtMhTvKYJ/n3NCXsENQFMjX8Uj
+	85lDolpbOh7W8WUEHEEHGxMmqiRqMb/hOVAy1Xn5Ws9qKkIqe9p97naZrYNA8UBWVAs+34CzFyN
+	t4pLKN7amsCaLzrORFE+EpokkFYXtMCH1EmaAg+fUbGLEOVK/5tteyL35mFJbUVAo0VGG1p0/XA
+	GxlnZxoNLNV+KdJxCsKqqf7/1ozDU9HiHZq0=
+X-Received: by 2002:a05:6a00:3a12:b0:878:3705:5724 with SMTP id
+ d2e1a72fcca58-87c85de1562mr682886b3a.48.1790078662177; Tue, 22 Sep 2026
+ 05:04:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260918153414.909333-1-aubin.constans@microchip.com>
+In-Reply-To: <20260918153414.909333-1-aubin.constans@microchip.com>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Tue, 22 Sep 2026 14:04:09 +0200
+X-Gm-Features: AcwNN1WHiWWomoXHzFPUnhbd-xc9yh6WSNzq7MyJexGie0-v5X9TH742BS0QVU8
+Message-ID: <CA+HBbNHG-hTMLSeRKAb1hz4mDna3LDmoPA6CJ_DG6_oRWZajmg@mail.gmail.com>
+Subject: Re: [PATCH] mmc: sdhci-of-at91: disable selectively clocks on pm runtime
+To: Aubin Constans <aubin.constans@microchip.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Eugen Hristev <ehristev@kernel.org>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Romain Sioen <romain.sioen@microchip.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Ludovic Desroches <ludovic.desroches@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Ryan Wanner <ryan.wanner@microchip.com>, 
+	linux-mmc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The "sector_size:<bytes>" option is capped at 4096 bytes, the smallest
-PAGE_SIZE of any supported architecture.  A kernel with a larger
-PAGE_SIZE can use a larger encryption unit, which turns several crypto
-requests per page into a single one.
+On Fri, Sep 18, 2026 at 5:35=E2=80=AFPM Aubin Constans
+<aubin.constans@microchip.com> wrote:
+>
+> From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+>
+> SAMA7G5's SDMMC run-time clock disabling is not supported.
+> Add support to avoid this scenario for SAMA7G5.
+>
+> [Amended with a fix from Romain Sioen below this line]
+>
+> Sama7 boards are impacted by an unbalanced prepare/unprepare
+> and enable/disable clock management in sdhci driver due to
+> the lack of support for SDMMC clock runtime disabling,
+> managed instead by the PMC driver.
+>
+> Add conditions in the preset function to manage clock
+> depending on if the board support runtime clock disabling
+> and if we come from the probing or restoring procedure.
+>
+> Add boolean start_clks variable to manage condition
+> in preset function.
+>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> Co-developed-by: Romain Sioen <romain.sioen@microchip.com>
+> Signed-off-by: Romain Sioen <romain.sioen@microchip.com>
+> Signed-off-by: Aubin Constans <aubin.constans@microchip.com>
 
-That only pays off when a request carries a large fixed cost, which is
-the case for drivers that offload to hardware over DMA: setting the
-transfer up dominates, so doing it once per 64 KiB instead of sixteen
-times is worth a lot.  On an arm64 64K-page system driving the in-tree
-qce driver, dm-crypt throughput rose from 13-27 MB/s to about 580 MB/s
-when the encryption sector size was raised from 4096 to 65536.  A CPU
-cipher has no such fixed cost and gains little: 9-16% measured with
-xts-aes-ce on NVMe.
+Tested-by: Robert Marko <robert.marko@sartura.hr>
 
-Raise the cap to min(PAGE_SIZE, BLK_MAX_BLOCK_SIZE).  dm-verity already
-bounds its data block size the same way, rejecting "num > PAGE_SIZE" in
-verity_ctr(), so this is the bound dm targets already use rather than a
-new kind of limit.
+> ---
+>  drivers/mmc/host/sdhci-of-at91.c | 36 ++++++++++++++++++++++++--------
+>  1 file changed, 27 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of=
+-at91.c
+> index 7c4ac65f247d..399856643e57 100644
+> --- a/drivers/mmc/host/sdhci-of-at91.c
+> +++ b/drivers/mmc/host/sdhci-of-at91.c
+> @@ -39,6 +39,7 @@ struct sdhci_at91_soc_data {
+>         const struct sdhci_pltfm_data *pdata;
+>         bool baseclk_is_generated_internally;
+>         unsigned int divider_for_baseclk;
+> +       bool pm_runtime_disable_clks;
+>  };
+>
+>  struct sdhci_at91_priv {
+> @@ -149,12 +150,14 @@ static const struct sdhci_pltfm_data sdhci_sama5d2_=
+pdata =3D {
+>  static const struct sdhci_at91_soc_data soc_data_sama5d2 =3D {
+>         .pdata =3D &sdhci_sama5d2_pdata,
+>         .baseclk_is_generated_internally =3D false,
+> +       .pm_runtime_disable_clks =3D true,
+>  };
+>
+>  static const struct sdhci_at91_soc_data soc_data_sam9x60 =3D {
+>         .pdata =3D &sdhci_sama5d2_pdata,
+>         .baseclk_is_generated_internally =3D true,
+>         .divider_for_baseclk =3D 2,
+> +       .pm_runtime_disable_clks =3D true,
+>  };
+>
+>  static const struct of_device_id sdhci_at91_dt_match[] =3D {
+> @@ -164,7 +167,7 @@ static const struct of_device_id sdhci_at91_dt_match[=
+] =3D {
+>  };
+>  MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
+>
+> -static int sdhci_at91_set_clks_presets(struct device *dev)
+> +static int sdhci_at91_set_clks_presets(struct device *dev, bool start_cl=
+ks)
+>  {
+>         struct sdhci_host *host =3D dev_get_drvdata(dev);
+>         struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
+> @@ -174,7 +177,14 @@ static int sdhci_at91_set_clks_presets(struct device=
+ *dev)
+>         unsigned int                    gck_rate, clk_base_rate;
+>         unsigned int                    preset_div;
+>
+> -       clk_prepare_enable(priv->hclock);
+> +       /*
+> +        * Manage clock prepare/enable procedure depending on if the boar=
+d
+> +        * support runtime clock disabling and if we come from the probin=
+g
+> +        * or restoring procedure (for backup+self refresh).
+> +        */
+> +       if (start_clks)
+> +               clk_prepare_enable(priv->hclock);
+> +
+>         caps0 =3D readl(host->ioaddr + SDHCI_CAPABILITIES);
+>         caps1 =3D readl(host->ioaddr + SDHCI_CAPABILITIES_1);
+>
+> @@ -223,8 +233,11 @@ static int sdhci_at91_set_clks_presets(struct device=
+ *dev)
+>         writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
+>                host->ioaddr + SDHCI_PRESET_FOR_DDR50);
+>
+> -       clk_prepare_enable(priv->mainck);
+> -       clk_prepare_enable(priv->gck);
+> +       /* Same clock management as for hclock */
+> +       if (start_clks) {
+> +               clk_prepare_enable(priv->mainck);
+> +               clk_prepare_enable(priv->gck);
+> +       }
+>
+>         return 0;
+>  }
+> @@ -254,9 +267,11 @@ static int sdhci_at91_runtime_suspend(struct device =
+*dev)
+>         if (host->tuning_mode !=3D SDHCI_TUNING_MODE_3)
+>                 mmc_retune_needed(host->mmc);
+>
+> -       clk_disable_unprepare(priv->gck);
+> -       clk_disable_unprepare(priv->hclock);
+> -       clk_disable_unprepare(priv->mainck);
+> +       if (priv->soc_data->pm_runtime_disable_clks) {
+> +               clk_disable_unprepare(priv->gck);
+> +               clk_disable_unprepare(priv->hclock);
+> +               clk_disable_unprepare(priv->mainck);
+> +       }
+>
+>         return 0;
+>  }
+> @@ -269,7 +284,7 @@ static int sdhci_at91_runtime_resume(struct device *d=
+ev)
+>         int ret;
+>
+>         if (priv->restore_needed) {
+> -               ret =3D sdhci_at91_set_clks_presets(dev);
+> +               ret =3D sdhci_at91_set_clks_presets(dev, priv->soc_data->=
+pm_runtime_disable_clks);
+>                 if (ret)
+>                         return ret;
+>
+> @@ -277,6 +292,9 @@ static int sdhci_at91_runtime_resume(struct device *d=
+ev)
+>                 goto out;
+>         }
+>
+> +       if (!priv->soc_data->pm_runtime_disable_clks)
+> +               goto out;
+> +
+>         ret =3D clk_prepare_enable(priv->mainck);
+>         if (ret) {
+>                 dev_err(dev, "can't enable mainck\n");
+> @@ -344,7 +362,7 @@ static int sdhci_at91_probe(struct platform_device *p=
+dev)
+>                 return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
+>                                      "failed to get multclk\n");
+>
+> -       ret =3D sdhci_at91_set_clks_presets(&pdev->dev);
+> +       ret =3D sdhci_at91_set_clks_presets(&pdev->dev, true);
+>         if (ret)
+>                 return ret;
+>
+> --
+> 2.43.0
+>
 
-PAGE_SIZE is the ceiling of the current conversion path: a sector is
-passed to the crypto API as a single scatterlist entry, bio_iter_iovec()
-never returns more than PAGE_SIZE bytes, and crypt_alloc_buffer() may
-fall back to order-0 pages for the write bounce buffer.
 
-BLK_MAX_BLOCK_SIZE is the block layer's own cap on the logical block
-size that crypt_io_hints() announces.  It does not lower the limit
-today - it is 64K only when transparent hugepages are enabled, and no
-architecture that can enable them has a PAGE_SIZE above 64K, while
-without them it is PAGE_SIZE - so the effective bound is PAGE_SIZE.  It
-is in the expression so that this target cannot announce a block size
-blk_validate_limits() would reject should that ever change.
-
-Widen sector_size to unsigned int so that it can hold 65536.  That also
-makes the option reject values that %hu silently truncated: an argument
-of 69632 currently wraps to 4096 and is accepted as a 4096-byte sector.
-
-Apart from that, every table accepted before is still accepted.  The
-larger sizes are opt-in - the default stays 512 bytes - and nothing
-changes at all where PAGE_SIZE is 4096.  A mapping above 4096 bytes can
-only be activated where PAGE_SIZE allows, so it is not suitable for
-portable on-disk formats such as LUKS.  Bump the target version so that
-userspace can detect the new limit.
-
-Assisted-by: LLM
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
----
- .../admin-guide/device-mapper/dm-crypt.rst    |  8 ++++-
- drivers/md/dm-crypt.c                         | 30 +++++++++++++++----
- 2 files changed, 31 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/admin-guide/device-mapper/dm-crypt.rst b/Documentation/admin-guide/device-mapper/dm-crypt.rst
-index 4467f6d..250da7e 100644
---- a/Documentation/admin-guide/device-mapper/dm-crypt.rst
-+++ b/Documentation/admin-guide/device-mapper/dm-crypt.rst
-@@ -153,9 +153,15 @@ integrity_key_size:<bytes>
- 
- sector_size:<bytes>
-     Use <bytes> as the encryption unit instead of 512 bytes sectors.
--    This option can be in range 512 - 4096 bytes and must be power of two.
-+    This option can be in range 512 - PAGE_SIZE bytes, with an upper bound
-+    of 65536, and must be power of two.
-     Virtual device will announce this size as a minimal IO and logical sector.
- 
-+    An encryption unit larger than 4096 bytes can only be used on a system
-+    whose PAGE_SIZE is at least that large, so such a mapping is not
-+    portable across architectures and is unsuitable for portable on-disk
-+    formats such as LUKS.
-+
- iv_large_sectors
-    IV generators will use sector number counted in <sector_size> units
-    instead of default 512 bytes sectors.
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 9e170de..0f087c5 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -182,7 +182,7 @@ struct crypt_config {
- 	} iv_gen_private;
- 	u64 iv_offset;
- 	unsigned int iv_size;
--	unsigned short sector_size;
-+	unsigned int sector_size;
- 	unsigned char sector_shift;
- 
- 	union {
-@@ -241,6 +241,24 @@ struct crypt_config {
- #define MAX_TAG_SIZE	480
- #define POOL_ENTRY_SIZE	512
- 
-+/*
-+ * Largest encryption sector size that can be requested with the
-+ * "sector_size:<bytes>" option.
-+ *
-+ * A sector is handed to the crypto API as a single scatterlist entry, so it
-+ * has to be covered by one bio_vec.  bio_iter_iovec() never returns more than
-+ * PAGE_SIZE bytes, and crypt_alloc_buffer() may fall back to order-0 pages
-+ * for the write bounce buffer, so PAGE_SIZE is the ceiling.
-+ *
-+ * crypt_io_hints() announces the sector size as the logical block size, which
-+ * the block layer caps at BLK_MAX_BLOCK_SIZE.  That cap is never below
-+ * PAGE_SIZE in any configuration today, so it does not lower the limit; take
-+ * the minimum anyway so that this target cannot announce a block size
-+ * blk_validate_limits() would reject.
-+ */
-+#define DM_CRYPT_MAX_SECTOR_SIZE	min_t(unsigned int, PAGE_SIZE, \
-+					      BLK_MAX_BLOCK_SIZE)
-+
- static DEFINE_SPINLOCK(dm_crypt_clients_lock);
- static unsigned int dm_crypt_clients_n;
- static volatile unsigned long dm_crypt_pages_per_client;
-@@ -3134,9 +3152,9 @@ static int crypt_ctr_optional(struct dm_target *ti, unsigned int argc, char **ar
- 			}
- 			cc->key_mac_size = val;
- 			set_bit(CRYPT_KEY_MAC_SIZE_SET, &cc->cipher_flags);
--		} else if (sscanf(opt_string, "sector_size:%hu%c", &cc->sector_size, &dummy) == 1) {
-+		} else if (sscanf(opt_string, "sector_size:%u%c", &cc->sector_size, &dummy) == 1) {
- 			if (cc->sector_size < (1 << SECTOR_SHIFT) ||
--			    cc->sector_size > 4096 ||
-+			    cc->sector_size > DM_CRYPT_MAX_SECTOR_SIZE ||
- 			    (cc->sector_size & (cc->sector_size - 1))) {
- 				ti->error = "Invalid feature value for sector_size";
- 				return -EINVAL;
-@@ -3556,7 +3574,7 @@ static void crypt_status(struct dm_target *ti, status_type_t type,
- 			if (cc->used_tag_size)
- 				DMEMIT(" integrity:%u:%s", cc->used_tag_size, cc->cipher_auth);
- 			if (cc->sector_size != (1 << SECTOR_SHIFT))
--				DMEMIT(" sector_size:%d", cc->sector_size);
-+				DMEMIT(" sector_size:%u", cc->sector_size);
- 			if (test_bit(CRYPT_IV_LARGE_SECTORS, &cc->cipher_flags))
- 				DMEMIT(" iv_large_sectors");
- 			if (test_bit(CRYPT_KEY_MAC_SIZE_SET, &cc->cipher_flags))
-@@ -3582,7 +3600,7 @@ static void crypt_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT(",integrity_tag_size=%u,cipher_auth=%s",
- 			       cc->used_tag_size, cc->cipher_auth);
- 		if (cc->sector_size != (1 << SECTOR_SHIFT))
--			DMEMIT(",sector_size=%d", cc->sector_size);
-+			DMEMIT(",sector_size=%u", cc->sector_size);
- 		if (cc->cipher_string)
- 			DMEMIT(",cipher_string=%s", cc->cipher_string);
- 
-@@ -3700,7 +3718,7 @@ static void crypt_io_hints(struct dm_target *ti, struct queue_limits *limits)
- 
- static struct target_type crypt_target = {
- 	.name   = "crypt",
--	.version = {1, 29, 0},
-+	.version = {1, 30, 0},
- 	.module = THIS_MODULE,
- 	.ctr    = crypt_ctr,
- 	.dtr    = crypt_dtr,
--- 
-2.34.1
-
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
