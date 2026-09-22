@@ -1,118 +1,195 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C024E0B8B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1714E0B8B;
+	Tue, 22 Sep 2026 10:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071659; cv=none; b=RZNVJvSKJqAG4WQhqw9rGIJzeGl1m0dX70XVWf4wd9dvV6tbmYpiPuoelm4OOtVM3yd2Q5C2pkZ54tmoggYiw29LOqDLfOri5XsMB9GLcheyNUizZRjzpBODh0r2Ff3gVMFrxeNoFcSubNRpIjXnvGmXfBZj1P6ubbODKBtRI/g=
+	t=1790071666; cv=none; b=oUhLYNU414BhmZkS+rLkBIsGCSwvvE0QW3tWw8WGCSQGaz9iJxUeBjV+JnXZmptKAzJ0fkYYphXfk10DSp5P9CW3Of/rp3zKWvWvCVeTuk5NWnc9oBwEjTQaf6N5dbF77W2mslhamOB6cBaUM4ksWol34SbMNGNAWNMXNAF6pRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071659; c=relaxed/simple;
-	bh=e/QbGjIvokxqCfY0OdfhXUChmkjkDlvhD/a0sn0aZeI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jLAEeLEgkL68lVyfmCBsGEgj8KFJ2DOQFUlVbr8VWMXNu/i0f8Te/QiUCrEOReC1NcHpTJVrMEv4nnRNkVWTmmULrK1sLmGcmDUd0rG0xoyDqV939/NDcjua2K7jUYuH7Wx8T9M73ZzxotDsMTMZTjM9tn/wWXnnS2rk1lDPf3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q4E02mir; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790071666; c=relaxed/simple;
+	bh=qOHngvoeMXXnG090+xsFOmQDdA0QOGNDfWBi04hJo54=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jzx7m8onEjA4KwQwz05gaZvoGs7anNif9pjPbesINFRE7asKlVqLL+fuY7QsUgnDvRQ6/g8DQdLUzPtFgA6MW94ypz25cNGtQe4Frq6qqlo+YsER1djE5AzZW35McpaoD3DE60+1NlXEZdTDFzJA2oBcuaAVigwzdCiknCkOZxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=cFcuvCSK; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=AE7E4WWw; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ngBPm5RX; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=mBtfGshz; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q4E02mir"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso5351814a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:07:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790071654; x=1790676454; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M21NvE6hEk+bHsAyKs+VPRDnarAHkFKIx7tvnOO3mWc=;
-        b=Q4E02mirdAFsGxsUn8GNzLsAM6KQFisiieM/GzZeyWlPaRUlF7hx/xx5bvxG2oxT9m
-         IzG8gpIIGSAgVIew5LAFmIKMXzEZQ5RYLCeeyw2ayIaiyNGR1hMC0yKS+lovk1bgy/Vn
-         r7MCTwZf1p1vdR54p0Un1lDhwdzZN1MmhxeXw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790071654; x=1790676454;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M21NvE6hEk+bHsAyKs+VPRDnarAHkFKIx7tvnOO3mWc=;
-        b=VVAFiVUqeVnMK/GXa9BQVCl6f2H8CcQ5U/Ar+us6nbIrPY4FjEHp5xcgJAa04q5vCO
-         kO7mmKjzYu0OIxWNZ5ek/5jI6SkmHArzr8WCfgG2mMliWL4ioqshkXWP8+SidqEGX2aJ
-         rp/BkGqi4ozgzbxLCCzPU6fiU1rwWWtiD5d/KE9XOtxukedfV70QuTqtmpQ3as2CShPR
-         qRp7CkFSw2K+k5w5Y1wji+4tkiBdUgC3QFMlgpFZ+kkXZJEltnqqabk4Kbn+dgg1U4GB
-         U99H6ilWjt8wgFhMzW+jvC7Z8dS6D+k9jN+/b0RPTBXIeyYDyPFJnlm6x5xXS3mTTr1s
-         pVdg==
-X-Forwarded-Encrypted: i=1; AKwUvByM/PL8DjV4yIlhGh05o/N6hraMozvleXbIQ1H2R00IHAEXyWB09zxCkO33lGmxXwTPSdef7hcmdcZa5sI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHl4SuWTFCzEwfZLiDTrrt4xx/D4guZ1FyQ6qD0u7KJ7CzqpS8
-	5s2oPu/IK4PM7IbYx30JXpK4V7agXVmEZhH1qiZcsGQzF6MOKtmarFdr/G0wjV1Jedw=
-X-Gm-Gg: AYBFou3Bwv5PZbRJAJrIwx67NIQHgcDlwSDnHu8chu7btovrpbC0yMD3W2hLDCPpkT4
-	MopWhQwj/VpLfa0/JZLGwNWv+t4Ss1GuI8NrYCTlgCHe14+8EW0uHt46IBI0c4y2HqZMG7ZlkH9
-	fQVSjOHkFp0RkvbcA0hdXb3KOHDYskswtBV87RMoclQBKF5inKXqJg3oL7S+Zlw/V0Xde1oeGVR
-	0digyUBhLPXWPG+WoXCQvk1+kK5SChAVfQCLba76bmJcm84tC4c2/iA4evzIvRO9SNa7meqPUw1
-	YpjXR6K/Rb6VWnqz32dAGnTYeRZ7m+Un2F1X4XivuO8Wxc9RBaZxEKiGqvCYgKStQ/2Kr6Ww8VA
-	oAHCM7UY9sP9pgCb28JRiByRP83cK07mD9cxQ3IAORAtChyAT7P+zPCE5hHhnEMp2WQynz1NrSq
-	GDCir1D7WcW4aJVz7dP5BX+k4HwtDCDFcdiQMfJGVNxr4VcE+6MLs1o5ZQ742xgCDsLQMIS/4ZI
-	ab89rGnMFw=
-X-Received: by 2002:a05:6402:e03:b0:6aa:4529:4cba with SMTP id 4fb4d7f45d1cf-6aa545f7e04mr11215471a12.7.1790071654290;
-        Tue, 22 Sep 2026 03:07:34 -0700 (PDT)
-Received: from [10.214.128.75] ([38.97.137.190])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa440dd61sm774693a12.2.2026.09.22.03.07.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 03:07:32 -0700 (PDT)
-Message-ID: <2f14b623-7490-48e5-a509-d605a04930d1@linuxfoundation.org>
-Date: Tue, 22 Sep 2026 04:07:28 -0600
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="cFcuvCSK";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AE7E4WWw";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ngBPm5RX";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="mBtfGshz"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 249D61F7A2;
+	Tue, 22 Sep 2026 10:07:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790071659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wnYZYsSsKQzx2FEyp0L0s4BOMZezq8uo6IDm42t72F8=;
+	b=cFcuvCSKUoXGVqOz0eim5Sju6FnOnFPQzXVycdFmymsG7b6nOv2XwBy0bhSCuLIDrQc7Pi
+	b/1Gfbq9f7H905XX4eZRK9dDZntV7zbCSO2C4KKfE29OjizspaN4qbd+pqnwlPkLZlGS7D
+	pkxrzSzhDlf8mdu314vSKXo8XEgtCWI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790071659;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wnYZYsSsKQzx2FEyp0L0s4BOMZezq8uo6IDm42t72F8=;
+	b=AE7E4WWwUUBF5l+TM6v2ifXuprTyRKNTBiOfx/661VKlYrYyljh2L5I+Qor+0AWNmuqRbJ
+	tChsx6ZbOfMCKRDA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ngBPm5RX;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=mBtfGshz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790071655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wnYZYsSsKQzx2FEyp0L0s4BOMZezq8uo6IDm42t72F8=;
+	b=ngBPm5RXjD+rP/Z319PO4AOxpudnOyvaVwJdlj5HgVMr42oRPJWhHMK9PbdhED013HU8Kg
+	Gk0BbQAGHtEq+WgCNoBoLRU450pAa3s05J5nqLtWS5JXZ7NIWwQebeffS3js9zjUks9DK8
+	Rscu1AKLMeJgNHioeRURZa2CMpi7uDk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790071655;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wnYZYsSsKQzx2FEyp0L0s4BOMZezq8uo6IDm42t72F8=;
+	b=mBtfGshzSbbUGmTH+uioZD65FJJ300kKRbdSn8ownVifXF7zSM/oUSVF0TOPS3wzJc0wYR
+	nYdX0BilMtoH8mCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA7A4136D9;
+	Tue, 22 Sep 2026 10:07:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id waHxMGZTsmqtEQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 22 Sep 2026 10:07:34 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 80323A13D4; Tue, 22 Sep 2026 12:07:34 +0200 (CEST)
+Date: Tue, 22 Sep 2026 12:07:34 +0200
+From: Jan Kara <jack@suse.cz>
+To: MarkLee131 <kaixuanli0131@gmail.com>
+Cc: linux-ext4@vger.kernel.org, Andreas Dilger <adilger@dilger.ca>, 
+	Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: don't read past the UAPI struct in GROUP_ADD
+Message-ID: <llpsok2rsawexqxwibmxrv3xjyh63lh3tmnrd33x3dh4qsk3mw@bsh73hqhpjma>
+References: <20260917151441.413135-1-kaixuan.li@ntu.edu.sg>
+ <20260918111742.827428-1-kaixuan.li@ntu.edu.sg>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: add NULL check for calloc in do_standalone_mode
-To: longlong yan <yanlonglong@kylinos.cn>, valentina.manea.m@gmail.com,
- shuah@kernel.org, gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260817061514.765-1-yanlonglong@kylinos.cn>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260817061514.765-1-yanlonglong@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918111742.827428-1-kaixuan.li@ntu.edu.sg>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 249D61F7A2
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-On 8/17/26 00:15, longlong yan wrote:
-> Add a NULL check for the return value of calloc() in
-> do_standalone_mode(). If calloc() fails and returns NULL, the
-> subsequent access to fds[i].fd would cause a NULL pointer
-> dereference.
+On Fri 18-09-26 19:17:42, MarkLee131 wrote:
+> From: Kaixuan Li <kaixuanli0131@gmail.com>
 > 
-> Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
+> EXT4_IOC_GROUP_ADD casts the user pointer to struct ext4_new_group_input,
+> its UAPI type, but sizes the copy by struct ext4_new_group_data, the
+> internal type:
+> 
+> 	struct ext4_new_group_data input;
+> 
+> 	if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+> 			sizeof(input)))
+> 
+> The UAPI struct is 40 bytes, the internal one 48.  A caller that follows
+> the UAPI and allocates 40 bytes gets 8 bytes read past its object, and the
+> ioctl returns EFAULT when those bytes are unmapped.  The two structs have
+> differed in size for as long as I can see back -- v6.12.9, v7.2.4 and
+> current master all have 40 against 48 -- so the copy has been over-reading
+> the UAPI object throughout.
+> 
+> The first 40 bytes of the two structs have identical layout, so copying
+> that much fills every field the UAPI defines.  Zero the rest:
+> free_clusters_count is overwritten by verify_group_input() anyway, and
+> mdata_blocks is read only by ext4_resize_fs(), which builds its own
+> group_data array.
+> 
+> Reproducible on v6.12.9 and v7.2.4 by placing a 40-byte struct at the end
+> of a mapped page whose successor is unmapped: the ioctl returns EFAULT.
+> 
+> Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
 > ---
->   tools/usb/usbip/src/usbipd.c | 5 +++++
->   1 file changed, 5 insertions(+)
+> v2: done the way you suggested -- one struct on the stack, one copy, and a
+> memset of the tail, rather than v1's second struct and six field
+> assignments.  The only change from your sketch is the cast in the memset
+> address: &input is a struct ext4_new_group_data *, so &input +
+> sizeof(*uinput) would advance by 40 * 48 bytes.
 > 
-> diff --git a/tools/usb/usbip/src/usbipd.c b/tools/usb/usbip/src/usbipd.c
-> index 3e22b651c754..dbc2b48363b2 100644
-> --- a/tools/usb/usbip/src/usbipd.c
-> +++ b/tools/usb/usbip/src/usbipd.c
-> @@ -544,6 +544,11 @@ static int do_standalone_mode(int daemonize, int ipv4, int ipv6)
->   	dbg("listening on %d address%s", nsockfd, (nsockfd == 1) ? "" : "es");
->   
->   	fds = calloc(nsockfd, sizeof(struct pollfd));
-> +	if (!fds) {
-> +		err("calloc for pollfd");
-> +		usbip_driver_close(driver);
-> +		return -1;
-> +	}
->   	for (i = 0; i < nsockfd; i++) {
->   		fds[i].fd = sockfdlist[i];
->   		fds[i].events = POLLIN;
+> Built fs/ext4/ioctl.o warning-free with W=1 on x86_64 (clang 21), and
+> checkpatch-clean.  The EFAULT reproducer behaves as before on v6.12.9 and
+> v7.2.4; the fix itself was not runtime-tested.
 
-It is theoretically possible for calloc() to fail, however how often
-does it fail and were you able to make this allocation to fail?
+One nit below, otherwise looks good.
 
-If not, how did you test this patch? In any case, I am not going to
-take this patch and all the other patches you sent adding checks to
-calloc() calls in other places in usbip tool.
+> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+> --- a/fs/ext4/ioctl.c
+> +++ b/fs/ext4/ioctl.c
+> @@ -1674,12 +1674,15 @@
+>  	}
+>  
+>  	case EXT4_IOC_GROUP_ADD: {
+> +		struct ext4_new_group_input __user *uinput = (void __user *)arg;
+>  		struct ext4_new_group_data input;
+>  
+> -		if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+> -				sizeof(input)))
+> +		if (copy_from_user(&input, uinput, sizeof(*uinput)))
+>  			return -EFAULT;
+>  
+> +		memset((char *)&input + sizeof(*uinput), 0,
+> +		       sizeof(input) - sizeof(*uinput));
+> +
 
-thanks,
--- Shuah
+I just would not bother with this complex memset. This is not performance
+critical at all. Just initialize the whole 'input' to 0 (with = {} at
+declaration) and be done with it.
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
