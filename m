@@ -1,161 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B1E5650F7;
-	Tue, 22 Sep 2026 16:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9E65616B2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092909; cv=none; b=TnN94kZODT5GY+zT5zUbvyEbtdstjDkx/HCSBt/lb/ZYNNfh9nUC/QcTqxM25YXG/Lf7X//qO50AjltAOPvClZbxU3dpUNVW1UCFySN1lXFpmvrDGM1MtYq9khDqp4wqM29eukXdzJXTZPRQKp99GIgAJwAFZQW+rkIcH6p2Ds4=
+	t=1790092960; cv=none; b=AH9RYVwU5s1Z3E5RGcU51Aii24bvh1ItXoPTxp8f+k80x3t0AuK0E4SCVBCF5HB97LyeORzrSwryWoawjUtggCT+d/7FRblHN3Nr6WtrUY9Unbp7MY7DytwJNYr00f/ZJ9T/eZy/N0bhku/YowPKNkYRm/f+UV9s1IRPYZr8Jgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092909; c=relaxed/simple;
-	bh=8juOv1uaDdY6IuaTC3vffouy8oZLz41SERNmmIQ7Wlo=;
+	s=arc-20240116; t=1790092960; c=relaxed/simple;
+	bh=5Nc0E6uhwpOLhJ5EtHZx20sCq0FgvYX46L8SSfikNeM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=koXNAMswExXT5wPHLosWWyOw7Aqmz8CZeUf1WCEsxUClJt9Y2URo/wiFPiBSwLkDlXLNAMxswCSvmLzPHnyai7Cxo+6iVggrXquJW9FgJEddPBvVCoJWZRYGgAUPnCsJBofPCQkCqdyBwMYRU0Uggc9ca541+lfzGB7n/3F5gPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TgHOkTxp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JTlgkCe6SkWLLzyyQhKZHI7iwiaCGgU7G6EHUPXu3RJSVp1jnAWnowu9M/rIEXSRf8qXjGj0v6K4QA3cQZY7aKEs4jOr/DBpjmk/IUR0PXhXvXhtbHmpxKDJM0CDm2/LY84KyzWhYJ7JT/KFpWawVbeKLsGYEmvedzm4qRq/oqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kAWVTpG6; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TgHOkTxp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E421F0089B;
-	Tue, 22 Sep 2026 16:01:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790092906;
-	bh=Fj8qv/s1QXBda8PJDTUNriPLEJtaxLhFWQtl59nKm2g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TgHOkTxpKTkCp2koCURoESESmBJBN0clKbStRr6qZEszbQCwdNdvQlCngTcc4FXyT
-	 X3ciCuZGg4tsjBvDauLeGD99T9LKFTC38AG7YYn2SE8tKI0MP9RYZpjh6VPGp1mrE6
-	 QnB8WRl9Ahwhvj8TkU40GxcT1CyqaqHBay5DfVSXfFnwlbl5Y63YYFGLiaRO3yPeA5
-	 ghBCXsnSifEuUsagpHdAwCvn/VOzPBB26gUJnEDMOaPnt4BCcA+/70UlAGxb8A2v0G
-	 Kj8Y7aeLSig6sJTwRB2DHqMDIhfmnxtkMdTQPa+M9BMRFJZIorJ4+Ep0yymWA2X/4+
-	 v62pUHjkSJF0g==
-Date: Tue, 22 Sep 2026 17:01:40 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Will Deacon <will@kernel.org>, 
-	Jack Thomson <jackabt@amazon.com>, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v3] KVM: arm64: Clear the VM's feature bitmap when
- kvm_setup_vcpu() fails
-Message-ID: <arKmKAehWmYxfEp3@gremlin>
-References: <20260921190843.107881-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kAWVTpG6"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so75887a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:02:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790092957; x=1790697757; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8E+kKwSqex3XXbBNJuLlbTD55wWaphcALCZWnc93Tss=;
+        b=kAWVTpG61PfZEqBghapa4FkH+n0/je7fAbyKOffmykoRIVutLO3HoKdrV/aM5TzBD0
+         ZcJoi3xSUUnIH2l6ehWzMwzIjpQ+LM/AOnRDp84l6tvEtRIkJWxYEOn5qBZWm6WRWVdN
+         UI8vSOEFDetuQZFR3frcxzLzsZmeKMx/M+IpJxPJIVuK9pxBTTI4fDu6g2H4rEIUqUBK
+         HeFPcpj/acQ4GPzOcFSNLLCwF2VvcVxjFxQ8TitM9N5QOuKLucytqnXYq9LrxK+IDpDm
+         Z/SW0tX66S+udVCrzB/n5JRj7R7qZ8YPlTiYekUNMItUsomwPWdKawBTCrqoghcxNQNp
+         wf/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790092957; x=1790697757;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8E+kKwSqex3XXbBNJuLlbTD55wWaphcALCZWnc93Tss=;
+        b=C1RYaMR15kWwmCbwux3+71d+Q9mRC97J3p/xficmtOvgy+o6C9oaCLVMyYRd3W99bl
+         EawVAZcnjd90hH40DIVdVho2RpHKqOxne57t8/bd0jj7XGbBpS/B27A28hcIXL87V9h2
+         DsMJ4tyl5mJi4f0fIDrqoruqv5GdYZP/KigjtqkE+sAQdfzhCzQ/Ot+GVZfJBNyQ7vVm
+         Vgl1WQxibyqQPZFSYJvxDGeh9MPid1Nd4AI9RPQlEdy6TqNpmBLmS2Hf4S71cus3SFkE
+         zGlS43pwAyVdftF5MQk2Xhjjf8+WJ7wR+p6G6I7lyrmvR+KjwNhdfgCvdkMjWvHVC1IJ
+         L8gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwKXOtFkNr2Ms4g5vZHMI0MlLb9B+grAaOkQcFTOjjUPavlPVFoOXvMT2fMLYAXlT7TB8vD3lJHIUXEscQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCfvvyuijStczG/XWJ91nAnSlua5FnqLaTfsC7jyY0WYJQIBTE
+	CKfL4mXGFlY2+QBF2FjIpb1piY8kcIr9dfKvDN1JmAETlHNiWWbc1mtf
+X-Gm-Gg: AYBFou3GmYeWr4Wusvqe+qziRGQ5CHjG/aFkKaqI1Ks0chwj4Shzce+O2QFjD/hbvcu
+	aAGSCXbCoo2qm8yXafifu5ZohMItWLYHtK7rsEqkPa6P7arOL5yWXW8KTiUnvHYukfeYYey+i+X
+	2u2vsePv1qp84c16Rkb14SNNzhzFnW96b5ywhlhc6hXKXRh20mfwXPU2XflZxXKzSNlqDR2ThZw
+	PkJKt599bq7uf8m5fVbHG76HOfD9qrCy1t5Qb++Bn5G8srxPfws1DWToiFaJxBAtJfIpE/hHsHM
+	flleOml2JQJ/bGyYL94ncLcmRJzYnbveysDJ4NyJft2qXkRp3Mt5NH/aO1Lco3yxrUQZQxy1kbC
+	RaNOwGzHOKZtL9kJyvmBqT203UK7FlLf04stog2aEwHqrqncP/ZP6/M4J+XdVXfwei7lM3EScw+
+	8sZQJlGwLZoGS0AzuMljta5ZS4pzGCvUrxv9vIPc48OAs43rQBl1WzSiBFLH3Owh96Ftj0eZfOz
+	uVD1c40jceK
+X-Received: by 2002:a17:90b:5826:b0:39e:6c68:c777 with SMTP id 98e67ed59e1d1-3a073234153mr1714050a91.45.1790092956933;
+        Tue, 22 Sep 2026 09:02:36 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07db882a5sm109505a91.1.2026.09.22.09.02.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 09:02:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 22 Sep 2026 09:02:35 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: =?utf-8?B?5p6X5r+s5ZOy?= <m18667909625@163.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] watchdog: use kstrtouint to parse
+ softlockup_panic=
+Message-ID: <f2d5714b-6277-436b-9be7-f5cff30c7b76@roeck-us.net>
+References: <20260921064143.81420-1-m18667909625@163.com>
+ <7b91e8cb-d068-484c-9a9f-2c19cb37f5ba@roeck-us.net>
+ <e5bc7dc4-3faa-491f-9c8d-62afe0be0bbd@roeck-us.net>
+ <20260922153000.10086.2-m18667909625@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921190843.107881-1-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922153000.10086.2-m18667909625@163.com>
 
-On Mon, Sep 21, 2026 at 08:08:43PM +0100, Fuad Tabba wrote:
-> __kvm_vcpu_set_target() copies the requested features into the VM-wide
-> bitmap before kvm_setup_vcpu() runs and doesn't undo it when setup
-> fails, so a rejected KVM_ARM_VCPU_INIT leaves the VM recording features
-> that were never set up. With HAS_EL2 | HAS_EL2_E2H0 on a host without
-> FEAT_NV1, kvm_vcpu_init_nested() returns -EINVAL before it allocates any
-> nested stage-2 MMU, and vcpu_has_nv() is then true with
-> nested_mmus_size == 0; its -ENOMEM paths do the same on a VM's first
-> INIT.
->
-> Until one INIT has succeeded, every INIT that passes the feature check
-> rewrites the bitmap and a failure leaves it there; once
-> KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED is set, kvm_vcpu_init_changed()
-> has already required the requested features to equal the bitmap, so
-> the copy is a no-op. Clear the bitmap on failure while the flag is
-> clear.
->
-> This showed up with the series that enables KVM_PRE_FAULT_MEMORY for
-> arm64, since the generic kvm_vcpu_pre_fault_memory() calls vcpu_load()
-> without checking that the vCPU has been initialised. After the rejected
-> INIT, the first call's vcpu_load() reads hw_mmu still set to the
-> canonical MMU and leaves it alone, but its vcpu_put() takes the
-> vcpu_has_nv() branch into kvm_vcpu_put_hw_mmu(), which clears hw_mmu.
-> The second call's vcpu_load() reads hw_mmu as NULL and takes the
-> nested branch into get_s2_mmu_nested(), whose search over
-> nested_mmus_size == 0 leaves s2_mmu NULL for the
-> BUG_ON(atomic_read(&s2_mmu->refcnt)), under mmu_lock. On kvmarm/next
-> with the series applied:
-
-This is no longer accurate at the latest revision of my series ([0])but maybe worth
-keeping for historic detail?
-
-[0]: https://lore.kernel.org/kvmarm/20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org/
-
->
->   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000074
->   Call trace:
->    kvm_vcpu_load_hw_mmu (arch/arm64/kvm/nested.c:891) (P)
->    kvm_arch_vcpu_load (arch/arm64/kvm/arm.c:662)
->    kvm_vcpu_pre_fault_memory (virt/kvm/kvm_main.c:170 virt/kvm/kvm_main.c:4349)
->    kvm_vcpu_ioctl (virt/kvm/kvm_main.c:4639)
->
-> Fixes: 427733579744e ("KVM: arm64: Select default PMU in KVM_ARM_VCPU_INIT handler")
-> Suggested-by: Oliver Upton <oupton@kernel.org>
-> Link: https://lore.kernel.org/r/20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org/
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Seems reasonable to me so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+On Tue, Sep 22, 2026 at 10:49:52PM +0800, 林濬哲 wrote:
+> 
+> simple_strtoul() is deprecated. Use kstrtouint() instead; on a parse
+> error the variable is now left unchanged instead of being silently
+> clamped.
+> 
+> __setup() handlers return whether they handled the option and cannot
+> propagate parse errors, so the handler simply returns 1.
+> 
+> v3: do not warn on parse errors (Guenter Roeck).
+> 
+> Signed-off-by: Lin Junzhe <m18667909625@163.com>
+> Assisted-by: AI coding assistant (per kernel AI guidelines)
 > ---
-> v3:
->  - Clear the bitmap on failure instead of saving and restoring it, only
->    while KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED is clear, since with the
->    flag set the copy was a no-op (Oliver).
->  - Commit message: drop the "latent, exposed by the series" framing and
->    state the flag invariant behind the clear; the pre-fault crash is
->    how the bug showed up.
->  - Dropped Lorenzo's Reviewed-by since the code changed.
->
-> v2:
->  - Commit message: say what the prefault series enables, bring the
->    two-ioctl walk and the trace up from below the fold, the trace
->    decoded, and drop the Fixes: on 1de10b7d13a97, which had nothing
->    fallible after the copy (Lorenzo).
->  - Fold Lorenzo's Reviewed-by.
->
-> Reproduced on kvmarm/next plus the series under QEMU (-cpu max with an
-> Apple M2 MIDR, which has_nv1() denies; kvm-arm.mode=nested):
-> KVM_ARM_VCPU_INIT with HAS_EL2 | HAS_EL2_E2H0 returns -EINVAL, then
-> KVM_PRE_FAULT_MEMORY twice. With the fix both calls return -ENOENT and
-> the host is unaffected. Based on kvmarm/fixes; applies cleanly to
-> v7.3-rc4 and to kvmarm/next.
->
-> v2: https://lore.kernel.org/r/20260921063718.1604533-1-fuad.tabba@linux.dev/
-> v1: https://lore.kernel.org/r/20260918120553.163139-1-fuad.tabba@linux.dev/
->
->  arch/arm64/kvm/arm.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index eaf583b771931..bd19f64ae82ef 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -1698,8 +1698,16 @@ static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
->  	bitmap_copy(kvm->arch.vcpu_features, &features, KVM_VCPU_MAX_FEATURES);
->
->  	ret = kvm_setup_vcpu(vcpu);
-> -	if (ret)
-> +	if (ret) {
-> +		/*
-> +		 * Clear the bitmap if setup fails on the first vCPU to be
-> +		 * initialized.
-> +		 */
-> +		if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags))
-> +			bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
-> +
->  		goto out_unlock;
-> +	}
->
->  	/* Now we know what it is, we can reset it. */
->  	kvm_reset_vcpu(vcpu);
->
-> base-commit: 6b1bca1b1ab77f60a62087337bfe6e2f0efb9e6d
-> --
-> 2.39.5
->
+>  kernel/watchdog.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/watchdog.c b/kernel/watchdog.c
+> index 420f08140713..69cd5ebb4929 100644
+> --- a/kernel/watchdog.c
+> +++ b/kernel/watchdog.c
+> @@ -423,10 +423,11 @@ static unsigned long soft_lockup_nmi_warn;
+>  
+>  static int __init softlockup_panic_setup(char *str)
+>  {
+> -	int ret;
+> +	unsigned int val;
+>  
+> -	ret = kstrtouint(str, 0, &softlockup_panic);
+> -	return ret ? ret : 1;
+> +	if (!kstrtouint(str, 0, &val))
+> +		softlockup_panic = val;
+> +	return 1;
 
---
-Cheers, Lorenzo
+This is not v3, it is a patch applied on top of a previous version,
+and it unnecessarily introduces a temporary variable.
+
+Guenter
