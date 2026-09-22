@@ -1,225 +1,308 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022102.outbound.protection.outlook.com [52.101.101.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E8949502A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E9B49AA4E;
 	Tue, 22 Sep 2026 19:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106725; cv=none; b=GdmKY+IRO0gIgkI05iw9iUtYNg7/H+5EtPmcQtlT7tMjmDkcP/OhZxTeUZx8SwxmVNDXjfdGboWUtvUHBykf1ruyIa55vhRtyRBTQnIDzqMHzn8ZJZwuD3dfXiSQIuBFVWU82r03ypQ6Z4ko8uUuu5uMPcRI2Z/DIT0vMZOlolw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.102
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790106725; cv=fail; b=n/AuEoCbM9so69+qxnWSM0caL6AZ2avDjZ55n7ALEOQ9QdHVX//vq3+umj4t+WTjhO7/toLvOv9kQTeKT80dMrp1SwgcJGAUYMkfTH2GdC5isBq8zGTi6Ff9F5UoMJTV4qr3oVEttj0hUA1+q46QUtkkqLJOsolXvl3hNg5iiiw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790106725; c=relaxed/simple;
-	bh=rO46+qCjXpkCxSolKr5Zydyt/pCFNQF2M7IstQo9H30=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B1SAkwfZjNiencwZ+6mrlCjrNoioz+9ZNS1i/OrrK8ws+XEqwruwYZohhMA2lGYEMNh9XF41e28o+EF4pULGnfgKSH3kb8ORieaXM6a1CoKMhyJ9p7DzybFPlpTPTNwrOTCzPSH0ZQyONeJeeLnpN/l97BTzxtjOopfOwJFk3Kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=V3c+aq1J; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	bh=RydwBasDEKVNyttAYlhB3lBErQjkUxa2GN46k1og27Q=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=P2VQdQWXB8SycllhsMA9vGbl1mxvNV6Ohgu5AoBQxIrLLOoBNB9WipDQAOMW90k3Fg5Rb5mMRjD57qW5bQ338Q8p1InA0QdnxlhlQ9NnDRqykHMji0/qNu7hvs7uFP2j7XVcrwB+Yl4l7yl/9zRpxRXpMEXL35bGsFrsn/+3nw4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=FjRcqS5q; arc=fail smtp.client-ip=52.101.101.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="V3c+aq1J"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7bQg965141;
-	Tue, 22 Sep 2026 19:52:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=I6Dz1pScvuchOON2TsOXdwLzSDjb2wOmqPU1mfIgg
-	6o=; b=V3c+aq1Jcz1ih4tLfakFsWrgc4yJs1Eka77qj8XVe2D1Z60ljHnu9TfL1
-	apfw8exsKcuhthuV23L9I9VEQH6CF4ColVn85oHl6TrNX4aiUEjZxtocdB+qnpWP
-	MWSZZ+XHdDXIE9CL2JyQqOHTEN5KccHQXm4MoHXJy9tmpCE2Hw0gPdm2nJLMaIND
-	vLOIWZLrgcEuq49RvG2zOZytpvM/jhr+5yfq6LYZiueXJ8M82+SDoHvypO+WcoDT
-	jPE6c3srRiK+jP7M/cDGjkP6aWjg5h3Gu+wJnh28Sjs5XsJqQT6uaNlAw1ufxNQv
-	CU6tWQQ+FWR3goLkqDcAQKCWWueGg==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1fdtw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 19:52:01 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MIHX0I3239749;
-	Tue, 22 Sep 2026 19:52:00 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt67gu66y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 19:52:00 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MJpw7x30474752
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 22 Sep 2026 19:51:58 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 74BFC58050;
-	Tue, 22 Sep 2026 19:51:58 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9F37F58045;
-	Tue, 22 Sep 2026 19:51:56 +0000 (GMT)
-Received: from Mac.ibm.com (unknown [9.61.246.118])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 22 Sep 2026 19:51:56 +0000 (GMT)
-From: Omar Elghoul <oelghoul@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: oelghoul@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
-        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, alifm@linux.ibm.com,
-        farman@linux.ibm.com, gbayer@linux.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org
-Subject: [PATCH v7 0/4] vfio-pci/zdev: Improved zPCI Function Measurement Support
-Date: Tue, 22 Sep 2026 15:51:37 -0400
-Message-ID: <20260922195141.94548-1-oelghoul@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="FjRcqS5q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WhzM5J1Y7jUqDPMKkq1i65LgiyDgry1zGHjIaybBxLzN+KzbA1eMSGDy0/IuG5j0JyT4T/2sv4hQ/e/UtMUG+rahBUyOhtM3PtRzEEmoLyV1xssZ/ambEi2mMntv4jWrEMQQvpfKiwv3oOYukAhGvsxAA8SAe0ipBx8qwx2MpmlsWrzl9ouZHPX6rXwePACaUGgwm/JYtp23NCz9+JfVi/2+tJY4xjSLCkk4zoUUhSN+N8oDT2s3BxNbUa6sJLsjewGAp+chNkwWjSQZU35EMOeykV0XYEfzzYrf5i6PRPBY9UbDgDYHChy+vwU6+mS8I6ApCx7B3OoBDFfHjTzfJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E5Bcd78l8+sjOwplPSg5ZNmwmo+3VWAJix2bNuNk2iw=;
+ b=VGolt7Sh7jsx8I2Xj1FJrPZx6q4O/XGNUoLheqKYTJjw6S5/M1fq6cZSSF8Z6ztqaeYerBS59I86v5q3Vq8Lby8hyxS98FoRPd3oDbtr+YpIjhF4sRigpMVmztlCzN2FdETPPmxMwPBvLbZANUa/pB4X0SntRsahDdd2hsYD8O7MGT3grS4CvsfJ4NyO2JJCz2S4mKXAfNca4o6dj9xMsnjP8y6+rE+zab9tuh750w6PSBdllmZpHmSGdEeDudL2hSo56ChKodmKkW1zltOe2BmWf1chvwlGv5yJxUx6oDGEn3EAxK52fS1LoqJRI5UTWkQoBHEguv17n1rWjDE9+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E5Bcd78l8+sjOwplPSg5ZNmwmo+3VWAJix2bNuNk2iw=;
+ b=FjRcqS5qSCH9xwzi4exs3o6AoJ7HzQawyG0cDl7RF+6NOuYXRxXSPvc9E/UpjhRcHUWpY6f7hMdcRq9ELvvONyD8jGFHC8uwBvldiNzlGA66CRWoHfjy87uOARGz1dfuTu/oqvAIWhUqIkhngRnUMcVOvOmVKrWhgABT6Afq1YU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO0P265MB6341.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2d0::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 19:51:59 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 19:51:58 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 20:51:57 +0100
+Message-Id: <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net>
+Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
+From: "Gary Guo" <gary@garyguo.net>
+To: "Andrea della Porta" <andrea.porta@suse.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ <linux-pwm@vger.kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Florian Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal
+ kernel review list" <bcm-kernel-feedback-list@broadcom.com>,
+ <devicetree@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Naushir Patuck" <naush@raspberrypi.com>, "Stanimir Varbanov"
+ <svarbanov@suse.de>, <mbrugger@suse.com>, "Sean Young" <sean@mess.org>,
+ "Julian Braha" <julianbraha@gmail.com>, "Gary Guo" <gary@garyguo.net>,
+ "Christophe JAILLET" <christophe.jaillet@wanadoo.fr>
+X-Mailer: aerc 0.22.0
+References: <cover.1789724999.git.andrea.porta@suse.com>
+ <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com>
+In-Reply-To: <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com>
+X-ClientProxiedBy: LO4P123CA0276.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:195::11) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: o_tWGYj_dUNR6t1isvgECCU0FkapIX98
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI4NyBTYWx0ZWRfXwJenkal3EMj3
- csnCHlZ/JuLheLE/oVviw8LhrMGP8MbkWKDRm/BJ/ZpfddBZ6mttsqIlE0pCtEufypuxxxujjel
- eOW9SfGpNrX2SyZNWjsldRBa/Cz0bXX71+zYCBXvPl/cT/5Wk3WhIMxbkBGPC+pzGonBAdbxi4C
- 0jly7ZdyLvAlFMVJey5vwWePt/nqsQBpv/NZm3V33d6K0syJgaRd/ofWKZap8i0sm/Xd36sBKXu
- 05MqYI3CMI+cN7j8mY0RusMGRRp0xiMHW/QahwQzd+YvPuP9SF8VcSjmBHS3CaROynpO8kXg8jW
- fbm3Lz/GibTL7B3u5cQArs3JXKsiZCavykqd5BgEBr+Uz3M6I/KDbujenNuD7ChT0jwyCEGGEMt
- tKs2lBKiMLsx0eRejRriGINDNrX+O1MVTSdqG6cksqt96kjmwU0zcgnb7b++9w45hdRUxQ3CuP5
- pYwBBo4Uvn3xPpYhWTw==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab2dc61 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=Or8v72Ccw2kqKKHgtsQA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI4NyBTYWx0ZWRfX2GsqnO54K1yO
- rSziFV53+h290oA4jskTPnl5vHM/oe/SBdehqgRdfmpBfh4DDSGZJqbSTzUkECthGgMnIxwnOsn
- 2QhdvOTjptsbZZicuCzZuTl/GqW1NJs=
-X-Proofpoint-GUID: o_tWGYj_dUNR6t1isvgECCU0FkapIX98
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220287
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB6341:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7425c890-6fb2-475c-6bdf-08df18e2f681
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|921020|3023799007|10067099003|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	V/4pkNRkk7A9yiuRnEhFbjzqL2Ebjn2sccgjpYIQo1v3ty8yt67y5omWwjmsNG3KBNJg3Honj5a6dMW2iiiHjP7bJSmzImoKcIJj2w3ILue2M5rH1bQEniNTTn0JDkxFOX97T/KsBPNFU/fsLy4BVomtCqmxWcOlAzRXmmuLKOaAc1cOWFfvWwUDzsjrfCfsXU4bnCv7oMY3NW30+F7ojSYgl/O5Mdfd3/Wxk+XN0KDI/OYQQI1oIWPZ/dNhX5hneE4xxGIDbT+MDA7PWFzif2W9dBNcfqQ6mFZBKUog51YREJ9PWXLpGaj/dY+4lcG9d0CW1ocM9elXfdiH72gJrc98CksRQA/geWwjMxAdoenUcOX3niKSw2sCubTssN5rPJKCYkcuOIEtw/e2DKeqhmecqFvMwJBlTNRQysI44Z5asghl1jUe+qiVcdaL2u6Nuo8fgQGSsMoqUWHKOKdK+I/Hw+cE5LlRWhhnAYeO6n7LjF5UBA1RMwgR19kaVxvrQnOT23il7w3+V+89yNKpkD8DBqExVS7XHc5piQSHww0StqcoAFzefUTxnoXiBc0IjM6+E96iCl/dcaowOgCV9nc5hfJMOpKFPlrDKtkIygMlMtbbTtfuuILzS7faWevl8maEaz6wcXziYjHSoyKN6tAXcQpzqr0CvM8rJBYvgZXWEsrVJGKXwQl9CT3glhqeA0weG7KXphLuCk/s/Qr2tg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(921020)(3023799007)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?amZTMGJTQjRKaUVaVUlMNUxQcVlsdS9aTzJpVGtvTUF2R1p0eGpEbkNxa0Uz?=
+ =?utf-8?B?L28rZmxFVWY2U09EK1pvaEsrWVJQTlRObW9nZzRHUkZtSGdJZHVPVDQ4R2Qx?=
+ =?utf-8?B?NUdST0NFaWM1TUVOdkF6U3BoRUtLUlhVNE0wVGtkU2lZc2RlODQrbmZBaWN0?=
+ =?utf-8?B?d0lmNjg4SnExejlyQmdsQjlrT0Y4cE9RWmI1dnhkYnczYTgyRTUzM3hzbUtV?=
+ =?utf-8?B?SGkzSDdTV05OUW5ZOFptblgvN2JYd0pkTmhJZVBTUzhNQnVOOTBrY1Y5azhG?=
+ =?utf-8?B?dit5K0hQU3d3aWN0OVRlbXAvT2xWM0oydU5jVjErVDE4SlVRd1RRYmxFdStn?=
+ =?utf-8?B?TXlyQ1JPVUZ0RjN0WXNmRXcvNm1Jbkx5TG5MOVNUdG9haUVXTS96ak1iaUNI?=
+ =?utf-8?B?c0p1Q1hVZW9QaU9VWmRYTFprYWpVQVY2K1BvSjR0cXZVbGZITGoxVzdjWFNF?=
+ =?utf-8?B?SldkbG1ob0pGQXNqVUhnMFBzNkk4WHBtV2xUc0ZzYlVrUkJOaFFMa2xXNEFt?=
+ =?utf-8?B?VWNSbktRR3ZaYjl6YTNuV1VRWm1sNEN4ZXlRZjhwdlI5ZU9wUlFjV1ZEWld4?=
+ =?utf-8?B?dFBVK1FpdTRFa2RhejNLYjA4MGdFSEFuNjVpbjBTTmZIYjhGU1M3T3lwRFZY?=
+ =?utf-8?B?anpRdVJFd01UbHczOFlmb0s3SytjcmFwcllCMHdXa2NKeVd4bFVRc2dmY0RE?=
+ =?utf-8?B?TUNieExTV3NZNm8yUWVWamdKTlRuRVErSGwzcTFNRXl2OGhjdlM2Q0NNcE94?=
+ =?utf-8?B?Z1E1Sjk4YWx6T1l1RU1iSkVYSVBNdFNWUzQ2OU9oTkdxRXhqaUczOXN2Ty85?=
+ =?utf-8?B?SUVrbjErb0lWMFdIQStDR3o5YU5IbjVwYUZPc1Q1ZUVjM1k0MSt1K1hESUlE?=
+ =?utf-8?B?ZXcvZHFoYUp0Z0JjUkhJQ0N4cUhFZ2RUTVNYbW16OFFJVlppMjFlUkxYUks2?=
+ =?utf-8?B?Zm1haVNicUFZU1VaVCtoL2xoZWh1WWJPWjFnUnVBUjlobmtER2MyZ0NjZzJ0?=
+ =?utf-8?B?TmRmdUloZWt2VXZ5SHZ2akZLNlh4MGQ2NTlxWm9VVXhQUDNhVm4yNTA0b1Jk?=
+ =?utf-8?B?cWtLU0orN0ZpSzdGelI2VVFWQ0hCOVRnNm9IMk9WWVlWQTBFMEUyUHNKejdM?=
+ =?utf-8?B?RVM4ZU1hM21rZmhkQVZURGkweEJuUDF6TkNkc0crMU1vN1JWUm9SZUlKUU95?=
+ =?utf-8?B?MjhQenZrbTNnOXQxS3cyeldlZFp4TjFBb2JLUGN6MDNaTmJsRjdueTlGcEI3?=
+ =?utf-8?B?Y1dpbk5FbWxKcGgwd01aTGV1S0ZSZTkrTzlxc1BCVEsrWkhSWEFBM0wzeWdz?=
+ =?utf-8?B?SHlZQ2s1QndoZWd4MFdEcjBVNFYwM3B3MXAzaGxQVW55MUxZa3RFUndQM3I4?=
+ =?utf-8?B?eE1TMnFDcVU4UmdjcEZVSHcyK1JBQ2pIZTdxeHVkUDJQM1NLL1JXMFdOWCtS?=
+ =?utf-8?B?RFJpVDlkazdqUHJ3V08xaXBsVlpNemhiRkUxcnBPTWlTTmFXWkx4dUt4azJL?=
+ =?utf-8?B?TVArZ080Vzl5Y3phK1M3S3dBY2xPOTVsL3lNQm9HYmlnQWkrVHpFWi9YUmNV?=
+ =?utf-8?B?dVVuR1QvMjB0ZTZPRmloZE9ESGl1OVVjTzJhd0s2blAxU016cTVOVDRPKy9B?=
+ =?utf-8?B?RTd6bjZtV0lDT0pqRWhVbUxBaTJOcm1xd3dEK016VXUwVFQwRERhTnQ5LzhX?=
+ =?utf-8?B?QXNoRTJhZVNDWTkycCtScVNiMTJGWHhnanYveGdTL1VqSDhFNTBDSytiNXZ2?=
+ =?utf-8?B?cTJ2dm1hNG5vQWJtbzZsVmpLVktxVnFlTnZrOUdRNk5WWldxRnlVTStkb0FH?=
+ =?utf-8?B?VC9KU2FWN1hYUlp5cjd4bE0xUVRNZ0tHRFFoakV2SENMcVFtaDB3WHNPYmMy?=
+ =?utf-8?B?MUE1RVZTb2E5TnhXYVpKYU1jK1l3TDVkSlZJNXJUc3hPeHR1Qnl4bzB1YkI2?=
+ =?utf-8?B?OGlZNG9TUVY1SEV1bnhFbFpZc0RUSjdTTGNLektJUWVHWXNZVCtXaS9DQjFk?=
+ =?utf-8?B?cnc1UlpxY1dRcHBib2NaMGduQlEyM1FqK1F2L09mU3JVWTlHNmZYN0NJOWxX?=
+ =?utf-8?B?S1lzWU10SFFwekJGRlpmSHM5VGRTUmFqQnBpWFJuZFBreUNKRk1IRFU1WTNz?=
+ =?utf-8?B?K2d4anI4NlZrcEVxeHlYa01tSXk0enhvTFFhUjlUeUUraW5XMnlaamlKZHoy?=
+ =?utf-8?B?dlcybE5zT3kyd2FTYnNtOVA1Y0Q5ZC93ZGhNT3FrRDZ0M2JZa2J2dzdnWE4y?=
+ =?utf-8?B?Vy9zZEdaNk1Jd0k1TnpnVFNUSkU4bkk2OC9FSEgrRVUvbm9WeW5lcDZZRGFW?=
+ =?utf-8?Q?c3N3QrDcwrAaQs3o47?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7425c890-6fb2-475c-6bdf-08df18e2f681
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 19:51:58.8323
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gVUgBHmyN4ZjWZufb1ewWnjCAamAeXqlNai/SMFXXbL05XFbED/EPptN3NMNQy0cjS6k2AownkAl7kturlrZsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6341
 
-Hi,
+On Fri Sep 18, 2026 at 10:59 AM BST, Andrea della Porta wrote:
+> From: Naushir Patuck <naush@raspberrypi.com>
+>
+> The Raspberry Pi RP1 southbridge features an embedded PWM
+> controller with 4 output channels, alongside an RPM interface
+> to read the fan speed on the Raspberry Pi 5.
+>
+> Add the supporting driver.
+>
+> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 
-This patch series improves support for function measurement for zPCI
-passthrough devices on s390.
+Put yourself a Co-developed-by perhaps? You made significant changes.
 
-Changelog
-=========
-v6 -> v7:
-* Patch 2/4:
-  - Don't re-enable FMB if it wasn't already enabled
+I've tested the device on my Pi 5, and the fan is indeed spinning now :)
 
-v5 -> v6:
-* Patch 2/4:
-  - Rework the FMB re-enablement code to reuse the same buffer again
-  - Make the FMB buffer persistent once allocated for as long as the
-    device's lifetime to accommodate an architectural quirk
-* Patch 4/4:
-  - Update the liveness check to use the new FMB enabled bool
+> ---
+>  drivers/pwm/Kconfig                       |   8 +
+>  drivers/pwm/Makefile                      |   1 +
+>  drivers/pwm/pwm-rp1.c                     | 499 ++++++++++++++++++++++
+>  include/soc/bcm2835/raspberrypi-pwm-rp1.h |  10 +
+>  4 files changed, 518 insertions(+)
+>  create mode 100644 drivers/pwm/pwm-rp1.c
+>  create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
+>
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index 7297760868790..e1baec8d294d1 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -637,6 +637,14 @@ config PWM_ROCKCHIP
+>  	  Generic PWM framework driver for the PWM controller found on
+>  	  Rockchip SoCs.
+> =20
+> +config PWM_RASPBERRYPI_RP1
+> +	tristate "RP1 PWM support"
+> +	depends on MISC_RP1 || COMPILE_TEST
+> +	depends on HAS_IOMEM
+> +	select REGMAP_MMIO
+> +	help
+> +	  PWM framework driver for Raspberry Pi RP1 controller.
+> +
+>  config PWM_SAMSUNG
+>  	tristate "Samsung PWM support"
+>  	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
+> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> index 5630a521a7cff..c07fd24f69f39 100644
+> --- a/drivers/pwm/Makefile
+> +++ b/drivers/pwm/Makefile
+> @@ -57,6 +57,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+=3D pwm-rzg2l-gpt.=
+o
+>  obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+=3D pwm-rz-mtu3.o
+>  obj-$(CONFIG_PWM_RENESAS_TPU)	+=3D pwm-renesas-tpu.o
+>  obj-$(CONFIG_PWM_ROCKCHIP)	+=3D pwm-rockchip.o
+> +obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+=3D pwm-rp1.o
+>  obj-$(CONFIG_PWM_SAMSUNG)	+=3D pwm-samsung.o
+>  obj-$(CONFIG_PWM_SIFIVE)	+=3D pwm-sifive.o
+>  obj-$(CONFIG_PWM_SL28CPLD)	+=3D pwm-sl28cpld.o
+> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
+> new file mode 100644
+> index 0000000000000..cfd38e46cc589
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-rp1.c
+> +
+> +int rp1_pwm_read_tachometer(struct device *dev)
+> +{
+> +	struct pwm_chip *chip;
+> +	struct rp1_pwm *rp1;
+> +	u32 tach_val;
+> +	int ret;
+> +
+> +	if (!dev)
+> +		return -EINVAL;
+> +
+> +	device_lock(dev);
 
-v4 -> v5:
-* Typo in the cover letter
-* Swap the ordering of patches 3/4 and 4/4 to ease merging (i.e., to
-  ensure the three s390 patches are ordered before the VFIO patch)
-* Patch 2/4:
-  - Drop the refactor of zpci_fmb_enable_device() and the separation of
-    zpci_fmb_clear_iommu_ctrs() and zpci_fmb_do_enable()
-  - Allocate a new buffer in zpci_fmb_reenable_device() rather than
-    reusing the same buffer to avoid firmware edge cases
+You should use the device link mechanism for synchronizing unbind / runtime=
+ PM.
+That can be done in your RP1 fan driver, and it doesn't need locking on thi=
+s
+driver.
 
-* Patch 3/4 (previously 4/4):
-  - Avoid reading from userspace while holding kzdev_lock unnecessarily
+So Sashiko is kinda reporting a false positive here.
 
-* Patch 4/4 (previously 3/4):
-  - Drop allowing usercopy of the FMB when initializing the kmem_cache
-  - Avoid copying to userspace while holding fmb_lock unnecessarily
-    - Restore the FMB bounce buffer to achieve this one
-  - Clarify uAPI documentation and ensure it accurately describes the
-    behavior of the VFIO features
+> +
+> +	chip =3D dev_get_drvdata(dev);
+> +	if (!chip) {
+> +		ret =3D -ENODEV;
+> +		goto err_dev_unlock;
+> +	}
+> +
+> +	rp1 =3D pwmchip_get_drvdata(chip);
+> +	if (!rp1) {
+> +		ret =3D -ENODEV;
+> +		goto err_dev_unlock;
+> +	}
+> +
+> +	mutex_lock(&rp1->lock);
+> +	if (!rp1->clk_enabled) {
+> +		ret =3D -EBUSY;
+> +		goto err_clk_unlock;
+> +	}
+> +
+> +	ret =3D regmap_read(rp1->regmap, RP1_PWM_PHASE(2), &tach_val);
+> +	if (ret)
+> +		goto err_clk_unlock;
+> +
+> +	ret =3D (int)tach_val;
+> +
+> +err_clk_unlock:
+> +	mutex_unlock(&rp1->lock);
+> +err_dev_unlock:
+> +	device_unlock(dev);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM_FAN");
+> +
+> +static int rp1_pwm_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	unsigned long clk_rate;
+> +	struct pwm_chip *chip;
+> +	void __iomem	*base;
+> +	struct rp1_pwm *rp1;
+> +	int ret;
+> +
+> +	chip =3D devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
+> +	if (IS_ERR(chip))
+> +		return PTR_ERR(chip);
+> +
+> +	rp1 =3D pwmchip_get_drvdata(chip);
+> +	ret =3D devm_mutex_init(dev, &rp1->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	rp1->regmap =3D devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config=
+);
+> +	if (IS_ERR(rp1->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize reg=
+map\n");
 
-v3 -> v4:
-* Patch 2/4:
-  - Replace mutex_lock/unlock in zpci_reenable_device() with a guard
+You mentioned "rework regmap error paths" in cover letter.
 
-* Patch 3/4:
-  - Allow usercopy of the FMB when initializing its kmem_cache
-  - Move the guard in vfio_pci_zdev_feature_fmb_enable() lower to only
-    protect the FMB
-  - Ensure vfio_pci_zdev_feature_fmb_enable() fails on double-enable for
-    consistency with the documentation
-  - Eliminate the bounce buffer in vfio_pci_zdev_feature_fmb_read()
-  - Replace the void pointer with __aligned_u64 in the FMB read uAPI
-    structure
+But the issue is that regmap doesn't need be used here at all. RP1 is on PC=
+Ie
+so there is no need for bus abstraction, direct use of MMIO is sufficient.
+MMIO accessors have no error paths, so you're saying yourself from having t=
+o
+handle that, and also reduce the overhead by not having to go through an
+abstraction w/ indirect funicton calls.
 
-v2 -> v3:
-* Patch 1/4 (new patch):
-  - Fix race conditions in pcibios_enable/disable_device() with regard to
-    the FMB enable/disable
-  - Assert that fmb_lock is held within zpci_fmb_enable_device() and
-    zpci_fmb_disable_device()
+I suppose regmap was used when syscon was there; but it's not needed anymor=
+e.
 
-* Patch 2/4 (previously 1/3):
-  - Move the FMB enable logic into a static function zpci_fmb_do_enable()
-    to reduce code duplication between zpci_fmb_enable_device() and
-    zpci_fmb_reenable_device()
-  - Reword commit message to use the imperative voice more consistently
+Best,
+Gary
 
-* Patch 3/4 (previously 2/3):
-  - Split the previous VFIO feature into a SET-only and a GET-only feature
-    for enabling/disabling and reading the FMB respectively
-  - Remove FMB definitions from the VFIO uAPI and instead treat it as an
-    opaque structure
-
-* Patch 4/4 (previously 3/3):
-  - Clarify goto label name to reduce misunderstandings
-
-v1 -> v2:
-* Patch 1/3:
-  - Address a possible race condition in zpci_reenable_device() caused by
-    calling zpci_fmb_reenable_device() without holding fmb_lock
-  - Assert that fmb_lock is held within zpci_fmb_reenable_device()
-
-* Patch 3/3:
-  - Address a possible race condition in pci_perf_seq_write() caused by
-    consuming zdev->kzdev without holding kzdev_lock
-
-Motivation
-==========
-The firmware on s390x machines allows for tracking a variety of statistics
-relating to zPCI devices in a function measurement block (FMB). However,
-the kernel currently lacks a structured mechanism of sharing this
-information with userspace, beyond /sys/kernel/debug/pci/ID/statistics.
-This can lead to shortcomings when running a guest on KVM with PCI
-passthrough devices, as QEMU is unable to provide an accurate FMB snapshot
-to the guest.
-
-Proposal
-========
-We propose adding a new VFIO device feature to zPCI passthrough devices,
-allowing userspace programs to read the latest FMB snapshot as it is
-written by the firmware. We ensure that function measurement enablement is
-preserved across device resets on the host. Furthermore, we guard against
-host tampering with the FMB via sysfs when the zPCI device is in
-passthrough to protect the VM's state.
-
-I'd appreciate some feedback on these patches.
-
-Thanks in advance.
-
-Omar Elghoul (4):
-  s390/pci: Hold fmb_lock when enabling or disabling PCI devices
-  s390/pci: Reuse FMB buffer and preserve state in device re-enablement
-  s390/pci: Fence FMB enable/disable via debugfs for passthrough devices
-  vfio-pci/zdev: Add VFIO FMB device features
-
- arch/s390/include/asm/pci.h      |  2 +
- arch/s390/pci/pci.c              | 85 +++++++++++++++++++++++++-------
- arch/s390/pci/pci_debug.c        | 11 ++++-
- drivers/vfio/pci/vfio_pci_core.c |  4 ++
- drivers/vfio/pci/vfio_pci_priv.h | 18 +++++++
- drivers/vfio/pci/vfio_pci_zdev.c | 60 ++++++++++++++++++++++
- include/uapi/linux/vfio.h        | 29 +++++++++++
- 7 files changed, 191 insertions(+), 18 deletions(-)
-
--- 
-2.55.0
+> +
+> +	rp1->clk =3D devm_clk_get(dev, NULL);
+> +	if (IS_ERR(rp1->clk))
+> +		return dev_err_probe(dev, PTR_ERR(rp1->clk), "Clock not found\n");
+> +
 
