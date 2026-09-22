@@ -1,211 +1,94 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0A454DACC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C4B550DC6;
+	Tue, 22 Sep 2026 14:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089140; cv=none; b=FglvRouAIygtAQVWW/71Vmb5HAs6W14j8o+opXJSdatVWXSDGn9wAwoofzsngq7C5ImVgMX9RkQLtcaJE2kTqx+x6K5a8/AbI6jQBooWeO7zlM2y8EYbhtLRhLo2feS4eQ67KK019ZF201Ui0ehQ+tPvyMQau2C2wvmIkRPzjkw=
+	t=1790089190; cv=none; b=tEUS6ej9A8MCsYMvtzkashvwCjQpzWf7rIdFySwk5S/CZjLIHLUZ/+4BoH01gwnV4x2c2j8GO2NEMvZb03kqFE8yaH3rgkA5T7MlARwRlFrs/Br0tUosGOvflyadzrBZn25aNFmsXSRR2wF0jZaHzTvDJukP4JTsWJlmmyCPHN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089140; c=relaxed/simple;
-	bh=Xcv6XqGr8GRDrZTYE+bcfGYsESnoIwDYOn1wqnCy4NA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kEaQrTCHC/zDNUOSMmSkYBG8woxtPSLKJQxWYyZPT8V20mnzWhjQxZcHPMrOZNzo2RY3b3jDJDKxTBc0qJFWncwTTP/O0/xbP4syYlhKDH1d+iZzDjHLI8494L8FcxioTichHPJQGI2wiuOABkVTuHTGqdXDQkZI+Fx0ye8er4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P9vpbU/G; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790089190; c=relaxed/simple;
+	bh=VdDKKmt2OfwPfrFz17S36ZDrC00F7JzQSwuNN97Gak4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QO4/h7brTUPnCsTOOXiNJ8CdAXA7ON6rwJDaLfsvR0z5lqs4j9TzxyeMigIvEFILEdRoQvOwC6HeTKCNBBQ+wQ3Jx/hDsA0WSnWFfSHjgFbVfOvUY0CHkHB3yV+aex0GIcsDVqyfKir6YxbcZmbXyWp03wRW0DVuQDc7uedJvAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=BHJOfqU1; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P9vpbU/G"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469f20513so406b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:58:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790089138; x=1790693938; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GBsYZYC2tty9xsMubEGxI75zG2Y/0N6IAo5rsTEyC18=;
-        b=P9vpbU/GKY22GSz+f0k3PPTLbtIEa1DRbrDXoeJrdM4jONBG2jsqCMs+6DtAQ6bzS+
-         uktvirJHaQKj9zrUgPwYJkJICqlWWTsFXlvQHpByKLnKZtL2eIoAEQWEWxstultGQfOd
-         eXf4DZyXrXwDK3PbO3iu936rnFq4pjkyuiTXDA19gz/iK7qLP+cOLx6d+QeP7DgpZnMS
-         gz0YDKLTfGq8oLtscpfbnvn6HU84bsFr82Wf2TVvcFvgtcfpK2d359LJEf9XyQNXplkU
-         FSP3W/HQ2bTH21U8ytVcHY2ZBJLnrr/I9CJWFP3GdRqag++3uPSZybjN0A33mRu0nAQB
-         sDPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790089138; x=1790693938;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GBsYZYC2tty9xsMubEGxI75zG2Y/0N6IAo5rsTEyC18=;
-        b=znIVHwzRDp1tkwIlH4jLPuIQQFc47DmZ/37i57xUUSMglCF7rzCi7MoKgHp7vh79Lb
-         UpAO88e7iVzSj6SW9WmUoV/3kqFRsaRUiEdpsui4Hdv/azwIPteqJGZbxEqwPqSzL0H7
-         IWPCTE6pKBGz2DFRGsb/XoRDo+VcDnFSXriouW8DUTy/wb9HclKnLSZlzbof6IcGf7uh
-         ElbjTXxo3OFk3h3u1WcxwMUGSwPk01gCXgIUya4zl1BYEeraJmNJ1ISoWU80iuR1JB8m
-         OoSBK7DTQrFi5oUP8JxDwyuxXMilGyS9zUZiMarUve1QSll+i/gUyZPnRDST+KILDCm8
-         1fFw==
-X-Forwarded-Encrypted: i=1; AKwUvBze5miMZimJg/o4EtYO/vNU1mG9SX6G1wVh9hyptGm7lcXbflCOsWQ8LvjsWAtTG0lOrgw1sPpjmNoNcug=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgE4j1OC4pGIPRnBlaJr/6yVcdZu4L+KxWeYNUADy6N3Hfo3jL
-	hAUvzZcex+Lx25FBiq6GLns0eRLnM+VB21SWG3Z2758w9FHInnKtydKc
-X-Gm-Gg: AYBFou0C7cM0Kmuj6q9aFidkh0HXbHG5fFYvZfZ2tg5trOSV9bDiM/1Q5hpcL9cfG3Z
-	zJjjwIHeBVe6fJOi/ubRb+VuK7rfwo/hJsmvSdDeJD58920WI9fTORPHz0TYkLui6goVht4i88L
-	Xmz8Yq02q+rbC/54feZ+kHKoSURTFIiKgGHrIyf3VFvZAnGJU6vGOPjzdTcHSBU71GcijdbrfxZ
-	p7BoKCeH7pcI7h+ZS33R/1gdMWzxkAbFYZKdzy6X41TuWrSRqmNIHX7sWfkQPyH53YBONc5uocj
-	hZ5lRp8OW/ztvWGIEhgqCFEWrXnGkHclu6010TRcgmMUlUI9b69rfgXKIBpoEYiXj3NwKTN3Bw1
-	311UMoEaxCYF/fzLoVLq4mvuQ9b4rY66PXCPbedIUEbckyk5zdGuA3f2NDKPuaM+oDmBCgCiWO+
-	mWSHR6XSLg8pLHgGnmvcG8ztWwCkpZlIPtGZtGmDybBTyD0/lvWTE+yieMbvSrSqqqNcslLnvv8
-	o+SaZjYEQ2M
-X-Received: by 2002:a05:6a00:8085:b0:874:708d:b620 with SMTP id d2e1a72fcca58-87c8403d93amr1485976b3a.30.1790089137920;
-        Tue, 22 Sep 2026 07:58:57 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c31ee8fb4sm1046216b3a.12.2026.09.22.07.58.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:58:57 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 22 Sep 2026 07:58:56 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Marco Elver <elver@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>, Jann Horn <jannh@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	KP Singh <kpsingh@kernel.org>, Kees Cook <kees@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matteo Rizzo <matteorizzo@google.com>,
-	Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	linux-hardening@vger.kernel.org, Nicolas Schier <nsc@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>, Harry Yoo <harry@kernel.org>,
-	Hao Li <hao.li@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
-	Alexander Potapenko <glider@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	kasan-dev@googlegroups.com, llvm@lists.linux.dev,
-	Guo Ren <guoren@kernel.org>, linux-csky@vger.kernel.org
-Subject: csky ICe (was: Re: [PATCH v4 2/3] slab: improve
- KMALLOC_PARTITION_RANDOM randomness)
-Message-ID: <6106aefa-47c7-4bda-a51f-8a2fba3bf715@roeck-us.net>
-References: <20260511200136.3201646-1-elver@google.com>
- <20260511200136.3201646-2-elver@google.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="BHJOfqU1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=DX9ceSOm8m7HUk7JvUwb0USsA+Dq6TuYpLe4RKmuCac=;
+	t=1790089188; x=1791298788; b=BHJOfqU1V8Rjitja8vN8KGlJDIVXTP6p3cKV6Oi++uiEkMx
+	1N5ZMhJQW3hwysT2nAqKSMcIt0hU9AuUlMTbj3VjwoFX3w1UpAPbe4ItHeSVT3UwYE0/RQl/ABagA
+	oJaR91hF3I7V6Ww/u6i3yXFIoIgfULICtu2zSh+ziAR6DN3VyFzL2u75MLfC5KIh1lNDmlxgt8Mc2
+	TZjCRPJS7O/wwhhKWefppnMCxsfNhBxgNrYTVLhUBCZqBsSCpc9C4YoE0rgbUlYJBcEZ3AlPpSf7/
+	xU7t0Vk5QwTNjRr7ljBuVQOChjtDEGPHv/BlFfTm7AHgJFsBbQx1vunJIrbCDcHA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x91y9-00000006zRs-1K9c;
+	Tue, 22 Sep 2026 16:59:41 +0200
+Message-ID: <7ec27c80d766884c5f0d5d0c190d2c06ebeda6e5.camel@sipsolutions.net>
+Subject: Re: [PATCH v6 3/4] net: dropreason: use new __print_sym() in tracing
+From: Johannes Berg <johannes@sipsolutions.net>
+To: =?ISO-8859-1?Q?Adri=E1n?= Moreno <amorenoz@redhat.com>, Ilya Maximets
+	 <i.maximets@ovn.org>
+Cc: Matthieu Baerts <matttbe@kernel.org>, Steven Rostedt
+ <rostedt@goodmis.org>,  Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Aaron Conole	
+ <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ dev@openvswitch.org, 	linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	netdev@vger.kernel.org, Antoine Tenart
+ <atenart@kernel.org>
+Date: Tue, 22 Sep 2026 16:59:40 +0200
+In-Reply-To: <CAG=2xmNURzYdR+eL8x_kW64Bo9gEe3ne88YXaKQKT+_Ya7XZFQ@mail.gmail.com>
+References: <20260921101538.97286-6-johannes@sipsolutions.net>
+	 <20260921101538.97286-9-johannes@sipsolutions.net>
+	 <98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
+	 <7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
+	 <CAG=2xmNURzYdR+eL8x_kW64Bo9gEe3ne88YXaKQKT+_Ya7XZFQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260511200136.3201646-2-elver@google.com>
+X-malware-bazaar: not-scanned
 
-Hi,
+On Tue, 2026-09-22 at 07:35 -0700, Adri=C3=A1n Moreno wrote:
+> >=20
+> > IIUC, this change only affects the printing and doesn't affect debuggin=
+g
+> > tools like retis that attempt to surface the drop reasons.  But, maybe
+> > Adrian and Antoine (CCed) may want to have a glance as well.
+> >=20
+>=20
+> I don't think this will affect retis in a bad way. We collect the list
+> of drop reasons by inspecting the BTF enums. It generally works but we
+> need to keep track of new subsystems enums being added
 
-On Mon, May 11, 2026 at 10:00:49PM +0200, Marco Elver wrote:
-> When using CONFIG_KMALLOC_PARTITION_RANDOM, _RET_IP_ was previously used
-> to identify the allocation site. _RET_IP_, however, evaluates to the
-> caller's parent's instruction pointer rather than the actual allocation
-> site; this would lead to collisions where a function performs multiple
-> allocations.
-> 
-> With the generalization to kmalloc_token_t, we now generate the token at
-> the outermost macro, and using _THIS_IP_ would fix this for all cases.
-> 
-> Unfortunately, the generic implementation of _THIS_IP_ relies on taking
-> the address of a local label, which is considered broken by both GCC [1]
-> and Clang [2] because label addresses are only expected to be used with
-> computed gotos. While the generic version more or less works today, it
-> is known to be brittle. For example, Clang -O2 always returns 1 when
-> this function is inlined:
-> 
->         static inline unsigned long get_ip(void)
->         { return ({ __label__ __here; __here: (unsigned long)&&__here; }); }
-> 
-> To provide a reliable unique identifier without breaking architectures
-> relying on the generic _THIS_IP_, introduce _CODE_LOCATION_: it resolves
-> to _THIS_IP_ where architectures provide a safe implementation, and
-> falls back to a zero-cost static marker where _THIS_IP_ is broken.
-> 
-> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120071 [1]
-> Link: https://github.com/llvm/llvm-project/issues/138272 [2]
-> Signed-off-by: Marco Elver <elver@google.com>
+Right, that wouldn't really change.
 
-With this patch in the tree, I get ICE erors when trying to build
-csky:allmodconfig.
+> so a dynamically-generated full-list of drop reasons is interesting.
 
-Example:
+> IIUC, the only way for userspace to read this list is by looking at the
+> event format and parse the printf line, right? Any ideas to make this
+> more machine-friendly?
 
-Error log:
-sound/core/oss/mixer_oss.c: In function 'snd_mixer_oss_proc_write':
-sound/core/oss/mixer_oss.c:1202:1: error: could not split insn
- 1202 | }
-      | ^
-(insn 183 400 184 (set (reg:SI 0 a0 [orig:307 _55 ] [307])
-        (xor:SI (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
-            (const:SI (plus:SI (symbol_ref:SI ("*.LANCHOR0") [flags 0x182])
-                    (const_int 132 [0x84]))))) "include/linux/slab.h":759:52 288 {cskyv2_xorsi3}
-     (expr_list:REG_DEAD (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
-        (nil)))
-during RTL pass: final
-sound/core/oss/mixer_oss.c:1202:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
-0x779b51e2a1c9 __libc_start_call_main
-	../sysdeps/nptl/libc_start_call_main.h:58
-0x779b51e2a28a __libc_start_main_impl
-	../csu/libc-start.c:360
+It's intended to be machine friendly "enough", trace-cmd/perf (via
+libtraceevent or so I think?) parse and use this? But it's also only
+available when tracing is enabled.
 
-This happens with lots of files, not just this one. It is seen with all
-versions of gcc starting with at least v13.x. Reverting this patch fixes
-the problem. Bisect log is attached for reference.
+I think if you really wanted to have a full list dynamically exposed at
+runtime across all kernels, then perhaps dropmonitor or some other
+netlink interface could expose it? Or maybe another debugfs/sysfs file?
+I don't know what you need it for, but I think it's out of scope for
+this patchset, and could even be done without it?
 
-Any idea what I could do to avoid the problem other than stopping to build
-csky:allmodconfig ?
-
-Thanks,
-Guenter
-
----
-# bad: [93f51579e7df248780214094418f205253383cc5] Linux 7.3-rc4
-# good: [7d0a66e4bb9081d75c82ec4957c50034cb0ea449] Linux 6.18
-git bisect start 'HEAD' 'v6.18'
-# good: [df8f6181ab57d65a99e61fcfc5be22a42df58642] Merge tag 'perf-tools-for-v7.1-2026-04-17' of git://git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools
-git bisect good df8f6181ab57d65a99e61fcfc5be22a42df58642
-# bad: [093239070573637ad2b4cb56abc9c4c7ee109294] Merge tag 'v7.2-rc2' into togreg
-git bisect bad 093239070573637ad2b4cb56abc9c4c7ee109294
-# bad: [b85966adbf5de0668a815c6e3527f87e0c387fb4] Merge tag 'net-next-7.2' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next
-git bisect bad b85966adbf5de0668a815c6e3527f87e0c387fb4
-# good: [25447851777a53bd4b501e7f2cb418332ad584cc] Merge tag 'char-misc-7.1-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc
-git bisect good 25447851777a53bd4b501e7f2cb418332ad584cc
-# good: [bd77e50c9a70f844d6073499f3d1a6fd193eae73] Merge tag 'fbdev-for-7.2-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev
-git bisect good bd77e50c9a70f844d6073499f3d1a6fd193eae73
-# good: [972c4dd19cb92e03d75b66c426cfade07582a1ba] Merge tag 'wireless-next-2026-06-10' of https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless-next
-git bisect good 972c4dd19cb92e03d75b66c426cfade07582a1ba
-# bad: [9b40ba14edcdf70240af8114092a76f75f070774] Merge tag 'for-7.2/io_uring-20260615' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
-git bisect bad 9b40ba14edcdf70240af8114092a76f75f070774
-# bad: [0d8c1134936f1fb6678156ab4248ac740d274525] Merge tag 'v7.2-p1' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6
-git bisect bad 0d8c1134936f1fb6678156ab4248ac740d274525
-# good: [42a58f08b70a7a320c168a1ce15e3fcfc8568708] crypto: atmel-sha204a - Use named initializers for struct i2c_device_id
-git bisect good 42a58f08b70a7a320c168a1ce15e3fcfc8568708
-# good: [2c1ccd9a1d786503086e83fe83e5c3b3c953b70e] docs: changes.rst: restore pahole 1.26 minimum (regressed by sort)
-git bisect good 2c1ccd9a1d786503086e83fe83e5c3b3c953b70e
-# bad: [f8115f0e8a0585ef1c03d07a68b989023097d16c] Merge tag 'slab-for-7.2' of git://git.kernel.org/pub/scm/linux/kernel/git/vbabka/slab
-git bisect bad f8115f0e8a0585ef1c03d07a68b989023097d16c
-# bad: [dfdfd58cce1c3f5df8733b64595448996c08e424] Merge branch 'slab/for-7.2/alloc_token' into slab/for-next
-git bisect bad dfdfd58cce1c3f5df8733b64595448996c08e424
-# good: [648927ceb84021a25a0fbd5673740956f318d534] mm/slab: do not limit zeroing to orig_size when only red zoning is enabled
-git bisect good 648927ceb84021a25a0fbd5673740956f318d534
-# good: [d196ea36a2f2118833ca648af53654553a4a1e7b] Merge branch 'slab/for-7.2/tools' into slab/for-next
-git bisect good d196ea36a2f2118833ca648af53654553a4a1e7b
-# bad: [e0f54249a491c62ef8196b9f13bd7d95dba47c6f] slab: fix kernel-docs for mm-api
-git bisect bad e0f54249a491c62ef8196b9f13bd7d95dba47c6f
-# bad: [0fc1bd38a19c108395d8338fb034f90c2d3fbe55] slab: improve KMALLOC_PARTITION_RANDOM randomness
-git bisect bad 0fc1bd38a19c108395d8338fb034f90c2d3fbe55
-# good: [feb662d9168b63e1d4c02671ec96005410c6f3ce] slab: support for compiler-assisted type-based slab cache partitioning
-git bisect good feb662d9168b63e1d4c02671ec96005410c6f3ce
-# first bad commit: [0fc1bd38a19c108395d8338fb034f90c2d3fbe55] slab: improve KMALLOC_PARTITION_RANDOM randomness
+johannes
