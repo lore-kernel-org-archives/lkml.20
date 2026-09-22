@@ -1,105 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D105326C0;
-	Tue, 22 Sep 2026 11:05:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAB2538D98
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075152; cv=none; b=u2c2g7zltvTnvGZM/0TyRiSp6421Pft+dOXnXgAuYdLwZM/5P4iEJUbsIZffcbe7LHL1LeoWrwBUVybk9Z95noTl9zpFczjKICkKSF1xO11e6gESVSAoYWGKxRWxve5kQyPRnQDW3ZvDfQGvky+6aSGOEllxbifsGDP9LX16N7A=
+	t=1790075168; cv=none; b=pvhOwtxJAdIXiYnvIPvoFL97GWX1hd8wSr88kb8U2j1WQ1zCQdS0j3Vt2t7Q1kaNwTGqwB9y5yFF/hMvtu7nBoDyBoBBh51e3b8hyCtiqpmrhyxvL/Xxw3Ce+hVRzEVzvdQzlepl5MenaQHHmwC0enpuBxQ/n6Cs8r5JBN7Ct8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075152; c=relaxed/simple;
-	bh=vV34eP6bm9T5Z+5yq/BOI+DgHf66pJwOrOlm2cfh2uk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=THjWWPCefX7sOV8a//PhZybui38j+tGSFSD7pZc/H01lPdo4pEBzR66PH4TlSIYOiW+mnYPkVyn8emwUWuwJ4joXO/49OSRP4cHdGwqB9TwnLom1oFM3cJg9Qsf2hhjSBhj2qiiP2dMovnuhQVMYiHhlA5ZajaGeXTLJxpSoCPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gWL/iqNJ; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790075168; c=relaxed/simple;
+	bh=s/0O22UlvHKYSxa61UAVvdf6eqtjzPHamDIakwAoE5Q=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=FWXtUvo6dMHVWwWNVAlm0iAfs/Dza/7Zbq6cuge9wEY8Gv7kRLVxblpaadJClAFtkrSUPz2N6aaBhWiw6/PQlvWNTytWnLBob0IFUN7ZVSJI+cRBNf3Y0o5Sr037yL90pIoljPtuvq0iuzXaev70zGYNzAmGOmTKfRrp2RxVcxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WY1rGbem; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gWL/iqNJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790075151; x=1821611151;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vV34eP6bm9T5Z+5yq/BOI+DgHf66pJwOrOlm2cfh2uk=;
-  b=gWL/iqNJYWMqspXJsc8u0VIoYlt27TqhsFNFLu6yEDxx43GyAw24GX4P
-   uc4/ZItdOzU8LIpkwjcXVmEb3Tf4tqrdUURE2uDHB6IeyEhjZzWs201xu
-   NAGuDPuNy7SCdX1iToZB7OsHl2s3aCyySHT/lWdKcSQFsvpOnvhuf0GTl
-   MDfslLILqjtnAxcZvONG+DiVtOUi00Y2+VIvYV8OzSHQUTP/S0W0UILFk
-   zVfw8Oo/cJ/BAVU67bb8wa439MciT16Wb7+RYOfndFlnkp9DqhYHkWw6S
-   5nqxLPgb0HSId5knADtpJuOtDd+LFyFnH31VL298hcDHOrS+yuipEuPeg
-   g==;
-X-CSE-ConnectionGUID: bfHnUs0SSpW53M0c1Ki99g==
-X-CSE-MsgGUID: rp8Nxo9BQ9eCpp5FkCfiTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116190197"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="116190197"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:05:41 -0700
-X-CSE-ConnectionGUID: +4GedhJQTeihT3XqW17Scg==
-X-CSE-MsgGUID: wed8DS20ScyjBCG8KRMkIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="269607111"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa009.fm.intel.com with ESMTP; 22 Sep 2026 04:05:38 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id CA67399; Tue, 22 Sep 2026 13:05:36 +0200 (CEST)
-Date: Tue, 22 Sep 2026 13:05:36 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/3] usb: typec: mux: ps883x: disable USB4 on
- incomplete USB4 platforms
-Message-ID: <arJhAGzIxGpIhAfC@black.igk.intel.com>
-References: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
- <20260914-ps883x-disable-usb4-v2-3-523c32b4e4d7@oldschoolsolutions.biz>
- <aq0ENUZzJYKZ6V9f@black.igk.intel.com>
- <35f0856d-2f39-4a03-b056-fa22b1e56589@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WY1rGbem"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d6fb956002so54739315ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:06:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790075166; x=1790679966; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ecy7FzIPrtxUNn+PNMjV2l4GmOvdXqqQHutFCvXsJQ=;
+        b=WY1rGbemVvteaE/3BhtWu7EVmN6LDsMw5vRyPU7xONN3QZ5w8FMRRxjeFENfk1/SmU
+         +aohFLMK/p2Lxb12GX4Q+NW2WbigXoTGWR9Ym6cJkdJdW63TQc7rXfaCB9tZ+7cKAeBd
+         MEQePu65OtnWFP6v43/hrE61BrjVJsWb7sTXkX0jmJgMInkCaMwnmtYg6yCNaB8TTFnn
+         e/PTbzQhFYZECylMksKtctUb0prjO8bIh0jVKG/VvpXz/amGB6NqI8FxQH66cg1jBeuj
+         mqxG0InWzb9DtL7PLB+SAP+4a1KBgdIK6E09L/4yoPilX7alN6qAsF4aj+XO9qqwO8Hz
+         Qvcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790075166; x=1790679966;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+ecy7FzIPrtxUNn+PNMjV2l4GmOvdXqqQHutFCvXsJQ=;
+        b=zAVOxHm6L2KQM3OO5iIwmKES6Nh+V+ElGmhkPFqR+0e6DNwXwUYs1J0/dayvraFjA7
+         69aN87KyeCeG9mLD/0f47kzu/mxxGYagt5v00Ek0H1bNSSCrC3Rrvtxnz0n45ZzVxMfu
+         jhTe+s8AU1katcR+9mNmGbES1FmdbjTCnwy58bwavKdzGYUtLN4QidBrA+wN3qKX/w3n
+         9ylTiNhzVrdjTcJGMd/Q+GXonT9tTMkoBpxmIjgVI4BIkw3MUwV6/7wop9goslyfXaCw
+         qqRV8HHI/XZaG6AWTwToP4+sBz09nHy3lI7qYoL+xwlyfsCd1bFEj9/UX02b+0gKMs+Z
+         fI3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzw4fQOoM4/NvsEQN2lpPVyuN145CyVwEMKR0KoiyOUXKsdTHlmERkN2Yf3sGgemv8ykVJZybvzVJI7SfE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lu2F0AFz4WLTqAWF1xlA7qkNaVhNN6sZyj9twr1+oT9eIugVJa
+	gxFt4UyMRHtEi1pBgZ356kqfUITiaWq3xYr4F2KtYY/2UmnyFsONUCOcyE33xTKn7gWk4nGISFV
+	h
+X-Received: from plw15.prod.google.com ([2002:a17:903:45cf:b0:2dd:b2b9:91a7])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:984:b0:2d9:438e:b70d
+ with SMTP id d9443c01a7336-2df609b194dmr9585075ad.1.1790075165400; Tue, 22
+ Sep 2026 04:06:05 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:06:01 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <35f0856d-2f39-4a03-b056-fa22b1e56589@oldschoolsolutions.biz>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260922110601.1959213-1-morbo@google.com>
+Subject: [PATCH] clk: tegra: annotate struct tegra210_clk_emc_provider with __counted_by_ptr
+From: Bill Wendling <morbo@google.com>
+To: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-clk@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Bill Wendling <morbo@google.com>, 
+	codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 18, 2026 at 04:38:36PM +0200, Jens Glathe wrote:
-> HI Heikki,
-> 
-> On 9/18/26 11:28, Heikki Krogerus wrote:
-> > On Mon, Sep 14, 2026 at 08:05:03AM +0200, Jens Glathe via B4 Relay wrote:
-> > > From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> > > 
-> [...]
-> > > stays inside the kernel and can be removed later without creating ABI.
-> > > 
-> > > Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapati@oss.qualcomm.com
-> > What's the purpose of that link?
-> > 
-> > I think you want to make a reference to the commit 0c8ee850572b ("usb:
-> > typec: ucsi: Add UCSI_USB4_IMPLIES_USB quirk for X1E80100"), right?
-> > 
-> > Is this meant to fix that commit? If so, then please use a proper
-> > "Fixes: 0c8ee850572b ("usb: typec: ucsi: Add UCSI_USB4_IMPLIES_USB
-> > quirk for X1E80100")" tag.
-> 
-> Hmm its not a fixes tag. It is a residual of the thinking process that
-> prompted me to go looking what goes wrong. So its semi-related. Since you
-> acked v3 with the link in (thanks!), do you want a v4 without the link?
+Annotate the "configs" pointer field of "struct
+tegra210_clk_emc_provider" with the "__counted_by_ptr" attribute,
+allowing the compiler to perform runtime bounds checking on accesses to
+"configs" based on the value of "num_configs".
 
-Yes.
+The "emc->provider.configs = devm_kcalloc(...)" call uses
+"emc->num_timings" for the number of elements, which is then assigned to
+"emc->provider.num_configs" before any accesses to "configs". The
+"num_configs" field isn't modified after assignment.
 
-Thanks,
+Cc: codemender-patching+linux@google.com
+Assisted-by: LLM
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+ include/linux/clk/tegra.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/include/linux/clk/tegra.h b/include/linux/clk/tegra.h
+index 3650e926e93f..f1034e14c1a4 100644
+--- a/include/linux/clk/tegra.h
++++ b/include/linux/clk/tegra.h
+@@ -170,7 +170,7 @@ struct tegra210_clk_emc_provider {
+ 	struct module *owner;
+ 	struct device *dev;
+ 
+-	struct tegra210_clk_emc_config *configs;
++	struct tegra210_clk_emc_config *configs __counted_by_ptr(num_configs);
+ 	unsigned int num_configs;
+ 
+ 	int (*set_rate)(struct device *dev,
 -- 
-heikki
+2.55.0.1082.g2b9226bbc0-goog
+
