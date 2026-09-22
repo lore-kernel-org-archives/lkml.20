@@ -1,129 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D283350D7D;
-	Tue, 22 Sep 2026 05:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E46306744;
+	Tue, 22 Sep 2026 05:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056510; cv=none; b=BSJNk67nlWg8QW/WI5Fxs7G7eBiRXLqlwdOlWUnRnqUHqYzfK7sertbZHB70QfB7dwBeEhvsrKztgVqE59yCSQlxmzVaa09hOvy0N7h+O2JlbOJeRBLZiD6IAvTtFJoFPTvk7wQ4ZqStwQLVN3sSSQjdAWT+aAVrqiRgy49Hsjk=
+	t=1790056550; cv=none; b=Eiken07oF02NgB0HtyZTjmBUJNEPC+AtKZor6kHDtSBISYR7Vr+3NsUSfzNNQvqbR/Uk380LTYx5GijKNbfpwJzrI/rwHMAYbtUt8g4cmHob08ftgpQ9gWv+DikRde9vaMby1903GAzVLjVU5TioyXnioSY4g47KGPkyaN8aOqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056510; c=relaxed/simple;
-	bh=Aqa9mX2RqSKxdgvAwau1o6WmbwcRAGpRhQPj+UCHJ/w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X7zdzp9jb4tzeF4W58HFoCeMZ7U7Rns60cGf/OdGcdTIaT8XeqIKeR6aq+iuYW1VONv16NnADBl5bUNTsCTeAvYmRlfppKR6mJA1a5dcJSAKzitISujJzJjJSa+10gI9QQC8zvTUVIMeF6ycl/Eg23127m47PyUwcUPzulGVIlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O0cvYgM8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790056550; c=relaxed/simple;
+	bh=CF3XLaCrxhkvQd9YB+62gDKmay5ProHUjjadncIq5pA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iD+Uc2WomoCHizM5Z3MuzsDnqRXZzIauS8Q3ASkjEg/mVniE1w4gMh8xy/en2XYG3xePFlMU7IIGjqxI+GfmPUEdGYWbHY/NaSdol2zMJGrV6n445gK5otfotPf97qtgljcJCAoFrX17jcQSmkasZBseqnPr06mXbJHL5gWaSgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=vLUWTGP1; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O0cvYgM8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6941E1F000FF;
-	Tue, 22 Sep 2026 05:55:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790056509;
-	bh=iztKm2JMcpPyD4ogPKgWEoylK7dEWOn5IAjcyxHLqcg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O0cvYgM8kt/cMF7FBXrvQkxWgtZ2Glj7e3ADqsEpq3bD6vXdPWL3K2NoyKhbpGVvw
-	 EtP8rsjdrAEFvnuhUZ5CBWuEjXK5SUQQynKfcuWnzRRfdVm6bQcFXDTDtQr9ZKgmKb
-	 uvsqAQZ251m+AZnrQto2WVFz+y4AxcUH4eRKZg1eTCVDDKudXus8BfpkPm0ehW9SCK
-	 AMP1iadYeZENwWQWP+vq2xWiOGqD/zujoBpwJyDYSZtEhl+VvaeyIhKp2r+SOZ/wvi
-	 so58HdN8dJGzckKAB/RmLv57qkUHFGJu/G/maafzVT2kOZoa90eShkTUXYDzEcX5uW
-	 mLyah6pWuRtuQ==
-Date: Tue, 22 Sep 2026 08:55:03 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org,
-	mark.rutland@arm.com, lenb@kernel.org, pavel@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, thierry.reding@kernel.org
-Subject: Re: [PATCH v1 1/4] PM: hibernate: Add arch specific hooks for
- hibernate_map/unmap_page
-Message-ID: <arIYNzM7kiKlr21r@kernel.org>
-References: <20260918131656.3710047-1-vdonnefort@google.com>
- <20260918131656.3710047-2-vdonnefort@google.com>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="vLUWTGP1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=CF3XLaCrxhkvQd9YB+62gDKmay5ProHUjjadncIq5pA=;
+	t=1790056548; x=1791266148; b=vLUWTGP1kWvozhR4X6ZjpJudpkkvO6ay8Bnko4U+7anIQF/
+	uUC4TuUHIZZi1LCNRdnD+FjZScvJ1esyRoow7wgXuIq8BUHe2q2aQQ6QHv1aIOSdXsv64sSJfhebL
+	JQc6F9UIl3+uWC2EeEx1kEy9VhLHD/1r8nwMr/Da6LYzPnTaFCXs7XICaNmqW9IvRWE59j4+5a1Ur
+	rDDKyFCEDA7fMP9bWKMBNFitnsd20MxGwBzH17G437c/fRL66mnG7Lfvja+V+1Z64NXnSKWsFyLmd
+	W/Wz8e/wumsNxSYvjuYsvKtfBlNGesGl0VqTW6uyG1dxFnexpve1S/VszAkNoGJw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x8tTW-00000006hzD-1D9w;
+	Tue, 22 Sep 2026 07:55:30 +0200
+Message-ID: <b2d23b4a7cb6af54a5575436823d82442d6f6cc6.camel@sipsolutions.net>
+Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
+ network header
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Paulos Yibelo <habte.yibelo@gmail.com>, "Michael S. Tsirkin"
+	 <mst@redhat.com>
+Cc: netdev@vger.kernel.org, richard@nod.at, anton.ivanov@cambridgegreys.com,
+ 	willemdebruijn.kernel@gmail.com, jasowangio@gmail.com,
+ eperezma@redhat.com, 	xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch,
+ pablo@netfilter.org, 	fw@strlen.de, phil@nwl.cc, razor@blackwall.org,
+ idosch@nvidia.com, 	dsahern@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, 	pabeni@redhat.com, horms@kernel.org,
+ linux-um@lists.infradead.org, 	virtualization@lists.linux.dev,
+ netfilter-devel@vger.kernel.org, 	coreteam@netfilter.org,
+ bridge@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Tue, 22 Sep 2026 07:55:29 +0200
+In-Reply-To: <CAHv8Y_4OKdVkigToBmXXhhUxu+EL2iWVADZJ=LS4CGqBATgU5g@mail.gmail.com> (sfid-20260922_074449_202856_128C51A3)
+References: <20260922030310.8684-1-habte.yibelo@gmail.com>
+	 <20260922030310.8684-2-habte.yibelo@gmail.com>
+	 <20260922005353-mutt-send-email-mst@kernel.org>
+	 <CAHv8Y_4OKdVkigToBmXXhhUxu+EL2iWVADZJ=LS4CGqBATgU5g@mail.gmail.com>
+	 (sfid-20260922_074449_202856_128C51A3)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918131656.3710047-2-vdonnefort@google.com>
+X-malware-bazaar: not-scanned
 
-Hi Vincent,
+On Tue, 2026-09-22 at 01:44 -0400, Paulos Yibelo wrote:
+> If this sounds good to you I can get started on the modifications.
+>=20
 
-On Fri, Sep 18, 2026 at 02:16:53PM +0100, Vincent Donnefort wrote:
-> hibernate_map_page() is called from an atomic context. This is
-> problematic for Arm BBML3 systems where the linear map may contain
-> blocks and is allowed to split as splitting is a sleepable operation.
-> 
-> Add arch hook so arm64 can define its own implementation without relying
-> on the direct map.
+No it doesn't, go away and don't just keep sending LLM output without
+ever even bothering to look at it.
 
-I posted patches that remove set_direct_map usage from hibernation:
-
-https://lore.kernel.org/all/20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org
- 
-So I really hope this patch won't be needed :)
-
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> ---
->  include/linux/suspend.h |  2 ++
->  kernel/power/snapshot.c | 10 ++++++----
->  2 files changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/include/linux/suspend.h b/include/linux/suspend.h
-> index b02876f1ae38..10fe2298d94e 100644
-> --- a/include/linux/suspend.h
-> +++ b/include/linux/suspend.h
-> @@ -401,6 +401,8 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data);
->  int hibernate_resume_nonboot_cpu_disable(void);
->  int arch_hibernation_header_save(void *addr, unsigned int max_size);
->  int arch_hibernation_header_restore(void *addr);
-> +void *hibernate_map_page(struct page *page);
-> +void hibernate_unmap_page(struct page *page);
->  
->  #else /* CONFIG_HIBERNATION */
->  static inline void register_nosave_region(unsigned long b, unsigned long e) {}
-> diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
-> index b209712cb2c3..b41952f1de2a 100644
-> --- a/kernel/power/snapshot.c
-> +++ b/kernel/power/snapshot.c
-> @@ -85,7 +85,7 @@ static inline int hibernate_restore_unprotect_page(void *page_address) {return 0
->   * It is still worth to have a warning here if something changes and this
->   * will no longer be the case.
->   */
-> -static inline void hibernate_map_page(struct page *page)
-> +void * __weak hibernate_map_page(struct page *page)
->  {
->  	if (IS_ENABLED(CONFIG_ARCH_HAS_SET_DIRECT_MAP)) {
->  		int ret = set_direct_map_default_noflush(page);
-> @@ -95,9 +95,10 @@ static inline void hibernate_map_page(struct page *page)
->  	} else {
->  		debug_pagealloc_map_pages(page, 1);
->  	}
-> +	return page_address(page);
->  }
->  
-> -static inline void hibernate_unmap_page(struct page *page)
-> +void __weak hibernate_unmap_page(struct page *page)
->  {
->  	if (IS_ENABLED(CONFIG_ARCH_HAS_SET_DIRECT_MAP)) {
->  		unsigned long addr = (unsigned long)page_address(page);
-> @@ -1456,8 +1457,9 @@ static bool safe_copy_page(void *dst, struct page *s_page)
->  	if (kernel_page_present(s_page)) {
->  		zeros_only = do_copy_page(dst, page_address(s_page));
->  	} else {
-> -		hibernate_map_page(s_page);
-> -		zeros_only = do_copy_page(dst, page_address(s_page));
-> +		void *src = hibernate_map_page(s_page);
-> +
-> +		zeros_only = do_copy_page(dst, src);
->  		hibernate_unmap_page(s_page);
->  	}
->  	return zeros_only;
-> -- 
-> 2.55.0.1082.g2b9226bbc0-goog
-> 
-
--- 
-Sincerely yours,
-Mike.
+johannes
