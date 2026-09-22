@@ -1,204 +1,88 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C6B5372CC;
-	Tue, 22 Sep 2026 10:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C7B535FCC;
+	Tue, 22 Sep 2026 10:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072621; cv=none; b=NmwwmEeLZ6pGr6eM4aVVRVbvqiWDXsM2YNpd/xKnravzV9hL7WOqYbvoRgRlNT7NvVhS1xb9QdJewhFsMOKqm8EuyXh/G9WhOVvk3TaKqy9SuRLBh53rYZgHu9l1QxdvxL/9FK28wHs3Wrz8wRZiO8wOfHw0dPeeMjFUZt4b31M=
+	t=1790072630; cv=none; b=d/JLEwT/0KbA5OElfZlpLmf9e41yVRTIZ+l3zNiscvTjLzVW3bkHQu4sgzAK1QFADqG0Vde9LTVP46A6JTYd/VdY3VGVSkq5MYuSUPHJK7IwvIOARna7TbdfrhI86R7FvLV5SQDCacrDjfZVMmytlrlKRzo+OMmTPOHO+7rUTBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072621; c=relaxed/simple;
-	bh=DSpUMDZFL/RsZ0gpO+Ch6V/5TXFqhhArQHQq3AOwwpc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m2Vu/q7eDOB6x0eW8fusg6gNEpcAr/OC2RgR/IBjg7SYnGiU/h9Jmp/mcUcSZwAoUKUBfOcPJBCXb5S46yLblJb86afl3FlEr+n+cK30kSz83xLne92ep+ob9NxtFu83PCpPI2P7hfzuD+ePhjzKWECm5RFW0kHJfsDwO9CrxrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CNvKPoJ/; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790072630; c=relaxed/simple;
+	bh=5ETbR7LrsYH1VsIEbyCno9odRu49OBHBAoK3jUHIykE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MR52RCNNRcYPWx2/4gBb+FPfpFzgYDon/CbT/IA+efJ2/35sMoNG3CgkXydSNSVhqxwPqFSfWqq2xYPDhqrwX0d5GV6ehROosin4CI2Y2y4/dutvL4OoiTWKU9NTjaxpckoLK+/37Z9/+zyizFBK8hY+zXKqVAXP92U6pkfQK6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nV69P6Wu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CNvKPoJ/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lM
-	1lEZA8Ffcb1iNg5lVKJ5TmLKedzZNS5PzvoeLExbE=; b=CNvKPoJ/F8jIrEDVkY
-	TWnf4aLsBbs9VX7ZoAcqcQ975Y4o+shcp3hXFIolA90EAldUki6pCVEUJR2Ez2Ue
-	SOYTCQEPU1VRnbJFQYIUX5UGixLLOgKx3Q2/1fQ0ZdxiQWYUW6bMBGVv41hGlxmh
-	mb8l+tEYneA00R/8eQ1WS+N0o=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3X+0LV7Jq8o9oAA--.39710S4;
-	Tue, 22 Sep 2026 18:23:10 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v8 2/3] dt-bindings: net: can: holt,hi311x: Convert to DT schema
-Date: Tue, 22 Sep 2026 18:22:57 +0800
-Message-ID: <20260922102258.138753-3-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922102258.138753-1-quchaosheng000406@163.com>
-References: <20260922102258.138753-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nV69P6Wu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE72F1F000FF;
+	Tue, 22 Sep 2026 10:23:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790072629;
+	bh=G2ZZ3jPoCQgZ035xQBboMsxg7LDoIyZLuMyVj0W21Gk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nV69P6WumOQzOIviEfkVLpeS/fz06hZd48XOj0W//UAILYv9kAYpClfua4Hm9SEza
+	 Q7bNkF/PRNGhnfovkHCs3GV5sdnGBfmZvcGJoMMBORkqXWSIHr/zPrnuj4MLMIBiQm
+	 rcfct8ZaVROl3f4B5icews0AIIRKQNfPEd8wS2KnKMow+z0Sj4r+UPjk/7utKqlOaG
+	 6Wg0SOojMN9dcatWViHhZMMfw0NE6UJHOUc2NVBt68yB1MqUNcR9B07p+34XAndXuQ
+	 faYTabLvy09I3dOSvDbcR2fgPQsVW15MB1MULS86SNhCECtcV4e1VbgVi0WvR3gW1p
+	 qov4e3CVjkw+w==
+Message-ID: <59f78064-0e0d-4e3e-9ca3-f057e70b44eb@kernel.org>
+Date: Tue, 22 Sep 2026 12:23:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] soc: fsl: dpio: Use scope-based resource
+ management in two functions
+To: Markus Elfring <Markus.Elfring@web.de>, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, Dan Carpenter <error27@gmail.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Roy Pledge <Roy.Pledge@nxp.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>
+References: <709fefd1-821a-4cd1-8598-b1179a95ce52@web.de>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <709fefd1-821a-4cd1-8598-b1179a95ce52@web.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X+0LV7Jq8o9oAA--.39710S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF4xWw4DGr1fuF43XFW5ZFb_yoWruFy3pa
-	y5GFsxWF4vqF1xXa1Iq3W8AF93XaykZF47GrWDXr18Ja4qva15trWSkryYvF17ZFs7AFyI
-	9Fy093W8tw15AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR1GQDUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5A4glWqyVw4J4gAA31
 
-Convert the Holt HI-311X binding from free-form text to DT schema.
 
-Reference can-controller.yaml and spi/spi-peripheral-props.yaml. The
-HI-3110 sits on an SPI bus, so its node carries the standard SPI
-properties, spi-max-frequency among them. With unevaluatedProperties:
-false and no reference to spi-peripheral-props.yaml, dtbs_check rejects
-those properties:
 
-  can@1 (holt,hi3110): Unevaluated properties are not allowed
-    ('spi-max-frequency' was unexpected)
+Le 29/07/2026 à 13:36, Markus Elfring a écrit :
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Wed, 29 Jul 2026 13:28:09 +0200
+> 
+> Some adjustment opportunities were picked up.
 
-Keep the properties and the example as the original text describes them,
-including clocks as a required property.
+Feedback from sashiko has to be adressed at least, see 
+https://sashiko.dev/#/patchset/709fefd1-821a-4cd1-8598-b1179a95ce52@web.de
 
-Assisted-by: LLM
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260922084542.104788-1-quchaosheng000406@163.com?part=2
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
+Christophe
 
-v8:
- - Put back the $ref to spi/spi-peripheral-props.yaml. v7 dropped it as
-   redundant, but the HI-3110 is an SPI peripheral and its node carries
-   spi-max-frequency. With unevaluatedProperties: false and no reference,
-   dt_binding_check reports:
-
-     can@1 (holt,hi3110): Unevaluated properties are not allowed
-       ('spi-max-frequency' was unexpected)
-
-   A node carrying spi-max-frequency fails without the reference and passes
-   with it, so the reference is required. Reported by sashiko.
-
-   The schema is identical to the v6 that Rob reviewed, so his Reviewed-by
-   is kept.
- .../bindings/net/can/holt,hi311x.yaml         | 67 +++++++++++++++++++
- .../bindings/net/can/holt_hi311x.txt          | 23 -------
- 2 files changed, 67 insertions(+), 23 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-
-diff --git a/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-new file mode 100644
-index 000000000000..9ec6abb1279a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/can/holt,hi311x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Holt HI-311X stand-alone CAN controller
-+
-+maintainers:
-+  - Marc Kleine-Budde <mkl@pengutronix.de>
-+
-+description:
-+  The Holt HI-3110 is a stand-alone CAN controller with an SPI interface.
-+
-+allOf:
-+  - $ref: can-controller.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: holt,hi3110
-+
-+  reg:
-+    description: SPI chip select.
-+    maxItems: 1
-+
-+  clocks:
-+    description: The clock feeding the CAN controller.
-+    maxItems: 1
-+
-+  interrupts:
-+    description: IRQ line for the CAN controller.
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Regulator that powers the CAN controller.
-+
-+  xceiver-supply:
-+    description: Regulator that powers the CAN transceiver.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        can@1 {
-+            compatible = "holt,hi3110";
-+            reg = <1>;
-+            clocks = <&clk32m>;
-+            interrupt-parent = <&gpio4>;
-+            interrupts = <13 IRQ_TYPE_LEVEL_HIGH>;
-+            vdd-supply = <&reg5v0>;
-+            xceiver-supply = <&reg5v0>;
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/can/holt_hi311x.txt b/Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-deleted file mode 100644
-index 3a9926f99937..000000000000
---- a/Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--* Holt HI-311X stand-alone CAN controller device tree bindings
--
--Required properties:
-- - compatible: Should be one of the following:
--   - "holt,hi3110" for HI-3110
-- - reg: SPI chip select.
-- - clocks: The clock feeding the CAN controller.
-- - interrupts: Should contain IRQ line for the CAN controller.
--
--Optional properties:
-- - vdd-supply: Regulator that powers the CAN controller.
-- - xceiver-supply: Regulator that powers the CAN transceiver.
--
--Example:
--	can0: can@1 {
--		compatible = "holt,hi3110";
--		reg = <1>;
--		clocks = <&clk32m>;
--		interrupt-parent = <&gpio4>;
--		interrupts = <13 IRQ_TYPE_LEVEL_HIGH>;
--		vdd-supply = <&reg5v0>;
--		xceiver-supply = <&reg5v0>;
--	};
--- 
-2.43.0
+> 
+> Markus Elfring (2):
+>    Use scope-based resource management in dpaa2_io_store_create()
+>    Use scope-based resource management in dpaa2_io_create()
+> 
+> 
+> v3:
+> * Dan Carpenter requested to add an #include directive.
+>    https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fkernel-janitors%2FamdBqQfIsAjxMsqX%40stanley.mountain%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C6bd2db2a294b450f9afe08deed65baaf%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639209218359212161%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=6%2F8aUajE%2B%2FNYTpo%2B09SVBa9lbZez3WYGUhtpdSTYF4w%3D&reserved=0
+> 
+> * Ioana Ciornei requested to keep variable declarations at the start of
+>    function implementations.
+>    https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fkernel-janitors%2F6woig227u5snmdsrjfuw7gfcf3vk5iwaap4yf7ow6b6s3pba7z%40yg4vmdoaak3h%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C6bd2db2a294b450f9afe08deed65baaf%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639209218359235520%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=icEeNsVtx34DKgqjmsDjR3QUqqmeSh1o7gWr5PJYFKo%3D&reserved=0
+> 
+> 
+> v2:
+> Christophe Leroy requested to apply the attribute “__free(kfree)”.
+> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fkernel-janitors%2Fd95d2f4c-f3cf-44eb-b61b-79ba7891674d%40kernel.org%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C6bd2db2a294b450f9afe08deed65baaf%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639209218359253601%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=wx8iGxIWhoBQPzSqd2fsa4eeZV9DTQ9pEBL4AWxLcdY%3D&reserved=0
+> 
+> 
+>   drivers/soc/fsl/dpio/dpio-service.c | 37 ++++++++++-------------------
+>   1 file changed, 12 insertions(+), 25 deletions(-)
+> 
 
