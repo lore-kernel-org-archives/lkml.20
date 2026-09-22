@@ -1,162 +1,184 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E620C522F0C;
-	Tue, 22 Sep 2026 08:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42633522F14
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064106; cv=none; b=gUXuZGymRosyWB9L9fFZMIJrZpj12dGUN4NX0laGt0uRIHsiQ/D1kcwQevg3N9MIb3awj+o/udLLRVtMX+uqzPmhVh3+HVNJTJBLzuQsxp7k35CyhhXWNrtlYuQbwhIBDQpxP0CI+batbNN5xB739kGkUh7T9LiOHi5ArYTAnE4=
+	t=1790064107; cv=none; b=ameb5hlss6JfHfomhV6CFr0QGSTzTBEi+BFprtCBjLu0sh7Hwp6a0IlVULv3XTgp01yoNwDKTrWyX6meiDyXYgJ77N3H6Cu+c3I9UqG6lge5yhAPKjG3jR7uW5r6KK8iMV2vETIM9roN1X3L7WPOuVLz9vesvD2Z6KHuFKXyWMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064106; c=relaxed/simple;
-	bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EpaE+j2t/dhuFCe0sNCbKljgC57oVNDWIHP7fyBuOmX02gpQ7dVq7eyW9K/hqhgfuyBOltP3fJm5iudB0pKsF62TEd80pJ2LUhBbvYCuzceTbYmwj2a5QQOXL+4ijQgdr8V7Ts35IfVOz9Z8GhQMPybuGa8PlnKak+gKXUFKGzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=anf4GRXt; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790064107; c=relaxed/simple;
+	bh=0xrVY0R026KpNfsviBE2/QZKTNvfEgT3VjQqd30Zu1k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kFLWroU5L35nV11vhgtX59rXn34YUliJhBLimW33G136w/aRmqxA+7Cd1JsEWer+Ps9CVyOuuN0/AogYvOvLM2ncyifg6CLNpKXi44yPb0FNC+R5m2qHNT0tq7aVC1yCzmIbvGlXJFHNZBN1QYGGRLqcKNf7GTakRC3C5PRAdjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y6htxH0A; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="anf4GRXt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790064096; x=1821600096;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=K5a4irdVg5GqminvoZlcv6xJQ44kH6rk1iM8qfqqAbQ=;
-  b=anf4GRXtUUM6gy+axzR233QhhAhWSvVL6BSWjVxywiIHVW1re7vBslAc
-   ejbuSgFlbgY2bk3HhflJOeXdj9+bQhjQ707RluOuO8rszJqXb0SDegpKz
-   d4KIjKZue0UTBUHNaVGZ09gzzL54TXyqxDEMi9lJoMsF/zlNa3gorf00U
-   83nLNeilRCUKt1FS9X8btCPe7X+lh7YlRMog9xxEhHdNqcuSoS/dd6kbA
-   opB6OmJIr5jlPT8ADlnYoZoY9J3VOSaUVPQIYVtbnImjlYYLWwsPtjJq7
-   +MeB3wbhUvNmk1THukdEgFdkCkQCozAn4p48PTYQPlCuSWjbIAua3Wrj+
-   w==;
-X-CSE-ConnectionGUID: mKucwaTTRtKRxBozCkk7BA==
-X-CSE-MsgGUID: PY1zd84IQKSM+qfsS5g/1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89565767"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="89565767"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:27 -0700
-X-CSE-ConnectionGUID: v4hnpuodQz2oQna5x2atZw==
-X-CSE-MsgGUID: 89ebydLZStGlxUgM+WBClg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="273192073"
-Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:01:26 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 4C6BE121B9F;
-	Tue, 22 Sep 2026 11:01:25 +0300 (EEST)
-Date: Tue, 22 Sep 2026 11:01:25 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov5647: fix power cleanup on remove
-Message-ID: <arI11VsxaiJ8v4Ye@kekkonen.localdomain>
-References: <20260915090457.2342778-1-lgs201920130244@gmail.com>
- <CAPY8ntA2h_ChCWJbAmCVygYiviTdsd9TA2LcVh5ffto__LgZAg@mail.gmail.com>
- <aqz4fLrtW3f7OoYk@kekkonen.localdomain>
- <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y6htxH0A"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbca514f8so2712655e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790064092; x=1790668892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hGF28/ongkg1pjDH+01IcEm6dgrPiae6qX55Ok4Xvzs=;
+        b=Y6htxH0AHk6grdEK/nrW0GflTyjDSZnNsOLpl4zypHP8VM1mli2uXXKZTpp0nKEVah
+         XjaTVcfSQ/xnGmk5RFdmvzxFmYbmJS1p/qZ9RO0lh0zRqVys5NuUbyKu15fAvC5+HkhL
+         fpDCe2YUkyU5bG7/6JQVBXBA02iIiXEnahe3YUZzw3pq1paBE2xVmSbsgNwrikBNX17+
+         KvnOPd81nREC+264jRNDZw1LuWfMQgi8WII/1N37FIQ4WAZF0uofWDl970uNZyaqLcBI
+         f2GmCuzyB6OdpM8ryAgX/uI77qEOIupCarLXmxvTKgTwOhFSj6pD7JZZv6IXQtA3Q73k
+         crVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790064092; x=1790668892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hGF28/ongkg1pjDH+01IcEm6dgrPiae6qX55Ok4Xvzs=;
+        b=1J9LgqF5pFsxEJEUASiJ6J8H9Il+vP1QKGCeTs0PVsq9aA+U7RQKrRtIACDlFL/0XE
+         KnQAjN67fFhGds4g7G22nsPsz1PBuN1bmqwf2FUBn4DUNkau5JLfrxuMWeNiL5gyOQ4Q
+         DMYTfSUepvfiEN/47uE7idhIdZnRR4cDqk0VmFVbc2Pd9dYF+21rdf+FJ+3Mw6w5ucwX
+         Qti90cq9MHUcLwwLM9GdydvzV87tK/6a/AemNceBnqyE0QgpU34lNM8dHRXdQybILaxf
+         kah5JNDjiUtRFlqWuFl1t5LWtqPGHH6WIrdm57OdYVEL/Is9cmiqGMg7YvqQh6nKLSMC
+         l1/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxz/6ERDfeP/5dVPFIjztZ+lQ6BuGFDu9Bc5t54WaHPDtqwwwoXoOwfW4Tjq952lCZ75ubAfoqm+K22NSo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nz7oVcj7qgVuYuDt6LbD1Brspk7M2OVO7pHmHwcAnsOsmrDpBZ
+	ptOchXZKzeYiiEpc8wwz/4hliVKtg6QllAnokFTB142iaycUzi8jvS3LHJ6eCwvS
+X-Gm-Gg: AYBFou0p6mt9YxXi5oY4Of4wBCzsKEGNuIm+vHPavuGhyzZt3VxFkBuPSIdyVdwvhXu
+	o99i3wapTP39+uYLlUU7YlqyCw27C+/wKtPnn7CeUqMSuI4XVODk1hthSZwI7NzQxZhbjjXdf/G
+	2x+IECxDoYnm2a0DrhtxMW83UaWKGozD0n3KTguJVOSLJMv46otvOGPRyzz5k9ctnTCvTTImdWc
+	V1kT8dm/pq4ZavGB8uJeQBZo/Nxuv5TzX6gagKouW1j9Zsm48IkGwfzxJ5SPT/D4RK+Oqus/Qyq
+	R6BnUyx6OimCPdQgmICim9v+YERayBZSesGBIKjG4spjeDaLu3YzSnOR/7ZRPsGTDnsM1FkkQ99
+	PPXLhySpYnKJzStfBpNgyz09QrGqjEgisLz1WlWX6rclmmMkW7DU8RsoR0tRg+zJWlziByE26rA
+	059qthneKo9Dqqcb67rxn5W9HUxaA/XehCx6T3s4wHgsDCbD4AamMme3YOCrbcgg7YLflVmRsil
+	dgDkgHghIITkOhNBr5wbKzk32dx4MhS/uEWDm7ls6evQd2tpaY8W0q7r3CSA4JYgjwD+//dRyCg
+	w0Y=
+X-Received: by 2002:a05:600c:3b99:b0:49e:6683:d227 with SMTP id 5b1f17b1804b1-49fc7bbfe4bmr199176535e9.0.1790064092385;
+        Tue, 22 Sep 2026 01:01:32 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu. [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 01:01:31 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	=?UTF-8?q?H=C3=BCseyin=20BIYIK?= <boogiepop@gmx.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH v2 05/11] accel/rocket: request the core clocks by name
+Date: Tue, 22 Sep 2026 10:01:08 +0200
+Message-ID: <20260922080114.44662-6-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260922080114.44662-1-royalnet026@gmail.com>
+References: <20260922080114.44662-1-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANUHTR9_XR7Q1CJQwKHd6dZRLaJdRNpHxYbUVXkJj_iM7ywoeA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
+setting the .id members. The rocket_core array is allocated with
+devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
+.rdev, .dev and .index, so all four clk_bulk_data entries are requested
+with a NULL con_id (unlike core->resets, whose ids are set a few lines
+above).
 
-On Tue, Sep 22, 2026 at 03:45:13PM +0800, Guangshuo Li wrote:
-> Hi Dave, Sakari,
-> 
-> Thanks for the clarification.
-> 
-> On Fri, 18 Sept 2026 at 16:45, Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> >
-> > Hi Dave,
-> >
-> > On Thu, Sep 17, 2026 at 02:27:30PM +0100, Dave Stevenson wrote:
-> > > Hi Guangshuo
-> > >
-> > > On Tue, 15 Sept 2026 at 10:05, Guangshuo Li <lgs201920130244@gmail.com> wrote:
-> > > >
-> > > > ov5647_remove() disables runtime PM without powering off the sensor if
-> > > > it is still runtime active or updating the runtime PM state to
-> > > > suspended.
-> > > >
-> > > > pm_runtime_disable() prevents further runtime PM callbacks and waits for
-> > > > pending operations, but it does not force the runtime suspend callback
-> > > > to run. If the sensor is active when the driver is removed, the external
-> > > > clock and regulators can remain enabled and the power-down GPIO can
-> > > > remain deasserted.
-> > > >
-> > > > After disabling runtime PM, call ov5647_power_off() if the device is not
-> > > > already runtime suspended, and then mark the runtime PM state as
-> > > > suspended. Checking the runtime status avoids disabling the hardware
-> > > > resources a second time when runtime PM has already powered off the
-> > > > sensor.
-> > > >
-> > > > This issue was found by manual code inspection.
-> > > >
-> > > > Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > > > ---
-> > > >  drivers/media/i2c/ov5647.c | 3 +++
-> > > >  1 file changed, 3 insertions(+)
-> > > >
-> > > > diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-> > > > index 3facf92b3841..d42d009772ac 100644
-> > > > --- a/drivers/media/i2c/ov5647.c
-> > > > +++ b/drivers/media/i2c/ov5647.c
-> > > > @@ -1271,6 +1271,9 @@ static void ov5647_remove(struct i2c_client *client)
-> > > >         v4l2_ctrl_handler_free(&sensor->ctrls);
-> > > >         v4l2_device_unregister_subdev(sd);
-> > > >         pm_runtime_disable(&client->dev);
-> > > > +       if (!pm_runtime_status_suspended(&client->dev))
-> > > > +               ov5647_power_off(&client->dev);
-> > > > +       pm_runtime_set_suspended(&client->dev);
-> > >
-> > > I was unsure whether pm_runtime_set_suspended can be unconditional or
-> > > should be in the if clause. There are numerous drivers doing each.
-> > >
-> > > As it happens, Sakari's just answered that in [1] that it should be
-> > > conditional, so I'd take that as gospel. It looks like he's given a
-> > > similar answer on your ov2740 patch.
-> >
-> > Runtime PM is a bit mystical in some places. pm_runtime_set_suspended()
-> > appears to be setting the device's Runtime PM state disabled as it name
-> > implies, but it may also e.g. increment dev->power.disable_depth. I'm not
-> > fully certain if this is by design or not.
-> >
-> > --
-> > Sakari Ailus
-> 
-> Would this be the right way to change it?
-> 
-> -       if (!pm_runtime_status_suspended(&client->dev))
-> +       if (!pm_runtime_status_suspended(&client->dev)) {
->                 ov5647_power_off(&client->dev);
-> -       pm_runtime_set_suspended(&client->dev);
-> +               pm_runtime_set_suspended(&client->dev);
-> +       }
+clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
+of_parse_clkspec() only consults "clock-names" when a name was passed,
+so the index stays 0 for all four entries. Every entry therefore ends up
+holding a handle to the *first* clock of the DT "clocks" property, i.e.
+ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
+four different clocks.
 
-Correct.
+The consequence is that rocket_device_runtime_resume() prepares and
+enables the AXI clock four times, while hclk, pclk and - most
+importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
+never prepared or enabled by this driver at all. The NPU still works
+only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
+its attach_dev() callback walks the device node with of_clk_get() and
+adds every clock to the pm_clk list, so genpd happens to keep the
+remaining clocks running. The bug is therefore latent today, but it
+means the driver holds no reference to the clock that actually feeds the
+NPU, which stands in the way of any future frequency scaling
+(OPP/devfreq) work.
 
-> 
-> If so, I can send a v2 with this change.
+Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
+/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
+handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
+two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
+"fdab0000.npu" consumer at all - their only consumers are the
+"npu@fdab0000" handles created by the power-domain driver via
+of_clk_get().
 
-Please!
+Set the ids explicitly, in the order mandated by the binding
+(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
+aclk, hclk, npu, pclk. After the change the driver holds one handle per
+distinct clock and clk_bulk_prepare_enable() covers all four.
 
+Note that this is a user-visible tightening for out-of-tree DTs: the
+old NULL-id requests resolved by index and succeeded no matter what
+"clock-names" contained, while the named requests fail probe with
+-ENOENT when one of the four names is missing. That is the right
+outcome for in-tree users - the binding requires exactly these four
+clock-names and rk3588-base.dtsi carries them on all three cores - but
+a DT that relied on the permissive lookup goes from silently running on
+the wrong clock handles to not probing at all, so record the change
+here where git log will find it.
+
+Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+Assisted-by: LLM sparse checkpatch
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
+---
+Same diff and the same message text (his copy re-wraps the lines) as
+01/14 of Jiaxing Hu's RK3576 series, which carries this patch as well;
+whichever lands first, the other drops it. The trailers differ: Jiaxing
+asked me to drop his Signed-off-by from my own posting of it, as he did
+not pass this copy along, and Assisted-by is added because an LLM helped
+with the checks on this v2.
+
+ drivers/accel/rocket/rocket_core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
+index b3b2fa9ba645a..5dd260bacbff6 100644
+--- a/drivers/accel/rocket/rocket_core.c
++++ b/drivers/accel/rocket/rocket_core.c
+@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+ 
++	core->clks[0].id = "aclk";
++	core->clks[1].id = "hclk";
++	core->clks[2].id = "npu";
++	core->clks[3].id = "pclk";
+ 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
