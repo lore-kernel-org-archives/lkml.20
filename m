@@ -1,105 +1,103 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA285490BE0
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055850; cv=none; b=Hd9aWEFXrWLhEabsrj+LnmZQoZ1RpQyvQqxX8UYH9bNs0QJmUU+D83gisRm3CQs64D+rztK1DgwIloeUrWqQtwMFD7AM8DOPfDjfw7BwA9p2h+pt0QUA6hKosSmMljb2r5BB/BgiO4aV05mf4Pg0nnEgf61LDApu55tTmMZ/uDA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055850; c=relaxed/simple;
-	bh=VJcogttpnzmzRq+dZ9JiW+yKGA10LOl2AIc4TKpIVUo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Fju8YAB4hKzVfmLUm5TeX3l0R06BH8S6pIM/RI8MumzENXE1mNjL9S0RkC9XMGDqY0inmEg0ZTortL0y0kHdadN9UvWtNUiTAI+NLaf/nuZkNtQ7k/jaH3em7yHi3xZxhiGQ+zjL4j31OIEb6iRV2KG7zUqK796dkpPnLocWgMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TbGJvfPk; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEE9491583
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790055865; cv=pass; b=qX7MP2/ginwYuW22Necxt1GKhapIz3ll8MjkKM3IZ7P0XkdcvgV3Vtgfx9hsGKiTplfmw23FESU1EAhZ+IXBBIUH6WJgGFBMV0WYMmemnv43kfP0DIHVjQT8hDfMV1pR22N6EfmmLv8kHNYVGgyoxFhgYx39kX3OEUQ5xgB+oIE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790055865; c=relaxed/simple;
+	bh=mVQSIA+KZumLgnewVGIvAtxnjvVRKy38ae4smjKb/as=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cCYYMulAVJlc3TV80tbpoMVQ92rQ2f9J6Q+cVMT3LWwTzhe/NjPzzoEO+MZ8QHUi7a8hYVWd8sRqmi6LgJmisCURx2Ub7kbj2yaOcW1u++K8VWQBp5sPN3K97EUwXECK/QK2lYdhmEWaUG+xq3qy2hozb0lqB2azqguh6jbafW4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=alh4MT4/; arc=pass smtp.client-ip=74.125.224.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TbGJvfPk"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso37625115e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:44:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="alh4MT4/"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d46e4cdccso24200667b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:44:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790055863; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zvkd3LMxlSvM5IxOutRPKDHgt09afyZhuAZPkIAqBjfyeqvZh/MuG+7i1Zpw9YtooB
+         9KJtcgAj/ac3vcgD/FOR90XynAq4UhwB+JTLZdxN+33k0LC2yu6Eikp19mmusipw+WEV
+         FnF1oXZYOxyricS1QpwVF2dsmtvknGEqNfm7PPY5Vz5eWvl8A1ICAQmrail/ST2xTsU+
+         R9dTfzf/lnYNB6HvDundiFDoFeR7WUKGb5IATqTpIzk2+p4uX6xtHKL9du75KvvNWrog
+         8zOR5qhuCUYwlT8u5v2bL6q+6BDRD1AgKS8BdatcWtnN4yse/yPgoFd6BFX6F/kM/mMI
+         Na/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mVQSIA+KZumLgnewVGIvAtxnjvVRKy38ae4smjKb/as=;
+        fh=a3w82IU8KBIflPKui0IxcGmpvr/7gCe5ph0NH1+Apk0=;
+        b=Md9jeT8NfkgfGJh/U5xguKdNTvyUFVX/8lpSrXtAUVD+E5LQKhOyeEjOvQJgHjCji0
+         2cQtEVcW4D4YAhUNQhKWrN/zGau4euQkIl9FlvswjCzHZn2Hb8MLY7eWFNUfTl3yIJkR
+         LiuosF3TJYj4H1iBIsbwc5ZX07TK+UY0mB97xkG/OKYVHAeapBmdSR1rf/X8wH87rgbF
+         P4cTdLrhxx/M8QW5SRkz59PVPYd161o2JT9apkZUwImexOXn2WyUcLWhuYr+t9f20NJP
+         sq8Z4JjXaQYJ4yUTCcPmudKuNF+H2kIFgdhMxDP/VxEljU0sXksHkdoRhV1JgnZ4iQgm
+         2Pxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790055847; x=1790660647; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d4/LQ+6F9fJ/cjcJrUOPJx6DRMexHTJtKczEX1e75B0=;
-        b=TbGJvfPkvAZRo+LXDcLV+l5pniWtNlBS654EvABd+F3nV86+Z8qz99YCO0T8HIMDB3
-         p6AeTXRjx8Aw0QXeHtgutrtPy/o+ur6Nv0suElnopeNjBhs5IgMeuQuhKK0/CPM2JaQT
-         GgSRntQZkDZQ6s3AJQJtvN0aJPuJOgGxixUPcRIgJXWYZ3k31zALrwwcrbvS1QqkTO4+
-         85H1uTrVHhSarB1f3OyUKmemfeieGICLetaFog5iBq8Zx2AA7Mi4UY4JnL+TrfrF2zg1
-         i+v0ihWMd3eThlOlci+Q1ZGnR08cBp4/N6bhT1Q6fNouo85BCiwSNBiyazKMGKy8c/DY
-         eJRw==
+        d=gmail.com; s=20251104; t=1790055863; x=1790660663; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mVQSIA+KZumLgnewVGIvAtxnjvVRKy38ae4smjKb/as=;
+        b=alh4MT4/RcYVDgAdFFUjukbEVgDAlTB0HsQ5/unsb6GgxfVrJT65Wa03qbbMYXIbrm
+         aPXvMcxxZgfEa0GXKv85LwX9nFYVIWUPpOvdQLabI217ebezb6sfKev9T7HLX7+6xT1U
+         AyHVFFvp6aMd//VK42Phzp5SQZaw1+bPRGZrWId5/Je9M2cmGSow3c4YZDK1i/eg2WN3
+         5Z2+VyuTo+9kkn0LHgYZDoNXTIcXpKJoNGnHKtQX5MHNV8R6koILCotIyeCyPZWzTzMD
+         pgYqh7FzsBiWRdrG3hLKSvUgImzUFO6Uskx+mhEr2HBz7kps7ktH4owtTqqh+8HkF6mb
+         x/EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790055847; x=1790660647;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d4/LQ+6F9fJ/cjcJrUOPJx6DRMexHTJtKczEX1e75B0=;
-        b=I3n2mDlemRnb2EalbwCC0MUqVU27QMsaDK2ZxcEnoanLTzHxL6hl9FD4uIg5YOAgL9
-         pEbBvDcJw3WeitkNs8leK24fLfQ/QoJJgiLQZbbAUM2T8pHZ65NgkA/j/A85tuTT/qL+
-         z1CmrYyC0jxP/16jUzCGAO30+wTv2RvpySjSg+Upi2tYW9EkNjJrQBW8IS6StwGEgb4L
-         RrRej+Eh/CnfZAS984/O+sSpVNfg80Cvv71l+9teQvqIz9xjA+hpzUeu/jKAFmXrjwN+
-         qy+nrVw8y8MKrTrdTT4FrrqvNs5bn/6/51x1bhRGloqiFKiVTJcAfIAkrgDC1VO6OTPt
-         rFdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzawtQ5LRiOf+S/kuXXx0RlExAp6BsrUe5tVRdFYgd8TM6mp6tR2+nrZ87xYNRicodM4+92dxuKFrTfgUE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIqEK13w4YHqacwv9KgrePap+H2hDBMawx0+W8Szpv9262GNNR
-	UmANmpDVe/hh7k/JeTmIAhxlBB90proSRTV57PE2QhVr8GWdE7jlt4gs
-X-Gm-Gg: AYBFou1LgGatWpU3lMvrSMIyRnQYgKNkk2dKPJVaxX30sJjI1fP887mpIu1c9WD/8IX
-	VFDQYwBlY6gd7LTPpYXuJmV1PYmyK+sp530WOFqVwRDM0Fc3cw6yTgbGjvQdqB5dHYlvIjC9I6b
-	ymMJoACHff1RyLCwWmzh+VBd9ykVrJ9YxnQwhlB9h7VogfPrTSW/mvOHFEB4ITBWwxHFvJKpmLZ
-	USUQyutoZ30KrPYU9gVTRi3d/kA1WwRWgNf+AIrV+TqHx8I2TMNRdoUpZKxTCUg0A96t7FcBz6A
-	JW/WQXnGMwXCJlZRIbgiN2EKX5CmQ5rPpZ3V5io2o9Ufc78+3fTuSdxOsSBUzqgmSlcxv3kIHYw
-	mzTpSIpODhsI2gHHMgsyLSOqtlo9dFECtbzCLExj6QpxOeDS6rgoVxF5MRN1K4TgbGJRTPo7R0b
-	we87MU5tbHkDTYPl6+1utgICYq6jGABu8Zyggjuq16ppJ+Y0xkW7WIgoKgXCN1CsCO+2/+SRaZa
-	+t1xs8P6CsQNEqk3PSGE8fJ4cYFgGzQ4PED6KFWvxSPL9A8WWuqdOplaKAJ5Oh0wePJa5M7FyS+
-	U3AMhbMVuBmHcM3ea/ikV741g3wDaL0Na/pyR7X+ZbRGslIX9v1cASF8YmO2RWUfTKI/+A6JnGq
-	L
-X-Received: by 2002:a05:600d:848f:10b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fc5735351mr124626255e9.20.1790055846765;
-        Mon, 21 Sep 2026 22:44:06 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a5e6-3401-ecdc-1e24-2e52-02d6.310.pool.telefonica.de. [2a02:3100:a5e6:3401:ecdc:1e24:2e52:2d6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8a638fcsm47621575e9.0.2026.09.21.22.44.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 22:44:06 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 19/20] lib/crypto: riscv/aes-ctr: Migrate optimized code into library
-Date: Tue, 22 Sep 2026 07:44:01 +0200
-Message-Id: <20260922054401.19194-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260921050910.296144-20-ebiggers@kernel.org>
-References: <20260921050910.296144-1-ebiggers@kernel.org> <20260921050910.296144-20-ebiggers@kernel.org>
+        d=1e100.net; s=20260707; t=1790055863; x=1790660663;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mVQSIA+KZumLgnewVGIvAtxnjvVRKy38ae4smjKb/as=;
+        b=tR2ajie7I+pZX+G09EwOwEAJ7N6+iytL5QZBGHsRn0aRqvVMXCfG8PvAh3u76wfdWy
+         b1zGmzLUXw17i8Iwowm5Zn1jnoDihw1b0uywwI96IYR0zkTLT4GyOCSYgmIjm/nFVgoP
+         /m5mfgR6raR8xYqLF5VsMxwh5iYPh8xIrpBQxDXohnnHQPoh9b89wU8cEFTLycrweyeW
+         sjOdcrXuYKLrJrqNiXIUq+TqSXe1x/5XPMB0ecffK8HRWhhpcfePCfKGJyswTqLSSyYc
+         KRNNcD+T4d4U5knaXowXzAWeVnmcfC8q9yYGPLKk1ZXd70zL08Rte0cTvL+cIi2LcNu8
+         HjLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwg23JEdgJUldF78MZ+oxR3cE7SxqvU505t2sv15PAM2SFBsqGZAp1Qnn0HtJXJcA90Xbdk6uxFXyvbYWU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVMIfcVMDblUi7d1CfmjoFqBxINbeqIqvJxFrDvAxj95BWb18B
+	Mhe57dh/8NzyGJQ8hrzJ3WavqqgpjBSknlaAPBsht9wQMx7PspzirkYWNLIPu+UMnUefObtsCoo
+	VgHNLdExj0vhFcS1KgmAFcCq+JmIPhpQ=
+X-Gm-Gg: AYBFou27GIBQ0q7zL/wtMdpbU8RU1o2g2+jj4kxX7g12trcW1Wr+z51AxZVRaixSXZ/
+	5/Hk3qlYEp0E1MidZt7ekdMchqEiHdhHzvi/6rTLkCkGhX+E8WhVi6F1tDEKS2+Vi8URWavLhzf
+	R44XGEQ7bN4mhjP4fiBSstb27Iml9P61tSnakabfPMfMdogY9+8yJnKC5lcPaVvraru/xwW4w6E
+	SBcq+EliSJlBikj17Uj4X3tutVXLjag9wmG25omK0cA5yn0UFfsEUd141Muw12QtlNz0Qqgm6cD
+	Gy1kgEpv2B+orgon4uVicPy45m8mg58K7EILAwuzvQkmZqsKAW8C8QU=
+X-Received: by 2002:a05:690e:140a:b0:671:70d1:d6e9 with SMTP id
+ 956f58d0204a3-6717fe6484amr3963390d50.91.1790055863048; Mon, 21 Sep 2026
+ 22:44:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922054116.416333-1-oss.patchbox@gmail.com>
+In-Reply-To: <20260922054116.416333-1-oss.patchbox@gmail.com>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Tue, 22 Sep 2026 01:44:11 -0400
+X-Gm-Features: AcwNN1X4U-FOuecLC7XSWshGXMtdfg5aLnegDD7bITFGtDrk_TB67QveNxFm1nE
+Message-ID: <CAGG=RgCA4kAbx39LuSRiKu1sx2CbTEAhZH1bKNCxPn5i1m=x+Q@mail.gmail.com>
+Subject: Re: [PATCH v1] iommu/virtio: Reset device before deleting virtqueues
+ on probe failure
+To: Jean-Philippe Brucker <jpb@kernel.org>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, "Michael S . Tsirkin" <mst@redhat.com>, 
+	Jason Wang <jasowangio@gmail.com>, virtualization@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 20 Sep 2026 22:09:05 -0700 Eric Biggers <ebiggers@kernel.org> wrote:
-> -// void aes_ctr32_crypt_zvkned_zvkb(const struct crypto_aes_ctx *key,
-> -//				    const u8 *in, u8 *out, size_t len,
-> -//				    u8 iv[16]);
-> +// void aes_ctr32_crypt_zvkned_zvkb(u8 *dst, const u8 *src, u32 len, u8 iv[16],
-> +//				    const struct aes_enckey *key);
->  SYM_FUNC_START(aes_ctr32_crypt_zvkned_zvkb)
+On Tue, 22 Sept 2026 at 01:41, Yuho Choi <oss.patchbox@gmail.com> wrote:
+> 2.43.0
 
-isn't this a sign extension problem on rv64? The psABI sign-extends
-32-bit args, so for len >= 2G a2 comes in as 0xffffffff8xxxxxxx, and
-the asm uses it as a 64-bit length as is.
-
-That would run off the end of both buffers.
-
-Nothing passes that much in one call today, but aes_ctr_arch() only
-chunks down to 0xfffffff0 and aes_ctr() takes a size_t, so it is
-allowed. The old prototype was size_t and the caller zero-extended.
-
-Thanks,
-Karl
+Please disregard this patch/thread. It was sent inadvertently due to a
+duplicate submission.
+I apologize for the noise.
