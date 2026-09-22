@@ -1,222 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EC347D927
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:36:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F3947D927;
+	Tue, 22 Sep 2026 11:38:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790076990; cv=none; b=U1Ydg6KisTMDzMa+bpqRPxE3tKJTolSLjgvFqaqvapHcy30oV8WFl/PofPnyRt2RNguY1qtvYnY719t9cMVAcgUtWIn1UNHO4+08Jvpcq6+ghLZrjeZce1XT2uIpp6eSdEh7Ocd0QL9+tSAm6Z6KTcSB1Sb6q6nGUDBG4/caiAc=
+	t=1790077122; cv=none; b=C01VNz63X9WiAaTwXmzi2NTQjD2g4cbUFHn/5iqz2G9299GXNnBkP2qqhXUixzLix4pJPRmzMzZv3o36gGa67RglZ16QYAwDaDMKehXNoJKWd6z4iYGiQg8Kyd56tC37tf9ElZ2Fu/8eMP5HUHyYz1lVJlF9vQmzFoC2mbXWKZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790076990; c=relaxed/simple;
-	bh=2th5yY2Szab2+nF4/8BobZ4oPo2P27YYazTG8v4BZIg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EwI3iEPqp1fc73YtBTu9oOXFuJHaYPUhFURIxP4I4mZX/U/HIfATt0a8LPn1lRDcTGkEmLOMIHfaSshtn4KHu4XoamQ6Pobk/KFUGDphjS5Sdk/SpDMr2WBmau5XUXv0p+UEwzeexkMDh0rlJeiR1taq9JSq75A331hji/kBwbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQ0nz1aQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790077122; c=relaxed/simple;
+	bh=WosUaYn7HqRDaOXLYdRn/vZ0BiZSawb6oYRU0rz9/0Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TgiZlDY9nSKqJSLuf4NNmJiMc5OnWo5tTJTE8x5oGIGB3aTNpcFFyyEbajo3cRkq4qT7Km4tcEFvqd/Jg0rfbqwWNEmXHlcmrVJEiV+WxnrtRPnojNKoFCfKj47V5m9m6lMM1P4t2j5DOu/X6Ti4bxHn5Zq9OjCQqTc/HFxkxjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LhmMrWgO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQ0nz1aQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2271F008BC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:36:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LhmMrWgO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CFF21F000FF;
+	Tue, 22 Sep 2026 11:38:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790076981;
-	bh=D1y8smlT8SEgYsl3GfoZCkbJ8M71szX6QVg/Na+X554=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gQ0nz1aQd0KF+sdKgBCaCMiQPt9/AYv44mLPOdMt6odP8xBYc6qckEKuLnBrQALde
-	 +zLz6NebY5Amgrrn+RizYhKaYJOVrP+BONrtP42Wro4MWn+ESlRrvuZeFaxgShSuKS
-	 YVQzbTUykTtnjLg086aFGYXj512OoRQ2OCJz+Ix3Kp/ut+uns+a5g2ddEzxVcsmE2d
-	 SA/biEdHfBhtJOpYz3nThoZry0kYfvXOCtEXAs9o3mpQdVdGAhqd94neDNFH5kkCuU
-	 sWBBFNhH1Der5QeFe14VawMXKYIpcDH9dL6YXUg5AfST/SUeE89bvavl2pbcH1n3UW
-	 M88cGBjrF1RUg==
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cc46c7so385222485a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:36:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByLp76DQfx3e+e35nr7PBW/rL86o7U+yrxehRrfnPMsO41d5DSR5aIuM/EH5X6r1JBxyBvK3TWAb6KSLKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZcZB3Xlft1JF9Y3RaZEe+GWAMQkGh39Pi95UZEJlKopuXuo4S
-	5gHfRohTsyXOusFQgfqxYR9CAVihMJkd29/Ui8fyWaZGL0RyOf6wWzKCtJGCuebY0BnyTKvp+bA
-	T0n2S/nV/YtnYSasG1eqtxF7QRLhVTZU=
-X-Received: by 2002:a05:620a:2810:b0:927:25f5:ee08 with SMTP id
- af79cd13be357-93c19a46375mr287077185a.43.1790076981023; Tue, 22 Sep 2026
- 04:36:21 -0700 (PDT)
+	s=k20260515; t=1790077121;
+	bh=AE7SoZH1UVm6dwXo4QotbJXzN4RRQJKVSZjbDTPVSp8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LhmMrWgOqztxpmKvUpwWyYorjz/IirOzFT6Th64vMqz2S1grprkTveRE7fSwHhBKJ
+	 ldedRiIcSM6AdmFzAtjXFY9/3o9+OYp/i803UwwL6BAxH4FhQB0YRvxlYriG8tCgRr
+	 MzSA2nXDWQHr5FEEJOeeybUIFX1pJQy8V5rNchlAqHMsfi7fRgoBSZBhP2dOmGkhjI
+	 dRhMYP1MJkVsJL3MZCCwY8ykK+CfkX1E0uIX84zA0t2GWMdWi5jd5QvKM9DjoCTKyH
+	 kVnIKEky/6H93xDbjnlCQBBWjkOcViU/epLAYMlwOJOCsXOIz7PcglzXyb1n1kncHh
+	 nT7wY8HsAcA2g==
+Message-ID: <21aff47e-07cf-48b5-9752-b1a9dc7e6095@kernel.org>
+Date: Tue, 22 Sep 2026 13:38:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921152449.629486-1-alex@ghiti.fr> <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
- <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
- <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org> <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
- <arJcPIaqJOzLpkel@gremlin> <CAGsJ_4zLY6eZWUufuVqLgEVf93G1JoKtk9ObftkoTwbAimG8Yw@mail.gmail.com>
- <arJi8RRxLM-1JiPV@gremlin>
-In-Reply-To: <arJi8RRxLM-1JiPV@gremlin>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 22 Sep 2026 19:36:09 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zcLsLOwLdfv6MrcXKyzKXXomKuksso=A+Es3XLYdjQ7Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UE4EUboSCEVXHPDRCyhIyUNiRiG1qyey5lrqdrySt5cOAnSD54vDhJd2Y
-Message-ID: <CAGsJ_4zcLsLOwLdfv6MrcXKyzKXXomKuksso=A+Es3XLYdjQ7Q@mail.gmail.com>
-Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback completion
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, 
-	willy@infradead.org, jack@suse.cz, liam@infradead.org, vbabka@kernel.org, 
-	jannh@google.com, chrisl@kernel.org, kasong@tencent.com, 
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
-	youngjun.park@lge.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org, 
-	chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu, 
-	hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: interconnect: qcom-bwmon: add nord cpu-bwmon
+ compatible
+To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+ Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, shengchao.guo@oss.qualcomm.com,
+ bartosz.golaszewski@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260831090134.585588-1-zhangfei.gao@oss.qualcomm.com>
+ <CAFkd8hth1ds5j9jbe3vjjpCYkbTVSeTiVsQvzy30YCyFUH83ZQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFkd8hth1ds5j9jbe3vjjpCYkbTVSeTiVsQvzy30YCyFUH83ZQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 7:16=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> On Tue, Sep 22, 2026 at 07:10:34PM +0800, Barry Song wrote:
-> > On Tue, Sep 22, 2026 at 6:47=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kern=
-el.org> wrote:
-> > >
-> > > On Tue, Sep 22, 2026 at 06:37:38PM +0800, Barry Song wrote:
-> > > > On Tue, Sep 22, 2026 at 6:20=E2=80=AFPM David Hildenbrand (Arm)
-> > > > <david@kernel.org> wrote:
-> > > > >
-> > > > > On 9/21/26 23:56, Barry Song wrote:
-> > > > > > On Mon, Sep 21, 2026 at 11:37=E2=80=AFPM David Hildenbrand (Arm=
-)
-> > > > > > <david@kernel.org> wrote:
-> > > > > >>
-> > > > > >> On 9/21/26 17:24, Alexandre Ghiti wrote:
-> > > > > >>> On an asynchronous swap device MADV_PAGEOUT only marks the fo=
-lio
-> > > > > >>> PG_reclaim and rotates it to the tail of the inactive list on=
-ce its
-> > > > > >>> writeback completes, so the memory is not actually freed unti=
-l a later
-> > > > > >>> reclaim scan removes the by then clean swap cache folio.
-> > > > > >> But we have the same behavior when just reclaiming memory ordi=
-narily? It's added
-> > > > > >> to the swapcache and only the next scan actually frees up the =
-memory.
-> > > > > >>
-> > > > > >> Wouldn't we memory we reclaim ... just gone, like in the sync =
-case?
-> > > > > >
-> > > > > > For synchronous I/O, such as zswap and zram, the memory is rele=
-ased
-> > > > > > immediately after sync I/O is done.
-> > > > > >
-> > > > > > For asynchronous I/O, such as NVMe, the swapcache is currently
-> > > > > > expected to be rotated back to the tail of the LRU and wait for
-> > > > > > another scan. Alexandre once mentioned that when he tried handl=
-ing
-> > > > > > async I/O the same way as sync I/O=E2=80=94releasing the memory=
- once the I/O
-> > > > > > completed=E2=80=94he saw some regression. So, delaying the rele=
-ase until a
-> > > > > > later scan may allow swapcache hits before the folios are event=
-ually
-> > > > > > reclaimed.
-> > > > >
-> > > > > "may", do we have any evidence that this actually is relevant in =
-practice?
-> > > > >
-> > > > > We asked to reclaim memory. We wrote the memory out to disk. We u=
-nmapped it from
-> > > > > the page tables. We made the workload the could, access the page =
-immediately
-> > > > > again suffer already.
-> > > > >
-> > > > > We should just evict them as soon as possible to free up memory.
-> > > >
-> > > > I suggested this to Alexandre, and he found that it could regress s=
-ome
-> > > > workloads [1]. That is why Alexandre is only making the folios
-> > > > immediately reclaimable for `MADV_PAGEOUT`.
-> > > >
-> > > > See Alexandre's description:
-> > > >
-> > > > "Future work
-> > > > -----------
-> > > > Barry suggested extending this to MADV_PAGEOUT and general reclaim.=
- I
-> > > > prototyped dropbehind for all reclaimed swap folios and it regresse=
-d
-> > > > sysbench OLTP throughput by ~15% on NVMe swap: dropping the swap ca=
-che
-> > > > immediately turns cheap in-cache refaults into disk reads and colla=
-pses
-> > > > swap readahead clustering. Neither blk-wbt, mq-deadline nor a PG_wo=
-rkingset
-> > > > gate recovered it. MADV_PAGEOUT alone may still be worth it, since =
-there
-> > > > userspace has explicitly declared the range cold, but I have not me=
-asured
-> > > > that case in isolation yet."
-> > > >
-> > > > [1] https://lore.kernel.org/linux-mm/20260921151306.625134-1-alex@g=
-hiti.fr/
-> > > >
-> > > > Best Regards
-> > > > Barry
-> > >
-> > > This patch as-is is just way way way WAY too complicated and fragile =
-IMO.
-> > >
-> > > Whatever cases you have found, they need to be fixed somewhere
-> > > fundamental. All of this feels like a hack.
-> > >
-> > > If you're having to write a comment like:
-> > >
-> > > /*
-> > >  * If X is Y, but not if B, and if Z is J but not if the moon's brigh=
-t at
-> > >  * night, then maybe we will foo the bar, but only if the baz is blar=
-ghed,
-> > >  * ...
-> > >  */
-> > >
-> > > That usually means you're doing something horribly wrong.
-> > >
-> > > And this patch has multiple comments like that.
-> >
-> > I'm not quite sure if you've read the context carefully :-) or why
-> > you're angry with me.
-> >
-> > I did suggest that we should reclaim memory immediately after
-> > writeback completes, both for general memory reclaim and for
-> > `MADV_PAGEOUT`, while Alexandre was working on zswap dropbehind.
-> >
-> > Alexandre then found that this might not be a good idea for generic
-> > reclaim, but thought it might still be worth trying for `MADV_PAGEOUT`.
-> > That's why this patch came about.
-> >
-> > The discussion between David and me is whether we should do this for
-> > `MADV_PAGEOUT` only, or also apply the same approach to generic
-> > reclaim. So far, we haven't even gotten into the code details.
-> >
-> > And this is also the first day I've seen the code. I agree that I can
-> > work with Alexandre to improve the code through review, but please
-> > keep in mind that this is literally my first day looking at it,
-> > my respected Lorenzo. :-)
->
-> I'm not angry with anybody, I'm saying the patch feels like a (fragile)
-> hack and the issue needs addressing more fundamentally, echoing David's
-> suggestion.
->
-> I also pointed out that when comments need to be extremely specific about
-> exactly why you're doing something, that usually means something is wrong=
-.
->
-> To expand on that - the reason why is that clearly the logic you are
-> adjusting is assuming something.
->
-> You are violating that assumption, which is why the comment is there.
->
-> Generally that means the assumptions are wrong and something more
-> fundamental needs to be changed.
->
+On 22/09/2026 13:21, Zhangfei Gao wrote:
+> On Mon, Aug 31, 2026 at 5:01 PM Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+> wrote:
+> 
+>> Document the qcom,nord-cpu-bwmon fallback compatible used by the
+>> CPU bandwidth monitors on Nord.
+>>
+>> Signed-off-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+>> ---
+>>
+>> This compatible will be consumed by the Nord bwmon device tree nodes,
+>> sent separately by Shawn Guo.
+>>
+>>  .../devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml     | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git
+>> a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+>> b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+>> index 21b4e04727de..8c82103fb86b 100644
+>> ---
+>> a/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+>> +++
+>> b/Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml
+>> @@ -30,6 +30,7 @@ properties:
+>>                - qcom,hawi-cpu-bwmon
+>>                - qcom,kaanapali-cpu-bwmon
+>>                - qcom,maili-cpu-bwmon
+>> +              - qcom,nord-cpu-bwmon
+>>                - qcom,qcm2290-cpu-bwmon
+>>                - qcom,qcs615-cpu-bwmon
+>>                - qcom,qcs8300-cpu-bwmon
+>>
+> 
+> Hi,
+> 
+> Gentle ping on this patch.
+> 
+> Shawn has posted the corresponding Nord DTS change [1],
+> which depends on adding the qcom,nord-cpu-bwmon compatible in this patch:
+> 
 
-Thanks!
+Based on acks here, this should go via qcom soc, so part of DTS patchset.
 
-I agree with your description. But I'm still a bit confused, as it
-feels like your reply may not be in the right context :-)
+> [1] https://lkml.org/lkml/2026/9/22/844
 
-Never mind, I understand you're quite busy.
+Please avoid using lkml, but instead use lore.kernel.org.
+
+
+Best regards,
+Krzysztof
