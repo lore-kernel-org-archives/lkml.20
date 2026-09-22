@@ -1,68 +1,67 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010033.outbound.protection.outlook.com [52.101.85.33])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011002.outbound.protection.outlook.com [52.101.65.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F89C53A3BB;
-	Tue, 22 Sep 2026 11:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E08C53979C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.2
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075583; cv=fail; b=UhnQsEpTO6SG7tgqU+2wFvRoxRbJEJLVk1IQVJQc2E5c4nbN71yAu3s/GuFezeUE8MTEGwZ1W9khPqE6CBZa4BgdXOEGbH7xd9ibgRhOMsfoD0DZxjA5H7jG7PdqHKzQJjF+/0aKQqAWI4oD5K7OrAawsANVKOPbbdyHBFcpIXA=
+	t=1790075608; cv=fail; b=AQFTJK95kIWH9E5Emu5E8m94H3gPcZzuQnW8MJUu4uNGD8svtTNIub7KnSvymL9BuG329SxTlA+XLV5APpIt2W74m75ychyqNUgIIw509m1+LTuXyJf3fsX4J3KKGkiu/1VFVUOCM7Rj2pkWC15BEJs7EpbUML0LmNiTXsIrRnE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075583; c=relaxed/simple;
-	bh=4qd7mhr6jWkhZfxGUG2/McEDHM1V/GqS8nY9o/+NdjM=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AzNzqv/ihkRBHxwy5pmfqcGjXanR1CB/nWzAszcDKbpoUwIDv9MbYzBC3vRm6rLNa2XayF8ZBj0qKU94uCDu888Kp4jz2Au5X3eyFAGMJgxlptcW4sL/fPvKHcNM5Ni/REZpykJPIzOfaiApBoluuxcdPFFV13ePgBRMBrA3Nvw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=cTVnSY7E; arc=fail smtp.client-ip=52.101.85.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	s=arc-20240116; t=1790075608; c=relaxed/simple;
+	bh=8Jl2KERq+RMoctyv8kmQaKOzUFRZPUuLPTwvnru69JU=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=X7hEPwBH5bEQ+kwTIuaIiLYlulFuOcpizSVSj9Nn0CDCufVpysne8paAVJgRCGTSvFCTizsnfNLnS74WcSdVJI6hn8Tfc0Uvi0Wh2oPN3GLvlUdJfxsuJVhx2VOKmNW98iTIWrJ9t2Vf3+ib1nJ0qlx5nFBZRiYxD94VTK3efEo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=C0S4qO0X; arc=fail smtp.client-ip=52.101.65.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="cTVnSY7E"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="C0S4qO0X"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ltQGpCXc+jbwLtAaBi8Ua5cH5uFbx2V1P/S8hWV4wsHb5fi1P620zO9jaH9l3CaBMiV7fcREIsSx7Q0ac7o/hE5jczid9XsYDZlOjYlNh6ccKlgGIzwVA7FCMg1o168bab+82NHcOINaM7sYNNSGpKDc4XkimOoXQgctYwZGGoHiUTZYM7uz/i+WSwXC9wfeTZGypFONfsZZAAO0NtFpmKTreHvpYC6dvPV+jh8SqkYhFuQEVI+nv06SaVQg3BCfqki2INGCeSPGekbiEh5nmvcsfUvTmJIW0eAe96bCq1IMgKCLKFJ2tX2bYmQlojvHA/0rz4BeZn+hafldNOqvPA==
+ b=PUlm9brVstV1aWMQUJz021lsF4s1nmBR0Xni1du6rvgcept9aX8jsA3WqXm6DyYEcW8j120ZBUoefi0eOgTu30Lirh5oQWKnnykLerqFQyKjmHi4BwLbXlIf08GXOjI0IpYDxW5J10wwUA3wJZBCuvH4ZIWPWticCfBf8PMBoznlhPFVmKfsf6n4KO6kEOXpqJ1lI98DAshuODNGbUWSxZI2+F52pjwU6/ut+htGk8GBCYhXhb5KUhBht5x9JZHULa5Yz4OVuqGNzMpgVzcQJ8GoQqqjUFUjm7GAx9i4hGJSiwuaWVAjUs1+oOoGKhcYxwdGpIvfLd0fpqVZcsbyYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9yFt1C6I7ebI00gmcC4SrpkOFf2dLqBDfRZCR+m6PEw=;
- b=gHOa0sd3ZzVzQ78VY6VbojfD1lYwC6WOO5DZncuZK+W/ObPnKkjSlOa7a3Srfmp5CIcdzBMR3FAsXokxQ+tfdTYOzEbxplxN8chk8zBu9SNopYQw6CYf3o+r+BG2CcyHyMd01ErTEHBlg1oEFJQexe653DB/0Qh9BhvULTekqkldivtu4f946j1jYsIAWDgBBtopjnA8ePoxyQBE1qws9Wd07ODctH7Tp9KDkK9kY9PsxTuU2XSOQV7Wr8Ei8Nyqw1RZHaMk9demVsyOv9AU5Ia5EA49PwcHN3uTN/BdHHVcoaFO8bulA/+yZv4r5aBI0EK+C8thHGMWeEjgKpUotQ==
+ bh=hfhucDTmPHghANMs8RgqbMDkxmzmLOb8q8YtICdrCHI=;
+ b=ct6QXMOnfTYUl7xOt1oZF9gWAv3jp2hhWQs32tpd4ItM0huKa1rMBoHs0+M8rwvslBuY/vjSlpkMA48MOKQ5PgU03Rqota4ztGwJ5E0IPasBTpFZTCY039f2PwU026sSnus8wPTYbywFWfa/e8NgNzPZYs5VfB4rnZ3uxXUS3ULrbkS3aoIMHTuB5DisBNz7MZfPgO26MfebV/roJUbAteSmxTpoi67waILx+4bQp7HZ95IDlKJkpjLUrsHbuvYMqGCjZQCVKgP8gZX0ckErkkfi5oV88yaG9otCQG9idA/IkDVXQ5L47+4GqGBZLfCrZnmyNU1ND/yzfqzfk+lR+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9yFt1C6I7ebI00gmcC4SrpkOFf2dLqBDfRZCR+m6PEw=;
- b=cTVnSY7EYrHt0m4IjLlHVxJ6oiPKq1hp36JyO+fkn1HUY3t249MoeMBjVnEvr8kHtg08D9YlGmt8zpkk/q8yPim9CTwgLzuWuRVH0RXLYSuk2dro83x8ip3HDRwLX5+w9TLdQuYPA5mEPJMF0GluHU13+sevjc3/jGMDMzupEwOeRHHmLr3bOCLSKQLwm13pCczmdELsMrUYL+4kcHpS/bjPw549CD/Atw2TZISdAa9sIUG/3EXtEwT+EPJe5zNezGTge+mxNYtNPwM7ko+7wxRZbfDHsTKaXcf7f8ZnEZQgDzT3Yldb4iDN5KBw5gxUjclaDCGOa3xyju9VBoGqZQ==
+ bh=hfhucDTmPHghANMs8RgqbMDkxmzmLOb8q8YtICdrCHI=;
+ b=C0S4qO0XNR51Tp5ducSSQklZayBeNZxF0++pEGGa1zDQXMkQqgaejv6YBsUMPIazKnBe3SSWuE+26hDrAuo21H+HKLFu6gX2X03hkJZwUgeRmUhjNHoi7j07VK6Lmi4tfCfOnCkwxb+sCtiwyhfZIZQPyJdVxXD0K73hdnnq8m/Y9fLv1e1f1SkUubXqY5TCsEN3aXcHTQVLv2bydsIaNCCc72GceZF8yZzH/nOPnQqvSfHx36FnkNHatW3dFkzoYZTjMqS/d6W+3Vho6AEjQtROoQSlJKtPXRzYMF88uqmtd9bpGCmLrsXfwPcNcVactTX28i7wIHBhfTtNsmttEg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by PH0PR03MB989354.namprd03.prod.outlook.com (2603:10b6:510:11a::21) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by GV2PR04MB11191.eurprd04.prod.outlook.com (2603:10a6:150:27b::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Tue, 22 Sep
- 2026 11:13:00 +0000
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 11:13:00 +0000
-From: tze.yee.ng@altera.com
-To: Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH 4/4] mmc: sdhci-cadence: read SD6HC DDR50 tuning from device tree
-Date: Tue, 22 Sep 2026 19:12:38 +0800
-Message-ID: <9440b973966df50c9f6c79055ec83ef3b634335a.1790074790.git.tze.yee.ng@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <cover.1790074790.git.tze.yee.ng@altera.com>
-References: <cover.1790074790.git.tze.yee.ng@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0119.namprd05.prod.outlook.com
- (2603:10b6:a03:334::34) To SJ0PR03MB5950.namprd03.prod.outlook.com
- (2603:10b6:a03:2d3::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 11:13:23 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 11:13:23 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH RFC v2 0/4] regmap: convert map->lock/unlock users to a
+ scoped guard
+Date: Tue, 22 Sep 2026 19:10:54 +0800
+Message-Id: <20260922-regmap-lock-guard-v2-0-0c9d426427bd@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD5ismoC/32Nyw6CMBREf4XctdeUSiB1ZWLiB7g1LPq4QFUoa
+ YFgCP9uwb3LmZw5s0AgbynAOVnA02SDdV0M/JCAbmRXE1oTM3DGcyZ4ip7qVvb4dvqF9Si9QXE
+ SSlXCKCKCuOs9VXbenQ+4365Q/sowqifpYbNtWGPD4Pxnf57SHf5zMqXIUBtlRKGynBXZpZv7o
+ 3YtlOu6fgHpZDdcxwAAAA==
+X-Change-ID: 20260921-regmap-lock-guard-939bbf9dbeee
+To: Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI2P153CA0008.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::19) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,205 +69,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|PH0PR03MB989354:EE_
-X-MS-Office365-Filtering-Correlation-Id: c020f133-81a4-49d1-9b1e-08df189a765a
-X-MS-Exchange-AtpMessageProperties: SA
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|GV2PR04MB11191:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1121d227-1bdc-4520-14d6-08df189a8427
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|3023799007|11063799006|10067099003|56012099006|55112099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|23010399003|10067099003|56012099006|6133799003|5023799004|18002099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	8xM8nsz61EuPuf/+kFdh7Q7gM/HNFPUZya8ivB0r3h6usy4QhdHSmyGkA18k/aSXzftkiQ/vvKjV6WzxsjP80OYul0RnWDyOnjPPcpqtLpjk/inMyE0BpYBjAiFeb7X5ioj++3+Xehipg5eYdIn4uEOEGCcb6zs0gdVpGVVyFdhFH5RHC8QDeIiCLnTkxDXCy2JWQDY8SL7EHfcb0iHjdGscbHCDOYR5vpZqdlKGGRnos3Fx7MKZH9PLkoIXj/T5b3yOhC6CNOdsm9wjYL/aW410jNX11CUMmkKAfsUOyX114+pIk1cZFco7CYpU+HWJadSbS9zz1tDRVbp6ykbdomsNqRvBEb/aTUhPYAJgGsheFKUSvt2gdtpkh7WCkM0/CduUYPSJYGtxxd/VAFSmxS07F2U27/luF7RBWmxS3QMrA9I229greR6zFhPNd0KLs9SKGsgRzcifY6UXhy+1ImDqkfoA1riSURi+dWxvncB/2naQBeoL3TNisVAiHcZIw7hdmlZsqjh9pXBwhODgblMRGTEVkgSTvl1pHqX+bjo+jRvMzbePG4UBaiE1ATUkd1hWs6laVT9TSyS+IsGhozE6/aB/gxFzS+NvjUMq+VvUQPakbmJZ8QtK9WKH64gskeWrQX1tVPNmxjQ89LERDlBJWaHfAiyM3dH4J0guL1E=
+	Hhu14nlpoBNTpvUKb/1cUoheLRsfi4N/R3b5gp/7KAT0q9/LmehXt50SSjbRTUFnXFqEnJpJByVuJ+iUBIGumFrrgfAyIjrnBLPDcExLZWMUpQz+xRsCtnNqyzWfNZFLJnhV3gracECWnksyjnmjyAc2P8O+0WDO/YRBi+opvqcq9+mdfJAKeFo9A1S5HY/+mVlTthTLUyj7QYToR/CUzeVsZxKQ9J8A7sTEBHI+EYcFgqpX1kKH56RUoUDeEM8F73y/iCzzMQfvCKlRnvD2od7i1eg9ulZOJipzIjAHfaon/IhSMEaL20pNLYyrhEiVgWfZbw0Eldo8OpA8+MsKiG98QdBI1SerwfQ1h2hwfUHVmxnaSVYsRKRWxR0A+rY4jiSQIzmhmjyo/MiwVuUCAB9+3Y65xo7HBGx4DZXbINEscOEPvb7D4as2O1rHmBy9Nftuw/ZHSzfC2dIKTkIA+cJZoOX8M/mBfDg+0+TG6lqNoWwlR+J7p1NkGLUMXp8TvC3LN6Fe+j6qkmpv1vckSyrnmou4SOFtCJpgTZoBfsaDdSwc35UzU2VaAHgG1km8yIxi+79ai+6k3da5FICy/BNdNb56LeFZihptGwPuPfY1VAp4ps+LZKNVhPw7o9SJy5JAKb0AGI62rCb/weqVO/Uzy2WjYP+vJ8sNFvGj984=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(3023799007)(11063799006)(10067099003)(56012099006)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(6133799003)(5023799004)(18002099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qTBGnUWpPYXj/Kv42umVBxmVpReE5wW5Er/KiAZNhLgQajUqVnftLnI0d1dD?=
- =?us-ascii?Q?c1C5z4K82GR1QuqwMlSa1NfE3tKC7UXP9POFzX1chtNMpWUpIeLhhfFuy0aC?=
- =?us-ascii?Q?ufsz3ILWld6uO/X751sECyiZcQtAFc1quBupVSHh9IxInEEZdr4a0iumgbJ+?=
- =?us-ascii?Q?1fsz3wx+kAQxMzoCke0WV39mUK96LfzjPANKLuUNJiVPrXwMOzsGPW4gG0UE?=
- =?us-ascii?Q?FFOET1W1WTLpeRgpHr4bzeiTkqfz404Xu65+c6gJYbrFyClLGQFClICIAg7n?=
- =?us-ascii?Q?SDcWeDvmDw9Ws1gYOe2f6pZ1zw7FsNm6s6+g2XFoMEBoLSNnufOz3vmREjJQ?=
- =?us-ascii?Q?jrd90x3Uu5TBUK2Rvg1+c6MWa4d+HPQCCiswXbA8kPP2ufJwTl2Q01TV3W+Z?=
- =?us-ascii?Q?QJq21MO4EsQdrkBOSJtbe0IzF7pjGYGOyIoIhrIOxj8xVFFP39nKDFF+mAyL?=
- =?us-ascii?Q?KN5SeT1NpWtxXTt8RBEVQDTHNawvtCUlQO3s56obQg5JoeK3pGY6skmfz1fO?=
- =?us-ascii?Q?ufHhihX2rdzvs8y+beHqvXSdvq/ymyVnBD6R9sm8iBluxouSrLpCdHdq5EjO?=
- =?us-ascii?Q?iQHPvc32tjO+R6Z1uS4JtTVRiYH3q7lMFoAsLY5h+vS+qCACtlQpxq8RY3+K?=
- =?us-ascii?Q?M4oEn1bbnWNLHVY4WS+HqhJSZtFKVcmx5dcXg5hZP2sqQhh8MW284VZv2DTu?=
- =?us-ascii?Q?6zjWqYLA9qHFlNHdKl/8K75AWYBe6WmBeH4C2wyr5P4hPtgGpQVKMuCuQgIA?=
- =?us-ascii?Q?4B/N0p24JeJfM8bAKlHaKYzzEug7ONjFQqMP3dcwaCA8CKICzWfqYvkcPuDh?=
- =?us-ascii?Q?hFLGe5EWcjisyv4mzcWtLgQ/6JNQGZOUvdkIXne2wRx+0CgfQ5DlWGsspcII?=
- =?us-ascii?Q?w4ZuF8lUcr04yGB8Td4GeW3DnWGLzUXoNzo/wpO48CHThvv4iGWNdUlEQoPm?=
- =?us-ascii?Q?laup9huxLWkEnJYFdMSqwptDlC12gsjZ/kPBywNtoJTPOiiPzN9CzCp/0fdK?=
- =?us-ascii?Q?xmpn07P5zf03sOp74X2Rpcj3ksgwTZ6yUETW5WCCCDPEX3xwPJPoZQ+Yc4uc?=
- =?us-ascii?Q?5R23FnUfqIthu+3c+21csMVQuGJyhKarSb/od+K9TjSS0PBW3u/LkR6FOiYj?=
- =?us-ascii?Q?A3sZ80z9K9L8tb6eHIrvs1WqjHduw+/7NixpUCNZz2he4I5bNbhEHeePUIdR?=
- =?us-ascii?Q?pvauA4TvEuPoMwIEoorXQXWmDB3yBOXExgVTX9i7et0KIlcumG7W1GGLKvL6?=
- =?us-ascii?Q?D67b9qTDOZgdnuqL3+qtOt+NANk7eeq8rHaY/frFVs5YAnkFJaQ8G9F43p0k?=
- =?us-ascii?Q?1bfWlsz+4mTiJPwvQl5iw389qZFQVOpuxoF13FUFyi87xSEGVpu8SAP2FIBh?=
- =?us-ascii?Q?q1RtfA0f4/GeZUh4JPb2AYjghHdvh8xA3HSuamdiaVs6niJISRCQK69JWbsW?=
- =?us-ascii?Q?+llJQGylgtwkDMoE75Wm+ZlJbJKwIuIpleuBzmtat4SEdHrSbKOJgwOzWOAf?=
- =?us-ascii?Q?xEX00bI/454PpVs4SrLOzzfoxK+1JCdK8MdJYTGrBxAFyQwd/7KbKiTVY/Oz?=
- =?us-ascii?Q?0djTzm1FIT96E+X9cLdhQ8AdhGWoySEMf7YTFVkCdXhP6riyh4SBjbSy4Vcq?=
- =?us-ascii?Q?l90wlbKO4PnJ8eI3FjIEd6YEulhqy8LYI3HGmpJpEsfuD3/pxLrHAMnc+NBs?=
- =?us-ascii?Q?cV+RJyEV6S9tz3Jfl1ej0HTKLm/FeX/fSh0IrGkK2Qop1ilI0+lcHbFWz+7a?=
- =?us-ascii?Q?KfVICsmgBw=3D=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c020f133-81a4-49d1-9b1e-08df189a765a
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+	=?utf-8?B?cVNiSE1ESEYrb2FqQk5tUXI4VmVaUnphZzFEUHlqdUlDZVhJMDRlampTaHhH?=
+ =?utf-8?B?WnpZVzA2QTN6UXpuTWZhTHZsMDVUVXk4eU13RlRENGFaWVlqMkdER051MERM?=
+ =?utf-8?B?dDQwdCt1ejRJUnRjcUdxTCt3SDBCUVhJNFNsY2l6R0xBcFVzNUZrdDFSYUk1?=
+ =?utf-8?B?RXd3bUd2dnIyaU5vMElQQ2FqZzE1MXV0Z2MyZkJycUhZVHJqcDZmbXJJWkg1?=
+ =?utf-8?B?MmxLUVVaUDZNODh3L1lkcys3R1RlUUFPcDdzRkpBOW8xQkpYUVBVN0ttcUpN?=
+ =?utf-8?B?eW9PYVYyRWxvTU9YQ2ZnQkJLcjQ3bFNtUUxnZXU1MUYrWHdNMSsrYTF4ZDhB?=
+ =?utf-8?B?Z3ZPbmZ3RWMxL2E2WUpMaFB5N1F6UG9Rd09XOTQwY2tQZmZHZnZCWVMzSURl?=
+ =?utf-8?B?MFRnZk04VGRHaW1kS1d4S1V2a215U3N4RmJCMjdQeTIwNTc0enBRREJsOWxF?=
+ =?utf-8?B?ZklGaklONERWODVvOEpzWll4Q2lSWnVaTm5EUXVLbTU0YXROclQrTFpnNE1Q?=
+ =?utf-8?B?dUx2dUF1RjEycXZmcFhScW9CelVvR1p3WXgyMGJWV0hlbFIrdGhiU3NMQ0dH?=
+ =?utf-8?B?SzFiMllUMXNUVVU0QXhpOXRiRU4zSmkyYjNtSXdPYWYwZk9MdDJkMjVOWS9h?=
+ =?utf-8?B?UnpKTmNzSWZDelgxU25ZL1dMVG9taVBGVWRwOW9OQitOZkpac3ZDOGZ0VW90?=
+ =?utf-8?B?cVZsQXNIU29RbVBqTVhCcStmaDF6YUJFT1ozWGhYdU9CeUJ5UXJTMmdkK2tW?=
+ =?utf-8?B?WStJNGp5WHBTcnB1SEt0R2dCSGJ5enZOZ2FrMW9aSnBFaU1udGxrNUM4NEx6?=
+ =?utf-8?B?ckhiMDA5VDBYTjVIYTErUHlUU2JCazV2bGRFd1J0dVJxODh0ZTBpWC96a1Iv?=
+ =?utf-8?B?aTJlcC93MjlMUGpzU05SR3VreXFrbHhjSHY2VDNlanFVb1pvbmpCVVVOM1hG?=
+ =?utf-8?B?VVQvaWlNb0cyZDJIZW5lTTNaNWtaeWNzaUV2NzkvQVlOU0E3RFlHMy8rZWlL?=
+ =?utf-8?B?Z3VDYU9YNGhranhqcWRmUkNOUGtmT0crUmR0VFl6RTI5Y2ZseG82VHZkN0dm?=
+ =?utf-8?B?amo5dGhiUHREUG1aSml3ZzNjU2lKc0ZTZDl4VTJtZEM3VElMdVNvVEZ3cE9X?=
+ =?utf-8?B?ZW1US20xS1NLUjExNDY5S0RFcUtjZ0RjeW0wanRYMHN3Zys4ZEw4b3dmYkwz?=
+ =?utf-8?B?ZHJURk16a1V1d2pQc2N4NTZLaE8wTHNnY3JqUEE1R3JFbFY3a3g2TWEwQkZJ?=
+ =?utf-8?B?TENxVWpKaEFpaE4zdmRQWEJJR1daQXdpS2FjdzEzNDczK0x3YjRKVUhjQmFH?=
+ =?utf-8?B?TmNmN2JBU1RZMmE4OThINmlOVXRIZEhmYnd2VTZlOGphRHNseWhUZnpJSXBz?=
+ =?utf-8?B?K2ZnUDBTZHROeGgxZWdKWkRwNFB6cmtQSTRTaXd3VlVmNkdrL3BlNVhzNit6?=
+ =?utf-8?B?aTNVR3N3dGx1ZVJYZnhXY3JjSmJ4cVdRSWJuNnB2TEtpaEhwRmx3WkNGOGQ4?=
+ =?utf-8?B?ZlN4SmNTazlOelRTeXQwS0tnQXpJSHUyS21QKzR1THRtWmdMQjk1RjZFWSs2?=
+ =?utf-8?B?YlJoYUFOTkpick1hYjNUUWRIQ2pXUEorNHdUZjdhY0JyWEJtQWpiQUtNd0cz?=
+ =?utf-8?B?eGc2WktxeXMzU09nbDNabFJZeCsvelQ2MitMMWR4TmIvbG5mSkF4dzg2MHda?=
+ =?utf-8?B?MW16MEVpaHZ3bEVuRWJ5dERBa3pMdG8vVnZoQTNuN2tGQ1lscjZJcS9KMTJS?=
+ =?utf-8?B?VG1oNnRiRlBnbzRDTW9jd1RhZ3NHVzVYdyttRXBlL2MwdVZmVnNUSzR2dGJQ?=
+ =?utf-8?B?R3R2cTlUM1pOaXlEeWY2c1VlVzRNdWJoaXFpMTNTalM3bm9JVXNaVHBmSlBY?=
+ =?utf-8?B?OUo5ay91c0VBZHNMMTc4TndNTFZscGtVSTFKdjlrYUdac0pNZTRRTXdRaW9U?=
+ =?utf-8?B?cEM3VWdmZmFqUjBwUFh1Z1MvWFdSRlNBYU56OVI4aitVbWZucTlnU0FWVk9U?=
+ =?utf-8?B?L00yOHdvZHF4d0hTaE4wMjFEVXZJODljdUd1Y2tncHNBY0Yzek9oam94cUlk?=
+ =?utf-8?B?dlRMa1dFclBjZEUvb1hqWFYzZ2VVcDI5K3J4ZjVxcmJCOFQyaVZ1NmFCZncx?=
+ =?utf-8?B?ZU5rZHQwWUZmcjRoaHpoeXFwRGNOdWRVMFBBRlQvRGVYWnNFNXVmSmI2aWZV?=
+ =?utf-8?B?RmkvWWRkZVR5eHJ4WklQSzJHbHhRYUl0eHlwVHJWZTZ1SHh2QjYxS0ZFUE5Z?=
+ =?utf-8?B?VFc3OHpBam5WUFdpcGdXSHh6SkJYWURkaUFOakVrUlVLZXltL3ZXVWFYSEh5?=
+ =?utf-8?B?T3Fjc3FDVE1SV0d6VkY1TUlCNkF2WS9jZlRpa1FIN0hEbTZLNk9rdkNWNU1I?=
+ =?utf-8?Q?Tj+SfiBj0V+hfOlWyCLDg77cxQfJgrIXr5Mal?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1121d227-1bdc-4520-14d6-08df189a8427
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 11:13:00.4797
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 11:13:23.5639
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F466QIkC/hKi9yTc5djHPrCQIATrzTR4m/lWxSA/kWlYMPF3wOoG+gbJGdr5O6bGylPWpevtFZkJJFcU0osDXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB989354
+X-MS-Exchange-CrossTenant-UserPrincipalName: bsthFgOX0BEBfN82yNOGvy5ScCrqF1T5hYOsHj788XUQ1JoXZ1i7CJ6DFyww4LEsbzhpvkRgbYYHASxjHjjikCJlZ0diwhPb4CenSaIIBITAk38oqW8RZiII6aMMt4qK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11191
 
-From: Tze Yee Ng <tze.yee.ng@altera.com>
+The regmap lock is taken by calling the lock and unlock callbacks
+directly at every call site:
 
-DDR50 has no CMD19 tuning, so the SD6HC read path relies on static PHY
-settings that need board/SoC characterisation. Read the read-DQS delay,
-read-DQS source and phony DQS assertion timing from the new
-cdns,ddr50-read-dqs-delay, cdns,ddr50-use-lpbk-dqs and
-cdns,ddr50-phony-dqs-timing DT properties at PHY probe, range-check them,
-and apply them only in DDR50. When a property is absent the existing
-driver default is kept - for the phony DQS timing, the derived
-REBAR_PULSE_CYCLES-1.
+	map->lock(map->lock_arg);
+	...
+	map->unlock(map->lock_arg);
 
-Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+The open-coded pattern forces every error path to unlock by hand,
+which spreads goto out_unlock chains and duplicated unlock statements
+throughout regmap.c and regcache.c and makes it easy to leak the lock
+on a newly added return path.
+
+Define a scoped guard for the regmap lock (DEFINE_GUARD) in internal.h
+and convert the users to it. The lock and unlock callbacks are chosen
+at init time (mutex, spinlock, raw spinlock, hwspinlock or none) and
+return void, so an unconditional guard is sufficient. Function-scope
+critical sections use guard(regmap)(); sites that must run work after
+the lock is dropped - for example regmap_register_patch() calling
+regmap_async_complete() and the debugfs cache_only handler calling
+regcache_sync() (which takes the lock itself) - use
+scoped_guard(regmap, ...) so the trailing work stays outside the
+guarded region.
+
+regcache_sync() and regcache_sync_region() are deliberately left
+unconverted: they already use a single goto out unlock path, so a
+guard would save nothing while forcing either a goto inside a
+scoped_guard scope or a control-flow rewrite, neither of which is an
+improvement.
+
+This patchset removes many manual unlock statements together with the
+associated goto out_unlock labels.
+
+The series is split to keep the regcache: and regmap: changes on their
+own commits and to preserve independent revertibility:
+
+  1. define the guard and convert regmap.c
+  2. convert regcache.c (except the sync helpers, see above)
+  3. convert the regcache rbtree debugfs dump
+  4. convert the regmap debugfs write handlers
+
+No functional change.
+
+Tested with the regmap KUnit suite (drivers/base/regmap/regmap-kunit.c)
+under ARCH=um: 551/551 tests pass, and 551/551 again with lockdep
+(PROVE_LOCKING, DEBUG_LOCK_ALLOC, DEBUG_ATOMIC_SLEEP) enabled with no
+splats. Built clean with sparse (C=1) showing no lock-context
+imbalance warnings.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/mmc/host/sdhci-cadence-phy-v6.c | 72 ++++++++++++++++++++++++-
- 1 file changed, 71 insertions(+), 1 deletion(-)
+Changes in v2:
+- Drop the regcache_sync() and regcache_sync_region() conversions.
+  They used a goto out unlock path that a scoped_guard cannot express
+  cleanly; leaving them as map->lock()/unlock() avoids mixing goto with
+  a guard scope (per Mark's review). No other functional change.
+- Link to v1: https://lore.kernel.org/r/20260921-regmap-lock-guard-v1-0-cdbd97b46074@nxp.com
 
-diff --git a/drivers/mmc/host/sdhci-cadence-phy-v6.c b/drivers/mmc/host/sdhci-cadence-phy-v6.c
-index 84592ae42762..0f47fa62d894 100644
---- a/drivers/mmc/host/sdhci-cadence-phy-v6.c
-+++ b/drivers/mmc/host/sdhci-cadence-phy-v6.c
-@@ -129,6 +129,11 @@ struct sdhci_cdns6_phy {
- 	/* Active delay element (ps); doubled when one SDMCLK requires > 256 steps */
- 	u32 delay_element;
- 
-+	/* DDR read-path overrides (SoC-specific) */
-+	s32 ddr_read_dqs_delay;
-+	s32 ddr_use_lpbk_dqs;
-+	s32 ddr_phony_dqs_timing;
-+
- 	/* PHY_DLL_SLAVE_CTRL register fields */
- 	u8 cp_read_dqs_cmd_delay;	/* bits [31:24] */
- 	u8 cp_clk_wrdqs_delay;		/* bits [23:16] */
-@@ -145,6 +150,7 @@ struct sdhci_cdns6_phy {
- 	/* PHY_DQS_TIMING register fields */
- 	bool cp_use_phony_dqs;		/* bit [20] */
- 	bool cp_use_phony_dqs_cmd;	/* bit [19] */
-+	bool cp_use_lpbk_dqs;		/* bit [21] */
- 
- 	/* PHY_CTRL register fields */
- 	u32 cp_phony_dqs_timing;
-@@ -523,6 +529,12 @@ static void sdhci_cdns6_phy_calc_dat_in(struct sdhci_cdns6_phy *phy)
- 	if (phy->mode == MMC_TIMING_MMC_HS200)
- 		phy->cp_read_dqs_delay = phy->hs200_tune_val;
- 
-+	if (phy->mode == MMC_TIMING_UHS_DDR50 && phy->ddr_read_dqs_delay >= 0)
-+		phy->cp_read_dqs_delay = phy->ddr_read_dqs_delay &
-+			SDHCI_CDNS6_PHY_DLL_SLAVE_CTRL_READ_DQS_DELAY;
-+
-+	phy->cp_use_lpbk_dqs = 1;
-+
- 	if (phy->sdhc_extended_rd_mode &&
- 	    (phy->mode == MMC_TIMING_UHS_DDR50 ||
- 	     phy->mode == MMC_TIMING_MMC_DDR52))
-@@ -530,6 +542,18 @@ static void sdhci_cdns6_phy_calc_dat_in(struct sdhci_cdns6_phy *phy)
- 	else
- 		phy->cp_phony_dqs_timing = 0;
- 
-+	if (phy->mode == MMC_TIMING_UHS_DDR50 && phy->ddr_use_lpbk_dqs >= 0)
-+		phy->cp_use_lpbk_dqs = phy->ddr_use_lpbk_dqs &
-+			FIELD_MAX(SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS);
-+
-+	/*
-+	 * The phony DQS timing derived above depends on the board's SD flight
-+	 * time, so allow a DT override to re-position the fabricated strobe.
-+	 */
-+	if (phy->mode == MMC_TIMING_UHS_DDR50 && phy->ddr_phony_dqs_timing >= 0)
-+		phy->cp_phony_dqs_timing = phy->ddr_phony_dqs_timing &
-+			FIELD_MAX(SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING);
-+
- 	if (strobe_dat) {
- 		/* dqs loopback input via IO cell */
- 		hcsdclkadj += phy->iocell_input_delay;
-@@ -693,10 +717,11 @@ int sdhci_cdns6_phy_init(struct sdhci_cdns_priv *priv)
- 	sdhci_cdns6_dll_reset(priv, true);
- 
- 	reg = sdhci_cdns6_read_phy_reg(priv, SDHCI_CDNS6_PHY_DQS_TIMING_REG);
-+	reg &= ~SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS;
- 	reg &= ~SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS;
- 	reg &= ~SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS_CMD;
- 	reg |= SDHCI_CDNS6_PHY_DQS_TIMING_USE_EXT_LPBK_DQS;
--	reg |= SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS;
-+	reg |= FIELD_PREP(SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS, phy->cp_use_lpbk_dqs);
- 	reg |= FIELD_PREP(SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS, phy->cp_use_phony_dqs);
- 	reg |= FIELD_PREP(SDHCI_CDNS6_PHY_DQS_TIMING_USE_PHONY_DQS_CMD, phy->cp_use_phony_dqs_cmd);
- 	sdhci_cdns6_write_phy_reg(priv, SDHCI_CDNS6_PHY_DQS_TIMING_REG, reg);
-@@ -881,6 +906,7 @@ int sdhci_cdns6_phy_probe(struct platform_device *pdev, struct sdhci_cdns_priv *
- 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
- 	struct sdhci_cdns6_phy *phy;
- 	unsigned long val;
-+	u32 prop;
- 	int ret;
- 
- 	phy = devm_kzalloc(dev, sizeof(*phy), GFP_KERNEL);
-@@ -919,6 +945,50 @@ int sdhci_cdns6_phy_probe(struct platform_device *pdev, struct sdhci_cdns_priv *
- 
- 	phy->delay_element_org = phy->delay_element;
- 
-+	/*
-+	 * Optional DDR50 read-path tuning. These are board/card-characterised
-+	 * values with no CMD19 tuning in DDR50; absence keeps the driver
-+	 * default (-1 => not overridden).
-+	 */
-+	phy->ddr_read_dqs_delay = -1;
-+	if (!of_property_read_u32(dev->of_node, "cdns,ddr50-read-dqs-delay",
-+				  &prop)) {
-+		if (prop > SDHCI_CDNS6_PHY_DLL_SLAVE_CTRL_READ_DQS_DELAY) {
-+			dev_warn(dev,
-+				 "cdns,ddr50-read-dqs-delay %u out of range, clamping to %lu\n",
-+				 prop,
-+				 (unsigned long)SDHCI_CDNS6_PHY_DLL_SLAVE_CTRL_READ_DQS_DELAY);
-+			prop = SDHCI_CDNS6_PHY_DLL_SLAVE_CTRL_READ_DQS_DELAY;
-+		}
-+		phy->ddr_read_dqs_delay = prop;
-+	}
-+
-+	phy->ddr_use_lpbk_dqs = -1;
-+	if (!of_property_read_u32(dev->of_node, "cdns,ddr50-use-lpbk-dqs",
-+				  &prop)) {
-+		if (prop > FIELD_MAX(SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS)) {
-+			dev_warn(dev,
-+				 "cdns,ddr50-use-lpbk-dqs %u out of range, clamping to %lu\n",
-+				 prop,
-+				 (unsigned long)FIELD_MAX(SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS));
-+			prop = FIELD_MAX(SDHCI_CDNS6_PHY_DQS_TIMING_USE_LPBK_DQS);
-+		}
-+		phy->ddr_use_lpbk_dqs = prop;
-+	}
-+
-+	phy->ddr_phony_dqs_timing = -1;
-+	if (!of_property_read_u32(dev->of_node, "cdns,ddr50-phony-dqs-timing",
-+				  &prop)) {
-+		if (prop > FIELD_MAX(SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING)) {
-+			dev_warn(dev,
-+				 "cdns,ddr50-phony-dqs-timing %u out of range, clamping to %lu\n",
-+				 prop,
-+				 (unsigned long)FIELD_MAX(SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING));
-+			prop = FIELD_MAX(SDHCI_CDNS6_PHY_CTRL_PHONY_DQS_TIMING);
-+		}
-+		phy->ddr_phony_dqs_timing = prop;
-+	}
-+
- 	priv->phy = phy;
- 
- 	return 0;
--- 
-2.43.7
+---
+Peng Fan (4):
+      regmap: convert lock/unlock to a scoped guard
+      regcache: use the regmap scoped lock guard
+      regcache: rbtree: use the regmap scoped lock guard
+      regmap: debugfs: use the regmap scoped lock guard
+
+ drivers/base/regmap/internal.h        |  11 ++
+ drivers/base/regmap/regcache-rbtree.c |   4 +-
+ drivers/base/regmap/regcache.c        |  43 +++-----
+ drivers/base/regmap/regmap-debugfs.c  |  24 ++---
+ drivers/base/regmap/regmap.c          | 182 +++++++++++-----------------------
+ 5 files changed, 95 insertions(+), 169 deletions(-)
+---
+base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
+change-id: 20260921-regmap-lock-guard-939bbf9dbeee
+
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
 
