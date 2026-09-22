@@ -1,57 +1,57 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B04D2773F7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE65226CE2C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:13:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790036026; cv=none; b=QJndEN1NYpoiexRGYw46jhNtJfvC0s6cOhBWnLws6nbJlbldWfOoiZMt1kY4CnFFJQTzNDUzbx18SPhBDiDZ2MWcAoDt++9j2ZVwiNDttCGzS3CGE5l9qneaeuey76KWxgU6pUDMRl7t4dpHCnsZUV2Og+/YkEoBVi9F3JmHMOI=
+	t=1790036038; cv=none; b=p6mT3QCiHyKPrEwjy/pjvYWH0cGaJdHRDAvtPEJ3jde+KCByewH8PKUR0XJ9TAlZtE0AeAxQ1IQeZEAhexyctTTbkn4vZ98IiBUKKrmxruyNNvKFt4jbhl4AWWeL0XWiGaEIzZU6t59nR9vrNIFfuhs6hC5/hFB9BT7zOJZomZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790036026; c=relaxed/simple;
-	bh=zCji+nm6bPfKkfRj+T++V9XtpQDPMG4grJBVw/GKfdM=;
+	s=arc-20240116; t=1790036038; c=relaxed/simple;
+	bh=8hkynfdu3qiULMUVYcyhuzcTSpgySEmn1WUnJFWpxKs=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=NgVX6Vuj9/CzFub3VKxU9K7J6H+2eAeGaWlqJReuBM0Ko6bvLC/UoVSzfZhb1S621lFJ0b+uIdq5s1k6McDiE0RmgPyc1w6gCYHGhMjHLJmT4wyZBv6mdW/4XGJpRb3tcYSoYznIEg/tBeNkd/sLSzLDHTpkuE5762jOhx6OBsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KzhHAdc7; arc=none smtp.client-ip=209.85.215.197
+	 To:Cc:Content-Type; b=SdZ7XlNmiGfRc6HOOyXAzgfUNWJe7oNGDCmFdzCqCguwf2CklKwhNGGz2gPj3n1L5K4v8aCnYHkPqEZCjbvHny3fVYG9bRXJwGNR2YQL11aJ+6h0xijPoWFwZhqypfa+bup+8AfpTk0GkpV97hl1BCOeNGd/chR2kIEzzVGBI4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g8uyAqky; arc=none smtp.client-ip=209.85.210.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KzhHAdc7"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1cade6b71so364644a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:13:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g8uyAqky"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-877ef1457aeso2766176b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:13:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790036020; x=1790640820; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790036022; x=1790640822; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=mXJYeSwmdO8BSBlAcqHdtDGYHg5nY+v9YdRsbiYIKqY=;
-        b=KzhHAdc7jxNsudFwjffBhoZnWITLpAs3fdkOqTXL1w+NAh3uuAMZsKaHzBdfcCyg7z
-         +CpUUC6oiEcd6PEtZUBQBJ5tu/es8QG1Wx0BzN4wCUwY/rVxCZ2qKR3pwN9FZQfV6uDv
-         DtbhLtoSBHXb9wyuk4TGEWIkfM5WLZ8VVFvc0qPlVaBsFoebxcMjgaFDp1fCMObWhw+O
-         lJyXg7A1bZLVD9c52ACNlrSLE4dk485VwcbSDLz5EN72lFaUkBWn+Uo+d1TGBaOHDQIo
-         Exo5uY68vKl9E8fVVDoYerLUD14s+q+hIHgia/hOySadXpDwZ7f2CFURi0I4e53lACqJ
-         dd6w==
+        bh=1abdFyW8+E6I798OukP3jAN+Bgv2ctuNheDkfba7TQA=;
+        b=g8uyAqkyWWiQJgFx4Rns0exupjnv4x0BzODcp08OS9B3FJEGuOYZQTLDYWUYX5VP3C
+         KYcPH5Uyx/uxsPu3z7Ncex8VrYqhkYm59fmFhGFL7w8aNbAUo/w/7cjHpa+Xm+IS1nNG
+         lNuATo2v1zpbfwgqJYJI+iaLxJLh0ViVAFJLiIgh9PqM7d6OnteEkDD1cQIQbxNxZ/ku
+         7lKHoxHetSC5nAaLtRYq+RemwmwpPKbvVRHv0wFuqRFkdNtuDxtI95wYa854BH/+LO7J
+         B080GjKcALqpBAxLIEldnuOycpgWGE7JKDGJZff2oDwUjf0v6hL9YDc0JNHZBF0iXb9z
+         NVEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790036020; x=1790640820;
+        d=1e100.net; s=20260707; t=1790036022; x=1790640822;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=mXJYeSwmdO8BSBlAcqHdtDGYHg5nY+v9YdRsbiYIKqY=;
-        b=FNJZhJc3blFDxKZ5qjjJGked2uNNt4PbDdyr5WQoL9zDr2hizQW9+OaTKa3IbuBB70
-         2P449L6k+2L7AVA9x/hTK1Sn/NOHlgsUGDeTovO8GayDMYR6K8BWFxHFmygWpAfibBJM
-         4Tuex0BzHCE7PE4MKZPxv+Uu5uB7SrcNKSEo+DsCNjYf+hfb3S6+C09rxZ9CNPE+hzlU
-         4Bik4H7WjTb40N8exw3eCr15cLZ7TO+kkiOmmXpTKCZBKqdnsg8OWfEBL7ixlKD/VpgB
-         kyUB/Rd2WjKLlLtjIBefGeaBLRJiT5CK55IgbV5aSLlAp+RH5WBOIHApGtOYTDqVUoE1
-         A9uA==
-X-Forwarded-Encrypted: i=1; AKwUvBzaIDTn3MkrubI85lyooPrVneh5A3jt8lTvu+sQF5iFyyh+F8X8v+9GmfamPjeKcym979il9ct252CbKwY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEq/kjprDYB7Zj3H2Zgq/9DYr7zloPpkEQHXOmcozn9vCbpB6J
-	IJEF6jHi1XSgTZ4x4oxNTLcJzaVEmTFAN10xIQZplKom9uR23zXodMHKxH2tdmws+YzP+yfLBJQ
-	h7ua2lw==
-X-Received: from pgvn3.prod.google.com ([2002:a65:63c3:0:b0:cc4:aa2a:ae77])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:2590:b0:3dd:85a8:4c50
- with SMTP id adf61e73a8af0-3dde023e07dmr1126632637.20.1790036019241; Mon, 21
- Sep 2026 17:13:39 -0700 (PDT)
+        bh=1abdFyW8+E6I798OukP3jAN+Bgv2ctuNheDkfba7TQA=;
+        b=zbEmyPi5hgFSRyI/euUHdWYlXzvRKS925Xxr5yNqA5+qG5H3zaLp/bhDJ+21SJ0eax
+         yrLN+qVOHapPuQmNG2+W/jQf9FukeQsmtt+nffl+tRUL/WZhOWp5VPA48AMePDFpRmBu
+         IhH4Mn3cablLhTxp7742xuaM02BtWEAVloeXlkqqwyd4TeO0h2ruD/B4u8fI8LdYNcog
+         tB9+CbPGmX/wfucunetRmFtsRlhofopNrl6/5Gk48oIO0/tHD/U+fHq/Az3FTuIxH16D
+         a0U1s0394/q9GYZPVMPYzjJytk5Vi4GJO4giTg98PjH6Anw8XJ8RgJAfJXtiyH2umkCg
+         0MrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5iyAzn6XU12XMqxCzZhcS6NvRvbGUi7Un7sbh5mALmMtO0CA7Sa1A7dn/7dY8vAn3Y+iSE88R3AZL8pA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLB/k/mWD2Zf7U0X3/nu1cWZxVuHveCeHpU2wmVE9vP9z8aTrX
+	nhjbpW2cyCMUGHtUgH7UC//eeQMHiqprh0AhnRU2Y4V4GhvNWVTPNY0e1T9TbtJ05H2HRay1ziI
+	Y3FKYFw==
+X-Received: from pfbdl2.prod.google.com ([2002:a05:6a00:4902:b0:870:7bb4:8565])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:288a:b0:87b:784b:455c
+ with SMTP id d2e1a72fcca58-87b784b5205mr2503863b3a.56.1790036021541; Mon, 21
+ Sep 2026 17:13:41 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Mon, 21 Sep 2026 17:13:30 -0700
+Date: Mon, 21 Sep 2026 17:13:32 -0700
 In-Reply-To: <20260922001332.1121266-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260922001332.1121266-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260922001332.1121266-5-seanjc@google.com>
-Subject: [PATCH v5 4/6] KVM: guest_memfd: Split bind() into prepare()+commit() phases
+Message-ID: <20260922001332.1121266-7-seanjc@google.com>
+Subject: [PATCH v5 6/6] KVM: guest_memfd: Drop superfluous WRITE_ONCE() when
+ binding a memslot
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -71,200 +72,35 @@ Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger
 	Yan Zhao <yan.y.zhao@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Split binding a memslot to a guest_memfd instance into prepare() and
-commit() phases so that KVM can separate preparing the memslot from binding
-the memslot to the gmem instance, i.e. from committing the memslot.  This
-will allow waiting to commit the memslot+gmem binding until the memslot is
-fully prepared, which is necessary as the memslot becomes reachable when
-the binding is created.
+Drop the superfluous WRITE_ONCE() when setting a memslot's guest_memfd file
+during initial binding, as the memslot *must* be inactive and unreachable.
+The superfluous WRITE_ONCE() was added by commit 67b43038ce14 ("KVM:
+guest_memfd: Remove RCU-protected attribute from slot->gmem.file") to
+maintain rough "parity" with the existing rcu_assign_pointer(), not
+realizing that the only reason rcu_assign_pointer() was used was to make
+sparse and other checkers happy.
 
-As a bonus, drop the unwind-on-failure from the commit phase (other than
-nullifying the bindings), as the only reason bind() did the full unwind is
-because it technically didn't own the memslot, i.e. "needed" to leave
-memslot in the same state it started in.
-
-No functional change intended (the unwinding down on bind() failure was
-effectively dead code since KVM simply deletes the memslot on failure,
-i.e. there was nothing that could actually observe the unwind).
-
-Cc: stable@vger.kernel.org
+Cc: Yan Zhao <yan.y.zhao@intel.com>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- virt/kvm/guest_memfd.c | 68 ++++++++++++++++++++++++------------------
- virt/kvm/guest_memfd.h | 19 ++++++++----
- virt/kvm/kvm_main.c    | 18 ++++++++++-
- 3 files changed, 70 insertions(+), 35 deletions(-)
+ virt/kvm/guest_memfd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index c094611f7c7a..80932f4ec4a3 100644
+index 80932f4ec4a3..826d26036926 100644
 --- a/virt/kvm/guest_memfd.c
 +++ b/virt/kvm/guest_memfd.c
-@@ -641,15 +641,14 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
- 	return __kvm_gmem_create(kvm, size, flags);
- }
- 
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, uoff_t offset)
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, uoff_t offset)
- {
- 	uoff_t size = slot->npages << PAGE_SHIFT;
--	unsigned long start, end;
- 	struct gmem_file *f;
- 	struct inode *inode;
- 	struct file *file;
--	int r = -EINVAL;
-+
- 
- 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
- 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
-@@ -673,44 +672,55 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
- 		goto err;
- 
--	filemap_invalidate_lock(inode->i_mapping);
--
--	start = offset >> PAGE_SHIFT;
--	end = start + slot->npages;
--
--	if (!xa_empty(&f->bindings) &&
--	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
--		r = -EEXIST;
--		filemap_invalidate_unlock(inode->i_mapping);
--		goto err;
--	}
--
- 	/*
- 	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
+@@ -677,7 +677,7 @@ int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot
  	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
  	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
  	 */
- 	WRITE_ONCE(slot->gmem.file, file);
--	slot->gmem.pgoff = start;
-+	slot->gmem.pgoff = offset >> PAGE_SHIFT;
+-	WRITE_ONCE(slot->gmem.file, file);
++	slot->gmem.file = file;
+ 	slot->gmem.pgoff = offset >> PAGE_SHIFT;
  	if (kvm_gmem_supports_mmap(inode))
  		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
- 
--	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
--	if (r) {
--		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
--		slot->gmem.file = NULL;
--		slot->gmem.pgoff = 0;
--		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
--	}
--	filemap_invalidate_unlock(inode->i_mapping);
--
- 	/*
--	 * Drop the reference to the file, even on success.  The file pins KVM,
--	 * not the other way 'round.  Active bindings are invalidated if the
--	 * file is closed before memslots are destroyed.
-+	 * Gift the caller a reference to the file.  The reference will be
-+	 * dropped after bindings are established, or if installing the new
-+	 * memslot ultimately fails.
- 	 */
-+	return 0;
-+
- err:
- 	fput(file);
-+	return -EINVAL;
-+}
-+
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
-+{
-+	struct gmem_file *f = slot->gmem.file->private_data;
-+	struct inode *inode = file_inode(slot->gmem.file);
-+	unsigned long start, end;
-+	int r;
-+
-+	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
-+		return -EIO;
-+
-+	filemap_invalidate_lock(inode->i_mapping);
-+
-+	start = slot->gmem.pgoff;
-+	end = start + slot->npages;
-+
-+	if (!xa_empty(&f->bindings) &&
-+	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
-+		filemap_invalidate_unlock(inode->i_mapping);
-+		return -EEXIST;
-+	}
-+
-+	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
-+	if (r)
-+		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
-+
-+	filemap_invalidate_unlock(inode->i_mapping);
-+
- 	return r;
- }
- 
-diff --git a/virt/kvm/guest_memfd.h b/virt/kvm/guest_memfd.h
-index 0f9c6f840838..01bd359d27e3 100644
---- a/virt/kvm/guest_memfd.h
-+++ b/virt/kvm/guest_memfd.h
-@@ -8,8 +8,9 @@
- int kvm_gmem_init(struct module *module);
- void kvm_gmem_exit(void);
- int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, uoff_t offset);
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, uoff_t offset);
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
- void kvm_gmem_unbind(struct kvm_memory_slot *slot);
- #else
- static inline int kvm_gmem_init(struct module *module)
-@@ -17,9 +18,17 @@ static inline int kvm_gmem_init(struct module *module)
- 	return 0;
- }
- static inline void kvm_gmem_exit(void) {};
--static inline int kvm_gmem_bind(struct kvm *kvm,
--					 struct kvm_memory_slot *slot,
--					 unsigned int fd, uoff_t offset)
-+
-+static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
-+						 struct kvm_memory_slot *slot,
-+						 unsigned int fd, uoff_t offset)
-+{
-+	WARN_ON_ONCE(1);
-+	return -EIO;
-+}
-+
-+static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
-+						struct kvm_memory_slot *slot)
- {
- 	WARN_ON_ONCE(1);
- 	return -EIO;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index ccfd5f5102a5..45b509f4e54b 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2117,7 +2117,23 @@ static int kvm_set_memory_region(struct kvm *kvm,
- 	new->flags = mem->flags;
- 	new->userspace_addr = mem->userspace_addr;
- 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
--		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
-+		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
-+						   mem->guest_memfd_offset);
-+		if (r)
-+			goto out;
-+
-+		r = kvm_gmem_commit_memory_region(kvm, new);
-+
-+		/*
-+		 * Drop the reference to the file, even on success.  The file
-+		 * pins KVM, not the other way 'round.  Active bindings are
-+		 * invalidated if the file is closed before memslots are
-+		 * destroyed.
-+		 */
-+#ifdef CONFIG_KVM_GUEST_MEMFD
-+		 fput(new->gmem.file);
-+#endif
-+
- 		if (r)
- 			goto out;
- 	}
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
