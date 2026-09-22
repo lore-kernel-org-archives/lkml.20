@@ -1,216 +1,272 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013064.outbound.protection.outlook.com [40.107.201.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E643B3BF3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045454; cv=fail; b=QrF2LZOsCuRgPEWCxAqeMBGV/ePPgE6807n/d1VEadJK4xe2fQvKxsvAZmLJqxYi9bUDYylZHizXc5WWBTxBs5cRBXdQLRhNMBCIJekEx1W/BX3o2G82wz7308uNPC929rwcCcfA4OlGmQKSgA7r3YlAPYnq1x6vBxp6k7xFzsM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045454; c=relaxed/simple;
-	bh=RPbgtKudz4ITZK6rWqsCubsYVyRIYZKgso6i09EgObE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=bn5QqF6wHSFsVbLIzGxMVYl3MeMDqrTTAb7VlWCZSs1xahhSXRF6vTO+ksdOYbTQm6HFYvlp3nuSs04D01v3XxhQKX8DBZEZOrh6Jzf+2bUa1ZWuvbGAgqs2CUsNxfEugkkm93/eZXfq9QdNZziCOXJ5L8eaM7keqA4jLMkUGKY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hIsl92tf; arc=fail smtp.client-ip=40.107.201.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E287390223;
+	Tue, 22 Sep 2026 02:51:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790045490; cv=none; b=Ia5y6BWdjpkxRIAvofFAlJZ7Zp9vHm26W1JGWSDAy/0/A1cgVkSV1aU88pHrDEChuDkYTOIKVWzjU5vim+JpAf6VvMoX5fvrFI8x16TjQtWa0LrJsTfhUlk5iVzIea2eKMDWxaHqexYaERwAIpltrDCSe/A5tygbPNCQRmsNvJI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790045490; c=relaxed/simple;
+	bh=R9kDj8W8oPV0rV1XhKGPR20Lu2W4yp1OO979ghB0FF8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NHaNdKv/ouUalhjXmukj0O/y19sy6DTb1Yu1lMFMFeA0LLK77AAwugGufy+alBYEx+iwAj7YcBg6pjM6DyWH7KmkvX0T/6bMSWgFcQU8uBFxWp0reojcSHldrHBNmudQmK2VHW8El7KPo/Z1Bw8FlvvSvFpIscgkURQ9J+Y5kWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShfbejLW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hIsl92tf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B8mWaKTfGUCIg3OL2O5LUeuxUjHi3G+T5B+dsvuApuWth+7gRGOmFmB3GWrSwMIV6W6qV9eJcLLZ5lq/xcUt3VcCOK9RGiyL3+1Vdsp9VH9ixMutGXvXDsOdv+Vnsk2JOCa4t1+R3fXqLer45bM3LT7YuiJXDEhDVNknVZFp2gD4fiH/z3uYzCl9a9o/4PA/M79ytur6lzk6XnMntmeIhJERKWd+61lQhgu+JBU5OIvWRCtcY2gTBKuWIJlllMa1azSsC6qSoY7DAcTTlnY28Tobr1c+ihaH7JbzNiH1aG7iIZu0pPY1GiKym4hj9As8SwsgTBnPMih6QdzsVEG2eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4UWdwnvkAP/Abq18loqgIG7BKfPnh4nJiMzZKP/1LNk=;
- b=GkUSITU21pMmgUXRuov5ucUAlYCYw7AGWTbcV5pp0yy+iPBNhmdbJWXP8j/TwwkH8jN2HPj2zas4dLMER2cGiLOGJLt6+dHgDp0qWykHvEKj7/v/mkKLrJlPAp7+nKEoTuj4k7rm5lrMgKbv1TUNYhRTwgE/9SJj9gFC934wuM104sX7BMBZ42TE54+bs+gyQacaL9PiS94NCyGkbs+EZFUGBPkSOv7nSMDbg/FKKuITC24ApatDAyDHiU5P63BnP+E4DEe/Cd64SOMQrkr98OiNDnPGoy+VOx/6zJ7RBI9clnZQXbN9Ib5qHe4yEaN//uZjrYdWVYN28joZa+pl1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4UWdwnvkAP/Abq18loqgIG7BKfPnh4nJiMzZKP/1LNk=;
- b=hIsl92tf3O2B1bW4b2E0CUb8FVOnlJ23PnNVtj4CYykvB19/QzDKwpmCSNSQ8teTpBhOYfyj1thh8+8+idA04gq3xibE5Z8SYGT7IX41zYiiWlUi7xSRTE6YrfQMtJgoPWLSQKbmB8p24BYmAYkHRzLIDTv3GVIHkPf0d0kjkrOSs708tutzkzp2GcuTO8zkbJbNTVb/A2tkw/8tW5e7NFemq355FJBLCeQQ/HPFtBPB1YdeWGE6zUg8g+AN5Lz0H5VqQ7MHRoPbF+eQ6eWeTE1fKaUKeD8hHqnshjfRdbKoQE198M4yMSsUwb0M9Wt2e4iUCpKk/7RipUBN+9Atuw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DM4PR12MB9071.namprd12.prod.outlook.com (2603:10b6:8:bd::10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.13; Tue, 22 Sep 2026 02:50:42 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 02:50:42 +0000
-Message-ID: <8e026a4d-6e8b-4412-9621-4f4e0c441521@nvidia.com>
-Date: Mon, 21 Sep 2026 19:50:40 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/33] gpu: nova-core: gsp: add GMC dispatch on receive
-To: Timur Tabi <ttabi@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- "dakr@kernel.org" <dakr@kernel.org>
-Cc: "lossin@kernel.org" <lossin@kernel.org>,
- "a.hindborg@kernel.org" <a.hindborg@kernel.org>,
- "boqun.feng@gmail.com" <boqun.feng@gmail.com>, Zhi Wang <zhiw@nvidia.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "tmgross@umich.edu"
- <tmgross@umich.edu>, "alex.gaynor@gmail.com" <alex.gaynor@gmail.com>,
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ojeda@kernel.org" <ojeda@kernel.org>,
- "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "aliceryhl@google.com" <aliceryhl@google.com>,
- "bhelgaas@google.com" <bhelgaas@google.com>,
- "gary@garyguo.net" <gary@garyguo.net>, Alistair Popple <apopple@nvidia.com>
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-13-jhubbard@nvidia.com>
- <83e33dab67a0f571c269262ef052e68eab9dadf9.camel@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <83e33dab67a0f571c269262ef052e68eab9dadf9.camel@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShfbejLW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504D01F000FF;
+	Tue, 22 Sep 2026 02:51:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790045489;
+	bh=36RoBHrGwE33gPaLsCa4JqDBN5flOBzjbxVU/7LN+fs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ShfbejLWYT5Pto442bf9M8iuF8OwXhPqxB/ZFYcDAW8JG4hfSbTlPvPaZNTV158AN
+	 6guZPlQVL1jn0leaqRPdUjjhJZNCJrqoK6exnG8X7Dgpus+fZZhMyzq+bSui2qju1/
+	 waqBTIjw0ngKdPWGbbCOMPTXKLdxOA/I5FXrz4V5Gs/jYJILHvSQsH2m4M31BJTglS
+	 AjGovBLT1v6TZyZYiszMBGHxfDcb4ryoA523G3QNJ9OQXi8/WCyAKtMnw1qr1bc69f
+	 jyhlv2zgvKowgpPJIKpl4BGop7JmizxLssZ2zFN69WsJxlDXllomQ57yK2ceKkb1ej
+	 BeB/DsaLs+YAg==
+Subject: Re: [PATCH net-next] net: stmmac: Setup TBS only if HW supports it
+From: netdev-bot+sashiko@kernel.org
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, kuba@kernel.org, pabeni@redhat.com,
+ edumazet@google.com, davem@davemloft.net, alexandre.torgue@foss.st.com,
+ mcoquelin.stm32@gmail.com, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
+Date: Tue, 22 Sep 2026 02:51:27 +0000
+Message-ID: <179004548784.2160803.5129187589966240478@kernel.org>
+In-Reply-To:
+ <20260918023530.31971-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References:
+ <20260918023530.31971-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH5P220CA0013.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::10) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DM4PR12MB9071:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab0ec6cd-87ef-4d3b-0b11-08df18544b05
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|4143699003|56012099006|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	4nYW2RhHvEMieR/JkULwjPLWW19p/fLQnOIaoOD4lMPQ5EkW03GD8FMeZulN8+JMM99sI/1OtOTuD9jW6MLaQRYpETjo77v6U03g2hfweqC+mLcimytaGMkEKArkyryijSDeg7RSlDwY4mDs/I8fUehohiRrJ6Yq7HsIzs3dVb973Cm/0LIEVr80N5MfY+l/phMyvuASjxHPOsSJDnkexl0eHlxYCfRyzgeE5J0jfz4E5RMd8bkouvRlIVk4WSQMJqd4/B7J+//AAm9Z4uhRy+S/eKjQUau+Pyfavq+NpuavR+Hq499g5uBVT/2ucaRbl/2DykNdPDmXGdJ38otlQwFD6Lm08GtwNGv8mtIYo8T+m+gR/anm4PHxnGc/RE999SvP3TwyPoNWmdHMTumKTkFVdxAeiuRwqqyYubAVKr9eXJTL2Zv7gUYHbsnkkEeM4wuAgtq+as6BBQ25kB1aQ8IeJQHBteDUHbYrnnT82N3P8ABiEqsOCcsf43eJE1FdH+QLHRX5ErD+YTvmKLghlln2chnLXuaVsfv4PxCl9UflHYRFJFAYCV3XnpF//VRawHqydmSf+ixMfgZdcq/89pWWtgARBBkBWONDQEsnhntnONiPRdzoYLsYVtVVsV/3QPdCzxyxC/mtNmNjqQO02sjPeE68MjzqKlPqBuOQJzc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y29rNkZqYmlKZ2cyOUVwK0JlTWhGdW9oWVRTYVBpdjE2YjVjTzNTOXEzOUFZ?=
- =?utf-8?B?NnlQWHhtMlR3S2tWRU9PbmdLYlRUQmVmNGozT2lJRXVJZ28ydThoOUkwUWdF?=
- =?utf-8?B?d0tweTYybFUxSGpMTDVwbDVEM1BheGFXYWs5OCtZQkE3NjM1dmVYcTByM2NP?=
- =?utf-8?B?T2xkNnlWQndlVkVaNnN0ODd2cUhJeTU2Y1V6YXlPNWpINWwraWV3MnlEanlz?=
- =?utf-8?B?UU1KUDVFVjVGa3RlMjRUTjF2a2lzZllrTHNQK29FUVByZGFlbmJyMldabTJr?=
- =?utf-8?B?N2tsR0RXSDFlRUZHNTdIYi91ZVhTc1QyWkVVZVZwRlQxT1p1QUhWbXIwbkE2?=
- =?utf-8?B?Mk9FVXF3Mm5sdnY2YmJ0WGNyOEI2dlh0bGlLL0M0bUg3bWtXbThXaU10ak5B?=
- =?utf-8?B?S1J0YXl2OUZpYnM3a2c0YmZMK2puYUJQNWswUHZ3U0lvbVRlKzVma1Bodlc4?=
- =?utf-8?B?SGRGd1pqcVVMVHRjTVZzbXhJdUVvaFFDei8zL3BHckFxekVqZVkxWmhQV2p2?=
- =?utf-8?B?cEVOVGhlSE1WT1lsS1pYTjZGeTBKeUo4c2ErTnVQM255QTZVSlA5UkgwaTNh?=
- =?utf-8?B?OVFZY2RpeHAzdVVMelBTN0FEWFdZMm92K1RwSTJ2QzFLQzhKeHlOb2JxeC9K?=
- =?utf-8?B?QlpPSFJsMzVsLzEzSWxldWVEa2V1Unp1eE0xYjBNckdLNlBhL09OT0FmZitu?=
- =?utf-8?B?VTE1Y2gyZ3BLSXJQZEdudDc5MlpFWEdzY3V1ZmxKZW1mUTRxVkJaeTFEMHZI?=
- =?utf-8?B?VWdBaC9hRFFXdzZtV1BxNGo2TlNycEpiMmt3bVU2Q2p3YUFrRkx3Um1oeEZH?=
- =?utf-8?B?RUhVbjFVQzQyZ3lob1BxNnFYdjdTOEFMQWN6clVlMzMzYm0rcThSV2J2amxs?=
- =?utf-8?B?YUg2ckNPaXpxRE95V3NtbC8rMlI4REFOaXFGS1N4MWhISHNuRGR0STI1YWxl?=
- =?utf-8?B?TFd5QXJhUlE4MmkrVndjNTBkMCtjOHFZRHZ4c0dIMWE3cEkwM0ZQZmpnUGxi?=
- =?utf-8?B?TXJ0WmZLTnQxWERmZWJLZldSUjhONXNEMUtZZWZBZnRUN1lkbE5sQVhuQU96?=
- =?utf-8?B?cmpOSGUyUGJQQmVqYkxwb3VITlNrUURrM2ZTZ05YNTd4ZXhXUGpyNTZKTnBE?=
- =?utf-8?B?N1Z1NVQ1NVVRRVdvSXlNb0RRNEhsWDhmTFh3VkhNQ2UySEs0SFBlVFp1Z0ZB?=
- =?utf-8?B?Nm5JOXpvMk9tcGh4UE9GTXdVTld2MXIvcjltNWlxNm1NT3g4aisyT0VDb3JW?=
- =?utf-8?B?aHlWZVVCeWt5WWE3Wm9Ra3hzK0VYQkdxa2NBV2k4cjFxSXp5N2U0bTA3NVBY?=
- =?utf-8?B?Ly9NVjY4bDh5NG1CaUtqaVhIOVUrNGdjSG5IelR4WUQ5aUJPcHJ1Z3pYRGpw?=
- =?utf-8?B?MjNndDJESUFNejA4YVNmUVM0Z1BjRjZDMFMyam9BQ1A4SHFOV0w0UHAyckNv?=
- =?utf-8?B?RWExRC9wblhjSk5JMUV3WXd2UVBWL0NqdFZwUmF6VU4ySzBEQnErM0tTQlpt?=
- =?utf-8?B?MkVWTGVhN2VsN1h6TmNYM1FFNm9Ba3B0L1FrNkNhd2ZtaUlDL2pHZWk0QXg0?=
- =?utf-8?B?R0hjTDlma2hFejVON0x6WEpZS0ZGREs5RlJEUi9qTkJBbjRKYmxiMnI3UkFu?=
- =?utf-8?B?LzVCOHdwK0M1bjBNT3J6eCsvSzRwVDYyZkFCLzdtNXplRmNnbUNTWGFMYStO?=
- =?utf-8?B?MEl0NnFuYkdnZzBCdUdqOFVkRzlwa3VCOTVDY0xENzduL0x0MExjWXE0bzhK?=
- =?utf-8?B?eG5aeFd3VTJORExCZ0RXL3ZVYTFIUUFkNkFPUDVWSkM0NDFBVW5zTGgrWVVa?=
- =?utf-8?B?V3hkMnNsNkxwNytZZWZQcmE3K1BHNHFpSC9Pem5KWDNmRTh0T1NYbkxHNDFJ?=
- =?utf-8?B?L0hpamx4MXpRZnlmRTRWMEYyL0lXSUNzTVdjdms3U01BUUEzcTkvNGI5UnF5?=
- =?utf-8?B?SWczdFEwWHRPS3N2ZUMwYVZmbXlKQjE2cEtvN2tCem9ZaGM5WCtvcDN0NlhB?=
- =?utf-8?B?cXRNSFZSdlNsRVJ1RjNHZFFialc0bzU1RWQ5c2Jmd2plOGdTYWdTQlBSc012?=
- =?utf-8?B?aTNBRExoNTQvVjQ3cDVlUStIb2FpRk1zYTB1Qno1TWhFN3JKUUkweUJUVXZO?=
- =?utf-8?B?YVBnWEpOQVlJdVcxSjVoL0plWjAxcmhVZ1hzd0FsLzdYMFZKbkkyT2dJWW14?=
- =?utf-8?B?d2hDMDVFZHdyUEd6ZWExaHRZUFBFeFltSWxub1RtSDBtNkxSdDF0dVNoVSsw?=
- =?utf-8?B?MDl1MmUvRTNHVVdFUVpOVGdOcld4MVdoc1l0cFpkSThNMFFteEJFYTBienRS?=
- =?utf-8?B?REtzaXM4ZkltbEQ1TXEzakk2ZjZNRTdobG1CalQvK1BNVHBLRndYUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab0ec6cd-87ef-4d3b-0b11-08df18544b05
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:50:42.6484
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p0CBnV90mMh8VxBGlK9leOJASR9Jbr89xOJRgf2rtnZOT1nnkCQUSx4F86QaYSSc7xCTSELGU/IMx0L4yF1LgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9071
 
-On 9/18/26 3:01 PM, Timur Tabi wrote:
-> On Thu, 2026-09-17 at 18:06 -0700, John Hubbard wrote:
->>
->>      /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are
->> logged and
->>      /// consumed.
->>      ///
->> @@ -1097,9 +1110,9 @@ fn payload_slices<'a>(
->>      /// # Errors
->>      ///
->>      /// - `ETIMEDOUT` if no element arrives within `timeout`.
->> -    /// - `EIO` if the queue is already poisoned, or if the framing is invalid, which poisons
->> it
->> -    ///   (see [`Self::poisoned`]).
->> -    #[expect(dead_code)]
->> +    /// - `EIO` if the queue is already poisoned, or if the framing is invalid, or if the GMC
->> API
->> +    ///   header and the queue element header declare different payload sizes. Each of these
->> +    ///   poisons the queue (see [`Self::poisoned`]).
-> 
-> What does it mean for the size to be "declared"?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Yuk! I have written it with better words, in v4, thanks.
+Critical: 0 · High: 0 (1) · Medium: 2 (1) · Low: 0 (1)
 
-> 
->>      fn wait_for_element(&self, timeout: Delta) -> Result<QueueElement<'_>> {
->>          if self.poisoned.get() {
->>              return Err(EIO);
->> @@ -1146,8 +1159,89 @@ fn wait_for_element(&self, timeout: Delta) -> Result<QueueElement<'_>>
->> {
->>              )));
->>          };
->>  
->> +        // GSP-RM writes both sizes from the same payload, so a difference means that one of
->> the
->> +        // two headers is corrupt, and the driver cannot know which.
->> +        if payload_length != num::u32_as_usize(header.gmc.size) {
->> +            return Err(self.poison(fmt!(
->> +                "GMC seq# {}: GMC API header declares {} payload bytes, element header {}",
->> +                header.gmc.sequence,
->> +                header.gmc.size,
->> +                payload_length
->> +            )));
-> 
-> This message doesn't clearly specify what the error is.  How about something like:
-> 
-> "GMC API header declares payload size of {} bytes, but should be {}"
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-hmmm..."should be {}" assumes that the queue element header holds the right
-value, but the driver cannot know which of the two headers is corrupt.
+- [Medium] The patch is a bug fix (it prevents a descriptor-format
+  mismatch where the Tx ring is laid out with the 32-byte `struct…
+- [Medium] The new gate in stmmac_setup_dma_desc() (stmmac_main.c:4128)
+  only checks the chip-wide capability bit `priv->dma_cap.tbssel`; it…
 
-How about this:
+Pre-existing issues:
+- [High] On a partial per-queue allocation failure the unwind helpers
+  touch queues that were never allocated and dereference NULL.
+- [Medium] In stmmac_setup_dma_desc() (stmmac_main.c:4138-4158), when
+  alloc_dma_desc_resources() fails because the *TX* stage failed, the…
+- [Low] `dma_cap.tbs_ch_num` is populated only by
+  dwxgmac2_get_hw_feature() (dwxgmac2_dma.c:457).
 
-        return Err(self.poison(fmt!(
-            "GMC element seq# {} has payload size {} in its GMC API header but {} in \
-                its queue element header",
-            header.gmc.sequence,
-            header.gmc.size,
-            payload_length
-        )));
+--
 
-It names the element, states the fault as one sentence, and puts each number
-next to the header that it came from. 
+net: stmmac: Setup TBS only if HW supports it
 
-Sample output: 
+The change makes stmmac_setup_dma_desc() consult priv->dma_cap.tbssel
+before honoring the per-queue tbs_en flag from platform glue, so that
+STMMAC_TBS_AVAIL (and with it the enhanced Tx descriptor stride) is only
+set when the MAC reports the TBSSEL hardware capability bit.
 
-  GSP receive: queue poisoned: GMC element seq# 7 has payload size 96 in its GMC API header but 80 in its queue element header
+A few questions about the change and the surrounding allocation path
+below.
 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index bf9e7e4cb1c3..c2c88660e422 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4125,12 +4125,14 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
+>  		dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
+>  
+>  	/* Earlier check for TBS */
+> -	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
+> -		struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
+> -		int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
+> +	if (priv->dma_cap.tbssel) {
 
-thanks,
+[Severity: Medium]
+This reads as a fix for a real Tx-path descriptor format mismatch, but the
+commit message carries only a Signed-off-by: trailer and no Fixes: tag, no
+reported symptom and no affected controller.
+
+Two anchors look plausible:
+
+  579a25a854d4 ("net: stmmac: Initial support for TBS") introduced the
+  unconditional
+
+      tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+
+  ba39b344e924 ("net: ethernet: stmicro: stmmac: generate stmmac dma conf
+  before open") moved it into stmmac_setup_dma_desc().
+
+Could a Fixes: tag and a note on which controller and symptom were observed
+be added, so the target tree (net vs net-next) and stable backporting are
+decidable?
+
+> +		for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
+> +			struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
+> +			int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
+>  
+> -		/* Setup per-TXQ tbs flag before TX descriptor alloc */
+> -		tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+> +			/* Setup per-TXQ tbs flag before TX descriptor alloc */
+> +			tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+> +		}
+>  	}
+
+[Severity: Medium]
+Is a chip-wide TBSSEL check sufficient here, given that TBS is a per-channel
+property in hardware?
+
+dwxgmac2_get_hw_feature() decodes a channel count next to the selector bit:
+
+    dma_cap->tbs_ch_num = ((hw_cap & XGMAC_HWFEAT_TBSCH) >> 28) + 1;
+    dma_cap->tbssel = (hw_cap & XGMAC_HWFEAT_TBSSEL) >> 27;
+
+and common.h documents tbs_ch_num as "Number of DMA channels enabled for
+TBS". dwmac-socfpga.c also states this explicitly for a shipping part:
+
+    default:
+        /* Tx Queues 0 - 5 doesn't support TBS on Agilex5 */
+        break;
+
+Meanwhile dwmac-intel.c, dwmac-imx.c, dwmac-mediatek.c,
+dwmac-qcom-ethqos.c and stmmac_pci.c set tbs_en on every Tx queue above 0.
+On a core where TBSSEL reads 1 but only the top channels are synthesized for
+TBS, doesn't STMMAC_TBS_AVAIL still get set on the non-TBS channels, so
+stmmac_get_tx_desc_size() still returns sizeof(struct dma_edesc) and the ring
+is still allocated with the enhanced stride while EDSE cannot stick on those
+channels?
+
+tbs_ch_num currently has no consumer outside stmmac_dma_cap_show(), so
+nothing in the allocation path looks at it.
+
+The -EIO produced by dwmac4_enable_tbs():
+
+    value = readl(ioaddr + DMA_CHAN_TX_CONTROL(dwmac4_addrs,
+                                               chan)) & DMA_CONTROL_EDSE;
+    if (en && !value)
+        return -EIO;
+
+is discarded at both call sites, stmmac_hw_setup() and
+stmmac_enable_tx_queue():
+
+    stmmac_enable_tbs(priv, priv->ioaddr, enable, chan);
+
+so a residual per-channel mismatch would be neither prevented nor logged.
+Does that make the commit message statement
+
+    "Gating on dma_cap.tbssel in stmmac_setup_dma_desc() prevents the
+     enhanced descriptor allocation at the earliest point, which is the only
+     place the mismatch can be avoided cleanly."
+
+too strong, since the same place could also gate per channel and/or act on
+the stmmac_enable_tbs() return value?
+
+Separately, a platform that requested tbs_en on a core without TBSSEL now
+silently loses it. Would a netdev_warn() there help platform owners notice
+the behaviour change?
+
+[Severity: Low]
+This is a pre-existing issue and not introduced by this patch, but it is
+related to the capability the gate now depends on: tbs_ch_num is populated
+only by dwxgmac2_get_hw_feature(). dwmac4_get_hw_feature() sets only
+
+    dma_cap->tbssel = (hw_cap & GMAC_HW_FEAT_TBSSEL) >> 27;
+
+and leaves tbs_ch_num at 0, while stmmac_dma_cap_show() prints both fields:
+
+    seq_printf(seq, "\tNumber of DMA Channels Enabled for TBS: %d\n",
+               priv->dma_cap.tbs_ch_num);
+
+So on a dwmac4-class core with TBSSEL == 1, debugfs reports TBS as supported
+immediately followed by a TBS channel count of 0. Should
+dwmac4_get_hw_feature() decode the channel count too?
+
+>  
+>  	ret = alloc_dma_desc_resources(priv, dma_conf);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but it sits in the path the patch
+touches: when alloc_dma_desc_resources() fails on the Tx stage, are the Rx
+page pools leaked?
+
+    static int alloc_dma_desc_resources(struct stmmac_priv *priv,
+                                        struct stmmac_dma_conf *dma_conf)
+    {
+            int ret = alloc_dma_rx_desc_resources(priv, dma_conf);
+
+            if (ret)
+                    return ret;
+
+            ret = alloc_dma_tx_desc_resources(priv, dma_conf);
+
+            return ret;
+    }
+
+alloc_dma_tx_desc_resources() unwinds only the Tx side, and back in
+stmmac_setup_dma_desc() the error path is:
+
+    alloc_error:
+            kfree(dma_conf);
+            return ERR_PTR(ret);
+
+free_dma_desc_resources() is bypassed, and dma_conf is the only reference to
+the Rx page pools, buf_pool arrays, coherent Rx rings and xdp_rxq_info
+registrations at that point, since the memcpy into priv->dma_conf happens
+later in __stmmac_open().
+
+[Severity: High]
+This isn't a bug introduced by this patch either, but on the same allocation
+path: can the partial-failure unwind dereference NULL?
+
+alloc_dma_tx_desc_resources() does:
+
+            ret = __alloc_dma_tx_desc_resources(priv, dma_conf, queue);
+            if (ret)
+                    goto err_dma;
+    ...
+    err_dma:
+            free_dma_tx_desc_resources(priv, dma_conf);
+
+free_dma_tx_desc_resources() then walks every Tx queue, including those never
+allocated, and __free_dma_tx_desc_resources() unconditionally does:
+
+            /* Release the DMA TX socket buffers */
+            dma_free_tx_skbufs(priv, dma_conf, queue);
+
+which reaches stmmac_free_tx_buffer():
+
+            if (tx_q->tx_skbuff_dma[i].buf &&
+                tx_q->tx_skbuff_dma[i].buf_type != STMMAC_TXBUF_T_XDP_TX) {
+
+For the queue whose first kzalloc_objs() failed, and for all higher queues
+that were never reached, tx_skbuff_dma is still NULL because dma_conf comes
+from kzalloc. Doesn't that oops? And if it were guarded, the following
+
+            dma_free_coherent(priv->device, size, addr, tx_q->dma_tx_phy);
+
+would be called with a NULL address and a zero dma handle for a ring that was
+never allocated.
+
+The Rx side looks the same: __free_dma_rx_desc_resources() unconditionally
+calls dma_free_rx_skbufs(), and stmmac_free_rx_buffer() dereferences
+rx_q->buf_pool[i] with buf_pool == NULL.
+
 -- 
-John Hubbard
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918023530.31971-1-muhammad.nazim.amirul.nazle.asmade%40altera.com
