@@ -1,107 +1,129 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E391349363D;
-	Tue, 22 Sep 2026 17:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8309844F54B;
+	Tue, 22 Sep 2026 17:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098444; cv=none; b=Yijrl3uZh/EtPHIXuhmDkZnlctRHp5lcLfD1QvOavOh9AxEei+V6PztXRH06k9Q4cCtfsJlTCQNkaMge8HRaA1e6gzQnwFzhh5BHbLfxh3qGoDv91cYSm+m29Rus9Vr/B6WMABiwM54ddwpy7mrDee0hCEiAb6AIf6NIpMDLkS0=
+	t=1790098446; cv=none; b=TaIfcAhYwSfJnxgODlUS0IXn6d83vux+VXRlA2oIxN7qkBABhK6lCj26ShrhY0TbvPURBYwLUe2GipXUOtsUWQYyCXOMRF2oFBOuB3qF2Ov9k73PUzuWVFke+t//VULnz0e4FE8cFeuZBhOTqoxrBiFZRUBSZh9WV0RR/whJV8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098444; c=relaxed/simple;
-	bh=0baLLuys1CJ0oeIru0FLFNP/+yOGsexT1mFgt23wufo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l87sXhnGuMLZ5YtECgWbfGAc0yQZEWXozvpxxom5v0rRdN70DcVLcjpQ8EeKp87t0C/zTCLIbID5SmTUCXnT7HXXeho94BPjNvJ1T109qg9ZbHaQ7G+qmDL7c+jb+uMtju6lLA3eNaowO83id3EJWAth4WIKIZtV1qcJAAY42XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=reY1I7bK; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=0LZJeU2U; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790098446; c=relaxed/simple;
+	bh=+ierMJ5BNyB1B9aHpPh9fRXepBsJBV6naGk/gxDdPAM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eAfQK26l1qXBfpalctn2n+zNivfSRAqAekE1U6u6Wq8tPH1IYGvHurt/tXT71ERK3KxKIYomyvdYoAcrLnAAVmB6TKVEtk7FxD/gZ/LJJLnZ58fX/Zveb0MAehc8B1pMFGYat4m/inGLJxxN9+s69bg4oyNqkLAthu7DIbAILVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cuMBiKEF; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="reY1I7bK";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="0LZJeU2U"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1790098433; bh=p7eL7CEIsluHKDjAYrzTOKe
-	1um/hH8UVgVqh8wu1Mrs=; b=reY1I7bKx8E1NX5G7MHIHjJw5IDTmfzKhS1aJ3QFxkzjO7p/15
-	EVi/yiR56Xb+TJtQq/3JAHmuoES6j7Dr9psJoCQ5Fhv7FtDy5a/O9CRDbsIRKsJbgBgZxw71QWm
-	M1lk8neNwuQ6vk58PS4BCxHsshhR8ZwwJehGqtclvIhgczTIijjEz7zHA7nlDc54JMQ17bNphXo
-	io91Yf3QB8Ovj/umVLgrn4CFA37++tuZg4EHeNScSMYJotqbaJceekbpJ8DSoFQijqgH7kY9uhn
-	oSIknC3KdA3mcLjNlqAHWHH18yEIgyuI4u8GAhKNik6LGZThBfiDhaL88xYcw3fwEEQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1790098433; bh=p7eL7CEIsluHKDjAYrzTOKe
-	1um/hH8UVgVqh8wu1Mrs=; b=0LZJeU2UH4F42xHxTDjd5Jdv6lSrF838OnZFhE5Bj/h6DwFdjm
-	qnsVv4Evk9XOS0XFcLbg4zjI3n1ITBysM3CA==;
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-snps-arc@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: [PATCH v4 0/5] Add two-byte cmpxchg emulation and wire it into the architectures
-Date: Tue, 22 Sep 2026 17:33:49 +0000
-Message-ID: <20260922173354.14404-1-brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cuMBiKEF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790098444; x=1821634444;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=+ierMJ5BNyB1B9aHpPh9fRXepBsJBV6naGk/gxDdPAM=;
+  b=cuMBiKEF7XQ/0sKyJYjO2LUPSztjpIG5qSmMNw0NrcRTYh8XDPgnyCXb
+   XNsXxcvkTE+BCUhRoonbkUS/NxYSIz5Q4o7el5QTFnNugm5zmV/h9RsDE
+   R1Mx35Nn8WefxzM4xQGAYYadHHO1EO8AQtpt/A7FtbgqvI4vk9roWa8D1
+   XEqhqAmzGmtu9dFl7feurLD0h+PS3hhITLxxTAO4/0sj4Uz9xTZZEitLQ
+   4uVDTMzKKJZJL0N17UVq2nM/bCZrCfTYE5xwRzXbtvW1QmBFOn/gj8Cmn
+   REjQw6bBKwumJi6MIivl9qhqmVzRshEnc+bhDYJP8T/SDQKeqkkl6E/fG
+   w==;
+X-CSE-ConnectionGUID: 79u+1pilSuKUQ3OOtokSoA==
+X-CSE-MsgGUID: /D4JYAEIRWyhWJeI9Q4ptQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101314727"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="101314727"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:34:03 -0700
+X-CSE-ConnectionGUID: f/F4kJrxSaKtFgFInBOCQQ==
+X-CSE-MsgGUID: SqbVynnPSVODHhdi1+tVjg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="272433513"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.110.31]) ([10.125.110.31])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:34:02 -0700
+Message-ID: <1bb206f7-3951-4579-b3b2-dcdbe3ce06a9@intel.com>
+Date: Tue, 22 Sep 2026 10:34:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/4] virt: tdx-guest: Use a variable to store the Quote
+ buffer size
+To: Peter Fang <peter.fang@intel.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ Binbin Wu <binbin.wu@linux.intel.com>,
+ Tony Lindgren <tony.lindgren@linux.intel.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Artem Bityutskiy <artem.bityutskiy@intel.com>
+References: <20260915092632.2822169-1-peter.fang@intel.com>
+ <20260915092632.2822169-4-peter.fang@intel.com>
+ <620e7e38-4287-431c-8285-575c84aa1f6a@intel.com>
+ <7ddf42ab-2f78-4edd-be39-ff9e5156d51c@intel.com> <arKtJxNMYHYSfXuO@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <arKtJxNMYHYSfXuO@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is v4 of the two byte cmpxchg emulation series, wiring
-cmpxchg_emu_u16() into arc, csky, sh and xtensa.
+On 9/22/26 09:30, Peter Fang wrote:
+> The pointer to this buffer is "void *quote_data" which probably needs a
+> better name too.
 
-v3 had changed cmpxchg_emu_u8()'s success return to (u16)old, which was
-a 16-bit mask in the 8-bit function, and a dead one at that, since the
-compare guarantees the low 8 bits of old are the byte being returned.
-David Laight asked where that cast came from. v4 returns old unmasked,
-the exact behaviour the one-byte emulator always had, so nothing that
-uses cmpxchg_emu_u8() through the widened prototypes sees a change.
+Yes, please.
 
-David also noted v3 extended the (unsigned long)(0 ? *ptr : (old)) type
-check to csky and sh but not arc and xtensa. v4 adds it there too, so a
-cmpxchg(&p, 4, 5) fails to compile on every architecture in the series,
-verified with each architecture's macro instantiated standalone.
-
-While adding the type check to arc, the switch subject turned out to be
-sizeof((_p_)), the pointer, not sizeof(*(_p_)), the pointee. On 32-bit
-arc the switch was always 4, so the size 1 and size 2 cases were dead
-code and every sub-word cmpxchg() went through the 32-bit llock/scond
-pair, comparing whole words against sub-word values, so the compare
-almost never succeeded. The switch now tests the pointee, and the u8
-path it was always meant to dispatch actually runs, so the one-byte
-emulation works on arc for the first time since the sizeof bug landed
-with the original cmpxchg_emu_u8() wiring.
-
-The host test of 972 cases across both halfword offsets against a byte
-level reference model still passes, and a 20000 case randomized run
-checking the masked compare and return against a hardware cmpxchg r16
-model passes with zero mismatches.
-
-David pointed out on v1 that a u16 prototype does not compile warning
-free when exchanging a pointer type, because the switch statements in
-the architecture macros instantiate every size case, so a pointer
-cmpxchg() type checks the two byte case, and the (u16) casts there
-warn. v4 keeps taking the old and new values as unsigned long and
-casting to u16 inside the function, so the call sites need no narrowing
-casts and pointer exchanges compile clean. The function still compares
-and returns exactly the 16 bits the caller asked for, which matches
-hardware cmpxchg r16 behaviour.
-
-The ARMv6 wiring stays dropped from v1, per Arnd Bergmann's offer to
-take the INTEGRATOR_CM1136JFS cleanup in his platform removal series.
-
-Bradley Morgan (5):
-  lib: Add two-byte cmpxchg emulation function
-  ARC: Emulate two-byte cmpxchg
-  sh: Emulate two-byte cmpxchg
-  csky: Emulate two-byte cmpxchg
-  xtensa: Emulate two-byte cmpxchg
+Also, does it really not have a type?
