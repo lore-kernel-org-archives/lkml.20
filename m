@@ -1,85 +1,149 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016B15172C2;
-	Tue, 22 Sep 2026 08:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1767541A571;
+	Tue, 22 Sep 2026 08:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067013; cv=none; b=aLYb2E6p8WBWya9L/vDxXa6hNrQJcwyuLDouGjk0XQaA2IZKKrYF1asxbo6Z3M+0FffERMkDEM9A1rMm4RFCh0e/rm7R4D1RBUcP3LpBsH9zLuC/9J6oJlSA1BRwh2r90HXX7PRlt4rYzwo2YGwl/RrpVHjVljyi3IqSWC5L9Yg=
+	t=1790067026; cv=none; b=EE5YDiodh9LVv9WiXbgCLj2qPXIKZW/zS8e75014iFty0g7pNvNW5PWYyxN5cK9sa2f0uBN7q3+QW7qoc02HrmjBVcpjbKqxL/Q0mJaAHcmZsXvmraZ0SgGrj4J2oN4r6y8oDjJZlrwgLGUOntsynBfAVL9gnBLKKouv0wXGqM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067013; c=relaxed/simple;
-	bh=ClbodkHrwN27abqBJADRyxKz+m8P1yTU7Ivb/J+3jW0=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=E3B+2eTEUFlBn1EKSAM3VRrb7vH+PjjQDnydkaTvls3NLjsPRodXrtkBcszZ6F4wFO89ulBplv/2zq2AaOKsjF6zaCEofSSWAcTtGE0f6fsvOt0x8CXoWwT2Sv/eFWUgTNRrssF4N4r9gGcWxzi7I6oRPx+c1tz75g5M7h+L2oE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=AR6rMfnA; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790067026; c=relaxed/simple;
+	bh=usJ9k0xIu/92xmYleGav7bAWB7qWarZ6/FOF9OnKu/A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gD/xN45nCUhZhv+CykhzcvATS3s+CNvAGYqjVz/llSAzPB2ieaH8kFIL2oIuWAk0lHLsnR7vtN/mBKn+otlsXCL+eEp9Op2a4LX3FYljsbjv28QsKvhJdoD4oE6LRO3r3tTGfMiZnlkONdZD45yybMUPHJa6RyDOQ2yVjJ50wEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=opWS6UUI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="AR6rMfnA"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 49259A48A8;
-	Tue, 22 Sep 2026 10:50:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790067009; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AsQHul3JGvX/Sfy5DReNtDp11C6brH4rBkG6S7rC1qQ=;
-	b=AR6rMfnAwioPtU1PCKJAGZQAmIau6i0Fc8YbcN8xcCSDWjx+rYjQkCEtJ1AAkbvC8No4/O
-	T3PsMlrTJmjidb+B9nfYdUp8L+HHRu6Zr6KqqrDdiqHEhVerwf7lAlnTW7kESbqHh0qs2v
-	uvS0kWmPYUXz8oiUy/TKLRVZ0uO+lVQ6JS5eVANuLpJNPiXrt/x2UwhqiMlfPLzGB0eM8g
-	Z9bKRauolg63keaouR1zE+FcwZ/fwFO4ZAYJNVNm8S3uAVjas7QamacnItQ3rtk6a5l+ni
-	OdelKJgOUuBRsuPLVjD53M2ZQDa83B/u1NWX5zTD9UeeE22smVwLtNfwxqeJeg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="opWS6UUI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97631F000FF;
+	Tue, 22 Sep 2026 08:50:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790067024;
+	bh=MgnVfIs/WpyD4SY8L5DNXFoVYC8LNakfhMUHMvbFWI8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=opWS6UUIeQBlbzi/lqwi28O+DUOes/PReZleyU9SEku2+DCGzbailNMW7b/ZtCdUv
+	 zOFvzBm1gjsHA5b0VHt7Pz0vmhsdWq04AGM0HtjGk7jUYkyz2/t2lz+9dMYddBo0/X
+	 Q/ODrq8zKKFCMOiWe6v40rMs3Yc+7q7me6TXdV6KKMcia5ljn8jBFx/hD3vFebYWbP
+	 esnI8HkZCnKOyEmkEjXDyq+om5pMh0kAWHuCjKl9j+BH8R1ylPLTZWTcbNqGbxday+
+	 kFzchDl/qpngYtFoyBC6wRozWKfkahqBvyI4f2sUuDr22/RyJfR7KzgUfrAHGQ5jOP
+	 EpURof2SIMj6A==
+Message-ID: <c6b2123b-539e-4c37-8105-3e53a5197ed0@kernel.org>
+Date: Tue, 22 Sep 2026 10:50:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 10:50:08 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 04/12] net: systemport: Fix missing phy-handle parsing
- for non-fixed PHYs
-In-Reply-To: <20260921231305.394773-5-florian.fainelli@broadcom.com>
-References: <20260921231305.394773-1-florian.fainelli@broadcom.com>
- <20260921231305.394773-5-florian.fainelli@broadcom.com>
-Message-ID: <b7f98fc21fb2187f431703519b5f1446@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: i2c: dw: Add DWC_i2c compatible
+To: Aniket Limaye <a-limaye@ti.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Bin Du <bin.du@amd.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vigneshr@ti.com,
+ nm@ti.com, u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+ Ritwick.Sharma@arm.com
+References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
+ <20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com>
+ <20260920-warm-lurking-poodle-dd73ee@quoll>
+ <de66ac18-6bc3-4693-bd76-df8113bdb914@ti.com>
+ <20260921111407.GU106095@black.igk.intel.com>
+ <6fa3b1a7-33bb-4619-a0a5-42d99c076d2f@kernel.org>
+ <20260921141031.GX106095@black.igk.intel.com>
+ <203f72c8-4a06-41d4-9212-9625f6be0281@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <203f72c8-4a06-41d4-9212-9625f6be0281@ti.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Florian
-
-On 22.9.2026 01:12, Florian Fainelli wrote:
-> In bcm_sysport_probe(), priv->phy_dn is only initialized if the device
-> tree node has a fixed-link configuration (of_phy_is_fixed_link). When
-> connecting to a discrete MDIO-attached PHY referenced via 'phy-handle',
-> priv->phy_dn remains NULL. This causes of_phy_connect() during
-> bcm_sysport_open() to fail with -ENODEV since of_phy_find_device(NULL)
-> returns NULL.
+On 21/09/2026 19:25, Aniket Limaye wrote:
 > 
-> Fix this by parsing 'phy-handle' via of_parse_phandle() and falling 
-> back
-> to of_phy_is_fixed_link(). Ensure proper of_node_get() and 
-> of_node_put()
-> refcounting lifecycle on both error unwinding and module remove paths.
+> On 21/09/26 19:40, Mika Westerberg wrote:
+>> On Mon, Sep 21, 2026 at 04:00:52PM +0200, Krzysztof Kozlowski wrote:
+>>> On 21/09/2026 13:14, Mika Westerberg wrote:
+>>>> Hi,
+>>>>
+>>>> On Mon, Sep 21, 2026 at 01:55:23PM +0530, Aniket Limaye wrote:
+>>>>> On 20/09/26 23:54, Krzysztof Kozlowski wrote:
+>>>>>> On Sat, Sep 19, 2026 at 02:36:06PM +0530, Aniket Limaye wrote:
+>>>>>>> Add the "snps,dwc-i2c" compatible for Synopsys Advanced I2C Controller
+>>>>>>> referred as DWC_i2c. Compared to the existing "snps,designware-i2c"
+>>>>>> dwc is designware, so snps,dwc-i2c = snps,designware-i2c
+>>>>>>
+>>>>>> I think this is *the* argument why generic compatibles are wrong.
+>>>>> These are 2 different controllers with some different registers and
+>>>>> vastly different register offsets.
+>>>>>
+>>>>> So, the official product name (short format) for the SNPS Advanced I2C
+>>>>> controller is "DWC_i2c", as per SNPS' own reference document [0].
+>>>>> Whereas the original "snps,designware-i2c" corresponds to the product
+>>>>> name "DW_apb_i2c" as per its own databook [1].
+>>>>>
+>>>>> So based on this I though it'd be best to keep "dwc-i2c" close to SNPS'
+>>>>> own naming, despite the fact that it does seem very similar to the
+>>>>> generic "snps,designware-i2c".
+>>>>>
+>>>>> If you'd prefer to make it more explicit, I could change this to something
+>>>>> like "snps,dwc-adv-i2c"? Although, again, this does deviate from the
+>>>>> convention that SNPS uses in it's own documents.
+>>>> What about just "snps,ai2c" or "snps,advanced-i2c"?
+>>> Can we just drop generic compatible completely instead? The block cannot
+>>> work alone, needs SoC integration.
+>> Works for me.
 > 
-> Fixes: 186534a3f832 ("net: systemport: use the new fixed PHY helpers")
-> Assisted-by: LLM
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> ---
+> Original intent was to try to develop a generic driver so that it could be
+> re-used by other SoCs with some more work (referring to an earlier 
+> series [0])
+> 
 
-> [...]
+I did not comment on your driver. I did not even look there.
 
-Not sure this qualifies as a fix, the driver never parsed phy-handle. 
-Maybe net-next material?
-
-Regards
-Nicolai
+Best regards,
+Krzysztof
