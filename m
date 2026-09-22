@@ -1,144 +1,86 @@
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A129490C08;
-	Tue, 22 Sep 2026 05:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.151
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4924C4A093B;
+	Tue, 22 Sep 2026 05:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056657; cv=none; b=E3e7vFtSyDmg1VLbyDQ6P+cvcinb61MCA+MdBJ3g9tueWAmyGN5rosXHl3zMWdqXSDCV8Nws/C5P7pN1Tsr8paKG7uGM44BTg+70Bk2rw8Pit5iyqxcNBh3t+pFbzU5rwxfFp3Z7a82Ustol0mdipXdJa45Mv+9be7mvh5eoWYo=
+	t=1790056672; cv=none; b=EpF4MCrewfVGFzxeHgPOkDVCN3WEGUFBS9c3scj6YIEAfn7iJXmOBXShaaki+XYkmcz3fTUVMXyGKijuoOfsVPxbtzcfTvT+6L9sWUcbPVWRo9AdqtjbdRbMA0bxtRACxZIW5u/bjfP3QH96ooonT5wlmDpZZIroAiti03sVsCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056657; c=relaxed/simple;
-	bh=QfiaBWqjN5vkZ0yP5ONXEOxCZ5+I4WD1PG33vC4TwHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iCVwuJuoCX4YrbrBDEUxopbEPIepk/FtUdO9PwynKmr8sebamMeNz6Wh5Qz64DldOvngDnL9gS6/nvGRN4gW8nbR4c0CLO7TY/0MTsVezYq2F+qlrs5Y6cmLhoQJyFXdEZjnbW8Q63rbLndNCguy16nw/yH5x10dVZN4NVkMgk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=rjC9+pcJ; arc=none smtp.client-ip=111.22.67.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1790056672; c=relaxed/simple;
+	bh=Lx7ODxm37rTQP6e6pRONwZx+3BrhqmMP7+xQR/x900U=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=XKJ2tlyymMvWP/f4NaKQQtJC+SiNGdEUI4llX+VEdUZNTprzCgNe00WL+XN3+o1EsYND9CY6d7L0S/KvDmFsd1Oo5xOoIfA5Jv7mV/ylHnHPx19wYUg8D8yEBbyMg9y5jY32AT210YOmLYSMIDEpsY1JzBohgQY4hZM3S6meKnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mZEtXmHM; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="rjC9+pcJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=rjC9+pcJw0yFaVyW1ol0SOxKBEmvWrs+94XlcGAfm0Oj1iM9/9DvjM5v6wrDSTZ6ZK29NrIxUKwNO
-	 62ouHIyaMcCwgYrUzcou3uuJkT4vEEIcGjEEY8bhYyKsKr2JCXWabM5mk+AyuY9dbt6xD8niC0qX1c
-	 AdTk/Id6pbIP/ryg=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ab2180d0e8-19fe7;
-	Tue, 22 Sep 2026 13:54:22 +0800 (CST)
-X-RM-TRANSID:2ee66ab2180d0e8-19fe7
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.102])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16ab21803bbe-a69b4;
-	Tue, 22 Sep 2026 13:54:22 +0800 (CST)
-X-RM-TRANSID:2ee16ab21803bbe-a69b4
-From: lvjunyu <lvjunyu@cmss.chinamobile.com>
-To: pablo@netfilter.org
-Cc: fw@strlen.de,
-	phil@nwl.cc,
-	netfilter-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	lvjunyu <lvjunyu@cmss.chinamobile.com>
-Subject: [PATCH v2] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
-Date: Mon, 21 Sep 2026 21:03:12 +0800
-Message-ID: <20260921130312.686493-1-lvjunyu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mZEtXmHM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Lx7ODxm37rTQP6e6pRONwZx+3BrhqmMP7+xQR/x900U=; b=m
+	ZEtXmHMirNDAojJZQc/Per7T10eKAICONBT9qhD+6OBNt1K0sBH4sCqhb81uSOGY
+	mSTpLEJvjOdkNRtXmtp1ADfHH0eHsXs6xO8r/5MLaDlOXuJ3+pmPqXjxD7RiHpC8
+	9p0FeFOMiyDkMAaJ7e/M1W9mogL2pU/YebncUtI9Uc=
+Date: Tue, 22 Sep 2026 13:57:43 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: viro@zeniv.linux.org.uk
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG] bfs: WARNING in mark_buffer_dirty when extending a file
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2SAvyeuU4t5SadZekdmEsTju82UcS4ufQl245Xc9AFnzDx1CUeUEVoNEnL3u+GDDKJiQeYbxJT7up3XLtG7FRdt4+C15oz9+dRUVPVlg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <6ac9099a.4ac0.1a0c7b10a6b.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:iygvCgAXv3TXGLJqFEVMAA--.39826W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+ReCNGqyGNf5TgAA34
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-When MASQUERADE --random-fully rewrites the outer UDP source port and
-address of a VXLAN-encapsulated packet whose inner header has
-CHECKSUM_PARTIAL, the outer UDP checksum is not updated correctly.
-
-udp_set_csum() takes the LCO (Local Checksum Offload) branch for
-encapsulated CHECKSUM_PARTIAL non-GSO packets, writing a complete
-(folded and complemented) checksum into uh->check while leaving
-csum_start pointing at the inner transport header.  In this state:
-
-  - inet_proto_csum_replace2() is a no-op (pseudohdr=false,
-    CHECKSUM_PARTIAL)
-  - nf_csum_update() -> inet_proto_csum_replace4(pseudohdr=true)
-    takes the pseudo-header branch which treats uh->check as an
-    uncomplemented seed, applying the address delta with the wrong
-    sign
-
-Fix this by using the offload target (csum_start + csum_offset) to
-distinguish the LCO state from the seed/offload state, and temporarily
-flipping ip_summed to CHECKSUM_NONE so both the address and port updates
-use csum_replace*() (the complete-checksum path).
-
-Test results (10 connections, single netns vxlan + veth environment):
-  Before fix: ~1080ms avg first-connection latency, 10 SYN retransmits,
-              UdpInCsumErrors incremented per connection
-  After fix:  ~29ms avg first-connection latency, 0 SYN retransmits,
-              UdpInCsumErrors unchanged
-
-Fixes: faec18dbb0405 ("netfilter: nat: remove l4proto->manip_pkt")
-Cc: stable@vger.kernel.org
-Signed-off-by: lvjunyu <lvjunyu@cmss.chinamobile.com>
-
----
-
-Changes in v2:
-- Fix both address and port delta (v1 only fixed port delta)
-- Use offload-target test instead of skb->encapsulation as the LCO
-  discriminator (addresses Sashiko AI review feedback)
-- Update comment to describe both CHECKSUM_PARTIAL states
-
-v1: https://lore.kernel.org/netdev/20260920074543.525572-1-lvjunyu@cmss.chinamobile.com/
----
- net/netfilter/nf_nat_proto.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
-index 64b9bac228e..cb70d85716b 100644
---- a/net/netfilter/nf_nat_proto.c
-+++ b/net/netfilter/nf_nat_proto.c
-@@ -54,9 +54,35 @@ __udp_manip_pkt(struct sk_buff *skb,
- 		portptr = &hdr->dest;
- 	}
- 	if (do_csum) {
-+		/* When udp_set_csum() takes the LCO branch (encapsulated
-+		 * CHECKSUM_PARTIAL, non-GSO), uh->check holds a complete
-+		 * (folded and complemented) checksum while csum_start
-+		 * points at the inner transport header, not at this outer
-+		 * udphdr.  In that state, inet_proto_csum_replace*() and
-+		 * nf_csum_update() take the pseudo-header branch which
-+		 * operates on an uncomplemented seed, applying the address
-+		 * and port deltas with the wrong sign.  Temporarily flip
-+		 * ip_summed so they use csum_replace*() instead.
-+		 *
-+		 * The seed/offload branch of udp_set_csum() sets csum_start
-+		 * to the outer UDP header, so the offload-target test
-+		 * below distinguishes the two states.
-+		 */
-+		bool lco = skb->ip_summed == CHECKSUM_PARTIAL &&
-+			   !skb_is_gso(skb) &&
-+			   (skb->head + skb->csum_start + skb->csum_offset) !=
-+			   (unsigned char *)&hdr->check;
-+
-+		if (lco)
-+			skb->ip_summed = CHECKSUM_NONE;
-+
- 		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
- 		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
- 					 false);
-+
-+		if (lco)
-+			skb->ip_summed = CHECKSUM_PARTIAL;
-+
- 		if (!hdr->check)
- 			hdr->check = CSUM_MANGLED_0;
- 	}
---
-2.43.0
-
-
-
+CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGFuIGlzc3VlIHRyaWdnZXJlZCBieSBhIHN5emthbGxlciBy
+ZXByb2R1Y2VyIG9uIExpbnV4CjcuMy4wLXJjMi4gVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3
+aXRoIEhFQUQgY29tbWl0CmRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAwNzZjNTYxNTcu
+CgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgY3JhZnRlZCBiZnMgaW1hZ2UgYW5kIHRoZW4gbWFr
+ZXMgdGhlIGtlcm5lbCB3cml0ZQppbnRvIGEgZmlsZSBvbiB0aGF0IGZpbGVzeXN0ZW0uIFRoZSB3
+cml0ZXIgaXMgbm90IGEgdXNlcnNwYWNlIHdyaXRlOiB0aGUKY2FsbCBwYXRoIHNob3dzIF9fa2Vy
+bmVsX3dyaXRlKCkgcmVhY2hlZCBmcm9tIF9fZHVtcF9lbWl0KCkvd3JpdGVub3RlKCksCmkuZS4g
+dGhlIEVMRiBjb3JlLWR1bXAgbm90ZSB3cml0ZXIsIHNvIGEgcHJvY2VzcyBkdW1waW5nIGNvcmUg
+b250byB0aGUKY3JhZnRlZCBmaWxlc3lzdGVtIGlzIHdoYXQgcmVhY2hlcyBiZnNfZ2V0X2Jsb2Nr
+KCkuCgoKRXh0ZW5kaW5nIHRoZSBmaWxlIG1ha2VzIGJmc19nZXRfYmxvY2soKSBkZWNpZGUgdGhh
+dCB0aGUgd2hvbGUgZmlsZSBoYXMgdG8KYmUgbW92ZWQgdG8gdGhlIG5leHQgZnJlZSBibG9jay4g
+VGhlIGJ1ZmZlciBoZWFkIGl0IGVuZHMgdXAgd2l0aCB3YXMgbmV2ZXIKcmVhZCBmcm9tIGRpc2ss
+IHNvIGl0IGlzIG5vdCB1cHRvZGF0ZSwgYW5kIG1hcmtfYnVmZmVyX2RpcnR5KCkgcmVwb3J0cyB0
+aGF0CnRocm91Z2ggV0FSTl9PTl9PTkNFKCFidWZmZXJfdXB0b2RhdGUoYmgpKSBhdCBmcy9idWZm
+ZXIuYzo5OTEuIFRoZSBjYWxsIHBhdGgKaXMgYmZzX2dldF9ibG9jaygpIC0+IF9fYmxvY2tfd3Jp
+dGVfYmVnaW5faW50KCkgLT4gYmxvY2tfd3JpdGVfYmVnaW4oKSAtPgpiZnNfd3JpdGVfYmVnaW4o
+KSAtPiBnZW5lcmljX3BlcmZvcm1fd3JpdGUoKS4KCgpUaGlzIGxvb2tzIGxpa2UgdGhlIGJsb2Nr
+LW1vdmUgcGF0aCBpbiBiZnNfZ2V0X2Jsb2NrKCkgY29tcHV0aW5nIGEgcGh5c2ljYWwKYmxvY2sg
+d2hvc2UgYnVmZmVyIGlzIG5vdCBiYWNrZWQgYnkgYW55dGhpbmcgcmVhZCBmcm9tIHRoZSBkZXZp
+Y2UsIGFuZCB0aGVuCm1hcmtpbmcgaXQgZGlydHkgYW55d2F5LiBUaGUgc2FtZSBjYWxsIHBhdGgg
+d2FzIHJlcG9ydGVkIGVhcmxpZXIgYWdhaW5zdApsaW51eC02LjEsIHdoZXJlIHRoZSBzYW1lIGZ1
+bmN0aW9uIGZhaWxlZCB3aXRoIGEgbnVsbC1wb2ludGVyIGRlcmVmZXJlbmNlCmluc2lkZSBiZnNf
+bW92ZV9ibG9ja3MoKSBhdCBmcy9iZnMvZmlsZS5jOjEyNTsgdGhlIGNhbGxlciBwYXRoIHRoZXJl
+IHdhcwppZGVudGljYWwsIHNvIHRoZSB1bmRlcmx5aW5nIGNvbXB1dGF0aW9uIGFwcGVhcnMgdW5j
+aGFuZ2VkIGV2ZW4gdGhvdWdoIHRoZQpvYnNlcnZhYmxlIHN5bXB0b20gbm93IGlzIHRoZSB1cHRv
+ZGF0ZSBhc3NlcnRpb24gcmF0aGVyIHRoYW4gYSBmYXVsdC4gSSBoYXZlCm5vdCB0cmFjZWQgd2hp
+Y2ggdmFsdWUgaW4gdGhlIG1vdmUgcGF0aCBpcyB3cm9uZy4KCgpUaGlzIGZhaWx1cmUgd2FzIHJl
+cG9ydGVkIGVhcmxpZXIgYWdhaW5zdCB0aGUgbGludXgtNi4xIGxvbmd0ZXJtIHNlcmllcyBhdApo
+dHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9M2I3YmZhNDgwZTU5YWY5NGY4
+OTYsIGFuZCB0aGUKcmVwcm9kdWNlciBiZWxvdyBpcyB0aGUgb25lIGZyb20gdGhhdCByZXBvcnQu
+IEl0IHN0aWxsIHJlcHJvZHVjZXMgb24gdGhlCnRlc3RlZCBtYWlubGluZSBrZXJuZWwuCgoKUmVw
+cm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjrCoMKgaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L0tj
+cDAycWRxCmNvbnNvbGUgb3V0cHV0OsKgwqBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvRzcxN1BH
+TloKa2VybmVsIGNvbmZpZzogaHR0cHM6Ly9zeXprYWxsZXIuYXBwc3BvdC5jb20vdGV4dD90YWc9
+S2VybmVsQ29uZmlnJng9NGE3ODI1MTgzMjVjYjA4MgoKCktlcm5lbDoKCgpIRUFEIGNvbW1pdDog
+ZGYyOTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1NwpnaXQgdHJlZTogbWFpbmxp
+bmUKa2VybmVsIHZlcnNpb246IDcuMy4wLXJjMgp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMiAoYW5ub3Rh
+dGVkIHRhZyBvYmplY3QgNWUwMzZjZTEyZGU5MWM2ZmQ2NzRkYWQzM2IxNjljNjE1MGJlMmE3YSkK
+CgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0
+IHJlZ2FyZHMsCkNoYW5namlhbiBMaXXCoA==
