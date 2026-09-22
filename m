@@ -1,158 +1,138 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B2A851991C;
-	Tue, 22 Sep 2026 21:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06D954CF54
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790114050; cv=none; b=qlg+Huo3kgyIQWgjkmsJrfHttut+1oGjnHkhzRpvRmXEp0cC8LZdLvojzX3I9KRDnWt50DsPtHT6DWjU9eBVzFhMTGaDVA+ucaWeiHmlq+LaYxKF3p3CJ4w/80yKlwkqjDDuaP0lSQt8gzearFIeR7+wduNFYel5rrEvyuc8m6o=
+	t=1790114080; cv=none; b=olyXqzuCKkQfca46GEeW9/ruQFmhlskyneEmli4bgkjyw+RvRJdi6EcitRwc3VCk36C1++AUk2fquIAcJwrVxVlLZ4hSmLfauxjoS0Rpzdzh0NmOCQIFh5OwzuM2dM2aPDpU4/7PC2cbpupCnCQoHKfRGjie3+sSCMZzuW5E4/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790114050; c=relaxed/simple;
-	bh=iEXKQcOzPMWsKYq75EaN1jiHJmAyzN7PwBoNzOtpC8s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RysxuvHoaoeau/Aadbtbqw5TUBTjgmDQ+Gmuy6d/YEsKhj6iaL8Ue+KqZVz4BSrLJUjJV9/DY58cJK6IUAsix+r7FGUQKQtptT17cxG45tySS+TUe6PM2lfUOtGxACbs9m2Rz/Naniu5vAvNYI/0Xwutf6MdpcKe0Qe+FqqV8Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Oo+XUytA; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790114080; c=relaxed/simple;
+	bh=p/L879OIYLV71+H//ZRE8I1I2qqyLrtjKa4SR+oC9TQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UavTLx/gp2ZGUg0K/gWERM+h7UCy2QcNT6NwvsyRvxZ9HJ47o0jFfL3VDI2x17KyMKbIZmlub69S+nwRcxruum/RLjyda0g+BE53mT/E/ZItfSArfp8NiMH7XDWkNWNapG5bITyJkT/H56oJt4qKWr7RM+Q2R0mYCZeN0WQmTs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YB5cPXDg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Oo+XUytA"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 345A21576;
-	Tue, 22 Sep 2026 14:53:54 -0700 (PDT)
-Received: from [10.57.9.113] (unknown [10.57.9.113])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A78413F86C;
-	Tue, 22 Sep 2026 14:53:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790114037; bh=iEXKQcOzPMWsKYq75EaN1jiHJmAyzN7PwBoNzOtpC8s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Oo+XUytAkDyV7Fg+PyMe7Zxe7vGy6ZfCfXw6bhiHy3FmXwXm3igb53OC7fXqwk2aA
-	 he530u1cUMeV+mpe6hv50rPvo5d7JeAOVBYfRDmkigHtNOUiTluS4EKTFJC3kRrFJY
-	 TFjqq5HT+a5NTBNXq06KQJiu5AtKO/xsciJ3ehWc=
-Message-ID: <528f3c4a-723f-47ad-a387-6e6a4179c96a@arm.com>
-Date: Tue, 22 Sep 2026 22:53:48 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YB5cPXDg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653FE1F000FF;
+	Tue, 22 Sep 2026 21:54:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790114069;
+	bh=edyCbCfDMGk1hxYeG4dNEljv0IUSAZo+nnHOkefLgjA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YB5cPXDg894MAfPTQJXanRS+r3sCLc6DCIuD8LXq0JyQrIpIgHJoPboKSVBrv3o4E
+	 BFCRB1pD6iwEq8JTHcfUjST0VFM90wTh0C87AI1BQnzdAxqpAQhgvEeL4hwFj64vLn
+	 cQqMVSxTInlcAAJJY6wzsTkTpX9U5qTJnxJuOS0iWXqFgzX8/5a5ahK4JeDaZRxmoI
+	 Kau7SXyQ8d5ObnCEExOvWrXWRodONzeYJHFPzbUvkL3C3y4bVE8oZohMPx8wdpQ6FQ
+	 cY1j3yIt8GZ2I8epQWDzp3gAFOVPiKLHiwhdxBWpgYrsW0N1IE1rFCH3QySY55UKIh
+	 fBNxc6AFxgZgA==
+Date: Tue, 22 Sep 2026 11:54:28 -1000
+Message-ID: <ec6c22eddc8ce0b1ef2434ed62acd560@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ Tejun Heo <tj@kernel.org>
+Subject: Re: [PATCH RFC 0/3] workqueue: Take the pwq backend from the attrs
+In-Reply-To: <arJO4eEGNzltAOk-@gmail.com>
+References: <20260918-wq_final-v1-0-5c43c08a26bc@debian.org>
+ <8a1437751a6da2c166284b1ca562fb0a@kernel.org>
+ <arJO4eEGNzltAOk-@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 01/20] KVM: arm64: protected VM: Handle user writes to
- CNTVCT_EL0/CNTPCT_EL0
-Content-Language: en-GB
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
- <20260920212845.707-2-suzuki.poulose@arm.com>
- <20260922122542.00006868@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20260922122542.00006868@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-On 22/09/2026 20:25, Jonathan Cameron wrote:
-> On Sun, 20 Sep 2026 22:28:26 +0100
-> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> 
-> Hi Suzuki,
-> 
->> Protected VMs doesn't allow setting offsets for virtual and phyiscal
-> 
-> physical
-> 
->> counters, as the offset is always fixed to 0. The VM ioclt is filtered
-> 
-> ioctl
-> 
->> out based on the cap. However we don't prevent the userspace from trying
->> to write to the CNTVCT/CNTPCT registers. This would lead to KVM triggering
->> a WARN() in timer_set_offset() as the vm_offset pointer is set to NULL.
->>
->> Fix this by always "fixing" the timer offsets to 0 and marking that the
->> timer offset is set in the kvm->arch.flags at KVM init time for protected
->> VMs. A userspace writing to the CNT*CT_EL0 would observe success, without
->> any real effect. This was chosen over preventing the writes to these
->> registers and returning -EPERM.
-> 
-> Why?  I don't mind the decision but telling us what was chosen is something
-> we can see in the code - patch description should give us the stuff we
-> can't see.
+Hello, Breno.
 
-I have modified the paragraph to :
+On Tue, Sep 22, 2026 at 03:34:48AM -0700, Breno Leitao wrote:
+> Right, I will create a function that maps/scale one to another. Maybe
+> the following?
 
-"Fix this by always "fixing" the timer offsets to 0 and marking that the
-timer offset is set in the kvm->arch.flags at KVM init time for
-protected VMs. This prevents the access to the VM specific vm_offset at
-low cost. A userspace writing to the CNT*CT_EL0 would observe success,
-without any real effect. This is cleaner over spilling *_is_protected()"
-checks and "matches" what we really do in practise. i.e., always run
-with "fixed counter offset of 0".
+Unbound max_active is distributed among nodes, with min_active as the
+floor on each node, so I think the conversion should account for both.
+One possibility, using:
 
-> 
-> One comment on the comment below.
->>
->> Reported by Sashiko
->>
->> Link: https://lore.kernel.org/all/20260908164641.416911F00A3A@smtp.kernel.org
->> Fixes: f7d05ee84a6a ("KVM: arm64: Prevent host from managing timer offsets for protected VMs")
->> Suggested-by: Marc Zyngier <maz@kernel.org>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->> Changes since v18:
->>   - Retain NULL vm_offset for protected VMs to avoid host tampering with the
->>     offset.
->>   - Moved the flag setting into kvm_timer_init_vm(), where it should have been
->>     in the first place
->> ---
->>   arch/arm64/kvm/arch_timer.c | 12 ++++++++++--
->>   1 file changed, 10 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
->> index 6ac3321f4c575..226cd5a495c8b 100644
->> --- a/arch/arm64/kvm/arch_timer.c
->> +++ b/arch/arm64/kvm/arch_timer.c
->> @@ -1110,8 +1110,7 @@ void kvm_timer_vcpu_init(struct kvm_vcpu *vcpu)
->>   		timer_context_init(vcpu, i);
->>   
->>   	/* Synchronize offsets across timers of a VM if not already provided */
->> -	if (!vcpu_is_protected(vcpu) &&
->> -	    !test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
->> +	if (!test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
->>   		timer_set_offset(vcpu_vtimer(vcpu), kvm_phys_timer_read());
->>   		timer_set_offset(vcpu_ptimer(vcpu), 0);
->>   	}
->> @@ -1133,6 +1132,15 @@ void kvm_timer_init_vm(struct kvm *kvm)
->>   	 */
->>   	for (int i = 0; i < NR_KVM_TIMERS; i++)
->>   		kvm->arch.timer_data.ppi[i] = get_vgic_ppi(kvm, default_ppi[i]);
->> +
->> +	/*
->> +	 * Protected VMs don't allow any offset being set from userspace,
->> +	 * either set via writes to the counters or using the dedicated
-> This sentence confused me.  Second clause isn't obviously the ways that
-> are being blocked. Maybe shorten to:
-> 
-> 	Protected VMs don't allow the offset to be set from userspace,
-> 	whether via writes to the counters or the dedicated ioctl.
+  U = unbound max_active, the system-wide target
+  L = unbound min_active, the floor on each node
+  P = percpu_max_active, the limit on each CPU
+  N = online CPUs in the effective unbound mask, at least 1
 
-Ack, will improve it.
+  Setting P:
+    U = min(P * N, WQ_MAX_ACTIVE)
+    L = P
 
-Cheers
-Suzuki
+  Setting U:
+    L = min(L, U)
+    P = max(DIV_ROUND_UP(U, N), L)
 
-> 
->> +	 * ioctl. Pretend the offset has already been set and rely on the
->> +	 * default offset being 0.
->> +	 */
->> +	if (kvm_vm_is_protected(kvm))
->> +		set_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &kvm->arch.flags);
->>   }
->>   
->>   void kvm_timer_cpu_up(void)
-> 
+  Setting L:
+    L = clamp(L, 0, U)
+    P = max(DIV_ROUND_UP(U, N), L)
 
+This would carry the minimum concurrency in both directions. Clipping L
+when lowering U preserves the existing setter's behavior. The cap and
+rounding make the conversion approximate. We could derive the other
+domain on explicit configuration changes and leave scope changes and
+hotplug to use the saved values, with hotplug continuing to redistribute
+U through the existing mechanism.
+
+> Sure, and probably call them from wq_adjust_max_active(), so,
+> independent of the one that is being set (percpu or unbound), it will
+> change the other as well according to the function above.
+
+I think separate kernel entry points and sysfs knobs for the two domains
+would be clearer. Each would have a fixed meaning regardless of the
+current scope. The conversion could happen in those setters, with
+wq_adjust_max_active() publishing the saved limits and handling freezing.
+
+> Oh, interesting, so, we are going to have CM toggable even for
+> WQ_PERCPU and also for WQ_UNBOUND+WQ_AFFN_PERCPU, is this right?
+
+The attribute could be changed in any scope, with its value taking effect
+only in PERCPU scope. Maybe give it a percpu_ prefix to make that clear?
+
+> Once we have it, what will be the difference between
+> WQ_UNBOUND+WQ_AFFN_PERCPU+CM from WQ_PERCPU? They look exactly the same
+> from a user perspective, no?
+
+WQ_PERCPU declares that per-CPU affinity is required for correctness, so
+the workqueue cannot leave PERCPU scope. WQ_PREFER_PERCPU starts in that
+scope but permits scope changes and follows the unbound cpumask when
+selecting the queueing CPU.
+
+> I understand that scope means 'enum wq_affn_scope affn_scope', so, you
+> want a WQ_AFFN_BH, right?
+
+Yes. Scope is largely selecting the backend, and BH fits there. It remains
+selectable only at creation, with no switching into or out of it.
+
+>   - echo -5 > nice succeeds and stores -5, whatever scope the wq is in
+>   - For WQ_PERCPU it runs on the highpri pool (nice -20 in practice)
+>   - echo 0 > nice, will turn the WQ_PERCPU workqueue into the normal
+>     pool.
+
+I'd map only -20 to the highpri pool in PERCPU scope and everything else
+to normal. The requested nice value would stay stored and apply verbatim
+when using an unbound backend.
+
+> Is this the final state you are envisioning?
+
+How about PERCPU and BH scopes, with PREFER as a modifier of PERCPU like
+CM? CM controls concurrency management. PREFER allows affinity to be
+relaxed. WQ_PREFER_PERCPU would set the initial scope and modifier. We'd
+still need to preserve the correctness requirement declared by
+WQ_PERCPU when changing attributes.
+
+These are suggestions. If you find a better way during implementation,
+please go with that.
+
+Thanks.
+
+-- 
+tejun
