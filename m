@@ -1,214 +1,255 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F074F3EDC;
-	Tue, 22 Sep 2026 14:43:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2EF541E75;
+	Tue, 22 Sep 2026 14:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088191; cv=none; b=gKXWuYt6+qlDpmKyjyP+IBE6YulOWxjL2oFTB5uzONJXp3LZ/ApprG0AFU8Oq3nJ6qxzyPXjvaOtxQBPAYnh3FEDOjjKBQhPj0EeN6ROTVxnsGQUbA63TmbU1AJbrFELO90BwOBXFqf+sEyyAZfeWDISfrn+zideOcX3sJCKdj0=
+	t=1790088193; cv=none; b=Px3km6VVnAzL58dU4VPaYzAp9bBTztb8fTgiRYS71XwRB7nuWQ83+5vcbt/+gRxuf+6Lsryq+byKnr0WD4iWkmf2kAoNL4ypQkyYd/Ztvig5A/KtuyYExHn2knSBf6cJlDjQrCxpKMkwfzOQ8JPZdK+byQpHveTU62qdEz6OrIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088191; c=relaxed/simple;
-	bh=4mj7Vzz5zDMP2KzdsKhKBXEVPBO4bkLy1+oWAOeLUMo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EeqLl+fikFx2PyjDZySsjwq/SDIeztvGHtISHJlvfMgSscZuSyOQq0RR5DvoImTxHmamcf8TbjHbW5HbhmYXPBhZbdv2MW6cr08q9maGsTGRcoRS+l4W11MgnLk+L/gYcT/oY27tI1dMMHsR6GNK8tk4aW6VHZEWvRrR1wEJfME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Mf0lsJbC; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790088193; c=relaxed/simple;
+	bh=L+MjaNC+6vbVKHKiU5TeC+hR3WeQzvMU3EAJtm6uQow=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cthDUNuL4bjCOmBtQBSYzc4bSvzrcFi4Yb+ZsIa3K58SWXGlr7Qbz2nJtQ6U09YhHZmjpyeg92ZOKU2NcAFaygDV9FFPGdlpizq7CFnlpRkUwSxN5X2U5lPiHLqx5hJ1VYl6PezOw9Oi6AgA+jnuG/+OWbZklXlef/3Q1AUftfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0oQRPoR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Mf0lsJbC"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBZiVv151857;
-	Tue, 22 Sep 2026 14:43:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=zM3T+k5lvFtKrDLDyntQQOkesxdxGMnXZlmsLk7+3
-	fE=; b=Mf0lsJbCP3ZWSVspIj918Q8cC+kTYHreviIoFSpAkJlwktqCavfieM0xg
-	6N4oy7R9zsZ3wdDzx3LtAnsCP0CTWekXKo9uKL5zT54sSw4dP31XY7i1QJ2AE1IN
-	2OnLAM2qDuStvDBXuA88T21Az0e98CFWynY8oKie9woRNbHyPV5VN60ZsozvGXoh
-	T8/LjMGy0h3LzKLfNF492+pd3mdwl/Wcht8Q1dsXLGU4kOxJo32glT568ShxG39F
-	KWn1xcrBod7m3+ckhIEK1wI1R7yGb+nm4+xCCPeFrxKGMy1p+8V1oyRyZl31OMgs
-	ik6g52/Wkp3OdmhemtVSStENi1kzw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1e3cg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 14:43:06 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBWWQS2774601;
-	Tue, 22 Sep 2026 14:43:05 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt53vjag6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 14:43:05 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MEh1Qb37749240
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 22 Sep 2026 14:43:01 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CB94720043;
-	Tue, 22 Sep 2026 14:43:01 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9FED920040;
-	Tue, 22 Sep 2026 14:43:01 +0000 (GMT)
-Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 22 Sep 2026 14:43:01 +0000 (GMT)
-From: Jens Remus <jremus@linux.ibm.com>
-To: Thomas Richter <tmricht@linux.ibm.com>, Jan Polensky <japo@linux.ibm.com>,
-        Ian Rogers <irogers@google.com>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Namhyung Kim <namhyung@kernel.org>
-Cc: Jens Remus <jremus@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH] perf evsel: Improve callchain warning for s390
-Date: Tue, 22 Sep 2026 16:43:00 +0200
-Message-ID: <20260922144300.1217524-1-jremus@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0oQRPoR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EAF1F000FF;
+	Tue, 22 Sep 2026 14:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790088191;
+	bh=k/eih6V79KGOxd/VUr7lVIHhXKuG7/wdFpn9jH1v8Js=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=i0oQRPoR2grx2df/MWOgPanqEOnuePmw4f4ocXMvRD2K/a5y2F4+9KVEkqGSWdMJ7
+	 qFITaKXfA6eF+B7nRGKoUtlz3sykyZIEVcQF4j82paWq+G9T6GLOKWDMBHIWl68xcF
+	 ytVKscnXCFzjqT+K9km1qepD7l4J9/4BQ47/Fo0ToJkTcIMomNwBzxw2hwwwtjNLqS
+	 lnyNtWr1QPcJ9dWJCT1Eriohimh+vBtNofNDECnyIkOgozBK+WQNCD/VgqGz6ixtfC
+	 fZ25v7Huqkoo08tkf6Dq9TR3/ZbszP6/Sl4J3cd/tn7Pnp4PC7+jUruschgy0VhMo5
+	 A17DZeFdiO/zA==
+Message-ID: <8fd34672-493b-4d70-a2bd-1fe434b5ccda@kernel.org>
+Date: Tue, 22 Sep 2026 16:42:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: Sx5C3Mfj3crbMULlbd9kBHboE544xirR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIxMyBTYWx0ZWRfX43GEH3AT+frO
- HvqrZZpy9DJKDHZbE/J6n8IzFVUxr20WoeAFulFIRvOgOr4xaRIADtcsCld74qw3iuEv1uhMoNP
- lf+8pC/vIUOOz0Vpg9Kr/RDxw/dk4mEhJleP2jbgliYlBKsjpecuHs73C8sou7MhTx7soLXMtjQ
- lKnlqbbCxZGQ9RZipB6Xvn28+/o3vNPKNZI+uxsXPdyMwpIfMJnsoZLpv3SV7HJh0gtmzGEzvZk
- MDYrwZTOADb74mkDT7lLMsj1/qfxqxTS9uYzUXXx3rP8RIONbHnnH0vDM7II+rqbY0yfNDQuLni
- cmH7HQvvN+yz6zSXRdgNM+Lj2lKXvdtHzq/lj43Ja1LadWCLbayQPMygtzO9KPlc5U38gFR5frv
- M+pu24iVYASRiv+d3huJ7H04nhZtnn7TESxUyG6NswFTVjIDBznDcFZP1fYPCosOyuap92AN1Pn
- L86ZHGcEn61U1EHIi2A==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab293fa cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=TOY_8snQAAAA:8 a=VnNF1IyMAAAA:8
- a=bSomeuANTSra_1gJXeoA:9 a=1-V9h6BHp-r8_tbamw7_:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIxMyBTYWx0ZWRfXzux8wPlKNdXo
- qzaqJEHzCGyaR8GUolNKHQHEjUgT0OBKamGbIUgJbUyUpi/wLwiVI7aOUfb1PjZ2eUpWqLTncuk
- oQ4V73QQC4Rv/3jWv0Cao8Bakd0e2nY=
-X-Proofpoint-GUID: S1ORB89rBLmxiwEQKDB4dZoWoCVB4OJE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220213
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 06/25] firmware: arm_scmi: Add basic Telemetry support
+To: Cristian Marussi <cristian.marussi@arm.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+ f.fainelli@gmail.com, vincent.guittot@linaro.org, etienne.carriere@st.com,
+ peng.fan@oss.nxp.com, michal.simek@amd.com, d-gole@ti.com, jic23@kernel.org,
+ elif.topuz@arm.com, lukasz.luba@arm.com, philip.radford@arm.com,
+ souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
+ puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
+References: <20260920091928.2014972-1-cristian.marussi@arm.com>
+ <20260920091928.2014972-7-cristian.marussi@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260920091928.2014972-7-cristian.marussi@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On s390 the kernel uses s390 back chain instead of frame pointers for
-stack tracing of user space since v6.7 commit aa44433ac4ee ("s390: add
-USER_STACKTRACE support").  This is because frame pointers on s390
-cannot be used for stack tracing. [1]
+On 9/20/26 11:19, Cristian Marussi wrote:
+> Add SCMIv4.0 Telemetry basic support to enable initialization and resources
+> enumeration: add all the telemetry messages definitions and parsing logic
+> but only a few simple state gathering protocol operations.
 
-This requires user space to maintain a s390 back chain.  For instance
-user space to be built with compiler option '-mbackchain' (instead of
-'-fno-omit-frame-pointer' used on other architectures, which should
-better not be used on s390 [1]).  Only few distributions and users build
-user space with '-mbackchain'.  Therefore '--call-graph fp' may in
-practice not produce the expected results.
+As someone unfamiliar with the spec, it would be nice to summarize which parts
+of the spec this patch implements, so it's easier to cross-reference.
 
-Commit ca76fb67ebdd ("perf evlist: Improve default event for s390")
-changed the default '-g' option to 'dwarf' on s390 and added a warning
-for s390 that wrongly claimed that "Framepointer unwinding lacks kernel
-support".  This warning resulted from a misinterpretation of comments
-in s390 cpumsf_pmu_event_init().
+Same for the other patches. :)
 
-The restriction in cpumsf_pmu_event_init() applies to callchain sampling
-with the s390 CPU Measurement Sampling Facility (CPUMSF) hardware PMU.
-CPUMSF events, such as 'cycles', do not support callchain sampling.
-This is independent of whether perf uses the 'fp' or 'dwarf' call-graph
-mode.  The CPUMSF PMU provides samples collected asynchronously, making
-it impossible to associate a callchain to the historic IPs.  Therefore
-callchains can only be used with software events on s390.
+It's a lot to review. So having a better description to guide the reviewer
+through the patch would really help. I assume we could split this up further, like
 
-Remove the incorrect warning.  The kernel supports the 'fp' call-graph
-mode on s390 by walking the back chain.  Do not replace it with a
-hint to use 'dwarf' when the resulting callchain is incomplete.  Such a
-suggestion could imply that 'fp' is inherently inferior.  The same
-general limitation exists on other architectures when user space is not
-built with frame pointers (i.e. '-fno-omit-frame-pointers').
+a) Add basic definition (mechanical from the spec)
 
-Instead, warn on s390 when callchain sampling is requested with an event
-provided by the CPUMCF or CPUMSF hardware PMUs, because that combination
-is not supported.
+b) Add telemetry stub and hook it up
 
-Update the perf record documentation to state that 'dwarf' is the
-default call-graph mode on s390 and that 'fp' uses back chain instead
-of frame pointers on s390.
+c) query attributes
 
-Note that '--call-graph fp' may also be useful for other applications,
-such as OpenJDK maintaining a s390 back chain (does not require JVM
-option '-XX:+PreserveFramePointer' on s390):
+d) intialize X
 
-  $ perf record --call-graph fp ... -- \
-    java -XX:+UnlockDiagnosticVMOptions -XX:+DumpPerfMapAtExit ...
+...
 
-[1]: s390: Stack tracing using Frame Pointer, Back Chain, and SFrame,
-     https://conf.gnu-tools-cauldron.org/opo25/talk/Y3CVHY/
+Will result in quite some patches .... so I won't suggest that just yet. Maybe
+people familiar with the spec have it easier revieweing this.
 
-Fixes: ca76fb67ebdd ("perf evlist: Improve default event for s390")
-Signed-off-by: Jens Remus <jremus@linux.ibm.com>
----
 
-Notes (jremus):
-    Changes in v3:
-    - Updated warning message.
-    - Rebased on v7.3-rc4.
+> +
+> +enum scmi_telemetry_protocol_cmd {
+> +	TELEMETRY_LIST_SHMTI = 0x3,
+> +	TELEMETRY_DE_DESCRIPTION = 0x4,
+> +	TELEMETRY_LIST_UPDATE_INTERVALS = 0x5,
+> +	TELEMETRY_DE_CONFIGURE = 0x6,
+> +	TELEMETRY_DE_ENABLED_LIST = 0x7,
+> +	TELEMETRY_CONFIG_SET = 0x8,
+> +	TELEMETRY_READING_COMPLETE = TELEMETRY_CONFIG_SET,
 
- tools/perf/Documentation/perf-record.txt | 7 ++++++-
- tools/perf/util/evsel.c                  | 6 +++---
- 2 files changed, 9 insertions(+), 4 deletions(-)
+TELEMETRY_READING_COMPLETE is not really a command but listed as a "delated
+response". Should this be something separate (and not mangled into protocol_cmd
+?). Or is "_cmd" not the right term for this collection?
 
-diff --git a/tools/perf/Documentation/perf-record.txt b/tools/perf/Documentation/perf-record.txt
-index 178f483140ed..dc72606cb25d 100644
---- a/tools/perf/Documentation/perf-record.txt
-+++ b/tools/perf/Documentation/perf-record.txt
-@@ -293,7 +293,7 @@ OPTIONS
- 
- --call-graph::
- 	Setup and enable call-graph (stack chain/backtrace) recording,
--	implies -g.  Default is "fp" (for user space).
-+	implies -g.  Default is "fp" for user space (s390 uses "dwarf").
- 
- 	The unwinding method used for kernel space is dependent on the
- 	unwinder used by the active kernel configuration, i.e
-@@ -329,6 +329,11 @@ OPTIONS
- 	enable deferred user callchain which will collect user-space callchains
- 	when the thread returns to the user space.
- 
-+	On s390, the "fp" method uses back chain instead of frame pointers,
-+	which requires user space to maintain a back chain (e.g. compiler
-+	option -mbackchain).  Without a maintained back chain this produces
-+	bogus call graphs.  In that case use "dwarf" instead.
-+
- -q::
- --quiet::
- 	Don't print any warnings or messages, useful for scripting.
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index d4cb455f4a7d..55297b8dab37 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -1092,9 +1092,9 @@ static void __evsel__config_callchain(struct evsel *evsel, const struct record_o
- 	bool function = evsel__is_function_event(evsel);
- 	struct perf_event_attr *attr = &evsel->core.attr;
- 
--	if (EM_HOST == EM_S390 && param->record_mode == CALLCHAIN_FP) {
--		pr_warning_once(
--			"Framepointer unwinding lacks kernel support. Use '--call-graph dwarf'\n");
-+	if (EM_HOST == EM_S390 && evsel->pmu && !perf_pmu__is_software(evsel->pmu)) {
-+		pr_warning_once("Cannot use hardware PMU 'cpum_cf' / 'cpum_sf' event with callchain. "
-+				"Use a software 'cpu-clock' / 'task-clock' event.\n");
- 	}
- 
- 	evsel__set_sample_bit(evsel, CALLCHAIN);
+I have no SCMI experience, so it might be a rather supid queestion.
 
-base-commit: 93f51579e7df248780214094418f205253383cc5
+[...]
+
+> +struct scmi_de_desc {
+> +	__le32 id;
+
+I'll make a couple of generic comments, that should apply to most definitions in
+here.
+
+In the spec some of these things are prefixed by "de" e.g., "de_id".
+
+Was this deliberate? Having the spec match the implementation allows for easier
+grepping of stuff.
+
+> +	__le32 grp_id;
+
+Spec calls this "group_id"
+
+> +	__le32 data_sz;
+
+Spec calls this "de_data_size" etc.
+
+If there is good reason to use slightly different names, best to spell that out
+in the patch description.
+
+> +	__le32 attr_1;
+
+E.g., grepping the spec for "attr_1" I get no hits. So I have to remember that
+the spec might call this "de_attributes_1"
+
+> +#define	IS_NAME_SUPPORTED(d)	(le32_get_bits((d)->attr_1, BIT(31)))
+
+DE_ATTRIBUTES_1_NAME_SPECIFIED would be clearer. in general, spelling out to
+which field a define belongs *might* make it harder to get stuff wrong.
+
+(spec calls it "Named specified" which sounds like a bug)
+
+Same for the other definitions. Again, maybe diverging from the spec is fine.
+
+Personally, I would try to stay as close as possible to the naming in the spec.
+
+[...]
+> +
+> +static void scmi_telemetry_free_tde_put(struct telemetry_info *ti,
+> +					struct telemetry_de *tde)
+> +{
+> +	struct scmi_telemetry_de_info *info;
+> +
+> +	guard(mutex)(&ti->free_mtx);
+> +	/* Save clear and restore */
+> +	info = READ_ONCE(tde->de.info);
+
+Where is the matching WRITE_ONCE? IOW, who is expected to modify this concurrently?
+
+> +	memset(info, 0, sizeof(*info));
+> +	memset(tde, 0, offsetof(struct telemetry_de, mtx));
+> +	tde->de.info = info;
+> +	list_add_tail(&tde->item, &ti->free_des);
+> +}
+> +
+
+[...]
+> +
+> +static int scmi_telemetry_protocol_init(const struct scmi_protocol_handle *ph)
+> +{
+> +	struct device *dev = ph->dev;
+> +	struct telemetry_info *ti;
+> +	int ret;
+> +
+> +	dev_dbg(dev, "Telemetry Version %d.%d\n",
+> +		PROTOCOL_REV_MAJOR(ph->version), PROTOCOL_REV_MINOR(ph->version));
+> +
+> +	ti = devm_kzalloc(dev, sizeof(*ti), GFP_KERNEL);
+> +	if (!ti)
+> +		return -ENOMEM;
+> +
+> +	ti->ph = ph;
+> +
+> +	ret = scmi_telemetry_protocol_attributes_get(ti);
+> +	if (ret) {
+> +		dev_err(dev, FW_BUG "Cannot retrieve protocol attributes. Abort.\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = scmi_telemetry_instance_init(ti);
+> +	if (ret) {
+> +		dev_err(dev, "Cannot initialize instance. Abort.\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = scmi_telemetry_enumerate_common_intervals(ti);
+> +	if (ret) {
+> +		dev_err(dev, FW_BUG "Cannot enumerate update intervals. Abort.\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = scmi_telemetry_enumerate_shmti(ti);
+> +	if (ret) {
+> +		dev_err(dev, FW_BUG "Cannot enumerate SHMTIs. Abort.\n");
+> +		return ret;
+> +	}
+> +
+> +	ti->info.base.version = ph->version;
+
+I'm surprised that there is nothing to cleanup on the error paths, but at least
+the devm_ stuff is being taken care of I guess.
+
+
+It's a lot of code, so I only managed to skim briefly over most of it.
+
 -- 
-2.53.0
+Cheers,
 
+David
