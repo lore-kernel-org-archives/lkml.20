@@ -1,102 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE44552930;
-	Tue, 22 Sep 2026 15:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE048560AB0;
+	Tue, 22 Sep 2026 15:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091990; cv=none; b=lViu3qsyGHW1KGczZLpyu6Z2RyyhdYFXTzwQ3zxN8Lia+6iUGkGZpJ1PXRbfsQLnG4nohy0XaJ8QHCT7uuBDN/RDKEargl0bZ6CqBUR8MRrPTGnpz/HkZoeDhBkHxFzo/jAr0AGBftH9dVJNRuTSUQu70Z6inDoGuFFJpes+gqU=
+	t=1790092007; cv=none; b=sksIaDCUw2Dx7CvCyDXca+jkLeo4LG7R3BKhatyxcpbWNmyK9AJ+7rnelaVW9EQfC3uCi9T5/ZQJkKqH1ZDgPHW/Fsxk5oPfGi5LE1lyWRnLil3H8Lq/pEhx0DCQCRaUPJaBmqAhBfAyAStW/P8/ufvZpAFlHApDDxOB3FGPVek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091990; c=relaxed/simple;
-	bh=lS7AdPSag0fx+j6eeWR8p1UQoP5MZTXJVy94nTGbsOQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J/qG3LM6ptydY3+9TaTQpYcHpKGTU+R0jPi77l2i5CMRmAwEa949WPjaWAcFBpMvYX0bl4XqMk5W+4AxD3CXQzRBAqF65Wm4EUjXumQbUC17ja/ip0VjrW9k5QmMhJu6uAcFLQ04bIfepkFAs2WApmx0GTlmuDUiUXyww2HVPUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRxmwUCQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790092007; c=relaxed/simple;
+	bh=/84ulKuRLrs8JM+UqU/ZGjQ8z7YJ3q+WX3pPrJ/0BE4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WgVutZi/B23ji3oE0D23rf1uDQHulfXckFG/WI0rVOOd3ZS9SPoH2OriLgmRuSwXtyBYQSmO/Y533FjZ2pfPxgTeYBLUakMD8HWwzRyDSrU35Rf5AiEfa0SM/f/wOIRLw1ilyDojgci8ERRyxg9cVYMrh20skRpbVlVnHDwYskQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mh7fk7Yx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRxmwUCQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7031F000FF;
-	Tue, 22 Sep 2026 15:46:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091984;
-	bh=xbbKhXCxfC2qg5mXdORoMvqG4gXlDhUweC9q1CgKr6Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TRxmwUCQu12HpfIMBOxGt0J6k1oPPrRJ7FxN7MUsVuDKgWhfGwSH94JaTp1FXFUCj
-	 6bY/mJu93bsuCdOABzmgIvVfsPUpEFK95p4xcGZ5rPoAoi8BKH742ecdTvBtQ9iVwW
-	 5GrgYuB6OPdkxmRA98HU+eQZFAbJ8XyBX3ZUFFMvkBVP8sHhgwiHn79UMn9eVAV0gf
-	 cJ7MOiPEgaL4VCiWk+lhjgANXaatHItdFxUq+9z/hN6plXD26fqgMyk+DAyv/p8dg/
-	 Ne9WU9fiatKuUI/wtgTv/eEgs4dyYcENbpf4hL/QtyJkNPVPp9AciNhemJhuwsytsQ
-	 liROowmWykilQ==
-Message-ID: <e2745435-b54d-476c-b492-33ddde9ca57c@kernel.org>
-Date: Tue, 22 Sep 2026 10:46:21 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mh7fk7Yx"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5192BC2BCF6;
+	Tue, 22 Sep 2026 15:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790092007;
+	bh=/84ulKuRLrs8JM+UqU/ZGjQ8z7YJ3q+WX3pPrJ/0BE4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=mh7fk7YxHnYpkeWneEvQsAc0QHC6gr9hTS+oaTBa34n/zKwDJOJvm+Pct87ecV8G3
+	 xW5/pCTzkNTkMYFFXfLyCcrlB/BXQFG/kE0wVZbfs6HLwxochCmdS3wvopn3gjmc1v
+	 /oqd7dG1E8E2WcDARe5UngNDGDG1rCzd3ylL/k7KXk2MQftDh11DsAfS4mdxNaeZVL
+	 SQ289HaPYT9x2fMjlcgyv2u0jOyNKA1eOkLMyT3aBTd5Qdz7oZVvDgpWWpy/mIsNXx
+	 a4zQYocKypw3njVdxuD/XqQwc70GbQAnBXqsR2wGdJHmM7DoA7F1N+6m5BePaw/O+X
+	 /KeURuc+qUDLA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27F5AC98302;
+	Tue, 22 Sep 2026 15:46:47 +0000 (UTC)
+From: Ahmed Abdelhaleem Ahmed via B4 Relay <devnull+ahmedhal.gmail.com@kernel.org>
+Date: Tue, 22 Sep 2026 15:46:46 +0000
+Subject: [PATCH] scsi: ch: Do not keep references to data transfer element
+ devices
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Fix for storage corruption w/ AMD IOMMU on 64-bit
- addressing
-Content-Language: en-US
-To: Mario Limonciello <superm1@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- "H . Peter Anvin" <hpa@zytor.com>,
- "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
- "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
- <linux-kernel@vger.kernel.org>,
- "open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)"
- <linux-ide@vger.kernel.org>
-References: <20260908190600.226485-1-mario.limonciello@amd.com>
- <15cebf13-1e28-40e1-9113-19205ee8d604@kernel.org>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <15cebf13-1e28-40e1-9113-19205ee8d604@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-ch-dt-leak-v1-1-2b2e40bf1624@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAOWismoC/yXMQQ5AMBBA0avIrE2isxBcRSyqHQyCtIikcXfF8
+ i3+D+DZCXuokgCOT/GyLhEqTcAMeukZxUYDZZRnJRGaAe2OM+sJDalCtbntrC4gBpvjTq5vVje
+ //dGObPb3APf9AEgl7kZuAAAA
+X-Change-ID: 20260922-ch-dt-leak-c2181b6dfda8
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Yang Hao <yanghao_ht@163.com>, stable@vger.kernel.org, 
+ Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790092005; l=4470;
+ i=ahmedhal@gmail.com; s=20260922; h=from:subject:message-id;
+ bh=iZVNPPB7mUfBqJBncawixvxcm8hSCLkSxjGpPuZxEew=;
+ b=2UeofKhw6wI3aDTyud1oM5f9gWPbzV/lXmlrRTDrU5Zin6Goi0XrWOYBjoukeqmobkRtEamLV
+ Q4zxzAKCxGeAIi45BP/0CXWSByCib97cq3Wj7wrIAU2JschKSHZPQU6
+X-Developer-Key: i=ahmedhal@gmail.com; a=ed25519;
+ pk=UEFWTgykG696wvaHZw+52zx9UkpJCW3L3hvdRay28Fo=
+X-Endpoint-Received: by B4 Relay for ahmedhal@gmail.com/20260922 with
+ auth_id=1049
+X-Original-From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+Reply-To: ahmedhal@gmail.com
 
+From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
 
+ch_readconfig() looks up the scsi_device of every data transfer element
+whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it
+in ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever
+drops it: ch_destroy() frees the array with kfree(). ch->dt[] is read
+nowhere else - it only supplies the vendor, model and revision printed
+in the same loop.
 
-On 9/20/26 23:52, Mario Limonciello wrote:
-> On 9/8/26 2:05 PM, Mario Limonciello wrote:
->> An issue has been reported by a number of people that corruption
->> was occurring on storage for desktop systems.  It's notably reported
->> on SATA, but the same issue also appears on NVME.
->>
->> At a glance it looks like an IOMMU issue as turning off the IOMMU helps
->> the issue, but it's actually a problem that occurs specifically with any
->> IOVA addressed >58 bits.
->>
->> This is because the BIOS on these systems is enabling a feature of the
->> root port called 'enhanced atomics' which repurposes those upper 5 bits
->> of address space.  That feature should only be enabled by the BIOS when
->> the partner device supports it, but it's instead needlessly enabled on a
->> number of root ports.
->>
->> As some of these systems probably won't receive BIOS updates and there is
->> active reports of data corruption root caused to this add a quirk to
->> disable it on affected models, and also remove the quirk that was
->> introduced to work around this issue in drivers/ata.
->>
->> v2:
->>   *  Added resume fixups for the affected AMD PCIe ports
->>
->> Mario Limonciello (2):
->>    x86/PCI: Disable enhanced atomics on some AMD PCIe ports
->>    Revert "ata: ahci: force 32-bit DMA for JMicron JMB582/JMB585"
->>
->>   arch/x86/pci/fixup.c | 99 ++++++++++++++++++++++++++++++++++++++++++++
->>   drivers/ata/ahci.c   | 18 --------
->>   2 files changed, 99 insertions(+), 18 deletions(-)
->>
-> 
-> Gentle ping on this series.
+Once such a drive is removed, its scsi_device can never be released. It
+stays on the host's device list at its address, so a new device there is
+refused by anything that walks the list - target_core_pscsi reports
+"scsi_device_get() failed for H:C:T:L" - and the low-level driver's
+module can no longer be unloaded. Only a reboot recovers.
 
-I didn't include it on the series while we were getting alignment, but 
-when committing this should include
+It shows with any changer that reports its drives' ids; with the mhvtl
+virtual library (IBM 3573-TL personality), each create and remove of a
+library with four drives leaves four references behind, counted by the
+module's use count in lsmod. With ch not bound the count is unchanged,
+and with this patch applied it is unchanged too.
 
+Drop the reference as soon as the name has been printed, and remove the
+now unused dt[] array. That also removes the array leaked when
+ch_probe() fails after ch_readconfig().
+
+The same leak was reported with an RFC patch in 2022, which was not
+merged.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
+Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+---
+Reproduced and tested on RHEL 9 (5.14.0-687.47.1.el9_8) with mhvtl,
+IBM 3573-TL personality, four ULT3580-HHA drives, library created and
+removed; mhvtl module use count leaked:
 
-If it needs to spin for any reason, I'll include that on v3.
+  stock ch.ko:                          4
+  ch.ko with this fix:                  0
+  ch.ko with this fix, changer daemon
+  restarted twice while it existed:     0
+
+Build-tested on mkp/scsi.git for-next.
+---
+ drivers/scsi/ch.c | 29 +++++++++--------------------
+ 1 file changed, 9 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
+index 87e51e50a..b2c9fb71c 100644
+--- a/drivers/scsi/ch.c
++++ b/drivers/scsi/ch.c
+@@ -112,7 +112,6 @@ typedef struct {
+ 	int                 minor;
+ 	char                name[8];
+ 	struct scsi_device  *device;
+-	struct scsi_device  **dt;        /* ptrs to data transfer elements */
+ 	u_int               firsts[CH_TYPES];
+ 	u_int               counts[CH_TYPES];
+ 	u_int		    voltags;
+@@ -354,15 +353,10 @@ ch_readconfig(scsi_changer *ch)
+ 			vendor_labels[i]);
+ 	}
+ 
+-	/* look up the devices of the data transfer elements */
+-	ch->dt = kzalloc_objs(*ch->dt, ch->counts[CHET_DT]);
+-
+-	if (!ch->dt) {
+-		kfree(buffer);
+-		return -ENOMEM;
+-	}
+-
++	/* report the devices of the data transfer elements */
+ 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
++		struct scsi_device *sdev;
++
+ 		id  = -1;
+ 		lun = 0;
+ 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
+@@ -378,10 +372,8 @@ ch_readconfig(scsi_changer *ch)
+ 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
+ 			if (data[6] & 0x80) {
+ 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
+-				ch->dt[elem] = NULL;
+ 			} else if (0 == (data[6] & 0x30)) {
+ 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
+-				ch->dt[elem] = NULL;
+ 			} else {
+ 				id  = ch->device->id;
+ 				lun = 0;
+@@ -391,18 +383,16 @@ ch_readconfig(scsi_changer *ch)
+ 		}
+ 		if (-1 != id) {
+ 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
+-			ch->dt[elem] =
+-				scsi_device_lookup(ch->device->host,
+-						   ch->device->channel,
+-						   id,lun);
+-			if (!ch->dt[elem]) {
++			sdev = scsi_device_lookup(ch->device->host,
++						  ch->device->channel,
++						  id, lun);
++			if (!sdev) {
+ 				/* should not happen */
+ 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
+ 			} else {
+ 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
+-					ch->dt[elem]->vendor,
+-					ch->dt[elem]->model,
+-					ch->dt[elem]->rev);
++					sdev->vendor, sdev->model, sdev->rev);
++				scsi_device_put(sdev);
+ 			}
+ 		}
+ 	}
+@@ -566,7 +556,6 @@ static void ch_destroy(struct kref *ref)
+ 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
+ 
+ 	ch->device = NULL;
+-	kfree(ch->dt);
+ 	kfree(ch);
+ }
+ 
+
+---
+base-commit: c3cff7fac01638ab58e85fe7df41a04fa25c5bae
+change-id: 20260922-ch-dt-leak-c2181b6dfda8
+
+Best regards,
+--  
+Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+
+
