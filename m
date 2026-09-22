@@ -1,100 +1,121 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D09F535FC6;
-	Tue, 22 Sep 2026 10:23:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A30535FB3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072617; cv=none; b=UhkESkj9ngDF1Kpngp+EbqTJ9r1PPKGE/fnVm82sQCoHpop/qPkBqYffBMEVNJpnQzImJIZE4pWpIeHUYy4EWL39zobvShfwoVhHP5Ga50zkOIPRH1zmVnr+R7mAIwsdC4YvwG47BCwWLsGYAiZ42wW+fksNmF/eU5AY9+v6CDc=
+	t=1790072617; cv=none; b=jbTsZt8Y7m4eKmhfZsN3dGg2KkFPU4kw51lLxiWIq3tGwI2IEWn4mW6AmntB0foi5ozm4H7TNnLHTyi2Jkrm1TFPWKOtm4r7qAe/jaLIvE5rHDBwUjbRVuFH5ZFY2gMSSewlPZaxMwpjLAAtaeh9oFK3smhZZUj86m/RgTxL8tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790072617; c=relaxed/simple;
-	bh=BQziGlCZF5AlKoF6iVqSyszqPKzzfoidsLoHqjcbADg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RIwS5KB5ndp6yVz6LdnJQBAbv1HEgIF7D3SgPAw/1GPPCdYwmjLd6qViO5Z2cI+qESKcJ2PFgylZXTb9BnraBZvcx2QwV3acd88NfHhp7/uunrkJB0IPnfEzwshkZung8+kT1XAcgZhBnl3pDhJlvuHChYsPjTk5PYKGBb+5F4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=F/r893jK; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	bh=pkRjLax3zzL81fegkKWM65x9n1sdWMbtEO8ZJd4dpd8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tmrUCUYwesT+A3rX9Y9to1jLjgUwsGZOkEF3RndukkEjx6rhYI+quTiZOgtfEB/P4w/def+YLyybsshcfacpWYaP+dfbNm9AAgPgEmrSHq+AWuHkRpa4URSkpjhe3vvEWaiAFIJY+qNNuYBqclow860IlQ3CeiHDQzlOWMqRA7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ElMP3diE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OOLKst/s; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="F/r893jK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cw
-	WJntWKUX+5bpXytMV+EQljnUUj2kWjym/4ol8Wkv4=; b=F/r893jKWjRq7HeyDA
-	nqV0cfs9twyPlk7pWz/ZP4u+3miprW5BkFogmH15oNM14jP8bqtlHtJLpBy0L5hT
-	tGfZPr2Oml9skMUNVtHQr6g2EOv2VL/zyAb24qizUYzeI0pFs+iX34mXJislr/m9
-	+C5e0r4M3mLgaG07OC5PHVZrY=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3X+0LV7Jq8o9oAA--.39710S2;
-	Tue, 22 Sep 2026 18:23:08 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH v8 0/3] dt-bindings: net: can: convert three bindings to DT schema
-Date: Tue, 22 Sep 2026 18:22:55 +0800
-Message-ID: <20260922102258.138753-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ElMP3diE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OOLKst/s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790072614;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N1CYMfDy8oUHGmL4D9db0zZo1jNjyFLIMfncfNhVlyk=;
+	b=ElMP3diEwDDOvNc6zqqzQGboD3XhEmOp89huJmy9PMzbNmMMxYyugoA/n+IV7iMVZNsRbi
+	htyLu/dOV6saKR66Jj67JQh9SlyHGPNmyGGYnKk3VZwlATNlquBF/cSza+H7XiQwWxAISU
+	02eq5iCDok3dFSI9ZVrAFrvOLhmFO90=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-660-du4qTbR9MsKg9YpMRYnP2Q-1; Tue, 22 Sep 2026 06:23:30 -0400
+X-MC-Unique: du4qTbR9MsKg9YpMRYnP2Q-1
+X-Mimecast-MFC-AGG-ID: du4qTbR9MsKg9YpMRYnP2Q_1790072610
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49d156c917cso4419455e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:23:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790072609; x=1790677409; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N1CYMfDy8oUHGmL4D9db0zZo1jNjyFLIMfncfNhVlyk=;
+        b=OOLKst/sKdTUgUSr1BL+2Mr91fjyITqW7fi4BuoMLngFw80M5yHtuKK4gsKIzAFs9S
+         bi7HmsTLRxx3S25DkqjYy8U3zPfa5vGQRrfYlcdsE+2a5BLKpvQSiIVysqTACWGKG6on
+         t7eMlT8ke49aEaM/5IRAOuhpGbYY0OucqzxBYghOzohZHBIDH9vgXgKGvxI9j1Az9Mel
+         SzvqW/7c05Dq8iaJAu15SmVGkC0jlmqBetJB2gUpE5zK8xu/u2hb840BmFCZbdsqzKNb
+         wcslhjHz5b+XFm/6iy5Dt9tV6LgvCmPzAcWNLomXgxVcXNoVMdneNssKw7MZBu2fi+iO
+         5/Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790072609; x=1790677409;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N1CYMfDy8oUHGmL4D9db0zZo1jNjyFLIMfncfNhVlyk=;
+        b=Vjlof4JXyrehHk7zRLSqciMIkDLkfBvWk6Awc/xp2MfiDA3Mq911xZ19cVjhTCmCQn
+         KygiFgHQphvO8dHHBD8qHP0HjisplG5+Q56e+IMlR2XnDDBBzAQr5D4rkjvsCalHhqjH
+         kRFGUSb273DYPywuClJ961qWayqwHWNa1A4JLLOc6kyuE3QicVmORE60pgjaz8ChFVsr
+         UNiT6pqY/d+5tWWTWJ5BKLp0jHEmJexxdtsTt27dLtW/tEzj+6N4JUcxkR7D9U6v3gXK
+         7SvgPBUkYXmz4f2sE5uMH1XJfb/tHYZyI0nA5Gy8ic6dyJ5rtNzGyc/y7Z3JOnAokXkR
+         i1hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwg14rbHRg2FblRJvDll38jaV6b9lrzI/pRQEfqaxCranBBovDab6d7WWcgQPR+/7LLuOsXFyn2o7ZunZo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nn7buTFXvcHssgdZDXDwTHv7xFXSlt7CiL1WFvEB9iTHK4dJEx
+	wBteABzX0wRvpdmIk20qHK8D+XoC0gnx1bRIO6s6hJJmbvB1CAl6JzpLlE8n85lIlMXGMrBNxkR
+	WTcBT3ic2Al6d60iK8N6KjMVyHEFdFjsWrBS9wS6l/xNcTGBUvqhe1H1zzoYBORcn8Q==
+X-Gm-Gg: AYBFou2XC8F22N/MtevaVB+zO2jRxFOI/M1pQdzZROvzM8CiFSM3eSkTW5eYc8hdiEx
+	FJObrpevgDscsqEuVwLj1dRMSSyMZitXhUvmICRhHndmVlpoNQI7r2pb11TIGsHbeyh/xc6Y95B
+	Fh8bV8wVewy3Ur8RirYF1sXwENlURShNUYdneTche7b/eXfJo6CR7/Cv7hOlRzwQ592QcwYp6Nu
+	KilY8d8LUCM+9KQjDkPb8FGVOzUjgeugm+63aoJSwENhhr21vtUW+t876023ePyxLW5lHDv8yi7
+	zploxI7mqxpwSy4l4mvx/Wp4BieSmXQkSN8Y00fUjBU9uyZzK9Oh9QGcUg/bmjJb0/QBHHGxt7A
+	PftMKMlyeXmfJv85+uygJYbc0tXMhORbalnK4LYAGfGF48P1a46/aSxJXywxI3KBurnE7Iz4Ggg
+	==
+X-Received: by 2002:a05:600c:34c6:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fd88607e7mr39791335e9.5.1790072609603;
+        Tue, 22 Sep 2026 03:23:29 -0700 (PDT)
+X-Received: by 2002:a05:600c:34c6:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fd88607e7mr39790745e9.5.1790072609134;
+        Tue, 22 Sep 2026 03:23:29 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaab0497sm48489045e9.3.2026.09.22.03.23.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 03:23:28 -0700 (PDT)
+Message-ID: <a5fa376d-0826-4fdc-b99e-cc4a0a623cbc@redhat.com>
+Date: Tue, 22 Sep 2026 12:23:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X+0LV7Jq8o9oAA--.39710S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ur4ktr1xArWrGFyUAF1UWrg_yoW8ZF4Dpa
-	n0kFn3XFyqy3W7tws3K3W8Ar15Za95ZrW5KFZ2qr1kJay5CF45trWFk3s8ZFWUWrWfCFyx
-	Zr4jgF4rGFZ8tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piAsqJUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AwglWqyVwwJxAAA3T
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v20 0/3] net: phy: Add driver for Motorcomm Quad
+ 2.5GbE phy
+To: Kyle Switch <kyle.switch@motor-comm.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, Frank.Sae@motor-comm.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com, jie.han@motor-comm.com
+References: <20260917131441.3428554-1-kyle.switch@motor-comm.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260917131441.3428554-1-kyle.switch@motor-comm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Three CAN controller bindings converted from free-form text to DT schema.
+On 9/17/26 15:14, Kyle Switch wrote:
+> changes in v20:
+> patch 1: Add phy-mode description in properties in
+> 	 motorcomm,yt8824.yaml
 
-One series, one thread.
+At least some of the sashiko comments looks legit and
+relevant to me.
 
-What changed since v7: v7 dropped the spi-peripheral-props.yaml reference
-from holt,hi311x, on the grounds that the example does not use SPI
-properties. That was wrong. The HI-3110 is an SPI peripheral, so its node
-carries spi-max-frequency, and unevaluatedProperties: false rejects it
-without the reference. dt_binding_check against a node carrying
-spi-max-frequency fails without the reference and passes with it.
+Note that the cover letter must carry some brief relevant
+description of the overall work.
 
-holt,hi311x is therefore back to exactly what Rob reviewed in v6. Only
-patch 2/3 differs from v7; the other two are unchanged.
-
-ifi,canfd-1.0
-	Unchanged from v7.
-
-holt,hi311x
-	Restore the $ref to spi/spi-peripheral-props.yaml. Identical to v6 again.
-
-fsl,mpc5xxx-mscan
-	Unchanged from v7.
-
-
-Quchaosheng (3):
-  dt-bindings: net: can: ifi,canfd-1.0: Convert to DT schema
-  dt-bindings: net: can: holt,hi311x: Convert to DT schema
-  dt-bindings: net: can: fsl,mpc5xxx-mscan: Convert to DT schema
-
- .../bindings/net/can/fsl,mpc5xxx-mscan.yaml   | 109 ++++++++++++++++++
- .../bindings/net/can/holt,hi311x.yaml         |  67 +++++++++++
- .../bindings/net/can/holt_hi311x.txt          |  23 ----
- .../bindings/net/can/ifi,canfd.yaml           |  46 ++++++++
- .../devicetree/bindings/net/can/ifi_canfd.txt |  15 ---
- .../bindings/net/can/mpc5xxx-mscan.txt        |  53 ---------
- 6 files changed, 222 insertions(+), 91 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/can/fsl,mpc5xxx-mscan.yaml
- create mode 100644 Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/can/holt_hi311x.txt
- create mode 100644 Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/can/ifi_canfd.txt
- delete mode 100644 Documentation/devicetree/bindings/net/can/mpc5xxx-mscan.txt
-
--- 
-2.43.0
+/P
 
