@@ -1,219 +1,135 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BAB24BEE5D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2584BFE76;
+	Tue, 22 Sep 2026 06:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790057822; cv=none; b=E3GNZDh8tNL0W9727OI8HtXAPzUAMm05H2forWCfWJniZG/WK0R9bipCdtA+m/IMVkhEDhDlHdjkKee0MwQE1EtyqkFcDL2hTBjM0zghUDrkqzxPb+4t7Mmk+7L0OYJ5R5OYk/XfzzN3h2a1DfPZjJmTbZxDprco72OslcN72Hg=
+	t=1790057866; cv=none; b=HEM7XEJb+HOxhd5sgQBD+0dAs+3vFO7rh6N8esnAyDuxYiAv28wKRgTQJIn07wLfnHbjzm9PLlGo2h3ZSRHF5pExm8o0Pq0HrmhmJjbSY22tOTCFem/3PMGi2bmozjutoUYqwJAMjAOBsf9bLPaZrrbRbTPdyRSOme/2aG5AAao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790057822; c=relaxed/simple;
-	bh=YPhwXo+wZb0LPzJLyEuEwvluXfQVUw7xmrdIkATrj74=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c546CZtnvZsrC1RTHtj+LddT9L7YPbCw1Cfokbsol5JwPejhRwI7NfXll1S+81cn4MuCEzJPbhof9PrvQaDLiO1oF+UZkfHTlUwgq4jq0EYSG4gNlzsglp6JXOc1S3cV6eU+JfhCptwHI5sihcP+/LsC+Y21eaHCqGXbPj1LtV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cg8BnpDI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790057866; c=relaxed/simple;
+	bh=4czSwLJZTsPrde7Ae78uOhAxPABOjbRqzcFREuBtK58=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JQz5+YHf9MU/zBN/vW4GV0bJE/HqeUse7D40LgDEu/HTslkUWI9TatwYuVvPjjhTjtE9Vg+YtULLuIkx4bsgyDvhWnMbotJzVjjD5jtMiU4obuQIaCRv2d6P32Aaxt7hCGccJfRnJ3uWWWRjKCaBhtu2PV8IMYlA3HlgE3xlnrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=OADrxjxJ; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cg8BnpDI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9F29C152B;
-	Mon, 21 Sep 2026 23:16:55 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6F45F3F632;
-	Mon, 21 Sep 2026 23:16:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790057819; bh=YPhwXo+wZb0LPzJLyEuEwvluXfQVUw7xmrdIkATrj74=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cg8BnpDI/5IKSPk/5ru5ySdweqI1LGvk1Pa2oXZsbp3x36QOPFvgMuaia0rW5PPLp
-	 dhvJ7I7EH2FSskGukOJLnUcHlRc6HS7ihY1PRZ+toTOH90AQVnzXd62YuoU6TOJP+A
-	 12/IDLzudXUaqgX2a99CidvFZ2M8FlWRhdaFPevo=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	kasan-dev@googlegroups.com
-Subject: [PATCH V2 4/4] arm64/mm: Use pgdp_get() for PGD accesses
-Date: Tue, 22 Sep 2026 11:46:38 +0530
-Message-ID: <20260922061638.3967467-5-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922061638.3967467-1-anshuman.khandual@arm.com>
-References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="OADrxjxJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=AXgjdnDVE3P4oyz6CPuYyFf3otjEytHlCZ6PP8kE4jo=; t=1790057865; x=1791267465; 
+	b=OADrxjxJEarq6+sWLEsagEVLfYOIRR30okq2DRVsa5LNadgphnwjU2sAl2eWUzkDacU1UDwxHwn
+	79ATjNPb6bWlQOTKwX37D1mgOlaCtxjUZCPaIAFFaEgjWnWr6f3kryRTsrVZ/8sfKURSy6ARwoKC/
+	EVL9b9/2aYlrQm2WvTgU8VHUoOODJeja6W1e/Lwg5FmVngW7q2FW0qb6OLX0UZaom+vtcFGeZ3Av3
+	+eJA9GxW5OsyI/tKBdJwyAWRvGDVGiB3iDYXc9M+rQd/n1ar8xxMsMUzgmyU8gn/67OiL394S/sqc
+	1IAeJEej5JdIuTRjzD9FpB5+PaH9XZALcFvw==;
+From: Andreas Kemnade <andreas@kemnade.info>
+Date: Tue, 22 Sep 2026 08:17:01 +0200
+Subject: [PATCH RFC 4/9] drm/bridge: tc358762: Move initialisation to
+ pre_enable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b2-panel-via-bridge-v1-4-45ff36b364cf@kemnade.info>
+References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+In-Reply-To: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ hns@goldelico.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
+ Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: b4 0.16.1-dev-53874
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2081; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=4czSwLJZTsPrde7Ae78uOhAxPABOjbRqzcFREuBtK58=;
+ b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFmbZBPaD98NTmXxXjQ96vrfZ/ZXTHsWb9Q2v79m7bmfv
+ Cu3fNbg7yhlYRDjYpAVU2T5Za3g9knlWW7w1Ah7mDmsTCBDGLg4BWAiD6wZ/pcr75WfdHEuU3C5
+ +AfmW/8O5MX++2/U+nxbTqZW+4rZJw8w/LM7vTjb7OGbh18NtJROcnu8WeKSz9p/RJO7wVf68sl
+ 97/kB
+X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
+ fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-Replace READ_ONCE() with pgdp_get() for PGD accesses in preparation for
-supporting both D64 and D128 translation table formats.
+To allow panels to use SPI already in the prepare function, have things
+already setup here.
+Maybe setting LCDCTRL in enable might be an idea?
 
-READ_ONCE() cannot currently be used for 128-bit page table entries on
-arm64 because it does not provide the required 128-bit single-copy
-atomicity, causing builds to fail for accesses wider than 64 bits.
-
-Although LDP/STP provide the required atomicity when FEAT_LSE is
-available (as required by FEAT_D128), extending READ_ONCE() to support
-128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-so doing so could encourage other 128-bit users that would either fail
-to build in configurations without D128 support or, if D128 becomes a
-runtime option, silently permit tearing on systems without the required
-hardware support.
-
-Instead, standardize PGD accesses on the existing page-table helpers.
-These can be overridden on arm64 to provide 128-bit single-copy
-atomicity when required. No functional change intended.
-
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kasan-dev@googlegroups.com
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
- arch/arm64/mm/fault.c       | 2 +-
- arch/arm64/mm/hugetlbpage.c | 2 +-
- arch/arm64/mm/kasan_init.c  | 6 +++---
- arch/arm64/mm/mmu.c         | 6 +++---
- arch/arm64/mm/pageattr.c    | 2 +-
- arch/arm64/mm/trans_pgd.c   | 4 ++--
- 6 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 28 +++++++++++++---------------
+ 1 file changed, 13 insertions(+), 15 deletions(-)
 
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index a6afd8929a10..43f25418275a 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
- 	guard(irqsave)();
- 
- 	pgdp = pgd_offset(mm, addr);
--	pgd = READ_ONCE(*pgdp);
-+	pgd = pgdp_get(pgdp);
- 	ptval_to_str(pxd_str, pgd_val(pgd));
- 	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
- 
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index 5771bf49e1fe..e05e5b41ae50 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
- 	pmd_t *pmdp, pmd;
- 
- 	pgdp = pgd_offset(mm, addr);
--	if (!pgd_present(READ_ONCE(*pgdp)))
-+	if (!pgd_present(pgdp_get(pgdp)))
- 		return NULL;
- 
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-index 4dd8c1186471..f61f5bc09467 100644
---- a/arch/arm64/mm/kasan_init.c
-+++ b/arch/arm64/mm/kasan_init.c
-@@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
- static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
- 				      bool early)
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index e73be376e33c..ec72e6e92b46 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -167,6 +167,12 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
+ 				struct drm_atomic_commit *state)
  {
--	if (pgd_none(READ_ONCE(*pgdp))) {
-+	if (pgd_none(pgdp_get(pgdp))) {
- 		phys_addr_t p4d_phys = early ?
- 				__pa_symbol(kasan_early_shadow_p4d)
- 					: kasan_alloc_zeroed_page(node);
-@@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
- static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
- {
- 	int idx = root_level_idx(addr);
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memcpy(pud, pudp, PAGE_SIZE);
-@@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
-  */
- static void __init clear_next_level(int pgd_idx, int start, int end)
- {
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 83709d987e7c..76d8d320aeed 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
- {
+ 	struct tc358762 *ctx = bridge_to_tc358762(bridge);
++	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector *connector;
++	struct drm_display_mode *mode;
++	u32 lcdctrl;
  	int ret;
- 	unsigned long next;
--	pgd_t pgd = READ_ONCE(*pgdp);
-+	pgd_t pgd = pgdp_get(pgdp);
- 	p4d_t *p4dp;
  
- 	if (pgd_none(pgd)) {
-@@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
+ 	ret = regulator_enable(ctx->regulator);
+@@ -178,21 +184,6 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
+ 		usleep_range(5000, 10000);
+ 	}
  
-@@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
+-	ctx->pre_enabled = true;
+-}
+-
+-static void tc358762_enable(struct drm_bridge *bridge,
+-			    struct drm_atomic_commit *state)
+-{
+-	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+-	struct drm_connector_state *conn_state;
+-	struct drm_bridge_state *bridge_state;
+-	struct drm_crtc_state *crtc_state;
+-	struct drm_connector *connector;
+-	struct drm_display_mode *mode;
+-	u32 lcdctrl;
+-	int ret;
+-
+ 	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
  
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 826856ef64a8..dfa1356daac2 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -399,7 +399,7 @@ bool kernel_page_present(struct page *page)
- 	unsigned long addr = (unsigned long)page_address(page);
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+@@ -269,6 +260,13 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 	ret = tc358762_clear_error(ctx);
+ 	if (ret < 0)
+ 		dev_err(ctx->dev, "error initializing bridge (%d)\n", ret);
++
++	ctx->pre_enabled = true;
++}
++
++static void tc358762_enable(struct drm_bridge *bridge,
++			    struct drm_atomic_commit *state)
++{
+ }
  
- 	pgdp = pgd_offset_k(addr);
--	if (pgd_none(READ_ONCE(*pgdp)))
-+	if (pgd_none(pgdp_get(pgdp)))
- 		return false;
- 
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-index 7afe2beca4ba..06470d690f9f 100644
---- a/arch/arm64/mm/trans_pgd.c
-+++ b/arch/arm64/mm/trans_pgd.c
-@@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	unsigned long next;
- 	unsigned long addr = start;
- 
--	if (pgd_none(READ_ONCE(*dst_pgdp))) {
-+	if (pgd_none(pgdp_get(dst_pgdp))) {
- 		dst_p4dp = trans_alloc(info);
- 		if (!dst_p4dp)
- 			return -ENOMEM;
-@@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
- 	do {
- 		next = pgd_addr_end(addr, end);
--		if (pgd_none(READ_ONCE(*src_pgdp)))
-+		if (pgd_none(pgdp_get(src_pgdp)))
- 			continue;
- 		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
- 			return -ENOMEM;
+ static int tc358762_attach(struct drm_bridge *bridge,
+
 -- 
-2.43.0
+2.47.3
 
