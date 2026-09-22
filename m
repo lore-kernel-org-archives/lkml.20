@@ -1,72 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BD42EC081;
-	Tue, 22 Sep 2026 06:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEB84F30D6;
+	Tue, 22 Sep 2026 06:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060388; cv=none; b=F6dSgh+Zma6gvu8W8LSTdE4GcXnscdJf2iLGnpuql+s/2Gg1Hj+7ZZxlhzwYIE6feX7/R9zRRi/tCUHn//J/bnpRT50qLKCgMvu055wwB69ErJMQ5MeVmQLlaxtFUkVTggaPvfwD2rUVt4jLCnci1+U16Bb4WjfVWgX7B1U2mfo=
+	t=1790060396; cv=none; b=nJxqyH68Cgf7Fl35meYtbRB7yAQRRoGcVNT1R+fxskBhhqFuduZ/m+mc5VVSgBAy807rIBEtnGITEtO+FVtVMaakAOwr9xG9jbUr9k3S1Ph81eakVGIeCQRrDVIJa835os8kKNYKuIWHX2RquT3pk/v41khcPPAs/aFQUgP/COQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060388; c=relaxed/simple;
-	bh=HDTLCXcMsflZhPV6a/dCNQca/UqslquTzjm1UiXbF/Y=;
-	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=AGbhU6Zzn0XbwQ20QBSxWdwY1og3lRqG781m1HLmolaA1wMkHzVCMKXtJlwAsz6uHTVsYO5w4fTNQbxz3/Mz/D224XXF3NVIQdst6qOcgnkbcaUWIH9KaYNkdmQvhSbCizCW3foCLb1GMzV2E+mPzfdzuTYgPcMecNY391B9Kk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVem6NK5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790060396; c=relaxed/simple;
+	bh=0KdgXyG/zjejT42PPgOlbHOcTVnpynS3UtUEH4UNs1k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mEfLXLfn8Qw2huy25ZJcun07hdlFLziu7v7FuXHFAb6QeYRa2d8FokCv0RcQnA7YLYmJjK0eak0jTkHXbFNuSSDzSDqEAeyBpnONkUgwtXkSkrbQV0I16kna4khGwgCMUbirQZ+gUoIoyG58Br+sAUHBRT15u79X+H13+ssLVTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=b1kD41RL; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVem6NK5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D09AD1F00893;
-	Tue, 22 Sep 2026 06:59:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790060386;
-	bh=fWS6VemCJQZVIwP1tf2Y6qbGjMYyL6clHJEnGhczC3U=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc;
-	b=iVem6NK51SNQhuNU9/3VNzRt45Nh3hNfislWZtoOmfE7THXCD16zsAGGUJgyOvFt3
-	 wdVD0fsrMS30UjrIMWvrKGGrljlPWS1gvpZkoQdsI4LQXmrxXcI4N3FY1DVJmb9dos
-	 mZZqj+HRrg/38SaP7uFPmaDFMG/vuTnQ2niRfpcJGsnMtUme52+dU/Uhc0H3g8gxnN
-	 LClGSi9TVUnwnihRHh/2BhAl0BENTLXhQ7LaucgwzwSe8KJhqox1Td+JU+pskfqrdF
-	 b+/tQn8QyMXE1vyTktB6dkSUcqcYHR0zXRjWPFjHNZf1iW3+3GcQZz5+ywLVPz/YJ4
-	 z8N+D4jV4n2yg==
-Message-ID: <b55e64b4e64d9d39c2417b9713623697@kernel.org>
-Date: Tue, 22 Sep 2026 06:59:43 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 11/19] drm/mcde: dsi: remove unused includes
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-11-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-11-83afb4f1a707@bootlin.com>
-Cc: asahi@lists.linux.dev, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org, "Albert
- Esteve" <aesteve@redhat.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Anusha
- Srivatsa" <asrivats@redhat.com>, "David Airlie" <airlied@gmail.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Fabio Estevam" <festevam@gmail.com>, "Frank
- Li" <Frank.Li@nxp.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Inki
- Dae" <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang" <jesszhan0024@gmail.com>, "Jonas
- Karlman" <jonas@kwiboo.se>, "Jonathan Corbet" <corbet@lwn.net>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Linus
- Walleij" <linusw@kernel.org>, "Lucas Stach" <l.stach@pengutronix.de>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maxime
- Ripard" <mripard@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Paul
- Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Randy Dunlap" <rdunlap@infradead.org>, "Robert
- Foss" <rfoss@kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Sean
- Paul" <sean@poorly.run>, "Shuah Khan" <skhan@linuxfoundation.org>, "Simona
- Vetter" <simona@ffwll.ch>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="b1kD41RL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=Ra90Cz5Q31+UKczHqIfSoS79hl6DS9VnAuYGeRakvHE=;
+	b=b1kD41RLVdRojAwUHOMTaHsAQZ17cnrD+kIic+dmix6d/YA7FQawu2AxH6T7NJ
+	siS7M20/kWot0t4KUW2Lg0khdu0M2I6EmQajFafZaakkD5s87QLPJXu2kSfLTsz8
+	X9NV3I9ns3rvZpQYMBkIlcdF6UICRK5Dggi8ABDhtUcLY=
+Received: from nec8-i7 (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3XxMyJ7Jq3mtIAA--.33723S2;
+	Tue, 22 Sep 2026 14:58:59 +0800 (CST)
+From: chenyuan_fl@163.com
+To: bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Yuan Chen <chenyuan@kylinos.cn>
+Subject: [PATCH bpf-next v6 0/3] bpf, arena: fix range_tree consistency on allocation failure
+Date: Tue, 22 Sep 2026 14:58:46 +0800
+Message-ID: <20260922065849.3564436-1-chenyuan_fl@163.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <CABFh=a6QOjBv1c7B0fw0AEqaBXiQJRh=8on5DUfqPC7hYuGBxg@mail.gmail.com>
+References: <CABFh=a6QOjBv1c7B0fw0AEqaBXiQJRh=8on5DUfqPC7hYuGBxg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3XxMyJ7Jq3mtIAA--.33723S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGF47tryDtF48ur47Gr18uFg_yoW5Ar1rpr
+	W3Kws8J3ykG3yxuF4fu3WxXFn5Ca1rXw4UGryagw1kZry5Cr1xtr40kF1UWr1UCF95Xr1U
+	KF4Yqw1I9r1DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0SoJUUUUU=
+X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbC5hMd2mqyJzN6awAA3v
 
-On Wed, 16 Sep 2026 15:45:35 +0200, Luca Ceresoli wrote:
-> The helpers are included but unused.
-> 
-> However symbols from drm_atomic_helper.h are used, and were previously
-> available as a side effect of drm_atomic_helper.h including
-> drm_atomic_state_helper.h. Add drm_atomic_state_helper.h.
-> 
-> [ ... ]
+From: Yuan Chen <chenyuan@kylinos.cn>
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+The arena range tree can be left inconsistent when kmalloc_nolock()
+fails mid-operation. Patch 1 fixes range_tree_clear(), patch 2 fixes
+range_tree_set(), and patch 3 makes the arena paths handle
+range_tree_set() failures and checks the return value in
+arena_alloc_pages()'s partial-allocation error path.
 
-Thanks!
-Maxime
+Thanks for the review.
+
+Changes in v6:
+  - Patch 3 only: on a failed range_tree_set() drop the span and leak the
+    range, which keeps the range tree and the page tables consistent, and
+    revert the arena_map_free() teardown changes that went with the
+    retry. Patches 1 and 2 are unchanged from v5.
+
+Changes in v5:
+  - arena_map_free(): set a dying flag and steal orphaned spans before
+    draining, and drain with flush_work() + irq_work_sync() +
+    flush_work().  The worker retry queues arena->free_irq, which the
+    old irq_work_sync() + flush_work() order could miss: the irq_work
+    fired after the arena was freed and its callback scheduled
+    free_work on freed memory.
+  - arena_map_free(): retry the spinlock acquisition a bounded number
+    of times (-EDEADLK is not retried) and WARN with the error code,
+    instead of a bare WARN_ON_ONCE(1) and an immediate leak of the
+    arena.
+  - range_tree_set(): reword the comment describing the two lookups,
+    as suggested by Alexei Starovoitov.  The pre-clear probe only
+    decides whether a fresh node must be allocated, so that -ENOMEM
+    leaves the tree unmodified; the post-clear lookup fetches the
+    merge handles without depending on how range_tree_clear()
+    truncates overlapping nodes.
+
+Changes in v4:
+  - arena_free_worker(): keep a span whose range_tree_set() failed on
+    arena->free_spans and retry it on a later worker run, instead of
+    leaving it in the drained list where the second loop would still
+    zap user VMAs and free the span (dropping the free request), as
+    pointed out by Emil Tsalapatis.
+
+Changes in v3:
+  - Check range_tree_set() return value in arena_alloc_pages()'s error
+    path, which restores the unpopulated tail of a partially allocated
+    range (previously ignored), as pointed out in review.
+
+Changes in v2:
+  - Fix multi-line comment style in patches 1 and 3 (opening /* on its
+    own line), as pointed out in review.
+
+Note: arena_vm_fault()'s two recovery paths (restoring the range to the
+free tree after allocation/mapping failure) also call range_tree_set()
+without checking the return value; that is addressed in a separate
+series.
+
+Yuan Chen (3):
+  bpf, arena: fix range_tree_clear inconsistency on kmalloc_nolock
+    failure
+  bpf, arena: fix range_tree_set inconsistency on kmalloc_nolock failure
+  bpf, arena: check range_tree_set return in arena_free_pages and
+    arena_free_worker
+
+ kernel/bpf/arena.c      | 38 ++++++++++++++++++++-----
+ kernel/bpf/range_tree.c | 61 +++++++++++++++++++++++++++++-----------
+ 2 files changed, 76 insertions(+), 23 deletions(-)
+
+-- 
+2.54.0
+
