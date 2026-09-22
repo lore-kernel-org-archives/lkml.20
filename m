@@ -1,178 +1,172 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013034.outbound.protection.outlook.com [40.93.196.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55A83F3263;
-	Tue, 22 Sep 2026 17:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098228; cv=fail; b=AiE8tYKTccf4SdD/9iY88HLqpjWJkk49kLojlOjPvw8rnBEvhABmVCp5fCZY76RdHR5aywZgf3mL7bv9vLsgNMK/2z/KU3OaYGtdFHMVVxd6+aiCiCa9wumJYVr6PILVilAWtpOcvrd1fhY8UJE7tS/O+AL4guf20pQY7MatnoU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098228; c=relaxed/simple;
-	bh=kLAKjJtGuvkQShwHOGkjeTjCHBWVr0slt3fbi7I//Co=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=KijjkcWDEBvoo27TBxD+PdGRTYJciJpxy98I/r9nMkoWijRoSVVhkvTjaxeTmUs8QecThlLt20c0xg7HlTMe1S/gjWFPwYe5bFVm0VYsh/acF1tF0Lc7ef1yiP/uE5vYuLJpxG1FV9EiOIk+4/qiIBqH1gurEUKEDuc1kgxtJbw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jA2/+3Ul; arc=fail smtp.client-ip=40.93.196.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F32B3EE1D3;
+	Tue, 22 Sep 2026 17:30:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790098254; cv=none; b=TKw4mEvY70r5z8DW76RREzyN8QqB/0PRWRrTyE6vfsIJiLqgs7HfXwkUHCbRf54kr2CRLDUKNyH0lZzFVEdGkRKtIgm3xKxD13Y746VdU/pV2yS6/zXVsgV3B5DAZtI4Mk1Cm3dAZFj81tY7L3AEmnNgA80z3k2iTFy0gmt+r80=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790098254; c=relaxed/simple;
+	bh=IBxGkB5cDASI8ZxcpjUpGkEX5oFSjLp/w06QTHH1gEs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WwvQJxBkSkTJHSyV/ZDqX7TYz6mPbOxBRmb1ugUVnE6SPxfwVpIkWjysgtdqlU9HmQCbgkhq3TsUBrMQcfMorxcg0il9Ra1/C5L/1bTAHkdWz3BLyQpH1UwLQtNv370NhDOWMHRB4gx3pPRqgXfH111BDCjSRLLaLNNfanouO2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZgGHB/yZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jA2/+3Ul"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cmfWzVsyU1N7gGiVAZVVeloTQu6g4KDJKdGg9oKqJyG++vIqmI8kVQeJSiTEwyGIvAtuCHyXk+OksUTFGLuOER7iVrekbXtikcv2vCN/920ukvIB6rWKHxLsyGkXIuR7PZoeZ0/rcM3nCEPNd/8FKmiY/Cpc2qVdTk8gr84GhK7Flc69MG0aNqH4pvXJel0WiI01bujYMee1IZBoNEL/wp1pWuKeg7wZKkHg9qql5ykqZ56HUboAWbl/9++zpnUEQwYxtx+ApFmjU3ncIpV811EZhhs1QmpCctqgmlaVF1WSll5pMWNu0m4aFz3/UB2f9r86WTEKAhlg/DYG4rJoMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VKbmCxpMb56bDC5cLFCdwtAPytFJbnZtbRqucg3dN5A=;
- b=HnMrk1rxbjNnmxPFzU5XBN/08b0TrK+wGKGJj3q+d2LBGFk06Ro39ZZ5dSWzzMjxJ42K+O/VtxjXLalo997XXYLgAvSkbBjRlqf8ECDfe1Hn+Arb9T3IRDlBcB7vu1wbR2PXgazv+macAz5HwzMsnZt/cOgalnzUz5pe1ulSng3JMufxFWEQPLs2e4Oo/XsKapGVVcwi/M5yw86GrzHx/7/LJg6fge8EA1SwS2lCsVHLuzo2XOufKjoA7zLTIMCb9jDfrcxUbeIh9wp/kXxAXFdr/CwDMwffNq2D6ky2+TR6FBpJiZ+obIQP18pBA9CON3bX9biOzmpULqkeWqOpnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VKbmCxpMb56bDC5cLFCdwtAPytFJbnZtbRqucg3dN5A=;
- b=jA2/+3UlFxmDDUvL+sSMgBvaHhqZPrb6MaGtu9/3GHdwTXtpUflqIeJzyyVWXSZSFQoY1B/BcUNkF1HR6d+nDP23VpkEUa77bmaqT0Da8JMPITFHiI41x8JG/tme5j1bSidNcwIaYTvcD/PDO2WTtMW9JpHDlFSk2hj9JumcrT8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH8PR12MB9766.namprd12.prod.outlook.com (2603:10b6:610:2b6::10)
- by DS0PR12MB7534.namprd12.prod.outlook.com (2603:10b6:8:139::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 17:30:20 +0000
-Received: from CH8PR12MB9766.namprd12.prod.outlook.com
- ([fe80::be0f:431f:5f27:96d9]) by CH8PR12MB9766.namprd12.prod.outlook.com
- ([fe80::be0f:431f:5f27:96d9%5]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 17:30:17 +0000
-Message-ID: <49dc9184-57f3-4532-83cb-d6ee3a5d90df@amd.com>
-Date: Tue, 22 Sep 2026 12:30:14 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/5] PCI: Assume control of portdrv-related features
- only when portdrv enabled
-To: Bjorn Helgaas <helgaas@kernel.org>, Lukas Wunner <lukas@wunner.de>
-Cc: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rafael J Wysocki <rafael@kernel.org>, Guixin Liu <kanie@linux.alibaba.com>,
- Olof Johansson <olof@lixom.net>
-References: <20260921190125.GA1333298@bhelgaas>
-Content-Language: en-US
-From: "Bowman, Terry" <terry.bowman@amd.com>
-In-Reply-To: <20260921190125.GA1333298@bhelgaas>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1PR03CA0003.namprd03.prod.outlook.com
- (2603:10b6:806:2d3::14) To CH8PR12MB9766.namprd12.prod.outlook.com
- (2603:10b6:610:2b6::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZgGHB/yZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D761F000FF;
+	Tue, 22 Sep 2026 17:30:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790098249;
+	bh=z89Njd5NsuesblLEylAwbrCoulRmCPRaUnG1Sas+cvM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZgGHB/yZACcQBRo+7Rh9XBI681UXZdzOLpud99DOLErktuYlCA2xae/SJbAl6zeRi
+	 UO1UhKPWJ5MRpYsFspcGRCgW/lqx24xt8COjWfWUuvwGFvCoVrKmEddhD6IWV7xBkV
+	 D59YmNU1PHhX4UrZJ5+1lwt1D92IyGTLLT6ESuVKkuma4PxEKwHyA+NuM+ZX2ADgxV
+	 FlH04SJZZ9t7OgTySL1sQGFtg8kz1BBfBBIqDfKqb+gzDjeaSJbvftSCjx/pCA8Ior
+	 sk1DDFsEgM06G1mj9MhGgDUq4SiiqQsqCNWIbg5Mv3btg+0d4T9h1r+gSpqwYJwlcV
+	 uVpBeCzIAaGdQ==
+Date: Tue, 22 Sep 2026 18:30:39 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
+Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
+Message-ID: <arK5ynpRi7VbY7Ek@gremlin>
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+ <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org>
+ <arKxjsxuO1F5ExrY@kernel.org>
+ <arK5n9HrbZMCOHOt@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR12MB9766:EE_|DS0PR12MB7534:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41d51195-7f67-4277-7f54-08df18cf2b18
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	suTgG6NhjrIdUNQ+JWUY9km5r61V45m/wGVH+7c90a4QT84RCzHwT3DshU4xHar9VTZo2LriS/sCymEKWynNoTZ/IyEYyYTIEIjE/an7LNUHmRSNdr/gRt2Td7Wf293gGkv2ZZsIcK0HkddGe9ZlbmXfODMWlwRaIYm8Fx+Rixe2LnegdwrMIlzy0IM0jp6fhZCGZ2654B+VPd5qMjdpUszHn5nZcWipEpmf7V1KBLMIK5KXkrcnxU4q3kIalJI1Bx5DUsEMP2M8B5tbO4B1oYTZzEsMqpjRA97pxt4JTg5NdOoQalh/aNw1n0TJfUFg9joSVCz8yK8apajHvMw/Bv0vugDLBU3zJtU3JlQpEQuOIzoexZokbEx9xmhzFRwnIe1zs+HSO58arRWCGIp517Bjy89jahdTz0t4Qd2YyMevA4J2w1Q+FjtBnZlgyz8Eyk4QnqQrHaoIv9oxAb2lyXXHGPiFKvIQf8acGajYesWKXU3BravnA2IrcQOTssPYT+5OClpxZGKo/CcjtZfyhFNJjt+JxqhNgAY+sURMk4fanRmBaH5OPK2zeVYV2F81Kp7LUKM10X+Wh5FysIHWYTO4W+fJYjwS4aSN3rkToKi4G6w4+KOo/H23pZzvuuBIaQSKzPSrdTj/0MAYOR4k34cOGDij6Qdz27WmasO0tGI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR12MB9766.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MGxmU2grc3Z4MXZGNzMzMTNkU1dhbFZONFhsd2dIclA4RTN1T3hqa3VmMmRi?=
- =?utf-8?B?c0V4Q2dPSytCK0VYd2RMRUY1enNobE5XbDZ5RXF6WGlNOS85aUlsYUh2TU9N?=
- =?utf-8?B?Z0xLT25DeFJ3a2NZR2lqdXV4RzFpUCtGZGJRQnByUUhoSkVodUJuS0xsYllV?=
- =?utf-8?B?NWhFQVdUNXpaVlhQYnI3ZHBIdjJhbTdCVEpPcnNKSmxpQWJpSmpoNmpUZnJC?=
- =?utf-8?B?dnUrdEtBY3ZNcnAzWURyNit6cTNGdmtxVlliMUtTSXZZdEg1WGx4L29OT09H?=
- =?utf-8?B?VnUzcFp4ci93SUM5dGhMOHF1TkhhNjY4K2RNVWZuSEhtRXM2U1k1TklSVVV0?=
- =?utf-8?B?Sks4aVNMaE9wQjRzZ0daWlo0Z2FXYzlPc3FvNW4zMWtsMm5EOHppbUR6blEr?=
- =?utf-8?B?ZHMzd2J1eUt1c2RxVHhDdGo5bDBBY3NBd3hoQWFiU0J5eURQcktESk5JSEF6?=
- =?utf-8?B?MFVDSVIrYlBNdlEySWE5THpXbEVDM2FCYVVHK0YxeThVUWQ3TFAyUVgzMFh6?=
- =?utf-8?B?SE5LT1Npam9UZXFNcjJuNzk4NG5qcTYzQk5oTE5NWTFDcmo3RzE5azJvZkY1?=
- =?utf-8?B?ZHRseTVmY09aZHBmSitKUDNsYjZRZm1udEdMRjgxYVBSQ0ppcmNnWHVFSHh0?=
- =?utf-8?B?NklKZnJhNDBuRlpxZnVWWENLZURYbmR6bkQwNlFCOWgyelVwN0RJYVovNDB5?=
- =?utf-8?B?L05xd0s3dFhIbHRDc3NnaFg5RkFHdEFCL3ZsWW53c0kwNG53TzgvNi9VUEdB?=
- =?utf-8?B?VXZCQ1paaEg4elplcnpXT3FyZzRrQVFDS1U1NnQ2Mk8rMmxoOFpBcHRKQTBt?=
- =?utf-8?B?UWN1djN6SDZob1pEdlBTZ2I4TDBKVjVFWjBHdlEwZURZMlhEem5vRlg2TGdm?=
- =?utf-8?B?OGxmREFvQ0ZxRTd0c29BVUw0bGs4VllBWlpRY0l2WWhqdmVBQXVDbG9YZWli?=
- =?utf-8?B?WE1PMktGbERHZTU4QXN3VW9adUNia3FBMExPdkxzZy81OGJnRFdNOGt3Y0Vw?=
- =?utf-8?B?VFU2ckd3R01GUS94VG0rOHcrLyt2Yk1RVUNqQjFMR1RpYis2TE5aR0pCQkZH?=
- =?utf-8?B?U3NzT3J5UDAwZ2FXTlFJWjhPajVvV0g3NzVpTmk3eTVHK2MxWjI5U2xyV05D?=
- =?utf-8?B?ZDZRRHhhREVVZTBPUWdLNnFjb0VIYUpkcGtScHFmVEVtRC9acU8vL0tkV3Fn?=
- =?utf-8?B?VDhxVmNWb2c2cW5Fa3dPWU42VDQ1NkkzRjRvS1lPa1lXWmZMcnpLMGxjNUxk?=
- =?utf-8?B?R2lvNjZ3M2l2MzN2MmpWb3FnUWtyalFJT2U0dWc5djVsRERobSsycTZRV3NV?=
- =?utf-8?B?elJvNFBMemNwcDhXM0lRTFREVkVsQTZmVnpyeml4RjV0L2R5K1crUmYxM2kw?=
- =?utf-8?B?czlST0tqaDhJUnpDMmdMREx4MDg2RENQaUIvU0ZDakdpSjBxRkFIMm5DTkJV?=
- =?utf-8?B?MC9pUjMxZ01RdlBSaDJVRVNmaVpGbnFmM0lpMUo5RVJIMFlsWm1odTVDUVNh?=
- =?utf-8?B?MElBVGlNVFFjSjJ1WEJyQTUrd2F5eFlsZ2Z2enRMVTJCelV6N0tCcnlyNDRY?=
- =?utf-8?B?Z1FrMHYzMlV1OHFteDBRcEtuUlQzRzJxOXFTemxGcDZWNyt0dS9mbjV3YWh6?=
- =?utf-8?B?eWE1YnN0Z1BxR3RZZldIS0tub0FJMDh5YnBTZkJOVzNoWEFiMkJLZFNiUlg0?=
- =?utf-8?B?TWtPeWxTM0d1TkxSdjBJNzM5WWZHSDhzM0k5a0pJaGEyditZYitVWVA4VTI3?=
- =?utf-8?B?c2xPOVVMeVVtVjVuaDJRbGFraTdvWm84VVVBdENXYVNreU92SzljOWVVbXdV?=
- =?utf-8?B?WlJGVGhXWTRiKzc1TXRSVDcxWDRUYkFGRStoZ2ozZDU0QURhbXlRekV6SGND?=
- =?utf-8?B?VDZVQlEwOHZXQkRHbnR2am5tNVlCVmd0Q1JGNGdPLzlGcWxuSjdJby9icE9l?=
- =?utf-8?B?L3lDRzZxc0dTOU9lSWxDazRFUUVvdGN4dWZwTlBTV2IwbHlDanU3NXNpMEZD?=
- =?utf-8?B?ck1BWVZxY0xsYUYyemtDeTVGbFRIa2V0Uk56bVpJMzY0SXBuSkFOREYwQWVR?=
- =?utf-8?B?ZjFJQ1JKT0VwU0J2SjZocER0eDJ5U0l5czU0YkFLZzZaNWxhMTZOa2k0c1p2?=
- =?utf-8?B?MktORkNmeFVBazhmbnI0Unh4SHdlczhiTWZnK3hrYURxcExxQmdEWW01c0NP?=
- =?utf-8?B?YmNobG9OYmcrV3dCbWVZSFNKbk9PdjNSVjMxQ3IwZFoyeGg5QmNJSjhUNGdT?=
- =?utf-8?B?UnZhc0hscTg0TWpkREVsZmdSaEpUVWUwK2dVZUdTMWRSNWhYVWU2UjJTZlhN?=
- =?utf-8?Q?2BmYlTF+Be5RCk9IhZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41d51195-7f67-4277-7f54-08df18cf2b18
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR12MB9766.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 17:30:17.1362
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RyyDdLTHBIeCUM098MsRLCwKkBD9SMh0xA2B/mxwHBFL+5nGW4dUFCGT5G2S3xiZjd8ijKDOuk0M7eQfKGi6mg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7534
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arK5n9HrbZMCOHOt@google.com>
 
-On 9/21/2026 2:01 PM, Bjorn Helgaas wrote:
-> [+cc Terry, in case you have thoughts about native_cxl_error;
-> beginning of thread:
-> https://lore.kernel.org/all/20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com]
-> 
-> On Sun, Sep 20, 2026 at 08:17:21AM +0200, Lukas Wunner wrote:
->> On Sat, Sep 19, 2026 at 09:26:52AM -0700, Kuppuswamy Sathyanarayanan wrote:
->>> +++ b/drivers/pci/probe.c
->>> @@ -668,12 +668,14 @@ static void pci_init_host_bridge(struct pci_host_bridge *bridge)
->>>  	 * may implement its own AER handling and use _OSC to prevent the
->>>  	 * OS from interfering.
->>>  	 */
->>> +#ifdef CONFIG_PCIEPORTBUS
->>>  	bridge->native_aer = 1;
->>>  	bridge->native_pcie_hotplug = 1;
->>> -	bridge->native_shpc_hotplug = 1;
->>>  	bridge->native_pme = 1;
->>> -	bridge->native_ltr = 1;
->>>  	bridge->native_dpc = 1;
->>> +#endif
->>> +	bridge->native_ltr = 1;
->>> +	bridge->native_shpc_hotplug = 1;
->>>  	bridge->domain_nr = PCI_DOMAIN_NR_NOT_SET;
->>
->> How about (e.g.)
->>
->>  	bridge->native_pcie_hotplug = IS_ENABLED(CONFIG_PCIEPORTBUS);
->>
->> instead of using #ifdef?  That's the preferred style according to
->> section 21 of Documentation/process/coding-style.rst
->>
->>>  	bridge->native_cxl_error = 1;
->>
->> Hm, this one depends on CONFIG_PCIEAER I believe.
->> (But Terry Bowman is the expert.)
+On Tue, Sep 22, 2026 at 10:23:43AM -0700, Sean Christopherson wrote:
+> On Tue, Sep 22, 2026, Oliver Upton wrote:
+> > Hi Lorenzo,
+> >
+> > On Tue, Sep 22, 2026 at 03:17:55PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > +bool __weak kvm_arch_vcpu_allow_pre_fault_memory(struct kvm_vcpu *vcpu)
+> > > +{
+> > > +	return true;
+> > > +}
+> > > +
+> > >  void kvm_vcpu_on_spin(struct kvm_vcpu *me, bool yield_to_kernel_mode)
+> > >  {
+> > >  	int nr_vcpus, start, i, idx, yielded;
+> > > @@ -4365,6 +4370,9 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+> > >  	    range->gpa + range->size <= range->gpa)
+> > >  		return -EINVAL;
+> > >
+> > > +	if (!kvm_arch_vcpu_allow_pre_fault_memory(vcpu))
+> > > +		return -ENOEXEC;
+> > > +
+> >
+> > nit: it'd be better to let the arch hook return an error of its choosing
+> > but in reality this is only going to be used by arm64.
+>
+> Heh, except x86 already has something similar.
+>
+> 	if (!vcpu->kvm->arch.pre_fault_allowed)
+> 		return -EOPNOTSUPP;
+>
+> As does s390:
+>
+> 	if (kvm_is_ucontrol(vcpu->kvm))
+> 		return -EINVAL;
 
-native_cxl_error gates CXL device event record reporting, which is distinct from 
-CXL protocol RAS errors. Its only consumer is cxl_event_config(). This should remain:
-        bridge->native_cxl_error = 1;
-This must be assigned outside of the #ifdef as the corresponding _OSC control is 
-based on CONFIG_MEMORY_FAILURE and not CONFIG_PCIEAER.
+Yeah but they're all for different reasons I think :)
 
-CXL protocol errors are gated on AER (OSC_PCI_EXPRESS_AER_CONTROL).
+>
+> I also don't like that this is subtly about avoiding vcpu_load(); it will be all
+> too easy to overlook that detail in the future.
 
--Terry
+Well you see there's a problem here...
+
+>
+> Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
+> generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
+> the return value, the connection to vcpu_load() is obvious, and we don't need to
+> add another pre-check if future (or cleaned-up existing?) ioctls want to do
+> vcpu_load() in common code.
+
+...this is exactly what I started out with.
+
+But then you are in a pickle, because _really_ you need to do that check in
+vcpu_load(). Which is a void function. Which is called by every single
+architecture all over the place.
+
+So you'd have actually no way of signalling the error back.
+
+Of course those places are arch code and you could say 'arches should know
+better and if they call it it's fine not to call the arch 'can you load'
+function.
+
+But you're still stuck with the problem of where exactly you put this check.
+
+So then do you put that check in a wrapper around it?
+
+Instead you can make the predicate 'don't prefault on a not-yet-initialised
+vCPU' which is pretty sensible I think, have a specific place to put it and
+all's well with the world.
+
+(And adding that makes sense in the pre-fault series too...)
+
+>
+> I'd also be tempted to say it can be a macro, not a __weak function.  E.g.
+
+Yeah it can be many things but why would you want a macro if you could possibly
+avoid it? :)
+
+Macros make the already-basically-pretend C type system into something even
+worse.
+
+Also it seems the convention for 'arches might not specify this' is the __weak
+route AFAICT.
+
+>
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 27fe0cd5b2d7..99613df254cf 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -1533,6 +1533,7 @@ static inline bool __vcpu_has_feature(const struct kvm_arch *ka, int feature)
+>  #define vcpu_has_feature(v, f)	__vcpu_has_feature(&(v)->kvm->arch, (f))
+>
+>  #define kvm_vcpu_initialized(v) vcpu_get_flag(v, VCPU_INITIALIZED)
+> +#define kvm_is_vcpu_loadable kvm_vcpu_initialized
+>
+>  int kvm_trng_call(struct kvm_vcpu *vcpu);
+>  #ifdef CONFIG_KVM
+> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+> index 3dd04605f2e5..02401b080507 100644
+> --- a/include/linux/kvm_host.h
+> +++ b/include/linux/kvm_host.h
+> @@ -1053,6 +1053,9 @@ int kvm_trylock_all_vcpus(struct kvm *kvm);
+>  int kvm_lock_all_vcpus(struct kvm *kvm);
+>  void kvm_unlock_all_vcpus(struct kvm *kvm);
+>
+> +#ifndef kvm_is_vcpu_loadable
+> +#define kvm_is_vcpu_loadable(v) true
+> +#endif
+>  void vcpu_load(struct kvm_vcpu *vcpu);
+>  void vcpu_put(struct kvm_vcpu *vcpu);
+
+--
+Cheers, Lorenzo
