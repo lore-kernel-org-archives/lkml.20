@@ -1,151 +1,233 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A43572673
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADFD56E071
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096822; cv=none; b=RZXLD77skly42k5Ct3KmjjUQlSG+87Tp9k73xRiHv2Y+xhEqJJblO1adn71Ie7ZorOBibwV02wzAI7a2HhkQFCy/+fFbnPL3zAciCgBvj1Rg157VDVcUdsVXmmore43/8fF821qawZEoAWYEkqOYDiGfrkWoheODG1t/goXBeY0=
+	t=1790096828; cv=none; b=KDU0PehpM/I+SnrPLl669bdVFnODjidxtp0D1kssFng74UOtwjybIe6A+Sxv8J8glyJS8VIBaMarxb/G8qtQPgf7jCKsNoTt2YXyyfbF3p1KO6pfJ8gM4lUbS6WkKx0u1lQI2y2ZRq5yETzOWTKrPlYHjGH4+9QOhXOYfEdrRWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096822; c=relaxed/simple;
-	bh=4KVFsN/5kuGwpKOa3epF2KYzarXr3UYUxyjwLe7DiVE=;
+	s=arc-20240116; t=1790096828; c=relaxed/simple;
+	bh=THqLxf2Nh8WONvTsUugDhC8C3Fhu1GnsjuOyv2a4vcQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jLcyH5JtCh+PxUrpVj9Z6qBWSkIgj7UHL6kIgnVvQnvV3mrRHFPUVw1IKlr4wGVneL8MSDIrjLpq98/1vZ4hksuYBUxjeX9ZzrMRtE9CxHukjINJdqSwGm3S9Z9sJknoKcWJvgcrI5gPWYKrGI9QXBNWDh07Dwh0Gq8Yyi3MAo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CLS0VXYB; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hm3JFUjEXkaks064MwXewAzriq3hMM8WLRQ6yCnH2FaHZSADJP5KX8ujIv8h8glnzdYIwlJ6qYT+SrKiBtZHvjZsSi2YTgx8fMyDUKMOqPLCWKSSLn8TEJU86LDjcOYhcRPj3aj3x1oKrBAJAXUY7/PZaj2vyRVvM9ULqd539KU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k3cqqhiK; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CLS0VXYB"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so66021a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k3cqqhiK"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso62255e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790096821; x=1790701621; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790096825; x=1790701625; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qAvCIMMbEInVUoFLnt1nZ1HEAddfmvLREQFEVinPu5Q=;
-        b=CLS0VXYBwCobKG16cZMNhdOp08kyD1sRbA1AMXFXvkyHANnusLmM08Cr18K+qcmPQb
-         dFyFsmUuZVmERl4KYtn16ud8gx75w7lLg3py8m/iDPdmYjJCNC2rlva75lLJTWKnAIFj
-         Mo49Uesxin3afrT6oiSYWZ8N5fnDazkDaTqrUFeHpX5pPu5xYLrL+2hGglucQuVFBai+
-         Xyaj2RC/7iyZPVFDGLjNuw2ixd48ROKfgsIFaQuNWZv9dYDVXfNGFqBF35Fkr7PGXI6d
-         nza44yZE1MoSpoCox3NZH9hSTTOxcDf5ri1F2dXjftAQpph70LNITCrAvnj7cgrgHILA
-         +lSw==
+        bh=8JODXIaSFJC9qN9KmTlMz7Gcx5C6dm9DycX2u8LOJSM=;
+        b=k3cqqhiK7tap7MRXZ4v4RDXWk9sJdPGOS67mRDbC2c8hP1Yf3I15f7B5OcNHG56zNY
+         mPkc56tt1UamPeXosfp3fZrueWG+xAriUb7ELaZNUOUEwjqjN/AH2c+K7iYGoE/DvVrx
+         wGBbjV1OaBnYm9x8kV07flmxPYl22+pTjjX5QMztWb9XEpDBH0Hz4Qx2I+wlgqAZ61Zj
+         5Jtzl78qVJeGZAUeU/Z1ZUmf5Hy2XSg3/kTKSp6+dFdIXYqsoLye6VLWlXTHIajfPBR7
+         RZInBh53oxTotqB1HqvRaf5Y2taGdP/5Ghspfgrny6XRw9+HIxPlJwvgh5Ly/LeU5bR8
+         Ujdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790096821; x=1790701621;
+        d=1e100.net; s=20260707; t=1790096825; x=1790701625;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qAvCIMMbEInVUoFLnt1nZ1HEAddfmvLREQFEVinPu5Q=;
-        b=ZIOMKPBHi58UWTgBbzWnF86WRdrwFTssTAPHJ79yzS2vvvKOxWNhWimB4suk/Haqjw
-         DxGSMbQS8Zg+Hu4tO9vBj/+sFHHelW/wSae+eyD2Mq8IzLWQw90z8K1gXcYYzXbLq9P6
-         1WQNwuKqEkVRU/gi45B0qOHyS4qr0wzd5qFiWgNCIwBv9EXb5rQy8/1RjgsTMQzPEZ2x
-         qUGLkHLonMu/A35UV7VAzwMuHXBvdYpPyv4mXEsKw4wojJD6OtOlrn4kN/+4pXm8RY5S
-         FN8SnkFhBHREWokp3i0gT4udlojOnktDlec+eAgL+lUNJttejXbjphm1pwaN4zAQzU6L
-         IsYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwqh8VjqoSm+dE1ePRrwADQG0wrcBtLUKgMOunhGSZg9/xZfXLr4mvQT6WbRx6m3Qy4J9S8cW21qN3ZA1g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kADNm/bs891YB3XkMrfFiaYlk+OhkjTToDHc4xg8JrgsPhKlvd
-	1X9RNlVNagG3jYFLf41PTTI3xzgKoGbBH9d5WgWZXl10MYzKN73T3ajN
-X-Gm-Gg: AYBFou04q5DyAcPnHSrqjC5nak+/H6kRoVBITRqCVX36qPnL3rlSDIgL1sBBh1316ok
-	qyIWBXFBe3caU4R9egCVNk6eV2Gvxi1hK5tJ30Gq72pWZgXmHD+D5xIkyUdjXZHHaSHkPKheWDb
-	ExVqQhmJgp5yVhjf1YATxTPpI8g7FkdOfv32BhBuJ84hpY2+jflXq5ufGA5pihvEVEIl/OwgUtS
-	nIdg470mjS5dPfoxmP5ESLzR5pZsY3CzQzu4Y5AJ3syJbW6+bYdz+AVgmb0uOEpzZ77VRIWszQJ
-	2kjC4aOiqXflaGQPdGAgGdkVzbo4+uMiy1f36CfI5UEIaYdJStDpw9Io+VMzWBRCqmXSFsb+XVz
-	hgZAHWSFe44eUgQSxWlp9uJa6+kI3r6EudZgXF49i1nXZ/0fzUxp3t1ODOk+LmQlG1dIp5qxtJ0
-	dPq4Y9xJWNwitCgFfqw+315i8FMGwYODAiXEBnsPhWTBNYoi6ENMLShZsRp+Wlac9nsZs=
-X-Received: by 2002:a17:90a:d886:b0:3a0:295e:6e61 with SMTP id 98e67ed59e1d1-3a07e494968mr77713a91.12.1790096820503;
-        Tue, 22 Sep 2026 10:07:00 -0700 (PDT)
-Received: from john-p8 ([98.97.43.30])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbc5451sm369953a91.7.2026.09.22.10.06.59
+        bh=8JODXIaSFJC9qN9KmTlMz7Gcx5C6dm9DycX2u8LOJSM=;
+        b=jVbxj4SX8FKdXhqSst1QW1GVALC9TJqW+jLIPffzcF5wsAHzClTj4oD8E6yb0skPrH
+         5KhIt+8k6V6fhpkQv3zpvKJAqD3j0DWgLkMqRU1Wdx+vXAAKUD2eDI/jar/sO0n3FFQe
+         X7U2HqOuoTH4UF1c5/qZv9wJGliFPjJNDXOHLymFm1R9VShQGt4btfpu55f25z6Rz4N0
+         6w1/ebmyFtRRIE2aiN0FMfh/iLyt5ckgS7qyDNtorbjxh5ypaSZp9GGFLd6cyByMVf7i
+         tue1rcGBm/6EeQ1x6BRllBdIhVq+aEBjXsO543Ws69nHLLOmXnrjM7FCX+Q3vxAhXUDN
+         tGpg==
+X-Forwarded-Encrypted: i=1; AKwUvBzgHThm0cTNTyp70A/WUEbgcIt9JiBnUyQHETNzwFBYUIKsv4d2ffl+rP4Pv2yWAhDNYWTbMYZi3MXKEl4=@vger.kernel.org
+X-Gm-Message-State: AFuF++koK7zCndZbPIQIL23a7plwTXwz9zxrsCvDkuh1oawIAIgkmLr4
+	6EgNLQE/zKsacZCBOi/8KdRg1GodEp40BukVCFbmETt0ki2Tn7uh4J2Ze+1efjM89A==
+X-Gm-Gg: AYBFou1+FNNF1PMOwQeL2RKbtQUG7ZdqVz9w/X1P04/DmWdl+Hk41g0avHBtt25Oh7z
+	2xb4I/NM61XELXOb2IsCKRaIsdFZSqNa8sWssK4LiBU5kYgui6Bbx4Xn/9f5n21NQ5UQYajRx58
+	1zjQ/CzXezLQtZ4Df3jfBNW96G7dyM3RhctRqSyjNHgHY8Kxzib6+OCGRXejDF10QYqUs7MYfZe
+	kA4En0du/4XvL6MgjIPSu27tBeQVzQDeXi9++jxwnTl11koTM76Aob5zzqrGD01dqHCzGjGFRRK
+	+RHJSXVyIwEew2RVTTW4KTR5wQbVg+W06zTyhQshgGdd/QRxqXHqIWkh82Omq9cJOdrAolXjBuw
+	j8hKqwxWoHgLcvmzZ4Wd0cDocgDbjKG02RpDFCtkuCf5/f8F4q6UQPiEbEud6Poo6ym1ja8A9d5
+	yBVxqqwUaAcdTUBBmiFLPJXeKXrvOapw+aLZvglZtKvLwp9SzuOvjD2F3BK5p6Fql54wsLuBBaY
+	0C4B6W0awvC6UX7H1z7czuF72qAO4m0iK0PjM4K1zg=
+X-Received: by 2002:a05:600c:5487:b0:49f:bd3c:bc1e with SMTP id 5b1f17b1804b1-49fc573a0damr223240355e9.25.1790096824351;
+        Tue, 22 Sep 2026 10:07:04 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1ccb90sm4537125e9.6.2026.09.22.10.07.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 10:06:59 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:06:57 -0700
-From: John Fastabend <john.fastabend@gmail.com>
-To: bot+bpf-ci@kernel.org
-Cc: zhaogongyi@bytedance.com, bpf@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jakub@cloudflare.com, jiayuan.chen@linux.dev, 
-	edumazet@google.com, kuniyu@google.com, pabeni@redhat.com, willemb@google.com, 
-	davem@davemloft.net, kuba@kernel.org, horms@kernel.org, ast@kernel.org, 
-	andrii@kernel.org, daniel@iogearbox.net, martin.lau@kernel.org, eddyz87@gmail.com, 
-	yonghong.song@linux.dev, mason@kernel.org, ihor.solodrai@linux.dev
-Subject: Re: [PATCH bpf] bpf, sockmap: reject max_entries > INT_MAX in
- sock_map_alloc
-Message-ID: <arK1CpHjWpmX0S55@john-p8>
-References: <20260915071743.29394-1-zhaogongyi@bytedance.com>
- <dc4bd7fb4d98a0066958a4e1582b6a7a407079fd9a284318848909f9594a9295@mail.kernel.org>
+        Tue, 22 Sep 2026 10:07:03 -0700 (PDT)
+Date: Tue, 22 Sep 2026 18:07:00 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com,
+	tabba@google.com
+Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
+ at EL2
+Message-ID: <arK1tHUEJsCQEKzn@google.com>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+ <20260914113338.159227-11-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <dc4bd7fb4d98a0066958a4e1582b6a7a407079fd9a284318848909f9594a9295@mail.kernel.org>
+In-Reply-To: <20260914113338.159227-11-fuad.tabba@linux.dev>
 
-On Tue, Sep 15, 2026 at 08:13:48AM +0000, bot+bpf-ci@kernel.org wrote:
->> sock_map_alloc() only rejects max_entries == 0 and never caps the upper
->> bound.  sock_map_free() then walks the sks[] array with a signed int
->> iterator:
->>
->> 	int i;
->> 	for (i = 0; i < stab->map.max_entries; i++)
->> 		struct sock **psk = &stab->sks[i];
->>
->> When a SOCKMAP is created with max_entries = 0xffffffff (UINT_MAX), the
->> allocation of 32 GiB can succeed on large-memory hosts.  During free the
->> counter reaches 0x80000000, wraps to INT_MIN, is sign-extended by movslq
->> and turned into a ~16 GiB negative offset from stab->sks, pointing far
->> below the allocation.  On a KASAN kernel the shadow check for that
->> address hits an unmapped shadow page and oopses:
+On Mon, Sep 14, 2026 at 12:33:30PM +0100, Fuad Tabba wrote:
+> EL2 implements PSCI 1.1 for protected VMs: CPU_ON, CPU_OFF,
+> PSCI_VERSION and PSCI_FEATURES are decided at EL2 (CPU_ON and CPU_OFF
+> still exit to the host, which only schedules or parks the target),
+> AFFINITY_INFO, CPU_SUSPEND and the platform power operations are
+> forwarded to the host, and anything else returns NOT_SUPPORTED,
+> including the TRNG calls and the functions above 1.1, SYSTEM_OFF2
+> among them, that the host handled for a protected guest until now.
+> TRNG for protected guests is a follow-up. AFFINITY_INFO stays
+> with the host, which returns OFF only once it has parked the target:
+> the host is what a guest polls to see a CPU_OFF complete before it
+> issues the next CPU_ON, as Linux does on hotplug.
+> 
+> Three consequences follow:
+> 
+>   - A protected VM has one primary vCPU, the first whose hyp vCPU is
+>     created with mp_state RUNNABLE. A second one, or an mp_state other
+>     than RUNNABLE or STOPPED, fails that vCPU's first KVM_RUN with
+>     -EINVAL.
+> 
+>   - CPU_ON finds its target among the hyp vCPUs, which exist from the
+>     target's first KVM_RUN; before that the guest gets
+>     INVALID_PARAMETERS.
+> 
+>   - A vCPU EL2 holds powered off doesn't run: handle___kvm_vcpu_run()
+>     returns ARM_EXCEPTION_IL, reported as KVM_EXIT_FAIL_ENTRY. Its
+>     existing bail-outs return the same code instead of an -EINVAL that
+>     handle_exit() didn't recognise, for every hyp vCPU.
+> 
+> Non-protected VMs keep power_state ON and accept any mp_state.
+> 
+> Each protected vCPU is OFF, ON_PENDING or ON. CPU_ON moves the target
+> to ON_PENDING, and the target's next run resets it and moves it to ON.
+> The racing transitions are cmpxchg, and the reset state is published
+> with a release/acquire pair, documented at each site. CPU_OFF publishes
+> OFF with a release, so the target's clear of reset_state.reset is
+> ordered before it and a CPU_ON that then wins on OFF republishes after
+> the clear. Rolling a CPU_ON the host failed back to OFF needs the
+> host's return value, which the per-EC marshalling patch delivers along
+> with the rollback. Until then such a target stays ON_PENDING, and the
+> reset has no observable effect: flush_hyp_vcpu() copies the host's
+> context in on every entry until that patch removes the copy, so the
+> target enters on the host's values rather than the ones EL2 reset.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  14 ++
+>  arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  25 ++-
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c         | 283 ++++++++++++++++++++++++-
+>  3 files changed, 311 insertions(+), 11 deletions(-)
+> 
 
 [...]
 
->> Fixes: 604326b41a6f ("bpf, sockmap: convert to generic sk_msg 
->> interface")
->
->Is 604326b41a6f the commit that introduced this bug?
->
->Looking at that commit, the version of sock_map_alloc() it created did
->cap max_entries:
->
->    /* Make sure page count doesn't overflow. */
->    cost = (u64) stab->map.max_entries * sizeof(struct sock *);
->    if (cost >= U32_MAX - PAGE_SIZE) {
->            err = -EINVAL;
->            goto free_stab;
->    }
->
->This bound limits max_entries to below (U32_MAX - PAGE_SIZE) / 8, about
->536,870,400 entries, which is far under INT_MAX. With that bound the
->signed iterator in sock_map_free() could not overflow.
->
->The check later moved into bpf_map_charge_init() with the same limit.
->The upper bound was actually removed by 0d2c4f964050 ("bpf: Eliminate
->rlimit-based memory accounting for sockmap and sockhash maps", v5.11),
->which deleted the bpf_map_charge_init() call without replacing the size
->check.
->
->Should the Fixes tag be:
->
->    Fixes: 0d2c4f964050 ("bpf: Eliminate rlimit-based memory accounting for sockmap and sockhash maps")
+> +
+> +/*
+> + * Returns true when handled at EL2, false when the host must wake the target
+> + * vCPU.
+> + */
+> +static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct pkvm_hyp_vm *hyp_vm = pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
+> +	struct vcpu_reset_state *reset_state;
+> +	struct pkvm_hyp_vcpu *target;
+> +	unsigned long cpu_id, ret;
+> +	int power_state;
+> +
+> +	cpu_id = smccc_get_arg1(&hyp_vcpu->vcpu);
+> +	if (!kvm_psci_valid_affinity(&hyp_vcpu->vcpu, cpu_id)) {
+> +		ret = PSCI_RET_INVALID_PARAMS;
+> +		goto error;
+> +	}
+> +
+> +	target = pkvm_mpidr_to_hyp_vcpu(hyp_vm, cpu_id);
+> +	if (!target) {
+> +		ret = PSCI_RET_INVALID_PARAMS;
+> +		goto error;
+> +	}
+> +
+> +	/*
+> +	 * vCPUs race to power on the same target. Relaxed: reset_state
+> +	 * is published by the release on reset_state.reset below.
+> +	 */
+> +	power_state = cmpxchg_relaxed(&target->power_state,
+> +				      PSCI_0_2_AFFINITY_LEVEL_OFF,
+> +				      PSCI_0_2_AFFINITY_LEVEL_ON_PENDING);
+> +	switch (power_state) {
+> +	case PSCI_0_2_AFFINITY_LEVEL_ON_PENDING:
+> +		ret = PSCI_RET_ON_PENDING;
+> +		goto error;
+> +	case PSCI_0_2_AFFINITY_LEVEL_ON:
+> +		ret = PSCI_RET_ALREADY_ON;
+> +		goto error;
+> +	case PSCI_0_2_AFFINITY_LEVEL_OFF:
+> +		break;
+> +	default:
+> +		ret = PSCI_RET_INTERNAL_FAILURE;
+> +		goto error;
+> +	}
+> +
+> +	reset_state = &target->vcpu.arch.reset_state;
+> +	reset_state->pc = smccc_get_arg2(&hyp_vcpu->vcpu);
+> +	reset_state->r0 = smccc_get_arg3(&hyp_vcpu->vcpu);
+> +	reset_state->be = kvm_vcpu_is_be(&hyp_vcpu->vcpu);
+> +	/*
+> +	 * Publish reset_state.{pc, r0, be} to the target vCPU. Pairs with
+> +	 * smp_load_acquire(&reset_state->reset) in pkvm_reset_vcpu().
+> +	 */
+> +	smp_store_release(&reset_state->reset, true);
+> +
+> +	/* The host requests KVM_REQ_VCPU_RESET and wakes the target. */
+> +	return false;
+> +
+> +error:
+> +	smccc_set_retval(&hyp_vcpu->vcpu, ret, 0, 0, 0);
+> +	return true;
+> +}
+> +
+> +/*
+> + * Returns true when handled at EL2, false when the host must stop scheduling
+> + * the vCPU.
+> + */
+> +static bool pvm_psci_vcpu_off(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	/* No other writer runs while this vCPU is ON and executing. */
+> +	WARN_ON(READ_ONCE(hyp_vcpu->power_state) != PSCI_0_2_AFFINITY_LEVEL_ON);
+> +
+> +	/*
+> +	 * Orders pkvm_reset_vcpu()'s clear of reset_state.reset before OFF, so
+> +	 * a CPU_ON that wins on OFF republishes after it. Pairs with the
+> +	 * cmpxchg in pvm_psci_vcpu_on().
+> +	 */
+> +	smp_store_release(&hyp_vcpu->power_state, PSCI_0_2_AFFINITY_LEVEL_OFF);
 
-The fix is good, its probably worth getting the Fixes tag correct?
+Is there an issue either with the comment or with pvm_psci_vcpu_on()? the
+cmpxchg is relaxed. I would have expected cmpxchg_acquire().
 
->
->> diff --git a/net/core/sock_map.c b/net/core/sock_map.c
->> index ca49bc7f8687c..38df842843289 100644
->> --- a/net/core/sock_map.c
->> +++ b/net/core/sock_map.c
->> @@ -41,6 +41,7 @@ static struct bpf_map *sock_map_alloc(union bpf_attr *attr)
->>  	struct bpf_stab *stab;
->>
->>  	if (attr->max_entries == 0 ||
->> +	    attr->max_entries > INT_MAX ||
->>  	    attr->key_size    != 4 ||
->>  	    (attr->value_size != sizeof(u32) &&
->>  	     attr->value_size != sizeof(u64)) ||
+> +
+> +	/* Return to the host so that it can finish powering off the vcpu. */
+> +	return false;
+> +}
+> +
 
-Otherwise,
+[...]
 
-Reviewed-by: John Fastabend <john.fastabend@gmail.com>
+-- 
+Vincent
