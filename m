@@ -1,95 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE6161C2324;
-	Tue, 22 Sep 2026 02:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E851C2324;
+	Tue, 22 Sep 2026 02:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045202; cv=none; b=LK8y76xgQ1U/n+AAybICUkaB+jE0gv6OjD2XJI3c7OX51ys5/GYnf0Zi7MrYG98/8jsk1hhU7fMKB5lHuude8v5U7j4r4stniLtxiocNpbiu73KmK0/rT9432MQzRc9k+YZN7Q0o2ECgregaHzeCZZwUwBgo0nQq/kO8ovjq4i8=
+	t=1790045207; cv=none; b=PyBGaRyXkFgUutSbmZ2xazqLTRd7z1tjfEGjl8kKnm/1yS9aN/eIKQ/EXkTj7Vi7pT2MUaq7icffY70PNMbJ/698GRQtMN8E01M6PwzreO1IOUxlfWIMSR6d70YRPr7EBSGZvzF/4pzp/wAyB4SUqnDcAWFAnPX2rC160hnduVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045202; c=relaxed/simple;
-	bh=2xPztAbb3KsCJosIzDYd1oDAJQMeeQFNK1FvyeLq6qk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BZgYIHEWwQgLyOSD0gJ6ljLsKhsfODbPkg8mGCpA0Dz7Agqlt22KwkipevuwnxQaM450LFv1CpmSZW3HP2I/AwBI7SXLsy2vhWexsygzVJmb0ngTYIRQ5E2JbgaSaGN2oSKhjhdgBeMOYVZj3lbP0j8aacOzsIl3sK/EGAl5l4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GndPlDNq; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790045207; c=relaxed/simple;
+	bh=OXEWaNDjzGTksV7cNFYTonPqUP/XiFeUvgjFF2t/SZw=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=K8g6OgxGzWKkoNoouGMtpXaAX8xEKpvOoqxtMinK4MlIe+QAIyttbjjoOLs0CE8xrcEULW7CYqeKlZUGhCN5BqPae8YxJWDcfVMBAypB5lAelHD0RMOJXZDDbGfcdlndGVPvACBj03PJcYT0tJZay4px6NNpSxM1YdiD23DQAQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqqWGvkK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GndPlDNq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790045200; x=1821581200;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=2xPztAbb3KsCJosIzDYd1oDAJQMeeQFNK1FvyeLq6qk=;
-  b=GndPlDNq3FIU6FysvOyc6z68dJq32MaoEFfefLfu50qdpMFShf9IK8Zn
-   xG1gmKRpoDp6yEK645NbgbcfDT/LLbULZPJP/MgmJummoWl4xi7Km8F60
-   +F6GUNR+IPcqK7qX7dgGvFAG8PHPLxYhia7DgNS/sVxTG3YaGl3U0LKER
-   ffqPfHrkdS3I5XLfYnmb6k0IKXK4vfllHZPdNNJ4WxYMzcY5wXq78hQ6D
-   gZOxBOGkMw9EpgpqX7qrUyhX8mQxQ9/Bkqcxov2fuV3HeSrTdtqtA0W4L
-   KQVqMcD0kx/8rx8fdtR/8KfO9e33ht5Ko+9aYWqxF3m6EUiHIKft2iVal
-   Q==;
-X-CSE-ConnectionGUID: 8Tv6YscsRAuAVBzGEW+Gug==
-X-CSE-MsgGUID: ANMcafs/RGO7w/Dkr+FiyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90476388"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="90476388"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 19:46:40 -0700
-X-CSE-ConnectionGUID: ThbA6oCwQG+Ggp0Jj4J5aw==
-X-CSE-MsgGUID: BBqKLkYaR1ONQkkKXNq0aw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="272123874"
-Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
-  by fmviesa010.fm.intel.com with ESMTP; 21 Sep 2026 19:46:39 -0700
-From: Even Xu <even.xu@intel.com>
-To: bentiss@kernel.org,
-	jikos@kernel.org
-Cc: srinivas.pandruvada@linux.intel.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Even Xu <even.xu@intel.com>
-Subject: [PATCH 2/2] HID: Intel-thc-hid: Intel-quickspi: Fix buffer overflow
-Date: Tue, 22 Sep 2026 10:46:38 +0800
-Message-ID: <20260922024638.932865-3-even.xu@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922024638.932865-1-even.xu@intel.com>
-References: <20260922024638.932865-1-even.xu@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqqWGvkK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D961F000FF;
+	Tue, 22 Sep 2026 02:46:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790045205;
+	bh=MOzDwy6eO8/blUPkxP2vb6lYBtsThXRvf8h6GqiRrsM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=fqqWGvkKP5R4H4IDzDQLhHwjS8qf98iTqGjnN5klxZksBGyg9RIM0K1IMeI+zOdT1
+	 WAW0aPsU49Y0W6gxe3rj6zh8n2VBCDwUFgTVCNtXN9QvfuBXD0wdvJ7kI60h/TLMaV
+	 FKkC2iOAaANbDJY84faspyLJIEkbhIr6dZu1VqS7s81IZbtDfozyJkfSdqZGUwgbeL
+	 wWQw+B2T9h+q9ZeA1OXjS9RaNlfYAoU7Etb4ThIYyqqxfYFJNXcnwC0n3wob0ZN2rn
+	 66oqIcMvj1j3o7E9nwfcOTscSiQWL0XPTkb8JRFirk0wwAaF8z+S+E6+Jjsaa1efEy
+	 lTqPV2/D6qoww==
+Content-Type: multipart/mixed; boundary="===============8280890974195556375=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <8dd3c1cf39ecece85de180fd63a78ea52684202c66ea329fb08d9c444365b1ca@mail.kernel.org>
+In-Reply-To: <20260922015417.130869-2-yangfeng59949@163.com>
+References: <20260922015417.130869-2-yangfeng59949@163.com>
+Subject: Re: [PATCH v2 bpf-next 2/2] selftests/bpf: Check bpf_skb_output() tracing restrictions
+From: bot+bpf-ci@kernel.org
+To: yangfeng59949@163.com,kpsingh@kernel.org,matt@bobrowski.net,song@kernel.org,jolsa@kernel.org,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,yonghong.song@linux.dev,emil@etsalapatis.com,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 22 Sep 2026 02:46:42 +0000 (UTC)
 
-The input buffers are used to store complete HID-over-SPI packets,
-including their protocol headers. However, their sizes are
-currently calculated from the payload length only.
+--===============8280890974195556375==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Allocate enough space for both the payload and the packet header to
-prevent a buffer overflow when the payload reaches its maximum size.
+> commit 586c31fe079529e232f3760545b476754b91501b
+> Author:     Feng Yang <yangfeng@kylinos.cn>
+> AuthorDate: Tue Sep 22 09:54:17 2026 +0800
+> Commit:     Kernel Patches Daemon <kernel-patches-bot@fb.com>
+> CommitDate: Mon Sep 21 19:02:48 2026 -0700
+>
+>     selftests/bpf: Check bpf_skb_output() tracing restrictions
+>
+>     Add verifier coverage for the bpf_skb_output() tracing policy. Verify
+>     that an fentry program can still use the helper, while the equivalent
+>     fexit program is rejected at load time.
+>
+>     Signed-off-by: Yun Lu <luyun@kylinos.cn>
+>     Signed-off-by: Feng Yang<yangfeng@kylinos.cn>
 
-Signed-off-by: Even Xu <even.xu@intel.com>
+There's a formatting issue in the second Signed-off-by line - it's missing
+the space between the name and email address. Should this be:
+
+  Signed-off-by: Feng Yang <yangfeng@kylinos.cn>
+
+instead of "Feng Yang<yangfeng@kylinos.cn>"?
+
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c b/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
+> index 889c9b78b912e..058e71927cd5c 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
+> @@ -3,6 +3,7 @@
+>
+>  #include <linux/bpf.h>
+>  #include <bpf/bpf_helpers.h>
+> +#include <bpf/bpf_tracing.h>
+>  #include "bpf_misc.h"
+>
+>  struct val {
+> @@ -17,6 +18,13 @@ struct {
+>  	__type(value, struct val);
+>  } map_spin_lock SEC(".maps");
+>
+> +struct {
+> +	__uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
+> +	__uint(max_entries, 1);
+> +	__type(key, __u32);
+> +	__type(value, __u32);
+> +} perf_event_map SEC(".maps");
+> +
+
+[ ... ]
+
+> @@ -165,4 +173,28 @@ l0_%=:	exit;						\
+>  	: __clobber_all);
+>  }
+>
+> +SEC("fentry/skb_tx_error")
+> +__description("bpf_skb_output is allowed in BPF_TRACE_FENTRY")
+> +__success
+> +int BPF_PROG(skb_output_fentry, void *skb)
+> +{
+> +	__u64 meta = 0;
+> +
+> +	bpf_skb_output(skb, &perf_event_map, BPF_F_CURRENT_CPU,
+> +		       &meta, sizeof(meta));
+> +	return 0;
+> +}
+> +
+> +SEC("fexit/skb_tx_error")
+> +__description("bpf_skb_output is forbidden in BPF_TRACE_FEXIT")
+> +__failure __msg("program of this type cannot use helper bpf_skb_output")
+> +int BPF_PROG(skb_output_fexit, void *skb)
+> +{
+> +	__u64 meta = 0;
+> +
+> +	bpf_skb_output(skb, &perf_event_map, BPF_F_CURRENT_CPU,
+> +		       &meta, sizeof(meta));
+> +	return 0;
+> +}
+> +
+>  char _license[] SEC("license") = "GPL";
+
+The kernel change this tests (538d3dadf8d0e) gates bpf_skb_output() on
+four attach types in tracing_prog_may_run_after_target():
+
+  case BPF_TRACE_FEXIT:
+  case BPF_TRACE_FEXIT_MULTI:
+  case BPF_TRACE_FSESSION:
+  case BPF_TRACE_FSESSION_MULTI:
+          return true;
+
+Only BPF_TRACE_FEXIT gets a test case here. Would it make sense to add
+coverage for BPF_TRACE_FEXIT_MULTI, BPF_TRACE_FSESSION and
+BPF_TRACE_FSESSION_MULTI as well?
+
+The fsession case in particular is the one whose rationale the parent
+commit message spends a paragraph on - that fsession must be rejected
+because the same program runs on both entry and return and the verifier
+cannot prove that a helper call is entry-only.
+
+All three have libbpf section prefixes available (tools/lib/bpf/libbpf.c
+has "fsession+", "fsession.multi+", "fexit.multi+"), so the extra test cases
+would be copies of the existing fexit block with different SEC() strings.
+
+Kumar Kartikeya Dwivedi raised a design concern about the overall approach
+in v2:
+
+https://lore.kernel.org/all/DLLHE9PBLDU0.XQGEOQQIR4HV@gmail.com/
+
+  "Sorry, this is not an acceptable fix. This negates usage of the
+  function in all fexit and fession attach points. Unless there is a
+  simpler way to enumerate in which attach points this helper should be
+  disabled, it might not be worth doing and leaving this be as is."
+
+The concern is that disabling bpf_skb_output() in all fexit/fsession
+programs may be too broad. Since this test verifies the blanket restriction
+that was rejected, has this feedback been addressed?
+
+
 ---
- drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-index 89226f5ce45e..ad676fde211b 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-@@ -552,7 +552,8 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
- 	max_input_len = max(le16_to_cpu(qsdev->dev_desc.rep_desc_len),
- 			    le16_to_cpu(qsdev->dev_desc.max_input_len));
- 
--	qsdev->input_buf = devm_kzalloc(qsdev->dev, max_input_len, GFP_KERNEL);
-+	qsdev->input_buf = devm_kzalloc(qsdev->dev,
-+					HIDSPI_INPUT_BODY_SIZE(max_input_len), GFP_KERNEL);
- 	if (!qsdev->input_buf)
- 		return -ENOMEM;
- 
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35678199634
+--===============8280890974195556375==--
