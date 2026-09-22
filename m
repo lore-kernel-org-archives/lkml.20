@@ -1,121 +1,90 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8263141B8CD;
-	Tue, 22 Sep 2026 08:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC56375ADD;
+	Tue, 22 Sep 2026 08:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065722; cv=none; b=L1wMoVUwELl3lIi9oUNAB8RlJ+PLd97qqUPYSwElUcH/yCtOEoiHIGSzeenq5zwW6j9IK2iXANVH11FFHttTIHCuvbRhnFSMJ8XzrptDzq6oSNWSMnmrjG29kkFQ+WFe2AiHCBWU1fcBwUZTKTQjK845SrhbVT6DPpBYXo+/dhA=
+	t=1790065756; cv=none; b=mbMMU5hyYKPuZiDpbWmXDBNtrRf5okeTxw4W5bXFfbD59XJGNO5mRUqRkke4O2gacAZaarBBEM0/mJopHUoJl+0OlNMUIobOm62zNc2JdUKWfY68pSN7T3USe3RFZzBVudUThrk1QgK7fANahk0PhjBoc1bp01/i4Ow0GszOeIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065722; c=relaxed/simple;
-	bh=fwhAdvPKZuy1xRlwtW09qNbSF4k3c3Djj/nU8NPuwHw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PAmA7uifQgeNaQuOW9Wmpr/7r8Xo5unRiUIL59WPugfn6gnmIglcNu7xEafRaGSFNQm2ojwcJ1h35tTOoADzEeAbaZ04PDEI45X1VCCEUZhYKYXrIVV7PYfwPwtnBnRzb641+wUd/tSzls74fTrJXAeYNVhPU4XkstnJNNTr5jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=fnkRMEyi; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790065756; c=relaxed/simple;
+	bh=qnoll3Gl1nyyRg5uk5+JlX/6VytXLqnlS1hZMgMavvY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=DRj0hXTnfodVCJLbhJ5eUpCQThirzzFDDOVZaPqZ7QaDgh2X/go8Pfk7UESf9LQKyKOUzN7ThKjaxzvzUO+HG13ZnKF9hDlqspNddhQXyCxu/aAdoN6BX5yThMiSZ5CgHQRTYyxXKbNxRgvsdXDyA2KlDqgztNC84sOQTXi4tW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RNwWRP9F; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="fnkRMEyi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=PfubRjl4+hlUE9k++w7dZcQM36qRb14JHyPG4O/PKVA=; b=fnkRMEyiFZRlkoIXIkHmeIfAQF
-	uH9xp+wfoaRJvqEirWJ3TsgoXJOI3rJglOKEVHmzBt61a5A5FoP43o7Gxxx85Bivx6xU4m1tHAvM8
-	00/fJtdacRFl6NMBEaChV0eGI1T/TJXlQXP7NW1Nf+/wEO0WALYUOqoGUbHXU1QJXGljH/iLsqhJA
-	OTqZYTIpJ/vGzhLofEV5kMQNCSuGT6QctBp+1Gig1qQTPYPEXyuAceMjaud5SunG+xdslWl4NvdAZ
-	hEOR9m8IdmMIbu0YezlYbNHuDge13ClURRR9wehj+c+scya0jTU4tgdXJPBiN51z0Xm+hMfbnA0cK
-	clu60l2w==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x8vrL-00000007k9n-2SPX;
-	Tue, 22 Sep 2026 08:28:16 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 98F9F300754; Tue, 22 Sep 2026 10:28:14 +0200 (CEST)
-Date: Tue, 22 Sep 2026 10:28:14 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Chen, Yu C" <yu.c.chen@intel.com>
-Cc: Tim Chen <tim.c.chen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Kees Cook <kees@kernel.org>, Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Srikar Dronamraju <srikar@linux.ibm.com>,
-	Vineeth Remanan Pillai <vineethr@linux.ibm.com>,
-	Ricardo Neri-Calderon <ricardo.neri-calderon@linux.intel.com>,
-	Lu Wang <wanglu.priv@gmail.com>, Hyunwoo Kim <imv4bel@gmail.com>,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	Yi Lai <yi1.lai@intel.com>,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Zenghui Yu <zenghui.yu@linux.dev>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-	Kayra Cizmeci <kayracizmeci@gmail.com>, stable@kernel.org
-Subject: Re: [PATCH v2 1/6] sched/cache: Keep nr_pref_llc_running in the
- runnable domain
-Message-ID: <20260922082814.GX4121339@noisy.programming.kicks-ass.net>
-References: <cover.1790035273.git.tim.c.chen@linux.intel.com>
- <06af61afedac32e6477f57feb4d658f6c411c3af.1790035273.git.tim.c.chen@linux.intel.com>
- <20260922072205.GV4121339@noisy.programming.kicks-ass.net>
- <65ee9df8-2422-4d1a-80d6-41ac51979da1@intel.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RNwWRP9F"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=qnoll3Gl1nyyRg5uk5+JlX/6VytXLqnlS1hZMgMavvY=; b=R
+	NwWRP9F5BPYXmSDWAJQfRmpnoOszT2orSP3u0oCdHZVq6mnHamYOXonbeHsow2zB
+	lYyrdzhcsQ/QeiWStDCFGgVcxODu43kafaXkp2T6ZUfwYUZLdf+nIz3eirG5RCqX
+	Uli6/RKw2xVcJ4H7Jne37fPrwQ0hLs4nMjmF8w09xE=
+Date: Tue, 22 Sep 2026 16:28:00 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re:Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella CV75
+ pinctrl
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAD++jLnUVOAtq-h_qDdWpEhZFZehFKo4qqgcTHD9zDQTdF4yhg@mail.gmail.com>
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+ <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
+ <CAD++jLnUVOAtq-h_qDdWpEhZFZehFKo4qqgcTHD9zDQTdF4yhg@mail.gmail.com>
+X-NTES-SC: AL_Qu2SAvyduk4j5iOeZekcn0wRhug/UMa4u/sm3YNXc84FpwPw5QMjZmNDNHL32tKTBxilqxOseRpTx8lTXqZ3KLaXA5U/vIF3zQFUwP6sBg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <65ee9df8-2422-4d1a-80d6-41ac51979da1@intel.com>
+Message-ID: <408f0b0c.7560.1a0c83a9ff4.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:gygvCgD3vzgQPLJqKLkVAA--.40070W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxRBay2qyPBBDAwAA3w
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Tue, Sep 22, 2026 at 04:25:14PM +0800, Chen, Yu C wrote:
-> Hi Peter,
-> 
-> On 9/22/2026 3:22 PM, Peter Zijlstra wrote:
-> > On Mon, Sep 21, 2026 at 05:37:22PM -0700, Tim Chen wrote:
-> > > @@ -6395,15 +6429,27 @@ static __always_inline void return_cfs_rq_runtime(struct cfs_rq *cfs_rq);
-> > >   static void set_delayed(struct sched_entity *se)
-> > >   {
-> > > -	se->sched_delayed = 1;
-> > > -
-> > >   	/*
-> > >   	 * Delayed se of cfs_rq have no tasks queued on them.
-> > >   	 * Do not adjust h_nr_runnable since __dequeue_task()
-> > >   	 * will account it for blocked tasks.
-> > > +	 *
-> > > +	 * This check can be removed because when flat pick
-> > > +	 * patches get merged as only task can get delayed,
-> > > +	 * same for clear_delayed().
-> > >   	 */
-> > > -	if (!entity_is_task(se))
-> > > +	if (!entity_is_task(se)) {
-> > > +		se->sched_delayed = 1;
-> > >   		return;
-> > > +	}
-> > 
-> > This is dead code. In Linus' tree, where this will be applied, this can
-> > never happen. A possible backport of this fix however will need to take
-> > care.
-> > 
-> 
-> Would you prefer that we create a separate patch to remove entity_is_task()
-> for Linus's tree (so that the current patch can be backported, since
-> cache-aware
-> scheduling was merged before flat task-pickup)?
-
-Nah, I munged it in with a few changes (I removed that cache-sched.c
-file) and it seems to build. See queue.git/sched/urgent.
-
-I'll queue up a patch for sched/core that removes some of that -- if I
-don't forget and all that.
-
+SGkgTGludXMsCgpUaGFuayB5b3UuCgoiUHV0dGluZyBzb21lIHBpZWNlcyBpbiBwbGFjZSB0byBi
+ZWdpbiB3aXRoIiBzb3VuZHMgbGlrZSBhIGdvb2QgaWRlYS4gV2hhdCBkbyBJIG5lZWQgdG8gZG8g
+bmV4dD8gSeKAmW0gc3RpbGwgbmV3IHRvIHRoaXMsIHRoYW5rcyBmb3IgeW91ciBwYXRpZW5jZSBh
+bmQgZ3VpZGFuY2UuCgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhhbwoKQXQgMjAyNi0wOS0yMiAxNTox
+MToxOSwgIkxpbnVzIFdhbGxlaWoiIDxsaW51c3dAa2VybmVsLm9yZz4gd3JvdGU6Cj5IaSBMb25n
+LAo+Cj5PbiBNb24sIFNlcCAyMSwgMjAyNiBhdCA2OjIz4oCvQU0gTG9uZyBaaGFvIHZpYSBCNCBS
+ZWxheQo+PGRldm51bGwrbG9uZ3poYW8uYW1iYXJlbGxhLmNvbUBrZXJuZWwub3JnPiB3cm90ZToK
+Pgo+PiBGcm9tOiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4+Cj4+IERvY3Vt
+ZW50IHRoZSBDVjc1IHBpbiBjb250cm9sbGVyIGJpbmRpbmcgdXNpbmcgZ2VuZXJpYyBmdW5jdGlv
+biBhbmQKPj4gZ3JvdXBzIHByb3BlcnRpZXMgZm9yIHBpbm11eCBjb25maWd1cmF0aW9uLgo+Pgo+
+PiBSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXN3QGtlcm5lbC5vcmc+Cj4+IFJldmll
+d2VkLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQG9zcy5xdWFs
+Y29tbS5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IExvbmcgWmhhbyA8bG9uZ3poYW9AYW1iYXJlbGxh
+LmNvbT4KPgo+SXMgdGhpcyBzb21ldGhpbmcgSSBzaG91bGQganVzdCBhcHBseSB0byB0aGUgcGlu
+Y3RybCB0cmVlPwo+Cj5TYW1lIHF1ZXN0aW9uIGFib3V0IHRoZSBkcml2ZXIuCj4KPkknbSBub3Qg
+c3VyZSB5b3UnbGwgZ2V0IGFsbCBvZiB0aGUgQW1iYXJlbGxhIGluIGZvciB2Ny40IGFueXdheQo+
+c28gd2hhdCBhYm91dCBwdXR0aW5nIHNvbWUgcGllY2VzIGluIHBsYWNlIHRvIGJlZ2luIHdpdGg/
+Cj4KPllvdXJzLAo+TGludXMgV2FsbGVpago=
