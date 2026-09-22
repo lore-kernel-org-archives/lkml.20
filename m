@@ -1,131 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634BD3BB674;
-	Tue, 22 Sep 2026 12:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBBD535FAC
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078896; cv=none; b=h+8QO4ZjBOFC/+qwj9dF5ubuFtDJ+qrKeLxb810T05mtEb/z5AS2p/cEUhWdY+XAgPiRvLRS16g8+b40wjh+71dirioxaDw/jPRnFG8hA7mHvOAyQCINdL9hEEQjGGUABRyMZ5CEZDFQYTndMqIrunUpQ/Nxde0C5kofSygwx5E=
+	t=1790078901; cv=none; b=UH7lquDN+l4Q0ea3XZILdpKmMpb8hgDnUuRsDfnLjIH0xLoGlLtxLkv3CSTdvyQIm6A0NP2t0NiRfxZiOsBPcRCtsKguwBCE7cFEuA/Bxbdd6XxVTLso8tmEQioAhGqM/3zv9b3XVNNz0soTM4us3hh6rGb+J6X9fsV+AKX/X/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078896; c=relaxed/simple;
-	bh=0V9QC5n66fxyrdOYIu3O1xDoMNMpJyxrUXQCyoLIADk=;
+	s=arc-20240116; t=1790078901; c=relaxed/simple;
+	bh=KVHj4KsmvWTwNkzbtpslTvUQiMxIdwrZ6AgLlyWw36g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C5JHj1NOR2xh8zAXLB0zE2fyAhqJ+HredLU1wCUTttWcAxJSBHiSMn/zUVQI2TsZ2WkLtdnBiVzzmVBa1yUNXoxVSGTa93v3rm9iOBI1nW/b32a0E81PnbItbQZXsM1k2hGbr4eU4Zw+Td+ilyPu7bVvzOzQWpXvUvihtgkq/SY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+HMGv5y; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rs8SFrM2UbK06VPU1USIS8BQTgOSKuw9t0HWPcuQBzw2W3GYAxzEhTBImeKNF1WYqIfvjvZc2q0XOGBneeP1MUNhtv0YQu5O5fQUP8eqV1pWklnf9fS/geTOuVcqUyoy5VrSbuKteSDVQtogHS8QBSeoSRC7ad14OufNb55jZL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N5NJSt9o; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+HMGv5y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD921F000FF;
-	Tue, 22 Sep 2026 12:08:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790078895;
-	bh=kXoL83CqDwawCQcGd4wj6mNy8UhWSLsG+qfCKX0fOHs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e+HMGv5ypUo6olYaLz0UQBOEuJmYWFktyjpLYyVxtunfS2ShuLKW3M2avb+9GO4qO
-	 BKbLeXBR0bQG5aX2pmlrtqwolsUVcvH3h1tJrs/xgpVvYMupyMmBFZgKxcaGqCYGqj
-	 gIWpyV8+OLTyuG+L7VR5geeSdWZxMIwhEHRJblSj9WSaTrRuv6sOpHMQmkHz1GbWP4
-	 zCKSW0zQxv+keerFrmN/YQkBdX6247xt9EgtXRechlKXX4GcuHHmReSMHF4CzmznE5
-	 gOVnHxvn7dlE04/t7VCGZ2ZpMcpK7zAVU/o9ykkcj2WmsGxEUn74+LUPSSLG07Vo6+
-	 iCb/9VqJp9NZg==
-Date: Tue, 22 Sep 2026 13:08:11 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	acpica-devel@lists.linux.dev, Saket Dumbre <saket.dumbre@intel.com>
-Subject: Re: [PATCH v2 1/4] ACPICA: Fix PCC OperationRegion command offsets
-Message-ID: <20260922-lime-hornet-of-culture-5a1fff@sudeepholla>
-References: <20260722131553.2117835-1-sudeep.holla@kernel.org>
- <20260722131553.2117835-2-sudeep.holla@kernel.org>
- <CAJZ5v0hdxtuEbFQdwRe=T+Q2xRki+uN9PP7PPw7AdW4Obe3fqA@mail.gmail.com>
- <20260813-demonic-athletic-manul-e1d7bb@sudeepholla>
- <CAJZ5v0gMU1NjMKgEUMW6cmU7uquPyES2TejZVQqkwDH5C6FWvw@mail.gmail.com>
- <CAJZ5v0gqo_n39PGnBkB-5ozE_dQyau4t=5OxvdnZxu4D+ivhHQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N5NJSt9o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790078901; x=1821614901;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KVHj4KsmvWTwNkzbtpslTvUQiMxIdwrZ6AgLlyWw36g=;
+  b=N5NJSt9oA77l6nE5Hyer+xNJS7pZta8Mgnb4/rLjCy1rs0QbQPnvU+CO
+   Zp6F59tbtxHMUQAqgbY54aQ4FI/yQ+9IxXUKLOTiQD45hq+Vj+/t+3NBD
+   2OfRP1W7qppH1AR2U+f8m+wnhI9/aFeQoZU22fVHHtWltbLbBtz9YgDXm
+   w+GNNvFUgp4VyzHnx1T6OWQYs+KclEUSlVQlY8IYmgMF0ntGfcQDs2i26
+   ugx/9dtQV4vIHMyotmtVVQvkPoWKjjnT2I3yuMDiabTwKJ9SfqSRaRlu7
+   wO4u7kcl+8zEyledVsB9V8vOw/owfE+LAst2TbbC1r2izPgWii8Pid27m
+   Q==;
+X-CSE-ConnectionGUID: yfnAnet0QBy25+UC5dFM5g==
+X-CSE-MsgGUID: bsu8WdxsRRmGVKOu0SRASA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1178376"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1178376"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:08:20 -0700
+X-CSE-ConnectionGUID: +wQKYIt2T9iL1b3TxLkOAw==
+X-CSE-MsgGUID: NaSedg89QyKLDyQmZaVpwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="277893184"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 05:08:18 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8zIF-00000000FSU-2Les;
+	Tue, 22 Sep 2026 12:08:15 +0000
+Date: Tue, 22 Sep 2026 20:07:58 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexey Dobriyan <adobriyan@gmail.com>, akpm@linux-foundation.org
+Cc: oe-kbuild-all@lists.linux.dev, Dmitry Antipov <dmantipov@yandex.ru>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kstrtox: delete saturation in case of overflow
+Message-ID: <202609221939.FSyfaCW4-lkp@intel.com>
+References: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0gqo_n39PGnBkB-5ozE_dQyau4t=5OxvdnZxu4D+ivhHQ@mail.gmail.com>
+In-Reply-To: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
 
-On Tue, Sep 22, 2026 at 01:50:46PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Aug 13, 2026 at 11:13 AM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
-> >
-> > On Thu, Aug 13, 2026 at 5:00 AM Sudeep Holla <sudeep.holla@kernel.org> wrote:
-> > >
-> > > On Wed, Aug 05, 2026 at 06:46:15PM +0200, Rafael J. Wysocki (Intel) wrote:
-> > > > On Wed, Jul 22, 2026 at 3:16 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
-> > > > >
-> > > > > ACPI 6.3, section 5.5.2.4.7.3, states that the PCC Operation
-> > > > > Region is associated with the region of shared memory that follows the
-> > > > > PCC signature.
-> > > > >
-> > > > > The generic and extended PCC shared memory layouts include the 4-byte
-> > > > > signature at offset 0, so their raw shared memory COMMAND fields are at
-> > > > > offsets 4 and 12 respectively. Since AML field offsets for the PCC
-> > > > > OperationRegion are relative to the region after that signature, ACPICA
-> > > > > must look for those COMMAND fields at OperationRegion offsets 0 and 8.
-> > > > >
-> > > > > Adjust the generic and master subspace command checks to use those
-> > > > > OperationRegion-relative offsets. Otherwise writes to the COMMAND field
-> > > > > can fail to invoke the PCC address space handler at the offset described
-> > > > > by the PCC OperationRegion definition.
-> > > > >
-> > > > > Fixes: aa6ec56b574d ("ACPICA: ACPI 6.3: add PCC operation region support for AML interpreter")
-> > > > > Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
-> > > > > ---
-> > > > >  drivers/acpi/acpica/exfield.c | 11 ++++++-----
-> > > > >  1 file changed, 6 insertions(+), 5 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/acpi/acpica/exfield.c b/drivers/acpi/acpica/exfield.c
-> > > > > index 9a55524ed8f4..a7fac63938b3 100644
-> > > > > --- a/drivers/acpi/acpica/exfield.c
-> > > > > +++ b/drivers/acpi/acpica/exfield.c
-> > > > > @@ -45,12 +45,13 @@ static const u8 acpi_protocol_lengths[] = {
-> > > > >
-> > > > >  /*
-> > > > >   * The following macros determine a given offset is a COMD field.
-> > > > > - * According to the specification, generic subspaces (types 0-2) contains a
-> > > > > - * 2-byte COMD field at offset 4 and master subspaces (type 3) contains a 4-byte
-> > > > > - * COMD field starting at offset 12.
-> > > > > + * According to the specification, the PCC OperationRegion begins after
-> > > > > + * the PCC signature. The raw shared memory COMD offsets of 4 for generic
-> > > > > + * subspaces (types 0-2) and 12 for master subspaces (type 3) therefore
-> > > > > + * appear at OperationRegion offsets 0 and 8.
-> > > > >   */
-> > > > > -#define GENERIC_SUBSPACE_COMMAND(a)     (4 == a || a == 5)
-> > > > > -#define MASTER_SUBSPACE_COMMAND(a)      (12 <= a && a <= 15)
-> > > > > +#define GENERIC_SUBSPACE_COMMAND(a)     ((a) < 2)
-> > > > > +#define MASTER_SUBSPACE_COMMAND(a)      (((a) - 8) < 4)
-> > > > >
-> > > > >  /*******************************************************************************
-> > > > >   *
-> > > > > --
-> > > >
-> > > > Can you please see the corresponding upstream ACPICA pull request?
-> > > > There are concerns regarding it.
-> > > >
-> > >
-> > > Sorry for the delay in response, currently I am on vacation and don't
-> > > have all the setup to validate anything. I will follow up once I am back.
-> > > It is OK to miss v7.3
-> >
-> > OK, I'll wait then, thanks!
-> 
-> A new version of this has been applied upstream:
-> 
-> https://github.com/open-acpica/acpica/commit/57a2afa78dbe3580e19307aedd19f32388512094
-> 
-> so can you please rebase and resend the series?
-> 
->
+Hi Alexey,
 
-Sure, I will do that. Thanks for the reminder.
+kernel test robot noticed the following build errors:
 
--- 
-Regards,
-Sudeep
+[auto build test ERROR on akpm-mm/mm-nonmm-unstable]
+[also build test ERROR on akpm-mm/mm-everything linus/master v7.3-rc4 next-20260921]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexey-Dobriyan/kstrtox-delete-saturation-in-case-of-overflow/20260917-191707
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-nonmm-unstable
+patch link:    https://lore.kernel.org/r/a396f2ea-8de8-4eca-a216-ff69bc40fe85%40p183
+patch subject: [PATCH] kstrtox: delete saturation in case of overflow
+config: riscv-allnoconfig (https://download.01.org/0day-ci/archive/20260922/202609221939.FSyfaCW4-lkp@intel.com/config)
+compiler: riscv64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609221939.FSyfaCW4-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609221939.FSyfaCW4-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   riscv64-linux-ld: ./drivers/firmware/efi/libstub/lib-cmdline.stub.o: in function `__efistub_memparse':
+>> __efistub_cmdline.c:(.init.text+0x13a): undefined reference to `__efistub__parse_integer_fixup_radix'
+>> riscv64-linux-ld: __efistub_cmdline.c:(.init.text+0x154): undefined reference to `__efistub__parse_integer_limit'
+   riscv64-linux-ld: .tmp_vmlinux1: hidden symbol `__efistub__parse_integer_fixup_radix' isn't defined
+   riscv64-linux-ld: final link failed: bad value
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
