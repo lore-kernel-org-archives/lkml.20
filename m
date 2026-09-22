@@ -1,99 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279E44CCDCC;
-	Tue, 22 Sep 2026 07:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 064EB4F7CA4;
+	Tue, 22 Sep 2026 07:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060971; cv=none; b=VcQpTIeeQrrcKbdACN7avr5IPzuxjqtYv4WehoxhX/Lyu6CkCYB+ovVXI1LiqBLKmDuB1/PFrwKDzsjMF4Beaq1w4QicB7unsJrTkIszvhE0+6n9RONDyf9CoybjQUdhpzlmsX6Kg0swhHL+Su5MOMrg13bzWM7TAN2xCtFY/Yo=
+	t=1790060971; cv=none; b=lnVlL8MjYF1p45C8deSw6sHp0GFJDjColPwzxw84q/yeMpOE4Pdcm8haqDj5Mos1XhhcOXJAMIvAnAXqI7DZ1ldQJVaGVCvAZjyu0oSl4sMkObWropDm+5AiUU8NpccUHbj4m1fsbLaTK8S+9Kpz8xy3A5gAoWj4Ra4GnlrjmoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790060971; c=relaxed/simple;
-	bh=JpYEmE0aMvyKGA4ffids0WBnSVA1EemEfo95puLGQaw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i2o2qFHeT2XgdteUQbxD6ovKflH+FAlkdmixetDOB6L6fKD9PP9IrWcROHhOeC9Yq8Lb2nQBikBKx0JF+NVEMkF6if61AfV5tNcrXMTBHiNuV+WOYYvOhijRNgcsKkENJoU9rcRSf3D5M16v1tzxaOcZZ3xUhB+hfhfWoimqSkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EO48EpZ+; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	bh=X2elJjOWX+I6p0hkyb//O2VmgJU8aZwYp3GER8YVCRQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NI/ZMZNy9Nn7YejpKLFqotcT6puyQpBBOXTa3TYOTLUAr8GiJgcCSvYnyq5ku1clLsegRM36DCpx0aLDzfOuIrvoNSy/H3TQqbThMBnS13M1OZjhp6Vp71jCO+Qt1kJ+lKXfOfX45G1Vw/DICaF9Z9O50gKCwazSTaTw/veuUWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FtxLmGoW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EO48EpZ+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790060968; x=1821596968;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JpYEmE0aMvyKGA4ffids0WBnSVA1EemEfo95puLGQaw=;
-  b=EO48EpZ+vdniUXOd4a/6dW3xptYsVMevB3c889688A7WGA6ephpLflNA
-   46twZ+QNA/BSa0IDjPAWiuX6I7LJc5DjJO8zXVDUThs6JKWSy+sJC70lX
-   qZ42TY+HZS0uHP5mCOnCt+om+9HRZqHuHwTgt+tXvci7HID3VN8cPB8GD
-   b6f5LQ2AcesLGnAPwjstwfW+4Gl4fmSvgvjT/m3KaD5KHs8RBOjJhNm+y
-   b+2qgpmmlS/1Vak4vtnzeQ+J8zw8lIIWu8nwL9NJZU0t6GABkNuI7fArn
-   9IX2lbvkFR1PcB65xFLzrEaEebRZ6wLyrQif7mLm5xF3QXqxIUGCHnNkV
-   A==;
-X-CSE-ConnectionGUID: Gwl0BLhRRU6Tnqr1/yRhgQ==
-X-CSE-MsgGUID: RrMnkNtpQted7lwE7F6n+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116158938"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="116158938"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 00:09:27 -0700
-X-CSE-ConnectionGUID: NlXRbrpDT1e3IPlS8R5VsA==
-X-CSE-MsgGUID: wSic7CzwT8Sz6Pfc2YERDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="4313983"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.202])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 00:09:21 -0700
-Date: Tue, 22 Sep 2026 10:09:17 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kas@kernel.org,
-	rick.p.edgecombe@intel.com, yilun.xu@intel.com,
-	xiaoyao.li@intel.com, sohil.mehta@intel.com,
-	adrian.hunter@intel.com, kishen.maloor@intel.com,
-	peter.fang@intel.com, baolu.lu@linux.intel.com,
-	zhenzhong.duan@intel.com, chao.gao@intel.com,
-	artem.bityutskiy@linux.intel.com, kvm@vger.kernel.org,
-	nik.borisov@suse.com
-Subject: Re: [PATCH v2 1/5] x86/virt/tdx: Move TDH.SYS.CONFIG operations into
- a wrapper
-Message-ID: <arIpnQEx0ULfqvem@tlindgre-MOBL1>
-References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
- <20260915102658.713079-2-yilun.xu@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FtxLmGoW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4FE1D1476;
+	Tue, 22 Sep 2026 00:09:25 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E57CE3F528;
+	Tue, 22 Sep 2026 00:09:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790060968; bh=X2elJjOWX+I6p0hkyb//O2VmgJU8aZwYp3GER8YVCRQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FtxLmGoWO8aL//MyFM2NR6VNOmEyr2TmdtJY8DnZSFG0+8YvHYjUp35bg/UOxlhK9
+	 JFpg4usURYN6gUMNLnUjxV32IdrKQLjslmdts2//QkfNANa4WIlue6KyW4G14mkAC3
+	 vMlXXzh4ouDVIMQNNNipuDWCpX4HibahJYp8rWpY=
+Message-ID: <2e0a8157-a529-4355-bd7e-11ef0234b825@arm.com>
+Date: Tue, 22 Sep 2026 12:39:24 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915102658.713079-2-yilun.xu@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: mremap_test: handle ENOSYS for userfaultfd
+ and add missing newlines
+To: Park Tae-sun <ts930@dgu.ac.kr>, Andrew Morton
+ <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260922065143.118702-1-ts930@dgu.ac.kr>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20260922065143.118702-1-ts930@dgu.ac.kr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 06:26:54PM +0800, Xu Yilun wrote:
-> --- a/arch/x86/virt/vmx/tdx/tdx.c
-> +++ b/arch/x86/virt/vmx/tdx/tdx.c
-> @@ -998,11 +998,33 @@ static __init int construct_tdmrs(struct list_head *tmb_list,
->  	return ret;
->  }
->  
-> +/*
-> + * This is an array of HPAs, each points to a TDMR_INFO data structure (see
-> + * struct tdmr_info).
-> + *
-> + * It is the in-memory ABI that the kernel passes to the TDX module to specify
-> + * the ranges of TD Memory Regions (TDMRs) and their associated PAMT memory.
-> + */
-> +struct tdmr_info_pa_array {
-> +	DECLARE_FLEX_ARRAY(u64, phys);
-> +};
+Hi Park Tae-sun!
 
-I think you can simplify the comments above a bit, how about:
+On 9/22/26 12:21 PM, Park Tae-sun wrote:
+> When running mremap_test on a kernel built without CONFIG_USERFAULTFD,
+> test 26 fails:
+> 
+>     userfaultfd: Function not implemented
+>     not ok 26 mremap move multiple invalid vmas
+> 
+> This happens because mremap_move_multi_invalid_vmas() only checks for
+> EPERM, so ENOSYS is treated as an unexpected failure instead of being
+> skipped.
+> 
+> In addition, ksft_test_result_skip() in both
+> mremap_move_multi_invalid_vmas() and its fallback stub is missing a
+> trailing newline, which causes the subsequent TAP summary count to get
+> stuck on the same line:
+> 
+>     ok 26 # SKIP ... - missing uffd# 1 skipped test(s) detected...
+> 
+> Fix this following the switch pattern in guard-regions.c (lines 1498-1506):
+> check for EPERM (advising running as root) and ENOSYS (missing uffd), move
+> perror() to default so expected skips don't print noise to stderr, and add
+> the missing '\n' to both skip strings.
 
-TDX module in-memory ABI to specify the TD Memory Regions (TDMRs) and their
-associated PAMT memory. An array of HPAs. Each element points to a TDMR_INFO,
-see struct tdmr_info.
+Thanks for the fix, but I have posted a series of patches already [1]
+which include skipping incase of ENOSYS and fixing the newline issue in
+ksft_test_result_skip(). If it is okay with you, can we go ahead with my
+patches since it solves some other issues as well?
 
-Other than that:
-
-Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+[1]
+https://lore.kernel.org/all/20260917111951.188266-1-sarthak.sharma@arm.com/
