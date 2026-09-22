@@ -1,119 +1,183 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B169488225
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058305; cv=none; b=E8uaGXvZg3onh/m6FID4y9xMEahmkgkubxexDDm649ldxyApY+zxZe3q1xVEku2gZiv3qK7EgM+HG8O/dMqWJ85dXYm1UB/xF/SwdLK+RpnvEbGQx5rArC6rm533NFBvgrPJ7y1SIduvOrrYLtljD9FJlDK8QYbL+CefYAbdvJQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058305; c=relaxed/simple;
-	bh=1AJOaubEwjpJzJtUToPLUe8lIsuxog6Idb7ZyGvunmY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=lUQSSNxo5RRQrzF3Kx/yZQ6zZld1klRNe0NYofq1YAtBm7Tudeyr3/mFR5qks3pqBDuaYulsoRUTiGV0t2BcnRHMQmejeiRFwaDEQun40jU/svqhLc4GxP6oAO+kch4YhlI/JFNffayBssz6BDF3Eh6jt1WviLSu1MOfGsblj6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f4fa572ba2so3459118a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:25:04 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B304C77D9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790058359; cv=pass; b=N7Fjtdw8GDdULvJGhtdBVNOLHL+GWbFJmlFo6rSfJ5F3Qxka79WxsEsbLxuGs370KyegHzzjNjKXSJvHWriKez3zkaRg9HGI2gW24kyQ72XA7iu+oSo9n5oTVSFjg0zfORWRgPeuJBimuwfui9hYvgVJGlToEP/nfW1H8wIZPBw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790058359; c=relaxed/simple;
+	bh=0Zh6NbTCbBx+NVI+uqE5VDBeW/6Lziwppq9kVy8IRSQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oITN4y9/TN+weGQ7ZgBFgWK254PtBWxwx0xFVq+ReYOI6VqYL+G2ogziqmFCe683y8oK5YMWyVZN2HWLItou6G2i+lNdH+1oBS8tITt1PSSwy47CqUr2hVFS4XXxtUp86XKdq/30o+OJfwaNSUrW6SxJeRk6w2gqb7+84uzx8ec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q2KHH4F5; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q2KHH4F5"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39d654f02baso3162220a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:25:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790058350; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JKojVkgj+cHIsdvRvkqJiYEp4ZFx8lrjAHQK1L4DtZACrTYWwHq7xrNPa2KQTuvoey
+         pf+frZ6Sm9USCg8mMjxeKgPpUre7lrTonp0OPnPKsAQ1OOqtVu7KoRRb5Gz6YHVkXUie
+         rgPmwCFaxrmZCeIoLIUx6ehVxNuJa4EKcs2AMabHNoVTCq29XUROvZ7JbvPd+mkhVSLX
+         5vvsx6bY9+H9mioIItNgBsHy/Bnh975XHtc2sPa5SZyrg3BacTp1KGzgM5AojcR5D8/G
+         4Nb8VEWrV9nyZxJ4gAJkUSFt4bdjmUtrjqkuXJ8Swb25w2ID4zSPU8D24QwlY0UB2v8O
+         YaMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Xsw6RymLg8vrJTC9V4W0r3dpM0gHmJp+IdCdC5NThs8=;
+        fh=/b0Z3FXX52kFS8RSvPPAa5OzWvpo+DTYvZEzuJMAZgQ=;
+        b=MoSm8GJFRCB7ZxIPwdji6CzMbFf0vzwPUCW6DRiPNenUQ2xEPc1jEiSyKzUe6TUdOR
+         /rfheVik59PuPjuXMF48LsBKVSQBjnP9ZG7LT4hrr5qJxP53P3e5NwTwLnmlEDhD6ftm
+         BHlr7NWfroyMeEw4WEvaf7LZ9Sk17+dMZ523sGcEZiURpXjfzYk+V8f2iRSrV+HFVsmX
+         IvxDEyk8Op79pwv+BabltBMjhRb0xUQJB/VpZXBPdLPd+HrFw0uZPVYjg95lcoS/rDEm
+         RelgFwoev3a0rvHib6XHjOpN0wIqpJSTB54dkpiGgWG/DsxTB5dCX4tddM4n5xkzJsLi
+         r7Mg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790058350; x=1790663150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xsw6RymLg8vrJTC9V4W0r3dpM0gHmJp+IdCdC5NThs8=;
+        b=q2KHH4F5U039vDxALsjkqVgWgjevKqYBMcNpvXflitJMqXwfjAQDvWCotxoiEX/e8R
+         AalpnCwa1ZtvypjESnhdOolrH0wowOBRO0dig+gPYORUBsJwec7kdYtkrdwkKDPL4gy4
+         DJcCMPN2et5MclKz2cN3WhImiFDHnXckkgn2WSrQz9f9sb/oNA3j8UMKuRPm+G8BiwxZ
+         MjyitoXCfFCYgcPAA3zWJ2h7gYLuqKS9B4YjCsWgaliJ1z/lsofUCpfybbqLZDW+Ao4y
+         DLZ6W+HWVVlD3RMU07ggWxKO6MIXfMeZYSzU/5TEYMEkeiyaO4seS26M93eEKrT3sALY
+         /0kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790058303; x=1790663103;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=udwfQfbOkx1bsyX/+lZI959a4W3iP3JnimH6nQ04o7k=;
-        b=ttV7QI5XC6wHMRw8NE93ZPXwhEnILovK1MM4/PNv4EJ8So2G2SPYgAHuwop7H1LsVf
-         A8hOOA1244ulTEzf7j9YgtbRWG9sTx3B+qPDIWIrXkPmgmxG8Fa/mHj6R3hiKGXeIOCr
-         TJr5vyuGq+K6cwrjaarIaFPc//kl8g355DgY31kwvwbCq60+1znbHyh2Z1oqyXPmkZN5
-         LRYy9/Ta5Lz9Ba6Olmow4qB+uulXwV+Hj0AcqmmsCJb1u1pt7pjO51LHrEV3fVAX8bTn
-         BJMQPuUgRhgkUvQnDLS1Y5cJZmA7u2iGwKu9HetoECOiqynGXJDc/3UAkGdlM2nmVbsT
-         neIw==
-X-Gm-Message-State: AFuF++mvpu8VxHftBwBAUEjE4E0ShEVyEY7mBSkDTrSanzab16A9UTtx
-	ngj1ERva74tN4Ict2ehF8qkJoDUHELtDzrx1o8S9Hr4405t8XTNZ/OF6YqVQ6sYVV55L4zkOz8D
-	XJFwjZYx8NsJeTa5OROgzKBf4Nj8UadkEp3yhgfopeR6KiRTcwDE0v/eBWkw=
+        d=1e100.net; s=20260707; t=1790058350; x=1790663150;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xsw6RymLg8vrJTC9V4W0r3dpM0gHmJp+IdCdC5NThs8=;
+        b=XRkiXcQ2ZJeT9N64ux4m9STYjJOhJiMxXYiCFF0VT3/Zi0fyS7riAKDlU4upMLXm+X
+         uGpF4mfc8C6mBs/0Cm/zSDBSSeCRN0qBe8Nw09VhlqtGNLJE+copux/XQg7N3k7IP/zW
+         bAU5b15omgljOvNsatvaefQ6KlrddKp7Uw+OC7M8OnFMXc7x+Ld2DQXbPLmbqEm6goMV
+         Yi0FGp544W/ZKFshaMgWQT1KElObBBVMJ+bWxPIUmJu2Gl2OFBcAFgthNh9dtKmIRsb+
+         s5aKSAPVQZRxg+xcMRYk8mggZhIHMR7kvhW67Gp55d+h5nQxrc7RHhGG4RMZ/dvP9j4B
+         FIaA==
+X-Forwarded-Encrypted: i=1; AKwUvByjFqXKdc/Gc1Nq7cO8bm5Tf9P4EAZFS7rK9KUm09e3mhF1LB/Efz8TrpDYqxbg3Uig+qT6426pmb+0jLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nirdqcUgCVXxiUL0wUL1OthILWmoiH0A2xA8mgUiPWYKseCPgZ
+	11RHyoManoNJwGiSineXADw+7yHYwGF81QDuDJ8oCgRs8z2eufwdzcxVkVqyuOpUfDivuPcLyXt
+	bUcjOh3BZZ39ih1lJrl40+aZG8NxWs20=
+X-Gm-Gg: AYBFou3iK3d/aDw49EzVr1VsXubP8Y6h3xnVHbHtMWiXajlkrv9h5UFAzx+bW2EIimK
+	LOMm44l8Dpmuu1KOTaUtTXurbFcj7VZVG1ZPsB537p0ZoMNHOl3zXWF7HcirPsW7lhW50gU/6l+
+	Ol4Ru+x+E8OaFSzcsBGonHgh/OXQXUKN2P8ZKFDKl1HWa+sMpRbXFcH22Hz+JHP1vngbX8zsmDz
+	USbKhSWL910/ZWWbW4/uLJ6goEqkhHTSjNGCiyzvYzzToRQXvxsL/cs1H3Ki2Rgisu/L1tKSXiv
+	BLpFxDWihr1A/uUG30bnr5joEuzp/BJk8dQ9219+/h7tp0Bj+eAr30NXVgsQeIHEsQAB9hOgrzG
+	oVxp6DynfYh37
+X-Received: by 2002:a17:90b:3bcb:b0:39e:6c69:34d8 with SMTP id
+ 98e67ed59e1d1-3a07331ae7amr134090a91.60.1790058350508; Mon, 21 Sep 2026
+ 23:25:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f02f:b0:6cd:3fdc:a932 with SMTP id
- 006d021491bc7-6cd3fecc42fmr8892804eaf.79.1790058303186; Mon, 21 Sep 2026
- 23:25:03 -0700 (PDT)
-Date: Mon, 21 Sep 2026 23:25:03 -0700
-In-Reply-To: <20260921180338.2360-1-nsvatoslav515@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab21f3f.71f81b7d.15fa6d.003d.GAE@google.com>
-Subject: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
-From: syzbot <syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, nsvatoslav515@gmail.com, 
-	syzkaller-bugs@googlegroups.com
+References: <20260721095233.420823-1-clamor95@gmail.com> <20260921175234.3137985-3-florian.krischer@fkr.dev>
+In-Reply-To: <20260921175234.3137985-3-florian.krischer@fkr.dev>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 22 Sep 2026 09:25:38 +0300
+X-Gm-Features: AcwNN1XCYQcpoYAJO_F2KOCSSGkPDz9AobuhsjJh05fJE4KGKFrobaYysqnjTV8
+Message-ID: <CAPVz0n1HHP_D4jGNHHqO4AGZHAms5tCLK0Sftb9gn9ywSb8qcw@mail.gmail.com>
+Subject: Re: [PATCH v10 fixup 2/2] input: serio: asus-transformer-ec: fix
+ keyboard response framing
+To: Florian Krischer <florian.krischer@fkr.dev>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+=D0=BF=D0=BD, 21 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 20:52 Flor=
+ian Krischer <florian.krischer@fkr.dev> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Real SL101 hardware exposes two issues in the v10 keyboard response
+> handling.
+>
+> First, keyboard command responses may carry OBF without KEY or KBC.
+> The downstream ASUS driver treats valid non-AUX OBF responses as
+> keyboard data. Dropping these packets prevents PS/2 ACK responses from
+> reaching atkbd.
+>
+> Second, the EC count byte is the number of bytes following the count
+> byte, not the total packet size. For example, the SL101 returns the
+> keyboard reset response:
+>
+>   03 09 fa aa
+>
+> where 03 counts status 09, ACK fa and BAT-success aa.
+>
+> v9 used data[0] - 1 after skipping the count and status bytes. v10
+> changed this to data[0] - 2 while tightening the packet bound, which
+> drops the final payload byte. Keep the v10 bound but restore the
+> correct payload count.
+>
+> Tested on an ASUS Eee Pad Slider SL101 with EC firmware SL101-0202.
+> Together with the SL101 8-byte event-read fixup, the physical sliding
+> keyboard completes atkbd initialization and works.
+>
+> Signed-off-by: Florian Krischer <florian.krischer@fkr.dev>
+> ---
+>  drivers/input/serio/asus-transformer-ec-kbc.c | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
+>
+> --- a/drivers/input/serio/asus-transformer-ec-kbc.c
+> +++ b/drivers/input/serio/asus-transformer-ec-kbc.c
+> @@ -26,20 +26,26 @@
+>                 return NOTIFY_DONE;
+>         else if (action & ASUSEC_AUX_MASK)
+>                 port_idx =3D 1;
+> -       else if (action & (ASUSEC_KBC_MASK | ASUSEC_KEY_MASK))
+> +       else if (action & ASUSEC_OBF_MASK)
+> +               /*
+> +                * Keyboard command responses can carry only OBF, without=
+ KEY or
+> +                * KBC set. The original SL101 driver treated every valid=
+ non-AUX,
+> +                * non-SMI/SCI OBF packet as keyboard data, including PS/=
+2 ACKs.
+> +                */
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in ntfs_evict_inode
+I have to test this on my ASUS Transformer Prime TF201 to be sure it
+does not break other devices. But before that happens I would like to
+get Dmitry's feedback regarding input patches.
 
-------------[ cut here ]------------
-ifs_up != folio_up
-WARNING: fs/iomap/buffered-io.c:298 at ifs_free+0x352/0x420 fs/iomap/buffered-io.c:298, CPU#1: syz-executor/6284
-Modules linked in:
-CPU: 1 UID: 0 PID: 6284 Comm: syz-executor Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:ifs_free+0x352/0x420 fs/iomap/buffered-io.c:298
-Code: e8 83 47 61 ff 90 0f 0b 90 e9 d5 fe ff ff e8 75 47 61 ff 90 0f 0b 90 e9 12 ff ff ff e8 67 47 61 ff 41 c1 ee 03 40 0f b6 f5 90 <0f> 0b 90 48 c7 c7 20 94 81 8b 44 89 f2 e8 ac 11 c2 fe eb b0 44 89
-RSP: 0018:ffffc900048f7698 EFLAGS: 00010202
-RAX: ffffffff826553d9 RBX: 1ffffd4000301458 RCX: ffff8880275a9f40
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 000000008265d200 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffff94000301459 R12: ffff88802c03d384
-R13: ffff88802c03d300 R14: 0000000000000001 R15: 0000000000000000
-FS:  00005555916b9500(0000) GS:ffff888125ccb000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000033ac226b9000 CR3: 0000000039800000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- folio_invalidate mm/truncate.c:140 [inline]
- truncate_cleanup_folio+0xcb/0x190 mm/truncate.c:160
- truncate_inode_pages_range+0x2c4/0xd80 mm/truncate.c:404
- ntfs_evict_inode+0x19/0x40 fs/ntfs3/inode.c:2012
- evict+0x624/0xb50 fs/inode.c:822
- dispose_list fs/inode.c:864 [inline]
- evict_inodes+0x7e3/0x870 fs/inode.c:918
- generic_shutdown_super+0xaa/0x2d0 fs/super.c:741
- kill_block_super+0x44/0xa0 fs/super.c:1904
- ntfs3_kill_sb+0x44/0x1c0 fs/ntfs3/super.c:1940
- deactivate_locked_super+0xbc/0x110 fs/super.c:589
- cleanup_mnt+0x3d3/0x460 fs/namespace.c:1317
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fded076f397
-Code: a2 c7 05 5c 43 25 00 00 00 00 00 eb 96 e8 e1 12 00 00 90 31 f6 e9 09 00 00 00 66 0f 1f 84 00 00 00 00 00 b8 a6 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffc86ca8078 EFLAGS: 00000246 ORIG_RAX: 00000000000000a6
-RAX: 0000000000000000 RBX: 00007fded08044bb RCX: 00007fded076f397
-RDX: 0000000000000000 RSI: 0000000000000009 RDI: 00007ffc86ca8130
-RBP: 00007ffc86ca8130 R08: 00007ffc86ca9130 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffc86ca91c0
-R13: 00007fded08044bb R14: 0000000000027906 R15: 00007ffc86ca9200
- </TASK>
+>                 port_idx =3D 0;
+>         else
+>                 return NOTIFY_DONE;
+>
+>         /*
+> -        * The data[0] is the length of the packet including itself. The =
+data[]
+> -        * buffer has to be at least 3 bytes (length + ctrl + 1 data byte=
+) and
+> -        * must not exceed the EC entry size.
+> +        * data[0] is the number of bytes following the count byte: one s=
+tatus
+> +        * byte plus the payload. The SL101 EC, for example, reports keyb=
+oard
+> +        * reset as 03 09 fa aa (status 09, ACK fa, BAT aa). Skip the cou=
+nt and
+> +        * status bytes and forward every payload byte to serio.
+>          */
+>         if (data[0] < 2 || data[0] > ASUSEC_ENTRY_SIZE)
+>                 return NOTIFY_BAD;
+>
+> -       n =3D data[0] - 2;
+> +       n =3D data[0] - 1;
 
+This is legit, I will adjust in v11.
 
-Tested on:
-
-commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=15e3d805580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=3db654d91b471c4d7a7d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17ca6805580000
-
+>         data +=3D 2;
+>
+>         if (port_idx =3D=3D 0) {
+> --
