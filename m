@@ -1,267 +1,148 @@
-Received: from mail-pj2-f31.google.com (mail-pj2-f31.google.com [74.125.227.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B254B3D8127
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102D530568B;
+	Tue, 22 Sep 2026 08:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064490; cv=none; b=RuKSs13C93GIJvzFsDiv+LRYv1UmY5JdIYwMYOX1FA+x8jpPlK0XWpdXpA0dfV+t5vmEDed0YUB/WaJSCb9MuW3hmpWyNrhTf1QHDDhcypyNPjpGY9fOcU2/uL8KSCDKZBQ8M0Yy5HosEuP8m4QTw1zReKs8K2Dgab8YvIr/FGI=
+	t=1790064496; cv=none; b=Y/fok7f92SzOD02fycHRLtYQ6cCQ+M8vfUYh/aZydeLxSz54QtggfOunzXS5MVPynDUwpUgqu4GeaYa3uGJndlomMIyodv3+l31tif1GVXXpSbZ4x16LC5YieUCUdlfY2DwkzPgwePHVqc7Vm+QoZcY5GnbDYkxd7b+3iuNKXhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064490; c=relaxed/simple;
-	bh=PB10iJXwaQiQpgWMplLuUrRqupycNcSJ1CXoBYEhb+M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DGZygFDcZuaSgTyYzKx6/5+kJNOgPeD4wxJ8Oht5e3u1RAHWSUNCjTuebdjJzyF4PVBrn5bD+Yo267pmhfn9LL5PdLs5Q+0aH2ynCyPwFKWFTtDEhvVOwIAQpuY6lGFD4uopA2HmOBSus+aolAUUYmYhwPTrzBt+KzRJNL/ioOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hW7eogJm; arc=none smtp.client-ip=74.125.227.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790064496; c=relaxed/simple;
+	bh=zcp8tcZsfdsmxUcen5sJupr/nyZnxY5fTXf1NQWKnsw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=VuJ2wrTAG5vTyrYAo0DOJn+QEXMFyoKSreJ4tDLIUqWNq039HOphUdHO/TsHJxvU8p4GaQtvCisE/Z267ISuSrkfhKHIJ/BpDHS9EHOqLbT82ZaaSVgmj5MSQK4OCyos8wI1ukUXEGc6t7iKagfyNOdTFCtMc9gBY1gYtyxc4AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FGUyk9MH; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hW7eogJm"
-Received: by mail-pj2-f31.google.com with SMTP id d9443c01a7336-2dd53691be5so35698625ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:08:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790064480; x=1790669280; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qRPMgMOIc56QBWBupM6kM1mJ5Xh3d/f5V1FOIpaRUQI=;
-        b=hW7eogJmi7wBX3TS/82OiMHwtUW0ANzbNAl3SmwRZXM5okmjtgIzaTORE1dKhbwvTv
-         yFzG42GKPXoldCbk/lgv2AXNFIfNZrousO0Hvotz6Th5CvhvKsuwzpSW9nPxLnpee4El
-         ZLSrIyzEuYg2tKZy6BM+AiUx6cdcUwWIJtkwqxMD4EEIj5O0djeK9lKn5h7flJO/tFWN
-         dStcUlPEkC/b8cEbzejgYQjdfbbn28vP0SWc3XJiUYuP5YrqpcB85WbnS9GVPd2QkBxX
-         +j8atyVlQXTau5dp+ee9IhodZKL3GWmFGGoF+wdXUumbRJNMSk7paDnRhXdHef55oYaG
-         M/eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790064480; x=1790669280;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qRPMgMOIc56QBWBupM6kM1mJ5Xh3d/f5V1FOIpaRUQI=;
-        b=x1Ll0L5ntuNCzg7n+MEmIc5ABYfaW3OneG9U9LwQhl/IX4O9FWsoqHWim9DmzBKGrs
-         +/h89E8u9G/Jy6ibLPCcC4uOYhayh+BdDM2dJREmLhn7AI/0aPb+BdM+6uidV/w1CSmI
-         1cbLmEE4JBZ9YYATgPPzLcATMKY7CNoXpeDpv6oPgUPsk1l4dcmhmhmKHXW9mClEewm7
-         hoDnRiyNexejiPMBVTsQr7EPsMOO4i8mAun4qI6YbEEV0VK8DrfIj7S0olTwYN7kbWPp
-         HK3mbaUkLxD3YCkNh6Vlte4lKPlgP14G5BtUpdpQYHqBtP//+nbtnnBkHi8sTIMTZWvF
-         s1Xg==
-X-Forwarded-Encrypted: i=1; AKwUvBymHu0jJVERTHkT5y++4yTCsCNtbN6JvIh2ZkmMOixlmD/AzbBm4TdSnaXvtsG1ugPSeZgPcNbscPxuE8E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mevmbxC4jkSN+SXPky1sQzs7t44m6kONUIwiVyZAV13CKt5u20
-	fP/H0ApxudxWWe9EB/UKR/3VX4LlnvN0E8oYlMBKFuwPNPueVmTkhtEg
-X-Gm-Gg: AYBFou1CkWDjZTPbKYAB3HNH21DOW2trqPdiARJ/CKFTEEBGnK8ZPtFVgNvwjGQXRxj
-	lUct2KYHZCT/+eBBDUSNGUS62hH1bRd+UANZdTLXvZTz6vCCioQRbtTZ9Jge7tZ7fGRpzJX57bt
-	Q/OOV4vzBmbKRgFVXZGZ0mhbMJtAqVZlvSODm0lRyRuvRQ7P/FCW9ZP++p+qP9Nz6UtQAFPVLXT
-	s3OrOcMxIlru0edKnBGmvTomPUEgzLLMBDbJe3iwzp9IcfG26RLG8UVv/SOYN1U0cq/OHQn65Lr
-	pdm3CLEPwdhI/gcMRTsjwKWLbkTmZYM4OO4t+M9ENR61Lv/68wQlpmAMvySBnp1SdC22XS2gNoa
-	uxep47Rw9ncwqRsWIHO+h5m3OkZ3b3eAr9bAGIN82HaNs3z+6Hw+g+RKkgahxmhjjsjRnnLWjGA
-	TUlvnXxkWX95zk2tNqM3sUXqA1rzpb39tm/Vf82FTbfjkqSBHAtjkZFWYdpkU51YYFl3EZJ8+LT
-	ypIg+bbUj+ALfkeJ/LFwcIuavRFk/RwP1rnkb4=
-X-Received: by 2002:a17:903:19cf:b0:2d9:484:861d with SMTP id d9443c01a7336-2df609ad034mr4138015ad.10.1790064479957;
-        Tue, 22 Sep 2026 01:07:59 -0700 (PDT)
-Received: from localhost.localdomain ([2409:8a1e:2e81:7320:c92a:4bc0:f68c:8fc1])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0581f0sm5584365ad.74.2026.09.22.01.07.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 01:07:59 -0700 (PDT)
-From: Yuchao Zhang <ndaugoing@gmail.com>
-To: Simon Horman <horms@kernel.org>
-Cc: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH v2] nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
-Date: Tue, 22 Sep 2026 16:07:50 +0800
-Message-ID: <20260922080750.35929-1-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260921125805.224979-1-horms@kernel.org>
-References: <20260921125805.224979-1-horms@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FGUyk9MH"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 7663D1A0FBC;
+	Tue, 22 Sep 2026 08:08:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 468C860580;
+	Tue, 22 Sep 2026 08:08:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4056C1032925B;
+	Tue, 22 Sep 2026 10:07:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790064477; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zcp8tcZsfdsmxUcen5sJupr/nyZnxY5fTXf1NQWKnsw=;
+	b=FGUyk9MHJzJ0m0z8YAThEo2DOBHDLTsuC25rLZr2qIfJay2Q0I+gVCvTxsv2nvY/dDnJb9
+	IgXAUJLDLFyWtCu0gq4m+hX3dLL+xecsNJ8WJa5QPeWS1Zy6AUoS89OPdFALC8X5Qo/SYt
+	P+8Axb3+Z77DYvypZw+Bo1A5RcA0P5rB/gomubC1yCw1+sui5hmFk5wLv6D9zSGNbH/9I3
+	BDo6gZcaNWSmUaB3MSGwrUc50FkG95rYvnEytrHx7tFcZXjfqgUddfJurME6kZVkekBte7
+	SOpxzk5wN3ckVBb+KRlg6NycfNY3+6MfShb4b9lHPUZw9BG8DyTys0vA4UWL/w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 10:07:36 +0200
+Message-Id: <DLLOW2ROGP6L.3GTVT76VYPGAU@bootlin.com>
+Subject: Re: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
+ panel_bridge
+Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
+ <asrivats@redhat.com>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
+ "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
+To: "Damon Ding" <damon.ding@rock-chips.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
+ "Neil Armstrong" <neil.armstrong@linaro.org>, "Robert Foss"
+ <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,
+ "Lucas Stach" <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
+ Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
+ "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
+ "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
+ <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
+ Dunlap" <rdunlap@infradead.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
+ <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
+ <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
+In-Reply-To: <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
-received, it updates ndev->nci_ver, ndev->manufact_id, and
-ndev->manufact_specific_info, and calls nci_req_complete(ndev,
-NCI_STATUS_OK) to finish the pending reset request.
+Hello Damon,
 
-However, unlike other notification handlers in ntf.c (which validate
-ndev->state before completing requests), nci_core_reset_ntf_packet()
-does not check whether a core reset request is actually pending.
-If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
-command times out or from a misbehaving NFCC), it unconditionally:
-1. Completes whatever request is currently in-flight (such as CORE_INIT,
-   RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
-   state desynchronization.
-2. Overwrites ndev->nci_ver and manufacturer info. Because
-   ndev->nci_ver is used as a selector for subsequent packet formats
-   and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packet()),
-   unexpectedly modifying it can cause protocol format confusion.
+On Mon Sep 21, 2026 at 8:34 AM CEST, Damon Ding wrote:
+> On 9/21/2026 11:07 AM, Damon Ding wrote:
+>> Hi Luca,
+>>
+>> On 9/16/2026 9:45 PM, Luca Ceresoli wrote:
+>>> Now a panel_bridge is automatically created for every drm_panel and the
+>>> panel-bridge API is just a deprecated wrapper to access it.
+>>>
+>>> Update and simplify the code by just getting a reference to the
+>>> already-existing bridge using of_drm_get_bridge_by_endpoint().
+>>>
+>>> As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take ca=
+re
+>>> of putting the bridge reference. This is not easily done in the remove
+>>> path
+>>> due to the different probe paths of the user drivers, so add a devm
+>>> action
+>>> to ensure the reference is put only when it was taken.
+>>>
+>>> Assisted-by: opencode:deepseek-v4-flash-0731
+>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>>> ---
+>>> =C2=A0 drivers/gpu/drm/bridge/analogix/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 -
+>>> =C2=A0 drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 ++++++++=
+++++
+>>> +---------
+>>> =C2=A0 drivers/gpu/drm/exynos/exynos_dp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 +
+>>> +-----------------
+>>> =C2=A0 drivers/gpu/drm/rockchip/analogix_dp-rockchip.c=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 9 -----
+>>> =C2=A0 include/drm/bridge/analogix_dp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 1 -
+>>> =C2=A0 5 files changed, 25 insertions(+), 62 deletions(-)
+>>>
+>
+> [snip]
+>
+>>> @@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct
+>>> platform_device *pdev)
+>>> =C2=A0 {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct rockchip_dp_device *dp =3D platfo=
+rm_get_drvdata(pdev);
+>
+> The above unused &rockchip_dp_device could be also remved.
 
-A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
-delayed response packet can prematurely complete an unrelated in-flight
-request.
+Ah, indeed!
 
-Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only processed
-by the core layer when a reset command is actively awaiting them:
-- Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
-- In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PENDING
-  is not set. If set, clear the flag and complete the request on failure
-  or for NCI 1.x (checking skb->len >= sizeof(*rsp)).
-- In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
-  completion, cancellation, or timeout.
-- In nci_core_reset_ntf_packet(), skip power-on notifications (trigger
-  0x01, identical in NCI 1.0 and 2.0), then check and clear
-  NCI_RESET_PENDING before updating device fields and completing the
-  request. The CORE_RESET_CMD trigger value is revision-dependent
-  (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both are accepted and gated
-  on NCI_RESET_PENDING alone. If unexpected, log a warning and return
-  0 so driver-specific handlers (such as fdp firmware patch handling)
-  still receive the notification.
+I guess I can keep your review tags if applying this patch with only this
+line removed. Correct?
 
-Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
----
-v2:
- - Do not abort the notification pipeline on unexpected CORE_RESET_NTF (return 0
-   instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmware
-   patching) per Simon Horman.
- - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and 2.0)
-   while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-triggered resets
-   on NCI_RESET_PENDING alone.
- - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid completing
-   unrelated requests on unexpected responses.
- - Explicitly check skb->len >= sizeof(*rsp) in nci_core_reset_rsp_packet()
-   for NCI 1.x handling.
+Luca
 
- include/net/nfc/nci.h      |  5 +++++
- include/net/nfc/nci_core.h |  1 +
- net/nfc/nci/core.c         |  3 +++
- net/nfc/nci/ntf.c          | 17 ++++++++++++++++-
- net/nfc/nci/rsp.c          | 24 ++++++++++++++++++------
- 5 files changed, 43 insertions(+), 7 deletions(-)
-
-diff --git a/include/net/nfc/nci.h b/include/net/nfc/nci.h
-index 09efcaed7c3f..2ac45adba088 100644
---- a/include/net/nfc/nci.h
-+++ b/include/net/nfc/nci.h
-@@ -140,6 +140,11 @@
- #define NCI_RESET_TYPE_KEEP_CONFIG				0x00
- #define NCI_RESET_TYPE_RESET_CONFIG				0x01
- 
-+/* NCI Reset Triggers */
-+#define NCI_RESET_TRIGGER_ERROR					0x00
-+#define NCI_RESET_TRIGGER_POWER_ON				0x01
-+#define NCI_RESET_TRIGGER_RESET_CMD				0x02
-+
- /* NCI Static RF connection ID */
- #define NCI_STATIC_RF_CONN_ID					0x00
- 
-diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
-index 664d5058e66e..504ea91ddf27 100644
---- a/include/net/nfc/nci_core.h
-+++ b/include/net/nfc/nci_core.h
-@@ -31,6 +31,7 @@ enum nci_flag {
- 	NCI_DATA_EXCHANGE,
- 	NCI_DATA_EXCHANGE_TO,
- 	NCI_UNREG,
-+	NCI_RESET_PENDING,
- };
- 
- /* NCI device states */
-diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-index 5f46c4b5720f..5a90591cd9af 100644
---- a/net/nfc/nci/core.c
-+++ b/net/nfc/nci/core.c
-@@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
- 	}
- 
- 	ndev->req_status = ndev->req_result = 0;
-+	clear_bit(NCI_RESET_PENDING, &ndev->flags);
- 
- 	return rc;
- }
-@@ -163,6 +164,8 @@ static void nci_reset_req(struct nci_dev *ndev, const void *opt)
- {
- 	struct nci_core_reset_cmd cmd;
- 
-+	set_bit(NCI_RESET_PENDING, &ndev->flags);
-+
- 	cmd.reset_type = NCI_RESET_TYPE_RESET_CONFIG;
- 	nci_send_cmd(ndev, NCI_OP_CORE_RESET_CMD, 1, &cmd);
- }
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index f5c9a8ab7ec1..57f99bf46a22 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -36,7 +36,22 @@ static int nci_core_reset_ntf_packet(struct nci_dev *ndev,
- 	if (skb->len < sizeof(struct nci_core_reset_ntf))
- 		return -EINVAL;
- 
--	ntf = (struct nci_core_reset_ntf *)skb->data;
-+	ntf = (const struct nci_core_reset_ntf *)skb->data;
-+
-+	/*
-+	 * A power-on notification must not update core protocol state nor
-+	 * complete a pending request.  The CORE_RESET_CMD trigger value is
-+	 * revision-dependent (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both
-+	 * are let through to the reset-pending gate below instead.
-+	 * Return 0 so driver-specific notification hooks can still run.
-+	 */
-+	if (ntf->reset_trigger == NCI_RESET_TRIGGER_POWER_ON)
-+		return 0;
-+
-+	if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags)) {
-+		pr_warn_ratelimited("unexpected CORE_RESET_NTF\n");
-+		return 0;
-+	}
- 
- 	ndev->nci_ver = ntf->nci_ver;
- 	pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-index b0ab4f5acbce..3a2491497e4b 100644
---- a/net/nfc/nci/rsp.c
-+++ b/net/nfc/nci/rsp.c
-@@ -32,14 +32,26 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
- 
- 	pr_debug("status 0x%x\n", rsp->status);
- 
-+	/*
-+	 * If no reset request is pending, ignore unexpected responses to avoid
-+	 * prematurely completing an unrelated request.
-+	 */
-+	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
-+		return;
-+
-+	if (rsp->status != NCI_STATUS_OK) {
-+		clear_bit(NCI_RESET_PENDING, &ndev->flags);
-+		nci_req_complete(ndev, rsp->status);
-+		return;
-+	}
-+
- 	/* Handle NCI 1.x ver */
--	if (skb->len != 1) {
--		if (rsp->status == NCI_STATUS_OK) {
--			ndev->nci_ver = rsp->nci_ver;
--			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
--				 rsp->nci_ver, rsp->config_status);
--		}
-+	if (skb->len >= sizeof(*rsp)) {
-+		ndev->nci_ver = rsp->nci_ver;
-+		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-+			 rsp->nci_ver, rsp->config_status);
- 
-+		clear_bit(NCI_RESET_PENDING, &ndev->flags);
- 		nci_req_complete(ndev, rsp->status);
- 	}
- }
--- 
-2.53.0
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
