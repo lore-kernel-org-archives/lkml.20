@@ -1,115 +1,141 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503E255820D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B418055C332
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:43:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091789; cv=none; b=dB55UAWVqEc/IUwapm83YAfudsgCJYU7569KLnvPmT/QNqBeRz987fppCRhjxXPk+3VfLIke/mjh8H2G949rITAhJ/OzBoy3rw6sbCiFezz969Dm7JPUCNwjw8/fHTgDdiLrNRXLmfJD+63RwRgcGRgCcO6AqYdYiYt5eNME40k=
+	t=1790091807; cv=none; b=EztifkCYa1rUtRtqdn0XIL96WCmvdG1OpBVjfxBEyY5T5TqyGsFondHxhNtetECn+QLkItUSFlLBRCsk9O/pgC6vQ7WF6e0IIHgbF84TpGSvvuJaVs4A0DsgHELw5y7QMkP8ioo164fMAswKbZZlePZYDGKM/BvFXbVswKVMknI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091789; c=relaxed/simple;
-	bh=l07At5e/FtwvFEhvmUdFRuvOuYiPaFWdFCcvR7eYvUQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iiUMsh7Jb6OaKBPZWgLZdx8knAeIFKsJK+S8BzqApUA0sFzpua6QKaksZ9PGudOjJGSSqYgy3GCCcP9OMaIaoohCC6hwtfPhFIUX1RBO7uOUecep9yTh9UUo8StyFSTLPs5wX4eUFVlMVlqh3RGZMcXEllGyb7htnDgrlH+c5Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=HmGRtZ1u; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="HmGRtZ1u"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-939109f067cso3416985a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:43:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790091783; x=1790696583; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NGKku8nyry7LJ3cQ2W+BxzqUbPO2qtN0RpKOVM2oOc8=;
-        b=HmGRtZ1uXSJy5W2bLzIdB1jBwSa2qtnPXke0stGNe+fv+pNP9rnPPL4WDaTnfqr3bt
-         /7mN16YmsLXQjygdMHRJMwD2buCTN0SwoJvV9Xt71/2SJDmRyKHX7Yxant0YMAAeTh+n
-         zMMYMgD9RkdDN6WmPHeeAVOpKlJgusqLOlJYPXWrg6OPzNRnLOF1cumRsSfzMYfMedQo
-         SasVdnkynUDXsyn2hBqYSpiJfXtJLmzc6JYBrZc3FciPxHOnxvkykWzZTP51OwaxXsYW
-         3y9TznhMdcQCZSOBat6hh6sqcQaexAnF22qR4Uwcg6gLuk5bp/ze94gRCCbIZz7PJxHx
-         fp+w==
+	s=arc-20240116; t=1790091807; c=relaxed/simple;
+	bh=GRqgTHPRWnG9IwMRRfG26N3mDu61p8pYCpytvjGSY1I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MsxOecOFphxIIf4b/1p0NTPoNCZLFcHdLUp3rV2azEU4dN57hpDJ6YHuuxT80ib6K0PL0joqVA3qUyUt33X3+0xwvPTU7G+tikLqSRFTq89VosaWLiMjd/GFJ6pevkoXbaiBbj163M/7avnil05tPcmZLLlgzwA/AFAqBY/5IMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-48433107499so28681f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:43:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091783; x=1790696583;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NGKku8nyry7LJ3cQ2W+BxzqUbPO2qtN0RpKOVM2oOc8=;
-        b=KC9HM/gES+3k4zlTXXvaTQFqX4btHcgtchSzCghFy2UAoCOJPiH3FFWrgjiQd2h787
-         SQ1czR8oEHkdkT8NXJHPLZgpdTFqYw+6htQ31WpTtVOM473LbYrzvK1GnkjJpfrVVK8e
-         3In6cQm8baSiF2lvImliZD7hMSP+7Tcjw9Us8Ba23Ho25VixAAbcPCYIB4ni1sBSHg4t
-         5V+OJSr9BSe7DgLmx0GV89Fz0mt40pV+lzy5jTKVVzQviRkpWpH6hYlsmUgym5f2T7C4
-         7ivgZK8y2RNu44w8WhaQrdaaSxQf9l1hBiJtMez90mfTYzceyKoBvHGjtSDiiZqkEwX2
-         JCdg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7/ryPBzGGujOwxHGaiziW+zsP8GhegzEbUYYInBRslhDUVCEp2mQMi9hXHSX1hBbtqx4fWrougaUP+nQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqQUjgo7gIcev5tTxYlPLnMP9sMTww/IxZwj3/XqXexpqjgvlU
-	syB6CO4vg59ih7bFRKdHxne7QwAHSX1+lQxfiqcLr0c87rC8yd8JtTtfxezLOOfS9VU=
-X-Gm-Gg: AYBFou0NpDZVs0KnWz/Cymcbozsic/SQxrFrlQRAmjGdFCA9ydgqxO+ur1aZSGYz8hp
-	1oXMcfDzbLw1OIchXwMYwaYvBcBlgSVWSvafyfTV2m9NrldkAQnRQdDszEKFsqq0Bf1qb2UVEY3
-	xufKf8NNYJYMBCtPWK7+j3fI5G33zvVXk6t+errJM7ygWKMut28nQWOhOWiviXoYLPx+fHz03DE
-	4eAdiizuV8rVMHZSfFKJJ9QsdprbMv+UrMrXoUnq+CTSVSwFMjeGjXNZlWaeGAtQQCF6L4Oitgd
-	Fqo8nySTn6ZrDGouDsgoZKrLUdQVl1WBydWrVAQ8W1yDinNWLf2XJxvRAW1yCGbX6/wBwKhOdUh
-	k1U42xwvqiCX1VMJxE3pvtfI0bhocRCyHkSy4Pua75yp0DTRfjd70u1PNt/N2J5pPNvc+/U0JOf
-	Ymn0TBVWXVgsw+IY9HQNxC8Jk55G6Z3UbYf6esbcfzjqIFeXp+++g567Ige5dEqhQiJXVd0Ek+u
-	+TE3l+kGDwJtWI=
-X-Received: by 2002:a05:620a:6006:b0:93b:d79f:d955 with SMTP id af79cd13be357-93c15f2e6e5mr588176085a.74.1790091783184;
-        Tue, 22 Sep 2026 08:43:03 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.243])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485dce4sm1063585a.23.2026.09.22.08.43.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:43:01 -0700 (PDT)
-Date: Tue, 22 Sep 2026 15:42:15 +0000
-Message-ID: <d36fdaad78296f3c43f84bc9c5b15a36.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation for reader-marked trampolines
-In-Reply-To: <aqxLgT41UyA-bV5J@pavilion.home>
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com> <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com> <aqxLgT41UyA-bV5J@pavilion.home>
+        d=1e100.net; s=20260707; t=1790091801; x=1790696601;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QhvTPOuk38OAJeKZ6IPjN37kqjVi+x1d9H+4Ju5mOtw=;
+        b=JWpJrLrTqzlm3MtamL3Cfgs3i4w8a/C/OS5WGdgXRIGsd9cua36zEJxaCwgEXZTlJ9
+         ZFzBFxTdZknHGpZFb4tskcr0sijkODz4OKnTLDy43mZWHD9V4sco6gm9fwpbPKnhxNL5
+         FqPQnIFijP93fHc97ZA+RsPcwvh+VrbFyo6uiHjTncNE1DSCIy5Dz3VCKLVhWfmduLr1
+         W4bAKwVffP3Pm3UdklfN3ebKV74DqK+XN384WbScn3D5huB6SF5c+gFFBPa314rhU8rp
+         m9rS4OKqkP1Z0Ao1keqide/epl09yVisc+Hp6XyosKRnh2XztXLZr0v/vgkdjyHWa8C9
+         O7IA==
+X-Forwarded-Encrypted: i=1; AKwUvBzGEuX1UXE9CVOmr+MiEiWM2Y7RR8MvxCVQcxPl0KrZjZS7Mg/x0sLB8gJXtmnyvPaS0ymY/5arC2i575Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mV6VoCN4fsLP87tnAQ43AWmvz2mawkRErYTFXwsszCDJejNcr1
+	FRxJ/OnhrZr48FLYYWd8hHb0ZzyJzpw40aMwidu0vs+8iybAeSIaZjP4
+X-Gm-Gg: AYBFou2CK6vmWiJBiLoYIpL7W90EdIGMZOXzosZg0DVKrPnYCp9MACl+F9QD1B7Cwi2
+	+nTtb9cChvBqiZoAXm//JtjPUJ9wpEJaniFPZi6lczZkTGrqPg3I6jtHfuWEZNGIxkiJcqtAuiX
+	GwuEZEza3HRteguv45WLkEKos2Ys7yy1YGj3urPM0kstkXURK4uCkm5xMa5BzP/+Ww7y9yjjdsE
+	amU9BqmjHZYtKGpxAdRz53aB/DTCmzXLQhoFTpfqM7stCOC3++/onTnfDFahHbIRgG9kLqXHj1e
+	KWIN9/gnBjaCCrUcC/AUoB9lrpJ11q2Wcix1Wo1qk1CuUY+0G68TPtolxtE2KXW3IwID9Ad46c5
+	XqcYOUdIPiEKJrJp+BKCcs2+Tjrjbeqto5NPrPc9IJVPt6Qfchd50TrjCr3C4WGpmdEwfBfBoPB
+	5116cYg9FBCM5KxKFDrINqRai49jkL2iXCubrAdDKC82cE+kCnnSKbt/k6iFab6LbOCs4i2spRs
+	4H7yTpcQpYSQBVx24LQ2SfSpY22EDJdW0Y6kZ4lix0Y8MI=
+X-Received: by 2002:a05:6000:2004:b0:487:242a:c020 with SMTP id ffacd0b85a97d-4886704a921mr11085f8f.6.1790091800734;
+        Tue, 22 Sep 2026 08:43:20 -0700 (PDT)
+Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862773ee0sm5831124f8f.6.2026.09.22.08.43.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 08:43:20 -0700 (PDT)
+Message-ID: <51f0cbae-71e3-4b9f-af91-55a610eb15d0@ovn.org>
+Date: Tue, 22 Sep 2026 17:43:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 3/6] net: openvswitch: conntrack: fix helper UAF due
+ to extensions realloc
+To: netdev-bot+sashiko@kernel.org, i.maximets@ovn.org
+Cc: netdev@vger.kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, aconole@redhat.com,
+ echaudro@redhat.com, jhs@mojatatu.com, jiri@resnulli.us,
+ lucien.xin@gmail.com, marcelo.leitner@gmail.com,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-kernel@vger.kernel.org, dev@openvswitch.org, stable@vger.kernel.org
+References: <20260921145655.3167436-4-i.maximets@ovn.org>
+ <179008911935.2160803.14933035266780079917@kernel.org>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <179008911935.2160803.14933035266780079917@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 17 Sep 2026 22:20:17 +0200, Frederic Weisbecker wrote:
-> > +	lockdep_assert_irqs_disabled();
-> > +	WRITE_ONCE(t->rcu_tasks_irq_ip, ip);
-> > +	t->rcu_tasks_exit_cpu = smp_processor_id();
-> > +	raw_spin_lock_rcu_node(rtpcp);
-> > +	list_add(&t->rcu_tasks_exit_list, &rtpcp->rtp_exit_list);
-> > +	raw_spin_unlock_rcu_node(rtpcp);
->
-> I don't think we can do that. This is too much unconditional overhead
-> on the hot preemption path. rcu_tasks_trampoline_text() should be
-> a condition here.
+On 9/22/26 4:58 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] Inaccurate newly added comment in __ovs_ct_lookup()
+>   (net/openvswitch/conntrack.c:820-826).
 
-Sorry, I missed this one before sending v4/v5. Agreed, and it is gone
-for v6: the hook is now just the WRITE_ONCE() of the IP plus the
-rcu_tasks_trampoline_text() check, and the exit side a single store.
+Same thing as for the previous patch.  Comments do not need to
+spell out everything that happens in the code.  The intention of
+the comment and the code seems clear enough to me.  So, I'd keep
+it as-is, unless someone thinks it needs more clarification.
 
-The IP store itself has to stay unconditional because of the kprobe
-jump optimizer: its window is ordinary text, so a task parked there
-before the optimizer decided to patch was not "trampoline text" when it
-was preempted, and the optimizer needs to find it afterwards.
+> 
+> Pre-existing issues:
+> - [Low] Concern (INVALIDATED by later patch in the same series): the
+>   identical helper/expectation use-after-free was claimed to remain…
 
-> And do we really need to maintain both lists? I understand that they
-> have different purposes.
-[...]
-> Can the latter replace the former?
+Preexisting and fixed later in the set.
 
-With the above there is only the holdout list left. The optimizer's
-rcu_tasks_wait_irq_preempted() now does what classic does for its scan:
-walk the task list plus the per-CPU exit lists (exit_tasks_rcu_start()
-and friends stay shared between the two flavors for that), checking each
-task's recorded IP. That is a slow path that only kprobe optimization
-hits.
-
-And thanks for picking up the core-RCU follow-on.
-
-Josef
+Best regards, Ilya Maximets.
