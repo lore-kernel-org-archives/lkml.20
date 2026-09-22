@@ -1,184 +1,115 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFD8522682
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063998; cv=pass; b=C3r7DF+BCAQZNDq5MjBw5ujfNPcynVB+J0ROYf9EwPUaXlkYq56qFsqK1uBaLIxL8HAD4TjPdVCZw9XWmm0hoGM/mY2xX0MLIu6JvyFLFyfQQlzICmRrcjQ1PERP6fxukFqUyYqUaVrLCuGst2alzCKHfFUUanlXuFQh8ZyXrgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063998; c=relaxed/simple;
-	bh=LV/LVjKM3hxN9GZjkxURfw1FVzLRvHD743trx/7Cv6I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D2L5aXyZRh6eLntoZo8WXx+d+UbCrPhUO2N2UAqOrjvOIi2SHCYzc+0uD16wrMopGK/fguusL977RHyFZ4tlwHGA8kNrkePQuXdNq7TNVOlG5CEl3wGC6d4/uFanML31bRZLUhKEDX4ge4IkP29VhhGPrFktuzpbKxiicHGvcUI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SZkY8H6j; arc=pass smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7534D37D5;
+	Tue, 22 Sep 2026 08:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790064036; cv=none; b=MyQkzD1LMao5ZV9h75M2I9t6aDKSGTDmIzZmHst2rSmIHjmsZ26siIg3TfMMOWdZvJO1Diu6ZVzn3vTt3fDXO71JetlSCq/dMkJCULVnOh78hQPkq1o+AmH4DT3aVvd7hfrQKEavk/6HjOx+2jq+/7+19EVwtLFicplKlGTfT50=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790064036; c=relaxed/simple;
+	bh=fuXdCgNrXqnZa6bS1aHenRM8zk5Hwc2su9BjxE1tmOc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GyefOkGz9j0gc+eBrRZXlO7yyKr6zVredArC8h4X32IWOsAwu9xST9zUyesR9gKXQRMFabZtAc8U1a+pdFifs7LVfh4PnEI0Ags+tHeZY/2xTAqBfzTlLWbBj8XzGVQbCsK2qw0Agv/WsB696EG8thHtGNaF84wOw4YAHB2Hdwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFudkcv7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SZkY8H6j"
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-66f7a9afe43so3168366d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:59:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790063987; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RtkWtC9zJrkhT504HSE1MpPUdAHZ2NY9hvlgwkPvVvdV2aJKIHj4SHH99B7QBqMIYE
-         M68g+Y/z0tluZJdErzf0rzCi/ihUAbJBnr+vrkusytOj7veZhrnOAoxEWKD/PQLKkJbQ
-         NqW6WfdvzKryEp0glwCxAYj/zfNjHTMzG337O6efNG85akq/VNpKc2afZ72+Sk+qlTzG
-         DnBs4oRiu71eVqVRUN072y9h5AJ2Voy1XnfMdelO80wSZWzyfDtTrlO6n6JwZz3DGUvi
-         dGDV7Yz+KZRi0PrRxkwURT7CblWS9s3mgQffbh8+fkif3lbOpd2Gu+9XEcRWbyuU5MUl
-         ZmCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
-        fh=daxjj6P/LqJnDnwJA10WDYBoISxXOx2/nG9gqL3gCiI=;
-        b=UAOHtLLclc5xk7t8aBDXCqSlAClcGaN4noKne3C1zhaM0yzmSEkpN5xDDR8a+/yWqP
-         w8weySZUxJ3NbbMQ5qdxy0g9NtZUC2HjwpcbMbDjqqe1t/c5Oy4LvPQ18lBV66NEB0N+
-         5hDc1ZX4VK5zsIf4g4VKuMHWYg3a7Vcx//hBBHy9xg+hpUSjkoaly/QvA98LDKY778Se
-         m4mv0OyIim1C/8STAFMTk42RANNFBXWBhvjY+NFRJlJrDDfLJnuWcnKgTo5WZm1jP9Ce
-         fx1n0dxigaWxkdC4//OmM94DIJYlT2M84ShbXMPjS6Q5RDhVZyA1nDF/2nvKz1Dt4L38
-         R3BQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790063987; x=1790668787; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
-        b=SZkY8H6jCSOKxUld1lPUqCarseFPTbpgFZFptxqmOhXs4o+ZGI27H01tFdDrPYNCnn
-         6j8WrNge4AFgRFH+TdEz4ms1+d+x/OHrXTjGPtQSDVT24CwGkjqBaTJEgfR090QWtjkJ
-         CFc618ixfQ/nqOU/5tcXncV3lZqe2e7qgVAceYybwGj7kkrJzR54F+mQyUTcdDUIxlUx
-         Dg73EUcmssPrraZm/MXWqmvxnGKuXNMKmOFH55fuciNuIpwc1ftd/gldPokebCViJjBZ
-         zYzam0eiXw8sIa1mQ4jKEJnLJafKd4vUiy6xd/D+0grobkMbTo/ycsGzeIS2vJzluAMf
-         pX4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790063987; x=1790668787;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
-        b=cMe5Z8lP8SQfet+TQoAi+rZv6PMByycZmuwNUL71CstIvCwwMQ4txl+QbnxbXs4xDO
-         na4j/pTO1m59ysEE9TGFpW3sItyMb7FiPkol/ekqq4tAm9j9Z5AO8dIpWgXh2YDuqpuB
-         tNZWLxMX9lxP4ks5CYD6NOkBPq318NaFIfW83fik3losN5rr0/v0wrfC4g4VUYY05VB/
-         K9iFWEQ9CQEXt5rH8Od7KBZy2S7SLExH71hDnQxDuD2oNFX7Obcljl1HPioQ+myHZaji
-         IPE5Idw6K3IEgHSJSXWx7E66vqulbbGVWGdV2pW7j/nOBgFdlsPPOhsG0q62OG+znkR2
-         We9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw7JaDiWLXQOIBGE541qR+WfG2nY282UCkHK0muJGPNy2MdfmHdJR592Bu+MZK6QWRnMe99lL8FD6OVoIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1/l6WoJagI0ZiiCw9OqxAth+35NWH2Zz6xsxDtZJDiO0zBOUi
-	tRkZ03QNACEy/e8vTvrhdipdYWjTY3+HxdSB+goy8ljpzd7Iq8Weq0j6BuhlvUn6xpQ7VVyjUCV
-	AMo7pBT0fV/jVrDW6wS7RnPL6vF3h0nU=
-X-Gm-Gg: AYBFou2hYsRq4eqmoOfvNo+/vP8YxLMT6RcMkhKULQNfIy3rLmJ3sGC31ZCZiUrDHV/
-	xbQxpwRPX/f+dRwStsLUcr5zq2gHBSh3HgRsSIT7KefSDVaiWMZKnjEteT3MrNVeBtOevKcUHf2
-	+5wemJqbd7qy/M3Ze6QKjryPhoYiV46j46yzicI9EO70d8vIujoNbPbZWEP4y/2j5StdQYWAX+j
-	Ie4Mg7v+2HcD0T049AJNXOh5BPaC1NNtuXxWOJadbE9yP0vl3TE55fd0sqbdadUlPPb5DcuOZk0
-	PsdSglxng4h1aj5WaG4qeSav7ubGFe/+Jm03EGLwAXZ01NfgoTSG2/pcmQ==
-X-Received: by 2002:a05:690e:4105:b0:66f:c2c7:3a4f with SMTP id
- 956f58d0204a3-6717fca0d13mr4306035d50.19.1790063987418; Tue, 22 Sep 2026
- 00:59:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFudkcv7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B74C1F00898;
+	Tue, 22 Sep 2026 08:00:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790064024;
+	bh=1jkyzo1p1zTC0PQwgczEuyh/H6Fn1vrklFy/A3UgT7g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aFudkcv7hgI7qYdnPPGYXbIboUYGioB3TvQ3bmtoMk4XMRSvkq+kMLmLNKgx7+iEd
+	 /dbK0yA1gVtYN3ChigF43caZcmisLYNrT4nVhRpRnLAVabR4M8PULjMRQzNeL9uB+6
+	 uxqELfgyuMSMTNRdTFueq5PFBngr2f1FHysFiag8iWgtsRPYzz778wUGPhfhl0jWzz
+	 oJIhz7RC2xFNmp9mbHiJqRu+VqEr8xpS4Lr4wJtlNDyIdNc3v4rquDeZT2NHpzZp3V
+	 UVCxB4j8U9kQ3Zyk63zVTl4AQVm2aV3xE/pib/Y+V5/+6kdVsKc8nSnQhg10vsASQu
+	 faNN7Xo2kTs4w==
+Message-ID: <29cff856-2eed-4970-a115-019d073212f5@kernel.org>
+Date: Tue, 22 Sep 2026 10:00:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921104058.353748-1-lgs201920130244@gmail.com> <20260921110512.GS106095@black.igk.intel.com>
-In-Reply-To: <20260921110512.GS106095@black.igk.intel.com>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 15:59:32 +0800
-X-Gm-Features: AcwNN1XxyQQU5x2vBD_1jw2pjdvTRbzVQZFCGqidJ6ftnuC_3eRhT9BLr4HUSn0
-Message-ID: <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
-Subject: Re: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: soundwire: qcom: describe multi-master
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ robh@kernel.org, vkoul@kernel.org
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
+ yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+ prasad.kumpatla@oss.qualcomm.com, jingyi.wang@oss.qualcomm.com,
+ sibi.sankar@oss.qualcomm.com, quic_srivasam@quicinc.com,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+References: <cover.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
+ <d7b3d0618f20d18f714217d9604a7c09a3539578.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <d7b3d0618f20d18f714217d9604a7c09a3539578.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Mika,
+On 11/09/2026 10:21, Srinivas Kandagatla wrote:
+> v3.1.0+ Qualcomm SoundWire IPs can be paired to expose one logical
+> bus with more than two DATA lanes. Add the two properties that
+> describe such a pair:
+> 
+>   qcom,multi-master-mode  role in the pair ("primary" or "dependent")
+>   qcom,multi-master-peer  <phandle, bus-port-offset> to the other IP
+> 
+> Both nodes carry both properties.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
 
-Thanks for the suggestion.
 
-On Mon, 21 Sept 2026 at 19:05, Mika Westerberg
-<mika.westerberg@linux.intel.com> wrote:
->
-> Hi,
->
-> On Mon, Sep 21, 2026 at 06:40:58PM +0800, Guangshuo Li wrote:
-> > intel_lpss_probe() may register an iDMA MFD child before registering
-> > the main controller cell. If the iDMA child is registered successfully
-> > but the subsequent mfd_add_devices() call for the main cell fails, the
-> > probe error path returns without removing the already registered iDMA
-> > device.
-> >
-> > Since the normal remove callback is not called after a failed probe,
-> > the iDMA platform device remains registered and is never released.
-> >
-> > Call mfd_remove_devices() on the probe error path to remove any MFD
-> > children that were successfully registered before the main cell
-> > registration failed.
->
-> I think this could use devm_mfd_add_devices() instead.
->
-> > The issue was identified by a static analysis tool I developed and
-> > confirmed by manual review.
-> >
-> > Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/mfd/intel-lpss.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-> > index 63d6694f7145..657b1e3fb896 100644
-> > --- a/drivers/mfd/intel-lpss.c
-> > +++ b/drivers/mfd/intel-lpss.c
-> > @@ -455,6 +455,7 @@ int intel_lpss_probe(struct device *dev,
-> >       return 0;
-> >
-> >  err_remove_ltr:
-> > +     mfd_remove_devices(dev);
-> >       intel_lpss_debugfs_remove(lpss);
-> >       intel_lpss_ltr_hide(lpss);
-> >       intel_lpss_unregister_clock(lpss);
-> > --
-> > 2.43.0
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Do you mean converting both MFD registrations to devm_mfd_add_devices()
-and dropping the explicit mfd_remove_devices() from the remove path, like
-this?
-
-        if (intel_lpss_has_idma(lpss)) {
--               ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
--                                     1, info->mem, info->irq, NULL);
-+               ret = devm_mfd_add_devices(dev, lpss->devid,
-+                                          &intel_lpss_idma64_cell, 1,
-+                                          info->mem, info->irq, NULL);
-                if (ret)
-                        dev_warn(dev, "Failed to add %s, fallback to PIO\n",
-                                 LPSS_IDMA64_DRIVER_NAME);
-        }
-
--       ret = mfd_add_devices(dev, lpss->devid, lpss->cell,
--                             1, info->mem, info->irq, NULL);
-+       ret = devm_mfd_add_devices(dev, lpss->devid, lpss->cell,
-+                                  1, info->mem, info->irq, NULL);
-        if (ret)
-                goto err_remove_ltr;
-
-...
-
- void intel_lpss_remove(struct device *dev)
- {
-        struct intel_lpss *lpss = dev_get_drvdata(dev);
-
--       mfd_remove_devices(dev);
-        intel_lpss_debugfs_remove(lpss);
-        intel_lpss_ltr_hide(lpss);
-        intel_lpss_unregister_clock(lpss);
-        ida_free(&intel_lpss_devid_ida, lpss->devid);
- }
-
-Would this be the preferred change?
-
-Thanks,
-Guangshuo
+Best regards,
+Krzysztof
