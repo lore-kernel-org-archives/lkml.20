@@ -1,232 +1,199 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042193515CB;
-	Tue, 22 Sep 2026 01:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790041648; cv=fail; b=eNsauKdNujQYhTk6Y/84FkSfNCgl5yVbEYtusBr0H/RYWs84lc6S7eOKIfJ1/lm9HVWsILPtMfqlngmEYE0hc0pAqVrdLqurALhKpMW2sP60NQ+VYo8vbuzngeioSOEGZEEtEk9JfOy5B3GvWMf8bMZP8U+t0o5394Q/CSO7Zso=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790041648; c=relaxed/simple;
-	bh=T4192OfanmUgTEdh36Jpsgw6H8pKfHAIZHM8NMDdfHI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=lgPc9yaF4+0XsN4hm1pBKF84ZJqlCPBkTVXDgD0bKZ2+BJ30g5mz3l4BQb1ulHnEDxwRGsl0p7VITROkefHpzI+2z0AKleZ5hNS29Wn8Zbdd2A2pIXCxSPrqThhbOLUvaIrzKrlldtB1/vf183/3s23e788+0JHwM7LZkWunekI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aYOr7r+Y; arc=fail smtp.client-ip=52.101.85.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AF137A829
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790041656; cv=none; b=k+g+iT0I0dCYDT+IOCnM3SezljwNHKJL9KIcUNJHzu3t8RISxsolsRMoh5gwuif8sm/R0e5HEldlknAvDQuA45FQtI6NAPIoBqM8t/5uUCfOiFhihBohd/dricY+IdQ5XBpXOkXOVJyE+BoTwu5SaiMyjmzJSs4siX/wxRK139k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790041656; c=relaxed/simple;
+	bh=JRet0lN6fAyPGKcEZAkelJe6hquf64NfYxR4H5/x8y8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GG1Wj6wepPADTvuvYgESZMQDDagYpI/hzEGyeG2TSgJj9JJVdH4aBc3zEv/CftXTLD9DM7SWCTB4nZGl5ECLECMb2bSazF2XN3fwjZOyAOxumeYYioRKr/ZL+osuehBc3Y6X6Va3NthO+0wumyL3wwhcrN8fcEYrOS3NdPtF2NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cPoqgfDA; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aYOr7r+Y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wYOvQL78DqkzcDl7+PeBq7co5XzFJU4LzgXoFQBioDNONhqytCUdY7qCZhfYdEl5BR5znJGqFLcrjOXAZ4WeanqtuRhZQdSvHHz760YNE4FA9JC94Rp4LBMYaoKIwmGELM+sUOfhQZb8bdhR3anZIVQOvZQD04jzl3/E4zAnQ74Q6e7vJRDOly8DTB5cXaLRR3ai2ifiWqUxHCgzkFo2rOq8H1ZQ+N7Q4Ie03iD9A4lLHIaN0XruMQzh4qzPEMapAxmY9PZFQ+V/BDaXL8qX5Lnu7BKfgqb7+Dj1LK7NYhb5zHTQVe0fNPG6C+U19ugaTZ61qSjgqSPzIHmZL6klsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tqhu25l4yCUpHDAbHo+0hp+MAWr7DyEXMjSaZHST630=;
- b=cRWSqWnaDBWpaYMbCAo0hrRppSjefHeFd37Fd16JdpRsVUNd72toUBHeOAvJYprmcuQ9XcqSgseoCR9fLfO3oRQUY/YpnUAcKNgep9QjpXa4AAFIq6srkHutMNHgicEWxfcdnmkzvSS5L9z5MWV+pRsNGnNkM8VrtoUpGVRm1YdTG7jOZeNB0g4fXmWlICgevTyHiE1+IYBBpvdA17p14dDtwGiZJ1dlwlX4srOuoEmvDnpyFYV7sHNcumxW3GUqYW+X8cIXV9NiDSM13g1Wp3DUrMyAWrRhCFYhG77R+3frqSJlOdHyE+nItHPIYi/LsvwARRH9SQ19WoHXC6ahag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tqhu25l4yCUpHDAbHo+0hp+MAWr7DyEXMjSaZHST630=;
- b=aYOr7r+Y6/Bzs0v/4KZRVu6KIMjA0H0I5O+gB2FDsde2+o5gd6EsFyYjUVJZn1ps0uDtsSLUEXkTXO77KWh+N5oJ6hmGC+3VH8w3+gFpwFmgUyzbDT2OHcPUuWtUpx/D5I2vwBMGkFvFNXLCW/uU0KRGuGPh17oLu0v62xWvjpE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL3PR12MB9049.namprd12.prod.outlook.com (2603:10b6:208:3b8::21)
- by IA1PR12MB8553.namprd12.prod.outlook.com (2603:10b6:208:44e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 22 Sep
- 2026 01:47:23 +0000
-Received: from BL3PR12MB9049.namprd12.prod.outlook.com
- ([fe80::ae6a:9bdd:af5b:e9ad]) by BL3PR12MB9049.namprd12.prod.outlook.com
- ([fe80::ae6a:9bdd:af5b:e9ad%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 01:47:22 +0000
-Message-ID: <ce67be1d-797e-47d0-8d6d-434143a95ca3@amd.com>
-Date: Mon, 21 Sep 2026 20:47:20 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: ccp - fix SFS ioctl race against device teardown
-To: Muhammad Bilal <meatuni001@gmail.com>, herbert@gondor.apana.org.au
-Cc: thomas.lendacky@amd.com, john.allen@amd.com, davem@davemloft.net,
- bp@alien8.de, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260919192432.272680-1-meatuni001@gmail.com>
-Content-Language: en-US
-From: "Kalra, Ashish" <ashish.kalra@amd.com>
-Autocrypt: addr=ashish.kalra@amd.com; keydata=
- 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
-In-Reply-To: <20260919192432.272680-1-meatuni001@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR18CA0004.namprd18.prod.outlook.com
- (2603:10b6:806:f3::13) To BL3PR12MB9049.namprd12.prod.outlook.com
- (2603:10b6:208:3b8::21)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cPoqgfDA"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2db33db4de9so43735ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:47:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790041654; x=1790646454; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i6+2inLQAeVlBcJ3LlCplkJMtCvXJB/NM/8WbN3/bwA=;
+        b=cPoqgfDAxj97Oo9a6bbkse48nLAf0Wkeai8frA62+SXicakUQaQ9zVgTI3sKQ2ZbNr
+         9nRpjgbi2zSJjmJcurXDMInCWSL3quqv5r/5A43TtJ8zJ22Qc/5ZTU+IYpHV5lGpdhp8
+         pGegpqUoE1Rz4UUbnmDdgb4FTwRXAXoxMNprqwKtZOZFnJ3j19vo10mvg9Mho3zUyaRh
+         AKPPqMPFgL7yT+jZGQGO/WM4MqJV4NFWV8bugHsVkY+ysnST03IpPB2UbB3zVIMPnEOK
+         PI3OzSWt50V8LLYMfEOViN1evuImrB5W6MG7Eikp4S3EmQA92fMC8nY9mHvzbqyRUqYy
+         4gDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790041654; x=1790646454;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i6+2inLQAeVlBcJ3LlCplkJMtCvXJB/NM/8WbN3/bwA=;
+        b=ZSF9sGhuQVFUD/5ArNfSmY1Avr87FCM3uwyfUkvetnA01GYWNIbV/sNfsplSPOvUE7
+         ucd4gpCLtOreFRt1xnvvh8pE+TTdpHVnTG/Fk1ANZsQbo+t1D0VOXma1quCrTHPPq7dB
+         1XgRd4dnEe4WpRUSHFjkrdH4O3P/W8T+51ofIyUJfwsA5kqUxJeR/OYVSzBNt3kAW2hd
+         mlSNb6cM+f8zXscPI1Q01ADXDS6UDQ3nouq+PBTbKi0fKVuLp5s3LS3Eo6zbggW2rHLK
+         vimpCOJ9gxYympSZpPmNtXWThVdSBERA2LMZ3RGWX8r4miJlV7AkQvQ/WWdCMYwrXOJd
+         HRZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVLaI32KNp8eyuTHl47I2qUI8sB63WR7KFJOzginLKxZAWKIfLzlS31xeQSycyoIRScvC8w59IxvzA210=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqU4+lX3tZv4dVkOvdlhDNxDdNedIYPGUEXXs2x7SNKtwVT+tN
+	FShTvl2Q/tBFz5tsSshB1BBTGuheo6SsXJu/lVCNwPRnv0c0ApM9k7rNrC+yZtJwsQ==
+X-Gm-Gg: AYBFou1+GbRTZ054R2HtDPLQRJKaV7IrEFhluDz6ZjAYwUsbaXLcCaYb5m/VcfdPQ6z
+	qiuH5jqV+IV+zmSqLRU1MsSbp1b5QYc5WsW364OYpb+MrpBlfAjsGOLz+EggYyRX2FbPf91rC24
+	rDm//yk1dkhoPmJvzi9XXZxYljUZFtOVNqTmpVW1BRKUZzN26NExB3Ow7DGR8bs8i7yNSLTpVcs
+	etO5lgR5qqdQoeejciXoHLit8mvQ9tZb656d8K2tSwBhPQmnz0yWAM8SNDLDRc8twG4JYJ7lCeR
+	a4FGMiH2CcGQlzFh97PEuJbpXJapLsYCmYgWFAFCwM5nEoGkrQSChCUwL6aCa9AEp/N6U39DIM/
+	zxytg8Z8u4vMhReGkoM9ycHrAZeRCFg4mLW1Dxd8GSkC1L408V5uQqRuzDxKSJznf0SSnoDj9s4
+	jL87qJzjTjHRQ7XkVWgUJnk+D52Sj+x+cPol51opS4p1fy4ErDgMr2UOEqQToE1ni7e2MukZX/U
+	cSpJA85ywtgfQC7h7+GY2EKADl2ni5i2FRlM1x7sGNYISeODzPSyzeOSp/vv/sqVpikQm7hg4CK
+	V/qU
+X-Received: by 2002:a17:903:2f4d:b0:2c7:f688:f22f with SMTP id d9443c01a7336-2df5b835b4amr3114135ad.13.1790041653508;
+        Mon, 21 Sep 2026 18:47:33 -0700 (PDT)
+Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5751f2sm342687a91.9.2026.09.21.18.47.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 18:47:32 -0700 (PDT)
+Date: Tue, 22 Sep 2026 01:47:28 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: Alex Williamson <alex.williamson@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>, kvm <kvm@vger.kernel.org>, 
+	Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, linux-pci <linux-pci@vger.kernel.org>, 
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
+Subject: Re: [RFC PATCH 1/5] PCI: Refuse function reset of an SR-IOV PF with
+ enabled VFs
+Message-ID: <arHP3Sj19YX-J-vx@google.com>
+References: <20260812045325.2733631-1-alex.williamson@nvidia.com>
+ <20260812045325.2733631-2-alex.williamson@nvidia.com>
+ <an5JbIzz40svS3xe@google.com>
+ <20260814083737.66bb83fb@nvidia.com>
+ <20260817121810.GC933791@ziepe.ca>
+ <CO1PR11MB48354AC2854C4D8E9984FD8E8CA62@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <20260818140304.GC5482@ziepe.ca>
+ <20260818143906.1f58aecb@nvidia.com>
+ <CO1PR11MB4835146C50242D76568724DE8CAD2@CO1PR11MB4835.namprd11.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR12MB9049:EE_|IA1PR12MB8553:EE_
-X-MS-Office365-Filtering-Correlation-Id: d79e578e-aada-47d3-fcb5-08df184b7214
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	jzGLN1HeSy0HQvjmghZ/j9f2Yu2kZjYCG98RXq8cONrrx8ZWJbePp0SYpZ+73OhH5P4GXFEgYH7FA18etDItFldJ6QYhik/Wfza8ZokvgFof/shJvozCtsxEeJUvat29RI3BEDrNYApTpXZxLgMDDmqOmZSvuphnAGhVMZbsTKV9oRhxhrs5PCsu3QFDrrGq56fZ+QfQHEC0hb6RQ96y3BEAmqZY5iG1cp+QXIltqtUzjgNBo3tDRJXljQ5xfHa/px/f3BYNj+tbE3CyAhyzRfVM7Xyvcbhgo4TyJ4dTytR/5L4og4Z473R9F/weIAaPOnMQ04xJRvJi1T9nhhjmqTvpOz5/AoCZSK3/zhOqr9y9YOfER9sBN3qNOOHt/ToQwQQB5v3WbEuYVj29w0TTH9Qchwpn7ucWRLSDTRgsrwPo2l+UMZvmIfUlyVEzus+fo0N+4p2ETrLIt8gYcikrMKBD4PHFq1XdPXP6yGHB54WHEYlkGayRNmS41WFQMQiNv44buid1yubmijxA+b5IBjejZicz11QKCcJDJG5zB3Ag/7VsNSPpmDpKsjH96C3v9QYhivTCXMIfbiTyggVGgbXUFxuGyW8KGGThAssnUdFjO0/3FMah0vr1Nib0qbns52l1Relx1/BqSLolhy5OSl7cjruc+3xu2tTOfSkhmp0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL3PR12MB9049.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MVkxbHhIUTdPN1B0bFBRdjU1SW1CVUc4Zy9RaVZxTm5GNnVkbEYxbmdJUXB2?=
- =?utf-8?B?RW9QMXJUQ3BMZ3dHM0FJVzdqV0g3S3ZDYWR0c0R5RmV6UzI2MlU5Wnhpb3Qw?=
- =?utf-8?B?TnBOeXpEbEI5OGI1S041SGZXRFdpdmJveUZrTElxZlZuaXByQjJ0ejVQQW14?=
- =?utf-8?B?U25DN2pGVzErK2xXbHVCTVZ0OTJ6QUNpbFN2K0FESlhOdkpEWWVUOGpGbXAx?=
- =?utf-8?B?U1ArczVqR0pjL1FZRnNhV0pXbW51ZEp3M01iUmZ5Wmd0ZHhORFgzL2pIODVj?=
- =?utf-8?B?K1hyNERMWE0xNmFiamloSWV5T21BZHJweHVWY1drbWRocDFjQzdPMzNPdmVz?=
- =?utf-8?B?cFZzTGszb0h2R0lTTEJPeEdUZVdob0Noa3k5MW8yYmJUWFdXS2xDRG9FTWZw?=
- =?utf-8?B?SjVNWlZRMDZhSHoxYWpUWlZGODYzV2swTEJsNjhUMW9Baml3TkREU09IWTkv?=
- =?utf-8?B?MGYxV1hEM2grencxQnVvUFFJYzd6Mm54cThzd1VIR25kTHJncENzSVVtVGl1?=
- =?utf-8?B?Qkk0YTBKQ25tSE50amlMNlZSbEo1VVYyR09qUmxFV3VBRnVxN3N1MTRhT1VK?=
- =?utf-8?B?TzRPbUZxTjZ2NUJlNjRIek81cVlvSWhDNmJWU3ZHRHdLZUJLTW9NdTlJYXRU?=
- =?utf-8?B?bzhXWU1VMld1Zmt1SmdNWDllSUNIbjV2Sm03ZzNLSjhWWGJtVnFxM1JMU0Zr?=
- =?utf-8?B?ckIrVTB2cFZ3UUJwRFZGR3ROcXByTCtUMk9mQlhWWWJ6Wk1jQ2ZCcGtwdkNh?=
- =?utf-8?B?eDVXeXYwNWF2aS9zK0cvS2dIeHhkOWRWNThmUE1zbjR2N05GSGtsaDBQS2xh?=
- =?utf-8?B?b2U3dUFEVUNXVzlVTUxFTStqdGF0akRINVNiMDRNdVR6NFBxZnNlU1Rzcnlq?=
- =?utf-8?B?TVRYdkVzK2hhK2E5emp5d1paU1BNWXN6OG5CY095blZmTmU5UVN4c1RHdFdE?=
- =?utf-8?B?Wkczdm16TCszNGhDNUV2N3BkY2h6SEoyQkhzeCs5ZFUvZE5FdW9PRCtCYzQ5?=
- =?utf-8?B?ZHZYYkRxaFplQUE1elRQaVZSSmJPRXdJajl3TjkrZmwzSy96T1pqODJQK0sx?=
- =?utf-8?B?S25ud2NOemNQUmVxR1hodFlPODNmeWsyWlFNMGhYRVAzQXdZYjJtVExLcWJ5?=
- =?utf-8?B?VnNyLzZROEFUV1FxRDErL0JJY3RNY2RPL1AwNC9oSTZHMjlFb3BlZzBabUI1?=
- =?utf-8?B?azAxaXJmWGt4WjZZRVVCQVVFQjJreXdSK091UHBJQVk2enBLR00wZXpNZEh6?=
- =?utf-8?B?SEs4R09VM25ITWRyRnA1ZXN0TFp1L3RxcFFFMmI2a3RPRWgyTHlLU2NRUWZ4?=
- =?utf-8?B?RUhNeFZXNG1hNnlINkY4SmY0WUpxTS9zbkxBWGZ1NVkycDYrd1JaQ0hZdTZU?=
- =?utf-8?B?VTVTUW5zUUUrWjJ4Q3lFU1JEOHRwS3FQUHpFZHhJU3Z6cTluV1NyUi9lYTJy?=
- =?utf-8?B?OUF6TkZwbGlTSzV4ZVRNT0hkZU5kWFIvQTR1NzJGa1MwZmE5U3luRjlZUkhB?=
- =?utf-8?B?a1pCR21XVGNFZk1JdDhrMFdpeDkvS1ZHL1c5SlZZb2Z5ejBZVFJnblBsRjY1?=
- =?utf-8?B?bFF0SStKbjJsTUdNSXhuMjFrMHUraldTMnJmR1c3ajBsTWgzcHRFZFd1emk2?=
- =?utf-8?B?RDNqK2twT1p4emNEQXN2YzBscjZYTnE5WVBSS3U1VGs4QnhyQnBFa3lySXhi?=
- =?utf-8?B?SjhZV1BFbVpxLzlweGxRV0tmTkh1RlBLVmkvRnpyMUJ1R2FWU3RheitVZlhC?=
- =?utf-8?B?M0dVNEMzZXgzc0xpNWFobG5kRFAwUGVHSXlkNEJOaDkzd2J3OWlWZXQ4Snk1?=
- =?utf-8?B?citTc2VSbUtIK0tPczIvQjZENitrd2RIUml1TnJ1WEMwL0dMZk9KWXB5Z0dR?=
- =?utf-8?B?dDYyazRrR2FHQnByWDFiQ2RvUU9SdExqMDZPbjJNeUQwTjd1Q09Cd2hwTzQ5?=
- =?utf-8?B?VDlCZUppUW1WTDE2WkdtaTRRRWlVYzdIV1dPdnk5b2dXM0ZRSmNaLzJrVGdB?=
- =?utf-8?B?UnQxa0FHejJpNkpmTGlGRVRYOXI1K1psNEY5Q2VqQ3A1aDJxdkNPWjRRSDJD?=
- =?utf-8?B?M1p5MHZETTBrOENpaGhGb3FuKzZXL0pTNnl5OVBrWXVEWjk4U0l0eTFVejZI?=
- =?utf-8?B?UE8wZk15c0l1SUUvRXlyV1RGaURpaEpjTTNZTXdML0ZaWWZlMUFCdVZJUm5L?=
- =?utf-8?B?cGU3M1liQnV6NEJjdXNaSUwrSFc0RkptZEM5bTBGZzZzTVVVNGpXUUZiOWsv?=
- =?utf-8?B?WkRMM093Ui95V1lsTXlWam44bUlIK1BXQ3BLRzdNbHdNamp1RjFXWEQzY0Q0?=
- =?utf-8?B?RWNGTnhGZWFmTG9zeXB6Q0FCd1I3VGpaUm0vYUJOSm4vK1lZZ3hoZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d79e578e-aada-47d3-fcb5-08df184b7214
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB9049.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 01:47:22.9043
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E4bXPRlv1Vn9zNyTQB0RB9AFJmzH6KhrjbR8gKcNJgto7OxmuCNeETftYoX3w//3jX6VMtcXXVEm1MXGIwZaDw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8553
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CO1PR11MB4835146C50242D76568724DE8CAD2@CO1PR11MB4835.namprd11.prod.outlook.com>
 
+On Thu, Aug 27, 2026 at 05:35:17AM +0000, Tian, Kevin wrote:
+>> From: Alex Williamson <alex.williamson@nvidia.com>
+>> Sent: Wednesday, August 19, 2026 4:39 AM
+>>
+>> On Tue, 18 Aug 2026 11:03:04 -0300
+>> Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>>
+>> > On Tue, Aug 18, 2026 at 07:07:20AM +0000, Tian, Kevin wrote:
+>> > > 3) resetting a PF due to ad-hoc FW error
+>> > >
+>> > > e.g. pdsc_check_pci_health() calls pci_reset_function() when FW
+>> > > reports broken PCI. Sounds a similar condition to AER.
+>> > >
+>> > > but as it calls pci_reset_function() this series causes a regression
+>> > > in case of active VFs. Is it desired?
+>> >
+>> > mlx5 does something similar. RAS flows require detecting the PF has
+>> > blown up and resetting it to bring it back.
+>> >
+>> > This has to work while VFs exist and bound to kernel drivers or vfio.
+>> >
+>> > In the VFIO KVM case I would expect the VM to experiance a RAS error
+>> > on its vPCI device and trigger a VF flr
+>>
+>> This would need to be a device level RAS flow as we're sorely lacking
+>> on forwarding reset notification to VF drivers or providing any
+>> mechanism for recovery from the vfio error eventfd.
+>>
+>> > But we have to sort all this out through the hypervisor to not crash
+>> > the machine or otherwise :)
+>>
+>> In general guarding the high level pci_reset_function() family on
+>> (pci_num_vfs() == 0) seems to have more pros than cons and the
+>> restriction matches the scoped intent of the interface.
+>>
+>> The low level __pci_reset_function_locked() interface remains
+>> untouched, and as the prefix implies, relies on the caller to do
+>> necessary verification and preparation.  A "reset the PF regardless of
+>> VFs" seems like an underscore prefix sort of operation.  We'll need to
+>> export the pci_dev_save_and_disable() and pci_dev_restore() functions
+>> to provide handlers the full suite of tools they need to replace the
+>> existing function and port those we find (maybe also questioning the
+>> author's intent on VF reset and recovery).
+>>
+>> Of course making the guard parameterized with wrappers to expand this
+>> family of calls is also an option,
+>> pci_reset_function_locked_with_vfs()...
+>
+>+1 for wrappers. Maybe call it pci_force_reset_function_locked() which
+>is slightly forward-looking if in future other conditions may reject the
+>reset request using the base function.
+>
+>>
+>> The mlx5 driver doesn't actually seem to be affected by these changes,
+>> doing its own link toggle or a PCI bus reset, not a
+>> pci_reset_function() call.
+>>
+>> On the other improvements, triggering a pci_reset_function_locked() on
+>> unbind after SR-IOV is disabled, when needs_reset is indicated, looks
+>> pretty trivial.
+>>
+>> The blocking domain operation looks like it might be simplest to
+>> implement in the IOMMU core.  We can set a flag for a default blocking
+>> domain on the IOMMU group when we take_dma_ownership of the group.
+>> Then
+>> release_dma_ownership picks the blocking rather than default domain.
+>
+>IMHO we should change release_dma_ownership() to always picks the
+>blocking. No new flag.
+>
+>this take/release interfaces are invented for drivers which manage dma
+>on their own, so it sounds reasonable to not assume the operated device
+>is in a good shape after the ownership is released.
+>
+>Then only a clean reset can unwind it.
+>
+>>
+>> This is then unwound in use_default_domain, called via dma_configure,
+>> attaching the device to the default domain in probe of the next driver.
+>> Therefore until probe by another driver, a device used by vfio would
+>> remain in a blocking domain even while unused and unbound.
+>>
+>
+>so unwinding it blindly at dma_configure time is also problematic, as the
+>device may still have a bad state to hurt the kernel.
+>
+>Instead use_default_domain should fail in such case (in blocked with
+>owner_cnt being '0') then a reset is expected to unwind it (Nicolin's
+>work will carry the resetting status to pci_dev_reset_iommu_done())
 
-On 9/19/2026 2:24 PM, Muhammad Bilal wrote:
-> [You don't often get email from meatuni001@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> sfs_ioctl() reads psp_master->sfs_data and caches it in sfs_dev before
-> taking sfs_ioctl_mutex, while sfs_dev_destroy() frees sfs_dev->page
-> and sfs_dev->command_buf with no locking at all and only clears
-> psp->sfs_data afterwards. A call to sfs_ioctl() that reads sfs_data
-> just before sfs_dev_destroy() runs will still acquire the mutex and
-> go on to use the now-freed command buffer in send_sfs_cmd().
-> 
-> Have both functions take sfs_ioctl_mutex before touching
-> psp->sfs_data, so a call that is already using sfs_dev completes
-> before teardown can free it, and a call arriving after teardown sees
-> sfs_data cleared and returns -ENODEV instead of racing it.
-> 
-> Fixes: 648dbccc03a0 ("crypto: ccp - Add AMD Seamless Firmware Servicing (SFS) driver")
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
->  drivers/crypto/ccp/sfs.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/crypto/ccp/sfs.c b/drivers/crypto/ccp/sfs.c
-> index a4777839790b..530141f8bc74 100644
-> --- a/drivers/crypto/ccp/sfs.c
-> +++ b/drivers/crypto/ccp/sfs.c
-> @@ -111,13 +111,13 @@ static long sfs_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
->         struct sfs_device *sfs_dev;
->         int ret = 0;
-> 
-> +       guard(mutex)(&sfs_ioctl_mutex);
-> +
->         if (!psp_master || !psp_master->sfs_data)
->                 return -ENODEV;
-> 
->         sfs_dev = psp_master->sfs_data;
-> 
-> -       guard(mutex)(&sfs_ioctl_mutex);
-> -
->         switch (cmd) {
->         case SFSIOCFWVERS:
->                 dev_dbg(sfs_dev->dev, "in SFSIOCFWVERS\n");
-> @@ -191,8 +191,11 @@ static void sfs_exit(struct kref *ref)
-> 
->  void sfs_dev_destroy(struct psp_device *psp)
->  {
-> -       struct sfs_device *sfs_dev = psp->sfs_data;
-> +       struct sfs_device *sfs_dev;
-> +
-> +       guard(mutex)(&sfs_ioctl_mutex);
-> 
-> +       sfs_dev = psp->sfs_data;
->         if (!sfs_dev)
->                 return;
-> 
-> --
-> 2.55.0
-> 
+Thinking about this more, it might be tricky in multiple ways,
 
-Reviewed-by: Ashish Kalra <ashish.kalra@amd.com>
+- This will only work if drivers do reset after dma ownership is
+   released. Looking at the code, vfio currently resets the device first
+   and then dma ownership is released.
+- For some devices with no reset mechanism, vfio-pci uses bus or slot
+   resets. This will need extra care to propagate the
+   reset_iommu_prepare/reset_iommu_done to subordinate devices to bring
+   the device out of blocking domain.
+- AFAIU looking at vfio-pci code, some devices do not have proper reset
+   mechanism, not even slot/bus, so those devices would be stuck in the
+   blocking domain state. Probably need a mechanism to let IOMMU know
+   that there is no reset mechanism?
+
+Thanks,
+Sami
