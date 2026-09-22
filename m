@@ -1,129 +1,155 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-ed2-f42.google.com (mail-ed2-f42.google.com [74.125.228.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D2A3AEF45
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790054134; cv=none; b=eN6oo6eQPxe7uK865d83Tl8+039VEm4qxU0o/+rnv+eyQWio6mhG4mj726sRYZZpcn5Wtyanz4edUEwjObyy34CEYAr14NFVYVTklcabOUUUxHpzV6+A4Esw4L2xmx7mG50NMHFnE7FvrQBbpcpgNqqo0pRioRhrlvEfmXq0Dtg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790054134; c=relaxed/simple;
-	bh=ubfpb2m5HU3YtEzZMpoa32QD7iyghjLtFLw7dcH/EXU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=I4YtcysCLEyBzq24v78MmTfh/FgmjqQgkx+H8Yg0OxfTfFaaWPPXTzWRlG0Fz1s4pnLq0KStJZFT3Z67aJ3vSVS7fEKu/wFgFQCwUfHx898InCt2FCjh2vBjEH+r9gpDLYZPJZy/6yjHvWll/7WqiNdLaRxHUnzrNjqcI1fmGi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CHtMia+D; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A91276050
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790054142; cv=pass; b=AU9zekk/ykQfEYtz2t5GKbVXgsAo+DuANJ39SRx1PFFluv8w3+s9YzazG2QMMNZjJa84MPNAiz84YROZMKLBdUXDYhFqhFtPcoSBmmhx5XsihpINli1JthH10veILOzB5k5M2AiUrqmUOcFy9RUKKkv9qV4jjJF/NMkfdRB0Q/8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790054142; c=relaxed/simple;
+	bh=MHkYdeuq/GQ6cy9KhsMnCwJnFdIAwA10VuPadJacYhQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uSF+Oe1nlAn50yL5sz3JbUUeFSzJmRbxdUZHuZnzs1c3g6fZ+1hE91hTxDFS52XH2ab5n/UVKwEBsSbsg0VGd/NQ8LLAafgdbWprwSUfBCJ4tVE+84CIinD9tvSLk/cW3fx0YZW7+wt02c5JgU9ve52EP0MRXEk4iG50Z2AIIe0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=HJNsURa3; arc=pass smtp.client-ip=74.125.228.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CHtMia+D"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb1a990so3397384a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:15:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="HJNsURa3"
+Received: by mail-ed2-f42.google.com with SMTP id 4fb4d7f45d1cf-6a5d8ff627eso80434a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:15:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790054138; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LB186wFSwUyf/DGL8lYroTKiBbDALeUzuIQHetI2r2MYUJLSuGoP9KQiYV5/6WHxUA
+         jcKGQiDkNHruzbGYvLD2Z/TqVxVmLmh/hlpuwHB9dlAPDtBQ+0Ble1AbN4xnMtRmd6Y4
+         yxW53WOrgO90w+hN+LC15u0YA/6Bbfagm4Ha5NmtBrCivwBu5p6qYoA6z1JyIw9+Lu4p
+         9QDKxA4CdeYZbW3Jhght7rLyil2qPMIGUEO7DM1qnHIEJQMCTjMxPow/ca+FOFoldavX
+         9A8AlUlo0CLfDqQT5FYYQtIxd3HIES32QOLgPbyQ9Vbmm+JBGKgmjdlu1D9uMqKqz80O
+         4oMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WgZFnKxz3ST32YIA6Z0zQdHgzABZKQB2kumQfi8K+Zc=;
+        fh=snrh+A3Z/XJmGGQw8JssAPgTvZQfGedY9spP9M3DgVo=;
+        b=XkOOmqlmbDabbp+6kc9SS9vqFuLyp5wWADgS89o1u0iN1SKkRypaaBvYKD/YRxggIN
+         yF3Ebxvz/ulUyV3OEBpa2dL9yPy4ChP5NtCU6UteAYQoAqX/lZeRfUl3zNcf5zG3cf0f
+         QAqeWiitU83zLrp03uCHBK008VuUxo9ABrFlHQ9D2OJ/UKxE1uesTfXP3mVBck2cIv52
+         KUhkyfrBgdX4nljBrFhX+Ph1FIZSIaodgj0VTy/2EEXlwmITZipae4ZCG8he4D1qwpkq
+         nrLDNoKk5mNRxJ0sZPHG1UWMMPawXuAC0yzBLlqJVfG4rp+tphXzuGE5LJr++n01qXt6
+         xPwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790054132; x=1790658932; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+v2SnJ+erN2CVEopX6PENJdGxiYPbzH9Iy+gl6b1SBE=;
-        b=CHtMia+DDWplNTiQULOsmitkeXcYRblV4YzkBWX7YCvTM8qckq35pt/n1tH8QByRHF
-         jSulh6q6RE+mdyWZhQoiPFOquNhhniMC7Skpul8k017PtsIzNF42U2txuNIZUDv/xWsu
-         lAthq2Wv0iyaWX/5l1a+p5of1njPQ/g/Kokyyxy/c+4ayiy4VNSJv8dye9zJUsR5Np9d
-         4Eg8lQbFsIt7cYUIshwBCkgCZKMuCsTGhpiMbiL6EWom72JFJxB++U6bILv+Gunl+Urx
-         y0aHPhGi3UQp+l5D/Pj1u7sInr+g2Yq0Tfiyo+tZV4LFT2ICSz9wI2EUIpLPEtl1umne
-         XNFg==
+        d=cloud.ionos.com; s=google; t=1790054138; x=1790658938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WgZFnKxz3ST32YIA6Z0zQdHgzABZKQB2kumQfi8K+Zc=;
+        b=HJNsURa3/SqygroKlnoref9VfzDdeHNVgDoM04f9UNlTMmAX+Wd2mOl4YCdXVK1XQr
+         LXOC6sNN21qPs4uUGtWlbL659Wrtu2Ec75aXsHpFXsKQ7Hm4E0b3sLbP5Onw2I6Zu6/w
+         6g2urWbIfMPPc5U7d00rgTDddjbMI/Zw+fEgigvo9vrtFKooRmwm7dlD5/9Mfogq1/sN
+         p6mXsyysi3utiV+p6TvuBGI9w7o+eHdLHt/+CHQ4UVvYj4KVmszRFtrUyKMKC3BreYeW
+         KVkzB/AX8uNYKmNU8urMKtFHf0QTZoFUnnaDmYoISZYBb38fxqStutrPBKV+Uecl7x45
+         3Ang==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790054132; x=1790658932;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790054138; x=1790658938;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+v2SnJ+erN2CVEopX6PENJdGxiYPbzH9Iy+gl6b1SBE=;
-        b=G/1xTJo3TljD7+0WVwVjQtGl6mmY3L9xFdluelbgysqEGNa12beYDwkVoyuuyCSJND
-         2Kc1sConDfh9JbtfH++dUVXO+ib5l8NSt3VOECUCyZFxHUhulGdCJn3yT+0wPZ7I+8Ys
-         QifhDwt8YB9o1zMHTSKXyDxP5lI38PTc4yC/VVdVeR0MubMiLY6nl56B8TwFl7kbvQ3M
-         LjDEx/Dvt2XdYx4rLcJO+RepSRIjEq/ocuZRHfy6mE6YoQk1BziByYnkB1O9g7AnykQs
-         Ql/GzQg2vSkbfRmkYuxEoblxaWuaGhytH57k6/51kRxp+/s88/XQfkzNtzkHcqIP/CjQ
-         xN4A==
-X-Forwarded-Encrypted: i=1; AKwUvByxLEVis/QOLSffYSrnDHYB7ZOOnxWHFvWWK8b9tewDk5zdSGXh/2Y1THX7YwBZAg0nDMF0A9tXancoVBk=@vger.kernel.org
-X-Gm-Message-State: AFuF++loynrBixTnH/mBFw/cctDJIRQEihKW76P/uLU0U/yFYhd5o5uo
-	NwNAnW48ZhisRW6ZUCSHGAQnF0RzKL/N1tn5g4WQ7PNWL9rtU5mn3edZXvUolg==
-X-Gm-Gg: AYBFou0sQvo9yqdENiZcYC6vbHbvJzyZTtvJ46BAFBPrTbu6QXEKeHPKd+ULds7FtN7
-	WiLQbX4qCY7IUBAHV9IoRJ516K6Se5JjI9+bomqEnrw/gexZW3e5IXQsiBTZ/aj91dZdT5tn8Aw
-	Z8pL2swUCo5DpPnh+TWbSuHygzpE0L3gRY4ys1s8d8MG1wEAZi7vmhfjz3ldC/cGnuW1qIlqxnH
-	XoXwqrcl5g9AWJu9J7NA7wHRVVnbiQSvxKuQc7jbG4PrWAsXwIGfOHJPrPr3J9oPbGpgHY/O/YJ
-	R4D5t+03j5eRoyxBQQp1FyTKCBn1WCaFtfe1fCA0AOpVHMPuBl1l5Wa6HjzxqXC1LxeunwwpeHW
-	CmEEH1b0BIvIs+t4dIarjmBkslIR4tyRRgbAfgVTiwaVyZOdFWhJAsx6pVUQxoiG5bUPl9ty8u/
-	XpH4pYmJW8aTi3TxPXDFGNsJYpwCpYScBdV8I79yMO4DhR6TVwWMBvPXwllXNwxOWFtDAc+srfq
-	mcr09/uk78egxYzEtfHUZKGwVCCigwlS7GkijCIFpOROQz4I2KlSfFYXq2kmQUquLnObKaSx55H
-	f5A=
-X-Received: by 2002:a17:90b:37cc:b0:39e:6c6a:6579 with SMTP id 98e67ed59e1d1-3a07325025cmr4175a91.60.1790054132035;
-        Mon, 21 Sep 2026 22:15:32 -0700 (PDT)
-Received: from localhost ([153.61.198.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06cc3600bsm399617a91.4.2026.09.21.22.15.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 22:15:31 -0700 (PDT)
+        bh=WgZFnKxz3ST32YIA6Z0zQdHgzABZKQB2kumQfi8K+Zc=;
+        b=e40fIqKkVp87Fo3Vgz2LiqbvvzMe1PnCmW1Kf4Gg0Wf1gw0qG2znTmthGpAaCP42hU
+         d3UVbBYhZQS212hCUTK46kysauyDMy/LAuWw1L2iGuL6eznxs0LH5bIwHJdLoSnzuWuI
+         Fs/n0D70j4dSpqzZaAOBLH9bpINc1OTYYsG4XoU84XUcu9axPzRETWDUYdFhw+Rd7KyB
+         xLkamcCOdpVhzKtgPzG1sL4ajl8PWcLrAF0wV85+C9PS+yb8tWyCQZajdRVYZmWgDnEV
+         my8cQz9QEW1xWDKHVGvEASbOrFyIoPRTi59s10GPKA6U42QQhLF0axWyA2OH/fw9uX4/
+         uJJA==
+X-Forwarded-Encrypted: i=1; AKwUvByZGBAbgOp9OZGYLuvpPf3oWX70h2vmTB5WKlyXoxFjc1V38xjsn4qACqX14eHAh70wfAPtg08Bfv4f2Vw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqhwTwmh6GRkrJc8LkpOHvqIrbOTmuCT1fS6aQ2mEpfIN4VHOY
+	CVEkQfW54ohVQltXq/yz3IEM1H3GnNGYwdF8FUJY+zcr925gp7qrVQtAv3arPe/MPWDLqo3Pc+J
+	1PQHr6RTmgOm/Fm8nPFrkQJT3MpeT7yNE0LqTfdiksg==
+X-Gm-Gg: AYBFou3zH5oCLAe9Drx61CAaO9KCa35DGKG1On0uwIra96GPrRCh+qQ1jbT+NQY+HF1
+	7aGgVPjTQCFX4q7pbzVb/bTiiLVDljkADhO6F07RpuvQHK82FQYcAxr6X8qvgh0jXmASq9KW4Cy
+	cizXXfZ9TlPOI45nCl12beyknjIixuy1bpqXNn/q6aFko7A+xrkBXVewqcIiXlJyYfuZDLbSeCV
+	nP+XcjDRceDx/YVyz9I4HkMmfcj9Au72oJ4IY/IP7S9ZnWR6LIvHAwCOUNBUmseH55njMljnWWm
+	TCEGQdGFFvKL/IJN47Qq4sLVIkc337ZJsVMVsAGp5JZ30ctZpmqpoCg=
+X-Received: by 2002:a17:907:7b88:b0:c16:604a:b2bd with SMTP id
+ a640c23a62f3a-c2a1a9180aemr1226088066b.3.1790054137823; Mon, 21 Sep 2026
+ 22:15:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260921-rtrs-fix-rtrs-clt-info-rsp-done-v1-1-c64281ed97c0@proton.me>
+In-Reply-To: <20260921-rtrs-fix-rtrs-clt-info-rsp-done-v1-1-c64281ed97c0@proton.me>
+From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+Date: Tue, 22 Sep 2026 07:15:26 +0200
+X-Gm-Features: AcwNN1UyR_asqLal6G0VDs_es5TmRoJuJKO4azcJK124CAiyAS2-MdQZQ0pBpKc
+Message-ID: <CAMGffEmNYih7sQ7SFx670T+rgzmmE2QrtrkzNsdpuwgZEdPDZA@mail.gmail.com>
+Subject: Re: [PATCH] RDMA/rtrs-clt: Don't WARN on unexpected info-response opcode
+To: quanyeyang@proton.me
+Cc: "Md. Haris Iqbal" <haris.iqbal@ionos.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Danil Kipnis <danil.kipnis@cloud.ionos.com>, 
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Farhad Alemi <farhad.alemi@berkeley.edu>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 05:15:30 +0000
-Message-Id: <DLLL8B7OSHQ7.1BTJDA25ZCGF4@gmail.com>
-Cc: <bpf@vger.kernel.org>, "Vadim Fedorenko" <vadim.fedorenko@linux.dev>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, <linux-crypto@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>,
- "Song Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
- "Jiri Olsa" <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>,
- "Ihor Solodrai" <ihor.solodrai@linux.dev>, "John Fastabend"
- <john.fastabend@gmail.com>, "Karl Mehltretter" <kmehltretter@gmail.com>
-Subject: Re: [PATCH bpf-next v3] bpf: crypto: Use AES-CBC and AES-ECB
- libraries
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Eric Biggers" <ebiggers@kernel.org>
-X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
-References: <20260922040413.28885-1-ebiggers@kernel.org>
- <DLLKN9WTMVHD.1601DUU5LBVAB@gmail.com> <20260922050723.GA14616@sol>
-In-Reply-To: <20260922050723.GA14616@sol>
 
-On Tue Sep 22, 2026 at 5:07 AM UTC, Eric Biggers wrote:
-> On Tue, Sep 22, 2026 at 04:48:02AM +0000, Alexei Starovoitov wrote:
->> On Mon, Sep 21, 2026 at 09:04 PM Eric Biggers <ebiggers@kernel.org> wrot=
-e:
->> > +config BPF_CRYPTO
->> > +	def_bool y
->> > +	depends on BPF_SYSCALL
->> > +	depends on CRYPTO_LIB_AES_CBC
->> > +	depends on CRYPTO_LIB_AES_ECB
->>=20
->> This will break the build with CRYPTO_AES=3Dm.
+On Tue, Sep 22, 2026 at 6:25=E2=80=AFAM Quanye Yang via B4 Relay
+<devnull+quanyeyang.proton.me@kernel.org> wrote:
 >
-> No, the new implementation only calls library code.  And if that library
-> code isn't built-in, then this just doesn't get built at all, as per the
-> 'depends on' lines.
+> From: Quanye Yang <quanyeyang@proton.me>
 >
-> I'm not sure what you expected.  This could be a tristate, but that
-> would mean it would be its own module, which doesn't seem conventional
-> for kfuncs.
-
-I see. peddle back. tristate is indeed overkill.
-
->> >  struct bpf_crypto_ctx {
->> > -	const struct bpf_crypto_type *type;
->> > -	void *tfm;
->> > -	u32 siv_len;
->> > +	enum bpf_crypto_algo_id algo;
->> > +	void *key;
->>=20
->> No need for this. The bot was wrong.
->> Reading any field of struct bpf_crypto_ctx requires CAP_PERFMON.
+> The info-response receive is posted for a SEND.  The completion
+> opcode comes from the peer, so RDMA WRITE with Immediate is a
+> legal WC on that WQE even though it violates the RTRS handshake.
 >
-> Okay, it sounded like a weird BPF quirk where the type system was being
-> used to enforce a security boundary.  But if it's not needed, then
-> that's helpful.  I'll go back to the original struct embedding.
-
-+1
-
+> WARN_ON(wc->opcode !=3D IB_WC_RECV) treats that peer-controlled
+> field as an internal invariant and panics with panic_on_warn.
+> Treat a non-SEND completion as a handshake failure: log it and
+> keep the existing CONNECTING_ERR cleanup.
+>
+> Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
+> Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> Link: https://lore.kernel.org/linux-rdma/CA+0ovCge-K+hcGHXZ4R3Ww5+cg159ux=
+HBeVbKeUSLBRSMT8OWA@mail.gmail.com
+> Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+> ---
+>  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/=
+ulp/rtrs/rtrs-clt.c
+> index eac38b57b00d..3c23c27725a5 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> @@ -2514,7 +2514,12 @@ static void rtrs_clt_info_rsp_done(struct ib_cq *c=
+q, struct ib_wc *wc)
+>                           ib_wc_status_msg(wc->status));
+>                 goto out;
+>         }
+> -       WARN_ON(wc->opcode !=3D IB_WC_RECV);
+> +       if (wc->opcode !=3D IB_WC_RECV) {
+> +               rtrs_err(clt_path->clt,
+> +                        "Path info response has unexpected opcode %d\n",
+> +                        wc->opcode);
+> +               goto out;
+> +       }
+>
+>         if (wc->byte_len < sizeof(*msg)) {
+>                 rtrs_err(clt_path->clt, "Path info response is malformed:=
+ size %d\n",
+>
+> ---
+lgtm,
+Reviewed-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> change-id: 20260921-rtrs-fix-rtrs-clt-info-rsp-done-3e5d47cfdc44
+>
+> Best regards,
+> --
+> Quanye Yang <quanyeyang@proton.me>
+>
+>
