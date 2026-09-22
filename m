@@ -1,221 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6473E40E4;
-	Tue, 22 Sep 2026 04:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECA43B840F;
+	Tue, 22 Sep 2026 04:25:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790051151; cv=none; b=K17hXk0SdBKOQ99LCNBRFRz6rGh5zai/bUAcKpqZ7Cmcu3thW1kMwqzPy7IkRsxPyz1lbzJ4l+yemph2A2aiLZNww3lFZYmY3kZxxiRdoVOkmsdhOCSx/NN9fvlf0xbBx/8yet3bRkNpew1WSQ3EP2wjaXAoyqsWW6ESLyW4ee4=
+	t=1790051161; cv=none; b=RKyyxWI4Gm9VNoGodWv9JR/6xmSUg4uSNh/mO6vALkSc5J2kFwLEKBDQFbYWl/LAOCZ8r0OQ7qyWbatKB7wnrCbI66SAJUTuykP375178qIy5I3Giaa+INM415XnjEDqQ7ZP2Wr7zlsVT6D4YMoV0y5aopHx0sMgvT5Zf64IGLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790051151; c=relaxed/simple;
-	bh=WSSazbM+fHfaUAOgnSMHO0iUtKbGi34yU9nXSmgXbfI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q479Myr5xB+l35DXk6+slXtM/jV0sWUqhYwdzrNNDywjFc9/62e9gXsQh+0NWKoCN7Cy+tsA6S9lBCJzBSjnzhkmjWfA0qJal5LuoiX0dZCApTFQZjeBO4G83UmZvt2vb1Ua4/+p5F/MpeBV4GfOM1NNqGq4iewIo4empRaR2co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RB67amyj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790051161; c=relaxed/simple;
+	bh=lekNrCeizC80DsGXP6pOl7QXhc03K2jyvI0Q4G/xeCo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cpIncmsKl4WolDHbX0Hai5ugwhpRnaixaHJQHCi0HVx7c4/OiT/xgk1P2gY2BGaBvUtJYSiv+b9ccBZOhjUFQell2aj5zVvuXhqglWkNldY/mkYlZxtiiSh4FzELqxqJHko7MZHfGItYYKg51YwrcqWPh9+B5vlKQO7DpqpqM6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ER3J5r3V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RB67amyj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670731F000FF;
-	Tue, 22 Sep 2026 04:25:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ER3J5r3V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A901F00898;
+	Tue, 22 Sep 2026 04:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790051149;
-	bh=jQqBZgRQel9T6CKiVbYZiYgcese2NqaCIfPTKivOYNM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RB67amyjtHCus3SRNlqbThEZpF4QHLy4p+djBZdc8YngAHOY8aEUcP0PEVjUZjacQ
-	 GyOZBIYXXhX6c64c0/svxaKAjgclo1FL0x1diVE07NqTCpL6Qy7mz8MAry5jtBtKuA
-	 2mJJvwu9fyh3n4Rx/O/6fdofDEVElJf0+hVE/lXfgaM7wfvIcAoOQhUZZhpWyEwTYl
-	 NJW/JHfB7RI2Z+0sSdDvjkjLsO2j5XBGCQO2IMHYX6C9j48IrX5c415nPfhWHJc1P4
-	 W6DiFtNij8lC62aRgtqVmJARep0yHjLdjFokeSfOAxga6YVVvEGqjvtW7RxG17Vmsi
-	 SLZIEdx5xhm5Q==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Sean Christopherson <seanjc@google.com>
-Cc: Jinchao Wang <wangjinchao600@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	x86@kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org
-Subject: [PATCH v17 05/13] HWBP: Add modify_local_hw_breakpoint_addr() API
-Date: Tue, 22 Sep 2026 13:25:43 +0900
-Message-ID: <179005114295.388919.7866464354733590848.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179005108298.388919.4535333252892590932.stgit@devnote2>
-References: <179005108298.388919.4535333252892590932.stgit@devnote2>
-User-Agent: StGit/0.19
+	s=k20260515; t=1790051159;
+	bh=D28fmX0v2APqwSVoGcnG1C5Rh5Hd9l3BseXRfD4IHME=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ER3J5r3VzZNuMuHQZZdT2tmD/sauynFhocssTfXIyQ+aeQ6bHpu8UA/btjPDGg3MH
+	 NfePtUdGHG+QdKUDw/Hf0NGR7IZE7GwghF/aWpWREdZXIu24P6AHSeBPDeGCLdrDIx
+	 Wo2hVOEZoDUAtcCdLZA3wprGabCwotwqb5oR8Sxge67tTTQNIQJfd0/VaVOMDx61j7
+	 +cDtnjNI9J99y88D82hGsEYUaZkrWCSbySiRs5MQTyfbTWfoiTKsRuMG4xw3dJF/61
+	 wFzzJtYuXoUWfMMZjp6HroZWXyPWrA8cZ9PVa08HOFKF79taCFtsp8GJ7ykAzcwjQk
+	 z8EZnhQvf7G5A==
+Date: Tue, 22 Sep 2026 06:25:50 +0200
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Kieran Bingham <kbingham@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v2 13/13] mm/memory_hotplug: drop
+ CONFIG_HAVE_ARCH_PFN_VALID handling from pfn_to_online_page()
+Message-ID: <arIDTjj5C05Z0Hp5@localhost.localdomain>
+References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
+ <20260921-b4-sparsemem_cleanups-v2-13-54d81d65e125@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-b4-sparsemem_cleanups-v2-13-54d81d65e125@kernel.org>
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Mon, Sep 21, 2026 at 09:59:05PM +0200, David Hildenbrand (Arm) wrote:
+> Drop CONFIG_HAVE_ARCH_PFN_VALID handling, as CONFIG_HAVE_ARCH_PFN_VALID
+> is never used with CONFIG_MEMORY_HOTPLUG, as the latter depends on
+> CONFIG_SPARSEMEM_VMEMMAP. Make sure it stays that way.
+> 
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Add modify_local_hw_breakpoint_addr() to update only the watched
-address of an installed hardware breakpoint on the local CPU without
-releasing and reserving its hardware slot. This is available when the
-architecture selects CONFIG_HAVE_MODIFY_LOCAL_HW_BREAKPOINT_ADDR.
+Acked-by: Oscar Salvador <osalvador@suse.de>
 
-The caller must provide an installed local event and a valid address,
-and update other CPUs separately.
-
-Link: https://lore.kernel.org/all/f9c49dfa49bdc57ba8c0574bc9981c1e581acf92.1785067572.git.wangjinchao600@gmail.com/
-
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Jinchao Wang <wangjinchao600@gmail.com>
----
-Changes in v15:
- - Use WRITE_ONCE() for counter_arch_bp(bp)->address and bp->attr.bp_addr
-   in both update and rollback paths to prevent data races with concurrent
-   readers (e.g. NMI handlers).
-Changes in v13:
- - Add comment to modify_local_hw_breakpoint_addr() clarifying the early
-   update behavior of bp->attr.bp_addr during the NMI race window.
-Changes in v12:
- - Update bp->attr.bp_addr and counter_arch_bp(bp)->address before
-   calling arch_modify_local_hw_breakpoint_addr() to prevent race
-   conditions during interrupt handling.
- - Restore counter_arch_bp(bp)->address and bp->attr.bp_addr if
-   arch_modify_local_hw_breakpoint_addr() fails.
-Changes in v11:
- - Check return value of arch_modify_local_hw_breakpoint_addr() and
-   return error on failure.
- - Update bp->attr.bp_addr and counter_arch_bp(bp)->address only after
-   arch modification succeeds.
----
- arch/Kconfig                  |    8 +++++++
- arch/x86/Kconfig              |    1 +
- include/linux/hw_breakpoint.h |    6 +++++
- kernel/events/hw_breakpoint.c |   48 +++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 63 insertions(+)
-
-diff --git a/arch/Kconfig b/arch/Kconfig
-index 45c657772362..d021bc31ef14 100644
---- a/arch/Kconfig
-+++ b/arch/Kconfig
-@@ -474,6 +474,14 @@ config HAVE_MIXED_BREAKPOINTS_REGS
- 	  Select this option if your arch implements breakpoints under the
- 	  latter fashion.
  
-+config HAVE_MODIFY_LOCAL_HW_BREAKPOINT_ADDR
-+	bool
-+	depends on HAVE_HW_BREAKPOINT
-+	help
-+	  Select this if the architecture can modify the address of an
-+	  installed hardware breakpoint on the local CPU without releasing
-+	  and reserving its hardware slot.
-+
- config HAVE_USER_RETURN_NOTIFIER
- 	bool
- 
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 15fd9ec5ecac..38e29e465022 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -249,6 +249,7 @@ config X86
- 	select HAVE_FUNCTION_TRACER
- 	select HAVE_GCC_PLUGINS
- 	select HAVE_HW_BREAKPOINT
-+	select HAVE_MODIFY_LOCAL_HW_BREAKPOINT_ADDR
- 	select HAVE_IOREMAP_PROT
- 	select HAVE_IRQ_EXIT_ON_IRQ_STACK	if X86_64
- 	select HAVE_IRQ_TIME_ACCOUNTING
-diff --git a/include/linux/hw_breakpoint.h b/include/linux/hw_breakpoint.h
-index db199d653dd1..bf65c7fffd99 100644
---- a/include/linux/hw_breakpoint.h
-+++ b/include/linux/hw_breakpoint.h
-@@ -81,6 +81,9 @@ register_wide_hw_breakpoint(struct perf_event_attr *attr,
- 			    perf_overflow_handler_t triggered,
- 			    void *context);
- 
-+int modify_local_hw_breakpoint_addr(struct perf_event *bp,
-+				    unsigned long addr);
-+
- extern int register_perf_hw_breakpoint(struct perf_event *bp);
- extern void unregister_hw_breakpoint(struct perf_event *bp);
- extern void unregister_wide_hw_breakpoint(struct perf_event * __percpu *cpu_events);
-@@ -124,6 +127,9 @@ register_wide_hw_breakpoint(struct perf_event_attr *attr,
- 			    perf_overflow_handler_t triggered,
- 			    void *context)		{ return NULL; }
- static inline int
-+modify_local_hw_breakpoint_addr(struct perf_event *bp,
-+				unsigned long addr) { return -EOPNOTSUPP; }
-+static inline int
- register_perf_hw_breakpoint(struct perf_event *bp)	{ return -ENOSYS; }
- static inline void unregister_hw_breakpoint(struct perf_event *bp)	{ }
- static inline void
-diff --git a/kernel/events/hw_breakpoint.c b/kernel/events/hw_breakpoint.c
-index 789add0c185a..69bfb17b87c4 100644
---- a/kernel/events/hw_breakpoint.c
-+++ b/kernel/events/hw_breakpoint.c
-@@ -888,6 +888,54 @@ void unregister_wide_hw_breakpoint(struct perf_event * __percpu *cpu_events)
- }
- EXPORT_SYMBOL_GPL(unregister_wide_hw_breakpoint);
- 
-+/**
-+ * modify_local_hw_breakpoint_addr - update a local breakpoint address
-+ * @bp: the hwbp perf event for this CPU
-+ * @addr: the new address for @bp
-+ *
-+ * Update only the address of an installed breakpoint on the local CPU without
-+ * releasing and reserving its hardware slot. The caller must update other CPUs.
-+ * Return 0, or -EOPNOTSUPP if the architecture does not support this operation.
-+ *
-+ * Note: bp->attr.bp_addr and counter_arch_bp(bp)->address are updated before
-+ * modifying hardware registers so that interrupt/NMI handlers and CPU entry
-+ * paths observe the new address during the transition. If an NMI hits the old
-+ * breakpoint address before the hardware register update finishes, the event
-+ * handler will see bp->attr.bp_addr already pointing to @addr. If the
-+ * architecture update fails, both are rolled back to the previous address.
-+ * Callers must be prepared for this behavior.
-+ */
-+#ifdef CONFIG_HAVE_MODIFY_LOCAL_HW_BREAKPOINT_ADDR
-+int modify_local_hw_breakpoint_addr(struct perf_event *bp,
-+				    unsigned long addr)
-+{
-+	unsigned long old_addr;
-+	int ret;
-+
-+	lockdep_assert_irqs_disabled();
-+
-+	old_addr = bp->attr.bp_addr;
-+	WRITE_ONCE(counter_arch_bp(bp)->address, addr);
-+	WRITE_ONCE(bp->attr.bp_addr, addr);
-+
-+	ret = arch_modify_local_hw_breakpoint_addr(bp, addr);
-+	if (ret) {
-+		WRITE_ONCE(counter_arch_bp(bp)->address, old_addr);
-+		WRITE_ONCE(bp->attr.bp_addr, old_addr);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+#else
-+int modify_local_hw_breakpoint_addr(struct perf_event *bp,
-+				    unsigned long addr)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif
-+EXPORT_SYMBOL_GPL(modify_local_hw_breakpoint_addr);
-+
- /**
-  * hw_breakpoint_is_used - check if breakpoints are currently used
-  *
 
+-- 
+Oscar Salvador
+SUSE Labs
