@@ -1,68 +1,70 @@
 Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E8C47F787
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:08:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC213E1683
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:08:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107740; cv=none; b=FsYhI3SNejO7vIuVOtftLVWJEIN6XZBN6J3ttN0YYWXXKTvMBdIrwG7Otipg+uPJnpld3y/aBjk2DzBTjs5uUuy1BMn+yqkHWs146uJ/XYfKog4I5/8dxzBOZOuS0NulGdgHiE9mvbj2wk+q5qm59ncPDGFyEquTCUNv1urAJp4=
+	t=1790107737; cv=none; b=GXsOnqF9Ciz7PegFZsb5KgVrCe5DHw/8/HV80K2nxW5r7iETJmjaiofxVRGKuZol2ea1vr8DLBouHskY9CE5G2wPvMb+QtaPFijkj8lusSsXlRXMqYRScohj7yyfiLhXO9rXYpipc/ce0ad3+/GV5FUK37rIJNSVJQlnWcz35pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107740; c=relaxed/simple;
-	bh=EmIrsvdA2/afewICbt1xJBP5YiPJowaDXlzSyPgLuSI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AP18i/K9K4J/op8ppzAewe9ZSS0ARfDgc58xm2++P54HUeKfm9GwuLuySZQl4tZKqEoiMBxDFueFlM0NHIF8l/ckcz5o5NZd+wsVZzTm3JYJwqc7f4vNz3BgGoEkA/kDa0xUa3UPMUOkCzaxv7yOjcqK1ifMpBbIU98pEEMu4IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ov0P/E5Q; arc=none smtp.client-ip=74.125.231.76
+	s=arc-20240116; t=1790107737; c=relaxed/simple;
+	bh=GAU8soK/soIgxIPJa40VL+WIbNoKOxxllpQZSMNrvVo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Nrm1EVbhtFDfCtnDeB0p2Jja/YhJlIXfgFOx9zlttn6rv0XjtW62B0nsUraitiVnDBKKw4zYOmcBRdvnao+CjnD1khW5SHV9KN8NFgAIzqNejSFWnRYC2estovzE67qmJAMmDPReq0abFq42n+bagfVN/jv8iMU4+clr17v7BXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AileT8pK; arc=none smtp.client-ip=74.125.231.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ov0P/E5Q"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-469fdb78b1cso197766fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:08:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AileT8pK"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46accbdfb21so257131fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:08:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790107706; x=1790712506; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4YttVmVDe7kPYmwTqqpDR7TPp37/yKqeznmiNNuOCoA=;
-        b=Ov0P/E5Q6C6mhaeJy7BfqpTHmHAj7eE/lXouSnvQjsQz1QgY6Ytw+LAEi7fGaTRSTS
-         pT74d18BuYYp1tCTTCqS1wCXNi5TeJXc/FWlZmU8wIbq8/aFAJt52pBQ5Qya7bsAvD1F
-         fvZr11FhUc/7WeiMdBL+XSuL6tF8VypsEOntuY3+PcCaO3/W8NpZ+ciRdJAUNgPd8u5u
-         rqPsXdGnOzPE5oCPq720ix/V0+3rrbekFPSKjslUI2aylOAUymibvzEMkJ6ZF2gjOTjD
-         Xf5c1lRMamBj+30zB+xi9ChTq5PB4iONCaDzeRghAO3hj3Pf06uezeYDgjFrUAubM09Y
-         KFSA==
+        d=gmail.com; s=20251104; t=1790107711; x=1790712511; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sbNl4k+W1q7yiAA0aGRbWPBqZ/1TEL1hl7cPMNaYBEs=;
+        b=AileT8pKyvMXhY/8nsz6ACGn5o0cwbihSHu8M5o6JwcyW2yuu06K3+C8SKA5rRqLeO
+         Rzv1Xysp4Vb9rNBRNwt6w2qf9pdnEyveQ/Oqotx1wKKcDHnNnbmO14Fo+RkoWoEeoB/c
+         ENcfw5UarsBOje5tx82MJ0bdvjTiaVvPPnhOUxxg11GWuCCfWx1Hddm8JtftdiONgokb
+         3MFX1tYLneu8IrixlUla3V1BU9otaEnWVItlCIqNaEH4WAEtSBnVcmfpfdIGZfubmyot
+         8V/iFZnZTrdjqAQA9sCsJcSLhyuCscQSHF/iUBxNIfRh7fqVDHLy3iA8qTOOuh9eXKw8
+         33Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790107706; x=1790712506;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4YttVmVDe7kPYmwTqqpDR7TPp37/yKqeznmiNNuOCoA=;
-        b=IUINkoIxhqCu1IcYfjdKDllZF9ByZmMBUXeHhkfnqMjBInl8UrzoU3gAiI7DfqWKvJ
-         kZTLWYnyEHEwgS6sc3H0ct9cr1lc3Wdd0juBlaHApvvaRe7BqeQSl6WZVEgSgQgUKTx1
-         fzn1BbmQcfnrSALZZCPTLuSPVoHdOdG36Cd7V/h/759piJtF6emgea7HfkITTnJJbPRw
-         bROZOWe130jGyU8qRgk8OxsbMziPtJnfoESpNh0El1igG+5XkJhl1UOs/IPnyrdJ1pML
-         PA0aDQahe4chckSKbMeoKIa4pjn/VyawUKwB2FkfffyJSe7W6tiu7wbzPjDpD583vFAr
-         gi3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxnzcGJvxX4aaN5MTyPr9cQuLepCXO4RZ+dT4U8iOjwV+31jVs/5wdZNXVPMNJ3yIPxamOIYq43LmuPM1s=@vger.kernel.org
-X-Gm-Message-State: AFuF++l08GxfhZ9omyxOJ6kcxnV58cEJ9+mVGbyGrHEE1sjH4G7GAVAm
-	+eyhX9sc9VurvLP3VmhpbPJoRIhHu6FpE3VIBwPWPYZQXltDKj/LCJQk
-X-Gm-Gg: AYBFou25WxPqwPV9nLqRXBzDYHkFXiJSMSnLN8Ef9nPU2QMANcXVk227RIinfceKDk5
-	FKYJiEVvj9F35p7iFYvlhBiaG7vyvsM0UShgpTnxP5SJ1A51z+HffEXZWjmkmZ+18w6F9w74Szw
-	Huc86iNL30S2FgnLFtd2WSyyy6EzSUNIjiK8y4c6ZN58FCNVFn1A+yZKdGOOaFpkH2khR6HUvQB
-	A+oSV6SbrMukieSZaCe/JUzDbvAYSeeCz0EVlrVYjacmxX5zs4eHKehRFf0r+9IuS1OAffQa7i8
-	I9+y1L2Iwm6ZhktxwYT0FLIQSfl6thlCl6R3s7lHIpYAlI2jgva6TWILOyaP8BFcmxGr8z2tBfT
-	x+mI4Cd26s/mzUHv+5ZQXtYOnLxaCvpGXy1jqasehVOsrXwcsCnbO0jajNtEfVpuas39tUCqEsk
-	iVUZK9MdCA6bU6zyjv9EWpaBb6+NEhk1QfHl0LEv5ON/ZdL+hJc9XAMBW0Y1Fgl7VJ97eZE/Nj+
-	eNB7WqcGDKxiTs6F7wCeMd89W3o2I/l/80/D1t5dy3B34Wk4PMH/LikTIW7e32ruzX9rz56at0d
-	B2iWVMHqdqK7pxdp+rs=
-X-Received: by 2002:a05:6870:5b8c:b0:475:a1ec:9621 with SMTP id 586e51a60fabf-4908b1b4127mr680375fac.35.1790107706068;
-        Tue, 22 Sep 2026 13:08:26 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790107711; x=1790712511;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sbNl4k+W1q7yiAA0aGRbWPBqZ/1TEL1hl7cPMNaYBEs=;
+        b=k0YtDrN7uOeYNyj9Ore7aQIQC27PLgSl17E/EwStFi0MOKSNxgYfQ3oFzkYTQMABKw
+         uFczEFZ84AZhgH6XXcD88AS4xjxnAeCsIZSJekUmS5Fyr7VZugG+q767xSRHPK9jvmQT
+         AFpoh3D6ZD7eFT4QIygE+yvtCoQjUo88JlJCn77Ph4SddHc8NMqIay71vI1yI3eOGGX/
+         nLkqgDDXnWYGcv3mTNZoH+ueWCuzKg3tIHei/bi3+2m93gQD7Ui+IGqEUBnLOquR7DcI
+         n1nelC7vQUib0BgnK7kDoWrUt2NzKJylcdk8k9RfWbXDZZwMqwwiAPiv5dPMpsU/RCX2
+         A6Wg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/5feeWzGXcaN+eMciNYLN1BLCchkQ2tsrGpWea8lqJauzc56DVG43eIg3Qz7GF23J9P/YcvRYWssO930=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTNP5hLSOr8Jmha6ISiZsopFtqO8o34tPLlP4S5TWXWuC9a5SY
+	8rGj6NsLv2VJ9IZNHDo0Kn7vxQeJCJ9ovBOp3a8ZQDGsmkYowWjMhmUe
+X-Gm-Gg: AYBFou0GcNOjdBkMCvBhFTLlfTLFnHX7iZr7l7tN6gFmhgaNinWzDp/nDcKGUkNecsB
+	dvepPsbOhPAo2n7zn4asnetzdjg3xfTPgiSJQ96a6GkyvxYBbNPXvmaGoylIShz96nOcdkBIeVW
+	ShC7mR3jTuVMQi76GzR5pCE9e9wlFI6GVbhUUcV9rR0Ug12OYL44HgfI/IgLxmlaj4KeHYhoLYR
+	1mq1rHTP6u8SoM4dzF2YJ8ZRyK2hwnDJxQYFnQ0/WtQt+P3zxEagI2+FNAayJR6u3IMnU7KI/ob
+	wQRAm2UtAbo81akJZskB5KIvpC4IVMW7/MF35nrkZm7c1JDoEr0kDqnUGN8WY3eT+pg+sHT5MCc
+	YZMyjhVTBzSFu1QgGy7tgPybl28uWvxO1jzvN1uDMr4uqMdSFamYraPfbAS6FH7Ry3gLMx/0dMJ
+	cIs3HIb8iYJPnydhsNvPJZtd/dpGKfc6aaqd17P0qAGXDAy5OOYrKQqGtVadvGvCVBnspxNosSi
+	rxCVjJGaU/+C28yM0rMlJc2q30hTsVb+fDDw217J6FGtaDwTHZJLT1GYFZlzwlcUjM0he2df8td
+	nhc36d9VCPvZsE1yC1E0mLT5iRTjaQ==
+X-Received: by 2002:a05:6871:340c:b0:48f:e363:5cc9 with SMTP id 586e51a60fabf-4908c5fc720mr685685fac.55.1790107710505;
+        Tue, 22 Sep 2026 13:08:30 -0700 (PDT)
 Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-4908eb9237asm564087fac.12.2026.09.22.13.08.24
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-4908eb9237asm564087fac.12.2026.09.22.13.08.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 13:08:25 -0700 (PDT)
+        Tue, 22 Sep 2026 13:08:29 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v4 0/4] kallsyms: Accelerate symbol name lookups by ~19x
-Date: Tue, 22 Sep 2026 14:08:17 -0600
-Message-Id: <20260922-ksyms-tune-v4-0-92acea84b911@gmail.com>
+Date: Tue, 22 Sep 2026 14:08:20 -0600
+Subject: [PATCH v4 3/4] kallsyms: Add dynamic lookup index for batch
+ resolution
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,11 +73,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ6CMBCG4auYrq1pp/zVlfcwLibtCI0CpsVGQ
- ri7hRUaXX6TPO9MLJB3FNhxNzFP0QXXd2lk+x0zDXY1cWfTZiCgEFpqfgtjG/jw7IgTAGZgK1Q
- SWQIPT1f3WmPnS9qNC0Pvx7Ud5XL9mYmSC26r3OjSokQFp7pFdz+YvmVLJsKGAnxQSBSVUkRKE
- prym6r/VCVaVOlfRihyq7d0nuc3NOACMhoBAAA=
-X-Change-ID: 20260919-ksyms-tune-e22a42d8a31a
+Message-Id: <20260922-ksyms-tune-v4-3-92acea84b911@gmail.com>
+References: <20260922-ksyms-tune-v4-0-92acea84b911@gmail.com>
+In-Reply-To: <20260922-ksyms-tune-v4-0-92acea84b911@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
  David Laight <david.laight.linux@gmail.com>, 
@@ -83,196 +83,413 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
  linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790107704; l=9959;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790107704; l=13772;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=EmIrsvdA2/afewICbt1xJBP5YiPJowaDXlzSyPgLuSI=;
- b=QG9iUt8ol0ODMV+6EPhUfMcEzZZitr16xLAQeQvGlz6snwqCzYf2GvWZUZokkRlRjDSKzB6p2
- IgcL9iAfg0rD6r2PWKIeL5A/i0n6mCKJHjRA9ckhlIV5BEFJEDIbMD4
+ bh=GAU8soK/soIgxIPJa40VL+WIbNoKOxxllpQZSMNrvVo=;
+ b=fTsqZWFey3zeLGk8mlnrfpOeY4sMTsFvBW4VUCETSnZEzwPTWrX9UXMVYOpDOqd9cwXnciyPD
+ tWdDJI6RBSgA59X376C7eN2KRgTvK8tWzCl6XbVVu8LEzkfziycyfwV
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
 kallsyms_lookup_names() resolves symbol names to addresses using a
-17-step binary search over kallsyms_names[] (~184k symbols on x86_64).
-At each step of the search, two bottlenecks compound to create
-substantial lookup latency:
+binary search over kallsyms_seqs_of_names[].  In baseline, each step
+invokes get_symbol_offset(), which scans sequentially from the nearest
+256-symbol marker in kallsyms_names[] (averaging ~128 ULEB128 header
+decodes per probe, ~2,176 decodes per lookup).
 
-0. Redundant string expansion: kallsyms_expand_symbol() decompresses
-   the entire candidate symbol into a 512-byte stack buffer (namebuf)
-   before calling strcmp(), even though ~94% of binary search probes
-   mismatch on the first 1-2 characters (~580 ns per lookup).
+During bulk symbol resolution workloads (e.g. BPF multi-kprobe / fprobe
+tracing attaching across tens of thousands of functions), this linear
+scan compounds into substantial kernel attach latency (~3.3 us per
+lookup).  Baking a permanent direct index into .rodata accelerates
+lookups but consumes hundreds of KiB of unswappable kernel image memory,
+which is unjustified when bulk lookups are infrequent.
 
-1. Marker scanning: get_symbol_offset() scans sequentially from the
-   nearest 256-symbol marker in kallsyms_names[], decoding an average
-   of ~128 ULEB128 record headers per probe (~2,176 header decodes,
-   consuming ~3,230 ns per lookup).
+Introduce a dynamic u32 lookup index populated on demand in transient
+RAM and discarded when the batch workload completes:
 
-Together, these bottlenecks impose a ~3.8 us latency penalty per hit and
-~3.6 us per miss.
+0. Expose kallsyms_lookup_batch_start() and kallsyms_lookup_batch_end()
+   bracketed by a mutex and refcount.  On the first caller, allocate a
+   flat u32 table spanning all kallsyms_num_syms entries (~736 KiB in
+   transient RAM for ~184k symbols) via kvmalloc_array() and populate
+   the symbol offsets via a single sequential scan in ~150 us.
 
-This 4-patch series eliminates both overheads in a structured
-progression while keeping the symbol table strictly in sequential
-address order and adding 0 bytes to .rodata:
+1. In get_symbol_offset(), when the dynamic table is active, return
+   offsets[pos] directly as an O(1) array access with 0 hops, bracketed
+   by rcu_read_lock() and rcu_read_unlock().
 
-0. Patch 1 adds lib/test_kallsyms_perf, a microbenchmark module built
-   directly into vmlinux (CONFIG_TEST_KALLSYMS_PERF=bool) to benchmark
-   unindexed vs dynamic indexed name searches, address resolution, and
-   table iteration latency without exporting internal kallsyms iterators
-   to loadable modules.
+2. If the dynamic table is unallocated (refcount 0), fall back to the
+   legacy kallsyms_markers[] scan, preserving 100% safety for oops,
+   panic, NMI, and low-memory environments without any .rodata bloat.
 
-1. Patch 2 introduces kallsyms_strcmp_symbol() to compare ASCII queries
-   against compressed tokens on the fly, bailing out on the first
-   mismatched character without expanding subsequent tokens.  This drops
-   the 512-byte namebuf buffer from the kernel stack and saves ~530 ns
-   per lookup on unmodified marker infrastructure.
+3. Wrap kallsyms_lookup_names() in rcu_read_lock() / rcu_read_unlock()
+   to ensure lockless lifetime safety across multi-probe searches.
 
-2. Patch 3 introduces a dynamic u32 lookup index bracketed by
-   kallsyms_lookup_batch_start() and kallsyms_lookup_batch_end().
-   It allocates ~736 KiB in transient RAM via kvmalloc_array() only
-   while bulk workloads (BPF attach, module loading) run, resolves
-   each probe in O(1) with 0 hops, and leaves .rodata bloat at exactly
-   0 bytes while retaining kallsyms_markers[] as fallback.  Both
-   test_kallsyms_perf and kallsyms_selftest are updated to benchmark
-   batch resolution side-by-side.
-
-3. Patch 4 inlines and unrolls get_symbol_seq() 24-bit sequence index
-   reconstruction into direct byte shifts, eliminating loop overhead
-   on inner binary search probes.
-
-Live Microbenchmark Progression (via test_kallsyms_perf, 100k iters):
-
-Metric                    Baseline (1)   Token Match (2)   Batch Index (3)   Total Speedup
-------------------------------------------------------------------------------------------
-Name Search Hit           3,811 ns       3,280 ns          246 ns            15.5x
-Name Search Miss          3,625 ns       3,095 ns          196 ns            18.5x
-sprint_symbol               412 ns         412 ns          412 ns            parity
-sprint_symbol_no_offset     300 ns         300 ns          300 ns            parity
-Table Full Walk           13,626 us      13,626 us       13,626 us           parity
-Kernel stack buffer        512 B            0 B             0 B              -512 B
-
-In-Tree Selftest Verification (CONFIG_KALLSYMS_SELFTEST, 184k symbols):
-
-In addition to test_kallsyms_perf, the existing upstream selftest in
-kernel/kallsyms_selftest.c was run across all 183,990 symbols on boot,
-repeating all tests inside an active batch window:
-
-Metric                          Unindexed (markers)    Batch Index (active)   Delta
------------------------------------------------------------------------------------
-kallsyms_lookup_name() (avg)    3,926 ns               675 ns                 5.8x faster
-kallsyms_lookup_name() (min)      311 ns               171 ns                 1.8x faster
-on_each_match_symbol()          3,507 ns             1,142 ns                 3.1x faster
-kallsyms_on_each_symbol()       14.7 ms               15.5 ms                 parity
-Basic function validation       PASS                  PASS                    100% correct
-Batch setup (184k entries)       N/A                 1,037 us                 ~1.0 ms
-Batch teardown (sync RCU)        N/A                 3,440 us                 ~3.4 ms
-
-Address-to-name resolution (sprint_symbol) and sequential table walks
-(/proc/kallsyms) remain completely unaffected, maintaining full L1/L2
-hardware prefetching.
-
-Memory footprint: +0 KiB .rodata added to kernel image.  Transient RAM
-is ~736 KiB (184k * 4 bytes) allocated only during active batch
-lookup sessions.
+4. Update test_kallsyms_perf and kallsyms_selftest to benchmark both
+   unindexed marker scans and the dynamic batch index side by side,
+   reporting batch lookup performance alongside query amortization
+   break-even points.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
 Changes in v4:
-- In patch 1, ignore early boot invocations in param_set_trigger() when
-  system_state < SYSTEM_RUNNING to prevent NULL pointer dereference in
-  ktime_get_ns() prior to timekeeping_init() (addresses Sashiko AI review).
-- In patch 1, prevent sysfs TOCTOU divide-by-zero panic: reject num_iters
-  == 0 in param setter, snapshot iters locally via READ_ONCE, and serialize
-  runs with bench_lock mutex (addresses Sashiko AI review).
-- In patch 1, eliminate multi-second boot stall: add run_on_boot parameter
-  (default false) so late_initcall only runs benchmark when explicitly
-  requested (addresses Sashiko AI review).
-- In patch 1, chunk lookup loops in 4096-iter batches with cond_resched()
-  outside the timing bracket to prevent preemption sleep time from
-  inflating reported latency (addresses Sashiko AI review).
-- In patch 3, annotate dyn_kallsyms_offsets declaration with __rcu to
-  satisfy sparse type checking and prevent address-space warnings across
+- Annotate dyn_kallsyms_offsets declaration with __rcu to satisfy sparse
+  type checking and prevent address-space warnings across
   rcu_assign_pointer() and rcu_dereference() (addresses Sashiko AI review).
-- In patch 3, use rcu_replace_pointer() with lockdep_is_held() during
-  batch teardown to atomically read and clear the pointer while satisfying
-  sparse address-space constraints (addresses Sashiko AI review).
-- Link to v3: https://lore.kernel.org/r/20260922-ksyms-tune-v3-0-681a34ea05d9@gmail.com
+- Use rcu_replace_pointer() with lockdep_is_held(&dyn_kallsyms_mutex)
+  during batch teardown to atomically read and clear the pointer while
+  satisfying sparse address-space constraints (addresses Sashiko AI review).
 
 Changes in v3:
-- Reorder series: place on-the-fly token matching (patch 2) ahead of
-  dynamic batch lookup index (patch 3), establishing an active proof of
-  incremental performance deltas across all steps (addresses David
-  Laight review).
-- Add patch 4: inline and unroll get_symbol_seq() 24-bit sequence index
-  reconstruction into direct byte shifts (addresses David Laight
-  review).
-- In patch 1, configure CONFIG_TEST_KALLSYMS_PERF as a built-in test
-  (bool) rather than a module (tristate) and drop kallsyms iterator
-  EXPORT_SYMBOL_GPL exports to avoid exposing internal kernel symbol
-  data (addresses Sashiko AI review).
-- In patch 2, optimize kallsyms_strcmp_symbol() by dropping
-  skipped_first tracking and checking len at the bottom of the token
-  loop (addresses David Laight review).
-- In patch 3, rely on get_symbol_data() helper introduced in patch 2 to
-  preserve bisectability (addresses Sashiko AI review).
-- In patch 3, fix use-after-free race on dyn_kallsyms_offsets: bracket
-  table dereference and array read with rcu_read_lock() and replace
+- Reorder patch after on-the-fly token matching (patch 2) to cleanly
+  isolate and measure the impact of the O(1) dynamic table on top of
+  fast string matching (addresses David Laight review).
+- Consume get_symbol_data() helper introduced in patch 2 to preserve
+  clean git bisectability (addresses Sashiko AI review).
+- Fix use-after-free race on dyn_kallsyms_offsets: bracket table
+  dereference and array read with rcu_read_lock() and replace
   rcu_dereference_raw() with rcu_dereference() inside
   get_symbol_offset() to protect external readers (lookup_symbol_name,
   kallsyms_lookup_buildid, reset_iter) against concurrent batch
   teardown (addresses Sashiko AI review).
-- In patch 3, update kallsyms_selftest to add a second lookup pass
-  bracketed by batch start/end to report batch latency in the in-tree
-  selftest.
-- Drop 'default m' from lib/Kconfig.debug.
-- Fix soft lockup risks by adding cond_resched() every 16k iterations in
-  test_kallsyms_perf loops.
-- Replace direct 64-bit integer divisions with div_u64() to fix 32-bit
-  builds.
-- Guard against divide-by-zero when num_iters=0.
-- Replace tcp_v4_rcv with panic in hit_symbols to prevent failures wo
-  CONFIG_INET.
-- Add batch lookup setup/teardown timing and query amortization
-  break-even logging to test_kallsyms_perf.
+- In kallsyms_selftest, add a second lookup pass bracketed by
+  kallsyms_lookup_batch_start() and kallsyms_lookup_batch_end() to
+  validate batch resolution in the in-tree selftest.
+- Move 24-bit loop unrolling in get_symbol_seq() to standalone patch 4
+  (addresses David Laight review).
 - Move David Laight to series-wide Cc on cover letter, dropping trailer
-  from patch 3.
-- Link to v2: https://lore.kernel.org/r/20260922-ksyms-tune-v2-0-a333ee31eac7@gmail.com
+  from this patch.
 
 Changes in v2:
-- Replaced static build-time 3-byte offset table with a dynamic u32
-  index bracketed by kallsyms_lookup_batch_start() and
-  kallsyms_lookup_batch_end().
-- Dropped .rodata image footprint addition from +573 KiB to 0 KiB,
-  addressing Kees Cook's memory footprint objection.
-- Native u32 loads in transient RAM eliminate 24-bit big-endian shifts
-  and unaligned loads, addressing David Laight's endianness critique.
-- Direct O(1) table indexing provides 0 hops for all symbol lookups
-  without remainder logic or odd/even branching.
-- Restored scripts/kallsyms.c and kernel/kallsyms_internal.h to pristine
-  state, leaving legacy kallsyms_markers[] as safety fallback.
-- Rebased out Lorenzo Stoakes' kbuild series; this series is now
-  completely decoupled and applies cleanly directly onto mainline.
-- Updated test_kallsyms_perf to benchmark unindexed marker scans and
-  dynamic index side by side in a single run.
-- Link to v1: https://lore.kernel.org/r/20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com
-
+- Rework from static build-time 3-byte table to dynamic u32 index
+  allocated in transient RAM during batch sessions, dropping +573 KiB
+  from .rodata to 0 bytes (addresses Kees Cook review).
+- Use native u32 indexing to eliminate 24-bit big-endian shifts and
+  unaligned loads (addresses David Laight review).
+- Revert changes to scripts/kallsyms.c and kernel/kallsyms_internal.h,
+  retaining legacy kallsyms_markers[] as fallback.
 ---
-Jim Cromie (4):
-      kallsyms: Add test_kallsyms_perf module to benchmark lookup latency
-      kallsyms: Match compressed tokens on the fly during binary search
-      kallsyms: Add dynamic lookup index for batch resolution
-      kallsyms: Unroll 24-bit sequence reconstruction in get_symbol_seq()
+ include/linux/kallsyms.h   |  13 ++++++
+ kernel/kallsyms.c          | 111 ++++++++++++++++++++++++++++++++++++++++++---
+ kernel/kallsyms_selftest.c |  16 +++++++
+ lib/test_kallsyms_perf.c   |  51 ++++++++++++++++++---
+ 4 files changed, 179 insertions(+), 12 deletions(-)
 
- include/linux/kallsyms.h   |  13 ++
- kernel/kallsyms.c          | 212 ++++++++++++++++++++++------
- kernel/kallsyms_selftest.c |  16 +++
- lib/Kconfig.debug          |  10 ++
- lib/Makefile               |   1 +
- lib/test_kallsyms_perf.c   | 341 +++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 547 insertions(+), 46 deletions(-)
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260919-ksyms-tune-e22a42d8a31a
+diff --git a/include/linux/kallsyms.h b/include/linux/kallsyms.h
+index d5dd54c53ace..6e39795ac509 100644
+--- a/include/linux/kallsyms.h
++++ b/include/linux/kallsyms.h
+@@ -74,6 +74,10 @@ int kallsyms_on_each_symbol(int (*fn)(void *, const char *, unsigned long),
+ int kallsyms_on_each_match_symbol(int (*fn)(void *, unsigned long),
+ 				  const char *name, void *data);
+ 
++/* Transient dynamic lookup index bracketing */
++int kallsyms_lookup_batch_start(void);
++void kallsyms_lookup_batch_end(void);
++
+ /* Lookup the address for a symbol. Returns 0 if not found. */
+ unsigned long kallsyms_lookup_name(const char *name);
+ 
+@@ -164,6 +168,15 @@ static inline int kallsyms_on_each_match_symbol(int (*fn)(void *, unsigned long)
+ {
+ 	return -EOPNOTSUPP;
+ }
++
++static inline int kallsyms_lookup_batch_start(void)
++{
++	return 0;
++}
++
++static inline void kallsyms_lookup_batch_end(void)
++{
++}
+ #endif /*CONFIG_KALLSYMS*/
+ 
+ static inline void print_ip_sym(const char *loglvl, unsigned long ip)
+diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+index d18d78e626db..bb34b4c0f690 100644
+--- a/kernel/kallsyms.c
++++ b/kernel/kallsyms.c
+@@ -22,6 +22,9 @@
+ #include <linux/sched.h>	/* for cond_resched */
+ #include <linux/ctype.h>
+ #include <linux/slab.h>
++#include <linux/vmalloc.h>
++#include <linux/mutex.h>
++#include <linux/rcupdate.h>
+ #include <linux/filter.h>
+ #include <linux/ftrace.h>
+ #include <linux/kprobes.h>
+@@ -90,7 +93,7 @@ static unsigned int kallsyms_expand_symbol(unsigned int off,
+ 	if (maxlen)
+ 		*result = '\0';
+ 
+-	/* Return to offset to the next symbol. */
++	/* Return offset to the next symbol. */
+ 	return off;
+ }
+ 
+@@ -139,12 +142,11 @@ static int kallsyms_strcmp_symbol(unsigned int off, const char *name)
+ 	return (unsigned char)*name;
+ }
+ 
+-
+ /*
+- * Find the offset on the compressed stream given and index in the
+- * kallsyms array.
++ * Find the offset on the compressed stream given an index in the
++ * kallsyms array using legacy markers.
+  */
+-static unsigned int get_symbol_offset(unsigned long pos)
++static unsigned int get_symbol_offset_marker(unsigned long pos)
+ {
+ 	const u8 *name;
+ 	int i, len;
+@@ -177,6 +179,99 @@ static unsigned int get_symbol_offset(unsigned long pos)
+ 	return name - kallsyms_names;
+ }
+ 
++/*
++ * Dynamic symbol offset table.
++ * Allocated on demand during high-volume lookup batches and reclaimed after.
++ */
++static u32 __rcu *dyn_kallsyms_offsets __read_mostly;
++static DEFINE_MUTEX(dyn_kallsyms_mutex);
++static unsigned int dyn_kallsyms_refcnt;
++
++static u32 *kallsyms_build_offsets(void)
++{
++	const u8 *name = kallsyms_names;
++	u32 *offsets;
++	unsigned int i;
++
++	offsets = kvmalloc_array(kallsyms_num_syms, sizeof(u32), GFP_KERNEL);
++	if (!offsets)
++		return NULL;
++
++	for (i = 0; i < kallsyms_num_syms; i++) {
++		unsigned int len;
++		const u8 *data;
++
++		offsets[i] = name - kallsyms_names;
++		data = get_symbol_data(offsets[i], &len);
++		name = data + len;
++	}
++
++	return offsets;
++}
++
++int kallsyms_lookup_batch_start(void)
++{
++	int ret = 0;
++
++	mutex_lock(&dyn_kallsyms_mutex);
++	if (!dyn_kallsyms_refcnt) {
++		u32 *offsets = kallsyms_build_offsets();
++
++		if (!offsets) {
++			ret = -ENOMEM;
++			goto out;
++		}
++		rcu_assign_pointer(dyn_kallsyms_offsets, offsets);
++	}
++	dyn_kallsyms_refcnt++;
++out:
++	mutex_unlock(&dyn_kallsyms_mutex);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(kallsyms_lookup_batch_start);
++
++void kallsyms_lookup_batch_end(void)
++{
++	u32 *offsets = NULL;
++
++	mutex_lock(&dyn_kallsyms_mutex);
++	if (WARN_ON(!dyn_kallsyms_refcnt))
++		goto out;
++
++	if (--dyn_kallsyms_refcnt == 0)
++		offsets = rcu_replace_pointer(dyn_kallsyms_offsets, NULL,
++					      lockdep_is_held(&dyn_kallsyms_mutex));
++out:
++	mutex_unlock(&dyn_kallsyms_mutex);
++
++	if (offsets) {
++		synchronize_rcu();
++		kvfree(offsets);
++	}
++}
++EXPORT_SYMBOL_GPL(kallsyms_lookup_batch_end);
++
++/*
++ * Find the offset on the compressed table given an index in the
++ * kallsyms array.
++ */
++static inline unsigned int get_symbol_offset(unsigned long pos)
++{
++	unsigned int off;
++	u32 *offsets;
++
++	rcu_read_lock();
++	offsets = rcu_dereference(dyn_kallsyms_offsets);
++	if (offsets) {
++		off = offsets[pos];
++		rcu_read_unlock();
++		return off;
++	}
++	rcu_read_unlock();
++
++	return get_symbol_offset_marker(pos);
++}
++
+ unsigned long kallsyms_sym_address(int idx)
+ {
+ 	/* non-relocatable 32-bit kernels just embed the value directly */
+@@ -206,6 +301,7 @@ static int kallsyms_lookup_names(const char *name,
+ 	low = 0;
+ 	high = kallsyms_num_syms - 1;
+ 
++	rcu_read_lock();
+ 	while (low <= high) {
+ 		mid = low + (high - low) / 2;
+ 		seq = get_symbol_seq(mid);
+@@ -219,8 +315,10 @@ static int kallsyms_lookup_names(const char *name,
+ 			break;
+ 	}
+ 
+-	if (low > high)
++	if (low > high) {
++		rcu_read_unlock();
+ 		return -ESRCH;
++	}
+ 
+ 	low = mid;
+ 	while (low) {
+@@ -243,6 +341,7 @@ static int kallsyms_lookup_names(const char *name,
+ 		}
+ 		*end = high;
+ 	}
++	rcu_read_unlock();
+ 
+ 	return 0;
+ }
+diff --git a/kernel/kallsyms_selftest.c b/kernel/kallsyms_selftest.c
+index 8f6c4e9b3a1c..aedffc058c0e 100644
+--- a/kernel/kallsyms_selftest.c
++++ b/kernel/kallsyms_selftest.c
+@@ -178,6 +178,7 @@ static int lookup_name(void *data, const char *name, unsigned long addr)
+ static void test_perf_kallsyms_lookup_name(void)
+ {
+ 	struct test_stat stat;
++	int ret;
+ 
+ 	memset(&stat, 0, sizeof(stat));
+ 	stat.min = INT_MAX;
+@@ -185,6 +186,21 @@ static void test_perf_kallsyms_lookup_name(void)
+ 	pr_info("kallsyms_lookup_name() looked up %d symbols\n", stat.real_cnt);
+ 	pr_info("The time spent on each symbol is (ns): min=%d, max=%d, avg=%lld\n",
+ 		stat.min, stat.max, div_u64(stat.sum, stat.real_cnt));
++
++	ret = kallsyms_lookup_batch_start();
++	if (ret) {
++		pr_err("kallsyms_lookup_batch_start() failed: %d\n", ret);
++		return;
++	}
++
++	memset(&stat, 0, sizeof(stat));
++	stat.min = INT_MAX;
++	kallsyms_on_each_symbol(lookup_name, &stat);
++	kallsyms_lookup_batch_end();
++
++	pr_info("kallsyms_lookup_name() (batch) looked up %d symbols\n", stat.real_cnt);
++	pr_info("The time spent on each symbol is (ns): min=%d, max=%d, avg=%lld\n",
++		stat.min, stat.max, div_u64(stat.sum, stat.real_cnt));
+ }
+ 
+ static int find_symbol(void *data, const char *name, unsigned long addr)
+diff --git a/lib/test_kallsyms_perf.c b/lib/test_kallsyms_perf.c
+index 03ff5f1d51c5..f6c3d5d82e5d 100644
+--- a/lib/test_kallsyms_perf.c
++++ b/lib/test_kallsyms_perf.c
+@@ -91,7 +91,8 @@ static int count_cb(void *data, const char *name, unsigned long addr)
+ 	return 0;
+ }
+ 
+-static void run_name_lookup_bench(unsigned int iters)
++static void run_name_lookup_bench(const char *mode, unsigned int iters,
++				  u64 *avg_hit_ns, u64 *avg_miss_ns)
+ {
+ 	u64 t0, t1, dt_hit = 0, dt_miss = 0;
+ 	unsigned long addr = 0;
+@@ -153,10 +154,15 @@ static void run_name_lookup_bench(unsigned int iters)
+ 		dt_miss += t1 - t0;
+ 	}
+ 
+-	pr_info("Name Search Hit:  %llu ns/lookup (%llu ms total, %u iters)\n",
+-		div_u64(dt_hit, iters), div_u64(dt_hit, 1000000), iters);
+-	pr_info("Name Search Miss: %llu ns/lookup (%llu ms total, %u iters)\n",
+-		div_u64(dt_miss, iters), div_u64(dt_miss, 1000000), iters);
++	if (avg_hit_ns)
++		*avg_hit_ns = div_u64(dt_hit, iters);
++	if (avg_miss_ns)
++		*avg_miss_ns = div_u64(dt_miss, iters);
++
++	pr_info("[%s] Name Search Hit:  %llu ns/lookup (%llu ms total, %u iters)\n",
++		mode, div_u64(dt_hit, iters), div_u64(dt_hit, 1000000), iters);
++	pr_info("[%s] Name Search Miss: %llu ns/lookup (%llu ms total, %u iters)\n",
++		mode, div_u64(dt_miss, iters), div_u64(dt_miss, 1000000), iters);
+ }
+ 
+ static void run_address_lookup_bench(unsigned int iters)
+@@ -243,6 +249,9 @@ static void run_table_walk_bench(void)
+ static int run_kallsyms_benchmark(void)
+ {
+ 	unsigned int iters;
++	u64 unindexed_hit = 0, unindexed_miss = 0;
++	u64 dyn_hit = 0, dyn_miss = 0;
++	u64 t0, t1, dt_start = 0, dt_end = 0;
+ 	int ret = 0;
+ 
+ 	if (!mutex_trylock(&bench_lock)) {
+@@ -261,7 +270,37 @@ static int run_kallsyms_benchmark(void)
+ 	pr_info("Starting kallsyms performance benchmark (iters=%u)\n", iters);
+ 	pr_info("==================================================\n");
+ 
+-	run_name_lookup_bench(iters);
++	/* 1. Benchmark baseline unindexed marker scan */
++	run_name_lookup_bench("Unindexed (markers)", iters, &unindexed_hit, &unindexed_miss);
++
++	/* 2. Benchmark dynamic lookup index */
++	t0 = ktime_get_ns();
++	ret = kallsyms_lookup_batch_start();
++	t1 = ktime_get_ns();
++	dt_start = t1 - t0;
++
++	if (ret) {
++		pr_err("Failed to start kallsyms lookup batch: %d\n", ret);
++	} else {
++		run_name_lookup_bench("Dynamic Index", iters, &dyn_hit, &dyn_miss);
++
++		t0 = ktime_get_ns();
++		kallsyms_lookup_batch_end();
++		t1 = ktime_get_ns();
++		dt_end = t1 - t0;
++
++		pr_info("[Dynamic Index] Batch setup: %llu us, teardown: %llu us\n",
++			div_u64(dt_start, 1000), div_u64(dt_end, 1000));
++
++		if (unindexed_hit > dyn_hit) {
++			u64 saved = unindexed_hit - dyn_hit;
++
++			pr_info("[Dynamic Index] Amortization break-even: %llu queries (setup), %llu queries (total)\n",
++				DIV_ROUND_UP_ULL(dt_start, saved),
++				DIV_ROUND_UP_ULL(dt_start + dt_end, saved));
++		}
++	}
++
+ 	run_address_lookup_bench(iters);
+ 	run_table_walk_bench();
+ 
 
-Best regards,
 -- 
-Jim Cromie <jim.cromie@gmail.com>
+2.55.0
 
