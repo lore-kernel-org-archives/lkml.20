@@ -1,126 +1,104 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2355D519DEB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AA9530DEF
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790120562; cv=none; b=UAuRNmg8R4+9LpX8HuRuPKrBZJras0FTR+sUOemQwKd2FKMTWxUpSGu0R7mwZtqFVWWyiX5hn4dlFf/Mz3EftaLBYJTuYUevhFAEAFPjIiplxhN8Gb8AvIuWAbVjBGGfWx26FziN8Q/RNvIdrIw9vT0o809wZxKd9wg8xfSGkZs=
+	t=1790120575; cv=none; b=HqK85QY8w0hADldZMLzsoKHE8iAdO7vzaByfQjs892k+o1GUNDdggEq2PzDcO26htwTcR0RCGvCPnXDcpbYZXgR0aTLkCTzSoGRpabyWPBhciEGmPi9JnH5Uec3S4JErsrnssTffqP9pVjsju2MQsehX31HZjZGBQAJuBMDcOTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790120562; c=relaxed/simple;
-	bh=Tm5Q1x/A1C9qLPGuuJEixa/lYRMV/+fSTph2SixjdSY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KGjmhZaas8/XY4rshwpdjH4CL1nB39oBuYpSwq6XBp3gYiYq3qjzQBCaIsLksnqiS83qpYS3DsfVf80R0XEN0xVZKnjssL6+ehcZq4No83zFMk1K/NHIQ/g2FClrgjz2xnVc1sincEEFAFlZQsX+ZZnsQ8o2rjBIHAxJoz20yBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nUJazm6F; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790120575; c=relaxed/simple;
+	bh=gnuHqwNNRZTj/F5sNx+WEHPxIzhx8AgoV2sb79aEbxw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=pYyjajMIz1J7os9uxl8GZxpz5VJtKLBSdRf5kc7UlXJw4OgbhsEvQPrVHXWoFA0gTUqZXClvi86N4f9TCcADEL2fMfa3UH2abado+nvCI70S65VT5K+wEwMdF3qtasUnw/mbhCEugEvo2x0WHBWe2FK/MFUm8qSokbeRqlg19kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HSDzEFGM; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nUJazm6F"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so44549666b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:42:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HSDzEFGM"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso1943485e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:42:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790120554; x=1790725354; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6QEQxoavMoQIndMMFiVqJDQ1ivheIExybb74B+VtDiU=;
-        b=nUJazm6F17ssn9doIlAiR6ItVQHdioeVXvDt1azF2ucNq/m7i4Xpt0enBIQOoxpeSi
-         q+VP5d5VavHoiL3PIVWLE6URltbvi6HjQdvR+Yv8zNKhj1PvcxKUKRYjiNigYbggQDv8
-         6pGvhgwKJUA0S98hEo7RoqB8N+TeN/z63a6Nk=
+        d=linaro.org; s=google; t=1790120569; x=1790725369; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gnuHqwNNRZTj/F5sNx+WEHPxIzhx8AgoV2sb79aEbxw=;
+        b=HSDzEFGM2YohWr/MDjTgACY1QPYz4/ayDnN4+JXyMvv3WG6ODt+ElIit3lU0SGXh8N
+         pKm49219WuLqDKO6zkx3z7n6cYy6389e9ySXqVw5Yc8HH3ib5PNZNhm1C9aI8Sy3aHZU
+         qsfWmTS5Bum58vXm4KRtJ/ysfWfHqiKFcEqsx/VKMcrrI4lHoRFdnN2K1hZ1Cri5mCNN
+         UrlbDr+qP7Ot53QCDhuoaI/hRg3GKOEeQ81Fw7xocHbLXr7EHCGZqDa6vsA1Wc9qDGt/
+         SjwxS1EK7pu+Yv8yS7+GtgxZBKQrdKrNEv77d4u8OCtHDgcMRlu8Pb+hBacyxx2u9Icu
+         TqAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790120554; x=1790725354;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790120569; x=1790725369;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6QEQxoavMoQIndMMFiVqJDQ1ivheIExybb74B+VtDiU=;
-        b=qE5jN8wo5M2gqHEaiOWY/rqwpg99/FXdj4beHSlXr8VtNVxEofR2S8jagh+Y3GpBY5
-         WFVPV8+XmRDinRL0PWyLELDbJ/6iEWdUu0XMG87faf44+eGiMzYt84bwX6A8Oe1kTXGp
-         P3l7m/AeodQTypSdQeXpn09rzaWWrFgyeN++hNzHUiZ+whLal4PbWRPt9JtcnDkhJ8lN
-         TnwgSR8siyvNO4I1MQDPfuR0NSDMxkTNIE9V/Ep6mJb882+wulXeuwu/y0gxeEO1Xetn
-         0QFXMwAm9Phs3SqawUchmRXJ7kiXDhCTEy/SdycTwIhwLU0VUhwttRPGzRKy3CEU2+8z
-         bgEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzp6cXuLmNIvVnXKrnCBzBoAqSX7huv1ose+Dl79gDRp6/D/BYvBKKgBq/pnHlYH7hZURqUyr6gzKXOBIk=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldvRa8Ib+krCCYQLVLkeXSz+TCMyY0ItmvyjlF3ISVcDh9T8Uv
-	G9VDUO8ivmSC1zLqW8iUTYGrdNEY1v5/7z3clgobr8tJCBug/RRgbf+rKOze3ckB5BrBa6Dt+D+
-	JbAlR1A==
-X-Gm-Gg: AYBFou3II1VMFoRFnCtge+L9FsK/z3SBlnY5Q879brXiXM633AVVAjltXNVxIJGc0Tn
-	3FTqzcGurHKj/kfzfQ0NrvJtagPXvHppynZwtFmcJG5doRRRJTFyPhkFLnbAn7ioIy3q8K16KUY
-	FWgUDyMP3ZL56ATJM3vJZGM4d6uV0HcOaSQliGj1J+WTFvIGmSpfjXmIL2+FYCFfplW8nZ1lHxw
-	qNap0wA1NE7yHki7Zrn0xaGQhY0QVRjH1ICqIWmmJRpYiDpF3WU8JiuRkL+8nL/9C8s0MXtwhPf
-	ATO81m2VDV8DhLTrzBmvIW9A2SCy39/RpeT0afyU9ZJKNX2yNciqc46RcMQqMCG3/nTQLVFIWTc
-	HsJTeDcOchNyDoXwcDHY1xyXub1JdhGFNTbtgvfn2k6DXYZmagpNG7CPLear9kDnJyuftJfWxa9
-	GL1IaWOfIT/vTW1lbh2u1mXbH+p0/nde0+L0HhgkWw3HNsO4eMp3QIOQItkdv0/0DBTgPAIE147
-	UxR3hyDQVtcfy+WmBN86CNuvJLspzLXeSN46U4=
-X-Received: by 2002:a17:907:9409:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c2aae19b8c9mr52807966b.21.1790120554125;
-        Tue, 22 Sep 2026 16:42:34 -0700 (PDT)
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com. [74.125.225.76])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e7bcsm474857a12.10.2026.09.22.16.42.31
-        for <linux-kernel@vger.kernel.org>
+        bh=gnuHqwNNRZTj/F5sNx+WEHPxIzhx8AgoV2sb79aEbxw=;
+        b=YSimq4ght6TE0Rx+9fZKmncsTBSuz38Im2tu3c0o5y/Zd4vXH0yJ4T+qNEbxB7s+ho
+         30GpwIUWSpelIhSDdbfkvogZbgxc2P3BQf+aYkf+CtUi7ekq9ZfPdHarp1RhfTYRFU8T
+         Guqny1X8feJiRr2scr2hRYP2mH6QuYxAAtzD5LS+g0CXl6Qk7OdfOuLQbzyxQhgTLCQk
+         SjlBZMgKN1kUHqrFzoKrWMfuhmNVRBUw0mYWm090WRB/M1zmLhaXtHpojmP8s65vzofQ
+         ogO/M7MyHkoY7xIICyew5fEDTLWvDwEbjY/uE4ZGilt+ecskZkeEIzNdBh6RnFDII81G
+         BSng==
+X-Forwarded-Encrypted: i=1; AKwUvBxMuVHZWrNWDlmKxa1zcEDP+Vp5n6ZVYT9QYpVZvonH0sAho+cA08j5otpPU5vcwYKsA2NdwfukZOQVYzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDtfCGm9BXejPGZUuBDsEUmYiptDUu3zkl9wXJhGzG2Pns+dOW
+	8owlpWfE0ykz4ntPhdZMyS2XrA4XOmDJGar1RtynshvCe8WsEa6YSB4pyDiuWCUYq5g=
+X-Gm-Gg: AYBFou2Tr6kzjahPTxhmEStTcZtLQhINtuAkdSwSVIsJ3rxBYDre9FGI1Bfa4J01kdC
+	4GA8Ja2k3Pi2K08f9KxGxhMWnxqB5CE1FZX6Ne0SLr4rh9WRG0Z+QING9a0fgSpVKgaUlK9Ga3l
+	MG3jemEIqT4ilNK9Wk1ORI3GGIw1sG8gggVe4nTA6D4H9Htua7jKb5TKEPtM9J94j41wIY9iUci
+	1EqtY1N3H+hwPZ2/PHtKvJd+XmsbHI6QwMc3SNS199WgOd6iBFUwj9Xu0uBl95zTjaJrychaXFE
+	fn94eHq9yF2bzjTYHFnj/MCS4k1udf6+9TXG5w4M1vNTOYczv7B12Ox76tdyOxANqpzedAyxfk8
+	CM9I44j2R+1qMGGkenB8Mn4LcESNXVYOJ/jlyBVuIckx7fFbjWu23xGi/9H6eR9WAem0yuDoyRn
+	srawYqYLHuUlrQ87lqiDA7uYbFtvJ19ZQiVl+inINHg6lG71n40H8RmPcP4m/iFnVKTGTdi6ZgQ
+	2WkEC3hdd4L+eOzY7TPeAsioiBPxn9tg3WCq+67Bte6hJD6Q97hwPMnQlQ=
+X-Received: by 2002:a05:600c:1d2a:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49fdeffce6bmr10454205e9.3.1790120569165;
+        Tue, 22 Sep 2026 16:42:49 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1c0f6csm34892415e9.3.2026.09.22.16.42.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 16:42:32 -0700 (PDT)
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so359844f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:42:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwmOk/ZJTIrlQBgjDPxXzwFXQZwXnT3nKftKQL98m7Gyl9uxtlYaIYe2BShvYeWAqJKwwkjwe8RGbj6vys=@vger.kernel.org
-X-Received: by 2002:a5d:6f06:0:b0:487:ff2:12f4 with SMTP id
- ffacd0b85a97d-48867095bc9mr1161089f8f.40.1790120551055; Tue, 22 Sep 2026
- 16:42:31 -0700 (PDT)
+        Tue, 22 Sep 2026 16:42:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260922154907.90535-1-fangxy@xiaopeng.com>
-In-Reply-To: <20260922154907.90535-1-fangxy@xiaopeng.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 22 Sep 2026 16:42:19 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UDqPUAWw+h-t4Jkno0Sy0_2T8xfXZgfjsVMM1fTG3JkA@mail.gmail.com>
-X-Gm-Features: AclHuK-NWZIE87V6rWLLln_WhNGGFfao7sLjyvoRWdgPG1M9Jc2x8BXnX1LZRPc
-Message-ID: <CAD=FV=UDqPUAWw+h-t4Jkno0Sy0_2T8xfXZgfjsVMM1fTG3JkA@mail.gmail.com>
-Subject: Re: [PATCH v2] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: jason.wessel@windriver.com, danielt@kernel.org, 
-	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 00:42:48 +0100
+Message-Id: <DLM8S42Y6BG5.JH78CU9NJPIY@linaro.org>
+Cc: <dmitry.baryshkov@oss.qualcomm.com>, <alexey.klimov@linaro.org>,
+ <r.mereu@arduino.cc>, <srini@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Konrad
+ Dybcio" <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/5] clk: qcom: fix SM6115 lpasscc register offset
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>,
+ <lee@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <andersson@kernel.org>, <konradybcio@kernel.org>,
+ <sboyd@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+ <3a4e8d1115a46c45cb34193b6ceeb02891fdf716.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <3a4e8d1115a46c45cb34193b6ceeb02891fdf716.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
 
-Hi,
-
-On Tue, Sep 22, 2026 at 8:49=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
-rote:
+On Tue Sep 22, 2026 at 11:11 PM BST, Srinivas Kandagatla wrote:
+> For some reason we ended with incorrect register offset for soundwire tx
+> controller reset and the regmap register max was also incorrect it was
+> 0x1000 instead of 0x12000 which is full register range for this IP.
 >
-> write_mem_msg() passes the length claimed by an 'M' or 'X' packet directl=
-y
-> to kgdb_hex2mem() or kgdb_ebin2mem(). A malformed packet can claim more
-> data than was actually received, causing the decoders to read past
-> remcom_in_buffer.
+> This was somehow compenseated in DT reg property which got it working so
+> far.
 >
-> Record the received payload length in get_packet() and use it to bound
-> the decoders. 'M' carries two hex characters per byte, while 'X' carries
-> one byte per output byte except that a 0x7d escape consumes an additional
-> input byte. Pass the packet end to kgdb_ebin2mem() so both reads are
-> checked against the received data.
+> Fix this by correcting the actual offset and max registers as per SoC
+> documentation.
 >
-> Keep zero-length 'X' packets valid, as GDB uses them to probe binary
-> download support.
+> Fixes: b076b995e225 ("clk: qcom: Add SM6115 LPASSCC")
+> Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-My analysis shows that the above isn't true and that zero-length 'X'
-packets are no longer valid with your patch. I haven't tested this
-myself, though. Yell if I got it wrong.
+Reviewed-by: Alexey Klimov <alexey.klimov@linaro.org>
 
-
-> @@ -43,6 +43,8 @@
->  /* Our I/O buffers. */
->  static char                    remcom_in_buffer[BUFMAX];
->  static char                    remcom_out_buffer[BUFMAX];
-> +/* Payload bytes get_packet() stored in remcom_in_buffer, excluding the =
-NUL. */
-> +static int                     remcom_in_len;
-
-I don't love making this a global. Can we just pass it down? ...and
-maybe for functions where you pass the length you also pass
-"remcom_in_buffer" as a parameter and stop accessing the global?
-
--Doug
