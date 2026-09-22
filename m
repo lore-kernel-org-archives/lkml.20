@@ -1,143 +1,83 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1143B8105
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A9A3A3815;
+	Tue, 22 Sep 2026 03:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790047322; cv=none; b=HfWJVuWpkuLucCteZrm6xSSBqNdVWG6/YeoUjwd2MvVHqEHcK9O60rDBuyQZ7xjz2EtuflppSVszjbvtrLNuQ6FQ2qCb+j7/fCPkrDGaZJotN5SR8ihoisfcajn12nZ+I5tdkAllJKuKSyFQ6eqdlPgBBa+GG+P2GvP/mZ22W9g=
+	t=1790047341; cv=none; b=A65F3sM6476aGTvGfhcNDA4n6tcv7l8WoangQM8jI9gdE5PuQ4tWbWVFm9iwO2+EmAmjSY136BV4Fus5X+mje3MMz9+1smOuSA/87tH4ptaLxUB900E/2eFgH6pmrTyamubbMaEOBCdY8bCymn2OzwAzcrsPzm97juax4+2vj/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790047322; c=relaxed/simple;
-	bh=1css2TggderLnr3nSib+94+QiMSM1LbQyk3BTFFTt3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oVE5RWYExK5kr32l0woBYA36B4d5aFOo5wW6m7IcA4ZpRfDRWnE2gKnm9M05vnIeQUPrXCmNQkbD0f7PBF3e/sE9HG0/xF3x3ycNdFlBYTCe67aO5hlS3luWh43sdbpEQ4bvlurrnfKMFiH2tsuQDyMbDNF7phfMyExRdj1s6+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eF9Yjrg1; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790047341; c=relaxed/simple;
+	bh=KF7mc1Ly1kFwYtSxCT25pyvXNwlbOJlwOugdFFRVKZA=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=RhXtxVK6i68k79FPubAOs0pa9HXRxzDKuye0k3pPW2+6Fn6hK5x6s7FKh2wAIjLTJ1MRjx/X8q3BlOoeU1ptnfS5oI9IFLDtu++hPL2TROMk/ng3aHTHDUp8SzGNHzqTw41E17NjBdB7NctDG6IPGMUO6VDaW0WAS9Fg4BWbYGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XyTfXxNi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eF9Yjrg1"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso2532573b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:22:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790047320; x=1790652120; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I/RFZdO52rZMsPV/i/QcAurCdGJW0p4qsya4Rr0KHOI=;
-        b=eF9Yjrg1MKhjlVjw/Th3+fEis0E2mvtSus9vR2+F6u/aCHW3M8w+ovASOF2m4j1Xpa
-         p5AkcbGpp0VGU8Qbof8vPnK5K0qMKDnFK8P3KfvUl1j9IjiOoNoR9sYjr1v5wtwJ/jZV
-         sIOuTxQIyP+CNN4S1ajMLH4yqLzoYsCThVjHHYVs3Z23wuXXoV4GxFckFYC0bev6zv8g
-         Wfk/bbhnr614TtDCNfGIPt3JA/wpuPdyessJVZ8OOK9/rj4SrVaTJebCZCan6qQ1qY+X
-         RhWudBBeb6z2yO1z4Fg+4iC7ScrTrWByGNGize6Pasd5oJCcTBF4Gyc56VJHYB72y4c8
-         WK0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790047320; x=1790652120;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/RFZdO52rZMsPV/i/QcAurCdGJW0p4qsya4Rr0KHOI=;
-        b=1886dtPiRXqpCFoSGHTgTG23u8koQjKD6D1v/cNhL9pGWSpB4MatY5z08pWRjCnlDI
-         IUv+mzjbC/AMagftt/12K6jPm2IG/waMscq7JR0ZELaOdoH5+KCjFAheIFWPYUiRwLoD
-         /acZHt7ICdcc7lidSd/nygppudh12SWSPZxjD60oHSwOwnjsObIdutniI1j5t6WHqN09
-         RNkvR1+Y1Ri4QqgkUBGPdxZH8y9n5ttbEU6tyRBKV1Auv+Y7Pm+Mjwqn65YL1q9gW9Lz
-         YYV5tSo6Q0NGAwkJxZtmOOSCdL6cPiOJBy76wyMsCxUI04YAItJQNvV9eO8vE09H1N8p
-         CIxg==
-X-Forwarded-Encrypted: i=1; AKwUvByDZCHB+Z2jGDuMdgFzHXh4wiGImjzImhrthdsDgDfTRvj1mmY6gY0sBdF1shTNAu2AzxOG4f4wDuU7Sfc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxexqLTpYsV8OdjDxmXMGEEgmfqf2NfrKh9nHIW0bwX7aDK2cl
-	XXlr+Z93SDc4tLpTbaxevhYQgy319IMDEczGCFfZ5WA08fqMyYV36LTs
-X-Gm-Gg: AYBFou0O1m3CiNrkkOG6dwZ5cSOpztalokbMEcAnuthPOU/UivyDiIBW8pV5HMLlojc
-	zd3FOH70okJ8q53E0xbzAqCV2S6l7Jf3NZ8i8C1jqUg8SKun5iHUXMADpy8afnhPjIsrD3csPmq
-	m4JQ+eeIDLoNe4qKo8g9n3KiJV1wzkgNDryx3DmXaOZ7x+dX8xjb3+k29jm3+GDsk/N3/OQU1jm
-	FOORxr2DSnh1fqVurgnUvQMz6j8DKlH8WDG+2M+pkQdHQvvapQt/2GfK3n10DE+aO2Si3BOVxxk
-	/YFUcuQ9veTFL7Mx3EJ0A7YQbjtz2HAKmg0i2Nev0BDicuHOw8PtknpdB+04zwEQ6uVkEmMUVm6
-	EDGBarjJ+JAajtVDVoT4NkhYuBYGWGR+1jQjul3QjR1TU8tKW6YdVFR7DkE2DDScqMF6pdZbZSL
-	9rB39hq6BED2/xg8ZP+4kOkMgUTaiHLAOwl0mtyJnXwcSJg5zkE216VyLqj8INlG0coGX17z0hL
-	uAJWG82bWPt2oBxiMJmIlrC54/iIov1tOLz3VQ9t/56TxsS3cDe83R3HmsicCgg+2CQ4vB4qxce
-	MjqoEZ2HrOvxaw==
-X-Received: by 2002:a05:6a00:a201:b0:878:3773:81fb with SMTP id d2e1a72fcca58-87837738767mr9824520b3a.55.1790047320226;
-        Mon, 21 Sep 2026 20:22:00 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c2fb538fbsm145472b3a.3.2026.09.21.20.21.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 20:21:59 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: David Lechner <david@lechnology.com>,
-	William Breathitt Gray <wbg@kernel.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH] counter: ti-eqep: Fix runtime PM error handling in probe
-Date: Tue, 22 Sep 2026 10:21:46 +0700
-Message-ID: <20260922032146.321006-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XyTfXxNi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4EB1F000FF;
+	Tue, 22 Sep 2026 03:22:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790047339;
+	bh=8HfsmWe18vqaIcsmBURthJcIj9m0ORvWdZMKM+oBDQU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=XyTfXxNihIPoDS6At5q0W54OiorJXa/2PrFWQ6EE1wm23IUj66LZAPhxJYu0pLS2G
+	 1KQZjhatjx2ZifOfHqgECb6+whVG20CsWi8sSEudzSAQ3MdoUES5MLIf3NxVhd0ThN
+	 5GzNifSNQouMiGetl2TsPuvpEgvtEEirDPMdSl9ghr2ywFcO8+224AjtCaqm4kJyJw
+	 Fb9vTSZf+vZNSgjDb7B+tbnyljroqeBVLSISyr35f4625A5jq3aZ4wuPzP6UkDcK02
+	 q+GV/JcbTmjgOs1wouNolcdp6urbu5pgLSJnlwVzoLnq+n5q8zPldDLTTwPELpjK1e
+	 YMffkVBUqWQpg==
+Content-Type: multipart/mixed; boundary="===============5613520125627611600=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <ebf2ee78977b3aae08c12e4ba0a18f48463567e20fd282f25acf11f5af375030@mail.kernel.org>
+In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-6-410f57770bad@toxicpanda.com>
+References: <20260922-b4-rcu-tasks-preempt-qs-v5-6-410f57770bad@toxicpanda.com>
+Subject: Re: [PATCH v5 06/13] x86/kprobes: Take a Tasks Trace reader in the optprobe template
+From: bot+bpf-ci@kernel.org
+To: josef@toxicpanda.com,paulmck@kernel.org,frederic@kernel.org,ast@kernel.org,rostedt@goodmis.org
+Cc: boqun@kernel.org,mhiramat@kernel.org,mark.rutland@arm.com,peterz@infradead.org,tglx@kernel.org,daniel@iogearbox.net,andrii@kernel.org,puranjay@kernel.org,rcu@vger.kernel.org,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-kernel@vger.kernel.org,josef@toxicpanda.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 22 Sep 2026 03:22:17 +0000 (UTC)
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+--===============5613520125627611600==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-pm_runtime_get_sync() errors were not checked, and if
-devm_clk_get_enabled() failed afterwards, the function returned without
-calling pm_runtime_put_sync()/pm_runtime_disable(), leaking the runtime PM
-usage count.
+> x86/kprobes: Take a Tasks Trace reader in the optprobe template
+>
+> The jump-optimized kprobe template calls optimized_callback() from a
+> dynamically allocated slot with preemption enabled, and only Tasks RCU
+> keeps that slot alive under a task preempted in the callback.  For
+> HAVE_RCU_TRAMPOLINE_READERS that means the template must be a Tasks
+> Trace reader across the call, so open-code rcu_read_lock_trace() and
+> rcu_read_unlock_trace() around it as ftrace_64.S does.  The template
+> lives in .rodata and is memcpy()d into each slot without relocation
+> processing, so the references to current_task and
+> rcu_tasks_trace_srcu_struct are absolute (R_X86_64_32S, relocated for
+> KASLR like any other) rather than %rip-relative.  %rax and %rcx have
+> already been saved by SAVE_REGS_STRING and are dead after the call.
+>
+> The slot itself is dynamically allocated text, so the instructions
+> before the lock and after the unlock are covered by the irq-exit check.
+> 64-bit only; 32-bit x86 does not take part.
+>
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-Switch to pm_runtime_resume_and_get() and add proper error unwinding via
-goto labels so every failure path after pm_runtime_enable() is cleaned up
-correctly.
+This looks like a bug fix for the preemption issue introduced when commit
+a19b2e3d7839 removed IRQ disabling from optimized kprobes. Should this
+include:
 
-Fixes: f213729f6796 ("counter: new TI eQEP driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+  Fixes: a19b2e3d7839 ("kprobes/x86: Remove IRQ disabling from ftrace-based/optimized kprobes")
+
+
 ---
- drivers/counter/ti-eqep.c | 27 +++++++++++++++++++--------
- 1 file changed, 19 insertions(+), 8 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
-index 0dda3f2b14c7..698a9920f20d 100644
---- a/drivers/counter/ti-eqep.c
-+++ b/drivers/counter/ti-eqep.c
-@@ -544,20 +544,31 @@ static int ti_eqep_probe(struct platform_device *pdev)
- 	 * domain.
- 	 */
- 	pm_runtime_enable(dev);
--	pm_runtime_get_sync(dev);
-+	err = pm_runtime_resume_and_get(dev);
-+	if (err < 0) {
-+		dev_err_probe(dev, err, "failed to enable runtime PM\n");
-+		goto err_runtime_disable;
-+	}
- 
- 	clk = devm_clk_get_enabled(dev, NULL);
--	if (IS_ERR(clk))
--		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable clock\n");
-+	if (IS_ERR(clk)) {
-+		err = PTR_ERR(clk);
-+		dev_err_probe(dev, err, "failed to enable clock\n");
-+		goto err_runtime_put;
-+	}
- 
- 	err = counter_add(counter);
--	if (err < 0) {
--		pm_runtime_put_sync(dev);
--		pm_runtime_disable(dev);
--		return err;
--	}
-+	if (err < 0)
-+		goto err_runtime_put;
- 
- 	return 0;
-+
-+err_runtime_put:
-+	pm_runtime_put_sync(dev);
-+err_runtime_disable:
-+	pm_runtime_disable(dev);
-+
-+	return err;
- }
- 
- static void ti_eqep_remove(struct platform_device *pdev)
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35680506278
+--===============5613520125627611600==--
