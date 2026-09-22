@@ -1,171 +1,219 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD064EDCC8;
-	Tue, 22 Sep 2026 22:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18152530DE7
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790116725; cv=none; b=Vv2SeQDj/E6LCVOIIfoS3ZI1VkdIoAIXcLe1wra15+BBPRNe1jrvfRW4x6HaFrak22VtS6uEBaCfmJtUD4d3ykwWW2n9ihxHu6nbC68vPZCeABbnyG78yRbQHMU/lTXA+N/Ugpe1OADG2PD8ljboHQCMvF7cyAkMOzPdRV8Y2w4=
+	t=1790116727; cv=none; b=TUUOZzBMpyemg5jgIw3F/aMM0Ba58VjfmYdMaTSkn10ClvKuTXeFadTd+UOhWfXZ4MFzbMT2YR51UrDybas/N/5taOZBgPufNNjUJik4iMmc2/DbEvGDMPG5TI2ptSrehid7gyrtEm1dPkP7esPFBds//ZCpgWWpHX6EMKQb10w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790116725; c=relaxed/simple;
-	bh=Xu65AFIawlYizxpmzwr4U/pdnhBGbXmHEBuegSL5sLo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VIZM3TjYDSabhcnR3BloegwzMhDnVIC6vbGlUw0bqpM5jlQKLzov3toA8Ge3GuAPNbYk8Gg7N2toyh5ZQmm+H+cjJjUhI6R8Fqm7OtQXlCYlNS7jfdOEPL92XqWPp+F506dUIOUx5DfTDzHoQ+fUyn00EQvCmqdMGJJQlW10T5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TADOecd1; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790116727; c=relaxed/simple;
+	bh=3/dkNKPPZhwKNFM+qynUyX6vwgw0I5X2dRSwnLFGk2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jA8ihaivDG+wxwMhANCg6Vj2gPgiMKVd1R2ZqobLmgD+/ZLvFWlJj5mF4ec8A1g5RgZCV7nCsq9XmVWltSiIAzxdI2hGcnEdA6UWc3MRbyV0qWJtJdFPFEgTYOH/Kj5lvVHe4X/f6UOtWOpSaAJUPB6Yenm8Jxo06FnwQJ8czEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l2rd/8n+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FOv3Q6kA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TADOecd1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790116717; x=1821652717;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Xu65AFIawlYizxpmzwr4U/pdnhBGbXmHEBuegSL5sLo=;
-  b=TADOecd1IkRTtK3xx5+ibSqMo54xElUBV1TxdnhL/+/i8r8fqjsmNxze
-   aZiHH8JZoLaz7me9NnsNW6ML/NpB7QrCDJKXORhkmpdZ9qnnxDnzixKyh
-   WjWlD/RC+iWiew2qw1kFl/muFcggR55myfIYDMbRS57tEbn+drFmmFOcT
-   jeg9mac+Rr4E1s7QRicArKzHExFUrc3Uj/vMFysDMNiULN1y77d4cgvPH
-   ovwpRJd8sB4zeY9Vvy9GJZBh9Vd/2RPc1GgS5J5QDtML/ShIr/2XEb3oD
-   kUZS+nBM6X9Phr58LkAlyQhsWtfTwLQfJnobTE+YxIiwRqdDRYkNo9PEY
-   g==;
-X-CSE-ConnectionGUID: wF9G6RycSiGc0WNcao80UQ==
-X-CSE-MsgGUID: GJPmi5A0QDCb+ggnqICVNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90788363"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="90788363"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 15:38:30 -0700
-X-CSE-ConnectionGUID: j7CJg5pKQ5iGjT9AU/zfdA==
-X-CSE-MsgGUID: ZnTENF3HQk+lx6QUPeyYGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="272816914"
-Received: from gmitchel-mobl2.amr.corp.intel.com (HELO [10.125.110.75]) ([10.125.110.75])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 15:38:29 -0700
-Message-ID: <199d392a-02da-430b-95ee-b176ed0f43de@intel.com>
-Date: Tue, 22 Sep 2026 15:38:29 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l2rd/8n+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FOv3Q6kA"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MJCtYc1166677
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:38:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tJNsu2FLCP1qcNEgoJs+KWNxYkGyFkvDNQdnRnSNx7A=; b=l2rd/8n+B47hSsLp
+	dm9rKeJBloJJpWBYD9tTfVg5N4yZY3zxA2FdiNYnkn2Pdi87lB1r2vkiI6CIntcY
+	biQPC3m8sZaHuOy7q40XCHL9Eu3dJhllRZVG1gkzMxduv4bmkRXqNqxjwd7NKhys
+	3Rpp23gtahCeBn43yLdo/u9zoSqDZqDiOS5Ik187wrsvc9W47NQCEh0qUiMsp55k
+	3Yx+arcyLIFHBbKIOoTtiZNno87NlNTaIbJU/9rLur+mUeXT+yxNW+sZA2VdfgCH
+	aXxsrFn+XMTr0DD5H6dnQsmljDDhoIQnpYM1cJfupuhReouDDrKxqnQc7Xcl3ppU
+	nmvQog==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guymw0x6j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:38:31 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-334f782d1abso676251eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:38:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790116711; x=1790721511; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tJNsu2FLCP1qcNEgoJs+KWNxYkGyFkvDNQdnRnSNx7A=;
+        b=FOv3Q6kAG8ZHpzbv9WSJZxd7e4ptg4ZyR3qXBnZIqoPoF1Ds1hhzLl3BK7byKRyC0l
+         nq3+/aVo2THzHyldLKu8D1AR1YmatFQ/jbplBFCcQhij5QSHZID6hUTvsOa2vxfkHpyz
+         N9lY5Zzk5l29J6ZNGiSTwMufZYOKRvNM7dZoI5cZkjrvtE9ozeO1hk5mikBYmqlAJSgt
+         o6FHijaAH0NjVr+SBOEwdRuN9BQVe3xiWmk93mcpimikCCVsdN+Qpx95vXResfl2iU/l
+         JfSEIgJJ0SNUWoxjhYT6jVld3+Ibp0P017dk+yTw4YSbioIgB4OCjcZU+uECOu3344Mp
+         yStg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790116711; x=1790721511;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tJNsu2FLCP1qcNEgoJs+KWNxYkGyFkvDNQdnRnSNx7A=;
+        b=MYljCVukucBWY8mISAUcYq0BVD0o3qg2ER33e+fRoEULJzq9UVpBi7Q1dEh905PLH8
+         9PAc3U49kVt9nipaXKXoo/tCgkhM4gNXaiephYrW+zhkALHDTu9ufOE9c8h5dQaml0Dd
+         GltrpBGosffT6RE14XgoIxmy3UasYzNadjeeV7n6IH7+ZpCkbpbTRp/qmeaZ/4TX1eRW
+         D0XEpn/myFZQ/fGGE9f9QSgjVCtdaw+Qskj10Za8sOg3e9QEERlzAxwEtCjOjFcK7rpq
+         hN2dn4nbZZZ/CY6Fbg9ty8OvYogd668JEuqEgm8UaiAquOl66wmsTlvN/Xv8kRxTU7OX
+         N78g==
+X-Forwarded-Encrypted: i=1; AKwUvBwYx2Bh6KPU6bwg3OqA8Dj7BMlRoqmepbVntUhbVOlMorytd0dILWEA2xvw0f8xhnGSfkj6HlXB+O+jy6I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZip+AYrMWii6qpd3m2f8MQe/CXqbR36McSUhEfOlGX4WeayU4
+	/ON5d3OMLFDZitiYdiEYakSualtypYy8vGEdZzlzLviwYiu3J6aaIJmcTJ/1n2ZLYO8hT3GWqQl
+	loKCnlOO4Rueph0zRrCHSP6u+0wcIYGFkTSXx//bHv3+rEPQB/K0XZ9Ezmvk16ubwRUc=
+X-Gm-Gg: AYBFou00HRk9SlzHCddTI0J72To1j8IRiX9zc27BxHa4tN5mEj9ZviB/lMEbh9sALfZ
+	c7ze5TlkxdNTA06Vfk8HUtm36FMO0jTU5euwhgAqKG/ZGHksj6w81bKKEbZdZZurkGeAgqDb9Vu
+	arEI+BbUTZE8pB0IYzNUoyDVT1Wgf4F7J5C4CZpJ4skXk+gw5alAv+l9xZOB/UmlfzAxE1uURzo
+	EV0Ilr+VAhTNWr8M7VXmpvP5MQ7ghTQ4Acotbnmqxlo/eVkKa4IDBXqPXP9H9KQ1j6gAnWvbUWB
+	ksSkt5679oKf7bQazGa6/xuDcOFJuf/xioJXJcPnwNbPv787k3ep6DC2ASAENsSFZaAEpj1afIK
+	9FHlsfev9yXiYq8mEONXRProrUvFs/jQluZoAk+7xjTZigRBfnRI/cA==
+X-Received: by 2002:a05:693c:4187:10b0:338:5bf5:d005 with SMTP id 5a478bee46e88-33e8ddc7604mr710470eec.28.1790116711128;
+        Tue, 22 Sep 2026 15:38:31 -0700 (PDT)
+X-Received: by 2002:a05:693c:4187:10b0:338:5bf5:d005 with SMTP id 5a478bee46e88-33e8ddc7604mr710439eec.28.1790116710604;
+        Tue, 22 Sep 2026 15:38:30 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96d497e1sm1162630eec.25.2026.09.22.15.38.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 15:38:30 -0700 (PDT)
+Date: Tue, 22 Sep 2026 15:38:26 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v19 10/20] KVM: arm64: Abstract out memory abort
+ handling
+Message-ID: <20260922153826.000044fb@oss.qualcomm.com>
+In-Reply-To: <20260920212845.707-11-suzuki.poulose@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-11-suzuki.poulose@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] virt: tdx-guest: Use a variable to store the Quote
- buffer size
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "sathyanarayanan.kuppuswamy@linux.intel.com"
- <sathyanarayanan.kuppuswamy@linux.intel.com>, "kas@kernel.org"
- <kas@kernel.org>, "Fang, Peter" <peter.fang@intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
-Cc: "seanjc@google.com" <seanjc@google.com>, "bp@alien8.de" <bp@alien8.de>,
- "x86@kernel.org" <x86@kernel.org>,
- "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
- "hpa@zytor.com" <hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "Bityutskiy, Artem" <artem.bityutskiy@intel.com>
-References: <20260915092632.2822169-1-peter.fang@intel.com>
- <20260915092632.2822169-4-peter.fang@intel.com>
- <620e7e38-4287-431c-8285-575c84aa1f6a@intel.com>
- <7ddf42ab-2f78-4edd-be39-ff9e5156d51c@intel.com>
- <1e6ed0923fe1ac938f3e0fa0f8d05d31eb2d0f31.camel@intel.com>
-Content-Language: en-US
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <1e6ed0923fe1ac938f3e0fa0f8d05d31eb2d0f31.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMyBTYWx0ZWRfX+SpDliEMNOUa
+ eLgxeE7Hr2Re/9i6vvipXlCj5yvZDL+g109SCl6YqzNpgZNXp8EJ1QjJWoPL0CAsQw+DH8b5ShV
+ lzGLVaXARO2+csEbqL2GRkn5fcc2tcCu1Zw0d8VQv0QLpIbivkhvje8zG8yttZMI0Ii/o3kxbSc
+ ZW/rClEVtLuuR3lO0Xf4EaiImZpa3uHIM7m6RF9mMua8u9sEJoqQ6lWuKN2NFulB98Gku0cd1rh
+ ZGdx2paoRCh/tTOo8v9UH2r5Q7vdeCV5Tj6+DvOF8jep88rD1l6hzejeiwwFI0XCw4B/1/59NSw
+ vAOvufxQNVBZ27hkBeJ9qmcaM4zTGbPWf5FVzXBqs/pUAY0jSfqUmg/6uvQo9k1thD6PmkZB5Rj
+ 9nKcvMUSrz5CkVNiidRu5yI8K8e0Vt1me2T13mMq8I0X1IlXtaIcjIrIl16GAskUtNZNvRCD9/i
+ Y5sF1aR6jXQUgHvcwoQ==
+X-Authority-Analysis: v=2.4 cv=feI4WEQF c=1 sm=1 tr=0 ts=6ab30367 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=7CQSdrXTAAAA:8 a=rbqOqaJmvRITx-_xyQwA:9 a=CjuIK1q_8ugA:10
+ a=PxkB5W3o20Ba91AHUih5:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: 8Wd9CfK7DKhsZ6RDZbxgr0pyQpfcdYRm
+X-Proofpoint-ORIG-GUID: 8Wd9CfK7DKhsZ6RDZbxgr0pyQpfcdYRm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMyBTYWx0ZWRfXwJ1DheWhp+ig
+ RBE727M45ky6oJr95DAs82OXbkbll2KMzuoOzqLlBYoHqCzwe98OUXaD0J+kgavPiwUwOCLbWbz
+ xtiDtQstaaTAvFFtlUqcf919ejhuQEw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220303
 
-On 9/22/26 12:46, Edgecombe, Rick P wrote:
-> I was suggesting to make the new seamcall wrapper consistent in how it gets this
-> data by referring to the global definition for the global key id instead of a
-> parameter. Seems like it is against this feedback, can you give a quick take on
-> that case too? I just think mixing global references and global values passed as
-> arguments it too weird. Should we switch to passing everything as args even when
-> we need to plumb it through several layers?
+On Sun, 20 Sep 2026 22:28:35 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-There's no one-size-fits-all solution.
+> Move the memory abort handling under VM specific s2 operation.
+> 
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-It's really powerful if you can pack all of the code for a single
-concept into a single small function. This pattern:
+Trivial comment + request to follow through on adding the local
+variable for kvm. I think the other places that can be used
+survive the other changes in this patch set.
 
-	int foo(...)
-	{
-		static int __bar;
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index d97a4a1bca23f..cf293d09e940a 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
 
-		if (__bar)
-			return __bar;
 
-		__bar = whatever();
+> +static int kvm_vm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+> +{
+> +	int ret;
+> +	struct kvm_vcpu *vcpu = s2fd->vcpu;
+> +
+> +	VM_WARN_ON_ONCE(kvm_vcpu_trap_is_permission_fault(vcpu) &&
+> +			!kvm_is_write_fault(vcpu) &&
+> +			!kvm_vcpu_trap_is_exec_fault(vcpu));
+> +
+> +	if (kvm_slot_has_gmem(s2fd->memslot))
+> +		ret = gmem_abort(s2fd);
+> +	else
+> +		ret = user_mem_abort(s2fd);
+> +	return ret;
 
-		return __bar;		
-	}
+Personal preference but I'd just do
+		return gmem_abort(s2fd);
+	else
+		return user_mem_abort(s2fd);
 
-Because you can, at a single glance, get all of the context for foo()
-that you need. When it gets set, who sets it. But it also only works for
-static, write-once data.
+and save a couple of lines. I'd keep the else to make it clear it is
+an either / or choice rather than an if something true one.
 
-As for passing things around through several layers, it's OK to do it if
-it adds clarity to the code. If the entire point of a whole chain of
-functions is to get a global variable set, doing:
+> +}
+> +
+>  /* Resolve the access fault by making the page young again. */
+>  static void handle_access_fault(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa)
+>  {
+> @@ -2287,6 +2303,7 @@ int kvm_handle_guest_sea(struct kvm_vcpu *vcpu)
+>  int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
+>  {
+>  	struct kvm_s2_trans nested_trans, *nested = NULL;
+> +	struct kvm *kvm = vcpu->kvm;
 
-	foo(&global);
+If introducing this, also use it for the other places vcpu->kvm is used
+in this function.  Separate patch though to keep down noise.
+Looks like that's mostly to shorten the chain of dereferences in the
+locks.
 
-can make things clearer because you know *instantly* that only foo() and
-things that call foo() can modify 'global'. It limits the scope of time
-where 'global' can get modified.
 
-Think of if foo() calls 10 other functions and they all randomly
-reference 'global' directly. Figuring out how and when they call each
-other and making sure there are no calls from outside can be really hard
-to understand.
+>  	unsigned long esr;
+>  	phys_addr_t fault_ipa; /* The address we faulted on */
+>  	phys_addr_t ipa; /* Always the IPA in the L1 guest phys space */
+> @@ -2448,19 +2465,7 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
+>  		.hva		= hva,
+>  	};
+>  
+> -	if (kvm_vm_is_protected(vcpu->kvm)) {
+> -		ret = pkvm_mem_abort(&s2fd);
+> -	} else {
+> -		VM_WARN_ON_ONCE(kvm_vcpu_trap_is_permission_fault(vcpu) &&
+> -				!write_fault &&
+> -				!kvm_vcpu_trap_is_exec_fault(vcpu));
+> -
+> -		if (kvm_slot_has_gmem(memslot))
+> -			ret = gmem_abort(&s2fd);
+> -		else
+> -			ret = user_mem_abort(&s2fd);
+> -	}
+> -
+> +	ret = kvm->arch.vm_s2_ops->vm_mem_abort(&s2fd);
+>  	if (ret == 0)
+>  		ret = 1;
+>  out:
 
-Passing 'global' around can make it really easy to understand.
+
