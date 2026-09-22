@@ -1,358 +1,339 @@
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FF74F7970;
-	Tue, 22 Sep 2026 10:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0413A4F3910;
+	Tue, 22 Sep 2026 10:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073080; cv=none; b=Iu3zPyjj33zaQ37jmING25PDHU2cU4Azd+j/v6u1g787tZxzGSD7Pe76sJsDl0P2wsX+3lHgO2Y4l2ZmKONROts7eQVzD2Ra4ICreCTC2wS2hA24UwztTOHNvSZBJpC7OVREOSIzYsToaMPQoa8DY/fVxlITRzvBEVrvYEsfz4I=
+	t=1790073153; cv=none; b=P//TrPA5Ia44AbdVzXkGCVxAsII1xc8mkecu+ZmrIZ+6N43ZRlKgd31M3ZrkWbDwdSHS5iI7TOZHBcRs+oQ8ILSUID5gRYq204CEMipttP1AjII6KVe/L03serE2danni9/+O7Ysg3/XSM4/pgpHZO578EhfmdAttbROoyl7fpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073080; c=relaxed/simple;
-	bh=fzZrqq/3EIZzhNmmYznawxf13JvsJDAwsHKRhcXlRLM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WPalNVOGPWWto2RdQjfu7F2zZ4swTqlBdrmcYoz5Rvy+MNZkBQ3Tc/EPz4xjM1QIEE9yLLZV/lUMa2E67V6PAQnBS1MTm4C45CN+/iaJuZn6hmO3UyjvHVnMmBOpnuGxOAW0D+iGTeBYcLHpGKiPETNLYEJZibo4my2XdV6zKp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=DLhV+wvx; arc=none smtp.client-ip=52.42.203.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790073153; c=relaxed/simple;
+	bh=3wihw53mvV9xSKP4qNXhX2ITmWd3i4U+AEJGswnXnyE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bnl+Cdp8LzsE3ViOBTDxaWZSCtNAqCnyZW6fDpYexbBAfNJnn1jP7SZVxDBkVmyk6W6gDF2iSHyxh08EQdyyptHnuQ6/3KmcvFSBa7ijLsghD64DPKPK9mbzp5optX21+Vt324YACDKXy/O97RlJPoaSZ0o7x6kN2xixBriUhpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4jBiKun; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="DLhV+wvx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790073075; x=1821609075;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=cIK6DEOkfPf2hQxSaOZnF2IvrXaG24SQpmzVgtKhpNM=;
-  b=DLhV+wvxPSeJpa1ee8J5yRfRg5Ejn/Phz5EVqlyGvithF2W/KCNd2Tg4
-   jFMx8q5Mthdi9efLx1hGo6xMTiAtt0fEG/5VJXrEvLbp90q/KmTQRysng
-   5jF9NBRXkiFYvqa3a0BCY68A/uLNpqYWUyTChYRxyLHnNLLa626LX+yj6
-   C8kpbCSbCpTN62WBWsh3T2IVmOzqdbkmTg8aJyDRakwDtsyuEv0CXCBca
-   kpWwug3XkIi/UQCQaUITdDWRZrBlXAuUTBG67LdKnDk/Oo2Q4jsDvYJXE
-   HVAUwgPPOj+s6gJoU+2vqbLAFYJWVXVXcuN4IDRLDs73s3pdoO/Cd39eK
-   g==;
-X-CSE-ConnectionGUID: 3NcB0qSiSrqJMjp4odgTRg==
-X-CSE-MsgGUID: CnKAZHUFQDqm1/CrpJhEzA==
-X-IronPort-AV: E=Sophos;i="6.27,116,1787011200"; 
-   d="scan'208";a="29360550"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:31:08 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:10527]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.10:2525] with esmtp (Farcaster)
- id 3086d706-52b0-438c-8a6d-69fb231f5751; Tue, 22 Sep 2026 10:31:08 +0000 (UTC)
-X-Farcaster-Flow-ID: 3086d706-52b0-438c-8a6d-69fb231f5751
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 22 Sep 2026 10:31:08 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Tue, 22 Sep 2026
- 10:31:06 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
-	<linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 4/4] pps: clients: gpio: release pins to an inactive state on remove and shutdown
-Date: Tue, 22 Sep 2026 10:30:51 +0000
-Message-ID: <20260922103051.5257-5-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260922103051.5257-1-farbere@amazon.com>
-References: <20260919171157.5502-1-farbere@amazon.com>
- <20260922103051.5257-1-farbere@amazon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4jBiKun"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B8E1F000FF;
+	Tue, 22 Sep 2026 10:32:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790073151;
+	bh=TrJCmrObzSEJi7DC2sVoycOuekBqjj3yhMcHjE+0ZTM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L4jBiKunYYt8Z4gcHfSrkzoh+lR/pgsTD71c8ZxJ2LJBT2tkwVH+UQ/7A4pG+i7ET
+	 diSp8/LBHJ5obnJ+5YRxIOd3A+fvVMKVfUakos/4FvWDf/YY9dNS9l5/vL5FwnNUel
+	 Qfugx6r8hVLqpSiokWwYr7MRGaWT+3RaULdfLOKNO1HwWI61mpNS99Hv9zq+Yav8cS
+	 kDot+rONGlutBmkU3OiDFIll87AjHI0jVXZGDf8CkuSn98xTiOp5uvpaOGVHZU5J7Z
+	 ZdYBbegRHMAWXrd9IC950iFOJ5JPYRbCrPn7w00eh/LQlL7ANejgCk29PJMdFRFwlV
+	 kuFI+7R2RaYSg==
+Date: Tue, 22 Sep 2026 11:32:24 +0100
+From: Lee Jones <lee@kernel.org>
+To: Rong Zhang <i@rong.moe>
+Cc: Pavel Machek <pavel@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Ike Panhc <ikepanhc@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Vishnu Sankar <vishnuocv@gmail.com>,
+	Vishnu Sankar <vsankar@lenovo.com>, linux-leds@vger.kernel.org,
+	netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v6 04/12] leds: trigger: Add offloaded() callback and
+ provide trigger_may_offload attribute
+Message-ID: <20260922103224.GD2730113@google.com>
+References: <20260902-leds-trigger-hw-changed-v6-0-55693cd78877@rong.moe>
+ <20260902-leds-trigger-hw-changed-v6-4-55693cd78877@rong.moe>
+ <20260910150535.GG1051768@google.com>
+ <cdecf33094742331552a4b86d43673cdf1590bf2.camel@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D036UWB002.ant.amazon.com (10.13.139.139) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+In-Reply-To: <cdecf33094742331552a4b86d43673cdf1590bf2.camel@rong.moe>
 
-Some boards route the PPS input GPIO through a pin controller and need to
-mux it to another function when pps-gpio is not driving PPS. The driver
-core applies the "default" pinctrl state before probe, so the pins are
-muxed for GPIO/PPS use while the driver is bound. Nothing, however, hands
-the pins back when the driver is unbound or the system is shut down, so
-they stay stuck in the GPIO function for whatever runs next, kexec
-included.
+On Fri, 11 Sep 2026, Rong Zhang wrote:
 
-Look up an optional "inactive" pinctrl state in probe via
-devm_pinctrl_get() and pinctrl_lookup_state(), and select it with
-pinctrl_select_state() in remove() and shutdown(). The state is looked up
-and selected by the driver itself rather than reusing the runtime-PM
-"idle"/"sleep" states, so its meaning is unambiguous and it does not
-depend on CONFIG_PM. Boards that do not describe an "inactive" state are
-unaffected.
+> Hi Lee,
+> 
+> Thanks for your review.
+> 
+> On Thu, 2026-09-10 at 16:05 +0100, Lee Jones wrote:
+> > On Wed, 02 Sep 2026, Rong Zhang wrote:
+> > 
+> > > There are multiple triggers implementing hardware control. However, the
+> > > LED trigger core doesn't really know the hardware control (offloaded)
+> > > state since the coordination is done directly between the trigger and
+> > > the LED driver. It can only assume private triggers as offloaded and
+> > > generic ones as not offloaded.
+> > > 
+> > > Add an offloaded() callback so that triggers can report their offloaded
+> > > states to the LED trigger core. When unimplemented, it defaults to true
+> > > for private triggers and false for generic ones to keep the current
+> > > behavior unchanged.
+> > > 
+> > > With that, provide a new attribute "trigger_may_offload", so that
+> > > userspace can determine:
+> > > 
+> > > - if the LED device supports hardware control (supported => visible)
+> > > - which trigger is the hardware control trigger selected by the LED
+> > >   device
+> > > - if the trigger is selected ("<foo_trigger>")
+> > > - if the trigger is offloaded ("[foo_trigger]")
+> > > 
+> > > Note: the documentation describes the attribute as "returning a list"
+> > > despite the LED core currently only supports one hardware control
+> > > trigger per LED device. This is intentional to make the attribute
+> > > extensible in the future without breaking userspace.
+> > > 
+> > > Acked-by: Ike Panhc <ikepanhc@gmail.com>
+> > > Signed-off-by: Rong Zhang <i@rong.moe>
+> > > ---
+> > > Changes in v6:
+> > > - Update Date: and KernelVersion: for the document of
+> > >   /sys/class/leds/<led>/trigger_may_offload
+> > > 
+> > > Changes in v3:
+> > > - Rearrange the series so that the code using the offloaded() callback is
+> > >   introduced before the driver implementation (thanks Thomas Weißschuh)
+> > > - Reword documentation (ditto)
+> > > - Adopt guard() and lockdep (ditto)
+> > > - Adopt __led_trigger_is_hw_controlled() from newly-integrated PATCH 1
+> > > ---
+> > >  Documentation/ABI/testing/sysfs-class-led | 22 ++++++++++++++++++++++
+> > >  Documentation/leds/leds-class.rst         | 20 ++++++++++++++++++++
+> > >  drivers/leds/led-class.c                  | 22 ++++++++++++++++++++++
+> > >  drivers/leds/led-triggers.c               | 30 ++++++++++++++++++++++++++++++
+> > >  drivers/leds/leds.h                       |  2 ++
+> > >  include/linux/leds.h                      |  1 +
+> > >  6 files changed, 97 insertions(+)
+> > > 
+> > > diff --git a/Documentation/ABI/testing/sysfs-class-led b/Documentation/ABI/testing/sysfs-class-led
+> > > index d4c918cc11a1..e3605fc55fa8 100644
+> > > --- a/Documentation/ABI/testing/sysfs-class-led
+> > > +++ b/Documentation/ABI/testing/sysfs-class-led
+> > > @@ -78,6 +78,28 @@ Description:
+> > >  		(which would often be configured in the device tree for the
+> > >  		hardware).
+> > >  
+> > > +What:		/sys/class/leds/<led>/trigger_may_offload
+> > 
+> > *_to_hw?
+> 
+> ACK.
+> 
+> > 
+> > > +Date:		September 2026
+> > > +KernelVersion:	7.4
+> > > +Contact:	linux-leds@vger.kernel.org
+> > > +Description:
+> > > +		Names and states of triggers that may be offloaded to hardware.
+> > > +		Such triggers are also called "hardware control trigger" in some
+> > > +		context.
+> > > +
+> > > +		Only exists when the LED supports trigger offload.
+> > > +
+> > > +		Reading this file returns a list of triggers that are capable to
+> > > +		be offloaded. The optional brackets around the trigger name
+> > > +		indicate the state of the current trigger:
+> > > +
+> > > +		- `foo_trigger`: the trigger is not selected.
+> > > +		- `<foo_trigger>`: the trigger is selected, but falls back to
+> > > +		  software blink for some reason (e.g., incompatible trigger
+> > > +		  parameters)
+> > > +		- `[foo_trigger]`: the trigger is selected and offloaded to
+> > > +		  hardware.
+> > > +
+> > >  What:		/sys/class/leds/<led>/inverted
+> > >  Date:		January 2011
+> > >  KernelVersion:	2.6.38
+> > > diff --git a/Documentation/leds/leds-class.rst b/Documentation/leds/leds-class.rst
+> > > index 3913966cfdac..2d41a6db602c 100644
+> > > --- a/Documentation/leds/leds-class.rst
+> > > +++ b/Documentation/leds/leds-class.rst
+> > > @@ -242,6 +242,9 @@ ops and needs to declare specific support for the supported triggers.
+> > >  
+> > >  With hw control we refer to the LED driven by hardware.
+> > >  
+> > > +A sysfs attribute `trigger_may_offload` is provided for userspace to
+> > > +query supported triggers and their states.
+> > > +
+> > >  LED driver must define the following value to support hw control:
+> > >  
+> > >      - hw_control_trigger:
+> > > @@ -298,6 +301,15 @@ LED driver must implement the following API to support hw control:
+> > >                  Returns a pointer to a struct device or NULL if nothing
+> > >                  is currently attached.
+> > >  
+> > > +LED trigger should implement the following API to indicate hw control:
+> > > +    - offloaded:
+> > 
+> > hw_offloaded?
+> 
+> ACK.
+> 
+> > 
+> > > +                return a boolean indicating if the trigger is currently
+> > > +                offloaded to hardware.
+> > > +
+> > > +                If a trigger doesn't implement this callback, the default
+> > > +                value will be true for private triggers and false for generic
+> > > +                ones.
+> > > +
+> > >  LED driver can activate additional modes by default to workaround the
+> > >  impossibility of supporting each different mode on the supported trigger.
+> > >  Examples are hardcoding the blink speed to a set interval, enable special
+> > > @@ -311,6 +323,14 @@ the end use hw_control_set to activate hw control.
+> > >  A trigger can use hw_control_get to check if a LED is already in hw control
+> > >  and init their flags.
+> > >  
+> > > +Alternatively, a private trigger can be implemented along with the LED driver if
+> > > +the LED's hardware control doesn't fit any generic trigger. To associate the
+> > > +private trigger with the LED classdev, their `trigger_type` must be the same. To
+> > > +declare that the private trigger provides hardware control for the associated
+> > > +LED classdev, set the `hw_control_trigger` string to the trigger's name. Since
+> > > +both the LED classdev and the private trigger are in the same LED driver, it's
+> > > +not necessary for them to coordinate via `hw_control_*` callbacks.
+> > > +
+> > >  When the LED is in hw control, no software blink is possible and doing so
+> > >  will effectively disable hw control.
+> > >  
+> > > diff --git a/drivers/leds/led-class.c b/drivers/leds/led-class.c
+> > > index 39cc2f3ea63f..7e571bd1de5b 100644
+> > > --- a/drivers/leds/led-class.c
+> > > +++ b/drivers/leds/led-class.c
+> > > @@ -96,8 +96,30 @@ static const struct bin_attribute *const led_trigger_bin_attrs[] = {
+> > >  	&bin_attr_trigger,
+> > >  	NULL,
+> > >  };
+> > > +
+> > > +static DEVICE_ATTR_RO(trigger_may_offload);
+> > > +static struct attribute *led_trigger_attrs[] = {
+> > > +	&dev_attr_trigger_may_offload.attr,
+> > > +	NULL
+> > > +};
+> > > +
+> > > +static umode_t led_trigger_is_visible(struct kobject *kobj,
+> > 
+> > Why doesn't all of this live in the triggers file as well?
+> 
+> The current revision only exports trigger_may_offload() to coordinate the
+> two files (led-class.c and led-trigger.c).
+> 
+> If we had to move led_trigger_is_visible() into led-triggers.c, the
+> trigger_may_offload and led_trigger_attrs must be moved as well. Due to
+> the movement, we would have to export led_trigger_attrs and
+> led_trigger_is_visible() to fill led_trigger_group.
+> 
+> in short, moving led_trigger_is_visible() requires exporting more
+> symbols.
+> 
+> To make things tidier, how about moving led_trigger_group and
+> led_trigger_bin_attrs into led-triggers.c as well? In this manner we only
+> need to export led_trigger_group, and the #ifdef block here is
+> eliminated. What do you think?
 
-Since "inactive" is only meaningful as the mux to restore after the
-core-applied "default" state, reject an "inactive" state that is not
-paired with a "default" one rather than releasing pins that were never
-put into a defined PPS state.
+Sounds sensible.
 
-Look up the pinctrl states first in probe(), before pps_gpio_setup(), and
-route every subsequent failure through a common err_release_pins label.
-The driver core applies the "default" mux before probe(), so a probe that
-fails after this point would otherwise leave the pins stuck in "default";
-releasing them to "inactive" on the error path is the symmetrical
-counterpart to what the core did on the driver's behalf. A failure in
-pps_gpio_get_pins() itself returns directly, as no state was taken yet;
-pps_gpio_release_pins() is a no-op when no "inactive" state was found.
+> > 
+> > > +				      struct attribute *attr,
+> > > +				      int idx)
+> > > +{
+> > > +	struct device *dev = kobj_to_dev(kobj);
+> > > +	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+> > > +
+> > > +	if (attr == &dev_attr_trigger_may_offload.attr)
+> > > +		return led_cdev->hw_control_trigger ? attr->mode : 0;
+> > > +
+> > > +	return attr->mode;
+> > > +}
+> > > +
+> > >  static const struct attribute_group led_trigger_group = {
+> > >  	.bin_attrs = led_trigger_bin_attrs,
+> > > +	.attrs = led_trigger_attrs,
+> > > +	.is_visible = led_trigger_is_visible,
+> > >  };
+> > >  #endif
+> > >  
+> > > diff --git a/drivers/leds/led-triggers.c b/drivers/leds/led-triggers.c
+> > > index 804a04b326c4..de17a8bbb4d4 100644
+> > > --- a/drivers/leds/led-triggers.c
+> > > +++ b/drivers/leds/led-triggers.c
+> > > @@ -42,6 +42,10 @@ static bool __led_trigger_is_hw_controlled(struct led_classdev *led_cdev)
+> > >  	if (!led_cdev->trigger)
+> > >  		return false;
+> > >  
+> > > +	if (led_cdev->trigger->offloaded)
+> > > +		return led_cdev->trigger->offloaded(led_cdev);
+> > > +
+> > > +	/* Otherwise assume private triggers as always offloaded. */
+> > 
+> > s/as/are/
+> 
+> ACK.
+> 
+> > 
+> > >  	return led_cdev->trigger->trigger_type;
+> > >  }
+> > >  
+> > > @@ -341,6 +345,32 @@ void led_trigger_set_default(struct led_classdev *led_cdev)
+> > >  }
+> > >  EXPORT_SYMBOL_GPL(led_trigger_set_default);
+> > >  
+> > > +ssize_t trigger_may_offload_show(struct device *dev,
+> > > +				 struct device_attribute *attr, char *buf)
+> > > +{
+> > > +	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+> > > +	struct led_trigger *trig;
+> > > +	bool hit, offloaded;
+> > > +	int len;
+> > > +
+> > > +	guard(mutex)(&led_cdev->led_access);
+> > > +	guard(rwsem_read)(&led_cdev->trigger_lock);
+> > > +
+> > > +	trig = led_cdev->trigger;
+> > > +
+> > > +	offloaded = __led_trigger_is_hw_controlled(led_cdev);
+> > > +	hit = offloaded || (trig && !strcmp(led_cdev->hw_control_trigger, trig->name));
+> > > +
+> > > +	/* [offloaded] <active_but_not_offloaded> inactive */
+> > 
+> > Why do they have to live in different 'containers'?
+> 
+> The comment might be somewhat misleading...
+> 
+> An LED device can never have an offloaded trigger and an active-but-not-
+> offloaded trigger at the same time. The comment just demonstrates how the
+> output might look like.
+> 
+> The output is multiplexed to help userspace determine two things in one
+> read:
+> 
+> - The name of the LED device's hardware control trigger
+> - The state of the said trigger
+> 
+> That being said, if the complexity is undesired, it's OK to convert the
+> attribute into a dumb one that only returns the plain name of the
+> hardware control trigger. In this manner we will need to provide an
+> additional attribute to expose the offloaded state. This can be achieved
+> by adopting the attribute "offloaded" from netdev into led-triggers.c.
+> What do you think?
 
-The mux must not change while something can still drive the pins. On
-shutdown() the requested IRQ and the echo timer would otherwise outlive
-the mux change -- device_shutdown() is not the end of the road, the
-kernel keeps running to load and start the kexec image -- so a timer
-callback or the PPS handler could poke a line that by then belongs to
-another function. Tear down in the same order as remove(): free_irq()
-first, then the echo timer (only when the board has an echo GPIO, as in
-remove()), and the mux change last. shutdown() does not unregister the
-PPS source, which is a remove-time concern.
+My job is just to make you think about the problem.  I have no strong
+opinion one way or the other.  You are currently the expert of the code
+you are engineering.  What do YOU think?
 
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
-Changes in v5:
-- Resolve the v4 probe-failure open question by taking option "A + keep
-  the NULL guard": look the pinctrl states up first in probe(), before
-  pps_gpio_setup(), and route the pps_gpio_setup() failure through
-  err_release_pins too, so every path the driver can act on restores
-  "inactive". pps_gpio_release_pins() keeps its NULL guard, so it is a
-  no-op when no "inactive" state was found. Verified on the AL11 K2V6
-  JRD10 with a forced-defer test: the pins are released to "inactive" on
-  each failed attempt, the core re-applies "default" before the next, and
-  the mux settles at "default" on the eventual success, with no spurious
-  PPS event (Rodolfo Giometti)
-- Clear data->pins_inactive when rejecting an "inactive" state that has no
-  "default", so a board deliberately rejected here can never have its pins
-  released to "inactive"
-- Guard the echo-timer teardown in the new shutdown() with data->echo_pin,
-  matching remove() after the preceding patch (Rodolfo Giometti)
-- Convert the gpiod_to_irq()/request_threaded_irq() error paths to the
-  log-only dev_err_probe() + goto err_release_pins form, following patch 1
-
-Changes in v4:
-- No functional change (probe-failure raised as an open question, now
-  resolved in v5 above)
-
-Changes in v3:
-- Treat -ENODEV from devm_pinctrl_get() as "no pinctrl", not a probe
-  failure; keep propagating everything else, e.g. -EPROBE_DEFER
-- Restore the "inactive" mux on probe failure via a new err_release_pins
-  label
-- Warn if pinctrl_select_state() fails to apply the "inactive" state
-  rather than silently ignoring the error
-- Trim and de-duplicate the added comments
-
-Changes in v2:
-- Rename the released state from "idle" to "inactive"
-- Look the state up in the driver with devm_pinctrl_get() +
-  pinctrl_lookup_state() + pinctrl_select_state() instead of
-  pinctrl_pm_select_idle_state(), removing the CONFIG_PM dependency
-- Fix shutdown() to free_irq() and the echo teardown before the mux
-  change, matching remove()
-- Require a "default" state whenever "inactive" is present and reject the
-  mismatch
-
- drivers/pps/clients/pps-gpio.c | 117 +++++++++++++++++++++++++++++++--
- 1 file changed, 111 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pps/clients/pps-gpio.c b/drivers/pps/clients/pps-gpio.c
-index aec534c246af..203bf465ed8b 100644
---- a/drivers/pps/clients/pps-gpio.c
-+++ b/drivers/pps/clients/pps-gpio.c
-@@ -17,6 +17,7 @@
- #include <linux/slab.h>
- #include <linux/pps_kernel.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/pinctrl/consumer.h>
- #include <linux/list.h>
- #include <linux/property.h>
- #include <linux/timer.h>
-@@ -30,6 +31,8 @@ struct pps_gpio_device_data {
- 	struct gpio_desc *gpio_pin;	/* GPIO port descriptors */
- 	struct gpio_desc *echo_pin;
- 	struct timer_list echo_timer;	/* timer to reset echo active state */
-+	struct pinctrl *pinctrl;	/* pin control handle */
-+	struct pinctrl_state *pins_inactive;	/* pins released when unbound */
- 	bool assert_falling_edge;
- 	unsigned int echo_active_ms;	/* PPS echo active duration */
- 	unsigned long echo_timeout;	/* timer timeout value in jiffies */
-@@ -96,6 +99,68 @@ static void pps_gpio_echo_timer_callback(struct timer_list *t)
- 	gpiod_set_value(info->echo_pin, 0);
- }
- 
-+/*
-+ * Look up the optional "inactive" pinctrl state. It requires a "default"
-+ * state (applied by the driver core before probe) and is rejected without
-+ * one. Absent pinctrl, or an absent "inactive" state, is not an error.
-+ */
-+static int pps_gpio_get_pins(struct device *dev)
-+{
-+	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-+	struct pinctrl_state *pins_default;
-+
-+	data->pinctrl = devm_pinctrl_get(dev);
-+	if (IS_ERR(data->pinctrl)) {
-+		/*
-+		 * A DT device without "pinctrl-0" yields -ENODEV, which
-+		 * is not an error here; propagate anything else.
-+		 */
-+		if (PTR_ERR(data->pinctrl) == -ENODEV) {
-+			data->pinctrl = NULL;
-+			return 0;
-+		}
-+		return dev_err_probe(dev, PTR_ERR(data->pinctrl),
-+				     "failed to get pinctrl\n");
-+	}
-+
-+	/* The "inactive" state is optional. */
-+	data->pins_inactive = pinctrl_lookup_state(data->pinctrl, "inactive");
-+	if (IS_ERR(data->pins_inactive)) {
-+		data->pins_inactive = NULL;
-+		return 0;
-+	}
-+
-+	/* "inactive" requires a "default" state to return from. */
-+	pins_default = pinctrl_lookup_state(data->pinctrl, "default");
-+	if (IS_ERR(pins_default)) {
-+		data->pins_inactive = NULL;
-+		return dev_err_probe(dev, PTR_ERR(pins_default),
-+				     "\"inactive\" pinctrl state requires a \"default\" state\n");
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Restore the "inactive" pinctrl state, handing the pins back to whatever
-+ * function uses them while pps-gpio is not driving PPS. This undoes the
-+ * "default" state the driver core applied before probe. A no-op for boards
-+ * that describe no "inactive" state.
-+ */
-+static void pps_gpio_release_pins(struct device *dev)
-+{
-+	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-+	int ret;
-+
-+	if (!data->pins_inactive)
-+		return;
-+
-+	ret = pinctrl_select_state(data->pinctrl, data->pins_inactive);
-+	if (ret)
-+		dev_warn(dev, "failed to select inactive pinctrl state: %d\n",
-+			 ret);
-+}
-+
- static int pps_gpio_setup(struct device *dev)
- {
- 	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-@@ -156,15 +221,25 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(dev, data);
- 
-+	/*
-+	 * pinctrl setup (optional states) first, so the "inactive" mux can be
-+	 * restored on any later probe-failure path via err_release_pins.
-+	 */
-+	ret = pps_gpio_get_pins(dev);
-+	if (ret)
-+		return ret;
-+
- 	/* GPIO setup */
- 	ret = pps_gpio_setup(dev);
- 	if (ret)
--		return ret;
-+		goto err_release_pins;
- 
- 	/* IRQ setup */
- 	ret = gpiod_to_irq(data->gpio_pin);
--	if (ret < 0)
--		return dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-+		goto err_release_pins;
-+	}
- 	data->irq = ret;
- 
- 	/* initialize PPS specific parts of the bookkeeping data structure. */
-@@ -185,7 +260,8 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 	if (IS_ERR(data->pps)) {
- 		dev_err(dev, "failed to register IRQ %d as PPS source\n",
- 			data->irq);
--		return PTR_ERR(data->pps);
-+		ret = PTR_ERR(data->pps);
-+		goto err_release_pins;
- 	}
- 
- 	/* register IRQ interrupt handler */
-@@ -195,14 +271,20 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 			  data->info.name, data);
- 	if (ret) {
- 		pps_unregister_source(data->pps);
--		return dev_err_probe(dev, ret, "failed to acquire IRQ %d\n",
--				     data->irq);
-+		dev_err_probe(dev, ret, "failed to acquire IRQ %d\n",
-+			      data->irq);
-+		goto err_release_pins;
- 	}
- 
- 	dev_dbg(&data->pps->dev, "Registered IRQ %d as PPS source\n",
- 		data->irq);
- 
- 	return 0;
-+
-+err_release_pins:
-+	/* Restore the inactive mux on probe failure; safe to do last here. */
-+	pps_gpio_release_pins(dev);
-+	return ret;
- }
- 
- static void pps_gpio_remove(struct platform_device *pdev)
-@@ -216,9 +298,31 @@ static void pps_gpio_remove(struct platform_device *pdev)
- 		timer_delete_sync(&data->echo_timer);
- 		gpiod_set_value(data->echo_pin, 0);
- 	}
-+	/* release the pins last, once nothing can drive them */
-+	pps_gpio_release_pins(&pdev->dev);
- 	dev_info(&pdev->dev, "removed IRQ %d as PPS source\n", data->irq);
- }
- 
-+static void pps_gpio_shutdown(struct platform_device *pdev)
-+{
-+	struct pps_gpio_device_data *data = platform_get_drvdata(pdev);
-+
-+	/*
-+	 * The kernel keeps running after device_shutdown() (e.g. to load and
-+	 * start a kexec image), so quiesce the hardware before touching the
-+	 * mux: free the IRQ and stop the echo timer first, then release the
-+	 * pins last, so no callback can drive a pin after it is handed back.
-+	 * The PPS source is left registered; that is a remove-time concern.
-+	 */
-+	free_irq(data->irq, data);
-+	/* reset the echo state, if the board has an echo GPIO */
-+	if (data->echo_pin) {
-+		timer_delete_sync(&data->echo_timer);
-+		gpiod_set_value(data->echo_pin, 0);
-+	}
-+	pps_gpio_release_pins(&pdev->dev);
-+}
-+
- static const struct of_device_id pps_gpio_dt_ids[] = {
- 	{ .compatible = "pps-gpio", },
- 	{ /* sentinel */ }
-@@ -228,6 +332,7 @@ MODULE_DEVICE_TABLE(of, pps_gpio_dt_ids);
- static struct platform_driver pps_gpio_driver = {
- 	.probe		= pps_gpio_probe,
- 	.remove		= pps_gpio_remove,
-+	.shutdown	= pps_gpio_shutdown,
- 	.driver		= {
- 		.name	= PPS_GPIO_NAME,
- 		.of_match_table	= pps_gpio_dt_ids,
 -- 
-2.47.3
-
+Lee Jones
