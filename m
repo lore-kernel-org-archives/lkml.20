@@ -1,101 +1,66 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E745A542EF1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E584DE709;
+	Tue, 22 Sep 2026 12:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080180; cv=none; b=InmcWdI+0xI7KLEdcL6YGBB+p54tjFoFaoVqQBwJ/DPHesmCZDoHYqG3Mk/1rUK3+ak+pViLrOTLo+AxjUf0KfP73uFRQ5ccjHPuEXBjl4npI8xC3cXps+1Ul3KRthER/d/d8ymi84/SiwPo5E82SCkKGquwZEqLJ0hz3YHsqhA=
+	t=1790080189; cv=none; b=qllAtLmaxWUaTUJPBRVpnoOT6LyAuF9168cE4kZUCkuVUUWPRzjww82ssFB9xzBlxlimVnbWwGXdewE117ZzOjYU+671uGYG+jUgzeKrJ12db28CcKX0d+U+Igfm0dGY1mwIA2uixu1tkOYE4sr2iEBprxxtmJLPBDq9a0+FYSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080180; c=relaxed/simple;
-	bh=ZU1RP9Vu73G3fgWadKqpKB9h+wJicsH+89EBx6UW+UY=;
+	s=arc-20240116; t=1790080189; c=relaxed/simple;
+	bh=KU35ZgJCdQmM7U1D/p1QeRnDbQyUHADK+Jj6A02kj9U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bsd0rKCJVAU9tUW+jqpaW3c6PP3rd1VEDoxl9OgoRdYL67l9ufC+Hj0aa+MKeVqHjRaMf8DfNYW+umeFzzXIKNZaSl/P/f0ClHBY34eaf9A49FTzpe+g4eM3SBoufnqEvOr6XYbgc86t/+3gy8EoOIk9NKCMmovwDv9mbWn0va0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AsYJ1t4Q; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZscRfdoC; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=mrnDp7nsM+Jw2W1syFXwOe/CziJulbqnOlhF45hCfoQq5G+IfH7oMAdjKi2ld1xODDGNDBv1AKcSEHPAul8YSsqqLGYrKvghexPNpF9cTENxKO8KaM4q0g7WPya4Ol9A5ej+3oE2/ZTyH24SODHrUcrDof2qKf0zzxRQ8ib6oKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dy/2+TNL; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AsYJ1t4Q";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZscRfdoC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790080177;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Cof2VboX946JUAbf6ACzAZc/C8L4CoaAeAcbPouW0YQ=;
-	b=AsYJ1t4QvM5hnGMPimaitAJiLoiL9GNIrl+paWERBWaISIJEzHH9K7PFycyamIIWSYZNDM
-	Dg2azzJlL3zMzS8rx+927fEQTo5SZTq4nhwKGdj8mVwXcXp9GhVDejKBMrfZRdK09L2i2S
-	tJ4ya0PCjNR0zBOZa+ye9oXBs1vn3X8=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-408-NJHDG7HjPyWeXyeINd-CqA-1; Tue, 22 Sep 2026 08:29:36 -0400
-X-MC-Unique: NJHDG7HjPyWeXyeINd-CqA-1
-X-Mimecast-MFC-AGG-ID: NJHDG7HjPyWeXyeINd-CqA_1790080175
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49cf5bd2f12so54657295e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:29:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790080175; x=1790684975; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Cof2VboX946JUAbf6ACzAZc/C8L4CoaAeAcbPouW0YQ=;
-        b=ZscRfdoCh/EnAVprSl1mpEyzt9wKoq28svoonT+BdUE6FwEUYXkCfMnLmm+dhajs6u
-         ipZPZoPMB7c6AjTKvUPQsJ7Ngo/viQrkxF6GOsd5U+hIvJKIVouRQzRHvdtC/UyTHG1C
-         mP6nbW3O5r6W4OA18KqMel3N5NUQ7SYw1FlAT95XH/B46oCTW2ZVz2F9uWsE171ubKP8
-         mpTSgzAFzzyNrfPt+0aSmjxRXioQ80l7NGa88JWOm/13iC8lxezUSIhPESq17V6j27YT
-         1My93DfUfLp12hQ2R/Jzv/7lkXOUS2tRgcpnklhnCinlNBy0N8XX0ZSieMlHcLj4CBTd
-         ntNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080175; x=1790684975;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cof2VboX946JUAbf6ACzAZc/C8L4CoaAeAcbPouW0YQ=;
-        b=nkRWR6wwYmOio9/cka6RwGpgf4H1Ayxs4BMiXJfYQWWeVo7VZXnSmcVFd2fAaFXzg9
-         LUNza1vFszqKR945VHajNCa+C/7C/b6ASYGBV4tDQkS9zXc+KKAwVN9bBJVJqKXcpYL4
-         s+ILafn7S37kLU6IopHjwofWvRNPW4cCIWtUpDO1s+Kvg5ZhtncEgIjCCchjvMln1ELg
-         HcZk5kHzP7tUCbhXZmco5ARqTfEOV4FqK6HTRJcozuvBSsxKHwLZ6FjrVH26B5plAiFf
-         S3CWS+hrth2Y0qRVmqQWD1EC+n/dwZ65wydS0PFbnTq4hyKZtTjL4XWyFjvDHiGGpym1
-         N1XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5zgNID3cEmvD7IGqyQtT64q9JJ7lHdS/pT1wLmG2GWrmll32W6u1h+ruWEBQtkYrd7we6aCeOD4GsV4g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfN6SbYcoN1AsRLAjlAo7F6YArn6Kv+vgUH1ZzrCL11Ttn+gki
-	aFS65MDfwKDYmrOtsNdsWcDsu7clPNYda8FLUYRfEOQ7rpSVEZ1cGmw0ouu9LBEOAbtbw/4YdCW
-	zjlHDVnwWRBd6HC3ScydtD3k4b6q3HxPtPW/GQ17dzDWbGvwkRXieXTBWHsMsB2Aq4Q==
-X-Gm-Gg: AYBFou3PXC5MZgtWwwvXICMnDt881VPPnzDLRlfvhrQV9Ym1kf8IlL7dsIwFvd9OKoj
-	rNWQB6TQs+KLAONwExMhZcm3Sj8pojbIk9MmnTHa8wUN9wal4hWLrbLQYXnOrfRVwwVVRqtjB67
-	x3DZsmoxYaUQlmX6/0wqcvKkBm4BXjqQdtXYO/USRS2eC96zl/QK7kIq3n6WctKcZZ8VX03O7n9
-	z+LWZT/H4aGxMdYZBiWy12lm0R97SmmputXAXIuE2MAK+Sz4eWKCpQ501QHVV/16YnHMwIpKNz1
-	oQwrbYz7BHXVWY+2u+QouoFCvtiGZstv0IryNwMkTDdlOTnLsLHPrZvCyO3olq7668QRqmsutIQ
-	NLmEscR2Izm4qo+dC5pIznmXhbpi/+QCxK2F4J0k=
-X-Received: by 2002:a05:600d:848f:10b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fc5735351mr136716155e9.20.1790080175184;
-        Tue, 22 Sep 2026 05:29:35 -0700 (PDT)
-X-Received: by 2002:a05:600d:848f:10b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fc5735351mr136715875e9.20.1790080174826;
-        Tue, 22 Sep 2026 05:29:34 -0700 (PDT)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.14.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886279298asm4077776f8f.34.2026.09.22.05.29.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:29:33 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:29:31 +0200
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Hui Su <sh_def@163.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Mikhail Zaslonko <zaslonko@linux.ibm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	Daniel Bristot de Oliveira <bristot@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] sched/deadline: Fix divide-by-zero in DL
- bandwidth accounting
-Message-ID: <arJ0q2YDoJdPVLTz@jlelli-thinkpadt14gen4.remote.csb>
-References: <20260919153150.2618403-1-sh_def@163.com>
- <20260919153150.2618403-2-sh_def@163.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dy/2+TNL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790080188; x=1821616188;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KU35ZgJCdQmM7U1D/p1QeRnDbQyUHADK+Jj6A02kj9U=;
+  b=dy/2+TNLOcGHs0s//Tl/v0qT78EeDSKk0I2jL5k/k0cGpu/nG84DPm9y
+   K/o1ZhVlWwaF6fEAyls5emiWPHUc8xYS35VjrX+nHAwP+0jYbQGDT8n6/
+   gH4Z2fcOaMMajdwrxmzBSZ9FiRUFPDXtBQSix+9mMX8FmmzyhG1Gyxhvn
+   EaMsGjvjB/N7fdx7hC2Ec3JC5/ZtU1HF8CPwr6kCifD4nj3o4zIqWsg/O
+   NrR0Uy8VzPQwhAGCsEAZZ6WQq4YS3Vvp/weBMJl2ruUFns5gZLu5lJWmH
+   5EHNbkKV3685TofNFfKoEtpWBJY9AMlzB4PsC+X3QTvKutnAwl2vBW4S4
+   g==;
+X-CSE-ConnectionGUID: W+1Qc2b6TlqWPdjdfglkaQ==
+X-CSE-MsgGUID: PwkB5JCNQ2iYt9t231iUBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1180596"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1180596"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:29:47 -0700
+X-CSE-ConnectionGUID: 78aOL48pQDaU1E51ZgVIhA==
+X-CSE-MsgGUID: ph9qbkGmTfOIDTZaOo5JrQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="277897976"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 05:29:45 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 265BD99; Tue, 22 Sep 2026 14:29:40 +0200 (CEST)
+Date: Tue, 22 Sep 2026 14:29:40 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: jens.glathe@oldschoolsolutions.biz
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 3/3] usb: typec: mux: ps883x: disable USB4 on
+ incomplete USB4 platforms
+Message-ID: <arJ0tBDssBQOk8jT@black.igk.intel.com>
+References: <20260922-ps883x-disable-usb4-v4-0-0a7b5b70cba3@oldschoolsolutions.biz>
+ <20260922-ps883x-disable-usb4-v4-3-0a7b5b70cba3@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,42 +69,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919153150.2618403-2-sh_def@163.com>
+In-Reply-To: <20260922-ps883x-disable-usb4-v4-3-0a7b5b70cba3@oldschoolsolutions.biz>
 
-Hello,
+On Tue, Sep 22, 2026 at 02:20:21PM +0200, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> 
+> On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
+> retimer, hotplugging USB4-capable docks such as the Lenovo 40B0 can
+> result in working USB but no DisplayPort output.
+> 
+> When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
+> and forwards it via typec_mux_set(). The qmp-combo PHY then selects
+> USB3-only because no classic DP altmode SVID is present in the state,
+> leaving the DP transmitter and AUX channel disabled.
+> 
+> Reject USB4 with -EOPNOTSUPP on platforms whose USB4 / DP-tunneling
+> stack is not ready yet. The Type-C stack then falls back to USB3 + DP
+> Alt Mode. DP altmode configuration continues to use the existing
+> ps883x_set() path.
+> 
+> Use a machine-compatible table rather than a DT property so the quirk
+> stays inside the kernel and can be removed later without creating ABI.
+> 
+> Assisted-by: Grok(xAI):4.6
+> Tested-by: Dr. David Alan Gilbert <dave@treblig.org>
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-On 20/09/26 00:31, Hui Su wrote:
-> During CPU hot-unplug, a CPU can be cleared from cpu_active_mask before it
-> is marked offline. This can leave a window where dl_bw_cpus() returns zero
-> for a root domain with no remaining active CPU.
-> 
-> DL bandwidth paths can pass this zero CPU count to __dl_sub() and
-> __dl_add(), which then divide by zero while distributing the bandwidth
-> update to active runqueues.
-> 
-> This is not specific to the DL server debugfs path. Mikhail Zaslonko
-> reported the same failure on s390x through sched_setscheduler(), where
-> task_non_contending() reached __dl_sub() with no active CPU in the root
-> domain. Other DL bandwidth paths use the same helpers.
-> 
-> Keep updating dl_bw::total_bw when the CPU count is zero, but skip
-> __dl_update(), since there are no active runqueues to receive an extra_bw
-> adjustment. This avoids the division by zero in all callers while retaining
-> the existing total_bw update.
-> 
-> Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
-> Reported-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-> Link: https://lore.kernel.org/r/c52c9e8c-260e-49a4-a88e-229e0795d07b@linux.ibm.com
-> Suggested-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Su <sh_def@163.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
 > ---
+>  drivers/usb/typec/mux/ps883x.c | 37 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
+> index 15aee1d613b1a..2ec57cfe748a9 100644
+> --- a/drivers/usb/typec/mux/ps883x.c
+> +++ b/drivers/usb/typec/mux/ps883x.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+> +#include <linux/of.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/usb/pd.h>
+> @@ -42,6 +43,22 @@
+>  #define CONN_STATUS_2_TBT_UNIDIR_LSRX_ACT_LT	BIT(4)
+>  #define CONN_STATUS_2_USB4_CONNECTED		BIT(7)
+>  
+> +/*
+> + * Platforms where the USB4 / DP-tunneling stack is not ready yet. Rejecting
+> + * USB4 here lets the Type-C stack fall back to USB3 + DP Alt Mode instead of
+> + * negotiating USB4 and then failing to drive DisplayPort.
+> + *
+> + * This is a temporary, kernel-contained quirk (not DT ABI). Drop the entries
+> + * once the corresponding USB4 support is complete.
+> + */
+> +static const char * const ps883x_disable_usb4_compats[] = {
+> +	"qcom,x1e80100",
+> +	"qcom,x1p42100",
+> +	"qcom,hamoa",
+> +	"qcom,purwa",
+> +	NULL,
+> +};
+> +
+>  struct ps883x_retimer {
+>  	struct i2c_client *client;
+>  	struct gpio_desc *reset_gpio;
+> @@ -63,8 +80,21 @@ struct ps883x_retimer {
+>  
+>  	enum typec_orientation orientation;
+>  	bool in_reset;
+> +	bool disable_usb4;
+>  };
+>  
+> +static bool ps883x_should_disable_usb4(void)
+> +{
+> +	const char * const *compat;
+> +
+> +	for (compat = ps883x_disable_usb4_compats; *compat; compat++) {
+> +		if (of_machine_is_compatible(*compat))
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  static int ps883x_enable_vregs(struct ps883x_retimer *retimer)
+>  {
+>  	struct device *dev = &retimer->client->dev;
+> @@ -260,6 +290,9 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
+>  			cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
+>  			break;
+>  		case TYPEC_MODE_USB4:
+> +			if (retimer->disable_usb4)
+> +				return -EOPNOTSUPP;
+> +
+>  			eudo_data = state->data;
+>  
+>  			cfg2 |= CONN_STATUS_2_USB4_CONNECTED;
+> @@ -389,6 +422,10 @@ static int ps883x_retimer_probe(struct i2c_client *client)
+>  
+>  	retimer->client = client;
+>  
+> +	retimer->disable_usb4 = ps883x_should_disable_usb4();
+> +	if (retimer->disable_usb4)
+> +		dev_info(dev, "USB4 disabled until platform USB4 support is complete\n");
+> +
+>  	mutex_init(&retimer->lock);
+>  
+>  	retimer->regmap = devm_regmap_init_i2c(client, &ps883x_retimer_regmap);
+> 
+> -- 
+> 2.53.0
+> 
 
-Looks good to me.
-
-Acked-by: Juri Lelli <juri.lelli@redhat.com>
-
-Thanks,
-Juri
-
+-- 
+heikki
