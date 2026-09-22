@@ -1,86 +1,48 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAE530567B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B95B360EDC;
+	Tue, 22 Sep 2026 04:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790052487; cv=none; b=Dvv6xg9aMt9gXcZoJSvCSB0YaZi7OEpJ09j8AXYFORv2txx9wuT/9UGxjvtSVt9mPvoL23bx27JRh+6ADywDBBwzXAVd98evUkzWBlL/Ul0IfdciWTsbawCgK1KyO/I21M2Jt+CwcOHUryBxGBdNE+x5bKwQ6w8S8HMSRPjkQ+o=
+	t=1790052592; cv=none; b=jteH+nM0Oubu7B1GZnSrjeYdzF7+BEZpJ+soPvcVePS15n/o/0iyvwY4V7AO//5OvuxkpUV/CDDNJaer+2doCEjIYHfO8LjS5TGbQahOQG7AYFaVS5JIHw7vaGPMG+1LIYmAvhkwP/eSarWcgxFRKTeqSeqwECQ1c/ovQFKY7Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790052487; c=relaxed/simple;
-	bh=DRso7SbL8e4As3H+pvVXw6BzQtWRETrRQMqxN1VYZOQ=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
-	 References:MIME-Version; b=OuNyqP1/z1GqIsnLRkbDeFRk3oUTT9Sevb5tPg1l1g9ozpXDuCTbrPCRXdOBKPIPM1ar4cXuAXwlLofWOcw9CmUkxJ1Ow/ClxI6I4Rdptf3lMP6iI47e78C1e9fhhUCqyUKJRzdeaqeoxeRFwBj7ocX2AgwOd0iCvC07Ukx0Gbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RPhu+Tcd; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790052592; c=relaxed/simple;
+	bh=LE3ktMvn8f20wey7b96+iSHLbZJasRdXGgoFtYTRWfs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=l6asmGmyRMsx1u8OVhTV15DF+2CHVga5cKldEppOgomuHtr0Haa+e0GYmE2nUuILlMwT0JZth84BXiLEE2NjnSmt0blD+eO1OaEEw2OBl3C8USFiiP+/IrNeLdaAODY2FwtDVu/DXb+vpKhglr1emzkkK/lDUARFtKsMTd5sV1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AfbtMN/S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RPhu+Tcd"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef3so3277451a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:48:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790052483; x=1790657283; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9yu04hZXDiXWGAL1P3A8arsPpXEh1RVC3U31vsrwLYk=;
-        b=RPhu+TcdaWpiRoXAg6/wRviuBTZ7KWfATLI5nL/A5BHcoOP6fNRNoTftIWHRjgYHlu
-         muQbLOadTfZODfG2fGvSkWe5oYq7y2PcRZIbbstDYc3FKwlQI3/1wWHrmPWyC95yRO8U
-         NaOfGPpnqy09lvYFF8ujCE5BBY5eK7EQE4wiewyKoiWavZQ6/Gv/bP5KDMw/90j1m1e0
-         K4VLg5GSC0L1FyEzCdiqjH1BIuNMmm7qNo9/Ev+7T1WFev5XCHYiWLl+0N39C/9rWHpQ
-         HoyJb6N/Dz9WsHDrTd5+8POP5xKhb9OKNPdof0eqUDkCbuUa6/vB4E4ycoMAILDEzm2l
-         uniA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790052483; x=1790657283;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:from
-         :subject:cc:to:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9yu04hZXDiXWGAL1P3A8arsPpXEh1RVC3U31vsrwLYk=;
-        b=Bg0lEViOT0HYHxqcr9Z/TQmh9M4n1wGQsL3q9qJCwdXKMexVY+lDpqP8PziA2Bbt5V
-         YyzvkbZin752qTFQesRmS7vYntjndkj+RwnCtW1S1gfX9Bbw+/rcIrPGtSW9/ZP839gp
-         1UA1Ajf0bgk5MI7Qgk786dvGWLp9HbKCw0/pwPsO+wLKvOvk4NQ48J1ckPeYf6uevPeW
-         PQ8LJZ/FiTaMYrMFEWtQYTJLPW1kteL47XQfgHQaE8tAQzNUySLpfayO9m/vxl6skPH5
-         nCtJGo1pEYzEtTZk6HTusC7ggLlYFbiA+bN4RJ6u1U73i9iflRixUPq6rE+atvqjqV4K
-         MeFA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/caB/WEjqplloLH9nywCRRcFnWbCGw01noTdeKa5PVrY/92gWhIaOYKtlC1w/Hsi4/T9eMW0d5BYwHA0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lauv6C6uZoOE5eb/FV8s98ai2ELOFWrwTopuYcKosowuVKMrP3
-	QdGNMdokBbYfRBLI6UUqBi9unzR2pqslJcX0jSb1I3oq5g5kWIDR/aCd
-X-Gm-Gg: AYBFou1tgoRPrhAcupnTRv8kVBJ6BO2HNhP9Uk2qbyXIAf1terBS7+pVKr563kFEhXn
-	h/nUGu7nQDN2tt3SnbxemZGKD3ZIDJReRPN5LCFLkRAOoPJi5Ki7Jp/d8Z3fCoIf+mbYfFXf7wW
-	/gXQuzhlJy/mMQYhDNtO0/8S4yTKAQ3LxOf7CLggX1v5eMlkqIDMSLs8PVttbuWGNwZP17PrQbs
-	J5v6HEDPnLmNQjAVRsnR4unXmd9nTzxmQlMXZTFVeRVbEVtjxMj5xcQY0jXOpvvt+Hi42Ox3jBz
-	SbgS7spKScl7ZDT1wH8aHtrJqq/kLZrAvzP6MHV4uRVyBkbiyu7vHo4PI0/8crzAddd3aW0dwNm
-	Wygq10pK3liNV++y5qYOQXwyEwyywqHsT9SdJDEU6+xcyMz4blFnEqk7IDi16aq4IEd+HzDh8Q9
-	I7wK7lFDvCUgWAzIC/SKFmwc/ScZoim3+AF6jddQuGVQZt3lJvkwoft81gOWmTqOaDq6jvatXEU
-	I+5QHma3bdAAuRAVkgnEAuKy2vxo8ElYN8awI9XDJITMlKzYwKJPwKT3J/GlKzb5dgSwEVDMjoF
-	y4Dp
-X-Received: by 2002:a17:90b:5388:b0:39e:21a7:5dff with SMTP id 98e67ed59e1d1-39e54d1e037mr20177534a91.11.1790052483431;
-        Mon, 21 Sep 2026 21:48:03 -0700 (PDT)
-Received: from localhost ([153.61.198.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06cbe369dsm455307a91.0.2026.09.21.21.48.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 21:48:03 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 04:48:02 +0000
-Message-Id: <DLLKN9WTMVHD.1601DUU5LBVAB@gmail.com>
-To: "Eric Biggers" <ebiggers@kernel.org>, <bpf@vger.kernel.org>, "Vadim
- Fedorenko" <vadim.fedorenko@linux.dev>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>
-Cc: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
- Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
- "Karl Mehltretter" <kmehltretter@gmail.com>
-Subject: Re: [PATCH bpf-next v3] bpf: crypto: Use AES-CBC and AES-ECB
- libraries
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-In-Reply-To: <20260922040413.28885-1-ebiggers@kernel.org>
-References: <20260922040413.28885-1-ebiggers@kernel.org>
-X-Mailer: mkdraft (claude review draft; edit before sending)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AfbtMN/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708931F000FF;
+	Tue, 22 Sep 2026 04:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790052591;
+	bh=qC/scIJ0wq4RMXDVdwbaYlepxpTiRdoR45/xM5+kulM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=AfbtMN/S5YuBrDLCgvQ+s3VacCte4ChmcAdZre0KaXjG3gIl2gmqtOU4oF3jfpD3x
+	 XVE+vYYEZzZsuPYnsSu6cF0Hk35/QDYIv7SEnvMJxgXVlKZfxzi152/jaZbLjG+uz4
+	 STH03j8TsJ9A10TFWFAzlEIZgcZmDDPSA5kO7VQbU1rk58ZViSB+on/nH2Buw3I8Id
+	 VP+CNRLFNIn+4E7vuWXSuCyCLEuLpLhbXQYR31fkKhY66g8+nlFOw6liQTR1DvB3uP
+	 KxfOY8hBbmVuwd0AqR9I/Hyw7Uv16Tio3gm9euqFOaiwhdr/WC9x+rcMGkV6jNDLQz
+	 Ah1VvTespjzRg==
+Subject: Re: [PATCH net v3] net: pcs: rzn1-miic: Reset PRCMD state before
+ unprotect sequence
+From: netdev-bot+sashiko@kernel.org
+To: yoshihisa.yamamoto.xn@renesas.com
+Cc: clement.leger@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 22 Sep 2026 04:49:49 +0000
+Message-ID: <179005258996.2160803.11359360903588205993@kernel.org>
+In-Reply-To: =?utf-8?q?=3CTYCPR01MB7481CE8351FDB2CDCA229955A4872=40TYCPR01MB?=
+ =?utf-8?q?7481=2Ejpnprd01=2Eprod=2Eoutlook=2Ecom=3E?=
+References: =?utf-8?q?=3CTYCPR01MB7481CE8351FDB2CDCA229955A4872=40TYCPR01MB7?=
+ =?utf-8?q?481=2Ejpnprd01=2Eprod=2Eoutlook=2Ecom=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -89,23 +51,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Mon, Sep 21, 2026 at 09:04 PM Eric Biggers <ebiggers@kernel.org> wrote:
-> +config BPF_CRYPTO
-> +	def_bool y
-> +	depends on BPF_SYSCALL
-> +	depends on CRYPTO_LIB_AES_CBC
-> +	depends on CRYPTO_LIB_AES_ECB
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-This will break the build with CRYPTO_AES=m.
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
->  struct bpf_crypto_ctx {
-> -	const struct bpf_crypto_type *type;
-> -	void *tfm;
-> -	u32 siv_len;
-> +	enum bpf_crypto_algo_id algo;
-> +	void *key;
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-No need for this. The bot was wrong.
-Reading any field of struct bpf_crypto_ctx requires CAP_PERFMON.
+- [Medium] SoC-specific PRCMD semantics are applied unconditionally in a
+  shared helper: the new `writel(0x0000, miic->base + MIIC_PRCMD)` is…
+- [Medium] Fixes-tag mis-attribution and a changelog that names no
+  failure mode.
 
-pw-bot: cr
+--
+
+net: pcs: rzn1-miic: Reset PRCMD state before unprotect sequence
+
+This adds a writel(0x0000, MIIC_PRCMD) ahead of the existing
+0x00A5/0x0001/0xFFFE/0x0001 unprotect key sequence in miic_unlock_regs(),
+so that the sequence starts from the IDLE state of the PRCMD command state
+machine as documented for RZ/T2H.
+
+> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
+> index cb74861e823c..4a2a50827338 100644
+> --- a/drivers/net/pcs/pcs-rzn1-miic.c
+> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
+> @@ -270,6 +270,9 @@ static struct miic_port *phylink_pcs_to_miic_port(struct phylink_pcs *pcs)
+>  
+>  static void miic_unlock_regs(struct miic *miic)
+>  {
+> +	/* Reset PRCMD state before unprotect sequence */
+> +	writel(0x0000, miic->base + MIIC_PRCMD);
+> +
+
+[Severity: Medium]
+Should this write be gated on the SoC it is documented for?
+
+miic_unlock_regs() has two consumers, and they belong to different SoCs:
+
+  miic_reg_writel_locked()   /* only rzt2h_miic_of_data.miic_write */
+      miic_unlock_regs()
+      writel(value, ...)
+      miic_lock_regs()
+
+  miic_init_hw()             /* only rzn1_miic_of_data sets the flag */
+      if (miic->of_data->init_unlock_lock_regs)
+              miic_unlock_regs();
+
+rzn1_miic_of_data carries .init_unlock_lock_regs = true and
+.miic_write = miic_reg_writel_unlocked, while rzt2h_miic_of_data carries
+.miic_write = miic_reg_writel_locked and does not set the flag. So the new
+un-keyed PRCMD write is now also emitted on RZ/N1 (r9a06g032), where the
+driver has so far only ever written the documented key sequence to this
+write-protected register.
+
+The changelog justifies the write with RZ/T2H documentation only:
+
+  "On RZ/T2H MIIC, writing 0x0000 to PRCMD resets the command state
+  machine to the IDLE state."
+
+If the RZ/N1 protect block instead treats a bare 0x0000 as an
+out-of-sequence command of the A5/data/~data/data protocol, does the
+following unprotect sequence still release protection?
+
+In that case every write that miic_init_hw() issues afterwards, MODCTRL,
+CONVRST via miic_converter_enable(), SWCTRL and SWDUPC, would be dropped by
+the hardware. There is no read-back of a protected register and
+miic_init_hw() ends with:
+
+	return 0;
+
+so probe would still succeed and the only visible symptom would be a
+mis-muxed or dead Ethernet path on RZ/N1.
+
+Would it make sense to scope the reset write to RZ/T2H, either via
+of_data->type == MIIC_TYPE_RZT2H, a new of_data flag, or by doing it inside
+miic_reg_writel_locked(), or alternatively to state in the changelog that
+the extra PRCMD write was verified harmless on RZ/N1?
+
+[Severity: Medium]
+Does the Fixes tag point at the right commit?
+
+  Fixes: 419747319e3a ("net: pcs: rzn1-miic: Add per-SoC control for MIIC
+  register unlock/lock")
+
+git blame shows 419747319e3a only moved the pre-existing RZ/N1 four-write
+sequence into miic_unlock_regs(); at that point the helper was reachable
+only from the RZ/N1 miic_init_hw() path. The RZ/T2H side the changelog
+relies on came from the later commit 08f89e42121d4, which added
+miic_lock_regs(), miic_reg_writel_locked() and rzt2h_miic_of_data.
+
+A backport driven by this tag would therefore land the write on kernels
+that have no RZ/T2H support at all, where its only effect is an extra
+PRCMD write on RZ/N1. Should the tag reference 08f89e42121d4 instead?
+
+Also, which condition actually leaves PRCMD in a non-IDLE state?
+
+On RZ/T2H every register write goes through
+unlock, write, miic_lock_regs(), and miic_lock_regs() already does:
+
+	writel(0x0000, miic->base + MIIC_PRCMD);
+
+so PRCMD is 0x0000 after any driver-initiated access. On RZ/N1
+miic_unlock_regs() runs once during probe on a freshly reset block. The
+remaining source of unknown state would be pre-kernel firmware or the other
+master mentioned in miic_init_hw():
+
+	/* Unlock write access to accessory registers (cf datasheet). If this
+	 * is going to be used in conjunction with the Cortex-M3, this sequence
+	 * will have to be moved in register write
+	 */
+
+but the changelog does not mention it. And against a concurrent external
+agent, does one extra leading write really give the stated property,
+"always starts from a known state, regardless of any previous PRCMD
+activity", given the five writes are not atomic as a group?
+
+Could the changelog name the observed symptom or the condition that
+produces the stale PRCMD state?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/TYCPR01MB7481CE8351FDB2CDCA229955A4872%40TYCPR01MB7481.jpnprd01.prod.outlook.com
