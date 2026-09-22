@@ -1,152 +1,124 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674A953A897;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAB453A88F;
 	Tue, 22 Sep 2026 11:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075727; cv=none; b=okUdL4j9/9FWftKXu/uKHlB1KbJ2vUrh4kIAOSX6FotHwXngVbDY2UVatwLSpJAV6e48AoDvRLVWRGNmGxuYWdP1PPKqMleAOT/SspBOOExsWMR1TKetIWa29rlQfCQqtJefx070thAPTdIbAdNAbcJMHEnJ9hEHrMND3Cbk40s=
+	t=1790075727; cv=none; b=uSnnyc/XDcwmEW6OPccJLSHVI5P2F+LyBS1NR1FeLfZ67V3mAIobdjyU04+SDn4y44JYl0JvJXkc1fI/N+pCTW7YiMC6La05jo4OhplZ2PCC3aQE1WkjDp8q6A/PPrhzGALHgzd6vihWrDMv23a7Zy1FcocfmTMH4dgt6fHUlf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790075727; c=relaxed/simple;
-	bh=hrnY9xXKMdQiSgF/5PKuc6Gy4OvAxvZZS5u+6YkJ3zo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iZJg1wv4sZZJLuTzOZQYtscluAAeD9cOcE9nKsqTFGI3fMy0P0EUlqpyWLRH+7juLFyLQxSMJGGOT0V1sPMm/NiQWPLS1hjgPYNEm7P//oijKU4FpAsPe9AH6HWjdsux71AgZUf3/snBbmnM7cO/sDNSVzU/7iqJEbsn9WTieMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hpyDY1S4KzKHNK9;
-	Tue, 22 Sep 2026 19:14:53 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 4DF924056D;
-	Tue, 22 Sep 2026 19:15:17 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgD3xik4Y7JqtosFBQ--.39851S8;
-	Tue, 22 Sep 2026 19:15:16 +0800 (CST)
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-To: linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	bfoster@redhat.com,
-	joannelkoong@gmail.com,
-	djwong@kernel.org,
-	yi.zhang@huawei.com,
-	yi.zhang@huaweicloud.com,
-	yizhang089@gmail.com,
-	yangerkun@huawei.com,
-	chengzhihao1@huawei.com,
-	wangkefeng.wang@huawei.com,
-	yukuai@fnnas.com
-Subject: [PATCH v4 4/4] mm/truncate: clarify return value of truncate_inode_partial_folio()
-Date: Tue, 22 Sep 2026 19:07:03 +0800
-Message-ID: <20260922110703.468389-5-yi.zhang@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
-References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
+	bh=uG10CpKzITeuRozAFTUxxhD0O4dxaawtIgjeDCip7uA=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=OGRUdLULSZGriiljVcJP9cLxmHnog0o8Kz+xO3EezTj70hZtIVQ1kyxx6eDNmuKIe1AQK8+roujVEy7EGNZKRX0oEbaLNtQUwAwOVtwLgjTT5uziL62lR2dYLNX1NNqRgLLCeoyXNNJHxBMgLbyPrltywtkL2ySEOFsMY71CphU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=cM5nP/xs; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="cM5nP/xs"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 62DF5A48A8;
+	Tue, 22 Sep 2026 13:15:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790075722; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=YeioCQeruug6cneljdT1FzQx8F1lcbWO1Yj8R6eHz6I=;
+	b=cM5nP/xsxiUBzdOpJmU8Q+6Cimk/dIQWR3dRTOl8a+LvS/7ur8/KCRx3SXCLa93uPhSyRz
+	MiHK8xLLt1a2PQEfMQHQBuvGkLwW03SOm3rnpsSRpKFHY0xMfLNOvlyCYi1x1PZ4IYEkRj
+	MRt59c8gUHEoO1m/VSJM8Fqu0iSWdT5y3u34GtcH4Ln0AfnUSh6p9rK+SJK4ZocaZxsGCR
+	JbMOr5OBN3872LKZnzHC48fZTm7WtV9RpZUl5g1sXKNeB8pAgp6zFcFyTV5AucLxcYaOI4
+	pKCvNB08TkIO5BFzeDdl6qWwsuvSZ+A8F7cx1wBYYqbsvGhC/xte/36/v1jGXQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgD3xik4Y7JqtosFBQ--.39851S8
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZFW3CF4xuryfAry3XF15CFg_yoW8Kr43pa
-	y3K3sxJ395Wa1Ikw1xuF4kZw4YyF9agrWUAFWxG3s7C3Z8Xa1UKr1Ut3WUtw4fJr1kZ340
-	qF1jyFW3W3WUJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE
-	3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
-	x0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
-	JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2
-	ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
-	z7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zV
-	AF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4l
-	IxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
-	1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIY
-	CTnIWIevJa73UjIFyTuYvjTRNdb1DUUUU
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+Date: Tue, 22 Sep 2026 13:15:18 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: 5mghybrid@khu.ac.kr
+Cc: netdev@vger.kernel.org, =?UTF-8?Q?Th=C3=A9o_Lebrun?=
+ <theo.lebrun@bootlin.com>, Rafal Ozieblo <rafalo@cadence.com>, Conor Dooley
+ <conor.dooley@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Richard Cochran
+ <richardcochran@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/4] net: macb: Rework hardware timestamp
+ configuration
+In-Reply-To: <20260922-codex-macb-hwtstamp-submit-v1-0-9d1abaa53296@khu.ac.kr>
+References: <20260922-codex-macb-hwtstamp-submit-v1-0-9d1abaa53296@khu.ac.kr>
+Message-ID: <1130cfbd992c343c4cc32d08b9bad662@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Zhang Yi <yi.zhang@huawei.com>
+Hi Kim
 
-With the earlier rework the callers no longer rely on the return value
-of truncate_inode_partial_folio() to decide whether to adjust the
-truncation range. The pstart/pend out-parameters carry that information
-instead. The callers now only use the return value as a flag indicating
-whether the loop should be reset to pick up newly split sub-folios on
-the shmem path.
+On 22.9.2026 11:10, Kim Wooseok via B4 Relay wrote:
+> This started with two problems I found while using PTP hardware
+> timestamping on a Raspberry Pi 5. A rejected RX filter could still
+> change the TX one-step setting, and the PTPv1 Sync and Delay_Req 
+> filters
+> returned success without enabling RX timestamps.
+> 
+> This series reworks gem_set_hwtst() to validate the whole request 
+> before
+> programming the hardware. It calculates the settings locally, then
+> updates the registers and saved configuration under bp->lock. With the
+> register writes now in the setter, the two helpers are no longer 
+> needed.
+> 
+> The remaining patches use the existing ALL fallback for the specific
+> PTPv1 filters, turn off one-step mode for TX_OFF, and clear SRTSM when
+> switching away from a PTPv2 filter. Each change is kept in its own 
+> patch.
+> 
+> I compared the old and new behavior on the Pi 5. When I requested a TX
+> mode change together with an invalid RX filter, the patched driver
+> rejected the request without changing the saved settings or NCR. I
+> also switched from one-step TX and PTPv2 RX to other settings and back.
+> Only the relevant bits changed, and restoring the original settings
+> restored NCR.
+> 
+> For the PTPv1 filters, I checked the effect by sending Sync and 
+> Delay_Req
+> packets over Ethernet. Before the change, the packets arrived without
+> hardware timestamps. With the patches, the driver returned ALL and I
+> could read the hardware timestamps from the received packets. PTPv2
+> multicast reception continued to provide hardware timestamps, and
+> selecting NONE disabled timestamping. I ran these tests with the 
+> changes
+> backported to the Pi's existing Linux 6.18.46 RT kernel.
+> 
+> On net-next, I built the series with ARM64 allyesconfig and 
+> allmodconfig,
+> both with W=1. Sparse reported no diagnostics in macb_ptp.c.
+> 
+> Assisted-by: GPT-6 Astra
+> Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+> ---
+> Kim Wooseok (4):
+>       net: macb: Preserve timestamp settings on rejected requests
+>       net: macb: Enable RX timestamping for specific PTPv1 filters
+>       net: macb: Disable one-step mode when TX timestamping is off
+>       net: macb: Clear SRTSM outside PTPv2 receive filters
+> 
+>  drivers/net/ethernet/cadence/macb_ptp.c | 63 
+> ++++++++++++---------------------
+>  1 file changed, 23 insertions(+), 40 deletions(-)
+> ---
+> base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+> change-id: 20260922-codex-macb-hwtstamp-submit-25ab4a2e6b94
+> 
+> Best regards,
+> --
+> Kim Wooseok <5mghybrid@khu.ac.kr>
 
-Return true if at least one split succeeded, and false otherwise.
-This clarifies the existing confusing return value semantics.
+For the series:
 
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
----
- mm/truncate.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+Tested-by: Nicolai Buchwitz <nb@tipi-net.de> # Raspberry Pi CM5 (macb 
+rp1 with BCM54210PE)
 
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 81fb4de6226b..317cb4ae3625 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -216,8 +216,7 @@ static int folio_split_or_unmap(struct folio *folio, struct page *split_at,
-  * aligned inwards to min_order, i.e. the range of folios wholly within
-  * [lstart, lend] and so safe to discard.
-  *
-- * Returns false if splitting failed so the caller can avoid
-- * discarding the entire folio which is stubbornly unsplit.
-+ * Return %true if at least one split succeeded, %false otherwise.
-  */
- bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 				  loff_t lend, pgoff_t *pstart, pgoff_t *pend)
-@@ -247,7 +246,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 	folio_wait_writeback(folio);
- 	if (length == size) {
- 		truncate_inode_folio(folio->mapping, folio);
--		return true;
-+		return false;
- 	}
- 
- 	/*
-@@ -261,7 +260,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 	if (folio_needs_release(folio))
- 		folio_invalidate(folio, offset, length);
- 	if (!folio_test_large(folio))
--		return true;
-+		return false;
- 
- 	min_order = mapping_min_folio_order(folio->mapping);
- 	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
-@@ -326,10 +325,9 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
- 			*pend = end;
- 		return true;
- 	}
--	if (folio_test_dirty(folio))
--		return false;
--	truncate_inode_folio(folio->mapping, folio);
--	return true;
-+	if (!folio_test_dirty(folio))
-+		truncate_inode_folio(folio->mapping, folio);
-+	return false;
- }
- 
- /*
--- 
-2.52.0
-
+Regards
+Nicolai
