@@ -1,44 +1,43 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7C553F6AF;
-	Tue, 22 Sep 2026 12:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C701753FD28
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078686; cv=none; b=pvESjoRwXNi5lPWe7i3UXCIJjVvFFRkf53e2xKN/sUfk4dQEMKqNAQCxcaachKP8ywRy6H2mTMzmXlvvQCvrotb0UWgWuuZZgvVH9hO1Toy3A9cuPYgcEVXLgvv2Bgr0z9j5bqajFx2Hx+Cg+Knn1Q7Ur5YFZocGAO6FkFedNwU=
+	t=1790078692; cv=none; b=O4/jNDFYOXva9QXprLpNTyQzUzOGWdFO4s5Lk7ITZxg92d/LCp/Osrs5Pe9VJi2gDZw0wGtpaeyH1pMfa30u2bdUUIsR5bwFd3UmNBmy2FXqC5heWVJAG6osKEp8kvwmYiLJ5NocllNuxjz5BUjP+un35S/+3zyKxn6Y2pUM7mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078686; c=relaxed/simple;
-	bh=E/fjISr+4E0w2uPBq0n6JT5YYslL9+STp0mOS8zKuI4=;
+	s=arc-20240116; t=1790078692; c=relaxed/simple;
+	bh=Wv6ozau80iBiwQht1+tkeAq67SYQHnigvrPMwgv8Log=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BXQx+TYkaizR+8ESvWxaJVIfBhJsbntidRtEm7eFqqbgHbL8iAiceqvNPmmfBIs50jqWKc4YxUKX94sXOKOoGvRqHfjturfincn+6S6Dvo2+nEngV9lhcHBKp12UCN/flYhawA+dHiUHgBb/BUVjC6r/2iGawuokRt3VWnRqg0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=6E5P8T1x; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=lHgTn6Zk6JNhY7msWsXBkHS/DAdg8CuXX2jeN+GRQs6EKM0PWNwIxCaReln2/HJcEj0E4Ynx8Qm5x7R8WktNfodpdrfrRFP3AmPzcdheAtdknFOtzhdwsMx0JyuNguSLW7OyjVFRCJUb7UZ7Tc992w2AdcciSaUoaLljK0s412g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rdc88kZB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="6E5P8T1x"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Rui9qcItmfbFo1BprPHgAUp5QoOSa9k4HWq9xrPucB0=; b=6E5P8T1x1rNqp4FamOALfQNhId
-	D/J+rwGyno8FqG4lGxyVHDZewFsWzmEWJU6gHh+366l62sEkUR6XuCdihpd2MWTVkxbP5VyURCTmc
-	0XPEX8tbaVICZeX+P5/jmheQIn6n77OAguB92Lonm60vMiKkF3duAsfz4RKt47uEHn0g=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x8zEj-006ZzM-De; Tue, 22 Sep 2026 14:04:37 +0200
-Date: Tue, 22 Sep 2026 14:04:37 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 8/8] net: dsa: motorcomm: Add SerDes PCS
-Message-ID: <1c6096cc-1abb-4b5c-a49b-31623423e6fd@lunn.ch>
-References: <20260917185010.3189199-1-mmyangfl@gmail.com>
- <20260917185010.3189199-9-mmyangfl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rdc88kZB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4611F000FF;
+	Tue, 22 Sep 2026 12:04:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790078691;
+	bh=BPElUD1AN4csYiU8Npcvuz0fDrD5UVMx4TQaxZOIV1U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rdc88kZBDZlRiQhLJ8qJiemv599zvVzqdZ2VhpASPGaRkdknRUOSkv6mz6E61Ks4O
+	 KxsEAHjZZGhhtVnhXCVwGDpjMyTxzH24yq+3GOAEPNcKyxfyRdmSmZivfu3Ep1eA+G
+	 IzeqXLqIuXzUz5jiZPoPJOCuq2Z3sS9/In2em/s9nqEvIZ1AMnxUtg4YYDFU2C9B4F
+	 DXVupjUSLyTLJ5TeVr4Oh0sF2HGBVlhyYSGhN6QDBj+8Kd4AzAoXqrEOu2NOF10Xtr
+	 Uv4nY9OtDmyMIzLqNm3QMaw1qEqIbm0BMdn4aufc98759e7FYgW8Jt+tcdZBZbMnSZ
+	 92YRGV1NSCIEQ==
+Date: Tue, 22 Sep 2026 13:04:48 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH slab/for-next-fixes] mm/slab: do not wake up kswapd in
+ __kfree_rcu_sheaf()
+Message-ID: <arJuhiFk-XOg4Bew@thinkstation>
+References: <20260922-kfree-rcu-dont-wakeup-kswapd-v1-1-42d7e2636f9e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,13 +46,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917185010.3189199-9-mmyangfl@gmail.com>
+In-Reply-To: <20260922-kfree-rcu-dont-wakeup-kswapd-v1-1-42d7e2636f9e@kernel.org>
 
-On Fri, Sep 18, 2026 at 02:49:55AM +0800, David Yang wrote:
-> Support in-band negotiation of the SerDes ports.
-> 
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
+On Tue, Sep 22, 2026 at 12:56:43PM +0100, Harry Yoo (Meta) wrote:
+[ ... ] 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/message/20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b%40kernel.org
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Oh, the link to the message does not have inline sashiko review.
+Incorrect Closes: link.
 
-    Andrew
+it should be
+Closes: https://sashiko.dev/#/patchset/20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b%40kernel.org
+
+-- 
+Cheers,
+Harry / Hyeonggon
