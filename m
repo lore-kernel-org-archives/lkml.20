@@ -1,134 +1,126 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C30256B871
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DA35678C4;
+	Tue, 22 Sep 2026 16:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095421; cv=none; b=Riwmnd+U/x5rrserdDnyqqoor75XWHCBpZGL88LgdBPlNhQfAfT1G7ACbXFIrDBG0fSRL1l8J2y9RypG9jkUmd9lvG7WgiYZRZYeFJ5uKQHBabpRn4uy5ngY7lXWgmBDSuoB4wV/ueZKNpprUQ8sNHxVjlRlbeNaV3u44ORTo7I=
+	t=1790095510; cv=none; b=CFhRnrbXANpJu89aef8uNhZw45DGSUGJJPWLGgwZRp1exUqkqEqw/oh8oxdzl4/5fP5+BM9qdHAuuww+GpydVbT7ZLbXQdAn0q2vlIUaEoFXjNLXkOmcdlcpLOlzfr2XGvLjPcGatnD4yrV2qasSyKLlCB/YJgL913feDoEj68E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790095421; c=relaxed/simple;
-	bh=oZodBLOvhWZnhGBhFyedqhlpKfrMwQq9wmTh3Vz6cE4=;
+	s=arc-20240116; t=1790095510; c=relaxed/simple;
+	bh=7LY3pKcbXJffBE1vT5GmjHHjVJI36qcfBjegrbhpHBs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EAcSaNBqtqunzeAPeZO1X0fpdbc3zn6Geej0xF3OYjDsV8iiXLm3hnm9dclAYJpu57v1FkLZ43INBAd2xeak3Cr2QwarknfP5xAA0VOm01weSZPzMfOBw/TdD5N/s2aJQ1TCcG3euupN31U8bThFd7+s/UkRX17PCvuLP6TDA7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Z1fijE0f; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tXPkrmmjKVVCxuJ7WsfFgs91hlXFx+3ckqzCtem31wuJZ9p+0rHodltSDWxkRzZ29fzvCw0sXRo1e8v1Zx6XZKUCqyqMZGy4iVwDB7UgU3apjTCe152BQxUYZbI02fEE+F2picj7hn/pPC7uc6FTVnULB5hqx8mTeFCkFQY+hRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKDhZi0e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Z1fijE0f"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 300461BC0
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:43:33 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7D0DE3F632
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:43:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790095416; bh=oZodBLOvhWZnhGBhFyedqhlpKfrMwQq9wmTh3Vz6cE4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z1fijE0fZDuEwmgSdEF42GE4nu+1yQZ6o/TkrrnSKPasqvdej1bKzf6EGEZbKm6dG
-	 e7bGw4A82NMjCrTnltnBRFdWDMvaalQZOBMkau+tTHb/WzNxT6DFPxwBxzJVQgaNzi
-	 sijy1YaiAJd8Bj1ovvy5iFg0bYr03A+i2qVR+E8A=
-Date: Tue, 22 Sep 2026 17:43:16 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
-	=?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] drm/panthor: Actually check huge-page mapping on
- sparse regions
-Message-ID: <arKwJOFgHRk6mgjt@e142607>
-References: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
- <20260917-panthor-fix-partial-unmap-v1-4-c7008f15fea3@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKDhZi0e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125AF1F000FF;
+	Tue, 22 Sep 2026 16:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790095509;
+	bh=kMdG76MeQldYLnCdGPtfwF3zaPMlZJI65YPqsh9aHeQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jKDhZi0e73h+nMW4g8pA7A9NUbYmjT02T7buH0UC9uXaYZrNO8Zr0PPC/SZI602aX
+	 XwxgYZEOKWDRu83nzrVKc/exGZR4LZdIPb/RkR0oOsdzxezkAfu5fSLqH0DoipprD5
+	 LTJbHmlmHh615fAE3i3BJAZDNodtmagudfF3gkkZ8b8RthU/SuIRAE+84Z4dU3isyX
+	 y0ylSUjpU1c9tVmoTmrVAOhlTxpKPVcD8JsPmJR3/F5S0uuxxxL7GoKgXCqDUkHQU8
+	 8gVFLt/wLDCGy6Cv+0PHMRmkkW6Go0Lby5jDKJ7o2i9Yse4qbE87NPZB+s9tgU5ItD
+	 +5C0mo8nWChVw==
+Date: Tue, 22 Sep 2026 19:45:01 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, akpm@linux-foundation.org,
+	peterx@redhat.com, surenb@google.com, aarcange@redhat.com,
+	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
+	mhocko@suse.com, shuah@kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+Message-ID: <arKwjZ67hJFBunSd@kernel.org>
+References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
+ <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
+ <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917-panthor-fix-partial-unmap-v1-4-c7008f15fea3@collabora.com>
+In-Reply-To: <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
 
-On Thu, Sep 17, 2026 at 02:33:46PM +0200, Boris Brezillon wrote:
-> With the recent changes to iova_mapped_as_huge_page(), the check for
-> huge-page mapping of sparse BOs is actually simple:
-> 
-> - for a sparse mapping, we know the BO offset any VA in this regions is
->   va & (SZ_2M - 1)
-> - the VA we're searching the BO offset for is the 2M-aligned
->   aligned_va value
-> 
-> This guarantees that the BO offset to check is always zero in that case.
-> 
-> This is simple enough to let the code check if page 0 is a huge page
-> and save the unmap+map dance when the dummy BO is not backed by a
-> a huge page. So let's do that and kill the comment that says it's too
-> complicated.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+(cc Kiryl)
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
+On Tue, Sep 22, 2026 at 01:40:51PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/19/26 02:46, Donggeun Yoo wrote:
+> > UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+> > destination unchanged, so a uffd bit set on the source lands in a
+> > destination VMA that was never registered for write protection.  It is
+> > then permanent: the bit is dropped only by change_protection() under
+> > MM_CP_UFFD_{WP,RWP}_RESOLVE, which uffd_wp_range(), mrwprotect_range()
+> > and userfaultfd_clear_vma() issue only for a VMA registered in that
+> > mode.  pagemap reports the page as uffd-tracked, and MADV_COLLAPSE
+> > refuses the range while the bit is set, because collapse_scan_pmd() is
+> > strict about uffd on swap entries.
+> > 
+> > move_present_ptes() and move_zeropage_pte() build the destination PTE
+> > from dst_vma->vm_page_prot and arm RWP only when dst_vma asks for it, so
+> > the destination's own registration decides the result.  move_swap_pte()
+> > copies the source PTE instead and only ever sets the bit, never clears
+> > it, so one UFFDIO_MOVE behaves differently depending on whether the page
+> > happened to be resident.
+> > 
+> > Clear the uffd bit on the moved swap entry unless the destination is
+> > RWP-registered, as copy_nonpresent_pte() does where it installs a PTE
+> > into a destination that may not be armed.  A WP-registered destination
+> > stops inheriting the bit as well, which is already what it gets when the
+> > moved page is resident.
+> > 
+> > Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> > ---
+> >  mm/userfaultfd.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> > index 74f04c323c50..6495666c596b 100644
+> > --- a/mm/userfaultfd.c
+> > +++ b/mm/userfaultfd.c
+> > @@ -1452,6 +1452,8 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+> >  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+> >  	if (userfaultfd_rwp(dst_vma))
+> >  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+> > +	else
+> > +		orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
+> >  	set_pte_at(mm, dst_addr, dst_pte, orig_src_pte);
+> >  	double_pt_unlock(dst_ptl, src_ptl);
+> >  
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index d2897099763e..01564d250adf 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  
->  		return false;
->  	} else {
-> -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
->  		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
-> +		const struct page *pg;
->  
-> -		/* If the unmapped VMA stands for a sparse mapping, always
-> -		 * assume the backing storage is a THP, since the overhead of
-> -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
-> -		 * them is offset by the logic of working out whether it's
-> -		 * the opposite case right below.
-> +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
-> +		 * VAs point to the start of the BO. Since aligned_va (the
-> +		 * address we check huge-page against) is 2M-aligned, the BO
-> +		 * offset is guaranteed to be zero.
-> +		 * Check panthor_fix_sparse_map_offset() for more details.
->  		 */
->  		if (is_sparse)
-> -			return true;
-> +			bo_offset = 0;
->  
->  		/* In case of shmem backing, we know we can only have a huge
->  		 * mapping if the bo_offset is 2M aligned, meaning we can skip
-> @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  		if (!IS_ALIGNED(bo_offset, SZ_2M))
->  			return false;
->  
-> +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  		return folio_size(page_folio(pg)) >= SZ_2M;
->  	}
->  }
+> In move_present_ptes() we don't run into that issue as we create a new PTE from
+> scratch
+> 
+> 	orig_dst_pte = folio_mk_pte(src_folio, dst_vma->vm_page_prot);
+> 
+> 
+> Staring at the
+> 
+> 	if (userfaultfd_rwp(dst_vma))
+> 
+> I do wonder why we don't have to take similar care about wp ... I'm sure the is
+> a good reason.
+> 
+> Code change itself LGTM.
+> 
 > 
 > -- 
-> 2.55.0
+> Cheers,
 > 
+> David
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Sincerely yours,
+Mike.
