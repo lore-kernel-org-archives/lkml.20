@@ -1,62 +1,64 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2F5330D25
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEC93B4E9D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046200; cv=none; b=EV6CfICLh6YB4+5/yOcQoMzDV2gBb7zFA97KTMN+eCZuvZWddvEF3/KtPVuLa1QFry9s3C3A3Wt2e1u2FT+l7R8sI5ZNDUT8KZGAgBNzGpgMzXzniDzDFdnEKBV4GrSjuMD57SN3u1gw0QgmbXrJnqC/MRnuILiyZIiIpO1aPas=
+	t=1790046203; cv=none; b=aEyfYJoxUAg1hwy2RF1FsMlDCIo/Cx400avaLkY/CJ+6Wn8l3oGtWEIjJ58XGCZBvp7LVJOFWnIyXQ6qxWD5CoWBTsbERc8brtAVN7iTCHE8VXgM04qeUJMNp7XeV0g9fPB197aFwLS6twDvjmuGAAwM8790Pc1H5ubh0U3HW3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046200; c=relaxed/simple;
-	bh=7SODR36kHYK1IakVc5HOz6krTaW3m9saxbK5Vnu7M34=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mKmktuE/D+n8a3ozEYwNPqW1PwrxDY53yuJJ2vwVEsYESob0tw/S5mD6sAIcIxIiZ/0UVsbEBlk8eIBr/UNrW8iG4YZ++g57X6x+cExXhO0+OY7/2qEQwRUwrRO1b/aZebPULh8AVLEu2+zmwipjGr6IaKXjeqCJzsEzCT9u1Yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o3UMiuor; arc=none smtp.client-ip=74.125.224.140
+	s=arc-20240116; t=1790046203; c=relaxed/simple;
+	bh=xxPCfoW71C+dY5Vk73+EVbPgQd5ga8fAuuMpvs44aSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=esBXNEBlUATUNPW0/AipyF+nuhWRm0+29y7OK2da3ONiexzoRTSsa9pBZn5dwsMLWIRWS5nYCbqkHqVDj0raMqoDh0je8yVgSX++n2/ew1sVXI3dzD9B8r2z1Hsvfx5a79u9NfGQQ8d1pDYTtUdWJ8pAGM5OsNvb0xCwa5ijT7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qh+Elqvl; arc=none smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o3UMiuor"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-67109935888so3634828d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:03:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qh+Elqvl"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43db0c16so30094747b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:03:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790046196; x=1790650996; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ixt/Rxi4OM6LS0sSMn+Kn0k0Yx5XJM0PK6LzpYStkGc=;
-        b=o3UMiuoreVz0HPKZg4/bawB60EG/WkxdFE2ye4gHBRClkGZh58SFrsVGfW5HQVXsft
-         X0ETTi0mHf5ZmSTPYvYGlbVu/oXoT77Y4GWgGTStHw5ngc7UmD2AR17Lq4VwoIbV1KaI
-         RC1J5ncG+4AILuXqVpQi1Uvmp7Ha2a0Ch/s3yQZEcvx0RO8+FC0BWsY0gtkwpcbwDAYL
-         3WktoJIZYqPGLzv+54mfQ3/PW1ydgygzyyOYVmoI+omDbgdBs/QtSkI61Q45xLNFqzQV
-         iCccG3YjyKGmmG+NNIn/bq/1N4d8yWGC+xEuXAVZEvopcsBsy11wt/KyJcxRLsWw9BGI
-         DvIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790046196; x=1790650996;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790046200; x=1790651000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ixt/Rxi4OM6LS0sSMn+Kn0k0Yx5XJM0PK6LzpYStkGc=;
-        b=tAE9MxBCgyxb6cSMHTNvoDmL52rRh7YzH2uclMuMeT5jSOBoOSCdj2CBi5TkGyWF26
-         F+e4SiXsf4LKP5auNrLBH1JL3Ddh5gO3mrJybX82QhoYC3jQJTVepRi73kaDZJ8QYB3w
-         HE9YsES6qn+aVqpONzxBT0aY4lU9DR7XlpGzSrsqP7DHHeoqNU/VoB6hdYq3e6oLtN0B
-         hSX9VX9yju1YawAn3nWzSLu4T8G93m4c5Itb3U2eCxxoaen7NObph0fK6BvASx0a46D1
-         JcVA9YJK6hLNtXJjW5szMCTm5KYo+3V6O2Nqq1PFVJJUsfCxLZtrlOnEC/IzN7vM9fOY
-         Pytg==
-X-Forwarded-Encrypted: i=1; AKwUvBxRUpgrb7Y21ZUU2sDCd8p9IrHygVBlDdjoieje5x13iZg8z5ZnC85tL3OY6Qf03kKSYv+cVOd93Ahtdh0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTNlks1TkUX38EuljVIANkk6GzkM+TT2SZTTauqHuTHC/vAgpH
-	6IsA7zQo2MHguZ9ne1G4w4uFq6hYsAvNOEE2FM8Xu/I2xJRqGgMzMYdR
-X-Gm-Gg: AYBFou0/ZkyuyNZX8EiAgBr90mZdOiY6pVytoBZKXjC/gNaD65Bs09ToXC8fmQCwjvv
-	GCf+ILKHqV41CVI29pdFKaJWp7QipduAECLGxalSNczC8gnfcIEvTtJidfFL8i6Bmmd2Odl7eqJ
-	Rwe/C8A0SE+pYtt0bfz0ACsHb3MIzZciLW/Uzu+5qlXGU8adGJyfHqlcUih6P6yDizgHZ9MCrDE
-	Q2go1IjXudtA9AjbfXgHj2AJbaKn1dilIh93W5AElefqewwYjJ2ibbTa+RKnRkSAKc3VjdFILD2
-	0NaVxymNrRktlhQ30GxZoJaKR3H/K0Mgq5TF5NWgTCRHyT9NrVvoVZOV3mPZfW7Nq8ITEKKI1vU
-	7PZc9QR4wRsgE4JsYh+9AqCOjsMbqSWvr+WlMEPTSkYSjFp/hMP+VsyUsS/ahY7p4VmETYRZN8K
-	kuEB61EKF4EkC/qKdapF1K1llVNnnK1hwvjjnrihGDz58VbROdSfiWnTR37WyY9lC/+J3Wj+UuR
-	XCXJAe5pqu60CLzPfhevD7yYnCKPpikuXKbbMrmn7IOuTbeAiMBSjqbXnCu1oK16SJ1Xt3W
-X-Received: by 2002:a05:690e:1181:b0:671:70d2:527b with SMTP id 956f58d0204a3-6717fd6a661mr4352075d50.62.1790046196312;
-        Mon, 21 Sep 2026 20:03:16 -0700 (PDT)
+        bh=B5rs7+ILfA3J/8r3zuBgSBRVCSTxSnXx2oYi6bmrhLI=;
+        b=Qh+Elqvl8Z+LZ9x6Jhh8EPOVxKwCr38xJ5hf/CvPrLrahEy8nlF+Hw+JbxmuilcEmh
+         KBoTBLvy9b8EgOgmAe6snoUat1GLn32ck5dl3BW0l7eKvH4X8eSmM7bCLpLNHTpzv7Pq
+         q3mCwfa/BFFAtE9GM7hMrTPfnJiTl7+LJhkkl4/FRd5MjiySuUiSVMSF6u9XAK68tHAX
+         KP6lCmEr/KzPVnHwnNvNho93MCcyC5uMMjdgYlw2bEz2XyOLeVQgBYvjac7n0d6l4Twm
+         27kkfNnGymTimznSHf25G+rAWc4q4ec3gtolnEK/3eBeIYgjHewXbreBW+euyJt60qlf
+         Y7qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790046200; x=1790651000;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B5rs7+ILfA3J/8r3zuBgSBRVCSTxSnXx2oYi6bmrhLI=;
+        b=VR8B3ON+avDL+EjGtj52cEVQxsXqhoIoNYwTGeYj8X4a71H07FnvZ7JU1l5ZZ0Thho
+         vw8sdY9GDcfdXVnyDMc6NU6/0mJQ6iRaacw5p7/9V+dO5YEA6FSonkt5rpwPbkdUBQ3t
+         c5VLwc9gbCTMtV/1NiAgdA6l0MUpTTkN9K7O03YSwSToPg8I1nUZrBYO9Ex/HjuIcwxP
+         5bxGbl6+QR6LmVtaYc0k2xrxEVzYKnCsYZDR5qdR1Vaz3sGFXdP7+Ui40I3Cj7pxkVZW
+         ePy+Fa2EcAk89Kb6xnymPUDIMy8zZePpj7s6p+PU7BVv603tF9b9rz/QcrT40lq6Ry0v
+         x1JA==
+X-Forwarded-Encrypted: i=1; AKwUvBwf0FLmFaOlumzWlTa1RITfVgK/vpCDZRR0bGEC/WTasqoFRUqz3qPfdYeb/8TxryuwdIYLj3wTg/1kU9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK/E0WyliNGWYFFfKAYAt72vIb6u8L4axsoPZlf/HwJja1oA2/
+	26y06EMntKjaCYVYyFaNTAaVtIyaFqqOTj0YRJK7haf8giCPytRoKxjB
+X-Gm-Gg: AYBFou1aybZ9Mw91QJ7xF438uIYZWgXkgxPRTWuqyoreLpnyA9+4ia1DoET1Ve+ZHZL
+	c9Ym9VtJToastyvLqPivCm3I+CpL81UPOYQ22kzRmylczySa0uM0Zavz3REETKQ+NvZ4yBzAPsE
+	HqMvH0OK3cEfAP/h1ooPHtB70fsfgXwXLWYaxOUJC6kRH4qNR30849YSx1YK1mmS1yx5y4DMu0A
+	zN47nq7NNhpSdehoaTfRSZh2gNTxwcPJabqBnA6NsnTLzVysfSQDTXfbv3HbQnmhDoUXkupSnug
+	MpH1TlaU9zg8jTSpn2Hk2GdshrqPUS9o4PIupO4iadQu6kBiU6XMj3Yop2twcUny9G5AxSjNozT
+	il+bTBP0bV1HoaX6d93DANc/8xyNcHhRbd5xDXF3g8UxWnPyCMi4L9LSnYQDSnVuzJM2nBlI1TW
+	ABQMT7hPQBUSGZF/JR3h0ZOhlmHGCrbu+hzDXrDyLUws0rgcPFXPO2nFvXF0PCZwM7VMfofdmMp
+	roGUPaFaV8sheEswhcw6CzNfBzTqqYkhPdhY9K7WIlFKGDSM6dCUTs8+xqZTZlkMbszKfAC
+X-Received: by 2002:a05:690e:138d:b0:668:1c09:aef1 with SMTP id 956f58d0204a3-6717fc7e75dmr3816179d50.6.1790046200291;
+        Mon, 21 Sep 2026 20:03:20 -0700 (PDT)
 Received: from localhost.localdomain ([2601:155:4200:2c80:2875:43a3:e345:710c])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a2c1b02abdsm1471447b3.17.2026.09.21.20.03.14
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a2c1b02abdsm1471447b3.17.2026.09.21.20.03.18
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 20:03:15 -0700 (PDT)
+        Mon, 21 Sep 2026 20:03:19 -0700 (PDT)
 From: Paulos Yibelo <habte.yibelo@gmail.com>
 To: netdev@vger.kernel.org
 Cc: richard@nod.at,
@@ -85,10 +87,12 @@ Cc: richard@nod.at,
 	coreteam@netfilter.org,
 	bridge@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v6 0/2] net: prevent partial checksums from modifying network headers
-Date: Mon, 21 Sep 2026 23:03:08 -0400
-Message-ID: <20260922030310.8684-1-habte.yibelo@gmail.com>
+Subject: [PATCH net v6 2/2] ip: reject partial checksums covering network headers
+Date: Mon, 21 Sep 2026 23:03:10 -0400
+Message-ID: <20260922030310.8684-3-habte.yibelo@gmail.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260922030310.8684-1-habte.yibelo@gmail.com>
+References: <20260922030310.8684-1-habte.yibelo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,45 +101,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A virtio-net header can supply CHECKSUM_PARTIAL metadata whose checksum
-start resolves inside a network header. Software checksum completion can
-then modify bytes the stack has already parsed.
+ip_do_fragment() and nf_br_ip_fragment() complete a CHECKSUM_PARTIAL skb
+before reading the IPv4 header length. ip6_fragment() and br_ip6_fragment()
+complete one after parsing the IPv6 header chain. A virtualization
+interface can supply a checksum start which, after link-layer removal,
+still points inside that parsed network header.
 
-Patch 1 checks the data-relative L3 origin in the virtio-net conversion
-paths. Patch 2 checks the parsed header length before checksum completion
-in IPv4 and IPv6 fragmentation paths.
+skb_checksum_help() then writes the completed checksum into header bytes
+the stack has already consumed. For IPv4, changing iph->ihl after routing
+and validation can make fragmentation copy beyond the skb's logical linear
+head into transmitted options. A negative checksum-start offset is rejected
+by skb_checksum_help(), but only after a WARN_ONCE which can panic a
+panic_on_warn system.
 
-Changes in v6 address Michael S. Tsirkin's review of v5:
-- Name the Ethernet-only L3 parser accordingly.
-- Derive the AF_PACKET L3 offset and protocol from the actual Ethernet
-  frame, including inline VLAN tags on an ETH_P_IP raw socket.
-- Use the IPv6 base-header minimum for IPv6 checksum-only packets,
-  including IFF_TUN before skb->protocol is set.
-- Restore Assisted-by: LLM on both patches. Patch 2's code is unchanged.
+Validate the checksum start against the parsed header length before
+completing it. For IPv4, read and validate IHL first, retain it, and
+reacquire iph after skb_checksum_help() in both implementations. For IPv6,
+use the length returned by ip6_find_1stfragopt() in both implementations.
 
-Validation: focused x86 allmodconfig and UML defconfig W=1 object builds,
-strict checkpatch, and application of the exact mail series to the stated
-base. No runtime regression reproducer was run.
+Compare the signed checksum-start offset with the bounded signed header
+length so integer promotion cannot bypass either boundary.
 
-Link: https://lore.kernel.org/netdev/20260921025341.44846-1-habte.yibelo@gmail.com/
+Fixes: dbd3393c56a8 ("ipv4: add defensive check for CHECKSUM_PARTIAL skbs in ip_fragment")
+Fixes: 405c92f7a541 ("ipv6: add defensive check for CHECKSUM_PARTIAL skbs in ip_fragment")
+Fixes: 3c171f496ef5 ("netfilter: bridge: add connection tracking system")
+Fixes: 764dd163ac92 ("netfilter: nf_conntrack_bridge: add support for IPv6")
+Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+Link: https://lore.kernel.org/netdev/20260920004733.6473-3-habte.yibelo@gmail.com/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
+---
+ net/bridge/netfilter/nf_conntrack_bridge.c | 21 +++++++++++++++-----
+ net/ipv4/ip_output.c                       | 23 ++++++++++++++++------
+ net/ipv6/ip6_output.c                      | 12 ++++++++---
+ net/ipv6/netfilter.c                       | 12 ++++++++---
+ 4 files changed, 51 insertions(+), 17 deletions(-)
 
-Paulos Yibelo (2):
-  net: validate virtio checksum start after network header
-  ip: reject partial checksums covering network headers
-
- arch/um/drivers/vector_transports.c        | 13 +++-
- drivers/net/tun_vnet.h                     | 52 ++++++++++++-
- drivers/net/virtio_net.c                   | 10 ++-
- include/linux/virtio_net.h                 | 87 ++++++++++++++++++----
- net/bridge/netfilter/nf_conntrack_bridge.c | 21 ++++--
- net/ipv4/ip_output.c                       | 23 ++++--
- net/ipv6/ip6_output.c                      | 12 ++-
- net/ipv6/netfilter.c                       | 12 ++-
- net/packet/af_packet.c                     | 24 +++++-
- 9 files changed, 214 insertions(+), 40 deletions(-)
-
-
-base-commit: 1e24c4f2ee44be0eee94092b5d13cbdb4bdf0d60
+diff --git a/net/bridge/netfilter/nf_conntrack_bridge.c b/net/bridge/netfilter/nf_conntrack_bridge.c
+index 7ecb8a26b..d81ed8692 100644
+--- a/net/bridge/netfilter/nf_conntrack_bridge.c
++++ b/net/bridge/netfilter/nf_conntrack_bridge.c
+@@ -38,18 +38,29 @@ static int nf_br_ip_fragment(struct net *net, struct sock *sk,
+ 	struct iphdr *iph;
+ 	int err = 0;
+ 
+-	/* for offloaded checksums cleanup checksum before fragmentation */
+-	if (skb->ip_summed == CHECKSUM_PARTIAL &&
+-	    (err = skb_checksum_help(skb)))
++	iph = ip_hdr(skb);
++	hlen = iph->ihl * 4;
++	if (unlikely(hlen < sizeof(*iph) || hlen > skb_headlen(skb))) {
++		err = -EINVAL;
+ 		goto blackhole;
++	}
+ 
+-	iph = ip_hdr(skb);
++	/* Complete offloaded checksums only after the validated IP header. */
++	if (skb->ip_summed == CHECKSUM_PARTIAL) {
++		if (unlikely(skb_checksum_start_offset(skb) < (int)hlen)) {
++			err = -EINVAL;
++			goto blackhole;
++		}
++		err = skb_checksum_help(skb);
++		if (err)
++			goto blackhole;
++		iph = ip_hdr(skb);
++	}
+ 
+ 	/*
+ 	 *	Setup starting values
+ 	 */
+ 
+-	hlen = iph->ihl * 4;
+ 	frag_max_size -= hlen;
+ 	ll_rs = LL_RESERVED_SPACE(skb->dev);
+ 	mtu = skb->dev->mtu;
+diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
+index a24cc8ee1..fa6a74d20 100644
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -770,16 +770,28 @@ int ip_do_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 	struct ip_frag_state state;
+ 	int err = 0;
+ 
+-	/* for offloaded checksums cleanup checksum before fragmentation */
+-	if (skb->ip_summed == CHECKSUM_PARTIAL &&
+-	    (err = skb_checksum_help(skb)))
+-		goto fail;
+-
+ 	/*
+ 	 *	Point into the IP datagram header.
+ 	 */
+ 
+ 	iph = ip_hdr(skb);
++	hlen = iph->ihl * 4;
++	if (unlikely(hlen < sizeof(*iph) || hlen > skb_headlen(skb))) {
++		err = -EINVAL;
++		goto fail;
++	}
++
++	/* Complete offloaded checksums only after the validated IP header. */
++	if (skb->ip_summed == CHECKSUM_PARTIAL) {
++		if (unlikely(skb_checksum_start_offset(skb) < (int)hlen)) {
++			err = -EINVAL;
++			goto fail;
++		}
++		err = skb_checksum_help(skb);
++		if (err)
++			goto fail;
++		iph = ip_hdr(skb);
++	}
+ 
+ 	mtu = ip_skb_dst_mtu(sk, skb);
+ 	if (IPCB(skb)->frag_max_size && IPCB(skb)->frag_max_size < mtu)
+@@ -789,7 +801,6 @@ int ip_do_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 	 *	Setup starting values.
+ 	 */
+ 
+-	hlen = iph->ihl * 4;
+ 	if (mtu < hlen + 8) {
+ 		err = -EMSGSIZE;
+ 		goto fail;
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 550965058..d157b6ade 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -942,9 +942,15 @@ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 	frag_id = ipv6_select_ident(net, &ipv6_hdr(skb)->daddr,
+ 				    &ipv6_hdr(skb)->saddr);
+ 
+-	if (skb->ip_summed == CHECKSUM_PARTIAL &&
+-	    (err = skb_checksum_help(skb)))
+-		goto fail;
++	if (skb->ip_summed == CHECKSUM_PARTIAL) {
++		if (unlikely(skb_checksum_start_offset(skb) < (int)hlen)) {
++			err = -EINVAL;
++			goto fail;
++		}
++		err = skb_checksum_help(skb);
++		if (err)
++			goto fail;
++	}
+ 
+ 	prevhdr = skb_network_header(skb) + nexthdr_offset;
+ 	hroom = LL_RESERVED_SPACE(rt->dst.dev);
+diff --git a/net/ipv6/netfilter.c b/net/ipv6/netfilter.c
+index a7025ec87..da7ada12f 100644
+--- a/net/ipv6/netfilter.c
++++ b/net/ipv6/netfilter.c
+@@ -144,9 +144,15 @@ int br_ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 	frag_id = ipv6_select_ident(net, &ipv6_hdr(skb)->daddr,
+ 				    &ipv6_hdr(skb)->saddr);
+ 
+-	if (skb->ip_summed == CHECKSUM_PARTIAL &&
+-	    (err = skb_checksum_help(skb)))
+-		goto blackhole;
++	if (skb->ip_summed == CHECKSUM_PARTIAL) {
++		if (unlikely(skb_checksum_start_offset(skb) < (int)hlen)) {
++			err = -EINVAL;
++			goto blackhole;
++		}
++		err = skb_checksum_help(skb);
++		if (err)
++			goto blackhole;
++	}
+ 
+ 	prevhdr = skb_network_header(skb) + nexthdr_offset;
+ 	hroom = LL_RESERVED_SPACE(skb->dev);
 -- 
 2.46.0
 
