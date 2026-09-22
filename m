@@ -1,298 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7902E7F39;
-	Tue, 22 Sep 2026 00:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B5B1DC198;
+	Tue, 22 Sep 2026 00:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790036921; cv=none; b=S9JE7F6ygoADHH/S3C3pui7WanikjIiYP85pj1GjBSr8fwrhDFuFDRNeAIqmJz2TqzMCxeasPVZT0CGrnfTLgfznkbt2+x4emU2eiQ89s/H742U95sUuS473M60MeU5AiKrBnGYA+ToO0V3OStpxDHtd/J1AphVqF8PoWo6acSo=
+	t=1790036945; cv=none; b=QfsxgHTRsk6DKjKn2BxKE3rPOgcJ3baSblOx0G3Eay/fhs5e1O3DRYpBNOD40rhvO71eI4RYizX28bruQQoMTi9ejQO8XzeCbS3DtK0sLVAsvAqdAulsJcWsQh2evshFF6PVLfAmg7oipnbexDZxfPd/p7Uf0feYFOAONrFkTgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790036921; c=relaxed/simple;
-	bh=3MCaI/FC391i2ZRDcEyzwnequbW/kAd6FRCGw6O+zRE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=B8Xk1EIWiQulwrWLgGMFiK+U+egJBSTFbSC8nHF604B3LsdIbOsXN96sl5uj/2ui44oFeQe4rPPCeb4xWOCe5mXMfG+YNTAQqEpGByhSyFmtnM6cUSX3eSs41RvLKxJz/rtoZiRR3qBQF0IThnswXFCIJsYCgR1+IbPEUf5bu7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCPoo50w; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790036945; c=relaxed/simple;
+	bh=n7B7jdiRS7bIuaoPrxGTnoJxQRC1M7+u+8sa5u0UyuQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jUZBVjVukF2HAToqVhNp+MHvWrZKqjIL/+gHK9dB0nuCXA/I4+bwZCcQsoj1zK/zpGbHqMNxepQ90EbOe7SkH34gBjKwN+M9LaJgFLjEr0hp+mmO8wB62K7l75CvSHB1LBFbAt5fgn59W6IUtOb5mEpdJoJb2yFym/zxwjSx5Uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=XEjyBBS7; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCPoo50w"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 70895C2BCB3;
-	Tue, 22 Sep 2026 00:28:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790036920;
-	bh=3MCaI/FC391i2ZRDcEyzwnequbW/kAd6FRCGw6O+zRE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=PCPoo50wCD0BQ5xHRxQ3JJGhgfB+R6JbHkJ2uO1r2ysQ9j4XHXEHS4BeeIvIXH2ME
-	 iaN9TZq8VhG69zvMPUKen31zl4E+WXExvEhkIu1SD7LZFypwdwhLrWi9FQ93dm6haj
-	 GslsUBiTeumlvdaOYVHTNqrfDZKli0Z4K+lIXxO0je/2yIaG82SDUFJMXfGimxMTpK
-	 oxBenv1B8WQZrsbZkUyMvHkLhZizd0yWFvc3XnzK3I3LCFq5HW4DwchNEMbhKhRIz7
-	 /LInViPym/fmbVDKXc7oR6Ach7hE5J6j88e6xGCABNBQ4p1aegU0BblbivQR/qFs7A
-	 gL7/k5pSi+S4Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D732C982F0;
-	Tue, 22 Sep 2026 00:28:40 +0000 (UTC)
-From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 20:28:17 -0400
-Subject: [PATCH] firmware: imx: sm: publish the protocol handle after the
- ops pointer
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="XEjyBBS7"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68M0SeoV63068831, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790036920; bh=n7B7jdiRS7bIuaoPrxGTnoJxQRC1M7+u+8sa5u0UyuQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=XEjyBBS7Upj/Fd5ccm7lRe74TmethZ9p0+tW8S0kkutowzN0WT5CZJbwDvBwWlgUw
+	 z2NXZfj9804TJN/m85o5J5F2ArrG2Hgqg1ENBgkm67rMlH4XT4vyf97Ys9ui5fuUw6
+	 FhV3ABrZdBV7szIPBafB3ytdI+iHzzyq2AIcxdpz7sxyEpF+svkI4tpDOKxGruvzQw
+	 k9NGPyrtoA2vejyyCeb+VYcngPp2z5j1X3Gc4Oqx6YxQmgAzz4u1LHMsxXsB+WWCeS
+	 VdA4Xar3TTy2qxZqPuNO3nvSTF7rnwwRNo28C6yleE6fQ+e+Dtv6RdqMACnC3S1Dck
+	 EHrk8ARA/tLVg==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68M0SeoV63068831
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 22 Sep 2026 08:28:40 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 22 Sep 2026 08:28:40 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 22 Sep 2026 08:28:40 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 22 Sep 2026 08:28:40 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, Jeff Johnson
+	<jeff.johnson@oss.qualcomm.com>, Johannes Berg <johannes@sipsolutions.net>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Topic: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+Thread-Index: AQHdSeAeQzf2/kHhyEaOG4CaLogmfLbYsc0AgAAGuQCAABezgIAASM4AgAAWAACAAI0MQA==
+Date: Tue, 22 Sep 2026 00:28:40 +0000
+Message-ID: <fe3c6884a96b476799f415a06314f1ba@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-7-luka.gejak@linux.dev>
+ <45eb7d5908f8fff9a18cba603fd3a4abfe8695f9.camel@sipsolutions.net>
+ <31285267ebc43aab631a4199059a247a8d937814@linux.dev>
+ <c208152fc5cb45e19ae7d4660394dbf2bc5e0271.camel@sipsolutions.net>
+ <bcd5a280-8184-4457-ae52-47a9e0fe763c@oss.qualcomm.com>
+ <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
+In-Reply-To: <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-imx-sm-v1-1-39f17526d253@vt.edu>
-X-B4-Tracking: v=1; b=H4sIAKDLsWoC/yXMywrCMBCF4Vcps3YkSY23VxEXSRztCIkyo6VQ+
- u4mdfkdDv8MSsKkcO5mEBpZ+VUq7KaDNITyIORbNTjj9ubkLOaInCfUjNH0R0rkvfUO6v8tdOd
- pbV2uf+s3Pil9WqA9YlDCKKGkoU0rx8O2R0k7WJYfL32Z2Y0AAAA=
-X-Change-ID: 20260921-mb-imx-sm-b038ece55152
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Jaidev Shastri <jaidevshastri@vt.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790036919; l=7699;
- i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=MVi9AlTKi2qUQtZyArCJT4Gbtet0T4epZvMQSbFRRLc=;
- b=+HX5ho3X6G6TKmcmVBZqXdSKnvD/ZBoZe11QNj4rKhZp1o9Gt9MLVR53YC6JnddxMrPp+KFMa
- 4bHBzgek/MABfU/R5+nDtB/2NNSaS7rt7j3JJIdrYX7G8iCKFEasN94
-X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
- pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
-X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
- auth_id=1044
-X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
-Reply-To: jaidevshastri@vt.edu
 
-From: Jaidev Shastri <jaidevshastri@vt.edu>
-
-sm-cpu, sm-lmm and sm-misc export helpers such as scmi_imx_cpu_start()
-and scmi_imx_lmm_info() to imx_rproc, fsl_sai and the i.MX SOF driver.
-Each helper gates on the file-scope protocol handle:
-
-	if (!ph)
-		return -EPROBE_DEFER;
-	return imx_cpu_ops->cpu_start(ph, ...);
-
-The probe functions set both globals in one statement:
-
-	imx_cpu_ops = handle->devm_protocol_get(sdev, ..., &ph);
-
-scmi_devm_protocol_get() stores *ph before it returns, so the gate
-becomes non-NULL before the ops pointer it guards is written. A consumer
-that passes the gate in that window dereferences imx_cpu_ops == NULL.
-Nothing orders the two stores for a reader either: the writer has no
-release, the reader has no acquire, and the load of imx_cpu_ops does not
-depend on the value of ph.
-
-Take the handle into a local, assign the ops pointer first and publish
-the handle with smp_store_release(). Read it with smp_load_acquire() in
-the exported helpers.
-
-Found with MBCheck, a static herd7-based memory consistency checker.
-
-Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
----
- drivers/firmware/imx/sm-cpu.c  | 24 ++++++++++++++++++------
- drivers/firmware/imx/sm-lmm.c  | 24 ++++++++++++++++++------
- drivers/firmware/imx/sm-misc.c | 24 ++++++++++++++++++------
- 3 files changed, 54 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/firmware/imx/sm-cpu.c b/drivers/firmware/imx/sm-cpu.c
-index 091b014f7..60ba700d0 100644
---- a/drivers/firmware/imx/sm-cpu.c
-+++ b/drivers/firmware/imx/sm-cpu.c
-@@ -16,7 +16,8 @@ static struct scmi_protocol_handle *ph;
- int scmi_imx_cpu_reset_vector_set(u32 cpuid, u64 vector, bool start, bool boot,
- 				  bool resume)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	return imx_cpu_ops->cpu_reset_vector_set(ph, cpuid, vector, start,
-@@ -26,7 +27,8 @@ EXPORT_SYMBOL(scmi_imx_cpu_reset_vector_set);
- 
- int scmi_imx_cpu_start(u32 cpuid, bool start)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	if (start)
-@@ -38,7 +40,8 @@ EXPORT_SYMBOL(scmi_imx_cpu_start);
- 
- int scmi_imx_cpu_started(u32 cpuid, bool *started)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	if (!started)
-@@ -51,6 +54,8 @@ EXPORT_SYMBOL(scmi_imx_cpu_started);
- static int scmi_imx_cpu_probe(struct scmi_device *sdev)
- {
- 	const struct scmi_handle *handle = sdev->handle;
-+	const struct scmi_imx_cpu_proto_ops *ops;
-+	struct scmi_protocol_handle *cpu_ph;
- 
- 	if (!handle)
- 		return -ENODEV;
-@@ -60,9 +65,16 @@ static int scmi_imx_cpu_probe(struct scmi_device *sdev)
- 		return -EEXIST;
- 	}
- 
--	imx_cpu_ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_IMX_CPU, &ph);
--	if (IS_ERR(imx_cpu_ops))
--		return PTR_ERR(imx_cpu_ops);
-+	ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_IMX_CPU, &cpu_ph);
-+	if (IS_ERR(ops))
-+		return PTR_ERR(ops);
-+
-+	imx_cpu_ops = ops;
-+	/*
-+	 * ph is the gate the exported helpers test. Publish it only after
-+	 * imx_cpu_ops is set, and pair with the smp_load_acquire() there.
-+	 */
-+	smp_store_release(&ph, cpu_ph);
- 
- 	return 0;
- }
-diff --git a/drivers/firmware/imx/sm-lmm.c b/drivers/firmware/imx/sm-lmm.c
-index 6807bf563..0e2cc7153 100644
---- a/drivers/firmware/imx/sm-lmm.c
-+++ b/drivers/firmware/imx/sm-lmm.c
-@@ -15,7 +15,8 @@ static struct scmi_protocol_handle *ph;
- 
- int scmi_imx_lmm_info(u32 lmid, struct scmi_imx_lmm_info *info)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	if (!info)
-@@ -27,7 +28,8 @@ EXPORT_SYMBOL(scmi_imx_lmm_info);
- 
- int scmi_imx_lmm_reset_vector_set(u32 lmid, u32 cpuid, u32 flags, u64 vector)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	return imx_lmm_ops->lmm_reset_vector_set(ph, lmid, cpuid, flags, vector);
-@@ -36,7 +38,8 @@ EXPORT_SYMBOL(scmi_imx_lmm_reset_vector_set);
- 
- int scmi_imx_lmm_operation(u32 lmid, enum scmi_imx_lmm_op op, u32 flags)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	switch (op) {
-@@ -57,6 +60,8 @@ EXPORT_SYMBOL(scmi_imx_lmm_operation);
- static int scmi_imx_lmm_probe(struct scmi_device *sdev)
- {
- 	const struct scmi_handle *handle = sdev->handle;
-+	const struct scmi_imx_lmm_proto_ops *ops;
-+	struct scmi_protocol_handle *lmm_ph;
- 
- 	if (!handle)
- 		return -ENODEV;
-@@ -66,9 +71,16 @@ static int scmi_imx_lmm_probe(struct scmi_device *sdev)
- 		return -EEXIST;
- 	}
- 
--	imx_lmm_ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_IMX_LMM, &ph);
--	if (IS_ERR(imx_lmm_ops))
--		return PTR_ERR(imx_lmm_ops);
-+	ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_IMX_LMM, &lmm_ph);
-+	if (IS_ERR(ops))
-+		return PTR_ERR(ops);
-+
-+	imx_lmm_ops = ops;
-+	/*
-+	 * ph is the gate the exported helpers test. Publish it only after
-+	 * imx_lmm_ops is set, and pair with the smp_load_acquire() there.
-+	 */
-+	smp_store_release(&ph, lmm_ph);
- 
- 	return 0;
- }
-diff --git a/drivers/firmware/imx/sm-misc.c b/drivers/firmware/imx/sm-misc.c
-index fb8d7bdb5..178a3f748 100644
---- a/drivers/firmware/imx/sm-misc.c
-+++ b/drivers/firmware/imx/sm-misc.c
-@@ -43,7 +43,8 @@ static const struct of_device_id allowlist[] = {
- 
- int scmi_imx_misc_ctrl_set(u32 id, u32 val)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	return imx_misc_ctrl_ops->misc_ctrl_set(ph, id, 1, &val);
-@@ -52,7 +53,8 @@ EXPORT_SYMBOL(scmi_imx_misc_ctrl_set);
- 
- int scmi_imx_misc_ctrl_get(u32 id, u32 *num, u32 *val)
- {
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -EPROBE_DEFER;
- 
- 	return imx_misc_ctrl_ops->misc_ctrl_get(ph, id, num, val);
-@@ -82,7 +84,8 @@ static int syslog_show(struct seq_file *file, void *priv)
- 	if (!syslog)
- 		return -ENOMEM;
- 
--	if (!ph)
-+	/* Pairs with the smp_store_release() in the probe function. */
-+	if (!smp_load_acquire(&ph))
- 		return -ENODEV;
- 
- 	ret = imx_misc_ctrl_ops->misc_syslog(ph, &size, syslog);
-@@ -153,6 +156,8 @@ static int scmi_imx_misc_ctrl_probe(struct scmi_device *sdev)
- {
- 	const struct scmi_handle *handle = sdev->handle;
- 	struct device_node *np = sdev->dev.of_node;
-+	const struct scmi_imx_misc_proto_ops *ops;
-+	struct scmi_protocol_handle *misc_ph;
- 	struct dentry *scmi_imx_dentry;
- 	u32 src_id, flags;
- 	int ret, i, num;
-@@ -165,9 +170,16 @@ static int scmi_imx_misc_ctrl_probe(struct scmi_device *sdev)
- 		return -EEXIST;
- 	}
- 
--	imx_misc_ctrl_ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_IMX_MISC, &ph);
--	if (IS_ERR(imx_misc_ctrl_ops))
--		return PTR_ERR(imx_misc_ctrl_ops);
-+	ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_IMX_MISC, &misc_ph);
-+	if (IS_ERR(ops))
-+		return PTR_ERR(ops);
-+
-+	imx_misc_ctrl_ops = ops;
-+	/*
-+	 * ph is the gate the exported helpers test. Publish it only after
-+	 * imx_misc_ctrl_ops is set, and pair with the smp_load_acquire() there.
-+	 */
-+	smp_store_release(&ph, misc_ph);
- 
- 	num = of_property_count_u32_elems(np, "nxp,ctrl-ids");
- 	if (num % 2) {
-
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-mb-imx-sm-b038ece55152
-
-Best regards,
---  
-Jaidev Shastri <jaidevshastri@vt.edu>
-
-
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBTZXB0ZW1iZXIgMjIs
+IDIwMjYgYXQgMTozNSBBTSwgIkplZmYgSm9obnNvbiIgPGplZmYuam9obnNvbkBvc3MucXVhbGNv
+bW0uY29tPiB3cm90ZToNCj4gDQo+IA0KPiA+DQo+ID4gT24gOS8yMS8yMDI2IDExOjE0IEFNLCBK
+b2hhbm5lcyBCZXJnIHdyb3RlOg0KPiA+DQo+ID4gPg0KPiA+ID4gT24gTW9uLCAyMDI2LTA5LTIx
+IGF0IDE2OjQ5ICswMDAwLCBMdWthIEdlamFrIHdyb3RlOg0KPiA+ID4NCj4gPiA+ID4NCj4gPiA+
+ID4gSXQgaXMgc3VwcG9zZWQgdG8gd29yayBpbiB0aGUgc2FtZSB3YXkgaXQgd29ya3MgZm9yIG90
+aGVyIGRyaXZlcg0KPiA+ID4gPiAgbWFpbnRhaW5lcnMuIEkgd291bGQgcmV2aWV3IHBhdGNoZXMg
+YW5kIHByb3ZpZGUgbXkgYWNrZWQgYnkgb3INCj4gPiA+ID4gIHJldmlld2VkIGJ5IHRoZW0gYW5k
+IFBpbmctS2Ugd291bGQgYXBwbHkgdGhlbSB0byBoaXMgcnR3LW5leHQgYnJhbmNoLg0KPiA+ID4g
+Pg0KPiA+ID4NCj4gPiA+ICBJIGRvbid0IHRoaW5rIHdlIGhhdmUgYSBsb3Qgb2YgZm9sa3MgYmVs
+b3cgdGhlIGRyaXZlciBtYWludGFpbmVycyB3aG8gcw0KPiA+ID4gIGVuZCBtZSBwdWxsIHJlcXVl
+c3RzIChleGNlcHQgVG9rZSBtYXliZT8pIC0gYnV0IGFzIGxvbmcgYXMgSSBkb24ndCBuZWVkDQo+
+ID4gPiAgdG8gZGVhbCB3aXRoIGl0IEknbSBoYXBweSwgeW91IGNhbiBmaWd1cmUgaXQgb3V0IGJl
+dHdlZW4geW91cnNlbHZlcyA6KQ0KPiA+ID4NCj4gPiBGb3IgYXRoLmdpdCB0aGVyZSBhcmUgc3Vi
+LW1haW50YWluZXJzIGZvciBhdGg1ayAoTXVsdGlwbGUpLCBhdGg5ayAoVG9rZSksDQo+ID4gY2Fy
+bDkxNzAgKENocmlzdGlhbiksIGFuZCB3Y24zNnh4IChMb2ljKS4NCj4gPg0KPiA+IFRva2UgaGFz
+IGEgbGludXgtd2lyZWxlc3MgcGF0Y2h3b3JrIGFjY291bnQgc28gdGhlIGF0aDlrIHBhdGNoZXMg
+YXJlIGluaXRpYWxseQ0KPiA+IGFzc2lnbmVkIHRvIGhpbSBpbiBwYXRjaHdvcmssIGFuZCBoZSBB
+Y2tzIG9uIHRoZSBsaXN0IGFuZCBhc3NpZ25zIHRoZQ0KPiA+IHBhdGNod29yayByZWNvcmRzIHRv
+IG1lIHdoZW4gaGUgYXBwcm92ZXMgcGF0Y2hlcy4NCj4gPg0KPiA+IEZvciB0aGUgb3RoZXJzIHRo
+ZSBtYWludGFpbmVycyBqdXN0IEFjayBvbiB0aGUgbGlzdCwgYW5kIEkgdGFrZSB0aGVtIGZyb20g
+dGhlcmUuDQo+ID4NCj4gPiBTbyB0aGUgcXVlc3Rpb24gaXMgZG8gaG93IGRvIHlvdSB3YW50IHRv
+IGhhbmRsZSB0aGlzIGluIHBhdGNod29yaz8NCj4gPg0KPiA+IC9qZWZmDQo+ID4NCj4gDQo+IFdo
+YXQgZG8geW91IHRoaW5rIG1ha2VzIG1vcmUgc2Vuc2UgaGVyZTogcGF0Y2h3b3JrIGRlbGVnYXRl
+DQo+IGFjY2VzcyBsaWtlIFRva2UgaGFzIGZvciBhdGg5aywgb3Igb24gbGlzdCBhY2sgYmFzZWQ/
+IEknZCBsZWFuDQo+IHRvd2FyZHMgZGVsZWdhdGUgYWNjZXNzIGlmIGl0J3Mgbm90IGEgYmlnIGFz
+ayBvbiB5b3VyIGVuZCwgYnV0DQo+IGhhcHB5IHRvIGdvIHdpdGggd2hhdGV2ZXIgd29ya3MgYmVz
+dCBvcGVyYXRpb25hbGx5IGZvciB5b3UuDQoNCkknbSBoYXBweSB0aGF0IHBlb3BsZSBqb2luIHJ0
+dzg4IHJldmlld2Vycy4gDQoNClBlcnNvbmFsbHkgSSBwcmVmZXIgcGVvcGxlIGdpdmUgUmV2aWV3
+ZWQtYnkgdGFnIHRvIHRoZSBwYXRjaGVzLCBhbmQNCkkgY2FuIG15c2VsZiB0YWtlIHRoZSBwYXRj
+aGVzIGJ5IHBhdGNod29yayBzdGF0ZSBhbmQgc2VuZCBwdWxsLXJlcXVlc3QNCnRvIEpvaGFubmVz
+LiANCg0KV2l0aCBhZGRpdGlvbmFsIGZsb3dzIG9mIHBhdGNod29yayBhbmQgcHVsbC1yZXF1ZXN0
+LCBpdCBsb29rcyBtdWNoDQpoYXJkIHRvIG1haW50YWluLCBzaW5jZSBJIGRvbid0IHRoaW5rIHRo
+ZXJlIHdpbGwgYmUgYSBsb3Qgb2YgcGF0Y2hlcyBvZg0KZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVh
+bHRlay9ydHc4OC9ydHc4NzIzYioue2MsaH0NCg0KQnkgdGhlIHdheSwgaWYgeW91IGFyZSBpbnRl
+cmVzdGVkIGluIHJ0dzg4LCBtYXliZSBhZGQgYSAiUjoiDQplbnRyeSB0byBiZSBhIHJldmlld2Vy
+IG9mIHJ0dzg4Pw0KDQpQaW5nLUtlDQoNCg==
