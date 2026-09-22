@@ -1,158 +1,119 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E198D52940E;
-	Tue, 22 Sep 2026 08:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B52523791;
+	Tue, 22 Sep 2026 08:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066777; cv=none; b=W1ku+fDABsgMEzGZ0VDl/tI2pt2IIuLp3Tsl4g2rfNtefyicsjnt7gBcixSZAr0QR2nQ/UtfRxX09/Scc6zBw8A63sLq9IYKzIpza7Ye282uR2DRz6XXw0CdpbVxIUStVFTBcL82zxgLymoPjUL7smH6iBiHA+WO6w1uOSMqVSc=
+	t=1790066798; cv=none; b=UE0HwpcpMpc8zFaoijY15TLWmKl9z8MmT10+DqUw0byJvKIuwjXxEViFiGqPCqE9ft5D1xtm0JvpaaBM/3CtpYWdLkOrVvjLyqbYWwGqJdcbH1YCyCB3qKlIwtUzsZVR1qs0EuQI3jEcDkYGsYIegQZ2b7nys/b9VrkJOSA/KZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066777; c=relaxed/simple;
-	bh=OhNrXd95q2AFjkshRT6MKjGAtmK7ODVQCcP6uTvI8uY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QHbIDrykTZdieSuIXUUCEc6Uxte/SqRnMz1ruh3Sbe+0tZYKXClsPoqp39P04CxV1lO79RzyUqjXXAVA0o2raztvZAxrAQvTgPCMfO6P4Lz25XsxEtzhQB5GF7gW4WNvsOgBXjj5bm9LD6oUV+2ohvV9H/2zHYs/rd+7KXPT3FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CKmiJu9t; arc=none smtp.client-ip=220.197.31.4
+	s=arc-20240116; t=1790066798; c=relaxed/simple;
+	bh=ZNYYHyDoTjq9ruH2pMc+PQRugyOSPe4AkRs5fFJPTQE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=tIRcm09ABvCzFeivOZMVeh3PfrV8Di7B8ruLlqclO9NdubMg8uZwcR0fKHbq1X57LAHbsuR34vadMgabb7Yx+fJdVQh+xwmvmdFlWY8PgayvGdcOSbWAAHF4WEhnzVNa/OazJaqXrmQF9svb7WqlX7eOxKJXABHhsSPOWSoU2nE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JF/Z2oj9; arc=none smtp.client-ip=220.197.31.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CKmiJu9t"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JF/Z2oj9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Qt
-	jIcsjxKqFLUwSQXtQubvciZlrWiqtVRuCDQVYP0R8=; b=CKmiJu9t8zDpSCoNiU
-	XIL63teNrcrW6bvpWxianLK7fRlU5IEY6VYZ+NJOWyS0lAwals3vlzt3hzI/2WGF
-	9kdCUK/ophW1WfrRXKaOzuBAld/hlHtadwT3gbXPifM9BGd22Fsj4JNea5P8wZ4+
-	D42ZG3FiLR5PDnxiXlVvsKuL0=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD330E_QLJqT4dWAA--.33181S3;
-	Tue, 22 Sep 2026 16:45:53 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH v7 1/3] dt-bindings: net: can: ifi,canfd-1.0: Convert to DT schema
-Date: Tue, 22 Sep 2026 16:45:40 +0800
-Message-ID: <20260922084542.104788-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922084542.104788-1-quchaosheng000406@163.com>
-References: <20260922084542.104788-1-quchaosheng000406@163.com>
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=ZNYYHyDoTjq9ruH2pMc+PQRugyOSPe4AkRs5fFJPTQE=; b=J
+	F/Z2oj9v7aECMMjsG1GDp5uhtng06Nzv351AWkLzFpfDA22B1llx2mniq2uvHIcD
+	BFZLaHQAVK6iwfN/dc3/5BTd2XD4pVeIdvmKHiAWJz6Wau/KENWWfaY1NXYEP8wA
+	MWLyuHMIGznNWUcGTXc+Hb8eKLjlUUJhUd2kPiAcLw=
+Date: Tue, 22 Sep 2026 16:45:28 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH v8 08/18] gpiolib: regmap: add write_data_after_dir
+ quirk
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAD++jLkSfPvuO=ZgqwYnbBBjxuu4ns1EDpHXQxKgWGqK9E130A@mail.gmail.com>
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+ <20260921-cv75-v5-v8-8-282ff5d98dda@ambarella.com>
+ <CAD++jLkSfPvuO=ZgqwYnbBBjxuu4ns1EDpHXQxKgWGqK9E130A@mail.gmail.com>
+X-NTES-SC: AL_Qu2SAvyduU8p7iKZZekcn0wRhug/UMa4u/sm3YNXc84FpwPw5QMjZmNDNHL32tKTBxilqxOseRpTx8lTXqZ3sj05Ju8ZRNM+t6w3+JxA7Q==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD330E_QLJqT4dWAA--.33181S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1kGrWruFyrGr43Zw17trb_yoW5Aw48pa
-	y3CFsrXF4IqF43C397K3W8C3W3XFs5AF15Gr9rXw10yas09Fy5tw4akr95Za4jqrZ2vFWx
-	XFn0ga1Ut3WxXaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR1GQDUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wJn3GqyQEJADQAA3N
+Message-ID: <5360c3b9.7b09.1a0c84a9d1d.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:gygvCgDnN1YoQLJq3sAVAA--.40231W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxQhh0mqyQCix7gAA3R
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Convert the IFI CAN-FD controller binding from free-form text to DT
-schema.
-
-Reference can-controller.yaml. interrupts is required: the driver obtains
-it with platform_get_irq().
-
-The example now uses the GIC and irq header defines instead of raw numbers.
-The values are unchanged: GIC_SPI is 0, IRQ_TYPE_NONE is 0 and 1 is
-IRQ_TYPE_EDGE_RISING. Rename the example node from canfd to can so that it
-matches the $nodename pattern in can-controller.yaml.
-
-Assisted-by: LLM
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
-
-v7:
- - Add Assisted-by and the Reviewed-by tag received on v6. No content change.
-
- .../bindings/net/can/ifi,canfd.yaml           | 46 +++++++++++++++++++
- .../devicetree/bindings/net/can/ifi_canfd.txt | 15 ------
- 2 files changed, 46 insertions(+), 15 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/can/ifi_canfd.txt
-
-diff --git a/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
-new file mode 100644
-index 000000000000..c8c3105c727b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/can/ifi,canfd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: IFI CAN-FD Controller
-+
-+maintainers:
-+  - Marc Kleine-Budde <mkl@pengutronix.de>
-+
-+description:
-+  The I/F/I CAN-FD soft IP block connected to the platform bus. It is most
-+  often synthesised into an FPGA or CPLD.
-+
-+allOf:
-+  - $ref: can-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: ifi,canfd-1.0
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    can@ff220000 {
-+        compatible = "ifi,canfd-1.0";
-+        reg = <0xff220000 0x1000>;
-+        interrupts = <GIC_SPI 43 IRQ_TYPE_NONE>;
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/can/ifi_canfd.txt b/Documentation/devicetree/bindings/net/can/ifi_canfd.txt
-deleted file mode 100644
-index 20ea5c70ab82..000000000000
---- a/Documentation/devicetree/bindings/net/can/ifi_canfd.txt
-+++ /dev/null
-@@ -1,15 +0,0 @@
--IFI CANFD controller
----------------------
--
--Required properties:
--  - compatible: Should be "ifi,canfd-1.0"
--  - reg: Should contain CAN controller registers location and length
--  - interrupts: Should contain IRQ line for the CAN controller
--
--Example:
--
--	canfd0: canfd@ff220000 {
--		compatible = "ifi,canfd-1.0";
--		reg = <0xff220000 0x00001000>;
--		interrupts = <0 43 0>;
--	};
--- 
-2.43.0
-
+SGkgTGludXMsCgpUaGFua3MgZm9yIHRoZSByZXZpZXcuCkkgd2lsbCBkbyBpbiB0aGUgbmV4dCBy
+ZXZpc2lvbi4KCkJlc3QgcmVnYXJkcywKTG9uZyBaaGFvCgpBdCAyMDI2LTA5LTIyIDE1OjE3OjQ4
+LCAiTGludXMgV2FsbGVpaiIgPGxpbnVzd0BrZXJuZWwub3JnPiB3cm90ZToKPkhpIExvbmcsCj4K
+PnRoaXMgaXMgc3RhcnRpbmcgdG8gbG9vayBnb29kIQo+Cj5PbiBNb24sIFNlcCAyMSwgMjAyNiBh
+dCA2OjIz4oCvQU0gTG9uZyBaaGFvIHZpYSBCNCBSZWxheQo+PGRldm51bGwrbG9uZ3poYW8uYW1i
+YXJlbGxhLmNvbUBrZXJuZWwub3JnPiB3cm90ZToKPgo+PiBGcm9tOiBMb25nIFpoYW8gPGxvbmd6
+aGFvQGFtYmFyZWxsYS5jb20+Cj4+Cj4+IFNvbWUgY29udHJvbGxlcnMgaWdub3JlIGRhdGEtcmVn
+aXN0ZXIgd3JpdGVzIHdoaWxlIGEgbGluZSBpcyBzdGlsbCBhbgo+PiBpbnB1dC4gT3B0aW9uYWxs
+eSB3cml0ZSB0aGUgb3V0cHV0IHZhbHVlIGFnYWluIGFmdGVyIHN3aXRjaGluZyB0aGUKPj4gZGly
+ZWN0aW9uLCBtYXRjaGluZyB0aGUgZXhpc3RpbmcgUEwwNjEgYmVoYXZpb3VyLgo+Pgo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4oLi4uKQo+Cj4+
+ICsrKyBiL2luY2x1ZGUvbGludXgvZ3Bpby9yZWdtYXAuaAo+PiBAQCAtNDgsNiArNDgsMTMgQEAg
+c3RydWN0IHJlZ21hcDsKPj4gICAqICAgICAgICAgICAgICAgICAgICAgKE9wdGlvbmFsKSBCaXRt
+YXAgcmVwcmVzZW50aW5nIHRoZSBmaXhlZCBkaXJlY3Rpb24gb2YKPj4gICAqICAgICAgICAgICAg
+ICAgICAgICAgdGhlIEdQSU8gbGluZXMuIFVzZWZ1bCB3aGVuIHRoZXJlIGFyZSBHUElPIGxpbmVz
+IHdpdGggYQo+PiAgICogICAgICAgICAgICAgICAgICAgICBmaXhlZCBkaXJlY3Rpb24gbWl4ZWQg
+dG9nZXRoZXIgaW4gdGhlIHNhbWUgcmVnaXN0ZXIuCj4+ICsgKiBAd3JpdGVfZGF0YV9hZnRlcl9k
+aXI6Cj4+ICsgKiAgICAgICAgICAgICAgICAgICAgIChPcHRpb25hbCkgV3JpdGUgdGhlIG91dHB1
+dCB2YWx1ZSBhZ2FpbiBhZnRlcgo+PiArICogICAgICAgICAgICAgICAgICAgICBzd2l0Y2hpbmcg
+YSBsaW5lIHRvIG91dHB1dCBpbiAtPmRpcmVjdGlvbl9vdXRwdXQoKS4KPj4gKyAqICAgICAgICAg
+ICAgICAgICAgICAgTmVlZGVkIGZvciBoYXJkd2FyZSB3aGljaCBpZ25vcmVzIGRhdGEgcmVnaXN0
+ZXIKPj4gKyAqICAgICAgICAgICAgICAgICAgICAgd3JpdGVzIHdoaWxlIHRoZSBsaW5lIGlzIGNv
+bmZpZ3VyZWQgYXMgYW4gaW5wdXQuCj4+ICsgKiAgICAgICAgICAgICAgICAgICAgIFRoaXMgaXMg
+YSBsZWdhY3kgcXVpcmsgKGUuZy4gQVJNIFBMMDYxKTsgbmV3IGhhcmR3YXJlCj4+ICsgKiAgICAg
+ICAgICAgICAgICAgICAgIG11c3Qgbm90IHVzZSBpdC4gRGlyZWN0aW9uIGNoYW5nZXMgd2lsbCBn
+bGl0Y2guCj4+ICAgKiBAZHJ2ZGF0YTogICAgICAgICAgIChPcHRpb25hbCkgUG9pbnRlciB0byBk
+cml2ZXIgc3BlY2lmaWMgZGF0YSB3aGljaCBpcwo+PiAgICogICAgICAgICAgICAgICAgICAgICBu
+b3QgdXNlZCBieSBncGlvLXJlbWFwIGJ1dCBpcyBwcm92aWRlZCAiYXMgaXMiIHRvIHRoZQo+PiAg
+ICogICAgICAgICAgICAgICAgICAgICBkcml2ZXIgY2FsbGJhY2socykuCj4+IEBAIC05NCw2ICsx
+MDEsNyBAQCBzdHJ1Y3QgZ3Bpb19yZWdtYXBfY29uZmlnIHsKPj4gICAgICAgICB1bnNpZ25lZCBp
+bnQgcmVnX2Rpcl9vdXRfYmFzZTsKPj4gICAgICAgICBpbnQgcmVnX3N0cmlkZTsKPj4gICAgICAg
+ICBpbnQgbmdwaW9fcGVyX3JlZzsKPj4gKyAgICAgICBib29sIHdyaXRlX2RhdGFfYWZ0ZXJfZGly
+Owo+PiAgICAgICAgIHN0cnVjdCBpcnFfZG9tYWluICppcnFfZG9tYWluOwo+PiAgICAgICAgIHVu
+c2lnbmVkIGxvbmcgKmZpeGVkX2RpcmVjdGlvbl9tYXNrOwo+PiAgICAgICAgIHVuc2lnbmVkIGxv
+bmcgKmZpeGVkX2RpcmVjdGlvbl9vdXRwdXQ7Cj4KPjEuIFlvdSBoYXZlIHB1dCB0aGUga2VybmVs
+ZG9jIGluIGEgY29tcGxldGVseSBkaWZmZXJlbnQgcGxhY2UgaW4gdGhlIG9yZGVyCj5vZiB0aGlu
+ZyB0aGFuIHdoZXJlIHlvdSBwdXQgdGhlIGZsYWcgaW4gdGhlIHN0cnVjdC4KPgo+Mi4gUHV0IGEg
+Y29tbWVudCBhYm92ZSB0aGUgYmVoYXZpb3VyIGZsYWdzIGJlY2F1c2UgdGhlcmUgd2lsbAo+aW52
+YXJpYWJseSBiZSBtb3JlIG9mIHRoZW0hIFNvbWV0aGluZyBsaWtlOgo+LyogUmVnbWFwIEdQSU8g
+YmVoYXZpb3VyIGZsYWdzICovCj4KPjMuIFB1dCBhIG5ld2xpbmUgYmVmb3JlICYgYWZ0ZXIgdGhl
+IGZsYWdzIHNvIHRoZXkgZW5kIHVwIGluIGEgc2VwYXJhdGUKPnNlY3Rpb24gb2YgdGhlIHN0cnVj
+dCwgc28gcGVvcGxlIGtub3cgd2hlcmUgdG8gYWRkIHRoZW0uCj4KPkkgd291bGQgcHV0IHRoZW06
+Cj4KPiAgICAgICAgc3RydWN0IGRldmljZSAqcGFyZW50Owo+ICAgICAgICBzdHJ1Y3QgcmVnbWFw
+ICpyZWdtYXA7Cj4gICAgICAgIHN0cnVjdCBmd25vZGVfaGFuZGxlICpmd25vZGU7Cj4KPiAgICAg
+ICAgY29uc3QgY2hhciAqbGFiZWw7Cj4gICAgICAgIGludCBuZ3BpbzsKPiAgICAgICAgY29uc3Qg
+Y2hhciAqY29uc3QgKm5hbWVzOwo+Cj5IRVJFCj4KPiAgICAgICAgdW5zaWduZWQgaW50IHJlZ19k
+YXRfYmFzZTsKPiAgICAgICAgdW5zaWduZWQgaW50IHJlZ19zZXRfYmFzZTsKPgo+WW91cnMsCj5M
+aW51cyBXYWxsZWlqCg==
