@@ -1,144 +1,95 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 883135383DB;
-	Tue, 22 Sep 2026 23:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCA751A14F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:39:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790120304; cv=none; b=S0LhecXwlyYbESUp11dw/XCkRoWqfjEt+eU+NfHkcFfDiEm5agUy5SrVELMuaSyuzgNcVJGLm8bExn75Rc5X8OvfjN1kn15Oj8h3vr+TEWzXVgNwbs2aKFBXvPqHTFlsNz1AQvuVJlqXzMVOdunC0PJMwTWoF6DAGnNkkDXBFow=
+	t=1790120380; cv=none; b=snv1OpEcFD7XVy0DaNk+dHrxE2VNAB++r0yw78ujN69kUpFhoMhNYkX+uUoasL011SQOGN+bXj7KAcFkmopjQy1uxrBlfKO1AohKbhnfcIVeRY8Aj0lz7XAo57V8YxPDVmi/aAFlvbccNzF/ddRAsgY48LdLL9eXsbYNMfW2MMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790120304; c=relaxed/simple;
-	bh=Vp57X95Fk0aMix9oOoIvdNpS8L+cBiuf1SveFkrXClA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DyFs763CpE2rTL4Xr0yCjf/39vnd2F071MIC9Mn3TpQZahzhkoBE4eRVqiONa6OLy5HRk0K2AtKS6nFC7lqDw5ux218wpSNMM6yCHFV6DVC6iBbjr4jMU7paxRL2eckP6cfmjUmihxEjUeY94huQ988ga1bDt3gPI5vMzlxBwPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=halJVZJU; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790120380; c=relaxed/simple;
+	bh=b4PyemOas51sLYTItG1LKlf5UMn0KctJVlyzgXvS4fk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=JW6BgVar97X23RgWlHmejtbHMxa/yBY2heIdj3ePMCQjeomoRrlZuDDDDnR3/H/L+ToTbZVwMk1sobE65lRKRGsHW4Cwy1fwZqTrlTcLBuuQ9F8Qs8whOR9WDYPQ6vbQo4UAol8MjFRC9oon3slWAgaVO1mH2E4A+aMIdSQukw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nGTZ3u/k; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="halJVZJU"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 528721576;
-	Tue, 22 Sep 2026 16:38:10 -0700 (PDT)
-Received: from [10.57.9.113] (unknown [10.57.9.113])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC8583F86C;
-	Tue, 22 Sep 2026 16:38:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790120293; bh=Vp57X95Fk0aMix9oOoIvdNpS8L+cBiuf1SveFkrXClA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=halJVZJULr7JY7CEvIFT//j2bv2nqQT6X3o1V9LDwSkgL6/JIzlvX9R+gJkvg+2Fb
-	 dI7uC1/f4STe573EZeAFUFyvB+VpSw5BMoraX1wGMoySSm9uzLFO+Pr6CGkr5NFWV1
-	 wubIkq6ypSPFGK9246v1H/JYbtqzRidVcEAwQL3A=
-Message-ID: <f72a26bf-a64f-4053-b7a6-4b33faeb9b58@arm.com>
-Date: Wed, 23 Sep 2026 00:38:09 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nGTZ3u/k"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so1654955e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:39:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790120375; x=1790725175; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=b4PyemOas51sLYTItG1LKlf5UMn0KctJVlyzgXvS4fk=;
+        b=nGTZ3u/kWzZEqaIqg+axaFdnzXCJuW+PrSaAzT+4cTEknGMQsJCLDJswUVeF4vneU2
+         OCNR5n3p4ybKz8SsSCLFH9Y7apg/H75Z6vi8sMhlEI4ulO45TLmN2LREXMfWQV6Jfxrl
+         TAulGa8oSGX4hTgEsrnoEuvfK2h0HEoZG96cGEmC6HxonTbIKQQtxShKcCxd/S7UksNi
+         y2qjltP1TzW7tTxobdyQYnkAmrDLLpB8PfE1lRe2OGkR3Mzs8xaPdFvZWoiTnQo/FF39
+         UYh+JdFjfZIxInLB2dv513cvYG95H7rr5v5WpbMRMR00QetKZ+FQGhN2EvJhA0KxXVOC
+         6Rpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790120375; x=1790725175;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b4PyemOas51sLYTItG1LKlf5UMn0KctJVlyzgXvS4fk=;
+        b=tEzbO6dJ8+hYV8dlkuwsa/PA94RWWvWZgfSWEd/D0hnP5kt3blxcj3PW0lOJuEmcD6
+         lEiiwIWg2cj58Abqs3sXClWBkff3fFlCKwWz5MU8phkj0UJXSM01+Z2zF7Do4JefGHu0
+         zxrTibNWZYTQPjEr+YdQya1Jr25zTS0x8kMPkDmZjWQjSHAXH3DggBCCdSJw9motF9Mu
+         6UnR5W7wdWHIB/KUdrPjF5SqgstefBoAD6ODTjG78/kIbeUwZeZDYS0UpLvwzsiuaujd
+         +neHpVbWVXFuLOBmQLZ4v8r4pABUkX4KwgVo1aqOFB7FyhMRHBtaq4BEdTCMJ8QxX0mk
+         E7Gg==
+X-Forwarded-Encrypted: i=1; AKwUvBzAFKRI7OzMObBfuChAo/JjQv3Yo821y26c2VisGu3HOu55bkDpw6MjyEppu7dIbZm8HnD+K6GtSPAh9VI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQFu/PdJBa3PPZpu60hljBnS6EzhUuvgB0UnzSrzmwXFsbipiz
+	h7D/1sJ2M3UBA38Tc9uCjF5dXj24ZYkRJXv4ZL64PdTd+XujJACVc+Fn+25E59FeJ5g=
+X-Gm-Gg: AYBFou15DG7a2UAD17ocgPE5dbyWbaRHa6j4ow9Yy4ssHfQCabSuboqs1w7R2TioUkj
+	zK+TLdJZvrGYSHe3OdL79Rb1W03/Zk81jzzQSgUTK+uaeXezAMa3oMmdpYtzqXIRM4N+GhArCWZ
+	YkiktglqKWXZkObcxdX/3DMirUWEUgcJkZHciP1V9xq434X1DcBYF+JczTay1GjLImFJ89yvTBf
+	2YfRMi3IvED9iJGplsQ3Y+y4ZXXWiH+/tYQCqyC4a3EMcIihfyG51nd0D/bBegwXCZU+bUmNdrV
+	EaydkEUoA2UVhRdfsXqPdAklWftnh38ofu6TQuBres9oNFaMQnIfnZUeCgdwNe0PaeWvw91y2dS
+	Na6/5DxFBDI5yqU87tFSE1Rnctcc/SC46qle85nmpIbMpaticEwFIPKD+2s86RUwdK6HMztRnEk
+	57vcVk6PfDmjNW69qOu2cqS3qP/yKiD+guUS9+eiM6kF7x4pE7EW7X7WFyZLzzhlfz+R+d1W40n
+	B5CgU7J/jDrP2Bnyn4w0K72GlE5Y0AUI6D4iLoZVf+1lkZzxcOXAWX/QhdrAYwtTwyZew==
+X-Received: by 2002:a05:600c:4f84:b0:49f:cbae:3414 with SMTP id 5b1f17b1804b1-49fdee0af33mr8327405e9.4.1790120375291;
+        Tue, 22 Sep 2026 16:39:35 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1a0e00sm23315025e9.10.2026.09.22.16.39.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 16:39:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 11/20] KVM: arm64: Mandate VGIC v3 for for VMs running
- on hyp that don't trust the host
-Content-Language: en-GB
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
- <20260920212845.707-12-suzuki.poulose@arm.com>
- <20260922154219.00000999@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20260922154219.00000999@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 00:39:34 +0100
+Message-Id: <DLM8PMZGW3LZ.37Z3VI9NHG5D6@linaro.org>
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>,
+ <lee@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <andersson@kernel.org>, <konradybcio@kernel.org>,
+ <sboyd@kernel.org>
+Cc: <dmitry.baryshkov@oss.qualcomm.com>, <alexey.klimov@linaro.org>,
+ <r.mereu@arduino.cc>, <srini@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 5/5] arm64: defconfig: Enable configs for audio
+ drivers on Arduino UnoQ
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+X-Mailer: aerc 0.21.0
+References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+ <d7e64ce498db8aec475b8652563c6cd8bc8cd429.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <d7e64ce498db8aec475b8652563c6cd8bc8cd429.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
 
-On 22/09/2026 23:42, Jonathan Cameron wrote:
-> On Sun, 20 Sep 2026 22:28:36 +0100
-> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> 
->> pKVM and RMM, both do not trust the host. Add a helper to detect the VMs
-> 
-> Maybe don't mention RMM yet, or make it clear that isn't here in this
-> patch.
+On Tue Sep 22, 2026 at 11:11 PM BST, Srinivas Kandagatla wrote:
+> Enable reset controller and pm4125 audio codec driver that are required
+> to enable audio support on Arduino UnoQ board.
+>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Ack.
-
-> 
->> that have "distrusting" hyp. Use this for blocking ioremap of vgic-v2 into
->> stage2 and prevent creation of VGIC other than v3.
->>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
-Thanks
-
-> 
-> Other than minor comments, it feels to me like these first 11
-> patches are good cleanup even without the RMM stuff that follows.
-> Perhaps can get these upstream faster than the rest?
-> 
-> Jonathan
-> 
->> ---
->> Changes since v18:
->>   - Cover pKVM guests for VGIC v3 mandate.
->>   - Merge the VGIC mandate check in here.
->> ---
->>   arch/arm64/include/asm/kvm_host.h | 3 +++
->>   arch/arm64/kvm/mmu.c              | 2 +-
->>   arch/arm64/kvm/vgic/vgic-init.c   | 2 ++
->>   3 files changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
->> index 3211543a85b38..bb156a633ab75 100644
->> --- a/arch/arm64/include/asm/kvm_host.h
->> +++ b/arch/arm64/include/asm/kvm_host.h
->> @@ -328,6 +328,8 @@ enum fgt_group_id {
->>   enum kvm_arm_vm_flavor {
->>   	VM_NVHE,
->>   	VM_VHE,
->> +	/* VMs running on a hyp that doesn't trust */
->> +	MARKER(__VM_DISTRUSTING_HYP),
->>   	VM_PKVM,		/* Normal guests on pKVM */
->>   	MARKER(__VM_PROTECTED),
->>   	VM_PROTECTED_PKVM,	/* Protected VM */
->> @@ -1546,6 +1548,7 @@ struct kvm *kvm_arch_alloc_vm(void);
->>   #define kvm_vm_is_unprotected_pkvm(kvm)		\
->>   	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PKVM))
->>   
->> +#define kvm_vm_hyp_is_distrusting(kvm)	((kvm)->arch.vm_flavor >= __VM_DISTRUSTING_HYP)
->>   
->>   int kvm_arm_vcpu_finalize(struct kvm_vcpu *vcpu, int feature);
->>   bool kvm_arm_vcpu_is_finalized(struct kvm_vcpu *vcpu);
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index cf293d09e940a..413c4b114d75d 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -1251,7 +1251,7 @@ int kvm_phys_addr_ioremap(struct kvm *kvm, phys_addr_t guest_ipa,
->>   				     KVM_PGTABLE_PROT_R |
->>   				     (writable ? KVM_PGTABLE_PROT_W : 0);
->>   
->> -	if (is_protected_kvm_enabled())
->> +	if (kvm_vm_hyp_is_distrusting(kvm))
->>   		return -EPERM;
->>   
->>   	size += offset_in_page(guest_ipa);
->> diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
->> index 4012df6002ea6..874025513afcc 100644
->> --- a/arch/arm64/kvm/vgic/vgic-init.c
->> +++ b/arch/arm64/kvm/vgic/vgic-init.c
->> @@ -84,6 +84,8 @@ int kvm_vgic_create(struct kvm *kvm, u32 type)
->>   		!kvm_vgic_global_state.can_emulate_gicv2)
->>   		return -ENODEV;
->>   
->> +	if (kvm_vm_hyp_is_distrusting(kvm) && type != KVM_DEV_TYPE_ARM_VGIC_V3)
->> +		return -ENODEV;
->>   	/*
->>   	 * Ensure mutual exclusion with vCPU creation and any vCPU ioctls by:
->>   	 *
-> 
-
+Reviewed-by: Alexey Klimov <alexey.klimov@linaro.org>
