@@ -1,129 +1,158 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294A851CF66;
-	Tue, 22 Sep 2026 09:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FEF9243387;
+	Tue, 22 Sep 2026 09:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068142; cv=none; b=kXojAnnokeK8rtGiXFMIF06xSW1cHEWPgmU/02Cp6ofCS1SurNO+4k6KwlFHHZqRb9vL4jWNP2C83k4EYUStfYMwLja/gpxqvi1GC7KgEgO5b1vfYohPqeM6EUONKr/bdRHm26naZKQCeY6Alw54bukd3LOFbb6jVTzLawVO/KY=
+	t=1790068142; cv=none; b=tXvfKSdIL7/PqPl87b4Ttmqggiwsz8fkzFCoLuTQUgKAsdILeelAIIGTV+M41xIBH/tvp2Bq1I/3Cs6i4CLlvMueZaSKbTEgXkXK/jBg4qPThIF9mSh1pp5HYAR1Kq2mJ7TGl306c515LM+DkQtlbsoDktldKMD6uwUzUPxUHt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790068142; c=relaxed/simple;
-	bh=F6Jq4sHZmQ0HP4hVRhUxZOsm9v8wOe21ifB3NB11xMc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YW3V7mTQEOU8UXWk/P8QbvdmcZrRFfhD0dKP+tu+8erWrF3BWHYNFFedm2mkCnjJNUJsDeIx8SmCzB1KzpJaBogLx+YI1p779MPc9QIhbWd7guxCXHyYjF9JKvlJo0dI7Y9Gqo5NvTqos9/PVXqywHeje5NGLSJiyMpq+FXMTGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 847FD42031;
-	Tue, 22 Sep 2026 11:08:56 +0200 (CEST)
-From: Gabriel Goller <g.goller@proxmox.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] net: ipv6: seg6: report lwtunnel setup errors via extack
-Date: Tue, 22 Sep 2026 11:08:33 +0200
-Message-ID: <20260922090851.38978-1-g.goller@proxmox.com>
-X-Mailer: git-send-email 2.47.3
+	bh=i8FGK72GQr9CSnr5prIRCcvnaw4o75COTdHdszIvstg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lgupYiREZoaZvozykUhaZM8rBjKQMon2KKPc/3QovWY4RI1d+rP2/wLEZcjBDPGKfPJHD1KUKJJiNegAYgiTcVPCO2PAWgpEqHeDakkZjZcg82puKMgbX3dPrGCcAOFbCz4ZvchcMqk+KlTiBJan+Emh1GaZVtfgOrMAnq5meEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Mnv1fmj/; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Mnv1fmj/"
+Received: from [192.168.1.70] (unknown [4.194.122.170])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 77AD520B7167;
+	Tue, 22 Sep 2026 02:08:03 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 77AD520B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790068087;
+	bh=rYpc4zPy6gvjTMKP6zLT8ArGLoC2PBhl6R7WqRuj41Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Mnv1fmj/EkmzTtlrhGMBD4vcIRwT5SjJLfuFY2NTeErkYsQn/IoxtQmmhd/bE9Q92
+	 XbJGS7EEfZHYjkUW+rrDpyj5V+3q+SJfe7jocitBN3deO98Lvh8TSuNTSSqjKnvYoK
+	 cujDbTvbcj9JCEQxPc1NVGLGjn8CFXGgaI4Nkbf8=
+Message-ID: <c3345afb-7491-42c9-9e9c-609860aea515@linux.microsoft.com>
+Date: Tue, 22 Sep 2026 14:38:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1790068135672
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: hv: Probe vPCI buses asynchronously
+To: Michael Kelley <mhklinux@outlook.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260907054742.235389-1-namjain@linux.microsoft.com>
+ <SN6PR02MB4157AB3B9404AF9CC43BF11FD4842@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <SN6PR02MB4157AB3B9404AF9CC43BF11FD4842@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-seg6_build_state() rejected invalid configurations with a generic -EINVAL, so
-"ip route add ... encap seg6 ..." always reported "Invalid argument".
 
-Attach an extack message to each of them. The checks themselves and their return
-values are unchanged.
 
-Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
----
+On 9/22/2026 2:39 AM, Michael Kelley wrote:
+> From: Naman Jain <namjain@linux.microsoft.com> Sent: Sunday, September 6, 2026 10:48 PM
+>>
+>> On Hyper-V guests each virtual PCI bus is enumerated by its own
+>> hv_pci_probe() call. The probe performs several synchronous host
+>> request/response exchanges while negotiating the protocol, querying bus
+>> relations, entering D0, and reporting allocated resources. These waits
+>> are latency-bound rather than CPU-bound.
+>>
+>> hv_pci registers as an ordinary VMBus driver, so driver_register() walks
+>> matching vPCI buses and probes them sequentially while the driver's
+>> initcall runs. On guests that expose several devices, each through its
+>> own vPCI bus, this serialization adds the host round-trip latencies to
+>> device initialization.
+>>
+>> Each bus is described by its own struct hv_pcibus_device, so
+>> independent buses can be probed concurrently. Request asynchronous
+>> probing via PROBE_PREFER_ASYNCHRONOUS, causing the driver core to
+>> schedule matching buses for asynchronous probe work.
+>>
+>> On an Azure Standard_L32s_v3 guest with five vPCI targets (four NVMe
+>> controllers and one Mellanox VF), Linux 7.2.3 was tested with one warm-up
+>> and three measured boots per variant. The median interval from the first
+>> hv_pci_probe() entry to the last return decreased from 2847.968 ms to
+>> 2786.709 ms, a 61.259 ms (2.15%) improvement.
+> 
+> The elapsed time improvement is rather disappointing given the
+> complexity of the probing sequence and the number of interactions
+> with the Hyper-V host. Do you have any insight into why there isn't a
+> larger reduction? Is something mostly serializing the work even though
+> PROBE_PREFER_ASYNCHRONOUS is specified?
+> 
+> Michael
+> 
 
-v2 (https://lore.kernel.org/netdev/20260918153544.1178884-1-g.goller@proxmox.com/):
- * dropped tests
+I can see these reasons for not seeing great improvements:
+1. Timing of device offers from the host is beyond the control of guest 
+and the Hyper-V host may also be serializing the requests from the host.
+2. Shared locks that needs to be handled separately:
+    * hyperv_mmio_lock during VMBus MMIO allocation.
+    * pci_rescan_remove_lock during PCI resource assignment and device 
+addition.
 
- net/ipv6/seg6_iptunnel.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-index 61c6a27bf202..e7f75970e26e 100644
---- a/net/ipv6/seg6_iptunnel.c
-+++ b/net/ipv6/seg6_iptunnel.c
-@@ -756,8 +756,12 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	struct seg6_lwt *slwt;
- 	int err;
- 
--	if (family != AF_INET && family != AF_INET6)
-+	if (family != AF_INET && family != AF_INET6) {
-+		NL_SET_ERR_MSG(
-+			extack,
-+			"unsupported address family for SRv6 encapsulation");
- 		return -EINVAL;
-+	}
- 
- 	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
- 					  seg6_iptunnel_policy, extack);
-@@ -765,8 +769,10 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	if (err < 0)
- 		return err;
- 
--	if (!tb[SEG6_IPTUNNEL_SRH])
-+	if (!tb[SEG6_IPTUNNEL_SRH]) {
-+		NL_SET_ERR_MSG(extack, "missing SRv6 SRH attribute");
- 		return -EINVAL;
-+	}
- 
- 	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
- 	tuninfo_len = nla_len(tb[SEG6_IPTUNNEL_SRH]);
-@@ -776,13 +782,18 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	 */
- 	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
- 		   sizeof(struct in6_addr);
--	if (tuninfo_len < min_size)
-+	if (tuninfo_len < min_size) {
-+		NL_SET_ERR_MSG(extack, "truncated SRv6 SRH attribute");
- 		return -EINVAL;
-+	}
- 
- 	switch (tuninfo->mode) {
- 	case SEG6_IPTUN_MODE_INLINE:
--		if (family != AF_INET6)
-+		if (family != AF_INET6) {
-+			NL_SET_ERR_MSG(extack,
-+				       "inline mode requires an IPv6 route");
- 			return -EINVAL;
-+		}
- 
- 		if (tb[SEG6_IPTUNNEL_SRC]) {
- 			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
-@@ -798,12 +809,16 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	case SEG6_IPTUN_MODE_L2ENCAP_RED:
- 		break;
- 	default:
-+		NL_SET_ERR_MSG(extack, "invalid SRv6 encapsulation mode");
- 		return -EINVAL;
- 	}
- 
- 	/* verify that SRH is consistent */
--	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
-+	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
-+			       false)) {
-+		NL_SET_ERR_MSG(extack, "invalid SRv6 segment routing header");
- 		return -EINVAL;
-+	}
- 
- 	newts = lwtunnel_state_alloc(tuninfo_len + sizeof(*slwt));
- 	if (!newts)
--- 
-2.47.3
+I digged more into it, and it is indeed because of late offers from 
+Hyper-V. I was considering the start of first probe to the last return, 
+for time calculations.
 
+For the 4 PCI devices on my setup whose offers were delivered together, 
+the performance improvement was about 24%. However with the last offer 
+coming late for MLX PCI device, overall improvement in time was lesser 
+in terms of percentage.
+
+Dexuan had removed pci_rescan_remove_lock in his previous upstream 
+attempt, but I ommitted it intentionally this time because from AI 
+review, I saw a potential race condition that we would introduce if we 
+remove it. Secondly, I did not observe any benefits of removing this 
+lock. But I am going to revisit it again.
+
+Regards,
+Naman
+
+>>
+>> Co-developed-by: Dexuan Cui <decui@microsoft.com>
+>> Signed-off-by: Dexuan Cui <decui@microsoft.com>
+>> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+>> ---
+>>
+>> Previous discussion around this change:
+>> https://lore.kernel.org/all/20230420024037.5921-7-decui@microsoft.com/
+>>
+>> Skipping removal of pci_rescan_remove_lock, due to possible
+>> synchronization problems associated with this lock removal. Also, with
+>> my current setup, I was not able to see much improvements with this
+>> change, so keeping it for later. Asynchronous probing change is not
+>> dependent on this.
+>>
+>> ---
+>>   drivers/pci/controller/pci-hyperv.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
+>> index 89816a2bd7cd3..056d379b3cee4 100644
+>> --- a/drivers/pci/controller/pci-hyperv.c
+>> +++ b/drivers/pci/controller/pci-hyperv.c
+>> @@ -4155,6 +4155,9 @@ static struct hv_driver hv_pci_drv = {
+>>   	.remove		= hv_pci_remove,
+>>   	.suspend	= hv_pci_suspend,
+>>   	.resume		= hv_pci_resume,
+>> +	.driver = {
+>> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+>> +	},
+>>   };
+>>
+>>   static void __exit exit_hv_pci_drv(void)
+>> --
+>> 2.43.0
+>>
+> 
 
