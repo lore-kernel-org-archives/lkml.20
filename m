@@ -1,117 +1,121 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5624CC61A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:41:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BF2521897
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066468; cv=none; b=DvT7vOdo7UEKuEpY8nTsbC+7ggvoOe1HewAMZBtW/7bWZXKHmL3/9j/+X4MOMMC19nglm5hhsjHs6vzi9t3jZwiroxc8WNemyo+dW8Z8XSEjLUHxQ6u6eVERcNp6BFA/wCIn5f3wK435fhkCByENFGu3iQaEGph5n9AwEKHn/LQ=
+	t=1790066487; cv=none; b=ZkSzEYY0ChR1hp+jY5+mb1fzeBZsnSfYLWk8aVadlRvkAu51Rp68NMKtH9NgYLl78kBPGegedXkE05JlBZirb1wisw5GZ+aMOYMc6ljuAJCTpBq7RXQLc4ge2+G6s1cK1OC10k95YEjCuE8kljIwG5Dpe7jXXss/ZA1Yvjy9ltc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066468; c=relaxed/simple;
-	bh=5xs6sF9jBD61IiQEI4YWD8PwkIS/+lGXZUZqovlSmuU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cpY5QY4RbeySGoh4SfHZEmWyQPKWLOhYBWQXwS0yVzFdSESJOcaenGCkCU0LFjBgYpSM7AdRSZvLDL6xuPcJQb7TnXeGaidP2rzk+fiaD21bWU5SsoJHq6B8l55yZ+8PgzLAGeWYpDtuuw6G66P5qQT3v86+DB/BxVDg5uRSw88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jUl2G1vr; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790066487; c=relaxed/simple;
+	bh=vlT2izf++gU8SdYUB/P/44JCuyP6O54Uc1vQ2YVNZk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cqogH7y7WxpLIzrT5g61yXKJl8DVVlZAibKSOYw4vQb07uWzY/SEjZmF1mIh7cUrDUGYTyDPqM0hoci3XkscmR44LTn4nhz7eFoeLO+76Edf+PLqkXsgSNFgwM7x3+lbrd+32H0lizrYo730yrH2kWJUiOPfwof7Urhl3AHxGJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P0N2MajN; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jUl2G1vr"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f05ffdso27371475ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:41:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P0N2MajN"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so45946425ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:41:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790066467; x=1790671267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5S8QifYjw9f9mPH34m2yhxskNbv7W3w5nVN3WfjvwaU=;
-        b=jUl2G1vrsW5dvUElI30QhkDPSo6hG3rsufI0IOSGEwcBa1naxSLaco9SpU//xxALyt
-         rrlTLEOm20cVcdn1ltVStoUEJKBvq9ntBK0VyBj//MtwjxdLqRdArj/EEz1I0FOJklu1
-         KOErvKaQVuAFBvcP35yDDdv+Xg9LYNkb7XcqcOXFYPiyCaUy+BgdX+guAUSIGG5axwSP
-         xmH48Lncvsk+7ofqqduxX9SaBoo/z0z1Ax3fIxHpQ08h12YlUljj1RiffU9pckL3svxF
-         fgnpmy2vnbKcWSN8ulfMws78RbNlOxrnm9unU8CGtjPKEug0sS76e4aNnWiMdLbs3EPf
-         R46Q==
+        d=gmail.com; s=20251104; t=1790066485; x=1790671285; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vlT2izf++gU8SdYUB/P/44JCuyP6O54Uc1vQ2YVNZk0=;
+        b=P0N2MajNTHnFacVoyhoGu8nyjoJSwV8/8iPXlqe/TJAG1eo+wfk/lfJ90m1/i7E54V
+         wYQiQNjK9L6UnJjmtozcGzG9dlXIw26fPD1Morv5JI9TzfgsvfsgbYegF3wYWKhiFpfT
+         wVz3rYB8Myel97zwCgZRGxpHX1hn0Gt0xWXchaLy/zpDT/ptvNrOWGbq77LlODCb2jgj
+         jiCdh85+0JzYJhnTu1B8Lq7HjAA4B1GwiCUdwmc7bJ23lrPPy76tMxVvNj0XlZfcssKV
+         fkNTOz2mvkV2SOUDmXD9d2NNB01qwdTYsYmAPcje+BLY2ZSk6/Tq20twCQZLzsbXK6Du
+         p3NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066467; x=1790671267;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5S8QifYjw9f9mPH34m2yhxskNbv7W3w5nVN3WfjvwaU=;
-        b=FROueY3Fponh1cGMmoUdzwyXx3HGTMSZhe+kUBBKiLEfEIiXvIB0jycZskxFaj5KaS
-         uHbRyXrKn0+jPQKo11w1apR2PiBwbzAdAW/ZxA5O9s7p0crJGGM+7DjRPu3PQDTadcAu
-         w0q/ceJm/0M5c8WgaGv5izH8/kxX6gEgkrvEDv9+uYsnnRZuYUNsHPhn947giRr/+iep
-         /ddCii7DgO347RMnfysfgFXtxA7AnEwBXQ5y7/1HtC5cdoUx3zpM4C0+5fHZ/+v9YWm4
-         l6IW+aXzNU8mThjwqaPZOjVan9EWmauACHpWgeSV2784HiwR8qf7TfKVm8zvwK+X7Mgg
-         LRfg==
-X-Forwarded-Encrypted: i=1; AKwUvByhZxnlDtR57uo68zlaxl0nSxdCyw4X+yU5DR/v0xngD8s25vBsxlce4jqmxx0w4rgoOOBK0rOvtptEmh4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mV8OCl6hxK5f7uYQBoWeH4k/5vp/ug38y5nBIPNXLeUvXyb3hQ
-	SuR2CPZJRs/IVoDePjXcAKF/FNnWd8uqaxpwKy4z3HC5CRAhf/yTqySn
-X-Gm-Gg: AYBFou3qqyEPLDpCkLpKo4MJQQxFwikGiBXMRDdzpHUUOoFHeX/kZ1yBPDplr1tlHT2
-	dOLUC9fKEIQbKvTDZlEob9JBQdPnw7Zpby0VGnXjdn5Ro1uxl/vKF+FCaoe1QAECt2oFXeLjXMI
-	qzx/IVafEm+7k3SZxoVj6S9Br1ajpTav6SCVRek2iVQHa89kd+HkDLT8DkcbPyHhEVOHgXCk8Ko
-	LOsq7tqLmwTz9AlEwOwr5THPqggj7RXhEghpYAas0z1sY1lNblvv47pBEMrcKjk+uZtZAr9s4mR
-	dojYKljtB09HxoCyRPLzCOVOwLBb5M2g7sWPAFScM5dm2/ggAYM1q26yM+12pT2Z1YZ/1UDcCH2
-	rbNrbfesUX4eJBRELYwiLx4PrbBGDfIcdDVlvrKjyM9onmhKNxIQINCGJsqdJui6xvy8fIhJPUb
-	v8EP1qjAZ50o6jPS39tgBXKjWRTDsIOGxZxLY9pxadx2+16ifcGEuvzefS0uWToahg4Ybegw==
-X-Received: by 2002:a17:903:3846:b0:2dd:3ddf:b895 with SMTP id d9443c01a7336-2df609b1ca2mr4568265ad.3.1790066466503;
-        Tue, 22 Sep 2026 01:41:06 -0700 (PDT)
-Received: from fedora ([111.223.30.23])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0308f5sm6089835ad.43.2026.09.22.01.41.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:41:06 -0700 (PDT)
-From: Sajal Gupta <sajal2005gupta@gmail.com>
-To: rubenru09@aol.com
-Cc: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	noralf@tronnes.org,
-	dri-devel@lists.freedesktop.org,
+        d=1e100.net; s=20260707; t=1790066485; x=1790671285;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vlT2izf++gU8SdYUB/P/44JCuyP6O54Uc1vQ2YVNZk0=;
+        b=GUlFre5c4sMzt3Rf7xaPHNi7NV0/z4z+nw9pmHkEf1qxjF3pFE+SjIoduz7YJlDJGr
+         Brbu111t2ipsRrkYi95LnGKGqrbQvmMqki65StTcziGXAsnEYB+wjhMiWgEVI+FTD9Rt
+         oCh6ZwS0vEnZBlt8c0woHGpEv0DyHKzopWGA5NJhmXJy3R5yAQZxOLDjK10FUkZZ6DSk
+         onpuq5sWXluFO68kD9zsWjvEx75N8az/vRoD8GoB47xK/v+omqNiFkNoc40x6bLLu6bi
+         ewK0COfeCGlBw5Ej8pcLal32pz/e6vilLEuuNx0VIb1Dr9buPV/A78/C7KqTIy4VD41F
+         y9ig==
+X-Forwarded-Encrypted: i=1; AKwUvBxgLHOVrmEC3Cq+PNU7ixaHxH9tX55GwNBP3/9isAfOypFn0Bdqe6GCQl058na7veVZF5gagrdYDV2YbgU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRGfyXjcFzcwHRQektZ2gtp3rByEzz1fTLEEi0D+BYp52cUjnS
+	xz2QTLefHbrg2Foalg4F25xLFgn0VynbA8uJvGb5+ckganq9GPyQCEc4
+X-Gm-Gg: AYBFou2V4ivbTmH9EMmqnBDqRkAy1fqPtW7oWBZBTReyyn+YCYNuH0ni6ZHwaqb6B4G
+	49pLFEfvzOTdATSUj58KNit30a3HERihr34sQTWEvEsZHvhf95lmtYBnLhpomij+vBX7CcxzISP
+	U3My73kYC0VIroN3THcTI25ZRj1/VenwsaTZtYhkSqJu+TTv40MY/bSmt+8KCyhR6nP3pn77BBt
+	is/B5EnSinfdiPfwf01IeZb5Pu1YLQw4TGevTSshwELUfu1wiooWpp5p5cTmvEPicte5fTq03Zp
+	0FDhxGEsaNeaWF4m+czKr91xjrkIrEdpY01w9PbXtFIJ0Q/RcLgw/1k/GTKUf0E6jUZ1aB7/UQG
+	L/+1hs0fkumC6wZGSoV+S8E5feOvSB1UXppLXWbPibhnfLkB9KEDY23sjrAwJPQab6fF37lIBlL
+	ELiqi5NqRizlpbzm5Rk55+NpS1/rG8GbVNCIBzdQyCV2CcHvDWTlr4wwkr2UUtKAtOSsTEGftx7
+	xDd9VJvmcu9TQNXKuOlfPoDTj0901KRH45wQds=
+X-Received: by 2002:a17:902:cf0b:b0:2dd:c053:c209 with SMTP id d9443c01a7336-2df60b3a425mr4756515ad.37.1790066484736;
+        Tue, 22 Sep 2026 01:41:24 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a1e:2e81:7320:b519:cd9:fed2:d000])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0581f0sm6030875ad.74.2026.09.22.01.41.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 01:41:24 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	toke@redhat.com,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Sajal Gupta <sajal2005gupta@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] drm/gud: don't keep a connector without a CRTC as connector_state
-Date: Tue, 22 Sep 2026 14:10:08 +0530
-Message-ID: <20260922084026.15481-1-sajal2005gupta@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	stable@vger.kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: Re: [PATCH 2/2] net/sched: sch_cake: check negative transport offset in cake_overhead()
+Date: Tue, 22 Sep 2026 16:41:15 +0800
+Message-ID: <20260922084115.36844-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <179000041222.2160803.11108326722307773525@kernel.org>
+References: <179000041222.2160803.11108326722307773525@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-If the 'for_each_new_connector_in_state()' loop finishes without
-hitting the break, connector_state is left pointing at the last
-connector visited, which has no CRTC, instead of
-staying NULL.
+Hi,
 
-That skips the "if (!connector_state)" fallback below the loop, which
-looks up the active connector when the state contains none. The
-function then carries on with a connector that is not driven.
+Thank you for the detailed review. All three points raised are valid
+and insightful.
 
-Fix by resetting connector_state to NULL for each connector visited that
-has no CRTC, so that it is NULL when none was found and the fallback runs.
+1. Regarding OOB read vs shaper accounting corruption (Severity: Medium):
+You are completely right. While the negative offset in [PATCH 1/2]
+(net/core/dev.c) directly causes a wild pointer dereference via
+raw pointer arithmetic (skb->data + hdr_len), in [PATCH 2/2]
+cake_overhead() passes hdr_len to skb_header_pointer() which undoes
+the unsigned conversion. The real impact is corrupted header length
+accounting and inflated shaper durations, not an out-of-bounds read past
+the slab allocation. I have revised the commit message to accurately
+describe the issue.
 
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260902123254.36987-1-sajal2005gupta@gmail.com?part=1
-Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
----
- drivers/gpu/drm/gud/gud_pipe.c | 1 +
- 1 file changed, 1 insertion(+)
+2. Regarding companion guard from qdisc_pkt_len_segs_init() (Severity: Medium):
+Agreed. When the transport header was never set, skb_transport_offset()
+returns ~65535, which bypasses a negative offset check and inflates the
+shaper duration to ~66 KB per segment. In v2, I have imported the
+companion !skb_transport_header_was_set(skb) check.
 
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index aa7792966287..5aa5ac2f3727 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -507,6 +507,7 @@ int gud_plane_atomic_check(struct drm_plane *plane,
- 	for_each_new_connector_in_state(state, connector, connector_state, i) {
- 		if (connector_state->crtc)
- 			break;
-+		connector_state = NULL;
- 	}
+3. Regarding segs == 0 underflow in multi-segment arithmetic (Severity: High):
+Agreed. When segs == 0 (e.g. from DODGY GSO frames), (segs - 1) underflows
+to 4294967295, causing an astronomical duration to be charged in
+cake_advance_shaper() and permanently stalling dequeues. In v2, I have
+updated the check to `segs <= 1`.
 
- 	/*
---
-2.55.0
+v2 patch has been sent in reply to this thread.
 
+pw-bot: cr
