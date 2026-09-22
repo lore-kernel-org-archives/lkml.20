@@ -1,203 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5365328A2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D7B4E01E4;
+	Tue, 22 Sep 2026 10:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072896; cv=none; b=MUzEm8jyQWWqPESXDff+cuMb6M4Dq3S1YerKPrMJqNaH6dw/zT384kvhycdq7NRMbiwrXigRdO2EOsr1aRBKjFsObXfwXD7VlOISCROy0Z1LCLkEXLNhSPwSoGkqTBvfCLR+IP7g/lJpPBXOeuJcrO6qkAJYI/9fVkLUCd0zCuI=
+	t=1790073056; cv=none; b=lFUC1jtGv9pS2CzKuhwamBZdSdnSxlylXz17zxVGzSxit+av0Ba52B5Ygz5dDkYy8VJTihZvCch+chzhTwKpDsCWRNot1ehQse8DBYxNLMFtHV95Ls1zeYBxJdWjhiWTVN2su7YhSUwi7eo//y+IBduIGna5OGWue470hztGMdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072896; c=relaxed/simple;
-	bh=VqtGF3qSyDZyyD+Ku1dWJYrhsz5Hjv2tT2aunqZtMNo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j58BCMnLSdF+3PehsmLWsL4QogbdXnwcl22T30gGqlrhP2Z0yUnkUN0OyTHyGE8NoTtThfyLuJ455BK4aut2TlhVPFxsWvBGlFyhFwG7D+4002g2vpNeRBQ/vvR0oQSMNN/ibSyjs228ERXHi0yv1aMiUxM9EIrlZllrQV9lDRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fnYBUmgR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790073056; c=relaxed/simple;
+	bh=rVx1Ga7x8BB7Zg2M0CRdnA2F5rr3KdLyeWxelvYMHFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IRAoKkVzf2KrlhQJTd7IsNXZOX3Y7/uoyZC9+H8nuAKa3kjgUtmBHwcjFvoo0u4pATvqgCGejHHxxGS69YXyc74QdpYw/z0yWUaH7kkePkajyLmd33F2NT9LBUshOvaJaQE+lUMDnzlBjwD51iGp41PjDRbH0LS5Em6KHbxxcHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hGyJckl7; arc=none smtp.client-ip=192.198.163.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fnYBUmgR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6371F000FF;
-	Tue, 22 Sep 2026 10:28:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790072895;
-	bh=LOJp4blY5phc9Vv5SsCAuVuk6WuoBNzFXQ+AbRV2dCA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fnYBUmgRgs+DrsVZ4E7rNjAcBrnd55YcN/xtuScQWsatNfiAK8CaVLVsalX3VbpUU
-	 eNkioZbKquxGIoNHlQ7nqM0jpOUdzZH0J+duAdiQESUtuvBz/gRJVJju43DDfkdx0c
-	 gZzSSLz63VkeapKrh7dhYaDqtES+j9Avm5vKFp9sITBwDo2tVuZCqh99EQfBo6szyV
-	 qCRg19zxrNl9cSUSFHHdaN1c7FR3ysLbmT0alDo2qHpi5LIuANCwx6XPf+Kr2GU1R1
-	 NfnYw5z5if634DwpeVaRGRJoOiBF2kD9dDlQYp1JLCqMUBW7iuBvt8l54XN1v6Mmmr
-	 kQ2acyT8DnXww==
-Message-ID: <0a35cf00-32ba-4a21-b05c-edd44d3ca219@kernel.org>
-Date: Tue, 22 Sep 2026 12:28:12 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hGyJckl7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790073055; x=1821609055;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rVx1Ga7x8BB7Zg2M0CRdnA2F5rr3KdLyeWxelvYMHFw=;
+  b=hGyJckl7aR5SfL1JGMOxLqVVa/bZ0uWBGxzp76MYQjv0xaAczdyTSwnf
+   o4PaBWUf8tet30Wcxn0pGHclh14TS7bhCX/nM1+KjqOD3ZEPv6rHztGEZ
+   rR64HCVQZ3h3IUPcSStjtIwVKsP7zr4VwZc929QN1yYGRUR/JvQhPON3Y
+   +YXT0XFtYl4LwSRyHTfEpZOIPfkBfgzhZN04TeeScSMh8G9Malh6AMmoS
+   YoBNn7Nxy+joQaglRABjlu99AVG2CobDSnKEPRZxnZxp/NjdoVDgPkd6d
+   fLPmBP8pfdHVFHtvckcxZs03TM5Qc/AgMwJDWwQhy0RGGEiNUn2Q4qEV+
+   A==;
+X-CSE-ConnectionGUID: 7aRFEUObRoiYSLNCHl5Y6A==
+X-CSE-MsgGUID: v+4Tl/rwQ+evX+AWrUQrZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1164185"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1164185"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 03:30:53 -0700
+X-CSE-ConnectionGUID: Kz5491BaRBSQ0kKLpKPzIg==
+X-CSE-MsgGUID: bONz6f9cQtSVZtD98Mi9kQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="4062790"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa012.fm.intel.com with ESMTP; 22 Sep 2026 03:30:50 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 1ACFC99; Tue, 22 Sep 2026 12:30:45 +0200 (CEST)
+Date: Tue, 22 Sep 2026 12:30:45 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Maximilian Luz <luzmaximilian@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, brgl@kernel.org,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH v8 3/5] drm/xe/i2c: use
+ device_create_managed_software_node()
+Message-ID: <arJY1TMBIZCy8E7n@black.igk.intel.com>
+References: <20260716-swnode-remove-on-dev-unreg-v8-0-5c2b8cc38c28@oss.qualcomm.com>
+ <20260716-swnode-remove-on-dev-unreg-v8-3-5c2b8cc38c28@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: fsl: qbman: order the probed flags with
- release/acquire
-To: jaidevshastri@vt.edu
-Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260921-mb-qbman-v1-1-35f3321aa330@vt.edu>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260921-mb-qbman-v1-1-35f3321aa330@vt.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260716-swnode-remove-on-dev-unreg-v8-3-5c2b8cc38c28@oss.qualcomm.com>
 
-Hi,
+On Thu, Jul 16, 2026 at 02:31:38PM +0200, Bartosz Golaszewski wrote:
+> This driver intentionally uses the fine-grained approach to creating
+> platform devices. It assigns a software node as the primary firmware
+> node of the device it creates. Ahead of improving the reference counting
+> of platform device software nodes, switch to using
+> device_create_managed_software_node(). This way, we create a dynamic
+> software node whose life-time is tied to the device to which it's
+> assigned.
+> 
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Le 22/09/2026 à 02:47, Jaidev Shastri via B4 Relay a écrit :
-> [Vous ne recevez pas souvent de courriers de devnull+jaidevshastri.vt.edu@kernel.org. Découvrez pourquoi ceci est important à https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> From: Jaidev Shastri <jaidevshastri@vt.edu>
-> 
-> dpaa_eth, caam and the portal drivers poll qman_is_probed(),
-> bman_is_probed(), qman_portals_probed() and bman_portals_probed() before
-> they touch the state the probe functions set up: qman_ip_rev, the CCSR
-> and portal register maps, the FQD and PFDR bases, affine_portals and the
-> pool allocators.
-> 
-> Each flag is set with a plain store at the end of its probe function and
-> read with a plain load in the exported accessor. The stores that build
-> the state are not ordered before the store to the flag, and the
-> consumer's load of the flag is not ordered before its loads of the
-> state. A consumer probing on another CPU can see the flag set and then
-> read state that is still stale or zeroed, and program the hardware with
-> it.
-> 
-> Set the flags with smp_store_release() and read them with
-> smp_load_acquire(). The error paths storing -1 keep their plain stores:
-> a consumer that sees -1 fails its own probe without touching the state.
-> 
-> Found with MBCheck, a static herd7-based memory consistency checker.
+What happened to this one? I can see the commit 0f485f88656a
+("drm/xe/i2c: use device_create_managed_software_node()"), but not the
+code change?
 
-Sashiko made comments, can you have a look ?
+There is no revert and there are no other commits touching this part
+of the driver, so it's as if the patch was never actually applied?
 
-https://sashiko.dev/#/patchset/20260921-mb-qbman-v1-1-35f3321aa330@vt.edu
+Thanks,
 
-Christophe
-
-> 
-> Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
 > ---
->   drivers/soc/fsl/qbman/bman_ccsr.c   |  6 ++++--
->   drivers/soc/fsl/qbman/bman_portal.c |  6 ++++--
->   drivers/soc/fsl/qbman/qman_ccsr.c   | 11 +++++++++--
->   drivers/soc/fsl/qbman/qman_portal.c |  6 ++++--
->   4 files changed, 21 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/xe/xe_i2c.c | 22 ++++++++--------------
+>  drivers/gpu/drm/xe/xe_i2c.h |  1 -
+>  2 files changed, 8 insertions(+), 15 deletions(-)
 > 
-> diff --git a/drivers/soc/fsl/qbman/bman_ccsr.c b/drivers/soc/fsl/qbman/bman_ccsr.c
-> index b0f26f6f7..c5be35aba 100644
-> --- a/drivers/soc/fsl/qbman/bman_ccsr.c
-> +++ b/drivers/soc/fsl/qbman/bman_ccsr.c
-> @@ -180,7 +180,8 @@ static irqreturn_t bman_isr(int irq, void *ptr)
+> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+> index 3d80eafb9a1318996d10db11e14af4cfde07ba55..af6e973e5e68125a9c006bb646447ca6e377a6e6 100644
+> --- a/drivers/gpu/drm/xe/xe_i2c.c
+> +++ b/drivers/gpu/drm/xe/xe_i2c.c
+> @@ -93,13 +93,8 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  {
+>  	struct pci_dev *pci = to_pci_dev(i2c->drm_dev);
+>  	struct platform_device *pdev;
+> -	struct fwnode_handle *fwnode;
+>  	int ret;
+>  
+> -	fwnode = fwnode_create_software_node(xe_i2c_adapter_properties, NULL);
+> -	if (IS_ERR(fwnode))
+> -		return PTR_ERR(fwnode);
+> -
+>  	/*
+>  	 * Not using platform_device_register_full() here because we don't have
+>  	 * a handle to the platform_device before it returns. xe_i2c_notifier()
+> @@ -107,10 +102,14 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  	 * platform_device_register_full() is done.
+>  	 */
+>  	pdev = platform_device_alloc(adapter_name, pci_dev_id(pci));
+> -	if (!pdev) {
+> -		ret = -ENOMEM;
+> -		goto err_fwnode_remove;
+> -	}
+> +	if (!pdev)
+> +		return -ENOMEM;
+> +
+> +	ret = device_create_managed_software_node(&pdev->dev,
+> +						  xe_i2c_adapter_properties,
+> +						  NULL);
+> +	if (ret)
+> +		goto err_pdev_put;
+>  
+>  	if (i2c->adapter_irq) {
+>  		struct resource res;
+> @@ -123,8 +122,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  	}
+>  
+>  	pdev->dev.parent = i2c->drm_dev;
+> -	platform_device_set_fwnode(pdev, fwnode);
+> -	i2c->adapter_node = fwnode;
+>  	i2c->pdev = pdev;
+>  
+>  	ret = platform_device_add(pdev);
+> @@ -135,8 +132,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  
+>  err_pdev_put:
+>  	platform_device_put(pdev);
+> -err_fwnode_remove:
+> -	fwnode_remove_software_node(fwnode);
+>  
+>  	return ret;
+>  }
+> @@ -144,7 +139,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  static void xe_i2c_unregister_adapter(struct xe_i2c *i2c)
+>  {
+>  	platform_device_unregister(i2c->pdev);
+> -	fwnode_remove_software_node(i2c->adapter_node);
+>  }
+>  
+>  /**
+> diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
+> index 425d8160835f4648891ff75f2a9c06284241710e..b28229f056c5a664e1d41dc0cc1978782fe1c2f1 100644
+> --- a/drivers/gpu/drm/xe/xe_i2c.h
+> +++ b/drivers/gpu/drm/xe/xe_i2c.h
+> @@ -30,7 +30,6 @@ struct xe_i2c_endpoint {
+>  };
+>  
+>  struct xe_i2c {
+> -	struct fwnode_handle *adapter_node;
+>  	struct platform_device *pdev;
+>  	struct i2c_adapter *adapter;
+>  	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
 > 
->   int bman_is_probed(void)
->   {
-> -       return __bman_probed;
-> +       /* Pairs with smp_store_release() in fsl_bman_probe(). */
-> +       return smp_load_acquire(&__bman_probed);
->   }
->   EXPORT_SYMBOL_GPL(bman_is_probed);
-> 
-> @@ -279,7 +280,8 @@ static int fsl_bman_probe(struct platform_device *pdev)
->                  return ret;
->          }
-> 
-> -       __bman_probed = 1;
-> +       /* Order bm_ccsr_start, bman_ip_rev and the pool allocator before the flag. */
-> +       smp_store_release(&__bman_probed, 1);
-> 
->          return 0;
->   };
-> diff --git a/drivers/soc/fsl/qbman/bman_portal.c b/drivers/soc/fsl/qbman/bman_portal.c
-> index 4d7b9caee..056fe3fbb 100644
-> --- a/drivers/soc/fsl/qbman/bman_portal.c
-> +++ b/drivers/soc/fsl/qbman/bman_portal.c
-> @@ -90,7 +90,8 @@ static int bman_online_cpu(unsigned int cpu)
-> 
->   int bman_portals_probed(void)
->   {
-> -       return __bman_portals_probed;
-> +       /* Pairs with smp_store_release() in bman_portal_probe(). */
-> +       return smp_load_acquire(&__bman_portals_probed);
->   }
->   EXPORT_SYMBOL_GPL(bman_portals_probed);
-> 
-> @@ -157,7 +158,8 @@ static int bman_portal_probe(struct platform_device *pdev)
->          spin_lock(&bman_lock);
->          cpu = cpumask_first_zero(&portal_cpus);
->          if (cpu >= nr_cpu_ids) {
-> -               __bman_portals_probed = 1;
-> +               /* All CPU-bound portals are initialised and in affine_bportals. */
-> +               smp_store_release(&__bman_portals_probed, 1);
->                  /* unassigned portal, skip init */
->                  spin_unlock(&bman_lock);
->                  goto check_cleanup;
-> diff --git a/drivers/soc/fsl/qbman/qman_ccsr.c b/drivers/soc/fsl/qbman/qman_ccsr.c
-> index aa5348f49..b46cfb964 100644
-> --- a/drivers/soc/fsl/qbman/qman_ccsr.c
-> +++ b/drivers/soc/fsl/qbman/qman_ccsr.c
-> @@ -711,7 +711,8 @@ static int qman_resource_init(struct device *dev)
-> 
->   int qman_is_probed(void)
->   {
-> -       return __qman_probed;
-> +       /* Pairs with smp_store_release() in fsl_qman_probe(). */
-> +       return smp_load_acquire(&__qman_probed);
->   }
->   EXPORT_SYMBOL_GPL(qman_is_probed);
-> 
-> @@ -864,7 +865,13 @@ static int fsl_qman_probe(struct platform_device *pdev)
->          if (ret)
->                  return ret;
-> 
-> -       __qman_probed = 1;
-> +       /*
-> +        * Publish the flag only after every store made above (qman_ip_rev,
-> +        * qm_ccsr_start, the FQD/PFDR bases, the work queue) is visible to
-> +        * the consumers that poll qman_is_probed() and then call into
-> +        * qman_set_sdest(), qman_liodn_fixup(), qman_alloc_*().
-> +        */
-> +       smp_store_release(&__qman_probed, 1);
-> 
->          return 0;
->   }
-> diff --git a/drivers/soc/fsl/qbman/qman_portal.c b/drivers/soc/fsl/qbman/qman_portal.c
-> index 456ef5d5c..181c0f373 100644
-> --- a/drivers/soc/fsl/qbman/qman_portal.c
-> +++ b/drivers/soc/fsl/qbman/qman_portal.c
-> @@ -175,7 +175,8 @@ static int qman_online_cpu(unsigned int cpu)
-> 
->   int qman_portals_probed(void)
->   {
-> -       return __qman_portals_probed;
-> +       /* Pairs with smp_store_release() in qman_portal_probe(). */
-> +       return smp_load_acquire(&__qman_portals_probed);
->   }
->   EXPORT_SYMBOL_GPL(qman_portals_probed);
-> 
-> @@ -251,7 +252,8 @@ static int qman_portal_probe(struct platform_device *pdev)
->          spin_lock(&qman_lock);
->          cpu = cpumask_first_zero(&portal_cpus);
->          if (cpu >= nr_cpu_ids) {
-> -               __qman_portals_probed = 1;
-> +               /* All CPU-bound portals are initialised and in affine_portals. */
-> +               smp_store_release(&__qman_portals_probed, 1);
->                  /* unassigned portal, skip init */
->                  spin_unlock(&qman_lock);
->                  goto check_cleanup;
-> 
-> ---
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> change-id: 20260921-mb-qbman-84f56ef0f84c
-> 
-> Best regards,
-> --
-> Jaidev Shastri <jaidevshastri@vt.edu>
-> 
-> 
+> -- 
+> 2.47.3
 
+-- 
+heikki
