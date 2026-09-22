@@ -1,240 +1,166 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F97141168B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109076; cv=fail; b=NXFkf14cZ0EuLnuaDUzY4xV0Hm4AY1nQjNCcsk3U8YtZR5KC3RPnFJBV5wfSg1jepBYTm81rS1Ry5GcjdXNgJMLEJYO9k3hhmCAEiwzDJP9tRtvMGrPBEV3+aVYg+jOTNrwKthD7qsCUpGWhcUO44/fmH8X6EAecV7tuRtWc54I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109076; c=relaxed/simple;
-	bh=fsWRU/2kkbXL3HyXyacqYwrunSvKRaWp5xAt1ay/Yvo=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=BIxE+8qj5fJUID5kah5taZHbRlYXAtLRsOH3T6hTGJubnSdX6RSjWXQhi1a1rEqwzd7os3oSmtnhh25TVd/b2g1HPY2/fdumc1zoyhXrDFbtNIO1dTrDdY0SQmive30rqpeJs/4D48r/zAWF0cdP6eMn+wlHlcnTKB/bPv8bPyo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KZ2LRqll; arc=fail smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D6940A92F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109101; cv=none; b=RpAP2JndSLlYaSSW5CFUYfEfZXdA3KY8lSb6E/tToa5AZQJHcqxuP5uX41ZVTRVpAZcB0s/qjVOzPaxRUPN6FuBqv6RuTo2wwEgwyxAateV7gkGKkUpm9znhN7/aHLoMB38xc8gdEL21xa9KZ5K8eTdN8x3yDHFu/6YitlzxaMc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109101; c=relaxed/simple;
+	bh=2SILvg0NRELw7Nyp8PHvnzfGtHVKPwkLNhQMISSJheE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LRVLf/Ty89w0V2ESsY5Ngtg8bCZ9oerlu+AF2xw9IBB/MF/7nqjf1g5gdUi8HfSkVgavwNrWjVg6Pp5xPe8ZvOhfJyX6Vo+C7+DyjqzuU4Q8oeU8bKegtuA9CNs2/6qqvIYCALapA5rzFjdNLMDtzY+HKnLtnPXHpM0buLT8a/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MunD8rhl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E6aqTgn+; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KZ2LRqll"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790109072; x=1821645072;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=fsWRU/2kkbXL3HyXyacqYwrunSvKRaWp5xAt1ay/Yvo=;
-  b=KZ2LRqll/9ZWWwiicpj3zU8N8PWpMfUqnGmb+x5Lok/fW9kqM7MWkNAE
-   xosS+bNF7W2IKG3mXRumscccKDwELrLOANKHTgW6rSgNDeTMsCUiyd5py
-   JaSjjTd21au/xPN1I7s78QRF00Z2ph/HzRzYnKWIm5hMV3cfJYGmRH73k
-   f0oZmQFw93dBH9ajsNWilVg+GsxG3GK6JiDljUYue+0Qcygyj1O5AoubN
-   OvUUzzgTw7T1CniAQ8pgZtDrjF1KheVZODgWmtNS4+Ak8IYkJOMxzuBJS
-   bLtcVlCZHS4NY/5zP65Zp2Yu7GPtCPOMAcNxgegT/BP8oAL2X+Wh1mUC6
-   g==;
-X-CSE-ConnectionGUID: PWiTsxINREmsc1l2qOuX3g==
-X-CSE-MsgGUID: IMmxOE73SDq78ULlhhjiqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1255423"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="1255423"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:31:10 -0700
-X-CSE-ConnectionGUID: vNk703K1S2m+id0d8CKrWQ==
-X-CSE-MsgGUID: BwlgIOnZTG69Bc5pD7DBOA==
-X-ExtLoop1: 1
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:31:10 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 13:31:09 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 13:31:09 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.42) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 13:31:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oLGJlwxQdJbQ3APDXEvkF9cZ8t1nmPuBMWxLFbcs8FY0Mu43pfoSUBjPDj0BQUw1Wpfvnfzmn2R9D0H79yK4irYZ8WHRiNdeHTXkh1KHoHlhmZmdaXAu2W/ojjYAqxc1WG7dmaYh5cAMrW1qwUpvv/54kb7v56OS5NJYCLI0q6RybBs11+LpqrfQgIcX7qFa/xDxr8sS23N2VDUyWAuuwliWugINyd78BATmG4x9lwa3Zw9mNjmnEul/fIRtoBh2goghk6wksMryOU3AT+g7YukM4gmBnQfsoAN8FGsw4JazianInBFUR/x6reDwiYupEhNupQnIuFW+8HGdkyeiJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4tLTbeNvlr4vdL7aw4p2KmSn7ccQoLGl7Uh95Hdx8X0=;
- b=pHt4vPPpoCrPih/4wRC1io3/ikCutuNAv/eJvZpLJ1UwX/DfHZAt4v+Sj35bg0LN5jBrsMoTNuu7pD4zzGi4L0AF5/Bid9GlGOXd7sIRW/RqbNTNGNq0vPdtNLccLe6XAS2TI0Gqw4EFggkDANp/AuqWmKdW8gZcPa2iJzRMv3CsuxKQCOOwybZ1Uzaur3sv0sIaqrzjraIzAydC0v1dodOfnKFMtvEahIWA6eWltmV9Em3abi6XAhEtpDr06ArrenuxFL2R2VtUtJC9AypD05ADADOootaLdGkrlrmm0pxBPu0VibNoDVWy++c43pFwr4yYydASyai9PRV6DS81XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by CY8PR11MB7337.namprd11.prod.outlook.com (2603:10b6:930:9d::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 20:30:42 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 20:30:42 +0000
-Date: Tue, 22 Sep 2026 13:30:40 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Babu Moger <babu.moger@amd.com>
-CC: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
-	<reinette.chatre@intel.com>, Maciej Wieczor-Retman
-	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>, Drew Fustini <dfustini@baylibre.com>,
-	"Dave Martin" <Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, David E
- Box <david.e.box@intel.com>, <x86@kernel.org>, Christoph Hellwig
-	<hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-Subject: Re: [PATCH v12 14/25] fs/resctrl: Rebuild free RMID list on each
- mount
-Message-ID: <arLlcFYZiu7OcBFc@agluck-desk3>
-References: <20260916231320.14502-1-tony.luck@intel.com>
- <20260916231320.14502-15-tony.luck@intel.com>
- <8bd7c456-c11f-4c8e-9b95-6825a00194ad@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <8bd7c456-c11f-4c8e-9b95-6825a00194ad@amd.com>
-X-ClientProxiedBy: SJ0PR13CA0195.namprd13.prod.outlook.com
- (2603:10b6:a03:2c3::20) To SJ1PR11MB6083.namprd11.prod.outlook.com
- (2603:10b6:a03:48a::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MunD8rhl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E6aqTgn+"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI80Rh767753
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:31:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=SOdGFJHM+QY3bQbQemDVAYpt
+	gztbGbVsScvPY9HEk50=; b=MunD8rhlSUsNocyd9LcmWUU/fdjKDNQZi3JSA/uS
+	Mcp91FoVAlQPLsCNC8zYbmOSBlvVbp03jkwp9aMDlYiJtHIidZRtIjd6J/QZEZCu
+	6VjLa8JUUGMdGERs4toWO/ptXkr5aXaidp25cBCKU6zHXcbgVI3qBIMc4YWcLq8Q
+	atLCS3kNqg6Hu9WKINFaIdJfda7fc4mPtrECZF/n+5N7pIrnrPWS5jfXppFHHshB
+	5k3d5akJKIQhi4Hwe9w4YlMefpyovbmy5/ClBBXzWNRWbu28GzRQlEeNFOzNnt9F
+	8TS06L4gsxqPCfGTFVqlgm6W3EiYgKN/kNyLI7GNxq6I4A==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gupbqkfes-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:31:20 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7961a79fcd8so100379137.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:31:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790109080; x=1790713880; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SOdGFJHM+QY3bQbQemDVAYptgztbGbVsScvPY9HEk50=;
+        b=E6aqTgn+C4ON8LM5Njs+KvJ99+mFGsXuLJZY+gNg35SNgNPIuGOxgCabiIH1Uo8ogH
+         3cb1nKnLp3HqhSjB2ZaAzrfT7DkijrzDArSN+QG0zB8ixR2+1BACXWQwjCoE5oI1ni01
+         2mbLXsSM7GP30yfszHjfCdD9Inxr3vKbTaIqoHwZ6iE4wezuWxQWIUpjYO5nuoRqCO70
+         uWF6Rwuv8uj+UpaFOyqeidAXF29Xk6oRmRV6LVKZRS1Ph9Rq08cFobRApEltvreE10L9
+         3zLB5gI++kxx4U3Li/I0wcc1fZ0FOATIJ1IEVr1J9U2C6sSk6ZobovJkZdo2oSSHoM2x
+         4Bvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790109080; x=1790713880;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SOdGFJHM+QY3bQbQemDVAYptgztbGbVsScvPY9HEk50=;
+        b=G5wZtp4s5uEDAd2sUzTE8X+c450SSXQgOaFMrKp2X2U/Rkkw55KlGvp5So91dN150Z
+         M52rS6VtTXvjFP55N+41g8L7oZlX2kdWdn+Zbw43I2GuYGuR4gAZUQZ9nLgS+5Lk+yvS
+         0KFa1nyXaAvhvkquYiv7C8IulRkKz+8rrX4YY2biojGYQboYDR2DVnHkJtZF8xWhjK7i
+         Lf7NOQpG4V+nQ3j+Uloav0PngQs/ArsSY+7JgD8R3UxVaIXJXTvT4uDcSppr9sOA8eeJ
+         LqQbqpMzIjKzvDK8oyzautC6PqUpkp88gdubx0urEydjYRfUtSKsUUDzlPWs5VKdampj
+         2ceg==
+X-Forwarded-Encrypted: i=1; AKwUvByVZDHwKParftCJLknxkGo91y2Kp7fNHeUAnPxFV7YkH5Iaf9lyZ1X6zwbYwIq6YqJQ85T3J7riWY46PEk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXj0d8J6DmKfSgms+ReniQ+ikzqzgh5vjh+cYzIxwlIUd2Ln/t
+	hDGqa10BaN5y61AK8fnrXb1jnaxhtQdT7coj+IGw36Xu3W2KpK0OGQ0YP1pFeLCAAL4UufoJC3A
+	GO5OMG0ariWD95OY7uh0HUTvZpCv6EptF3ZuzWsPucDgOuYpazxqToXPKC96H+Hz8JNA=
+X-Gm-Gg: AYBFou16esGJlqk34MP7fZy+rUSA1ZQDClIFclMb3kVwOKNDGl3AAyHBPHJARlUL/Kn
+	VSKMCDgG18AsKFkxLE82eEG9CdNXd5zHfkWRhKOFIpiNNYFXxtQHOKkT/WmC7g3325RRn9vOIcB
+	FOC+krVlX5pLLN+vOLLUFiJEs8QIoJ3++r4kyB01SZB4sTfBMg+3GgG+eD9E/r6+LnPEJKxthiW
+	ocRp5EVt7YzyafSvjJhHe6MTCQF6aNvn5akEB+fHD7nuAn5C7QupVszq1UNNKXiqu+1c2V8Djtr
+	0CxQsifLV2j44xWqtbxTcN47PSqujSb8u4al0Tevg69DRv/wl//lrKRDpIF7e3zcLASvF6WA4Vz
+	Q4P/jMxlYCAsZYE+7U77102pGLA==
+X-Received: by 2002:a05:6102:511f:b0:79f:5d5e:11cf with SMTP id ada2fe7eead31-7ac1b625004mr630620137.11.1790109079863;
+        Tue, 22 Sep 2026 13:31:19 -0700 (PDT)
+X-Received: by 2002:a05:6102:511f:b0:79f:5d5e:11cf with SMTP id ada2fe7eead31-7ac1b625004mr630541137.11.1790109079268;
+        Tue, 22 Sep 2026 13:31:19 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf99df60sm5738655e9.1.2026.09.22.13.31.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 13:31:18 -0700 (PDT)
+Date: Tue, 22 Sep 2026 23:31:16 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Guenter Roeck <linux@roeck-us.net>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: glymur-zenbook-a16: Add
+ Embedded Controller
+Message-ID: <uv52rxc6llmlas45mejbeeriryiozh3v2f2itbvfzo4f2sgazm@ly37763jkftd>
+References: <20260922-topic-asus_ec-v2-0-0bd923d1b853@oss.qualcomm.com>
+ <20260922-topic-asus_ec-v2-3-0bd923d1b853@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|CY8PR11MB7337:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93b59d2e-e9c7-490e-85ee-08df18e85f5e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|22082099003|18002099003|4143699003|5023799004;
-X-Microsoft-Antispam-Message-Info: HeXAQIXFJMH05Tn2iLoEfgKyzBTuZebweOO5gUpxroweWEOYehdMIRWCye4Jwx93vTJzf8BGR8dyjYUxQ9T9aKMwHy3osAUubikCwzCrtPxA9ICWH4nZa0aHD85j//EONQaP63kf/uXIaP88Spxy8uALzvBhT5Bv8Ozj2io3IbqcI0qvBYGM8MVb7cE8FOQd4toVmU6DV7ZrW6mz0B4dGw+XCo5+jYIQwGNQ6jF89TmKw88WuniLuzqqsMsBbjcyGz1pmu2yZqFktyiklWtx/pPuzhClee26MmHuneOucfaU64ml9krCRn4+qMDEikpLXeGuEZ4wQRThdDsb6gDR3cF25jafYgLohjp3tsk/zswNz3y4JNeaxO6WAliaukxSPw88jVHCGNSZhTjVT+VBvmhVWXzFx3eWHqdsSFdAVINKTZeJUFV2OFT65oFLQhbScINUmmxE1R1yPUIu2PHTtU+l24MrYhVYNrveSsgmU+bwCVth0VO7fkcQ66cl5bDJsWNRbwXPEmnpr5Zh6LnvWXkllNJS/FnDLPpOv5c4NadI9yeh3eC/XZzovHrMxTkYKNcl7HtOO04/RUEiH528RUG476Vnf7G+2xNjHm6peGn4dJMei7hyR04ZBPqQSSFTflZ9ccBJWxo9e7sR2V971Fd/Rt+x9EejbH7rDGHx6AU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(4143699003)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3CY7yu0XmE2V7CvV28FQAHNYf/osiE5xyLNJ/+SxdFqWazohnRNe6+3s7U1G?=
- =?us-ascii?Q?r+jWYxUnizRrC/u9VFAwoAmVsPbpFR+lgxlmFejy5A8UPZ2JjHKo7LC40K2h?=
- =?us-ascii?Q?mg+6uqoTniCJaDF413xku5TTlymcPy+yXPiLS4RlM9SxU3HuOlo9X2IJ1yCK?=
- =?us-ascii?Q?z53Kjmyebyew0Lg0mP2x8k2yxD+VgrpdX6kCgeXgjwF5gn3IwPJJVI3gweJI?=
- =?us-ascii?Q?uUWDTxGNl50pcpun+8rjkSNskX7pXtyBlNKbc64DWH0GFQ6HqC3L5hTcLwEp?=
- =?us-ascii?Q?cjRscE9wEEPrhERSGxkADGtVIuTT6J4yVdo/EQXqDKMGSGPTrj1X2dHMCDuB?=
- =?us-ascii?Q?jF4yDYQlKLM+JHdLyZiy8XCoGUioqOPJJ1Ai+ftEHO0141DiqC15cjPOHf3j?=
- =?us-ascii?Q?O9yzkOPKwgifum5U8aAO4JB3ApsNJQ2Kq3pWOpujHWI8PULLyqppKXayB9PX?=
- =?us-ascii?Q?7JrE8R3UGb1CEcJc0uUrV3Y9RHic13xUB+E46LBCbbNsMdlL61sX8xHavcMu?=
- =?us-ascii?Q?QQE1r621YhwTc2soBxG3guZIlTzBj8q9RBwemFBjYCdq9m3qZHxyvWFAvUL7?=
- =?us-ascii?Q?jUGVKH8E3Ys2R+1jA2U/uwjM/ChSdBuA7EMYhNo+KJHGnu/g1TBpv/4l4h7i?=
- =?us-ascii?Q?i44A3cPLODnmooLN0MpW0Z7aTgixR96G7jZChWAn159K1iHEWF7PiJ8bUFUh?=
- =?us-ascii?Q?HAjJiuuaLcibml/tyOMuyTSu5rXxGru2PXjjxGS+fbgIOHt9lRu//HW5lXqJ?=
- =?us-ascii?Q?bAUaOzSwAw4DORACKb/u65Cldu/O0uwrHM7cGpnbDKiBwRavTwMFWa79cZWQ?=
- =?us-ascii?Q?4I/0WDraKoj93W9y4KNhWl3wE/iapShsTrnWxviWePXgbGYgLJs8pqHhVoQ9?=
- =?us-ascii?Q?XSYTkFXUJ8Z7lZ+vypdVe3iyS50NbvuUISPu+biAw249gX8EV3vUSD+NKRLd?=
- =?us-ascii?Q?ElZZwRJE7kHLYhhfHaeL0f5A37t0nHIuO5i9K5piOwIOKpa4qFjmzB3Z8Mbp?=
- =?us-ascii?Q?5I5Rb/LqsUlWn3RKRvO8LOrxpELMwrQy8/tBbUbfRqKyvHY7BWPBC5jHxbom?=
- =?us-ascii?Q?9IcxnHZvEi3IpFAuNMGplEdvFHgmYKt3BbUMkjsPx17qIx7piWRLgiXk8Nel?=
- =?us-ascii?Q?rOenVj+JrSwOhYHlJfFzl/bMts5Tg+aZ66jOR3zjvcVIoqsjstZ9lEwjW080?=
- =?us-ascii?Q?ZetkwUdVp8RZsz6ivpN8ZgcFi1Lnm9YxVblX5WPYaJmABVJ/3D+vfuzbwKbD?=
- =?us-ascii?Q?jG+BqOirnVZm46fB4bnAmsgqJe+LnEg/AGp2ZQCGkrlISNzUabBG03O6J8Wo?=
- =?us-ascii?Q?ZgQi21TkDNdbzlMA/1dcacQ3oJfwfoqmmbsRdd5iCZut/xoysKErz1Sylgt/?=
- =?us-ascii?Q?RZiZNa8kJsxrdpmkoUx84GYBDSrzHyKvWRbC4V2txZcGe6Z1HtaTO+VGbkYJ?=
- =?us-ascii?Q?czl657tVs0oVNa25/CZ/AMw694MqLrinp9lLlengpvA7az8s0fk8VnQ92pZ5?=
- =?us-ascii?Q?hnx8RxHaS9prW6JH1HlPQgx7XWU/yz1wVHIghelgJxf3iEQI1ltWVQW61YhR?=
- =?us-ascii?Q?trMwYPHuen8NVUK7qCyMtFqV0d85+mRkRKfdPCberHEVtGQIOSczyE6AN3Yg?=
- =?us-ascii?Q?PGM345bOG5X8NE1aVLNlNvhv5jliqUvc5bZ5MkRYzJ87eC6PAo/SJISEFR8x?=
- =?us-ascii?Q?lZupelWTpo0j5iVlG/rSqOflUBzTfw37Yre6kBsfYihGtbiWjaCbJS63aDVM?=
- =?us-ascii?Q?lUqaaWwyRw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: NPLxFfArxnU5mZK8jvMDMuwDnSdWW26upPKsjCCsJM+BO+9Qzs584eLhO/7mX2W40byihzyLKo2L4dQr8Tj7RKLeVOcNFF7naP7RaDAersbwP53aqyrwkEC8rzS0LfnrDQbAIYreUlTskV1+71SLJixad/EJF8Il8b6K1WHfqlPhmdZUkFEnCG5sujtHQWRNUWkj9HcL2h2crPkF4T1LUmTzCFQADofdnI6ndSP3zyfUH0mEDbT2RKoV1LMo3AkwzOcWtFyS4a6dFxa8C4yW74Apr+3pJiew+jRzpywgmIb+gWNPwTGh5H4sNsIIbY8/scsPIYYTqEUNKx/LDnXE9g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93b59d2e-e9c7-490e-85ee-08df18e85f5e
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 20:30:42.3748
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: beyyg8NSDOzTTj/o/Ius7mLcJm2BLIep6Lt3lt05xV3HbqimqKyggC0LG+qLhNULofAJr8ZBqqnBuPA54gJkiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7337
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-topic-asus_ec-v2-3-0bd923d1b853@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI5NCBTYWx0ZWRfX6+0UHmAz1/O7
+ abD9O8GRCMxIAmYSxqp5DEynTMWibScdxIOPlSTLKKZSoap0Le2eKscv2qub8yrmFwDUXz6YdoR
+ IUA44VDqAreSIuAvYRmZelrPOcDs96kCsE+kfQX/dtQyFQUi0zDZssDFLj8pdI/GuBhRYja7/sx
+ I0o7GsrLmeYY1vtfoXwLD/Xw6/K0kWu4+bHN0h9m+hLczt+s5G5O1wQ+Qg5JZ6wWz+MgQmSVcH0
+ EKOCfhbnh5+eOSPI+DmC0kIID3E3wIBwR8DoIw8qw2pN6C2f1qGLe4P5WGt2g2HyUDFJbxelXBY
+ +0fru2asv7wDDD3PD9baNvGTUR2SvXMIdpO+XavTDfHhG6528Nz5fRDM9QHWqCdNVPCPhVEl4E2
+ ksAvqS0RbOIVbMrX0RTeUl2chrXSU8qjlYeXNhfKQoMT/LRyf5JFaw7GE7EPtign9DhM2QW5UeI
+ wP1CbePE2u53jrn5Ggw==
+X-Authority-Analysis: v=2.4 cv=FdaiV5+6 c=1 sm=1 tr=0 ts=6ab2e598 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=B_ILVBOIu_Z04Xi5GswA:9 a=CjuIK1q_8ugA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: 7gGb6NVFvkx6KVP8K0s3RHX03Ob1fbJD
+X-Proofpoint-GUID: 7gGb6NVFvkx6KVP8K0s3RHX03Ob1fbJD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI5NCBTYWx0ZWRfX/8sV/W9WE1lO
+ w6WOOmM/Nnd594DjgfU6aeTXtZwzMYGNgZyPu/p9CqYrmQhZADxAo9O4i/cjVvyWxyYc9GTCd+K
+ gW3UhMhTQeuqduskd2DpMIDhkTjXMeI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220294
 
-On Mon, Sep 21, 2026 at 12:45:56PM -0500, Babu Moger wrote:
-> Hi Tony,
-
-Hi Babu,
-
-Thanks for running tests to make sure that I didn't break any AMD
-functionality, and for reviewing these patches.
-
+On 26-09-22 11:33:38, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> >   int setup_rmid_lru_list(void)
-> >   {
-> > -	struct rmid_entry *entry = NULL;
-> > -	u32 idx_limit;
-> > -	u32 idx;
-> > +	struct rmid_entry *entry;
-> > +	u32 cur_idx_limit;
-> > +	u32 rsvd_idx;
-> >   	int i;
-> >   	if (!resctrl_mon_capable())
-> >   		return 0;
-> >   	/*
-> > -	 * Called on every mount, but the number of RMIDs cannot change
-> > -	 * after the first mount, so keep using the same set of rmid_ptrs[]
-> > -	 * until resctrl_exit(). Note that the limbo handler continues to
-> > -	 * access rmid_ptrs[] after resctrl is unmounted.
-> > +	 * Allocate the largest number of RMIDs that this system will ever
-> > +	 * need. These cannot be freed until resctrl_exit() because the limbo
-> > +	 * handler continues to access rmid_ptrs[] after resctrl is unmounted.
-> >   	 */
-> > -	if (rmid_ptrs)
-> > -		return 0;
-> > +	if (!rmid_ptrs) {
-> > +		num_rmid_ptrs = resctrl_arch_system_max_rmid_idx();
-> > +		rmid_ptrs = kzalloc_objs(struct rmid_entry, num_rmid_ptrs);
-> > +		if (!rmid_ptrs) {
-> > +			num_rmid_ptrs = 0;
-> > +			return -ENOMEM;
-> > +		}
-> > -	idx_limit = resctrl_arch_system_max_rmid_idx();
-> > -	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
-> > -	if (!rmid_ptrs)
-> > -		return -ENOMEM;
-> > +		for (i = 0; i < num_rmid_ptrs; i++) {
-> > +			entry = &rmid_ptrs[i];
-> > +			INIT_LIST_HEAD(&entry->list);
-> > -	for (i = 0; i < idx_limit; i++) {
-> > -		entry = &rmid_ptrs[i];
-> > -		INIT_LIST_HEAD(&entry->list);
-> > +			resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
-> > +		}
-> > +	}
-> > -		resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
-> > -		list_add_tail(&entry->list, &rmid_free_lru);
-> > +	/* Find how many RMIDs are available for this mount */
-> > +	cur_idx_limit = resctrl_arch_system_num_rmid_idx();
-> > +	if (cur_idx_limit > num_rmid_ptrs) {
-> > +		pr_warn_once("RMID count %u exceeds allocated %u; capping\n",
-> > +			     cur_idx_limit, num_rmid_ptrs);
-> > +		cur_idx_limit = num_rmid_ptrs;
-> >   	}
-> > +	INIT_LIST_HEAD(&rmid_free_lru);
+> The Glymur-based Zenbook A16 features an Embedded Controller running
+> custom ASUS firmware (which is loosely based on the reference Qualcomm
+> Hamoa EC one with a lot of modifications). It provides keyboard
+> backlight control, additional temperature sensor readouts, fan speed
+> monitoring and a number of miscellaneous functions.
 > 
-> It is possible the list is not empty at this point with difference in
-> numbers from one mount to another?  Should you check if the list is empty
-> and clean it up?
-
-After a clean unmount the free list will likely be mostly full as
-resctrl_fs_teardown() calls rmdir_all_sub() which is going to free
-up RMIDs as directories are removed. The only RMIDs missing will be
-the ones in limbo waiting for LLC occupancy counts to decay.
-
-But the free list may contain some RMIDs that are out of range for the
-new mount. Simply rebuilding the free list from scratch is one option
-to resolve this. Another would be to walk the list add remove any
-RMIDs out of range for the new mount.
-
-Except during validation tests mount/unmount/mount cycles are rare.
-There doesn't seem to be any reason to take one approach over another.
+> Describe it.
 > 
-> Thanks
-> Babu
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  .../boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts    | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> index 40433dc2d6cf..d3356fcd25f0 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> +++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+> @@ -670,8 +670,19 @@ &i2c9 {
+>  
+>  	status = "okay";
+>  
+> -	/* EC subdevice @ 0x5b */
 
--Tony
+So what is on this address then ?
+
+Anyway, LGTM, so:
+
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
