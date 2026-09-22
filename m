@@ -1,156 +1,139 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C9654936E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C77154EEB2;
+	Tue, 22 Sep 2026 13:57:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085456; cv=none; b=m568CpfXIHV6LbqRSjhsB/049EkcxMbNSZxPyCU0c4ZH24XraBbwCqQb9EyFUne8x68o9dz/nCtoPXGamFIzTf1Zxz+QsjW1VR1CJ54fu9JeRaQO2/1o6fXzdHb9k//tOeYbuBXR2QeC43ig6yhmSyZnK0+cg/Y3kx5GFSYyyo0=
+	t=1790085462; cv=none; b=P+Jz/uwfODEGtnbr8SyvdpE+urbV9VFuD4f339u56IZnn7pJlrI6KcH9ovY9ptSIAG3+RjQyTyOoOS5UruxJimezbGeewSKyuNqvuuRolJODSrw61uPGTjqpzAlEjqX2J8p9e3fgDBWwMc4+bKTTFfhbug2KrKYWHvqXPYTkBO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085456; c=relaxed/simple;
-	bh=dBd5pQTE0YssP3IPEN+CCM6gF1e6BXlpUjLXZ7Zh5PQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNM8mXYqhrfGF9xZ70s7be5GWDw4SHnWzKfWCEzVwNufFp4Bcs38pgE+8o4atnSsnXatHLi6LCSdqaXc9m86yet2Xpu61pjGvoLgpGqoycIDBrMRkA8gWT0cMg26i6Ar4e268UJlN6XkAHhf1LLuX06XpMtoiEkSHczv6DkkItc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=FSv8QNtb; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790085462; c=relaxed/simple;
+	bh=RKuARDfAm8yA0C3MLriXctOx1FEgWrISCfxrgoPiZGk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rKHV6ji1El4YInOmafHjKI0hu0Y/z+3C75Sta5/el2PGjVBgZQy2Ref0vduHW+GBM1fNA6zNYMNmJPWQ6aX4ZKJWIV+b04EdWPVRq9MLaYUUhayuCN4ezm6Rtn9mlynG6Qw6ZW/nRyDmw6XYkv1IG4bJ3yCFiMvws/QJKziGd2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwcL8nCy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="FSv8QNtb"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48586861639so435211f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:57:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790085452; x=1790690252; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pZZpnp9Ii94lfQediVbtRB1HCrD5s3KchpIbsJ2tbsA=;
-        b=FSv8QNtbyWM9XK2JkkiCUJt2L1laTHAqFaLDUDjL3fdaCCl2qC1bLKtKVAng4PP4HG
-         ttpfP+8Zlg2OnNGIzv0sigCBjWAOQh7GKtczrJxgIrAjicpk3xX1PJjTlCbz3roPxToW
-         mmomdGqkeHXbJq+BD0H2ZF7Au/gQAfXR1nDMeuMfOD877xycSg7rnlXIKLhVeEnqj26V
-         BrXjLcycof64y1HxIGtL9j8HTy7M/pddyr/slET2X9tfNLqRoaxUN02UtImsdrEmEilF
-         IF/mezcIldDHx2C+4OjgVyn7lUU3rP79ViNZ6L/JNR8MSqLSs+4nZSu3uUfsGWZZX4S9
-         Zb6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790085452; x=1790690252;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pZZpnp9Ii94lfQediVbtRB1HCrD5s3KchpIbsJ2tbsA=;
-        b=jPdZOmTPZK192X8phE9PmAY4fDeX3pr0/9OAQu88t5T+hmHirlvJmm4M/tkVqv9CXo
-         mUrYd/w/WIOj8Xu35StumyKHqaLksgCzIGMmziB4Atf7TwRqSkqjFwgk+QghGicDCuxh
-         W+E+ENQfp5WAwWNzWoZGhfM5LR59gq2BwJvuCjLGHW+cHjamSTNIAap/4tte6aRJkdL6
-         A/Sipros9r8Zq1YgdgZckKbxZsmQCA7himkJhdPP7AougHGpRafRi+91VpI0VSPumdQP
-         nnYHGzNUHI5bbyhph73GFUj4xwVNlZOPDjniHFS/6tj7QKT9/nz0YLFXX621fGhaUlQg
-         rzYw==
-X-Forwarded-Encrypted: i=1; AKwUvByUUWqzm16XYDQdLjQAUY4B+JbkC8ZH2BLLHEaGEtiqCB5Vhzm3K+3jBehNtVJI9h3hfOUAnpmgGjVB1pQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+pC2FlrsahmNgoA5qPlxw3UQs9N11f8+4ow13Wr7+JLVONSnr
-	xsXzZqIzDp77EM0TRx3rl8DOXpvtZE5rcuJIgYEyC++HC/MpmYMiqndXm3cgnVKpsT0=
-X-Gm-Gg: AYBFou2wL2HIAYZY7jqXahsvRt7hyvGophU+BiJVarUeLmPkxdos3h7TjzBTYaedNbC
-	TT0+UX/LObbA9DdcD4EykRe6+8UmNOjXKHlMn9gr95dFt/2oR4wiq5FTFUkAQtuXiTo8vl4cAym
-	PtkpD3h0JsUR1FrFVf4OR+relRliehsoDfddIJfZ4+J6W1yRg64WhSH0+XQuSl8sxQgj4UdaQjM
-	Zt1mVzCKyQZhDhz/R2y0o/8U55WPOqqgZ+gjFRgV9xniAT5aR0GpmMex20BgPN5Nvws/8AVX/SM
-	YBceUuYM2EfkWrao5Wsz2OgAwC8Hk6dCLFxR1XVIrKl7Nu4/3ZJ7iG4FP/sQmG296t0i5RIrzpy
-	bu8/JbUfHYqeRdYgxTQZx7Vzhqa6b3F7kOLzD7wS78HUcKsUlaiJB0UCqoYucOlTfDGui9uf0/d
-	fPAVIRGHKc0DD2QsQgi2X6y6aTcalaEDiH97dzyYb82KoUmlBieZuhGe3D6vAiiLjhwwp3zA==
-X-Received: by 2002:a05:6000:4303:b0:487:9bb:a875 with SMTP id ffacd0b85a97d-48860f7eb5bmr4640032f8f.3.1790085452552;
-        Tue, 22 Sep 2026 06:57:32 -0700 (PDT)
-Received: from localhost ([195.94.147.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862774543sm5865322f8f.11.2026.09.22.06.57.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 06:57:32 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH] arm64: smp: Signal EOI after handling IPI_CPU_STOP*
-Date: Tue, 22 Sep 2026 16:01:09 +0200
-Message-ID: <20260922140109.12780-1-andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwcL8nCy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467B51F000FF;
+	Tue, 22 Sep 2026 13:57:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790085460;
+	bh=RjZ8p2/xG0EABhd0GfmqDpdG3JlO+Ayr/cmV5HTUaVQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RwcL8nCyad05BgmC+TvVaiao8dCaAd9iUYrVJZ8uyQ/+tMrJMdnOQxsPbCUsYLaSL
+	 bh8SCeOueLlgIOs/+NY73ALgMFlcdpQAeLGeHxCUqM1ZrP+LF7nSjQpmcVm8B1HIcY
+	 Z/ew2d1H05AynIBr3EcMizfqjlqQVE+YGGCPww81OtIhU7Z+38xny/DPt8Q8Q30n3N
+	 10bpqX0wQxe40Qxyq9PsDPAfxid6MqFfMYQ10jgXILVX8uYDs8eCNhpc8vorAgeTeJ
+	 qLnI+rUSnauH+vQO3EiCwB86hXYI2CLfzuT4cL9oqPstPQU/SIc1uu4PR3IJiNj3Q3
+	 9rJfJprLLJxfg==
+Message-ID: <a0aef05e-d1bd-4be8-83b4-23b8a292998a@kernel.org>
+Date: Tue, 22 Sep 2026 15:57:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] nvdimm/pmem: Remove test_and_clear_pmem_poison()
+To: Kaitao Cheng <kaitao.cheng@linux.dev>,
+ "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Ira Weiny
+ <iweiny@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ linux-mm@kvack.org, nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
+ <20260903053535.17611-3-kaitao.cheng@linux.dev>
+ <arIBvO3cFQ53ivG3@localhost.localdomain>
+ <10159c57-091e-474a-a154-4f675a39dcc2@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <10159c57-091e-474a-a154-4f675a39dcc2@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On kdump/kexec, the boot CPU triggers an IPI_CPU_STOP (and subsequently
-an IPI_CPU_STOP_NMI if the first one does not respond) to the secondary
-CPUs, and the IPI handler eventually calls the firmware to shut down
-each CPU. Since the IPI is never acknowledged via EOI, the interrupt
-remains in an active state when the CPU goes idle.
+On 9/22/26 06:44, Kaitao Cheng wrote:
+> 在 2026/9/22 12:19, Oscar Salvador (SUSE) 写道:
+>> On Thu, Sep 03, 2026 at 01:35:35PM +0800, Kaitao Cheng wrote:
+>>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+>>>
+>>> TestClearPageHWPoison() is now defined regardless of whether
+>>> CONFIG_MEMORY_FAILURE is enabled, returning false when memory failure
+>>> handling is unavailable.
+>>>
+>>> The test_and_clear_pmem_poison() wrapper duplicates this configuration
+>>> handling and has no other pmem-specific behavior.
+>>>
+>>> Call TestClearPageHWPoison() directly and remove the redundant wrapper.
+>>> This also removes the need to include page-flags.h from pmem.h.
+>>>
+>>> No functional change is intended.
+>>>
+>>> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+>>
+>> Nice cleanup, but as David noted, please squash patch#1 into this one.
+> 
+> Although NVDIMM is currently the only external user of TestClearPageHWPoison,
+> I still consider it a generic declaration. Combining the two patches might
+> give the impression that TestClearPageHWPoison exists solely to serve a
+> specific driver.
+> 
+> That said, I’m not opposed to merging the two patches, as doing so would
+> make the submission more concise.
 
-In a virtualized environment, if the hypervisor does not reset the
-interrupt state, this causes the crashkernel (with cmdline option
-maxcpus > 1) to be unable to synchronize between the boot CPU and
-secondary CPUs via IPI_CALL_FUNC, leading the kernel to wait indefinitely
-for the CPUs to respond. This has been observed with the Hyper-V
-implementation.
+Just squash them.
 
-Both the Linux kernel and the Hyper-V firmware appear to violate the
-PSCI specification:
-
-- The PSCI spec states that the OS kernel must migrate any interrupt away
-from the CPU that is about to be shut down via CPU_OFF, which by extension
-implies that no active interrupts are allowed. The kernel does not
-currently do this in the kdump crash path.
-
-- The PSCI spec also states that the PSCI firmware must reset the CPU
-registers to their default values when turning on a CPU via the CPU_ON
-command.
-
-Fixing this on the kernel side has the advantage of being
-hypervisor-agnostic.
-
-Signal EOI at the end of the crash handler to prevent the subsequent
-crashkernel from hanging.
-
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
----
- arch/arm64/kernel/smp.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-index a61dc3016a117..cc7f3261fe537 100644
---- a/arch/arm64/kernel/smp.c
-+++ b/arch/arm64/kernel/smp.c
-@@ -988,6 +988,27 @@ void kgdb_roundup_cpus(void)
- }
- #endif
- 
-+static void ipi_eoi(int ipinr)
-+{
-+	unsigned int cpu = smp_processor_id();
-+	struct irq_desc *desc;
-+	struct irq_chip *chip;
-+	struct irq_data *d;
-+
-+	if (ipinr >= MAX_IPI)
-+		return;
-+
-+	desc = get_ipi_desc(cpu, ipinr);
-+
-+	if (desc) {
-+		chip = irq_desc_get_chip(desc);
-+		d = irq_desc_get_irq_data(desc);
-+
-+		if (chip && chip->irq_eoi)
-+			chip->irq_eoi(d);
-+	}
-+}
-+
- /*
-  * Main handler for inter-processor interrupts
-  */
-@@ -1009,6 +1030,7 @@ static void do_handle_IPI(int ipinr)
- 
- 	case IPI_CPU_STOP:
- 	case IPI_CPU_STOP_NMI:
-+		ipi_eoi(ipinr);
- 		arm64_nmi_cpu_stop(get_irq_regs(), true);
- 		break;
- 
 -- 
-2.35.3
+Cheers,
 
+David
