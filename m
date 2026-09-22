@@ -1,188 +1,188 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011005.outbound.protection.outlook.com [40.107.208.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4633101A5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E697640DFC8
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790116784; cv=fail; b=U60AIANkew3SEwKmYm2rXA/Y18+lAh1ZukkEpUow1tTp/zqCYgjle3V8dzneWfnzwXqj9mnDCyatjBU0WQ/3d2/KW0ssyuHXkVmTYViA6xa0kAH6403DZ1HB5bzjGVeA2zaMl0qe8+sEUbZy5DZYfIlMBZiR2s+9GByFvGSGgQw=
+	t=1790116900; cv=pass; b=uRLYd5m3DRa/amO7X/jORLuBqIbcv0Ld+OL2BszCncTSW6SeVqNbp+RGCy/u70UyjuR+7d8KDNHUvd2orBhJER+kgsGos0iBGGTnD/gloshGo2+xKlb6vHU5KkV0NJXi08vo+RqmGYhiZSE8Mo/PthKpMwDtxOpeIo86SLXkSC4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790116784; c=relaxed/simple;
-	bh=0AdOGd9KKCDWEWJs0VDm/dX4F7aONiFYK/Nf9DKXzP4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=meIvPEH0XfSxdCakdXTNmIba8KVghaumtFb8KkPlUinlZRF1948zPcwuX9qWGMbdEp3s/krYxXQijuMzGQYDAw6t21dxgcF4CSBqlkvEQHUB6U+C8DU6QwV9uVyEeqDlXKxKOQwVfCQHOiROvXbh9YpQWdolpE2ARklqApItYww=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ONOsVIAT; arc=fail smtp.client-ip=40.107.208.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790116900; c=relaxed/simple;
+	bh=XMksKNqknHGvAxIQkpO2ziabukN5n22iaTUCcWfVNCk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TPOM0HgsAK2QHbx3+js8Objhf87i/e/KYD2xfwJ4dYERorEqYHb9lqVKi07EXtLfKC6SaDtO1Bg2DBud6sHulsT7tI+USnWYzbsDgZ7er9q26o5ZcdN4p7a57FLiIFEtALXLhiyUcBJ2SxosJZtI0u5wEd08eLextFvGITzQAtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nAdZCq6Y; arc=pass smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ONOsVIAT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cOeSuYAeJOllcskoJVx17HDD1Iv1HhdRCxMJGo3wueNc2qAzCE7WaFdfMjGUgucIGXEgnRg/w5lIR3G6635xzdoBLsmrDXgDE4rUx4yHvAmtrAoMU0nLmS070bYXozeRYUnpnp/Uo5+6vZ2sekE3ZVDpuuy8h9TBC6GZ/O0T4w9tADQ0Hcby4ga+ougWP7TmltINnWbm9i6+9J61hra/yUPQYESgT5FIBd0dV2aPbKZ22HHa0NqUZrGZABu6eGcec1dJy1EB7oHzMe2EBqehnLzX+5nGiGJiTEUxuM0zQDUg5TKWS7rppRNGdQIkp6E/q1MeM9C26JsfxY7gw25prg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O/9BGW/xnK94pJuq2EdJbER8yTbRXmGlKEp6TiS1lsk=;
- b=c14ytp6eawvNOTyy3cZsUslvXw1BehRMpS/6owsRjikP2fw37ny/oWv8wm5zu+k6BzBZdERgWFQ5HlxmhMaU6AA2qmu3k52zoiQrDVcvUW8qaB5B2WgJuOO8kFcF0IBiKsm3DYeZShnxlQRTHYM2KP1CzNiGMh8i/MqouHIDgVjC0BlixGtdih0acZUZTaZp44C6iHufczBs4BPXHurZQ8sqkk1mr/1Nl9KKXS3Mi27583h8/rTv4DSynePHRO7WrrnRxHddKZ9PbCvaEmVDwamyd1lFCtd/dZdfiLuBuqMLiE+BOlE2oLAjPUMccrZKUmEbtQA5SuxFoi9yeWsJXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O/9BGW/xnK94pJuq2EdJbER8yTbRXmGlKEp6TiS1lsk=;
- b=ONOsVIAT/A3l2BtnjQnQlB52L0aU4KD5sw5v/LqEUT9tbQ7cpAh5G51AH2h7s5f9plhJDzAQ4hw9iYgvnA05l5nijoNd3XqcsRJ6dnLqBdWpcpAkyKeSH8sGOD1MMHJsAMrGuYZOwLvPhAYIj1GfCxIyA8+J4CcDjoTLqELTg3NwhUp4thzgS7kGI1V2JJOQ4va6VPxcGlkfBdFyJC0nmaipxgxWSSfUT6kFIKUCs9hrTKSjexZg2GnQGZH6Ipiiz7AVlkWv+VLQ/wxYkkwQY9k0w/ReIG8GJKfQ7T+7w1p7ilIpK6Q4+471lugXLaGmpXODOZHBNWx8zayqVzHfoQ==
-Received: from CH2PR17CA0019.namprd17.prod.outlook.com (2603:10b6:610:53::29)
- by CY5PR12MB6384.namprd12.prod.outlook.com (2603:10b6:930:3c::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 22:39:31 +0000
-Received: from CH2PEPF0000013C.namprd02.prod.outlook.com
- (2603:10b6:610:53:cafe::6c) by CH2PR17CA0019.outlook.office365.com
- (2603:10b6:610:53::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
- 22 Sep 2026 22:39:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CH2PEPF0000013C.mail.protection.outlook.com (10.167.244.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 22:39:31 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 15:39:08 -0700
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 15:39:07 -0700
-Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.129.68.8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 22 Sep 2026 15:39:06 -0700
-Date: Tue, 22 Sep 2026 15:39:04 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
-	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
-	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>,
-	<sebastianene@google.com>, <keirf@google.com>, Jean-Philippe Brucker
-	<jean-philippe@linaro.org>
-Subject: Re: [PATCH v8 10/25] iommu/arm-smmu-v3-kvm: Add SMMUv3 driver
-Message-ID: <arMDiPHiMvHVHsBr@nvidia.com>
-References: <20260922131259.2975334-1-smostafa@google.com>
- <20260922131259.2975334-11-smostafa@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nAdZCq6Y"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so165958a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:41:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790116892; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sFRlSqJ+5SCGFg+mnrRfUIQLRPI7sh2VIP+kF5N6LsBqXUevAJY2n4OCmIkuVKAWOx
+         8GT3Lt7WSZ1+QrvVAxbLgcMU5bywvKBHfN9kYDps71vrgaK8goXjlKVTQakWXDThssuX
+         p7mir1TJ+KqJnrEYZcgbI8ef1RYX6z8kortsWOS3FiPU1MZ3+N4mpEY11v6frxeNflpJ
+         FMoiW1FkI6HNhEtTKZTQAsJlvKkJu6IFxBzr9KBjhwFNljRr72xbzj7WPgRK9j4SCuiI
+         y76G9HOD6m1MUcs/MX9HJfrwq+mGCvqCDEg6WMPsz8ndO07RrC79leg65Z3UYEeAsDVM
+         hUnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EifBlIWLbbiNu1pyTH5rLVkrLNZbYLjk13b2Gi+S+cY=;
+        fh=vP7hP3ygDMDyLkF7BcT2ylppigGBBYpFNhbeXdcdJuw=;
+        b=K7CDpCNto5USY2JFMZpHOuU1R8JBSlZ8BzmLlSqpyV7vJCdZIqBXmxfMiVNKrU4ZLp
+         FxLnhV6I43i0lQVMxfQmSKTC7eUv4rP1Fu1QICIthEdYic8ZVdMFGfFZdYqA9XsCSiyk
+         HxWKNB3kk+2Oic3BQagCHlHmusm/NuW438IK6a57+44zzbkpVpucjsbL++TfqtrQ25sC
+         r8VOkid/A3N/yZKiZSPkbdWjbAN7IvHuF6+q8KHoaG4Ahow+nqtVPPmRbiWhx2QfknaM
+         j/SbpebpAghWqjoTEo5XvM934dhRDuPtKOHVH0sToYEYMhuZhvgjQ8DwEqL788rWuKE9
+         zm2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790116892; x=1790721692; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EifBlIWLbbiNu1pyTH5rLVkrLNZbYLjk13b2Gi+S+cY=;
+        b=nAdZCq6Y3nb99AlXrAzEH6iyWM0tz9i1kwlJqyF0SJZxBBkj9dL6I+5EDfeUMcwASY
+         pEvL6J9rfc5cFG03Vzunv0qitINC8DAppGHNMzUJPd1o2b9fzTZ5MU39p4wK+46Lx07r
+         kjW87AUluoaVe7KI8fS0Y2WwDvbS+glftP5SiAFBzHIrTvzlwPm36rxSc2r+GL5mMKgu
+         MdZImC2Zu2nHwNp5TOOpyeT6w2eENqMiBFEH3/lGeXNrNha+RGl2v86A3GrmwhsrqmcC
+         CcjUqhcffeZ4FgMcjSM5PM3hs+02v0G7B8OzE8i1JKqJ9xRnr++5vcAQIE3KwG5oQTRH
+         om9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790116892; x=1790721692;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EifBlIWLbbiNu1pyTH5rLVkrLNZbYLjk13b2Gi+S+cY=;
+        b=mD5bYLZGaW0qhNshUre/BBuMv1DAmmOlOwh9C2SsBCqFM6+k0qIOEC7azjf1mtGhsz
+         uLTvS89gnoG5JqGeTXVIT2Gj63jV6jX4qI8D3HtUMzzjv19ZlfHghvyrmUuqiSoBXzZR
+         nQoGMj6uzYuNp5QQLi2dkm8jb3F1wsmglJJ4GTHABGgxi6Tbvnm9YOGHVcsDRgLRWh9H
+         JPHqI/Q4C/UkCc/uk35bhC5zwPpp+PriySMBkK59r1HslZNVjUCE2R4gqLmdVhD/csdK
+         ojSVoKmSj1IE8Yor5AY+LYhtKbk3C+BXqLQepU8S2TfDAsF7FctZH5qb14cFs7V6v38f
+         ljLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfGRaffBDfr3pGyOimqd2+nTpCJZZJW9+0dcLCCYiA3Wz6vSprrfULWd1YLaqIZAdkEzMdOU1KuF+MzXQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2h6dFwraRaRogZvJ0qzLSLhtFscSZCULqjBBqD3VJN7wu3Q0R
+	FyolaSwDgjIS9xh/8WQ+AeBzTksT9GB1qDXl1BKRIuFXh5kEHeEzZevW1uRiXXfH4lHA1jG/lCP
+	Wl/hXKY1xFUmQBd6eshyYmFfe5hq1nSc=
+X-Gm-Gg: AYBFou33iuUwV/546lhAkMrYfY+PgFZzhms8r7PFpKaN8T3ZUe/a6mAuDUf7onrMlOl
+	ufeXPLcUYkWU4XQQ42tfuMjle+q4+OqarcKBLLwSEdpSpfyztHLLGlsda1fRtUWeUY70gJK/2Ft
+	GxkA4H0R6oTYcDIGQeC1Pls2yhI8Q/r7Uv1MHiKS+U4uBek5Vo00UrFPsXzwPjLYN9aR8B3MGYf
+	jlhjTLKGE5Fpxtk69cOQgMfEpIcoIzG6lIt0iGxzw453sK5rELGps7XvupO7zGxbLCdr4Xcs7xq
+	+SWXvVyc0sJm0+R/1wxYueSf6fTrt0LchuS3f4WryTt5wr2kF7bdTlBvsHbLyUlQiC51vW/OKm3
+	MB4asMAIZfBK5Qsi+tEHWJLUWAPNUk50nH3EiRPjoJz9CXwbCi9Pi
+X-Received: by 2002:a17:90a:1609:b0:3a0:8050:2ecf with SMTP id
+ 98e67ed59e1d1-3a080503167mr173387a91.25.1790116892014; Tue, 22 Sep 2026
+ 15:41:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260922131259.2975334-11-smostafa@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013C:EE_|CY5PR12MB6384:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1d5748e-ea1e-4efa-d00e-08df18fa5e5e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|7416014|23010399003|6133799003|22082099003|18002099003|3023799007|11063799006|10067099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	fATAxxF4Wko01zPMWe6J8TuQAW8jb4UZaLk6UsHnkC6U5gZcU+FmoOed9MFs5x/CZgjdmvqO3oscigsbWcW1HYLuUmh4FpCxZhoJxK/qPZXDShAWUeJMqEzDFz0nnVJH4T1fZf2EYDy6eb4o8PRHJZb5cqOXFX8aaolnfIA60T9dyChjpZs7ySTobRToJ0sEOqWts8Bf1tRgxUPugwr4Vf781UxsNngvTF1QAOOc2pogPx1H78DD8ESmiNbLB+VOASpQIXGLsF8biQTHKwvHCKlnAtQc2v1DPzZ+32xWjIRxDvzAz2wk7VVhwFOgUF7Ar+c4qntym5AUQnvGhaMoZwrRLmYItjz5U0mHeDYJ3cfLGA8pszXA+/8LkfJlLhSs55rJd2c5W5AGfEmKw20xmuG1L2CzFJZ/FQAGjZbo5K4NpYa/wqL3utois2NF2S32e4pZsBOAdNYmNNYgI6zJC46Who16WOFgVF00ymL3z9wNSbFKSVAETx2/4S6sCeGbG9+Qfy0F+T1S+Muk4ePdjgopHEq9T0BgNhCgNZ386NVdtDujkIvweyHrVhPEkNsGc5JycMbHinJVOTwu8t7n3DO1209XwsbObpzHNOnKHpFwlaX/UCR8Kyjl34RJ2ez1N40x1/qNeSWAV0DMe7iEXyzMPkZbLmyWwNeExA+dbvHVaIP8KD4zOrikSMvXGrluJyEHcWQk0E1mzj0Ao3pCdQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(7416014)(23010399003)(6133799003)(22082099003)(18002099003)(3023799007)(11063799006)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	juHhOFJJ+oEyFzZtJn95p2InWRJLJlsMoDHNif/X6Lu77tPLd26UWTX0jzElus2r0nUtNS6NhxJNiCOQ9vmOkREtmbVbIq7TRQPZEepaB/TQGeV0OGsxM33M7UNNxwhh36EnJ36IS/FN5cszx/m0hDWQFEDWERwhP4tMuUdXAYcWPGixfctc2ATAt7cQBSWhss5otOQ8CQKKP1BEDA5ZQSiosimTS86arJ9OnILiJ7eE0HCArziDoKRcfOPpLdW3cBKZ/qA1OCSvKjllyfkjwMxPZzHdEQZo5Qm+rZD76mkSi+9WB1REc2WQaUPGH6lTAxvo8JWoDgT5xIWJyRBvojRx69hTy/H+8jReUPvgifxsGbBuAxMt/86qade5lAK0L/5jjjnP400TyOArUlSlgcRY3FCaUVin0pRti8Vhachg3jQaZuNnJYnC9EddWmzn
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 22:39:31.2389
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1d5748e-ea1e-4efa-d00e-08df18fa5e5e
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000013C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6384
+References: <20260922010333.1226537-1-ihor.solodrai@linux.dev>
+ <DLLGYV7DI406.JRNDNAZ4S29I@gmail.com> <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
+In-Reply-To: <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Tue, 22 Sep 2026 15:41:17 -0700
+X-Gm-Features: AcwNN1UI69p9OfuPaja62sel_0aSwzvzcRKESR-BvjHad32ywPLzgeMec1HUoDk
+Message-ID: <CAEf4BzY4LQ7TDCpxuVDwCzLZDr6gDYP44UwLEjqtcdRBj+bT_g@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v1 0/6] bpf: Scope callback arguments to their frame
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Andrii Nakryiko <andrii@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Amery Hung <ameryhung@gmail.com>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nicholas Carlini <npc@anthropic.com>, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 01:12:43PM +0000, Mostafa Saleh wrote:
-> From: Jean-Philippe Brucker <jean-philippe@linaro.org>
-> 
-> Add the skeleton for an Arm SMMUv3 driver at EL2.
-> 
-> The driver rely on an array of SMMUv3s on the system, where at
+On Mon, Sep 21, 2026 at 11:13=E2=80=AFPM Ihor Solodrai <ihor.solodrai@linux=
+.dev> wrote:
+>
+> On 2026-09-21 6:55 p.m., Alexei Starovoitov wrote:
+> > On Mon, Sep 21, 2026 at 06:03 PM Ihor Solodrai <ihor.solodrai@linux.dev=
+> wrote:
+> >
+> >> Neither has a local fix: both arguments point into a helper's own
+> >> frame, with nothing longer-lived to anchor them to.
+> >
+> > It's the same problem as a pointer to callee's stack.
+> > check_stack_write_fixed_off() deals with it like this:
+> >    if (state !=3D cur && reg->type =3D=3D PTR_TO_STACK) {
+> >            verbose(env, "cannot spill pointers to stack into stack fram=
+e of the caller\n");
+> >            return -EINVAL;
+> >    }
+> > CONST_PTR_TO_DYNPTR wasn't spillable before 7.3, so nothing depends
+> > on parking it in the caller's frame. Reject it there too ?
+> > and then no need for REF_TYPE_FRAME complexity?
+>
+> If we focus on the nasty bpf_user_ringbuf_drain() bug specifically,
+> then yes, check_stack_write_fixed_off() change patches it:
+>
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index d62c0f74cff5..f261423e9282 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -3668,7 +3668,8 @@ static int check_stack_write_fixed_off(struct
+> bpf_verifier_env *env,
+>                          verbose(env, "invalid size of register spill\n")=
+;
+>                          return -EACCES;
+>                  }
+> -               if (state !=3D cur && reg->type =3D=3D PTR_TO_STACK) {
+> +               if (state !=3D cur && (reg->type =3D=3D PTR_TO_STACK ||
+> +                                    reg->type =3D=3D CONST_PTR_TO_DYNPTR=
+)) {
+>                          verbose(env, "cannot spill pointers to stack
+> into stack frame of the caller\n");
+>                          return -EINVAL;
+>                  }
+>
+> However it doesn't cover some of the new test cases:
+>    - user_ringbuf_callback_park_data_slice
+>    - user_ringbuf_callback_park_kfunc_slice
+>    - user_ringbuf_callback_park_clone
+>    - user_ringbuf_callback_park_clone_then_slice
+>
+> (not counting the diag message diff)
+>
+> The original suggestion that came with the bug report was a
+> cb_dynptr_id field in bpf_func_state set up in
+> set_user_ringbuf_callback_state() and read in prepare_func_exit() to
+> release it there.
+>
+> The cb_dynptr_id seemed way too specific, I didn't like it. So I've
+> tried to figure out a feasible generalization of the problem, and came
+> to "verifier can't track a lifetime of a ref tied to a frame", and
+> then to this series.
+>
+> I think we need to decide whether the REF_TYPE_FRAME is a useful
+> mechanism in principle, and whether it's sufficiently generic. It at
+> least covers the cases in this series and more.
+>
+> For example AI also flagged for me parking the vma argument
+> (PTR_TO_BTF_ID) of the bpf_find_vma() callback. It's low severity,
+> which is why I excluded that from the series, but "reject a reg type"
+> wouldn't work there AFAIU (we would break many legitimate programs).
+>
+> Opinions?
+>
 
-s/rely/relies
+It does seem like we miss a reference representing single frame
+lifetime which we can then use as a parent for all things that
+shouldn't survive past the current frame. There is a separate fix
+right now to invalidate dynptr created in subprog's frame. Seems like
+that one should be expressible the same way: local dynptr's parent is
+"frame lifetime" reference.
 
-> +++ b/drivers/iommu/arm/Kconfig
-> @@ -141,3 +141,15 @@ config QCOM_IOMMU
->  	select ARM_DMA_USE_IOMMU
->  	help
->  	  Support for IOMMU on certain Qualcomm SoCs.
-> +
-> +config ARM_SMMU_V3_PKVM
-> +	bool "ARM SMMUv3 support for protected Virtual Machines"
-> +	depends on KVM && ARM_SMMU_V3=y
+We can even relax this "cannot spill pointers to stack into stack
+frame of the caller" error, potentially, by just turning that
+PTR_TO_STACK into SCALAR at exit from current frame and let program
+verification go, no harm.
 
-Should it depend on OF?
-
-> +	help
-> +	  Enable a SMMUv3 driver in the KVM hypervisor, to protect VMs against
-
-s/a SMMUv3/an SMMUv3
-
-> +++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
-> @@ -0,0 +1,31 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef __KVM_ARM_SMMU_V3_HYP_H
-> +#define __KVM_ARM_SMMU_V3_HYP_H
-> +
-> +#include <asm/kvm_asm.h>
-> +
-> +/*
-> + * Parameters from the trusted host:
-> + * @mmio_addr		base address of the SMMU registers
-> + * @mmio_size		size of the registers resource
-
-Are these still in the host's physical address space or guest's?
-
-If it's still "host" (though trusted), what's different from the
-ioaddr in the main driver?
-
-> +size_t __ro_after_init kvm_hyp_arm_smmu_v3_count;
-> +struct hyp_arm_smmu_v3_device *kvm_hyp_arm_smmu_v3_smmus;
-
-Should kvm_hyp_arm_smmu_v3_smmus be __ro_after_init as well?
-
-> +
-> +#define for_each_smmu(smmu) \
-> +	for ((smmu) = kvm_hyp_arm_smmu_v3_smmus; \
-> +	     (smmu) != &kvm_hyp_arm_smmu_v3_smmus[kvm_hyp_arm_smmu_v3_count]; \
-> +	     (smmu)++)
-
-"smmu" sounds too generic. Maybe for_each_pkvm_smmu?
-
-> +/* Called while is the host is still trusted. */
-> +static int smmu_init(void)
-
-s/while is/while
-
-> +/* Shared with the kernel driver in EL1 */
-> +struct pkvm_iommu_ops smmu_ops = {
-> +	.init				= smmu_init,
-> +	.host_stage2_idmap		= smmu_host_stage2_idmap,
-
-Can we add a "pvkm_arm_smmu_" prefix for the ops and functions here?
-
-Nicolin
+So for me it seems like a necessary and useful addition.
