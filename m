@@ -1,142 +1,114 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0254409623;
-	Tue, 22 Sep 2026 20:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109107; cv=none; b=mGxgr0ijdLBayfqQ30HQWbWAu6svbJz3wMZzqPfhb6FA/8dbW8TKuo+TWPRbyMBe3oxSyKloKkYB6N13Dc1cVjsnHwxNT+jB1onaYwlRKZbzXrLGu1Y4OJ6aZG0IIzcSk+Am5rG3QhhYEjM+2Q7+mb11z5DS6B8voLN0obQR/ng=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109107; c=relaxed/simple;
-	bh=B3w1xQI1tgkdSj/3amCZq3kMb4YuSj4xM2Cg0vxGQIc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=ck3pj91EpzUw/b6tQP33AjiREOk6Cf5b6ZQ+TPONCitf3K0z31pxHn1C9kiulqClGBV9Q/8yI32ORqj6rTWqnUN8FIMlEgLCYAeHbhrooowWycEB8BFpU7xRhTjn5TrtL9Q9FFmyhbX/E6r36uHyS9JSB91ayUjWqQ9gP9NyKPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=EDI5I5Sj; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=s7DW5ddW; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA17D3E51CC
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109105; cv=pass; b=Ke6SJaHuBoT+a6bWDv0DMG3EfoW1ybzycYeXLiCz41IFvui5HhoakX+OzUpX51XMtM5IVMWSD/lexa0P+E8t2rbSoQLkzHzgInTfp+hitsxpQ1a3X0p3QJ1pdUhAepOmf8SYFUEzp9FQRNtZi54+Ed0qzrRWREG6x8X6OO1Up/U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109105; c=relaxed/simple;
+	bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=M4/8/yB436HkZzBNcBPWuJCCgLfzbNtaOQFf29Wp+6AxVvIRaDERfIHGRGcxaCiv/SPCu45delWmzpaU+iXwXv/LvVwIKGhpvC8gTHlpt4jBOVJabcSe2aY+oGW1ZA0UNyqENqlxUgZwozDE6ryJKAfEdLG59EZT59M3ztoFEmM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W0gY6i1Z; arc=pass smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="EDI5I5Sj";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="s7DW5ddW"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790109090; bh=EIWXllr4KSUsiVr6oQY81Rp
-	Mgz1OD3jzJb7BidL1jwQ=; b=EDI5I5SjlvPwKclhuFwo2Qig5cJbEmt+ZlpU2vEShrAAfYXjCk
-	rGGwXoWayOKi+Jg4oyiuwtSVqzUt0HITTg+hTyMLQex1OC1f/7nR3SRsR9k8ICSkCNKY9X/KybT
-	gaQmCnLlJlz/8KA8rAYY/OaUEGRtrFvtk1258RTCWET/cCkeoV3HFVk7utMSzA9v/APzXM2oAVf
-	QMW5dpcmMGUf4mNl3cueTnUT+mpjtpBPw/f6xKwWjLFf3Vdb4sW9bLhG40OzDKiY0DgkKHsPQWv
-	KhifFLW+RlXTRLHJMIfQd7drDjEem7ksP2NE/+TWN0YUfrYRrW2br4lMTTESy9P777Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790109090; bh=EIWXllr4KSUsiVr6oQY81Rp
-	Mgz1OD3jzJb7BidL1jwQ=; b=s7DW5ddW6nHjqfUyBuqG/brQOmsZzMdlFS8LOVoHAPwnkdwVBi
-	UrE8QiupNpkHhzv6poRJjdIo9W7Ccezt9oCw==;
-Date: Tue, 22 Sep 2026 21:31:31 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- Paul Moore <paul@paul-moore.com>, Eric Paris <eparis@redhat.com>
-CC: rrobaina@redhat.com, audit@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] audit: fix exe mark UAF in kill_rules()
-In-Reply-To: <20260922202734.1344770-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260922202734.1344770-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Message-ID: <3243770A-7E27-4142-9467-FC1FC98A72F1@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W0gY6i1Z"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0cfb33cso322784a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:31:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790109088; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PjhFRfQ5RSObMtAByNzxknUHPtHfWU7x9/cMz1a+S9Sgh7Gm1iIQ0L2l7Ro+PoORE9
+         ikPFGvtOBcETj7b7ftCceVm1oD4cN51Y09FDE2MS60jUHCH9t9AiNveCDPKAt75Ehzmf
+         4EWro7SG+YtoKditL0prRvEgj1Vf5T4OblCZPSYv7D/ivjS6AouuIKwsdVm2HtF58Gl8
+         Cn96OMmp1MhjYOBiRedt/UIYgjMdDzyAdXQpif9OYeG32Db7Z/9hMGX26S8ZvOhfZCBm
+         p02sW8OdWFHR3c10A8/Z7pc802+BE+I0+ThVDw3YB1N/AIlFfAqoZE8TCvJQNF7KvoM6
+         4KZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
+        fh=Wx7uIB9x+iJPYWTNPMIpsmmN80ojxcdhqao3JKXNJAY=;
+        b=Fvrw8Wbt2vyRclsRSFrwpLavT7oBfrZAm1inCYt7djYKE49yCjAFZC3dcZh6DxQLW6
+         RO066iuRlxx9XbcEnJj5kfx+nqMueaZCjRcYAHJjda0XzojxAdVu+S/+/d+A+CCbb58U
+         hIWzIDsaKeopUN69sa16XsZS+lRE4ei0SMvBolQpQbgsfGZXr1LrJRiAtk/OEHRTkQQ5
+         wY8CKRLZYCB2P5vdrBRoUIP13QdFX1hVIN0dEHMNh+emFKk3XuCCUWGMFhU6KgxnuzR5
+         jczXvAa62IvLo857yjg6Ja66RWFsEChstzCfi54Hqfjxr2CZMTJ96S/nbTI294uJ8WJM
+         BGmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790109088; x=1790713888; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
+        b=W0gY6i1ZQGKY1GhTGAYJT1Zysmc6u4VOq4inZtEwpVPrSt3tcJJGzZpmHOE4DdRM0Z
+         OeoGLxhhHimmDgtdjmOjT6J2nrLUUZawwRD1XveaYcNuEL1YzGAaqRrDFPX6f+6b5eI2
+         x0nia3j+mwbHL0cNzDNb4wcQ5RWdI3z/QHotHzlWZRuL5g69V54X78cGb8iT0/YnTh3G
+         QzgqUAT3ZrzvRJsyUOtajzC8SnCZGq/TLNDLoN6HfzGGHvxngUUNW7gzEHqvELMIa3wC
+         7X0CJYACHIHDjFZ59YVV60l0P8gsG+qMhu3AdCo7iijJtIkJSQV0cl8FVIelnLONwblg
+         iF2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790109088; x=1790713888;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
+        b=mSbCBRCYUpGNb3+DceteUZcSKXuB0omaIAEyWHCXz1e3b7WjxpRV3+Cs7AroCgqo6Y
+         Y8ylNMq0Ckbmpf3PVPc1orKMY13ieq8etjx5LIg/x9Ufeye2BCQAuoWimu6MCwk2AiH2
+         MhHEgad72uk0OcMaX3TaufNQ0CKxHx8M5902WQB/wIyAwpspF9z/IcdxJSiI9xgvNzmz
+         M5S/l1X7teGW0IsoLA5/AHaqpOZmFEqJXIpact4d52LPqExpDDHaqAUBly3pZKZOPQf+
+         o2eg28Nw7W1nl3ly5iWFIfLRqQIOUOY4Zi6RSUkfPJCfBqBnC+fciodfKNzsRPMnYra3
+         F0aA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVPcV1i8THEXSvQGGr1FV3lormxTX6XsKsr8zdtjzew8MxhqNP3cu9VL+fAgac6L1D83gNSLjFgrTfops=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkSlldpQlclXjSE1vV0alijv0gfXqStFgCpRobQH7x2R0PTCNm
+	ajHSCt/YZfi5A5NFIYMf2mD/h9qglBc6ZeW4w4t4mn3B0Kyou114P4btMFLZUU+n780H0GZ0xGG
+	wqjWPjLGGlUAE9CmFku3XFjRELY5c3ko=
+X-Gm-Gg: AYBFou3PBFOr+7cfEDSKS/vC1WJ5n860RJ9rPLG/NcMxSKn/g92rzLkW8Qcdd4Nd9SZ
+	fW3p6tjwBTT8GXLu9bUxHOr9YKElXB7GLsbAfP771WYDfmXYHckoI1CBm5Btt6KOCyHSjsHP6o/
+	FQ+MBbpUDUCT5GLbi7OTXlMQKZyXscwkd5N0v6LG22dAGzustUlOuxVhHnULEWNuYXQSHaQVt4M
+	SYVs2hkbrQgzOHNE//G2v9lqIuntrfXOSWB466njXr5So7I7FALtB8bXIxOOTnM/6CbujbpyiYj
+	qixVJ5o9aWb5Rn3YCQJ/3GitGBUKkJFAmF4UQdE2hlW6hRCoe1F4wBtxlGtEV82W8gbcxFuDICj
+	o1Y66M6bkhA==
+X-Received: by 2002:a05:6830:4109:b0:80c:d34f:5f5f with SMTP id
+ 46e09a7af769-815f242b7e1mr808405a34.24.1790109088330; Tue, 22 Sep 2026
+ 13:31:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+References: <20260920194710.1114748-1-devnexen@gmail.com> <20260920194710.1114748-2-devnexen@gmail.com>
+ <arKF7P9gqq7ehX-k@sgarzare-redhat>
+In-Reply-To: <arKF7P9gqq7ehX-k@sgarzare-redhat>
+From: David CARLIER <devnexen@gmail.com>
+Date: Tue, 22 Sep 2026 21:31:17 +0100
+X-Gm-Features: AcwNN1XSk4_n-Pw8whwf_qkZon5EH5z4YSuf40SxLSGrNh11a3Xo3EAHx4U9uBs
+Message-ID: <CA+XhMqwsoW1xyq+URGSuTrwnPo2CR5297bskaAsgHfMyyPPSPQ@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] vsock: report pending receive data to io_uring
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 22 September 2026 21:27:35 BST, "Jérémy Jean"
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->kill_rules() removes mixed AUDIT_DIR and AUDIT_EXE rules when an audit
->tree is pruned. It drops entry->rule.exe before removing the rule from
->the RCU-visible filter lists.
->
->After a rule has been installed with AUDIT_ADD_RULE, which requires
->CAP_AUDIT_CONTROL, removing the watched directory can race with another
->task that is still evaluating the rule. In that case, fsnotify can free
->the executable mark before the reader reaches audit_mark_compare(),
->causing a use-after-free.
->
->KASAN reports:
->
->    BUG: KASAN: slab-use-after-free in audit_mark_compare+0x8d/0xa0
->
->Unlink the published rules from the RCU-visible lists and retain them
->on tree->rules for cleanup. If any rule has an executable mark, wait for
->a single RCU grace period before removing the marks and scheduling the
->entries for freeing. Otherwise, call_rcu() already provides the required
->deferred freeing without a synchronous wait.
->
->Fixes: 34d99af52ad4 ("audit: implement audit by executable")
->Assisted-by: Codex:gpt-5
+Hi Stefano,
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> Maybe this can go in util.c/h
+Sure.
 
+> nit: can you add uring or something like that in the function name
+Ack.
 
->Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->---
->
->v2: Address Sashiko's review with Ricardo Robaina's improved patch:
->- Batch executable-mark teardown behind one synchronize_rcu() after
->  unlinking all rules, instead of waiting once per rule under the audit
->  mutexes.
->- Skip the synchronous wait when none of the removed rules has an
->  executable mark.
->
->v1: https://lore.kernel.org/all/20260921195921.4174830-2-Jeremy.Jean@oss.cyber.gouv.fr/
->
-> kernel/audit_tree.c | 24 ++++++++++++++++++++----
-> 1 file changed, 20 insertions(+), 4 deletions(-)
->
->diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
->index 1ed19b775912..f2e81be8265e 100644
->--- a/kernel/audit_tree.c
->+++ b/kernel/audit_tree.c
->@@ -545,22 +545,38 @@ static void kill_rules(struct audit_context *context, struct audit_tree *tree)
-> {
-> 	struct audit_krule *rule, *next;
-> 	struct audit_entry *entry;
->+	bool need_sync = false;
-> 
-> 	list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
-> 		entry = container_of(rule, struct audit_entry, rule);
-> 
->-		list_del_init(&rule->rlist);
-> 		if (rule->tree) {
-> 			/* not a half-baked one */
-> 			audit_tree_log_remove_rule(context, rule);
->-			if (entry->rule.exe)
->-				audit_remove_mark(entry->rule.exe);
-> 			rule->tree = NULL;
-> 			list_del_rcu(&entry->list);
-> 			list_del(&entry->rule.list);
->-			call_rcu(&entry->rcu, audit_free_rule_rcu);
->+			if (entry->rule.exe)
->+				need_sync = true;
->+		} else {
->+			list_del_init(&rule->rlist);
-> 		}
-> 	}
->+
->+	if (list_empty(&tree->rules))
->+		return;
->+
->+	if (need_sync)
->+		synchronize_rcu();
->+
->+	list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
->+		entry = container_of(rule, struct audit_entry, rule);
->+
->+		list_del_init(&rule->rlist);
->+		if (entry->rule.exe)
->+			audit_remove_mark(entry->rule.exe);
->+		call_rcu(&entry->rcu, audit_free_rule_rcu);
->+	}
-> }
-> 
-> /*
+> Should we avoid to fail if it isn't supported and just skip the test?
+Yes, will skip.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+> Why we need this barrier?
+That one is not needed, I will drop it. The others might stay; an early peer
+close makes the hint report EOF.
+
+Cheers.
