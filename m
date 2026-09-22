@@ -1,134 +1,260 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD06550DC3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB0554A7C9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790082807; cv=none; b=g9T4DaXic+44aHV2y39LWjwYXNaYw8QEMhpGLe0YhZvS0ogRsk/xg4S4Jx8pmguUjb1MTK0e3rfG7QgjkayMSSsmZxOvPxCcyxpcmyBIniSxsepS6c8o0HAnZz3V6wwlwmKL1KsVWs/BSOddVa5rFY4vHpNDpTz0laF6BG4o3II=
+	t=1790082811; cv=none; b=lrJs9ZkkB3Ie6gcXVK8RpupiiNpk8N5SmDErwDpNND/pPWvQ8jbOZwlv9klQHmCq/nSO1WFdbiffs6lwglrsP55V+CIwSgOxFkpL3owS2cOjrLKzWb7fR8KZwuxPwBvQBvXXXEiGXXH+g0V/V1FjJSUtc1iGd8VOIZjwMot9iiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790082807; c=relaxed/simple;
-	bh=7ScoP72loie+KDTnxQPNwCK69btdw+khKMf6M0k1bJA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jNcKvXOJWpt5WH1XEZ5nd1P1D0IYiN5dwXYnBlvMonzkbBJVDAhCSwlvdgBbeqIAQWaX6+GCYYE0D7XxXT/g/OqgC+EDiB0oXoHpY0NLF2pc+qV2gvCe1q7LK++pgjq32ZNDdvRJ5trwZ4Y/GSwNRdvpNnzx6RWLCd0u4Ofl71Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=GBYP3/qi; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790082811; c=relaxed/simple;
+	bh=BmMSrhluolb6Av9guAg0Y9lbw2f/ziZAkRd5YJsY8PU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=N4+rEOeXTshatrS07+6pOLaaCz46YprhRGJEEyEWC8k19YeAfU8lDu46fnkpFhb4jlEMCfD5RFwxHkmaT9DB/RhhkgH9kR3KkZGo4MrBsulyKjSMBwK020Gf0tU8i6E52DsjSV6WQ04Hw3898rXHseKiOkgx3e6MIcwdcelNme8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=t7SoNnLy; arc=none smtp.client-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="GBYP3/qi"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85e68bdbcc1so30307227b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:13:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="t7SoNnLy"
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f4bff865cso2157250f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790082802; x=1790687602; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790082804; x=1790687604; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5TqBGWJ1w7neWAQnzpWPy+Fm8xr9GVtFmSS2aSnE1bQ=;
-        b=GBYP3/qiGHlVXy433bYLRW9PjhfS7OKvCDGOjVEmh9d8D8QRFCTG85fy55aM1kNQcc
-         4O7+bbcwdWY7dEirIhHHkA/GQVc18SVOFYPn08OapoImcfZBytBY0BpiS9t0AYmXLw3C
-         /eVOSXMeweM7ocPjjOJTB9938GX1m+RJdZmU23aZlnzqxc2YRI90NrWkYKGxiMZd+gmz
-         4TNuuZ7TbB/Mn7+KY0z6pS9qDGD2n/lPg+kGGYc5DIVLQSZcTY4sPncRj6wU/ubL+OrO
-         Jds89XV7bXART5XbrYckJI4rPlETlN7e0LrTvgQS96TEHKrVhTCsab87RLvMinOwDG4V
-         YZvQ==
+        bh=VNp5S66G25hEx/lXvBHBQ4zrD/Jw7dlUu7oI6jfC/Cc=;
+        b=t7SoNnLyHtnF2zJ99Z+p+hfFAh4lP2GknvAPmPqsdKrxs+0hHHpfjNfhPj4iqr6Rob
+         WiyyPUgpCuDqDOOwy+JzA4ziAfuGUtXJVasmeh+vKJ0YanV3b1W1xsTGF7sgDKgcHVxy
+         5mLyXnDcS46WmK1M4cLOSX68fQuSLXZSxKOQE5vzvUHbEMlGHO6EdIodZQzA1qb6cVkj
+         5smy0vQY0UuLNjlnaUIOu4XB8uuL17bIa1MZuB+hCFgQmVAPU6PRoEaoD8YpNx2JL0e/
+         Mqu0gSoubVWV+JHsZEWC7ivgW8FBfMm/L/PmzgPgXOCxktXMBl9dDJJpeS8fD8miVgze
+         c8gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790082802; x=1790687602;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790082804; x=1790687604;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5TqBGWJ1w7neWAQnzpWPy+Fm8xr9GVtFmSS2aSnE1bQ=;
-        b=WWhojK8Xf1IyB9n06Bo65TBrkFKNojG6t11nG8gkCE1QIPeOkBxcrWMttCtI1lYdDB
-         7LvWz970sBuep561v96+pAoABSs8yEkwClgg7CF/BX8YUjs9Pk5K6CaOeLkTeq/uU+mN
-         AC5uU8pT6Fll9UfgN+ynfLyMSAVnBWPIG5b4+/g9AFG1pof5aBy5GjopAcpV8b04mBwg
-         FzuxrM6E9OuYzd6O92cPnzArwu25y+cYwivoGhvsZV9kJCq+Kwm6gHaHrId0RrwaxAy4
-         PyKzTF44je0q/D6LKeiActuIfBo915jef0xaudd2nGLfqP0XuQCF2ej8CRo4SSqVF2fr
-         0fcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhbUTiLOieHG+3RfOzVt86YLZDuHOcf0QDmRcq25Ux9evu9RO6eAkv0HhvenbnIXiha+37hQNlEhPTToI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIvmUN4icY7rUf/cs/OTIwmRDHIJFTqLCTn6qn5JHL4CTG1c+g
-	Ryqn+YJNSJz6QPK5N+4DruEtgU8zR9Pjm6zwHDkIFwWkJSIzpI1Z2g2xLj3v92RVMLI=
-X-Gm-Gg: AYBFou2uZBKhMcETiB03Tf6IqZfzEGEmFuiz6k9d159AxVrmdAUblC3dbQdUs/V3cd4
-	jdO7Ce3RlJYklnZb9tSJWSNtLXmQ0NnBnHRX7aHlGhqKZdSrC87SqzczpmRVASPezHo/ixln+XN
-	VtXZlCrA65/qJUBfK6T5fqFjZ40GDrWjEU/BMpE5W9txarMaNRGL+rqOKe+GTK7Ci0wxpeEJMKq
-	TN3TfCH1zjMDpk90q8a9zwLLn2XSBo6Msr0MdXgRJsxlQhyR+3VXskFHfuZsMPmFCItpUigzLPH
-	hDOizTu3+5O70Sgc2zUJC/upAV598Ay+YyNevIxJ9iDnrfPlQpHa+tomyeK7KZa0UDDaMdBITNy
-	cZ7QgNpZ8et8ZexiIyCOmNasE3IZIatPhC+g7dmYb96NTCq96r70cmEGv0uCAzKP90DlQTh2UY0
-	QLBzSW51cY+efqabP6uAsETLXhcFQXd6ytCBnA0f62l+B4FIGwHsG2WtcwIFIAnFH5njCqWC+hU
-	+SYk5t3FA==
-X-Received: by 2002:a05:690c:d:b0:81d:472c:17a8 with SMTP id 00721157ae682-8972beadba5mr62389717b3.0.1790082801845;
-        Tue, 22 Sep 2026 06:13:21 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a2c25bacffsm5463367b3.24.2026.09.22.06.13.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 06:13:21 -0700 (PDT)
-Message-ID: <1ac16236-284a-4d01-b68a-4b32d5c5287c@riscstar.com>
-Date: Tue, 22 Sep 2026 08:13:19 -0500
+        bh=VNp5S66G25hEx/lXvBHBQ4zrD/Jw7dlUu7oI6jfC/Cc=;
+        b=u8pGexFEdKnd7HdenrzvBO8Ihp94cnx4rnKLhDTAvWY/c8bOmCYe9NpxbiNLeota04
+         jCo/PUKmcLM3vkGRTxwBNw2qZojNFClzBVQKwuaIu1T7Bey8zbiknd2uNtDxTv0NbmjJ
+         YKyS8QHBwMYnWT5jcglpBi8D67k+hA1+Lm+7/C+KE3QznejEHPa8H//qNtHQlENN5NKB
+         4kNyB4KL8pYnHdppAElIXzDAEmvNMhHxsmd25efX0EH1DIk4ebMc926XjUUdbDi28BYH
+         D2K4CZxxk5ytnHDteS5G5I3BVEBBZ1GubdyX/kiNHyz0XIxXc2yXcE11uml4I0WsuNoJ
+         7GBA==
+X-Forwarded-Encrypted: i=1; AKwUvBxsBmbpL89AyWwM48bgYM+kz8qifvw2lHfiPCUAOWvJUC2yH12fSXe5PxlB7Mcxt+8Wl3X2+uaQROQnE44=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLSu3RMYQlTsDxUkbyfpFenfRuAD7A4qIgug/T3B9lRdvkhMWy
+	ONmEQO7In/FzJgPn8xjXjxcfHUoxb+uf5UUePr3zpbNB/4b22gRBEZlZVmgQBF58rMbsycBX4oT
+	orP8SvWZdQlHsIw==
+X-Received: from wmbg12.prod.google.com ([2002:a05:600c:a40c:b0:499:bc15:b29b])
+ (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:34c7:b0:49c:ff8d:b548 with SMTP id 5b1f17b1804b1-49fc5726cfcmr270659405e9.11.1790082804465;
+ Tue, 22 Sep 2026 06:13:24 -0700 (PDT)
+Date: Tue, 22 Sep 2026 13:12:51 +0000
+In-Reply-To: <20260922131259.2975334-1-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-3-elder@riscstar.com>
- <20260920-messy-successful-caracara-fcdbcd@quoll>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260920-messy-successful-caracara-fcdbcd@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260922131259.2975334-1-smostafa@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260922131259.2975334-19-smostafa@google.com>
+Subject: [PATCH v8 18/25] iommu/arm-smmu-v3-kvm: Shadow STEs
+From: Mostafa Saleh <smostafa@google.com>
+To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev
+Cc: catalin.marinas@arm.com, will@kernel.org, maz@kernel.org, 
+	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com, 
+	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca, mark.rutland@arm.com, 
+	qperret@google.com, tabba@google.com, vdonnefort@google.com, 
+	sebastianene@google.com, keirf@google.com, 
+	Mostafa Saleh <smostafa@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/20/26 1:21 PM, Krzysztof Kozlowski wrote:
->> diff --git a/include/dt-bindings/clock/toshiba,tc9564.h b/include/dt-bindings/clock/toshiba,tc9564.h
->> new file mode 100644
->> index 0000000000000..75732fddd3025
->> --- /dev/null
->> +++ b/include/dt-bindings/clock/toshiba,tc9564.h
->> @@ -0,0 +1,54 @@
->> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
->> +
->> +/*
->> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
->> + */
->> +
->> +#ifndef __ClOCK_TOSHIBA_TC9564_H__
->> +#define __ClOCK_TOSHIBA_TC9564_H__
->> +
->> +/* Clock IDs */
->> +
->> +#define CLOCK_MCU		0
->> +#define CLOCK_INTC		1
->> +/* #define CLOCK_PCIE		2 */
->> +/* #define CLOCK_I2C		3 */
-> Drop both, and SRAM is number 2. Or enable and implement them.
+Add STE emulation, when the host sends the CFGI_STE command.
 
-I forgot to respond to this.  I think you are confused.
+Copy the STE as is to the shadow owned by the hypervisor,
+which is the one seen by HW.
+In the next patch, stage-2 page table will be attached.
 
-SRAM is BAR number 2.  This is defining clock IDs.
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
+---
+ .../iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c  | 124 +++++++++++++++++-
+ 1 file changed, 118 insertions(+), 6 deletions(-)
 
-And the reason these are commented out is that, while they
-do exist, we explicitly do not want anyone to disable either
-of these clocks because PCIe uses them.  This clock (and
-reset) control is accessed via PCIe.
+diff --git a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c
+index 54049b8b1363..cb9aa7e4a394 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c
+@@ -24,6 +24,9 @@ struct hyp_arm_smmu_v3_device *kvm_hyp_arm_smmu_v3_smmus;
+ #define strtab_split(smmu)	(FIELD_GET(STRTAB_BASE_CFG_SPLIT, (smmu)->host_ste_cfg))
+ #define strtab_l1_size(smmu)	((1UL << (strtab_log2size(smmu) - strtab_split(smmu))) * \
+ 				 (sizeof(struct arm_smmu_strtab_l1)))
++#define strtab_hyp_base(smmu)	((smmu)->features & ARM_SMMU_FEAT_2_LVL_STRTAB ? \
++				 (u64 *)(smmu)->strtab_cfg.l2.l1tab :\
++				 (u64 *)(smmu)->strtab_cfg.linear.table)
+ 
+ #define for_each_smmu(smmu) \
+ 	for ((smmu) = kvm_hyp_arm_smmu_v3_smmus; \
+@@ -287,6 +290,91 @@ static int smmu_init_cmdq(struct hyp_arm_smmu_v3_device *smmu)
+ 	return 0;
+ }
+ 
++static int smmu_get_host_l2_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid,
++				struct arm_smmu_ste *host_ste_out)
++{
++	u64 *host_ste_base = hyp_phys_to_virt(strtab_host_base(smmu));
++	struct arm_smmu_strtab_l1 host_l1_desc;
++	struct arm_smmu_strtab_l2 *l2ptr;
++	phys_addr_t host_l2_tab;
++	int ret, i;
++
++	host_l1_desc.l2ptr = READ_ONCE(host_ste_base[arm_smmu_strtab_l1_idx(sid)]);
++	if (!(le64_to_cpu(host_l1_desc.l2ptr) & STRTAB_L1_DESC_SPAN))
++		return -EINVAL;
++
++	host_l2_tab = le64_to_cpu(host_l1_desc.l2ptr) & STRTAB_L1_DESC_L2PTR_MASK;
++	/* Share and pin the table before accessing it. */
++	ret = smmu_share_pages(host_l2_tab, sizeof(struct arm_smmu_strtab_l2));
++	if (ret)
++		return ret;
++
++	l2ptr = hyp_phys_to_virt(host_l2_tab);
++
++	for (i = 0; i < STRTAB_STE_DWORDS; ++i)
++		host_ste_out->data[i] =
++			READ_ONCE(l2ptr->stes[arm_smmu_strtab_l2_idx(sid)].data[i]);
++
++	WARN_ON(smmu_unshare_pages(host_l2_tab, sizeof(struct arm_smmu_strtab_l2)));
++	return 0;
++}
++
++static int smmu_reshadow_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid, bool leaf)
++{
++	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
++	struct arm_smmu_ste *hyp_ste_ptr, *host_ste_ptr, host_ste_copy;
++	u64 *hyp_ste_base = strtab_hyp_base(smmu);
++	int ret, i;
++
++	/* Leaf = 0 is not supported, as the kernel driver. */
++	if (!leaf || !is_smmu_enabled(smmu) ||
++	    (sid >= (1UL << strtab_log2size(smmu))))
++		return -EINVAL;
++
++	if (!(smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)) {
++		struct arm_smmu_ste *hyp_table = (struct arm_smmu_ste *)hyp_ste_base;
++		u64 *host_ste_base = hyp_phys_to_virt(strtab_host_base(smmu));
++		struct arm_smmu_ste *host_table = (struct arm_smmu_ste *)host_ste_base;
++
++		if (sid >= cfg->linear.num_ents)
++			return -E2BIG;
++
++		hyp_ste_ptr = &hyp_table[sid];
++		host_ste_ptr = &host_table[sid];
++	} else {
++		struct arm_smmu_strtab_l1 *l1tab = (struct arm_smmu_strtab_l1 *)hyp_ste_base;
++		u32 l1_idx = arm_smmu_strtab_l1_idx(sid);
++		struct arm_smmu_strtab_l2 *l2ptr;
++
++		if (l1_idx >= cfg->l2.num_l1_ents)
++			return -E2BIG;
++
++		host_ste_ptr = &host_ste_copy;
++		ret = smmu_get_host_l2_ste(smmu, sid, host_ste_ptr);
++		if (ret)
++			return ret;
++
++		/* No hypervisor entry, first time the L2 is populated. */
++		if (!l1tab[l1_idx].l2ptr) {
++			struct arm_smmu_strtab_l2 *l2table;
++
++			l2table = pkvm_iommu_alloc_pages(get_order(sizeof(*l2table)));
++			if (!l2table)
++				return -ENOMEM;
++			/* Ensure L2 is observed before writing the ptr. */
++			dma_wmb();
++			arm_smmu_write_strtab_l1_desc(&l1tab[l1_idx], hyp_virt_to_phys(l2table));
++		}
++		l2ptr = hyp_phys_to_virt(le64_to_cpu(l1tab[l1_idx].l2ptr) &
++				STRTAB_L1_DESC_L2PTR_MASK);
++		hyp_ste_ptr = &l2ptr->stes[arm_smmu_strtab_l2_idx(sid)];
++	}
++
++	for (i = 0; i < STRTAB_STE_DWORDS; ++i)
++		WRITE_ONCE(hyp_ste_ptr->data[i], host_ste_ptr->data[i]);
++	return 0;
++}
++
+ static int smmu_init_strtab(struct hyp_arm_smmu_v3_device *smmu)
+ {
+ 	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
+@@ -406,8 +494,24 @@ static bool smmu_filter_command(struct hyp_arm_smmu_v3_device *smmu, u64 *comman
+ 
+ 	switch (type) {
+ 	case CMDQ_OP_CFGI_STE:
+-		/* TBD: SHADOW_STE*/
++	{
++		u32 leaf = FIELD_GET(CMDQ_CFGI_1_LEAF, command[1]);
++		u32 sid = FIELD_GET(CMDQ_CFGI_0_SID, command[0]);
++		int ret;
++
++		/*
++		 * If STE update is required, flush the CMDQ and drop the lock as that
++		 * might require to update the host page table and acquire its lock.
++		 */
++		writel(smmu->cmdq.llq.prod, smmu->cmdq.prod_reg);
++		hyp_spin_unlock(&smmu->hw_lock);
++		ret = smmu_reshadow_ste(smmu, sid, leaf);
++		hyp_spin_lock(&smmu->hw_lock);
++		if (ret)
++			return true;
++
+ 		break;
++	}
+ 	case CMDQ_OP_CFGI_ALL:
+ 	{
+ 		/*
+@@ -624,25 +728,33 @@ static bool smmu_dabt_device(struct hyp_arm_smmu_v3_device *smmu,
+ 			val = smmu->cmdq_host.llq.cons | (CMDQ_CONS_ERR & cons);
+ 			goto out_update_regs;
+ 		}
+-	/* Passthrough the register access for bisectability, handled later */
+ 	case ARM_SMMU_STRTAB_BASE:
++		if (len != sizeof(u64))
++			break;
+ 		if (is_write) {
+ 			/* Must only be written when SMMU_CR0.SMMUEN == 0.*/
+ 			if (is_smmu_enabled(smmu))
+ 				break;
+ 			smmu->host_ste_base = val;
++			goto out_ret;
++		} else {
++			val = smmu->host_ste_base;
++			goto out_update_regs;
+ 		}
+-		mask = read_write;
+-		break;
+ 	case ARM_SMMU_STRTAB_BASE_CFG:
++		if (len != sizeof(u32))
++			break;
+ 		if (is_write) {
+ 			/* Must only be written when SMMU_CR0.SMMUEN == 0.*/
+ 			if (is_smmu_enabled(smmu))
+ 				break;
+ 			smmu->host_ste_cfg = val;
++			goto out_ret;
++		} else {
++			val = smmu->host_ste_cfg;
++			goto out_update_regs;
+ 		}
+-		mask = read_write;
+-		break;
++	/* Passthrough the register access for bisectability, handled later */
+ 	case ARM_SMMU_GBPA:
+ 		mask = read_write;
+ 		break;
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-I do accept that someone might want me to simply omit
-these commented-out definitions, and I'd be fine with
-that.
-
-But your suggestion wasn't sensible so I wanted to clear
-that up before deleting these.
-
-					-Alex
