@@ -1,182 +1,181 @@
-Received: from mail-oa2-f11.google.com (mail-oa2-f11.google.com [74.125.231.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505EA49E12F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52023F1ABF;
+	Tue, 22 Sep 2026 19:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790103932; cv=none; b=RsiGgALfQCMSFacJs1iCFQcOx09mYnaCoiTNisUYRBiewtsGJWxJWpi+HyKHbDalX3EgcnompHpIRSQ7m1e7IjCa4RbDAZ6D9PKAN7/YjdCKb2EsHUJilJSGz8P20WB5UUPYz/EYSH2ub/bf/YKk82feRhFt4CF6/sHoJeJUa9A=
+	t=1790103979; cv=none; b=RyPwEcdPyusy9CqatLcWMvb11aU6dsTab4MUtZ96oOlGEJNFTbotGsUg7R9qU7CEUHCmTII7nl4+9l5ErATk8DVBn2bSRK3VMVcOmAF2tF3FgnzWTLvJZWZ8YH5ZcMvl2G50RiOIuDRmUqmzCHM/2zNASvcj+Dq2yYSsK7J01OU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790103932; c=relaxed/simple;
-	bh=B86huMO8Kjl1fU2kdxmDnEkEFV7i+6V+CdDYug9B1i4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=n9j0RWI9nxWru460T55UTRqlIZ1gU22qjQs+8m2ye3IcV1nidIaRo1C9Rw7crApQzyGpPzVFzEobIpUhpWgqk3s24tx/pzn6TSoR+2NQjcIX/DxTxix3b6MKHQj1MpvO5n7NSAi/hq252qNy+hCDdWD2MjZxZLAiM4FkCfUNasY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f11.google.com with SMTP id 586e51a60fabf-462dec1c4c5so152081fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:05:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790103929; x=1790708729;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O5ItLp/M4g9LkhaBxpPpARYoRzVNAes7m0iSglAZyeU=;
-        b=iU+4Ys6v8/NXhdQeZvODklxG8Nrpcz2AfD0X6FnpX/YJ4Qzh3RXcDC97sgo3gJGZGg
-         iM2e1l8ZQz2Me5+xXkR7SN6I/JrSONQabmiuQJQf38vrVvSuEHF9utAaXqQEsmMuXd0C
-         DBYiDi2uFy8xqSj4Eq0UsP72aJ0Doo9i2f9PHJ0gCj/VVnRAjxiCEzrO2CUnK9cdAakC
-         cK1LYbK2+IyCPOpGiL4olety/F1apbJ2iD64G8jUAUZJz+r5ypn6tAYMUJ0W/UXx300u
-         8/qe1MtAKoU1Zj8sXBUX840n4A2KHXOkYbIqi08TJQv06eF0ZyN2omkV/zl009i1/41e
-         g8aw==
-X-Forwarded-Encrypted: i=1; AKwUvByoCrcQsEtVfRqHOpnJe3azzTEYUgTN+cpT3BstR8s3vZEb46b993wmSSo0d7Dp5/1wbPoEINUfIQlh7Jw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0F8DJ/4nPQcJmHyKu2SlVZk06uSMRjJdH/y+kgFhz54xvFxyb
-	nkvZliTpjs9zYk3uJQkC/ADUAetmCSltv4ObhDtqqjvrN3h7Rzo9xHbYa1vBHaFnSzegolOLxIk
-	CcXD7B5/tRd6OI6VgHwvYMCGL8UOo6OL1lWtrW1Fy+vaRDj4EmUxfMpQUNNU=
+	s=arc-20240116; t=1790103979; c=relaxed/simple;
+	bh=vfqSh+6dOBrxU+Yer9o6ibXq3uxxBtm6KWGhNCy9agc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=jS3f64j8EkoycSoZ7tnsL7fJmeMVg0Tp66YYV7Jx1RIPETi6Uh9BxitRZqzRtLa+9+gpLxv/8r1qvBzUpJtue+v7MkFZd1Wl+ajzaZNlqggWMpI0v2/qaq+RlVhva5uP2xCOQ9g5rnYmAmeZ75OOyP0+tnqw39CmZ9peqiNZed4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qBxUeZo5; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RoEzRPn8; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qBxUeZo5";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RoEzRPn8"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790103833; bh=TXaHVKdaLMh+Ggtg/GTxwal
+	8Era3WZxI1OjtReeFIak=; b=qBxUeZo5jMTJ/dYL/FeHqDowud3vRRB6k+650h/bZa3pX9YQka
+	eHY7fGy7zIlm2mejkhNcuAbVp4meYb3FGhyqXAcpfomoB++ZuvXck8103V7aOYNB21HZusx7Fns
+	BWopUhPjeC5YT4s4kwK343xsKKu8ggaHtqGkifogQ4WKEmSlGV94diTZBWsQ0WUT43f4B1U3/g1
+	wiNEVIXckvi6sDIE3mp2uWM+WRzI9jJU0j/17VmQBFIeMURSLrArmqARiJcr8Xe0iVOCEBObOp/
+	Vir5HUZ+Ukq0kr/qCBqwTeBm9EIp3AF3oXgYNuu+zFnaBFyQB7RTkXqmNhRuOB54HKQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790103833; bh=TXaHVKdaLMh+Ggtg/GTxwal
+	8Era3WZxI1OjtReeFIak=; b=RoEzRPn8UZ836Q5JOcKpdIaPTh1MS71atIZc6oRwHGNE/2t2ly
+	Nea7OmIU7IOscYdUl2SZ/QzqYeQQzcVLGQBA==;
+Date: Tue, 22 Sep 2026 20:03:51 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
+CC: Andrew Morton <akpm@linux-foundation.org>, Vineet Gupta <vgupta@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Rich Felker <dalias@libc.org>, Chris Zankel <chris@zankel.net>,
+ Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ David Laight <david.laight.linux@gmail.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_0/5=5D_Add_two-byte_cmpxchg_em?=
+ =?US-ASCII?Q?ulation_and_wire_it_into_the_architectures?=
+In-Reply-To: <9a7883a3-a1b1-4d37-8234-f4c62b2e6e27@paulmck-laptop>
+References: <20260922173354.14404-1-brads@mainlining.org> <78f7ab38-46c8-4968-a2ae-4c3c98e32f4d@paulmck-laptop> <7BE5B8EA-FAFB-4CBB-8FF1-ECDEEB1618B0@mainlining.org> <9a7883a3-a1b1-4d37-8234-f4c62b2e6e27@paulmck-laptop>
+Message-ID: <FDE80F3F-6F96-4A6A-8536-0B2A4ED793A6@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81cb:b0:6b3:6bc7:2ea7 with SMTP id
- 006d021491bc7-6d2cfd45015mr323140eaf.7.1790103929133; Tue, 22 Sep 2026
- 12:05:29 -0700 (PDT)
-Date: Tue, 22 Sep 2026 12:05:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab2d179.e8212013.2d060.0001.GAE@google.com>
-Subject: [syzbot] [btrfs?] kernel BUG in wait_subpage_spinlock
-From: syzbot <syzbot+d6f123d4060990f0f3ff@syzkaller.appspotmail.com>
-To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mason@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    5dd1818b15d9 Merge tag 'for-next-keys-v7.3-rc4' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1694d7f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c3bddd52b22c2498
-dashboard link: https://syzkaller.appspot.com/bug?extid=d6f123d4060990f0f3ff
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-5dd1818b.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/fa126b13cb66/vmlinux-5dd1818b.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e10c187acaf6/bzImage-5dd1818b.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d6f123d4060990f0f3ff@syzkaller.appspotmail.com
-
-BTRFS info (device loop0): space_info DATA+METADATA (sub-group id 0) has 24576 free, is not full
-BTRFS info (device loop0): space_info total=3276800, used=49152, pinned=16384, reserved=0, may_use=3186688, readonly=0 zone_unusable=0
-BTRFS info (device loop0): global_block_rsv: size 1048576 reserved 1048576
-BTRFS info (device loop0): trans_block_rsv: size 0 reserved 0
-BTRFS info (device loop0): chunk_block_rsv: size 0 reserved 0
-BTRFS info (device loop0): remap_block_rsv: size 0 reserved 0
-BTRFS info (device loop0): delayed_block_rsv: size 0 reserved 0
-BTRFS info (device loop0): delayed_refs_rsv: size 32768 reserved 32768
-assertion failed: folio_test_private(folio) && folio_get_private(folio), in fs/btrfs/inode.c:7616
-------------[ cut here ]------------
-kernel BUG at fs/btrfs/inode.c:7616!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 5325 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:wait_subpage_spinlock+0x380/0x390 fs/btrfs/inode.c:7616
-Code: 17 aa fd eb 05 e8 40 17 aa fd 48 c7 c7 00 d2 59 8c 48 c7 c6 c0 06 5a 8c 48 c7 c2 e0 d2 59 8c b9 c0 1d 00 00 e8 a1 f3 09 fd 90 <0f> 0b 66 66 66 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90
-RSP: 0018:ffffc9000f15e048 EFLAGS: 00010246
-RAX: 0000000000000061 RBX: ffffea0001508f00 RCX: 5c8637085c6b4a00
-RDX: 0000000000000000 RSI: 8000000000000000 RDI: 0000000000000000
-RBP: 1ffffd40002a11e0 R08: ffffc9000f15ddc7 R09: 1ffff92001e2bbb8
-R10: dffffc0000000000 R11: fffff52001e2bbb9 R12: 0000000000000002
-R13: 0000000000004000 R14: 0000000000000000 R15: dffffc0000000000
-FS:  00007fd4260436c0(0000) GS:ffff88808c2c3000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fd426062f68 CR3: 000000004387c000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- btrfs_invalidate_folio+0x26e/0xc50 fs/btrfs/inode.c:7698
- extent_writepage fs/btrfs/extent_io.c:2058 [inline]
- extent_write_cache_pages fs/btrfs/extent_io.c:2843 [inline]
- btrfs_writepages+0x129f/0x28c0 fs/btrfs/extent_io.c:2975
- do_writepages+0x338/0x560 mm/page-writeback.c:2560
- filemap_writeback mm/filemap.c:387 [inline]
- filemap_fdatawrite_range+0x1ef/0x2f0 mm/filemap.c:412
- btrfs_start_ordered_extent_nowriteback+0x305/0x6e0 fs/btrfs/ordered-data.c:-1
- btrfs_start_ordered_extent fs/btrfs/ordered-data.h:203 [inline]
- btrfs_page_mkwrite+0x856/0x1a40 fs/btrfs/file.c:1909
- do_page_mkwrite+0x147/0x310 mm/memory.c:3816
- wp_page_shared mm/memory.c:4217 [inline]
- do_wp_page+0x1a9c/0x4b80 mm/memory.c:4440
- handle_pte_fault mm/memory.c:6582 [inline]
- __handle_mm_fault mm/memory.c:6707 [inline]
- handle_mm_fault+0x15d7/0x3750 mm/memory.c:6876
- faultin_page mm/gup.c:1126 [inline]
- __get_user_pages+0x1675/0x2750 mm/gup.c:1428
- __get_user_pages_locked mm/gup.c:1752 [inline]
- __gup_longterm_locked+0x1032/0x15c0 mm/gup.c:2471
- gup_fast_fallback+0x1d92/0x20e0 mm/gup.c:3209
- iov_iter_extract_user_pages lib/iov_iter.c:1776 [inline]
- iov_iter_extract_pages+0x3a1/0x690 lib/iov_iter.c:1845
- iov_iter_extract_bvecs+0x272/0xb40 lib/iov_iter.c:1957
- bio_iov_iter_get_pages+0x5ae/0xee0 block/bio.c:1309
- blkdev_iov_iter_get_pages block/fops.c:49 [inline]
- __blkdev_direct_IO+0x661/0xf60 block/fops.c:219
- blkdev_direct_IO+0x121d/0x17b0 block/fops.c:435
- blkdev_read_iter+0x223/0x420 block/fops.c:816
- aio_read+0x33a/0x4d0 fs/aio.c:1656
- __io_submit_one fs/aio.c:-1 [inline]
- io_submit_one+0x774/0x13d0 fs/aio.c:2106
- __do_sys_io_submit fs/aio.c:2165 [inline]
- __se_sys_io_submit+0x195/0x340 fs/aio.c:2135
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fd42519e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fd426042fe8 EFLAGS: 00000246 ORIG_RAX: 00000000000000d1
-RAX: ffffffffffffffda RBX: 00007fd425426090 RCX: 00007fd42519e159
-RDX: 00002000000000c0 RSI: 00000000000000ca RDI: 00007fd426022000
-RBP: 00007fd42523506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fd425426128 R14: 00007fd425426090 R15: 00007ffec6e38c28
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:wait_subpage_spinlock+0x380/0x390 fs/btrfs/inode.c:7616
-Code: 17 aa fd eb 05 e8 40 17 aa fd 48 c7 c7 00 d2 59 8c 48 c7 c6 c0 06 5a 8c 48 c7 c2 e0 d2 59 8c b9 c0 1d 00 00 e8 a1 f3 09 fd 90 <0f> 0b 66 66 66 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90
-RSP: 0018:ffffc9000f15e048 EFLAGS: 00010246
-RAX: 0000000000000061 RBX: ffffea0001508f00 RCX: 5c8637085c6b4a00
-RDX: 0000000000000000 RSI: 8000000000000000 RDI: 0000000000000000
-RBP: 1ffffd40002a11e0 R08: ffffc9000f15ddc7 R09: 1ffff92001e2bbb8
-R10: dffffc0000000000 R11: fffff52001e2bbb9 R12: 0000000000000002
-R13: 0000000000004000 R14: 0000000000000000 R15: dffffc0000000000
-FS:  00007fd4260436c0(0000) GS:ffff88808c2c3000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f2823e512c0 CR3: 000000004387c000 CR4: 0000000000352ef0
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+On 22 September 2026 19:59:39 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>On Tue, Sep 22, 2026 at 07:37:54PM +0100, Bradley Morgan wrote:
+>> On 22 September 2026 19:29:32 BST, "Paul E. McKenney"
+><paulmck@kernel.org>
+>> wrote:
+>> >On Tue, Sep 22, 2026 at 05:33:49PM +0000, Bradley Morgan wrote:
+>> >> This is v4 of the two byte cmpxchg emulation series, wiring
+>> >> cmpxchg_emu_u16() into arc, csky, sh and xtensa.
+>> >> 
+>> >> v3 had changed cmpxchg_emu_u8()'s success return to (u16)old, which
+>was
+>> >> a 16-bit mask in the 8-bit function, and a dead one at that, since
+>the
+>> >> compare guarantees the low 8 bits of old are the byte being returned.
+>> >> David Laight asked where that cast came from. v4 returns old
+>unmasked,
+>> >> the exact behaviour the one-byte emulator always had, so nothing that
+>> >> uses cmpxchg_emu_u8() through the widened prototypes sees a change.
+>> >> 
+>> >> David also noted v3 extended the (unsigned long)(0 ? *ptr : (old))
+>type
+>> >> check to csky and sh but not arc and xtensa. v4 adds it there too, so
+>a
+>> >> cmpxchg(&p, 4, 5) fails to compile on every architecture in the
+>series,
+>> >> verified with each architecture's macro instantiated standalone.
+>> >> 
+>> >> While adding the type check to arc, the switch subject turned out to
+>be
+>> >> sizeof((_p_)), the pointer, not sizeof(*(_p_)), the pointee. On
+>32-bit
+>> >> arc the switch was always 4, so the size 1 and size 2 cases were dead
+>> >> code and every sub-word cmpxchg() went through the 32-bit llock/scond
+>> >> pair, comparing whole words against sub-word values, so the compare
+>> >> almost never succeeded. The switch now tests the pointee, and the u8
+>> >> path it was always meant to dispatch actually runs, so the one-byte
+>> >> emulation works on arc for the first time since the sizeof bug landed
+>> >> with the original cmpxchg_emu_u8() wiring.
+>> >> 
+>> >> The host test of 972 cases across both halfword offsets against a
+>byte
+>> >> level reference model still passes, and a 20000 case randomized run
+>> >> checking the masked compare and return against a hardware cmpxchg r16
+>> >> model passes with zero mismatches.
+>> >> 
+>> >> David pointed out on v1 that a u16 prototype does not compile warning
+>> >> free when exchanging a pointer type, because the switch statements in
+>> >> the architecture macros instantiate every size case, so a pointer
+>> >> cmpxchg() type checks the two byte case, and the (u16) casts there
+>> >> warn. v4 keeps taking the old and new values as unsigned long and
+>> >> casting to u16 inside the function, so the call sites need no
+>narrowing
+>> >> casts and pointer exchanges compile clean. The function still
+>compares
+>> >> and returns exactly the 16 bits the caller asked for, which matches
+>> >> hardware cmpxchg r16 behaviour.
+>> >> 
+>> >> The ARMv6 wiring stays dropped from v1, per Arnd Bergmann's offer to
+>> >> take the INTEGRATOR_CM1136JFS cleanup in his platform removal series.
+>> >
+>> >I have pulled these in, but only to expose them to things like the
+>kernel
+>> >test robot.  My guess is that they will go in by some other path.
+>> >
+>> >And to that end:
+>> >
+>> >Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+>> >
+>> >But I could of course easily be missing subtle arch-specific bugs.
+>> 
+>> There are, according to sashiko, but I can't seem to make that thing
+>happy
+>> no matter what I do
+>
+>Hahahahaha!!!
+>
+>We forgot to CC the architecture maintainers.
+>
+>For the changes to lib/cmpxchg-emu.c:
+>
+>	Cc: Andrew Morton <akpm@linux-foundation.org>
+>	Cc: Arnd Bergmann <arnd@kernel.org>
+>
+>For ARC:
+>
+>	Cc: Vineet Gupta <vgupta@kernel.org>
+>	linux-snps-arc@lists.infradead.org
+>
+>For sh:
+>
+>	Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+>	Cc: Rich Felker <dalias@libc.org>
+>	Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+>	Cc: <linux-sh@vger.kernel.org>
+>
+>For csky:
+>
+>	Cc: Guo Ren <guoren@kernel.org>
+>	Cc: <linux-csky@vger.kernel.org>
+>	Cc: <linux-kernel@vger.kernel.org>
+>
+>For xtensa:
+>
+>	Cc: Chris Zankel <chris@zankel.net>
+>	Cc: Max Filippov <jcmvbkbc@gmail.com>
+>
+>They might be willing to help.  ;-)
+>
+>							Thanx, Paul
+>
+>> >> Bradley Morgan (5):
+>> >>   lib: Add two-byte cmpxchg emulation function
+>> >>   ARC: Emulate two-byte cmpxchg
+>> >>   sh: Emulate two-byte cmpxchg
+>> >>   csky: Emulate two-byte cmpxchg
+>> >>   xtensa: Emulate two-byte cmpxchg
+>> 
+>> --- Thanks!
+>> "I'm not a very positive person" - Linus torvalds
+If I have to do another 100 revisions I'll die, I'm suggesting getting the
+new function in first, then converting arches later? Or does this break
+arches.
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
