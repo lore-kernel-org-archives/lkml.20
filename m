@@ -1,74 +1,75 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010046.outbound.protection.outlook.com [52.101.85.46])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011037.outbound.protection.outlook.com [40.107.130.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763C1566C5C;
-	Tue, 22 Sep 2026 16:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39A8563296;
+	Tue, 22 Sep 2026 16:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.37
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790094255; cv=fail; b=G8Y3mWEblZk2br3kfvz3x8I1yDkcNKJwpOhxRNUGjK30DNFkSooccxSwPA8Ki2g6gjJ2m23WW9ejEEkw+1h5h8WC4E9x2fHCAZwQTr2FPny3Z4E/5ECTL/bfGmEmnhkaRvvRFQ9F1++jv6xe6C4P8ZyJX2lBjh/UlNsNOgyExZY=
+	t=1790094348; cv=fail; b=Us+PoXq7hvWfVuCiCJLNcy4Hy4g2Qx4cUrQIpodyjYNC+Nfbeg9NUW2Ryq0MDTGcNCUAxLTKMyd0j0Dq3dewgZrxt+Eo5iXRdmZjJVA58L5S7Ote2j/ry9FX3GHBtMDjLogkIQYyhizGRM9EeDF7rwEp7gCEqv9G1zGYONMuuZU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790094255; c=relaxed/simple;
-	bh=BnKJbI/PnktWZrztTDPrGX0aCU8ZDlX7I72D2oPkFhk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LzA6cIuBdd2t779Ow8rPIC5oYwhTEJRUHZJKEnAowVACFSiL6uRTscFgXfQP4DvdZotfERou6yYs6Kwfjj8ggQsU6NnPEQqT0BnEp6QJ7JfAI1OSWQCodeCsK6Q0FDtkpvrgEHqhdj+MP7Ruu5MgTqRc0ZqXtK39gHAFh4tVwfs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=frDPelkB; arc=fail smtp.client-ip=52.101.85.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790094348; c=relaxed/simple;
+	bh=4KOXFulsvEJsrfFhKPZ6LaTql+Xb7+2PnLAcn61JjWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KdwDYCRheMaHv9KN8/8eCDbLfjmUQayHV/Ie12LXagCYq9IDWGR2s4SeXizm3M+2ZX8mXsMNT4cGWAGlVvhPXsonPOpXJgZ4j1Mmu4UmL+SHRAsuyRyN4UnWKqWKT8ZdJvw1tw5bc7ZnnhrJlIqmaozeedxNfocbG60lszKNvQQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=R8IJNcCq; arc=fail smtp.client-ip=40.107.130.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="frDPelkB"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="R8IJNcCq"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oJ5zaHcGWH+5lcAqeic+9r+RPTeevSxIv36pX16bucpunLgegBTNDf0O/pd48njFXlkZrHHQas4vvCda4voSrM9XPEyttf0COW6bd6L9Om9CAQ1JrnSb6Iqv0EMkf8EmxuLcB0O3llWnP+0TqcNe7fiJ7WeVzvDSxrJu2EnP6ICfh38eVfjtyHPl1sX4TVmqNcqU15RHIhAE+05pVHb0Ns0CdrHLvpEDw9qRCGA/o4d1yyYlfsJ43KH6WGo8HZBkKGk2sEcDAhdbs8yWKhQBHqbVEC/4a0YapvOO9DHZxZZaIZcM+q2tS6xx+qyfbkAkkeT7hbmEV+CHhcqP/D2PrA==
+ b=FnRGIsm8uII7Q2wlPXlxt07FeAZf8Kk5nCByLOohsnx0AkehmfgyB2ypt1u82bShbAEQjeLReHjpM+nqa0pEOqDsTvld9550PmNWKK9KT1fJJXEbv5OJNXt2mQfGKdT80zs1vDJQ8v2ULsGvRuZhe+NyLTC7CrgXl43FbSXZjV9nC2IQ5ZyZ5jB9hMpnxYFeMkXvSfbZeZyTQqsbvQ5cepEXjBBiHVhy8UG5jDVV9ZIzIplHRh+lJ+Mdg0RMdlC0Tap3qfc2ja9tex4VoPsX3KFFogGm32knPSU7sDwlRg00aZQ788WQaU/nGnH04+ktmNmN1GZ1+ypWwbQv/fZqqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BnKJbI/PnktWZrztTDPrGX0aCU8ZDlX7I72D2oPkFhk=;
- b=m6BHDE3zYsuODBW+3IDhYMolW0Tmxtn4VXxytnvLz6m1z2okD0NRTP/l+DCloe+B+aoV97JTNkalprKCE7AEx+evXtKdckmw5QcT2egeoY4b2e/f2m7Re3ImBXf/NMgVVYK9duJImO3p1rnamsM4NALrEX7T8NNKuP1EM2R+knxLdA5G8CoxNuHkyrgfL9w7Syw3zypDy8yZR4Yf2drnzndK0AzOtQn4gZKfqw/6ie4yZUqosq/vUZfXUtoBP8NCH158swTLwykFu+BlF+QBLlsLu1DUMpotBiiDA0NRXBSaskENdhtop0YVIAEF9D4lrmbiN0Ujuj569K+LW7Ik5w==
+ bh=aoqMtBCn7ACzz9iDkC7DrGrGfyCeXQ0ZLhXmE5kvXrg=;
+ b=y9vZpl9sJMh/KAf9XM9BlLDx98AqYpQRDLR2lh+VWv6LOm1nFqHuDlMteuk2ccMjym7EzIxwdX/dvlQkS11Wpc+WofxGhv4lp288t3nFVcDiOWFurs44nm0bLjy2QnIQjPM8i9rkzmjZhann9ZRuCt9s3sCrvDrRHlI5VaSr5nTBhMAJ+OB8TWWKiH6zPplDmxTsERAh2nE7mfDJKA15WghU+mA7GKQEFU7MkDQlZ4nxT8T4HKu6yfAXgC/r1XHEkF8GWAM65vdkLwLgolv1rZZZQdBdOKsGRfgS8AwBsNzHxfskWD1icBFEj8qomTECX/eomw4VU+FqJ2ax7BHJbw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BnKJbI/PnktWZrztTDPrGX0aCU8ZDlX7I72D2oPkFhk=;
- b=frDPelkBmpFXwSQOb3XLdJ15UUxY6d+avX72Llnf6z7HGMfid5kFulB7vs0z2TW5sgb89HgEfW/6UjF3dHHPUHlLfPENsNFdgZtaKbs1XY5K34Nl2iJV+QwqCkMYBGdGs6fmfH2N6Qjw4OJz1j+F2SNFl0ptkCmfQBuRexv7Wwo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21)
- by IA1PR12MB6329.namprd12.prod.outlook.com (2603:10b6:208:3e5::19) with
+ bh=aoqMtBCn7ACzz9iDkC7DrGrGfyCeXQ0ZLhXmE5kvXrg=;
+ b=R8IJNcCqtPwamLa8kP/NnyVEvzihWrysdAhNxUrWRpwoIgWsJn747Orv1rK7GXkuyN55w7/LZqF8agBDvJHx3usRF1Kbv+gX5sBFDL8rINCjnftqGyOdc7OMTDgb5N5v9enXUryUif9KdTTAWVnoIByux1UVx/iGNfYWlfI4X5y7Az/89gQwDPNsJv2vQ4bdh2e11o8EU3Dy1STHDyf75CaTiWsgajKYTufi0uAU2q+GKtvMJBN0fmB+qeyF+LsXBFwawqqOIodo1uNX5W4jBQYGal7fq1yTQ6DlYX1AEFuDFfrv0rp8fEA6pGFrCrwCev0aMkd0lBiS0R5RBVDWtQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by BESPR04MB12561.eurprd04.prod.outlook.com (2603:10a6:b10:fe::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 16:24:10 +0000
-Received: from DM6PR12MB4283.namprd12.prod.outlook.com
- ([fe80::9eab:812b:ad20:6087]) by DM6PR12MB4283.namprd12.prod.outlook.com
- ([fe80::9eab:812b:ad20:6087%6]) with mapi id 15.21.0428.011; Tue, 22 Sep 2026
- 16:24:09 +0000
-Message-ID: <21f4b63b-1aed-47ca-a766-dcce8fe55203@amd.com>
-Date: Tue, 22 Sep 2026 17:24:01 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
- infrastructure for scale-up accelerator interconnects
-To: Konstantin Sinyuk <ksinyuk@kernel.org>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Ilia Levi <ilia.levi@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- pieter.jansen-van-vuuren@amd.com,
- "Lucero Palau, Alejandro" <alejandro.lucero-palau@amd.com>
-References: <cover.1787552412.git.ksinyuk@kernel.org>
-Content-Language: en-GB
-From: "Austin, Alex (DCCG)" <alex.austin@amd.com>
-In-Reply-To: <cover.1787552412.git.ksinyuk@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PR1P264CA0157.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:347::8) To DM6PR12MB4283.namprd12.prod.outlook.com
- (2603:10b6:5:211::21)
+ 2026 16:25:39 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 16:25:39 +0000
+Date: Tue, 22 Sep 2026 11:25:30 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Michal Simek <michal.simek@amd.com>,
+	Shubham Patil <shubhamsanjay.patil@amd.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <arKr-oapsl5qzo_E@SMW015318>
+References: <20260908094257.3196120-1-shubhamsanjay.patil@amd.com>
+ <20260908094257.3196120-2-shubhamsanjay.patil@amd.com>
+ <20260908-groin-undivided-0af701135404@spud>
+ <aqGHlWpQjpHEft3j@SMW015318>
+ <aqKWTT47S_zPzvbN@squawk>
+ <aqLQaHndX4t1kKLG@SMW015318>
+ <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
+ <20260922-ethics-flap-9760347e869d@spud>
+ <20260922-bullpen-reprise-f62e01922d88@spud>
+ <20260922-immersion-salvage-00450539f1ce@spud>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-immersion-salvage-00450539f1ce@spud>
+X-ClientProxiedBy: PH0PR07CA0016.namprd07.prod.outlook.com
+ (2603:10b6:510:5::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,83 +77,219 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4283:EE_|IA1PR12MB6329:EE_
-X-MS-Office365-Filtering-Correlation-Id: 062269ec-3635-437b-d5e1-08df18c5ee0d
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|BESPR04MB12561:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d949a5a-c3ab-4b9e-365b-08df18c623b7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|18002099003|22082099003|11063799006|10067099003|56012099006;
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|19092799006|23010399003|6133799003|18002099003|22082099003|3023799007|5023799004|11063799006|10067099003|4143699003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	E8iCCzEPg6ifgDam/EKIlOo8XMq52CbHkJyrojEUlC6fSPZlBGqZ+BG3YDE3M7yRju8+YZ1okU2Kr8jBZNFwDazChbAj1ZlOv77xLwZwqRvXrtiEWz57fLDeMehNbAjKX7u5jBBEgW1nsis6Z8rrZufDoKva0rTq6oSBWT0uh18kREdLL8IUJ4K1fO4Rt+c1PKmRpyhMzXy0j5vxp7kjY91cZddJRMAJSyogozB8Oeh+vVVd5pWfuRPI3i3AD8MibptO06nTdkhzUtWFGPYDpYCZz4ND9YKWZNmc0s5NbuznY28xwSBnJuy28i9BnF3zXWlEbv2J0hIHI/+bN9MBP29Tcc0klGlwIPRQ62pQeRBiQ4ZLWWI/GC/j3mC8tdq45e8QtR0YB+G6Uv0ALdZthvo50ac7XPGEw39QZu/OVpgEEia7fGzev6LYZ65Zowdkq/M5Xiz18d4f1fyfZdBi2Qhw5iAb5NI/BMFgn7ETR5jk4QH+KhKth5vyzOgveAuKhLAZ4uq7D7PH3iqlYYr9KHY6L6hotc/JGOpWwYw95rKIMq0QYZxMT8XtQLocAsmUgTdv4dImuvNpYYc6rNCP6wacFSBlZlbdVkCj5yhLPyu5A6papPVSLkgcYQ9MbT5HisUamKznf6pUrlXBprGh0kGdysJdysfBEld18NS9SP0=
+	agCaKYORswC4SvGyKPKbR9vDxvoqvC5T3/UjN6XaeqgeJOHrWf+pqHg/3Qs/8Cp4Ytbgci6xFkrIRNoOCyUFPHj2eJZv8YNC/Q3NsT3zUXu2JSP2VY2sdMVElfXb1cR1v4w6uDUKfThdI40pk0KWo63c+DIENxXj+m9GosdYqTZKlb0QpRsDdusDhlIN4guenzAOAJ/NETTSUsdCbPqsvMEE5byEhBdj2tLu54JDtEY7Oau65wArSjaDmDOAXXyU3IZb4XI41gVeXQP36cQBVRKsH7/g6RrXDNBJ48UwJgnFm6VTT4eHtpJMdRbCnXrZL+X8NsU72OA8aqQJJ5k5J48g7xeoFXK9jR9wUmlay8NKJ1XxHe65aRhZo9nLYJUoQ1fPhXxoaQ7EvZ7+kLf2Pn8HnRhvPn2Lik/nXpY2MDdBqdnt7UMd4lvCUqJy8+NalHg3ufEvtaWxUUcbLVMymoippj+9PR0/Ke/A4xSRbEPCwma3YVczg2XQ+yQMJz2gOKEII1+D/373ACSlpNZqGkZsibO7oDG2tlyjLDkt0zYNrKe1WMVT5sO0kPCt1Ji1zG+joZjvRl3ap4MqGMZ8FsQHWkIfmJZabMU4ieBf/BaTvMS2s9eUoBli7zCgjJnv
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4283.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(19092799006)(23010399003)(6133799003)(18002099003)(22082099003)(3023799007)(5023799004)(11063799006)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WlplRkc0NWllQXNYVFJRaFFZYkV6NXVkV3JiL0llUC9JZWE3Nm9MSEpId1o5?=
- =?utf-8?B?cjJ0Ky9hNklGK3IydmI0UXJvMnFTYjRHbHRIek9iUURVTm01ZmIybi9jVUx2?=
- =?utf-8?B?RnVrWHVSQ21XSVlyMmtTUEhMTUJ6QmdaYlZoZlNvemhWTFN6RzVYNTZQTEZK?=
- =?utf-8?B?RnQ3cHV2NnB3clBKM25ERnpHaGMwT1V1K2RUU0lqMTcrQTdvcVlDNExFYTB1?=
- =?utf-8?B?UldMbUxEM2tKSHc5Z01vRDF2NEZNaFAyS2d0NDZubXBvSzZzVHpJeTRjWU1u?=
- =?utf-8?B?OS80Zlltd2pSS2RYcXBYYmM0VFdnQ1dQb2xrdk9Yb1JHRjFpZFBmUDdCeVha?=
- =?utf-8?B?OXZDaHo3OGhZWXowc0JNRm93OTMzN0xTUW1LMDZXdDVTS3NoSWtuNG5na21C?=
- =?utf-8?B?K2dMWXE4cjFJcVlscG1aamIwaDZHR01QK3FqLzdncDVKWDFVUVN5aHgxc1VS?=
- =?utf-8?B?NXdGUjk1TzI1cXQyU3JEZnVmTmttaHVlbmxreEdwWDR4QjFock1pRjNPNjNm?=
- =?utf-8?B?T0lsT2tlQ25sOEVHQkFjWXF1cVdQVXRBM2QwbE5GemZtY2pMRHE1ZG5RUnNO?=
- =?utf-8?B?TzAxcElTbnJ1Y2RPRTVXSzRzNlk1bFlkMHpFNVlTUnVyRk04T3Q3TjY1UVJ1?=
- =?utf-8?B?alBjOGpJSXB3ZWUzYmFGZG1NWFdhY2pxTEJrQzdybVR5cEt6YTN1SkQ0MnlJ?=
- =?utf-8?B?d3V0SjZBYWNqbEpubTJhVk9vMHo5clA3eXlZRzBFVG0yR3FXM3RrcG5zMkZ2?=
- =?utf-8?B?Qk5aUXFVaFprK0htMTArZ2YzcmhMWU1CVGxCckJkdmszbUN6RGlqK2NRQmdL?=
- =?utf-8?B?TlVxazh4YVJJcDRtdkU1TGZ5SG9DMmVmUVpLZzk1MkhQbmxvSkZSbDBRL2hT?=
- =?utf-8?B?R000dUhnUGRQWDVkb1NuTGZqVDFnbXF1TEE1UCtRYzQrK3BXbXNMZElSUDdL?=
- =?utf-8?B?UDM5L0dsZ2F2bU9rY3hONUE5cEYwb3Y1KzVha25DK1lLVDd5QlBYWU1EM3FQ?=
- =?utf-8?B?M1RwRlFlWVBPZHY4djdMejlyTHZZYTFOR0tvVnZIYmR3WWVmTlRyYnN1U1Vx?=
- =?utf-8?B?S2VlSVh0UGV1SS91aHNpTzQ0VDFzeVVWQzRJK3V4Y2FXMG5mYnAvMlN2cjhw?=
- =?utf-8?B?ZVJFTUpmSGRPa0RYZWU1NkQ4VHZYMi9SNnlteHhYMWNDSFBGaGpJbXVqOHpy?=
- =?utf-8?B?b29HM3VHN2pjOTJjQmhnYXkvU1R5OXRPZCtuU3ZxRTRPemlEUHBOZDFVM0hl?=
- =?utf-8?B?cWo0TXExbysxVUhKd2tNL0JZNnU3dytGZEl0ak15UElsZGs4RXR5RTEyNitU?=
- =?utf-8?B?ejFFc1RsRnFPNnowREI3bFBIUm5zQ2NWMXBwbzN6a29id2M2ZGJxbm1nYno1?=
- =?utf-8?B?ZEVpbUZoMklvR1BjRjVlZm4vTS9qVnRXUXJ0czJPMXpUV3UxK3FjaUptL2dN?=
- =?utf-8?B?Sk4xR2xQcmNQbTAyVldDTUhxN3F5UE05aW9wU0RRZjVsbGNJSDVab3Z0TmdZ?=
- =?utf-8?B?dmdpTHdsYzIzWWRvV0JUQWFGSG55bWMzZFFjeCtkWEU4SWNmOUxDZlF5TlY2?=
- =?utf-8?B?OWNuM25vbi80Skl2M2ZydTBvd0p6NmdJTXByV09qNGlqd3I2TkxVWStteEZQ?=
- =?utf-8?B?ZnZYWmcxSEVtN3NZY1lnSDRpaXlaOHg1T2lxY3hDRmFRc01ERlVMUjR5RFZU?=
- =?utf-8?B?UnM5amIyOTlFTzUrNFdOQW5HbWhZRnUvOGRhTDZzY1lhTmxHOGZ5VE1FWGRi?=
- =?utf-8?B?elNXN2dMaGJwRDJPZ2owdFBUWHlTSnBKMTQxT1BLbklFallndDkzUXRRQWVt?=
- =?utf-8?B?TTZlUXhGSDJ4OHNSeHJRRkxEeUNxZVA0Y3JjU2JxbE4rU0VpYzdsdkNNWStz?=
- =?utf-8?B?KzFLblkxTlgrT21zbXNGMU00MnJ2M1drNGVUVVlYZDZYYk5WMkZObVllVERF?=
- =?utf-8?B?aUEvVVVDa0xpNkZRdTI5ZDFKcXlQcGlacUt0THM2YnJWbEJsOXNoVENlamgx?=
- =?utf-8?B?QnZscEVYN0Z6V3plVWdEa2J3cGdFNUgzWjRCTmlCVjNMZ253UVUxd1FueE9W?=
- =?utf-8?B?dDBMc2prVGRYc01DQWI4WVBxcVo3bkNpSUZ1N2tncWU0WFpTVmN5d0c4cnE2?=
- =?utf-8?B?RVZVWGcrQ3pvcTI2bHdMNUJCWXZ5U1p2RVN1dVVxZksvL2xWRjJOekhzOW83?=
- =?utf-8?B?VHpGT01PWHErUi8yMk1TK3dVTklHSFpZVlBSUXZjYzBaSFpqNnBBZDhKUEhN?=
- =?utf-8?B?ZU5UL2ZWTkRtNm5GVG5tbHc2WGNhQVp4bnFOTFdBOHlNREFKYTZZbHFUWXFO?=
- =?utf-8?B?cG8wZFpsR1ptRFFBSGZNWmtBbEFTMDl2NXZDRUR4azhnSVQwRkRsQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 062269ec-3635-437b-d5e1-08df18c5ee0d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4283.namprd12.prod.outlook.com
+	=?us-ascii?Q?ljBCV981ZJls6BGFs3GmJ9iPuw94Je32/Qk2SDoehzkxgN+TV/hApauNaRc3?=
+ =?us-ascii?Q?tWP61Ngkc/8jEPiSvyK74hWXDIZD9l5EC7j71KDZbm5tlHjtPPIPvOq1isTF?=
+ =?us-ascii?Q?hpS0viKrExcX5VOHR6002HIWm7+OLagtx+gI6gWZmlkAxDgIZwU4/b5aYjxz?=
+ =?us-ascii?Q?++fF/rH/4OrkCHQnFR99uSjRimobkmAN6YsTo/1kiUIZeQAhus8I7VvNdajp?=
+ =?us-ascii?Q?hD2IJ5GgSs0QhkyuLWJF9rnKXJhaIM1Cl2F348PSxbAFrXu1eYangCFTplpp?=
+ =?us-ascii?Q?xrJ+X2mjI5ppGpWX3LYoxQkYXUGsTMCnNTjeMUtTbMl54NCJ6jZjyAoTYIwu?=
+ =?us-ascii?Q?WXzVleeIHKneJsCqMhSO1wyWINInRLsM4I9ZzyFW/3T0IKDpltmdhLbgshTH?=
+ =?us-ascii?Q?OxhLmmj+6phZDTLvtZoWuvRmuFz4VfPQBLi9YChAoDB3JklaivteTfhw4sdV?=
+ =?us-ascii?Q?hxvByHH0mbpJWHES1tCI43JFnBBAGmUMXB/DvzfOBUVdSE9hNIlSUKCVxmoW?=
+ =?us-ascii?Q?XputBZ/kPnkAgw2s6Jbx8TicfvcTqu9FGxWeHEEcdprr5hHLK2ILfp1wkiJZ?=
+ =?us-ascii?Q?danqMkC437aweW0WZbfXfTZ/AWw7CQQuf/NXBPI0FHYPqqo3u2Vnu/EHI84v?=
+ =?us-ascii?Q?fXjZGiTfJKjVJr8j975RX6luKg5FrCkqkCu+pkywyVRcl4MF3BnMabEH/qKs?=
+ =?us-ascii?Q?X2SlGjoKJjjUaBidqdmiZncGJI7v12T7a/3p9wKXig5RAa5Xn42auDvsEhj1?=
+ =?us-ascii?Q?+7ZXFTleDLKwGrxl4W8GEyFT4oEmjL20/pA/RxeyvNj2tTiyAuaK4gHNDR0Y?=
+ =?us-ascii?Q?JFD6iVHQfS2KjxV5Ev0WO0EGlv/iS00LzzjvwBmThmDjTZwFDsa89xH4Gn6r?=
+ =?us-ascii?Q?FvW+zgp/9tsGMQtUjqUpfBs8DAnM5iSjWOHsm5HDIALQDLaSVQI17f5kv4Eb?=
+ =?us-ascii?Q?baZYHehsplFv54BckcE2mH18XgzKKzAJYlAfBKaE070aHWRPNLhXdfmH/kBQ?=
+ =?us-ascii?Q?RHVXKtgxL3oVRnOpmwL7ZE6BQiGRbO/u+mUe/Xq9qaKzvZbx2UlYbH1VffnB?=
+ =?us-ascii?Q?F51+qLmnx0ol1C7ij1vGRwWNsgV4pQ616589/aPmSgzI0Jyi2WTr+yOoyOhe?=
+ =?us-ascii?Q?Ih2H1u1zISHqNV82VudEg/HYD8KrKzQ6xZpXfQeH6QPLIjQSikCtjAmIIJ2v?=
+ =?us-ascii?Q?cVINA19caZsqooLsu29fNpbjqcs9eNAjlyRq+NcGl8H2E3zwsyoSJdwSLvfA?=
+ =?us-ascii?Q?SJ6B0sXjeSm2i25a7S0rCJRpFVpEBwFLSOQkhrrUCFA/iM8Y8Q6NTNTGZ8oa?=
+ =?us-ascii?Q?vhGeckjBhqjejXL+dA+ToGCBD8u6utb2pRCP4hBsF14SJWlG6V0H+Rkc6JdG?=
+ =?us-ascii?Q?HKmvbuMl+7EggbbkNGY+S3ZF8OZVqk0lvaUn4T1KX+NHOOnM/utiLVXPyuAw?=
+ =?us-ascii?Q?k5uwams7VcaDTf9VPV9CO7m9IRV3SCzvAYS7O0seI9aqxhkkp2aInUh4Ze8e?=
+ =?us-ascii?Q?oDJpCSpwiJDmzQG+DXWchKq3GemBqHmhsip2Q2TOnnp+hIeX4FPIMlQu0U4p?=
+ =?us-ascii?Q?UdwpPPLS22oaEiiljkuIGC6My/5PcKvGeL3oOzRc1Ej2haDeJNwD6hjZd1DX?=
+ =?us-ascii?Q?yR1B0LU8xi3x7aMhOXAJ/6AOosLg309UKo7Jp0M/OHfg65fjyn12GVRcPCJr?=
+ =?us-ascii?Q?7OTAn+GBS+fibegp79YMT3eUK3TT2E+IsvafTEPnd4dqSgx2f2ux3j/FBiuh?=
+ =?us-ascii?Q?ragRCOjnzIvKNKMnSzyvWMC9h2PGICvWcw5cnLmag59tZkk3Ztd3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d949a5a-c3ab-4b9e-365b-08df18c623b7
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 16:24:09.2560
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 16:25:39.5227
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9e3R/pNYzjKGUAGYvegow+shhYeiWIe5iZK2qRALGd7aRBFb0Laa8399bnyP1SxEQAQX6T7kr8DTyAi758ttXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6329
+X-MS-Exchange-CrossTenant-UserPrincipalName: WmuwTGpUuKcLEKBcOcFKMLaTWQhXgBnPgoo9y1eHm4qzB7KmuX1zywiylv5Ukyzsk8enfF3rGw294BXP7TOkRouUxpzCbyl7MmsbiTDvm6hqVoZGsXfvZMsdz1DqKz76
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB12561
 
-> Modern GPUs and AI accelerators are increasingly connected through scale-up
-> fabrics such as AMD xGMI today and emerging UALink systems [4]. Linux lacks
-> common, vendor-neutral infrastructure for reporting which accelerators are
-> directly connected, through which ports, and in what state.
+On Tue, Sep 22, 2026 at 10:39:23AM +0100, Conor Dooley wrote:
+> On Tue, Sep 22, 2026 at 10:38:17AM +0100, Conor Dooley wrote:
+> > On Tue, Sep 22, 2026 at 10:33:44AM +0100, Conor Dooley wrote:
+> > > On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrote:
+> > > >
+> > > >
+> > > > On 9/10/26 17:44, Frank Li wrote:
+> > > > > On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley wrote:
+> > > > > > On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
+> > > > > > > On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley wrote:
+> > > > > > > > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Patil wrote:
+> > > > > > > > > In-Band Interrupt and Hot-Join are synthesis-time options of the AXI I3C
+> > > > > > > > > IP. Describe them with two boolean properties.
+> > > > > > > > >
+> > > > > > > > > A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
+> > > > > > > > > capable design is always IBI capable as well. Both events are reported
+> > > > > > > > > through the controller interrupt, which is therefore required whenever
+> > > > > > > > > the capability is present.
+> > > > > > > > >
+> > > > > > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> > > > > > > > > ---
+> > > > > > > > > Changes in V3:
+> > > > > > > > > - Move in-band-interrupt-capable and hot-join-capable into the common
+> > > > > > > > >    i3c.yaml schema and drop the xlnx, prefix.
+> > > > > > > > > - Keep dependencies in the AMD binding.
+> > > > > > > > > - Update the commit description accordingly.
+> > > > > > > > > - Conor Dooley acked v2 with the xlnx,-prefixed properties in the AMD
+> > > > > > > > >    binding [1].
+> > > > > > > > >    That Acked-by is not carried here: the names lost the vendor prefix
+> > > > > > > > >    and the definitions moved to i3c.yaml after Frank Li's comment.
+> > > > > > > > >    [1]:https://lore.kernel.org/all/20260824-tightwad-impose-495476599087@spud/
+> > > > > > > >
+> > > > > > > > I disagree with Frank. These properties make sense for Xilinx because it
+> > > > > > > > is an FPGA IP and synthesis options impact this. For other devices, this
+> > > > > > > > should be determined from the compatible.
+> > > > > > > > Please revert to how things were done in v2, especially as no rationale
+> > > > > > > > was provided for why these should be common.
+> > > > > > >
+> > > > > > > It is common problems, when IP intergrate by SOC, which may defeature some
+> > > > > > > part, It is not appeared now just because IBI and HJ have not enabled
+> > > > > > > widely.
+> > > > > > >
+> > > > > > > IBI and HJ is optional features of I3C. Ideally it should be indicated by
+> > > > > > > some registers. But not all vendor implement provide this CAP registers.
+> > > > > > >
+> > > > > > > IBI and HJ depend on some slow clocks, which monitor SDA line change.
+> > > > > > > Some instances of IP may not have such slow clocks. Some IP's IBI and HJ
+> > > > > > > use seperate IRQ line, but these irq line may not connect of difference
+> > > > > > > instances.
+> > > > > >
+> > > > > > All of this should be able to be dealt with by appropriate use of
+> > > > > > specific compatibles.
+> > > > >
+> > > > > I understand compatible can cover most cases. Need variance for property.
+> > > > >
+> > > > > >
+> > > > > > > like previous SPI vendor customized property, we takes efforts to convert
+> > > > > > > to common one and also meet back compatiblity problem at convert. I don't
+> > > > > > > want to do it again. This kind property is most likely as below.
+> > > > > >
+> > > > > > What SPI controller specific properties are you talking about here?
+> > > > > > There are relatively few properties in spi-controller.yaml, and none of
+> > > > > > them deal with these kinds of capabilities.
+> > > > >
+> > > > > num-cs vs fsl,espi-num-chipselects. Total number CS of IP is fixed, but
+> > > > > some instances have not route all CS to pad.
+> > > > >
+> > > > > >
+> > > > > > >
+> > > > > > > default: 	decide by comaptible string or hardware cap
+> > > > > > > force-disabled: force disable for some reason, like, miss connect irq line
+> > > > > > > or missed some clock, or IP bugs, or board desgin's some level shift chip
+> > > > > > > broken IBI/HJ timing requirements.
+> > > > > >
+> > > > > > Of these, only the last would be a valid reason for having a property
+> > > > > > for it. Missing interrupts, clocks or IP bugs should all be dealt with
+> > > > > > using device specific compatibles.
+> > > > > > If board wiring causes the breakage, the property may be more
+> > > > > > appropriate at the i3c device level rather than the controller given
+> > > > > > that wiring to some devices on the bus may not have the problems?
+> > > > >
+> > > > > I3C.yaml is for both master controller and devices now. I3C is bus, which
+> > > > > connect many devices, if wiring issue, whole bus can't support IBI. And
+> > > > > if any broken devices happen at address arbitation, whole bus can't support
+> > > > > IBI.
+> > > > >
+> > > > > at beging, I suggest 3 state,
+> > > > >
+> > > > > [default, enable, disable], but now I think IBI_broken, HJ_broken is more
+> > > > > reasonable to disable it, default value should be set by compatible
+> > > > > string or DCR of I3C regiser.
+> > > > >
+> > > > > And some I3C device may be failure to work with IBI even DCR of I3C register
+> > > > > show it support IBI.
+> > > > >
+> > > > > I don't want to appear two similar property between vendor and common, like
+> > > > > num-cs vs fsl,espi-num-chipselects.
+> > > > >
+> > > > > such as IBI-broken can be used for controller and devices case.
+> > > > >
+> > > > > > That said, I think that problem should be dealt with when it arises,
+> > > > > > rather than starting a trend of adding capabilities properties at the
+> > > > > > controller level when I am not convinced that there's going to be other
+> > > > > > users in the same vein.
+> > > > >
+> > >
+> > > > > Understand, I3C is realtive new protocal. 'IBI-broken' is more easy
+> > > > > understand,  logically equial to in-band-interrupt-capable.
+> > > > Conor: Any update on this one? I think this thread is stuck at this stage.
+> > >
+> > > I didn't think there was any need to reply. I took the first sentence of
+> > > this snippet to be acceptance of what I was saying.
+> > >
+> > > If yous desperately want to have a generic property, the negative
+> > > connotation of the "-broken" is probably better in that it'd be more
+> > > likely to make people set stuff by compatible rather than have to use a
+> > > property with that word in it.
+> >
+> > That said, technically this platform could be both
+> > "amd,in-band-interrupt-capable" and "ibi-broken" at the same time, since
+> > one describes the way the IP has been compiled and the other wiring. I'm
+> > not entirely sure whether conflating the two is possible? Depends on if
+> > your IP's programming model changes if the option is enabled even if it
+> > cannot be used. Not beyond the realms of possibility.
+> >
+> > Also, ibi-broken doesn't work for your platform, since the default
+> > before this patch is no ibi and requiring a property for no ibi would be
+> > an ABI break.
+>
+> The perils of FPGA IP I suppose, and not being quite careful enough to
+> document all of the relevant options from the start. Been guilty of that
+> myself.
+>
 
+Check impliment code
 
-Sorry for jumping in late to this discussion. We have hardware that uses
-UALoE (https://www.amd.com/en/products/rackscale-solutions/helios.html).
-The suggestion from Jason is sensible: a new subsystem for fabrics and
-reuse ethernet stuff from networking subsystem where possible. We would
-like to continue discussing this -  Alejandro and I will be attending
-Plumbers virtually.
++       /*
++        * The interrupt only carries IBI events, so it is only described for
++        * designs synthesized with that feature.
++        */
++       if (master->ibi_capable) {
++               xi3c_master_init_ibi_ops(master);
++
++               master->irq = platform_get_irq(pdev, 0);
++               if (master->irq < 0)
++                       return master->irq;
++
++               ret = devm_request_irq(master->dev, master->irq,
++                                      xi3c_master_irq_handler, IRQF_NO_AUTOEN,
++                                      dev_name(master->dev), master);
++               if (ret)
++                       return dev_err_probe(master->dev, ret,
++                                            "Failed to request IRQ\n");
++       }
 
-Thanks,
+They can use master->irq is determinate if support IBI.
 
-Alex
+Frank
+
+>
+
 
