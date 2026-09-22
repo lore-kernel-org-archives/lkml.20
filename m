@@ -1,204 +1,130 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57C61F1932
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50E035950
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790035232; cv=none; b=fVWKNT/qC638guwLo43wb/N+Mt6AYEldQ9F1p0E16QfsM3cmf85D5hl8sZQXcjuJBHTNQsVf9O9OYWmFY/8sDJ/jtJffBd2IDwqu7OpdXehBwdzF2LHON7CVvO5YB4gef8pYXmEEa3tf0k80U/hpshIcPX1ttYuHmhOiw50N5AI=
+	t=1790035317; cv=none; b=TV0s1c2VamDWZ4hu9kTXW3+6MSF1u8r3jytCUQaBHtaQXyCzD01erU04C8yYFsP+K9P3XSqmtEVD4l1EL0v3L441tBpAOE7mJezp4zKAp4hwHVbat3gyZjC+JkKVIsnXWLDupcOjtAupgOlQxftBXZcprh50JxZ8+d1UlVGTx8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790035232; c=relaxed/simple;
-	bh=g4RxySYwgJ3T5q2nIDMsQLpQlp/JtuGXy/6cJD0LGhs=;
-	h=Date:Message-Id:To:Cc:Subject:From:References:In-Reply-To:
-	 Mime-Version:Content-Type; b=IxaPrOFKDc/fs8h7Lxt7LIMUK6U00Kb+guGmg4CY3KmA9cFu86t76+fWl/E/9ptPz3/1w3G/aj7E6UJ7J+eybVNWGRRL+aTi3pkESaUxa+w9Ie0FkvOiEveIPgDJyQVgjWwVI9ZJw/LnC9ekAUWLm2M/6/Ma+InphR0C/It8eno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WZn8oO7p; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790035317; c=relaxed/simple;
+	bh=qi84eELfBHzq8Gtxf2nmLjCYzLq7UX87oLUR/SOg6jI=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=OryLDhf4SXJvV8qXSMPA/h0BwvT0AVXfMgW1facxTLe75ddbp8so9VvXS2FgdIzALOp33mQ4eVzC+LDgSVyspTj3ZdoawENSPLnlbzGLpRi9sMMsz46hRj+gMY6RVqWypurx/0uU8vfsl6gIu+IDOC+jmCFpEW+3wfek5g1Vww0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nrQky3Fm; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WZn8oO7p"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so3637612b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:00:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nrQky3Fm"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so4893559a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:01:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790035230; x=1790640030; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:in-reply-to
-         :references:from:subject:cc:to:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g4RxySYwgJ3T5q2nIDMsQLpQlp/JtuGXy/6cJD0LGhs=;
-        b=WZn8oO7p7CBjvDZxy1I4MFJX4D6nFSV3TfB3p1FvYX2PGEaH14vmQendgQQoUFIxK7
-         kJYf4Ht8RGcyxNLVtipyJSI1dvUEJRv4At0pCDdjsjY2PRg2x6bVBqLpZYHjF82y7GmM
-         MS4914JvtoQH4aoHqfxhNGvayOeik5aNXULL8KawT1mvbIO+VfFzTZ/EPuWlCKaY+r4m
-         uoeuQuSSSWmIy8ZFtFTvp46wufeZl6uSdZB6QigIG6R+AunsmK09nTINwZzK3vWzgUf/
-         XYAhFntpiXYdVS+C77dOIaElE0qhL3YsGDvq1ehp2ucg0NJpTc/8hfwwlDQWODDVGv4u
-         78eA==
+        d=google.com; s=20251104; t=1790035315; x=1790640115; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=or4BumuwV4xPEQU58uCMLkiO/gDvhjBy7N2q2FLMj1g=;
+        b=nrQky3Fmk0OfyyhhdhAUtsuArt39Vnxzwe/AGPlEctNRt+wKuGLiYCEhp3mDdjncRL
+         YTo83FiUQgsobAfKeInB9rlnDEArNOXNuo1XomMBId9xstokkuim6Lzt7PcLuwwMEqdj
+         JhBeBm7ph1OBWnCgqPEaKU+h1bMCp4qYo5UgjuFRWDjCJ0/IpxiaI4S3AuhFrES0Vg7j
+         sBW/IqXVkVk2F16+z5ns98g0ku4jK4Mp07TQGOX6gftk6knwLijnY4RE84QTaadlZyds
+         qXMCaE4of23AAyKb9Ps1ql4tCgcVqvsygzOgzIFM68qmmZNKgnWQjxIejUBQLa6hMH2n
+         rulA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790035230; x=1790640030;
-        h=content-transfer-encoding:content-type:mime-version:in-reply-to
-         :references:from:subject:cc:to:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g4RxySYwgJ3T5q2nIDMsQLpQlp/JtuGXy/6cJD0LGhs=;
-        b=ISvLYXMl4XEtY22YFfEZ97ah2+7EeP3A4oiGtURFrulLHX2v06ZjnShbDLvHjNMdbr
-         8I751owmwyXIOwwTZVG8Rkwbug7JA8wktjXXZUMfclFRlmA6W4eMEfjPyQupH5+wQTuD
-         2tKOxZeViLWNO/BNifmkbGPTx0maWc66HAQHHwsdOfXDWmT3u9hfX0ngy/y+Z/KuNmcX
-         t0yCt4Rlb1cryI7N6WALRQvAVi8wF3QcZPEbKvzIC7mzjLAggEIXQQA5tL+XFXyw0wXg
-         iCC/RoYYVk4Y2XwGFxVVVUyJ5aht1VlYiSd5E/VLigDbVJ1szzU6tEW3n0OBT6Y1VsDF
-         6O6g==
-X-Forwarded-Encrypted: i=1; AKwUvBy0enyZzswktpbwh1dRWm3ww2eUMtgr8dIIHZQIHQZmsVJ6MyhYqiocZC4v5eeAw4UJi7iRMH3Ae5hxYfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVIRbATJHnOXnHF91uZD9zrkap55IyJlVHShLhdp69Baw8wGBd
-	+OkH1DeqbLzN9l55LGUbRj6YgqunbWjgfRzsIQt/DUIlqrK3Ygp8qmpPmcI1MYmQ
-X-Gm-Gg: AYBFou2tRrQTI0G1QNNFiiB7cmBFz2Tx+xEfO7+RdlozywudevAqPRc8hdyKlRDjo80
-	bEDCgv05rqliXkXzNu6kPVyeTGLFZ74HBHbvsskes8pC2c8aMoBVwUJowkkUP2PbvmIzJHq+R31
-	Se3o3cTTQX7V4nJ0u51sTNoI5lrYzNVWPjiFnBIte0KENLcWiv5xjr2PI4431hJ6R84kAiQ/IUJ
-	rZVuvkwA2kr07YBtW3tI6eVh/zpTB4NNCAB1/4oYt7LX58TWJlM/KZlVw8SjKkouOO9u5FhwwBc
-	anSZ5y5BQNIG3eCF53TCjvqapGdvzhjcLba7Q3RKmz4+pauTsGd1IAuSC5PODcvn5hExmXUXkiV
-	pnObPglTcc8mxMP3McInc0UMmOfP0QVV+U3DfigPwr33yAC+8VCTo1lSJOLfGiRlN/nPHjktaQd
-	xW0iP4cnXhTItZA0lRGNHcVC23Qyoiosztoku+Q88EWk86dTN7DxJEgOIj7CiEOC56DmKhLhhfM
-	xpmRnaFPANfC362OvWXW4o=
-X-Received: by 2002:a05:6a00:94d3:b0:874:705d:f658 with SMTP id d2e1a72fcca58-874decf4e13mr15796157b3a.38.1790035229981;
-        Mon, 21 Sep 2026 17:00:29 -0700 (PDT)
-Received: from localhost (madb688455.ap.nuro.jp. [219.104.132.85])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c31ee84eesm13016b3a.19.2026.09.21.17.00.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 17:00:29 -0700 (PDT)
-Date: Tue, 22 Sep 2026 09:00:24 +0900 (JST)
-Message-Id: <20260922.090024.1397325219075643405.konishi.ryusuke@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4] nilfs2: fix checkpoint root lifetime on sysfs errors
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-References: <CAKFNMonYVUbzjYm343Aw-=xjUk78x4EdUwGBfNRwE6zfmRVhvA@mail.gmail.com>
-	<20260921152144.3983736-1-qwe.aldo@gmail.com>
-	<20260921152144.3983736-2-qwe.aldo@gmail.com>
-In-Reply-To: <20260921152144.3983736-2-qwe.aldo@gmail.com>
-X-Mailer: Mew version 6.8 on Emacs 30.2
+        d=1e100.net; s=20260707; t=1790035315; x=1790640115;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=or4BumuwV4xPEQU58uCMLkiO/gDvhjBy7N2q2FLMj1g=;
+        b=BqzS4yfBJ/tMX5afBrrOz7pTgrVdZYZ2CXCo1N06QgrmZvfxtV2H5k9YLApmju/gIQ
+         x5d4LC9LzJUiU5aYBtrcA2hAln+lkFMXZX48EurRU+q60H0/As5OARz8cLm4F5Ut5eW6
+         eML1CMJEqrcyximIzfzHykKQs6bbK/2yWK960w17OlKS26Btgz0EdYlHqJ9PU/7oyugY
+         Jjagk9nJOhBlBjyS8wMkVNG7wQNMyXc0yOahjsEkkWy031hfJf/u1clwgqvIVpj+3p8r
+         /HtCWoRv+1wDCwMEmZp/fSfI0a+MVqRG/EnBoMrThoCgxoMvoCrLs7R/wh/n2X3i9B0F
+         VPDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaMj9IJFApu94niJXN+Vqsrw8g5BZxCXmsVMMUIEe7l5G5y8DUM7BsnsJB6HLsXI6q0FTFj7rEpUCDt4c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZ5jkKgwxtbXI1YCaH3yrow8exRKcTbv1rN07QwPDYLTh4Tdgv
+	wVWP2+K1Qw9C5q6hd2B409LCP/1NW7+ynei7b/OyZD88CLSKVKx1NGBlSiZbWuB6AuO4IuUW+Z/
+	rhXwrdQ==
+X-Received: from pgfd21-n1.prod.google.com ([2002:a05:6a02:6555:10b0:cc7:513b:37d9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:ce49:b0:3da:755f:a031
+ with SMTP id adf61e73a8af0-3dd8c4412fbmr22065373637.12.1790035314862; Mon, 21
+ Sep 2026 17:01:54 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Mon, 21 Sep 2026 17:01:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: Text/Plain; charset=utf-8
-Content-Transfer-Encoding: base64
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260922000152.1113202-1-seanjc@google.com>
+Subject: [PATCH] KVM: VMX: Move bus lock handler from main.c => common.h
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-KFJlc2VuZGluZyBkdWUgdG8gYSBkZWxpdmVyeSBmYWlsdXJlIHdpdGggdGhlIG9yaWdpbmFsIHJl
-Y2lwaWVudCBhZGRyZXNzLikNCg0KT24gVHVlLCBTZXAgMjIsIDIwMjYgYXQgMTI6MjLigK9BTSBB
-bGRvIEFyaWVsIFBhbnphcmRvIHdyb3RlOg0KPg0KPiBuaWxmc19maW5kX29yX2NyZWF0ZV9yb290
-KCkgbGlua3MgYSBuZXcgY2hlY2twb2ludCByb290IGludG8gdGhlDQo+IGNoZWNrcG9pbnQgdHJl
-ZSBhbmQgZHJvcHMgbnNfY3B0cmVlX2xvY2sgYmVmb3JlIGNyZWF0aW5nIHRoZSByb290J3MNCj4g
-c3lzZnMgZ3JvdXAuICBJZiBuaWxmc19zeXNmc19jcmVhdGVfc25hcHNob3RfZ3JvdXAoKSB0aGVu
-IGZhaWxzLCB0aGUNCj4gcm9vdCBpcyBmcmVlZCB3aGlsZSBpdCBpcyBzdGlsbCByZWFjaGFibGUg
-ZnJvbSBuc19jcHRyZWUsIHNvIGENCj4gY29uY3VycmVudCBuaWxmc19sb29rdXBfcm9vdCgpIGNh
-biBkZXJlZmVyZW5jZSBmcmVlZCBtZW1vcnkuDQo+DQo+IG5pbGZzX3N5c2ZzX2NyZWF0ZV9zbmFw
-c2hvdF9ncm91cCgpIGFsbG9jYXRlcyBtZW1vcnkgYW5kIGNyZWF0ZXMgc3lzZnMNCj4gbm9kZXMg
-YW5kIG1heSBzbGVlcCwgc28gaXQgY2Fubm90IHJ1biB1bmRlciB0aGUgbnNfY3B0cmVlX2xvY2sg
-c3BpbmxvY2suDQo+IFJlb3JkZXIgdGhlIGNyZWF0aW9uIHBhdGggc28gdGhhdCB0aGUgc3lzZnMg
-Z3JvdXAgaXMgc2V0IHVwIGJlZm9yZSB0aGUNCj4gcm9vdCBpcyBwdWJsaXNoZWQ6IGluaXRpYWxp
-emUgdGhlIHJvb3QsIGNyZWF0ZSBpdHMgc3lzZnMgZ3JvdXAgb3V0c2lkZQ0KPiB0aGUgbG9jaywg
-YW5kIG9ubHkgdGhlbiB0YWtlIG5zX2NwdHJlZV9sb2NrIHRvIGxpbmsgaXQgaW50byB0aGUgdHJl
-ZS4NCj4gT24gc3lzZnMgZmFpbHVyZSB0aGUgcm9vdCB3YXMgbmV2ZXIgdmlzaWJsZSBhbmQgaXMg
-ZnJlZWQgZGlyZWN0bHk7IGluDQo+IHRoZSB1bmxpa2VseSBjYXNlIGEgcm9vdCB3aXRoIHRoZSBz
-YW1lIGNoZWNrcG9pbnQgbnVtYmVyIGlzIGFscmVhZHkNCj4gcHJlc2VudCwgdGhlIHN5c2ZzIGdy
-b3VwIG9mIHRoZSBuZXcgcm9vdCBpcyByZW1vdmVkIGJlZm9yZSBpdCBpcyBmcmVlZC4NCj4gQ29u
-Y3VycmVudCBpbnNlcnRpb25zIGFyZSBhbHJlYWR5IHNlcmlhbGl6ZWQgYnkgbnNfc25hcHNob3Rf
-bW91bnRfbXV0ZXgsDQo+IHNvIG9ubHkgdGhlIHJhY2UgYWdhaW5zdCBuaWxmc19sb29rdXBfcm9v
-dCgpIG5lZWRzIHRvIGJlIGNsb3NlZC4NCj4NCj4gQmVjYXVzZSBrb2JqZWN0X3B1dCgpIGRvZXMg
-bm90IGd1YXJhbnRlZSB0aGF0IHRoZSBlbWJlZGRlZCBrb2JqZWN0J3MNCj4gcmVsZWFzZSBjYWxs
-YmFjayBoYXMgcnVuIGJ5IHRoZSB0aW1lIGl0IHJldHVybnMNCj4gKENPTkZJR19ERUJVR19LT0JK
-RUNUX1JFTEVBU0UgZGVmZXJzIGl0KSwgdGhlIGNvbnRhaW5lciBtdXN0IG5vdCBiZQ0KPiBmcmVl
-ZCB1bnRpbCB0aGUgcmVsZWFzZSBjb21wbGV0ZXMuICBLZWVwIHRoYXQgd2FpdF9mb3JfY29tcGxl
-dGlvbigpIG9mDQo+IHNuYXBzaG90X2tvYmpfdW5yZWdpc3RlciBpbnNpZGUgdGhlIHN5c2ZzIGhl
-bHBlcnMsIHNvIGJvdGggdGhlIGNyZWF0aW9uDQo+IGVycm9yIHBhdGggYW5kIG5pbGZzX3N5c2Zz
-X2RlbGV0ZV9zbmFwc2hvdF9ncm91cCgpIHdhaXQgZm9yIHRoZSByZWxlYXNlDQo+IGJlZm9yZSB0
-aGVpciBjYWxsZXJzIGZyZWUgdGhlIHJvb3QuDQo+DQo+IEZpeGVzOiBkZDcwZWRiZGUyNjIgKCJu
-aWxmczI6IGludGVncmF0ZSBzeXNmcyBzdXBwb3J0IGludG8gZHJpdmVyIikNCj4gQ2M6IHN0YWJs
-ZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogQWxkbyBBcmllbCBQYW56YXJkbyA8
-cXdlLmFsZG9AZ21haWwuY29tPg0KPiAtLS0NCj4gQ2hhbmdlcyBpbiB2NDoNCj4gICAtIEtlZXAg
-bnNfY3B0cmVlX2xvY2sgYXMgYSBzcGlubG9jayBpbnN0ZWFkIG9mIGNvbnZlcnRpbmcgaXQgdG8g
-YQ0KPiAgICAgbXV0ZXgsIGFuZCBjcmVhdGUgdGhlIHN5c2ZzIGdyb3VwIGJlZm9yZSB0YWtpbmcg
-dGhlIGxvY2ssIGFzDQo+ICAgICBzdWdnZXN0ZWQgYnkgUnl1c3VrZSBLb25pc2hpLiBDb25jdXJy
-ZW50IGluc2VydGlvbnMgYXJlIGFscmVhZHkNCj4gICAgIHNlcmlhbGl6ZWQgYnkgbnNfc25hcHNo
-b3RfbW91bnRfbXV0ZXg7IG9ubHkgdGhlIHJhY2UgYWdhaW5zdA0KPiAgICAgbmlsZnNfbG9va3Vw
-X3Jvb3QoKSBuZWVkcyB0byBiZSBjbG9zZWQuDQo+ICAgLSBNb3ZlIHRoZSB3YWl0X2Zvcl9jb21w
-bGV0aW9uKCkgb2Ygc25hcHNob3Rfa29ial91bnJlZ2lzdGVyIGludG8gdGhlDQo+ICAgICBzeXNm
-cyBoZWxwZXJzIChjcmVhdGUgZXJyb3IgcGF0aCBhbmQgZGVsZXRlKSwgc28gdGhlIGNoZWNrcG9p
-bnQNCj4gICAgIHRyZWUgZnVuY3Rpb25zIG5vIGxvbmdlciBtYW5hZ2UgdGhlIGtvYmplY3QgY29t
-cGxldGlvbiBzdGF0ZSwgYXMNCj4gICAgIHN1Z2dlc3RlZCBieSBSeXVzdWtlIEtvbmlzaGkuDQo+
-DQo+IENoYW5nZXMgaW4gdjM6DQo+ICAgLSBNb3ZlIHdhaXRfZm9yX2NvbXBsZXRpb24oKSBvdXQg
-b2YgdGhlIGxvY2tlZCBzZWN0aW9uIGluDQo+ICAgICBuaWxmc19wdXRfcm9vdCgpICh0aGUgbXV0
-ZXgtYmFzZWQgdjIvdjMgYXBwcm9hY2g7IGRyb3BwZWQgaW4gdjQpLg0KPg0KPiBDaGFuZ2VzIGlu
-IHYyOg0KPiAgIC0gU2VyaWFsaXplIHRoZSBzeXNmcyByZWdpc3RyYXRpb24gYWdhaW5zdCB0aGUg
-dHJlZSBpbnN0ZWFkIG9mIGFkZGluZw0KPiAgICAgYSBzZWNvbmQgbG9jaywgYXMgc3VnZ2VzdGVk
-IGJ5IFZpYWNoZXNsYXYgRHViZXlrby4NCg0KQWNrZWQtYnk6IFJ5dXN1a2UgS29uaXNoaSA8a29u
-aXNoaS5yeXVzdWtlQGdtYWlsLmNvbT4NCg0KTG9va3MgZ29vZCB0byBtZS4NCg0KVmlhY2hlc2xh
-diwgY291bGQgeW91IHBsZWFzZSBhcHBseSB0aGlzIHY0IHBhdGNoIGRpcmVjdGx5Pw0KKFBsZWFz
-ZSBrZWVwIHRoZSAnQ2M6IHN0YWJsZScgdGFnIHRoaXMgdGltZSwgc2luY2UgdGhpcyBmaXhlcyBh
-DQpVc2UtQWZ0ZXItRnJlZSBidWcuKQ0KDQpPbmUgbm90ZSByZWdhcmRpbmcgdGhpcyBjaGFuZ2U6
-IGlmIGEgc3lzZnMgZGlyZWN0b3J5IGNvcnJlc3BvbmRpbmcgdG8NCnRoZSBjaGVja3BvaW50IGFs
-cmVhZHkgZXhpc3RzLCBuaWxmc19zeXNmc19jcmVhdGVfc25hcHNob3RfZ3JvdXAoKQ0Kd2lsbCBu
-b3Qgb25seSByZXR1cm4gYW4gZXJyb3IsIGJ1dCBrb2JqZWN0X2luaXRfYW5kX2FkZCgpIHdpbGwg
-YWxzbw0Kb3V0cHV0IGFuDQplcnJvciBtZXNzYWdlLg0KDQpIb3dldmVyLCBuaWxmc19maW5kX29y
-X2NyZWF0ZV9yb290KCkgY2hlY2tzIGZvciBhbiBleGlzdGluZyBlbnRyeSBhdA0KdGhlIGJlZ2lu
-bmluZyB1c2luZyBuaWxmc19sb29rdXBfcm9vdCgpLCBhbmQNCm5pbGZzX2F0dGFjaF9jaGVja3Bv
-aW50KCksIHdoaWNoIGNhbGxzIHRoaXMgZnVuY3Rpb24sIGlzIGFsd2F5cw0KaW52b2tlZCBleGNs
-dXNpdmVseSDigJQgZWl0aGVyIHVuZGVyICduc19zbmFwc2hvdF9tb3VudF9tdXRleCcgb3IgZHVy
-aW5nDQp0aGUgc2VyaWFsaXplZCBpbml0aWFsIG1vdW50IHBhdGguDQpUaGVyZWZvcmUsIHRoaXMg
-c2lkZSBlZmZlY3QgaXMgYXZvaWRlZC4NCg0KVGhhbmtzLA0KUnl1c3VrZSBLb25pc2hpDQoNCj4N
-Cj4gIGZzL25pbGZzMi9zeXNmcy5jICAgICB8ICA1ICsrKystDQo+ICBmcy9uaWxmczIvdGhlX25p
-bGZzLmMgfCAzNCArKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tDQo+ICAyIGZpbGVz
-IGNoYW5nZWQsIDI1IGluc2VydGlvbnMoKyksIDE0IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0t
-Z2l0IGEvZnMvbmlsZnMyL3N5c2ZzLmMgYi9mcy9uaWxmczIvc3lzZnMuYw0KPiBpbmRleCBiYzUy
-YWZiZmM1YzcuLjViYjc0YTQ1YWQxZSAxMDA2NDQNCj4gLS0tIGEvZnMvbmlsZnMyL3N5c2ZzLmMN
-Cj4gKysrIGIvZnMvbmlsZnMyL3N5c2ZzLmMNCj4gQEAgLTE5NSw4ICsxOTUsMTAgQEAgaW50IG5p
-bGZzX3N5c2ZzX2NyZWF0ZV9zbmFwc2hvdF9ncm91cChzdHJ1Y3QgbmlsZnNfcm9vdCAqcm9vdCkN
-Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiJWxsdSIsIHJv
-b3QtPmNubyk7DQo+ICAgICAgICAgfQ0KPg0KPiAtICAgICAgIGlmIChlcnIpDQo+ICsgICAgICAg
-aWYgKGVycikgew0KPiAgICAgICAgICAgICAgICAga29iamVjdF9wdXQoJnJvb3QtPnNuYXBzaG90
-X2tvYmopOw0KPiArICAgICAgICAgICAgICAgd2FpdF9mb3JfY29tcGxldGlvbigmcm9vdC0+c25h
-cHNob3Rfa29ial91bnJlZ2lzdGVyKTsNCj4gKyAgICAgICB9DQo+DQo+ICAgICAgICAgcmV0dXJu
-IGVycjsNCj4gIH0NCj4gQEAgLTIwNCw2ICsyMDYsNyBAQCBpbnQgbmlsZnNfc3lzZnNfY3JlYXRl
-X3NuYXBzaG90X2dyb3VwKHN0cnVjdCBuaWxmc19yb290ICpyb290KQ0KPiAgdm9pZCBuaWxmc19z
-eXNmc19kZWxldGVfc25hcHNob3RfZ3JvdXAoc3RydWN0IG5pbGZzX3Jvb3QgKnJvb3QpDQo+ICB7
-DQo+ICAgICAgICAga29iamVjdF9wdXQoJnJvb3QtPnNuYXBzaG90X2tvYmopOw0KPiArICAgICAg
-IHdhaXRfZm9yX2NvbXBsZXRpb24oJnJvb3QtPnNuYXBzaG90X2tvYmpfdW5yZWdpc3Rlcik7DQo+
-ICB9DQo+DQo+ICAvKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqDQo+IGRpZmYgLS1naXQgYS9mcy9uaWxmczIvdGhl
-X25pbGZzLmMgYi9mcy9uaWxmczIvdGhlX25pbGZzLmMNCj4gaW5kZXggZWNkNzFjMTkwODg1Li4x
-ZDVkMjI5M2M5YzcgMTAwNjQ0DQo+IC0tLSBhL2ZzL25pbGZzMi90aGVfbmlsZnMuYw0KPiArKysg
-Yi9mcy9uaWxmczIvdGhlX25pbGZzLmMNCj4gQEAgLTg2OSw2ICs4NjksMjYgQEAgbmlsZnNfZmlu
-ZF9vcl9jcmVhdGVfcm9vdChzdHJ1Y3QgdGhlX25pbGZzICpuaWxmcywgX191NjQgY25vKQ0KPiAg
-ICAgICAgIGlmICghbmV3KQ0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIE5VTEw7DQo+DQo+ICsg
-ICAgICAgbmV3LT5jbm8gPSBjbm87DQo+ICsgICAgICAgbmV3LT5pZmlsZSA9IE5VTEw7DQo+ICsg
-ICAgICAgbmV3LT5uaWxmcyA9IG5pbGZzOw0KPiArICAgICAgIHJlZmNvdW50X3NldCgmbmV3LT5j
-b3VudCwgMSk7DQo+ICsgICAgICAgYXRvbWljNjRfc2V0KCZuZXctPmlub2Rlc19jb3VudCwgMCk7
-DQo+ICsgICAgICAgYXRvbWljNjRfc2V0KCZuZXctPmJsb2Nrc19jb3VudCwgMCk7DQo+ICsNCj4g
-KyAgICAgICAvKg0KPiArICAgICAgICAqIFJlZ2lzdGVyIHRoZSBzeXNmcyBncm91cCBiZWZvcmUg
-cHVibGlzaGluZyB0aGUgcm9vdCBpbiB0aGUNCj4gKyAgICAgICAgKiBjaGVja3BvaW50IHRyZWUu
-ICBuaWxmc19zeXNmc19jcmVhdGVfc25hcHNob3RfZ3JvdXAoKSBjYW4gc2xlZXAsDQo+ICsgICAg
-ICAgICogc28gaXQgbXVzdCBydW4gb3V0c2lkZSBuc19jcHRyZWVfbG9jazsgY3JlYXRpbmcgaXQg
-Zmlyc3QgYWxzbw0KPiArICAgICAgICAqIGVuc3VyZXMgYSBjb25jdXJyZW50IG5pbGZzX2xvb2t1
-cF9yb290KCkgY2FuIG5ldmVyIG9ic2VydmUgYSByb290DQo+ICsgICAgICAgICogd2hvc2Ugc3lz
-ZnMgcmVnaXN0cmF0aW9uIGxhdGVyIGZhaWxzIGFuZCBnZXRzIGZyZWVkLg0KPiArICAgICAgICAq
-Lw0KPiArICAgICAgIGVyciA9IG5pbGZzX3N5c2ZzX2NyZWF0ZV9zbmFwc2hvdF9ncm91cChuZXcp
-Ow0KPiArICAgICAgIGlmIChlcnIpIHsNCj4gKyAgICAgICAgICAgICAgIGtmcmVlKG5ldyk7DQo+
-ICsgICAgICAgICAgICAgICByZXR1cm4gTlVMTDsNCj4gKyAgICAgICB9DQo+ICsNCj4gICAgICAg
-ICBzcGluX2xvY2soJm5pbGZzLT5uc19jcHRyZWVfbG9jayk7DQo+DQo+ICAgICAgICAgcCA9ICZu
-aWxmcy0+bnNfY3B0cmVlLnJiX25vZGU7DQo+IEBAIC04ODUsMjkgKzkwNSwxNyBAQCBuaWxmc19m
-aW5kX29yX2NyZWF0ZV9yb290KHN0cnVjdCB0aGVfbmlsZnMgKm5pbGZzLCBfX3U2NCBjbm8pDQo+
-ICAgICAgICAgICAgICAgICB9IGVsc2Ugew0KPiAgICAgICAgICAgICAgICAgICAgICAgICByZWZj
-b3VudF9pbmMoJnJvb3QtPmNvdW50KTsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgc3Bpbl91
-bmxvY2soJm5pbGZzLT5uc19jcHRyZWVfbG9jayk7DQo+ICsgICAgICAgICAgICAgICAgICAgICAg
-IG5pbGZzX3N5c2ZzX2RlbGV0ZV9zbmFwc2hvdF9ncm91cChuZXcpOw0KPiAgICAgICAgICAgICAg
-ICAgICAgICAgICBrZnJlZShuZXcpOw0KPiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
-cm9vdDsNCj4gICAgICAgICAgICAgICAgIH0NCj4gICAgICAgICB9DQo+DQo+IC0gICAgICAgbmV3
-LT5jbm8gPSBjbm87DQo+IC0gICAgICAgbmV3LT5pZmlsZSA9IE5VTEw7DQo+IC0gICAgICAgbmV3
-LT5uaWxmcyA9IG5pbGZzOw0KPiAtICAgICAgIHJlZmNvdW50X3NldCgmbmV3LT5jb3VudCwgMSk7
-DQo+IC0gICAgICAgYXRvbWljNjRfc2V0KCZuZXctPmlub2Rlc19jb3VudCwgMCk7DQo+IC0gICAg
-ICAgYXRvbWljNjRfc2V0KCZuZXctPmJsb2Nrc19jb3VudCwgMCk7DQo+IC0NCj4gICAgICAgICBy
-Yl9saW5rX25vZGUoJm5ldy0+cmJfbm9kZSwgcGFyZW50LCBwKTsNCj4gICAgICAgICByYl9pbnNl
-cnRfY29sb3IoJm5ldy0+cmJfbm9kZSwgJm5pbGZzLT5uc19jcHRyZWUpOw0KPg0KPiAgICAgICAg
-IHNwaW5fdW5sb2NrKCZuaWxmcy0+bnNfY3B0cmVlX2xvY2spOw0KPg0KPiAtICAgICAgIGVyciA9
-IG5pbGZzX3N5c2ZzX2NyZWF0ZV9zbmFwc2hvdF9ncm91cChuZXcpOw0KPiAtICAgICAgIGlmIChl
-cnIpIHsNCj4gLSAgICAgICAgICAgICAgIGtmcmVlKG5ldyk7DQo+IC0gICAgICAgICAgICAgICBu
-ZXcgPSBOVUxMOw0KPiAtICAgICAgIH0NCj4gLQ0KPiAgICAgICAgIHJldHVybiBuZXc7DQo+ICB9
-DQo+DQo+IC0tDQo+IDIuNDMuMA0KPg0K
+Move the bus lock VM-Exit handler, which is basically a one-liner, from
+main.c to vmx.h now that to_vt() is usable in common.h.
+
+No functional change intended.
+
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+
+This applies on top of kvm-x86/next + Xiayao's series.  I.e. actually applying
+it will be painful for anyone but me at this point, but I'm really just posting
+for posterity.
+
+ arch/x86/kvm/vmx/common.h | 11 ++++++++++-
+ arch/x86/kvm/vmx/main.c   | 11 -----------
+ 2 files changed, 10 insertions(+), 12 deletions(-)
+
+diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
+index e22c159c3b84..b2905335a2d2 100644
+--- a/arch/x86/kvm/vmx/common.h
++++ b/arch/x86/kvm/vmx/common.h
+@@ -254,6 +254,15 @@ static inline int __vt_handle_notify(struct kvm_vcpu *vcpu,
+ 	return 1;
+ }
+ 
+-int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu);
++static inline int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
++	 * VM-Exits. Unconditionally set the flag here and leave the handling
++	 * to .handle_exit() callback.
++	 */
++	to_vt(vcpu)->exit_reason.bus_lock_detected = true;
++	return 1;
++}
+ 
+ #endif /* __KVM_X86_VMX_COMMON_H */
+diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+index c11732cfadf0..2985742e20f1 100644
+--- a/arch/x86/kvm/vmx/main.c
++++ b/arch/x86/kvm/vmx/main.c
+@@ -872,17 +872,6 @@ static int vt_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn,
+ #define vt_op_tdx_only(name) NULL
+ #endif /* CONFIG_KVM_INTEL_TDX */
+ 
+-int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
+-{
+-	/*
+-	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
+-	 * VM-Exits. Unconditionally set the flag here and leave the handling
+-	 * to .handle_exit() callback.
+-	 */
+-	to_vt(vcpu)->exit_reason.bus_lock_detected = true;
+-	return 1;
+-}
+-
+ noinstr void vt_handle_nmi(struct kvm_vcpu *vcpu)
+ {
+ 	if ((u16)vt_get_exit_reason(vcpu).basic != EXIT_REASON_EXCEPTION_NMI ||
+
+base-commit: e1d8e13452eea815042f79244bb649536e3689f5
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
