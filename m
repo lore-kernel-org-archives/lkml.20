@@ -1,140 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f16.google.com (mail-ed2-f16.google.com [74.125.228.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD933905EC;
-	Tue, 22 Sep 2026 13:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54B75592FE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083677; cv=none; b=LU/YGXSx2NmvvmKKKhxxR5fmVa2DsEkjN4QH1m8Ij2oOEXjlB2FSPN/ZORcHF3BS4nFP+/LE7tMdQ2Cx+9mko8LMfwjyCD1fcFI26uAiQe6PkSyInpnfsRtIyLEzMfZt+2HUDihXQlSatCT7MyQhd/8BkF3+eblQyc4TdWSfbfo=
+	t=1790083679; cv=none; b=GEU9/6KQPIF7rnErL/WhQSrASXubNvXqOJ/nsSU3qPBb6f3Kjkb9ArFN/Av9l2e3b/WlzxGCQ3lPUMuEo0dRRjzCkuB0kPEfJ8k12kttlW+dMJPdH92Vg7X57I9qHTxE6vvHq9nKWyl6AdPtvMt1UAQwXtIoM22RqnMnpVyHqjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083677; c=relaxed/simple;
-	bh=W+zZyY+/XSoXA6X2r9Zl04xwFs+BQBcAmbZKJRydPD8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UfKYHFPyH/sKmnGN2zWLiYhysVXxqR5Br2+xZO+R5cRJ+9eXFsYOmIWgMlbKu2bQRDMX+IpIuOWLw9ysCFDAkysTDNCYkC5vlbmDi28YgtUVy8vfLRkxakL4OmqmvlD+KqKpOktn3VVLyqKD//IDi4ED8v2//ENJ3JeCpXhLnZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwhENWJk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790083679; c=relaxed/simple;
+	bh=WNeHYd3Vnw/6tw0XEiAyUXhCqoTIxF2ktmooC2skdD8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s0HR9Xibf4adz5uS/OSBbeIae9pI8o3TMD97OAOzdcMoaxFrPFO6a6ulVcy2S/3kXVBivDJ0ZWrZPitB3U5IWDeRrm5+YeCMoMkWAvZPrvW3aTinWWvUD80aoC5UZUaHHn7fx5vyUhy45h9C0KWCuYG/fSqjuSTdH/Z4kfEK9nI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=OVILplIw; arc=none smtp.client-ip=74.125.228.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwhENWJk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560641F000FF;
-	Tue, 22 Sep 2026 13:27:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790083676;
-	bh=ApsZVBFkcyb1C7G7ucDacbOxA5hWzpJXw9SDkNt3hYw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FwhENWJkUL+Ph/E/ZL08lyizsjNyTtU6O+wgwczrNQQDJdxOGDr8Xkh7SjPAAT7pT
-	 lnVQgC0Cf7WE3w8On+hyQLcfF2SrM437/whHiUMkQ3DZtWaY8x2ToWjM1eUJQ5ZQZY
-	 qMGenCbLjWe/h8ax5QShb0raOqc+uLsvhMjUCplAmP2hyChI4W5FuhbPGSJc7+Myu0
-	 FkP91zRSSM5mBvItuthSEdtgzWn/vG+JCEVXQ+/kjKJpIEO9ntAyiqHGASa28we9o1
-	 GyOqxEu+9kDUVOGhOnH/9/vyu3oPSD1+i/12DF7cfNd1/hg/r2bHQ5lDI1tq4P9xOh
-	 4HzsuT7Wof19g==
-Date: Tue, 22 Sep 2026 15:27:45 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
-	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
-	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
-	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/4] wifi: ath11k: Connect to the QMI server belonging
- to the device owned by this driver
-Message-ID: <irhurowbxxpxrg7j3f4onxboxoxzj5jszyuq5ex5osedmx5k4u@r4d365t6kpze>
-References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
- <20260921-qrtr-multi-ep-v2-3-27dd80d841a0@oss.qualcomm.com>
- <3f31a185-b7ba-4ae4-a3c3-874bac0d66b3@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="OVILplIw"
+Received: by mail-ed2-f16.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso7030398a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:27:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1790083676; x=1790688476; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2YIyBTYTKojaf4BmHidMuZkB2sDxpT30TjkIMwtTPhw=;
+        b=OVILplIwJvSmlfdN3F/ncf4ZOUcyG+L6fBdA9UquALyCo+GE1VKFN1RNKlAIST9WVO
+         yhARqo0w+BCjSXaHpO26Qx9t1clb3dnGvG9OSDbRADeXylqW1QdKl6D8kDbEvVzWuvLo
+         KaMFe+lvIF3vfDhQ4XuD/AMPnXuSPThAjShc8ocAELZrXFUhg5JfwZvUu+asvl8NdeY4
+         ToOVvgQ9im9I+5RcW+tn7STSWB+g7x3FsDKk/IeBGo0PuEfjcGXPCcBvTP2Crw7QoC3J
+         TF5P4T1kVOOn00bAOtcS4IxpnZcRikFYOjTSXWZPK5HfAK+eaWhBHKpy2RogKblgxe+3
+         t1qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790083676; x=1790688476;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2YIyBTYTKojaf4BmHidMuZkB2sDxpT30TjkIMwtTPhw=;
+        b=L/JvOGIR/ZPzp4jgIx3ajvn9SM6iPsTVEWrPAiItd7Jq7lESVysyHYPsthk4r5y5jp
+         g7xEserFUf9Fghv/oeIt5EcUh/kz0qTU+XuwgRFuHliQegE6hdRkNQHheRbo6SzZt69M
+         6Wjvg31IyDk3EHKNsuHHWz/JoTEhySvFJ1c8mPIEExSCEJ0SORVa1hZCsoboBWaI9Fef
+         l1suFJVwNDYC666q2pShzuLOClEMBGqSmxODa8cXJ3TPzo4I6e6UB5dlygdPzbnba/rN
+         M4LFq/84/b+ANOD5I+VRlK/17fbEAdbgNvtiFBFGlB/vCny8tMm+coLaWNxE7/WbcK8f
+         tfug==
+X-Forwarded-Encrypted: i=1; AKwUvBzS65t3+NEmYh8uEZd9Xm4Rl/LsTqxfNRUt7fP5JNTi07LDOOkevon4XDqCvGqQEAxUJliY/Qmhaf8Ft2c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGjnxY5Mw9x+Ta8NoF/VY/RcrfLUqz7tlbHdxf1vXhw0Xl0vm/
+	NSG5sztAZViAPguzlP57ZrgIQxLgMpr+Juv5msP1DRAVq8kSHA/lsUjFJtHnAx/nqAs=
+X-Gm-Gg: AYBFou2b5EiiHVxDoDLC65XzzGBHPfoTEvlQlE3rWUe3Lk9eUlXB8M626qvZe8uTz+J
+	LG0rZVfSweGqx5Y43jQDusG8CdVHnx7xSZX8hdziBKzbYN+ScJKdl2TNQBBJ67h9FsLxLiWHPcJ
+	Ph/4OuO0BlOAVaDmyLDZ/yqOGPPJWDv86VkBSB8+r/5PCvqJEV6Q9Pf9AzUYtCJNZtiHslvI6An
+	nGZYk7GX1aQY9nId5Dpow6tnZkBevtb5hT9HiKGImrt7aD8NHhkqu+2o5FHFrwRknGdvj6CvUBA
+	ISMvlriCpFy6fpd5sfNTB9PqsSCnXPsfzGC+T0WhSfETroUmHCK0hOWZ2xBE7wx2IfIKaEIU/8D
+	knOjjHvc7j0u35F2Vk5XWpI3+uwGdjAi3c004yGAbwHdu40e2gkb1TG9PRwf+ihxe7RzZcDm5Fk
+	SClaDw+lFKbvYH1gkWwhiJH5ATIgPOa/sdy5NAN8ASYxVo+egbzggEQKTQxz1MV+dPVg7xInLrr
+	dJWTL914nP9iZmsW5laYczf+lvKTS+JAMH8PPpwbf1U7xmoh7dxwJ9gYkI+PQ==
+X-Received: by 2002:a17:907:948f:b0:c26:1648:a060 with SMTP id a640c23a62f3a-c2a15e0fdddmr1199501866b.27.1790083675881;
+        Tue, 22 Sep 2026 06:27:55 -0700 (PDT)
+Received: from ?IPV6:2a01:599:842:c46f:7b1d:31f2:7a17:2f4c? ([2a01:599:842:c46f:7b1d:31f2:7a17:2f4c])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c54f249sm85420466b.21.2026.09.22.06.27.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 06:27:55 -0700 (PDT)
+Message-ID: <968796d6-811d-434a-a230-f05da451252c@9elements.com>
+Date: Tue, 22 Sep 2026 15:27:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3f31a185-b7ba-4ae4-a3c3-874bac0d66b3@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+ support
+To: Prasanth <prasanth.padarthi10@gmail.com>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, ryan_chen@aspeedtech.com,
+ billy_tsai@aspeedtech.com, andrew@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
+ <8cb38ff6-1210-4c5a-b0bc-b0b50dd2b9aa@9elements.com>
+ <CAMFFDGjJcmpaQYHe=F+jpstbdk9-uXPKkBxLkJqAJRiyyTkBvg@mail.gmail.com>
+Content-Language: en-US
+From: Tan Siewert <tan.siewert@9elements.com>
+In-Reply-To: <CAMFFDGjJcmpaQYHe=F+jpstbdk9-uXPKkBxLkJqAJRiyyTkBvg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 04:32:07PM +0530, Vasanthakumar Thiagarajan wrote:
+On 9/22/26 3:26 PM, Prasanth wrote:
+> Hi Tan,
 > 
+> Thank you for catching these issues.
 > 
-> On 9/21/2026 4:53 PM, Manivannan Sadhasivam via B4 Relay wrote:
-> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > 
-> > When two identical ath11k PCIe devices are connected to the same host, both
-> > advertise the WLFW service with the same service and instance id. The QMI
-> > lookup reports both servers to each device, so a device may connect to the
-> > firmware running on the other device.
-> > 
-> > But now, QRTR provides each MHI endpoint a unique node id which is
-> > different from the node id announced by the device. So use the same id to
-> > pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
-> > the node id derived from the MHI controller index and zero for transports
-> > that do not assign one. In the new_server callback, skip any service whose
-> > node id does not match. A node id of zero disables the check, so transports
-> > that do not assign one keep their current behavior.
-> > 
-> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > ---
-> >   drivers/net/wireless/ath/ath11k/hif.h |  9 +++++++++
-> >   drivers/net/wireless/ath/ath11k/pci.c |  9 +++++++++
-> >   drivers/net/wireless/ath/ath11k/qmi.c | 10 ++++++++++
-> >   3 files changed, 28 insertions(+)
-> > 
-> > diff --git a/drivers/net/wireless/ath/ath11k/hif.h b/drivers/net/wireless/ath/ath11k/hif.h
-> > index 017fed1b4bd1..0da9025c7ed8 100644
-> > --- a/drivers/net/wireless/ath/ath11k/hif.h
-> > +++ b/drivers/net/wireless/ath/ath11k/hif.h
-> > @@ -32,6 +32,7 @@ struct ath11k_hif_ops {
-> >   	void (*ce_irq_disable)(struct ath11k_base *ab);
-> >   	void (*get_ce_msi_idx)(struct ath11k_base *ab, u32 ce_id, u32 *msi_idx);
-> >   	void (*coredump_download)(struct ath11k_base *ab);
-> > +	int (*get_qrtr_node_id)(struct ath11k_base *ab);
-> >   };
-> >   static inline void ath11k_hif_ce_irq_enable(struct ath11k_base *ab)
-> > @@ -159,4 +160,12 @@ static inline void ath11k_hif_coredump_download(struct ath11k_base *ab)
-> >   		ab->hif.ops->coredump_download(ab);
-> >   }
-> > +static inline int ath11k_hif_get_qrtr_node_id(struct ath11k_base *ab)
-> > +{
-> > +	if (!ab->hif.ops->get_qrtr_node_id)
-> > +		return 0;
-> > +
-> > +	return ab->hif.ops->get_qrtr_node_id(ab);
-> > +}
-> > +
-> >   #endif /* _HIF_H_ */
-> > diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
-> > index a163168f3617..4d327b5cc98a 100644
-> > --- a/drivers/net/wireless/ath/ath11k/pci.c
-> > +++ b/drivers/net/wireless/ath/ath11k/pci.c
-> > @@ -10,6 +10,7 @@
-> >   #include <linux/of.h>
-> >   #include <linux/time.h>
-> >   #include <linux/vmalloc.h>
-> > +#include <net/qrtr.h>
-> >   #include "pci.h"
-> >   #include "core.h"
-> > @@ -900,6 +901,13 @@ static int ath11k_pci_start(struct ath11k_base *ab)
-> >   	return 0;
-> >   }
-> > +static int ath11k_pci_get_qrtr_node_id(struct ath11k_base *ab)
-> > +{
-> > +	struct ath11k_pci *ab_pci = ath11k_pci_priv(ab);
-> > +
-> > +	return qrtr_host_node_id(ab_pci->mhi_ctrl->index);
+> You're correct about the defconfig. I used `aspeed_g5_defconfig` for
+> the DTB build and incorrectly reported it as validation for the
+> AST2600. I'll rebuild using the appropriate AST2600 configuration and
+> correct the statement in the next revision.
 > 
-> nit: since qrtr_host_node_id() returns node_id in unsigned int,
-> may be maintain that in the return type of the callers as well.
-> Mostly harmless as it is unlikely that node_id is allocated with
-> an extremely high id. Either way is fine with me. Same applicable
-> for ath12k patch as well.
-> 
+> I'll also carry forward Andrew's Reviewed-by trailer for the unchanged
+> MAC0 and MDIO nodes, preserving the scope of his review.
 
-Thanks for spotting it. For the sake of correctness, it makes sense to use same
-type everywhere. I'll fix it in next version.
+Andrew has already resent the trailer, so no need to send another 
+revision for that.
 
-- Mani
+Tan
 
--- 
-மணிவண்ணன் சதாசிவம்
