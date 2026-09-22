@@ -1,175 +1,341 @@
-Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
+Received: from mta1.migadu.com (out-233.mta1.migadu.com [95.215.58.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811203876B3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C86381EAF
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043860; cv=none; b=Rwafl7lzDEbGxybwMOVtPDzR0Zen1xrx2ZicyLEFCZcAaSXMkAG8GGz1Vj0ha0UZ23KJaFgxrF0FwZLdjzZfzmuqV4ikq+BytHk9oI34IBAGsS27cJQPrtUbTP0ld+wcBf8JWxHm2M1bhUjGbgFaxxm5i9Dwb4oz3FVxHwUUdsc=
+	t=1790043867; cv=none; b=fGrT6dAFL1c9M7j378cMetN7XU6JTesD6a6wueHpA1WlDAupq/mQ8dcwtC/vHKUqt6445vFFnMtvdvZjWoZMskGt1aeAYyYrpYTrrW1fOLoQpiV9PTsBhjHglJk0Garts/yZTZSw47pvZl2n7QatN192JazDEK8t9O98RyRkVHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043860; c=relaxed/simple;
-	bh=WajXHx4nyP1bqLJhU0xpOreDBI721whriRTqIiiZAvk=;
-	h=Message-Id:Mime-Version:References:From:To:Cc:Content-Type:Date:
-	 In-Reply-To:Subject; b=YXSyyFndRUF9h6miqZItm15RGOryIl87RaT9oklYSGizLELkdKEZB9TjciMwLuK4c6TAbu4HMtMCsgo+24izBtlPBTXTlCP+VRjzCzZwaIUTlEO+ZYUMjVGtiUqnEQNnb92rF78LWFwHmVfCJ+EoTS9i4fH7s45Pdp8AkhRy06c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=TQoaIvAF; arc=none smtp.client-ip=209.127.231.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1790043867; c=relaxed/simple;
+	bh=DWZKjp4sCqIk8e08lozR04iXNlC3I5VUKgCLN8uovio=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ApG5oudBj9ZP/9ANOQCOhqx4r+nd5eXC2UW0+lRktruTtrGg6IJqPHCvJ/74wNklQoO+7dh/UhiUcuDvkQw08K/OB93POOreqVKPXotFq2hpro9p8QYvVezJHPUxSjr+CGg++vuAg0bI5Fc95OWhE3OT3XnbIO46w+FAdHhEoh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t4IaOsFw; arc=none smtp.client-ip=95.215.58.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="TQoaIvAF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1790043846;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=fw4jhSRMooq9m2/iqxv1olhkpehxFm8SKQQqYOoWwu8=;
- b=TQoaIvAF2FOKcyYJYvn/xfGAt6sK0s1MZzEuociSCXVLxhB4jcjV6ET/uzDGig6BNI5J8f
- JvUyIx9nKNJKoks2WmyOgitFFntKchm7I/d7SqdT1uL2Uqw0Bknmy1wUhPoag5pzy+Dggb
- prq+V4qlhvHISNqE22fVliKcH+axJ7Lj9/3QhCaZfNGb99UDsI+4GgvWUukssmUT7/30b4
- Oa+5lDwTm8fogDATTtSjYxaI6Kf353jtVrYW5yDLh4NLYPXy60j/W/scYVCZ9XxL50sKa4
- 67Nuy6GvpYoyd50+0GkB7KOonw0CsZGFq0yN83jDwEULnPTKPumUkhGiJMyQJQ==
-Message-Id: <43d139ac-7d54-41b2-9e4c-8fba8e6ac5ee@fygo.io>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t4IaOsFw"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DWZKjp4sCqIk8e08lozR04iXNlC3I5VUKgCLN8uovio=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790043863; v=1; x=1790648663;
+ b=t4IaOsFwT42y5LoTk6Wi5j+VZ7kgkjZsD6fKr/vhVV70mVtBlmonjRMmEX9KKXcnn85wDr0Y
+ BUuQhtngeKVwdzpnsv6eQN1y6agd3i3Jm00bSNwUC8QiVHAQifwxHRdN6L4gWbJLji/RhzZ1f7C
+ aXZnBDSXmMH8y4BFZ5uI0+ok=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id e4324fc653d572c0;
+	Tue, 22 Sep 2026 02:24:23 +0000
+X-Mizu-Trace-ID: e4324fc653d572c0
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 22 Sep 2026 10:24:16 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: Re: [PATCH RFC 3/4] mm/vmscan: move struct scan_control to the local
+ trace header
+Message-ID: <arHm0PVMaG08bq-Z@fedora>
+References: <20260921114606.3871820-1-ridong.chen@linux.dev>
+ <20260921114606.3871820-4-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260919091118.3272955-1-benquike@gmail.com> <20260919112522.3872315-1-benquike@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-X-Lms-Return-Path: <lba+26ab1e6c6+52133c+vger.kernel.org+yukuai@fygo.io>
-From: "yu kuai" <yukuai@fygo.io>
-To: "Hui Peng" <benquike@gmail.com>, <song@kernel.org>, 
-	<magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Original-From: yu kuai <yukuai@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-User-Agent: Mozilla Thunderbird
-Reply-To: yukuai@fygo.io
-Date: Tue, 22 Sep 2026 10:24:02 +0800
-In-Reply-To: <20260919112522.3872315-1-benquike@gmail.com>
-Received: from [192.168.1.104] ([39.182.0.164]) by smtp.larksuite.com with ESMTPS; Tue, 22 Sep 2026 02:24:05 +0000
-Subject: Re: [PATCH v2] md: reject raid_disks >= MD_SB_DISKS in md_set_array_info()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921114606.3871820-4-ridong.chen@linux.dev>
 
-Hi=EF=BC=8C
-
-=E5=9C=A8 2026/9/19 19:25, Hui Peng =E5=86=99=E9=81=93:
-> md_set_array_info() copies info->raid_disks straight into
-> mddev->raid_disks without any upper bound, while also setting
-> mddev->max_disks to MD_SB_DISKS for persistent arrays. The resulting
-> mddev is internally inconsistent: raid_disks can be far larger than the
-> number of devices a v0.90 superblock is able to describe.
->
-> super_90_sync() lays the device table out inside the single page that
-> holds the v0.90 superblock and picks slot numbers starting at
-> mddev->raid_disks:
->
-> 	next_spare =3D mddev->raid_disks;
-> 	...
-> 	desc_nr =3D next_spare++;
-> 	rdev2->desc_nr =3D desc_nr;
-> 	d =3D &sb->disks[rdev2->desc_nr];
->
-> sb->disks[] only has MD_SB_DISKS (27) entries, so an
-> ioctl(SET_ARRAY_INFO) with raid_disks =3D 1000 followed by any operation
-> that writes the superblock walks tens of kilobytes past the end of the
-> superblock page:
->
->   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->   BUG: KASAN: use-after-free in super_90_sync+0x1c5e/0x20c0
->   Write of size 4 at addr 0xffff888009623c00 by task init/1
->
->   CPU: 1 UID: 0 PID: 1 Comm: init Tainted: G      D W    7.3.0-rc3-g5dd18=
-18b15d9 #3 PREEMPT(lazy)
->   Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
->   Call Trace:
->    <TASK>
->    dump_stack_lvl+0x4d/0x70
->    print_report+0x153/0x4c6
->    kasan_report+0xda/0x110
->    super_90_sync+0x1c5e/0x20c0
->    md_update_sb+0x850/0x1e90
->    new_level_store+0x11a/0x190
->    md_attr_store+0x12f/0x270
->    kernfs_fop_write_iter+0x323/0x4e0
->    vfs_write+0x54f/0xde0
->    ksys_write+0xfd/0x200
->    do_syscall_64+0xda/0x4b0
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
->    </TASK>
->   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Reject the request before mddev is modified. Non-persistent arrays do
-> not write a v0.90 superblock, so the MD_SB_DISKS limit is only applied
-> when info->not_persistent is clear.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+On 09/21/26 at 07:46pm, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> Now that the vmscan tracepoints live in mm/trace_vmscan.h, move
+> struct scan_control there as well so the trace events can reference
+> reclaim-internal state directly. The definition is wrapped in its own
+> include guard because the trace header is re-read under
+> TRACE_HEADER_MULTI_READ, while a C struct may only be defined once.
+> 
+> No functional change.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 > ---
-> v2: Add a Fixes: tag. v1 said the check predated the history I had; I
-> now have the full tree, and it really does go back to the initial git
-> import - set_array_info() in v2.6.12-rc2 already did
->
-> 	mddev->raid_disks    =3D info->raid_disks;
-> 	mddev->max_disks     =3D MD_SB_DISKS;
->
-> with no bound, and super_90_sync() already seeded next_spare from
-> mddev->raid_disks and stored into sb->disks[rdev2->desc_nr]. So
-> 1da177e4c3f4 ("Linux-2.6.12-rc2") it is. The later commits that blame
-> points at are not introducers: 7e0adbfc20c5 ("md: factor out
-> md_set_array_info") only renames set_array_info(), and 86e6ffdd243a
-> ("md: extend md sysfs support to component devices") only restructured
-> how desc_nr is chosen.
->
-> The reason the MD_SB_DISKS limit is gated on !info->not_persistent is
-> 1b3bae49fba5 ("md: don't impose the MD_SB_DISKS limit on arrays without
-> metadata"), which moved max_disks =3D MD_SB_DISKS inside
-> if (mddev->persistent). Arrays without metadata never write a v0.90
-> superblock, so the limit must not apply to them.
->
-> Reproduced on Linux 7.3.0-rc3 (5dd1818b15d9) with KASAN under QEMU:
-> create an md array over a loop device, issue
-> ioctl(fd, SET_ARRAY_INFO) with raid_disks =3D 1000, then write to
-> /sys/block/md0/md/new_level to force md_update_sb(). With this patch the
-> ioctl fails with -EINVAL and no splat is produced.
->
-> Note that raid_disks_store() has a related but weaker check: it bounds n
-> against mddev->max_disks, which is still 0 before any superblock has
-> been loaded. I have deliberately not touched it here, since an
-> unconditional MD_SB_DISKS limit there would break v1.x arrays with more
-> than MD_SB_DISKS members. It may deserve a separate fix - input from
-> the maintainers would be welcome.
+>  mm/trace_vmscan.h | 115 ++++++++++++++++++++++++++++++++++++++++++++++
+>  mm/vmscan.c       | 108 -------------------------------------------
+>  2 files changed, 115 insertions(+), 108 deletions(-)
+> 
+> diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
+> index c5d824fef554..c8ac5d4e4043 100644
+> --- a/mm/trace_vmscan.h
+> +++ b/mm/trace_vmscan.h
 
-v1.x array do not have this problem, and it's not acceptable to limit v1.x
-array with MD_SB_DISKS. How about following solution:
+This looks not good, I would rather see it's added in mm/internal.h, or
+a new mm/vmscan.h. Putting scan_control in mm/trace_vmscan.h is too weird.
 
-If metadata is set as 0.9 before raid_disk_store, you can check max_disks i=
-n
-raid_disk_store; If metadata is not set yet, check later when metadata is s=
-elected.
-
->
->   drivers/md/md.c | 4 ++++
->   1 file changed, 4 insertions(+)
->
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -7926,6 +7926,10 @@ int md_set_array_info(struct mddev *mdde
->   		mddev->ctime         =3D ktime_get_real_seconds();
->   		return 0;
->   	}
-> +	if (info->raid_disks <=3D 0 ||
-> +	    (!info->not_persistent && info->raid_disks >=3D MD_SB_DISKS))
-> +		return -EINVAL;
+> @@ -9,8 +9,123 @@
+>  #include <linux/tracepoint.h>
+>  #include <linux/mm.h>
+>  #include <linux/memcontrol.h>
+> +#include <linux/swap.h>
+>  #include <trace/events/mmflags.h>
+>  
+> +/* Guard the struct against define_trace.h's repeated inclusion. */
+> +#ifndef _MM_VMSCAN_INTERNAL_H
+> +#define _MM_VMSCAN_INTERNAL_H
 > +
->   	mddev->major_version =3D MD_MAJOR_VERSION;
->   	mddev->minor_version =3D MD_MINOR_VERSION;
->   	mddev->patch_version =3D MD_PATCHLEVEL_VERSION;
-
---=20
-Thanks,
-Kuai
+> +struct scan_control {
+> +	/* How many pages shrink_list() should reclaim */
+> +	unsigned long nr_to_reclaim;
+> +
+> +	/*
+> +	 * Nodemask of nodes allowed by the caller. If NULL, all nodes
+> +	 * are scanned.
+> +	 */
+> +	const nodemask_t *nodemask;
+> +
+> +	/*
+> +	 * The memory cgroup that hit its limit and as a result is the
+> +	 * primary target of this reclaim invocation.
+> +	 */
+> +	struct mem_cgroup *target_mem_cgroup;
+> +
+> +	/*
+> +	 * Scan pressure balancing between anon and file LRUs
+> +	 */
+> +	unsigned long	anon_cost;
+> +	unsigned long	file_cost;
+> +
+> +	/* Swappiness value for proactive reclaim. Always use sc_swappiness()! */
+> +	int *proactive_swappiness;
+> +
+> +	/* Can active folios be deactivated as part of reclaim? */
+> +#define DEACTIVATE_ANON 1
+> +#define DEACTIVATE_FILE 2
+> +	unsigned int may_deactivate:2;
+> +	unsigned int force_deactivate:1;
+> +	unsigned int skipped_deactivate:1;
+> +
+> +	/* zone_reclaim_mode, boost reclaim */
+> +	unsigned int may_writepage:1;
+> +
+> +	/* zone_reclaim_mode */
+> +	unsigned int may_unmap:1;
+> +
+> +	/* zone_reclaim_mode, boost reclaim, cgroup restrictions */
+> +	unsigned int may_swap:1;
+> +
+> +	/* Not allow cache_trim_mode to be turned on as part of reclaim? */
+> +	unsigned int no_cache_trim_mode:1;
+> +
+> +	/* Has cache_trim_mode failed at least once? */
+> +	unsigned int cache_trim_mode_failed:1;
+> +
+> +	/* Proactive reclaim invoked by userspace */
+> +	unsigned int proactive:1;
+> +
+> +	/*
+> +	 * Cgroup memory below memory.low is protected as long as we
+> +	 * don't threaten to OOM. If any cgroup is reclaimed at
+> +	 * reduced force or passed over entirely due to its memory.low
+> +	 * setting (memcg_low_skipped), and nothing is reclaimed as a
+> +	 * result, then go back for one more cycle that reclaims the protected
+> +	 * memory (memcg_low_reclaim) to avert OOM.
+> +	 */
+> +	unsigned int memcg_low_reclaim:1;
+> +	unsigned int memcg_low_skipped:1;
+> +
+> +	/* Shared cgroup tree walk failed, rescan the whole tree */
+> +	unsigned int memcg_full_walk:1;
+> +
+> +	unsigned int hibernation_mode:1;
+> +
+> +	/* One of the zones is ready for compaction */
+> +	unsigned int compaction_ready:1;
+> +
+> +	/* There is easily reclaimable cold cache in the current node */
+> +	unsigned int cache_trim_mode:1;
+> +
+> +	/* The file folios on the current node are dangerously low */
+> +	unsigned int file_is_tiny:1;
+> +
+> +	/* Always discard instead of demoting to lower tier memory */
+> +	unsigned int no_demotion:1;
+> +
+> +	/* Allocation order */
+> +	s8 order;
+> +
+> +	/* Scan (total_size >> priority) pages at once */
+> +	s8 priority;
+> +
+> +	/* The highest zone to isolate folios for reclaim from */
+> +	s8 reclaim_idx;
+> +
+> +	/* This context's GFP mask */
+> +	gfp_t gfp_mask;
+> +
+> +	/* Incremented by the number of inactive pages that were scanned */
+> +	unsigned long nr_scanned;
+> +
+> +	/* Number of pages freed so far during a call to shrink_zones() */
+> +	unsigned long nr_reclaimed;
+> +
+> +	struct {
+> +		unsigned int dirty;
+> +		unsigned int congested;
+> +		unsigned int writeback;
+> +		unsigned int immediate;
+> +		unsigned int taken;
+> +	} nr;
+> +
+> +	/* for recording the reclaimed slab by now */
+> +	struct reclaim_state reclaim_state;
+> +};
+> +
+> +#endif /* _MM_VMSCAN_INTERNAL_H */
+> +
+>  #define RECLAIM_WB_ANON		0x0001u
+>  #define RECLAIM_WB_FILE		0x0002u
+>  #define RECLAIM_WB_MIXED	0x0010u
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 0eb7fa8e1d43..2fd9b42f89d8 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -73,114 +73,6 @@
+>  #define CREATE_TRACE_POINTS
+>  #include "trace_vmscan.h"
+>  
+> -struct scan_control {
+> -	/* How many pages shrink_list() should reclaim */
+> -	unsigned long nr_to_reclaim;
+> -
+> -	/*
+> -	 * Nodemask of nodes allowed by the caller. If NULL, all nodes
+> -	 * are scanned.
+> -	 */
+> -	const nodemask_t *nodemask;
+> -
+> -	/*
+> -	 * The memory cgroup that hit its limit and as a result is the
+> -	 * primary target of this reclaim invocation.
+> -	 */
+> -	struct mem_cgroup *target_mem_cgroup;
+> -
+> -	/*
+> -	 * Scan pressure balancing between anon and file LRUs
+> -	 */
+> -	unsigned long	anon_cost;
+> -	unsigned long	file_cost;
+> -
+> -	/* Swappiness value for proactive reclaim. Always use sc_swappiness()! */
+> -	int *proactive_swappiness;
+> -
+> -	/* Can active folios be deactivated as part of reclaim? */
+> -#define DEACTIVATE_ANON 1
+> -#define DEACTIVATE_FILE 2
+> -	unsigned int may_deactivate:2;
+> -	unsigned int force_deactivate:1;
+> -	unsigned int skipped_deactivate:1;
+> -
+> -	/* zone_reclaim_mode, boost reclaim */
+> -	unsigned int may_writepage:1;
+> -
+> -	/* zone_reclaim_mode */
+> -	unsigned int may_unmap:1;
+> -
+> -	/* zone_reclaim_mode, boost reclaim, cgroup restrictions */
+> -	unsigned int may_swap:1;
+> -
+> -	/* Not allow cache_trim_mode to be turned on as part of reclaim? */
+> -	unsigned int no_cache_trim_mode:1;
+> -
+> -	/* Has cache_trim_mode failed at least once? */
+> -	unsigned int cache_trim_mode_failed:1;
+> -
+> -	/* Proactive reclaim invoked by userspace */
+> -	unsigned int proactive:1;
+> -
+> -	/*
+> -	 * Cgroup memory below memory.low is protected as long as we
+> -	 * don't threaten to OOM. If any cgroup is reclaimed at
+> -	 * reduced force or passed over entirely due to its memory.low
+> -	 * setting (memcg_low_skipped), and nothing is reclaimed as a
+> -	 * result, then go back for one more cycle that reclaims the protected
+> -	 * memory (memcg_low_reclaim) to avert OOM.
+> -	 */
+> -	unsigned int memcg_low_reclaim:1;
+> -	unsigned int memcg_low_skipped:1;
+> -
+> -	/* Shared cgroup tree walk failed, rescan the whole tree */
+> -	unsigned int memcg_full_walk:1;
+> -
+> -	unsigned int hibernation_mode:1;
+> -
+> -	/* One of the zones is ready for compaction */
+> -	unsigned int compaction_ready:1;
+> -
+> -	/* There is easily reclaimable cold cache in the current node */
+> -	unsigned int cache_trim_mode:1;
+> -
+> -	/* The file folios on the current node are dangerously low */
+> -	unsigned int file_is_tiny:1;
+> -
+> -	/* Always discard instead of demoting to lower tier memory */
+> -	unsigned int no_demotion:1;
+> -
+> -	/* Allocation order */
+> -	s8 order;
+> -
+> -	/* Scan (total_size >> priority) pages at once */
+> -	s8 priority;
+> -
+> -	/* The highest zone to isolate folios for reclaim from */
+> -	s8 reclaim_idx;
+> -
+> -	/* This context's GFP mask */
+> -	gfp_t gfp_mask;
+> -
+> -	/* Incremented by the number of inactive pages that were scanned */
+> -	unsigned long nr_scanned;
+> -
+> -	/* Number of pages freed so far during a call to shrink_zones() */
+> -	unsigned long nr_reclaimed;
+> -
+> -	struct {
+> -		unsigned int dirty;
+> -		unsigned int congested;
+> -		unsigned int writeback;
+> -		unsigned int immediate;
+> -		unsigned int taken;
+> -	} nr;
+> -
+> -	/* for recording the reclaimed slab by now */
+> -	struct reclaim_state reclaim_state;
+> -};
+> -
+>  #ifdef ARCH_HAS_PREFETCHW
+>  static inline void prefetchw_prev_lru_folio(struct folio *folio,
+>  		struct list_head *base)
+> -- 
+> 2.34.1
+> 
