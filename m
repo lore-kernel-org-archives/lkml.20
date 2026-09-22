@@ -1,141 +1,151 @@
-Received: from 2.mo560.mail-out.ovh.net (2.mo560.mail-out.ovh.net [188.165.53.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C18456DE2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.53.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA35445628F;
+	Tue, 22 Sep 2026 09:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069227; cv=none; b=I8Tkh43MCAae5B5Ya/VUevnrdk/35pqoYzs8p4jEifC3shGSZJkBbcDNIQmdEHCMNKHmPOUX0RVOfwbDdY3SRbjEz8gz6JzbMvgkfJpSwc/DKE35b+OudrwbYX9hepaQoZtu79HKQI1t8r99qazEUjGuyGUUgXDgFJr8SG76yDI=
+	t=1790069249; cv=none; b=rliydO15U4N0Eotgb/JG+tz44tu7RO2iWK0xeSzcIWDOYEAVkt8/WNZEezPQqhKl2LQiiKbNg8Sja8LU++5diPMVi4oeYT20auvcXlLeaxQCX0Q7ZazPdt2NBeluAjq7xZrr5ojBCJS8iNiJFXa0v0NirMLnTbNltwXmmteUeSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069227; c=relaxed/simple;
-	bh=vozS4Tn8G6O6ng5sDEwLGPHZJL36uoe21Z6znm0P5kI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nAGpYt9t4t63CuqniDEm03cSidZ76OAgNtlzkP7/DU13AmPMFJQeMcbbOFVfwlFb+tdj1EghG8bxGpKgnXmAL29jEJ/LqJ5D9i1oFTnbzCXLNekotxgiv5fgDxcpbQ1SyNxO+ggz4FzUfLmK1VCKU/jv8qwMJTOoqwgCTPEkrXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr; spf=pass smtp.mailfrom=quelquesmots.fr; dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b=E7JH3Jry; arc=none smtp.client-ip=188.165.53.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quelquesmots.fr
+	s=arc-20240116; t=1790069249; c=relaxed/simple;
+	bh=HpJa7NteA3anjJK0Gh8U7wyiuLd4yWFS0aG3ZQjT4Vo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aVbzorFnveqzx7Qg2EREpomPznAai8VXqztg3gsCypcqOIPpgFOS7loEkELyDB7EbKzQOceIh6dws/J/8ooAZ4g4Au9XMAaOqD9kjXv71zgLpQ9t9ateKENQyQNB9LpcMJUDCJ4y2EtW/v5KqPG+6+lDbGT36dn/R35VzwaRtaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KCWZigGs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b="E7JH3Jry"
-Received: from director2.ghost.mail-out.ovh.net (unknown [10.110.43.183])
-	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4hpv2M5JVszBKsc
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:50:51 +0000 (UTC)
-Received: from ghost-submission-c7b579475-9ghvt (unknown [10.108.54.199])
-	by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 8661CC04C9;
-	Tue, 22 Sep 2026 08:50:49 +0000 (UTC)
-Received: from quelquesmots.fr ([37.59.142.102])
-	by ghost-submission-c7b579475-9ghvt with ESMTPSA
-	id ko1GFWlBsmqwRQQA5nG6ng
-	(envelope-from <l.wandrebeck@quelquesmots.fr>); Tue, 22 Sep 2026 08:50:49 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-102R00457fffa61-1c32-48c3-8fd4-5f58ed46588f,
-                    635681CF4E92E4A6CAC13A4CB71CF26F70416E4A) smtp.auth=l.wandrebeck@quelquesmots.fr
-X-OVh-ClientIp:109.190.254.62
-From: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Dave Hansen <dave.hansen@intel.com>
-Subject: [PATCH v2] x86/mm: don't apply va_align to hugetlb mappings on AMD F15h
-Date: Tue, 22 Sep 2026 10:50:32 +0200
-Message-Id: <20260922085032.46144-1-l.wandrebeck@quelquesmots.fr>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
-References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KCWZigGs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903531F000FF;
+	Tue, 22 Sep 2026 09:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790069247;
+	bh=jd/IdHJWT+tury6J4+3Ec3QcvTOjp339LQd8LtVieYg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KCWZigGscaFX2Ksj0oDFvvEIQKPzh+wDUoQDy364G1GTj0VbBCLfQtUGi0jw5tqT0
+	 28P0CKRstYURwRNanLmX85OZkDaG2/KrfBo+e6u0+pO69MbCtPrk5NHbgNJnV550ok
+	 QJZ0yybs/U0ep7+4NQMBEkSyFB+/CZc6ffjovcNI=
+Date: Tue, 22 Sep 2026 11:21:33 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: qianweili <qianweili@huawei.com>
+Cc: herbert@gondor.apana.org.au, wangzhou1@hisilicon.com,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	huangchenghai2@huawei.com, liulongfang@huawei.com
+Subject: Re: [PATCH 1/2] uacce: add device usage sysfs interface
+Message-ID: <2026092205-wrist-growing-0f04@gregkh>
+References: <20260921075131.1062155-1-qianweili@huawei.com>
+ <20260921075131.1062155-2-qianweili@huawei.com>
+ <2026092125-define-unit-ac52@gregkh>
+ <fd71cb7c-b9da-5cd9-c52e-ee287923073b@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 4713861437617077698
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGubFdNA5Mq04fBGK3gC9kqCB9FIck7QMQA+k7zsgkXFpQR6t03Yg6ArBdu2SLNHNSGg7Gp75cH+yqP1FxecSY0Z2atvMw97uOSYR21lGq+8FfOVS2tfEZH/tOdy1HKrEh0kcT4iwUdHWw2gGOQIpms4D3Loc/lrJKp9bcImETjs4ZXylOFjG0jV8OmMOoRhGyuzcFK0EDN2HewpJEdOUWuTA9li5UxHN1K9ye8Gb4k68i0joFn1hAmNYK6COPknkNquwiPR9HpfGJNyBEZ/K/YHzjNNMkaQNbcijFwXMMWpiQoQEHgJkjS24hIYFI1MYzIWHfP4xWDroyu4WkTVv9NMf3YuRZJQSCej0DGFTVSfj7CICAbyti/EAFbfQogPnoubWXEwSd0Kzmpl0gWDoDK03fY2bs70oyyV/r3eV7wfSNc3MxIc+Tv3TO5j73IhzAELE5ZMEdXhwK3n1gZGNVPw6vp916oL1QK2KiIxrB9Dd5EAFArvfqtkCZojVMy0wJLzLfhe+qQRfff2i0tSD4fUr2sva2eC6nV1yWYCH/e2Di3YSF00jyaFC5Nv8WzaFKnUoERCLvZhrFKmIc7S6sDU0UGJ4wdWECiRgum1FJYIng08IuQkwT3U/dz0fM7tY49+ArHhn5+tmE1h0TYCN9JVT+AigUoZtfQ7PybKf8Zpw
-DKIM-Signature: a=rsa-sha256; bh=w7/Bt3TycCT1K1u24fOFFkzDbe41NlkwbsLDq3UP4wk=;
- c=relaxed/relaxed; d=quelquesmots.fr; h=From; s=ovhmo4049951-selector1;
- t=1790067051; v=1;
- b=E7JH3JryapxuyaFq5Ln44rkYkxGQdMMuSEdB8GxzzENa2NSD43RPdPGf36ANfoWfogTKMDLy
- r4fewj4/17TVT53s2XVBKl2jzbXH1VWWM5+ziPwZ5bj1PKXuQNDsIcKFEQ+bA/eZ8/LOZl9EVYv
- IIqIoRT9wRtNPm785B441TmX7yoRijcVzYhKbLcplKyZBXfRAyJxKm+6fwrXk5AVibjo3YrCTjh
- VXCmFx3WjkQVWfRS1l/9JpcVb60p52HRrXAJkifLyvcn+Jha/T4Kq5GuET8bVQVH0eCWiselvod
- 3p8Ul/KV5zlV0Xuu4ACwH4pg/AZ0kPdLMyQeZXo4xtgfw==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fd71cb7c-b9da-5cd9-c52e-ee287923073b@huawei.com>
 
-get_align_mask() returns huge_page_mask_align() for hugetlbfs, but
-get_align_bits() adds va_align.bits regardless, so vm_unmapped_area()
-returns an address off the huge page boundary and
-__unmap_hugepage_range() hits BUG_ON(start & ~huge_page_mask(h)) at
-teardown.
+On Tue, Sep 22, 2026 at 05:11:55PM +0800, qianweili wrote:
+> 
+> 
+> On 2026/9/21 16:12, Greg KH wrote:
+> > On Mon, Sep 21, 2026 at 03:51:30PM +0800, Weili Qian wrote:
+> > > Userspace has no way to query the runtime usage of a UACCE
+> > > device; it can only be inferred indirectly from queue state, which is
+> > > neither accurate nor uniform across drivers.
+> > > 
+> > > Add a read-only dev_usage sysfs attribute and a get_dev_usage callback
+> > > in struct uacce_ops. A driver implementing the callback writes the
+> > > current usage as a percentage (0-100) string into the caller-provided
+> > > buffer and returns the number of bytes written; dev_usage_show()
+> > > appends the trailing newline. The attribute is hidden via
+> > > uacce_dev_is_visible() when the driver does not provide the callback.
+> > > 
+> > > The corresponding ABI entry is added to Documentation/ABI/testing/
+> > > sysfs-driver-uacce.
+> > > 
+> > > Signed-off-by: Weili Qian <qianweili@huawei.com>
+> > > ---
+> > >   Documentation/ABI/testing/sysfs-driver-uacce |  9 +++++++++
+> > >   drivers/misc/uacce/uacce.c                   | 19 +++++++++++++++++++
+> > >   include/linux/uacce.h                        |  5 +++++
+> > >   3 files changed, 33 insertions(+)
+> > > 
+> > > diff --git a/Documentation/ABI/testing/sysfs-driver-uacce b/Documentation/ABI/testing/sysfs-driver-uacce
+> > > index d3f0b8f3c589..3e4af4c1e5a9 100644
+> > > --- a/Documentation/ABI/testing/sysfs-driver-uacce
+> > > +++ b/Documentation/ABI/testing/sysfs-driver-uacce
+> > > @@ -55,3 +55,12 @@ Date:           Feb 2020
+> > >   KernelVersion:  5.7
+> > >   Contact:        linux-accelerators@lists.ozlabs.org
+> > >   Description:    Size (bytes) of dus region queue file
+> > > +
+> > > +What:           /sys/class/uacce/<dev_name>/dev_usage
+> > > +Date:           Sep 2026
+> > > +KernelVersion:  7.3
+> > That's not going to happen here :(
+> I'll change it to 7.4 in the next version.
+> > 
+> > > +Contact:        linux-accelerators@lists.ozlabs.org
+> > > +Description:    (R) Current usage of the device, reported as a driver-defined
+> > > +                string of up to PAGE_SIZE - 1 bytes. Usage is expressed as a
+> > > +                percentage (0-100). The attribute is hidden if the driver does
+> > > +                not implement the get_dev_usage callback.
+> > > diff --git a/drivers/misc/uacce/uacce.c b/drivers/misc/uacce/uacce.c
+> > > index 45521d4a56d1..545ba35a590b 100644
+> > > --- a/drivers/misc/uacce/uacce.c
+> > > +++ b/drivers/misc/uacce/uacce.c
+> > > @@ -433,6 +433,20 @@ static ssize_t isolate_strategy_store(struct device *dev, struct device_attribut
+> > >   	return count;
+> > >   }
+> > > +static ssize_t dev_usage_show(struct device *dev, struct device_attribute *attr, char *buf)
+> > > +{
+> > > +	struct uacce_device *uacce = to_uacce_device(dev);
+> > > +	int ret;
+> > > +
+> > > +	ret = uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE - 1);
+> > Why can't you use sysfs_emit()?  That way you don't have to worry about
+> > PAGE_SIZE, and you don't have to do:
+> > 
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +
+> > > +	buf[ret++] = '\n';
+> > That type of thing :(
+> > 
+> > Also, you got your math wrong above :(
+> sysfs_emit() is useful when the framework side knows the format string
+> upfront.  Here get_dev_usage is a driver callback that dynamically
+> generates content -- the format is not known to the framework, so
+> there is no format string to emit.  Having the callback write into a
+> temporary buffer and then sysfs_emit(buf, "%s", tmp) in the show
+> function would just add an unnecessary copy without gaining the
+> overflow protection that sysfs_emit normally provides.
 
-Pass the file to get_align_bits() and skip the randomisation for
-hugetlbfs. Reproduced on Carrizo and FX-8370E, both hstates.
+Then that is going to be a mess, sysfs files should be in a consistant
+way, don't have random formats for the same filename depending on random
+hardware types.  Use different sysfs files if you want to do that.
 
-Fixes: 1317a5e7f7b1 ("arch/x86: teach arch_get_unmapped_area_vmflags to handle hugetlb mappings")
-Cc: stable@vger.kernel.org # 6.13+
-Suggested-by: Dave Hansen <dave.hansen@intel.com>
-Signed-off-by: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
----
-v2: put the hugetlb case in get_align_bits() instead of guarding both call
-    sites, per Dave's suggestion to pass filp through. Masking rather than
-    returning early cannot clear the bits: va_align.mask is an L1I way
-    size, so it is a subset of huge_page_mask_align().
+And this is just going to be a single value, nothing complex, so why do
+you need a callback for that?
 
-    Re-tested on Carrizo, both hstates.
+> But you're right that the manual newline append and the PAGE_SIZE - 1
+> math were unnecessary.  In the next version I'll rework the callback
+> contract so the driver writes the complete output (including any
+> trailing newlines) and dev_usage_show() just returns the callback
+> result directly:
+> 
+>     static ssize_t dev_usage_show(struct device *dev,
+>                                   struct device_attribute *attr, char *buf)
+>     {
+>         struct uacce_device *uacce = to_uacce_device(dev);
+> 
+>         return uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE);
 
-    Link: https://lore.kernel.org/all/20260828135747.724789-1-l.wandrebeck@quelquesmots.fr/
- arch/x86/kernel/sys_x86_64.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+Why not have the get_dev_usage() return the value that you want to write
+to the buffer, and then use sysfs_emit() to write it?  Then no need to
+worry about PAGE_SIZE at all.
 
-diff --git a/arch/x86/kernel/sys_x86_64.c b/arch/x86/kernel/sys_x86_64.c
-index 776ae6fa7f2d..4c078827f26a 100644
---- a/arch/x86/kernel/sys_x86_64.c
-+++ b/arch/x86/kernel/sys_x86_64.c
-@@ -50,9 +50,16 @@ static unsigned long get_align_mask(struct file *filp)
-  * value before calling vm_unmapped_area() or ORed directly to the
-  * address.
-  */
--static unsigned long get_align_bits(void)
-+static unsigned long get_align_bits(struct file *filp)
- {
--	return va_align.bits & get_align_mask(NULL);
-+	/*
-+	 * va_align.bits is smaller than the huge page size and will
-+	 * lead to misaligned huge pages. Ignore it for huge mappings.
-+	 */
-+	if (is_file_hugepages(filp))
-+		return 0;
-+
-+	return va_align.bits & get_align_mask(filp);
- }
- 
- static int __init control_va_addr_alignment(char *str)
-@@ -157,7 +164,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr, unsigned long len,
- 	}
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		info.align_offset += get_align_bits(filp);
- 	}
- 
- 	return vm_unmapped_area(&info);
-@@ -222,7 +229,7 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr0,
- 
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		info.align_offset += get_align_bits(filp);
- 	}
- 	addr = vm_unmapped_area(&info);
- 	if (!(addr & ~PAGE_MASK))
+thanks,
 
-base-commit: 93f51579e7df248780214094418f205253383cc5
--- 
-2.34.1
-
+greg k-h
