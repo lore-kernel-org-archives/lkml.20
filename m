@@ -1,206 +1,187 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0AA42125D;
-	Tue, 22 Sep 2026 17:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F327386562;
+	Tue, 22 Sep 2026 17:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099158; cv=none; b=CN8KGjuMxNn+OHtSAETzFFQFVbxvjAcLIcxXr+UTcAsqO/wXZWKDt7fwxSzEKfDt33aymLPXo+6n1hhgKCScIiYp1+GNnbTRFwaNzLq1q8TbLg0/oy1izGn8BTq2lGupEORCabbM5hx2Bd6v168XCrUB+tgQkctGDDUil9I3xms=
+	t=1790099172; cv=none; b=AwRC8q7jOumQbq6eqKxsfe0V8HeRbuJxGj+iXicER6b8wmblh/38VVOOzETSTVtBgTGqvw52SZL/6pu+v+RazQRMv4U/AelChJn303pDNrB6OMJjm8WRKCoHqxdidmcq4cSdOkSU0xIP/0Rql6DWGOsjaCXArdbOAIVIiyBLBVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099158; c=relaxed/simple;
-	bh=numKCXBeqHeG+uwpRgzAc5A+25vCr6moZaFphK8rbZs=;
+	s=arc-20240116; t=1790099172; c=relaxed/simple;
+	bh=tqqKL3MiY3dTHB7Hnlj1GNEzosXblE2ZBz6uATwkqy4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mRSqWSK0bkWIoGd33ZRyxBCd5n58VmSfxrJFeXm9oqsTUqjX1ljl6+bO5flBGm+He/W4S+ljYezFB1W1wEjme26x2nU+rMJCVwJs+spjxDBLmx63COHvyAj+VeftRJN8N6eKNCKJiwgSnMA3NMKXbpjK7sXxutJOPKbfLUyYD00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I+irRMrH; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=GwmzC6LUf2QsVrBSnDkR+jevHch8KUz94h/JLAuZVtwIdheF/zfcgDER7w7WcP74a5Zki1n96OpchYt5AuwMxehCDdgRr7NE+IeZZbUEVCO1Cqpm5tHsFxOTdbcB8QPMED2oGXyPmMQ0Nn+7n+PRPro7MLY19ruaaAQvyV4E410=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tyLx5zTp; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I+irRMrH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790099156; x=1821635156;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=numKCXBeqHeG+uwpRgzAc5A+25vCr6moZaFphK8rbZs=;
-  b=I+irRMrHo6yl/XIC1NICKhOZYKH7j+E74DGNJXyLqmISwF/9rHerK+vF
-   pzLaejsmTkAXsuvA9EuHoy1X6QJNDDLeP64tybuVCB7NEYgpp5P1FSEUd
-   U0Qmg0K8Gh87zJ8rqxxVSun0brrx2P51bKyjgiGliVz5yHMDPzlG6QPrq
-   wHbv1a/cm8f0OJCwsVyvWI8MhoRudmxBm/ogerYCVrMpkT9iXRvxeFw9P
-   FGSU0k5LYRkCkFXxfV3d5c7myy6irPZCfPd1fIVcJHxX04wvNbUIFfhda
-   2YfWDWBWEqL4EaGY7JZyio0fbAZwrdvHEdZ57QsGEschChE4KcdDKBzJn
-   g==;
-X-CSE-ConnectionGUID: wtSHGwuhRry0bIm0rUYynw==
-X-CSE-MsgGUID: IvIQRLEQSTKoa4Y95SZbuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89644761"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="89644761"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:45:41 -0700
-X-CSE-ConnectionGUID: Ej7Auh4YTcqXqdy+EW+XIw==
-X-CSE-MsgGUID: GI1CwLDCQAahT0U6/zoRPQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="301133553"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 22 Sep 2026 10:45:39 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x94Yi-00000000Fpq-24vQ;
-	Tue, 22 Sep 2026 17:45:36 +0000
-Date: Wed, 23 Sep 2026 01:45:12 +0800
-From: kernel test robot <lkp@intel.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: oe-kbuild-all@lists.linux.dev,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: Re: [PATCH v6] hfsplus: validate b-tree fork extents at mount and
- inode read
-Message-ID: <202609230123.7x3OfA7z-lkp@intel.com>
-References: <20260918085156.920842-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tyLx5zTp"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 47B47C25;
+	Tue, 22 Sep 2026 19:44:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790099059;
+	bh=tqqKL3MiY3dTHB7Hnlj1GNEzosXblE2ZBz6uATwkqy4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tyLx5zTpqLBskYOMUczqyVWwaPhwVs6Hwc6EyH44GXpkBfnUxtQnQj6LiUg185WlH
+	 ui6OP/7+Asxh0hCbfGIWGGOPNIDAzEbTDryyt+X197o98Ka08Fw4ruIlF2iDpaZuoy
+	 BVrkosYSnm7NpfW89mWlndKo/ZsCbe0FyYtMzy6c=
+Date: Tue, 22 Sep 2026 20:46:03 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Leonardo Costa <leoreis.costa@gmail.com>,
+	"G.N. Zhou (OSS)" <guoniu.zhou@oss.nxp.com>,
+	"Robby Cai (OSS)" <robby.cai@oss.nxp.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Steve Longerbeam <slongerbeam@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	leonardo.costa@toradex.com
+Subject: Re: [RFC] media: i2c: ov5640: Implement get_mbus_config
+Message-ID: <20260922174603.GB2333087@killaraus.ideasonboard.com>
+References: <ho5e5huh2b5biibucht2bxyj2hzih2dkqpskrxtvsaf34niboc@s5e6pok36m5i>
+ <arGNRTpmYwB2_gLk@kekkonen.localdomain>
+ <hufoatx76dnto4w3f33lx3gr7efwgcmkj3x7nzofofpzm5f3hn@pvuswzm5ielf>
+ <arKo_e-3vWC4aqKD@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260918085156.920842-1-ngocthang2710.1999@gmail.com>
+In-Reply-To: <arKo_e-3vWC4aqKD@SMW015318>
 
-Hi Nguyen,
+On Tue, Sep 22, 2026 at 11:12:45AM -0500, Frank Li wrote:
+> On Tue, Sep 22, 2026 at 09:32:41AM -0300, Leonardo Costa wrote:
+> > On Mon, Sep 21, 2026 at 11:02:13PM +0300, Sakari Ailus wrote:
+> > > On Mon, Sep 21, 2026 at 03:04:59PM -0300, Leonardo Costa wrote:
+> > > > Hi all,
+> 
+> Add G.N zhou and Cai Robby.
+> 
+> > > > Some time ago, we had sent a patch that implemented the .get_mbus_config
+> > > > function for the OV5640 camera. This change was necessary for the camera to
+> > > > work with the i.MX6 after the v5.18 release.
+> > > >
+> > > >     https://lore.kernel.org/all/20230306063649.7387-1-marcel@ziswiler.com/T/#u
+> > > >
+> > > > The patch stirred some discussion, since .get_mbus_config wasn't supposed to be
+> > > > implemented on drivers that don't have dynamic lane configuration. There were
+> > > > proposals of implementing it in other points of the camera pipeline, but no
+> > > > conclusion was reached.
+> > > >
+> > > > We are planning to send the overlays for this camera for the Apalis iMX6, but
+> > > > we verified that this patch is still needed for the camera to work on the
+> > > > current mainline. Below are the commands to configure the pipeline, which
+> > > > explicitly require a .get_mbus_config from the camera driver.
+> > > >
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'ov5640 1-003c':0 -> 'imx6-mipi-csi2':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'imx6-mipi-csi2':2 -> 'ipu1_csi1':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -l "'ipu1_csi1':2 -> 'ipu1_csi1 capture':0[1]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'ov5640 1-003c':0 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'imx6-mipi-csi2':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     [   47.438237] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+> > > >     [   47.438265] ipu1_csi1: failed to get upstream media bus configuration
+> > > >     root@apalis-imx6-11367581:~# media-ctl -V "'ipu1_csi1':2 [fmt:UYVY8_1X16/1920x1080 field:none]"
+> > > >     Unable to setup formats: Inappropriate ioctl for device (25)
+> > > >     [   62.616177] ipu1_csi1: entity ov5640 1-003c does not implement get_mbus_config()
+> > > >     [   62.616204] ipu1_csi1: failed to get upstream media bus configuration
+> > > >
+> > > > I am not very familiar with this subsystem, and it's been years since this
+> > > > discussion took place, so I wanted to know what are your thoughts about this
+> > > > patch and what the correct approach would be here. Was there any change that
+> > > > would make this patch ok to be applied today? Do you think this still should
+> > > > be included somewhere else on the pipeline?
+> > >
+> > > My objection to the approach was about adding code that does very little or
+> > > nothing to potentially a rather large number of drivers.
+> > >
+> > > Since that we've gotten v4l2_get_active_data_lanes() that however seems to
+> > > be used by the imx-mipi-csis driver only. Could using that solve the
+> > > problem you have?
+> >
+> > Hmm, looking at the implementation of v4l2_get_active_data_lanes it
+> > seems to actually still use .get_mbus_config, and falls back to a
+> > maximum value passed as an argument.
+> >
+> > Furthermore, the error comes from imx-media-csi.c, and it doesn't seem
+> > to be reading the number of lanes in the config, but rather the type of
+> > the mbus (all the uses of the gotten mbus_cfg boil down to checking the
+> > value of mbus_cfg.type). The receiver (imx6-mipi-csi2.c) actually seems
+> > to get the number of lanes statically, and handle well the case where the
+> > camera doesn't implement .get_mbus_config.
 
-kernel test robot noticed the following build errors:
+On a side node, the CSI-2 receiver driver should be decoupled from the
+rest of the imx6-media-csi driver.
 
-[auto build test ERROR on brauner-vfs/vfs.all]
-[also build test ERROR on linus/master v7.3-rc4 next-20260921]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Replacing the two helpers it uses (imx_media_init_mbus_fmt() and
+imx_media_init_state()) is the easy part.  The imx_media_init_mbus_fmt()
+call should actually be dropped, as the csi2_dev.format_mbus field
+should be dropped too and replaced by usage of the subdev active state
+API.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Nguyen-Ngoc-Thang/hfsplus-validate-b-tree-fork-extents-at-mount-and-inode-read/20260918-155156
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git vfs.all
-patch link:    https://lore.kernel.org/r/20260918085156.920842-1-ngocthang2710.1999%40gmail.com
-patch subject: [PATCH v6] hfsplus: validate b-tree fork extents at mount and inode read
-config: sparc64-randconfig-1000-20260922 (https://download.01.org/0day-ci/archive/20260923/202609230123.7x3OfA7z-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260923/202609230123.7x3OfA7z-lkp@intel.com/reproduce)
+The harder part is to drop usage of grp_id. It will require some
+research and experimentation.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609230123.7x3OfA7z-lkp@intel.com/
+> > To test this, I hard-coded mbus_cfg->type = V4L2_MBUS_CSI2_DPHY inside
+> > csi_get_upstream_mbus_config(), and the test above worked with that. So
+> > as far as I understand it, imx-media-csi.c really only needs to know
+> > what the type of the bus is.
 
-All errors (new ones prefixed by >>):
+There's also a test of mbus_cfg->bus.parallel.bus_width in
+is_parallel_16bit_bus().
 
->> fs/hfsplus/inode.c:562:5: error: conflicting types for 'hfsplus_inode_read_fork'; have 'int(struct inode *, struct hfsplus_fork_raw *)'
-     562 | int hfsplus_inode_read_fork(struct inode *inode, struct hfsplus_fork_raw *fork)
-         |     ^~~~~~~~~~~~~~~~~~~~~~~
-   In file included from fs/hfsplus/inode.c:22:
-   fs/hfsplus/hfsplus_fs.h:456:6: note: previous declaration of 'hfsplus_inode_read_fork' with type 'void(struct inode *, struct hfsplus_fork_raw *)'
-     456 | void hfsplus_inode_read_fork(struct inode *inode,
-         |      ^~~~~~~~~~~~~~~~~~~~~~~
-   fs/hfsplus/inode.c: In function 'hfsplus_inode_read_fork':
-   fs/hfsplus/inode.c:571:11: error: implicit declaration of function 'hfsplus_check_fork'; did you mean 'hfsplus_free_fork'? [-Wimplicit-function-declaration]
-     571 |     ret = hfsplus_check_fork(sb, fork->extents, sbi->total_blocks);
-         |           ^~~~~~~~~~~~~~~~~~
-         |           hfsplus_free_fork
-   In file included from include/asm-generic/bug.h:31,
-                    from arch/sparc/include/asm/bug.h:25,
-                    from include/linux/bug.h:5,
-                    from include/linux/instrumented.h:10,
-                    from include/linux/atomic/atomic-instrumented.h:17,
-                    from include/linux/atomic.h:82,
-                    from include/asm-generic/bitops/lock.h:5,
-                    from arch/sparc/include/asm/bitops_64.h:52,
-                    from arch/sparc/include/asm/bitops.h:5,
-                    from include/linux/bitops.h:67,
-                    from include/linux/bitmap.h:8,
-                    from include/linux/nodemask.h:91,
-                    from include/linux/list_lru.h:12,
-                    from include/linux/fs/super_types.h:7,
-                    from include/linux/fs/super.h:5,
-                    from include/linux/fs.h:5,
-                    from include/linux/highmem.h:5,
-                    from include/linux/bvec.h:10,
-                    from include/linux/blk_types.h:10,
-                    from include/linux/blkdev.h:9,
-                    from fs/hfsplus/inode.c:12:
-   include/linux/kern_levels.h:5:25: warning: format '%lu' expects argument of type 'long unsigned int', but argument 2 has type 'u64' {aka 'long long unsigned int'} [-Wformat=]
-       5 | #define KERN_SOH        "\001"          /* ASCII Start Of Header */
-         |                         ^~~~~~
-   include/linux/printk.h:483:25: note: in definition of macro 'printk_index_wrap'
-     483 |                 _p_func(_fmt, ##__VA_ARGS__);                           \
-         |                         ^~~~
-   include/linux/printk.h:554:9: note: in expansion of macro 'printk'
-     554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
-         |         ^~~~~~
-   include/linux/kern_levels.h:11:25: note: in expansion of macro 'KERN_SOH'
-      11 | #define KERN_ERR        KERN_SOH "3"    /* error conditions */
-         |                         ^~~~~~~~
-   include/linux/printk.h:554:16: note: in expansion of macro 'KERN_ERR'
-     554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
-         |                ^~~~~~~~
-   fs/hfsplus/inode.c:573:9: note: in expansion of macro 'pr_err'
-     573 |         pr_err("hfsplus: fork check failed for inode %lu (err=%d)\n", inode->i_ino, ret);
-         |         ^~~~~~
-   fs/hfsplus/inode.c:574:17: error: 'HFSPLUS_I_CORRUPT_TREE' undeclared (first use in this function)
-     574 |         set_bit(HFSPLUS_I_CORRUPT_TREE, &hip->flags);
-         |                 ^~~~~~~~~~~~~~~~~~~~~~
-   fs/hfsplus/inode.c:574:17: note: each undeclared identifier is reported only once for each function it appears in
-   fs/hfsplus/inode.c:580:33: error: 'HFSPLUS_EXTENT_LAST_IDX' undeclared (first use in this function)
-     580 |     for (count = 0, i = 0; i <= HFSPLUS_EXTENT_LAST_IDX; i++)
-         |                                 ^~~~~~~~~~~~~~~~~~~~~~~
+> > The csi_get_upstream_mbus_config function already identifies whether
+> > it's connected directly to the receiver or the mux, see the switch
+> > statement below. If I understand correctly, in the case where it's
+> > connected to the receiver directly, this is already known to be CSI-2,
+> > so (I think) we can set the type value directly in this case.
+> >
+> > For the mux I am not entirely sure. From the "Figure 19-1. CSI2IPU
+> > gasket connectivity" figure in the IMX6DQRM TRM [1] (the same one Jacopo
+> > referenced on the other thread), the mux's possible inputs seem to be
+> > well defined to be either the receiver itself or the parallel interface.
+> > Given this, maybe we could similarly infer the bus type from the
+> > sd->grp_id gotten from the mux.
+> >
+> > static int csi_get_upstream_mbus_config(struct csi_priv *priv,
+> > 					struct v4l2_mbus_config *mbus_cfg)
+> > {
+> >     ...
+> > 	switch (sd->grp_id) {
+> > 	case IMX_MEDIA_GRP_ID_CSI_MUX: // <------ Mux
+> > 		sd = imx_media_pipeline_subdev(&sd->entity,
+> > 					       IMX_MEDIA_GRP_ID_CSI2,
+> > 					       true);
+> >         ...
+> > 		break;
+> > 	case IMX_MEDIA_GRP_ID_CSI2: // <------- Receiver
+> > 		break;
+> > 	default:
+> > 		...
+> > 		break;
+> > 	}
+> > ...
+> > }
 
+As I wrote above, we need to drop setting grp_id in the CSI-2 receiver
+driver. Given that the mux inputs are well known, I would prefer
+inferring the source type from the mux's routing configuration. The
+upside is that it will remove two out of the three locations that test
+for IMX_MEDIA_GRP_ID_CSI2, easing removal of IMX_MEDIA_GRP_ID_CSI2.
 
-vim +562 fs/hfsplus/inode.c
+> >
+> > [1] https://www.nxp.com/webapp/Download?colCode=IMX6DQRM
+> >
+> > What are your thoughts on this?
 
-   561	
- > 562	int hfsplus_inode_read_fork(struct inode *inode, struct hfsplus_fork_raw *fork)
-   563	{
-   564	    struct super_block *sb = inode->i_sb;
-   565	    struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
-   566	    struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-   567	    u32 count;
-   568	    int i, ret;
-   569	
-   570	    /* Validate fork extents to catch on-disk corruption early */
-   571	    ret = hfsplus_check_fork(sb, fork->extents, sbi->total_blocks);
-   572	    if (ret) {
-   573		pr_err("hfsplus: fork check failed for inode %lu (err=%d)\n", inode->i_ino, ret);
-   574		set_bit(HFSPLUS_I_CORRUPT_TREE, &hip->flags);
-   575		sb->s_flags |= SB_RDONLY;
-   576		return ret; /* Return error directly to the caller */
-   577	    }
-   578	
-   579	    memcpy(&hip->first_extents, &fork->extents, sizeof(hfsplus_extent_rec));
-   580	    for (count = 0, i = 0; i <= HFSPLUS_EXTENT_LAST_IDX; i++)
-   581		count += be32_to_cpu(fork->extents[i].block_count);
-   582	    hip->first_blocks = count;
-   583	    memset(hip->cached_extents, 0, sizeof(hfsplus_extent_rec));
-   584	    hip->cached_start = 0;
-   585	    hip->cached_blocks = 0;
-   586	
-   587	    hip->alloc_blocks = be32_to_cpu(fork->total_blocks);
-   588	    hip->phys_size = inode->i_size = be64_to_cpu(fork->total_size);
-   589	    hip->fs_blocks =
-   590		(inode->i_size + sb->s_blocksize - 1) >> sb->s_blocksize_bits;
-   591	    inode_set_bytes(inode, hip->fs_blocks << sb->s_blocksize_bits);
-   592	    hip->clump_blocks =
-   593		be32_to_cpu(fork->clump_size) >> sbi->alloc_blksz_shift;
-   594	    if (!hip->clump_blocks) {
-   595		hip->clump_blocks = HFSPLUS_IS_RSRC(inode) ?
-   596		    sbi->rsrc_clump_blocks :
-   597		    sbi->data_clump_blocks;
-   598	    }
-   599	
-   600	    return 0;
-   601	}
-   602	
+-- 
+Regards,
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Laurent Pinchart
