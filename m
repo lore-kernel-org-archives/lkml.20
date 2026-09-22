@@ -1,52 +1,81 @@
-Received: from mta1.migadu.com (out-217.mta1.migadu.com [95.215.58.217])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9CD4195DA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1649543A7F7
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068875; cv=none; b=DwH6tUMUy5XiGyzDJixTUeeQLHt2+Lyin5ARwFE/Wv1GiaiG4dNOS8yBaThgaXp7wfmrCNOcKrYv+eKg+pk+HtvCgUyIP9rmqisMXSlQ97qTXl9kBM+JeYa9D16Ep5mTZcsr+dilnSZIA02lYeKJbH0LvtwXReT9B0y99MmP6XE=
+	t=1790068876; cv=none; b=L/D7BYgfvjO9Aid4kggJiWnQxKKLn416o9xCFb5yAcN2oup5s8yQKyzvTQ+XXSv+X+d5NrzJh0HLUM3lPk+Tki/PYcPNZMAGVL/gYTOLHmgrw9vDyuQ8Kpe/f3NboqbGiF+Ovu0YRwrnYj9qel+YFOs5n+amHaX43AXv38sjX0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068875; c=relaxed/simple;
-	bh=tEqbYVDyKqM7Hc/fFzmDq51q6SiHClV2nLZaCnxNlr8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O0pYmhy6HTC2Og0kMymqR1RITULbrrmhekAVSF9w57MtD+kPeOReLJI2WRaDj2txD4jAPR9UUryW+Rh2mcm9deyflL4cumuBBtdr+QMxPjhKLJx/6/R51PWy4hXQtibpn2dNrisggulhRKenRz0Fen+LTmtFRUOx+GPl8KiO0sM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mc1ldZZD; arc=none smtp.client-ip=95.215.58.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790068876; c=relaxed/simple;
+	bh=QwgutwokZ3b0qwkGY6l4hQt9JqC8neMMcSvmNTqPuqQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=duktn2b5oMBuvuxWNUPp0MW+puCcmaNlQCoYG8WzhD/LCnRE3AG5qrN3FecSY40sKVBMebq4dVM3Wbf6GRMxD1n1XWcRKQd65M0YpxbffdE4juwDll+E6y1u3bpIirZulUkjwcMaegxmnI+pSrvcYgUyTLnysycMIN0ysYVvkMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aG6M8SOG; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mc1ldZZD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tEqbYVDyKqM7Hc/fFzmDq51q6SiHClV2nLZaCnxNlr8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790068870; v=1; x=1790673670;
- b=mc1ldZZDc44AqAZtR4xJVX3zwXMf9ZXE/oJkCYzjBbbpLIeglL170zij8QhU75b86D5/sqyj
- O76U4xCqrwtD49JgwNCENqmXZMBpcr/4ndG26yp8UdHKw/oWiq6nihXODkjRevvKSexdz2FR5wA
- rRIPOtnGKDT5XZTaGHZGoXgc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b325b4af7485a9b4;
-	Tue, 22 Sep 2026 09:21:10 +0000
-X-Mizu-Trace-ID: b325b4af7485a9b4
-X-Migadu-Flow: FLOW_OUT
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-To: Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	cgroups@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aG6M8SOG"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5121bcf1aso3164360a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:21:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790068873; x=1790673673; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VhqwyCXWCrR9ZsZI79xSj7TfrvM5uh6vx6A8zPKncw8=;
+        b=aG6M8SOGcJZfavB4ZpeKV6X4E1aIu1Wtd1lllaL3XcYPExup7XC/7Sy6LoRQ8MdJ2X
+         3TtZSJ74pVC8+2nhy+6T4LML2GvA5wlTyNewTXRXMIbOsEmd1ZvEWTxwfEfBS86MDPNW
+         ozz3tMk3iUh7/0NbAAf7TeUKmjYHMBy6PS8FhJnCG86pPTYSADEBvVg9htupuH5NoQ9g
+         QXUbY+z+xQ4Th7ezB5NJ3rTYLhw9KWwXRdhsIJZyuzqNJYY16V7dS+Q8Y8ZH/+cFitgD
+         Rt/RQvceVtT9RiB0PIg3+V75ZzWBoisY8axXq7rNyk7coRuCaSKSeAigJX5tkfNRfQ/z
+         cBAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790068873; x=1790673673;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VhqwyCXWCrR9ZsZI79xSj7TfrvM5uh6vx6A8zPKncw8=;
+        b=OBGRonsmaalBm1Tr/yEZmH0W7MM9eTCdrYgb2SaCP+VCdDwkaVhRvLvCsNSF9koMu9
+         p/A9EjAIKlBoBMVPRsGTIWXuqBZ7ilDrWcnH5YwPn3SMePzJHyBzkeFwgHxbABwkqbrh
+         ECc/WU0we3wjrPYh2n3mMTm+MIYeSvomurifIwanOQTkc3orLRIlKaWelfs5vIJF5zHs
+         EZolcfIAmw/nbVA/aYgzqNNz5LlsCUtmi9TIW1jpmMilce1rcEKNU2ekp3LvoLb4Zrwv
+         sXNxcFXKvcCAJwpN8rk3/pBmugrLUknFKG6LYWLmTdoaGWvSsDEubSqEV6hVQoz0NqKd
+         b0tw==
+X-Forwarded-Encrypted: i=1; AKwUvBzqtVs7QRxsNtAMyscd0b/7XDqEGwlQZqr4NgHcM1ZXV/RinHj7opvI+uV87cFZXl9ny81GQHAQP0hqtQM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltPLjjvv+OsSV18Lt5dB5G8LEzhCYxHSlmwHOuqtCiLD+KfYcn
+	WezWeUGzgIOHTSLAT8gzcr2I6v5BN0dLIMppypuOeQ6CFBGB3JP4OdmU
+X-Gm-Gg: AYBFou22SYdvLvnXBXZpwL1Bzr9S6cpuZ6zViPbPYkA4JgKDqrM9LtnM22sJ0qybjT4
+	acu2ErQDt7ZKkKC/764inh083fliUpo7A/VeRB+tPMyqsIyDrsi2g8JyqcQ0vDDywh6EjdCQGaJ
+	kkWgBLzOTU3nGohN/oxd3YD8ioJB7CvLm0jmuODNkZkoTcY6d+EDbBZNQD7VjosdOivHxQk6wsq
+	pmSy/a+7aH1lsIdsgLa89Ctu0zWI06XG129lcxe2CEmB7DYfsaD8DrajoRFZvX3anPb7k7nF3U7
+	iXc4g4EVXyb5zmb/PleRnx6DoY7GSxO79HsY53PcPU5/K+a/+aKRH/olk+aqoRyL0HdUAHTAUKx
+	FUQf+Z6NCZ/XMPrpYqOp3FucK2ybLqtFR7vttEXXs5l4Ao3c+kYdFfI1g74eult7/Tte/rcsb3F
+	KK4jXBAsQZE1ApWEwBsIce450MCJ5cZOl6OxvPRJmCwi/fBGA5jY6KllKkqvVn9PoD4X+as42cB
+	6DQyoeYAiQYPRESlp8=
+X-Received: by 2002:a17:90b:2686:b0:39e:4546:fb26 with SMTP id 98e67ed59e1d1-3a072e96de0mr714758a91.0.1790068873149;
+        Tue, 22 Sep 2026 02:21:13 -0700 (PDT)
+Received: from cfarm424.jing.rocks (cfarm424.jing.rocks. [2600:3c18:e002:2e11::c424])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06caf4a73sm899819a91.2.2026.09.22.02.21.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:21:12 -0700 (PDT)
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Srinivas Neeli <srinivas.neeli@amd.com>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: [PATCH v3 2/2] docs: cgroup-v2: Describe effective CPUs of partition roots
-Date: Tue, 22 Sep 2026 17:20:34 +0800
-Message-ID: <20260922092034.68840-3-guopeng.zhang@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922092034.68840-1-guopeng.zhang@linux.dev>
-References: <20260922092034.68840-1-guopeng.zhang@linux.dev>
+	Shuah Khan <shuah@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	Ridham Khurana <khurana.ridham222@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] gpio: zynq: fix runtime PM leak on request error path
+Date: Tue, 22 Sep 2026 09:20:58 +0000
+Message-ID: <20260922092102.1053513-1-khurana.ridham222@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,95 +84,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+pm_runtime_get_sync() leaves the usage counter incremented even when it
+fails, and zynq_gpio_request() returns the error without dropping it.
 
-The cpuset.cpus.effective description says that the effective CPUs are
-granted by the parent and are normally a subset of cpuset.cpus. This
-does not always hold for a valid non-root partition root. Its effective
-CPUs are the active CPUs in cpuset.cpus.exclusive.effective after CPUs
-assigned to valid child partition roots are removed.
+gpiolib does not call ->free() when ->request() fails, so zynq_gpio_free(),
+which holds the only matching pm_runtime_put(), never runs. The reference
+is leaked and the controller can no longer runtime-suspend, so its clock
+stays enabled.
 
-If cpuset.cpus.exclusive differs from cpuset.cpus, the effective CPUs
-may therefore be outside cpuset.cpus. Remote partitions also do not
-necessarily get their CPUs from their immediate parent.
+Switch to pm_runtime_resume_and_get(), which only increments the usage
+counter on success.
 
-Suggested-by: Ridong Chen <ridong.chen@linux.dev>
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Fixes: 3242ba117e9b ("gpio: Add driver for Zynq GPIO controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
 ---
- Documentation/admin-guide/cgroup-v2.rst | 59 ++++++++++++++++++++-----
- 1 file changed, 49 insertions(+), 10 deletions(-)
+Build-tested on arm64 with CONFIG_GPIO_ZYNQ=m. Not tested on Zynq hardware.
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 18a01ce4c334..8f7263eeed4d 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2505,16 +2505,55 @@ Cpuset Interface Files
- 	A read-only multiple values file which exists on all
- 	cpuset-enabled cgroups.
+ drivers/gpio/gpio-zynq.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
+
+diff --git a/drivers/gpio/gpio-zynq.c b/drivers/gpio/gpio-zynq.c
+index 15a79d9a2e9e..13e4c5f0e297 100644
+--- a/drivers/gpio/gpio-zynq.c
++++ b/drivers/gpio/gpio-zynq.c
+@@ -798,15 +798,7 @@ static int zynq_gpio_runtime_resume(struct device *dev)
  
--	It lists the onlined CPUs that are actually granted to this
--	cgroup by its parent.  These CPUs are allowed to be used by
--	tasks within the current cgroup.
+ static int zynq_gpio_request(struct gpio_chip *chip, unsigned int offset)
+ {
+-	int ret;
 -
--	If "cpuset.cpus" is empty, the "cpuset.cpus.effective" file shows
--	all the CPUs from the parent cgroup that can be available to
--	be used by this cgroup.  Otherwise, it should be a subset of
--	"cpuset.cpus" unless none of the CPUs listed in "cpuset.cpus"
--	can be granted.  In this case, it will be treated just like an
--	empty "cpuset.cpus".
-+	It lists the active CPUs available to tasks in this cgroup.
-+
-+	For a cgroup that is not a valid partition root, an empty
-+	"cpuset.cpus" makes "cpuset.cpus.effective" show all CPUs
-+	available from the parent cgroup. Otherwise, it is a subset
-+	of "cpuset.cpus" unless none of the requested CPUs can be
-+	granted. In that case, it is treated like an empty
-+	"cpuset.cpus".
-+
-+	For example::
-+
-+	  P (cpuset.cpus.effective=0-3)
-+	  |
-+	  +-- C0 (member):       cpuset.cpus=1-2
-+	  |                      cpuset.cpus.effective=1-2
-+	  +-- C1 (invalid root): cpuset.cpus=4-5
-+	  |                      cpuset.cpus.effective=0-3
-+	  \-- C2 (member):       cpuset.cpus=<empty>
-+	                         cpuset.cpus.effective=0-3
-+
-+	C0 gets CPUs 1-2 because they are available from P.
-+	None of C1's requested CPUs 4-5 are available from P, so C1 uses P's
-+	effective CPUs 0-3 instead.
-+	C2 has an empty "cpuset.cpus" and therefore also uses P's effective
-+	CPUs 0-3.
-+
-+	For a valid non-root partition root, "cpuset.cpus.effective" contains
-+	the active CPUs from "cpuset.cpus.exclusive.effective" except
-+	those granted to valid child partition roots. If
-+	"cpuset.cpus.exclusive" is set to a value different from
-+	"cpuset.cpus", the effective CPUs need not be a subset of
-+	"cpuset.cpus".
-+
-+	For example, if CPUs 2-5 are allocated to P for exclusive use,
-+	CPUs 2-4 are active, CPU 5 is offline, and none of CPUs 2-5 are
-+	assigned to a valid child partition root::
-+
-+	  top (root)
-+	  |
-+	  \-- P (valid partition root)
-+	      cpuset.cpus=0-3
-+	      cpuset.cpus.exclusive=2-5
-+	      cpuset.cpus.exclusive.effective=2-5
-+	      cpuset.cpus.effective=2-4
-+
-+	P has 2-5 in "cpuset.cpus.exclusive.effective", including the
-+	offline CPU 5. CPU 5 is excluded from "cpuset.cpus.effective",
-+	leaving 2-4. The result also shows that "cpuset.cpus.effective"
-+	need not be a subset of "cpuset.cpus", which is 0-3.
+-	ret = pm_runtime_get_sync(chip->parent);
+-
+-	/*
+-	 * If the device is already active pm_runtime_get() will return 1 on
+-	 * success, but gpio_request still needs to return 0.
+-	 */
+-	return ret < 0 ? ret : 0;
++	return pm_runtime_resume_and_get(chip->parent);
+ }
  
- 	Its value will be affected by CPU hotplug events.
- 
+ static void zynq_gpio_free(struct gpio_chip *chip, unsigned int offset)
 -- 
-2.43.0
+2.47.3
 
