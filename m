@@ -1,265 +1,120 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375C5399004
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23483793A8;
+	Tue, 22 Sep 2026 02:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044319; cv=none; b=tGlV5oES4Sn/Wc4fJUA5sLoyw2qIVty+qqJFHEVWgCr6mSp28gE0I9ZdBAD3bPnMFYAZpRWlpDQ3t5KbwPAxPLBpYoe2Bd2ByWRO4KKlzhoWXhmOR8+BXizbqtrppErBXeR9t4fMp4qSc0a6D4jQRyp+sTv5aOtbNn0uZmZcLSY=
+	t=1790044306; cv=none; b=OfU2uK5EdsFeE/N03OmnC3bfsh283ujNMxM9efUOWOmIszdOWRSX8KiaQPVxM7OKv/cYswBnP61aAGsmnEG3ZNvMKKpZpul7+jHCoO4+NoO0R6oTGRCI7LLFLrtZmQilf1p8N0JG8++PI1E71+qV7stsp6KMxPerwj7LIhGe+Cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044319; c=relaxed/simple;
-	bh=DWFFSokO8NG0r0yBeEFehUgLH0GBe2lFI780YAKeFAM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r2F0rPcMEtSnkRrCZKaALyPJDhWHDahoSox8axEzED/CipbcAO67o53mAx+076pixNAwJgOv5chG6toO1brOYDyCnMje0BUr9wjjdSFrT7qUbIH4INwvhDaZBx16m9s7XZSFle58RvLquJnqkTOq3NSA2tUNxJjf7evCF6tjAG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=dTBh52DT; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1790044306; c=relaxed/simple;
+	bh=u8gbXTYoEIjUB7Qmya/d5oMK8aMpmcc/irjlk00YvH4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R4FuySoXNWvGZ1CDXkCXeyTM0g6PufJi1imD9XmU7ERuieM6vY2q4nVd/FbYEUnJgPCH6LXtQeNKVsYVH41Jr8KLuZz1G1CGOyWYoaQwjc63fgITdfl0udLVwv54KBOXGS/1xHOtrXZKRukhH3cSGfxufJElLny5RtioxYqmbMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=cFN0pho7; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="dTBh52DT"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cc46c8so464552085a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:31:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790044316; x=1790649116; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OcQuspsT/gTElVk43OpaGWxo4+ZF80NPyngxmwv0iAI=;
-        b=dTBh52DTgoCaf3XekPuztKNni2H6uYOfvrOGHWVo7ZZ0S4r2xd2lCmtcHxYOu0MKXp
-         xhC+3Wt45K9vSOOlub868shQWVXtfvPLR2jmSdYxaSKGw/jx3og0hdO50/KbFTRyZyo2
-         Y18inx+7kwqzK/xo2TQnv9fF4vTAyb6N5/k+ubcU1zyWjElty0Qktew/j7prk950mFGy
-         ZIh8r62kfHgPBj6b5T3z/+8sHIbqcKcMlTZOzVhl6gnH9lG/iyvo7ZkBUCR+EwFnhC22
-         iYnEbJruN9WZewY+kSSXYrKNPFNsgXoWkQ+YVWcuMf0MoFFlhfPulnbXzSmZ/TTE5tJu
-         EBSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790044316; x=1790649116;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OcQuspsT/gTElVk43OpaGWxo4+ZF80NPyngxmwv0iAI=;
-        b=EDiN+mdZB0+CQB5u/GEncfkmZ9f5KDAzWZkFnXzTTVcupRBLrqg9ARhKtrsxEn54UX
-         8onSaR2RsnuB93RH7JGDQ10oV/aZMrbaCcf0lpDi2BZjXGfTt8JX+E3PSk4BbQg7MCqf
-         qa5kXk3xRXjIp+thVzLmstqmD+EU9Kj+Z70cOHXo0T8KB4cnOut0wiGCj2nzlKH1jFjY
-         ro7u41aPKZJ11DubjOQDVdQCJVqPybWGQRY7McZX384acCShhKxFbe7X6z65ndAeweIW
-         733D2bUIp5H+1Vxd0MMPW0IyT5aoD0mooromsLdF8LbQhubolGRbnizjI7p8050HZh1d
-         VscA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOeP06s5w9bGlT0aZ31vzltefFa9aaiifWbIHATxtiFWtwxkUgGrZ75eEnOghnUe4f2RF+KT8/+shGrd0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndM+6ezQ+npzcWy9BlbgmCr7mC25ezaa62LHKPGnLI5z9Jlr1T
-	qampq+XyDwBxzgknb4d/2F7qNiuXCRxBh0c46yBHeAwcGtD62RoWIZdO8z8G5QxpL7k=
-X-Gm-Gg: AYBFou2Kzf6jyOLn1cmgCnFeI/qVm7fzjMJSsZBS9Bm6MLYnp1wqNCW+6U7uDYVUjKE
-	Ukv2mvZ5/Wj+HgOSDWI5xxvjSPbuEnteElPXUcDTgy5DscDPxbL2xvmUemiUI0VdByUW6mu2tgX
-	HsdEgrTN58co72WbCIuERwlq0O0IzUEb7xM9x9CBLUH4n2iTZJMHqXLUBOtxOBI0jkBqlQwHV1G
-	Zwol9RPhNKyz18+0kGinztRTXg6pWSLwzQvo+GNhZaGJ6L8Z0PkzcjGSgE4FUSCs+iEsK9WLBdS
-	RIyZpULrcy73hcpnMHMHIvwrjfJqssii2dnKLfINwrvLLhmdVx/+9v9bd0BoeDqj+wuWvfeEvUB
-	l1re+WxpNjqES4VKjEAU1KsNAEAXjjJhwwc3FbS3QBJooM4A4op7hPjFje83CvtzmmwQxvB0n3s
-	jFjgYy80cVS0KVpQb25sfZFD6gHVQzjXQRi9SBQFefhHtjOM5dBPOMjVLxL45A411ZiOdZ0/w5A
-	QM5ZBCONhNLGuY=
-X-Received: by 2002:a05:620a:4614:b0:936:dc4c:3bf4 with SMTP id af79cd13be357-93c198dc1c9mr159925485a.28.1790044315913;
-        Mon, 21 Sep 2026 19:31:55 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.243])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d03b170sm22998785a.16.2026.09.21.19.31.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 19:31:55 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 22 Sep 2026 02:23:28 +0000
-Subject: [PATCH v5 09/13] bpf, arm64: Take a Tasks Trace reader in the
- trampoline around its call-outs
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="cFN0pho7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1790044297; x=1790303497;
+	bh=zDBB5h9LrgeJeS21qXelLX0Umo+oovh6GkKLBft31xg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=cFN0pho7XVHMM6N5jGshbGxZPdWcwVSzghrb/a2SWphlpXmGo0qXK7Nno1zKQDMxm
+	 391GnGs1GTSYmYfwKUXQ+KpWWqoNtAI3x5uJkF2iKKQizWJojp/kCIpoW7TsXyiCUE
+	 DRXGOfiO9gVEtpjj9fqa9JnenfoxhzQaL/uMxCnTBrwl53gfY51VSWsOAFNk1KGZ6c
+	 JFt9bkew0ikY5rbdoiURsleC5BgiQsI4G0pkv9tJkLRMUUsL0G2nKe5Ih6SpZGh85P
+	 /g2l3fudJgVhcuRzzJfI+5qUEk0AMwiE5HymDsCHgoGbwBgzsZEO/cHSeEVog84YQt
+	 FOQPHXMij5zjA==
+Date: Tue, 22 Sep 2026 02:31:32 +0000
+To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Matthew Maurer <mmaurer@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Sagar Taunk <sagartaunk@proton.me>
+Cc: Sagar Taunk <sagartaunk@proton.me>
+Subject: Re: [PATCH net v3] rust: net: netlink: validate attribute length before casting to `c_int`
+Message-ID: <KZuCCqRjSSbylbLLVhoUD9-xyBpzD9jUB4vGC16N0_hIra8SNxFeh9lEJ6FIMYMgKqf41J_swYT_HVx3w13k0cSrYYkBljOF56suy3gpgAU=@proton.me>
+In-Reply-To: <20260918100016.100988-1-sagartaunk@proton.me>
+References: <20260918100016.100988-1-sagartaunk@proton.me>
+Feedback-ID: 130121444:user:proton
+X-Pm-Message-ID: 919b550a0812367024e10ab45b8f8d9a554fa4ee
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-b4-rcu-tasks-preempt-qs-v5-9-410f57770bad@toxicpanda.com>
-References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
-In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- rcu@vger.kernel.org, bpf@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790043820; l=7373;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=DWFFSokO8NG0r0yBeEFehUgLH0GBe2lFI780YAKeFAM=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QPVoMRhiz6gAdvKlENOzZ1c8jxAfTwJ9sVEsY25YoCvyFY/4f6gXn6G4z9PxCL6u0E2EccNLDn3
- +KDAp6wx4zwk=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Same scheme as x86: have the arm64 BPF JIT open-code rcu_read_lock_trace()
-and rcu_read_unlock_trace() in the trampoline, one reader from after the
-callee-saved registers are stored to just before the original function
-is called (covering __bpf_tramp_enter() and the fentry/fmod_ret programs)
-and a second from just after it returns to just before those registers
-are restored (covering the fexit programs and __bpf_tramp_exit()), with
-the original function itself outside both and pinned by im->pcref.  The
-second reader is entered before ip_after_call and the fmod_ret cbnz
-lands past it still holding the first, so exactly one is held on every
-path; trampolines without an original call get a single reader.
 
-The sequence mirrors entry-ftrace.S: current via sp_el0,
-trc_reader_nesting bumped, and for the outermost reader the SRCU-fast
-per-CPU counter incremented LL/SC and the counter pointer stashed in
-trc_reader_scp (plus the dmb when CONFIG_TASKS_TRACE_RCU_NO_MB is not
-set).  x10-x15 are scratch at every emission point.  Nothing is emitted
-on other configurations.
 
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+
+Hello, are there any updates for this?
+
+Also, I wanted to ask is it fine if I keep fixing stuff pointed out by sash=
+iko for now ? (I.e pre-existing issues pointed out by it in other's patches=
+ or should I ask the original authors of it first ?)
+Thanks,
+Sagar Taunk
+
+-------- Original Message --------
+On Friday, 09/18/26 at 15:30 Sagar Taunk <sagartaunk@proton.me> wrote:
+`put()` trusted an unchecked `as` cast from `usize` to `c_int`.
+When the length exceeds `i32::MAX` that cast wraps around to a
+negative value.
+
+This ultimately resulted in a kernel panic when the reinterpreted
+value via `__nla_reserve()` and `skb_put()` became enormous.
+
+Validate payload and header both fit together in a `u16`, rejecting
+any payload that wouldn't leave room for `NLA_HDRLEN`.
+
+Fixes: 5eaa5fbb6e6c ("rust: netlink: add raw netlink abstraction")
+
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
 ---
- arch/arm64/net/bpf_jit_comp.c | 93 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 93 insertions(+)
+ rust/kernel/net/netlink.rs | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-index c18e005a41db..87bbcca0298f 100644
---- a/arch/arm64/net/bpf_jit_comp.c
-+++ b/arch/arm64/net/bpf_jit_comp.c
-@@ -14,6 +14,7 @@
- #include <linux/filter.h>
- #include <linux/memory.h>
- #include <linux/printk.h>
-+#include <linux/rcupdate_trace.h>
- #include <linux/slab.h>
- 
- #include <asm/asm-extable.h>
-@@ -2591,6 +2592,77 @@ static void emit_arena_arg_conv(struct jit_ctx *ctx, u8 dst, u8 src, bool nullab
- 	emit(A64_SUB(0, dst, src, base_lo), ctx);
- }
- 
-+/*
-+ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() for the
-+ * trampoline, see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the equivalent macros
-+ * in arch/arm64/kernel/entry-ftrace.S.  The SRCU-fast per-CPU increment is an
-+ * LL/SC add on this CPU's counter; being migrated between reading the per-CPU
-+ * offset and the store-exclusive only means another CPU's counter is
-+ * incremented atomically instead, which SRCU sums over anyway.  Uses x10-x15,
-+ * which are scratch at every emission point, and the flags.
-+ */
-+static void emit_trace_rcu_reader(struct jit_ctx *ctx, bool lock)
-+{
-+#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-+	const int nesting_off = offsetof(struct task_struct, trc_reader_nesting);
-+	const int scp_off = offsetof(struct task_struct, trc_reader_scp);
-+	const int ctr_off = lock ? offsetof(struct srcu_ctr, srcu_locks)
-+			       : offsetof(struct srcu_ctr, srcu_unlocks);
-+	const bool mb = !IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB);
-+	const u8 tsk = A64_R(10), n = A64_R(11), tmp = A64_R(12);
-+	const u8 ctr = A64_R(13), addr = A64_R(14), val = A64_R(15);
+diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
+index a2f4bd171dcf..36f2e39c3ab7 100644
+--- a/rust/kernel/net/netlink.rs
++++ b/rust/kernel/net/netlink.rs
+@@ -11,6 +11,7 @@
+ use kernel::{
+     alloc::{self, AllocError},
+     error::to_result,
++    num::casts::u16_as_usize,
+     prelude::*,
+     types::Opaque,
+     ThisModule,
+@@ -90,9 +91,17 @@ fn put<T>(&mut self, attrtype: c_int, value: &T) -> Resu=
+lt
+     where
+         T: ?Sized + IntoBytes + Immutable,
+     {
++        // `nla_len` is a 16-bit field that encodes the total attribute le=
+ngth
++        // (header + payload). Subtracting the header size from `u16::MAX`=
+ gives
++        // the largest payload that still fits within that field.
++        const MAX_PAYLOAD_LEN: usize =3D u16_as_usize(u16::MAX) - size_of:=
+:<bindings::nlattr>();
 +
-+	/* The plain this_cpu_inc() form of __srcu_read_lock_fast(). */
-+	BUILD_BUG_ON(IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
-+	/* LDR/STR (immediate, unsigned offset) ranges */
-+	BUILD_BUG_ON((nesting_off & 3) || nesting_off >= SZ_16K ||
-+		     (scp_off & 7) || scp_off >= SZ_32K);
-+
-+	emit(A64_MRS_SP_EL0(tsk), ctx);			/* current */
-+	emit(A64_LDR32I(n, tsk, nesting_off), ctx);
-+	if (lock) {
-+		emit(A64_ADD_I(0, tmp, n, 1), ctx);
-+		emit(A64_STR32I(tmp, tsk, nesting_off), ctx);
-+		/* interrupted a reader: done (branch to 1:) */
-+		emit(A64_CBNZ(0, n, 13 + mb), ctx);
-+		/* scp = rcu_tasks_trace_srcu_struct.srcu_ctrp; current->trc_reader_scp = scp */
-+		emit_addr_mov_i64(ctr, (u64)&rcu_tasks_trace_srcu_struct.srcu_ctrp, ctx);
-+		emit(A64_LDR64I(ctr, ctr, 0), ctx);
-+		emit(A64_STR64I(ctr, tsk, scp_off), ctx);
-+	} else {
-+		emit(A64_SUB_I(0, n, n, 1), ctx);
-+		/* still nested: just store the count (branch to 2:) */
-+		emit(A64_CBNZ(0, n, 11 + mb), ctx);
-+		/* outermost: pick up scp before an interrupt can see nesting == 0 */
-+		emit(A64_LDR64I(ctr, tsk, scp_off), ctx);
-+		emit(A64_STR32I(A64_ZR, tsk, nesting_off), ctx);
-+		if (mb)
-+			emit(A64_DMB_ISH, ctx);
-+	}
-+	/* this_cpu_inc(scp->srcu_locks / scp->srcu_unlocks) */
-+	if (cpus_have_cap(ARM64_HAS_VIRT_HOST_EXTN))
-+		emit(A64_MRS_TPIDR_EL2(addr), ctx);
-+	else
-+		emit(A64_MRS_TPIDR_EL1(addr), ctx);
-+	emit(A64_ADD(1, addr, addr, ctr), ctx);
-+	emit(A64_ADD_I(1, addr, addr, ctr_off), ctx);
-+	emit(A64_LDXR(1, val, addr), ctx);
-+	emit(A64_ADD_I(1, val, val, 1), ctx);
-+	emit(A64_STXR(1, val, addr, tmp), ctx);
-+	emit(A64_CBNZ(0, tmp, -3), ctx);
-+	if (lock) {
-+		if (mb)
-+			emit(A64_DMB_ISH, ctx);
-+		/* 1: */
-+	} else {
-+		emit(A64_B(2), ctx);
-+		/* 2: */
-+		emit(A64_STR32I(n, tsk, nesting_off), ctx);
-+		/* 3: */
-+	}
-+#endif
-+}
-+
- static void save_args(struct jit_ctx *ctx, int bargs_off, int oargs_off,
- 		      const struct btf_func_model *m, const struct arg_aux *a,
- 		      bool for_call_origin, bool is_struct_ops, u64 arena_base)
-@@ -2854,6 +2926,16 @@ static int prepare_trampoline(struct jit_ctx *ctx, struct bpf_tramp_image *im,
- 	emit(A64_STR64I(A64_R(19), A64_SP, regs_off), ctx);
- 	emit(A64_STR64I(A64_R(20), A64_SP, regs_off + 8), ctx);
- 
-+	/*
-+	 * Tasks RCU keeps this image alive only while we are a Tasks Trace
-+	 * reader; the instructions before this point (and after the final
-+	 * unlock) are covered by the irq-exit IP check.  One reader spans
-+	 * __bpf_tramp_enter() and the fentry/fmod_ret progs, a second one the
-+	 * fexit progs and __bpf_tramp_exit(); the original function runs
-+	 * outside both, with the image pinned by im->pcref instead.
-+	 */
-+	emit_trace_rcu_reader(ctx, true);
-+
- 	if (flags & BPF_TRAMP_F_CALL_ORIG) {
- 		/* for the first pass, assume the worst case */
- 		if (!ctx->image)
-@@ -2898,12 +2980,20 @@ static int prepare_trampoline(struct jit_ctx *ctx, struct bpf_tramp_image *im,
- 	if (flags & BPF_TRAMP_F_CALL_ORIG) {
- 		/* the original func takes kernel addresses, never converted ones */
- 		save_args(ctx, bargs_off, oargs_off, m, a, true, is_struct_ops, 0);
-+		emit_trace_rcu_reader(ctx, false);
- 		/* call original func */
- 		emit(A64_LDR64I(A64_R(10), A64_SP, retaddr_off), ctx);
- 		emit(A64_ADR(A64_LR, AARCH64_INSN_SIZE * 2), ctx);
- 		emit(A64_RET(A64_R(10)), ctx);
- 		/* store return value */
- 		emit(A64_STR64I(A64_R(0), A64_SP, retval_off), ctx);
-+		/*
-+		 * Second reader.  Taken before ip_after_call so that the branch
-+		 * to the epilogue patched in at teardown is inside it too; the
-+		 * fmod_ret early exit lands past this still holding the first
-+		 * reader, so either way exactly one is held.
-+		 */
-+		emit_trace_rcu_reader(ctx, true);
- 		/* reserve a nop for bpf_tramp_image_put */
- 		im->ip_after_call = ctx->ro_image + ctx->idx;
- 		emit(A64_NOP, ctx);
-@@ -2945,6 +3035,9 @@ static int prepare_trampoline(struct jit_ctx *ctx, struct bpf_tramp_image *im,
- 	if (flags & BPF_TRAMP_F_RESTORE_REGS)
- 		restore_args(ctx, bargs_off, a->regs_for_args);
- 
-+	/* Remaining instructions are covered by the irq-exit IP check. */
-+	emit_trace_rcu_reader(ctx, false);
-+
- 	/* restore callee saved register x19 and x20 */
- 	emit(A64_LDR64I(A64_R(19), A64_SP, regs_off), ctx);
- 	emit(A64_LDR64I(A64_R(20), A64_SP, regs_off + 8), ctx);
-
--- 
+         let skb =3D self.skb.skb.as_ptr();
+         let len =3D size_of_val(value);
+         let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
++        if len > MAX_PAYLOAD_LEN {
++            return Err(EMSGSIZE);
++        }
+         // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
+the provided value is
+         // readable and initialized for its `size_of` bytes.
+         to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
+ptr) })
+--
 2.55.0
+
 
