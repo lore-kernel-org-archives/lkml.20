@@ -1,122 +1,105 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFAE48EBE4
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA285490BE0
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055817; cv=none; b=GNLR3nWOYi5FUTjy5aazEstP6fSwXCUwhc4ihWK/TrZi/gNnySMkU+BgJbCgNR4Ytj8f9Byt1bNpmbJhW0PWiYE7cXDS3V52Q+BGcJlZtpMjAfILFms3Js33eikBtXzEEUdWo9ebz4wsiecYNNhnfu43CD1iD6PN23RzKNSkvxw=
+	t=1790055850; cv=none; b=Hd9aWEFXrWLhEabsrj+LnmZQoZ1RpQyvQqxX8UYH9bNs0QJmUU+D83gisRm3CQs64D+rztK1DgwIloeUrWqQtwMFD7AM8DOPfDjfw7BwA9p2h+pt0QUA6hKosSmMljb2r5BB/BgiO4aV05mf4Pg0nnEgf61LDApu55tTmMZ/uDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055817; c=relaxed/simple;
-	bh=EFTMWD82JgKUCWwLdj58naIj4BKPd1JftX3WLVKdO9o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FZMLVk1KyHUlZZfFFcdIK+iyUf78vILPyZYiNaNnUAjy8rdfqbLSZA9QwXqaIeMg8vWrB0nIGbPFq4ZiwHkvX0NKP/qxIhOwB3f7juOdtL1zPc+HL2fNbiCw6l1oU1ppKwGIQzA6b189/iyYAMn/EJA69IqbgadsX18hbnvseao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=g6pHUuvR; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZTXOts0v; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790055850; c=relaxed/simple;
+	bh=VJcogttpnzmzRq+dZ9JiW+yKGA10LOl2AIc4TKpIVUo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Fju8YAB4hKzVfmLUm5TeX3l0R06BH8S6pIM/RI8MumzENXE1mNjL9S0RkC9XMGDqY0inmEg0ZTortL0y0kHdadN9UvWtNUiTAI+NLaf/nuZkNtQ7k/jaH3em7yHi3xZxhiGQ+zjL4j31OIEb6iRV2KG7zUqK796dkpPnLocWgMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TbGJvfPk; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="g6pHUuvR";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZTXOts0v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790055814;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QV0FYbYtUBn0lNewuPlKQbMKVSurGDPtsklRfGOziW0=;
-	b=g6pHUuvRcoLuydNn/EpYedT+Xu8IwhLuALm73Wb1JKqSSb7m3gM+ym7TqJr4ylYnfBkrUS
-	nd+w9ah5v2nlZi80SPCW3Q2P8GkOdIBbeWyVbxcEjIcZT52F8PqLUA5uJjppdZYyCovqyJ
-	UuSIvqwhsK8pEowCaCbSV4tfMe4qj3g=
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-690-yP8GclprOH6Gsn1rug9lUg-1; Tue, 22 Sep 2026 01:43:32 -0400
-X-MC-Unique: yP8GclprOH6Gsn1rug9lUg-1
-X-Mimecast-MFC-AGG-ID: yP8GclprOH6Gsn1rug9lUg_1790055812
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-869b8d63e28so5320716b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:43:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TbGJvfPk"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso37625115e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:44:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790055811; x=1790660611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QV0FYbYtUBn0lNewuPlKQbMKVSurGDPtsklRfGOziW0=;
-        b=ZTXOts0v+HFAZZNoIv5U7ByjjNYNyjiovmbDvZpT6F10n3srjIrp1LbYV6HfNhUOJH
-         HeG4ho1xIpwKn0EZs+BfU4zTCGRHLi6j6yxb+4zOejWqR5uqJWVZrJJ4R5S+YPVIq04g
-         Vz1LJdVkIR0dSvUDAld4zWHlYaE6VYWSZgZ1c175D/GBfjLUtQQ8LEyI45CyZ4XDiiHq
-         xjQM89LaHkJoEGsuGJk3L4TCgH7eJ+d97fURY9q8+tR0T0Sicasgz1ZSHGiZ5PoEp6pE
-         Ivnr17BL4aq/RITtz7BePF8pw3SPp1wFKv0ZJGpEsOAL73FvBbzBGLA1ZNHXJGAEzdhT
-         fmfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790055811; x=1790660611;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790055847; x=1790660647; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QV0FYbYtUBn0lNewuPlKQbMKVSurGDPtsklRfGOziW0=;
-        b=H2Fyk10eDkDYznS6QV/TEzNSA90ytawzfFr2HuGM1eG7L1BGctsAhJvOmL4zK77GIT
-         7KvUG+zCaBs/ndgjl9s6jsP6LJ6ElzRmD8B580Pwwnq522o01Xu2y8qm17UNpcLJodrj
-         LykfMt/kLNo0KBTi6ihvNgUTYcxXqwokdkcHsFy/DYWBMV0NnwsL80ZUa541EP7E+fq0
-         7GkbamjyRwBLnSS/j50AY5Ce3VaRUNmkz+uxX+3zNUUR+BBe31LSfi8XFmquuciHqWXE
-         ZCEThPT2GJeBAi2KCVopV2ra1MtAGkWAvtjOPxQ7jSZcjexFPCdwqrCK8Zvo1SQEbQXW
-         huwA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrd8heTEEVIfzKCOnqLzfkeSvn6cpQSXfPVz4B75XklnUH2X3VXHcu1B49RQnRWeHvFfqz+7gyf0dFaqI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLR8oiIhxQ30eFcl8UbSVLlJXwKcWApsVO5mCFZnnsK5Y5iveq
-	8ao21INdygfev5IyxyTdTD6a/H9jZbeRVFkDwIyb20wvmgNFsXba52xpcAbeSt/9MuIetHOtvnn
-	fNZ+1SGjcSuYweeZYW4c7SrbDPOALFUOfWDCKPiGZDzOqlGuf5oCwMUzH3uRfYLOAag==
-X-Gm-Gg: AYBFou0w/ISqBHwSptlczivYhbjTcZJ+tDR+6P+iBD1As+p6X7TInB9Br/c1hG3oKpe
-	g5WjwOC8fYmSobqUDluQKIDxaKzz4ojZynbk7RZ+gHzutPb+MhY5Mlbah5JlFj7bi+rHv4eai3E
-	AZHKBbyBAyQxQ080U48jF9rnI/GXaP+Gm5CwbaDV6acEfP+JMIYWlHbaBB/t6J6SaOytZYiewCL
-	lHw5Wo6NAE1PHrfA13oZlTTbg9Y6tQxS8gHLNtNBDoPnv6QprvArf1Q430wWRVud+i6GX3nauzD
-	BbBixsyU2QGZQ/91u7qEKX1hV4LGXDAImplZ4/kobQ6Eyrvvgqf3DYbx4EpG5mEJluoyEt/rwk1
-	4r/EkbElYY5+LVnH8ywHFe7zKup6Y4RvlRgyusA+eww==
-X-Received: by 2002:a05:6a00:3a19:b0:87c:79d8:fe7b with SMTP id d2e1a72fcca58-87c855f70b8mr49667b3a.59.1790055811588;
-        Mon, 21 Sep 2026 22:43:31 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3a19:b0:87c:79d8:fe7b with SMTP id d2e1a72fcca58-87c855f70b8mr49644b3a.59.1790055811123;
-        Mon, 21 Sep 2026 22:43:31 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c32bba517sm277553b3a.40.2026.09.21.22.43.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 22:43:30 -0700 (PDT)
-Message-ID: <46f77ab6-4f7a-4a40-b0e5-3ea92659d7a2@redhat.com>
-Date: Tue, 22 Sep 2026 15:43:26 +1000
+        bh=d4/LQ+6F9fJ/cjcJrUOPJx6DRMexHTJtKczEX1e75B0=;
+        b=TbGJvfPkvAZRo+LXDcLV+l5pniWtNlBS654EvABd+F3nV86+Z8qz99YCO0T8HIMDB3
+         p6AeTXRjx8Aw0QXeHtgutrtPy/o+ur6Nv0suElnopeNjBhs5IgMeuQuhKK0/CPM2JaQT
+         GgSRntQZkDZQ6s3AJQJtvN0aJPuJOgGxixUPcRIgJXWYZ3k31zALrwwcrbvS1QqkTO4+
+         85H1uTrVHhSarB1f3OyUKmemfeieGICLetaFog5iBq8Zx2AA7Mi4UY4JnL+TrfrF2zg1
+         i+v0ihWMd3eThlOlci+Q1ZGnR08cBp4/N6bhT1Q6fNouo85BCiwSNBiyazKMGKy8c/DY
+         eJRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790055847; x=1790660647;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d4/LQ+6F9fJ/cjcJrUOPJx6DRMexHTJtKczEX1e75B0=;
+        b=I3n2mDlemRnb2EalbwCC0MUqVU27QMsaDK2ZxcEnoanLTzHxL6hl9FD4uIg5YOAgL9
+         pEbBvDcJw3WeitkNs8leK24fLfQ/QoJJgiLQZbbAUM2T8pHZ65NgkA/j/A85tuTT/qL+
+         z1CmrYyC0jxP/16jUzCGAO30+wTv2RvpySjSg+Upi2tYW9EkNjJrQBW8IS6StwGEgb4L
+         RrRej+Eh/CnfZAS984/O+sSpVNfg80Cvv71l+9teQvqIz9xjA+hpzUeu/jKAFmXrjwN+
+         qy+nrVw8y8MKrTrdTT4FrrqvNs5bn/6/51x1bhRGloqiFKiVTJcAfIAkrgDC1VO6OTPt
+         rFdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzawtQ5LRiOf+S/kuXXx0RlExAp6BsrUe5tVRdFYgd8TM6mp6tR2+nrZ87xYNRicodM4+92dxuKFrTfgUE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIqEK13w4YHqacwv9KgrePap+H2hDBMawx0+W8Szpv9262GNNR
+	UmANmpDVe/hh7k/JeTmIAhxlBB90proSRTV57PE2QhVr8GWdE7jlt4gs
+X-Gm-Gg: AYBFou1LgGatWpU3lMvrSMIyRnQYgKNkk2dKPJVaxX30sJjI1fP887mpIu1c9WD/8IX
+	VFDQYwBlY6gd7LTPpYXuJmV1PYmyK+sp530WOFqVwRDM0Fc3cw6yTgbGjvQdqB5dHYlvIjC9I6b
+	ymMJoACHff1RyLCwWmzh+VBd9ykVrJ9YxnQwhlB9h7VogfPrTSW/mvOHFEB4ITBWwxHFvJKpmLZ
+	USUQyutoZ30KrPYU9gVTRi3d/kA1WwRWgNf+AIrV+TqHx8I2TMNRdoUpZKxTCUg0A96t7FcBz6A
+	JW/WQXnGMwXCJlZRIbgiN2EKX5CmQ5rPpZ3V5io2o9Ufc78+3fTuSdxOsSBUzqgmSlcxv3kIHYw
+	mzTpSIpODhsI2gHHMgsyLSOqtlo9dFECtbzCLExj6QpxOeDS6rgoVxF5MRN1K4TgbGJRTPo7R0b
+	we87MU5tbHkDTYPl6+1utgICYq6jGABu8Zyggjuq16ppJ+Y0xkW7WIgoKgXCN1CsCO+2/+SRaZa
+	+t1xs8P6CsQNEqk3PSGE8fJ4cYFgGzQ4PED6KFWvxSPL9A8WWuqdOplaKAJ5Oh0wePJa5M7FyS+
+	U3AMhbMVuBmHcM3ea/ikV741g3wDaL0Na/pyR7X+ZbRGslIX9v1cASF8YmO2RWUfTKI/+A6JnGq
+	L
+X-Received: by 2002:a05:600d:848f:10b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fc5735351mr124626255e9.20.1790055846765;
+        Mon, 21 Sep 2026 22:44:06 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a5e6-3401-ecdc-1e24-2e52-02d6.310.pool.telefonica.de. [2a02:3100:a5e6:3401:ecdc:1e24:2e52:2d6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8a638fcsm47621575e9.0.2026.09.21.22.44.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 22:44:06 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jason A . Donenfeld" <Jason@zx2c4.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH 19/20] lib/crypto: riscv/aes-ctr: Migrate optimized code into library
+Date: Tue, 22 Sep 2026 07:44:01 +0200
+Message-Id: <20260922054401.19194-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260921050910.296144-20-ebiggers@kernel.org>
+References: <20260921050910.296144-1-ebiggers@kernel.org> <20260921050910.296144-20-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/12] arm_mpam: resctrl: Correct check that existing
- class is L3
-To: Ben Horgan <ben.horgan@arm.com>
-Cc: james.morse@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dave.martin@arm.com, andre.przywara@arm.com
-References: <20260917145617.2202986-1-ben.horgan@arm.com>
- <20260917145617.2202986-9-ben.horgan@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260917145617.2202986-9-ben.horgan@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 12:56 AM, Ben Horgan wrote:
-> The class used to back mbm_total_bytes can be either at the L3 or the
-> memory. If a platform had candidate classes at both the memory and the L3
-> then, as the check for whether the existing class is L3 or not in
-> counter_update_class() is broken, the class that will be chosen depends on
-> which order the classes are considered and so the probe order.
-> 
-> Fix the check.
-> 
-> Fixes: 1458c4f05335 ("arm_mpam: resctrl: Add support for csu counters")
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-> ---
->   drivers/resctrl/mpam_resctrl.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+On Sun, 20 Sep 2026 22:09:05 -0700 Eric Biggers <ebiggers@kernel.org> wrote:
+> -// void aes_ctr32_crypt_zvkned_zvkb(const struct crypto_aes_ctx *key,
+> -//				    const u8 *in, u8 *out, size_t len,
+> -//				    u8 iv[16]);
+> +// void aes_ctr32_crypt_zvkned_zvkb(u8 *dst, const u8 *src, u32 len, u8 iv[16],
+> +//				    const struct aes_enckey *key);
+>  SYM_FUNC_START(aes_ctr32_crypt_zvkned_zvkb)
 
+isn't this a sign extension problem on rv64? The psABI sign-extends
+32-bit args, so for len >= 2G a2 comes in as 0xffffffff8xxxxxxx, and
+the asm uses it as a 64-bit length as is.
+
+That would run off the end of both buffers.
+
+Nothing passes that much in one call today, but aes_ctr_arch() only
+chunks down to 0xfffffff0 and aes_ctr() takes a size_t, so it is
+allowed. The old prototype was size_t and the caller zero-extended.
+
+Thanks,
+Karl
