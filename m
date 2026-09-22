@@ -1,160 +1,169 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF5E51474D;
-	Tue, 22 Sep 2026 10:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51475448BA8;
+	Tue, 22 Sep 2026 10:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071892; cv=none; b=usCzVenVqoR/9tMNe5BsLlemozGdNRHD0AHZjtv9HtL+vvpLOWV2Q9AeDCOB/I4jkUHbMl0SZVIvlobY2KJeaLhTJSryjcyxPV1e+vdJu64Q9QzowyM7Ve52SW5XWkw81xdrNItHk4g3+DwQ7tYFzchYQhg+xFqgxnfBa0Os4cQ=
+	t=1790071901; cv=none; b=VjBWoZ3uyXuvtQFqkYQdwSvQU8aAj0mljpw98M+54YAT/4QS0VeQH0UmqH8NLK4SCrcVhksuEXt5TbprezxfK0WNT35HY9NMeNGytcImGuszuK9X6VXESgaXyu0evQMkGkFE5/c7HnX8Hga+gnaF3wabHar+q1xYGQcOGBUqwCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071892; c=relaxed/simple;
-	bh=hlssS8NhgX2Dtg5J+qklTsn1LRji3YcpG6NIF3be0YU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fvP1T2u048ZMsFnA3c/C7276cEFXx0nfx291sSfzXAbZJ5RbQW/TDTAsTxq5m99LmNoUGWP52pkzRK9JlzsO5Ptz4eoGtN5uaSxSLkRw4XPOsxT9atiNnhGewLxWC9uKsPS2SbyTT/Cg+rOcSSIigUgKwDrFHCNhMzZJhBaIdu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f5b7bce2b66d11f19a56ed5b684f684d-20260922
-X-CID-CACHE: Type:Local,Time:202609221800+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ee7210c1-9000-4760-adf8-6c93f382a4c0,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:a842b0a05358cccc4fcd3b6ffd05ac44,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f5b7bce2b66d11f19a56ed5b684f684d-20260922
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 276241234; Tue, 22 Sep 2026 18:11:21 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v8] ntfs: mount hibernated volumes read-only regardless of  errors=
-Date: Tue, 22 Sep 2026 18:11:17 +0800
-Message-Id: <20260922101117.2140385-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790071901; c=relaxed/simple;
+	bh=ApUOSYbngQerDis+rtCdK9s0LZzGi2Fz9DaM0N1qFRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EUTi7vhx3/qPg+Azkd1w4EywN3DVUkdnJ7B6bj+p56WVla1Wr6SLE7hO/1UKbDpkFkG3QduHDpFwL0mln27LxTZDfAn6PLLNU6j23SHMIroJLuc/Qtj+QiJAbZUsn12U8B1WOp4SlDB+sn2e+ifs1gvgoGjtI7WumY7pDOkVjS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIpzh9Zs; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIpzh9Zs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC471F00893;
+	Tue, 22 Sep 2026 10:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790071897;
+	bh=STVr/3O21htEEge5Zpm/AMAISou4BlQFWnDGyHPhfGw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZIpzh9ZsLRzhd+o+JwmwEV0fy8zxT0wPSqv4mK/1opiunW72OYgGme859BX+DHr3D
+	 zs+8eMstMHnyP2AAEfmMA7l+3mLqkmY2HF+7I9YQ+qR8xWjvCMRYmvCrmbUdAQYNdr
+	 DZpKCbeBVJYKbTyKfvKRfDuydkkzoY3/PEuMbBnh6c9w1PSQ1S3/2aWKL/t95w0oEq
+	 SaVFWSRFFsqAccut9gSGpGZqKNl7gXKVf4966Wb4euErmGmbKpmH64Z7Sa9IMBfQxx
+	 +REqGGIGovUe/VA/pR0ub/wDLpo/VouGnX9R5X0aubUUpfRo+lyf98JNL8t16wmefv
+	 46MU4T/PYW+hg==
+Date: Tue, 22 Sep 2026 11:11:33 +0100
+From: Simon Horman <horms@kernel.org>
+To: han.junyang@zte.com.cn
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, ran.ming@zte.com.cn,
+	han.chengfei@zte.com.cn, zhang.yanze@zte.com.cn
+Subject: Re: [PATCH net-next v3 1/3] dinghai: add firmware version check and?
+ RISC-V readiness polling
+Message-ID: <20260922101132.GB13925@horms.kernel.org>
+References: <202609211451400236_aZ55Ox3y7NW8MQnYImM@zte.com.cn>
+ <202609211456442872LYTVrDg_UG7l6DJ0Slmt@zte.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202609211456442872LYTVrDg_UG7l6DJ0Slmt@zte.com.cn>
 
-The hibernation check in load_system_files() only converts the
-superblock to read-only under errors=remount-ro.  With the default
-errors=continue (and with errors=panic), a hibernated volume is
-mounted read-write and the mount-time $LogFile emptying writes to it,
-although a hibernated volume must not be written to at all.
+On Mon, Sep 21, 2026 at 02:56:44PM +0800, han.junyang@zte.com.cn wrote:
+> From: Junyang Han <han.junyang@zte.com.cn>
+> 
+> The DingHai firmware publishes a version compatibility block and a
+> RISC-V health buffer at fixed offsets within BAR 0.
+> 
+> After the PCI capabilities are mapped, poll the compatibility block
+> until the firmware populates it (the region reads as all ones until
+> then) and verify the driver/firmware version contract. Then wait for
+> the RISC-V management core to set its power-on flag in the health
+> buffer before the rest of the probe continues.
+> 
+> Firmware images predating the health buffer protocol (health version
+> other than 1 and patch level below ZXDH_HPIRQ_PATCH) skip the
+> readiness wait.
+> 
+> Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
+> ---
+>  drivers/net/ethernet/zte/dinghai/en_pf.c | 113 +++++++++++++++++++++++
+>  drivers/net/ethernet/zte/dinghai/en_pf.h |  46 +++++++++
+>  2 files changed, 159 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.c b/drivers/net/ethernet/zte/dinghai/en_pf.c
+> index 86d437408820..7c991e0951a8 100644
+> --- a/drivers/net/ethernet/zte/dinghai/en_pf.c
+> +++ b/drivers/net/ethernet/zte/dinghai/en_pf.c
+> @@ -6,6 +6,8 @@
+> 
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+>  #include <net/devlink.h>
+>  #include <linux/dma-mapping.h>
+>  #include "en_pf.h"
+> @@ -369,6 +371,103 @@ int zxdh_pf_modern_cfg_init(struct zxdh_core_dev *zxdh_dev)
+>  	return ret;
+>  }
+> 
+> +/* Read the firmware version block and verify the driver/firmware
+> + * version contract.
+> + */
+> +static int zxdh_pf_fw_compat_check(struct zxdh_core_dev *zxdh_dev)
+> +{
+> +	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
+> +	struct zxdh_fw_compat __iomem *compat;
+> +	struct zxdh_fw_compat *fw_compat;
+> +	u32 erased;
+> +
+> +	fw_compat = &pf_dev->fw_compat;
+> +	compat = pf_dev->pci_ioremap_addr[0] + ZXDH_FW_COMPAT_OFFSET;
+> +
+> +	/* The region reads as all ones until the firmware populates it at
+> +	 * the end of its boot; allow up to 200 s for a cold boot.
+> +	 */
+> +	readx_poll_timeout(ioread32, compat, erased, erased != 0xffffffffU,
+> +			   USEC_PER_SEC,
+> +			   ZXDH_FW_COMPAT_TIMEOUT_SEC * USEC_PER_SEC);
 
-Drop the on_errors term so that a hibernated volume, or a volume whose
-hibernation state cannot be determined, always mounts read-only.
-NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-remounts to read-write, and the $LogFile emptying is skipped by its
-!sb_rdonly() check.
+Hi,
 
-The check itself must not apply the errors= policy either: it runs
-before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
-call ntfs_error() internally on corruption or I/O errors, which under
-errors=panic would panic the machine before the read-only fallback has
-made its decision.  Temporarily substitute errors=remount-ro for
-errors=panic around the check: nested ntfs_error() calls then fall
-back to read-only, and any read-only transition they trigger is
-preserved even when the error is not propagated to the check's return
-value or recorded in NVolErrors().  This is safe during initial mount,
-before the super block is published.
+There is an AI-generated review of this patch available at
+https://sashiko.dev/#/patchset/202609211451400236_aZ55Ox3y7NW8MQnYImM%40zte.com.cn
 
-If the check reports hibernation or fails, set SB_RDONLY and record
-NVolErrors() unconditionally: hibernation safety takes precedence over
-the errors= policy.  A volume with errors recorded during the check or
-earlier in the mount, e.g. when loading the LogFile, also stays
-read-only, matching what ntfs_reconfigure() enforces for remounts.
+In my view the critical point made there, which I'd appreciate you looking
+into, is:
 
-Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-Cc: stable@vger.kernel.org
-Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Change in v8:
- -Resolve merge conflicts.
----
- fs/ntfs/super.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+  Is the timeout error intentionally ignored here? If legacy firmware never
+  populates this region, wouldn't the 200 second stall exceed the default
+  udev timeout (180s), causing the worker to be killed and completely
+  breaking legacy hardware support?
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 82b5bf28b6ab..14b88f140427 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -1503,6 +1503,7 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	struct ntfs_attr_search_ctx *ctx;
- 	struct restart_page_header *rp;
- 	int err;
-+	u8 saved_on_errors;
- 
- 	ntfs_debug("Entering.");
- 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-@@ -1677,8 +1678,19 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	 * NVolErrors() without setting the dirty volume flag and mount
- 	 * read-only.  This will prevent read-write remounting and it will also
- 	 * prevent all writes.
-+	 *
-+	 * Nested lookup and inode-loading errors must not panic before the
-+	 * read-only fallback has run.  Temporarily use errors=remount-ro
-+	 * instead of errors=panic, preserving any read-only transition even
-+	 * if an error is not propagated to the check's return value or
-+	 * recorded in NVolErrors().  This is safe during initial mount,
-+	 * before the super block is published.
- 	 */
-+	saved_on_errors = vol->on_errors;
-+	if (saved_on_errors == ON_ERRORS_PANIC)
-+		vol->on_errors = ON_ERRORS_REMOUNT_RO;
- 	err = check_windows_hibernation_status(vol);
-+	vol->on_errors = saved_on_errors;
- 	if (unlikely(err)) {
- 		static const char *es1a = "Failed to determine if Windows is hibernated";
- 		static const char *es1b = "Windows is hibernated";
-@@ -1686,17 +1698,21 @@ static bool load_system_files(struct ntfs_volume *vol)
- 		const char *es1;
- 
- 		es1 = err < 0 ? es1a : es1b;
--		/* If a read-write mount, convert it to a read-only mount. */
--		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
--			sb->s_flags |= SB_RDONLY;
--			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
--		}
-+		/* Hibernation safety takes precedence over the errors= policy. */
-+		sb->s_flags |= SB_RDONLY;
- 		NVolSetErrors(vol);
-+		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-+
- 		/*
- 		 * Remember it for the lifetime of the mount: see
- 		 * ntfs_sync_volume_dirty_state().
- 		 */
- 		NVolSetHibernated(vol);
-+	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
-+		/* Match the read-write remount restriction for recorded errors. */
-+		sb->s_flags |= SB_RDONLY;
-+		ntfs_error(sb,
-+		    "Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
- 	}
- 
- 	/* If (still) a read-write mount, empty the logfile. */
--- 
-2.25.1
+> +
+> +	/* Firmware predating the compatibility region keeps the erased
+> +	 * pattern, which fails the module id check below and defers the
+> +	 * decision to the readiness wait.
+> +	 */
+> +	fw_compat->module_id = ioread8(&compat->module_id);
+> +	fw_compat->major = ioread8(&compat->major);
+> +	fw_compat->fw_minor = ioread8(&compat->fw_minor);
+> +	fw_compat->drv_minor = ioread8(&compat->drv_minor);
+> +	fw_compat->patch = ioread16(&compat->patch);
+> +
+> +	if (fw_compat->module_id != ZXDH_MODULE_ID) {
+> +		dev_info(zxdh_dev->device,
+> +			 "unknown module id %u, skip fw compat check\n",
+> +			 fw_compat->module_id);
+> +		/* Unknown firmware is treated as predating the HPIRQ
+> +		 * patch, so that the readiness wait is skipped.
+> +		 */
+> +		fw_compat->patch = 0;
+> +		return 0;
+> +	}
+> +
+> +	if (fw_compat->major != ZXDH_MAJOR) {
+> +		dev_err(zxdh_dev->device,
+> +			"driver major %u incompatible with firmware major %u\n",
+> +			ZXDH_MAJOR, fw_compat->major);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (fw_compat->fw_minor < ZXDH_FW_MINOR) {
+> +		dev_err(zxdh_dev->device,
+> +			"firmware fw_minor %u older than required %u\n",
+> +			fw_compat->fw_minor, ZXDH_FW_MINOR);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (fw_compat->drv_minor > ZXDH_DRV_MINOR) {
+> +		dev_err(zxdh_dev->device,
+> +			"driver drv_minor %u older than required by firmware %u\n",
+> +			ZXDH_DRV_MINOR, fw_compat->drv_minor);
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
 
+...
