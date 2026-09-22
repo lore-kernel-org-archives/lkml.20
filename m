@@ -1,288 +1,158 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69F7576EAB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C8A5678EA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098846; cv=none; b=ZVOFb63jd2UTAWY+kb1alLN0s3Qp1vpOe5KQsMPgodtDy28YkzluEOx+c5U7uULWCtXM7cCe0nnbavrGAoNzslzm0i5Lzg1nywpZwkRpvz9VD4Zy5wCfqS1vQrnmyWfb3tncR2EWviwwJu16Uji04oVf3Ba+XmJwykUisfAuYiY=
+	t=1790098879; cv=none; b=MgbSfh+fL88qRmb0tAUQrLri4wiORaW1/nXPksvs3s6FJ6nSBLIl+CBlJEGyTPRugnkUizbOL+mcAwcOEbDo7h5/lkT1628XXYYd9AOeUjhfgOj3b0mQykc6Z84L1AsheIUstg6F312vwAduVG/L84gISj8Nz+RiorlYYGsMn5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098846; c=relaxed/simple;
-	bh=9pWsAPJMjYeb1fOw15u6xalyKmIivQfeiEo0bR0Nza8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ck+4e4B7OwsyyOwd9AtXCP/iJriUzE3p5xWdzlkxqVztfe/k2Xc4NIww4L9iDvt1V+Ujpx26IpEZGHvw0UUglTBriM0Ewr2wPD7wb9fv5QcAjhRk9DykMB7yxInwyBqfM7eBL82tUuXXrF5FhVdTqMIFVWKnT997gchCketrY48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OExfR68B; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790098879; c=relaxed/simple;
+	bh=bPFkHCUf+6FtH0ZCu5qND9AO4RF8i3O3qWdtLqBTnAI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=R/i4QG43WD+tyzQ1eCkmpemd7Tw8htB4PdBDPJSxvR31SFBIPVQzPSILMGmcF1exi7FlBSTw56v7v+oHznevgU3OSlFtdE+dlfMma7UbfFzr5sCRTAslTVtMfiSjEIAhVpp+NsNPKThYbqD7O67F8e/MRclASoeJ8/1bcCTgOdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RKkhgY2o; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OExfR68B"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b20so6413766b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:40:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790098843; x=1790703643; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r/bMORLOO0A6N2IaZslfOPlgoSE19zFgKkh7hU59kHw=;
-        b=OExfR68BsgiwaY2YbuOUXDtRKjVk6WGZrF3h4xnT22JKu0aKJ6dTOx8+9SYsT2yBqv
-         PLUktsUkbPjFfnqi3GNQhNzXtekBl3PBBsN+tVblhNxH488WKCAR+2RZfvR4qTBZJ4mG
-         iMg4tUFvgkF2XWPnRaDlG1AFkD99ye2Bo835nHj+VG2tS0gHeVrWVBg9acGVsNK5SGX/
-         m2JHN0d7ctJMGc37IC5sL6Qz5Qe+yWYrMokEjX26NujW6XxTunMsm1lgZf9nNknZejex
-         6q0v1afK7vvPX1YXvrijcc++hRG6A7p7tBAUOAXs3SnTKdeVnsGweCWlK1n9aNuGrLc2
-         ANTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790098843; x=1790703643;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r/bMORLOO0A6N2IaZslfOPlgoSE19zFgKkh7hU59kHw=;
-        b=TTKV6pf5xBoxO5kFPrY8U+7Sfy7UqKukq6hFjmJxLxwUzw9Lpp+3VRHGxH0PAmYq1y
-         IDfLJ+IfLhR55ci1jUAg1or1IjYGyqJO58QTACeCMDHebHLm80YSfte68OqdFqZ5fALZ
-         Orpw27II17GRs+oIOm6s1Vjnd/Yx5ln9kqWX77JL+MEHsGn0HuYLf7UZZmMCiyHEVwER
-         OffnGbs71CIcTWDbAr5z8EkmIC5c7GyX+p5AmBg5QNqp47qmOEm4F9lVjAC9FtrI8ShU
-         DNYT2W31jS/ZOLeQ6ABQ89w4XXyvcKJueslNbFvhso3gxfxsROlUNpfA2yCApkjarcbb
-         LZEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/fGyLCNn4iAlyWD+onxcGnQmFmHhjW8Qa4dcNDlWCCS9xFTBzbd4jP7kl276ICf2a1t+VS3S2l1o+pb4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6M12eT/Zmn0Q47cHxbLtPqGAeHGKd0TbepcTv5LdDKpiDcWs7
-	TBcugQKyPpszmzlHmB4NR/12S4f6oLx4ztOyRjhofcBS2+ww0o+k3nrM
-X-Gm-Gg: AYBFou3e4/84V39nYlajSedDSKVievuhC98nPpVZeIsWB3mmvk/cXrbdpscYRmGDfsv
-	QZuv1ZD1vWpoiVtOn313BttEG5M6TOQjOhGsxGx004InaimzhuGAvOGMbNiWRBeOGbsHkYsIS6c
-	sHVPfeVrJVUYXzzsYEA+WUURdEXtwwb2+tNhS4N3440FpYFgYGd1kGEMtfom+iI87ec369WuCWn
-	Pz+i7sVi97oVQGP71ENa97UdGIeEQh1DNH54YbeXhkLLKc23Atcv3PRuzp0Lxqit5y7NXiOOQIV
-	DgQXDz0WpPGi/CrTOF7owfyEpxKpRGcy/sXxFsoFL1eukCx4xdeMfUvmO4lDx+dznFRwVt+A+Ni
-	JG1Jkbo/oyiyxhI32kdprGNjquyuvGlB5yf1pzjlk6DXme2FloiexVlDpw3jMSu+SJPosh9sXDT
-	F0pPruvyk1qcIpPw07c0lcw7EzPF3dg7VPYer4LjagiOLzhSDr0ZKI7ZHCsy9yjWq4kVlS51lX1
-	snc8jOWrcZqWG4PUy2gNdm1F4LKXt/ypeJhLf+l6po=
-X-Received: by 2002:a17:907:6d27:b0:c25:4f7c:8ec5 with SMTP id a640c23a62f3a-c2a158032f4mr1331027166b.23.1790098843019;
-        Tue, 22 Sep 2026 10:40:43 -0700 (PDT)
-Received: from [192.168.86.89] (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aad5bed0asm2549666b.18.2026.09.22.10.40.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 10:40:41 -0700 (PDT)
-From: =?utf-8?q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>
-Date: Tue, 22 Sep 2026 19:40:28 +0200
-Subject: [PATCH 2/2] HID: logitech-hidpp: fix Bolt wheel mode handling
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RKkhgY2o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790098877;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pL4BW2rf46UNolfAMEWqBNp9AHFrnYSaffiDXV2pInk=;
+	b=RKkhgY2oRD8U6bEc5g4IPVKbpe7NV2uRcIQ0MGDPCRcv4jn7Lg5MPQ+A92WHXxPafVepGN
+	KnFgPNwp1kdkk+hkrdVxgNp5Gzb2Jx75p2BVu43nvSMJMQWajxyL3tilpkrqmqGzsjDR6d
+	YbRESNTi7anST9+8z/DH4e6pklXPjpk=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-587--yykJJ3lPFCa4-U1PybGVQ-1; Tue,
+ 22 Sep 2026 13:41:12 -0400
+X-MC-Unique: -yykJJ3lPFCa4-U1PybGVQ-1
+X-Mimecast-MFC-AGG-ID: -yykJJ3lPFCa4-U1PybGVQ_1790098871
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8EC23180066C;
+	Tue, 22 Sep 2026 17:41:11 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AADD330001B9;
+	Tue, 22 Sep 2026 17:41:09 +0000 (UTC)
+Date: Tue, 22 Sep 2026 19:41:06 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: =?ISO-8859-15?Q?L=E9o_Terziman?= <leo.terziman@gmail.com>
+cc: dm-devel@lists.linux.dev, linux-block@vger.kernel.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [BUG] NULL deref in mempool_free_bulk via crypt_endio on dm-crypt
+ teardown (6.8 -> 7.0 regression)
+In-Reply-To: <CAKjZdKjO0WVs2T3jM3txaqxYEt4uJhSc_G9mviWiq9XBe+8jkw@mail.gmail.com>
+Message-ID: <61ea45dc-d0a6-e5e1-fcf5-14c512b17114@redhat.com>
+References: <CAKjZdKjO0WVs2T3jM3txaqxYEt4uJhSc_G9mviWiq9XBe+8jkw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260922-feature-bolt-fix-v1-2-63b0fa8da0d3@gmail.com>
-References: <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
-In-Reply-To: <20260922-feature-bolt-fix-v1-0-63b0fa8da0d3@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: =?utf-8?q?Filipe_La=C3=ADns?= <lains@riseup.net>, 
- Bastien Nocera <hadess@hadess.net>, Rafael Passos <rafael@rcpassos.me>, 
- =?utf-8?q?Gr=C3=A9goire_Stein?= <greyxor@protonmail.com>, 
- Alexey Zagorodnikov <xglooom@gmail.com>, 
- Oleksandr Natalenko <oleksandr@natalenko.name>, 
- Roman Stingler <roman.stingler@gmail.com>, 
- Lovekesh Solanki <lovekeshsolanki00@gmail.com>, 
- =?utf-8?q?Kate=C5=99ina_Medv=C4=9Bdov=C3=A1?= <k8ie@mcld.eu>, 
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790098832; l=7252;
- i=erikhakan@gmail.com; s=20260922; h=from:subject:message-id;
- bh=9pWsAPJMjYeb1fOw15u6xalyKmIivQfeiEo0bR0Nza8=;
- b=BnwiHmSknS0M0fKihikYarUMcPJFxWCz2ygmPPg8GhulBRVA1i4YjvatA1KCilhps+acLIAgA
- DPgOU81BmMfAsk+SDoxPRDDLrOGxdVcUicqEX2KuVsGfnKY1/SP7++h
-X-Developer-Key: i=erikhakan@gmail.com; a=ed25519;
- pk=brCZX79/H6Z7mPgiNX6TDY45ZjODPth0eXRDUgh1mNI=
+Content-Type: multipart/mixed; BOUNDARY="-1463801984-263208959-1790085153=:217987"
+Content-ID: <91848acf-1742-94da-4847-c71a2526d4c0@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Preserve the device's user-selected resolution and inversion settings
-while enabling HID++ wheel notifications for Bolt devices. Track diverted
-wheel events and apply the device multiplier to both high- and
-low-resolution events.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Erik HÃ¥kansson <erikhakan@gmail.com>
----
- drivers/hid/hid-logitech-hidpp.c | 112 +++++++++++++++++++++++++++++++++------
- 1 file changed, 97 insertions(+), 15 deletions(-)
+---1463801984-263208959-1790085153=:217987
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
+Content-ID: <130d1c3c-d8b1-c2e3-790b-be259fa6b730@redhat.com>
 
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 166980be57b7..55e9ac5e5ab7 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -213,6 +213,7 @@ struct hidpp_device {
- 
- 	int hires_wheel_multiplier;
- 	u8 hires_wheel_feature_index;
-+	bool hires_wheel_diverted; /* whether wheel events use HID++ notifications */
- 
- 	bool connected_once;
- };
-@@ -2043,8 +2044,14 @@ static int hidpp_hrs_set_highres_scrolling_mode(struct hidpp_device *hidpp,
- 
- #define HIDPP_PAGE_HIRES_WHEEL		0x2121
- 
-+#define EVENT_HIRES_WHEEL_MOVEMENT		0x00
- #define CMD_HIRES_WHEEL_GET_WHEEL_CAPABILITY	0x00
-+#define CMD_HIRES_WHEEL_GET_WHEEL_MODE		0x10
- #define CMD_HIRES_WHEEL_SET_WHEEL_MODE		0x20
-+#define HIRES_WHEEL_MODE_USE_HIDPP		BIT(0)
-+#define HIRES_WHEEL_MODE_HIGH_RESOLUTION	BIT(1)
-+#define HIRES_WHEEL_MODE_INVERT			BIT(2)
-+#define HIRES_WHEEL_EVENT_HIGH_RESOLUTION	BIT(4)
- 
- static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
- 	u8 *multiplier)
-@@ -2072,6 +2079,26 @@ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
- 	return ret;
- }
- 
-+static int hidpp_hrw_get_wheel_mode(struct hidpp_device *hidpp, u8 *mode)
-+{
-+	u8 feature_index;
-+	struct hidpp_report response;
-+
-+	int ret = hidpp_root_get_feature(hidpp, HIDPP_PAGE_HIRES_WHEEL,
-+					 &feature_index);
-+	if (ret)
-+		return ret;
-+
-+	ret = hidpp_send_fap_command_sync(hidpp, feature_index,
-+					  CMD_HIRES_WHEEL_GET_WHEEL_MODE,
-+					  NULL, 0, &response);
-+	if (ret)
-+		return ret;
-+
-+	*mode = response.fap.params[0];
-+	return 0;
-+}
-+
- static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
- 	bool high_resolution, bool use_hidpp)
- {
-@@ -2085,9 +2112,9 @@ static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
- 	if (ret)
- 		return ret;
- 
--	params[0] = (invert          ? BIT(2) : 0) |
--		    (high_resolution ? BIT(1) : 0) |
--		    (use_hidpp       ? BIT(0) : 0);
-+	params[0] = (invert          ? HIRES_WHEEL_MODE_INVERT : 0) |
-+		    (high_resolution ? HIRES_WHEEL_MODE_HIGH_RESOLUTION : 0) |
-+		    (use_hidpp       ? HIRES_WHEEL_MODE_USE_HIDPP : 0);
- 
- 	return hidpp_send_fap_command_sync(hidpp, feature_index,
- 					   CMD_HIRES_WHEEL_SET_WHEEL_MODE,
-@@ -3912,16 +3939,43 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
- {
- 	int ret;
- 	u8 multiplier = 1;
-+	bool high_resolution = true;
-+	const bool is_bolt = hidpp_is_bolt_child(hidpp->hid_dev);
-+
-+	if (is_bolt)
-+		hidpp->hires_wheel_diverted = false;
- 
- 	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
--		bool use_hidpp = hidpp_is_bolt_child(hidpp->hid_dev);
-+		u8 mode;
-+
-+		/* Preserve the persistent mode, except for Bolt event routing. */
-+		ret = hidpp_hrw_get_wheel_mode(hidpp, &mode);
-+		if (ret == 0) {
-+			bool invert = mode & HIRES_WHEEL_MODE_INVERT;
-+			bool use_hidpp = mode & HIRES_WHEEL_MODE_USE_HIDPP;
-+
-+			high_resolution = mode & HIRES_WHEEL_MODE_HIGH_RESOLUTION;
-+
-+			/* Preserve user-set resolution and inversion; enable HID++ for Bolt. */
-+			if (is_bolt && high_resolution && !use_hidpp) {
-+				ret = hidpp_hrw_set_wheel_mode(hidpp, invert,
-+							       high_resolution, true);
-+				if (ret == 0)
-+					use_hidpp = true;
-+			}
- 
--		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true, use_hidpp);
--		if (ret == 0)
--			ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
-+			if (ret == 0)
-+				ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
-+			if (ret == 0)
-+				hidpp->hires_wheel_diverted = use_hidpp;
-+		}
- 	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_SCROLL) {
--		ret = hidpp_hrs_set_highres_scrolling_mode(hidpp, true,
-+		/* Bolt reports for this feature also bypass hid-logitech-hidpp. */
-+		high_resolution = !is_bolt;
-+		ret = hidpp_hrs_set_highres_scrolling_mode(hidpp, !is_bolt,
- 							   &multiplier);
-+		if (!ret && is_bolt)
-+			multiplier = 1;
- 	} else /* if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP10_FAST_SCROLL) */ {
- 		ret = hidpp10_enable_scrolling_acceleration(hidpp);
- 		multiplier = 8;
-@@ -3938,8 +3992,12 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
- 		multiplier = 1;
- 	}
- 
-+	/* Keep the device-reported multiplier for HID++ event conversion. */
- 	hidpp->hires_wheel_multiplier = multiplier;
--	hidpp->vertical_wheel_counter.wheel_multiplier = multiplier;
-+	/* Apply the multiplier only while high-resolution mode or HID++ diversion is active. */
-+	hidpp->vertical_wheel_counter.wheel_multiplier =
-+	(high_resolution || hidpp->hires_wheel_diverted) ?
-+		multiplier : 1;
- 	hid_dbg(hidpp->hid_dev, "wheel multiplier = %d\n", multiplier);
- 	return 0;
- }
-@@ -3997,17 +4055,41 @@ static int hidpp20_hires_wheel_raw_event(struct hidpp_device *hidpp,
- 
- 	if ((data[3] & 0xf0) == CMD_HIRES_WHEEL_SET_WHEEL_MODE) {
- 		u8 mode = data[4];
--		bool hires = (mode & 0x02) != 0;
--		int new_multiplier = (hires && hidpp->hires_wheel_multiplier > 0)
-+		bool hires = mode & HIRES_WHEEL_MODE_HIGH_RESOLUTION;
-+		bool use_hidpp = mode & HIRES_WHEEL_MODE_USE_HIDPP;
-+		int new_multiplier = ((hires || use_hidpp) &&
-+				      hidpp->hires_wheel_multiplier > 0)
- 			? hidpp->hires_wheel_multiplier : 1;
-+
-+		hidpp->hires_wheel_diverted = use_hidpp;
- 		hidpp->vertical_wheel_counter.wheel_multiplier = new_multiplier;
- 		return 1;
- 	}
- 
--	/* wheel movement event: 16-bit signed delta in HID++ ticks */
--	if ((data[3] & 0xf0) == 0x00 && size >= 7 && hidpp->input &&
--	    hidpp->vertical_wheel_counter.wheel_multiplier) {
--		s16 delta = get_unaligned_be16(&data[5]);
-+	/*
-+	 * HID++ 0x2121 wheelMovement event:
-+	 *   data[3]    = event/function index in the upper nibble (0x0),
-+	 *                client ID in the lower nibble
-+	 *   data[4]    = event flags; bit 4 indicates high-resolution units
-+	 *   data[5:6]  = signed 16-bit big-endian vertical wheel delta
-+	 *
-+	 * The outer HID++ path normally validates long reports as 20 bytes, but
-+	 * keep the size check below before reading data[5:6] from the buffer.
-+	 * Low-resolution deltas are converted using the device's multiplier
-+	 * before being passed to the scroll counter.
-+	 */
-+	if (data[3] == EVENT_HIRES_WHEEL_MOVEMENT && hidpp->hires_wheel_diverted) {
-+		int delta;
-+
-+		if (size < 7 || !hidpp->input ||
-+		    !hidpp->vertical_wheel_counter.wheel_multiplier ||
-+		    !hidpp->hires_wheel_multiplier)
-+			return 1;
-+
-+		delta = (s16)get_unaligned_be16(&data[5]);
-+		if (!(data[4] & HIRES_WHEEL_EVENT_HIGH_RESOLUTION))
-+			/* low-resolution delta: convert to hi-res units */
-+			delta *= hidpp->hires_wheel_multiplier;
- 
- 		if (delta) {
- 			hidpp_scroll_counter_handle_scroll(hidpp->input,
 
--- 
-2.55.0
+
+On Wed, 16 Sep 2026, Léo Terziman wrote:
+
+> NULL pointer dereference in mempool_free_bulk via crypt_endio during
+> dm-crypt device teardown
+> 
+> SUMMARY
+> =======
+> Since upgrading from Ubuntu 24.04 (Linux 6.8) to Ubuntu 26.04 (Linux 7.0),
+> this machine panics roughly once a week. The panic is always a NULL pointer
+> dereference in mempool_free_bulk(), reached from crypt_endio() in dm_crypt
+> via bio_put()/bio_free(), running in softirq context from a SCSI completion.
+> 
+> It reproduces during teardown of a dm-crypt device: a late bio completion
+> arrives after the dm-crypt target's bio_set has already been destroyed, so
+> bio_free() returns the bio to a mempool whose ->elements is NULL.
+> 
+> The system was stable on 6.8 for approximately two years with the identical
+> storage configuration and the identical backup script. Nothing in userspace
+> changed at the time the crashes began.
+> 
+> 
+> ENVIRONMENT
+> ===========
+> Distribution:  Ubuntu 26.04 LTS
+> Kernel:        7.0.0-31-generic #31-Ubuntu PREEMPT(lazy) x86_64
+> Hardware:      Supermicro X13SAE-F, BIOS 5.3 06/04/2026
+> Memory:        64 GB ECC (ie31200_edac; 0 CE, 0 UE reported)
+> DKMS modules:  none
+> Taint:         G W  -- the W is an unrelated boot-time WARN in i915
+>                (print_ddi_port, intel_bios.c VBT parsing, headless system).
+>                No out-of-tree modules are loaded.
+> 
+> 
+> STORAGE STACK
+> =============
+> Four backup volumes, each:
+> 
+>   iSCSI (iscsi_tcp, Synology target over TCP/IP)
+>     -> sd (SCSI disk)
+>       -> dm-crypt
+>         -> btrfs (zstd:3, blake2b csums, async discard enabled)
+> 
+> Mounted together nightly by a backup script, then unmounted and torn down
+> (umount -> cryptsetup close -> iscsiadm logout) when the backup finishes.
+> 
+> Separate from this, the system also uses hardware RAID -> bcache -> btrfs
+> for primary storage and md RAID1 for SSD storage. Neither appears in any
+> crash trace.
+> 
+> 
+> TRIGGER
+> =======
+> Every crash occurs during teardown of the backup volumes, within seconds of
+> unmount. The preceding log is consistent across occurrences:
+> 
+>   [256109.45] BTRFS info (device dm-15): last unmount of filesystem ...
+>   [256109.53] sd 9:0:0:1:  [sdb] Synchronizing SCSI cache
+>   [256109.75] BTRFS info (device dm-16): last unmount of filesystem ...
+>   [256109.96] sd 10:0:0:1: [sdc] Synchronizing SCSI cache
+>   [256110.06] BTRFS info (device dm-17): last unmount of filesystem ...
+>   [256110.17] sd 11:0:0:1: [sdd] Synchronizing SCSI cache
+>   [256111.50] BTRFS info (device dm-18): last unmount of filesystem ...
+>   [256115.15] BTRFS warning (device dm-18): folio private not zero on folio
+>               906100736
+>               [~100 more identical warnings for consecutive folios]
+>   [256115.18] BUG: kernel NULL pointer dereference, address: 0000000000000000
+> 
+> The "folio private not zero" flood immediately before the oops indicates
+> btrfs is releasing folios that still carry I/O state, i.e. the unmount is
+> completing while work is still outstanding beneath it.
+
+I suspect that this is btrfs bug. It seems that btrfs closes a block 
+device without waiting for bios to finish.
+
+The mempool_free function was reworked between 6.8 and 7.0. In 6.8 it 
+didn't crash if we attempted to free an entry into a free mempool. In 7.0 
+it crashes in this case. So, the btrfs bug could have been there forever, 
+it was just latent and didn't result in a crash on old kernels.
+
+You can try to apply the patch 83f7e52b7ed1c3e03b79123e20b6f6adf8d886bb - 
+maybe it helps.
+
+Mikulas
+---1463801984-263208959-1790085153=:217987--
 
