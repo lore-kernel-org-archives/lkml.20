@@ -1,131 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C072E8DEC;
-	Tue, 22 Sep 2026 12:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0C035F170
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:52:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.238
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081538; cv=none; b=g328Iw13v5aLX9z/Wr2c2cdSZsW2i7XosqPpNf9/d0MaTt0mEjwOnEglqFtbuVKERKEmx0Q+CAYI/0kiJY1c2Ijh3XftYaRPFfeZ4wKFn41vCQazmYIWtqb5zln0tXzvG1Q6tjOATrBL77ooTGdMtbbXf5hTTl9N9t5U1Kgt0N8=
+	t=1790081576; cv=none; b=u6RdrYysLRvmQnG/ieFlya6m+e8qru0jbEUDuI2k3LXjzptC1QaXZPAYXwqK3XFu75eKFo+R6MN2b9GbbRHRdUaxN+j2s7S797tVamCs4FpmfxsHpl+rQ5mBWKJkhoOUc4O06a7G3M3Dsw/nA6mnjDLG8josxyttyXEPBcpBVeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081538; c=relaxed/simple;
-	bh=dKFwer8asIo2ww6qdmBz5IYEoRE1svuaIGly3239UFc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QQsujB7Kr6ooA0U7/EL6pMgNvWZE5KPZIh9TZ5r5SUOnyuI9uqOF3PkCud+qTstDcLTRiJ2RQymPU6MlK7QiBtZ3NoRFIumCVOGZRYaur6vL28LdQB/RHMojtqvAQTUrFf3094fiWUo1uirdD7vwMLpje7Zvi+vIqaBVsnoXWnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ScPnuTaA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790081576; c=relaxed/simple;
+	bh=Jae59hpYchWjFu5lmM2YnvXbv7hvGTzJEokKNdRbnnA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZXMwfKYYM3+r68K5CZ9zg8nz6b20Q3weilXLYkL1LBFbxy18QSCaRun0h2jJqlIVM7AVGTN7cMjMPZ+xlzHa/WnBHqwlk/UznkcH/yggjRFv/U5yFK9+UJ9gmMGskKlJ+NnTUt371K+wqdT+UwBdrYmQ6zByj0wkGCebKtV1SOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nxPbQTi7; arc=none smtp.client-ip=91.218.175.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ScPnuTaA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7401F000FF;
-	Tue, 22 Sep 2026 12:52:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081536;
-	bh=zwXB7IJjlaB8/LFgWGY2W9SyVRX56trli9CAewYqEk0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ScPnuTaAx+eHTBSVHGS81l0qJF871mpilRUw6iIOhoIedfp2tpP2WU8Dh5G37I61R
-	 XAz51OaoK7pxeDsk48QlwqEDREYfvLbwKcyFXf4YyE9n1tNZNiNyTq29RD+skOcX5y
-	 GHmYmvcfgUPm9Dp2mwY4PUGp+inda2N5/bJoBgZ2fKH7CoF+Kh46/NFwQCGYNkz1kv
-	 9zRitwCSfYrfMsfvybQRxZOYESPsv3ev+RfpqEutx8cppFTaMFohlNIiuBsERqKJ8o
-	 Ui/vSKE1Ia74snqxS7sBefQi9n+pE89jtO4VfAo86yH0XD6Ehb2Qpx239KVoVNcSQ3
-	 mgN3kKjvYDm3g==
-Date: Tue, 22 Sep 2026 13:52:07 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>
-Subject: Re: [PATCH v2 00/13] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
-Message-ID: <arJ1BDEzY5CANjjB@gremlin>
-References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
- <yq5abj9p38vq.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nxPbQTi7"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Jae59hpYchWjFu5lmM2YnvXbv7hvGTzJEokKNdRbnnA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790081572; v=1; x=1790686372;
+ b=nxPbQTi79vF9CUl8eezgYLh9Qdy4s+5kv/DBz2cICTmalmIeDKUvG2BEryNN6gi977Rncrqu
+ nEljd/+ZzxjWRbYuUAbB96sHJ5aihuI9vrv8a/Ez0OUqO3HmKHeShOmA3tTINyauiwqBO7MeSU6
+ 77xt9COVa8rCdWe+OlJtl5s0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d19d6af701ceeb03;
+	Tue, 22 Sep 2026 12:52:52 +0000
+X-Mizu-Trace-ID: d19d6af701ceeb03
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fcadabef-4859-45f6-9612-a819599c0fdc@linux.dev>
+Date: Tue, 22 Sep 2026 13:52:45 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5abj9p38vq.fsf@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 07/29] x86: mm: add PMD swap-exclusive helpers
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org,
+ chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com,
+ linux-mm@kvack.org, ying.huang@linux.alibaba.com,
+ Baoquan He <baoquan.he@linux.dev>, willy@infradead.org,
+ youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com,
+ shakeel.butt@linux.dev, alex@ghiti.fr, baohua@kernel.org, dev.jain@arm.com,
+ baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com,
+ Vlastimil Babka <vbabka@kernel.org>, lance.yang@linux.dev,
+ linux-kernel@vger.kernel.org, nphamcs@gmail.com, shikemeng@huaweicloud.com,
+ yosry@kernel.org, qi.zheng@linux.dev, luizcap@redhat.com,
+ kernel-team@meta.com, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-8-usama.arif@linux.dev>
+ <aqqmClGl0lt5Qzee@thinkstation>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <aqqmClGl0lt5Qzee@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 03:28:33PM +0530, Aneesh Kumar K.V wrote:
-> > This is because pKVM instantiates vCPUs upon run,
-> >
->
-> Can pKVM instantiate the hyp vCPU during pre-faulting ?
 
-It would be an unusual and unexpected thing to do - suddenly a pre-fault
-operation is initialising a vCPU explicitly for pKVM.
 
-A caller is not going to reasonably expect this and might treat a failure to
-pre-alloc as fine to carry on whereas in fact it was a failure to initailised a
-pKVM vCPU.
+On 16/09/2026 15:31, Kiryl Shutsemau wrote:
+> On Mon, Sep 14, 2026 at 05:27:57AM -0700, Usama Arif wrote:
+>> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+>> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+>> not just in a swap PTE.
+>>
+>> x86-64 encodes a swap PMD exactly like a swap PTE, so the new helpers reuse
+>> _PAGE_SWP_EXCLUSIVE, bit 3, which the swap-entry layout already reserves
+>> for PG_anon_exclusive. 32-bit x86 aliases that bit to _PAGE_PSE and does
+>> not select ARCH_HAS_PMD_SOFTLEAVES.
+>>
+>> Cc: Thomas Gleixner <tglx@kernel.org>
+>> Cc: Ingo Molnar <mingo@redhat.com>
+>> Cc: Borislav Petkov <bp@alien8.de>
+>> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+>> Cc: x86@kernel.org
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>>  arch/x86/include/asm/pgtable.h | 17 +++++++++++++++++
+>>  1 file changed, 17 insertions(+)
+>>
+>> diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+>> index d551120a7c889..a2d1cd03cba23 100644
+>> --- a/arch/x86/include/asm/pgtable.h
+>> +++ b/arch/x86/include/asm/pgtable.h
+>> @@ -1525,6 +1525,23 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>>  	return pte_clear_flags(pte, _PAGE_SWP_EXCLUSIVE);
+>>  }
+>>  
+>> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+>> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+>> +{
+>> +	return pmd_set_flags(pmd, _PAGE_SWP_EXCLUSIVE);
+>> +}
+>> +
+>> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+>> +{
+>> +	return pmd_flags(pmd) & _PAGE_SWP_EXCLUSIVE;
+>> +}
+>> +
+>> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+>> +{
+>> +	return pmd_clear_flags(pmd, _PAGE_SWP_EXCLUSIVE);
+>> +}
+>> +#endif
+>> +
+> 
+> I was about to comment that it is broken on 32-bit as
+> _PAGE_SWP_EXCLUSIVE there is _PAGE_PSE which would make exclusive swap
+> entries pmd_present(). But CONFIG_ARCH_HAS_PMD_SOFTLEAVES is only
+> selected for X86_64.
+> 
+> Do we want some BUILD_BUG_ON() to catch if anyone would try to enable
+> it for 32-bit machines?
 
-It'd also require significant changes to how pKVM is set up, right now it's
-hardcoded to be done unconditionally at run via kvm_arch_vcpu_run_pid_change()
--> pkvm_create_hyp_vcpu(), so all that would have to change and be checked and
-tested and... that'd be really out of scope I think :)
+I added static_assert(_PAGE_SWP_EXCLUSIVE != _PAGE_PSE);
 
-And pre-faulting really makes most sense BEFORE you run a VM. It doesn't make so
-much sense mid-run.
+Thanks for the review!
 
-But more fundamentally, the stage 2 page tables, as I understand it, are owned
-by pKVM and so aren't really available to be pre-faulted.
+> 
+> Otherwise:
+> 
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> 
+>>  #ifdef CONFIG_HAVE_ARCH_SOFT_DIRTY
+>>  static inline pte_t pte_swp_mksoft_dirty(pte_t pte)
+>>  {
+>> -- 
+>> 2.53.0-Meta
+>>
+> 
 
-Maybe unprotected-under-pKVM VMs but then it's questionable as to how useful
-that would be given that it would be confusing to users vs. how it works for
-other VMs.
-
-So in general, no I don't think it's a good idea.
-
-And even if we wanted to pursue some version of this, it's _definitely_ out
-of scope for the initial pre-faulting bring-up series.
-
->
->
-> > but pre-faulting is  typically performed before a vCPU is run.  It would be confusing and
-> > inconsistent to error out on non-running vCPUs but to pre-fault running
-> > ones.
->
->
-> I use KVM pre-faulting when transitioning pages from shared to private
-
-You mean you'd prefer to use? Or you are using it on another arch?
-
-> with CoCo guest. This ensures that a trusted device can DMA to private
-> memory before the guest accesses it.
-
-Hm what do you mean by private memory?
-
-I see:
-
-#ifndef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
-static inline bool kvm_arch_has_private_mem(struct kvm *kvm)
-{
-	return false;
-}
-#endif
-
-And only x86 selects KVM_GENERIC_MEMORY_ATTRIBUTES?
-
-Do you mean something else?
-
-Or are you saying we should match x86? I don't think we have the same
-semantics as them, I don't think there's an equivalent for us, and of
-course no private memory in the sense of the predicate above.
-
-In any case I think anything wanting to add additional functionality to
-pre-faulting would have to be a follow-up anyway.
-
->
-> -aneesh
-
---
-Cheers, Lorenzo
