@@ -1,409 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013024.outbound.protection.outlook.com [40.107.162.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDB3525A6F;
-	Tue, 22 Sep 2026 10:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071714; cv=none; b=uozJlwUnWXP+n/u2hoiId9xAiGXMzm06iySq2HNcXoJb/omXyC/cjvb1W4cJkgcSyWgTaGyrcWrqEjaNv1Qs/RP83BenhTPGULzPItjV5C2hc+D71CdCkALZEeMnA49Nr1XlbZzR/F6WNKzW+L4RxFMWt1aaD7VW4bGrSMsHVVc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071714; c=relaxed/simple;
-	bh=QmZfZtuze3dEFQXNZRYfdssHxNZNo07AFj0Mtby0X0A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tAIRGpBRyA6oe+aumMrv4V1l1YKZBv1v/LjA109xj5YFIlxG8rgZuihHyRbozAMR3wUxyEbtxfOT2Nq6pRB8bd6INVdKQfy3rM8M2wAmxhHsv+ygVd7RjrxNoodBRsLEGtfK86IjgTNF9+vW9DJxkNMCrdyx5RWRU1YeF30YqaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADtuIjEd; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857F75218A3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.24
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790071725; cv=fail; b=ntBDkQPBKOE3ixf6Xi+69d24sxjemWQwupUobEqiyxx9S0K2bIyMbasY+Le1UBiTEj2JKj9h8aZVJPOyP7hIHYxFU4AJnUsDpDL/NL0mq2Bx/I8bnU13QWIRFGaEzIAB89pEho+11xaBwEVrSnFgkDySkFrUV5lvcj41Y0wUX34=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790071725; c=relaxed/simple;
+	bh=aByPsJSdHopp9dH4b0+xLni10LN3J5jQn9/c2f9BfAg=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=J7EDS3i9KNPsfhqkV+FHUtgxr4BHi8S+2m32n5FMA/BW5WiPagY1psPZ+FF/lWagyz10bnSz5Z+oP5lR/IBNJLFRaEK9T5DZgXYA+FJunkCPhkdQAiIM3a4ZR4YbQBjMrkmQyxtFVOYiLIntJ4TBIIXC13wtABvi/79mzobMzCs=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rhvP0DLB; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rhvP0DLB; arc=fail smtp.client-ip=40.107.162.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADtuIjEd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385561F00893;
-	Tue, 22 Sep 2026 10:08:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790071707;
-	bh=zMGPVanaJFmZKoJ8Ctzglf8/9UTk6wyVAdM8sDzTyAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ADtuIjEdpbhxunYVA/AIU7hbfT9+tHmrn5/uj3z6O/cmrV11l8SzHSvd8M7k1UQbc
-	 Na2qU6wv5z0jxVEVCflxK+4ohQA0msHjMw1rvssXjIolyr+p3xRUIZAVKLOLMy6dN8
-	 lWPIXidUn36X4AtJ6Jn0qziU0o18nukXeWJKjhDJz/eTWpztpWhyIG4qdfBS0gUgKA
-	 lGpH+tEklfI/SyLC/tyWKSE2qOTC95PggbslQl45jRhKgcZz8iixgOVM3lw5FAaJO3
-	 YMFC198a3626LSRTZt3GIxT48JAWsJIsgkFV3ouuKsCl+t+tydyaUCDcHqEDe1As8a
-	 rZIhryj0mdhUw==
-Date: Tue, 22 Sep 2026 11:08:22 +0100
-From: Lee Jones <lee@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 2/2] mfd: ac200: Add X-Powers AC200 support
-Message-ID: <20260922100822.GA2730113@google.com>
-References: <20260909-submit-ac200-mfd-v12-0-a44d6bc30a4f@gmail.com>
- <20260909-submit-ac200-mfd-v12-2-a44d6bc30a4f@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rhvP0DLB";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rhvP0DLB"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=OdrKahqhhcHr+NCIQtxLXVGU/ncHealkAV9yh+wsqLg1zu1hFXuJ3mngs0NqBh9IuJgL18UE5wlc/Irge4AUICfNlMhLecQp8FKsQbdXixGWNAbImUTposl43KzcH/Swz48hA96LN7zCiLdu1nsOKg72U7DrSktbsNCKvaNWKQJ92slePbNt7Yz9CBPFn7ktzRRmV3fyv4a1JSvKdko2Udb0EL8FR5zH155kd08t7HE9aRvLVdt1aK7zuMvYmeRnQWQFvjgIZbm6X3kfTaQbjlG6kxb6Alb/E972JlYabgnqb3XgDYDpl/Dh6YjOKi1t3zm661qYmVM8Fj2MjDkilw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gm4VQxQkLZ8YjxBmBAexzeCAr+19qOUdBPD64lJk71g=;
+ b=VI9ZlDVlNLDorfEcLzOWc0KTeugmoAh4Y1s2akbjAY5Qmc3mlbmZ+dN07wUr8/VR/idPqj/SBs86rp1G9qb6jiILcYOfoTNJFyEoHbUbIJUBY10UZmjSziFaGlBVQYU4OGneEiKYVOpXRKaBuXJP2V++ae9zvFFwI9HV+tZcfuVpBi67lVvBWUqmEN5bS/cYBdckGwF1mJuehYhIQDTG2VCtKlYtin3je1oLZM/0AcWuS4dusC0egBGlcDtgG0EcpYDtTVKjm2SiPsgbvhTF2HR/EWCvKwTxx+9PKh8yTHpx5WQnywA6pZY3QZkQ/SAZDDJ9wANVZRjfh99gsro+2Q==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gm4VQxQkLZ8YjxBmBAexzeCAr+19qOUdBPD64lJk71g=;
+ b=rhvP0DLBKcNy3uiUTTq5S9ibBh+nHzaeg2H2oyoGJ77dw7Z96YA30C1C5SAJzI+6pr37rq/k5QPWbQLcS4EBZdAns5H+4quFY7z7Kpf4CgCaDcpaP5mW/zuUOy+ZMbmZyd2IaC5HdMv9wqbMtIGTr5IlWGetXjdYTzCtE5kG6DY=
+Received: from DUZPR01CA0273.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b9::14) by FRWPR08MB11635.eurprd08.prod.outlook.com
+ (2603:10a6:d10:1b2::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 10:08:33 +0000
+Received: from DB1PEPF000509E3.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b9:cafe::9d) by DUZPR01CA0273.outlook.office365.com
+ (2603:10a6:10:4b9::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
+ 22 Sep 2026 10:08:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509E3.mail.protection.outlook.com (10.167.242.53) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
+ via Frontend Transport; Tue, 22 Sep 2026 10:08:29 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JLHH5OniH1ultHC30ryAuMciIs3X4IHvjMiQVhH2w4AOHVCxTMOxMeP846B5xHDABRtZ7rdGoAzXJqVeJ/1yUJcJsoLdY6uS3iFHB+DBskLKGALdeNLPFdJvzRlu35svIWK4RUgaMmQgGRlbk2qD+zDZ7zhAhUClBJgOA2BQM3e6mza24PxM2KH5ex1SpatTQTw9BWiwPHQxwOqHtzABnlLuwpUKkdUOjuDXE/DeMDhlVRnRdlCkwAwW+0RgLN+4WX0CZa4TPa0cwnSs6kelWR934wmIQDnKMCYzsUVTLdWVaX5onqwmbSaRirsWqLOHGGsawdVCprEO9VHf3EtaJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gm4VQxQkLZ8YjxBmBAexzeCAr+19qOUdBPD64lJk71g=;
+ b=shY0izCGDPgL2rd1c0tK7nyDJPPQD2LjEwoRaopbEGy5VZ6ScHG2BdihWKNprf+NFfTUZ7m7MeRbBQ4stsEqKkio3SCsX/GFS02MTAdT3CMKVVfxWLu2ryXkslw6h9VsNbNb1hHbwvONeg/uvJDb9olmoMenqdXzCi1zkYOmQ30W4Rke8cVmDQ2xhXHLlnFfo8HJwFT2WfrC5/rwX1KcjngXFVTqKsULz3zvDAF+q5sqcmGeef4Vgl7vpAM+g08Pp8beO5mzaF3UnRqu/EE8NknjYiWvL4203jpHEc641Lz0qrMs5gSgSAWRjnNEzzrVvFWp//QMNU0grl5O69hjag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gm4VQxQkLZ8YjxBmBAexzeCAr+19qOUdBPD64lJk71g=;
+ b=rhvP0DLBKcNy3uiUTTq5S9ibBh+nHzaeg2H2oyoGJ77dw7Z96YA30C1C5SAJzI+6pr37rq/k5QPWbQLcS4EBZdAns5H+4quFY7z7Kpf4CgCaDcpaP5mW/zuUOy+ZMbmZyd2IaC5HdMv9wqbMtIGTr5IlWGetXjdYTzCtE5kG6DY=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from GVXPR08MB11744.eurprd08.prod.outlook.com (2603:10a6:150:316::8)
+ by GV1PR08MB11092.eurprd08.prod.outlook.com (2603:10a6:150:1f3::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 10:07:49 +0000
+Received: from GVXPR08MB11744.eurprd08.prod.outlook.com
+ ([fe80::f478:4ce7:8b51:133]) by GVXPR08MB11744.eurprd08.prod.outlook.com
+ ([fe80::f478:4ce7:8b51:133%7]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 10:07:46 +0000
+From: Akash Goel <akash.goel@arm.com>
+To: boris.brezillon@collabora.com,
+	liviu.dudau@arm.com,
+	steven.price@arm.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	daniel@ffwll.ch,
+	nd@arm.com,
+	Akash Goel <akash.goel@arm.com>
+Subject: [PATCH] drm/panthor: Fix handling of NO_MMAP BOs
+Date: Tue, 22 Sep 2026 11:07:43 +0100
+Message-Id: <20260922100743.447700-1-akash.goel@arm.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0047.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::16) To GVXPR08MB11744.eurprd08.prod.outlook.com
+ (2603:10a6:150:316::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-submit-ac200-mfd-v12-2-a44d6bc30a4f@gmail.com>
+X-MS-TrafficTypeDiagnostic:
+	GVXPR08MB11744:EE_|GV1PR08MB11092:EE_|DB1PEPF000509E3:EE_|FRWPR08MB11635:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04ff430d-92e0-4c5c-e77c-08df1891735c
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ 8+hhC8iNowrcO9SVBNhZRMmwfIHu/MYrpZIdbi6U62rQXPCe5zbNAFGf9uK1M/XBOJdXHWZb1uzrIYF0VOmYeQ8q9VeRdd04AAf4OdgAOWBI/28fUkqyAIz4LjcSS50temVdms38ho5GmAD5lnBfO6fLiiH+bywmqad/8vUtQjt3QGHTbIGQcF9z/S0vjUceZuuTKU5XFNTExbzFSMxCogtp99/8q7csefqmjusKVPLLXDLSKZXvq0b4KtGBZJnVQu/JcMABlw1f4mdw/HWqcQhyuljK+9gQlZMIRyXT1avqTrpitpl50IKgtYWBsXVlbD6jAr568UpKFAXvCgYFWxE7+dkPL64OyQE37249RECSj7X14c1VpJsHWn2gmupriNcLkQOv8W4a/VTir3RU3Gk5aSSv06zeGZIJuj5HRdBhRN+wAxv/j8sguOjYXc/sqBDsIi+nRpFS4jVTjrKBvURVZocjsUSk8bfkycG+0xqKUN811NJUIGMTXy+X2eEo/sxLKTp11vVJSLH9zzUA0KD/ahjYQLFR/M53hUSYJddZ/FkDPbS0TNyJ5YvhtVxxC0ounj2xWjwpEDnDPbVqeDmTbMssSHxpgeTNuaQ11+myZMG8PJph+N2J03ff2BX2vsVP/k5RholxZNEY2AwWbjdSc9EOMLKOikIS7l2t7NE=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR08MB11744.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ oE9hVJOn/w4zFtcKca4axWvdcsxMvOSF224DANkCRDAF9IBDtRueI2Ck9JNxoM3Sks4Qt1TxeLsGPttTOmgKWkL0daR2qxFlkUeQmIaXT5autqaGcV0QSQqusIftGUmRlvpsruH/PPKE1GEoGZA0jtklHKjL+xQ6aQeX9vhUyycE+1d99Jk0LNl8NcWwKAfjbGf6ahAEtTwPAmygkEVJF5rHeO83mwdKCNkO/mUpjh8k3S9k7jN+PdgvamMQ0X+eEtg4GZYt59SqPBlPnAv7PWEtZmgCoH9JyQN86g5pH03QnLbmtlBc20GIIy9kQfkkv57x8r/HCsD4COiZ/rpg3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB11092
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509E3.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	71c024e5-644e-425f-bbee-08df18915958
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|14060799003|1800799024|23010399003|35042699022|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XAiVTRhmX++WtO3fbUOfYrVZWJ8Z/v5TFlNWEwN8NDfNl4XZr6u3BQzqXyltfepftEgwfXTOVdLsgExzvxAwhokGN0gzWrm9ycaoHIF4C1CzGuzOXKNdH6QL7v0KfUasPTUAhdvJ+7ZPcvPbaS2rtWinal/XYr4dtQTx8BvFiyT/FUta4jFq2CsVKEn5zZxD8dI0wGyNa9wy0ohk1GF1LPUUNitX56AeEX3t83P6xJIKloc07/XSO0mf2AxA1NYrQR4YKs0dtWkd2Dg7l7UruLxbqfg79Gmgtkc7x4exe++AISiGsjAENDemHAGNsmYxxkkv80xqb3GOfUJFgk+AWXQbdjp8k1gev4ZllCOhBIpMEP/D7MO2YGsrPp5C+c2dccaGw5AjFLt8cEem/bGeqSh8oVHzgQNIoYy3G2x0GKIU0Dzsu0AgZ5x3f45h5dq2xgy+GV0Ma0VA3U6sUL42iPgrERYMIGEcpYFI6+JcAKZ5mwivjp7I5aB+sNcpGDnkgMnlxrtlSrRhcgxLV4yQa+J+sJA2S9//k30H/l+wjPXsBNP75JfLRlx1hPfRL3AzVqQGZ5+N6rub5qwD/9snww5Ztt1tntA/EH7cCFDn9Y7jWxyuKCxEcskD+YL9fc896gg/l92G3WjPOdo0ro0HrqhhTKqhpq0Adb6vxz31czoyHhzX+ylFStfF69iI15AVIxnK6yjB2vJ249yncMJShg==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(14060799003)(1800799024)(23010399003)(35042699022)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cWFY14MUGZ+99/vUNjzWAjWdHV+z7QWYE48Y9Olcly7Es/19aUiTZkZ3G/eW7gGLZwIOPG2D6FvFjhAedf9YHpqneZrNqCrkpa2ytWOYyRPd1rHalvSTrA2rX3IZo2NV/Y3Sq4Tf7MzJqH3jNDklaZ7awJyqpG2GiNgEQpAgrlq/cV1scrkzFjMnj7D7vIz8lFwgvMA4E7ixCKDYEIQyygORLxODbodw64LjGx0jAKiUd9i030c2DDsN6ngPmKojUZVQIOlyTgOK6NeNUuQABGQ3uy8SZZwfQmjfM2o5HRYCbDfUU1uFmjMppGg/8UfkB0GhMTsTZn/etqeVZasKXyt2q3GD3xFu0cFFl+hI5cfqnryr6HuqTBtOSKpMEyLxYdwWaOAU6PgVJcnTI21Qr/RzUn1NFrvrCQCH7P1O05JjpClwdygyv8o56LcMVxUX
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 10:08:29.3741
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04ff430d-92e0-4c5c-e77c-08df1891735c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509E3.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR08MB11635
 
-On Wed, 09 Sep 2026, James Hilliard wrote:
+The BOs created with DRM_PANTHOR_BO_NO_MMAP flag are not supposed to be
+mmappable by the Userspace. But after the rework to support shrinker,
+it became possible to mmap NO_MMAP BOs. Userspace could second guess
+the file offset range, allocated unconditionally at the BO creation
+time, and create a CPU mapping. There may not be any adverse effect of
+such a CPU mapping though.
+This commit removes the unconditional allocation of file offset range
+when a user/kernel BO is created. For user BOs, allocation of file
+offset range would be done from BO_MMAP_OFFSET ioctl handler which has
+a check for NO_MMAP flag. For kernel BOs, there is no need to allocate
+file offset range.
 
-> The X-Powers AC200 is a mixed-signal companion IC with a paged register
-> map accessed over I2C.
-> 
-> Enable and rate-lock the shared input clock, retain the vendor resume
-> path's 40 ms wait before creating the regmap and accessing registers, and
-> deassert the common reset. No minimum delay is documented. Set only the
-> deassert bit instead of forcing a reset cycle, avoiding a chip-wide reset
-> of unrelated function registers. Leave the common reset deasserted during
-> driver removal and system shutdown; function drivers own their block
-> resets. Supplier unbind still tears down linked consumers and releases
-> the provider's clock references.
-> 
-> Cache only the common page selector. Individual functions can reset
-> independently and invalidate their other registers, so leave all
-> functional registers volatile.
-> 
-> Register the audio codec and TV encoder using static MFD cells and
-> automatically assigned platform device IDs. Their firmware properties
-> belong to the parent node. Map their supply lookups to the parent with MFD
-> supply aliases, without assigning separate OF nodes to the cells.
-> 
-> When INTB is connected, pass its physical IRQ to the TV encoder cell.
-> Select a cell array without IRQ resources when INTB is absent. No regmap
-> IRQ controller or private IRQ domain is needed.
-> 
-> Configure the level-triggered INTB output, defaulting to level-low when
-> the upstream IRQ has no trigger type. Mask all sources before enabling
-> INTB. Function drivers request shared threaded IRQs before enabling their
-> own source, check and clear their own status, and mask their source before
-> freeing the IRQ. Disable INTB after removing the children on failure or
-> removal, while the regmap and clock are still available.
-> 
-> The Ethernet PHY is enumerated on its MDIO bus rather than as an MFD
-> child. It follows the x-powers,ac200 phandle and uses this regmap for
-> ancillary package-control access.
-> 
-> Co-developed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Fixes: 68cbf96b1e9b ("drm/panthor: Part ways with drm_gem_shmem_object")
+Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Akash Goel <akash.goel@arm.com>
+---
+ drivers/gpu/drm/panthor/panthor_gem.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-Why is Andre in there?
-
-> ---
->  MAINTAINERS          |   1 +
->  drivers/mfd/Kconfig  |  14 ++++
->  drivers/mfd/Makefile |   1 +
->  drivers/mfd/ac200.c  | 231 +++++++++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 247 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 419340093c9b..1d03b0060bda 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -29510,6 +29510,7 @@ M:	James Hilliard <james.hilliard1@gmail.com>
->  L:	linux-sunxi@lists.linux.dev
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> +F:	drivers/mfd/ac200.c
->  
->  X-POWERS AXP288 PMIC DRIVERS
->  M:	Hans de Goede <hansg@kernel.org>
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index 857ca3bb0d5b..071cba7c775b 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -205,6 +205,20 @@ config MFD_AC100
->  	  This driver include only the core APIs. You have to select individual
->  	  components like codecs or RTC under the corresponding menus.
->  
-> +config MFD_AC200
-> +	tristate "X-Powers AC200"
-> +	depends on COMMON_CLK
-> +	depends on I2C
-> +	depends on OF
-> +	select MFD_CORE
-> +	select REGMAP_I2C
-> +	help
-> +	  Support for the X-Powers AC200 mixed-signal companion IC. The AC200
-> +	  contains audio, video, RTC and Fast Ethernet PHY functions and is
-> +	  co-packaged with some Allwinner H6 and H616 SoCs. This driver provides
-> +	  the shared register access and instantiates the individual function
-> +	  devices.
-> +
->  config MFD_AXP20X
->  	tristate
->  	select MFD_CORE
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index 72d3944b0ad8..f8101d2a9ce9 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -150,6 +150,7 @@ obj-$(CONFIG_MFD_DA9052_SPI)	+= da9052-spi.o
->  obj-$(CONFIG_MFD_DA9052_I2C)	+= da9052-i2c.o
->  
->  obj-$(CONFIG_MFD_AC100)		+= ac100.o
-> +obj-$(CONFIG_MFD_AC200)		+= ac200.o
->  obj-$(CONFIG_MFD_AXP20X)	+= axp20x.o
->  obj-$(CONFIG_MFD_AXP20X_I2C)	+= axp20x-i2c.o
->  obj-$(CONFIG_MFD_AXP20X_RSB)	+= axp20x-rsb.o
-> diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
-> new file mode 100644
-> index 000000000000..af0d27ff5f45
-> --- /dev/null
-> +++ b/drivers/mfd/ac200.c
-> @@ -0,0 +1,231 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * MFD core driver for the X-Powers AC200
-
-No it isn't.
-
-It's an "X-Powers AC200 Core driver".
-
-> + *
-> + * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-> + * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/i2c.h>
-> +#include <linux/irq.h>
-> +#include <linux/mfd/core.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regmap.h>
-> +
-> +#define AC200_SYS_CONTROL_REG			0x0002
-> +#define AC200_SYS_CONTROL_CHIP_RESET_DEASSERT	BIT(0)
-> +#define AC200_SYS_IRQ_ENABLE_REG		0x0004
-> +#define AC200_SYS_IRQ_INTB_ENABLE		BIT(15)
-> +#define AC200_SYS_IRQ_INTB_ACTIVE_HIGH		BIT(14)
-> +#define AC200_SYS_IRQ_RTC			BIT(12)
-> +#define AC200_SYS_IRQ_EPHY			BIT(8)
-> +#define AC200_SYS_IRQ_TVE			BIT(4)
-> +
-> +/* Interface register accessible from every register page. */
-> +#define AC200_TWI_REG_ADDR_H	0x00fe
-> +#define AC200_MAX_REG		0xa1f2
-> +
-> +static const struct regmap_range_cfg ac200_range_cfg[] = {
-> +	{
-> +		.range_max = AC200_MAX_REG,
-> +		.selector_reg = AC200_TWI_REG_ADDR_H,
-> +		.selector_mask = 0xff,
-> +		.window_len = 256,
-> +	},
-> +};
-> +
-> +/*
-> + * Each AC200 sub-block can reset independently, invalidating its register
-> + * contents without regmap's knowledge. Cache only the common page selector;
-> + * this avoids a selector read-modify-write for every access on the same page
-> + * without ever returning stale functional-register values.
-> + */
-> +static bool ac200_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	return reg != AC200_TWI_REG_ADDR_H;
-> +}
-> +
-> +static const struct regmap_config ac200_regmap_config = {
-> +	.name = "ac200",
-> +	.reg_bits = 8,
-> +	.reg_stride = 2,
-> +	.val_bits = 16,
-> +	.ranges = ac200_range_cfg,
-> +	.num_ranges = ARRAY_SIZE(ac200_range_cfg),
-> +	.max_register = AC200_MAX_REG,
-> +	.volatile_reg = ac200_volatile_reg,
-> +	.cache_type = REGCACHE_MAPLE,
-> +};
-> +
-> +static const char * const ac200_codec_supplies[] = {
-> +	"ac-ldoin",
-> +};
-> +
-> +static const char * const ac200_tve_supplies[] = {
-> +	"tv-vcc",
-> +};
-> +
-> +static const struct resource ac200_tve_resources[] = {
-> +	DEFINE_RES_IRQ_NAMED(0, "intb"),
-> +};
-> +
-> +#define AC200_CELL(_name, _supplies, _resources)		\
-> +	{							\
-> +		.name = (_name),				\
-> +		.parent_supplies = (_supplies),			\
-> +		.num_parent_supplies = ARRAY_SIZE(_supplies),	\
-> +		.resources = (_resources),			\
-> +		.num_resources = MFD_RES_SIZE(_resources),	\
-> +	}
-> +
-> +static const struct mfd_cell ac200_cells[] = {
-> +	AC200_CELL("ac200-codec", ac200_codec_supplies, NULL),
-> +	AC200_CELL("ac200-tve", ac200_tve_supplies, ac200_tve_resources),
-> +};
-> +
-> +static const struct mfd_cell ac200_noirq_cells[] = {
-> +	AC200_CELL("ac200-codec", ac200_codec_supplies, NULL),
-> +	AC200_CELL("ac200-tve", ac200_tve_supplies, NULL),
-> +};
-> +
-> +static void ac200_disable_intb(void *data)
-> +{
-> +	struct regmap *regmap = data;
-> +	int ret;
-> +
-> +	ret = regmap_clear_bits(regmap, AC200_SYS_IRQ_ENABLE_REG,
-> +				AC200_SYS_IRQ_INTB_ENABLE);
-> +	if (ret)
-> +		dev_err(regmap_get_device(regmap), "failed to disable INTB: %d\n",
-> +			ret);
-
-Nit: Avoid these line-wraps by using up to 100-chars.
-
-This goes for the rest of the file too - I'll not comment at each location.
-
-> +}
-> +
-> +static int ac200_init_irq(struct device *dev, struct regmap *regmap, int irq)
-> +{
-> +	unsigned int trigger;
-> +	u16 value = 0;
-> +	int ret;
-> +
-> +	trigger = irq_get_trigger_type(irq);
-> +	switch (trigger) {
-> +	case IRQ_TYPE_LEVEL_HIGH:
-> +		value |= AC200_SYS_IRQ_INTB_ACTIVE_HIGH;
-> +		break;
-> +	case IRQ_TYPE_NONE:
-> +	case IRQ_TYPE_LEVEL_LOW:
-> +		break;
-> +	default:
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "INTB is level triggered, not type %u\n",
-> +				     trigger);
-> +	}
-> +
-> +	/* Mask every source before enabling the shared output. */
-> +	ret = regmap_update_bits(regmap, AC200_SYS_IRQ_ENABLE_REG,
-> +				 AC200_SYS_IRQ_INTB_ENABLE |
-> +				 AC200_SYS_IRQ_INTB_ACTIVE_HIGH |
-> +				 AC200_SYS_IRQ_RTC | AC200_SYS_IRQ_EPHY |
-> +				 AC200_SYS_IRQ_TVE, value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Children are removed before INTB is disabled and the regmap released. */
-> +	ret = devm_add_action_or_reset(dev, ac200_disable_intb, regmap);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (trigger == IRQ_TYPE_NONE) {
-> +		ret = irq_set_irq_type(irq, IRQ_TYPE_LEVEL_LOW);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to set INTB trigger\n");
-> +	}
-> +
-> +	/*
-> +	 * Function drivers request INTB with IRQF_SHARED | IRQF_ONESHOT before
-> +	 * enabling their own source. They check and clear their own status and
-> +	 * mask their source before freeing the IRQ. No IRQ domain is needed.
-> +	 */
-> +	return regmap_set_bits(regmap, AC200_SYS_IRQ_ENABLE_REG,
-> +			       AC200_SYS_IRQ_INTB_ENABLE);
-> +}
-> +
-> +static int ac200_probe(struct i2c_client *client)
-> +{
-> +	const struct mfd_cell *cells = ac200_noirq_cells;
-> +	unsigned int num_cells = ARRAY_SIZE(ac200_noirq_cells);
-> +	struct device *dev = &client->dev;
-> +	struct regmap *regmap;
-> +	struct clk *clk;
-> +	int ret;
-> +
-> +	clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk),
-> +				     "failed to enable input clock\n");
-> +
-> +	ret = devm_clk_rate_exclusive_get(dev, clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to lock clock rate\n");
-> +
-> +	/*
-> +	 * No minimum delay is documented. Retain the vendor resume path's 40 ms
-> +	 * wait after enabling the input clock and before register access.
-> +	 */
-> +	msleep(40);
-> +
-> +	regmap = devm_regmap_init_i2c(client, &ac200_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap),
-> +				     "failed to initialize regmap\n");
-> +
-> +	ret = regmap_set_bits(regmap, AC200_SYS_CONTROL_REG,
-> +			      AC200_SYS_CONTROL_CHIP_RESET_DEASSERT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (client->irq > 0) {
-> +		ret = ac200_init_irq(dev, regmap, client->irq);
-> +		if (ret)
-> +			return ret;
-> +		cells = ac200_cells;
-> +		num_cells = ARRAY_SIZE(ac200_cells);
-> +	}
-> +
-> +	/* Function drivers read their firmware properties from the parent. */
-> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells, num_cells,
-> +				   NULL, client->irq, NULL);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to add function devices\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id ac200_of_match[] = {
-> +	{ .compatible = "x-powers,ac200" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ac200_of_match);
-> +
-> +static const struct i2c_device_id ac200_i2c_ids[] = {
-> +	{ .name = "ac200" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, ac200_i2c_ids);
-> +
-> +static struct i2c_driver ac200_driver = {
-> +	.driver = {
-> +		.name = "ac200",
-> +		.of_match_table = ac200_of_match,
-> +	},
-> +	.probe = ac200_probe,
-> +	.id_table = ac200_i2c_ids,
-> +};
-> +module_i2c_driver(ac200_driver);
-> +
-> +MODULE_AUTHOR("Jernej Skrabec <jernej.skrabec@gmail.com>");
-> +MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-> +MODULE_DESCRIPTION("X-Powers AC200 MFD core driver");
-> +MODULE_LICENSE("GPL");
-> 
-> -- 
-> 2.53.0
-> 
-
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index c07a44057e42..5cfe66537e87 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -1021,10 +1021,6 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+ 	mapping_set_gfp_mask(bo->base.filp->f_mapping,
+ 			     GFP_HIGHUSER | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+ 
+-	ret = drm_gem_create_mmap_offset(&bo->base);
+-	if (ret)
+-		goto err_put;
+-
+ 	if (exclusive_vm) {
+ 		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
+ 		drm_gem_object_get(bo->exclusive_vm_root_gem);
 -- 
-Lee Jones
+2.25.1
+
