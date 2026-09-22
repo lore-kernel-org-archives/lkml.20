@@ -1,84 +1,106 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-54.ptr.blmpb.com (va-2-54.ptr.blmpb.com [209.127.231.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7864F30C1;
-	Tue, 22 Sep 2026 07:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7866F4C33DE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060828; cv=none; b=MfACKt42CexIuHiwl+DxK7b2TbwxYhADVVfWQtORHsPINKl7KEbft5tqwsJGKsPIxZM3yvkMam3pSGfgB2gy4ik4myoC68xmJdrTJYqzTTSVuL9n0tixr7rL525/FM9oV9Afl3rfpJkyF60L7AjekwIlNjw2sM7gz4b1UpYGiZM=
+	t=1790060854; cv=none; b=so0DZyy7b7dAhrk1n+ISgEwMSjRCh0DhzgPu4euExIvt42V/Y0yxDyxNEx3aR0Pr+9TwdHFUepzRLzqBPKNJeapNy7NBUJGI0C9jR0BMIWOkGn54FHIZP6UMcWeip/gu/enhj6G5BNDvKUj7UuN3RBiCuGnEAI1iKBuNrBcIFNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060828; c=relaxed/simple;
-	bh=c0p2lXoFYXsW4S/YekiSdYU1ewx7gAxopyP2B03FLo4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gf7d+XNhWYl6S5KBn3afDkbYm2f9qDz+a5sx+fXveRshsOl7D4iJj5ahVTfu+SWXg5ukIlBjVZfgZhngucLL/bvG94zJaqXIb8erqJ5m5fwVuGAa/u0xg6XoZbUx6uYCHv31fbtOGcv7jmLzEKiIbolyW3cZzEVBAzc8zLfL1zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ww/K3iLi; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790060854; c=relaxed/simple;
+	bh=Dcr8ih5cU5LQLe0KzKSf3x2nn7WzcnwVVBHFzUh3x3g=;
+	h=Date:Mime-Version:Cc:Message-Id:Content-Type:In-Reply-To:From:
+	 Subject:To:References; b=jHQLJx+CVn6I9A0iJzA1pJeXyeO9hWX0NA/tuk2kbO7Gm7DiJj6k3am/v1Plh6i+2en5JtD93bugniBBJMlTzLn0KwVLKEJGpKWnM7Z6+CokmtNGQKcmA8JsGt9hL3uxWZYJYn3giWtIY/18xhAbB9fPpHPelA4MsWcFRqcKbME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=bP9BvABX; arc=none smtp.client-ip=209.127.231.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ww/K3iLi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=c0
-	p2lXoFYXsW4S/YekiSdYU1ewx7gAxopyP2B03FLo4=; b=Ww/K3iLiq6isLjzkuA
-	Bc1w/vQrW9p745o8/p+MCTHh/nneQhBDDWHGcbCN7Ipen10LzOzwhQH+eBcdy3RJ
-	5F9XE4Mlxfcgfl+vrRdPWvJOuAlRfiPZNj2AKghukjnpqkt1cXyyx5uPQ/0O/mvO
-	+Oep+pisZ2jgKD4JrhUMs8j8Q=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDnTVH0KLJqbxULAw--.34964S2;
-	Tue, 22 Sep 2026 15:06:29 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: Re: [PATCH 1/2] sched/doc: add a preemption model overview
-Date: Tue, 22 Sep 2026 15:06:19 +0800
-Message-ID: <20260922070619.70145-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921113050.lwG9IphF@linutronix.de>
-References: <20260921113050.lwG9IphF@linutronix.de>
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="bP9BvABX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1790060844;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=aQE1nSzGBjOGDJk5QhoY//gOlFIvu09fD99BrdzL5k0=;
+ b=bP9BvABX6djOpUDBiQy/lFpRiQiKuI1w9NOEkuk1biQmVCpdJI4XkUK8HTFU7JZRpsRzhm
+ Xdem6gCB04AsyUgRMTyI59G0D5U17goNkx09qQPzxccbShoMpDfWtL+veR4sKzMtwFHnSk
+ E/Q5TOLDs4HHG9cLv5/f1owDVSTElTjkvTemYQhtyPYE9oHfQebRrwP7AAhECMAGi6lXt4
+ B79OdqBfpSVPXsagSPdoC96objtS48RzVMhGdMt0Sly+sBWk3p9vPb0lucW2xBecbULvdn
+ CNpa9/fwdyBuctWAEWl+qe52jN2orxG1qNAFe4qJTn62UdqJZnuqWqlYNdaxvA==
+X-Lms-Return-Path: <lba+26ab2292c+759031+vger.kernel.org+yukuai@fygo.io>
+Date: Tue, 22 Sep 2026 15:07:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDnTVH0KLJqbxULAw--.34964S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw47JF1ktw4xJryxAFW7CFg_yoW8GF1Dpa
-	yYg3ZrGrsrZ3yIkw1vyr17GFyFyws5Jr45Kryrt34jy3yYgrn7trs8tay2kFZruFWfur4a
-	vFWUWa9xA3Z0yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUrpnQUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-xWOBGqyKPVYFwAA3q
+Mime-Version: 1.0
+Reply-To: yukuai@fygo.io
+Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Artur Paszkiewicz" <artur.paszkiewicz@intel.com>, 
+	<syzbot+2ef75c54d0b2ac5d00ba@syzkaller.appspotmail.com>
+Message-Id: <0c58abf7-2c23-44ad-a836-ddaa11484c9c@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <20260920091533.413-1-yogeshgaur.83@gmail.com>
+Received: from [192.168.1.104] ([39.182.0.179]) by smtp.larksuite.com with ESMTPS; Tue, 22 Sep 2026 07:07:23 +0000
+From: "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH] md/raid5: give the io_unit slab caches per-array names
+X-Original-From: yu kuai <yukuai@fygo.io>
+To: "Yogesh Gaur" <yogeshgaur.83@gmail.com>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+References: <20260920091533.413-1-yogeshgaur.83@gmail.com>
 
-Sebastian,
+=E5=9C=A8 2026/9/20 17:15, Yogesh Gaur =E5=86=99=E9=81=93:
 
-Thanks for going through it that closely. You found real errors, not just
-wording, so here is what I am doing with each.
+> Both raid5 log backends create their io_unit slab cache per array but
+> name it after the struct:
+>
+> 	ppl_conf->io_kc =3D KMEM_CACHE(ppl_io_unit, 0);
+> 	log->io_kc      =3D KMEM_CACHE(r5l_io_unit, 0);
+>
+> KMEM_CACHE() passes the stringified type as the cache name, so every
+> array that enables PPL or attaches a journal asks for a cache called
+> "ppl_io_unit" or "r5l_io_unit".  With two such arrays live at the same
+> time the second one trips kmem_cache_sanity_check():
+>
+>    kmem_cache of name 'ppl_io_unit' already exists
+>    WARNING: mm/slab_common.c:112 at __kmem_cache_create_args+0xae/0x460
+>     ppl_init_log+0x285/0x1310 drivers/md/raid5-ppl.c:1363
+>     log_init drivers/md/raid5-log.h:138 [inline]
+>     raid5_change_consistency_policy+0x255/0x740 drivers/md/raid5.c:9141
+>     consistency_policy_store+0x7f/0x230 drivers/md/md.c:5883
+>     md_attr_store+0x3b7/0x640 drivers/md/md.c:6158
+>
+> which is reachable by any user that can write "ppl" to
+> md/consistency_policy on two arrays, and equally by assembling two
+> journalled arrays.  The cache is created and destroyed correctly on
+> every path, so this is a name collision only - duplicate names confuse
+> slabtop and /proc/slabinfo, which is what the check is there to catch.
+>
+> Build the name from the array instead, the way grow_stripes() already
+> does for the stripe_head cache in this driver, and fall back to the
+> mddev pointer for dm-raid where mdname() is the constant "mdX".  The
+> buffer is sized like conf->cache_name[] because mdname() can return up
+> to DISK_NAME_LEN bytes.
+>
+> The explicit size/align arguments keep what KMEM_CACHE() expanded to,
+> so object layout does not change.
+>
+> Fixes: 3418d036c81d ("raid5-ppl: Partial Parity Log write logging impleme=
+ntation")
+> Fixes: f6bed0ef0a80 ("raid5: add basic stripe log")
+> Reported-by:syzbot+2ef75c54d0b2ac5d00ba@syzkaller.appspotmail.com
+> Closes:https://syzkaller.appspot.com/bug?extid=3D2ef75c54d0b2ac5d00ba
+> Assisted-by: LLM
+> Signed-off-by: Yogesh Gaur<yogeshgaur.83@gmail.com>
+> ---
+>   drivers/md/raid5-cache.c | 12 +++++++++++-
+>   drivers/md/raid5-ppl.c   | 12 +++++++++++-
+>   2 files changed, 22 insertions(+), 2 deletions(-)
+Applied to md-7.4
 
-The "Measuring" section is wrong and comes out entirely. A wakeup does not
-send an IPI to every CPU with a runnable CFS task; it targets one CPU. The
-rest of that section reasons from that false premise, so there is nothing
-in it worth keeping. Your point that a freshly woken SCHED_OTHER task is
-not required to run immediately, and that timer slack and preemption or
-interrupt disabled regions add their own jitter, was the useful content
-and I did not have it.
-
-The rationale is also wrong. I wrote that lazy exists to cut IPI traffic;
-the point is run-to-completion, so that in-kernel work finishes before the
-switch and no lock is held across it. I will use your wording for the
-model table, including the part about real-time tasks not being delayed.
-
-The tick promotion and the idle-task case are implementation details and
-go, and so does the debugfs section, for the reason you gave.
-
-That leaves the four models, runtime selection, the note that this applies
-to kernel code only, and /sys/kernel/debug/sched/preempt as another way to
-see and change the model.
-
-Both patches are held. If what is left is too thin to be worth a file,
-say so and I will drop the series rather than post a trimmed version of
-something you did not think should exist.
-
-Quchaosheng
-
+--=20
+Thanks,
+Kuai
