@@ -1,95 +1,148 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCA751A14F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7CF3B3C11
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790120380; cv=none; b=snv1OpEcFD7XVy0DaNk+dHrxE2VNAB++r0yw78ujN69kUpFhoMhNYkX+uUoasL011SQOGN+bXj7KAcFkmopjQy1uxrBlfKO1AohKbhnfcIVeRY8Aj0lz7XAo57V8YxPDVmi/aAFlvbccNzF/ddRAsgY48LdLL9eXsbYNMfW2MMI=
+	t=1790120512; cv=none; b=VOjA04eoIrfuMEcv/Mf2VWc/avKZpaT2QG+z3lf65hVLno2WTIA5Rt8uuLYc6kuIyoFpJKtamn4g26s3CSqedVdNTro4nbPjyfnJb9J/uK2IoMJwVFBnzVU/eBwCGdlH8cC8ph5bX6TFFucRFLxRbFYf8bE49nPJTPbzyWAZj+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790120380; c=relaxed/simple;
-	bh=b4PyemOas51sLYTItG1LKlf5UMn0KctJVlyzgXvS4fk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=JW6BgVar97X23RgWlHmejtbHMxa/yBY2heIdj3ePMCQjeomoRrlZuDDDDnR3/H/L+ToTbZVwMk1sobE65lRKRGsHW4Cwy1fwZqTrlTcLBuuQ9F8Qs8whOR9WDYPQ6vbQo4UAol8MjFRC9oon3slWAgaVO1mH2E4A+aMIdSQukw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nGTZ3u/k; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790120512; c=relaxed/simple;
+	bh=UBbJe1oEZMVEBnwz0Jkyz9CJtRLjI0G4uhKnk+yV9DA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pwqd1A5MhwoZmxPjkjoisBb1831mmc9WoEF/Tv46j11evEapMFZy+6rtbJWQ17L2Li+qakHdUySDpWUcFnCQ8QSliqgprctzOxjB7cJj+HaZ7NFJuMg5Z1o8uw2qFthfnMobkrZ3SXCRoNCf8u1OtrY7vlZwLlCXpT09Es2xLE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GjI7uDXy; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nGTZ3u/k"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so1654955e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:39:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GjI7uDXy"
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-786c3d55c99so138754137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:41:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790120375; x=1790725175; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=b4PyemOas51sLYTItG1LKlf5UMn0KctJVlyzgXvS4fk=;
-        b=nGTZ3u/kWzZEqaIqg+axaFdnzXCJuW+PrSaAzT+4cTEknGMQsJCLDJswUVeF4vneU2
-         OCNR5n3p4ybKz8SsSCLFH9Y7apg/H75Z6vi8sMhlEI4ulO45TLmN2LREXMfWQV6Jfxrl
-         TAulGa8oSGX4hTgEsrnoEuvfK2h0HEoZG96cGEmC6HxonTbIKQQtxShKcCxd/S7UksNi
-         y2qjltP1TzW7tTxobdyQYnkAmrDLLpB8PfE1lRe2OGkR3Mzs8xaPdFvZWoiTnQo/FF39
-         UYh+JdFjfZIxInLB2dv513cvYG95H7rr5v5WpbMRMR00QetKZ+FQGhN2EvJhA0KxXVOC
-         6Rpg==
+        d=gmail.com; s=20251104; t=1790120505; x=1790725305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rSatJQry0kvCfjOyHMI34oJzA2rpZ7XOemBqHWKUcnc=;
+        b=GjI7uDXyoOHrwuQhXG+Xc12baPazdBd7TF3uX4qdYhBIjgwFBLXfZvgUwudp9H6rWu
+         vp0jw7ZhkPBtKVfymFAYrzIMq6f9Ac75EVLrgREJz33DBSU/0xy6lgE+hy6/9afuIvkQ
+         lQvJoMFFTRGvxg7aVuSojw8LKZNul/tMafdLbR6CSse7gJ9S/1lVs1bn8EE8rncJPtio
+         XWOJGev/dthIXIiPluygTkFnarqvkIyUUAiUw3KVPB/g0TGL6b8JqaEtJ0QZwzQfCGY2
+         YvuElWlJjXdXH945JizpsrIsYBv8Qcvtt2nbFHwbSId85Mh0d86PWUdsTe54dDHohVn1
+         zyCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790120375; x=1790725175;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b4PyemOas51sLYTItG1LKlf5UMn0KctJVlyzgXvS4fk=;
-        b=tEzbO6dJ8+hYV8dlkuwsa/PA94RWWvWZgfSWEd/D0hnP5kt3blxcj3PW0lOJuEmcD6
-         lEiiwIWg2cj58Abqs3sXClWBkff3fFlCKwWz5MU8phkj0UJXSM01+Z2zF7Do4JefGHu0
-         zxrTibNWZYTQPjEr+YdQya1Jr25zTS0x8kMPkDmZjWQjSHAXH3DggBCCdSJw9motF9Mu
-         6UnR5W7wdWHIB/KUdrPjF5SqgstefBoAD6ODTjG78/kIbeUwZeZDYS0UpLvwzsiuaujd
-         +neHpVbWVXFuLOBmQLZ4v8r4pABUkX4KwgVo1aqOFB7FyhMRHBtaq4BEdTCMJ8QxX0mk
-         E7Gg==
-X-Forwarded-Encrypted: i=1; AKwUvBzAFKRI7OzMObBfuChAo/JjQv3Yo821y26c2VisGu3HOu55bkDpw6MjyEppu7dIbZm8HnD+K6GtSPAh9VI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQFu/PdJBa3PPZpu60hljBnS6EzhUuvgB0UnzSrzmwXFsbipiz
-	h7D/1sJ2M3UBA38Tc9uCjF5dXj24ZYkRJXv4ZL64PdTd+XujJACVc+Fn+25E59FeJ5g=
-X-Gm-Gg: AYBFou15DG7a2UAD17ocgPE5dbyWbaRHa6j4ow9Yy4ssHfQCabSuboqs1w7R2TioUkj
-	zK+TLdJZvrGYSHe3OdL79Rb1W03/Zk81jzzQSgUTK+uaeXezAMa3oMmdpYtzqXIRM4N+GhArCWZ
-	YkiktglqKWXZkObcxdX/3DMirUWEUgcJkZHciP1V9xq434X1DcBYF+JczTay1GjLImFJ89yvTBf
-	2YfRMi3IvED9iJGplsQ3Y+y4ZXXWiH+/tYQCqyC4a3EMcIihfyG51nd0D/bBegwXCZU+bUmNdrV
-	EaydkEUoA2UVhRdfsXqPdAklWftnh38ofu6TQuBres9oNFaMQnIfnZUeCgdwNe0PaeWvw91y2dS
-	Na6/5DxFBDI5yqU87tFSE1Rnctcc/SC46qle85nmpIbMpaticEwFIPKD+2s86RUwdK6HMztRnEk
-	57vcVk6PfDmjNW69qOu2cqS3qP/yKiD+guUS9+eiM6kF7x4pE7EW7X7WFyZLzzhlfz+R+d1W40n
-	B5CgU7J/jDrP2Bnyn4w0K72GlE5Y0AUI6D4iLoZVf+1lkZzxcOXAWX/QhdrAYwtTwyZew==
-X-Received: by 2002:a05:600c:4f84:b0:49f:cbae:3414 with SMTP id 5b1f17b1804b1-49fdee0af33mr8327405e9.4.1790120375291;
-        Tue, 22 Sep 2026 16:39:35 -0700 (PDT)
-Received: from localhost ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1a0e00sm23315025e9.10.2026.09.22.16.39.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 16:39:34 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790120505; x=1790725305;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rSatJQry0kvCfjOyHMI34oJzA2rpZ7XOemBqHWKUcnc=;
+        b=rq1YD1YeVAHE75xGr8YA8Y6d1dkUs2mC0xIspm2mTxrlDMZuX7GnegWWAtudOPG1Il
+         +DiZzzMoE8y40bWQsgqi64pC5jR+HQGmvgUZPdQIP5EzkHvMtQzCNLu7ZiYx+m8/ybnS
+         dKFQYUd8fv/M5m9SGJ4l3JEh5MnVMUQDw2ZIvvQ7hJFdk40T+qAds8T1U8oPDTbI2mi1
+         KSH3DWyNfy+ud4M34m11Ic70F+h0lORFBH+sgdSgOlJMpmZHbCJlnb7Xqi3UEJqyXJb/
+         aT5/tCNThqLGmnVa9qaW+VcFHMKIm2dnVW8NsXzvHdEl4/RRPpp8PzYQ7qHAXoHG7fgO
+         k7zA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4RGhjEqUwP0Zx9UMk7zdOu1epYs7y8i6qUiCU8JvuXtDVxI4STyalzZ6DJPBtUpN8bflU/6n/HPDhQ4g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKDpC4vGTN0ENDuYTmDCco4MjTlvae4DmiKhOrhs7xE0tUL1XU
+	vH15HiJEQs44WSn+q7RhVYJddGhpb9yJeGoiwZPfmg0yLWcmZyPSlXKYwBc9ocQxWjc=
+X-Gm-Gg: AYBFou1MUZLYzWMMvS4eR5GgX2viYyuicZ92ymwTa/Uqp9zNBvAyE/r2odZZxlog/uU
+	+HCk88JkI72zy4eC50rxUdGa52cuVduB3Ul4nW46sdbuVmEbnfcjix0S45AU5LgNwvbqLGXCHoR
+	dYfgT3hN49Nj11k3DokfrguevU1AYdxHmUMue+XLVvrI+yHJ5/7ikaMagYlsce53N422xllqLWZ
+	on9OHN5eBp20mr7PJ04/8otbcTzCGdUkTGI5baUqgaZ4T7483N2QpEd4xr56uBhmvOW7wgpo0kV
+	+WCTR0/zo1dGijmlfuBvsoPjJB1I0+RDQlxSYpvpAr4qxtUgoL+Y52qaHhPr4O4My1IFoFwIYe2
+	95ezeu5OTYFBvZA3u+SRWMSSYgP+PW/laoZNqJipiK/wLOGrdd/pHqD39WFxd31YPTTtboR8utj
+	+jZgq6sPMhKoPyKtxNJRxAeVFt1pgKbHwhtsG2qNkp4PZUac9o2drUctN2ogKSHyeYU9yDr6+0M
+	aQKOlozRfemyM5CPMktyzQfcrNncaa2mv9OMN8D59Sk2aGew2Bqh0FnyA==
+X-Received: by 2002:a05:6102:4414:b0:7a1:f2b4:dae0 with SMTP id ada2fe7eead31-7ac0d12c7b6mr1298181137.13.1790120505470;
+        Tue, 22 Sep 2026 16:41:45 -0700 (PDT)
+Received: from bazzite ([138.122.221.5])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5c6d7b2sm1842902137.8.2026.09.22.16.41.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 16:41:45 -0700 (PDT)
+From: Davy Felipe <davyfelipe34@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Davy Felipe <davyfelipe34@gmail.com>
+Subject: [PATCH v2] hfs: handle extent B-tree write errors
+Date: Tue, 22 Sep 2026 20:40:39 -0300
+Message-ID: <20260922234039.1307375-1-davyfelipe34@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260920160213.285316-1-davyfelipe34@gmail.com>
+References: <20260920160213.285316-1-davyfelipe34@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 00:39:34 +0100
-Message-Id: <DLM8PMZGW3LZ.37Z3VI9NHG5D6@linaro.org>
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>,
- <lee@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <andersson@kernel.org>, <konradybcio@kernel.org>,
- <sboyd@kernel.org>
-Cc: <dmitry.baryshkov@oss.qualcomm.com>, <alexey.klimov@linaro.org>,
- <r.mereu@arduino.cc>, <srini@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 5/5] arm64: defconfig: Enable configs for audio
- drivers on Arduino UnoQ
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-X-Mailer: aerc 0.21.0
-References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
- <d7e64ce498db8aec475b8652563c6cd8bc8cd429.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <d7e64ce498db8aec475b8652563c6cd8bc8cd429.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Sep 22, 2026 at 11:11 PM BST, Srinivas Kandagatla wrote:
-> Enable reset controller and pm4125 audio codec driver that are required
-> to enable audio support on Arduino UnoQ board.
->
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+__hfs_ext_write_extent() does not report all failures while updating
+the extents B-tree.
 
-Reviewed-by: Alexey Klimov <alexey.klimov@linaro.org>
+When inserting a new extent record, the return value of
+hfs_brec_insert() is ignored and HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW
+are cleared even if the insertion fails.
+
+When updating an existing extent record, hfs_bnode_write() returns
+void, so its caller cannot detect a rejected write. Validate the extent
+record size and node range before calling hfs_bnode_write().
+
+Propagate errors returned by hfs_brec_insert() and return -EIO for an
+invalid existing extent record. Only clear the extent dirty flags after
+a successful operation.
+
+Fault injection confirmed both failure paths. Insertion errors are
+propagated to the caller, and invalid existing-record writes are
+rejected before hfs_bnode_write() without clearing the dirty state.
+
+Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
+
+Changes in v2:
+- Validate the existing extent record size and node range before
+  calling hfs_bnode_write(), following review feedback.
+- Return -EIO without clearing HFS_FLG_EXT_DIRTY when validation
+  fails.
+- Fault-injection tested the existing-record failure path. Before the
+  change, hfs_bnode_write() rejected an invalid offset internally but
+  __hfs_ext_write_extent() continued and cleared the dirty flag. With
+  v2, the invalid write is rejected before hfs_bnode_write().
+
+---
+ fs/hfs/extent.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
+index f066a99a863b..13426503fbb3 100644
+--- a/fs/hfs/extent.c
++++ b/fs/hfs/extent.c
+@@ -121,12 +121,21 @@ static int __hfs_ext_write_extent(struct inode *inode, struct hfs_find_data *fd)
+ 		res = hfs_bmap_reserve(fd->tree, fd->tree->depth + 1);
+ 		if (res)
+ 			return res;
+-		hfs_brec_insert(fd, HFS_I(inode)->cached_extents, sizeof(hfs_extent_rec));
++		res = hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
++				      sizeof(hfs_extent_rec));
++		if (res)
++			return res;
+ 		HFS_I(inode)->flags &= ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
+ 	} else {
+ 		if (res)
+ 			return res;
+-		hfs_bnode_write(fd->bnode, HFS_I(inode)->cached_extents, fd->entryoffset, fd->entrylength);
++		if (fd->entrylength != sizeof(hfs_extent_rec) ||
++		    fd->entryoffset < 0 ||
++		    (u64)fd->entryoffset + fd->entrylength >
++			    fd->tree->node_size)
++			return -EIO;
++		hfs_bnode_write(fd->bnode, HFS_I(inode)->cached_extents,
++				fd->entryoffset, fd->entrylength);
+ 		HFS_I(inode)->flags &= ~HFS_FLG_EXT_DIRTY;
+ 	}
+ 	return 0;
+-- 
+2.55.0
+
