@@ -1,215 +1,115 @@
-Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
+Received: from 9.mo563.mail-out.ovh.net (9.mo563.mail-out.ovh.net [46.105.73.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6101D4F7CC2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEED33B6F4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:42:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.73.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073704; cv=none; b=d1En48Lq7F03arK8sh1XwT1R6r7uXoGpprIrio0Zr0qxVoA8cXmr0s5cgezC08qHDlbzkr/3ZxXWlWqCigMsYErG/eUK6y7hRz5qbm0+mdXHweAd9gonMKj4jl7L/uhUX3SFIAXHPecDDsghrAP80AgVs54nITtJEXGHGEV0cZQ=
+	t=1790073749; cv=none; b=Sgt3lzUErI755G3SvlQUXtscDm0wOIFKafP1/AjdyU5AXiVCzZy4KTvWXYJTQsjl/7/rTjm+uJwXTUsw3BS9YUKt8HbQgz7DsBacx2YCdVifuf7qqx2NqpfbcebGlRRL8dEZDJKgCvSBHgEkHi/UCQgCS/4qcSBPuiJ+jm19tfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073704; c=relaxed/simple;
-	bh=7y+CuiXe43bSt3b6poJ9J8P0PdtDQi2xVeYDvDLvAsI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cTqt58wa+Hpg69NicxG/eqQpZ27TUTGPFbl8GbsAHfSUpsMMfrEeW4R3dfEEamrZPld3W3LW5TT3X3g8B72YQiaNWj5FjRs4QbchyKLT+FZN9JKDZr1NK2G3LFTUaEokyl1c1AVi2l62cRdQ7eHtjFaeMAalWKdHw6jAxhdtWC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=JM1stZ3M; arc=none smtp.client-ip=185.136.64.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1790073749; c=relaxed/simple;
+	bh=SQqW3vRIkopO+wMee+p+HGuzJFeS+9zxJ92hnhTL4vE=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=tb7HBPCW+LU16we+EYn0LhI5y8fKUbp52ZgpPZtyjHOojW+YHqWC8sTfhB/3NxWV15Hl9Xx6ap7+MQ8ew9os/0eU1Zte9WhUjdjfBZnxRI4/JanZqNlZrw0zc3UfcjFqtI8SpdjxM8f0Go9i+EoUH5bJmmJHuIWtO2XmPDonmT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trinity-net.com; spf=pass smtp.mailfrom=trinity-net.com; dkim=pass (2048-bit key) header.d=trinity-net.com header.i=@trinity-net.com header.b=VaG/sPRT; arc=none smtp.client-ip=46.105.73.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=trinity-net.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trinity-net.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="JM1stZ3M"
-Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 20260922104126d50e3bdff50002079a
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 22 Sep 2026 12:41:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=WBqETWon5zt1ABigAm6JISxmN1Fiv0yInSBaLX18UcY=;
- b=JM1stZ3Mv/3EOorFzfSayog6JGegkejRG07NqHFHMzgks99AG3bo+FuqU43IzvVGEXB3ux
- jLv93/be4JCqSjZ1p+gbdW7zV3eTK7Peheg67l9XqV8c/4X5efAr7flwJPnclxCeZRNcfknj
- LKg6mgfJYYCFZ6MtFLg125joBYzC7/1pqJYUHxlJTo4XO1mDwZ16zDcTM0GxjySQvcYPFSx6
- SwSFt0+7hXt76O4D95YPiRZmf+eR4i8T1Ts4+qthAzSxum7nLzHbF5VHpBBTFtkuewsKKtZ9
- PPbw/yLEKtvDkxaU+hWjSWrknQQwxzFiUoLQ7Gs600HIZxabW9f9Ys+A==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: netdev@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v4] net: dsa: mxl-gsw1xx: force internal PHYs into a known reset state
-Date: Tue, 22 Sep 2026 12:41:22 +0200
-Message-ID: <20260922104124.311334-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=trinity-net.com header.i=@trinity-net.com header.b="VaG/sPRT"
+Received: from director6.derp.mail-out.ovh.net (director6.derp.mail-out.ovh.net [79.137.60.226])
+	by mo563.mail-out.ovh.net (Postfix) with ESMTPS id 4hpwgX32ZXz5xBq;
+	Tue, 22 Sep 2026 10:04:40 +0000 (UTC)
+Received: from director6.derp.mail-out.ovh.net (director6.derp.mail-out.ovh.net. [127.0.0.1])
+        by director6.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <marmarek@invisiblethingslab.com>; Tue, 22 Sep 2026 10:04:40 +0000 (UTC)
+Received: from mta2.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.96.120])
+	by director6.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hpwgX1hzLz46XY;
+	Tue, 22 Sep 2026 10:04:40 +0000 (UTC)
+Received: from mailstore7.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.1.8.7])
+	by mta2.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTP id 47B7F3E1C79;
+	Tue, 22 Sep 2026 10:04:39 +0000 (UTC)
+Date: Tue, 22 Sep 2026 10:04:39 +0000 (UTC)
+From: Support TRINITY <support@trinity-net.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, 
+	Sasha Levin <sashal@kernel.org>, 
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	regressions <regressions@lists.linux.dev>, 
+	linux-acpi <linux-acpi@vger.kernel.org>, 
+	linux-pm <linux-pm@vger.kernel.org>, 
+	xen-devel <xen-devel@lists.xenproject.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	Stable <stable@vger.kernel.org>
+Message-ID: <85435495.299101679.1790071479170.JavaMail.zimbra@trinity-net.com>
+In-Reply-To: <2026-09-21-daily-reply-0001-re-acpi-cpuidle-xen-dom0-6-18@kernel.org>
+References: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com> <2026-09-21-daily-reply-0001-re-acpi-cpuidle-xen-dom0-6-18@kernel.org>
+Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks
+ bare-metal Xen dom0 boot
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Authenticated-User: support@trinity-net.com
+Thread-Topic: ACPI processor/cpuidle change in 6.18.52 breaks bare-metal Xen dom0 boot
+Thread-Index: K73oORQOTU57TlGFBhdBixjIo6r4Nw==
+x-ovh-tracer-id: 5960514109192304155
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGW2IyZ/YhHU9dSERzRYRpzlG0d5PBjuMM0K21jz02Okjd/bCKxP1ZZRuOy/r/ltrGOr888QHzjvDzzQi0zj0e4dR+2bAR/+R5MiSycoysPZjrO4AkftF3W8vsz6sYndEZb11LXltTssTuH3cOm3NP7FMwSfLDM4TpFiRM0f8kwLKIjc1sjh1mq+V1a49WPCknOvHd+6HbFREV6QWabnMcF1iWJPn/XdJ0h2YIJrvYkDioxQiNhuucf8YCjEDugAeC6CDc9v8yBLGuRKHaDh9Y8a4rat0hJKtkf+jmC5RDEOsrwiNA929B7TyYqVi76j6YnQg/UkD3KxtM3T+NyePm/nl6lpqhjSrJb6CIlzOTm/ovxqvyM2s2w067weK8F5tLYlwMR2Q4VYJhw8iC7LtzUqXb2LH6+jU92iwCRleThQlUbC6Z0fWGXQfVKe4/w49zB011P8Ps0Iup2oL1EEdCa6P77NRQcwCybSn1jRzIEmGpOdnRHRv4ibhop54BmayavlnDMye4CjEtUYTGHMQHGopXIAm5faRbrlXNuaaotm+LIjnskpaFCxAyxdETDPsxHH6oU9AbDWl+48A9jqIizrN9dsRSHih4XBZTE8ST0EAJ+tO6BWBDGbkn26cy5ORq+weZ/21z56gDpsC6jogFYmRcUYq8kXsp3AQpEO5fC7g
+DKIM-Signature: a=rsa-sha256; bh=SQqW3vRIkopO+wMee+p+HGuzJFeS+9zxJ92hnhTL4vE=;
+ c=relaxed/relaxed; d=trinity-net.com; h=From; s=ovhmo-selector-1;
+ t=1790071480; v=1;
+ b=VaG/sPRT/5Wkmyg6O2UgpCTVF3vInOg+yIy0yxjvtzD+plqdz/3Jn8A2tgKtSc4LHHhFb9A2
+ TaHW5/PY2TSRsydiH3xeLpmPt/o4ErSwqQ/dBL6rslyZnGDs5zfOTBKOuQx1dxeGg6+wTqHc6HH
+ i4NejfDLPmyb8yaJHV2TSSmhLfJbbFTxt4DsXcO4PvvlJibEsebZPiZSZFWKWszTcZ/SFnE3on6
+ 5y2aKAVehynIDD4854CTMrOL+J7+kFigmlPlagWvJ92YgDZoMKz8t0xgKOL9me0y2n8zlWvMpG5
+ 6GLGQLBsnGp6ZFcqqQF64ERmSEuMxY8baALBB9axwHFtg==
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+I have now tested Linux 6.18.52 with commit:
 
-When bootstrapped with PS_NOWAIT = 0 the internal PHYs stay held in
-reset, so the driver only worked with PS_NOWAIT = 1 where they are
-released automatically.
+0089ce1c056a ("ACPI: processor: Update cpuidle driver check in __acpi_proce=
+ssor_start()") applied on the affected Alpine Xen dom0 bare-metal host.
 
-Add a ->setup() hook, run before the MDIO bus is registered so PHY IDs
-are readable during the bus scan, that programs the RST_REQ PHY reset
-lines: release the PHYs of used (DSA user) ports and hold all other
-internal PHYs in reset. Driving both directions yields the same state
-regardless of the PS_NOWAIT bootstrap and keeps unused PHYs from staying
-powered.
+Result: it boots successfully.
 
-A single 300ms settle delay is applied only when at least one PHY is
-released.
+Xen dom0 comes up correctly, /proc/xen is mounted, xenstored starts, SSH
+is reachable, and xl info, xl list, etc... work as expected.
 
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
-Changelog:
-v4:
-- dropped PHY_INTERFACE_MODE_INTERNAL and "phy-handle" dance
-- now correctly asserting the reset bits of the unused PHYs
-v3:
-- put unused PHYs into reset state (changed patch subject accordingly)
-- https://lore.kernel.org/all/20260915091856.1375914-1-alexander.sverdlin@siemens.com/
-v2:
-- Reverse Christmas tree.
-- https://lore.kernel.org/all/20260908103030.4032992-1-alexander.sverdlin@siemens.com/
-v1:
-- https://lore.kernel.org/all/20260901165049.672446-1-alexander.sverdlin@siemens.com/
+So this confirms that 0089ce1c056a fixes the regression on this affected
+Alpine system.
 
- drivers/net/dsa/lantiq/lantiq_gswip.h        |  2 ++
- drivers/net/dsa/lantiq/lantiq_gswip_common.c | 10 ++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.c          | 35 ++++++++++++++++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.h          |  1 +
- 4 files changed, 48 insertions(+)
+Thank you Rafael for identifying the missing stable dependency.
 
-diff --git a/drivers/net/dsa/lantiq/lantiq_gswip.h b/drivers/net/dsa/lantiq/lantiq_gswip.h
-index 0b75be14dc109..4f95877c59d1d 100644
---- a/drivers/net/dsa/lantiq/lantiq_gswip.h
-+++ b/drivers/net/dsa/lantiq/lantiq_gswip.h
-@@ -261,6 +261,8 @@ struct gswip_hw_info {
- 	const struct gswip_pce_microcode (*pce_microcode)[];
- 	size_t pce_microcode_size;
- 	enum dsa_tag_protocol tag_protocol;
-+
-+	int (*setup)(struct dsa_switch *ds);
- 	void (*phylink_get_caps)(struct dsa_switch *ds, int port,
- 				 struct phylink_config *config);
- 	struct phylink_pcs *(*mac_select_pcs)(struct phylink_config *config,
-diff --git a/drivers/net/dsa/lantiq/lantiq_gswip_common.c b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-index 6150dc3ffb641..7c53ded178367 100644
---- a/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-+++ b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-@@ -689,6 +689,16 @@ static int gswip_setup(struct dsa_switch *ds)
- 	 */
- 	regmap_write(priv->mdio, GSWIP_MDIO_MDC_CFG0, 0x0);
- 
-+	/* GSW1xx will wake up the PHYs here, so it makes sense that it happens
-+	 * after the auto-polling deactivation above, but before the MDIO bus
-+	 * registration below
-+	 */
-+	if (priv->hw_info->setup) {
-+		err = priv->hw_info->setup(ds);
-+		if (err)
-+			return err;
-+	}
-+
- 	/* Configure the MDIO Clock 2.5 MHz */
- 	regmap_write_bits(priv->mdio, GSWIP_MDIO_MDC_CFG1, 0xff, 0x09);
- 
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-index 66bf7e3319057..5722a9fadc0a7 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-@@ -589,6 +589,37 @@ static void gsw150_phylink_get_caps(struct dsa_switch *ds, int port,
- 	gsw1xx_phylink_get_lpi_caps(config);
- }
- 
-+static int gsw1xx_setup(struct dsa_switch *ds)
-+{
-+	struct gsw1xx_priv *priv = container_of(ds->priv, struct gsw1xx_priv, gswip);
-+	struct gswip_priv *gswip_priv = ds->priv;
-+	u32 phy_mask = 0, active_mask = 0;
-+	int port, ret;
-+
-+	/* Reset bits exist only for the internal-PHY ports preceding the first
-+	 * MII port.
-+	 */
-+	for (port = 0; port < gswip_priv->hw_info->max_ports; port++) {
-+		if (gswip_priv->hw_info->mii_cfg[port] != -1)
-+			break;
-+
-+		phy_mask |= GSW1XX_RST_REQ_PHY(port);
-+
-+		if (dsa_port_is_user(dsa_to_port(ds, port)))
-+			active_mask |= GSW1XX_RST_REQ_PHY(port);
-+	}
-+
-+	ret = regmap_update_bits(priv->shell, GSW1XX_SHELL_RST_REQ, phy_mask,
-+				 phy_mask & ~active_mask);
-+	if (ret)
-+		return ret;
-+
-+	if (active_mask)
-+		msleep(300);
-+
-+	return 0;
-+}
-+
- static struct phylink_pcs *gsw1xx_phylink_mac_select_pcs(struct phylink_config *config,
- 							 phy_interface_t interface)
- {
-@@ -830,6 +861,7 @@ static const struct gswip_hw_info gsw12x_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
- 	.supports_2500m		= true,
-@@ -852,6 +884,7 @@ static const struct gswip_hw_info gsw140_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
- 	.supports_2500m		= true,
-@@ -874,6 +907,7 @@ static const struct gswip_hw_info gsw141_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= gsw1xx_phylink_get_caps,
- 	.port_setup		= gsw1xx_port_setup,
-@@ -895,6 +929,7 @@ static const struct gswip_hw_info gsw150_data = {
- 		[5] = 1,
- 		[6] = 11,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.phylink_get_caps	= gsw150_phylink_get_caps,
- 	/* There is only a single RGMII_SLEW_CFG register in GSW150 and it is
- 	 * unknown if RGMII slew configuration affects both RGMII ports
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.h b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-index caa8f1008587a..a7976a5988bd8 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-@@ -110,6 +110,7 @@
- #define GSW1XX_SHELL_BASE			0xfa00
- #define  GSW1XX_SHELL_RST_REQ			0x01
- #define   GSW1XX_RST_REQ_SGMII_SHELL		BIT(5)
-+#define   GSW1XX_RST_REQ_PHY(p)			BIT(p)
- #define  GSW1XX_SHELL_MANU_ID			0x10
- #define   GSW1XX_SHELL_MANU_ID_PNUML		GENMASK(15, 12)
- #define   GSW1XX_SHELL_MANU_ID_MANID		GENMASK(11, 1)
--- 
-2.55.0
+Regards,
+Tony
 
+
+-----Message original-----
+De: Sasha Levin <sashal@kernel.org>
+=C3=A0: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>; Marek Marczykowski-G=C3=B3recki <marma=
+rek@invisiblethingslab.com>; regressions <regressions@lists.linux.dev>; lin=
+ux-acpi <linux-acpi@vger.kernel.org>; linux-pm <linux-pm@vger.kernel.org>; =
+xen-devel <xen-devel@lists.xenproject.org>; linux-kernel <linux-kernel@vger=
+.kernel.org>; Stable <stable@vger.kernel.org>; Support TRINITY <support@tri=
+nity-net.com>
+Envoy=C3=A9: mardi 22 septembre 2026 04:23 CEST
+Sujet : Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks ba=
+re-metal Xen dom0 boot
+
+
+> I will try testing 6.18.52 with commit 0089ce1c056a ("ACPI: processor:
+> Update cpuidle driver check in __acpi_processor_start()") applied,
+> instead of using my lifecycle revert.
+
+Queued for 6.18, thanks.
+
+Please still post the result of that test once you have it.
+
+--=20
+Thanks,
+Sasha
