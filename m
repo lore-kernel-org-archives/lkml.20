@@ -1,68 +1,33 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4575751596A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7740751596A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077594; cv=none; b=jpdtGTi7aaFPn7Gs0mX37GI+KyLUUkJmBMcODXkGe+FgbOyt/VchW8hN23/6tSobwaULch1ioqPBrSkJxhGBnRW4+7tU8s/k0tb1UKzb7yvnvc9EAi0SsGEOkUesA5csPVTOR08Q5GcElaRNW7Qa6AxSqg/3AA19zgtvroMlVrQ=
+	t=1790077625; cv=none; b=e2FceGT/t8I/gnKaevcrPWzDwI0HltpM8AQ3diOs22QobJrmt299NX1qcrCrDkGcZUMdPE6wRCwTqKIc8vWXcpz+KyEBnGJj/9i+wyYc0skMkv2osJviM5E7UJ4Myh9pDbY5Zjx6fuEbLGBetPc3Un+4q93FXJHMD0wXkXARamQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077594; c=relaxed/simple;
-	bh=M3Xr9iBMhROimwBT9eQQeQt6rCOhgjqnmrhUoKcVfnI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=AGesgKBd275hrKLVA9YCe7zMftsPRgGK2F5xPD9VX675GSO57YEmU5zWx+/XJxs1eWwqYiN6Tg1C5KA93RQuG6l0fu54StEpeunZBPs8JlXYqAu5TsWWpJwDdpRqtqJ/a854mBo6tLdUDBoVcYO/LFbGSdR1VuA5fmgV+7HaGVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hCPqAcWq; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790077625; c=relaxed/simple;
+	bh=MH1V6cSXSxrjq8Z1OY0uVfiqxHoJKoXvtlO0RzQyNE4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jkLTdRYhSTLmfoLDi8P0HNwFWEKt48Dy8EN+oK2sDw0m/Y8JMRO06aIAiYbSeRktlsVroKak/HvlewQczS2185SiAKmcXzTQvh5P05wUTDaI+CPvVAYMVsCyh/4Yy0GKLzko1TL+ce3rRqb95o9m2CkhdMBATNAWtmVjndEId0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLoYgScJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hCPqAcWq"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so1949531f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:46:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790077590; x=1790682390; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ovAKBw15uveBtm1L1gdlFwDkGVI31wzX0RWiaJj57Zg=;
-        b=hCPqAcWqhmGtvbbP4WxZQam+QdzZuzmX6+hCpv2eHAbQnMmPRz6p3OmqgW3vGpjVFv
-         y0eFjBjvvIE3NaQFiNV7mg6mL9sgGPMBs1JN75IN9/DKeGV3xEWLK/4R+tJCGSpHGgyL
-         xBLLw6OxEbIKsR9RF2CW7HUBx9TGFnwPYBycTW8+YUZajQs40FFUHIsq9q8MfxI+Af2f
-         GKMjyDPUKELiVqTuZus5UaXcev+S2lNbSlw8i4hQ9//PJ5NvzCvcngG5rcwKOIoAgg7H
-         EDOK9Hrf5Z+WalfAJSmaN4TNzPfvDmcpWeBMK2yrKgF6Vi5bSnDptXVNakpE40YwhJ7d
-         OjiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790077590; x=1790682390;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ovAKBw15uveBtm1L1gdlFwDkGVI31wzX0RWiaJj57Zg=;
-        b=BYAbfMS0W3nrp2j8sUWO0FKMooJn5nHEsg4dL8wSUNoTugapao2IYSojHNOV14DkHF
-         Z6J8heXZY8FljVAQg4eVfUo0IFKtttFAVeoxhFcqtowvZxm7op6Hir0zARq3Co8I1xli
-         R6qYfqNIsIyQEd+7j/wDueoJGizxfCu+Miy9Fydb8j/NudQW42M5yDSrP+EI2LeQmsak
-         MIQyrmyyDif8PV3zCk3fSzet547Mz/CRq49yRK7QHb9GyHmbRe1Og92k/9mrIk/lUPaX
-         HeX9Dmj2KLzUx91TOdG6yWs8NjU/mQo3m22NvKjkS5EOgNO48w8qEWzvS32qelic20lr
-         zemA==
-X-Forwarded-Encrypted: i=1; AKwUvBxNJZ1z+hkJER4v9DCwkLS206Qjobq755NnoDtjJlCGYfTUn4qZJAGpOw+P+qw98DAe9sapUwrUfL9HaGM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpVFl9VMS5asENgkQP3WJ3qDw6gOFSwlcRlQsk8YfIxsEmBPPz
-	/4ugCS+EbSWC/lDIU8WNi5JDkCjVAH36RkBsixEnoazpr2o7VLoCAjUIscQ1TgM7nrg=
-X-Gm-Gg: AYBFou0flL9ZBR/Gb3/aLMOyrLlQWAkln8gNxUiYPO9GT9LgRdB+s1R9kBx4knlv1n7
-	uWTp7Rm3IjIKoOit2pyfGP6dK3qGrFZjkywe9VqIt53ROdAeg2MFx5K4NrLKsuvko2DdSl0zbln
-	CQYcwDCBkE4bqOFGkQROQbreMzBnaOcnzl12k1bSqOCsz7mY22qcesWFZLQqKbXF+kKvYYP/pJz
-	U+mfmFHXiG9z4Pmi0ypRVzkAiAUo3JtUOLHr+7e3Jpz3iQmvBHsSsUo6h7Gc41oax+re/y4JsR+
-	v082kJsZZTREYQqouB00YJpHgMFWrIgnV6GQ7DISsQQlWGZDOetvKl81NkLCeaugc24GMCT//iO
-	wp5bYe3zFAPzbH0X4M0lTxH8ssH+Amds3EtbLQ7NN9Bnfn7bgiGbqZw/hCmXBIiSdwIUwG/79zb
-	HiRu088jt7Qp5ATzudFgVyNOjWnrEIcWR+8ClNH/EeLwwrjbjcDa0vTeRca/geMEwHmfSBNjMop
-	y6Ah197HZc9PqJ+hOenlCU5oKSDjEn6lgTbETB3IY+dwTq7nY+V/94=
-X-Received: by 2002:a05:6000:490d:b0:485:8a47:5b91 with SMTP id ffacd0b85a97d-4871e36cb87mr18628350f8f.46.1790077590353;
-        Tue, 22 Sep 2026 04:46:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ddd0:8cc7:9887:fa82? ([2a01:e0a:106d:1080:ddd0:8cc7:9887:fa82])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862774543sm5000820f8f.11.2026.09.22.04.46.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 04:46:29 -0700 (PDT)
-Message-ID: <b2112da7-dbb6-49fa-ae10-b9e4d47d4495@linaro.org>
-Date: Tue, 22 Sep 2026 13:46:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLoYgScJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48B01F000FF;
+	Tue, 22 Sep 2026 11:46:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790077624;
+	bh=c+DKAj4xzdIdJKSxQBQcBD03qNvXqcqF0lY3BnsNpe0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iLoYgScJP8kyzXcT27ks9DHRBs9LUcWMlsVKfWujGuDqvoNr6FSuHvHB9/SoFCLpZ
+	 O32AE0nCsHqqF7z8754fWqJHurtvL4n/fjjS2I7gphbJZ6D6zV+XjQ5hxGt1/Qwk2W
+	 mjNmJ9CGfKoy1zhGkRuTBiuYMOm3uvBKZqDlVsTZXCGc38ApHeh9D9ojsJOxpU5+Uv
+	 VVuP4G9IkioxURcBOpKQlZaU7hlpEqzzrebwItu+acqyPCIlvyTgiinzlO0QjB4+Up
+	 983xFLBA0M4YrSlIuCJvyVCHZx36nUuziYpWWfITljmkXGhPjSMLvScuDrNrwDQky5
+	 58uEhwfCy+S3A==
+Message-ID: <4101d661-7b16-401c-aaef-b87e81fdaee3@kernel.org>
+Date: Tue, 22 Sep 2026 13:46:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,214 +35,142 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm8650: Add initial Valve Deckard
- devicetree
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260922-topic-sm8650-deckard-initial-dt-v1-0-c25e7759d04a@linaro.org>
- <20260922-topic-sm8650-deckard-initial-dt-v1-2-c25e7759d04a@linaro.org>
- <bc3d3df8-a2dd-4ac5-8064-d54d4eaa3f6a@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <bc3d3df8-a2dd-4ac5-8064-d54d4eaa3f6a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [RESEND v7 11/29] mm: split PMD swap entries into PTE swap
+ entries
+To: Kiryl Shutsemau <kas@kernel.org>, Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org,
+ ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, baohua@kernel.org,
+ dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-12-usama.arif@linux.dev>
+ <aqqwFOoPxqFnxclE@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqqwFOoPxqFnxclE@thinkstation>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On 9/22/26 13:39, Konrad Dybcio wrote:
-> On 9/22/26 1:28 PM, Neil Armstrong wrote:
->> Add an initial DeviceTree for the Valve "Steam Frame"
->> codename Deckard. The Steam Frame is a virtual reality headset
->> based on the Qualcomm Snapdragon 8 Gen 3 SoC (SM8650).
+On 9/16/26 17:08, Kiryl Shutsemau wrote:
+> On Mon, Sep 14, 2026 at 05:28:01AM -0700, Usama Arif wrote:
+>> Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
+>> or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
+>> handler - has to be able to split that entry too, or the callers that rely
+>> on split_huge_pmd() to hand them a PTE table would find the PMD unchanged.
 >>
->> Providing initial support for:
->> - System reserved memory, regulators, gpio keys, PMIC functions..
->> - PMIC ADC Channels
->> - UFS Storage
->> - USB Gadget
->> - WCN7850 Wifi7 + Bluetooth
->> - I2C + basic peripherals
->> - SDCard slot
+>> No reference counting is needed: a swap entry pins no folio, and swap_map
+>> is already one per slot, so the PTEs simply take over what the PMD held.
 >>
->> The bootloader starts Linux in EL2, thus a bunch of EL1 & DSP related
->> nodes needs to be removed and the reserved-memory mapping must
->> be defined.
+>> The migration-only entry point cannot reach the new branch, because
+>> page_vma_mapped_walk() never hands back a swap PMD for the folio being
+>> migrated. Warn if that ever changes, and force the regular split anyway,
+>> since the branch leaves folio and page uninitialised.
 >>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Test the pre-split old_pmd rather than re-reading *pmd in the trailing
+>> folio_remove_rmap_pmd() gate, so every entry-type test in the function
+>> interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
+>> leaves the PMD present as far as software is concerned.
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 >> ---
+>>  mm/huge_memory.c | 36 +++++++++++++++++++++++++++++++++++-
+>>  1 file changed, 35 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index 873887aed0bc2..0e347a545588c 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -3304,6 +3304,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>>  			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
+>>  						 vma, haddr, rmap_flags);
+>>  		}
+>> +	} else if (pmd_is_swap_entry(*pmd)) {
+>> +		/*
+>> +		 * A PMD swap entry has no page, so it cannot be turned into
+>> +		 * PTE migration entries.  page_vma_mapped_walk() never hands
+>> +		 * one back for the folio being migrated, so this should not
+>> +		 * happen; warn, but also force the regular split so that a
+>> +		 * broken invariant cannot make the code below dereference the
+>> +		 * uninitialised folio and page.
+>> +		 */
 > 
-> [...]
+> The comment can be shorter.
 > 
->> +/* Remove nodes */
->> +/delete-node/ &ipa;
->> +/delete-node/ &gpu_zap_shader;
->> +/delete-node/ &lpass_wsa2macro;
->> +/delete-node/ &lpass_rxmacro;
->> +/delete-node/ &lpass_txmacro;
->> +/delete-node/ &lpass_wsamacro;
->> +/delete-node/ &lpass_vamacro;
->> +/delete-node/ &lpass_tlmm;
->> +/delete-node/ &remoteproc_adsp;
->> +/delete-node/ &remoteproc_cdsp;
->> +/delete-node/ &remoteproc_mpss;
->> +/delete-node/ &reserved_memory;
->> +/delete-node/ &swr0;
->> +/delete-node/ &swr1;
->> +/delete-node/ &swr2;
->> +/delete-node/ &swr3;
+>> +		VM_WARN_ON_ONCE(use_migration_entries);
+>> +		use_migration_entries = false;
+>> +		old_pmd = *pmd;
+>> +		soft_dirty = pmd_swp_soft_dirty(old_pmd);
+>> +		uffd_wp = pmd_swp_uffd(old_pmd);
+>> +		anon_exclusive = pmd_swp_exclusive(old_pmd);
 > 
-> Hm, maybe we should think about sm8650-audioreach (simialrly to
-> how we have a split for the kodiak variants)
+> The logic looks right to me, but __split_huge_pmd_locked() is getting
+> awkward. It is close to 300 lines with two if-else chains that have to
+> be kept in sync.
+> 
+> Can we have a preparatory patch that moves the PTE-install loops into
+> per-type helpers?
+> 
+> split_pmd_into_migration_ptes(), split_pmd_into_device_private_ptes(),
+> split_pmd_into_present_ptes().
 
-I will probably go in this direction when adding support for audio.
+There were recently patches about related cleanups:
 
-> 
-> 
->> +
->> +/ {
->> +	model = "Valve Deckard";
->> +	compatible = "valve,deckard", "qcom,sm8650";
->> +
->> +	aliases {
->> +		serial0 = &uart15;
->> +		serial1 = &uart14;
->> +	};
->> +
->> +	chosen {
->> +		stdout-path = "serial0:115200n8";
->> +
->> +		framebuffer {
->> +			compatible = "simple-framebuffer";
->> +			width = <4320>;
->> +			height = <2160>;
->> +			stride = <(4320 * 4)>;
->> +			format = "a8r8g8b8";
->> +			memory-region = <&framebuffer_mem>;
->> +
->> +			/* Bootloader will enable the node */
->> +			status = "disabled";
-> 
-> Is there a reason not to enable it? Does the bootloader prefer to
-> only enable it sometiems?
+https://lore.kernel.org/r/cover.1787941780.git.yintirui@gmail.com
 
-Exact
+I'm fine with cleaning this up later (I hope we can land this series in 7.4).
 
-> 
-> [...]
-> 
->> +	reserved-memory {
->> +		ranges;
->> +
->> +		#address-cells = <2>;
->> +		#size-cells = <2>;
-> 
-> it's usually:
-> 
-> addr
-> size
-> ranges
-> <newline>
+-- 
+Cheers,
 
-Ack
-
-> 
-> [...]
-> 
->> +
->> +		aop_mem: aop-region@81c00000 {
->> +			no-map;
->> +			reg = <0x0 0x81c00000 0x0 0x60000>;
-> 
-> 0.dtsi
-
-Good catch
-
-> 
->> +		};
->> +
->> +		ramoops: ramoops-region@84a00000 {
->> +			compatible = "ramoops";
->> +			reg = <0 0x84a00000 0 0x100000>;
->> +			record-size = <0x40000>;
->> +			console-size = <0x40000>;
->> +			pmsg-size = <0x1000>;
->> +			ecc-size = <16>;
->> +		};
->> +
->> +		aop_cmd_db_mem: aop-cmd-db-region@81c60000 {
->> +			compatible = "qcom,cmd-db";
->> +			reg = <0x0 0x81c60000 0x0 0x20000>;
->> +			no-map;
->> +		};
-> 
-> Likewise many of these reservations also exist there
-
-Not sure slitting this would be worth it.
-
-> 
-> [...]
-> 
->> +	/delete-node/ smp2p-adsp;
->> +	/delete-node/ smp2p-cdsp;
->> +	/delete-node/ smp2p-modem;
-> 
-> I think these shouldn't hurt even if your usecase is different
-
-Right, but those describes a pure firmware interface.
-
->> +
->> +	wcn7850-pmu {
->> +		compatible = "qcom,wcn7850-pmu";
->> +
->> +		pinctrl-names = "default";
->> +		pinctrl-0 = <&wlan_en>, <&bt_default>;
-> 
-> nit:
-> 
-> property-n
-> property-names
-
-Will fix
-
-> 
-> please
-> 
-> otherwise looks pretty good
-> 
-> Konrad
-
-Thanks,
-Neil
+David
