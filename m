@@ -1,142 +1,109 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 025C0247280;
-	Tue, 22 Sep 2026 10:38:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FFE301486;
+	Tue, 22 Sep 2026 10:39:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073525; cv=none; b=HJySZBruh6WVWRrXWcLV5UKO1V8qgAPici5m+Lmhadq+giuXassGxTppaEyXmR3gx+r4ttyEk3K1+N4X2MfpS/8nKeijAe+Bi1lEhzHlktTyJzj7ubgWJtewPjFGmTHWWU5fUPCpkIB/Ue9iKZMTnzxocO28idudqEGZeD6O+8g=
+	t=1790073586; cv=none; b=R3xe5i1JKbGq+2Or5iIysQBh5XAE6sH6oybZjjiXRU4vrDu9/rGI/zsdSosofUQCxOV1yd4bTTC6wuiZzgrkEEQXB5eZs0zdG63On9KO1eCM1GbExOI/n43mA4xlXUrpp1DG8rNCawrJfLY0+aDQBCdAwrDZp3Yw/j3J6zonFNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073525; c=relaxed/simple;
-	bh=0EIXjeyAI4S9Q4d29IPfXdLZ0TzlUX09hLhqO14gjnM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QyF3sXlAUwGTTDXhKv10Oc01l443CS5kmX8OgFY+bDg1l7cml47BCHJUZSRmwHzGGa/NMP2BFQk3fA6uPeG2OKTAXat56UaZKjqR06Kx05wP3K1OfXyrceLXCXOLqo+n05nFilDQB/gdu4ILMGxZinmbxScMkL6OLB4BclLuT3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vIZAJbEW; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790073586; c=relaxed/simple;
+	bh=wifZY/d5vFSvhmi1LxdZcopZYwRMLPQMjxZ/vhPfDjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JFUDH3BRNOHAJhzmbb9W0CPeADHYcB9aJnozQ8FHQfELVoH4gy5B9geGToOa7TkTYUtUdHzK+zXu913krt4TE6Tm/Y+7Ol3F1CtU5TUN9YaXETjm7MemzAmi+Ah2csWoaR69gKktee20Xp3pKxpvhhuqD28U4FULmCPfRwXzSU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=LAJ1KE5f; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vIZAJbEW"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14ACD1576;
-	Tue, 22 Sep 2026 03:38:38 -0700 (PDT)
-Received: from login2.euhpc2.arm.com (login2.euhpc2.arm.com [10.58.100.22])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3ABA73F632;
-	Tue, 22 Sep 2026 03:38:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790073521; bh=0EIXjeyAI4S9Q4d29IPfXdLZ0TzlUX09hLhqO14gjnM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=vIZAJbEWTlXPu/VZ4y7Cm3s/P8h40IGvctRJFvrzCHJ5H+8HiL2pAfQt88fs1Solb
-	 aUxNZE4rOt04rTDkEvhb2lyVfRs71xEZ3VtVdQlZGvJN/mMMyvAA86bEcXA47TNypW
-	 Gm9aNnZh0od7w05bLPzZMzlzG8GTKGWc4tZ1Ctjs=
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-To: linux-usb@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	chunfeng.yun@mediatek.com,
-	gregkh@linuxfoundation.org,
-	rostedt@goodmis.org,
-	paulmck@kernel.org,
-	mark.rutland@arm.com,
-	Vladimir Murzin <vladimir.murzin@arm.com>
-Subject: [PATCH] usb: mtu3: Fix double dereference in TP_printk
-Date: Tue, 22 Sep 2026 11:37:56 +0100
-Message-Id: <20260922103756.104846-1-vladimir.murzin@arm.com>
-X-Mailer: git-send-email 2.24.0
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="LAJ1KE5f"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=zkVHXvH6aSNeIiHZsZBLuLPhi5KT7D0PnrCA/uC+Aww=; b=LAJ1KE5fYZ3ToH2JjALIy5lMHl
+	M59CT9fHAa0I8HqTqLbRMlnd8o7XvcrxwQXQ6N5/lNLK5KUBcpIkeqh5xwIsQsCF8VO1QMRu2Z/0q
+	WX+cDPCgXBS6yzxPgKsUAXJ0sShUnGzJiy6uHMD+mA/E5U1zQp+MF/MwH588ohKVp40f7XrAV2D2r
+	z1o1STvQfbXYwaW89gLnyAarb1UbHwFj8HQdGkcs8ImImluh0IcAEH/0XjoV5I4CAYQqIEMmP7z7F
+	AKvnZhso8fTnU9daXknVjmAVBb5oTTAjvQ1/ZcIqnO/MulZ1ik0pzxnwUI7OU0bnQvnGja5vlJkgA
+	aihXbVZA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x8xuL-002vHv-1e;
+	Tue, 22 Sep 2026 10:39:29 +0000
+Date: Tue, 22 Sep 2026 03:39:21 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Miaohe Lin <linmiaohe@huawei.com>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, 
+	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com, 
+	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, 
+	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or, 
+	shakeel.butt@linux.dev
+Subject: Re: [PATCH v5 0/9] mm/memory-failure: keep hardware-poisoned pages
+ out of the next kexec
+Message-ID: <arJaHrZfWSQXFgWP@gmail.com>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <d6e35901-f74d-bf81-75d3-bac4b26d9d72@huawei.com>
+ <arJBkNOgbR8NrgFP@gmail.com>
+ <16baab50-692c-308b-d60d-1b0a328df1e3@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <16baab50-692c-308b-d60d-1b0a328df1e3@huawei.com>
+X-Debian-User: leitao
 
-Paul reported kernel splat:
+On Tue, Sep 22, 2026 at 05:29:14PM +0800, Miaohe Lin wrote:
+> On 2026/9/22 17:14, Breno Leitao wrote:
+> > Hello Miaohe,
+> > 
+> > On Tue, Sep 22, 2026 at 02:27:59PM +0800, Miaohe Lin wrote:
+> >>> A bit is never cleared, which is a known limitation: it stands for a
+> >>> whole unit, so an unpoison of one frame cannot tell whether the unit as a
+> >>> whole is good again.
+> >>
+> >> Thanks for your patches. I have a question about unpoison: If a bit is never
+> >> cleared, after we do some memory-failure+unpoison tests, kexec will lose the
+> >> tested memory without reboot?
+> > 
+> > Correct, A bit stands for a 2M unit, so every tested page that falls in
+> > a distinct unit costs 2M in each kernel after the kexec.
+> > 
+> > Worth being precise about the state today: the unpoison itself works.
+> > The frame goes back to the allocator and num_poisoned_pages drops. Only
+> > the bit stays, so the next kernel poisons the frame again. Test loop
+> > in, memory out, and nothing gives it back.
+> > 
+> > Important to say that nothing block us from unpoison the bitmap, and in
+> > fact my initial patchset had it. I also _think_ we should unpoison the
+> > bitmap once we unpoison the page. 
+> > 
+> > I have just kept it out of this patch in order to simplify the patchset and
+> > get the basis correct, and then evolve on top of it.
+> > 
+> 
+> Makes sense to me. Thanks for your work.
 
-[    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
-[    0.000000] ------------[ cut here ]------------
-[    0.000000] Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
-[    0.000000] WARNING: kernel/trace/trace_events.c:420 at test_double_dereference+0x144/0x14c, CPU#0: swapper/0/0
-[    0.000000] Modules linked in:
-[    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1 #15247 PREEMPT
-[    0.000000] Hardware name: linux,dummy-virt (DT)
-[    0.000000] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[    0.000000] pc : test_double_dereference+0x144/0x14c
-[    0.000000] lr : test_double_dereference+0x144/0x14c
-[    0.000000] sp : ffffc80aa7633bf0
-[    0.000000] x29: ffffc80aa7633bf0 x28: ffffc80aa7c0f047 x27: 000508b58019388f
-[    0.000000] x26: 0000000000000003 x25: 0000000000000007 x24: ffffc80aa5fceff8
-[    0.000000] x23: ffffc80aa7c0f05a x22: ffffc80aa64edfe8 x21: ffffc80aa7c0fce8
-[    0.000000] x20: ffffc80aa7c0f047 x19: 0000000000000013 x18: 0000000000000001
-[    0.000000] x17: 6572656420656c62 x16: 756f642073616820 x15: 746c61685f746573
-[    0.000000] x14: 0000000000000000 x13: ffff000139d90000 x12: 0000000000000045
-[    0.000000] x11: 00000000000000cf x10: ffff00013f546428 x9 : ffff000139d90000
-[    0.000000] x8 : 3fffffffffffc000 x7 : 0000000000000001 x6 : 0000000000000001
-[    0.000000] x5 : ffff00013f4e6440 x4 : 0000000000000000 x3 : 0000000000000000
-[    0.000000] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffc80aa764a700
-[    0.000000] Call trace:
-[    0.000000]  test_double_dereference+0x144/0x14c (P)
-[    0.000000]  trace_event_raw_init+0x37c/0x5d8
-[    0.000000]  event_init+0x34/0xc0
-[    0.000000]  trace_event_init+0xec/0x588
-[    0.000000]  trace_init+0x24/0x6e0
-[    0.000000]  start_kernel+0x4a0/0x8ec
-[    0.000000]  __primary_switched+0x88/0x90
-[    0.000000] irq event stamp: 0
-[    0.000000] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
-[    0.000000] hardirqs last disabled at (0): [<0000000000000000>] 0x0
-[    0.000000] softirqs last  enabled at (0): [<0000000000000000>] 0x0
-[    0.000000] softirqs last disabled at (0): [<0000000000000000>] 0x0
-[    0.000000] ---[ end trace 0000000000000000 ]---
-[    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_disable has double dereference in TP_printk: &REC->gpd_ring->dma
-[    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_enable has double dereference in TP_printk: &REC->gpd_ring->dma
+Ack. I will continue it without the unpoisioned bits for now, and as
+soon as this series lands, I will add the unpoision mechanism on top of
+this infrastructure.
 
-Which also observed by Mark and myself.
+Thanks for your support so far. I will send a new version soon, with
+the fixes I am accumulating so far.
 
-The splat it result of new check introduced by b5cc230af5e5 ("tracing:
-Warn when an event dereferences a pointer in TP_printk()") which
-correctly catches issue with %pad dereferencing the address saved in
-the ring buffer. TP_fast_assign() logic gets executed when the
-tracepoint is triggered, however the TP_printk() is executed when the
-user reads the trace buffer which could be seconds, minutes, hours,
-days, even months later and nothing guarantee that __entry->gpd_ring
-pointer will still be pointing to what it was when it was recorded.
-
-Fix the issue by capturing immediate value of gpd_ring.dma when trace
-point is triggered.
-
-Reported-by: Paul E. McKenney <paulmck@kernel.org>
-Tested-by: Mark Rutland <mark.rutland@arm.com>
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
----
- drivers/usb/mtu3/mtu3_trace.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
-index 89870175d635..9aaa167d69c1 100644
---- a/drivers/usb/mtu3/mtu3_trace.h
-+++ b/drivers/usb/mtu3/mtu3_trace.h
-@@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
- 		__field(unsigned int, flags)
- 		__field(unsigned int, direction)
- 		__field(struct mtu3_gpd_ring *, gpd_ring)
-+		__field(dma_addr_t, gpd_ring_dma)
- 	),
- 	TP_fast_assign(
- 		__assign_str(name);
-@@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
- 		__entry->flags = mep->flags;
- 		__entry->direction = mep->is_in;
- 		__entry->gpd_ring = &mep->gpd_ring;
-+		__entry->gpd_ring_dma = mep->gpd_ring.dma
- 	),
- 	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
- 		__get_str(name), usb_ep_type_string(__entry->type),
- 		__entry->maxp, __entry->slot,
- 		__entry->mult, __entry->maxburst,
--		__entry->gpd_ring, &__entry->gpd_ring->dma,
-+		__entry->gpd_ring, &__entry->gpd_ring_dma,
- 		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
- 		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
- 		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
--- 
-2.34.1
-
+--breno
