@@ -1,114 +1,85 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F3655D899
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAB355D86F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091831; cv=none; b=Orts/jQCiZAr3KgtOqmMq5hGZMamEg42zl0/juP9HsAEYf1OJEVaSynsCunccmjfXKILVTQd63DefR073MhxTj6AcYH3eEGMjb+dSn5VxuZ3JdYMgcEpT+Dv6kq6ltd5iouITLmJTYzuYHwavYq1fjqmVU5G/FSTsG1iLpFOd/g=
+	t=1790091839; cv=none; b=JZXLH9C9Xz2cMpFZm2+P5hz4oNZ3PlMayl10BhvKavvvqeE8VrJ9YF9xATGmuid2are/p5sg/ToH414YuEb0xy1e20nrIi6Kiz7mNd5+jjblKDuvEUxHT0GuFoNbgokHyYI6BFdJFtNtuIevQn4SSYiJqU0ihUMMNbw7o/m+llM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091831; c=relaxed/simple;
-	bh=hchzYvXQvWRzwu0eETo6eP63WqkiRtXrdlRjjzPyl40=;
+	s=arc-20240116; t=1790091839; c=relaxed/simple;
+	bh=MPJa407hEU35uhm5nNbxl1o7nH1It+GZNahj267Ph9Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XmB4Iudcnf6a5fxLmleaYftjdxgKqHxIMeaKTPyBlr4CSOX5NqD5E2V6pv2EbWd6fQp9zwXCzhn4Vvkt4N/+EgXtfIibl36agkAOLxdsgE44zSIZTlfChN8CPQAJFie9JY1X4Cj6XAtnQeNGB61LVxoH7cOE+HoFEKUtaNX0DVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=IPm2bJqg; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=UMRKpq4KzzVJugt9R5GwMMHxDYgU/2Xm2f8HV2JZYG7YjzuoRDZ0w49XrdwWVVI6g3OgT6aRayLG0Awnzi6Qq4swC9z0VLA8NRz/jIx3dLEbeHExmPIJ4evp5N1MYwU8SIiPsMJRV1TWZjakMzUW5nSmKFEPY33EIQKbmhmMzKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Fs3qkBd0; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="IPm2bJqg"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c796e3aso1253936241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:43:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Fs3qkBd0"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso24099a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:43:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790091823; x=1790696623; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790091836; x=1790696636; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hchzYvXQvWRzwu0eETo6eP63WqkiRtXrdlRjjzPyl40=;
-        b=IPm2bJqgan2bGO6w8DvJ0QU3bLlbkLxPRj584Y9iKd6/FPisDWNUfhsAbfveWrhE+U
-         5p5e32HG0eCBn4dsR5Vifb+H6U1lEGFJCeUcrjoMPkRxsCGFe1I6riK+4tTbE5FD1uDo
-         LEDSbE8mKxo3Uzy4VR8aYngoGRDvpCLs67ZasrXTBunR/mqIknlRNErG/OYfJf42b6ug
-         av6yz/2ituu2QdpocnO6LzOHTsMzDfF7V3VwP/Zax4FSrsP8KFJK+BEsuJlpNxm9pvD/
-         j1BSDdBkNHN7VmfxVTkBErrJbSoyXa287vmZNi9ONOKHmpqtysk65aww5mhvuZ+htApm
-         si9A==
+        bh=M3+7e8iXJEjn74p0MvD+DqdSnpalQ9TYucgtTBbjy+c=;
+        b=Fs3qkBd0zQ6ucr9QdRr/P75/EMkmrjSEbT5jRPu65SllB6psWZLuhEtIR8ipOit7A0
+         dziV0+nGwg7V2nN1BC5p4jSOI6JqlJ4VhDCy1D2782OiNTCjIigPmBH3i1XdNxdsmN8v
+         5TPnIzCBqfYbme/U6Y/AcKwZ8Pt2Rbu5OXLjLOQqF2vHaXs1YGGMYeaFIF4yHYcwiM6/
+         SRIu8soPC7WwSEWc5AhWiIfOVfx5gdDTpchEwtevZGmhoCWU85RyAF/G3fg11L+RGdzC
+         HZ9ky1Whz7rypN6AsszTu2oEE8qqHHmBZqmbfEUWLFH/fV/edyaoBSBbClCQBE+xiVbE
+         C8GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091823; x=1790696623;
+        d=1e100.net; s=20260707; t=1790091836; x=1790696636;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hchzYvXQvWRzwu0eETo6eP63WqkiRtXrdlRjjzPyl40=;
-        b=vgyHZfl45DuLNDF+S0Cfs0G5nkH3DirU0mIGey8kP9ioIBxZWhANdLQWY4sdvJd5kV
-         HSuGyOFW1k29oautZcu9BFABkrn7GJU1SRJ3MEyem4Tlf++1ouSOL2pyUh+RztP5z0Yo
-         1nFmMY39PFsd7IHxuYVa4XvSYS8uX0H/SUWHCSOiCOzE6uHpVRZqI35BLxeFbQiu7y6B
-         81ggVs16WTtsIAFxSA9keiB0O5xDuK9IqpVGV8JQA2AVEqW3S67tSIyrSjHsNV0sfHNS
-         PaqESfJ8ZeEn4AVVndF9iJFrZzPSKuAxj9nU24cJTT2utoFlIpU4fXy5TonpX0cxqdCI
-         S5Gw==
-X-Forwarded-Encrypted: i=1; AKwUvByVqg+0KrwKQDpeEPiXNpxOAAcTbLQgS3hWLWlu4+SOKLtCCDGgE1A4vUcLsNV8tqMJaSsTqCoeXuNsYTo=@vger.kernel.org
-X-Gm-Message-State: AFuF++no7RcDUsQBJcCM6OI7eQRPg2t7vb0dYJWBuRfRAdNrd637LjoH
-	dRBjdR4TsaOglBW2T2a4ufhqFOthmbJlHMOuG631Ztq/gJKcprUN18w4GL67vDOaZtg=
-X-Gm-Gg: AYBFou0Xdd6EAOfsPihaDQGn9MeTOyfr6AiZaHxGepiTpqTjBCJPVfmmpRXvHZrT6fr
-	JNS1jsWbrB32Hr9If1c24DUJsHZ+s8QLAfRpCdq9+ef2axfY5tLTYOnAAKCkEq+Jb90jA0NKXN7
-	bJALGn043fDXzahsBYwWX97uqO+ugT6YJhztRm012odMmZxBi4o0+SumitjxBQZHDy2XXr0gobW
-	MXXFBUea4wrllP5SkWfYecwsZuykcKCwXsuEmUDxNgcc5VkW58z7mQHzCu4tgRdeKo5g8joIeDv
-	eeVoQlHCHlrU7UPaapBMWDBUEdBzbOgj06sJPiqVr+RhaILoCpRkzViSW0RFG8XEnosLAEGshcu
-	0B9RD+BK9hDgyHCcMt7OvGOeRpGCagsRe/WRahhC0vaN7afbFRt8F9Q7Of4HfoctuUITmwrIYyL
-	8Icgy1S3I4zTtYLMxLlSt3gk8ER8+qu1VAOxAJzgymSPB3lL1/l13d+NWAQdRlSn2sL8cH
-X-Received: by 2002:a05:6102:81cb:b0:7a7:3485:3386 with SMTP id ada2fe7eead31-7a734854c44mr4067281137.24.1790091823401;
-        Tue, 22 Sep 2026 08:43:43 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914024f12c3sm19388516d6.36.2026.09.22.08.43.42
+        bh=M3+7e8iXJEjn74p0MvD+DqdSnpalQ9TYucgtTBbjy+c=;
+        b=bxvIPVlc3hRDA/fr4KE7O6szuuuN84oHAu583YsiPSpkSgLxpY5slgfsyGPYLKPXWW
+         ZCdEvJNEUzj0vOVtThQIqEWiLCtu3zmIiDBoDPB2oSGL7NqFcemAtR99OlV4KhW0uP6d
+         Ac8CLVfa2no1s+OPRG8AXy/7wmy638fZePdmSpJIqHYML+JeXqlI9a7NnOYplhclmdvT
+         7gzUJ5cILWD/V26XVvys2s2PnzATcwOfLmYbijgOuKgIWd5kJYXGDNEIDNckgtiG0Fza
+         dvg5TLzFgmwRFnX70M6mDXrPKB5sxe5kDmY2lAjyZ4Xx60gtyNSPNxb97SUbdywQj40f
+         8D5g==
+X-Forwarded-Encrypted: i=1; AKwUvBw7E4F5iye5zl4ngTKM6Hheb5jvDf6ovbSRmWJc/vP7CZlMqdK/y6a13lE5i4pyRs1r6EZTBdhSrDWUMwg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lH0X6vgflUKsIa4EL63d52QnDin24/BJAY+IFbzn3FuNnxeW73
+	12WOXvZer6gFeOKqMwjgtWm4E3gFU9HpdGfZxtPyrmjzhdYjSsqckooOnnMNjlkEq70=
+X-Gm-Gg: AYBFou0avR1Nae5//mqabl5JHbozrixgOtr9OQDRbW+vKZ3aSOHNovLlG6HMcqDCSG8
+	23JtcaRR2oK0y9XcnITBooJvRoBqCGNZSND8sJflCE7r9ayui+jNl2n+cIkjWbnbfMrzZS9rG5Z
+	c589WW0PxyNgDm2TMPfvz3JhPxcxg8Grveti1YoVG8c/q2JKBP8bhwMV1eYckrkWRTZcDwMgQmB
+	m2uqO77rxRl5ry4of8QM69uSDnClv1OeKKRUcxGppGl/bCHw9xNkVMfhHDBo/DWmPLRUZeU/Wbn
+	H4wdZC0N8oJIVklRWmX8hLkVmNUxGAVvL1pG1uY8qeNt0w66Tot/zr1nzKyc6F4cg+jb+9VxU8E
+	bSkOdTRtQAfSKDB8rpK9kQvBeuZaf8Eh8n9HBiMQdzlxgNlV5+DSzueOR+8LN+IO7qeE72lWUe6
+	sZAKbV20VxdfQeyFA0b85fTX0Jd4q5mKlmOC9NVBFWmGpF7oSOU6h/MKLsIx9zK1vUOfBFR5CR/
+	zZcoiwlEow=
+X-Received: by 2002:a17:90b:1d48:b0:39d:efa9:cd25 with SMTP id 98e67ed59e1d1-3a07306c5d9mr1633442a91.2.1790091835796;
+        Tue, 22 Sep 2026 08:43:55 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:1046:ab8:737c:d2e2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbf69f0sm34882a91.8.2026.09.22.08.43.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:43:42 -0700 (PDT)
-Date: Tue, 22 Sep 2026 11:43:39 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Chris Li <chrisl@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <ryncsn@gmail.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arKiK06mfWTw9I9a@cmpxchg.org>
-References: <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
- <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
- <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
- <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
- <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
- <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
- <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
- <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
- <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
+        Tue, 22 Sep 2026 08:43:55 -0700 (PDT)
+Date: Tue, 22 Sep 2026 09:43:52 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
+	imx@lists.linux.dev, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Message-ID: <arKiOCGrWAKyc-bc@p14s>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -117,29 +88,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
 
-On Tue, Sep 22, 2026 at 05:23:31AM -1000, Chris Li wrote:
-> In my experiment, 100% is already way above that bound, which is why
-> I'm curious about your data point. How do you run and test your system
-> at 100%? Please correct me if I am wrong, but it looks like you
-> haven't.
+On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
+> Add rings for multiple vdevs, as well as the required virtio nodes for
+> I2C, SPI and GPIO functionalities. On top of that, add example
+> peripherals using all of them.
+> 
+> NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+> 
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> ---
+>  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
+>  1 file changed, 119 insertions(+), 9 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> index bd14ba28690c..dfa3b122ac5f 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> @@ -53,6 +53,32 @@ button-k3 {
+>  		};
+>  	};
+>  
+> +	gpio-keys-virtio {
+> +		compatible = "gpio-keys-polled";
+> +		poll-interval = <100>;
+> +
+> +		button-v1 {
+> +			label = "Button V1";
+> +			linux,code = <BTN_3>;
+> +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		button-v2 {
+> +			label = "Button V2";
+> +			linux,code = <BTN_4>;
+> +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
+> +		};
+> +	};
+> +
+> +	leds {
+> +		compatible = "gpio-leds";
+> +
+> +		led {
+> +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
+> +			label = "LED V";
+> +		};
+> +	};
+> +
+>  	reg_usdhc2_vmmc: regulator-usdhc2 {
+>  		compatible = "regulator-fixed";
+>  		off-on-delay-us = <12000>;
+> @@ -89,11 +115,6 @@ linux,cma {
+>  			linux,cma-default;
+>  		};
+>  
+> -		rsc_table: rsc-table@2021e000 {
+> -			reg = <0 0x2021e000 0 0x1000>;
+> -			no-map;
+> -		};
+> -
 
-You're conflating machine size with workingset residency.
+Why is the resource table removed?  There is no mention of that in the
+changelog...
 
-Rik showed an example where the compressed set was twice as large as
-the anon set, and it worked fine. And why is that surprising?
+>  		vdev0vring0: vdev0vring0@a4000000 {
+>  			reg = <0 0xa4000000 0 0x8000>;
+>  			no-map;
+> @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
+>  		};
+>  
+>  		vdev1vring0: vdev1vring0@a4010000 {
+> -			reg = <0 0xa4010000 0 0x8000>;
+> +			reg = <0 0xa4010000 0 0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev2vring0: vdev2vring0@a4011000 {
+> +			reg = <0 0xa4011000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev2vring1: vdev2vring1@a4013000 {
+> +			reg = <0 0xa4013000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev3vring0: vdev3vring0@a4015000 {
+> +			reg = <0 0xa4015000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev4vring0: vdev4vring0@a4017000 {
+> +			reg = <0 0xa4017000 0 0x4000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev5vring0: vdev5vring0@a401B000 {
+> +			reg = <0 0xa401B000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev5vring1: vdev5vring1@a401D000 {
+> +			reg = <0 0xa401D000 0 0x2000>;
+>  			no-map;
+>  		};
+>  
+> -		vdev1vring1: vdev1vring1@a4018000 {
+> -			reg = <0 0xa4018000 0 0x8000>;
+> +		vdev5vring2: vdev5vring2@a401F000 {
+> +			reg = <0 0xa401F000 0 0x1000>;
+>  			no-map;
+>  		};
+>  
+> @@ -149,8 +200,67 @@ &cm33 {
+>  		 <&mu1 3 1>;
+>  	mbox-names = "tx", "rx", "rxdb";
+>  	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+> -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
+> +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> +			<&vdev3vring0>, <&vdev4vring0>,
+> +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
 
-We know many applications have long tails of cold pages. Idle tmpfs
-files and shmem segments. Things that get rarely used. memcache style
-workloads have a small, hot index and a huge data segment with poor
-access locality. Even if large parts of it are in compressed space
-that's better than storage fetches.
+Who is using vdev5 vrings?  
 
-Your "this will thrash after 7-10%" is an average based on common
-workingsets that are actually hot. It doesn't mean there aren't cases
-that benefit from much higher overcommit.
-
-Why even get into this? Why even try to find some universal limit on
-something that just costs memory anyway, when memory containment is
-already a solved problem?
+>  	status = "okay";
+> +
+> +	virtio {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		vdev@2 {
+> +			reg = <2>;
+> +
+> +			v_gpio: gpio {
+> +				compatible = "virtio,device29";
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +			};
+> +		};
+> +
+> +		vdev@3 {
+> +			reg = <3>;
+> +
+> +			i2c {
+> +				compatible = "virtio,device22";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				eeprom@50 {
+> +					compatible = "atmel,24c1025";
+> +					reg = <0x50>;
+> +				};
+> +			};
+> +		};
+> +
+> +		vdev@4 {
+> +			reg = <4>;
+> +
+> +			spi {
+> +				compatible = "virtio,device2d";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				sram@0 {
+> +					compatible = "microchip,mchp23k256";
+> +					reg = <0>;
+> +					spi-max-frequency = <20000000>;
+> +				};
+> +
+> +				lcd@1 {
+> +					compatible = "adafruit,yx240qv29", "ilitek,ili9341";
+> +					reg = <1>;
+> +					spi-max-frequency = <10000000>;
+> +					dc-gpios = <&v_gpio 21 GPIO_ACTIVE_HIGH>;
+> +					reset-gpios = <&v_gpio 20 GPIO_ACTIVE_HIGH>;
+> +					rotation = <90>;
+> +				};
+> +			};
+> +		};
+> +	};
+>  };
+>  
+>  &eqos {
+> 
+> -- 
+> 2.55.0
+> 
