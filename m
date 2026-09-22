@@ -1,80 +1,94 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF603B19BA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0BA3ACF0F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790050530; cv=none; b=dLe7BQEqbzg846UrkgNwodgYTNjYiGJiPf52glqAewWqENA8dWPT+/javAs3YLqdqIKjSjkcUCOY9+T/pZya1mYw/VyTRujb4yviBUwcdESXMcjohDQ6cYX/smvqF1yyIFXZOOlgOpgpWLp+SfHgJPqujuMgHB0FMmZ+Ub674NM=
+	t=1790050537; cv=none; b=oIJNkim1ZPw0piTJ8hm8j1tzvWeQcnCqaPAwL1qO9zzSjxZ4opjS6+eNLhH5LNuXtoewoTKymXt8Q8xifH9pHh4Mq2jSlEazjm8a/o5Z57rkxsWOoec/jgf0nrCqZMcZMyJYYZ0I56iMWW0OGMsjw5L7CdmchBScQrj0NHvwrD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790050530; c=relaxed/simple;
-	bh=BZSPWsHs8ySrvznbWYHNmsqeAhLfduOjK+NZrhaVHic=;
+	s=arc-20240116; t=1790050537; c=relaxed/simple;
+	bh=mDiU/nGiQl0VVpBnpfjokM30Hr4tqKKnNtBCuD8rYuM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QKcklr1+LLeblvML93WXqOXEJ/EMDnB0nuZFyEOcfqmFWNP8n+vIrNvsFLNtMMHbx3FC42pB8LumQ18ZtOuCPOX+Nf89+dV3MoV8aAyrorycy2ob3Enk8E4j+jWcPlCPz+pJC5uVyzwlavCt+NNBWGmXh/6XAoNKwtQ1DifVIeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CCXxKGzF; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=JQn0E4BsLCmrPPJKvc/cJSyYb8vBLmpjFQwlT+MNSpTUfJj3vyUr/IJYove1mq5WlgRXjaGF5pxRH2wkJJ7MXmandt/mpAgMVhNYbW6nEKHmncRTB9bIrVEFxpCuzEp/b6zsBCq0XizriDTT/VdyNXSyNoUjfiYfzqL/nHjjZZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VD70fM2p; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CCXxKGzF"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so1925997f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:15:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VD70fM2p"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2d91a931f66so25865525ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:15:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790050526; x=1790655326; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790050530; x=1790655330; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=41Eq5jwP5e7Kp+sNbo80/V95RERvyCR/y7dxJCLxTVc=;
-        b=CCXxKGzFoSEDmFzkwK8eijoOBPmB06QttrXJoxdv2eCOZvy48mjY6r1qLKPMXRFyUP
-         2h7kUJMVDYpM5zsmpW8WQ4akD5up0jvcA6ZktTwqxMCtnIzKUBTv9GQnJENFfMYHnj92
-         z7WYcePMLKd200nh9Mca5Klss8bg5ZHzrbohCrEI5cwyMzopnvCWiQSGut8HedJsAquV
-         ywDuMWkCYQQvgMSGmpl/EYogGMVmialJMXRuJDbDt/PwlD/jGGHs0h9Oj586ElL6EzbX
-         XCqqTI0oG1WRRssAvNfI3WWPcGr3NNW75KCIabhwk0H2E5i6XmS0uZuMcs06H7RAd7W4
-         DQ6Q==
+        bh=eqDv7pHlkC+KFYmyHHCyZJU3taMvXTuZA5VzDL+HOrw=;
+        b=VD70fM2p7wYKpLXIKEpQwWw8X6ZBU8Q+47+MQwJMKt5r1sd9U6GcJVEYoFNWQCUFaS
+         htrTAAUgp/fEPPK2TcVX5YUe66vfBdsmGlXydbXJB8s1zwff0bB01usWxS1mqmEtO0pG
+         GtHYdpdA3CH/jQ/qYl7TaeVVlSuBoVg+karTy184HuTbRXRk5A2qw0I04LUARAHBqMUw
+         u0bZgwJ9R1QUZ71cm9ej/Gju9o07Lfq4dtag83K9Z86NvDvy/EsS5YWd2pIJrSjXgHUn
+         sKmK4qY5euZw+DsvKD3oPgPgeKVKgANXy9A5qJO90ynRhpTFVJyHiOpK+AIjkL9D3cuv
+         9Z6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790050526; x=1790655326;
+        d=1e100.net; s=20260707; t=1790050530; x=1790655330;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=41Eq5jwP5e7Kp+sNbo80/V95RERvyCR/y7dxJCLxTVc=;
-        b=TSahfaUY5Of0AZF4IrVq248NY/WcdtL7DAL3CKly0cXg089ycWpoCNhGGHD5SUG1Pu
-         dL/D9tyHA0ljflc3dvlaNdzoOCmvwIUeAqrdXy3/1eYjuZs1E/ZMkljlRtqILmbOtC2J
-         6oGY8fwhHDimGX+GaDH0m7rnDt/whT2b8oxuT3LegVM5HHvhsZrJ7e6WFSdoY6ZOoiiG
-         FAoKzVvpEa8/0WaT3VFY59BKBzVIfsR8uTvh+m27s/bivyNYabhotvsS1eaaDrzcbeVj
-         2kfL3d1KH7uhPLrWeeOh/TKH1kGJskz58vIg77PVipBkeF7JTe0lFkGQWy/OpPgSi0ZN
-         S1sg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzqUqOTuRvJ62rBCPjmLP5KTig63AXABXS/lKZBrpOEx6Wmarb1yXILXDgsPD1C15akKcl+uJuU3J7IXU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+qddHZsseg5EAG5ZUwTFo8orVzvRBTY1eQ20chf+RmfPir4n5
-	YN+I0wrKUfACk4cZvCR16v+kLIyPuRRs9dM8OKpZ3AVBO8jLXfwxGeHRRMEgrQ==
-X-Gm-Gg: AYBFou3/MWvrAuPKAHK88+mvkcAETr+t0gjsEy5jGn4IugU5HSnSQvg5VGPqp1wbJfs
-	evzih1QMVGwSiMINdNLWv37uGoBWaJYLus/L4QUrDxOJheRuiuC6eBJw4LC463P83qlUCa/A9eq
-	O5lxG20RbJcQ1GTQuLqC6hQ0M76IHli5AahQWnjv3zzenqWsxEeE5BXF7xtcDmuF0/cVW4D8Ry3
-	HiqBJnVpmjKHkhpnPWW8eA7uhz8H8x0uRExb4DzSx/ksGLVmurdTRMkH06nPBgeYDGvzCvOOTMB
-	GWSQ02bMe208q5jJmGaioV983AekdqJBOnPXry+XltcbryIEOyEkHKZVvJgevF8DPHZaTU/e9mx
-	0PlZ5hl9+9FMMDKvn5k+5KudeHY/X6rGMHNkDObQescS5Iczj9j/jAc7B82nrFx8p8SIRZXte8b
-	SLTjca7+Glu8IFLPISCPoB0+R3csEYKKysuD9H4WlPNungQmnBO2sNgUZIBIQK11q9O7fQ6nfHw
-	Fv3SxJfR0BTfteBQSmvl3ad8qeONBcTXbkJUlCQzQfsvhimcExyMxksUEA9OY//7MZPpxwfETRj
-	EXmoaMk0XCCswYIs5VBQ5hRmj0VCOAYNAs92mYMUGk446Efy6x5ROsR+lTfi6EP24LSNrmaE0uR
-	2lYsfrQ==
-X-Received: by 2002:a05:6000:2201:b0:487:725:8204 with SMTP id ffacd0b85a97d-4871e36bf42mr18440615f8f.44.1790050526412;
-        Mon, 21 Sep 2026 21:15:26 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a5e6-3401-ecdc-1e24-2e52-02d6.310.pool.telefonica.de. [2a02:3100:a5e6:3401:ecdc:1e24:2e52:2d6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862795215sm1616996f8f.37.2026.09.21.21.15.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 21:15:25 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	x86@kernel.org
-Subject: Re: [PATCH 09/20] crypto: x86/aes-cbc - Remove superseded CBC skciphers
-Date: Tue, 22 Sep 2026 06:15:19 +0200
-Message-Id: <20260922041519.14996-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260921050910.296144-10-ebiggers@kernel.org>
-References: <20260921050910.296144-1-ebiggers@kernel.org> <20260921050910.296144-10-ebiggers@kernel.org>
+        bh=eqDv7pHlkC+KFYmyHHCyZJU3taMvXTuZA5VzDL+HOrw=;
+        b=uWwPwxqKFX8kL+7+1bRgHuEJft9fiTQwtgLqP80+efwI3K5MNQI3/X0xFJ54tKxevJ
+         HRYQrf221UmrdgCA6HmbpQ674W58mQA2+U7lkyFJRbECycwxtO6JJMAYV0WWn+iA+Ff5
+         3sufhAgSB7Ys1xrt3TtmMj0tRYTFY/iSg30GYdYBfed9oEBKMBFPo7knUWh0LG7ClkQ3
+         9wxLJfDh8A2HiMPE+ptGImoIcXI7fJrhRKP3AyZnnyWC9QdTpWccJx6sRHgK2QNb07yG
+         MbM1rPCkUbRVNCIkCGm+/fYV4rGhcDqHjVrtnFuxhvOHoShuIYNnHOliP+OqTr6pjBre
+         5hdw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZI4DR7S9kPDuyxbUQbkafIlw6CW4di5OJdstPRwSPAtwejUwU7OYRHE+Twcazv6Mc4uwi3+aUxQH4pvU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB4MDJsPKqKFpLL/JwLTqEnZ+uKi7W2cgSENrxBCyC4l5HkFk4
+	JDL3nWxUA6gzrwP2OCTk1O8dz1n/CuuhEeCdbpy7+Qetq4tERJZ6yIVD
+X-Gm-Gg: AYBFou3PhHz3QxfqDVCOslY5v3zkTijPbgqAhb/yY2/egFd3YvK/tc+fRVyIPcr+hhs
+	505g9EkR8GSpOxSsO1jDMuEUEd18CiI6XQSI3KoxE1kPpFf/9NfG/SV0D7upKPg9/PJK8jZS06g
+	lZe1uexgAv+XBcb304iiurKqHaY6OyZg1n5hfRZWuwo655i+7sUmz7jibaVfTEum6aLvoURurCq
+	teboQlBnWI7HaoOYdcUAZjBqUGFzCdVZCMSDEeqc8IoDQ/5TJXtp32BYDwMwduK74ZxJzVH/gh2
+	texX1j3+Hps1O8Es9rg+DPZmGmWvzeBaUzbL1Lzp6g+9FMbFQ2Z3uVBxqbyXXE3Cmmf55y4B+9W
+	WCjQ/W/OKwrtZ3zqZysS8ZDJ8RGbpBSy8Fn11GoBSd9eFz0KgH8tAcALgG/OxAyN9BhlQv4z3Vw
+	ky8hP/XKV5Yuss0KrPQ3HniDzvRVazD6T4nvD8Ks3CDA2XqmpU9iYg5ANgxgdj4dunnuYQkWsKN
+	9WpTlBkQYfKVKS6
+X-Received: by 2002:a17:90b:384d:b0:39e:6c6a:4b67 with SMTP id 98e67ed59e1d1-39e6c6a5448mr11353516a91.49.1790050529698;
+        Mon, 21 Sep 2026 21:15:29 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e26e6a2sm887240a91.2.2026.09.21.21.15.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 21:15:29 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	david@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	liam@infradead.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	zhaonanzhe@xiaomi.com,
+	lipengfei28@xiaomi.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/4] mm: compaction: mTHP-friendly memory compaction
+Date: Tue, 22 Sep 2026 12:15:22 +0800
+Message-Id: <20260922041522.1824249-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <aq1SrcniIRU-8f2W@gremlin>
+References: <aq1SrcniIRU-8f2W@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,44 +97,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 20 Sep 2026 22:08:55 -0700 Eric Biggers <ebiggers@kernel.org> wrote:
-> Now that the AES-CBC (and AES-CBC-CTS) library functions are optimized
-> with dedicated AES-NI code and exposed via the skcipher API via
-> crypto/aes.c, the similar implementation in aesni-intel is redundant.
-> Remove it.
+Hi Lorenzo,
 
-Hello Eric,
+Thanks for the note. Let me clarify the background of this series, both
+regarding the AI-assistance question and regarding the scope of the change.
 
-This breaks the 32-bit build from here until patch 13.
+This work started as part of our exploration of 16KB mTHP for the Android
+scenario. The overall direction of making compaction lighter-weight and
+mTHP-aware came from offline discussions with David, who suggested this
+lightweight-compaction angle for small mTHP orders. So the size and scope
+of the series is not me diving in unguided as a newcomer: it follows his
+directional guidance. Barry then provided reviews and change suggestions
+throughout the iterations.
 
-After this patch the only callers of aesni_skcipher_setkey() are the
-CTR and XTS skciphers, and those are under #ifdef CONFIG_X86_64. On
-i386 the function is left unused, and WERROR is on in i386_defconfig
-and allmodconfig:
+On the AI-assistance side:
 
-  arch/x86/crypto/aesni-intel_glue.c:104:12: error: 'aesni_skcipher_setkey' defined but not used [-Werror=unused-function]
+- All the code was written by me, by hand. I understand each change and
+  take full responsibility for the patches.
 
-Patch 11 does the same to xts_setkey_aesni(). Patch 13 removes both
-helpers, from there on it builds again. I built every commit of the
-series with i386_defconfig plus CRYPTO_AES_NI_INTEL=y, gcc 15.2:
+- The cover letter and some commit messages were polished with an LLM
+  after I wrote the initial drafts (to smooth the English). The technical
+  content, the design (jointly with Barry), and the analysis are mine.
 
-  08 ok
-  09 aesni_skcipher_setkey unused
-  10 aesni_skcipher_setkey unused
-  11 aesni_skcipher_setkey, xts_setkey_aesni unused
-  12 xts_setkey_aesni unused
-  13 ok
-  14 ok
+Please let me know whether an Assisted-by: LLM tag is expected for the
+cover / commit-message polishing; I'm happy to add it in v2 if that's the
+convention.
 
-x86_64 and riscv64 build at every commit, so this is the only break I
-found.
-
-lib/crypto/x86/aes-aesni.S is built for 32-bit too, so after patch 7
-the 32-bit aesni-intel module is already redundant. Moving the
-"depends on 64BIT" from patch 14 ahead of patch 8 would avoid the
-problem, the glue file is then never built for 32-bit while the
-skciphers go away. Patch 14 as a whole does not move cleanly, its help
-text and Makefile hunks are written against the tree after patch 13.
-
-Thanks,
-Karl
+Bo
