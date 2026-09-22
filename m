@@ -1,65 +1,65 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8540951C05C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:01:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16421525A92
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:01:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064122; cv=none; b=s3DYuFq+FvhfjWazEhbxy9mvOXhjoyFbDwxgJFIH/64cHaBoPpSe6QAZjGom9No9x4P7bPIGAU19HPQjsZcebeX4osDxNcN5fTxu2unWZJeF3ZXGah+PKYh+2EvcfgXmwTiMRFppOX81j4TulryCruliqp5FnqPm2ytUY0R8GNU=
+	t=1790064124; cv=none; b=X+/L9D5dCAR/SFZ2N/2hGZysPVm+VsDXXl6RinWoYq+fVpjRQvnuFA55AF5ZrpII7GdVNB75/Q8r4DikxHsPRY6xF8EjnY4DyBY9v4jllZJ7ShMDmYDIIZ2V5g4kztEBaG/TsWLuz6ZcrlL6U3lw7qjw5Ni6gW4F3g275r/JzF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064122; c=relaxed/simple;
-	bh=bbyeP03gBPHvNx+YpSbids6Ib61D9Tlgwed4YbVP+I8=;
+	s=arc-20240116; t=1790064124; c=relaxed/simple;
+	bh=2W7J4uciibwZjfedWf0nIKQ9arloV2QAqcu52OEo04Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P/s6cpH3t3gczFkSPfAOqtk8XQszknHL2315S4Qr/Mo5y/KKjh5O+phtWXXbMvV8MYTxrXxOQmw+1ZEKCcD2wmyHG204w/cPXA19Qb9el05Y4obAXnFVra54NgNh0mgWi4DvEI9h60ns3D+3kANv07b70K5aSxCbBqR1iC53DO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dhla/AT2; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=TN2DfFS1D1xKrJvTNZrOQf1ZM7qbwtU8spLs4lVMLVVVIYeom3/G01U1cXdo7w/5+hZF9nWVjKF+1ZULnc0z35UscH7QlyvQpvwirA2vhnqn0J233d+Y55nPmnzB0O01MnlSeYezH0WGRJbsxFaBiXDG3poYLh/aDu3OOf71wmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mQL9e2fF; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dhla/AT2"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbca514f8so2712765e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:01:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mQL9e2fF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49c5a927a1fso2575385e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:01:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790064095; x=1790668895; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790064099; x=1790668899; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C/lMPPdyVDY8UDcv/G9hmnqUs4LxNskElZuOnfztMlQ=;
-        b=dhla/AT2tMVXZWvnnkIAEbrVq8aMTS59v0WcUwEAWajKrjdMM0wIghac5M+bFqD1Bc
-         OJ4+nMOmI3daeW4hV9YOATuNVdPNNCZTbJOPV8NANwxV2d9u1Lrx6ba/v8ntObHcLYRi
-         YyvcVBalRB3e5SHp6og9VXCwUEZRbkpMClfVOCE+O7HeJHV9qTS1paa5Xv9VEqW6eILB
-         RhHQeyzfVIcFPY42rwhvcqDI/UX4x9Jx70gn1kNFLQ1AWbNxXJ0QNuu38R7KXi+PgI06
-         SvWkcyP8aum0nNnqxp1fZuD+E9Uu5l2DPxKt1nP9pMwmOyuTdTkdtFzhcJcEE+KuWdCE
-         oDQg==
+        bh=cUwmXn/jLJ9RJT7pjA9WmiefPpGzIu17sEQJkrs8eXE=;
+        b=mQL9e2fFJlcQaP2tWvPb5kX3i+wpKhtOghrA46WaLa6ivFGLYNN++cw/uNYWHvMBaB
+         BHDMyhMWJS33O0Dh81XRhtzn1njUWH+lb1S8pftaQ8lPnvR8zAAu29VNIHadYI61lbh1
+         Upgu859BD2nQuRnzcwP6cXJDxz8b1OhIhYCi/SbTij9O/zLL2Hs81uTt6+SMnWnRR5C/
+         kG/SRoHBVkk5Br/KWuasLGfIV9xckgFFkc3TSm8gVFGtck8Maq+G0hGBdTXOR/CEp03p
+         mKZ3iMqXx1bt7RZ/pTrycxWcQO+7IhKm7KXx3gYIxzMtk+qpDk0xPvHSqRF5ykQEbT32
+         qtcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790064095; x=1790668895;
+        d=1e100.net; s=20260707; t=1790064099; x=1790668899;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C/lMPPdyVDY8UDcv/G9hmnqUs4LxNskElZuOnfztMlQ=;
-        b=vqxScbJ/BvtHQJ83fyNCD6r1ezIvOTgTtoEfNEw39emgMJ9JDINrCanWGUeiyvmenj
-         DC6CIyqgXlZvDXwX6hN6pMUP2K3WfCuqksRDtLvP1+MuO5Q/ns/fAlaagc1VbzTOUTiJ
-         E9n3xf6UwWeEcTZZSFP0ECPaB6+Dc0VSncq4OK0Vnjc8uMRci9kQpw2kIo1niE2QVklx
-         4zuCZ1Y0RK+j4e0BXJYxpCM8V2LZ7iNd6WFNAHGDmiHc7v8BrhZB6VGnFgZQZAMF+DmK
-         RRpkDf6zi+7354oSIcKRHMPlWKQH3wto8B8tFYStXKWNthVc/RSd6GUefXLDdUCETgbT
-         wesA==
-X-Forwarded-Encrypted: i=1; AKwUvBxABhrr4Dl5uYivHKFZvUF7U/SGWm42qQ+3PRxBwTfcyg9Y7a5ahL8lsIplsanaikxGkAxmg2fUQbDCu+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++llmDHHvhc1EziU8DwqoqGbBN73Foty5LI37EiYuXjYObiTqGvX
-	ecY9m0ZcAzpVWrSrIPbSRxUVEhIxL1oLI2mOvY2PKkpW1egPzXMOo7dN
-X-Gm-Gg: AYBFou0h99SmSFNttps22clc+E/7C0nitWWtRX9ZHeTkvHfWIlJ9YIWJLOBi9tKaa79
-	rA1u3xsW+BQuHmAvg62ZuYPwCQGaKTmsowjyBbUHNISLxVGJ7bsebntOtBNWDwCKEEbihSEIDxC
-	pr70iGQQPPcDO4o5sjvG2nTePTSgfABlC/dYOO6YdMaSd8JlhUelqQ6YUeFg4uGnIXJz4A/GYCo
-	zNRpLPaBT63dNlpOg9/gVwBwmmPJ3lvRXnq4tZxAk6d21vSjeLJ6chUpnR3rT7Yok/nNUEgGe9J
-	bj0MCzCJDSFA9RoJFECScgRZuVvKk5pYLsJQdeQKD2FL9A+XzDFBz5DR70OE5L1sS0mEvRYRQ4G
-	ErK5pktsyPBUaE6zsFE1NE6gUR0TPJnLzmvduj0AMTT/tqUnt8vw1g72dcpQ+AkPLv0WDFZ9DbY
-	FrGdJ7R0Yx69bWc0PHQQpXOLed3MZfQvkNcVl/s+tj2OwlKRzSfkz60zmlwi5HSTz0wt8fLT8aL
-	W6lXfte6v+n5unjxBp6MX44/7zCJLBIDZnd6AVWrgmkN8lmHFxcElr+BKQIP5x6GJoDKMjFn0dB
-	Y2uP4XmdWwM1Ww==
-X-Received: by 2002:a05:600c:354e:b0:49e:479b:c13b with SMTP id 5b1f17b1804b1-49fc7dff668mr165633455e9.1.1790064095154;
-        Tue, 22 Sep 2026 01:01:35 -0700 (PDT)
+        bh=cUwmXn/jLJ9RJT7pjA9WmiefPpGzIu17sEQJkrs8eXE=;
+        b=eKhnh3PADltOjcFYgHEvrCE0ip8GKD7ooSiNsplBt35a45Ffl8tnY1Uuw8wPWAXg92
+         7B6zPATDeGPdHOUSG+3nEpI0o/d1NnxYkXjBHgOp1OpxJAESOUgLF2hJ/o8S4K88a3vD
+         TFv9DVpZclBgTmfJiO05J+ZjwTT1zIJTY7q2j4QyCDHdkYxovU5mOg/PD/5vglcecpLj
+         z+ShZWBnnCUreJATzoM1BGCSjY7vu5iSQordcdV11HdEWn4wMPOmXqsq/NloiZROGdn1
+         KAXXGV3FZs7qUGia5YiEc/WNttENjVocLiVBiaHLk6kN6SRWLx2BXMDC5fpYOT5ZMtKc
+         Uxng==
+X-Forwarded-Encrypted: i=1; AKwUvBzHQV3DAF6ihgypTgjnmh7pZ9OA0khDg3IRkQ0UVxmP8ekfGsN2U3xyN8+YKn5Qr01YovEmtTfHiWsMg0g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGjrH4PxJRfAnVZqvTQvm7C+4aReqsFCzm3bzGdnLBVqtaudF9
+	3lvdRbO+aOaG4Z8nAUH/WCosxGi9OoGtvR1Rppp50TxQl3f25yTyLsEn
+X-Gm-Gg: AYBFou3Hf2F0Xi5BLispKqVdD8hK2udR3IQWep6bX61LZ/msooZI0nRpws1Imt/skpm
+	uaCqiHFcBWGYN7nxinFV8fluYZg7ScrzigvI/l2hya1hzGvg4PEK7qWmz59q7QIjDxhM2X3BnQX
+	DUBBEegU2MR+zWtTGtNlLf/iZW71AUwE8OpFu/RCnTRBSQJAuswwQ0xxCmDnx00e+FSrL7k7xh6
+	IkgMMOKeGP4CO87TE9h1eKWGy42irHKHv+v9N21BKCNJN8SGfBezTt6tealELXgVWW8n4Lg8GZB
+	EdqTzAKy5BG0WQ/gYCwSiKvqiZGf25GUmdUBnkldbdlAQCsBv68XeMEhc7/BAmhCJtc688KCoxx
+	JVzU8z4bTliw/Sq/dA+az6y/7fyTZQa/S6skF6JPEzh5OBcfDxcb4abCNFfc2xtF6zqzQoeyuKf
+	ZV8UX1O5s5pugZdNodTqewNJ4QZFx+1JH30CyqUzMRYzFyV7grZ4QM95Ffub3AUkJSjqnzidfc8
+	im+Dk8GHcz5lcywjpxpAJk5X6IAz20EWBPq6lFEgoIqx+r1ltpQTVraZfu9vMBsrfREsQ4PuseR
+	Q4w=
+X-Received: by 2002:a05:600c:a00a:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49fc7b83237mr163730805e9.0.1790064099450;
+        Tue, 22 Sep 2026 01:01:39 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu. [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:01:34 -0700 (PDT)
+        Tue, 22 Sep 2026 01:01:39 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
 	Oded Gabbay <ogabbay@kernel.org>,
@@ -83,9 +83,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 07/11] arm64: dts: rockchip: rk3588: add an OPP table for the NPU
-Date: Tue, 22 Sep 2026 10:01:10 +0200
-Message-ID: <20260922080114.44662-8-royalnet026@gmail.com>
+Subject: [PATCH v2 10/11] accel/rocket: register a devfreq cooling device
+Date: Tue, 22 Sep 2026 10:01:13 +0200
+Message-ID: <20260922080114.44662-11-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922080114.44662-1-royalnet026@gmail.com>
 References: <20260922080114.44662-1-royalnet026@gmail.com>
@@ -97,143 +97,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NPU compute clock is driven by the firmware, which only accepts one of
-the rates in its own PVTPLL table: 300, 400, 500, 600, 700, 800, 900 and
-1000 MHz through the PVTPLL, plus 200 MHz off GPLL. Anything else comes
-back as SCMI_INVALID_PARAMETERS, and that refusal never reaches the caller:
-the clock framework does not look at what the clock's set_rate returns, so
-clk_set_rate() reports success and the clock stays where it was. The table
-therefore has to name those rates exactly rather than describe a range.
+With devfreq driving the NPU clock, a thermal zone can now throttle the NPU
+by capping that clock. Register the cooling device so a devicetree can bind
+it to a zone.
 
-200 MHz is included even though the vendor table stops at 300, because
-mainline pins the cores there with assigned-clock-rates, the firmware's
-table names 200 MHz exactly, on its GPLL path, and that is the rate the
-NPU boots and idles at. Its voltage is the same 700 mV the vendor uses for
-300 MHz, so it is conservative.
+The _em variant is used, not because there is an energy model today but so
+that there will be one the day a power coefficient for this NPU is
+measured. There is none now: the NPU core nodes carry no
+dynamic-power-coefficient, Rockchip does not publish one, and a made-up
+number would be worse than no number. devfreq_cooling_em_register() logs
+the missing model at debug level and registers the cooling device anyway,
+so what this gets today is step-wise throttling with no power model for the
+IPA governor to use. Measuring the coefficient is follow-up work.
 
-The voltages are the vendor's, and the upper half of the table matches the
-GPU table in this file step for step: 700 MHz at 700 mV, 800 at 750, 900 at
-800, 1000 at 850. There is no PVTM or binning here, for the same reason the
-GPU table has none: mainline uses conservative worst-case voltages instead
-of per-chip nvmem data.
+Registration is allowed to fail. A kernel built without DEVFREQ_THERMAL
+gets a stub that returns an error, and losing throttling is not a reason to
+refuse to drive the NPU at all, so the failure is logged and probe carries
+on. The cooling device is unregistered by hand before the devfreq device it
+is attached to goes away.
 
-The table is marked opp-shared and referenced from all three cores. They
-have one clock and one supply between them and cannot be scaled
-independently, and that is what opp-shared describes: one table for one
-clock, the way a CPU cluster shares its table.
-
-The full SoC range is described rather than a per-board subset, so that a
-board which cannot cool the upper rates drops them in its own .dts with a
-/delete-node/ on the OPP it does not want. A board may only delete OPPs
-that way, never invent intermediate ones: a rate that is not in the
-firmware's table is refused by the firmware, but the kernel never learns
-of it, so an invented OPP would be refused while the kernel went on
-reporting it as set.
-
-rk3588j.dtsi does not include this file; it carries its own derated tables
-for the CPU clusters and the GPU, and it gets no NPU table here. That is
-deliberate. The J part is rated lower than the rates in this table and none
-of it can be measured on the hardware this was written on, so inventing a
-derated NPU table would be guessing. Its NPU node stays disabled, so
-nothing binds and the cooling map added later in this series is simply
-never resolved.
-
-The same rates and voltages were arrived at independently by Nicolas
-Dufresne in a proof of concept that was never posted to the list; his
-version differs in that it marks 200 MHz as opp-suspend and drops the
-assigned-clock-rates pins.
-Link: https://gitlab.collabora.com/nicolas/linux/-/commits/rock5b-npu-poc-4
-
-Assisted-by: LLM checkpatch dtbs_check
+Assisted-by: LLM sparse checkpatch
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 ---
-v2:
-- opp-shared, and the table referenced from all three cores (Nicolas).
-- The opp-suspend paragraph is gone. In the v1 thread I said v2 would
-  argue that the driver already puts the device back at its boot rate;
-  that is again driver behaviour used as a devicetree argument, which is
-  what Nicolas objected to, so I am not making it. Whether opp-suspend
-  at 200 MHz describes the hardware is a question for the DT
-  maintainers, in the cover letter.
-- "give a driver nowhere to return to" is gone for the same reason.
-- The paragraph on the table being inert until the driver patch is
-  gone (Nicolas).
-- New: the firmware's refusal of a rate is not reported back through the
-  clock framework. Found by reading clk_change_rate() in drivers/clk/clk.c
-  after a test that requested a rate outside the table.
+v2: wording only, for the shared table.
 
- arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi | 54 ++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+ drivers/accel/rocket/rocket_devfreq.c | 25 +++++++++++++++++++++++++
+ drivers/accel/rocket/rocket_devfreq.h |  2 ++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-index b5d630d2c879f..59ecaef5101da 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi
-@@ -151,6 +151,48 @@ opp-1000000000 {
- 			opp-microvolt = <850000 850000 850000>;
- 		};
- 	};
-+
-+	npu_opp_table: opp-table-npu {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-200000000 {
-+			opp-hz = /bits/ 64 <200000000>;
-+			opp-microvolt = <700000 700000 850000>;
-+		};
-+		opp-300000000 {
-+			opp-hz = /bits/ 64 <300000000>;
-+			opp-microvolt = <700000 700000 850000>;
-+		};
-+		opp-400000000 {
-+			opp-hz = /bits/ 64 <400000000>;
-+			opp-microvolt = <700000 700000 850000>;
-+		};
-+		opp-500000000 {
-+			opp-hz = /bits/ 64 <500000000>;
-+			opp-microvolt = <700000 700000 850000>;
-+		};
-+		opp-600000000 {
-+			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <700000 700000 850000>;
-+		};
-+		opp-700000000 {
-+			opp-hz = /bits/ 64 <700000000>;
-+			opp-microvolt = <700000 700000 850000>;
-+		};
-+		opp-800000000 {
-+			opp-hz = /bits/ 64 <800000000>;
-+			opp-microvolt = <750000 750000 850000>;
-+		};
-+		opp-900000000 {
-+			opp-hz = /bits/ 64 <900000000>;
-+			opp-microvolt = <800000 800000 850000>;
-+		};
-+		opp-1000000000 {
-+			opp-hz = /bits/ 64 <1000000000>;
-+			opp-microvolt = <850000 850000 850000>;
-+		};
-+	};
- };
+diff --git a/drivers/accel/rocket/rocket_devfreq.c b/drivers/accel/rocket/rocket_devfreq.c
+index 871fa370eb432..c81887734de77 100644
+--- a/drivers/accel/rocket/rocket_devfreq.c
++++ b/drivers/accel/rocket/rocket_devfreq.c
+@@ -3,6 +3,7 @@
  
- &cpu_b0 {
-@@ -188,3 +230,15 @@ &cpu_l3 {
- &gpu {
- 	operating-points-v2 = <&gpu_opp_table>;
- };
+ #include <linux/clk.h>
+ #include <linux/devfreq.h>
++#include <linux/devfreq_cooling.h>
+ #include <linux/ktime.h>
+ #include <linux/minmax.h>
+ #include <linux/of.h>
+@@ -446,6 +447,25 @@ int rocket_devfreq_init(struct rocket_device *rdev)
+ 		goto err_remove_table;
+ 	}
+ 
++	/*
++	 * Thermal throttling is optional, so a kernel built without
++	 * DEVFREQ_THERMAL keeps a working NPU rather than a failed probe.
++	 *
++	 * The _em variant is used so that the driver is ready for an energy
++	 * model the day a power coefficient for this NPU is measured. There is
++	 * none today: the NPU core nodes have no dynamic-power-coefficient,
++	 * the vendor does not publish one, and inventing a number would be
++	 * worse than having none. Without it the EM registration inside is
++	 * skipped and throttling is step-wise, with no power model for IPA to
++	 * use.
++	 */
++	rdevfreq->cooling = devfreq_cooling_em_register(rdevfreq->devfreq, NULL);
++	if (IS_ERR(rdevfreq->cooling)) {
++		dev_info(dev, "no devfreq cooling device (%pe), NPU will not be throttled\n",
++			 rdevfreq->cooling);
++		rdevfreq->cooling = NULL;
++	}
 +
-+&rknn_core_0 {
-+	operating-points-v2 = <&npu_opp_table>;
-+};
+ 	return 0;
+ 
+ err_remove_table:
+@@ -468,6 +488,11 @@ void rocket_devfreq_fini(struct rocket_device *rdev)
+ 
+ 	dev = rdevfreq->owner->dev;
+ 
++	if (rdevfreq->cooling) {
++		devfreq_cooling_unregister(rdevfreq->cooling);
++		rdevfreq->cooling = NULL;
++	}
 +
-+&rknn_core_1 {
-+	operating-points-v2 = <&npu_opp_table>;
-+};
-+
-+&rknn_core_2 {
-+	operating-points-v2 = <&npu_opp_table>;
-+};
+ 	devfreq_remove_device(rdevfreq->devfreq);
+ 	rdevfreq->devfreq = NULL;
+ 
+diff --git a/drivers/accel/rocket/rocket_devfreq.h b/drivers/accel/rocket/rocket_devfreq.h
+index 65a9de6d37389..26a3749078b9f 100644
+--- a/drivers/accel/rocket/rocket_devfreq.h
++++ b/drivers/accel/rocket/rocket_devfreq.h
+@@ -10,9 +10,11 @@
+ 
+ struct rocket_core;
+ struct rocket_device;
++struct thermal_cooling_device;
+ 
+ struct rocket_devfreq {
+ 	struct devfreq *devfreq;
++	struct thermal_cooling_device *cooling;
+ 	struct devfreq_simple_ondemand_data gov_data;
+ 
+ 	/*
 -- 
 2.43.0
 
