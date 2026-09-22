@@ -1,76 +1,100 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7282FCBF6;
-	Tue, 22 Sep 2026 12:43:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0205453C3D2;
+	Tue, 22 Sep 2026 12:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080987; cv=none; b=s33Oub4aPcae4g/ganRa821jlAKTg/CiGPX79phMnjDiTiUlLSZ59KfdpA9iMNIaeYGsv7IkK0BfdBCKFrBZ6GU8IzTO2zfPIhBKuOMTViSqJ6lmFQ6pDZ43Nmzr1j4Sx2B0NmIBztPXcT6b1SWNMUii2KVN7wUjfBKwqmgRm/c=
+	t=1790081020; cv=none; b=XTgTy0lrCMihBS6sHCe2FO4a08xPF17BcAYELY3GRF76kCoN9SNeJ+wbZIcQe/uLIPzKWOQfBSvrt/NyVi4ZK1fHkA/qLTYTy8ubuGbO6G5kHkhrOG5pZXeM4JeZodOuCZ5qBmgWPMNjKRhE1rSh75GYJnMT2nw2fBzL8diSbVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080987; c=relaxed/simple;
-	bh=L0BFb0MRMWNJAEyVL4vg13EtcNccoadLPCaffIUTt2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FtxKLPAt8KEZnTaweOQOo49Ul5uQ1oQzFM1jUhW7fhYEFEQmwGoikkahIvS35gdFRfSXa3kKCpZOzsmggefIji5eVA9yhvwpSEYY0w2rZJJXJvzMlnfCqFxXf0ZPjLhTntDAVCxjtMyf+NcH3Y6nstgdcBKsUR0j+RLU7anU/aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=bL6aXDMr; arc=none smtp.client-ip=220.197.31.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="bL6aXDMr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=UQMVZR7bVQz/sE2rQ7Oi7HxPrv/jQ3e7sAgi8F8An/U=;
-	b=bL6aXDMrst6lk2NFKD6Ol0yi5HnAthxMTQGNKz/L1lzaf/SFtIGtLmRJq6JFgF
-	IsbpJAPLexX6oLZIXKcvOhB30Liap0aRj6cTeoUe5lunRMgvCCKxdC4ME2GskHbf
-	jakLG7O5nlEVjaBpcbS1EoDFFAbvsmy4VMv1KLZNiy86c=
-Message-ID: <6ee07707-a1f2-4f3d-8ff7-d309e94c3dd6@126.com>
-Date: Tue, 22 Sep 2026 20:41:35 +0800
+	s=arc-20240116; t=1790081020; c=relaxed/simple;
+	bh=GtOrmSkQPj/MT55mET9mJ2+3to25SkUAyuPp0xdVmOg=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=t4a3eAfqoDpdLmQiDAxQ/GYL/ue5nGRhK7mOMYMB8m/YDxMigaS2RM9YneMNlV+GBpnheNGYIbCA6K+ciSlwKWgtXGNHXc67mkH+7FZQrZP991fujMjO04jMCq2Vw0tDHRoJkSCSgnQur58OvCenLg1A5/o0u941o0I8Mg2/nsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxQNH4d7Jq0qEOAA--.43126S3;
+	Tue, 22 Sep 2026 20:43:36 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJBxpMz3d7Jq_8EjAA--.49446S2;
+	Tue, 22 Sep 2026 20:43:36 +0800 (CST)
+Subject: Re: [PATCH 0/2] LoongArch: KVM: Code cleanup with MSI intterupt
+ injection
+To: Tao Cui <cui.tao@linux.dev>, Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260909083259.1910290-1-maobibo@loongson.cn>
+ <fb08279a-eb1b-44b1-b4af-f354fb81f112@linux.dev>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <b72618c1-f8b0-9f17-8a56-af42b0bf4aef@loongson.cn>
+Date: Tue, 22 Sep 2026 20:43:13 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: stmmac: do not cache the new TSO MSS before
- it reaches the DMA
-To: netdev-bot+sashiko@kernel.org
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- xiaolinkui@kylinos.cn, stable@vger.kernel.org
-References: <20260920061609.1919876-1-xiaolinkui@126.com>
- <178997153300.2160803.9722094587431911734@kernel.org>
+In-Reply-To: <fb08279a-eb1b-44b1-b4af-f354fb81f112@linux.dev>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <178997153300.2160803.9722094587431911734@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3955_d7JqnfIhAA--.28161S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruw1DWr1rAw1DuFW5tFy3CFg_yoWDKwc_ur
-	yay3srG34UGF9agFn29rn8ZrW29FWj9ry7tw1kJayIgrWxXa95uFZ7Wr92vr17A3yYyr9r
-	CryYq3Wfur13ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU1hID7UUUUU==
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqB9EG2qyd3-d8QAA3U
+X-CM-TRANSID:qMiowJBxpMz3d7Jq_8EjAA--.49446S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoWrKrW5ZFWUZw4DWrW5Ww47Jrc_yoW8JrWxpF
+	ZxCFnxurWkKFZ5GrnF93W5Xr1Dtw43Gr4Sqa42ya48Ar4YvF1Fqry8JrZavF98GayrJw4k
+	X3WfKws8ZF1UCabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4s2-UUUUU
 
-- [Medium] The commit message of "net: stmmac: do not cache the new TSO
-   MSS before it reaches the DMA" describes a failure mode that cannot…
 
-Agreed -- thanks for the analysis, the on-the-wire symptom I described
-cannot happen. After a mapping failure the abandoned context descriptor
-stays at OWN=0, the error paths never advance the tail pointer, and once
-a later xmit publishes it the DMA suspends on the not-owned descriptor;
-stmmac_tx_clean() reclaims the slot in software but pins dirty_tx at the
-first descriptor the DMA still owns, so no later frame is ever segmented
-at all -- stale MSS or otherwise. The real pre-patch consequence is the
-wedged TX ring you describe, recovered only by the reset path
-(stmmac_tx_err() -> stmmac_reset_tx_queue(), which also clears the stale
-tx_q->mss; reachable from both the watchdog and the DMA error interrupt).
 
-I will respin with the commit message rewritten to describe the stall;
-the code change is unchanged (keeping tx_q->cur_tx on the context slot
-and releasing it on the error paths is what prevents the wedge).
+On 2026/9/10 上午11:06, Tao Cui wrote:
+> Hi, Bibo
+> 
+> 在 2026/9/9 16:32, Bibo Mao 写道:
+>> Here is to remove some unnecessary parameter checking when injecting
+>> MSI interrupt, include MSI level parameter and vcpu::arch::dmsintc_state
+>> NULL pointer etc.
+>>
+>> Bibo Mao (2):
+>>    LoongArch: KVM: Remove parameter line when inject MSI
+>>    LoongArch: KVM: Remove duplicated checking with DMSI irq injection
+>>
+>>   arch/loongarch/include/asm/kvm_dmsintc.h |  3 +--
+>>   arch/loongarch/include/asm/kvm_pch_pic.h |  2 +-
+>>   arch/loongarch/kvm/intc/dmsintc.c        | 19 +++----------------
+>>   arch/loongarch/kvm/intc/pch_pic.c        |  6 +++---
+>>   arch/loongarch/kvm/irqfd.c               |  6 +++---
+>>   5 files changed, 11 insertions(+), 25 deletions(-)
+>>
+>>
+>> base-commit: df2908090cda368b01ff43709f51890076c56157
+> 
+> The series looks good to me.
+> 
+> Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+> 
+> Minor question: kvm_set_msi() now returns -EINVAL for !level instead
+> of -1. Since MSI is edge-triggered, returning 0 to ignore a deassert
+yes, it seems that returning 0 is better, since there is such usage with
+level == 0 when injecting MSI interrupt.
 
-pw-bot: cr
+Regards
+Bibo Mao
+> would also work, though nothing looks at the return value today.
+> 
 
