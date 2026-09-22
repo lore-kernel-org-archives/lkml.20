@@ -1,40 +1,51 @@
-Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com [115.124.28.195])
+Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CAD522EF8;
-	Tue, 22 Sep 2026 07:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A7F5221EB
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063590; cv=none; b=R5EW7cKOk7mSmAWsJqCdzADOMd2GMP3DNiSv6Zvc9o4/pZr2LYLMMwS8S+wmkXSLeWku+FE8ZNElK5WZCvdysT3SyP9XX0Swx+xF5DDy6ML0qfK4Jy7J1+9EYFoB6wqwCsw5uay/oqwCPy0QtxiQLwS8BVuA74uiaB/5HVYMtUg=
+	t=1790063596; cv=none; b=PRBT0YgZOuaSBFuDGnyhsBVVqWSNS0bEBAx1PUFT5/Ltwt6jX371WLyMpnXflSBeFb6SUoVNZw6nvEtZTQ8BNlK6HMtD53iBMmNQXhJSGUboZyjAPLxBVqeT/K2R9SSFJE+0Y+FMPKCVTQukWNnbDpjC8PjCx1mC2qM0Slp7CqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063590; c=relaxed/simple;
-	bh=7y11n5aos28q3/VXCPQTZicAK4pN+oSV9a0C+YvJznw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jsORMHjfpwy6MCMRvXNWq/tGoPvFw0wqAPC17iWzfyO0/KAoXydOaI0xTYCnBhJAkGloSRHhIUfrE2hxrBcYu1VNt5M/Glx9c3LMh7byHlPW0kVfmYMNIM4K6v613MGeTM4daTg+6vJdbd1PvoErPQ4KQ40UYg0Aj3bw2PeaTuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=SgdjMI18; arc=none smtp.client-ip=115.124.28.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1790063596; c=relaxed/simple;
+	bh=m5EoRua0q9A2AIEu5UEySzNXUjtv5J9RR+mgTqZVnTQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tqHCNDAwXjf2qyedJQNxw814cttuh/E6to7LZmbYTWcq09akisyu3DGcnZwx02CX4u69qegaH0mA96ae/MfZ+QBcMx5WMlMbjCf9h7t5M2R+NDIc4whhJqksWNRwTANCBxXkJVJ5r76F7m/0lT/QuFb6VOGsJVT8QlWWgIVblpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=KUZSIUrX; arc=none smtp.client-ip=185.136.65.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="SgdjMI18"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790063567; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=4wEfZjHoKpEKZdE4Q14aKMGx95mdXOozZgnNcquZyb8=;
-	b=SgdjMI18SC345Af3nBf39I+O7lcsqA3l54eqPQRxIRfy4VpJqZVP8al1aqejdPlXq025rtcCw7sIBpua7RXdzrKYlE5vW3rcQV2+C3Da5pgU5CXrpxHg4QLdQfrOU+PDx1r+zndyxWvH87mlv1p3VRAYpHUqcXqMs5SpGyG/KwU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.764885|0.8870502;CH=green;DM=|SPAM|false|;DS=CONTINUE|ham_system_inform|0.164553-0.00562562-0.829822;FP=961415426815343994|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jJp.7vS_1790063566;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jJp.7vS_1790063566 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 15:52:47 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Paul Elder <paul.elder@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="KUZSIUrX"
+Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 20260922075254ccc675287f000207b3
+        for <linux-kernel@vger.kernel.org>;
+        Tue, 22 Sep 2026 09:52:54 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=5SshI8N4ivJLLkeBdfLpv1CjXhh2GgUQgsKDnILaqkg=;
+ b=KUZSIUrXUhFpgCNQ644uND8V0eOC3R4jjQfW3wzpmpiRJfRR/NwDwedlMwxy96G4Btq/lx
+ ZLV7+6KH8c0F+nAleoD351nfJlR45QFq04QqUg2xzgF0ILmNqt+r/4GttXhRxufz6iqWgWkV
+ EYaGhh+0tJhhjwMTzfCni2bz/OQhrqoCVuATp50HDiM7M3Xnoq1fiHuSG+fJfl+8FQinhFET
+ mDUkMko3zEqroujh+2mltR6RsIqQwRIXtRMMhoX1HlPVqTh3Ss/B1uhNKE0il9SDIBlVEczw
+ rGZU/unDJCY5hx0qDxxg69mIgvJPOSFAFMMvgRgG4zEbPZfXE52g+Wyw==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: netdev@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	Liu Weibin <liuwb@xiaopeng.com>
-Subject: [PATCH v2] media: i2c: thp7312: bound the focus lookup against the table size
-Date: Tue, 22 Sep 2026 15:52:46 +0800
-Message-ID: <20260922075246.1319707-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	"Aleksander Jan Bajkowski" <olek2@wp.pl>,
+	Daniel Golle <daniel@makrotopia.org>,
+	John Crispin <john@phrozen.org>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: phy: intel-xway: workaround 100BASE-TX Link-Up issue
+Date: Tue, 22 Sep 2026 09:52:46 +0200
+Message-ID: <20260922075251.23386-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,73 +53,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-thp7312_set_focus() indexes thp7312_focus_values[] with the value of the
-V4L2_CID_FOCUS_ABSOLUTE control:
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-        if (thp7312->focus_absolute->is_new) {
-                unsigned int value;
+MaxLinear GSW12x/GSW14x Ethernet Switch Errata Sheet states:
+"An issue has been sporadically observed after device power-on on the first
+link-up attempt in 100BASE-TX mode resulting in either the link-up taking a
+long time, or failing to link-up altogether...
 
-                value = thp7312_focus_values[thp7312->focus_absolute->val];
+Workaround:
+After power-on, enable Cable Diagnostic Mode for all ports and disable
+it..."
 
-The control is registered with the table size as its maximum:
+Implement the proposed workaround unconditionally in the Intel XWAY driver
+(MaxLinear GSW1xx switches incorporate Intel XWAY PHYs) because the
+diagnostic bits have the same meaning even in older integral PHYs such as
+GPY111/PEF7071/PHY11G. So it's not clear how to distinguish the affected
+newer integrated PHYs, but the workaround should not hurt the older PHYs.
 
-        v4l2_ctrl_new_std(hdl, &thp7312_ctrl_ops,
-                          V4L2_CID_FOCUS_ABSOLUTE,
-                          0, ARRAY_SIZE(thp7312_focus_values),
-                          1, 0);
-
-The table has 19 entries, so the valid indices are 0 to 18, but the
-maximum passed to the control is 19. The control framework does not
-reject the bound itself for an integer control: std_validate_elem() only
-rounds the value into [minimum, maximum] through ROUND_TO_RANGE() and
-returns 0, whereas a menu control returns -ERANGE for a value outside the
-range. So a value of 19 is accepted and the lookup reads one entry past
-the end of the array. That value is then written to the sensor through
-cci_write(THP7312_REG_MANUAL_FOCUS_POSITION).
-
-Reject a value that is not a valid index before the lookup. The control
-range is the safer place for the bound, but leaving the lookup guarded
-keeps the table and its only user consistent with each other; narrowing
-the control is a follow-up that does not affect this fix.
-
-No Fixes tag. The table, its registration and the lookup all come from
-the initial driver import, 7a52ab415b43 ("media: i2c: Add driver for
-THine THP7312"), and have not been touched since.
-
-Reviewed-by: Liu Weibin <liuwb@xiaopeng.com>
-Assisted-by: LLM
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+Cc: stable@vger.kernel.org
+Fixes: 22335939ec90 ("net: dsa: add driver for MaxLinear GSW1xx switch family")
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
-v2: add the THP7312 maintainers to the recipients, and say that the value
-    read out of range is written to the sensor.
+Changelog:
+v2:
+- added "Fixes:" tag (refers GSW1xx introduction commit, because it's the
+  first known silicon to contain affected IP, kernels w/o GSW1xx support
+  do not need XWAY PHY workaround)
+v1:
+- https://lore.kernel.org/all/20260915085921.1354706-1-alexander.sverdlin@siemens.com/
 
-    The previous version said the read was of a value next to the table
-    and left it at that. The read result goes into cci_write() for
-    THP7312_REG_MANUAL_FOCUS_POSITION, so the description now follows the
-    value to where it is used.
+ drivers/net/phy/intel-xway.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-    Add the Assisted-by tag.
----
- drivers/media/i2c/thp7312.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
-index 775cfba18..20698b7a1 100644
---- a/drivers/media/i2c/thp7312.c
-+++ b/drivers/media/i2c/thp7312.c
-@@ -931,6 +931,11 @@ static int thp7312_set_focus(struct thp7312_device *thp7312)
- 	if (thp7312->focus_absolute->is_new) {
- 		unsigned int value;
+diff --git a/drivers/net/phy/intel-xway.c b/drivers/net/phy/intel-xway.c
+index afbcec7117443..3cee31bb931f2 100644
+--- a/drivers/net/phy/intel-xway.c
++++ b/drivers/net/phy/intel-xway.c
+@@ -16,6 +16,11 @@
+ #define XWAY_MDIO_ISTAT			0x1A	/* interrupt status */
+ #define XWAY_MDIO_LED			0x1B	/* led control */
  
-+		if (thp7312->focus_absolute->val < 0 ||
-+		    thp7312->focus_absolute->val >=
-+		    ARRAY_SIZE(thp7312_focus_values))
-+			return -EINVAL;
++#define XWAY_MDIO_GCTRL_TM_MASK		GENMASK(15, 13)
++#define XWAY_MDIO_GCTRL_TM(mode)	FIELD_PREP(XWAY_MDIO_GCTRL_TM_MASK, (mode))
++#define XWAY_MDIO_GCTRL_TM_NOP		XWAY_MDIO_GCTRL_TM(0)	/* Normal operation */
++#define XWAY_MDIO_GCTRL_TM_CDIAG	XWAY_MDIO_GCTRL_TM(6)	/* Cable diagnostics */
 +
- 		value = thp7312_focus_values[thp7312->focus_absolute->val];
+ #define XWAY_MDIO_ERRCNT_SEL		GENMASK(11, 8)
+ #define XWAY_MDIO_ERRCNT_COUNT		GENMASK(7, 0)
+ #define XWAY_MDIO_ERRCNT_SEL_RXERR	0
+@@ -326,6 +331,28 @@ static int xway_gphy_probe(struct phy_device *phydev)
+ 	return 0;
+ }
  
- 		ret = cci_write(thp7312->regmap,
++static int xway_11g_int_config_init(struct phy_device *phydev)
++{
++	int err;
++
++	/* An issue has been sporadically observed after device power-on on the
++	 * first link-up attempt in 100BASE-TX mode resulting in either the
++	 * link-up taking a long time, or failing to link-up altogether.
++	 *
++	 * Workaround:
++	 * After power-on, enable Cable Diagnostic Mode for all ports and
++	 * disable it.
++	 */
++	err = phy_modify(phydev, MII_CTRL1000, XWAY_MDIO_GCTRL_TM_MASK, XWAY_MDIO_GCTRL_TM_CDIAG);
++	if (err)
++		return err;
++	err = phy_modify(phydev, MII_CTRL1000, XWAY_MDIO_GCTRL_TM_MASK, XWAY_MDIO_GCTRL_TM_NOP);
++	if (err)
++		return err;
++
++	return xway_gphy_config_init(phydev);
++}
++
+ static int xway_gphy14_config_aneg(struct phy_device *phydev)
+ {
+ 	int reg, err;
+@@ -735,7 +762,7 @@ static struct phy_driver xway_gphy[] = {
+ 		.phy_id_mask	= 0xffffffff,
+ 		.name		= "Intel XWAY PHY11G (xRX v1.2 integrated)",
+ 		/* PHY_GBIT_FEATURES */
+-		.config_init	= xway_gphy_config_init,
++		.config_init	= xway_11g_int_config_init,
+ 		.probe		= xway_gphy_probe,
+ 		.handle_interrupt = xway_gphy_handle_interrupt,
+ 		.config_intr	= xway_gphy_config_intr,
 -- 
-2.50.1
+2.55.0
 
