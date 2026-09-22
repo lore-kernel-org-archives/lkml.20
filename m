@@ -1,159 +1,251 @@
-Received: from mta1.migadu.com (out-12.mta1.migadu.com [95.215.58.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103294AE115
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B73E48B37D;
+	Tue, 22 Sep 2026 09:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069945; cv=none; b=Ens4ehOzOjxWabHezzaIAqe0omLC00VF/yUbi7P1wgwMTkpzKDEpl8bcFE4NeOJklOm1TknZDIsIzRck//SOPQjYjuGTZVQ2OSjGRCu6DNSWMBGZXn67mZMqpy1ty/euieLt6aYf3Gl2o2KbjHjdmNCoO7I7LnTHPxwKZCUY54Y=
+	t=1790069969; cv=none; b=mMgZvOUCP3jyOXYa9l+kgVZYIOKDWpSOULkp5oozDluzNrdqfjg7NyZF5oAoKSztjpUWsfO1wJ//axIREzhtrj9zT6OqJVVKVe8iiKHlVYzdk1h8gN+qHh7jpB8j3yMxQDVwjoeZY8bp/Fv+LBSkI4tQlTOAqPWI1fYPIKpY+ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069945; c=relaxed/simple;
-	bh=hi1vDGEifONMUPQI29D6K7Rz4VLkNWGHmR08F4W6XWs=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=f3ZCOYbHHoej2KSH7M4h33KXC1DVKFoavWTALNNSsxo6b5jmCuIrETTWtBt0f4/gA8TBzaDHEW8HrG8LVznQrEAs6FNwM9PoCtZPjiYtcPedfdg084uq1/UImk2pqE6lu4igA+AhGPqYcssidxm/goKGnsSM/OqQjdoCSsjYLRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cASNak4y; arc=none smtp.client-ip=95.215.58.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790069969; c=relaxed/simple;
+	bh=ig3RXksvRWIhFz8H9Bq6vdIuu8O2JHhDcVdl4VJdzLc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JpF6gOAkiuRmI1XeRdSmMLA/e+a8TQuzowN7lJk2s5tm+CVDiPL3lMBZZw0Qr/TO+G+V1edarM9+XnkmCcrB3AKumGi5ENuBLZ/yAx5gLF9tmIIXxLbE4e6QOj8N1aKu0y1WIKfgZMKuRYAKeirwnKiJBSTrV3X4sALehdEoT5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2SEbANS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cASNak4y"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hi1vDGEifONMUPQI29D6K7Rz4VLkNWGHmR08F4W6XWs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790069939; v=1; x=1790674739;
- b=cASNak4ysuWjNi33n5bSDcBdcWis2zVS9qvdGrVjHVup11L/H4Fy2JLJIERrGeYANXz8CszW
- oLautxEeyd2Gjpi4VrSY37vqwZe2ZMcT5H+QQ91vdpC6IbVWed6Etmxj5X9apohdoXYrE+Gj8TE
- q0+yoU3mYLQ4aBgDeLCnyNpw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9d2428c7de0bd619;
-	Tue, 22 Sep 2026 09:38:59 +0000
-X-Mizu-Trace-ID: 9d2428c7de0bd619
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d9c97d83-f29b-440c-9385-47d13afc38f3@linux.dev>
-Date: Tue, 22 Sep 2026 17:38:51 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2SEbANS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA211F000FF;
+	Tue, 22 Sep 2026 09:39:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790069967;
+	bh=cmgJ7EI3aXcwdtplUp/Zi7AC67D438gcMraWYvZlf1M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e2SEbANS9jNH8mHtr71ZufVoQlvgV4QpoaHeDEJOc37RGA6kNvkiDorxche3ermxY
+	 vHU3zjnUGek7QmuKg5CFOzVh+j/+tywjVQAVWzlF1zm2CQPVo45BV4NL0f+GOpUt4M
+	 hhoPimT/o37c5PCxjsS2539DJd4I9fXPOMjMSZsBDeFpNUxj7rDb/NVMIRovZQWccG
+	 01LJxJ9tXLqSdJPYGhVkcOLp+IjMnGSOc5xobpUFZ39hv6djRspf0M4+uNG7DhX+nm
+	 imkghBjDvew/cCgnattUG+TqSKedkXHiM3lumfXJAxzSL4RjGjnk+Eks+1YjtDRwzw
+	 PbdeckEePtuYQ==
+Date: Tue, 22 Sep 2026 10:39:23 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michal Simek <michal.simek@amd.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>,
+	Shubham Patil <shubhamsanjay.patil@amd.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <20260922-immersion-salvage-00450539f1ce@spud>
+References: <20260908094257.3196120-1-shubhamsanjay.patil@amd.com>
+ <20260908094257.3196120-2-shubhamsanjay.patil@amd.com>
+ <20260908-groin-undivided-0af701135404@spud>
+ <aqGHlWpQjpHEft3j@SMW015318>
+ <aqKWTT47S_zPzvbN@squawk>
+ <aqLQaHndX4t1kKLG@SMW015318>
+ <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
+ <20260922-ethics-flap-9760347e869d@spud>
+ <20260922-bullpen-reprise-f62e01922d88@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: hongfu.li@linux.dev, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
- Chris Down <chris@chrisdown.name>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
-To: Muchun Song <muchun.song@linux.dev>
-References: <20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn>
- <20260921-for-hugetlb_state-v1-2-8a6eec92661f@kylinos.cn>
- <B710AD66-B826-4138-B1D4-2DB3E00FDC1D@linux.dev>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <B710AD66-B826-4138-B1D4-2DB3E00FDC1D@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1Hmaxv1IM9OzCHNc"
+Content-Disposition: inline
+In-Reply-To: <20260922-bullpen-reprise-f62e01922d88@spud>
+
+--1Hmaxv1IM9OzCHNc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Sep 22, 2026 at 10:38:17AM +0100, Conor Dooley wrote:
+> On Tue, Sep 22, 2026 at 10:33:44AM +0100, Conor Dooley wrote:
+> > On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrote:
+> > >=20
+> > >=20
+> > > On 9/10/26 17:44, Frank Li wrote:
+> > > > On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley wrote:
+> > > > > On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
+> > > > > > On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley wrote:
+> > > > > > > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Patil wrote:
+> > > > > > > > In-Band Interrupt and Hot-Join are synthesis-time options o=
+f the AXI I3C
+> > > > > > > > IP. Describe them with two boolean properties.
+> > > > > > > >=20
+> > > > > > > > A Hot-Join request is acknowledged by the IBI machinery, so=
+ a hot-join
+> > > > > > > > capable design is always IBI capable as well. Both events a=
+re reported
+> > > > > > > > through the controller interrupt, which is therefore requir=
+ed whenever
+> > > > > > > > the capability is present.
+> > > > > > > >=20
+> > > > > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> > > > > > > > ---
+> > > > > > > > Changes in V3:
+> > > > > > > > - Move in-band-interrupt-capable and hot-join-capable into =
+the common
+> > > > > > > >    i3c.yaml schema and drop the xlnx, prefix.
+> > > > > > > > - Keep dependencies in the AMD binding.
+> > > > > > > > - Update the commit description accordingly.
+> > > > > > > > - Conor Dooley acked v2 with the xlnx,-prefixed properties =
+in the AMD
+> > > > > > > >    binding [1].
+> > > > > > > >    That Acked-by is not carried here: the names lost the ve=
+ndor prefix
+> > > > > > > >    and the definitions moved to i3c.yaml after Frank Li's c=
+omment.
+> > > > > > > >    [1]:https://lore.kernel.org/all/20260824-tightwad-impose=
+-495476599087@spud/
+> > > > > > >=20
+> > > > > > > I disagree with Frank. These properties make sense for Xilinx=
+ because it
+> > > > > > > is an FPGA IP and synthesis options impact this. For other de=
+vices, this
+> > > > > > > should be determined from the compatible.
+> > > > > > > Please revert to how things were done in v2, especially as no=
+ rationale
+> > > > > > > was provided for why these should be common.
+> > > > > >=20
+> > > > > > It is common problems, when IP intergrate by SOC, which may def=
+eature some
+> > > > > > part, It is not appeared now just because IBI and HJ have not e=
+nabled
+> > > > > > widely.
+> > > > > >=20
+> > > > > > IBI and HJ is optional features of I3C. Ideally it should be in=
+dicated by
+> > > > > > some registers. But not all vendor implement provide this CAP r=
+egisters.
+> > > > > >=20
+> > > > > > IBI and HJ depend on some slow clocks, which monitor SDA line c=
+hange.
+> > > > > > Some instances of IP may not have such slow clocks. Some IP's I=
+BI and HJ
+> > > > > > use seperate IRQ line, but these irq line may not connect of di=
+fference
+> > > > > > instances.
+> > > > >=20
+> > > > > All of this should be able to be dealt with by appropriate use of
+> > > > > specific compatibles.
+> > > >=20
+> > > > I understand compatible can cover most cases. Need variance for pro=
+perty.
+> > > >=20
+> > > > >=20
+> > > > > > like previous SPI vendor customized property, we takes efforts =
+to convert
+> > > > > > to common one and also meet back compatiblity problem at conver=
+t. I don't
+> > > > > > want to do it again. This kind property is most likely as below.
+> > > > >=20
+> > > > > What SPI controller specific properties are you talking about her=
+e?
+> > > > > There are relatively few properties in spi-controller.yaml, and n=
+one of
+> > > > > them deal with these kinds of capabilities.
+> > > >=20
+> > > > num-cs vs fsl,espi-num-chipselects. Total number CS of IP is fixed,=
+ but
+> > > > some instances have not route all CS to pad.
+> > > >=20
+> > > > >=20
+> > > > > >=20
+> > > > > > default: 	decide by comaptible string or hardware cap
+> > > > > > force-disabled: force disable for some reason, like, miss conne=
+ct irq line
+> > > > > > or missed some clock, or IP bugs, or board desgin's some level =
+shift chip
+> > > > > > broken IBI/HJ timing requirements.
+> > > > >=20
+> > > > > Of these, only the last would be a valid reason for having a prop=
+erty
+> > > > > for it. Missing interrupts, clocks or IP bugs should all be dealt=
+ with
+> > > > > using device specific compatibles.
+> > > > > If board wiring causes the breakage, the property may be more
+> > > > > appropriate at the i3c device level rather than the controller gi=
+ven
+> > > > > that wiring to some devices on the bus may not have the problems?
+> > > >=20
+> > > > I3C.yaml is for both master controller and devices now. I3C is bus,=
+ which
+> > > > connect many devices, if wiring issue, whole bus can't support IBI.=
+ And
+> > > > if any broken devices happen at address arbitation, whole bus can't=
+ support
+> > > > IBI.
+> > > >=20
+> > > > at beging, I suggest 3 state,
+> > > >=20
+> > > > [default, enable, disable], but now I think IBI_broken, HJ_broken i=
+s more
+> > > > reasonable to disable it, default value should be set by compatible
+> > > > string or DCR of I3C regiser.
+> > > >=20
+> > > > And some I3C device may be failure to work with IBI even DCR of I3C=
+ register
+> > > > show it support IBI.
+> > > >=20
+> > > > I don't want to appear two similar property between vendor and comm=
+on, like
+> > > > num-cs vs fsl,espi-num-chipselects.
+> > > >=20
+> > > > such as IBI-broken can be used for controller and devices case.
+> > > >=20
+> > > > > That said, I think that problem should be dealt with when it aris=
+es,
+> > > > > rather than starting a trend of adding capabilities properties at=
+ the
+> > > > > controller level when I am not convinced that there's going to be=
+ other
+> > > > > users in the same vein.
+> > > >=20
+> >=20
+> > > > Understand, I3C is realtive new protocal. 'IBI-broken' is more easy
+> > > > understand,  logically equial to in-band-interrupt-capable.
+> > > Conor: Any update on this one? I think this thread is stuck at this s=
+tage.
+> >=20
+> > I didn't think there was any need to reply. I took the first sentence of
+> > this snippet to be acceptance of what I was saying.
+> >=20
+> > If yous desperately want to have a generic property, the negative
+> > connotation of the "-broken" is probably better in that it'd be more
+> > likely to make people set stuff by compatible rather than have to use a
+> > property with that word in it.
+>=20
+> That said, technically this platform could be both
+> "amd,in-band-interrupt-capable" and "ibi-broken" at the same time, since
+> one describes the way the IP has been compiled and the other wiring. I'm
+> not entirely sure whether conflating the two is possible? Depends on if
+> your IP's programming model changes if the option is enabled even if it
+> cannot be used. Not beyond the realms of possibility.
+>=20
+> Also, ibi-broken doesn't work for your platform, since the default
+> before this patch is no ibi and requiring a property for no ibi would be
+> an ABI break.
+
+The perils of FPGA IP I suppose, and not being quite careful enough to
+document all of the relevant options from the start. Been guilty of that
+myself.
 
 
-On 9/22/26 2:18 PM, Muchun Song wrote:
->
->> On Sep 21, 2026, at 17:12, Hongfu Li <hongfu.li@linux.dev> wrote:
->>
->> From: Hongfu Li <lihongfu@kylinos.cn>
->>
->> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
->> stats. These stats are accounted against folio_nid(): incremented on
->> the folio's node when handed to a user, decremented when the folio is
->> returned to the pool.
->>
->> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
->> to the new folio and drops the memcg data of the old one, so the free
->> of the old folio right after the migration skips the memcg per-node
->> lruvec decrement. The hugetlb count stays attributed to the old node
->> for the rest of the life of the charge, while the target folio gets no
->> increment on the new node; its later free decrements a counter that
->> was never incremented.
->>
->> Migrate the per-node lruvec accounting alongside migration. Global
->> memcg totals remain balanced because they track resource consumption,
->> not node placement.
->>
->> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
->> ---
->> mm/memcontrol.c | 31 +++++++++++++++++++++++++++++++
->> 1 file changed, 31 insertions(+)
->>
->> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->> index 1460cba53588..9c96ebd5436f 100644
->> --- a/mm/memcontrol.c
->> +++ b/mm/memcontrol.c
->> @@ -5598,6 +5598,34 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
->> rcu_read_unlock();
->> }
->>
->> +#ifdef CONFIG_HUGETLB_PAGE
->> +static void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
-> Actually, we don't need this objcg parameter since we could get it from folio.
-> And I'd like to move this function to hugetlb.c.
->
->> +     				struct folio *old, struct folio *new)
->> +{
->> + 	long nr_pages = folio_nr_pages(old);
->> + 	struct mem_cgroup *memcg;
->> + 	int old_nid = folio_nid(old);
->> + 	int new_nid = folio_nid(new);
->> +
->> + 	if (old_nid == new_nid)
->> + 		return;
->> +
->> + 	rcu_read_lock();
-> Please use guard(rcu)() to simplify the code a little.
 
-Hi Muchun,
+--1Hmaxv1IM9OzCHNc
+Content-Type: application/pgp-signature; name=signature.asc
 
-Thanks a lot for your suggestions. I will drop the objcg parameter of
-move_hugetlb_lruvec_stat(), move the function to mm/hugetlb.c, and use
-guard(rcu)() in it.  I will post a v2 for review shortly.
+-----BEGIN PGP SIGNATURE-----
 
->> + 	memcg = obj_cgroup_memcg(objcg);
->> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
->> +       		NR_HUGETLB, -nr_pages);
->> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
->> +       		NR_HUGETLB, nr_pages);
->> + 	rcu_read_unlock();
->> +}
->> +#else /* CONFIG_HUGETLB_PAGE */
->> +static inline void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
->> +    					struct folio *old,
->> +    					struct folio *new)
->> +{
->> +}
->> +#endif /* CONFIG_HUGETLB_PAGE */
->> +
->> /**
->>   * mem_cgroup_migrate - Transfer the memcg data from the old to the new folio.
->>   * @old: Currently circulating folio.
->> @@ -5635,6 +5663,9 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
->>
->> 	new_objcg = get_migration_objcg(old, new);
->>
->> + 	if (folio_test_hugetlb(old))
->> + 		move_hugetlb_lruvec_stat(new_objcg, old, new);
->> +
->> /*
->> * @old was charged through a non-root objcg, so its charge is in the
->> * page counters. If the re-derivation walked up to the root objcg -
->>
->> -- 
->> 2.54.0
->>
--- 
-Best regards,
-Hongfu
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarJMywAKCRB4tDGHoIJi
+0mThAQDKrOwb+4IKRtiHJ09cuoS0GRy7/bFsJp11ykJu9Fea5wD9HusEc6cqg0h4
+BIAtZ2JCdy+/S1+/tls4mhNOiURnbwM=
+=YPGo
+-----END PGP SIGNATURE-----
 
+--1Hmaxv1IM9OzCHNc--
