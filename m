@@ -1,113 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB6053A8A7;
-	Tue, 22 Sep 2026 11:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC6053A3A3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790076485; cv=none; b=DPa6qpOEOakM2J13ttz7B6r6mbgCUP5PfF0qt/t8ishMvsIG1nG1LQbGTyMx9Fpg7sxhARGqZtvRd6w4w/D4DI01gHfohLJbOEEzmJoNotoYTCfLyaAYZfyY5x9oNVadxCFaug3W0Mu3FDAev6XTtpYiAN6n6v2684/L5UKxGlI=
+	t=1790076514; cv=none; b=AQ9yIhvgBkkIPdsJPPnvO9r25xGVz+RVKKkz4s+AEhdhLoJllMbWlQMnSrzJepbjTZXs2SfDAhR1LvE6i8qxdD8UGswdDODr42kpAsmh9KL98eoiC3aVdlNbzSJpMPRbZo9MJzldP2o3PRZHouqdtowC3eIgL4L9M+oadGQk+ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790076485; c=relaxed/simple;
-	bh=CheDtPGT6CUHHlaBJ9f3KAka3nMLVUMB6mReXi0hipQ=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=MMCDe1DRCambOJoUD1o/NiOyJzqhE0H4FmjgV3uPN78VoKMlYpDTAI+w6MhmcUy0GsiAt2baDb8wpKv/dgUvW4syRQ8Qhj05lX4bY1ZYvcD52sDNADvCq+zMxLpLeSRCM4uYogXIE2As3rPlPjtPf20VYD/e33bFBljqPT/4EfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqlG5KgV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790076514; c=relaxed/simple;
+	bh=gG+ucN6t1rCdtKjxiavG2+5yDMmJ3sKVxpjLLrrXgqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SUAAwGbQ6EobzJ6GdyF1Z1+5jaLkjTbQ4PQ4ldnlZT+bb27nEOOrA7AFkh3sQULlGrrSN9SQC3OguTvsE6EHDeCMbczBRT1YHykzH2MW+Vi9g8ROclX3YB8MtBCGVvU73F/C/sxWiREx1jQJ5tlH/6twkm+8xJjU30tkrBVs3QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=aj800mXp; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqlG5KgV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4F61F000FF;
-	Tue, 22 Sep 2026 11:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790076483;
-	bh=jmt7zs+V/aP1DrWEEkkhmbmYLzFhJlj7okL1TYU2J00=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=hqlG5KgVnNK042Ve2Dnah0xoHPOODzk0Qdl4bK0lsru104ycgHcLOEbZ0E9nJyJQq
-	 tcRrMzbiwHUrV+aRYGxqg8eP1DcNew8Lj5ZaUcl4Uc3j1mw9T3oQeHdqXGTO4hMZ/+
-	 GOaA8yCCSW1W7jRcDpSgBBtGU7MiG9VzTtEcQuIgzZubMh4jkOrUsD2shZ2CQuuRWt
-	 YzeLQSEcOGT5dzPp1dHFOo4BOrJ+wH+EsGfDaJ1D+JwEBuiUpRPs1rylJFAJNrb7a9
-	 46krrrlfytaMiHb9/IR6BOpYQk5F6bVshZOh5EXHTPQlHzGKWPNF30XrxyF5US6ks8
-	 sr9MRyvvn6lOQ==
-Content-Type: multipart/mixed; boundary="===============0681645373334310593=="
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="aj800mXp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790076505;
+	bh=gG+ucN6t1rCdtKjxiavG2+5yDMmJ3sKVxpjLLrrXgqM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=aj800mXp4OG5xKwwBejtWRqdVC/JtuhdYhbm5/YCZYq5pVm8m+qXqJD+VcVrMAZdn
+	 Maa0rSeZMpZMtK8gfnzzyhKPl0S2vzw7/0UA5KlyqZG3Q4p3g8V87h12uAfh97RT/M
+	 RHA84nXnW1f5nT1jqVtxePeILaEmAb0NcV4giWNWlCs2kn33QuygTtpOmFGBrpkaCo
+	 RLnyhjoruygWnxXHDuK5F7ikUZNYQkQUaJXXIjlXBswI5OTKXJN095hiaoiKS3tbaI
+	 lNv8KzSNQylXabwtv4r5FiItc9NJQ8L73gmF1vK1tNLdfbuH6Vb6SdwnuY5fXUk5xB
+	 P/uiptrl3/Gww==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DB04B17E0515;
+	Tue, 22 Sep 2026 13:28:24 +0200 (CEST)
+Date: Tue, 22 Sep 2026 13:28:14 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Akash Goel <akash.goel@arm.com>
+Cc: liviu.dudau@arm.com, steven.price@arm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
+Subject: Re: [PATCH] drm/panthor: Fix handling of NO_MMAP BOs
+Message-ID: <20260922132814.3ca8914b@fedora-21.home>
+In-Reply-To: <20260922100743.447700-1-akash.goel@arm.com>
+References: <20260922100743.447700-1-akash.goel@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <971df1084475a7ffc9cb1863fb28d7031a56fad62bafc23656dd3a727c92ef30@mail.kernel.org>
-In-Reply-To: <20260922101831.192102-4-jiayuan.chen@linux.dev>
-References: <20260922101831.192102-4-jiayuan.chen@linux.dev>
-Subject: Re: [PATCH bpf-next v9 3/3] selftests/bpf: Add a test for arena fault-in under memory.max
-From: bot+bpf-ci@kernel.org
-To: jiayuan.chen@linux.dev,bpf@vger.kernel.org
-Cc: jiayuan.chen@linux.dev,emil@etsalapatis.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 22 Sep 2026 11:28:01 +0000 (UTC)
-
---===============0681645373334310593==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/arena_memcg.c b/tools/testing/selftests/bpf/prog_tests/arena_memcg.c
-> new file mode 100644
-> index 0000000000000..c76a7eb2f01d9
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/arena_memcg.c
+On Tue, 22 Sep 2026 11:07:43 +0100
+Akash Goel <akash.goel@arm.com> wrote:
 
-[ ... ]
+> The BOs created with DRM_PANTHOR_BO_NO_MMAP flag are not supposed to be
+> mmappable by the Userspace. But after the rework to support shrinker,
+> it became possible to mmap NO_MMAP BOs. Userspace could second guess
+> the file offset range, allocated unconditionally at the BO creation
+> time, and create a CPU mapping. There may not be any adverse effect of
+> such a CPU mapping though.
+> This commit removes the unconditional allocation of file offset range
+> when a user/kernel BO is created. For user BOs, allocation of file
+> offset range would be done from BO_MMAP_OFFSET ioctl handler which has
+> a check for NO_MMAP flag. For kernel BOs, there is no need to allocate
+> file offset range.
+> 
+> Fixes: 68cbf96b1e9b ("drm/panthor: Part ways with drm_gem_shmem_object")
+> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Akash Goel <akash.goel@arm.com>
 
-> +	/*
-> +	 * Step 5: fault ARENA_FAULT of arena in, much more than
-> +	 * HEADROOM. Once it hits memory.max every further page has to
-> +	 * come from reclaiming the page cache. With the fix the
-> +	 * fault-in reclaims and all of it succeeds; without it the
-> +	 * allocation cannot reclaim and we die on a valid address.
-> +	 */
-> +	for (i = 0; i < npages; i++)
-> +		base[(size_t)i * ps] = 1;
-> +	_exit(0); /* fd deliberately kept open until here */
-> +}
-> +
-> +	if (!ASSERT_EQ(waitpid(pid, &status, 0), pid, "waitpid"))
-> +		goto out;
-> +
-> +	/* The working directory cannot hold a reclaimable page cache. */
-> +	if (WIFEXITED(status) && WEXITSTATUS(status) == CHILD_UNSUPPORTED) {
-> +		fprintf(stderr, "%s:SKIP:no disk-backed O_TMPFILE in cwd\n", __func__);
-> +		test__skip();
-> +		goto out;
-> +	}
-> +
-> +	/* A non-zero exit means the child failed to set up; the code says where. */
-> +	if (WIFEXITED(status) && WEXITSTATUS(status)) {
-> +		ASSERT_OK(WEXITSTATUS(status), "child setup");
-> +		goto out;
-> +	}
-> +
-> +	/*
-> +	 * With the fix the arena fault-in reclaims the page cache and every
-> +	 * fault succeeds, so the child exits 0. Without it the allocation
-> +	 * cannot reclaim, fails once the headroom is used up, and the child
-> +	 * dies with SIGSEGV on a valid arena address.
-> +	 */
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-This isn't a bug, but since the Step 5 comment 25 lines above already
-explains the fixed vs. unfixed outcome (fault-in reclaims and succeeds vs.
-allocation cannot reclaim and dies on valid address), would it read better
-to keep just one of the two explanations?
+> ---
+>  drivers/gpu/drm/panthor/panthor_gem.c | 4 ----
+>  1 file changed, 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index c07a44057e42..5cfe66537e87 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -1021,10 +1021,6 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+>  	mapping_set_gfp_mask(bo->base.filp->f_mapping,
+>  			     GFP_HIGHUSER | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
+>  
+> -	ret = drm_gem_create_mmap_offset(&bo->base);
+> -	if (ret)
+> -		goto err_put;
+> -
+>  	if (exclusive_vm) {
+>  		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
+>  		drm_gem_object_get(bo->exclusive_vm_root_gem);
 
-> +	if (!ASSERT_TRUE(WIFEXITED(status) && !WEXITSTATUS(status),
-> +			 "child faulted the arena in")) {
-> +		if (WIFSIGNALED(status))
-> +			fprintf(stderr, "child killed by signal %d\n", WTERMSIG(status));
-> +		dump_memcg();
-> +	}
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35716612692
---===============0681645373334310593==--
