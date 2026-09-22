@@ -1,78 +1,51 @@
-Received: from mail-dl2-f15.google.com (mail-dl2-f15.google.com [74.125.229.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461145505CC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940A3542ED7;
+	Tue, 22 Sep 2026 21:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790111562; cv=none; b=THzfCJOj5LWZeBCoVXsgpqnKjNC2djIjzVcpbf8TloXdR3KBfSUCOIHfoDRlNvuylUGxzus5V1plX+3h3tTaX52pL/yQ7VwKXIXNPob3uZ5hKAMXRu+GX1EV+sgo7tk92WXuuxB/arHwAhi/nXalsrLH4g3eEDs4PBnUXFdKI5k=
+	t=1790111633; cv=none; b=QTN/b0y+d7d02lzJL8vbR0pHGgKTH1eYpmMVWY/x4kkHp2SFS8mPou3vwhLwOeLZwhOCBNC466n5floc0xbfNdWb0pBWXJfJdc1HnchfZ1Qy/32ekxSOWzpkA3nd9jQhIq9IL/wA7H2lIMbHz+91yQS3XEXJFe75F42Ht4yXP7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790111562; c=relaxed/simple;
-	bh=edSqkUf/Jp56J9Vg7c+aqfiXzucyWX6M92AvRsKUe34=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XfHWDwFTIrhJX9AoSvb+lmoDi3fHC79fSudfnS4BZqRbY5ZjHb/PDXdbnkEfouC+JeRhdUgYRpAIl1wwlm3UH6Y0OzONNJt8WHYxrrtjqWPBAqO/DHBE69UXY655VDmihvO8BiQ2DPcskrnwR6b2vRPJtv0+wHsPNqa2UQOUPIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z5r2OhKo; arc=none smtp.client-ip=74.125.229.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790111633; c=relaxed/simple;
+	bh=/KDKnWiDfwCqbXK2RYoR8mDP0TkwM/2rxsem1/hntIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nmow8avU+CjQoJ6kjH5nxYG5x4KL/kzaWPstT21eCyih2pzVkGoPzuWeXmeCGKyR/cqTYm1PQ5NTGUu9UXDtNi8SMZvIeNcJUsgimdvPG9ScaZvgJDzItmw7NFEE+2W1J/JnMjAvNF+SWFZxNT9oltalNzZMsfndmVDKfz846I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jj6hghCp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z5r2OhKo"
-Received: by mail-dl2-f15.google.com with SMTP id a92af1059eb24-144f9160b81so98182c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:12:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790111532; x=1790716332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=81pB+7IxOj1JIFRbnFGuG+Ebf120vc1g1oVisMJhAcQ=;
-        b=Z5r2OhKoH2rzwFHmTAe2GsTvadG1fQs7fjETvvVPNSbJ8BiQznw2QS4t+hJi/7drwp
-         MLM9mtIePDA7bWYiP7GnZhCAepR7mxqUHhh4S5pFVazpbzWp2ViSDHygGEeVxvGK7/iU
-         EiIADIz0SUQR6AN0gsKlqIk+ZpWUSnQiDfmlU3n8yp6b6iRTnHufE/BGZdFAeH5IOtY0
-         rIf+BsAbojFrcw6kYhvRIk9Kk3u9AHgDwKiToZbOsxjHfSbg6WUc36orDgyYz7Uznff9
-         5oUunf3yg19ZsK4hYy6Lmnbl9oSNa4m2AyoDG714wU+IcZ2MWeTXllOrt1dVvIEqT16C
-         bDHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790111532; x=1790716332;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=81pB+7IxOj1JIFRbnFGuG+Ebf120vc1g1oVisMJhAcQ=;
-        b=0aqdeyKYaOMiNSTsde7X5KKXoO+1RE/0ek1P3YTYCO0Sq/90uS++5Z4a4cq39fdoVp
-         HVFMcFmHKMFFMnD/QB/NeLUsMVBq8nnuzLqT82Ep6Im4uuGHjNnF4zyQTJUoZ0EhJhCG
-         SWZeOzPeufutNCqiv5mPok2Lw0rv5vqa4JkY9F4GJ6yd3fDqKlOwaIJh/i9xOodJORlO
-         JPefNBHJUKjex7TxEypWcIl2Dwcwk57b8vAMTuEtkF/UV6JNK2EVLSEWBx90yN/PLf4V
-         9W1sU0RA2CEe++9w4u0i6GrucxSMW5NqnVCI3RMhr54+DNk8xsqlJEM7oDEaGzARcuD4
-         t+4g==
-X-Forwarded-Encrypted: i=1; AKwUvBzpWMXK5f3A9fjh4o9Cw7XwmsVOzTNs43mcbX7jCmP0LYRT0kzAIqWp1S3hBP25XObSMBWSPeGYZ8jgQs4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJ+UdAFoshqy9R79RrF17YVEyQsXf6Yp6DAyDUUHjCDqBimGQV
-	vpzJFa4q3QoclvYbb9+oP8zAX7QQFkN7V5nl4qIfJrrwGsjftccHe4Qw
-X-Gm-Gg: AYBFou1altuphUxWwx3JtD8cJ/OrhMvW4bBrbqXkynACEdsb7Gx+witTao6kuJdUzql
-	bLFmSXlUhJzILR1xzbybNGwikwnB+4jfhlXMPOq/VKEGvMxnREE5AzrK792PTzUWbIwDAodoSKP
-	lTiMHKhp/PI3bfOCo3N3nklqYW36lP7MhgnGcSf5fz37DMlFRzFqSUFZlS4QTdCc73TTlFp9pNU
-	4C8f3UFnS+EJ62zXxKTpVG0AVCb/sZ986/zNreFKEuEhyKlrrPpccZrHtiUe3rRuaP3Up60Rkrw
-	jS7Ug07jnstA4LzjrcSKCmpX77PKTO5XPgEP3j0FwDucYfnz615UcLG+sSU+BBbcUcc9RXpFT3E
-	7T/BoZ4R+YPIHVG9NDRc7OGETgqNsLoKJ5RJuX3jK/c6UcwDhGRsh8AihUr0jZWw4+1sibsu27E
-	rR49JF7yCJADlr5zOBLCbN+dA6TZLRwY/kEk+dMyxXy64Za9kG5K51Xn4ycc1ycN7H06QfOpYws
-	YTqSF3/hK6SiVo0ej5y57kJJ3HHuXG1Wu7wni0N1BNXyR6WKaogRbW9sfRldAPOAI0HwRsLf1I=
-X-Received: by 2002:a05:7301:3a86:b0:33e:5c4f:f46e with SMTP id 5a478bee46e88-33e8d8d2598mr486297eec.30.1790111531511;
-        Tue, 22 Sep 2026 14:12:11 -0700 (PDT)
-Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:f16e:2102:25ad:9cdb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdd91sm943147eec.4.2026.09.22.14.12.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 14:12:11 -0700 (PDT)
-From: "Hemendra M. Naik" <hemendranaik@gmail.com>
-To: netdev@vger.kernel.org
-Cc: jiri@resnulli.us,
-	jhs@mojatatu.com,
-	linux-kernel@vger.kernel.org,
-	vishy0777@gmail.com,
-	tahiliani@nitk.edu.in,
-	"Hemendra M. Naik" <hemendranaik@gmail.com>
-Subject: [PATCH iproute2-next v7 2/2] tc: pie: print avg_dq_rate in human-readable format
-Date: Wed, 23 Sep 2026 02:41:39 +0530
-Message-Id: <20260922211139.38570-3-hemendranaik@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260922211139.38570-1-hemendranaik@gmail.com>
-References: <20260922211139.38570-1-hemendranaik@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jj6hghCp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92AF51F000FF;
+	Tue, 22 Sep 2026 21:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790111614;
+	bh=gavLpKhKfRuNJpe+ULApH+WS36cM4ZQ6hskyDu0N8UE=;
+	h=From:To:Cc:Subject:Date:Reply-To;
+	b=Jj6hghCphdBB6FfClbn9dCVW+haSdLEONjXkoltZjpjQcyWe7jCDkVBnNyj5TGuxr
+	 OQBrB4x7nnwcb7jpF8ErJlguN6eTgMqg2DnrLX28WuqjOorkT51PTVtfbXJ+0/wlMq
+	 beRV/MvmqktkYbgbgJamxFYljFuTTiuBm++KImTXufmhnRSsNwniMTVhKqjfNArSVq
+	 3wUfDSpbNeK6dn6NxS5X6XwVoQl0eIoJmz6oTZcuxWu010GeGxatYFDJ6rkqZUUA8v
+	 zVVyn/FyGfd3K7JrAchRasMLOfB3xgVVVC7qaZuPE+6LIP8cV7AmFbfsLS0QYGkfDO
+	 FXHqu6gq2DbjQ==
+From: Gary Guo <gary@kernel.org>
+To: Benno Lossin <lossin@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: pin-init: internal: pin_data: use HRTB to work around `trivial_bounds` for `Unpin`
+Date: Tue, 22 Sep 2026 22:13:19 +0100
+Message-ID: <20260922211320.1390159-1-gary@kernel.org>
+X-Mailer: git-send-email 2.54.0
+Reply-To: Gary Guo <gary@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,51 +54,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Print avg_dq_rate using tc_print_rate() instead of displaying the
-raw bytes/second value.
+From: Gary Guo <gary@garyguo.net>
 
-This converts the kernel-provided rate to a human-readable bits/second
-string (for example, 10742Kbit), consistent with how other tc
-schedulers display rate statistics.
+`#[pin_data]` generates a `Unpin` implementation for the user, which
+requires reasoning using field types. This is rejected by rustc as "trivial
+bounds", which can only be specified using the
+`#![feature(trivial_bounds)]`.
 
-Update the tc-pie(8) example to match the new output format.
+Currently we use an extra lifetime in `__Unpin` to work around this; use
+HRTB to introduce a dummy lifetime can achieve the same, which the
+`Zeroable` implementation already uses.
 
-Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
-Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
-Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
+Unify the `Unpin` impl to also use the same HRTB trick that `Zeroable`
+uses. This produces slightly better error message and slightly shorter
+expansion.
+
+Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- man/man8/tc-pie.8 | 2 +-
- tc/q_pie.c        | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ rust/pin-init/internal/src/pin_data.rs | 35 +++++++++-----------------
+ rust/pin-init/src/__internal.rs        | 16 ------------
+ 2 files changed, 12 insertions(+), 39 deletions(-)
 
-diff --git a/man/man8/tc-pie.8 b/man/man8/tc-pie.8
-index 5a8c7820..ec0d4af2 100644
---- a/man/man8/tc-pie.8
-+++ b/man/man8/tc-pie.8
-@@ -115,7 +115,7 @@ is turned off.
-    qdisc pie 8036: dev eth0 root refcnt 2 limit 1000p target 15.0ms tupdate 16.0ms alpha 2 beta 20
-     Sent 63947420 bytes 42414 pkt (dropped 41, overlimits 0 requeues 0)
-     backlog 271006b 179p requeues 0
--     prob 0.000092 delay 22200us avg_dq_rate 12145996
-+     prob 0.000092 delay 22200us avg_dq_rate 10742Kbit
-      pkts_in 41 overlimit 343 dropped 0 maxq 50 ecn_mark 0
+diff --git a/rust/pin-init/internal/src/pin_data.rs b/rust/pin-init/internal/src/pin_data.rs
+index 8cd9bf139567..55c627499b35 100644
+--- a/rust/pin-init/internal/src/pin_data.rs
++++ b/rust/pin-init/internal/src/pin_data.rs
+@@ -5,10 +5,10 @@
+ use syn::{
+     parse::{End, Nothing, Parse},
+     parse_quote, parse_quote_spanned,
++    punctuated::Punctuated,
+     spanned::Spanned,
+     visit_mut::VisitMut,
+     Field, Fields, Generics, Ident, Index, Item, Member, PathSegment, Type, TypePath, Visibility,
+-    WhereClause,
+ };
  
-  # tc qdisc add dev eth0 root pie limit 100 target 20ms tupdate 30ms ecn
-diff --git a/tc/q_pie.c b/tc/q_pie.c
-index 04c9aa61..97690d49 100644
---- a/tc/q_pie.c
-+++ b/tc/q_pie.c
-@@ -220,8 +220,8 @@ static int pie_print_xstats(const struct qdisc_util *qu, FILE *f,
- 	print_string(PRINT_FP, NULL, " delay %s", sprint_time(st->delay, b1));
+ use crate::{
+@@ -231,21 +231,11 @@ fn generate_unpin_impl(
+     generics: &Generics,
+     fields: &[FieldInfo<'_>],
+ ) -> TokenStream {
+-    let (_, ty_generics, _) = generics.split_for_impl();
+-    let mut generics_with_pin_lt = generics.clone();
+-    generics_with_pin_lt.params.insert(0, parse_quote!('__pin));
+-    generics_with_pin_lt.make_where_clause();
+-    let (
+-        impl_generics_with_pin_lt,
+-        ty_generics_with_pin_lt,
+-        Some(WhereClause {
+-            where_token,
+-            predicates,
+-        }),
+-    ) = generics_with_pin_lt.split_for_impl()
+-    else {
+-        unreachable!()
+-    };
++    let (impl_generics, ty_generics, whr) = generics.split_for_impl();
++    let predicates = whr
++        .map(|x| &x.predicates)
++        .unwrap_or(const { &Punctuated::new() });
++
+     let pinned_fields = fields.iter().filter(|f| f.pinned).map(|f| {
+         let ident = f.member.as_ident();
+         let ty = &f.field.ty;
+@@ -260,19 +250,18 @@ fn generate_unpin_impl(
+             dead_code, // The fields below are never used.
+             non_snake_case // The warning will be emitted on the struct definition.
+         )]
+-        struct __Unpin #generics_with_pin_lt
+-        #where_token
+-            #predicates
++        struct __Unpin #generics #whr
+         {
+-            __phantom_pin: ::pin_init::__internal::PhantomInvariantLifetime<'__pin>,
+             __phantom: ::pin_init::__internal::PhantomInvariant<#ident #ty_generics>,
+             #(#pinned_fields),*
+         }
  
- 	if (st->dq_rate_estimating)
--		print_uint(PRINT_ANY, "avg_dq_rate", " avg_dq_rate %u",
--			   st->avg_dq_rate);
-+		tc_print_rate(PRINT_ANY, "avg_dq_rate", " avg_dq_rate %s",
-+			      st->avg_dq_rate);
+         #[doc(hidden)]
+-        impl #impl_generics_with_pin_lt ::core::marker::Unpin for #ident #ty_generics
+-        #where_token
+-            __Unpin #ty_generics_with_pin_lt: ::core::marker::Unpin,
++        impl #impl_generics ::core::marker::Unpin for #ident #ty_generics
++        where
++            // the `for<'__dummy>` HRTB makes this not error without the `trivial_bounds`
++            // feature <https://github.com/rust-lang/rust/issues/48214#issuecomment-2557829956>.
++            for<'__dummy> __Unpin #ty_generics: ::core::marker::Unpin,
+             #predicates
+         {}
+     }
+diff --git a/rust/pin-init/src/__internal.rs b/rust/pin-init/src/__internal.rs
+index 8e9fd18b993f..67a354fa29c4 100644
+--- a/rust/pin-init/src/__internal.rs
++++ b/rust/pin-init/src/__internal.rs
+@@ -42,22 +42,6 @@ pub const fn new() -> Self {
+     }
+ }
  
- 	print_nl();
- 	print_uint(PRINT_ANY, "pkts_in", "  pkts_in %u", st->packets_in);
+-/// Zero-sized type used to mark a lifetime as invariant.
+-///
+-/// This is a polyfill for the [unstable type] in the standard library of the same name.
+-///
+-/// [unstable type]: https://doc.rust-lang.org/nightly/std/marker/struct.PhantomInvariantLifetime.html
+-#[repr(transparent)]
+-#[derive(Clone, Copy, Default)]
+-pub struct PhantomInvariantLifetime<'a>(PhantomInvariant<&'a ()>);
+-
+-impl PhantomInvariantLifetime<'_> {
+-    #[inline(always)]
+-    pub const fn new() -> Self {
+-        Self(PhantomInvariant::new())
+-    }
+-}
+-
+ /// Token type to signify successful initialization.
+ ///
+ /// Can only be constructed via the unsafe [`Self::new`] function. The initializer macros use this
+
+base-commit: dfb6a037fd586f1ffcba3b143dab58f5c88294d1
 -- 
-2.34.1
+2.54.0
 
