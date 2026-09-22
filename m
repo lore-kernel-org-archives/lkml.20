@@ -1,203 +1,66 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8269F2E7378
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36D6348C7C;
+	Tue, 22 Sep 2026 00:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790037929; cv=none; b=bn43S4Sbrc43HNmDuqY4Pr1LG4tpgDnRRQ0K7wvrgRCpxGV7pP13B1FtVz+mx18wdZT71r78rTL+NwT+lxAItI6W4uyhwsP6veNPr8N4iGntZBbR7EZV4eOJeeszNM/VAF23ZJfK2wuGMI92/C8XgZHVXuP9fJFGPjIKteLsLds=
+	t=1790037933; cv=none; b=qG5MNLVUlklF6UJG8mPhj4uCxcJNxbt3e7gk155xMiboP1ArrQcVGvwk6eH71hPzdYA5+ZJ1YZqDHm6zy8sJrRVeeOESTfHXTT+mhBzNHstuLxZv8y0V0iWUqXbFKSYIUtMNlC8eAZ23cXNcZ9rkLqCksz6NymIVFp+5nlEiSjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790037929; c=relaxed/simple;
-	bh=iYob4REqadu0E5LMJQUvWHZge0MxmBjAeGhfjKnxPMw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=j/8VZuCky/yYdGNAEr6z6D3Jm2mTW/jZnqywTwuAjrnJcy0bafmTeo1mW7WgoMq16PLDC+oGx8X6M0Ep+9bWfXWtGTwAtN+lkn9W0S7i78CUnY8t1pyyH9BYcrrfj9RZt9kOGQvSlPddi8t0m5wBSOnwJ0bW63SjzsF5MyQxVbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akwbkY+U; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790037933; c=relaxed/simple;
+	bh=IeG5bo43O2qmr0hxjbFyfZYjX1u5+SC023GZByEl9kg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ukk+SiXrikBhW4C3xEHk02uo2ykXpbcOdSMgmmYfgFgBDMDV9v6rtaO+pJRIYxJhwsJ1Buzap56fdwg6ZNhqScDm+K5xveC88+IBcP0WrLBQHqOcn/0dccFcEIYVx4EuGxpip2S92cLs3Gbku2O7giBTBzObwLTvjbb16jvHt5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZvKz5DO2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akwbkY+U"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c2c08ff3f8so2482164b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:45:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790037926; x=1790642726; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2/OAn78xm1OSx5ilLefyLSI7VeBwJOO8ghkxmHGyO8o=;
-        b=akwbkY+UzPi34DmaQGni1DtUhlX3nud4X9312ne97+KTTN3K9rxzoK24hVmId/ZMsm
-         87TQQpHZ4Azb4d4TLgvCXg+yLRhMtE2Nh+/yWU7dSgx1HnFwPzi6GmTA3+f1KKASEBi/
-         2XeSLt+eoGC0m8miR7g6aby85tpzrPQJt8pm/IjieEj4qvZUoD/P/VULNw+720ssbqx5
-         KSDyGsxkIxqK3lqGx/tAYYAhDSpOEBzZhJvAEdj9vm8jaKne2BJ8FovapXMaWdV4dkMf
-         WEkkExkcU1l7Y3aEe6GnXEAYqRtk91qEo/Pdv5n+0s1O5Rel6DquDoE0XliBEz8x33U9
-         HL6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790037926; x=1790642726;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2/OAn78xm1OSx5ilLefyLSI7VeBwJOO8ghkxmHGyO8o=;
-        b=iK8LJ9IIXdgvipzxufg6wE4cqWogUENblPZVjQuCkhR3QUfmNOz62X94rG/uHIfBIz
-         1b8W/MotBzzOA+C8WdBrFT99WOw/p3qUUvnveFrvR9KG0c1u4cVnDLAvSg6MptrrNx2+
-         u7Ix/Fu/XcowFETEy/QMu64r7x/5WgcVXlZHY5S7ovXn7qC+hg+1SX/iibswo7AN1uZ2
-         Ozc7kA3QI8zRwTMCF0lX9u5h5TUPsNjTMjSH0d3www1vy3NUF4VFLyj2goFW0ww2I1Bh
-         /ex0UsboiSG90IKlRx1VFI1etxxp5XUJ8I7HB6nhwdq2URT4WoGO/njGkH2Ws31cFUZP
-         kf2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzKEiNFXBhqpUvVKCWSK38FLvF0be6aDaSObKfLsu7Y6ET1IQDCnb+8XiGZd4FaW/E+rdmo8hlbstSGoW0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIH83sjfiJPcg7lzaxUYBcxpOknMDoW9dgn6ZgTKU/zqpX7in+
-	Gl7BtN9Ab8kZhbXaIvm3jNwHBUQrPwsPjh5Z76cQ8FyBN8y09VBg8Uqv
-X-Gm-Gg: AYBFou0Mqq3lp2r+ADskh/1CKkWpWd9Wsnp6C9Zytpe5PNiDttb1pDGXv2Mn38Q+x11
-	m3rt2HWh+5dl25ZTI88mLiURupTJ+l18P6rPlL5Nv+g7bKwb6sR6qgQojwCDOL7kyR//WOtXY8G
-	Mkbn9D4jIfvxxkzbWpCtvSHqz+82DRZzF+P3kXGfsHY2KqUK/ngpMbC8N0mPZ8XpIUNmfJ04WGt
-	t7ybMVhOlKFoazfrbJgIoHYTa5T/HDu6zX7s3w0hCYzAjiySmSsspmlHzwdhLQTePLRVh/4aaAL
-	bKW0LXFBemN3AbiBzQQCohf1lXl0Yohujtr/wYZ1jhOVtKsfXwfsxnfBYN9v2grpNB3+B/CsO/N
-	V9lXH92SjXiL68vJB9kHpiO8AcLpysQEm5/4UVcnBnsWFlwEkeHfd2A8eA+aVy97S7xD4vvuzOc
-	yHcwAxaYixlcpAsPvaJ3kj6bxGK4wBsQALExs5X5IAi85GQjWLc0SDWwZA6/f9NJttBzIE0ph4Q
-	7R5Uo22758RDjbhrNoNOFauVkX4Eu4tpMy31BSHd61/oz//0EV2+3gawSGKJBOYFxEWHV/LTsgY
-	wsPVyU1qvR5ZdODWNiy9uwlfJ3zwctmXDIFLjf61FdgZtQoMuMvEaZDvd+U6m9HhimrvTVsuVgL
-	js6NJpkEqGPMX4us0Jd7e3Q==
-X-Received: by 2002:a05:6808:680a:b0:4b2:8d7b:390b with SMTP id 5614622812f47-4d464080f0dmr1026002b6e.19.1790037926314;
-        Mon, 21 Sep 2026 17:45:26 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d4bb6be7b3sm60201b6e.0.2026.09.21.17.45.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 17:45:25 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH net-next v5 0/3] net: stmmac: add Allwinner H616 EMAC1
- support
-Date: Mon, 21 Sep 2026 18:45:23 -0600
-Message-Id: <20260921-submit-h616-emac1-v1-v5-0-ada661ed9e9b@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZvKz5DO2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392A91F000FF;
+	Tue, 22 Sep 2026 00:45:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790037930;
+	bh=V4ZxAsF1Yx8w6WrpnfvJK/rnJJBlJSiMY2AZh/6DT6w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZvKz5DO26opZxwvrnjAF/6D60kK2PMISk/pDJrR3o5752ABk60C39ocUDevkfCkb7
+	 g6Y0MArLzSK5lFEAMF39IzlBZsxEclf7VQRqNPyboe+ajtGwVOGunuyEjT5XN6q58k
+	 a8p9N4n2BaszphgE0QlgkUVcwTCQMfDzn7VISLzzd6x2l3jNRh4Q/w1IiU2RdUcfSq
+	 lAsVZPaIi+/WmIHB0YprHzdE9ZoKhcBKDLvfAFzUodJwRy89JbuoIRLNnyT7nxhecT
+	 pXdWypIGcBHngmwmAruUZoanAjb4DLMjOtk2oe7l7EslqHGNgXo1BVIJZCmZNcQiDl
+	 Y2HlB/eHOowpw==
+Date: Mon, 21 Sep 2026 17:45:29 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Gabriel Goller <g.goller@proxmox.com>
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan
+ <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net-next 2/2] selftests: seg6: check extack messages on
+ SRv6 lwtunnel setup
+Message-ID: <20260921174529.045f0d65@kernel.org>
+In-Reply-To: <arD-5t6LiBiPXAAa@luna.proxmox.com>
+References: <20260918153544.1178884-1-g.goller@proxmox.com>
+	<20260918153544.1178884-3-g.goller@proxmox.com>
+	<20260918150256.1a1ca82e@kernel.org>
+	<arD-5t6LiBiPXAAa@luna.proxmox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwWrDMAwG4FcpPs/Fkh0n2WnvMXqwHKVxWZIRu
- 6Gj5N3npjuEskJBFyHp+3UVkafAUbzvrmLiOcQwDrkp3nbCd244sgxN7gUqtKoGI+OZ+pBkZ8F
- K7p0HOYMEo0ulK4OOSOTT74nbcFnZTzFwkgNfkjjcJ1k4sU839bbbhZjG6Wf9YIb14i+s+D8sl
- 5JQFw0rImgr93HsXfja+7FfI2Z8BcGMaETSyEYx1Y+I3iLlE0RnxKKnSoNlqOkRMRsE1RPEZKT
- SpmxaRqay2SLLsvwC4mFjqqMBAAA=
-X-Change-ID: 20260914-submit-h616-emac1-v1-143703842abb
-To: Richard Genoud <richard.genoud@bootlin.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- LABBE Corentin <clabbe.montjoie@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>
-Cc: Alastair D'Silva <alastair@d-silva.org>, 
- Maxime Ripard <mripard@kernel.org>, 
- James Hilliard <james.hilliard1@gmail.com>, netdev@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Andre Przywara <andre.przywara@arm.com>
-X-Mailer: b4 0.15.2
 
-The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
-system-control clock register at offset 0x34. Add its binding and a
-sun8i stmmac variant using that register. A distinct compatible without
-an older fallback prevents the driver from using EMAC0's clock register.
+On Mon, 21 Sep 2026 11:55:27 +0200 Gabriel Goller wrote:
+> On 18.09.2026 15:02, Jakub Kicinski wrote:
+> > On Fri, 18 Sep 2026 17:35:16 +0200 Gabriel Goller wrote:  
+> > > Add a ksft/ynl test that shoves invalid RTA_ENCAP payloads to
+> > > RTM_NEWROUTE and asserts both the errno and the extack message are
+> > > correct.  
+> > 
+> > Please be judicious when adding tests.  
+> 
+> Got it. We can either drop the whole second patch or I can simplify it and only
+> add test cases for a few error messages.
 
-EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
-no external PHY pins. Leave PHY initialization to the PHY driver instead
-of using the H3 internal-PHY controls. The RMII-only variant does not
-expose the RGMII clock-delay properties.
-
-First move the MAC software reset from probe to the DMA reset callback,
-after PHY initialization. This lets the MAC and its MDIO bus remain
-registered when the PHY driver or one of its suppliers is not ready yet.
-Mask interrupts before requesting reset and clear DMA and interrupt state
-even if it times out. Keep the separate H3 MDIO-mux reset sequence
-unchanged.
-
-The AC200/AC300 EPHY driver and package bindings are already in
-net-next. This series separates the H616 EMAC1 MAC driver and binding
-support from the earlier combined series. PWM, MFD and device-tree
-enablement are being handled separately.
-
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v5:
-- Split the three generic phylink/stmmac recovery fixes into a separate
-  net series, as requested by Maxime Chevallier. Keep the sun8i MAC-reset
-  change, EMAC1 binding and variant in this net-next series.
-- Add the originating driver's Fixes tag to the sun8i reset patch.
-- Link to v4: https://patch.msgid.link/20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com
-
-Changes in v4:
-- Add a prerequisite stmmac core fix closing the interface after a failed
-  MTU-change reopen without repeating DMA, IRQ or NAPI teardown.
-- Close the interface after failed hardware resume, and let phylink
-  finish shutdown directly from its suspended state.
-- Retain DMA and interrupt-register clearing when the sun8i MAC reset
-  times out, and return the original reset error.
-- Link to v3: https://patch.msgid.link/20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com
-
-Changes in v3:
-- Add a prerequisite fix moving the MAC software reset to the DMA reset
-  callback, after PHY initialization, so delayed module loading and
-  deferred PHY probes do not tear down the MAC and its MDIO bus.
-- Preserve the H3 MDIO-mux reset and propagate hardware-reset failures
-  through the normal stmmac hardware-setup error path.
-- Add Alastair D'Silva to Cc and rebase onto current net-next.
-- Link to v2: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v2-0-322b32e40eb9@gmail.com
-
-Changes in v2:
-- Drop EMAC1 TX/RX clock-delay property support and keep the existing
-  RGMII-only delay descriptions unchanged, as requested by Maxime Ripard.
-- Clarify that EMAC1 connects internally to a co-packaged PHY, not an
-  external PHY or the H3-style internal-PHY controls.
-- Rebase onto current net-next.
-- Link to v1: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v1-0-195de0bb1f8a@gmail.com
-
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Samuel Holland <samuel@sholland.org>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: LABBE Corentin <clabbe.montjoie@gmail.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Maxime Ripard <mripard@kernel.org>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-To: Jose Abreu <joabreu@synopsys.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-sunxi@lists.linux.dev
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-
----
-James Hilliard (3):
-      net: stmmac: sun8i: reset the MAC after PHY initialization
-      dt-bindings: net: allwinner: add H616 EMAC1
-      net: stmmac: sun8i: add support for Allwinner H616 EMAC1
-
- .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 13 ++++
- .../devicetree/bindings/net/snps,dwmac.yaml        |  2 +
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  | 69 +++++++++++++---------
- 3 files changed, 57 insertions(+), 27 deletions(-)
----
-base-commit: 1b4efa0399f549d9b9bf82b3e2450e10a06d65b8
-change-id: 20260914-submit-h616-emac1-v1-143703842abb
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+drop, please
