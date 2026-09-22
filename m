@@ -1,106 +1,110 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783CA539764
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BE2539789;
+	Tue, 22 Sep 2026 11:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075000; cv=none; b=RsMSXeF9sGYwNsCDk2UWYNorJjaQdZDLac+P6eHpQekrAh4mRDfyg613p0ZHS7UfwCY1Ys5BwwvuiLtf7p0e0/5rEoi2h+MdL0b4uI5b/sVk3iqpB5+Ng3Ilmi8TBnjAInUZIndEPZBQlodHXcBmGfBGnNEL4NA9wMTrKsgzrfg=
+	t=1790075004; cv=none; b=Z7NbfXfjFG3DiDrpW3eeoi9tvtHAZRD90LhYMNe0ZvE5QljjjGtp/CuZg5VLhM9PNwJfe3SaU/Z9w4Z5tXtJ5FRVM/yF4D5Rd9V42tRH9nlJFBMFdSEdhDncTas8vCoet+GhxgMbwyvdM/DR8/pt9V/qC+QSArpd8sdwDJZhMvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075000; c=relaxed/simple;
-	bh=AKXo4HFyGH+qOtzhSzfVmyUzvAxDbIKAOw+B0wfwJ/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=er8FjU8kFkQwAV+RePkyVDDYGGItwqlt1WwmQCz+0+lEtmSoAGKANNCGSubhpD8/U+PFbwi/0Ghf3qzPSKvhzN5NbYa/oN8yhL1BZAtiHS/eIuJYwCZmOPfMWCdC+YWQZPqjcJDO20rKLMcRXbb2UPthLrY0uz9II4AnvzAa/zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Re0GYu4S; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1790075004; c=relaxed/simple;
+	bh=ik2TSWWSMDSo+wj+TTDCw/82I6ainBJxGpgZm7BMKIo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hnmxo97XlEVsgxRgVG1K31P/sUTKcUZwz6iTomJjVZMmjrsYwI153XgMTkfyjYQ7GvQjandIcM/r+50PakZSjI5gXg/1zRiWAYPyn/G3RGy7GfCM9A67QWSOtvsj6U2+mbo6GpKj4ubKHO45CSPzo/XJ6yaPiW7qkvyW/FO0gqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xyulv73U; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Re0GYu4S"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so20560855e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:03:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1790074998; x=1790679798; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AKXo4HFyGH+qOtzhSzfVmyUzvAxDbIKAOw+B0wfwJ/s=;
-        b=Re0GYu4SyfK5Lso5wuUrGXWsmztb++hqnMp+ez0X7BtQj1KAQJD6r/kNUWsdKU9e2S
-         h/kmIHD8iHd6qKR30qub41YANqNlf5E2sz6Qfl6SuVUsXdNE1+Cnj08zknSn2cW7PqHX
-         rxCWmnitCxgzkmqAfG/ye/6RjoZI9lbssLO1/b6FlMaWs10vKnw07fcWaGXeIUv1tOFv
-         s2ili8uiFjg5EKCdZcqBviCWpZwDgfN7qmm2it3taECCZWRsV3NlCYE/2wBkdYuRN4O2
-         QSkCBXmw6d9zWTL0igkSb8y0TTTvwWQdwRhrogdgFOhzV/g11uUQxt+EbJvq1rNjHjZd
-         VLHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790074998; x=1790679798;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AKXo4HFyGH+qOtzhSzfVmyUzvAxDbIKAOw+B0wfwJ/s=;
-        b=XFuq1oZEyx5adc/kSKJN1hINzGkoOcAiNTVsAmySUk0ZG87AE0zwXboE3ILdJtQsIb
-         nhUvUYFpE4B9YIoLraa1NhhRfV1rfIc+EYF39DuRHr+jibrfi7E17sS927iJ9MFH2Pv2
-         5IqW5ojedQrLBw9o/oPX0BNpsc6yA8FbkcIQj15lLJyu2YhRVr9oYywP3/P25gn0H9+y
-         LOvyxFTlDQIWL5cmTQagK4WMrHnGZEzGzhbM26zwlvXcJPNGgW2zqTX0s6+GQxiDXMp+
-         w5rDGYMZx9WiGLQRWzyPq/KYI4BAeTLat6hq6mlEUBDr1OwBFw+TCW19UQWUMWGaxyZM
-         aoww==
-X-Forwarded-Encrypted: i=1; AKwUvByT32MkrQbm1p1/9C0sG5kYbHPZSrCt0fw/Yx469GaswG++wnFiUZ5boApxrzGdwM3w7nRMEphXN5i1oyE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqrY0TClLdHsWwZFpYGfihHzSt2OqxWjLthHVaeX82QlQPVZAK
-	eudxx9aFE7JQ1WEsa/RCHNhFbjhKZS3IOUpk41f9gynMjQ2SdaCgGfwORhR1zWyXrco=
-X-Gm-Gg: AYBFou0PcZT/0WBfGVDaEuK4TNWTBiuAjHHSCM5VX4oOFLzNBiGl3IopJxJ38adaWXH
-	Mdrb4K7Go+57IT+DcHs1dd9cGwfWLmSAy4oZnEJpzNnL0cksxwi9nRo0M9H4rdcAfCU8fLSgffA
-	f22NhyDEw0FPnhPO282SHFrm6awGFV+ZqDw3XGCfWQv9iNSbLlW4/vXhYnYmLsnIf4WpPW+47IV
-	0L6VGgC9FjGuJVKZowg0EAK4frZ0skwjmRZlSH+1ybJo0utuxoz2g2BxZoMhO3rn1ib6HeHE5LI
-	LsAI3S/xvJIQJ9xY3R4ba7n21f1QbqeSEPCbAvUq13wth80cW1UCUZGzudDpPuzUBL1BigfgD2Q
-	8TA9cWkIPSIglpi9qwRCfac7a/nclcAY7eZM0Vkfxe+oNRLy/JjiMk2o73SQv4EEeNwJFAph54/
-	le2wdUrrxyWWhKCVqXzFGIhdUES7IYcztziY0sXIFcMLqeu5XCuw==
-X-Received: by 2002:a05:600c:1c20:b0:49c:fa20:cc07 with SMTP id 5b1f17b1804b1-49fc5741914mr220584495e9.30.1790074997555;
-        Tue, 22 Sep 2026 04:03:17 -0700 (PDT)
-Received: from remote-01 ([84.17.55.230])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdab0c240sm29990795e9.4.2026.09.22.04.03.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 04:03:16 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: netdev@vger.kernel.org
-Cc: Aleksei Sviridkin <f@lex.la>,
-	andrew@lunn.ch,
-	andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	olteanv@gmail.com,
-	Thangaraj.S@microchip.com,
-	UNGLinuxDriver@microchip.com,
-	steve.glendinning@shawell.net,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v9 0/4] net: phy: keep a PHY interrupt across a generic bind cycle
-Date: Tue, 22 Sep 2026 14:03:14 +0300
-Message-ID: <20260922110314.4028755-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260919015326.499479-1-f@lex.la>
-References: <20260919015326.499479-1-f@lex.la>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xyulv73U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790075003; x=1821611003;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ik2TSWWSMDSo+wj+TTDCw/82I6ainBJxGpgZm7BMKIo=;
+  b=Xyulv73Uptw/sqmR5n7WY2wgvwPg6DLkWYFgyNFjlPMyPLIqMkMg/TWd
+   Pb1vsbcacT0DnAjyFibbSScRgNcyJun+LYPV8Xx7iwqsE5StW9GxMeNIu
+   AWVOsYGijRHePz+VJu1lG8rJxBeARtPtc035yTzAnCyU1FVoX0kf0svgF
+   zgw7QH3I/NhXrFmFX4FhIg6dbq6lXQDUIQUUmAp3bCwLL37wtPXNNLljn
+   8VyY0ccIF+b6jXOLrCaAm4dgrrQ/lXDeHJPXLIfK8d1OyH3t+lPYki5qi
+   2pJaTqD5HebFpLvARreWwb9enGCMVYv2Kj2QUbPknzvde845qFzx0+1FL
+   g==;
+X-CSE-ConnectionGUID: zfHVlbbWS2+Jwwc1xEFVow==
+X-CSE-MsgGUID: /fHXh1uiQmaAWqTQYno1xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116189874"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="116189874"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:03:22 -0700
+X-CSE-ConnectionGUID: jYNSqwELSaymLJSVygnpkw==
+X-CSE-MsgGUID: JY29+J1BTgifCjMru4fGdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="277871181"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 04:03:19 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 1DC5D99; Tue, 22 Sep 2026 13:03:18 +0200 (CEST)
+Date: Tue, 22 Sep 2026 13:03:18 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Amber Kao <ite_pd@ite.com.tw>
+Cc: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
+	Yaode Fang <Yaode.Fang@ite.com.tw>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort
+ alternate mode support
+Message-ID: <arJgdmA9cWLMQpzV@black.igk.intel.com>
+References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
+ <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
 
-Andrew, please don't spend time on v9. A v10 follows with one code
-change.
+On Fri, Sep 18, 2026 at 06:03:44PM +0800, Amber Kao wrote:
+> Add support for DisplayPort alternate mode. The driver retrieves
+> the current alternate mode from the PPM, configures the Type-C mux
+> and retimer accordingly, and reports HPD state and HPD IRQ events
+> through the DRM auxiliary HPD bridge.
+> 
+> Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+> ---
+>  drivers/usb/typec/ucsi/Kconfig      |   8 +-
+>  drivers/usb/typec/ucsi/ucsi_itepd.c | 404 +++++++++++++++++++++++++++++++++++-
+>  2 files changed, 400 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
+> index 0f10dac9b34b..c5eaf4967e4e 100644
+> --- a/drivers/usb/typec/ucsi/Kconfig
+> +++ b/drivers/usb/typec/ucsi/Kconfig
+> @@ -105,11 +105,15 @@ config UCSI_HUAWEI_GAOKUN
+>  	  called ucsi_huawei_gaokun.
+>  
+>  config UCSI_ITEPD
+> -	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
+> +	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
+>  	depends on I2C
+> +	depends on DRM || !DRM
+> +	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+>  	help
+>  	  This driver enables UCSI support on platforms that expose an
+> -	  ITE IT8851/IT8853 Type-C Power Delivery controller over an I2C interface.
+> +	  ITE IT885x or IT527x series Type-C Power Delivery controller
+> +	  over an I2C interface. It also supports DisplayPort alternate
+> +	  mode, including HPD notification through the DRM bridge.
 
-The store in phy_detach() moves inside the generic-driver branch. As
-posted it runs on every detach, so it also takes the value from the
-drivers you listed that set PHY_MAC_INTERRUPT in phydev->irq alone,
-which is what you said genphy should not touch.
+Please split this part into separate patch.
 
-There is a second case for the same fix. After a failed request
-phy_request_interrupt() leaves PHY_POLL in phydev->irq while the bus
-table still holds the number that failed, so an unconditional restore
-hands that number back on the next cycle.
+Thanks,
 
-pw-bot: cr
+-- 
+heikki
