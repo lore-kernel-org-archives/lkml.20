@@ -1,262 +1,60 @@
-Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3A9535FB9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91C55372D1;
+	Tue, 22 Sep 2026 11:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078100; cv=none; b=hGUOtLSchPpGVSuINWdRwPuNkuXJ4qYBdQg8BXRlf8Cwxh5PpSeB85zghvHf6Yx7L2rq4ke/dYZrCo29BgGc4IzwXiFxsQUxFJifRLcptLuTOPSkuq/9yOx+DSpo8r7S0Muj0IhvAe7QZBXu/9tzt6PsqFiWofcJoTey/a0bFMQ=
+	t=1790078214; cv=none; b=M1xRpjIBM+afV/fen5Uv3jCmYu1Bt2qLFJm/ztmP8kgYfAvl8nhggaerCRMCg95bKwFoIihrc27CqEp9urKq99+sJ41SC85n3aYqMRjZDXDWqBrExvOf+E14cwXkyb7mTr6x71/ExA/iuz4sDMTDNL50zUmVxd2Em9d9gb1S7Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078100; c=relaxed/simple;
-	bh=9Vrz2yJ5IJQ8xZobKroTxgw4W4TDjfkF1IVwe35tFzM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Cy6ZHfcErPlWpevt8GSnEh9ttaIju6KTTgXPvhaXaLXFtOXb+YnSkqqO2JY8wcPz64hDK6Hw+5EIBwBcPOSdhN+IQxbxwR54T/f6X4Lfb91AOE6tOjWpJRUFXqxExdMiLG9SJB+f6xQVIir5MecY0wBiavBlH1SDwh16bljMAAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-4758b868baeso1491456fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:54:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790078097; x=1790682897;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xz9NsVfFyEQ4ELu4SH9AXjL8muGA26kDetAt0gAOsqY=;
-        b=b4Ywgg7FmeOQK+84o0mZcSDvqK2QwNZgKW/kQ/PR+0SoBpSBZ789xmx3nOMlKNFSb0
-         SrCnBwW6KGCJxQPa2SmzPWv/psfXFVwJKS7bbFnX6d6E72hfmePe+10T05dJ9bsLbUQn
-         hR21pEHiT0nuN+Ds6qzGFReVt4jK18vtIFXZ7H0X7NCUjkaF0t76+SEJDKMeiKPUrO79
-         MeaDu77gwZXbyG0q03Wok77Z0+Kj67/A6+KOCb62I91K7ZBoi6bb1P9i038Yn7V2rv5S
-         xNOnvXTPgJ/3Y5cDWiN0J75syDSB4jVJ8uxAEZdLVZzeM6qvfQq6RSxBTvnEgBCPi7yr
-         dNOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwElwOPqUkR+sZ9W/nKX4MeUMktuoCCgpGi1ruNnuF2JE+KdcygLsrKhZQXhgpD0gVgJEc7/1wwiwwXneI=@vger.kernel.org
-X-Gm-Message-State: AFuF++naBbt6Ldgmgwtz2VmzTX+p/+fcpsguS5Egoh6bwgzLXbjh6XvD
-	RbEbHSPPwmCBlVaGKLQ5z12uM+bPtuvODCVFWnHryUm5su338ZStCGoAYuWQFrvkoLCP8npGqEU
-	nNNz2xkSTFW8ddT8i9vMdw5H2OoE+duDljuUE/mZ/hSQbUwsfiBjA6fhIRAs=
+	s=arc-20240116; t=1790078214; c=relaxed/simple;
+	bh=+C7QoDcAIVPMCU/kpRGQT+2whEqa4ZS4BsgPGkplkSs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gK4gbbf1CyLASH7fA2qvN6ZLJcvUlfXKBHTuyRK5Eb42Tck/aAOkeulthMu64cmGwaVaNwPbwSxywJIwuhIPZzgprEQ8q3/2hraPfkWpb5bV1genlZ3h2Mz1wqzs9clrHQzpP5dzvFRuyHWvmzKto6D4F4D0F3hJ2feQfmlidnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Gxviqoaa; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Gxviqoaa"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=9zf3UoT5wL2m5nEhRyKg6MSGKLwglE/NzCt+1ocQ/U8=; b=Gxviqoaa88aGueVUy8kmvxzdKg
+	aTU0aDrUBq8Am9AwxX+Qm8ekUHjIkaR1bOwHuQWKSdjsUJTdBh+Rxf4R8kkhgqKp07ncTg76ZY4xn
+	BhD7JVfuEAmAhZNilAhRLUFFJF6O8XgnoHWrMT3HD1jhIxcuQktmV6Yx6L2mKPyg3y/A=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8z78-006Zrr-5W; Tue, 22 Sep 2026 13:56:46 +0200
+Date: Tue, 22 Sep 2026 13:56:46 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 7/8] net: dsa: motorcomm: Split MDIO bus
+ module
+Message-ID: <dbb2cf1e-f98a-44bf-b482-6046ede4b3d0@lunn.ch>
+References: <20260917185010.3189199-1-mmyangfl@gmail.com>
+ <20260917185010.3189199-8-mmyangfl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2908:b0:6c9:e0a0:af1d with SMTP id
- 006d021491bc7-6ca9a643b29mr12002654eaf.26.1790078096876; Tue, 22 Sep 2026
- 04:54:56 -0700 (PDT)
-Date: Tue, 22 Sep 2026 04:54:56 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab26c90.c68e76dc.23da29.00ab.GAE@google.com>
-Subject: [syzbot] [block?] possible deadlock in sd_revalidate_disk
-From: syzbot <syzbot+2e02ccadb3c5522a5c59@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, dlemoal@kernel.org, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917185010.3189199-8-mmyangfl@gmail.com>
 
-Hello,
+On Fri, Sep 18, 2026 at 02:49:54AM +0800, David Yang wrote:
+> Split it in order to be used in other modules.
+> 
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 
-syzbot found the following issue on:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-HEAD commit:    9d80aa4617b3 Add linux-next specific files for 20260903
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=175ba915580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b370c26fb58c72f0
-dashboard link: https://syzkaller.appspot.com/bug?extid=2e02ccadb3c5522a5c59
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/84a12994f553/disk-9d80aa46.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2329deeb3b2b/vmlinux-9d80aa46.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/689910d8c695/bzImage-9d80aa46.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2e02ccadb3c5522a5c59@syzkaller.appspotmail.com
-
-sd 1:0:0:0: [sdb] Test Unit Ready failed: Result: hostbyte=DID_NO_CONNECT driverbyte=DRIVER_OK
-sd 1:0:0:0: [sdb] Read Capacity(10) failed: Result: hostbyte=DID_NO_CONNECT driverbyte=DRIVER_OK
-sd 1:0:0:0: [sdb] Sense not available.
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Tainted: G             L     
-------------------------------------------------------
-kworker/u8:3/49 is trying to acquire lock:
-ffffffff8f090420 (fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
-ffffffff8f090420 (fs_reclaim){+.+.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4636 [inline]
-ffffffff8f090420 (fs_reclaim){+.+.}-{0:0}, at: slab_alloc_node mm/slub.c:4974 [inline]
-ffffffff8f090420 (fs_reclaim){+.+.}-{0:0}, at: __do_kmalloc_node mm/slub.c:5418 [inline]
-ffffffff8f090420 (fs_reclaim){+.+.}-{0:0}, at: __kmalloc_noprof+0xbc/0x710 mm/slub.c:5444
-
-but task is already holding lock:
-ffff888012ece3b8 (&q->limits_lock){+.+.}-{4:4}, at: queue_limits_start_update include/linux/blkdev.h:1101 [inline]
-ffff888012ece3b8 (&q->limits_lock){+.+.}-{4:4}, at: sd_revalidate_disk+0xb88/0xb350 drivers/scsi/sd.c:3803
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #2 (&q->limits_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       queue_limits_start_update include/linux/blkdev.h:1101 [inline]
-       disk_update_zone_resources block/blk-zoned.c:2067 [inline]
-       blk_revalidate_disk_zones+0xad9/0x12e0 block/blk-zoned.c:2375
-       nvme_mpath_revalidate_zones+0x106/0x1c0 drivers/nvme/host/multipath.c:301
-       nvme_update_ns_info+0x984/0x1200 drivers/nvme/host/core.c:2622
-       nvme_alloc_ns drivers/nvme/host/core.c:4284 [inline]
-       nvme_scan_ns+0x2563/0x3640 drivers/nvme/host/core.c:4471
-       async_run_entry_fn+0x9d/0x430 kernel/async.c:129
-       process_one_work kernel/workqueue.c:3399 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3482
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3563
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 (&q->q_usage_counter(io)#77){++++}-{0:0}:
-       blk_alloc_queue+0x544/0x690 block/blk-core.c:504
-       __blk_alloc_disk+0xe3/0x1d0 block/genhd.c:1527
-       nvme_mpath_alloc_disk+0x5c2/0x8b0 drivers/nvme/host/multipath.c:769
-       nvme_alloc_ns_head drivers/nvme/host/core.c:4043 [inline]
-       nvme_init_ns_head drivers/nvme/host/core.c:4144 [inline]
-       nvme_alloc_ns drivers/nvme/host/core.c:4258 [inline]
-       nvme_scan_ns+0x1e0f/0x3640 drivers/nvme/host/core.c:4471
-       async_run_entry_fn+0x9d/0x430 kernel/async.c:129
-       process_one_work kernel/workqueue.c:3399 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3482
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3563
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 (fs_reclaim){+.+.}-{0:0}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __fs_reclaim_acquire mm/page_alloc.c:4357 [inline]
-       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4371
-       might_alloc include/linux/sched/mm.h:316 [inline]
-       slab_pre_alloc_hook mm/slub.c:4636 [inline]
-       slab_alloc_node mm/slub.c:4974 [inline]
-       __do_kmalloc_node mm/slub.c:5418 [inline]
-       __kmalloc_noprof+0xbc/0x710 mm/slub.c:5444
-       _kmalloc_noprof include/linux/slab.h:995 [inline]
-       sd_read_block_zero drivers/scsi/sd.c:3749 [inline]
-       sd_revalidate_disk+0x177d/0xb350 drivers/scsi/sd.c:3817
-       sd_probe+0x9f3/0x1180 drivers/scsi/sd.c:4101
-       call_driver_probe drivers/base/dd.c:-1 [inline]
-       really_probe+0x254/0xae0 drivers/base/dd.c:706
-       __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
-       driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
-       __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
-       bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
-       __device_attach_async_helper+0x1e7/0x2b0 drivers/base/dd.c:1055
-       async_run_entry_fn+0x9d/0x430 kernel/async.c:129
-       process_one_work kernel/workqueue.c:3399 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3482
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3563
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-other info that might help us debug this:
-
-Chain exists of:
-  fs_reclaim --> &q->q_usage_counter(io)#77 --> &q->limits_lock
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&q->limits_lock);
-                               lock(&q->q_usage_counter(io)#77);
-                               lock(&q->limits_lock);
-  lock(fs_reclaim);
-
- *** DEADLOCK ***
-
-locks held by kworker/u8:3/49: 4, last CPU#0:
- #0: ffff88801bedc940 ((wq_completion)async){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88801bedc940 ((wq_completion)async){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88801bedc940 ((wq_completion)async){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3364 [inline]
- #0: ffff88801bedc940 ((wq_completion)async){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3482
- #1: ffffc90000ba7c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc90000ba7c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc90000ba7c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3364 [inline]
- #1: ffffc90000ba7c40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3482
- #2: ffff888075d823c0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
- #2: ffff888075d823c0 (&dev->mutex){....}-{4:4}, at: __device_attach_async_helper+0xa4/0x2b0 drivers/base/dd.c:1041
- #3: ffff888012ece3b8 (&q->limits_lock){+.+.}-{4:4}, at: queue_limits_start_update include/linux/blkdev.h:1101 [inline]
- #3: ffff888012ece3b8 (&q->limits_lock){+.+.}-{4:4}, at: sd_revalidate_disk+0xb88/0xb350 drivers/scsi/sd.c:3803
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 49 Comm: kworker/u8:3 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: async async_run_entry_fn
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __fs_reclaim_acquire mm/page_alloc.c:4357 [inline]
- fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4371
- might_alloc include/linux/sched/mm.h:316 [inline]
- slab_pre_alloc_hook mm/slub.c:4636 [inline]
- slab_alloc_node mm/slub.c:4974 [inline]
- __do_kmalloc_node mm/slub.c:5418 [inline]
- __kmalloc_noprof+0xbc/0x710 mm/slub.c:5444
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- sd_read_block_zero drivers/scsi/sd.c:3749 [inline]
- sd_revalidate_disk+0x177d/0xb350 drivers/scsi/sd.c:3817
- sd_probe+0x9f3/0x1180 drivers/scsi/sd.c:4101
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach_async_helper+0x1e7/0x2b0 drivers/base/dd.c:1055
- async_run_entry_fn+0x9d/0x430 kernel/async.c:129
- process_one_work kernel/workqueue.c:3399 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3482
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3563
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-sd 1:0:0:0: [sdb] 0 512-byte logical blocks: (0 B/0 B)
-sd 1:0:0:0: [sdb] 0-byte physical blocks
-sd 1:0:0:0: [sdb] Write Protect is off
-sd 1:0:0:0: [sdb] Mode Sense: 00 00 00 00
-sd 1:0:0:0: [sdb] Asking for cache data failed
-sd 1:0:0:0: [sdb] Assuming drive cache: write through
-sd 1:0:0:0: [sdb] Attached SCSI removable disk
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+    Andrew
