@@ -1,177 +1,63 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE9E244687
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F7338DC74;
+	Tue, 22 Sep 2026 17:11:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096902; cv=none; b=CidO8dnFMQlGQ30Cri2uxVH7fGAbN+3vihLpvtOxXkuL+nJ5g1PoY3pay6Ztm71cY8NMZL9MG0xrTEDp5RAsv42qOh57JsZLaXdfATiM3A9HLHUXvA/pxaCaCB66Wm2ipQyKx/AuMo91vYLC2YdB0UDrTmZBUr/86Viu0V1tg6w=
+	t=1790097114; cv=none; b=JE6ol3qinUO5+TjY7YEGw3Aidgfr79lPb5fNJQOEehG2xGmBi8+uqQ0IAbp/TS7t6dGRZK+mInZhyxAb/ZhpkuxEFRcOX0E//D4n23nH+9qdbzLVTdIUrbMT8URo3DVtOVGLvWGVMMmG1y3+N3DQaJRBfoSJonuULTFcs9KYr1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096902; c=relaxed/simple;
-	bh=iD/zzZgmRhJW4Nl5vQPx14/d2nileWoW87yndp3Ml1c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iRb0/u3Wzz+HyKmz6sbDdnbBqfcc9XKqjA6MiWFj8bsFKpfvxZkqrFxPWAFIytrN5nC6WdQkOAlqp9HYSytfG0BczJhPvUnBBB2F3L8HSBjkpYbAwsrngRhXHuvutN26LJpRinP15+KCjoQTHyojFdFD+BXml5EhLFXuYASocek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Svvt2SmY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YqtxHqxZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790097114; c=relaxed/simple;
+	bh=corF7Fcnx7BcA3ptM4CR3gJRf8H5dq8za00+k0KzaRE=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=atieOTbUD0xxSygalkcHeMTQJTBf/5TRizsG/ZVlGRvE+sSEVYZWKZPkV5vfj2Jybe1w2uOjM58RDDwRYOoEWJCQf8g8+qygiC2SoCKaat8ccx92mJquS0mWvL3+aM7qQTKGC6MEbXDBTI0cqfiipQPh6caNzk3NB14Tv03mUxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6E1qPB4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Svvt2SmY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YqtxHqxZ"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MG5pvb884492
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:08:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x8oRSt+sEOboeNFCv168cePKrrWr+FqZQJjlgNOUwk0=; b=Svvt2SmY3+ymXzIc
-	CWQFf9FtmUpvg7wLbV3aChiv1BvdzWYKR/XATRtCRlgqY2s232oIzC2ikWZSnQXu
-	vKmpSVO+G+nqMkEI7Qt5YfXiDjx+htW+pI164UPoJdMlFp3uP0aLazcfg0XJhp7w
-	gwPTVTV8fOUliKjD0nluzlof3bxyI6pEtCzXziTVhi4N3kf6Oi0E2dXu7Zon96Os
-	ZVDi5Y6Y5T+LYGee5fJ0vyUlGU6kCeTfIQCLO/hTzJUFMgKkvsIthosPABrg3MK4
-	8e6z3f8/giPGT/MNioYR4oltQpimlJdnMNmZa/7pbfyFqtxo0UAC9ovG0zBojsOe
-	EJChxw==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guvw7g9t5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:08:19 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7866c4ed349so37006137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:08:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790096895; x=1790701695; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x8oRSt+sEOboeNFCv168cePKrrWr+FqZQJjlgNOUwk0=;
-        b=YqtxHqxZQbhoKmmMaEipVx19GlMYZcqpSAUTjC6SMlWIoGF726grZESiZ2VeAbtNN/
-         HaioNGT0h+vGjVu9t9E92XABA/yYsvneaxz3BUvmBvn/Mujm44c5EjJI7xRdy40f1r12
-         hVue2LCl1Yp9zsJgh+6FN4BQ7isFSc0XCchPOuxt/GqpHINhw5VCy/NLIlxduZHUiL3t
-         6zGv8p70tNTfhv0nn8T5DFOac7BuYNr4kyTZcU+w+BBc6TU0UpdP0G9lgx7jzqQPXXp4
-         PFWJ64ndEh+sM0yLwCiqGTmJ9+sYDNcCP8UPZnEi3pPVNRt3bDyiRnjBQQmgDwkWjl36
-         oGXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790096895; x=1790701695;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x8oRSt+sEOboeNFCv168cePKrrWr+FqZQJjlgNOUwk0=;
-        b=QP9bAqwo1wud2KWQdkA85ZOGEQpZyOnjmr9/UZv8wHVu/EKaF+9CnDfB/fWrslkoX9
-         mTEK3WjcIjjXQ917qoL5BBntXuQECSW2RhPkdtpa54vJ00uWkXyuEHxy9RRsuvZ3AC5l
-         cE01aNuiQcaLJ41l12dVjH1IjsCH2Kn9oRq5v+6EXPdUzQ7NqqL+xKO+OfrtFZXmDCaO
-         g8rJ7mhpHEW3HLvarG9u4xZq8JYKBJtW1xigz6xNturAZ4p0K+3o+tUJ1Ybi6lvwzHwo
-         sbEf06b0axVM1bLfsB2VlMXcm4Acn+9IUcpaKI4jqEA118IACZ3keVSNF+udaE7KB//T
-         BZLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzH/VzvW4iC9m1+VPkZ6OjTVwD3VpsiGrd2YQfnY9OcZuHj8Ewdyu22DrIDhCYTfC+1RLmfMxPh12BzX80=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJG4Uu8IxQsgH/0zQtB2RzywEGw+kmdWHwb3d3X/jO5CAdwj0/
-	Y9VzgeGsRVwJoWpZ7NKYxhJwqf49N01AdTxO2gTu/Gt8iWkyGunX9AzYQ58U1q0gTnJYI5ixYcY
-	Jqofd3eiyOiU+gblw+jiFoTUtOwzVg81s6EUnqllIBrGejYBJHQEejhu0445+vG1+e1E=
-X-Gm-Gg: AYBFou03PNmqKqu1tkCre1/hEFgpIqWGbWpxOIO86q5nF2sL8VaMDWa00cStAs6Qu5j
-	u3xEKtV4nGim4rQTQ2kRmHLyymGM5zZHze6AEk9fk4VXowDuIA3goBeoXJGf3kUafNLMDiyUzf2
-	wPSKG4IW9VKNDQg1uGn4Qq2kpRg6LMYoP0KaDLCNg3UEYUW3Grdfl2s/++5dpM9z7sGkFJV6Zpc
-	iuh598uMY4x9kIxefSnlUJEul53bJhu/A9jIWlLiR3d92JawVdJ5B4WjnSbaaAYnmLOEu255xy2
-	rK9eONAkpyF0ephE5RJc2iENWHSANm56dU5/ZDDt/kPSAHYXPhoX2LrZgILRW/yrvwMKHE/xgse
-	aYmhh4U7l5pgxnQ4g3sCsVaiJm2OwfVRY6vNp3s4=
-X-Received: by 2002:a05:6102:8094:b0:7a7:19aa:8a85 with SMTP id ada2fe7eead31-7a719aa90a9mr7105788137.32.1790096895153;
-        Tue, 22 Sep 2026 10:08:15 -0700 (PDT)
-X-Received: by 2002:a05:6102:8094:b0:7a7:19aa:8a85 with SMTP id ada2fe7eead31-7a719aa90a9mr7105724137.32.1790096894617;
-        Tue, 22 Sep 2026 10:08:14 -0700 (PDT)
-Received: from [10.243.142.186] ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1c0f6csm5359905e9.3.2026.09.22.10.08.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 10:08:13 -0700 (PDT)
-Message-ID: <3f5da6c9-7394-4452-92f8-b773cd34aecf@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 18:08:11 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6E1qPB4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581911F000FF;
+	Tue, 22 Sep 2026 17:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790097113;
+	bh=t/k4e0hVfI9hDMz8Wm7fg+eHHKsPTG2TwJP/59CoEi4=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=k6E1qPB4+vpZRBFXXk2nbd234TILU5Jc80JiM0QEFz1edo1+L33lYKuuArKZAWr4D
+	 VyFlQqIRSar+aV6l6KKNfuafV9quBCdJ1DaHSx9xaWp+YO20mQdVsIozbVELgtQu22
+	 Ykl9tQ00nVoqVt8U0QrAPg1PrN4HHv1hZiOuf4nfwHpbA+FXvWasuFIEdBbGlU+Hr1
+	 4iPlVKM6E6hacGt81kRpbVjMLldCef5Sgm25619o5pVVLcDMEyf9QatuDT+LbgzUZC
+	 IPwpm7Q5Ik3OMxG/u7DckHoerJdKkqaUuLMGxrnbqMFN1+6gmwtoDqI8bBfvEq4d62
+	 ZVwaP0i92hdag==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B2A3811A56;
+	Tue, 22 Sep 2026 17:10:45 +0000 (UTC)
+Subject: Re: [GIT PULL] MM hotfixes for 7.3-rc5
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260921171728.57318b258faaa20e78c81b73@linux-foundation.org>
+References: <20260921171728.57318b258faaa20e78c81b73@linux-foundation.org>
+X-PR-Tracked-List-Id: <linux-mm.kvack.org>
+X-PR-Tracked-Message-Id: <20260921171728.57318b258faaa20e78c81b73@linux-foundation.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-09-21-17-08
+X-PR-Tracked-Commit-Id: 692dd08e03f4a5523650e055f033f846bee43a0c
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: a52a93358ac2bef65f15e0069cd410a2b59ae03b
+Message-Id: <179009704407.4190423.13832222731277666906.pr-tracker-bot@kernel.org>
+Date: Tue, 22 Sep 2026 17:10:44 +0000
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, mm-commits@vger.kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] net: qrtr: Allow the host QRTR to assign a unique
- node id
-To: manivannan.sadhasivam@oss.qualcomm.com,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath11k@lists.infradead.org, ath12k@lists.infradead.org,
-        Bjorn Andersson <andersson@kernel.org>,
-        Chris Lew <christopher.lew@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
-        Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-        Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
- <20260921-qrtr-multi-ep-v2-1-27dd80d841a0@oss.qualcomm.com>
-Content-Language: en-US
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-In-Reply-To: <20260921-qrtr-multi-ep-v2-1-27dd80d841a0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI1MCBTYWx0ZWRfX8EhoSR+coY9B
- b3GTzjHkYK0kjzzMcEVUtvZc1Izz20VoGcFyG3qMNOFdMrEy9rXiW/kgZuKXUxXHp3wVPJRyb+P
- SeGysg90QwZLIM4p+XlgV2LRUPNOHg4=
-X-Authority-Analysis: v=2.4 cv=ZYqIpcVA c=1 sm=1 tr=0 ts=6ab2b603 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=JX_TeLtU1EXCEf5LEwoA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: 9v3j7MD6f_71Qt67cxO_f-WO8mMBGfqC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI1MCBTYWx0ZWRfXxy3ri1hZKDwf
- nWGA0zfLim/QL0jUqTuFMgzzW2J1/VfYkHteEN/mWhHpuPddoKTJ/6sj7mF8eAKJQp5cx/6l4io
- PrmsiNN+oOSJ3AlWYZRFilIz6DFQureKAau2da73BVJ/YuKk5hcfe5CxbFl2x4Jf69cHVxmtMax
- eYuYI5bVHd/OEZhcG7W5WILXk+t7uRCUc7/wtSsXoKvfFBFQv5W58rv9c4kXpM8EMPtzol8PlX0
- gXal5Z6UcM8R96iZX9lcPMNoE0I4YNf6w7tJILh7K5YhGWhGFm0HP982bfSEkE1GNARu0kZsbUx
- 7Hwj5LzWXME/OLtByZMTJmeh6Bzjy2VkqrCPze/S4Rvsouhdepc9XjSfOE7FiUT5T6PmtXJuwCj
- yTlB+rRv3HBEwYquecFco9vOmNjnPYeoQFw/Ee4SXGB5A6K07R7Py3WYOf/p2ucaN2rF4F28qIE
- WqBpUWjgHo/s+SAypuw==
-X-Proofpoint-GUID: 9v3j7MD6f_71Qt67cxO_f-WO8mMBGfqC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1011 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220250
 
+The pull request you sent on Mon, 21 Sep 2026 17:17:28 -0700:
 
+> git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-09-21-17-08
 
-On 9/21/2026 12:23 PM, Manivannan Sadhasivam via B4 Relay wrote:
-> +/* Replace the node id in the control packet with 'node->nid', if both are
-> + * different.
-> + */
-> +static void qrtr_node_rewrite_ctrl(struct qrtr_node *node, unsigned int type,
-> +				   struct sk_buff *skb)
-> +{
-> +	struct qrtr_ctrl_pkt *pkt;
-> +	__le32 *nid;
-> +
-> +	if (node->nid == node->ep_nid)
-> +		return;
-> +
-> +	if (skb->len < sizeof(*pkt))
-> +		return;
-> +
-> +	pkt = (struct qrtr_ctrl_pkt *)skb->data;
-> +	if (type == QRTR_TYPE_DEL_CLIENT)
-qrtr_tx_wait() will create a qrtr_tx_flow object keyed by qrtr_node->nid.
-qrtr_tx_resume will attempt to retrieve it with qrtr_node->ep_nid, which
-will fail. This leads to the HTD path pending packets reaching
-QRTR_TX_FLOW_HIGH and block indefinitely. QRTR_TYPE_RESUME_TX should
-be handled here.> +		nid = &pkt->client.node;
-> +	else
-> +		nid = &pkt->server.node;
-> +
-> +	/* Rewrite only the endpoint's node id, not those of bridged nodes */
-> +	if (le32_to_cpu(*nid) == node->ep_nid)
-> +		*nid = cpu_to_le32(node->nid);
-> +}
-> +
-Thanks,
-Youssef
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/a52a93358ac2bef65f15e0069cd410a2b59ae03b
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
