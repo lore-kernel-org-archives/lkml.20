@@ -1,239 +1,197 @@
-Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020111.outbound.protection.outlook.com [52.101.195.111])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43E949502A;
-	Tue, 22 Sep 2026 19:56:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.111
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107015; cv=fail; b=amTMvfXu9HTlmDXzltHIZ5415LKbckAxe88+LWI9PyvVo3aFIyBu81IwoX/S7WFba2bG3EcemGnM5XSLIx2YJBWktIIrBBWrJidX/wtXFzQFBihn1pZZ+K9YZSnoZAGtwI8Y6YNxBCijO8jjrbm1vwnbf/X+sImZfSPj5CS23Yg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107015; c=relaxed/simple;
-	bh=4qNytIU/DSDbJ6vTxc4dLg52m44pONNpbJvHo+GJR5o=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=njt8cRB35xnykuPB1ALLrWno6vEi6tG/WuiKwubZSMi6LZ4zjnTDr+56w9tZpjd6jDBLquU26ZwKIzYCQBC5PQ/C+4MrhcdgF7/8j3nol6Y8+xMaIwK9hsu7EAhpphszLnoiuPBumWa6EjK1r7x+VzfaOydK2XN0zgOMjEnEYBA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=UUSb6C5q; arc=fail smtp.client-ip=52.101.195.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2CC4A64D4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790107051; cv=none; b=LEeF8/I5eGeBfzSPg8lvEZVAErYl651VCuV/xmWeBq9lkmor+GymZp4HEcHUrpmvZ8DLoT9NMl/NjPOXk5DkxcZi9sLjBcTTGaT8GYx/Goa3OwzkOMu4pAf9DrVkRitudv5ZhWbPXPaPeptYfcNUGnZ4bGY2h3eSAJtP5Ge65Co=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790107051; c=relaxed/simple;
+	bh=9JvbDLSyQrfrPc2pw153E2x+FuYYskw3Od9BLkW7on4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZhnUj7qsGrDSbleVR/IU6tKzRGWaWz64MCMaNHOCBMbuJObDBy9RnCSJWur45FeuG8g0q6Qrj11K2pZ0tvA5BeKIyvFZW4vDX9QKyh5JGsKbwmU1v9tGAzHQUuDBzDQBj767y3+U906gQT7KYjg93434Eig2ArsS7+2r1OfmE30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d0uPXZoH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kGVprdqs; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="UUSb6C5q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XogQcQ/Zy+WwnyyxAl+dKf/9BvPUl+IIUrSU5+MLM6SUKVkk/3rlwtKoI3rxU1Q+Op2TnJxKPQoHwTH6LuYzLTQv18sm5jedw+vhasnVsauUIQhobM5XhP577nHIPAmJmSPXzOJ+N5EkJ5KqCeoOH4TPvGf7ScVXXbxj+HrLw8VBHoETWNPIo76U9wPb01CU8qVALcQuoCNRTwsM0P6Q8niX51TivK7GRbV2XYJItuvYiKoTJEl1dyicKU2ir+uTD7cr0OlieSWB3YeTPmFPbm88WUrc33e9e2970iXEE7E9dbxQE2yXM6xtlQ+g/Mf684la+QGQKz26zf6zwtQq/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=osBfJJ4rJm5eY2erc4V674hCwuT+xpYPkOrWRt5Uuww=;
- b=BaPpSAVXpF2QYnu1D4hLL7Jgnu9cm1cfJCs9/qadl9cH8kAFLpkD06nEfh4acEZkkazmFIz4xqQ1deuO/C+5MMM8ISGwsZwI1L/x4AV+0uiuKlukkat5rbbnzm9NC5ygmxsUtN6bi4HwPvyE89NZehdQtx+f0yK7EDVBqvRPUhYuzx+9k4V7xYDnpuc+ubo0pWEASXbRD332ASM0BV2Xbs5NcgIV/26V98grLJUkSztzVZF+r/k/MHuti4qXFlUQwJPjNGlXKm95zjPhpUmlTirAVXOtb+ErfmTtyhxh/MasXemRp2d/e9t3EwT+5oMeko2mEQWrLfBN5C5bmAx+sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=osBfJJ4rJm5eY2erc4V674hCwuT+xpYPkOrWRt5Uuww=;
- b=UUSb6C5qYkaFnYAjbzrvWU4nA2aNPNVOl6k3S8cXzyiz4ql3NJ3z/m1eZjseaWr7k1UasmiPckS8/xLVNdvCtXicSqANoFBAyTE/9t7hdtGZw0YQzMXXXNlTIgLvfFJsiSpPmDwvsYY0wIIwxBIVXCALq5y0yJcRxLuslbpf1g0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB8942.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27b::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 19:56:48 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
- 19:56:48 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 20:56:47 +0100
-Message-Id: <DLM3Z2E1V1J2.4VUZLWQVEQTT@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Laura Nao" <laura.nao@collabora.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
- "Frederic Weisbecker" <frederic@kernel.org>, "Lyude Paul"
- <lyude@redhat.com>, "Thomas Gleixner" <tglx@kernel.org>, "Anna-Maria
- Behnsen" <anna-maria@linutronix.de>, "John Stultz" <jstultz@google.com>,
- "Stephen Boyd" <sboyd@kernel.org>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <kernel@collabora.com>, "Deborah Brouwer" <deborah.brouwer@collabora.com>
-Subject: Re: [PATCH 7/9] rust: time: add arch_timer_get_rate wrapper
-X-Mailer: aerc 0.22.0
-References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
- <20260915-tyr-interfaces-v1-7-5d28f1f75aca@collabora.com>
-In-Reply-To: <20260915-tyr-interfaces-v1-7-5d28f1f75aca@collabora.com>
-X-ClientProxiedBy: LO4P123CA0579.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:276::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d0uPXZoH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kGVprdqs"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI80PA767753
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:57:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+kCerQCZAd/icfcStrsOSRarPahcPdmJx1Sv0aBlf8A=; b=d0uPXZoHzbyscvk9
+	Fui+SId+pi+/38DYBmJ4SUmJj3TBIOl02UaIYHzThs7bokVlSzJZkfGbSRFsL68/
+	cZ/uP/7WOGeXAlcTU4vmV+HflDvNyN5Z0fnAcM7nU/XcvaTETkXOUSJ2f1ZojAc4
+	0zLDZ8ltivPnVLqpPWKKeqfPg3JacgZQKAOB6RcwGV524NRBSIUWLShhBgtt/L5r
+	7FvnTgzpCnyqgX+bp9PyoWBEh/mB7BrjGXjBo4j1BWeuUZUdClE0HfyiaD9y3FRZ
+	4UMgUMuzREVwjn8607kyf0+UyBgezQRsBNMpLq9Jd/sUhd3kjkArdqLJu7ivd9Kp
+	BNfMeA==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gupbqk884-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:57:28 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-14373747468so245537c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:57:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790107047; x=1790711847; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+kCerQCZAd/icfcStrsOSRarPahcPdmJx1Sv0aBlf8A=;
+        b=kGVprdqsLJE/kF6PcWZCAvzY0M1iKvhixxMmog5XQTIL2HOLrVo8Gaj149gaKhExy0
+         Fi4HnT5h38lwlwco4ha+/isdJJN4vus+x2CGHyyZThzJUc6GuZk6UyzxNZVCQeZYHcTx
+         zf41eqJGPrSEjTnzbnhlDPLZzh45aBufynWkt4Sc7Hw+R2zetIf3J00Jt40Jc2MasH7/
+         IBPPqD+63YVs3LTo2RGjUIcE4nXoY7b1bkyWrKuqZ7cWLgOZSKRLH5sfPACmxLg9Xg2S
+         dJd+r8cDRy2LIbxBvCQhln0fiks9ruBnfs0NTgiT1KrChjCT/I5x0I+XGbCnIwYIulUM
+         P4Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790107047; x=1790711847;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+kCerQCZAd/icfcStrsOSRarPahcPdmJx1Sv0aBlf8A=;
+        b=eX8uFKQdOi+a4ZMW+BYPP6klVrIvZA7M1Ldj4Ic/AmWNchT6NQ3N+0OVWczpXoKVMc
+         BZmMX3rzHdeqIFxcRJRL4XrgqzSMspVuZKcy/mYCcPrsiPfnC6WXXvgI8f3xWT8qIERu
+         nS5fOtOI1f8X6eL9f9IcLxn+WT8A45wrXm1vsSDgrFAIW32w6WnxoqgXLZZqpXv9o3+N
+         4tKfbL/C69VDjqcZcO9Vhvw1/tmIF1wiUnNdzr9BzAhTVRzZ/WDSl2jlqn4mfjVovZbI
+         8x5WXeeng6h5TPqG62J215nMu5gmbiMCR4q7cVWTfHUjsk43KH0Mf5drlYecUhqEGxY2
+         RUkw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1lCxefEFjA+vZ4okKNrQqM2pNtENhx6cwjojH0ueU1bdNRSeNhyQVfGTD5fNhQrMUg1Em1g3XceFKRus=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJWLbT+ZfMf+MR5wFcg6NfjZ6RQKScqNmk+bBBG0MUhsFqxk4Y
+	jrYjjW5JlVluioIjwMV+2+768AA5bHWSZrOlzUjGDbS3Sb5YsA0tr5To8eDfdkBMHz2Em945TNP
+	Sbjk/tIjl8Us+s1RiYtkgdEdgv6Utabwfwdv6541douRS+oIi/pdxhkutwE8eVk3ndG0=
+X-Gm-Gg: AYBFou3arm5OZQG+j9jnGUCEw3b/QGG3rrpvg7zSCZ+phe4KS1PRmuezJ+S2UsptyH8
+	aK/s8mF5fKPg+EW6rOVN5es5a2CRodXIIohG9Z+tzYXINRyLbO8bBwRZmz63UpqFCssZed0bWLG
+	5LS6Fd0bg9jUCn6fhglF6Bjo/jUWhVjA5Uo6qNcpPXFx4lHelkZHzxNlSyXvuWJUDNYDU7m5cY/
+	C2ds8GE4k2dIzQ1Pu0DOoxKQ7XgKLfkUdXvBaL+dx11KO63u8lglRQJWQSKK0v/kUzNiV2hv+sG
+	NCPu2FsDbVIZ8FYQyt4UnEijrOkW7BrOwPEqKSfyaQxkct+fmi5Lt8gG8ff2+WGz5SToIuzfrdW
+	q3SerNMNB9lDRMXSXWSo5rl8xR/zaLebXDhRLe18ZBeaEHk0564mcdA==
+X-Received: by 2002:a05:7022:1582:b0:144:dfc1:9aa with SMTP id a92af1059eb24-144f91372a3mr551678c88.10.1790107046996;
+        Tue, 22 Sep 2026 12:57:26 -0700 (PDT)
+X-Received: by 2002:a05:7022:1582:b0:144:dfc1:9aa with SMTP id a92af1059eb24-144f91372a3mr551637c88.10.1790107046436;
+        Tue, 22 Sep 2026 12:57:26 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96258204sm448771eec.11.2026.09.22.12.57.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 12:57:26 -0700 (PDT)
+Date: Tue, 22 Sep 2026 12:57:22 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v19 06/20] KVM: arm64: Refactor the vcpu_load to allow
+ for VM specific callbacks
+Message-ID: <20260922125722.00006b2e@oss.qualcomm.com>
+In-Reply-To: <20260920212845.707-7-suzuki.poulose@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-7-suzuki.poulose@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB8942:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56787703-5741-4c16-3a91-08df18e3a358
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|22082099003|18002099003|10067099003|56012099006|4143699003|3023799007|921020|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	L0+B3S7ogzUehDkUhOlMVX1zLY58g1+HpleXNGPALcUMIHyhK2Ui0G2043ZrZlq27SUBuqDKTbHTJfw5g5KKr90iviobYgFT8HCNHPFaprAZEL1a1Nna0bYdL+7DZLytUfYjkMEIaYCs+fp8fY2jTGbtnZ8eAIlIXMiOb54s4yl+FX66b22+Ph8xkzhR6sHdO4JpwJIT40AEN7s2wAJWekxZTETjbKr9jOqcPpMua2gXjTNHMYRUvcgENX0DlfyjX2YrTyCtRj4wit4PGiQV6ndZVVSvtQkOQGo6edDDqItOwCjkTyYwsRlrQ+hsOtD86qRGwG+wP9L1czIP59BSpFBj/IGe9JYZliQTibc9r5uVam4o3ZpWnTmBrH+jhDhcHVSa4LPHtkzE5cjihq1V2VDYxqdYru/IY2GTVcMZwSCOze0cpjKoeh1MRW4n+7zOwyDpD+hKen4EqZmhJhwCR7zFPxAmZk0zmCNnqIJYJl/BFeYjubYbju7eWp4NA6Vc2wiBCxRrpN7wBH8PKKfWoViFkXFRY7HricHA/ZMvIWB9OZXilxg2oEnfK6dCGOtGAj+qDwhhfc4mX8D7I3hbXRkzpZAB5FRjdAAKewd1jdmuk3R+0qUfGIQ/m+g/3AZfRquOioujl+eEmicckvtkH0Rw8QwYudJ9iqoqVI9yev9rt01RTvmgzWe3VEGLibNIAbn82z82hqQj1Bk0oqS2cw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(3023799007)(921020)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UVh2RTFyRk1GTTJ3LzhpK0o3NDkwbG5WWWhRbjZvT3U2aXRLNmdqTlRkd0E0?=
- =?utf-8?B?U2hmdnptQmllMmdUajVndXBtZW93QXFwRmszSmNvYkRvb00wU096cDdBdldv?=
- =?utf-8?B?ZnhzV29qckdLUFU1eDdtbDZ3Y1NmZU5TUWN4QkdRZ0gyV0xUekdzUlJxb29m?=
- =?utf-8?B?eEFOSWF0UWN4YTJIcWdWTDVlQ081V0ptTjhaSFMwSjZrRDdaL2dKNjhrc1RR?=
- =?utf-8?B?SjRIRkNuSUVxTXpVbWVHMjJrNGYySW5GWEowaVl0cEdpVUQrbEFBZ2hlU0t2?=
- =?utf-8?B?NFV6L24zMlBNRlo4T3N2TGJGeU5zbGNXUXJoRGNBKzRlWHAzNGIweGFWanhZ?=
- =?utf-8?B?akNxNnpPQS9kaUU5aXdqZC9TdVhCQVBsa0w5WTdudFl5dnM3RHc5b05CU0RD?=
- =?utf-8?B?RVh6bVc0YTJuL2g2UmdDcW9UWHNqQms5YlRrU2NqZlBhdmYwYnNuRmZxYXE0?=
- =?utf-8?B?MVJkcit1MmdkWmlROS9wWmpJZ2dlTW1RRFJ5eGRGbHY3MTBOQWcrenJtaVNu?=
- =?utf-8?B?WkczWHVFOG5YVHB2WTdQdVNaUmg2ZDM0M1BoM3B5M2RHYURzOEZqcTkydnE5?=
- =?utf-8?B?VlBUWEk2L081OVdsa284NlVLMG5Oc3F0eGVTcy95UExnT2pTL2Q5TmdCU1V2?=
- =?utf-8?B?S3owazNieTRpTW53c3grSXpudVlFY0w5OHV3TW5MeVNFa2pTZkUwMDRRVC9y?=
- =?utf-8?B?TFRCek9BNXJNSzlyS0pEZmp6Qk5kNU5PbzlMTTIyR2laazVEemZDS0x6ZEVS?=
- =?utf-8?B?NGpyRFRJV0ZraUY5RG5oMkFJMm1iaGk0cVJ3MHUzSmUwRFJTamVLNTkzRExh?=
- =?utf-8?B?ODFXc3ZWOTFjRTgvOFZOa0lTRkJUZWw2Yy9lZ3Z5d3JKT1BLREEvWUVOVllh?=
- =?utf-8?B?ZWJnbGpKbDFCUFh6YmtNOVVLTUJWdzZ5V1lqN2FEOCt0aFZ0OGR3dHdhTVg1?=
- =?utf-8?B?a1RGQXBuOWV2NWtVaExrcitjUHRCcmJmcDhERjh4ZUtzRytERFpZN2pjUWk0?=
- =?utf-8?B?VkdwWUZlbll1MUY1RjN2WWoyMGpDeHgzVENRUUpBcU8ydURCdnFyK0lwU2My?=
- =?utf-8?B?RTdTeU4xZDdaMDB0Z0xkdzlwL1FNWHJ5bkNvZGlsTWNBWFJ0ckhnRENkMGU3?=
- =?utf-8?B?VWxTZGlzN2xVbmErVms0Q203Tkx0Q2JGdXVYY0Jwb1h3dExrUUZSMGpDcTY2?=
- =?utf-8?B?bmtBKzF0aVpLaHRWYTdpMGYyaEVwN0w0VkZqa3QzdiszL2FHNDZNYTVLVlI3?=
- =?utf-8?B?MnY3NTRJWlVtYzhCVTBzNTJOSFExSGR6YnJFc1pFcnQ2dGFldCtHUzNjLzlo?=
- =?utf-8?B?YjM4ekRPa0pkSUdNdmpFN0hoWUlDbFNBWUdDeEd4cE1BSGR3a3p3SlRTblBp?=
- =?utf-8?B?bUc5dUFZRnkyOVpQMzVKZGxxb2FJM2FjOFFWT05MOTVwY0VsQVMydEI0Q1RB?=
- =?utf-8?B?cWRDSzBwdUUwVkNCaURKNitQK1liaGc3MGFxbTd3Zm1xdTE5anpyMUV3bGFi?=
- =?utf-8?B?c1JnMGRZMmtjQm1VZCtpZnZLUFQ0QzJLTjVvaDUzdFFhaGNnU3d2K3Yxc1ov?=
- =?utf-8?B?dm5nV0tKMmQvbkplM3N2VXZlUjdLbkh1ZjVYV1YvM2NXeXJaQ244MjdJRHhl?=
- =?utf-8?B?K3hRMVZhMG5NZm1zbWlhTlVjVy94emJNR05VT2dqT2xwRjVqb0JLWlJ2VnFH?=
- =?utf-8?B?MUFtZWZDaTllVVpjM0pIcnlHcDBKZitFWFRKVWpHOStEbXEvclNYMFZLUHVs?=
- =?utf-8?B?S2h1b2o3ZTBRSGU3clA3VmR1V0wzdU5QUkFOdktNdmpZK3U4Z3owamZaSUNN?=
- =?utf-8?B?ZG1xSCsyTWhpWG9vR1lQazA0Vm9pZUlLeTdGYUZ1clo1MnJhdUdtM0xsckJr?=
- =?utf-8?B?bGZSa2plUGV6SGVNcDRtTks2N20xRVA5Z1NoMlROWnNjUE90SEs0NDhRRGR6?=
- =?utf-8?B?RzVZcW5nS21kWVhPZ0FIRngySHRaMmlTVzlrRTNGM0V3aitVTjJiZ2JpR3dD?=
- =?utf-8?B?WVdZTitpbDg1OHhmUWxycG1nbUM4bVdjTUdBMUZ6OUVlck5acG85R0ZxNk9R?=
- =?utf-8?B?VGRhcE1UMnF6NWVuWUF5VDI0VGpKOEU4M3JDM0xNUEVpaXVveTB6eW5DVU1E?=
- =?utf-8?B?SXdFL1ZpNEZVTmF6clpFTC8zelpLRU92NVpnVEx3dlVjUlZVQXVxWXdHQ3pX?=
- =?utf-8?B?cnVtN09GZUY5WnpLRUsxMFc5R1BPTWc3RjlkQmtCRWh0bW9MT1hxREkyTWVk?=
- =?utf-8?B?RlNUSndaZHBXNEQ1WnlxL2NCTVZBeVgwOEkrZk9KYUJLS3NKSXZDbFVGdFpK?=
- =?utf-8?Q?knpQ4LMMfRBZ1fZQBw?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56787703-5741-4c16-3a91-08df18e3a358
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 19:56:48.7632
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hq9mW4WTKwOslkHpgeHxBPnXMMOIE8ZW4CWKd4joe91wpVAexjB6H5ceMLTeOq/vKrvgTVp4rIpzh+I/35+hjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8942
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI5MCBTYWx0ZWRfX0WkQCY+LaRV0
+ oYJ2o18LlHaMPllpY+SARlk9+qYmwn+EZmAWDHv7NTX1nUgtn8WREV2yid9HivFosTenxLGR8n2
+ /RPzMmUc/l836d71QlhOn/QVJfeGZQrGWXOamzYYCRON3oNLkoXzZwA+c/DZOABUuAOXonolEwX
+ /+NcWz4qFLoZb1FBrnrCNF2jBEAXvZq0rzxqZUwMlOarcfx1tdT49OnC6CtUi0uXfgE0jhwnAFf
+ jWj2nPG/imAgnB60iCOJ6msTczcCMWSNEVvR1R/8pe45O2q0UZyhbqy82C4qC0wCAXbDMvplpgX
+ xOnflUXJgO+jgkUr3subQFDkSPHCrHe03tQoOBqdU+VYIsm0We4amp+dUOq7y4WN0kHlA3tRd55
+ DYykAHTF8i74XPSFuZ+x11iLFMTQoNI8QS2Y52FefoCHDIPRNED8Ru1HtA5qftKj106aRLO5Dx5
+ g0voRYNmKiw6pjV7r9Q==
+X-Authority-Analysis: v=2.4 cv=FdaiV5+6 c=1 sm=1 tr=0 ts=6ab2dda8 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=7CQSdrXTAAAA:8 a=20KFwNOVAAAA:8 a=X9DOVUd_aP98ggfEJksA:9 a=CjuIK1q_8ugA:10
+ a=vr4QvYf-bLy2KjpDp97w:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: YMZoUjVQqawhL7NPydfNHVq4DggsEMAZ
+X-Proofpoint-GUID: YMZoUjVQqawhL7NPydfNHVq4DggsEMAZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI5MCBTYWx0ZWRfXxak6VKFZ91hU
+ DpAEuz/w7Guz22GxL+WSYiFnmmXQWPEk/83awV+O8C4qrJwS/RYK+CgnMcztnAMLFkPxbTAtJ8s
+ 0jqpHtMMQdmqdQXaBfATwrELELj82w8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220290
 
-On Tue Sep 15, 2026 at 11:57 AM BST, Laura Nao wrote:
-> From: Deborah Brouwer <deborah.brouwer@collabora.com>
->
-> Provide a safe Rust wrapper for arch_timer_get_rate().
->
-> The Rust binding calls a C helper that returns 0 when the ARM
-> architectural timer is not available or not yet initialized. Map this to
-> Option<u32> to make the absence of a valid rate explicit to Rust callers.
->
-> This allows Rust drivers to query the system timer frequency and
-> select appropriate time sources when programming hardware timeouts.
->
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Laura Nao <laura.nao@collabora.com>
+On Sun, 20 Sep 2026 22:28:31 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+
+> To keep the VCPU load/put handling cleaner with the different kinds of VM
+> types, we are about to introduce VM specific callbacks to do just the right
+> thing. In preparation for that, make some refactoring to add the change
+> easier.
+> 
+> No functional changes intended. Based on a work by Marc Zyngier.
+> 
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+
+Trivial stuff inline + maybe one blob that should be in previous patch?
+
+
 > ---
->  rust/helpers/time.c |  6 ++++++
->  rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++++
->  2 files changed, 36 insertions(+)
->
-> diff --git a/rust/helpers/time.c b/rust/helpers/time.c
-> index 32f495970493..70fda31bd758 100644
-> --- a/rust/helpers/time.c
-> +++ b/rust/helpers/time.c
-> @@ -1,5 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0
-> =20
-> +#include <clocksource/arm_arch_timer.h>
+>  arch/arm64/kvm/arm.c | 48 ++++++++++++++++++++++++++------------------
+>  1 file changed, 29 insertions(+), 19 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 8c784b266a8e8..c74706ed9a531 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
 
-The header is from arm_arch_timer. I wonder if we want this to be exported =
-from
-somewhere like kernel::arch::arm::time?
-
-Best,
-Gary
-
->  #include <linux/delay.h>
->  #include <linux/ktime.h>
->  #include <linux/timekeeping.h>
-> @@ -38,3 +39,8 @@ __rust_helper void rust_helper_udelay(unsigned long use=
-c)
->  {
->  	udelay(usec);
->  }
 > +
-> +__rust_helper u32 rust_helper_arch_timer_get_rate(void)
+> +static void vcpu_set_wfx_traps(struct kvm_vcpu *vcpu)
 > +{
-> +	return arch_timer_get_rate();
-> +}
-> diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-> index 6c0a5e8090d0..6c48ce21984a 100644
-> --- a/rust/kernel/time.rs
-> +++ b/rust/kernel/time.rs
-> @@ -423,6 +423,36 @@ fn div(self, rhs: Self) -> Self::Output {
->      }
->  }
-> =20
-> +/// Returns the ARM architecture timer frequency in Hz, if available.
-> +///
-> +/// This function queries the system-wide ARM architecture timer frequen=
-cy.
-> +/// The architecture timer provides a consistent time source across all =
-CPU cores.
-> +///
-> +/// Returns `None` if:
-> +/// - The ARM architecture timer is not available (`CONFIG_ARM_ARCH_TIME=
-R` not enabled)
-> +/// - The timer rate is zero (not initialized)
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// use kernel::time::arch_timer_get_rate;
-> +///
-> +/// if let Some(rate) =3D arch_timer_get_rate() {
-> +///     // Use `rate`.
-> +/// }
-> +/// ```
-> +pub fn arch_timer_get_rate() -> Option<u32> {
-> +    // SAFETY: The C helper is available in all configs; it calls
-> +    // `arch_timer_get_rate()`, which falls back to an inline stub retur=
-ning 0
-> +    // when CONFIG_ARM_ARCH_TIMER is disabled.
-> +    let rate =3D unsafe { bindings::arch_timer_get_rate() };
-> +    if rate =3D=3D 0 {
-> +        None
-> +    } else {
-> +        Some(rate)
-> +    }
+> +	if (kvm_vcpu_should_clear_twe(vcpu))
+> +		vcpu->arch.hcr_el2 &= ~HCR_TWE;
+> +	else
+> +		vcpu->arch.hcr_el2 |= HCR_TWE;
+> +
+> +	if (kvm_vcpu_should_clear_twi(vcpu))
+> +		vcpu->arch.hcr_el2 &= ~HCR_TWI;
+> +	else
+> +		vcpu->arch.hcr_el2 |= HCR_TWI;
+
+You could use FIELD_MODIFY() for these but maybe not worth it.
+
 > +}
 > +
->  impl Delta {
->      /// A span of time equal to zero.
->      pub const ZERO: Self =3D Self { value: 0 };
+> +static void vcpu_load_pvtime(struct kvm_vcpu *vcpu)
+> +{
+> +	if (kvm_arm_is_pvtime_enabled(&vcpu->arch))
+> +		kvm_make_request(KVM_REQ_RECORD_STEAL, vcpu);
+> +}
+> 
+> @@ -772,7 +782,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+>  		kvm_call_hyp_nvhe(__pkvm_vcpu_put);
+>  
+>  		/* __pkvm_vcpu_put implies a sync of the state */
+> -		if (!kvm_vm_is_protected(vcpu->kvm))
+> +		if (kvm_vm_is_unprotected_pkvm(vcpu->kvm))
+>  			vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
 
+Why in this patch?
+
+>  	}
+>  
 
