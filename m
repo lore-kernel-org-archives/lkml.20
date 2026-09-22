@@ -1,310 +1,239 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020111.outbound.protection.outlook.com [52.101.195.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C67649E5C3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106947; cv=none; b=nQJ9g3E1cpDaWXQQ0056X38pA39SqdDhY4exLWIUDrjhtjPkeSx9Ian746t52UVyOiMAyaOB1Dw9D4h240iyL2KMCkEpLwRjuIA8NxGh062EL3oQ7Xn0Fya9D1QUR0mTiyiuPF2VBXLufH2fHD/nBugjk5TCw0nvoshIizBjILU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106947; c=relaxed/simple;
-	bh=IQCPqAcKfTSMbnbhBNrVI2Xy4poxRTksS098B2Eb/DA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tp+1CvY4Qu8/4TINEyHNqQOvYfcC9PLDF+97Z7wZzthhdh8RaXITV+oJpq0o9yVECxgDToJvtFfOqm6WRSqflTVdPO5coFMtvFU/G+/hJnrnNoIg67HUWTvBsSXMgycM6sDuHMuwVR82QU42kR1I2on6p846kxOCZ5/m/VVLOk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=e5edXr/8; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43E949502A;
+	Tue, 22 Sep 2026 19:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.111
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790107015; cv=fail; b=amTMvfXu9HTlmDXzltHIZ5415LKbckAxe88+LWI9PyvVo3aFIyBu81IwoX/S7WFba2bG3EcemGnM5XSLIx2YJBWktIIrBBWrJidX/wtXFzQFBihn1pZZ+K9YZSnoZAGtwI8Y6YNxBCijO8jjrbm1vwnbf/X+sImZfSPj5CS23Yg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790107015; c=relaxed/simple;
+	bh=4qNytIU/DSDbJ6vTxc4dLg52m44pONNpbJvHo+GJR5o=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=njt8cRB35xnykuPB1ALLrWno6vEi6tG/WuiKwubZSMi6LZ4zjnTDr+56w9tZpjd6jDBLquU26ZwKIzYCQBC5PQ/C+4MrhcdgF7/8j3nol6Y8+xMaIwK9hsu7EAhpphszLnoiuPBumWa6EjK1r7x+VzfaOydK2XN0zgOMjEnEYBA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=UUSb6C5q; arc=fail smtp.client-ip=52.101.195.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="e5edXr/8"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bf5a1c4d9so182672eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:55:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790106944; x=1790711744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IQ9k2LdyZWOUW3xTJYRrKh41LbCR8tTkAlidpFMhPxM=;
-        b=e5edXr/8g8bsauAvJp+ATgEwJt/10Of850dEU/nvIEjD/gRCt/QPyHB5kuWGZScQZp
-         p7lN8k9Gsf9ZM4N0PX7TatChfYCnjIpqhQcmffRgXHDKbAyp11CLwLwsUCI/1K5CAeAB
-         jvf6yAVd3T/ZfvvsxWcXztH1zfffZlUiYPJG2Ukt9ssEvSLyxBuZ5KkkQsuez23gOVlO
-         MiZNu80UyVTZB6ZjjsEskq9tpvCUmTHg3H74qrLlAf6IONdV0DvqSxKosSH/KFaGRvkk
-         7jDCS8qUc4gk9Q5ljgG00Q6bBASNtzv9ScC+gIoZlJjhvrtAzxaXxZgfXAYAyhE4tP0D
-         XO+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790106944; x=1790711744;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IQ9k2LdyZWOUW3xTJYRrKh41LbCR8tTkAlidpFMhPxM=;
-        b=f0TcSHcH0FnZ8YPPIVa8whyXwyJVunQmbcyihxMhuY2A5z3YqR/RL1iorsWBraYaeB
-         t/bhC4xnOIOBSnAKuQ8HnAA5GPb0ruxUqoq0jHNAJyH8o1LNqxmbRdgX0gJqiNWXeO3H
-         29z1toJnr4vqT90Rrq3Wek3+PMP++bGXwHzgkKjbaXwlt7ZCOI2cq8C7OWTTJBXbZ2v8
-         fgHy0Of8yfuQ7Yed3xyzERhnvunhHgZRs+jpaiFjTM9sXRYzmZuL8g5/hyEfsSA0i0kB
-         ilh59rWCmpzhI6+n5Lbs5W5Gu7p5Rqnpa9vDOKzKpCcwa3OEhsBIB3woAEtfnvM6TVVL
-         EjvA==
-X-Forwarded-Encrypted: i=1; AKwUvBy75go7240yWwx0hBVfyeIf8u521pL/bJujG/KFSAfN6Ta+mP6eDxmnec3oD8rT1nxqjWYXzFfMOufw8tA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kM7ud/kri7MIx+ZaLPkfhMewcxtlprXEycIJfO0GS0Ft6Tp05W
-	Ys/Isl/VYPPToNMs7yd9hdQFMjmSEtngHtdFdhzT/Wqi1ZqaAcBHBYFAEzOwyTnuqvU=
-X-Gm-Gg: AYBFou1oH0n+Z4sKtEmSPxrIgdin0M8g6Pg+xIqGp2rSYfJa1M4kK9Q4MPG87N1QIdH
-	BnO5DTxbfDUJLI7Vrr0HwVCqV8yxaaTlgTobUCNNkzosUZ9cvGltOaeBXciD0z1ccafJABeXkz1
-	8hqKAjxZCr7+1gzH/UTht+qMk7NNcVkJq8xVbs1muHjEwexULyNpyTOhuKBro87fN6OP9PKBtih
-	C5J+5aZDCHNqsznOAki02NyjAGuZWHHL9OJG6U8lCkTmiEqtdFzpe2evs2hgTBCPejXtG34P26S
-	g6x/uMNHwJaYEEWBLjLRmnybohxXOWJSwPyPv02miuZmMP1chZEMey1IDbsiQZ9W71MoYU6jQV+
-	N0CwJPTWP1wvGRe8bRh3/s+Ek62q9GNZ9LItr5AO8klz0ucea6d+KeitdP+KKgW3FEQzn8eMwzP
-	FGKbine4nziJZ9Xy2NbFjIIrAETq2/VAeGXpX80TpLxRh5tmXqFTtVIZkcjhnkbdluzK3b599n1
-	5h8NPf8T09m9DikCBYBLy3BealJmyn+L4ijOFEFenPpRKvM/vV1wiQF5QuooRMUJ6K/Ty5Liazt
-	aKxH2Q==
-X-Received: by 2002:a05:7022:fa9:b0:143:2719:a501 with SMTP id a92af1059eb24-144f9173969mr664924c88.40.1790106943509;
-        Tue, 22 Sep 2026 12:55:43 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:c016:77a6:d382:7611])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f949e51asm578264c88.1.2026.09.22.12.55.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 12:55:43 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yhs@fb.com>,
-	John Fastabend <john.fastabend@gmail.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Stanislav Fomichev <sdf@google.com>,
-	Hao Luo <haoluo@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Martin KaFai Lau <martin.lau@kernel.org>
-Subject: [PATCH 6.1.y] bpf: bpf_sk_storage: Fix invalid wait context lockdep report
-Date: Tue, 22 Sep 2026 15:55:38 -0400
-Message-ID: <20260922195539.26679-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="UUSb6C5q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XogQcQ/Zy+WwnyyxAl+dKf/9BvPUl+IIUrSU5+MLM6SUKVkk/3rlwtKoI3rxU1Q+Op2TnJxKPQoHwTH6LuYzLTQv18sm5jedw+vhasnVsauUIQhobM5XhP577nHIPAmJmSPXzOJ+N5EkJ5KqCeoOH4TPvGf7ScVXXbxj+HrLw8VBHoETWNPIo76U9wPb01CU8qVALcQuoCNRTwsM0P6Q8niX51TivK7GRbV2XYJItuvYiKoTJEl1dyicKU2ir+uTD7cr0OlieSWB3YeTPmFPbm88WUrc33e9e2970iXEE7E9dbxQE2yXM6xtlQ+g/Mf684la+QGQKz26zf6zwtQq/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=osBfJJ4rJm5eY2erc4V674hCwuT+xpYPkOrWRt5Uuww=;
+ b=BaPpSAVXpF2QYnu1D4hLL7Jgnu9cm1cfJCs9/qadl9cH8kAFLpkD06nEfh4acEZkkazmFIz4xqQ1deuO/C+5MMM8ISGwsZwI1L/x4AV+0uiuKlukkat5rbbnzm9NC5ygmxsUtN6bi4HwPvyE89NZehdQtx+f0yK7EDVBqvRPUhYuzx+9k4V7xYDnpuc+ubo0pWEASXbRD332ASM0BV2Xbs5NcgIV/26V98grLJUkSztzVZF+r/k/MHuti4qXFlUQwJPjNGlXKm95zjPhpUmlTirAVXOtb+ErfmTtyhxh/MasXemRp2d/e9t3EwT+5oMeko2mEQWrLfBN5C5bmAx+sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=osBfJJ4rJm5eY2erc4V674hCwuT+xpYPkOrWRt5Uuww=;
+ b=UUSb6C5qYkaFnYAjbzrvWU4nA2aNPNVOl6k3S8cXzyiz4ql3NJ3z/m1eZjseaWr7k1UasmiPckS8/xLVNdvCtXicSqANoFBAyTE/9t7hdtGZw0YQzMXXXNlTIgLvfFJsiSpPmDwvsYY0wIIwxBIVXCALq5y0yJcRxLuslbpf1g0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB8942.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 19:56:48 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 19:56:48 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 20:56:47 +0100
+Message-Id: <DLM3Z2E1V1J2.4VUZLWQVEQTT@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Laura Nao" <laura.nao@collabora.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
+ "Frederic Weisbecker" <frederic@kernel.org>, "Lyude Paul"
+ <lyude@redhat.com>, "Thomas Gleixner" <tglx@kernel.org>, "Anna-Maria
+ Behnsen" <anna-maria@linutronix.de>, "John Stultz" <jstultz@google.com>,
+ "Stephen Boyd" <sboyd@kernel.org>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <kernel@collabora.com>, "Deborah Brouwer" <deborah.brouwer@collabora.com>
+Subject: Re: [PATCH 7/9] rust: time: add arch_timer_get_rate wrapper
+X-Mailer: aerc 0.22.0
+References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
+ <20260915-tyr-interfaces-v1-7-5d28f1f75aca@collabora.com>
+In-Reply-To: <20260915-tyr-interfaces-v1-7-5d28f1f75aca@collabora.com>
+X-ClientProxiedBy: LO4P123CA0579.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:276::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB8942:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56787703-5741-4c16-3a91-08df18e3a358
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|22082099003|18002099003|10067099003|56012099006|4143699003|3023799007|921020|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	L0+B3S7ogzUehDkUhOlMVX1zLY58g1+HpleXNGPALcUMIHyhK2Ui0G2043ZrZlq27SUBuqDKTbHTJfw5g5KKr90iviobYgFT8HCNHPFaprAZEL1a1Nna0bYdL+7DZLytUfYjkMEIaYCs+fp8fY2jTGbtnZ8eAIlIXMiOb54s4yl+FX66b22+Ph8xkzhR6sHdO4JpwJIT40AEN7s2wAJWekxZTETjbKr9jOqcPpMua2gXjTNHMYRUvcgENX0DlfyjX2YrTyCtRj4wit4PGiQV6ndZVVSvtQkOQGo6edDDqItOwCjkTyYwsRlrQ+hsOtD86qRGwG+wP9L1czIP59BSpFBj/IGe9JYZliQTibc9r5uVam4o3ZpWnTmBrH+jhDhcHVSa4LPHtkzE5cjihq1V2VDYxqdYru/IY2GTVcMZwSCOze0cpjKoeh1MRW4n+7zOwyDpD+hKen4EqZmhJhwCR7zFPxAmZk0zmCNnqIJYJl/BFeYjubYbju7eWp4NA6Vc2wiBCxRrpN7wBH8PKKfWoViFkXFRY7HricHA/ZMvIWB9OZXilxg2oEnfK6dCGOtGAj+qDwhhfc4mX8D7I3hbXRkzpZAB5FRjdAAKewd1jdmuk3R+0qUfGIQ/m+g/3AZfRquOioujl+eEmicckvtkH0Rw8QwYudJ9iqoqVI9yev9rt01RTvmgzWe3VEGLibNIAbn82z82hqQj1Bk0oqS2cw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(3023799007)(921020)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UVh2RTFyRk1GTTJ3LzhpK0o3NDkwbG5WWWhRbjZvT3U2aXRLNmdqTlRkd0E0?=
+ =?utf-8?B?U2hmdnptQmllMmdUajVndXBtZW93QXFwRmszSmNvYkRvb00wU096cDdBdldv?=
+ =?utf-8?B?ZnhzV29qckdLUFU1eDdtbDZ3Y1NmZU5TUWN4QkdRZ0gyV0xUekdzUlJxb29m?=
+ =?utf-8?B?eEFOSWF0UWN4YTJIcWdWTDVlQ081V0ptTjhaSFMwSjZrRDdaL2dKNjhrc1RR?=
+ =?utf-8?B?SjRIRkNuSUVxTXpVbWVHMjJrNGYySW5GWEowaVl0cEdpVUQrbEFBZ2hlU0t2?=
+ =?utf-8?B?NFV6L24zMlBNRlo4T3N2TGJGeU5zbGNXUXJoRGNBKzRlWHAzNGIweGFWanhZ?=
+ =?utf-8?B?akNxNnpPQS9kaUU5aXdqZC9TdVhCQVBsa0w5WTdudFl5dnM3RHc5b05CU0RD?=
+ =?utf-8?B?RVh6bVc0YTJuL2g2UmdDcW9UWHNqQms5YlRrU2NqZlBhdmYwYnNuRmZxYXE0?=
+ =?utf-8?B?MVJkcit1MmdkWmlROS9wWmpJZ2dlTW1RRFJ5eGRGbHY3MTBOQWcrenJtaVNu?=
+ =?utf-8?B?WkczWHVFOG5YVHB2WTdQdVNaUmg2ZDM0M1BoM3B5M2RHYURzOEZqcTkydnE5?=
+ =?utf-8?B?VlBUWEk2L081OVdsa284NlVLMG5Oc3F0eGVTcy95UExnT2pTL2Q5TmdCU1V2?=
+ =?utf-8?B?S3owazNieTRpTW53c3grSXpudVlFY0w5OHV3TW5MeVNFa2pTZkUwMDRRVC9y?=
+ =?utf-8?B?TFRCek9BNXJNSzlyS0pEZmp6Qk5kNU5PbzlMTTIyR2laazVEemZDS0x6ZEVS?=
+ =?utf-8?B?NGpyRFRJV0ZraUY5RG5oMkFJMm1iaGk0cVJ3MHUzSmUwRFJTamVLNTkzRExh?=
+ =?utf-8?B?ODFXc3ZWOTFjRTgvOFZOa0lTRkJUZWw2Yy9lZ3Z5d3JKT1BLREEvWUVOVllh?=
+ =?utf-8?B?ZWJnbGpKbDFCUFh6YmtNOVVLTUJWdzZ5V1lqN2FEOCt0aFZ0OGR3dHdhTVg1?=
+ =?utf-8?B?a1RGQXBuOWV2NWtVaExrcitjUHRCcmJmcDhERjh4ZUtzRytERFpZN2pjUWk0?=
+ =?utf-8?B?VkdwWUZlbll1MUY1RjN2WWoyMGpDeHgzVENRUUpBcU8ydURCdnFyK0lwU2My?=
+ =?utf-8?B?RTdTeU4xZDdaMDB0Z0xkdzlwL1FNWHJ5bkNvZGlsTWNBWFJ0ckhnRENkMGU3?=
+ =?utf-8?B?VWxTZGlzN2xVbmErVms0Q203Tkx0Q2JGdXVYY0Jwb1h3dExrUUZSMGpDcTY2?=
+ =?utf-8?B?bmtBKzF0aVpLaHRWYTdpMGYyaEVwN0w0VkZqa3QzdiszL2FHNDZNYTVLVlI3?=
+ =?utf-8?B?MnY3NTRJWlVtYzhCVTBzNTJOSFExSGR6YnJFc1pFcnQ2dGFldCtHUzNjLzlo?=
+ =?utf-8?B?YjM4ekRPa0pkSUdNdmpFN0hoWUlDbFNBWUdDeEd4cE1BSGR3a3p3SlRTblBp?=
+ =?utf-8?B?bUc5dUFZRnkyOVpQMzVKZGxxb2FJM2FjOFFWT05MOTVwY0VsQVMydEI0Q1RB?=
+ =?utf-8?B?cWRDSzBwdUUwVkNCaURKNitQK1liaGc3MGFxbTd3Zm1xdTE5anpyMUV3bGFi?=
+ =?utf-8?B?c1JnMGRZMmtjQm1VZCtpZnZLUFQ0QzJLTjVvaDUzdFFhaGNnU3d2K3Yxc1ov?=
+ =?utf-8?B?dm5nV0tKMmQvbkplM3N2VXZlUjdLbkh1ZjVYV1YvM2NXeXJaQ244MjdJRHhl?=
+ =?utf-8?B?K3hRMVZhMG5NZm1zbWlhTlVjVy94emJNR05VT2dqT2xwRjVqb0JLWlJ2VnFH?=
+ =?utf-8?B?MUFtZWZDaTllVVpjM0pIcnlHcDBKZitFWFRKVWpHOStEbXEvclNYMFZLUHVs?=
+ =?utf-8?B?S2h1b2o3ZTBRSGU3clA3VmR1V0wzdU5QUkFOdktNdmpZK3U4Z3owamZaSUNN?=
+ =?utf-8?B?ZG1xSCsyTWhpWG9vR1lQazA0Vm9pZUlLeTdGYUZ1clo1MnJhdUdtM0xsckJr?=
+ =?utf-8?B?bGZSa2plUGV6SGVNcDRtTks2N20xRVA5Z1NoMlROWnNjUE90SEs0NDhRRGR6?=
+ =?utf-8?B?RzVZcW5nS21kWVhPZ0FIRngySHRaMmlTVzlrRTNGM0V3aitVTjJiZ2JpR3dD?=
+ =?utf-8?B?WVdZTitpbDg1OHhmUWxycG1nbUM4bVdjTUdBMUZ6OUVlck5acG85R0ZxNk9R?=
+ =?utf-8?B?VGRhcE1UMnF6NWVuWUF5VDI0VGpKOEU4M3JDM0xNUEVpaXVveTB6eW5DVU1E?=
+ =?utf-8?B?SXdFL1ZpNEZVTmF6clpFTC8zelpLRU92NVpnVEx3dlVjUlZVQXVxWXdHQ3pX?=
+ =?utf-8?B?cnVtN09GZUY5WnpLRUsxMFc5R1BPTWc3RjlkQmtCRWh0bW9MT1hxREkyTWVk?=
+ =?utf-8?B?RlNUSndaZHBXNEQ1WnlxL2NCTVZBeVgwOEkrZk9KYUJLS3NKSXZDbFVGdFpK?=
+ =?utf-8?Q?knpQ4LMMfRBZ1fZQBw?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56787703-5741-4c16-3a91-08df18e3a358
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 19:56:48.7632
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hq9mW4WTKwOslkHpgeHxBPnXMMOIE8ZW4CWKd4joe91wpVAexjB6H5ceMLTeOq/vKrvgTVp4rIpzh+I/35+hjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8942
 
-From: Martin KaFai Lau <martin.lau@kernel.org>
+On Tue Sep 15, 2026 at 11:57 AM BST, Laura Nao wrote:
+> From: Deborah Brouwer <deborah.brouwer@collabora.com>
+>
+> Provide a safe Rust wrapper for arch_timer_get_rate().
+>
+> The Rust binding calls a C helper that returns 0 when the ARM
+> architectural timer is not available or not yet initialized. Map this to
+> Option<u32> to make the absence of a valid rate explicit to Rust callers.
+>
+> This allows Rust drivers to query the system timer frequency and
+> select appropriate time sources when programming hardware timeouts.
+>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> Signed-off-by: Laura Nao <laura.nao@collabora.com>
+> ---
+>  rust/helpers/time.c |  6 ++++++
+>  rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++++
+>  2 files changed, 36 insertions(+)
+>
+> diff --git a/rust/helpers/time.c b/rust/helpers/time.c
+> index 32f495970493..70fda31bd758 100644
+> --- a/rust/helpers/time.c
+> +++ b/rust/helpers/time.c
+> @@ -1,5 +1,6 @@
+>  // SPDX-License-Identifier: GPL-2.0
+> =20
+> +#include <clocksource/arm_arch_timer.h>
 
-[ Upstream commit a96a44aba556c42b432929d37d60158aca21ad4c ]
+The header is from arm_arch_timer. I wonder if we want this to be exported =
+from
+somewhere like kernel::arch::arm::time?
 
-'./test_progs -t test_local_storage' reported a splat:
+Best,
+Gary
 
-[   27.137569] =============================
-[   27.138122] [ BUG: Invalid wait context ]
-[   27.138650] 6.5.0-03980-gd11ae1b16b0a #247 Tainted: G           O
-[   27.139542] -----------------------------
-[   27.140106] test_progs/1729 is trying to lock:
-[   27.140713] ffff8883ef047b88 (stock_lock){-.-.}-{3:3}, at: local_lock_acquire+0x9/0x130
-[   27.141834] other info that might help us debug this:
-[   27.142437] context-{5:5}
-[   27.142856] 2 locks held by test_progs/1729:
-[   27.143352]  #0: ffffffff84bcd9c0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire+0x4/0x40
-[   27.144492]  #1: ffff888107deb2c0 (&storage->lock){..-.}-{2:2}, at: bpf_local_storage_update+0x39e/0x8e0
-[   27.145855] stack backtrace:
-[   27.146274] CPU: 0 PID: 1729 Comm: test_progs Tainted: G           O       6.5.0-03980-gd11ae1b16b0a #247
-[   27.147550] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.14.0-0-g155821a1990b-prebuilt.qemu.org 04/01/2014
-[   27.149127] Call Trace:
-[   27.149490]  <TASK>
-[   27.149867]  dump_stack_lvl+0x130/0x1d0
-[   27.152609]  dump_stack+0x14/0x20
-[   27.153131]  __lock_acquire+0x1657/0x2220
-[   27.153677]  lock_acquire+0x1b8/0x510
-[   27.157908]  local_lock_acquire+0x29/0x130
-[   27.159048]  obj_cgroup_charge+0xf4/0x3c0
-[   27.160794]  slab_pre_alloc_hook+0x28e/0x2b0
-[   27.161931]  __kmem_cache_alloc_node+0x51/0x210
-[   27.163557]  __kmalloc+0xaa/0x210
-[   27.164593]  bpf_map_kzalloc+0xbc/0x170
-[   27.165147]  bpf_selem_alloc+0x130/0x510
-[   27.166295]  bpf_local_storage_update+0x5aa/0x8e0
-[   27.167042]  bpf_fd_sk_storage_update_elem+0xdb/0x1a0
-[   27.169199]  bpf_map_update_value+0x415/0x4f0
-[   27.169871]  map_update_elem+0x413/0x550
-[   27.170330]  __sys_bpf+0x5e9/0x640
-[   27.174065]  __x64_sys_bpf+0x80/0x90
-[   27.174568]  do_syscall_64+0x48/0xa0
-[   27.175201]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
-[   27.175932] RIP: 0033:0x7effb40e41ad
-[   27.176357] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d8
-[   27.179028] RSP: 002b:00007ffe64c21fc8 EFLAGS: 00000202 ORIG_RAX: 0000000000000141
-[   27.180088] RAX: ffffffffffffffda RBX: 00007ffe64c22768 RCX: 00007effb40e41ad
-[   27.181082] RDX: 0000000000000020 RSI: 00007ffe64c22008 RDI: 0000000000000002
-[   27.182030] RBP: 00007ffe64c21ff0 R08: 0000000000000000 R09: 00007ffe64c22788
-[   27.183038] R10: 0000000000000064 R11: 0000000000000202 R12: 0000000000000000
-[   27.184006] R13: 00007ffe64c22788 R14: 00007effb42a1000 R15: 0000000000000000
-[   27.184958]  </TASK>
+>  #include <linux/delay.h>
+>  #include <linux/ktime.h>
+>  #include <linux/timekeeping.h>
+> @@ -38,3 +39,8 @@ __rust_helper void rust_helper_udelay(unsigned long use=
+c)
+>  {
+>  	udelay(usec);
+>  }
+> +
+> +__rust_helper u32 rust_helper_arch_timer_get_rate(void)
+> +{
+> +	return arch_timer_get_rate();
+> +}
+> diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+> index 6c0a5e8090d0..6c48ce21984a 100644
+> --- a/rust/kernel/time.rs
+> +++ b/rust/kernel/time.rs
+> @@ -423,6 +423,36 @@ fn div(self, rhs: Self) -> Self::Output {
+>      }
+>  }
+> =20
+> +/// Returns the ARM architecture timer frequency in Hz, if available.
+> +///
+> +/// This function queries the system-wide ARM architecture timer frequen=
+cy.
+> +/// The architecture timer provides a consistent time source across all =
+CPU cores.
+> +///
+> +/// Returns `None` if:
+> +/// - The ARM architecture timer is not available (`CONFIG_ARM_ARCH_TIME=
+R` not enabled)
+> +/// - The timer rate is zero (not initialized)
+> +///
+> +/// # Examples
+> +///
+> +/// ```
+> +/// use kernel::time::arch_timer_get_rate;
+> +///
+> +/// if let Some(rate) =3D arch_timer_get_rate() {
+> +///     // Use `rate`.
+> +/// }
+> +/// ```
+> +pub fn arch_timer_get_rate() -> Option<u32> {
+> +    // SAFETY: The C helper is available in all configs; it calls
+> +    // `arch_timer_get_rate()`, which falls back to an inline stub retur=
+ning 0
+> +    // when CONFIG_ARM_ARCH_TIMER is disabled.
+> +    let rate =3D unsafe { bindings::arch_timer_get_rate() };
+> +    if rate =3D=3D 0 {
+> +        None
+> +    } else {
+> +        Some(rate)
+> +    }
+> +}
+> +
+>  impl Delta {
+>      /// A span of time equal to zero.
+>      pub const ZERO: Self =3D Self { value: 0 };
 
-It complains about acquiring a local_lock while holding a raw_spin_lock.
-It means it should not allocate memory while holding a raw_spin_lock
-since it is not safe for RT.
-
-raw_spin_lock is needed because bpf_local_storage supports tracing
-context. In particular for task local storage, it is easy to
-get a "current" task PTR_TO_BTF_ID in tracing bpf prog.
-However, task (and cgroup) local storage has already been moved to
-bpf mem allocator which can be used after raw_spin_lock.
-
-The splat is for the sk storage. For sk (and inode) storage,
-it has not been moved to bpf mem allocator. Using raw_spin_lock or not,
-kzalloc(GFP_ATOMIC) could theoretically be unsafe in tracing context.
-However, the local storage helper requires a verifier accepted
-sk pointer (PTR_TO_BTF_ID), it is hypothetical if that (mean running
-a bpf prog in a kzalloc unsafe context and also able to hold a verifier
-accepted sk pointer) could happen.
-
-This patch avoids kzalloc after raw_spin_lock to silent the splat.
-There is an existing kzalloc before the raw_spin_lock. At that point,
-a kzalloc is very likely required because a lookup has just been done
-before. Thus, this patch always does the kzalloc before acquiring
-the raw_spin_lock and remove the later kzalloc usage after the
-raw_spin_lock. After this change, it will have a charge and then
-uncharge during the syscall bpf_map_update_elem() code path.
-This patch opts for simplicity and not continue the old
-optimization to save one charge and uncharge.
-
-This issue is dated back to the very first commit of bpf_sk_storage
-which had been refactored multiple times to create task, inode, and
-cgroup storage. This patch uses a Fixes tag with a more recent
-commit that should be easier to do backport.
-
-Fixes: b00fa38a9c1c ("bpf: Enable non-atomic allocations in local storage")
-Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/bpf/20230901231129.578493-2-martin.lau@linux.dev
-
-[ Backport to 6.1.y: retain the pre-reuse_now unlink/free API while
-  moving the charged element allocation outside local_storage->lock. ]
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and BPF maintainers,
-
-I am continuing backporting CVE fixes still missing from 6.1.y.
-This fix is inherited by v6.6 and every later mainline release, but 6.1.y
-still has the affected code. The target-specific adjustment is described
-in the bracketed note above.
-
-Could you please queue it for 6.1.y?
-
-Thanks,
-Artem Dinaburg
-
-CVE: CVE-2023-53857
-
-Build: This patch was included in an x86_64 allmodconfig and
-CONFIG_WERROR=y build.
-It produced vmlinux and modules with no new warnings or errors.
-
-AI assistance: An LLM helped find, adapt, and validate this
-backport; I reviewed the patch and test output.
-
- kernel/bpf/bpf_local_storage.c | 47 ++++++++++------------------------
- 1 file changed, 14 insertions(+), 33 deletions(-)
-
-diff --git a/kernel/bpf/bpf_local_storage.c b/kernel/bpf/bpf_local_storage.c
-index 51a9f024c18298..23cbd7b1b810d7 100644
---- a/kernel/bpf/bpf_local_storage.c
-+++ b/kernel/bpf/bpf_local_storage.c
-@@ -373,7 +373,7 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 			 void *value, u64 map_flags, gfp_t gfp_flags)
- {
- 	struct bpf_local_storage_data *old_sdata = NULL;
--	struct bpf_local_storage_elem *selem = NULL;
-+	struct bpf_local_storage_elem *alloc_selem, *selem = NULL;
- 	struct bpf_local_storage *local_storage;
- 	unsigned long flags;
- 	int err;
-@@ -427,11 +427,12 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 		}
- 	}
- 
--	if (gfp_flags == GFP_KERNEL) {
--		selem = bpf_selem_alloc(smap, owner, value, true, gfp_flags);
--		if (!selem)
--			return ERR_PTR(-ENOMEM);
--	}
-+	/* A lookup has just been done before and concluded a new selem is
-+	 * needed. The chance of an unnecessary alloc is unlikely.
-+	 */
-+	alloc_selem = selem = bpf_selem_alloc(smap, owner, value, true, gfp_flags);
-+	if (!alloc_selem)
-+		return ERR_PTR(-ENOMEM);
- 
- 	raw_spin_lock_irqsave(&local_storage->lock, flags);
- 
-@@ -443,13 +444,13 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 		 * simple.
- 		 */
- 		err = -EAGAIN;
--		goto unlock_err;
-+		goto unlock;
- 	}
- 
- 	old_sdata = bpf_local_storage_lookup(local_storage, smap, false);
- 	err = check_flags(old_sdata, map_flags);
- 	if (err)
--		goto unlock_err;
-+		goto unlock;
- 
- 	if (old_sdata && (map_flags & BPF_F_LOCK)) {
- 		copy_map_value_locked(&smap->map, old_sdata->data, value,
-@@ -458,23 +459,7 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 		goto unlock;
- 	}
- 
--	if (gfp_flags != GFP_KERNEL) {
--		/* local_storage->lock is held.  Hence, we are sure
--		 * we can unlink and uncharge the old_sdata successfully
--		 * later.  Hence, instead of charging the new selem now
--		 * and then uncharge the old selem later (which may cause
--		 * a potential but unnecessary charge failure),  avoid taking
--		 * a charge at all here (the "!old_sdata" check) and the
--		 * old_sdata will not be uncharged later during
--		 * bpf_selem_unlink_storage_nolock().
--		 */
--		selem = bpf_selem_alloc(smap, owner, value, !old_sdata, gfp_flags);
--		if (!selem) {
--			err = -ENOMEM;
--			goto unlock_err;
--		}
--	}
--
-+	alloc_selem = NULL;
- 	/* First, link the new selem to the map */
- 	bpf_selem_link_map(smap, selem);
- 
-@@ -485,20 +470,16 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
- 	if (old_sdata) {
- 		bpf_selem_unlink_map(SELEM(old_sdata));
- 		bpf_selem_unlink_storage_nolock(local_storage, SELEM(old_sdata),
--						false, true);
-+						true, true);
- 	}
- 
- unlock:
- 	raw_spin_unlock_irqrestore(&local_storage->lock, flags);
--	return SDATA(selem);
--
--unlock_err:
--	raw_spin_unlock_irqrestore(&local_storage->lock, flags);
--	if (selem) {
-+	if (alloc_selem) {
- 		mem_uncharge(smap, owner, smap->elem_size);
--		kfree(selem);
-+		kfree(alloc_selem);
- 	}
--	return ERR_PTR(err);
-+	return err ? ERR_PTR(err) : SDATA(selem);
- }
- 
- static u16 bpf_local_storage_cache_idx_get(struct bpf_local_storage_cache *cache)
--- 
-2.39.5
 
