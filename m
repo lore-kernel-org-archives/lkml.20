@@ -1,81 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE6B559CB8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DB3559CA0
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090813; cv=none; b=eSV2u+FNODRiAjDtgVwDjP8Uu0Hr0nJ/ID5OkWHUEXO+xhxxJrcGceTuDTSxCszoMceb4TeN7yZ9e11vsmkMDhiGoyjQW87z6wHRecF0R1jjsa92MRxn5Q1mlbz9MO29XvlFF8x0ssDgxQ1eouDHJh30rwATzY1FZIeo167Z7B8=
+	t=1790090826; cv=none; b=hwvNYSfv81MncjDrAliQL2lV/RTAIOiK5y/UZGMwUMepiAh0dQTbNvWsfL4acm2M/aoMsAp8qslb6kJXRJt53r8yQ/jaNQ31h9UUu4Y4eP1FVYTBWKrG8X+cRxXh6oWZZEdCsH6n9tP06Gw132esu8mhraL7kLrhMBBlvPFmtoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090813; c=relaxed/simple;
-	bh=Nfpo/PElH+hUuXM1DSN+liBKZMn7dhMb01zv1lmNiYo=;
+	s=arc-20240116; t=1790090826; c=relaxed/simple;
+	bh=/bLyKypnNwfGX2WH2jEoAUwwNIROKLlCEg6+ySEJI08=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dVn1wmgOeiKm//Kyw03TVCOaWJNeJOIBxy+t4/gr/57ddgKmwWTgB9KlXUzRTLOUZ8Lfd9lQmizRTinFf4xrUUZgGewLHIW0XIU5yq1+LKci2TY3N4vSRxa1p71zDBg3OGq7uoRkwxwjCfvhsW0zlFq6r2xlhDKD/2czxN82Ea0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JqI68iqg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oXaaBbG7; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=i2TDW2aR9xggO+3FEUtNZNgploiioMt2ImUgM6pFZVA3pNDtK62K2Ebse/bfsDQRps966h0iJa1H2nfk7dQcqPBKwMOVzU7MKE/mR44O/gIohJQb/kM44rxeNxBcWesKAx/Y/205Imr4Awt7+WI/JR2a8jSBK2aPFvzjQSmod+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S3MtHOrh; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EvUly7dY; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JqI68iqg";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oXaaBbG7"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S3MtHOrh";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EvUly7dY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790090811;
+	s=mimecast20190719; t=1790090823;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8HgF1fYWmdweGa6Ay1VNB6tjKEcFrxVON/LrrH3c8qA=;
-	b=JqI68iqgF+zS4G2qrlW8d/0CADhMsqpRQZsOdrAnBgiyiDkvsl0jFR0/V/3Wm4cwKoEYk8
-	n9lZOAZLJG/s/9mg7qhCKp7HW0scuAAkofgfwvur56/oJo1mNZgKRKaLeAmRj12vleSqFb
-	sTKqcSIJDCGcZALZI2+KA8rfwu7l8/g=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=0Htkt20pVczBoadvUlOct83zLwipczk5AidQ8VvN0o0=;
+	b=S3MtHOrhJPPK0ahF4AWHv6bmULD33f5YWq0yMcPOLQkr8SfsSjSX/Gnwdc+tQRuWQ9+7B0
+	Yp9d7r48+AryMb0RcAF5b77XhBGDjrStwhZwNfu9XwvfjxL38sbGxTkTT6Knje9q2Bpn05
+	LSM2w2aosPOX4nGlYA5mXbOqe037ucM=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-210-ITqenakxPp-utHV1KjWPyw-1; Tue, 22 Sep 2026 11:26:49 -0400
-X-MC-Unique: ITqenakxPp-utHV1KjWPyw-1
-X-Mimecast-MFC-AGG-ID: ITqenakxPp-utHV1KjWPyw_1790090808
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49e76a80fe5so59533355e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:26:49 -0700 (PDT)
+ us-mta-655-KhoBKdSANfasxWN_YPdsEQ-1; Tue, 22 Sep 2026 11:27:02 -0400
+X-MC-Unique: KhoBKdSANfasxWN_YPdsEQ-1
+X-Mimecast-MFC-AGG-ID: KhoBKdSANfasxWN_YPdsEQ_1790090821
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49ccfbe060aso32248835e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790090808; x=1790695608; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790090821; x=1790695621; darn=vger.kernel.org;
         h=content-type:mime-version:user-agent:message-id:date:references
          :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=8HgF1fYWmdweGa6Ay1VNB6tjKEcFrxVON/LrrH3c8qA=;
-        b=oXaaBbG7WAP9r1MbYOMcGTNVKChT1lAE7nadpflx1TcbKnUgT5XTwW62XVrNHXHaAc
-         AF6QoVlv+IKaXiGx7KQLEmCUlJU2XvLT6uialFii+WzEFLq5hHb2L8nx1Qzx6ZA0GdTg
-         rLAiDIsHLCqtuQ3+nqP7sCi17oDsDSim7K9CIPVVOx5KQiPoLJYqR5t+VFCt+jYAG3DH
-         auU+ELt/hMQJjraTCkBCJcqZ0Ug1iIyZR38BoIgVes0srr9YPJ02lXAE6spJthIzmPmt
-         Pqzf/GT0SfuII4XAIj0FGsA7kG8J4LryHESJDYorkNk7zrzieRv44zlz4CHE4v+O8eP2
-         e+xg==
+        bh=0Htkt20pVczBoadvUlOct83zLwipczk5AidQ8VvN0o0=;
+        b=EvUly7dYqavQqfq1jXf1ADamLFgaWspaM0f9f9a6J07ar2GatdkBBX2YyerClV28S6
+         vSXvbmSR4JhiDl5QPRGmDjLQLGWYV+Yl+DBt9/LZvEcGiIAkK79vcSZX7+ci5uZD9qH4
+         S0DzDOtF8TT1AOet2Z+NBpdHhVqJM5iJEFNOtvtPRnwNzwD5we0siL9R3WbQqYcjADAG
+         r8F49JDath0Cs8u1kUCjK3v1pmmiun7NktSWBV4iakhx4Vy+R2dQuHEuFA4tsBM2CHWp
+         mh9z4FnlSkEkSG8Ai8PoQdePwM6wjtfsUT5oR34RKPojmfEZspkk1EI9dIIrSYK2RrJY
+         7nqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790090808; x=1790695608;
+        d=1e100.net; s=20260707; t=1790090821; x=1790695621;
         h=content-type:mime-version:user-agent:message-id:date:references
          :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=8HgF1fYWmdweGa6Ay1VNB6tjKEcFrxVON/LrrH3c8qA=;
-        b=xZh3xGy16SzTp5Hne9kCJyBb+anNXDlnWorpg05ItHopRN5iCwOIScCUrXqsA8Gqr8
-         78GpTWY0Jxv+pnNxxKI3eq3CTtB1wmlWpy1EuQ1wxtzUPZXtGqhd9OOdXsGkhXfL5vRD
-         /ccZoFe/AYZ/0WoSdR2MZ4dOjaxMc9zLdzLbn1jJITPSbE27YP4NhVoFPNwwEVwo+z9t
-         ZFv86BPy21luwDUVKHZ4tNr9KBzwtyiD4gr7xpLN1LISbQI+lbjBPjRXFNTf7PedXk6k
-         4twhJxytNuZ+asjTyBn92gUiYcBrpeOPFxanhuFVX061a3EohaqayLGvMvl6ONGtIVw2
-         aCKw==
-X-Forwarded-Encrypted: i=1; AKwUvBxr3BK8u0eMf4kfSDT1kl7XFUi60ivQzs7QQMiPt+7peRYGU50Ezb110ifeHN1B42xUSPI4oVJziuLBs6Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrEXKAgt33gKB99TPJG83hW773UrObtT1MDhGQr8mmH+lAsx6D
-	Sz1Bj96MR5AtC1K82pFIWsm572JqDGwVb0635vC/O3fAouUoC41KbjjIx9sq+JR+hsGrEcTmhFO
-	baNjCZxCcxR+3hhGL4RHfuQYcCTm0E5ddWU2X+Ci7Kf1EfGzgrNQfQCptg4shh9FP2A==
-X-Gm-Gg: AYBFou3M8yrouTSrPZ0E3R2kFQr5QRf9Qyx8AaCUUjv6UCRA7vFyZJvFdqwkx9LUQAP
-	ABAGm5M7AYoPz7flcDOc7JFCKnxZGEjNCcZMdoemKuZ6Yg68fF/ZTSHTjf1ryhAzl8XHSiIohpa
-	j2jHeOCVuIbMVtglHJbwW0B3XMrtaqlWn1YcxlTW/Sl9i7IXvdgDH9HRDoubpSfYyBzc55ZzOzB
-	6j3n8ydgSE8Do684C/kvYpWrV8BpRGCYx9GQwBsBhHNbAlXvoeSBAkBab+mD8CmiLRbL0kabP0t
-	rrkRyATT4GmSOt85Sr5zLp/by7+TCSZlAQIDUg87a3JrR/hc5JmTpfrWVvK140DTjtBYtDSXOTl
-	pHc42AENhWyI9BAP5EkT0r0F4+FO+
-X-Received: by 2002:a05:600c:310e:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49fc5681249mr210658275e9.5.1790090808280;
-        Tue, 22 Sep 2026 08:26:48 -0700 (PDT)
-X-Received: by 2002:a05:600c:310e:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49fc5681249mr210657815e9.5.1790090807714;
-        Tue, 22 Sep 2026 08:26:47 -0700 (PDT)
+        bh=0Htkt20pVczBoadvUlOct83zLwipczk5AidQ8VvN0o0=;
+        b=EDEssm31oOLdt1H/09rP6dKJE3vhczRf8e6TEZM/+e+KwEfeC5kMouOCaJRCyNwR7K
+         gt548B+DmIZHucYkppHlz+e+IuSHJYgTSwqe+ruBHB+luBzlHOgbGy4nbb2t4elWaUXn
+         33CpSjTzq/ACqdx8KcZBzddRn1my3OOdCYivzjdtjOqLHwB7eDF91L+TPXHlv4cL/ATz
+         dLIaOQ0a8jHyI1v2zongtwP6aNIFpCjOk2cH6AimsuZfP0BU4krH3OLOni2IUUzUfLB1
+         lzJcXXzdklhfYuOfmhnzcRPcbPfSh5Jb1qPFpiDbh7pUL3TqTW4B6Hp4UkSetYllymkV
+         uZpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzF5/txUQXYivr/GdTWB3Y22I7j+gxmaAmyXxPljY4/D5F1DW1EYmxTHvgt0LEX6JmBmVC+TCTikjdrygk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTx5ISh6m1oPG9YCnVqQ+iaHWX2FfuexYligtw7tilLDekKvkX
+	TATyv03TDvQYhYapLZvyCh6GijRGGlQLKxlH4gZJ6BcU6zMcoKRk6PLenfGdmBRjgnog85lzGse
+	VYGr4HIqhPY3gxoVbppB20OAfHM5n2Hd/rWakn0fWhntOsXIirKovB4HN9+OmOOG45w==
+X-Gm-Gg: AYBFou1NGtrbiZJ4PUahgbWLrcHOFMszkF6NacWJGwpsGJOhORi9rwOv8BAuybJQ2Yw
+	5CSAyuL5NQv/RcUEM5129uJkrs87hJ0HErSnSYFrVPxrvKjacWHorlyAUsBh0Q7y210hsbGL1Gd
+	+ueV6T5O7GZk5ywa6iOSEUgI6tAp/G1g5dW6YuVjQBWc8y64UY8v+qkxeVlyzunYh53RKWZT2JY
+	1toyAaUIIDYTBtGGPGdQh5GeYkz0VVH1p4407LvZySLouHe5UHmxr1zgPfSivAZvgFJb/eniYck
+	hfkEQ2stwW20AFikLE7zph/FpPsembepMpDDL4okYc3Cf+76DDWVgk8isuVjgBGWuUvG/sTTnK2
+	mUS6yH3V0TL8c8oZ0OnrHz6prMIWu
+X-Received: by 2002:a05:600c:3b05:b0:49c:fa21:e746 with SMTP id 5b1f17b1804b1-49fc57570c8mr185474735e9.28.1790090821088;
+        Tue, 22 Sep 2026 08:27:01 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b05:b0:49c:fa21:e746 with SMTP id 5b1f17b1804b1-49fc57570c8mr185474355e9.28.1790090820708;
+        Tue, 22 Sep 2026 08:27:00 -0700 (PDT)
 Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.25.12])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde071f85sm875605e9.4.2026.09.22.08.26.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fddfd164fsm2995925e9.7.2026.09.22.08.26.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:26:47 -0700 (PDT)
+        Tue, 22 Sep 2026 08:27:00 -0700 (PDT)
 From: Aaron Conole <aconole@redhat.com>
 To: Ilya Maximets <i.maximets@ovn.org>
 Cc: netdev@vger.kernel.org,  Pablo Neira Ayuso <pablo@netfilter.org>,
@@ -87,15 +87,16 @@ Cc: netdev@vger.kernel.org,  Pablo Neira Ayuso <pablo@netfilter.org>,
  <lucien.xin@gmail.com>,  Marcelo Ricardo Leitner
  <marcelo.leitner@gmail.com>,  netfilter-devel@vger.kernel.org,
   coreteam@netfilter.org,  linux-kernel@vger.kernel.org,
-  dev@openvswitch.org,  stable@vger.kernel.org
-Subject: Re: [PATCH net 2/6] net: openvswitch: conntrack: remove
- 'add_helper' dead code
-In-Reply-To: <20260921145655.3167436-3-i.maximets@ovn.org> (Ilya Maximets's
-	message of "Mon, 21 Sep 2026 16:55:44 +0200")
+  dev@openvswitch.org,  stable@vger.kernel.org,  Axel Mierczuk
+ <axel.mierczuk@1password.com>
+Subject: Re: [PATCH net 3/6] net: openvswitch: conntrack: fix helper UAF due
+ to extensions realloc
+In-Reply-To: <20260921145655.3167436-4-i.maximets@ovn.org> (Ilya Maximets's
+	message of "Mon, 21 Sep 2026 16:55:45 +0200")
 References: <20260921145655.3167436-1-i.maximets@ovn.org>
-	<20260921145655.3167436-3-i.maximets@ovn.org>
-Date: Tue, 22 Sep 2026 11:26:43 -0400
-Message-ID: <f7tcxu5b93g.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
+	<20260921145655.3167436-4-i.maximets@ovn.org>
+Date: Tue, 22 Sep 2026 11:26:56 -0400
+Message-ID: <f7tbj9pb933.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -107,35 +108,33 @@ Content-Type: text/plain
 
 Ilya Maximets <i.maximets@ovn.org> writes:
 
-> This variable can only become 'true' when the connection is not
-> confirmed, but it is only checked when it is confirmed.  So, it can be
-> treated as being always false and just removed.
+> While calling the helpers, a raw pointer to the extensions area is
+> wired into expectations list:
 >
-> Fixes: 3c1860543fcc ("openvswitch: add nf_ct_is_confirmed check before
-> assigning the helper")
+>   -> nf_ct_helper()
+>    -> helper->help()
+>     -> nf_ct_expect_related_report()
+>      -> nf_ct_expect_insert()
+>       -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
+>
+> In case the connection is not confirmed yet, more extensions can be
+> added afterwards with *_ext_add() calls reallocating the extension
+> space and leaving the now invalid pointer in the expectations list
+> that is later accessed while removing the expectation.
+>
+> Make sure that helpers are called at the end after all the other
+> extensions are already added.
+>
+> Note that the helper rejection now leaves the mark and labels set,
+> but that's not different from how the NAT was handled before or how
+> the mark and the labels were handled on confirmation failure.  And
+> there are no atomicity guarantees provided by the API anyway.
+>
+> Fixes: cae3a2627520 ("openvswitch: Allow attaching helpers to ct action")
 > Cc: stable@vger.kernel.org
+> Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
 > Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 > ---
-> @@ -821,13 +818,10 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
->  		}
->  
->  		/* Call the helper only if:
-> -		 * - nf_conntrack_in() was executed above ("!cached") or a
-> -		 *   helper was just attached ("add_helper") for a confirmed
-> -		 *   connection, or
-> +		 * - nf_conntrack_in() was executed above ("!cached"), or
->  		 * - When committing an unconfirmed connection.
->  		 */
-> -		if ((nf_ct_is_confirmed(ct) ? !cached || add_helper :
-> -					      info->commit)) {
-> +		if ((nf_ct_is_confirmed(ct) ? !cached : info->commit)) {
-
-This is already a good reason to apply - the existing construct wasn't
-particularly friendly.  And the follow up in 3/6 is perfect.
-
->  			int err = nf_ct_helper(skb, ct, ctinfo, info->family);
->  
->  			err = verdict_to_errno(err);
 
 Reviewed-by: Aaron Conole <aconole@redhat.com>
 
