@@ -1,69 +1,33 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB7B5372D7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FEF54CF6D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085283; cv=none; b=iOwddFUrt2fGQgY0fyKSlBU3s4hOrbuLO8sw/YNJcIkkXdCGKGEFPCe4FSTyeMB4UqqvhdffiZJAreRseR8Zh7SKIwpWKWLlDGitrXEzx7cBQwcYNxTXSWwZNzOwyjicLNX9K82A9ZCEy3kcj4Oyf03KlbpECXds3YAmWRCQtUg=
+	t=1790085323; cv=none; b=HAe1gbzQDcjFbAdjNu+sMQn1kA4aVZrs7EuuOQhcrzsZn0bQYAtmbxBdGXhV5i58oJAWCbKQDkXczQ0DfC1R7d72jCe/G2hgw+TWq+lK5ByFR5k1L8mEel9CtBBpUoMptczknCSF6sTkfTruD+DXLcRyl/r5GyyGAFktLPnu+ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085283; c=relaxed/simple;
-	bh=of1kRO6ILjWAgj4iFFg39n1f9ag2O5+deE7KCawy++g=;
+	s=arc-20240116; t=1790085323; c=relaxed/simple;
+	bh=QZTOW61nSZeY4QySSez/VRixUxc1jj2lCafwqWmQ5pw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IGtbFZJI0wYTj+EgvSoioCts7+xn04aVPEa63KY4vaUEtfoQxb8hsiVY9ZVTUZOmSfICHrfr1rmLQDFBNLSuMwjegixk06rCQrwNHDa6RK9igBwH3UNs558itOV+efDWcTVujdm5/vYQUzwUU6sj9EBKyyJGC2jJmpiFWevU28U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JbWDwiAg; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=WypJecfIHb8kR7D16MVNF8u85Oe084mOdEItxc1gRc3HMjCD+Dlv1/o3GgVsTEbPXB8GIV3hK4O1RqnIIUu+l/rdx7j647OZGFBflxLzbb7NO1o2vA9WD7G1jpBh3SKI4Nj6mKFggiCxvdVpJK7h960+sZXCiN4JuWZd8MobtZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlD8MKaU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JbWDwiAg"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso640406566b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:54:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790085280; x=1790690080; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ufPZGPSZBLf6/pwvKrChnuajCoyQv+QtMvUQGkdovhk=;
-        b=JbWDwiAgvuWT6Uu42JjZYnRml38hEKzTCJ6Q9fYTgb9qCSitbHdSQyR0+2K5JnqsWK
-         lC6m13cAB5KIQu2DdJNmT6TELiaso3Rnm0Py4f/MZ4m0xAhgaSQMFPfRjenPHTxyEB00
-         813UI4lAirAeDf2dit0LlDoI52HKmdGR6bDAiF9XXtzZVUtiTRG2hJGYySOo7kE9MI1q
-         nmQ+XVAVp9IFiilUPlvhMkBTHJ51+C0PtnzBuZmG3D7cnuyd3XYJsmR71f59Vm+RenZ6
-         Td5j8LVipadxst801DvaEnxsSSZdE6wa31YaEL0ph/skpusJElsrFnI+nXqbskIVLZKL
-         KSTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790085280; x=1790690080;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ufPZGPSZBLf6/pwvKrChnuajCoyQv+QtMvUQGkdovhk=;
-        b=SxnAQ9SIvEMlpEM34hKdMAsjT43LHYqj2QWBVGZCsroATtzl6DG0SvyNPc9r//uw+P
-         jDYQIE39dGXGfA/Keskha3aQp2kctpz+04YTbY0St9p7z0Hlfs/Surp9mPqsG+e3KySO
-         dzhY12qa5hOCS/wEOQ/uMbCududgn/LhIJuUlE+al1lkOHgnmxfa7WsTnnldlA80t38M
-         eg3kPsB9Z5hM+cGBBGUdox5smpl1CbLGco0LJks8/kpLv+482J00otXo7wt/gAPqQaGv
-         rVn3JKexbVOBRh0C0AfRSXaXwoLKN5BiqbH7lF1bhalI50o8GOccz8XYT7d0alTKQxqR
-         /LVA==
-X-Forwarded-Encrypted: i=1; AKwUvByzmtfB/bE9ukrT8TxdvHVAjtQKdT9+Asiy1MZ8PUAtvGrSEVd+LAlEykQCLFZXedNbvgf6I27DuLOYrdw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnLPl0Hjt7Ljqe7lwOwbDmKwq6/x/qOy+VhLD+HwzWsclUcgUl
-	uJnbTKArYJGnBCIibmJzmG1ykHTYIa17emLUpByJBrkf/35Fem/kfolz
-X-Gm-Gg: AYBFou2JT7GGrmnxTmJivZzfbpsOOOervh2WEmn7D7UWgMKi8gBCxQzYuwClJ6KnD8f
-	d8/CDmG5CgGIuZZ+/VRPkAvHjUEMqNo9+0Wqjw6ajMpmVWKZt+Rinio6aanHXOr/HLU9mhRmzFn
-	j+0IUFG0NIAcAy0DvwCtg9I6vzSs17z2YWRfF5PuNX0VIZb+HGJ6CRzyKAHr1WMsW8NCTvMZXoa
-	u+Id38YwBQT547K1a8gAS2CSBVeKFhUbQlGAGZhHvGp9xd4I9mvAqaqyM19KgORfkGru/7SfEl/
-	mJX9orM9Cb1usFOgIOJm4AS2B8+JylkrFd+pI67IHb9/gNJx1uvzdBbiAjd6pLiwzlsT4w9hdep
-	wy0n/EQWz8j5c6uAy0itfUs6zzDX2FcBdQI8tFIa+xU96stfuLqt1R87zwer1Ygwaj0HbYbADt0
-	pUm4etZRcoAgIM1Mi5wxScofhm7d4s84hKa5n4fMCsM42MZC5kySAS1UEpevmIdUM0sbNlOmHlp
-	/KxloZq/NaMqtqEEcK28CNmsdmYhDkUoeWF/Bmdpft3QRQ3oBchwlp4g6zNKgH5DJpDbqCJVg9I
-	wmIbst7papLgBS0YUtLkBu8XKGXi
-X-Received: by 2002:a17:906:c111:b0:c29:f5d8:9c6d with SMTP id a640c23a62f3a-c2a15802eb7mr1217098966b.28.1790085280498;
-        Tue, 22 Sep 2026 06:54:40 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-213-197.dab.02.net. [82.132.213.197])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5baa1bsm93202166b.39.2026.09.22.06.54.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 06:54:39 -0700 (PDT)
-Message-ID: <cce62c72-278a-44d1-9cf7-e0beb0b72688@gmail.com>
-Date: Tue, 22 Sep 2026 14:54:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlD8MKaU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B041F000FF;
+	Tue, 22 Sep 2026 13:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790085321;
+	bh=vAErR5nUF5jYNRVD6fb923LvqrMdmDoaO1mDvYNJTgo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WlD8MKaUgx0yamc8h91fzZpUq+67Jj9i2OaP2jc0DoDFTbLwN9NDh1giPE8DcEJAz
+	 8QWzyr2rLUvwsXjaUtU6g7x2xqFukPXEX5DFPVrrWpAp8KVHpLmXAfibyQaYG0DoHu
+	 X2n7EiLG27ZV6U4BpIQotcFuxlULVn6OWfchYpZncZeDU2n2fXWOiiDF+NvyfxOdLu
+	 ZMxE6Bl8h5EHVZd78B1q8CztRTwFAtCeqaT28dtbKsRpowV0rEIATOCZYAw14xPuo8
+	 3Q0h0CLxLrJbKw1Fi34UpGfNSNU02cwvUYxH+xXZJUoUr4mYQ+0YEVE3GZkw5TFyzW
+	 lwkbI4TJnWnjg==
+Message-ID: <462b217c-a422-4818-bac1-7f204f32fa29@kernel.org>
+Date: Tue, 22 Sep 2026 15:55:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,58 +35,140 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/13] block: introduce dma map backed bio type
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1789997898.git.asml.silence@gmail.com>
- <a3ee719abc440ca139f1a945fdaf43a45f0c6b57.1789997898.git.asml.silence@gmail.com>
- <20260922131610.GA30468@lst.de>
+Subject: Re: [PATCH v10 0/2] mm/memory_hotplug: optimize zone contiguous check
+ when changing pfn range
+To: Yuan Liu <yuan1.liu@intel.com>, Oscar Salvador <osalvador@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Wei Yang <richard.weiyang@gmail.com>
+Cc: linux-mm@kvack.org, Nanhai Zou <nanhai.zou@intel.com>,
+ Chen Zhang <zhangchen.kidd@jd.com>, Jason Zeng <jason.zeng@intel.com>,
+ Chen Yu <yu.c.chen@intel.com>, Pan Deng <pan.deng@intel.com>,
+ Tianyou Li <tianyou.li@intel.com>, linux-kernel@vger.kernel.org
+References: <20260920084946.3266279-1-yuan1.liu@intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260922131610.GA30468@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260920084946.3266279-1-yuan1.liu@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/22/26 14:16, Christoph Hellwig wrote:
-> On Mon, Sep 21, 2026 at 02:38:48PM +0100, Pavel Begunkov wrote:
->> Premapped buffers don't require a generic bio_vec since these have
->> already been dma mapped. Repurpose the bi_io_vec space to strore dmabuf
+On 9/20/26 10:49, Yuan Liu wrote:
+> This series introduces a pages_with_online_memmap member into struct
+> zone to avoid pageblock-by-pageblock scans across the entire zone and
+> improve memory hotplug performance.
 > 
-> s/strore/store/
+> Approach
+> ========
+> Add a new zone member, pages_with_online_memmap, that tracks the
+> number of pages within the zone span that have an online memory map,
+> including present pages and memory holes whose memory map has been
+> initialized and for which pfn_to_online_page() succeeds.
 > 
-> Can you please expland on the splitting considerations a bit?  Preferably
-> both in a comment for the details, and in the commit log for how we
-> arrived at them and why they are fine for now?
+> For early boot memory, pages_with_online_memmap is calculated in
+> memmap_init_zone_range(). PFNs initialized by memmap_init_range() are
+> included in pages_with_online_memmap, and hole PFNs for which
+> pfn_to_online_page() succeeds are also counted in
+> init_unavailable_range(). For hotplugged memory,
+> pages_with_online_memmap is updated through adjust_present_page_count(),
+> which is called during memory online and offline operations. When
+> spanned_pages == pages_with_online_memmap, every PFN in the zone span
+> has a valid memmap entry, so pfn_to_page() can be called for any PFN
+> within the zone span without an additional pfn_valid() check.
+> 
+> Note: this counter may temporarily undercount when pages with an
+> online memory map exist outside the current zone span. Such pages
+> are only created during boot, when initializing the memory map of
+> pages that do not fall into any zone span. The undercount itself
+> can only happen after boot, during memory hotplug, when growing
+> the zone to cover such pages and later shrinking it back, which
+> may result in a "too small" value. This is safe: it merely
+> prevents detecting a contiguous zone.
+> 
+> The contiguity check using pages_with_online_memmap is stricter than
+> the old pageblock-by-pageblock scan. The old set_zone_contiguous()
+> iterated at pageblock granularity via pageblock_pfn_to_page(), so a
+> zone could be marked contiguous even if a subsection-sized hole
+> existed within a pageblock. The new check requires
+> spanned_pages == pages_with_online_memmap, meaning every PFN in the
+> zone span must satisfy pfn_to_online_page().
+> 
+> Performance
+> ===========
+> 1. For VM hotplug performance data, please refer to Patch 2.
+> 2. This series also benefits CXL hotplug. Performance results are
+>    as follows
+>    https://lore.kernel.org/all/20260409023552.GA2807@AE/
+> 
+> Tested cases
+> ============
+> 1. Hotplug/unplug correctness with both online_movable and online
+>    policies, including partial unplug, middle-block offline gaps, and
+>    edge-block span shrink.
+> 2. Large scale (256G/512G) plug/unplug performance.
+> 3. Boot-time subsection holes (aligned/unaligned, in-zone and
+>    cross-zone) with correct pages_with_online_memmap accounting.
+> 4. kernelcore=mirror: verified no overcounting.
+> 
+> Patch overview
+> ==============
+> Patch 1 makes shrink_zone_span() more robust when memory/hole boundary
+> falls within a subsection. It checks the full subsection range to avoid
+> incorrectly shrinking the zone span during memory unplug.
+> 
+> Patch 2 introduces pages_with_online_memmap to replace
+> pageblock-by-pageblock scans across the entire zone for zone contiguity
+> checks.
+> 
+> v10 changes:
+>     1. Rebased onto v7.3-rc3.
+>     2. Added Acked-by: Mike Rapoport (Microsoft) on patch 2 and reworded
+>        the init_unavailable_range() comment as suggested.
 
-I'll add something to the commit log, but not sure which specific
-details in comments you mean. Do you want me to expand the comment
-above limiting the number of segments? Maybe I should add there that
-it's stricter than necessary and might cause more splitting than
-necessary? This one:
-
-/*
-  * Limit by the number of segments. We don't expose the underlying
-  * mapping layout, but with a known minimum segment size, any I/O
-  * consisting of N full segments should be able to cover at least
-  * this much.
-  */
+Thanks, I'm planning on queuing this tomorrow.
 
 -- 
-Pavel Begunkov
+Cheers,
 
+David
