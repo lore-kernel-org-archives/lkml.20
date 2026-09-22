@@ -1,135 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FC351DE17;
-	Tue, 22 Sep 2026 10:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28AE6535FAA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:53:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074234; cv=none; b=imZW64Uikdntp7efZLk8M9s0BgHKwiUlUr3hWFalHTS/kwZVi60GevboZFZ/AMvQcTE1uBW1nLCtX+BzWdzoJYoCS/xP68R4PhRMyvl9zM7Z4PuAxPtLL9YgNctlrcQmUIQtzt+uMBbx/Sd15UrDdckvYrpvbI0uy/MSBdsKtpo=
+	t=1790074416; cv=none; b=IjAWXAu/evOT5ehfDZM3f5l/0CcQoS9X4k1TuWy8LDwnYg7uhqcqZmSCINS+/kypX0BTN8d8sc/iA93l/7xqUQ0qd6vo3PWN9rLWi245lrd79Ikw4XkU3ODuz2xQPtjVM8pVXTK9NwrJQ71bbQEDR4KBUZDLJKGu1SAolKj3W6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074234; c=relaxed/simple;
-	bh=vvyUO6WqkX3IJfJf7j/ASgs0PuKjpOW3rCDdiocDnwM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=twMqvQvotHqbAYy+qR1k2ywlU4L6ODMtbkI9ELMH31FJyWbf0A3FPXzw9SlUVfAekaXDgu2dJi8TKGFcct3ZVaa9L89fCdg5XmF8xBp/f8umEL8v2tcoenutDqBlnSzZRNMxCV9xjJ+8TjrHsTpj8oq5102DFgayCQaCtrLi4cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WKhoJADp; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790074416; c=relaxed/simple;
+	bh=mdCpsV3oeBbM/txrF6zviMQFbYf9Gv0D67sVl5aM3Fk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OuKCPc9Ya3LoJjznVI5ew9qplJmLNNZOYn7RhZZCtQLOo5FlQCEbIyyVjX4ArK3Es75628DKW4JLhbgxoa0ElcPcU2v0dcNH6BgQAmlaZRcjSIHWakYzRXc8bAJoCsgcElzZ8b1pyAg7STaLEkYxcT+uV3mIlOjxXvShZ0ql+x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D12hVC/V; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WKhoJADp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790074232; x=1821610232;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vvyUO6WqkX3IJfJf7j/ASgs0PuKjpOW3rCDdiocDnwM=;
-  b=WKhoJADpprwz4YklhZ7gbcRFwzxUOpj+CBPhsfZj7t5LPdrhJpl/nniT
-   Qi1koX6fDIyNXg+upMy992rXShev4UdRWQbAjXTqSE8oEzkm82PJnSxCE
-   yY+MhKgFz3cKlPV3MeNCnlzCPQ3Gqlzs+vqlxX7s/m9Jh8lNdVMP8lr7I
-   /cqVsoiQZ2VWl+rnVZi3n3f1uvaM7DFCH4Z95Uq4DzNfpGb/JgYMrSDGv
-   jSKs91kQ7SUf9kq3WRIEdsbaDc48gOfzpZg2qQMQaikeCRscZBkUYuPyH
-   V1QRx3SNdf1pHQ6M+IlTtGQOuNpzIyC71JAoONFDUdcuos+8orDBdVRbE
-   A==;
-X-CSE-ConnectionGUID: o52zPRVBTS2/IdQmb4U9+Q==
-X-CSE-MsgGUID: QO5lDF9ESCWl9JS/ywN8JQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1168350"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1168350"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 03:50:31 -0700
-X-CSE-ConnectionGUID: 1f98lJf4Sh+GGC0PEVTaTw==
-X-CSE-MsgGUID: Gdhe+zeOQfeDsHFy+RbQsg==
-X-ExtLoop1: 1
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa003.fm.intel.com with ESMTP; 22 Sep 2026 03:50:29 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id B632199; Tue, 22 Sep 2026 12:50:23 +0200 (CEST)
-Date: Tue, 22 Sep 2026 12:50:23 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: badhri@google.com, gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, jun.li@nxp.com,
-	RD Babiera <rdbabiera@google.com>
-Subject: Re: [PATCH v2] usb: typec: tcpm: advance vdm_discovery_state on
- Discover Identity Not_Supported
-Message-ID: <arJdb9kip_YCzjV2@black.igk.intel.com>
-References: <20260916043957.3362995-1-xu.yang_2@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D12hVC/V"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469a34907so4255529b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:53:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790074411; x=1790679211; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mdCpsV3oeBbM/txrF6zviMQFbYf9Gv0D67sVl5aM3Fk=;
+        b=D12hVC/VeHOG2LUl9Qk5sLDKR924kcC9Cru/0NvrJv2WmI1kzbDK0n6oGJfhMntSl7
+         JsIVqknDEaJiwMqUeFAyKcDn/Q+HiL/SKgMGnGchg+2/bG3Ut2hy87DuHJ29cciUmbR+
+         rri62iVzWDM0Xvew+NBd/jofE6PgqAYju5XN7/M5zk7nej8qzvlLNh3v3XPnDiXq3BFM
+         nFggsNrgPNPp1NOzCEFMHV8DotywO4el1QZB58ZD8dtCAH46wCHm1vL0NUaR6x5KAiC/
+         a58IpjgjoRWls1BSPjTJNAgF0bj2tvfIw5MssfY+B0Gook5SKSBaAr/mVGZ5Ir+0E9V4
+         1RJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790074411; x=1790679211;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mdCpsV3oeBbM/txrF6zviMQFbYf9Gv0D67sVl5aM3Fk=;
+        b=M5sbwxmFO18W4EQD1QYI5j0wxkMJVUqln/HeMT/sHC9nalEXR06k3ULeYAj83VwoBr
+         4s7GiEUHfQnCeHXY5rApWpXwSK+HetQroFRE4rFuj2faKZnnaMvVIpOqKqhqSZcBqv8a
+         BYSasMGl6Gm4x917axQxVFKT2Ca0xU0vpyyGvEiTxUgdKs3tMq6MV/TGiE+gK3hhH8nQ
+         xdeLeyTXuzO3VJHdSs0trYLs0fN2zOQauWyvhxANLsLb0TFei+STeDfX1lDJo0D+9afI
+         ZCI2FI3kvqX92xJNtCA7yOhygipyqnR92IeoMrlek/ZlT2FEkiADvd93OgE+KfplBqRU
+         xtaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhjKFcqRxNcxgQ7fE/nOgq+kPVyEc8yVcifj+Q4qu7aRlOAYZvj1ywhw5zHtjizlYawpmowPQ6G8FC5Do=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLwUAxALjGMxDhdNC6/t7EoOeps0PHNylbYDTuk9vsT8OIJkbZ
+	CCp2rrNzBr9Npg+ge2Zj3jM1uqjeE/PipHp39EHo7cnVwLI77QyeUaE1
+X-Gm-Gg: AYBFou1jvIK17oPGcMkUP1fi0U9kSJhh0MuS+LFnXPGnDeHkvKaEAXJ+0Z3BMYmiAZK
+	7KHmxWqlmRAqL9UfbtbRkvFJzX6EHN36LlId7ACGvHkhexkjrpuPoeopGVE3edAsjNSwrYfG9hk
+	T52JtCw/EGOPE/PEuhxnTFt+YVw7C90ViHx8VSy/3U33qHcLEFfcl7SCMlNLI6xnuFKusrH5cRk
+	5QwQ0ONBfdGpu02BDbMvu8+ya7wNFxwbjeVtAjiv9d3JGbHXk19G61DmRYkPA+juYR27+xMNVwX
+	gNzNXTM1BSpeUFUgdtu6lpLw48iTBxOtJ5swA2zo1sVI425C6kM2aTs789gA+6Bhjz9L/lkooyu
+	sSElt9afGHLh6IvafndzWvhKZdwNzfBRaEHRzqQrT1AtYyeUly1Vq8Q1Upf1ROCeokuh5I1eoMi
+	jyiyssK8edwerQu+H4W/ajCuB/Sr6RJZiSf9jauRrkfxYdm7RgB5giCpZAoUo++Ewhmw5SlBFvj
+	rVQiESlHvrfCc/MH5fTN+/Opo73QMU0xsutKQE=
+X-Received: by 2002:a05:6a00:1743:b0:879:ffd9:1282 with SMTP id d2e1a72fcca58-87c819bc726mr913524b3a.8.1790074411386;
+        Tue, 22 Sep 2026 03:53:31 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a1e:2e81:7320:e5f5:eb9b:fe8e:9197])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87cd584f183sm2302b3a.41.2026.09.22.03.53.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 03:53:30 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	James Morse <james.morse@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	sashiko-reviews@lists.linux.dev,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: Re: [PATCH] KVM: selftests: arm64: Add test for cross-vCPU LPI disable race
+Date: Tue, 22 Sep 2026 18:53:22 +0800
+Message-ID: <20260922105322.40484-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260922102959.41FFA1F000FF@smtp.kernel.org>
+References: <20260922102959.41FFA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916043957.3362995-1-xu.yang_2@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-+RD
+Thanks for the Sashiko review. All three points are legitimate; v2 addresses them:
 
-On Wed, Sep 16, 2026 at 12:39:57PM +0800, Xu Yang wrote:
-> From: Xu Yang <xu.yang_2@nxp.com>
-> 
-> Commit Fixes: 205dc9cb39f5 ("usb: typec: tcpm: implement retry mechanism
-> for Discover Identity VDMs") advances vdm_discovery_state to
-> VDM_DISCOVERY_COMPLETE when a CMDT_RSP_NAK is received, but it does not
-> advance the state when a non-modal port returns PD_CTRL_NOT_SUPP.
-> 
-> This can re-arm another vdm_discovery_work if the port is going to
-> respond with PD_CTRL_NOT_SUPP to the partner.
-> 
->   tcpm_pd_handle_msg(port, PD_MSG_CTRL_NOT_SUPP, NONE_AMS);
->     tcpm_queue_message();
->       mod_tcpm_delayed_work();
->         tcpm_state_machine_work()
->           tcpm_send_queued_message()  -> send PD_MSG_CTRL_NOT_SUPP
->           run_state_machine()
->             case SRC_READY:
->             case SNK_READY:
->               mod_vdm_discovery_delayed_work(port, 0);
-> 
-> If both the port and its partner do not support modal operation, they
-> will send DISCOVER_IDENTITY to each other infinitely.
-> 
-> Advance vdm_discovery_state to VDM_DISCOVERY_COMPLETE in this path as
-> well. In particular, update the state to VDM_DISCOVERY_COMPLETE if it comes
-> from the port partner, and to VDM_DISCOVERY_CABLE_IDENT if it comes from a
-> cable.
-> 
-> Fixes: 205dc9cb39f5 ("usb: typec: tcpm: implement retry mechanism for Discover Identity VDMs")
-> Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-> 
-> ---
-> Changes in v2:
->  - cover a cable returns PD_CTRL_NOT_SUPP case reported by sashiko
->  - kick off vdm_discovery work to continue working
->  - correct previous wrong fix commit id
-> ---
->  drivers/usb/typec/tcpm/tcpm.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index 2d6b14aa2085..5cea820e00c4 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -3891,6 +3891,16 @@ static void tcpm_pd_ctrl_request(struct tcpm_port *port,
->  		case SRC_READY:
->  		case SNK_READY:
->  			if (port->vdm_state > VDM_STATE_READY) {
-> +				if (port->ams == DISCOVER_IDENTITY) {
-> +					if (rx_sop_type == TCPC_TX_SOP) {
-> +						tcpm_update_vdm_discovery_state(port,
-> +								VDM_DISCOVERY_COMPLETE);
-> +					} else if (rx_sop_type == TCPC_TX_SOP_PRIME) {
-> +						tcpm_update_vdm_discovery_state(port,
-> +								VDM_DISCOVERY_CABLE_IDENT);
-> +						mod_vdm_discovery_delayed_work(port, 0);
-> +					}
-> +				}
->  				port->vdm_state = VDM_STATE_DONE;
->  				if (tcpm_vdm_ams(port))
->  					tcpm_ams_finish(port);
-> -- 
-> 2.34.1
+1. INVALL/SYNC on unmapped collection:
+Agreed - INVALL for collection 1 was a command error that stalls the
+virtual ITS queue. v2 only sends INVALL and SYNC for TARGET_VCPU_ID
+(the only mapped collection and the only vCPU receiving ITS commands);
+unmapped collections and untouched vCPUs are skipped.
 
--- 
-heikki
+2. configure_lpis() overflow via -e:
+Agreed. v2 bounds-checks the -e argument in main() (must fit in one 64K
+ITT page) and adds an explicit assertion in configure_lpis() that
+nr_lpis <= SZ_64K to guarantee the property table is never overrun.
+
+3. Silently ignored KVM_SIGNAL_MSI failures:
+Agreed in spirit. Injection failures are expected during the brief
+window where the disable path has invalidated the ITS caches and the
+guest has not yet remapped them. v2 counts successful injections
+(checking KVM_SIGNAL_MSI return value > 0) and asserts at the end
+that at least one succeeded, so a permanently broken environment can
+no longer yield a false pass.
+
+Additionally, v2 re-establishes the ITS mappings after every
+EnableLPIs toggle. Without this, the disable path's cache invalidation
+kills all mappings after the first iteration and the MSI flood goes
+silent - now the overflow window exists on every iteration, matching
+the re-initialisation sequence a real guest performs on re-enable.
+
+Tested status is unchanged: no KVM-capable hardware available, so
+compile- and TCG-plumbing-tested only; no Tested-by.
+
+pw-bot: cr
+
+Thanks,
+Yuchao
