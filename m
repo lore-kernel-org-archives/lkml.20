@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0479A391E4B;
-	Tue, 22 Sep 2026 15:08:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6124F3EFD21;
+	Tue, 22 Sep 2026 15:08:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089712; cv=none; b=MIBndUIyglbDGzOlLyesJFDrFRYitbnCCRaYOi8BJnLoUuyJutRd19Sgnc6yumeuL1hY1UUXQ4yUgw5HwRTb7paFgmZQWWxOkZrT8guZnfIZI0Mdqa1Z2aO1vMOJA1UM5fQPSt+O4FYCM78Dv9432o7jKvXNdTe+c5oa34LiV14=
+	t=1790089713; cv=none; b=UJRFTaPKwHRD5a0eU33VhV0J1L+Khm4ablJ9+J67qccwyIytEzmKmq2kSBS6Lvk96+4vq4N/bK7U/qBq/v7FEe97wF+sHxOck9cLeO8s6ivCuDjhU5QsTNG4RMqTuWoHAqx+RNlxcLmocVSIqzVp1alRy5ZQw3ejlXGBzlu+Gts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089712; c=relaxed/simple;
-	bh=j1+MHVvPwq6k8THNclxHmfc8nYhXDJ5txqHasrT2To0=;
+	s=arc-20240116; t=1790089713; c=relaxed/simple;
+	bh=nchtHe4d7HmDygvI4Xex8GatmKT+kAesYgDQzriydf4=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tByitVJYpSBy1zKZmTCLD/bE/UxT+gr4SSBPi3Y4nLrSPq8n3cobWUXasLX815EtjJdRtmpOzppm7ng1YqzfO9mYG4ksOiFprWO1grzJdF1owMYbYV+Kua3px36M/uqkJgEMgF+V7MbhuENa4Z9V2TDsIJ+0tnpzrauVpZ5hpqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmObI7xK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=lUUn3yjKuVA7dutlw9J/g46BzM67o0SLD/VS57bGxBTTZPvWvm0gjHohR7Cpuv3WeW/1SlRMD43tndckmxu5jVCJrhX7lAePN+5cEivlUYTMYoqeEs6O00l0b9naRcdL5hW/NX/nnfAXJvlZfJBGdeR0HntspUjCWDAbhmoCuR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2UpBKKs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmObI7xK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1D71F000FF;
-	Tue, 22 Sep 2026 15:08:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2UpBKKs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5E4F1F00893;
+	Tue, 22 Sep 2026 15:08:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790089707;
-	bh=QzOv9wy4Ubnp4r/CpZrVhQzXMyMMiKAU1g8xFldYWpY=;
+	s=k20260515; t=1790089708;
+	bh=IWWxma7+hMTO9D2YrvvtrZ4+kP+D806woZj8Z6YEucQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FmObI7xKL3NzW06vSlCuc9VZBx/xwztTf0MjEVVpPpO3t6wMwcQMMwdLp8dN9xdeX
-	 PR8buPRD1mVPsFsYb1iJKgJO5+4O06Ry8oXcOzdigU0jVSEK0oW5HlGlcAgm0ebOma
-	 1ey0Fn/FuoChcEQ0rKm5w09eHttxlVo2RGln7eiO2zkjO1osaGw66ca3fSco9ZIRYR
-	 RLkgPfy+kH5WHARQ1aL4hn2eyIPOTpmpqJC/AxK3zNPQ8Ayp1J+5G0X0qjJQhSLo1c
-	 ZifwAnRJyVoHg0e9tzCpMtnxUtz9LjxXcfCKVa5oP5Mb8OVH7bIwi4tD5XtCMYq9qK
-	 MZZsKj0enzIYg==
-Subject: Re: [PATCH net-next v3 1/4] net: phy: microchip_t1s: fix collision
- detection on PLCA status change
+	b=H2UpBKKsQTjNfi4Wx2XShk4wha1iZ3af3w5asJ6Ctu2KUdbMTQt4adciy1leIGzwF
+	 B5wwGjTceH0jHJnJsFmiWXrPDEJ6S1/m3DyVU64GDUFHvAwUoWB2kPtjotbCTjgqH9
+	 BkGuRvhlwZye9fqTV1+15fZQKZDIwezh3ouLtqM2jPlIm9AtTIkTayhvYCNhi9W7UM
+	 WLNRzJwuYeM/OT9BmTlJc7P39B5q7nX3kTxO6XbF4Q7hcPNfPCQ1hOJXtSJuotqbIl
+	 UmIKerdYa8zJ3ciioIId2EGoSIaTb8phvYBUET8cspBs8Dtr+6ZxJfr7ZRPsKqfGSj
+	 oCdXtYfDCzu2g==
+Subject: Re: [PATCH net-next v3 2/4] net: ethernet: oa_tc6: deliver the PHY
+ interrupt to phylib
 From: netdev-bot+sashiko@kernel.org
 To: parthiban.veerasooran@microchip.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, hkallweit1@gmail.com,
  linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  UNGLinuxDriver@microchip.com
-Date: Tue, 22 Sep 2026 15:08:26 +0000
-Message-ID: <179008970611.2160803.1075386282086280507@kernel.org>
-In-Reply-To: <20260918143302.76909-2-parthiban.veerasooran@microchip.com>
-References: <20260918143302.76909-2-parthiban.veerasooran@microchip.com>
+Date: Tue, 22 Sep 2026 15:08:27 +0000
+Message-ID: <179008970729.2160803.16190666389473785608@kernel.org>
+In-Reply-To: <20260918143302.76909-3-parthiban.veerasooran@microchip.com>
+References: <20260918143302.76909-3-parthiban.veerasooran@microchip.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -48,10 +48,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 4 · Low: 0
+Critical: 0 · High: 1 · Medium: 1 · Low: 4
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -59,279 +59,262 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The failure the commit message sets out to fix — an autonomous
-  (BEACON-driven) PLCA offline transition leaving CDEN cleared so…
-- [Medium] lan86xx_plca_set_cfg() silently changes the interpretation of
-  plca_cfg->enabled from a plain truthiness test (`if…
-- [Medium] The LAN867X Rev.B1 driver entry gains .config_intr =
-  lan86xx_config_intr and .handle_interrupt = lan86xx_handle_interrupt…
-- [Medium] In lan86xx_config_intr() the CDEN re-sync is performed BEFORE
-  unmasking PSTCM, contradicting the commit message, which states that…
-- [Medium] lan86xx_config_intr() performs a multi-register read-modify
-  sequence (read-to-clear STS1 -> read live PLCA status -> write CDEN in…
+- [High] The new irq_chip (drivers/net/ethernet/oa_tc6.c:596-602)
+  provides only .irq_mask/.irq_unmask (shadow flag flushed from…
+- [Medium] In oa_tc6_process_extended_status()
+  (drivers/net/ethernet/oa_tc6.c:953-955) the driver only calls…
+- [Low] Concern that OA_TC6_PHY_INT and all code it gates is dead in-tree
+  because no oa_tc6 consumer sets the flag.
+- [Low] Inconsistent quirk gating: oa_tc6_process_extended_status()
+  (oa_tc6.c:953) schedules tc6->phy_irq_work based only on…
+- [Low] Concern that oa_tc6_phy_irq_bus_sync_unlock() (oa_tc6.c:571-594)
+  only logs a failed INT_MASK0 read or write, leaving the hardware mask…
+- [Low] oa_tc6_phy_irq_bus_sync_unlock()
+  (drivers/net/ethernet/oa_tc6.c:571-594) performs a read-modify-write…
 
 --
 
-net: phy: microchip_t1s: fix collision detection on PLCA status change
+net: ethernet: oa_tc6: deliver the PHY interrupt to phylib
 
-This adds .config_intr and .handle_interrupt callbacks to the microchip_t1s
-driver so that the PLCA Status Changed (PSTC) interrupt toggles CDEN in
-COL_DET_CTRL0, instead of only adjusting collision detection on explicit
-ethtool PLCA writes.  The callbacks are wired to LAN867X Rev.B1, C1, C2 and
-LAN865X Rev.B0/B1.
+This adds a nested virtual IRQ plus a custom irq_chip to oa_tc6 so an
+in-band MAC-PHY PHY interrupt can be delivered to phylib, gated by a new
+OA_TC6_PHY_INT quirk flag.  Dispatch of the nested IRQ is deferred to a
+work item, and the mask bit is pushed to INT_MASK0 from
+irq_bus_sync_unlock().
 
-> diff --git a/drivers/net/phy/microchip_t1s.c b/drivers/net/phy/microchip_t1s.c
-> index 73c23d311d72..3333e4801aae 100644
-> --- a/drivers/net/phy/microchip_t1s.c
-> +++ b/drivers/net/phy/microchip_t1s.c
+A few questions below about the mask handling and the dispatch gating.
 
-[ ... ]
-
-> @@ -458,14 +466,29 @@ static int lan86xx_plca_set_cfg(struct phy_device *phydev,
->  	if (ret)
->  		return ret;
->  
-> -	if (plca_cfg->enabled)
-> +	/* phylib dispatches handle_interrupt() only for PHYs with a real IRQ
-> +	 * number (phy_interrupt_is_valid()). For PHY_POLL and PHY_MAC_INTERRUPT
-> +	 * handle_interrupt() is never called, so apply the static CDEN write
-> +	 * here as a baseline on every ethtool PLCA reconfiguration. The
-> +	 * limitation is that autonomous PLCA mode transitions between ethtool
-> +	 * reconfigurations are not tracked on such boards.
-> +	 */
-> +	if (phy_interrupt_is_valid(phydev))
-> +		return 0;
-
-[Severity: High]
-Does this early return leave the failure described in the changelog reachable
-on boards where the PHY interrupt is not routed?
-
-The commit message says the problem is that "When PLCA went offline,
-collision detection stayed disabled, leaving CSMA/CD running unprotected".
-For phydev->irq == PHY_POLL or PHY_MAC_INTERRUPT, phy_interrupt_is_valid()
-is false:
-
-include/linux/phy.h:phy_interrupt_is_valid() {
-	return phydev->irq != PHY_POLL && phydev->irq != PHY_MAC_INTERRUPT;
-}
-
-so phylib never dispatches lan86xx_handle_interrupt(), and the only remaining
-CDEN write in lan86xx_plca_set_cfg() is derived from the administratively
-requested plca_cfg->enabled, never from live PST.  Nothing in the polled path
-re-reads PLCA status either — lan86xx_read_status() runs every poll interval
-and contains no CDEN logic:
-
-	phydev->link = 1;
-	phydev->duplex = DUPLEX_HALF;
-
-That covers all LAN867X Rev.B1/C1/C2 boards whose device tree does not
-describe a PHY interrupt, and at this commit every LAN865X as well.  Would
-re-syncing CDEN from genphy_c45_plca_get_status() in lan86xx_read_status()
-cover the polled case too?
-
-> +
-> +	if (plca_cfg->enabled > 0)
->  		return phy_modify_mmd(phydev, MDIO_MMD_VEND2,
->  				      LAN86XX_REG_COL_DET_CTRL0,
->  				      COL_DET_CTRL0_ENABLE_BIT_MASK,
->  				      COL_DET_DISABLE);
->  
-> -	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_COL_DET_CTRL0,
-> -			      COL_DET_CTRL0_ENABLE_BIT_MASK, COL_DET_ENABLE);
-> +	if (plca_cfg->enabled == 0)
-> +		return phy_modify_mmd(phydev, MDIO_MMD_VEND2,
-> +				      LAN86XX_REG_COL_DET_CTRL0,
-> +				      COL_DET_CTRL0_ENABLE_BIT_MASK,
-> +				      COL_DET_ENABLE);
-> +
-> +	return 0;
->  }
-
-[Severity: Medium]
-Is this change from "if (plca_cfg->enabled)" to a three-way test a second,
-independent fix that the changelog does not mention?
-
-ethnl_set_plca() prefills the request and only overwrites the attributes
-actually present:
-
-net/ethtool/plca.c:ethnl_set_plca() {
-	memset(&plca_cfg, 0xff, sizeof(plca_cfg));
-	plca_update_sint(&plca_cfg.enabled, tb, ETHTOOL_A_PLCA_ENABLED, &mod);
-	...
-}
-
-so a partial write such as "ethtool --set-plca-cfg <dev> node-id 3" arrives
-with enabled == -1, which genphy_c45_plca_set_cfg() documents as "not to be
-changed":
-
-drivers/net/phy/phy-c45.c
- * @plca_cfg: structure containing the PLCA configuration. Fields set to -1 are
- * not to be changed.
-
-The old truthiness test treated -1 as enabled and wrote COL_DET_DISABLE even
-though PLCA enablement was untouched.  The new "> 0" / "== 0" split honours
-the -1 contract, which looks like a user-visible fix in its own right.
-
-Since the patch carries a Fixes: tag and is a stable candidate, could the
-changelog call this out separately from the PSTC interrupt work, so it is
-clear which part helps boards without a routed PHY IRQ?
-
-> @@ -506,6 +529,111 @@ static int lan86xx_read_status(struct phy_device *phydev)
->  	return 0;
->  }
->  
+> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+> index 6fcc5f561d56..b4a95155e924 100644
+> --- a/drivers/net/ethernet/oa_tc6.c
+> +++ b/drivers/net/ethernet/oa_tc6.c
 
 [ ... ]
 
-> +static int lan86xx_config_intr(struct phy_device *phydev)
+> @@ -528,6 +535,114 @@ int oa_tc6_mdiobus_write_c45(struct mii_bus *bus, int addr, int devnum,
+>  }
+>  EXPORT_SYMBOL_GPL(oa_tc6_mdiobus_write_c45);
+>  
+> +static void oa_tc6_phy_irq_work(struct work_struct *work)
 > +{
-> +	struct phy_plca_status plca_st;
-> +	int ret;
+> +	struct oa_tc6 *tc6 = container_of(work, struct oa_tc6, phy_irq_work);
 > +
-> +	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
-> +		/* Read to clear any pending status before enabling. */
-> +		ret = lan86xx_read_clear_sts1(phydev);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		/* STS1 may have cleared a PSTC event that occurred while the
-> +		 * interrupt was masked, so synchronize CDEN with the current
-> +		 * PLCA state before enabling PSTC.
-> +		 */
-> +		ret = genphy_c45_plca_get_status(phydev, &plca_st);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2,
-> +				     LAN86XX_REG_COL_DET_CTRL0,
-> +				     COL_DET_CTRL0_ENABLE_BIT_MASK,
-> +				     plca_st.pst ? COL_DET_DISABLE :
-> +				     COL_DET_ENABLE);
-> +		if (ret)
-> +			return ret;
-> +
-> +		return lan86xx_set_intr_mask(phydev,
-> +					     LAN86XX_STS1_PLCA_STS_CHANGED,
-> +					     true);
-> +	}
-
-[Severity: Medium]
-Does the implemented ordering here match the commit message?
-
-The changelog states:
-
-    CDEN is re-synced against current PLCA status right after unmasking
-    PSTCM, since a transition during the masked window is otherwise
-    silently dropped by the STS1 read-to-clear.
-
-The code does the opposite order in lan86xx_config_intr():
-
-	lan86xx_read_clear_sts1()		/* drops pending PSTC */
-	genphy_c45_plca_get_status()		/* sample */
-	phy_modify_mmd(COL_DET_CTRL0, ...)	/* act on the sample */
-	lan86xx_set_intr_mask(..., true)	/* only now unmask PSTCM */
-
-Under the hardware model the commit message describes, a PLCA transition
-occurring between the status sample and the unmask is neither reflected in the
-CDEN value just written nor delivered as an interrupt, so CDEN would stay
-stale until the next autonomous PLCA transition.  Should the re-sync be moved
-after lan86xx_set_intr_mask(), or should the changelog be corrected to match
-the code?
-
-[Severity: Medium]
-Can lan86xx_config_intr() race with lan86xx_handle_interrupt() over
-COL_DET_CTRL0 and the read-to-clear STS1 latch?
-
-lan86xx_handle_interrupt() runs with phydev->lock held:
-
-drivers/net/phy/phy.c:phy_interrupt() {
-	mutex_lock(&phydev->lock);
-	ret = phydev->drv->handle_interrupt(phydev);
-	mutex_unlock(&phydev->lock);
-}
-
-but lan86xx_config_intr() is reached via phy_config_interrupt() from
-phy_request_interrupt(), phy_free_interrupt() and phy_init_hw(), none of which
-hold that mutex.  phy_request_interrupt() also registers the handler before
-enabling:
-
-drivers/net/phy/phy.c:phy_request_interrupt() {
-	err = request_threaded_irq(phydev->irq, NULL, phy_interrupt,
-				   IRQF_ONESHOT | IRQF_SHARED,
-				   phydev_name(phydev), phydev);
-	...
-		if (phy_enable_interrupts(phydev)) {
-}
-
-and phy_free_interrupt() calls phy_disable_interrupts() while PSTCM is still
-unmasked and the handler is still registered.
-
-So an interleaving like this looks possible:
-
-CPU0 lan86xx_config_intr()		CPU1 lan86xx_handle_interrupt()
-  lan86xx_read_clear_sts1()
-  plca_get_status() -> pst = 0
-					  lan86xx_read_clear_sts1() -> PSTC
-					  plca_get_status() -> pst = 1
-					  phy_modify_mmd(CDEN = DISABLE)
-  phy_modify_mmd(CDEN = ENABLE)
-  lan86xx_set_intr_mask(..., true)
-
-phy_modify_mmd() only serializes the individual register read-modify-write on
-the MDIO bus, so the status-read-then-CDEN-write pair is not atomic.  Since
-the PSTC latch was already consumed, would CDEN stay wrong until the next
-autonomous PLCA transition?
-
-> +
-> +	ret = lan86xx_set_intr_mask(phydev, LAN86XX_STS1_PLCA_STS_CHANGED,
-> +				    false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Read to clear any pending status after disabling. */
-> +	ret = lan86xx_read_clear_sts1(phydev);
-> +	return ret < 0 ? ret : 0;
+> +	/* Dispatched off the SPI chunk-processing thread so that
+> +	 * phy_interrupt() taking phydev->lock and issuing synchronous SPI
+> +	 * control transfers from PHY handle_interrupt() cannot stall the single
+> +	 * thread pumping TX/RX data chunks.
+> +	 */
+> +	handle_nested_irq(tc6->phy_virq);
 > +}
 > +
 
 [ ... ]
 
->  static struct phy_driver microchip_t1s_driver[] = {
->  	{
->  		PHY_ID_MATCH_EXACT(PHY_ID_LAN867X_REVB1),
-> @@ -513,6 +641,8 @@ static struct phy_driver microchip_t1s_driver[] = {
->  		.features           = PHY_BASIC_T1S_P2MP_FEATURES,
->  		.config_init        = lan867x_revb1_config_init,
->  		.read_status        = lan86xx_read_status,
-> +		.config_intr        = lan86xx_config_intr,
-> +		.handle_interrupt   = lan86xx_handle_interrupt,
->  		.get_plca_cfg	    = genphy_c45_plca_get_cfg,
->  		.set_plca_cfg	    = genphy_c45_plca_set_cfg,
+> +static void oa_tc6_phy_irq_bus_sync_unlock(struct irq_data *irqd)
+> +{
+> +	struct oa_tc6 *tc6 = irq_data_get_irq_chip_data(irqd);
+> +	u32 regval;
+> +	int ret;
+> +
+> +	ret = oa_tc6_read_register(tc6, OA_TC6_REG_INT_MASK0, &regval);
+> +	if (ret) {
+> +		dev_err(&tc6->spi->dev, "Failed to read INT_MASK0: %d\n", ret);
+> +		goto unlock;
+> +	}
+> +
+> +	if (tc6->phy_irq_masked)
+> +		regval |= OA_TC6_INT_MASK0_PHY_INT_MASK;
+> +	else
+> +		regval &= ~OA_TC6_INT_MASK0_PHY_INT_MASK;
+> +
+> +	ret = oa_tc6_write_register(tc6, OA_TC6_REG_INT_MASK0, regval);
+> +	if (ret)
+> +		dev_err(&tc6->spi->dev, "Failed to write INT_MASK0: %d\n", ret);
+> +
+> +unlock:
+> +	mutex_unlock(&tc6->phy_irq_lock);
+> +}
+
+[Severity: Low]
+This read-modify-write of INT_MASK0 is serialised by the new
+tc6->phy_irq_lock, but is that lock taken by the other writer of the same
+register?
+
+oa_tc6_disable_traffic() writes INT_MASK0 from the threaded IRQ context
+without phy_irq_lock:
+
+	oa_tc6_write_register(tc6, OA_TC6_REG_INT_MASK0, regval);
+
+tc6->spi_ctrl_lock only makes each individual control transfer atomic, not
+the read/modify/write pair here, so can this sequence lose an update?
+
+CPU0 (oa_tc6_macphy_threaded_irq -> oa_tc6_disable_traffic)
+	writes INT_MASK0 = OA_TC6_INT_MASK0_ALL_INTERRUPTS
+
+CPU1 (phylib mask/unmask -> oa_tc6_phy_irq_bus_sync_unlock)
+	read INT_MASK0   (stale copy, taken before CPU0's write)
+	write INT_MASK0  (reverts the error-interrupt masking)
+
+The reverse order would clobber the PHY_INT mask bit phylib just asked
+for.  The practical effect looks small since
+oa_tc6_macphy_threaded_irq() calls disable_irq_nosync(tc6->spi->irq)
+before oa_tc6_disable_traffic(), but should all INT_MASK0 modifiers share
+one lock or a lock-protected shadow value?
+
+[Severity: Low]
+This isn't a bug, but both error paths here only log and return, so
+tc6->phy_irq_masked (and phylib's view of the line) can stay permanently
+out of sync with the hardware mask bit, with no retry.  The same
+log-and-continue shape is used by regmap_irq_sync_unlock() in
+drivers/base/regmap/regmap-irq.c, since the genirq callback returns void
+and has nowhere to propagate an error, and a failing oa_tc6 control
+transfer already means the SPI link to the MAC-PHY is broken.  Is it worth
+noting in a comment that a failed sync leaves the mask bit undefined?
+
+> +
+> +static struct irq_chip oa_tc6_phy_irq_chip = {
+> +	.name                   = "oa_tc6_phy",
+> +	.irq_mask               = oa_tc6_phy_irq_mask,
+> +	.irq_unmask             = oa_tc6_phy_irq_unmask,
+> +	.irq_bus_lock           = oa_tc6_phy_irq_bus_lock,
+> +	.irq_bus_sync_unlock    = oa_tc6_phy_irq_bus_sync_unlock,
+> +};
+> +
+> +static int oa_tc6_phy_irq_map(struct irq_domain *domain, unsigned int irq,
+> +			      irq_hw_number_t hwirq)
+> +{
+> +	irq_set_chip_data(irq, domain->host_data);
+> +	irq_set_chip_and_handler(irq, &oa_tc6_phy_irq_chip, handle_simple_irq);
+> +	irq_set_nested_thread(irq, true);
+> +	irq_set_noprobe(irq);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+The commit message says:
+
+    "The interrupt starts masked (hardware reset default) and is only
+    unmasked when phylib requests it, so disabling the nested IRQ actually
+    masks the hardware source too, preventing interrupt storms."
+
+Is that true for this chip?  There is no .irq_disable callback and
+oa_tc6_phy_irq_map() does not set IRQ_DISABLE_UNLAZY, so
+disable_irq()/disable_irq_nosync() takes the lazy path in kernel/irq/chip.c:
+
+	irq_state_set_disabled(desc);
+	if (desc->irq_data.chip->irq_disable) {
+		desc->irq_data.chip->irq_disable(&desc->irq_data);
+		irq_state_set_masked(desc);
+	} else if (mask) {
+		mask_irq(desc);
+	}
+
+With no .irq_disable and mask == false, OA_TC6_INT_MASK0_PHY_INT_MASK is
+never written, so the in-band source stays armed.
+
+The usual lazy-disable safety net, where the flow handler masks the line on
+the next occurrence, does not apply to nested IRQs.  handle_nested_irq()
+goes through irq_can_handle_actions():
+
+	if (unlikely(!desc->action || irqd_irq_disabled(&desc->irq_data))) {
+		desc->istate |= IRQS_PENDING;
+		return false;
+	}
+
+so phy_interrupt() is never called and nothing masks the line.
+
+Can this then be reached from phylib itself?  phy_interrupt() in
+drivers/net/phy/phy.c does:
+
+		phydev->irq_rerun = 1;
+		disable_irq_nosync(irq);
+		return IRQ_HANDLED;
+
+i.e. the virq is disabled from inside the nested handler without the PHY
+status being read or acked, and it is only re-enabled later in
+mdio_bus_phy_resume():
+
+		if (phydev->irq_rerun) {
+			phydev->irq_rerun = 0;
+			enable_irq(phydev->irq);
+
+In that window PHYINT is unmasked in INT_MASK0 and unacknowledged, so the
+MAC-PHY keeps IRQn asserted and oa_tc6_macphy_isr() ->
+oa_tc6_macphy_threaded_irq() -> oa_tc6_process_extended_status() keeps
+looping with an empty-chunk transfer plus a STATUS0 read/write and a no-op
+schedule_work() each round, with nothing able to clear the condition.
+
+Would adding an .irq_disable callback, or
+irq_set_status_flags(irq, IRQ_DISABLE_UNLAZY) in oa_tc6_phy_irq_map(),
+make a disabled virq really mask the in-band source as the commit message
+describes?
+
+[ ... ]
+
+> @@ -810,6 +943,17 @@ static int oa_tc6_process_extended_status(struct oa_tc6 *tc6)
+>  		return ret;
+>  	}
+>  
+> +	/* Dispatch the PHY interrupt to phylib via the nested virtual IRQ so
+> +	 * the PHY driver reads and acknowledges its status. This is deferred
+> +	 * to a workqueue rather than dispatched synchronously here, since
+> +	 * phy_interrupt() takes phydev->lock and PHY handle_interrupt() issues
+> +	 * synchronous SPI control transfers, which would otherwise block this
+> +	 * thread.
+> +	 */
+> +	if ((tc6->quirk_flags & OA_TC6_PHY_INT) &&
+> +	    FIELD_GET(OA_TC6_STATUS0_PHY_INT, value))
+> +		schedule_work(&tc6->phy_irq_work);
+> +
 
 [Severity: Medium]
-Is the Rev.B1 entry intentional?  It gains the two CDEN-managing callbacks
-but keeps .set_plca_cfg = genphy_c45_plca_set_cfg, while the Rev.C1/C2 and
-LAN865X entries use lan86xx_plca_set_cfg.
+Should OA_TC6_INT_MASK0_PHY_INT_MASK be set here for the duration of the
+deferral?
 
-Two consequences follow from that combination.
+As the commit message notes, PHYINT "stays asserted until acked", and the
+ack only happens later in oa_tc6_phy_irq_work() -> handle_nested_irq() ->
+phy_interrupt() -> drv->handle_interrupt().  Until the worker runs, STATUS0
+keeps bit 7 set, so the existing per-chunk short-circuit earlier in this
+function:
 
-First, the new comment in lan86xx_plca_set_cfg() about applying "the static
-CDEN write here as a baseline" for PHY_POLL and PHY_MAC_INTERRUPT boards is
-unreachable for Rev.B1, since genphy_c45_plca_set_cfg() never touches
-COL_DET_CTRL0.  A Rev.B1 board on PHY_POLL therefore gets no CDEN management
-at all, while a Rev.B1 board with a routed IRQ gets PLCA-tracked CDEN.
+	if (!value)
+		return 0;
 
-Second, Rev.B1's mandatory AN1699 init table programs COL_DET_CTRL0 with
-CDEN set:
+never fires, and every RX chunk footer carrying EXT_STS pays an extra
+STATUS0 read plus STATUS0 write control transfer on the single SPI
+chunk-processing thread.
 
-	0xC000, 0x801C, 0x033F, 0x0404,   /* values, 0x0087 = 0x801C */
-	0xF800, 0x801C, 0x1FFF, 0xFFFF,   /* masks,  mask 0x801C */
+Also, the MAC-PHY IRQ is requested with IRQF_TRIGGER_LOW | IRQF_ONESHOT in
+oa_tc6_init(), so does the still-asserted line re-trigger the hard ISR as
+soon as the threaded handler returns, adding another empty-chunk transfer
+per round until the work item is scheduled?  The irq thread runs at
+realtime priority while the ack worker runs on system_percpu_wq at normal
+priority, so that window is under the worker's scheduling latency.  The
+mask bit and the shadow/bus_lock machinery added by this patch already give
+a way to quiesce the source while the ack is deferred.
 
-lan86xx_handle_interrupt() has no per-revision guard, so it clears that bit
-whenever PLCA is operational.  Commit 78341049fbcd converted only Rev.C1/C2
-and LAN865X to lan86xx_plca_set_cfg and deliberately left Rev.B1 out.  Should
-Rev.B1 either also use lan86xx_plca_set_cfg, or not be wired to the new
-callbacks?
+[Severity: Low]
+This dispatch is gated on OA_TC6_PHY_INT alone, while the only initializer
+of tc6->phy_irq_work and tc6->phy_virq, oa_tc6_phy_irq_setup() called from
+oa_tc6_mdiobus_register(), is skipped when OA_TC6_BROKEN_PHY is set:
+
+oa_tc6_phy_init()
+	if (tc6->quirk_flags & OA_TC6_BROKEN_PHY)
+		return 0;
+
+For a consumer passing OA_TC6_BROKEN_PHY | OA_TC6_PHY_INT, would this
+schedule_work() then run on a devm_kzalloc()-zeroed work_struct that never
+saw INIT_WORK(), and would the worker call handle_nested_irq(0)?  No
+in-tree caller combines the two flags today, so this is not reachable as
+things stand, but the flags are independent bits in an exported enum in
+include/linux/oa_tc6.h.  Would gating the dispatch on the resource actually
+created, for example a non-zero tc6->phy_virq, make the lifecycle
+self-consistent?
+
+>  	if (FIELD_GET(OA_TC6_STATUS0_RX_BUFFER_OVERFLOW_ERROR, value)) {
+>  		oa_tc6_look_for_new_frame(tc6);
+>  		net_err_ratelimited("%s: Receive buffer overflow error\n",
 
 [ ... ]
 
