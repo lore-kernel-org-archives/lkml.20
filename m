@@ -1,173 +1,127 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433D04A204F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4134A5EC6
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790057432; cv=none; b=kzG7r+UhLseDg+LmbD7phMluTodZfcmi9p1VvvY844MpBkIeZ2wMCWOQw8NJZdRmKimargtZI9sKPHtGpG0kmXxbZX0y3zj+Zh2nObaB3BYGqWmM9dorjUtKHW8IxdoxA58ZUnQvznUpxbJdwya0LRaHcUXIASWcaokrC0jjApk=
+	t=1790057456; cv=none; b=XYaaKAYdflyc/S/m5fXOlnb/LyDPpQ4IFFLOSPmBz7WhIZk4GQ/MhrAoJi1InEE2z4BYqLjoNbGpQ4UGa8cv0pExespHJsLGRWK2zDBY7PeoJA7Ve7zeMf2Pl700DvDBZy5UlR6gBTRqtIIldshQv9QWKVqXdRZOMwwTpLBcesw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790057432; c=relaxed/simple;
-	bh=/gkxxAEJ2VEsBzCj+0PCJrUAyaQRh7llGGlVQ5kUCrQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mKGves/o0BbjvNGoPTxBs28/Y+HyJKHNQvoc2tyH0GTDsvR/+GQMZ5iDb2BF6tTB+zR/y3TdHKvbGBIITIPij4fGdfIm/uQlf5ESxxSKkVyYByktcD/DslsEdbzpeL1sJyWA7i+RHjzW/0MrAVXQcu+I1afxmTTgCNQe0SZteg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn
+	s=arc-20240116; t=1790057456; c=relaxed/simple;
+	bh=RokqHc4jdSnvvIpwNsLlY1MRsxLWarU0I9dgjhB3t0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VijrzNFIK7aMpwxnHUAc/OW0PVb08Z0QH4r9Jdla64ORmZl4d1p74o7USCUj4BlWEt/8Ww8brUk2/yrCa2GGKcnjhinfohce/D8bCMz07Z7rF2MB/Wnjsu2sFMhj+D5ZpTPvlOT78hjwAzS949rl9PEidrqgZepyiNB9Dbk/lLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yw4TqhG1; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso505090166b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:10:31 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yw4TqhG1"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccc02279so2966407a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:10:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790057455; x=1790662255; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=918Ed3YoBXTCboO/8XC40Sz5nROxBXuKCN2wfNcGPBs=;
+        b=Yw4TqhG1YshOHpQsEDiGCM458s4+hM6rWQmwwWTGJNiI2FqlFQH1Hl6BAhRB1uo9nh
+         gqRyv4UqT6d2e1lVOMqpuXy2glL1vR8wXUIPLpDn7s5ZY/Kk8Ydp+OGq3j9XWGXk9gxB
+         rdJ3sLqTVZFVZFZSuSSnezwyGGSOSxKtidrXAjBXSHioFahyWZlzDyPpxdrJnW6+C0Vp
+         hSt2WmnvlfrREXYVTH2KgqOHbNy113zhaf/Xw9sGgLcMhKheFCBLilnsWX2DsvkVyO0/
+         E4jEDE5jKEUOQUGRI7o871ap0SRysc5TkIpgNLx/qNozjWbJCyU9Ia6SIrWYyMC0Lwaz
+         eplg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790057429; x=1790662229;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790057455; x=1790662255;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=51dqkeK+6HTCaJdD0DRXH94PwuZHWhVc5MOITOLNdLE=;
-        b=gXHl7bc5pWbR6DeCdxmair1zP2oYAs2JucWooaMWuHLEBbPRLfEcSACyr1oSQ5OPnS
-         kRMWcpz1FkZgnMLbKBSHF3DI9SDjMPFEbe1xxugdOKVJmh2mu12jz5sVenTyu3jkFcKv
-         1VdfydHYOAS7N1u7UEwrg+FRryFV7wOa5vGgdmLnV9Q8DaOT/20kAAxaLLN670l1XPJ+
-         R6rLwS+wqeDbYzY2H/V+cJ8tA68HG2OkFblDxuF77V/6mXrjkC5vOWz15c47yH033LnA
-         QWhducj1hYPRlsCfiAQ/6sP+2N7LR1XOHFemuB9atWG5swgSP00PeLZbVitfOCz13LXS
-         JXXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwYanZoeSalUUYwfTJ3z3962XVvjSUlazCG8tQvjdbdBowlVsNxV+6z4hOePeBJFQksggDge2yWiojn6EY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3vp8s1tbITclCdPIWWq3OkgACAUDbWjZvzpOaimhnqB0ijWCW
-	B8LFBI0s4tV9aQy/xFgTck8wQyAe1rIrMX6GTedr1E4+KVOyjdKZ/Ml9WGUnpAaoC0HAmu5B
-X-Gm-Gg: AYBFou23eXI5FSO5Pl0wivyJ4QIeqDOPLoWyOqtaVUfVtPegb2ghwVXUbck0HNkjIRU
-	qvFdrVOEQpqOW6rsl17hETZv5tPfkiaDPvxXNHmo6E1+0n+vHB5nRHfh/SJfSNUrJEVFcJ98xde
-	hEV+lDnkolu/RHd+OHVkXMTOBCj9qfhE1vkJoU/Ggouh26ft+8eegnzNHaMN/jF7MuqnzqpP1jJ
-	xs4oYSZLuMhKl33JguIYNcvQl12Pv7/GVb+p9TGI/lON/2b56wEzwgdnMlKzDWKt40y4717ygez
-	dQufBaVcqVffqqQIchiq3o8Vi4wrE3z9cmv0ANusH+4HmuGLRl0m/oV5fGXUFbG9qcScTWgT6kL
-	Iv4fnsopnoV262+g1j3JFe5o79M1T8PoTBHy29/oVIpr5VzWjFpsHhu2ioD2VzHfCb2fpqlOjDR
-	yplaNHM2avspBN/JahjSZPHs91JO9b4i538hvjt+niGT2Fk31allJLxbHOXUgudU458JO/l08it
-	pF66YPmEJPXmcgzKuIWN7uL64/s+zg73iS//pJ+5kxPXxw2vX9pV6GkDJPziP4=
-X-Received: by 2002:a17:907:9444:b0:c29:4b56:5a7e with SMTP id a640c23a62f3a-c2a15e1014bmr1068266366b.31.1790057429447;
-        Mon, 21 Sep 2026 23:10:29 -0700 (PDT)
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5ee08dsm33611866b.49.2026.09.21.23.10.29
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 23:10:29 -0700 (PDT)
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so5694410a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:10:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzDm7x2WDAKEpJLdovWcS2RIqJuxnHNk3pXr+KpsXl3GmiGyt4gEc0FOnJ/3L2v/GulXOm31tmdaoj1zwg=@vger.kernel.org
-X-Received: by 2002:a05:6512:110a:b0:5b8:99a5:5162 with SMTP id
- 2adb3069b0e04-5b8c180e6cfmr3759117e87.26.1790056945794; Mon, 21 Sep 2026
- 23:02:25 -0700 (PDT)
+        bh=918Ed3YoBXTCboO/8XC40Sz5nROxBXuKCN2wfNcGPBs=;
+        b=WUZ3aZzldqMsIrK+QMoL09y5bl7oOLeclKMMEamXiQOOyQfnbPbM7AYWGcAZL2AY+M
+         Cbhq6NOXdUZ55itfaVqg5B6dFcM8jTmHvB/jbuE42SL9+mkV2R1JYqWOPexhCua4bcuo
+         qVqX3AYkBaQSHq8etR28BWvVkcs8WcdUx6L/UYTfpGxziLFjVgBGZ2iy2LOMybmfQHp7
+         sGCC7cpl9r4LV1juSes7vNSr5NpkRPFwOLnob5bASWYt26p/JX/ejou2jecII3+AYmco
+         pyGhW0c30ASvkjHA5lPgU1umEncEvOzH0OJV3sWjupvE1WyZ1OvVX9Mt10VzBIpMGZkb
+         ydmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzB25Spec5k62NzNNTOt/cE1DuPKA0i1BK4pd6EqHfK8u2UcyGq5j1RfWEn7l2wtn21wTP86Jh7pS6PADo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kadGpJQVsf5Rxb5PL5iJwCc8RVU3+qZ8jYfPLd/iRlYD8oMUs4
+	uQr1RoX67Twh7z0BHo25bI8FucEFTn2caoqEOdCsrIGzUvBwH62jKeRV
+X-Gm-Gg: AYBFou1oa/6Fnnsod3mgaZ48Py/8aUFx1Mrc8SspPAEJ+X2uONBGHZBcB15spwJo8hA
+	qBLqF2f4NCcGrx7uOTnKJWd+sxjjk9agGh6KlgiEAVDFcycjDohRFcqh2jyYmoklacb0QKBdwwH
+	JGTQPDkr1ys0aAmG/8zEbMJBw4JQ3kTVZeceGHXQ421Rq3qADFrgfU5u+qXyzERV6Oj2XlDUc09
+	/ak1hbxjBEtFWr9NIDxNdBltHt9C+GehR/D0TjkmtwuLcmhvv/frN6qwzxk8HoT/xq8FbqxtVMU
+	xW5kBnqX8TfFrMbuQnAqljScqzniSgTP3FliSMJlqr3lP+j6chkwEEjOne8V31JK6N20hR3uBfm
+	rjpow+ttWanyjR1K02N8Jveo/R1v5xvormPCR8uFLN4fIoraTaIp/0TCWsZp4khL21HjGOddUJY
+	LfElSu89UXzplFxkp0S9lrwwIVDtR8J74gKG2BOEtK4dizCGoYxkwhf6oTBh1zbT5WZueCzxE=
+X-Received: by 2002:a17:90b:5105:b0:39d:f731:e5f3 with SMTP id 98e67ed59e1d1-3a073116712mr140073a91.24.1790057454636;
+        Mon, 21 Sep 2026 23:10:54 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5a5eb4sm1489775a91.14.2026.09.21.23.10.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 23:10:54 -0700 (PDT)
+Date: Tue, 22 Sep 2026 14:10:01 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, 
+	Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Minas Harutyunyan <hminas@synopsys.com>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Damon Ding <damon.ding@rock-chips.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Heiko Stuebner <heiko@sntech.de>, linux-ide@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+	linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [RFC PATCH 1/5] phy: core: Use EOPNOTSUPP for disabled blob
+ return value
+Message-ID: <arIZX-0aMQiabxJd@inochi.infowork>
+References: <20260922024724.191412-1-inochiama@gmail.com>
+ <20260922024724.191412-2-inochiama@gmail.com>
+ <2026092256-shading-gratify-835a@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-pidfd-get-paths-v2-0-c59ea6a21b72@black-desk.cn>
- <20260831-tauwetter-werkbank-dramen-b37eb4025283@brauner> <CAC1kPDMK_D4nhyRmBHg6KC7SmmCkH73Xtc5DhXeJbSvf3LcqcQ@mail.gmail.com>
- <CAG48ez1T5-tUHVK_iHsgUtWa-inVdrZxA3E-ZCW0iENJvasKfg@mail.gmail.com>
-In-Reply-To: <CAG48ez1T5-tUHVK_iHsgUtWa-inVdrZxA3E-ZCW0iENJvasKfg@mail.gmail.com>
-From: Chen Linxuan <me@black-desk.cn>
-Date: Tue, 22 Sep 2026 14:02:14 +0800
-X-Gmail-Original-Message-ID: <CAC1kPDNamG4BpfsX0mn9E-Y+ujGTLe-oU63kJFOjxW6bDmSLnQ@mail.gmail.com>
-X-Gm-Features: AclHuK8ITwQn4waky8resdLcCFExt5UoOF-9n53imPe55RkN7kQMS7sWnKkQWLA
-Message-ID: <CAC1kPDNamG4BpfsX0mn9E-Y+ujGTLe-oU63kJFOjxW6bDmSLnQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] pidfd: add task path ioctls
-To: Jann Horn <jannh@google.com>
-Cc: Chen Linxuan <me@black-desk.cn>, Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Kees Cook <kees@kernel.org>, John Johansen <john.johansen@canonical.com>, 
-	Georgia Garcia <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, apparmor@lists.ubuntu.com, 
-	linux-security-module@vger.kernel.org, linux-api@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026092256-shading-gratify-835a@gregkh>
 
-On Tue, Sep 22, 2026 at 4:22=E2=80=AFAM Jann Horn <jannh@google.com> wrote:
->
-> On Wed, Sep 2, 2026 at 8:47=E2=80=AFAM Chen Linxuan <me@black-desk.cn> wr=
-ote:
-> > On Mon, Aug 31, 2026 at 4:49=E2=80=AFPM Christian Brauner <brauner@kern=
-el.org> wrote:
-> > > On 2026-08-31 10:59 +0800, Chen Linxuan wrote:
-> > > > Obtaining a target task's executable, working directory, or root
-> > > > currently requires walking procfs symlinks such as /proc/<pid>/exe,
-> > > > /proc/<pid>/cwd, and /proc/<pid>/root.  That makes the operation de=
-pend
-> > > > on procfs being mounted and visible to the caller, even when it alr=
-eady
-> > > > holds a pidfd for the target.
-> > > >
-> > > > This series adds PIDFD_GET_EXE, PIDFD_GET_CWD, and PIDFD_GET_ROOT. =
-Each
-> > > > ioctl takes no argument and returns a close-on-exec O_PATH file
-> > > > descriptor referencing the corresponding task path.  The new ioctls=
- use
-> > > > the same ptrace permission check and nonzero-argument rejection as =
-the
-> > > > existing pidfd namespace ioctls.
-> > > >
-> > > > The target task is sampled while holding its exec_update_lock. This
-> > > > keeps the access decision and the task-state read in the same exec
-> > > > critical section, preventing a concurrent execve() from changing th=
-e
-> > > > credentials or target state between the check and the use.
-> > > >
-> > > > The first patch factors out helpers for acquiring referenced task p=
-aths
-> > > > and reuses them in procfs and AppArmor.  The second patch introduce=
-s
-> > > > scoped cleanup for privileged pidfd task access and separates names=
-pace
-> > > > lookup from namespace fd creation.  The final patch uses these piec=
-es to
-> > > > implement the three new ioctls.
-> > > >
-> > > > Signed-off-by: Chen Linxuan <me@black-desk.cn>
-> > > > ---
-> > >
-> > > I really have difficulties forming an opinion on this. So this sounds
-> > > very useful but it has implications.
-> > >
-> > > Right now, pidfd ioctls are available even in situations where the ta=
-sk
-> > > in question would not be accessible via procfs, e.g., when procfs is
-> > > mounted with "hidepid" options or similar. So this would expand the
-> >
-> > One point regarding hidepid: for callers that can pass
-> > PTRACE_MODE_READ_FSCREDS, hidepid does not provide an additional
-> > restriction. With hidepid=3D1 or hidepid=3D2, has_pid_permissions() fal=
-ls
-> > back to ptrace_may_access(..., PTRACE_MODE_READ_FSCREDS), and
-> > hidepid=3Dptraceable uses that check directly. In addition, the
-> > /proc/<pid>/{exe,cwd,root} links independently perform the same
-> > PTRACE_MODE_READ_FSCREDS check in call_proc_get_link(), regardless of
-> > the hidepid mode.
-> >
-> > So for these specific path lookups, hidepid does not block a caller who
-> > would already pass the check used by the proposed pidfd ioctls.
->
-> Agreed, I think with regards to hidepid there should be no issue here.
->
-> If I try to come up with scenarios in which this could introduce
-> additional danger, the main one I can think of would be: A task T1 is
-> running inside a pid namespace and has a unix domain socket connection
-> to a task T2 outside the namespace, with both running as the same
-> EUID; T1 sets SO_PASSPIDFD on its socket to obtain a pidfd pointing to
+On Tue, Sep 22, 2026 at 07:35:19AM +0200, Greg Kroah-Hartman wrote:
+> On Tue, Sep 22, 2026 at 10:47:16AM +0800, Inochi Amaoto wrote:
+> > Currently, the phy subsystem uses ENOSYS for dummy blob functions,
+> > it does not reflect the function state correctly. As kernel already
+> > has EOPNOTSUPP for disabled blob function, replace ENOSYS with
+> > EOPNOTSUPP for a clear return value.
+> > 
+> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > ---
+> >  include/linux/phy/phy.h | 52 ++++++++++++++++++++---------------------
+> >  1 file changed, 26 insertions(+), 26 deletions(-)
+> 
+> Based on the other patches in this series, this patch now breaks the
+> users, right?  Shouldn't this all happen at once?
+> 
+> thanks,
+> 
+> greg k-h
 
-Does SO_PEERPIDFD matter too?
+It will break, and the change should happen at one. But I think
+the affect should be limited as it only affect a special edge
+case: build kernel with CONFIG_GENERIC_PHY disabled. So the
+break should be limited.
 
-> T2 on the next message sent by T2, then T1 uses that to get access to
-> the mount namespace of T2.
->
-> Christian, is there some mechanism that already protects against using
-> something like SO_PASSPIDFD to get a pidfd to a process in a parent
-> namespace?
-> Otherwise, should we add something like a "pid_vnr(pid) !=3D 0" check
-> either in these new operations or in SO_PASSPIDFD?
->
+IIRC I was told to seperate the patch into small part so each
+maintainer can take its own. Is it fine to squash these patches
+into one in this a case?
+
+Regards,
+Inochi
+
+
+
