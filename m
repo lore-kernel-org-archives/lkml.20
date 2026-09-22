@@ -1,230 +1,336 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8588563FB7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FB7519E00
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095085; cv=none; b=GrHP7lqIm4I5RiGzIkl4IDqEUKWSf7xmAF3jlox2YUPBAPOov7FXzzAFV7AcewouwqpAusOWOOtgIFvCGU/7DyZJ3jkLIAJIVyDq1uQN6afkNAg9iKqqEIx2OBs/iERDU3VlXNI289MdwZArFc7e34rsZs8eoV474oVdcuzE2CI=
+	t=1790095085; cv=none; b=MS3rlGj6OAfv6wfZlFhIF1B8Q5bm7B9BcrNOHefOna4nex2kRd3a+3WpGKrhDuaZy0S1UKmXmWAuBATM88fOAt8esUi+v7eGhBRgQdsuvecdDzi8pG4jgZpfgT5AUB0Ys2E17ZiI5zkSFPd0cm9uMNWy9ANAL74W14Myc7V1830=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790095085; c=relaxed/simple;
-	bh=1MrC8er/0A3gcbeDls5lmci8wsbLhS0/K5KeXigJ2kk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p6u42vagMquerHZdgpv4Dn3QAv7anPQ75UILCziOLnraoMEtSiNXYaxroFuhyjYI2rFosz0Uobxwtb9YtsUj1pXZl4F9jpTr8xilsyysCSYMPcxAITIYHpohC4NwK+XUyI4dKgfOkwerg31+aCB7LtB7ljLCfEcFvsTgCGpFyfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p5Z/7suf; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=oWVWz9/UOGboFOBqCRKNmH51jELuYZDsjrQ9SROQhZM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GZADZlSjHUa7JQbboQeE/URqfRzG4zlUuV8QIpZ0L1Rrj6bEOkjjfD4CdzB7kPPHmB/snjkqypIiCg5PLCsgh6CaTj/gn/s63t41sL+v8MgVlucClDbrkxlAV1KBvKbGySBs33XbLkpFn8i5tkKfrhfKNhK7ndVAUbjvYmWBIQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CMY8Hvr8; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p5Z/7suf"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so137178f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:37:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CMY8Hvr8"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so25504645e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790095077; x=1790699877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sVuL86sa5yiPerOonHoY8IR8lf3tP+mQ9Erkrp58H/A=;
-        b=p5Z/7sufstVxL59wS96AGBgmqYg/KmrBuZh1IITOE4XfZhq/47JyGGZcaWgSdehLJ0
-         Uk4wMCf/o29D/OnIkyE0//jLVfBFO6BdPx+/Mb/GvXA18/lk0OfXv3kreWSXQedc1BAF
-         taRQ9mS70hnQ0El4f9bt9h3nB7qkmo8X5YRLPAL56H/KfluVSlqd588Fn1VYJj24ZBEd
-         T0FCYe1Ccoejs+SfXKST7yw1jX/hcJCEMnwzmWG7hZIJdu0fxVopIbJv4mn2cASE2/XV
-         +a3ktz2z+drSdaQiKU91I8ZNYw0DbcAvpCN1AdzWj1rQKahnKei5TOVL3LPHZe3zpiCQ
-         g/Ew==
+        d=google.com; s=20251104; t=1790095074; x=1790699874; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NB1J3hVZLGBcKEFzRbrkKSyu3nClV6Zj2pFFC1qb/tE=;
+        b=CMY8Hvr8By0P1jaUGeeF6iT+E6Xdl3nZYOOvA79Zv4PnYg/+1L0WMyPU6IAX0QeA0q
+         rNUNqf+TfxYr3NXIEdlTYNzR37N+A2DTXy74OY3afMqka+NRBTw5jRrbrzc7SSEEbJIS
+         APrDnP2zMtYRCQstGS1gI0EZ4EIB8eMGKnZ57x42E71UGKTAMPW2m/cFJLZVx+kZHPEL
+         Xy0/b1EsIgKVY3Nm4kNgxxv7lywRsd/aLW2XEiaZfgtvkVllXZawQJHkH1gCoPRZeTw5
+         6yh8f7cvl4GfZvZoaVN0QFG9tZxODRHyhM/PPuPNs0Xf1t6KeCDas84VdkQMjZ/qe/4f
+         dkug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790095077; x=1790699877;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+        d=1e100.net; s=20260707; t=1790095074; x=1790699874;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sVuL86sa5yiPerOonHoY8IR8lf3tP+mQ9Erkrp58H/A=;
-        b=t0svYXMmIJQ6BjfpPGGwI66P/S94FYOyaYm8gIXZ3VjNTsv/y7wbuNkRsaU2qEOVTm
-         vBVgzqpwWCXzPAPMbVNDF9OXYfWs5Teu7tQusFOUdbQDNAc43M+NV51e9LhMZMOXzlO4
-         QNS5l7Q71ASjB0KDCjg39q/F/BNXGBoYbDdXAHO9Eo9TpqvLmVpwm18bNXKLYyyDUUKT
-         z7WcVSMfdXABAPabjjwQAbxtjaVvWDyLyZQWwgk36SVOEHIUCkJojWFaqUl19xQgNhJt
-         wvog5+k2tCiJWVf/t6BFp0hEHLLZkC4e3qLgv+5vPtEIuJ8bOt7X+GGYDeAsiLSLKBQV
-         iVVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxWCTfUADZjsMI9C83aAtVrg07MIfExkqecEkI4OzRc0wWbsRyzitM2tqknmfgLe9dD75joHSZ4PInxdBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNvoQ2NJxjlMtvCoekG/yk56Rpn7O5JH6cvKgOkr71EkKEEjkx
-	khvVsz2vBt4ZzE3c/yT1GzRUFqfdRo2Bci0DF2UAhFe9TX7Zp0fWPopv
-X-Gm-Gg: AYBFou0FYLA1+CrhMcmXgTWkS4UJqpSxeE1GlGXfmWt+Om9dsbtefNhpMn4lBAJ8Cpz
-	+Wf165hw60C+MLDC6Wdh0D8UmXGIr6jD/obtsVpfoEOOaCcy9xxjiAZc5VxTgDbyOzEgaQO/pVI
-	z0pno1g9QRcRUOyoiHJ9eHQM5s0TvsEiLp8/JOLuSObkDIQBEfvav3VpXUKHbdYcVu+hoQg/ElU
-	2oXFGmWGDP6PioGGi4jDKQuf7Dgza2+wt/iDahGlbwyVgxS4P+a6awq/sh/Ssm4wm1QS6tpXlAb
-	sRhZ7O8r9Xy3BhhoLyBytHmlQO20qMOQgECoeoZvZfZRR0BY+MziupvcQWHY9MhXFQhT25ljqrr
-	XgQO+1Q7HXpp0Jrgv9B/W8TuSytTIBpabFMXGA/c7WLIP86hCBiKJoL1QKlVENdfMJZlfw+eh+m
-	HMKgcm+N9mr15RqCIgug6720qPu/TXvdwdwbc4KVX8etVL1fR8MhaGk345Pc5UlSdmOZi4IBRRf
-	6+62leLmTFbb6A9AMpusNSIxzcUcXvDw/oSStJIXhChCdw7vN9x89JnrFaz4MQ=
-X-Received: by 2002:a05:6000:387:b0:486:e949:532c with SMTP id ffacd0b85a97d-488670985edmr231416f8f.43.1790095077026;
-        Tue, 22 Sep 2026 09:37:57 -0700 (PDT)
-Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862773ee0sm6162192f8f.6.2026.09.22.09.37.56
+        bh=NB1J3hVZLGBcKEFzRbrkKSyu3nClV6Zj2pFFC1qb/tE=;
+        b=r35wEpbzKFewcGHq9Bssg1yFcOzKdtJJhZRQMrIbXdfNvWnd9aoR9QCnSD9DRpWUQX
+         2MkZOG2vONU3rJGNA4K4Ue8GmFq490jwe/RI0mVLl7TW2d+7WiycPmABF05WJ5qNtcfZ
+         8BGvGE0YhlQHidUXs66P/pJVqrAEy25hdU/6gTxYo6u05Ny/MYwRBXStdYPLAczCFLsw
+         zTg6zkTYLwxruWFBxiVpE9+IDlar/LAvHaKgq8EitYvv6XNFQofZ6SSNPIZlCG4jBSSl
+         5GI6K90xRzB/fmX7KUIXw/Zas/Lh5TC4TKJEBEGMAW1xabWftORk1lL1M0Rx4ybX74xD
+         EFVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxg43bQjKFatNKxG0AGVaWF9cRv3XwEJfsVh9WNggVidrQJHbflk0JNOLdD1dVq4zeDB7XJujjpx3mFND4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkKwJBDJrzlayoxLrx02+3Okcijg4Eb3g0K7wlYrcA8orCW03g
+	kQ0vescBqx4cV6U938MnCwwsSvbIhMfozP/Kx1YyjKW4ODpQnfXpOcH0bif5ENuDKg==
+X-Gm-Gg: AYBFou3ANG5+qUsrk3knPrcNRZv1TO5ZjNRspVzEd4R5A2CjdbZPCjhMGWGuQbxApnB
+	3503TEfQRSS8zy/5/JlI3iaWiX/7eKMPLFFuDboEu+nastUHJ7TN9KYpKYdyZ6HmNaeTkn49shh
+	fFSRD/tVWCvc0m9uDABdVTsrGIzzOAMgVYO+X8HWSzkKJcSbKCqaIhB5UUEp1VzT7JDsobg0CJS
+	o2hT493Twv3KSJ4bMNZwu0S0KkQtts0GFyMZ51tFXiTeQLpzZpxmOR05xX7J2xzx1HeIZEw7ROI
+	D1IqLm85g0gU2EJmKcLfF32ILPys/Up8dTdKzg8pZQNKugMhEL8CFySQp3NilBmveGuhHaEV+lw
+	YRLH2JyrsBW3EmY34Am589DAmJ6BFBQOEUrpqHGHDKErWYPkHSUCCNSQ/BNu1uqaOZ+Erh/JbcS
+	hmSRxv7dF/h+gpiZvML7mA3xRNIiqhzXeWCIP+g0vE4af/1SU9t4hwmF6aUHz3uSbHr5hn42AWK
+	nRl9uhBgsNuUIeY06BxyhSoQ4ZLm19AqOLvmsAnbEg=
+X-Received: by 2002:a05:600c:1989:b0:49c:e42b:a4ac with SMTP id 5b1f17b1804b1-49fc5714d14mr215915795e9.11.1790095073306;
+        Tue, 22 Sep 2026 09:37:53 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1ccb90sm2616575e9.6.2026.09.22.09.37.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 09:37:56 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-From: Julian Braha <julianbraha@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: n.schier@fritz.com,
-	grahamr@qti.qualcomm.com,
-	rdunlap@infradead.org,
-	nico@fluxnic.net,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH 1/2] kconfig: add prop_err function to simplify property error handling
-Date: Tue, 22 Sep 2026 17:37:48 +0100
-Message-ID: <20260922163749.2031594-2-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922163749.2031594-1-julianbraha@gmail.com>
-References: <20260922163749.2031594-1-julianbraha@gmail.com>
+        Tue, 22 Sep 2026 09:37:52 -0700 (PDT)
+Date: Tue, 22 Sep 2026 17:37:49 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com,
+	tabba@google.com
+Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
+ at EL2
+Message-ID: <arKu3SkgM9kftBEv@google.com>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+ <20260914113338.159227-11-fuad.tabba@linux.dev>
+ <arKuPQ-w5EFXo-n8@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arKuPQ-w5EFXo-n8@google.com>
 
-As suggested by Nicolas while reviewing another Kconfig property error [1],
-we can add a prop_err() function to simplify the tracking and display of
-Kconfig property errors.
+On Tue, Sep 22, 2026 at 05:35:09PM +0100, Vincent Donnefort wrote:
+> On Mon, Sep 14, 2026 at 12:33:30PM +0100, Fuad Tabba wrote:
+> > EL2 implements PSCI 1.1 for protected VMs: CPU_ON, CPU_OFF,
+> > PSCI_VERSION and PSCI_FEATURES are decided at EL2 (CPU_ON and CPU_OFF
+> > still exit to the host, which only schedules or parks the target),
+> > AFFINITY_INFO, CPU_SUSPEND and the platform power operations are
+> > forwarded to the host, and anything else returns NOT_SUPPORTED,
+> > including the TRNG calls and the functions above 1.1, SYSTEM_OFF2
+> > among them, that the host handled for a protected guest until now.
+> > TRNG for protected guests is a follow-up. AFFINITY_INFO stays
+> > with the host, which returns OFF only once it has parked the target:
+> > the host is what a guest polls to see a CPU_OFF complete before it
+> > issues the next CPU_ON, as Linux does on hotplug.
+> > 
+> > Three consequences follow:
+> > 
+> >   - A protected VM has one primary vCPU, the first whose hyp vCPU is
+> >     created with mp_state RUNNABLE. A second one, or an mp_state other
+> >     than RUNNABLE or STOPPED, fails that vCPU's first KVM_RUN with
+> >     -EINVAL.
+> > 
+> >   - CPU_ON finds its target among the hyp vCPUs, which exist from the
+> >     target's first KVM_RUN; before that the guest gets
+> >     INVALID_PARAMETERS.
+> > 
+> >   - A vCPU EL2 holds powered off doesn't run: handle___kvm_vcpu_run()
+> >     returns ARM_EXCEPTION_IL, reported as KVM_EXIT_FAIL_ENTRY. Its
+> >     existing bail-outs return the same code instead of an -EINVAL that
+> >     handle_exit() didn't recognise, for every hyp vCPU.
+> > 
+> > Non-protected VMs keep power_state ON and accept any mp_state.
+> > 
+> > Each protected vCPU is OFF, ON_PENDING or ON. CPU_ON moves the target
+> > to ON_PENDING, and the target's next run resets it and moves it to ON.
+> > The racing transitions are cmpxchg, and the reset state is published
+> > with a release/acquire pair, documented at each site. CPU_OFF publishes
+> > OFF with a release, so the target's clear of reset_state.reset is
+> > ordered before it and a CPU_ON that then wins on OFF republishes after
+> > the clear. Rolling a CPU_ON the host failed back to OFF needs the
+> > host's return value, which the per-EC marshalling patch delivers along
+> > with the rollback. Until then such a target stays ON_PENDING, and the
+> > reset has no observable effect: flush_hyp_vcpu() copies the host's
+> > context in on every entry until that patch removes the copy, so the
+> > target enters on the host's values rather than the ones EL2 reset.
+> > 
+> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> > ---
+> >  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  14 ++
+> >  arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  25 ++-
+> >  arch/arm64/kvm/hyp/nvhe/pkvm.c         | 283 ++++++++++++++++++++++++-
+> >  3 files changed, 311 insertions(+), 11 deletions(-)
+> > 
+> > diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> > index a04b7c04d5135..63b368baf0e72 100644
+> > --- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> > +++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> > @@ -29,6 +29,12 @@ struct pkvm_hyp_vcpu {
+> >  
+> >  	/* The previous exit's ARM_EXCEPTION_* code. */
+> >  	u32 exit_code;
+> > +
+> > +	/*
+> > +	 * PSCI_0_2_AFFINITY_LEVEL_{OFF, ON_PENDING, ON}. A non-protected
+> > +	 * vCPU is always ON.
+> > +	 */
+> > +	int power_state;
+> >  };
+> >  
+> >  /*
+> > @@ -46,6 +52,12 @@ struct pkvm_hyp_vm {
+> >  	struct hyp_pool pool;
+> >  	hyp_spinlock_t lock;
+> >  
+> > +	/*
+> > +	 * The vCPU initialised RUNNABLE: claimed under vm_table_lock,
+> > +	 * released only if its own init fails.
+> > +	 */
+> > +	struct pkvm_hyp_vcpu *primary_vcpu;
+> > +
+> >  	/* Array of the hyp vCPU structures for this VM. */
+> >  	struct pkvm_hyp_vcpu *vcpus[];
+> >  };
+> > @@ -98,4 +110,6 @@ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
+> >  void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
+> >  int kvm_check_pvm_sysreg_table(void);
+> >  
+> > +int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
+> > +struct pkvm_hyp_vcpu *pkvm_mpidr_to_hyp_vcpu(struct pkvm_hyp_vm *vm, u64 mpidr);
+> >  #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
+> > diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> > index 9cc8ef16897c1..da8ab636063cf 100644
+> > --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> > +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> > @@ -8,6 +8,7 @@
+> >  #include <hyp/switch.h>
+> >  
+> >  #include <linux/irqchip/arm-gic-v3.h>
+> > +#include <uapi/linux/psci.h>
+> >  
+> >  #include <asm/pgtable-types.h>
+> >  #include <asm/kvm_asm.h>
+> > @@ -456,14 +457,12 @@ static void handle___kvm_vcpu_run(struct kvm_cpu_context *host_ctxt)
+> >  {
+> >  	struct pkvm_hyp_vcpu *hyp_vcpu;
+> >  	struct kvm_vcpu *host_vcpu;
+> > -	int ret;
+> > +	int ret = ARM_EXCEPTION_IL;
+> >  
+> >  	host_vcpu = get_host_hyp_vcpus(host_ctxt, 1, &hyp_vcpu);
+> >  
+> > -	if (!host_vcpu) {
+> > -		ret = -EINVAL;
+> > +	if (!host_vcpu)
+> >  		goto out;
+> > -	}
+> >  
+> >  	if (unlikely(hyp_vcpu)) {
+> >  		/*
+> > @@ -472,8 +471,22 @@ static void handle___kvm_vcpu_run(struct kvm_cpu_context *host_ctxt)
+> >  		 * loading a vcpu. Therefore, if SME features enabled the host
+> >  		 * is misbehaving.
+> >  		 */
+> > -		if (unlikely(system_supports_sme() && read_sysreg_s(SYS_SVCR))) {
+> > -			ret = -EINVAL;
+> > +		if (unlikely(system_supports_sme() && read_sysreg_s(SYS_SVCR)))
+> > +			goto out;
+> > +
+> > +		/*
+> > +		 * ON has a single writer, pkvm_reset_vcpu() on this CPU, so
+> > +		 * READ_ONCE suffices. ON_PENDING takes the reset; -ECANCELED
+> > +		 * is a rollback that raced it.
+> > +		 */
+> > +		switch (READ_ONCE(hyp_vcpu->power_state)) {
+> > +		case PSCI_0_2_AFFINITY_LEVEL_ON:
+> > +			break;
+> > +		case PSCI_0_2_AFFINITY_LEVEL_ON_PENDING:
+> > +			if (pkvm_reset_vcpu(hyp_vcpu))
+> > +				goto out;
+> > +			break;
+> > +		default:
+> >  			goto out;
+> >  		}
+> >  
+> > diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > index 855cb77c8bba1..d970cba12ca47 100644
+> > --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > @@ -5,6 +5,7 @@
+> >   */
+> >  
+> >  #include <kvm/arm_hypercalls.h>
+> > +#include <kvm/arm_psci.h>
+> >  
+> >  #include <linux/kvm_host.h>
+> >  #include <linux/mm.h>
+> > @@ -433,6 +434,40 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
+> >  		   allowed_features, KVM_VCPU_MAX_FEATURES);
+> >  }
+> >  
+> > +static int pkvm_vcpu_init_psci(struct pkvm_hyp_vcpu *hyp_vcpu, u32 mp_state)
+> > +{
+> > +	struct vcpu_reset_state *reset_state = &hyp_vcpu->vcpu.arch.reset_state;
+> > +	struct pkvm_hyp_vm *hyp_vm = pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
+> > +	struct kvm_vcpu *host_vcpu;
+> > +
+> > +	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+> > +		/* The host manages a non-protected vCPU: always ON at EL2. */
+> > +		hyp_vcpu->power_state = PSCI_0_2_AFFINITY_LEVEL_ON;
+> > +		return 0;
+> > +	}
+> > +
+> > +	if (mp_state != KVM_MP_STATE_RUNNABLE && mp_state != KVM_MP_STATE_STOPPED)
+> > +		return -EINVAL;
+> > +
+> > +	if (mp_state == KVM_MP_STATE_STOPPED) {
+> > +		reset_state->reset = false;
+> > +		hyp_vcpu->power_state = PSCI_0_2_AFFINITY_LEVEL_OFF;
+> > +		return 0;
+> > +	}
+> > +
+> > +	hyp_assert_lock_held(&vm_table_lock);
+> > +	if (hyp_vm->primary_vcpu)
+> > +		return -EINVAL;
+> > +	hyp_vm->primary_vcpu = hyp_vcpu;
+> > +
+> > +	host_vcpu = hyp_vcpu->host_vcpu;
+> > +	reset_state->pc = READ_ONCE(host_vcpu->arch.ctxt.regs.pc);
+> > +	reset_state->r0 = READ_ONCE(host_vcpu->arch.ctxt.regs.regs[0]);
+> > +	reset_state->reset = true;
+> > +	hyp_vcpu->power_state = PSCI_0_2_AFFINITY_LEVEL_ON_PENDING;
+> > +	return 0;
+> > +}
+> > +
+> >  static void unpin_host_vcpu(struct kvm_vcpu *host_vcpu)
+> >  {
+> >  	if (host_vcpu)
+> > @@ -447,6 +482,9 @@ static void unpin_host_sve_state(struct pkvm_hyp_vcpu *hyp_vcpu)
+> >  		return;
+> >  
+> >  	sve_state = hyp_vcpu->vcpu.arch.sve_state;
+> > +	if (!sve_state)
+> > +		return;
+> > +
+> >  	hyp_unpin_shared_mem(sve_state,
+> >  			     sve_state + vcpu_sve_state_size(&hyp_vcpu->vcpu));
+> >  }
+> > @@ -559,10 +597,12 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+> >  			      struct kvm_vcpu *host_vcpu)
+> >  {
+> >  	int ret = 0;
+> > +	u32 mp_state;
+> >  
+> >  	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
+> >  		return -EBUSY;
+> >  
+> > +	mp_state = READ_ONCE(host_vcpu->arch.mp_state.mp_state);
+> >  	hyp_vcpu->host_vcpu = host_vcpu;
+> >  
+> >  	hyp_vcpu->vcpu.kvm = &hyp_vm->kvm;
+> > @@ -571,7 +611,6 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+> >  
+> >  	hyp_vcpu->vcpu.arch.hw_mmu = &hyp_vm->kvm.arch.mmu;
+> >  	hyp_vcpu->vcpu.arch.cflags = READ_ONCE(host_vcpu->arch.cflags);
+> > -	hyp_vcpu->vcpu.arch.mp_state.mp_state = KVM_MP_STATE_STOPPED;
+> >  
+> >  	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+> >  		/*
+> > @@ -601,9 +640,12 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+> >  
+> >  	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
+> >  		kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
+> > +	ret = pkvm_vcpu_init_psci(hyp_vcpu, mp_state);
+> >  done:
+> > -	if (ret)
+> > +	if (ret) {
+> >  		unpin_host_vcpu(host_vcpu);
+> > +		unpin_host_sve_state(hyp_vcpu);
+> > +	}
+> 
+> Was it planned for a different commit of the series?
 
-Note that the formatting of the error printing is changed slightly
-(removing a space) to better match the formatting of warnings. This causes
-a change to the expected test output for the existing errors that now call
-prop_err().
+Ha no it wasn't, you're calling unpin_host_sve_state() unconditionally. 
 
-Link: https://lore.kernel.org/all/20260917-proficient-swift-of-masquerade-0ff7ce@l-nschier-aarch64/ [1]
-Assisted-by: LLM
-Suggested-by: Nicolas Schier <n.schier@fritz.com>
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
----
- scripts/kconfig/menu.c                        | 23 ++++++++-----
- .../tests/err_num_bounds/expected_stderr      | 20 ++++++------
- .../tests/err_num_mismatch/expected_stderr    |  8 ++---
- .../err_num_non_numeric_ref/expected_stderr   | 32 +++++++++----------
- 4 files changed, 45 insertions(+), 38 deletions(-)
+> 
+> >  	return ret;
+> >  }
+> >
 
-diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-index bda3e2650216..118af2dde722 100644
---- a/scripts/kconfig/menu.c
-+++ b/scripts/kconfig/menu.c
-@@ -59,6 +59,16 @@ static void prop_warn(const struct property *prop, const char *fmt, ...)
- 	va_end(ap);
- }
- 
-+static void prop_err(const struct property *prop, const char *fmt, ...)
-+{
-+	va_list ap;
-+	va_start(ap, fmt);
-+	fprintf(stderr, "%s:%d:error: ", prop->filename, prop->lineno);
-+	vfprintf(stderr, fmt, ap);
-+	fprintf(stderr, "\n");
-+	va_end(ap);
-+}
-+
- void _menu_init(void)
- {
- 	current_entry = current_menu = &rootmenu;
-@@ -246,18 +256,15 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2,
- 
- 	if (sym2->type != S_UNKNOWN ||
- 		!sym_string_valid(sym, sym2->name)) {
--		fprintf(stderr, "%s:%d: error: '%s' is an invalid value for '%s'\n",
--			prop->filename, prop->lineno, sym2->name,
--			sym_type_name(sym->type));
-+		prop_err(prop, "'%s' is an invalid value for '%s'",
-+			 sym2->name, sym_type_name(sym->type));
- 		return 1;
- 	}
- 
- 	if (!sym_string_check_bounds(sym, sym2->name)) {
--		fprintf(stderr,
--			"%s:%d: error: %s constant '%s' is outside the 64-bit %s bounds\n",
--			prop->filename, prop->lineno, sym_type_name(sym->type),
--			sym2->name, sym->type == S_INT ? "signed" : "unsigned");
--
-+		prop_err(prop, "%s constant '%s' is outside the 64-bit %s bounds",
-+			 sym_type_name(sym->type), sym2->name,
-+			 sym->type == S_INT ? "signed" : "unsigned");
- 		return 1;
- 	}
- 
-diff --git a/scripts/kconfig/tests/err_num_bounds/expected_stderr b/scripts/kconfig/tests/err_num_bounds/expected_stderr
-index 5f89cf4afff8..c012b10bae25 100644
---- a/scripts/kconfig/tests/err_num_bounds/expected_stderr
-+++ b/scripts/kconfig/tests/err_num_bounds/expected_stderr
-@@ -1,10 +1,10 @@
--Kconfig:51: error: integer constant '10000000000000000000' is outside the 64-bit signed bounds
--Kconfig:55: error: integer constant '-9223372036854775809' is outside the 64-bit signed bounds
--Kconfig:59: error: integer constant '10000000000000000000' is outside the 64-bit signed bounds
--Kconfig:63: error: integer constant '-10000000000000000000' is outside the 64-bit signed bounds
--Kconfig:67: error: integer constant '-9223372036854775809' is outside the 64-bit signed bounds
--Kconfig:67: error: integer constant '10000000000000000000' is outside the 64-bit signed bounds
--Kconfig:71: error: hex constant '0x10000000000000000' is outside the 64-bit unsigned bounds
--Kconfig:75: error: hex constant '0x10000000000000000' is outside the 64-bit unsigned bounds
--Kconfig:79: error: hex constant '0x10000000000000000' is outside the 64-bit unsigned bounds
--Kconfig:79: error: hex constant '0x20000000000000000' is outside the 64-bit unsigned bounds
-+Kconfig:51:error: integer constant '10000000000000000000' is outside the 64-bit signed bounds
-+Kconfig:55:error: integer constant '-9223372036854775809' is outside the 64-bit signed bounds
-+Kconfig:59:error: integer constant '10000000000000000000' is outside the 64-bit signed bounds
-+Kconfig:63:error: integer constant '-10000000000000000000' is outside the 64-bit signed bounds
-+Kconfig:67:error: integer constant '-9223372036854775809' is outside the 64-bit signed bounds
-+Kconfig:67:error: integer constant '10000000000000000000' is outside the 64-bit signed bounds
-+Kconfig:71:error: hex constant '0x10000000000000000' is outside the 64-bit unsigned bounds
-+Kconfig:75:error: hex constant '0x10000000000000000' is outside the 64-bit unsigned bounds
-+Kconfig:79:error: hex constant '0x10000000000000000' is outside the 64-bit unsigned bounds
-+Kconfig:79:error: hex constant '0x20000000000000000' is outside the 64-bit unsigned bounds
-diff --git a/scripts/kconfig/tests/err_num_mismatch/expected_stderr b/scripts/kconfig/tests/err_num_mismatch/expected_stderr
-index 587c34467ae6..058b507396f4 100644
---- a/scripts/kconfig/tests/err_num_mismatch/expected_stderr
-+++ b/scripts/kconfig/tests/err_num_mismatch/expected_stderr
-@@ -1,4 +1,4 @@
--Kconfig:14: error: 'HEX_SOURCE' is an invalid value for 'integer'
--Kconfig:18: error: 'HEX_SOURCE' is an invalid value for 'integer'
--Kconfig:24: error: 'INT_SOURCE' is an invalid value for 'hex'
--Kconfig:28: error: 'INT_SOURCE' is an invalid value for 'hex'
-+Kconfig:14:error: 'HEX_SOURCE' is an invalid value for 'integer'
-+Kconfig:18:error: 'HEX_SOURCE' is an invalid value for 'integer'
-+Kconfig:24:error: 'INT_SOURCE' is an invalid value for 'hex'
-+Kconfig:28:error: 'INT_SOURCE' is an invalid value for 'hex'
-diff --git a/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr b/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr
-index 005f855ecbdd..48d78b5c18b1 100644
---- a/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr
-+++ b/scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr
-@@ -1,16 +1,16 @@
--Kconfig:17: error: 'BOOL_SOURCE' is an invalid value for 'integer'
--Kconfig:21: error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
--Kconfig:25: error: 'STRING_SOURCE' is an invalid value for 'integer'
--Kconfig:31: error: 'BOOL_SOURCE' is an invalid value for 'hex'
--Kconfig:35: error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
--Kconfig:39: error: 'STRING_SOURCE' is an invalid value for 'hex'
--Kconfig:45: error: 'BOOL_SOURCE' is an invalid value for 'integer'
--Kconfig:49: error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
--Kconfig:53: error: 'STRING_SOURCE' is an invalid value for 'integer'
--Kconfig:57: error: 'BOOL_SOURCE' is an invalid value for 'integer'
--Kconfig:57: error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
--Kconfig:63: error: 'BOOL_SOURCE' is an invalid value for 'hex'
--Kconfig:67: error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
--Kconfig:71: error: 'STRING_SOURCE' is an invalid value for 'hex'
--Kconfig:75: error: 'BOOL_SOURCE' is an invalid value for 'hex'
--Kconfig:75: error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
-+Kconfig:17:error: 'BOOL_SOURCE' is an invalid value for 'integer'
-+Kconfig:21:error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
-+Kconfig:25:error: 'STRING_SOURCE' is an invalid value for 'integer'
-+Kconfig:31:error: 'BOOL_SOURCE' is an invalid value for 'hex'
-+Kconfig:35:error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
-+Kconfig:39:error: 'STRING_SOURCE' is an invalid value for 'hex'
-+Kconfig:45:error: 'BOOL_SOURCE' is an invalid value for 'integer'
-+Kconfig:49:error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
-+Kconfig:53:error: 'STRING_SOURCE' is an invalid value for 'integer'
-+Kconfig:57:error: 'BOOL_SOURCE' is an invalid value for 'integer'
-+Kconfig:57:error: 'TRISTATE_SOURCE' is an invalid value for 'integer'
-+Kconfig:63:error: 'BOOL_SOURCE' is an invalid value for 'hex'
-+Kconfig:67:error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
-+Kconfig:71:error: 'STRING_SOURCE' is an invalid value for 'hex'
-+Kconfig:75:error: 'BOOL_SOURCE' is an invalid value for 'hex'
-+Kconfig:75:error: 'TRISTATE_SOURCE' is an invalid value for 'hex'
--- 
-2.55.0
-
+[...]
