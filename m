@@ -1,83 +1,83 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A84489FA5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:35:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1717F48D881
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:35:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055314; cv=none; b=LAHkPnmYHkVSL5F5klfhiC3qIVkBlSVwfjEW7jUinRXGXju4hpJ79UfiQtJ336YFvxNOAbRcfQ1lBqHbcRUBmx6p4zvQarkK7tuCdzWzXTCfjYMhAGX9p0vLlczAyp8Q1wD1GI/1Dz9cmsMRt9nDypjwZ+9rlFByos+DUxPbIXo=
+	t=1790055318; cv=none; b=n2Dn6U+SXcaAz/vREwKfW8bWLXiTTmVMU+4pJ4ApnCMSEnInRrDKC0pZyh/5DrPk/AfnDGrybP92tUX2JHfWVsvrS6TCVWAV9XnqBr45/5RuCOIqpuuzSd6Ly7bGc4hgjtV8jTLzSMx3R2zliInW528u2wu4aYfyFnfKrU8d5CI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055314; c=relaxed/simple;
-	bh=yJ4/zDONc3VCH7yVvFo4yUz4R7da9SYeZ7rFR34pviU=;
+	s=arc-20240116; t=1790055318; c=relaxed/simple;
+	bh=fenRUEXGWoKb7BjuVIpaYwzRL6B6mDm53pogy2ThnfQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KvROQnuJECF4Y0AEdqlcZrgIi4wQyyF+SoakSx+joiNwZNMKmUMXwkbvN/NHypSUj1Kf+dwWOBIvqONjYF5oCt77GbgLTlcUx50goB4CIWPrcB5lT786j2bpFALbd3WDflI91Pu/jHVvBlOZBpwu+Kx5N+JzbQYWAtzgIRe2V1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PXHJ5KCA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cYQN3rzp; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=FALyezhfJnXNNb/RlZJGIz9fnless/trXvTZM3ir7EpTH6ih+7lkiMLFjJOLybD9bP/GC8bvAwC98CUHuVO5hpmQocj1MI52RiVon4xS/H1BkqWFHFNzDX5uuEk6MJETAdtTIk3YqY62GBkAnNemFEzrQtNCaCrAkzppL9rQeTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SHDlQUOv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SSv76M6i; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PXHJ5KCA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cYQN3rzp"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SHDlQUOv";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SSv76M6i"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790055311;
+	s=mimecast20190719; t=1790055315;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bfS04+9MgqTJr7/AuJyf/BgMvbHeqVFk8HMCC4JI/vk=;
-	b=PXHJ5KCABOnYV7gYljO1rX9sC27ooKUiQNj4HYHhVdyA4/j1d2M116/ZjhEIRAONX9BizT
-	4tIhXGD0sddbq/syhvSsCj+q1/k5kgIlvtwkA1QYn/7X6vLdR7OCYH+uEg/RhkWzASCQWo
-	0CukFT4hh9Bpddo/qecfRxngltrIDy8=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=UKL+vFX2Cnp1o1+u97ic85G8uQdKpjbv7FGhiJsOCec=;
+	b=SHDlQUOvPioP7mspt0Prc7vOa7AxOLBtjHk9Xz3I+IYvLcQWye5KK/fZTE3pOeY5hiFhDE
+	LX9TA0Yg6ux6YtZTzlGKGeriZ38ZhNEzDWSx3dUXl67pgr62xkEGFCLunjIJ8C41c5sLdU
+	u6U4xT39rpvYigm+3GFJRfsBEL+m4G0=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-574-SVYkO5SIOeSXamBk1sShAQ-1; Tue, 22 Sep 2026 01:35:09 -0400
-X-MC-Unique: SVYkO5SIOeSXamBk1sShAQ-1
-X-Mimecast-MFC-AGG-ID: SVYkO5SIOeSXamBk1sShAQ_1790055308
-Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5b767214d60so283660e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:35:09 -0700 (PDT)
+ us-mta-8-_btReQqVMcmROKtQllFvgQ-1; Tue, 22 Sep 2026 01:35:12 -0400
+X-MC-Unique: _btReQqVMcmROKtQllFvgQ-1
+X-Mimecast-MFC-AGG-ID: _btReQqVMcmROKtQllFvgQ_1790055311
+Received: by mail-lf1-f69.google.com with SMTP id 2adb3069b0e04-5b5bfdb26b1so1747274e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790055308; x=1790660108; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790055311; x=1790660111; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=bfS04+9MgqTJr7/AuJyf/BgMvbHeqVFk8HMCC4JI/vk=;
-        b=cYQN3rzpBTSfyZ5ycs9TUbyPSjJKoMCoeSYV6yZCxlFsaqJaHpCMNK35gGK600G7Zb
-         qEQK37QK4gUHvqaKfCT/GBwPIy+CNp3cWOx+RMGZmu3LbTUCmzZbaDbEmRMqJAjrvAiK
-         UyyM5HAJGeSZ2QDQMbOxIP1kaAFsF4UVGDa6B0JwRghSD1nspalxlYt8iou+b1cjqtRQ
-         b16KFlvvbWOGLSkxEMa+lpHeZst7BVZHrRokxW9lvQiwjWgtrlM8pdNKH0HRoI3SzA6V
-         uIMBhe9hfGWK/dxFHpJmKdQ+z/ri4ulp/b+CUj82yfaij9FgbHRaFlEglTzKVu55gLz7
-         Jvfw==
+        bh=UKL+vFX2Cnp1o1+u97ic85G8uQdKpjbv7FGhiJsOCec=;
+        b=SSv76M6iMkrxV/Yv+wt7CISrRqw6UEE6szg7xiitCA502didsic5Ua0/FCbA9vMFyx
+         FPbpvXhdBBB7cmnxFr7V1d7lw1oXhnQGr1EEBwENy9f6IBrBS95ibVG9deI9m6ZxdJv9
+         SLhcEJybpGPBKM+0xIYEHLY/QzISA/58ivtyWVRpqfCJSKHQ/9v3yQg4xXwRVXngaYVC
+         BLqrvGS//Kj637xvoS2zrVBhAW1yADdP/QId89aJ4qfIqIaD0ICyzJOtC71vIWBdmJKB
+         yx47kqHaRrtXLHQHK2fuzacW5DadGLYxqLd3KkgfakOaxugMQ+QH2UjftMNvpVQB91ay
+         IEcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790055308; x=1790660108;
+        d=1e100.net; s=20260707; t=1790055311; x=1790660111;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bfS04+9MgqTJr7/AuJyf/BgMvbHeqVFk8HMCC4JI/vk=;
-        b=L48mFfE5pzDoMacSjx2/l7JCyxrRZ+SKo4Pt/zjrgUkSa9VT7yAIs6uqGK47Ub76lI
-         +ycPVdM03OALj+mb4wEBNy52JZQ9hXl7dIwxAZBM6spxDlQNLSYKpsB5kQp5qZz4Me9E
-         Uq5nm2W11uOwGC7AWzPTo1VuhV80UsVQRdHszrv7KGZ2SSVCi8gap7BXZqaq5qeTbkb5
-         iDibe5225wFgbeejEpk2bXwTlNkJ6C4A6NKuwn6bOU9W+v7o/m3T2pMJwHEso6F7OtrA
-         cIJ7/izfNUZyjsZGzj9gG2+MSqG6d4d5/0VkXQ3DWQDroHGcgSZ3zcExK46I/UGX3Et/
-         oj8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwlUrGhTz2xicUWRPPECD1FIgyTB7z8X0LSAjuUVOc21FCSin98y7lJio5w0bUWBAXiFrZ4OXaTtdDfasg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuK/pboh/QQA7KrXvRwvkmPW31CziFTZrddE/gQ9fgleukyXI4
-	5vq0GmeQxDNJ1pxcZZaOZkG0cVp04aDzPtf7OgvmQ3mLAJZrf8P8vzFafrQQlhpQjbkdywSFrFG
-	qELWM8hZevWxgg0/bUiBuRrFlmW+amXI3sJIRGV3Gl9M927+VqwSCv/Mlg0J3yGYN
-X-Gm-Gg: AYBFou0bIqva9ha0AhkYfGvmy5lax7IeEkhsr/FdWlKHhYgJmBAn7OcyHdxt72Qu88W
-	HU5hsgyC+1Xzyhxjn+J4xdaLTVOY367/KGCXCrjharar4eD4i6AsPjMF59c5g+CaOZqitvLy6QP
-	M5/Yh0ziVmwiPeRVXQvwmi3oNbtN9NBaoFyRV44AVOq64swAsnNFYrVhn0OtSbCQZVGrh7aslRR
-	E+MpmJdO84OejJRnlq3NECjlriYzgH0xNveWyzKs9eD8BhVzgWENDjvxSwbXQOziYilq0fwJYEf
-	2PZP341CXDuxKdrLoMS0TghAeTCx9KadjRE1hxDec2JSa95NjGBZz5TKiBYOP1xnsyWrJDebcfv
-	qtR8FXoIqFhpms75apqwh
-X-Received: by 2002:a05:6512:4884:b0:5b6:10bc:dc47 with SMTP id 2adb3069b0e04-5b8d2945a50mr296474e87.30.1790055308114;
-        Mon, 21 Sep 2026 22:35:08 -0700 (PDT)
-X-Received: by 2002:a05:6512:4884:b0:5b6:10bc:dc47 with SMTP id 2adb3069b0e04-5b8d2945a50mr296458e87.30.1790055307602;
-        Mon, 21 Sep 2026 22:35:07 -0700 (PDT)
+        bh=UKL+vFX2Cnp1o1+u97ic85G8uQdKpjbv7FGhiJsOCec=;
+        b=OQLzjeYqCj0ONtbuJ50OxtFzXAh7juqKyeYqR1pN/Xi2o2DtcV1USnq9vZmStm4rCY
+         I5KOXihUgo4z1p6Daodbas2pi8RkLoDH2v/3AmsRF/x0Kr5r/zpK1z5cdpxZu9Mdrga5
+         5gwmsZ0AdNDKUDBy//ElDMqhzOpBqwmOUlxJp/JZnHpHiwZbrTfrsq5fkSaMMKutaida
+         bcnh50EmXTJVcLl7ARb670UrimKIyLih/GJMXUUHPYYlTGirKgRREQlH1LCq9IGmlR+R
+         7rTKVNaw2GAw2amTEBC7G2VZBxdoNOFgnJsXe7hv7QAHyaJ7QSbWnjnasMaNPxU576pc
+         2D3g==
+X-Forwarded-Encrypted: i=1; AKwUvByt2Qyqe11M0lW1WGp8S8UvTiR+A6Rk1ualErP4aynEwjbTv2kKuNmQBfGfEmkfeoRM2SbWHkUM76WjXKs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2BVnUl3t4RucQLXPlDEJRX1bWX7u3OpszihpNkgyb6iAt28QK
+	ezCmlJQAZiM7HRFboWrQ7qBrJqZ16r8lzSh54jTgz0rn9UzubnyDMCw6PCLES41H0sxbIg338ky
+	9LU4S35p7fzohqGyGgI88UwIX6b96JMzUxcLK/8Kf6E3rn97rPmQWLwUS5k+64Qzi
+X-Gm-Gg: AYBFou2zKsvz4qEh31qjnbfJYpUPFs2afSndZTsbZC0NSfGZLzBXvqkP+E1BrgIBrQV
+	AYj6Vqkda5Uo76rP1myA/HlfiYbsSRGmiUXG4IcfEEdotAnKRKxdALJZdSxrJJvVsKxwhT0hc84
+	DZmsbB4G8zwiH6wHpXlaJppUAK86t3k6+ykNUV4SHQtjeyu6u+hUxcQdcAG9kpYijaqHdPRXjEk
+	E14qC8LXKBwXb6EntCYglmrIfaDtYxcuejcr1JCE8XAaJJp0oPJ9A3ZWtblFpV+zgEj/a69efRZ
+	1PP1o8nsY3miOHcVUaGaKcrprSixBknCtI71pNB6lXb9IVup+1/cFJN/wLyekhxGSw/gOXm1Acu
+	E9zHWidMEErvPEpW6DJt2
+X-Received: by 2002:a05:6512:23a2:b0:5b6:6b8:1fc5 with SMTP id 2adb3069b0e04-5b8c18226eamr4272907e87.17.1790055311065;
+        Mon, 21 Sep 2026 22:35:11 -0700 (PDT)
+X-Received: by 2002:a05:6512:23a2:b0:5b6:6b8:1fc5 with SMTP id 2adb3069b0e04-5b8c18226eamr4272895e87.17.1790055310478;
+        Mon, 21 Sep 2026 22:35:10 -0700 (PDT)
 Received: from fedora (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46e0966sm191742e87.55.2026.09.21.22.35.05
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46e0966sm191742e87.55.2026.09.21.22.35.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 22:35:05 -0700 (PDT)
+        Mon, 21 Sep 2026 22:35:09 -0700 (PDT)
 From: mpenttil@redhat.com
 To: linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org,
@@ -98,9 +98,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	Mike Rapoport <rppt@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Michal Hocko <mhocko@suse.com>
-Subject: [PATCH v14 09/12] mm/hmm: implement rollback for device page migration in HMM pagewalk
-Date: Tue, 22 Sep 2026 08:34:18 +0300
-Message-ID: <20260922053421.4092027-10-mpenttil@redhat.com>
+Subject: [PATCH v14 10/12] mm: enable device page migration from HMM pagewalk
+Date: Tue, 22 Sep 2026 08:34:19 +0300
+Message-ID: <20260922053421.4092027-11-mpenttil@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922053421.4092027-1-mpenttil@redhat.com>
 References: <20260922053421.4092027-1-mpenttil@redhat.com>
@@ -115,19 +115,18 @@ Content-Transfer-Encoding: 8bit
 
 From: Mika Penttilä <mpenttil@redhat.com>
 
-During the migration pagewalk, the PTE table could be cleared
-and/or changed into PMD leaf or even another PTE table while
-dropped locks.
+HMM pagewalk has now the machinery to do the first phase of
+device page migration, collecting the pfns and installing
+migration ptes.
 
-In these cases the possibly inserted migration ptes are gone.
-We have to however undo the collecting done so far, so unlock
-the folios and drop reference taken.
+Enable migration in hmm_range_fault(), and change migrate_vma_setup()
+to use HMM pagewalk path. Two new flags, MIGRATE_VMA_FAULT and
+MIGRATE_VMA_WRITE are introduced for migrate_vma_setup(),
+to request for faulting missing pages, and requesting write
+access.
 
-During the pagewalk we notice such scenarios if going to
-recollect a pfn but have already committed to migrate the entry
-with HMM_PFN_MIGRATE, in which case rollback.
-If we encounter migration ptes they are just skipped to
-allow for restart own walks.
+Also, the migrate_vma_collect*() based paths are now unused,
+so delete them.
 
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Jason Gunthorpe <jgg@nvidia.com>
@@ -139,193 +138,697 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Suggested-by: Alistair Popple <apopple@nvidia.com>
 Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
 ---
- include/linux/hmm.h | 22 +++++++++++++
- mm/hmm.c            | 76 +++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 98 insertions(+)
+ include/linux/migrate.h |  10 +-
+ mm/hmm.c                |  33 ++-
+ mm/migrate_device.c     | 562 ++++------------------------------------
+ 3 files changed, 83 insertions(+), 522 deletions(-)
 
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 4f56f3419cb4..b08ebc1343dd 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -111,6 +111,28 @@ static inline unsigned int hmm_pfn_to_map_order(unsigned long hmm_pfn)
- 	return (hmm_pfn >> HMM_PFN_ORDER_SHIFT) & 0x1F;
- }
- 
-+/*
-+ * hmm_pfn_collected() - is this pfn entry prepared for migration ?
-+ * If collected the folio's refcount is increased and the folio
-+ * is locked.
-+ */
-+static inline bool hmm_pfn_collected(unsigned long hmm_pfn)
-+{
-+	return (hmm_pfn & (HMM_PFN_VALID | HMM_PFN_MIGRATE)) ==
-+		(HMM_PFN_VALID | HMM_PFN_MIGRATE);
-+}
-+
-+/*
-+ * hmm_pfn_rollback_collected() - undoes the collection of hmm_pfn
-+ *
-+ * Note for total rollback the folio's refcount has to be put
-+ * and folio has to be unlocked.
-+ */
-+static inline unsigned long hmm_pfn_rollback_collected(unsigned long hmm_pfn)
-+{
-+	return hmm_pfn & ~(HMM_PFN_VALID | HMM_PFN_MIGRATE | HMM_PFN_COMPOUND);
-+}
-+
- /*
-  * struct hmm_range - track invalidation lock on virtual address range
-  *
-diff --git a/mm/hmm.c b/mm/hmm.c
-index a67a23e54551..e64444cbc62a 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -93,6 +93,11 @@ enum {
- 			      HMM_PFN_P2PDMA_BUS,
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 01c5f62a56e9..c73e41625ac2 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -180,6 +180,8 @@ enum migrate_vma_info {
+ 	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
+ 	MIGRATE_VMA_SELECT_DEVICE_COHERENT = 1 << 2,
+ 	MIGRATE_VMA_SELECT_COMPOUND = 1 << 3,
++	MIGRATE_VMA_FAULT = 1 << 4,
++	MIGRATE_VMA_WRITE = 1 << 5,
  };
  
-+static void hmm_vma_handle_migrate_prepare_rollback(const struct hmm_vma_walk *hmm_vma_walk,
-+						    unsigned long start,
-+						    unsigned long end,
-+						    unsigned long *hmm_pfn);
-+
- static int hmm_pfns_fill(unsigned long addr, unsigned long end,
- 			 struct hmm_vma_walk *hmm_vma_walk, unsigned long cpu_flags)
+ struct migrate_vma {
+@@ -217,10 +219,14 @@ struct migrate_vma {
+ 	struct page		*fault_page;
+ };
+ 
+-// TODO: enable migration
+ static inline enum migrate_vma_info hmm_select_migrate(struct hmm_range *range)
  {
-@@ -109,6 +114,8 @@ static int hmm_pfns_fill(unsigned long addr, unsigned long end,
- 		}
- 	}
- 
-+	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr, end, &range->hmm_pfns[i]);
-+
- 	if (migrate && thp_migration_supported() &&
- 	    (minfo & MIGRATE_VMA_SELECT_COMPOUND) &&
- 	    IS_ALIGNED(addr, HPAGE_PMD_SIZE) &&
-@@ -280,6 +287,8 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
- 		return hmm_record_fault(addr, end, required_fault, walk);
- 	}
- 
-+	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
-+						end, hmm_pfns);
- 	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
- 	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++) {
- 		hmm_pfns[i] &= HMM_PFN_INOUT_FLAGS;
-@@ -410,6 +419,9 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 
- 	new_pfn_flags = pte_pfn(pte) | cpu_flags;
- out:
-+	hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk, addr,
-+						addr + PAGE_SIZE,
-+						hmm_pfn);
- 	*hmm_pfn = (*hmm_pfn & HMM_PFN_INOUT_FLAGS) | new_pfn_flags;
- 	return 0;
- 
-@@ -448,6 +460,9 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
- 		if (softleaf_is_device_private_write(entry))
- 			cpu_flags |= HMM_PFN_WRITE;
- 
-+		hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk,
-+							start, end,
-+							hmm_pfns);
- 		/*
- 		 * Fully populate the PFN list though subsequent PFNs could be
- 		 * inferred, because drivers which are not yet aware of large
-@@ -550,6 +565,48 @@ static int migrate_vma_split_folio(struct folio *folio,
- 	return 0;
- }
- 
-+/*
-+ * Due to dropping ptl locks for splitting for instance, would we
-+ * overwrite already collected pfns? This could happen when pmd
-+ * pointing to a page table has vanished and been replaced
-+ * with a leaf pmd, or another page table.
-+ * In that case unref and unlock the folios,
-+ * the pfns of which were collected from the disappeared
-+ * page tables.
-+ */
-+static void hmm_vma_handle_migrate_prepare_rollback(const struct hmm_vma_walk *hmm_vma_walk,
-+						    unsigned long start,
-+						    unsigned long end,
-+						    unsigned long *hmm_pfn)
-+{
-+	struct hmm_range *range = hmm_vma_walk->range;
-+	struct migrate_vma *migrate = range->migrate;
-+	struct folio *fault_folio = NULL;
+-	return 0;
 +	enum migrate_vma_info minfo;
-+	struct folio *folio;
-+	unsigned long i;
 +
-+	minfo = hmm_select_migrate(range);
-+	if (!minfo)
-+		return;
++	minfo = (range->default_flags & HMM_PFN_REQ_MIGRATE) ?
++		range->migrate->flags : 0;
 +
-+	WARN_ON_ONCE(!migrate);
-+
-+	fault_folio = migrate->fault_page ?
-+		page_folio(migrate->fault_page) : NULL;
-+
-+	for (i = 0; start < end; start += PAGE_SIZE, i++) {
-+		if (hmm_pfn_collected(hmm_pfn[i])) {
-+			folio = page_folio(hmm_pfn_to_page(hmm_pfn[i]));
-+			if (folio != fault_folio)
-+				folio_unlock(folio);
-+			folio_put(folio);
-+			hmm_pfn[i] = hmm_pfn_rollback_collected(hmm_pfn[i]);
-+
-+		}
-+	}
-+}
-+
- static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
- 					      pmd_t *pmdp,
- 					      unsigned long start,
-@@ -693,6 +750,11 @@ static int hmm_vma_handle_migrate_prepare(const struct mm_walk *walk,
- 	pte = ptep_get(ptep);
- 
- 	if (pte_none(pte)) {
-+		hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk,
-+							addr,
-+							addr + PAGE_SIZE,
-+							hmm_pfn);
-+
- 		if (vma_is_anonymous(walk->vma)) {
- 			*hmm_pfn &= HMM_PFN_INOUT_FLAGS;
- 			*hmm_pfn |= HMM_PFN_MIGRATE;
-@@ -740,6 +802,10 @@ static int hmm_vma_handle_migrate_prepare(const struct mm_walk *walk,
- 		pfn = pte_pfn(pte);
- 		if (is_zero_pfn(pfn) &&
- 		    (minfo & MIGRATE_VMA_SELECT_SYSTEM)) {
-+			hmm_vma_handle_migrate_prepare_rollback(hmm_vma_walk,
-+								addr,
-+								addr + PAGE_SIZE,
-+								hmm_pfn);
- 			*hmm_pfn = HMM_PFN_MIGRATE;
- 			goto out;
- 		}
-@@ -916,6 +982,13 @@ static int hmm_vma_walk_split(pmd_t *pmdp,
- 	return ret;
++	return minfo;
  }
- #else
-+static void hmm_vma_handle_migrate_prepare_rollback(const struct hmm_vma_walk *hmm_vma_walk,
-+						    unsigned long start,
-+						    unsigned long end,
-+						    unsigned long *hmm_pfn)
-+{
-+}
+ 
+ #ifdef CONFIG_MMU_NOTIFIER
+diff --git a/mm/hmm.c b/mm/hmm.c
+index e64444cbc62a..87ebd2500df6 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -1562,14 +1562,43 @@ static int hmm_range_fault_locked(struct hmm_range *range, bool *locked)
+  *		the invalidation to finish.
+  * -EFAULT:     A page was requested to be valid and could not be made valid
+  *              ie it has no backing VMA or it is illegal to access
++ * -ERANGE:     The range crosses multiple VMAs, or space for hmm_pfns array
++ *              is too low.
+  *
+  * This is similar to get_user_pages(), except that it can read the page tables
+  * without mutating them (ie causing faults).
+  *
+  * The mmap lock must be held by the caller and will remain held on return.
+  * New users should prefer hmm_range_fault_unlocked_timeout() unless they
+- * specifically need to keep the mmap lock held across the call. This helper
+- * cannot support VMAs whose fault handlers need to drop the mmap lock.
++ * specifically need to keep the mmap lock held across the call like while
++ * migrating. This helper cannot support VMAs whose fault handlers need to
++ * drop the mmap lock.
++ *
++ * If want to do migration after faulting, call hmm_range_fault() with
++ * range.default_flags of HMM_PFN_REQ_MIGRATE, and optionally
++ * HMM_PFN_REQ_FAULT|HMM_PFN_REQ_WRITE, and initialize range->migrate field.
++ * range->migrate->vma will be populated during the call,
++ * and must be stable across the whole migrate process, which is
++ * why mmap_lock must be held around this call.
++ *
++ * When HMM_PFN_REQ_MIGRATE is set, migration collection may be partial on
++ * return and the caller takes responsibility for completing or aborting it.
++ *
++ * On success, the caller must call migrate_hmm_range_setup() and may then
++ * proceed with the normal migrate_vma sequence: prepare destination pages,
++ * call migrate_vma_pages(), update device mappings as needed, and finally
++ * call migrate_vma_finalize().
++ *
++ * On -EBUSY, the caller may retry hmm_range_fault() using the same range and
++ * PFN array without undoing entries collected by the previous attempt. If
++ * the caller stops retrying, it must abort the partial migration.
++ *
++ * On any other error, or when abandoning a retry, the caller must call
++ * migrate_hmm_range_setup(), migrate_vma_pages() with no valid destination
++ * entries, and migrate_vma_finalize() to abort the partial migration.
++ *
++ * The mmap read lock must remain held until the migration has either been
++ * completed or aborted.
+  */
+ int hmm_range_fault(struct hmm_range *range)
+ {
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 43e571e82cca..1e1a592e1267 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -18,519 +18,6 @@
+ #include <asm/tlbflush.h>
+ #include "internal.h"
+ 
+-static int migrate_vma_collect_skip(unsigned long start,
+-				    unsigned long end,
+-				    struct mm_walk *walk)
+-{
+-	struct migrate_vma *migrate = walk->private;
+-	unsigned long addr;
+-
+-	for (addr = start; addr < end; addr += PAGE_SIZE) {
+-		migrate->dst[migrate->npages] = 0;
+-		migrate->src[migrate->npages++] = 0;
+-	}
+-
+-	return 0;
+-}
+-
+-static int migrate_vma_collect_hole(unsigned long start,
+-				    unsigned long end,
+-				    __always_unused int depth,
+-				    struct mm_walk *walk)
+-{
+-	struct migrate_vma *migrate = walk->private;
+-	unsigned long addr;
+-
+-	/* Only allow populating anonymous memory. */
+-	if (!vma_is_anonymous(walk->vma))
+-		return migrate_vma_collect_skip(start, end, walk);
+-
+-	if (thp_migration_supported() &&
+-		(migrate->flags & MIGRATE_VMA_SELECT_COMPOUND) &&
+-		(IS_ALIGNED(start, HPAGE_PMD_SIZE) &&
+-		 IS_ALIGNED(end, HPAGE_PMD_SIZE))) {
+-		migrate->src[migrate->npages] = MIGRATE_PFN_MIGRATE |
+-						MIGRATE_PFN_COMPOUND;
+-		migrate->dst[migrate->npages] = 0;
+-		migrate->npages++;
+-		migrate->cpages++;
+-
+-		/*
+-		 * Collect the remaining entries as holes, in case we
+-		 * need to split later
+-		 */
+-		return migrate_vma_collect_skip(start + PAGE_SIZE, end, walk);
+-	}
+-
+-	for (addr = start; addr < end; addr += PAGE_SIZE) {
+-		migrate->src[migrate->npages] = MIGRATE_PFN_MIGRATE;
+-		migrate->dst[migrate->npages] = 0;
+-		migrate->npages++;
+-		migrate->cpages++;
+-	}
+-
+-	return 0;
+-}
+-
+-/**
+- * migrate_vma_split_folio() - Helper function to split a THP folio
+- * @folio: the folio to split
+- * @fault_page: struct page associated with the fault if any
+- *
+- * If @folio is not the folio containing @fault_page, the caller must hold a
+- * reference on @folio. The helper consumes that reference.
+- *
+- * Returns 0 on success
+- */
+-static int migrate_vma_split_folio(struct folio *folio,
+-				   struct page *fault_page)
+-{
+-	int ret;
+-	struct folio *fault_folio = fault_page ? page_folio(fault_page) : NULL;
+-	struct folio *new_fault_folio = NULL;
+-
+-	if (folio != fault_folio)
+-		folio_lock(folio);
+-
+-	ret = split_folio(folio);
+-	if (ret) {
+-		if (folio != fault_folio) {
+-			folio_unlock(folio);
+-			folio_put(folio);
+-		}
+-		return ret;
+-	}
+-
+-	new_fault_folio = fault_page ? page_folio(fault_page) : NULL;
+-
+-	/*
+-	 * Ensure the lock is held on the correct
+-	 * folio after the split
+-	 */
+-	if (!new_fault_folio) {
+-		folio_unlock(folio);
+-		folio_put(folio);
+-	} else if (folio != new_fault_folio) {
+-		if (new_fault_folio != fault_folio) {
+-			folio_get(new_fault_folio);
+-			folio_lock(new_fault_folio);
+-		}
+-		folio_unlock(folio);
+-		folio_put(folio);
+-	}
+-
+-	return 0;
+-}
+-
+-/** migrate_vma_collect_huge_pmd - collect THP pages without splitting the
+- * folio for device private pages.
+- * @pmdp: pointer to pmd entry
+- * @start: start address of the range for migration
+- * @end: end address of the range for migration
+- * @walk: mm_walk callback structure
+- * @fault_folio: folio associated with the fault if any
+- *
+- * Collect the huge pmd entry at @pmdp for migration and set the
+- * MIGRATE_PFN_COMPOUND flag in the migrate src entry to indicate that
+- * migration will occur at HPAGE_PMD granularity
+- */
+-static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
+-					unsigned long end, struct mm_walk *walk,
+-					struct folio *fault_folio)
+-{
+-	struct mm_struct *mm = walk->mm;
+-	struct folio *folio;
+-	struct migrate_vma *migrate = walk->private;
+-	spinlock_t *ptl;
+-	int ret;
+-	unsigned long write = 0;
+-
+-	ptl = pmd_lock(mm, pmdp);
+-	if (pmd_none(*pmdp)) {
+-		spin_unlock(ptl);
+-		return migrate_vma_collect_hole(start, end, -1, walk);
+-	}
+-
+-	if (pmd_trans_huge(*pmdp)) {
+-		if (!(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
+-			spin_unlock(ptl);
+-			return migrate_vma_collect_skip(start, end, walk);
+-		}
+-
+-		folio = pmd_folio(*pmdp);
+-		if (is_huge_zero_folio(folio)) {
+-			spin_unlock(ptl);
+-			return migrate_vma_collect_hole(start, end, -1, walk);
+-		}
+-		if (pmd_write(*pmdp))
+-			write = MIGRATE_PFN_WRITE;
+-	} else if (!pmd_present(*pmdp)) {
+-		const softleaf_t entry = softleaf_from_pmd(*pmdp);
+-
+-		if (!softleaf_is_device_private(entry) ||
+-		    !(migrate->flags & MIGRATE_VMA_SELECT_DEVICE_PRIVATE)) {
+-			spin_unlock(ptl);
+-			return migrate_vma_collect_skip(start, end, walk);
+-		}
+-
+-		folio = softleaf_to_folio(entry);
+-		if (folio->pgmap->owner != migrate->pgmap_owner) {
+-			spin_unlock(ptl);
+-			return migrate_vma_collect_skip(start, end, walk);
+-		}
+-
+-		if (softleaf_is_device_private_write(entry))
+-			write = MIGRATE_PFN_WRITE;
+-	} else {
+-		spin_unlock(ptl);
+-		return -EAGAIN;
+-	}
+-
+-	folio_get(folio);
+-	if (folio != fault_folio && unlikely(!folio_trylock(folio))) {
+-		spin_unlock(ptl);
+-		folio_put(folio);
+-		return migrate_vma_collect_skip(start, end, walk);
+-	}
+-
+-	if (thp_migration_supported() &&
+-		(migrate->flags & MIGRATE_VMA_SELECT_COMPOUND) &&
+-		(IS_ALIGNED(start, HPAGE_PMD_SIZE) &&
+-		 IS_ALIGNED(end, HPAGE_PMD_SIZE))) {
+-
+-		struct page_vma_mapped_walk pvmw = {
+-			.ptl = ptl,
+-			.address = start,
+-			.pmd = pmdp,
+-			.vma = walk->vma,
+-		};
+-
+-		unsigned long pfn = page_to_pfn(folio_page(folio, 0));
+-
+-		migrate->src[migrate->npages] = migrate_pfn(pfn) | write
+-						| MIGRATE_PFN_MIGRATE
+-						| MIGRATE_PFN_COMPOUND;
+-		migrate->dst[migrate->npages++] = 0;
+-		migrate->cpages++;
+-		ret = set_pmd_migration_entry(&pvmw, folio_page(folio, 0));
+-		if (ret) {
+-			migrate->npages--;
+-			migrate->cpages--;
+-			migrate->src[migrate->npages] = 0;
+-			migrate->dst[migrate->npages] = 0;
+-			goto fallback;
+-		}
+-		migrate_vma_collect_skip(start + PAGE_SIZE, end, walk);
+-		spin_unlock(ptl);
+-		return 0;
+-	}
+-
+-fallback:
+-	spin_unlock(ptl);
+-	if (!folio_test_large(folio))
+-		goto done;
+-	ret = split_folio(folio);
+-	if (fault_folio != folio)
+-		folio_unlock(folio);
+-	folio_put(folio);
+-	if (ret)
+-		return migrate_vma_collect_skip(start, end, walk);
+-	if (pmd_none(pmdp_get_lockless(pmdp)))
+-		return migrate_vma_collect_hole(start, end, -1, walk);
+-
+-done:
+-	return -ENOENT;
+-}
+-
+-static int migrate_vma_collect_pmd(pmd_t *pmdp,
+-				   unsigned long start,
+-				   unsigned long end,
+-				   struct mm_walk *walk)
+-{
+-	struct migrate_vma *migrate = walk->private;
+-	struct vm_area_struct *vma = walk->vma;
+-	struct mm_struct *mm = vma->vm_mm;
+-	unsigned long addr = start, unmapped = 0;
+-	spinlock_t *ptl;
+-	struct folio *fault_folio = migrate->fault_page ?
+-		page_folio(migrate->fault_page) : NULL;
+-	pte_t *ptep;
+-
+-again:
+-	if (pmd_trans_huge(*pmdp) || !pmd_present(*pmdp)) {
+-		int ret = migrate_vma_collect_huge_pmd(pmdp, start, end, walk, fault_folio);
+-
+-		if (ret == -EAGAIN)
+-			goto again;
+-		if (ret == 0)
+-			return 0;
+-	}
+-
+-	ptep = pte_offset_map_lock(mm, pmdp, start, &ptl);
+-	if (!ptep)
+-		goto again;
+-	lazy_mmu_mode_enable();
+-	ptep += (addr - start) / PAGE_SIZE;
+-
+-	for (; addr < end; addr += PAGE_SIZE, ptep++) {
+-		struct dev_pagemap *pgmap;
+-		unsigned long mpfn = 0, pfn;
+-		struct folio *folio;
+-		struct page *page;
+-		softleaf_t entry;
+-		pte_t pte;
+-
+-		pte = ptep_get(ptep);
+-
+-		if (pte_none(pte)) {
+-			if (vma_is_anonymous(vma)) {
+-				mpfn = MIGRATE_PFN_MIGRATE;
+-				migrate->cpages++;
+-			}
+-			goto next;
+-		}
+-
+-		if (!pte_present(pte)) {
+-			/*
+-			 * Only care about unaddressable device page special
+-			 * page table entry. Other special swap entries are not
+-			 * migratable, and we ignore regular swapped page.
+-			 */
+-			entry = softleaf_from_pte(pte);
+-			if (!softleaf_is_device_private(entry))
+-				goto next;
+-
+-			page = softleaf_to_page(entry);
+-			pgmap = page_pgmap(page);
+-			if (!(migrate->flags &
+-				MIGRATE_VMA_SELECT_DEVICE_PRIVATE) ||
+-			    pgmap->owner != migrate->pgmap_owner)
+-				goto next;
+-
+-			folio = page_folio(page);
+-			if (folio_test_large(folio)) {
+-				int ret;
+-
+-				/* migrate_vma_split_folio() consumes this reference */
+-				if (folio != fault_folio)
+-					folio_get(folio);
+-				lazy_mmu_mode_disable();
+-				pte_unmap_unlock(ptep, ptl);
+-				ret = migrate_vma_split_folio(folio,
+-							  migrate->fault_page);
+-
+-				if (ret) {
+-					if (unmapped)
+-						flush_tlb_range(walk->vma, start, end);
+-
+-					return migrate_vma_collect_skip(addr, end, walk);
+-				}
+-
+-				goto again;
+-			}
+-
+-			mpfn = migrate_pfn(page_to_pfn(page)) |
+-					MIGRATE_PFN_MIGRATE;
+-			if (softleaf_is_device_private_write(entry))
+-				mpfn |= MIGRATE_PFN_WRITE;
+-		} else {
+-			pfn = pte_pfn(pte);
+-			if (is_zero_pfn(pfn) &&
+-			    (migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
+-				mpfn = MIGRATE_PFN_MIGRATE;
+-				migrate->cpages++;
+-				goto next;
+-			}
+-			page = vm_normal_page(migrate->vma, addr, pte);
+-			if (page && !is_zone_device_page(page) &&
+-			    !(migrate->flags & MIGRATE_VMA_SELECT_SYSTEM)) {
+-				goto next;
+-			} else if (page && is_device_coherent_page(page)) {
+-				pgmap = page_pgmap(page);
+-
+-				if (!(migrate->flags &
+-					MIGRATE_VMA_SELECT_DEVICE_COHERENT) ||
+-					pgmap->owner != migrate->pgmap_owner)
+-					goto next;
+-			}
+-			folio = page ? page_folio(page) : NULL;
+-			if (folio && folio_test_large(folio)) {
+-				int ret;
+-
+-				/* migrate_vma_split_folio() consumes this reference */
+-				if (folio != fault_folio)
+-					folio_get(folio);
+-				lazy_mmu_mode_disable();
+-				pte_unmap_unlock(ptep, ptl);
+-				ret = migrate_vma_split_folio(folio,
+-							  migrate->fault_page);
+-
+-				if (ret) {
+-					if (unmapped)
+-						flush_tlb_range(walk->vma, start, end);
+-
+-					return migrate_vma_collect_skip(addr, end, walk);
+-				}
+-
+-				goto again;
+-			}
+-			mpfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
+-			mpfn |= pte_write(pte) ? MIGRATE_PFN_WRITE : 0;
+-		}
+-
+-		if (!page || !page->mapping) {
+-			mpfn = 0;
+-			goto next;
+-		}
+-
+-		/*
+-		 * By getting a reference on the folio we pin it and that blocks
+-		 * any kind of migration. Side effect is that it "freezes" the
+-		 * pte.
+-		 *
+-		 * We drop this reference after isolating the folio from the lru
+-		 * for non device folio (device folio are not on the lru and thus
+-		 * can't be dropped from it).
+-		 */
+-		folio = page_folio(page);
+-		folio_get(folio);
+-
+-		/*
+-		 * We rely on folio_trylock() to avoid deadlock between
+-		 * concurrent migrations where each is waiting on the others
+-		 * folio lock. If we can't immediately lock the folio we fail this
+-		 * migration as it is only best effort anyway.
+-		 *
+-		 * If we can lock the folio it's safe to set up a migration entry
+-		 * now. In the common case where the folio is mapped once in a
+-		 * single process setting up the migration entry now is an
+-		 * optimisation to avoid walking the rmap later with
+-		 * try_to_migrate().
+-		 */
+-		if (fault_folio == folio || folio_trylock(folio)) {
+-			bool anon_exclusive;
+-			pte_t swp_pte;
+-
+-			if (pte_present(pte))
+-				flush_cache_page(vma, addr, pte_pfn(pte));
+-			anon_exclusive = folio_test_anon(folio) &&
+-					  PageAnonExclusive(page);
+-			if (anon_exclusive) {
+-				pte = ptep_clear_flush(vma, addr, ptep);
+-
+-				if (folio_try_share_anon_rmap_pte(folio, page)) {
+-					set_pte_at(mm, addr, ptep, pte);
+-					if (fault_folio != folio)
+-						folio_unlock(folio);
+-					folio_put(folio);
+-					mpfn = 0;
+-					goto next;
+-				}
+-			} else {
+-				pte = ptep_get_and_clear(mm, addr, ptep);
+-			}
+-
+-			migrate->cpages++;
+-
+-			/* Set the dirty flag on the folio now the pte is gone. */
+-			if (pte_present(pte) && pte_dirty(pte))
+-				folio_mark_dirty(folio);
+-
+-			/* Setup special migration page table entry */
+-			if (mpfn & MIGRATE_PFN_WRITE)
+-				entry = make_writable_migration_entry(
+-							page_to_pfn(page));
+-			else if (anon_exclusive)
+-				entry = make_readable_exclusive_migration_entry(
+-							page_to_pfn(page));
+-			else
+-				entry = make_readable_migration_entry(
+-							page_to_pfn(page));
+-			if (pte_present(pte)) {
+-				if (pte_young(pte))
+-					entry = make_migration_entry_young(entry);
+-				if (pte_dirty(pte))
+-					entry = make_migration_entry_dirty(entry);
+-			}
+-			swp_pte = swp_entry_to_pte(entry);
+-			if (pte_present(pte)) {
+-				if (pte_soft_dirty(pte))
+-					swp_pte = pte_swp_mksoft_dirty(swp_pte);
+-				if (pte_uffd(pte))
+-					swp_pte = pte_swp_mkuffd(swp_pte);
+-			} else {
+-				if (pte_swp_soft_dirty(pte))
+-					swp_pte = pte_swp_mksoft_dirty(swp_pte);
+-				if (pte_swp_uffd(pte))
+-					swp_pte = pte_swp_mkuffd(swp_pte);
+-			}
+-			set_pte_at(mm, addr, ptep, swp_pte);
+-
+-			/*
+-			 * This is like regular unmap: we remove the rmap and
+-			 * drop the folio refcount. The folio won't be freed, as
+-			 * we took a reference just above.
+-			 */
+-			folio_remove_rmap_pte(folio, page, vma);
+-			folio_put(folio);
+-
+-			if (pte_present(pte))
+-				unmapped++;
+-		} else {
+-			folio_put(folio);
+-			mpfn = 0;
+-		}
+-
+-next:
+-		migrate->dst[migrate->npages] = 0;
+-		migrate->src[migrate->npages++] = mpfn;
+-	}
+-
+-	/* Only flush the TLB if we actually modified any entries */
+-	if (unmapped)
+-		flush_tlb_range(walk->vma, start, end);
+-
+-	lazy_mmu_mode_disable();
+-	pte_unmap_unlock(ptep - 1, ptl);
+-
+-	return 0;
+-}
+-
+-static const struct mm_walk_ops migrate_vma_walk_ops = {
+-	.pmd_entry		= migrate_vma_collect_pmd,
+-	.pte_hole		= migrate_vma_collect_hole,
+-	.walk_lock		= PGWALK_RDLOCK,
+-};
+-
+-/*
+- * migrate_vma_collect() - collect pages over a range of virtual addresses
+- * @migrate: migrate struct containing all migration information
+- *
+- * This will walk the CPU page table. For each virtual address backed by a
+- * valid page, it updates the src array and takes a reference on the page, in
+- * order to pin the page until we lock it and unmap it.
+- */
+-static void migrate_vma_collect(struct migrate_vma *migrate)
+-{
+-	struct mmu_notifier_range range;
+-
+-	/*
+-	 * Note that the pgmap_owner is passed to the mmu notifier callback so
+-	 * that the registered device driver can skip invalidating device
+-	 * private page mappings that won't be migrated.
+-	 */
+-	mmu_notifier_range_init_owner(&range, MMU_NOTIFY_MIGRATE, 0,
+-		migrate->vma->vm_mm, migrate->start, migrate->end,
+-		migrate->pgmap_owner);
+-	mmu_notifier_invalidate_range_start(&range);
+-
+-	walk_page_range_vma(migrate->vma, migrate->start, migrate->end,
+-			&migrate_vma_walk_ops, migrate);
+-
+-	mmu_notifier_invalidate_range_end(&range);
+-	migrate->end = migrate->start + (migrate->npages << PAGE_SHIFT);
+-}
+-
+ /*
+  * migrate_vma_check_page() - check if page is pinned or not
+  * @page: struct page to check
+@@ -677,8 +164,9 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
+  * migrate_vma_setup() - prepare to migrate a range of memory
+  * @args: contains the vma, start, and pfns arrays for the migration
+  *
+- * Returns: negative errno on failures, 0 when 0 or more pages were migrated
+- * without an error.
++ * Returns: -EINVAL on invalid arguments, 0 otherwise. A 0 return does not
++ * imply anything was collected; on return @args->cpages holds the number of
++ * pages prepared for migration (possibly 0). See the note on faulting below.
+  *
+  * Prepare to migrate a range of memory virtual address range by collecting all
+  * the pages backing each virtual address in the range, saving them inside the
+@@ -688,6 +176,20 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
+  * corresponding src array entry.  Then restores any pages that are pinned, by
+  * remapping and unlocking those pages.
+  *
++ * By default migrate_vma_setup() is best-effort: virtual addresses that cannot
++ * be collected are left with an empty src[] entry and the rest of the range
++ * still proceeds.
++ *
++ * The optional flags MIGRATE_VMA_FAULT and MIGRATE_VMA_WRITE in @args->flags
++ * additionally fault in missing pages before collecting them, for read and for
++ * write respectively. Unlike the best-effort default, if such a fault cannot be
++ * satisfied the whole range is aborted: the partial collection is rolled back,
++ * @args->src is cleared, @args->cpages and @args->npages are reset to 0,
++ * and migrate_vma_setup() still returns 0. The fault error is therefore not
++ * observable through this interface. Callers that need to act on fault failures
++ * should instead drive the migration directly via hmm_range_fault() followed by
++ * migrate_hmm_range_setup(), which preserves the error code.
++ *
+  * The caller should then allocate destination memory and copy source memory to
+  * it for all those entries (ie with MIGRATE_PFN_VALID and MIGRATE_PFN_MIGRATE
+  * flag set).  Once these are allocated and copied, the caller must update each
+@@ -739,10 +241,20 @@ static void migrate_vma_unmap(struct migrate_vma *migrate)
+  */
+ int migrate_vma_setup(struct migrate_vma *args)
+ {
++	int ret;
+ 	long nr_pages = (args->end - args->start) >> PAGE_SHIFT;
++	struct hmm_range range = {
++		.notifier = NULL,
++		.hmm_pfns = args->src,
++		.dev_private_owner = args->pgmap_owner,
++		.migrate = args,
++		.default_flags = HMM_PFN_REQ_MIGRATE
++	};
+ 
+ 	args->start &= PAGE_MASK;
+ 	args->end &= PAGE_MASK;
++	range.start = args->start;
++	range.end = args->end;
+ 	if (!args->vma || is_vm_hugetlb_page(args->vma) ||
+ 	    (args->vma->vm_flags & VM_SPECIAL) || vma_is_dax(args->vma))
+ 		return -EINVAL;
+@@ -764,10 +276,24 @@ int migrate_vma_setup(struct migrate_vma *args)
+ 	args->cpages = 0;
+ 	args->npages = 0;
+ 
+-	migrate_vma_collect(args);
++	if (args->flags & MIGRATE_VMA_FAULT)
++		range.default_flags |= HMM_PFN_REQ_FAULT;
+ 
+-	if (args->cpages)
+-		migrate_vma_unmap(args);
++	if (args->flags & MIGRATE_VMA_WRITE)
++		range.default_flags |= HMM_PFN_REQ_FAULT | HMM_PFN_REQ_WRITE;
 +
- static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
- 					      pmd_t *pmdp,
- 					      unsigned long start,
-@@ -1142,6 +1215,9 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 		if (ptep) {
- 			lazy_mmu_mode_enable();
- 			hmm_vma_walk->ptelocked = true;
-+		} else {
-+			/* The pte table is gone */
-+			hmm_vma_handle_migrate_prepare_rollback(walk->private, addr, end, hmm_pfns);
- 		}
- 	} else {
- 		ptep = pte_offset_map(pmdp, addr);
++	ret = hmm_range_fault(&range);
++
++	migrate_hmm_range_setup(&range);
++
++	/* Remove migration PTEs */
++	if (ret) {
++		migrate_vma_pages(args);
++		migrate_vma_finalize(args);
++		memset(args->src, 0, sizeof(*args->src) * nr_pages);
++		args->cpages = 0;
++		args->npages = 0;
++	}
+ 
+ 	/*
+ 	 * At this point pages are locked and unmapped, and thus they have
 -- 
 2.55.0
 
