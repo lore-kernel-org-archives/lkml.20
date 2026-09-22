@@ -1,92 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF364746B1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B324A440B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062128; cv=none; b=rH42JpbGantcoieD6Yb+GsSx0SdVWgqMaz+OgfjAs5Du+V7T8eduuqzY8/HLo4gjeKbZPFIW43+wfk/FuaIbn3AriTuEMJZiWc4og3GYrX2x3mVKcLYfQ4+4MrshKUdaBbmhfISuB7+ip6OPtPO5n64Fhc0cWKg7f/YxsQWQIuQ=
+	t=1790062145; cv=none; b=Ux5G1K2cnF6vnaYN/JODhVsvwO0MGKokdUlfTcNU7PLoNsLWkZkMQ3BhsRkX1voKS2M/sRE63zUHzWXQILjUfdLmgUrkCbJRiKoiFpf1EWz5idHS+oe2YF08f62KR5DTe4+tK2qBoDOI/R/JPsRCGoTLsc9yOW0A9SZ9dhBbFkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062128; c=relaxed/simple;
-	bh=jUNbiy0xDuTi7c+5s9qvfuW81PbsVIyH32dQ/SjREYU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IUfPAtvpN2VxpHhsnUc3vr2ZrZgHatCopyMrY8Dhjfuhl5BATQg87d4XSOtXlcEfrW+R9UUr0K2GO+G0yEF2VdiQppN4yqykUe5wdHexoB8FhLcvAtu3/8WneDHbXYqmltmkFCaiq3fyY4YWwNZQjPI+D/DQyD6VDpfCVaNdYW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZp0caBb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790062145; c=relaxed/simple;
+	bh=XPp/PcjFWgVB5+Bw5ABOkUP0IsKJws4n3xxxAV9CNdE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QLt8P2AVVtKHwTjWYoUHQqQ9aDIA0ExHUuEBhj3FFI+ajg11pijUbLmJbzeIgnZzK1anXCQrFUygBtBXv0lz4r+GHcqUuAjbf9qnqC+1gwLHRWTfBVlDejcM89xIcNMt5R3GEKtPxH/KGseysWHWDIJXtCW4+ldMQpPx/Yfl1VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Om1zxZDL; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZp0caBb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1611F008A6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:28:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790062127;
-	bh=RlS/01WyyurIPf4QsRysWjeX/pYeyMHVRzkWTplgkuo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OZp0caBbpefIvj9oDAZUhKHN7HmbUmSQEDEtJyByiNinpZk0O8y4fxtBhC2HvSwG3
-	 nVn3uGo7rfGHO0FJAzg3l8b+9tkirrGKqpKntbc1kLUFH8BTKzyUGr51prwRh0TT8A
-	 jmKeyXJeVqznfFEmqluszLaZuv8CtgzLp19JetSlzAJSToGilc4NUXKXeZrCz2xhe6
-	 X7tA51sgsYuxNEbq10r+KXuYWZYb8M2U1qJxyJC9D5q3iqM8mHzzyusLZ8KQse/rV/
-	 VtDcdTYWoki9oBne42YfmbwPaJv9I98IdOA4Xf4FTY/WfuzkM8U5IDrx7TAxDxmisn
-	 0h0nFQkVVbtYg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c81so3250084e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:28:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzs8eMieZ26bLVXC0N139KPJQdPlSRjdP0cfWw8UKyUCIS6a/T8rD7F4hy48GeEY6u+SewFRwYc5Ld9qac=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9FaDxWdCWX7KgVIfU3GaEufMDTUuZww3L8NeytdNUF5xhzQzX
-	7IThNChFRLKWU0AIHL8HBa1Wr6IbXTIUm6SPXwWzaffyy1e2bZ4QoOywMuR6csJa9WxtILZLQXp
-	iU1o1lhO0rqXckqCntRnNRufoo5feA/4=
-X-Received: by 2002:a05:6512:3d1d:b0:5ae:c8da:6254 with SMTP id
- 2adb3069b0e04-5b8c18298d5mr3810337e87.22.1790062125682; Tue, 22 Sep 2026
- 00:28:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Om1zxZDL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790062143;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1nV4OYi178lUeQW0YjjIgpTN9nSwgzP2y4G9yO7aqk0=;
+	b=Om1zxZDLFdQUnAc3vb0GgwD3J964eZKSk0BXoKQN+LlMWa4tHM1fmB9YZFDzAZWb2ienHr
+	htmg7Lr7ogBaE4rJ7XmeNpQ6rTztTgxmyBq/F4c2DAkqm5/7MfKDpvY9ljaUNusJL12PgB
+	eFj3xPKllxE2y2Xkitlyi73Ts5vJrFM=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-387-JtQeQhCuOTOpX21smiv1SA-1; Tue,
+ 22 Sep 2026 03:28:57 -0400
+X-MC-Unique: JtQeQhCuOTOpX21smiv1SA-1
+X-Mimecast-MFC-AGG-ID: JtQeQhCuOTOpX21smiv1SA_1790062136
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E74F0180A94D;
+	Tue, 22 Sep 2026 07:28:55 +0000 (UTC)
+Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 0492D1956041;
+	Tue, 22 Sep 2026 07:28:52 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Tue, 22 Sep 2026 09:28:55 +0200 (CEST)
+Date: Tue, 22 Sep 2026 09:28:51 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Andreas Larsson <andreas@gaisler.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>, sparclinux@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sparc64: uprobes: use kmap_local_page() in copy_to_page()
+Message-ID: <arIuM7PdJ9gi222t@redhat.com>
+References: <20260922023111.49951-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-15-282ff5d98dda@ambarella.com>
-In-Reply-To: <20260921-cv75-v5-v8-15-282ff5d98dda@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 09:28:33 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnL5h2AD5rYvUYGT_TvQ=m9CQd6bh_NT=T28G7hDGFLDw@mail.gmail.com>
-X-Gm-Features: AclHuK_pNJ1evLbofDMJ7O-GTWjLgf41H8iNHME4i3icaRDTTyzpN_Rs6YR6w7U
-Message-ID: <CAD++jLnL5h2AD5rYvUYGT_TvQ=m9CQd6bh_NT=T28G7hDGFLDw@mail.gmail.com>
-Subject: Re: [PATCH v8 15/18] pinctrl: ambarella: add CV75 pin controller
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922023111.49951-1-danishkhateeb03@gmail.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
-
-> From: Long Zhao <longzhao@ambarella.com>
+On 09/21, Danish Khateeb wrote:
 >
-> Add an Ambarella pinmux-only pinctrl driver with CV75 function/group
-> tables. GPIO is handled by the PL061 driver.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> --- a/arch/sparc/kernel/uprobes.c
+> +++ b/arch/sparc/kernel/uprobes.c
+> @@ -33,10 +33,10 @@ unsigned long uprobe_get_swbp_addr(struct pt_regs *regs)
+>  static void copy_to_page(struct page *page, unsigned long vaddr,
+>  			 const void *src, int len)
+>  {
+> -	void *kaddr = kmap_atomic(page);
+> +	void *kaddr = kmap_local_page(page);
+>  
+>  	memcpy(kaddr + (vaddr & ~PAGE_MASK), src, len);
+> -	kunmap_atomic(kaddr);
+> +	kunmap_local(kaddr);
+>  }
 
-I feel I could just apply this patch.
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 
-> +       select GPIO_PL061
-
-This doesn't matter so much, I can just assume this will appear in
-the merge window.
-
-If some bots complain it we can just ignore it.
-
-Once the bindings are ACKed I will consider just apply the
-bindings and this patch to the pinctrl tree.
-
-Yours,
-Linus Walleij
