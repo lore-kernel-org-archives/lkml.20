@@ -1,219 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F3355C33D;
-	Tue, 22 Sep 2026 15:37:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB5755820D;
+	Tue, 22 Sep 2026 15:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091424; cv=none; b=WJtpNdr541YcnFTGyU7ZmMz88VG0Zho2SMbKzds4rpm38yQt/VykTTDgVEaDI1rUEVm3ZsHxV1d24b+oU4zeaaPRNs1kfBDyOYybQIlQjfa4V4yFdvvXdshDjlDuqJeWTeD0YzOTlBrrYQTm16MtKBqL+V0VTP1jDyHFWWrZQp4=
+	t=1790091442; cv=none; b=hicN0/Gh5PAfA9+0mDBDWt2LblfbDSIuC30IlPqMA8cRfAJoPSFb89/gMsDeRqn8xOaZZPDkXKPhnwvBU2yE10nM+jMoRxYjAfhHQup3Od9K0jiHaKWe5zRJJ4cDjPv64eg/sf6gwZRGI2TMfkfBjGdm/xJsCSXnOysXF3Qmrg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091424; c=relaxed/simple;
-	bh=rsMDvdAbtvoABYwhg/X/cTGymXJ9hKGwhRWcnnt6A68=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QlAmMPpWIyGjpwDM8uhjao+qgwZr7Wy5d4Tv46XHIQDyHpFUODE9NgQOruKwga7E3wAivT7kc/lXbFddvobeNIXXlZSGEKtCNmKOjPLAVERDle1lAN6DnvGuKZTjWvi5IQJkeUBpb178q1OYN/mOT3nGFvP9KjECn6VrWcgGKqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGuqbTJ8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790091442; c=relaxed/simple;
+	bh=bwuaeHFGwuLQFcHN0hOhjdTFxvn+j0g8fIWNrCdz0hk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=k4w1LO0ZYceJOF3cfweE5kiUXuU3FuGJQkFQP7tt8Oruo7BhZnThrfZn8oQqayoQkuCR+0ON5Y8UuOMGLzz4yFVAolk67kctqPJD1F7Fd+70fO5gls0UskITGeU10NwuKI4ArCkf6GsU+moJ8A1SOpsp3lH0+jSgsIMvB9tZ9GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A8I7oZL7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGuqbTJ8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78E31F000FF;
-	Tue, 22 Sep 2026 15:37:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A8I7oZL7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4FC1F00899;
+	Tue, 22 Sep 2026 15:36:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091422;
-	bh=S13S5usVPAem3KF3x7SHy0e4q0NgWKp/T4RI6TxtJjw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jGuqbTJ85HdCyG9Ktgs4IzfMWqgI9cPqd9NFr39PjZnZI9NnpkrObG0x8QVVVKy2U
-	 WS+KIEK4DmnSbpS0sqkP3chZjqptyB6cY1VKuCaorDB73cHof0QdP6yuAY0N2EUtOF
-	 S9JzxEbFdWV/sYhhAaVFpcFaL1hEx7+pYWKcozC/g9q2po8gN7hRC4taW2xpNARYTv
-	 BNr0c1NwW7ly8X2lsr2VO8es0Wxd40e2yS1SCJwh5B7gWIQoGA12948iGkPDbaw5x/
-	 2S6tBqFjc9vw0G15i+OA8HIkcNXGzu36WlZEpvTsaONYj8Y4akn1idnGBsgQiGoVld
-	 9SkWrENTKfmnA==
-Subject:
- Re: [PATCH] ipv6: check per-interface proxy_ndp in forwarding and NA paths
-From: netdev-bot+sashiko@kernel.org
-To: adrianox@gmail.com
-Cc: dsahern@kernel.org, idosch@nvidia.com, netdev@vger.kernel.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 22 Sep 2026 15:37:01 +0000
-Message-ID: <179009142113.2160803.656958485064300227@kernel.org>
-In-Reply-To: <20260918151405.716075-1-adrianox@gmail.com>
-References: <20260918151405.716075-1-adrianox@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790091440;
+	bh=EytwztXVP9+HAqnBzZ3KHLRHej5X7gcr6/abe7XoyR8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=A8I7oZL76bgc/K4OnZ0JyOMCleMrv8FdbRx4ZImWL6TzUOPy27OJNysbdg4leGGta
+	 Lx4vSFm7V5JKYxrVGD86zIiIioAiFtHv9yN3wsYYID68QpWVVMN3tQku4l98Qy4zgw
+	 qF27kTj7WZm0/RooazviLjtxmwgEqpzuJcU5c7iIeBV8ngO+1ipt0+uSiSCb1hYR9b
+	 FeqTZuRHz8OvBlBx/kNDAhn+A5qaMG/FK1Kz/HdRa6QnK91S6WhAahUdZR52ic+UQ6
+	 m4kfJDCDMoP3ZT2i41bOmIUPh/ZPP4TnOLJOrrC+n/gp89K3MgMVpMT2NZUEDoQZj+
+	 OSQ/pfkvGm+LQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 22 Sep 2026 16:35:33 +0100
+Subject: [PATCH v4 02/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for most
+ 2-level architectures
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-rcu-pagetable-freeing-v4-2-fe1ad1f1e303@kernel.org>
+References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
+In-Reply-To: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Jonathan Corbet <corbet@lwn.net>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, linux-doc@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3613; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=bwuaeHFGwuLQFcHN0hOhjdTFxvn+j0g8fIWNrCdz0hk=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI2Lch++epj9MNnHpEe9yYlHD30J+h8XF7vnb1CF/a1l
+ 1Vpn6xe2FHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJNO1n+J9tETupvXJjzarT
+ rwX+hry6vcpP5urt1Q9MTtum66QcKIlk+B9bHRHH1mdsW7N44armiqcpC9oZ5195ZXdRTZPRdKv
+ ybXYA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Commit e3ecf7c7d082 ("mm: pgtable: convert some architectures to use
+tlb_remove_ptdesc()") updated a number of architectures from using
+pagetable_dtor() + tlb_remove_page_ptdesc() to using tlb_remove_ptdesc() in
+__pte_free_tlb().
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+This is meaningful as tlb_remove_ptdesc() allows for RCU page table
+freeing if CONFIG_MMU_GATHER_RCU_TABLE_FREE is specified.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The csky, hexagon, nios2, openrisc, sh (except X2) and m68k-sun3
+architectures all have 2 levels of page tables, so the only page tables
+ever freed by mmu_gather are PTEs, so this update suffices to ensure that
+every page table freed by the mmu_gather mechanism is freed under RCU.
 
-- [Medium] Incomplete alignment in ndisc_recv_na(): the patch makes the
-  proxy_ndp half of the proxy-NA suppression test per-interface aware…
-- [Medium] In ip6_forward() the newly added per-interface test reads
-  `idev->cnf.proxy_ndp`, where `idev` is derived from `IP6CB(skb)->iif`…
+Therefore, update all of these architectures to select
+CONFIG_MMU_GATHER_RCU_TABLE_FREE.
 
---
+This forms part of an overall effort to switch every architecture to this
+mode.
 
-ipv6: check per-interface proxy_ndp in forwarding and NA paths
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ arch/csky/Kconfig     | 1 +
+ arch/hexagon/Kconfig  | 1 +
+ arch/m68k/Kconfig     | 1 +
+ arch/nios2/Kconfig    | 1 +
+ arch/openrisc/Kconfig | 1 +
+ arch/sh/Kconfig       | 1 +
+ 6 files changed, 6 insertions(+)
 
-This makes ip6_forward() and ndisc_recv_na() consider the per-interface
-proxy_ndp setting in addition to the global net.ipv6.conf.all.proxy_ndp,
-matching what ndisc_recv_ns() already does.
-
-> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-> index 550965058991..738fa46a892a 100644
-> --- a/net/ipv6/ip6_output.c
-> +++ b/net/ipv6/ip6_output.c
-> @@ -581,8 +581,8 @@ int ip6_forward(struct sk_buff *skb)
->  		return -ETIMEDOUT;
->  	}
->  
-> -	/* XXX: idev->cnf.proxy_ndp? */
-> -	if (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) &&
-> +	if ((READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
-> +	     (idev && READ_ONCE(idev->cnf.proxy_ndp))) &&
->  	    pneigh_lookup(&nd_tbl, net, &hdr->daddr, skb->dev)) {
-
-[Severity: Medium]
-Is the device used for the new per-interface read the same one used by the
-lookup on the next line?  In ip6_forward(), idev comes from IP6CB(skb)->iif:
-
-net/ipv6/ip6_output.c:ip6_forward() {
-	idev = __in6_dev_get_safely(dev_get_by_index_rcu(net, IP6CB(skb)->iif));
-	...
-}
-
-while pneigh_lookup() is called with skb->dev.
-
-IP6CB(skb)->iif is recorded in ip6_rcv_core() before the l3mdev receive
-handler runs:
-
-net/ipv6/ip6_input.c:ip6_rcv_core() {
-	IP6CB(skb)->iif = skb_valid_dst(skb) ?
-				ip6_dst_idev(skb_dst(skb))->dev->ifindex :
-				dev->ifindex;
-}
-
-and vrf_ip6_rcv() then replaces skb->dev without rewriting IP6CB->iif:
-
-drivers/net/vrf.c:vrf_ip6_rcv() {
-	if (!is_ndisc) {
-		struct net_device *orig_dev = skb->dev;
-
-		dev_dstats_rx_add(vrf_dev, skb->len);
-		skb->dev = vrf_dev;
-		skb->skb_iif = vrf_dev->ifindex;
-	...
-}
-
-The device-preserving NDISC branch is chosen by ipv6_ndisc_frame(), which
-only matches when iph->nexthdr == NEXTHDR_ICMP, with the in-file comment
-noting "This really fails for multiple next protocols (e.g., NEXTHDR_HOP).
-But it is a start."
-
-So for non-NDP traffic to a proxied address, or an NS/NA behind a
-hop-by-hop or destination-option header, idev is the slave while skb->dev
-is the VRF master.  pneigh_lookup() only matches the requested device or a
-wildcard entry:
-
-net/core/neighbour.c:pneigh_lookup() {
-		if (!memcmp(n->key, pkey, key_len) &&
-		    net_eq(pneigh_net(n), net) &&
-		    (n->dev == dev || !n->dev))
-	...
-}
-
-Can this end up consulting proxy_ndp on one interface while looking up
-proxy entries on another?  In that case the master's own proxy_ndp is
-ignored (the packet is forwarded with the hop limit decremented instead of
-going to ip6_input(), and the link-local dst_link_failure() path in
-ip6_forward_proxy_check() is skipped), and conversely a slave's flag can
-enable the proxy check against a wildcard entry on the master.
-
-Both ndisc.c call sites use skb->dev for the per-device read and for the
-lookup, and the removed "/* XXX: idev->cnf.proxy_ndp? */" comment sat
-directly above the skb->dev based lookup.  Would reading
-__in6_dev_get(skb->dev) here (or doing the lookup on the iif device) be
-more consistent?
-
-> diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-> index 75515fd99383..f787082069b7 100644
-> --- a/net/ipv6/ndisc.c
-> +++ b/net/ipv6/ndisc.c
-> @@ -1097,9 +1097,9 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
->  		 */
->  		if (lladdr && !memcmp(lladdr, dev->dev_addr, dev->addr_len) &&
->  		    READ_ONCE(net->ipv6.devconf_all->forwarding) &&
-> -		    READ_ONCE(net->ipv6.devconf_all->proxy_ndp) &&
-> +		    (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
-> +		     (idev && READ_ONCE(idev->cnf.proxy_ndp))) &&
->  		    pneigh_lookup(&nd_tbl, net, &msg->target, dev)) {
-> -			/* XXX: idev->cnf.proxy_ndp */
->  			goto out;
->  		}
-
-[Severity: Medium]
-Should the forwarding test here be made per-interface too?  The condition
-still short-circuits on devconf_all->forwarding, so with global forwarding
-at 0 the newly added per-interface proxy_ndp term is never evaluated.
-
-The site the changelog names as the reference uses the per-device value:
-
-net/ipv6/ndisc.c:ndisc_recv_ns() {
-		if (ipv6_chk_acast_addr(net, dev, &msg->target) ||
-		    (READ_ONCE(idev->cnf.forwarding) &&
-		     (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
-		      READ_ONCE(idev->cnf.proxy_ndp)) &&
-	...
-}
-
-and ndisc_recv_na() itself uses the per-device value a little earlier for
-the RFC 9131 decision:
-
-	if (!neigh && lladdr && idev && READ_ONCE(idev->cnf.forwarding)) {
-
-ip6_forward() also admits forwarding on the per-device flag alone:
-
-net/ipv6/ip6_output.c:ip6_forward() {
-	if (!READ_ONCE(net->ipv6.devconf_all->forwarding) &&
-	    (!idev || !READ_ONCE(idev->cnf.force_forwarding)))
-		goto error;
-}
-
-with Documentation/networking/ip-sysctl.rst describing force_forwarding as
-"Enable forwarding on this interface only -- regardless of the setting on
-``conf/all/forwarding``".
-
-For conf/all/forwarding=0, conf/<dev>/forwarding=1,
-conf/<dev>/force_forwarding=1, conf/all/proxy_ndp=0 and
-conf/<dev>/proxy_ndp=1 with a proxy neigh entry, ndisc_recv_ns() answers
-the proxy NS and ip6_forward() now takes the proxy path, but this test
-falls through to ndisc_update() for a proxy NA carrying the router's own
-MAC, which is what the "Don't update the neighbor cache entry on a proxy NA
-from ourselves" comment is guarding against.
-
-For an entry that is not NUD_VALID, __neigh_update() installs the supplied
-lladdr without the override restriction:
-
-net/core/neighbour.c:__neigh_update() {
-	if (old & NUD_VALID) {
-		if (lladdr != neigh->ha && !(flags & NEIGH_UPDATE_F_OVERRIDE)) {
-	...
-}
-
-so can the proxied target's entry end up holding the router's own MAC in
-that configuration?
+diff --git a/arch/csky/Kconfig b/arch/csky/Kconfig
+index 4331313a42ff..80f89ef1d962 100644
+--- a/arch/csky/Kconfig
++++ b/arch/csky/Kconfig
+@@ -96,6 +96,7 @@ config CSKY
+ 	select HAVE_SYSCALL_TRACEPOINTS
+ 	select HOTPLUG_CORE_SYNC_DEAD if HOTPLUG_CPU
+ 	select LOCK_MM_AND_FIND_VMA
++	select MMU_GATHER_RCU_TABLE_FREE
+ 	select MAY_HAVE_SPARSE_IRQ
+ 	select MODULES_USE_ELF_RELA if MODULES
+ 	select OF
+diff --git a/arch/hexagon/Kconfig b/arch/hexagon/Kconfig
+index b48491140013..d9b3fb86556b 100644
+--- a/arch/hexagon/Kconfig
++++ b/arch/hexagon/Kconfig
+@@ -23,6 +23,7 @@ config HEXAGON
+ 	# select HAVE_CLK
+ 	select GENERIC_ATOMIC64
+ 	select HAVE_PERF_EVENTS
++	select MMU_GATHER_RCU_TABLE_FREE
+ 	# GENERIC_ALLOCATOR is used by dma_alloc_coherent()
+ 	select GENERIC_ALLOCATOR
+ 	select GENERIC_IRQ_PROBE
+diff --git a/arch/m68k/Kconfig b/arch/m68k/Kconfig
+index 11835eb59d94..e29610fd1240 100644
+--- a/arch/m68k/Kconfig
++++ b/arch/m68k/Kconfig
+@@ -36,6 +36,7 @@ config M68K
+ 	select HAVE_MOD_ARCH_SPECIFIC
+ 	select HAVE_UID16
+ 	select MMU_GATHER_NO_RANGE if MMU
++	select MMU_GATHER_RCU_TABLE_FREE if MMU && SUN3
+ 	select MODULES_USE_ELF_REL
+ 	select MODULES_USE_ELF_RELA
+ 	select NO_DMA if !MMU && !COLDFIRE
+diff --git a/arch/nios2/Kconfig b/arch/nios2/Kconfig
+index 9c0e6eaeb005..b0ccfc3b7a7e 100644
+--- a/arch/nios2/Kconfig
++++ b/arch/nios2/Kconfig
+@@ -19,6 +19,7 @@ config NIOS2
+ 	select HAVE_PAGE_SIZE_4KB
+ 	select IRQ_DOMAIN
+ 	select LOCK_MM_AND_FIND_VMA
++	select MMU_GATHER_RCU_TABLE_FREE
+ 	select MODULES_USE_ELF_RELA
+ 	select OF
+ 	select OF_EARLY_FLATTREE
+diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
+index 5eb995c13074..d90b24dd3bce 100644
+--- a/arch/openrisc/Kconfig
++++ b/arch/openrisc/Kconfig
+@@ -35,6 +35,7 @@ config OPENRISC
+ 	select GENERIC_ATOMIC64
+ 	select GENERIC_CLOCKEVENTS_BROADCAST
+ 	select GENERIC_SMP_IDLE_THREAD
++	select MMU_GATHER_RCU_TABLE_FREE
+ 	select MODULES_USE_ELF_RELA
+ 	select HAVE_DEBUG_STACKOVERFLOW
+ 	select OR1K_PIC
+diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
+index d60f1d5a94c0..204f64912f0e 100644
+--- a/arch/sh/Kconfig
++++ b/arch/sh/Kconfig
+@@ -61,6 +61,7 @@ config SUPERH
+ 	select HAVE_SYSCALL_TRACEPOINTS
+ 	select IRQ_FORCED_THREADING
+ 	select LOCK_MM_AND_FIND_VMA
++	select MMU_GATHER_RCU_TABLE_FREE if MMU && !X2TLB
+ 	select MODULES_USE_ELF_RELA
+ 	select NEED_SG_DMA_LENGTH
+ 	select NO_DMA if !MMU && !DMA_COHERENT
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918151405.716075-1-adrianox%40gmail.com
+2.55.0
+
