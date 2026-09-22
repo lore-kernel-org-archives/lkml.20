@@ -1,186 +1,344 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2288F457E50
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9DB491587
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790115337; cv=none; b=ObHnCoXPZOpKlufr7a1jR7ZPftLDmeV4M9OhjekgypQGYNRcHyIGsRQHoGqA5IKg59wAjNWV+udlKJbkkGtSYShUSnUXC5XDzfvmZNYj40J1hcXn8CCYRX9KHGf6mzplxLPMBeO50Lbybz8H0fvBKI7unO9zGWgxs3jyupPHPhA=
+	t=1790115343; cv=none; b=ly4NGj33uHWJzIIiwd9MMdfnQoAPAtWAMmvl0W4i+Qhv0++412/GXGNKlatGBfJmBKRql8LM7Mjo5doNbcHo6cT3dJzRMh3B1sesElt784g5JGZFpRRptK2wzEVBFNBZWCoSxEWh6EhUYX5aHUWokFAiTj98cafUg3DMh9EOvFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790115337; c=relaxed/simple;
-	bh=2I+RK594+7yvlbEyJzoCiZ3ZLN/AQWF6AlkeQkLTv14=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LgGF7T6PHzd4jQyrdwzkuMluSqoEOy53jIneJkjLqh1peabC9kAgJQSq2arogQtw8pekfTCXpuEVCFmk/gpZsp8wqIMC+gg1J1MxZgMFSx5wF7oeB9mxRPNy4TCdAZvgvxTaQcg34BcQzCC8jQ+FbecUJ+BKdAepIVsYNyDpxmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LUIg3yqi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZScst4Lp; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790115343; c=relaxed/simple;
+	bh=+ZYr9hJlpv3Thm/GkJbA604cP63Bciii/9KwgO3P1ko=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lObFiQZsmONdm5Y8lVoc1JD/mNcXcZPduN8rHyQIoF4yjNxPORnXHzn4na/b4hequbc238XabbThBHSmWMQdaat/psmNr2ev1fVBY83ry8P+8di034+HMxIgi9rQqyH2OFNsXm7+hZ/5AGtGanOOvtAxTpbls9sVIFJmlsy4meY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XE4QHk2f; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LUIg3yqi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZScst4Lp"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7HcL1509482
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3J+Y3qFDHro/ofj9RaFrKGahhFH3oBBHZcDF842RuqY=; b=LUIg3yqi9TH9y9gg
-	F/mIr66JscemBMTu6ta06KCd3tUQmpN94F8XDNu2Egp5ULhY9mPCicRZtFxQgTPd
-	HGWoa3EhlM3QVW+9XNz2U1tdp77dEZ64XmmdcwCnIPWNS8kMKkGmaS/Skqccsero
-	ZInCQfVzqdZdF6ngjyH+Lsf4v/G0j7PHPaIMQIDuXKK+RYV3dTQ+QE3CsiYEa3b0
-	BocityRN+JBLonLjGZKk7WPacf64e9IPfnE9NpzTgFwsb8D0R87Ii7AqmXA78xqy
-	6qwoFni+9GOvuAsazk/Dr435tBhsXyyNAEHOW9B54SD34831GriuIr8E0HdmbVGo
-	2zdD0w==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux7xsbwy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:18 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3282d5302ffso282657eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:15:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XE4QHk2f"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d47b5987so225156e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:15:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790115316; x=1790720116; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=3J+Y3qFDHro/ofj9RaFrKGahhFH3oBBHZcDF842RuqY=;
-        b=ZScst4Lpe97iX75gCsYgKPhRQduVizXLcG9KhP1KoGPylhFA1oN773svihE6I0DDY2
-         +QGgZcPhfE2KiXEBliSNiIh0BVA423t4qcSSWr6piiV4n1WU7r49y+KDby3va1wr/it7
-         7HfuxvgdU6zq29DAR/tpTyqbouPTFkPcXpwA87bMXmQBnKmWZQehy7jXSDa095UsnxRq
-         wIsqbZIHuKBsu6ZMe5tex/vr0wDCdLXm7+clR/+grhaSNX7RrJA4sN2RkG7yIbOsOQay
-         WbthgLujwgs36BTL3lyvFm4LYMt5VS+zlA2XRB0x9pqYQSrX79IMcruXDh8d+dGa/hyY
-         PqEg==
+        d=gmail.com; s=20251104; t=1790115333; x=1790720133; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kTTJsYrMOcak4ZY4X29CZhZYIBW9UPLBMkRtT7ScOWU=;
+        b=XE4QHk2fUCk6+hLCFc4dlwi7Dz/BDwPd4kNIRLsxQ38NSHO9JjpYtq8wT+8q77O+m9
+         KAhW5f7RKjSKIoTbdGQcq0uuPJkP/2B8pTexEXYmYRIV5td9YZ8sv0QCO0+TLbwqsnXY
+         R1LJmiCJ49Z5FDir8NyjZCrVRturEOL6y7wCKx7bXQpwuCbncOrlDS52bLAT6wcHHSAL
+         ybTQ3nyBQDyEgdYOixKIfzeAKm/o1A5xGucZDadmosdHYQQnriPgWDXaczn8JbDPi7I5
+         8o2utXhYXADw55YCko2TZoaYWpFmwBy4pxjZ6ICjPNLTLCR2tuo54KJ4zejRgxzqouux
+         +x4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790115316; x=1790720116;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3J+Y3qFDHro/ofj9RaFrKGahhFH3oBBHZcDF842RuqY=;
-        b=XPlTNaTyKnNggfV0/SKGFqAnXBn/PqZ282u+PeoYv53u96tsYtG3hghyJqA2b/fJZA
-         MhOu6b7kAD/y3hOa9MHsmQk3rl7rdIwqSsKkMo4ERlr5ufKAmrORjM+v5Kb25CBx9Hj9
-         Bn7/oCH0jqu6Mo79lpdFEQs8/roIJIko8tocH2VbvKiCn4G4wTeOZSlA2lGXkfiBxjat
-         EMJkl0k/vjY3pRoOxlYs+uIcfZNmbK1on7gfy1auu/YtYY1XHPjfP2A3f6yTMDAcAe/h
-         O/J05PwqyawfB1RmHseR/LlnbOv7ebtjFPIEdV0KRvM8Ptn214KQjRgfQWhi+/DRF6qD
-         1xHA==
-X-Forwarded-Encrypted: i=1; AKwUvBxpmIg9lMNZy/2NsxBicN45IwOhPo0uTmjS4ZhK2Yt6RfZWNlCPUuW250XgYQGlpD7+8spxJKyfLnrSI90=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljJSXD6nEBbB44i/SlZVbnrTNGkhNURyaXmgzf5g9BemoMKfoy
-	EUHbZXuBKdeI1TScS5n8iuDZJUJr+DZt10dWxszEfc7qvoE8n+bpoLXBw7F05rqA317It6ghR2f
-	I8i5ITzz/1XoxId63yAKTTy8f01TZM6stgjHI43nC2/acoHFU3/C0zWVrNl7k1hGkceM=
-X-Gm-Gg: AYBFou1DIwv098zmouIpy2Sv2fm6ibYtmd1wZPwOZAnGxBIzLr2e9K8gU65BDtSOng6
-	yI6OeimkC3p1F/oYp0eQcAB3AILjvxZYhRYTyu8A/TeFapY5u6yJAFSMJUUGIxmC8S3D273CI3S
-	9k8jQ+ReJMhbklRyODUWlaGoQm22cC3z11vPRAgTMNDCWYs6WkYzr2w1uIfJQsJmv5NscLFwFzB
-	uM1TajzT47ao/o0qz1p3EXq3WH/5TuQ6UmQgDmSlQSIv+tVuFitJSmMcuo0TWw+L8JwI81mhtBJ
-	0TH5XbQMEvdmKxwRVEACzh24iPVj8CA4DZk16ZjhHkufnCPiEZeTTD6zJ/Ax0UECJF0sSMk4jBW
-	Jl3L1ilvP7ENGYA8k7VprVrlwFvC1h7QsZdGmVLBNXESRTXWAWPr5hQ==
-X-Received: by 2002:a05:7300:e9ce:10b0:33e:6c5a:37c3 with SMTP id 5a478bee46e88-33e6c5a3aeamr850815eec.1.1790115315818;
-        Tue, 22 Sep 2026 15:15:15 -0700 (PDT)
-X-Received: by 2002:a05:7300:e9ce:10b0:33e:6c5a:37c3 with SMTP id 5a478bee46e88-33e6c5a3aeamr850779eec.1.1790115315280;
-        Tue, 22 Sep 2026 15:15:15 -0700 (PDT)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9625825asm1072047eec.13.2026.09.22.15.15.12
+        d=1e100.net; s=20260707; t=1790115333; x=1790720133;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kTTJsYrMOcak4ZY4X29CZhZYIBW9UPLBMkRtT7ScOWU=;
+        b=XxxgJFFz7djRDt6oenOWLS7OL0ZXngYLTfpAqFMLZom6+OJUxoHIdHnkAxB4ZxMJ28
+         3VEZCieAgXYh3lMoRhrfM1vE56AuMZYlCfEfb5AqCUcYHjY2ot+pj8pIfYhWTMSNNS2p
+         9OSgn00eKmZ6KzpjZPa1HXfS8i8sL0GEuCwHR0DiktYDb1ZJvnAgabXY3JylNEkn90NK
+         8bVqWVC3qX9vWoO9HaZvZQMHFHcOdRXgr/N5VuYjAdouuLKelz2/SfmxZhtX1YQlx+pz
+         yadMp/0VizTYbzPCoICB4nmCTLxCGXFjiJTorRCNFv9XgPXUNTM/VmHNRnafKLJCTHp+
+         aEpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKM1d1k63peL4ljItPtcfYJB/ba5icikLilCntehPJ5/YEt2D3X2a3AquZgwzGTsAut57GeC6Zouc+PSM=@vger.kernel.org
+X-Gm-Message-State: AFuF++narCNE7mKjrtuldVJsC+65++Xn9p6oNzoETSi6BF9pmLoLqptB
+	2Nnvxc1EJBVcF7aF2R4Q/LW1Zcj7vsohUA1cGFmkyUlCuZQ15bB3Qgms
+X-Gm-Gg: AYBFou3UFFUQGX+aeGy4rvm4NUqTK3p08mkXmNWkqYSZzkK0iSTd7jr4x9bSe3q+Jfn
+	redDRGVlc6pX+q2jp5coFKL7UOVye8CSLA6EOn+te89Eaa46HxOoW4sLtbTh+Oq4924rwfz60HA
+	oG4rx2on2Tbs/ziD3LFbdIGiRUGmi11Wy88LPsVWWTRgRSh+y01gIEHTOn9gglQCHNBpb4nOZQ7
+	Yjxmby6al8w0dinfgYPTSX6S0HrbYjQLPHgH+YRt9HJhSN4dw3YiFzZYIwvm3cZRSNStdsx/eDe
+	d2Z2FljKuXEmn+qAg+LNrcLF+i6Joa6b46k5VtUh+8oFCNV68tgxz3NnI4bK1uZaGQfu3855RcR
+	7Ssp4+svXpkZzopQr1MohvSK8lIy6F44lUAKxtrRmmrQRalEXTUP1PsFKQrNyULsJJTdVs1N4q8
+	AywyPG13lV8XlEtEi/h+Qc3CUHRqRv3cij6NBsQZP0dt0hXpvGn6Lo4iU8reds3oBMBJWEUDPk8
+	gg/Jwfdcn9xauQogVUrLieDfkdvRbJWJo3fo+JKNYSQwUR2pRgeyGfgh1YCXw==
+X-Received: by 2002:a05:6512:3ca5:b0:5b6:1a7c:aa1d with SMTP id 2adb3069b0e04-5b8d89a8001mr188921e87.53.1790115332677;
+        Tue, 22 Sep 2026 15:15:32 -0700 (PDT)
+Received: from dau-home-pc.megasoftware.org ([94.28.220.48])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d857873asm164920e87.17.2026.09.22.15.15.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 15:15:14 -0700 (PDT)
-Date: Tue, 22 Sep 2026 15:15:10 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
-        Fuad
- Tabba <fuad.tabba@linux.dev>
-Subject: Re: [PATCH v19 08/20] KVM: arm64: Reuse kvm_stage2_unmap_range in
- kvm_unmap_gfn_range
-Message-ID: <20260922151510.00003c76@oss.qualcomm.com>
-In-Reply-To: <20260920212845.707-9-suzuki.poulose@arm.com>
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
-	<20260920212845.707-9-suzuki.poulose@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Tue, 22 Sep 2026 15:15:30 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	David Ahern <dsahern@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4 07/10] ip_tunnel: add drop reasons to the transmit path
+Date: Wed, 23 Sep 2026 01:15:04 +0300
+Message-ID: <20260922221507.3268127-8-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260922221507.3268127-1-littlesmilingcloud@gmail.com>
+References: <20260922221507.3268127-1-littlesmilingcloud@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: lL8bSOg32I0XZrFAHIkp-Hlrk9RjzxFE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfXwQ2n2DavIJ21
- 4w3gbipX0M+oKOvxyqzHvE+hUWqxHZww/eZCPs3dL8Ac1uuo6LVoZbHwFvSdW0kuI+IrhFGgsuN
- kQkCw/drow14zn5IkYNAr1r0985B408PokFIUJzTyVGcCP0nsQLZBXBEv0AwUepA6+xBH+tzmj4
- XXlF5YWiNOrAi4e/mfpyfrOVXb09YDRkuTKh32pZcIkPY+H4wzmASiWmgzwT5Rdz524C+/X5JZv
- zoJfjxC1ro04lDpAT3R1i2c4V6YzrlxJpCsZ8L41T44O6pvnWNiWEjexNiC2KGD69HkmykdaeKq
- s0+lunctprH+rBTPFQVr5owIivHV620ONoVNO94X8BVYSls4nufPaNyLzNmF+Rd4323MinMkLF5
- 5qpsJaWxtbc4xGgMo1pUCjQIb0JT04WXLTojRfyn0FY0E8YtClyv1FcTa9VDBkKBE26Lty+LcY/
- /HwAxl/xgH/9RtR0ndQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfXz2PdjSUwuBFl
- 23/7W+LUUYwhhOQ90KrRb39rFjEYgohe/ItrCUOlmN46+lBu2AIwOZY1arKZ+auxuMf6O0kUFGv
- TO+z4+7BXunK12wBQtpI5Fs+XPXqpQk=
-X-Authority-Analysis: v=2.4 cv=QsDLTlyd c=1 sm=1 tr=0 ts=6ab2fdf6 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=kMqVnm4xDtAkP_aMvZEA:9 a=CjuIK1q_8ugA:10
- a=bBxd6f-gb0O0v-kibOvt:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: lL8bSOg32I0XZrFAHIkp-Hlrk9RjzxFE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 lowpriorityscore=0 phishscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220301
+Content-Transfer-Encoding: 8bit
 
-On Sun, 20 Sep 2026 22:28:33 +0100
-Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+ip_tunnel_xmit() and ip_md_tunnel_xmit() encapsulate the packets sent
+through the tunnel, and every failure these two functions detect ends in
+a plain kfree_skb(). The device counters separate them a little, but
+they are too coarse to act on: tx_errors counts an encapsulation
+failure, a routing failure, a routing loop and a packet that is simply
+too big alike.
 
-> In preparation for adding VM specific backends for stage2 operation,
-> switch to kvm_stage2_unmap_range() instead of __unmap_stage2_range()
-> from the kvm_unmap_gfn_range(). Drop the bail out check for protected
-> VMs and defer that to the one in kvm_stage2_unmap_range(). Later we
-> would replace the logic in kvm_stage2_unmap_range() with VM specific
-> backends.
-> 
-> No functional changes intended.
-> 
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+The packet that is too big deserves attention. tnl_update_pmtu()
+returns -E2BIG for a non-GSO packet larger than the MTU if it is IPv4
+with the DF bit set, or IPv6 and the MTU is at least IPV6_MIN_MTU, after
+it has already sent the ICMP error back to the sender. That is path MTU
+discovery working as intended, yet among the device counters the drop
+only bumps tx_errors, like a failed encapsulation and a few other
+failures do. If the ICMP error never reaches the sender, the resulting
+MTU black hole cannot be told from those by the device counters. A
+failed route lookup and a routing loop do have counters of their own,
+tx_carrier_errors and collisions, but in both functions all of these
+packets end up in the same kfree_skb() call.
 
-Trivial thing inline. Otherwise this is fine.
+No new reason is needed for most of it:
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+ - SKB_DROP_REASON_PKT_TOO_BIG for the case above,
+ - SKB_DROP_REASON_IP_OUTNOROUTES when the route lookup fails,
+ - SKB_DROP_REASON_RECURSION_LIMIT when the route points back at the
+   tunnel device itself, which is the "dead loop on virtual device" that
+   reason describes,
+ - SKB_DROP_REASON_NOMEM when the headroom cannot be expanded,
+ - SKB_DROP_REASON_NEIGH_CREATEFAIL when the NBMA neighbour lookup
+   fails, SKB_DROP_REASON_NO_TX_TARGET when no destination can be
+   derived at all, and, on the same NBMA path,
+   SKB_DROP_REASON_UNHANDLED_PROTO for a payload that is neither IPv4
+   nor IPv6,
+ - SKB_DROP_REASON_TUNNEL_TXINFO, which already documents a packet
+   reaching an external mode device without metadata, for the
+   collect_md path.
 
-> ---
->  arch/arm64/kvm/mmu.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 0f4e8b71fa85d..03f2017a7404a 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -2436,12 +2436,12 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
->  
->  bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
->  {
-> -	if (!kvm->arch.mmu.pgt || kvm_vm_is_protected(kvm))
-> +	if (!kvm->arch.mmu.pgt)
->  		return false;
->  
-> -	__unmap_stage2_range(&kvm->arch.mmu, range->start << PAGE_SHIFT,
-> -			     (range->end - range->start) << PAGE_SHIFT,
-> -			     range->may_block);
-> +	kvm_stage2_unmap_range(&kvm->arch.mmu, range->start << PAGE_SHIFT,
-> +				(range->end - range->start) << PAGE_SHIFT,
+Only the encapsulation failure has no fitting reason, so add
+SKB_DROP_REASON_TNL_ENCAP for it.
 
-Looks like indent is 1 too many space.
+Drop reasons on transmit are not new: vxlan already reports several of
+them from its xmit path, and ip_tunnel_core.c reports
+SKB_DROP_REASON_RECURSION_LIMIT. They are most useful for forwarded
+packets, which is what a tunnel gateway mostly transmits: the sender is
+another host, which gets an ICMP error for only some of these failures,
+so the drop has to be explained on the gateway.
 
-> +				range->may_block);
->  
->  	kvm_nested_s2_unmap(kvm, range->may_block);
->  	return false;
+Assisted-by: Claude-Code:claude-opus-5
+Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
+---
+ include/net/dropreason-core.h |  7 ++++++
+ net/ipv4/ip_tunnel.c          | 41 ++++++++++++++++++++++++++++-------
+ 2 files changed, 40 insertions(+), 8 deletions(-)
+
+diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
+index 186d9e70e9cb..a72b84b07daa 100644
+--- a/include/net/dropreason-core.h
++++ b/include/net/dropreason-core.h
+@@ -134,6 +134,7 @@
+ 	FN(GRE_INVALID_HDR)		\
+ 	FN(GRE_CSUM)			\
+ 	FN(GRE_TUNNEL_NOT_FOUND)	\
++	FN(TNL_ENCAP)			\
+ 	FNe(MAX)
+ 
+ /**
+@@ -644,6 +645,12 @@ enum skb_drop_reason {
+ 	 * endpoints and the key the packet carries.
+ 	 */
+ 	SKB_DROP_REASON_GRE_TUNNEL_NOT_FOUND,
++	/**
++	 * @SKB_DROP_REASON_TNL_ENCAP: failed to build the
++	 * encapsulation header of a tunnel, e.g. an unknown or
++	 * unregistered encapsulation type.
++	 */
++	SKB_DROP_REASON_TNL_ENCAP,
+ 	/**
+ 	 * @SKB_DROP_REASON_MAX: the maximum of core drop reasons, which
+ 	 * shouldn't be used as a real 'reason' - only for tracing code gen
+diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
+index c94f4c055027..66cb0b86fa79 100644
+--- a/net/ipv4/ip_tunnel.c
++++ b/net/ipv4/ip_tunnel.c
+@@ -586,6 +586,7 @@ static int tnl_update_pmtu(struct net_device *dev, struct sk_buff *skb,
+ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 		       u8 proto, int tunnel_hlen)
+ {
++	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+ 	struct ip_tunnel *tunnel = netdev_priv(dev);
+ 	u32 headroom = sizeof(struct iphdr);
+ 	struct ip_tunnel_info *tun_info;
+@@ -599,8 +600,10 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 
+ 	tun_info = skb_tunnel_info(skb);
+ 	if (unlikely(!tun_info || !(tun_info->mode & IP_TUNNEL_INFO_TX) ||
+-		     ip_tunnel_info_af(tun_info) != AF_INET))
++		     ip_tunnel_info_af(tun_info) != AF_INET)) {
++		reason = SKB_DROP_REASON_TUNNEL_TXINFO;
+ 		goto tx_error;
++	}
+ 	key = &tun_info->key;
+ 	memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
+ 	inner_iph = (const struct iphdr *)skb_inner_network_header(skb);
+@@ -619,8 +622,10 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	if (!tunnel_hlen)
+ 		tunnel_hlen = ip_encap_hlen(&tun_info->encap);
+ 
+-	if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0)
++	if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0) {
++		reason = SKB_DROP_REASON_TNL_ENCAP;
+ 		goto tx_error;
++	}
+ 
+ 	use_cache = ip_tunnel_dst_cache_usable(skb, tun_info);
+ 	if (use_cache)
+@@ -629,6 +634,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 		rt = ip_route_output_key(tunnel->net, &fl4);
+ 		if (IS_ERR(rt)) {
+ 			DEV_STATS_INC(dev, tx_carrier_errors);
++			reason = SKB_DROP_REASON_IP_OUTNOROUTES;
+ 			goto tx_error;
+ 		}
+ 		if (use_cache)
+@@ -638,6 +644,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	if (rt->dst.dev == dev) {
+ 		ip_rt_put(rt);
+ 		DEV_STATS_INC(dev, collisions);
++		reason = SKB_DROP_REASON_RECURSION_LIMIT;
+ 		goto tx_error;
+ 	}
+ 
+@@ -646,6 +653,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	if (tnl_update_pmtu(dev, skb, rt, df, inner_iph, tunnel_hlen,
+ 			    key->u.ipv4.dst, true)) {
+ 		ip_rt_put(rt);
++		reason = SKB_DROP_REASON_PKT_TOO_BIG;
+ 		goto tx_error;
+ 	}
+ 
+@@ -663,6 +671,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	headroom += LL_RESERVED_SPACE(rt->dst.dev) + rt->dst.header_len;
+ 	if (skb_cow_head(skb, headroom)) {
+ 		ip_rt_put(rt);
++		reason = SKB_DROP_REASON_NOMEM;
+ 		goto tx_dropped;
+ 	}
+ 
+@@ -677,13 +686,14 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ tx_dropped:
+ 	DEV_STATS_INC(dev, tx_dropped);
+ kfree:
+-	kfree_skb(skb);
++	kfree_skb_reason(skb, reason);
+ }
+ EXPORT_SYMBOL_GPL(ip_md_tunnel_xmit);
+ 
+ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 		    const struct iphdr *tnl_params, u8 protocol)
+ {
++	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+ 	struct ip_tunnel *tunnel = netdev_priv(dev);
+ 	struct ip_tunnel_info *tun_info = NULL;
+ 	const struct iphdr *inner_iph;
+@@ -711,9 +721,15 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 
+ 		if (!skb_dst(skb)) {
+ 			DEV_STATS_INC(dev, tx_fifo_errors);
++			reason = SKB_DROP_REASON_NO_TX_TARGET;
+ 			goto tx_error;
+ 		}
+ 
++		/* Only the branches below can derive a destination.  If
++		 * none of them matches, the payload protocol is not one
++		 * this tunnel can carry.
++		 */
++		reason = SKB_DROP_REASON_UNHANDLED_PROTO;
+ 		tun_info = skb_tunnel_info(skb);
+ 		if (tun_info && (tun_info->mode & IP_TUNNEL_INFO_TX) &&
+ 		    ip_tunnel_info_af(tun_info) == AF_INET &&
+@@ -734,8 +750,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 
+ 			neigh = dst_neigh_lookup(skb_dst(skb),
+ 						 &ipv6_hdr(skb)->daddr);
+-			if (!neigh)
++			if (!neigh) {
++				reason = SKB_DROP_REASON_NEIGH_CREATEFAIL;
+ 				goto tx_error;
++			}
+ 
+ 			addr6 = (const struct in6_addr *)&neigh->primary_key;
+ 			addr_type = ipv6_addr_type(addr6);
+@@ -752,8 +770,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 				dst = addr6->s6_addr32[3];
+ 			}
+ 			neigh_release(neigh);
+-			if (do_tx_error_icmp)
++			if (do_tx_error_icmp) {
++				reason = SKB_DROP_REASON_NO_TX_TARGET;
+ 				goto tx_error_icmp;
++			}
+ 		}
+ #endif
+ 		else
+@@ -780,8 +800,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 			    tunnel->net, READ_ONCE(tunnel->parms.link),
+ 			    tunnel->fwmark, skb_get_hash(skb), 0);
+ 
+-	if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0)
++	if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0) {
++		reason = SKB_DROP_REASON_TNL_ENCAP;
+ 		goto tx_error;
++	}
+ 
+ 	if (connected && md) {
+ 		use_cache = ip_tunnel_dst_cache_usable(skb, tun_info);
+@@ -798,6 +820,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 
+ 		if (IS_ERR(rt)) {
+ 			DEV_STATS_INC(dev, tx_carrier_errors);
++			reason = SKB_DROP_REASON_IP_OUTNOROUTES;
+ 			goto tx_error;
+ 		}
+ 		if (use_cache)
+@@ -811,6 +834,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	if (rt->dst.dev == dev) {
+ 		ip_rt_put(rt);
+ 		DEV_STATS_INC(dev, collisions);
++		reason = SKB_DROP_REASON_RECURSION_LIMIT;
+ 		goto tx_error;
+ 	}
+ 
+@@ -820,6 +844,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 
+ 	if (tnl_update_pmtu(dev, skb, rt, df, inner_iph, 0, 0, false)) {
+ 		ip_rt_put(rt);
++		reason = SKB_DROP_REASON_PKT_TOO_BIG;
+ 		goto tx_error;
+ 	}
+ 
+@@ -854,7 +879,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ 	if (skb_cow_head(skb, max_headroom)) {
+ 		ip_rt_put(rt);
+ 		DEV_STATS_INC(dev, tx_dropped);
+-		kfree_skb(skb);
++		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
+ 		return;
+ 	}
+ 
+@@ -870,7 +895,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+ #endif
+ tx_error:
+ 	DEV_STATS_INC(dev, tx_errors);
+-	kfree_skb(skb);
++	kfree_skb_reason(skb, reason);
+ }
+ EXPORT_SYMBOL_GPL(ip_tunnel_xmit);
+ 
+-- 
+2.47.3
 
