@@ -1,151 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-21.mta1.migadu.com [95.215.58.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5261CAAC;
-	Tue, 22 Sep 2026 01:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4F1223DCE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790039247; cv=none; b=EbCv+yQmKBHZi5kTCFWFIrjJo4aCj1wK4TqYLpOx4bobrTCBlhGwNAVUmpz8UZtIp/Embac7hD9//fKKIPtUN6+MwtFtsQ5HWsGXu0w3m3oiIWUuNhdCz7saMxK/vUyKA72Pjb2POkFf2i/Z2wohTm3sqM657n+DXtsrGPwnysQ=
+	t=1790039277; cv=none; b=JW7CMOv5CHWdRQuJDROdFmrIE6j8XfrpZrdB0xVu8gB5GunDovOVMe8NV7+06mM/Mty+3Q01JIddgD9mknvvxXB0jUTZ1caZvzskEiV3PG43Q6rp4DU7cUZ0jDw0N5gYengmTeTPNVMx5HkYPZ1kdWnZGWCTlxHEaV9GQgeiUcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790039247; c=relaxed/simple;
-	bh=vfUMQ9Tr850TBrDqkjKr2ogtj3J+xegrv/fsVDD8Z/s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=np0Sq6O1YYR9xjJYr+ZtBPLpCaAz+Pdg9dX5usDO86hYQEgwG6y88PWORnKaM4JwQYBa74+PgrIewtOrfurdI2pydNZWrv6xsI/ob41htY6UZrSrBx9nO5TwK9RZQ72oNVFvb9C/GU78C6MU7xjk5Wnq8BJGa27izWHzkVBx3S0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+8attco; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790039277; c=relaxed/simple;
+	bh=l7KQLj3893ZGS3xxgpLpKxm8xm632+Oija+8hydNf4o=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=DnoL8+jy/Ir0GAQ3pEDRj5jZM8nzB9b5/mAHuwktbUEn+nsNmeFhfO5iM/R2eziG0N09lxE7Lxu0R9m8IxD3SOeFogpkp3+HOUUitI65PU+g3ww1hqeql9v0FUOYPhL+fL7tcVzovb7ljK+s63jJOHgRe2b2jEh9iI0dPS8y7CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nB6PXMtB; arc=none smtp.client-ip=95.215.58.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+8attco"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9C134C2BCF6;
-	Tue, 22 Sep 2026 01:07:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790039246;
-	bh=vfUMQ9Tr850TBrDqkjKr2ogtj3J+xegrv/fsVDD8Z/s=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=B+8attco07azdOYvWj6UG8CXTZAIKEqhXRUyvCnUTcgsUSqRmd9O1CqABvSIBu/kR
-	 WMwlr+JyCPM+pILShXAOYHUh62P/JI1GQClFGCybw1gKrxHFtATy1y/3zaIAcxW0dm
-	 kgupW4rDUeRCjANfqMrAbQjHgeywypHnqIKPtIQEWZn+M+VpvQCJE4eilfpT9QjoaW
-	 TQcMpgGaJASet6hjHPVDDoy6mx8TMveCTeT/AAWFybIZEk/vepK6ZmM4osqS7F81It
-	 6A/nqg3ekedEhu9MGDJknIkixUexV7DmEy/jLmVQ+MlgicC5yHvupo0ib6vKB1UPmY
-	 0UH5TxdYMtMtg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D22DC982F0;
-	Tue, 22 Sep 2026 01:07:26 +0000 (UTC)
-From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 21:07:23 -0400
-Subject: [PATCH] soc: samsung: exynos-pmu: order pmu_base_addr before the
- pmu_context gate
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nB6PXMtB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=l7KQLj3893ZGS3xxgpLpKxm8xm632+Oija+8hydNf4o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790039274; v=1; x=1790644074;
+ b=nB6PXMtB+8mNDeokUyTqWbTfZVs5bxJ39bxJzzM3heB3pc1ktq0M6586Cao0QAKcJ3G52rqj
+ 3CI6EMgqUSCnDKvmFORo2JQeX0AXLlxAM+qhK4pjNTx9Ign/i1pFV0cXehZSzakytXIIaa82wkA
+ LPE4iySPNztDtwjc1p213pK4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c3addaacdd50d9a0;
+	Tue, 22 Sep 2026 01:07:53 +0000
+X-Mizu-Trace-ID: c3addaacdd50d9a0
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Tue, 22 Sep 2026 01:07:53 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-exynos-pmu-v1-1-4babb522ce0d@vt.edu>
-X-B4-Tracking: v=1; b=H4sIAMrUsWoC/yXMwQ6CMBAE0F8he3ZNKQjRXzEe2rKVmlDIrhAM4
- d9p8fgmM7OBEAcSeBQbMC1BwhgTyksBrjfxTRi6ZNBKN+quSxws0vqLo+A0zNh525JvbopqA2k
- zMfmwnn/P198y2w+5bz7JDWuE0LKJrs/RyaW9Vsiuhn0/ANw7fnKRAAAA
-X-Change-ID: 20260921-mb-exynos-pmu-dfb7ef650e4a
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jaidev Shastri <jaidevshastri@vt.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790039246; l=2856;
- i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=UHR1UXjtE/06jj6xsUliAK/0kfots+oi3SOpgn/U5a0=;
- b=emgwjZHZPHwQPyCmK57xog9f0D9CGIiNUr3ZrTqr+KJqBuFfPTVUBxx1VaPGQZsF7pKzwROTq
- UtmcfDuxk84AcRnKpDmF69AxBApeqLip8cS++McKsMWbSb4nWPblxu0
-X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
- pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
-X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
- auth_id=1044
-X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
-Reply-To: jaidevshastri@vt.edu
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <a4339de07daae1d3ad274067006ed6dfc021434d@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Jeff Johnson"
+ <jeff.johnson@oss.qualcomm.com>, "Johannes Berg"
+ <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael  
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ luka.gejak@linux.dev
+In-Reply-To: <2694defa2e284ee894005c59197325a0@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-7-luka.gejak@linux.dev>
+ <45eb7d5908f8fff9a18cba603fd3a4abfe8695f9.camel@sipsolutions.net>
+ <31285267ebc43aab631a4199059a247a8d937814@linux.dev>
+ <c208152fc5cb45e19ae7d4660394dbf2bc5e0271.camel@sipsolutions.net>
+ <bcd5a280-8184-4457-ae52-47a9e0fe763c@oss.qualcomm.com>
+ <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
+ <fe3c6884a96b476799f415a06314f1ba@realtek.com>
+ <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
+ <2694defa2e284ee894005c59197325a0@realtek.com>
 
-From: Jaidev Shastri <jaidevshastri@vt.edu>
+September 22, 2026 at 03:50, "Ping-Ke Shih" <pkshih@realtek.com> wrote:
 
-exynos_sys_powerdown_conf() returns early while pmu_context is NULL and
-otherwise programs the PMU through pmu_raw_writel(), which uses the
-separate global pmu_base_addr. exynos_pmu_probe() maps pmu_base_addr and
-stores pmu_context afterwards, both with plain stores, and the reader
-loads both plainly.
 
-Neither the two stores nor the two loads are ordered. The callers are
-the Exynos cpuidle AFTR path and the suspend path on 32-bit Exynos,
-which run on other CPUs, so a caller that sees pmu_context before
-pmu_base_addr writes the power-down configuration through a NULL base.
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> September 22, 2026 at 03:28, "Ping-Ke Shih" <pkshih@realtek.com> wr=
+ote:
+> >=20=20
+>=20>=20=20
+>=20>=20
+>=20>  Luka Gejak <luka.gejak@linux.dev> wrote:
+> >=20
+>=20>  >
+> >  > September 22, 2026 at 1:35 AM, "Jeff Johnson" <jeff.johnson@oss.qu=
+alcomm.com> wrote:
+> >  >
+> >  >
+> >  >
+> >  > On 9/21/2026 11:14 AM, Johannes Berg wrote:
+> >  >
+> >  > >
+> >  > > On Mon, 2026-09-21 at 16:49 +0000, Luka Gejak wrote:
+> >  > >
+> >  > > >
+> >  > > > It is supposed to work in the same way it works for other driv=
+er
+> >  > > > maintainers. I would review patches and provide my acked by or
+> >  > > > reviewed by them and Ping-Ke would apply them to his rtw-next =
+branch.
+> >  > > >
+> >  > >
+> >  > > I don't think we have a lot of folks below the driver maintainer=
+s who s
+> >  > > end me pull requests (except Toke maybe?) - but as long as I don=
+'t need
+> >  > > to deal with it I'm happy, you can figure it out between yoursel=
+ves :)
+> >  > >
+> >  > For ath.git there are sub-maintainers for ath5k (Multiple), ath9k =
+(Toke),
+> >  > carl9170 (Christian), and wcn36xx (Loic).
+> >  >
+> >  > Toke has a linux-wireless patchwork account so the ath9k patches a=
+re initially
+> >  > assigned to him in patchwork, and he Acks on the list and assigns =
+the
+> >  > patchwork records to me when he approves patches.
+> >  >
+> >  > For the others the maintainers just Ack on the list, and I take th=
+em from there.
+> >  >
+> >  > So the question is do how do you want to handle this in patchwork?
+> >  >
+> >  > /jeff
+> >  >
+> >  >
+> >  > What do you think makes more sense here: patchwork delegate
+> >  > access like Toke has for ath9k, or on list ack based? I'd lean
+> >  > towards delegate access if it's not a big ask on your end, but
+> >  > happy to go with whatever works best operationally for you.
+> >  >
+> >  I'm happy that people join rtw88 reviewers.
+> >=20
+>=20>  Personally I prefer people give Reviewed-by tag to the patches, an=
+d
+> >  I can myself take the patches by patchwork state and send pull-reque=
+st
+> >  to Johannes.
+> >=20
+>=20>  With additional flows of patchwork and pull-request, it looks much
+> >  hard to maintain, since I don't think there will be a lot of patches=
+ of
+> >  drivers/net/wireless/realtek/rtw88/rtw8723b*.{c,h}
+> >=20
+>=20>  By the way, if you are interested in rtw88, maybe add a "R:"
+> >  entry to be a reviewer of rtw88?
+> >=20
+>=20>  Ping-Ke
+> >=20
+>=20>=20=20
+>=20>  Hi Ping-Ke,
+> >=20=20
+>=20>  I agree that approach is simpler and I am perfectly fine with
+> >  it, if it works better for you. And about being rtw88 reviewer: I
+> >  would happily take that role, so I will send a separate patch
+> >  outside this series.
+> >=20
+>=20I think you can change the content of this patch to add yourself to
+> rtw88 reviewer. No need other patch.=20
 
-Publish pmu_context with smp_store_release() and read it with
-smp_load_acquire().
+I=20understand. I will modify this patch to also add myself as R
+for rtw88 and I will send updated version in v4 of this series.
 
-Found with MBCheck, a static herd7-based memory consistency checker.
+>=20
+>=20In fact, even you aren't in list of MAINTAINERS, you can still review
+> patches. Just subscribe linux-wireless mailing list (I think you did),
+> and reply patches you have reviewed.=20
 
-Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
----
- drivers/soc/samsung/exynos-pmu.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exynos-pmu.c
-index efccdd63e..5ca5cfb8e 100644
---- a/drivers/soc/samsung/exynos-pmu.c
-+++ b/drivers/soc/samsung/exynos-pmu.c
-@@ -59,11 +59,14 @@ void exynos_sys_powerdown_conf(enum sys_powerdown mode)
- {
- 	unsigned int i;
- 	const struct exynos_pmu_data *pmu_data;
-+	struct exynos_pmu_context *ctx;
- 
--	if (!pmu_context || !pmu_context->pmu_data)
-+	/* Pairs with the smp_store_release() in exynos_pmu_probe(). */
-+	ctx = smp_load_acquire(&pmu_context);
-+	if (!ctx || !ctx->pmu_data)
- 		return;
- 
--	pmu_data = pmu_context->pmu_data;
-+	pmu_data = ctx->pmu_data;
- 
- 	if (pmu_data->powerdown_conf)
- 		pmu_data->powerdown_conf(mode);
-@@ -474,6 +477,7 @@ static int exynos_pmu_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct regmap_config pmu_regmcfg;
-+	struct exynos_pmu_context *ctx;
- 	struct regmap *regmap;
- 	struct resource *res;
- 	int ret;
-@@ -482,12 +486,19 @@ static int exynos_pmu_probe(struct platform_device *pdev)
- 	if (IS_ERR(pmu_base_addr))
- 		return PTR_ERR(pmu_base_addr);
- 
--	pmu_context = devm_kzalloc(&pdev->dev,
--			sizeof(struct exynos_pmu_context),
--			GFP_KERNEL);
--	if (!pmu_context)
-+	ctx = devm_kzalloc(&pdev->dev, sizeof(struct exynos_pmu_context),
-+			   GFP_KERNEL);
-+	if (!ctx)
- 		return -ENOMEM;
- 
-+	/*
-+	 * exynos_sys_powerdown_conf() gates on pmu_context and then writes
-+	 * through pmu_base_addr, which is a separate global. Publish the
-+	 * context with release semantics so that the mapping is visible to
-+	 * a CPU that passes the gate.
-+	 */
-+	smp_store_release(&pmu_context, ctx);
-+
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	if (!res)
- 		return -ENODEV;
-
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-mb-exynos-pmu-dfb7ef650e4a
+I=20would prefer to be listed as a reviewer because as such I am
+CC'd on each patch for rtw88. I'm not subscribed to wireless
+mailing list as linux.dev service provided by linux foundation
+states that we shouldn't subscribe to high volume lists.
 
 Best regards,
---  
-Jaidev Shastri <jaidevshastri@vt.edu>
+Luka Gejak
 
-
+>=20
+>=20Ping-Ke
+>
