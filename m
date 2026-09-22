@@ -1,322 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B18B3B8BCC;
-	Tue, 22 Sep 2026 09:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4E43B058C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069616; cv=none; b=EeYi2QqAYGbYBA5UmDjdp58x/NXutx46lxo7P34X9sqPgV86ApcdE1Zh1pl0r90D1wCgMxtxR1+XeDC4sWoyvs8pz4SO2qEpBCybf0zOIwmf0Dkzv+c2I89Kqjtl1geXTIh2+3Zhuyxb1rNXXWFnhUGOX4qJBp+9IlNQCwECdcA=
+	t=1790069620; cv=none; b=f8PBT1AbPH0tG0tT1n+H79aMw3IRKXRzoIzuuI1SmJd1Q++mG9fALtSlgWMvb27xp9T8QSWxZhL9sy+/YL1lTbmfdPOKeBkYREcQTIPLUFrffxk5AG+pMxVcsOYl+UUKR9aiYn186XpKjiqgD5LRdcyTcJXJdD9yD9KgQMR68Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069616; c=relaxed/simple;
-	bh=P5PFI2i9NF6vAhjsJetSiXcfuAsyNa3ZgMa/mu8YVC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BiADzcS75FZqYedkh5Arp0N4AtNmYOS1h5Rot5+eIoFddWVsgNL+Em5i+eYDrcdLayrcsNSI2lYp5FbY1lR0qoBxORz09j1iGlUcWKM7qL1xzePAYCuVeG7y2/EeEt/f6LVw9bGF5n8pqQu0BOW9g8+LMMSqoAq83j6Y6P4ZrRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8JaTs8E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790069620; c=relaxed/simple;
+	bh=Ydb8A5IsSmXFv8QsCXm2Zg3ISAVzToCc4PjSnCMZxDY=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UlDQbilHu+K+IRAGDe5qhJ/23WqgtIpePOjfRIFekIgD5mDbhYtK955+/CzwnexrQBJimNdqn0BAYzenQr8vhHBzsCN511dVFxwFUVW26paR9qaIwsD0wo9zQEs6gJ0Sy5seeUALu3ktaxbYPgF0ZPEhnzKIZKq/7VaJVlNnNt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdrZ9XjI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8JaTs8E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443711F00893;
-	Tue, 22 Sep 2026 09:33:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdrZ9XjI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1399F1F0089B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:33:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790069614;
-	bh=LJxkyRUAo60XpYXubHX6Uk1I701DlaHNZCXFAFOsI0c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z8JaTs8Ensplmvuw+aJhTy3BidoennUhosQqf2KjWQMed8VV5Utp9JgWhCTOUZPR3
-	 qkEUqoVn5uRGIhvzCOvKA5o7ihAg923jwu0EFcc2PwodhHcPJ3rTsyK9JZtIObA2UI
-	 nEDd1JvfqB7uwQ3LHL29NRa5P99NZx+sx52S9eErGHKhxq2ii6/smayAfKlK53kXjh
-	 KVz0pYNoErF44cJd31fGG0cEs4/lZHuTa6yuM+537gPTHrQqzKbwDRFo5dBIjSdiYE
-	 duuvj29NN51Ej0lQ+kDJuafLvIYP2LIQIkeY9ZFGkX44GneAR8CQJWLLiSNQuZOn5T
-	 GnmkmZCkS2znA==
-Date: Tue, 22 Sep 2026 10:33:27 +0100
-From: Lee Jones <lee@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, Suresh Vankadara <svankada@qti.qualcomm.com>,
-	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 5/6] mfd: qcom-pm8008: Add support for PM8010 PMIC
-Message-ID: <20260922093327.GA2308615@google.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <20260907-glymur_camss-v2-5-75f7982dc983@oss.qualcomm.com>
+	s=k20260515; t=1790069619;
+	bh=069+GQ/DIF+/n6F/rVAvVoNM7EVQnIJJNnVPO8L6lWU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=cdrZ9XjIRkpQIxdl0l0Y+Jl9JSLQgRL7EE8hm/8hwWobiOGtRN1xti+y2R36t3vM3
+	 PgrgnSlhugjy9OdzTSAfLw0T6pOagpps8Kg5gVmsmGefUfyxgvGDBc6LXfENuI7KOf
+	 LzcQHIYS3iF7e5RCYjZwWJE2IXptY+UhR/2LL4QvHpgRN86QFkf3Hd6ieKZntHJyKs
+	 CcbnjwXg7ZLXkLRn4bAGUGB1w4eIYbuULh37WWo6mdKaCbFPGrNNDaGKfA8vh68CTo
+	 Ijb+B/Oe/jNu1sP1b7/3piCHmYJpqjY4IT2rMs9rdr9LKKrBgDPwedBX7H1DO4Pi78
+	 PH5kULd5VW9fg==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so7164131fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:33:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxNO0QnpjaLzCxN6XMh1WXWC1bhkgN/9nNR7qHFNPtN2KPPEuIGEVMOyJ+zXyTBwM8xjjVkftePV0wfhMQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9ylARTZdTUMW/4f6W2miHYBcy7WnlpYNm4lReWjlpXaMZIqcD
+	Zu/lJre5aIGhuGgXIVKunXMrsnBJp6c5Vlb/eyPtl/lYMtks0UUn5mv3aQ91THPUJnITc17vzqR
+	8Wsk/RQfr6iRaWbQeWAbm+AHuERFjghlfy/WBmdes0Q==
+X-Received: by 2002:a05:651c:a189:b0:3a5:eacf:9811 with SMTP id
+ 38308e7fff4ca-3a624d70958mr4810711fa.14.1790069617628; Tue, 22 Sep 2026
+ 02:33:37 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 02:33:35 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 02:33:35 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260922090955.GA35938@rigel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-glymur_camss-v2-5-75f7982dc983@oss.qualcomm.com>
+References: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
+ <20260922090955.GA35938@rigel>
+Date: Tue, 22 Sep 2026 02:33:35 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfT-T0pQTvB3a_1BeOhPHztPh5pGs1Br225GVm1pFN_Yw@mail.gmail.com>
+X-Gm-Features: AcwNN1XpWe_ilycObMRbYUBy0psjXERCXkaGG5VxtWxmcE7WWxLhXalMicOFPN0
+Message-ID: <CAMRc=MfT-T0pQTvB3a_1BeOhPHztPh5pGs1Br225GVm1pFN_Yw@mail.gmail.com>
+Subject: Re: [PATCH v3] gpio: cdev: fix kernel stack leak to user-space in
+ error path
+To: Kent Gibson <warthog618@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 07 Sep 2026, Nihal Kumar Gupta wrote:
+On Tue, 22 Sep 2026 11:09:55 +0200, Kent Gibson <warthog618@gmail.com> said:
+> On Tue, Sep 22, 2026 at 10:52:28AM +0200, Bartosz Golaszewski wrote:
+>> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+>> return immediately before zeroing the info struct we'll end up passing
+>> to the user-space later in lineinfo_get_v1(). This may leak the kernel
+>> stack contents. Make gpio_desc_to_lineinfo() return int so that the
+>> -ENODEV returned on failure to acquire the guard can be propagated to
+>> the callers.
+>>
+>> While not strictly necessary: move the memset() before trying to acquire
+>> the SRCU read lock too for good measure.
+>>
+>> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
+>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>> ---
+>> Changes in v3:
+>> - Don't emit an error log message from the line info notifier if we fail
+>>   to acquire the chip guard
+>> - Link to v2: https://patch.msgid.link/20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com
+>>
+>> Changes in v2:
+>> - Make gpio_desc_to_lineinfo() return an integer return value so that
+>>   the error code returned in case of a failure to acquire the guard can
+>>   be propagated down the stack
+>> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
+>> ---
+>>  drivers/gpio/gpiolib-cdev.c | 32 +++++++++++++++++++++++++-------
+>>  1 file changed, 25 insertions(+), 7 deletions(-)
+>>
+>
+>> @@ -2491,6 +2502,7 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>>  	struct lineinfo_changed_ctx *ctx;
+>>  	struct gpio_desc *desc = data;
+>>  	struct file *fp;
+>> +	int ret;
+>>
+>>  	if (!test_bit(gpiod_hwgpio(desc), cdev->watched_lines))
+>>  		return NOTIFY_DONE;
+>> @@ -2521,7 +2533,13 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>>
+>>  	ctx->chg.event_type = action;
+>>  	ctx->chg.timestamp_ns = ktime_get_ns();
+>> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+>> +
+>> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+>> +	if (ret) {
+>> +		fput(fp);
+>> +		return NOTIFY_DONE;
+>> +	}
+>> +
+>
+> Drop the ret and just test the return directly?
+>
+> Sorry - should've picked that up in the previous version.
+>
 
-> From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-> 
-> The PM8010 is a variant of the PM8008 PMIC with a slightly different
-> IRQ layout and MFD cells. Introduce per-variant match data (IRQ chip
-> descriptor and MFD cells) selected via the new "qcom,pm8010-i2c"
-> compatible string, and support probing without an interrupt line by
-> falling back to a reduced set of MFD cells when the client has no IRQ
-> assigned.
-> 
-> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+I actually prefer the assignment, I find it more readable.
 
-Who are all of these people?
-
-Did they all work on this?  If so, where are their Co-developed-bys?
-
-> ---
->  drivers/mfd/qcom-pm8008.c | 140 ++++++++++++++++++++++++++++++++++++----------
->  1 file changed, 112 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
-> index 60204cc9a2dc60cc1fe1b64030f5d803100e7874..28532cef7908ef3409a3dfc0779aae3b1a3885b9 100644
-> --- a/drivers/mfd/qcom-pm8008.c
-> +++ b/drivers/mfd/qcom-pm8008.c
-> @@ -34,6 +34,7 @@ enum {
->  	PM8008_GPIO1,
->  	PM8008_GPIO2,
->  	PM8008_NUM_PERIPHS,
-> +	PM8010_NUM_PERIPHS = 2,
->  };
->  
->  #define PM8008_PERIPH_0_BASE	0x900
-> @@ -55,6 +56,10 @@ enum {
->  #define PM8008_IRQ_GPIO1	6
->  #define PM8008_IRQ_GPIO2	7
->  
-> +#define PM8010_IRQ_MISC_MBG_FAULT	0
-> +/* 1-3 are unused */
-
-This is not required.
-
-> +#define PM8010_IRQ_MISC_LDO_OCP	4
-> +
->  enum {
->  	SET_TYPE_INDEX,
->  	POLARITY_HI_INDEX,
-> @@ -88,6 +93,12 @@ static const struct regmap_irq pm8008_irqs[] = {
->  	_IRQ(PM8008_IRQ_GPIO2,	      PM8008_GPIO2,	BIT(0), IRQ_TYPE_SENSE_MASK),
->  };
->  
-> +static const struct regmap_irq pm8010_irqs[] = {
-> +	_IRQ(PM8010_IRQ_MISC_MBG_FAULT, PM8008_MISC, BIT(0), IRQ_TYPE_EDGE_RISING),
-> +	_IRQ(PM8010_IRQ_MISC_LDO_OCP, PM8008_MISC, BIT(4), IRQ_TYPE_EDGE_RISING),
-> +	_IRQ(PM8008_IRQ_TEMP_ALARM, PM8008_TEMP_ALARM, BIT(0), IRQ_TYPE_SENSE_MASK),
-> +};
-> +
->  static const unsigned int pm8008_periph_base[] = {
->  	PM8008_PERIPH_0_BASE,
->  	PM8008_PERIPH_1_BASE,
-> @@ -158,6 +169,25 @@ static const struct regmap_irq_chip pm8008_irq_chip = {
->  	.get_irq_reg		= pm8008_get_irq_reg,
->  };
->  
-> +static const struct regmap_irq_chip pm8010_irq_chip = {
-> +	.name			= "pm8010",
-> +	.main_status		= I2C_INTR_STATUS_BASE,
-> +	.num_main_regs		= 1,
-> +	.irqs			= pm8010_irqs,
-> +	.num_irqs		= ARRAY_SIZE(pm8010_irqs),
-> +	.num_regs		= PM8010_NUM_PERIPHS,
-> +	.status_base		= INT_LATCHED_STS_OFFSET,
-> +	.mask_base		= INT_EN_CLR_OFFSET,
-> +	.unmask_base		= INT_EN_SET_OFFSET,
-> +	.mask_unmask_non_inverted = true,
-> +	.ack_base		= INT_LATCHED_CLR_OFFSET,
-> +	.config_base		= pm8008_config_regs,
-> +	.num_config_bases	= ARRAY_SIZE(pm8008_config_regs),
-> +	.num_config_regs	= PM8010_NUM_PERIPHS,
-> +	.set_type_config	= pm8008_set_type_config,
-> +	.get_irq_reg		= pm8008_get_irq_reg,
-> +};
-> +
->  static const struct regmap_config qcom_mfd_regmap_cfg = {
->  	.name		= "primary",
->  	.reg_bits	= 16,
-> @@ -179,10 +209,32 @@ static const struct resource pm8008_temp_res[] = {
->  
->  static const struct mfd_cell pm8008_cells[] = {
->  	MFD_CELL_NAME("pm8008-regulator"),
-> -	MFD_CELL_RES("qpnp-temp-alarm", pm8008_temp_res),
-> +	MFD_CELL_RES("spmi-temp-alarm", pm8008_temp_res),
-
-Why is this cell being renamed from 'qpnp-temp-alarm' to 'spmi-temp-alarm'?
-There is no mention of this change in the commit log, and if intentional, it
-should be submitted in its own separate patch.
-
->  	MFD_CELL_NAME("pm8008-gpio"),
->  };
->  
-> +static const struct mfd_cell pm8010_cells[] = {
-> +	MFD_CELL_NAME("pm8010-regulator"),
-> +	MFD_CELL_RES("spmi-temp-alarm", pm8008_temp_res),
-> +	MFD_CELL_NAME("pm8008-gpio"),
-> +};
-> +
-> +static const struct mfd_cell pm8008_no_irq_cells[] = {
-> +	MFD_CELL_NAME("pm8008-regulator"),
-> +};
-> +
-> +static const struct mfd_cell pm8010_no_irq_cells[] = {
-> +	MFD_CELL_NAME("pm8010-regulator"),
-> +};
-> +
-> +struct pm8008_match_data {
-> +	const struct regmap_irq_chip *irq_chip_desc;
-> +	const struct mfd_cell *mfd_cells;
-> +	const struct mfd_cell *no_irq_mfd_cells;
-> +	int num_mfd_cells;
-> +	int no_irq_num_mfd_cells;
-> +};
-> +
->  static void devm_irq_domain_fwnode_release(void *data)
->  {
->  	struct fwnode_handle *fwnode = data;
-> @@ -192,15 +244,22 @@ static void devm_irq_domain_fwnode_release(void *data)
->  
->  static int pm8008_probe(struct i2c_client *client)
->  {
-> -	struct regmap_irq_chip_data *irq_data;
-> +	struct regmap_irq_chip_data *irq_data = NULL;
-> +	const struct pm8008_match_data *data;
->  	struct device *dev = &client->dev;
->  	struct regmap *regmap, *regmap2;
->  	struct fwnode_handle *fwnode;
-> +	const struct mfd_cell *cells;
->  	struct i2c_client *dummy;
->  	struct gpio_desc *reset;
-> +	int num_cells;
->  	char *name;
->  	int ret;
->  
-> +	data = device_get_match_data(dev);
-> +	if (!data)
-> +		return dev_err_probe(dev, -ENODATA, "Missing driver match data\n");
-> +
->  	dummy = devm_i2c_new_dummy_device(dev, client->adapter, client->addr + 1);
->  	if (IS_ERR(dummy)) {
->  		ret = PTR_ERR(dummy);
-> @@ -231,37 +290,62 @@ static int pm8008_probe(struct i2c_client *client)
->  	 */
->  	usleep_range(1000, 2000);
->  
-> -	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
-> -	if (!name)
-> -		return -ENOMEM;
-> -
-> -	name = strreplace(name, '/', ':');
-> -
-> -	fwnode = irq_domain_alloc_named_fwnode(name);
-> -	if (!fwnode)
-> -		return -ENOMEM;
-> -
-> -	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
-> -				IRQF_SHARED, 0, &pm8008_irq_chip, &irq_data);
-> -	if (ret) {
-> -		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
-> -		return ret;
-> +	if (client->irq) {
-
-Turn this massive if clause into a function.
-
-> +		name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
-> +		if (!name)
-> +			return -ENOMEM;
-> +
-> +		name = strreplace(name, '/', ':');
-> +
-> +		fwnode = irq_domain_alloc_named_fwnode(name);
-> +		if (!fwnode)
-> +			return -ENOMEM;
-> +
-> +		ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
-> +						       IRQF_SHARED, 0, data->irq_chip_desc,
-> +						       &irq_data);
-> +		if (ret) {
-> +			dev_err(dev, "failed to add IRQ chip: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		/* Needed by GPIO driver. */
-> +		dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
-> +		cells = data->mfd_cells;
-> +		num_cells = data->num_mfd_cells;
-> +	} else {
-> +		cells = data->no_irq_mfd_cells;
-> +		num_cells = data->no_irq_num_mfd_cells;
->  	}
->  
-> -	/* Needed by GPIO driver. */
-> -	dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
-> -
-> -	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, pm8008_cells,
-> -				ARRAY_SIZE(pm8008_cells), NULL, 0,
-> -				regmap_irq_get_domain(irq_data));
-> +	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells,
-> +				    num_cells, NULL, 0,
-> +				    regmap_irq_get_domain(irq_data));
->  }
->  
-> +static const struct pm8008_match_data pm8008_data = {
-> +	.irq_chip_desc = &pm8008_irq_chip,
-> +	.mfd_cells = pm8008_cells,
-> +	.no_irq_mfd_cells = pm8008_no_irq_cells,
-> +	.num_mfd_cells = ARRAY_SIZE(pm8008_cells),
-> +	.no_irq_num_mfd_cells = ARRAY_SIZE(pm8008_no_irq_cells),
-> +};
-> +
-> +static const struct pm8008_match_data pm8010_data = {
-> +	.irq_chip_desc = &pm8010_irq_chip,
-> +	.mfd_cells = pm8010_cells,
-> +	.no_irq_mfd_cells = pm8010_no_irq_cells,
-> +	.num_mfd_cells = ARRAY_SIZE(pm8010_cells),
-> +	.no_irq_num_mfd_cells = ARRAY_SIZE(pm8010_no_irq_cells),
-> +};
-> +
->  static const struct of_device_id pm8008_match[] = {
-> -	{ .compatible = "qcom,pm8008", },
-> +	{ .compatible = "qcom,pm8008", .data = &pm8008_data },
-> +	{ .compatible = "qcom,pm8010-i2c", .data = &pm8010_data },
-
-We do not allow data from one registration mechanism (MFD) to be piped through
-another (OF).  Please pass through an enum identifier instead and select the
-cells and IRQ chip in a 'switch()' statement?  Also, why does this compatible
-carry an '-i2c' suffix when the existing device is just "qcom,pm8008"?
-
->  	{ },
->  };
->  MODULE_DEVICE_TABLE(of, pm8008_match);
-> 
-> -- 
-> 2.34.1
-> 
-
--- 
-Lee Jones
+Bartosz
