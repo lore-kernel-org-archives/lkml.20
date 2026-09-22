@@ -1,131 +1,79 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8643438BA;
-	Tue, 22 Sep 2026 00:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63601345749;
+	Tue, 22 Sep 2026 00:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790038258; cv=none; b=NPc/fZlaecwVjrr58tZN3HGLmqzyUXPLz/SnoBPe3hpiL/MQe/AXdYOs/ag2qhv4E+LcfIYHHlIuJOu4GE90r1q/L4QEfF19fjHbqXwvq1gNvNoPhGgqJe47GHe2gZ+Kd5PFgk51l0bJvqVZKDZHcBf8znGrPov9ZxKAVsiyWDc=
+	t=1790038278; cv=none; b=u6SYR7RsfFNgrMSaXQ4rbWDTruEOUMjzBT0hUVZMl5Lk2hx7Ol0tFFhLzBXRq6jENgYgRfNqwwF7Tye4T07SEp6eX74X+BQmAbUboM17oH8RQEarNUJj4tzzNtGRqi0pyP2zdwN5O51jxpQfRbIXCpPOIlouqCQbwGomIMJzgnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790038258; c=relaxed/simple;
-	bh=YOLCm5FEtJIoAHb/Ji+85gBMLrz8YBnJO2jDp3A+PyI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KycZ+iBzx4AJZveSBS+OA9GrHJZMuyuEhAnlHCQmSWmDm+w92nXxuQ7ZExttrly931Rfz57E9m33jZRfQ7+OAyPnbFwcgRxmAFPHGAC8uqM6gwrDo3ylw9Pmjyz5INz8++0HQ8tsB7D3TVr9M3VHvUTmvIjt9/LYHC0NufZH0js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=fkeImGOV; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790038278; c=relaxed/simple;
+	bh=XzSxJZHvsyIPqzISR94IT14t1Csx4W3nShPhnVoJAfA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=iZ1FX47Y8rbHx/hG7lsRcmukatlzqQsWhWwd3wR6/omj6qmmHw0yHMRmetUo6omfl/gYLtL0FMRHUhrVZH94a2A8DT+evP0a/j/c/xNUP/8kjzD7ARrA4OSDrN5EKF2FgOZ9p3bAakCmnHCoTPhA9XV5GWlW96vijd8lILq+/qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J7ojIg1K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="fkeImGOV"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68M0oZHd93076243, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790038236; bh=YOLCm5FEtJIoAHb/Ji+85gBMLrz8YBnJO2jDp3A+PyI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=fkeImGOV0a9EOP+78k9eFmCRyqMv628R+n8msrzniMNme20ntxAeK2PFsPwTSnl92
-	 StUDGIGqZs292dNcbAa3IcFra/UeiTihPzNTZBU7LNmp6VeqGb4hFaL6CwdeNVg6GI
-	 ZHNhdiU3b0UdYBj96zvlEgmEQOux2YuQJBTJ5XXQTN7Q92rYLnA9jtGw1sfVPq2jJ0
-	 7NvYq7ZrFPLgrGJsxtVCaNDKq9PVYHg0JM1PPog7TUXKijrBVRnljr7JuZvijd8krA
-	 B+jgiw4BNmAGd1i0TU6bdjXfztNbv/i7dqepKifyZavCmPpxq3DD+20B/+171S/nDR
-	 P7kz5wtx0ja5Q==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68M0oZHd93076243
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 22 Sep 2026 08:50:36 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 22 Sep 2026 08:50:36 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 22 Sep 2026 08:50:35 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 22 Sep 2026 08:50:35 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, Jeff Johnson
-	<jeff.johnson@oss.qualcomm.com>, Johannes Berg <johannes@sipsolutions.net>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
-  Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Topic: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-Thread-Index: AQHdSeAeQzf2/kHhyEaOG4CaLogmfLbYsc0AgAAGuQCAABezgIAASM4AgAAWAACAAI0MQP//gOSAgACGXzA=
-Date: Tue, 22 Sep 2026 00:50:35 +0000
-Message-ID: <2694defa2e284ee894005c59197325a0@realtek.com>
-References: <20260921154347.82317-1-luka.gejak@linux.dev>
- <20260921154347.82317-7-luka.gejak@linux.dev>
- <45eb7d5908f8fff9a18cba603fd3a4abfe8695f9.camel@sipsolutions.net>
- <31285267ebc43aab631a4199059a247a8d937814@linux.dev>
- <c208152fc5cb45e19ae7d4660394dbf2bc5e0271.camel@sipsolutions.net>
- <bcd5a280-8184-4457-ae52-47a9e0fe763c@oss.qualcomm.com>
- <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
- <fe3c6884a96b476799f415a06314f1ba@realtek.com>
- <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
-In-Reply-To: <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J7ojIg1K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045701F00893;
+	Tue, 22 Sep 2026 00:51:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790038277;
+	bh=r5VfZtULYvjtTsmEkLHPYALq8ZHkpgK9hA2tzSsU4y4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=J7ojIg1KXNJlHgPdH7Na58GWYoC79hvj7lnPSOieXouGEhlDaEXgWuiDUsUcLDJj3
+	 IaePqp5sNCUZzCzDn+jKjyZqr/0IQKUK8Ox1du9KbfJN/gwuCkUrWA7ns+hlrShdIG
+	 XIxH9VO6pI6GHGp396ePI97PRFnANeqyxiFh0oRKpVhAx/erwA8yzeLpmmD0d5n6zi
+	 jWSrJgxalqzdgNtca5mKEmqILu53h9XMS35VldlHFj3aDGn5TMTqerfK7fVA7I2AdH
+	 BUHOzR1IM7Q7LrIFu6Zrb3Hn8G+b16LQwwZaPGmFW1EpM9+naLcrzsLnWIAXSv/z28
+	 2HHAFkagSuKeA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939D03930205;
+	Tue, 22 Sep 2026 00:50:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] octeontx2-af: Allocate ikpu2 with ARRAY_SIZE()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179003820839.3312649.8281570164450619397.git-patchwork-notify@kernel.org>
+Date: Tue, 22 Sep 2026 00:50:08 +0000
+References: <20260917211409.i.425-kees@kernel.org>
+In-Reply-To: <20260917211409.i.425-kees@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: sgoutham@marvell.com, kees+treewide@kernel.org, rkannoth@marvell.com,
+ gakula@marvell.com, sbhatta@marvell.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBTZXB0ZW1iZXIgMjIs
-IDIwMjYgYXQgMDM6MjgsICJQaW5nLUtlIFNoaWgiIDxwa3NoaWhAcmVhbHRlay5jb20+IHdyb3Rl
-Og0KPiANCj4gDQo+ID4NCj4gPiBMdWthIEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4gd3Jv
-dGU6DQo+ID4NCj4gPiA+DQo+ID4gPiBTZXB0ZW1iZXIgMjIsIDIwMjYgYXQgMTozNSBBTSwgIkpl
-ZmYgSm9obnNvbiIgPGplZmYuam9obnNvbkBvc3MucXVhbGNvbW0uY29tPiB3cm90ZToNCj4gPiA+
-DQo+ID4gPg0KPiA+ID4NCj4gPiA+ICBPbiA5LzIxLzIwMjYgMTE6MTQgQU0sIEpvaGFubmVzIEJl
-cmcgd3JvdGU6DQo+ID4gPg0KPiA+ID4gID4NCj4gPiA+ICA+IE9uIE1vbiwgMjAyNi0wOS0yMSBh
-dCAxNjo0OSArMDAwMCwgTHVrYSBHZWphayB3cm90ZToNCj4gPiA+ICA+DQo+ID4gPiAgPiA+DQo+
-ID4gPiAgPiA+IEl0IGlzIHN1cHBvc2VkIHRvIHdvcmsgaW4gdGhlIHNhbWUgd2F5IGl0IHdvcmtz
-IGZvciBvdGhlciBkcml2ZXINCj4gPiA+ICA+ID4gbWFpbnRhaW5lcnMuIEkgd291bGQgcmV2aWV3
-IHBhdGNoZXMgYW5kIHByb3ZpZGUgbXkgYWNrZWQgYnkgb3INCj4gPiA+ICA+ID4gcmV2aWV3ZWQg
-YnkgdGhlbSBhbmQgUGluZy1LZSB3b3VsZCBhcHBseSB0aGVtIHRvIGhpcyBydHctbmV4dCBicmFu
-Y2guDQo+ID4gPiAgPiA+DQo+ID4gPiAgPg0KPiA+ID4gID4gSSBkb24ndCB0aGluayB3ZSBoYXZl
-IGEgbG90IG9mIGZvbGtzIGJlbG93IHRoZSBkcml2ZXIgbWFpbnRhaW5lcnMgd2hvIHMNCj4gPiA+
-ICA+IGVuZCBtZSBwdWxsIHJlcXVlc3RzIChleGNlcHQgVG9rZSBtYXliZT8pIC0gYnV0IGFzIGxv
-bmcgYXMgSSBkb24ndCBuZWVkDQo+ID4gPiAgPiB0byBkZWFsIHdpdGggaXQgSSdtIGhhcHB5LCB5
-b3UgY2FuIGZpZ3VyZSBpdCBvdXQgYmV0d2VlbiB5b3Vyc2VsdmVzIDopDQo+ID4gPiAgPg0KPiA+
-ID4gIEZvciBhdGguZ2l0IHRoZXJlIGFyZSBzdWItbWFpbnRhaW5lcnMgZm9yIGF0aDVrIChNdWx0
-aXBsZSksIGF0aDlrIChUb2tlKSwNCj4gPiA+ICBjYXJsOTE3MCAoQ2hyaXN0aWFuKSwgYW5kIHdj
-bjM2eHggKExvaWMpLg0KPiA+ID4NCj4gPiA+ICBUb2tlIGhhcyBhIGxpbnV4LXdpcmVsZXNzIHBh
-dGNod29yayBhY2NvdW50IHNvIHRoZSBhdGg5ayBwYXRjaGVzIGFyZSBpbml0aWFsbHkNCj4gPiA+
-ICBhc3NpZ25lZCB0byBoaW0gaW4gcGF0Y2h3b3JrLCBhbmQgaGUgQWNrcyBvbiB0aGUgbGlzdCBh
-bmQgYXNzaWducyB0aGUNCj4gPiA+ICBwYXRjaHdvcmsgcmVjb3JkcyB0byBtZSB3aGVuIGhlIGFw
-cHJvdmVzIHBhdGNoZXMuDQo+ID4gPg0KPiA+ID4gIEZvciB0aGUgb3RoZXJzIHRoZSBtYWludGFp
-bmVycyBqdXN0IEFjayBvbiB0aGUgbGlzdCwgYW5kIEkgdGFrZSB0aGVtIGZyb20gdGhlcmUuDQo+
-ID4gPg0KPiA+ID4gIFNvIHRoZSBxdWVzdGlvbiBpcyBkbyBob3cgZG8geW91IHdhbnQgdG8gaGFu
-ZGxlIHRoaXMgaW4gcGF0Y2h3b3JrPw0KPiA+ID4NCj4gPiA+ICAvamVmZg0KPiA+ID4NCj4gPiA+
-DQo+ID4gPiAgV2hhdCBkbyB5b3UgdGhpbmsgbWFrZXMgbW9yZSBzZW5zZSBoZXJlOiBwYXRjaHdv
-cmsgZGVsZWdhdGUNCj4gPiA+ICBhY2Nlc3MgbGlrZSBUb2tlIGhhcyBmb3IgYXRoOWssIG9yIG9u
-IGxpc3QgYWNrIGJhc2VkPyBJJ2QgbGVhbg0KPiA+ID4gIHRvd2FyZHMgZGVsZWdhdGUgYWNjZXNz
-IGlmIGl0J3Mgbm90IGEgYmlnIGFzayBvbiB5b3VyIGVuZCwgYnV0DQo+ID4gPiAgaGFwcHkgdG8g
-Z28gd2l0aCB3aGF0ZXZlciB3b3JrcyBiZXN0IG9wZXJhdGlvbmFsbHkgZm9yIHlvdS4NCj4gPiA+
-DQo+ID4gSSdtIGhhcHB5IHRoYXQgcGVvcGxlIGpvaW4gcnR3ODggcmV2aWV3ZXJzLg0KPiA+DQo+
-ID4gUGVyc29uYWxseSBJIHByZWZlciBwZW9wbGUgZ2l2ZSBSZXZpZXdlZC1ieSB0YWcgdG8gdGhl
-IHBhdGNoZXMsIGFuZA0KPiA+IEkgY2FuIG15c2VsZiB0YWtlIHRoZSBwYXRjaGVzIGJ5IHBhdGNo
-d29yayBzdGF0ZSBhbmQgc2VuZCBwdWxsLXJlcXVlc3QNCj4gPiB0byBKb2hhbm5lcy4NCj4gPg0K
-PiA+IFdpdGggYWRkaXRpb25hbCBmbG93cyBvZiBwYXRjaHdvcmsgYW5kIHB1bGwtcmVxdWVzdCwg
-aXQgbG9va3MgbXVjaA0KPiA+IGhhcmQgdG8gbWFpbnRhaW4sIHNpbmNlIEkgZG9uJ3QgdGhpbmsg
-dGhlcmUgd2lsbCBiZSBhIGxvdCBvZiBwYXRjaGVzIG9mDQo+ID4gZHJpdmVycy9uZXQvd2lyZWxl
-c3MvcmVhbHRlay9ydHc4OC9ydHc4NzIzYioue2MsaH0NCj4gPg0KPiA+IEJ5IHRoZSB3YXksIGlm
-IHlvdSBhcmUgaW50ZXJlc3RlZCBpbiBydHc4OCwgbWF5YmUgYWRkIGEgIlI6Ig0KPiA+IGVudHJ5
-IHRvIGJlIGEgcmV2aWV3ZXIgb2YgcnR3ODg/DQo+ID4NCj4gPiBQaW5nLUtlDQo+ID4NCj4gDQo+
-IEhpIFBpbmctS2UsDQo+IA0KPiBJIGFncmVlIHRoYXQgYXBwcm9hY2ggaXMgc2ltcGxlciBhbmQg
-SSBhbSBwZXJmZWN0bHkgZmluZSB3aXRoDQo+IGl0LCBpZiBpdCB3b3JrcyBiZXR0ZXIgZm9yIHlv
-dS4gQW5kIGFib3V0IGJlaW5nIHJ0dzg4IHJldmlld2VyOiBJDQo+IHdvdWxkIGhhcHBpbHkgdGFr
-ZSB0aGF0IHJvbGUsIHNvIEkgd2lsbCBzZW5kIGEgc2VwYXJhdGUgcGF0Y2gNCj4gb3V0c2lkZSB0
-aGlzIHNlcmllcy4NCg0KSSB0aGluayB5b3UgY2FuIGNoYW5nZSB0aGUgY29udGVudCBvZiB0aGlz
-IHBhdGNoIHRvIGFkZCB5b3Vyc2VsZiB0bw0KcnR3ODggcmV2aWV3ZXIuIE5vIG5lZWQgb3RoZXIg
-cGF0Y2guIA0KDQpJbiBmYWN0LCBldmVuIHlvdSBhcmVuJ3QgaW4gbGlzdCBvZiBNQUlOVEFJTkVS
-UywgeW91IGNhbiBzdGlsbCByZXZpZXcNCnBhdGNoZXMuIEp1c3Qgc3Vic2NyaWJlIGxpbnV4LXdp
-cmVsZXNzIG1haWxpbmcgbGlzdCAoSSB0aGluayB5b3UgZGlkKSwNCmFuZCByZXBseSBwYXRjaGVz
-IHlvdSBoYXZlIHJldmlld2VkLiANCg0KUGluZy1LZQ0KDQo=
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 17 Sep 2026 14:14:10 -0700 you wrote:
+> From: Kees Cook <kees+treewide@kernel.org>
+> 
+> In preparation for making the devm_kmalloc family of allocators type
+> aware, we need to make sure that the returned type from the allocation
+> matches the type of the variable being assigned. (Before, the allocator
+> would always return "void *", which can be implicitly cast to any
+> pointer type.)
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next] octeontx2-af: Allocate ikpu2 with ARRAY_SIZE()
+    https://git.kernel.org/netdev/net-next/c/bfc9df9e40c9
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
