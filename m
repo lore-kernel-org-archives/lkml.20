@@ -1,180 +1,165 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6330752F29C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066642; cv=none; b=J3qw/kMPXlN31J4TYLSGzlBaAUkz6kXfq0J32hPqooibZvwH/A0NfmFydco765nrbzga72bj1TF3+3lpNduxuaJdTkgzrmk+KjcnQ+X74RmYu7TwVZ/2Nt8VdhtN5ilBsJd2nfIeJB6mF9vlQtls7o5meKZDScJ6u1Ictq4gn08=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066642; c=relaxed/simple;
-	bh=aVUsHlz/xoft1y6LdoTP6jj2hctS3djOcN1LZjUnlTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FsUopwedc6RJc7rvwatozsTOdskQMdaM1BCUxidC16eSjrdYwRp6w3Y2a9FnUG0xAFLjoX3X0DKSEYz/a9hRjRAutGWx7ax+UNl0/5C3MnXqI+8PRJzVK3B+3qg+3KDL+oryjFmc8CHLewBWO2a3QDe6EidnmB3BKzkQ4+VBu/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r1l8B1DX; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC65A41A4EF
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790066648; cv=pass; b=fbk94pVlUwx74OJuK91SowH0W26QIyyQo9k4VAEdwkHepwjVGStKmXjIlBXUKUBihQifKPTHSX4+Q+59mQzgEEYLpec4ncyUhTVUTVr//+HZBJfUTAvakaKD470uxUQSAP55aVfEcJOE6PbFN0ijgm4M6ycpcTowW5nQMIAsl1Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790066648; c=relaxed/simple;
+	bh=3eIftdr+HqakZAShd7ietE6WeuNrECUgzUYoSHnLGuI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gJ4jMb3cfBMkijT8yCtFyOeL3A3c9izmbyNtol3XvFhSOgxCgc5SfrJwL+WYV9nlboSRSFAesE3lQmPj+lZw8AVZumzkOmup/ubGsmbg6m9Ky1DS6uagdSNYlXgnWcQUhPVeETaPKb38DBN2tnU6Rh/GFslX7Y7WASStm0A0670=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eoMJGwQL; arc=pass smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r1l8B1DX"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-39e249c766bso1632784a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:43:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eoMJGwQL"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99391ffb2so6331366a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:44:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790066645; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W9/9uJaldl+jP+idb4H4agdOWkCK/bUpCfkw6B4a2GNJpsUHwdgnVInILpn44dUxlo
+         X3C1aZkd31HO4B292zESLshm95/6FWa4vSDs4xnlZdT0BcrCCCITQsqL0tcLNAF33ZAt
+         BJY6reeYiswny2nMBNFR48zgMczMTwu7Hzrr1W9vj337SgtHepNrUlMc7steh5ZkGSnP
+         cApAKyzHZinbTYT5tFtMfavERvw7lgNHWJp1QhBG/7uu+xWDitSO0iIUxe0JU+98DWc7
+         8rimWjEmZyfX/Ow235o4M/XLiX3crEsj0m8OqBSDPKigLyOJVws+r51jtMcE8OR7JFZ4
+         yDuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=65vILECszTrDkUEoa8AEJpfWp35NiurtkMpk0mo7UQ0=;
+        fh=xeL100DiIajdtMM1JufB2riKVEcU3B2vA3CMa24qfs0=;
+        b=QlSBiOAEAZwooHSP0nf7UruSCgUvMVGJNDHKRKrvrc9pW18gDzXLEmbEPgdKWuHir6
+         RMjpXUXTrEmZZqajDmmYLXE3nBLsb/2yjh/TU74nfF12ojUJTqQkc+y0c8Uclontb1Ay
+         rBPX8yGFhmLdGifzyj4/PEN2PTWvUw2gxOldamQvfSfr+dUtmD4N4H4hsiVZeMPgyicz
+         wYDF24FJCITXAB22zzTqDq2CMdfUC0S2HXLOc+7xwaqV204pt+YTRmcfXAO/V0mM5rMu
+         WQSidKg5m37qPa4wCMO+1dGHmwk7u9bXjd4rJYx2v7PzJC1axSi+SjZBYCRXG4xhLiDu
+         v14w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790066639; x=1790671439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BQZ6M9cJvbnCelbC8h/SiM2wDn1buqTcsR+O1dmHqTM=;
-        b=r1l8B1DX/syzoT9vEayTJVBT50LN652uwCGXWaJXQYuYDReCIaGt3OGFY1DLiebyDh
-         NX3qq9+F0PQp5cCnm+fNtQQ/7tt2EDBrvCdASm1ib2bcDR8oceV/lFjQwcyJXI7PFrB5
-         Hoz2acOUYxwV8Pip0JizRCSKTMvcoMWrnNyi57rzLk5dwAbw52ngIl7JwBasb0QxkkZV
-         n98bHdYceG6Ah116Ov9BrnDd82MzkY9EOzdtNeeqTt3duEo8klSUKBDRsC2TCiHAFzSd
-         TSoGiB5upkeHDnsNIKNh2HkQkfoyi+3QbYPUh158j1Nres9usNBi/XrUWfSXpaM/ADMS
-         XgJg==
+        d=gmail.com; s=20251104; t=1790066645; x=1790671445; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=65vILECszTrDkUEoa8AEJpfWp35NiurtkMpk0mo7UQ0=;
+        b=eoMJGwQLDl3hjrSBmK6W2INexYoVcmtKmBgNVBGxbrXsgWPBeRRBhDusdlei/c2jLB
+         tA82s6gWY1FLM1M9U0SAJCeyDXB2kRqSmmpPig2C/gAQ7wXcWYSHBlvxV1AaZqyhaDsj
+         bt0xY/JOTkd5RQiTi1TBBOiuWSkEK3nLZqS2id1D3VdPfxxvuxXrQSfgen8UeD5pzgQz
+         tG+dkqO1+WrIXcUzolZ+51w2DfrFja7YLu1GCHJkQfJWiYw4N01buQ+fwldajYe1VGMj
+         0vKGKlbUAXB0sBp92N7wESETEK3MpJDzqVC5FK79TH2R2SJ2aL32InF/BJFa4RCPUs/3
+         Epdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066639; x=1790671439;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BQZ6M9cJvbnCelbC8h/SiM2wDn1buqTcsR+O1dmHqTM=;
-        b=f+CwAou4wV91RnK3eunEuBWc9RBSa9aj5syJlCYjxC7JT76DPquUg9bXxKf+gqs/4s
-         5YBhj+WIIrr5QOcFLV8wHqx4rHnt28vB7zvTRMUa1Vcc5RPu02rIvJdJHpUqfCelYDLl
-         rsIavCWb/ZlAqSlNry2zqttS+CCame12XoBdBlvdZ3VbcXblbTH7Hw+4KAh8Tj5JHdoF
-         JNZPEg2gHNn2og/TLhUd/kmkBzk2MslI65ckgFPp3oyDXnIeAVTe2CXd/dey/dfEoiiK
-         B3WQuU7oTLUu6R/xdp2zBlR25utjx5JYbiGL3WctVynKXx6Ndu2Q/7NsZZhMxMIcWVXI
-         uJww==
-X-Forwarded-Encrypted: i=1; AKwUvByWy1zSCPWY7DOrksdvYtttOVZAk+iu4/s6DhgKs3HG1tiBw4gG+lAQEQaiUGL73rtmooa9VrcTbtle6Fk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNsKdas2T/jwYMxB66cBsi4VMyu7+a7leL/roYSJQDzuSER0w+
-	Nt+89ZGQ1wFxTVHRL9s4QQiQbvNG459VAVpQkzYCPaXxe9rjjQ9YhsbB
-X-Gm-Gg: AYBFou0L4NvSWlpqWFT6n9oQoBwo7ztPbBp7Y6R441OcqaSRH+GbZTC+K1XZNK5GyMf
-	Q0YqHNGbuqDpAlXGFSMOEZ7bu8qyDBGOufddZkDX2YjvwyqOkYY4BzrU1FUUIiwNklpfBxBwvlo
-	mDExSRUHpC4ALxED2NhbipUCTRKVpRVfxxbOH5tCnwKXVBiK6or9x0X+BovuCj2fHz5S8gzLrB4
-	+87hdRwr5dq6bi6Keonv6f6hmesledb7NPP4yNxB51Ma66SGhGu87fvffsLwEbsVI9npYTL7aZK
-	fGiA8dofYtC1fm4+2JiVJVjGJNrkNk1nmVoZJQI3yhE7rgblQf4DpafAKzSqUFY5nncye5KFFeS
-	wwFMDNN+hJjOMV6obVmacHepkZ9vciGI8EpndvB5KPxl8Sv+ORfh6AaPJdihy7V4jzkcf2Px/R8
-	j4WXFhiV5Rb2KcdyI7wAe6Szp77ivE7+xIv+1Bzol6LN3WwTI+4nzrBDRum2t2D1OcffGZHHdcj
-	nsxlFMFjSA=
-X-Received: by 2002:a17:90b:35c5:b0:39e:6a80:dd9b with SMTP id 98e67ed59e1d1-3a0731f9793mr476673a91.34.1790066638632;
-        Tue, 22 Sep 2026 01:43:58 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0674a5ae4sm3670016a91.12.2026.09.22.01.43.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:43:58 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: robh@kernel.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [PATCH v7 4/9] crash_core: replace for_each_mem_range() with for_each_mem_region()
-Date: Tue, 22 Sep 2026 16:42:51 +0800
-Message-ID: <20260922084256.1515554-5-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922084256.1515554-1-chenwandun1@gmail.com>
-References: <20260922084256.1515554-1-chenwandun1@gmail.com>
+        d=1e100.net; s=20260707; t=1790066645; x=1790671445;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=65vILECszTrDkUEoa8AEJpfWp35NiurtkMpk0mo7UQ0=;
+        b=xu6+1q9UIkrCIeKPqUCbL2ge582l+BTH89l1sAVvNJSQTaYz+4DaCk/VFvAni3R4ve
+         yg6ykLg135NjE1Famrkr6OUg1dTTwMjQyFbxITARnn0zT7QkUECDkffpCXWGh0yvCBSz
+         UzMfCl//hTCJaKylxJ0d81zExGPOgT7t/iAIXXoVw7k5mDGlAXEV5LH0p6GYzx5TWgjp
+         f73w0eGzp73hps7bIf8uAnWUxuJ+b1HmtewzkpT18Jy35tmZqBVr3OGt6GM1tV19iiv6
+         Zj0+MFQimAj9NvxvODm4f9aH08roWIeFSCK/D3/z4Loz8Api+tcy7H4TVL0VsAStbP1m
+         yLRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwl4Cy4hfMCuGPom1iWU+botEeCca1xhxbfRCC41IQc8xXONmtfvV8HmYsHUQ9ZF70LKUTSJUao4DnUXys=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKTUWd0T+28QFrzvF7Z1tWBes9tQ5EUtqPtrcT9oEa9pC+D4oR
+	GuFi1x3JBkYCtD9Cjga/PLOYuWfpHwJLFw1E5eOK6ad8LKN32ZMEEpPZN9bD9uVObTSG8WAjfY5
+	OfQ0+AXNY14mEN8a+ASC+PS4Az2lNYRzy+USOyQWiZjRm
+X-Gm-Gg: AYBFou31GV6biT6XD+MjgKatKQS4fo7pAmboVcuAxGmDvOehgKVzpDjIMYT63ebl27+
+	h95VvOi5/7kNqoDzi0LmI1wgBvrD89aiebuZMtwts6MW/FGkATP4PMe2QiSyvrmYzlcibzYjY6l
+	1vdkrKaHvs++7ss/UGdMytRps7w60+fYfqDrp9vc1oIRpvCLZjuuoyjmCTSzeygCN/wyQPIz5dN
+	RS0q+cgoKV4PzlLuD6CHo7CnnZHa3UQ6DtL3qHxrHmYt4GcPndgY8O9RupdRrlQ6ZYbag6NPiNC
+	5ppnTQI9eXUoFC+ht9kE8wgaaZxZbx7zE3GlAuzpLwMIl+zWCYQPgj6Bitax4B5atwc1tRmfK0C
+	RgsU7iYCV7vI=
+X-Received: by 2002:a05:6402:46da:b0:6aa:486d:96f8 with SMTP id
+ 4fb4d7f45d1cf-6aa5798f026mr9285732a12.38.1790066644884; Tue, 22 Sep 2026
+ 01:44:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAKSQd8V28WjMcsfh05P5SNfXXvtafBH6fyiyqMzQ9GtU8fQGSA@mail.gmail.com>
+ <f133c35f-b013-4395-ad1f-53765114d4b9@intel.com>
+In-Reply-To: <f133c35f-b013-4395-ad1f-53765114d4b9@intel.com>
+Reply-To: ludloff@gmail.com
+From: Christian Ludloff <ludloff@gmail.com>
+Date: Tue, 22 Sep 2026 10:43:52 +0200
+X-Gm-Features: AcwNN1V1oXf_XeQyH785ByMW-QMuBoGsa9e5ET8qsJSEeIcT-lxdR1I3w5kq6xs
+Message-ID: <CAKSQd8WqQdNDoEqM+PZNHg-yr_4VJTGYdV=bCbYfRDyR7kUjbg@mail.gmail.com>
+Subject: Re: x86 CPUID mutable return values
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Borislav Petkov <bp@alien8.de>, "Ahmed S. Darwish" <darwi@linutronix.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Sean Christopherson <seanjc@google.com>, David Woodhouse <dwmw2@infradead.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Sohil Mehta <sohil.mehta@intel.com>, 
+	John Ogness <john.ogness@linutronix.de>, x86@kernel.org, x86-cpuid@lists.linux.dev, 
+	LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Wandun Chen <chenwandun@lixiang.com>
+On Mon, Sep 21, 2026 at 11:32=E2=80=AFPM Dave Hansen <dave.hansen@intel.com=
+> wrote:
+>
+> On 9/21/26 11:36, Christian Ludloff wrote:
+> > Q for Intel: is MSR FEATURE_CONFIG 0x13C bit 1 expected
+> > to affect CPUID 1.ECX.25 and 7.0.ECX.9 and 19.EBX.0/2, or
+> > just just a subset of them? Also, what about PCLMUL?
+>
+> Are you looking to document architecture or implementation here?
 
-for_each_mem_range() skips MEMBLOCK_NOMAP regions implicitly. Switch the
-weak defaults to for_each_mem_region(), which exposes struct
-memblock_region and per-region flags, and filter NOMAP regions explicitly
-via the new crash_should_skip_region() helper. This prepares for a
-subsequent patch to extend the skip filter.
+Just the reality of mutable CPUID return values.
 
-No functional change.
+Because it matters. When trying to cache them.
 
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Acked-by: Baoquan He <baoquan.he@linux.dev>
----
- kernel/crash_core.c | 25 +++++++++++++++++--------
- 1 file changed, 17 insertions(+), 8 deletions(-)
+> I poked around on a few pieces of hardware I have within reach and all
+> of them have the MSR FEATURE_CONFIG lock bit set and the disable bit clea=
+r.
+>
+> # rdmsr -a 0x13C
+> 1
+> 1
+> 1
+> 1
+> ...
+>
+> In practice, I suspect the AESNI CPUID bits are immutable.
 
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index d0cc2496dc09..c7acb2e449df 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -270,6 +270,12 @@ int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
- 	return 0;
- }
- 
-+/* Exclude NOMAP regions from the vmcore. */
-+static bool crash_should_skip_region(struct memblock_region *reg)
-+{
-+	return memblock_is_nomap(reg);
-+}
-+
- static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
- {
- 	struct crash_mem *cmem;
-@@ -285,22 +291,25 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
- unsigned int __weak arch_get_system_nr_ranges(void)
- {
- 	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
--	phys_addr_t start, end;
--	u64 i;
-+	struct memblock_region *reg;
- 
--	for_each_mem_range(i, &start, &end)
-+	for_each_mem_region(reg) {
-+		if (crash_should_skip_region(reg))
-+			continue;
- 		nr_ranges++;
-+	}
- 	return nr_ranges;
- }
- 
- int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
- {
--	phys_addr_t start, end;
--	u64 i;
-+	struct memblock_region *reg;
- 
--	for_each_mem_range(i, &start, &end) {
--		cmem->ranges[cmem->nr_ranges].start = start;
--		cmem->ranges[cmem->nr_ranges].end = end - 1;
-+	for_each_mem_region(reg) {
-+		if (crash_should_skip_region(reg))
-+			continue;
-+		cmem->ranges[cmem->nr_ranges].start = reg->base;
-+		cmem->ranges[cmem->nr_ranges].end = reg->base + reg->size - 1;
- 		cmem->nr_ranges++;
- 	}
- 	return 0;
--- 
-2.43.0
+If the LOCK bit is set. Which is recommended.
 
+But apparently not always done. No surprises.
+
+> FEATURE_CONFIG's definitions also looks model specific in the spots I see=
+ it in the SDM. They're also not identical, interestingly enough.
+
+While the verbiage across documents mutated
+a bit over time, the functionality of DISABLE as
+well as LOCK seems to have been immutable
+ever since WSM and GLM introduced them.
+
+Based on some experiments, I think that VAES
+does follow AES (i.e. is mutable as well), while
+KL and PCLMUL do not (i.e. are immutable) =E2=80=93
+so that's what I am seeking confirmation for.
+
+> Honestly, FEATURE_CONFIG looks more like something that should have been =
+in the BIOS writers' guide rather than the SDM.
+
+I for one appreciate that the SDM attempts to
+provide a list of mutable CPUID return values
+and that it has the FEATURE_CONFIG MSR.
+
+After all... the most recent public Intel BWG is
+more than 30 years old by now [aka P6 days],
+and https://en.wikipedia.org/wiki/Appendix_H
+was a thing that also happened back then.  :)
+
+PS: Should Linux boot check/fix that LOCK?
+
+--
+C.
