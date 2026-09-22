@@ -1,126 +1,107 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8614E56853B;
-	Tue, 22 Sep 2026 17:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553E4560ADD;
+	Tue, 22 Sep 2026 17:29:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098120; cv=none; b=aCbkqoGViZhEqpxirBp170fH1wgYwVxqyMA8BPS0U3SJ4m12s2icfd1xVC1z1g1qwML4MzvLBPuyamBtRysKHnTZ33xVBM42257wfpU3DJeE/ZkoONI0ZHxH905uT+jCb4J2w19XAyaHxX+JHTng5Jn1ZCUO6EfW6ltZ7qGgd1w=
+	t=1790098156; cv=none; b=gPCSTjlAE4Dmbd30TSgwhNvwcnFshEAVBsi+vxRBIkW/rrHpRfDjqeZbMkY+gZ8mx16jTw1Z/kwaPklHOY9LjrXagxZum3FyjsCTcGCM0sCedcgrPW3H4C2zzpVjYd7gMOCFrJRBK8spgrqrdT0cFZDFkmyHD+ogodofq2/2EJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098120; c=relaxed/simple;
-	bh=sykwAUjfH/+0gLVEjN37IzgGmxNEUOl0jd4VRWhhmOk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QpGwS/Uvi3ASGD7ljyHi04vxdTAIrtepVjr+XTU+RlL+sirhfuSOimrDiFLMp2OFw903uhVnEc3F9u63FEBuvyrCudwB2QLqsEf5/zFotiKI4EAGWmATioBuF5j/ZW0uMPgS0iPOVTR0gAvE8Qzx59a2duy3py6lQe9lAsyv58Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gTyZsSNR; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790098156; c=relaxed/simple;
+	bh=WDdU+RoIRC74e9CNP7qeqsxMqKdI0jxRfUEfZ8vb/Qo=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=Q5q4DxUkMaRkjE0CE+Maz+KupOlDtGQUWDRJfstnkmngu1D6EDQRt75JXK54UG1dwt4NPsb9ICo0HJqWt1cmJynIdYB96SMCSbIKJoWEkQrXMw5J9G5xZIVUwXfieCQWYw7RUdGw55xk8QG1d3JOfQMHoml8oEfW68NBnIFBAJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=serow.io; spf=pass smtp.mailfrom=serow.io; dkim=pass (2048-bit key) header.d=serow.io header.i=@serow.io header.b=qRIpIgE8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=i6hniyxL; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=serow.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=serow.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gTyZsSNR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790098119; x=1821634119;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=sykwAUjfH/+0gLVEjN37IzgGmxNEUOl0jd4VRWhhmOk=;
-  b=gTyZsSNRm1ZxnuwNdoRhieF/1D91zovDOBxCdVBtn3ed14wXmxYTCmC8
-   aV7yHdFCPWHAW8wgWKcSQKeZv6/IaOtILNAHVSy7dH2LOoW5ymnyUG4HP
-   bHHloJYYYxaR5mghgQFfHMkKSYKoblf0SLMPoIuUEKytuCOPZp36AZaAK
-   /uPxnxo6Oro41EglVCJZNJB7Ob/uQEQSGGRB/oH1tEGbNRke4yeyiC04S
-   dVp0Jmo/vRaCR0KLBfhmElCdmZR3uEsn3ANMOHfdEyewwJtBLVXmtxqlg
-   2HEz+bntQ9BAnKBI2t+CW5w5r4XZyEiWCml14NJFWLr+Ujwp0k+vO4vW7
-   w==;
-X-CSE-ConnectionGUID: 9VagCfbPStGVUwhjmFw58Q==
-X-CSE-MsgGUID: MFAygRwvReGN8xAvyPqUsA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89642743"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="89642743"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:28:36 -0700
-X-CSE-ConnectionGUID: GIFsa5c4TQaPmNkGoM6/fA==
-X-CSE-MsgGUID: XnPyavsZTiGampxTdtcGWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="301128999"
-Received: from bradocaj-mobl.ger.corp.intel.com (HELO [10.125.110.50]) ([10.125.110.50])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:28:35 -0700
-Message-ID: <af3edb82-5247-461e-a5c4-e63476e69e25@intel.com>
-Date: Tue, 22 Sep 2026 10:28:33 -0700
+	dkim=pass (2048-bit key) header.d=serow.io header.i=@serow.io header.b="qRIpIgE8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="i6hniyxL"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 3B39F7A0063;
+	Tue, 22 Sep 2026 13:29:13 -0400 (EDT)
+Received: from phl-imap-16 ([10.202.2.88])
+  by phl-compute-03.internal (MEProxy); Tue, 22 Sep 2026 13:29:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=serow.io; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790098153;
+	 x=1790184553; bh=wGjntAVjqqMJdW+oeRuv+YV0f9faSeXFe/ciJuzRhTU=; b=
+	qRIpIgE8Yomm/t81NMgQzV0c4xc/ELq4g9PEuXtSg2+lSvNOeUF3Jaa0Vplmt3MD
+	rz7vqRpzLAwhSx+kXgp89AhvQ6Xbatz+gXcpBqG4Qt5tyUL1Ay88AoIeVwLsl3X1
+	GcHGWVSprwhDyzYgAPxmjcfCqAW+R8E/niBbhmTQog0biiDCXpzP31Gco05jghw/
+	02OTsBPb/lopUhbEHBqBrIW6SJyUqk40SAs7kcz7vw/FvsGogok12rzB9UdgItqs
+	1OelR0nbGEndeCOxWGEiUxhkA0GoreTasg+HHzoKQwq7T/rsyoi6q5Lt5Gsrh042
+	SpdL6a99xftgrCURC2+LvQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790098153; x=
+	1790184553; bh=wGjntAVjqqMJdW+oeRuv+YV0f9faSeXFe/ciJuzRhTU=; b=i
+	6hniyxLue5YP+0v4HjV0TcfPTZZ2wAGLLOBuCWaU9jtG012kWQOy92MpxO71eTxW
+	dz2kPrq6dDBEOb0lYwA5Lgl8zpClhLx7zWP7JkuXOHNzHMcHreLCybFJd4545mal
+	SSnVQQPsb75PxwhaBqrNTIkH3IhQIcl9vTIACcRWt/AhDnSiT8qn76Nwm/8ALUnp
+	or6lHDuFAgeyIPzpS0/RkGtFeGXEbNr0LILl0nOfZa9ve076IvSAPasdI8BhgceO
+	NP3yfPfg2UhME/ifT39vqDCHqni1MXCLW6vn/IZWof/iHPJCdHIRob0ldnAiGNfD
+	k6buptfMNFj/xLJF+9Wcg==
+X-ME-Sender: <xms:6LqyalHESznQplFV479Cz90rP1K6EWrd00hMLS8_l5PmxEslfUT4Hg>
+    <xme:6LqyalIw3ovnINwiW3qoO5FgXkrm8AdCG-AHRlw-mzWmwBqfL367vv8cCZPZ9BJYt
+    pL_Y5rmjQk_VdvMswGmNxHW9UT3Yy0qnJrDiu1-LIh7UEay7wnqftbI>
+X-ME-Proxy-Cause: dmFkZTGrgKU1K1Fms1e0Iz+qWUb267yIf1P3GMeglKx7fTpR1GDVFzSYc1d4P5/ZNYTzPy
+    PkPpKeSNk7/eX7Ur3tca7BOfjOtFJRcJijDNl3+zXekfN2E68Gl+6uYLzdwwBtuheqYk+O
+    kdNVX2Cgcmt5S+oFV8bWX8ZzSiv/7uRisOD1k3GPLo0vAjAyBU+be2GUAdVsGDV+llf3dH
+    yQQwATv82dX7ZF9iq/EB3rDNsYOQL+DjL3lnTOzRSUE3qYxTAtihkjl5B2iztWFGrWi9Ia
+    xIZUgTy5KV/6hQM7tyyez1f7tdxauCgG7J0jHHte6VK0xO5GPIBk8g1pYrO+XQpLYVWdSk
+    7yM/eEqZmpX9P/C4bM8vTPbY2g+QFxOj97Ed2YI5TaAL6sNxkrf+3L4K6XEbdZTMueZFoe
+    Aun2h1fIbmY3jOVyn9A7n9O2WuZ0n9kU1IfK8GXP8PbHUHsq1O3mzpbQQ5B0oWLINffkAD
+    km0ME+xwlsx20wzCqemaPkCyRKPIXdpSlmzXMpWSVKK/pAFmkBibfrfoRLDD8vqMi+FUlk
+    Iututxu5C9gH/Ax0bnNKzwZb96uDFb4wMTi7oJgmMvOa2/VoIVgs5pK6F+rnZQ4NbL+IRs
+    yxnusZ05t9ZeBxMGvp/ViNq+g8DsCyOu99Jax79A1NKUESLv32eZkJdCT54g
+X-ME-Proxy: <xmx:6LqyamXmm_yHjFK5qQV0I8dXHo0qLIrS7cSdqHVYGU-qxaU4AtXYFA>
+    <xmx:6LqyatDkFGR11_9TFBQH3hMjrTpcdvPLpQwKxnwsFHJ_MCwZXKzfgg>
+    <xmx:6Lqyah7LogQRonVpttgVCVz9EjpkS_puK4irYMUGntlT4kNcM8YuzA>
+    <xmx:6Lqyak2RZfzpk3qBvf_pfMlPBUJClLJjM4_m7aZlwvhi4WBaxaW9NA>
+    <xmx:6bqyauiqVrqpWa4CqPnCnGNeH9ed1FgvcFe68TEH2DzVlasfFr-YTQd9>
+Feedback-ID: ia6364811:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 758512CC0083; Tue, 22 Sep 2026 13:29:12 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dax/bus: fix mapping attribute error reporting
-To: Muchun Song <songmuchun@bytedance.com>, Dan Williams <djbw@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>,
- Alison Schofield <alison.schofield@intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Joao Martins <joao.m.martins@oracle.com>, nvdimm@lists.linux.dev,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- muchun.song@linux.dev
-References: <20260922082551.874901-1-songmuchun@bytedance.com>
- <20260922082551.874901-2-songmuchun@bytedance.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260922082551.874901-2-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 12:26:59 -0500
+From: "Grant King" <gking@serow.io>
+To: "Sasha Levin" <sashal@kernel.org>
+Cc: "Jiri Kosina" <jikos@kernel.org>,
+ "Benjamin Tissoires" <bentiss@kernel.org>,
+ linux-input <linux-input@vger.kernel.org>,
+ "Linux Regressions" <regressions@lists.linux.dev>,
+ "Linux Stable" <stable@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ "Antheas Kapenekakis" <lkml@antheas.dev>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jann Horn" <jannh@google.com>
+Message-Id: <4a7814ba-5c50-4c03-b998-2bd83d5011ce@slotpi16m74>
+In-Reply-To: 
+ <2026-09-22-daily-reply-0005-re-hid-asus-nkey-regression-report@kernel.org>
+References: <069bd866-4eb0-4c42-bcf4-6983ba59aa49@slotpi16m74>
+ <2026-09-22-daily-reply-0005-re-hid-asus-nkey-regression-report@kernel.org>
+Subject: Re: [REGRESSION 6.18.48 -> 6.18.49] hid-asus: ROG N-Key keyboard dead, also in
+ 6.12.y
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
+I can confirm the keyboard comes back on my GA403UV with e82ae34af29e on top of vanilla 6.18.49.
 
+Tested-by: Grant King <gking@serow.io>
 
-On 9/22/26 1:25 AM, Muchun Song wrote:
-> After the DAX configuration locking was converted to rwsems, successful
-> lock acquisition leaves rc set to zero in mapping_store(). Two error
-> paths can return this stale value: an unbound region driver and a
-> misaligned range size. The sysfs write therefore reports success without
-> allocating the requested range.
-> 
-> Return -ENXIO when the region driver is not bound and -EINVAL when the
-> range size is misaligned.
-> 
-> Fixes: c05ae9d85b47 ("dax/bus.c: replace driver-core lock usage by a local rwsem")
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Grant
 
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-
-> ---
-> v2:
-> - Return explicit errors before Device DAX range allocation
->   (suggested by Dave Jiang)
-> - Move the patch before range alignment validation for independent
->   backports (suggested by Dave Jiang)
-> ---
->  drivers/dax/bus.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
-> index b809e1a264af..e40c25401cf0 100644
-> --- a/drivers/dax/bus.c
-> +++ b/drivers/dax/bus.c
-> @@ -1192,7 +1192,7 @@ static ssize_t mapping_store(struct device *dev, struct device_attribute *attr,
->  		return rc;
->  	if (!dax_region->dev->driver) {
->  		up_write(&dax_region_rwsem);
-> -		return rc;
-> +		return -ENXIO;
->  	}
->  	rc = down_write_killable(&dax_dev_rwsem);
->  	if (rc) {
-> @@ -1201,8 +1201,12 @@ static ssize_t mapping_store(struct device *dev, struct device_attribute *attr,
->  	}
->  
->  	to_alloc = range_len(&r);
-> -	if (alloc_is_aligned(dev_dax, to_alloc))
-> +	if (!alloc_is_aligned(dev_dax, to_alloc)) {
-> +		dev_dbg(dev, "%s: size: %zu misaligned\n", __func__, to_alloc);
-> +		rc = -EINVAL;
-> +	} else {
->  		rc = alloc_dev_dax_range(dev_dax, r.start, to_alloc);
-> +	}
->  	up_write(&dax_dev_rwsem);
->  	up_write(&dax_region_rwsem);
->  
-
+On 2026-09-22T11:38:58-04:00, Sasha Levin wrote:
+> >  If you can confirm the keyboard comes back on the GA403UV with that commit on top of 6.18.49, I would like to have that before it goes out. -- Thanks, Sasha
