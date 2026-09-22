@@ -1,96 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5297A5218BC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:48:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A1052759F;
+	Tue, 22 Sep 2026 08:48:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066913; cv=none; b=PTYV2odUn7d8q2/8zCW9sIAZ2fQSuTN0DixScXcMnN+nm0sxZtsIEW9vV8Aljg2POOZ0Z0JwJ74vcw2hCC+TneywFyQi9fRS8IK0rNmqm88ZzZ7KJfEtSPQfBKF61D4XMwPYwy1vSAMfQRpS6rhcUHZ7zOakk/TfwJQkh1GISJo=
+	t=1790066928; cv=none; b=Kb8IEgPYuTaxIDHpNfdqc2dbBLLcGj8rThpOQ7QsVuC7QZeR4BTnYTxRipBRYRurFtPtzhwclN6eCSI7Fav365K4aWOfdvmY42EyOCJFtSQOvTkDLk3tPwwuV2kcmc3tFls1m7cKAHlDZ9WqfBmr427Txz6tIu26Y8yGHBpitkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066913; c=relaxed/simple;
-	bh=DIk4K8t7n3jCRIWpgVm8y0dvfQS2Okp1cwxCtR87N54=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QmIiU3kKqMVG/QJFLJv63CLy1E9/ijXLFIOxq2K2X13pcUDsqa4QQcJNIsIkddR3ugTv0TaF/MSXL2mtBdBmOeP+s4EOSW3PddZ0LOwhrp4AjDBsiWg5aldh7rXmVp+U4cdJ/O4Z1pwFxjWx965IE8jH0w7EXZ6HttWm0z9pEqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVn5aAZZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790066928; c=relaxed/simple;
+	bh=7IaLVwkL5m+kF/7fXmKprmbdAFcNvaLKfR0y+DUCgl0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=itagJkKxKQsvUQXivH7aAusMqyTOuiHE1cpzGb5Sr6mDmjHe7qxk81fisVUIfdjX5b71vAh+WOoj2qzD89ajc33JVCJ2xhUgqyJycKDuQmtdIMSmcD5axgRFBcn9hcgYeipD59tIR9VCuAZ3XQYqymHzdArUi8TTSrpUMZFxxsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dP6cTy4A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVn5aAZZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A7F1F0089B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:48:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dP6cTy4A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBEDF1F000FF;
+	Tue, 22 Sep 2026 08:48:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790066912;
-	bh=xaYOqqiuhximCWN+b4H09mGRUg+IK9L18ExvostpRS4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=fVn5aAZZJCT3yR6xYahdUbVzmxMbAQdqRF2CMcExgm6rVKB+H7yXIPjG2GKPeLqXs
-	 M/cwWz8YjSPnynZhFipcDUX0uK2b6ZCXihI91UqTBP1VANWg2bvizCXkBRnx93w7y6
-	 i06nxasx+d+NDqoV6ZO0Z4Vvs35us2X0xmx3JkOpNi+bLE+nzor+qRqiUtmrT0LdSd
-	 PtNr/RN/PdowGGGdu3wSEVEVhEIr8v4KIjhPqPTJxvPMXt7g/5hML4IbuFRa2QAEGg
-	 zFCvmga2D6sZpq3oZNTgyOoHrvegV4otvxGKec8DMDuaJZMRQjuJyBFl/5HAYXRPeE
-	 BuC7A0eG6lgPQ==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e21a5408so29124281fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:48:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzl3POZWgZF6cuvF9gbETijDsvh0ZYIj4xDE/x5jXlJQjV0AXI2I90cGGXoMx3Bqv/baLKNcL3RiIDExEk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3+zCsxOKMyS/89FdUK2mjn2ksEwLtpNl+XGwXdXwVlXMn51zm
-	svYzTbCW7Z30Q1U+AytDhbVgbQ0LrIY6Az8XWfLXjYOxqNCkJDP8SsJ7paLUXvZDvlOM6D5hS+e
-	kOiLGPrhnncdUAQzf4LRXtvHFgH7Dp/vVIj426TsKIw==
-X-Received: by 2002:a2e:be2b:0:b0:3a1:9562:732 with SMTP id
- 38308e7fff4ca-3a5fbe36d93mr30039041fa.1.1790066910689; Tue, 22 Sep 2026
- 01:48:30 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:48:28 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:48:28 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260922020623.398913-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1790066927;
+	bh=mh0mGm1ld8tg6c7EhdkM1d4eVMd5E3LVT8DC3vIY5K4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dP6cTy4A0UXusAiIQuf7XHNmCf0oksDZeYiXkIeS4XXg4xTKSCusJ+1EB8onw5qko
+	 0SqSET7QFRY6zchqE3+lUMrykDB4zkFnSGVGn4rKXU4CoETSgIB9dWMp7VxXlihbOZ
+	 nqGQimkWf8DFDOBYHw7uhOjD4sB/STapR4N+cRzTtoxkPfUPADU3jGqhwBdkSpxta8
+	 SJ8bobM0qgqFd3Upoo9rp8QIn3hgrUxWrhrHHdhduBmJ7HytD0aTZujUSKTUogFBfY
+	 xzeXlmNQMsTaHDfep4OGfN2vD4Hy00fVfzkuoYcKTVH3TY23ue7cLBnmlEIhWDywRy
+	 boHs5zSa1dgBg==
+Date: Tue, 22 Sep 2026 11:48:41 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: robh@kernel.org, saravanak@kernel.org, m.szyprowski@samsung.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, akpm@linux-foundation.org
+Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
+ memory
+Message-ID: <arJA6fOMetzoBhDH@kernel.org>
+References: <20260920092852.614973-1-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922020623.398913-1-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 01:48:28 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfMNwJq_8NTLMx8dKEFysoc=MCQSoB9-L+KVbpDRnvmMw@mail.gmail.com>
-X-Gm-Features: AcwNN1UiGOaChY5GhBxT4uEewsZGB0XkC6bYDHLVJJ0u79sSo-qQkOABnAsjEk8
-Message-ID: <CAMRc=MfMNwJq_8NTLMx8dKEFysoc=MCQSoB9-L+KVbpDRnvmMw@mail.gmail.com>
-Subject: Re: [PATCH] interconnect: qcom: Skip get_bw on QoS programming providers
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Georgi Djakov <djakov@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920092852.614973-1-chenwandun1@gmail.com>
 
-On Tue, 22 Sep 2026 04:06:23 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> Programming the static QoS configuration in qcom_icc_rpmh_probe()
-> touches NoC registers directly, and nothing in that path clocks or
-> powers the NoC first.  It has been working only because the
-> interconnect core used to vote every node to INT_MAX while adding it,
-> and that vote stays in hardware until sync_state.
->
-> Reading the boot-time AMC votes back from RPMh removed that implicit
-> guarantee: a NoC whose BCMs come out of the bootloader unvoted is now
-> left unclocked, and the first QoS register access aborts.  On Qualcomm
-> Nord SoC, the MMSS NoC dies while programming qnm_camnoc_hf, taking the
-> board down before rootfs:
->
->   Internal error: synchronous external abort: 0000000096001610
->     regmap_mmio_read32le+0xc/0xa4
->     regmap_update_bits_base+0x64/0x98
->     qcom_icc_rpmh_probe+0x44c/0x540
->
-> Only install the get_bw() callback for providers that do not program
-> QoS, i.e. those without a regmap config.  Providers that do program
-> QoS keep the previous INT_MAX initial votes, so their register
-> accesses stay safe, and the rest keep the benefit of honouring the
-> boot-time votes.
->
-> Reported-by: Bartosz Golaszewski <brgl@kernel.org>
-> Fixes: 11a44c6087c6 ("interconnect: qcom: implement get_bw with rpmh_read")
-> Assisted-by: LLM
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+On Sun, Sep 20, 2026 at 05:28:47PM +0800, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> This series fixes several error-handling issues in the reserved-memory
+> initialization paths.
+> 
+> The first two patches fix cleanup of no-map regions after driver
+> initialization failure.
+> 
+> Static reserved-memory nodes are reserved during the early DT scan but
+> initialized later. The third patch tags regions whose early reservation
+> succeeded, so the late scan can skip the nodes whose early reservation
+> failed.
+> 
+> The last two patches reject overlapping static regions. Without
+> these checks, overlapping nodes can be initialized over the same
+> physical memory, result in data corrupt.
+> 
+> Sashiko reported these issues in [1] [2] [3].
+> 
+> [1] https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kernel.org
+> [2] https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org
+> [3] https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org
+> 
+> v2 --> v3:
+> 1. Rework the mechanism that checks in the late scan whether the early
+>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
+> 
+>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
+>    the early reservation of a static region succeeds and checked in the
+>    late scan.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Can we keep this local to of_reserved_mem please?
+ 
+>    Patches 4 and 5 are reworked to reject regions that overlap or are
+>    contained by an existing reservation. The code makes a little different
+>    from what was acked in v2, so the Acked-by tags for these patches are not
+>    carried over.
+> 
+> 2. Reorder the patches: the two cleanup fixes in v2 now come first.
+>    In v3, the first patch now introduces the 'dynamic' distinction in
+>    fdt_init_reserved_mem_node(), which the following patche 3 build on,
+>    so the series reads more fluently.
+> 
+> v1 --> v2:
+> 1. Rework failed-node tracking in patch 1: do not track zero-sized nodes,
+>    and keep a reserved_mem slot when tracking overflows.
+> 2. Reject static reserved regions overlapping existing no-map regions.
+> 3. Keep MEMBLOCK_NOMAP flag for static no-map regions when init failure.
+> 
+> 
+> Wandun Chen (5):
+>   of: reserved_mem: release dynamically allocated no-map region on init
+>     failure
+>   of: reserved_mem: retain static no-map memory on init failure
+>   of: reserved_mem: skip init for regions whose early reservation failed
+>   of: reserved_mem: reject static regions overlapping no-map memory
+>   of: reserved_mem: reject static mapped regions overlapping existing
+>     reservations
+> 
+>  drivers/of/of_reserved_mem.c | 86 +++++++++++++++++++++++++-------
+>  include/linux/memblock.h     |  7 +++
+>  mm/memblock.c                | 95 ++++++++++++++++++++++++++++++++++++
+>  3 files changed, 170 insertions(+), 18 deletions(-)
+> 
+> -- 
+> 2.43.0
+> 
+
+-- 
+Sincerely yours,
+Mike.
