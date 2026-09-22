@@ -1,67 +1,68 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f41.google.com (mail-wr2-f41.google.com [74.125.225.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39F354146F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8D655C32F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092898; cv=none; b=TfoR+0X6d8ZY38y+lyB8o8UUZX6BYUnm7XS5Bi9J3hVxugyFek50DFI/edCKNckjQrcfxofthGnDtbwr6oFpXjr+LTAVArM8RiuGO4HT7Vb4e9emO0AEMyilgisQCS/YdhLSxKqgURb+CPeTag3HQCgog+ZwFMzV+8njUjKRnHw=
+	t=1790092899; cv=none; b=CxN/1uGM15hyQ4nS7RQ4iyCEiEG17GXzufcqZkVFXh2Z7LIOUxSVxNmnl9Y5gaiVxlKnBhLtq4g7mKyRsNvJo31lTgvx7RJRKymgk8x1i3FdL942vzaIj6tSJcVYmQcMJEUAjFKbfDbYI730k2habkuyYsZJ/wLIvgSxynXAhbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092898; c=relaxed/simple;
-	bh=BtLAkNapV4DmIrWa28ic6M0lRmuI8gxGAx+Yq38WqnA=;
+	s=arc-20240116; t=1790092899; c=relaxed/simple;
+	bh=QQUrE+DwZ1KWpqLSQpoA8URn9azrBBw3jC33CI+5l4Q=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E9R1/7hDkDcHquD2BF4Ox8sbQsX/pcLAYOgxgjr9iW8E9a3N+VmKYMHl/MP0BwKUjW/s9Il9iCDye33Xcs0sV2ka6HY/U/WKSekh3gmI7LWFsjrLJCBtu1FJxrrIfNVZ7YFlK+DsyWBvWpNgZ8lNrOkyf5qlhzSFXmbUDpC16KM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gxxQyeOt; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=JzrCyCWMctaoh6kLahvqTNOou8pRXUPFhodb1JALL7kkt/heQOllw5TQc6bMZ9KzVcDjxG1E9/tMHPAXoFFQaLmiBsuQiLHWFpgVwSSIHAH4bnnZeqSdoUsoch80QJYoF7vbB4CnwVScxPxZluKs7dWKtGSouy4jUDWNjB/sET8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KDsmwuBi; arc=none smtp.client-ip=74.125.225.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gxxQyeOt"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so24657625e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:01:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KDsmwuBi"
+Received: by mail-wr2-f41.google.com with SMTP id ffacd0b85a97d-4834977ae75so72191f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:01:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790092893; x=1790697693; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1790092894; x=1790697694; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FweYFWQvoZssJ6fM//sCdfeUPF500+UD5gOd7nynddo=;
-        b=gxxQyeOt6F6YPVicjcT/gPf6oyF1AGMqZSScVSuKWUs+fTFvWYptHOatU+WuG7SKKW
-         XtYct1ktjsT9dB3dTHHeflhtoPnfTU1zEGrFx3Lxu9qMWvKJ7T3quXM2d4XY6z2GJ7rm
-         6+y8kPHUXhslcJwK71rrHNuY/3vPFjJhz5KT2xd3+3XTROKa9L2JFSGt0XSCblXDRsyT
-         0nWisomMtqQZT9GZ3/gWzwDa8WT/HXK4XFF7pjWYCEbUOcgClmJFsgoTpfB2ret+KRtv
-         BjUrGpFh+n74NYSj/vTjCrRR1gKVmbA7JZvn8S6ddXKyF3upWtMr/luwl+iAzRmw9cKi
-         PZ8Q==
+        bh=3jbM+/xCOFHz2ekpLk2drdaMa28onD9DLLAyaB1dHZ0=;
+        b=KDsmwuBiybtrkSHYDHa7uTKsM3YTxOFLkzqLaGfWrjn42VlGrowqP2iv9Efe2TvG6P
+         iGu5foLddZmfPftl79zvXx11rw5y+7HvR/hHjmklLWaRAk9W/Nson7hFaJISYtj99S1X
+         vezeh+3DoH4btwo3I+RvowLcEA+BaW4bmifyhNGJqbQCnk6HlJekuHGoTzLrM1qY7TSb
+         sx7cHfdIUtyXvHhKerkAl++udwA15HYeXXLm7OcZximJgaIyWtjpB+zfAR++t+DQNQa9
+         5l5zVf+9oTyUbB5eLYlSesw6Gr9ZAfKpdx+F5ov4L3emdklA/1spTb0bjD2Q/hdS7tHf
+         gyyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092893; x=1790697693;
+        d=1e100.net; s=20260707; t=1790092894; x=1790697694;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FweYFWQvoZssJ6fM//sCdfeUPF500+UD5gOd7nynddo=;
-        b=iPnv+b46ZEsJ0E6rq9uPxaFiOwR+ZrxNfVL3mJuvprsFVxWRgw7Gbk7+he8QBf/wPm
-         JCpKMIkds7wUhoeqmI4mrBCPqFro3sL0wik712Z2C6VMATb+HWSFRCr7S7AJ2zO6gmzy
-         MevhLy3bF9SdlTkPlMSVQQ7AVxmx1EwJNHVCPeE9Y6ZPkrVTSvJR48N4Ln+VtjPqQima
-         Z402scW3lRZU4BlL6KI61xYA08IHlHzT4ReOm5qYeH7k3xGeun0Tn1/ivG+b5k4MbyB8
-         hDblyemIADyJNhuvPJj834v2KU/oWUSgPznrWb6BAwZRw41Eb1yUBJFc94igTbAxhwiV
-         gx6w==
-X-Forwarded-Encrypted: i=1; AKwUvBz6sXWsom7VAhoNMw1jea5pJWXyN3pOzzaORvFiZaxAqRi+9OW+a7ZuPS9SZLgwdZGC17dhvf7Xbm5fkfg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLVS+o6uOB2yqmPVTO/6JZE6LgZW8dctN5gnOhaxqdrq5qMwy2
-	KIPAzrqUKWiwp7Wj+bmuQ9r9wHVTopGm+lPrMzAaoeRr52fRjyAT+Tdq6xqRdLcT5sk=
-X-Gm-Gg: AYBFou2rXgEn8YzLbJNdlmB7T3uzRzg6yXxuD/8LqyTPcIYc+IHIB0MMpFhaitlrIBL
-	QbYN2ET5FiB1BKYaxtWDKR+WXQjVYzUMovXHhnVYb32QJUyiGjlKj3OlpvIOgQw3hlDmHgxngHX
-	BWNZd8K6DGdfFY4BNGFkQRkrYXV19hjT2MMcp+LL3AATd8AAR7Ilz7xhC4emGIpgfJ8PTm1if3w
-	QntQOXP89xiFd6NB+aSwVt3lcabq5ocIot+PtCb/grIKmLDJ2n1aLyHXt/54/Dd6hRqEN9WrsJn
-	pw3c1bUcCTot2zmDY71wdBlFZ2sIZnfJmktUaiVE2+yS0MbkOBE/YjUBVJ7NgGYNuWXCGmaXIo3
-	djZbA2DNQrqKJRgIiqUyrdxKOMXxvL6lCPCwspaqZpuoCmppF/+eLEdF7MyaS+PC5a3QOhwmAyk
-	tbI26gsEH/fiamnSKKMoB1D8sN0gh4DCukA658Vyadh4omXSQQ4ViAR31bFrL7SohEqA==
-X-Received: by 2002:a05:600c:4f41:b0:49f:ce78:3570 with SMTP id 5b1f17b1804b1-49fce78372dmr147694095e9.33.1790092892893;
-        Tue, 22 Sep 2026 09:01:32 -0700 (PDT)
+        bh=3jbM+/xCOFHz2ekpLk2drdaMa28onD9DLLAyaB1dHZ0=;
+        b=AhilQzrUyLuZ7NY+tvUyHcFuyK6d+v8KKbIUS6C+8IB93wW03Y9nCGkglDrJ1acCcQ
+         8UMWXH3ggvDiNCTPkwLPZMT2y3t+u6zXzIv8tor58zdqXyTnRRvN9HNCHYM5JfJvg+QA
+         8QH1dpNNi9Dw8owstszrKtSC45TvBYGABVANq6AAvDwMPvgmJAFwrjZnZRfpbH+3Uthl
+         xsDU0FxztWKRFIoUs+Pgmu3DlCVuDiNYkFoBIqV9zJy0T70HYU9iKLckt3xetn+ZEcZz
+         /gqkOkuI5EgB3zJsGYvjniLbdSlEJpfvIwFqfkXBfQ2t5ZfkW56VSxmspKu7SfHNmAvl
+         cj3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwsK8/T9BFB+AnYcu/5WMahkfImCqKImH5dXv4gQqcxi4x/bPCtBbySBDUDAp7JqVRu+opq0kEo1Q3DYks=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/O4UdO367VvTyoKm4UWSr7m7EcYD8Tj6lWOi9g9Y5Zgv46WhQ
+	p4Y2uDSW+J+Tf8RZcLK9E2LM+Nw49SQMgxxFVGAb0gQsaPchTKoE7b+S/kxKyeDYu5A=
+X-Gm-Gg: AYBFou16QPAcjq4WLDyL9iJkJbEFVTZBxz2JNGvOcYKNyv4Q9LuvW2yekqjqDr2iNdU
+	5AsAFRO+1JCqEV7OYGCqEnFX1LhI4/Tn43GwOClafhmBMjOt6J9BwWmDhTf0QtHP2GfhxSjSk8m
+	oKImo1yGAG7QnBAycnmC8/g2V8DSt4gsWtuWYypXXseDCMHbp74qnr//dnWPFDjA5l8yC20Hs5l
+	dbnByOTsA0272iraDbMiq4pfzBzEFeo3/9uvrItJICkiH8BQ8vxeRFIkizeapyoNOwgCtEFShMO
+	9/Jw8lot+vuF/pMYiAdsEuEs4bTRflQ4HjG/KJEeVEySTKh71/lI9V5bSezau6GR1g5zlSFboQH
+	u5cLnauJJIdFnJveko/cjRLGC580O+RGIzkLdd2M73pXIGUYqJAk0akRZyQpQDVuypdcmgaH2v1
+	Hpq/bHwUiRI7sH6xUIthzroKn1Zamu6fXsDRAplD2IfxF50NGYFvtCm8vL7cAlUAnLbg==
+X-Received: by 2002:a5d:64e8:0:b0:487:40a:5ba8 with SMTP id ffacd0b85a97d-4886704c06dmr106703f8f.15.1790092893762;
+        Tue, 22 Sep 2026 09:01:33 -0700 (PDT)
 Received: from [127.0.1.1] ([151.42.87.32])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862786dc2sm6118020f8f.25.2026.09.22.09.01.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 09:01:32 -0700 (PDT)
+        Tue, 22 Sep 2026 09:01:33 -0700 (PDT)
 From: Valerio Setti <vsetti@baylibre.com>
-Date: Tue, 22 Sep 2026 18:00:46 +0200
-Subject: [PATCH v3 1/7] ASoC: dt-bindings: amlogic,gx-audin: add schema
+Date: Tue, 22 Sep 2026 18:00:47 +0200
+Subject: [PATCH v3 2/7] ASoC: meson: build gx-formatter as a separate
+ module
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-audin-v3-1-a760312c076c@baylibre.com>
+Message-Id: <20260922-audin-v3-2-a760312c076c@baylibre.com>
 References: <20260922-audin-v3-0-a760312c076c@baylibre.com>
 In-Reply-To: <20260922-audin-v3-0-a760312c076c@baylibre.com>
 To: Jerome Brunet <jbrunet@baylibre.com>, 
@@ -85,101 +86,71 @@ Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2363; i=vsetti@baylibre.com;
- h=from:subject:message-id; bh=BtLAkNapV4DmIrWa28ic6M0lRmuI8gxGAx+Yq38WqnA=;
- b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFmblkWWhnOnds3fnOve0Z1U8XIO243wpvWmr+s2a35WP
- Zgk9GpPRykLgxgXg6yYIgvL9Hu/C0rVHhonnCyAmcPKBDKEgYtTACZyYSojw5qcUG+j9tQ6roOS
- H9z05Xb89jAq6H6fJL84/IjFQkeTPwz/0ybtf7Kn8tHFaIbGnZ5sB+d9Zb+1qbFF9Ps8PRv2Qn9
- lLgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2113; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=QQUrE+DwZ1KWpqLSQpoA8URn9azrBBw3jC33CI+5l4Q=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFmblkXNVTA3EJ5w5MTt/YvSv399+NWkRVpNtr1IsiIit
+ nLNRN4pHaUsDGJcDLJiiiws0+/9LihVe2iccLIAZg4rE8gQBi5OAZhIUCzDf/+Ebz4WizZvNz/g
+ d3y1Orf2Uy8bxc47Lg4GVSLnmz9oGDAyXJrMeTWn/N2ZoKyQWY+/RTXLn40+avp9zo2YTT7bTta
+ 9YgMA
 X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
  fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-AUDIN provides I2S audio input support to the Meson GX platforms
-(GXBB/GXL).
-
-Note: GXBB and GXL are not known to differ so the driver binds on the
-'amlogic,gx-audin' fallback.
+Instead of including it in 'snd-soc-meson-aiu', create a separate module
+for it. This way it can be independently selected by either AIU or the
+(upcoming) AUDIN.
 
 Signed-off-by: Valerio Setti <vsetti@baylibre.com>
 ---
- .../bindings/sound/amlogic,gx-audin.yaml           | 69 ++++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+ sound/soc/meson/Kconfig  | 5 +++++
+ sound/soc/meson/Makefile | 3 ++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,gx-audin.yaml b/Documentation/devicetree/bindings/sound/amlogic,gx-audin.yaml
-new file mode 100644
-index 000000000000..bdf1db882eda
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amlogic,gx-audin.yaml
-@@ -0,0 +1,69 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/amlogic,gx-audin.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/sound/soc/meson/Kconfig b/sound/soc/meson/Kconfig
+index d9a730994a2a..4c40bf60dc4e 100644
+--- a/sound/soc/meson/Kconfig
++++ b/sound/soc/meson/Kconfig
+@@ -2,10 +2,15 @@
+ menu "Amlogic"
+ 	depends on ARCH_MESON || (COMPILE_TEST && COMMON_CLK)
+ 
++config SND_MESON_GX_FORMATTER
++	tristate
++	select REGMAP_MMIO
 +
-+title: Amlogic GX AUDIN
-+
-+maintainers:
-+  - Valerio Setti <vsetti@baylibre.com>
-+
-+description:
-+  AUDIN is the audio input block of the Amlogic GXBB/GXL SoCs. It supports
-+  various input formatters (I2S, SPDIF, PCM, HDMI) feeding three FIFOs that
-+  transfer captured samples to memory. The sound-dai cell selects the FIFO.
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - amlogic,gxbb-audin
-+          - amlogic,gxl-audin
-+      - const: amlogic,gx-audin
-+
-+  reg:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AUDIN peripheral clock
-+
-+  "#sound-dai-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - interrupts
-+  - clocks
-+  - "#sound-dai-cells"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/gxbb-clkc.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/reset/amlogic,meson-gxbb-reset.h>
-+
-+    audio-controller@a000 {
-+      compatible = "amlogic,gxbb-audin", "amlogic,gx-audin";
-+      reg = <0xa000 0x148>;
-+      resets = <&reset RESET_AUDIN>;
-+      interrupts = <GIC_SPI 7 IRQ_TYPE_EDGE_RISING>;
-+      sound-name-prefix = "AUDIN";
-+      #sound-dai-cells = <1>;
-+      clocks = <&clkc CLKID_I2S_SPDIF>;
-+    };
+ config SND_MESON_AIU
+ 	tristate "Amlogic AIU"
+ 	select SND_MESON_CODEC_GLUE
+ 	select SND_PCM_IEC958
++	select SND_MESON_GX_FORMATTER
+ 	imply SND_SOC_MESON_T9015
+ 	imply SND_SOC_HDMI_CODEC if DRM_MESON_DW_HDMI
+ 	help
+diff --git a/sound/soc/meson/Makefile b/sound/soc/meson/Makefile
+index f9ec0ebb01f0..1b1fbe8a0458 100644
+--- a/sound/soc/meson/Makefile
++++ b/sound/soc/meson/Makefile
+@@ -4,12 +4,12 @@ snd-soc-meson-aiu-y := aiu.o
+ snd-soc-meson-aiu-y += aiu-acodec-ctrl.o
+ snd-soc-meson-aiu-y += aiu-codec-ctrl.o
+ snd-soc-meson-aiu-y += aiu-encoder-i2s.o
+-snd-soc-meson-aiu-y += gx-formatter.o
+ snd-soc-meson-aiu-y += aiu-formatter-i2s.o
+ snd-soc-meson-aiu-y += aiu-encoder-spdif.o
+ snd-soc-meson-aiu-y += aiu-fifo.o
+ snd-soc-meson-aiu-y += aiu-fifo-i2s.o
+ snd-soc-meson-aiu-y += aiu-fifo-spdif.o
++snd-soc-meson-gx-formatter-y := gx-formatter.o
+ snd-soc-meson-axg-fifo-y := axg-fifo.o
+ snd-soc-meson-axg-frddr-y := axg-frddr.o
+ snd-soc-meson-axg-toddr-y := axg-toddr.o
+@@ -29,6 +29,7 @@ snd-soc-meson-g12a-tohdmitx-y := g12a-tohdmitx.o
+ snd-soc-meson-t9015-y := t9015.o
+ 
+ obj-$(CONFIG_SND_MESON_AIU) += snd-soc-meson-aiu.o
++obj-$(CONFIG_SND_MESON_GX_FORMATTER) += snd-soc-meson-gx-formatter.o
+ obj-$(CONFIG_SND_MESON_AXG_FIFO) += snd-soc-meson-axg-fifo.o
+ obj-$(CONFIG_SND_MESON_AXG_FRDDR) += snd-soc-meson-axg-frddr.o
+ obj-$(CONFIG_SND_MESON_AXG_TODDR) += snd-soc-meson-axg-toddr.o
 
 -- 
 2.47.3
