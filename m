@@ -1,65 +1,47 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0DA3EB0F7;
-	Tue, 22 Sep 2026 07:14:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7C4439F88;
+	Tue, 22 Sep 2026 07:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061247; cv=none; b=be/hg2DwFyNxogQKAiOfO3Z9XCrjw1xEwWIYbr9F5OHZJIhaJPU/Dknil05wBJj7bVTs99/cGFu/ibeOuQ/tC+it+YxyRVBdzT8EHBi7L3L3tKWUNyuki9f19cD5BjOT8QVD3vBMr2NS8UG/nyyRuCxmSVK64jhxsfthRGMMIGc=
+	t=1790061419; cv=none; b=UPutBKlOlF8+kpnD1wuDd4w1v7u8943n2sIOcz/LH+MBVRoPM4Tq1Nj6yaA3L97rR8AJ+tpft2G+jWAjHeEsNoSA8PQEURhy1rNAhFDnwMObJnID418LgGLz3B5uFqSza1GZgaMegVzHRZWgU3/g5N5qdQEbu+kw+VhI4qLuCII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061247; c=relaxed/simple;
-	bh=tQvgjntbqI5y8oZjOXc1kY9IukzZun3Wrfm8zaqcS0E=;
+	s=arc-20240116; t=1790061419; c=relaxed/simple;
+	bh=eXNCPrKfHJPcki+h0vGLiwriuGBBLEfHPIdO7YzqF+k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lQnDfmaoBPfMooS6AfbcD6TN831GU9Rl/aJzepM1+gNh+iOR31HAyqMLxF3cI0+Zg9U1pFB0w1vSPYdtbJU2+CRvG+vKIIubl3axAxCGj7zh46JK5KpHYhAzpwGFbnh310KzZplozlsXMsu9apxLOPUVXuu1v8neulYSDALL4M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iHQha5Li; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ERrnom2+2I67kOR+1ZrtdVgnqk5ZhdXMUKwL/C/mBZihblTO9EsGcKEA7Y9AtkxQlaCDmnVWQ06a7Ag7V3FQED30yl2bJu2Wo3nzYYrexRbkdlV+tWqHD1lbQ5bRD/EvoDZyU+coQoiB6iym+KWZbHq3tHN1NgWeggeeBcvrjic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ArMiyMDR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iHQha5Li"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790061246; x=1821597246;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tQvgjntbqI5y8oZjOXc1kY9IukzZun3Wrfm8zaqcS0E=;
-  b=iHQha5Li6UAlg8mGT6HkUVHuEhPvqQdjaX82AaCVi7VI20gCo1bOd++K
-   HYNnU700BtdPmKCcH/7YthUCufoXOjmP1IUPrUZO2VAQ39RW9rPEuHfhd
-   RkTPwhSSEf5MUH/rD/KxqxO+fZAzMKiqh6s0med8MXwJuB8HSSsEMocU2
-   SEQQT8DZf5pkoWk5y9tfTNYKvzZ/cZy+SONogf11Yi24vaqpt8V16LkCz
-   u+OJQlgLKZ4XeSE8qmGxQkT9oLprAbjem02Aa+Dzb0bWrX3Jf+JFMlcCq
-   A2rBqxq6cTTmhCW63lS8VThTtHv23J7YPhcsKvIndxJpb1z7ycvMfw2qH
-   w==;
-X-CSE-ConnectionGUID: qdEPKPCpQ82o5wvcxBqa3w==
-X-CSE-MsgGUID: YVaFd3CaSBO7wzaKvH0uWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1144077"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1144077"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 00:14:05 -0700
-X-CSE-ConnectionGUID: pT9je1DmRFCGp4+fNfE97g==
-X-CSE-MsgGUID: PSclx1Y/SraAv7EcSgQVKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="269538690"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.202])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 00:14:00 -0700
-Date: Tue, 22 Sep 2026 10:13:56 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kas@kernel.org,
-	rick.p.edgecombe@intel.com, yilun.xu@intel.com,
-	xiaoyao.li@intel.com, sohil.mehta@intel.com,
-	adrian.hunter@intel.com, kishen.maloor@intel.com,
-	peter.fang@intel.com, baolu.lu@linux.intel.com,
-	zhenzhong.duan@intel.com, chao.gao@intel.com,
-	artem.bityutskiy@linux.intel.com, kvm@vger.kernel.org,
-	nik.borisov@suse.com
-Subject: Re: [PATCH v2 2/5] x86/virt/tdx: Configure add-on features on TDX
- module init
-Message-ID: <arIqtGbSRHGw8fiT@tlindgre-MOBL1>
-References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
- <20260915102658.713079-3-yilun.xu@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ArMiyMDR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444571F000FF;
+	Tue, 22 Sep 2026 07:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790061413;
+	bh=1ozzugNwC0Ma5vqRPrIYqe8LPeS4FR9eJ5gGP57BVro=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ArMiyMDRKoNLF6dfedUrV3xOp45+gIXu1v9EuFtb9duiUYCDxTPMd7MZBSmg2PT9u
+	 qw1Y30c8ze2u+SEggDAxNJmwQY37gc1h4UfXRs+VKi2CB+jAElqW0T23p23uCBSIah
+	 7RrQ9FCdyWD10O4wDbr/EqWrTZ9BrHbs8P7/V3a+dU1hSsORONMjLg8SzBtOHo3At/
+	 nYSazROsdJ3iP889Cu3Ux3oSOHNDVKsY3ix1XeACYquyTKuezTH7oYKKrBMJWidHZ2
+	 74DexlQxTIZzDmX7TlXsM+LrlhL9HPLc5fcUpbgfXEUvsdwUPn4m9S9fwchVncntU9
+	 4G+nJGnBfgH1A==
+Date: Tue, 22 Sep 2026 08:16:48 +0100
+From: Simon Horman <horms@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	David Yang <mmyangfl@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Nishanth Menon <nm@ti.com>, Wingman Kwok <w-kwok2@ti.com>,
+	m-karicheri2@ti.com, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net] net: ethernet: ti: netcp: fix pm_runtime usage
+ counter leak on error
+Message-ID: <20260922071648.GZ13925@horms.kernel.org>
+References: <20260918042804.13101-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,28 +50,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915102658.713079-3-yilun.xu@linux.intel.com>
+In-Reply-To: <20260918042804.13101-1-phucduc.bui@gmail.com>
 
-On Tue, Sep 15, 2026 at 06:26:55PM +0800, Xu Yilun wrote:
-> --- a/arch/x86/virt/vmx/tdx/tdx.c
-> +++ b/arch/x86/virt/vmx/tdx/tdx.c
-> @@ -998,6 +998,15 @@ static __init int construct_tdmrs(struct list_head *tmb_list,
->  	return ret;
->  }
->  
-> +/* List all kernel supported add-on features0 bits here */
-> +#define TDX_KERNEL_SUPPORTED_ADDON_FEATURES0	(0)
-> +
-> +static __init u64 get_tdx_addon_features0(void)
-> +{
-> +	return tdx_sysinfo.features.tdx_features0 &
-> +		TDX_KERNEL_SUPPORTED_ADDON_FEATURES0;
-> +}
+On Fri, Sep 18, 2026 at 11:28:04AM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> pm_runtime_get_sync() leaves the runtime PM usage counter incremented even
+> when it fails, but the error path in netcp_probe() does not call
+> pm_runtime_put_noidle() to balance it, leaking a reference each time
+> resume fails.
+> 
+> Use pm_runtime_resume_and_get() instead, which automatically drops the
+> usage counter on failure, fixing the leak.
+> 
+> Fixes: 84640e27f230 ("net: netcp: Add Keystone NetCP core ethernet driver")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 
-How about get_tdx_supported_addon_features() for the above? It makes the
-calling code a bit more readable without having to figure out what it
-returns.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Other than that:
-
-Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
