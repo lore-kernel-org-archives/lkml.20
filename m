@@ -1,90 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6535437CC;
-	Tue, 22 Sep 2026 13:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1407A5505DA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083585; cv=none; b=qmvinxJgqyCV+Sdt3jB1iW4LqhG4Bfrbwhp0yw7VMt8iqJGRI/yU4CWW91vttVN8GGMYMfixE6lkDY0baJkFXUSa0TRcDXkgjrFWBMg55r8P+S8vZGgmwTbGEsaszoc7N/gHJF+YzSDtsxMyph6J/oaxdBND18r/02cQALLIuuY=
+	t=1790083597; cv=none; b=H9SoQk8SW89Apz9pHbWNx0TjGjw8C913dyJhbJdVh0Kob8D892driVnu5xAbwawhcAUSHk92zVWhGBmRU50RU06E0CMa+kXFq6qLhwjiM4QFCdJTEMwwBwRAAklklBwABO+ugEsiyMPtKmIDlJXzeok2SAj7G9SAu3vROjLo2Fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083585; c=relaxed/simple;
-	bh=pNUWb3AoyiA6Hpq0DJBXqdJOudtoWpufkHJ8/D9QsE4=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=JT3hOs5c/7joSOrWbTBhpFC1vkwVyHuLRQ9TaQOl5l761Ap2AV1+mDBdZ/oNyRbQ+OGH8uf7RVTeBERvyVZ9MLCo0U//EO8/ja10atQn/m3J62FFagn5S38gqnJPBjruiWjs2nOAq7ALVYAtbwWZxEhubqDn5SqXVbwX582ml58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jhJLro2b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790083597; c=relaxed/simple;
+	bh=46iz/lG108zgBFKfIkb2vqYMsjU9G0lUOHcMCW1xbmQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BmG1sI5T9Icj1KjnRUmZYjwWvK73rXLz20q5b/EagVfLuN6PUVOnnLx/rKALL8vNDB0l1e4Kg0uU0yrOozy+H9ZhfbGxFfzFw6gORstlnoGiNsM5ABRa7+fKWN0ADtY8SW8xAruobzw2Mq4Fg+DTi1dfsyfdxqSD9MCD5XwYWz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WLAgWgmd; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jhJLro2b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2FE1F000FF;
-	Tue, 22 Sep 2026 13:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790083583;
-	bh=Kb+YLhKYpCsApgDZcUDNTHImbtvYDH1ik4YXht0NJLI=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=jhJLro2b6mK69X2varWmampkeELkD4GSqLwmD3cU1nf50bCZM0jTZnFKmieUCf/om
-	 8aPMmt0jvI98m/4k8J9VzMWSohaLIkPDaE1ggZ6qeYvNisvsxaSsqgGNt6JJUpKpMP
-	 8hOYBy32n2c5MBjzT5Cx36sBl1y1lfEBaStgQMRiWAEV5EDB7OZJ9Ejsfbwgg6Dy3A
-	 7xHVyo7igQBObKNUYJSJkq4dqvwR5Xa1ERxqNU3hGG+/TjWb4ZI5t3TS5MEsseIlyK
-	 nTmdaATNO458bqHSO0QLzqjk/Iz/DX3q5w8i4GPhdYTz7A1Pq2R7EMiuiQLI30N4HT
-	 yBuxyGeQr4ppA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org, pavel@kernel.org, vicentiu.galanopulo@remote-tech.co.uk, 
- linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Manuel Fombuena <fombuena@outlook.com>
-In-Reply-To: <GV1PR08MB8497668D389D43F680D2CE3CC5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-References: <GV1PR08MB8497668D389D43F680D2CE3CC5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-Subject: Re: [PATCH v2 00/13] leds: st1202: Naming cleanups and
- pre-existing fixes
-Message-Id: <179008358207.3393151.6105937183709213100.b4-ty@b4>
-Date: Tue, 22 Sep 2026 14:26:22 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WLAgWgmd"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f05ffdso29422395ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:26:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790083595; x=1790688395; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eCUkLn112v9x8co6KH0UJQtidDQHBj7ffImfeZ1slwQ=;
+        b=WLAgWgmdl72LBmKn+E9ynK0TCieZl8lmhfo5Kqkc0i9LZ608wJ+PHY3z+Er/gsl8qq
+         qL9MHK/rE85Imqo64VSIiKcBd2xKui3rb0v2vgPwDrtZByNvs4phdciyWHoL7MlzXUBT
+         Kl7iIfz31cPfs/fsRIUlWBVfWG37L5vg0r56GsOr46HrY+ghd70m/rSREkrSFQOF7mLy
+         4oeebirLbEkh721omx9gdIOCU0jQM99X1XF/N8c/NNx6h12tMa71df0vQ84WLLVPrfHa
+         KljgN+UVOuirWwoma85gatlizyVawu9MZTx3rDl01D2RLXBSALjhSniEOl7ePjBUb4Wy
+         3TzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790083595; x=1790688395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eCUkLn112v9x8co6KH0UJQtidDQHBj7ffImfeZ1slwQ=;
+        b=weSLY84k3NN9vWP88SPcLx87ot+7LsJiTQy5p4ldTUcW1oz07Qo3VVux5ItjQlpFnP
+         pt7fPZULlPls4lte9PMis0AEMQnHKSskfGzEP85jiaIRmW23WvMQ/3s0B+2/TOOwNdRU
+         oRQrvzHZLOGxfncLd+DBqsJbeJlpH0MJXUAZ1LRDGxmtj2enlMoKL3ZQz4NexMx0HwfM
+         XYIll9w/9ZjuxD9Y8o1cXEL6FRPYXDgFrXKkYWWZAg5RhRK8YTPwfU3yy/8EA25TwbvT
+         OXnB6/Ioh+VIgFzCWYqHemJgYdc8Nqv4dw2CEP6mLxqy7Ne5BzZEv/FLEHsYSNzVtJT/
+         rTKA==
+X-Gm-Message-State: AFuF++m+twuua4MJY8IF9f2VfZxGXKFLNcf+lSnIkt8i0XBO+kXuKcvj
+	N76rgPyBgfH0z1kyB6NEgyFSA2To5FaTJ58OLJJ+sp1whaPdCP27RmiP
+X-Gm-Gg: AYBFou1kitHfJ4QSeCtYfh4bVVgHXLzeULUFxbL5IY6scfKpamfpU/lzzagS+ZEHTRE
+	PghEp8FllenUPTy/CIIEs7pGA4aPa+JLKHkKMg2NRkge40sjUw/WBEB/2/kbNhYe+JGWkrW8kO/
+	Puh3A3OkfxvGQ67hLTzj4TsYTGp0jGUKpbiJpeppTs6+RNa9FKaBIeaqlsNzlxZ3KzpOmdgMkMV
+	vQ4kpuM1FK0ExK2Mjzjx2vbDSyeDY3U6E2Dsf+Po0ftXP5g1mIihU7Mqlt5Qhb81tbgGTX+qK+I
+	rMO8AG9f9tPr6nScCrXXuY+78KRMJTOQxQooLjDzsuWKi7ZyYw3YARdIIHJ6vvoN2uTrilRQ2up
+	DfSz0JtT5XXuiOIdOHgOwM3lmHgKR/na9AGJbF39yS94b+tgrjzuVxW/6/9XLTOOCJsXbRSBALl
+	MR+kRXmRAZ5RYWXJ583eH5fQjL5vX4UM0adtsb/UKb0LWn16MK51Xvmll+Xm5RJIwJ
+X-Received: by 2002:a17:902:d988:b0:2db:5052:fd6f with SMTP id d9443c01a7336-2df609d4f2emr14537855ad.17.1790083595144;
+        Tue, 22 Sep 2026 06:26:35 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6365ef10sm3971725ad.28.2026.09.22.06.26.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 06:26:34 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] init/main.c: remove unreachable check in obsolete_checksetup()
+Date: Tue, 22 Sep 2026 22:26:27 +0900
+Message-ID: <20260922132630.177941-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 
-On Tue, 15 Sep 2026 13:40:05 +0100, Manuel Fombuena wrote:
-> This series collects the issues identified during review of the two
-> previous ST1202 submissions, the pattern engine fix series and the
-> hardware-accelerated blink support:
-> 
-> https://lore.kernel.org/all/GV1PR08MB8497C0B898789BB73ACE6EE3C5F52@GV1PR08MB8497.eurprd08.prod.outlook.com/
-> https://lore.kernel.org/all/GV1PR08MB84974C7ACD911E66864C5008C5DA2@GV1PR08MB8497.eurprd08.prod.outlook.com/
-> 
-> [...]
+Since commit 1ecfea06386c ("init.h: remove long-dead
+__setup_null_param() macro"), .init.setup entries cannot have a NULL
+setup_func.
 
-Applied, thanks!
+So remove the NULL check.
 
-[01/13] leds: st1202: Correct the name of the prescaler conversion helper
-        commit: 226f32543668960673596288a50191052dba3352
-[02/13] leds: st1202: Spell out the phase-shift configuration bit
-        commit: 7520fc78c52ea55c2c83d0ecc11ab2355a753b7f
-[03/13] leds: st1202: Name pattern index variables consistently
-        commit: 0aed225f40613253617ad30a57492043a3448938
-[04/13] leds: st1202: Use u8 consistently for 8-bit values
-        commit: 38f98583bcac95a65774b73cbcc56280a71f5612
-[05/13] leds: st1202: Clear unused pattern slots in pattern_set()
-        commit: 119a7d375e5caedaf252198fa64e7df5d7269ab4
-[06/13] leds: st1202: Scale pattern brightness to the 12-bit PWM range
-        commit: 82f8b88d6ac2edf01651bbd84e03ede04b2ca80e
-[07/13] leds: st1202: Program the channel current for hardware patterns
-        commit: 878eec1475e77ad22059584bc617b6e671a536d9
-[08/13] leds: st1202: Take a reference on the LED firmware node
-        commit: 5882de94edf7a53812a76a882a95e1e86d7105d9
-[09/13] leds: st1202: Do not set brightness from atomic context
-        commit: 1ec35fa181981b4b9581b3dae967bac7ed82c89c
-[10/13] leds: st1202: Clear unused pattern slots in blink_set()
-        commit: 3268b9e91db16f240ffe07ff6caf963ba8191ce8
-[11/13] leds: st1202: Honour max_brightness when blinking
-        commit: 865d81a98602c828515fa6ac3c530efc4205f9f6
-[12/13] leds: st1202: Cap the channel current in st1202_led_set()
-        commit: ca81ea108502817e3841e98f0d3651398d9e1bd9
-[13/13] leds: st1202: Give the channel current ceiling a single helper
-        commit: e264a106d8fc45fd82891cb0c4f8bd9e2c48c152
+No functional change.
 
---
-Lee Jones [李琼斯]
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+ init/main.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/init/main.c b/init/main.c
+index d276e194393b..e7a84799639a 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -215,10 +215,6 @@ static bool __init obsolete_checksetup(char *line)
+ 				 * params and __setups of same names 8( */
+ 				if (line[n] == '\0' || line[n] == '=')
+ 					had_early_param = true;
+-			} else if (!p->setup_func) {
+-				pr_warn("Parameter %s is obsolete, ignored\n",
+-					p->str);
+-				return true;
+ 			} else if (p->setup_func(line + n))
+ 				return true;
+ 		}
+
+base-commit: 277efa234c9a49b6cb9aca1cb9d75138ca392eae
+-- 
+2.43.0
 
