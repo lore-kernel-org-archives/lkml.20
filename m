@@ -1,114 +1,309 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B7D4B44D0
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28194570E5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069655; cv=none; b=UubIyR6F6KuILRnoH2Rd82n3VXHU4IHyfxnzqcnS7rvy+mwmT8OD2D6lVabk76SaMUDEbfMHZLDC8xmZf90S0yDMZLEjhm4YSSR7sus3Fk9GudTIvL3kE6NF4AzBlZohOozTaBsCmtFDZhoHvHJnbLC4pj2nbK5gWt95Y+VsFW8=
+	t=1790069685; cv=none; b=bLZZQMMk7WxbiQJcC/unOoFEHip+4BpOiH8gn6entoO+FN4LjY43O/MbQUJRwy4dg9FagIl3S1eS9cBbpbO1VjlAo5pOjqarQy9mf1Nv0KX0Y3LpZzJ8Fv4IdLWRBRcgAvTb8v9s9rmSNqYnWtWEkwfrk5mDmd3tN1ui6tbTY/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069655; c=relaxed/simple;
-	bh=vt/4hyiygjECgQYnHXxSXvAteT7Ou+tERkBB2Zcr72M=;
-	h=Message-Id:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=SH+N/wGXfIIr0IybFFoMc9vfmNyfIwcJJixmoKDhDw27o4g1x7ma8XGuHt/2ZtFFNM+xjmJMZIPlUNmijyarHV/BO60IXTZbvJ+jLEXiIc+QFW2kAbF2RBmaEaUm7txpG6H/AbbDhS/yDGGcvub0eTic8XsoXA878E7WG2tgQBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-db.zte.com.cn (unknown [10.5.228.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hpw0F2sx0z8XrrZ;
-	Tue, 22 Sep 2026 17:34:05 +0800 (CST)
-Received: (from root@localhost)
-	by mse-db.zte.com.cn id 68M9Y2eC015972;
-	Tue, 22 Sep 2026 17:34:02 +0800 (+08)
-	(envelope-from sun.wenhan@zte.com.cn)
-Message-Id: <202609220934.68M9Y2eC015972@mse-db.zte.com.cn>
-Received: from njy2app02.zte.com.cn ([10.40.13.116])
-	by mse-fl1.zte.com.cn with SMTP id 68M9JSH7006374;
-	Tue, 22 Sep 2026 17:19:28 +0800 (+08)
-	(envelope-from sun.wenhan@zte.com.cn)
-Received: from mapi (njb2app06[null])
-	by mapi (Zmail) with MAPI id mid205;
-	Tue, 22 Sep 2026 17:19:30 +0800 (CST)
-X-Zmail-TransId: 2afe6ab248228bc-51163
-X-Mailer: Zmail v1.0
-Date: Tue, 22 Sep 2026 17:19:30 +0800 (CST)
+	s=arc-20240116; t=1790069685; c=relaxed/simple;
+	bh=6xte+iViu/H/SWkq1JyajGTAOVeLJBpckVsxnbe4Jm8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gIB48VqbYQCKlmJgo9Cj+oDqTaUbq0RyXLTwj/FRFthP/XaX7fgAMwGfbctO2vbHvGwvtagTRBVW2X/RIx0ZSnHFAShDS9TEHbziFOGYQzYDcosXFc/jWzL/KUQ8fxzjZhP36m9FBKCfi90FeVxsCJsOmufUw8H8b3xc5On2tN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kqiU5Lv7; arc=none smtp.client-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kqiU5Lv7"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790069678; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=U1dGHaaVAPpj28j60FgfbJe7NGFPEoX/POzo1n+am+8=;
+	b=kqiU5Lv7NHx53YmBGvVZA2YmnMYQm4+/ytb2wGsE3NEfPWmkrOSG/MeNBg2+9QorjCqifzK+6DklyFi7YpLURA2mQt65yh2EhMuN1vIlX3C9yiEft7B/LSdUjUr1nGvj7ueqZMs4+d+y78sEXwMwpYNBKgthkGi2vtCpTOIp1v8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R241e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XBTOVL._1790069677;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XBTOVL._1790069677 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Sep 2026 17:34:37 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ocfs2: fix possible deadlock between nfs_sync_rwlock and fs_reclaim
+Date: Tue, 22 Sep 2026 17:34:37 +0800
+Message-Id: <20260922093437.954127-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <sun.wenhan@zte.com.cn>
-To: <pjw@kernel.org>
-Cc: <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-        <sun.wenhan@zte.com.cn>, <linux-riscv@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>, <liu.qingtao2@zte.com.cn>,
-        <lv.yating@zte.com.cn>, <guo.chang2@zte.com.cn>,
-        <deng.weixian@zte.com.cn>, <hu.yuye@zte.com.cn>
-Subject: =?UTF-8?B?wqBbUEFUQ0hdIHJpc2N2OiBhbGlnbiBwY2llIGJ1cyBhc3NpZ24gbG9naWMgd2l0aCBBUk02NA==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-db.zte.com.cn 68M9Y2eC015972
-X-MSS: AUDITRELEASE@mse-db.zte.com.cn
-X-TLS: YES
-X-ENVELOPE-SENDER: sun.wenhan@zte.com.cn
-X-SOURCE-IP: 10.5.228.131 unknown Tue, 22 Sep 2026 17:34:05 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AB24B8D.001/4hpw0F2sx0z8XrrZ
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: sun wenhan <sun.wenhan@zte.com.cn>
+syzbot detected a circular locking dependency on &osb->nfs_sync_rwlock:
 
+       CPU0                    CPU1
+       ----                    ----
+  lock(fs_reclaim);
+                               lock(&ocfs2_sysfile_lock_key[INODE_ALLOC_SYSTEM_INODE]);
+                               lock(fs_reclaim);
+  rlock(&osb->nfs_sync_rwlock);
 
-RISC-V currently relies on the asm-generic default of
-pcibios_assign_all_busses() returning 1, so the kernel always
-re-assigns all PCI bus numbers and ignores the bus numbers already
-set up by the firmware. This has two downsides:
+ *** DEADLOCK ***
 
-1. As UEFI 2.8 has brought mature firmware support to RISC-V servers,
-the OS can trust and inherit the PCI bus enumeration done by the
-BIOS, skipping a redundant re-enumeration at boot and improving
-the boot time.
+Chain exists of:
+  &osb->nfs_sync_rwlock --> &ocfs2_sysfile_lock_key[INODE_ALLOC_SYSTEM_INODE] --> fs_reclaim
 
-2. The unconditional re-assignment causes bus numbering conflicts
-during PCI rescan. When a root port that is not the last one in
-the hierarchy is removed and the bus is rescanned, the kernel
-fails with:
+CPU0 is kswapd.  The dentry shrinker runs under fs_reclaim and reaches
+ocfs2_delete_inode() through ->evict_inode():
 
-pci_bus 0000:01: busn_res: can not insert [bus 01-ff] under
-[bus 00-ff] (conflicts with (null) [bus 02])
+kswapd
+ balance_pgdat
+  shrink_node
+   shrink_slab
+    super_cache_scan
+     prune_dcache_sb
+      shrink_dentry_list
+       dentry_kill
+        ocfs2_dentry_iput
+         evict
+          ocfs2_evict_inode
+           ocfs2_delete_inode
+            ocfs2_nfs_sync_lock
+             down_read(&osb->nfs_sync_rwlock)      //C0: grabbing
 
-as reported for the same generic code in commit bd8cbe66c01d
-("PCI: Make PCI bus renumbering configurable to avoid rescan
-conflicts").
+CPU1 is a task deleting an inode.  It takes nfs_sync_rwlock first, then
+the orphan dir and inode alloc system inode i_rwsems, and allocates the
+metadata reservation with GFP_KERNEL while holding them:
 
-Define pcibios_assign_all_busses() the same way as ARM64,
-so that RISC-V also preserves the bus numbers assigned by the
-firmware by default instead of always re-assigning them. This keeps
-RISC-V consistent with the other major architectures.
+evict
+ ocfs2_evict_inode
+  ocfs2_delete_inode
+  + ocfs2_nfs_sync_lock
+  |  down_read(&osb->nfs_sync_rwlock)              //C1: hold
+  + ocfs2_wipe_inode
+     + inode_lock(orphan_dir_inode)                //C1: hold
+     + ocfs2_truncate_for_delete
+     |  ocfs2_commit_truncate
+     |   ocfs2_remove_btree_range
+     |    ocfs2_reserve_blocks_for_rec_trunc
+     |     ocfs2_reserve_new_metadata_blocks
+     |      kzalloc_obj()                          //C1: grabbing
+     |      // GFP_KERNEL -> might_alloc -> fs_reclaim_acquire
+     + ocfs2_remove_inode
+        inode_lock(inode_alloc_inode)
 
-Signed-off-by: sun wenhan <sun.wenhan@zte.com.cn>
+jbd2 pins allocations to GFP_NOFS for the lifetime of a transaction
+handle, but these reservations are made before ocfs2_start_trans(), so
+fs_reclaim is acquired with ocfs2 locks still held and the cycle closes.
+
+The same cycle is reachable from ocfs2_get_dentry() and
+ocfs2_get_parent(), which hold nfs_sync_rwlock for write across
+ocfs2_test_inode_bit() and ocfs2_iget().
+
+This is more than a lockdep artifact.  A GFP_KERNEL allocation under the
+orphan dir i_rwsem enters direct reclaim, which runs the shrinkers,
+which can evict another ocfs2 inode and re-enter ocfs2_wipe_inode() on
+the same task; the second inode_lock() on the singleton orphan dir inode
+then self-deadlocks, since i_rwsem is not recursive.
+
+Establish a GFP_NOFS allocation context for the whole nfs_sync_rwlock
+critical section so that nothing holding it can recurse into filesystem
+reclaim.  Do it in ocfs2_nfs_sync_lock()/ocfs2_nfs_sync_unlock() rather
+than at the call sites, so that future callers cannot forget it.
+
+Reported-by: syzbot+a68ce48df87b8e36e915@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a68ce48df87b8e36e915
+Fixes: 6ca497a83e59 ("ocfs2: fix rare stale inode errors when exporting via nfs")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
-arch/riscv/include/asm/pci.h | 5 +++++
-1 file changed, 5 insertions(+)
+ fs/ocfs2/dlmglue.c | 29 +++++++++++++++++++++++++----
+ fs/ocfs2/dlmglue.h |  5 +++--
+ fs/ocfs2/export.c  | 10 ++++++----
+ fs/ocfs2/inode.c   |  5 +++--
+ 4 files changed, 37 insertions(+), 12 deletions(-)
 
-diff --git a/arch/riscv/include/asm/pci.h b/arch/riscv/include/asm/pci.h
-index cc2a184cfc2e..b2f91abebd61 100644
---- a/arch/riscv/include/asm/pci.h
-+++ b/arch/riscv/include/asm/pci.h
-@@ -15,6 +15,11 @@
-#define PCIBIOS_MIN_IO   4
-#define PCIBIOS_MIN_MEM    16
-
-+/*
-+ * Set to 1 if the kernel should re-assign all PCI bus numbers
-+ */
-+#define pcibios_assign_all_busses() (pci_has_flag(PCI_REASSIGN_ALL_BUS))
+diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+index cf3318b0d3a8c..6bc4a21cf5f02 100644
+--- a/fs/ocfs2/dlmglue.c
++++ b/fs/ocfs2/dlmglue.c
+@@ -18,6 +18,7 @@
+ #include <linux/time.h>
+ #include <linux/delay.h>
+ #include <linux/quotaops.h>
++#include <linux/sched/mm.h>
+ #include <linux/sched/signal.h>
+ #include <linux/string_choices.h>
+ 
+@@ -2861,21 +2862,34 @@ void ocfs2_rename_unlock(struct ocfs2_super *osb)
+ 		ocfs2_cluster_unlock(osb, lockres, DLM_LOCK_EX);
+ }
+ 
+-int ocfs2_nfs_sync_lock(struct ocfs2_super *osb, int ex)
++int ocfs2_nfs_sync_lock(struct ocfs2_super *osb, int ex, unsigned int *nofs_flag)
+ {
+ 	int status;
++	unsigned int flags;
+ 	struct ocfs2_lock_res *lockres = &osb->osb_nfs_sync_lockres;
+ 
+ 	if (ocfs2_is_hard_readonly(osb))
+ 		return -EROFS;
+ 
++	/*
++	 * ocfs2_delete_inode() takes this lock from ->evict_inode(), which the
++	 * dentry shrinker reaches while holding fs_reclaim.  Anything allocated
++	 * under the lock must therefore stay out of filesystem reclaim, or
++	 * reclaim recurses back into the shrinker and tries to take this lock
++	 * again.  Cover the whole critical section, including the cluster lock
++	 * and the sysfile inode locks the callers take below it.
++	 */
++	flags = memalloc_nofs_save();
 +
-#if defined(CONFIG_PCI) && defined(CONFIG_NUMA)
-static inline int pcibus_to_node(struct pci_bus *bus)
-{
---
-2.27.0
+ 	if (ex)
+ 		down_write(&osb->nfs_sync_rwlock);
+ 	else
+ 		down_read(&osb->nfs_sync_rwlock);
+ 
+-	if (ocfs2_mount_local(osb))
++	if (ocfs2_mount_local(osb)) {
++		*nofs_flag = flags;
+ 		return 0;
++	}
+ 
+ 	status = ocfs2_cluster_lock(osb, lockres, ex ? LKM_EXMODE : LKM_PRMODE,
+ 				    0, 0);
+@@ -2886,12 +2900,17 @@ int ocfs2_nfs_sync_lock(struct ocfs2_super *osb, int ex)
+ 			up_write(&osb->nfs_sync_rwlock);
+ 		else
+ 			up_read(&osb->nfs_sync_rwlock);
++		memalloc_nofs_restore(flags);
++		return status;
+ 	}
+ 
+-	return status;
++	*nofs_flag = flags;
++
++	return 0;
+ }
+ 
+-void ocfs2_nfs_sync_unlock(struct ocfs2_super *osb, int ex)
++void ocfs2_nfs_sync_unlock(struct ocfs2_super *osb, int ex,
++			   unsigned int nofs_flag)
+ {
+ 	struct ocfs2_lock_res *lockres = &osb->osb_nfs_sync_lockres;
+ 
+@@ -2902,6 +2921,8 @@ void ocfs2_nfs_sync_unlock(struct ocfs2_super *osb, int ex)
+ 		up_write(&osb->nfs_sync_rwlock);
+ 	else
+ 		up_read(&osb->nfs_sync_rwlock);
++
++	memalloc_nofs_restore(nofs_flag);
+ }
+ 
+ int ocfs2_trim_fs_lock(struct ocfs2_super *osb,
+diff --git a/fs/ocfs2/dlmglue.h b/fs/ocfs2/dlmglue.h
+index a3ebd7303ea20..faa58ed8699b1 100644
+--- a/fs/ocfs2/dlmglue.h
++++ b/fs/ocfs2/dlmglue.h
+@@ -161,8 +161,9 @@ void ocfs2_orphan_scan_unlock(struct ocfs2_super *osb, u32 seqno);
+ 
+ int ocfs2_rename_lock(struct ocfs2_super *osb);
+ void ocfs2_rename_unlock(struct ocfs2_super *osb);
+-int ocfs2_nfs_sync_lock(struct ocfs2_super *osb, int ex);
+-void ocfs2_nfs_sync_unlock(struct ocfs2_super *osb, int ex);
++int ocfs2_nfs_sync_lock(struct ocfs2_super *osb, int ex, unsigned int *nofs_flag);
++void ocfs2_nfs_sync_unlock(struct ocfs2_super *osb, int ex,
++			   unsigned int nofs_flag);
+ void ocfs2_trim_fs_lock_res_init(struct ocfs2_super *osb);
+ void ocfs2_trim_fs_lock_res_uninit(struct ocfs2_super *osb);
+ int ocfs2_trim_fs_lock(struct ocfs2_super *osb,
+diff --git a/fs/ocfs2/export.c b/fs/ocfs2/export.c
+index 9c2665dd24e21..90b9e510e700d 100644
+--- a/fs/ocfs2/export.c
++++ b/fs/ocfs2/export.c
+@@ -37,6 +37,7 @@ static struct dentry *ocfs2_get_dentry(struct super_block *sb,
+ 	struct inode *inode;
+ 	struct ocfs2_super *osb = OCFS2_SB(sb);
+ 	u64 blkno = handle->ih_blkno;
++	unsigned int nofs_flag = 0;
+ 	int status, set;
+ 	struct dentry *result;
+ 
+@@ -59,7 +60,7 @@ static struct dentry *ocfs2_get_dentry(struct super_block *sb,
+ 	 * This will synchronize us against ocfs2_delete_inode() on
+ 	 * all nodes
+ 	 */
+-	status = ocfs2_nfs_sync_lock(osb, 1);
++	status = ocfs2_nfs_sync_lock(osb, 1, &nofs_flag);
+ 	if (status < 0) {
+ 		mlog(ML_ERROR, "getting nfs sync lock(EX) failed %d\n", status);
+ 		goto check_err;
+@@ -90,7 +91,7 @@ static struct dentry *ocfs2_get_dentry(struct super_block *sb,
+ 	inode = ocfs2_iget(osb, blkno, 0, 0);
+ 
+ unlock_nfs_sync:
+-	ocfs2_nfs_sync_unlock(osb, 1);
++	ocfs2_nfs_sync_unlock(osb, 1, nofs_flag);
+ 
+ check_err:
+ 	if (status < 0) {
+@@ -133,12 +134,13 @@ static struct dentry *ocfs2_get_parent(struct dentry *child)
+ 	u64 blkno;
+ 	struct dentry *parent;
+ 	struct inode *dir = d_inode(child);
++	unsigned int nofs_flag = 0;
+ 	int set;
+ 
+ 	trace_ocfs2_get_parent(child, child->d_name.len, child->d_name.name,
+ 			       (unsigned long long)OCFS2_I(dir)->ip_blkno);
+ 
+-	status = ocfs2_nfs_sync_lock(OCFS2_SB(dir->i_sb), 1);
++	status = ocfs2_nfs_sync_lock(OCFS2_SB(dir->i_sb), 1, &nofs_flag);
+ 	if (status < 0) {
+ 		mlog(ML_ERROR, "getting nfs sync lock(EX) failed %d\n", status);
+ 		parent = ERR_PTR(status);
+@@ -183,7 +185,7 @@ static struct dentry *ocfs2_get_parent(struct dentry *child)
+ 	ocfs2_inode_unlock(dir, 0);
+ 
+ unlock_nfs_sync:
+-	ocfs2_nfs_sync_unlock(OCFS2_SB(dir->i_sb), 1);
++	ocfs2_nfs_sync_unlock(OCFS2_SB(dir->i_sb), 1, nofs_flag);
+ 
+ bail:
+ 	trace_ocfs2_get_parent_end(parent);
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 92f3450010fbb..80c36c60a8cef 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -1109,6 +1109,7 @@ static void ocfs2_delete_inode(struct inode *inode)
+ {
+ 	int wipe, status;
+ 	sigset_t oldset;
++	unsigned int nofs_flag = 0;
+ 	struct buffer_head *di_bh = NULL;
+ 	struct ocfs2_dinode *di = NULL;
+ 
+@@ -1143,7 +1144,7 @@ static void ocfs2_delete_inode(struct inode *inode)
+ 	 * shared mode so that all nodes can still concurrently
+ 	 * process deletes.
+ 	 */
+-	status = ocfs2_nfs_sync_lock(OCFS2_SB(inode->i_sb), 0);
++	status = ocfs2_nfs_sync_lock(OCFS2_SB(inode->i_sb), 0, &nofs_flag);
+ 	if (status < 0) {
+ 		mlog(ML_ERROR, "getting nfs sync lock(PR) failed %d\n", status);
+ 		ocfs2_cleanup_delete_inode(inode, 0);
+@@ -1215,7 +1216,7 @@ static void ocfs2_delete_inode(struct inode *inode)
+ 	brelse(di_bh);
+ 
+ bail_unlock_nfs_sync:
+-	ocfs2_nfs_sync_unlock(OCFS2_SB(inode->i_sb), 0);
++	ocfs2_nfs_sync_unlock(OCFS2_SB(inode->i_sb), 0, nofs_flag);
+ 
+ bail_unblock:
+ 	ocfs2_unblock_signals(&oldset);
+-- 
+2.39.3
+
