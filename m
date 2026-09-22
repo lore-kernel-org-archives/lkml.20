@@ -1,114 +1,551 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA17D3E51CC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8434411F88
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109105; cv=pass; b=Ke6SJaHuBoT+a6bWDv0DMG3EfoW1ybzycYeXLiCz41IFvui5HhoakX+OzUpX51XMtM5IVMWSD/lexa0P+E8t2rbSoQLkzHzgInTfp+hitsxpQ1a3X0p3QJ1pdUhAepOmf8SYFUEzp9FQRNtZi54+Ed0qzrRWREG6x8X6OO1Up/U=
+	t=1790109127; cv=pass; b=If/ocijh10uQ6VojDkp8qoPsQH7B2q+S7Pkd/SNbDj4ENBsx3+Ie7nVnqF9y/sZIDpzQL8MwEows0cmvoriRJu/km5ONb+g4Y/qy7DQJrWyfGGGUR3Hq+lZH8T9wbAzh5BPs3twlpIgaBv7S10K5ujF6URycmaA7J+62O1vXn2g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109105; c=relaxed/simple;
-	bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
+	s=arc-20240116; t=1790109127; c=relaxed/simple;
+	bh=Cqup7AetL9K62WBqnLjsTFdg6y7ugt8kjt4WDduAD5s=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M4/8/yB436HkZzBNcBPWuJCCgLfzbNtaOQFf29Wp+6AxVvIRaDERfIHGRGcxaCiv/SPCu45delWmzpaU+iXwXv/LvVwIKGhpvC8gTHlpt4jBOVJabcSe2aY+oGW1ZA0UNyqENqlxUgZwozDE6ryJKAfEdLG59EZT59M3ztoFEmM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W0gY6i1Z; arc=pass smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=d5ViVl5kH0m6i7+wOZR5gjgEzig8srh3ACGJNjtTtlhW3cpHFO/SIzNdSodrbSCiHLh0Hd1p+jw83YIeiRK7dxv9pSR2KpYP+VfNcuSGTpFhGs/sORc6aJdG1yCNyhcOVRdtA7ZMgDWM7PolRaP4hHhsXpuc6EW3cbIm/97lGPU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=W24wP/W8; arc=pass smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W0gY6i1Z"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0cfb33cso322784a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:31:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790109088; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="W24wP/W8"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-532e9ad9a1eso16631cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:31:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790109116; cv=none;
         d=google.com; s=arc-20260327;
-        b=PjhFRfQ5RSObMtAByNzxknUHPtHfWU7x9/cMz1a+S9Sgh7Gm1iIQ0L2l7Ro+PoORE9
-         ikPFGvtOBcETj7b7ftCceVm1oD4cN51Y09FDE2MS60jUHCH9t9AiNveCDPKAt75Ehzmf
-         4EWro7SG+YtoKditL0prRvEgj1Vf5T4OblCZPSYv7D/ivjS6AouuIKwsdVm2HtF58Gl8
-         Cn96OMmp1MhjYOBiRedt/UIYgjMdDzyAdXQpif9OYeG32Db7Z/9hMGX26S8ZvOhfZCBm
-         p02sW8OdWFHR3c10A8/Z7pc802+BE+I0+ThVDw3YB1N/AIlFfAqoZE8TCvJQNF7KvoM6
-         4KZA==
+        b=aylGW4zJjwZoxm7JoWleWj0F+9oEgj0sqqRvI+enypHvWe8Qi98qJELzWu/X2NWcnT
+         sH/uImd3BmtRSp9YN72Nm6yR2h0aPhW3yfTV/uZh9nDh/Q0I8OMdVZlDPsMm6tJdyj/Q
+         JiElIP/X5PZaZNsnS+Z0+FJvOoI+t4gPZkibSvNr5JUeACcqvGAIoyvTxn+7kLaQZurA
+         gsVXapuePfp92PC1LfEQfrCcXJdZ4H+bOsEkDKQQDfm4cddNcTKpADgD6LQiIg+EIq6p
+         nF3321pFq6pfJDxgguLr02D8gRYyeWyEYnbGwV7YWcoU9oCulL+PECDjnRNp+V/pPiTB
+         pYWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
-        fh=Wx7uIB9x+iJPYWTNPMIpsmmN80ojxcdhqao3JKXNJAY=;
-        b=Fvrw8Wbt2vyRclsRSFrwpLavT7oBfrZAm1inCYt7djYKE49yCjAFZC3dcZh6DxQLW6
-         RO066iuRlxx9XbcEnJj5kfx+nqMueaZCjRcYAHJjda0XzojxAdVu+S/+/d+A+CCbb58U
-         hIWzIDsaKeopUN69sa16XsZS+lRE4ei0SMvBolQpQbgsfGZXr1LrJRiAtk/OEHRTkQQ5
-         wY8CKRLZYCB2P5vdrBRoUIP13QdFX1hVIN0dEHMNh+emFKk3XuCCUWGMFhU6KgxnuzR5
-         jczXvAa62IvLo857yjg6Ja66RWFsEChstzCfi54Hqfjxr2CZMTJ96S/nbTI294uJ8WJM
-         BGmA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Yt2fVj+D+BZLEuC3IP5IvX5L/bag4MLjrGfCScvwXs8=;
+        fh=wx3719uZtG/IGLyJUA/XeJd3jC1cP58ZUUPzNN5oV2s=;
+        b=Ul7KpO9LbGNpvdNHy2tZuCE67B8P3GoyQFdjuuaCHJ7a0RMvBOjt7E3vWPYXMxDMtH
+         U+9bNojuKTvq7mJua+0F1U8EfrqNPFo+5pEf9N/uvxmOzTT9EzS+CTgsmrdWAAGHiPOa
+         aJ+zJuwVi0hGerGsUrTpT27RTSv+rq9PfPDMGXiORJ7UEiUzMEHBMfk0WBzyMX8Ur9sl
+         IvArLEpGSohqDqDWz/VIzp6HLwRgYa2+fKq51cIOV2gHnNcJpff+UFCFJbOjyeLv/cYm
+         kS6QDr/Liqa+2gFtUgNRSPunX2OaJmZBhtDrVa85C5k/3plbRTFcFvXZ6NDVI9m+ZGwd
+         4JxQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790109088; x=1790713888; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
-        b=W0gY6i1ZQGKY1GhTGAYJT1Zysmc6u4VOq4inZtEwpVPrSt3tcJJGzZpmHOE4DdRM0Z
-         OeoGLxhhHimmDgtdjmOjT6J2nrLUUZawwRD1XveaYcNuEL1YzGAaqRrDFPX6f+6b5eI2
-         x0nia3j+mwbHL0cNzDNb4wcQ5RWdI3z/QHotHzlWZRuL5g69V54X78cGb8iT0/YnTh3G
-         QzgqUAT3ZrzvRJsyUOtajzC8SnCZGq/TLNDLoN6HfzGGHvxngUUNW7gzEHqvELMIa3wC
-         7X0CJYACHIHDjFZ59YVV60l0P8gsG+qMhu3AdCo7iijJtIkJSQV0cl8FVIelnLONwblg
-         iF2w==
+        d=google.com; s=20251104; t=1790109116; x=1790713916; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Yt2fVj+D+BZLEuC3IP5IvX5L/bag4MLjrGfCScvwXs8=;
+        b=W24wP/W8GCu02xBV7PwFN5dY3O9AT8caymdIUHX82fnCQkCNZOlTkUhZDkGqYhSCFG
+         aVvYe14VEAOzeKZLJcWReV5ekaK7gQqYKKbBWJNhstLW4rFxWdNlryFfPE1O9jBg48Lr
+         j9XSrUeFxPPb7QiH0/fpFpJ9jNM/3NO5iNNQMUGjvM8WurVejKPCIPbkrHaGRSQ/BOii
+         yMKYxX+RacPGOKbzkIYS57TsCscg4cgw0cJGh37VTSoWGXIBGALUWUWxqWNIiieK0uc/
+         9GQHNfDLJ6uOBW8Ob7lWoswzbpXo4bm1dEnxjdFJIFUGjK5D7SUrVyO9wATIRhCgiTgF
+         tdKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790109088; x=1790713888;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pyQVQX6jKLamp0uCXxk31zCcsl4nBlJoDrluWIu4huc=;
-        b=mSbCBRCYUpGNb3+DceteUZcSKXuB0omaIAEyWHCXz1e3b7WjxpRV3+Cs7AroCgqo6Y
-         Y8ylNMq0Ckbmpf3PVPc1orKMY13ieq8etjx5LIg/x9Ufeye2BCQAuoWimu6MCwk2AiH2
-         MhHEgad72uk0OcMaX3TaufNQ0CKxHx8M5902WQB/wIyAwpspF9z/IcdxJSiI9xgvNzmz
-         M5S/l1X7teGW0IsoLA5/AHaqpOZmFEqJXIpact4d52LPqExpDDHaqAUBly3pZKZOPQf+
-         o2eg28Nw7W1nl3ly5iWFIfLRqQIOUOY4Zi6RSUkfPJCfBqBnC+fciodfKNzsRPMnYra3
-         F0aA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVPcV1i8THEXSvQGGr1FV3lormxTX6XsKsr8zdtjzew8MxhqNP3cu9VL+fAgac6L1D83gNSLjFgrTfops=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkSlldpQlclXjSE1vV0alijv0gfXqStFgCpRobQH7x2R0PTCNm
-	ajHSCt/YZfi5A5NFIYMf2mD/h9qglBc6ZeW4w4t4mn3B0Kyou114P4btMFLZUU+n780H0GZ0xGG
-	wqjWPjLGGlUAE9CmFku3XFjRELY5c3ko=
-X-Gm-Gg: AYBFou3PBFOr+7cfEDSKS/vC1WJ5n860RJ9rPLG/NcMxSKn/g92rzLkW8Qcdd4Nd9SZ
-	fW3p6tjwBTT8GXLu9bUxHOr9YKElXB7GLsbAfP771WYDfmXYHckoI1CBm5Btt6KOCyHSjsHP6o/
-	FQ+MBbpUDUCT5GLbi7OTXlMQKZyXscwkd5N0v6LG22dAGzustUlOuxVhHnULEWNuYXQSHaQVt4M
-	SYVs2hkbrQgzOHNE//G2v9lqIuntrfXOSWB466njXr5So7I7FALtB8bXIxOOTnM/6CbujbpyiYj
-	qixVJ5o9aWb5Rn3YCQJ/3GitGBUKkJFAmF4UQdE2hlW6hRCoe1F4wBtxlGtEV82W8gbcxFuDICj
-	o1Y66M6bkhA==
-X-Received: by 2002:a05:6830:4109:b0:80c:d34f:5f5f with SMTP id
- 46e09a7af769-815f242b7e1mr808405a34.24.1790109088330; Tue, 22 Sep 2026
- 13:31:28 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790109116; x=1790713916;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yt2fVj+D+BZLEuC3IP5IvX5L/bag4MLjrGfCScvwXs8=;
+        b=h6YzKCbTm/L+i34AcfpARY0AqBAu7+1YMDFAwQwEXX4T/nm3hqoH3nVhD1oz1dRwzU
+         +Qe1/l4q2uKJ8g1BRMMMiKbEZCO7TBvFjad77WU0Zjp082B86PBVaYaE+M3jTIU2vHGr
+         MGsc+YfCIrwGympuGrMJI8a8RBp03ztKOxRimvpDSxypzDcXfgR8oes0mA9KsmiuxWxg
+         gjmTwqi5/v9wQGeMsNzyIcu4nrLvnMyGgz+gjAV2uHtNxj9lbkTUTX6k7f0DxdGTvi/c
+         F/XC2n2Gx3xYbKvXplaN6E+4TqNCR5ec5OVcsoVBhcXwrvc+7z6UmXCnRRDGVU0wJor4
+         N8KQ==
+X-Forwarded-Encrypted: i=1; AKwUvByN2r8VulYFB7mIMJzqhRDwgyrolq97RlghwPEtFWuHJRj1pGuyYv3o0lzYCPgqFK8MMYqG4lTVGl4yC2M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLM4noJ4ewL5Uy4NHxa7y9UVb+HFCkaVgQJs83aQP0oyO54mJy
+	QjQAxWq8TzsGM2p9raW6N5uZkzlYtH8FbZZ/gxW3bLOWTbbc3svGwSS+GMILTAGUEDt795n1aYB
+	Le/fP3+L6gh+O33iQRlAMcl3hTisQ3L7c7NflITtc
+X-Gm-Gg: AYBFou1xMOUGHp4vcElReKCSCD89/RSdB5MlsBpLGkmap8+rno04Hcuk6Mq1qbka4ce
+	vgnuhBj8zUWvv5Pqpnm4mrvI7ran/Dao9Bj0TvpGXduhpXou1jGUbUptMP93g3Nm7q8SXVgSqQW
+	sv1qIcn4DQNhqqMZAbb2LhxNXneKa76fWfTyGuTCk0EcKeP6Rl4DdPat/0w1bwax2wdtQxW4XRy
+	72ryX1D7s9K9eXzwEQFfqskOf8Kl7XQxf8001yAzdTKd0/4Dz1wikDRgHD8AAKfB3Ys39ZyA/ce
+	S23oH8t4MDK5slJFVNpWp7GD8seHBMzYrRdQox3WCjCw+RKy/51Q57SnnqgutIqSCJ89yo4EDmR
+	TPNlGmD0=
+X-Received: by 2002:ac8:5dc7:0:b0:530:2f98:cebb with SMTP id
+ d75a77b69052e-532edf82e0dmr343251cf.11.1790109115281; Tue, 22 Sep 2026
+ 13:31:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920194710.1114748-1-devnexen@gmail.com> <20260920194710.1114748-2-devnexen@gmail.com>
- <arKF7P9gqq7ehX-k@sgarzare-redhat>
-In-Reply-To: <arKF7P9gqq7ehX-k@sgarzare-redhat>
-From: David CARLIER <devnexen@gmail.com>
-Date: Tue, 22 Sep 2026 21:31:17 +0100
-X-Gm-Features: AcwNN1XSk4_n-Pw8whwf_qkZon5EH5z4YSuf40SxLSGrNh11a3Xo3EAHx4U9uBs
-Message-ID: <CA+XhMqwsoW1xyq+URGSuTrwnPo2CR5297bskaAsgHfMyyPPSPQ@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] vsock: report pending receive data to io_uring
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260922201507.1719668-1-stian@itx.no> <20260922201507.1719668-4-stian@itx.no>
+In-Reply-To: <20260922201507.1719668-4-stian@itx.no>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 22 Sep 2026 13:31:42 -0700
+X-Gm-Features: AcwNN1W47jisLkjyDbBHkQcLxD_JSYXLb7urv68bHAW4cx9V-8I3vqjOhGxN5Sk
+Message-ID: <CAP-5=fWNhJGHnRoz7FrwZO2mOZa4NCi5C3ZsFGrirAE0prj69w@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 3/3] perf tools: Support sparc user register
+ samples and dwarf unwinding
+To: Stian Halseth <stian@itx.no>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Andreas Larsson <andreas@gaisler.com>, "David S. Miller" <davem@davemloft.net>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Magnus Lindholm <linmag7@gmail.com>, 
+	linux-perf-users@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stefano,
+On Tue, Sep 22, 2026 at 1:15=E2=80=AFPM Stian Halseth <stian@itx.no> wrote:
+>
+> Add the sparc perf_regs tables and the EM_SPARC/EM_SPARCV9 dispatch for
+> register names, masks, ip/sp and the perf-to-DWARF register mapping,
+> plus the uapi header copy.
+>
+> For libdw unwinding, seed DWARF registers 16-31 (%l0-%l7, %i0-%i7) from
+> the register save area at the top of the stack dump: the kernel flushes
+> the sampled window there, and the CFI after `save` needs %i6 and %i7 to
+> find the first caller. The dump base on sparc is the biased %sp, so
+> read words from the dump with memcpy rather than an aligned
+> dereference.
+>
+> Signed-off-by: Stian Halseth <stian@itx.no>
+> ---
+>  tools/arch/sparc/include/uapi/asm/perf_regs.h | 33 +++++++++
+>  tools/perf/arch/sparc/include/perf_regs.h     | 18 +++++
+>  tools/perf/check-headers.sh                   |  1 +
+>  tools/perf/util/dwarf-regs-arch/Build         |  1 +
+>  .../util/dwarf-regs-arch/dwarf-regs-sparc.c   | 12 ++++
+>  tools/perf/util/dwarf-regs.c                  |  4 ++
+>  tools/perf/util/include/dwarf-regs.h          |  1 +
+>  tools/perf/util/perf-regs-arch/Build          |  1 +
+>  .../util/perf-regs-arch/perf_regs_sparc.c     | 69 +++++++++++++++++++
+>  tools/perf/util/perf_regs.c                   | 18 +++++
+>  tools/perf/util/perf_regs.h                   |  5 ++
+>  tools/perf/util/unwind-libdw.c                | 41 ++++++++++-
+>  12 files changed, 203 insertions(+), 1 deletion(-)
+>  create mode 100644 tools/arch/sparc/include/uapi/asm/perf_regs.h
+>  create mode 100644 tools/perf/arch/sparc/include/perf_regs.h
+>  create mode 100644 tools/perf/util/dwarf-regs-arch/dwarf-regs-sparc.c
+>  create mode 100644 tools/perf/util/perf-regs-arch/perf_regs_sparc.c
+>
+> diff --git a/tools/arch/sparc/include/uapi/asm/perf_regs.h b/tools/arch/s=
+parc/include/uapi/asm/perf_regs.h
+> new file mode 100644
+> index 000000000000..17f14335d6c0
+> --- /dev/null
+> +++ b/tools/arch/sparc/include/uapi/asm/perf_regs.h
+> @@ -0,0 +1,33 @@
+> +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+> +#ifndef _UAPI_ASM_SPARC_PERF_REGS_H
+> +#define _UAPI_ASM_SPARC_PERF_REGS_H
+> +
+> +/*
+> + * Mirrors struct pt_regs.  O6 is %sp as held in the register, i.e. bias=
+ed
+> + * by 2047 for a 64-bit task.
+> + */
+> +enum perf_event_sparc_regs {
+> +       PERF_REG_SPARC_G0,
+> +       PERF_REG_SPARC_G1,
+> +       PERF_REG_SPARC_G2,
+> +       PERF_REG_SPARC_G3,
+> +       PERF_REG_SPARC_G4,
+> +       PERF_REG_SPARC_G5,
+> +       PERF_REG_SPARC_G6,
+> +       PERF_REG_SPARC_G7,
+> +       PERF_REG_SPARC_O0,
+> +       PERF_REG_SPARC_O1,
+> +       PERF_REG_SPARC_O2,
+> +       PERF_REG_SPARC_O3,
+> +       PERF_REG_SPARC_O4,
+> +       PERF_REG_SPARC_O5,
+> +       PERF_REG_SPARC_O6,
+> +       PERF_REG_SPARC_O7,
+> +       PERF_REG_SPARC_TSTATE,
+> +       PERF_REG_SPARC_PC,
+> +       PERF_REG_SPARC_NPC,
+> +       PERF_REG_SPARC_Y,
+> +       PERF_REG_SPARC_MAX
+> +};
+> +
+> +#endif /* _UAPI_ASM_SPARC_PERF_REGS_H */
+> diff --git a/tools/perf/arch/sparc/include/perf_regs.h b/tools/perf/arch/=
+sparc/include/perf_regs.h
+> new file mode 100644
+> index 000000000000..493fbff9ea16
+> --- /dev/null
+> +++ b/tools/perf/arch/sparc/include/perf_regs.h
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef ARCH_PERF_REGS_H
+> +#define ARCH_PERF_REGS_H
+> +
+> +#include <stdlib.h>
+> +#include <linux/types.h>
+> +#include "../../../../arch/sparc/include/uapi/asm/perf_regs.h"
+> +
+> +#define PERF_REGS_MASK ((1ULL << PERF_REG_SPARC_MAX) - 1)
+> +#define PERF_REGS_MAX  PERF_REG_SPARC_MAX
+> +
+> +#ifdef __arch64__
+> +#define PERF_SAMPLE_REGS_ABI   PERF_SAMPLE_REGS_ABI_64
+> +#else
+> +#define PERF_SAMPLE_REGS_ABI   PERF_SAMPLE_REGS_ABI_32
+> +#endif
+> +
+> +#endif /* ARCH_PERF_REGS_H */
+> diff --git a/tools/perf/check-headers.sh b/tools/perf/check-headers.sh
+> index 531c0e0e84df..f144590f5082 100755
+> --- a/tools/perf/check-headers.sh
+> +++ b/tools/perf/check-headers.sh
+> @@ -42,6 +42,7 @@ declare -a FILES=3D(
+>    "arch/mips/include/uapi/asm/perf_regs.h"
+>    "arch/powerpc/include/uapi/asm/perf_regs.h"
+>    "arch/s390/include/uapi/asm/perf_regs.h"
+> +  "arch/sparc/include/uapi/asm/perf_regs.h"
+>    "arch/x86/include/uapi/asm/perf_regs.h"
+>    "arch/x86/include/uapi/asm/kvm.h"
+>    "arch/x86/include/uapi/asm/svm.h"
+> diff --git a/tools/perf/util/dwarf-regs-arch/Build b/tools/perf/util/dwar=
+f-regs-arch/Build
+> index ceb68ae86fd8..bda944029046 100644
+> --- a/tools/perf/util/dwarf-regs-arch/Build
+> +++ b/tools/perf/util/dwarf-regs-arch/Build
+> @@ -6,4 +6,5 @@ perf-util-$(CONFIG_LIBDW) +=3D dwarf-regs-mips.o
+>  perf-util-$(CONFIG_LIBDW) +=3D dwarf-regs-powerpc.o
+>  perf-util-$(CONFIG_LIBDW) +=3D dwarf-regs-riscv.o
+>  perf-util-$(CONFIG_LIBDW) +=3D dwarf-regs-s390.o
+> +perf-util-$(CONFIG_LIBDW) +=3D dwarf-regs-sparc.o
+>  perf-util-$(CONFIG_LIBDW) +=3D dwarf-regs-x86.o
+> diff --git a/tools/perf/util/dwarf-regs-arch/dwarf-regs-sparc.c b/tools/p=
+erf/util/dwarf-regs-arch/dwarf-regs-sparc.c
+> new file mode 100644
+> index 000000000000..dd0c80e29764
+> --- /dev/null
+> +++ b/tools/perf/util/dwarf-regs-arch/dwarf-regs-sparc.c
+> @@ -0,0 +1,12 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <errno.h>
+> +#include <dwarf-regs.h>
+> +#include "../../../arch/sparc/include/uapi/asm/perf_regs.h"
+> +
+> +int __get_dwarf_regnum_for_perf_regnum_sparc(int perf_regnum)
+> +{
+> +       if (perf_regnum < PERF_REG_SPARC_G0 || perf_regnum > PERF_REG_SPA=
+RC_O7)
+> +               return -ENOENT;
+> +
+> +       return perf_regnum;
+> +}
+> diff --git a/tools/perf/util/dwarf-regs.c b/tools/perf/util/dwarf-regs.c
+> index 797f455eba0d..df9200c31aaa 100644
+> --- a/tools/perf/util/dwarf-regs.c
+> +++ b/tools/perf/util/dwarf-regs.c
+> @@ -217,6 +217,10 @@ int get_dwarf_regnum_for_perf_regnum(int perf_regnum=
+, unsigned int machine,
+>         case EM_S390:
+>                 reg =3D __get_dwarf_regnum_for_perf_regnum_s390(perf_regn=
+um);
+>                 break;
+> +       case EM_SPARC:
+> +       case EM_SPARCV9:
+> +               reg =3D __get_dwarf_regnum_for_perf_regnum_sparc(perf_reg=
+num);
+> +               break;
+>         case EM_LOONGARCH:
+>                 reg =3D __get_dwarf_regnum_for_perf_regnum_loongarch(perf=
+_regnum);
+>                 break;
+> diff --git a/tools/perf/util/include/dwarf-regs.h b/tools/perf/util/inclu=
+de/dwarf-regs.h
+> index 46a764cf322f..4a02f30c5604 100644
+> --- a/tools/perf/util/include/dwarf-regs.h
+> +++ b/tools/perf/util/include/dwarf-regs.h
+> @@ -113,6 +113,7 @@ int __get_dwarf_regnum_for_perf_regnum_loongarch(int =
+perf_regnum);
+>  int __get_dwarf_regnum_for_perf_regnum_powerpc(int perf_regnum);
+>  int __get_dwarf_regnum_for_perf_regnum_riscv(int perf_regnum);
+>  int __get_dwarf_regnum_for_perf_regnum_s390(int perf_regnum);
+> +int __get_dwarf_regnum_for_perf_regnum_sparc(int perf_regnum);
+>  int __get_dwarf_regnum_for_perf_regnum_mips(int perf_regnum);
+>
+>  /*
+> diff --git a/tools/perf/util/perf-regs-arch/Build b/tools/perf/util/perf-=
+regs-arch/Build
+> index be95402aa540..47220a2f2dae 100644
+> --- a/tools/perf/util/perf-regs-arch/Build
+> +++ b/tools/perf/util/perf-regs-arch/Build
+> @@ -6,4 +6,5 @@ perf-util-y +=3D perf_regs_mips.o
+>  perf-util-y +=3D perf_regs_powerpc.o
+>  perf-util-y +=3D perf_regs_riscv.o
+>  perf-util-y +=3D perf_regs_s390.o
+> +perf-util-y +=3D perf_regs_sparc.o
+>  perf-util-y +=3D perf_regs_x86.o
+> diff --git a/tools/perf/util/perf-regs-arch/perf_regs_sparc.c b/tools/per=
+f/util/perf-regs-arch/perf_regs_sparc.c
+> new file mode 100644
+> index 000000000000..36d84ddd3a48
+> --- /dev/null
+> +++ b/tools/perf/util/perf-regs-arch/perf_regs_sparc.c
+> @@ -0,0 +1,69 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include "../perf_regs.h"
+> +#include "../../arch/sparc/include/perf_regs.h"
+> +
+> +uint64_t __perf_reg_mask_sparc(bool intr __maybe_unused)
+> +{
+> +       return PERF_REGS_MASK;
+> +}
+> +
+> +const char *__perf_reg_name_sparc(int id)
+> +{
+> +       switch (id) {
+> +       case PERF_REG_SPARC_G0:
+> +               return "g0";
+> +       case PERF_REG_SPARC_G1:
+> +               return "g1";
+> +       case PERF_REG_SPARC_G2:
+> +               return "g2";
+> +       case PERF_REG_SPARC_G3:
+> +               return "g3";
+> +       case PERF_REG_SPARC_G4:
+> +               return "g4";
+> +       case PERF_REG_SPARC_G5:
+> +               return "g5";
+> +       case PERF_REG_SPARC_G6:
+> +               return "g6";
+> +       case PERF_REG_SPARC_G7:
+> +               return "g7";
+> +       case PERF_REG_SPARC_O0:
+> +               return "o0";
+> +       case PERF_REG_SPARC_O1:
+> +               return "o1";
+> +       case PERF_REG_SPARC_O2:
+> +               return "o2";
+> +       case PERF_REG_SPARC_O3:
+> +               return "o3";
+> +       case PERF_REG_SPARC_O4:
+> +               return "o4";
+> +       case PERF_REG_SPARC_O5:
+> +               return "o5";
+> +       case PERF_REG_SPARC_O6:
+> +               return "sp";
+> +       case PERF_REG_SPARC_O7:
+> +               return "o7";
+> +       case PERF_REG_SPARC_TSTATE:
+> +               return "tstate";
+> +       case PERF_REG_SPARC_PC:
+> +               return "pc";
+> +       case PERF_REG_SPARC_NPC:
+> +               return "npc";
+> +       case PERF_REG_SPARC_Y:
+> +               return "y";
+> +       default:
+> +               return NULL;
+> +       }
+> +
+> +       return NULL;
+> +}
+> +
+> +uint64_t __perf_reg_ip_sparc(void)
+> +{
+> +       return PERF_REG_SPARC_PC;
+> +}
+> +
+> +uint64_t __perf_reg_sp_sparc(void)
+> +{
+> +       return PERF_REG_SPARC_O6;
+> +}
+> diff --git a/tools/perf/util/perf_regs.c b/tools/perf/util/perf_regs.c
+> index 558c143abbab..5880b54fd7dc 100644
+> --- a/tools/perf/util/perf_regs.c
+> +++ b/tools/perf/util/perf_regs.c
+> @@ -68,6 +68,10 @@ uint64_t perf_intr_reg_mask(uint16_t e_machine)
+>         case EM_S390:
+>                 mask =3D __perf_reg_mask_s390(/*intr=3D*/true);
+>                 break;
+> +       case EM_SPARC:
+> +       case EM_SPARCV9:
+> +               mask =3D __perf_reg_mask_sparc(/*intr=3D*/true);
+> +               break;
+>         case EM_386:
+>         case EM_X86_64:
+>                 mask =3D __perf_reg_mask_x86(/*intr=3D*/true);
+> @@ -111,6 +115,10 @@ uint64_t perf_user_reg_mask(uint16_t e_machine)
+>         case EM_S390:
+>                 mask =3D __perf_reg_mask_s390(/*intr=3D*/false);
+>                 break;
+> +       case EM_SPARC:
+> +       case EM_SPARCV9:
+> +               mask =3D __perf_reg_mask_sparc(/*intr=3D*/false);
+> +               break;
+>         case EM_386:
+>         case EM_X86_64:
+>                 mask =3D __perf_reg_mask_x86(/*intr=3D*/false);
+> @@ -154,6 +162,10 @@ const char *perf_reg_name(int id, uint16_t e_machine=
+, uint32_t e_flags)
+>         case EM_S390:
+>                 reg_name =3D __perf_reg_name_s390(id);
+>                 break;
+> +       case EM_SPARC:
+> +       case EM_SPARCV9:
+> +               reg_name =3D __perf_reg_name_sparc(id);
+> +               break;
+>         case EM_386:
+>         case EM_X86_64:
+>                 reg_name =3D __perf_reg_name_x86(id);
+> @@ -215,6 +227,9 @@ uint64_t perf_arch_reg_ip(uint16_t e_machine)
+>                 return __perf_reg_ip_riscv();
+>         case EM_S390:
+>                 return __perf_reg_ip_s390();
+> +       case EM_SPARC:
+> +       case EM_SPARCV9:
+> +               return __perf_reg_ip_sparc();
+>         case EM_386:
+>         case EM_X86_64:
+>                 return __perf_reg_ip_x86();
+> @@ -244,6 +259,9 @@ uint64_t perf_arch_reg_sp(uint16_t e_machine)
+>                 return __perf_reg_sp_riscv();
+>         case EM_S390:
+>                 return __perf_reg_sp_s390();
+> +       case EM_SPARC:
+> +       case EM_SPARCV9:
+> +               return __perf_reg_sp_sparc();
+>         case EM_386:
+>         case EM_X86_64:
+>                 return __perf_reg_sp_x86();
+> diff --git a/tools/perf/util/perf_regs.h b/tools/perf/util/perf_regs.h
+> index 79be2b791509..3f453d910aa4 100644
+> --- a/tools/perf/util/perf_regs.h
+> +++ b/tools/perf/util/perf_regs.h
+> @@ -65,6 +65,11 @@ uint64_t __perf_reg_ip_s390(void);
+>  uint64_t __perf_reg_sp_s390(void);
+>  int __perf_sdt_arg_parse_op_s390(char *old_op, char **new_op);
+>
+> +uint64_t __perf_reg_mask_sparc(bool intr);
+> +const char *__perf_reg_name_sparc(int id);
+> +uint64_t __perf_reg_ip_sparc(void);
+> +uint64_t __perf_reg_sp_sparc(void);
+> +
+>  int __perf_sdt_arg_parse_op_x86(char *old_op, char **new_op);
+>  uint64_t __perf_reg_mask_x86(bool intr);
+>  const char *__perf_reg_name_x86(int id);
+> diff --git a/tools/perf/util/unwind-libdw.c b/tools/perf/util/unwind-libd=
+w.c
+> index 63a5c2253174..62484bcd5cd3 100644
+> --- a/tools/perf/util/unwind-libdw.c
+> +++ b/tools/perf/util/unwind-libdw.c
+> @@ -4,7 +4,9 @@
+>  #include <elfutils/libdw.h>
+>  #include <elfutils/libdwfl.h>
+>  #include <inttypes.h>
+> +#include <elf.h>
+>  #include <errno.h>
+> +#include <string.h>
+>  #include "debug.h"
+>  #include "dso.h"
+>  #include <dwarf-regs.h>
+> @@ -261,12 +263,44 @@ static bool memory_read(Dwfl *dwfl __maybe_unused, =
+Dwarf_Addr addr, Dwarf_Word *
+>         }
+>
+>         offset  =3D addr - start;
+> -       *result =3D *(Dwarf_Word *)&stack->data[offset];
+> +       memcpy(result, &stack->data[offset], sizeof(*result));
+>         pr_debug("unwind: access_mem addr 0x%" PRIx64 ", val %lx, offset =
+%d\n",
+>                  addr, (unsigned long)*result, offset);
+>         return true;
+>  }
+>
+> +/*
+> + * The sampled window's %l and %i registers (DWARF 16-31) are not in the
+> + * sample; the kernel flushed them to the register save area at the top =
+of
+> + * the dumped stack.
+> + */
+> +static void libdw_set_sparc_window_registers(struct unwind_info *ui,
+> +                                            struct regs_dump *user_regs,
+> +                                            Dwarf_Word *dwarf_regs)
+> +{
+> +       struct stack_dump *stack =3D &ui->sample->user_stack;
+> +       bool abi64 =3D user_regs->abi =3D=3D PERF_SAMPLE_REGS_ABI_64;
+> +       size_t wsize =3D abi64 ? sizeof(u64) : sizeof(u32);
+> +       u64 sp, offset =3D abi64 ? 2047 : 0;
+> +
+> +       if (perf_reg_value(&sp, user_regs, perf_arch_reg_sp(ui->e_machine=
+)))
+> +               return;
+> +       if (offset + 16 * wsize > stack->size)
+> +               return;
+> +
+> +       for (int i =3D 0; i < 16; i++) {
+> +               const char *p =3D &stack->data[offset + i * wsize];
+> +               u32 w32;
+> +
+> +               if (abi64) {
+> +                       memcpy(&dwarf_regs[16 + i], p, sizeof(u64));
+> +               } else {
+> +                       memcpy(&w32, p, sizeof(w32));
+> +                       dwarf_regs[16 + i] =3D w32;
+> +               }
+> +       }
+> +}
+> +
+>  static bool libdw_set_initial_registers(Dwfl_Thread *thread, void *arg)
+>  {
+>         struct dwfl_ui_thread_info *dwfl_ui_ti =3D arg;
+> @@ -276,6 +310,7 @@ static bool libdw_set_initial_registers(Dwfl_Thread *=
+thread, void *arg)
+>         int max_dwarf_reg =3D 0;
+>         bool ret;
+>         uint16_t e_machine =3D ui->e_machine;
+> +       bool is_sparc =3D e_machine =3D=3D EM_SPARC || e_machine =3D=3D E=
+M_SPARCV9;
+>         int e_flags =3D ui->e_flags;
+>         uint64_t ip_perf_reg =3D perf_arch_reg_ip(e_machine);
+>         Dwarf_Word val =3D 0;
+> @@ -295,6 +330,8 @@ static bool libdw_set_initial_registers(Dwfl_Thread *=
+thread, void *arg)
+>                                 max_dwarf_reg =3D dwarf_reg;
+>                 }
+>         }
+> +       if (is_sparc && max_dwarf_reg < 31)
+> +               max_dwarf_reg =3D 31;
 
-> Maybe this can go in util.c/h
-Sure.
+Thanks! I think these are great patches! At this point in the code are
+you setting max_dwarf_reg so that there's space for the window
+registers? I think adding a comment here for clarity would be
+worthwhile as it matches up with libdw_set_sparc_window_registers.
 
-> nit: can you add uring or something like that in the function name
-Ack.
+Thanks,
+Ian
 
-> Should we avoid to fail if it isn't supported and just skip the test?
-Yes, will skip.
-
-> Why we need this barrier?
-That one is not needed, I will drop it. The others might stay; an early peer
-close makes the hint report EOF.
-
-Cheers.
+>
+>         dwarf_regs =3D calloc(max_dwarf_reg + 1, sizeof(*dwarf_regs));
+>         if (!dwarf_regs)
+> @@ -313,6 +350,8 @@ static bool libdw_set_initial_registers(Dwfl_Thread *=
+thread, void *arg)
+>                         }
+>                 }
+>         }
+> +       if (is_sparc)
+> +               libdw_set_sparc_window_registers(ui, user_regs, dwarf_reg=
+s);
+>         if (perf_reg_value(&val, user_regs, ip_perf_reg) =3D=3D 0)
+>                 dwfl_thread_state_register_pc(thread, val);
+>
+> --
+> 2.55.0
+>
