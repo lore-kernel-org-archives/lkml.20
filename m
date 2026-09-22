@@ -1,106 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3895542803;
-	Tue, 22 Sep 2026 12:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734C3542EF9;
+	Tue, 22 Sep 2026 12:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080249; cv=none; b=nIcm8BVFey/YDfast8VS5YQn7lymnGzc0BOq2CoMHDWzArWpATosetQgUa2+c6mEVMZNZZxoZgwB2h2da/nINUE4REykHFRpniqn7rGqNJ9w0jB5Eg6WjkknrZmmckiBy5aTtfIHh3FfzRQhkovFghC7e1LoMvq3wse0YR/PzoM=
+	t=1790080256; cv=none; b=U1x+oECmOR/vSndsKKpp2MmGSW6uoIYNr1MTKfuuDalNiR3O0ykcbkldVrAAWvU19wsfxI1N/nupD35/C3rK1KOn/fDRS4rmyi4yMRnIXW+5XNvnY1rQWbK+WtG9+snlmIStlsZyavtfSk1krklsDxG5eun0mxOYQPhf7Lq9fkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080249; c=relaxed/simple;
-	bh=Qs+hH9j5ECf7wu8c8yamJoQ9GRescqfKiHV5zZgWxxY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TDN5KqwUn49McftdmCHT/9JOuM6rCXG0SP9LLal40xlB46nrtWxco8maYfVAj77bPNdrS6kq4WPQhskeswrY8YooBlO2jY/LaHNG6cdfhypdcmtDhzMh92P+XPA1jFhvcjJuMzplsLjkibQ0jcB99h4hw1WqlaBEK/mLMEWAYzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O4TcHUGv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790080256; c=relaxed/simple;
+	bh=jZylOUC6YyIvbflbhe/jfdi0MUU6cYupxxg8b1kDvMU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ZqChxhNpSSdu0M1d7t732qElIaawwoUDIBfGMg4oN+/c4qgYD33yjsiROe7i1zAw5BCHjadcWnNjw+2faHLWejGWTgzI/3aqOi4WPIW1m5otCx9aVs/zaihc8GH++RUUzZt9VhJvLUi2nuy1LbpFUE2Gk6yiTLR4p88S5+WHSDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fnif+hDo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O4TcHUGv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E541F000FF;
-	Tue, 22 Sep 2026 12:30:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fnif+hDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F131F00893;
+	Tue, 22 Sep 2026 12:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790080247;
-	bh=Ic/h6nB8JUlBM8zaXvVjgvTf0SPmAf0fMbuRRf6h1OU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=O4TcHUGvDUaiZAcbWB6yDzYBqy/coJnW/7scfWIrPA9JZxubQUqIJf+7nKN83DAvz
-	 U3rD2gr4++NFyoHbWT7OGBHQAnistbtAfT9opp3pPyes8L3+xOT//5ld67ttl0foKz
-	 nXPLSXKR+pImSUOXClFkHmJBrLLIrFeQMPqtNcb9BryKjXCfhBjEnN9oi8UW7pkOYA
-	 Hq+AfNeeC/W59e3rt+G6pf9lVI8MhGhbKvOoZk761TLTZJ9xR5xBsZNMSg2dNWGc8+
-	 FIGiRNf6VjsnCN/LNVHx/rSj4nVE7vE+zwGwcigogdyg+GL6/GP2A9eRl5QX8kga0z
-	 ZSCN83j72ugfQ==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: George Guo <dongtai.guo@linux.dev>
-Cc: rppt@kernel.org,  pasha.tatashin@soleen.com,  pratyush@kernel.org,
-  chenhuacai@kernel.org,  ardb@kernel.org,  shuah@kernel.org,
-  ilias.apalodimas@linaro.org,  akpm@linux-foundation.org,
-  baoquan.he@linux.dev,  ruirui.yang@linux.dev,  guodongtai@kylinos.cn,
-  kernel@xen0n.name,  graf@amazon.com,  liukexin@kylinos.cn,
-  loongarch@lists.linux.dev,  linux-kernel@vger.kernel.org,
-  kexec@lists.infradead.org,  linux-mm@kvack.org,
-  linux-kselftest@vger.kernel.org,  linux-efi@vger.kernel.org
-Subject: Re: [PATCH v5 3/5] liveupdate: kho_block: include linux/mm.h for
- virt/phys translation
-In-Reply-To: <20260904100852.26006-4-dongtai.guo@linux.dev> (George Guo's
-	message of "Fri, 4 Sep 2026 18:08:50 +0800")
-References: <20260904100852.26006-1-dongtai.guo@linux.dev>
-	<20260904100852.26006-4-dongtai.guo@linux.dev>
-Date: Tue, 22 Sep 2026 14:30:43 +0200
-Message-ID: <2vxz5wzx5uz0.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=k20260515; t=1790080255;
+	bh=1WoBmhdZdxyDyI/QKK1tcl2sM5zxbK5OVqHb13+WhG8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=fnif+hDokS6+RKBAg3nd10+nt74J54EZEhDE1HhUeKPTf+ymA/eE5R3l7EkgviEJW
+	 IRKiuYtOXOB2bwKesoUyC7lg3jgtzOJ3rLzUxMpbfGZ0Na6Q8p/JXQCOwb+UOvGEDK
+	 A0fm7t+M9fXpFDGC9vnRJ0UFMw/BppJfMDwdB+jIwUyORaY2E/2KuKnIljIsywym/Z
+	 uIEjnL23BJyvdXertN4Lncw3LuQXknFAnr9BwC7T1qbtUHriIYOpvEKaBjL8hUihjP
+	 FUt7WA331hBOzvOz7OThayeFXjhjkGZk2NMlDIJzumCqvuFZuVSIu2GrLeandorJVO
+	 sFPbhe7YbJyiQ==
+From: Lee Jones <lee@kernel.org>
+To: Riku Voipio <riku.voipio@iki.fi>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, haibo.chen@oss.nxp.com
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, Haibo Chen <haibo.chen@nxp.com>
+In-Reply-To: <20260727-led-fix-v1-1-d635c5037109@nxp.com>
+References: <20260727-led-fix-v1-1-d635c5037109@nxp.com>
+Subject: Re: (subset) [PATCH] leds: pca9532: check
+ i2c_smbus_read_byte_data() return value
+Message-Id: <179008025334.3359204.10005099701464589385.b4-ty@b4>
+Date: Tue, 22 Sep 2026 13:30:53 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Fri, Sep 04 2026, George Guo wrote:
+On Mon, 27 Jul 2026 17:57:54 +0800, haibo.chen@oss.nxp.com wrote:
+> Coverity report INTEGER_OVERFLOW (tainted_data_return ->
+> cast_underflow -> overflow) in pca9532_getled().
+> pca9532_getled() stored the return value of i2c_smbus_read_byte_data()
+> into a char and used it directly to compute the LED state without
+> checking for an error. i2c_smbus_read_byte_data() returns a negative
+> error code on failure. On an I2C read error the negative value was
+> assigned to an unsigned type, triggering an integer underflow/overflow,
+> and a meaningless LED state was returned to the caller.
+> 
+> [...]
 
-> From: George Guo <guodongtai@kylinos.cn>
->
-> kho_block.c calls virt_to_phys() and phys_to_virt(). On LoongArch with
-> CONFIG_KFENCE=y, these macros (in arch/loongarch/include/asm/io.h) expand
-> to offset_in_page() and page_address(), both declared in <linux/mm.h>.
->
-> Since kho_block.c does not include <linux/mm.h>, the translation unit
-> fails to build with CONFIG_KFENCE=y:
->
->   asm/io.h: error: implicit declaration of function 'offset_in_page'
->   asm/io.h: error: implicit declaration of function 'page_address'
->
-> Add the missing include to fix these build errors.
->
-> This is the same root cause as the luo_session.c build fix previously
-> acked by Mike Rapoport [1]; the virt_to_phys()/phys_to_virt() calls have
-> since been refactored from luo_session.c into kho_block.c, so the fix
-> moves with it.
->
-> [1] https://lore.kernel.org/r/ai5nYlbERQBXRHSp@kernel.org/
+Applied, thanks!
 
-Drop this paragraph please. History of previous patch postings doesn't
-belong in the commit message. You should write this kind of things below
-the "---".
+[1/1] leds: pca9532: check i2c_smbus_read_byte_data() return value
+      commit: 1b75f038e5f71ed32ce6593b5763f9776ec58a25
 
->
-> Co-developed-by: Kexin Liu <liukexin@kylinos.cn>
-> Signed-off-by: Kexin Liu <liukexin@kylinos.cn>
-> Signed-off-by: George Guo <guodongtai@kylinos.cn>
-> ---
->  kernel/liveupdate/kho_block.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.c
-> index 0d2a342ef422..0d56891b2f4c 100644
-> --- a/kernel/liveupdate/kho_block.c
-> +++ b/kernel/liveupdate/kho_block.c
-> @@ -25,6 +25,7 @@
->  #include <linux/kho/abi/block.h>
->  #include <linux/kho_block.h>
->  #include <linux/slab.h>
-> +#include <linux/mm.h>
->  
->  /*
->   * Safeguard limit for the number of serialization blocks. This is used to
+--
+Lee Jones [李琼斯]
 
--- 
-Regards,
-Pratyush Yadav
