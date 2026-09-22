@@ -1,289 +1,279 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB273793A8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044228; cv=none; b=q5z8WZoTd0VuHUmqqVi9xAqQXDW86Hn/AlZTh/2YdLN1+uXuRx//V0wTA1eEX1JE1upPYVLwstmYzA5mFP2vA7qoYMP8WxIv+jZkr/GWT1G4U/uwHhlbR/f5dRVxL+13XuN2LklMPFDgXOFW7bUsxutX0mmGT4jENU0QTxWWa0U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044228; c=relaxed/simple;
-	bh=EPAPVj1FhQ7/+pop5mUZQszLO5ulnMl6jVPcEL6t5Gk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eEGHXh6YO3+BAMZRYa9vecan1kykdVEDtencjdxpnXiAJ9abVLsPuU5DXeBNBT/gPl71l/9hulW6Rzxk2QZjOzH2iewYmWL3hskhLGUYLYUSoAqqPd1IOABtqjJY7BY2X303RtZnFZgM+NAgcXy8xdoVZAvkR910+O7QK+2KZQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=prV/DsyD; arc=none smtp.client-ip=74.125.230.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD526345CDD
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790044257; cv=pass; b=fPgmEN6GsRyYVKwQSfS2B6Kbv54AW6+o+xsi6GODrWkuPN54rFYSrhdTKYHt5MUGl8iYmUq2W+ey8dilzZcjnC68eYSyyA54Mnuyjj9zYZXsOr7IY6EAIjAKJs78I2ueGKzBKHsr6mMJZ/S2P21pjP/kTVgdU2R1KFXwovnlPOk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790044257; c=relaxed/simple;
+	bh=AW06IYGBZCMrnj6vF3EjvS2PfT8TCt5zGPrwG5ZFPyQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oe0iATGBOE8H9Taua/UpsSIzVtxx3dKybd6vlSjLYUdFy6Mgs+aVOLZ63MiwPxZWcVP57rM1MRMpCa9DnW5PWTNU0d1IEPrBJPgDOAhx2USgzjL5PyYAzIDhSJjPPDA+HqQQvkAfzyXHUUh1t6wfk/FXDsSw6ezQb7u4bfz1mEk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OmgSqfXt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GUbOVOaL; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="prV/DsyD"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-91400f92ae8so1896556d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:30:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OmgSqfXt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GUbOVOaL"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M00FJD2824285
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:30:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	A7JiqZAdlBgbBa5ulhMzb67AxAAG/vlMp5Utn+aZ8no=; b=OmgSqfXtSo9MtmfT
+	2zAqToT9hUME0YZ7jll34Ab7i20/Q5mET2GUbb0pqMcDLIvmuxTCoc27nVu2XzII
+	yOnX7o+VcZs4tO6G5VCQTW1LuMkflRW2QgYgZanKQD5rNLIyfvsjuKZiMcOudEh+
+	WOWou7Pq9+0F/ODvw6S0c0kfwfOcyk8qDfKDIml2lKOf5zTJt8ZEk86hWotjCvqR
+	3pT8drqXqcEP/YlWhem/BKG9yIOCfOfvuOaBnfG3GYlhOlWAGiVOGfU3EfH9RGAy
+	ybcScBRc0z1DooHEHxr4aplAqN4VYvOHrMX8pUN9P9NGP9kutHQTpbXpKibI+xDd
+	EmsLwA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu3cskd3t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:30:54 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8632fdf67dfso552668b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:30:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790044254; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Phf0brE6RRE5in1oj08OO75KL7RAh0nyR7hAnJANnRS6Yzlv4+/bYcpOyimZOQ4ur7
+         us0YUmMvHfLZjXDgLlWXhQOXgrzRgG9zpuxtmnvoNUdS9EI8mckjORpcMYXs2NYNOqsj
+         R0e6600irwY3SzU+cWJsHrJzoqY88oaj070tqN0QFC3G+Jtdnb+Ezpa8KZOO/SUoZ7gn
+         VTiI32rtam6CVO+zDyuZEu2mY1GU2gigvQWRkBUzNfUQe+sCD2RHZKCUrzB9p+v3VM7q
+         plNR5p4mNvb0Zwd02+cShOHPj7rDxhdab7kcB/AV+4suZB9xnhhsQt9dMmj6A2VA169v
+         0C5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A7JiqZAdlBgbBa5ulhMzb67AxAAG/vlMp5Utn+aZ8no=;
+        fh=8icHkFicDZz0mK8CEsojKw+viqnCqyl2JodVtwlDJnk=;
+        b=nXSfacXA+jr993Xrw5JaHwrfDuQtLUOutPyg8pGL4jJqwVExUPjgAJ057fp4CnXiQa
+         VGMF8McIe28ftg5mav9NZUusXw44xL74hDaebx2+RUwZGLERt6HiKfUMsz+rm9wX6LRt
+         pVI+HhQTYuakvHrhphgc7vfuUuy/ChdYFJxoTYaHiLYlfIq92wQM0ZpEf93H6nhkvVhz
+         ybXDno1bd6ABSpfa+kJTl8L3bocQ4TYItMliKwoKxAC5eImdfCozYtefA8iYE6wf6qKv
+         H10RFHqDXS97CZfbPljtANOXt4RtpJuJ6pC6M8xbhA6vuDR65v5YEOCPc2Q/TV+zBetv
+         EMwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1790044225; x=1790649025; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EMtH/e2BOZ+5Q/fPJ0djJ3i8PvS8/cEMBigMOOsU40U=;
-        b=prV/DsyDw/ndMPYWkg7lHH+Q2B149NYvbSo39qG+pRUIcK/3aF/VNkhTvJ0Ajj079C
-         jIVJFgGWmvnccqBOLrHdm7QPFleFXTdkeEldYtJEZvG7mlNpSNYc4oM94PigsAcqpW+Q
-         7Fi9wDmeRs3VdHcPbWTV2r/9me39NoN9SZzfgnOywZGThii9ILgiqGaZ3Oz+V/A1uKKB
-         FDTjVUVyS7f4lq+et1c6ZL7+8eoyxx2UkbgwgxELdm1VahZR6BXFzVe03uJSW/e532sF
-         ymNKMLqefuplISr+GDYiePrdy9tlzAgFtxRlM0T1JxNMldZxyL4X7NnRSBjAgRK5KR+/
-         C7jw==
+        d=oss.qualcomm.com; s=google; t=1790044254; x=1790649054; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A7JiqZAdlBgbBa5ulhMzb67AxAAG/vlMp5Utn+aZ8no=;
+        b=GUbOVOaL8HZJmUrwA19ddVNAwKo1JcdYyyDTWc33q2JDXdgQCbka0R1nteBWiF81SB
+         wlo+edgq6mwUG26wB5GB3EpMopDTZ0cvWbLcUjTdS9uE2TRR4nplBHYpvZafmQOGeAXV
+         0xpgaP5jZrWSE6LyaPI71foRIPTKy+MJSCwVPxb6Hw2qM484cUr4UbmS3XQ7LU7n9AY0
+         UsxMCyPQtOU03A4Q66wRQkKH/pPBTBbSccHi5ggJS3ZWP4SVdm7EkThY6wic80idm/P8
+         Y+FjcEMfQZt48K2VUPG55ag1wpcsLBYFStAYdia4/Z44L/nAItiz7z5c8rM3q8SI1VUs
+         VAnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790044225; x=1790649025;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790044254; x=1790649054;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EMtH/e2BOZ+5Q/fPJ0djJ3i8PvS8/cEMBigMOOsU40U=;
-        b=2cgseGsQwOGWAatE2AWxvxKQ/10gE4apj6pTKGE3WqK8QAmur3fsNLV2izWfl64d4L
-         N/wFZXIDizDoMEequlfy+tq6VEiwuDjZugBwOVatz+dqOVs1NPrzqlxkxBSOXY2teXBv
-         E2YxXMjIf5zzqS76A9yXMkVOQYVWvh1ViCQsZ6TylN11A/Y394fgpC1+SIyLkf19kZcc
-         lJ9eGx7CnhagDWPUr+g0OdFpCL/93vo0k9d0AptOyVy+iREXRs2cBQi51k/64hoESHO8
-         HseFhVZl0P+rYqH4xZ0Uaj7RkaTzqDgnZSu0JK4IjignliQKFCXilReXCOFEO62rNSVV
-         7Z2g==
-X-Forwarded-Encrypted: i=1; AKwUvBynOXIw1GW+ekSh5mrgcRhLnOXqFvdLNCHl83HZy0vzMOFSgjToknfkxXPHK/fNjzdiWM1ydkML67BwL2o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lD5GTtCcPdRO+Pq8FvVuC6ZST8ltBrRPnB7JPnVZ9LHGV5/5cS
-	YirgqeY+3LC85UUtEDoLLbxLrvOgsSsuH9wI8i2QoKqi95VSYCP5MdHBEsO1rwVT+RQ=
-X-Gm-Gg: AYBFou3n+PbZW1/eflJd+g3Yv7oVNNr5KBMX7m0ohD8sdN348Cl0UnhUx5zSiWNmeHd
-	YfRWhJctXqcdis6cWYiPxyJ28jKAp0opWXmeQTh0JwUjmYAenkfWNOdrQOlNQphBctNBkTnlPfn
-	H78zb3OBoJFp2GaC1CSJXfsq8uTj6uWLxGY/85zWYsS+ZZKdqpoqehCyag2u0ed6gcQRIRIDGoz
-	2/LVEqslWjXynCG23+nl8k/o20r7WO+vk2KgDWgX3I68R9Kwi1P2/OutN5VgLQpVT2nChpW4VTx
-	ULfuXTFLHz7XNhGt0+qYyZJHih0F3x6FWC1ITPFBLKxfbSx1TzwnkAzrzFEV/Ue8sdxCeU6cWx5
-	82q1c/psI+ZakMNHsJ/j1oAMRK9PWPxyriAHkp/K2XBZTwhJkBprReW7MBWQUKMOzL6XOIgJMGR
-	ZIRF60R7JNbtaofeoOmxDFpGXQXKpZ99i0i1OvV1t2Cynkp3M39Hd/ItgpGPihGMt4oe2T/S8ve
-	IPn3pitmKJV3XI=
-X-Received: by 2002:a05:6214:3ca0:b0:912:435f:1a8b with SMTP id 6a1803df08f44-913fc8d3895mr33550386d6.22.1790044225028;
-        Mon, 21 Sep 2026 19:30:25 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.243])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914024a1b21sm4504326d6.15.2026.09.21.19.30.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 19:30:24 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 22 Sep 2026 02:23:26 +0000
-Subject: [PATCH v5 07/13] bpf, x86: Take a Tasks Trace reader in the
- trampoline around its call-outs
+        bh=A7JiqZAdlBgbBa5ulhMzb67AxAAG/vlMp5Utn+aZ8no=;
+        b=wCcOlB4qQ9ieV1GkEDF/h44CxR3QMcZpsOY+G06yoDnVp6kQaAh4K4+1eLRvMoE8HK
+         3n00uGQzRsMsnJvRl9qif2agKiY7vv3rI6fQhSHv12vczATfDbMgZlkzb84ejMEWQjhD
+         DBVGyAJK4HXo+3/A7byv+dQy83tuan0ZSZ0qiuvjfJgCFSa1UItIh8ZDBzLhKpm0C7aX
+         r3jypqceCG8j41P0LuT3yN71LZRi7AlNEARTOq/3p84eOTGk5uFNiCSt2TcTTs2JSOLq
+         BnyGeHiMpI2M5xC9VKmTDYlFmeYVSooUQjMxbjg9c2VPOGoDPCow8c62cvJQ0VuSi6sB
+         iLyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzaQ9ei/Wy/Zbbh3KTqk8kbt++AKnKUNbSY0jbjcgtoNZUZcjed5548yBdV7wJMjg4BMZYY8QxIK5TYz1I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgWlFvov31a0/nwbQpNDVn4bb+lTu+VdkAHhhen4xaGx+jzvzq
+	M+b+ow4QgoPFGqB9r3kZXkwFAoxhNn3TD6Xnf6wvb8gZQfboqHNAJiqcuuE8HEnEcgV9mhyZyPL
+	3eZ6Rd4Q99W5YrZTgNmYu09Yp5Tl1OmQkvUuroPl3izD4rtmatJbt2mRP4ZFd+RAwtYze0oqo7F
+	IP/4W/PjAgOApNaZbAX8FFD67iQQMPSRJvPU5S4Wx1tw==
+X-Gm-Gg: AYBFou1QovK7ss99iYymT6WGh21wlFjef3zWrKGedI2RbfO7vIopdRsw6EELJ+gsQ37
+	cZiayww/ltae83LfgPnqHlqdVQk3V7YCK4EwnIDWD2ysL1kVIMsJESxuyhenylDhhF/ISMh1IeI
+	/y92lWBVr9wLsdfLgbpgOGCVWuu9ZASb0lF51pHMoEImC548FJ51oRCpXvlw==
+X-Received: by 2002:a05:6a00:aa05:b0:854:b3d3:8631 with SMTP id d2e1a72fcca58-87bbf47c483mr1080932b3a.12.1790044254188;
+        Mon, 21 Sep 2026 19:30:54 -0700 (PDT)
+X-Received: by 2002:a05:6a00:aa05:b0:854:b3d3:8631 with SMTP id
+ d2e1a72fcca58-87bbf47c483mr1080908b3a.12.1790044253705; Mon, 21 Sep 2026
+ 19:30:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-b4-rcu-tasks-preempt-qs-v5-7-410f57770bad@toxicpanda.com>
-References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
-In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- rcu@vger.kernel.org, bpf@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1790043820; l=8237;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=EPAPVj1FhQ7/+pop5mUZQszLO5ulnMl6jVPcEL6t5Gk=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKeNfl/NvsHWWZiu8ABGjBm0Ik1LIwwY7PXte5+OSYt8vF7GS12LYmo7jIhnhxlZSNoBmV+d/6B
- f4uZu/duViwk=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-8-mayuresh.chitale@oss.qualcomm.com> <BA4ECE62CC750889+2da1a0db-8500-4332-8954-e9f126604258@linux.spacemit.com>
+In-Reply-To: <BA4ECE62CC750889+2da1a0db-8500-4332-8954-e9f126604258@linux.spacemit.com>
+From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 08:00:42 +0530
+X-Gm-Features: AcwNN1UY8XV7_aUB93jIu3Bz-IyBK8F8R8tUINGupIRIRT0pG87pNdVga_QmFwY
+Message-ID: <CAHuiULDiFB234ev1R8bJKVppj+odtupmr=ic01S3a_HCXnHQeA@mail.gmail.com>
+Subject: Re: [PATCH v5 07/14] gtrace: Add function to copy into perf AUX buffer
+To: Zane Leung <liangzhen@linux.spacemit.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Ian Rogers <irogers@google.com>,
+        Anup Patel <anup.patel@oss.qualcomm.com>,
+        Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+        Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+        Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Mayuresh Chitale <mchitale@gmail.com>,
+        Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
+        Andrew Jones <andrew.jones@oss.qualcomm.com>,
+        Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDAzMyBTYWx0ZWRfX2/M9WQS5+isc
+ wDAT5ZwZFcStqSBjj+sBl7WOyibg9l0M6Uc2SFkMP63IRcX9hacmK38hdv43zienDYl3POi2rfI
+ OmGD81EKfgHtb+P2L8fJdweuQ9Uh1tY=
+X-Proofpoint-GUID: OliNIsf06U5mlGCWD_1GYpf-Y3fKlMY4
+X-Authority-Analysis: v=2.4 cv=QovLTlyd c=1 sm=1 tr=0 ts=6ab1e85e cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=lv0vYI88AAAA:8 a=EUspDBNiAAAA:8
+ a=G_Gx11oXSWwxtuNH6PoA:9 a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+ a=9qqun4PRrEabIEPCFt1_:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDAzMyBTYWx0ZWRfX5+75KEM9PVB/
+ YTZ08tVrrnBDEQzahEWHxdBsynYseOr24C2WNiX3GY2hlAlu05Vy9fOnlve1tlnpQSE0BwbP6S1
+ l8bVgQepVFiam6dBE4VrddYF+18hHVWKTC+IkDbtcbVtW7kXIg7jDZ6qtr20vHjvzauC9B2ss3Q
+ 16EoeFfL0L+acsdSm45kzPJb2n6WzW0Y2PVn4x2wnL2YsONzEis+DldUO4nMnwoCumhL9fW2xzV
+ ApJ1WJUEIMC40H6WahLmEAPaM4mEgv3PxXzX1ZFcQEpWl58yvs86+H+ER79oNsUJOeIt0YIKbSr
+ RTVA95SomCBY8CLdb66AKGst/Wyyn3GnCX3hPosDTuuzGcz1IWzJwDeUgCtmPnv+30Vz7kfQC1m
+ m8NWermWaJ8L0tH36FsZCArViY8cr2Xa/ruB8fzTUS9MnLQwolK0AQW7JhfxuLd2A/qCW/JGT8a
+ Ex/gNPviOimMm1pDaaA==
+X-Proofpoint-ORIG-GUID: OliNIsf06U5mlGCWD_1GYpf-Y3fKlMY4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220033
 
-On HAVE_RCU_TRAMPOLINE_READERS kernels Tasks RCU keeps a BPF trampoline
-image allocated only while a task using it is a Tasks Trace RCU reader
-or is executing text that rcu_tasks_trampoline_text() recognises.  The
-image itself is such text, but the C glue and the programs it calls are
-not, and only sleepable programs take rcu_read_lock_trace() today.
+Hi Zane,
 
-Have the x86-64 JIT open-code rcu_read_lock_trace() and
-rcu_read_unlock_trace() in the trampoline, as ftrace_64.S does for
-ftrace_caller: one reader from just after the frame is set up to just
-before the original function is called, covering __bpf_tramp_enter()
-and the fentry and fmod_ret programs, and a second one from just after
-the original function returns to just before the final register
-restore, covering the fexit programs and __bpf_tramp_exit().  The
-original function itself runs outside both, since it may run for a long
-time and the image is pinned by im->pcref across it.  Trampolines that
-do not call the original function get a single reader around all their
-programs.  The second reader is entered before ip_after_call, so the
-ip_after_call -> ip_epilogue jump that bpf_tramp_image_put() patches in
-is inside it, and the fmod_ret early-exit branch lands after that point
-still holding the first reader, so exactly one is held on every path.
-
-The sequence uses r10 and r11, which are scratch at each emission point,
-and references current_task and rcu_tasks_trace_srcu_struct by absolute
-sign-extended address, the form the JIT already relies on for
-this_cpu_off.  Sleepable programs' own rcu_read_lock_trace() simply
-nests.  Nothing is emitted on other configurations.
-
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- arch/x86/net/bpf_jit_comp.c | 107 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 107 insertions(+)
-
-diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-index 2853e87797a7..b77e29c9599d 100644
---- a/arch/x86/net/bpf_jit_comp.c
-+++ b/arch/x86/net/bpf_jit_comp.c
-@@ -14,6 +14,7 @@
- #include <linux/memory.h>
- #include <linux/sort.h>
- #include <linux/execmem.h>
-+#include <linux/rcupdate_trace.h>
- #include <asm/extable.h>
- #include <asm/ftrace.h>
- #include <asm/set_memory.h>
-@@ -722,6 +723,91 @@ static void emit_indirect_jump(u8 **pprog, int bpf_reg, u8 *ip)
- 	*pprog = prog;
- }
- 
-+/*
-+ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() for the
-+ * trampoline, see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the equivalent
-+ * macros in arch/x86/kernel/ftrace_64.S.  The image is not relocated, so
-+ * current_task and rcu_tasks_trace_srcu_struct are referenced by absolute
-+ * (sign-extended 32-bit) address, the form the JIT already relies on for
-+ * this_cpu_off.  Uses r10 and r11, which are scratch at every emission
-+ * point, and clobbers flags.
-+ *
-+ * lock:                                  unlock:
-+ *   mov  r11, gs:[current_task]            mov  r11, gs:[current_task]
-+ *   mov  r10d, [r11+nesting_off]           mov  r10d, [r11+nesting_off]
-+ *   inc  dword ptr [r11+nesting_off]       sub  r10d, 1
-+ *   test r10d, r10d                        jnz  2f
-+ *   jnz  1f                                mov  r10, [r11+scp_off]
-+ *   mov  r10, [&srcu.srcu_ctrp]            mov  dword ptr [r11+nesting_off], 0
-+ *   inc  qword ptr gs:[r10+locks_off]      (smp_mb)
-+ *   mov  [r11+scp_off], r10                inc  qword ptr gs:[r10+unlocks_off]
-+ *   (smp_mb)                               jmp  3f
-+ * 1:                                     2: mov [r11+nesting_off], r10d
-+ *                                        3:
-+ */
-+static void emit_trace_rcu_reader(u8 **pprog, bool lock)
-+{
-+#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-+	const u32 nesting_off = offsetof(struct task_struct, trc_reader_nesting);
-+	const u32 scp_off = offsetof(struct task_struct, trc_reader_scp);
-+	const u32 locks_off = offsetof(struct srcu_ctr, srcu_locks);
-+	const u32 unlocks_off = offsetof(struct srcu_ctr, srcu_unlocks);
-+	const bool mb = !IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB);
-+	u8 *prog = *pprog;
-+
-+	/* The plain this_cpu_inc() form of __srcu_read_lock_fast(). */
-+	BUILD_BUG_ON(IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
-+
-+	/* mov r11, gs:[abs32 current_task] */
-+	EMIT2(0x65, 0x4C);
-+	EMIT3(0x8B, 0x1C, 0x25);
-+	EMIT((u32)(unsigned long)&current_task, 4);
-+	/* mov r10d, dword ptr [r11 + nesting_off] */
-+	EMIT3_off32(0x45, 0x8B, 0x93, nesting_off);
-+
-+	if (lock) {
-+		/* inc dword ptr [r11 + nesting_off] */
-+		EMIT3_off32(0x41, 0xFF, 0x83, nesting_off);
-+		/* test r10d, r10d */
-+		EMIT3(0x45, 0x85, 0xD2);
-+		/* jnz 1f */
-+		EMIT2(X86_JNE, 8 + 8 + 7 + (mb ? 6 : 0));
-+		/* mov r10, qword ptr [abs32 &rcu_tasks_trace_srcu_struct.srcu_ctrp] */
-+		EMIT4(0x4C, 0x8B, 0x14, 0x25);
-+		EMIT((u32)(unsigned long)&rcu_tasks_trace_srcu_struct.srcu_ctrp, 4);
-+		/* inc qword ptr gs:[r10 + locks_off] */
-+		EMIT4_off32(0x65, 0x49, 0xFF, 0x82, locks_off);
-+		/* mov qword ptr [r11 + scp_off], r10 */
-+		EMIT3_off32(0x4D, 0x89, 0x93, scp_off);
-+		/* smp_mb(): lock add dword ptr [rsp - 4], 0 */
-+		if (mb)
-+			EMIT2_off32(0xF0, 0x83, 0x00FC2444);
-+		/* 1: */
-+	} else {
-+		/* sub r10d, 1 */
-+		EMIT4(0x41, 0x83, 0xEA, 0x01);
-+		/* jnz 2f */
-+		EMIT2(X86_JNE, 7 + 11 + (mb ? 6 : 0) + 8 + 2);
-+		/* mov r10, qword ptr [r11 + scp_off] */
-+		EMIT3_off32(0x4D, 0x8B, 0x93, scp_off);
-+		/* mov dword ptr [r11 + nesting_off], 0 */
-+		EMIT3_off32(0x41, 0xC7, 0x83, nesting_off);
-+		EMIT(0, 4);
-+		if (mb)
-+			EMIT2_off32(0xF0, 0x83, 0x00FC2444);
-+		/* inc qword ptr gs:[r10 + unlocks_off] */
-+		EMIT4_off32(0x65, 0x49, 0xFF, 0x82, unlocks_off);
-+		/* jmp 3f */
-+		EMIT2(0xEB, 7);
-+		/* 2: mov dword ptr [r11 + nesting_off], r10d */
-+		EMIT3_off32(0x45, 0x89, 0x93, nesting_off);
-+		/* 3: */
-+	}
-+
-+	*pprog = prog;
-+#endif
-+}
-+
- static void emit_return(u8 **pprog, u8 *ip)
- {
- 	u8 *prog = *pprog;
-@@ -3610,6 +3696,16 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 	/* mov QWORD PTR [rbp - rbx_off], rbx */
- 	emit_stx(&prog, BPF_DW, BPF_REG_FP, BPF_REG_6, -rbx_off);
- 
-+	/*
-+	 * Tasks RCU keeps this image alive only while we are a Tasks Trace
-+	 * reader; the instructions before this point (and after the final
-+	 * unlock) are covered by the irq-exit IP check.  One reader spans
-+	 * __bpf_tramp_enter() and the fentry/fmod_ret progs, a second one
-+	 * the fexit progs and __bpf_tramp_exit(); the original function runs
-+	 * outside both, with the image pinned by im->pcref instead.
-+	 */
-+	emit_trace_rcu_reader(&prog, true);
-+
- 	func_meta = nr_regs;
- 	/* Store number of argument registers of the traced function */
- 	emit_store_stack_imm64(&prog, BPF_REG_0, -func_meta_off, func_meta);
-@@ -3660,6 +3756,7 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 	}
- 
- 	if (flags & BPF_TRAMP_F_CALL_ORIG) {
-+		emit_trace_rcu_reader(&prog, false);
- 		restore_regs(m, &prog, regs_off);
- 		save_args(m, &prog, arg_stack_off, true, flags, 0);
- 
-@@ -3682,6 +3779,13 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 		}
- 		/* remember return value in a stack for bpf prog to access */
- 		emit_stx(&prog, BPF_DW, BPF_REG_FP, BPF_REG_0, -8);
-+		/*
-+		 * Second reader.  Taken before ip_after_call so that the
-+		 * ip_after_call -> ip_epilogue jump patched in at teardown is
-+		 * inside it too; the fmod_ret early exit jumps past this still
-+		 * holding the first reader, so either way exactly one is held.
-+		 */
-+		emit_trace_rcu_reader(&prog, true);
- 		im->ip_after_call = image + (prog - (u8 *)rw_image);
- 		emit_nops(&prog, X86_PATCH_SIZE);
- 	}
-@@ -3737,6 +3841,9 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 		LOAD_TRAMP_TAIL_CALL_CNT_PTR(stack_size);
- 	}
- 
-+	/* Remaining instructions are covered by the irq-exit IP check. */
-+	emit_trace_rcu_reader(&prog, false);
-+
- 	/* restore return value of orig_call or fentry prog back into RAX */
- 	if (save_ret)
- 		emit_ldx(&prog, BPF_DW, BPF_REG_0, BPF_REG_FP, -8);
-
--- 
-2.55.0
-
+On Thu, Sep 17, 2026 at 3:00=E2=80=AFPM Zane Leung <liangzhen@linux.spacemi=
+t.com> wrote:
+>
+> On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
+>
+> > From: Anup Patel <anup.patel@oss.qualcomm.com>
+> >
+> > The RISC-V trace ramsink will need a mechanism to copy trace data
+> > into the perf AUX buffer. Add gtrace_path_copyto_auxbuf() function
+> > and corresponding trace driver callback copyto_auxbuf() for this
+> > purpose.
+> >
+> > Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> > Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> > Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+> > ---
+> >  drivers/hwtracing/gtrace/gtrace-core.c | 22 ++++++++++++++++++++++
+> >  include/linux/gtrace.h                 | 24 ++++++++++++++++++++++++
+> >  2 files changed, 46 insertions(+)
+> >
+> > diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing=
+/gtrace/gtrace-core.c
+> > index 6ff1b3087947..53a3679ba69f 100644
+> > --- a/drivers/hwtracing/gtrace/gtrace-core.c
+> > +++ b/drivers/hwtracing/gtrace/gtrace-core.c
+> > @@ -626,6 +626,28 @@ int gtrace_path_stop(struct gtrace_path *path)
+> >  }
+> >  EXPORT_SYMBOL_GPL(gtrace_path_stop);
+> >
+> > +int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
+> > +                           struct gtrace_perf_auxbuf *buf,
+> > +                           size_t *bytes_copied, u64 *format)
+> > +{
+> > +     const struct gtrace_driver *gtdrv;
+> > +     struct gtrace_component *comp;
+> > +     struct gtrace_path_node *node;
+> > +
+> > +     list_for_each_entry(node, &path->comp_list, head) {
+> > +             comp =3D node->comp;
+> > +             gtdrv =3D to_gtrace_driver(comp->dev.driver);
+> > +             if (!gtdrv->copyto_auxbuf)
+> > +                     continue;
+> > +
+> > +             *bytes_copied =3D gtdrv->copyto_auxbuf(comp, buf, format)=
+;
+> > +             return 0;
+> > +     }
+> > +
+> > +     return -EOPNOTSUPP;
+> > +}
+> > +EXPORT_SYMBOL_GPL(gtrace_path_copyto_auxbuf);
+>
+> Is it really necessary to introduce `gtrace_path_copyto_auxbuf`? The buff=
+er copy logic should be
+> exclusive to the sink component.
+> A cleaner approach would be to delegate this directly to the sink instanc=
+e:
+> ```
+> struct gtrace_component *sink =3D gtrace_path_sink(path);
+> size =3D sink->copyto_auxbuf(sink, &event_data->buf, &format);
+> ```
+>
+This looks better.
+> > +
+> >  struct gtrace_path *gtrace_create_path(struct gtrace_component *source=
+,
+> >                                      struct gtrace_component *sink,
+> >                                      enum gtrace_component_mode mode)
+> > diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
+> > index 78e2ead3db8e..bc82814e2738 100644
+> > --- a/include/linux/gtrace.h
+> > +++ b/include/linux/gtrace.h
+> > @@ -257,9 +257,30 @@ void gtrace_destroy_path(struct gtrace_path *path)=
+;
+> >  int gtrace_path_start(struct gtrace_path *path);
+> >  int gtrace_path_stop(struct gtrace_path *path);
+> >
+> > +/**
+> > + * struct gtrace_perf_auxbuf - Representation of the perf AUX buffer.
+> > + * @length:   Size of the AUX buffer.
+> > + * @nr_pages: Number of pages of the AUX buffer.
+> > + * @base:     Start address of AUX buffer.
+> > + * @pos:      Position in the AUX buffer to commit traced data.
+> > + */
+> > +struct gtrace_perf_auxbuf {
+> > +     size_t length;
+> > +     int nr_pages;
+> > +     void *base;
+> > +     long pos;
+> > +};
+> > +
+> > +int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
+> > +                           struct gtrace_perf_auxbuf *buf,
+> > +                           size_t *bytes_copied, u64 *format);
+> > +
+> >  /**
+> >   * struct gtrace_driver - Representation of a trace driver.
+> >   * @id_table:      Table to match components handled by the driver.
+> > + * @copyto_auxbuf: Callback to copy data into perf AUX buffer. The dri=
+ver
+> > + *                 reports the PMU specific trace format of the copied=
+ data
+> > + *                 via @format (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK=
+).
+> >   * @start:         Callback to start tracing.
+> >   * @stop:          Callback to stop tracing.
+> >   * @probe:         Driver probe() function.
+> > @@ -270,6 +291,9 @@ int gtrace_path_stop(struct gtrace_path *path);
+> >   */
+> >  struct gtrace_driver {
+> >       const struct gtrace_component_id *id_table;
+> > +     size_t                  (*copyto_auxbuf)(struct gtrace_component =
+*comp,
+> > +                                              struct gtrace_perf_auxbu=
+f *buf,
+> > +                                              u64 *format);
+> >       int                     (*start)(struct gtrace_component *comp);
+> >       int                     (*stop)(struct gtrace_component *comp);
+> >       int                     (*probe)(struct gtrace_component *comp);
