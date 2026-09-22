@@ -1,45 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5D8314D1F;
-	Tue, 22 Sep 2026 09:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DF64432F2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068850; cv=none; b=ggYrZ4+SsE2vWQH3bMDgI0MCHv4yoGeWCS9F4XbLSupB/iwFeaVqPYhzrbwqMpsD4MZR2wZB4jqW6YLkssHLpxs309VbYC8jthmmdyJjr/y4uu+w0j1YC8yo3xGXNSfV5g8b780Y9pxZ+0dU+PE4BcnHC2HivcWGE/Lt6tp4VKo=
+	t=1790068853; cv=none; b=hDqWz2AM0uEpiuWrdkt6SOdXRvw6mp3B0b+aiE/e+lZ+Ox5JL0fp/b0vawlxsmsHUNWGH4ABF5KoF3FxVf6OoUZMh1msJK1PLS1m48LHZ3OxNi+CUxI9lWKGyRmV0pjdRQE8KzgzH2wgI4yhaxHy+XxhQDV6sG2KZg7zYV4tSmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068850; c=relaxed/simple;
-	bh=ufHQwVLWhbEqSDudZEAnnILdx9qDHelU/xGM0QyoWGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DgMYBhxNToQ/CEjrIpQPONODmSVIXzPdpjuKZp8RYNcAvhuvWP9cgx8GzcGOPhbfSR1wC6WCu7bJ1irMN2+9vEU260mIIUj/LKz8IpKdlX3USi705hKEuKmpd/JYsh9hSOCjg0ZUOFZp4Kl+jYg7SV/dxivfp3ZSTzpWTtlIUo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwGJuFnp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790068853; c=relaxed/simple;
+	bh=tfcR+1vIe3NIrCiR3cbKx8vH9DZhm95Ra8XfKKaDhrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WZfVDwexmwETCoubDUwyn4w9t1jAu8UpeMzeRioknAepEI9t4LqrvPAZFzFhxcA6nIv6RU0clVq28//vNBxUi73mZZ1RpwWACdib3iCXT/agk0wyOoygB/Mc7HPtGJj0A0LFMN44vcRIzA0uFVbb/BV5pZZcXQMPyogRxaqd9Ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PN0NBc35; arc=none smtp.client-ip=91.218.175.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwGJuFnp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A111F000FF;
-	Tue, 22 Sep 2026 09:20:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790068848;
-	bh=dYkHamlC0XvL4sfwKvaCSqNhRE91tdB+Ax+AruYP6lc=;
-	h=From:To:Cc:Subject:Date;
-	b=HwGJuFnpjyM9k6k+oCT2JqJu2mw7v3tyJW/5e1pKdVs/V9X70gyZOPYq5y3GTp39n
-	 S4/Qw3WWlzKsQfAPOw3QXTjD3pFAIBPXE+gn2KQl/yRwZsoUvNFciOPs8uPSoSYK4n
-	 deQrdkoWqGaToY+umNDVjCV2d7UJxcbZrphE/3rwoahPReu1NZwzIMfNbgmS69Ka2a
-	 muiBn+1ZOWoPPBisPEZ6M0oIkLQF5OEgnDCYBkdXnDmKx8mhFK4e3X5CB3VJ4pPt6u
-	 4+JJAz550HW0OWoEl3xjfhr2hAfmx0xd3ZMhF32jFYVKoqHMMG59B5cKx6Za2vj7KP
-	 0X0UADqXcecLA==
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: vkoul@kernel.org,
-	Frank.Li@kernel.org,
-	biju.das.jz@bp.renesas.com,
-	geert+renesas@glider.be
-Cc: claudiu.beznea@tuxon.dev,
-	dmaengine@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PN0NBc35"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tfcR+1vIe3NIrCiR3cbKx8vH9DZhm95Ra8XfKKaDhrk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790068849; v=1; x=1790673649;
+ b=PN0NBc35Ik/1RLL/Tpi6kz14vgblvJp5uNw9LkijgMvdHaWQLWjiOerRGV6F+b1OKw2+WioU
+ pY3RHZJ/kFjNMsRbKoQiIG3nl8GDWP8O7DtpQu8HyQEnB98NqZT5vhjTj0Kl/kNfFdNjld9akaO
+ zPjiiFuPnn7RUbV7mtVbK7Ac=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1845d1b952c6f2f1;
+	Tue, 22 Sep 2026 09:20:49 +0000
+X-Mizu-Trace-ID: 1845d1b952c6f2f1
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	cgroups@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	stable@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: [PATCH] dmaengine: sh: rz-dmac: Fix off-by-one in residue lmdesc lookup
-Date: Tue, 22 Sep 2026 12:20:37 +0300
-Message-ID: <20260922092037.224884-1-claudiu.beznea@kernel.org>
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v3 0/2] docs: cgroup-v2: Correct cpuset CPU descriptions
+Date: Tue, 22 Sep 2026 17:20:32 +0800
+Message-ID: <20260922092034.68840-1-guopeng.zhang@linux.dev>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -49,56 +52,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-lmdesc->nxla is the address of the next descriptor, so comparing it
-against CRLA, which is the address of the current descriptor,
-finds the descriptor before the active one, not the active one.
-The residue loops below then summed one lmdesc too many on top of
-that.
+The cpuset interface documentation says cpuset.cpus.isolated is empty
+unless an isolated partition exists, omitting CPUs isolated at boot with
+isolcpus=domain. Its cpuset.cpus.effective description also assumes CPUs
+come from the immediate parent and are normally a subset of
+cpuset.cpus, which is not always true for valid non-root partition roots.
 
-Compare each descriptor's own address to CRLA instead, and add tb
-after advancing to the next lmdesc.
+Update both descriptions to match the existing behavior.
 
-Fixes: 21323b118c16 ("dmaengine: sh: rz-dmac: Add device_tx_status() callback")
-Fixes: 172bfb57481c ("dmaengine: sh: rz-dmac: Add cyclic DMA support")
-Cc: stable@vger.kernel.org
-Suggested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
----
- drivers/dma/sh/rz-dmac.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Changes since v2:
+- Update the valid partition root example to show that an offline CPU
+  can remain in cpuset.cpus.exclusive.effective while being excluded
+  from cpuset.cpus.effective.
+- Add the Reviewed-by tag to patch 2.
+- Patch 1 is unchanged.
 
-diff --git a/drivers/dma/sh/rz-dmac.c b/drivers/dma/sh/rz-dmac.c
-index ca76f1bb45c4..fdd7131e890a 100644
---- a/drivers/dma/sh/rz-dmac.c
-+++ b/drivers/dma/sh/rz-dmac.c
-@@ -937,7 +937,7 @@ static u32 rz_dmac_calculate_residue_bytes_in_vd(struct rz_dmac_chan *channel,
- 	struct rz_dmac *dmac = to_rz_dmac(chan->device);
- 	u32 residue = 0, i = 0;
- 
--	while (lmdesc->nxla != crla) {
-+	while (rz_dmac_lmdesc_addr(channel, lmdesc) != crla) {
- 		lmdesc = rz_dmac_get_next_lmdesc(channel->lmdesc.base, lmdesc);
- 		if (++i >= DMAC_NR_LMDESC)
- 			return 0;
-@@ -948,13 +948,13 @@ static u32 rz_dmac_calculate_residue_bytes_in_vd(struct rz_dmac_chan *channel,
- 		u32 start_lmdesc_addr = rz_dmac_lmdesc_addr(channel, desc->start_lmdesc);
- 
- 		while (lmdesc->nxla != start_lmdesc_addr) {
--			residue += lmdesc->tb;
- 			lmdesc = rz_dmac_get_next_lmdesc(channel->lmdesc.base, lmdesc);
-+			residue += lmdesc->tb;
- 		}
- 	} else {
- 		while (lmdesc->chcfg & CHCFG_DEM) {
--			residue += lmdesc->tb;
- 			lmdesc = rz_dmac_get_next_lmdesc(channel->lmdesc.base, lmdesc);
-+			residue += lmdesc->tb;
- 		}
- 	}
- 
+Guopeng Zhang (2):
+  docs: cgroup-v2: Describe boot-isolated CPUs in cpuset.cpus.isolated
+  docs: cgroup-v2: Describe effective CPUs of partition roots
+
+ Documentation/admin-guide/cgroup-v2.rst | 62 ++++++++++++++++++++-----
+ 1 file changed, 51 insertions(+), 11 deletions(-)
+
 -- 
 2.43.0
-
