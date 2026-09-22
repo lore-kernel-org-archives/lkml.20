@@ -1,100 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9524D2EE0;
-	Tue, 22 Sep 2026 09:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD3743E08F;
+	Tue, 22 Sep 2026 09:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070731; cv=none; b=sApib2lcI2gPwK6t8B00V2EzX5lgC2HqFQZSWIq5EJxDpQx48/ejC+ErjkThrzUT+hl4CWvm5OFBV61dJVWg69VflALnGsysWrj6m14d7eg/Ef6OrDcn2bt6gvBLU5Fys9AOSupQOBnUu95Do/SHMuuJW4HqYQ1kT9LuNxYjEcE=
+	t=1790070755; cv=none; b=i4r6T4MA1guxjGkG/bAOlg97UB3/SEVWJD9UI04VvA/lOWfZYqGrHxfvkQFox/d0HsBws9/XWqLXFLz4DQe2v+mZXM9A3r7J6egbLI2NZ3wTqxSHG5dAgu1tT+OATLbH4DPMqh2fyjSC16B5chBZPzBbuyqWyS5GJUIYKPJgnDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070731; c=relaxed/simple;
-	bh=zor2ROdLd0rMo1FQEhXOx9r0zbUpL74fNqfExstZnjw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OQUnzwuXPjmlt4JVnWja0gTjMHAO5d+d3exg/008UHSZJ+iUR8nsL/XNs3VoLo17AObfWfEqaS70q2oOh6P2o5TDUC9LMBnfolKLZyjJml87PvJyisoLGzJdTyYKbYLln5nbXo1p2lPx1NnU4ycbcc0gaft8Iv5hAn/NLzUOa6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMT8gm1A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790070755; c=relaxed/simple;
+	bh=IOLIY/iVTnmqBFIGzbrUeePIfRsgjk3jUrVJ442QJzI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IQMJKarbJ/82xoqfmKYLc6XazgsG4gI7o4CRAUQQ7MuOmgOGp6JwvcXvZ4dvJVukqya+UgO0Tic6EV2auqNGIBs8N+fnnB/Hslw+KONfZVHRQVbFGx1i+2hPphb8Dw0arJZZe6McWJD3qoeAhcX0E9ePC/W+HVYe0qt7jkrjiW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=qPGC01KS; arc=none smtp.client-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMT8gm1A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C923A1F00893;
-	Tue, 22 Sep 2026 09:51:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790070721;
-	bh=XsLswjZySdqIFqF2ilbCxdY4qgyZ6CXrVVKDQsk1y4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LMT8gm1AoEFT7gGBv+UHvLcfX07spj9zLtsGDHX0ve90f6yq0SZFLZPQpvEq8/N4m
-	 MI6iTv11VPAo1J4kauwU+6zLxtDIwXUC964L4C7g1YLJq8FrypYsPFmf/vUt/mVbiP
-	 MnY6xODa9WZzv2IDSSTqS+KAbdW0T+BfhD8qMxdeGpLgGm79CWChCpiZXc+Kje8zYk
-	 A0xGKSz8y/wbQdh3N8uwV8KtmAdX/bn+y57m6j7PtFH0CVrZsXlsUCIv38/XsRX0ff
-	 mge0QwP7f3UNAjRSJaRSYzeyHBU9CEx6vTG2iVg+TMffw61IvtKlPc89c/3inA5WLE
-	 9GcGsuZ/Emhhg==
-Date: Tue, 22 Sep 2026 10:51:52 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	linux-efi@vger.kernel.org, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>
-Subject: Re: [PATCH v1 02/17] ACPI: amba: Switch to use
- acpi_bus_get_primary_device()
-Message-ID: <20260922-tiny-pompous-stork-30beeb@sudeepholla>
-References: <7995179.EvYhyI6sBW@rafael.j.wysocki>
- <3362405.5fSG56mABF@rafael.j.wysocki>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="qPGC01KS"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790070744; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=uLXPio8neK/XWQ24/aYWgPbiu1ZOhj0GPf/ayqaAKLs=;
+	b=qPGC01KSGvPEAo/piyIMeU0NmSz6Rzl1q0/KISqF4hJCDdaH3BAXjxbp7Zda098HpEk1B31uyNODYY7x8wXzS/BJ2I+KX1aybeqmVwkze68ReIvsFC3Gum1ErvFgtQgm4pGdmMnUoBqd+p/NVxgE50y2YeILOi0h/jJt/lZIgAc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XBTMM3c_1790070738;
+Received: from 30.178.68.4(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XBTMM3c_1790070738 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Sep 2026 17:52:22 +0800
+Message-ID: <db317551-0b1e-40f8-b265-d00d65653089@linux.alibaba.com>
+Date: Tue, 22 Sep 2026 17:52:17 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3362405.5fSG56mABF@rafael.j.wysocki>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] mm: restore per-memcg reclaim for NONSLAB
+ shrinkers under nokmem
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Usama Arif <usama.arif@linux.dev>, Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
+ Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Xunlei Pang <xlpang@linux.alibaba.com>, cgroups@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260910080722.3961351-1-qinyuntan@linux.alibaba.com>
+ <20260910153418.e818710d3c35aa075f1156ab@linux-foundation.org>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <20260910153418.e818710d3c35aa075f1156ab@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 09:46:37PM +0200, Rafael J. Wysocki wrote:
-> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+
+
+On 9/11/26 6:34 AM, Andrew Morton wrote:
+> On Thu, 10 Sep 2026 16:07:18 +0800 Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
 > 
-> Replace acpi_get_first_physical_node() that is slated for removal
-> with acpi_bus_get_primary_device() that takes a reference to the
-> device it is about to return.
+>> With cgroup.memory=nokmem, the THP deferred split shrinker and the
+>> zswap shrinker are degraded in two ways.
+>>
+>> First, both shrinkers are missing the SHRINKER_NONSLAB flag, so
+>> shrinker_memcg_alloc() demotes them to non-memcg-aware shrinkers:
+>> limit-induced reclaim of a cgroup neither splits its partially
+>> unmapped THPs nor writes back its zswapped pages.  v1 of this series
+>> [1] restored the flag to fix that.
+>>
+>> However, as Sashiko's review of v1 pointed out [2], the flag alone
+>> is not enough.  __list_lru_init() also collapses every list_lru into
+>> per-node lists under nokmem, so even with the flag restored, the
+>> objects of all cgroups share one list per node: the per-memcg
+>> shrinker bit is only set for whichever memcg happens to repopulate
+>> the empty list, so pressure in other cgroups may not even trigger
+>> the scan, and when it does, the scan walks everyone's objects.
+>>
+>> Before commit fafaeceb89a5 ("mm: switch deferred split shrinker to
+>> list_lru"), THP had fully per-memcg deferred split queues embedded
+>> in struct mem_cgroup, working independently of kmem accounting.
+>> nokmem only opts out of kernel slab accounting; THPs and zswapped
+>> pages are user memory and remain charged to their cgroups, so
+>> per-memcg reclaim is still what these shrinkers want.
+>>
+>> This series keeps list_lrus backed by SHRINKER_NONSLAB shrinkers
+>> memcg aware under nokmem:
 > 
-> This addresses a potential use-after-free that may occur if the
-> device returned by acpi_get_first_physical_node() is removed right
-> after dropping its ACPI companion's physical_node_lock in that
-> function.
->
+> Thanks.
+> 
+> It seems that Sashiko still doesn't understand that memory allocations
+> in __init code are considered "can't fail".
+> 
+> 	https://sashiko.dev/#/patchset/20260910080722.3961351-1-qinyuntan@linux.alibaba.com
+> 
+> otoh, failures in the functiond which hugepage_init() calls might be
+> caused by things other than ENOMEM so I guess we shouldn't zap all that
+> cleanup code.
+> 
+> Anyway, that's unrelated to your changes.
+> 
+> I'll save this patchset away for later and shall await reviewer input. 
+> Please poke me in a week or so if there hasn't been any, Things are
+> crazy lately.
 
-Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+Hi Andrew,
+ 
+Thanks for your time looking into this series. A gentle ping, as you
+suggested. Please let me know if anything else is needed from my side.
 
--- 
-Regards,
-Sudeep
+Thanks,
+Qinyun Tan
