@@ -1,62 +1,63 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A4C3AE6F3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DF13AD534
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045306; cv=none; b=Wh6Yj9sVZR+ulIRjkqPmlXgXUOMc9yHrt99Unm6DVQUFzQQFX/xW43NHOktv+e0US2e0buUeMZFYLUO7hSa8ri1Bbv6OZFDENAgK6OWVAuXawU2ORbu5m2yFHLGHG0wg2erprusJxmMry5jxDWLz16c+FWP8Wzf0TKUE919DYuo=
+	t=1790045309; cv=none; b=tn7jdOALEbH1AwoJkLpqjNYVJ+D2bdmGaT7iEHBUyrXWEPgt16AgaM5p23sZWEvDmMtYhF6jZ50EdGVfnE2h+uHJjj2XO2mMBqNy2iqK2SrnAi4izAEqkDEDwC4h1eCJAyXk1LUfKsHT5xgNxcesWmpV6Dvckb3GSv5zvyZQ+w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045306; c=relaxed/simple;
-	bh=EJ2P31Mop4LFkYlYUXipIp6N57OpGRj1yqrRk3odRS0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sibl6NXdlbGHa8QJUiZeV6xEiGiJruQ183bL270f2d/iXEby51ksFVZdXO951Cb7q0uRELy5PRdkf2/BMvnNubhUmsNFE0coJTfkbt681sMLvlSK9JC5tGzDSMMPZivkMPuLZ8oOZxM+TvxFKpW5l8evOmy2ymOGcPKy9mul9ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MYRFahFj; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1790045309; c=relaxed/simple;
+	bh=m+AN/nSnittfS7skBB0p70xNsEqxKz293x5ahIUFk18=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hAykrULE4wxNwGni8NODTN2NHUtPhQl7lev0MbmF5YfQP2NEiXGLaPfwDOEcz9nKZOmKZ5EapC32hMBRrV38gLHt+NiDwpBPNh3XkEePoySTA+V6B9k2czdBzIR8Br6s7nt2aAUfE4Rz8cNTtxi+7a0f21nqYMOPwKJo2ZSt+cA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lauhI5Oa; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MYRFahFj"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f204f6so2527000b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:48:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lauhI5Oa"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300816so10732905ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:48:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790045303; x=1790650103; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2fqnxRDPGydfMihJ2OX+RSCvcoKZzlenNPZIcztBjRk=;
-        b=MYRFahFjRk2z1BdH+H+7bCuD5vDdbX6PgGIYL91N+Xog3LidK6VUQ29WTKXcc7ozp2
-         IyzaozvRbzggCl9LSSgzRwd4jiXn77c1DZKNNGeJ7m+pIpdodl7I86KCGrurBEzm5Snq
-         Nx01W8xdOgmJcXOa6UawI+x5quwF82dLUTZkNnbOaepXVJ8j3255B7OrGAj+6H3W0HHr
-         vGaR3CtCxUxA4Dc/BSL4RnXLuiR2qf0ZkQxqAAirphsCSFThxysF587kNHdJUmpEJOGa
-         hfeCRlEJAdWc4oY3FGtMia1k/8YxZEBKrZfCkT7JmVQpVKOk1o5WXwFIJWeucdLZwJ13
-         cFBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790045303; x=1790650103;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790045306; x=1790650106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2fqnxRDPGydfMihJ2OX+RSCvcoKZzlenNPZIcztBjRk=;
-        b=EnNz1lzx3MWOMt50/TSm2ER+DD7YVE3wt57ol98zr8mPE/6uwp2GxFkSd6nzMoKwHx
-         ci3lYPzJkNCbkVojOanDY4WMUpF8KLskDl3mzTAhTlbDHcixmp0Wmhn/uUjx2vQrLXTE
-         XVlo72bf4v+Q+eABA+prxl7OulPQlHP9AWO+LR1QP1ICluf+yn/+cL/ZH++VWpUGg0I/
-         qk8Dh9UuHjiIdLbgjE0IG01+cWcZLkVRVTvwx02g923FK8Kk/ExXOitjlPuA/fb4Olv+
-         ZzRWJW41vsObe9FIDnDn/ySE9n8nRDeArRgFlKBiZSyj90GTUFGw/PFc9pOSAdCBXaOL
-         RgBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGnon7bye6P6Ia/eItguw1vVfvSA7d5DdNVyzwGM9TPmBuCC3YpFSyOKTQa051IdexPGvEZm6B1AsiyH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOzPmB9+dV10jErIn/xSlTBPK64gompbRviAGnJohrfz/mV9P8
-	NHY63oc3MwIW7lZoydM4+QHULOFXPPL75QTNx96KhPT86M7d4xfoYNa8
-X-Gm-Gg: AYBFou3uCutHxvJ56e1FFm0GPs+07vxzC3NeIhsnozj4kDQgSaaPYxIptGglA9vYI4I
-	8whnlumxX6XwsxB0AgKZfIH1HEf7HP7YF2unaZ4xIrtTOLzziSQPMOsJDWc9YGjCqnnpyy6yzpZ
-	9eRIqQnJ0bGMT82VFZJH8mRYEHlnbq0ZtwVrlNbkwEQNIG3babnnZqWuyOeFIBHXFYmQnBt2yBE
-	9KgGVdmirkcdJa4geGDmXSDMJNXFW00HZn3Ur0RfUFC08VBTY/zCHOUdD7oh81tluDbS011HaXW
-	kREp1eEhG7GxTd6BvtXn1YxxHzPiU37kf35LtviHDicgXmk4g0THVP50Ti5b9wLSh3LUphbRRyN
-	MfHVPMnddY78m2/eAIP3yV4BSlq7fKi9fi/V6HNXwwH6sapvd2MOLsxrigaCEM/6hfIw2+l8c6B
-	0zt3i1yiCdg47z0C0rXYhjMC1e8/fOPp3zLgGKMMkOSXjzcYZvXS+9MvhV6OembXD1oOqxR1Sw7
-	n/YnP4=
-X-Received: by 2002:a05:6a21:6282:b0:3dd:a197:7362 with SMTP id adf61e73a8af0-3dda1977457mr14288897637.59.1790045302885;
-        Mon, 21 Sep 2026 19:48:22 -0700 (PDT)
+        bh=273RPbWG7jPvSKiSM2cb6VF23JcSKRk4gJRjLYycPbI=;
+        b=lauhI5OaeXiurHd2DGFYGE5vFjZ58rZP9V4u/K0RR5dqfEiLPGZI3Z139jKNkki+Oy
+         gu+xFIk05Y5oWM1sePDiEJNkywc0f8O+s0k9LBmrZ8TQgUj6c41ztLpPxW8lzXC0Ii8D
+         n+edPFN9t4c2SK6aGKHueQwHF3lbrbFVEXAIf0iOvU6BOxhSyWsguQBOQV+SW57EepaH
+         ee39BgQrOARriLFbfF5t4i6JyrArx91ZToH0Tg+Hh0UpieCrHa5vQpSeXb/k//KhzmC7
+         7gybHymNk2giwZw0rUqzCPiDGVWPoaEOQxv9ziDBqV+bkNxr2HLOuE4WIvkK+NNvYLY4
+         p/kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790045306; x=1790650106;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=273RPbWG7jPvSKiSM2cb6VF23JcSKRk4gJRjLYycPbI=;
+        b=zG2aBguPYf5aJEhK0OsOL6Pb4kVepsysBofj6Gl6hu7d51q8OzZLRv+pDvUev0+I2Z
+         HS5ty65jGp02Ogm+DG31gCyoZHOejCA29+0AHmrhc4kTeluTitwnF26coABlZfQUL7gm
+         5hQrHAnQivcNpRg5zbepxFBv4vZp8zaANwQK9DAjxmilkdV8MjtI0zLXSUmcJIdJyUQr
+         XcAa6Cgtk8njFQFPhx11q2Woib1EEeqonbaRsmx8D5m27SqutQUmOTovAvQFj2znkdZu
+         6jejZ1HRu9+9Z4y01P3TTcXw8IwlHIV1Su3h0J0najE4cTnQNAioY2GXjfnlC3PrlG9M
+         0bNw==
+X-Forwarded-Encrypted: i=1; AKwUvBx8DFwNTpgtvILORDgbhJxGl0sZeW1KPbIHsnJao7JqAHTNJOnCtlXerVlKHHeP/QUyKopnaI8hNUlyyCI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhn6C4JednTaCfe/YTkp0i0ztO4SZjI4kjaKZKkVexzqyjiy4m
+	2CcDpnEUfg+GN73XDyAyCOJIrmC11Ay1W+cn+vMLHGB5mK9ryCeN5vry
+X-Gm-Gg: AYBFou3v/NwlXKthak91JFyBIZEo6TZHCX+jGIZ8oyOGOBlinqc8Ru5IJvzVE2AFDZS
+	XWHdDtw7Yo0B2b7LFRxQ23xX2FxyuxS6nLtwLEK1ivR/iKmd4ShgdMQ6l3+XfYRbhALfMHLYEFN
+	hBt5dazcPYZbVYIEiqXUncn3ozVPnsP2CkQ1Gdl3RLY5AUvWo/Rtall/HUQT+yR2TcAbq/Eier3
+	+k0fIDp+2pHJ9hDpvOupuuTZ6yjcsAdOeyvGDfstaHnQWmaf4OKKw9MJEZOY+r63ifwJlmk+038
+	NSfDhMMIf2ELRNuz5bb8VxegM2WK9VmBB4qE50Ast/j08vNv84VuPRcub9M5qEeY1t0d8bgsxUA
+	OdB+gzaS+5DCWKryUW7GJQhud+rOW6JWd4TmohEbRQbzbdgyXFwn5Q9kB5ACfEv8GdOWn43GbHA
+	8wn1WI5Gv+UmNi8iVKOXNIh4oYiegCXrH1Kce5hZ31cHrBNG5nP6MQiEhelmT16NWkc6Ysgw==
+X-Received: by 2002:a17:902:e54d:b0:2df:42af:2fab with SMTP id d9443c01a7336-2df59a5a817mr14138975ad.34.1790045305892;
+        Mon, 21 Sep 2026 19:48:25 -0700 (PDT)
 Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc756a18d4fsm115091a12.11.2026.09.21.19.48.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d02eb4fsm1636465ad.37.2026.09.21.19.48.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 19:48:22 -0700 (PDT)
+        Mon, 21 Sep 2026 19:48:25 -0700 (PDT)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	Damien Le Moal <dlemoal@kernel.org>,
@@ -89,10 +90,12 @@ Cc: Inochi Amaoto <inochiama@gmail.com>,
 	linux-phy@lists.infradead.org,
 	Yixun Lan <dlan@gentoo.org>,
 	Longbin Li <looong.bin@gmail.com>
-Subject: [RFC PATCH 0/5] phy: core: Use EOPNOTSUPP for disabled blob return value
-Date: Tue, 22 Sep 2026 10:47:15 +0800
-Message-ID: <20260922024724.191412-1-inochiama@gmail.com>
+Subject: [RFC PATCH 1/5] phy: core: Use EOPNOTSUPP for disabled blob return value
+Date: Tue, 22 Sep 2026 10:47:16 +0800
+Message-ID: <20260922024724.191412-2-inochiama@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922024724.191412-1-inochiama@gmail.com>
+References: <20260922024724.191412-1-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,22 +109,230 @@ it does not reflect the function state correctly. As kernel already
 has EOPNOTSUPP for disabled blob function, replace ENOSYS with
 EOPNOTSUPP for a clear return value.
 
-Inochi Amaoto (5):
-  phy: core: Use EOPNOTSUPP for disabled blob return value
-  ata: libahci_platform: Adapt the return value changed for disabled
-    blob
-  usb: dwc2: Adapt the return value changed for disabled blob
-  usb: dwc3: core: Adapt the return value changed for disabled blob
-  drm: bridge: analogix/dp: Adapt the return value changed for disabled
-    blob
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ include/linux/phy/phy.h | 52 ++++++++++++++++++++---------------------
+ 1 file changed, 26 insertions(+), 26 deletions(-)
 
- drivers/ata/libahci_platform.c                |  4 +-
- .../drm/bridge/analogix/analogix_dp_core.c    |  2 +-
- drivers/usb/dwc2/platform.c                   |  2 +-
- drivers/usb/dwc3/core.c                       |  4 +-
- include/linux/phy/phy.h                       | 52 +++++++++----------
- 5 files changed, 32 insertions(+), 32 deletions(-)
-
---
+diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+index ea47975e288a..3e84b54a4b03 100644
+--- a/include/linux/phy/phy.h
++++ b/include/linux/phy/phy.h
+@@ -314,14 +314,14 @@ static inline int phy_pm_runtime_get(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_pm_runtime_get_sync(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline void phy_pm_runtime_put(struct phy *phy)
+@@ -332,35 +332,35 @@ static inline int phy_pm_runtime_put_sync(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_init(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_exit(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_power_on(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_power_off(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_set_mode_ext(struct phy *phy, enum phy_mode mode,
+@@ -368,7 +368,7 @@ static inline int phy_set_mode_ext(struct phy *phy, enum phy_mode mode,
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ #define phy_set_mode(phy, mode) \
+@@ -397,35 +397,35 @@ static inline int phy_reset(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_calibrate(struct phy *phy)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_notify_connect(struct phy *phy, int index)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_notify_disconnect(struct phy *phy, int index)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_notify_state(struct phy *phy, union phy_notify state)
+ {
+ 	if (!phy)
+ 		return 0;
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_configure(struct phy *phy,
+@@ -434,7 +434,7 @@ static inline int phy_configure(struct phy *phy,
+ 	if (!phy)
+ 		return 0;
+ 
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
+@@ -443,12 +443,12 @@ static inline int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
+ 	if (!phy)
+ 		return 0;
+ 
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline int phy_get_bus_width(struct phy *phy)
+ {
+-	return -ENOSYS;
++	return -EOPNOTSUPP;
+ }
+ 
+ static inline void phy_set_bus_width(struct phy *phy, int bus_width)
+@@ -458,12 +458,12 @@ static inline void phy_set_bus_width(struct phy *phy, int bus_width)
+ 
+ static inline struct phy *phy_get(struct device *dev, const char *string)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline struct phy *devm_phy_get(struct device *dev, const char *string)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline struct phy *devm_phy_optional_get(struct device *dev,
+@@ -476,7 +476,7 @@ static inline struct phy *devm_of_phy_get(struct device *dev,
+ 					  struct device_node *np,
+ 					  const char *con_id)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline struct phy *devm_of_phy_optional_get(struct device *dev,
+@@ -490,7 +490,7 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+ 						   struct device_node *np,
+ 						   int index)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline void of_phy_put(struct phy *phy)
+@@ -507,27 +507,27 @@ static inline void devm_phy_put(struct device *dev, struct phy *phy)
+ 
+ static inline struct phy *of_phy_get(struct device_node *np, const char *con_id)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline struct phy *of_phy_simple_xlate(struct device *dev,
+ 					      const struct of_phandle_args *args)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline struct phy *phy_create(struct device *dev,
+ 				     struct device_node *node,
+ 				     const struct phy_ops *ops)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline struct phy *devm_phy_create(struct device *dev,
+ 					  struct device_node *node,
+ 					  const struct phy_ops *ops)
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline void phy_destroy(struct phy *phy)
+@@ -543,7 +543,7 @@ static inline struct phy_provider *__of_phy_provider_register(
+ 	struct phy * (*of_xlate)(struct device *dev,
+ 				 const struct of_phandle_args *args))
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline struct phy_provider *__devm_of_phy_provider_register(struct device
+@@ -551,7 +551,7 @@ static inline struct phy_provider *__devm_of_phy_provider_register(struct device
+ 	struct phy * (*of_xlate)(struct device *dev,
+ 				 const struct of_phandle_args *args))
+ {
+-	return ERR_PTR(-ENOSYS);
++	return ERR_PTR(-EOPNOTSUPP);
+ }
+ 
+ static inline void of_phy_provider_unregister(struct phy_provider *phy_provider)
+-- 
 2.55.0
 
