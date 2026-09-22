@@ -1,110 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0414F41A575
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A58341A4E2;
+	Tue, 22 Sep 2026 08:24:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065461; cv=none; b=m3vlXh5EZtIi+OMkOiRBqC7nCDPPnc1TpJTmzV0I0kvlJkkTBKfYcWy74mhYVGZY8WVn48VzZyfyyjHmaGoWEWC3yealblx75Eabp9BLYHvz0xv1lOfo42ktCbX/v75LBU+x8esABpgN9jpoTpUOAdzNukAXloK/if6IL2u8IpU=
+	t=1790065476; cv=none; b=aeRXLsG0fSSjlnuuJ9WNLTzUGkKshVPCpt1JLk5oKLAZvuCjXbRmSmZOtg4cX2ylFW1rA4UMLQewz4/FIwjJqQvxgmg/BguIkXdhhd3ixu2P+nBO4xkkcugwUXjCncGewUo1q/sKZ6pmOZfAY91shaarxuJzh4SvBrdqygDDw5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065461; c=relaxed/simple;
-	bh=dIzwvHbubNIxzeAGu/6wR8vR/VcsOB80Qhi7H+evobY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tJln4D1Tr2SJm4dpqozwlhIEiAErHSfCEcu6KV71c70OZsQjhmW0fQh6/fZHLUTKmhgk/i8JsAsgDJRYhy+DImlgQ4t7mnBAY9KVPtRJLzsl5bopZBxtlgauoyxG9+dT/LKrUq8LDDl8OrVc/K/9IuCSVAb1LSaDD5iR6IxQQxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPS+1GyV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790065476; c=relaxed/simple;
+	bh=EHn4LVKXiu/vDB5HR2ps7KF1AH1QvkeJmwe5X9Dspks=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=TKEtc93eQZGf8FrpvelLDxeG4T1eWdEjX5Bqyzg3HU2dW0HRaiGVQF6hgXqh7hFPOcuHDmXo97bKuMGJkwEI64cLMv3Q2/WDpEDzS7lmZyNjLHAvokU+FtJHef+6jwY4Df9mVoPx8qCITTfPQRMHq75dmA9Hd7S4mNfU8VGkapQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZgmCECQx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPS+1GyV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74AA61F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZgmCECQx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5635D1F000FF;
+	Tue, 22 Sep 2026 08:24:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790065459;
-	bh=QktO34jPXBfKdoHn+g231ToSz9I4E6jz14gUwoW6nA8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=bPS+1GyVPa7XdVUiPA9k9+7yAa7xzmGu/WihUxoOrYyIg4jmIIk8rG9ar2msGlT1b
-	 XZse7Bb7wM/ST11PV5YpFYVzgjTFPRwsktBUE+thaF7vFFsLQdMDBLuHp2d5etL9jq
-	 QFJvMYdYRlBGke4Qxnri07n4W3y266itxD5UuU8m4jU1VykJQ/m69If93sTwODaNk9
-	 wYteKpT/AOs1Q8Es9F60ZJBIoBkxk2vr3fiX+zRhMCp8q4SLyFAdlVRn9DBhyFuPBn
-	 XLPX3JO+csjYHVzmWDy0oWaMzs34nx07GVPSex6iWFnobOJ8dcCzX3hPWAkt29aDzk
-	 ViUxiHxWoBVFw==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d6489419so101611e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:24:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByz6Fh9HMIzjDGGd0CSKfxBI1SukLksLccxxoFZirIMWDTY/UG8ZaWVr91kfB/vQHLnfBquLT0a+ga7rkk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lk+m4Hte0udS7AUCqAUrRjOFq4BbW/gP1jbsxmCv3gZj7EK9Mf
-	p/Yw2SBAxHCqdheT3gxcxYp4TUNRNe+2rVDg81M/Go+wwU1BltTRqhr/v+8YKVYIzj0orZl9MKP
-	wu6lDSgVEyLRzRZ87Og1B5g39xI3VZP5eQ5LYXHY5tg==
-X-Received: by 2002:a05:6512:6281:b0:5b8:babd:dc2c with SMTP id
- 2adb3069b0e04-5b8c1849028mr3748521e87.37.1790065458151; Tue, 22 Sep 2026
- 01:24:18 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
+	s=k20260515; t=1790065475;
+	bh=MEzqrZbkrRkeXVyXks8YClxTm4fkFoHGMVYQie29ZPs=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ZgmCECQxLxEv87uw0y4EjbIxcdeXoSQTdJyLl/WHRGMD1QSKv14D4toovKi99rvxv
+	 J1s4IndGN0dV6593LRjmTW6iggNT9XZd9b3+OJEMaDeUPLgdRs3biF+YLD7LbMQn7/
+	 O/lpJiP1ql7A1Y6oPnR+Br70y3VDz5TIEnnfeSusnLsaMllvIcBJ832QsBRtGt0KAs
+	 DIXNTHBQBH9XfV5Dpw3n+DmJxHarAkRneNUIjTUJ/PPhme6H5zVEUysTJGzQ3xMAcy
+	 uw9hNQrcSZPWTU2vYooe+ZUajPRQaEDXSOiu+QeeIxC2+BMhmVkSLM8mTTV+cznMQs
+	 SkgeBHxb0aTWg==
+Content-Type: multipart/mixed; boundary="===============2057901504599120647=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
- <20260921-nord-gpi-dts-v2-1-4f297c983b94@oss.qualcomm.com> <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 01:24:16 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
-X-Gm-Features: AcwNN1Uq-ON_akzO8Lb9slxy7TzsEXI6PEo-ClWH4f2m7UXrx1dbaD36Ih7SNas
-Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: nord: add GPI DMA controller nodes
-To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Message-Id: <42ad057a0f2196a218bf603a0bb66169098f966a9f9f578eedb2186ea177c4ad@mail.kernel.org>
+In-Reply-To: <20260922072102.3570856-1-chenyuan_fl@163.com>
+References: <20260922072102.3570856-1-chenyuan_fl@163.com>
+Subject: Re: [PATCH bpf-next v6 2/3] bpf, arena: fix range_tree_set inconsistency on kmalloc_nolock failure
+From: bot+bpf-ci@kernel.org
+To: chenyuan_fl@163.com,bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,alexei.starovoitov@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,chenyuan@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 22 Sep 2026 08:24:33 +0000 (UTC)
 
-On Tue, 22 Sep 2026 07:34:25 +0200, Mukesh Savaliya
-<mukesh.savaliya@oss.qualcomm.com> said:
->
->
-> On 9/21/2026 8:16 PM, Bartosz Golaszewski wrote:
-> [...]
->
->> +#include <dt-bindings/dma/qcom-gpi.h>
->>   #include <dt-bindings/interrupt-controller/arm-gic.h>
->>
->>   / {
->> @@ -909,6 +910,28 @@ soc: soc@0 {
->>   		dma-ranges = <0 0 0 0 0x10 0>;
->>   		ranges = <0 0 0 0 0x10 0>;
->>
->> +		gpi_dma2: dma-controller@800000 {
->> +			compatible = "qcom,nord-gpi-dma", "qcom,sm6350-gpi-dma";
->> +			reg = <0x0 0x00800000 0x0 0x60000>;
->> +			#dma-cells = <3>;
->> +			interrupts = <GIC_SPI 588 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 589 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 590 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 591 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 592 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 593 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 594 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 595 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 596 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 597 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 359 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
->> +			dma-channels = <12>;
->> +			dma-channel-mask = <0xfff>;
->> +			iommus = <&apps_smmu_0 0x15b6 0x0>;
->> +			status = "disabled";
->
-> we should be keeping GPI node default enabled similar to common QUPv3
-> wrapper node.
-> status = "ok" for all the nodes.
->
+--===============2057901504599120647==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The pattern across Qualcomm platforms seems to disable the GPI DMA nodes at
-SoC-level and only enable them at board-level.
+> diff --git a/kernel/bpf/range_tree.c b/kernel/bpf/range_tree.c
+> index 15b588377a769..0420ab715f206 100644
+> --- a/kernel/bpf/range_tree.c
+> +++ b/kernel/bpf/range_tree.c
+> @@ -199,6 +199,7 @@ int is_range_tree_set(struct range_tree *rt, u32 start, u32 len)
+>  int range_tree_set(struct range_tree *rt, u32 start, u32 len)
+>  {
+>  	u32 last = start + len - 1;
+> +	struct range_node *new_rn = NULL;
+>  	struct range_node *right;
+>  	struct range_node *left;
+>  	int err;
+> @@ -208,20 +209,40 @@ int range_tree_set(struct range_tree *rt, u32 start, u32 len)
+>  	if (left && left->rn_start <= start && left->rn_last >= last)
+>  		return 0;
+>
+> +	/*
+> +	 * The pre-clear probe only decides whether a fresh node is needed;
+> +	 * adjacency on either side is invariant across the clear, so it can
+> +	 * run before the tree is modified and -ENOMEM leaves it untouched.
+> +	 * The merge below re-fetches its handles after the clear instead of
+> +	 * relying on the overlapping nodes being updated in place.
+> +	 */
 
-Bart
+This isn't a bug, but would it read closer to the rest of the file if
+this block were trimmed to the one non-obvious point - that a node
+covering start-1 or last+1 cannot disappear across the clear, so the
+probe is safe to do first?
+
+Looking at other comments in this file, they're all single terse lines
+like "/* Clear out everything in the range we want to set. */" or
+"/* Do we have a left-adjacent range ? */", and the middle two
+sentences here describe what the code already shows (the two
+range_it_iter_first() calls below and the "/* No adjacent ranges; use
+the pre-allocated node */" comment later).
+
+> +	left = range_it_iter_first(rt, start - 1, start - 1);
+> +	right = range_it_iter_first(rt, last + 1, last + 1);
+> +	if (!left && !right) {
+> +		new_rn = kmalloc_nolock(sizeof(struct range_node),
+> +					__GFP_ACCOUNT, NUMA_NO_NODE);
+> +		if (!new_rn)
+> +			return -ENOMEM;
+> +	}
+> +
+>  	/* Clear out everything in the range we want to set. */
+
+[ ... ]
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35700555218
+--===============2057901504599120647==--
