@@ -1,96 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9A7576ED3;
-	Tue, 22 Sep 2026 17:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C50576EB3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790097344; cv=none; b=ijNzjTDOWixmwZwWMA6w2YR445aB+j4OJWpBbFf0r0V8vUQBQfDOnNdFzNic+E9dQW3R0kNwTrunBXMCQUAr80r1IdhkddaIa90rjQEm+KNxCvE0Asr5YWTUUlPqq+ImKxcImOd9IfT0hORmvfQ+znKjrRyGiwtIytvZ1I1ybwg=
+	t=1790097397; cv=none; b=CISrWaQ0P83O0y1cnFdBnAH5+Oeczyu24nU7bqO4mlHGiXI3a59fyBSEhrP++9K0/yeGp756CmuXcVXMO4nw7EZOQVK11eLsGS5yxdBDuYkOgHs12oqc7jDQmTtW39higdnEhQ+NtfgLtvU2nde+JDmQVmpEMq8xUxMETeJa800=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790097344; c=relaxed/simple;
-	bh=m8JfzfQ/K7ynxAP+mIg5GPu1v2WwEh4hWVjoye9kaWU=;
+	s=arc-20240116; t=1790097397; c=relaxed/simple;
+	bh=F9wrWhleKxmtzDbWxesfxqdYHneA06HebFTlC/eppXw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G+kaOGbsxq+jozG616ZClrjzKyVjHhY58+f0NiaSPTh23obnHO/8QMm+dzDNuvV62WZxYFvwcxEzPVwc3nWPa5pP9RHsCFwtIee8THrOJ9H3/Rv8VA3/3qRlgWEtmURgxOLkwobEaYAR5EyAQmtmn0GxFglCvgjrPZV6B5Kxg3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGRoPx0g; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nS4W9OZQD5aY/whiXMve1xzjzajnLJrFHc0A/nr0mN2ZaCjL6Atgw+7bqdOQo2K2L8A0dYMixSmZq/DO0tYu9qYSF1pRAYx94+zm/XhgLpC1AujUvW8nhfEoW/gLFe45Jw9nxywzMVLb0NZ93ungt4lQy/074juuDrP+N7BjKto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=ZH4Xw0K8; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGRoPx0g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904A21F00893;
-	Tue, 22 Sep 2026 17:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790097342;
-	bh=KwQN7WVhANwtG21qRW2cXhG1KlqZnmnqp3LyL8PiblQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MGRoPx0gFeoZ620M+h6hVml1cmstZ36RtqWY65JVSsUD5TMarzlFWrri8h+HdC4fV
-	 tb3O2T8Z9k0tiACSeV/L/YdcNDoDkcmo5S6d+2gsXo1v7ZuLSr6xYIWNvegc6TufBK
-	 eg5RUuFKBcIK0G2An7KcyBk/RLadzP4pFEQw7yeQhdN3ofhyFPBi93dJvIyWDpuwMP
-	 BcOeNuR4b1fXl7ZVbsnBNPnyMtaoynBi4uhbqvKUdD5haCJvQJoEPoyLcnb3iFhxCW
-	 iU1VzelR+8iiGNSduR4hDUo+gQfKMHArnhh/H9uEoLVkrxlwAexfAEyPfNAZrT7A4z
-	 VbqQwSaYdEhQQ==
-Date: Tue, 22 Sep 2026 18:15:34 +0100
-From: Will Deacon <will@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Message-ID: <arK3tsTV6EDhI-nt@willie-the-truck>
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="ZH4Xw0K8"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-939109f067fso12780285a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:16:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790097393; x=1790702193; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CJkQfQB3a9RKvj8bM5CBOZYh4CkWNCRPcTCANcgJj3I=;
+        b=ZH4Xw0K8TWVxEt3LU5a0ZAvXnrqs2hWG2jpFUDzLLuhJS/3K5FQMz0vOuMG3EvZySY
+         7B9YNXNP9msgSJau3yceZbUWsl5YRuMfKoM44vSwLV8HiCkZfEibnCrTXQ6KAlwwsLOL
+         hplsjEvjHkBozKr9K7rlA9BeoIRqaIUdPFxxndrSpQr10abL7O/kh57mu4vvqALKx4KA
+         PO8gnGJ7e/9zok1lRs2Qsu8hu+L3JzuL999xZJ2NMBB5jcS+UE5kd4JaLOblFYWwPct8
+         wgD0PpGsvuyDyU98SvCudgBYnX8B1CtH5GX7szzLRcswZtW8b4FYcQIWAw/ClEIuZk2s
+         2n3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790097393; x=1790702193;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CJkQfQB3a9RKvj8bM5CBOZYh4CkWNCRPcTCANcgJj3I=;
+        b=IBY6ddvNS4Vg5CSPWgsIue2/wI20eNQ6IxxxFY1wMGAiFDaiFusDXv7LOhsHmlLvfT
+         XDMqblhwh7w9edBiOWeCBY+9wzuIHHpKhsXFshfUEOLsTuuscgdpqYi+eEvvVdXf6+1z
+         DBK+3Cq+jH0185LPnrLCcT80JA6TA+WnEcWQhKi5ksDDQ3CNoG04TmMqCbBUk/mShpJ8
+         ffdHgXcEkXZ1FtxppXP77jVensdduOadrq8KnKGXbp8OE1yiX5GYFwcqCyKaa0FQx+OX
+         hD4bvZh/5LTtTsuwPAxT8e2083OQAdifF5lqXNRnOryn2LnyxFTpc6MGIiWtt84bVDAk
+         2tHw==
+X-Forwarded-Encrypted: i=1; AKwUvBxG0cjbGDKGba3GUhXg5TvpTHfkwbEDABlmlj6O4PVnKvO2IKGnzayDw53bQGg6JhkvgwKKwh2xNxF+YU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkN3v5V80MPU1akQDxcfIvbJMY/ss63TNBfSPhTn48JFvKHBFs
+	DF/TgV3P9iUqlf0w5jJqwId/QkaLcUW1/0NbS3Phf4VHrrFXNzaU/cZOfmPtbfharhE=
+X-Gm-Gg: AYBFou2wrwdQlG87Tph+QDllIXw8J2uVXqoxQtwDAyd2ReiD4/oLFclpfXj4SDjJquE
+	cFZpuCk8DIhaP20QYuug0IVmf+IRGFfxrso3Q3HNUr1r0/eT/A1lJtBzBe0Y13dJJvFSuPF7Kyh
+	+1ZOnZCcZSbuO1ceEu/Bx7bREpQ8oQXPR2AnQtuG5fIyiICWAWK6V/2Tl6ioe10aTzO1Uob8/iy
+	QMnzDs1/Qi3Fz7TCsXlCTWnXRve5qXWHPLYihSUzWWlIy101YUeewOIvmToxRgLjqOJYLfYCaC/
+	CwIkUzeGsY0ttfppRUJ9FwXr61pezsb/m0FG+oCOl+y2J+thHPohwdy4XFxROj5ae0CBCocv7Yo
+	Eg62YLz6lEEXR+4LaTTl05Bq/46cR4jTBqPIM7AGmSmUyc7gdeFdF9u/BpCujKLvAaHqdfSgQGh
+	JMzGtNCSJ/xtUvslAeQW1QV2ZsKw72nL0fd0A+7EKUHI19Avh6VvbG+YWvWlksfXWCTg==
+X-Received: by 2002:a05:620a:2993:b0:93b:c22a:e98a with SMTP id af79cd13be357-93c2509e62cmr13040785a.2.1790097393108;
+        Tue, 22 Sep 2026 10:16:33 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24756838sm24592485a.1.2026.09.22.10.16.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 10:16:32 -0700 (PDT)
+Date: Tue, 22 Sep 2026 13:16:23 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Chris Li <chrisl@kernel.org>
+Cc: Gregory Price <gourry@gourry.net>, Baoquan He <baoquan.he@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Rik van Riel <riel@surriel.com>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <ryncsn@gmail.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arK350ZCTJpVtctk@cmpxchg.org>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <aqJXx2vtbKaRLt3x@fedora>
+ <aqLi6cIjD2wJwk0B@cmpxchg.org>
+ <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
+ <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
+ <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
 
-On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
+On Sat, Sep 19, 2026 at 09:02:28AM -1000, Chris Li wrote:
+> On Sat, Sep 19, 2026 at 6:08 AM Gregory Price <gourry@gourry.net> wrote:
+> >
+> > On Sat, Sep 19, 2026 at 03:45:03AM -0500, Chris Li wrote:
+> > >
+> > > I found this new concept of "compression space" very confusing to me.
+> > > Can you explain the swap behavior and problem using only normal memory
+> > > usage reduction and latency without introducing a new term or new
+> > > metrics?
+> > >
+> > > The normal user doesn't even know what compression space is, let alone
+> > > what makes it transparent.
+> > >
+> >
+> > Sure they do - it's the amount of memory consumed by compressed data,
+> > including the metadata associated with it.
+> >
+> > converting Johannes statement to diagram:
+> >
+> > >> Compression space is not a separate resource. It's page tables,
+> > >> backing pages, and swap descriptors. It's just MEMORY.
+> >
+> >                           Page Data (PD)
+> >   [page tables][                uncompressed page                  ]
+> >
+> >
+> >                         Compressed Data (CD)
+> >   [      recovered space     ][pte][swap meta data][compressed page]
+> >                               |                                    |
+> >                               |---------compression space----------|
+> >
+> >
+> >                         Memory Pre-Compression
+> >  |[  PD  ][  PD  ][  PD  ][  PD  ][  PD  ][  PD  ][  PD  ][  PD  ]|
+> >
+> >
+> >                         Memory Post-Compression
+> >  |[CD][CD][CD][CD][CD][CD][CD][CD]-------- free space ------------|
+> >    ^----------------------------^
+> >          Compression Space
 > 
-> If the host attempts to access granules that have been delegated for use
-> in a realm these accesses will be caught and will trigger a Granule
-> Protection Fault (GPF).
-> 
-> A fault during a page walk signals a bug in the kernel and is handled by
-> oopsing the kernel. A non-page walk fault could be caused by user space
-> having access to a page which has been delegated to the kernel and will
-> trigger a SIGBUS to allow debugging why user space is trying to access a
-> delegated page.
-> 
-> There is work in progress to unmap the guest_memfd backed private pages from the
-> linear map. Until we get that support, we could get spurious GPFs from within
-> the kernel, e.g., load_unaligned_zeropad(). So, try to fix them up for now.
-> 
-> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
-> Changes since v17:
->  * Pass untagged address to die_kernel_fault() - Sashiko
->  * Explicitly check !user_mode() for fixups - Catalin
->  * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
->  * Clarify the commit description about the upcoming work on
->    unmapping guest_memfd backed pages from linear map
-> Changes since v16:
->  * Update the commit description to indicate why we try to fixup GPFs
-> Changes since v10:
->  * Don't call arm64_notify_die() in do_gpf() but simply return 1.
-> Changes since v2:
->  * Include missing "Granule Protection Fault at level -1"
-> ---
->  arch/arm64/mm/fault.c | 30 ++++++++++++++++++++++++------
->  1 file changed, 24 insertions(+), 6 deletions(-)
+> Thanks for the explanation. So the compression space is just the
+> actual data store backing the zswap/xswap/zram.
 
-I still don't think we should do this, given that the plan is to unmap
-the memory from the linear map. If this thing fires, it's a kernel bug
-and it should be fatal.
+It's actually the pre-compression side I was referring to. The address
+space that vswap/xswap map.
 
-Will
+If you artificially hard limit this *address space*, you are making
+assumptions about (1) compression ratio and (2) how much non-residency
+the workload can tolerate. You might well get real workloads hitting
+that limit while you'd still have the ability to store more.
+
+Add pressure-driven writeback in the mix, and now even compression
+ratio assumptions are not useful: The stuff in zswap compresses a
+certain way and the stuff that was written back is out of memory
+completely.
+
+Yet it's all mapped by that same address space.
+
+How could anyone pick an informed size limit for this space?
+
+How many setups hard-limit the process virtual address space to 2xRAM?
+Nobody. They limit the physical memory required to back it. That's the
+only thing that actually matters.
+
+> > It's actually really confusing to represent this space as a traditional
+> > swap device - built on the assumption of a pre-defined size limit - when
+> > that size limit has already been defined (the memory itself).
+> 
+> First of all, the traditional swap counter has a very well-defined
+> meaning. It is the size of the memory that, when accessed, requires a
+> page fault.
+
+That's 100% wrong.
+
+First of all, it wouldn't work because you can still take page faults
+on the filesystem.
+
+Second, this is absolutely not their intended purpose. They are to
+control access to a physically limited swapfile on disk. Because it is
+a discrete, separate resource from memory. That's the whole reason why
+memory and swap controls were split in cgroup2. I designed this.
+
+What you're talking about is residency guarantees. This is what
+memory.min and memory.low are for.
