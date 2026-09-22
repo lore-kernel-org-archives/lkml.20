@@ -1,694 +1,206 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010003.outbound.protection.outlook.com [52.101.69.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06060515985
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:51:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790059884; cv=none; b=RChCWNkUDVVbGHX196xoeLgZODotYnBKXktYztn65Ztor0GcB/rqLevs13ljHLhtdJzVwOPRjKJr0JIuhLDxWWOeY3rdJM3FubkB4sg5sIdZHrnVTc9uUvUNdjhI7ib99/x34RYdlowWGWprUkMeJsqaBRSFAXnxOlVEOVpB7QI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790059884; c=relaxed/simple;
-	bh=77BFpa+0M2U/+kMB+b+/roYAhK+rbeczvxUOOckhlJI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWY4bQo+0Ef7pPbLAfonVesJN1jfaosTfMiKPYnL2g6D06OjWW7QQMHa9rLf2X178Ix+NNnzxY3iXp0ymUtnQBvLOImBoXArJ1cE0EC1XDxUHfxmjY5GShgICNhMGHJyGQN2xYTieqMAG/o7GLD/tajbaTneMidVOnYYdXlPRLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+YYs+DU; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E493B4119E0;
+	Tue, 22 Sep 2026 06:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790059888; cv=fail; b=Jwdeb/e06kJLVRjL7SqBzyzC75FK0KEEcru8wny+EZM19h6QstdsC4Mfo8p0eRh+Haiwl7hQkNONe7vRBZvhHnxWBOST5/8OKk/VV0VfLTU1Ddm591ht7RsCKeMn4G8KcIp+QDUPISEelQ8Wzpd5m2fcwjsJShSRh1pzGsPK4ZM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790059888; c=relaxed/simple;
+	bh=bsSYQUKTIvjnE28IT+xixpo4hBnsMvG+pC5ZLEWgBWs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=lcU4roTkUha8LlByJDdInfM9u97fgeHbmKR/0iAgNMg8l+PdBEbs5ur5lDauKhWJGICq0K72S5sUatjOmTJjTNJVPV7OtImA0y3Sv7lZXxUfo0HWDkSb/N7VxkED6DNS+Ym1gqpGfejw7r13CvryKeolns3DsdgQncAJS/eUQpA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=OHAfS2vI; arc=fail smtp.client-ip=52.101.69.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+YYs+DU"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe433fso33530795ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:51:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790059881; x=1790664681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VLg+8OloPFuQ0/+ZzS8VrrUtX4b/KrgRtoOvyULN3eM=;
-        b=O+YYs+DUVwXhZJAYi9F+xvi1SQvZLcujANPzy2TnnDSyZzVd3uXb6aJczt4DrWawqn
-         YT29HFV2s62UPlLYBmHDYV0PGqqYlUwRZhFtCWtYreAFbdOIF8FuRA3iF5wg4Bqyeqsr
-         injugw0L5kJp6dSyq9XpijtTGuPwghhG+BdB8BXpO2EV1vwvk75Fg06BPE+PLbY7K1ZE
-         cpDMirZjhaREIAjBfDNDB/c7D3oj3T3IfA6AVL3zQzvjNjwCxNkwDY7g6Ts7+Bbhvy1z
-         71wrdME4ku7vYNCuaI/Wu3ord83oke0Eurfq47a9k7TsBeXhqyfM6acbvP1o2YYp3ZmC
-         pchg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790059881; x=1790664681;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VLg+8OloPFuQ0/+ZzS8VrrUtX4b/KrgRtoOvyULN3eM=;
-        b=VJHNZDp2VE49ZGi//9JjwKtId+LrVh4LeIoPsy5lKFpI67NDqODLHz0c8Si4NgdmTH
-         nH9X0VhM2SKtqI70rFiUdmsYEaikYOw503SuWeYktn04GNXyFiHQNChQ5YiYSh4AX/Xd
-         OEtAdhwDFg8dqlaLhp/l8FUe4wCaG3DRh+RfzNt9Npjqrf/sZJMgDfqpHHuiUSLN5YAD
-         dzWP3ipalTUW24LHAaXjoFnFHHdp+xMrOdGxLL0lv6rtokV61bizh/YL3QsVwiuoffgV
-         3/v2tacVA2nH4aiA4MKPxfRZnIWsNFt/HT3B1Yl+DW5IXmDNhTdH30zu/TSJkxj9YBNL
-         OPQg==
-X-Forwarded-Encrypted: i=1; AKwUvByKOhYn+lYUtcxC+uorJTcYPhY9Uw4BcAAXanWD1QfaUiTEjHVwfJk+ujZ5Jjquw1TkiiWjMNC7nSK+sAI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4lZtZAqWPctokcT1mtRv2rOh/2mcXh8u4HRHLorOemo3C/DUh
-	hGEyc6+vnCQEy+LsEve4zglKtJH2kRgPMEzcrbnkJl3i0Z9R0nlgqbQX
-X-Gm-Gg: AYBFou3UKqKnikgLH8pPrDN5/LwSuQfTlBRkv0r0CX5pseJuy+6H7SIUrnOXyFh6aPf
-	35SSxdHTK835QHbKSIYfLkltUJYSqorTRx3JXx/OHymyejeh4xixP+ZOSLJ2yX/9gvvWBSb8XNn
-	WR96Gr3Wy3GXzYuo68MCxV1QYfdjcMUBbJEgLrSwK0MgS62ulkKSibYFGOwyWM1CRgMnqdCR3SE
-	Ehe38qdzR9qSWZZcNDb7lBff1z66Chn78vBl60Qt6GgX0UnHk8+hWw96VJKrFFExt/5Vayhjxp5
-	ulczjtBd3fbnUuihBeJojOGTENYaOoqiOjbEmnHop1SwE5R/POH+MDaCK7ByRHisO19u19Maa+j
-	SNvvL2Lt/GfXNauB0IxCteg/txtBetT0QX1cnVjPYowgE/uHiCt9TcgBTdmNlj5HCEhH/Vv8Qc3
-	KKp6IP/1yCanZ30OzfnurMB/tO+kYDTlVrGhdAanHYRT2qDBFbbx4FXbMp1yRWoKBsWkJTrm+3K
-	VukPlhUVXak7y1qni5xuhgyrILERQqlMqPA97cLJ5UAbZNkavfFJM5nRb84ojMIHx7GXpWL2V0M
-	YsBt
-X-Received: by 2002:a17:903:22c9:b0:2dd:c100:b2d3 with SMTP id d9443c01a7336-2df60b7f558mr2030725ad.62.1790059881012;
-        Mon, 21 Sep 2026 23:51:21 -0700 (PDT)
-Received: from yupeng-XPS-15-9520.. (c-73-169-192-12.hsd1.wa.comcast.net. [73.169.192.12])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0308f5sm4555945ad.43.2026.09.21.23.51.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 23:51:20 -0700 (PDT)
-From: yupeng <yupeng0921@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Peng Yu <yupeng0921@gmail.com>
-Subject: [PATCH v2] nvmet: add cgroup_path to charge namespace I/O to a cgroup
-Date: Mon, 21 Sep 2026 23:51:15 -0700
-Message-ID: <20260922065115.22508-1-yupeng0921@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="OHAfS2vI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GkvJR3IYxDQkW/C9nwUlQFHCRVGWWuT9Fkb6Cnxaw4tdyJxebTz26/a44JUM4yD+ZcaP0uIk8n6Z9JOAmfm0OLIc6+1LBsIdqWnWVm8NsII5F8YytrkovlVJPOwr1sizykTCA1d7DVN4HhnerIFuaaR2FStRLdfRIhIvHFcmDv8bise4ZSQ3SVeI3xVgzsjzNGQIl/HYIJ5msphd1cQU1DWuTmuPzyoQRMp6t4/lqIfXnTM5lgrgpwHcCNPnOt354rwZGh2O68t/I206WXPhQsFCtCm2gPC1aJXLN20qbWvP9mZKBMb7XVReXVDTJ3025PdMqwm0d2H5JjPSLVpC6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=liw6i66DZH5UwWxLKbuYDE2fFTT2yzStWRfGiED287I=;
+ b=IxrcTJqud0hwBnT9DQ1/7hPnAQiDSgHESI8zmPtbLvo0+1AIsDuq/u1uKCVVVMzxn92poY8JEn7ylaCgXjubETIVbWpRr9YoFM8dw4txCrS2f8b2kuccth9GrJFdYHnaK4WfKUeAONzOO/XRyWvBlA5PAXenpsFG6KxNHNGJRqDy5zMue64Xm/RnFmIeO2FQzcDIrQZbLPShTGBK6oDRhng+GTmSgOXZx1es+TjY3NsUmVP5VVeveuyfql+yGc86HM/WsArLvhjH8ELJtNPazUKuw+bM+rQaNwYqlYHyhztllhKE5/Wh16oPbdn8tbCHtpTJRnSnh7GHGxCZVXqw0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=liw6i66DZH5UwWxLKbuYDE2fFTT2yzStWRfGiED287I=;
+ b=OHAfS2vIKDwtEsv+a3W0/+0rMmVk2NPsIU96Y1L7ocqmcDtF5CljuO590UHN+URi/80fwTXSj0Cpfzl9p5hRnq+tmzB/JHqj4vP9w//hTGTeicanPxn7N1gZloxpwUpKgs7nTouEa+Da1+Kfd/tvuTnxNRfoGRykKcz34EcPDSs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ (2603:10a6:158:401::5df) by DU0PR02MB10423.eurprd02.prod.outlook.com
+ (2603:10a6:10:476::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 06:51:23 +0000
+Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ ([fe80::7e4e:c249:e481:d43]) by GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ ([fe80::7e4e:c249:e481:d43%2]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 06:51:23 +0000
+Date: Tue, 22 Sep 2026 08:51:21 +0200
+From: Henrik Grimler <henrik.grimler@axis.com>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: power: supply: battery: allow longer
+ ocv-capacity tables
+Message-ID: <20260922065121.GA70591@lap5cd525d1j1.sto.se.axis.com>
+References: <20260918-rbrue-suez-upstreaming-battery-ocv-table-128-v1-1-f477ef39ef0d@gmail.com>
+ <20260918082921.GA1515928@pc67698-2615.sto.se.axis.com>
+ <fff86d6b-e4e6-4d90-8373-3ee32432807a@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fff86d6b-e4e6-4d90-8373-3ee32432807a@gmail.com>
+X-ClientProxiedBy: MM0P280CA0061.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:8::21) To GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ (2603:10a6:158:401::5df)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PPFBD14D17F4:EE_|DU0PR02MB10423:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b17fe5a-4318-4fa0-0cc0-08df1875ea04
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|10067099003|56012099006|11063799006|4143699003|5023799004|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	F2S0IDTGAmYLo0VAuek1Mh3Ye+SOFUBNXvZzd5kYP/N0l07pY1TZHyfghkoIdStiQBYtXBEvE1oAvmjSXvLkLfzpHwENoEa0TVxdF8Ab9lippiQIkQ7pMcugkreL23iKfbbV7GiWyYOoX7AHoepClgm5mDuMcJghWOcZfKpdSq5buliQoF9i6oQ1pMM6LLmsVw21+3+qKeDrNmQnMCG1r46eGk3BV9fys/duTI9rNUeBPos1atrHvuQuMyP+Ls/LSP3DY2nNNbsfyMgGL0J3fp953z7diaPiWa6ijFyj7PvEsqHS+AFavSO99Em9BilU8w7Tdg6Qz4DKgtv3OrKFl8sMifc5+nA7UZ9x0Wc9IMA2I1UyFoaI1q5fJGmPUkt1W4AITFBhvzL3tD7UYjowMyIvwoaTy0GdbD2yNCg0H71ix262qBKFgvCsdIl11a81ottzw755tN4ZsQBYz6LQlbReXMuniVzPAxwoIuTXxZNEab9INBTckFsU9NsuXGNGxF4HxcMmbcYS/hRad/9CIE9EH3TfEH4ZaxZmEAOrAiL2F2QemcMYPQhTBUwI8QBo8phwPIgIAL3+K+ZFfBNeNHhcTr0ui3f5BwLQFWi9P5Rd5lIE7epSMD/NdMmXB1l3CIw6K8sGdPJ8h5vNNIWeCat4uLqmVoynzu7Hf0QDols=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PPFBD14D17F4.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5mY+5okzxSBnSQN+HTaGKRTGEk2zl8EoAvoLqCb7ZP2FwPmMlQV/vHw6LcN8?=
+ =?us-ascii?Q?fjeC2fZrLbQymnuv+Apwl8BEn7KJpyy0vH3nb2xjWf2HbGVraxp2TLtQx4Zw?=
+ =?us-ascii?Q?O+vfZ7XbKEluK2nhBLZ9l03OHSjn9ZhDkv48EJVsTDzkAQiZrHSSdmczkNRW?=
+ =?us-ascii?Q?EyyWZ0eHLqVYVq37/dWTfzUPMUIE0vdzr0ObM+z6SFAJNNedPDYZbQuVZY95?=
+ =?us-ascii?Q?IrQZn4BdHU2nq7bTKQVzVkMscyA9UKzauohs4qVBiSPDn0fmcId8RZU5sUug?=
+ =?us-ascii?Q?cMpptPDHi+jOqz8EY4oUUFlHOBgmM20SYXDXqhG2IorHH5ri8bCKHW98ZsiO?=
+ =?us-ascii?Q?dXn7LqUgC0eFg2kJ1U00mhRw4i9p0QwyqWq52sJMpjcKdqI0EJcjhsih9OqY?=
+ =?us-ascii?Q?YRyyDdM/xnfDzx4/3O7U2OOJLMhtGdeuIYz2suoI2xO3sMTiuns5QAD/yamq?=
+ =?us-ascii?Q?+Pqi7XTWOjacoZAifDYOpKxCPlS6SpPf5V+JhzqdbouT5cdqoKVFB114gNag?=
+ =?us-ascii?Q?JAXflmAGkyos6ObftaZbcJ9ZwNkkr+jhOaKAj2cli57j1fBGaz1E/E4HxxwX?=
+ =?us-ascii?Q?FIeIrXn941c+m/EQl8X0rtgo8uvXmt/GiaAxY/oD6Eq/7iCB8t7iaFBfyKJf?=
+ =?us-ascii?Q?lv0aiIOB6W0IftorE0gYeriRXsTOHG3zEDd6jGKytHku2CY+zBHgk/LeevnO?=
+ =?us-ascii?Q?AnD2Wj4ffIE3HrC3ZUfLdjlyG0TfIKNcRePnW1LIjKpF/5P9O7aHFGmUHFIy?=
+ =?us-ascii?Q?UuIgCOJw2vPfWetKz75nIncocPsjgqWWYrU6KkbUxP3Quk/wGdrD946cdP3r?=
+ =?us-ascii?Q?pSZb4VpRW0f+QJ79pUXzik2ErU5CZG7C1Ht/NtH8y3sg8fjjkcZeOqKX/1YI?=
+ =?us-ascii?Q?BQAWG1sJFtfse5CQTxmM8hdSPG4dNgTGbZ7SEs6Bm6mH8NLUW8ueNY5XzDGS?=
+ =?us-ascii?Q?49tByYp2rou+2T/KJ9rjCBUyRF99LDRCb5SGf2ApKGA17q/UVnE/aJ5mERBQ?=
+ =?us-ascii?Q?nVpBQjW3rXtDKFDmiXxDdM7Nsh95j1oO9EUmANkAYtO9QCBBgZwMF64BAAbJ?=
+ =?us-ascii?Q?x2aQ4COxO3FO0agjzPo/Q0YgBHdgXipUgosNdaTR71mWJye1AuHEqhHfhsak?=
+ =?us-ascii?Q?yJ5qjFfmadCxg2i4IOTjhPYt+eb5PxjfI7faktXT1U29Q5RwIyJjtmgjDFsS?=
+ =?us-ascii?Q?YGyMdhnTcXsxE0I5ssy5hOLbpCkuhYRy8cBJH4d/UCImnLhpMOoqqa/qli/U?=
+ =?us-ascii?Q?lIS0CVie1ToqzDpwF8wD7PYFPV1H5gc4rq8vePALm02gTB2LbOIRjzttLbuS?=
+ =?us-ascii?Q?879HmCRsmSRN11O1y1xVwXFjZJNJ4oberbBy9DGpAJcI/NVj1S1ViHC0JYLp?=
+ =?us-ascii?Q?mUuA4ELKucgpdwhJcI7FIg6eHybFg6EuCq8VlPR5OmajreJ1xw8eX845vTX2?=
+ =?us-ascii?Q?xTgmUpKujUWwDwdIk1l7G2X+1RuJotPiFUua4VPiebke067ANn3mI7KE8PYo?=
+ =?us-ascii?Q?/eI+marea6MZ4meLqFj2TaaIPSrfcvIUR0/wPbhqDzwxjrDcS7dETNAYAa9b?=
+ =?us-ascii?Q?uZnxvgDmO3WTWXQq7mY+MWaUhlqU4odn6+yHNWYSowGEdjgAKL1ywOjJvNTR?=
+ =?us-ascii?Q?xXMoyDEX0BaZVPZCTggatHOYqHMD5FIn9ODdrHsPJtjPqoRqnkYs+HVp0xJd?=
+ =?us-ascii?Q?9AMuhE4unHHVIXewX57gBQTNFy8B9Uuhod3wBkJ44PKKwctu?=
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b17fe5a-4318-4fa0-0cc0-08df1875ea04
+X-MS-Exchange-CrossTenant-AuthSource: GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 06:51:22.8689
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OhBOndodUun5X6FNUNgxGBchBsINwU/uxs/59ySuxg8/uvqtAykqIk2fwY3QD0MMG3Hp2iGc9+ODu9VLbK7Avw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR02MB10423
 
-From: Peng Yu <yupeng0921@gmail.com>
+Hi Ryan,
 
-Scenario:
-* Create multiple nvmet subsystems/namespaces.
-* The namespaces are backed by different LVM logical volumes.
-* Some of the logical volumes share the same physical volumes.
-* The subsystems are exported to different users.
-* We should provide each user a specific iops/bps quota, thus a noisy
-  neighbor won't impact the performance of other logical volumes.
+On Sun, Sep 20, 2026 at 01:42:02AM -0500, Ryan Brue wrote:
+> On 9/18/26 3:29 AM, Henrik Grimler wrote:
+> > Hi Ryan,
+> > 
+> > On Fri, Sep 18, 2026 at 12:36:31AM -0500, Ryan Brue wrote:
+> > > ocv-capacity-table-N has been capped at 100 points since battery.txt was
+> > > converted to YAML, where the limit arrived without a stated reason.
+> > > 
+> > > The MT6397 fuel gauge is characterised per temperature by a table the
+> > > Amazon Fire HD 10 (2017) vendor device tree carries with 126 points, of
+> > > which 122 are expressible here - the remainder are greater than 100%
+> > > discharged, so the binding excludes those points. Boards carrying this
+> > > PMIC fuel gauge would need more than 100 points to describe the pack with
+> > > the generic property. Raise the cap to 128.
+> > > 
+> > > Assisted-by: LLM
+> > > Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> > > ---
+> > > No kernel change goes with this. power_supply_get_battery_info() sizes each
+> > > ocv-capacity-table-N from the property itself -- it reads the length with
+> > > fwnode_property_count_u32() and devm_kcalloc()s that many entries -- so
+> > > maxItems in the binding is the only cap on points per table.
+> > > POWER_SUPPLY_OCV_TEMP_MAX bounds the number of tables, not their length.
+> > > 
+> > > The consumer that wants this is an MT6397 PMIC fuel gauge not yet posted;
+> > > its pack is characterised at 126 points per temperature in the vendor's
+> > > kernel (Amazon Fire OS, based on Linux 3.18), with 122 of those points
+> > > being expressible with the generic property (the rest are greater than
+> > > 100%).
+> > Allowing for points > 100 % could make sense, but why would you need
+> > 122 points up to 100 %? If the vendor kernel has several values at for
+> > example 20 %, then a better solution is probably to take the average
+> > of them.
+> > 
+> > I think only reason to have multiple values for the same percentage
+> > would be if hysterersis (see for example this open-access article [1]
+> > for discussion about hysteresis) is taken into account, i.e. having
+> > one table for charge direction, and one table for discharge direction,
+> > but I don't think any driver uses multiple tables to handle something
+> > like that.
+> > 
+> > [1] https://doi.org/10.1038/s41598-019-51474-5
+> > 
+> > Best regards,
+> > Henrik Grimler
+> Hi Henrik,
+> Yeah, you're right. To be honest, I didn't think about that, and should
+> have.
+> 
+> On why there's so many points: the vendor's table isn't indexed by
+> percentage at all. A row is a fixed 54 mAh step of charge - step_of_qmax,
+> which the meter converts to mAh directly - and the percentage column is just
+> that rounded, round(i * 54 * 100 / Qmax), which fits every row of all five
+> tables exactly. At 0.85% per row about one in six repeats, so the duplicates
+> carry nothing. I should also correct the figures I sent: 126/122 is a
+> different cell in the same vendor file. This unit's tables are 120 points
+> and none of the points are above 100% in this one.
 
-Implementation:
-* Add a `cgroup_path` attribute under the nvmet namespace folder, e.g.:
-  /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/cgroup_path
-* We can write a cgroup path to it, then that cgroup will control
-  the IOs used by the namespace.
-* Write an empty string to clear it.
-* The cgroup_path could be modified when the namespace is disabled.
-* Support both block device backed namespaces and file backed namespaces.
-* Only the direct io scenario is supported, enabling a namespace that
-  has both cgroup_path and buffered_io set fails with -EINVAL.
+I see, thanks for explaining.
 
-Test:
-1 Load kernel modules.
-sudo modprobe brd rd_nr=2 rd_size=1048576
-sudo modprobe nvmet
-sudo modprobe nvmet_tcp
-sudo modprobe nvme_tcp
+> I don't need to model the vendor one to one. I measured what dropping
+> resolution costs, and decimating to 100 points changes the capacity I report
+> by at most 1% - so it fits the binding as it stands, and the justification I
+> sent doesn't hold.
 
-2 The two brd devices are used for a bdev backed namespace and a file
-backed namespace, remember their major/minor.
-lsblk --noheadings --nodeps --output NAME,MAJ:MIN,SIZE /dev/ram0 /dev/ram1
-ram0   1:0      1G
-ram1   1:1      1G
+Interpolating the vendor table to fit 100 points would be the way to
+go in my opinion.
 
-3 Enable the io controller and create two cgroups, one for the bdev
-backed namespace, another for the file backed namespace.
-echo "+io" | sudo tee /sys/fs/cgroup/cgroup.subtree_control
-sudo mkdir -p /sys/fs/cgroup/nvmet-bdev
-sudo mkdir -p /sys/fs/cgroup/nvmet-file
+> The only thing I can see still being worth raising is 101 rather than 128.
+> Capacity percent is capped at 100, and 0..100 inclusive is 101 values, so if
+> I'm not mistaken no board can express 1% granularity today if they have
+> points at both 0 and 100. I'm not sure that's worth a patch on its own, so
+> I'm fine dropping this, or doing a v2 allowing 101 values.
 
-4 Create a file system and a file on ram0.
-sudo mkfs.ext4 /dev/ram0
-sudo mkdir -p /mnt/nvmet-file
-sudo mount -o noatime /dev/ram0 /mnt/nvmet-file
-sudo dd if=/dev/zero of=/mnt/nvmet-file/ns.img bs=1M count=512 oflag=direct
+Changing the limit to 101, and adding a comment about why, sound good
+to me!
 
-5 Create the bdev backed subsystem and namespace.
-sudo mkdir -p /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/attr_allow_any_host
-echo /dev/ram1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/device_path
-echo /nvmet-bdev | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/cgroup_path
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/enable
+> Best regards,
+> Ryan Brue
 
-6 Create the file backed subsystem and namespace.
-sudo mkdir -p /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/attr_allow_any_host
-echo /mnt/nvmet-file/ns.img | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/device_path
-echo /nvmet-file | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/cgroup_path
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/enable
-
-7 Export the two subsystems to 127.0.0.1.
-sudo mkdir -p /sys/kernel/config/nvmet/ports/1
-echo ipv4 | sudo tee /sys/kernel/config/nvmet/ports/1/addr_adrfam
-echo tcp | sudo tee /sys/kernel/config/nvmet/ports/1/addr_trtype
-echo 127.0.0.1 | sudo tee /sys/kernel/config/nvmet/ports/1/addr_traddr
-echo 4420 | sudo tee /sys/kernel/config/nvmet/ports/1/addr_trsvcid
-sudo ln -s /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:bdev
-sudo ln -s /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:file
-
-8 Connect the two subsystems from 127.0.0.1.
-sudo nvme connect -t tcp -a 127.0.0.1 -s 4420 -n nqn.2026-09.io.test01:bdev
-sudo nvme connect -t tcp -a 127.0.0.1 -s 4420 -n nqn.2026-09.io.test01:file
-sudo udevadm settle
-
-9 Set riops to 20k and run fio.
-echo "1:1 riops=20000 wiops=max rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=20000 wiops=max rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=randread --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec)
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=randread --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec)
-
-10 Set rbps to 100M and run fio.
-echo "1:1 riops=max wiops=max rbps=104857600 wbps=max" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=max wiops=max rbps=104857600 wbps=max" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=read --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=97, BW=100MiB/s (105MB/s)(1033MiB/10304msec)
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=read --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=97, BW=100MiB/s (105MB/s)(1031MiB/10297msec)
-
-11 Set wiops to 20k and run fio.
-echo "1:1 riops=max wiops=20000 rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=max wiops=20000 rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=randwrite --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec); 0 zone resets
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=randwrite --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec); 0 zone resets
-
-12 Set wbps to 100M and run fio.
-echo "1:1 riops=max wiops=max rbps=max wbps=104857600" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=max wiops=max rbps=max wbps=104857600" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=write --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=97, BW=100MiB/s (105MB/s)(1031MiB/10305msec); 0 zone resets
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=write --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=97, BW=100MiB/s (105MB/s)(1032MiB/10297msec); 0 zone resets
-
-13 Cleanup the environment.
-sudo nvme disconnect -n nqn.2026-09.io.test01:bdev
-sudo nvme disconnect -n nqn.2026-09.io.test01:file
-sudo udevadm settle
-
-sudo rm -f /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:bdev
-sudo rm -f /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:file
-sudo rmdir /sys/kernel/config/nvmet/ports/1
-
-echo 0 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/enable
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev
-
-echo 0 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/enable
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file
-
-sudo umount /mnt/nvmet-file
-sudo rmdir /mnt/nvmet-file
-sudo modprobe -r brd
-
-sudo rmdir /sys/fs/cgroup/nvmet-bdev
-sudo rmdir /sys/fs/cgroup/nvmet-file
-
-sudo rmmod nvme_tcp
-sudo rmmod nvmet_tcp
-sudo rmmod nvmet
-
-Signed-off-by: Peng Yu <yupeng0921@gmail.com>
-Assisted-by: Claude:claude-fable-5 [Claude Code]
-Assisted-by: Claude:claude-opus-5 [Claude Code]
----
- drivers/nvme/target/configfs.c    | 59 ++++++++++++++++++++++++
- drivers/nvme/target/core.c        | 75 +++++++++++++++++++++++++++++++
- drivers/nvme/target/io-cmd-bdev.c | 18 +++++++-
- drivers/nvme/target/io-cmd-file.c | 21 ++++++++-
- drivers/nvme/target/nvmet.h       | 47 +++++++++++++++++++
- drivers/nvme/target/zns.c         |  1 +
- 6 files changed, 218 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 6286e38436dd..829b92d04ad4 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -561,6 +561,62 @@ static ssize_t nvmet_ns_device_path_store(struct config_item *item,
- 
- CONFIGFS_ATTR(nvmet_ns_, device_path);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static ssize_t nvmet_ns_cgroup_path_show(struct config_item *item, char *page)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	ssize_t ret;
-+
-+	mutex_lock(&subsys->lock);
-+	ret = snprintf(page, PAGE_SIZE, "%s\n", ns->cgroup_path ?: "");
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+static ssize_t nvmet_ns_cgroup_path_store(struct config_item *item,
-+		const char *page, size_t count)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	size_t len;
-+	int ret = count;
-+
-+	mutex_lock(&subsys->lock);
-+
-+	if (ns->enabled) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	len = strcspn(page, "\n");
-+	if (!len) {
-+		/* An empty write clears the association. */
-+		kfree(ns->cgroup_path);
-+		ns->cgroup_path = NULL;
-+		goto out_unlock;
-+	}
-+
-+	if (page[0] != '/' || len >= PATH_MAX) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	kfree(ns->cgroup_path);
-+	ns->cgroup_path = kmemdup_nul(page, len, GFP_KERNEL);
-+	if (!ns->cgroup_path) {
-+		ret = -ENOMEM;
-+		goto out_unlock;
-+	}
-+
-+out_unlock:
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+CONFIGFS_ATTR(nvmet_ns_, cgroup_path);
-+#endif /* CONFIG_BLK_CGROUP */
-+
- #ifdef CONFIG_PCI_P2PDMA
- static ssize_t nvmet_ns_p2pmem_show(struct config_item *item, char *page)
- {
-@@ -833,6 +889,9 @@ static struct configfs_attribute *nvmet_ns_attrs[] = {
- 	&nvmet_ns_attr_buffered_io,
- 	&nvmet_ns_attr_revalidate_size,
- 	&nvmet_ns_attr_resv_enable,
-+#ifdef CONFIG_BLK_CGROUP
-+	&nvmet_ns_attr_cgroup_path,
-+#endif
- #ifdef CONFIG_PCI_P2PDMA
- 	&nvmet_ns_attr_p2pmem,
- #endif
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 43871a8f56ca..3e4972513c3e 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -4,6 +4,7 @@
-  * Copyright (c) 2015-2016 HGST, a Western Digital Company.
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+#include <linux/cgroup.h>
- #include <linux/hex.h>
- #include <linux/module.h>
- #include <linux/random.h>
-@@ -474,8 +475,77 @@ void nvmet_put_namespace(struct nvmet_ns *ns)
- 	percpu_ref_put(&ns->ref);
- }
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	struct cgroup_subsys_state *css;
-+	struct cgroup *cgrp;
-+
-+	if (!ns->cgroup_path)
-+		return 0;
-+
-+	/*
-+	 * Buffered writes will be handled by a separate thread,
-+	 * these IOs have no namespace/cgroup information at that time,
-+	 * so we don't support buffered io.
-+	 */
-+	if (ns->buffered_io) {
-+		pr_err("cgroup_path is not supported with buffered_io: %s\n",
-+		       ns->device_path);
-+		return -EINVAL;
-+	}
-+
-+	cgrp = cgroup_get_from_path(ns->cgroup_path);
-+	if (IS_ERR(cgrp)) {
-+		pr_err("failed to resolve cgroup path %s: %ld\n",
-+		       ns->cgroup_path, PTR_ERR(cgrp));
-+		return PTR_ERR(cgrp);
-+	}
-+
-+	css = cgroup_get_e_css(cgrp, &io_cgrp_subsys);
-+	if (!css || css->cgroup != cgrp) {
-+		pr_err("the io controller is not enabled in cgroup %s\n",
-+		       ns->cgroup_path);
-+		if (css)
-+			css_put(css);
-+		cgroup_put(cgrp);
-+		return -EINVAL;
-+	}
-+	ns->blkcg_css = css;
-+	cgroup_put(cgrp);
-+	return 0;
-+}
-+
-+static void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+	if (ns->blkcg_css) {
-+		css_put(ns->blkcg_css);
-+		ns->blkcg_css = NULL;
-+	}
-+}
-+
-+static void nvmet_blkcg_ns_free(struct nvmet_ns *ns)
-+{
-+	kfree(ns->cgroup_path);
-+}
-+#else
-+static inline int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	return 0;
-+}
-+
-+static inline void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+}
-+
-+static inline void nvmet_blkcg_ns_free(struct nvmet_ns *ns)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static void nvmet_ns_dev_disable(struct nvmet_ns *ns)
- {
-+	nvmet_blkcg_ns_disable(ns);
- 	nvmet_bdev_ns_disable(ns);
- 	nvmet_file_ns_disable(ns);
- }
-@@ -602,6 +672,10 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
- 	if (ret)
- 		goto out_unlock;
- 
-+	ret = nvmet_blkcg_ns_enable(ns);
-+	if (ret)
-+		goto out_dev_disable;
-+
- 	ret = nvmet_p2pmem_ns_enable(ns);
- 	if (ret)
- 		goto out_dev_disable;
-@@ -699,6 +773,7 @@ void nvmet_ns_free(struct nvmet_ns *ns)
- 	up_write(&nvmet_ana_sem);
- 
- 	kfree(ns->device_path);
-+	nvmet_blkcg_ns_free(ns);
- 	kfree(ns);
- }
- 
-diff --git a/drivers/nvme/target/io-cmd-bdev.c b/drivers/nvme/target/io-cmd-bdev.c
-index f2d9e8901df4..0014e5ef2853 100644
---- a/drivers/nvme/target/io-cmd-bdev.c
-+++ b/drivers/nvme/target/io-cmd-bdev.c
-@@ -297,6 +297,7 @@ static void nvmet_bdev_execute_rw(struct nvmet_req *req)
- 		bio = bio_alloc(req->ns->bdev, bio_max_segs(sg_cnt), opf,
- 				GFP_KERNEL);
- 	}
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_iter.bi_sector = sector;
- 	bio->bi_private = req;
- 	bio->bi_end_io = nvmet_bio_done;
-@@ -322,6 +323,7 @@ static void nvmet_bdev_execute_rw(struct nvmet_req *req)
- 
- 			bio = bio_alloc(req->ns->bdev, bio_max_segs(sg_cnt),
- 					opf, GFP_KERNEL);
-+			nvmet_blkcg_set_bio(req->ns, bio);
- 			bio->bi_iter.bi_sector = sector;
- 
- 			bio_chain(bio, prev);
-@@ -358,6 +360,7 @@ static void nvmet_bdev_execute_flush(struct nvmet_req *req)
- 
- 	bio_init(bio, req->ns->bdev, req->inline_bvec,
- 		 ARRAY_SIZE(req->inline_bvec), REQ_OP_WRITE | REQ_PREFLUSH);
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_private = req;
- 	bio->bi_end_io = nvmet_bio_done;
- 
-@@ -366,10 +369,16 @@ static void nvmet_bdev_execute_flush(struct nvmet_req *req)
- 
- u16 nvmet_bdev_flush(struct nvmet_req *req)
- {
-+	bool associated;
-+	int ret;
-+
- 	if (!bdev_write_cache(req->ns->bdev))
- 		return 0;
- 
--	if (blkdev_issue_flush(req->ns->bdev))
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = blkdev_issue_flush(req->ns->bdev);
-+	nvmet_blkcg_end(associated);
-+	if (ret)
- 		return NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 	return 0;
- }
-@@ -380,9 +389,11 @@ static void nvmet_bdev_execute_discard(struct nvmet_req *req)
- 	struct nvme_dsm_range range;
- 	struct bio *bio = NULL;
- 	sector_t nr_sects;
-+	bool associated;
- 	int i;
- 	u16 status = NVME_SC_SUCCESS;
- 
-+	associated = nvmet_blkcg_begin(ns);
- 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
- 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
- 				sizeof(range));
-@@ -394,6 +405,7 @@ static void nvmet_bdev_execute_discard(struct nvmet_req *req)
- 				nvmet_lba_to_sect(ns, range.slba), nr_sects,
- 				GFP_KERNEL, &bio);
- 	}
-+	nvmet_blkcg_end(associated);
- 
- 	if (bio) {
- 		bio->bi_private = req;
-@@ -431,6 +443,7 @@ static void nvmet_bdev_execute_write_zeroes(struct nvmet_req *req)
- 	struct bio *bio = NULL;
- 	sector_t sector;
- 	sector_t nr_sector;
-+	bool associated;
- 	int ret;
- 
- 	if (!nvmet_check_transfer_len(req, 0))
-@@ -440,8 +453,11 @@ static void nvmet_bdev_execute_write_zeroes(struct nvmet_req *req)
- 	nr_sector = (((sector_t)le16_to_cpu(write_zeroes->length) + 1) <<
- 		(req->ns->blksize_shift - 9));
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	ret = __blkdev_issue_zeroout(req->ns->bdev, sector, nr_sector,
- 			GFP_KERNEL, &bio, 0);
-+	nvmet_blkcg_end(associated);
-+
- 	if (bio) {
- 		bio->bi_private = req;
- 		bio->bi_end_io = nvmet_bio_done;
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 0b22d183f927..570e65259ad8 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -79,6 +79,8 @@ static ssize_t nvmet_file_submit_bvec(struct nvmet_req *req, loff_t pos,
- 	struct kiocb *iocb = &req->f.iocb;
- 	ssize_t (*call_iter)(struct kiocb *iocb, struct iov_iter *iter);
- 	struct iov_iter iter;
-+	bool associated;
-+	ssize_t ret;
- 	int rw;
- 
- 	if (req->cmd->rw.opcode == nvme_cmd_write) {
-@@ -97,7 +99,10 @@ static ssize_t nvmet_file_submit_bvec(struct nvmet_req *req, loff_t pos,
- 	iocb->ki_filp = req->ns->file;
- 	iocb->ki_flags = ki_flags | iocb->ki_filp->f_iocb_flags;
- 
--	return call_iter(iocb, &iter);
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = call_iter(iocb, &iter);
-+	nvmet_blkcg_end(associated);
-+	return ret;
- }
- 
- static void nvmet_file_io_done(struct kiocb *iocb, long ret)
-@@ -251,7 +256,13 @@ static void nvmet_file_execute_rw(struct nvmet_req *req)
- 
- u16 nvmet_file_flush(struct nvmet_req *req)
- {
--	return errno_to_nvme_status(req, vfs_fsync(req->ns->file, 1));
-+	bool associated;
-+	int ret;
-+
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = vfs_fsync(req->ns->file, 1);
-+	nvmet_blkcg_end(associated);
-+	return errno_to_nvme_status(req, ret);
- }
- 
- static void nvmet_file_flush_work(struct work_struct *w)
-@@ -274,10 +285,12 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 	int mode = FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE;
- 	struct nvme_dsm_range range;
- 	loff_t offset, len;
-+	bool associated;
- 	u16 status = 0;
- 	int ret;
- 	int i;
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
- 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
- 					sizeof(range));
-@@ -300,6 +313,7 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 			break;
- 		}
- 	}
-+	nvmet_blkcg_end(associated);
- 
- 	nvmet_req_complete(req, status);
- }
-@@ -336,6 +350,7 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 	int mode = FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE;
- 	loff_t offset;
- 	loff_t len;
-+	bool associated;
- 	int ret;
- 
- 	offset = le64_to_cpu(write_zeroes->slba) << req->ns->blksize_shift;
-@@ -347,7 +362,9 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 		return;
- 	}
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	ret = vfs_fallocate(req->ns->file, mode, offset, len);
-+	nvmet_blkcg_end(associated);
- 	nvmet_req_complete(req, ret < 0 ? errno_to_nvme_status(req, ret) : 0);
- }
- 
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index dbda55895f4f..1ef7be97a244 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -21,6 +21,7 @@
- #include <linux/radix-tree.h>
- #include <linux/t10-pi.h>
- #include <linux/kfifo.h>
-+#include <linux/kthread.h>
- 
- #define NVMET_DEFAULT_VS		NVME_VS(2, 1, 0)
- 
-@@ -115,6 +116,16 @@ struct nvmet_ns {
- 	struct nvmet_subsys	*subsys;
- 	const char		*device_path;
- 
-+#ifdef CONFIG_BLK_CGROUP
-+	const char	*cgroup_path;
-+	/*
-+	 * Resolved from ->cgroup_path when the namespace is enabled and
-+	 * released when it is disabled, so it has the same lifetime and
-+	 * visibility rules as ->bdev and ->file.
-+	 */
-+	struct cgroup_subsys_state *blkcg_css;
-+#endif
-+
- 	struct config_group	device_group;
- 	struct config_group	group;
- 
-@@ -732,6 +743,42 @@ void nvmet_bdev_execute_zone_mgmt_recv(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_mgmt_send(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_append(struct nvmet_req *req);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static inline void nvmet_blkcg_set_bio(struct nvmet_ns *ns, struct bio *bio)
-+{
-+	if (ns->blkcg_css)
-+		bio_associate_blkg_from_css(bio, ns->blkcg_css);
-+}
-+
-+static inline bool nvmet_blkcg_begin(struct nvmet_ns *ns)
-+{
-+	if (!ns->blkcg_css || !in_task() || !(current->flags & PF_KTHREAD))
-+		return false;
-+
-+	kthread_associate_blkcg(ns->blkcg_css);
-+	return true;
-+}
-+
-+static inline void nvmet_blkcg_end(bool associated)
-+{
-+	if (associated)
-+		kthread_associate_blkcg(NULL);
-+}
-+#else
-+static inline void nvmet_blkcg_set_bio(struct nvmet_ns *ns, struct bio *bio)
-+{
-+}
-+
-+static inline bool nvmet_blkcg_begin(struct nvmet_ns *ns)
-+{
-+	return false;
-+}
-+
-+static inline void nvmet_blkcg_end(bool associated)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static inline u32 nvmet_rw_data_len(struct nvmet_req *req)
- {
- 	return ((u32)le16_to_cpu(req->cmd->rw.length) + 1) <<
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 23a17c02abee..1de1f0e1ef1c 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -580,6 +580,7 @@ void nvmet_bdev_execute_zone_append(struct nvmet_req *req)
- 		bio = bio_alloc(req->ns->bdev, req->sg_cnt, opf, GFP_KERNEL);
- 	}
- 
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_end_io = nvmet_bdev_zone_append_bio_done;
- 	bio->bi_iter.bi_sector = sect;
- 	bio->bi_private = req;
--- 
-2.53.0
-
+Best regards,
+Henrik Grimler
