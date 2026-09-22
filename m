@@ -1,116 +1,130 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0004A35B63D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790040114; cv=pass; b=Jy4OQhmtfxY39i8j6sOAurXqzM4xCYv6oaBuOc37b+l7geq4EFBN3008J/zy59dyPN9USg2tY8wlvPIvvJT+TnUkrXs1Coz4iH3K3Hfl4o+GLDXVRcD7lsTWRUpAqkwoDyHsUTQaMmHX6AEddkZSmfPrIi83aP0fbRrHWuOckW4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790040114; c=relaxed/simple;
-	bh=N1A983/LxqhohjEiRubjtynAdQa6afHlF4xCdSbHwwI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EzV8qFVbIKmqPM3mimX9s8y5AWEia2p/lvmWZE/Ur+Xi+DDqpgHZE7snnLo0lkwUjVRYdq5f5C8fDvFRrFXl2YQJ0EWh+c1L8VB4E+WZPqofdQCyYXlKu7hH84jCUd4yPKmkL9sjcdxyCQikRPE0uf4oD0kxKStpoJS9jtz43Po=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWAS9LrZ; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67144A35;
+	Tue, 22 Sep 2026 01:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790040120; cv=none; b=YpPEMQ24GggHaUBWEGa/4kWX+JJrOKqkn9o/H0jq3jw/90xTpeTbJ71cqI8gZJ0DzAIOkD0DoeNUbXAxRrDYeRZQnFn+f6wgwMEtdAw0eF2WctP6y6Y5voWjnIsW6AnRfVZ103biJe58htzdHmcL7iRdHZGWi9yM9HmVOCNC8Kw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790040120; c=relaxed/simple;
+	bh=y7JtFjZ5ENIlnOSW2F25UHXUxG3+r6gAQXDhvtj//Gk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UPUQ9WgvkfRvXvfm50FWD90iE0hpHoU9atBzt41ISWIEg0O2Z2SGtoSOu8jAMbObpZosp0cYRkoMdVYbsPGeDcUWwQQsIyCkEH8mPv63bvZK7uFt2oiDBw887Vzu83jBx44VRWUZq8J2WpIbOSf8fdfXRAhn/6hiu0XUspM+eWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huSQIRnB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWAS9LrZ"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so3217423e87.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:21:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790040111; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Sw3LiNx2zuam/8XPuYMClyivAc5/zcmgX8n09D7KxcrKFB5IAgotceK3XSB/7r6QZc
-         YxLFLyOp1HpzqFcmuUTyiSXuHnHOLnHcie1Xu2wNeM1X+h+tiNkJovHrNm38BsDUus4G
-         Mm1bez7WozwbyKIrSaMJR2TkaryScTDpSg0SAllEr1nXiLFzaZNPSCTDlN9YY7Ujca8f
-         vrrZZDSwx2uFPN/LH3KN+naNQB8yU7DDWALkGdCfEmgzUOrkO0BdRC8t4NM6NCAB6KWK
-         Mm63bfrl+IQdU9/H97AddFxIl0U82PGXoPdnNfbtugC0Nl+/rAtFS+Va96R9I1T8QyI5
-         etOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N1A983/LxqhohjEiRubjtynAdQa6afHlF4xCdSbHwwI=;
-        fh=SC+Qy7BlF3VfiyARpb0TJobYPcy8rp1okL/+szZKzLc=;
-        b=Biqwij5VeCLVnfGpOahLcKx9yEYobM1D/pGr0kUpRosL3P4GBx2kOarKQtkEBelatE
-         6LMUm4uDRp1EGPZM3jWPZCEEsHkjQlEXbN+x3aa74K7nMuQ094FSBsn3F4v7Xtytnbjn
-         hOkv7Dw3uA4CM4RmzTI4Ig3nosrOEF0BWaHNJoFHNnXdkKFhf7pKoM1Rn20/0yO9Zb1m
-         C88uGgHfEnYNtqEywRXgCu0dt1aEAWWUtSjK0fqJ1n2S3VJZ2tCdR3eycjrHGQpP+ULZ
-         WY1JBK1pq3uxlb8kH42p0fZYbhPsTtR/6vRdmgV32gqrMwSPnOevDX6mFgQkpK4q7Lz5
-         80yQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790040111; x=1790644911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N1A983/LxqhohjEiRubjtynAdQa6afHlF4xCdSbHwwI=;
-        b=eWAS9LrZH+xREn4M+YkHpNDKRhI1C9Rg/8dOKaL9KdvhABAIFCrbeYD2JAu95ST9WJ
-         ofhZYY5gLZIzk0bSyLGMuQdxJHC3o07EpKIXhaa9Ov3gMZy/lD7SE9/gdgOWtDYoqJ0M
-         HR1a4cbrRotxmntXDikawhbZJNbC1fSyDqoIvR51CE1nMdLz0Ze+fjKmX2Kj97dZwsZa
-         gqzEJLsCp1BxxkRxp06viMFjgEGS3QXJTy+My8ObswAPnsEddUVB9tkM9JmgLzsTTBp2
-         kPw8WwsOiQ2N133YbSUfcdQXb9GchLxK2jSOakoyX4jlrgR3aize+zYp/ubvlquF8aTJ
-         lZ7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790040111; x=1790644911;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N1A983/LxqhohjEiRubjtynAdQa6afHlF4xCdSbHwwI=;
-        b=wCEK9SIpGqwnVx1XJ56wEea2LukzTlUXgtN0CTFycJMo5+ttISUJBlou5yXAN98AO9
-         0DE3J6RJSwqn6JTZFPzZOrvKB1Ggnit71OSQljEPZUbR7tQRf6HuDLRYv1qVnreaMXT6
-         1f89vZId6aeBFw1rFLQ3WoACs5aQc/RK/3+jjQqFn7IWnsWl9mimljmzDTwMi1ofpw7P
-         M3BZW7PL4iFCBRrtlvcX4R9H3m5Ad18qFCQK51aWyK34T8mfOivjHF8+LICdX7wcgtxo
-         UEZHap3VG8ycaggGhWrpB102Q9wpMmM/oYYY+7YS4pXBzrfxhpMIsEU832xGW+e4mJ50
-         +tSw==
-X-Forwarded-Encrypted: i=1; AKwUvBzmoWEUhzcszwI4evZfeEQPv4faWk63dyGre84lT5DtSmT7aP3AMiiECfi16TArcX1ZbBFRGuZ8wsCZW1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7XNmpO+x6jlrF+Gai21DXKU+FnhHPhLIqWHNHRegWy5aFOTOs
-	R+rG6LaOVod4i+B2i6RMCVPR9sQTZ0A2orjezEaL0yw5W4yetKWRsqVOMsWn4I59yMC9Q97oxYP
-	XV/Muh1STKei08bIp/cphLCskbd4RFQU=
-X-Gm-Gg: AYBFou049rMyXrf7nBLxJsJZ7xGLDcE5ZGmBbdHPLpG/vv6caOFUjnU94P3o8i/voPX
-	IbHiPOCEnDz+LLcpb6Vp7HbkMNfLbEEI6jT50WDXVlh2+2+jdX4m3BXd/kcm24mmImiJYV2SQIe
-	rgw1FLvM+xQvXmF9eWrDFbRQ6DbiHGrRr3kXwpLlhDl+sT8XcNa6QSmI+ZWQLjrweqglL29VJgC
-	mtHYLeqf++KoRmvNOHchqllLlG/gS1VT6ZHuRmxocbJ7ydU2pgvqHKvL9jYkG6TbflqSzJNWy89
-	1yHYcNB2RFF6fNy6WhJVWszLS8B0lHMNvzY1pTrhOXWP05okkCZiwcM=
-X-Received: by 2002:a05:6512:39d1:b0:5b7:c68e:a501 with SMTP id
- 2adb3069b0e04-5b8c18457d2mr4617397e87.33.1790040110670; Mon, 21 Sep 2026
- 18:21:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huSQIRnB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7CA45C2BCF6;
+	Tue, 22 Sep 2026 01:22:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790040120;
+	bh=y7JtFjZ5ENIlnOSW2F25UHXUxG3+r6gAQXDhvtj//Gk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=huSQIRnB49quXBKPfhkfJp78tHMlSxrGGOF0BlsH+03JvnWwnk1F+HpEkIiEViKMb
+	 atDyqx+Bow29N1el0jvdH8r+6JPP/3+yUQHoDjCNyqficcmborEmqjyVAApp1c8EQl
+	 YphA6CMjLIAXdWcdK8Iaaj1MyVNFM5dFQEqstK2yYit42HtS9koWh3YPB9FeaTQQB+
+	 38kfLCHO4caxdi4BJRacUTxRAJ/+0MIxW+qCGemzt4tuRt3DgCX6JYr6Vyb3fq5XXI
+	 tBR3VXUdiSghnm1nTZJgHPGkDtjWm81XdFHXgOIbODfeniB0grC2bW3CkzK+gkLz6f
+	 ZuNrHdOEmsNkQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69384C982E6;
+	Tue, 22 Sep 2026 01:22:00 +0000 (UTC)
+From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
+Date: Mon, 21 Sep 2026 21:21:59 -0400
+Subject: [PATCH] perf/hw_breakpoint: publish constraints_initialized with
+ release semantics
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920083131.1880061-1-liubaolin12138@163.com> <20260920083131.1880061-9-liubaolin12138@163.com>
-In-Reply-To: <20260920083131.1880061-9-liubaolin12138@163.com>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Tue, 22 Sep 2026 10:21:38 +0900
-X-Gm-Features: AcwNN1Xs4mOKDO0SKEzKVNS96SX0lpAJbUENXwJul-pXhha7NjBeTDVZIWI-WOM
-Message-ID: <CANFS6bajYthoK3asS3PmfU+9aocdsHS9ZFaUhmiKV5BfbaygeQ@mail.gmail.com>
-Subject: Re: [PATCH v2 08/10] ntfs: persist immutable in the $LXFLAGS EA
-To: Baolin Liu <liubaolin12138@163.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	chenxiaosong@chenxiaosong.com, Baolin Liu <liubaolin@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-mb-hw-breakpoint-v1-1-59aa06e1acf9@vt.edu>
+X-B4-Tracking: v=1; b=H4sIADbYsWoC/yXM0Q7CIAyF4VdZem0NQx3BVzFeAKtSjWyhc5ose
+ 3dhXn5Nz7+AUGYSODcLZJpZeEgF7a6BEF26E3JfDFrpTlnd4stj/KDP5J7jwGlCY3tPqjtp4yy
+ U2Zjpxt8tebn+LW//oDDVTv3wTqgUXAqxnjbOZn/AHI6wrj8ITyg3lAAAAA==
+X-Change-ID: 20260921-mb-hw-breakpoint-79dbe06527a9
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jaidev Shastri <jaidevshastri@vt.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790040119; l=1906;
+ i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
+ bh=ZTittwT4zsRNTqrg94X6kSrWHkSFjRamZEdBKAP1Vdk=;
+ b=79RBPT8VnBlXr45ayEwTi+Ic3H1TPdwDJDto1NDeYNDLfc58YVk+ARoEkFDNLZZep6Elae7+x
+ vwgbLBs2k6gClkTEr8HFg+z5IYaPVT6S4l1la7dnOf29Gc+W1kVW8Ah
+X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
+ pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
+X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
+ auth_id=1044
+X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
+Reply-To: jaidevshastri@vt.edu
 
-Hi Baolin,
+From: Jaidev Shastri <jaidevshastri@vt.edu>
 
-2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 5:32, B=
-aolin Liu <liubaolin12138@163.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> From: Baolin Liu <liubaolin@kylinos.cn>
->
-> Add a fileattr setter for immutable and store its state in bit 0 of a
-> little-endian u32 in the private $LXFLAGS EA. Reuse the standard NTFS EA
-> attributes and restore the flag when loading an inode, so eviction and
-> unmount do not discard the setting.
+init_breakpoint_slots() fills __nr_bp_slots[], cpu_pinned and
+tsk_pinned_all and then sets constraints_initialized with a plain store.
+__reserve_bp_slot() and hw_breakpoint_is_used() test the flag with a
+plain load before they use those tables.
+
+Set the flag with smp_store_release() and read it with
+smp_load_acquire().
+
+Found with MBCheck, a static herd7-based memory consistency checker.
+
+Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
+---
+ kernel/events/hw_breakpoint.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/events/hw_breakpoint.c b/kernel/events/hw_breakpoint.c
+index 789add0c1..8532c8a35 100644
+--- a/kernel/events/hw_breakpoint.c
++++ b/kernel/events/hw_breakpoint.c
+@@ -577,7 +577,8 @@ static int __reserve_bp_slot(struct perf_event *bp, u64 bp_type)
+ 	int weight;
+ 
+ 	/* We couldn't initialize breakpoint constraints on boot */
+-	if (!constraints_initialized)
++	/* Pairs with the smp_store_release() in init_breakpoint_slots(). */
++	if (!smp_load_acquire(&constraints_initialized))
+ 		return -ENOMEM;
+ 
+ 	/* Basic checks */
+@@ -897,7 +898,8 @@ bool hw_breakpoint_is_used(void)
+ {
+ 	int cpu;
+ 
+-	if (!constraints_initialized)
++	/* Pairs with the smp_store_release() in init_breakpoint_slots(). */
++	if (!smp_load_acquire(&constraints_initialized))
+ 		return false;
+ 
+ 	for_each_possible_cpu(cpu) {
+@@ -1017,7 +1019,8 @@ int __init init_hw_breakpoint(void)
+ 	if (ret)
+ 		return ret;
+ 
+-	constraints_initialized = true;
++	/* Pairs with the smp_load_acquire() in the slot reservation paths. */
++	smp_store_release(&constraints_initialized, true);
+ 
+ 	perf_pmu_register(&perf_breakpoint, "breakpoint", PERF_TYPE_BREAKPOINT);
+ 
+
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260921-mb-hw-breakpoint-79dbe06527a9
+
+Best regards,
+--  
+Jaidev Shastri <jaidevshastri@vt.edu>
 
 
-I think that the name $LXFLAGS is not appropriate. the prefix $LX
-seems to be a WSL-owned namespace. The name could cause
-confusion or a future semantics collision with Windows WSL.
-
-Thanks,
-Hyunchul
