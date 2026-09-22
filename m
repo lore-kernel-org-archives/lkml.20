@@ -1,79 +1,48 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45CE4A2076
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:17:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862B849E12F;
+	Tue, 22 Sep 2026 19:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790104665; cv=none; b=WMAuQUY0rFb32YoGTz9N+Qr5PLEVsaEiS6FSzO48aFu4lVvP/YFVYs5NQMRW4mH77T8hPhWEOIWgiu+CXwitNYYo1uwje7sdNdHqQuqkxU2Se+SVRvOKXKryUDnNWPAk/xJFB8mgjKLX+Bb5e+Ff2DgR+A3e4JQ9BwuQGqpvRGg=
+	t=1790104741; cv=none; b=ENrMQjkaCRWdiheMqrWDN3/9idKsFsmODxJaQFXLVrV9GQ9bIol+rJuV3R0el+H4F5OIIiTpUvbouF4WH40lgc9Pgn82dMwxwnZMnCADNPqWxCrx0esF29gzf7+Sl3alE6C+eYWPVaOFx3g51xIhhihSxo13x91YYJwdBbKNy3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790104665; c=relaxed/simple;
-	bh=RyLnrS9SAXAv4y18ulSi2r0oj+zePJC1xXw+bd1cTMM=;
+	s=arc-20240116; t=1790104741; c=relaxed/simple;
+	bh=0zgMNLOviZP7C9GOTO7uXthAk1faCaLnopFRpyN+6Qc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LxxpXs/LkopdZOwt7qUfgOEQhbyLvKJ9t8zzUU1/npTnC3F0R+ocyiZANbtSAB3y/DRkR1tzQjlOa4Plx3ZFHKIPlF5zYUadTeCQ0MY35zTH8oqc0eq5GrG9fMgd+HIFRGjOiGN75Mxsy7UCF3UG8Rcwl9jekXM4EhNHzilfzEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MUCBzBiR; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=MAeqX9IQKUt+l/lwyTggFygYpQB3tiRMuhlYlETgF+Aq8CNQKPDiQACLkk+gKXsSw9eQrDF0kZwviz76kNvVuAtVIblLTcmB1uZxDycSgsAsQCg3jZ9+IsKfoM8n9ZiUB+ZABTtRk7WzC5S2EiIdeRbCJLTIIegLiJB2qgZxlyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVZNMwZy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MUCBzBiR"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso1087505e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:17:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790104662; x=1790709462; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zmpGFufBK8IPX2EkK5YOeqXtFJPDgkBV3StdAfG8PLs=;
-        b=MUCBzBiRiHbTZhpudlnRD4bIOihb2FW+BIR3UecLn8Mf3Gd6FVSKTZRNtzf5fF4o7i
-         FXMIA4uRutWWyg+UQTbnunaYUMqLwGN0ZSKODWpzfg6cTcJtnM/zNQEJarGOcBDeo/nn
-         6xsNgpxS8aVuHeZo01MsQoAe0xPLcTZpABEQRyCwCqIlFXp5wOFwDhbGKU3XJxKU1SAt
-         dJCUHYrkhZKMqovhl1W3FdSc6YvMjM+x1wSEsyqXuWrm+oqVsxCllGZNd/sNyk/h02MB
-         mWQl5BVN9yj1kMfib2WvVNUcKsjuo8RzSxIa+AqLmlfPOTqOQRwMSaoW5BqFFXpzGm3V
-         FmbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790104662; x=1790709462;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zmpGFufBK8IPX2EkK5YOeqXtFJPDgkBV3StdAfG8PLs=;
-        b=qvInvXepnlbhHR+QWErcJ2AK8q+srIzf6aCeUd2/eenCNYiz6AOIcslvbgiVVfNG65
-         i2uIvj3htO7MP276WtWBkdV/0m9JQ0rS0ODtLkVI6+elcp63aP4tGwz7XSx/hbUu7PhO
-         6e8eQlvJNsehOFWADpT1eWiFrLwGm6Qn6IQfK1wz/qphJpRXpd3pox8waEvGX8dTnOXj
-         3bg885BYvxmVLM2wiLOK7yJzjdGw5pfUoIYiFojQRYlzLyECzX7KFl2EAWXGasQzhk+u
-         CK0WYOJZVsZP/j26rK48gKtByT4GzXX3AOSgRAUavJaaZclWaTAahJM+LuDKDpI7+Zl4
-         xLlQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLcbj9P5t2vknqdKST3+c/Q7Xc6G+p28r6RA4+Ie9mqdfjfjM8oFYUik+2FLeHLxjkts1Isp1GhPfxgxc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2+78AjBSrjUZghiQdqzaz3qCqJGRuJTqh1M2rmwcVcKNwc2CR
-	DH6aAzbMTHgC1HyXQBEk01bhi9UVQCtzL5usmBLXiYi86RCwjGEsgNJe
-X-Gm-Gg: AYBFou3uqf3OCcHtlhboX2HwyHbalLq7mJZNWFF7TckOVRdUiKZw/ZZG+DnbWsXVZzK
-	0cZSHsRwC9wgZDZalM0GNd36PrGDq3OkppZo+1pdJUZdO8r7pGh24Mc6diE2DSLMiVGPoLBjK6H
-	fMZ5ST7srQupTEG6JcSoecpXBayo7Jj3kUvKcyi9no8SkKSBdx7SGWjLUCIw9syaCxogx7zLagA
-	22fIMu9yVFXP3jeqOfzeeFHOI3PsDwwtptzQCw06YGupeT5cRl/V3unm2pOXCQAfCjbkc3Nhgs3
-	7BkPXIZ4p6YsCMtlz4vj7rCwh7Zj1F496PCyoKwhJpXT/QUEEYJjghReP3iSxDaOnqQpZ7KFLK2
-	GRWZRfV5r/L3RlzVKwqH4uYgaBmZE7X5P+yzAvYRKPgjqd+tOruTZeKpqUVjOk+9mWmRr72VZ5u
-	/QrKa39sbUlEe77nrQnwSsp5FS6Nsi2kUe+w9X9h3853Ljh04N7zu5ZuBAq+MtQlzyVC8byX9Ii
-	/zTBvMyvxnnbWCe5GOjivBqTbIwKX4QfROE88p5Fg+4FkFTBCKJr6SScXN7WvSMEcDNwufCamjz
-	AW3nPhRsM7FqWAFmLPFAve8/STbMdQO1wXo9JcX03N17eXlCXYWxjr3AKVktYNH+tkFaG0cgL95
-	tU2Ac
-X-Received: by 2002:a05:600c:8a0a:20b0:49e:719e:e215 with SMTP id 5b1f17b1804b1-49fdf13b2f2mr1580215e9.26.1790104661479;
-        Tue, 22 Sep 2026 12:17:41 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a5e6-3401-f8e1-409a-a02d-633a.310.pool.telefonica.de. [2a02:3100:a5e6:3401:f8e1:409a:a02d:633a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf979895sm2092885e9.1.2026.09.22.12.17.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 12:17:41 -0700 (PDT)
-Date: Tue, 22 Sep 2026 21:17:40 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: "Kumar, Udit" <u-kumar1@ti.com>
-Cc: Nishanth Menon <nm@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>, 
-	Grygorii Strashko <grygorii.strashko@ti.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] soc: ti: k3-ringacc: Fix DMA ring initialization
- kernel-doc
-Message-ID: <arLTj9qVIE0Yz4vH@gmail.com>
-References: <20260919163721.89044-1-kmehltretter@gmail.com>
- <20260919163721.89044-2-kmehltretter@gmail.com>
- <6cf8cc99-c2d2-43cf-bcaa-bd9cfc8679d3@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVZNMwZy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB921F00893;
+	Tue, 22 Sep 2026 19:18:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790104733;
+	bh=rG9jdeE1GgpZ721Ylayiu0WJux0e9upMn4hAQNazN1k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nVZNMwZymUoYnWyP9PHedZApvviQf4Cvlsyp/06Z2xBBaXCbkfJh1lO8fG0QPlX5E
+	 9CbIKE3oQ3X5YPwWe1ZvPlL9d+D8/0kHepKHOdR3CyJBFJGMaDljbvuVYus4pjWJKP
+	 qGYOQBGbQDWJSkiTYQCy1L9lvKTdbg5G0OLyjJWqJA/VSlMLlMVLUapYFccALw2jP9
+	 hXmVSigBJMTg0tgCDzSp/ymC8iFI0b80Wa764Lnt6nrXofGRVGZ8AnqYl3ShLMmvR2
+	 vj2DahjSlvc6WSBMpR8dtdWGcJAc7tuOkrmINccYugToUbmJjd1TseNI0Woo4pazI2
+	 GCbNy1MCv7Q/w==
+Date: Wed, 23 Sep 2026 00:45:39 +0530
+From: Naveen N Rao <naveen@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Nicholas Piggin <npiggin@gmail.com>, 
+	Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, x86@kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Jean-Christophe Guillain <jean-christophe@guillain.net>, =?utf-8?B?UGF3ZcWC?= S <spawel523@gmail.com>
+Subject: Re: [PATCH v2 0/7] KVM: Serialize vCPU creation and revert vcpu_ids
+ tracking
+Message-ID: <arLSZuDixbzXrevV@blrnaveerao1>
+References: <20260921174445.911676-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,17 +51,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6cf8cc99-c2d2-43cf-bcaa-bd9cfc8679d3@ti.com>
+In-Reply-To: <20260921174445.911676-1-seanjc@google.com>
 
-On Tue, Sep 22, 2026 at 09:34:49PM +0100, Kumar, Udit wrote:
-> > + * @num_rings: Number of forward/completion ring pairs
+On Mon, Sep 21, 2026 at 10:44:38AM -0700, Sean Christopherson wrote:
+> Serialize vCPU creation by holding kvm->lock for the entirety of
+> kvm_vm_ioctl_create_vcpu(), and then revert the now-redundant tracking adding
+> by commit 97d65b544f48 ("KVM: Check for duplicate vcpu_id as early as
+> possible").  I botched the math when justifying the vcpu_ids tracking; it's not
+> an extra 256 bytes, it's an extra 2048 bytes.  Roughly doubling the size of
+> "struct kvm" tripped x86's KVM_SANITY_CHECK_VM_STRUCT_SIZE, and obviously isn't
+> something we want to do in general.
 > 
-> Sorry from where you got above definition of num_rings
+> The TL;DR of why it's a-ok to serialize vCPU creation is that no VMM actually
+> does parallel vCPU creation.  As with so many things, KVM's current behavior is
+> the result of decades-old cruft, not intentional, deliberate design.
+> 
+> Patches 1-3 are a tangentially related cleanups and bug fixes; I included them
+> here because holding kvm->lock for all of vCPU creation allows WARNing if KVM
+> attempts to lock all vCPUs if vCPU creation is in-progress (the caller must
+> hold kvm->lock).
+> 
+> v2:
+>  - Tweak patch 1's changelog to clarify that that only x86's manual checks are
+>    dropped. [Sashiko]
+>  - Add patches to convert additional arm64 and RISC-V usage to 
+>    kvm_is_vcpu_creation_in_progress(). [Sashiko]
+>  - Remove acquisition of kvm->lock from s390 and PPC vCPU creation flows.
+>    [Christian, Sashiko]
+>  - Add Jean-Christophe's Tested-by to the revert.
+> 
+> v1: https://lore.kernel.org/all/20260914181223.289061-1-seanjc@google.com
+> 
+> Sean Christopherson (7):
+>   KVM: Reject attempts to lock all vCPUs if vCPU creation is in-progress
+>   KVM: arm64: vgic: Rely on vCPU creation check in "trylock all vCPUs"
+>   KVM: RISC-V: Use kvm_is_vcpu_creation_in_progress() instead of
+>     open-coded equivalent
+>   KVM: Protect all of kvm_vm_ioctl_create_vcpu() with kvm->lock
+>   KVM: Move check for existing vCPU ID to the top of vCPU creation
+>   Revert "KVM: Check for duplicate vcpu_id as early as possible"
+>   KVM: WARN if vCPU creation is in-progress when locking all vCPUs
 
-Hi Udit,
+This addresses the Secure TSC splat I reported previously:
+https://lore.kernel.org/all/apgj5l7DZGsScsNc@blrnaveerao1/
 
-It was inferred from the code. Is the description
-inaccurate? What wording would you suggest?
+I booted a SNP guest with Secure TSC enabled and didn't see any lockdep 
+reports. For what that's worth:
+Tested-by: Naveen N Rao (AMD) <naveen@kernel.org>
 
-Thanks,
-Karl
+
+- Naveen
+
