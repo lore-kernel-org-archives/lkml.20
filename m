@@ -1,168 +1,129 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013018.outbound.protection.outlook.com [52.101.83.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61305349B7;
-	Tue, 22 Sep 2026 16:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790093280; cv=fail; b=SfMiZJXRNCSnTe8O+DQ6JOMl8QG3ftC4r+Krxs/0L3m3614BUmLHjuNo+PgFPyymmYavaINRyq60mF6ovImNwIvQu7QU6bUcuZ0OaHAoUAh002DszqPkl5ei18Gn803lMh0mGTzwS4Gc+xwqRCJjp94iWzXToaxHe7EAtkAU5lY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790093280; c=relaxed/simple;
-	bh=2/EPjNqBRnMBtvcMMQKoFYZodH52cPfVTLSNk8p9svE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ea0oXhcAXrQgLdXdch9B3ZblEbTpyiND1nd6WuRTXDrco0lQETqKH+u4By2+itwYSDBbDKJyvKjgPaQrNfhq/OPILRrwVceAaE6ylvj7M2SkrXjqr5AWwXkJr5xjP15MbyBSpidUIw4WW/t2LqtO2XHqWboZLIPum1BTpLYOf+s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=uMjRbW1c; arc=fail smtp.client-ip=52.101.83.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9916E560AAE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790093283; cv=none; b=gzN9BEJuKa0sNo530GCg5AWzmgXHE+rzcIsZ5WpySvbE1uqdZZ4BJqnQTSHB6yP0TjqEXBFpY5t/n6KVFqsjS2y+cp1s1yvnakD2HZEaWxtSqwU7+Q2Sjb9n+cE7UoLimLqn2iGaMak3TninJ5m544wwIdUnoTQ9wmyV77xS+8U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790093283; c=relaxed/simple;
+	bh=GOaR3oRNiNzhSpbEcZWvDkegir/uIorFZ2eUkpF7mf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6vzZ5iQe+GxO4rW/kaSIC+n0Qbo9FQuAnMuiK4r4Na6gESLUYIWvU8RvvfCKep4LQybpN0rqrp1hYGpLGi6Hr8uBS4z9dfJ7soyUQ0OuH62rt7r6uyjza0iEbgLkcYBSNYMUb9CqZSIFpIjO+XxuMHqAKXvLGnlAtgap4QuXSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DrZwnIRs; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="uMjRbW1c"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eVrVMIUcGHYh+IgR5/AoUoe0KfSD1XPRle14/3NDKYD9kAHiw0vJe2RUYyPyAV8Bt9Ff7TB6FWQs8cxEdd7hskUdKjzuBAKBOcIk1zGdSfComKwnuKbM8tbE5poSHmc6SwjwUzLA6KbDDM/PaK7YsLZjwzB6cTNbVG9roPbrSIL0c9fdh7EZh3eG8VNuVHW1FdV97TjK9VYR9LcbzGURAWJ2kQ8QzlPIUeZWAPIVnYoJdk/Bd5Rw/dvr4+4eBpAkl/HmrFfiuJz1FXIckRKcAjMztsoSfVip0E/zrBByp/UDfruMl5LqhYd+QmufL41o07jplJzV1kO1TQrhL+i1AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yQyGkfzhwklEkBQo+2E5KgVDjHcqnex+q7xadudm5e4=;
- b=ODn4xzkJHByMGyeMSLyg3a0okccnx+l4RGYFPjOw+1Xx5CC1xHqiZolYrqzAjoZAu+0Ohabb2zgzM3gLSLAecUhTQsrqoTZvMKUy+EzlrbG5QrP2yMIT6/u711fkeMf3OcIkMb9wa2rm6v+6cvyR/Th4wuW//j9OQJwbpO/woHYHoPYNCD3cIunTjuUQaun3mdqkJ33+0jYXsmDlNhjQ5tEU1S/ELrFEorTHmKGRIfcyvpHv0PooBCJRTk464dr2akCKyQp7S2+WT81/haXaWAV++KeOXc2UCb6nly4R4vNHIkHMptTJ/6QIzxqyJW5hn94IXI8FaWB+qiERXtxHKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yQyGkfzhwklEkBQo+2E5KgVDjHcqnex+q7xadudm5e4=;
- b=uMjRbW1c/Q5rgoiZ357SCkTwS1+2tTOuaU1lDDXbB9Qqys/KCMlm6tiwjuq8bx+v/jzJ3zIoCmgdBOWLlTSQupzISWm6Z++R+5HYR9scCAA5YKoQWiwEQX6ZNz09OLLx8967Ohwb8sQPUQUkXlwVah6ieuoyN/+DcF8yF74E14SO80IGTBw2kO8UvwgkNeG548FDSJ+sXfdCeEfH3Jp8mBKRET9paBEVkBsZou79lShfelzwYLY3CjAnIMW4vDQRTy78d4tfIFaMCWNuvhyQEBX0+x9HhzkFR8S3T53q4MvWha2X0a0OlplEeA5H0drLBiFRa13v5mT1DqUSlcpT7Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB11195.eurprd04.prod.outlook.com (2603:10a6:800:291::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 16:07:54 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 16:07:53 +0000
-Date: Tue, 22 Sep 2026 11:07:44 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH 0/4] arm64: dts: freescale: Add Toradex iMX95 overlays
-Message-ID: <arKn0LhC5fty7dHN@SMW015318>
-References: <20260922-v1-imx95-overlays-v1-0-694100afb4bc@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-v1-imx95-overlays-v1-0-694100afb4bc@toradex.com>
-X-ClientProxiedBy: CYXPR03CA0045.namprd03.prod.outlook.com
- (2603:10b6:930:d2::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DrZwnIRs"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so53481a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:08:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790093280; x=1790698080; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HBbhvK2kEOBfPteB03TY1EsiSBGN3wG4ENtFO8lw2k4=;
+        b=DrZwnIRsQ7NbvOs6gJ8be7d71msi9LrrXvn7cEfhcKrnmvRa2PcoxkUmACXZVYjy4R
+         yxFcVTi9OAAhVF2+jXmO9UP6RWEXHK04xygvY2hSllV9vT9u+iV/TS7l4VGVF29xJAVW
+         qp5YQay5V5F+TBX/P61+ibxiNNbMP8VsEdf8ViWdi6oPAduOvnxFKMfGkTAADWsvKw6b
+         QtcsaXTeJ/i+ig9CluAxB7VIPQqeba5hQr8b0erWD/q/cmtOuUtgC/Ry2mhzvZfO6dwL
+         FOUy7vhHcDQJ8nOoTK2DvtbJKCiTZMRu6vf8mJvBLAeDPbjtulp/221dgZgJ3GV9bnU/
+         vkbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790093280; x=1790698080;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HBbhvK2kEOBfPteB03TY1EsiSBGN3wG4ENtFO8lw2k4=;
+        b=erg4edKRrzb2opVAZueQirYsBm8BAlBp9z3Gm26J8ibIA3NSN8M4PXB6YPW4MGDOSC
+         k+5q3WBfZwg7Rmy/yTxJ4ZJgkT22DtkGWMGlLQmMBxwT7HCnj5VfGAfQIiymCNYXN+sh
+         X3pY2QEafdksbk+rFi1ZWrX4cW4J1K9sxZTHzAZzzgLpfqBvCGn5iiT3wttpcX/guHGE
+         Uzg7H3PhbRyv3/sVwfuCvYtd+nfmhXxdcmiHYQJ8WMIvkzzsu/Vr61cI7ZJcXAciJc52
+         TSXH5xZr+zQDS302CPVtwTxoNeHDffJNF3sX7BkrQfxY4y04ZiXEwBoI2h9kIg4avIIZ
+         HbIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwgkZuK6j+I5H5iHaPZJuk9+FQwGO+1HGVefKkBjShOMxXq+itSlRFtcjSEl7ven/1Djxi3UGXtHWsM2/k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGlD95Hpq9MOA+YMHTeZ7UV2bCMxOcm69dayXPPsjz9ndIwhVW
+	o0mwlhoZWPYFHHRHHyae9vRSeCIFH4MPOmFd4xMA3ddvLwEb9yJC6++Xd4C0gwcK
+X-Gm-Gg: AYBFou173uuq+e6regJxg5kiLux0zq2fGAJnoJzM30/lJUpXWC2mueJJzxx5UNdjeT7
+	KkTDVVUWoXerE3m6/ym2FZcs/Qx5kNAtkRbckaNOcTxZesNt1eeqE4jsNudbc14pGuLRBCvMC1v
+	rCkypUjEVo6oZJMmk8+t0WI+FBVJmsOZL3zlEuvz5dP6Md0EGvPrBe+vot4lvR28chpDE5W5oIH
+	yvOIg7qBA8GBI4KSMwQVBT7tnyuK+ioNV04FHV5ipiILDy2HS37BXCnrhWLX/I6Q94fxB4u5p4V
+	5Q2qFUpUQCNk+nGqylsRW9F3Xf8YOAumaCAp+Z+YnZe7JX3vvoIUoVRLdwCxMXraYuK//Glmv7X
+	qC5qL1esWE5ZdEYR2GflQTegvE+qTeS0mui0UE5f0Su6FkasjuUcUzJIzE0jOn2+RMu8G6aIbFu
+	nNh6E7143ZW9n0hl9uEAoQBWSdDPUTkOHI9gGH4BF9IB74rB5S5S5JeL4ecR10PWMC7hegcLqPm
+	1cOZC7IfQcS/3sJN1X2KA9BZqFwa29RVL6kFVKCA0h0YkYiTM7Y3HRws5K2Sy8NvuTUHSiAJGWL
+	DPVpHiw=
+X-Received: by 2002:a17:90b:4ac2:b0:39e:6c68:fd8b with SMTP id 98e67ed59e1d1-3a0736ae0e5mr1221986a91.32.1790093280523;
+        Tue, 22 Sep 2026 09:08:00 -0700 (PDT)
+Received: from HYB-2NH2WFe09VB.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07de20eb1sm63989a91.12.2026.09.22.09.07.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 09:07:59 -0700 (PDT)
+Date: Tue, 22 Sep 2026 17:07:45 +0100
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v10 04/17] iio: add IIO_FREQUENCY channel type
+Message-ID: <bukynp5qvtqf5jgqnxzxesvt5vimm3i3lvqrwmffc7fecjnabx@rqyeho7v5cnn>
+References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
+ <20260729-ad9910-iio-driver-v10-4-aa1f6167729e@analog.com>
+ <xevuqaudwm4hpnhbful263yx6r45liuch6yc7xjk2i7wly3oxo@xe2htu27rkl7>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB11195:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27b1b30b-a1b5-4d67-c903-08df18c3a886
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|19092799006|7416014|6133799003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	dJKgqS5HcAevq1XOA44VzhQ1vOz8t3N/Nuu0BE94Mp+FVHpx7KoL96iFgSeFHXmCw8G26ogiGZhCwJVT5k/Silr254kKz4ss2QChQtpzyQIAFafs1Y/uNmZC948Z5a8mSIMIhaQmqRRJlpKNxWzrKhzREQgp3KLbQVQjKKZegs77suo/R3FwJVQQiBT5pd7UwFCdaxN9MaPvMeUq4lQne6niK31xcXBJTro1CctgEu9JzZyUj2KGQHRIjdVylSs/pri0vPEBBLUTdw0oKsny9KJgymh/HuRv/VJoHlnWF3Rf5FOB7CFGuzoUIv3UpWxjEFkl2dlxiuYqjeUjY2SYSHWXribKpBNHo9tARoiJ44g+FUCzJoW5IDx75XbeblxXzqe3Iq3bSDz3ldXy7vast6gPCxJb6U2ziyZPBcDlj5DV5lQ3TiG5khLatluIHTNVS36+bQHjobQFKc69IZyGE1dnC4vygtg1iVp4VAqjPOs0iEg0qtGd0ZH11G70Kn8KmwEdFknMff8dHZnMRu8ihkXyhZY7EE268/o0wz0f3g9NhR24+2m0/b6GA9b+SIU61ocFQvCeoAWTWNaXir65q3v6E+Efd8MRZxxSoB4JfJCS095bA0QAdsVuQWjEujj6wnolILVL4+DA9IopKdpYyfoabCqFsU/gv+6HqHVWCok=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(19092799006)(7416014)(6133799003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WQ/y2rtWALdjZoI/KjlMroXoSTJzXZPyV7idTYm9JKoWBULDhVYnDKFmbDoR?=
- =?us-ascii?Q?ty+LOv51znga383afKcsRsmuAv7KgnZkOa3D9c4iFvP0EMVOae6qGzmzs1Hq?=
- =?us-ascii?Q?5O4R5ZAOlDfSPgfkBQLvLZHraukblmh55cZgJuQdjs4XASDl4eSTlGt6RDwN?=
- =?us-ascii?Q?2HXKls//6BzRmc1XFE4/KCbbjxmjpoEFXpjr0ekt8PbQeFyoLsgSdHZykcuF?=
- =?us-ascii?Q?luFt5/lnJzLzRfoNBssUWmuMUzdsgRqhBDhB+yJpH+KiObaDCGUbo4s3iZyd?=
- =?us-ascii?Q?2l+nXHdi3E5oX+pUPjjsu+38TlWG3mUNGaVA6PTUjIECwDHvndPsQIUJ3Bp7?=
- =?us-ascii?Q?RqI7pAx+bVvafHKNcMs1xaRTTPNslrCH13QtJK8P+VoUbv+h2mmg54DB0WXA?=
- =?us-ascii?Q?fBcnNezxT95yWsZDegQD+mtWyxVvCccXNud+EICJEL2ZWsZm64n7EB0tf7Nj?=
- =?us-ascii?Q?daTGmA9Q7NnfpHDCUTlbNfGembqtmrmR8JFxJOciBCmQeGDiPHaGtpLMCCy/?=
- =?us-ascii?Q?Te+98d26xx8dR+r6If6ZxFDGqEcbVpdy4ilwZdwJDMNiWspmiPERHOTJHcls?=
- =?us-ascii?Q?Crwrq4vcGLyjSiuOa/cVXbWH2GQ5qtwxLtqnzk3IxL9oFuC2SJAO5URIvOyT?=
- =?us-ascii?Q?TqqitOBm4gRwAsPQ6rJJi41suR/Eli/LenO/o0sya8uo0OCwYBxgskWk+rwd?=
- =?us-ascii?Q?VwiHPPFUOKAkNLyIutnDza5YIenDj7PLCTtnbC7I/rmlIHJxIpKub4KZN9bf?=
- =?us-ascii?Q?/Szl445q0SgQjuadWDaMU1OKoQ7ZKRV60yW4b4F0rkNJGYPnSOVLBzIatHMG?=
- =?us-ascii?Q?HRJvOEKRhBNi9Dyd+QlZFRYOs3ULWLlQI7YKnM6eBg3qFrY5Y4e7u9VtaU9O?=
- =?us-ascii?Q?sRjMroWAWgQEF9xkPc2ZzNhcm3w4o0jvPNobjwxzr2pGQ7jYwBZ83ig9tF2F?=
- =?us-ascii?Q?An8PwI09G4mETcOzV4/C5++texsvTUJwAvMCtr46FnTtINph6RCdlEp6qFIC?=
- =?us-ascii?Q?O+kfLMRLLNnBCID5C/qls05LrDVtLy5eHlI6ILkcklG9TmfON8aLHkgUE6LW?=
- =?us-ascii?Q?IIIK7LctIPuGC4YtvZk1sZsWRi7u3rLHU5zqV6ip/I48MrTkXSMGlSxMyb1s?=
- =?us-ascii?Q?hStRHXkM6HiijIjE9gszYSHnFFBjgdIbyNs3ZgD9oj61F+YC6JLH5U5Umitd?=
- =?us-ascii?Q?vMD4J4Z6LPug7LkuvNrC+IWCLx/dC0xtAoJYsZIkhfld3SN1lwfSrhD7BcNO?=
- =?us-ascii?Q?DTySfZBvuL+iEfc5Db3azPb7CsirDEh13SPDhm7b+gDe2gy8a+XYfFArhFRl?=
- =?us-ascii?Q?/yhHIKX0hX05SOwfUo0pTgI9lCE+eoxyfoxnBd124Ut4RwdBXScZyJj8/t+t?=
- =?us-ascii?Q?BD9h+2VsoStzm6+tGuK2mr+CI+P27v1qyyiXcYOu2b/q5+OKW0hEEKu60Xni?=
- =?us-ascii?Q?2398HgG58rIjNDRCRbfD0GcLZif6j/+2nOyG9+2iNaLzELsN9MfHrEK6+qjx?=
- =?us-ascii?Q?lZMNp8GGbu8XrzXLjMl5ZKMyvSPpSiao6/0/mZ2RyXatxZZmyhwVfFkRVLBA?=
- =?us-ascii?Q?Xz1sFrh/Xya1/NSg76+WE9kfb+4UtQYUt08UtLn20bOuAba1nBFz4I1jnszS?=
- =?us-ascii?Q?mwdbOzWbtv39e7Ckod1wBLBsrNzfgATcmm/LVO79WOF3YKpREnV4OkhRgtgC?=
- =?us-ascii?Q?pZi7qtq9/+f8rDAcKLMs9FRMXQcgNHNoT2pUM0oT2uUljbrwQaAYR0PaTXXt?=
- =?us-ascii?Q?gLNQlOE0DO9iJVRkFyz/ZQS8vlgBrFKO+5Vh3JRtgBHcrHhtEy3R?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27b1b30b-a1b5-4d67-c903-08df18c3a886
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 16:07:53.8369
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2NzJsR93CLy7tr6J1CjeFMvxc7Iz/OgJU2XxJFDWTPsb2tbWLOUUPtxG6jcsayOipsEnp/7d2Qaj6o7wHJ2EB3Y7BPxv3DEdB4aAVkcBjjP57wBfro+zq6MPd5dlVXE4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB11195
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <xevuqaudwm4hpnhbful263yx6r45liuch6yc7xjk2i7wly3oxo@xe2htu27rkl7>
 
-On Tue, Sep 22, 2026 at 04:33:45PM +0200, Ernest Van Hoecke wrote:
-> This series adds device tree overlays for the Toradex Verdin, Aquila,
-> and SMARC iMX95 SoMs.
->
-> The series adds support for:
-> - NAU8822 Bridge Tied Load configuration on the Verdin Development Board
-> - UART_4 reservation for Cortex-M7 firmware on Verdin and Aquila
-> - SER0 reservation for Cortex-M7 firmware on SMARC
->
-> The UART overlays mark the port as reserved so Linux does not claim it.
-> Firmware remains responsible for configuring the UART and its pads.
->
-> The Makefile entries build standalone DTBOs and ready-to-use composed
-> DTBs for the corresponding Development Boards.
->
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> ---
-> Ernest Van Hoecke (4):
->       arm64: dts: freescale: imx95-verdin: Add NAU8822 Bridge Tied Load
->       arm64: dts: freescale: imx95-verdin: Add Cortex-M7 UART_4 overlay
->       arm64: dts: freescale: imx95-aquila: Add Cortex-M7 UART_4 overlay
+On 22/09/26 16:56, Rodrigo Alencar wrote:
+> esOn 29/07/26 09:25, Rodrigo Alencar via B4 Relay wrote:
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add IIO_FREQUENCY channel type to support Direct Digital Synthesizer (DDS)
+> > devices that handles frequency values written directly to its buffered
+> > interface.
+> 
+> ...
+> 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > ---
+> >  drivers/iio/industrialio-core.c | 1 +
+> >  include/uapi/linux/iio/types.h  | 1 +
+> >  tools/iio/iio_event_monitor.c   | 2 ++
+> >  3 files changed, 4 insertions(+)
+> > 
+> > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+> > index bdf3d4c06331..a45277bc5d99 100644
+> > --- a/drivers/iio/industrialio-core.c
+> > +++ b/drivers/iio/industrialio-core.c
+> > @@ -99,6 +99,7 @@ static const char * const iio_chan_type_name_spec[] = {
+> >  	[IIO_ATTENTION] = "attention",
+> >  	[IIO_ALTCURRENT] = "altcurrent",
+> >  	[IIO_COVERAGE] = "coverage",
+> > +	[IIO_FREQUENCY] = "frequency",
+> 
+> Hi Jonathan,
+> 
+> Thanks for not giving up on this one! Taking a look at the testing branch,
+> I think this line was dropped during the rebase (addressing a conflict)
 
-both reserved lpuart2, can you share one dtso?
+btw, now that we are at this again, it crossed my mind...
+Is it fine to have a channel named the same way an attribute may be named?
+wonder if userspace tools could get confused.
+ 
+-- 
+Kind regards,
 
-Frank
-
->       arm64: dts: freescale: imx95-toradex-smarc: Add Cortex-M7 SER0 overlay
->
->  arch/arm64/boot/dts/freescale/Makefile                    | 15 +++++++++++++++
->  arch/arm64/boot/dts/freescale/imx95-aquila-uart4-mcu.dtso | 14 ++++++++++++++
->  .../boot/dts/freescale/imx95-toradex-smarc-ser0-mcu.dtso  | 14 ++++++++++++++
->  .../boot/dts/freescale/imx95-verdin-dev-nau8822-btl.dtso  | 14 ++++++++++++++
->  arch/arm64/boot/dts/freescale/imx95-verdin-uart4-mcu.dtso | 14 ++++++++++++++
->  5 files changed, 71 insertions(+)
-> ---
-> base-commit: 478f68c644732750f8386e4de7c909c5ffb26ab2
-> change-id: 20260922-v1-imx95-overlays-89b3a9185b93
->
-> Best regards,
-> --
-> Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
->
+Rodrigo Alencar
