@@ -1,190 +1,173 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5011B3F4DD2;
-	Tue, 22 Sep 2026 06:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433D04A204F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790057399; cv=none; b=PkndifU5+SchzgIQqrZLB/dP+WWpy5ogPyTciiBKgSI717201SJfBKo2Mijz3tOL5j+DFGBDqLOcN/xjBiT2zsQgoYorad/EXI/8pA5j0X+ut1Z50qkAz9FTZMWOm/ojiCwNLEoDpvznfNrCwGJw4MI7VqXShZv7SjmIpGmNDtc=
+	t=1790057432; cv=none; b=kzG7r+UhLseDg+LmbD7phMluTodZfcmi9p1VvvY844MpBkIeZ2wMCWOQw8NJZdRmKimargtZI9sKPHtGpG0kmXxbZX0y3zj+Zh2nObaB3BYGqWmM9dorjUtKHW8IxdoxA58ZUnQvznUpxbJdwya0LRaHcUXIASWcaokrC0jjApk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790057399; c=relaxed/simple;
-	bh=bSqi5nw26JYLt/66IbXZv9kxKyj7+H/MaFYKrjf9Yxw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TF8T1zF037ou698BaYSVhQu2EZr6y6Af9EYgZBUOq7jKocNBL/9EFpRvLwX1X+zwT9hxcTXWbQatRI2cbvbKIBb9QWU66IcSXz8sB0/bcktPxP4hBQmbhMnUvjHVZMcfP0+bMvEh85QIwzeRR8mGB0cRs03/UB5ZxPsXHFg5/i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=H8RAbPUL; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="H8RAbPUL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=7D
-	rTlWOkyl00RXsO7e25MPXZkPkCJPXwk1DiHDjAS20=; b=H8RAbPULyatmoWJAzk
-	7141S8ZYpA7Pccv+JinKaVvse15hR80ALB3uniTmalEURot6+Ap4WieQZr5L/G5G
-	lPD22M6LuGU/MCh3t8OyeQEydU9fo+/Fq3x1tewoTPUdkQBEoIitxpfDtPZ7W8Qy
-	4PWi5KWk8EuWhFRgbjtPyKjJI=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3fwSaG7JqTH8+AA--.29012S2;
-	Tue, 22 Sep 2026 14:09:32 +0800 (CST)
-From: "Li Youhong" <dayou5941@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io
-Cc: magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Youhong <liyouhong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] md/raid5: use dedicated llist for stripe plug
-Date: Tue, 22 Sep 2026 14:09:28 +0800
-Message-Id: <20260922060928.3486799-1-dayou5941@163.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790057432; c=relaxed/simple;
+	bh=/gkxxAEJ2VEsBzCj+0PCJrUAyaQRh7llGGlVQ5kUCrQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mKGves/o0BbjvNGoPTxBs28/Y+HyJKHNQvoc2tyH0GTDsvR/+GQMZ5iDb2BF6tTB+zR/y3TdHKvbGBIITIPij4fGdfIm/uQlf5ESxxSKkVyYByktcD/DslsEdbzpeL1sJyWA7i+RHjzW/0MrAVXQcu+I1afxmTTgCNQe0SZteg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=black-desk.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso505090166b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:10:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790057429; x=1790662229;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=51dqkeK+6HTCaJdD0DRXH94PwuZHWhVc5MOITOLNdLE=;
+        b=gXHl7bc5pWbR6DeCdxmair1zP2oYAs2JucWooaMWuHLEBbPRLfEcSACyr1oSQ5OPnS
+         kRMWcpz1FkZgnMLbKBSHF3DI9SDjMPFEbe1xxugdOKVJmh2mu12jz5sVenTyu3jkFcKv
+         1VdfydHYOAS7N1u7UEwrg+FRryFV7wOa5vGgdmLnV9Q8DaOT/20kAAxaLLN670l1XPJ+
+         R6rLwS+wqeDbYzY2H/V+cJ8tA68HG2OkFblDxuF77V/6mXrjkC5vOWz15c47yH033LnA
+         QWhducj1hYPRlsCfiAQ/6sP+2N7LR1XOHFemuB9atWG5swgSP00PeLZbVitfOCz13LXS
+         JXXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYanZoeSalUUYwfTJ3z3962XVvjSUlazCG8tQvjdbdBowlVsNxV+6z4hOePeBJFQksggDge2yWiojn6EY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3vp8s1tbITclCdPIWWq3OkgACAUDbWjZvzpOaimhnqB0ijWCW
+	B8LFBI0s4tV9aQy/xFgTck8wQyAe1rIrMX6GTedr1E4+KVOyjdKZ/Ml9WGUnpAaoC0HAmu5B
+X-Gm-Gg: AYBFou23eXI5FSO5Pl0wivyJ4QIeqDOPLoWyOqtaVUfVtPegb2ghwVXUbck0HNkjIRU
+	qvFdrVOEQpqOW6rsl17hETZv5tPfkiaDPvxXNHmo6E1+0n+vHB5nRHfh/SJfSNUrJEVFcJ98xde
+	hEV+lDnkolu/RHd+OHVkXMTOBCj9qfhE1vkJoU/Ggouh26ft+8eegnzNHaMN/jF7MuqnzqpP1jJ
+	xs4oYSZLuMhKl33JguIYNcvQl12Pv7/GVb+p9TGI/lON/2b56wEzwgdnMlKzDWKt40y4717ygez
+	dQufBaVcqVffqqQIchiq3o8Vi4wrE3z9cmv0ANusH+4HmuGLRl0m/oV5fGXUFbG9qcScTWgT6kL
+	Iv4fnsopnoV262+g1j3JFe5o79M1T8PoTBHy29/oVIpr5VzWjFpsHhu2ioD2VzHfCb2fpqlOjDR
+	yplaNHM2avspBN/JahjSZPHs91JO9b4i538hvjt+niGT2Fk31allJLxbHOXUgudU458JO/l08it
+	pF66YPmEJPXmcgzKuIWN7uL64/s+zg73iS//pJ+5kxPXxw2vX9pV6GkDJPziP4=
+X-Received: by 2002:a17:907:9444:b0:c29:4b56:5a7e with SMTP id a640c23a62f3a-c2a15e1014bmr1068266366b.31.1790057429447;
+        Mon, 21 Sep 2026 23:10:29 -0700 (PDT)
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5ee08dsm33611866b.49.2026.09.21.23.10.29
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 23:10:29 -0700 (PDT)
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so5694410a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:10:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzDm7x2WDAKEpJLdovWcS2RIqJuxnHNk3pXr+KpsXl3GmiGyt4gEc0FOnJ/3L2v/GulXOm31tmdaoj1zwg=@vger.kernel.org
+X-Received: by 2002:a05:6512:110a:b0:5b8:99a5:5162 with SMTP id
+ 2adb3069b0e04-5b8c180e6cfmr3759117e87.26.1790056945794; Mon, 21 Sep 2026
+ 23:02:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3fwSaG7JqTH8+AA--.29012S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZw1fZF17JF4Duw1xtw48tFb_yoWrtF4Dpr
-	15G3yagrW8Xr4IvrWkWFWDur9Y9a1Igryak3yfCa4S9F1YvrW2qa43Aa98CF98ta95Z3y3
-	Xas09r15Gr4rCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5EfOUUUUU=
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+R0142qyG505OQAA3s
+References: <20260831-pidfd-get-paths-v2-0-c59ea6a21b72@black-desk.cn>
+ <20260831-tauwetter-werkbank-dramen-b37eb4025283@brauner> <CAC1kPDMK_D4nhyRmBHg6KC7SmmCkH73Xtc5DhXeJbSvf3LcqcQ@mail.gmail.com>
+ <CAG48ez1T5-tUHVK_iHsgUtWa-inVdrZxA3E-ZCW0iENJvasKfg@mail.gmail.com>
+In-Reply-To: <CAG48ez1T5-tUHVK_iHsgUtWa-inVdrZxA3E-ZCW0iENJvasKfg@mail.gmail.com>
+From: Chen Linxuan <me@black-desk.cn>
+Date: Tue, 22 Sep 2026 14:02:14 +0800
+X-Gmail-Original-Message-ID: <CAC1kPDNamG4BpfsX0mn9E-Y+ujGTLe-oU63kJFOjxW6bDmSLnQ@mail.gmail.com>
+X-Gm-Features: AclHuK8ITwQn4waky8resdLcCFExt5UoOF-9n53imPe55RkN7kQMS7sWnKkQWLA
+Message-ID: <CAC1kPDNamG4BpfsX0mn9E-Y+ujGTLe-oU63kJFOjxW6bDmSLnQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] pidfd: add task path ioctls
+To: Jann Horn <jannh@google.com>
+Cc: Chen Linxuan <me@black-desk.cn>, Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Kees Cook <kees@kernel.org>, John Johansen <john.johansen@canonical.com>, 
+	Georgia Garcia <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, apparmor@lists.ubuntu.com, 
+	linux-security-module@vger.kernel.org, linux-api@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Li Youhong <liyouhong@kylinos.cn>
+On Tue, Sep 22, 2026 at 4:22=E2=80=AFAM Jann Horn <jannh@google.com> wrote:
+>
+> On Wed, Sep 2, 2026 at 8:47=E2=80=AFAM Chen Linxuan <me@black-desk.cn> wr=
+ote:
+> > On Mon, Aug 31, 2026 at 4:49=E2=80=AFPM Christian Brauner <brauner@kern=
+el.org> wrote:
+> > > On 2026-08-31 10:59 +0800, Chen Linxuan wrote:
+> > > > Obtaining a target task's executable, working directory, or root
+> > > > currently requires walking procfs symlinks such as /proc/<pid>/exe,
+> > > > /proc/<pid>/cwd, and /proc/<pid>/root.  That makes the operation de=
+pend
+> > > > on procfs being mounted and visible to the caller, even when it alr=
+eady
+> > > > holds a pidfd for the target.
+> > > >
+> > > > This series adds PIDFD_GET_EXE, PIDFD_GET_CWD, and PIDFD_GET_ROOT. =
+Each
+> > > > ioctl takes no argument and returns a close-on-exec O_PATH file
+> > > > descriptor referencing the corresponding task path.  The new ioctls=
+ use
+> > > > the same ptrace permission check and nonzero-argument rejection as =
+the
+> > > > existing pidfd namespace ioctls.
+> > > >
+> > > > The target task is sampled while holding its exec_update_lock. This
+> > > > keeps the access decision and the task-state read in the same exec
+> > > > critical section, preventing a concurrent execve() from changing th=
+e
+> > > > credentials or target state between the check and the use.
+> > > >
+> > > > The first patch factors out helpers for acquiring referenced task p=
+aths
+> > > > and reuses them in procfs and AppArmor.  The second patch introduce=
+s
+> > > > scoped cleanup for privileged pidfd task access and separates names=
+pace
+> > > > lookup from namespace fd creation.  The final patch uses these piec=
+es to
+> > > > implement the three new ioctls.
+> > > >
+> > > > Signed-off-by: Chen Linxuan <me@black-desk.cn>
+> > > > ---
+> > >
+> > > I really have difficulties forming an opinion on this. So this sounds
+> > > very useful but it has implications.
+> > >
+> > > Right now, pidfd ioctls are available even in situations where the ta=
+sk
+> > > in question would not be accessible via procfs, e.g., when procfs is
+> > > mounted with "hidepid" options or similar. So this would expand the
+> >
+> > One point regarding hidepid: for callers that can pass
+> > PTRACE_MODE_READ_FSCREDS, hidepid does not provide an additional
+> > restriction. With hidepid=3D1 or hidepid=3D2, has_pid_permissions() fal=
+ls
+> > back to ptrace_may_access(..., PTRACE_MODE_READ_FSCREDS), and
+> > hidepid=3Dptraceable uses that check directly. In addition, the
+> > /proc/<pid>/{exe,cwd,root} links independently perform the same
+> > PTRACE_MODE_READ_FSCREDS check in call_proc_get_link(), regardless of
+> > the hidepid mode.
+> >
+> > So for these specific path lookups, hidepid does not block a caller who
+> > would already pass the check used by the proposed pidfd ioctls.
+>
+> Agreed, I think with regards to hidepid there should be no issue here.
+>
+> If I try to come up with scenarios in which this could introduce
+> additional danger, the main one I can think of would be: A task T1 is
+> running inside a pid namespace and has a unix domain socket connection
+> to a task T2 outside the namespace, with both running as the same
+> EUID; T1 sets SO_PASSPIDFD on its socket to obtain a pidfd pointing to
 
-release_stripe_plug() and do_release_stripe() share sh->lru.
-release_stripe_plug() sets STRIPE_ON_UNPLUG_LIST and
-list_add_tail()s sh->lru onto raid5_plug_cb.list without
-device_lock. do_release_stripe() holds device_lock and, when the
-last reference drops, list_add()s the same lru onto a handle or
-inactive list.
+Does SO_PEERPIDFD matter too?
 
-Two list_add()s on one node corrupt it. sh->lru can be
-reinitialized into a self-loop while raid5_plug_cb.list still
-points at that stripe. raid5_unplug() then walks the list under
-device_lock with IRQs disabled and never finishes. Other CPUs
-waiting for the same lock hard-lockup.
-
-Add a dedicated llist_node, unplug_list, to stripe_head, as
-release_list is used for released_stripes.
-
-Fixes: 8811b5968f62 ("raid5: make_request use batch stripe release")
-Suggested-by: Yu Kuai <yukuai@fygo.io>
-Cc: stable@vger.kernel.org
-Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
----
-v2:
-- Drop taking device_lock in release_stripe_plug(). Add a dedicated
-  unplug_list.
-- v1: link: https://lore.kernel.org/linux-raid/20260902095307.358569-1-dayou5941@163.com/
-
----
- drivers/md/raid5.c | 52 ++++++++++++++++++++++++++--------------------------
- drivers/md/raid5.h |  1 +
- 2 files changed, 27 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index b91545ce090d..9dabbf9743d7 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -5710,7 +5710,7 @@ static struct stripe_head *__get_priority_stripe(struct r5conf *conf, int group)
- 
- struct raid5_plug_cb {
- 	struct blk_plug_cb	cb;
--	struct list_head	list;
-+	struct llist_head	unplug_list;
- 	struct list_head	temp_inactive_list[NR_STRIPE_HASH_LOCKS];
- };
- 
-@@ -5718,34 +5718,33 @@ static void raid5_unplug(struct blk_plug_cb *blk_cb, bool from_schedule)
- {
- 	struct raid5_plug_cb *cb = container_of(
- 		blk_cb, struct raid5_plug_cb, cb);
--	struct stripe_head *sh;
-+	struct stripe_head *sh, *tmp;
- 	struct mddev *mddev = cb->cb.data;
- 	struct r5conf *conf = mddev->private;
-+	struct llist_node *head;
- 	int cnt = 0;
- 	int hash;
- 
--	if (cb->list.next && !list_empty(&cb->list)) {
--		spin_lock_irq(&conf->device_lock);
--		while (!list_empty(&cb->list)) {
--			sh = list_first_entry(&cb->list, struct stripe_head, lru);
--			list_del_init(&sh->lru);
--			/*
--			 * avoid race release_stripe_plug() sees
--			 * STRIPE_ON_UNPLUG_LIST clear but the stripe
--			 * is still in our list
--			 */
--			smp_mb__before_atomic();
--			clear_bit(STRIPE_ON_UNPLUG_LIST, &sh->state);
--			/*
--			 * STRIPE_ON_RELEASE_LIST could be set here. In that
--			 * case, the count is always > 1 here
--			 */
--			hash = sh->hash_lock_index;
--			__release_stripe(conf, sh, &cb->temp_inactive_list[hash]);
--			cnt++;
--		}
--		spin_unlock_irq(&conf->device_lock);
-+	head = llist_del_all(&cb->unplug_list);
-+	head = llist_reverse_order(head);
-+	spin_lock_irq(&conf->device_lock);
-+	llist_for_each_entry_safe(sh, tmp, head, unplug_list) {
-+		/*
-+		 * avoid race release_stripe_plug() sees
-+		 * STRIPE_ON_UNPLUG_LIST clear but the stripe
-+		 * is still in our list
-+		 */
-+		smp_mb__before_atomic();
-+		clear_bit(STRIPE_ON_UNPLUG_LIST, &sh->state);
-+		/*
-+		 * STRIPE_ON_RELEASE_LIST could be set here. In that
-+		 * case, the count is always > 1 here
-+		 */
-+		hash = sh->hash_lock_index;
-+		__release_stripe(conf, sh, &cb->temp_inactive_list[hash]);
-+		cnt++;
- 	}
-+	spin_unlock_irq(&conf->device_lock);
- 	release_inactive_stripe_list(conf, cb->temp_inactive_list,
- 				     NR_STRIPE_HASH_LOCKS);
- 	if (!mddev_is_dm(mddev))
-@@ -5768,15 +5767,16 @@ static void release_stripe_plug(struct mddev *mddev,
- 
- 	cb = container_of(blk_cb, struct raid5_plug_cb, cb);
- 
--	if (cb->list.next == NULL) {
-+	if (!cb->temp_inactive_list[0].next) {
- 		int i;
--		INIT_LIST_HEAD(&cb->list);
-+
-+		init_llist_head(&cb->unplug_list);
- 		for (i = 0; i < NR_STRIPE_HASH_LOCKS; i++)
- 			INIT_LIST_HEAD(cb->temp_inactive_list + i);
- 	}
- 
- 	if (!test_and_set_bit(STRIPE_ON_UNPLUG_LIST, &sh->state))
--		list_add_tail(&sh->lru, &cb->list);
-+		llist_add(&sh->unplug_list, &cb->unplug_list);
- 	else
- 		raid5_release_stripe(sh);
- }
-diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
-index cb5feae04db2..e314f17eb949 100644
---- a/drivers/md/raid5.h
-+++ b/drivers/md/raid5.h
-@@ -201,6 +201,7 @@ struct stripe_head {
- 	struct hlist_node	hash;
- 	struct list_head	lru;	      /* inactive_list or handle_list */
- 	struct llist_node	release_list;
-+	struct llist_node	unplug_list;
- 	struct r5conf		*raid_conf;
- 	short			generation;	/* increments with every
- 						 * reshape */
--- 
-2.25.1
-
+> T2 on the next message sent by T2, then T1 uses that to get access to
+> the mount namespace of T2.
+>
+> Christian, is there some mechanism that already protects against using
+> something like SO_PASSPIDFD to get a pidfd to a process in a parent
+> namespace?
+> Otherwise, should we add something like a "pid_vnr(pid) !=3D 0" check
+> either in these new operations or in SO_PASSPIDFD?
+>
