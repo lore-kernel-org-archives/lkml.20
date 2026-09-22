@@ -1,148 +1,122 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573AC56C653
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FECF542809;
+	Tue, 22 Sep 2026 17:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098448; cv=none; b=tLR+F+ccdrZEERWt245PQDcScwxGoJF3Xz/aM4ZhU6WeFdgUbplHykvOOvj3+ByERuC+IeuiBFSbBOb7WkLW4AjHsRWoHFkJp6AqluQN39svLAL2ZHtn+P+2yTUYXZaCt9SPSrZ1PxjmOeC890hKGwwlQkDrfAJ0e/mUUmFpCrY=
+	t=1790098464; cv=none; b=FpvOmujGZtad8B/tSohK5fWck85iNNiIrV58bn9i1CYxdBIWbYa46lXfia0anysVzIhUr8y/Eh5P6Tx1atWpSlOa0eQ9tMXaNGnVfp045AdNL/uaD+u+5RPa5gntxgnQ2RB3G1/wE0cc/X2xUuX8z0ipQbqp1kh9xxBI7VzRtyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098448; c=relaxed/simple;
-	bh=k62lXyffQpfvoXLrJkljRwAuyGHOT0TxBUmsYyaQxeQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dgGgyJeE45lK0mgOb0IzCiou0VW+Gcmf3eilQCmZ8ux+kBWna0cr2TXmLlgiQw6FzdFDN4zM+lNthopTDlZrlzHL5zD8S64ZIMrVKJypOl9NnhSuZasOGfUlqyZZjvGG7Q1HAbIEkyqV3VjdLnR+cB3Z40vUZN2cKPhL1dD5gJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F+qbLcma; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790098464; c=relaxed/simple;
+	bh=ukOlo2vGn70JZGzVXuAlIims2pQQYT4vQSxywCxDG8U=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=pog5l7ZFo+/j3+G+79gpojKUlB/g67eGa+wZSIM4D2NnpCWZ/EE4WV3KyTjPurS/l2vwvKqBt02qeaPlig2W1VW6oPUODGaKMp+hZeSdG+7ljUHiEX461baImPJh03jVMZubAlJUQ+wQHMiJ9iswHIkTkocHC1wQ+LY3Sq5Iy8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=ARwrrRmD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IksjCLAt; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F+qbLcma"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8b402f4e3so624e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:34:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790098444; x=1790703244; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yuuzD7pETxcjGtdgpLYjcgyqt6WFmTw9RRQGOf5Uv14=;
-        b=F+qbLcmaca+A7AyWZWOQhPVmars/c7oXhjRoRSh3f6XJiaHgyYayW1M5gB7JLqxQO3
-         FOi08tQR4/bFXkcFOtYmcNWxHlTlATsXQvqk73/17WNRlK5Ix1ar4kL8uOPJDcltRRO+
-         C6iYgA2Nwkme39zmExsY/8+CFOSAuYGgQp7gs0C32f634ByBEXEG98E4ZTvxnmjDofE2
-         93ot/k8pK1oTcAWOpUBZDvStgL/UWssKK89wlvBiz1N226zZiCec77wldh5syBlIrq8/
-         Rk9oK+MdMv5fWT5fYqDxFgG8UP/Muz7AjPnDWaQr+pzb/IHFLKu48BYEcCror0pxUdog
-         S3Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790098444; x=1790703244;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yuuzD7pETxcjGtdgpLYjcgyqt6WFmTw9RRQGOf5Uv14=;
-        b=qNQPn5kZUWmdI3XxhYv4Ul8HnpzMOKqfM5fQ+ecnBYc0FbE5f4ur6paSQu8QgF28WB
-         W7g9d+p1Jz7HXmy0nxBD254+lX2OlZlu+QjpssqFltTUaas2xcqNbE5M3nLGFdhcMILO
-         L336bmEhtpepjLGXMbVny8LSFh5gFyD6Nfk6L/xtLQgShCOU6JOxK87Ucf4/oYEkFFD9
-         PbqB8Su9aSKNo4YYJCbq5sgsiMX7QabGT/Lbm+nJhTR+jaDHqDHXnhNwvMrSnYEx4570
-         1sr5vnA6tpajy4iVS/YWVh0j4N8GYo5p1f3bIwrWMifI+Y1EBXbr7dl3ePp8yI/6F9ZH
-         rqXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjHbTg8SIuWOTmWKdlXNX29faydNSZUadi/rKvV7ApWYSvm58ydZiF6q7AthmMX3kMPzHSjIs1crqTwvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOP3XUUAP3fXUn93JiG3XRwlDm54DG3RLS/A32N7XZ/OEbKdNM
-	g1GbMnpTmKcUJVTe7VlqoG21vjOwscG+e6XMkXEDp2dDd6mYhcOPfeAQ
-X-Gm-Gg: AYBFou0+f91qVGo6YP2nh78lbwtRuz4hiC6E/1L5LuvohZkdd4DvMWrx1Tg+NWe9oXl
-	vq6OpMLgedJw9FEei2oGUwBc1tQ+IQOP5Yi3opEDW5zqOSyI5f3q67h/A+CQbDbcaJEXmHzTeEe
-	V2GEfy/bkb+lZ8uDV3LuspU8sVR/mOnZLey94PVYHgdVpiiVxHO5PAAOXYa0DRnkG0+L6bBYT37
-	BxlQnKIeOfjI29ZZVFLzgcI9nlV2wT2KYx4DTRqNmn/9w+sqL4VLQqjO/HL5k0FLEbsyYmo4Ucr
-	3BiRhXevTy5XOuHDC4goW2FtVp1SnjxKKjyfPZc1a3u8g8SZXWpGnzbRHKp6zIeP9ysBHrAo3H6
-	9CQE9a6p8j39o10Q9IR+hHIUn56EASVr+eOzQutYW/8Uzo3xMGeceLrXjpPsjgaAD7NVTM6n4gh
-	SmJKJYeL/dRdWefG3/eoenawVsuJvuu2vZvbpizsVU2CohuZQgcoqubra+FuPa8zHqnJ8uY4B42
-	M2VYwSwFssUxKCn6c5gGqz6q7pluNlMW8gZrUzi8CfUoyy9IMuADp4=
-X-Received: by 2002:a05:6512:6881:10b0:5b8:9963:12df with SMTP id 2adb3069b0e04-5b8d8960c1bmr764e87.9.1790098444004;
-        Tue, 22 Sep 2026 10:34:04 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d858f129sm41541e87.63.2026.09.22.10.34.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 10:34:01 -0700 (PDT)
-Message-ID: <df84b2b6-e4a4-4751-9923-6001f78db0a2@gmail.com>
-Date: Tue, 22 Sep 2026 20:34:00 +0300
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="ARwrrRmD";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IksjCLAt"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4CBF41D00059;
+	Tue, 22 Sep 2026 13:34:22 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Tue, 22 Sep 2026 13:34:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1790098462;
+	 x=1790184862; bh=6H+YOl8Fnzz4K8Crd5BxWR2DINMXVIbj7Hdfe8EQZVQ=; b=
+	ARwrrRmDWYo22FyFQoqWMKb2DR7NOIXzk68yICmK1Bu5DWO/Thyn4sGtold+anM5
+	w873j3V8dv3UbYlFcdPpKGkW8CSN/tCF75QCjrz3aOx4r4WS9gOpDRuT1Kvskr3A
+	dvprqft26aRZed+Xj/8tkbGtdRNs0KqKNkleKADmVjz/mOIOupMaCV72SDYzmQtE
+	ZIKHUPmzr0LWMlgx83VtR6zECz8120+gi2WxkiR9Zfgs4eH5xG7fSFP2dO75HjXt
+	btqimURc4cv6wsNA1tEhEL09iInmdEa8x9tKN+ZBHe6cPdvgyz4V2jvZUGHk42yY
+	nqRlrcPGGu+PIEtuDomkyQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790098462; x=
+	1790184862; bh=6H+YOl8Fnzz4K8Crd5BxWR2DINMXVIbj7Hdfe8EQZVQ=; b=I
+	ksjCLAtNXZMGIRREfpiLfeTJ3r91iIa+4HcWBG+NYXuZF22XL9Q4QkZmcmNWhC5h
+	Xb/k37p5dtfCc6/h65nlzP4WbdARxb/JNoz8Oce0MwSyXYsLK1ugXKmvHsc3jU7b
+	kF5t4js4yFrVOutH5oNZ+sWY/5yp45+CJzVP2zRM+W/lBk2Ws7BHcRXzdBUARxnX
+	VjLLJoxyWKHhedjkWqGXmLkR5Hyxm2/IXzaCJ1v1mk4AawuGZG2T3UFbbBpW2PVs
+	/yeMesVJxm/vGzDQVc1D4l0o1+N6QfohpqyeF28SbvT8wteBmYEfV9g250rgx8cs
+	PxmZwgZ6TckIX1LVa+jJg==
+X-ME-Sender: <xms:Hbyyas1MnFIGL5BpeINzlyFx5OLoj6JJIoAZ7EUzICKraYpi30Ihyw>
+    <xme:Hbyyah61Fwjnm04ARQzxCsiYHtk9SRJ63icY2PA06_j3EKtiP0WhSlJI8Hsju9GPR
+    l4eRmOv4cc4f6ce4y3r6huZIyL85Bkw8OmNZXIuPF0G0-haQsUkVv3H>
+X-ME-Proxy-Cause: dmFkZTEKb6HwOS5fnRhC/tIqkipbGOGo8cVH75WGEbYuvw5epbQL2V6pXm/VuHu3ARepVc
+    8GgsZ6aAE8FWQHjYhp5WRAN5GA5YmbYDqdz6jtAL1VpfOVaZEpWP+ivGpNdhPhJLS9j9Ez
+    Kc2bRiyzy6obI4jzdPlD19sFKjjB7ZMJuXX4G7o8KOZGn7Y+A1WosuTbA0rjouckT6lmmB
+    adRc5P9vmL8F+COUuXXQ0UvwF9nYWnr9DUGO4uVxeMrqpLUfW7FeZPS1kD3Lxr5zNYv9hJ
+    81qXbUWi/gAjE3LITr9cTGRrP8UH6MrfpFQR0TPOTN1BCF5yBew194o+TyxL5VLhfG22rN
+    ZSMvg5sNZYQlBQMElgvZHVJshoK/IHEQnwpWF3wdY5cLQJbVRuX+9+kQScKWlKc0RCdP0c
+    3TwQE6UEte0tTzJnzKtiLZF69yy1YVD1+eBUcb695B5AKSZ0kewXZzcngHkTXV72bpGOur
+    0tK5HmcCPazOxf6iDX975R0XMLzCSM8lSXbSOJw8BBGIObH9R7wpq1lrcGtN58oc7n4ayk
+    kfI805elGPRnCJzgnVf077lkk+x3vAkN68m0+WWQfjNdUFP4FnVG3T7UENswfoJFiWRfB9
+    ciIcXqlftNG3TX9dJwc1FQ7m99l2TpcqH2P5L8UOdmQ0QgQ8vAHFZAfsgEYQ
+X-ME-Proxy: <xmx:HryyakZ2xy810YGKZrAjNyFtzHTN_qXpzXwRhzFHNFDa478q8DvSqA>
+    <xmx:HryyahpEhkenYrB02phq-KBApx15ympNg_G159yImv-FLv_zOYuf0g>
+    <xmx:HryyahM3llSA1gFd2bzltrv88CxsI-MurweY2O3SLbS-5g7Rwnbc0g>
+    <xmx:Hryyakrzo8f0YcpyBIeHu-Hg_QqVpyWpFk4hFoLl6g-lAWK5Wsz1Tw>
+    <xmx:Hryyagn8O9M_wDYu49DXMaDDkpBJT_qVcck3yqzMFJiVMn34Y3R0fuAj>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id D7F532C00067; Tue, 22 Sep 2026 13:34:21 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/10] mfd: Support for ROHM BD73800 PMIC core
-To: Lee Jones <lee@kernel.org>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
- Alexander <alexander.sverdlin@siemens.com>
-References: <cover.1789538455.git.mazziesaccount@gmail.com>
- <3e3a25abe337e3f68cde585674019dca439ac897.1789538455.git.mazziesaccount@gmail.com>
- <20260922154543.GA3438784@google.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20260922154543.GA3438784@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ThreadId: AB7I15pHxv-c
+Date: Tue, 22 Sep 2026 13:34:01 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Thorsten Blum" <blum@kernel.org>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: 
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <50a98ed4-9695-415b-885a-e3127fdf7fd4@app.fastmail.com>
+In-Reply-To: <20260920103518.281843-2-blum@kernel.org>
+References: <20260920103518.281843-2-blum@kernel.org>
+Subject: Re: [PATCH] platform/x86: think-lmi: Use sysfs_emit() in pending_reboot_show()
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 22/09/2026 18:45, Lee Jones wrote:
-> On Wed, 16 Sep 2026, Matti Vaittinen wrote:
+On Sun, Sep 20, 2026, at 6:35 AM, Thorsten Blum wrote:
+> Replace sprintf() with sysfs_emit() in pending_reboot_show().
+> sysfs_emit() is preferred for formatting sysfs output because it
+> provides safer bounds checking.
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/platform/x86/lenovo/think-lmi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/platform/x86/lenovo/think-lmi.c 
+> b/drivers/platform/x86/lenovo/think-lmi.c
+> index 3ddc1f5cec19..7b319601662a 100644
+> --- a/drivers/platform/x86/lenovo/think-lmi.c
+> +++ b/drivers/platform/x86/lenovo/think-lmi.c
+> @@ -1281,7 +1281,7 @@ static const struct kobj_type 
+> tlmi_pwd_setting_ktype = {
+>  static ssize_t pending_reboot_show(struct kobject *kobj, struct 
+> kobj_attribute *attr,
+>  				   char *buf)
+>  {
+> -	return sprintf(buf, "%d\n", tlmi_priv.pending_changes);
+> +	return sysfs_emit(buf, "%d\n", tlmi_priv.pending_changes);
+>  }
 > 
->> From: Matti Vaittinen <mazziesaccount@gmail.com>
->>
->> The BD73800 integrates regulators, ADC (intended for accumulating current /
->> voltage / power values), a real-time clock (RTC), clock gate and GPIOs.
->>
->> Add core support for ROHM BD73800 Power Management IC.
->>
->> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
->> Acked-by: Lee Jones <lee@kernel.org>
->> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->>
->> ---
->> Revision history:
->>   v3 => v4:
->>    - Removed extra whitespace from the end of a file.
->>   v2 => v3:
->>    - Translated this:
->>      https://lore.kernel.org/all/20260813105955.GA1820248@google.com/
->>      to an ack. Please, let me know if this isn't ok.
->>   v1 => v2:
->>    - styling
->>    - update copyright years
->> ---
->>   drivers/mfd/Kconfig              |  15 +-
->>   drivers/mfd/rohm-bd71828.c       | 147 ++++++++++++++-
->>   include/linux/mfd/rohm-bd73800.h | 306 +++++++++++++++++++++++++++++++
->>   include/linux/mfd/rohm-generic.h |   1 +
->>   4 files changed, 461 insertions(+), 8 deletions(-)
->>   create mode 100644 include/linux/mfd/rohm-bd73800.h
-> 
-> Looks okay.
-> 
-> Let me know when you have all of the Acks and we'll merge it via MFD.
+>  static struct kobj_attribute pending_reboot = __ATTR_RO(pending_reboot);
 
-Thanks Lee,
-
-I think all of the patches had relevant ACKs/RBs already in the previous 
-revision. Eg, AFAICS this is good to go.
-
-Yours,
-	-- Matti
-
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
-
-~~ When things go utterly wrong vim users can always type :help! ~~
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Mark
