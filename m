@@ -1,345 +1,229 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042C038C423
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814BA35DA40;
+	Tue, 22 Sep 2026 03:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046589; cv=none; b=c/FvcnjuBiP/npufvh/duVtgEQQVHHV7PwaAEa9CjxHfeLl9RhiItjBkDXu6anxjuMSfjQof6+B0BajYlNwGVPdM8PnWzccTp4Z4/Gac9VrAbGOWerzYRi1GDUKlQFY/M0gqKImjikQgjXpRoJLr5DE0XUrRPwnQJUMDG1sh/yc=
+	t=1790046658; cv=none; b=BmkY9Fg/Mw/OMcWpt3a2mgDZEtalp0AOqrm53ksbEpBMTGZej8p3exC5l7rsgEnndngsXY3YbGQv3tGUmk8ztTuC93XKOQPP6oB0t3SsF1SH9DCQdJ3adNbkeYY6hIKqL0lmNm9440AszrPl7pg3rsTJGFxdUJU1BXLHHSOjFeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046589; c=relaxed/simple;
-	bh=4ZkQd5DiIIhD0iP7qgKaOwYrBqewdiXyq1XFysgGpsg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZeHzYuEGKTmCLo1lP1puSo+KPgzwnxWLBT8NnsrrDI2maTNdOS7oNyrMc4q2UOKW9rdWRrpth23clhknkcG4s8P12yUuELNaLnCaqLbWzavwmGa92Q+6l6PRcST0ve8DSzMLBSxlVjlmO7h2laKcfWYePfFIylpcXHm+cPC31TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LnVuSs4C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BEr2laq8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790046658; c=relaxed/simple;
+	bh=NllU/WOrUsmJskpSVrPDTGRzxl46+qwRZZY2NvEUyxE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=p4uNxR2r7FOQJ0xPowQJz4JLWEdMmFG/NI8zD6RgdAUprIyMVlRz0xNOAtvdlBR1QuFhOh08DCuftEFQPnoX8rOxcQBrquB6UjLfwWcI/h9OqkLdob7sIhXb9BlWCuL2rVIbgZDozNz5pIpsVuQAR7VnMGLAT4U3AuM2C4v5k+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zr4rXcS8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LnVuSs4C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BEr2laq8"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M009Dw1978627
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:09:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=BpB9XykWsB5pjLfCskY1De
-	ilDEJV54PzXC3gjSOvobM=; b=LnVuSs4CnBWWSgIcG40wrK67FGWaLEMNjYvva8
-	qPBdukGBFn1AXnj/D/lFcjAaIg8hW+wQhPFEjG9S+6WnFw/QkUdkKzamjyrmOK5k
-	BEzHA81iEVetuMUMmQuZBnUZWlnPxe44ZBY7w8pcdrfNx07Y2sWDTn1uvJbEVJlw
-	JrX/G7uPf2pCnUyikWZNLEIhqcKc+K7rhDG/KGLFR/W8Ih5xBH9X10X+fY711NGW
-	CjSXP0Kq7M8U8cwIlSXTh2mfALkZGoRhgaHKJmyzSkzKqCuK+Mi19acLFTq3UtBe
-	UfBuEfHLzEBrLfiaIvG5hDsBq0BkGdkKXOZbn6D8pUjlk19Q==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gudw0gq6w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:09:47 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86a0dc7f26cso5641556b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:09:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790046586; x=1790651386; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BpB9XykWsB5pjLfCskY1DeilDEJV54PzXC3gjSOvobM=;
-        b=BEr2laq8odzL4q8TMmruEKJNbUGzG0HPtXzK17aOxXIJKs9pcRBEBbg6wUT9yvQazf
-         gweFuur7fthfwAS5upQiBUaDAi5xBiXl7tJbGWKtmxKLIZVJlG/MwZWczUFnyZorINon
-         kUCr+opb2Yzi2dMk6AN1WDpiyTKS4FsojqW4rRv/GiaK8G1RaqMpgrQpg1nIYRYPrMZz
-         PubScpFx5QicJCRPphhy1wTLztTOzGn2EO7dKBo4rqhJg/G4Baoo3zAhFyoFXu18tmrv
-         /ig0ElNAdg3HoeUNYpDULg2L5IQGt/iTzdK8fjKCbGbW/PbNu1QSy6YQ6OZ6WSu+KqTP
-         2xDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790046586; x=1790651386;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=BpB9XykWsB5pjLfCskY1DeilDEJV54PzXC3gjSOvobM=;
-        b=2v/BHCfBzRTcNLccuflSkJT2rsTyhgxMT39y3SRPU6hUpdbFggXaEJ31JEP74wZARv
-         Feu9vh8Rfut4qk7pW3aQ0PPn8ECWCGNulX1JKA2rIMcx8Vov3TUGWHsPBgp9il+esqOI
-         0x7Ss3cb8llHfKoJDbK94WIPDwzhiTlsmcS5+S1QJacUO/+eRHgdO45JFUPOUPXQHP3/
-         bPUH5ftzKEU9hsaXGdqOrmb2WEqR3BkkkOPqMBqxQ8sujFxJ+BMI0r8MqDMrdMTErfQk
-         t0AtHqKqLF1YwdvRCWBwgFUGUUKKrcstqRZcnkTN3tgYbUDLlweTYsOZ8+sT9OZHAr+y
-         pZig==
-X-Forwarded-Encrypted: i=1; AKwUvBzgxvHc9JLh0sIcc950gbJu+i4lYV/HOf0ol5rBSB4cvEkpiPk6ivbORZGoUigzxzkz8xud2xcFNH9qlxw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlf4tkjIBhKUvyYinsHCPNt9jQ9Jm1U27/7V5QvMYZVUjnwLhA
-	ltnkEDfoYmanfcmpp0gFeVGuZTJ3dBBoo5gbFOtlbXRtT5JOsAdd4DFxqVeS57gss6X/jFBSrxA
-	xKyGCaMFslZpOvLuI62I/e+QH/sws0BPYsCijUAsJM2hm7EAwHC9whyfgD7EKlhZOofnrFrZpC0
-	CXTw==
-X-Gm-Gg: AYBFou1LBo15C9A4nRLCqWUuOVTKCbdXPzMih2++v5GTsj7oRsW4+JVHojmeF8HWint
-	tmO+1Izsqojdgzm9fEPMc13oLZxgp2kgOQD+VG6K5fQ/V6J+V/8G5rkR+jGu0JK5l04il2doGvo
-	WsHPnSO2PVAN/LZFMjC+iQ7cXSzfHReA9Ruei6PrW3Xhrj9mbZ1qhIMlb5AWpxd2RA+GD5k4Yey
-	c4+9GFWkCpT5EWxlSXLZZ8phbZMgWMtoIUrg8lIqNmJYB5ptrvFiDH9T1mbTEI63iKfWHufhdS6
-	RQLZAeJDa5CkuabV22VLIsEncipst08GKBSTpQbOW2o96fAFR6m5X6IhTnU1ma5IeuEaq+sE9pV
-	Yd31agES2veEhM0Psi/ooirfMP+H7w7Gk6UCAq1sf5NTRRSOV3fGoRjoTwe9v2w==
-X-Received: by 2002:a05:6a00:893:b0:874:706d:8571 with SMTP id d2e1a72fcca58-874deeff913mr16525769b3a.34.1790046586423;
-        Mon, 21 Sep 2026 20:09:46 -0700 (PDT)
-X-Received: by 2002:a05:6a00:893:b0:874:706d:8571 with SMTP id d2e1a72fcca58-874deeff913mr16525741b3a.34.1790046585952;
-        Mon, 21 Sep 2026 20:09:45 -0700 (PDT)
-Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c31ee8a87sm127187b3a.11.2026.09.21.20.09.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 20:09:45 -0700 (PDT)
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 11:09:31 +0800
-Subject: [PATCH] arm64: dts: qcom: shikra: Switch CPU ETMs to MMIO-based
- probing
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zr4rXcS8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8771F000FF;
+	Tue, 22 Sep 2026 03:10:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790046657;
+	bh=JuRCpvKO2FyROzwUiWDogYR8vNf+2vmDwHRyUrGgkfU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Zr4rXcS8NWbl/AZ1+KRIWVSTmrY0JXrchZDednHjdMwHQAWDMAKWSLWXC3rmg7b3U
+	 qJemHH70twb0wbVmRxadYffvmudSGHw+1pxSuS8jbHk2E4A9oHiZ7zffPg1WNzbAus
+	 ed781A8fePSE/WqP531H7YHO1qXvwPSylFlr1fJrrnsSpgKF4JOp6cdIaVquHd9sK2
+	 gbPjJ4DjRYn7Kkg3tnVnieDLpoWFZpB2jpJwDTxrCq76HFe5KxKVYqOqvJQYns0Oj8
+	 D2s70+VGoaNw7bZk5A5xvsA8tbk92LO1B2oflhx/621hQwyd4ry9Vlq+avkLvrkxGZ
+	 0RL9I33ghv2BA==
+Subject: Re: [PATCH net] net: bcmgenet: add hwtstamp callbacks to restore PHY
+ timestamping
+From: netdev-bot+sashiko@kernel.org
+To: jjc@jclark.com
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com, netdev@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org, vadim.fedorenko@linux.dev,
+ richardcochran@gmail.com, kory.maincent@bootlin.com
+Date: Tue, 22 Sep 2026 03:10:55 +0000
+Message-ID: <179004665570.2160803.5770454161179957984@kernel.org>
+In-Reply-To: <20260918030149.80398-1-jjc@jclark.com>
+References: <20260918030149.80398-1-jjc@jclark.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-fix-etm-probe-issue-on-shikra-v1-1-56d25e9bbe17@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAGvxsWoC/x2MQQrCQAwAv1JybqBGt7b9SvGwataG4m5JVISlf
- zd4HIaZCsYqbDA1FZQ/YlKyw6Ft4LbE/GCUuzNQR303EmGSL/LriZuWq0uzN2PJaIusGjHEnk4
- pDMfxHMAfm7IH//982fcfVbdc628AAAA=
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Jie Gan <jiegan@qti.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790046582; l=4900;
- i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=4ZkQd5DiIIhD0iP7qgKaOwYrBqewdiXyq1XFysgGpsg=;
- b=5XoV3A8QTdDV9bDHnFyyz5SyhyvsLEqybRh3XplUgY12xmSkgUt3rEZRUGjIcgjofJBOAmfTN
- rolfhvX67iICenIYXoXP/xS0N5z/7HfUt1hzhr0p2ApLIb7iCo8he3D
-X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
- pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-ORIG-GUID: 6tEb9YDWy3uMZyclmekInJdAxzkq-VZn
-X-Proofpoint-GUID: 6tEb9YDWy3uMZyclmekInJdAxzkq-VZn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA0MiBTYWx0ZWRfXwqGTX7dk2Emq
- IkXuC4GRpmazQF24RP/P7e33/c939FVhJTlZvTFOnsT26FTEdXX9G709dFthzhaamtv4F86timL
- EWDBkx6zLz6w9SSeXf4wMEKwl7XC55Z0tzIrqmlxkuXoLYaKt4po5o0wQrCnuH8X7i2c4DUAq63
- qoLBi3Q99iqcDe5vuy+F+AqzKCNdbxCs52Gy/z+FTISK1Z3wVAxA3VkxKomgZ51CFuGGMhk2VC6
- 3I54oJKDj7LnF3TkWE3zyGPbNprGaO391GDPyIrEAm60dnn83tUUZHAeEnwneZidsjNqrHXkowR
- dmbcZ+N9pNxFcI5lAarbSH7qX5NXbNm8x+yCyqwcr33Zj03Qbm9GWPJ97VAzDylKkHbgMPqW9FA
- 8MqwQFCDFWgJ6DMzHObTBW9NNG821PP+C+9tdY+J0Cw/soqxJn9pUtSVJpMCYhaSssnWSybyhHw
- Bn7jIld5PPdPIpD7vig==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA0MiBTYWx0ZWRfXwcgFYe1Txy/s
- j/7QsZOximU8651E4uADffVqALZDUeumXXwNjIREBIMjJkuHqdGrBBPDBt3x/UQxsfO0y6eD34t
- d3h9uVlwjtcr9LEeRyMuMj9d894rVf0=
-X-Authority-Analysis: v=2.4 cv=TvFzFzXh c=1 sm=1 tr=0 ts=6ab1f17b cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=YyAnXQyPezYHqYzMlv0A:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220042
 
-The etm0-etm3 nodes are declared with "arm,coresight-etm4x-sysreg"
-but do not implement self-hosted system-register trace access on
-this SoC: ID_AA64DFR0_EL1.TraceVer reads as 0 on the affected CPUs,
-so etm4_init_sysreg_access() correctly reports the access mechanism
-as unavailable and the ETMv4 driver fails to probe with -EINVAL.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The CPU ETMs have a memory-mapped aperture, so switch each node to
-the standard "arm,coresight-etm4x", "arm,primecell" compatible with
-its MMIO reg range.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-Fixes: eed738c6dd0c ("arm64: dts: qcom: shikra: Add coresight nodes")
-Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
----
-Signed-off-by: Jie Gan <jiegan@qti.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra.dtsi | 140 ++++++++++++++++++-----------------
- 1 file changed, 72 insertions(+), 68 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index c1f06f692f66..62bacf749241 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -164,74 +164,6 @@ eud_in: endpoint {
- 		};
- 	};
- 
--	etm0 {
--		compatible = "arm,coresight-etm4x-sysreg";
--
--		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
--		clock-names = "apb_pclk";
--		cpu = <&cpu0>;
--		qcom,skip-power-up;
--
--		out-ports {
--			port {
--				etm0_out: endpoint {
--					remote-endpoint = <&funnel_cpuss0_in0>;
--				};
--			};
--		};
--	};
--
--	etm1 {
--		compatible = "arm,coresight-etm4x-sysreg";
--
--		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
--		clock-names = "apb_pclk";
--		cpu = <&cpu1>;
--		qcom,skip-power-up;
--
--		out-ports {
--			port {
--				etm1_out: endpoint {
--					remote-endpoint = <&funnel_cpuss0_in1>;
--				};
--			};
--		};
--	};
--
--	etm2 {
--		compatible = "arm,coresight-etm4x-sysreg";
--
--		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
--		clock-names = "apb_pclk";
--		cpu = <&cpu2>;
--		qcom,skip-power-up;
--
--		out-ports {
--			port {
--				etm2_out: endpoint {
--					remote-endpoint = <&funnel_cpuss0_in2>;
--				};
--			};
--		};
--	};
--
--	etm3 {
--		compatible = "arm,coresight-etm4x-sysreg";
--
--		clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
--		clock-names = "apb_pclk";
--		cpu = <&cpu3>;
--		qcom,skip-power-up;
--
--		out-ports {
--			port {
--				etm3_out: endpoint {
--					remote-endpoint = <&funnel_cpuss0_in3>;
--				};
--			};
--		};
--	};
--
- 	firmware {
- 		scm {
- 			compatible = "qcom,scm-shikra", "qcom,scm";
-@@ -3218,6 +3150,24 @@ cti@9020000 {
- 			label = "cti_apss_pe0";
- 		};
- 
-+		etm@9040000 {
-+			compatible = "arm,coresight-etm4x", "arm,primecell";
-+			reg = <0x0 0x09040000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			cpu = <&cpu0>;
-+			qcom,skip-power-up;
-+
-+			out-ports {
-+				port {
-+					etm0_out: endpoint {
-+						remote-endpoint = <&funnel_cpuss0_in0>;
-+					};
-+				};
-+			};
-+		};
-+
- 		cti@90e0000 {
- 			compatible = "arm,coresight-cti", "arm,primecell";
- 			reg = <0x0 0x090e0000 0x0 0x1000>;
-@@ -3236,6 +3186,24 @@ cti@9120000 {
- 			label = "cti_apss_pe1";
- 		};
- 
-+		etm@9140000 {
-+			compatible = "arm,coresight-etm4x", "arm,primecell";
-+			reg = <0x0 0x09140000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			cpu = <&cpu1>;
-+			qcom,skip-power-up;
-+
-+			out-ports {
-+				port {
-+					etm1_out: endpoint {
-+						remote-endpoint = <&funnel_cpuss0_in1>;
-+					};
-+				};
-+			};
-+		};
-+
- 		cti@9220000 {
- 			compatible = "arm,coresight-cti", "arm,primecell";
- 			reg = <0x0 0x09220000 0x0 0x1000>;
-@@ -3245,6 +3213,24 @@ cti@9220000 {
- 			label = "cti_apss_pe2";
- 		};
- 
-+		etm@9240000 {
-+			compatible = "arm,coresight-etm4x", "arm,primecell";
-+			reg = <0x0 0x09240000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			cpu = <&cpu2>;
-+			qcom,skip-power-up;
-+
-+			out-ports {
-+				port {
-+					etm2_out: endpoint {
-+						remote-endpoint = <&funnel_cpuss0_in2>;
-+					};
-+				};
-+			};
-+		};
-+
- 		cti@9320000 {
- 			compatible = "arm,coresight-cti", "arm,primecell";
- 			reg = <0x0 0x09320000 0x0 0x1000>;
-@@ -3254,6 +3240,24 @@ cti@9320000 {
- 			label = "cti_apss_pe3";
- 		};
- 
-+		etm@9340000 {
-+			compatible = "arm,coresight-etm4x", "arm,primecell";
-+			reg = <0x0 0x09340000 0x0 0x1000>;
-+
-+			clocks = <&rpmcc RPM_SMD_QDSS_CLK>;
-+			clock-names = "apb_pclk";
-+			cpu = <&cpu3>;
-+			qcom,skip-power-up;
-+
-+			out-ports {
-+				port {
-+					etm3_out: endpoint {
-+						remote-endpoint = <&funnel_cpuss0_in3>;
-+					};
-+				};
-+			};
-+		};
-+
- 		funnel@9800000 {
- 			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
- 			reg = <0x0 0x09800000 0x0 0x1000>;
+- [High] Fix applied at the wrong layer: the regression the commit
+  message diagnoses ("the core rejects timestamp configuration requests…
+- [Medium] Registering ndo_hwtstamp_get/ndo_hwtstamp_set on a MAC that
+  has no PHC opens a one-way trap on the ETHTOOL_MSG_TSCONFIG_SET path.
 
----
-base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
-change-id: 20260922-fix-etm-probe-issue-on-shikra-5a624f583975
+--
 
-Best regards,
+net: bcmgenet: add hwtstamp callbacks to restore PHY timestamping
+
+This adds ndo_hwtstamp_get() and ndo_hwtstamp_set() stubs to bcmgenet that
+both return -EOPNOTSUPP, so that the core hwtstamp entry points no longer
+reject SIOCSHWTSTAMP/SIOCGHWTSTAMP before the phylib helpers get a chance to
+dispatch to a timestamp-capable PHY.  No other behaviour is changed.
+
+> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> index b916080f4ff1..98d861811328 100644
+> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> @@ -3721,6 +3721,19 @@ static int bcmgenet_change_carrier(struct net_device *dev, bool new_carrier)
+>  	return 0;
+>  }
+>  
+> +static int bcmgenet_hwtstamp_get(struct net_device *dev,
+> +				 struct kernel_hwtstamp_config *cfg)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +static int bcmgenet_hwtstamp_set(struct net_device *dev,
+> +				 struct kernel_hwtstamp_config *cfg,
+> +				 struct netlink_ext_ack *extack)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+
+[Severity: High]
+
+Should this be fixed in net/core instead of per driver?  The commit message
+describes the failure as "the core rejects timestamp configuration requests
+before they reach the PHY", and the rejecting code is provider independent:
+
+net/core/dev_ioctl.c:dev_get_hwtstamp() {
+	if (!ops->ndo_hwtstamp_get)
+		return -EOPNOTSUPP;
+	...
+}
+
+net/core/dev_ioctl.c:dev_set_hwtstamp() {
+	...
+	if (!ops->ndo_hwtstamp_set)
+		return -EOPNOTSUPP;
+	...
+}
+
+The same presence test exists in generic_hwtstamp_get_lower(),
+generic_hwtstamp_set_lower() and in ethnl_set_tsconfig_validate()
+(net/ethtool/tsconfig.c):
+
+	if (!ops->ndo_hwtstamp_set || !ops->ndo_hwtstamp_get)
+		return -EOPNOTSUPP;
+
+These are the lines 5062245a5a7f turned from a dev_eth_ioctl() fallback into
+a hard error, so every MAC whose PTP comes only from the PHY is affected, not
+just bcmgenet.
+
+Two drivers in the same directory still have no ndo_hwtstamp_* and rely on
+phylib ioctl handling:
+
+drivers/net/ethernet/broadcom/bgmac.c:
+	.ndo_eth_ioctl           = phy_do_ioctl_running,
+
+drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c:
+	.ndo_eth_ioctl		= phy_do_ioctl_running,
+
+arch/arm/boot/dts/broadcom/bcm47189-luxul-xap-1440.dts wires bgmac's gmac0 to
+a BCM54210E, and that PHY driver calls bcm_ptp_probe() and sets
+phydev->default_timestamp = true, so that board still fails SIOCSHWTSTAMP
+after this patch.  Would skipping the NDO presence test when
+phy_is_default_hwtstamp(dev->phydev) is true cover all of these at once?
+
+A related question about the stubs themselves: since dev_set_hwtstamp_phylib()
+only calls the MAC callback when !phy_ts or dev->see_all_hwtstamp_requests,
+and bcmgenet sets neither, are these two functions ever invoked in the PHY
+case?  If they exist purely as a capability signal, would a comment saying so
+help, so a later "these always fail, remove them" cleanup does not silently
+bring the failure back?
+
+>  static const struct net_device_ops bcmgenet_netdev_ops = {
+>  	.ndo_open		= bcmgenet_open,
+>  	.ndo_stop		= bcmgenet_close,
+> @@ -3732,6 +3745,8 @@ static const struct net_device_ops bcmgenet_netdev_ops = {
+>  	.ndo_set_features	= bcmgenet_set_features,
+>  	.ndo_get_stats64	= bcmgenet_get_stats64,
+>  	.ndo_change_carrier	= bcmgenet_change_carrier,
+> +	.ndo_hwtstamp_get	= bcmgenet_hwtstamp_get,
+> +	.ndo_hwtstamp_set	= bcmgenet_hwtstamp_set,
+>  };
+
+[Severity: Medium]
+
+Can advertising these NDOs on a MAC without a PHC make the
+ETHTOOL_MSG_TSCONFIG_SET path reachable in a way that cannot be undone?
+
+bcmgenet uses .get_ts_info = ethtool_op_get_ts_info, which reports
+info->phc_index = -1.  Before this patch ethnl_set_tsconfig_validate()
+returned -EOPNOTSUPP for bcmgenet, so ethnl_set_tsconfig() was never reached.
+With both NDOs present, validation passes.
+
+Consider this sequence:
+
+1. TSCONFIG_SET selecting the PHY provider (index = the PHY phc_index), so
+   dev->hwprov is non-NULL and PHY timestamping works.
+
+2. TSCONFIG_SET with ETHTOOL_A_TS_HWTSTAMP_PROVIDER_INDEX = 0xFFFFFFFF and
+   QUALIFIER = 0.  ts_parse_hwtst_provider() stores that through
+   ethnl_update_u32() into the int index field of struct
+   hwtstamp_provider_desc, giving -1.
+
+net/ethtool/common.c:ethtool_net_get_ts_info_by_phc() {
+	...
+	if (info->phc_index == hwprov_desc->index &&
+	    net_support_hwtstamp_qualifier(dev, hwprov_desc->qualifier))
+		return 0;
+	...
+}
+
+-1 == -1 matches, and net_support_hwtstamp_qualifier() returns true because
+bcmgenet declares no supported_hwtstamp_qualifiers, so the provider becomes
+HWTSTAMP_SOURCE_NETDEV with phydev = NULL.
+
+ethnl_set_tsconfig() first disables the working PHY timestamper with
+dev_set_hwtstamp_phylib(zero_config) and then installs that provider:
+
+net/ethtool/tsconfig.c:ethnl_set_tsconfig() {
+	...
+		__hwprov = rcu_replace_pointer(dev->hwprov, hwprov,
+					       netdev_is_locked_ops_compat(dev));
+	...
+}
+
+>From there dev_get_hwtstamp_phylib() and dev_set_hwtstamp_phylib() take the
+HWTSTAMP_SOURCE_NETDEV branch:
+
+net/core/dev_ioctl.c:dev_set_hwtstamp_phylib() {
+	...
+		} else if (hwprov->source == HWTSTAMP_SOURCE_NETDEV) {
+			phy_ts = false;
+	...
+}
+
+so the PHY is never consulted and bcmgenet_hwtstamp_set() returns
+-EOPNOTSUPP.
+
+Does that also block recovery?  Reselecting the PHY provider runs the
+zero-config disable step first, which now hits the NETDEV branch and the stub,
+so ethnl_set_tsconfig() bails out through err_free_hwprov without replacing
+dev->hwprov.  dev->hwprov is only cleared in phy_detach() when
+hwprov->phydev matches the detaching phydev, which is NULL here, so ifdown
+and ifup would not clear it either.
+
+The permissive -1 comparison itself lives in core and predates this change,
+but is this patch what makes it reachable for bcmgenet?  Would declaring a
+real .get_ts_info (or rejecting an index of -1) avoid it?
+
 -- 
-Jie Gan <jie.gan@oss.qualcomm.com>
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918030149.80398-1-jjc%40jclark.com
