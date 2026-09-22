@@ -1,51 +1,45 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B2841A918;
-	Tue, 22 Sep 2026 12:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BC53C1969;
+	Tue, 22 Sep 2026 12:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079354; cv=none; b=poXj7JM2QJL+daPyhLpL/nnx8CiDXChT7tW+6UroXQtXIEdJUUIb+Y8ROfGiw4ZzMhlNmss9Fn7pLZ1V971JlImBuEKerl19IpBrvfUZ34if0AuXcjrT80d7XHy16pQkj0HSIKBNmF6Ar1VrC84m0wOqEZ9TVbddctI1hUE4xzw=
+	t=1790079387; cv=none; b=KElUWD3RLFMtAsJJLOZ8m5IABOFFHAQk6iULvQVwSofPEQxH93/Ruk185m8byFFjfiJ4W/Zd+sKJrbuij208IC/QbujKowEa6Phlxhg7Tz6ItyfAcKzHxl6DGnGmoZsJXjqtji62m5Var0ZMJp+2jJqOizdLSZQgI8Iwwhi3PI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079354; c=relaxed/simple;
-	bh=VPNUyX3TZtl3siFsSmkMbcAFhvr7f98/I/jvNA3v3bI=;
+	s=arc-20240116; t=1790079387; c=relaxed/simple;
+	bh=yuNk9xssY0k6DQGENTHyQhEOoqGJonBD8gWDgo2awSM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pARENrB0yPho4qu3a0ZpRLqw7zycB62rvoomACmNUJ/ZD6jnagFH9XK16+6rlzIbyCS8dhtkp4z4ZVD0oSihhpYbi0wXZpD8uk1ysIfT9Lxdez/HXsRb2YqiLBd0qY1qd+s9FL8m5zKt4P6nnI49LrL1RIUpZwsYuW9whqVFju8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fj4Nz8fB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=b/YReQbLllwUm/6dgqS9meLSLZp14zMLBDO9QYGgg0mLsbG2aTIr9sWNzVB8uoqfXomFcGcr0NdCBN928wXR0TkCoGJE8o1ict/Lmua9ri38Wt6m44kleeooolBfFqMFAW9Jdu35Xw+WdU8uf9ekVM8YWxbzHMTJG0+2hX9C6gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=BrqG22Vq; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fj4Nz8fB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9C51F00893;
-	Tue, 22 Sep 2026 12:15:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790079352;
-	bh=JIYSRvzS+lTZK1y1XxDKW9rrYSsqjNnfXKv1cTCBldM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fj4Nz8fBrlIMtPAwuvyzWYgk2LXF8Lpt0kYzJikISSS2f0gxq5cu91MkPgMyWhjmi
-	 TYz4m2gkgQqLrmbKjfBYcSmLKtH9wodN2/Y73RJQFK/57b5LQAdtG2hb2KfS+yWqCf
-	 uNGH+Od6166rVnHDSiH0YgzkLIKrgic57G4b6NwkebXfJEq90QcRbBTIoiN+jCNjab
-	 YExQKEHAAB7yOuSq+JSzzcGGcPv8ESaG5JOBvLB4k0H0oXfFsb46GRQRjewGO8R2SG
-	 3PR5daWjK6PZ94j72UK/IRJGiA/l4632P8gg4blm110z9uU7grk6wVndtuhCAc7xSE
-	 9eHOmJN2e4u4g==
-Date: Tue, 22 Sep 2026 13:15:48 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Snehal Koukuntla <snehalreddy@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sebastian Ene <sebastianene@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] firmware: arm_ffa: Add FFA_FN64_MEM_RECLAIM2
- function ID
-Message-ID: <20260922-chubby-cicada-of-exercise-bbb429@sudeepholla>
-References: <20260921164748.2958578-1-snehalreddy@google.com>
- <20260921164748.2958578-2-snehalreddy@google.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="BrqG22Vq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=zZu4JoRx7gv4egN1HTLqNyQyOQxpMsI6qQaF7otSn7o=; b=BrqG22VqpOHV+4o1GvZtFro8jR
+	iR6RYiuObEVMWNwA2ceCVIdxakQd9qlXLQsaWM0r6b8NSJntiFmBbgpVU/ApYNBvupn6fBxMRIVGH
+	l6dYn8s+Gr3BVy5S6v1IhJnAQ9TXeB6jb38r/iCa7LOpHm8rcZzRJhXCqd5RHs0WCeA0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8zPy-006aDQ-FR; Tue, 22 Sep 2026 14:16:14 +0200
+Date: Tue, 22 Sep 2026 14:16:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/7] net: dsa: motorcomm: Hoist port_to_priv
+ helper into chip.h
+Message-ID: <0df522bb-9305-4b27-a1cf-fe0e11970751@lunn.ch>
+References: <20260921203040.1203911-1-mmyangfl@gmail.com>
+ <20260921203040.1203911-2-mmyangfl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,21 +48,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921164748.2958578-2-snehalreddy@google.com>
+In-Reply-To: <20260921203040.1203911-2-mmyangfl@gmail.com>
 
-On Mon, Sep 21, 2026 at 04:47:47PM +0000, Snehal Koukuntla wrote:
-> FF-A v1.3 ALP5 (DEN0140 rev J) introduces the optional FFA_MEM_RECLAIM2
-> (0xC4000091) ABI, which enables an Owner to reclaim exclusive access to
-> a subset of pages of a memory region without requiring the Relayer to
-> maintain intermediate transaction state.
+On Tue, Sep 22, 2026 at 04:30:18AM +0800, David Yang wrote:
+> yt921x_poll_mib() open-codes the same container_of_const() expression
+> that leds.c defines as to_yt921x_priv(). Move the macro to chip.h as
+> yt921x_port_to_priv() so both files use one definition.
 > 
-> Add the FFA_FN64_MEM_RECLAIM2 function ID definition to arm_ffa.h.
-> 
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
 
-Since the spec is still at ALPHA, I suggest to add RFC in the subject
-if you post newer version so that it is *NOT* considered for merging
-until spec reaches *BETA*.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
--- 
-Regards,
-Sudeep
+    Andrew
