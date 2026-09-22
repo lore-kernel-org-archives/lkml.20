@@ -1,280 +1,231 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E57543E066;
-	Tue, 22 Sep 2026 08:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065951; cv=none; b=dKZpbyg/V2SL1RWwHS5OZ/hBh+iqLz6HttRYJ3NezFhQTgJaVcCFBS84tHELBqgZAIJo1NRafLRYRCtC/sOiWwbEGR8Ovy/fj9YQYz6tF4PSn4e+bH+ZDuTppqElyHWeYAhqv7i5SOAN7nfSx8cW2ntpEfeXgJJ2dqJhoLkX3mM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065951; c=relaxed/simple;
-	bh=4sqCU4zBHWOSgXUR2rs8X2LWH7/he4c8zE7n+HH4q/s=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=StRNj0kujFpEVkUbo4I8a0pLHlXv4Z7AI5gNNe/IWL1rQctGuCG4kB3Ybe16AcIp7d8TuJ9CcnO11pQVVK85lLASekO8QTye/ku7LdpFF/d6UsaaeBujQYP+zYxB+28gx9Uo8/k9Keng9yKgZSLIQRiQqiMsGLtB1W4oj4jaMRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfySsA+M; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4994078C2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790065983; cv=pass; b=GpyvSJcSQNxjzvlZe0SBmdp2BxTfyLFAvh3IGE+zq/L2wVI5fal3GCuXCHckXmhMFTf7/R7tVbxxHxVfuDJyvDkWWSnLqZv1vOfgrnGccJd7aW8MhkR1niNMChbTQ8VbZ8d25jXriLSLCVuR5cFvwPcQT28CGr+gqWPs++JKDbk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790065983; c=relaxed/simple;
+	bh=7xjtaQuqAXxf+hAdJkdWgk2gcGRE6qs4ZDWc+xjsR0Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KJ4QK0Q+AMWwt02J2sNPi9c0/Xq5XpIDgzinyLnyDwQVFNYQeCZfDgIdeor9Af1dCsWLZPD1lCE/C0ba9r7ArceK3dRCwZi3vU2ZTQqd8btWTc5DGJMxO8RWOfTSU+Ux/F+YJ8VQA2dcrLD49U3IRdufZE9x5bhWkLt5/2K+OVk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KGOjPwTV; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfySsA+M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D981F00898;
-	Tue, 22 Sep 2026 08:32:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790065948;
-	bh=Ju9mNb1Cqn3qRuavXl8s4qxRg3Qp7mnO/3stNcEh5b4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kfySsA+MLazd0qzSGjwF3xxrsGMa57aR1QqFjFYA6CLapL8vSeMddJtRP0fqS1dgJ
-	 Bp2ndWelgEpUhEu9ZaLTZwuoJE308CYLSZSJGtdH3oLBSmGqgwLNi09wFekOMbentA
-	 Prtdf/oH8kfEDP7rtCNNUNNoYsnkvPSvxP9URcJ2LreycHgdh/3orf25ZdvUVz/wmv
-	 8oWYPaKzQlOzptepfmcOWYFG8+QzlwVm9GvZx5HUfBMbX0pPWw2XszKrjg1kByLXJs
-	 A/6WQ3tpKOKE5fF1VZiIdlEn6cEybseqOFrBpBHfIFo+YQK3/YNXrgV7pSzuwI0F7m
-	 5QMfR0YFzpxHw==
-Subject: Re: [PATCH net v2 3/3] ieee802154: ca8210: validate data_ind length
- upfront in ca8210_skb_rx()
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: h.morris@cascoda.com, alex.aring@gmail.com, miquel.raynal@bootlin.com,
- stefan@datenfreihafen.org, linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 22 Sep 2026 08:32:27 +0000
-Message-ID: <179006594782.2160803.17929419446576675162@kernel.org>
-In-Reply-To: <20260921074205.2289211-3-benquike@gmail.com>
-References: <20260921074205.2289211-3-benquike@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KGOjPwTV"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-86382f10801so14769297b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:33:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790065980; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QEbmHZF9I+5fjKoGFdMUqwOo+BR+BffcE7H9pT98oNKkCIi+ocNE9Pzi/34H8myTb8
+         evp0U6HJlHVAUlzsRVDHKof4tlla+Zvd+mCkMA7g5t8ld4nyM+0ZXleSr+M4CwX+CEzN
+         cjTCTuHqwr0vGfZch6Ohu6c6ajYDGdcfZzMehAsFkOOTCT6+Is3PwaIImYdtETvXchCe
+         lgSMqKcM6DkWxCqXFkkDiH2SxApbokDEaycRsLyx6hP7P/6r7QEDvvLW50Eok8HGv/f4
+         9boa+ca8Hgx493jYE85MlnnF+9EYMEurEzkOO3qkeYOvd9ULIFi7Fvq+tkRl45n3MozY
+         9nTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uc6MKy91deNZKs3T7MFlI/Iho7lcnSF5IHtT7sXWVmE=;
+        fh=Y5LHr7TgovrBvfpMKG3YXOYzL/vRdLbUxtYXW4owB0c=;
+        b=XPrDEmw7Om5w+dVbigyVX17nxLh+KzkRHgxvAK1KHsTQICk50lY2NBK5u8KdHTLhC9
+         NX3lIG/oYj95CHWfNcenLwHB35oz8OeJIHNqmQTP0+pOiCI77zF3bnmhpGvImw6Trw7Y
+         2drAjRWMZy6TCcMABY7H1c/YX6jSu1CLg46m0KvruJmKqyr3AYO/k2ymYfkvuUYCuCTz
+         zo+eXqVzlcI97AnWKPfxtyt9y5TimrBN2Ip79dztJ/K91E8mDPbOOo5fY3ClhyqVFgjx
+         D9SOhzFRrPfNAFKADWFZ9QveDEzJElIE/7WSIRP1YVYGwVxwuQh0dzRev6YUruqWqg/B
+         aP/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790065980; x=1790670780; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uc6MKy91deNZKs3T7MFlI/Iho7lcnSF5IHtT7sXWVmE=;
+        b=KGOjPwTVx9uwWZVTYYrKd+053u9ED/7zfEeeRBvqK/E65oa3GFc5x/RVIIUQbtCAL2
+         iI1Dorg0KJTiWzkiPppka4E+GdBYigJQJFS8twwG2bDrCUdx0pQxilvTBtPaN3LWLOUG
+         zLjhF1RCQmqG5AG5LstIOGesX876z4MxG1YYkU4tvL1bzDAJOogUQlFrwqCnjaw+KErn
+         V/7m6TAJz0DprPa5nFwp6Q10x312p3uhjk26e3Uu8DoMhW/PNImirYmAKeiHesc1RmcO
+         CYfJwMMXTBQ9quhoANbjGcjscb9jZ1HBBut8i8QGDt7yozVlVo86YVueukRjHzSHgeV4
+         RbFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790065980; x=1790670780;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uc6MKy91deNZKs3T7MFlI/Iho7lcnSF5IHtT7sXWVmE=;
+        b=XBejBv0hA4E14A6Y6UyQiPqGyiyQXUVKnNyueba2XMFOJi0wUZZYjag7ZPEUSRbIIk
+         uMAIhFCV+NfCi9J8qafdjgrjR1n05RHZrErjcLmDiDW8ta6U68vnIhOLqM5wvZ8zm+XA
+         zZziriBzdbdYd7qiMA5ncUm89SVJBgAGzrxUdP7PAs71BqaRVbNqRiBrHUuso4rhJcnq
+         zkpiAuW/c55Kw7m9TZRJxzOCjnQ+S2NzVvTaHpzf0+WeQVFCADt5xpiRmijkx5HUSt0j
+         2nTYxtfzaFuKZKhruewD08eHGKw7NZc9UI+kFmUcRGl7FXFnV7EvytRQHVEZlDccmHSE
+         VVsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ5/8ua9Ws01oF0ZOsWI+aNleMEqd7lCK5OIDiWin39E+6E4bRWu9ne6NTas+J3+Gl8rpiJEH5orgr3lc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ky+XUxyOX4kNEpuM4J+edDxaXWqIuZ7mdHTwU7yh6HJuFaKRHB
+	CofN/DUtvXvzSKtgTDeeTMWVZWPdb7micmOL0d3KsERZsE1wfE3r6oVJdb4izBLrTPOJXLUWBIR
+	VdPVy1VMy2zy0E0qi1bnLrUx4mjQpa0Y=
+X-Gm-Gg: AYBFou0G3m/QUvNR32pb3kwitto6kasZXB8M//+bVhh4u/4NKRZ6DuVCqsZu29b4pKm
+	mMisWA6JQkdpjrXkvftUstutKP65vrgNh49eF5dZMVCiWdxz8Py2BMUtGe6BJQ+FPfyQuPz3qA/
+	Mt2JRCGdaRqZgYzG7N256OUiCRCGCUQMSdcHFSFPoztbRSrwmyUhpbEubgW7Oz0BzGuLhXsFTTF
+	uxeN9IbblShJVQhvJ7WVJw1vzODdpTssuUavgZax+qQZsTp7SLbK5EX4N+ybpehUZnrCAJSwCrG
+	YjGEvwuhJ8ktJXzHHf0DeegUCzDyCFmC7MBgItDAifj8Lu2uzU52WewAqf5xNk+ntPMHENoEK3D
+	DNRVQ6LhFQj2u
+X-Received: by 2002:a05:690c:e3e8:b0:890:f416:7a27 with SMTP id
+ 00721157ae682-8a1f72e0763mr10172907b3.19.1790065980502; Tue, 22 Sep 2026
+ 01:33:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260403194526.477775-3-hannes@cmpxchg.org> <20260918022222.22955-1-laoar.shao@gmail.com>
+ <arGNfQQAVRZpEoPl@cmpxchg.org>
+In-Reply-To: <arGNfQQAVRZpEoPl@cmpxchg.org>
+From: Yafang Shao <laoar.shao@gmail.com>
+Date: Tue, 22 Sep 2026 16:32:23 +0800
+X-Gm-Features: AclHuK_94ufGY4ZEJ8CT7PtJGb648vSJVIoVUbgHFXl0QAzoGNj5hW9JaUB8nVE
+Message-ID: <CALOAHbAQm-Ev25DvL=SUM24mjUQojq20mqpFC_hBwepaurCz1A@mail.gmail.com>
+Subject: Re: [RFC 2/2] mm: page_alloc: per-cpu pageblock buddy allocator
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Liam.Howlett@oracle.com, david@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, ljs@kernel.org, riel@surriel.com, vbabka@suse.cz, 
+	ziy@nvidia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 3 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message misrepresents the defect being fixed.
-- [Medium] The patch silently changes `struct ieee802154_hdr hdr;` to
-  `struct ieee802154_hdr hdr = { };` in ca8210_skb_rx()…
-- [Medium] The consolidated validation is placed in the callee, but the
-  caller already parses the same MCPS_DATA_indication at a fixed offset…
-- [Low] The newly added validation and the code it protects read
-  priv->promiscuous twice, with no snapshot, lock, or READ_ONCE().
-
---
-
-ieee802154: ca8210: validate data_ind length upfront in ca8210_skb_rx()
-
-This moves all length and msdulen validation for an MCPS_DATA_indication to
-the top of ca8210_skb_rx(), before dev_alloc_skb(), and adds a check that the
-declared SPI frame length covers the payload and the optional security header.
-The struct ieee802154_hdr on the stack is also changed to be zero-initialised.
-
-First, a question about the commit message itself:
-
->     In ca8210_skb_rx(), data_ind is read at offsets 22 (msdulen), 23
->     (mpdulinkquality), 29 + msdulen (hdr.sec.level), 30..39 + msdulen
->     (security header), and 29 .. 29 + msdulen (payload) without verifying
->     that the received SPI frame length len covers those offsets, causing an
->     out-of-bounds read when msdulen exceeds len - 30:
+On Tue, Sep 22, 2026 at 4:03=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
+> wrote:
 >
->       BUG: KASAN: slab-out-of-bounds in ca8210_skb_rx.constprop.0.isra.0+0x137/0x160
->       ...
->       The buggy address belongs to the object at ffff888006453dc0
->        which belongs to the cache kmalloc-32 of size 32
+> Hello Yafang,
+>
+> On Fri, Sep 18, 2026 at 10:22:22AM +0800, Yafang Shao wrote:
 
-[Severity: Medium]
-Can this kmalloc-32 slab-out-of-bounds actually be reached in-tree?  There is
-only one caller of ca8210_skb_rx(), and it passes a pointer into a fixed-size
-array rather than a len-sized allocation:
+[...]
 
-drivers/net/ieee802154/ca8210.c:ca8210_net_rx() {
-	...
-	return ca8210_skb_rx(hw, len - 2, command + 2);
-	...
-}
+> >
+> > Hello Johannes,
+> >
+> > Thank you for the great work on this series -- I hope it is still being
+> > actively worked on.
+>
+> Thanks for the kind words.
+>
+> I am still actively working on it. Since the last iteration I have
+> addressed a few things:
+>
+> 1. The locking bug you are seeing. Rik had also run into this during
+> stress testing. The fallback to the zone buddy on PCP contention
+> brought back some of the original zone->lock contention.
 
-command is always cas_ctl->tx_in_buf:
+Right, I noticed that the zone::lock contention increased slightly
+after I applied the livepatch above.
 
-struct cas_control {
-	...
-	u8 tx_buf[CA8210_SPI_BUF_SIZE];
-	u8 tx_in_buf[CA8210_SPI_BUF_SIZE];
-	...
-};
+> So instead
+> I'm using the zone llist introduced for lockless allocations.
 
-With msdulen rejected above IEEE802154_MTU (127), the highest byte the parser
-can touch is data_ind[39 + 127], i.e. tx_in_buf[168], which is inside the
-256-byte array, and the payload copy tops out at tx_in_buf[157].  The same
-was true before the patch.
+That is good news!
 
-The test note also suggests the splat comes from calling the static function
-directly rather than from the driver path:
+>
+> 2. The PFN search for block recovery that Vlastimil pointed out. I've
+> tried various solutions (counters, bitmaps) but the thing that worked
+> best was having the zone buddy itself maintain free pages of owned
+> blocks on a per-block loaner list (in addition to the regular zone
+> freelists). This eliminates the sparse search altogether. Recovery is
+> then: pcp->owned_blocks -> pbd->buddy_loans -> page. Every page
+> visited gets recovered. For the loaner list_head, I'm reusing
+> mapping/index space that's unused in a freed page.
+>
+> 3. Removed the unowned buddy splitting on the PCP. Vlastimil had
+> actually asked to try that separately, as an incremental step, since
+> it's self contained. I tried this but realized that part was actually
+> bad altogether. It violates the rmqueue_smallest policy and causes
+> runaway fragmentation - just like the new block claiming did before I
+> added the block recovery step beforehand.
+>
+> So now refilling is just block recovery -> new blocks -> unowned
+> singles of the requested order.
+>
+> Incidentally, this also eliminated the CMA problem that Frank pointed
+> out, since the other refill paths respect ALLOC_CMA.
+>
+> 4. I realized I'm also violating the smallest-first policy in how I
+> was mixing owned and unowned chunks on the same freelists. For
+> example, an order-3 refill from singles sits next to order-3 fragments
+> from owned blocks. Only owned fragments, which route back to and
+> reassemble on that PCP, must be split. Unowned singles must be
+> consumed at their native order to preserve smallest-first policy.
+>
+> pcp_rmqueue_smallest() could check the PagePCPBuddy() flag to tell
+> which ones can be split, but that introduces another sparse search
+> problem, where we might walk higher order lists in the hope to find a
+> splittable owned buddy.
+>
+> To avoid this, I retained the legacy/unowned pcp freelists (up to
+> costly order and THP), and added a second set of buddy freelists up to
+> pageblock order to the PCP. This way the rule can be maintained with
+> O(1) list checks instead of O(pcp size) scans.
+>
+> 5. The on-demand merging at drain time proved problematic. Draining
+> isn't exhaustive, so it can attempt to merge the same unmergeable
+> fragments repeatedly. I moved merging into the pcp free path instead,
+> so every page is tried for merging exactly once, which seems to
+> perform a lot better in performance testing.
+>
+> Overall, it's gotten a bit bigger than I had hoped for. But it also
+> looks much more robust. And the additions described above seem well
+> offset by performance improvements in tests so far, even on smaller
+> machines.
 
->     Tested in QEMU with KASAN enabled by passing a short data_ind buffer with
->     msdulen = 64 and len = 30 into ca8210_skb_rx().
+It will take me some time to fully understand your work, but thank you
+so much for your great effort in resolving this long-standing
+zone::lock contention issue.
 
-What the driver does appear to do without the new checks is consume bytes
-beyond the firmware-declared frame length (leftover bytes of the same SPI
-exchange, or SPI_IDLE fill) and copy them into the skb handed to
-ieee802154_rx_irqsafe() - a stale/garbage frame rather than memory
-corruption.  Given the Fixes: tag and Cc: stable, would it be worth
-rewording the message so backporters do not triage this as a remotely
-triggerable slab out-of-bounds read?
+>
+> I'm still testing and polishing right now, and hoping to send a new
+> version soon.
 
-> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-> index 1de63142a45a..2aa7d8c8ae00 100644
-> --- a/drivers/net/ieee802154/ca8210.c
-> +++ b/drivers/net/ieee802154/ca8210.c
-> @@ -1759,19 +1759,15 @@ static int ca8210_skb_rx(
->  	u8                    *data_ind
->  )
->  {
-> -	struct ieee802154_hdr hdr;
-> +	struct ieee802154_hdr hdr = { };
+Great
 
-[Severity: Medium]
-Should this hunk be described in the commit message?  The body only mentions
-consolidating the length and msdulen validation, but this line looks like a
-separate fix with a visible behaviour change.
+>
+> > We are suffering from heavy zone->lock contention on our production
+> > servers as well, so I backported this series to our internal 6.18.y
+> > kernel. However, since deploying it to a few dozen production servers
+> > running workloads with heavy memory and I/O pressure, we have been
+> > hitting hard lockups at a rate of roughly one every day or two. The
+> > hard lockups look as follows:
+>
+> [...]
+>
+> > With these changes applied, the affected servers have been running
+> > lockup-free for more than two weeks so far.
+>
+> I'm assuming you saw an improvement of zone->lock contention. Would
+> you be able to share some numbers or observations?
 
-ca8210_skb_rx() never assigns hdr.seq, hdr.sec.frame_counter, or the fc bits
-frame_pending/ack_request/version/reserved, yet ieee802154_hdr_push()
-serialises them unconditionally:
+The result is great.  Below are the observations from our real
+production workloads.
 
-net/ieee802154/header_ops.c:ieee802154_hdr_push() {
-	...
-	buf[pos++] = hdr->seq;
-	...
-	memcpy(buf, fc, 2);
-	...
-}
+On our Kubernetes servers, many different applications (Pods) are
+deployed on a single host, and redis is very latency-sensitive.
+Whenever other Pods exit simultaneously, or any Pod allocates or frees
+a large amount of memory, redis easily hits latency spikes, and its
+P99 can quickly reach a level the application can't tolerate.
 
-and for security-enabled frames:
+This issue is clearly reflected by the TCPTimeouts metric in
+/proc/net/netstat, since the network receive path also needs to hold
+the zone::lock. Before your improvement, Redis's TCPTimeouts could
+reach tens or even hundreds whenever other Pods exited simultaneously
+or allocated/freed large amounts of memory. With your improvement
+applied, TCPTimeouts has stayed below 10 and Redis's P99 has remained
+acceptable. After I deployed the hotfix to work around the hard lockup
+issue, TCPTimeouts rose slightly, but it is still far lower than
+before your improvement.
 
-net/ieee802154/header_ops.c:ieee802154_hdr_push_sechdr() {
-	...
-	memcpy(buf + 1, &hdr->frame_counter, 4);
-	...
-}
-
-So before this change, every non-promiscuous received frame carried a few
-bytes of uninitialised stack in the reconstructed MAC header delivered to the
-802.15.4 stack.  Zeroing closes that, but also makes the reported sequence
-number always 0 and clears the fc bits.  Would it make sense to split this
-out with its own description and Fixes: tag?
-
->  	int msdulen;
->  	int hlen;
-> -	u8 mpdulinkquality = data_ind[23];
-> +	u8 mpdulinkquality;
->  	struct sk_buff *skb;
->  	struct ca8210_priv *priv = hw->priv;
->  
-> -	/* Allocate mtu size buffer for every rx packet */
-> -	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
-> -	if (!skb)
-> -		return -ENOMEM;
-> -
-> -	skb_reserve(skb, sizeof(hdr));
-> +	if (len < 30)
-> +		return -EMSGSIZE;
-
-[Severity: Medium]
-Is the callee the right place for this check, given that the only caller
-already parses the same indication at a fixed offset first?
-
-drivers/net/ieee802154/ca8210.c:ca8210_net_rx() {
-	...
-	spin_lock_irqsave(&priv->lock, flags);
-	if (command[26] == priv->last_dsn) {
-		...
-		return 0;
-	}
-	priv->last_dsn = command[26];
-	spin_unlock_irqrestore(&priv->lock, flags);
-	return ca8210_skb_rx(hw, len - 2, command + 2);
-	...
-}
-
-command[26] is data_ind[24], which is inside the region the new len >= 30
-check is meant to guarantee.  len itself comes straight from the device:
-
-drivers/net/ieee802154/ca8210.c:ca8210_rx_done() {
-	...
-	len = buf[1] + 2;
-	if (len > CA8210_SPI_BUF_SIZE) {
-	...
-}
-
-only the upper bound is checked, so a declared length of 2..31 still reaches
-the offset-26 read.  Can that latch priv->last_dsn from a byte outside the
-declared frame, so that a later genuine frame whose DSN matches is dropped as
-a resend, even though the frame that set it is then rejected with -EMSGSIZE?
-Would moving the validation (or the last_dsn update) ahead of the DSN read
-close that gap?
-
->  
->  	msdulen = data_ind[22]; /* msdu_length */
->  	if (msdulen > IEEE802154_MTU) {
-> @@ -1779,9 +1775,25 @@ static int ca8210_skb_rx(
->  			&priv->spi->dev,
->  			"received erroneously large msdu length!\n"
->  		);
-> -		kfree_skb(skb);
->  		return -EMSGSIZE;
->  	}
-> +
-> +	if (len < 30 + msdulen ||
-> +	    (!priv->promiscuous && data_ind[29 + msdulen] > 0 &&
-> +	     len < 29 + msdulen + sizeof(struct secspec))) {
-
-[Severity: Low]
-This check and the code it protects read priv->promiscuous twice, with no
-snapshot, lock or READ_ONCE().  The stronger bound (len >= 40 + msdulen) is
-only applied here when !priv->promiscuous, and the decision to parse the
-security header is taken from a second read further down:
-
-	if (priv->promiscuous)
-		goto copy_payload;
-
-	/* Populate hdr */
-	hdr.sec.level = data_ind[29 + msdulen];
-	...
-		hdr.sec.key_id = data_ind[39 + msdulen];
-
-priv->promiscuous is a plain bool written from ca8210_set_promiscuous_mode()
-in process context and from ca8210_reset_send(), while the RX path runs from
-ca8210_spi_transfer_complete() -> ca8210_rx_done() -> ca8210_net_rx() ->
-ca8210_skb_rx().
-
-If the flag goes true to false (or is simply reloaded) between the two reads,
-does the security header parse then run on a frame only validated to
-30 + msdulen bytes, reading up to 10 bytes past the declared frame length and
-pushing them into the reconstructed header?  Would taking one snapshot at
-entry, or making the len >= 40 + msdulen requirement unconditional whenever
-the security-level byte is non-zero, be preferable?
-
-> +		dev_err(&priv->spi->dev,
-> +			"received truncated data indication!\n");
-> +		return -EMSGSIZE;
-> +	}
-> +
-> +	mpdulinkquality = data_ind[23];
-> +
-> +	/* Allocate mtu size buffer for every rx packet */
-> +	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
-> +	if (!skb)
-> +		return -ENOMEM;
-> +
-> +	skb_reserve(skb, sizeof(hdr));
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921074205.2289211-1-benquike%40gmail.com
+--=20
+Regards
+Yafang
