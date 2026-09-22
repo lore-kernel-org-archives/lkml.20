@@ -1,126 +1,134 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5DE48F82A;
-	Tue, 22 Sep 2026 18:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEB748F02F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102427; cv=none; b=uhRYAgCzZne2dX20jjlUOWwn8cJvHd4b7jJsXsXR2wzLlZxiMI4J+LJqJkmy16eawD7vvy6XHR+aLUjLl+B6QJ9ez5yUKTpplDXc8ih048FTMmjuTnS7mf25mnChBSWnRgbKxJfFA08+usWkxfMY2uscDFUrkdlUKpi0r+gvWCU=
+	t=1790102432; cv=none; b=R1v5PCZWKDRTvCbStZ3QRgyydcAGeFcYV+EeMyoWfdsSuyn5C5nBUmhSIo3YdlmN4sUG3mNRr1LeL/653rDZuX9SsebBwnFFdUEV2rIWNXdig595tobEXRrXbR97Zv+vyqDiecGiM0imy6chCP8L8KAfftaloeJWQ4F59RejCEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102427; c=relaxed/simple;
-	bh=BWsJRoAQqxj59ti8UCODVBFnlbBJmIcFm8+gdAHINSU=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=WG+0Ko724TSOGOmvc0xEaXqH7sVzsdqzr/s6HVApKBV90kkc1cHooudI3zDrOU3jOblTzsjkb6s0sYtkm93EDTlNhwmOzhagITfzuT/jA6ANjZ/Az4jPAAGy+fulmVCOeF0Ks/8gFSNl3vN+7zo/6MTsSCGcmQNGR2ihSZi3kHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=QskZmMwd; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=suaoituA; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790102432; c=relaxed/simple;
+	bh=ERtLhWAKheJkkB1jYfwWgoVSdNN2wmMgOYzp/tzF/bI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tOz3Hsy21gmCD3utOLzTTqR4nrpXm3Kugb59nyHK6ay/+zpbIBSD9owlF7NeuDeu/z79orNp6RZw/uhz5A1z2SragxMJe8+wM5nY6c2TMxYDvYuFziWBMkLLhIsS6uVtxoZHNT1LqJc5Oa52fv2rvadbyopJiCsx81iix3K3+mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gDh54AWb; arc=none smtp.client-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="QskZmMwd";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="suaoituA"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790102273; bh=GhL/OKSrQi7a2VgZmyNvxdS
-	rDOhPoV7pImkjsaA2JhI=; b=QskZmMwdBGolMfxnZdaE963fhpAOlEkoqyHwSTJVngPOon5/D9
-	h9WarS9jWq1oz3Fr0iFnGGxNi/hlWfs4mlhH3S68fi0Q/7eArzrF+iNNdveZfNB1x0yKd14vuu4
-	dtdRZZcYbYmhcRFEms6X+FOjowsIUBiJz2Oa54fKQhR73e55cdYUJqiN++9xYBegvjigKAoL3C0
-	tXxxi2mc1Wh6F+fFPnD25Td6ljiwJxXMH8+aYH/Gj6e4hSvreHLfnFv7Cw0eCPLi2BVQyuHH0hr
-	WRFRGu/C03xDWq+X4Xae/C8gj+zStWRDAYh5c6zjrrSVpxBi5LXm89+yYQAhbR1ZNWw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1790102273; bh=GhL/OKSrQi7a2VgZmyNvxdS
-	rDOhPoV7pImkjsaA2JhI=; b=suaoituAEGJ9M5GSztQR2oQx0LBSBx/lwHTkfsLum+7Bb4sZMj
-	yWqpW4ku2S5RUnqVWZnRTY07z/Chof4pp1CA==;
-Date: Tue, 22 Sep 2026 19:37:54 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
-CC: Andrew Morton <akpm@linux-foundation.org>, Vineet Gupta <vgupta@kernel.org>,
- Guo Ren <guoren@kernel.org>, Yoshinori Sato <ysato@users.sourceforge.jp>,
- Rich Felker <dalias@libc.org>, Chris Zankel <chris@zankel.net>,
- Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- David Laight <david.laight.linux@gmail.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_0/5=5D_Add_two-byte_cmpxchg_em?=
- =?US-ASCII?Q?ulation_and_wire_it_into_the_architectures?=
-In-Reply-To: <78f7ab38-46c8-4968-a2ae-4c3c98e32f4d@paulmck-laptop>
-References: <20260922173354.14404-1-brads@mainlining.org> <78f7ab38-46c8-4968-a2ae-4c3c98e32f4d@paulmck-laptop>
-Message-ID: <7BE5B8EA-FAFB-4CBB-8FF1-ECDEEB1618B0@mainlining.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gDh54AWb"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-855315ccb64so155711b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:40:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790102431; x=1790707231; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=22qb4IkKc4A4y/WM6dRh1XUq626SL2Lh5OkUO2ttVr4=;
+        b=gDh54AWb42iXpIZrXmIZf09Q6OXRF0pMdfM4PXnUZ1AMAqtpsp2xwvbdZqMzmJ9zhv
+         fnOg5s2Ux7EC1z7EaCjgNFT0Evx+LV7/OVVdu/Rko1iRyrKudmddahovHgbDtDHef0Td
+         hjpKyHDVd2u+B3vxVExVNGJlvz5t3rfiC2ByeqdU9X8XpeUosZ9yCxD3vCK9fkYv/Yu7
+         v0q5cPWhSXeC5NU6TYOoVMLm6hxhHJe7bulqkdqJz2muo1W/nDD1hd1ZQsNpsoYyYy1Q
+         yJiRR1LlyUVrgqv7jzbSfuHQuGFG4bega/8tufhywMjG6sx84gfGV0KnK+BkNmJG763R
+         BcWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790102431; x=1790707231;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=22qb4IkKc4A4y/WM6dRh1XUq626SL2Lh5OkUO2ttVr4=;
+        b=cs6gw8qfR0kfTPls/SR3DoKBrPVKSAAl9FKuiwwFMw7o5Xbppj2zwDBUKs1UcQkqNl
+         96zEWntwxfFVvtEC/j0GmzMl4E2vRT8yxN8GgKVjBmX4tui3CjEjMAHeaaTePJwx1Dz+
+         4V6YPceYXzrtttetWjT0S6pfLLxKZN6MhqsUUa8x4ejt/TYMTmTfVC7Vt6ift41Bz68W
+         wgO6PY6TsJ+6n+dkHFaUuCqRER9u68MgupbdVQQwIkHIAGOlRdtIsHGTpQPH2V/IyLQu
+         2NA4Ta5REn/jf+RGWEG3m5qe4ALEkAA/yXv2lFSeffPrMrk0/na7dmFugStwdSfnhhyQ
+         minw==
+X-Forwarded-Encrypted: i=1; AKwUvByxkoIXvJF6dvazPWN38T/W9+bWxazXpjRnPb568J5o84zy+BJLQ8/0Kq0xd9PHC6zJqP76vfhvCpVm5Lw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksESrWCZl70Y6uyeBeeLnJY6DVrYl7WcRANd9hwStKJ4EWtsIH
+	T6kCfE8cihxe2QvL5+xHGhZT+H/ZiLXTn28ZHHzGX+Yg2P8dU8gQFrbDlbn/PxwySTBLK/akUT/
+	hhF6gYw==
+X-Received: from pfbgd10.prod.google.com ([2002:a05:6a00:830a:b0:863:cabd:d30d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4396:b0:878:3507:8d5e
+ with SMTP id d2e1a72fcca58-87d1bfae6abmr510835b3a.37.1790102430559; Tue, 22
+ Sep 2026 11:40:30 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:40:29 -0700
+In-Reply-To: <arK8-Hec3-5o4jYs@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+ <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org> <arKxjsxuO1F5ExrY@kernel.org>
+ <arK5n9HrbZMCOHOt@google.com> <arK5ynpRi7VbY7Ek@gremlin> <arK8seJVT9wYgVCP@google.com>
+ <arK8-Hec3-5o4jYs@gremlin>
+Message-ID: <arLLnYvkXSFr6f6u@google.com>
+Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
+From: Sean Christopherson <seanjc@google.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On 22 September 2026 19:29:32 BST, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->On Tue, Sep 22, 2026 at 05:33:49PM +0000, Bradley Morgan wrote:
->> This is v4 of the two byte cmpxchg emulation series, wiring
->> cmpxchg_emu_u16() into arc, csky, sh and xtensa.
->> 
->> v3 had changed cmpxchg_emu_u8()'s success return to (u16)old, which was
->> a 16-bit mask in the 8-bit function, and a dead one at that, since the
->> compare guarantees the low 8 bits of old are the byte being returned.
->> David Laight asked where that cast came from. v4 returns old unmasked,
->> the exact behaviour the one-byte emulator always had, so nothing that
->> uses cmpxchg_emu_u8() through the widened prototypes sees a change.
->> 
->> David also noted v3 extended the (unsigned long)(0 ? *ptr : (old)) type
->> check to csky and sh but not arc and xtensa. v4 adds it there too, so a
->> cmpxchg(&p, 4, 5) fails to compile on every architecture in the series,
->> verified with each architecture's macro instantiated standalone.
->> 
->> While adding the type check to arc, the switch subject turned out to be
->> sizeof((_p_)), the pointer, not sizeof(*(_p_)), the pointee. On 32-bit
->> arc the switch was always 4, so the size 1 and size 2 cases were dead
->> code and every sub-word cmpxchg() went through the 32-bit llock/scond
->> pair, comparing whole words against sub-word values, so the compare
->> almost never succeeded. The switch now tests the pointee, and the u8
->> path it was always meant to dispatch actually runs, so the one-byte
->> emulation works on arc for the first time since the sizeof bug landed
->> with the original cmpxchg_emu_u8() wiring.
->> 
->> The host test of 972 cases across both halfword offsets against a byte
->> level reference model still passes, and a 20000 case randomized run
->> checking the masked compare and return against a hardware cmpxchg r16
->> model passes with zero mismatches.
->> 
->> David pointed out on v1 that a u16 prototype does not compile warning
->> free when exchanging a pointer type, because the switch statements in
->> the architecture macros instantiate every size case, so a pointer
->> cmpxchg() type checks the two byte case, and the (u16) casts there
->> warn. v4 keeps taking the old and new values as unsigned long and
->> casting to u16 inside the function, so the call sites need no narrowing
->> casts and pointer exchanges compile clean. The function still compares
->> and returns exactly the 16 bits the caller asked for, which matches
->> hardware cmpxchg r16 behaviour.
->> 
->> The ARMv6 wiring stays dropped from v1, per Arnd Bergmann's offer to
->> take the INTEGRATOR_CM1136JFS cleanup in his platform removal series.
->
->I have pulled these in, but only to expose them to things like the kernel
->test robot.  My guess is that they will go in by some other path.
->
->And to that end:
->
->Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
->
->But I could of course easily be missing subtle arch-specific bugs.
+On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Sep 22, 2026 at 10:36:49AM -0700, Sean Christopherson wrote:
+> > On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
+> > > On Tue, Sep 22, 2026 at 10:23:43AM -0700, Sean Christopherson wrote:
+> > > > Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
+> > > > generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
+> > > > the return value, the connection to vcpu_load() is obvious, and we don't need to
+> > > > add another pre-check if future (or cleaned-up existing?) ioctls want to do
+> > > > vcpu_load() in common code.
+> > >
+> > > ...this is exactly what I started out with.
+> > >
+> > > But then you are in a pickle, because _really_ you need to do that check in
+> > > vcpu_load(). Which is a void function. Which is called by every single
+> > > architecture all over the place.
+> > >
+> > > So you'd have actually no way of signalling the error back.
+> > >
+> > > Of course those places are arch code and you could say 'arches should know
+> > > better and if they call it it's fine not to call the arch 'can you load'
+> > > function.
+> >
+> > Yes, that's my vote.  It'd be easy enough to clarify that "rule" with a comment
+> > in linux/kvm_host.h.
+> 
+> I note you dodge the actually difficult question of what this wrapper function
+> would look like ;)
 
-There are, according to sashiko, but I can't seem to make that thing happy
-no matter what I do
+Oh, I was thinking we wouldn't bother with a wrapper.  Because I agree that
+providing a complement to vcpu_load() would get all kinds of messy.  Though we
+could harden vcpu_load() with a WARN_ON_ONCE(), which in practice would prevent
+the vast majority of violations from making it to a final kernel release. 
 
->
->							Thanx, Paul
->
->> Bradley Morgan (5):
->>   lib: Add two-byte cmpxchg emulation function
->>   ARC: Emulate two-byte cmpxchg
->>   sh: Emulate two-byte cmpxchg
->>   csky: Emulate two-byte cmpxchg
->>   xtensa: Emulate two-byte cmpxchg
+> > > Instead you can make the predicate 'don't prefault on a not-yet-initialised
+> > > vCPU' which is pretty sensible I think, have a specific place to put it and
+> > > all's well with the world.
+> >
+> > But look at it from an x86 perspective.  Pretty much everyone will look at this
+> > and expect:
+> >
+> >   bool kvm_arch_vcpu_allow_pre_fault_memory(struct kvm_vcpu *vcpu)
+> >   {
+> > 	return vcpu->kvm->arch.pre_fault_allowed;
+> >   }
+> 
+> I'm not sure I really get your point here at all? :)
+> 
+> Why would it matter what people who are too lazy to go check the implementation
+> assume about an arch hook?
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Because I don't hate the people that contribute to KVM, and want to make it as
+easy as possible for them to not make mistakes?
