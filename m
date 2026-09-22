@@ -1,297 +1,139 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A214B49BD8A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:46:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA2A497381
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102782; cv=none; b=hBnS5u8CwB1ksWTJn0AUEc1OCexRTr6FUfdZdr7NiTX66JrpX1XB829IEkwl4IpQbvadJnWa3Cbdj5QvdSS9JZjXEeEs5Qrtn8j0Oej5S+sOcZVoRa9EsiBzzxdBRXjcxaJgDTPBikIKBxUSDap1D2gffaVmA3MN4rlsaahixjE=
+	t=1790102791; cv=none; b=YyW3HneHj6uL4JmOQk4tjam6cPXW66fUiA2cz/QYR8ChSOvlBv0Uva6GYCyoyuAulQMnyzt536w0mSHbgFwhjMbuEC1Q1epoTwalmVgMHTnJii4V8mYuplvsxwhyD1YiFaW0BiTvGbZJzvmZQ13jvM1/mgwkR7MEbQMW3jaBRG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102782; c=relaxed/simple;
-	bh=uSwF8oSlv0A6TNXHp0b7ZlXImXaVRQqeD6cloMWgLIg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RoQTexRvzFLBA8adADaKPWGnOl+ZVLjLLr8LUpgGAz24llUtSlJtdiZ9aj5vK9echOCyacBHfa9YyzYB61YxCDwxvx6f7sJlDwDphEvpFeJz7hKeW/iVSTRB75zIeJbqjs2ZDWD2UV2t9qbJAri4Mw8ysvAK+Pjm+Mu6B/hbKwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FGkzARcJ; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790102791; c=relaxed/simple;
+	bh=P2oNbUgzNKbPC97q99tgXWb/Iok5vLJAaFSYPNe8o2w=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=dyXBGGkr2by9leF1v8VNzvyqEImcxaV9hdTEeSwXzfqzz0xeTkhCs85tYvmRnzA3Cip5UxdqBGv/vpgyMGIqlMz0/5TiFaMXHmRaymOQqbo2yCNGIprVvcG1WNjAv1nNOV23FkMERs5iVmEOzZ+Fy3+TztAkLVp4B4nM5frqSoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ekHOAbi+; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FGkzARcJ"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c0766cbe64so145007b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:46:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ekHOAbi+"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so288228a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:46:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790102766; x=1790707566; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hU8R4H4DyIVzYPzLtsXcibjq0wK/EbWMtmm1iMO2MGU=;
-        b=FGkzARcJ8Tqf/wCPRmmnR6Ml81XhGhSv5nJEtw9hyNcOh8TVyWfA1Q6UzAmxwGRl1T
-         Tm36kXbT24iJMGIbBy1Ppylyvs8wiJBzY8cHNRbj88DrD8pAvyR6RRFRIImTDKdRT+4G
-         0/vW84IMPKrQgScWdue6NzP1MQbpOWy1BduPvuypyyofRSUEPlaly56kRJ1Y6dM7Rbeh
-         Y1are+of/VqjrRP19gtVaodW+Fba3+LAxoi4f6gTzTM8kgEi8TW8GacnbjWfgyd7yah5
-         Mvj9AJ6k1YBOhL7/Ch8X69Gv8putfUo2q2zgj7NABHnjOlYpDHW30uP4merB/bGGX7nf
-         A16g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790102766; x=1790707566;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1790102779; x=1790707579; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hU8R4H4DyIVzYPzLtsXcibjq0wK/EbWMtmm1iMO2MGU=;
-        b=xJw+PmLL+3qjT9kbSCNMrfgARL6LceSoRsQyV5QX+buarTW10PIon8QgNkB1r9+PwK
-         Qewzir8VAMIfTbLnBe+8f0lZeT7nQQnBbLeapJBfQFvq52sC5XOymJ5sd8zQfOZwaW5R
-         FSAaVWFOWp6VqJa+MCrn2eMTLoNZeFEkwDWiCz933vLW8WGUdGTGC47VscTY9QmhZV8K
-         OKBbrpjnYDgIUdvtQI300l5fAUVluRsf1hlLTHeiTi4Jwb8Oa7puOgk4xN8iuGuupL2j
-         TisiPx3o2ImvabgtdFxYsYDKjn3yYcur6GOiCrdQMTGfEl9Cub8zNPLsFa1TQxtIRVFh
-         shqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxDeq4wlgogSg0susFx5xHYX7hmjF5egmXVnmcZRJgHVMUEwwUzcOA1+FE+h3oZVTieIU9bPGtmkMbVfws=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMDvEuezUowuAh6GTN2RRzPDyO7b3u2ftS7SCfxKdgT2uvMIV1
-	s1gPG+wfYyOfC5BMVBaybqDF3M00EujG8P5hOSZbu5fXCmFB0UnlSpuJ
-X-Gm-Gg: AYBFou3xTjyeUE0Ws+xEnbbXKnr5M+i3uq7rJlS/bq8Bk4dEwgRQlX8AZLsWE+aNkss
-	FXpIq/rqmOHFkVPtR9p9m737xnF0hBm0W9RWBcF6s41rJDlZPSdCEWDbErKqlHMS2MJIa8C71Me
-	DNtVUitNdFBDld+LbjXni2lJmFqiLzRrZ6qVSSMAUagx6OS9eVJB4ckeI5Fv+LhfNVjhyMfJCXy
-	7XIkWvZYg4R1qBoYMvSwg3ZEpdgQqXVGgOFJJV1yqOwmhZ0LillhhWD0bmH/Euk9ADhMCWHQWOO
-	Q9+nYSGEXD6s4RKyDLxF6uIZ7dmdubvcmdL/xbJJYO1xRgXpgDxO7RLtLXjz4pryjweQnaHOE+0
-	mU5nprCmtvohm5fwHyYDVE3rcSq3SDZ546+Ik0EC6UE0fHLDoYVpf3R8RbI1AZJtFrtSJPyH0Bn
-	Kje/pcVHrl+hbKuSc2Ox6yETmeth0IEf0cR6LNMAYmpG9UL9WDMqaY9EDh4bXcGgwjiJLEWS6AO
-	qcaJdVIcmdFZozq/AwMEqlqWWILT1KlIWYLZ87XcycmmrOe06x76vaQy/Xe77Ha7lFiH4DZjuIy
-	3YCyV18upR4o62uTjMU=
-X-Received: by 2002:a05:6808:2e4b:b0:4c5:a75f:c5e1 with SMTP id 5614622812f47-4d5b741218emr319290b6e.13.1790102765762;
-        Tue, 22 Sep 2026 11:46:05 -0700 (PDT)
-Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 5614622812f47-4d5c43a24bbsm147545b6e.7.2026.09.22.11.46.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 11:46:05 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 22 Sep 2026 12:45:56 -0600
-Subject: [PATCH v3 2/4] kallsyms: Match compressed tokens on the fly during
- binary search
+        bh=wsMfNykkK/cvGUxGrrzkLoJGO5iJ1c5hJgEqfch5614=;
+        b=ekHOAbi+hrIDGP5HnGxwI2etEUQxYRj0wGvz6jB4CC1kT9eH9vNNf8T2qgXOkEoqoR
+         IEzRBccGesk15NkIaZcYmOqA6D3c3Z73qd8t9i139KEdv+3/OHGNL9x75IeoIuqBwN15
+         c2/ERCpg7DdDHfFNMo+MH8e/a73y5IfdB5xNHJY5sZqb7u5Ntn46Ts0sMS0xMbaa7noN
+         R/1E66trjXajolmZ2k6gm3Ytlhwuh5mM7nJ0ggNaOTx3erTglnC96+ZX3Sh2iGrRvVtn
+         h4nUdAkhIP8zbc2pzKbcMhVTInevuAv1zutv+pyUW1D5TYUeq0vdXOhpFMNR7uxKk6Kr
+         WQFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790102779; x=1790707579;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wsMfNykkK/cvGUxGrrzkLoJGO5iJ1c5hJgEqfch5614=;
+        b=gu0kKxpFFubgC9dsFyAe8BBXj/ZJQzcF/ib9TJTmWdQw3Pt36UBR7ByNugPG6mEVHY
+         BdvueToNCg4gTzbsxmjM7Gu660JPWUboSKnJHR9VFu5mG4n2Cp/Ku8ONrT1Xui0LJeSi
+         syFAZBPo7Lr06sH35G9UP9aDrQGB+Djb1jdFXBqQC4CvpHamZgOOwSMbpSrDwGkJeb3V
+         eXAh+Utah/IWagvAndSMLY29r7xGH1OC10zBa2fqNCWI72qYqkXIptN/OgTie11ffbyW
+         BWfALuFNEwMux472dxrnTMQbKTBW4W/fBN8CUBCJvsitLyDDghPvW/gexpl2mY3IjQnV
+         2xoQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZIDl1vcXYEA6WMhd7mA9XF+aVsmzpynoACgv9oFZO44z+AYHf359Rf2G8HOYvzXqMzW6AEOdJBMQoIis=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMKmMVCCzefFKyKbGBgL7rOws32M8eB6qvlsR0LF4fPxYwy08E
+	GBS101PU2M7vzsruSP1plV4XSg+Z7tRFjeJLzRsBPISv6yDEDb4OQoavQfh0vTRbqKEcZ0b6Hgi
+	pgo9Vxg==
+X-Received: from pgdh8.prod.google.com ([2002:a05:6a02:5188:b0:cc5:1d7c:ddeb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:1bc3:b0:3dd:a197:cf2a
+ with SMTP id adf61e73a8af0-3ddf82c4849mr289558637.78.1790102779162; Tue, 22
+ Sep 2026 11:46:19 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:46:18 -0700
+In-Reply-To: <arLJ4AbNN9Y_IUna@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-ksyms-tune-v3-2-681a34ea05d9@gmail.com>
-References: <20260922-ksyms-tune-v3-0-681a34ea05d9@gmail.com>
-In-Reply-To: <20260922-ksyms-tune-v3-0-681a34ea05d9@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
- David Laight <david.laight.linux@gmail.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790102761; l=6596;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=uSwF8oSlv0A6TNXHp0b7ZlXImXaVRQqeD6cloMWgLIg=;
- b=L+IqEDuVTiikfaFvoXKwSVD7EFUwRep8RiTSWjPH8o+efOSG3jXM2WysT+Om/XLuhiJpe+cDv
- ggBPtOgTLFyCKx3ETfwCUXH3c4A2qnvP2Ai2OGj+sETPWjJLSOl60/2
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+Mime-Version: 1.0
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+ <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org> <arKxjsxuO1F5ExrY@kernel.org>
+ <arK5n9HrbZMCOHOt@google.com> <arK5ynpRi7VbY7Ek@gremlin> <arK8seJVT9wYgVCP@google.com>
+ <arLD-eZ6dRvfZ52q@kernel.org> <arLJ4AbNN9Y_IUna@gremlin>
+Message-ID: <arLM-vJDoO7gQJXM@google.com>
+Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
+From: Sean Christopherson <seanjc@google.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 
-kallsyms_lookup_names() runs a binary search across kallsyms_names[],
-a packed array of ~130k encoded kernel symbols.  For each of the ~17
-comparisons in the search, it currently decompresses the candidate
-symbol into a temporary buffer on the stack before calling strcmp().
+On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Sep 22, 2026 at 11:07:53AM -0700, Oliver Upton wrote:
+> > On Tue, Sep 22, 2026 at 10:36:49AM -0700, Sean Christopherson wrote:
+> > > On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
+> > > > On Tue, Sep 22, 2026 at 10:23:43AM -0700, Sean Christopherson wrote:
+> > > > > Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
+> > > > > generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
+> > > > > the return value, the connection to vcpu_load() is obvious, and we don't need to
+> > > > > add another pre-check if future (or cleaned-up existing?) ioctls want to do
+> > > > > vcpu_load() in common code.
+> > > >
+> > > > ...this is exactly what I started out with.
+> > > >
+> > > > But then you are in a pickle, because _really_ you need to do that check in
+> > > > vcpu_load(). Which is a void function. Which is called by every single
+> > > > architecture all over the place.
+> > > >
+> > > > So you'd have actually no way of signalling the error back.
+> > > >
+> > > > Of course those places are arch code and you could say 'arches should know
+> > > > better and if they call it it's fine not to call the arch 'can you load'
+> > > > function.
+> > >
+> > > Yes, that's my vote.  It'd be easy enough to clarify that "rule" with a comment
+> > > in linux/kvm_host.h.
+> >
+> > I feel like trying to make this generic will wind up under-documenting
+> > the single example we have with the pre fault ioctl. Putting the comment
+> > into a header practically guarantees that nobody will read it either.
+> >
+> > I'd favor doing something like below and sticking the comment inline in
+> > the ioctl handler. Unless I'm missing something blatantly obvious, I
+> > don't see why the x86 or s390 pre-conditions can't be tested early too.
 
-Comparing raw tokens directly in compressed space is impossible.  The
-BPE token table assigns values by frequency, not alphabetical order
-(e.g. token 0x05 might expand to "zebra" while 0x42 expands to "apple"),
-so comparing raw token values scrambles lexicographical order.
+Oh, they definitely can.  I'm a-ok with using kvm_arch_pre_fault_allowed() on
+s390 and x86, the only option I am against is adding kvm_arch_pre_fault_allowed()
+but then not using it on architectures that obviously perform that exact check.
 
-However, full string expansion is equally wasteful: roughly 16 of the
-17 binary search steps fail within the first two characters.
+> > --- a/virt/kvm/kvm_main.c
+> > +++ b/virt/kvm/kvm_main.c
+> > @@ -3961,6 +3961,11 @@ bool __weak kvm_arch_dy_has_pending_interrupt(struct kvm_vcpu *vcpu)
+> >  	return false;
+> >  }
+> >
+> > +int __weak kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
+> > +{
+> > +	return 0;
+> > +}
 
-Introduce kallsyms_strcmp_symbol() to compare ASCII queries against
-compressed tokens on the fly.  It walks kallsyms_token_index and
-kallsyms_token_table incrementally, matching characters directly and
-bailing out on the first character mismatch without expanding subsequent
-tokens.
+There should be no need for a __weak placeholder since this code is guarded by
+CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY=y.  I.e. force architectures to define the
+API.  I don't think it's a coincidence that all of arm64, s390, and x86 ended up
+with restrictions; pre-faulting is far from a simple operation.
 
-This optimization:
-
-0. Avoids decompressing non-matching tokens, short-circuiting ~94% of
-   binary search character expansions without adding any tables in
-   .rodata.
-
-1. Drops the 512-byte namebuf buffer from the kernel stack in
-   kallsyms_lookup_names().
-
-2. Cuts unindexed lookup latency by ~530 ns (~14% faster) while leaving
-   sequential address ordering and kallsyms_expand_symbol() streaming
-   invariants intact for /proc/kallsyms and table walks.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
-Changes in v3:
-- Reorder patch ahead of dynamic batch index in series, establishing an
-  active proof of string matching savings on unindexed baseline
-  (addresses David Laight review).
-- Optimize kallsyms_strcmp_symbol(): drop skipped_first tracking and
-  test len at loop bottom (addresses David Laight review).
-- Guard first token with while (*tptr) to handle 1-byte type tokens.
-- Introduce get_symbol_data() helper in this patch for reuse in later
-  subsystems.
-
-Changes in v2:
-- Rebase onto mainline v7.3-rc4, removing external dependencies on
-  Lorenzo Stoakes' kbuild series.
----
- kernel/kallsyms.c | 94 ++++++++++++++++++++++++++++++++++---------------------
- 1 file changed, 59 insertions(+), 35 deletions(-)
-
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index aec2f06858af..d18d78e626db 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -34,6 +34,21 @@
- 
- #include "kallsyms_internal.h"
- 
-+/*
-+ * Get the compressed symbol length and data pointer.
-+ */
-+static inline const u8 *get_symbol_data(unsigned int off, unsigned int *len)
-+{
-+	const u8 *p = &kallsyms_names[off];
-+	unsigned int l = *p++;
-+
-+	if (unlikely(l & 0x80))
-+		l = (l & 0x7F) | (*p++ << 7);
-+	*len = l;
-+
-+	return p;
-+}
-+
- /*
-  * Expand a compressed symbol data into the resulting uncompressed string,
-  * if uncompressed string is too long (>= maxlen), it will be truncated,
-@@ -42,28 +57,12 @@
- static unsigned int kallsyms_expand_symbol(unsigned int off,
- 					   char *result, size_t maxlen)
- {
--	int len, skipped_first = 0;
-+	int skipped_first = 0;
- 	const char *tptr;
--	const u8 *data;
-+	unsigned int len;
-+	const u8 *data = get_symbol_data(off, &len);
- 
--	/* Get the compressed symbol length from the first symbol byte. */
--	data = &kallsyms_names[off];
--	len = *data;
--	data++;
--	off++;
--
--	/* If MSB is 1, it is a "big" symbol, so needs an additional byte. */
--	if ((len & 0x80) != 0) {
--		len = (len & 0x7F) | (*data << 7);
--		data++;
--		off++;
--	}
--
--	/*
--	 * Update the offset to return the offset for the next symbol on
--	 * the compressed stream.
--	 */
--	off += len;
-+	off = (data - kallsyms_names) + len;
- 
- 	/*
- 	 * For every byte on the compressed symbol data, copy the table
-@@ -101,14 +100,43 @@ static unsigned int kallsyms_expand_symbol(unsigned int off,
-  */
- static char kallsyms_get_symbol_type(unsigned int off)
- {
--	/*
--	 * Get just the first code, look it up in the token table,
--	 * and return the first char from this token. If MSB of length
--	 * is 1, it is a "big" symbol, so needs an additional byte.
--	 */
--	if (kallsyms_names[off] & 0x80)
--		off++;
--	return kallsyms_token_table[kallsyms_token_index[kallsyms_names[off + 1]]];
-+	unsigned int len;
-+	const u8 *data = get_symbol_data(off, &len);
-+
-+	return kallsyms_token_table[kallsyms_token_index[*data]];
-+}
-+
-+/*
-+ * Compare an uncompressed ASCII string against a compressed symbol table entry.
-+ * Returns negative if name < sym, positive if name > sym, 0 if equal.
-+ * Exits immediately on the first mismatched character without decompressing
-+ * the rest of the symbol name.
-+ */
-+static int kallsyms_strcmp_symbol(unsigned int off, const char *name)
-+{
-+	const char *tptr;
-+	unsigned int len;
-+	const u8 *data = get_symbol_data(off, &len);
-+
-+	tptr = &kallsyms_token_table[kallsyms_token_index[*data++]] + 1;
-+	while (*tptr) {
-+		int diff = (unsigned char)*name++ - (unsigned char)*tptr++;
-+
-+		if (diff)
-+			return diff;
-+	}
-+
-+	while (--len) {
-+		tptr = &kallsyms_token_table[kallsyms_token_index[*data++]];
-+		do {
-+			int diff = (unsigned char)*name++ - (unsigned char)*tptr++;
-+
-+			if (diff)
-+				return diff;
-+		} while (*tptr);
-+	}
-+
-+	return (unsigned char)*name;
- }
- 
- 
-@@ -174,7 +202,6 @@ static int kallsyms_lookup_names(const char *name,
- 	int ret;
- 	int low, mid, high;
- 	unsigned int seq, off;
--	char namebuf[KSYM_NAME_LEN];
- 
- 	low = 0;
- 	high = kallsyms_num_syms - 1;
-@@ -183,8 +210,7 @@ static int kallsyms_lookup_names(const char *name,
- 		mid = low + (high - low) / 2;
- 		seq = get_symbol_seq(mid);
- 		off = get_symbol_offset(seq);
--		kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
--		ret = strcmp(name, namebuf);
-+		ret = kallsyms_strcmp_symbol(off, name);
- 		if (ret > 0)
- 			low = mid + 1;
- 		else if (ret < 0)
-@@ -200,8 +226,7 @@ static int kallsyms_lookup_names(const char *name,
- 	while (low) {
- 		seq = get_symbol_seq(low - 1);
- 		off = get_symbol_offset(seq);
--		kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
--		if (strcmp(name, namebuf))
-+		if (kallsyms_strcmp_symbol(off, name) != 0)
- 			break;
- 		low--;
- 	}
-@@ -212,8 +237,7 @@ static int kallsyms_lookup_names(const char *name,
- 		while (high < kallsyms_num_syms - 1) {
- 			seq = get_symbol_seq(high + 1);
- 			off = get_symbol_offset(seq);
--			kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
--			if (strcmp(name, namebuf))
-+			if (kallsyms_strcmp_symbol(off, name) != 0)
- 				break;
- 			high++;
- 		}
-
--- 
-2.55.0
-
+Actually, that's an argument for a dedicated kvm_arch_pre_fault_allowed() versus
+a generic kvm_is_vcpu_loadable(): it helps force future architectures to actually
+think about when exactly pre-faulting is safe.
