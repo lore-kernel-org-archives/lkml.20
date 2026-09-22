@@ -1,167 +1,128 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB66568FCD
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 943A43F3263;
+	Tue, 22 Sep 2026 17:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098315; cv=none; b=BYDu90YuK7XZyuw9uqsPPb2A1nKhA6IcI8I43t4ZAK9glKM8czRJ8ZJmhyd6ipXTwNs2Ym/XP/py2qSxEk2zGEYDzwPoQIuOKVldIVYLa3hq+YNrvFzvXo0PRtLfJbYg54MPFyUYE8MuqhMorQPPBlJvpELQfckd3HdO3ye8hrQ=
+	t=1790098340; cv=none; b=jlMpfxnMLXg/30tp1qOEyO+YgJa0/4U+WYxulu6CS6aqDbZVvWtltluAaJ0tv+XijJuPQEfRrbCbUOPa1rBQ9ziXlmcRz2R8KUV3aUaVINrP5EuA9bvL0Jj8eRGnMX8GuY2vMWNoQcTnLhdpWAwejI/MaIozb/ZgQYhDmKtlW8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098315; c=relaxed/simple;
-	bh=p5KgkY35eLeEIt1ZauJe014QkbCOGffqikLrFCCddaw=;
+	s=arc-20240116; t=1790098340; c=relaxed/simple;
+	bh=i8rmnA+nlrHeWzx7kNMPhnc4iJcDtyjqy8ekHSFBfJY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z5mAGqymSuM0bZrJ4/nJCmuz3UaniMU/FUhvl6r+6DU8s2XGdqVGdfeXA8KJ700nC6WiwXBgMXSWed9Y4ffujF8sbjbSFf95mYB9nIq07W/WNT6N0LW+mLPCWUmgglyam8DsvvkSi04qU2sphN7JFUUcydIg4Td5Bv09SolW+Dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=id67WtXu; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qvr8i/tAf+YoHxuVXr+wdhN+aEXUmQE82L1Oe41Pown1oeIj4z1B9P3sH205AhUou70eCcmRObSfHkaaLConuQW2S8ocHsMTaTsmROd7gvbsqro9qN8ey0TXlHIE0nJMjmdaMyTWp5JaO2XDTox8PWF4zLudIlBVwB5mBpHYBK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hM/SET1P; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="id67WtXu"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb766bfd6so1305991cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:31:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790098309; x=1790703109; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/gPRbBCQLJwNMl68mNAhEYv0OV90CxwDGmkvmCuCwGU=;
-        b=id67WtXu78zjSoZRwrfaXTkHrs5DDGhoUiljTuK7LXfqJkvY/WsvPBwd/Gk49m/3MU
-         KzMCWWSXI3P9gVpMhJTGuQdPkSZbn19gc2zvrYMkW8gLxiVLmsPtq4E/PYk3ZsY8CMVt
-         697ED9pmYD1p9bHZjxIDKt001mRuGvFcwq4FqrBWn7KKI3IMp7g2fA2kO2PCDktQDPrx
-         Rxrp9Tj25A9TpjtbOSfiWYgw/ellgXmySKKF7wCPnQE8MhvtJ4aSpkAFCpiTc956WBO2
-         K3sOfPO1wNlq7ufKXK7IoIGKm9ax63b2chbI4Q6UAiguqJTb0LndDE6B8bBTdNIUJWH1
-         y+ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790098309; x=1790703109;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/gPRbBCQLJwNMl68mNAhEYv0OV90CxwDGmkvmCuCwGU=;
-        b=YLor4AQav3G9P/x0Y5Vxo2t62GeBhIFZhy/XIiZebnpBa5d1f+yrrShFFq7zjziRb4
-         39ZipAt4B7Rku/wPmcAKtOprgo7XOO8QbKfufyfj0aPJSW1ap2F5/6r603mFDPBL2YzZ
-         2Cuq30r+/ZzudpnVcmRZePeGxgeykDHqunkVnGn6oitFHm3/xTRMRqomoiFSEYbr+4ZY
-         +bhGNqwDys5oqcsBdJh8lSFVxuojyi2ArvBmUF7ziHP9FeEcV5/xl/dlVL63xAxVZXBb
-         F1vT/F543Zhmz9gsVyY7LQ+gm2NrnhKVatWMh+HQzYeZxJ0YixtjeUrlZpFIoqrNXOYW
-         dabg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWVhyQPsXA4m1iR3x/8qTXAQQprlBXNTHYeNYGqqj0JPFpRsBVl1DeD8vwqim/Lw8NDKSxHM0/6VjyXKw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSFu12in4mAhmh2Je8qlnEu3MUWxznKTpXUvdH/MofNYOvgQYU
-	VK/vbH0hCTB7+YyrxOlyRqwDBOVUJmzEm9kq08W+Z+Nezh727pRA04bfSiqIvFCniyM=
-X-Gm-Gg: AYBFou059H2LoP4xe9lNQWdtzzi3sT+JzIRRcSQ+zooH9bqWbajzZMdE3GzsPcLX0Pk
-	EkpKbnxBgSGQMQ4lHVrPsrjlYya/daDaeFTGn3DsCWn4AFuxstPKfa0CbbkuTPArcoh3LneC0vj
-	fmSBVIZ3Fu0uZxYtm7VhlAJl4oG9bS3KmCdkUqTMdiPBnsHqbHZiWJkBGO/7UbU3S26qC34KslI
-	YKJi9I9FCCgL/NhsV7Y0BjXqv80SY6/RPOrMAxbCE+pFmVEHH7+a7e2SH5xBHe5bHlU8uKSOR8a
-	qP42Vo/5SGSP3TqJHgnROmvSHHHmOpV9ouYisrxXC59ypEejrn+tLJEp9FHNTxxI2D84qiRbIpw
-	BW3Qfl4KgXlz+3vSdX+WQ8TQqKhJrjuAbCswnQ5wZgNX9Oau0xdxRCMGvPEeWQiipdjIn1m3vFo
-	wW4CI6cEmp38TKaWoUnvTu3VeV8NiutqdF5AOhAfqBw3kui0emk8POWqllmrFjxBkmtIAWcA==
-X-Received: by 2002:a05:622a:138a:b0:532:9e8c:ba4e with SMTP id d75a77b69052e-532eacf5339mr4180411cf.55.1790098308508;
-        Tue, 22 Sep 2026 10:31:48 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eb399581sm1409041cf.28.2026.09.22.10.31.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 10:31:47 -0700 (PDT)
-Date: Tue, 22 Sep 2026 13:31:44 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: Chris Li <chrisl@kernel.org>, Gregory Price <gourry@gourry.net>,
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <ryncsn@gmail.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arK7gLYD0GJwzKFq@cmpxchg.org>
-References: <aqJXx2vtbKaRLt3x@fedora>
- <aqLi6cIjD2wJwk0B@cmpxchg.org>
- <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
- <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
- <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <arEVDBlfsUYKK004@gourry-fedora-PF4VCD3F>
- <CACePvbXG5kjZmRsdd0a4HfbnNa6w5s9b_1OCySbwvY+HuCqOVg@mail.gmail.com>
- <ad1c4de51f1fbbfc7345036af8f39fb450c1f3c7.camel@surriel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hM/SET1P"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F2AA11576;
+	Tue, 22 Sep 2026 10:32:09 -0700 (PDT)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2098E3F86C;
+	Tue, 22 Sep 2026 10:32:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790098333; bh=i8rmnA+nlrHeWzx7kNMPhnc4iJcDtyjqy8ekHSFBfJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hM/SET1P+KLwfCcF/EmK7kBGpnTtJ6hib/jI+FsscMVotyP6SnC2oSDprj3ksYReb
+	 wWYK8dWDStfaOmXBNeCfNteQ1qqOXodtyrT6riUez3skCE13fAFlmdYDlib7zf8Bq4
+	 PBWsxMfEsVHadBHn2P0w6yO1bCNyHnz6bpbKWWfo=
+Date: Tue, 22 Sep 2026 18:32:00 +0100
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+	f.fainelli@gmail.com, vincent.guittot@linaro.org,
+	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+	d-gole@ti.com, jic23@kernel.org, elif.topuz@arm.com,
+	lukasz.luba@arm.com, philip.radford@arm.com,
+	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
+	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v12 01/25] firmware: arm_scmi: Add new SCMIv4.0 error
+ codes definitions
+Message-ID: <arK7kLlrg491EsMf@pluto>
+References: <20260920091928.2014972-1-cristian.marussi@arm.com>
+ <20260920091928.2014972-2-cristian.marussi@arm.com>
+ <88138b8e-42cf-405f-a5ee-519271dbd4f4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ad1c4de51f1fbbfc7345036af8f39fb450c1f3c7.camel@surriel.com>
+In-Reply-To: <88138b8e-42cf-405f-a5ee-519271dbd4f4@kernel.org>
 
-On Tue, Sep 22, 2026 at 01:14:31PM -0400, Rik van Riel wrote:
-> On Mon, 2026-09-21 at 06:11 -1000, Chris Li wrote:
-> > On Mon, Sep 21, 2026 at 2:53 AM Gregory Price <gourry@gourry.net>
-> > > That should tell you that your model of reasoning about this issue
-> > > is
-> > > ill-suited to address the problem.
+On Tue, Sep 22, 2026 at 02:20:20PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/20/26 11:19, Cristian Marussi wrote:
+> > SCMIv4.0 introduces a couple of new possible protocol error codes: add
+> > the needed definitions and mappings to Linux error values.
+
+Hi David,
+
+thanks for having a look...
+
 > > 
-> > That is what I'm suspecting. Nobody in a sane mind would want to
-> > zswap
-> > 100% of the RAM and maintain reasonable SLO.
+> > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+> > ---
+> > v4 --> v5
+> >  - map SCMI_ERR_IN_USE to EBUSY as natural
+> > ---
+> >  drivers/firmware/arm_scmi/common.h | 4 ++++
+> >  1 file changed, 4 insertions(+)
 > > 
-> It could make a lot of sense to have some default
-> limit upstream, that says the zswap pool is not
-> allowed to take more than half of memory, because
-> at that point the compressed content will be
-> crowding other things out of memory.
+> > diff --git a/drivers/firmware/arm_scmi/common.h b/drivers/firmware/arm_scmi/common.h
+> > index fe8c22cfb9f7..6f89ba96493d 100644
+> > --- a/drivers/firmware/arm_scmi/common.h
+> > +++ b/drivers/firmware/arm_scmi/common.h
+> > @@ -48,6 +48,8 @@ enum scmi_error_codes {
+> >  	SCMI_ERR_GENERIC = -8,	/* Generic Error */
+> >  	SCMI_ERR_HARDWARE = -9,	/* Hardware Error */
+> >  	SCMI_ERR_PROTOCOL = -10,/* Protocol Error */
+> > +	SCMI_ERR_IN_USE = -11,  /* In Use Error */
+> > +	SCMI_ERR_PARTIAL = -12, /* Partial Error */
+> >  };
+> >  
+> >  static const int scmi_linux_errmap[] = {
+> > @@ -63,6 +65,8 @@ static const int scmi_linux_errmap[] = {
+> >  	-EIO,			/* SCMI_ERR_GENERIC */
+> >  	-EREMOTEIO,		/* SCMI_ERR_HARDWARE */
+> >  	-EPROTO,		/* SCMI_ERR_PROTOCOL */
+> > +	-EBUSY,			/* SCMI_ERR_IN_USE */
+> > +	-EINVAL,		/* SCMI_ERR_PARTIAL */
+> >  };
+> >  
+> >  static inline int scmi_to_linux_errno(int errno)
 > 
-> That seems like the kind of limit that is large
-> enough that very few people will run into it, 
-> while also being small enough to prevent actual
-> corner case trouble.
+> So far we had unique mappings. Now EBUSY and EINVAL could be due to two SCMI_ERR
+> each.
+> 
+> I assume in the later usage there is no need to distinguish them for now? Might
+> be worth stating that in the patch description.
 
-Just to be sure we're all on the same page:
+Mmmm....indeed this was added to the spec last minute and while
+ERR_IN_USE (probably) does NOT necessarily need special treatment (so it
+can share -EBUSY), PARTIAL_ERROR must definitely be handled specially ...
 
-Zswap *backing memory*, the space needed for compressed data, is not
-the problem. It actually has a limit that defaults to 20% of
-memory. And there is memory.zswap.max for users to define everybody's
-fair share of that limited backing storage.
+Good catch...
 
-The point of conflict is the pre-compressed side. How many swap
-entries can vswap hand out. Hard limiting this is the point of
-conflict. Any given swap entry can refer to several things: a page
-full of zeroes that has no backing space; a compressed page in zswap
-that consumes some amount of backing space; a page that was written
-back from zswap and now consumes physical swapfile space.
+I am indeed already handling properly the side-effects of PARTIAL-ERROR
+but I will have to properly handle the status code itself in READING_COMPLETE
+and in the NOTIFICATION....as a consequence it needs to be distinguishable...
 
-All mapped by the same address space.
+Problem is...there are NOT so many not-already-used error-codes that could
+signify such an ambiguos error condition, by the spec:
 
-I don't see why you would limit this at all. I don't see how you would
-pick a sane default. And if you limit it and workloads run into it,
-there are no cgroup controls to manage fair access.
+"The platform returns PARTIAL_ERROR to indicate that some of the telemetry
+data could not be collected."
 
-(Despite what has been said in this thread, memory.swap.max is for
-those entries that compete over physical swapfile space. It must not
-and can not control vswap space used for all sorts of backends.)
+I will use -EBADMSG (but any other advice is welcome) and fix its usage where
+needed for DRESP and NOTIF in v13.
+
+Thanks,
+Cristian
+
