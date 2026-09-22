@@ -1,141 +1,95 @@
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A562541464
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C6D541464;
+	Tue, 22 Sep 2026 12:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079462; cv=none; b=Dm/wE47DpDFrB626zh/t9PyaSsIeJedVdT21ENnRmNnumcpo66YU1i+haX6nAVQ3nADBEfL9OHJxIxU9Xdhkr0lIiBPPmsEAOOOSLP96cQ2evi5txXOlpzCCAt01Kz9b2xiMDslGD0kNQGADGPSyD4F0Mm5Ovkg/G+RZysqv+0U=
+	t=1790079468; cv=none; b=QT8v13N/xhyM9mSEDMtiCpF0inElMZy5ZQI3Kr4eU5iMnjBfonYFPNL7R8xPRR59hp40QV5jUQPu+fUkJla16dXx5QRcfpASDsG+fVeUrqWbjuTTdmOsE6LbxIQHsizb+2QqDHzOXrbp6Bh9gct60ZCaBCI95V5/V198CTKI9AI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079462; c=relaxed/simple;
-	bh=Jwu8MyzOC2LLhO+SlqloCZGM/Bml9CbxrRt/Few6LS8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HPyOf7NYdheeT/W/Iuy/lGw7aVjm3E+Y0MfAbWvkr4ySh3AyKpFcgyFLHyd97I4yq/Dtd2EiDC9wGc0t3VATX8BUu19Q5oBr+voLPcMNfHn/N16GhjtCwi9NMkF8lWf/6jjdd3ydfGmUmM4fYRcBM6RyR4Z8QADml6luc3TCqE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YLsBVL20; arc=none smtp.client-ip=74.125.227.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790079468; c=relaxed/simple;
+	bh=hHj6ryPUb7nCKma00OFgMT3n+REclaknho5AYIRnK5s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LSVBQwgZHC9Cym52hQ64qsoQtFFBDIjKiG3OAtQXS69qU58fWaiqgDNalL2VR0QXSUW7yIoynL8UwLQjSH5Y18ph9aiKUPXPKDqNmFPf6V55r1ykU4/wjwHm6iASiGmUGZgNDVmXq4hrdwfQSUJXrJ1TH73RcuEah0/XJWaFB7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GnIR0JxT; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YLsBVL20"
-Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-39e37c430bbso1915716a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:17:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790079461; x=1790684261; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e05fSioi2aryDDHJ7lqPTQ6ph0EZpuAJ3Kl8RbYZsrw=;
-        b=YLsBVL20HBq1ziEnnDx5jxBZSoH+eRapyznoHKXU4clGjLPGMPk+EoxZ/US63K2+Aa
-         3gUlyTb1dQwGcYH8KqSdhb8bowPR9JxOUaDfHAv+0CVhAzUnQAf3sphInUKC6hUeWgLP
-         Zzrtlo5Zin48JK8QzPuF0YZSIYer6qwf5hwEzSnW/BySAftaiWTsUicVdBJiGu9HlTPb
-         BU9XKw465PYzQbisqpQcDDHMzGUTEVRnHSrkgWOakO2xzDUSjaxstbTeftp3o4WRPtlk
-         h2VacJY/D2Mftu9xC86kSSDQpJEhbJexX6VSw1itX8uWxzr2+sc8Z72TMC49TpRIoCgK
-         pbTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790079461; x=1790684261;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e05fSioi2aryDDHJ7lqPTQ6ph0EZpuAJ3Kl8RbYZsrw=;
-        b=Daos14XFi9/IHepp4lpqt+QwbjkUMn/AIjsrCZ/tD5xTllnLRv3fWkBKFZ6tHcgGAR
-         K2Oc9l9WOhPPgCPL3KZBrsyRGOa/SmFBYDT4bo2dUci2aDlxMbP/KxDCirvSgrYWS6Ot
-         J5riPmG6BrLtq47iw5P3YrqlFHG2E9jYtBSmIrnqGI9aS4w3FKDvBXxt3YmNC9Ptl4Jr
-         DCJzYDv5Td49zLNcqJKm6tIO6PE06PFveGaC25n3X9NF/k91EJSJQ3hnI6hqecVFAqJK
-         ngWFlcVJisRF5LBSNWSUa9WNx/iRUvB1fjfq3Af5xkw1q/hWS2LJ4TlyKslKLnP7Vsma
-         FAdg==
-X-Forwarded-Encrypted: i=1; AKwUvByMkKL9KKTH/WQqeETF49E4tPTWsCeljkTaqxZa4SWSAkzqy8Fauko73xyZCWQOr9kJFnR6bL82smmdB5k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMDTMRiIzXiIs0NrbU0lsHft7gx5H5AOnvvywSVvSLy1XE9H1q
-	9DFphyG/zZAa+i1TQpHz7NdmhttvH6oJa9svPWSID47GiLgiDz+kLcOt
-X-Gm-Gg: AYBFou3xIYHVVhmhOAoUi70iBPZnMoNIteMCqRfKZcM+ilhSgQUEArFLMAEJ/e38Nj+
-	hoxCNBvJ/I4GVmRgLTH4GKIz1tLamlpiwHKG/YUyz9ZtItFD8Fc+zPOuUddlMo0EiZY+MaKpDm2
-	N61Q6njpkEcFvyB2TH5JXlunoALiu7LPcHNCwy28RBB/cgJZU9TgB75OsYzZqpV2Zcx7dn4v5VI
-	86ozOsAHsm/1NbroJC4UXfsHzDY3MAl2su6D6E5j+oIEbe9DWBDP6hUndhYs9hJ/FS67oJU/Evk
-	mrVbACAjYZr10hRiewW+VNtZVXAU/bjJzdyTgl4mXagLWOZ5vdIEoBAMYZLa0GEBzBZbN1DoeOB
-	8JnhWcAcWDVt4Aj50gz64kVMZJnOUwzlnP3MIK7pU7LGZUt+/7rZfxGJkBJtFmCNxS81YTGVkPm
-	wo42d5j05JqBy8nWZKlmN3qOZ6GF6tkr133fv0XGoNO3EZpIyMiG89Mz3ID0O79Ogr7URrjIie4
-	XE1ObNfVW1MkvkLrtOMlowdMGqiHB0urNkrcKPAPGmfxjrZmsmcbx1C
-X-Received: by 2002:a17:90a:e7cc:b0:3a0:2900:f57e with SMTP id 98e67ed59e1d1-3a07320034amr1105288a91.40.1790079460421;
-        Tue, 22 Sep 2026 05:17:40 -0700 (PDT)
-Received: from Raccoon ([2409:408d:3188:aa03:3bb2:acc7:b581:620])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f2a44cc8sm4892510c88.13.2026.09.22.05.17.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:17:39 -0700 (PDT)
-From: Rohinthan <rokinthanp03@gmail.com>
-To: Minchan Kim <minchan@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rohinthan <rokinthanp03@gmail.com>,
-	syzbot+fb23651a7efbea8868ed@syzkaller.appspotmail.com
-Subject: [PATCH] zram: reject zero or overflowed disksize in disksize_store
-Date: Tue, 22 Sep 2026 17:47:20 +0530
-Message-ID: <20260922121720.11241-1-rokinthanp03@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GnIR0JxT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790079466; x=1821615466;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hHj6ryPUb7nCKma00OFgMT3n+REclaknho5AYIRnK5s=;
+  b=GnIR0JxTyA/agIhgmx0Tbz/8nK+aL2e1/HdwjVL+PQ7btsXLXvlIfBfm
+   jIkRTR+RhI81Uerbv22Bb/h5YSdsbJmTvw3wnYX9kpRIVHx8pM/CIGthj
+   TFksYyXxiaUaMNDZZZSoy29jRdgECmAYV6N6HgynXB+to+Xklwrcp2Jv4
+   rvMtqjluP5hEWWdLScZX2GkKfArSlTyrcLLVy8ilYHlq+eiy6cvS/n+8O
+   Ivok0KXxULSgwnkoos+RBFqMOzAi6K5LZNw3d/5VCW0mOQ4y6ij16CIni
+   /dEqslV0bHHt6ehXBSmCQe16hNMcdfTwSFZ8FHA4IX/N2bAKlEOTaqjbL
+   A==;
+X-CSE-ConnectionGUID: 18kqYA9CR9iTcLcq5neBBA==
+X-CSE-MsgGUID: ivnRagpfSCyOXImCXoVrSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116198217"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="116198217"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:17:46 -0700
+X-CSE-ConnectionGUID: c7UPVCiESLqxHGnmfdg0SA==
+X-CSE-MsgGUID: HZklwC3/Qae4HYUIMKmM0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="271677477"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:17:38 -0700
+Date: Tue, 22 Sep 2026 15:17:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Wentao Liang <vulab@iscas.ac.cn>, Miaoqian Lin <linmq006@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Dong Aisheng <aisheng.dong@nxp.com>, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pmdomain: imx: gpc: remove all initialized power domains
+Message-ID: <arJx4P11hZAqxE0P@ashevche-desk.local>
+References: <20260918031323.3376849-1-lgs201920130244@gmail.com>
+ <aqzqvfbeh653jUce@ashevche-desk.local>
+ <CANUHTR9ipEFUGteK4TTpnpN0yUmxjop1v783aOhyq6AE9cwO0A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANUHTR9ipEFUGteK4TTpnpN0yUmxjop1v783aOhyq6AE9cwO0A@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-When userspace writes a value close to U64_MAX (such as (u64)-1) to the
-sysfs attribute /sys/block/zram<id>/disksize, disksize_store() parses it
-with memparse() and then calls:
+On Tue, Sep 22, 2026 at 03:41:07PM +0800, Guangshuo Li wrote:
+> On Fri, 18 Sept 2026 at 15:39, Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> > On Fri, Sep 18, 2026 at 11:13:22AM +0800, Guangshuo Li wrote:
 
-    disksize = PAGE_ALIGN(disksize);
+> How about this:
 
-Because adding PAGE_SIZE - 1 to values in the range
-[U64_MAX - PAGE_SIZE + 2, U64_MAX] causes an integer overflow wrapping
-to 0, disksize becomes 0. disksize_store() then passes 0 to
-zram_meta_alloc(), which computes num_pages = 0 and calls vzalloc(0).
+...
 
-In mm/vmalloc.c, __vmalloc_node_range_noprof() checks
-`if (WARN_ON_ONCE(!size))` and triggers a kernel warning:
+> Does this look OK to you? If so, I'll send a v2.
 
-    WARNING: mm/vmalloc.c:4038 at __vmalloc_node_range_noprof
-    Call trace:
-     __vmalloc_node_range_noprof
-     vzalloc_noprof
-     disksize_store
-     dev_attr_store
-     sysfs_kf_write
+Looks better, assuming it works as expected I am fine with it.
 
-Fix this by checking if disksize wrapped to 0 after PAGE_ALIGN(disksize)
-and returning -EINVAL. Also add a defensive check in zram_meta_alloc()
-to return false if disksize is 0, avoiding vzalloc(0) under any
-circumstance.
-
-Fixes: cd67e10ac699 ("zram: promote zram from staging")
-Reported-by: syzbot+fb23651a7efbea8868ed@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fb23651a7efbea8868ed
-Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
----
- drivers/block/zram/zram_drv.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 6cb44e2..fdd13df 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -1989,6 +1989,9 @@ static bool zram_meta_alloc(struct zram *zram, u64 disksize)
- {
- 	size_t num_pages;
- 
-+	if (!disksize)
-+		return false;
-+
- 	num_pages = disksize >> PAGE_SHIFT;
- 	zram->table = vzalloc(array_size(num_pages, sizeof(*zram->table)));
- 	if (!zram->table)
-@@ -2878,6 +2881,9 @@ static ssize_t disksize_store(struct device *dev, struct device_attribute *attr,
- 	}
- 
- 	disksize = PAGE_ALIGN(disksize);
-+	if (!disksize)
-+		return -EINVAL;
-+
- 	if (!zram_meta_alloc(zram, disksize))
- 		return -ENOMEM;
- 
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
