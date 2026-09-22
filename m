@@ -1,131 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8278153ECED;
-	Tue, 22 Sep 2026 12:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9DD53E2F2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079137; cv=none; b=WfpUlf3Hd5BhOXNUPmX6kGHY/xkGmlcErgBQD2Vu8DR+5uKqf61ANzEKHzo6h+JJ8rreGvCAHto2/J4BDJv/6WRI0qrAg2ILfVuNJlAQSy3iGXoeaCPXpzjQqqZXBXBoJrwEGAf8dVNP7bka/DsR2TCNgfW7WfPVtKosPP9yihk=
+	t=1790079167; cv=none; b=L5omnNCro86jBGvOlyyUKbc4gcBMMAzcFv/JTxvNEqcOpaAIj223TMffKk5fCjIh8XFmC4Tb3/ZtWvgLfuY4/kZLB0a2G+ZiK9ll9jU8dzOuFbNtDjIajUj3VBgjrKwPi5be6D8vN2ArqB7WGOJYxP3L6NPoYvi1eVL/m5XRkoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079137; c=relaxed/simple;
-	bh=RwBQwbNjCM5zl0fvZM2naTS38KsekYqTYC1xLao85YA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CQpTM6FG/HNdIQSQpyRfxJh2RIk5fFtzNLGhHTlyTXY98uV40ZmNRF8aSLooIMu6Zvz1prmSx0DTi+3h9AtJQP9w6fxE7e06E7LgPSo12VVTj4hL6/cw8uv5XUG0bFNjGtyw9jKHT9DDNVjdJaIX3o1SexUPjCzYN6szpDfVjHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hUNCJVZx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790079167; c=relaxed/simple;
+	bh=QCx53jzyHh0wEL7VJuUKs+fphH56IILmzUrQEC9ChHI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EBd8bgCUImVdGWpU3T39lcyqhVL/HdCE6C7x5kcKSSPOXQpv6NcFWiP6aQHZfKsh7HZPIXA2SOpO256LMcH20IRMauCsTi6xLNO/7ZnczGieOm8iqIO0kLKg/6hToIqATM4J7px/h4z3dPX2SikhzdyTkjkM20ZsSDYv10+SrMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KLASV+/M; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hUNCJVZx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFD621F00893;
-	Tue, 22 Sep 2026 12:12:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790079136;
-	bh=U2N9jaqko6o/t2ALmDTYb0syffBd10BbeFts4JsnzIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hUNCJVZxC9zI20qsu4jB3+MbWgCuxh1bNjiW0tfcKs8Dkl2JVeHOTQlI2hm0PGubU
-	 X1UfqLrjkr+r3BX+CsKsWSqo/Y9PuVGMfnh9Rp0Sw+kDi/Fx/fcXJNWefu0A69cbDA
-	 is19GlXdYSzMmjx+peOfOrDAbdd2OWYIjlwXGvjErfGrQxZGGPSgHyhD6zveWNyNEm
-	 MhuKEc46CQgwj3QJxXsWc9ZvrWC9F7o4rxkVdD4knXrqbhkeIb3McYwbWMLyy/uP2k
-	 QaAIlcPskXwvBnx69LBCU04d85C3TmHCdxBELLfStMSd/C2Q1VNyCiRNMJpsW/wI3i
-	 bwaAJzzItZDFQ==
-Date: Tue, 22 Sep 2026 13:12:12 +0100
-From: Lee Jones <lee@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Support Opensource <support.opensource@diasemi.com>,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] mfd: da9150: balance IRQ wake on teardown
-Message-ID: <20260922121212.GC3277918@google.com>
-References: <20260913021420.60344-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KLASV+/M"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc46895f82dso51049a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790079165; x=1790683965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QCx53jzyHh0wEL7VJuUKs+fphH56IILmzUrQEC9ChHI=;
+        b=KLASV+/M5CYE2vKFvL8CXoW9ga+9eu0KawPkeM6Vr9UiKyD0kBai4cgKQR5Dm78u/U
+         JHJJPy1NvUJFXlfwpAwI7SnXQSB6shLOg8tRsUoqxTplzNsf6YJ+wNx4fVQ4cLFNXGc9
+         s7mpeuQiVpC4K/etXAPV7riqssQKrDS2wHldEGj2+IGYaOiaiYG+9nTiO8pBq1PhjE2G
+         xgQ2AnA+YiGxVxUIUcCRo4qha+RMvwi7tg3mTDWDGoNJXVEwhfph/T0h8xY0ecloMt3q
+         8iJ7Hn4qb5UHp5e6TUUV78ebZQVtFCwSsmEK5VEhEu2pmskVE1Wxwe+LxqGh5Pf2vrs/
+         0Nsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790079165; x=1790683965;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QCx53jzyHh0wEL7VJuUKs+fphH56IILmzUrQEC9ChHI=;
+        b=kkJhCWAhP5PK3TLH3QembSzeead5oU+q8VNJWDEIykxTJbBqjjMk0whvNuhe1gErCa
+         +Q7DDIopyNmx6TAuiheW0j62wJORrGDzgvuZ3/zbthM0Xbr+IgVHD3rHIBWGcTOTfepP
+         nQavXBvFh9Ircrf72Fq+uLfZr5+nAic0jp+IUl+IEAykzfCHxlPdLm+WsMTDS7nmol/F
+         fNN+guiwzGEBnIp6w0gw3wtBAsQs13yroM5cysL+FRGL4RAwb9Gh+SLWDI4R3dZJ1dG+
+         KGkuKfzt/Z7s1vRUz+cPZLFQfxOYc1myKXBdKU5g6ZDnzG/7XKTvigN1LXQgyoFhYxi9
+         55zw==
+X-Forwarded-Encrypted: i=1; AKwUvByzxigVj8uQRRztzD+6lER0qQNNSzsNIe8I/5DRkp77V2XWWw/qJNTI8cEebeVaNNHfEZgoMe1J54834ZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbwdfpl3op0IfqLTnQucN3Q0rj/nCC6aUoLeOdju2Z33qW4hFV
+	OKTfZu2P3C5wwLefOEL16icsEKr1lxMR9i5H/jFxUIt8CVKcYlcMGMPy
+X-Gm-Gg: AYBFou3Jm3r8TyxTPNWe4mflpZDEuklaFxd3PpOz429zju8ZMHhwPuotgVH+lRa+y3Z
+	NR2UCiIww/Mhv1FuAtDobJLrPJgf63A2lwTGgb0UQW1OyBBxoADtB79Of+oKcJP7I5W2JB8bdE2
+	u0+Uo28t42/i3LgT3CQ1bHV6WXNKUQesOTrl6WKmr/GSbfuRGFlAGytf7AzdLmDpA+4+721thrE
+	kPU8bjtuAbS2MoVrenUnvsoZXor9QtcXrigCvfzO7gpoAqZV+nQpeYTqsIZz9bQfVb74TE0SgaI
+	FHTUVEAYo0GdCScl55fZ5e/rYRsNrQs7CCFklZonaEmJeR+7yROEQYVIrhRvY4k+CfQEmwofohm
+	YPfhwcSeDw7a6p79Otm/351lFKISHaATHs7zhE7d056XDc61odmNuJk8njYaDHTK6cbdqntHb5+
+	otE5C+Xl9eY/5xcQz9/UAoCdNcmr8tcHjZltHPltBU9PrkUefo8obTFXj8zd29Sd3ozQkylQS+s
+	LgJa0UfrGfkoPU5y5Y/xTRGwqIKhcMwvpefpwuBA9vq7bCSrT+HbVb4TqkcuQMObY/Y1w9dGv8p
+	q/cAaPzTIAK4r+DgpLJfbCxaWrZOCQ==
+X-Received: by 2002:a17:90a:da84:b0:3a0:238b:db4d with SMTP id 98e67ed59e1d1-3a0732dd66dmr1810985a91.5.1790079165337;
+        Tue, 22 Sep 2026 05:12:45 -0700 (PDT)
+Received: from cachyos-aura ([45.112.148.109])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f29d8762sm5091159c88.5.2026.09.22.05.12.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:12:44 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: designware: size the RX FIFO threshold to the queued transfer
+Date: Tue, 22 Sep 2026 17:42:38 +0530
+Message-ID: <20260922121238.46016-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922065041.GC106095@black.igk.intel.com>
+References: <20260919232647.448748-1-navonjohnlukose@gmail.com> <20260921120526.GV106095@black.igk.intel.com> <20260921170456.53354-1-navonjohnlukose@gmail.com> <20260922065041.GC106095@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913021420.60344-1-mhun512@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, 12 Sep 2026, Myeonghun Pak wrote:
+On Tue, Sep 22, 2026 at 08:50:41AM +0200, Mika Westerberg wrote:
+> Yes power savings are always good but in this case it also affects the
+> latency visible to the user so we don't want devices like touchpads become
+> "sluggish" either. Do you see any such issues with the devices when you
+> have this enabled and not using /dev/cpu_dma_latency or any other interface
+> to limit the CPU low power states?
 
-> DA9150 enables IRQ wake after registering its regmap IRQ chip, but does not
-> disable it on a later probe failure or driver removal. This leaves the wake
-> depth elevated after the handler is removed, and repeated bind attempts can
-> accumulate the imbalance.
-> 
-> Remember whether enabling IRQ wake succeeded and balance only a successful
-> call. Remove MFD children first so their nested IRQ users are gone, then
-> disable wake before removing the regmap IRQ chip. Preserve the existing
-> non-fatal behavior when IRQ wake cannot be enabled.
-> 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
-> 
-> Fixes: b8fce55c09d3 ("mfd: Add support for DA9150 combined charger & fuel-gauge device")
-> Assisted-by: OpenAI:GPT-5.6
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/mfd/da9150-core.c       | 9 +++++++--
->  include/linux/mfd/da9150/core.h | 1 +
->  2 files changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/mfd/da9150-core.c b/drivers/mfd/da9150-core.c
-> index 5c59cc869fb3e..d91d419fea663 100644
-> --- a/drivers/mfd/da9150-core.c
-> +++ b/drivers/mfd/da9150-core.c
-> @@ -450,7 +450,8 @@ static int da9150_probe(struct i2c_client *client)
->  
->  	da9150->irq_base = regmap_irq_chip_get_base(da9150->regmap_irq_data);
->  
-> -	enable_irq_wake(da9150->irq);
-> +	if (!enable_irq_wake(da9150->irq))
-> +		da9150->irq_wake_enabled = true;
+No. I have been running it as my only kernel for a week with nothing set on
+cpu_dma_latency, and I cannot tell the difference on the touchpad.
 
-da9150->irq_wake_enabled = !enable_irq_wake(da9150->irq);
+This patch increases latency by 0.7 ms on the mean, which I don't think
+is easily noticeable by humans. Against that, the i2c traffic alone cost
+2.24 W on the machine I measured, more than its entire 1.87 W idle draw.
 
->  	ret = mfd_add_devices(da9150->dev, -1, da9150_devs,
->  			      ARRAY_SIZE(da9150_devs), NULL,
-> @@ -463,6 +464,8 @@ static int da9150_probe(struct i2c_client *client)
->  	return 0;
->  
->  mfd_fail:
-> +	if (da9150->irq_wake_enabled)
-> +		disable_irq_wake(da9150->irq);
+However, if anyone tests and can feel the difference, please let me know.
 
-Or drop all of the checks and just call disable_irq_wake() on the error path.
-
->  	regmap_del_irq_chip(da9150->irq, da9150->regmap_irq_data);
->  regmap_irq_fail:
->  	i2c_unregister_device(da9150->core_qif);
-> @@ -474,8 +477,10 @@ static void da9150_remove(struct i2c_client *client)
->  {
->  	struct da9150 *da9150 = i2c_get_clientdata(client);
->  
-> -	regmap_del_irq_chip(da9150->irq, da9150->regmap_irq_data);
->  	mfd_remove_devices(da9150->dev);
-> +	if (da9150->irq_wake_enabled)
-> +		disable_irq_wake(da9150->irq);
-> +	regmap_del_irq_chip(da9150->irq, da9150->regmap_irq_data);
->  	i2c_unregister_device(da9150->core_qif);
->  }
->  
-> diff --git a/include/linux/mfd/da9150/core.h b/include/linux/mfd/da9150/core.h
-> index d116d5f3ef561..369698036d1aa 100644
-> --- a/include/linux/mfd/da9150/core.h
-> +++ b/include/linux/mfd/da9150/core.h
-> @@ -65,6 +65,7 @@ struct da9150 {
->  	struct regmap_irq_chip_data *regmap_irq_data;
->  	int irq;
->  	int irq_base;
-> +	bool irq_wake_enabled;
->  };
->  
->  /* Device I/O - Query Interface for FG and standard register access */
-> -- 
-> 2.47.1
-> 
-
--- 
-Lee Jones
+Also, i2c_dw_configure_mode() sets TX_TL to half the FIFO and RX_TL to 0
+on adjacent lines, so a transmit interrupt moves up to half a FIFO of
+data and a receive interrupt moves one byte, which is what this patch
+changes.
