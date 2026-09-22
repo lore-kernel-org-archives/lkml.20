@@ -1,219 +1,313 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7232FEACD;
-	Tue, 22 Sep 2026 08:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065538; cv=fail; b=KasYFh2sPo8MS1+GFebFTSNBT1ZKhfATWDd5QStE5lz5JQ3sq7GVKXulPETeiWpKD82A88qdWGwWIf4Fnoj867MeFhO9J5Xti13gIHKAX2UlQcDS8C5hmKDC4epGkCWLn8K6FnhP/d7rnf/L3GrudxIUcUeESEdhtA1QBcZTNA0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065538; c=relaxed/simple;
-	bh=h2T+E+11t/tjFul5DmT3kRHLCOvq9uuqXJ719hNohW4=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=mxKXJzA9c+q7L7RyqGcsY+TqDH30R/4/pXFelBfDAOD1kDeDrNQsaJekS/z+soTsg6kZgxqoho5CarQtazDc+WUngyL9DNd06fz+r3lHH+BuBmJn/6MuP2x+GCl1WHbqGdox5NXCPjOl415vusHr/DpdLz1O5NJAo1snrG33GMY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZEFVIWUl; arc=fail smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97ACA41B8C4;
+	Tue, 22 Sep 2026 08:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790065558; cv=none; b=LijZWMFCVBZcv9Q9m9o8WLf55YY12+t6xPfFflkXEfmX5wWtfAdPlBhb3puMfVP/04sYyuSIfnac5m8z/ZDfeaSp7lOinUHip9CEuHV0pDh1IfnRMxHFIIymOkms8C9/Dg6WcKBgKfyweEtETYdXcoFrG8E445R5lhdDKWCXV1U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790065558; c=relaxed/simple;
+	bh=LWVulDi9m1xBay3ycdDwKwOYQ5YCOYFy19VDDM/bSgQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=p7LNEphDqAQEdr4e0P07EYD3UVpzTUUJruTqK8f6TUKOclPMSd8FOXoSBtahjf/31zKcRLRRipxl8wl94VMWeljMhQKug3/V7YmrsQE9tk1AlRqLJvOHC6nbPatLLj4Ff7aCQIQGV+DGI8GJW1IsfE4kEjCXEQ0/XgKGXisB5Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ibi/Fk9W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZEFVIWUl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790065535; x=1821601535;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=h2T+E+11t/tjFul5DmT3kRHLCOvq9uuqXJ719hNohW4=;
-  b=ZEFVIWUl+3cVn2peEmL/17/KDssryUsN1/2zLTHISiRnrLa0YufNAcjL
-   +TJdb88HR0oWhQk4dtLIqj3ErBkJ/eltJnuoBGMqjdI2A7BlKfEiUqkRP
-   waW6R920xAFOPZ7pSwAhKsfSI7L0Mo4vReb1wPIB8OKxRrUEgw3CyeDGW
-   JVYyhihLWv25YOa5RMev3g80t9A2d4oSC8vhUVEvmlSx3UkpB52RCEVTo
-   QrSC23NAL/krruAQBuZEMI5aZ7jq18TWMHvT3eF5+0KmqWobkoffFNt7O
-   5UhFxWkLmvoueBc/Ps3Jvltb/5h2f5yG2qkv2+fKqNeB0dGtbyG4MTkoi
-   g==;
-X-CSE-ConnectionGUID: U2onXr+6TOKfLdfDCs3bCw==
-X-CSE-MsgGUID: XoEI4y9MQeS1jOpNINaxsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="101996909"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="101996909"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:25:34 -0700
-X-CSE-ConnectionGUID: eISDqyHLR/OgT/3KAoCGLg==
-X-CSE-MsgGUID: BRfXq8yBRxq7Vm79q36Duw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="4340986"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:25:34 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 01:25:33 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 01:25:33 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.68)
- by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 22 Sep 2026 01:25:33 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FurAxu2f9LsZewca5AqCfHEQajCD+hDX39U2j5SpvT3/iAjCn1CU9SCqv/I1rtwoxqiRVxJHk3NzjquNBdeTgUVz0As52qecsbmTVQZDnNRPOGaNKiW8h9Vpr7lQZ9r7Cs8QDhsUYSG5ila3vq0NREY7n0i3xB1oRnzESJ346mTgpOHRO29UjG+v8PQ69sxftsh2LD/QDo+n5hmMb6lMc6SEmNJyUXLEmqdH3eaa6E4z4H290mfPurYlQo0wrQ/U5TTxANgqDxR1wV1aURvu3GM+H+bpIxWWC7Cgw+RkrBBdfinoXVHI8FGW4rgzt5iNhox5PWWThpOfYna6u/WTSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d8ScHMbw6S77Rn1lizMKbQpxfc902v8+PTmx9RRaLhI=;
- b=s2MJfwu57bLEm/5sEPmSlJw1Sp+R2VXVaK9B6YqEprjQr1z4ClgdeHouVf3q9NvHQaaB3hm9r5+PogpJoAgJ/yYbfLQaAnyLR88g0nPFUPaR+ShBOa1fA/qwRUveYZPbGaKYa5vGxnFZq4hBMIJ/T7NHrFr9dRQNOHk9MAMBkk55OslrN2UgTm/DwF1fD29ar8r4okyPyXHqruXQBR6ETII7nDbe9FEV1hl4qdgICrhQSRJgroHN46ITKzwpLWpaaZRZj0vtAdmDxkbEnkqbyKUIfcgsHME+NCn+ITzh/bSnVjJZesyuowvNULHtN7Cp7VXK9kQPHIQzbkPst9rLlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- PH0PR11MB9702.namprd11.prod.outlook.com (2603:10b6:510:396::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 08:25:31 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 08:25:31 +0000
-Message-ID: <65ee9df8-2422-4d1a-80d6-41ac51979da1@intel.com>
-Date: Tue, 22 Sep 2026 16:25:14 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] sched/cache: Keep nr_pref_llc_running in the
- runnable domain
-To: Peter Zijlstra <peterz@infradead.org>, Tim Chen
-	<tim.c.chen@linux.intel.com>
-CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
-	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
-	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
-	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Kees Cook
-	<kees@kernel.org>, Christian Brauner <brauner@kernel.org>, Alexander Viro
-	<viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Shrikanth Hegde
-	<sshegde@linux.ibm.com>, Qais Yousef <qyousef@layalina.io>, Aaron Lu
-	<ziqianlu@bytedance.com>, Srikar Dronamraju <srikar@linux.ibm.com>, "Vineeth
- Remanan Pillai" <vineethr@linux.ibm.com>, Ricardo Neri-Calderon
-	<ricardo.neri-calderon@linux.intel.com>, Lu Wang <wanglu.priv@gmail.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>, Zhan Xusheng <zhanxusheng@xiaomi.com>, "Zhan
- Xusheng" <zhanxusheng1024@gmail.com>, Yi Lai <yi1.lai@intel.com>, "Rafael J .
- Wysocki" <rafael.j.wysocki@intel.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, Zenghui Yu
-	<zenghui.yu@linux.dev>, <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-fsdevel@vger.kernel.org>, Kayra Cizmeci <kayracizmeci@gmail.com>,
-	<stable@kernel.org>
-References: <cover.1790035273.git.tim.c.chen@linux.intel.com>
- <06af61afedac32e6477f57feb4d658f6c411c3af.1790035273.git.tim.c.chen@linux.intel.com>
- <20260922072205.GV4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Chen, Yu C" <yu.c.chen@intel.com>
-In-Reply-To: <20260922072205.GV4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR02CA0045.apcprd02.prod.outlook.com
- (2603:1096:4:196::21) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ibi/Fk9W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291641F000FF;
+	Tue, 22 Sep 2026 08:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790065556;
+	bh=2X1OCcip9WdRidK88ayPzdYka+btvJ/3z+Cw7Fhbf18=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ibi/Fk9W0CqbMvTkKEtatnrtBLseWmGefLP53I3Ejo4mg2mGDL0gokqO+sGacaYvB
+	 6aGSVfnVYGxajwp9QIriZ0v04JrczoAaUBU8ry+YlFjyQlIa7mMydU8EeoEGpz0a0X
+	 gKh3PYysPYERP7+wRqeTK4X76nCWuIaNaEfjf2U7Pz+4E+sCZ5YM1V/JFWYlTKehSU
+	 31j9r9OL1qVq2PBMaKcDfADSlBlMpwHZu03k8TnSb1Ahhkgb0nmdbMr0C1v37RUB8e
+	 2evBLmSfWKu85Bvs33SPNXNvWqJKuo+McNvY1D9DxDcqJB3TMb9XLftLZ6Bj3htfMQ
+	 jrIgteyJHt11Q==
+Subject: Re: [PATCH v4 net-next 3/8] ptp: netc: export
+ netc_timer_get_current_time() for cross-driver use
+From: netdev-bot+sashiko@kernel.org
+To: wei.fang@oss.nxp.com
+Cc: xiaoning.wang@nxp.com, andrew@lunn.ch, olteanv@gmail.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ richardcochran@gmail.com, linusw@kernel.org, linux@armlinux.org.uk,
+ wei.fang@nxp.com, imx@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org
+Date: Tue, 22 Sep 2026 08:25:54 +0000
+Message-ID: <179006555469.2160803.8873313402765313889@kernel.org>
+In-Reply-To: <20260918072852.501420-4-wei.fang@oss.nxp.com>
+References: <20260918072852.501420-4-wei.fang@oss.nxp.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|PH0PR11MB9702:EE_
-X-MS-Office365-Filtering-Correlation-Id: daeabf79-9f4f-4692-992a-08df188310c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: B70U1iVpAK8APeiYrjYl2ZwNhi92MCwgHkZI3EXBOSnjrZ+4zmho3zw7NlyH+lVxrRQiJxHdenkV/4lTl4OUX1P4FY/TeQY2Gf0yk6sWB+mSJoQGvCr4NHUZjMCpGgTxIbjOF6EmMZQdjSDAJXJdTR+Qq94qtR3mMn53E0JcFuWAMYTKtFSXoliYPQPkv6foL2GQp8SCNgQOXta3tQI1bR8/vYhGNWNA/qIXQqIqPyM2Se+dOcOEsalGlEO8jVEiIR0Cba6iAl/xW6Fli3ALug2FGgnmnJX5OSOV69yIEJyuc9Xsria8IhoVlJYSnjjEh0pqFY2SUmD9/vVVO4uIyV4zHkrFdi2em1OYhxCPIKzpsm1AYP2xCFcwTlmq4lI/A9/mGiRxG6Lni/1t/sKRDhxP1FMfPequUWdmWK9k4/TNBvQp2LpTjhyKCW66Ua4RU7lci5i7vByoGhWLC1lylyVNXceCiqzS6ebkUxhcApzJWH7gZOAw5pDd/1lJ5xtOlszddJjT1SePNHQZABH2BneUG6Rzwb4EklgITiRrcAn8t+Y9rwTXOea8NBZSxQlH0iu82TvxcdMrRhDbaBdwcmAcLdWkdak5EkyJLuyvq3MXXB6A3r3fM1gj0gph1aKEUWSLKP8zWjAWbzi64Fi56++rxXXE4DrBqgFguwRSDEE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXFZZmZEQkdHbmtsaUlEWDR6SlBvN3FDU2lCOUJyZ285YVVLcXNIbnljMGti?=
- =?utf-8?B?TnFQRStTcWFibTNNOG1uY3g3REFYbXVOMVJnN2V1ZEJlK2hORC9rWnpxemhr?=
- =?utf-8?B?S0ZLQTJPcms0S2FYMXdZL0Y0UjNxd2RITUlsdERmbUFlcWpkM0gvWEJPS2c3?=
- =?utf-8?B?RWdNNEY0TTU1d3A4bEtKUGRUajg0ZHZmWHBkY2RrQXZpWXhlVlF4ZHFvRTZa?=
- =?utf-8?B?RG5oRHoyYVkzaHdJZytYL3orcFk1ZlBWbmF4MVpEQVBNQzBsUHpVRzVoOUxx?=
- =?utf-8?B?dWZZN3ZISnRISlRRdVhHS2JiSDMzQTZkWkhhNWovR0gvSzZ5NUJidTRrVlgw?=
- =?utf-8?B?ckRqU1h4dG53cm93WU9Ja3VDUm5RYkNTZ3BZeXR0NXlmd3lVbVczWlJaNG1N?=
- =?utf-8?B?dDQra0NkRitQaktYMTVrSzNKZGhCTlQ4R3luTVRVSDVNd3FJSXQyS2pQSWNk?=
- =?utf-8?B?MThJam5PVTBaODVMVWg2MlFyVS83MDk2TXN1bm9NVU5IaWxqMG8vUDVGUExF?=
- =?utf-8?B?Ykd5WmRxZFBGMmV6SGtNY0Rha1ZWV0dUeWdodmdlK0tHNEV6ZGNZZmZCL0pN?=
- =?utf-8?B?endUeVh1Sk4vWVFBVXo5bXhoK3BVZkVYamR0TTNyTHluM1BucVRNbnpNYUpU?=
- =?utf-8?B?UDNEOXhmOUpkbXh4SUR1d0laTnlmd29pZDl3VWZWQ1dsVGpQUUlpQWhjN25Z?=
- =?utf-8?B?L29saFNqZGtFSjJKcjAvQjM3SnJ6TmovNnBkTmJXQ0ZwS1JjOW83QVhrYmZy?=
- =?utf-8?B?R3MrVnRaSDV5ajhvTXVUR3ZPb2JNSmtiUDdKVzJwRkVLMXJZenE4UFg0dFUw?=
- =?utf-8?B?WU1BLzhWb3JSVU53RTU1eGo5R2x0cTBuY1UyK2RCczRMRDlBYW90OFhnU2ZM?=
- =?utf-8?B?cUVxaXdVQWdTVG8wTWNsZVFVbmNSN29PQ3dYbkwvclQ2ZGVDNEMvVnVwWnVJ?=
- =?utf-8?B?eGJFbmxLRVdvNkxpNHlCdE5sVExGNXg0VTZSK2t1R1U2bVFZQ0dwcHZqc0FZ?=
- =?utf-8?B?UTJXRURhbVpvb0t0dFNuWnh3c0ZhNDBxNGFUTjBIOEZDRDJPRlVOeS90LzhJ?=
- =?utf-8?B?b3FvZkNHV2sxY0tmQXFrd3hON1Rjayt6b3Q3UWFNWkt2OHRVVzh6RjhqZXlZ?=
- =?utf-8?B?d0lnNE15MTNFRHVXdTFYYmUyK0NhWlIrMXMyNzNUbHRmZGRTWHRyZ3B5bThC?=
- =?utf-8?B?NHFOaXZNZVZyRHBtZ1ZWdm1EMVBWWmFWM09ndkdxeEwzWjNMUU5NWXp6VlB1?=
- =?utf-8?B?Ti9YMURzNFl2YWZXTkErU1RhU0hla3NraFRuVlY5cWlMb0xxZmh2QmM0VG9S?=
- =?utf-8?B?TTBQM3kwMEkxRWFDaUk4Yk9WZGp4VjZOUjB1a0FrSWNvMzN2ano3SHF3MXNB?=
- =?utf-8?B?SWN0ODlDdGlzSkp0akVjQU1RcUxUZ21wRU1FMFoySks0dnhMb1gvM3FvTUJQ?=
- =?utf-8?B?Y0JWUnNZSUJXS0prZThqS2JlcEhmZmpiRzFkRjY5OUNWV0pQQkMwdHgzdmdL?=
- =?utf-8?B?M3pWV3JzY29RUGRFeDNBV0JibnJpQWZnRkpCL1VZS3dxOUVVZ1VudzRuTEFq?=
- =?utf-8?B?Z2MzRFlnZWc5R09GTERPYUdhWUhYdVVuaUlKWHFQNjNsbnJVYlJOZmhXbEI3?=
- =?utf-8?B?R0JyUEYvc2lBSlBHcS9JK2Znam41SUViVUdOL0g0YnROODgvNkkvRDEvTnZs?=
- =?utf-8?B?WWhTb0VHVzJVdnAxZzNtK2FtVEw4N0Y0WHo4b3pwNUxBYjJ0anAxdHR5S3RP?=
- =?utf-8?B?R3F3bENhODl0eGdtWlh5NHp1WS9xNms0Z3dUQ3dibTY2Z1oyRTVwT1lDUWxy?=
- =?utf-8?B?M1Q0UytRaVZXdEQ3RDRIY2dUa1J1WVpnUDdaREFwTE9hd1Nmc0FOS09Ccnk4?=
- =?utf-8?B?RlJEQS9Samg2YU9aU25rcVcvVVljbU9JRWFuaUhNVkN4Sk5wUW41ZjhtN2gr?=
- =?utf-8?B?WVdSRmVXR3lnK0NwYjNRRkVWSFk0V3FUdDExNkVvc3d4L0txY09SQThFTjZX?=
- =?utf-8?B?VnY4bi93WnVpSXNhZjVNQkxMSkplSlVQSXdDY2o3UXgySlltd3FTYzJldCtD?=
- =?utf-8?B?K25Ycy9TNXIxT3lwOHJRK0VQZGtFNlZzNFRhVmFSaXRDbm02VjlhbDI2VkhS?=
- =?utf-8?B?K091L0F4Ymhxd1hqU2VmaUJ5ZTQ0clJuNlViNzl4TlM2dkhyVjQ4WG5OVGNQ?=
- =?utf-8?B?QmxocDlaUEJ6ODNXUlJOTXVHNC9kOXpNQmpyOWNFNnZoSExzalhXbXN2MEsr?=
- =?utf-8?B?SDlYaUFVenFPYksveXRRL3U3dGhDOTU0Ym01a1EzRG0wSlZpTk5YZjUyMHl3?=
- =?utf-8?B?dGZyWFNUQlpsVitnQ1VKMERQejJOQzVTaW5HaldGU1lkS2dLK0ZCZz09?=
-X-Exchange-RoutingPolicyChecked: SqZrtGj/gIgghBdIjFbFmY4wVR3/gRa9aLwRrfvGbXCEfv4hD/J3Y8HoQCcOQiZX1dL7m4Atq5U13eszXWBhba0QpIxxcNDYpDCKFo5OuNrSiwuSAx/zfKuRSlX/t8gaLdNZnxddyVrNwFso95dIjYo2FDFfBl5HWLFXHnxXlUImtABmrYnYLhIB2Jg+Zzp75olhYU0lq0ojDLOYPwDZoxOlPOVxL7vAImRflWSSrCmSRBsLxCT75wZyoxGo7fUoXJrm1Ha2NowuCZUPp0qxKf1RzIolNBrYmERCD7oG3KEq3I2m8Yoq8YzPdDB1VVHf0X4r6kL7xFz5Zm1bPk3MLA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: daeabf79-9f4f-4692-992a-08df188310c0
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 08:25:31.4907
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F+4PoaYV4FTsfRi/+vCbOJ6U9kkxjgfUj8Mx19ZcyqOiU1YD3TrMif6GTuxj1ebBhOfrzDDvSpRhH4zn+l8b+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB9702
-X-OriginatorOrg: intel.com
 
-Hi Peter,
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-On 9/22/2026 3:22 PM, Peter Zijlstra wrote:
-> On Mon, Sep 21, 2026 at 05:37:22PM -0700, Tim Chen wrote:
->> @@ -6395,15 +6429,27 @@ static __always_inline void return_cfs_rq_runtime(struct cfs_rq *cfs_rq);
->>   
->>   static void set_delayed(struct sched_entity *se)
->>   {
->> -	se->sched_delayed = 1;
->> -
->>   	/*
->>   	 * Delayed se of cfs_rq have no tasks queued on them.
->>   	 * Do not adjust h_nr_runnable since __dequeue_task()
->>   	 * will account it for blocked tasks.
->> +	 *
->> +	 * This check can be removed because when flat pick
->> +	 * patches get merged as only task can get delayed,
->> +	 * same for clear_delayed().
->>   	 */
->> -	if (!entity_is_task(se))
->> +	if (!entity_is_task(se)) {
->> +		se->sched_delayed = 1;
->>   		return;
->> +	}
-> 
-> This is dead code. In Linus' tree, where this will be applied, this can
-> never happen. A possible backport of this fix however will need to take
-> care.
-> 
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
-Would you prefer that we create a separate patch to remove entity_is_task()
-for Linus's tree (so that the current patch can be backported, since 
-cache-aware
-scheduling was merged before flat task-pickup)?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-thanks,
-Chenyu
+- [Medium] netc_timer_get_current_time()
+  (drivers/ptp/ptp_netc.c:1050-1082) takes the module-global…
+- [Medium] netc_timer_get_current_time() treats membership in
+  netc_timer_list as proof that TMR_CUR_TIME can be read, and returns 0…
+- [Low] Concern that the exported netc_timer_get_current_time() and its
+  list/lock infrastructure have no in-tree consumer.
+- [Low] Concern that netc_timer_get_current_time() keys its lookup on an
+  unreferenced caller-supplied 'struct pci_dev *' (tmp->pdev == pdev at…
+- [Low] include/linux/fsl/netc_global.h — a header that otherwise
+  contains only trivial MMIO accessor inlines…
 
+--
+
+ptp: netc: export netc_timer_get_current_time() for cross-driver use
+
+This adds netc_timer_get_current_time() to the NETC Timer driver and exports
+it so the NETC Switch driver, which is a separate PCIe function with its own
+driver, can read TMR_CUR_TIME. Each probed Timer is tracked in a
+module-private list keyed by its pci_dev, and one global spinlock covers both
+the list lookup and the register read so that an unbind cannot free priv
+under an in-flight read.
+
+A few questions about the new helper and the header change below.
+
+> diff --git a/drivers/ptp/ptp_netc.c b/drivers/ptp/ptp_netc.c
+> index aa9be8e2a630..1211aa9a37d3 100644
+> --- a/drivers/ptp/ptp_netc.c
+> +++ b/drivers/ptp/ptp_netc.c
+
+[ ... ]
+
+> @@ -123,8 +123,12 @@ struct netc_timer {
+>  	u8 fs_alarm_num;
+>  	u8 fs_alarm_bitmap;
+>  	struct netc_pp pp[NETC_TMR_FIPER_NUM]; /* periodic pulse */
+> +	struct list_head node;
+>  };
+>  
+> +static LIST_HEAD(netc_timer_list);
+> +static DEFINE_SPINLOCK(netc_timer_list_lock);
+> +
+>  #define netc_timer_rd(p, o)		netc_read((p)->base + (o))
+>  #define netc_timer_wr(p, o, v)		netc_write((p)->base + (o), v)
+>  
+> @@ -985,6 +989,10 @@ static int netc_timer_probe(struct pci_dev *pdev,
+>  
+>  	enable_irq(priv->irq);
+>  
+> +	spin_lock_bh(&netc_timer_list_lock);
+> +	list_add(&priv->node, &netc_timer_list);
+> +	spin_unlock_bh(&netc_timer_list_lock);
+> +
+>  	return 0;
+>  
+>  free_msix_irq:
+> @@ -999,6 +1007,10 @@ static void netc_timer_remove(struct pci_dev *pdev)
+>  {
+>  	struct netc_timer *priv = pci_get_drvdata(pdev);
+>  
+> +	spin_lock_bh(&netc_timer_list_lock);
+> +	list_del(&priv->node);
+> +	spin_unlock_bh(&netc_timer_list_lock);
+> +
+>  	disable_irq(priv->irq);
+>  	ptp_clock_unregister(priv->clock);
+>  	netc_timer_wr(priv, NETC_TMR_TEMASK, 0);
+
+[ ... ]
+
+> @@ -1021,5 +1033,54 @@ static struct pci_driver netc_timer_driver = {
+>  };
+>  module_pci_driver(netc_timer_driver);
+>  
+> +/**
+> + * netc_timer_get_current_time - read the current PTP time from the NETC Timer
+> + * @pdev: PCI device of the NETC Timer
+> + * @ns: Output, the current PTP clock time in nanoseconds
+> + *
+> + * Read TMR_CUR_TIME from the NETC Timer bound to @pdev. The lookup and read
+> + * run under netc_timer_list_lock, so the Timer cannot be unbound and its priv
+> + * freed during the read.
+> + *
+> + * Context: Process or softirq context. Must not be called from hardirq.
+> + *
+> + * Return: 0 on success, -ENODEV if the Timer is not present (not yet probed
+> + *         or already removed).
+> + */
+> +int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns)
+> +{
+> +	struct netc_timer *priv = NULL;
+> +	struct netc_timer *tmp;
+> +	unsigned long flags;
+> +	int err = 0;
+> +
+> +	/* Serialize against driver unbind, so holding it here ensures that
+> +	 * priv remains valid for the entire duration of the register read.
+> +	 */
+> +	spin_lock_bh(&netc_timer_list_lock);
+
+[Severity: Medium]
+Is it necessary to hold the module-global netc_timer_list_lock across the
+MMIO access, rather than only across the lookup?
+
+priv->lock is taken from hardirq context with a plain spin_lock() in
+netc_timer_isr(), and that handler can spin in the register drain loop in
+netc_timer_handle_etts_event():
+
+drivers/ptp/ptp_netc.c:netc_timer_handle_etts_event() {
+	while (netc_timer_rd(priv, NETC_TMR_STAT) & TMR_STAT_ETS_VLD(index))
+		etts = netc_timer_rd64(priv, NETC_TMR_ETTS_L(index));
+}
+
+So while CPU A sits in netc_timer_get_current_time() waiting on
+spin_lock_irqsave(&priv->lock) with softirqs disabled and the global list lock
+held, CPU B can be inside netc_timer_isr() holding priv->lock for a period
+bounded only by hardware. During that window every other Timer's probe(),
+remove() and every other time query is serialized behind
+netc_timer_list_lock. The same applies if the target function is unreachable
+and the non-posted read stalls until the PCIe completion timeout.
+
+Would an RCU-protected lookup (with the priv free deferred in remove()), or
+taking a reference on the Timer, give the same lifetime guarantee without
+holding a global lock across the register access?
+
+Related to that: the BH-only requirement makes the exported symbol illegal
+from hardirq or with interrupts disabled, but that constraint appears only in
+the kerneldoc and is not visible at the prototype in
+include/linux/fsl/netc_global.h, and nothing but an eventual WARN from
+__local_bh_enable_ip() catches a violation. Is there a reason not to drop the
+context restriction by using a lookup scheme that does not disable BH?
+
+> +
+> +	list_for_each_entry(tmp, &netc_timer_list, node) {
+> +		if (tmp->pdev == pdev) {
+> +			priv = tmp;
+> +			break;
+> +		}
+> +	}
+
+[Severity: Low]
+This isn't a bug, but the lookup is a bare pointer comparison on a
+caller-supplied struct pci_dev *, so its soundness depends on the caller
+holding a reference on @pdev. The in-tree consumer does hold one
+(netc_get_ptp_timer() obtains it with pci_get_domain_bus_and_slot() and
+drops it with pci_dev_put()), so nothing is broken today.
+
+Could the kerneldoc and the exported prototype state that the caller must
+hold a reference on @pdev? Without it, a future caller that caches a raw
+pci_dev pointer has no hint that a freed and recycled pointer could match a
+different Timer's entry.
+
+> +
+> +	if (!priv) {
+> +		err = -ENODEV;
+> +		goto netc_timer_list_unlock;
+> +	}
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +	*ns = netc_timer_cur_time_read(priv);
+> +	spin_unlock_irqrestore(&priv->lock, flags);
+
+[Severity: Medium]
+Can this return 0 together with a meaningless timestamp when the Timer
+function is not accessible?
+
+List membership only proves the pci_dev is bound to this driver: the entry is
+added at the end of netc_timer_probe() and removed only in
+netc_timer_remove(). netc_timer_driver registers no PM callbacks, so system
+suspend takes the PCI core default path and the function is disabled and put
+into D3 while the list entry stays live, and nothing re-programs
+TMR_CTRL[TE], CK_SEL, TMR_ADD or TMR_CNT on resume. The driver already
+documents the constraint in netc_timer_init():
+
+drivers/ptp/ptp_netc.c:netc_timer_init() {
+	/* Software must enable timer first and the clock selected must be
+	 * active, otherwise, the registers which are in the timer clock
+	 * domain are not accessible.
+	 */
+}
+
+The same holds for a surprise-removed function or one contained by DPC/AER,
+where the read returns all-ones. In those cases the helper still reports
+success, and the switch side consumes the value verbatim as the one-step Sync
+originTimestamp in netc_port_onestep_work():
+
+drivers/net/dsa/netc/netc_ptp.c:netc_port_onestep_work() {
+	NETC_SKB_CB(skb)->tstamp = tstamp;
+}
+
+Would it make sense to gate the read on pdev->current_state == PCI_D0 and
+!pci_channel_offline(pdev), or on TMR_CTRL[TE], and return an error instead
+of a successful-looking value? The missing PM support is not introduced by
+this patch, but the new export is what turns an inaccessible-device read into
+a timestamp handed to another driver.
+
+> +
+> +netc_timer_list_unlock:
+> +	spin_unlock_bh(&netc_timer_list_lock);
+> +
+> +	return err;
+> +}
+> +EXPORT_SYMBOL_GPL(netc_timer_get_current_time);
+> +
+>  MODULE_DESCRIPTION("NXP NETC Timer PTP Driver");
+>  MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/include/linux/fsl/netc_global.h b/include/linux/fsl/netc_global.h
+> index 5b8ff528d369..d4a26c17f99a 100644
+> --- a/include/linux/fsl/netc_global.h
+> +++ b/include/linux/fsl/netc_global.h
+> @@ -6,6 +6,7 @@
+>  
+>  #include <linux/io.h>
+>  #include <linux/io-64-nonatomic-lo-hi.h>
+> +#include <linux/pci.h>
+
+[Severity: Low]
+This isn't a bug, but is the full <linux/pci.h> needed here? The prototype
+and the stub only name struct pci_dev *, so a forward declaration of
+struct pci_dev plus <linux/errno.h> for -ENODEV would be enough.
+
+netc_global.h otherwise holds only the netc_read()/netc_write()/netc_read64()
+inlines, and it is included by drivers/net/dsa/netc/netc_switch.h,
+drivers/net/ethernet/freescale/enetc/netc_blk_ctrl.c,
+drivers/net/ethernet/freescale/enetc/ntmp.c and drivers/ptp/ptp_netc.c, so
+all four now pull in the PCI API.
+
+Would a separate header such as include/linux/fsl/netc_timer.h be a better
+home for an inter-driver service API than the register accessor header?
+
+>  
+>  static inline u32 netc_read(void __iomem *reg)
+>  {
+> @@ -22,4 +23,13 @@ static inline u64 netc_read64(void __iomem *reg)
+>  	return ioread64(reg);
+>  }
+>  
+> +#if IS_REACHABLE(CONFIG_PTP_NETC_V4_TIMER)
+> +int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns);
+> +#else
+> +static inline int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns)
+> +{
+> +	return -ENODEV;
+> +}
+> +#endif
+> +
+>  #endif
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918072852.501420-1-wei.fang%40oss.nxp.com
