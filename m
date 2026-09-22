@@ -1,183 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B43471269
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED38E475357
 	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099508; cv=none; b=IyndMw9GcVuE9UPtpLKiSzGmNP5U3tb1dWwm7HFMgVfPRzLmRZWh/YQ+sOFiYfC950pfvzV2jIyKmauWl7f2iE2CAPWRCFplZx3jw72on+lj0sM2Y94Ksm4DOhcwtLS6VjfsdMbo2s1+uexZSBVShV5me4SWtPu+5BuRyAjBako=
+	t=1790099508; cv=none; b=HTpzN3/dOQ9bMcKh5PNlMa1dpYWi/MFMMO25PYY0IiQjc6CAtUbBug6ol7akAGHaf3A5Dm6GxZ8wL0Uc6rKgwwih/PMy8EhRehQMX1LdT+cIQpj5qa6j9KqQx1f0OPkpfafAopoJy0zuYGe9EE3K9ImV58Vfo3Awm4xH+Mk2Kvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790099508; c=relaxed/simple;
-	bh=FQ9DS5iesg+Q/BcYhBZQGjCZ4nBfFql6vYXIjbJBC2A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rMvdtLa/3Q/i53PCgV8YabKDLd8hkRbj37UY92hGz+hBV7M3Fsqsn0uHDo5ZlALr8Yw/ZzPq5FUkdm4769aLAwfmawQKXujFfo13sspZ2dpPLmEkfy6Ee8TbNgwvCECLhu9oJ3JONU6EetGRfNqoEz8uZ59Z3++Hnc1dQOoXHLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1dTFYi8; arc=none smtp.client-ip=100.103.45.18
+	bh=EbP1v3Oa6Pp3U3S6vdLzzYTTcSx5iO6uWXxoR5VqFYM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Uuil+q1Sr6flMdeTbgJGtf6t+LuxoEVbv/8axFNbtGvx2kO/Lv7XG7Z3seSVtw+c0bMRTEoJIATgpu+W8RB0ovKu6zXLlw++ziBPIZC42/OOGsh5WE1wjlw1gtKIFkK07oEtkRUvdq40pUK0KKILoNjALcSDhalqP29hg7EV0OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T4ur/msL; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1dTFYi8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB1A1F000FF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:51:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790099506;
-	bh=pyNJDOLEfgLP4wzZmF4hygcfkmD+D8SQrjWiUmYWiXI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=m1dTFYi8306rphNBhQgtH7JSdZaFeRVBiTg2J+A3h0FH/nKdVf8CTBichndVip62n
-	 d7oF7hAXE80x4yhaR6Wvk6PmoeGTy81m/oAOxNAj3QD/p1uaQp+KLahhfk2p3SNQrA
-	 yxm6HoCN4GeM2RBp9kqdI2ZXePIcok4mSR++ZkzODCOTkQ8F2UjxsmCIcXgkymcnP9
-	 REmMaZ8Pld74jQ4X/7/ueTYlYPsj/DbjVyb7eN8rKVI1AAvvX/H3aYKOBXTshZL+hX
-	 QyiscZmO7KaQ5Q6edFsBSl85EEL3qhG1gWiwHPl/edJy7+MIKbt0Ri+GCeKgTY5eIE
-	 exGLRE+cmuODQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c9954ccbso37238e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:51:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxWSaeKX1ggjzy/R29YP7oIe60xCRCVi/e6kABj/9GP4CKfepv955FhMS3FEnhlGirwOLl1LubwaHX840Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++leoQxxlvoRIEFsgtR2NFpPsz/jgr+XI6y4PNV9bM6+shBrJGXd
-	9aXzNTeM5HISwEYxoXIx0udLl9b6vNuYdQYld3js1EHJQZIYbJHTSAfQt19rgWPV6Y+8w61AoCQ
-	yhO9BkUsanYYHJa/VqVfVb2c+iu48gYI=
-X-Received: by 2002:a05:6512:1552:20b0:5b8:c147:f370 with SMTP id
- 2adb3069b0e04-5b8d89c69abmr4823e87.52.1790099504207; Tue, 22 Sep 2026
- 10:51:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T4ur/msL"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so467805e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:51:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790099505; x=1790704305; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EbP1v3Oa6Pp3U3S6vdLzzYTTcSx5iO6uWXxoR5VqFYM=;
+        b=T4ur/msLvaIvLk1TDYJtusmbXGtVSgX+6zHarAzlEKJzmwcgkHjf5tt0izYJqx/G87
+         iR5LLMMPup68k08zxxYu+R2EQTMiseF9Gt3P0F6HvWja0A69sXpwzKMIouOLG1YFrbM1
+         RXBkFq+u349ag8qGr2ADCUjXK50cKnpCgXi35AEdNMGxrGsWmaGk2R4Ib3dUEE5yOu1n
+         X/Mq6XVCrV75EVPZUBZPUJgn8NLgow1aiMluLhbxOTCh+yws4GflGI+GLUZwzV1EtCMO
+         4Rc+ny2RHizoi8ORV6zweprezCyFGxsA6KGdSuT49HitXDzVKNF9ZRzy2Uswjr/U8/Au
+         k+hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790099505; x=1790704305;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EbP1v3Oa6Pp3U3S6vdLzzYTTcSx5iO6uWXxoR5VqFYM=;
+        b=I1K7lYQnHLNmAEbZPOVcNOrtcz9OEwTxum4hAEtOK0HmEWuA0YCl40Y3F0IqdI6qDe
+         dNagPgo0yXEMvlyc0Z31IjRDWsSmHx3MAZce4FY0NopPv6x4N//tTvNkcz8IfNAocvM3
+         MVyShnJ0P5H9UPzQaIAWGWx+ywQuOTDboP1FVgQSuUmgLJ5JRO57ZmmgyTSXj+JklQ8s
+         Nxaq83o7GiswkZREq5SXmqSE3D+z1Wp1OfKKS6ynKqYaRNUpn2VVTR/tgNaI13uBltX7
+         LFgugtJu3pk/AGWCO2Lk3h1YS3jMXDAwGiQmnqOkWuMNyK+rzCZv19TRcCool8vpK5bJ
+         Nuhg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmWouSvNyVbvPjdRxPubqQeuPRcW3qftlkU1etMIHY16/gBij+RrnIUtKqLrdM6FXZ1B/Pv07ADSNF/f4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k60fv+DX4EXGJ+O5PZFoUxn3jdCL1fw1BdjUMd223IaKBt8mFF
+	jRAjm1RCgfC9hD+CLIoleB0BwWkiTz+bfO1ViVq8T/kNKacHXiVV8Qd+
+X-Gm-Gg: AYBFou3wofByj2qMW5M6xUq3XA8PxuHc31zWfT+t2c/MBaMktrm/yZ+4157+gVbtGst
+	D3JQ70wYnjT4VYYIPTSBWMF1574Ky+LwYlzZuECiIldNSIv8MAFaTrkyx9zGfKSKaVUruUuk0XS
+	HZBI+FwTBy7tkoMaldTKcpH/Q0vixPOCNh2kivRqT9/Pd2reDLDBnyOAbSy/9TudjvcTQsUJ1Av
+	ijfDbgr9MyW8S9qk4G9GPkQiCZvOxQIAbZOIKPaBlcpRxcrz9wBuGOov/UmlidcSsnqhV0d1rDm
+	rJ0YLFZ+7raMJnGBixft4mB4eIkWJ+DZwsyyHDSClFWKKVfoflT7HyAeS6RKIR3sR9mesRdxiQO
+	NBLBnWyh50NySj8Z+dqL76W+baYw4Y/JxyJlbXhmTEc6wD14fmTRo7ObXtAN6iBw5IBExib/SIY
+	kGxk+l2GScBcCj8VljNLFywSifudbhwdTtmwAhB8yX6ucVOA8YPSoEAYKkNRstZJFygWnIZzs0j
+	+9fMZs=
+X-Received: by 2002:a05:600c:83cd:b0:49c:fa21:1c86 with SMTP id 5b1f17b1804b1-49fc573fa97mr180249605e9.27.1790099504457;
+        Tue, 22 Sep 2026 10:51:44 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.113])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fde18555bsm8294835e9.2.2026.09.22.10.51.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 10:51:44 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded controller
+Date: Tue, 22 Sep 2026 19:51:34 +0200
+Message-ID: <179009949426.334909.8218450300346111724@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922165737.260443-4-okerixx@gmail.com>
+References: <20260922165737.260443-4-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-mb-pm-main-v1-0-1d4cbd9d2b2c@vt.edu> <20260921-mb-pm-main-v1-1-1d4cbd9d2b2c@vt.edu>
-In-Reply-To: <20260921-mb-pm-main-v1-1-1d4cbd9d2b2c@vt.edu>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 22 Sep 2026 19:50:11 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jw=xzCw5Z_uDDKjAR_4BTPrEM51AXZQWGnbqSfB6wBYg@mail.gmail.com>
-X-Gm-Features: AcwNN1W_WS704PDKarrDmCWjByh9KWW-Gc20nNiTf3MCqf6ACST5po8eafukvBM
-Message-ID: <CAJZ5v0jw=xzCw5Z_uDDKjAR_4BTPrEM51AXZQWGnbqSfB6wBYg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] PM: sleep: publish pm_transition with release semantics
-To: jaidevshastri@vt.edu
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, linux-pm@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 3:24=E2=80=AFAM Jaidev Shastri via B4 Relay
-<devnull+jaidevshastri.vt.edu@kernel.org> wrote:
->
-> From: Jaidev Shastri <jaidevshastri@vt.edu>
->
-> Each dpm_*() phase function stores the current transition to
-> pm_transition with a plain store before it schedules the asynchronous
-> device callbacks. dev_pm_skip_resume() and pm_hibernate_is_recovering()
-> read pm_transition.event from those callbacks, on other CPUs, with plain
-> loads.
+Konrad reviewed this patch on v3 [1], a few hours before v4 went out;
+the patch is unchanged since, so the tag applies here:
 
-So how *exactly* is the race possible?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> Store the event with smp_store_release() and read it with
-> smp_load_acquire().
->
-> Found with MBCheck, a static herd7-based memory consistency checker.
->
-> Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
-> ---
->  drivers/base/power/main.c | 28 +++++++++++++++++++---------
->  1 file changed, 19 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-> index e130da428..bf4b4fd1b 100644
-> --- a/drivers/base/power/main.c
-> +++ b/drivers/base/power/main.c
-> @@ -78,7 +78,8 @@ static int async_error;
->   */
->  bool pm_hibernate_is_recovering(void)
->  {
-> -       return pm_transition.event =3D=3D PM_EVENT_RECOVER;
-> +       /* Pairs with the smp_store_release() in the dpm_*() phase functi=
-ons. */
-> +       return smp_load_acquire(&pm_transition.event) =3D=3D PM_EVENT_REC=
-OVER;
->  }
->  EXPORT_SYMBOL_GPL(pm_hibernate_is_recovering);
->
-> @@ -682,10 +683,13 @@ static void dpm_watchdog_clear(struct dpm_watchdog =
-*wd)
->   */
->  bool dev_pm_skip_resume(struct device *dev)
->  {
-> -       if (pm_transition.event =3D=3D PM_EVENT_RESTORE)
-> +       /* Pairs with the smp_store_release() in the dpm_*() phase functi=
-ons. */
-> +       int event =3D smp_load_acquire(&pm_transition.event);
-> +
-> +       if (event =3D=3D PM_EVENT_RESTORE)
->                 return false;
->
-> -       if (pm_transition.event =3D=3D PM_EVENT_THAW)
-> +       if (event =3D=3D PM_EVENT_THAW)
->                 return dev_pm_skip_suspend(dev);
->
->         return !dev->power.must_resume;
-> @@ -902,7 +906,8 @@ static void dpm_noirq_resume_devices(pm_message_t sta=
-te)
->         trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, true);
->
->         async_error =3D 0;
-> -       pm_transition =3D state;
-> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-> +       smp_store_release(&pm_transition.event, state.event);
->
->         mutex_lock(&dpm_list_mtx);
->
-> @@ -1052,7 +1057,8 @@ void dpm_resume_early(pm_message_t state)
->         trace_suspend_resume(TPS("dpm_resume_early"), state.event, true);
->
->         async_error =3D 0;
-> -       pm_transition =3D state;
-> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-> +       smp_store_release(&pm_transition.event, state.event);
->
->         mutex_lock(&dpm_list_mtx);
->
-> @@ -1230,7 +1236,8 @@ void dpm_resume(pm_message_t state)
->
->         trace_suspend_resume(TPS("dpm_resume"), state.event, true);
->
-> -       pm_transition =3D state;
-> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-> +       smp_store_release(&pm_transition.event, state.event);
->         async_error =3D 0;
->
->         mutex_lock(&dpm_list_mtx);
-> @@ -1595,7 +1602,8 @@ static int dpm_noirq_suspend_devices(pm_message_t s=
-tate)
->
->         trace_suspend_resume(TPS("dpm_suspend_noirq"), state.event, true)=
-;
->
-> -       pm_transition =3D state;
-> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-> +       smp_store_release(&pm_transition.event, state.event);
->         async_error =3D 0;
->
->         mutex_lock(&dpm_list_mtx);
-> @@ -1798,7 +1806,8 @@ int dpm_suspend_late(pm_message_t state)
->
->         trace_suspend_resume(TPS("dpm_suspend_late"), state.event, true);
->
-> -       pm_transition =3D state;
-> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-> +       smp_store_release(&pm_transition.event, state.event);
->         async_error =3D 0;
->
->         wake_up_all_idle_cpus();
-> @@ -2091,7 +2100,8 @@ int dpm_suspend(pm_message_t state)
->         devfreq_suspend();
->         cpufreq_suspend();
->
-> -       pm_transition =3D state;
-> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-> +       smp_store_release(&pm_transition.event, state.event);
->         async_error =3D 0;
->
->         mutex_lock(&dpm_list_mtx);
->
-> --
-> 2.43.0
->
->
+[1] https://lore.kernel.org/all/69636cb8-5867-42db-a8fb-aa8b2d9301e2@oss.qualcomm.com/
