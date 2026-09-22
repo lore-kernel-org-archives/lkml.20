@@ -1,140 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2C238DC69
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081482; cv=none; b=fJywKbkpEfuGghTFKpgFMjE5HySyIbkl3RngA+jXCNBxzr0jR3VofaDGdShN0CNPQ5WpTAxNR2kn65Hem9nwuHvx4AKb6tijUrHOywzYdbuGWOF7l5XqjoJDMil8A0TexdlY7Y3NFaC8FQIn9WObSqYi33OByYA4GID8eI0L0XU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081482; c=relaxed/simple;
-	bh=EuDFvoZYaAt+KyySYyhhT+xuusQE5J3tp3hQ2p0f3aE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aNNCbaTqfiNODaWgB4LRGhgUOHdaoIT3MLF0ZGCZClgDAO+rBFWwLcxBWCPdIJOCAKOOYXDjButXJfCXJ3jtlgsLJhShGlZ2JsqF9p+NZqSKBh4ByUIOUpWPPqmcZ4/VB3901EhhQDoa/Y1TnPpVN8AQbavvJNf3n3OR3DkDpbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJLV+Tbj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD8E54146E;
+	Tue, 22 Sep 2026 12:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790081481; cv=pass; b=bQrP4olxBr/RPIxlMdIM5+vOAqzRH2cPE0Re7VSuvMtOTo9Wa/ityDEWRQo6HgiqnMERMNrhFmjkQDZ7SjeQrnjiFqdyyDVAcb65nM2DYjBbn+78ew6qxyMQcVwv3Q20RbTNLXcBeFFTy2wasy4qZMmUWF+LxtrBf6vQrZGfQcI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790081481; c=relaxed/simple;
+	bh=CTwaTAUyeqGLemO19yZ/xNgJYa61MdlyRw20ocJaVA4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WPjAcNVBzCRY+nfG/Ckv7x0/yS8EzPJ1kxvVhq8+zp+PtIbjOUkw6CHyJnh/lqhM4Iy8JrIb0PN8hM8IsNRFd6RI0cWaIPykIfwZEkQDRTeuEsk8iodcb2X8oHCLfm+KUGCdaQfdYrZqjg0j3aZMAAbKGWnsaXoJTz7Ujn06N1g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=IvzuFxMQ; arc=pass smtp.client-ip=165.173.182.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJLV+Tbj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B8251F000FF;
-	Tue, 22 Sep 2026 12:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081480;
-	bh=bjn6H9bAPusg9K8m56V4G1qk8427IsHI5UeWzmUJBww=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bJLV+Tbj3RxhxJZcYtjDywlKvAzUbmxYg+jqYaDUsDf/BmM9L2J83+F4g/CDHfK+z
-	 4WIX1BUszHwiL9aPFk/e5bST2MZSccSUn1M1f+t+UQRCEELfv/Dqz87xsM48Fhe4e4
-	 VrMkKaznrdYugilrnbICgcq6cXdx12zLJbqO6UX4WDe2+3DFH3f2k2yNPF7+NYRYad
-	 TZApAWj99n+gpeYuTwRDrvxA0SMM1YEuvTEo8FIttiM1vP9mV5cKaGLDpxw/Gyo8zC
-	 hxVoxAVK5OgywEaj4uTtpN9HYuw2uvIvEduaeOF7jk6ZswhZSEPJ1EHxibM+k7KvL3
-	 30/IBotrHghNw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9D4B41980052;
-	Tue, 22 Sep 2026 08:51:11 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 22 Sep 2026 08:51:17 -0400
-X-ME-Sender: <xms:v3myaqO1dJPBBp2pNjko1t5k8FQl_hc03Kdfb9AYFnNOuyG4iLR2jA>
-    <xme:v3myanvKy0YCF5GpjVA1evG7y3p8XhUh-KR1TqJq1uq7pKQ0IGJf1uU6CQrAhySyT
-    K19JLBuqm3DMdxinXVb2J7xaGy17Zil4GTrpqJJnoQw-9z-HCxljWU>
-X-ME-Received: <xmr:v3myajdxZgA5ab59yvkNNapjP2aGmt6aEtXJu7dPZxiT_mpeRjIJGn400Wg>
-X-ME-Proxy-Cause: dmFkZTGJsDyAcE8QiCZz6dfbgOk9P/ImhfvjdTgEGi1dyPDTortTmKMOuYz4ch97JTuIJY
-    fCTeb/jUDs7RR8+EO82LYzphUG3CyOtSymtz/L464Wc9DfgUawrMcTy2lA/clKyJoAksX0
-    ZH839lnzNd/xvI9x9FHSP0kzB6tqsirVPUdHuDCIJ/wWCTBeNdhCrHmzdo6sUbJdKR/2O/
-    sWo9+A4BnuafPVatN035tZ09J6Fj99W4S+sDDcIwrbw5dyhaeZ44nnTKKearwgnnRyhT8p
-    2DheY2M4Nvuau7iuiAq3/CO0Qk8O5FLAWWU3996mTM//yGu/EY0oyjBeIKfGh7ymLgF2dO
-    XupXwF/czUZ2NpcRi/n/HbJd73UF6MopxxDLQXZZTZVEIq8jwxTtntgz1Fudldxc+duznM
-    zyN0Jj4dGAXH3J5iS2JrkGwjaln77bkaPrm/ycPIVoKlFDoDCRdxpscdTHnPCICqfqS73s
-    hy2SSZD3R9IdvfMM3cVc0eArLzOPt7zot16Rvzjau0S0mryVCZR9cKZJPrITNaxC2WJwRz
-    fnTwgIn7q07MgFSsf9rXprcLoqngdr9uLOAXpUXXoVfYM4O+/VQT2vrRpXrrKl6q73ti/q
-    doU1LkDyfW1eee9VOUfwBk/tMFKY1IzwPGNO8VK00HRjFLNHKhCBI+4vXJKw
-X-ME-Proxy: <xmx:v3myavMzzUcCooHWAjag_NsuwtOzP4qcAfrSEqhzqAEebaztzsxEWA>
-    <xmx:v3myamsaWir7lZYy4jpF5EYv1OuaZf2fvO0h0ncnscgZm28WUYCh8g>
-    <xmx:v3myao3hUXsCT3LxEmOAAr2Uf60p7xl8XEP1QkfNUvC2ST3uj26bFw>
-    <xmx:v3myam9xe1K-RT_7T98Kg09Zq9aohOe4xyGMtGQQZuaj89gdtRJ_2Q>
-    <xmx:v3myaukgoi2czh2NEkzuD_dpAYttVrftyzu5kkVWaZA2uWmvyAeQA0st>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 22 Sep 2026 08:51:09 -0400 (EDT)
-Date: Tue, 22 Sep 2026 13:51:08 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>, Ard Biesheuvel <ardb@kernel.org>,
- 	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Miaohe Lin <linmiaohe@huawei.com>,
- 	Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, 	kexec@lists.infradead.org,
- Lorenzo Stoakes <ljs@kernel.org>,
- 	"Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, 	Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, 	Michal Hocko <mhocko@suse.com>,
- Thomas Gleixner <tglx@kernel.org>, 	Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>,
- 	Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- 	Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- 	"Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or,
- 	shakeel.butt@linux.dev, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-mm@kvack.org, rmikey@meta.com,
- riel@surriel.com, harry@kernel.org, 	linux-cxl@vger.kernel.org,
- driver-core@lists.linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v5 7/9] drivers/base/memory: count inherited poisoned
- frames into the block
-Message-ID: <arJ5I9QHHBvuGH_F@thinkstation>
-References: <20260915-hwpoison-kho-v5-7-3bc7a57bd503@debian.org>
- <de41b78a-8471-4832-be0c-35d410a4499a@kernel.org>
- <aqpczrtIwSG948iv@gmail.com>
- <b8ad366a-a019-4462-9dce-f687f60ee7f2@kernel.org>
- <aqvHHHuWJ-y4WRJZ@gmail.com>
- <caac2cb9-8faa-49bc-ae8a-47c5fd7b7e58@kernel.org>
- <aq1RaH0eE0hZfNpr@gmail.com>
- <fb2237be-f7bc-4ad6-bcb0-7c3ef53136ef@kernel.org>
- <arE3UjqPsxctWckg@gmail.com>
- <ad2ed3ed-959a-4af3-a2f5-4c21e5af62d6@kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="IvzuFxMQ"
+ARC-Seal: i=1; a=rsa-sha256; t=1790081455; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nk34UYnYNbiNUe7h4i5/S6EGbJ8f5dJeQru1ULf9s3oEB1nyzAig2rUIrBbdHeVErR2YOSiVc4ugtIUE2OyC4zGi68C5DLyPZ2K4k7jT8Y+b+MgKEhdB96r/sU074Z4OjbDJOFADq+4Wn7bMTrtb8bI7IRHingVk+xX0HNlXU94=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790081455; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=729x9mq+5Jmo3wfVIGA83MaaAz3TTKhCqc6Bkj++2Fk=; 
+	b=XAQ1pvFubGt2sgI5ya59IIelRMYO+WsLVxcorNPHUUVSzGIJJydavCrPc24CtPdZOsjTC07M9bnO+OOmkeKCvJ+ikq1JsvreKKbtCfwGZv0d0xX3MuoY8a4yYR54PM2tWHq8SukH9dzjpVjNTw+uh8JeL9I4EpGk7PetB+qZ3t4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790081455;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=729x9mq+5Jmo3wfVIGA83MaaAz3TTKhCqc6Bkj++2Fk=;
+	b=IvzuFxMQ4zWGthmrST+dpQ2ol/CsautIjd/zPCFIqX7KxbNpVqYrQUUKrC9hg7Ff
+	vpH9t/XNPGT86OwWGFqPCE3sYGj0+HiDpR+v6jyULbzQfWNBdSNRx+9lquBMlwknh0g
+	/Jb20nBBVoLTee2bQJpTk7dTFpXQTpaJhbiYt8zw=
+Received: by smtp.zohomail.com with SMTPS id 1790081453988752.6700177035126;
+	Tue, 22 Sep 2026 05:50:53 -0700 (PDT)
+Message-ID: <0c358f7e-61b5-46ea-aad8-6671e3924dda@collabora.com>
+Date: Tue, 22 Sep 2026 15:50:49 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ad2ed3ed-959a-4af3-a2f5-4c21e5af62d6@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] media: synopsys: hdmirx: fetch colordepth before
+ calculating pixelclock
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ Hans Verkuil <hverkuil@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>
+Cc: linux-media@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, Lucas Sinn <lucas.sinn@wolfvision.net>,
+ stable@vger.kernel.org
+References: <20260921-hdmirx-fixes-v1-0-495be0beaf93@pengutronix.de>
+ <20260921-hdmirx-fixes-v1-1-495be0beaf93@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260921-hdmirx-fixes-v1-1-495be0beaf93@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Tue, Sep 22, 2026 at 01:33:51PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/21/26 16:31, Breno Leitao wrote:
-> > On Fri, Sep 18, 2026 at 10:16:25PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/18/26 17:22, Breno Leitao wrote:
-> >>>
-> >>> Right, we have two source for poisoned page information, today.
-> >>>
-> >>> 1) LINUX_EFI_POISONED_MEMORY: Used to track memory block that got
-> >>>    poisioned, and will be passed around during kexec.
-> >>> 2) PG_hwpoison on struct page: Used by the memory subsystem to avoid
-> >>>    touching it.
-> >>
-> >> How are both kept in sync? See below.
-> > 
-> > The EFI table is only written when there is a memory failure. That is
-> > the only thing that writes to it:
-> > 
-> > 	action_result() -> efi_hwpoison_record_pfn() -> set_bit()
-> > 
-> > You can see it on patch "mm/memory-failure: efi: record
-> > hardware-poisoned frames into the poisoned-memory table"
-> > 
-> > Then, when the kernel kexecs into a second kernel, the EFI config table
-> > is queried and the pages are poisoned from it at boot, as they are
-> > getting into the buddy allocator, in __free_pages_core().
+On 9/21/26 10:15, Sascha Hauer wrote:
+> From: Lucas Sinn <lucas.sinn@wolfvision.net>
 > 
-> I am not sure that is really the right place. That means we only poison free
-> memory. Shouldn't we poison as soon as we initialize the memmap, and check
-> whether any memblock allocations ended up on that poisoned memory and bail out?
+> hdmirx_get_detected_timings() divides the TMDS clock by
+> hdmirx_dev->color_depth, but nothing on its own path ever sets it. The
+> only producer is hdmirx_get_colordepth(), reached solely from
+> hdmirx_format_change() at the tail of hdmirx_wait_signal_lock().
+> 
+> VIDIOC_QUERY_DV_TIMINGS does not come through there. It only refuses to
+> proceed while signal_not_lock() is true, and that reads the lock state
+> straight out of the hardware, so it can already be false while the work
+> ending in hdmirx_format_change() has yet to run. Query the timings in
+> that window, on the first lock after a boot, and color_depth is still
+> zero from devm_kzalloc().
+> 
+> The division does not fault. do_div() is plain C on 64 bit and arm64
+> compiles it to udiv, which returns zero for a zero divisor. What comes
+> out is a pixelclock of zero, and a stitched output frame.
+> 
+> Read the colordepth where it is used instead.
+> 
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Lucas Sinn <lucas.sinn@wolfvision.net>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> Fixes: 7b59b132ad43 ("media: platform: synopsys: Add support for HDMI input driver")
+> Cc: stable@vger.kernel.org
+> ---
+>  .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 71 +++++++++++-----------
+>  1 file changed, 36 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index 25f8ca0d6d946..24ec6138a1fb6 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> @@ -156,7 +156,6 @@ struct snps_hdmirx_dev {
+>  	int num_clks;
+>  	u32 edid_blocks_written;
+>  	u32 cur_fmt_fourcc;
+> -	u32 color_depth;
+>  	spinlock_t rst_lock; /* to lock register access */
+>  	u8 edid[EDID_NUM_BLOCKS_MAX * EDID_BLOCK_SIZE];
+>  };
+> @@ -380,6 +379,38 @@ static void hdmirx_toggle_polarity(struct snps_hdmirx_dev *hdmirx_dev)
+>  			   VPROC_HSYNC_POL_OVR_EN, 0);
+>  }
+>  
+> +static u32 hdmirx_get_colordepth(struct snps_hdmirx_dev *hdmirx_dev)
+> +{
+> +	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
+> +	u32 val, color_depth_reg, color_depth;
+> +
+> +	val = hdmirx_readl(hdmirx_dev, DMA_STATUS11);
+> +	color_depth_reg = (val & HDMIRX_COLOR_DEPTH_MASK) >> 3;
+> +
+> +	switch (color_depth_reg) {
+> +	case 0x4:
+> +		color_depth = 24;
+> +		break;
+> +	case 0x5:
+> +		color_depth = 30;
+> +		break;
+> +	case 0x6:
+> +		color_depth = 36;
+> +		break;
+> +	case 0x7:
+> +		color_depth = 48;
+> +		break;
+> +	default:
+> +		color_depth = 24;
+> +		break;
+> +	}
+> +
+> +	v4l2_dbg(1, debug, v4l2_dev, "%s: color_depth: %d, reg_val:%d\n",
+> +		 __func__, color_depth, color_depth_reg);
+> +
+> +	return color_depth;
+> +}
+> +
+>  /*
+>   * When querying DV timings during preview, if the DMA's timing is stable,
+>   * we retrieve the timings directly from the DMA. However, if the current
+> @@ -393,7 +424,7 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
+>  	struct v4l2_bt_timings *bt = &timings->bt;
+>  	u32 val, tmdsqpclk_freq, pix_clk;
+>  	unsigned int num_retries = 0;
+> -	u32 field_type, deframer_st;
+> +	u32 field_type, deframer_st, color_depth;
+>  	u64 tmp_data, tmds_clk;
+>  	bool is_dvi_mode;
+>  	int ret;
+> @@ -414,10 +445,11 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
+>  	deframer_st = hdmirx_readl(hdmirx_dev, DEFRAMER_STATUS);
+>  	is_dvi_mode = !(deframer_st & OPMODE_STS_MASK);
+>  
+> +	color_depth = hdmirx_get_colordepth(hdmirx_dev);
+>  	tmdsqpclk_freq = hdmirx_readl(hdmirx_dev, CMU_TMDSQPCLK_FREQ);
+>  	tmds_clk = tmdsqpclk_freq * 4 * 1000;
+>  	tmp_data = tmds_clk * 24;
+> -	do_div(tmp_data, hdmirx_dev->color_depth);
+> +	do_div(tmp_data, color_depth);
+>  	pix_clk = tmp_data;
+>  	bt->pixelclock = pix_clk;
+>  
+> @@ -429,7 +461,7 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
+>  	v4l2_dbg(2, debug, v4l2_dev, "tmds_clk:%llu, pix_clk:%d\n", tmds_clk, pix_clk);
+>  	v4l2_dbg(1, debug, v4l2_dev, "interlace:%d, fmt:%d, color:%d, mode:%s\n",
+>  		 bt->interlaced, hdmirx_dev->pix_fmt,
+> -		 hdmirx_dev->color_depth,
+> +		 color_depth,
+>  		 is_dvi_mode ? "dvi" : "hdmi");
+>  	v4l2_dbg(2, debug, v4l2_dev, "deframer_st:%#x\n", deframer_st);
+>  
+> @@ -988,36 +1020,6 @@ static void hdmirx_controller_init(struct snps_hdmirx_dev *hdmirx_dev)
+>  			   VS_REMAPFILTER_EN_QST | VS_FILTER_ORDER_QST(0x3));
+>  }
+>  
+> -static void hdmirx_get_colordepth(struct snps_hdmirx_dev *hdmirx_dev)
+> -{
+> -	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
+> -	u32 val, color_depth_reg;
+> -
+> -	val = hdmirx_readl(hdmirx_dev, DMA_STATUS11);
+> -	color_depth_reg = (val & HDMIRX_COLOR_DEPTH_MASK) >> 3;
+> -
+> -	switch (color_depth_reg) {
+> -	case 0x4:
+> -		hdmirx_dev->color_depth = 24;
+> -		break;
+> -	case 0x5:
+> -		hdmirx_dev->color_depth = 30;
+> -		break;
+> -	case 0x6:
+> -		hdmirx_dev->color_depth = 36;
+> -		break;
+> -	case 0x7:
+> -		hdmirx_dev->color_depth = 48;
+> -		break;
+> -	default:
+> -		hdmirx_dev->color_depth = 24;
+> -		break;
+> -	}
+> -
+> -	v4l2_dbg(1, debug, v4l2_dev, "%s: color_depth: %d, reg_val:%d\n",
+> -		 __func__, hdmirx_dev->color_depth, color_depth_reg);
+> -}
+> -
+>  static void hdmirx_get_pix_fmt(struct snps_hdmirx_dev *hdmirx_dev)
+>  {
+>  	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
+> @@ -1128,7 +1130,6 @@ static void hdmirx_format_change(struct snps_hdmirx_dev *hdmirx_dev)
+>  	};
+>  
+>  	hdmirx_get_pix_fmt(hdmirx_dev);
+> -	hdmirx_get_colordepth(hdmirx_dev);
+>  	hdmirx_get_avi_infoframe(hdmirx_dev);
+>  
+>  	v4l2_dbg(1, debug, v4l2_dev, "%s: queue res_chg_event\n", __func__);
+> 
 
-__free_pages_core() is how we hand over pages from memblock to page allocator
-initially -- from memblock_free_pages(), deferred_free_pages() and
-hotplug. It is the right place to never allow them on free lists.
+Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Best regards,
+Dmitry
