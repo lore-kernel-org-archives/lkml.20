@@ -1,353 +1,109 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F964E4C2C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEC54EDCB4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070772; cv=none; b=eMvcfkX8qH3Ez6FwexCMO3GKdj9JyjjPExVlSIu3UnG5I60fTGE8gLXSJ/03euofbB22+zOBwi7/EWnestnzSCrUxQ1kLwe6SPxFfJs7NKW/hyLO+IdAx+I4lHx8+6eiT9aFpduc2hjzVdlelMLvt35crAaV3+p8wfo9HmT6jWM=
+	t=1790070779; cv=none; b=omg6IMUQgljpeUZ2Wbu8AWFzR5fNbD05ArR49wUXJuZi3RyUtYzfboLtjGVHaqMn1oAiOzdoxL7HFbRaaCVJUC4Ik014VAc17wRNOUEzwFVWgTG3/8erZ7zhrqOsNMvHChnlf6aFObFHUbSKimpgo8hnx4GUnh/59iJ9Lo4CUew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070772; c=relaxed/simple;
-	bh=/hyB+hEw6RLudRjQ7dI1d4NFysBDKsw1sQJA+/qf+iA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KHbj1dqvMepa6j3D3E9pUvTMvFtt/L/eJsRghgva/bwlJchYAk4kF9QPM5PpYTVZ75X/2AAK5aWuN9s8vsHwGf6kGbClzyQUb+mIJ1nQ+onW5DXJPg11inuEKX6ilcyD9JCoRBdBeAliYCmPwh2BsEjPOyXkN+gvXCVcBFjf8FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=UbU7CoLf; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790070779; c=relaxed/simple;
+	bh=XCu96evxf20Dg31cvROXcpI/yYmId/Hxgeu4N2f5f2M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=skYKMwWolMGCYqRaAnLA5sf5MqWp6Y16ogwxadhAYxWGGB0BInKB7+ub6kLKS2Sqpcybq3anY7aa0rObDXpBrPccyB30pCTDldyn785DCt0Ys4J2ri4GLV68CFqXFHR0zT8zx0L1mhq9Cqs7+MowOuZPsLF2OQU1vQk4GzNVlxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ch6DM0hA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="UbU7CoLf"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so21799375e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790070768; x=1790675568; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QYbygSoXTPt7jaWPgoihIOPAkjKBdxHc4l1yrHc4AGQ=;
-        b=UbU7CoLfLA/KildSyTRxEZBDk5ouIV5wcTT9FwSAVXX8IztropXtW1B9tVhPOnvuDZ
-         vFXmRhh3nCtiSGXIfhRbM1IfCHFksGd16/TQWuamEwysvpbtDXAouWp3f3T+OQMWV8zv
-         69/gXuQV4zk/6RRYvJbtHDq99YWgX7WplJUvOnpz5o0Vxf2gHJnI146KvWlx3w/mG8p/
-         8lOCdfWMGH1kq2abyoeVe6OMV/AHqxEHBiVp8lyzWHj+9/tTK1tykmdHCa3vs5fVY1rm
-         VoVgspEI1ogbm6jhKX3gm1axLHQ3goZHo3FI4UuVNbvDOqbBUbZb6V28XFZMLChN5ohE
-         AAfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790070768; x=1790675568;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QYbygSoXTPt7jaWPgoihIOPAkjKBdxHc4l1yrHc4AGQ=;
-        b=BWtTORk33puGEctKZbb3eCY++uYwWaeskoa1Jxqg4H0sXpxddzQcLJGjnE5IMi+HmE
-         dbKW+pSl/iherNudvs644oj7ne+WxR66kGy7WSGlgDOd1oH05sUx2EYNfk5vsjkibAxk
-         zI/YcS/C+GeWxGfeO9mlYeb8D2Ia7OYzZS8OveyguM9+s1DESP/C8osYtGm+2KGEwrhe
-         PU9xho3v6QWdgsZpSag652FpKw1v03YJv6eKT1O0v7bGBbiinSSMoBF08noWNMnMiMCd
-         0Rfx/W60m6/2DtG8b/8pKeLGGksRePZVZfQnbboPf6RtFLvX1gYBHluO80uYE9FBkgre
-         NYGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwslAS40ky9YlGaqRLd+rY8eqssmpymyByqzsgKU7PVv9AIeqp0mvl1fgslx2jhKA7jVrUpUKwOo1nLYAs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kC3Yz+DRXtZ/hKxWx/7D6vYRB8OA1BoQ3t2B6sYclA3BGEXlYB
-	613wiK21zAZB3tkn3PNNZJ3262IyH+vjxiSJQs2H5J0Oc/r69Rmbag1uyWAfiTN4CtA=
-X-Gm-Gg: AYBFou3WE+FQCt804mNqf3JfHJOv3+bTZSlDmJ2apJ9Gn4s9OK9v5cNheYIIBKdwgoM
-	QAyjdLC6V7RLWQhcSotoyQj+Y9fhocIxQrXEVDnF7INovVkpg+3LRpiIAD1iIirS3NI1LI55CAA
-	tK0GiJXMKZrb5SlxpFQ2JUyHb+xdDcf8ALYHQtGTgOvgCvdOw8wItolO97b+XaxGMRMB69Ovt6E
-	1fGX04xRm/HWsU0+VcxCDRwYTNbiO+aUbQEyXFhd89DcMD54J4suvL6gBDxxtKnomflI/e35L9p
-	5CP3BmhvIGs2TROUT9znOghXrlDFkt1jbXDwoEjjYxEaO+F2Fxc3yWoazcaX7xU4CjrKaV4ifLL
-	8GbKsFgaV/z6yjJqk3Ucntw3ouy2MyY/00h/Zf9biRJeqmo+UxSu1jaYyJz5lnj7fSFkI+WZsAd
-	AdMuAXP+AsEOU7Qu+e/Qy0keQQ+c0RHRcmo9XldohPBgn1AEEdc52iC2gFcjIBJeklqMliT4XWL
-	eYenIL4DtG3+MJPWU82fJuipUGQ9MsFgPFi244oncZ/INdk3N/rQPWoe4qbZMZNi8UaUedFkDHn
-	XHDMWjFr9DPwTs2oXlLt468oqXHcyEGQ2+oeIf2paYHVorFMOt4Ag0WuWUk=
-X-Received: by 2002:a05:600c:46cf:b0:49c:de80:b833 with SMTP id 5b1f17b1804b1-49fc5687b6cmr202804085e9.2.1790070767607;
-        Tue, 22 Sep 2026 02:52:47 -0700 (PDT)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaa9dbd6sm42235115e9.2.2026.09.22.02.52.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:52:46 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:52:44 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: kavakliyigitcan@gmail.com
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Henrik Rydberg <rydberg@bitmath.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RFC 02/10] backlight: add Kinetic KTD3136 driver
-Message-ID: <arJP7AMM5DqNoc8e@aspen.lan>
-References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
- <20260911-ginkgo-submission-final-v1-2-0e68e63a18d4@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ch6DM0hA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88FAA1F0089C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790070777;
+	bh=XCu96evxf20Dg31cvROXcpI/yYmId/Hxgeu4N2f5f2M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ch6DM0hAWaNN27ZcRB5nchnPoKUpglKze6AoelpakUm1Eal73BAMd+5rGz3RdAJaf
+	 J1Quz/+Kj+BGL+lGgT9gmzGzRTtwXgBO7no73bL5xE8HxQREtk44PyzqQ/jVmhbw1Q
+	 qv0g1F7BmZnTMzwj1msR6U1RXPC530DEr0Mm0wyKnxz1JNbUk9XhwKxbyiP3z1SoZg
+	 T0uuvUVCXFmzuu+w6TcDFMQdjcv5NaU4e7LsKqYEB/OBkzljXsTIpZJl/I9xNxACTM
+	 j5JisIIzAf/Orw+g/SnQtd1vYdOgSXKwX026rogbPOibRXsaGaiByYOxPo00KdsaKG
+	 JAFYs2xmPgGCg==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a49c068e85so34320861fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:52:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBweOfzL/Sh/Ct6I+WhoCSCgMPbMSo3ScQ8Am1EM99+QVQfgf7ZEUqBVkyeLeUv5QaAOCGeCvTss6xcQa2A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMYbTEHhCDMRBl+I3XacS5FWTMqLFnx1eO41gZ8bz8KkntYdhN
+	FJFQsmGy37sVwDrrzTi907ssGKjg/qQuCqxNRO/EKGPEun2xHBb6qjj9kXhU2OlDI0QmcByRGsp
+	EjRZNGRbNxPtGxH3XQrPlWtn4zW8lWs4=
+X-Received: by 2002:a2e:bc02:0:b0:3a3:364:f797 with SMTP id
+ 38308e7fff4ca-3a5fbf024acmr29953651fa.8.1790070775724; Tue, 22 Sep 2026
+ 02:52:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-ginkgo-submission-final-v1-2-0e68e63a18d4@gmail.com>
+References: <7995179.EvYhyI6sBW@rafael.j.wysocki> <3717753.iIbC2pHGDl@rafael.j.wysocki>
+ <20260922-quiet-heavy-lyrebird-b245ad@sudeepholla>
+In-Reply-To: <20260922-quiet-heavy-lyrebird-b245ad@sudeepholla>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 22 Sep 2026 11:51:23 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gcejDUREsJF9W5yCCU1=rBbJ1HtowzB-Y-i0rsyGvRgQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UEF627YybvGpJxDdUgnswJyEKtbD1EyeT6OeXpLE6q86oktnId6WHtw0o
+Message-ID: <CAJZ5v0gcejDUREsJF9W5yCCU1=rBbJ1HtowzB-Y-i0rsyGvRgQ@mail.gmail.com>
+Subject: Re: [PATCH v1 01/17] ACPI: bus: Use acpi/acpi_bus.h without CONFIG_ACPI
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Hanjun Guo <guohanjun@huawei.com>, linux-arm-kernel@lists.infradead.org, 
+	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+	"Derek J. Clark" <derekjohn.clark@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	platform-driver-x86@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>, 
+	Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Cezary Rojewski <cezary.rojewski@intel.com>, 
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Binbin Zhou <zhoubinbin@loongson.cn>, 
+	Andreas Noever <andreas.noever@gmail.com>, Mika Westerberg <westeri@kernel.org>, 
+	Yehezkel Bernat <YehezkelShB@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 11:50:59AM +0300, YİĞİTCAN KAVAKLI via B4 Relay wrote:
->  obj-$(CONFIG_BACKLIGHT_LM3630A)		+= lm3630a_bl.o
-> diff --git a/drivers/video/backlight/ktd3136-backlight.c b/drivers/video/backlight/ktd3136-backlight.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..a8ebe3b23c99f3ada9f45c60688f8b8c78d72def
-> --- /dev/null
-> +++ b/drivers/video/backlight/ktd3136-backlight.c
-> @@ -0,0 +1,262 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Kinetic Technologies KTD3136 3-Channel LED Backlight Driver
-> + *
-> + * Copyright (C) 2026
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of.h>
-> +#include <linux/property.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#define KTD3136_REG_DEV_ID		0x00
-> +#define KTD3136_REG_SW_RESET		0x01
-> +#define KTD3136_REG_MODE		0x02
-> +#define KTD3136_REG_CONTROL		0x03
-> +#define KTD3136_REG_RATIO_LSB		0x04
-> +#define KTD3136_REG_RATIO_MSB		0x05
-> +#define KTD3136_REG_PWM			0x06
-> +#define KTD3136_REG_STATUS		0x0A
-> +
-> +#define KTD3136_DEV_ID_VAL		0x18
-> +#define KTD3136_DEV_ID_VAL2		0x19
-> +
-> +#define KTD3136_MODE_ON			0xC9	/* Boost ON, 3 channels enabled */
-> +#define KTD3136_MODE_STANDBY		0x98	/* Standby mode */
-> +#define KTD3136_CONTROL_LINEAR		0x02	/* Linear dimming mapping */
-> +#define KTD3136_PWM_DEFAULT		0x1B	/* Default PWM/boost frequency */
-> +
-> +#define KTD3136_DEFAULT_MAX_BRIGHTNESS	2047	/* 11-bit resolution */
-> +#define KTD3136_DEFAULT_BRIGHTNESS	2047
-> +
-> +struct ktd3136_data {
-> +	struct i2c_client *client;
-> +	struct backlight_device *bd;
-> +	struct gpio_desc *enable_gpio;
-> +	struct regulator *vin;
-> +	/* Protects chip registers and state */
-> +	struct mutex lock;
-> +	bool is_enabled;
-> +};
-> +
-> +static int ktd3136_write(struct ktd3136_data *chip, u8 reg, u8 val)
-> +{
-> +	int ret;
-> +
-> +	ret = i2c_smbus_write_byte_data(chip->client, reg, val);
-> +	if (ret < 0)
-> +		dev_err(&chip->client->dev, "failed to write reg 0x%02x: %d\n", reg, ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ktd3136_read(struct ktd3136_data *chip, u8 reg)
-> +{
-> +	int ret;
-> +
-> +	ret = i2c_smbus_read_byte_data(chip->client, reg);
-> +	if (ret < 0)
-> +		dev_err(&chip->client->dev, "failed to read reg 0x%02x: %d\n", reg, ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ktd3136_power_on(struct ktd3136_data *chip)
-> +{
-> +	int ret;
-> +
-> +	if (chip->is_enabled)
-> +		return 0;
-> +
-> +	if (chip->enable_gpio) {
-> +		gpiod_set_value_cansleep(chip->enable_gpio, 1);
-> +		/* Allow oscillator and internal logic to stabilize */
-> +		usleep_range(2000, 3000);
-> +	}
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_CONTROL, KTD3136_CONTROL_LINEAR);
-> +	if (ret < 0)
-> +		goto err_off;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_PWM, KTD3136_PWM_DEFAULT);
-> +	if (ret < 0)
-> +		goto err_off;
-> +
-> +	chip->is_enabled = true;
-> +	return 0;
-> +
-> +err_off:
-> +	if (chip->enable_gpio)
-> +		gpiod_set_value_cansleep(chip->enable_gpio, 0);
-> +	return ret;
-> +}
-> +
-> +static void ktd3136_power_off(struct ktd3136_data *chip)
-> +{
-> +	if (!chip->is_enabled)
-> +		return;
-> +
-> +	ktd3136_write(chip, KTD3136_REG_MODE, KTD3136_MODE_STANDBY);
-> +
-> +	if (chip->enable_gpio)
-> +		gpiod_set_value_cansleep(chip->enable_gpio, 0);
+On Tue, Sep 22, 2026 at 11:51=E2=80=AFAM Sudeep Holla <sudeep.holla@kernel.=
+org> wrote:
+>
+> On Mon, Sep 21, 2026 at 09:45:59PM +0200, Rafael J. Wysocki wrote:
+> > From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> >
+> > Corrently acpi/acpi_bus.h is included in linux/acpi.h only if
+> > CONFIG_ACPI is set, but it contains declarations that are useful
+> > otherwise too.
+> >
+> > For consistency, modify linux/acpi.h to always include acpi/acpi_bus.h
+> > and update the latter to avoid exposing too much when CONFIG_ACPI is
+> > not set.
+> >
+> > Since acpi_has_method() is called from some code build when
+> > CONFIG_ACPI is unset, add a stub for it to the !CONFIG_ACPI
+> > block in acpi/acpi_bus.h.
+> >
+>
+> Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+>
+> I was planning to just pull acpi_device_hid() out so that I can get rid
+> of CONFIG_ACPI in [1]. This looks much more elegant. Thanks for doing it.
 
-Why does this powering off leave the regulator active?
+Anytime, and thank you!
 
-
-> +
-> +	chip->is_enabled = false;
-> +}
-> +
-> +static int ktd3136_update_status(struct backlight_device *bd)
-> +{
-> +	struct ktd3136_data *chip = bl_get_data(bd);
-> +	int brightness = backlight_get_brightness(bd);
-> +	int ret = 0;
-> +	u8 lsb, msb;
-> +
-> +	mutex_lock(&chip->lock);
-> +
-> +	if (backlight_is_blank(bd) || brightness == 0) {
-> +		ktd3136_power_off(chip);
-> +		goto out;
-> +	}
-> +
-> +	ret = ktd3136_power_on(chip);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	lsb = brightness & 0x07;
-> +	msb = (brightness >> 3) & 0xFF;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_RATIO_LSB, lsb);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_RATIO_MSB, msb);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = ktd3136_write(chip, KTD3136_REG_MODE, KTD3136_MODE_ON);
-> +
-> +out:
-> +	mutex_unlock(&chip->lock);
-> +	return ret;
-> +}
-> +
-> +static const struct backlight_ops ktd3136_backlight_ops = {
-> +	.options = BL_CORE_SUSPENDRESUME,
-> +	.update_status = ktd3136_update_status,
-> +};
-> +
-> +static int ktd3136_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct backlight_properties props;
-> +	struct ktd3136_data *chip;
-> +	int ret, val;
-> +	u32 def_brightness = KTD3136_DEFAULT_BRIGHTNESS;
-> +	u32 max_brightness = KTD3136_DEFAULT_MAX_BRIGHTNESS;
-> +
-> +	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-> +	if (!chip)
-> +		return -ENOMEM;
-> +
-> +	chip->client = client;
-> +	mutex_init(&chip->lock);
-> +
-> +	chip->vin = devm_regulator_get_optional(dev, "vin");
-> +	if (IS_ERR(chip->vin)) {
-> +		ret = PTR_ERR(chip->vin);
-> +		if (ret != -ENODEV)
-> +			return dev_err_probe(dev, ret, "Failed to get vin regulator\n");
-> +		chip->vin = NULL;
-> +	}
-> +
-> +	if (chip->vin) {
-> +		ret = regulator_enable(chip->vin);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "Failed to enable vin regulator\n");
-> +	}
-
-Why is the regulator managed here rather than in the power_on/off functions?
-
-Also, you need to keep track of the regulator state. You must "put" the
-regulator before allowing devm to clean it up (handling the regulator
-state in power_on/off would solve this).
-
-
-> +
-> +	chip->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(chip->enable_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(chip->enable_gpio),
-> +				     "Failed to get enable GPIO\n");
-> +
-> +	if (chip->enable_gpio)
-> +		usleep_range(2000, 3000);
-> +
-> +	val = ktd3136_read(chip, KTD3136_REG_DEV_ID);
-> +	if (val < 0)
-> +		return dev_err_probe(dev, val, "Failed to read device ID\n");
-> +
-> +	if (val != KTD3136_DEV_ID_VAL && val != KTD3136_DEV_ID_VAL2) {
-> +		dev_err(dev, "Unknown device ID: 0x%02x\n", val);
-> +		return -ENODEV;
-> +	}
-> +
-> +	dev_info(dev, "Kinetic KTD3136 detected (ID: 0x%02x)\n", val);
-
-Remove this. Happy noises are still noise!
-
-
-> +
-> +	device_property_read_u32(dev, "max-brightness", &max_brightness);
-> +	if (max_brightness > KTD3136_DEFAULT_MAX_BRIGHTNESS)
-> +		max_brightness = KTD3136_DEFAULT_MAX_BRIGHTNESS;
-> +
-> +	device_property_read_u32(dev, "default-brightness", &def_brightness);
-> +	if (def_brightness > max_brightness)
-> +		def_brightness = max_brightness;
-> +
-> +	memset(&props, 0, sizeof(props));
-> +	props.type = BACKLIGHT_RAW;
-> +	props.max_brightness = max_brightness;
-> +	props.brightness = def_brightness;
-
-The scale property needs to be set here.
-
-
-Daniel.
+>
+>
+> [1] https://lore.kernel.org/all/20260915-acpi_scmi_pcc-v5-4-298579e9f359@=
+kernel.org
