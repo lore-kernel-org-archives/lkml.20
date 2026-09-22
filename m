@@ -1,157 +1,134 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51A73559313
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C275616D2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092362; cv=none; b=lTCdWk+lo2aLH2xVRjA86OehgRBIXLprzfC4E/lMtp3sXI/MVfyHXOKsVvICWA368M8KPrkExI2HtfJcitqU//O0SVT9XLS7F1v1iWVK2YhqJQdS/jyD24O/4CYinn/9k+m0U8Qi+04YGskQKsn2C0b6+H4v5iGIz1SdF6jA2/Y=
+	t=1790092367; cv=none; b=DTgJh6UbF+b2LD6+kNOshVVTYHMSIkVcEEPtAIbAIT6JP8T0xjLpPnhZK/xuwbGHuGOVpwVm9JLnqxQSa0PzoZdykTk1Afrp+A3Gt4GFD1PWhv9lRFN75aWn8YlXTCyxzy5M+RlHTHkRHALIKcr3gEtjPqeD7HxfIdKBcggWtlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092362; c=relaxed/simple;
-	bh=QXkqCPySi5pz7XgdaRzbBeXXq0xzGh50Y6EVmcAY8zY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hs+Ixv7Rw8kQ359mZ20kAwbvnssIssAnYv2Kcju5RaEY8p9l+NabHo4vAA5PEUS97tcHGzNTNiQw86QglPqnvsZsAbxtAj6NmJrvbtcylzf2DVbiUvbl9TTdVP7DsqWQ4fHmBvDHVuP5eP5JlYRnYyfE03tttzp8CJItaK1WdRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oZix9XUP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790092367; c=relaxed/simple;
+	bh=nCTXi0QrphbUuOg5+DmqnjVX+1Bepe6BZKUN+z7NmgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nV7PzlDuiZM+0VsLJywMEzUBrC7Oj0bLbqfGAUc7oN3L3Hb46+KU42d3cXw/3eXHrzs5U5tOljAHy/v2vQWhB9Na0RLAIS8C4GlyGoXr/FbF7Dp+lZD/NqQ6bjm7q9sUwMLX0UCMESmU9+l9UyPqqBUpFHrXWcFpD6gZQ3odLEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aQ3bg2ao; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oZix9XUP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E6D231576;
-	Tue, 22 Sep 2026 08:52:34 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 39CF83F86F;
-	Tue, 22 Sep 2026 08:52:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790092358; bh=QXkqCPySi5pz7XgdaRzbBeXXq0xzGh50Y6EVmcAY8zY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=oZix9XUP55kqOWVW+bfYG9UjgcMAazDK3HOVVEbFE3DS3uNXTOXe520r1mUw6E6lo
-	 20jvGUvIZtXOrhSY+gykvbq9ah2h0pYuQyUF+IHtdmoHFiK2hXDtWVL34VCdra+7Xz
-	 jzeycyKKbWFEKl6P58faJ33saYp+8eGTfCsMCwYk=
-Message-ID: <31be5621-92f6-4101-898f-806335d56155@arm.com>
-Date: Tue, 22 Sep 2026 16:52:35 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aQ3bg2ao"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55eff0so640071266b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:52:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790092364; x=1790697164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nsDs23DcdYwkDSFn0tiJfOUbVshOv/zFLmietT3ibk8=;
+        b=aQ3bg2aoQfVkcaZ0YhUXoMaXyfkbTN9PaIeJWwoQdGUPkKJT2T3aqxWA3nqZI5BszR
+         +L80OZooJkPZFhwIRv3DY3Mp7lD6evmk3tTVpZY/x+IRnzvuGy8gK6rpptM6e2XW9v1F
+         GHcSE1r7FBZ97MQhf74fst31BhQ9zZySegFyJXK30vfw7j+wpOKqLovkisCs3W4yQrAh
+         64yoo4Is5W6uoZU1rkc7BrFpEajNcBrb4S7PqyGFvUA8NIyBlW4sxewLYboUQVGLZU7p
+         Z2kl11gciK5NAEJkHKOXpKE7Z5Gl3+15z+gM6He6zPcWuDjieCNvk65/7/GHRx0IQkcf
+         f0Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790092364; x=1790697164;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nsDs23DcdYwkDSFn0tiJfOUbVshOv/zFLmietT3ibk8=;
+        b=m5zajdAwUJDLT3ULzbMh4V58xBn36z1nRbtJzY47/BPT8U+Jf795lJa/QsMuFP+Gsm
+         meYBzfOuQSROgeirsv1obVzg7baQ1qRBJHcgonI/gJx/k2+85ypSZR4xhOUI3Wl2sRVb
+         RTySsG6mey2/IhvG6rz0WDIFCSSF5woikBsUZI1CDemAcKQDAqCv9eyVsT6Is+Bfc5co
+         bbRTkOyo54vIg3b1vywSVHpXz9neJfN8jYn2GKR1GjhZoJy79DCDDAb3xNs4TTdk9KGg
+         jEvRQpkgFuV0lMd2lRsWsKsx2R7JBQSwVLJcyZweeLfitHRGspNFQ1JR7aI93haLXoAi
+         eI1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwVuRdocpBmtX3L/odmxK9qVSieNUiNXTn16wcqWi615gKJjtpeLtYH/utZ6B16OAT/SSJcM8w2Rl74S74=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgVdI43SInN46ExZ/lmmOQ6R20ruZNPMenEhzlqReshnkuHNFG
+	L/T6iu6VNwi6aMj1uWWZt7eRMzjWDUIapBFBAL4ESz8y8PXtcZfWVr3z
+X-Gm-Gg: AYBFou1ANwN8zZx70eHCnSqvPYXPOEjJsucgwymzng59vp7+s4SvSRHKzvXVOAmbT7Y
+	zW6FRkCXGIYxT0MxPFyosItKEW2VJtrHU7Co61furGv1pP32avhbKPasCTAhhqxzGuRXJuMY7kH
+	ItYE+/NdZaR7nylxe3ZK1OmBjjLrUIimSeViQFPRDio1ZaseLyWYXKZ2ghJ8ewuqnL2NRh2zGGd
+	KUBQpqqYbeKYoOn+Yk1Rj4h3w9wtzOma+TAc4HmI2rMQPbKSSwHoLeoMhFCGQa4B03LeYBbkUaz
+	bRuaKRJcqYT2udri23wPWxSMQfVeIcvSXfWsFhE1/X63LHw0br/e7Oo+db9KKCr6NqXTle49R87
+	2wjC+yPyHTLPWyc9xp0oXZPfeFM8HtSzxOiFDAEEmAHdD59j3zsNufLBJjPDYXgsoVEp99KVwxS
+	7YTwVkJbLfnwrxi7l0g/4uCLoa9IW4+REAiMUk0rNRi0+60v5zy3ZtVifHS9/V+kjwFhh37YDZ7
+	meecKsk0QDyNEm4
+X-Received: by 2002:a17:906:c14e:b0:c29:5af0:3b44 with SMTP id a640c23a62f3a-c2a157fc26emr1145456766b.41.1790092363539;
+        Tue, 22 Sep 2026 08:52:43 -0700 (PDT)
+Received: from localhost.localdomain ([94.240.182.136])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c628056sm109308666b.54.2026.09.22.08.52.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:52:43 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com
+Cc: andrew+netdev@lunn.ch,
+	ffainelli@freebox.fr,
+	auke-jan.h.kok@intel.com,
+	jgarzik@redhat.com,
+	joe@perches.com,
+	aleksandr.loktionov@intel.com,
+	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com,
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Subject: [PATCH net v2] net: e1000: fix warning in iounmap on probe failure
+Date: Tue, 22 Sep 2026 18:52:38 +0300
+Message-ID: <20260922155238.67445-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 2/4] iommu/arm-smmu-v3: Support shared SIDs in
- insert/remove_master
-To: Peng Fan <peng.fan@oss.nxp.com>, Nicolin Chen <nicolinc@nvidia.com>
-Cc: will@kernel.org, joro@8bytes.org, jpb@kernel.org, jgg@ziepe.ca,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, peng.fan@nxp.com
-References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
- <20260921123846.1663580-1-peng.fan@oss.nxp.com> <arG6hmng3NddGEHm@nvidia.com>
- <arKNJH2YWQT9KL7x@shlinux89>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <arKNJH2YWQT9KL7x@shlinux89>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/09/2026 3:13 pm, Peng Fan wrote:
-> On Mon, Sep 21, 2026 at 04:15:18PM -0700, Nicolin Chen wrote:
->> On Mon, Sep 21, 2026 at 08:38:46PM +0800, Peng Fan (OSS) wrote:
->>> @@ -976,6 +976,24 @@ struct arm_smmu_device {
->>>   struct arm_smmu_stream {
->>>   	u32				id;
->>>   	struct arm_smmu_master		*master;
->>> +	/*
->>> +	 * ref_count > 1 means multiple masters share this SID.  Protected by
->>> +	 * smmu->streams_mutex.
->>> +	 */
->>> +	unsigned int			ref_count;
->>> +	/*
->>> +	 * When ref_count > 1 the STE has already been written by the first
->>> +	 * master; subsequent masters must skip the write.
->>> +	 */
->>> +	bool				ste_installed;
->>> +	/*
->>> +	 * Links all arm_smmu_stream objects that share the same SID across
->>> +	 * different masters.  The canonical (XArray-stored) entry is the list
->>> +	 * head; non-owning sharers are linked into it.  Used to transfer
->>> +	 * XArray ownership when the current owner is removed.
->>> +	 * Protected by smmu->streams_mutex.
->>> +	 */
->>> +	struct list_head		shared_link;
->>>   };
->>
->> SID-sharing masters still allocate their own streams. Though the
->> SIDs are the same number, they own duplicated streams linked via
->> that "shared_link" list.
->>
->>   master_a->stream[0] --> stream (SID=X) --|
->>                                       shared_link
->>   master_b->stream[0] --> stream (SID=X) --|
->>
->> But maybe they could share the stream structure directly? I.e.
->>
->>   master_a->stream[0] --|
->>                         |--> shared stream (SID=X)
->>   master_b->stream[0] --|
->>
->>
->> The stream structure would still need a list for shared_masters:
->>
->> struct arm_smmu_stream {
->> [...]
->> 	/* Every sharing master, ->master included. Empty unless shared */
->> 	struct list_head shared_masters;
->> };
->>
->> ref_count could be simply !list_empty(&stream->shared_masters).
-> 
-> Agree.
-> 
->>
->>
->> Does i.MX need to support SID-sharing with multi-SD device? If not,
->> the master could have only a simple shared_masters_elm:
-> 
-> For i.MX, there is no need to support SID sharing for multi-SID device for now.
-> Not sure, in future there are cases that needs SID sharing for multi-SID device.
+During a probe failure, the e1000 driver error handling path calls
+iounmap() on hw->ce4100_gbe_mdio_base_virt and hw->hw_addr without
+checking if they were previously mapped. This triggers a kernel warning
+(WARN) rather than a fatal crash when passed an uninitialized pointer.
 
-I have a system meeting those conditions :)
+This issue was found by Syzbot. The exact kernel configuration (.config)
+and the C reproducer used to trigger this warning are available on the
+Syzbot dashboard.
 
-Specifically, I have a physical PCIe-to-PCI bridge board with a couple 
-of ancient cards plugged into it (such that they each end up with their 
-own RID plus the common bridge alias RID) just in case I ever got round 
-to looking at this myself...
+Fix this by adding NULL checks before calling iounmap().
 
-(And for added fun, one of the cards only supports 31-bit DMA and the 
-machine doesn't have any RAM low enough for it to work without the SMMU 
-at all)
+Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
+Fixes: 13acde8fffc0a ("e1000: cleanup CE4100 MDIO registers access")
+Fixes: 1dc329180fe22 ("e1000: Use hw, er32, and ew32")
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+---
+v2:
+  - Expanded commit message to answer reviewer questions (reproduction details)
+  - Added appropriate Fixes tags
+  - Added Reviewed-by tag from Aleksandr Loktionov
 
-Cheers,
-Robin.
+ drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-> 
-> I could update in V3 following your suggestion.
-> 
-> Thanks,
-> Peng
-> 
->>
->> struct arm_smmu_master {
->> [....]
->> 	/* Supports num_streams == 1 only. Empty if SID is not shared */
->> 	struct list_head shared_masters_elm;
->> };
->>
->>> @@ -1024,6 +1042,11 @@ struct arm_smmu_master {
->>>   	bool				ste_ats_enabled : 1;
->>>   	bool				stall_enabled;
->>>   	bool				ats_always_on;
->>> +	/*
->>> +	 * True when at least one of this master's SIDs is shared with another
->>> +	 * master.  SVA, stall and IOPF are disabled for such masters.
->>> +	 */
->>> +	bool				shared_sid;
->>
->> Then, this could be !list_empty(&master->shared_masters_elm).
->>
->> Nicolin
->>
->>
+diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
+index d7f5c6f16142..156903089fa6 100644
+--- a/drivers/net/ethernet/intel/e1000/e1000_main.c
++++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
+@@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	kfree(adapter->rx_ring);
+ err_dma:
+ err_sw_init:
+-	iounmap(hw->ce4100_gbe_mdio_base_virt);
+-	iounmap(hw->hw_addr);
++	if (hw->ce4100_gbe_mdio_base_virt)
++		iounmap(hw->ce4100_gbe_mdio_base_virt);
++	if (hw->hw_addr)
++		iounmap(hw->hw_addr);
+ err_ioremap:
+ 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
+ 	free_netdev(netdev);
+-- 
+2.47.3
 
