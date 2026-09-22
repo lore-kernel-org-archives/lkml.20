@@ -1,97 +1,84 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308AE35A395
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BD2366045;
+	Tue, 22 Sep 2026 03:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790048287; cv=none; b=U/BREMUmPGBcbTFIu/i8QTqTu1c+MDpUIjE43nHlcZXtGdHBBNX0jpDxxl7r+8XEppnogxKwQkLPqhXYtS/eOJ2ulvYq3eImeALsV+M98kcN47sjlmKNdWDEzB5CvbFdbDbjwYuz8SUcxROf4I4LrE3JUeDQC6+fekKiTHBPbgI=
+	t=1790048297; cv=none; b=hKjGoatuxsGog/FM6prpSvI9xf13XUSAhooopPjFC818OFtuHTtHZ3rOjHCg0o3/nlis/J+ocQOIzPdMF3MfJPLqHNmNqsX8bkjzm7g4IP5byL4904+rULhwG7F9+pzyyT6YENa41GE5YMFswS5o+8XR2xF26SOjbPXvpfpTXFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790048287; c=relaxed/simple;
-	bh=2Sit3yjN/GWAbdTHlI2AQIlIrquV4mQqFiv0Dgnepec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W1JjSDwPTcbRDf9RU38sKO/2R3+BQvcwjSQmHUBWVBFS1SmJACzxJi7sjErjIEjkcinyCcrhbLs8+kIn1x3iQWdVEnP2MSZmTt+mQkfu9l/0oIM8lIH4O4suaWIMieZ4JG8LdxM0gFw9NxPazFubEKS8+mUQRxOfpF7Y4aACCYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tLUtl4yB; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tLUtl4yB"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc750a1482fso553966a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:38:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790048285; x=1790653085; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BIMk5ipKoZWRD7DzzBr8ps4MQh4Scmpp0BDfJZnXK0g=;
-        b=tLUtl4yBjDCGsz2KVyIkqDaNh8qO5flVWZFGbU9N0NQz2n4eZstwY41dNsoOr2w81m
-         rpp2o0kGwNz7A34eBvYTMgSUouwWOXEh8q4A0a27bzGDh2ZWrRpSLAOQfwfhAMTl+R4o
-         B+v74w0R+FhDhOxBMBtd1qMJURyzogZkkCK+1bQRiBFqTMLO7XTITFIaEU/khYEiJvCC
-         XuplogjZfiezrtp6WatDE3rUAiwMhI1qR/kFV1xrNJMv6eSSt+F7IhvevMUMdu9d5lR0
-         6SDhcwZMn5DSXmuGcCm9ebRgnxXKIGztUTSR0TNuRBlLw++QxV/zxbCnlBPjZDL3/HBW
-         ssNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790048285; x=1790653085;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BIMk5ipKoZWRD7DzzBr8ps4MQh4Scmpp0BDfJZnXK0g=;
-        b=v+LQqN27FVSvWwimDuULlYeWFlvsAfWE0Q6S8xqmmcRbcXsX6Zp0qh2vRN44K/TEuc
-         xa+t+PGsRk58cmXhLoE0cYlWdDtursZ1scdf1PPvBdZ0gLVr8WnXFTPKY//6+Rc/snIl
-         UdkHc7IfADOZq22AZ53A/vkJ/40oHpF52qcADKX/rGIwMAN3+RMCRYu4sIvUDy5KKE6e
-         0FZb29XLilL7aGtQxK9CHjwIyQhXkGzRmx9iSAC6TlMO+las4niuNdRXLKYhBQw4vbXO
-         WExsd2L1Ozng6zXTkfizYpztINY5PrCiSHjmvR8H+junfrQ6RxONhTx4m266/5yNMpUI
-         bntw==
-X-Forwarded-Encrypted: i=1; AKwUvBwrHb+5lF8DlilXzHbECvjMtbuKsFFI0oMp1hrBFRTjZA1sPRXo6HP5WJ2/uhxJKHuRAfXS5hZh5yO2pJU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKdZaYhpoHlTQfdc/x8Vtqf2bgUVBJ06JQla7AtEJo0JxGx4NG
-	/0RAfD0nbVX29ImXl/VDsGckSCyVNuuyjw3tfVqeCN4TcEJHHZjgkLlN
-X-Gm-Gg: AYBFou0N5zI+ZOfADTMXGTdy4qGdb74RAwVWdXmHQ50KyzxlK1FCU2GJOAl3swcBFE6
-	A2n7Y8r0IldYqk/DlMMDkYpbFwT+MMxwpkL7eurwH7ju4QcEsS0RmbICOP19Ya+a0zPm7xOlC4V
-	uKSzPOh9zdorcj8rCbzmZabhnd94F+NhZdoixuFTB+a9DkAWnfJuN8uTPH/asDAGyZ3emL4qUrk
-	mIXNhPo4+98cChz7DT+TUKu8TEIGo8FMKF5p1WmPl0P/lTVAYrTBofV3/nzeT0YcN1g8Cuxu/Va
-	yR1RkRtUAV/IYZuvH/Glg75NmxebyQpQKsa09mNI7juxbpy2nSMSUaI9OF66syHBREeUmIHRJ72
-	zk7TMSz5yi6AnIJ26VlOcl9RBZ6bsOV5Z5+/lJyHL/l2ibNzcCj3XN2lEabEDE62wpyIotNNuqS
-	SyDBoghiT7n7aHBkys+yplb8oq9KdW6RPMLj4wmwqvjB1sMFQcy944FJsr8AcFf+fxClNlVLYbp
-	WHSwWJvB0lo1GgdmaNV3R/3wsIQuSuvr89AxAxO
-X-Received: by 2002:a05:6300:8811:b0:3dd:a007:cb2c with SMTP id adf61e73a8af0-3dda007d26emr13269696637.40.1790048285330;
-        Mon, 21 Sep 2026 20:38:05 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:e1a7:4f7b:11d4:34fa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e613154bdsm1298997eec.24.2026.09.21.20.38.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 20:38:04 -0700 (PDT)
-Date: Mon, 21 Sep 2026 20:38:01 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Zhang Heng <zhangheng@kylinos.cn>
-Cc: cryolitia.pukngae@linux.dev, kees+treewide@kernel.org, 
-	DongLin_Lyu@outlook.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Input: atkbd - rate-limit unknown key warnings
-Message-ID: <arH309acsp-cMzIW@google.com>
-References: <20260921131934.677541-1-zhangheng@kylinos.cn>
- <arFZdtgmZXcK9k1V@google.com>
- <3aa95d2e-9398-482a-8bd5-876ef1e2ce89@kylinos.cn>
+	s=arc-20240116; t=1790048297; c=relaxed/simple;
+	bh=R1r9fc+OJPAhMMLpeoyF5Y6aLu85T3voXbCez0Aye7g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=XIYrwWnJJuvhWWbj9EUpbz+FwsZGqUA3T44Ezhxj3tNdmceI52f+qZKBEMk06RZNAtC4KVsH74PzaFRjDRYur7JKHUMQRTs5aa8QPDiAgpA9g4xL6RpOyyLwu6utQZyMEhRw45u2A0SpQKX9ae1Mt4Dj4HILwxxcOyEQBCtWKtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0562e2f2b63711f19a56ed5b684f684d-20260922
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7b37104c-bc86-4166-98ef-928c31a7b319,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:133f1bbb071214244da35170ef2ee710,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
+	P:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
+	V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0562e2f2b63711f19a56ed5b684f684d-20260922
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 497339626; Tue, 22 Sep 2026 11:38:05 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: dlemoal@kernel.org,
+	cassel@kernel.org,
+	linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>
+Subject: [PATCH v3 0/2] some fixes in pata_parport
+Date: Tue, 22 Sep 2026 11:37:59 +0800
+Message-Id: <cover.1790047457.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=a
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3aa95d2e-9398-482a-8bd5-876ef1e2ce89@kylinos.cn>
 
-On Tue, Sep 22, 2026 at 10:12:15AM +0800, Zhang Heng wrote:
-> Thanks for your reply. This fix should be handled in userspace. It’s just
-> that for ordinary users, they see a lot of warning messages after pressing
-> keys, so perhaps it would be better to limit the output. I also agree with
-> you that this patch is not necessary—after all, the benefit of this patch is
-> indeed limited. If the patch is not merged, I’m fine with that.
+Patch 1 pins the protocol module before the device becomes visible.
+Previously try_module_get() ran after device_register(), so a forced
+module unload in between left pi->proto dangling from the moment the
+device appeared on the bus.
 
-If you submit a patch to systemd's 60-keyboard.hwdb introducing the
-mapping you will solve this issue for users.
+Patch 2：fix parport attach idr_alloc for port numbers > 0
 
-Thanks.
+remove this patch:
+https://lore.kernel.org/lkml/cec58ea83362df88f516ba7a5b895cf07edd7728.1788867690.git.xiaopei01@kylinos.cn/#t
+
+I have become cautious now, for fear of causing a disaster, so I removed
+this patch. The other patches sent this time have undergone simple
+compilation tests and simple tests such as rmmod. Since I don't have the
+relevant hardware to test this patch, out of caution, I removed it this
+time.
+
+in v3:
+1.ata: pata_parport: pin the protocol module before device_register() no
+  changes
+2.Add ata: pata_parport: fix parport attach for port numbers > 0
+ 
+Pei Xiao (2):
+  ata: pata_parport: pin the protocol module before device_register()
+  ata: pata_parport: fix parport attach for port numbers > 0
+
+ drivers/ata/pata_parport/pata_parport.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
 -- 
-Dmitry
+2.25.1
+
