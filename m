@@ -1,82 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-23.mta1.migadu.com [95.215.58.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F6041D12B;
-	Tue, 22 Sep 2026 09:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969EF3EB0F7
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068277; cv=none; b=kCRenUCODv3Zo27BNrqKowf5AH4+fB7O8IcNCxpJEcOjPDWUxFFfLjVc9N5ktvHMSSK0VmCuexEGGn3akbsQ4HLkmc0LVkouWWfIBDi5qr2rdQa7gP2HVkLX0HQIhMrUbyI/W3zH7ya93dEekYEo0j4UqTmdao7rxpnwl0hGxZw=
+	t=1790068293; cv=none; b=OG9T/1QBVFEOU7d30L7OBhKvAYCurnSHdKgLJlfyU7MOIn5JXmGpQ5s5ik2RzAvDw2qr+dU+OSzIZAdWrP772MxWGe7MDSEEmxhLrT/D5r1/o2KpKJ/2hF9G04JFOs20fXSLPeqpjC+XwfYjdcaBHv4gXFYi/AaUhH0n35k3gVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068277; c=relaxed/simple;
-	bh=NdAM3lhu4Syrf6HWwOE3CJcFRtcpFL40ccfp5swmHc0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=cis+ACEMmtHhM6RVPFgPFaugbMHE2SArWRZU2/jLor4u5iZDQPqCzCmVYsXXjnhG+OB5rngdNm7B2ze+InHUG4tiN+noiroXM9sea0uRabfsib2m6BbOBzFKQHjsTtJs0ltRPtRzC3NevQQYk1TG37FNX6k036URG5pTiQfWbnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YudHlnb6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790068293; c=relaxed/simple;
+	bh=J6YClhL09U96Pnf/dUgZ0SMNmNLWiuOji0oJGF3hLrI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qs1NUDNCTBnZj6P3EIyMJnxTtC1eCBH/hFUF6I7+3GuYMKrQYMH1kKySbuIrmFcHUYWHwsrn/sucK/qb4JuTg19s+aY8nJat+28oMYxCRKNUpicPmht1haRtiS+bbzIlGUgmI0YIWT+bAnou9FE73TYhGaHUBFthwrsDamLSaII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MdEmDhRn; arc=none smtp.client-ip=95.215.58.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YudHlnb6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F4F1F000FF;
-	Tue, 22 Sep 2026 09:11:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790068275;
-	bh=QDT/80Q3OpMMraM2DIDoctNa0y0Fe8/45rumRNYvbyI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=YudHlnb6sy6sRY0Wgd5q/6WD8FsrUY8a9XPXzNGzN2XjINtBZVL4kcPdsdDhRVRrh
-	 cu/S1lkDMqyJgseItGT/ZDQWtGOKwDYvU8p4QDI+dHukLb9ohkpxnV5RxcDjdWBhp7
-	 OY5xryawVJSQdVAAlOBoMZ1saZflg8+OMzkcSUQNegU+yp9lAhEZRqA0OWG+6nuYGI
-	 /8umP9QO9T94j5XeXYsP3cLfUAJvy9ZFmgtQilvRzUglzkwvjhInf87uR8ILk4JNXG
-	 TdIzz77CKXSz7yrLSiKNcOCblcCSW1KDpIiHFBatdZ1VhTfL2IBTCrWoGUEROh27Ut
-	 RujSyhIHkGycQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A043811954;
-	Tue, 22 Sep 2026 09:10:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MdEmDhRn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=J6YClhL09U96Pnf/dUgZ0SMNmNLWiuOji0oJGF3hLrI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790068289; v=1; x=1790673089;
+ b=MdEmDhRnZGQV8mKtPN1fhjMjux2o8FqUL+T6mC372OSHbtNBfycij/bO9WavinmeAtK4lM8+
+ QEpTC+R/MyHPz3r7BKSRGYuGxEzzjXSa9TAGPxi21pb9Y2nfA4YVF7ucHj51Y4paPC9Rax1ElwQ
+ tn8rIOGXiNn2GxiD7qQfbuCk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2d28f15bda6b7b45;
+	Tue, 22 Sep 2026 09:11:29 +0000
+X-Mizu-Trace-ID: 2d28f15bda6b7b45
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <19cb10f4-66c2-443f-aa11-6f43c0233b92@linux.dev>
+Date: Tue, 22 Sep 2026 17:11:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] docs: cgroup-v2: Describe effective CPUs of
+ partition roots
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20260922032130.33777-1-guopeng.zhang@linux.dev>
+ <20260922032130.33777-3-guopeng.zhang@linux.dev>
+ <4c5c4ec8-ef44-47d7-99b5-355b5ffdfcf9@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <4c5c4ec8-ef44-47d7-99b5-355b5ffdfcf9@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 0/2] udp: two fixes for the 4-tuple hash table
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179006820639.3502956.2214093517596675579.git-patchwork-notify@kernel.org>
-Date: Tue, 22 Sep 2026 09:10:06 +0000
-References: <20260917-udp_hash4_fix_v1-v1-0-718891af0d7a@mpiricsoftware.com>
-In-Reply-To: <20260917-udp_hash4_fix_v1-v1-0-718891af0d7a@mpiricsoftware.com>
-To: Shardul Bankar <shardul.b@mpiricsoftware.com>
-Cc: willemdebruijn.kernel@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- lulie@linux.alibaba.com, fred.cc@alibaba-inc.com,
- yubing.qiuyubing@alibaba-inc.com, kuniyu@google.com, willemb@google.com,
- cambda@linux.alibaba.com, janak@mpiric.us, kalpan.jani@mpiricsoftware.com,
- shardulsb08@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
 
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
 
-On Thu, 17 Sep 2026 14:55:31 +0530 you wrote:
-> Two ways a UDP socket ends up in the wrong place in the 4-tuple hash table.
-> The patches are independent, with different Fixes: tags and no dependency
-> between them.
+在 2026/9/22 14:36, Ridong Chen 写道:
 > 
-> Patch 1: a socket that connects a second time is not relocated, so it stays
-> filed under its first peer's hash and packets for it fall back to scoring
-> the hash2 chain for its address and port.
 > 
-> [...]
+> On 9/22/2026 11:21 AM, Guopeng Zhang wrote:
+>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>
+>> The cpuset.cpus.effective description says that the effective CPUs are
+>> granted by the parent and are normally a subset of cpuset.cpus. This
+>> does not always hold for a valid non-root partition root. Its effective
+>> CPUs are the active CPUs in cpuset.cpus.exclusive.effective after CPUs
+>> assigned to valid child partition roots are removed.
+>>
+>> If cpuset.cpus.exclusive differs from cpuset.cpus, the effective CPUs
+>> may therefore be outside cpuset.cpus. Remote partitions also do not
+>> necessarily get their CPUs from their immediate parent.
+>>
+>> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
+>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>> ---
+>>   Documentation/admin-guide/cgroup-v2.rst | 56 ++++++++++++++++++++-----
+>>   1 file changed, 46 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+>> index 18a01ce4c334..d21bbae3312a 100644
+>> --- a/Documentation/admin-guide/cgroup-v2.rst
+>> +++ b/Documentation/admin-guide/cgroup-v2.rst
+>> @@ -2505,16 +2505,52 @@ Cpuset Interface Files
+>>       A read-only multiple values file which exists on all
+>>       cpuset-enabled cgroups.
+>>   -    It lists the onlined CPUs that are actually granted to this
+>> -    cgroup by its parent.  These CPUs are allowed to be used by
+>> -    tasks within the current cgroup.
+>> -
+>> -    If "cpuset.cpus" is empty, the "cpuset.cpus.effective" file shows
+>> -    all the CPUs from the parent cgroup that can be available to
+>> -    be used by this cgroup.  Otherwise, it should be a subset of
+>> -    "cpuset.cpus" unless none of the CPUs listed in "cpuset.cpus"
+>> -    can be granted.  In this case, it will be treated just like an
+>> -    empty "cpuset.cpus".
+>> +    It lists the active CPUs available to tasks in this cgroup.
+>> +
+>> +    For a cgroup that is not a valid partition root, an empty
+>> +    "cpuset.cpus" makes "cpuset.cpus.effective" show all CPUs
+>> +    available from the parent cgroup. Otherwise, it is a subset
+>> +    of "cpuset.cpus" unless none of the requested CPUs can be
+>> +    granted. In that case, it is treated like an empty
+>> +    "cpuset.cpus".
+>> +
+>> +    For example::
+>> +
+>> +      P (cpuset.cpus.effective=0-3)
+>> +      |
+>> +      +-- C0 (member):       cpuset.cpus=1-2
+>> +      |                      cpuset.cpus.effective=1-2
+>> +      +-- C1 (invalid root): cpuset.cpus=4-5
+>> +      |                      cpuset.cpus.effective=0-3
+>> +      \-- C2 (member):       cpuset.cpus=<empty>
+>> +                             cpuset.cpus.effective=0-3
+>> +
+> 
+> That is clear. Thanks.
+> 
+>> +    C0 gets CPUs 1-2 because they are available from P.
+>> +    None of C1's requested CPUs 4-5 are available from P, so C1 uses P's
+>> +    effective CPUs 0-3 instead.
+>> +    C2 has an empty "cpuset.cpus" and therefore also uses P's effective
+>> +    CPUs 0-3.
+>> +
+>> +    For a valid non-root partition root, "cpuset.cpus.effective" contains
+>> +    the active CPUs from "cpuset.cpus.exclusive.effective" except
+>> +    those granted to valid child partition roots. If
+>> +    "cpuset.cpus.exclusive" is set to a value different from
+>> +    "cpuset.cpus", the effective CPUs need not be a subset of
+>> +    "cpuset.cpus".
+>> +
+>> +    For example, if CPUs 2-5 are active, available, and not assigned
+>> +    to a valid child partition root::
+>> +
+>> +      top (root)
+>> +      |
+>> +      \-- P (valid partition root)
+>> +          cpuset.cpus=0-3
+>> +          cpuset.cpus.exclusive=2-5
+>> +          cpuset.cpus.exclusive.effective=2-5
+>> +          cpuset.cpus.effective=2-5
+>> +
+>> +    P has 2-5 in "cpuset.cpus.effective" even though its
+>> +    "cpuset.cpus" is 0-3.
+>>         Its value will be affected by CPU hotplug events.
+>>   
+> 
+> I would suggest offering an example where "cpuset.cpus.effective" differs from "cpuset.cpus.exclusive.effective", meaning that "cpuset.cpus.exclusive.effective" contains offline CPUs. This would make it much clearer that "cpuset.cpus.effective" does not contain offline CPUs.
+> 
+> With that, feel free to add:
+> 
+> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+> 
+Thanks for the suggestion. I'll update the example in v3 to cover the offline CPU case and add your Reviewed-by.
 
-Here is the summary with links:
-  - [net,1/2] udp: relocate a connected socket in the 4-tuple hash table on re-connect
-    https://git.kernel.org/netdev/net/c/5fd0783b99d4
-  - [net,2/2] udp: remove a disconnected socket from the 4-tuple hash table
-    https://git.kernel.org/netdev/net/c/9e95b1a94c9c
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+Guopeng
