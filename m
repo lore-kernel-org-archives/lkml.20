@@ -1,50 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8309844F54B;
-	Tue, 22 Sep 2026 17:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573AC56C653
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098446; cv=none; b=TaIfcAhYwSfJnxgODlUS0IXn6d83vux+VXRlA2oIxN7qkBABhK6lCj26ShrhY0TbvPURBYwLUe2GipXUOtsUWQYyCXOMRF2oFBOuB3qF2Ov9k73PUzuWVFke+t//VULnz0e4FE8cFeuZBhOTqoxrBiFZRUBSZh9WV0RR/whJV8M=
+	t=1790098448; cv=none; b=tLR+F+ccdrZEERWt245PQDcScwxGoJF3Xz/aM4ZhU6WeFdgUbplHykvOOvj3+ByERuC+IeuiBFSbBOb7WkLW4AjHsRWoHFkJp6AqluQN39svLAL2ZHtn+P+2yTUYXZaCt9SPSrZ1PxjmOeC890hKGwwlQkDrfAJ0e/mUUmFpCrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098446; c=relaxed/simple;
-	bh=+ierMJ5BNyB1B9aHpPh9fRXepBsJBV6naGk/gxDdPAM=;
+	s=arc-20240116; t=1790098448; c=relaxed/simple;
+	bh=k62lXyffQpfvoXLrJkljRwAuyGHOT0TxBUmsYyaQxeQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eAfQK26l1qXBfpalctn2n+zNivfSRAqAekE1U6u6Wq8tPH1IYGvHurt/tXT71ERK3KxKIYomyvdYoAcrLnAAVmB6TKVEtk7FxD/gZ/LJJLnZ58fX/Zveb0MAehc8B1pMFGYat4m/inGLJxxN9+s69bg4oyNqkLAthu7DIbAILVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cuMBiKEF; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=dgGgyJeE45lK0mgOb0IzCiou0VW+Gcmf3eilQCmZ8ux+kBWna0cr2TXmLlgiQw6FzdFDN4zM+lNthopTDlZrlzHL5zD8S64ZIMrVKJypOl9NnhSuZasOGfUlqyZZjvGG7Q1HAbIEkyqV3VjdLnR+cB3Z40vUZN2cKPhL1dD5gJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F+qbLcma; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cuMBiKEF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790098444; x=1821634444;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+ierMJ5BNyB1B9aHpPh9fRXepBsJBV6naGk/gxDdPAM=;
-  b=cuMBiKEF7XQ/0sKyJYjO2LUPSztjpIG5qSmMNw0NrcRTYh8XDPgnyCXb
-   XNsXxcvkTE+BCUhRoonbkUS/NxYSIz5Q4o7el5QTFnNugm5zmV/h9RsDE
-   R1Mx35Nn8WefxzM4xQGAYYadHHO1EO8AQtpt/A7FtbgqvI4vk9roWa8D1
-   XEqhqAmzGmtu9dFl7feurLD0h+PS3hhITLxxTAO4/0sj4Uz9xTZZEitLQ
-   4uVDTMzKKJZJL0N17UVq2nM/bCZrCfTYE5xwRzXbtvW1QmBFOn/gj8Cmn
-   REjQw6bBKwumJi6MIivl9qhqmVzRshEnc+bhDYJP8T/SDQKeqkkl6E/fG
-   w==;
-X-CSE-ConnectionGUID: 79u+1pilSuKUQ3OOtokSoA==
-X-CSE-MsgGUID: /D4JYAEIRWyhWJeI9Q4ptQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101314727"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="101314727"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:34:03 -0700
-X-CSE-ConnectionGUID: f/F4kJrxSaKtFgFInBOCQQ==
-X-CSE-MsgGUID: SqbVynnPSVODHhdi1+tVjg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="272433513"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.110.31]) ([10.125.110.31])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:34:02 -0700
-Message-ID: <1bb206f7-3951-4579-b3b2-dcdbe3ce06a9@intel.com>
-Date: Tue, 22 Sep 2026 10:34:02 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F+qbLcma"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8b402f4e3so624e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:34:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790098444; x=1790703244; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yuuzD7pETxcjGtdgpLYjcgyqt6WFmTw9RRQGOf5Uv14=;
+        b=F+qbLcmaca+A7AyWZWOQhPVmars/c7oXhjRoRSh3f6XJiaHgyYayW1M5gB7JLqxQO3
+         FOi08tQR4/bFXkcFOtYmcNWxHlTlATsXQvqk73/17WNRlK5Ix1ar4kL8uOPJDcltRRO+
+         C6iYgA2Nwkme39zmExsY/8+CFOSAuYGgQp7gs0C32f634ByBEXEG98E4ZTvxnmjDofE2
+         93ot/k8pK1oTcAWOpUBZDvStgL/UWssKK89wlvBiz1N226zZiCec77wldh5syBlIrq8/
+         Rk9oK+MdMv5fWT5fYqDxFgG8UP/Muz7AjPnDWaQr+pzb/IHFLKu48BYEcCror0pxUdog
+         S3Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790098444; x=1790703244;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yuuzD7pETxcjGtdgpLYjcgyqt6WFmTw9RRQGOf5Uv14=;
+        b=qNQPn5kZUWmdI3XxhYv4Ul8HnpzMOKqfM5fQ+ecnBYc0FbE5f4ur6paSQu8QgF28WB
+         W7g9d+p1Jz7HXmy0nxBD254+lX2OlZlu+QjpssqFltTUaas2xcqNbE5M3nLGFdhcMILO
+         L336bmEhtpepjLGXMbVny8LSFh5gFyD6Nfk6L/xtLQgShCOU6JOxK87Ucf4/oYEkFFD9
+         PbqB8Su9aSKNo4YYJCbq5sgsiMX7QabGT/Lbm+nJhTR+jaDHqDHXnhNwvMrSnYEx4570
+         1sr5vnA6tpajy4iVS/YWVh0j4N8GYo5p1f3bIwrWMifI+Y1EBXbr7dl3ePp8yI/6F9ZH
+         rqXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjHbTg8SIuWOTmWKdlXNX29faydNSZUadi/rKvV7ApWYSvm58ydZiF6q7AthmMX3kMPzHSjIs1crqTwvM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOP3XUUAP3fXUn93JiG3XRwlDm54DG3RLS/A32N7XZ/OEbKdNM
+	g1GbMnpTmKcUJVTe7VlqoG21vjOwscG+e6XMkXEDp2dDd6mYhcOPfeAQ
+X-Gm-Gg: AYBFou0+f91qVGo6YP2nh78lbwtRuz4hiC6E/1L5LuvohZkdd4DvMWrx1Tg+NWe9oXl
+	vq6OpMLgedJw9FEei2oGUwBc1tQ+IQOP5Yi3opEDW5zqOSyI5f3q67h/A+CQbDbcaJEXmHzTeEe
+	V2GEfy/bkb+lZ8uDV3LuspU8sVR/mOnZLey94PVYHgdVpiiVxHO5PAAOXYa0DRnkG0+L6bBYT37
+	BxlQnKIeOfjI29ZZVFLzgcI9nlV2wT2KYx4DTRqNmn/9w+sqL4VLQqjO/HL5k0FLEbsyYmo4Ucr
+	3BiRhXevTy5XOuHDC4goW2FtVp1SnjxKKjyfPZc1a3u8g8SZXWpGnzbRHKp6zIeP9ysBHrAo3H6
+	9CQE9a6p8j39o10Q9IR+hHIUn56EASVr+eOzQutYW/8Uzo3xMGeceLrXjpPsjgaAD7NVTM6n4gh
+	SmJKJYeL/dRdWefG3/eoenawVsuJvuu2vZvbpizsVU2CohuZQgcoqubra+FuPa8zHqnJ8uY4B42
+	M2VYwSwFssUxKCn6c5gGqz6q7pluNlMW8gZrUzi8CfUoyy9IMuADp4=
+X-Received: by 2002:a05:6512:6881:10b0:5b8:9963:12df with SMTP id 2adb3069b0e04-5b8d8960c1bmr764e87.9.1790098444004;
+        Tue, 22 Sep 2026 10:34:04 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d858f129sm41541e87.63.2026.09.22.10.34.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 10:34:01 -0700 (PDT)
+Message-ID: <df84b2b6-e4a4-4751-9923-6001f78db0a2@gmail.com>
+Date: Tue, 22 Sep 2026 20:34:00 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,78 +70,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] virt: tdx-guest: Use a variable to store the Quote
- buffer size
-To: Peter Fang <peter.fang@intel.com>
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- Binbin Wu <binbin.wu@linux.intel.com>,
- Tony Lindgren <tony.lindgren@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>,
- Artem Bityutskiy <artem.bityutskiy@intel.com>
-References: <20260915092632.2822169-1-peter.fang@intel.com>
- <20260915092632.2822169-4-peter.fang@intel.com>
- <620e7e38-4287-431c-8285-575c84aa1f6a@intel.com>
- <7ddf42ab-2f78-4edd-be39-ff9e5156d51c@intel.com> <arKtJxNMYHYSfXuO@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <arKtJxNMYHYSfXuO@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v4 05/10] mfd: Support for ROHM BD73800 PMIC core
+To: Lee Jones <lee@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
+ Alexander <alexander.sverdlin@siemens.com>
+References: <cover.1789538455.git.mazziesaccount@gmail.com>
+ <3e3a25abe337e3f68cde585674019dca439ac897.1789538455.git.mazziesaccount@gmail.com>
+ <20260922154543.GA3438784@google.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260922154543.GA3438784@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/22/26 09:30, Peter Fang wrote:
-> The pointer to this buffer is "void *quote_data" which probably needs a
-> better name too.
+On 22/09/2026 18:45, Lee Jones wrote:
+> On Wed, 16 Sep 2026, Matti Vaittinen wrote:
+> 
+>> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>>
+>> The BD73800 integrates regulators, ADC (intended for accumulating current /
+>> voltage / power values), a real-time clock (RTC), clock gate and GPIOs.
+>>
+>> Add core support for ROHM BD73800 Power Management IC.
+>>
+>> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+>> Acked-by: Lee Jones <lee@kernel.org>
+>> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>>
+>> ---
+>> Revision history:
+>>   v3 => v4:
+>>    - Removed extra whitespace from the end of a file.
+>>   v2 => v3:
+>>    - Translated this:
+>>      https://lore.kernel.org/all/20260813105955.GA1820248@google.com/
+>>      to an ack. Please, let me know if this isn't ok.
+>>   v1 => v2:
+>>    - styling
+>>    - update copyright years
+>> ---
+>>   drivers/mfd/Kconfig              |  15 +-
+>>   drivers/mfd/rohm-bd71828.c       | 147 ++++++++++++++-
+>>   include/linux/mfd/rohm-bd73800.h | 306 +++++++++++++++++++++++++++++++
+>>   include/linux/mfd/rohm-generic.h |   1 +
+>>   4 files changed, 461 insertions(+), 8 deletions(-)
+>>   create mode 100644 include/linux/mfd/rohm-bd73800.h
+> 
+> Looks okay.
+> 
+> Let me know when you have all of the Acks and we'll merge it via MFD.
 
-Yes, please.
+Thanks Lee,
 
-Also, does it really not have a type?
+I think all of the patches had relevant ACKs/RBs already in the previous 
+revision. Eg, AFAICS this is good to go.
+
+Yours,
+	-- Matti
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
