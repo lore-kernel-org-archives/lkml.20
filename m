@@ -1,65 +1,74 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010019.outbound.protection.outlook.com [52.101.193.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31033A0B2E;
-	Tue, 22 Sep 2026 20:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790108628; cv=fail; b=r3Kwc58tNql1hFMI+8S4Zuoo+v48wplI98W8vwOe9dUykYLhoxEPCPUAIpiQTxrjMQAAkHmx9/+7JrcEDQnMwiGEYtR6NMSAfrCQ3HqWSDPNPYsXdiPFsV5459UdiWXm8Dn8UlcIfFv+vIWA2tsaxUS2ywWoIwLuyCKXG4goZrg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790108628; c=relaxed/simple;
-	bh=9+LBtx0HX4hFW6yiZncJWjKoaBKK07ph7p4TmIacqWI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fHVNteoFDGBq9ES//MN53ByieuPUXvSjqC5a1SLnjj1pQqzebyWN1aoBFYCp3olYdc7LcY6GM7sC0MxOB5mXcmzyXWcOzGykLPRmNBxH1BjM5INDXjAEvpXl4UYlE0Llkrx4lp+UmDkPlw5Th5R/RfXXCGB4+ValX3DoHs+cJts=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uEqmAI/B; arc=fail smtp.client-ip=52.101.193.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B50A4B4870
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790108635; cv=none; b=XXYGtKxq8rwod4cShy4R1CfDabWBxbBtqdNVj6Km18jJnZ1cUfE0XtKpPrEWg4OIKy+898egvUGtNaiO4/bkcAw2K4RTQA+tRpxGdR95daGT+i2j1QrsiaPsIpS4kSTPp3wrXdrTMj/h8wyAbvEPTXjjNd1HRR5Mn+JOYiq16J8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790108635; c=relaxed/simple;
+	bh=oXR+0JqHfu87eukEokpNsmREiUMPTo8HO88BW1JCCrc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HPD9/pkGarZ7ApOySk1VIOHqqEKvgVnzMO6sx6biVGvEiI2xMixfrKTgZA5UM/x7ZoXfvJaEmj5QhtfNSvlf3icWxA6LVGjTdZWPTuDkpghYm+St/XFB6I6D4uvTTm+N1YBHiXmFYqf3/TURjB51lcfA5ZWASQFn4km+8yLfsT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=WvJEkuXY; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uEqmAI/B"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mK/MqpEofwAWfBWiMPF4NLE6Y7FgSY/Sd04LgvK6YmIoB3/uWm5BwDjwdQFORH5PI2nxICuosoNWA3ZWcAKiYWeSxBTokoc7LdMWGX0iGYt2ErGe6gm6qAdPSWIONJXUaErgjsy0YYTs8tMH71V7CJC9uao8Hyogqq5SPmJMcenhB3tc53xrHAiQ3QLDfj9oT0h4fJGe4rzCwnwWfLdAY5j1KwIVX70ITwSl90pp2FQGL4TXW+xuTPq/lk8eVOVFFHli7hExtGTiv/aaVNEW03jmE9uYay0lDdModPxl77+c8nv3FAWIkT3GYOwxE3j8NfvNzdEYZ7G4CG2KspLg1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DAC2xRFc3F3GbaL4PjdqWrzXNSoD6xAVH3REfOwbZbg=;
- b=LSd89K8nDSuvVfjYyuLPNfnfTSLMY4zYbmdsJLW01C5qhY5tUc8ZBmInW52UVcZDLT4OSXtNeFkWF0lf+9C6T0+DZbBEsu2NUDbfrpb5ymeow+k7HFwEME3Yf+eoQwdTz8YxblABAN8w8w8gm0YJeEVEn8CGG/3TuSh/ga7FbI5tvoesoLuCZbGxE5YOQ+GVw7EXDpY7CgcFi6q5mQzG82jknfU36AizeBRt3edINC+umd8y6ud5al7IRbhFm85d5JsHz24DQY1XdZ4XkcJncn9qY1Wp0MTQvG4bMCqNn97VylUu4J4rnvh9S+6z2YzzMjnlVkcSZVvads8HocU0cA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DAC2xRFc3F3GbaL4PjdqWrzXNSoD6xAVH3REfOwbZbg=;
- b=uEqmAI/BEUQkMq504nSGLx0A5T6UNs8GIgUqRo2mw2wYoYbpvKomMIgD2kUg8FCPk15FMk9e4A+h7IIOgb9YRRkQ7LMvG8wzpVVZU8SJC84v7jh86r+P02qt+EZMFGyFgNKIXOA4xUjggSoRlg6pOHnc8ja8KpgyXF9d8o+ccIg=
-Received: from SJ0PR13CA0007.namprd13.prod.outlook.com (2603:10b6:a03:2c0::12)
- by CH3PR12MB9432.namprd12.prod.outlook.com (2603:10b6:610:1c7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 20:23:32 +0000
-Received: from SJ1PEPF000037A8.namprd03.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::95) by SJ0PR13CA0007.outlook.office365.com
- (2603:10b6:a03:2c0::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
- 22 Sep 2026 20:23:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037A8.mail.protection.outlook.com (10.167.244.181) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 20:23:32 +0000
-Received: from quartz-7b1chost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 15:23:28 -0500
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: <bp@alien8.de>, <linux-edac@vger.kernel.org>
-CC: <linux-kernel@vger.kernel.org>
-Subject: [PATCH v10 0/7] Incorporate DRAM address in EDAC messages
-Date: Tue, 22 Sep 2026 15:23:10 -0500
-Message-ID: <20260922202318.4079080-1-yazen.ghannam@amd.com>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="WvJEkuXY"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bf5a1c4d9so206268eec.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:23:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1790108624; x=1790713424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5DjzabZ8BjMpxlg7TQnuj38a/x4OpYjoDV9Zo35NcDE=;
+        b=WvJEkuXYoefBnCvvQLJBR48QuenO31y8cvB3rFy+0uwcTm5/hspKMD1WIcu1WSybSn
+         +JGzln7hK8oe7pAw9faLgx6yrhK5+RGXqJuSaZcmOr9NbvencGxG4kjLtt1BfOIyi3iG
+         6JNVHkaUIyT/Ucg8CVcXCn2ze6N+fxw6pwdzcf7j89pIMwt+917iJM07aWes4Sz6WPGW
+         56TBzwpDFgltQRrMEv8kXbnDI2bmv0MFCvMefY5H/O646zUcg8SE8w/JQnnvcfHjz5G/
+         Qsz6iPe/kNhS2mnzyoeUjYhvczBF/T+bhctrqrCTWBB27VL0jllqmM5cF5NYEqyXeq37
+         O7GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790108624; x=1790713424;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5DjzabZ8BjMpxlg7TQnuj38a/x4OpYjoDV9Zo35NcDE=;
+        b=YZYR8lcW0dFOEl6TPO4iCX1HMH0i+/+3H+5hkMYG0RUCdqsRlelDnm6GHtgSkqtn8J
+         V8yStC5gZ1aOaX6CLD4PkfPIfsMXQagAylJVMYspr+Mvfm5jkFAzYabLqRNcLPsdsIo8
+         oeYbjWs5t2RQEOalkP50FeNqL0ckEAxX145EfAP93MuuK5/4t+WmTRWy3DjEKlw6DnDk
+         cV17ArDQi7uLf0hwyxu5WrOTuLriLimDgJOfunkljLi2EnvCnaQsE9n9srot9OigirXm
+         vfkc3c6cnQr38BYDq46eGmX4xnzukQZhpQ39k/Q0QXn2tX9lV/Czsx1Z9y4phoyMZQGZ
+         4sCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwBtPvoPxTvdxq7XjE8kRWj7497VucmEIKc0RlfJdmpg21TP3Qajyk3wnzMQB69BEQlEfL2VqkAEbYUbh4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4iDkcwE1qznrRAElQyLGhzHzTVzPqIlNDYlEVLCZCgAeflssi
+	yzOlcAl9QxcF31DWqBGhzs7nl6VYqaqkoG9ULbtOVb3x7KX+ICRjDo370O9ChEIvaw==
+X-Gm-Gg: AYBFou39eDGl4K78NQLBD4VMBnVSAgDgm2PljMMa09Q8IQO6SzmOqmUGFeofkpvpuCM
+	2SmvZrka0sY+0lxNQpRQWhDB9PXGKrTU7bLqcVKR/i0AQrOvpfIZy+++qezVIa9FixdqOVgS5ez
+	BtPmOUTTwlbeKK7HqXfNzKxn2kuIpnBUOLaWfK2OfAwjH3XFBDAFnasJYJiwirSLeSCndJqfV+S
+	W2RiGI+6RRiD1O4+jvXK1uAt3Oe2UYVVPhqDKWN+RlGdd0JcNO940+hCMlDC91sXk5h0qMAXxy9
+	VoVQubt/anUf4JA6KMd9YxS/53jN+b0GTR7M65uB2rtK6HpkZ2yhRgvhVAo/kLAZt+tUNX6Rv7h
+	wRQ4YmS7HZNz0930GBopOKfqCsnAyMNi0WKhLD5+jvAKfO83k9Bg6mQfi8OT/MLgRfJhkvAPtPc
+	N5y4DeiDbVmC/uX6pKwYntqmXYuoVkGRJkflZM8jOAk2KjnwLdZP5aQpUCdofvDige6hCNzZPLV
+	D3AuDq0Dd6BvNk4s5I7JvwctFobueADfA==
+X-Received: by 2002:a05:7301:540d:b0:33c:130b:458 with SMTP id 5a478bee46e88-33e8e986d8emr312080eec.41.1790108611306;
+        Tue, 22 Sep 2026 13:23:31 -0700 (PDT)
+Received: from gio.scai.dhcp.asu.edu (209-147-138-22.nat.asu.edu. [209.147.138.22])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fe502sm627194eec.2.2026.09.22.13.23.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 13:23:30 -0700 (PDT)
+From: Giorgi Kobakhia <gkobakhi@asu.edu>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	Giorgi Kobakhia <gkobakhi@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] ocfs2: fix array out of bound access in __ocfs2_find_path()
+Date: Tue, 22 Sep 2026 13:21:59 -0700
+Message-ID: <20260922202159.2421642-1-gkobakhi@asu.edu>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -68,118 +77,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A8:EE_|CH3PR12MB9432:EE_
-X-MS-Office365-Filtering-Correlation-Id: 786d1784-ee2a-49fa-d0ab-08df18e75f23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|56012099006|5023799004|11063799006|10067099003|18002099003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	7a9a8vg6p6vuWaF6fEKmqrXkV+QRrMNkg9Fwurx3ocJbfAyFTc50KDba5GPTOmQOwewcFVW/8+ivxAIj9IWmyhe00CS3Ec4Eg/R3Bl57VqMiov+AJX6Qr7p4J1YZapa2Cy9f8IbS6Ha8SdV595nOka9RNF9imhK3ckKPcQhaHZOxPl5RcsbYPyV8uyLWmQOwAZQQ91uuc70S53nWvt+diehq8ppPAaKIlUnxEPTILpWkYSmW+TQoA4xuHpsIvD5EOIXOI0FlZQyeEtCxD/Yv4nurK9rQcAwWyya0YY3R6Xu7AKurpm4V281aWMjhSM6iKyNpFfZM1vHiv8DHcHkYPz7fqu0rP5S7kFGLlfdnQGfKMtAPfS74Gk4hZhkR3vHzLZ7jMSUM39r2IvPZj13QDpcyoEjDPfy9uCBJMPAJRE2Ozv3cL/quFvSplzzshS4kDBa3fNA9QB1kqN7g/X5BAkFCGvz8nghhpQWUssQETjq9BcxOY/au5h6wuAb+8ENRU8FLLy4imNP7mcZXa16HsaFnIjsftHdkSePKSrTP9qj/il5QQlIAsPkFtF4UVF/uCr2JFQUjCjedrNGt+oO41iORpyt8eMxkaTuOh4qVUB0Xo7RLfHcjMQXTrGSHhA1pIcgo6zGPXrL/IU1f0WdDOfcZIZpDyF9JKhFnzQJZFlQ=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(5023799004)(11063799006)(10067099003)(18002099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	53EHM8wyz7Qtg/XMxJLSlXJ9mT9PnEVnlGVSdiro9Y+3CuiNKIW+6wcWdJEAI9zYmgU6RP3GRF+BKuqL3SLz+66qcpyNySbNk7lKhvrlojLPUv5zj8yCy798cHPilRge70v16j3++EOpueUvw8hEaxH3ayCXkOCL6umAyBuQpaHDLf+D8J2F0RfZXxL9RgWtBos+oo/eJeGIbro2Cv/Uec9RB1ggBZAHpVt8Bcr0uMx4U49VNR71Iw+Zvan9hSLH4p1GH2SK6eIVbirc9p0cz/i492SvUFE4Ggjd+D9pGsEmRjcUYxQdfu7tW9qBNN99Yaz8cK1mG5aPzmrDqlKftDKJQsTkm66p7hhUxdcRNcKdsxAZX/sgFs6j7m/xp+9M7GcYgocP3lOTVsw5xdf08huueFsHw0R941zBcXWPWCN3+scTr23UiJ168rlCs+yw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 20:23:32.1346
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 786d1784-ee2a-49fa-d0ab-08df18e75f23
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037A8.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9432
 
-Hi all,
+__ocfs2_find_path() walks down the extent tree and records path by calling
+find_path_ins(), which appends entry to path->p_node[]. It only has 5
+spots.
 
-This revision addresses a couple comments from Boris. Also, the couple
-of patches originally by Avadhut have gone through a few revisions. So I
-updated the attributions.
+A corrupted ocfs2 image whose extent block is pointing to itself causes
+__ocfs2_find_path() descent endlessly, writing past the end of
+path->p_node[] array.
 
-Thanks,
-Yazen
+ UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
+ index 5 is out of range for type 'ocfs2_path_item [5]'
+ Call Trace:
+  <TASK>
+  find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
+  __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
+  ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
+  ocfs2_truncate_file (fs/ocfs2/file.c:515)
+  ocfs2_setattr (fs/ocfs2/file.c:1224)
+  notify_change (fs/attr.c:556)
+  do_truncate (fs/open.c:68)
+  do_ftruncate (fs/open.c:194 (discriminator 1))
+  ksys_ftruncate (fs/open.c:206)
+  __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
 
-Link:
-https://lore.kernel.org/20260730194834.3203601-1-yazen.ghannam@amd.com
+Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid
+out-of-bounds access") already restricts el->l_tree_depth to be less than
+OCFS2_MAX_PATH_DEPTH, which is equal to 5. However, does not handle the
+infinite descent case.
 
-Changes in v10:
- - Retitle patch 1 and rewrite its commit message as suggested.
- - Pass a struct param_buf to prm_umc_norm_to_addr() in patch 2
-   instead of the individual fields, and trim the commit message.
- - Move struct param_buf to internal.h in patch 3 so that callers
-   outside prm.c can build it, and build it at each call site.
- - Drop Avadhut as author of patches 6 and 7; credit him with
-   Originally-by instead.
- - Update the Assisted-by tags to the format documented in
-   Documentation/process/coding-assistants.rst.
+Check if the el->l_tree_depth decreases on each descent. Maximum
+descents are restricted to 4 and the path->p_node[] array does not
+overflow.
 
-Changes in v9:
-- Treat -EOPNOTSUPP like -ENODEV when PRM support is not built.
-  (Sashiko)
-- Document why the PRM handlers do not need the MI300 address
-  conversion. (Sashiko)
-- Clear the completed-operations bits in the translation entry points
-  rather than at each call site.
-- Narrow the operation bitmaps to u8.
-- Note that struct atl_dram_addr mirrors the PRM output buffer.
-- Widen the subject prefix of patch 4 to cover the EDAC changes.
-- Reorder variable declarations and reword commit messages.
+Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+---
+ fs/ocfs2/alloc.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Changes in v8:
-- Drop "Directly export address translation helper".
-- Merge the two PRM translation helpers into one. (Boris)
-- Build the PRM support unconditionally and drop CONFIG_AMD_ATL_PRM.
-- Formatting and other small changes.
-
-Changes in v7:
-- Drop fake_inject patch that was already accepted.
-- Remove function pointers. (Boris).
-
-Changes in v6:
-- Remove fake_inject interface. (Boris)
-- Add two more values to 'other_detail'.
-
-Changes in v5:
- - Address a comment from Sashiko in patch 2.
-
-Changes in v4:
- - Drop a "handler available" check in patch 1.
- - Reword commit message in patch 2.
- - Reformat string in patch 2.
-
-Yazen Ghannam (7):
-  RAS/AMD/ATL: Make PRM address translation support builtin
-  RAS/AMD/ATL: Refactor PRM address translation into a common helper
-  RAS/AMD/ATL: Add unified UMC address translation interface
-  RAS/AMD, EDAC/amd64: Use unified interface for SPA translation
-  RAS/AMD/ATL: Remove the standalone SPA translation interface
-  RAS/AMD/ATL: Add DRAM address translation via PRM
-  EDAC/amd64: Include DRAM address in output
-
- drivers/edac/amd64_edac.c      | 38 ++++++++++++++-----
- drivers/edac/amd64_edac.h      |  2 +
- drivers/ras/amd/atl/Kconfig    |  4 --
- drivers/ras/amd/atl/Makefile   |  3 +-
- drivers/ras/amd/atl/core.c     |  4 +-
- drivers/ras/amd/atl/internal.h | 19 +++++-----
- drivers/ras/amd/atl/prm.c      | 30 +++------------
- drivers/ras/amd/atl/system.c   |  4 ++
- drivers/ras/amd/atl/umc.c      | 69 +++++++++++++++++++++++++++++-----
- drivers/ras/amd/fmpm.c         | 10 ++---
- drivers/ras/ras.c              | 31 ++++++++-------
- include/linux/ras.h            | 46 +++++++++++++++++++----
- 12 files changed, 171 insertions(+), 89 deletions(-)
-
-
-base-commit: 2a11decdb2ddf456d743417d5d86b55c52baf101
+diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+index be09e766ac1f..c85a472965d5 100644
+--- a/fs/ocfs2/alloc.c
++++ b/fs/ocfs2/alloc.c
+@@ -1817,6 +1817,7 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+ 	int i, ret = 0;
+ 	u32 range;
+ 	u64 blkno;
++	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
+ 	struct buffer_head *bh = NULL;
+ 	struct ocfs2_extent_block *eb;
+ 	struct ocfs2_extent_list *el;
+@@ -1824,14 +1825,16 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+ 
+ 	el = root_el;
+ 	while (el->l_tree_depth) {
+-		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
++		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+-				    "Owner %llu has invalid tree depth %u in extent list\n",
++				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
+ 				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+-				    le16_to_cpu(el->l_tree_depth));
++				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
+ 			ret = -EROFS;
+ 			goto out;
+ 		}
++		prev_depth = le16_to_cpu(el->l_tree_depth);
++
+ 		if (!el->l_next_free_rec || !el->l_count) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+ 				    "Owner %llu has empty extent list at depth %u\n"
 -- 
 2.43.0
 
