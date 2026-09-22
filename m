@@ -1,214 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDA54F391B;
-	Tue, 22 Sep 2026 14:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790087229; cv=none; b=kLof6iSdoCVHxlEpwpdjrd6uG+jfEj8GZDM82Pj67vb3/K9idDHmuhKHAVWwthk50VX1JLSUgeuIF/x+FZt7udn/bI8sjE5mth84anz6UcXA67A0IWJuZ1lJr/sVm7n9rNKEK+ZBWeTnFe16gZ/20hkaY4BU1jTHZbgDJGLiCT8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790087229; c=relaxed/simple;
-	bh=oW1pJRQnRgSl6wxKhscSM9KdCKWSZpH9pzzrsXbdVhQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YGtF63SIqbuyWiwyYcIEMv5ePA/CDbMsjnqsY1+NcBYCd3BNGXInFtd7+uXjaBQuDbrf9VDuhxv4p9E+clwvvDG2GU3ynGtEVyoQy67VwJuAFaXNKDzLQg3h56itoXwxkg768do21pxhJXuA/UzRqZgzfagKRmaDonXnsJtnlIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rsdna0yX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92DF3C3F64;
+	Tue, 22 Sep 2026 14:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790087258; cv=fail; b=PHrnmKiNwgcTRrMKMjycIYcxu8Zwt+yBOmqI7uYhNWkSjTEWUUk6+W+ZRACViujWIjtQ/1xDP42+TPueLG3Z0c7yTjSrVgunfokG+juLdTAcIwWJFAIfHSFAydSQ9nvoTTnQWDOpiWS1K8GGmnZj6S7ojtFyp8aaK4qinTpwoto=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790087258; c=relaxed/simple;
+	bh=87kNzUQuNHebvtcodds2uJQLOYcLSixurCf9YZuXfrU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=o/ejXUph11iXrPyVDbmCHW2SRyvEALYGZEpVwoTTE/UvDPZqIJbQOLprAqmto5YnVBe7VcVw+sj+dfNISBSSwbtRmfYIanhsyXJ+Li37fEL8dj/CEBrW+KobryKccQLdH7zhbuoYQhhPpVhsSo7V51CYPOUv1of/OyNx+OOIgB0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=NERde0CS; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=XfaeoZCH; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rsdna0yX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DEE21F000FF;
-	Tue, 22 Sep 2026 14:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790087227;
-	bh=XJEL2Hm1vrdb6vMcqZseArACQHb75K/NoVu74tGPz+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rsdna0yXsjKvBSzuthMoCSnDu2jjoQf+l1qOm4qgITDB6a2BUcBKPtwC+70FFu+20
-	 uwhXwuWgh742TWvlJe+ml677jWpT20vg969DYMFWuG+hzKFutgD0Hup3AsIlzCrFfw
-	 PoeFR6LbBVTOIZpSm6+Q/om6pqsczH3bkLkVKuwvg01eJQcR3r+B1BeznFtoIYQ5xj
-	 w9T8SXPGv7SKjq1hXkoZCf5XX/IlPr8kaLdv3/FkctDtjJFEqSdwyAG9N6WtNdrLib
-	 qncToIC8KGgXQm27vIOgF57ncJx8MR9bfogklv6cJ1/3a0zmS/sQ6NDblPNSJT+EFZ
-	 Ctyb1MY0Trv2g==
-Date: Tue, 22 Sep 2026 15:26:58 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>
-Subject: Re: [PATCH v2 00/13] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
-Message-ID: <arKPnPBZFqvFQlTO@gremlin>
-References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
- <yq5abj9p38vq.fsf@kernel.org>
- <arJ1BDEzY5CANjjB@gremlin>
- <yq5a8q4t305j.fsf@kernel.org>
- <arKB2imOcg4MhXMF@gremlin>
- <yq5a5wzx2wny.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="NERde0CS";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="XfaeoZCH"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBPeQk2560601;
+	Tue, 22 Sep 2026 09:27:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=7omeVbrx1NmcHJnQhDDB7/1HIIHGhSeB/l+mrQmiZ
+	Fw=; b=NERde0CSgxqLcj8mQ2vN6ic+6hFy+JdaxVrjaKqfSf+XEnB1Bo8siZkW8
+	6GlFqkt4xqaduoPB3p77p82c8hSahHAr6SHYVNRlAykeMX5C526FUyNLqVevgqGO
+	9yJoXr/s6ECmj+bsaHjt4LvvX8crx0yNUZtGLII7hlVWL3AEfe3PWK5nKqnRShTv
+	VFecedc0h8twSOWOsDNV5JRzWPG4z5GDptN/6pWNMdntiYK+1ikdJs8xgOdjCRJ9
+	XovP21m3rOxcMoWtRTDwEGqfHMWvW/93uOWPYFFZ/F6oUfpgcixIYshC6TAIbMSv
+	wQpmDzVjt/6IMalJZa3Lbn0oQwFmw==
+Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011030.outbound.protection.outlook.com [52.101.57.30])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gugcsus9m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 09:27:22 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yROityvnxGmupLZdfdWJ+oQhwj8IKWd72uIcJhabF7UMez0+d271p7pNuaHdFyuhLfxOHNY35Ws/EfhhxcG1PBmt9bmUZCPw0z9jMpy8WPksf612PVTD7RKnCQMTpOul7YA+Orq0+lulyKZurmqEyQ0qVqtEW0oN0qKOmjldAItg8XANA7DozpM+DtP8CogVrcO/9PnYHJNljJsAtF2zteC8JQpVBwS1UU9I168/rxqWKJCNoFB5jRsKHmspG0uBccHJBpW9ksI0Xa2fhygAREVIO7ZPK0x6Q6+2Rcg9cQISqyYgtA8h7jIp149kNiFNkam8zxj5lqh1Q57IAhiH/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7omeVbrx1NmcHJnQhDDB7/1HIIHGhSeB/l+mrQmiZFw=;
+ b=BiJBWpQuXyjrRfuW6xt/edgb6vAO9+aLZPv1iLyd905CDxLQ8UOZoKlz3TxFisbrDOqDYfl1Fe0jayn/aQsCQdu/ZXFH+rYYVFf7g4uMUPwL88sGHhW4A+85OBWd604V1Ye3m23ecVgqtm1W/HnjFoknIwvVRjxkoCGTSLWRIgBKGjImqIJaaXHWe8bALV0Q/kZbV1sYAIQ62yCR5UeQb1TzAyUcks/7YKlDbWJG1MiUGsuM5SI8wwcUKbx1YveQh2SceXS0wRLkGrgq76VN5v12djs+eiMNntOWET5cGHxDpew5RPhlEN+YsM3whDJGIwGB5tjdMieUFUOyucvm/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7omeVbrx1NmcHJnQhDDB7/1HIIHGhSeB/l+mrQmiZFw=;
+ b=XfaeoZCHY9IArTJUaWxLLiAojVhpXzkecJ0gWVtgowN6IEQR8V45ijziU4Vm2xPTXY90F9XoO2K3/t6p1YPe37zhiKCxOkGHpmrqldlZo7WG3+ExTQh/P9gLzHagET7LPwZNUU/XchU7USA2CSc6FlexkNr7c+f5ngyUn07ixPk=
+Received: from CH2PR02CA0014.namprd02.prod.outlook.com (2603:10b6:610:4e::24)
+ by LVTPR10MB997865.namprd10.prod.outlook.com (2603:10b6:408:3c6::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.9; Tue, 22 Sep
+ 2026 14:27:20 +0000
+Received: from BL6PEPF00022575.namprd02.prod.outlook.com
+ (2603:10b6:610:4e:cafe::7d) by CH2PR02CA0014.outlook.office365.com
+ (2603:10b6:610:4e::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Tue,
+ 22 Sep 2026 14:27:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 14:27:19 +0000
+Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 22 Sep
+ 2026 09:26:55 -0500
+Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 22 Sep
+ 2026 09:26:54 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE204.ent.ti.com
+ (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 22 Sep 2026 09:26:54 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68MEQskd131476;
+	Tue, 22 Sep 2026 09:26:54 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Francesco Dolcini <francesco@dolcini.it>
+CC: Nishanth Menon <nm@ti.com>,
+        Francesco Dolcini
+	<francesco.dolcini@toradex.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v1] arm64: dts: ti: k3-am62p5-verdin: build zinnia dtbs
+Date: Tue, 22 Sep 2026 09:26:53 -0500
+Message-ID: <179008715552.4044405.320502785549001210.b4-ty@b4>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260914174651.6195-1-francesco@dolcini.it>
+References: <20260914174651.6195-1-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5a5wzx2wny.fsf@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|LVTPR10MB997865:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18de5f57-e036-49ba-4ae9-08df18b59c3e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	isJ7zQDtwBzO3YwBYusmed4JL/5WKBD6f/isYk2RMknLW67a0YdXv5FZ4EG1lOWLzGJqfDRKvzwTSvBwUT0M/MZy4HHA9gwky8/CuFjXzuKl5s8yOm6hIsLwgSJhFJ/Zp+8ClXnWu4qAHg4QhnFMDtt00gb/9tjFFyDmWNEQnV1QUkLOmj40DI4k1SxRC7DnOtA16qw2MMo506C8ZIj2yPVGEHyDgXaBgl+jPjqTU1LwARz0yu1N92atvoGTc/dbtS02QaHGaiDz1K3UXJuHiYyOyMW5qmPINCKKB6ISwfrbCly6g1EuaxoWyJJm8eEbo1BLwXpbbxto/VfJ8FAXVL4W4tqJICBJqzEgjB1CT9PLE/V5gAVOi+QFo1mj2z4f1czdw20GJ3/YmrXvif2qm4x6Iic9gKpjQFsHgEMCyXPbLgE56RF98LuX6R6RyjECNvrHTqGOogifyCSk0TJQ+cbt3q9WKhQ1uL9WjNSjegkjd5KT08WeRtSzZmFuxzn9DibvgcoPMteg9H2HPPNoJeb7JRaTNTFTk4oT9Q8LTNcJlaiRz1FY4xdiEB4CqtoTvCOXEiaN3euDDtTnuerH8aF95HUCnObArSxXr847RrYjVpX8vPX+qlpGZYYAkPgUsLUYn1ejKnvD37iccjEfaXoTHJxb5S3Q2hO73HiK+WKy826Gqx53t4kxTnSH48hR4joN5xhtOK3g7iecsUGyJw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Egar2T73EzGvg1HSx40l/IVsjGc2ysFvjt1lzofa4TrRJzU9RPOhH0TimZjFXKcctKqyh0DBBonjUx7cwhuv13B8EMs+iPUpYXegLUSgXZqF1b++F9Maclx9437JI4xQVBeGmW9gkZmuGvspFUpOA4tbR2zS5R4ksyDnLiBiY7+reDIfJEGIDxAxRTzYOEmd5+GDYRdXASzG/kDm1N4mabEoFeBNa8y+dZwGbMp8YWfN9Civ6psrREFphK97q7TfoPTD6TfZVYEcFD0HNnboktbyy0Egl4TXZ10xEMSjQvr14gkxtvm0wZ2iAVV434pR6N41fKlqcR27fggMbNsaibJEIR70DbUDefav05IwI5YF5Nnv5UPDBkBQjju4T2TNPCHqnNszqcwKiuoZ1v4w+fTjoMQzqk1Upo5H7zJAZhMJTaXEb6XS7L3KqoRZPA4C
+X-Exchange-RoutingPolicyChecked:
+	Tb3p8oki2LJmganCUnhIQV8F335+Jf5aaP1ko+FrgVwHW6qF7TK9MRCuZwJOlclcuC1aUsbkY8FDcl5GdPmS4+LNu2mRBo7KRBzw0liPNC0k1gyAoX+P77A5eOEFyveFvU8qCuVxuH+04i+x9e9oyRU9SrdMOIUHkY4R+Dln7/sb9sHzoqBbnmY4Lppq0IBRfv/d4yQcZxM6Qoo7EBxB+5VRMS4YMTslrgw4mydEt4b6Ews8eUaGerMAv9YWZwbIAd88mOYCtih/WD006mqiQNeJrjtS/2myNQxLUwOcBFJm00tHNBPxU9k4hlLAa8UJmUZ5oiVODDEqTw8x/CRKrQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 14:27:19.8221
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18de5f57-e036-49ba-4ae9-08df18b59c3e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022575.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVTPR10MB997865
+X-Proofpoint-GUID: 2Sw4S7_FABmPaikhQZHxKTcExpG1lu7y
+X-Authority-Analysis: v=2.4 cv=GI+dgeNK c=1 sm=1 tr=0 ts=6ab2904a cx=c_pps
+ a=Ye3bCMmY4P27VUsoh7mwQQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=o1kACPpZKAZCWsj7fAYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIxMCBTYWx0ZWRfX7VcXteMchtP9
+ N70YafVrqYYmDSE/IcfdxKr7rmONwrfgrfqGSM2PTsPAiCePT4sbo+FrQmzoBXd3wkzq9cwOydh
+ 61iahADJFrQXyrZ+8QgM+OHQTCr7pOM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIxMCBTYWx0ZWRfX0e7+FHK4QzZ8
+ Ar02NDjK7UAnyIrpBXjEnGzEON2AJdxaAhgvJ8/7STX4cIb1zGM+N7CD0T4a3UPg/raWLRvX1gX
+ QmLvVhfURrz14PUlfUfcCFQ2EqPPfQGZPbGfb0xzq94DVyM46sLyNYfH3XAN5yJf89QoXpzrq4y
+ RN66ckjQQEcGLKHwFZWTCm4MTI65vT+qYfns4NLDpd1zAtQevnyLgilzlFy68v0aXSdyozbPgjX
+ SAKWjTXnXH79qSrLW8WmwgA/LMsuRZifPEE34Fmu1cZbxTKt2BvyNVRDCPnKo7Yj/4LrOOEX6A6
+ kuxx4AGRmlX8OX3X8+LlXm2dpfD7AFm+2kX+etUrytrcy/ehoJT5alpZEBlLlTz+LnVPDdAcpnC
+ B5mwrJJ+PI5cEOHDS540ia5xSDD7+xVQfrijLvlN7ZoEhZBDs7YutF0SORS3HnomDcyUA9n58GH
+ zxLMp0kqlB0BejrSkCw==
+X-Proofpoint-ORIG-GUID: 2Sw4S7_FABmPaikhQZHxKTcExpG1lu7y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220210
 
-On Tue, Sep 22, 2026 at 07:52:25PM +0530, Aneesh Kumar K.V wrote:
-> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> writes:
->
-> > On Tue, Sep 22, 2026 at 06:37:04PM +0530, Aneesh Kumar K.V wrote:
-> >> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> writes:
-> >>
-> >> > On Tue, Sep 22, 2026 at 03:28:33PM +0530, Aneesh Kumar K.V wrote:
-> >> >> > This is because pKVM instantiates vCPUs upon run,
-> >> >> >
-> >> >>
-> >> >> Can pKVM instantiate the hyp vCPU during pre-faulting ?
-> >> >
-> >> > It would be an unusual and unexpected thing to do - suddenly a pre-fault
-> >> > operation is initialising a vCPU explicitly for pKVM.
-> >> >
-> >> > A caller is not going to reasonably expect this and might treat a failure to
-> >> > pre-alloc as fine to carry on whereas in fact it was a failure to initailised a
-> >> > pKVM vCPU.
-> >> >
-> >> > It'd also require significant changes to how pKVM is set up, right now it's
-> >> > hardcoded to be done unconditionally at run via kvm_arch_vcpu_run_pid_change()
-> >> > -> pkvm_create_hyp_vcpu(), so all that would have to change and be checked and
-> >> > tested and... that'd be really out of scope I think :)
-> >> >
-> >> > And pre-faulting really makes most sense BEFORE you run a VM. It doesn't make so
-> >> > much sense mid-run.
-> >> >
-> >> > But more fundamentally, the stage 2 page tables, as I understand it, are owned
-> >> > by pKVM and so aren't really available to be pre-faulted.
-> >> >
-> >> > Maybe unprotected-under-pKVM VMs but then it's questionable as to how useful
-> >> > that would be given that it would be confusing to users vs. how it works for
-> >> > other VMs.
-> >> >
-> >> > So in general, no I don't think it's a good idea.
-> >> >
-> >> > And even if we wanted to pursue some version of this, it's _definitely_ out
-> >> > of scope for the initial pre-faulting bring-up series.
-> >> >
-> >> >>
-> >> >>
-> >> >> > but pre-faulting is  typically performed before a vCPU is run.  It would be confusing and
-> >> >> > inconsistent to error out on non-running vCPUs but to pre-fault running
-> >> >> > ones.
-> >> >>
-> >> >>
-> >> >> I use KVM pre-faulting when transitioning pages from shared to private
-> >> >
-> >> > You mean you'd prefer to use? Or you are using it on another arch?
-> >> >
-> >> >> with CoCo guest. This ensures that a trusted device can DMA to private
-> >> >> memory before the guest accesses it.
-> >> >
-> >> > Hm what do you mean by private memory?
-> >> >
-> >> > I see:
-> >> >
-> >> > #ifndef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
-> >> > static inline bool kvm_arch_has_private_mem(struct kvm *kvm)
-> >> > {
-> >> > 	return false;
-> >> > }
-> >> > #endif
-> >> >
-> >> > And only x86 selects KVM_GENERIC_MEMORY_ATTRIBUTES?
-> >> >
-> >> > Do you mean something else?
-> >> >
-> >>
-> >> I am using this with ARM CCA-DA, based on the patch series from Jack Thomson <jackabt.amazon@gmail.com>.
-> >>
-> >> https://gitlab.arm.com/linux-arm/kvmtool-cca/-/commit/80e7aad61c5639de2f0cb4a5525dad0c96156428
-> >>
-> >> We do this while the VM is running.
-> >
-> > Right, that's a non-mainline kernel I guess? Which presumably implements private memory.
-> >
-> > Jack himself experienced a panic with his pKVM code, so the code you're using is
-> > not upstreamable, unfortunately. And he'd already shelved pKVM support AFAICT.
-> >
-> > And reviewers pointed out actually implementing the pKVM stuff properly would be
-> > quite involved, even if you wanted to do that (hence follow-up).
-> >
-> > Also you end up stuck with the same problems as I mentioned above - you can't
-> > sanely bring the vCPU pre-run, so now you have extremely weird behaviour - only
-> > pre-faults if vCPU initialised, running, and unprotected pKVM.
-> >
->
-> IIUC, pkvm_pgtable_stage2_map() only uses the hyp vCPU's pKVM memcache
-> (&vcpu->vcpu.arch.pkvm_memcache). I agree that this does not need to be
-> addressed in this series. However, there is also a desire to keep the CCA
-> and pKVM code paths similar by using helpers such as kvm_vm_is_protected().
-> Since an RMM can create a stage-2 mapping without a REC (vCPU), rejecting
-> pre-faulting for all protected VM configurations may be incorrect. I can
-> handle this in my series though.
+Hi Francesco Dolcini,
 
-Ack, understood. Feel free to cc- me on that when you send it out!
+On Mon, 14 Sep 2026 19:46:50 +0200, Francesco Dolcini wrote:
+> Add the zinnia dtbs to the Makefile, they were forgotten when zinnia
+> support was added and were therefore never built.
 
->
-> I also want to point out that there are use cases for pre-faulting while
-> the VM is running.
+I have applied the following to branch ti-k3-dts-next on [1].
 
-Ack yeah understood! And it does support that fine :)
+Sidenote: I will buy the argument to have fixes ;) .. but, if Greg or
+Sascha or others complain, will need to drop.
 
-I added further reasoning about pKVM in the cover/commit msg in the respin
-([0]) so hopefully that helps clarify from that sid eof things.
+Thank you!
 
+[1/1] arm64: dts: ti: k3-am62p5-verdin: build zinnia dtbs
+      commit: 237fda81c2b4984c2212f0d3f510405aad8b25db
 
->
-> >
-> > Protected pKVM support is a whole other layer of complexity and it's not obvious
-> > that you're really achieving what pre-fault is supposed to.
-> >
-> > In any case Oliver literally just asked me to _simplify_ weird edge cases for
-> > this series :) so I am not sure something like that is going to be accepted.
-> >
-> > Are you sure you're actually running in pKVM mode btw? CCA doesn't AFAICT? In
-> > which case this series _should_ work fine for you.
-> >
->
->
-> It is not pKVM; it runs in Realm mode.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Ack yeah, then the series should hopefully work for you.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-If you could test it and report any issues I'd be grateful! Thanks :)
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
->
-> >
-> > Anyway, if we really do need to add something for pKVM it needs to be a follow
-> > up. Let's get the basics working first :)
-> >
->
-> sure.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Thanks!
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
 
->
-> > (Note that kvmtool will need to be updated to retry pre-fault on -EAGAIN, -EINTR
-> >  as this series can, albeit unlikely, return -EAGAIN.)
-> >
->
-> I will check this when I rebase my kernel onto this series.
-
-OK cool, let me know if you hit any issues.
-
->
-> -aneesh
-
---
-Cheers, Lorenzo
-
-[0]: https://lore.kernel.org/kvmarm/20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org/T/#t
