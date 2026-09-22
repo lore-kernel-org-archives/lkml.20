@@ -1,144 +1,214 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A742F7F17
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43094382368;
+	Tue, 22 Sep 2026 06:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058775; cv=none; b=rQmGJadURH7NRpfkjg5zNPwWpshSc+kl8mRB8aOGiA85g5p5l5xlgEGHTw/2PKcF9U377u1611z8ynQem+RP8Gpk5b0q1GZpE1SwYaLPbl3cqDAxAGM+BHYrg14asZeC8LFWXNhC/CcS72hRBk1cuvy0hOI3CfQ9n2gCflrs6v8=
+	t=1790058799; cv=none; b=uKzaV8r+bR1F2/GN0hSUTB4yybEPKt6NZ338BnH/dzBJDd3D8Zyi/E6FT5gSNYmWYcGFCc4Uyv+uvOjqPlItFB1XT9FIHokx4W4GxugsaSq/EDJl85jhp5yRSnSVpU3DupSAHqGELnQ3FeStrNyALCWzAGLEM0JNUcn0QTUTelk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058775; c=relaxed/simple;
-	bh=iQ6ylYqNzArsLZ+UeL6zp9ZiAnv83zacFCW/n34Nmbg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=doInqqsL47bccNvPuKsjKNIfeU/BBd0mXAaPvTTBH4D+PSK8zlWo6k2bIer5H1iRzT2bswxEPfgb19JED2a1Pm5RzKYqPBl3fxKl8rg1kF2VHIm+qps3uf3pA9ubYMVPZmjo3VBCRPh0g2/gu9+hIClTaWZXXl9vYaOm/f+t2Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0MR10quX; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790058799; c=relaxed/simple;
+	bh=9ORWwR/mv+I22Vgwms4d3LBBOTjKImZE8xuOc3g+STc=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=HtjTD/ASRUaeXwz7vO5kiXlmlYjQxBe7npRPbNm3EKUVy725WmHvzcZs6lVquxxJmfhQrfZXv+AAdXmWClG9WeSvQFYdRJMS84tc1Jj9Un9BXu0k8kRrUESwPFQvHXUyF4IWFa/kF6EDxjcMcZ1ZwKPZogqni2zR2thZ4zZK9Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=j0Motv1D; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=8reELHar; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0MR10quX"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D56BA4E40D86;
-	Tue, 22 Sep 2026 06:32:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9BF0C60580;
-	Tue, 22 Sep 2026 06:32:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E6948103291C1;
-	Tue, 22 Sep 2026 08:32:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790058766; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=xXIPkAzWPjZ1bfrPFkHsxzyu4xiPTTHY2pkYzmzDQek=;
-	b=0MR10quXK5OzWPkOJVRpGLtlRI6nD/P0pb3XUrL4Ps3AMEmDuPb7M1CqbbFs3hbi8ktFTS
-	3SflqTpzGNLaW98K7pTw3dIpOwdHDYWge7+pidiWfBUGlZAeS1HHE9VNb+TMkIgQWbOBM9
-	LYaUm98+A212vyQq1NzZmb3+K5G+AorguHiciLB9ru++83u1AyY5GZlL/mPpNsWCsnomSp
-	WxSaHUQ9KWtSD6WLsT8dyZAUgppEK8rHcZftpKkfYEz2Wi3xPyqy+bNV7GrEFsBWojXvUX
-	vkUC8wrqptabCab7Cvo27sFJvlwgoKp2DtDeJ4h/KhKFK9nycMiricQUgBVHaA==
-Message-ID: <635cfefd-c588-4b3f-bbc4-1cf11ef0a2c5@bootlin.com>
-Date: Tue, 22 Sep 2026 08:32:39 +0200
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="j0Motv1D";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="8reELHar"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790058782; bh=UkrtqxQ06g+JNZDlOhWL45V
+	fcsmMEzFGL3rq7zrxp5w=; b=j0Motv1DYY2WnnO0GoXp414XDGVLlHPvVzSvA1LdR8dxGg/Bdu
+	Al2z+WUq6nbhNXQSuuioqdGjYbVLf40m1kJKvPsVvasOmHoloX2bGuPxyKv0tC8I2mROw5I4+NE
+	5y1WuNsaW0zo4uwlwW2NsU18yD5Zrbg/hF1LSQPNCWdh7KgG7/VTrDl9X5dthaaDwYWZsuy8MgW
+	HoK4f8fuGHW0y5bZh+hQj8WJpGTIkSE4BHy++hhSSYgPasPJtbMeXrxhUWESAS5b/ESVgAQzuqg
+	ROebPzk+MS+h4xFkTjI75y6vwTczSjZK8z8Nx+G5nmtPBG7/JuvA4WhsZ5v2y3NrdGw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790058782; bh=UkrtqxQ06g+JNZDlOhWL45V
+	fcsmMEzFGL3rq7zrxp5w=; b=8reELHar/PZ9pyX5REzczi++PWP7E8QndY1rZ42yGUu2wYQSDM
+	iFWAI2PSGo1aLWX2QEvH20Qjc4T68e4zkyAA==;
+Date: Tue, 22 Sep 2026 07:33:03 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: faruque.ansari@oss.qualcomm.com
+CC: avaneesh.dwivedi@oss.qualcomm.com, bleung@chromium.org, broonie@kernel.org,
+ chrome-platform@lists.linux.dev, daniel.lezcano@kernel.org,
+ francesco@valla.it, groeck@chromium.org, kernel@pengutronix.de,
+ lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, lukasz.luba@arm.com,
+ mazziesaccount@gmail.com, o.rempel@pengutronix.de, rafael@kernel.org,
+ rui.zhang@intel.com, sebastian.reichel@collabora.com, sre@kernel.org,
+ tzungbi@kernel.org, umang.chheda@oss.qualcomm.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v14_0/6=5D_power?=
+ =?US-ASCII?Q?=3A_reset=3A_Introduce_the_Pow?=
+ =?US-ASCII?Q?er_State_Change_Reasons_Recording_=28PSCRR=29_framework?=
+In-Reply-To: <20260921-pscrr-framework-v14-0-a16290003b7c@oss.qualcomm.com>
+Message-ID: <2F1E7C6E-897D-40BF-A37E-EAF42C4A0CA5@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: dsa: microchip: save the periodic output
- request
-To: netdev-bot+sashiko@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- ceggers@arri.de, arun.ramadoss@microchip.com, pascal.eberhard@se.com,
- miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260917-fix-perout-v2-1-d8acf3eea6f7@bootlin.com>
- <178998077822.2160803.3867886756893254872@kernel.org>
-Content-Language: en-US
-From: Bastien Curutchet <bastien.curutchet@bootlin.com>
-In-Reply-To: <178998077822.2160803.3867886756893254872@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi all,
+On 21 September 2026 18:44:15 BST, Faruque Ansari
+<faruque.ansari@oss.qualcomm.com> wrote:
+>Hello all,
+>
+>A system power-state transition - a shutdown or a reboot - rarely has a
+>single, unambiguous cause, and no one component sees the whole picture:
+>the
+>PMIC, the watchdog, the SoC reset registers, the bootloader and software
+>each
+>only know their own part, so there is no single source of truth.
+>
+>PSCRR gives these sources one central place to report side by side. Every
+>provider keeps its own view - several providers, and several reasons
+>within a
+>provider, can be reported at once and are deliberately not collapsed into
+>a
+>single "winning" cause (a bit of a minority report). On top of that it
+>adds a
+>software-backed recorder, so software-detected reasons - under-voltage,
+>over-temperature, a watchdog pretimeout, a panic, a controlled reboot -
+>are
+>captured too and survive into the next boot.
+>
+>The NVMEM-cell binding a recorder needs to pick its storage is still
+>deadlocked, and several projects already need the framework, so this v13
+>posts the framework, its reboot/reason infrastructure and the sysfs
+>documentation only; the provider drivers (NVMEM, PMIC, ...) and the tests
+>follow separately once the binding is resolved. One built-in provider,
+>reporting the bootloader's device-tree /chosen/reset-source, is kept so
+>the
+>framework is useful on its own without a new binding.
+>
+>For followup drivers, see:
+> https://github.com/olerem/linux-2.6/tree/v7.2/topic/pscr-v12
+>
+>Changes in v14:
+>- Ignore v13, it was mistakenly posted as a reply to Oleksij's v12
+>  patch series.
+>
+>Changes in v13:
+>- Rework pscrr_provider_register() based on review feedback from Francesco Valla:
+>  move the pscrr_root check before allocation and narrow pscrr_lock scope.
+>- Carry the series forward with Faruque Ansari as author and Oleksij
+>  Rempel as co-developer, and vice versa where required.
+>- Link to v12: https://lore.kernel.org/r/20260731095959.296056-1-o.rempel@pengutronix.de
+>
+>Changes in v12:
+>- Drop all provider drivers and their tests; post the framework alone. The
+>  NVMEM-cell binding a recorder needs to pick its storage is still
+>  deadlocked, and several projects already need the framework - so unblock
+>  the core now and let the providers (NVMEM, PMIC, ...) follow separately.
+>- Rework into a multi-provider design (per-provider /sys/kernel/pscrr/
+>  directories); add reason tokens and a built-in /chosen/reset-source
+>  provider.
+>
+>Changes in v11:
+>- add missing break reported by kernel test robot <lkp@intel.com>
+>
+>Changes in v10:
+>- add some add Reviewed-by tags
+>- regulator_handle_critical: set pscr = PSCR_UNKNOWN for default case
+>- make g_pscrr static
+>
+>Changes in v9:
+>- Remove redundant pr_crit() messages before hw_protection_trigger()
+>- Replace psc_reason_to_str() switch with static const string array
+>- Mark psc_last_reason as static
+>
+>Changes in v8:
+>- Use DEFINE_GUARD() and guard(g_pscrr) for scoped locking of the global
+>  pscrr_core struct
+>- Replace manual mutex_lock/unlock with automatic cleanup-based guard() usage
+>- Centralize backend and locking state in struct pscrr_core
+>- Prepare for future multi-backend support with clean encapsulation
+>- Improve sysfs documentation
+>
+>Changes in v7:
+>- document expected values in sysfs documentation
+>- make write support optional
+>
+>Changes in v6:
+>- add sysfs documentation
+>- push core part of the reset reason into kernel/reboot.c
+>
+>Changes in v5:
+>- fix compile with NVMEM=n and potential issues with NVMEM=m
+>
+>Changes in v4:
+>- fix compile with CONFIG_PSCRR=n
+>
+>Changes in v3:
+>- rework to remove devicetree dependencies
+>- extend NVMEM to search devices and cells by names
+>
+>Changes in v2:
+>- rename the framework from PSCR to PSCRR (last R is for Recorder)
+>- extend the power-on reason header and reuse it for the detected reason
+>- rebase on top of v6.8-rc1
 
-On 9/21/26 10:52 AM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 (2) · Medium: 1 (2) · Low: 0 (1)
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] ksz_ptp_enable_perout()
->    (drivers/net/dsa/microchip/ksz_ptp.c:226) commits the caller-supplied…
-> - [Medium] The commit message states that 'if a flag was set in the
->    request that triggered the periodic output, it is lost when the output…
-> 
-> Pre-existing issues:
-> - [High] A non-canonical but ABI-accepted period whose timespec64
->    conversion is zero (e.g. period.sec = -1, period.nsec = 1000000000;…
-> - [High] In ksz_ptp_restart_perout()
->    (drivers/net/dsa/microchip/ksz_ptp.c) the elapsed-period quotient is…
-> - [Medium] The device exposes three trigger output units (caps.n_per_out
->    = 3 at drivers/net/dsa/microchip/ksz_ptp.c:1056, PTP_TOU_INDEX =…
-> - [Medium] ksz_ptp_enable_perout() resolves the output pin with
->    ptp_find_pin() (drivers/net/dsa/microchip/ksz_ptp.c:206).
-> - [Low] ksz_ptp_tou_reset() (drivers/net/dsa/microchip/ksz_ptp.c:66-86)
->    assigns the result of the TRIG_RESET read-modify-write to 'ret' at…
-> 
-> --
-> 
-> net: dsa: microchip: save the periodic output request
-> 
-> The patch replaces the two stored timespec64 values (perout_target_time_first
-> and perout_period) in struct ksz_ptp_data with a copy of the full
-> ptp_perout_request, so that the index and flags survive a perout restart.
-> ksz_ptp_restart_perout() now replays the saved request with only the start
-> time recomputed.
-> 
-> A few questions below.
-> 
->>      When a periodic output is initialized, only the start and the period are
->>      stored, not the flags nor the pin index. So when the periodic output is
->>      restarted, the request flags and index are always set to 0. So if a pin
->>      other than the first one was used, or if a flag was set in the request
->>      that triggered the periodic output, it is lost when the output is
->>      restarted.
-> 
-> [Severity: Medium]
-> Can request->flags ever be non-zero in this driver?
-> 
-> ksz_ptp_clock_register() sets caps.n_pins, caps.n_per_out and the callbacks,
-> but never sets caps.supported_perout_flags, and caps lives in the zeroed
-> struct ksz_device, so the mask stays 0. The core rejects any flag that is not
-> advertised before it calls the driver:
-> 
-> drivers/ptp/ptp_chardev.c:ptp_perout_request() {
-> 	...
-> 	if (perout->flags & ~ops->supported_perout_flags)
-> 		return -EOPNOTSUPP;
-> 	...
-> 	return ops->enable(ops, &req, perout->period.sec || perout->period.nsec);
-> }
-> 
+Hey, I dont see the use to PSCRR, are you planning to ship any providers?
 
-This check is 'fairly' recent, it was added by d9f3e9ecc456 ("net: ptp: 
-introduce .supported_perout_flags to ptp_clock_info") (v6.15). I 
-experienced the reset issue on a v6.12 kernel.
+>
+>To: Sebastian Reichel <sre@kernel.org>
+>To: Benson Leung <bleung@chromium.org>
+>To: Tzung-Bi Shih <tzungbi@kernel.org>
+>To: Guenter Roeck <groeck@chromium.org>
+>To: Liam Girdwood <lgirdwood@gmail.com>
+>To: Mark Brown <broonie@kernel.org>
+>To: Matti Vaittinen <mazziesaccount@gmail.com>
+>To: Rafael J. Wysocki <rafael@kernel.org>
+>To: Daniel Lezcano <daniel.lezcano@kernel.org>
+>To: Zhang Rui <rui.zhang@intel.com>
+>To: Lukasz Luba <lukasz.luba@arm.com>
+>To: Oleksij Rempel <o.rempel@pengutronix.de>
+>To: Pengutronix Kernel Team <kernel@pengutronix.de>
+>Cc: linux-arm-msm@vger.kernel.org
+>Cc: linux-pm@vger.kernel.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: chrome-platform@lists.linux.dev
+>Cc: avaneesh.dwivedi@oss.qualcomm.com
+>Cc: Umang Chheda <umang.chheda@oss.qualcomm.com>
+>
+>Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+>---
+>Faruque Ansari (6):
+>      power: Extend power_on_reason.h for upcoming PSCRR framework
+>      reboot: hw_protection_trigger: use standardized numeric shutdown/reboot reasons instead of strings
+>      reboot: add parsable tokens for power state change reasons
+>      reboot: extend psc_reason with power-on and reset causes
+>      power: reset: Introduce PSCR Recording Framework for Non-Volatile Storage
+>      Documentation: Add sysfs documentation for PSCRR
+>
+> Documentation/ABI/testing/sysfs-kernel-pscrr | 108 +++++
+> MAINTAINERS                                  |  11 +
+> drivers/platform/chrome/cros_ec_lpc.c        |   2 +-
+> drivers/power/reset/Kconfig                  |   2 +
+> drivers/power/reset/Makefile                 |   1 +
+> drivers/power/reset/pscrr/Kconfig            |  33 ++
+> drivers/power/reset/pscrr/Makefile           |   2 +
+> drivers/power/reset/pscrr/pscrr.c            | 633
+> +++++++++++++++++++++++++++
+> drivers/regulator/core.c                     |  16 +-
+> drivers/regulator/irq_helpers.c              |   9 +-
+> drivers/thermal/thermal_core.c               |   3 +-
+> include/linux/power/power_on_reason.h        |   5 +
+> include/linux/pscrr.h                        | 107 +++++
+> include/linux/reboot.h                       | 108 ++++-
+> kernel/reboot.c                              | 165 ++++++-
+> 15 files changed, 1183 insertions(+), 22 deletions(-)
+>---
+>base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+>change-id: 20260921-pscrr-framework-25f48818efe8
+>
+>Best regards,
+>
 
-Even if it can't happen right now, as soon as this driver registers any 
-new flag, the bug will come back.
-
-
-
-All others comments are already existing issues that can be fixed 
-independently from this patch so I don't plan to address them right now.
-
-
-Best regards,
-Bastien
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
