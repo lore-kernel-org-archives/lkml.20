@@ -1,107 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB6019D8BC;
-	Tue, 22 Sep 2026 03:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC6A37F33D;
+	Tue, 22 Sep 2026 03:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046691; cv=none; b=uzJpicmmgRB+j8wXUm4JlZ5/r5ByycFYi09Aebzo2KkRSa9Yv7RJ+K4yfkKdzeG3oDYYn6LXm6lCcMa30ogKdjUFQeZSvxALHWPzbnMbUYQMT1llN8297h5wqrOPO2LTbNGJW+jc6vX+LCuVyXUAggjF3PrfnZAvtPUKDwM4qbg=
+	t=1790046693; cv=none; b=Nuo1qhYdVbwar+nHmYkxpLAZYzEwtTbz0FTU6JVews6X9xlfqNKR6j9ANWbIEIVfc3KUway3iLMMDftTbzzKPnBKlqbZdpLafhUptQhbQKKU+1wHjK5ByoTsKHdwMN0JFvh5iJwWMW9pyX4LXlfP8DuzpKQqKJ6QdXRuJY5YODo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046691; c=relaxed/simple;
-	bh=WLRYkkbBWDKPMJXCvjf6ULDKHUK5Pfaitj6yTfelGUo=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=ik/8hk+LZEv0bMs6Q+j8HMWc/I8hofc7CXwMY72X3WYQJkH8mTMR3ek7++2TFJ1BZ/G/l0ejLgHnJNqgIomKZfTf2kVocq0CXD7oT9SdmPStahwDofDfxqxaeNk5deBczSuCj1Q4ZJmb2IerBU8vZhLw31NJW3H2FT8aS79qF1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gEqSKjgM; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gEqSKjgM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD8FD1F000FF;
-	Tue, 22 Sep 2026 03:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790046690;
-	bh=XyNCoq/etK8VeSwcZtzf9WuBv6P9bzgHrlMb9BH//o0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=gEqSKjgM4G5xPfJTYQv1LR2kutPUZxItSCcCzzm/PJQ+t+Vp1wm4/jEmdPng+fC4U
-	 JnkTRwogPwTy+/uZWZ/nFD2nj4cYzHWH0KEJgal/RZ6Y9bM6tcIcogmdoINrn4wlAY
-	 0EBQAPLuYfCxCHNay9BipAOhiQ4sFVFszhHcRHzFmalyJBegR9nbz9PLCFY71+ILnO
-	 Auya2yVihZTe8E5xkrWcZhyBq/gyCQALGQo1bY6U0LmIqGvWFXGjrbzJjHKTW15u4e
-	 lsQCTd3LmW3Lgql4YIfDLFij3+8PwoT2qkIB63AOPekmWYJ6sGRBu/VbAUa27RDmsw
-	 7MIEA0knZmSiw==
-Content-Type: multipart/mixed; boundary="===============6030411877518670542=="
+	s=arc-20240116; t=1790046693; c=relaxed/simple;
+	bh=lQ68GCEp0M1/8iWXnt1MdgLFrQR9b+XzPvlHTeQbjoM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XXeXsOb8pKDkdffOaLyci2X6C4ywYiw+tzaLsnmrxBPYGh5AOOrL1qALJAGxLOS1xTLQtaCSmfSWolaIgJ0tRO86gWYXc283rZToTWz4EpDEM0iHx8FDIomoSruWOeOsg12ZBRoRIm3Jq84nP+oEnBy60XirSm71WGTSa1LT1Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 453a1c78b63311f19a56ed5b684f684d-20260922
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:142be212-b367-46c9-9856-2bd415814978,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:7d093fac6273d8700a5a3c8a794578fd,BulkI
+	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP:nil
+	,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,L
+	ES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 453a1c78b63311f19a56ed5b684f684d-20260922
+X-User: lijiayi@kylinos.cn
+Received: from thinksys.tail1c7620.ts.net [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lijiayi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1234149315; Tue, 22 Sep 2026 11:11:14 +0800
+From: Jiayi Li <lijiayi@kylinos.cn>
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	Jiayi Li <lijiayi@kylinos.cn>
+Subject: [PATCH v2] usb: uas: quiesce SCSI before stopping endpoints on unbind
+Date: Tue, 22 Sep 2026 11:11:02 +0800
+Message-Id: <20260922031102.141043-1-lijiayi@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <76cb003abe9b55df08565c2bd3954e1b7a5300309a6d721111cd454359f050ae@mail.kernel.org>
-In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-12-410f57770bad@toxicpanda.com>
-References: <20260922-b4-rcu-tasks-preempt-qs-v5-12-410f57770bad@toxicpanda.com>
-Subject: Re: [PATCH v5 12/13] rcu-tasks-trace: Assert no reader is held on return to userspace
-From: bot+bpf-ci@kernel.org
-To: josef@toxicpanda.com,paulmck@kernel.org,frederic@kernel.org,ast@kernel.org,rostedt@goodmis.org
-Cc: boqun@kernel.org,mhiramat@kernel.org,mark.rutland@arm.com,peterz@infradead.org,tglx@kernel.org,daniel@iogearbox.net,andrii@kernel.org,puranjay@kernel.org,rcu@vger.kernel.org,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-kernel@vger.kernel.org,josef@toxicpanda.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 22 Sep 2026 03:11:27 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============6030411877518670542==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Unbinding uas while READ commands are in flight can leave the storage
+device unusable after the driver is rebound.  The first post-bind
+INQUIRY Data-In transfer completes with -EOVERFLOW, and SCSI error
+handling eventually offlines the device:
 
-> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-> index e19b41ee6b18..d42568a488a7 100644
-> --- a/include/linux/irq-entry-common.h
-> +++ b/include/linux/irq-entry-common.h
-> @@ -5,6 +5,7 @@
->  #include <linux/context_tracking.h>
->  #include <linux/hrtimer_rearm.h>
->  #include <linux/kmsan.h>
-> +#include <linux/rcupdate_trace.h>
->  #include <linux/rseq_entry.h>
->  #include <linux/static_call_types.h>
->  #include <linux/syscalls.h>
-> @@ -214,6 +215,7 @@ static __always_inline void __exit_to_user_mode_validate(void)
->  {
->  	/* Ensure that kernel state is sane for a return to userspace */
->  	kmap_assert_nomap();
-> +	rcu_tasks_trace_assert_idle();
->  	lockdep_assert_irqs_disabled();
->  	lockdep_sys_exit();
->  }
-> diff --git a/include/linux/rcupdate_trace.h b/include/linux/rcupdate_trace.h
-> index dcdb11643496..9eb7f92c710b 100644
-> --- a/include/linux/rcupdate_trace.h
-> +++ b/include/linux/rcupdate_trace.h
-> @@ -217,6 +217,12 @@ unsigned long rcu_tasks_trace_batches_completed(void);
->  // Placeholders to enable stepwise transition.
->  void __init rcu_tasks_trace_suppress_unused(void);
->
-> +/* A task must never reach userspace inside an rcu_read_lock_trace() reader. */
-> +static inline void rcu_tasks_trace_assert_idle(void)
-> +{
-> +	WARN_ON_ONCE(IS_ENABLED(CONFIG_PROVE_RCU) && READ_ONCE(current->trc_reader_nesting));
-> +}
-> +
-          ^^^^
+  scsi host7: uas
+  scsi 7:0:0:0: tag#4 data cmplt err -75 uas-tag 1 inflight: CMD
+  scsi 7:0:0:0: tag#4 CDB: Inquiry 12 00 00 00 24 00
+  scsi 7:0:0:0: tag#4 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD
+  usb 2-2: reset SuperSpeed USB device number 2 using xhci_hcd
+  scsi host7: uas_eh_device_reset_handler success
+  ...
+  scsi 7:0:0:0: tag#7 CDB: Test Unit Ready 00 00 00 00 00 00
+  scsi host7: uas_eh_device_reset_handler success
+  sd 7:0:0:0: Device offlined - not ready after error recovery
 
-This isn't a bug, but since rcu_read_lock_trace_held() already exists a
-few lines up, would rcu_tasks_trace_assert_no_reader() (or
-..._assert_not_held()) read better here than ..._assert_idle(), given
-that "idle" already means the dynticks/RCU-not-watching state elsewhere
-in RCU?
+A command URB may already have delivered a SCSI command when usbcore
+disables the interface endpoints and kills the data and status URBs
+before ->disconnect.  uas_disconnect() then removes the SCSI host only
+after killing its anchored URBs, so SCSI teardown cannot first quiesce
+the accepted commands.  A newly bound UAS instance can encounter the
+residual transport state.
 
-And would it be worth moving it above the "Placeholders to enable
-stepwise transition" comment so it does not read as part of that group?
+The failure reproduced with a VIA Labs 2109:0715 storage bridge on both
+Zhaoxin 1d17:9204 and Intel 8086:a2af xHCI controllers.  USB device reset
+and xHCI unbind/rebind did not recover the device; physical reconnection
+did.
 
->  #else
->  static inline unsigned long rcu_tasks_trace_batches_completed(void) { return 0; }
->  /*
+Set soft_unbind so the endpoints remain available during driver unbind.
+Cancel pending scanning and remove the SCSI host before setting resetting
+and killing the anchored URBs.  Use the same teardown order for every
+disconnect path and rely on SCSI host removal to handle a device that can
+no longer communicate.
 
-[ ... ]
+With the change, 10 of 10 zero-delay unbind/rebind iterations with 30
+READ commands in flight reattached the disk and completed a post-bind
+O_DIRECT read.  Unbind took 82 to 109 ms, with no UAS completion error or
+command timeout after rebind.
 
-
+Signed-off-by: Jiayi Li <lijiayi@kylinos.cn>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+Changes in v2:
+- Remove the USB_STATE_NOTATTACHED-based disconnect classification.
+- Use the same teardown ordering for all disconnect paths.
+- Reword the commit message.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35680506278
---===============6030411877518670542==--
+Link: https://lore.kernel.org/lkml/20260920012358.3362053-1-lijiayi@kylinos.cn/
+
+ drivers/usb/storage/uas.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+index 8655edbd66b16..8752cecb45915 100644
+--- a/drivers/usb/storage/uas.c
++++ b/drivers/usb/storage/uas.c
+@@ -1217,6 +1217,14 @@ static void uas_disconnect(struct usb_interface *intf)
+ 	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
+ 	unsigned long flags;
+ 
++	/*
++	 * Prevent SCSI scanning (if it hasn't started yet)
++	 * or wait for the SCSI-scanning routine to stop.
++	 */
++	cancel_work_sync(&devinfo->scan_work);
++
++	scsi_remove_host(shost);
++
+ 	spin_lock_irqsave(&devinfo->lock, flags);
+ 	devinfo->resetting = 1;
+ 	spin_unlock_irqrestore(&devinfo->lock, flags);
+@@ -1227,13 +1235,6 @@ static void uas_disconnect(struct usb_interface *intf)
+ 	usb_kill_anchored_urbs(&devinfo->data_urbs);
+ 	uas_zap_pending(devinfo, DID_NO_CONNECT);
+ 
+-	/*
+-	 * Prevent SCSI scanning (if it hasn't started yet)
+-	 * or wait for the SCSI-scanning routine to stop.
+-	 */
+-	cancel_work_sync(&devinfo->scan_work);
+-
+-	scsi_remove_host(shost);
+ 	uas_free_streams(devinfo);
+ 	scsi_host_put(shost);
+ }
+@@ -1267,6 +1268,7 @@ static struct usb_driver uas_driver = {
+ 	.suspend = uas_suspend,
+ 	.resume = uas_resume,
+ 	.reset_resume = uas_reset_resume,
++	.soft_unbind = 1,
+ 	.shutdown = uas_shutdown,
+ 	.id_table = uas_usb_ids,
+ };
