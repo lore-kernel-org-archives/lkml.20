@@ -1,64 +1,64 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C782A55C1B9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343E755C30A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:28:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790087337; cv=none; b=lFNsXkh6HlLFTl4zNREbs/cjqgvGEvG2PWGo2jn+peYkMQyKoTZmdOH0bMFDR690zTtb4RFVKQz9QDBiaMALsrejHFTcxloHcxUWeAxNY2GFL8Pg9h577pXNeN8b1WaTkD4Q7oEqdqOehYfSeTNEOWw29X/3aA8NNI0XrHx4usA=
+	t=1790087340; cv=none; b=S5YFRKh1OjDXGcvF6VOycVoaLH/bSBwxbEFwuWrZLcHt3rypFl80Xz7br2C5bix9G3/wHEM+ehXXZfr5CQ9h/njiu5thevuTBFFYcop1YtIfU1Ofi56dD9taXCuHhNec0pu/KytQ+jKe/wA94+IAU03V+6yDICvwUYO6TtdwV70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790087337; c=relaxed/simple;
-	bh=LjFWXtBxX8T94YoQ6LqwowvWE59E53HE3eg72IgpkjE=;
+	s=arc-20240116; t=1790087340; c=relaxed/simple;
+	bh=tp2C5wgYQL0+H/MstzejuqB0z6Y4qPGa9hNfxih8Myc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WDmlX3BQoHKk2gtIFrf1Aosy1rw3lLfNVzCGlTiWwdB9BzpBGEFSV1aC3noQa045JsrokdJhpsc4mjvSZsC23J5N2xyx823Pj9YkLWuibDa9OIH5EQznotNh3d+9SS5zkddFcU4R1g27KVM8v34X9KaHDoqDJqwkfM0YLX+u/Ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YsTNHPDq; arc=none smtp.client-ip=209.85.167.51
+	 MIME-Version; b=ZYIErWEfXmnTaV9squ2+WI9MwJi9Wejj83stgv6DYZ0GaEqnE7EOWQA6zsbKGC7UQzpPEbZciDUlbUZUfC7MPiZxUPEk46MjGatH9TbF0MAbvLsARC1jLrsLj3zqH1f7Afex8GT1HWguSBLVonDAEWjk/OidHdRlP3JDbtv5PLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nxX2jk/Q; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YsTNHPDq"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b8b3c8c4bbso655199e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:28:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nxX2jk/Q"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1801fso4229964e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:28:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790087334; x=1790692134; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790087336; x=1790692136; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ElzIfLW9vsgs9qj3Q3n1oLfTLliMNpKpVYJ0kUF5UpQ=;
-        b=YsTNHPDqoCOie/hcailZHkczEXqKkCCPBmdDCFHxP1J9Xj+y77g6qfYb1AMxuvoM8l
-         ozMeihLSbDRnU2779bgyG21CkCzYU1GDWefo8al69vTQI5n0SQGlgGYFIsUlXSO7wVV/
-         UFZtq7hrLq6bjNYKEUzrG8qYcA5MHJ+lx9PfkYWexNbnk4LIuRQmB5dWu241lpZZDCA8
-         8thUOkuqsq7GjDIQudK8brofRUZ6uA6tS23Se6nyi8K+I767XyKXoEeJ9o1wUU6GObVC
-         F2OcMUAoplR9UfaQKQnTqkfpiWR6A9YdIQOIotyLoqf7pzo/igOsBVxMBHrxejDHFV0V
-         bLQw==
+        bh=DWnL/kcGD9BgwQHJ1ulieSSx0+mb/wdvY4wv1lor7jg=;
+        b=nxX2jk/Q3+RMc1UIK03+z7NwXbmC4TZgNllhKUt2tbFDttnI6YUM+lagN8P6p88sc9
+         KNAc8a5rx3cIjbBI5u1KNZKjYc+P9Syws6QBgrLj1v3z9rCO6oklhpAp8DyailwRn8MG
+         ugAExIj2tsdmVIBlOJageTbX7TckfGG7Fs97kH1UQf1IRwRN7B2nZ5qiqR1fDCRGmjdi
+         5KIXs/d1UPcmZmxfc74lyqA5FKKCeYsLmNMkTu4TEk/1KL6shSEw2FrJKrBd4pRUDoAO
+         EZDtZrm7/j7vs5HmgbOLl6BX+g/Hqi6U1ffcfSzGPQUwsNWandKRfPQiWQOgY9H4fs2K
+         QS6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790087334; x=1790692134;
+        d=1e100.net; s=20260707; t=1790087336; x=1790692136;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ElzIfLW9vsgs9qj3Q3n1oLfTLliMNpKpVYJ0kUF5UpQ=;
-        b=Wt9tkV78Hg0F8hvrOgrBx1j8SrCJV7lQCoSFr0IelhZ7BU6OEziv+XnOCuEb3YyA0S
-         OEtXWX2C+cFWFnYn0B0SL9Eqe2A+tBPgsDFbNLmD2Ph6sFsVUQF1kOsWCGJRSr2Y2iQb
-         UZcqkOVwCW7CHsLdhqfX2IxvJHqOT6FtVXMcSxv2MNzNZl7ChUISmq9Guo3aL67bmGhP
-         9Tae9zIDRTcMMtiUl24OFslYKcc40JKqwxNlFLODjRFmAe53FWG7xVwH7dumIegyo4Qt
-         rYvUw7+D5iBfoTlacXlYEaGzEPY1EDW/ZQtoZ39TBxpspdkj2KrQsNl+uZaGerJIMR3y
-         DS1A==
-X-Forwarded-Encrypted: i=1; AKwUvBzRvUTD/9M9fnnADXuBT3qzN/9eCJ0EosYIywOTnWfh+N/EPt0zL1NObmpzd+ggxiMOjjUpp2ZrMuBSwi0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzGyUynl52dQO+84QlD9vz3nqLcNDYFi9bSQOzBcFCrhIQgkhr
-	7gTy2X5AjOLlBSo8WFsXytvQnhF1g+dZxPjsyTrOwLC5vWHeLomMdH1E
-X-Gm-Gg: AYBFou2Ef/Shgist9xtXGYBrDw8TGs3egfBRPtZa2FzGUinOaYA9uL0tu7o9YtK3g9K
-	n1c1Fc9+gLmhHGSe91vo2vP6rszyIIzXqFpP2eTMdEe7zyWgBkqmbnj3JYBXmlUntlCf0sFwgQ4
-	cc+dfdP08FE+lSeCtDjmhKKHvSg3OTRXPDyEJVC8a5Vzr+tuF6AVQoN//Stxk6JYrUy0EKdyOQ0
-	mmS6MkB8OdtCxXopcNeHvCrMkMZhFHTF+6kilIHaHzgTOZlkuswaSrvsQcII93UBoiV3Kp1u1tp
-	5OAM4KAm7qjfls8cOR8KOo2g7V0wBCYMFt+Njhxdg2M6JFXDl6vHAxfdMMpAhUTXdoZxlMLFlJ5
-	hwrE7uVmf02ZMw/ElKde6daAiZ/TUDpPZTtsN88Q6nfTYrI3U2Db1CylASpqes8X4pMbxLGVXl6
-	KOEVolTInYjYxp3DizQ13tDQRnT6U+SP+K8AjLHo9Ienk2GLIt0oZC5RonRKoojOkVavKE270TV
-	MdSGzDNUnqhmlS38SReo+xH0dOd9IMw8gsdG0xk
-X-Received: by 2002:a05:6512:1242:b0:5b8:9a95:e251 with SMTP id 2adb3069b0e04-5b8d293525bmr961353e87.25.1790087333547;
-        Tue, 22 Sep 2026 07:28:53 -0700 (PDT)
+        bh=DWnL/kcGD9BgwQHJ1ulieSSx0+mb/wdvY4wv1lor7jg=;
+        b=Z/oHesv7JAerRZV+lgBnT9QBtZ0KCo5Iw+rAmwNgueUsS+mxLifoJeO+PJq/wl5nY6
+         fTwHjSDt8lPA03/hjPa+boKXzJEcInsX8gfYqHnRVegDBvbYNPeag++2lYIF4stK7oDa
+         qANDt60r5T1YJD8Jtc4CUsVU9th9Hd5A8Qpnactd5uGORs8KU2PDaP+vjyv0JeWd4GP8
+         JUV46WVNTUK/+BRnhmKoRCyGAOvE9UewFC8RUFG7VMhaej7f2K/J4lFaBEelFYpgTVqu
+         FUGHAa6KqMj6m9yqwIhoWNxucjZ6lNENrI1QXiTA3Swj5wBQJ8XNRs5W/bGir8/lnjMY
+         J3pA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7gB3MW/YTTdgn+bSmrrckGtKML/63O871dGriX7bXgltNJxXrA9bJekNd8/YJvXPL/WmpG8hFNJzhJgs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhfeEpoM0upODQkCfhXiM/xW0t+1QqGr9U0tJr6YmjEOAtyZN+
+	eK/ksjXUEX5DI4S/V3rjLhh6zjeHF4baqxzBkwHvfroAIMj+p3o8wxF0
+X-Gm-Gg: AYBFou1x9K9e/kiru1JW8h88opRg9oCLPp1VLHS6Jio9FBgoLj7eZXqWTL6EXla1ke7
+	JgeuqRHtywnZEip9Grm9P+y+R9OsCLua0o2svj/GFW8zlLZ2XIYRWPhfS92wmkQwyYiBQysWmZA
+	6OlWWbdO//1ncGa/1QyMqVmrDo3oIo6iuskeLgPTu3gCiq6VWnlqk1ddLzLwUAewzFE23dmtnJP
+	shMNx8ow3o4CCN2YqatG+aKi7wE8sptBfwdlcUu3fn2A9KYv8XX55ta+MsXpMUuEJ2fjUa5TchG
+	RrOk1+i/aVaQv2KH2uXZJmmqWUh+aEk2afBDMbVNc8VarQHYYItgKgm1Jcakzyi+fhdZl9Zuvap
+	f3Lt7kMpxJpJXf6ek/ek/ridZjBsHgc9u7CJ/NuLnsXayBC3vhFuSiQ5x3ew2d+KMlCCYaCkaJe
+	Vh3BERuKjii6LBbePr1qqewGZzpKyLeXgUK+Fwdz6yjysHTUMTqzMEhJ9xy5S6rbvoSuB7e2xq1
+	CcK/pd5Wl0F6zhsBGhM0lY4OdA74Zw1aa+tPsDo
+X-Received: by 2002:a05:6512:3e25:b0:5b8:d078:da8e with SMTP id 2adb3069b0e04-5b8d078e2c7mr1792641e87.28.1790087335967;
+        Tue, 22 Sep 2026 07:28:55 -0700 (PDT)
 Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46d2064sm589691e87.24.2026.09.22.07.28.51
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46d2064sm589691e87.24.2026.09.22.07.28.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:28:53 -0700 (PDT)
+        Tue, 22 Sep 2026 07:28:55 -0700 (PDT)
 From: Sagi Maimon <maimon.sagi@gmail.com>
 To: Richard Cochran <richardcochran@gmail.com>,
 	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
@@ -77,9 +77,9 @@ To: Richard Cochran <richardcochran@gmail.com>,
 Cc: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net-next 8/9] ptp: ocp: tolerate a latched FAILED when entering configuration mode
-Date: Tue, 22 Sep 2026 17:28:28 +0300
-Message-ID: <20260922142829.57740-9-maimon.sagi@gmail.com>
+Subject: [PATCH net-next 9/9] ptp: ocp: confirm the CPLD really left configuration mode after REFRESH
+Date: Tue, 22 Sep 2026 17:28:29 +0300
+Message-ID: <20260922142829.57740-10-maimon.sagi@gmail.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20260922142829.57740-1-maimon.sagi@gmail.com>
 References: <20260922142829.57740-1-maimon.sagi@gmail.com>
@@ -91,52 +91,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The first status wait after EN_CFG_TP used adva_x1_cpld_wait_ready(),
-which turns a set CPLD_STATUS_FAILED into -EIO.  FAILED is latched across
-operations and nothing in the driver clears it - the failure path only
-sends DIS_CFG - so once a part had failed an operation, every later
-"devlink dev flash ... component fw.cpld" would return -EIO at the enable
-step, before reaching the ERASE and REFRESH that would put the part back
-into a defined state.
+The post-REFRESH check required DONE set, BUSY clear and no error code.
+Those three conditions are already satisfied by the state SET_DONE leaves
+behind, so they cannot distinguish a REFRESH that rebooted the part from
+one whose frame was ACKed but never latched - and the I2C ACK alone was
+taken as proof, clearing cpld_in_config_mode.
 
-That contradicts the recovery this driver relies on elsewhere: the page
-loop documents an aborted update as recoverable because fw.cpld stays
-advertised so the image can be written again.
+A part left that way stays in configuration mode running the old image
+while "devlink dev flash ... component fw.cpld" reports success, which is
+the opposite of what the documentation promises.
 
-Use adva_x1_cpld_wait_idle(), which waits the operation out whatever its
-outcome, and let the CPLD_STATUS_ENAB check that follows decide whether
-the part actually entered configuration mode.  machxo2_write_init() in
-drivers/fpga/machxo2-spi.c tests FAIL the same way, after the enable has
-completed rather than as a precondition for it.
+Test CPLD_STATUS_ENAB as well: leaving configuration mode is the one
+thing only a REFRESH does, so it is what separates the two cases.  Put
+cpld_in_config_mode back when ENAB is still set, so the exit path and the
+recovery at the start of the next flash can act on it instead of
+believing a mode change that never happened.
 
 Fixes: a4b7c15aa78f ("ptp: ocp: add TAP CPLD flashing via devlink")
 Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
 ---
- drivers/ptp/ptp_ocp.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/ptp/ptp_ocp.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 0d6d0c02882c..4f2bf54a23c2 100644
+index 4f2bf54a23c2..9c2b7403bfd0 100644
 --- a/drivers/ptp/ptp_ocp.c
 +++ b/drivers/ptp/ptp_ocp.c
-@@ -5018,9 +5018,16 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
+@@ -5135,6 +5135,9 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
+ 
+ 	/* REFRESH reboots the CPLD out of configuration mode, so the exit
+ 	 * path must not send DIS_CFG afterwards even if a check below fails.
++	 * The ENAB test below confirms it really left; until then assume it
++	 * did, because sending DIS_CFG to a part that has rebooted is what
++	 * this flag exists to avoid.
  	 */
- 	bp->cpld_in_config_mode = true;
+ 	bp->cpld_in_config_mode = false;
  
-+	/* wait_idle(), not wait_ready(): FAILED is latched across operations
-+	 * and nothing here clears it, so treating it as fatal at the enable
-+	 * step would make every later flash of a part that has failed once
-+	 * return -EIO before reaching the ERASE and REFRESH that put it back
-+	 * into a defined state.  ENAB below is what says the enable worked;
-+	 * machxo2-spi.c likewise tests FAIL only after ISC_ENABLE completes.
-+	 */
- 	err = adva_x1_cpld_write(bp, CPLD_CMD_EN_CFG_TP);
- 	if (!err)
--		err = adva_x1_cpld_wait_ready(bp, 5000);
-+		err = adva_x1_cpld_wait_idle(bp, 5000);
+@@ -5156,12 +5159,21 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
+ 	/* Require DONE set, not busy and no error code, as machxo2-spi.c does
+ 	 * after a refresh: without it a CRC or preamble error reads back as a
+ 	 * successful update.
++	 *
++	 * ENAB has to be clear too.  Those three conditions are already met
++	 * by the state SET_DONE leaves behind, so on their own they cannot
++	 * tell a REFRESH that rebooted the part from one whose frame was
++	 * ACKed but never latched - which leaves the part in configuration
++	 * mode still running the old image.  Leaving configuration mode is
++	 * the one thing only a REFRESH does.
+ 	 */
+ 	err = adva_x1_cpld_read_status(bp, &st);
  	if (err)
- 		goto exit_config;
- 
+ 		goto deselect;
++	if (st & CPLD_STATUS_ENAB)
++		bp->cpld_in_config_mode = true;
+ 	if (!(st & CPLD_STATUS_DONE) || (st & CPLD_STATUS_BUSY) ||
+-	    (st & CPLD_STATUS_ERR)) {
++	    (st & CPLD_STATUS_ERR) || (st & CPLD_STATUS_ENAB)) {
+ 		dev_err(&bp->pdev->dev,
+ 			"CPLD refresh left status 0x%08x\n", st);
+ 		NL_SET_ERR_MSG_MOD(extack, "CPLD did not come back configured");
 -- 
 2.47.0
 
