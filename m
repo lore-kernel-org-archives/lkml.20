@@ -1,289 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031275208DF;
-	Tue, 22 Sep 2026 22:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD064EDCC8;
+	Tue, 22 Sep 2026 22:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790116698; cv=none; b=ud1zF/7HTDDXG3uzQ8QvQcCyFk66QlP9QO9CRauyBBqF1lEt1B5xbWM2y05JE1BjMnY6Kglu8IPjl9aJpYQvEgbX8b/sgwPLM4ccovcNcwCpQLAoAQhiZzNDqWmqLzsuJHYEyWnDrZt8u/mtfuVrpzEgzkIV9tJQi7GToVHO3TE=
+	t=1790116725; cv=none; b=Vv2SeQDj/E6LCVOIIfoS3ZI1VkdIoAIXcLe1wra15+BBPRNe1jrvfRW4x6HaFrak22VtS6uEBaCfmJtUD4d3ykwWW2n9ihxHu6nbC68vPZCeABbnyG78yRbQHMU/lTXA+N/Ugpe1OADG2PD8ljboHQCMvF7cyAkMOzPdRV8Y2w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790116698; c=relaxed/simple;
-	bh=bgVRM+Sz/usCyARpbRvdy1S3/hPkJtGO3LjaNf1NHwY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fhxptkczlpSE3ySjCzBnxfvaCgnrdeAuC+k4UFV8cKqrnzG6VyNTSTKgAa27xIGz4f3ZrXoUBvyFFTw9mvRU32MVDad0ybQ8LPm9bBnLF2Izg1zkyNvDaZ4AmmpIL/aWbv0LJHbs/XdLjO+WJI08ZJq6sLuQadGAofzxamNls/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONMonuLI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790116725; c=relaxed/simple;
+	bh=Xu65AFIawlYizxpmzwr4U/pdnhBGbXmHEBuegSL5sLo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VIZM3TjYDSabhcnR3BloegwzMhDnVIC6vbGlUw0bqpM5jlQKLzov3toA8Ge3GuAPNbYk8Gg7N2toyh5ZQmm+H+cjJjUhI6R8Fqm7OtQXlCYlNS7jfdOEPL92XqWPp+F506dUIOUx5DfTDzHoQ+fUyn00EQvCmqdMGJJQlW10T5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TADOecd1; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONMonuLI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7C41F00893;
-	Tue, 22 Sep 2026 22:38:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790116681;
-	bh=ziZvqWcLQpHGEiHTKfh87VzJANRTxFv1NsOqsgcgL6s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ONMonuLIUzDEEK9OroHmvXY1YCg4Qpy0NeiOzCv2mOhBTC92Kuu7tljezvjLVb/gV
-	 RcEqrYBNOFFmw3GOwSqDe//rfDWQhGQDVlcVP2CbSMZni93/3FGHD3V7l1QjogokiX
-	 DEMldrRCON3Drk+uPWMAR0D57UB1JO0N2t8L+cmf1z9dFkNvVgUk0+9gdAoFmthVxH
-	 eds9+1J+IrmWHLeMmsTSPR1q+Okzl4gSkCFIjFl6TVfxmUfo7XqZboWawXLSF2UpSt
-	 wgw9a2NybK7+vbHNeO/nl/CTIekIVMu6ZGKkv2aWiH41Kcsl5HEZJS6bz+yHP/9Zyy
-	 2Cj1ZqFrKrJlw==
-Subject: Re: [PATCH net-next v3 2/2] selftests: net: test untracked NA
- recovery of FAILED neighbors
-From: netdev-bot+sashiko@kernel.org
-To: lfqlee314@gmail.com
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- rdunlap@infradead.org, netdev@vger.kernel.org, aajith@arista.com,
- roopa@nvidia.com, jhpark1013@gmail.com, corbet@lwn.net,
- skhan@linuxfoundation.org, shuah@kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 22 Sep 2026 22:38:00 +0000
-Message-ID: <179011668031.2160803.1030111847497325728@kernel.org>
-In-Reply-To:
- <7285b55a1e29d2f04de4e3fe1e723a9724e0377e.1789734885.git.lfqlee314@gmail.com>
-References:
- <7285b55a1e29d2f04de4e3fe1e723a9724e0377e.1789734885.git.lfqlee314@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TADOecd1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790116717; x=1821652717;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Xu65AFIawlYizxpmzwr4U/pdnhBGbXmHEBuegSL5sLo=;
+  b=TADOecd1IkRTtK3xx5+ibSqMo54xElUBV1TxdnhL/+/i8r8fqjsmNxze
+   aZiHH8JZoLaz7me9NnsNW6ML/NpB7QrCDJKXORhkmpdZ9qnnxDnzixKyh
+   WjWlD/RC+iWiew2qw1kFl/muFcggR55myfIYDMbRS57tEbn+drFmmFOcT
+   jeg9mac+Rr4E1s7QRicArKzHExFUrc3Uj/vMFysDMNiULN1y77d4cgvPH
+   ovwpRJd8sB4zeY9Vvy9GJZBh9Vd/2RPc1GgS5J5QDtML/ShIr/2XEb3oD
+   kUZS+nBM6X9Phr58LkAlyQhsWtfTwLQfJnobTE+YxIiwRqdDRYkNo9PEY
+   g==;
+X-CSE-ConnectionGUID: wF9G6RycSiGc0WNcao80UQ==
+X-CSE-MsgGUID: GJPmi5A0QDCb+ggnqICVNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90788363"
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="90788363"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 15:38:30 -0700
+X-CSE-ConnectionGUID: j7CJg5pKQ5iGjT9AU/zfdA==
+X-CSE-MsgGUID: ZnTENF3HQk+lx6QUPeyYGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="272816914"
+Received: from gmitchel-mobl2.amr.corp.intel.com (HELO [10.125.110.75]) ([10.125.110.75])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 15:38:29 -0700
+Message-ID: <199d392a-02da-430b-95ee-b176ed0f43de@intel.com>
+Date: Tue, 22 Sep 2026 15:38:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/4] virt: tdx-guest: Use a variable to store the Quote
+ buffer size
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "sathyanarayanan.kuppuswamy@linux.intel.com"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>, "kas@kernel.org"
+ <kas@kernel.org>, "Fang, Peter" <peter.fang@intel.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
+Cc: "seanjc@google.com" <seanjc@google.com>, "bp@alien8.de" <bp@alien8.de>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
+ "hpa@zytor.com" <hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
+ "tglx@kernel.org" <tglx@kernel.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "Bityutskiy, Artem" <artem.bityutskiy@intel.com>
+References: <20260915092632.2822169-1-peter.fang@intel.com>
+ <20260915092632.2822169-4-peter.fang@intel.com>
+ <620e7e38-4287-431c-8285-575c84aa1f6a@intel.com>
+ <7ddf42ab-2f78-4edd-be39-ff9e5156d51c@intel.com>
+ <1e6ed0923fe1ac938f3e0fa0f8d05d31eb2d0f31.camel@intel.com>
+Content-Language: en-US
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <1e6ed0923fe1ac938f3e0fa0f8d05d31eb2d0f31.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 9/22/26 12:46, Edgecombe, Rick P wrote:
+> I was suggesting to make the new seamcall wrapper consistent in how it gets this
+> data by referring to the global definition for the global key id instead of a
+> parameter. Seems like it is against this feedback, can you give a quick take on
+> that case too? I just think mixing global references and global values passed as
+> arguments it too weird. Should we switch to passing everything as args even when
+> we need to plumb it through several layers?
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
+There's no one-size-fits-all solution.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+It's really powerful if you can pack all of the code for a single
+concept into a single small function. This pattern:
 
-- [Medium] Undisclosed fix of a pre-existing false-PASS defect, without a
-  Fixes: tag.
-- [Low] No `trap cleanup EXIT INT TERM` is registered, while the patch
-  converts tcpdump from a foreground command into a backgrounded child…
+	int foo(...)
+	{
+		static int __bar;
 
-Pre-existing issues:
-- [Low] Claimed issue (validated as a pre-existing Low-severity
-  robustness nit): in verify_ndisc(), the absent-entry branch (lines…
+		if (__bar)
+			return __bar;
 
---
+		__bar = whatever();
 
-selftests: net: test untracked NA recovery of FAILED neighbors
+		return __bar;		
+	}
 
-This extends the accept_untracked_na selftest to seed a FAILED neighbour
-entry before triggering an unsolicited NA, and checks the resulting state,
-link-layer address and extern_learn marker for modes 1 and 2. It also
-reworks the tcpdump handling so the capture is armed before the host link
-comes up and is waited for before the neighbour table is inspected.
+Because you can, at a single glance, get all of the context for foo()
+that you need. When it gets set, who sets it. But it also only works for
+static, write-once data.
 
-Link: https://lore.kernel.org/r/20260813233344.445265-1-lfqlee314@gmail.com
+As for passing things around through several layers, it's OK to do it if
+it adds clarity to the code. If the entire point of a whole chain of
+functions is to get a global variable set, doing:
 
-A few questions below.
+	foo(&global);
 
-> diff --git a/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh b/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh
-> index 5db69dad0cfc..ba9e670b5149 100755
-> --- a/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh
-> +++ b/tools/testing/selftests/net/ndisc_unsolicited_na_test.sh
+can make things clearer because you know *instantly* that only foo() and
+things that call foo() can modify 'global'. It limits the scope of time
+where 'global' can get modified.
 
-[ ... ]
+Think of if foo() calls 10 other functions and they all randomly
+reference 'global' directly. Figuring out how and when they call each
+other and making sure there are no calls from outside can be really hard
+to understand.
 
-> @@ -102,24 +115,39 @@ setup()
->  }
->  
->  start_tcpdump() {
-> -	set -e
-> -	tcpdump_stdout=`mktemp`
-> -	tcpdump_stderr=`mktemp`
-> +	tcpdump_stdout=$(mktemp) || return 1
-> +	tcpdump_stderr=$(mktemp) || return 1
->  	${IP_ROUTER_EXEC} timeout 15s \
->                  tcpdump --immediate-mode -tpni ${ROUTER_INTF} -c 1 \
->                  "icmp6 && icmp6[0] == 136 && src ${HOST_ADDR}" \
-> -                > ${tcpdump_stdout} 2> /dev/null
-> -	set +e
-> +                > "${tcpdump_stdout}" 2> "${tcpdump_stderr}" &
-> +	tcpdump_pid=$!
-> +
-> +	slowwait 5 grep -q "listening on ${ROUTER_INTF}" "${tcpdump_stderr}"
-> +}
-> +
-> +wait_tcpdump()
-> +{
-> +	local rc
-> +
-> +	wait "${tcpdump_pid}"
-> +	rc=$?
-> +	tcpdump_pid=
-> +
-> +	return "${rc}"
->  }
->  
->  cleanup_tcpdump()
->  {
-> -	set -e
-> -	[[ ! -z  ${tcpdump_stdout} ]] && rm -f ${tcpdump_stdout}
-> -	[[ ! -z  ${tcpdump_stderr} ]] && rm -f ${tcpdump_stderr}
-> +	if [ -n "${tcpdump_pid}" ]; then
-> +		kill "${tcpdump_pid}" 2> /dev/null
-> +		wait "${tcpdump_pid}" 2> /dev/null
-> +	fi
-
-[Severity: Low]
-tcpdump is now a background child, and cleanup_tcpdump() is the only place
-that kills and reaps it. Can that child be left running when the script
-leaves through a path that never reaches cleanup()?
-
-cleanup_tcpdump() is reached only from cleanup(), which runs at the tail of
-test_unsolicited_na_combination() after log_test() returns:
-
-	log_test "${rc}" 0 "${test_msg[*]}"
-	cleanup
-
-log_test() can exit first when the script is run with -p or -P and the
-operator answers 'q':
-
-	if [ "${PAUSE}" = "yes" ]; then
-		echo
-		echo "hit enter to continue, 'q' to quit"
-		read a
-		[ "$a" = "q" ] && exit 1
-	fi
-
-setup() also runs under set -e, so a failing sysctl there (for example
-accept_untracked_na=2 on a kernel without mode 2) exits the shell directly.
-There is no trap cleanup EXIT INT TERM anywhere in the file, so in those
-cases the two namespaces from setup_ns and both mktemp files are left
-behind, and if the failure happens between start_tcpdump() and
-wait_tcpdump() (for instance the new slowwait 5 grep for "listening on"
-timing out, or host_link_up failing) a live timeout 15s tcpdump keeps a
-packet socket and a netns reference until its own timeout expires.
-
-Would adding a trap that calls cleanup on EXIT, INT and TERM be reasonable
-here?
-
-> +	[ -n "${tcpdump_stdout}" ] && rm -f "${tcpdump_stdout}"
-> +	[ -n "${tcpdump_stderr}" ] && rm -f "${tcpdump_stderr}"
->  	tcpdump_stdout=
->  	tcpdump_stderr=
-> -	set +e
-> +	tcpdump_pid=
->  }
->  
->  cleanup()
-
-[ ... ]
-
-> @@ -129,58 +157,145 @@ cleanup()
-
-[ ... ]
-
-> +	if [ -n "${expected_state}" ]; then
-> +		neigh_show_output=$(${IP_ROUTER} neigh show \
-> +			to "${HOST_ADDR}" dev "${ROUTER_INTF}")
-
-[ ... ]
-
->  	else
-> -		# Neighbour entry expected to be absent for all other cases
-> +		neigh_show_output=$(${IP_ROUTER} neigh show \
-> +			to "${HOST_ADDR}" dev "${ROUTER_INTF}")
->  		[[ -z ${neigh_show_output} ]]
->  	fi
->  }
-
-[Severity: Low]
-This isn't a problem introduced by this patch, but the absent-entry branch
-of verify_ndisc() still discards the exit status of ip neigh show and only
-tests that the output is empty. If the command itself fails, is the empty
-output then reported as a pass without the neighbour table ever having been
-read? The same pattern is present in the baseline version of the function,
-so this is pre-existing; the new expected_state branch fails closed. Would
-checking the exit status of the query in the else branch be worth folding
-in while this function is being touched?
-
->  
->  test_unsolicited_na_common()
->  {
-
-[ ... ]
-
-> -	# Bring the link up, wait for the NA,
-> -	# and add a delay to ensure neighbour processing is done.
-> -	link_up
-> -	start_tcpdump
-> +	# Arm the capture before bringing up the host and starting DAD.
-> +	router_link_up || return 1
-> +	start_tcpdump || return 1
-> +	host_link_up || return 1
-> +
-> +	# Closing tcpdump's packet socket calls synchronize_net(), so waiting
-> +	# for it also waits for receive processing of the captured NA.
-> +	wait_tcpdump || return 1
->  
->  	# Verify the neighbour table
-> -	verify_ndisc $1 $2 $3
-> +	verify_ndisc "$1" "$2" "$3" "$4" "${same_subnet}"
->  
->  }
->  
->  test_unsolicited_na_combination() {
-> -	test_unsolicited_na_common $1 $2 $3
-> +	local initial_state=${4:-absent}
-> +	local same_subnet=${5:-1}
-> +	local rc
-> +
-> +	test_unsolicited_na_common "$1" "$2" "$3" "${initial_state}" \
-> +		"${same_subnet}"
-> +	rc=$?
->  	test_msg=("test_unsolicited_na: "
->  		"drop_unsolicited_na=$1 "
->  		"accept_untracked_na=$2 "
->  		"forwarding=$3")
-> -	log_test $? 0 "${test_msg[*]}"
-> +	if [ "${initial_state}" = "failed" ]; then
-> +		test_msg+=("initial_state=failed")
-> +	fi
-> +	if [ "$2" -eq 2 ]; then
-> +		test_msg+=("same_subnet=${same_subnet}")
-> +	fi
-> +	log_test "${rc}" 0 "${test_msg[*]}"
->  	cleanup
->  }
-
-[Severity: Medium]
-The new rc=$? capture also repairs a reporting bug that existed before this
-patch. In the baseline the sequence was:
-
-	test_unsolicited_na_common $1 $2 $3
-	test_msg=("test_unsolicited_na: "
-		"drop_unsolicited_na=$1 "
-		"accept_untracked_na=$2 "
-		"forwarding=$3")
-	log_test $? 0 "${test_msg[*]}"
-
-The array assignment between the helper call and log_test sets $? to 0
-(none of the assigned words contain a command substitution), so log_test
-always received 0 and all eight existing combinations reported OK no matter
-what verify_ndisc returned. Capturing rc immediately after
-test_unsolicited_na_common() changes the pass/fail semantics of those eight
-pre-existing cases so they can now actually fail.
-
-The changelog describes only the new FAILED-neighbour coverage and does not
-mention that the existing reporting was broken, and there is no Fixes: tag
-(git blame points the log_test $? line at f9a2fb73318eb).
-
-Would it make sense to split this into its own patch with a Fixes: tag, so
-it can be applied and backported independently of the new mode 2 and
-FAILED-state coverage, which needs kernel features not present in older
-trees?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1789734885.git.lfqlee314%40gmail.com
+Passing 'global' around can make it really easy to understand.
