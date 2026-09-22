@@ -1,167 +1,323 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F2B38E129
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088716; cv=none; b=tytM272MVy4aZSV5s7mfY2T5jPRaeftqZhEdAExNipNqvQvr558DnclCfn7LJnI7XxVdbd/caRr+Pk0/ov77sgE1BxQ35YOP8wV4aP8jTL90516e8fe/R6GYOKRDy0l2mpn/VcGDrajGQrIOqveU8b9tQV/VdLpt+SonqoMmeNk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088716; c=relaxed/simple;
-	bh=5hKKUbX9dc2B6vvH1kumlLO2tz7nnPJ8LBct6qBOt4o=;
-	h=Message-ID:Date:MIME-Version:From:Subject:Cc:References:To:
-	 In-Reply-To:Content-Type; b=V60aMKOEYZtFP1FgNtCC8eHwUNKmQ/NZ6gMSiiS4221ckpQCoZnYcrcbIPIIbLBGnQV3oP3wU180yDzgtXLaRdI4XKRH3aE+I1NGOq4VLPgzJKKJE+z2ZvwGJnNESMEcG5JhYj0KdCXTt5Z+1OI/Yrov3hQapJcPar6JTAf3KaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZTYMU7k; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD483F86FB
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790088756; cv=pass; b=pnwOjilCn4/qfhfDk4Se5XuNPL/Bdq/YpUIVxHy1mHJ5tqtqmk3ogt1Td2xmWFyxK0rMgDkZoFk0XTsfnxW+U70FBxx2AxtD7QDm3fGQ5v2ZdivzUhQLxCM4WXb0OVOoYrYbRORra8SaYyClT7gX86m2YGlqJ7XYvhYg1lsq57M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790088756; c=relaxed/simple;
+	bh=7sVwErfco+8+EMVPhXwvTV1CuJJIBB3tXQZyI1MPDrs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kXdeVjGYyr3By/h98RNJMFUk9reN8yfDs61ZnmzH3QLkcIV3xot2oLWuwfe+VSGUqlH8OiFugMTq21BPF+1fslNQBcRjR2YOBXf1MqlEp61MOzCHBdQRqqou2vXovZmYHuBo9nHfv2NWRaoaydIm334IQEYvoAjjJX26h0BXEIw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O4aIlhmd; arc=pass smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZTYMU7k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E711F000FF;
-	Tue, 22 Sep 2026 14:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790088714;
-	bh=hR8jTw3JQLahWpRJ3PT9YyqubnBWymiLNmRHyBoIShw=;
-	h=Date:From:Subject:Cc:References:To:In-Reply-To;
-	b=DZTYMU7kDD4j3ztyFtwW9AFpdwYXswZsRyqy+X9Z1qAJoWBHtnH5R/S29QgQ6qjN9
-	 pIgTOKm5AebzwuRE+XuGtGu23Om8+gnsE888zVz5Kr9rE8FdXsjLf8augbHrfiTZno
-	 kW2JYB2vpCUahgKRD+dMogiNT2jTUMWZaL9sBd7wJHV67kJ39pvAhHYq7yCSxt59hs
-	 poia9Zykm+Wn1wIudxsizUWYT6Uoa54a5BfM8BGIqMzPQSmHRN+9qhsLKnP5bBd+jf
-	 RW9iteu8QeVp0XpFAPb1cjSpJSs+UjSldpHjLOzoEZ8dEO3HcBonNGtuqfuN6s5Xrp
-	 QC6u7Jlefn9ug==
-Message-ID: <2e35f2b6-6b90-4587-8891-08846433b0d6@kernel.org>
-Date: Tue, 22 Sep 2026 16:51:52 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O4aIlhmd"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so103935ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:52:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790088754; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J4LZSe9XKRIT2vbpOrA8amfXzUeUl3NSLCEJiKC5/IUwwS6kXOgWdCF+iAdpt8ocMb
+         rf79jO/PR7dEJermYbij1dtS1LAxnzq66m+d0K18HkOoL5UThoOpMM57NnWHftZCqGzw
+         m+7YHCoCfJ7h2ezIbEIZl07Ga7fGTnkuMgPTSqpP57OxhI/L18g1BK22jonRG0w0CIoR
+         EBlRcPQhD1Y0hfue/wYCZrInqCvMcFKT58bXKliu6lbdTOvQZ2sjC5L6a7mnIsTJnutJ
+         wNyILgF7Oi2Zk7rSV+VuSyxtMGn08IWGg3TBv2eKOd26ja87LfQcl59pWwnT/iZtCeg4
+         yPJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yTIoEW85SNN7D0Fwascax7ulU13Zqj41VZ1QFZ0r9YU=;
+        fh=8e2KkslfAxXcGRhTWWYkRN/vL6jCxF9rv6q6HQNihHU=;
+        b=GRRqBKxjT4a5ZIWooLIpa+O1vW7+ycs2uFIDRKZUEAUYeLvjAMaQ1qkcebWHdO3PqJ
+         3P/8s33dSHH3W3FBybvA9QyR3k0qDcWrBYCdqnXy8m3WrDt87F9ZvbA2HXpssHj/o/Jv
+         7AOfgaEa01L4q2BbcZ/dmY8wvTnZAvWt4aADcI6F0Ii/0BFvLtcwjN0hALcixPfaUAAi
+         +ZEK55g6P4DNoHJVRmagoxHweYGQvldeBc/294vMZClQuZ8qlB6k9II+UFwiZPzneRUJ
+         apOBvB1w1z1XLIeXVFGXM6rEgZ8Om8RWfirFd/TBgnWVwSFzAym1PMTtlEIyTr23GJa6
+         nDdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790088754; x=1790693554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yTIoEW85SNN7D0Fwascax7ulU13Zqj41VZ1QFZ0r9YU=;
+        b=O4aIlhmd/k7LGq5UZq7Evsa07K0uP5QvEUssypZ8LH7t0Ii/keSJXO04XqarW+Fsyi
+         f53Twi5X2/iAGq2XWqifHm9hDBKzDN6FN84hd5EbADXRN1EFKpACy1IPx6x7N0uUsnOr
+         D6C+IS6yHw32kmUYHs9nIxgEl0RGIZb3GUY8Wle0gEJvzDP0A2TIJ3zO2OtTuwP8f0dB
+         pDMXBA1Ad7+ephCQr0f/YV6Y4ChdSsZiZJDG/JvWRklzjyzDZulCZ9xztf/Pp1qX+9AL
+         bQ9ukpfgKb0F/2LujJ6kWaAd4ga4OmQ99RLrriX2xUwBpV6FK5XRWrxMZyJXJhlL9356
+         LKng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790088754; x=1790693554;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yTIoEW85SNN7D0Fwascax7ulU13Zqj41VZ1QFZ0r9YU=;
+        b=zcFPVVcolkUHmkABJshEEXnNlrrAdraHkHiRcrnCVpCRm7q+jsIf4B0YjhWUs91QcS
+         ztAm09K82SoiwYe26CxJVCzh9xC5OGYF7xlJ4NmXeGH77Pj/hoEoAh58Lh9VdYBN9GwR
+         JKinH5mZIgkvKirutZAgl8t/QyKs6WHnX0pjF4Z/ssuW4tVWUBX8KDiiui58nqv3n6Lb
+         1l+q6W3lDCr3S9dcdvecBDFvL0piNh+m2oFyRfIm5+EyyjDDsUTmEqDkTuNcMDVASFSn
+         PRgKXQRo4x9VQBjvwj3L4hjnjJd0CrDweEQF2vzimVbUlNLDuVtyQKFWOr59Xw2QUUvf
+         5oNA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9xNHVRd99ehErOz+CZ+UjZ1mdGG/P1+V0dxnwqnj9Gz0ESlFH6cki5D+B2GGtYWN7Nf+fFfPAm73YtRw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8tyDgA9jbSPxzJEYTQK03CC5dcFiAQZGPt/lqnWtn18gJXJu1
+	T+S1/GuH2NN+JI4C3ak6bHzpNxuGtl+kRjBbXPnZnXXDM/D537eoT23ZQ0SfPcUy/xUJkKBwcEC
+	UsywwKlqGKw9PcKLH4VeRNtypuxxk29KZkhaegmmMMmOyXHNzxOGn4lk+
+X-Gm-Gg: AYBFou0wAP2bGzvqmy10x1qG9AorTRT6etiovzqyTToECy0W6UqYG8GVX1ZF2Uftnec
+	x+zOJvCHZaVpSaAxNBmIC3golQBqJF4YC+IE8ZWU3718UShCzIHm1BxuHBG8TbfLb/t76DdgMFb
+	Y4wyZkaLbHT5yZP5Ji4vzPesFOWoK8vBk1Xi1SxpK4dMq3igsTFiXGF9bcP9IDAtnYHiPVKsrGI
+	sZinzHvzrg+0Wxd5oNNvPKvXqODIlECYqENhGh5FtnZO2P0M67Vx5mhOdN2WhJSL2EPK799aepu
+	QZ7wCnrjE8r6XjfgKHd4J7tSugu6BM1KHHTpyv/vqbOTadpWM+06D6jvx61h4+43id0EQr7kIl1
+	17tTurwYf
+X-Received: by 2002:a17:902:fc8d:b0:2c9:d89f:fd98 with SMTP id
+ d9443c01a7336-2df662e3374mr1116865ad.1.1790088752668; Tue, 22 Sep 2026
+ 07:52:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v3] media: v4l2-ctrls: do nothing if controls[0] == NULL
- in cluster functions
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernelorg,
- linux-kernel@vger.kernel.org,
- syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com
-References: <CAHzb5FFOq=2_piCiFdEun_s2h+Jr90pNLF5O_2umNLkM9-XjkA@mail.gmail.com>
-Content-Language: en-US, nl
-To: Rokinthan p <rokinthanp03@gmail.com>
-In-Reply-To: <CAHzb5FFOq=2_piCiFdEun_s2h+Jr90pNLF5O_2umNLkM9-XjkA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260921195545.493253-1-almasrymina@google.com> <179007458060.2160803.1077952399417880240@kernel.org>
+In-Reply-To: <179007458060.2160803.1077952399417880240@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Tue, 22 Sep 2026 07:52:16 -0700
+X-Gm-Features: AcwNN1V4Ci3W10Pgy9sSkPzuwcP_7GXIolq8-v2uiIIScOXhlMj8k7qpggL2nHY
+Message-ID: <CAHS8izP5KFE13qp0H6WY8iTYi22_YQyCYfhrG3KzOgwd-uybRQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v1] net: devmem: document that bind-tx is
+ unprivileged by design
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	donald.hunter@gmail.com, sdf@fomichev.me, razor@blackwall.org, 
+	daniel@iogearbox.net, bobbyeshleman@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 17/09/2026 05:37, Rokinthan p wrote:
-> The V4L2 control framework is designed to allow drivers to instantiate
->     controls and clusters without checking for errors after each call,
->     checking hdl->error only once at the end.
-> 
->     However, if allocating the master control (controls[0]) fails, e.g. due to
->     memory allocation failure, v4l2_ctrl_cluster() triggers a WARNING:
->       ncontrols == 0 || controls[0] == NULL
->       WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 at
->   v4l2_ctrl_cluster
-> 
->     Additionally, v4l2_ctrl_auto_cluster() attempts to dereference
->     master->minimum without checking if controls[0] is NULL, leading to a
->     NULL pointer dereference when master control creation fails.
-> 
->     Update both v4l2_ctrl_cluster() and v4l2_ctrl_auto_cluster() to silently
->     return if controls[0] is NULL, preserving the design that control
->     creation errors are caught at the end when the driver checks hdl->error.
->     Also update function documentation in include/media/v4l2-ctrls.h.
-> 
->     Fixes: 71c689dc2e73 ("media: v4l2-ctrls: split up into four source files")
->     Reported-by: syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com
->     Closes: https://syzkaller.appspot.com/bug?extid=cf896de36144391bcde1
->     Suggested-by: Hans Verkuil <hverkuil@kernel.org>
->     Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
+On Tue, Sep 22, 2026 at 3:56=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 2 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] NETDEV_CMD_BIND_TX is unprivileged (net/core/netdev-genl-
+>   gen.c:240-245: .flags =3D GENL_CMD_CAP_DO), and this patch cements that=
+=E2=80=A6
+> - [Medium] The comment added above netdev_nl_bind_tx_doit()
+>   (net/core/netdev-genl.c:1183-1188) and the mirrored note in=E2=80=A6
+> - [Medium] bind-tx is reachable by any unprivileged user
+>   (net/core/netdev-genl-gen.c:244: .flags =3D GENL_CMD_CAP_DO) with no=E2=
+=80=A6
+>
+> --
+>
+> net: devmem: document that bind-tx is unprivileged by design
+>
+> This adds a comment above netdev_nl_bind_tx_doit() and a matching note in
+> Documentation/netlink/specs/netdev.yaml stating that NETDEV_CMD_BIND_TX
+> carries no GENL_ADMIN_PERM / GENL_UNS_ADMIN_PERM on purpose, on the groun=
+ds
+> that bind-tx only DMA-maps the caller's dmabuf.
+>
+> A few questions about the rationale being recorded here.
+>
+> > diff --git a/Documentation/netlink/specs/netdev.yaml b/Documentation/ne=
+tlink/specs/netdev.yaml
+> > index e13461cf3fc33..4303593e5003c 100644
+> > --- a/Documentation/netlink/specs/netdev.yaml
+> > +++ b/Documentation/netlink/specs/netdev.yaml
+> > @@ -852,6 +852,8 @@ operations:
+> >        name: bind-tx
+> >        doc: Bind dmabuf to netdev for TX
+> >        attribute-set: dmabuf
+> > +      # Intentionally unprivileged (no admin-perm / uns-admin-perm); s=
+ee
+> > +      # comment above netdev_nl_bind_tx_doit().
+> >        do:
+> >          request:
+> >            attributes:
+> > diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
+> > index fa9edfdb32c29..690c27f63d260 100644
+> > --- a/net/core/netdev-genl.c
+> > +++ b/net/core/netdev-genl.c
+> > @@ -1180,6 +1180,12 @@ netdev_find_netmem_tx_dev(struct net_device *dev=
+)
+> >       return NULL;
+> >  }
+> >
+> > +/* Note: NETDEV_CMD_BIND_TX is intentionally unprivileged (no
+> > + * GENL_ADMIN_PERM / GENL_UNS_ADMIN_PERM). Unlike bind-rx, which confi=
+gures
+> > + * shared NIC RX queues, bind-tx only DMA-maps the caller's dmabuf so =
+they can
+> > + * transmit from it on their own sockets without affecting other traff=
+ic or
+> > + * device state.
+> > + */
+>
+> [Severity: High]
+> Is the "on their own sockets" part of this rationale actually enforced
+> anywhere?
+>
+> net_devmem_bind_dmabuf() in net/core/devmem.c allocates the id out of a
+> single global xarray and only records the owning netlink socket for clean=
+up:
+>
+>         err =3D xa_alloc_cyclic(&net_devmem_dmabuf_bindings, &binding->id=
+,
+>                               binding, xa_limit_32b, &id_alloc_next,
+>                               GFP_KERNEL);
+>         ...
+>         list_add(&binding->list, &priv->bindings);
+>
+> priv->bindings is then only walked by netdev_nl_sock_priv_destroy().
+>
+> On the TX side, net_devmem_get_binding() resolves whatever u32 the sender
+> passed and checks only that a tx_vec exists and that the route egresses t=
+he
+> bound device:
+>
+>         binding =3D net_devmem_lookup_dmabuf(dmabuf_id);
+>         if (!binding || !binding->tx_vec) {
+>                 err =3D -EINVAL;
+>                 goto out_err;
+>         }
+>         ...
+>         dst_dev =3D dst_dev_rcu(dst);
+>         if (unlikely(!dst_dev) ||
+>             unlikely(dst_dev !=3D READ_ONCE(binding->dev) &&
+>                      dst_dev !=3D READ_ONCE(binding->vdev))) {
+>                 err =3D -ENODEV;
+>
+> and net_devmem_lookup_dmabuf() is a plain xa_load() with no credential,
+> netns or creator comparison.
+>
+> So can an unrelated unprivileged process reach another user's binding lik=
+e
+> this?
+>
+>   process A: NETDEV_CMD_BIND_TX -> gets id N, keeps the netlink socket op=
+en
+>   process B: sendmsg(MSG_ZEROCOPY) with SCM_DEVMEM_DMABUF carrying id N
+>
+> __sock_cmsg_send() in net/core/sock.c takes the bare id:
+>
+>         case SCM_DEVMEM_DMABUF:
+>                 if (cmsg->cmsg_len !=3D CMSG_LEN(sizeof(u32)))
+>                         return -EINVAL;
+>                 sockc->dmabuf_id =3D *(u32 *)CMSG_DATA(cmsg);
+>
+> tcp_sendmsg_locked() then calls net_devmem_get_binding(sk, sockc.dmabuf_i=
+d)
+> and zerocopy_fill_skb_from_devmem() builds frags from the resulting niovs=
+ at
+> attacker-chosen offsets. If B's route egresses the same netdev, does this
+> let B transmit the contents of A's dmabuf to a peer of B's choosing?
+>
+> Ids are allocated cyclically starting low, and the return codes differ
+> (-EINVAL for an unknown or non-TX id, -ENODEV for the wrong device), so i=
+s
+> guessing a live id cheap? Should the TX path check the binding against it=
+s
+> creating netdev_nl_sock before this is documented as safe, or should the
+> command grow a permission flag instead?
+>
 
-This says Rohinthan, but your email says 'Rokinthan p', what is correct?
-Also, why do you have a 'Reply-To: www.rokinthanp03@gmail.com' field? That's
-not going to work.
+This is a pre-existing issue that we can tighten up in the future. It
+technically may be possible that 1 socket guesses the binding id of
+another socket.
 
-Regards,
+> [Severity: Medium]
+> Separately from the enforcement question above, is the wording here wider
+> than what the code does?
+>
+> Two parts look overstated:
+>
+> "so they can transmit from it on their own sockets" - nothing in
+> net_devmem_get_binding() ties a binding to the socket, task, uid, netns o=
+r
+> cgroup that created it; the u32 id from the global xarray is the only
+> credential.
+>
+> "without affecting other traffic or device state" -
+> netdev_find_netmem_tx_dev() can resolve the bind target to a different,
+> shared physical NIC via an rx queue lease:
+>
+>                 phys_dev =3D lease_rxq->dev;
+>                 if (netif_device_present(phys_dev) &&
+>                     phys_dev->netmem_tx =3D=3D NETMEM_TX_DMA)
+>                         return phys_dev;
+>
+> and net_devmem_bind_dmabuf() then runs dma_buf_attach() and
+> dma_buf_map_attachment_unlocked() against that physical device's dma_dev.
+>
+> Would it be more accurate to state the narrow property that bind-tx does
+> not reconfigure RX queues or steering, rather than claiming no effect on
+> other traffic or device state? The same wording is mirrored into the uAPI
+> spec in Documentation/netlink/specs/netdev.yaml, so it becomes the answer
+> future readers get when they ask why this command has no permission flag.
+>
 
-	Hans
+Ugh, commit message can be tighten up a bit but it doesn't matter. The
+critical point is that bind-tx doesn't make the appliaction take
+ownership of an rx queue, unlike bind-rx.
 
->     ---
->     v2 -> v3:
->     - Fix the issue in the V4L2 core (v4l2-ctrls-core.c) instead of hackrf,
->       as suggested by Hans Verkuil.
->     - Return early if controls[0] == NULL in both v4l2_ctrl_cluster() and
->       v4l2_ctrl_auto_cluster().
->     - Update function documentation in include/media/v4l2-ctrls.h.
->     - Revert hackrf driver changes.
-> 
->     v1 -> v2:
->     - Corrected commit hash in Fixes tag.
-> 
->      drivers/media/v4l2-core/v4l2-ctrls-core.c | 16 ++++++++++++----
->      include/media/v4l2-ctrls.h                |  4 ++++
->      2 files changed, 16 insertions(+), 4 deletions(-)
-> 
->     diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-
->   core/v4l2-ctrls-core.c
->     --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
->     +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
->     @@ -2490,7 +2490,10 @@ void v4l2_ctrl_cluster(unsigned ncontrols, struct
->   v4l2_ctrl **controls)
->          int i;
-> 
->          /* The first control is the master control and it must not be
-> NULL */
->     -    if (WARN_ON(ncontrols == 0 || controls[0] == NULL))
->     +    if (WARN_ON(ncontrols == 0))
->     +        return;
->     +
->     +    if (!controls[0])
->              return;
-> 
->          for (i = 0; i < ncontrols; i++) {
->     @@ -2508,12 +2511,17 @@ EXPORT_SYMBOL(v4l2_ctrl_cluster);
->      void v4l2_ctrl_auto_cluster(unsigned ncontrols, struct v4l2_ctrl
-> **controls,
->                      u8 manual_val, bool set_volatile)
->      {
->     -    struct v4l2_ctrl *master = controls[0];
->     +    struct v4l2_ctrl *master;
->          u32 flag = 0;
->          int i;
-> 
->     +    if (WARN_ON(ncontrols <= 1))
->     +        return;
->     +
->     +    if (!controls[0])
->     +        return;
->     +
->     +    master = controls[0];
->          v4l2_ctrl_cluster(ncontrols, controls);
->     -    WARN_ON(ncontrols <= 1);
->          WARN_ON(manual_val < master->minimum || manual_val > master->maximum);
->          WARN_ON(set_volatile && !has_op(master, g_volatile_ctrl));
->          master->is_auto = true;
->     diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
->     --- a/include/media/v4l2-ctrls.h
->     +++ b/include/media/v4l2-ctrls.h
->     @@ -834,6 +834,8 @@ struct v4l2_ctrl_config {
->       *
->       * @ncontrols:    The number of controls in this cluster.
->       * @controls:    The cluster control array of size @ncontrols.
->     + *
->     + * If controls[0] is NULL, then this function does nothing and
-> just returns.
->       */
->      void v4l2_ctrl_cluster(unsigned int ncontrols, struct v4l2_ctrl
-> **controls);
-> 
->     @@ -868,6 +870,8 @@ void v4l2_ctrl_cluster(unsigned int ncontrols, struct
->   v4l2_ctrl **controls);
->       * In addition, this function will set the %V4L2_CTRL_FLAG_UPDATE flag
->       * on the autofoo control and %V4L2_CTRL_FLAG_INACTIVE on the foo
->   control(s)
->       * if autofoo is in auto mode.
->     + *
->     + * If controls[0] is NULL, then this function does nothing and
-> just returns.
->       */
->      void v4l2_ctrl_auto_cluster(unsigned int ncontrols,
->                      struct v4l2_ctrl **controls,
+> [Severity: Medium]
+> Does anything bound how many times an unprivileged caller can do this, or
+> account the memory it consumes?
+>
+> net_devmem_bind_dmabuf() can be called repeatedly on the same dmabuf FD, =
+and
+> each call allocates with plain GFP_KERNEL / kvmalloc, so none of it is
+> charged to the caller's memcg:
+>
+>                 binding->tx_vec =3D kvmalloc_objs(struct net_iov *,
+>                                                 dmabuf->size / PAGE_SIZE)=
+;
+>         ...
+>                 owner->area.niovs =3D kvmalloc_objs(*owner->area.niovs,
+>                                                   owner->area.num_niovs);
+>
+> and each call installs another mapping on the shared device:
+>
+>         binding->attachment =3D dma_buf_attach(binding->dmabuf, dma_dev);
+>         ...
+>         binding->sgt =3D dma_buf_map_attachment_unlocked(binding->attachm=
+ent,
+>                                                        direction);
+>
+> There is no duplicate-binding check, no count limit on entries added to
+> priv->bindings, no __GFP_ACCOUNT, and no RLIMIT_MEMLOCK accounting for th=
+e
+> long-lived mapping. With the rx-lease path in netdev_find_netmem_tx_dev()
+> these mappings land on the physical NIC shared with other users.
+>
+> Given that, is "without affecting other traffic or device state" the righ=
+t
+> thing to document, or should a per-socket or per-user cap and memcg
+> accounting come first?
+>
 
+I don't see an issue here. Binding one dmabuf to many netdevs should
+be fine. Binding one dmabuf to the same netdev many times is possible
+but pointless.
+
+
+--=20
+Thanks,
+Mina
