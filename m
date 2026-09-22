@@ -1,30 +1,30 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBC213E49D3;
-	Tue, 22 Sep 2026 04:10:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4355C3E51C6;
+	Tue, 22 Sep 2026 04:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790050260; cv=none; b=jedMSMevk59sc8reatbbSPyjChWzrHxWDJjKTsKJUDZmCwOUKBGcv0gDmP4HTNPeT6T+Y6TdRyOcoPvMR+n9ISmSsEQdcQuEz+Q8WnPQHZhVHfzhF7OxL63FLXMnHhsR00Kt6plXkKQy/pM2uc/K4M2tUfJEiNzGCVzK0B5ZI5Q=
+	t=1790050262; cv=none; b=tAvcbDWbb5r4cU8SSrJonvXOZ0bq9++nGCLzKOnTe4V7ReEd/NP98A+vmZbKpfdakDmIGRrtEpXJuDYrWGAbFKQHC9Wgp4RRN5yeTjgKa5NR8ezudTSfbCmheCrVIkFxADG6jCFyHNBnbsS1u9Sl/8sgK01h3JszgrlX1c1fsIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790050260; c=relaxed/simple;
-	bh=Shd7EOE7ozoFNofKhuCMBgbdbO0Tixb0m/frdEWL6ls=;
+	s=arc-20240116; t=1790050262; c=relaxed/simple;
+	bh=jSAgtcVmJxc/yhDb3yNpyoleuog2V6zndwyWvt6DqPo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H7jqtmRvZ2/H/TeViJcDS7tC8Nam7F7Azyv8KcTV4+jY1anSNh/fPjze3Cc7r8Y8/qoOcJeCdRQXYmbKLTDzI+Q0KWvMIOu9Lq+GTsaA3VTqAnJ6hThq21+9xZ2iMp0SboQCl8LOs0QtUY2HcTRRNIRDxjf3WgUhPHQZTr7oYuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=FqBVAg2G; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=jAOnoHdl4pP5zyaSmuZO347++UYlizIqHKlKb6sJ5jE8OnVgbraCr+vXIyHxmkhpZFXd1uTO25WeGztVQL5Ji9gyFRVMEC5GvDhKKhUO7gR6BlTwFR7y4cqKjIvGw0E45lJyG6VvWib/rZbyGWiyPR+bdd3+V69EFVHz7T7kX+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=oAIanj/E; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="FqBVAg2G"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="oAIanj/E"
 Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 1A1BA20B7168;
-	Mon, 21 Sep 2026 21:10:10 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1A1BA20B7168
+	by linux.microsoft.com (Postfix) with ESMTPSA id DE2FD20B7169;
+	Mon, 21 Sep 2026 21:10:12 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DE2FD20B7169
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790050210;
-	bh=XxFMdD5VCIWbaTjRIzbRdAnYmAvywBkrSiHCONRosI8=;
+	s=default; t=1790050213;
+	bh=MtV+bkoXaoVF8P8A2hn5t6K1Cz9hKyy8RhQeRZ9NhyY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FqBVAg2GlrBL8ra+N1i37WsrYD5hQzEUX+182BFXiQe/yoZzBfcRAY+9XtWOHmAgy
-	 KN9l7jcm8yKGCYvnE+ACbTU99ukxKboKrHpTyArBcczfAaOMRglsMM/sfGu4k2cWfs
-	 DYHDxr6GKmq9mpYtr97Qw6l/0Q+HOYK52e1ebwS0=
+	b=oAIanj/ER63s30IlulLxSKNIJLlKSnhJNZH654860RETQ6DVyk2zwIaSv/LwGmrSo
+	 9tjzx6mTIHAn5S16SGPVkuGECQAI82gM2UsUZXnu+HOifQjgrUUsV19lhT6yZLO9U5
+	 lSqApBZOQ1MFNAWX2UWQVhYO0XgjvGEo1XN4hYOY=
 From: Wei Hu <weh@linux.microsoft.com>
 To: linux-hyperv@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -32,10 +32,11 @@ Cc: linux-kernel@vger.kernel.org,
 	Haiyang Zhang <haiyangz@microsoft.com>,
 	Wei Liu <wei.liu@kernel.org>,
 	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>
-Subject: [PATCH v7 7/9] mshv: detect and report SEV-SNP support at init
-Date: Tue, 22 Sep 2026 04:10:24 +0000
-Message-ID: <20260922041043.171543-8-weh@linux.microsoft.com>
+	Long Li <longli@microsoft.com>,
+	Wei Hu <weh@microsoft.com>
+Subject: [PATCH v7 9/9] mshv: set up own SynIC registers on a nested root partition
+Date: Tue, 22 Sep 2026 04:10:26 +0000
+Message-ID: <20260922041043.171543-10-weh@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260922041043.171543-1-weh@linux.microsoft.com>
 References: <20260918115741.3791682-1-weh@linux.microsoft.com>
@@ -48,186 +49,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wei Liu <wei.liu@kernel.org>
+From: Wei Hu <weh@microsoft.com>
 
-Query MSHV dynamic processor features during parent initialization and
-report SEV-SNP availability and the maximum number of encrypted
-partitions.
+Upstream mshv_synic_cpu_init()/_exit() skip programming the SynIC
+SIMP/SIEFP/SCONTROL registers when VMBus is active (hv_vmbus_exists()),
+assuming VMBus's hv_hyp_synic_enable_regs() already provisioned them.
 
-L1VH parents reject the SNP property query, so treat query failures as
-"not available" rather than failing MSHV initialization. Copy successful
-results from the shared per-CPU output page before restoring local
-interrupts.
+That assumption is wrong for a nested root partition. There, VMBus
+programs the nested SynIC MSRs (HV_X64_MSR_NESTED_SIMP, ...) through
+hv_set_msr()'s nested remap, while mshv_synic reads and writes the
+non-nested SynIC MSRs. As a result MSHV maps the wrong message page and
+never receives the async hypercall completion, hanging guest creation.
 
-The misc device is registered before parent initialization is complete.
-Reject opens until the partition hash table and interrupt handling are
-ready, and clear readiness before teardown starts.
+Gate the "VMBus owns the SynIC registers" optimization on !hv_nested so
+a nested root partition programs its own non-nested SynIC registers.
+There is no behavior change for a non-nested root.
 
-Use the kernel CONFIG_X86_64 symbol rather than a compiler architecture
-macro for the x86-only SNP reporting code. The exported UAPI continues
-to use the compiler target macro because CONFIG_* symbols may not leak
-to userspace and the architecture-specific member names must remain.
-There is no layout or behavior change.
+Map hypervisor-provided SIMP, SIEFP, and root SIRBP pages with the shared
+GPA boundary removed and MEMREMAP_DEC, matching drivers/hv/hv.c for
+confidential hosts. The L1VH SIRBP remains locally allocated.
 
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
+Signed-off-by: Wei Hu <weh@microsoft.com>
 ---
- drivers/hv/mshv_root_main.c | 108 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 107 insertions(+), 1 deletion(-)
+ drivers/hv/mshv_synic.c | 38 +++++++++++++++++++++++++-------------
+ 1 file changed, 25 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/hv/mshv_root_main.c b/drivers/hv/mshv_root_main.c
-index 8db975571992..853b09b7c4d7 100644
---- a/drivers/hv/mshv_root_main.c
-+++ b/drivers/hv/mshv_root_main.c
-@@ -102,6 +102,8 @@ static const struct file_operations mshv_dev_fops = {
- 	.llseek = noop_llseek,
- };
- 
-+static bool mshv_ready;
-+
- static struct miscdevice mshv_dev = {
- 	.minor = MISC_DYNAMIC_MINOR,
- 	.name = "mshv",
-@@ -3146,7 +3148,8 @@ static long mshv_dev_ioctl(struct file *filp, unsigned int ioctl,
- static int
- mshv_dev_open(struct inode *inode, struct file *filp)
- {
--	return 0;
-+	/* Pairs with init's release after all device state is ready. */
-+	return smp_load_acquire(&mshv_ready) ? 0 : -EAGAIN;
+diff --git a/drivers/hv/mshv_synic.c b/drivers/hv/mshv_synic.c
+index 0fdbae1e053c..8470cf958f21 100644
+--- a/drivers/hv/mshv_synic.c
++++ b/drivers/hv/mshv_synic.c
+@@ -458,6 +458,25 @@ void mshv_isr(void)
+ 	}
  }
  
- static int
-@@ -3292,6 +3295,104 @@ static int mshv_root_scheduler_cleanup(unsigned int cpu)
- }
- 
- /* Must be called after retrieving the scheduler type */
-+#ifdef CONFIG_X86_64
-+static const char *hv_snp_status_to_string(enum hv_snp_status status)
++static bool mshv_synic_vmbus_owns_registers(void)
 +{
-+	switch (status) {
-+	case HV_SNP_STATUS_NONE:
-+		return "not available";
-+	case HV_SNP_STATUS_AVAILABLE:
-+		return "available";
-+	case HV_SNP_STATUS_INCOMPATIBLE:
-+		return "incompatible";
-+	case HV_SNP_STATUS_PSP_UNAVAILABLE:
-+		return "PSP unavailable";
-+	case HV_SNP_STATUS_PSP_INIT_FAILED:
-+		return "PSP init failed";
-+	case HV_SNP_STATUS_PSP_BAD_FW_VERSION:
-+		return "bad PSP firmware version";
-+	case HV_SNP_STATUS_BAD_CONFIGURATION:
-+		return "bad configuration";
-+	case HV_SNP_STATUS_PSP_FW_UPDATE_IN_PROGRESS:
-+		return "PSP firmware update in progress";
-+	case HV_SNP_STATUS_PSP_RB_INIT_FAILED:
-+		return "PSP ring buffer init failed";
-+	case HV_SNP_STATUS_PSP_PLATFORM_STATUS_FAILED:
-+		return "PSP platform status failed";
-+	case HV_SNP_STATUS_PSP_INIT_LATE_FAILED:
-+		return "PSP late init failed";
-+	default:
-+		return "unknown";
-+	}
++	/* Nested VMBus programs nested MSRs, while MSHV uses non-nested MSRs. */
++	return hv_vmbus_exists() && !hv_nested;
 +}
 +
-+static void mshv_print_max_sev_snp_partitions(struct device *dev)
++static void *mshv_synic_map_shared_page(u64 pfn)
 +{
-+	struct hv_input_get_system_property *input;
-+	struct hv_output_get_system_property *output;
-+	unsigned long flags;
-+	u64 snp_partition_count = 0;
-+	u64 status;
++	u64 base;
 +
-+	local_irq_save(flags);
-+	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
-+	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
++	if (!pfn)
++		return NULL;
 +
-+	memset(input, 0, sizeof(*input));
-+	input->property_id = HV_DYNAMIC_PROCESSOR_FEATURE_PROPERTY;
-+	input->hv_processor_feature =
-+		HV_X64_DYNAMIC_PROCESSOR_FEATURE_MAX_ENCRYPTED_PARTITIONS;
-+
-+	status = hv_do_hypercall(HVCALL_GET_SYSTEM_PROPERTY, input, output);
-+	if (hv_result_success(status))
-+		snp_partition_count = output->hv_processor_feature_value;
-+	local_irq_restore(flags);
-+	if (!hv_result_success(status)) {
-+		dev_warn(dev, "Failed to get max SNP partitions: %s\n",
-+			 hv_result_to_string(status));
-+		return;
-+	}
-+
-+	dev_info(dev, "Maximum supported SEV-SNP partitions are: %llu\n",
-+		 snp_partition_count);
++	/* Match Hyper-V's established confidential SynIC mapping convention. */
++	base = (pfn << HV_HYP_PAGE_SHIFT) &
++		~ms_hyperv.shared_gpa_boundary;
++	return memremap(base, HV_HYP_PAGE_SIZE, MEMREMAP_WB | MEMREMAP_DEC);
 +}
 +
-+static void __init mshv_check_sev_snp_support(struct device *dev)
-+{
-+	struct hv_input_get_system_property *input;
-+	struct hv_output_get_system_property *output;
-+	unsigned long flags;
-+	enum hv_snp_status snp_status = HV_SNP_STATUS_NONE;
-+	u64 status;
-+
-+	local_irq_save(flags);
-+	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
-+	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
-+
-+	memset(input, 0, sizeof(*input));
-+	input->property_id = HV_DYNAMIC_PROCESSOR_FEATURE_PROPERTY;
-+	input->hv_processor_feature = HV_X64_DYNAMIC_PROCESSOR_FEATURE_SNP_STATUS;
-+
-+	status = hv_do_hypercall(HVCALL_GET_SYSTEM_PROPERTY, input, output);
-+	if (hv_result_success(status))
-+		snp_status = output->hv_processor_feature_value;
-+	local_irq_restore(flags);
-+	if (!hv_result_success(status)) {
-+		/* L1VH parents reject this property query. */
-+		dev_info(dev, "SEV-SNP support is not available\n");
-+		return;
-+	}
-+
-+	dev_info(dev, "SEV-SNP support status: %s (%u)\n",
-+		 hv_snp_status_to_string(snp_status), snp_status);
-+
-+	if (snp_status == HV_SNP_STATUS_AVAILABLE)
-+		mshv_print_max_sev_snp_partitions(dev);
-+}
-+#else
-+static void __init mshv_check_sev_snp_support(struct device *dev) {}
-+#endif
-+
- static int
- root_scheduler_init(struct device *dev)
+ static int mshv_synic_cpu_init(unsigned int cpu)
  {
-@@ -3395,6 +3496,8 @@ static int __init mshv_parent_partition_init(void)
- 	if (ret)
- 		goto synic_cleanup;
+ 	union hv_synic_simp simp;
+@@ -468,11 +487,7 @@ static int mshv_synic_cpu_init(unsigned int cpu)
+ 	struct hv_message_page *msg_page;
+ 	struct hv_synic_event_flags_page *event_flags_page;
+ 	struct hv_synic_event_ring_page *event_ring_page;
+-	/*
+-	 * VMBus owns SIMP/SIEFP/SCONTROL when it is active.
+-	 * See hv_hyp_synic_enable_regs() for that initialization.
+-	 */
+-	bool vmbus_active = hv_vmbus_exists();
++	bool vmbus_active = mshv_synic_vmbus_owns_registers();
  
-+	mshv_check_sev_snp_support(dev);
-+
- 	ret = root_scheduler_init(dev);
- 	if (ret)
- 		goto synic_cleanup;
-@@ -3411,6 +3514,8 @@ static int __init mshv_parent_partition_init(void)
- 	hash_init(mshv_root.pt_htable);
+ 	/*
+ 	 * Map the SYNIC message page. When VMBus is not active the
+@@ -484,8 +499,7 @@ static int mshv_synic_cpu_init(unsigned int cpu)
+ 		simp.simp_enabled = true;
+ 		hv_set_non_nested_msr(HV_MSR_SIMP, simp.as_uint64);
+ 	}
+-	msg_page = memremap(simp.base_simp_gpa << HV_HYP_PAGE_SHIFT,
+-			    HV_HYP_PAGE_SIZE, MEMREMAP_WB);
++	msg_page = mshv_synic_map_shared_page(simp.base_simp_gpa);
+ 	WRITE_ONCE(spages->hyp_synic_message_page, msg_page);
  
- 	hv_setup_mshv_handler(mshv_isr);
-+	/* Publish all initialized state before accepting device opens. */
-+	smp_store_release(&mshv_ready, true);
+ 	if (!msg_page)
+@@ -500,8 +514,7 @@ static int mshv_synic_cpu_init(unsigned int cpu)
+ 		siefp.siefp_enabled = true;
+ 		hv_set_non_nested_msr(HV_MSR_SIEFP, siefp.as_uint64);
+ 	}
+-	event_flags_page = memremap(siefp.base_siefp_gpa << HV_HYP_PAGE_SHIFT,
+-				    HV_HYP_PAGE_SIZE, MEMREMAP_WB);
++	event_flags_page = mshv_synic_map_shared_page(siefp.base_siefp_gpa);
+ 	WRITE_ONCE(spages->synic_event_flags_page, event_flags_page);
  
- 	return 0;
+ 	if (!event_flags_page)
+@@ -511,8 +524,8 @@ static int mshv_synic_cpu_init(unsigned int cpu)
+ 	sirbp.as_uint64 = hv_get_non_nested_msr(HV_MSR_SIRBP);
  
-@@ -3427,6 +3532,7 @@ static int __init mshv_parent_partition_init(void)
+ 	if (hv_root_partition()) {
+-		event_ring_page = memremap(sirbp.base_sirbp_gpa << HV_HYP_PAGE_SHIFT,
+-					   HV_HYP_PAGE_SIZE, MEMREMAP_WB);
++		event_ring_page =
++			mshv_synic_map_shared_page(sirbp.base_sirbp_gpa);
  
- static void __exit mshv_parent_partition_exit(void)
- {
-+	WRITE_ONCE(mshv_ready, false);
- 	hv_setup_mshv_handler(NULL);
- 	mshv_port_table_fini();
- 	mshv_debugfs_exit();
+ 		if (!event_ring_page)
+ 			goto cleanup_siefp;
+@@ -595,8 +608,7 @@ static int mshv_synic_cpu_exit(unsigned int cpu)
+ 	struct hv_message_page *msg_page;
+ 	struct hv_synic_event_flags_page *event_flags_page;
+ 	struct hv_synic_event_ring_page *event_ring_page;
+-	/* VMBus owns SIMP/SIEFP/SCONTROL when it is active */
+-	bool vmbus_active = hv_vmbus_exists();
++	bool vmbus_active = mshv_synic_vmbus_owns_registers();
+ 
+ 	msg_page = READ_ONCE(spages->hyp_synic_message_page);
+ 	event_flags_page = READ_ONCE(spages->synic_event_flags_page);
 -- 
 2.43.0
 
