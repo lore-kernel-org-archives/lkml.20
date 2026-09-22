@@ -1,378 +1,513 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4971839CD11
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FD6382292
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044330; cv=none; b=ECCU393nucTf3zZjs17aTOq2iVCA7aHY7PZfxqK77oiab9664Da2c1mu2vo2IqTamQl+iTipBicmp58yOvxxgbt/xNndaq1h82xcJW9JYo4sBRN8MeZaF/XAXBYv1HLLEPaPJYqiaLHpVpkVmBLF5ke1Gb/URjYNV7EcSN04ufI=
+	t=1790044368; cv=none; b=GONqII9D8eh5+DcT/R4xNpM9wM81hJFyKf7VLXxMzvqF9VOigLcY+TWS0U95jj/6IQmE05/3D6SzM43Pheo9wDRNDmkmVGnUWw0MmyCXzUm9xaFtDtaWrFMDkPwv9yDrWSqSyGveTJs+/1CNCEalvE0iqgTuq1Dy5D+wYGfw7ZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044330; c=relaxed/simple;
-	bh=OWrmlEyHyg7cYKICRi9qQd8KLeurdcnjIE3fpyU+tBw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HWOhjOQv+JEbA7orJhdIUzsh15oXKdt9WonKhxHp1hxCu9MLcY1fosVmINTFXIQytJlZRlg6XgU74s2GwLLH2CCuMx4wcEbzcCa/vSxHR5UhCG2oOBGWQnlTATZbnxDay/cMzFibnDHxllDnWGU1bJDStiI0COHEJF3lsyZFMBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LV4Od/BD; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790044368; c=relaxed/simple;
+	bh=I7rYeQZ4spsxQVfaE2Sayb+dFXGxTZqIS2lZCUAJvtU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dDObhWAta8YY0noxaiaNm9ayJUNWpgD0Z2UB9yK3iKUAZMfNU77E+nidkFVwTKSdFiHlV3AS0XVjoqDPsmSxarizAlEh8kK3ik1jzyTIkY54phzOTh6BkJIiRrV5o0bQvJm4gROMvyM1F9jG3vXD2F+a4RKfgq73YyNpw4bNi7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=stsEQMTS; arc=none smtp.client-ip=74.125.230.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LV4Od/BD"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so2454162a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:32:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="stsEQMTS"
+Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso32274326d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:32:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790044326; x=1790649126; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=toxicpanda.com; s=google; t=1790044366; x=1790649166; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4mFagjV1SEq8DGpthdMn6xHW8xleMxzMDlgFzTrE6fc=;
-        b=LV4Od/BDzUoepFUMNBt085ZRwbw7pJjHyQ1iahJAwdMY0UrFoabckigEwMJuaotToV
-         Fx1cyiOJeo/GLViQPjpr016MsIeFRU1M+Nje8+KZGLKaWj8nhp8pVuH7yYzLNBvLat7P
-         Bgvt43ETMKH68H2UNa029p7uNMbhfeyGHNIouuB4Oex2uNCj0pAcKGASJLTdIBY/hYI3
-         CuOD66LhweOoNcHdyLlNagX0ylSTck7YStHFBiBp3OhlRxa5yEVnFcsSewzxZDxmAR3B
-         nQ/MwVJ5Q++5UktJ+kaKcgn15pYGJ1/b+uEO3N1s6rcQwkdjmLtO+PTBx9HTRAkvoZOm
-         Drkg==
+        bh=Nk/uI/WquaXkRgHHd/dzhScVzrCkrWpp6IlwsBXJcUg=;
+        b=stsEQMTSXsH6TSaXgLPanfDG+ZB9lpdKb8Qdd/MQSQhEiAZ9Tsq4CzuncjAQMrBqY8
+         haGPpmbT9v4BGjvCjknX1P1frm+r/f9N5QmtFRhmp4bFyqebWatGWSm/Kkh3tTOjiKA9
+         J6gtUAz1SKrCgD+AANX5IbOlKlbDf1y0Ri53op/zGkR96yi8Jcyh6NhxeY9rMtIV5odH
+         dMTH401e7p802G6mRqrJB7+Uswuv7vZsEi/gB4twsXD91CTzEQC3wvBpFtyCnOxGPh99
+         Q58SwoKnQ2IppVz0UnrJQ3igez3msApyIouP5HCaBJNZWmsyXaoZlIp0S+jLYT07C+Qd
+         PA5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790044326; x=1790649126;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4mFagjV1SEq8DGpthdMn6xHW8xleMxzMDlgFzTrE6fc=;
-        b=o62wWseAVsDtSKhF6W8WGnLcgXMa6GT9k0q9SdiDuAqLsADXVtoglLPb+XEp28tUA1
-         27hmFLdCDtPqvZwH8Taw+dsXsyUBP3ZNllVCQfvVwihDm/6XyPfabVNbidKIydGRJ9ST
-         2y7TJppHENDLQLfDfhSP44THrrxbPqd64UIaVES07ANN95NSgBVtSdmLHyGt52kZO2Te
-         W5IlLPBkg39bn7xcdXQSk0F/nsbJXu2KHFZ8Beq3z8jYBjxxO3SwzHYjpK9ocFwQze0y
-         QTw5me+0oJhXYqPHYjgztqAf5UmABB9FhB0XiGEZQcJttpvZj7IRaYhA/DqfQD6prlFs
-         0rrw==
-X-Forwarded-Encrypted: i=1; AKwUvBybs9a+5okukusU/J2NJYFoTJRhMiXRoM9yLjkqbBMwhtE/dfhgdiQhvtrUeCjMpbcn1a8VMVtAkZ/EPdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMKKgpSCt4vgDk3JUx+6vWcwU+f6T0uN04rWUz5nZZWv/nQCtT
-	m4YVeekd1gFr5dw593nTneD2gVjzTVOEWRHCJDbSek3SHNJcMhVj4C3f
-X-Gm-Gg: AYBFou1GIL8lNKnzWzMfZnL9C881QNyuWDIjzSqK9bSWJiufkTdRY9s8BCemu/UhG1E
-	QDutJquEgAsqhEbti1kmTmi8wMND5shI6PdwZ9hUyf6wnjWIiC4G0MxBiFzk7nfAyaDbYkDWTdx
-	qL8ugPQf4Nv78ceGRWRwpKpoQ8ZQbiigC0uixbQy/iONiMF7Ll6ZE1KTJ6x2gJGYDmuEUsisuj9
-	wIMREQrGd1k4+S/kBfHFIehj5nRIT9hkZmzy6TYX6RlTjfhYKEYYFyu5b98FkRAvueM6tHw+CM7
-	0czILrC4kFCT8jRD9rr5SYjHFsdJecVuqHlOd+NyQ9rCNxlM+3w6VLAmWUV6YTP8sY5sl1c/sdN
-	n8umC1VuP1pNb5xmkOIgNK3D0f3cr0sB5iAEMYAhoYqrb0n6Ii27sm30/UgxqMcCL7tLyYFqYyN
-	Xsbo3Pg4+k0hfhPhagqemZRTy3RY9q743dVD4WZcnNRLKm+DHyFQ6mkFvpBqhi54QjsnXCyW0AV
-	75kTizR8MSY1cd4vr7BrPx+JxVqoi9+ovAMceSEJnPWWfbvt3XLzxyfcRH+czMSbm6+4dKF1qHf
-	Ml6lekmb2g==
-X-Received: by 2002:a17:90b:2d44:b0:39d:8794:5564 with SMTP id 98e67ed59e1d1-39e54ce36fdmr19680388a91.12.1790044326199;
-        Mon, 21 Sep 2026 19:32:06 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5a5eb4sm501764a91.14.2026.09.21.19.32.05
+        d=1e100.net; s=20260707; t=1790044366; x=1790649166;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nk/uI/WquaXkRgHHd/dzhScVzrCkrWpp6IlwsBXJcUg=;
+        b=GhPDEqhCikC+NFGqcJXF+NjESIiKrRDVIC5oW6AyIgdYDQ8wwYgrsBPq3ro7ZA3SXC
+         nqRUjUcf0MHOW+87lZYo51XL1LlmuYWRtX8pdWAm/bBTARYjYh/ZloIFISTmuOYraYgh
+         bAbHvms1B7i3TvVu7dLgipHzgkgmfPTRPMGJgf0g6SEg0uaemzbWQQiRmgCXjRw+jkhd
+         cevihyB1LpdS7tMzsirg4smTJ8AwJB9/ijwdMcvjvKlAe6Hjbjs+aJyxGpH5Z57pLlcg
+         FfFAzzDq6Uq/KQI7qMj1hhEkME7gom3x6jHitqQGoajg7RHk1fkWbp2YJ6vNHSS/b5ve
+         n85w==
+X-Forwarded-Encrypted: i=1; AKwUvBxM7WfS5jWzBclreE21jNYg7zOHp6hmO50STfqz8G7xiwWvZOFnk0DmEBSW0WfDOgCWz+kphQk1fzj05dM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1PU9S0Bh3Rza4HYeNNcIYOpM4CuGC73foUEbQNkXRe+WoKpwa
+	pN74SZqRyBDw5QH832ZZidGT6dSJ1axb5OBAT7+f4/891UplUTsW6SpALLpBgwHyu3k=
+X-Gm-Gg: AYBFou1oXoTpQfDtfhdJijBPLONorQlKtUrxUFZQFropA2ZD2ofP/ntY6xz2idDxuix
+	PfxvhWihtldl53ii7hT4YumgkYpGjNNJwQ2nH33YQ8t+ftRS53T0oSti5QHWt/uLiwdkSEII7W6
+	5HpyhqQdgYz4h4LgGDqDCEhUPd8i2nzfCF2MEFEZS+qFnWNjaJyAE/yMFtS9pqXumwh2h5eGwWG
+	nWRrHujVxTVDuJQj+ByxWRzws4nH4FMkw/k4WHz6y2VpN/zvwslbDmoTfxAABKU02U3hWSfKn8I
+	evAGDZH6+nAvIzQp8RnEwThknVGBDiJuiTkfn0vsXa+urk0V8ui93CowdZassrcjilyxGdrl3vH
+	UGkKVyxIYvHE7BYFWiqJMoKtfEudp4HpyNhyFe9PA+W40Q4Et7PybiEQg6XUSs59V+BTpq+B78L
+	YTzYgXkZRL3t5byM6cWJcizsY/kua0kB3pSrk3cPt5qcoWxDtHaK72izP6nb6Rj/x1wx5uxvS2l
+	cTEvH6gNdlTQjw=
+X-Received: by 2002:a05:6214:5017:b0:911:9385:8581 with SMTP id 6a1803df08f44-913fc948279mr35279286d6.28.1790044365561;
+        Mon, 21 Sep 2026 19:32:45 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.250])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914024c20e0sm4740526d6.21.2026.09.21.19.32.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 19:32:05 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v5] seccomp: restore knotif->state when SECCOMP_ADDFD_FLAG_SEND is interrupted
-Date: Tue, 22 Sep 2026 02:32:04 +0000
-Message-ID: <20260922023204.2504832-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <202609210158.F3D96F157@keescook>
-References: <202609210158.F3D96F157@keescook>
+        Mon, 21 Sep 2026 19:32:44 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 22 Sep 2026 02:23:29 +0000
+Subject: [PATCH v5 10/13] samples: ftrace: Make the direct-call trampolines
+ Tasks Trace readers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b4-rcu-tasks-preempt-qs-v5-10-410f57770bad@toxicpanda.com>
+References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ rcu@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1790043820; l=13193;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=I7rYeQZ4spsxQVfaE2Sayb+dFXGxTZqIS2lZCUAJvtU=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QM+2t5V2gfw8IUSy1qDoDGQkdXuWXVx8UOA8l4idX6itSYIr+3cJvizuGAn0kC3lS3jW3yYg3Kb
+ 0Ft51r6OGEA0=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set in
-addfd.flags, knotif->state is optimistically transitioned from
-SECCOMP_NOTIFY_SENT to SECCOMP_NOTIFY_REPLIED before waking the tracee
-and waiting on kaddfd.completion:
+The sample direct trampolines are exactly the kind of out-of-line
+register_ftrace_direct() user whose lifetime depends on Tasks RCU
+waiting for a task inside them: nothing else stops rmmod while a task is
+preempted in my_direct_func().  On HAVE_RCU_TRAMPOLINE_READERS
+architectures that wait only covers Tasks Trace RCU readers, so give the
+samples a small shared header with rcu_read_lock_trace() and
+rcu_read_unlock_trace() open-coded as instruction strings for x86-64 and
+arm64 -- the same sequences as ftrace_64.S and entry-ftrace.S, using
+caller-saved non-argument scratch registers -- and bracket every
+call-out with them.  The instructions outside the bracket are module
+text, covered by ftrace_direct_mark_module().  Other architectures get
+empty definitions.
 
-	if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND) {
-		knotif->state = SECCOMP_NOTIFY_REPLIED;
-		...
-	}
-
-If wait_for_completion_interruptible(&kaddfd.completion) is interrupted
-by a signal before the tracee dequeues the kaddfd request
-(!list_empty(&kaddfd.list)), seccomp_notify_addfd() removes kaddfd from
-knotif->addfd and returns -EINTR to the supervisor without having
-installed the file descriptor.
-
-However, knotif->state is left as SECCOMP_NOTIFY_REPLIED (with
-knotif->error == 0 and knotif->val == 0). This causes two problems:
-
-1. When the tracee runs in do_user_notif(), it checks
-   if (knotif.state != SECCOMP_NOTIFY_REPLIED) after calling
-   seccomp_handle_addfd(). Because knotif->state is already
-   SECCOMP_NOTIFY_REPLIED, the tracee exits the notification wait loop
-   prematurely and returns 0 from the trapped syscall without the file
-   descriptor ever having been installed.
-
-2. If the supervisor retries SECCOMP_IOCTL_NOTIF_ADDFD or
-   SECCOMP_IOCTL_NOTIF_SEND before the tracee runs, it fails with
-   -EINPROGRESS because knotif->state is no longer SECCOMP_NOTIFY_SENT.
-
-Fix this by restoring knotif->state back to SECCOMP_NOTIFY_SENT if
-SECCOMP_ADDFD_FLAG_SEND was set and kaddfd was not consumed before the
-interrupted wait. Also add a seccomp_bpf selftest
-(user_notification_addfd_send_interrupted) covering this race.
-
-Tested in QEMU against Linux 7.3.0-rc3 using the
-user_notification_addfd_send_interrupted selftest added in this patch
-(./seccomp_bpf -t user_notification_addfd_send_interrupted): on the
-unfixed kernel the test fails because the retry ioctl(listener,
-SECCOMP_IOCTL_NOTIF_ADDFD, &addfd) returns -EINPROGRESS (-1) and the
-tracee prematurely exits do_user_notif() with return value 0 instead of
-FD 42, whereas with this patch applied the test passes.
-
-Fixes: 0ae71c7720e3 ("seccomp: Support atomic "addfd + send reply"")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
 Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
-Changes in v5:
-- Check the return values of all sched_setscheduler() calls in
-  user_notification_addfd_send_interrupted, as requested by Kees Cook.
-- Restore SCHED_OTHER on the supervisor and tracee immediately after
-  ioctl(SECCOMP_IOCTL_NOTIF_ADDFD) returns (and on fork() failure) so
-  the test cannot remain SCHED_FIFO on a single-CPU VM/CI runner, as
-  suggested by Kees Cook.
-- Rename pid and struct sched_param variables (tracee_pid, sp_zero,
-  sp_fifo_high, sp_fifo_mid) for clarity.
+ samples/ftrace/ftrace-direct-modify.c       |   9 ++
+ samples/ftrace/ftrace-direct-multi-modify.c |   9 ++
+ samples/ftrace/ftrace-direct-multi.c        |   5 ++
+ samples/ftrace/ftrace-direct-too.c          |   5 ++
+ samples/ftrace/ftrace-direct.c              |   5 ++
+ samples/ftrace/ftrace-direct.h              | 126 ++++++++++++++++++++++++++++
+ 6 files changed, 159 insertions(+)
 
-Changes in v4:
-- Restore Reviewed-by: Bradley Morgan <brads@mainlining.org> and Cc:
-  stable@vger.kernel.org tags from v1 (and restore Bradley Morgan to Cc),
-  and add Assisted-by: LLM tag.
-- Fix Fixes: tag SHA and subject (0ae71c7720e3 ("seccomp: Support atomic
-  "addfd + send reply"")).
-- Fix truncated word "interrupted" in the Subject line.
-
-Changes in v3:
-- Actually include the tools/testing/selftests/seccomp/seccomp_bpf.c
-  regression test in the patch diff (v2 accidentally omitted the selftest
-  hunk), with detailed comments explaining the race and test setup.
-
-Changes in v2:
-- Add user_notification_addfd_send_interrupted regression test to
-  tools/testing/selftests/seccomp/seccomp_bpf.c as requested by Kees Cook.
-
- kernel/seccomp.c                              |   5 +-
- tools/testing/selftests/seccomp/seccomp_bpf.c | 184 ++++++++++++++++++
- 2 files changed, 187 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/seccomp.c b/kernel/seccomp.c
-index 86cf4460d69e..94c7ba80a8f7 100644
---- a/kernel/seccomp.c
-+++ b/kernel/seccomp.c
-@@ -1808,10 +1808,13 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
- 	 * We need to check again if the addfd request has been handled,
- 	 * and if not, we will remove it from the queue.
- 	 */
--	if (list_empty(&kaddfd.list))
-+	if (list_empty(&kaddfd.list)) {
- 		ret = kaddfd.ret;
--	else
-+	} else {
- 		list_del(&kaddfd.list);
-+		if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND)
-+			knotif->state = SECCOMP_NOTIFY_SENT;
-+	}
+diff --git a/samples/ftrace/ftrace-direct-modify.c b/samples/ftrace/ftrace-direct-modify.c
+index 164d9dd6fd92..937c8d8c2a1b 100644
+--- a/samples/ftrace/ftrace-direct-modify.c
++++ b/samples/ftrace/ftrace-direct-modify.c
+@@ -2,6 +2,7 @@
+ #include <linux/module.h>
+ #include <linux/kthread.h>
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -73,7 +74,9 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	TRACE_RCU_READ_LOCK
+ "	call my_direct_func1\n"
++	TRACE_RCU_READ_UNLOCK
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp1, .-my_tramp1\n"
+@@ -85,7 +88,9 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	TRACE_RCU_READ_LOCK
+ "	call my_direct_func2\n"
++	TRACE_RCU_READ_UNLOCK
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp2, .-my_tramp2\n"
+@@ -141,11 +146,13 @@ asm (
+ "	.globl		my_tramp1\n"
+ "   my_tramp1:"
+ "	hint	34\n" // bti	c
++	TRACE_RCU_READ_LOCK
+ "	sub	sp, sp, #16\n"
+ "	stp	x9, x30, [sp]\n"
+ "	bl	my_direct_func1\n"
+ "	ldp	x30, x9, [sp]\n"
+ "	add	sp, sp, #16\n"
++	TRACE_RCU_READ_UNLOCK
+ "	ret	x9\n"
+ "	.size		my_tramp1, .-my_tramp1\n"
  
- out_unlock:
- 	mutex_unlock(&filter->notify_lock);
-diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
-index 0622bc2acad4..8cafac59ec7b 100644
---- a/tools/testing/selftests/seccomp/seccomp_bpf.c
-+++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
-@@ -4368,6 +4368,184 @@ TEST(user_notification_addfd_rlimit)
- 	close(memfd);
- }
+@@ -153,11 +160,13 @@ asm (
+ "	.globl		my_tramp2\n"
+ "   my_tramp2:"
+ "	hint	34\n" // bti	c
++	TRACE_RCU_READ_LOCK
+ "	sub	sp, sp, #16\n"
+ "	stp	x9, x30, [sp]\n"
+ "	bl	my_direct_func2\n"
+ "	ldp	x30, x9, [sp]\n"
+ "	add	sp, sp, #16\n"
++	TRACE_RCU_READ_UNLOCK
+ "	ret	x9\n"
+ "	.size		my_tramp2, .-my_tramp2\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct-multi-modify.c b/samples/ftrace/ftrace-direct-multi-modify.c
+index b03766c6217b..e12e5c8b83f0 100644
+--- a/samples/ftrace/ftrace-direct-multi-modify.c
++++ b/samples/ftrace/ftrace-direct-multi-modify.c
+@@ -2,6 +2,7 @@
+ #include <linux/module.h>
+ #include <linux/kthread.h>
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -77,10 +78,12 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	TRACE_RCU_READ_LOCK
+ "	pushq %rdi\n"
+ "	movq 8(%rbp), %rdi\n"
+ "	call my_direct_func1\n"
+ "	popq %rdi\n"
++	TRACE_RCU_READ_UNLOCK
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp1, .-my_tramp1\n"
+@@ -92,10 +95,12 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	TRACE_RCU_READ_LOCK
+ "	pushq %rdi\n"
+ "	movq 8(%rbp), %rdi\n"
+ "	call my_direct_func2\n"
+ "	popq %rdi\n"
++	TRACE_RCU_READ_UNLOCK
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp2, .-my_tramp2\n"
+@@ -154,6 +159,7 @@ asm (
+ "	.globl		my_tramp1\n"
+ "   my_tramp1:"
+ "	hint	34\n" // bti	c
++	TRACE_RCU_READ_LOCK
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -162,6 +168,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	TRACE_RCU_READ_UNLOCK
+ "	ret	x9\n"
+ "	.size		my_tramp1, .-my_tramp1\n"
  
-+static void sigusr1_handler(int signo)
-+{
-+}
+@@ -169,6 +176,7 @@ asm (
+ "	.globl		my_tramp2\n"
+ "   my_tramp2:"
+ "	hint	34\n" // bti	c
++	TRACE_RCU_READ_LOCK
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -177,6 +185,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	TRACE_RCU_READ_UNLOCK
+ "	ret	x9\n"
+ "	.size		my_tramp2, .-my_tramp2\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct-multi.c b/samples/ftrace/ftrace-direct-multi.c
+index 3fe6ddaf0b69..a970464ed378 100644
+--- a/samples/ftrace/ftrace-direct-multi.c
++++ b/samples/ftrace/ftrace-direct-multi.c
+@@ -3,6 +3,7 @@
+ 
+ #include <linux/mm.h> /* for handle_mm_fault() */
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #include <linux/sched/stat.h>
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+@@ -56,10 +57,12 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	TRACE_RCU_READ_LOCK
+ "	pushq %rdi\n"
+ "	movq 8(%rbp), %rdi\n"
+ "	call my_direct_func\n"
+ "	popq %rdi\n"
++	TRACE_RCU_READ_UNLOCK
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp, .-my_tramp\n"
+@@ -101,6 +104,7 @@ asm (
+ "	.globl		my_tramp\n"
+ "   my_tramp:"
+ "	hint	34\n" // bti	c
++	TRACE_RCU_READ_LOCK
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -109,6 +113,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	TRACE_RCU_READ_UNLOCK
+ "	ret	x9\n"
+ "	.size		my_tramp, .-my_tramp\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct-too.c b/samples/ftrace/ftrace-direct-too.c
+index bf2411aa6fd7..abc098c2ab7a 100644
+--- a/samples/ftrace/ftrace-direct-too.c
++++ b/samples/ftrace/ftrace-direct-too.c
+@@ -3,6 +3,7 @@
+ 
+ #include <linux/mm.h> /* for handle_mm_fault() */
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -61,6 +62,7 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	TRACE_RCU_READ_LOCK
+ "	pushq %rdi\n"
+ "	pushq %rsi\n"
+ "	pushq %rdx\n"
+@@ -70,6 +72,7 @@ asm (
+ "	popq %rdx\n"
+ "	popq %rsi\n"
+ "	popq %rdi\n"
++	TRACE_RCU_READ_UNLOCK
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp, .-my_tramp\n"
+@@ -110,6 +113,7 @@ asm (
+ "	.globl		my_tramp\n"
+ "   my_tramp:"
+ "	hint	34\n" // bti	c
++	TRACE_RCU_READ_LOCK
+ "	sub	sp, sp, #48\n"
+ "	stp	x9, x30, [sp]\n"
+ "	stp	x0, x1, [sp, #16]\n"
+@@ -119,6 +123,7 @@ asm (
+ "	ldp	x0, x1, [sp, #16]\n"
+ "	ldp	x2, x3, [sp, #32]\n"
+ "	add	sp, sp, #48\n"
++	TRACE_RCU_READ_UNLOCK
+ "	ret	x9\n"
+ "	.size		my_tramp, .-my_tramp\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct.c b/samples/ftrace/ftrace-direct.c
+index 5368c8c39cbb..99b65ad2fccc 100644
+--- a/samples/ftrace/ftrace-direct.c
++++ b/samples/ftrace/ftrace-direct.c
+@@ -3,6 +3,7 @@
+ 
+ #include <linux/sched.h> /* for wake_up_process() */
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -54,9 +55,11 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	TRACE_RCU_READ_LOCK
+ "	pushq %rdi\n"
+ "	call my_direct_func\n"
+ "	popq %rdi\n"
++	TRACE_RCU_READ_UNLOCK
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp, .-my_tramp\n"
+@@ -97,6 +100,7 @@ asm (
+ "	.globl		my_tramp\n"
+ "   my_tramp:"
+ "	hint	34\n" // bti	c
++	TRACE_RCU_READ_LOCK
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -104,6 +108,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	TRACE_RCU_READ_UNLOCK
+ "	ret	x9\n"
+ "	.size		my_tramp, .-my_tramp\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct.h b/samples/ftrace/ftrace-direct.h
+new file mode 100644
+index 000000000000..726f67048ff5
+--- /dev/null
++++ b/samples/ftrace/ftrace-direct.h
+@@ -0,0 +1,126 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _SAMPLES_FTRACE_DIRECT_H
++#define _SAMPLES_FTRACE_DIRECT_H
++
++#include <linux/stringify.h>
 +
 +/*
-+ * Verify that when SECCOMP_IOCTL_NOTIF_ADDFD with SECCOMP_ADDFD_FLAG_SEND is
-+ * interrupted by a signal before the tracee dequeues the addfd request,
-+ * knotif->state is restored from SECCOMP_NOTIFY_REPLIED back to
-+ * SECCOMP_NOTIFY_SENT so that:
-+ *   1. The woken tracee sees knotif->state == SECCOMP_NOTIFY_SENT in
-+ *      do_user_notif() and goes back to sleep instead of prematurely
-+ *      returning 0 from the trapped syscall without the FD installed.
-+ *   2. The supervisor can retry SECCOMP_IOCTL_NOTIF_ADDFD (or
-+ *      SECCOMP_IOCTL_NOTIF_SEND) instead of failing with -EINPROGRESS.
++ * A direct-call trampoline is entered with no lock, refcount or RCU marker
++ * held; only Tasks RCU keeps it (and, for a module, its text) alive while a
++ * task is inside it or preempted in something it called.  On architectures
++ * that select HAVE_RCU_TRAMPOLINE_READERS, Tasks RCU only waits for such a
++ * task while it is a Tasks Trace RCU reader, so the trampoline must enter one
++ * before calling out and leave it afterwards, exactly like the ftrace and BPF
++ * trampolines do.  See register_ftrace_direct().  The instructions before the
++ * lock and after the unlock are covered by ftrace_direct_mark_module().
 + *
-+ * To deterministically hit the race window where the supervisor sleeps in
-+ * wait_for_completion_interruptible(&kaddfd.completion) after waking the
-+ * tracee (complete(&knotif->ready)) but before the tracee runs
-+ * seccomp_handle_addfd(), pin all processes to a single CPU and enforce a
-+ * strict 3-tier scheduling priority hierarchy on that CPU:
-+ *   - Supervisor:            SCHED_FIFO priority 99 (highest)
-+ *   - Signal helper (sig_pid): SCHED_FIFO priority 50 (middle)
-+ *   - Tracee (pid):          SCHED_IDLE             (lowest)
++ * These are rcu_read_lock_trace() / rcu_read_unlock_trace() open-coded as
++ * instruction strings for use inside the samples' asm() trampolines, after
++ * the versions in arch/x86/kernel/ftrace_64.S and
++ * arch/arm64/kernel/entry-ftrace.S.  The scratch registers are caller-saved
++ * and not argument registers, so they are dead on entry to and exit from an
++ * fentry trampoline; the flags are clobbered.
++ *
++ * The generated asm-offsets.h is only pulled in on the architectures that need
++ * it here: it is not generally safe to include from C (e.g. PPC32's TASK_SIZE
++ * and arm64's TRAMP_VALIAS clash with the C definitions).
 + */
-+TEST(user_notification_addfd_send_interrupted)
-+{
-+	/*
-+	 * Save parent_pid before user_notif_syscall(__NR_getppid, ...) installs
-+	 * the seccomp filter on the calling process; children inherit that
-+	 * filter, so sig_pid must not call getppid().
-+	 */
-+	pid_t tracee_pid, sig_pid, parent_pid = getpid();
-+	long ret;
-+	int status, listener, memfd, err;
-+	struct seccomp_notif_addfd addfd = {};
-+	struct seccomp_notif req = {};
-+	struct sigaction sa = {};
-+	struct sched_param sp_zero = { .sched_priority = 0 };
-+	struct sched_param sp_fifo_high = { .sched_priority = 99 };
-+	struct sched_param sp_fifo_mid = { .sched_priority = 50 };
-+	struct timespec delay = { .tv_nsec = 15000000 };
-+	cpu_set_t cpuset;
-+	int cpu;
++#if defined(CONFIG_TASKS_RCU_TRAMPOLINE_READERS) && defined(CONFIG_X86_64)
 +
-+	/* Pin the supervisor (and its future child processes) to one CPU. */
-+	cpu = sched_getcpu();
-+	if (cpu >= 0) {
-+		CPU_ZERO(&cpuset);
-+		CPU_SET(cpu, &cpuset);
-+		sched_setaffinity(0, sizeof(cpuset), &cpuset);
-+	}
++#include <asm/asm-offsets.h>
 +
-+	sa.sa_handler = sigusr1_handler;
-+	ASSERT_EQ(sigaction(SIGUSR1, &sa, NULL), 0);
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++#define TRACE_RCU_MB	"	lock addl $0, -4(%rsp)\n"
++#else
++#define TRACE_RCU_MB
++#endif
 +
-+	memfd = memfd_create("test", 0);
-+	ASSERT_GE(memfd, 0);
++#define TRACE_RCU_READ_LOCK							\
++	"	movq %gs:current_task(%rip), %r11\n"					\
++	"	movl " __stringify(TASK_trc_reader_nesting) "(%r11), %r10d\n"		\
++	"	incl " __stringify(TASK_trc_reader_nesting) "(%r11)\n"		\
++	"	testl %r10d, %r10d\n"							\
++	"	jnz 771f\n"								\
++	"	movq rcu_tasks_trace_srcu_struct+" __stringify(SRCU_srcu_ctrp) "(%rip), %r10\n" \
++	"	incq %gs:" __stringify(SRCU_CTR_srcu_locks) "(%r10)\n"			\
++	"	movq %r10, " __stringify(TASK_trc_reader_scp) "(%r11)\n"		\
++	TRACE_RCU_MB								\
++	"771:\n"
 +
-+	ret = prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
-+	ASSERT_EQ(0, ret) {
-+		TH_LOG("Kernel does not support PR_SET_NO_NEW_PRIVS!");
-+	}
++#define TRACE_RCU_READ_UNLOCK							\
++	"	movq %gs:current_task(%rip), %r11\n"					\
++	"	movl " __stringify(TASK_trc_reader_nesting) "(%r11), %r10d\n"		\
++	"	subl $1, %r10d\n"							\
++	"	jnz 772f\n"								\
++	"	movq " __stringify(TASK_trc_reader_scp) "(%r11), %r10\n"		\
++	"	movl $0, " __stringify(TASK_trc_reader_nesting) "(%r11)\n"		\
++	TRACE_RCU_MB								\
++	"	incq %gs:" __stringify(SRCU_CTR_srcu_unlocks) "(%r10)\n"		\
++	"	jmp 773f\n"								\
++	"772:	movl %r10d, " __stringify(TASK_trc_reader_nesting) "(%r11)\n"	\
++	"773:\n"
 +
-+	/*
-+	 * Follow the convention of other user_notification_* tests in this
-+	 * file by trapping __NR_getppid: because the filter is installed on
-+	 * the supervisor before fork(), the trapped syscall must be a
-+	 * side-effect-free syscall that the supervisor itself never invokes.
-+	 * Even though getppid() does not normally return an FD,
-+	 * SECCOMP_ADDFD_FLAG_SEND replaces the trapped syscall's return value
-+	 * with the newly installed FD number (42).
-+	 */
-+	listener = user_notif_syscall(__NR_getppid,
-+				      SECCOMP_FILTER_FLAG_NEW_LISTENER);
-+	ASSERT_GE(listener, 0);
++#elif defined(CONFIG_TASKS_RCU_TRAMPOLINE_READERS) && defined(CONFIG_ARM64)
 +
-+	tracee_pid = fork();
-+	ASSERT_GE(tracee_pid, 0);
++#include <asm/alternative-macros.h>
++#include <asm/cpucaps.h>
++/* arm64's asm-offsets.h redefines TRAMP_VALIAS from <asm/fixmap.h>. */
++#pragma push_macro("TRAMP_VALIAS")
++#undef TRAMP_VALIAS
++#include <asm/asm-offsets.h>
++#pragma pop_macro("TRAMP_VALIAS")
 +
-+	if (tracee_pid == 0) {
-+		/*
-+		 * Tracee: invoke __NR_getppid as a dummy trigger syscall to
-+		 * trap into do_user_notif(). Verify that the syscall returns
-+		 * the injected FD number (42) and that FD 42 is open.
-+		 */
-+		ret = syscall(__NR_getppid);
-+		exit(ret != 42 || fcntl(42, F_GETFD) < 0);
-+	}
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++#define TRACE_RCU_MB	"	dmb	ish\n"
++#else
++#define TRACE_RCU_MB
++#endif
 +
-+	/* Wait for the tracee to trap in do_user_notif(). */
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
++#define TRACE_RCU_SRCU_CTRP	"rcu_tasks_trace_srcu_struct+" __stringify(SRCU_SRCU_CTRP)
 +
-+	/*
-+	 * Demote the tracee to SCHED_IDLE and promote the supervisor to
-+	 * SCHED_FIFO(99) on the same CPU.
-+	 */
-+	ASSERT_EQ(sched_setscheduler(tracee_pid, SCHED_IDLE, &sp_zero), 0);
-+	if (sched_setscheduler(0, SCHED_FIFO, &sp_fifo_high) != 0) {
-+		kill(tracee_pid, SIGKILL);
-+		waitpid(tracee_pid, NULL, 0);
-+		SKIP(return, "SCHED_FIFO requires CAP_SYS_NICE");
-+	}
++/* x14 = this CPU's offset; then atomically increment the long at x14 + \areg */
++#define TRACE_RCU_PERCPU_INC(areg)						\
++	ALTERNATIVE("	mrs	x14, tpidr_el1\n", "	mrs	x14, tpidr_el2\n",		\
++		    ARM64_HAS_VIRT_HOST_EXTN)					\
++	"	add	x14, x14, " areg "\n"						\
++	"778:	ldxr	x15, [x14]\n"							\
++	"	add	x15, x15, #1\n"							\
++	"	stxr	w16, x15, [x14]\n"						\
++	"	cbnz	w16, 778b\n"
 +
-+	addfd.srcfd = memfd;
-+	addfd.newfd_flags = O_CLOEXEC;
-+	addfd.newfd = 42;
-+	addfd.id = req.id;
-+	addfd.flags = SECCOMP_ADDFD_FLAG_SETFD | SECCOMP_ADDFD_FLAG_SEND;
++#define TRACE_RCU_READ_LOCK							\
++	"	mrs	x12, sp_el0\n"							\
++	"	ldr	w13, [x12, #" __stringify(TSK_TRC_READER_NESTING) "]\n"	\
++	"	add	w14, w13, #1\n"							\
++	"	str	w14, [x12, #" __stringify(TSK_TRC_READER_NESTING) "]\n"	\
++	"	cbnz	w13, 771f\n"							\
++	"	adrp	x13, " TRACE_RCU_SRCU_CTRP "\n"					\
++	"	ldr	x13, [x13, #:lo12:" TRACE_RCU_SRCU_CTRP "]\n"			\
++	"	str	x13, [x12, #" __stringify(TSK_TRC_READER_SCP) "]\n"		\
++	"	add	x13, x13, #" __stringify(SRCU_CTR_SRCU_LOCKS) "\n"		\
++	TRACE_RCU_PERCPU_INC("x13")						\
++	TRACE_RCU_MB								\
++	"771:\n"
 +
-+	/*
-+	 * Fork a signal helper on the same CPU and set it to SCHED_FIFO(50).
-+	 * Because the supervisor is currently running at SCHED_FIFO(99) on
-+	 * this CPU, sig_pid is queued on the runqueue but cannot run until the
-+	 * supervisor blocks inside the kernel.
-+	 *
-+	 * When the supervisor invokes ioctl(SECCOMP_IOCTL_NOTIF_ADDFD) below:
-+	 *   1. seccomp_notify_addfd() sets knotif->state = SECCOMP_NOTIFY_REPLIED,
-+	 *      wakes the tracee (SCHED_IDLE), and blocks in
-+	 *      wait_for_completion_interruptible(&kaddfd.completion).
-+	 *   2. The CPU scheduler immediately runs sig_pid (SCHED_FIFO 50)
-+	 *      ahead of the woken tracee (SCHED_IDLE).
-+	 *   3. sig_pid sends SIGUSR1 to parent_pid, waking the supervisor
-+	 *      (SCHED_FIFO 99), which immediately preempts sig_pid, aborts the
-+	 *      wait with -ERESTARTSYS (-EINTR), removes kaddfd from
-+	 *      knotif->addfd, and restores knotif->state = SECCOMP_NOTIFY_SENT
-+	 *      before the tracee has executed a single instruction.
-+	 */
-+	sig_pid = fork();
-+	if (sig_pid < 0) {
-+		sched_setscheduler(0, SCHED_OTHER, &sp_zero);
-+		kill(tracee_pid, SIGKILL);
-+		waitpid(tracee_pid, NULL, 0);
-+	}
-+	ASSERT_GE(sig_pid, 0);
-+	if (sig_pid == 0) {
-+		if (sched_setscheduler(0, SCHED_FIFO, &sp_fifo_mid) != 0)
-+			_exit(1);
-+		kill(parent_pid, SIGUSR1);
-+		_exit(0);
-+	}
++#define TRACE_RCU_READ_UNLOCK							\
++	"	mrs	x12, sp_el0\n"							\
++	"	ldr	w13, [x12, #" __stringify(TSK_TRC_READER_NESTING) "]\n"	\
++	"	subs	w13, w13, #1\n"							\
++	"	b.ne	772f\n"								\
++	"	ldr	x13, [x12, #" __stringify(TSK_TRC_READER_SCP) "]\n"		\
++	"	str	wzr, [x12, #" __stringify(TSK_TRC_READER_NESTING) "]\n"	\
++	TRACE_RCU_MB								\
++	"	add	x13, x13, #" __stringify(SRCU_CTR_SRCU_UNLOCKS) "\n"		\
++	TRACE_RCU_PERCPU_INC("x13")						\
++	"	b	773f\n"								\
++	"772:	str	w13, [x12, #" __stringify(TSK_TRC_READER_NESTING) "]\n"	\
++	"773:\n"
 +
-+	ret = ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd);
-+	err = errno;
++#else
 +
-+	/*
-+	 * Restore normal scheduling ASAP so the supervisor does not remain
-+	 * SCHED_FIFO on a single-CPU machine/VM/CI, then sleep briefly so the
-+	 * woken tracee runs in do_user_notif(). With knotif->state restored to
-+	 * SECCOMP_NOTIFY_SENT, the tracee must loop back to sleep waiting for
-+	 * the notification reply rather than returning 0 from __NR_getppid.
-+	 */
-+	ASSERT_EQ(sched_setscheduler(0, SCHED_OTHER, &sp_zero), 0);
-+	ASSERT_EQ(sched_setscheduler(tracee_pid, SCHED_OTHER, &sp_zero), 0);
++#define TRACE_RCU_READ_LOCK
++#define TRACE_RCU_READ_UNLOCK
 +
-+	EXPECT_EQ(ret, -1);
-+	EXPECT_EQ(err, EINTR);
-+	EXPECT_EQ(waitpid(sig_pid, &status, 0), sig_pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
++#endif
 +
-+	nanosleep(&delay, NULL);
-+
-+	/*
-+	 * Retry SECCOMP_IOCTL_NOTIF_ADDFD. Because knotif->state is
-+	 * SECCOMP_NOTIFY_SENT, the retry succeeds (returns 42) instead of
-+	 * failing with -EINPROGRESS, installs FD 42 into the tracee, and wakes
-+	 * the tracee to complete the syscall with return value 42.
-+	 */
-+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), 42);
-+
-+	EXPECT_EQ(waitpid(tracee_pid, &status, 0), tracee_pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
-+
-+	close(listener);
-+	close(memfd);
-+}
-+
- #ifndef SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
- #define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)
- #define SECCOMP_IOCTL_NOTIF_SET_FLAGS  SECCOMP_IOW(4, __u64)
++#endif /* _SAMPLES_FTRACE_DIRECT_H */
+
 -- 
-2.49.0
+2.55.0
+
