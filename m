@@ -1,130 +1,217 @@
-Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C645326AB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 101645326C5;
+	Tue, 22 Sep 2026 22:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790117752; cv=none; b=A+JhlXVpJN3aFqs15t1/nCqILyPpKaleGUU3P1xS3EJ7zsPYW9guZAVos1o3cJemirCGWIw77rTL6TvHG4HACGsyPrX6Gs/B9LqK5OA0lP7oHrVOFYQZ7pkL7x3dLLTJVrmO0s7b7d1d5VK1woLDJtg2y/NiWqGgZA2W1pr9Htw=
+	t=1790117763; cv=none; b=YUF/xp9VRFOl9PFSgcV9MpKQhPvf+1CEPzm4ltY9eSEVImkkGIwyWiShMmgOrVZFkbyuvGkPoDNpYHh7ZIz7A1VqUNADMT1O6ih9Acmh3TB7ULbf4vaO1iEPAGkzstkYwGMTVXJ8Yg77bkswUzvctx/ZQq+GNCn4fm1jOwifs70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790117752; c=relaxed/simple;
-	bh=GLYDVWUo9vlxL9owdIP78Jsu7Teexjv82ekJ8dgAFIU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ldNeaFD1w+O1TNDGTF+CWn38itUCBr6wdERWvsCp1E8fP6fsk1y5pDyZuil55xRW7TpEt21HSSJhd06S3U32sauda1rtWwXR+mkgSzx3UhzuLOh4weuIXC1YB/rT1jL+ectsExTdYKOnc460n0gpf4ykpt5FwDfe8n13RwveRow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Xd7zHWVo; arc=none smtp.client-ip=91.218.175.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790117763; c=relaxed/simple;
+	bh=qVCjW+bKUVgRJaxooxblKpYN+hplHE+53CuW6GhbhWg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A4KTjCpsISU/Aoy0LlhwKnL+JS+EzSNjAbCLuRV19QWHFnTRdd9MXQhfKTiqY/9tfJYdJorVVDUaK/VeIcCd1WWZ8wk585t2RD+2la0xgPloHNQBTMbpJ+uZmGBfNBK6m3prci+WtAETCbOzPh3SDIN8AU8o8Mec22dnOhq30K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NYFlzv5R; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Xd7zHWVo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GLYDVWUo9vlxL9owdIP78Jsu7Teexjv82ekJ8dgAFIU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790117746; v=1; x=1790722546;
- b=Xd7zHWVoi37khI1DqaZyroOpTo4SreMIjIX8LHX+0Q/0gUBIYYoo3W59fyQfGaRMS78n0UGZ
- UPi0fgFHahvlvn+2c+CR9KXeLoKWaN4/gqxnx2RG4VA7mOOuwMm00SurN6C6FUxtBrLeyOiZF7J
- hLuinSE7rHNfqWa5ohjnZG+0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7fe70d7a76de0350;
-	Tue, 22 Sep 2026 22:55:46 +0000
-X-Mizu-Trace-ID: 7fe70d7a76de0350
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mark.rutland@arm.com,
-	mathieu.desnoyers@efficios.com,
-	andrii@kernel.org,
-	peterz@infradead.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	kernel-team@meta.com,
-	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH 2/2] tracing: fgraph: Add a cond_resched() to the shadow stack retry loop
-Date: Tue, 22 Sep 2026 15:55:26 -0700
-Message-ID: <20260922225526.1554758-3-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922225526.1554758-1-vineet.gupta@linux.dev>
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NYFlzv5R"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 267771576;
+	Tue, 22 Sep 2026 15:55:53 -0700 (PDT)
+Received: from [10.57.9.113] (unknown [10.57.9.113])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A07BB3F632;
+	Tue, 22 Sep 2026 15:55:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790117756; bh=qVCjW+bKUVgRJaxooxblKpYN+hplHE+53CuW6GhbhWg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NYFlzv5R7+kCofQIFQDwJs6xa1Tp35O7ZW6qtSA9fT4Pygzy9yDpBiIqnoRsXfoCU
+	 Iog5eoTK90Q60dmjkNHrvRS3Q5CEV4M8UtI0CW1l5b4iP1hxxa3rR2tGoXJzpqMeaj
+	 c5IADN5feKzMA5TDTPUIgueobeOVzZWzDfkDuvhM=
+Message-ID: <2164b046-bbbb-4cfb-b797-5df27fbe313f@arm.com>
+Date: Tue, 22 Sep 2026 23:55:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
+ for memory
+Content-Language: en-GB
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-7-suzuki.poulose@arm.com>
+ <178978126543.2352296.12214136703168879825.b4-review@b4>
+ <65b0c03b-36b9-4e60-aa55-c3b4b85e21ee@arm.com>
+ <93aea89c-0a05-4b5a-905d-2e8c14a9e894@arm.com>
+ <20260921145838.00003b04@oss.qualcomm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260921145838.00003b04@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-This is supplementary to previous patch and is effective only for
-!PREEMPTION kernels.
+On 21/09/2026 22:58, Jonathan Cameron wrote:
+> 
+>>>>>    static int __init arm64_init_rmi(void)
+>>>>>    {
+>>>>>        int ret;
+>>>>> @@ -786,8 +970,24 @@ static int __init arm64_init_rmi(void)
+>>>>>        if (ret) {
+>>>>>            pr_err("RMM activate failed\n");
+>>>>>            ret = ret < 0 ? ret : -ENXIO;
+>>>>> +        return ret;
+>>>>
+>>>> Why did this change?
+>>>
+>>> Rebase messed up. I will restore it.
+>>
+>> Actually this is not. We dont have to check the metadata if
+>> we couldn't activate the RMM. Also, the failure path at the
+>> bottom has "deactivate", which again is not needed. So
+>> it is the right thing to do.
+> 
+> Only after this patch? Not from the previous patch?
+> 
+>>
+>>>    
+>>>>   
+>>>>>        }
+>>>>> +    ret = rmi_init_metadata();
+>>>>> +    if (ret)
+>>>>
+>>>> And this is hitting another bit of guidance in cleanup.h.
+>>>> Functions shouldn't be mixing __free and friends with
+>>>> gotos.  Again, not a bug here but there are large ugly
+>>>> monsters around this stuff, hence the blanket guidance.
+>>>> I haven't thought that hard on how you avoid it here, but
+>>>> usually it's a combination of suitable helpers and wrappers
+>>>> and resulting code is often more readable as a result.
+>>
+>> I could change the hunk to something like, but that looks ugly.
+>>
+>> @@ -1010,20 +1010,12 @@ static int __init arm64_init_rmi(void)
+>>                   return ret;
+>>           }
+>>
+>> -       ret = rmi_init_metadata();
+>> -       if (ret)
+>> -               goto out_deactivate;
+>> +       if (!rmi_init_metadata() &&
+>> !register_memory_notifier(&rmi_memory_nb)) {
+>> +               arm64_rmi_is_available = true;
+>> +               pr_info("RMI configured\n");
+>> +               return 0;
+>> +       }
+>>
+>> -       ret = register_memory_notifier(&rmi_memory_nb);
+>> -       if (ret)
+>> -               goto out_deactivate;
+>> -
+>> -       arm64_rmi_is_available = true;
+>> -       pr_info("RMI configured\n");
+>> -
+>> -       return 0;
+>> -
+>> -out_deactivate:
+>>           WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL,
+>> SMC_RMI_RMM_DEACTIVATE));
+>>           return ret;
+>>    }
+>>
+>>
+>> Either ways, we have to cleanup the object on return, no matter
+>> the route we take. So the original form is much more readable
+>> for me.
+> 
+> Agree to more readable, but that fragility of mixing __free() and
+> goto is a real problem that has tripped many folk up - hence
+> the perhaps overly strict guidance.  Rather than avoiding the goto, I'd just
+> not use __free()  - go old school and have two labels for errors
+> and an extra manual free in the good path.
+> 
+> 	pr_info("RMI configured\n:);
+> 	kfree(sro);
+> 
+> 	return 0;
+> 
+> out_deactivate:
+> 	WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_DEACTIVATE));
+> out_free_sro:
+> 	kfree(sro);
+> 	return ret;
+> }
+> 
+> Sometime the new toys aren't the right answer.
 
-The preceding patch cuts the number of sweeps over the thread list by
-32x, but the loop is still O(N^2). Each pass walks from the same start
-init_task under rcu_read_lock() with no reschedule point. On a kernel
-that cannot preempt the walk, a large enough thread count lets one task
-monopolize a CPU until the walk completes.
+I have the following hunk on top of this patch, that could do the trick.
 
-Add a cond_resched() between sweeps which is safe since it is outside
-the RCU read-side critical section.
+diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+index bcdbed26cf08d..4385f49068965 100644
+--- a/drivers/firmware/arm_rmm/rmi.c
++++ b/drivers/firmware/arm_rmm/rmi.c
+@@ -1033,20 +1033,19 @@ static int __init arm64_init_rmi(void)
+                 return ret;
+         }
 
-It is understood that this is effectively a no-op for CONFIG_PREEMPTION
-builds, which is what default x86 and arm64 kernels are today.
-A CONFIG_PREEMPT_DYNAMIC build with "preempt={none,voluntary}"
-used to work but even that got inhibited since the commit
-7dadeaa6e851 ("sched: Further restrict the preemption modes").
-Measured on a 60-core machine with a PREEMPT_LAZY kernel and 400000
-idle threads, this patch changes neither the runtime nor the yield
-count, which stays at zero.
+-       ret = rmi_init_metadata();
+-       if (ret)
+-               goto out_deactivate;
+-
+-       ret = register_memory_notifier(&rmi_memory_nb);
+-       if (ret)
+-               goto out_deactivate;
+-
+-       arm64_rmi_is_available = true;
+-       pr_info("RMI configured\n");
+-
+-       return 0;
+-
+-out_deactivate:
++       do {
++               ret = rmi_init_metadata();
++               if (ret)
++                       break;
++               ret = register_memory_notifier(&rmi_memory_nb);
++               if (ret)
++                       break;
++               arm64_rmi_is_available = true;
++               pr_info("RMI configured\n");
++               return 0;
++       } while (0);
++
++       /* De-activate the RMM and reclaim any donated memory */
+         WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, 
+SMC_RMI_RMM_DEACTIVATE));
+         return ret;
 
-Where it does have effect is !CONFIG_PREEMPTION builds: architectures
-that still offer PREEMPT_NONE or PREEMPT_VOLUNTARY, and the stable
-kernels where x86 PREEMPT_NONE remains a build-time choice. Verified
-on a 6.16 PREEMPT_NONE kernel, 240000 idle threads, three runs each,
-with the loop instrumented to count passes and cond_resched() yields:
+Cheers
+Suzuki
 
-	                 time            yields   soft lockup
-	unpatched        51.3-54.6 s     -        3 of 3
-	cond_resched()   52.7-53.0 s     592-609  0 of 3
-
-The runtime is unchanged and the soft lockups are gone. Every
-need_resched() converts to a yield, giving an average of about 98 ms
-between reschedules.
-
-There is a second effect on those builds. When cond_resched() does not
-reschedule it still calls rcu_all_qs() on !CONFIG_PREEMPT_RCU kernels,
-reporting a quiescent state. So the two failures seen in the field are
-addressed by two mechanisms: the soft lockup by yielding so the
-watchdog can run, and the RCU stall by reporting a quiescent state
-even on passes where no yield happens.
-
-This is deliberately separable from the preceding patch. If the view
-is that a no-op on the architectures anyone runs is not worth carrying,
-dropping this one leaves the batch-size fix intact.
-
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
----
- kernel/trace/fgraph.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-index ed455b53513b..86d11217c584 100644
---- a/kernel/trace/fgraph.c
-+++ b/kernel/trace/fgraph.c
-@@ -1249,6 +1249,14 @@ static int start_graph_tracing(void)
- 
- 	do {
- 		ret = alloc_retstack_tasklist(ret_stack_list);
-+		/*
-+		 * Each pass rescans the thread list from the head, so the
-+		 * loop is O(threads^2) overall. The RCU read-side section
-+		 * ends with the pass, and both locks held here (ftrace_lock,
-+		 * and fprobe_mutex for fprobe users) are mutexes, so it is
-+		 * safe to give the CPU up in between.
-+		 */
-+		cond_resched();
- 	} while (ret == -EAGAIN);
- 
- 	if (!ret) {
--- 
-2.53.0-Meta
+> 
+> Jonathan
+> 
+> 
+> 
+> 
+>>
+>> Cheers
+>> Suzuki
+>>
+>>>>   
+>>>
+>>> I will see if I can improve it.
+>>>
+>>> Cheers
+>>> Suzuki
+>>>    
+>>
+> 
 
