@@ -1,145 +1,251 @@
-Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6845326AE
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC0952F294;
+	Tue, 22 Sep 2026 10:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072338; cv=none; b=dIEk/DKHaWE1iht+oHiWmRxSDvgAphfZGJcmxhkKH1fSPJtwc3+QtWIFrdZM7OKBVfg0p+vObyrdLxA4wi8zoP0FxLAa8o/d8APL6shQCKgEpVxI7Kiov45OxlZXLFPe7ChKIxnEjXMX6Ay8c7TSH2s1l17gChzRMug8/fyR8cE=
+	t=1790072347; cv=none; b=HYFcXxE6Kuevuat6+iinNLxkl+y4V9axBMckzRUkxvTr95fpShmtaeMhykjhz5KOlsmtP2qSqMxlL15ZYOVkRRPSEQZAUu+8VR4Yv7iuhZL2MXgmWOVlfBiey1au35TTzY54kxYmhsPltfZywMH/VZLLv8YepPIz04aXuPn/ouQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072338; c=relaxed/simple;
-	bh=Cosv6Q7QMcJPuxGXk1cdr2Q6rkscbhpUAhVZPsCP5e0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LfAk3LGvsH/w5+gXCvcj7kpXFbmk53PGBZsJpCi08Xs2kwe5hqKLVy/D1oTs4myZDJMWLWnhpWlIHtFSD+jHO57H9rldH1u4yF3tgTzvTQ1PV/PtaFRVXD2u3E62cnIZWYEgurISKLMvx+TA+2fC3IFYFeW7N6Ie8mbd4DhzQik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hHhgMqKh; arc=none smtp.client-ip=91.218.175.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790072347; c=relaxed/simple;
+	bh=U6nEAncarF04gBX0K2yID3ID7i4onnj70LFz7Tqwzf8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=diDeoIgtIWRVHGa5RjtqkueWAdlQ0jgmLXOaz0/j9J4+jLhIb7nLmE2B+8F5mp8KB5HnIIC8UTgclbNjbd2/s2DSOV15aiSYDWMModEbdWUR7Q0svqjajgyA0VmcvWUV+lKZiBtX8nYiiPV0QF6fhJVl1IBmcuyoVB3gvaJQGag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=YpydLbbd; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hHhgMqKh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Cosv6Q7QMcJPuxGXk1cdr2Q6rkscbhpUAhVZPsCP5e0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790072332; v=1; x=1790677132;
- b=hHhgMqKhY0TYmZucUupIEhfcfznNf0KxEfgzQayBVLmxkt209itwCTNSq6BYuZbdzhncvLDk
- xAgz5OqkzQVeIj8cySPqtyFfoQxR04aeGsMP70pvWGycZoBDvhkOZJGvm9Dqi4BwkXzywBYh/sd
- DEaAvUmQCGV/JWgi2QKIAtbU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f7a8795b067e54db;
-	Tue, 22 Sep 2026 10:18:52 +0000
-X-Mizu-Trace-ID: f7a8795b067e54db
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v9 0/3] bpf: arena: handle memory.max on fault-in with reclaim
-Date: Tue, 22 Sep 2026 18:17:32 +0800
-Message-ID: <20260922101831.192102-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="YpydLbbd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=7+4D1ZWujrVYGEarDtTZ0KiIPF0wvGcfoxM/2VYhpL8=; t=1790072345; x=1791281945; 
+	b=YpydLbbdnm8MfiPXsii0WKc36ch03P1Kz4G2oC014Th4JcCE7i166bkZ50CTakp7UBJzZhyORGV
+	QI2g0fpHVorcwLKIQmeq6Qfm3rtqiJaJTJHI3ew7CWCgDey1Y97L9Y4dzFicJE86VgNJ+V5d7Xx4M
+	p4RvDWiUSbFbXjIdEnHFy+TJz+bDRvT3pOHQVh5ExqjT+VwdpLmf5tX9JOmjvlOLK9ZEgjiZBHHXN
+	qwMNauZsMTe1jbA0R3gJGDOYow7FHaf7SnmKBTIiBQRqf/rdXVk93Y/Cwd/mvgd4WGMm225M42fos
+	oFdiDV7kINSZ+xj+9MHK2P0gcZAPDcZipIBw==;
+Date: Tue, 22 Sep 2026 12:18:45 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
+ <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
+ <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
+Subject: Re: [PATCH RFC 2/9] drm: panel: Add panel for Epson Moverio BT200
+Message-ID: <20260922121845.1cb6cca0@kemnade.info>
+In-Reply-To: <arJDcpvQlIMIGJaP@monoceros>
+References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+	<20260922-b2-panel-via-bridge-v1-2-45ff36b364cf@kemnade.info>
+	<arJDcpvQlIMIGJaP@monoceros>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Since commit e66fe1bc6d25 ("bpf: arena: Reintroduce memcg accounting"),
-arena pages are charged to the memcg of the process that created the arena.
-That exposes a problem in the arena user page fault path: the fault-in
-allocation runs under arena->spinlock, so it can only use the non-blocking
-allocator, which never reclaims. Once memory.current is at memory.max the
-allocation simply fails, even when the memcg is full of page cache that
-could be dropped right away. Reaching memory.max is completely normal for a
-healthy application - e.g. reading a large file fills memory.current with
-page cache - and the process then gets SIGSEGV on a perfectly valid arena
-address.
+On Tue, 22 Sep 2026 11:13:36 +0200
+Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com> wrote:
 
-Preallocate the page outside the lock (patch 1), the way do_anonymous_page()
-does, so the allocation can sleep and reclaim. It never invokes the OOM
-killer: the page is charged to the map's memcg, which need not be the
-faulting task's, so an OOM there could kill unrelated tasks in the map's
-cgroup. On a genuine failure the fault returns VM_FAULT_SIGBUS. patch 2&3
-adds a selftest that fills a memcg with reclaimable page cache and faults an
-arena in under memory.max: without the fix the child gets SIGSEGV on a valid
-address, with it the fault-in reclaims and succeeds.
+> Hallo Andreas,
+>=20
+> On Tue, Sep 22, 2026 at 08:16:59AM +0200, Andreas Kemnade wrote:
+> > diff --git a/drivers/gpu/drm/panel/panel-epson-bt200.c b/drivers/gpu/dr=
+m/panel/panel-epson-bt200.c
+> > new file mode 100644
+> > index 000000000000..c26a4f8ae15e
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/panel/panel-epson-bt200.c
+> > @@ -0,0 +1,251 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +#include <linux/backlight.h>
+> > +#include <linux/errno.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/module.h>
+> > +#include <linux/mod_devicetable.h> =20
+>=20
+> Please don't include <linux/mod_devicetable.h>. You can rely on
+> <linux/spi/spi.h> to provide of_device_id and spi_device_id; or if you
+> prefer full iwyu include <linux/device-id/of.h> and <.../spi.h>.
+>=20
+> > +#include <linux/spi/spi.h>
+> > +
+> > +#include <drm/drm_connector.h>
+> > +#include <drm/drm_modes.h>
+> > +#include <drm/drm_panel.h>
+> > +#include <drm/drm_print.h>
+> > +#include <drm/drm_probe_helper.h>
+> > +
+> > +static const struct drm_display_mode default_mode =3D {
+> > +	.clock			=3D 41600,	/* kHz */
+> > +#if 0 =20
+>=20
+> huh, upstream code isn't supposed to have #if 0 blocks.
+>=20
+correct, this will go away latest in the first non-rfc series.
 
+> > +	/* values matching struct omap_video_timings in vendor kernel */
+> > +	.hdisplay		=3D 960,
+> > +	.hsync_start		=3D 960 + 176,
+> > +	.hsync_end		=3D 960 + 176 + 20,
+> > +	.htotal			=3D 960 + 176 + 20 + 86,
+> > +#else
+> > +	/* values from what is writted to LCDCTRL on vendor kernel */
+> > +	.hdisplay		=3D 960,
+> > +	.hsync_start		=3D 960 + 33,
+> > +	.hsync_end		=3D 960 + 33 + 20,
+> > +	.htotal			=3D 960 + 33 + 20 + 86,
+> > +#endif
+> > +	.vdisplay		=3D 540,
+> > +	.vsync_start		=3D 540 + 9,
+> > +	.vsync_end		=3D 540 + 9 + 3,
+> > +	.vtotal			=3D 540 + 9 + 3 + 12,
+> > +	.flags			=3D 0,
+> > +};
+> > +
+> > +struct bt200_panel {
+> > +	struct drm_panel panel;
+> > +	struct spi_device *spi;
+> > +};
+> > +
+> > +static int bt200_panel_write(struct bt200_panel *ctx, u8 addr, u8 data)
+> > +{
+> > +	u8 val[2];
+> > +
+> > +	val[0] =3D addr;
+> > +	val[1] =3D data;
+> > +
+> > +	return spi_write(ctx->spi, val, sizeof(val));
+> > +}
+> > +
+> > +static inline struct bt200_panel *panel_to_bt200(struct drm_panel *pan=
+el)
+> > +{
+> > +	return container_of(panel, struct bt200_panel, panel);
+> > +}
+> > +
+> > +static int bt200_disable(struct drm_panel *panel)
+> > +{
+> > +	struct bt200_panel *ctx =3D panel_to_bt200(panel);
+> > +
+> > +	bt200_panel_write(ctx, 0x0A, 0);
+> > +	return 0;
+> > +}
+> > +
+> > +static int bt200_unprepare(struct drm_panel *panel)
+> > +{
+> > +	return 0;
+> > +}
+> > +
+> > +/* found this table in vendor kernel */
+> > +static struct {
+> > +	u8 addr;
+> > +	u8 data;
+> > +} lcddr_init[] =3D {
+> > +	{0x01, 0x00}, {0x02, 0x00}, {0x03, 0x00}, {0x05, 0x01},
+> > +	{0x07, 0x00}, {0x0A, 0x00}, {0x10, 0x03}, {0x11, 0x44},
+> > +	{0x12, 0x44}, {0x13, 0x55}, {0x14, 0x03}, {0x15, 0x00},
+> > +	{0x16, 0x2A}, {0x17, 0x20}, {0x18, 0x00}, {0x19, 0x10},
+> > +	{0x1A, 0x12}, {0x1B, 0x0E}, {0x1C, 0x0F}, {0x1D, 0x10},
+> > +	{0x1E, 0x0F}, {0x1F, 0x1B}, {0x20, 0x0F}, {0x21, 0x00},
+> > +	{0x22, 0x00}, {0x23, 0x00}, {0x24, 0x00}, {0x28, 0x14},
+> > +	{0x29, 0x19}, {0x2A, 0x17}, {0x2B, 0x2B}, {0x2C, 0x99},
+> > +	{0x2D, 0x13}, {0x2E, 0x2A}, {0x30, 0x0B}, {0x31, 0x00},
+> > +	{0x32, 0x00}, {0x33, 0x01}, {0x34, 0x00}, {0x35, 0x0B},
+> > +	{0x36, 0x04}, {0x37, 0x21}, {0x38, 0x00}, {0x39, 0x46},
+> > +	{0x3A, 0x01}, {0x3B, 0x06}, {0x3C, 0x03}, {0x3D, 0x00},
+> > +	{0x3E, 0x06}, {0x3F, 0x04}, {0x40, 0x00}, {0x41, 0x0D},
+> > +	{0x42, 0x00}, {0x43, 0x2E}, {0x45, 0x08}, {0x46, 0x00},
+> > +	{0x47, 0x01}, {0x48, 0x00}, {0x49, 0x00}, {0x4A, 0x0B},
+> > +	{0x4B, 0x38}, {0x4C, 0x03}, {0x4D, 0x04}, {0x50, 0x0F},
+> > +	{0x51, 0x04}, {0x52, 0x01}, {0x53, 0x0E}, {0x54, 0x11},
+> > +	{0x55, 0x9F}, {0x56, 0x36}, {0x57, 0x00}, {0x58, 0x68},
+> > +	{0x59, 0x01}, {0x5A, 0xE0}, {0x5B, 0x00}, {0x5C, 0x00},
+> > +	{0x5D, 0x10}, {0x5E, 0x36}, {0x5F, 0x36}, {0x60, 0x00},
+> > +	{0x61, 0x04}, {0x62, 0x12}, {0x63, 0x00}, {0x64, 0x80},
+> > +	{0x65, 0x00}, {0x66, 0x80}, {0x67, 0x1C}, {0x68, 0x00},
+> > +	{0x69, 0x00}, {0x6A, 0x00}, {0x6B, 0x00}, {0x6C, 0x00},
+> > +	{0x70, 0x00}, {0x71, 0x55}, {0x72, 0x44}, {0x73, 0x33},
+> > +	{0x74, 0x22}, {0x75, 0x33}, {0x76, 0x22}, {0x77, 0x22},
+> > +	{0x78, 0x33}, {0x79, 0x22}, {0x7A, 0x44}, {0x7B, 0x55},
+> > +	{0x7C, 0x00}, {0x80, 0x00}, {0x81, 0x66}, {0x82, 0x22},
+> > +	{0x83, 0x33}, {0x84, 0x22}, {0x85, 0x33}, {0x86, 0x22},
+> > +	{0x87, 0x22}, {0x88, 0x33}, {0x89, 0x44}, {0x8A, 0x44},
+> > +	{0x8B, 0x44}, {0x8C, 0x00}, {0x90, 0x00}, {0x91, 0x77},
+> > +	{0x92, 0x66}, {0x93, 0x33}, {0x94, 0x11}, {0x95, 0x33},
+> > +	{0x96, 0x22}, {0x97, 0x22}, {0x98, 0x44}, {0x99, 0x44},
+> > +	{0x9A, 0x33}, {0x9B, 0x44}, {0x9C, 0x00}, {0xA0, 0x88},
+> > +	{0xA1, 0x88}, {0xA2, 0x88}, {0xA3, 0x88}, {0xA4, 0x88},
+> > +	{0xA5, 0x88}, {0xA6, 0x88}, {0xA7, 0x88}, {0xA8, 0x88},
+> > +	{0xA9, 0x88}, {0xAA, 0x88}, {0xAB, 0x88}, {0xAC, 0x88},
+> > +	{0xAD, 0x88}, {0xAE, 0x88}, {0xAF, 0x88}, {0xB0, 0x88},
+> > +	{0xB1, 0x88}, {0xB2, 0x88}, {0xB3, 0x88}, {0xB4, 0x88},
+> > +	{0xB5, 0x88}, {0xB6, 0x88}, {0xB7, 0x88}, {0xB8, 0x88},
+> > +	{0xB9, 0x88}, {0xBA, 0x88}, {0xBB, 0xA6}, {0xBC, 0x88},
+> > +	{0xBD, 0x88}, {0xBE, 0x88}, {0xBF, 0x88}, {0xC0, 0x88},
+> > +	{0xC1, 0x88}, {0xC2, 0x88}, {0xC3, 0x88}, {0xC4, 0x88},
+> > +	{0xC5, 0x88}, {0xC6, 0x88}, {0xC7, 0x88}, {0xC8, 0x88},
+> > +	{0xC9, 0x88}, {0xD0, 0x36}, {0xD1, 0x26}, {0xD2, 0x21},
+> > +	{0xD3, 0x1F}, {0xD4, 0x17}, {0xD5, 0x15}, {0xD6, 0x13},
+> > +	{0xD7, 0x10}, {0xD8, 0x08}, {0xD9, 0x08}, {0xDA, 0x18},
+> > +	{0xDB, 0x1D}, {0xDC, 0x1F}, {0xDD, 0x27}, {0xDE, 0x29},
+> > +	{0xDF, 0x2B}, {0xE0, 0x2E}, {0xE1, 0x36}, {0xE6, 0x00},
+> > +	{0xF1, 0x00}, {0xF2, 0x00}, {0xF3, 0x00} =20
+>=20
+> Smells non-GPLly. Maybe ask the provider of the vendor kernel for "the
+> preferred form of the work for making modifications to it".
+>=20
+Well, this are address / data pairs. so probably the more
+preferred form would be symbolic names. I did not manage to get u-boot sour=
+ces
+from Epson either. So I think it would be even harder to get anything here.
+And since these things are very old, maybe more information
+does not even exist anymore.
+So how to progress here?
 
-v8 -> v9:
-   - Trim the two comments in arena_vm_fault() to a sentence or two; the
-     details are in the commit log. (Alexei Starovoitov)
+> I guess {0x0A, 0x00} disables the display, so taking over an enabled
+> display setup by the bootloader doesn't work as is.
+>=20
+The factory bootloader seems only to reset things. It seems not
+to initialize anything regarding display.
 
-v7 -> v8:
-   - Merge patch 1 into patch 2. (Alexei Starovoitov)
+Until just a few months my preferred way of booting this device
+was to boot vendor kernel, reprogram boot order temporarily,
+go through more recent u-boot and boot linux. During this procedure,
+the bridge setup was left intact. I just read things back to check
+if values are already set and happlily reinitialized display itself.
+No issue found doing it that way.
 
-v4 -> v7:
-   - Simplify the implementation: do not aim for OOM anymore. An arena is
-     shared between processes and can be shared across cgroups, so the OOM
-     killer is the wrong tool here - it would act on the map's memcg, which
-     need not be the faulting task's. Only try to reclaim now, via
-     __GFP_RETRY_MAYFAIL. Everything else is kept as before.
-   - selftest: changed accordingly - fill the memcg with reclaimable page
-     cache and check that the arena fault-in succeeds by reclaiming it,
-     instead of relying on an OOM kill.
+[...]
+> > +MODULE_DEVICE_TABLE(spi, bt200_ids);
+> > +
+> > +static struct spi_driver bt200_driver =3D {
+> > +	.probe =3D bt200_probe,
+> > +	.remove =3D bt200_remove,
+> > +	.id_table =3D bt200_ids,
+> > +	.driver =3D {
+> > +		.name =3D "panel-bt200",
+> > +		.of_match_table =3D bt200_of_match,
+> > +		.suppress_bind_attrs =3D true, =20
+>=20
+> Why suppress bind attrs?
+>=20
+That was not intentional, maybe I had something in mind that
+it is common practice is certain areas, but not for panels.
 
-v3 -> v4:
-   - rebase bpf-next and fix conflict
-   - add Reviewed-by tag from Emil Tsalapatis
-
-v2 -> v3:
-   - selftest: check the memcg OOM via memory.events "oom_kill" instead of
-     the exit signal; it only aims to pass on the fixed kernel, since the
-     unfixed SIGSEGV is racy.
-
-v1 -> v2:
-   - Rebase on the separate deadlock fix (found by the Sashiko AI review),
-     now applied to bpf-next.
-   - Honor the map's NUMA node on fault-in.
-   - Return VM_FAULT_SIGBUS for the non-recoverable faults (lock, range-tree
-     and page-table failures); a scratch-page hole stays VM_FAULT_SIGSEGV
-     only under BPF_F_SEGV_ON_FAULT. (Kumar Kartikeya Dwivedi)
-   - Add read_cgroup_file() to cgroup_helpers instead of open-coding the
-     /mnt/... path in the test. (Emil Tsalapatis)
-   - Dump the cgroup memory stats on test failure to ease debugging.
-
-v8:
-https://lore.kernel.org/bpf/20260918084123.39477-1-jiayuan.chen@linux.dev/
-v7:
-https://lore.kernel.org/bpf/20260917015618.7488-1-jiayuan.chen@linux.dev/#r
-v4:
-https://lore.kernel.org/bpf/20260821050250.35112-1-jiayuan.chen@linux.dev/T/#t
-v2:
-https://lore.kernel.org/bpf/20260805091720.139924-1-jiayuan.chen@linux.dev/
-v1:
-https://lore.kernel.org/bpf/20260727062521.376231-1-jiayuan.chen@linux.dev/
-
-Jiayuan Chen (3):
-  bpf: arena: allocate the fault-in page outside the lock
-  selftests/bpf: Add read_cgroup_file() to cgroup_helpers
-  selftests/bpf: Add a test for arena fault-in under memory.max
-
- kernel/bpf/arena.c                            |  83 ++++++--
- tools/testing/selftests/bpf/cgroup_helpers.c  |  67 ++++++
- tools/testing/selftests/bpf/cgroup_helpers.h  |   4 +
- .../selftests/bpf/prog_tests/arena_memcg.c    | 196 ++++++++++++++++++
- .../testing/selftests/bpf/progs/arena_memcg.c |  23 ++
- 5 files changed, 353 insertions(+), 20 deletions(-)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/arena_memcg.c
- create mode 100644 tools/testing/selftests/bpf/progs/arena_memcg.c
-
--- 
-2.43.0
-
+Regards,
+Andreas
