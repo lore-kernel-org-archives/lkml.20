@@ -1,334 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439741C5D72;
-	Tue, 22 Sep 2026 05:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439803546ED
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790054284; cv=fail; b=UqHw4yMHUdtwyHBalr0c4kpfyN0VJyasBws/AVUvr1O7NAeEbCSqcS66nYI/Dqmm+WFxrD2+nNOnZhTW2FZzoQIqu6ziR43feCJzT6CHru4Fi/5cWf28pDmEoCnbdjesf22JXdvJG9TAyXVKKndnQKiB+lrBLcuBZ9I25c4nO5Q=
+	t=1790054716; cv=pass; b=ogzYtzeHNDm+YfDct6YZgZ/dnovTMBnR4in1Z3K0lhybvOdHWtAW4Fhf6LzzSAUMCi5YdJRV9w/wMUvLhxXWuWc6RqvVFY/rOr+Xyn7Oq7pdByQ4Vw+Ko7JR1VOCL6GykKHKdv+G4u6nxi2g4vLj/sSQWsIIv3mX8ItGSeF5x9g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790054284; c=relaxed/simple;
-	bh=VRiMTxOBCVZxzWF1mtaVlOQ7SyIG0U4+48q01LCJKOA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SAsU3j1QKJ29TPtIfbVF0LnWLG/KCixABMaQ/75V0yi8cVnR1bPKlmWNiwJSo7YyAFNVU9RjVPjU7wxkXxNnZyzgiq0Mk9JFrR336KEiZYHrAEfD15nU1RQEG7BT2EmkPbWRui4DMQEmLzuj8EIE+b8i23U7tCjmNu/S1R4CSrk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OXXjzh0Y; arc=fail smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790054716; c=relaxed/simple;
+	bh=0jd5cLTp3SOx8GkiEE9xyQ0WO5u6raBQoIhOrOBec+s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hTpaf0Io4L9LGoALCc4O9BDMD5eZNnP4bcWx51g+jPgFWFTX8Uka4q4aRsiuvxLSoQXqF48MjmeOPgfuXymhG4KugVrG5pe8LNJypXl3AWnueK7RiaBmJN+41eu/Q36BjrfcIrj8Rjeg8u0QWwjmXwizUz1DIYoA4kY/HLsCzDs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HtZxniBR; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OXXjzh0Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790054281; x=1821590281;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=VRiMTxOBCVZxzWF1mtaVlOQ7SyIG0U4+48q01LCJKOA=;
-  b=OXXjzh0YGVRiVYEXbJ1pvoWcCKteypGaqhfH4KE3tmX/qgESBV2U92/Z
-   zLVFUocFuPIMKUG5UT4N4tjblX5k9MSOuFODxK/XfPoMiL9sArp+NzwQ1
-   M7pNIqL3+9ZMJbhldjNTYEGOnz/kbFAfdOxUKvVU7geXe+knEoFodulVf
-   0N0zZaUZEKh9bJjpAVyL5GlpvbzPRaAWiq8sYoX3prdn5yrUvI/N3rOhs
-   ucvrTVJ81DYVROskRqXuhX+Sxi+oQIsLBZ/83YFOGUd5Wgi0s6oHTRM0m
-   QrlyCkHKrfW6BDHSk1raBjv8OjXWMUNPZWzTIhh8erJ9OAEIDRJTbBqNR
-   Q==;
-X-CSE-ConnectionGUID: igDXhZSxQO+fE2+6QVKIog==
-X-CSE-MsgGUID: STJKXoolSrC3w4O0pqIhmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1128810"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="1128810"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 22:18:00 -0700
-X-CSE-ConnectionGUID: 640UYqKTSsi+2/V6MjZr0w==
-X-CSE-MsgGUID: pqdgCWUzQbqv6alauCHvuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="271511815"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 22:17:59 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 22:17:59 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 21 Sep 2026 22:17:59 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.29) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 22:17:58 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z63OzIdPgn0liLXkxNYU/waHrwMTS7QHBxyyfCafQ1iM0dvj2NBiMYFLz9h9Mxj1rzjnQbS+WFgfal7WSxrQpFlHMenPk/v/jK/EAiWNU4BoABfH72mOyphYa7mx1pvnD0WqxemhlmhCNaNxGZ5jkTNFVimjVidWMTUp0rqOWkO8t7T7UJpa51CGFPgE3jvhZfnJgb3fifR175bw8RZxFdrlHslq5OBiNcAfRv6W/0ii4lYN8RbTwCnyu7xtiFQ6AjXW8BV+jcyBgjsiUC2okZb0WDw+3hdPfpstYvffryLAWncqsfe3N9PoLhHqkJ8SyjrA9Y1tUX/D8ybHWnOPyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vkMU2q8ZIUoAvO3C3t0yulS110puK3YYB2k4UZo5Ngw=;
- b=WPkKpB7FKiFPHsmPTnI/aDwj1dBz2ihP+XWkyICkiO+zgEGAuNikCvENw11v7LY1ZDOxZi54R3DTVM9PxqJ6y79x+0Os31nNm/uLkghmNSwlsh7UkB6LLHlzpIKsenVnyTV/cAXZQNIdf2lxOW3ErnL16cfKcq6gb1uU5Ek4xI3YwN6rfAtiTMWcpwMCRpZ3oSmsRbbM9I1aPHHi1dGGaiPuB46sSs4hHcVgv/Rbw/H2YiIy9/QPexCCOHuKw0J0n+JnAMwRby+33agH8bjVaTsQo4aex1VOvrNKDyCK/Po/tpvcA3nTsZum/AQ5KBY/qNIFlYU0+KZ9PBuz1l+DuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA0PR11MB7185.namprd11.prod.outlook.com (2603:10b6:208:432::20)
- by IA0PR11MB8302.namprd11.prod.outlook.com (2603:10b6:208:482::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 05:17:50 +0000
-Received: from IA0PR11MB7185.namprd11.prod.outlook.com
- ([fe80::9f37:cb81:5463:300e]) by IA0PR11MB7185.namprd11.prod.outlook.com
- ([fe80::9f37:cb81:5463:300e%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 05:17:50 +0000
-From: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, Jiakai Xu
-	<xujiakai24@mails.ucas.ac.cn>, "kraxel@redhat.com" <kraxel@redhat.com>,
-	"sumit.semwal@linaro.org" <sumit.semwal@linaro.org>
-CC: "robert.mader@collabora.com" <robert.mader@collabora.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size
- limit
-Thread-Topic: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size
- limit
-Thread-Index: AQHdR8/Ka7Jds4c1EUGL2fKq+gaV6LbYnOwAgAC/otA=
-Date: Tue, 22 Sep 2026 05:17:49 +0000
-Message-ID: <IA0PR11MB71850CE89762EE05B36B7DCEF8832@IA0PR11MB7185.namprd11.prod.outlook.com>
-References: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
- <d91e2d04-cb8a-4c34-9e7d-e8faf2dfe79b@amd.com>
-In-Reply-To: <d91e2d04-cb8a-4c34-9e7d-e8faf2dfe79b@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR11MB7185:EE_|IA0PR11MB8302:EE_
-x-ms-office365-filtering-correlation-id: d300d646-c76e-48db-df72-08df1868d8a1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|4143699003|6133799003|56012099006|11063799006|10067099003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: ljXm2UOOGeJVyq4pwq3Ho10oX7uHb9ugO3f5zr9J/kXG9jDxnQLzgcRWugA0DucLi4thh1P3JWPe7hn8ZIIm7PmU7rLJvJert/uFqHx78MjSF6sG5oBBXqB+vmHybuhGmdlLUdZrH7jZTaoWHFGLimmGxqpjVi7PMIK0+Yw8TW5iMmF2qrKGgS/gbMrZ4LYxSsKLixisr6q2iVPPLuaZflWIKKMEeLaMX9oGMbUDT96OPAZDw4ZHfYIl58AqblAc7WJStjBAXDhumsEogKFYxGLwBdSqLyjUOfAydWA5h0Jst38zdVe4YUBTCYWEKNFTRschwCRtxx96eDgTID+lg5Po0bGqDb657xb0wbBdQ3vww9oycd+sL6QNlc8T28QMRlzDwVgFclVJ5MZ8xx8N9ohjjFQ+bmcV6tG6ik1w9o34If83P+UTdq8PlJqs/O7TT0fj22MyDLSgmCl+zAhDbnqGR8w+5asWu0POdfWt+KZvspyesnvAuF4F6EWBeXZbEJJIMeX9ge5DyiCjPoyRWjCf+9Xp38idxUO590tCMy6JOLOtzEAm7wvv78Q4jgrJfwFqk3U/ERKbzeAxJCQhkF1zdENctEHNIwPTKlyD+6AqlzUQl88HCAzjpiGMrDT+HKCav3++YX71E5CnQwXISWKQhlQlgOnA1//9rOL/uPYpEh/Ld2uD8zWuvuxB+N5N
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7185.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?/eyDIVAkrdt//muwnILct0k++5l79P3SHQKh9pWDTgkzN2nJZFkQ20waTB?=
- =?iso-8859-1?Q?vYQHRV/YfwBwL7Cj/+RuO2aODhrG6UQSRvJZF/dNeNOkFIs2JHiMNtRn6U?=
- =?iso-8859-1?Q?2FZAj1yq8QP6ob9+1dPIPVGYiuEkk2nRma4lP0P5gl2W9RJSVBWXr5qA2t?=
- =?iso-8859-1?Q?CE2fjNsph0pOE2dvYcSDUga3wqGqmX2KDUBL2ldIN8YYDOlpJPOXjzIHMu?=
- =?iso-8859-1?Q?po734n3CHwFm2p27dTLbRvSqSYEyknTuhq8ZUrmG+mxJhUqu64IecgXh6D?=
- =?iso-8859-1?Q?PmxAEunDkQQtALWzsEAgZRrPSwiOgp99Oya7mvhOXBWDwKiFHIg1fSkoRC?=
- =?iso-8859-1?Q?8ozBdbhq1NQ7E37Jad9s2TvlLD/5HeLgc+HvqORPjcPVdilGffN51U9K6o?=
- =?iso-8859-1?Q?b85ql9Regp1Fn10h0zOCPTZVXV97sDri+Ex8Ey6HbH1DtJ+5W6fcZnYFiZ?=
- =?iso-8859-1?Q?kP/86Zdatj3u9KkPTj5rYYE8Zx9yNvZlYGYm4/YStc1Erm7vf3v2CbRmcl?=
- =?iso-8859-1?Q?8nuRiKRdTA/M1jjKM2HvLJvo75akd4cgfgeDtkxu/U4/QNALj2gP3ZnjNn?=
- =?iso-8859-1?Q?VpQPResmKrSiZiGYdn/EIpIREGJk78X/nbMha/a11/OMFXDutI5o4m8ZSh?=
- =?iso-8859-1?Q?qIWjaQbmCGKLrhKlWMUKNOaceytu5cG+F4q7SYaRgrHnmLrThCXXYIN22N?=
- =?iso-8859-1?Q?ki96t8T25lab/9Gz2ZIMsYqxUDGHDwGDTu/hFZANIGcXq48WKh8229pQRN?=
- =?iso-8859-1?Q?t4Jv3U8rf0hFje9uvM8sPzh6uNWfFkEZM162oOhXS4OmK0bYScXbSQTh9q?=
- =?iso-8859-1?Q?x9o0WXh1WCOCWJlHj35vr8Gwh7e/FUkPJQf6w7ARxUQ+NxNRn0aISDDIkM?=
- =?iso-8859-1?Q?eviEtNaif3sExmWR7t8oSi9Np4bCBMIvFdxJdlsdKWaXF4N+cBkqje2up2?=
- =?iso-8859-1?Q?9ysXIWQsI+vpWthpDMJfpDnSqgsgfhYD8SKQ5uwpuLQzzLhKy6/AJsB9qZ?=
- =?iso-8859-1?Q?KpQOlFuDOn5x73GHILZ5uqiUrGgxVFfkVbTR1w65L3LaIWClfnz05cmovg?=
- =?iso-8859-1?Q?FD3jdEI2RHT6Ut+vbj5qHuvE1fYFgiKQEHo7v0KwYYUqhY3Er7Hu/fLsKg?=
- =?iso-8859-1?Q?gxi/VZdD+fmhuTsPb2JP9BMOqo/pwnM8b98I3vBCLNuodIwB2Ep+82f739?=
- =?iso-8859-1?Q?ykqnkBMg02ml2J69wRpoMZzkAyg8ym1O9AYcxfVzgr0IeNd0E7rPuYeuFz?=
- =?iso-8859-1?Q?SzdqAY4LnDBC1xLUSpZJnzV2PsXLaQn/FEvgU9vTx+vgUEl1xs5FFJgj7i?=
- =?iso-8859-1?Q?xmmS0fCu9FbNtvIqME7scoDOKY/xLUlFHipQkOlWjpV+tWwXR1RhUJvbAR?=
- =?iso-8859-1?Q?Q2YNyn9zdOK+AVygoxsxfmiJGLdb1YtkmwU8cBduk6GnaxeeFrGEMy5BL7?=
- =?iso-8859-1?Q?648/i4tVaomr3bDtR178yK3FBuXf/dil6kQZdVXgFhQ5gVGyTAyTS1t49l?=
- =?iso-8859-1?Q?D5A19SDg08I/n/yiq+sxVRHwduS7iqnSqdpvgFrTPWyrZ8U9d9ewyq16A6?=
- =?iso-8859-1?Q?ueXTYAT+c1Trj04VY/P44J7+F4VnYB6Xf5867VJIsW+dlH9HIiSWbGcpEM?=
- =?iso-8859-1?Q?Hl1vFlZxsF74lxAaPqVI5n8PyZa8nT0dZBHs0NFZTb4rZX7YPLir9UUefO?=
- =?iso-8859-1?Q?0yJIW55PXHVctjQD7+0gOLYdNPmPJHh/7JDXenMenAhhj8EIdV0br1JDuN?=
- =?iso-8859-1?Q?d1S4Z/x8eGccdv+BNmqiqsHJZwg6K9U/pp9+1nzEs1xYH2IRbtEpk4NEVk?=
- =?iso-8859-1?Q?v/KShPKo3w=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HtZxniBR"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c5231570so3093749e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:25:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790054713; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nUsxQitkJj1lwL2eamnibYLMBjdC3bf81Lwjum+A/gGIcIfHv2eAGAZBScOmzFJNwE
+         XfXYp8YWYlxPT1EGzPyvCARSr3GNxZXn7wJ1tojfYxR6DG+wUd0cn5AyB2uo7Im/5vi5
+         9JIt7q7xX3ttffGhuEqlNM4YdqyAyxmx7uQCWhXpRO3AVjbWRMogv+WU3brBHD9l9eMq
+         0njhng788DEFW2W7FYAbHMK7ez5FfXt73GrTCYjlTnm/281n6llKYNRFOI539dh5y7Hd
+         kcWmV3GQKpCgVnZ1oowmc6Mz+uosuTJi0eyQh2hPDsdQOB+yagSifqcwODppR/TO9u7O
+         Zvdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=r9A3FUQiYasXz1fvdfMOXzL7H/dvBBeexZCJ+4qyPew=;
+        fh=ZCnLomcvUTAYUGe8BPyF2RexGZSDI6Gj1xjJY0wRdIA=;
+        b=jV712ZVNvrGmLm4UEOzJNGBjTLlCsf2RDMMQ692OR4krwcbwYggxIOQoGYd0c1uxyI
+         FfWtx4mTvfjg9UJTJzo1sBjT1IlXEjyq0LVSNKVqPLZ7X/s6kGv4IcWmBm53l3rcHmzo
+         ItSjJ+YB/e/xghCxTG96h/ImPOWaWsh+CHXt++1oSFYLx4DjfkU6hlCcUC4b/s/xQav1
+         +J7mNwUjzE2S2B1WTisN5FXkfxkxLfbs3gf9KxW4XRI9Jkz1BxX7VjyrbOICWRDWfhE7
+         Zs235YCybgzvi+mjlVN93A8ejupz62zTgZUlW1djEexZJ7kMEijMmw8E+YUKRQ59znmP
+         EKVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790054713; x=1790659513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r9A3FUQiYasXz1fvdfMOXzL7H/dvBBeexZCJ+4qyPew=;
+        b=HtZxniBRGW0mjCasv63Wz8btkzTxkAu8O25X5V3c5PhoE5uvh2/w/OG4LKuc6/vb21
+         jHMUH9u54VZbssAS2qbamUhZ24WLfpHcG3J43HivMeouvMT8XCIad78dscRXNSFhP8QJ
+         oUhN2ikroGTKtgjs0G923ZHWpUqgP2JwyuaYFhyYtwWa4n5XvGzAxSFMY6cdXKbqLK6y
+         GdVUhv/+jdE9wouVQx1JR8xirSloZx+aEPoo60mZMpb3U6T4tYUQXZhkE3a4eMCKpLEU
+         1iqkn/oabTE8Tj3hd4O4WP354zGfGKhv0jX6ke+XP3s02JmIkHBgfeCSySahdvou0PJH
+         rP4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790054713; x=1790659513;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r9A3FUQiYasXz1fvdfMOXzL7H/dvBBeexZCJ+4qyPew=;
+        b=Fv8vkpwfPpqwC4/eD8hFwvChAMvjQ5/H4R8Yl8pqUjeGBr0srtZhIgHdh8jup1TXhM
+         74CA+81rux+j+pyT4CC96cqIbTfD6NMBfvEl8sDO8QOwStsHsVpM9akfWSf031SfqX+z
+         a8WDnmKibxWA/0jVH6ixOg7LTI6fXurIH22jCHfCvdTckOxDPJkhzudLjSfSifARQP96
+         Tj7FE9WtOoWu3XMwAsvliArfvgcuRafZsLUINcA9obITsW/Y7PWRLt9g5043zhAd8TYi
+         EjbwXt6oci/dZ22kTHCXX9+CTb0bRCnKGgG3dFSA2G22NR+PUgNfEBe8ry0k1NADvoJN
+         xtUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoYGjzoZGWeSRa59o1vecnZSr/DEJ3A8LR/K399J6KHy1VN8vur0oTlLHykyUtFezpYodxdLQyPGE5tzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFdkn3JcgYbMGy5gBxOdgvjXmB2QtHm5r1BOdAf3opMjJnOloA
+	ttjlEIuQ3AZ5edFukB889e06oDiAz+zKUcaxdSNEf4uJd0K5NPZoy0RcDepNJ1FMJpxj6pCSV19
+	3Mr7M+XEVwIFu6FFi4Z3EK6ES1ojE1Os=
+X-Gm-Gg: AYBFou3V26xgI7igXr6GMBJLgdhebOxc3qjTwE61HEsuX9VkrmWKj2520cxLDc7x9sY
+	l0zW4WxjrorO4aEmre1DLAOkIKAb3ptqBoR8OQJdPVoHogF+exWGmPZ2Z0GPmAiEti4IIT0PiDm
+	Y3F4IGF9cU+SQo43jZ1ig5whLscCYVim4hQdOIad/AlUKEcp2uZ138pKemSWJVaeEQ3sB6I/U0/
+	EawLuLvZgFsAo50GsnREo+7yX+FD8TuoXfIeXUxkfDXYgJr1zHhY9/pYfiWek3buIAcDIiP+SKU
+	exIoX+W/wDQePpI+0mj4yTzvjfIZUEDRjLBJCLnse5XVv0HqvuQF2F8=
+X-Received: by 2002:a05:6512:2348:b0:5b8:9a84:74fd with SMTP id
+ 2adb3069b0e04-5b8c17ee9ffmr4248097e87.4.1790054712894; Mon, 21 Sep 2026
+ 22:25:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: odADnJsHt2//CB5UVo50q17VBZ4KqQLPVgPSgZBD8bGlqBWt8Iesnd438IxsraxX2Nb5X75PncNoophxDa00TlCFgIy/DzqdJDKmkz2W4IgcW3L6sRsI9hVgvCgo9phPP2euQP1FGbCmlYKTWtFkZID6X7kjl5032j5H6PzOoXZCrGXFzGH0CXKm2/XaNz+4ikpJqXN/PGWevHlX0vSEkG70YR/b6joPsaGZMHCRt1uYRYuvbc1zY+/R5kvt5MbSezH2Mrh7suqWrAlTTyMlMWnzE9h3w5aYmHJgxaJsp2vJkdfaRWIHNKzgr0qQHHBAW7v6V4r8jMItRTmdSpGcnA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7185.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d300d646-c76e-48db-df72-08df1868d8a1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 05:17:49.9828
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iUCI3zry3ed3sLcwhVbJwL9Pu8ovhB3OfGVaQi/ynUzk9IhSlu9a7Yzx8ecdEaZgJb8Ec9TVQO1OkUnFmJ403qmDx1qJq+mccYEaU62GzsA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB8302
-X-OriginatorOrg: intel.com
+References: <20260920083131.1880061-1-liubaolin12138@163.com>
+ <20260920083131.1880061-9-liubaolin12138@163.com> <CANFS6bajYthoK3asS3PmfU+9aocdsHS9ZFaUhmiKV5BfbaygeQ@mail.gmail.com>
+ <250dd5e5-4a4e-4547-b205-f0b52bae4775@163.com>
+In-Reply-To: <250dd5e5-4a4e-4547-b205-f0b52bae4775@163.com>
+From: Hyunchul Lee <hyc.lee@gmail.com>
+Date: Tue, 22 Sep 2026 14:25:00 +0900
+X-Gm-Features: AclHuK9DpvIu8lP7A2qR74y5flfN5b4SPq5kUNXAggxDycWJuA--ecJM0kIN7ks
+Message-ID: <CANFS6bbM-OpYLoRvQNAhmo-FNBd9V0K7wEt6iYTc-6cPf+2uEw@mail.gmail.com>
+Subject: Re: [PATCH v2 08/10] ntfs: persist immutable in the $LXFLAGS EA
+To: liubaolin <liubaolin12138@163.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	chenxiaosong@chenxiaosong.com, Baolin Liu <liubaolin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Christian,
-
-> Subject: Re: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable
-> default size limit
->=20
-> On 9/19/26 02:42, Jiakai Xu wrote:
-> > Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-> > default") raised the default size_limit_mb from 64 to INT_MAX.  With
-> > 4K pages, creating a buffer of more than INT_MAX / 8 pages (about 1
-> TB
-> > of pinned memory) now makes the two per-page pointer arrays in
-> > init_udmabuf() exceed what kvmalloc() can handle: kvmalloc() warns
-> and
-> > fails when the requested size exceeds INT_MAX bytes
-> (WARN_ON_ONCE in
-> > __kvmalloc_node_noprof), which is trivially triggerable from
-> > unprivileged users through the UDMABUF_CREATE ioctls:
+2026=EB=85=84 9=EC=9B=94 22=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 12:27, =
+liubaolin <liubaolin12138@163.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+>
+>
+> =E5=9C=A8 2026/9/22 09:21, Hyunchul Lee =E5=86=99=E9=81=93:
+> > Hi Baolin,
 > >
-> >   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021
-> __kvmalloc_node_noprof
-> >   Call Trace:
-> >    udmabuf_create
-> >    udmabuf_ioctl_create_list
+> > 2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 5:3=
+2, Baolin Liu <liubaolin12138@163.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
+:
+> >>
+> >> From: Baolin Liu <liubaolin@kylinos.cn>
+> >>
+> >> Add a fileattr setter for immutable and store its state in bit 0 of a
+> >> little-endian u32 in the private $LXFLAGS EA. Reuse the standard NTFS =
+EA
+> >> attributes and restore the flag when loading an inode, so eviction and
+> >> unmount do not discard the setting.
 > >
-> > Restore a reasonable default limit of 256 MB, which is the value
-> > proposed in the RFC discussion that led to commit 44e9eb5a7621
->=20
-> That is way to low, we want to allocate multiple gigabytes using that
-> API.
-I am wondering, what is the use-case that would require pinning multiple
-Gigabytes of memory via udmabuf?
+> >
+> > I think that the name $LXFLAGS is not appropriate. the prefix $LX
+> > seems to be a WSL-owned namespace. The name could cause
+> > confusion or a future semantics collision with Windows WSL.
+> >
+> > Thanks,
+> > Hyunchul
+>
+> Hi Hyunchul,
+>
+>    Thanks for pointing this out. I agree that we should avoid the $LX
+> prefix to prevent confusion or a future semantics collision with WSL.
+>
+>    Would $LINUXFLAGS be an acceptable name for this private EA?
+>
+>    If you agree, I'll update the code and documentation, rerun the
+> relevant tests, including the Windows NTFS and CHKDSK compatibility
+> tests with the new name, and submit the revised patches as v4.
 
+I agree. And others look good to me.
+Feel free to add my review tag for this patch set.
+
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+
+>
+>    I look forward to your feedback.
+>
+> Thanks,
+> Baolin.
+>
+
+
+--=20
 Thanks,
-Vivek
-
->=20
-> Please make that (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) <<
-> PAGE_SHIFT.
->=20
-> That should allow to allocate a bit below 1TiB again without triggering
-> the issue.
->=20
-> Regards,
-> Christian.
->=20
-> > ("dma-buf/udmabuf: Disable the size limit by default") and
-> comfortably
-> > covers the 8K video use cases cited there, while keeping the
-> > kvmalloc() request far below its threshold.  The limit remains
-> > runtime-tunable via the size_limit_mb module parameter for setups
-> > that need more.
-> >
-> > Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-> default")
-> > Assisted-by: OpenCode:DeepSeek-V4-Flash
-> > Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-> > ---
-> > V1 -> V2:
-> > - Instead of adding a pgcnt check in udmabuf_create(), restore a
-> >   reasonable default size limit (256 MB), as suggested by Christian
-> >   K=F6nig.
-> > - Drop the second Fixes tag; the regression is solely due to
-> >   44e9eb5a7621.
-> > - Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
-> >   not shipped in any released kernel yet.
-> >
-> > V1: https://lore.kernel.org/all/20260918013434.1849135-1-
-> xujiakai24@mails.ucas.ac.cn/
-> > ---
-> >  drivers/dma-buf/udmabuf.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> > index df6dd00462423..4d90c2cb14225 100644
-> > --- a/drivers/dma-buf/udmabuf.c
-> > +++ b/drivers/dma-buf/udmabuf.c
-> > @@ -20,9 +20,9 @@ static int list_limit =3D 1024;
-> >  module_param(list_limit, int, 0644);
-> >  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit.
-> Default is 1024.");
-> >
-> > -static int size_limit_mb =3D INT_MAX;
-> > +static int size_limit_mb =3D 256;
-> >  module_param(size_limit_mb, int, 0644);
-> > -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in
-> megabytes. Default is INT_MAX.");
-> > +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in
-> megabytes. Default is 256.");
-> >
-> >  struct udmabuf {
-> >         pgoff_t pagecount;
-> > --
-> > 2.34.1
-> >
-> > --
-> > Below is the crash report:
-> > ------------[ cut here ]------------
-> > WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0
-> home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0:
-> syz.5.27938/167363
-> > Modules linked in:
-> > CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L
-> 7.3.0-rc2 #1 PREEMPT(full)
-> > Tainted: [W]=3DWARN, [L]=3DSOFTLOCKUP
-> > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-
-> 1 04/01/2014
-> > RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0
-> home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-> > Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85
-> 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31=
- db
-> e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-> > RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-> > RAX: 0000000000000100 RBX: 0000000000000000 RCX:
-> 0000008000000000
-> > RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-> > RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-> > R10: 0000000000000006 R11: 0000000000000002 R12:
-> 0000008000000000
-> > R13: 00000000000028c0 R14: 0000001000000000 R15:
-> 0000008000000000
-> > FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000)
-> knlGS:0000000000000000
-> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4:
-> 0000000000752ef0
-> > DR0: 0000000000000000 DR1: 0000000000000000 DR2:
-> 0000000000006000
-> > DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7:
-> 0000000000000400
-> > PKRU: 80000000
-> > Call Trace:
-> >  <TASK>
-> >  init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-
-> buf/udmabuf.c:193 [inline]
-> >  udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:386
-> >  udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:465 [inline]
-> >  udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:496
-> >  vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
-> >  __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597
-> [inline]
-> >  __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/fs/ioctl.c:583
-> >  do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/arch/x86/entry/syscall_64.c:61 [inline]
-> >  do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/arch/x86/entry/syscall_64.c:84
-> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > RIP: 0033:0x590d6d
-> > Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89=
- f7 48
-> 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff
-> 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-> > RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX:
-> 0000000000000010
-> > RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-> > RDX: 00002000000023c0 RSI: 0000000040187542 RDI:
-> 000000000000000a
-> > RBP: 00007fc89ae45010 R08: 0000000000000000 R09:
-> 0000000000000000
-> > R10: 0000000000000000 R11: 0000000000000216 R12:
-> 00007fc89ae45640
-> > R13: 000000000000000b R14: 0000000000528d40 R15:
-> 00007fc89ae25000
-> >  </TASK>
-> > ---[ end trace 0000000000000000 ]---
-> > ---
-> >
-
+Hyunchul
