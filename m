@@ -1,144 +1,93 @@
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E272654A7EF;
-	Tue, 22 Sep 2026 13:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F25E54EEC5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:18:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083098; cv=none; b=E0q2q3UbaaPGRWrDmkxUU+qtfLtbeTn7w5Fm2VSPxThPY5WMq3riePsgvwn9WvhYuWnjr/QAjo/0nqh1yfhoOMiaagglU5/V7n737ZcGJIQnDgVDme6ptgPG931JsoaVDPc6f1tHqAqcYHomYkhQhnt+uB34R5Wka+LV/xgGkXs=
+	t=1790083106; cv=none; b=kn7OjzRewkPP+FUaoQKIrMD91j5PzgtLS976fRYobQf5DPXMuWJutsVSyNRBXW6sLz/wEvpD4WV+uQ15CTPPC7dh5ZjcURuHlap8MCM32hYXGxOFpITRDchH5m+UBfwj4FsFN66ysMU6341ORFXxF1RjrQnA/PhFLpa7Tooq1XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083098; c=relaxed/simple;
-	bh=ZEI88Gn0b0zZlHwOUuegRhARR4CmHDvzZJhr967hWio=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=QuSi1YAu/65Qgnk4Sc3KutxKNf22xABvtugPZEqesCz7TMyOAkgK+WgvXlFTCGMLjyklDbz33df+ele9e8aHSAMWFTyZ+ZF3AkbNYWT/6DN6hZESmTmYYLmSkr1d9L9YwPZjXoZMCvWIobxezzgJioe5KAr3aaLRna0PVWlYPnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=hZrn1uu3; arc=none smtp.client-ip=185.226.149.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	s=arc-20240116; t=1790083106; c=relaxed/simple;
+	bh=SY22YJ0vcQPmZiJP6Er9mAdvPYI0WQ/d4WQaVFbS2l0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=eT3WPDaz2ZOqD5ceHnWAuunS4ADr0aJYzOOQ7XuBCw03o/OlcO2GzyQTSXXQSZh5z0jNaCgAY7BwR8QTEuszlRGjrONwRIMDfCl1/sfsIkfRKw6HNfRXSM8uHNTD6FihkD8PowXxg3+WKpWXxlfR/YWPY69cD3sbAFrYgARz8pA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HicJvPmV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T23jZA1c; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="hZrn1uu3"
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1x90Nr-005SYf-It; Tue, 22 Sep 2026 15:18:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
-	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
-	bh=HtrBvX1qkX0OQLUKET4ASUR8w4rAoqkM82f1SUuMCg8=; b=hZrn1uu37TTMJo35HAmbHEtt9k
-	EasFgRFtONX541AYYK5ybsOuN7+Bek04t46oRvZxXueW+lV/rjCWKSGVo7pgky5txcwHLjj3X80zJ
-	azVpW/rI2ld+4qVnEtFvN/gUYorQVQLMDpyzALAQwA6wJzZzioKOMNfZQ5ewyiW2VW2wCl9+/qvaQ
-	d1RX3FaUoC4EuteVi5HNQvXY4sHxu+k8owwztnADXQGSD9frLiWuC1liI7J4QmJ8n8P/t3/Ew5sFG
-	+TGwIBLk7EZZ7KVVQHSJRwyUm3ZNLzNbP7/MZPLckAhavYqWfmwqG8DBHqFHVLAlFfncJse2C+imS
-	DS+tnfEQ==;
-Received: from [10.9.9.72] (helo=submission01.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1x90Nm-0006g5-03; Tue, 22 Sep 2026 15:18:02 +0200
-Received: by submission01.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1x90Nh-00FylB-Ti;
-	Tue, 22 Sep 2026 15:17:58 +0200
-Message-ID: <3b3bde52-1f7c-4a7a-b1a9-536e202a281a@rbox.co>
-Date: Tue, 22 Sep 2026 15:17:56 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HicJvPmV";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T23jZA1c"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790083102;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7na/zEgvL24eO807bvPesMqaeejJjuljgdUjJNNsbx4=;
+	b=HicJvPmVbRatLaMX7/WHQG7d34s9qlCvrz9UBmBhpJBCpwoQ6pki5lR0x67t3u+Ppdjmh0
+	xM+Cf5SGw1sMOL0iwUCutY3t9hW8vth21ydqra8UtYc5ECBf1eWewt/caeujaS8Fay4Qwk
+	Md6r7+YNGCbU2BNU1id76l8jvaWb8avSYySsEJl+OrGz6f4o02eqVAJ488XAlUbmMcmha+
+	QQF3h2hD7n+buuvssK3GDDL/dRiF8kqrq8mCzeQ0h9v7g1kbqP7hpi8AVPjYcqJbTteNX6
+	3k7AamD5kAQ4Oi5j1oRUhrand+u1eS1ULOu/b2Awustv53B48+Afs1OiaciBKw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790083102;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7na/zEgvL24eO807bvPesMqaeejJjuljgdUjJNNsbx4=;
+	b=T23jZA1c9eot3don1pV/rrrU3QoMj0Eoaflw8LoXqo4QO2DVyrouqbkOiplXXJVoPo6hsB
+	lhJq4J9IqRZyrYCA==
+To: Petr Mladek <pmladek@suse.com>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH v2] printk: Use two irq_works instead per-CPU
+In-Reply-To: <arJKkvOTNs2DD9ba@pathway.suse.cz>
+References: <20260914143412.1sMcp89V@linutronix.de>
+ <20260922070834.2kmMtN82@linutronix.de> <arJKkvOTNs2DD9ba@pathway.suse.cz>
+Date: Tue, 22 Sep 2026 15:24:22 +0206
+Message-ID: <8733v1v2zl.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Michal Luczaj <mhal@rbox.co>
-Subject: Re: [PATCH net v2 4/5] vsock: Do not reset a TCP_CLOSING socket
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Asias He <asias@redhat.com>,
- kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>
-References: <20260915-vsock-connect-reset-closing-v2-0-a1d9abb472f7@rbox.co>
- <20260915-vsock-connect-reset-closing-v2-4-a1d9abb472f7@rbox.co>
- <aqqFkBYebKK1nZNJ@sgarzare-redhat>
-Content-Language: pl-PL, en-GB
-In-Reply-To: <aqqFkBYebKK1nZNJ@sgarzare-redhat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 9/16/26 14:30, Stefano Garzarella wrote:
->> @@ -1834,23 +1833,22 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
->> 		timeout = schedule_timeout(timeout);
->> 		lock_sock(sk);
->>
->> -		/* Connection established. Whatever happens to socket once we
->> -		 * release it, that's not connect()'s concern. No need to go
->> +		/* Connection was established. Whatever happens to socket once
->> +		 * we release it, that's not connect()'s concern. No need to go
->> 		 * into signal and timeout handling. Call it a day.
->> 		 *
->> 		 * Note that allowing to "reset" an already established socket
->> 		 * here is racy and insecure.
->> 		 */
->> -		if (sk->sk_state == TCP_ESTABLISHED)
->> -			break;
->> +		if (sk->sk_state == TCP_ESTABLISHED ||
->> +		    sk->sk_state == TCP_CLOSING) {
->> +			err = 0;
->> +			goto out_wait;
->> +		}
->>
->> 		/* If connection was _not_ established and a signal/timeout came
->> 		 * to be, we want the socket's state reset. User space may want
->> 		 * to retry.
->> -		 *
->> -		 * sk_state != TCP_ESTABLISHED implies that socket is not on
->> -		 * vsock_connected_table. We keep the binding and the transport
->> -		 * assigned.
-> 
-> Should we keep "We keep the binding and the transport assigned." or 
-> maybe add on the other phrase, "User space may want to retry, so we keep 
-> ..."
+On 2026-09-22, Petr Mladek <pmladek@suse.com> wrote:
+>> Sashiko complains here, https://sashiko.dev/#/patchset/20260914143412.1sMcp89V%40linutronix.de
+>> 
+>> | Does replacing the per-CPU irq_work items with global items introduce a
+>> | system-wide starvation vulnerability on PREEMPT_RT?
+>> | On PREEMPT_RT, IRQ_WORK_LAZY items are processed by a per-CPU irq_work thread
+>> | running at a low SCHED_FIFO priority.
+>> | If one CPU queues pending_wakeup_work or pending_output_work, the item is
+>> | added to its local lazy_list and marked as pending. If that CPU runs a
+>> | higher priority RT task for an extended period, the irq_work thread is starved.
+>> | Since the irq_work structs are now global, their IRQ_WORK_PENDING flag remains
+>> | set during this time. Any subsequent calls to irq_work_queue() on other CPUs
+>> | will fail to queue the work and drop the wakeup requests.
+>> | Could an RT workload on a single CPU starve the global printk/klogd mechanisms
+>> | for the entire system, degrading the isolation provided by the previous per-CPU
+>> | design?
+>> 
+>> while this is true, it is not limited to printk but any workload would
+>> starve in such a scenario. Also, for the per-CPU variant to make a
+>> difference, one would need to have a printk output on another CPU, which
+>> is not busy with long running RT tasks.
+>> Long term this is probably the "legacy" system as console drivers should
+>> transform into nbcon interface. Here this irq-work would be reduced the
+>> userland wake up while the printing would happen via the nbcon thread
+>> which also has a single irq_work queue.
+>> 
+>> I don't see a problem with this.
+>
+> I agree with your explanation. I do not see this as a problem either.
 
-Right, I'll extend the first paragraph.
+I also agree with the explanation. This is not a new problem because
+starvation was always possible. With nbcon we have the advantage that
+if an "RT-loaded CPU" enters the emergency state, the backlog will be
+flushed in atomic mode.
 
->> 		 */
->> 		if (signal_pending(current) || timeout == 0) {
->> 			err = timeout == 0 ? -ETIMEDOUT : sock_intr_errno(timeout);
->> @@ -1874,8 +1872,8 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
->> 		prepare_to_wait(sk_sleep(sk), &wait, TASK_INTERRUPTIBLE);
->> 	}
->>
->> -	err = sock_error(sk);
->> -	if (err) {
-> 
-> Should we add a comment here explaining why we are doing this?
-
-OK, I'll expand on this. With `if (sk->sk_state == TCP_ESTABLISHED) break`,
-there's another bug here.
-
->> +	if (sk->sk_state != TCP_ESTABLISHED && sk->sk_state != TCP_CLOSING) {
->> +		err = sock_error(sk);
->> 		sk->sk_state = TCP_CLOSE;
->> 		sock->state = SS_UNCONNECTED;
->> 	}
-
-We might exit the loop and get here on:
-1. vsock_connect_timeout() timing out; setting sk_err, TCP_CLOSE,
-   SS_UNCONNECTED
-2. virtio_transport_recv_connecting() failing to establish connection;
-   setting sk_err, TCP_CLOSE, and leaving SS_CONNECTING
-And to be precise:
-3. established connection getting torn by a transport event, locklessly
-   setting sk_err, TCP_CLOSE, and leaving SS_CONNECTED
-I sure hope I'm not missing something.
-
-So the code above is taking a bit of a defensive approach, but I suppose it
-could be simplified to an if()-less
-
-  err = sock_error(sk);
-  sock->state = SS_UNCONNECTED;
-
-thanks,
-Michal
+John
