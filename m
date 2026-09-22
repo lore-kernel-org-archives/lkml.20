@@ -1,82 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-79.mta1.migadu.com [95.215.58.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270F528726E;
-	Tue, 22 Sep 2026 06:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7975F235BE2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790059103; cv=none; b=UX+Y6EEzmubs59e4g+3hR+H3pETfnmB9O9Ee5vOdqMrOLJF+uc+TbumTZFYoNrPCsZ/UL0nw3qle2tDLkz+YhjzczvNmy7pTHIIfcLzMBY4jjY/2YF1CLQcVn/ZhHKc8uzO4DEffNhjHHT+NoSiH5cY3QAb4CcD4ttj2+1uJL64=
+	t=1790059115; cv=none; b=o53rAdkCy2A065nkbiXo7AztxohTChyDET+DBgqEEcobNspO2GUCJiOoXLx0TfutDTwS0ajUiPWtGulUSu+19OnVr+TpLCZJ7K5FKgCbwyg8uiybiT9DJ7dhocUNAUVMwAuZCpi3E28gj14+zSPl0Z+3JVseNni2cQaGXRTcWAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790059103; c=relaxed/simple;
-	bh=sZVF7j0fWD27O2xq5Al4ciYgjvCK7LkZU22wBm0vYhg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QiFqB9Cf3KsgY37yJ1Sbc8x0Ymv6E/W9mTWxpfeZ+ZJlikj/sVN/aTewnYcUcXvcz+yzWAFYNVba7/BlZ2GQW6BFy6S+CaAeKOtycyNIrvkw5Umg3g/XHFWo17ZNdvlCOir38Uhw6fU88JnuzXbXkegQGcH4l3jpI3nVTWhPT7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jIsmsMZC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790059115; c=relaxed/simple;
+	bh=B3TmqpiaHL4WRMYGGtlEFLXTSY7U0xMIAUehY213GSQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=lECZxM9cV5N7QD/nWMhitKAaUxa/Zsh/TFw44cgFNKWXFYJ5qK8vK+JH5fvOYJvJpXUu+pCMlvBcfQ3s8RVhCk4MqNbf+stNxqJSWIe5UqRM3EpDCT/3Z/r6TMfY5QqbzytzNsLSi85cyz0Dq7Cq8uTf9E2ktFBBdftca1inkiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lZDso4XA; arc=none smtp.client-ip=95.215.58.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jIsmsMZC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09561F000FF;
-	Tue, 22 Sep 2026 06:38:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790059101;
-	bh=Jx07mOh3/1/loGCchiFU5C7r+tS5wJT4GfywvSeAvNk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jIsmsMZCnlK3ox3pmmHEAiUz7ryjXPv7r8SkLc2HC+mHSs1G6MP17hBRhprgEvfXY
-	 AVrWk5VIsFKedQ9ydIPKy48jtiWXSUV1g+r+rNL7e3gDzZ8gc5YpP4a1CPESM35I9U
-	 UoANshwIL7AbnrhP9HyJKnX/oGRLuzgIDy0sY2Sv9AtWh7hbV7F4DMAZgrmyiXq5u4
-	 VMcdT74bRb24gPwrT3238gSoveOmTdcjEBrUKYu8hACYlVAVde3u7JQYtj71f5fLsO
-	 kJ1QtDuqEtxn9UmLT8K1e2lVlcW6FTrn+4KoRcx+Hk12L1ufnoAT/xs9wjJOeHOotS
-	 iP1vjAo4b/DOA==
-Date: Tue, 22 Sep 2026 08:38:17 +0200
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: Jiri Kosina <jikos@kernel.org>, linux-input@vger.kernel.org, 
-	kernel list <linux-kernel@vger.kernel.org>
-Subject: Re: HID: intended semantics around report buffer length?
-Message-ID: <arIhe-o0Pxcb1hXu@beelink>
-References: <CAG48ez2N4jPTF7mqs28NHNNH+ev3xFqE+FJ2OgaehAw8L+w91w@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lZDso4XA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=B3TmqpiaHL4WRMYGGtlEFLXTSY7U0xMIAUehY213GSQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790059111; v=1; x=1790663911;
+ b=lZDso4XALOqRkrNzn2h3T17gNsjtm7pW54UadFmevsZGp7gif8ugVEIx67BSgBf2qo7DKBA+
+ kKETJnNRUBf2EaujngFgG5oSsz2FEZzPdhzxsnMV73Xpn57d1hvbsHnH7/FQR0nNoWgUhBlVHKO
+ 8Wsqgf4ZY7X7UBZrWCIgpE7k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9e38c057ce35e214;
+	Tue, 22 Sep 2026 06:38:30 +0000
+X-Mizu-Trace-ID: 9e38c057ce35e214
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH] PCI: rcar-gen4: Fix device_node leak in rcar_gen4_pcie_host_msi_addr()
+Date: Tue, 22 Sep 2026 07:38:30 +0100
+Message-Id: <20260922063830.472642-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <95685b0e-21dd-4446-8fef-c5664cea4057@mailbox.org>
+References: <20260918091052.2825315-1-fuad.tabba@linux.dev> <95685b0e-21dd-4446-8fef-c5664cea4057@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAG48ez2N4jPTF7mqs28NHNNH+ev3xFqE+FJ2OgaehAw8L+w91w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
+Hi Marek,
 
-Hi Jarn,
+On Mon, 21 Sep 2026 22:47:30 +0200, Marek Vasut <marek.vasut@mailbox.org> wrote:
 
-On Sep 21 2026, Jann Horn wrote:
-> Hi!
+[...]
+
+> I think you have to call of_node_put() on msi_node(), so what about this 
+> instead ?
+
+The __free(device_node) is that call: it puts msi_node on every return from the function, the success path included, so no goto is needed. It's the same scoped cleanup pci-imx6.c and pcie-rzg3s-host.c use for their device_node lookups.
+
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c 
+
+[...]
+
+> "
 > 
-> I've noticed that some HID drivers seem to assume that HID events come
-> in buffers of at least HID_MIN_BUFFER_SIZE bytes for historical
-> reasons. As a random example, elo_raw_event() can pass the supplied
-> buffer to elo_process_data(), which can access data[1..7] without
-> checking the size parameter.
-> 
-> However, HID-BPF exposes the kfuncs hid_bpf_input_report() and
-> hid_bpf_try_input_report() which appear to allow BPF code to pass any
-> buffer with size >=1 into this codepath.
-> 
-> What is the intended API contract for buffers passed into
-> hid_driver::raw_event? Are HID drivers allowed to assume that these
-> buffers are always >=HID_MIN_BUFFER_SIZE bytes (in which case I think
-> HID-BPF probably has a bug), or are all HID drivers without explicit
-> size checks buggy?
+> Also, I think drivers/pci/controller/pcie-iproc.c 
+> iproc_pcie_msi_enable() needs similar fix ?
 
-I think it's safer to not assume anything regarding the size.
-
-I just double checked hid-elo.c and it does call in its probe
-`hid_is_usb(hdev)` so we guarantee that the transport layer is indeed
-usbhid, and so we know that .raw_event() will be called with
-HID_MIN_BUFFER_SIZE at least.
-
-The thing is uhid is not guaranteeing HID_MIN_BUFFER_SIZE, and it has
-been around for a while, so no, we can't assume size is at least
-HID_MIN_BUFFER_SIZE, unless in conjonctions with some conditions on the
-driver.
+I don't think so: iproc_pcie_msi_enable() already puts the node at out_put_node, on the steer failure and the success paths alike.
 
 Cheers,
-Benjamin
+/fuad
