@@ -1,170 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E851C2324;
-	Tue, 22 Sep 2026 02:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045207; cv=none; b=PyBGaRyXkFgUutSbmZ2xazqLTRd7z1tjfEGjl8kKnm/1yS9aN/eIKQ/EXkTj7Vi7pT2MUaq7icffY70PNMbJ/698GRQtMN8E01M6PwzreO1IOUxlfWIMSR6d70YRPr7EBSGZvzF/4pzp/wAyB4SUqnDcAWFAnPX2rC160hnduVM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045207; c=relaxed/simple;
-	bh=OXEWaNDjzGTksV7cNFYTonPqUP/XiFeUvgjFF2t/SZw=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=K8g6OgxGzWKkoNoouGMtpXaAX8xEKpvOoqxtMinK4MlIe+QAIyttbjjoOLs0CE8xrcEULW7CYqeKlZUGhCN5BqPae8YxJWDcfVMBAypB5lAelHD0RMOJXZDDbGfcdlndGVPvACBj03PJcYT0tJZay4px6NNpSxM1YdiD23DQAQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqqWGvkK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E0F3750D7
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790045260; cv=pass; b=bRj14xpZrhmGa6g7E2tvWTfLhJNpC9QzEbdHxOBQRCK02UkZzBOA0ieBU6fXzlg7wWY1jwFea30bdu7u4X7TLhbe15whHLkWIs2jgDLCbkiE0bNjLn5FAWminOqwlBTBDc6DTPyKXJTb0/vCuSdqhGNEab6maEtoZL/OkydyB7U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790045260; c=relaxed/simple;
+	bh=/bF+2i7J9tw/SU9Y8Ch+X0ErYTFXTPP1J7KPqLHGa9U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IxEzut2qLjiAzCMhLuYKV7hIgARoWyWj7URELILI70Xq+qulZCNnqxzmrlYsFcDKiuqDid4wUXOBQqNVQWsYN+GgRss3t2AY0ipvWKSObgoBj3Xv8gGTU3WWlzyRAC4Lq3UrdxBXW/PtYHWLewa5csUmf8er708ttWYxp4k157E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AuLhNOa0; arc=pass smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqqWGvkK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D961F000FF;
-	Tue, 22 Sep 2026 02:46:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790045205;
-	bh=MOzDwy6eO8/blUPkxP2vb6lYBtsThXRvf8h6GqiRrsM=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=fqqWGvkKP5R4H4IDzDQLhHwjS8qf98iTqGjnN5klxZksBGyg9RIM0K1IMeI+zOdT1
-	 WAW0aPsU49Y0W6gxe3rj6zh8n2VBCDwUFgTVCNtXN9QvfuBXD0wdvJ7kI60h/TLMaV
-	 FKkC2iOAaANbDJY84faspyLJIEkbhIr6dZu1VqS7s81IZbtDfozyJkfSdqZGUwgbeL
-	 wWQw+B2T9h+q9ZeA1OXjS9RaNlfYAoU7Etb4ThIYyqqxfYFJNXcnwC0n3wob0ZN2rn
-	 66oqIcMvj1j3o7E9nwfcOTscSiQWL0XPTkb8JRFirk0wwAaF8z+S+E6+Jjsaa1efEy
-	 lTqPV2/D6qoww==
-Content-Type: multipart/mixed; boundary="===============8280890974195556375=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AuLhNOa0"
+Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66f943b286fso3285179d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:47:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790045257; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HVdl8cpA0Qqz2l1CTDHghdqQKaYmK0/eQ4Ai3ciPxHsZeQAI80BOcf9dl9BHm2TPA6
+         Nm17HinUguF79+I1HSXcWCKferWaCfChsUuIlxgloS5c5RFE0rCyLRRa/+/X1myNfYVL
+         UXgIhFV/ncY2o+q5Vg/QMZdx3kncc4JHOvUKr5IjKZ4x/+FAYn/2426ZS8DPhOqIGcuh
+         lhcbBcgr0cn8YjgFUBCa5hppUpGvK/2+iUnufQwQDfSCFwh9kCMkxofbvA4swSSlH7kO
+         qTe5hZKsRzpVpvUK1Li3HA7LYjfA+TeNy00KYuljmJQf98VG5TOnOARUH7fIjNes/nq4
+         Yszw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=K/Pzgg7o0qrlVK5qFQbvKisrC2SDvw/OqmX88foRwCs=;
+        fh=e2fBe+TcuYQLJv2I4JtOrBselBSFlI/tKFYSpfje1qo=;
+        b=ibjPvG+1k0HckI7Aw4q0fHqsK6wYaPyr3nzEz5jVIfTDWZvObe/hfJ+PPuh/8WtvKT
+         brudpaGl2gWHGWn96RN7fxlEepqe5h4EhKp7Q/0o0F/Xypma9WWkB8TXWrceXy5GyP/8
+         qAfzpkKxATimSA3gFSMRg/61Jq/dUAFY8eaH7XB7KKSRCerIOp7iuAcTW+9Ks4WsY36t
+         ezscHpWhKsm7oOXTIFTBA/O/XaNkaPQLEU8cCN+zk8Mk6Glw2RdbU6uBHe5QsKw/+44Y
+         AGgFxRkOTvVheWoytuewqrX5p1/jnzpmDBqUQ3xZQeEZNFEy6oD8kk7A6S79vWqSzJ4C
+         RhFg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790045257; x=1790650057; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K/Pzgg7o0qrlVK5qFQbvKisrC2SDvw/OqmX88foRwCs=;
+        b=AuLhNOa0yPL9n4hIKdsmoKbEnxfAuuK/HKtO7P3kdusbH5x7hG67dS6slg21oqqMbg
+         cDyWlzyF2x/28pOi5Fl8T/RIaFd6Rjo0MQYcMzadjD+4UENR1PxRRxs87oR+B6Qws690
+         feROsiscLY5pVaXM4pP46S1YHdsoShHCTC+QhpmUTCOl30+ifYBaiosiNwHH3VuHfZAB
+         nVYqcFnrEttaaf9UVTCXUDWVCgw2bfgmwhMJ31UPwTk2vBwjXgjrmYdrBC08YVpw4F69
+         SURYQi6jSnhJWWINrDZnJWp1Y3YNntdOtAhJJYRmUFg6jndk4CwP9X94B6w73xvr6l14
+         zZNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790045257; x=1790650057;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=K/Pzgg7o0qrlVK5qFQbvKisrC2SDvw/OqmX88foRwCs=;
+        b=KWG6ObZXAkARj/gPxRkOJ8nMkY3NqRrD0P+8SwvGF5EoLUEm+U1L9mMXGPSpH3bLmD
+         gDsU6Jb9FmewX7R4rtZQTuIEfgMonHXRXOz3TAanHG4iZI7OjqtwO9uyzYtQ5JZfAaz7
+         6qWrLO/VNHkOZ79dZ+sLpBUPrv2nLO2y4xAikfmtjPjhoZ+NKEbo815iTxsXJ8vsGm7a
+         Fme/dTEeL7a7/l8p6l7NTxc3NChySoAX0ZOwVO9ByK1g98gNuPE7ao1askFTLduTvB93
+         QmiJN+63vbPRmbEdOZzr+dJPv7RMLcjVqLSkQ38PR1fgl6Ot67UdGjPJNmSh3bbfMIeO
+         bu+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzTymcwSVR9NOzxiBGcUbiTVdFPcdZc9ziwCRXCGWumhbz/MN6bIXVbPxaYws0qh0GtX8B0cpxwQghO4bc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzzViQzrFuLSFcuc9S+x4ihkx/bJ5isP9K4uPg1zVp7lCAE1tr
+	i0x1uXwOYGu1szA8742a/+mrp4Vhv+DcyO3bYSfeD4ISfsTBbIFOV+OVlrPFDYYEdIgPwvUyaQC
+	zVVMljuXDNHvv8zUXr+lbmUJTc0wCRpJ8YBoGlWFoP6Am
+X-Gm-Gg: AYBFou0vcnGCPS2LrRrDYdr9cXxUiMDFuJFLiVjFiJAd70WU/FKmaHitalkrHgoki3L
+	wrEkdQlP3h06KLrcl3J3Y/0qBdVulyC+ol37kUNJaTFm/MRraswv8BwF0Ods+2ALtSEftRJyBfw
+	z6xp+SW16PzVd/Nd0pN+aAhMZvTm42cHG9B7vMNE+Sqrs0ps6gw7TTLHm7k+ewS1/hGBMa8sioM
+	bB47N4B/uPp2yLfa8knFxIzy9iqbQ0nzZ1+O3gtBc9S9pKK0J7pbcOHzCnLFPINrwqpTg9j8nE+
+	IdJ+sFpqQHnAWl1IYkI141AtLG0P07BNV4kH6PhWFHu1Xda3p+nt0r0KMZc=
+X-Received: by 2002:a05:690e:441b:b0:66f:c1be:84e1 with SMTP id
+ 956f58d0204a3-672c54b6fb5mr245756d50.79.1790045257564; Mon, 21 Sep 2026
+ 19:47:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <8dd3c1cf39ecece85de180fd63a78ea52684202c66ea329fb08d9c444365b1ca@mail.kernel.org>
-In-Reply-To: <20260922015417.130869-2-yangfeng59949@163.com>
-References: <20260922015417.130869-2-yangfeng59949@163.com>
-Subject: Re: [PATCH v2 bpf-next 2/2] selftests/bpf: Check bpf_skb_output() tracing restrictions
-From: bot+bpf-ci@kernel.org
-To: yangfeng59949@163.com,kpsingh@kernel.org,matt@bobrowski.net,song@kernel.org,jolsa@kernel.org,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,yonghong.song@linux.dev,emil@etsalapatis.com,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com
-Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 22 Sep 2026 02:46:42 +0000 (UTC)
+References: <20260921073847.63505-1-lgs201920130244@gmail.com> <arFH7F944RO7TUqN@quoll>
+In-Reply-To: <arFH7F944RO7TUqN@quoll>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 10:47:24 +0800
+X-Gm-Features: AcwNN1VMKLPliQEBYI3cwmxMjQMSd7JsGwSa33n2dtOWCSkj81z1Dp0OO7Y38vg
+Message-ID: <CANUHTR-KMdRmJwjpqqk5tsfnQkrwRBroCqkYOr6f9o=6yVewJw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
+To: krzk@kernel.org
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, linux-sound@vger.kernel.org, 
+	stable@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>, 
+	Thorsten Blum <thorsten.blum@linux.dev>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Mark Brown <broonie@kernel.org>, 
+	Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
---===============8280890974195556375==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Krzysztof,
 
-> commit 586c31fe079529e232f3760545b476754b91501b
-> Author:     Feng Yang <yangfeng@kylinos.cn>
-> AuthorDate: Tue Sep 22 09:54:17 2026 +0800
-> Commit:     Kernel Patches Daemon <kernel-patches-bot@fb.com>
-> CommitDate: Mon Sep 21 19:02:48 2026 -0700
+Thank you for your feedback.
+
+On Mon, 21 Sept 2026 at 23:06, <krzk@kernel.org> wrote:
 >
->     selftests/bpf: Check bpf_skb_output() tracing restrictions
 >
->     Add verifier coverage for the bpf_skb_output() tracing policy. Verify
->     that an fentry program can still use the helper, while the equivalent
->     fexit program is rejected at load time.
+> On Mon, 21 Sep 2026 15:38:47 +0800, Guangshuo Li wrote:
+> > sst_acpi_probe() registers platform devices for the SST platform and
+> > machine drivers using platform_device_register_data(), but does not
+> > unregister them when later probe steps fail.
+> >
+> > If machine device registration fails, the already registered SST platform
+> > device is left registered. The same leak happens when
+> > sst_platform_get_resources() or sst_context_init() fails after both
+> > platform devices have been successfully registered.
+> >
+> > A registered platform device owns resources allocated by the platform
+> > device core and must be released with platform_device_unregister() so
+> > that the device reference is dropped and platform_device_release() can
+> > free the backing platform_object.
+> >
+> > Unregister the created platform devices on all failure paths to restore
+> > the missing cleanup.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
+> >  1 file changed, 10 insertions(+), 3 deletions(-)
+> >
 >
->     Signed-off-by: Yun Lu <luyun@kylinos.cn>
->     Signed-off-by: Feng Yang<yangfeng@kylinos.cn>
-
-There's a formatting issue in the second Signed-off-by line - it's missing
-the space between the name and email address. Should this be:
-
-  Signed-off-by: Feng Yang <yangfeng@kylinos.cn>
-
-instead of "Feng Yang<yangfeng@kylinos.cn>"?
-
-> diff --git a/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c b/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
-> index 889c9b78b912e..058e71927cd5c 100644
-> --- a/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
-> +++ b/tools/testing/selftests/bpf/progs/verifier_helper_restricted.c
-> @@ -3,6 +3,7 @@
 >
->  #include <linux/bpf.h>
->  #include <bpf/bpf_helpers.h>
-> +#include <bpf/bpf_tracing.h>
->  #include "bpf_misc.h"
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
 >
->  struct val {
-> @@ -17,6 +18,13 @@ struct {
->  	__type(value, struct val);
->  } map_spin_lock SEC(".maps");
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
 >
-> +struct {
-> +	__uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
-> +	__uint(max_entries, 1);
-> +	__type(key, __u32);
-> +	__type(value, __u32);
-> +} perf_event_map SEC(".maps");
-> +
-
-[ ... ]
-
-> @@ -165,4 +173,28 @@ l0_%=:	exit;						\
->  	: __clobber_all);
->  }
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
 >
-> +SEC("fentry/skb_tx_error")
-> +__description("bpf_skb_output is allowed in BPF_TRACE_FENTRY")
-> +__success
-> +int BPF_PROG(skb_output_fentry, void *skb)
-> +{
-> +	__u64 meta = 0;
-> +
-> +	bpf_skb_output(skb, &perf_event_map, BPF_F_CURRENT_CPU,
-> +		       &meta, sizeof(meta));
-> +	return 0;
-> +}
-> +
-> +SEC("fexit/skb_tx_error")
-> +__description("bpf_skb_output is forbidden in BPF_TRACE_FEXIT")
-> +__failure __msg("program of this type cannot use helper bpf_skb_output")
-> +int BPF_PROG(skb_output_fexit, void *skb)
-> +{
-> +	__u64 meta = 0;
-> +
-> +	bpf_skb_output(skb, &perf_event_map, BPF_F_CURRENT_CPU,
-> +		       &meta, sizeof(meta));
-> +	return 0;
-> +}
-> +
->  char _license[] SEC("license") = "GPL";
+> Please read kernel documentation BEFORE posting more work. It will
+> explain you how to identify subsystems, how to organize your work per
+> subsystem, how to document usage of LLM and how what you should not
+> do if this was posted in a good faith.
+>
+> Best regards,
+> Krzysztof
+>
+>
+>
+I would like to clarify that these patches were manually reviewed and
+audited by us; they were not simply generated and submitted by an LLM.
+However, I understand why the recent submission pattern may have given
+that impression. We sent too many patches in a short period of time,
+and we also failed to respond to some discussions in a timely manner,
+which made the situation look worse.
 
-The kernel change this tests (538d3dadf8d0e) gates bpf_skb_output() on
-four attach types in tracing_prog_may_run_after_target():
+Many of the recent patches, especially the v2 revisions, are
+corrections and improvements based on previous review feedback rather
+than completely new untested changes. That said, we recognize that the
+way we submitted them increased the burden on maintainers and
+reviewers.
 
-  case BPF_TRACE_FEXIT:
-  case BPF_TRACE_FEXIT_MULTI:
-  case BPF_TRACE_FSESSION:
-  case BPF_TRACE_FSESSION_MULTI:
-          return true;
+We apologize for the pressure this caused to the community. We will be
+more careful about organizing patches by subsystem, preparing proper
+patchsets, and following the kernel contribution guidelines before
+sending future work.
 
-Only BPF_TRACE_FEXIT gets a test case here. Would it make sense to add
-coverage for BPF_TRACE_FEXIT_MULTI, BPF_TRACE_FSESSION and
-BPF_TRACE_FSESSION_MULTI as well?
+Thank you again for pointing this out.
 
-The fsession case in particular is the one whose rationale the parent
-commit message spends a paragraph on - that fsession must be rejected
-because the same program runs on both entry and return and the verifier
-cannot prove that a helper call is entry-only.
-
-All three have libbpf section prefixes available (tools/lib/bpf/libbpf.c
-has "fsession+", "fsession.multi+", "fexit.multi+"), so the extra test cases
-would be copies of the existing fexit block with different SEC() strings.
-
-Kumar Kartikeya Dwivedi raised a design concern about the overall approach
-in v2:
-
-https://lore.kernel.org/all/DLLHE9PBLDU0.XQGEOQQIR4HV@gmail.com/
-
-  "Sorry, this is not an acceptable fix. This negates usage of the
-  function in all fexit and fession attach points. Unless there is a
-  simpler way to enumerate in which attach points this helper should be
-  disabled, it might not be worth doing and leaving this be as is."
-
-The concern is that disabling bpf_skb_output() in all fexit/fsession
-programs may be too broad. Since this test verifies the blanket restriction
-that was rejected, has this feedback been addressed?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35678199634
---===============8280890974195556375==--
+Best regards,
+Guangshuo
