@@ -1,159 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7048151C067
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790110568; cv=none; b=p31q1Yka8I/flX7gXHaHZhok+6Gh8gB/QJd7nH+8I74ywsFOG7Dqltq1+5b2frMu7CjKm22vU4BZvE3mX9dx4/X5IEPTkxb/xir1B7DTPRT9x4r9rmOdL0+1ajxSpDJEeHEDCrj8/zdaOJv2UDLGaUVCKXSYEY0b2OguaeFJhCQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790110568; c=relaxed/simple;
-	bh=p6x3aoighk00gg5seqMKSj2yW50gaB1L65MJicSOd8A=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F894BB269
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790110780; cv=pass; b=XdKu8lMsuxy13xTIqMq3b+Jy44cuX3EMNDzy5LMkDFhzYbdTRMY4AITc6jCpBdEMqCWd49AUtn4Q6u+f/MEJ6SYCCAZA7PisQ2rDBItCpKq8FtgWRN0ORtW2zX4+s4JZCacKb42wkwEb1PAvEo7dWX7XcBGjnqQZJeDOCKtFl38=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790110780; c=relaxed/simple;
+	bh=wIRXXuVsUSpgf3xCZFrSJzI8xByKVKMD+dC+JD/lknA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ifZb88RyMkmhPMTOE+PacAuUgLDV+Q5lOU3OzZaFBKppZkC39XAxFpmn6oQ09BHdXfNlNBQGcWlE23EO+UdJp8hOHNPkdKdnIW1S+MTzheXdqGDlwha6IN9Ae8xu/qui5FGwPOhP3mirvA0j2Vee+epkOLumOlgNTCsBVwIei1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLiwYckP; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=l9KZtA8/PEtaqIZU91KrvvGwyUYW4qk1MWf3bYZewq9b8GCFXWVOoR3Q7DJsXkOJGWeoo11V55k7abDkrHzl2eorNSWM98imABRmLoZB0GYSRUJ0Nbp0dI/aSSl/Gqj/0QSLM9Fu2jzkZeZVwsrsi2CbOKkib2HZSNCVDxWOHPc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQ957hYx; arc=pass smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLiwYckP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5B91F008A2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:55:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790110551;
-	bh=p6x3aoighk00gg5seqMKSj2yW50gaB1L65MJicSOd8A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NLiwYckPmHCO/uy5zqf5lUKdmRoC0FecvuYfjX0XTmcncIecz8LFB7bxxq34up+6L
-	 Dg7SxVV+rrstPe6rGclYkMEmeo8FIM4EXnMsoiObCbvHLDZvFYf/ZW+CkEVJIG9ypY
-	 zXO0d93fFfR2pPuXAQZfR6MfekTRU8y9grvpoHv21evU/XPfYEXZnSWiCEcJ9OvjkW
-	 dExF0cQqb05KXJ1oCasvasjyNGS/1TLu7dHJTIwEseesrldMwQkB6fh8ZhnDZPkqTg
-	 /foHCR7mIbRN/2plKJrx2lBD6kyxOWpXAX8xPvyy7kqCPWy7q3S7GPp1AT+F+4DwvC
-	 i1HXbC88SjTaA==
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93a222edc62so35548485a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:55:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByPWf4shsRj0+m9vlmCGV4IRQkd8Ju3Q3Z9gYq3mgI1t7SON5dmgGubUzvA9Q4aycexWmYIgpTTUjHiikQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbeu5k7fNL8dM1Y/JmfpXPnJQRX8YTISmKkRbcbvq7Yj2iY+EP
-	Uh0DR2H1f1Bu7ZosOTNvMAGbxjjrEIqtslVMN7fURDF1NYk0nIfWAUhmZbmmTkvTbFqlSyRlURp
-	9wAWztvn4/XaKqoq8DVRiykNPy1Ixr2M=
-X-Received: by 2002:a05:620a:3197:b0:93b:d79b:9a5c with SMTP id
- af79cd13be357-93c2523ced1mr99421785a.61.1790110550897; Tue, 22 Sep 2026
- 13:55:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQ957hYx"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c4bf3dedf3so242295b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:59:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790110774; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lVJdpV2g4BlQns0pxyEX6fkV5lD9sThHvI+OMncGkogwhC8Xtig61qS8e5xtWfCCYG
+         eV4UqZPBgBJnB+WWS2vfVIOtqSw7R9+8bm8EQ2XQRITkUUYirb/DwVJWsIHSrW/to2BZ
+         3qxmN9xGcOeN+Y62jSqiue6bLVMRX5MdTr6j1JtjetyccJ/WhSQIxh94Yvb1rl9RLeTq
+         GqdbWKGICE0ty87D1WbtsH+fh6jVGzFQXUlaQhmB86Mi3zYCm/KXuw7Bw7CbKt0+wo8A
+         i6IPYp+Rz2BZPNH2hPdmMoLKPqLmHEfc/1EaWb5df07xozGMyU6e4UsOd1dlz7wj85q8
+         3cew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=btBRPiBOdcnMWIsPdftA9/JWuQ65VWOKgdruB6cHU6E=;
+        fh=iRM0ZOZJg3Z5l+IcuKtZFWk9a7LNBlx2+joDtFhRkIU=;
+        b=iLiMHNccUKS1bQVGEc3ZaMG4oVr5la5CP/zt6/BTQabKFsQVTpqFvy/DYz8yHyMdeS
+         MGl0f3b7SSB4lCTzG9duQMf0xo107Y+xNIhjJTqTaaXq9zXdt/Yyf6lyaBauhM2dDyU/
+         vG4thruCqj2ZXKXtIHorK53aFnjGSuJoH+sgmlZOYllt02SRoS/iRADn+63lrvBYRf6y
+         CxMkPonRkRmwmQvR8FChIADRUDU0EXrLr8yizW2wojrTVQ+2HTgvMaPPcgi34wFutoKk
+         QICSiZVBZUXYIgbWwtYst3m2enu/ZZ7qjWCCckJPOg8gxQ6tZzoYi8+yiuJG8j79kA76
+         2ikw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790110774; x=1790715574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=btBRPiBOdcnMWIsPdftA9/JWuQ65VWOKgdruB6cHU6E=;
+        b=XQ957hYxO0xTPlSDJ03IKx+MxcfN9kAIo219ZRQnIdxUHeHjn60pEZfNyWpmDD1Qoo
+         2SOyxkkyc8URH3VVGoabUl79PMYw3AW2OgD7gGK2gD3Ov9T90wgi/0AgqSvQ+kFeOC65
+         H9BaC0QWkuyu+iaCcafG39ntqttCf8NkDsXsvDHs55OM9MRz75ZjJpPJl2TFeDZMPZ1Z
+         k3y4f7P+61kq6pn0Cy/RGnhx/PSkJHCaRBg/bR8T+xWUJb6N/Yy1oqoeoFnFdcONj2Fo
+         NKnqtBfMJrTmWao4y45iz/7DPlaK2bIQJKrtXExH+N+9yElj39tE9nMNfCsgvWmBQ47W
+         jfuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790110774; x=1790715574;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=btBRPiBOdcnMWIsPdftA9/JWuQ65VWOKgdruB6cHU6E=;
+        b=Nz1SB6FtkT6olr1WXIwIesy06SK4inOLHd8bFx+ERkXpaO6P3ndKWD9kPaLVkbRG1H
+         Jxkq1jWlx8ok64iRtoNKKR+C0iYtFKcZmfYbq9VtOmaluq6E/+imGvzKdQDHwh3zk27+
+         MszdRXPVmTIOA92y7Yav26iq8LZ/pqWgOvDFE73Z7azg44pvSI6fn5dHi6tJUGUrXXtj
+         p3n1DN+aGEbTaMrGcMLnPI4wH7CXyOjCaqJm+SmXEXC9QalMZUqXIxaWE34mnnjDbfkm
+         osIHuM3YQeIq7GmUkLhbi+yPYyIDrp+EWsUzyz/g5/KLqIgebmFdCHa/MDmiLDvHIA7h
+         kmjA==
+X-Forwarded-Encrypted: i=1; AKwUvBze8WOrL+NlbJSO5LncHXjTtUldsOlB/ixzIk+QWHE1gsUtTW16c/JVoGTCMKdmlXG8UsE84U12QD96ihk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhTKMuxDmdD7Qy3MoUwnrtgp+siZo77NbrwE/o2fCgfLgM8+uP
+	NkNJMEQl8BDSfY6VCSASXChFbc/G5Z4K8P69GfOru98kYQYZdMjJoSqO1W5E34OhiIEbTIo29g7
+	5enz0bloA+9kEjCWZXtwtx0dsnkvZFzM=
+X-Gm-Gg: AYBFou3B34TZGbhHNRa8/IKssjFeeGsJQIAWKEUNDIdE0mWjD4Ll2cX6d9/fYEaAFkT
+	04d7FguoxV8d2+sX7tpdCrMj5vY3v+XxNqXli02aj9Tk4Stp0Y2bc9/RMQYutlLTO3J4JoUB0MR
+	35WvP5URTWQGIaXXIpX3Roqnyf6PjTjAfn64MQenhznv3xsi/A3zdmmr4+88G2pFCm4JiAyjFXV
+	otHCD3t2WYxCgxhEBXf5RXZfCMk9tty3gRGgWVxO+ULRvHK+HLDt4iWOcXSWTMRt8n8543oiI8l
+	11eZTHMGLQCcyq1/pZCyCjiCUSEQtiIlWCKFYTyFSaQLdyZLNec5PCl/dxAOZ+gWKYorTIQvkTR
+	RtZYJuoecOQ==
+X-Received: by 2002:a4a:e911:0:b0:6b4:5cfd:f381 with SMTP id
+ 006d021491bc7-6d2d0836a4cmr577159eaf.25.1790110774153; Tue, 22 Sep 2026
+ 13:59:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921152449.629486-1-alex@ghiti.fr> <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
- <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
- <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org> <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
- <2e695c8a-4212-42b5-bb51-fbe1aa162e1d@kernel.org>
-In-Reply-To: <2e695c8a-4212-42b5-bb51-fbe1aa162e1d@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Wed, 23 Sep 2026 04:55:38 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4z2nakqBCKd_uAn4bfub99r3NJt2spOUx-K0M7bHW3_-w@mail.gmail.com>
-X-Gm-Features: AcwNN1U2jjkVaezVAxwcNpi00SANdjvUN0D07XxKUusJlvcnrdo8G4HZCjz1Os0
-Message-ID: <CAGsJ_4z2nakqBCKd_uAn4bfub99r3NJt2spOUx-K0M7bHW3_-w@mail.gmail.com>
-Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback completion
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, willy@infradead.org, 
-	jack@suse.cz, liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, chrisl@kernel.org, kasong@tencent.com, 
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
-	youngjun.park@lge.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org, 
-	chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu, 
-	hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260918-net-next-mptcp-msg_errqueue-v1-1-dd77e1738248@kernel.org>
+ <179001595171.2160803.3670624686905872378@kernel.org> <d6cdbc83-86a6-4c2a-ad99-29cdb83566dd@redhat.com>
+In-Reply-To: <d6cdbc83-86a6-4c2a-ad99-29cdb83566dd@redhat.com>
+From: David CARLIER <devnexen@gmail.com>
+Date: Tue, 22 Sep 2026 21:59:22 +0100
+X-Gm-Features: AcwNN1VUII6uOcsfxfr-62vUKq7jiIrNoNXoOzhNQ-DW9bOGJNbIJXNMHXPivns
+Message-ID: <CA+XhMqyGNBrd=Kt71gk2M+PC3bZxfPt7ujswBGe3pRAFiuz0PA@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/4] mptcp: support MSG_ERRQUEUE on the parent socket
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev-bot+sashiko@kernel.org, matttbe@kernel.org, martineau@kernel.org, 
+	geliang@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	horms@kernel.org, netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, shuah@kernel.org, 
+	linux-kselftest@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 7:26=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
+On Tue, 22 Sept 2026 at 14:30, Paolo Abeni <pabeni@redhat.com> wrote:
 >
-> On 9/22/26 12:37, Barry Song wrote:
-> > On Tue, Sep 22, 2026 at 6:20=E2=80=AFPM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> >>
-> >> On 9/21/26 23:56, Barry Song wrote:
-> >>> On Mon, Sep 21, 2026 at 11:37=E2=80=AFPM David Hildenbrand (Arm)
-> >>> <david@kernel.org> wrote:
-> >>>
-> >>> For synchronous I/O, such as zswap and zram, the memory is released
-> >>> immediately after sync I/O is done.
-> >>>
-> >>> For asynchronous I/O, such as NVMe, the swapcache is currently
-> >>> expected to be rotated back to the tail of the LRU and wait for
-> >>> another scan. Alexandre once mentioned that when he tried handling
-> >>> async I/O the same way as sync I/O=E2=80=94releasing the memory once =
-the I/O
-> >>> completed=E2=80=94he saw some regression. So, delaying the release un=
-til a
-> >>> later scan may allow swapcache hits before the folios are eventually
-> >>> reclaimed.
-> >>
-> >> "may", do we have any evidence that this actually is relevant in pract=
-ice?
-> >>
-> >> We asked to reclaim memory. We wrote the memory out to disk. We unmapp=
-ed it from
-> >> the page tables. We made the workload the could, access the page immed=
-iately
-> >> again suffer already.
-> >>
-> >> We should just evict them as soon as possible to free up memory.
+> On 9/21/26 20:39, netdev-bot+sashiko@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 2 potential
+> > issue(s) to consider.
 > >
-> > I suggested this to Alexandre, and he found that it could regress some
-> > workloads [1]. That is why Alexandre is only making the folios
-> > immediately reclaimable for `MADV_PAGEOUT`.
->
-> I really hate to add special sauce for MADV_PAGEOUT. Also, I don't quite =
-like
-> that we do something fundamentally different for sync vs. async.
->
-> I assume, though, that async writeback that is very fast might just find =
-the
-> !folio_test_writeback() scenario just like the sync case. ... or if we
-> reschedule after pageout()?
->
-> I am wondering: if we can show that letting async swapped out pages stay =
-in
-> memory a bit longer improves performance, aren't we swapping out the wron=
-g pages
-> in the first place, and not swapping them out would help the sync case as=
- well?
-
-I guess that's because the LRU is not always accurate. There are cases
-where our prediction of future access patterns may be wrong, resulting
-in refaults?
-
-Even on Android, which uses zram with very fast synchronous swap-out,
-I can still hit the swapcache from time to time. So perhaps with a
-slower device, such as an HDD, keeping the swapcache around for longer
-could allow applications to hit it more often?
-
->
+> > Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0
 > >
-> > See Alexandre's description:
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchw=
+ork
+> > know by including "pw-bot: cr" as a separate line at the end of your re=
+ply
+> > (one such reply per series is enough).
 > >
-> > "Future work
-> > -----------
-> > Barry suggested extending this to MADV_PAGEOUT and general reclaim. I
-> > prototyped dropbehind for all reclaimed swap folios and it regressed
-> > sysbench OLTP throughput by ~15% on NVMe swap: dropping the swap cache
-> > immediately turns cheap in-cache refaults into disk reads and collapses
-> > swap readahead clustering.
+> > - [Medium] The new error-queue splice is dead code for MPTCP-native dat=
+a:
+> >    its only accepted input (SO_EE_ORIGIN_TIMESTAMPING skbs on a subflow=
+=E2=80=A6
+> > - [Medium] Forwarded TX timestamps expose per-subflow identifiers inste=
+ad
+> >    of parent-socket byte-stream identifiers, breaking the=E2=80=A6
+> Sashiko comments look relevant to me. Basically this work makes sense
+> if proper support for mptcp-level tx timestamping is enabled and the
+> and sk_tskey is resolved at the msk level.
 >
-> Thanks, does this represent a workload pattern we care about?
+> I underlook at the above during reviews on the mptcp ML.
+>
+> IDK if someone is currently working on the missing work/bits.
+>
+> /P
+>
 
-I don't know. Maybe Alexandre can share more details about this
-benchmark. I'm also a little surprised by the 15% regression in
-Sysbench OLTP. My initial feeling was the same as yours: we should
-release the memory immediately after writeback completes, for both
-synchronous and asynchronous I/O.
+Agreed, nothing arms tx timestamps on the msk today. Let's drop the
+series for now.
 
-Kairui also mentioned to me that he once tried releasing memory
-immediately after folios were written back to HDD, and saw some
-serious performance regressions as well. Maybe Kairui can also share
-some thoughts on this.
+I can look into it.
 
-Best Regards
-Barry
+pw-bot: cr
