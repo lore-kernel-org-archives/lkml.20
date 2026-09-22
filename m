@@ -1,123 +1,162 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-5.mta1.migadu.com [95.215.58.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C0E49E12B;
-	Tue, 22 Sep 2026 06:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBE6497390
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058973; cv=none; b=KUeuhojw5hYSeuV2vGE1ruojhxQJlqif0IP4wJ/jsHt4U5E2m5TZ4HP0XtSCjwritHUZzgTKToHhIpGcmCF3sJMLSsg6UDQzzmFhx1Q/kUE59DZTWlnpyMPlX62qX/wC9KolFPtC2KkEMaw9RGkA1FwLn3QJM41rTVJIuDPi7NY=
+	t=1790058992; cv=none; b=M2xVF/MLoPGIcImoK6jh+1U52vtg3SbjGiMoeUgChogEieb4doxeA3OLt/11Y7XTf9FxikpMK/jABf4LzSj08W5G8qbafUnFjxfPicwz9a0i3WuVRwF27d3QjKhHfsi9k1Uby3JK/FTYBe0ztDUq68oimDfGrj3Ydq22uJBwJSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058973; c=relaxed/simple;
-	bh=iR9NPgXSDZd5QPF+uuDT7rL9X8deut3pPHKRe4uA7yA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fzow1atGFlPhm+veJkkaYC8ieRp2EueAB5EAmKGjyNyV5wiLqBMp/c6XCAMbo0PFUEbbRLHMPbUUhU2rSTsr/duANrJ/w4QISXAL0dDL7iTkWiNBroOEtyGT0bBH9QxGl9c1XorwNnO3C2ccH+a+Y/Wv1APa1oaUHFNgmJO2jNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=sRfuknOM; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790058992; c=relaxed/simple;
+	bh=2f7N2wQwoMIPRLsH1dBFNiI3hoXRzjdhR248lSeQPa8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V9Y3LBbnfIMzNB6JkvOnuw89AncYxd7xZ7diFP1Z2xlGzSBplKO6wmChFcWuTZHJ/XyV7gHFVsvNSxssYOK0jj/JryAcqXVqGwM2Fez1eRka4SKO6NeawKhTNgQNJ32YxLLpwx7WkgWVmN8nuC2nupzaK/0uhT/TSi+9IJyEnSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rDvdBQFb; arc=none smtp.client-ip=95.215.58.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="sRfuknOM"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=CK8rwYE/UoiCCedhMd3jL53gz3jFn7BzhilCnhiV9nA=;
-	b=sRfuknOMpc0XfiKouhRtae3r2a7vizgEC0PGHWISxNsNVwOD1H9kHPUCDwyHWcE1GFZgka/xC
-	UoZkT3yuvbcUWXm2DYxr5n28p9O9Q75Eg8jtcrDtFYjMsv+oxr2mS2VyXb398SaiKBBSepU9U53
-	lvUOzhICv/sa23Dj8L/5tyo=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hpqnB0l7Bz1T4gd;
-	Tue, 22 Sep 2026 14:24:14 +0800 (CST)
-Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
-	by mail.maildlp.com (Postfix) with ESMTPS id EF81F40561;
-	Tue, 22 Sep 2026 14:36:03 +0800 (CST)
-Received: from localhost.localdomain (10.50.85.180) by
- dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 22 Sep 2026 14:36:03 +0800
-From: Yao Kai <yaokai34@huawei.com>
-To: <asml.silence@gmail.com>, <axboe@kernel.dk>
-CC: <io-uring@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<liuyongqiang13@huawei.com>
-Subject: [PATCH] io_uring: initialize task context before running the BPF loop
-Date: Tue, 22 Sep 2026 14:54:43 +0800
-Message-ID: <20260922065443.359417-1-yaokai34@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rDvdBQFb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2f7N2wQwoMIPRLsH1dBFNiI3hoXRzjdhR248lSeQPa8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790058984; v=1; x=1790663784;
+ b=rDvdBQFbTDT991qzJsV2LWCnEUPuksgiuz7ZK4u7HDd2Ir5eDXToCD/O12gEc4FHZnLiPOKf
+ EwnZZBjykgyMq7KShs3IkR+/I13QwCHQj8kRZN34PbbV0P56Y2EW3Dmrcga4TFVYLCbDL/DoQti
+ uKk64cEa6yphnBNpo9kfR2DQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 306e80ec8b0aeb44;
+	Tue, 22 Sep 2026 06:36:24 +0000
+X-Mizu-Trace-ID: 306e80ec8b0aeb44
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4c5c4ec8-ef44-47d7-99b5-355b5ffdfcf9@linux.dev>
+Date: Tue, 22 Sep 2026 14:36:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- dggpemr500006.china.huawei.com (7.185.36.185)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] docs: cgroup-v2: Describe effective CPUs of
+ partition roots
+To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long <longman@redhat.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20260922032130.33777-1-guopeng.zhang@linux.dev>
+ <20260922032130.33777-3-guopeng.zhang@linux.dev>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260922032130.33777-3-guopeng.zhang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Submitting SQEs through an io_uring BPF loop can trigger a NULL pointer
-dereference in io_submit_sqes(), as shown by the following arm64 report:
 
-  [ 2049.380301] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-  [ 2049.388788] pc : io_submit_sqes+0x48/0x6c4
-  [ 2049.389153] lr : bpf_io_uring_submit_sqes+0x10/0x1c
-  [ 2049.396310] Call trace:
-  [ 2049.396531]  io_submit_sqes+0x48/0x6c4 (P)
-  [ 2049.396893]  bpf_io_uring_submit_sqes+0x10/0x1c
-  [ 2049.397293]  bpf_prog_1a2a95cb199202b5+0x3c/0x68
-  [ 2049.397699]  bpf__io_uring_bpf_ops_loop_step+0x5c/0x94
-  [ 2049.398149]  io_run_loop+0x70/0x2e4
-  [ 2049.398461]  __arm64_sys_io_uring_enter+0xf0/0x710
-  [ 2049.398882]  invoke_syscall+0x54/0x10c
-  [ 2049.399414]  el0_svc_common.constprop.0+0x40/0xe0
-  [ 2049.399829]  do_el0_svc+0x1c/0x28
-  [ 2049.400125]  el0_svc+0x38/0x1d0
-  [ 2049.400409]  el0t_64_sync_handler+0xa0/0xe4
-  [ 2049.400779]  el0t_64_sync+0x198/0x19c
 
-io_uring_enter() dispatches to io_run_loop() before reaching the normal
-submission path's io_uring_add_tctx_node() call. The loop only checks
-whether the caller is allowed to run task work; it does not initialize
-current->io_uring or associate the task with the ring. A BPF call to
-bpf_io_uring_submit_sqes() then reaches io_get_task_refs(), which assumes
-that current->io_uring is valid.
+On 9/22/2026 11:21 AM, Guopeng Zhang wrote:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> 
+> The cpuset.cpus.effective description says that the effective CPUs are
+> granted by the parent and are normally a subset of cpuset.cpus. This
+> does not always hold for a valid non-root partition root. Its effective
+> CPUs are the active CPUs in cpuset.cpus.exclusive.effective after CPUs
+> assigned to valid child partition roots are removed.
+> 
+> If cpuset.cpus.exclusive differs from cpuset.cpus, the effective CPUs
+> may therefore be outside cpuset.cpus. Remote partitions also do not
+> necessarily get their CPUs from their immediate parent.
+> 
+> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> ---
+>   Documentation/admin-guide/cgroup-v2.rst | 56 ++++++++++++++++++++-----
+>   1 file changed, 46 insertions(+), 10 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+> index 18a01ce4c334..d21bbae3312a 100644
+> --- a/Documentation/admin-guide/cgroup-v2.rst
+> +++ b/Documentation/admin-guide/cgroup-v2.rst
+> @@ -2505,16 +2505,52 @@ Cpuset Interface Files
+>   	A read-only multiple values file which exists on all
+>   	cpuset-enabled cgroups.
+>   
+> -	It lists the onlined CPUs that are actually granted to this
+> -	cgroup by its parent.  These CPUs are allowed to be used by
+> -	tasks within the current cgroup.
+> -
+> -	If "cpuset.cpus" is empty, the "cpuset.cpus.effective" file shows
+> -	all the CPUs from the parent cgroup that can be available to
+> -	be used by this cgroup.  Otherwise, it should be a subset of
+> -	"cpuset.cpus" unless none of the CPUs listed in "cpuset.cpus"
+> -	can be granted.  In this case, it will be treated just like an
+> -	empty "cpuset.cpus".
+> +	It lists the active CPUs available to tasks in this cgroup.
+> +
+> +	For a cgroup that is not a valid partition root, an empty
+> +	"cpuset.cpus" makes "cpuset.cpus.effective" show all CPUs
+> +	available from the parent cgroup. Otherwise, it is a subset
+> +	of "cpuset.cpus" unless none of the requested CPUs can be
+> +	granted. In that case, it is treated like an empty
+> +	"cpuset.cpus".
+> +
+> +	For example::
+> +
+> +	  P (cpuset.cpus.effective=0-3)
+> +	  |
+> +	  +-- C0 (member):       cpuset.cpus=1-2
+> +	  |                      cpuset.cpus.effective=1-2
+> +	  +-- C1 (invalid root): cpuset.cpus=4-5
+> +	  |                      cpuset.cpus.effective=0-3
+> +	  \-- C2 (member):       cpuset.cpus=<empty>
+> +	                         cpuset.cpus.effective=0-3
+> +
 
-A ring created with IORING_SETUP_R_DISABLED, IORING_SETUP_SINGLE_ISSUER
-and IORING_SETUP_DEFER_TASKRUN can be enabled by a different task that
-has never used io_uring. Enabling the ring makes that task the submitter
-without allocating its io_uring task context. Its first BPF-driven
-submission of a pending SQE can therefore cause a kernel Oops.
+That is clear. Thanks.
 
-Call io_uring_add_tctx_node() in io_run_loop() before invoking the loop
-and propagate any initialization error. Do this before acquiring
-uring_lock, since task context setup may acquire the same mutex. This
-also establishes the task-to-ring association used for cancellation.
+> +	C0 gets CPUs 1-2 because they are available from P.
+> +	None of C1's requested CPUs 4-5 are available from P, so C1 uses P's
+> +	effective CPUs 0-3 instead.
+> +	C2 has an empty "cpuset.cpus" and therefore also uses P's effective
+> +	CPUs 0-3.
+> +
+> +	For a valid non-root partition root, "cpuset.cpus.effective" contains
+> +	the active CPUs from "cpuset.cpus.exclusive.effective" except
+> +	those granted to valid child partition roots. If
+> +	"cpuset.cpus.exclusive" is set to a value different from
+> +	"cpuset.cpus", the effective CPUs need not be a subset of
+> +	"cpuset.cpus".
+> +
+> +	For example, if CPUs 2-5 are active, available, and not assigned
+> +	to a valid child partition root::
+> +
+> +	  top (root)
+> +	  |
+> +	  \-- P (valid partition root)
+> +	      cpuset.cpus=0-3
+> +	      cpuset.cpus.exclusive=2-5
+> +	      cpuset.cpus.exclusive.effective=2-5
+> +	      cpuset.cpus.effective=2-5
+> +
+> +	P has 2-5 in "cpuset.cpus.effective" even though its
+> +	"cpuset.cpus" is 0-3.
+>   
+>   	Its value will be affected by CPU hotplug events.
+>   
 
-Fixes: 033af2b3eb19 ("io_uring: introduce callback driven main loop")
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
----
- io_uring/loop.c | 5 +++++
- 1 file changed, 5 insertions(+)
+I would suggest offering an example where "cpuset.cpus.effective" differs from 
+"cpuset.cpus.exclusive.effective", meaning that 
+"cpuset.cpus.exclusive.effective" contains offline CPUs. This would make it much 
+clearer that "cpuset.cpus.effective" does not contain offline CPUs.
 
-diff --git a/io_uring/loop.c b/io_uring/loop.c
-index bbbb6ef14e6a..c923cae6dfc7 100644
---- a/io_uring/loop.c
-+++ b/io_uring/loop.c
-@@ -2,6 +2,7 @@
- #include "io_uring.h"
- #include "wait.h"
- #include "loop.h"
-+#include "tctx.h"
- 
- static inline int io_loop_nr_cqes(const struct io_ring_ctx *ctx,
- 				  const struct iou_loop_params *lp)
-@@ -84,6 +85,10 @@ int io_run_loop(struct io_ring_ctx *ctx)
- 	if (!io_allowed_run_tw(ctx))
- 		return -EEXIST;
- 
-+	ret = io_uring_add_tctx_node(ctx);
-+	if (unlikely(ret))
-+		return ret;
-+
- 	mutex_lock(&ctx->uring_lock);
- 	ret = __io_run_loop(ctx);
- 	mutex_unlock(&ctx->uring_lock);
+With that, feel free to add:
+
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+
+Thanks.
+
 -- 
-2.54.0
+Best regards
+Ridong
 
