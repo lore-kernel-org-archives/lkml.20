@@ -1,221 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13EE4189C5;
-	Tue, 22 Sep 2026 08:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0414F41A575
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065447; cv=none; b=KR2phcuTvqgcIVNiO8TotQZV8vwcVEhOtTwbco6O1pvCJ6hxV7IzfayhYXiJWJROvQmQqm/vcEj/thL1kG0/6HO4B3sjPHOIZ1O3uehkbcJlCWQG4AYgjyM47dt6opxqB4XYrVoUJFeMEOL119scsYMn4jg9sVAPTDWC71bFFe0=
+	t=1790065461; cv=none; b=m3vlXh5EZtIi+OMkOiRBqC7nCDPPnc1TpJTmzV0I0kvlJkkTBKfYcWy74mhYVGZY8WVn48VzZyfyyjHmaGoWEWC3yealblx75Eabp9BLYHvz0xv1lOfo42ktCbX/v75LBU+x8esABpgN9jpoTpUOAdzNukAXloK/if6IL2u8IpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065447; c=relaxed/simple;
-	bh=cNNOgTAthgt3Csn3WIBXnELfcBHnpnhjnkYVhKlVgUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kEhITBa9Lxy/55Ap8+LQNX/dUKjLksiaHrE14DpQmGBm29ziEhi1vAtlJhvSSkFNq0EprRyAjLfd9xP5plFgBYQwIc5XpoD/FuCAzJifNcsoxWqP5NM0xVxc/exG5e48pvU+iXKvrBda2RJ0QRYcg1m8WIIzTOunoR9KmY6ALeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PcP7M6it; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790065461; c=relaxed/simple;
+	bh=dIzwvHbubNIxzeAGu/6wR8vR/VcsOB80Qhi7H+evobY=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tJln4D1Tr2SJm4dpqozwlhIEiAErHSfCEcu6KV71c70OZsQjhmW0fQh6/fZHLUTKmhgk/i8JsAsgDJRYhy+DImlgQ4t7mnBAY9KVPtRJLzsl5bopZBxtlgauoyxG9+dT/LKrUq8LDDl8OrVc/K/9IuCSVAb1LSaDD5iR6IxQQxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPS+1GyV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PcP7M6it"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790065444; x=1821601444;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cNNOgTAthgt3Csn3WIBXnELfcBHnpnhjnkYVhKlVgUA=;
-  b=PcP7M6itNLyLe76us72I9+kTSiHTaxNBtM5stPvSLMR7ugHj1mMjdcdY
-   ptOmgrTaw6VS+uzpWcIoV2rsy2+8HOQGbWJ7l1xaBIFiDfn1shojvnjSc
-   nXOl4rdSCYXxuPf/0dY9i5EaCVhn3g5NcJQvqcjc80YFsTqaTcJQC3ufw
-   NSq9GyvRGe5F2WeIGo1B5L6nw4wva+8uGkAdboZVTzf96VHv0+e8WgAXK
-   PWAS5pQQIB0zbhuFgh9H5s2aTCja+lsYKyTat0le69CbIPrDFpyOqsbsV
-   TOnnlOEUTB4abLpMQGFRp+l+EdBbTkI/3rNtZQMvInn8c5S1+ntv4HU4p
-   Q==;
-X-CSE-ConnectionGUID: eVXbC1FjQtee9t62keZfzg==
-X-CSE-MsgGUID: xlRE0L5jSayy2DORuGgJGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90514251"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="90514251"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:24:02 -0700
-X-CSE-ConnectionGUID: 8UxtX1PSRs2InYC/0XvSqg==
-X-CSE-MsgGUID: mA9k9lbNSMm8dH02reIhdg==
-X-ExtLoop1: 1
-Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.41])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:24:00 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5B89D121B9F;
-	Tue, 22 Sep 2026 11:24:00 +0300 (EEST)
-Date: Tue, 22 Sep 2026 11:24:00 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, david@ixit.cz,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: imx355: reuse existing CCS defines
-Message-ID: <arI7IHsQUyFliVVu@kekkonen.localdomain>
-References: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
- <178847463591.4073535.11299899376239571707@ping.linuxembedded.co.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPS+1GyV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74AA61F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790065459;
+	bh=QktO34jPXBfKdoHn+g231ToSz9I4E6jz14gUwoW6nA8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=bPS+1GyVPa7XdVUiPA9k9+7yAa7xzmGu/WihUxoOrYyIg4jmIIk8rG9ar2msGlT1b
+	 XZse7Bb7wM/ST11PV5YpFYVzgjTFPRwsktBUE+thaF7vFFsLQdMDBLuHp2d5etL9jq
+	 QFJvMYdYRlBGke4Qxnri07n4W3y266itxD5UuU8m4jU1VykJQ/m69If93sTwODaNk9
+	 wYteKpT/AOs1Q8Es9F60ZJBIoBkxk2vr3fiX+zRhMCp8q4SLyFAdlVRn9DBhyFuPBn
+	 XLPX3JO+csjYHVzmWDy0oWaMzs34nx07GVPSex6iWFnobOJ8dcCzX3hPWAkt29aDzk
+	 ViUxiHxWoBVFw==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d6489419so101611e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:24:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByz6Fh9HMIzjDGGd0CSKfxBI1SukLksLccxxoFZirIMWDTY/UG8ZaWVr91kfB/vQHLnfBquLT0a+ga7rkk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lk+m4Hte0udS7AUCqAUrRjOFq4BbW/gP1jbsxmCv3gZj7EK9Mf
+	p/Yw2SBAxHCqdheT3gxcxYp4TUNRNe+2rVDg81M/Go+wwU1BltTRqhr/v+8YKVYIzj0orZl9MKP
+	wu6lDSgVEyLRzRZ87Og1B5g39xI3VZP5eQ5LYXHY5tg==
+X-Received: by 2002:a05:6512:6281:b0:5b8:babd:dc2c with SMTP id
+ 2adb3069b0e04-5b8c1849028mr3748521e87.37.1790065458151; Tue, 22 Sep 2026
+ 01:24:18 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178847463591.4073535.11299899376239571707@ping.linuxembedded.co.uk>
+References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
+ <20260921-nord-gpi-dts-v2-1-4f297c983b94@oss.qualcomm.com> <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 01:24:16 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
+X-Gm-Features: AcwNN1Uq-ON_akzO8Lb9slxy7TzsEXI6PEo-ClWH4f2m7UXrx1dbaD36Ih7SNas
+Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: nord: add GPI DMA controller nodes
+To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Kieran, David,
+On Tue, 22 Sep 2026 07:34:25 +0200, Mukesh Savaliya
+<mukesh.savaliya@oss.qualcomm.com> said:
+>
+>
+> On 9/21/2026 8:16 PM, Bartosz Golaszewski wrote:
+> [...]
+>
+>> +#include <dt-bindings/dma/qcom-gpi.h>
+>>   #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>
+>>   / {
+>> @@ -909,6 +910,28 @@ soc: soc@0 {
+>>   		dma-ranges = <0 0 0 0 0x10 0>;
+>>   		ranges = <0 0 0 0 0x10 0>;
+>>
+>> +		gpi_dma2: dma-controller@800000 {
+>> +			compatible = "qcom,nord-gpi-dma", "qcom,sm6350-gpi-dma";
+>> +			reg = <0x0 0x00800000 0x0 0x60000>;
+>> +			#dma-cells = <3>;
+>> +			interrupts = <GIC_SPI 588 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 589 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 590 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 591 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 592 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 593 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 594 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 595 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 596 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 597 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 359 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
+>> +			dma-channels = <12>;
+>> +			dma-channel-mask = <0xfff>;
+>> +			iommus = <&apps_smmu_0 0x15b6 0x0>;
+>> +			status = "disabled";
+>
+> we should be keeping GPI node default enabled similar to common QUPv3
+> wrapper node.
+> status = "ok" for all the nodes.
+>
 
-On Thu, Sep 03, 2026 at 11:30:35PM +0100, Kieran Bingham wrote:
-> Quoting David Heidelberg via B4 Relay (2026-08-27 10:26:53)
-> > From: David Heidelberg <david@ixit.cz>
-> > 
-> > The driver may not be MIPI CCS compliant, but does use same address and
-> > often set same values as compliant drivers. Do not redefine registers we
-> > already know and are standard.
-> > 
-> > No functional changes.
-> 
-> I kind of like the idea of this. I suspect it would help show which
-> sensors have overlap and where helpers could be built up.
-> 
-> I worry if it makes it harder to see what registers are being modified
-> though, but I think the common definitions are parseable by tools and
-> add an improvement to human readability because now we see they are from
-> the common set, and not some arbitrary possibly similarly named register
-> ?
-> 
-> > 
-> > Signed-off-by: David Heidelberg <david@ixit.cz>
-> > ---
-> > Changes in v2:
-> > - Replaced all occurences with CCS ones.
-> > - Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz
-> > ---
-> >  drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------------
-> >  1 file changed, 25 insertions(+), 59 deletions(-)
-> > 
-> > diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> > index 8eb8588cb71bb..2c845b7b3df4f 100644
-> > --- a/drivers/media/i2c/imx355.c
-> > +++ b/drivers/media/i2c/imx355.c
-> > @@ -14,89 +14,55 @@
-> >  #include <linux/unaligned.h>
-> >  
-> >  #include <media/v4l2-cci.h>
-> >  #include <media/v4l2-ctrls.h>
-> >  #include <media/v4l2-device.h>
-> >  #include <media/v4l2-event.h>
-> >  #include <media/v4l2-fwnode.h>
-> >  
-> > -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
-> > -#define IMX355_MODE_STANDBY            0x00
-> > -#define IMX355_MODE_STREAMING          0x01
-> > +#include "ccs/ccs-regs.h"
-> >  
-> > -/* Chip ID */
-> > -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
-> >  #define IMX355_CHIP_ID                 0x0355
-> >  
-> > -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
-> > -
-> >  /* PLL registers that depend on the external clock frequency */
-> > -#define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
-> >  #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
-> > -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
-> 
-> I'm surprised that two registers have equivalents, but the other
-> adjacent registers do not ? I haven't checked the spec through yet
-> though. Is the gap because ccs-regs.h doesn't have the definition, or
-> because this sensor has a different function / purpose for say 0x030d ?
+The pattern across Qualcomm platforms seems to disable the GPI DMA nodes at
+SoC-level and only enable them at board-level.
 
-This is:
-
-#define CCS_R_OP_PRE_PLL_CLK_DIV				CCI_REG16(0x030c)
-
-so in CCS there's a 16-bit register there. Writes to undefined registers
-are generally nop, so this is also compliant with CCS. Sony simply hasn't
-needed 16 bits and has defined a 8-bit register instead. (In some cases
-there could be something else there because the sensor isn't fully
-compliant so one needs to be careful.) Up to you whether you want to use it
-or not. Otherwise this patch seems good as-is.
-
-> 
-> >  #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
-> >  #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
-> >  #define IMX355_PLL_OP_PREDIV           2
-> >  #define IMX355_PLL_IVT_PCK_DIV         5
-> >  
-> >  /* V_TIMING internal */
-> > -#define IMX355_REG_FLL                 CCI_REG16(0x0340)
-> >  #define IMX355_FLL_MAX                 0xffff
-> >  #define IMX355_VBLANK_MIN              20
-> 
-> Where there are limits, I believe CCS has registers to read the limits.
-> That's where I wonder if there could be ccs helpers, to support parsing
-> of blanking. But I also am weary that breaking parts into lots of small
-> helpers could just become unreadable, so I wouldn't push for that at the
-> moment. I'd be curious to know 'how common' this is to CCS though.
-> 
-> 
-> >  
-> > -#define IMX355_REG_LLP                 CCI_REG16(0x0342)
-> >  #define IMX355_LLP_MAX                 0xffff
-> >  
-> > -#define IMX355_REG_X_ADD_START         CCI_REG16(0x0344)
-> > -#define IMX355_REG_Y_ADD_START         CCI_REG16(0x0346)
-> > -#define IMX355_REG_X_ADD_END           CCI_REG16(0x0348)
-> > -#define IMX355_REG_Y_ADD_END           CCI_REG16(0x034a)
-> > -#define IMX355_REG_X_OUT_SIZE          CCI_REG16(0x034c)
-> > -#define IMX355_REG_Y_OUT_SIZE          CCI_REG16(0x034e)
-> > -
-> 
-> But when a whole block comes out like this - that makes me think perhaps
-> the crop control or fmts might just be a common function ?
-> 
-> >  /* Exposure control */
-> > -#define IMX355_REG_EXPOSURE            CCI_REG16(0x0202)
-> >  #define IMX355_EXPOSURE_MIN            1
-> >  #define IMX355_EXPOSURE_STEP           1
-> >  #define IMX355_EXPOSURE_DEFAULT                0x0282
-> >  #define IMX355_EXPOSURE_OFFSET         10
-> >  
-> >  /* Analog gain control */
-> > -#define IMX355_REG_ANALOG_GAIN         CCI_REG16(0x0204)
-> >  #define IMX355_ANA_GAIN_MIN            0
-> >  #define IMX355_ANA_GAIN_MAX            960
-> >  #define IMX355_ANA_GAIN_STEP           1
-> >  #define IMX355_ANA_GAIN_DEFAULT                0
-> >  
-> >  /* Digital gain control */
-> >  #define IMX355_REG_DPGA_USE_GLOBAL_GAIN        CCI_REG8(0x3070)
-> > -#define IMX355_REG_DIG_GAIN_GLOBAL     CCI_REG16(0x020e)
-> >  #define IMX355_DGTL_GAIN_MIN           256
-> >  #define IMX355_DGTL_GAIN_MAX           4095
-> >  #define IMX355_DGTL_GAIN_STEP          1
-> >  #define IMX355_DGTL_GAIN_DEFAULT       256
-> 
-> I'd be curious if all of those limits could be read from registers, in
-> case future helpers might do that instead .... But hardcoding known
-> values in this specific driver is probably better than adding the
-> complexity of trying to read them at runtime just to obtain the values
-> above.
-
-The limit and capability registers are typically where most of the errors
-are. Also, this is a sensor specific driver so even if you could read
-something from a register, I think it's just as good to have it hardcoded
-in the driver.
-
-> 
-> I'm not sure I've gone through this enough to warrant a tag of some
-> form, but I found the patch concept interesting enough to want to jump
-> in to the conversation ;-)
-> 
-> Interested to see what happens anyway!
-
--- 
-Regards,
-
-Sakari Ailus
+Bart
