@@ -1,525 +1,149 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAF046A61D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098486; cv=none; b=biUam21nsZ+6o4eb5rwVvzn6Tmumxp/2u4S2LeGdGRsHtM8j8wtxW8qwhvL8K+BJE99mKgnowgZKOwWAsK+DruUE9ZB/BUAbhGISSrG8KfekZcZ0OXwI14+6Dvh42lOL6kSW6LuOHXaMtpEIp3cLmiTHleZPJx5Jn7cpiYtA4Sc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098486; c=relaxed/simple;
-	bh=srDzdhvMj3KdOsMVOhhwSn/IoI3jpC6iMoebja5C2TM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NYmlxtFJ1LQ/wmnMj3PMqwg5/vSy7ZrgIuqQ0Pgk4Wvavma7+lOochTnzqn60dxyDDMIiSaDExblrGklCCjPzO1NK1zcL6ulZQtglpjfJWgfQGrqkRvvh9I78jDgQZTD6BBixAYJmhL7k7483LSifme5ivH9rbLe529Al0VvRzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NDhJkRqZ; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8C15625E1
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790098525; cv=pass; b=HAUFQz6Fd5W0gtj6TvzNCfXwH822hIdXAYl7sYhWLd9l7o0yIBYTA6TWckOIDg8JcUqmCowm0QHndG3oPp5/cds19NhpCnc8GoDGuX6vBoQYS7PvrVYuMUygscYPDuKNTjvrZyfR2IVoOQLwyd4QC4n/nOcyYpzoIrcj0L9k1Mk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790098525; c=relaxed/simple;
+	bh=1YIIZbfM4YiwXaaCLt7e93dmE/7tvFPjqo3z+Kmpt0s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kvd7lNKh8fZhBEEL5xWPc0MugoY2LlVvm6Jd//PQqy5NkwXN40qXLLDeQiSglHS4ecvpmiFyzgI4MRpO2tWkGX5nHLPzdSUGPX5kMpIdYlkHcl+Js6UrHSOH1oXOHTY8x9nK+YpGjsTDA6WUS6O3lZ/EQH5X0RDaIVBI+jS10Es=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sht/v/sA; arc=pass smtp.client-ip=74.125.224.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NDhJkRqZ"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46accbdfc39so151595fac.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:34:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sht/v/sA"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab1ba47so48367d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:35:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790098523; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a4hmSzVrknABAVHqt2N/kqhQBJGzrXC9o+CN2zZ1jGTAY4QN49qqszR+NnA+iki8hh
+         RzVW3Kocht9T2BJqQH5WQtus0CcSv/EMSCSdysyfd9BiimMJN56PztmgGMdL5ccVgPWO
+         cXXkaGdntxNXwi5VJf0DH3BLgUTpl90E24ftL7tmMqlthhJYA+b1rnPzS76qmDg89nlY
+         yrlY7+utz4bd5WAYoEMssgPKlK3ASGGEV+nELRUpzHySye7QqvMJTUCXProqfsEF7yJi
+         iIhGi29F+vrGbRf/zdTqmT6RN3yZdR8XrJ6QsgPnQK3KCQp24oZjqlZumz6Wks7SmrR/
+         s8Bw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1YIIZbfM4YiwXaaCLt7e93dmE/7tvFPjqo3z+Kmpt0s=;
+        fh=/af+41A/2uay9MDNrTwZkrUZMdUDN3X8o0npwAxHf+I=;
+        b=T2YH88OLUkE87yjENAWetoL1WCSmMCoAQ0GyfK1e/1sdGBYepMqbTdoNqhcPBpQ9dz
+         9eeLO//Z3IOxXRODIB6kx6mR1ENU7hNZWViI56PEnTaLOXCXkuCTQrZIjgSVb8ioR9nF
+         eWUL7GW5wNrZMDCV4kEnN7IJcXUSO0J/kxzzJuq4q32pgWXX2jdmRxtDz7A+QzSCLsvd
+         xz+UqsomdK2Ij9xhh4MpogCp8WaufFFBmUsU7P4AuorS5bZaE8xX/tXGhWh6hJuP+EeT
+         m/zP73/kT2mKoJb5kYWgyx6CWQFX4R4sRfmT3QCWQXZJlDcDWBW5j2Uiekt+TJhQ7IqI
+         xukQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790098484; x=1790703284; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790098523; x=1790703323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6zcM3cGWUUS94N+RJZHSRLZz5yzOVCUjkjJz2pMqCX0=;
-        b=NDhJkRqZGaFwWYyUDbuV97QsLhtXGSNjP7iogZn9SW4F5nsGcOSVVU1dFD8gkbJUHw
-         ANsTJPwkuATn6lXOu3qHQpRxxVAkpO49b/d58ooS4Yx0zZWkR3Skc/iK+lLGEdGn/Ug+
-         MWlyxr23OgMRUFSwS4E/L/5CUS6upJpgHkmnLDzQYEnXYswOE5hni3wl2LBJZ1ON5IMl
-         OO4ca1pK90d+vTlkbmVjjmim6uSkixdS1RbNs99WXr2mtyXSPUOlLEok8PidQuvV4B41
-         NlgerIxy7D/GgIBF2d9wu3zyyObZj2HV3WexY7qA8eQajkwQqqiBbFMyJI7RYWljW0dH
-         SlwQ==
+        bh=1YIIZbfM4YiwXaaCLt7e93dmE/7tvFPjqo3z+Kmpt0s=;
+        b=Sht/v/sAfrRUN37eKKEoWQnMh7XIB1+dKe/SsTHaSyqNqjr2L4GdSFL9GF2IqlSkH+
+         PDFcmzy11pPwpg6GvekBFullqKnaaRie4n9V86ZktrpY3umfpiS7n3JhynAgvOqrgKb+
+         3o1jpVdF1OKJec/94PDhgPAsBPe+UUBc19lXADhhXWgTKIEyDpmXXg56MtCO6XIGxE7s
+         Ve0pQ0A+7zkWr0d84YavRTNs9EObeQ7oHNNwgdlnh9U32OEWQ3E8f1R2jj8T8sX2Wdlp
+         kE2IAadQy0HhPvrGtpYxt1K6Zb3LLeRk5XCihwnGnt/ZG7/Wbmg3oTcg+Vkzx4ljoljd
+         F4PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790098484; x=1790703284;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790098523; x=1790703323;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6zcM3cGWUUS94N+RJZHSRLZz5yzOVCUjkjJz2pMqCX0=;
-        b=MjwQy7p3jUJMYTthVQFR+pRHwIV79nf+JzrH9b1g0RlZnNNUh27/4EADyxZxLM1uaZ
-         iOLJxZWXc9dkerK/ILMDQFBrjoiqiAr8zB+/+69euZkXw5zN8mNu3OMKps+c9WE2+zKG
-         jycdDiUbU7AFqgLdO7DI+I/oXCdPyn47Oz/iSxuUctlMPoEkcSGCw1OSr5ZxB/8b7TEW
-         RrmJiMVZ4OUKOkkS0+yZ1LAAbUKdWhOiIaaKVmdQB1UZpVg+lByeltwx6TYUEXYyOAsy
-         k2O7hqBGPbhcjqurRqXGYPwpkado7gxojJriEfdZ8InfKYjLGyOH8yJaoLjQRqxOVXCW
-         LiPg==
-X-Forwarded-Encrypted: i=1; AKwUvBzyCf6YlLXh5OLlFyszlqE82555uovB6m5OO42QN6fdxxsXPWq/fP2u0PmqTHBe0owas3QCVrXPGz8ARA8=@vger.kernel.org
-X-Gm-Message-State: AFuF++knfRSBKc8vlxpaClp3bTs5D5HpsQrFe7vFpNNHKbuDs6KJ/3cq
-	HZTENNLjUhqoJrwlhvvaihHmiDslnNJ2GqaE293E3uXx5X2Z5xAd6oQ2
-X-Gm-Gg: AYBFou1duryo07tdqL9iruuTH6AMBhM3LNqzUjY0LX5F0Hf4V1xHH8HB8HpTlVo3BXR
-	bwZbCzN7PpTTLBYqdFRESGBlsk753gapMQIdWASoJVO0rxHh8e94wojDC9EtwaYAZls6EjV+L0e
-	Fpa4rdZEn69bmR5kXKQ0JWIYPUTkYxHUIYTxSLze3yUDSulQOqYYpdbtUiO16G1sdIcCUKV5w9w
-	dYWwN8wSD/gyZtkrTtEFU0PR5lfkUu1D1tQ0l+fw0GuYA+rzqVMzyedACRes9wXr/g/3hXu2wAm
-	VHOPqIZ4zymtEAenCqaelNOSTZEic7OpG/2FxuoU1xBlF1pX3uOCgL/yA463yz6oja1d2dzNo8F
-	gEwmjtYAjhLKswNg3jD8JOP/wVn9QUY6RG10K6aooWZyUVzZdmMDa1wE23bpWWeBMO0GTOIhx2A
-	eKJOPYaCqAghSRZPlfumiPYXopcj0z39dHP5fPUkYvQfx7vTlXGqJJ9qfhX0483E73Xn3T0IsQQ
-	p4zh3uoqNWsAb5RW7U=
-X-Received: by 2002:a05:6820:1511:b0:6cd:3ffc:e33c with SMTP id 006d021491bc7-6d2d3509e33mr79768eaf.90.1790098483693;
-        Tue, 22 Sep 2026 10:34:43 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:2::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4908efd733bsm218697fac.18.2026.09.22.10.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 10:34:42 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:34:39 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: netdev@vger.kernel.org, sgarzare@redhat.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] vsock/test: cover receive queue hints
-Message-ID: <arK8L3S5F+9XREpe@devvm29614.prn0.facebook.com>
-References: <20260920194710.1114748-1-devnexen@gmail.com>
- <20260920194710.1114748-3-devnexen@gmail.com>
+        bh=1YIIZbfM4YiwXaaCLt7e93dmE/7tvFPjqo3z+Kmpt0s=;
+        b=jpQGqAwleGgyKoHxFA8yZXUVXsX1XsdjCKaMU/+rxzu2YhIwV0R0J0egeeR2a8D1Sk
+         bLpU4Nndj7ckla1aFXDfe3+DATgV7JNRJRcH7tGBckqCdc3twWsyBYO/bCwX9qyWUduj
+         KqDEZR21AvSa5yWtrsHE7aNqaJ05Z2W/myhuAYmYx+tfQMJFlxWX1ap9lKW81QjxqLCW
+         fX3Om9hMRZ99F+mUE2ES3MqSWxTUc5zitfyiCTZRYFyv5xhuDXw64ybYRMoyT53m+3Sp
+         IdXmKqBKR0WRG40/qmghcEcpfFk1/C4muzv7w2pUF1y3F7OMlgWbI9HHLVPUs8XfqGR1
+         QCKA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhPRg7ZM92Y7FvMgNMJcJhekQymlx2pldOw4Yd70BiP41wshxnWZOwutHsZ12/mBXQVX45QrtLmLkXyF4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kb9lhcJfb6WjI6349lt7qVQ4JqC+RKRzn3atL9yOYAUn5WNYfA
+	caGa9wKmIF52UAvsSaTpmmjUF9BeMTIh12vOXYR1SXEl/tO0wMu7uwadx3UozVGUwrlg9WJ/916
+	mAPrtPU4nlqMSfdnnpdfCmn+G6dW+E+Q=
+X-Gm-Gg: AYBFou29bntPD8MuKekKna6SuCNH5y9oM1nHjX0VdpjQ/Qtp4Zt8IdKeNG18LoUrzSI
+	X+W4HAPR4oiu1a44feTfRBcVO8vMkx6RC/ejsixQVV3ZDan0pd6Mdms09pET9zEpCuQJOFNVV1W
+	4VVnvUlnqxyqWHCKBzCVE0+yzleDMMl3fM6mo03onpMJvJAzPcCcClwCYJtNu92p8AyLRKJ1vc2
+	/3ZcXJqSYv54MVQ4eF+c7QAxFFH1J2VoExwEKLAPqa+J7ARsCEYB2eZEB8iqWtPrEc/q/tkw2Be
+	wZxgvT0bVaia1CuWFP3BXD468XFhXsCCjMnY4koNuU2euTk4Kh1dK82wzp4EYY6bmldNvM6adv8
+	Mwdgxm9M35K4b
+X-Received: by 2002:a05:690e:e8f:b0:671:28df:a073 with SMTP id
+ 956f58d0204a3-672d58a9a54mr129200d50.14.1790098523090; Tue, 22 Sep 2026
+ 10:35:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920194710.1114748-3-devnexen@gmail.com>
+References: <20260920212934.392398-2-eeodqql09@gmail.com> <arJjO3riWgdVKt0U@black.igk.intel.com>
+In-Reply-To: <arJjO3riWgdVKt0U@black.igk.intel.com>
+From: Seungjin Bae <eeodqql09@gmail.com>
+Date: Tue, 22 Sep 2026 13:34:46 -0400
+X-Gm-Features: AcwNN1UCk-bBKt_uB2kuYcZOnGQTcRpVj0NXGR-pjiW13Mcc-b9T2IadVnIwgCs
+Message-ID: <CAAsoPpX1NgzMKJrvTdNp0heM0AMQAT0_t_2+AJdZs5fsZNpLOQ@mail.gmail.com>
+Subject: Re: usb: typec: tcpm: type-mismatched PDO handling in tcpm_pd_build_request()
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Li Jun <jun.li@nxp.com>, Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Badhri Jagan Sridharan <badhri@google.com>, 
+	RD Babiera <rdbabiera@google.com>, Amit Sunil Dhamne <amitsd@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 20, 2026 at 08:47:10PM +0100, David Carlier wrote:
-> Add io_uring receive tests checking IORING_CQE_F_SOCK_NONEMPTY across a
-> partial receive, draining while the peer stays connected, EOF, a
-> nonblocking receive on an empty queue, a zero-length request, and a
-> multishot receive with provided buffers.
-> 
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  tools/testing/vsock/vsock_uring_test.c | 367 +++++++++++++++++++++++++
->  1 file changed, 367 insertions(+)
-> 
-> diff --git a/tools/testing/vsock/vsock_uring_test.c b/tools/testing/vsock/vsock_uring_test.c
-> index 5c3078969659..318e17bd28bc 100644
-> --- a/tools/testing/vsock/vsock_uring_test.c
-> +++ b/tools/testing/vsock/vsock_uring_test.c
-> @@ -13,7 +13,10 @@
->  #include <liburing.h>
->  #include <unistd.h>
->  #include <sys/mman.h>
-> +#include <sys/ioctl.h>
->  #include <linux/kernel.h>
-> +#include <linux/sockios.h>
-> +#include <errno.h>
->  #include <error.h>
->  
->  #include "util.h"
-> @@ -28,6 +31,10 @@
->  
->  #define VSOCK_TEST_DATA_MAX_IOV 3
->  
-> +#define HINT_CHUNK_SIZE		4096
-> +#define HINT_BUF_GROUP		1
-> +#define HINT_BUF_ENTRIES	4
-> +
->  struct vsock_io_uring_test {
->  	/* Number of valid elements in 'vecs'. */
->  	int vecs_cnt;
-> @@ -211,6 +218,341 @@ void test_stream_uring_msg_zc_client(const struct test_opts *opts)
->  		vsock_io_uring_client(opts, &test_data_array[i], true);
->  }
->  
-> +struct uring_inq_ctx {
-> +	struct io_uring ring;
-> +	int fd;
-> +};
-> +
-> +static void inq_server_init(struct uring_inq_ctx *ctx,
-> +			    const struct test_opts *opts)
-> +{
-> +	ctx->fd = vsock_stream_accept(VMADDR_CID_ANY, opts->peer_port, NULL);
-> +	if (ctx->fd < 0) {
-> +		perror("accept");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	if (io_uring_queue_init(RING_ENTRIES_NUM, &ctx->ring, 0))
-> +		error(1, errno, "io_uring_queue_init");
-> +}
-> +
-> +static void inq_server_exit(struct uring_inq_ctx *ctx)
-> +{
-> +	io_uring_queue_exit(&ctx->ring);
-> +	close(ctx->fd);
-> +}
-> +
-> +/* Submit a single receive and report both its result and its CQE flags. */
-> +static int inq_recv(struct uring_inq_ctx *ctx, void *buf, size_t len,
-> +		    int flags, unsigned int *cflags)
-> +{
-> +	struct io_uring_sqe *sqe;
-> +	struct io_uring_cqe *cqe;
-> +	int res;
-> +
-> +	sqe = io_uring_get_sqe(&ctx->ring);
-> +	io_uring_prep_recv(sqe, ctx->fd, buf, len, flags);
-> +
-> +	if (io_uring_submit(&ctx->ring) != 1)
-> +		error(1, errno, "io_uring_submit");
-> +
-> +	if (io_uring_wait_cqe(&ctx->ring, &cqe))
-> +		error(1, errno, "io_uring_wait_cqe");
-> +
-> +	res = cqe->res;
-> +	*cflags = cqe->flags;
-> +	io_uring_cqe_seen(&ctx->ring, cqe);
-> +
-> +	return res;
-> +}
-> +
-> +static void expect_res(int res, int expected, const char *what)
-> +{
-> +	if (res != expected) {
-> +		fprintf(stderr, "%s: expected %d, got %d\n", what, expected,
-> +			res);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +}
-> +
-> +static void expect_nonempty(unsigned int cflags, bool expected,
-> +			    const char *what)
-> +{
-> +	bool nonempty = !!(cflags & IORING_CQE_F_SOCK_NONEMPTY);
-> +
-> +	if (nonempty != expected) {
-> +		fprintf(stderr, "%s: expected SOCK_NONEMPTY %d, got %d\n",
-> +			what, expected, nonempty);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +}
-> +
-> +/* Wait until the whole payload is queued, so the hint is deterministic. */
-> +static void inq_wait_queued(int fd, int len)
-> +{
-> +	if (!vsock_ioctl_int(fd, SIOCINQ, len)) {
-> +		fprintf(stderr, "SIOCINQ not supported\n");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +}
-> +
-> +static void inq_send_chunks(const struct test_opts *opts, int chunks)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	int fd, i;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	memset(buf, 0xa5, sizeof(buf));
-> +	for (i = 0; i < chunks; i++)
-> +		send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-> +
-> +	control_writeln("SENT");
-> +	control_expectln("DONE");
-> +	close(fd);
-> +}
-> +
-> +static void test_stream_uring_inq_client(const struct test_opts *opts)
-> +{
-> +	inq_send_chunks(opts, 2);
-> +}
-> +
-> +static void test_stream_uring_inq_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("SENT");
-> +	inq_wait_queued(ctx.fd, 2 * HINT_CHUNK_SIZE);
-> +
-> +	/* Data remains after this receive, so the flag must be set. */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, HINT_CHUNK_SIZE, "partial receive");
-> +	expect_nonempty(cflags, true, "partial receive");
-> +
-> +	/* This receive drains the queue while the peer stays connected. */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, HINT_CHUNK_SIZE, "draining receive");
-> +	expect_nonempty(cflags, false, "draining receive");
-> +
-> +	control_writeln("DONE");
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_eof_client(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	int fd;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	memset(buf, 0x5a, sizeof(buf));
-> +	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-> +	control_writeln("SENT");
-> +
-> +	control_expectln("DRAINED");
-> +	close(fd);
-> +	control_writeln("CLOSED");
-> +
-> +	control_expectln("DONE");
-> +}
-> +
-> +static void test_stream_uring_inq_eof_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("SENT");
-> +	inq_wait_queued(ctx.fd, HINT_CHUNK_SIZE);
-> +
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, HINT_CHUNK_SIZE, "drain before EOF");
-> +	expect_nonempty(cflags, false, "drain before EOF");
-> +
-> +	control_writeln("DRAINED");
-> +	control_expectln("CLOSED");
-> +
-> +	/* The queue is empty and the peer is gone.  The hint stays non-zero
-> +	 * so that this receive happens and reports EOF, as TCP does after a
-> +	 * FIN.
-> +	 */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, 0, "receive at EOF");
-> +	expect_nonempty(cflags, true, "receive at EOF");
-> +
-> +	control_writeln("DONE");
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_empty_client(const struct test_opts *opts)
-> +{
-> +	int fd;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	control_writeln("READY");
-> +	control_expectln("DONE");
-> +	close(fd);
-> +}
-> +
-> +static void test_stream_uring_inq_empty_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("READY");
-> +
-> +	/* A failed receive must not leave a stale positive hint. */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), MSG_DONTWAIT, &cflags);
-> +	expect_res(res, -EAGAIN, "empty nonblocking receive");
-> +	expect_nonempty(cflags, false, "empty nonblocking receive");
+2026=EB=85=84 9=EC=9B=94 22=EC=9D=BC (=ED=99=94) =EC=98=A4=EC=A0=84 7:15, H=
+eikki Krogerus
+<heikki.krogerus@linux.intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> +Badhri, and also RD and Amit
+>
+> On Sun, Sep 20, 2026 at 05:29:35PM -0400, Seungjin Bae wrote:
+> > Hi,
+> >
+> > I found that tcpm_pd_select_pdo() can match a source and sink PDO of
+> > different types. Before sending a fix, I would like to ask whether
+> > this type-mixed match is intended, and if not, whether you would
+> > prefer a same-type check in tcpm_pd_select_pdo() or explicit type
+> > handling in tcpm_pd_build_request().
+>
+> I think a patch would have been fine. You can always mark it as RFC if
+> uncertain.
 
+Thanks, I'll send it as an RFC patch.
 
+Seungjin Bae
 
-> +
-> +	control_writeln("DONE");
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_zerolen_client(const struct test_opts *opts)
-> +{
-> +	inq_send_chunks(opts, 1);
-> +}
-> +
-> +static void test_stream_uring_inq_zerolen_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("SENT");
-> +	inq_wait_queued(ctx.fd, HINT_CHUNK_SIZE);
-> +
-> +	/* A zero-length request is not an error and still describes the
-> +	 * queue behind it.
-> +	 */
-> +	res = inq_recv(&ctx, buf, 0, 0, &cflags);
-> +	expect_res(res, 0, "zero-length receive");
-> +	expect_nonempty(cflags, true, "zero-length receive");
-> +
-> +	control_writeln("DONE");
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_mshot_client(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	int fd;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	memset(buf, 0x3c, sizeof(buf));
-> +	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-> +	control_writeln("SENT");
-> +
-> +	control_expectln("DRAINED");
-> +	close(fd);
-> +	control_writeln("CLOSED");
-> +
-> +	control_expectln("DONE");
-> +}
-> +
-> +static void test_stream_uring_inq_mshot_server(const struct test_opts *opts)
-> +{
-> +	static char bufs[HINT_BUF_ENTRIES][HINT_CHUNK_SIZE];
-> +	struct io_uring_buf_ring *br;
-> +	struct uring_inq_ctx ctx;
-> +	struct io_uring_sqe *sqe;
-> +	struct io_uring_cqe *cqe;
-> +	int i, ret;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	br = io_uring_setup_buf_ring(&ctx.ring, HINT_BUF_ENTRIES,
-> +				     HINT_BUF_GROUP, 0, &ret);
-> +	if (!br) {
-> +		fprintf(stderr, "io_uring_setup_buf_ring: %d\n", ret);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	for (i = 0; i < HINT_BUF_ENTRIES; i++)
-> +		io_uring_buf_ring_add(br, bufs[i], HINT_CHUNK_SIZE, i,
-> +				      io_uring_buf_ring_mask(HINT_BUF_ENTRIES),
-> +				      i);
-> +	io_uring_buf_ring_advance(br, HINT_BUF_ENTRIES);
-> +
-> +	sqe = io_uring_get_sqe(&ctx.ring);
-> +	io_uring_prep_recv_multishot(sqe, ctx.fd, NULL, 0, 0);
-> +	sqe->flags |= IOSQE_BUFFER_SELECT;
-> +	sqe->buf_group = HINT_BUF_GROUP;
-> +
-> +	if (io_uring_submit(&ctx.ring) != 1)
-> +		error(1, errno, "io_uring_submit");
-> +
-> +	control_expectln("SENT");
-> +
-> +	/* The payload completion drains the queue and keeps the request
-> +	 * armed, so the hint must report the queue as empty.
-> +	 */
-> +	if (io_uring_wait_cqe(&ctx.ring, &cqe))
-> +		error(1, errno, "io_uring_wait_cqe");
-> +
-> +	expect_res(cqe->res, HINT_CHUNK_SIZE, "multishot payload");
-> +	expect_nonempty(cqe->flags, false, "multishot payload");
-
-It looks like this assertion holds true even without the first patch,
-since msg_inq is initalized to -1 and nonempty is only set if msg_inq >
-0.
-
-As of right now, this test actually passes without the first patch.
-After cherry-picking only the tests to net-next and yanking out the
-other test cases, I see:
-
-	client exit=0
-	server exit=0
-	Control socket listening on 0.0.0.0:5200
-	Control socket connection accepted...
-	0 - SOCK_STREAM io_uring receive hint on empty queue...ok
-	1 - SOCK_STREAM io_uring multishot receive hint...ok
-	All tests have been executed. Waiting other peer...ok
-
-
-I wonder if it might be better to have the sender send two chunks so we
-can first assert that NONEMPTY is flipped on, and then again that it has
-flipped back off?
-
-Best,
-Bobby
-
-> +	if (!(cqe->flags & IORING_CQE_F_MORE)) {
-> +		fprintf(stderr, "multishot payload: request not rearmed\n");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +	io_uring_cqe_seen(&ctx.ring, cqe);
-> +
-> +	control_writeln("DRAINED");
-> +	control_expectln("CLOSED");
-> +
-> +	/* EOF ends multishot regardless of the hint. */
-> +	if (io_uring_wait_cqe(&ctx.ring, &cqe))
-> +		error(1, errno, "io_uring_wait_cqe");
-> +
-> +	expect_res(cqe->res, 0, "multishot EOF");
-> +	if (cqe->flags & IORING_CQE_F_MORE) {
-> +		fprintf(stderr, "multishot EOF: request still armed\n");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +	io_uring_cqe_seen(&ctx.ring, cqe);
-> +
-> +	control_writeln("DONE");
-> +	io_uring_free_buf_ring(&ctx.ring, br, HINT_BUF_ENTRIES,
-> +			       HINT_BUF_GROUP);
-> +	inq_server_exit(&ctx);
-> +}
-> +
->  static struct test_case test_cases[] = {
->  	{
->  		.name = "SOCK_STREAM io_uring test",
-> @@ -222,6 +564,31 @@ static struct test_case test_cases[] = {
->  		.run_server = test_stream_uring_msg_zc_server,
->  		.run_client = test_stream_uring_msg_zc_client,
->  	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive queue hint",
-> +		.run_server = test_stream_uring_inq_server,
-> +		.run_client = test_stream_uring_inq_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive hint at EOF",
-> +		.run_server = test_stream_uring_inq_eof_server,
-> +		.run_client = test_stream_uring_inq_eof_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive hint on empty queue",
-> +		.run_server = test_stream_uring_inq_empty_server,
-> +		.run_client = test_stream_uring_inq_empty_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive hint zero-length",
-> +		.run_server = test_stream_uring_inq_zerolen_server,
-> +		.run_client = test_stream_uring_inq_zerolen_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring multishot receive hint",
-> +		.run_server = test_stream_uring_inq_mshot_server,
-> +		.run_client = test_stream_uring_inq_mshot_client,
-> +	},
->  	{},
->  };
->  
-> -- 
-> 2.55.0
-> 
+>
+> Thanks,
+>
+> > The tcpm_pd_select_pdo() function matches a source PDO against a sink
+> > PDO using their voltage ranges only, without checking that the two
+> > PDOs are of the same type. A source PDO and a sink PDO of different
+> > types (e.g. a Battery source PDO and a Fixed sink PDO) can therefore
+> > be matched as long as their voltage ranges overlap.
+> >
+> > tcpm_pd_build_request() then combines the matched pair with
+> > min_power()/min_current(), which apply the same accessor to both
+> > operands. pdo_max_current() and pdo_max_power() decode the same bits
+> > (9:0) of the PDO but scale them differently (x10 mA vs x250 mW), so
+> > when the matched types differ, the sink operand is decoded with the
+> > wrong accessor. This misreads the sink's capability and weakens the
+> > min() bound intended to cap the request to the sink's limit.
+> >
+> > This type-mixed match became possible after commit 53fe0de9a35d
+> > ("usb: typec: tcpm: pdo matching optimization") relaxed the match to
+> > voltage range only; the min_power()/min_current() macros still assume
+> > a matched pair shares the same type.
+> >
+> > I have not observed this on real hardware; I found it by static
+> > analysis.
+>
+> --
+> heikki
