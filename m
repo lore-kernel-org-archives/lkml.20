@@ -1,165 +1,178 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADEA400E15
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101739; cv=pass; b=uRhwz262gvar3CoHpe9G+2tOBsSkflTfYFXRpQbsI7LPXVxsAR7qrkV4GpCuy29zz8RjUWnfdOWCh1MnFZ+5sypWdHdsDV5c3C/gPQ65kTJBTx471WEV/WFxKY5ZjnvA0iUdygnbgu/BoZokKT2/JMvwD0rZZb6eyOAFbwKV8TQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101739; c=relaxed/simple;
-	bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uiVvlHWttLp7prUfXWoMTUdTZ8jFxYxc/9Left9pA7As1aXmjLU/vEwa3HIVhBwSHmbVnG/Q/i1HrhXAj8PoQ0ef2hzbTF3qQA6VFr4mCgK0xhuEUf/5tlRnjcJQqLCbFO0LqhRRXZTznjIKI/wHx9VobZM+8WO8GYVn55GvXaU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JtclKAIW; arc=pass smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79C841D655
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790101757; cv=none; b=FHPVjaBca5Z0JESOE/Aip2+n4NqNe6rekISnKhdlghkMxQcge7zZ/GzWVHjW+48t43bvtGTomWrEqv8oa4wiymJjiJVUUowv2IsjX7rUMdB4kkuz8q8f0KhEdclQWJSqSDC//k9ufGGNyilZ2cp1P4FBz2qS6lboPte7ndWXo6Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790101757; c=relaxed/simple;
+	bh=aFAuN6Oq4Zw4ipPVDHTfDM24/NOJlJiRcfxatgz4T+8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bpyJm/uydz6niMK4r2ogCjuaqzwEC5IMO5X//fRtEbL+TpPiGXIMPJwb0WmOG9hZwCQKa2FL1M5xyZq0n4NZ56bcmL/pyGQMtfQevQNS5nOHiwG1FNadOdrrR70b71Khj0neJaLzvAUjViHzs8z7f1kLTWWRswPOJx4uZBI4Sh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HTyc4tA0; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JtclKAIW"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb18so113122a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:28:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790101736; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eWKQoJQIMtXJF4Ajc3285s5t5bUeeFoW0Qrr/UffkEVCp20GMrHq22UzmOpKTKdtE5
-         MjlUXlq0GMrSM9yJyyH64Blmba7jK2VUMjbuIvv1jfyXkJV9Sb5dWstu6uBgGYrhqmk+
-         LMxZwAMAFiG9diPIBPHHK5EC/mkVSHaMVrak8E3Ty0R9TNB0Lb2fbPhuf+PseEUWt0I3
-         Dl+aZapTBLJPQJCRUYOlQptcBdc69OIu9ndVD2qtvEGEANCikMSJVSVFa+93fqzIzZiK
-         AZT30Wb3rNVnv33GSMhzS9E5n78hFfihlZi8vHf9J0cvCBppcsRqNgLpyjshfDCMw1/b
-         waow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
-        fh=BOGqNKar8SMIrEkpSqetCH/E5F7WRlIzuvhPhcxOPq8=;
-        b=rP2wRVXKQB39HIfDZhc7OYRmTctpxcoCJ/zr+1HD/4Q+40RiVamh/OmRuHCHH4Dt7S
-         +ju6lGWLB1/IRlKIS8UunZsvd3sroS6bA7bLzyASr/mVLT6FZe8YzOoQe/7RQ3n2q2il
-         octtvIicAokzIaru6p6une5NfrqBKEsxboGVAySPXP8r3TAPjycyXj7Ijy2qcHddVXu6
-         Bk37hdxlwM4yIhIUgNXlEpV+u5rr29Ao8Bp7/RK5vbiF6VjpaAFBbbS65nsokQeER+Zc
-         EJnWBl3QlI3m1Tdksy53OEBNpewO1lqVn5PyEz+f6k+2qAdncL+RjJxaIZ20K9OXS0C1
-         8e9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HTyc4tA0"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3115c4451c8so69048eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:29:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790101736; x=1790706536; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
-        b=JtclKAIWqxCLtkTkqlwNs4gedoQhB9TYrhPin/VLA7wMWunnFbp0yC7Axwv02HfMiF
-         7hSu92rXqQzCb5osiVtmvo4yHpDA/uKfLA7VcbHjuD0a1Md51KMQgqttDNkVW8q6Hl7K
-         F/iY6NctZ7PhQokGz7YR6TkY/P/BTSqzGm8B7L5iIqt2hJ+1GZ86DH0YE9J/FIVJxlPU
-         0mgsyDr33RiQcIlYd8NZ6yFqfojIMotVeAuiXEUaiySNrE2ZqTYeAkdWuSTHfuMpTXgd
-         MBLAJkSrTnOCHCEOoyAGY7z7+TbQVd8GGtL44SBM69LJGgrKxzmNM99uLoNPfPH9SALk
-         mOgg==
+        d=gmail.com; s=20251104; t=1790101755; x=1790706555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=boc46Sj1HOU4tKyVBAaYU0tHsUhuDqMurhOITlCOjEQ=;
+        b=HTyc4tA05qQlWJCA+Mr9M1LLGWpjMvFDTfNtt728sKf9BiJz2L+QQg4V4lXQ7o2AYs
+         ntxzHAMk4uX/PHP2fHkeVYq8YdUi1pPnimTPyYKJGb83rcuVPaG2Dn3s9LUyBCAdMZOb
+         nAg67JoNYnD4Oxu82/3skMt0uB/HW1LJHDAJVLF6Ayg4ciASKbxEylsxOreeWXf7Hbk1
+         Bgp264cnKhZwpHqdBAGukrmnty3PsSEI2BJng0Lz1gfDl4HKnRjTG3LWCX5WhexehgUU
+         uxEDASNTk6GdLbZgukuymXqyjBUcNUYwAwKKQHnw+2tJjFAaFW7jwxEerqn8zwRzl8HF
+         uFeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790101736; x=1790706536;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
-        b=f1mJKaXgNRhZI0LpQuZ0FcP18oi8LjLSJj7lecrlT7i2ABLkS9TInVhXjte88/Y6N+
-         qWj8Oe+ESyKCyOVcRqb+5Odg2C+kLlxvgRqI3nAARiRvr4Wg218RdqE3Pd8aK6Qp0RaW
-         IYDNSC0EZl5BF3yZP9oyfOIrfTycMQMMjT+hTFfGr2U8mn/WWEFxBfCna3Zb54bAG0LJ
-         uItxttqsJkDsfC0GEmO/N4bYHLCKRTMoZkkHrSeroHRhLqrRq2ijKhg/PxkKcRv7LEKj
-         oQATZVqc33lIFHURSDj7YgNKOsFyvE6h9A3Z6X0+ODLG++lj2OMOHFWpJBNNsQW6XC/H
-         xhpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzwGJ/H5tCQggiAsT255Idw7yHKI8s6nu+Xxw9kVuz55bv0MbMrVi5Q39sbtxl0qlSTLj/yroUeIleTZmI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0kIjFLZb+I8Uu132o/GkeCxLao1TDFYMV4DZrWx8rMdaqcATv
-	zaW99tgoETSaqclzzqUoXTX8Yla7Ywo/dRnirZMTAxh3AE3VfeGOrmSWPfwByXKpf5xRSx7aJXG
-	LSKOejcBL8hQi9CMj5QrLC0++KyPCdtc=
-X-Gm-Gg: AYBFou1/3NXm8y4f90w8s1Ix6OBni2i6DstnElgGN42ywOnnZytXyhfOPRo4Rtd0f/L
-	Fq8PbFEFX61OohcOm//YSZshQrqLmKxj52RAMOC9PeW8Zfys+aYwehR6ixP9ltTDiLwqSYJUknF
-	B+uMg120tljJmbnetS8jHRtQXYwXXIwfaIsxvK3jipxBrEovVGvG17NLZQ17VK8BncEOtIVTnEN
-	v6HeL7UbNYDO0VHxdgWUQ4V+cLhegga4uUvDmP4fgNXR3FyPeirsoAl11DyyP2ta31rWsaYOKpo
-	qsf8PvrRMmv4r4+D5SnFrCDPyHFQstAduF0w4urMvgCcOPAk5NG+qA4ijxUDiwMPTNWFzGNDNAc
-	1BUF9t4zonUjVlFg3YNBp0g==
-X-Received: by 2002:a05:6402:4518:b0:6aa:12f0:166e with SMTP id
- 4fb4d7f45d1cf-6aab38a8641mr368480a12.16.1790101735486; Tue, 22 Sep 2026
- 11:28:55 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790101755; x=1790706555;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=boc46Sj1HOU4tKyVBAaYU0tHsUhuDqMurhOITlCOjEQ=;
+        b=dlzgGQxj1LjkC0n4D609CcJqgkae5YlyLJ1WillEB2LmCzsbEBPe3ib8TgnPWlkSlJ
+         IMOvPSwlX7thX/GGUyrUXAvrvxLLX57Yu8/F47+UC9Hqp71VSWusCln8QLVH9Y3DrH0Q
+         3e1Q2c9bsWfYEm38C+vxdOZ4UL8kn2H9BUAeN31FHuPiUDrPzaa40DK6A7WltqHMZGtV
+         9s0ZIdFtBiz+bqPBt3U7Yma6WnulkXkMM5IJ2hmhuVTd1tM/jG1uHAqPDwleH2+XF9U0
+         f7KYNWxE4MKgDPCceZCUMPOgvX+eN84ftMutXspiYhZJVo6QsrrciWVU2eGrg6Nt1AjE
+         64mg==
+X-Forwarded-Encrypted: i=1; AKwUvBzr1iz40lMSEnUk69cBKMGnE9KEJE5dWIDSgF143zAT3z6RsrtrTSd3WW1l0fHAeC7D+rQ50rQMFoODPmU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m384woj45/jTXWwN7iXS8QxzMxQcl26SElo+/3o+ohcVD+H9vM
+	22jItFLNZGC62R5epXjzDcKaow2zRrzHoTtH6WO2sVmguA8nFzlua+fe
+X-Gm-Gg: AYBFou06fYmXCmMyvhuj8xvKcEREYZctSbZUKKi3vWj1sR3prxQz7v3bzsgYfNcuj/a
+	R8FLepAUwvb+An4KeFFRqDqoCJiW2J4HRaCfqlu1AI8mq9dLWrprjw5JFChgOHIV9heNgQK8v7d
+	IJhP4CpisSRlYsoU0nEH4s37rXXz3AOGX5NZNE7Thbwr+M2iXSkibdc94uMNrCkii19jRPK/JZb
+	6Av4mzFHru3u0Bt6bhpeDuVBwg2Bvj+q+AZ2RtNgs8bkRvNCRA6zanSKkZdIvjZu4JEJ94nZEoT
+	ab1BQgbe1D5nlUOiEyLbF5W1njOkl6AQ3+CNTS77UiquwLa3jrFJ9Rarxgt7JPY9wpum3sXbNRC
+	qVJi09THr1GdBg1udyWWsfG1faTfc4o0NWkbbGEh+FE2lNJUCLQvk2h6FRFQwTVWui5dS6EFU1T
+	CWw4eMMw/Q894VuKCsawPSzKLikcssefuSKraj9Ao2UGMIEV2DH11vgW5Q2qFiHng2FbsCSzrVj
+	z6fN+IdZnGsAZGFRpR51Ki66jmAhGXUjHvStBc9hckcEyUisZe8/qYVPNrI
+X-Received: by 2002:a05:693c:8201:b0:332:946c:477a with SMTP id 5a478bee46e88-33e5ca9fe0cmr241891eec.16.1790101753804;
+        Tue, 22 Sep 2026 11:29:13 -0700 (PDT)
+Received: from pve-server.rlab ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdabcsm154315eec.3.2026.09.22.11.29.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 11:29:12 -0700 (PDT)
+From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+To: kvm@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Anushree Mathur <anushree.mathur@linux.ibm.com>,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linux-kernel@vger.kernel.org,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Subject: [PATCH v5 0/9] KVM: selftests: add powerpc support
+Date: Tue, 22 Sep 2026 23:58:44 +0530
+Message-Id: <cover.1790101179.git.ritesh.list@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKSQd8V28WjMcsfh05P5SNfXXvtafBH6fyiyqMzQ9GtU8fQGSA@mail.gmail.com>
- <f133c35f-b013-4395-ad1f-53765114d4b9@intel.com> <CAKSQd8WqQdNDoEqM+PZNHg-yr_4VJTGYdV=bCbYfRDyR7kUjbg@mail.gmail.com>
- <01a1d68b-a4e2-40e3-b3b8-c1046faa6c77@intel.com>
-In-Reply-To: <01a1d68b-a4e2-40e3-b3b8-c1046faa6c77@intel.com>
-Reply-To: ludloff@gmail.com
-From: Christian Ludloff <ludloff@gmail.com>
-Date: Tue, 22 Sep 2026 20:28:44 +0200
-X-Gm-Features: AcwNN1VsibCEVXUWfVOgXZYccRZ_iWDBoTKrTPQuJ56JBNJx_0IdVjmNLexMxas
-Message-ID: <CAKSQd8X0bWYbG2VcU8T5vdFsXGrTy69f_xqBUs6Ox3oNHPfbrA@mail.gmail.com>
-Subject: Re: x86 CPUID mutable return values
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Borislav Petkov <bp@alien8.de>, "Ahmed S. Darwish" <darwi@linutronix.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Sean Christopherson <seanjc@google.com>, David Woodhouse <dwmw2@infradead.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Sohil Mehta <sohil.mehta@intel.com>, 
-	John Ogness <john.ogness@linutronix.de>, x86@kernel.org, x86-cpuid@lists.linux.dev, 
-	LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 5:24=E2=80=AFPM Dave Hansen <dave.hansen@intel.com>=
- wrote:
-> I'm all for documenting this stuff. I wish it was more open.
+Patch v4 -> v5:
+==============
+- Fixed the issues reported by Anushree while running on kvm on powervm
+  (nested).
+- Fixed memslot_perf_test on powerpc.
 
-Alastair is working on it.
+PATCH v3 -> PATCH v4:
+==================
+- Rebased on top of Sean's new page allocator patch series v2 [1]
+  This allowed to drop and patch-2 since it will now come from Sean's
+  v2.
+- Addressed review comments from Sean - squashed patches 6-10 in patch-1 of
+  this.
+- Dropped patch-5 to print vcpu_id when KVM_CREATE_VCPU ioctl fails.
+- Added additional patch-3 to this series to allow dirty_log_test to run on all
+  big-endian machines.
 
-https://github.com/intel/SDM/issues/16
+[1]: https://lore.kernel.org/kvm/20260902164123.2546762-1-seanjc@google.com/
+[v3]: https://lore.kernel.org/linuxppc-dev/2d2c46be7f051c7f1c645afaec67f57067d37a81.1781093720.git.ritesh.list@gmail.com/
 
-> But I do worry a bit that someone will read that, for example, "KL is imm=
-utable".
-> $CUSTOMER starts depending on it. Then, $CPU_VENDOR decides that was a
-> mistake and fixes it in a future implementation.
+Testing updates:
+================
+I have done some fair amount of testing of the selftests both on real HW and
+using various combinations on qemu (powernv+LE (default), pseries+cap-nested-hv,
+pseries+cap-nested-papr, powernv+BE). There were few powerpc kvm kernel fixes
+which were identified as part of this work. I will send those patches separately
+as those anyway needs to go in separately.
 
-Most of the mutable values tend to remain stable.
+<pasted snippet of cover letter from previous versions>
+=======================================================
 
-HLE and RTM were needlessly complex outliers.
+Hi All,
 
-> > Based on some experiments, I think that VAES
-> > does follow AES (i.e. is mutable as well), while
-> > KL and PCLMUL do not (i.e. are immutable) =E2=80=93
-> > so that's what I am seeking confirmation for.
->
-> Are you OK with just checking a recent implementation or do you need a
-> wider search of older implementations?
+This series primarly adds KVM selftests support for powerpc (64-bit, BookS,
+radix MMU).
 
-TGL would be interesting =E2=80=93 KL did arrive back then.
+This patch series is originally Nick's work. I have mainly only rebased it on
+the latest upstream tree. Since the rebase required few changes to all the four
+patches (Patch 1-4), I have dropped the earlier Acked-by from Michael Ellerman.
 
-NVL would be interesting =E2=80=93 for the latest P+E =E2=80=93 but
-we probably have to settle for PTL for now.
+Since the last series was posted three years ago [1], I am resetting the version
+to RFC. This rebase was done as part of a larger effort to improve the selftests
+infrastructure for Linux on PowerPC tree. Thanks to Harsh and Maddy for their
+help on this.
 
-> > PS: Should Linux boot check/fix that LOCK?
->
-> I don't really feel a strong need to do it. I honestly don't know why
-> the lock bit is even there. I'd randomly _guess_ that Intel's
-> implementation was not certified for $THINGS and they got nervous and
-> asked to have a chicken bit exposed for it just so it couldn't
-> accidentally get used.
 
-AES DISABLE+LOCK were originally added due to
-import rules in some countries.
+Nicholas Piggin (1):
+  KVM: PPC: selftests: add support for powerpc
 
-> But, for Linux, the kernel doesn't currently munging the disable or lock
-> bits. If someone munges it with wrmsr(1), they get to keep the pieces
-> just like any old wrmsr(1) user. I'm struggling to think of a scenario
-> where being able to twiddle either of the bits could be useful to an
-> attacker.
+Ritesh Harjani (IBM) (8):
+  KVM: selftests: Enable kvm_create_max_vcpus test for powerpc
+  KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
+  KVM: selftests: Split out a KVM_CREATE_VCPU helper that can fail
+  KVM: selftests: Make kvm_create_max_vcpus tolerate ENOMEM
+  KVM: selftests: Limit the number of VM creates in hardware_disable_test
+  KVM: PPC: selftests: Make nested case on pseries LPARs as resource constrained
+  KVM: PPC: selftests: Skip idle-page check when running nested on pseries LPAR
+  KVM: selftests: Move memslot_perf_test off the 256M ELF load address
 
-If LOCK=3D0 leads to someone setting DISABLE=3D1,
-then things will get slow, or do who knows what in
-software. But then... armed with WRMSR to begin
-with, someone can do a lot more damage anyway.
-
-> So I'm not sure it's worth prodding, even if we think it's got a funny va=
-lue.
-
-Yay. We gave it thought, and got us a record of it.
+ MAINTAINERS                                   |   2 +
+ tools/testing/selftests/kvm/Makefile          |   2 +-
+ tools/testing/selftests/kvm/Makefile.kvm      |  10 +
+ .../selftests/kvm/access_tracking_perf_test.c |  11 +
+ tools/testing/selftests/kvm/dirty_log_test.c  |  12 +-
+ .../selftests/kvm/hardware_disable_test.c     |   7 +-
+ .../testing/selftests/kvm/include/kvm_util.h  |  13 +
+ .../selftests/kvm/include/powerpc/hcall.h     |  17 +
+ .../kvm/include/powerpc/kvm_util_arch.h       |  22 +
+ .../selftests/kvm/include/powerpc/ppc_asm.h   |  32 ++
+ .../selftests/kvm/include/powerpc/processor.h |  46 ++
+ .../selftests/kvm/include/powerpc/ucall.h     |  21 +
+ .../selftests/kvm/kvm_create_max_vcpus.c      |  29 +-
+ tools/testing/selftests/kvm/lib/guest_modes.c |  20 +-
+ tools/testing/selftests/kvm/lib/kvm_util.c    |  39 +-
+ .../selftests/kvm/lib/powerpc/handlers.S      |  93 ++++
+ .../testing/selftests/kvm/lib/powerpc/hcall.c |  45 ++
+ .../selftests/kvm/lib/powerpc/processor.c     | 522 ++++++++++++++++++
+ .../testing/selftests/kvm/lib/powerpc/ucall.c |  22 +
+ .../testing/selftests/kvm/memslot_perf_test.c |   2 +-
+ 20 files changed, 942 insertions(+), 25 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/include/powerpc/hcall.h
+ create mode 100644 tools/testing/selftests/kvm/include/powerpc/kvm_util_arch.h
+ create mode 100644 tools/testing/selftests/kvm/include/powerpc/ppc_asm.h
+ create mode 100644 tools/testing/selftests/kvm/include/powerpc/processor.h
+ create mode 100644 tools/testing/selftests/kvm/include/powerpc/ucall.h
+ create mode 100644 tools/testing/selftests/kvm/lib/powerpc/handlers.S
+ create mode 100644 tools/testing/selftests/kvm/lib/powerpc/hcall.c
+ create mode 100644 tools/testing/selftests/kvm/lib/powerpc/processor.c
+ create mode 100644 tools/testing/selftests/kvm/lib/powerpc/ucall.c
 
 --
-C.
+2.39.5
+
