@@ -1,175 +1,83 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE7539023F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045859; cv=pass; b=I14n9Uexi/cjYAb3b+LCQAFTw5kWBYkmRv3QpHzM+1knYB0iQZzaYu02fpVQ6mg0uZtE6k24qewNrnxNjPYD1EAOb3tRHIFH8y3Q52QXr7BuDmy12uRaOFUDIMwlsdTyfvaTIFz1XyH1kAwrI2bNRxKlFHq64S89lFeGrI8CdtE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045859; c=relaxed/simple;
-	bh=LWETzvLTCLpPXKSTvQYhK8hYMXbjqA0M3tNN958ouT0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mmC/c+2T/+gGw6cuh6khuS6unW/XPZt56KNfZIYobp8dKlfZcImIJ+tyDtU7I0/Dl3H/uNFztO20RMUePFvtUHNcg095NWsQ0v9KzvCJTmRkiNZXHSpkoJW52kwgAhaZT9NmRcp1QIes+ghiJSg2w8Yv97GNOenVfLHu0VGyhGE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KBcGzg+t; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6416237475B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790046055; cv=none; b=DEjRpO3o6+iNTPUXwG6XcoLywvQgAXUGSFFSXtdXaW4Wc+0DocP8nBpGQo9RdSynebSBz9CyZ32B4QMtCP2nUbkpVfC98I3v7jWdsbOJY67k/WujJeVHXmb4OzSvfc+Gtga8ReTa9orRz2rSipcVmaPVdHI2SSKuaLC982871S4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790046055; c=relaxed/simple;
+	bh=1ZU0+X1d2cywrx86Fqj9z6rYYmAHzboHymdOUv/toEQ=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Vw/PvNkfdt1kPW6i+1rMiyYUBBjNcUTuqEgAWqrhkEo/1Bfap2h6m90+3otCUM9m9HyqXhuOqEatUZj1YmzBes3UCJ/sSlUQxO0Eyqm1FFKXLMaP3dLzVuCxxRyZwaf86bg1Nghv7+Gz8/AmJD96+CyQbYqJGjBJZMpC264eKGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bcEl7JVg; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KBcGzg+t"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-6713d20d375so3235600d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:57:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790045857; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IHGvBrGkF5DbrcJRR9n+VKZXzwN86u7SWzYTr3+DLijWXJhyT5ASwA7LOS/3H/gexo
-         XalXq926wTMC3mlJgvx25IemMQXzfVP48eVgBzes+VlR3ub3x5nVPvlQFXDxbHDzWVGg
-         fvMKRc9ZUIVSqS0FKZ97ZPV/7GXOBUrzHCPXKzXjO5OgTN7+HTTOWVeanK2IhCZhKgog
-         2pTilpNITFzTajXuDxqT7l7pt4D7FB3s6Y000MjY2bUQmSyc7Braf2mqbIq25sS4Aqof
-         zm3xdvp5Oru+c83p0Gq5lozmOZg/1cFvsVQYR4T8/8iddPse+E3i1I6D+oqOYR2YiH4R
-         vfng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Oaszatv7+i7Q6ieygPW8etkdqnoGVO2BWSusRaJsgvI=;
-        fh=zU1yrdBtoM1RHQHwxfIc0l+5bwvBrMVp+rfHcSun8OE=;
-        b=Wc73R2L9LFM53YJ/2her+LViGzIgwZ/psBhhraCTCkPDNNPAtqqD+fFZ7YwOqSb7m2
-         v59Muw0AZRsfZdkh8rBUsQIHrsbe4meFXdT4h3hdpsA9RpLD/MTQgB83ooTnahlRajcz
-         TqiYVuoUCG4KlhpPywuV54ZShBtv9zZvReFy9jWGdI2WFxjLQcre3rqK3EBdRFvqcU9j
-         t7iBQsMMUK1W2avhRQmz+ewAU3R+Kl97RdDZ7y6SQ3PjDorehSxHEXqwiWNkLUWYMiEa
-         +U5DnDBolonJTeojGg8NAOyMGKHfDjZELC1B1BIVqeIBrP+ChFUPg7pgEeqf6wfIFT9y
-         poZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790045857; x=1790650657; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Oaszatv7+i7Q6ieygPW8etkdqnoGVO2BWSusRaJsgvI=;
-        b=KBcGzg+tSPV1kXKRJ7Ki3qa/sIAEVBGoDqXXoz80fPkCiDirEYFlSSmK10YPbxOrTH
-         2xqrAxaZbEhLtEUe6zWlS4Q2jLFu0J3Q8OY+w1Nfp94WG2PmRuK8lVABm5Zn2lg6ueAj
-         d3lDW5aFY5D70bRO7jJeV6/JKUxo9y9lldrROmHU+ompccDnJpPuNLClnb1zUhkRfuQV
-         3kncOst+RIDpHpIrTs+DII2SEE0izlHLJEI0q/afQwXfZQ2pGpS6U7qenYso6WHE8X0n
-         lH9QbKAizVhmNvrDHxf60nIwLBmW6/FFM6JSO7sZj3V4L/VFkyajWLWn25kU7YxLNyKZ
-         qpGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790045857; x=1790650657;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Oaszatv7+i7Q6ieygPW8etkdqnoGVO2BWSusRaJsgvI=;
-        b=Ue7nwIBsRNu3zuMm2IxrNEnEOhio1L7oeLDKpDA8vhPK6kYjMjiEOiWugljCoJgrwP
-         sbMf6DI2z61t+gD6ZJRN0sUbEGDx9Yj3msfmSSHojuQA2Zf1fE3LJ/BtTjcbMOGaE7Eu
-         nfgveSYpcXwHadXhASH3MBoKi791sYp87zGcGu8rE95IxhNf/JZWaMT+VVF7a+48f0aL
-         NGSiAILrjHi/CDcXjOB8Wf3AoWP6tNx/w2JStJVX2KQgxd3Gx97diga3PNqflQqlpVey
-         mNdDaHpAK2EptX1BwScjzJOOp/Ob16XWFlRM5eH5bzHoZQn7It/fizZBvSM4RPy7T+0E
-         NVMg==
-X-Gm-Message-State: AFuF++nVvHnm/KR4lhWO+IHMUJ/PmmVeB6L3tXUhszDFngVEH0Wl6OMR
-	d8kY1XVw3M3ffGAVXLquBokSy/WkzOOeLOzlw07gi8HkzygnMl0MKJXqt5R+F7ZNGj1UP2BUEMQ
-	eRL/x2ToCizEWFRYGHbSCPw8N7S55L20=
-X-Gm-Gg: AYBFou2mKUXMWsi2LqhSNS8m2n+9+IxR3ELE5c9XXdxASjGhhPAV16n7pAMJJ96AHAK
-	1/PR0uvgOPvH6SiAuiqBlb8o4O5MImq8G6Uvv4C/CZEwZ62nRYGFkF6iwPtmYfYIcSueeMY1XRR
-	sFFxgQei6IImTQ3pGp4PdYzZ73Fnxlby6JXAbSRgxdgJEkiinnU5qv2nptr6wP+TP1hx1F2+u17
-	A0bQXix/RVFaGRAeH2ybRFt3BRqBJnx7rVgUDVpL6ppe7bbuTOnfv8lR54ZYCjXmyo9bSjrLLyd
-	6QtmhGtTlmvrk+4imPhS7Wgqw5FUoxlZ9qj2tlLK7zuICxtHObSGBfcmwQ==
-X-Received: by 2002:a53:d006:0:b0:671:3b1b:997d with SMTP id
- 956f58d0204a3-672c54d38a1mr331322d50.88.1790045857248; Mon, 21 Sep 2026
- 19:57:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bcEl7JVg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790046055; x=1821582055;
+  h=date:from:to:cc:subject:message-id;
+  bh=1ZU0+X1d2cywrx86Fqj9z6rYYmAHzboHymdOUv/toEQ=;
+  b=bcEl7JVgQRoZDY0t0xnwAmXr0GbiPwHG7XJfjTtgJEX9Qw+36QDeTEB+
+   voWreq8YzYkQVPntTTJwtWxxw3IuBwI30rvTB1Hs+SoWDjMYbw1EaiK2I
+   IC5qGrJRmHVkpNSg1A4xgBOtoSrBXAmbXYQ0ojz6Rl2V3o4KQ4Wr6nAfX
+   zrKIJmVOWseDZu5UrJ+BQ5joQ7kteBipHK3OeGriwucd48YJEJQ5KDh0W
+   JMF8IKmDc8h6jIaHjLmgseLfBfJakBB8KNcC5FC9hcW/6FLARzoJ8rruJ
+   kuAm/GrorLjp6t3/pEClIyzsPrQDKILLsKKquPT2kWsWgWNezooef8Z5P
+   A==;
+X-CSE-ConnectionGUID: arJZy0KsT7GTPwy2IeT7Ng==
+X-CSE-MsgGUID: FIep57h+RrGKzH/ZPz+8xQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="94441424"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="94441424"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 20:00:54 -0700
+X-CSE-ConnectionGUID: w3K8kQykSn6giFZIW09LUQ==
+X-CSE-MsgGUID: PcWx9JMgSc26dEcK7XGPog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="277716378"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 21 Sep 2026 20:00:51 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8qkS-00000000EqH-2dIM;
+	Tue, 22 Sep 2026 03:00:48 +0000
+Date: Tue, 22 Sep 2026 10:59:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alejandro Lucero <alucerop@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Dave Jiang <dave.jiang@intel.com>
+Subject: efx_cxl.c:undefined reference to `devm_cxl_probe_mem'
+Message-ID: <202609221035.8i5jprQK-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260918180201.3624568-1-lgs201920130244@gmail.com> <arFKj506cRh4H_z6@quoll>
-In-Reply-To: <arFKj506cRh4H_z6@quoll>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 10:57:23 +0800
-X-Gm-Features: AcwNN1UNJV-7RuK0vc2B42wvjUNKiAuWoNgu3YBpAo8NLf9Va9n2bdK2fcb_odo
-Message-ID: <CANUHTR-zXzW1b9oajnzrxEQxC65mWNhaijfdhu51XyV3DrySNg@mail.gmail.com>
-Subject: Re: [PATCH] scsi: zorro7xx: put SCSI host on remove
-To: krzk@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, stable@vger.kernel.org, 
-	James Bottomley <James.Bottomley@steeleye.com>, Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+commit: 0418860ef2ca8ab4e696ce3913fd76660c881c0e sfc: obtain and map cxl range using devm_cxl_probe_mem
+date:   3 months ago
+config: powerpc64-randconfig-1000-20260922 (https://download.01.org/0day-ci/archive/20260922/202609221035.8i5jprQK-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609221035.8i5jprQK-lkp@intel.com/reproduce)
 
-Thank you for your feedback.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 0418860ef2ca ("sfc: obtain and map cxl range using devm_cxl_probe_mem")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609221035.8i5jprQK-lkp@intel.com/
 
-On Mon, 21 Sept 2026 at 23:17, <krzk@kernel.org> wrote:
->
->
-> On Sat, 19 Sep 2026 02:02:01 +0800, Guangshuo Li wrote:
-> > zorro7xx_init_one() obtains a SCSI host through NCR_700_detect(). The
-> > probe failure path drops the host reference with scsi_host_put(), but
-> > the normal remove path does not perform the corresponding cleanup.
-> >
-> > As a result, the SCSI host reference remains allocated after the
-> > device is removed.
-> >
-> > Call scsi_host_put() after all users of the SCSI host have been torn
-> > down to release the reference acquired during probe.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: 45804fbb00ee ("[SCSI] 53c700: Amiga Zorro NCR53c710 SCSI")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/scsi/zorro7xx.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
->
->
-> You sent multiple independent patches, to multiple independent
-> subsystems. The amount of these patches clearly suggest this was
-> AI generated and most likely not tested.
->
-> More importantly, you sent all this work without properly organizing
-> relevant patches into patchsets. This makes reviewing difficult
-> and might cause multiple reviewers to address the same issue.
-> Replying to the entire set is impossible and requires handling each
-> patch independently, instead of applying or discarding the set.
-> Maintainers also won't see the bigger picture of your work. Quite
-> worrying.
->
-> This is on the verge of hostile patch: bomb us with so many
-> contributions, we won't be able to handle them in efficient manner,
-> like responding ONCE to ask you to slow down.  Considering all this
-> is untested and LLM generated, I have even more doubts whether this
-> should be considered for review.
->
-> Please read kernel documentation BEFORE posting more work. It will
-> explain you how to identify subsystems, how to organize your work per
-> subsystem, how to document usage of LLM and how what you should not
-> do if this was posted in a good faith.
->
-> Best regards,
-> Krzysztof
->
->
->
-I would like to clarify that these patches were manually reviewed and
-audited by us; they were not simply generated and submitted by an LLM.
-However, I understand why the recent submission pattern may have given
-that impression. We sent too many patches in a short period of time,
-and we also failed to respond to some discussions in a timely manner,
-which made the situation look worse.
+All errors (new ones prefixed by >>):
 
-Many of the recent patches, especially the v2 revisions, are
-corrections and improvements based on previous review feedback rather
-than completely new untested changes. That said, we recognize that the
-way we submitted them increased the burden on maintainers and
-reviewers.
+   powerpc64-linux-ld: drivers/net/ethernet/sfc/efx_cxl.o: in function `efx_cxl_init':
+>> efx_cxl.c:(.text+0x100): undefined reference to `devm_cxl_probe_mem'
 
-We apologize for the pressure this caused to the community. We will be
-more careful about organizing patches by subsystem, preparing proper
-patchsets, and following the kernel contribution guidelines before
-sending future work.
-
-Thank you again for pointing this out.
-
-Best regards,
-Guangshuo
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
