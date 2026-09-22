@@ -1,218 +1,229 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17EB5476C9;
-	Tue, 22 Sep 2026 12:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548BE3F0AB8
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081039; cv=none; b=IxTZ22zKY42vYxhcTBAg8wZRMrZQmA4s06lN9ErWYnAv/MHJUha29HQoy5WxwdpbzPfjmXLsmbDMRTwrNJJQCmz3HARNYnQtm4NNBAb08uVmdPK8pmKGu8wKBg4TyfhUKOq5Mv/uqczGAx/uLp9wUTFsLcEZ41kMAR5xt+lK0JU=
+	t=1790081089; cv=none; b=FCt+VEtFci70CE+c4VRWNWnE/Z3Al4ypG8+Q7VDHqlpCjUuvMV/gjXhHcrdEK0hXeK65dmTtGYoX9lHrGFZI8V0ySRJMnguofANUOpwh+hn3gQ6ayatGp6YyEVlEaQEkaa0UgViF5w55nWtT5EuyRzpuzIIPpmGuXU399vmSxJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081039; c=relaxed/simple;
-	bh=N4HtkiWf7I6T2lTSMu8KrEBHfC1CNXw2MeRawSnuvXU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ER++QxDI7+37RuOAtKSOLUJAQ/bckzaVE6brCaN9AUN+SVo6GfzsxBsOZCWD8dl7spgRmPdEKZTcysmbRTcCr+C60ifyEyW/69DR51DmovFsp3/kh5vfr60VbIuDSjMnouvt3GoQ8lCYjamyP1/PRR12uvJOSOc0hBVL9wYoDAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=A6MLL1lL; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790081089; c=relaxed/simple;
+	bh=jeUVrhwd46D+up96et8GFjtNYfnaOkqvhtPcw43aOm8=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YfepIuMJ1+QrdPbUHJ21KZqEqRhR4YPblM/twfz6So3Pj8SssSwNZ6NC71keUeWvll06cjWW8WVgN6VHP0B30WSlmUF6OIl2a5HuJsY7Wu1Bb3iQqab3hR9P2+yN1wvdnI96nNanBrVOa6jmQvXWzJI/ABkcGI/ck0n8691l4Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hIPrdJUT; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="A6MLL1lL"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=uuTlAjbFVG3K4wNEikSMGRwn8CiTCyTwtRqd8LgITfc=;
-	b=A6MLL1lLoqRqLjMnIUrkIz7uyVDYEI7+6iMBwg379KlmGhDk2YI4eNS+GqCXAfUABQafn2U9p
-	k5VwnFEKgWv6vb/w2CNZrvQOGeiOxdDzfuxq9C5JYIKiIW6RBiO/lRBs+NB+Uo26BE3mTyy9vEe
-	zicGgEAClSO49nqGfFRLpLY=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hpzyP0v8lznTWH;
-	Tue, 22 Sep 2026 20:32:45 +0800 (CST)
-Received: from kwepemf100001.china.huawei.com (unknown [7.202.181.215])
-	by mail.maildlp.com (Postfix) with ESMTPS id A739A40586;
-	Tue, 22 Sep 2026 20:43:46 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemf100001.china.huawei.com (7.202.181.215) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 22 Sep 2026 20:43:45 +0800
-From: Lifeng Zheng <zhenglifeng1@huawei.com>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <saket.dumbre@intel.com>,
-	<lenb@kernel.org>, <ionela.voinescu@arm.com>, <zhanjie9@hisilicon.com>,
-	<pierre.gondois@arm.com>, <sumitg@nvidia.com>
-CC: <linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-pm@vger.kernel.org>, <acpica-devel@lists.linux.dev>,
-	<linuxarm@huawei.com>, <yubowen8@huawei.com>, <zhangpengjie2@huawei.com>,
-	<wangzhi12@huawei.com>, <linhongye@h-partners.com>, <zhenglifeng1@huawei.com>
-Subject: [PATCH v4 6/8] ACPI: CPPC: Factor out cpc_read_reg() and cpc_write_reg()
-Date: Tue, 22 Sep 2026 20:41:19 +0800
-Message-ID: <20260922124121.3426219-7-zhenglifeng1@huawei.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20260922124121.3426219-1-zhenglifeng1@huawei.com>
-References: <20260922124121.3426219-1-zhenglifeng1@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hIPrdJUT"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a9edfc851so65503466b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:44:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790081086; x=1790685886; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p2/mloYlrcJ4io0NzgMvmL7ZcyTYG1Hsn6kSPBsACzk=;
+        b=hIPrdJUTYGu2ef3IfnpfSbPIrdYrsJ4Syz2aYEWfzCYzsI67ZBp2GVyxxMOxLElMoT
+         ZRasCAwJnZVmtpstIZigT/j8AMy9WcCsK7Ylr4IUujqUl/fLVT94m0A4rXM6dX8I6eKU
+         1KcSLznIPXaS1V0tzFhFHwZWSIDrPEwxZ47WMyvJ03j+f2bAFuK6ivIrz0eWYR6vUUFy
+         sWmTz4DKfWWvGzIwrmHSBlMkN/COOW+lf1xEc9y8SllB7svlkhp86L0X17ywkI7WI3cx
+         Cbt7QoaFOsOK3tJk9UEMsJIYrvBuPjnlrujHrD4K0hNezq5+R/4ZhRWg5CoB3nszAd1w
+         l2IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790081086; x=1790685886;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p2/mloYlrcJ4io0NzgMvmL7ZcyTYG1Hsn6kSPBsACzk=;
+        b=PgEoQKS7Q5fYUahhQst3p0Azqk93wMXj9I57fK6xPMN26ksPFx8iU6nSfZw75oQ+i6
+         ue2p9NbrUHBytWbjaf/kUzMGGtW+SQreuJ3YrzR160kkEafpDMIZhx/7qHCgI8ZkJS85
+         +CWSn1N36x0UFim53cxO1ltOidOJP8jaID67XEPIbBLgiZwVrOX9yw5uK/cBEAQq/Llk
+         GoiVPVk6grSDi+Bntr18feD3Tr8V8CFwRWsfj0trK13OxzrO2Wl9lT9uwdIkJDbymMuY
+         I4ykjPCO70NFOwf/3F7ZPcXFjVTpJbirKFTajhJYAcfQaSWPUi516jeWvDAx12d76auq
+         T/oA==
+X-Forwarded-Encrypted: i=1; AKwUvBxaoOdlvWCcMQYqpZRv2wdLJPyFfQoiKEUCsBJzB3qGkk6rIbHgacPFHMSLskcjVwdskxrZ1MgJ1Til9UY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2jmCSEqPqze0mcwf57SMs91ofrzffTy/1wSa9o5uo9Ik3OaV1
+	b1GGqo5St/rCXsNZLQ+wNZdw9pbEHrd2sHyzRFnPiNSSwmGUQFC1FOlS
+X-Gm-Gg: AYBFou2FLhd1yb2BMLBWwyTThFWrUixzyj2wxhPRFkBnlNFzwuwOViQXpUEu+iXARV6
+	jHdBZv1P6EKtjyaBVSFNQLFpaCykuVXjTAX59nDqQeXzJjlVHHprf8JHw6kSBGBBM4TqfRJyfyd
+	FaUCb0QHzJYOyNG3gCRZFhc0wjGWy6ZAkF7fSlhf11oMpFov/x2Gnf64lwvWd05vyZwLL4YnT2u
+	VKdVk/ehIxUtGRd5qjTMsJTCrsV9TNGFIjyMQOSq5YI4PhhUQeD4CtKnLU4n2gaek3+kZwfTREE
+	HpBW+z8bbSdatqyuGTwVQd0LI7Yf4zUQSAbF1E4RslpfzOB016k7l4qm04NY+TJx6s4OlOeDp+r
+	CEMPobxUIOCzTyJayckc0+etVMikXfu8WHD2oEaxPN6TglPggAFmQprkSd6BbV6G80qEWTdT4My
+	qji2IP/ysyyzvbkR6lGqddUO5c89mAyJKJxfY=
+X-Received: by 2002:a17:907:3f24:b0:c29:439b:d5c1 with SMTP id a640c23a62f3a-c2a1585a618mr1167923466b.16.1790081086414;
+        Tue, 22 Sep 2026 05:44:46 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c580d2fsm74868466b.26.2026.09.22.05.44.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:44:46 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Tue, 22 Sep 2026 14:44:44 +0200
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Uladzislau Rezki <urezki@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
+Subject: Re: [PATCH v2 2/3] mm/vmalloc: fix vmalloc_dump_obj cross-zone VA
+ lookup
+Message-ID: <arJ4PLGlF7uhNWOs@milan>
+References: <20260921-vmalloc_dump_obj-v2-0-73fceb3ed1c8@linux.dev>
+ <20260921-vmalloc_dump_obj-v2-2-73fceb3ed1c8@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemf100001.china.huawei.com (7.202.181.215)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-vmalloc_dump_obj-v2-2-73fceb3ed1c8@linux.dev>
 
-cppc_get_reg_val() and cppc_set_reg_val() combine two responsibilities:
-looking up the per-CPU cpc_desc and then performing the actual register
-read/write (including null/optional checks and PCC handling).
+On Mon, Sep 21, 2026 at 09:17:22PM +0800, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> vmalloc_dump_obj() searches only one vmap node (addr_to_node(addr)),
+> but a vmalloc allocation may span multiple vmap zones.  The VA is
+> stored in only one node's rb-tree (addr_to_node(va_start)), so an
+> object pointer in a different zone than va_start maps to a different
+> node and the search misses.  This affects any allocation larger than
+> vmap_zone_size (64 KiB) on multi-CPU systems.
+> 
+> Iterate all vmap nodes using for_each_vmap_node, like find_vmap_area()
+> does, but with spin_trylock instead of spin_lock as this function can
+> be called from atomic dump contexts (OOM, KASAN, RCU).
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> ---
+>  mm/vmalloc.c | 24 ++++++++++++++++++------
+>  1 file changed, 18 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index df42d8a6f058..30c610f678dc 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -5278,17 +5278,29 @@ bool vmalloc_dump_obj(void *object)
+>  	unsigned long nr_pages;
+>  
+>  	addr = PAGE_ALIGN_DOWN((unsigned long) object);
+> -	vn = addr_to_node(addr);
+>  
+> -	if (!spin_trylock(&vn->busy.lock))
+> -		return false;
+> +	/*
+> +	 * A vmalloc allocation may span multiple vmap zones, so the
+> +	 * node whose rb-tree holds the VA may differ from the node
+> +	 * the address maps to.  Search all nodes.  Use trylock as
+> +	 * this function can be called from atomic dump contexts.
+> +	 */
+> +	va = NULL;
+> +	for_each_vmap_node(vn) {
+> +		if (!spin_trylock(&vn->busy.lock))
+> +			continue;
+> +
+> +		va = __find_vmap_area(addr, &vn->busy.root);
+> +		if (va && va->vm)
+> +			break;
+>  
+> -	va = __find_vmap_area(addr, &vn->busy.root);
+> -	if (!va || !va->vm) {
+>  		spin_unlock(&vn->busy.lock);
+> -		return false;
+> +		va = NULL;
+>  	}
+>  
+> +	if (!va)
+> +		return false;
+> +
+>  	vm = va->vm;
+>  	addr = (unsigned long) vm->addr;
+>  	caller = vm->caller;
+> 
+> -- 
+> 2.25.1
+> 
 
-Split out the register I/O logic into cpc_read_reg() and cpc_write_reg()
-that accept a struct cpc_register_resource pointer directly.  This allows
-callers that already hold a register reference -- such as the upcoming
-Resource Priority accessors -- to read or write a register without going
-through the per-CPU descriptor lookup by index.
-
-Also rename the PCC wrappers from cppc_get/set_reg_val_in_pcc() to
-cpc_read/write_in_pcc() to align with the new naming convention.
-
-Signed-off-by: Lifeng Zheng <zhenglifeng1@huawei.com>
----
- drivers/acpi/cppc_acpi.c | 89 ++++++++++++++++++++++++++--------------
- 1 file changed, 58 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 53c71888108d..2c2b25ec3e27 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -1374,7 +1374,7 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
- 	return ret_val;
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 89c327a6ce7d..3719dc02dcaf 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -2511,7 +2511,22 @@ static void free_unmap_vmap_area(struct vmap_area *va)
+ 	free_vmap_area_noflush(va);
  }
  
--static int cppc_get_reg_val_in_pcc(int cpu, struct cpc_register_resource *reg, u64 *val)
-+static int cpc_read_in_pcc(int cpu, struct cpc_register_resource *reg, u64 *val)
- {
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
- 	struct cppc_pcc_data *pcc_ss_data = NULL;
-@@ -1399,35 +1399,52 @@ static int cppc_get_reg_val_in_pcc(int cpu, struct cpc_register_resource *reg, u
- 	return ret;
- }
- 
--static int cppc_get_reg_val(int cpu, enum cppc_regs reg_idx, u64 *val)
-+/**
-+ * cpc_read_reg - Read value from a register element that may be Integer or Buffer.
-+ * @cpu: CPU number.
-+ * @reg: Pointer to the CPC register element.
-+ * @val: Output value.
-+ *
-+ * Return: 0 on success, -EOPNOTSUPP if null/unsupported, negative on error.
-+ */
-+static int cpc_read_reg(int cpu, struct cpc_register_resource *reg, u64 *val)
- {
--	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
--	struct cpc_register_resource *reg;
--
- 	if (val == NULL)
- 		return -EINVAL;
- 
--	if (!cpc_desc) {
--		pr_debug("No CPC descriptor for CPU:%d\n", cpu);
--		return -ENODEV;
--	}
--
--	reg = &cpc_desc->cpc_regs[reg_idx];
--
--	if ((reg->type == ACPI_TYPE_INTEGER && reg->optional &&
--	     !reg->cpc_entry.int_value) || (reg->type != ACPI_TYPE_INTEGER &&
--	     IS_NULL_REG(&reg->cpc_entry.reg))) {
--		pr_debug("CPC register is not supported\n");
--		return -EOPNOTSUPP;
-+	if (reg->type == ACPI_TYPE_INTEGER) {
-+		if (reg->optional && !reg->cpc_entry.int_value)
-+			goto err_unsupported;
-+	} else if (reg->type == ACPI_TYPE_BUFFER) {
-+		if (IS_NULL_REG(&reg->cpc_entry.reg))
-+			goto err_unsupported;
-+	} else {
-+		goto err_unsupported;
- 	}
- 
- 	if (CPC_IN_PCC(reg))
--		return cppc_get_reg_val_in_pcc(cpu, reg, val);
-+		return cpc_read_in_pcc(cpu, reg, val);
- 
- 	return cpc_read(cpu, reg, val);
-+
-+err_unsupported:
-+	pr_debug("CPC register is not supported\n");
-+	return -EOPNOTSUPP;
+-struct vmap_area *find_vmap_area(unsigned long addr)
++static inline int next_vmap_node_id(int i)
++{
++	return (i + nr_vmap_nodes - 1) % nr_vmap_nodes;
 +}
 +
-+static int cppc_get_reg_val(int cpu, enum cppc_regs reg_idx, u64 *val)
-+{
-+	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
++enum vmap_lock_mode {
++	VMAP_LOCK,
++	VMAP_TRYLOCK,
++};
 +
-+	if (!cpc_desc) {
-+		pr_debug("No CPC descriptor for CPU:%d\n", cpu);
-+		return -ENODEV;
-+	}
-+
-+	return cpc_read_reg(cpu, &cpc_desc->cpc_regs[reg_idx], val);
- }
- 
--static int cppc_set_reg_val_in_pcc(int cpu, struct cpc_register_resource *reg, u64 val)
-+static int cpc_write_in_pcc(int cpu, struct cpc_register_resource *reg, u64 val)
- {
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
- 	struct cppc_pcc_data *pcc_ss_data = NULL;
-@@ -1452,18 +1469,16 @@ static int cppc_set_reg_val_in_pcc(int cpu, struct cpc_register_resource *reg, u
- 	return ret;
- }
- 
--static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
-+/**
-+ * cpc_write_reg - Write a CPC register.
-+ * @cpu: CPU number.
-+ * @reg: Pointer to the CPC register resource.
-+ * @val: Value to write.
-+ *
-+ * Return: 0 on success, negative error code otherwise.
++/*
++ * Add a comment here.
 + */
-+static int cpc_write_reg(int cpu, struct cpc_register_resource *reg, u64 val)
++static struct vmap_area *
++find_vmap_area_lock(unsigned long addr, struct vmap_node **locked_vn,
++		enum vmap_lock_mode mode)
  {
--	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
--	struct cpc_register_resource *reg;
--
--	if (!cpc_desc) {
--		pr_debug("No CPC descriptor for CPU:%d\n", cpu);
--		return -ENODEV;
--	}
--
--	reg = &cpc_desc->cpc_regs[reg_idx];
--
- 	/* if a register is writeable, it must be a buffer and not null */
- 	if ((reg->type != ACPI_TYPE_BUFFER) || IS_NULL_REG(&reg->cpc_entry.reg)) {
- 		pr_debug("CPC register is not supported\n");
-@@ -1471,11 +1486,23 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
- 	}
- 
- 	if (CPC_IN_PCC(reg))
--		return cppc_set_reg_val_in_pcc(cpu, reg, val);
-+		return cpc_write_in_pcc(cpu, reg, val);
- 
- 	return cpc_write(cpu, reg, val);
- }
- 
-+static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
-+{
-+	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
+ 	struct vmap_node *vn;
+ 	struct vmap_area *va;
+@@ -2534,16 +2549,40 @@ struct vmap_area *find_vmap_area(unsigned long addr)
+ 	 * addr is within 2 or 0 nodes we should do extra work.
+ 	 */
+ 	i = j = addr_to_node_id(addr);
 +
-+	if (!cpc_desc) {
-+		pr_debug("No CPC descriptor for CPU:%d\n", cpu);
-+		return -ENODEV;
-+	}
+ 	do {
+ 		vn = &vmap_nodes[i];
+ 
+-		spin_lock(&vn->busy.lock);
++		if (mode == VMAP_LOCK) {
++			spin_lock(&vn->busy.lock);
++		} else {
++			if (!spin_trylock(&vn->busy.lock))
++				continue;
++		}
 +
-+	return cpc_write_reg(cpu, &cpc_desc->cpc_regs[reg_idx], val);
+ 		va = __find_vmap_area(addr, &vn->busy.root);
++		if (va) {
++			*locked_vn = vn;
++			return va;
++		}
++
+ 		spin_unlock(&vn->busy.lock);
++	} while ((i = next_vmap_node_id(i)) != j);
+ 
+-		if (va)
+-			return va;
+-	} while ((i = (i + nr_vmap_nodes - 1) % nr_vmap_nodes) != j);
++	*locked_vn = NULL;
++	return NULL;
 +}
 +
- /**
-  * cppc_get_desired_perf - Get the desired performance register value.
-  * @cpunum: CPU from which to get desired performance.
--- 
-2.33.0
++struct vmap_area *find_vmap_area(unsigned long addr)
++{
++	struct vmap_node *vn;
++	struct vmap_area *va;
++
++	va = find_vmap_area_lock(addr, &vn, VMAP_LOCK);
++	if (va) {
++		spin_unlock(&vn->busy.lock);
++		return va;
++	}
+ 
+ 	return NULL;
+ }
 
+
+and we use the helper in the vmalloc_dump_obj()?
+
+--
+Uladzislau Rezki
