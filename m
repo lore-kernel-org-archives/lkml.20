@@ -1,63 +1,63 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7365540B3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:20:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290CD556BB5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083206; cv=none; b=BW+TPPaJPJrD52RxsZpAMEtPPCx14etj5PtzBK2LnW0iebNc5UepD45ZAqISh9J/nEk22PPdcOxuCdzsSLUwCp52s1gXbduHn6A5GL5Q12zaiVFbbuu0JYrPONCJcDHYTmAlr5UhnGzp3FXDfDZrfrV+9aAvq/4Ry6QGDSdopz4=
+	t=1790083208; cv=none; b=hFK9V845iHzVaGSvHWS8/ISCKWHNSCUk5fpXVhXOeV6/Ky8PDAa5S8qUDLlCpXghpweoFLCyZen9gAlQpwAeTA/T3mlUu18KTGqpZ3t3sgUbzl0HKGWCxv4EtFJB4bIy7sTMWwrWcSBJvUpGDTOX4IPxP264Hjr5aGWnGOyVIw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083206; c=relaxed/simple;
-	bh=gsZuiBomw3OKmUFOOZhVWmaCJMauX66p+dFd5DJwGMw=;
+	s=arc-20240116; t=1790083208; c=relaxed/simple;
+	bh=Sgp77iYbLIi+6Rz08RYYMpSvbU+J3sLsxaKpfNa+/AM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r5FtZ2g7rEKqWPJqPKgZT7lfWGlD21vP8UadJPNfL2VqGO5hZgMWWLeoVTxuU56dX/pUAu9srbV4qowk8LoTCI82ypBuklQcZQxKClm7Dm4yoK23VxaNfX8JTAUtV9s0VMq/IrrMXlM9sb45Auzv2uWIUzIxy4trQ7MrCPrvS6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=SYyPRLPA; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=NtVXsQeLC0cm8HH/FlhdN1v//ivgOlVXe4Q04Vzu//z+cDp+wDi/dervc+rLMQrhBjclGxXrgZDx301NjRjKkckPh7kVcHQcNF2fYXWqtOd7OHx7gmHLZEK3EhSHHOYLG4dj4fQ4ob680qWyPNB9wCRPNamck5OE8/WxlA3jQ4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=B0kAQczk; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="SYyPRLPA"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso2282020f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:20:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="B0kAQczk"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874aso3044416f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:20:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1790083202; x=1790688002; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1790083204; x=1790688004; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WM/b3m0dUk2cSRvU8lTJOAFjkhu3257/FQCic/mBT/0=;
-        b=SYyPRLPAYd52HJR/59Bsd8Q39z4geiy+V/3vca1I/EX5gZ4GhHOO/7A8R4GNJFFcvf
-         +MRvLrZ6xYpYmU/h8ODjRPKyZ4BxwktgpmWGfb5AfwunEERYW5aPqVCw9AdwIoq46t8W
-         TryDakjsOnmZOP8357uaUtt+zmKYN6gkiuhkUcHChRXG30FzJ3XrcA/imQgFlVFlKNTN
-         ds2nNyycuLsyS2dBkDbAYYHGf8aHAF8doTcj/2dmbYGmJFbh8le/z6oAM+oD7mhn6G+4
-         TmNUv54ynW4bqG7JapZMwtOJncVmymy08HLU+lv2Sgt0JXKVaZWCAvl591S+BHXubDhQ
-         NfKw==
+        bh=TzOBEh/e/FQTnUBYv6JcL5S3LbvXz87hjn6nnrCmcuo=;
+        b=B0kAQczkt4MnvF3N/Ax0VYDUdL7f12dSVBWJp46XG3nyq/d563WIJBbeuEKEHXLVjn
+         kn0Ttkwxloc4LNcL9var4Tjh1SBHtyLDf0luNo382KPeNmJPDqrp0nuMQhiX0+RZpNsl
+         ffOmhRvw+0ClxxioQrhHjNCW/eO+XOaM59Qs60fSTz5xGbdxSY8jA9DLNyVPpabc+VIb
+         kNzDiZ8e/IfEhMbjqdh/70txA7FeOoyO/h/Amz0bdrS6Tt3y7b0fxviQJgmxmU+4jpwz
+         jTiuN9KJMk03kEBf4GnSLQzWLzS8EHZF3sH3AORXezORVBfgHmFefcE5t3qk6bViyR0r
+         jtVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790083202; x=1790688002;
+        d=1e100.net; s=20260707; t=1790083204; x=1790688004;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WM/b3m0dUk2cSRvU8lTJOAFjkhu3257/FQCic/mBT/0=;
-        b=v97BgV6cUiC2S10S0Wigu0OOWgBy6TCR0V14qUPCK3LHvCvdMGhGL/oVGaH/9w5LU6
-         TFScQEC2GufwDuK2RAlyNF5CtKGHIbuLg1t4s+6AOvQ0nBC2KJPIIRfj2GDWAVgE8GLQ
-         99ilxx01kGJLeR5q6QNOpSG0e2qm0v0KL905QPzZChvAAIVPywy5iTSM6KfrkWtxwr6I
-         Lv5nw5/ie7c2+XeVfSLWs4l/4BxVWTY8UsvcglXuqfLExCHE4sY7nk8A1n/6vXcn16SR
-         Ddce5ioxxHiPooWlkLFVNDtd8fjw55dbXBnln2Kn0q6koL09/YS0RagroKSdYvMbKTrc
-         1qWA==
-X-Forwarded-Encrypted: i=1; AKwUvBz7dz/BZBJQ9r8i8DKGpMeCcQ0viVoO/fz9EBf6TDkmMP/aItaKVDby0YZ261EHlYuFOt62yXr/0fZqo70=@vger.kernel.org
-X-Gm-Message-State: AFuF++kobW2uz05RPugNmsVU+YAVoQA55hA+4sIpSUQTTB+oo6/T5AWb
-	DQuHr+McQ4P9gKefDbGDdd9otadkanPczfufXtRgRmVKC1RuIJ1N2ImO6NOhILFlheA=
-X-Gm-Gg: AYBFou3mpnXJvnTUuPBiSM3/3ZUcJ7prWkgef7eaJYN0chwaj8Kt8ZTktRcZIFEF5PE
-	hIqT2pIpVho4gxjXAnBV1Wv4K4kEj7CsXWq0c3wR3MkBon+Jv7up+T0lZLjo0NKQSjnDmmD3Yav
-	xsMRCLpSH7fUy1zoWXGPErXPdw/rrud+Vl+zSkjed/Kh9fAT3Aw/Evs8pIct0InxX04PX7t/jQh
-	QaAbwHaUpM0ztpz2kAfj/BNoYYFNwB7d7XijSNGZTCxOalh/9rbgtA5OcFq/+7ZKAopLfch4HwL
-	ynNKf0+HeyGK4nVDyKZSkWb8V5tSHPigHgqX/LoFn0z50VmL+1d5pMV6oZ4oJbX+1STeFcNr76H
-	Wu3IlnEuj/7p/1HmrUfFcSC4eKUhqtXM5NBM/bHbOPgOZu9R44uBvIeXxm0C96dLCbZNdu+ve9U
-	NjT7voeiHfEUOKUAEItk61zMBG0abb7+pAPd49NOz3D1eYneKtrg==
-X-Received: by 2002:a05:6000:2409:b0:487:489:7af1 with SMTP id ffacd0b85a97d-4871e3645a7mr23836578f8f.48.1790083202495;
-        Tue, 22 Sep 2026 06:20:02 -0700 (PDT)
+        bh=TzOBEh/e/FQTnUBYv6JcL5S3LbvXz87hjn6nnrCmcuo=;
+        b=FJuCwF4d6JC960IZnj+yVLCnRrhX8moBLKtlEEDcVQOZ79mTU10T4Amuxtf1NHS8b0
+         ElHiXdjzQGUr4/I0tdWLIzJvGwIP3IKegzX6d7sOqU1iiOLkOZGP0yFe5XuCgegNRsyX
+         te1hBcN3sKsEiKRQQi9xk2pW8UlhfmhHdFWJBKOenntjOlAs7cjD4nvPQAxurZsfUI8L
+         ZOih72dVquM+6Vv7oEhHMBKvTJFi+1A5IxADj37RHwjKlBQTLI6jTu0imKUmkk+HnWWj
+         WiidsGlKkz44JGefv74hAKdBYnrGEEjeVJVu5Zspx8sUQ9K/Whxp8Li1XsJsuleRoa5P
+         izaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzz1J6IiWOyo7C7mOUEyVksNkVqyrMuYSaNjfqVVfSvZVab2AUz7I3U3fo2Ifl4LLXiHi9CA11O7SaWzDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2Vbf8QpITdcA5cYS/JKVCn2lBj1rnSshxqlA+eloePoICQCVM
+	fS/AHcsPWHPa1leDqpsgphae9r7wq5uYtoVFaXxq4I10JYfS3YAA9h0OybuKJfqGiuo=
+X-Gm-Gg: AYBFou12PVH6su3GZtI7M4PN6ek7d6NqBy5LsPt41sTHOx2yaZzdGo46/rTZkMnXj5r
+	zICcZpMPip8+C62jxEc9bG8SadBuV71hHhfHwwodq0W/Nx4wnzLVstRMAZhId9+50ppvgP+nfL0
+	vHjuDI+zlwNCF42Oc61YC/2UfTwbC7x0rYYlUokG1r+pGY/OcqIJftS/9jgbhgibokEYF3UTcwC
+	bzxXB7RZRk1ebCXaqDuQ5mbpXahn3Le4YIe0ZCJj8zRoVtLv4WNMA2f6Z3DX2e7fO0Yb9Gs1kHG
+	FJOsjQx/Q6TlJ1ecuvwuDmAwqYBOT9D1meN4dLsWaK8mrKNpnUjlo2oPKqtyrzkPlO41AI2bMLm
+	3FnXwfjfDTQMSggxumP+yoB8H+SwPTEeWCafk4XduInyOty43XV4qp16pW12I0nlyuocGO4H1q0
+	Lz7Dkoul8l0EAYkJI3TBIzxSCKqGUiiGXHXQejueyxeDo6ogPhVKP6Sn+w+oOi
+X-Received: by 2002:a5d:64e6:0:b0:487:27f9:83b with SMTP id ffacd0b85a97d-48727f90bbfmr16658287f8f.48.1790083204353;
+        Tue, 22 Sep 2026 06:20:04 -0700 (PDT)
 Received: from remote-01 ([84.17.55.230])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488627929a4sm4085220f8f.35.2026.09.22.06.20.01
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488627929a4sm4085220f8f.35.2026.09.22.06.20.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 06:20:02 -0700 (PDT)
+        Tue, 22 Sep 2026 06:20:03 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: netdev@vger.kernel.org
 Cc: andrew@lunn.ch,
@@ -76,9 +76,9 @@ Cc: andrew@lunn.ch,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aleksei Sviridkin <f@lex.la>
-Subject: [PATCH net v10 1/4] net: usb: lan78xx: register the PHY interrupt with the MDIO bus
-Date: Tue, 22 Sep 2026 16:19:52 +0300
-Message-ID: <20260922131955.4175785-2-f@lex.la>
+Subject: [PATCH net v10 2/4] net: usb: smsc95xx: register the PHY interrupt with the MDIO bus
+Date: Tue, 22 Sep 2026 16:19:53 +0300
+Message-ID: <20260922131955.4175785-3-f@lex.la>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922131955.4175785-1-f@lex.la>
 References: <20260922131955.4175785-1-f@lex.la>
@@ -96,13 +96,12 @@ for the same address. That table is where phylib records what the bus
 described - phy_device_create() seeds phydev->irq from it - so the
 number lives only as long as nothing else writes that one field.
 
-Put it in the table before the bus is registered, so that the PHY the
-scan creates is born with the number, and drop the write to phydev->irq
-that phylib then makes by itself. Fill the whole table rather than one
-entry: for 7801 the address is not known until the scan, and for the
-other two phy_mask leaves only address 1 readable, so a loop costs less
-than a second switch on the chip id. A devicetree PHY node still
-overrides that.
+The bus is the one this function is about to register, so put the number
+in its table first and let the scan seed the PHY from there. The whole
+table gets it: with an external PHY the address is not known until the
+scan, and with the internal one phy_mask has already left a single
+reachable entry, so a loop costs less than a branch on which case this
+is.
 
 Found going through the drivers that keep a PHY interrupt outside the
 bus table, so that the restore on detach later in this series has a
@@ -113,71 +112,58 @@ Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
 
 Notes:
-    Compile-tested only; I have no LAN78xx device.
+    Compile-tested only; I have no LAN95xx device.
     
-    No Fixes: tag on this one. On its own it fixes nothing - nothing reads the
-    bus table back until patch 3 - which is also why it sorts ahead of that
-    patch rather than after it.
+    No Fixes: tag, for the same reason as patch 1: the write has no reader until
+    patch 3 lands.
     
-    lan78xx_setup_irq_domain() runs before lan78xx_mdio_init() in
-    lan78xx_bind(), so the number is already mapped where the table is filled.
-    The fill covers the whole table because only the 7801 case leaves the
-    address open until of_mdiobus_register() has scanned; 7800 and 7850 set
-    phy_mask a few lines above, so every entry but address 1 is unreachable
-    and writing them costs nothing.
-    
-    The fill is a default rather than an override. For a PHY node that
-    describes an interrupt, fwnode_mdiobus_phy_device_register() writes the
-    devicetree number over the table entry, and into phydev->irq, once the
-    device exists. That inverts the old order, where the driver's own number
-    was written last and won. Neither in-tree lan78xx PHY node carries an
-    interrupts property, so nothing in tree changes, but a devicetree that
-    described one would now be believed.
+    The mapping is created before mdiobus_alloc(), so the number is in hand
+    where the table is filled, and mdiobus_alloc_size() is the only thing in the
+    tree that writes PHY_POLL into that table - a fill placed after the alloc
+    and before mdiobus_register() is not undone by the scan. The fill covers the
+    whole table because the external-PHY case leaves the address to
+    phy_find_first() afterwards; on the internal path phy_mask has already
+    reduced it to one entry.
     
     Teardown order keeps the number live for as long as it is read:
-    lan78xx_disconnect() detaches the PHY through phylink_disconnect_phy(), and
-    lan78xx_unbind() calls lan78xx_remove_irq_domain() only afterwards.
+    smsc95xx_unbind() disconnects the PHY before it disposes the interrupt
+    mapping.
 
- drivers/net/usb/lan78xx.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/net/usb/smsc95xx.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-index cb782d81d84f..d7472d894c8d 100644
---- a/drivers/net/usb/lan78xx.c
-+++ b/drivers/net/usb/lan78xx.c
-@@ -2092,6 +2092,7 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
+diff --git a/drivers/net/usb/smsc95xx.c b/drivers/net/usb/smsc95xx.c
+index 42e4048b574b..b629092b94c2 100644
+--- a/drivers/net/usb/smsc95xx.c
++++ b/drivers/net/usb/smsc95xx.c
+@@ -1147,8 +1147,8 @@ static void smsc95xx_handle_link_change(struct net_device *net)
+ static int smsc95xx_bind(struct usbnet *dev, struct usb_interface *intf)
  {
- 	struct device_node *node;
- 	int ret;
-+	int i;
+ 	struct smsc95xx_priv *pdata;
++	int ret, phy_irq, i;
+ 	char usb_path[64];
+-	int ret, phy_irq;
+ 	u32 val;
  
- 	dev->mdiobus = mdiobus_alloc();
- 	if (!dev->mdiobus) {
-@@ -2118,6 +2119,10 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
- 		break;
- 	}
+ 	ret = usbnet_get_endpoints(dev, intf);
+@@ -1239,6 +1239,9 @@ static int smsc95xx_bind(struct usbnet *dev, struct usb_interface *intf)
+ 	snprintf(pdata->mdiobus->id, ARRAY_SIZE(pdata->mdiobus->id),
+ 		 "usb-%03d:%03d", dev->udev->bus->busnum, dev->udev->devnum);
  
-+	if (dev->domain_data.phyirq > 0)
-+		for (i = 0; i < PHY_MAX_ADDR; i++)
-+			dev->mdiobus->irq[i] = dev->domain_data.phyirq;
++	for (i = 0; i < PHY_MAX_ADDR; i++)
++		pdata->mdiobus->irq[i] = phy_irq;
 +
- 	node = of_get_child_by_name(dev->udev->dev.of_node, "mdio");
- 	ret = of_mdiobus_register(dev->mdiobus, node);
- 	of_node_put(node);
-@@ -2892,13 +2897,6 @@ static int lan78xx_phy_init(struct lan78xx_net *dev)
- 		return 0;
+ 	ret = mdiobus_register(pdata->mdiobus);
+ 	if (ret) {
+ 		netdev_err(dev->net, "Could not register MDIO bus\n");
+@@ -1252,7 +1255,6 @@ static int smsc95xx_bind(struct usbnet *dev, struct usb_interface *intf)
+ 		goto unregister_mdio;
  	}
  
--	/* if phyirq is not set, use polling mode in phylib */
--	if (dev->domain_data.phyirq > 0)
--		phydev->irq = dev->domain_data.phyirq;
--	else
--		phydev->irq = PHY_POLL;
--	netdev_dbg(dev->net, "phydev->irq = %d\n", phydev->irq);
--
- 	ret = phylink_connect_phy(dev->phylink, phydev);
- 	if (ret) {
- 		netdev_err(dev->net, "can't attach PHY to %s, error %pe\n",
+-	pdata->phydev->irq = phy_irq;
+ 	pdata->phydev->is_internal = pdata->is_internal_phy;
+ 
+ 	/* detect device revision as different features may be available */
 -- 
 2.53.0
 
