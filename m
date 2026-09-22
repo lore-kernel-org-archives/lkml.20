@@ -1,83 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B0A53E2E1;
-	Tue, 22 Sep 2026 11:41:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C29253CA69
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:42:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077285; cv=none; b=PgpbSJ14vdMtdQYz9PBVwxZwUDQrJJu156J15nCwYxqwhGhv44HWxFY8RRhaGMbHHdSLB1tE11010fEAKgOehq1X3CQmyiOpo6vIGnOwZg5Q9evVDhvFtCUe8MYxFD3GeTLwn5H4joUs30NbxrN6b9NXjDVj+rCJt6wrGqtuXpA=
+	t=1790077351; cv=none; b=WMwgYL8fi2i8iKPtqsqHgTo+38UAZBiyZUrNhX594YSy4UXtUE+uZoX/eOC/p1/E9uekqVGjStNixfhdl97S002bYDCLQhZblitzROEmchI3zsefHLU2K1vkHj1dvEBbqkz9kl2wlLFgdyfewMN2KOONocMKkbvGAoACbDbi4Vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077285; c=relaxed/simple;
-	bh=u3sjn4c6K8C8jHrj3CcZ7zVWcqdYF6UZLIp4Nt7nT3c=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=PQDaI/tZ/D2U+HupddkWvCW8D36c4k100ofGTdLTTAMEbN3n7RqTm8YtsGbjdpD8X+Tm6tI1cKrL/pCn1UiPOzw2zS85PitPcOnqnkrlX4mU+Pr7cEXsYoi2btHDIYZcF0Qtz8lhe98KNKGF8RbpM6WaKlX5MDovEriZiz157W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lWSc6HFI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790077351; c=relaxed/simple;
+	bh=05SYmPVQWFoyTDgjeCZfpOazZFzG+IVtD8DiOeOsWiI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h9fM/KqickLOeLxYfi77OPPK/GgZe/zwiz1p400k7R4C/EoY94c87ogki/7BUQWJFq+4JkeS8gE4znkc6Ou4jjczayO2V0zPcdT/d/dN6SVizV7aNjq8jf7mdO7XH9AOTaOLhEZ0jxunZnWMuZCLPcXPnbplraV4XUYH8KPUqww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMq5gsrP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lWSc6HFI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6EC71F000FF;
-	Tue, 22 Sep 2026 11:41:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMq5gsrP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE21E1F0089B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:42:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790077273;
-	bh=eG5EWX5b9oPO4xXbwR1EIBMODFBugrvojXmWfkujSRs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lWSc6HFIV5F0/RJA8Vvl6GHyWpU46gTxWcX8oo1fvs18bRetUeovhn7/ioayh6AeT
-	 2oXAKt6+n4/Ry/RV4QkvMPqijRdYU3ely2TcFu/8UgvYRYugC5gcWeXql3uM/jqTAV
-	 vx8faJQY81MTrp1ajLU+RTs4svFggpaE8mEhhAJUvKNZh+ytrBJRuYTx9L2FDvX6hQ
-	 LwQvlTObPakptIkR7YF/4Ur4SrtybT6XPePpvb6VCB2MQ4Q0pTCqH5aRJZSlZyI73y
-	 Z4FsAdKLxF46KILghoi6VrOPBVXlxH8hM56GahcbxqjPXE8UgH0fKV/gI2Z4190lgy
-	 AJa7uxAfDtLHQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1979038119E2;
-	Tue, 22 Sep 2026 11:40:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790077349;
+	bh=7QW81cvINme6M0bGvDRqQTvKenedhv17lPUFmpuoqXI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DMq5gsrPP9omidtY7Ulu0yCBrNiYk1mxcqvGEOCqh85SZKeH+8moIh+neYAvHGwIb
+	 4rj/rnZ4DGRM5xQWuml03oXwuBReH7ekavZNmQryjPR5Z2tl9rzNrFBDcmdyrdT7VE
+	 x1qUDL4BvhW9IuCg0vi+xmxFgBPuy4tDQ4YqNmF5IAQkdlOvJY9pDpj9BgnWoJ9GC8
+	 JanJnx3DCni39SmnMq0bf++kQMs/YE02JqvAIJaO40gPET8V53nBkcpBwMmmh0D/BL
+	 /dQy3ST4mBQ+N2uvO5G5o0amAKCi6IedU5kulq7pk4XATFmzlMR20VJh6E9pTWoG05
+	 0ql2rA6KwQsnQ==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e548cd7dso31628391fa.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:42:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBweMExUIMUty8O/7ROKuZH3rVCqq4lwEm2QbAg8s1gGvz1SlQaiWsgHU9eIO5rFCbZMwh9XfjHi/VSlfao=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwP4+jVURqQ4xPtjnDFf/BZ7Q4kv4CdtIaYfsxRtJDfgHvYxcd
+	sOGgcbrIT5NRB1fIcZteenUHeNTYr+8/dMtN2l5J2V5ZtfK1QpZKyf+qw+1wPbypK3zVksBTCrK
+	UuDnCrlmkpNIS6FZlSs+kttBNy/4AqGI=
+X-Received: by 2002:a2e:bc10:0:b0:3a1:980f:5907 with SMTP id
+ 38308e7fff4ca-3a627892485mr3982481fa.8.1790077348118; Tue, 22 Sep 2026
+ 04:42:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: macb: fix dma_alloc_coherent() leak on
- macb_alloc() error paths
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179007720490.3575540.4790715195538944680.git-patchwork-notify@kernel.org>
-Date: Tue, 22 Sep 2026 11:40:04 +0000
-References: <20260918-macb-alloc-leak-v1-1-aba9a3d4f6e3@bootlin.com>
-In-Reply-To: <20260918-macb-alloc-leak-v1-1-aba9a3d4f6e3@bootlin.com>
-To: =?utf-8?q?Th=C3=A9o_Lebrun_=3Ctheo=2Elebrun=40bootlin=2Ecom=3E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- nicolas.ferre@microchip.com, sean.anderson@linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, nb@tipi-net.de,
- vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
- tawfik.bayouk@mobileye.com, thomas.petazzoni@bootlin.com,
- stable@vger.kernel.org
+References: <513319f19ed6b0b6d4c76dc517074531966b98f5.1789745223.git.robin.murphy@arm.com>
+In-Reply-To: <513319f19ed6b0b6d4c76dc517074531966b98f5.1789745223.git.robin.murphy@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 22 Sep 2026 13:40:56 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j72dht4wiVcoFmk2Rt1pvPL7Yrr_29jihzfKAb3Pu24g@mail.gmail.com>
+X-Gm-Features: AcwNN1XFdUIteGPaJpXW86qPJXvAnlLXBq3k7UIJUIoBIulEgnEmcSHCAYpWQEk
+Message-ID: <CAJZ5v0j72dht4wiVcoFmk2Rt1pvPL7Yrr_29jihzfKAb3Pu24g@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: Provide !ACPI stub for acpi_device_uid()
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Fri, Sep 18, 2026 at 5:27=E2=80=AFPM Robin Murphy <robin.murphy@arm.com>=
+ wrote:
+>
+> While the likes of acpi_dev_uid_to_integer() and acpi_dev_uid_match()
+> already have stubs for !ACPI, the basic acpi_device_uid() getter does
+> not. As with acpi_device_hid(), add one for the convenience of portable
+> drivers who just want the string itself - in fact they are so much alike
+> that we can simply alias the exact same stub definition.
+>
+> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> ---
+>  include/acpi/acpi_bus.h | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+> index 1a45e0d521d8..ed309ea4785d 100644
+> --- a/include/acpi/acpi_bus.h
+> +++ b/include/acpi/acpi_bus.h
+> @@ -963,6 +963,7 @@ static inline const char *acpi_device_hid(struct acpi=
+_device *device)
+>  {
+>         return "";
+>  }
+> +#define acpi_device_uid acpi_device_hid
+>
+>  static inline bool
+>  acpi_get_physical_device_location(acpi_handle handle, struct acpi_pld_in=
+fo **pld)
+> --
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Sashiko has reservations that look valid:
 
-On Fri, 18 Sep 2026 21:53:52 +0200 you wrote:
-> Fix 3 leaks in macb_alloc() error paths:
-> - Tx buffer allocated but crossing a 4G boundary: Tx leaked.
-> - Rx buffer allocation fails: Tx leaked.
-> - Rx buffer allocated but crossing a 4G boundary: Tx & Rx leaked.
-> 
-> This is because our error handling calls macb_free(bp) which in turn
-> frees the buffers stored in bp->queues[0], but nothing has been stored
-> in there. Fix by storing allocated buffers into bp->queues[0] ASAP.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net] net: macb: fix dma_alloc_coherent() leak on macb_alloc() error paths
-    https://git.kernel.org/netdev/net/c/23d42b9a3bcd
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+https://sashiko.dev/#/patchset/513319f19ed6b0b6d4c76dc517074531966b98f5.178=
+9745223.git.robin.murphy%40arm.com
