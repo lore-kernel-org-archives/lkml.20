@@ -1,117 +1,153 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9E338DC69
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FAB53F6A1
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081375; cv=none; b=m1Ke6eQf/UbTYMh0ZUr1BPg5z5a/iXjnDxNWwYdy8CJ7dOKH5YLkdZoSZfUPQDzVT/BZl3E+8udwmQ4865LatTfHmhBdxwjZAmXjW/YevP30UfpeOAbwAOgiS97bAe3bXBLJ1NIhottHbeNApgadI1emsxwf0gxA8xzSqXBT9G0=
+	t=1790081391; cv=none; b=m6w0daKZRDlJcOaNvZRUKac5RzmCPtwtFEHL1pvEDpj+VQZVtIFYR3X4D2Pn7kFrbOyCot7u4ELSkgq47LD+BpW6MuMnrQwb25udqkBcKIXXJv12LUgCQqI9rzeKMVbBaWT1vNeQX06aJTNRxF37BwUzpg2kydAIBrBfon1CWtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081375; c=relaxed/simple;
-	bh=UiKCpNNDPxBiylH8SJQwwy71axpEE4hwP5Y0TH7qv68=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=h2pQHlClfSLw1ywY2KE1XdPJl7X/8I/PW/m/F9rKnIvVCsytQyc11kNIoMY7mhqahWzveLaHTSLUyEbWwqt0YJ3TbrixxxUHBKexv6UWmjd+E3U7mfeiyMCN5SUdQsZi51xgEz3nSOrsNXJXK/gYyglaZR10xpWoCI1VjAGpw/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DNQRA/L+; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790081391; c=relaxed/simple;
+	bh=H77B/1XoUbsQHeqCDGjv35YwEIvkYUiwrSWHUSL0kKQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cP2qzVlVrxrOHkbhstDs0KAhRQ6TU+q2M3ed8zXr8l5f64DfjHn/8Jv33Ll/nq25NjEd3JQfjXtgrRRyT84xkVsFJNLTuc/qCMWApxyioRSEQrweGFN+MhCFA0UZeoQ49CYcprDqI/BRacb/kq3Zw/EKP6tobCSzzrGVC20sXms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f8LNTFsj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NAKPTNG7; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DNQRA/L+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790081375; x=1821617375;
-  h=date:from:to:cc:subject:message-id;
-  bh=UiKCpNNDPxBiylH8SJQwwy71axpEE4hwP5Y0TH7qv68=;
-  b=DNQRA/L+LUYS5HcUiCr25WwXkTqGDwthujPSq5zRUgZjEh7lmTMFV3Tf
-   AmX4UdBYNL+RAU+I61Va7BkzQv4hdh3ELnDG2OlHOfnn+JeEF7TkvDcwC
-   rS/YAA4jUV1OK0FCZkmAvI4tBqaONCJmr0Drs7QQCWtUB7cndLZEUSabq
-   kGd3byVIUlU/j+m/u5gbojV/hB/x+OIuSBXpAirgHYYJh/J8t2jdnZkvt
-   Lagt8PM2MNAvRJ6sIv/qWxgtelAd8SShlmY7YrKF4XepzuAQuVnXPtpgA
-   PPNdtjhYoTE8U7/2WAiPQn5H3Rta9zmId842U72hnTreBihZ6zo6W1JW3
-   A==;
-X-CSE-ConnectionGUID: y4G4ObR7SAuL07Rb8HbqUw==
-X-CSE-MsgGUID: lEUs1WLDQ4eKbYreZj7alQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1181928"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1181928"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:49:26 -0700
-X-CSE-ConnectionGUID: +J0CxiKnTCeaWtvYmC5hTQ==
-X-CSE-MsgGUID: 8fgHG1OaRMuh1ZpHv8pTAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="273298061"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 22 Sep 2026 05:49:24 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x8zvx-00000000FVc-37au;
-	Tue, 22 Sep 2026 12:49:17 +0000
-Date: Tue, 22 Sep 2026 20:48:40 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Joerg Roedel <joerg.roedel@amd.com>,
- Tomasz Jeznach <tjeznach@rivosinc.com>
-Subject: include/linux/bitops.h:273:19: sparse: sparse: cast
- truncates bits from constant value (fffffffffff000 becomes fffff000)
-Message-ID: <202609222053.KvZzOstg-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f8LNTFsj";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NAKPTNG7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790081388;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BMtW18PYGgs3eeFoZyurBYg14pG+Ej8vE9R6o+NDZ70=;
+	b=f8LNTFsjBBwprx81ljPz0eqAFJ8weo5xB6IsBL4zcBVh9rj+BN7P3vIe/70y2UnHaGoAHu
+	M0u68Gn42shPOY/0kxqaJcT6TmGju42DPkBaeWaGSDU8KiexuBLgu4tGWvEkOPEsDh79JA
+	I/sHLIS6C5DNC5jKou9BUzA9ten+jl4=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-189-CnNt-uaaNmea25lv0aWJqA-1; Tue, 22 Sep 2026 08:49:46 -0400
+X-MC-Unique: CnNt-uaaNmea25lv0aWJqA-1
+X-Mimecast-MFC-AGG-ID: CnNt-uaaNmea25lv0aWJqA_1790081386
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-487038a4a88so1355580f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:49:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790081386; x=1790686186; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BMtW18PYGgs3eeFoZyurBYg14pG+Ej8vE9R6o+NDZ70=;
+        b=NAKPTNG7JdTsB6Bxm9bX3sdN5LtnyRqQRgd9sST3DNWU/CQME57S0/v0WwCOBbfKua
+         zCJesy6cqYJd9svn1R/c9cJr2XYzZH6aDwWKtZ9n+fmtarn2doDbfZ+uqq2MdSRTJTJ2
+         CCX2VrQ3uVm3h0d9uq44pgXcCdjdnesXb+zinP3OamE2eQX6NGazRdV8UCdYOi0JNjkM
+         EkAD+Y5Tf4Y8T2AxfkdswCiyIZegK/2/khJ9XEdWSYjm1hU8UYYtNOSC7Nuw0FrSgdE9
+         KDL3ayokHFzp6SrnlLqVQJZgBjDpcTmOrxSqumK7oCopNgBjXKpErkdKZD5bq9Fs8hCw
+         DbAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790081386; x=1790686186;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BMtW18PYGgs3eeFoZyurBYg14pG+Ej8vE9R6o+NDZ70=;
+        b=VrDD/qSCB62x0yDmPdW0+AL7ygH0kdecOGDCASM1UlTo5CFmalIULOoJ0NLhslMyNq
+         1BXdl6mXcWhO/OBvS3Y7hk6iVGNx8x/papuYq0VWwBQHOoXKhAHyBOqXAyFQ7lqY+78n
+         ig8k91sMiDdO3K+Vtg9hNsDwoQWCgMhxvn2ToxNtP9sRyDqpTFWsj1+LeW0gkJezgoFz
+         WegocVNDM3ESgMxIv+xZUuBSk6eBufvGqhRyps7BhGFEA1Xwkhac7mq/BRw+fvfSnEPe
+         Zd7lJ6MV3vBFCU3pqKatEqKRHr+Vpds0EEclABmAHO7tdUMBLB8L2E+YgRw2wTDa/xoe
+         3XrA==
+X-Forwarded-Encrypted: i=1; AKwUvBwtTPl4pj8xipDsT5gPYOjq7HlqN22j7GSayCoI+qdMIx/irkqB7+QV4/wFLow3gxY4zLnU3nQg9IrOWr0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9sMZdhlh6WsVPaooo/hl1duzY3mfO1/kU6M3ljYfZPJsw4Ss1
+	AWba/Ix44fxHtDaar7/M3f+Cw/OP7gCFkTAZ5cUX8nzRohaBf4l3ZEWhpny9dfJpzccWJxl5E6O
+	Cdi4Z/iUkYjbGR2TsSWM83Kkb7NzgDDTLTapF/718AZzTbzs9NJdfmGSqwIqOU1c+EQ==
+X-Gm-Gg: AYBFou2vEM7nrCEbkC/cFvC/yfDFgaTcv4nZ6S3cVD13/ukSkKiSRP1eO/EbLvAQA4I
+	Xz6n8+f+Zp/e/uENiCGrv1hwVDpTAACCPH6YtUPs0f//AOq6IPbNRf7ve+g5NGL/SGF8d5nltHC
+	12jEfe4NcXNUc8ubzsW5ArjPl/tzu9D2rLXUyhaPJaQhRC/V3ZDvJwWwuyXKwikCn93ATjEDT5F
+	z7Kcjel47eG3jdOEPFSdfB2x+XxaoS0+aTz9iNnlKsQwszieeOPSBduuNHiqXNX3UyM8TyuaQhD
+	B1e7zToXx1Yu5gaxXtx7Vr47CVswXhUb/8O7krKP+ruiPLaLYngxPz701wTuerQ/dqkX+PG8uI4
+	to7xGj0kAi3mW1KlKHrTCk24ErqBdkkPpx35ClCbLU1UDEP9SlFc=
+X-Received: by 2002:adf:e19a:0:b0:486:fba3:b95d with SMTP id ffacd0b85a97d-4871e2161fbmr20532334f8f.7.1790081385761;
+        Tue, 22 Sep 2026 05:49:45 -0700 (PDT)
+X-Received: by 2002:adf:e19a:0:b0:486:fba3:b95d with SMTP id ffacd0b85a97d-4871e2161fbmr20532296f8f.7.1790081385348;
+        Tue, 22 Sep 2026 05:49:45 -0700 (PDT)
+Received: from sgarzare-redhat (host-82-53-134-131.retail.telecomitalia.it. [82.53.134.131])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862774882sm5070366f8f.13.2026.09.22.05.49.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:49:44 -0700 (PDT)
+Date: Tue, 22 Sep 2026 14:49:34 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: =?utf-8?Q?Bart=C5=82omiej?= Dmitruk <bartlomiej.dmitruk@isec.pl>
+Cc: Bryan Tan <bryan-bt.tan@broadcom.com>, 
+	Vishnu Dasa <vishnu.dasa@broadcom.com>, bcm-kernel-feedback-list@broadcom.com, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	"Michael S . Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] vsock/vmci: enforce per-netns mode on the
+ datagram receive path
+Message-ID: <arJ5LVnY1y0MELJF@sgarzare-redhat>
+References: <20260919123208.29032-1-bartlomiej.dmitruk@isec.pl>
+ <20260919123208.29032-2-bartlomiej.dmitruk@isec.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260919123208.29032-2-bartlomiej.dmitruk@isec.pl>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
-commit: e71e00127110dedc6a9e746178282b4dac97ed96 iommupt: Add the RISC-V page table format
-date:   6 months ago
-config: arm-randconfig-r1309-20260922 (https://download.01.org/0day-ci/archive/20260922/202609222053.KvZzOstg-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 5dc57157f12f0ff676e823d9b4d98b45c07e5df2)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609222053.KvZzOstg-lkp@intel.com/reproduce)
+On Sat, Sep 19, 2026 at 02:31:57PM +0200, Bartłomiej Dmitruk wrote:
+>The send hook vmci_transport_dgram_allow() refuses datagrams when the socket's
+>netns is not in global mode (vsock_net_mode_global()), but the receive path
+>(vmci_transport_recv_dgram_cb() -> vmci_transport_allow_dgram()) did not, so a
+>socket bound in a non-global (local) netns received datagrams from peers it
+>could never send to, defeating namespace isolation.
+>
+>Add the check at the start of the receive decision, before the
+>VMADDR_CID_HYPERVISOR short-circuit, so the hypervisor CID is covered too
+>(matching the send side).
+>
+>This was found by code inspection; I do not have VMCI hardware to test on
+>(compile-tested only).
+>
+>Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
+>Signed-off-by: Bartłomiej Dmitruk <bartlomiej.dmitruk@isec.pl>
+>Assisted-by: Claude (Anthropic)
+>---
+>v2: perform the netns check first (before the hypervisor early return) so
+>    hypervisor datagrams are also gated in local mode -- the Sashiko AI review
+>    noted v1 left that path partially bypassed.
+>v1: https://lore.kernel.org/netdev/20260917220225.56200-1-bartlomiej.dmitruk@isec.pl/
+>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: e71e00127110 ("iommupt: Add the RISC-V page table format")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609222053.KvZzOstg-lkp@intel.com/
+LGTM, but please add a cover letter to a series with multiple patches.
 
-sparse warnings: (new ones prefixed by >>)
-   drivers/iommu/generic_pt/fmt/iommu_riscv64.c: note: in included file (through drivers/iommu/generic_pt/fmt/../pt_log2.h, drivers/iommu/generic_pt/fmt/../pt_defs.h, drivers/iommu/generic_pt/fmt/iommu_template.h):
->> include/linux/bitops.h:273:19: sparse: sparse: cast truncates bits from constant value (fffffffffff000 becomes fffff000)
-   include/linux/bitops.h:278:37: sparse: sparse: cast truncates bits from constant value (fffffffffff000 becomes fffff000)
->> include/linux/bitops.h:273:19: sparse: sparse: cast truncates bits from constant value (fffffffffff000 becomes fffff000)
-   include/linux/bitops.h:278:37: sparse: sparse: cast truncates bits from constant value (fffffffffff000 becomes fffff000)
+Stefano
 
-vim +273 include/linux/bitops.h
+>diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
+>--- a/net/vmw_vsock/vmci_transport.c
+>+++ b/net/vmw_vsock/vmci_transport.c
+>@@ -532,6 +532,14 @@
+> static bool vmci_transport_allow_dgram(struct vsock_sock *vsock, u32 peer_cid)
+> {
+> 	u64 access;
+>+
+>+	/* Enforce the per-netns mode first, symmetrically with the send hook
+>+	 * vmci_transport_dgram_allow(): a socket in a non-global (local) netns
+>+	 * must not receive datagrams it could never send (this also covers the
+>+	 * hypervisor CID).
+>+	 */
+>+	if (!vsock_net_mode_global(vsock))
+>+		return false;
+>
+> 	if (VMADDR_CID_HYPERVISOR == peer_cid)
+> 		return true;
+>
 
-c320592f3f2a1e Wolfram Sang       2025-01-07  261  
-952043ac12a117 Steven Whitehouse  2009-04-23  262  /**
-952043ac12a117 Steven Whitehouse  2009-04-23  263   * __ffs64 - find first set bit in a 64 bit word
-952043ac12a117 Steven Whitehouse  2009-04-23  264   * @word: The 64 bit word
-952043ac12a117 Steven Whitehouse  2009-04-23  265   *
-4945cca232ce8b Geert Uytterhoeven 2021-02-25  266   * On 64 bit arches this is a synonym for __ffs
-952043ac12a117 Steven Whitehouse  2009-04-23  267   * The result is not defined if no bits are set, so check that @word
-952043ac12a117 Steven Whitehouse  2009-04-23  268   * is non-zero before calling this.
-952043ac12a117 Steven Whitehouse  2009-04-23  269   */
-6606c8c7e81886 Kees Cook          2025-08-04  270  static inline __attribute_const__ unsigned int __ffs64(u64 word)
-952043ac12a117 Steven Whitehouse  2009-04-23  271  {
-952043ac12a117 Steven Whitehouse  2009-04-23  272  #if BITS_PER_LONG == 32
-952043ac12a117 Steven Whitehouse  2009-04-23 @273  	if (((u32)word) == 0UL)
-952043ac12a117 Steven Whitehouse  2009-04-23  274  		return __ffs((u32)(word >> 32)) + 32;
-952043ac12a117 Steven Whitehouse  2009-04-23  275  #elif BITS_PER_LONG != 64
-952043ac12a117 Steven Whitehouse  2009-04-23  276  #error BITS_PER_LONG not 32 or 64
-952043ac12a117 Steven Whitehouse  2009-04-23  277  #endif
-952043ac12a117 Steven Whitehouse  2009-04-23  278  	return __ffs((unsigned long)word);
-952043ac12a117 Steven Whitehouse  2009-04-23  279  }
-952043ac12a117 Steven Whitehouse  2009-04-23  280  
-
-:::::: The code at line 273 was first introduced by commit
-:::::: 952043ac12a117d8e94bddd9088338d7ad20ca7d bitops: Add __ffs64 bitop
-
-:::::: TO: Steven Whitehouse <swhiteho@redhat.com>
-:::::: CC: Steven Whitehouse <swhiteho@redhat.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
