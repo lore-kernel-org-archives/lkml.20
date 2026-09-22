@@ -1,125 +1,213 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB79147CA86
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EF247ECC6;
+	Tue, 22 Sep 2026 19:36:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790105656; cv=none; b=qUMTGABVGOgJUVopun/G/S4hAFLLY1H44meYDac2Ad92OXNwt4fc0Z6KY/XKUkk9kRZs7wNFNsLnAxtyi4ODxGRrIu5fHUuSsT2D0rUguIyauIGGGPzAulPpS0uhDixPxZUqdzNW0zL3U+ZiDU4Sqbo25PV7oQ6+5fyun22a4qE=
+	t=1790105792; cv=none; b=W4u/kF7QYh4NSKT3HjpEf689jkTlPyj41z35vNvXOVT20MmqE6sBJ87nPgOPdd3gGk1GQTfvlY6CaMEQPi/mdc0zMnQt25iS25MFQV+5kRwMNVLYDw2ZufwtQaLByg+My17NMdv8fhrgYIjmASZh7Kul2K9c32zISNkfs62PxUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790105656; c=relaxed/simple;
-	bh=yDBNrwWJwf5FhuRoCHjrQ6GFZcedsDXJbmWOSp8weaQ=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=E78gEUOXR3P1VcqPDXHLuKswpKAEu5uEit5HgOKtpW7hkkVx7jR45PZIlr1/tD2jSlM9edkAJ+NjgPcyzeeY38JqSYATsquCSy6mABRkvWWqb/sby1DF4nzOyH2j9WjVIbP6rwiSeCHF9QBL8xfssN9ar0OXW9b8VQx4UYI2jTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k9O79WGC; arc=none smtp.client-ip=74.125.82.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com
+	s=arc-20240116; t=1790105792; c=relaxed/simple;
+	bh=bnkOLh7qk06aZ2rzroozeWvAokaASnBQUblDaMH1GUE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M+qheJM73KaX33V/QHaiawXl1ibHh8BF0zFqkgU+qrAwufxbyV9mL9+9JZtD1c2+wDEzkkUBFFTDyJ1BYTuvqLw2yqfKEHpv5dChyqfRHZFbjLe293goXpPIAicdskoed3UnUbi5pJweiRKaBuNL0seH+c0iw72l7KH9R4GdWMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZM/wxix; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k9O79WGC"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso208048eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:34:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790105654; x=1790710454; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ymirBoiEOHofxcXtdlpyBstNGlWIgIPDHZMqR8FvNhI=;
-        b=k9O79WGCsYjMjCBaq9Lrj2bnUMOT98uiDyrS7Ylf2tgLlYmHhzQF0OGmiinaJ855/5
-         2NrorTb5bBNywaER7DDZtTEaN3lqtwvhzW/1BsQBOmq/zxWifnwhx40cktn388lRN3q8
-         5ZGlkkLoh/dHo5LHRiLjPk/wnKqcH/SOrCbBpcedcW0fOGYkrv6G1PCIuGkXZ/ilnF6/
-         Hd6cDaMzeWtXloAz0dAyKQ8Z2frsYO2VflfaeIGCMZINUgiRynGAIsT0tpY4dcw17DE/
-         ihmnurFY1NXONSlt4mI4WZYgFgpWkcnpMW0k68m18z+5JEkNbCdpspdxGd+qYEUoR8uf
-         QeyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790105654; x=1790710454;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ymirBoiEOHofxcXtdlpyBstNGlWIgIPDHZMqR8FvNhI=;
-        b=WHel8usLGfRKM27vnywbSo8LGUjD98iOEd+Os9KEh2O+M+a6G5hQV+J41qyQ9Esms9
-         kOO+DJp8mzxj7/fFawtfu/v6hgO5OZfmVIQkr/ez1jFZwjFwcqGFNnNYdgrkW52alEi8
-         3opwO8DajbrdM1aR7o7a4zHrmu7Oh199Ahsb33C+FXC2VXo7GJxGHLxnu0UMJxMFM/Sz
-         Aowe7bOLB4XGmnexldSuJamM4JfC8cvv50SgixfKueqyuVcDsTJRUIdjNSAE5dhj86//
-         Ux6bffi89RagwW/lEdkeo1xvGbr2/Nr/zvqPaNk9te8cufkNyhQ8NjEblQBwZqXkWcgL
-         GBGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiIlx5IeFG6QHlv1so8/5NJBkiy9HWDB0B80zPpgICZqZ9P50nLeMRJbRuiXKj0C0oAhgTZOvSdL1vX0w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDFQQ9MPlJnDu2g36CcM7mirwQtZtArT8gIyqsl5uL1175LEaN
-	+TI0StIOwrl/qdWuK+4FssWUORNhVbUV1nRqOz4ZuDao7/tjrGKsgPrSZQxCvo4HGevGjJl/x2m
-	TjdsUXw/vWmr+ZA==
-X-Received: from dybvk2.prod.google.com ([2002:a05:7301:53c2:b0:339:69b7:3cf7])
- (user=kaifengw job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:c01c:10b0:33b:fa29:4a66 with SMTP id 5a478bee46e88-33e8ddbcfc1mr273275eec.31.1790105653596;
- Tue, 22 Sep 2026 12:34:13 -0700 (PDT)
-Date: Tue, 22 Sep 2026 19:33:56 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZM/wxix"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0714E1F000FF;
+	Tue, 22 Sep 2026 19:36:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790105791;
+	bh=oX/GBfm128lghM6TeDZc4jeWPRFNdIhMy4EtsnUfXbQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=WZM/wxix+IApXVCHLDa2PwnKXYYUuz/0/V3zbE4t1k/EGqTwzioRF8SRZ1jIEp1rk
+	 iGkyZg8Y3IW12KE/5nb/u8JUG2lVFKo1Lmnpyput9TwZP7Za/3KUNU9KU/ov1qUIpO
+	 UBnCrHqAVH3Ztiuq2YB0kIPZvnKraEu1JtqYRDJ9I3y1AU1eQsnXdHoqgIkMYwSsJw
+	 J3PslNi41+B9p+CNBpIUVWACvkz3scKYLnIFhgODWvdYnOE9WULO+SfrAnN4Yv+9Ea
+	 teI7kpiKzveZHPgxfsB8Z50TbH+2xfLgweQ3YT1Ei+DQzSVURkWZcWrATkVblLR2+6
+	 xgRS6p4Qb6RSw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id B9DFBCE0836; Tue, 22 Sep 2026 12:36:30 -0700 (PDT)
+Date: Tue, 22 Sep 2026 12:36:30 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Vineet Gupta <vgupta@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>, Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+	David Laight <david.laight.linux@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/5] Add two-byte cmpxchg emulation and wire it into
+ the architectures
+Message-ID: <693619b9-c2f8-4ecd-a83a-cd608148854a@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260922173354.14404-1-brads@mainlining.org>
+ <78f7ab38-46c8-4968-a2ae-4c3c98e32f4d@paulmck-laptop>
+ <7BE5B8EA-FAFB-4CBB-8FF1-ECDEEB1618B0@mainlining.org>
+ <9a7883a3-a1b1-4d37-8234-f4c62b2e6e27@paulmck-laptop>
+ <FDE80F3F-6F96-4A6A-8536-0B2A4ED793A6@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260922193356.542922-1-kaifengw@google.com>
-Subject: [PATCH net-next] net: devmem: use page_pool_put_netmem_bulk
-From: Kaifeng Wang <kaifengw@google.com>
-To: netdev@vger.kernel.org
-Cc: almasrymina@google.com, edumazet@google.com, kuniyu@google.com, 
-	pabeni@redhat.com, willemb@google.com, davem@davemloft.net, kuba@kernel.org, 
-	horms@kernel.org, linux-kernel@vger.kernel.org, 
-	Kaifeng Wang <kaifengw@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <FDE80F3F-6F96-4A6A-8536-0B2A4ED793A6@mainlining.org>
 
-Instead of looping over napi_pp_put_page() and repeatedly acquiring the
-page_pool producer lock in sock_devmem_dontneed(), use
-page_pool_put_netmem_bulk() to return the netmem references in batches.
+On Tue, Sep 22, 2026 at 08:03:51PM +0100, Bradley Morgan wrote:
+> On 22 September 2026 19:59:39 BST, "Paul E. McKenney" <paulmck@kernel.org>
+> wrote:
+> >On Tue, Sep 22, 2026 at 07:37:54PM +0100, Bradley Morgan wrote:
+> >> On 22 September 2026 19:29:32 BST, "Paul E. McKenney"
+> ><paulmck@kernel.org>
+> >> wrote:
+> >> >On Tue, Sep 22, 2026 at 05:33:49PM +0000, Bradley Morgan wrote:
+> >> >> This is v4 of the two byte cmpxchg emulation series, wiring
+> >> >> cmpxchg_emu_u16() into arc, csky, sh and xtensa.
+> >> >> 
+> >> >> v3 had changed cmpxchg_emu_u8()'s success return to (u16)old, which
+> >was
+> >> >> a 16-bit mask in the 8-bit function, and a dead one at that, since
+> >the
+> >> >> compare guarantees the low 8 bits of old are the byte being returned.
+> >> >> David Laight asked where that cast came from. v4 returns old
+> >unmasked,
+> >> >> the exact behaviour the one-byte emulator always had, so nothing that
+> >> >> uses cmpxchg_emu_u8() through the widened prototypes sees a change.
+> >> >> 
+> >> >> David also noted v3 extended the (unsigned long)(0 ? *ptr : (old))
+> >type
+> >> >> check to csky and sh but not arc and xtensa. v4 adds it there too, so
+> >a
+> >> >> cmpxchg(&p, 4, 5) fails to compile on every architecture in the
+> >series,
+> >> >> verified with each architecture's macro instantiated standalone.
+> >> >> 
+> >> >> While adding the type check to arc, the switch subject turned out to
+> >be
+> >> >> sizeof((_p_)), the pointer, not sizeof(*(_p_)), the pointee. On
+> >32-bit
+> >> >> arc the switch was always 4, so the size 1 and size 2 cases were dead
+> >> >> code and every sub-word cmpxchg() went through the 32-bit llock/scond
+> >> >> pair, comparing whole words against sub-word values, so the compare
+> >> >> almost never succeeded. The switch now tests the pointee, and the u8
+> >> >> path it was always meant to dispatch actually runs, so the one-byte
+> >> >> emulation works on arc for the first time since the sizeof bug landed
+> >> >> with the original cmpxchg_emu_u8() wiring.
+> >> >> 
+> >> >> The host test of 972 cases across both halfword offsets against a
+> >byte
+> >> >> level reference model still passes, and a 20000 case randomized run
+> >> >> checking the masked compare and return against a hardware cmpxchg r16
+> >> >> model passes with zero mismatches.
+> >> >> 
+> >> >> David pointed out on v1 that a u16 prototype does not compile warning
+> >> >> free when exchanging a pointer type, because the switch statements in
+> >> >> the architecture macros instantiate every size case, so a pointer
+> >> >> cmpxchg() type checks the two byte case, and the (u16) casts there
+> >> >> warn. v4 keeps taking the old and new values as unsigned long and
+> >> >> casting to u16 inside the function, so the call sites need no
+> >narrowing
+> >> >> casts and pointer exchanges compile clean. The function still
+> >compares
+> >> >> and returns exactly the 16 bits the caller asked for, which matches
+> >> >> hardware cmpxchg r16 behaviour.
+> >> >> 
+> >> >> The ARMv6 wiring stays dropped from v1, per Arnd Bergmann's offer to
+> >> >> take the INTEGRATOR_CM1136JFS cleanup in his platform removal series.
+> >> >
+> >> >I have pulled these in, but only to expose them to things like the
+> >kernel
+> >> >test robot.  My guess is that they will go in by some other path.
+> >> >
+> >> >And to that end:
+> >> >
+> >> >Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> >> >
+> >> >But I could of course easily be missing subtle arch-specific bugs.
+> >> 
+> >> There are, according to sashiko, but I can't seem to make that thing
+> >happy
+> >> no matter what I do
+> >
+> >Hahahahaha!!!
+> >
+> >We forgot to CC the architecture maintainers.
+> >
+> >For the changes to lib/cmpxchg-emu.c:
+> >
+> >	Cc: Andrew Morton <akpm@linux-foundation.org>
+> >	Cc: Arnd Bergmann <arnd@kernel.org>
+> >
+> >For ARC:
+> >
+> >	Cc: Vineet Gupta <vgupta@kernel.org>
+> >	linux-snps-arc@lists.infradead.org
+> >
+> >For sh:
+> >
+> >	Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+> >	Cc: Rich Felker <dalias@libc.org>
+> >	Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> >	Cc: <linux-sh@vger.kernel.org>
+> >
+> >For csky:
+> >
+> >	Cc: Guo Ren <guoren@kernel.org>
+> >	Cc: <linux-csky@vger.kernel.org>
+> >	Cc: <linux-kernel@vger.kernel.org>
+> >
+> >For xtensa:
+> >
+> >	Cc: Chris Zankel <chris@zankel.net>
+> >	Cc: Max Filippov <jcmvbkbc@gmail.com>
+> >
+> >They might be willing to help.  ;-)
+> >
+> >							Thanx, Paul
+> >
+> >> >> Bradley Morgan (5):
+> >> >>   lib: Add two-byte cmpxchg emulation function
+> >> >>   ARC: Emulate two-byte cmpxchg
+> >> >>   sh: Emulate two-byte cmpxchg
+> >> >>   csky: Emulate two-byte cmpxchg
+> >> >>   xtensa: Emulate two-byte cmpxchg
+> >> 
+> >> --- Thanks!
+> >> "I'm not a very positive person" - Linus torvalds
+> If I have to do another 100 revisions I'll die, I'm suggesting getting the
+> new function in first, then converting arches later? Or does this break
+> arches.
 
-This reduces the number of lock acquisitions on the page pool ring
-producer lock when releasing user tokens.
+Well, you are only on v4.  ;-)
 
-Reviewed-by: Mina Almasry <almasrymina@google.com>
-Signed-off-by: Kaifeng Wang <kaifengw@google.com>
----
- net/core/sock.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Adding a new function without uses is frowned upon.  After all, if it
+wasn't frowned upon, there would be tons of unused code in the kernel.
 
-diff --git a/net/core/sock.c b/net/core/sock.c
-index 2948dffcc3e1..a6b6d5b2051d 100644
---- a/net/core/sock.c
-+++ b/net/core/sock.c
-@@ -129,6 +129,7 @@
- #include <net/request_sock.h>
- #include <net/sock.h>
- #include <net/proto_memory.h>
-+#include <net/page_pool/types.h>
- #include <linux/net_tstamp.h>
- #include <net/xfrm.h>
- #include <linux/ipsec.h>
-@@ -1086,7 +1087,7 @@ static int sock_reserve_memory(struct sock *sk, int bytes)
- static noinline_for_stack int
- sock_devmem_dontneed(struct sock *sk, sockptr_t optval, unsigned int optlen)
- {
--	unsigned int num_tokens, i, j, k, netmem_num = 0;
-+	unsigned int num_tokens, i, j, netmem_num = 0;
- 	struct dmabuf_token *tokens;
- 	int ret = 0, num_frags = 0;
- 	netmem_ref netmems[16];
-@@ -1123,8 +1124,7 @@ sock_devmem_dontneed(struct sock *sk, sockptr_t optval, unsigned int optlen)
- 			netmems[netmem_num++] = netmem;
- 			if (netmem_num == ARRAY_SIZE(netmems)) {
- 				xa_unlock_bh(&sk->sk_user_frags);
--				for (k = 0; k < netmem_num; k++)
--					WARN_ON_ONCE(!napi_pp_put_page(netmems[k]));
-+				page_pool_put_netmem_bulk(netmems, ARRAY_SIZE(netmems));
- 				netmem_num = 0;
- 				xa_lock_bh(&sk->sk_user_frags);
- 			}
-@@ -1134,8 +1134,7 @@ sock_devmem_dontneed(struct sock *sk, sockptr_t optval, unsigned int optlen)
- 
- frag_limit_reached:
- 	xa_unlock_bh(&sk->sk_user_frags);
--	for (k = 0; k < netmem_num; k++)
--		WARN_ON_ONCE(!napi_pp_put_page(netmems[k]));
-+	page_pool_put_netmem_bulk(netmems, netmem_num);
- 
- 	kvfree(tokens);
- 	return ret;
--- 
-2.55.0.1082.g2b9226bbc0-goog
+But you are in luck.  John Paul Adrian Glaubitz noticed the sh patch
+despite not being CCed and acked it.  And I happen to be the one who
+committed the original lib/cmpxchg-emu.c commit.  Plus at least one of
+the architecture-specific patches.  (Ah, yes, the problem was that RCU
+had been using single-byte cmpxchg(), thus breaking the architectures
+not supporting this, so I provided cmpxchg_emu_u8() as the fix.)
 
+So what I have done is to queue the lib patch, but without the
+arch/*/Kconfig pieces, and adding the CCs shown above.  I have also
+queued the sh patch, with added CCs and with arch/sh/Kconfig.  The point
+of moving the arch/*/Kconfig changes each to its respective patch is to
+put all the arch-specific changes into the corresponding patch.
+
+I will of course check with John Paul Adrian Glaubitz to make sure that
+he is OK with relocating the arch/sh/Kconfig change to the patch that
+he already acked, and I will of course adjust as needed if he isn't.
+
+That means you only need to re-send the ARC, csky, and xtensa patches,
+with CCs added as shown above.  No guarantees, but hopefully quite a
+bit fewer than 100 times.  ;-)
+
+							Thanx, Paul
