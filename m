@@ -1,169 +1,137 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847C838654F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0009E39182A;
+	Tue, 22 Sep 2026 03:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046834; cv=none; b=jx89SQYrn0hZhiRUzor6bh/pmP6jYc7MDj7AvWj6Q+aDXwA/fY2eHu99WQ4gOzuAIskPMbgmzJGUgtYpxB+mhvg7S4YadwmVg2zO3vEOb253AMJUsv9znJLA00uHmmD3NT7qcE1C542/oQ8bEmamv95O7wfCrK0qoTKBSet5dmE=
+	t=1790046860; cv=none; b=ofsxQRCXKSgydGP+/xH+Qr1UTyiIFlsPeZ/Z09onoXLX5mWyqyTsmkt6mBONk6xvzMBq5/wqImc6dG6APY1i1XMBcZvoiy3uYnIyIHs1wagvO1k3x+x7MtPVEnMUYraJiiFa0l9ps2Q2NJAisENGWVSl1yfdnFSnrVyxH/M6GOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046834; c=relaxed/simple;
-	bh=q+Q/x+N/wGgVbden1nxVudHNpvtx7gnD1MJI+Ih1Zfg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jjxyRpPp2jnTZNry9RW7eN//1GR/LvtfDsm9tDdsfA6iQuLAVzhnw5bJlsZuLb1SGI+nfNlrOhu2a6S+18TXQtO1tKd/3fQy54xXDGeiU9j/LFybB4k1SuNI3/QNu6HKoQLb26lWn1hytxXrV/lt3a886usjRnptZtJfQQCIyPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=CGzBdxr+; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790046860; c=relaxed/simple;
+	bh=obg0oXGgsBAMkBRdKYDmxHCHeYv8nX7lxnpuF9gPeY8=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=RuOTjznXgI/cEcunFLVxO6zMU1+jm51Ix2j29NlUDNpnuCjDOOx39rI/+c1ssqffl3YMvKjHODVXN1GA5FUfvbiVm2Z5R+yErxuQ5qSeIse11j765/80uDdNeshk8X/Dc/TpOXk1JHs4hMCD3j7uNfQV7IhNOeWUW/lW+ATuKA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Qu4AwNB2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ywbb4kPt; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="CGzBdxr+"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=legPrraacMuoh6xTghoAnbFizIXVl12+EiqXtOBu0V4=;
-	b=CGzBdxr+Z8MnLYncC/n+h/wtSqJcNnLfJo/4QsVcZnjPbFw6XKYiw60COrRk+fyP0dLsUoLyQ
-	NDgX8EfWjCArX53N1rREli1r52O5g4rAEBUHtme5/7G+HSnp1ZW8nQAaNdMcDY7P7NE42kiFhhI
-	16QOxClI9awvpak0J7yq0pI=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hplJd01MPznTVk;
-	Tue, 22 Sep 2026 11:02:40 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id BD5E8402AB;
-	Tue, 22 Sep 2026 11:13:42 +0800 (CST)
-Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
- (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 22 Sep
- 2026 11:13:41 +0800
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-To: <song@kernel.org>, <yukuai@fygo.io>, <magiclinan@didiglobal.com>,
-	<xiao@kernel.org>, <eadavis@sina.com>, <abd.masalkhi@gmail.com>
-CC: <linux-kernel@vger.kernel.org>, <chengzhihao1@huawei.com>,
-	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: [PATCH v5] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
-Date: Tue, 22 Sep 2026 11:05:38 +0800
-Message-ID: <20260922030538.1634904-1-chengzhihao1@huawei.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Qu4AwNB2";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ywbb4kPt"
+Date: Tue, 22 Sep 2026 03:14:12 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790046854;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x6PBSO4w1mJ8PEEYgWsvL6BPY0w4uOQhVpwDDkQcYZk=;
+	b=Qu4AwNB2QlnO3p/qYhWF/DIiL7N6EApYjAje4Rf9g0MYTTJq/Pg9b+FPT9t/nMc55RSJpa
+	dL8nq7kGkoy/G5FF0YeyP5aNj6CkvSeI3yVtexJD0lJYMLZDYAVLvtuK/0Re65wBM+4Zxj
+	kOZFDrkwNNkW/vS7ME0FMtFpmcsvUP3rtAR7dfqo1vfUgC74wfMKI4GaxryPuNF/cocmhr
+	NKXcoaAI6Dkvln+Esb0rPXFHSp0VsayNTeNSEVdGe57gDhKnScmECzJrIFaQ0SA6AiyZCv
+	Hyo7+1S8VDd/5LPsqEsfUyV1Hzz8PJcDM5Gi8DDNugrk1FVMFGzSCBkoJoz+Bw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790046854;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x6PBSO4w1mJ8PEEYgWsvL6BPY0w4uOQhVpwDDkQcYZk=;
+	b=Ywbb4kPt0ZApDkBkxUV6BNfTEvot5SynJcjLrAgwIxyIvtZP64OAf/Do37nLmjD2UKNJMO
+	X3AIdPtuGCXiOQBQ==
+From: "tip-bot2 for Melody Wang" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/sev: Make vTPM SVSM calls preemption-safe
+Cc: Melody Wang <huibo.wang@amd.com>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Stefano Garzarella <sgarzare@redhat.com>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To:
+ <a5bc0d4a2c462a0089109e145c21626b244b2ff0.1789345277.git.huibo.wang@amd.com>
+References:
+ <a5bc0d4a2c462a0089109e145c21626b244b2ff0.1789345277.git.huibo.wang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemo200011.china.huawei.com (7.152.185.179)
+Message-ID: <179004685258.2819794.12514099294540319299.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Concurrent processes md_stop and IO submitting could trigger a
-null-ptr-deref of 'mddev->private':
+The following commit has been merged into the x86/urgent branch of tip:
 
- BUG: kernel NULL pointer dereference, address: 0000000000000070
- RIP: 0010:_wait_barrier+0x2f/0x250
- Call Trace:
-  raid1_make_request+0x150/0xf50
-  md_handle_request+0x104/0x530
-  md_submit_bio+0x76/0x130
-  submit_bio+0xdd/0x250
-  submit_bio_wait+0x1f/0x40
-  __blkdev_direct_IO_simple+0x1f6/0x370
-  blkdev_write_iter+0x3b2/0x520
-  ksys_write+0x7d/0x190
+Commit-ID:     6c43c72748fffd29dec15cd1f31e9a32949bc437
+Gitweb:        https://git.kernel.org/tip/6c43c72748fffd29dec15cd1f31e9a32949=
+bc437
+Author:        Melody Wang <huibo.wang@amd.com>
+AuthorDate:    Mon, 14 Sep 2026 00:57:17=20
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Mon, 21 Sep 2026 19:59:25 -07:00
 
-              P1
-  fd = open(/dev/md0, O_RDWR)
-	                      P2 (forked from P1, fd' <= fd)
-  write(fd)
-   submit_bio
-    md_handle_request
-     raid1_make_request
-      raid1_write_request
-                                  ioctl(fd, STOP_ARRAY)
-		                   mddev_set_closing_and_sync_blockdev
-				   // check passed, mddev->openers = 1,
-				   // because md_open() is only called
-				   // once in P1->open
-				   do_md_stop
-				    __md_stop
-				     mddev->private = NULL
+x86/sev: Make vTPM SVSM calls preemption-safe
 
-       conf = mddev->private // NULL
-        wait_barrier(conf, sector) // null-ptr-deref !
+Two functions in the SVSM vTPM guest implementation do not disable
+preemption when fetching the SVSM Calling Area Address (CAA).
 
-It is a common problem for raid0/1/10/5, and __md_stop could be triggered
-by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
-mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
-The caller array_state_store() is guaranteed by the check
-mddev_set_closing_and_sync_blockdev(mddev, 0), we just need to remove
-the check '!md_is_rdwr'. For example, someone open /dev/mdx, write
-something and close /dev/mdx, it won't trigger the problem, all dirty
-pages can be flushed before mddev->openers decrement.
-The caller dm_table_destroy() is guaranteed being invoked with device
-suspended, so raid_dtr() could keep using mddev_lock_nointr().
-Besides, fail the submitting IO in md_handle_request() if the
-'mddev->pers' becomes NULL.
+The SVSM CAA is a per-CPU structure. When a thread is preempted and migrated
+to a different CPU after fetching the per-CPU CAA, the SVSM call will execute
+on the new CPU with the original CPU's CAA. Which is wrong.
 
-Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
+Move the CAA fetching operation inside svsm_perform_call_protocol() which
+disables interrupts around the SVSM call and thus runs preemption-safe.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
-Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Fixes: 770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command functions")
+Signed-off-by: Melody Wang <huibo.wang@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/a5bc0d4a2c462a0089109e145c21626b244b2ff0.17893=
+45277.git.huibo.wang@amd.com
 ---
- v1->v2:
-  1. Add 'mddev->pers != NULL' check before make_request
-  2. Delete dm-raid caller(->dtr) modifications
-  3. Move memalloc_noio_restore after mddev_unlock_and_resume
- v2->v3:
-  1. Remove modifications in array_state_store()
-  2. update commit msg
- v3->v4:
-  1. Remove '!md_is_rdwr' check from array_state_store()
-  2. update commit msg
- v4->v5:
-  1. Skip checking '!md_is_rdwr' only for inactive case
- drivers/md/md.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ arch/x86/coco/sev/svsm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..02798f2dbf0e 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
- 		if (!percpu_ref_tryget_live(&mddev->active_io))
- 			goto check_suspended;
- 	}
-+	if (!mddev->pers) {
-+		/*
-+		 * The __md_stop() sets 'mddev->private' to NULL during
-+		 * the IO submitting, check 'mddev->pers' before the IO
-+		 * being processed by specific driver to avoid the
-+		 * null-ptr-deref of 'mddev-><member>'. The check is
-+		 * safe because the IO has got the 'mddev->active_io'
-+		 * reference, and all __md_stop() callers will wait for
-+		 * the reference to be zero.
-+		 */
-+		bio_io_error(bio);
-+		percpu_ref_put(&mddev->active_io);
-+		return true;
-+	}
- 	if (!mddev->pers->make_request(mddev, bio)) {
- 		percpu_ref_put(&mddev->active_io);
- 		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
-@@ -4670,7 +4684,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
- 	case readonly:
- 	case inactive:
- 	case read_auto:
--		if (!mddev->pers || !md_is_rdwr(mddev))
-+		if (!mddev->pers || (st != inactive && !md_is_rdwr(mddev)))
- 			break;
- 		/* write sysfs will not open mddev and opener should be 0 */
- 		err = mddev_set_closing_and_sync_blockdev(mddev, 0);
-@@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
- 	case HOT_REMOVE_DISK:
- 	case SET_BITMAP_FILE:
- 	case SET_ARRAY_INFO:
-+	case STOP_ARRAY:
- 		return true;
- 	default:
+diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
+index 916d62c..2d493d5 100644
+--- a/arch/x86/coco/sev/svsm.c
++++ b/arch/x86/coco/sev/svsm.c
+@@ -74,6 +74,14 @@ int svsm_perform_call_protocol(struct svsm_call *call)
+=20
+ 	flags =3D native_local_irq_save();
+=20
++	/*
++	 * 'caa' is a per-CPU variable. To avoid using a stale or incorrect
++	 * 'caa' if the task is preempted or migrated to another CPU after it
++	 * is fetched, always fetch 'caa' and then issue the SVSM call with
++	 * interrupts disabled. This ensures the correct 'caa' is used.
++	 */
++	call->caa =3D svsm_get_caa();
++
+ 	ghcb =3D __sev_get_ghcb(&state);
+=20
+ 	do {
+@@ -321,7 +329,6 @@ int snp_svsm_vtpm_send_command(u8 *buffer)
+ {
+ 	struct svsm_call call =3D {};
+=20
+-	call.caa =3D svsm_get_caa();
+ 	call.rax =3D SVSM_VTPM_CALL(SVSM_VTPM_CMD);
+ 	call.rcx =3D __pa(buffer);
+=20
+@@ -345,7 +352,6 @@ bool snp_svsm_vtpm_probe(void)
+ 	if (!snp_vmpl)
  		return false;
--- 
-2.52.0
-
+=20
+-	call.caa =3D svsm_get_caa();
+ 	call.rax =3D SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
+=20
+ 	if (svsm_perform_call_protocol(&call))
