@@ -1,177 +1,105 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EE2572673;
-	Tue, 22 Sep 2026 17:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A149552952;
+	Tue, 22 Sep 2026 17:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790097138; cv=none; b=HpCP+Tj1IwNYXgLiuW+4FJtxDwtZNKGE1/1053+6cPr13a4/cLYkl0T2/oRUZbfWwNby9MB0NFO8Ct0Y0Y23kK8g5ex5fiJT8pLfmoOnA1QODwdsgZgezhsk2M0SRJhyA/uuqf4mVHcvXFp6zoNALa4BkxSLAnRiR3apAPyqDhU=
+	t=1790097186; cv=none; b=gnswduHMJ72QQQ212d2SB2/A8BzxAfq93Y9CH/2590+t/trwJh3wGd5BGVGAApaHYiw+3oJ3GyjrrShsshjRcFN4QBNfFjBXfRI+3VUVR4axkC7xIr2cu9lvjrQPoOPk6rN9ci1CfwMkNhk5jJwdx4OjD/S/u7fQSz7oPUDqy64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790097138; c=relaxed/simple;
-	bh=zNQHcBd7xYGJRfYFZY4Bnu6Ky/BoGBYc61+QbkOviPY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=WuTSwmrRKMhavj7wGWZMXwFzTj46iszxdzapMlItvMnONmwhbpQ8RXAPIctrl8ibQnxJ2MzKy1LZ9FkJ2limAfF4S9eQMS4TzvEL+7A+Gk8JpRZV4pv1xHYebC67IVropnO2Smm9l/GFZ2PpaceLadI09+7VHNWIXA34jRQRw/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=eKjz4rOr; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1790097186; c=relaxed/simple;
+	bh=Rb3nQmcbLxvZugiL4VtH9ek43O+CYgD5gTfh7xpL2kc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TVBjSH24VrIepdmZKN+r9wv+qpCgSFM5PIVgq8jGt4cTh6sr/VmY6JXGD5LnnhAN8oXmhpjYDtGTXhbxANgsvoFvaRjiUK2/VX/gMmSbgaIyJ9AEOfNMPVN0K/Gzm44GFM6XpU3VscKo2TGg+QGrfKoITRAIQIWS5g3SqSR03zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHY8IfxD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="eKjz4rOr"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 8DA08213B2;
-	Tue, 22 Sep 2026 20:12:09 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=Js5PmAUcjbxW7gWn4Whs+OD6wHnqQpE49HM1IGljWhc=; b=eKjz4rOrPWyz
-	D+g84LRf7FOEPohxy8J/rNiO6h1zQytm8c/48zfyZelj+Ny4NSONZwKL9AhKyDMv
-	3MMZQJW+obmSzHy9YxNBLz3jxAxg7wfM9XKJadGx5FcviiBVGtij1B9si8uyFf+G
-	znVJKoa0IVbCPWlFyVblD9AraJUtv4RiWCVmNihhanh9jU+QzHBxkRQ9Ib5ueq5W
-	ryvJ2ldps+U/cPV9Tyy07GOOLFlsEPim98cHxKkqyzfT793NBuW67ad1N6B1gMep
-	CnCmvFdT1h5EDA6rpk3pZuIzk5M/GDhQIl9hcJnfexgQPBT3lriIM3lqVQCrKgkj
-	krSWPTRLepqLfZkEA3H85W1JI02CDyC8O5XP3Och+4k+9pam7x5XmwDOoYXDYACQ
-	xaHOsONpw9kwtwWB9O/3kCQf+xB/t4mI2POWiHzYwjJrAo3uwOQYfLtz0LNcYbMD
-	rw7TRIIKhKJylxB2q2BTXhoW6TtmjIegjJPLUJapsagk150iuEeark+Cn8seNe2k
-	Pfl+NfFq7CI9+79t1nYrhFWsnv2rGraUdG4McR5OfEKLryIaE/gij3XCWfF5l55L
-	DMJnwLFjGzHHGNO/EVTjWndsNJaT+nmgKBwEpy2x+IgG0Z2yflI4ZerlsqUkB02I
-	Zv2UTIDVdJDt84ZEY+cO/+sRE0ZFziY=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Tue, 22 Sep 2026 20:12:09 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 8C7B1608CD;
-	Tue, 22 Sep 2026 20:12:11 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68MHC9bH050657;
-	Tue, 22 Sep 2026 20:12:09 +0300
-Date: Tue, 22 Sep 2026 20:12:09 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Adriano Cordova <adrianox@gmail.com>
-cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org,
-        lvs-devel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 nf-next 1/3] ipvs: add flags for per-service secure
- TCP state table
-In-Reply-To: <20260921205706.1055288-2-adrianox@gmail.com>
-Message-ID: <013264f0-57e4-c8e7-6e31-30d2e1b92893@ssi.bg>
-References: <20260921205706.1055288-1-adrianox@gmail.com> <20260921205706.1055288-2-adrianox@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHY8IfxD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB7C1F000FF;
+	Tue, 22 Sep 2026 17:13:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790097185;
+	bh=Rb3nQmcbLxvZugiL4VtH9ek43O+CYgD5gTfh7xpL2kc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SHY8IfxDJV64fXq6J3vIAr785FWgO22jlfCwc3HIiE9OfjPAvHkP34tcUFte7KmyW
+	 QeJoFYYjeFjC5NE3SWf/B6vGHIgPL9zmV2YSfH1WjtSGMdgCcGBaoI31ccT5AMWste
+	 Ot96+MIsocgC602Rv2B5YM4rhIgEABqM2vAhppgbOSwDPBJarPlc93y0g1ufkbDker
+	 SPcPEhGCPVvqPNf9c0jY+9X9/7RtbaxDdz0JpF26MF4k9XkVj/ThjzcZncHu0mcweX
+	 D1jIff2nqWb3Ec0hbWFbVKaOCH/Bbqx5DCEL9Y+SEnEheb6YTmKQfwU/sbWR2MMGdt
+	 e0Y+DGOyOsQuQ==
+Date: Tue, 22 Sep 2026 18:13:00 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Conor <mail@conchuod.ie>, Colin Huang <u8813345@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	colin.huang2@amd.com, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
+ TDA38740/TDA38725
+Message-ID: <20260922-pectin-backslid-9352303bb7c6@spud>
+References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
+ <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
+ <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
+ <2646A11E-8D13-4587-8027-1370E0007F36@conchuod.ie>
+ <3a107337-8e2c-45b2-8847-6b4fb7b0405e@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cpqJA5S6VLdN78Gw"
+Content-Disposition: inline
+In-Reply-To: <3a107337-8e2c-45b2-8847-6b4fb7b0405e@roeck-us.net>
 
+--cpqJA5S6VLdN78Gw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-	Hello,
+On Fri, Sep 18, 2026 at 10:30:16AM -0700, Guenter Roeck wrote:
+> On 9/18/26 10:24, Conor wrote:
+> >=20
+> >=20
+> > On 18 September 2026 17:02:38 GMT+02:00, Guenter Roeck <linux@roeck-us.=
+net> wrote:
+> > > On 9/18/26 03:23, Colin Huang wrote:
+> > > > Add a PMBus driver for Infineon TDA38740 and TDA38725
+> > > > single-voltage synchronous buck regulators.
+> > > >=20
+> > > > Signed-off-by: Colin Huang <u8813345@gmail.com>
+> > >=20
+> > > For my reference (waiting for DT patch approval):
+> > >=20
+> > > Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+> >=20
+> > I'm on holiday and only have my phone, and cannot find the binding patc=
+h to reply to.
+> > I found it on lore and it looks okay.
+> >=20
+>=20
+> Hi Conor,
+>=20
+> it was copied to "Conor Dooley <conor+dt@kernel.org>". Is that the wrong =
+address ?
 
-On Mon, 21 Sep 2026, Adriano Cordova wrote:
+Nah nothing wrong with the address, just the limitations of k9 mail when
+combined with the volume of mails I get.
 
-> Add IP_VS_SVC_F_SECURE_TCP to mark a virtual service for the
-> DoS-hardened TCP connection state table, and
-> IP_VS_CONN_F_SECURE_TCP to carry that capability on a connection
-> so the TCP state machine can select the hardened table for it.
-> 
-> The service flag is 0x0100: bits 0x0008/0x0010/0x0020 are the
-> scheduler bits, so leave 0x0040/0x0080 free for schedulers.
-> 
-> Set IP_VS_CONN_F_SECURE_TCP on every connection bound to a
-> destination whose service carries IP_VS_SVC_F_SECURE_TCP.
-> 
-> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
-> ---
-> Changes in v2:
-> - Let IP_VS_SVC_F_SECURE_TCP be 0x0100, leaving 0x0040/0x0080 free for
->   scheduler flags.
-> - Let IP_VS_CONN_F_SECURE_TCP be (1 << 17) and drop it from
->   IP_VS_CONN_F_BACKUP_MASK.
-> - Set the flag in ip_vs_bind_dest() instead of at every ip_vs_conn_new()
->   call site.
-> 
-> Changes in v3:
-> - Merge the uapi flag definition and the ip_vs_bind_dest() stamping into
->   a single patch.
-> 
-> (no changes since v3)
-> 
->  include/uapi/linux/ip_vs.h      | 2 ++
->  net/netfilter/ipvs/ip_vs_conn.c | 4 ++++
->  net/netfilter/ipvs/ip_vs_core.c | 3 +++
->  3 files changed, 9 insertions(+)
-> 
-> diff --git a/include/uapi/linux/ip_vs.h b/include/uapi/linux/ip_vs.h
-> index 2c37c6ac7525..ade170109ff4 100644
-> --- a/include/uapi/linux/ip_vs.h
-> +++ b/include/uapi/linux/ip_vs.h
-> @@ -27,6 +27,7 @@
->  
->  #define IP_VS_SVC_F_SCHED_SH_FALLBACK	IP_VS_SVC_F_SCHED1 /* SH fallback */
->  #define IP_VS_SVC_F_SCHED_SH_PORT	IP_VS_SVC_F_SCHED2 /* SH use port */
-> +#define IP_VS_SVC_F_SECURE_TCP	0x0100		/* use the hardened TCP table */
->  
->  /*
->   *      IPVS sync daemon states
-> @@ -105,6 +106,7 @@
->  
->  /* Flags that are not sent to backup server start from bit 16 */
->  #define IP_VS_CONN_F_NFCT	(1 << 16)	/* use netfilter conntrack */
-> +#define IP_VS_CONN_F_SECURE_TCP	(1 << 17)	/* use the hardened TCP table */
->  
->  /* Connection flags from destination that can be changed by user space */
->  #define IP_VS_CONN_F_DEST_MASK (IP_VS_CONN_F_FWD_MASK | \
-> diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-> index 6fa3e1dc534c..0b465298b64b 100644
-> --- a/net/netfilter/ipvs/ip_vs_conn.c
-> +++ b/net/netfilter/ipvs/ip_vs_conn.c
-> @@ -1090,6 +1090,7 @@ ip_vs_bind_dest(struct ip_vs_conn *cp, struct ip_vs_dest *dest)
->  {
->  	unsigned int conn_flags;
->  	__u32 flags;
-> +	struct ip_vs_service *svc;
->  
->  	/* if dest is NULL, then return directly */
->  	if (!dest)
-> @@ -1102,6 +1103,9 @@ ip_vs_bind_dest(struct ip_vs_conn *cp, struct ip_vs_dest *dest)
->  	if (cp->protocol != IPPROTO_UDP)
->  		conn_flags &= ~IP_VS_CONN_F_ONE_PACKET;
->  	flags = cp->flags;
-> +	svc = rcu_dereference(dest->svc);
-> +	if (svc && (svc->flags & IP_VS_SVC_F_SECURE_TCP))
-> +		flags |= IP_VS_CONN_F_SECURE_TCP;
+--cpqJA5S6VLdN78Gw
+Content-Type: application/pgp-signature; name=signature.asc
 
-	Adriano, due to the long IPVS bugfix queue, sometimes
-the -next work may conflict with other changes. This is the case
-with the above hunk. Looks like we should wait the patch
-"ipvs: do not create invisible templates" to be included
-into the net tree, the net tree to be merged into the net-next
-and nf-next tree and then you can post a version for nf-next
-which will be on top of this patch. In the mean time I'll
-review your changes soon, so that the patchset can be ready
-for that moment.
+-----BEGIN PGP SIGNATURE-----
 
->  	/* Bind with the destination and its corresponding transmitter */
->  	if (flags & IP_VS_CONN_F_SYNC) {
->  		/* Synced conns are hashed, so they can not get this flag */
-> diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-> index ba0957798bad..aa8a3a964ffd 100644
-> --- a/net/netfilter/ipvs/ip_vs_core.c
-> +++ b/net/netfilter/ipvs/ip_vs_core.c
-> @@ -784,6 +784,9 @@ int ip_vs_leave(struct ip_vs_service *svc, struct sk_buff *skb,
->  				      IP_VS_CONN_F_ONE_PACKET : 0;
->  		union nf_inet_addr daddr = { .all = { 0, 0, 0, 0 } };
->  
-> +		if (svc->flags & IP_VS_SVC_F_SECURE_TCP)
-> +			flags |= IP_VS_CONN_F_SECURE_TCP;
-> +
->  		/* create a new connection entry */
->  		IP_VS_DBG(6, "%s(): create a cache_bypass entry\n", __func__);
->  		{
-> -- 
-> 2.51.0
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarK3HAAKCRB4tDGHoIJi
+0obXAQCdKDcHTJG5AcuDfg6f7evT6RLagLyTl8k2vNPWC5fQBwEAh2b7ZHs8BLFy
+koqCHqdbvoS8ueN4DOiA+2+5oEZXpQ8=
+=zvxl
+-----END PGP SIGNATURE-----
 
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
-
+--cpqJA5S6VLdN78Gw--
