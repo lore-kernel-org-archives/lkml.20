@@ -1,187 +1,115 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7534FDA6C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B234EFFCD;
+	Tue, 22 Sep 2026 07:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061126; cv=none; b=Gdq+0XaHM4PxPSbC0XMZ4Q7Nv01QmMEZZeU01Gt8Hh1HiEd+nQq5TUAZoRve/EswCTm+L+vDWrOi0yQzPjMDMTPnwXp/qo06rBFAc2hT2fqFcJlmXnszT5/GX/PrmnIbe1Y+RhcBfPox1ArbixyYoGhdl2sL0FPQePWNttaDtHA=
+	t=1790061132; cv=none; b=FNAVvm0h78Qcoi6xLCw400frAOqwECNilekh1qZWBJkzab2dkFQSbgv4uiBFUg7lGvV8gPHmh/5d31g7VsZcaBVuF9h9dxqjbBiORt0Ffq8/OuMTdcqlWB6MlImvp6RoRvIWJ+tbiT74zSsuQ0ZBiZBnE9amX3l9bKqtXiDYtc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061126; c=relaxed/simple;
-	bh=kgjY688mplAdGhSTn31JDhepkJAY0gXeuAm8BDIPCmM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ya2U+ARv739inJXE4+JhG1YzvXkQrE4/O4gUM5bHs44RkH0HcKo3YLN6DrVpQZDM82j/78zEDluF/1TcqWzaNOyhQ2vsXkqRA/O2GL0Prjhq0p/JbFb3qWke+6L8mH4j7LMolZd3qkPrvY1D+8MDSzYz81GDCp91wgGJZWfzNwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=XJlJCFVx; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790061132; c=relaxed/simple;
+	bh=7NV2/dPlabk4dE/ISiIN6mRrLG4mHifu6XdIsUTFFVM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d42VFqkCbCI1p09IMw4INp4SZC/GMUUK+WZcbKq2MAyCwqXe4RZAKnxbxXT7ZlmZ3rXF5w6jncsHycmCebssCA3Is+j2OfzdhYcTRT6T3M7RPGVUPKDGLO478KFyKHctgSzsc9BdAfYagPRPnXSRlv81hG+uRVShoV0bhRa5+nQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=PIX6HpEs; arc=none smtp.client-ip=49.212.243.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="XJlJCFVx"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso4110619a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:12:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790061124; x=1790665924; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UHxz3lJ1rnpXdcv0GZzxFy5K7MzlBbx4/kmDfl2h6nw=;
-        b=XJlJCFVx8KEBMTKcMsEk1SlZ25iPQp/2VRyqCqJ5XLzEmJuc3UJNqHUMXl1IEXBfI2
-         eTD71HzX5PZq2mkoQYuo7ryhPNym2kb460/ELCy8TqJUaGBtz2F/xatVhJcvrq+e3p6g
-         uwzj2+q3QT8BWGeqy9YuC/IIUg7+p8xUKBfCpqWuy7dW8dWfY9378mu8Bd15bNybUyM3
-         GULIyFmUfCu+UdwO3GRfqAgIrd9UEdpI3IBJiD2YlJRnCCU7StEYHkrUSiAZTtiDJ6bP
-         PD/GVPBEZV+S/Y0kQ54mtz/rfQYZN/w+QHFzVEjPFSYY/5GRyUBsZQyDJLiFQf1th/pN
-         UcOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790061124; x=1790665924;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UHxz3lJ1rnpXdcv0GZzxFy5K7MzlBbx4/kmDfl2h6nw=;
-        b=A6M0Do71+W5xeRRPJ2U3MJO1tIooKH7lpDtwLDvBtjqWYXz7otkegyR0aTce1KfWP1
-         C0ioApB46yiNyNcPOuLuq3N3O0O4sJmiG3xzpUvSptHXbOptEoLspACbWcQEpZllyVvD
-         IhoXIAz4RO4jODTo6NSPJEHkbpUOxUWNDdb4l8c3IQrxunDd2X42CNr8Aqslln+7LubV
-         l3vTjU0/Mc83TS5LJJKs/mDvX/gFDitTbXItzRDkkQPVGQAb6PRMpzfKwqOtGf9gFZnI
-         e0CXQhbGfRgSU4ABIcwCJTU5oOlfaT7MCzRHdJBZvAkBFwHQM+tRqIEf44ZSz9b9s+Re
-         KP/g==
-X-Gm-Message-State: AFuF++nMNWYylivJeDItRIOpRpaO5X5nb2LVhX7rKmEhpsGuKhfHfMka
-	HlnKTvexzyRQzyHp87D+7h06wbyfmw6ouhka2Ip3W6FVukpkGv8W8uMWfgftOlvGMCBc
-X-Gm-Gg: AYBFou3OcA/8pzYNBYKPaA9qltzKGcijUh1wwuUSNb3sG0w1to7hGAreloDNFEQAFvr
-	U+kfAB5opBSYv0iM9oWLaBTa7OgqFUUfR92MOceUqzmfwQkcj2ukN3hO4/zigD6EJrod7rl2o5f
-	zHXdE8KLCJp6nKEkBSX7C1/L1V3sG/+wFBhvfKLRT+pQApHidYC1REC1V6UKmtNQx0cxYrkEn53
-	R+7Qm7sv+i0kT76w3AV+ruOPDHLfoZ5eLdfD0PkQtZT7Iv3nHxBbl7BPPk4KnUO0b4f4vLUUbSZ
-	PYgAP6Lvxftpk1Ij7uOp17P4PvJnrKsq4UeHc91VUtm3s7T9tFw3jFMCbz4PRb6T6DGsbefMseq
-	iYqAiwhWFk3A3377b5FE/O4CgCYwPUSlN6xwylA+m2cMns02b6aG0t9RLYw+hFpSYXhQfI6/W4g
-	NPyUb7IKZbx0mNt37XrzqHRHtkuhJUiAc5tVKx7GqDK70XVW1sWm0IR3fgjD+fHIO7TIN4+JSFv
-	9z0uikMCKT+xT8RUwJDrUYInn82Cg==
-X-Received: by 2002:a17:90b:5745:b0:39e:6c69:9b97 with SMTP id 98e67ed59e1d1-3a0732633aemr258577a91.60.1790061124057;
-        Tue, 22 Sep 2026 00:12:04 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0674df8bdsm3051240a91.16.2026.09.22.00.11.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 00:12:03 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Richard Gobert <richardbgobert@gmail.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Zihan Xi <zihanx@nebusec.ai>
-Subject: [PATCH net v4 1/1] net: gso: limit recursive IP-in-IP segmentation
-Date: Tue, 22 Sep 2026 07:11:45 +0000
-Message-ID: <245c47d2af384e34411b848ac8d733db7ed14c7a.1790041241.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790041241.git.zihanx@nebusec.ai>
-References: <cover.1790041241.git.zihanx@nebusec.ai>
+	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="PIX6HpEs"
+Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
+	(authenticated bits=0)
+	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68M758Hb079658
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Tue, 22 Sep 2026 16:05:08 +0900 (JST)
+	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=T90uQyrwOkRtULqcM/E6YsXMU8ThCL+v0Olp5Ari6hs=;
+        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+        h=From:Message-ID:To:Subject:Date;
+        s=rs20250326; t=1790060708; v=1;
+        b=PIX6HpEsycuGjgwF+yYJEKbW2YxRThaU7EHQIZGK5L/lQ22qD4JgBSnRVBDQshf3
+         Q3mYoWJmW61Zd5jCJ807XJD2ckYUsNMMIXCSMfO3rjw3vVrifWt7ncSg/BcZLQee
+         vauZt/VF/clNeVik7NWRPYJayqFARm8MwM5cGkxhQxUiIbeZXzoUmlqIS4wwB/Z1
+         L9juduXuRjjajH+awmMnM4mU2p2Wc8O5mzkj7ZBN8yYxCqEsBehxz/Zx/ZmpXuRn
+         E65YvkFWnuPiZxTFsySrYR4F8I5XKjB/kakCvhD6gHlnvsKt28tJjrobhpK/KeGG
+         whouyOtt7HDBh8h9zxg5/g==
+Message-ID: <fe6ddd43-7de2-4715-819b-952296456fca@rsg.ci.i.u-tokyo.ac.jp>
+Date: Tue, 22 Sep 2026 16:05:06 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 08/21] Revert "KVM: arm64: PMU: Reload when resetting"
+To: Oliver Upton <oupton@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu
+ <yuzenghui@huawei.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+        Yury Norov <yury.norov@gmail.com>,
+        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Andrew Jones <andrew.jones@oss.qualcomm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Shannon Zhao <shannon.zhao@linaro.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+        devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kselftest@vger.kernel.org
+References: <20260920-hybrid-v11-0-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
+ <20260920-hybrid-v11-8-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
+ <arIjhlqqzt4AKTOr@kernel.org>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <arIjhlqqzt4AKTOr@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-IPIP GSO/TSO support makes IP-in-IP GSO dispatch re-enter
-inet_gso_segment() or ipv6_gso_segment() for every nested IP header. The
-only state that tracks this nesting is encap_level, which records header
-bytes and has no recursion bound. A sufficiently deep chain can consume
-the kernel stack before a transport GSO callback is reached.
+On 2026/09/22 15:43, Oliver Upton wrote:
+> Hi Akihiko,
+> 
+> On Sun, Sep 20, 2026 at 08:15:49PM +0900, Akihiko Odaki wrote:
+>> This reverts commit fe53538069bb4f625bc8734103ba044a83138fea.
+>>
+>> Restore PMU event teardown before system-register reset so existing
+>> perf events cannot retain configuration from the previous run. All
+>> counters are disabled by the reset PMCR_EL0 and MDCR_EL2 values, so
+>> reset does not need to request a PMU reload.
+> 
+> Sorry, I'm not following the intent here. KVM_REQ_RELOAD_PMU should
+> already be discarding + recomputing perf events based on the state of
+> the vPMU. What's the problem?
 
-The unbounded callback nesting was introduced when inet_gso_segment() was
-made stackable by "ipv4: gso: make inet_gso_segment() stackable". GRE GSO
-support predated that change, and IP-in-IP GSO/TSO support later made the
-affected path reachable.
+Hi Oliver,
 
-The corresponding IPv6 stackable path was introduced separately by
-"ipv6: gso: make ipv6_gso_segment() stackable". This patch uses the same
-bound for IPv6, but the Fixes tag covers the IPv4 root cause only.
+A plain KVM_REQ_RELOAD_PMU does not discard existing perf events. 
+kvm_pmu_reprogram_counter_mask() enables or disables them, and 
+kvm_pmc_enable_perf_event() only creates an event if none exists.
 
-Limit the number of header bytes stripped from the original MAC header
-before entering an IPv4 or IPv6 GSO handler to GSO_MAX_HEADER (256 bytes).
-The existing skb_gso_cb->mac_offset records the original MAC header
-offset; comparing it with current skb headroom gives the consumed header
-offset without adding per-packet recursion state. Both IP GSO handlers
-perform the check at entry, so direct IP re-entry and tunnel dispatch
-that leads to another IP header share the same monotonic budget. Other
-GSO callback entry points are unchanged.
+For example, an existing cycle-counter event may exclude EL0 counting. 
+Reset sets PMCCFILTR_EL0 to zero, but the subsequent reload only 
+disables that event. If the guest then enables cycle counting without 
+rewriting the filter or counter, the old event is enabled again and 
+still excludes EL0, despite PMCCFILTR_EL0 reading as zero.
 
-GSO_MAX_HEADER is a practical header-offset budget, not an
-architecture-independent stack-safety proof. The budget includes
-link-layer/VLAN bytes already pulled from the original MAC header, while
-IPv6 extension and tunnel headers consume it faster. Once pulled headers
-reach 256 bytes, the next IPv4 or IPv6 GSO handler entry is rejected.
+The earlier "Recreate events after reset" patch addressed this by 
+setting events_need_recreate. Sashiko then pointed out that stopping the 
+old events after resetting the registers adds their accumulated counts 
+to the reset counter values:
 
-Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v4:
-  - Keep the budget check only at the two IP GSO handler entries; remove
-    the common callback wrapper and other GSO call-site checks.
-  - Reuse skb_gso_cb->mac_offset and current skb headroom as the
-    cumulative header-offset budget.
-  - v3 Link: https://lore.kernel.org/all/cover.1789802623.git.zihanx@nebusec.ai/
- include/net/gso.h      | 8 ++++++++
- net/ipv4/af_inet.c     | 2 ++
- net/ipv6/ip6_offload.c | 2 ++
- 3 files changed, 12 insertions(+)
+https://sashiko.dev/#/message/20260914-hybrid-v10-7-92788053a691%40rsg.ci.i.u-tokyo.ac.jp
 
-diff --git a/include/net/gso.h b/include/net/gso.h
-index 29975440c..86ff7e84c 100644
---- a/include/net/gso.h
-+++ b/include/net/gso.h
-@@ -23,6 +23,14 @@ struct skb_gso_cb {
- #define SKB_GSO_CB_OFFSET	32
- #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_OFFSET))
- 
-+#define GSO_MAX_HEADER	256
-+
-+static inline bool gso_header_len_exceeded(const struct sk_buff *skb)
-+{
-+	return skb_headroom(skb) - SKB_GSO_CB(skb)->mac_offset >=
-+	       GSO_MAX_HEADER;
-+}
-+
- static inline int skb_tnl_header_len(const struct sk_buff *inner_skb)
- {
- 	return (skb_mac_header(inner_skb) - inner_skb->head) -
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index 32d006c1a..fa359b902 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -1375,6 +1375,8 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
- 	int id;
- 
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_header_len_exceeded(skb)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
- 		goto out;
-diff --git a/net/ipv6/ip6_offload.c b/net/ipv6/ip6_offload.c
-index 78f50c93c..884a7f827 100644
---- a/net/ipv6/ip6_offload.c
-+++ b/net/ipv6/ip6_offload.c
-@@ -104,6 +104,8 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
- 	bool gso_partial;
- 
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_header_len_exceeded(skb)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*ipv6h))))
- 		goto out;
--- 
-2.43.0
+The revert restores teardown before system-register reset and fixes the 
+stale configuration.
 
+Regards,
+Akihiko Odaki
