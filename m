@@ -1,90 +1,193 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC56375ADD;
-	Tue, 22 Sep 2026 08:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065756; cv=none; b=mbMMU5hyYKPuZiDpbWmXDBNtrRf5okeTxw4W5bXFfbD59XJGNO5mRUqRkke4O2gacAZaarBBEM0/mJopHUoJl+0OlNMUIobOm62zNc2JdUKWfY68pSN7T3USe3RFZzBVudUThrk1QgK7fANahk0PhjBoc1bp01/i4Ow0GszOeIo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065756; c=relaxed/simple;
-	bh=qnoll3Gl1nyyRg5uk5+JlX/6VytXLqnlS1hZMgMavvY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=DRj0hXTnfodVCJLbhJ5eUpCQThirzzFDDOVZaPqZ7QaDgh2X/go8Pfk7UESf9LQKyKOUzN7ThKjaxzvzUO+HG13ZnKF9hDlqspNddhQXyCxu/aAdoN6BX5yThMiSZ5CgHQRTYyxXKbNxRgvsdXDyA2KlDqgztNC84sOQTXi4tW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RNwWRP9F; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95CC40B6E0
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790065786; cv=pass; b=d7G/X+1DnRkz6w1GVpMIwzmMVMeujwoMzJXfryEyJlfvpxHSLgVv6QqWmrmOnY8uk2UPK25AJ5TM50Vq6fjpdrux8mIQ0MLznCoZD0QY3Tt3ZfvXvB1kYl9QsakNuJISc1jeRpFzVV72AIPsDIZvbcF4YagCxHbHYOdRpz89rho=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790065786; c=relaxed/simple;
+	bh=Q4t+g3vnDy2gIUVRjJal60TyzupspjgjVhkD7spJfro=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mDsmmtIUCYrktoQ8YfCarbYNvFnvKX2riSzHAa9+7OkbAvK+6buzqUZh/npx6b/Ui5wqMSL9ozt/Hey8hF59m2+1vCyqzSVmn4a2tvZLWHnysMGzgmKsZuz55FQW9ToJaQeDnJgPWQIhCGMeeO5qTVsG2uPZJNTqMfti9l0QD6M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WqTXdCWn; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RNwWRP9F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=qnoll3Gl1nyyRg5uk5+JlX/6VytXLqnlS1hZMgMavvY=; b=R
-	NwWRP9F5BPYXmSDWAJQfRmpnoOszT2orSP3u0oCdHZVq6mnHamYOXonbeHsow2zB
-	lYyrdzhcsQ/QeiWStDCFGgVcxODu43kafaXkp2T6ZUfwYUZLdf+nIz3eirG5RCqX
-	Uli6/RKw2xVcJ4H7Jne37fPrwQ0hLs4nMjmF8w09xE=
-Date: Tue, 22 Sep 2026 16:28:00 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Jerome Brunet" <jbrunet@baylibre.com>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re:Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella CV75
- pinctrl
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAD++jLnUVOAtq-h_qDdWpEhZFZehFKo4qqgcTHD9zDQTdF4yhg@mail.gmail.com>
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
- <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
- <CAD++jLnUVOAtq-h_qDdWpEhZFZehFKo4qqgcTHD9zDQTdF4yhg@mail.gmail.com>
-X-NTES-SC: AL_Qu2SAvyduk4j5iOeZekcn0wRhug/UMa4u/sm3YNXc84FpwPw5QMjZmNDNHL32tKTBxilqxOseRpTx8lTXqZ3KLaXA5U/vIF3zQFUwP6sBg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WqTXdCWn"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac8d1dso27694417b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:29:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790065784; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CeeCgnbMr2PeIvV0cRnMvjTG1Bv+lpI4Wed7Z3/Ol3ZEgudITHtFknPDin6WybCTdQ
+         T6hntM5mvlRYL/Y+PBzcb5JFocgEKjFztSGcDRdD9wz+WuYDcDe8l9suPUUwFkgR3Wqt
+         YZrzPuKMcUJk5oo0pOdxdT4QHS4TiKDYkGH+oB2dCzMi2r48EeY9RAXj3JsxMjtVHu42
+         q0oFOuv1P8OIfWiT8T5qEFMyNDyooHFjX1ELVrb6KG512EX3Avaq3wYk6V/v2AQK1N1H
+         T94XaVIKdtlgC6QYzNgeQWZa0WczMs9oF+TyFwUxEnFLl3OI5SOofwGYRI3Q54oIZrUQ
+         mg6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nK6JLqXHLE++uLnREJ1y7gZWvzKk3Twpjsn+brZ9AMg=;
+        fh=9n+2/zK3fd4CCyBBzjSwysPwiOFUOhx4hkciL7HXWGY=;
+        b=Ag9Lpp/t97XnYUpYw/0TrNWdyqOlMtXJSjKsacDz/BRQFzbrs+XLLVRvBj3YdcskZc
+         YkI7toanMvMvx6rwVcnjksPrJmpz/aS2uO5TksEloCYtaC1fBgYleDJyS8e3L6oeklpy
+         sOqaK+rkAHUNy2UG6dE/smIDVFadaoRkqkL3L1v4OfsCnP9hlIETcwJHofXjPOd/5SQM
+         AhiXybGrhssxIeyL10IMPHxucnzshLDMD9xaUR/Dbllvnsb3gR8ZBtboRnGPhJTzzP0U
+         +TyOUQDxEOJaJw74DxP+KWzl45kZq6hci6Dh8SGoMuqrt3Ng5MqCuTvcIHE/z/AHVxni
+         NLnQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790065784; x=1790670584; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nK6JLqXHLE++uLnREJ1y7gZWvzKk3Twpjsn+brZ9AMg=;
+        b=WqTXdCWnPNIBF6gwYr0lCUuodtb2dP9g1xg8FZf3cDHcewVejddMJzcRof+P4stUe2
+         saUPNFn2vmGghp8LGSpRs/oNHJQZLGILmFRBU9Mmta8deOqO/tTnycynUisR7in2zAQo
+         SivNA69tD/quH6B/On9rejx4AFwCfuzl1Nw5bZCm4vKfKZ+J+dzaQ6go6tYQnsFsVcjQ
+         ljMElG071W8Q3f75QkIeh3nHLcjXWCulFTXZwvhUwCIIRPM/AeT9IQpGx6Pm3+Gc0jv1
+         yXzopX+yfLXo6yPIGG7PcG3ti7Xo37qABUvfmyJfwFrEJwAXSs7gsFpYRpJLReKxW2z+
+         M07g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790065784; x=1790670584;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nK6JLqXHLE++uLnREJ1y7gZWvzKk3Twpjsn+brZ9AMg=;
+        b=RNiTcZmwaFil9Oko+SyzTJc0sEP6qXRuVyHNaV3MxSBVLFWq1hy7etCTvZVzLcwjRK
+         PKfwrkq6KoaTTTuB2gX/teh3tDX3zpcqkxKx3aa926VUocewzxeVf17eZE7BLIdsFREY
+         /snIX/6giB+Jcc2iUNXEH85Ui87TbvBBMwLlaPLHhiO0s0DzZMhJf7RDYZX8rgtwjpDS
+         SkfoviYqEcNWyOpDwxYRW6mkLE+cZDGsQJML+dbpVcYlzFTXl5Sd/4n7gjVQzi0UnfZS
+         faPz/KNTATEBB6dksh+it3TVMI2k3iae0OHGh/FMq6bGyjnrBTDWThxjZPX6MZeFLRA2
+         u5qA==
+X-Forwarded-Encrypted: i=1; AKwUvByPmnnqtnKKt0mP1ZPOa5uvsa7g8ZpnZAjMeHCua7Lp81IVmb5jSLWZZbENwsCgbuVQdIMEt/jcit69m0M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUXSFbI3/n5jKabpw4A2wVQZZJmLyBM3ZEbfJdc+temi6IaFI5
+	pSALx0xyKbzbrj+NNR9mdGLsfK6eaoWAJsIlxgt1LRRuf6nyKESnr/aIobnmifkvtJta2iyPUYp
+	Ab9FBzW/ophSn8XufCL6IRMkVZ4BDaLc=
+X-Gm-Gg: AYBFou07hqekXmLiOfmaolr9NxTq4aLAY8rZ+Xxt2V8ZBg7qI37GJzzKYNRYg+YMFL/
+	V9Kosl0NGHTCKc2QkSpUc7f89pZ50BhdzRs3AF3fm2p9wqA01eU6FrJokiV23xByj5mSTkKONrO
+	lhyVTFk+SDBbf9OvScRpwtmpwckUIFojDKGGllsm4ipyD7t7sRb9QOUy7UwirxTfwQ0BPj5xYaM
+	BtPXsJ8lQY32li2/UhlLRPHqSDfiwBsJ9pgQm7z0GP2ieYzaNYHrKH0OYu3oremMMPPBdtBBxqE
+	GYpiOQBEi9DB5pUyaRNjbjhbfjQgllBywXuY0poQ7hLMDGM3CwHgnVEWJA==
+X-Received: by 2002:a05:690e:12c7:b0:671:45a4:b282 with SMTP id
+ 956f58d0204a3-672c5517fddmr641742d50.99.1790065783701; Tue, 22 Sep 2026
+ 01:29:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <408f0b0c.7560.1a0c83a9ff4.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gygvCgD3vzgQPLJqKLkVAA--.40070W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxRBay2qyPBBDAwAA3w
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20260921110909.370945-1-lgs201920130244@gmail.com> <20260922074137.GG2348773@google.com>
+In-Reply-To: <20260922074137.GG2348773@google.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 16:29:30 +0800
+X-Gm-Features: AcwNN1Vv9ooUXHTfX-8aKzoQsfCH4263yxneaXbrNlAHKNAqe0WY7gylNd9nMJc
+Message-ID: <CANUHTR9B84LoCjOtS5N5qGO0KXSXUbZkrKZ3_GFTwXmVoPQ0SA@mail.gmail.com>
+Subject: Re: [PATCH] mfd: ab8500: fix child device leaks on probe failure
+To: Lee Jones <lee@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Samuel Ortiz <sameo@linux.intel.com>, 
+	Mattias Wallin <mattias.wallin@stericsson.com>, 
+	Ludovic Barre <ludovic.barre@stericsson.com>, Alexandre Torgue <alexandre.torgue@st.com>, 
+	Julien Delacou <julien.delacou@stericsson.com>, linux-arm-kernel@lists.infradead.org, 
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgTGludXMsCgpUaGFuayB5b3UuCgoiUHV0dGluZyBzb21lIHBpZWNlcyBpbiBwbGFjZSB0byBi
-ZWdpbiB3aXRoIiBzb3VuZHMgbGlrZSBhIGdvb2QgaWRlYS4gV2hhdCBkbyBJIG5lZWQgdG8gZG8g
-bmV4dD8gSeKAmW0gc3RpbGwgbmV3IHRvIHRoaXMsIHRoYW5rcyBmb3IgeW91ciBwYXRpZW5jZSBh
-bmQgZ3VpZGFuY2UuCgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhhbwoKQXQgMjAyNi0wOS0yMiAxNTox
-MToxOSwgIkxpbnVzIFdhbGxlaWoiIDxsaW51c3dAa2VybmVsLm9yZz4gd3JvdGU6Cj5IaSBMb25n
-LAo+Cj5PbiBNb24sIFNlcCAyMSwgMjAyNiBhdCA2OjIz4oCvQU0gTG9uZyBaaGFvIHZpYSBCNCBS
-ZWxheQo+PGRldm51bGwrbG9uZ3poYW8uYW1iYXJlbGxhLmNvbUBrZXJuZWwub3JnPiB3cm90ZToK
-Pgo+PiBGcm9tOiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4+Cj4+IERvY3Vt
-ZW50IHRoZSBDVjc1IHBpbiBjb250cm9sbGVyIGJpbmRpbmcgdXNpbmcgZ2VuZXJpYyBmdW5jdGlv
-biBhbmQKPj4gZ3JvdXBzIHByb3BlcnRpZXMgZm9yIHBpbm11eCBjb25maWd1cmF0aW9uLgo+Pgo+
-PiBSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXN3QGtlcm5lbC5vcmc+Cj4+IFJldmll
-d2VkLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQG9zcy5xdWFs
-Y29tbS5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IExvbmcgWmhhbyA8bG9uZ3poYW9AYW1iYXJlbGxh
-LmNvbT4KPgo+SXMgdGhpcyBzb21ldGhpbmcgSSBzaG91bGQganVzdCBhcHBseSB0byB0aGUgcGlu
-Y3RybCB0cmVlPwo+Cj5TYW1lIHF1ZXN0aW9uIGFib3V0IHRoZSBkcml2ZXIuCj4KPkknbSBub3Qg
-c3VyZSB5b3UnbGwgZ2V0IGFsbCBvZiB0aGUgQW1iYXJlbGxhIGluIGZvciB2Ny40IGFueXdheQo+
-c28gd2hhdCBhYm91dCBwdXR0aW5nIHNvbWUgcGllY2VzIGluIHBsYWNlIHRvIGJlZ2luIHdpdGg/
-Cj4KPllvdXJzLAo+TGludXMgV2FsbGVpago=
+Hi Lee,
+
+Thanks.
+
+On Tue, 22 Sept 2026 at 15:41, Lee Jones <lee@kernel.org> wrote:
+>
+> On Mon, 21 Sep 2026, Guangshuo Li wrote:
+>
+> > ab8500_probe() registers MFD child devices before completing the
+> > remaining device initialization.
+> >
+> > On AB8540, the main MFD device batch may be registered successfully
+> > before registration of the cut-specific batch fails. In that case,
+> > the probe returns without removing the child devices registered by
+> > the earlier mfd_add_devices() call.
+> >
+> > The same issue occurs when sysfs group creation fails after the MFD
+> > children have been registered. Since the probe returns an error, there
+> > is no later teardown path to unregister those devices.
+> >
+> > Call mfd_remove_devices() on these error paths so that MFD child
+> > devices successfully registered earlier in the probe are properly
+> > unregistered and released.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: cca69b67b3ba ("mfd: Export ab8500 chip id to sysfs")
+> > Fixes: 9c717cf3fa16 ("mfd: ab8500-core: Add device for new RTC version for AB8540 cut2")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/mfd/ab8500-core.c | 8 ++++++--
+> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+> > index f0bc0b5a6f4a..e675223b6023 100644
+> > --- a/drivers/mfd/ab8500-core.c
+> > +++ b/drivers/mfd/ab8500-core.c
+> > @@ -1220,8 +1220,10 @@ static int ab8500_probe(struct platform_device *pdev)
+> >               ret = mfd_add_devices(ab8500->dev, 0, ab8500_devs,
+> >                               ARRAY_SIZE(ab8500_devs), NULL,
+> >                               0, ab8500->domain);
+> > -     if (ret)
+> > +     if (ret) {
+> > +             mfd_remove_devices(ab8500->dev);
+>
+> What about switching to devm_*() a.k.a. managed resources?
+>
+> >               return ret;
+> > +     }
+> >
+> >       /* Add battery management devices */
+> >       ret = mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
+> > @@ -1243,8 +1245,10 @@ static int ab8500_probe(struct platform_device *pdev)
+> >               ret = sysfs_create_group(&ab8500->dev->kobj,
+> >                                        &ab8505_attr_group);
+> >
+> > -     if (ret)
+> > +     if (ret) {
+> >               dev_err(ab8500->dev, "error creating sysfs entries\n");
+> > +             mfd_remove_devices(ab8500->dev);
+> > +     }
+> >
+> >       return ret;
+> >  }
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Lee Jones
+
+Do you mean converting the MFD registrations in ab8500_probe() to
+devm_mfd_add_devices(), so the children are cleaned up automatically on
+probe failure, e.g.:
+
+-       ret = mfd_add_devices(ab8500->dev, 0, ab8540_devs,
++       ret = devm_mfd_add_devices(ab8500->dev, 0, ab8540_devs,
+                              ARRAY_SIZE(ab8540_devs), NULL,
+                              0, ab8500->domain);
+
+        ...
+
+-       ret = mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
++       ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
+                              ARRAY_SIZE(ab8500_bm_devs), NULL,
+                              0, ab8500->domain);
+
+and likewise for the other MFD batches?
+
+If so, I'll rework the patch that way for v2.
+
+Thanks,
+Guangshuo
