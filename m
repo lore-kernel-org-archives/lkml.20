@@ -1,188 +1,155 @@
-Received: from iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com (iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com [3.211.80.218])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47542931DC;
-	Tue, 22 Sep 2026 10:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=3.211.80.218
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071620; cv=fail; b=L5p3f87NpZhkrDhTp3LqZheyv0eVIcguzQf1WQA6Vk8FB3MIpXCLoeNSL2TGFmMKKUSOr3H4szEQFeqMB32klAz11hl7NjPqRm4G/rFbzwJkkfUw/79WSm+5q9fMd8e1eeO5dGYoh6pjuQzD2+PsjAdQ1McPmwXCVLdngsRjLZs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071620; c=relaxed/simple;
-	bh=Zkxe8TKIFt52WpED6R01s0NPXgsKzW/CE3ex6f6aFbg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=klnXLyqg7e2D4/5EdNZ+08IWkFKT3Z0bCU2Cx6UxTOZTfF57P/NmGo/MMm5gLhGOz8h9zB42cvVabhBsayeTnnB+uwcSEEiGF89qqE7OBf/tVVx9m+LCoawkSnKgkC4hdY9KtcIOQGlI+ORY6AyhVF/raQDBmXiMKNVds+Li98A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=bx74QQU4; arc=fail smtp.client-ip=3.211.80.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE706424D41;
+	Tue, 22 Sep 2026 10:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790071651; cv=none; b=K5eHiTvvziEXZ2jE2RhC4pL2d7ShAULx2F4vjkI/mZkoxZHCsX4NzW7/kjWz5WC+EFXdrXd5XQzE+mnhwBO6GZn2bFkZD43qshWIFIjKKRYkqwo/MRJfXr6eWUV9E8J7uDCUEIaryA58k8AdnfyJ5xxpUX8+bQRblEJZm9+AqrE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790071651; c=relaxed/simple;
+	bh=2y6rfd3V6t8r63itiesJ7pNBadW8mVuB/RTG4AHuQlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zz8EVV7oFODlY5sHAQGYKdUT/UGmFH0npfdl08t/riqwiQHMLbAsMTMSwxHth5AGafvp6uGnNsu/gU+k/BkbJ9zGZ0UXi8FoOznJLPKioVtICEgjdVmaKv2/ZRHlU3RGmxs6fNwwjB/Z8FpvgRpvfkByp+yjki83R+QOrP+T2VU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlaYSpBh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="bx74QQU4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790071619; x=1821607619;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Zkxe8TKIFt52WpED6R01s0NPXgsKzW/CE3ex6f6aFbg=;
-  b=bx74QQU4JX9kOMXYvCtrMYbVCai+F4KCbk3V6TEo6wHN58eTDLMi3J0v
-   n0NRHuRjJHDZV3T+JLg0QBKa9rCCndvS3m83/EZzTll4serDP9EWcaQPa
-   ht/DmWhtWRPfNeJsvEIwshZThjQ54+sCKsWcMZrLRAEaiHXk0Go5QNIHU
-   vaoCXgW685LHrjJlPxtUZF8+iqNlvxNUJQZDFd1D5QQe/bdBGZUWRfzck
-   RTso0IdJfLoOv0ywphmlgdMIcZyZZAMiirwxskobhKeHGMhi+5Jdn+R0w
-   RBmQJBroxshDnK/EWbPyfxNjfVVPLiwzt6Q8bMWc6GH2rpcjCF+bIWM6L
-   A==;
-X-CSE-ConnectionGUID: j2v4juUTQLuYE4XDAvVUXQ==
-X-CSE-MsgGUID: zaB937lzTc2QvrMKkeUkqA==
-X-IronPort-AV: E=Sophos;i="6.27,116,1787011200"; 
-   d="scan'208";a="27873013"
-Received: from ip-10-4-7-229.ec2.internal (HELO smtpout.naws.us-east-1.prod.farcaster.email.amazon.dev) ([10.4.7.229])
-  by internal-iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:06:54 +0000
-Received: from EX19MTAUEC002.ant.amazon.com [52.94.133.130:27183]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.4.190:2525] with esmtp (Farcaster)
- id 31256f21-8f48-40e8-8dc5-68260118c44f; Tue, 22 Sep 2026 10:06:54 +0000 (UTC)
-X-Farcaster-Flow-ID: 31256f21-8f48-40e8-8dc5-68260118c44f
-Received: from EX19EXOUEB001.ant.amazon.com (10.252.135.46) by
- EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 22 Sep 2026 10:06:54 +0000
-Received: from EX19EXOUEA001.ant.amazon.com (10.252.134.47) by
- EX19EXOUEB001.ant.amazon.com (10.252.135.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 22 Sep 2026 10:06:53 +0000
-Received: from SN1PR07CU001.outbound.protection.outlook.com (10.252.135.42) by
- EX19EXOUEA001.ant.amazon.com (10.252.134.47) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49
- via Frontend Transport; Tue, 22 Sep 2026 10:06:53 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t4uXRieMr4C5U8bQFHVdaRPzDlyfVRxuBLdpj43Cft1rQ1XrBFqFI/E74dwgd0sUKQzNd53zfEBcUs6ollr+GhD8nN/CQx9fnCINAslvXX2Tf2Qd+OjVJa9Qwz5tilnSa5ZrNYPHBH9m1SrUBdc+xtHogyGK3vvG2piTzCgZ/+BDfEWdZUZCLq/37d5ZuZxAewtT50t+5TvHRnMFik5sAA1tVWPQMuWMBJssSVoe1W++TEQ74Op9IW64m8kXveoxTrSD9S8PrIc+2KU0HtixLwRxygN/aubdJziw/5g/c4nuApXU3kGOF0pxv+4cfreEu1U0VyvI5RWX23+fUbCNKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zkxe8TKIFt52WpED6R01s0NPXgsKzW/CE3ex6f6aFbg=;
- b=EQyWHpBzZmdrp4m3XXRzSCdyNEs9G0+CU1ycCaGhjynufejIZ4M967T5jB65yanE2jUqF7oNonE6jTbfRJJsUlj4WbpJbpRKxsYfVPny3SdATVvMogQO+b8mdO9zuMq11qcTzD2GAMgo9Ald+MBQx7setv+IPCF2bqjEg3C6nJLS0nmc18Nl9dbZMsiLlj3YANMT28VSn836dkfJcTPYHo0qRbtGMlZxrXLbRvKN+NOLEWfmUOqg7wXRXxQeip40V025pQ7/MhiNor8jtMRvVr1PxpOpY+RR6/hY3FqLaGEtgZ0qwKk2j6ygvZBQjG4ESJS4qvypnop26dIcLZMt4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amazon.com; dmarc=pass action=none header.from=amazon.com;
- dkim=pass header.d=amazon.com; arc=none
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com (2603:10b6:a03:3c9::19)
- by PH0PR18MB4508.namprd18.prod.outlook.com (2603:10b6:510:e6::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 10:06:50 +0000
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219]) by BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219%4]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
- 10:06:50 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Bartosz
- Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v4 1/3] pps: clients: gpio: propagate probe error codes
-Thread-Topic: [PATCH v4 1/3] pps: clients: gpio: propagate probe error codes
-Thread-Index: AQHdSnoVLE9MH5Ndq0av8MA0GPhZDA==
-Date: Tue, 22 Sep 2026 10:06:50 +0000
-Message-ID: <BY3PR18MB4722C9F2BFAD0736215CDD48C6832@BY3PR18MB4722.namprd18.prod.outlook.com>
-References: <20260917075611.47881-1-farbere@amazon.com>
- <20260919171157.5502-2-farbere@amazon.com>
- <9eb4bd5c-39f5-4236-a0e0-3c3679bf7f8c@enneenne.com>
- <BY3PR18MB4722454B7A78A0E47345EBE8C6832@BY3PR18MB4722.namprd18.prod.outlook.com>
- <235b34e3-2eee-4904-9cdb-490859dabda7@enneenne.com>
-In-Reply-To: <235b34e3-2eee-4904-9cdb-490859dabda7@enneenne.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amazon.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR18MB4722:EE_|PH0PR18MB4508:EE_
-x-ms-office365-filtering-correlation-id: 9f185aab-35a0-44a2-2d7a-08df1891386a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|38070700021|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info: Wg1DbWEGmXZoZgDHsnd31OilW/9uc4OmBA2HkuZq81sBhGxnITH62Y/vMEmX9o77qk4u2jKkgoavACZ9al1pS+EG8kgD42jQmoYNgve6IoDyXd2TI60LbSvSKHJrV0qJ6mIUZE00ycbt3b/5Xt5xcWaVW8ijz3kTYbnXzSsjbS4Fi8o8vs7Gr1uHtGS4L7bU7aPrhX29iQfuq8EUvlpZF2/nMmN976RWLFWHaP+KwmsIoglWww2Wb2NnvETXOdtb1MKjyxqcvob3gH58iJMpB1jVwyRLymqArAzRe6+REPx6V5VmwA2KrijNRYdgdYfi18luAoXyaWUSYxHRWcIAjGuMSd06VkRUfXgCa+ksakiukJt7ofJeclgyqLL1ZQQ5r6mrEnEXPEeePMDmYsLiNqJ9uiSe5zZ4VMwBj7mc6b9Cyab9QQhnzGWj/tnDk61ko/WpJQ2UMaLVymzkLRQhhtv3wnatC3zQHOq9TrnApMFVVdeYAVqbS6icreXtqWdMoho5o/yDZp6m8VDXvM6Jpxr/ulv9G2AdXhrbNLE8MzIO6XqxkFOKcytT0fv89MxwR6llHxIRRbxiG9WNQDMveuaSAP8mShH33LcaNRlvDF62udM8gPSq8xS0k7xj2N5fCofoNjdg7Y4cKBYxeFxBnQBAWX3eeY/Un6RqiZYxHka0pKT82CqYI9zWelY4LcFsb7lK5dnDc4yRRrIPN4XKntPVnFEPISVqgIRrGVEjz8s=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR18MB4722.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(38070700021)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?K09hUm85eE1WT1pZbDRkRTQra1JpbUJPNnk4V2YvQzJuOUtFdG5raFkydWhr?=
- =?utf-8?B?YzN3SUtmUG1PN3daTWMrWkVHaFhkVjdoUkZYdlZOMVNTdnhONTlmemtxNXd4?=
- =?utf-8?B?OWNaYlhrK0UvMzQ0VlBmY2xIZG9VRFg0K2JvdW9NN1k1Mk5FSVNGQU5nOFUz?=
- =?utf-8?B?OU1GaFlpL1hQOTN0VE5iTktoQ1dKamkwQmZZWG9ieEpFVjZiVjd5UHJDdXpR?=
- =?utf-8?B?dzM2dDdpVDl2TDVQRDNqZHJxV254SlZtZ2xYRnI3eGF1bU00MXREV0ZnVi82?=
- =?utf-8?B?SEF1TjUrYWpnamJyejA3ZHdTc3duRWc1NEgxdnJ4NHczMXI5STVlQmcvaFpl?=
- =?utf-8?B?cFdrTjg2MG9sY2U1YzVuQlNqdUNnM0hMb1lEWlJnMEJ5UHcyYlBVclY2RWJn?=
- =?utf-8?B?WjhqVTl4T0Q0alVKaTRZdng2N0NVV2pYWmVpbURhbGhaSWhlQ1lmWVZTdDVY?=
- =?utf-8?B?REM5eXdjdy92VGpTT3BRT25hUzNTTnN0enRWSmJpTVdwcWxzeE52cm1oUTNE?=
- =?utf-8?B?d2h3US8xQ1RJOGd2QklCUXdXenY0dTU5RkJmNjIwL2Y5SHdEVkpWdFZJMW43?=
- =?utf-8?B?b2htelJWOVAyT2ErTWhxbE0vdE9Jcm45dUNQWi9aNTdQam5PRHhMZkozUmJt?=
- =?utf-8?B?azA0aitBWDVNRWNnTU5DVzgrMFgwYnhQRm8vbDhkZ3RDVW9tTGgrOVNvaXN2?=
- =?utf-8?B?elBwWE9LSVFNUStKYi92cmJTa281bkpEUjRqUmZCcDNHaUVNZHY2RVRGQkc4?=
- =?utf-8?B?azZhUEJhRy9vSTFRaVRGa1oreWlQeWtFai90dnZUUjU5MmRETURXK25GWXFC?=
- =?utf-8?B?L3BPUjJ1bFk1ZlBqNUlETzlrWlMyU1pwbkhIc0tTWFQ1MHhTTFllSXZOdXpI?=
- =?utf-8?B?SW1ySHpRRlRFQXJoeWFtRU5xZWY1d0FGQnZySWVOWTJLRzVNL2NBUUdjWE4y?=
- =?utf-8?B?eTgvZUhFN0tBMFB2cU5iLzEyTkpCL2w4ZVlUaHpXd0VOSlRidE1SRmhjbjdD?=
- =?utf-8?B?emRnSXMxWlk3U2kyUFNVdHF4aDFhcUQ3YkRmL1p5MjhPSmhsbHlxcThVQmdy?=
- =?utf-8?B?WDd4Z1hFUGNEemxrbE5oSnZTVTlGekZSeVIxK2JHeFhDdStlV1RzTUwrejRC?=
- =?utf-8?B?MlpCN2IwRnN0Q1ZvTjY3eXdsZzVGdURDbDJlTE1hWG1QVjJLM3pDaW5MVVpZ?=
- =?utf-8?B?SWxUayt6R0tNU3hOTHllRlIwK3N2M3JzV0pINjlYMEUrNWR3Vm1vc3h5V0Zq?=
- =?utf-8?B?MWFUM3N1M3o1a3BvRGxVNzVFZHltQmQxLzFRNzhqUDZ5eENCa1pmeHhwemc0?=
- =?utf-8?B?TEgzdmJvS3RFZXhyMEhtNXZyd05nRmZCTi9LVVNXWWhBOTZBNlVmU0lLdENS?=
- =?utf-8?B?VkRyQkRLYzdsUVVRbDRodjRIcDBzaGNIU3RvV0w2WlluVEFkeEZpTHNxQjll?=
- =?utf-8?B?VlZIdGwrVFd2R1MwdkxRZ3dsalB4TmkveE9aMkpkTW5GMzRFQW5qQ0JJU0Fn?=
- =?utf-8?B?clMySGdRcWRqdzZzcHg0QlF3T2NpWVUxYzFyYnVjbjRBR3pNaWpuWTBMS0RS?=
- =?utf-8?B?VzN3dUFqbEd1dEhnSjk5amVwRU54YXltMGhxZHdGSkdSbVR3b1RQNDhQZXJ4?=
- =?utf-8?B?MXJDRGZGcFZKcFVEdTVEUkZWbmZDT043VDlBdVFOdXg5SU1aQUV6UklUTWIw?=
- =?utf-8?B?bnpKdFNmZXRkRUR3Mk5QcEdDb2NwMlJuODMyem1VVTlTbFhibHNVT0U3ajlt?=
- =?utf-8?B?TnNmc0NQUWg2VUUwWVB0UzhrbWFWNVBJbFQyWGM4b0lGR24yRXNyczg2d05n?=
- =?utf-8?B?WWtibDNScUx6M0JpcldLRGozWmdWeDgrSWtWaFFPbzFCUEl1ekdIVzBJOHlQ?=
- =?utf-8?B?Qi9Rd1dDOFBJSjB0TVAxMm5uaEF6aERHRjdWNjcwQVRUZTBabW1ZakVaUWpN?=
- =?utf-8?B?RmNoeHpTVmVEcHpCMmlsOVh2OURuQ000U2xVNC9NNGtQNE40R1hobTRyU1Zk?=
- =?utf-8?B?K091NjhFTFB1QWtrOXZQWVdoc0c0RWJENUJIY0loeng0U0ZjMURVd0pGSWJY?=
- =?utf-8?B?WkpCYXYwUEl1Y2lVNjd3Y1AycmwyaTRtVzhSdy85d09yMC9GUThtZXJENytW?=
- =?utf-8?B?OXh0Zkw1QVV0L0sxckY4dk1LZmxRQkRFdkpTWTVQcUUzUGtHTzhkSjJTV1Qr?=
- =?utf-8?B?QmJqdVlzR2ozWStjYUo0S3dUOEhzR0ZHYUlZK043b0g0d3pWdWtnSUdZVm1R?=
- =?utf-8?B?Mldza3dtOUNnQmFIUFBlZ2t1ZEJSRllHNEdWUTFMb2NOVE5SVkc0NVBvb1JX?=
- =?utf-8?Q?ZgM0yEd8Xwpyys5LAk?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlaYSpBh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25081F000FF;
+	Tue, 22 Sep 2026 10:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790071648;
+	bh=hwh+K2v/178tY1KA4Ry1KdU4gEsYtzRfHe28rjIAvaw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JlaYSpBhIogs5L+R0VqdS/wOu7Uup6pb/dxidITuX3OWvWO72fbVPcM+0pV1XIy/W
+	 FZ2uXAp95b1N6ZfVyywbSTIx8PcinVh1Mn03Rjb7FtGV1HFmuYP8caqjFG96zwzqUm
+	 zHKQ+7vLDnjg/Rrfd6xH+K1PjQ6+t5DvIU9M0J/FpCFUQIgxselxDKsSFFQlpvK4S/
+	 zRMJ3BOm9DJjIVxgi+0joF4DT/U1edWGVD1ufSFjt3J486N9WGka04SZbJIb6wr8MB
+	 TUuRZ4IeE9e1+J0KYj/qXJ8htdFt9Lf6gx5sQeIjRRKn1ePHA/jZgo+sHecZmcW9LP
+	 KMIu2YMQFt3Fw==
+Date: Tue, 22 Sep 2026 12:07:26 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"Ola Chr. Vaage" <ola.christoffer.vage@scoutdi.com>
+Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
+Message-ID: <arJTSEfkILPQmqNV@orome>
+References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
+ <b72b16cf704aa662a1b49805db284379d4fa4050.1789741839.git.u.kleine-koenig@baylibre.com>
+ <arEAjOHU4rH5aGqb@orome>
+ <arE932ZcHGB8RAN6@monoceros>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: hZ5/qmgvI9wtqQiEtWTFQiBo57Ja4qOwo8tAWN7VFrGe9Z/Kh96QmrMULidJU9lh6drJ0ieZhPJ0QQAmUp7YQzJMzykDOCLD1SbSAthbop2CNKVN1K1ASKFWSmL/zbXtRJCr91EmTgChR/T2jT0l1KTwN3BaIthTu8psFk/J9gwD7ITBF1Sj99v4VbDvA2Nf0wVcaf72kRcHvMEwOokaW5EODfLkhrszuiv6Zy/DvKETLkhd8Ei6GPVAKA5f+VpIldz08WfB787QmaGD2OQoNOIqxoOko1UJOMisTtga7qfoyCdws2f8ZspKyyxl09++FpKZLZDHcHRhrgG+xRtXcA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4722.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f185aab-35a0-44a2-2d7a-08df1891386a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 10:06:50.5611
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F5lOvFvnCubVtM1GSu+XwKhAasYEItI9iCYaSA2llTw2hNNFek9EozIyMjp/j2ntqMfkdng6sYLPGgzfLn/sXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR18MB4508
-X-OriginatorOrg: amazon.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yq6y463pp52ksygm"
+Content-Disposition: inline
+In-Reply-To: <arE932ZcHGB8RAN6@monoceros>
 
-T24gTW9uLCBTZXAgMjIsIDIwMjYgYXQgMTA6MjI6MDBBTSArMDIwMCwgUm9kb2xmbyBHaW9tZXR0
-aSB3cm90ZToNCj4gT24gVHVlLCBTZXAgMjIsIDIwMjYgYXQgMDg6MDg6MDlBTSArMDAwMCwgRmFy
-YmVyLCBFbGlhdiB3cm90ZToNCj4gPiBBZ3JlZWQgb24gc2lsZW5jaW5nIHRoZSBkZWZlcnJhbCBz
-cGFtLiBJIGF2b2lkZWQgcmV0dXJuDQo+ID4gZGV2X2Vycl9wcm9iZSgpIGJlY2F1c2UgcGF0Y2gg
-MyB0dXJucyBib3RoIHJldHVybnMgaW50byBnb3RvDQo+ID4gZXJyX3JlbGVhc2VfcGlucywgYW5k
-IGRldl9lcnJfcHJvYmUoKSdzIGlkaW9tIGlzIHRvIHJldHVybiB0aGUgZXJyb3IsIG5vdCBnb3Rv
-Lg0KPg0KPiBZb3UgZG9uJ3QgaGF2ZSB0byByZXR1cm4gaXQuICBDYWxsaW5nIGl0IGp1c3QgZm9y
-IHRoZSBtZXNzYWdlIGFuZCB0aGVuDQo+IGp1bXBpbmcgaXMgZmluZSwgYW5kIHJldCBhbHJlYWR5
-IGNhcnJpZXMgdGhlIGNvZGUgdGhlIGxhYmVsIG5lZWRzOg0KPg0KPiAgICAgICAgIGlmIChyZXQg
-PCAwKSB7DQo+ICAgICAgICAgICAgICAgICBkZXZfZXJyX3Byb2JlKGRldiwgcmV0LCAiZmFpbGVk
-IHRvIG1hcCBHUElPIHRvIElSUVxuIik7DQo+ICAgICAgICAgICAgICAgICBnb3RvIGVycl9yZWxl
-YXNlX3BpbnM7DQo+ICAgICAgICAgfQ0KPg0KPiBCdXQgcGxlYXNlIGRvbid0IG9wZW4tY29kZSBp
-dDogb24gdGhlIC1FUFJPQkVfREVGRVIgYnJhbmNoIGl0IGFsc28NCj4gY2FsbHMgZGV2aWNlX3Nl
-dF9kZWZlcnJlZF9wcm9iZV9yZWFzb24oKSwgc28gdGhlIGhhbmQtd3JpdHRlbiB2ZXJzaW9uDQo+
-IHNpbGVudGx5IGRyb3BzIHRoZSByZWFzb24gZnJvbSAvc3lzL2tlcm5lbC9kZWJ1Zy9kZXZpY2Vz
-X2RlZmVycmVkLg0KDQpEb25lIGluIHY1OiB0aGlzIHBhdGNoIHVzZXMgcmV0dXJuIGRldl9lcnJf
-cHJvYmUoKSwgYW5kIHRoZSBwaW5jdHJsIHBhdGNoDQp0dXJucyBpdCBpbnRvIHRoZSBsb2ctb25s
-eSBkZXZfZXJyX3Byb2JlKCkgKyBnb3RvIGZvcm0geW91IHNob3cgYWJvdmUuDQpBbHNvIGRyb3Bw
-ZWQgdGhlICI6ICVkIiBmcm9tIGJvdGggbWVzc2FnZXMgKGtlcHQgZGF0YS0+aXJxKS4NCg0KVGhh
-bmtzLA0KRWxpYXYNCg==
+
+--yq6y463pp52ksygm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
+MIME-Version: 1.0
+
+On Mon, Sep 21, 2026 at 04:26:03PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> Hello Thierry,
+>=20
+> On Mon, Sep 21, 2026 at 12:18:16PM +0200, Thierry Reding wrote:
+> > On Fri, Sep 18, 2026 at 04:33:47PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> > > The registers of the PWM IP are readable. Use that to implement the
+> > > .get_state() callback.
+> > >=20
+> > > Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
+> > > Tested-by: Ola Chr. Vaage <ola.christoffer.vage@scoutdi.com>
+> > > Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
+> > > ---
+> > >  drivers/pwm/pwm-tegra.c | 48 +++++++++++++++++++++++++++++++++++++++=
+++
+> > >  1 file changed, 48 insertions(+)
+> > >=20
+> > > diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> > > index b461d3877f43..0520d025c776 100644
+> > > --- a/drivers/pwm/pwm-tegra.c
+> > > +++ b/drivers/pwm/pwm-tegra.c
+> > > @@ -310,8 +310,56 @@ static int tegra_pwm_apply(struct pwm_chip *chip=
+, struct pwm_device *pwm,
+> > >  	return err;
+> > >  }
+> > > =20
+> > > +static int tegra_pwm_get_state(struct pwm_chip *chip, struct pwm_dev=
+ice *pwm,
+> > > +			       struct pwm_state *state)
+> > > +{
+> > > +	struct tegra_pwm_chip *pc =3D to_tegra_pwm_chip(chip);
+> > > +	int rc;
+> > > +	u32 val;
+> > > +
+> > > +	rc =3D pm_runtime_resume_and_get(pwmchip_parent(chip));
+> > > +	if (rc)
+> > > +		return rc;
+> > > +
+> > > +	val =3D tegra_pwm_readl(pwm, pc->soc->enable_reg);
+> > > +	if (val & TEGRA_PWM_ENABLE) {
+> > > +		u32 scale, pwm0;
+> > > +
+> > > +		if (pc->soc->enable_reg !=3D TEGRA_PWM_CSR_0)
+> > > +			val =3D tegra_pwm_readl(pwm, TEGRA_PWM_CSR_0);
+> > > +
+> > > +		scale =3D (val >> TEGRA_PWM_SCALE_SHIFT) & ((1 << pc->soc->scale_w=
+idth) - 1);
+> > > +		pwm0 =3D (val >> TEGRA_PWM_DUTY_SHIFT) & (2 * TEGRA_PWM_DEPTH - 1);
+> > > +
+> > > +		if (pwm0 > TEGRA_PWM_DEPTH)
+> > > +			pwm0 =3D TEGRA_PWM_DEPTH;
+> >=20
+> > It feels like this has too many assumptions built-in. That's mostly a
+> > predefined issue, but I think if we want to get accurate hardware read-
+> > out, we need to address this.
+> >=20
+> > According to the register documentation, the PWM depth is 16 bits wide
+> > (on generations where it can be programmed). The value defaults to 255
+> > (which is n - 1 encoded, hence TEGRA_PWM_DEPTH), but it can technically
+> > be reprogrammed to any 16-bit value, as far as I can tell.
+> >=20
+> > So I think for this to be correct we'd need to read out the actual value
+> > before overwriting with TEGRA_PWM_CSR_0 contents above. At that point I
+> > think we'd need to either adjust the mask to be (2 * depth) - 1, or
+> > maybe better yet, avoid masking it out arbitrarily based on the depth
+> > and instead cap it at depth so we never exceed the 1:1 ratio for duty
+> > cycle vs. period.
+>=20
+> As long as .apply() also hardcodes TEGRA_PWM_DEPTH, it's IMO fine that
+> .get_state() does so, too.
+
+Okay, fair enough.
+
+Thierry
+
+--yq6y463pp52ksygm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqyU10ACgkQ3SOs138+
+s6F4MQ/9EH+9WXVcAEauSWTHfQfBYZQong8bCSxqlh3YXSdOH6+QS9T54+FeEhdw
+tLyg1gIzLCg3Dzex/nkGeQo/hC90bUo7LhRKajdj8BH78QOE4Jcrf66tbd1FXutX
+c0O/uLyWwtAL4NUr45fE9evQqPMYmzbCz7HMe1lxo3zCsfZz3iUdOTDvrm1l7QG5
+W0aI7Yu88rd3OjlH6jMEd1o6VIS4reYiERNRCcjr26faAE696ydA+5oUVkwXI2JZ
+s++Nr6AARi4cFmZPJDaPpxPjZpNzZ18slrBNrKvSWXblRowXuya1zx9pyiMXl7n8
+BU0vhWo6E/1Zb4cm1k0HySUEVOTVsGLQWT8ztvUJEiCAd+1VeNRqmPY/tVd9gvZR
+dZl5LuU8PFm7GvhWi97B5CAQbzwf5/kb9KdfOcZKPgamQz6Hx+FaHC/VDtWypoU7
+thp9l7fiL8wGjp0gxxIdKZL5oLa/qwUGHhsj7qQF+LefIv2XmE+w+IeuR9dvgueG
+nZSv2nAy0MP2pBZ5nEysp5Hoip/mKhHSXsRg0DXeUNG6b4p8Il1AGnBHAR8TO/rF
+3DAmTsfdLfjEFnGfx1SPGf1yfjCyTxJZn2S6Tys6MplLklFJ0lRnWFSNtmwwa9jY
+EATSv8FgXgZZwXoVfn6ZDErO0HpF/66pNKbQOIZFXkjaNsSJLWg=
+=YvDB
+-----END PGP SIGNATURE-----
+
+--yq6y463pp52ksygm--
