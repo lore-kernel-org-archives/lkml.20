@@ -1,73 +1,74 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7324F3FB7E5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7A44D7D22;
+	Tue, 22 Sep 2026 06:57:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060228; cv=none; b=l43NGNYyukgTLhALzubSKxIp3thEUmxXPjCFAYk3TMgF3Qa5qGgpxT1kEiHcA+JU4xD83csPvz/Y4hTdPyzIpv/tcVxZwfU7wXWB41O3k9WjK6H+5YikpEsQcYwAGpOTwexk4tgPfoxpbrgAnccObqQCp/Ulh8Zu+Lsv4ELK4rA=
+	t=1790060233; cv=none; b=mdyPqRFeUTNkLyABBUlOeX6WE8DXeZAkW0yp135o+Oosekq/FOa3B//udllVP2XR8+5McZtop3NkLqUr8938wBlXM3gbo1eKv8/EhPyWHa8fqcpzQhWd7BGZBr8TqCooNGmEmMmzhNUAN8GazkSEd7CebAHn8LbR46gbz+i7P9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060228; c=relaxed/simple;
-	bh=+IoaEDXnfPSUrh2gxBIEr1kH9Oyr6hWNf51/Xd+wFWs=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=BHo1hT/2FB5ebU6Xn17j4VyyAMw/1vIn2jAwLkT46gG+46+x+Tft5q9sxLd63StceJU2On1Qg4PR28RzVst3siaae9LngBdf34F8B+8TBsO1c7kQ8L2ZIGEoNuexmL/VXjF8vLkxyDMWFj57Z7yqVea2r0Rsc1m0v4oQtPkTkTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-805da97443aso5628925a34.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:57:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790060222; x=1790665022;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bLYPkbKmrWc2RdkLV1ci/YjwOlLfoUFhydxEr/gxdG8=;
-        b=ZAR+DJF1OsfrkdZqamfCf0ag9mYXNZ2XTUdSdOT6MIHyzBZxlSC+QvkaYB2/O9Qxut
-         Q/YO6UCGPoi0UXmbtOGtji3xjoq96jlUuPJYhcqCoqkXIMeenEHYDB5fC72JtZ8S9mBL
-         RlZgc7JWYuftMU+x/7CFaBkPNGf/m4cXCHXh25c8gSvauORlKSeDVqx27Bb1Gxzo7FW2
-         vvfJB3tcCpe0JieLXm/bn2eige9WZALxXqexKFmzNGwPOIFUgGMajxJLJ+DqijuRahOW
-         JTjOzcUJc1VbGI1hzTbIzT2j2iDS2zHM6p6nauE0FW19HVEaabOF97A66PJ05k+LlLaX
-         mmAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfOGDus7uo4BsMV1jS1i2ag2RSlFpFRe5j6oEiN/2AU77j9p/ofTX9vN1iKGRtrnLgN8vRD4ynw1qoRic=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2tAVoc2a68risx+L98BcCzB1Cgm6Z1FxR3DLUpHkEqby0fVDS
-	TkvY+1yxZvEFXjnAPFXWUWMD+txcV8xeocn4lHHZ4uW6SBrRroI0EH38bjqND2s3BA0RIxeYBp4
-	2Qg2zgO6Gcwn3x89MkL0xLMonfNJ9cygzM21UX6UMvF+I5IPMwx+Av0r8Z3Y=
+	s=arc-20240116; t=1790060233; c=relaxed/simple;
+	bh=1d/dvcHxVamna9owaFeoSOXs3fDbPWjgtvVHJ9x58IE=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=IttfEl0aMB7N1rQReIXj0MhZAhQuqbsaLWwOl5Feec4SN2FcplPdlH/S0bk5/Z0rFTt64CVd43gZJ/GWSVudmm6GNC1wwbk1vKBYT7kwOW76qVAiA8q+2fYknU0YSTzpSRW2g4Ek20QYS4mTewMFytD6NfrE/1yollz+67gSIik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TDo0ofYb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TDo0ofYb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B991F00898;
+	Tue, 22 Sep 2026 06:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790060223;
+	bh=1d/dvcHxVamna9owaFeoSOXs3fDbPWjgtvVHJ9x58IE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc;
+	b=TDo0ofYbNdfgzlG8qaMtA+hOaXzI2f+8O7RhKvtC64oAxw5fY99+Xnmpn4wuSn1k/
+	 UFu1OOvp2Y+3cDkZCdyu8ToN+hSihOfZ6cIqvShfoUL3SY+CbYSlsweV1In9DuAobn
+	 STQEIh6E7UqqP0lkiUPyBOVRhKndm6Dg5wROir+eZsX5I+1nyyew2NF26rf7yj3rRE
+	 vIkNS3s0GDFHUxy2TYFchLghJvCIFbA6HR/9eZOTUGyPoP4f1wgH1CTIXFhybpxNEM
+	 GMK6KQfYL+R/4HGOjBKfQN89DJMtXwJEDfsFr4ODWV1iocn/bH64X/PssKOFOp6jIC
+	 6rraVpPj7OLzg==
+Message-ID: <3925411c892a96d8e72872191a915deb@kernel.org>
+Date: Tue, 22 Sep 2026 06:56:59 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v3 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-5-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-5-83afb4f1a707@bootlin.com>
+Cc: asahi@lists.linux.dev, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org, "Albert
+ Esteve" <aesteve@redhat.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Anusha
+ Srivatsa" <asrivats@redhat.com>, "David Airlie" <airlied@gmail.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Fabio Estevam" <festevam@gmail.com>, "Frank
+ Li" <Frank.Li@nxp.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Inki
+ Dae" <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang" <jesszhan0024@gmail.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>, "Jonathan Corbet" <corbet@lwn.net>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Linus
+ Walleij" <linusw@kernel.org>, "Lucas Stach" <l.stach@pengutronix.de>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maxime
+ Ripard" <mripard@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Paul
+ Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Randy Dunlap" <rdunlap@infradead.org>, "Robert
+ Foss" <rfoss@kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Sean
+ Paul" <sean@poorly.run>, "Shuah Khan" <skhan@linuxfoundation.org>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4df8:b0:6a0:f44b:1265 with SMTP id
- 006d021491bc7-6d18d613260mr1310565eaf.4.1790060221852; Mon, 21 Sep 2026
- 23:57:01 -0700 (PDT)
-Date: Mon, 21 Sep 2026 23:57:01 -0700
-In-Reply-To: <b91ecde2db1cf37b070e3a7ef960d43bedce8873.1790058978.git.xiaopei01@kylinos.cn>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab226bd.3179f8cd.1e36b2.0027.GAE@google.com>
-Subject: Re: [syzbot] [comedi?] UBSAN: shift-out-of-bounds in dt2811_attach
-From: syzbot <syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com>
-To: abbotti@mev.co.uk, hsweeten@visionengravers.com, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiaopei01@kylinos.cn
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+On Wed, 16 Sep 2026 15:45:29 +0200, Luca Ceresoli wrote:
+> Adding a drm_panel does currently not add a panel_bridge wrapping
+> it. Usually the panel_bridge creation happens later, when some other driv=
+er
+> (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and the
+> following element in the pipeline is a panel.
+>=20
+>=20
+> [ ... ]
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-Tested-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         f0100363 Merge tag 'xfs-fixes-7.3-rc5' of gitolite.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13e6f45e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=a4cedab706d0a8a3f988
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=16dfea71580000
-
-Note: testing is done by a robot and is best-effort only.
+Thanks!
+Maxime
