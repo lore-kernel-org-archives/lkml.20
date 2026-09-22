@@ -1,342 +1,192 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051DB4E06F4
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060243; cv=none; b=GzJlxsbWoD8RnKAKKiVbH3zUE9C0COZUwnKUEqQBB2TDnxGaaGrlMf5bzmnJM9PtbSOT5858ucMswHbpohe2llLDTcW3pzkPiyeuCCJPG5cAjqzVlw401jEWkYIPVGqyLWy+Poxt3RfHMtW4H9z/aOSnQ+IyniwFtBTbuk8kCMQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060243; c=relaxed/simple;
-	bh=Kz9XeK25k841297cPqD210/bA3iaqEXTDrvRnP+1/yI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AlDRaexorecI7I4ZMaLpERKSXaMNyqJ9NfV71o7bc/xSYbMxjtaD5JSW8NGhA60yHdQA497SBystND0SHtXvx2AD/WuW8nUPjd/lYr6JZpbaaD5wGiex7Lqj2Qwr8txgMLz/mIllZzL8iO4hbCKSNu+HSCYh684mnlaurqbYI/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=N5Ekxba3; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3564E13E9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790060244; cv=pass; b=aNKVNdBJiQiKZcjwOgcb+rqyvMwsgjxkrYvIKC1ihidtgKL5rytGe9h6HQ/HJN8oc5r637ge1b9SKu26H9Wrq+WBa5ty00vTdQSwcroCWQzpvWO8kSayDtqUfEQIfFZyKYrWpwOiHsio3H/0i4MFa9BWxaFsfPB77jWfHPSeMSs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790060244; c=relaxed/simple;
+	bh=gulGgmIcxQuucEmM7OxaEIEnWr9tYGmjARauLmlnFhI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P9lfzbHLGpazrlIp6IiySgQbG6Kf5+RU4EID2GmFBZp3URR5BBNPIfRrzA0DQGFmEwgPQJ2bfjTNYYTI0KvTnj4/QGgGarSbcK9zNNLOXsECh/QLRNdRCQonwlOBLSZAiY7QuOypJZ1KQ088y81ZH2J8sz7854rs/j/QX0FfUaE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bu75orBv; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="N5Ekxba3"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790060227; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=wsj0O5bkjoy8IbmWNVJCqX6+ZVUE5t5Oc6nFsv1ksXk=;
-	b=N5Ekxba3GzOoWXrqttl+6RPeQh9ZR5LBk2B/Yx3SUWWGuHsW6d8Ej60Y1IpR7kpa3XiP5KojxGaEM08Nuu79fuvvzeFj/S6llIp66IQt38iSyNOeiQTmCASMwrH1J4opfZ8DgcBbz/byFpXK/Tpl7IHOzzPmlSdXJDXXrZueDFk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=kanie@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XBT.zS4_1790060225;
-Received: from 30.178.81.152(mailfrom:kanie@linux.alibaba.com fp:SMTPD_---0XBT.zS4_1790060225 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 14:57:06 +0800
-Message-ID: <a999cd33-c857-4c3a-9643-4c0add9679ae@linux.alibaba.com>
-Date: Tue, 22 Sep 2026 14:57:04 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bu75orBv"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66fded6b087so3649080d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:57:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790060238; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UhcMCbwUX+MUXyLTbhivVMplSH2fcJiqHXTZ/lDzPOufEYVOUWbODcZMg2kG3wzdyq
+         BxbBwQGcEWrKW88E4R96+ue4OAvOSLfNm/hUCMdsraZmLtxgEXimmN5ku/Xhmej0m9Ql
+         EVX0s7oJ8/BmnUslUis+pdNSeWZ+om6/vGaS32tZwXDkI0ZjchdWjvtgkEhd38A9wQs+
+         RdVICLZHBP4xgWXlcjaZ2sLjrh+wgEZiV4I6HBECBlGELjB5fKSbIT7vMZw2CaLLS6gF
+         IMbDLEAEILQR+nHf7hoWqqhp8USxhuMfyGyEzwl0VlzsaQXF6L65BJIk9iDYx6qxmg12
+         RMGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=U4KectJeHaQp5P1/3b8Vu0MT+3IcZMHOfvXwrVXtfrY=;
+        fh=h1thQq0RJ1Bbh1kb2lC6hnZWLyVF16Q8XBSCjmrN8/4=;
+        b=L3Pj/Ln0V96JZNT1Hr2tetyjQVWMgyNbyC2pcL6s09L8vz6oyLjX7ShG3upZBX8LIb
+         c3r8AwJS+AqMextb+tnXvkwCnIBErzLYIygdnY0fy6TduuLC/vwfZ36pemHk1TeGLYyS
+         +h9DLGTfzrNawmtE3Jp+jWG4s/8ooVrGeOuXJrldIYqzzVB7FuqMPRjvcgCKvDhPBCrI
+         0hDGJGUOMau5Vbndpl+FRd5bkwI7t8BZup92f1jOvbG3QYztcXiNejjF8tukiIvpFA0v
+         C7VI8YajBPio/gU4+rQpftS0UXiMVnOmvbrcYeoxlfC+whpzc9f9FTAABccdk/sKOwwk
+         1MkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790060238; x=1790665038; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U4KectJeHaQp5P1/3b8Vu0MT+3IcZMHOfvXwrVXtfrY=;
+        b=Bu75orBvitgScQyBYo1pcGk5u/AVi62vH7nW+tEDgqRNof7PYMjtQl013t51uu/ZGE
+         fodfN9QN2BhaKvShx0NhGBoYmcmerkrTXr+TzGYVELNs8EKwH6Fta/ZgdWUPfvJUZbMv
+         LxpyMNasRkKw4ZnXkq74Nd4f3IepA6pAtNK8+hkzvvP3fcfG7yPn4ljBmg5BBhWxZqdE
+         yhnl1aidJoMimUIzUuIQxyfCEdJlC40jGl8FSk2re7YkD2xgUqMtJtaCxeXalCJHOR6H
+         ixEr5s8G9HXc+cXzat4SwVmUDO8PdwtIfsCrMxjd3a2IKCrDmFN6Yq4XBGjnuZNY3dBJ
+         dzxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790060238; x=1790665038;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=U4KectJeHaQp5P1/3b8Vu0MT+3IcZMHOfvXwrVXtfrY=;
+        b=i+UDGi8m5cQp0+YxSSJBwUI7nZc4LhlFXV1zVJKLUFercRvHoNXhOQ6+shwMaarP6N
+         FQvPdSVOW22V6cBWkwIvHOLm+4XpVJU1waWq8mXZrSXJDSIKxZWa9cv7znS+pv+FV8UW
+         r4EPkST3UroElGRK4oJlqYnaqwQXj8wUNR7qP+FympLTfxcE2n+AIZLUnPfRbt63aHPr
+         sbd2zKxmvxynJsWASJNhSBAcmiHlxbLyTkJhm8nMtJDt5NP6zJQiNk5Ih6Q+UiAbME6t
+         i5nxmt2dvnMmUoUMdr6lCt7LZGJY0yJ0qitu0AMFtSCL9UpNeCUOw1lbA3gV3BnYZVVc
+         HSnA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUi+JN9g4jBs+bx+nj1MWHffV/CI88xL3Y14YFgQpAGkusRnnKgxWOj3F+yy65FIivWwonmRPs/wDcGQU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXGHZrCg/10CIusQPXCkI22G6K0CAzmxH9Dxn1XwlQjoBquz8x
+	DVz379WPZWRcQ3Nf+z5LdJwFSP5p62O0Cf1nkP4tzCYeKL0PzqREnFkZUbL3vtXeTqeDXMuFCMY
+	5beuBxrn0xQt1BPA75m8wuCZ3iI1RQcA=
+X-Gm-Gg: AYBFou3RPa6maL/0cvil2ONyaC1MJxxjWFBqTHCGuPvDawpiW1K8kia1t2/yHK6fcp/
+	xk/0q2nXG8R5l/XytvDeI6T5ddhPk7QMolo9VKOoOe47yKee4AGPyAtgCblJMglaZWHy7kayMuJ
+	VMHC02noNK+XX33qiN8jyhQ6+U1eQ9cbIzFGxiQ232sMV7BL1VaLjtJLc8RdamV1l4YcbUTyQD4
+	/X0zyNfS0czN3n2zkSq5vamuIF856gqNJyhdDfyvhpRzeCEbzX/vIxMBOxQKS7nUEl6m6TCkqZ8
+	Y80cLGoK8VAnlG1FPEPl1eAZY6aFjpG6vVT4Kdt47nmsjCOtJjrXW7Qy2A==
+X-Received: by 2002:a05:690e:1505:b0:671:26c4:3ac6 with SMTP id
+ 956f58d0204a3-6717fcb4a0bmr4394504d50.37.1790060238169; Mon, 21 Sep 2026
+ 23:57:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/24] iommu/amd: Program IOMMU DTE with the private
- IPA domain
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
- Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
- wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com, guanghuifeng@linux.alibaba.com
-References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
- <20260914184750.222939-14-suravee.suthikulpanit@amd.com>
-From: Guixin Liu <kanie@linux.alibaba.com>
-In-Reply-To: <20260914184750.222939-14-suravee.suthikulpanit@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260921092128.346375-1-lgs201920130244@gmail.com> <20260921115423.GD1466037@killaraus.ideasonboard.com>
+In-Reply-To: <20260921115423.GD1466037@killaraus.ideasonboard.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 14:57:05 +0800
+X-Gm-Features: AcwNN1WVoOYZCsSEVw6iHCW5xpwHzTDhebwFRSBQ8UxzNV5HWEqjVLiq3FnnnXA
+Message-ID: <CANUHTR86sJ_W+0WHHWM1EA_5SASER5OBhZJR-=jmhQd9vuUyqA@mail.gmail.com>
+Subject: Re: [PATCH v2] leds: flash: sgm3140: fix child node reference leak
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Jonathan Cameron <jic23@kernel.org>, 
+	Luca Weiss <luca@lucaweiss.eu>, linux-leds@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Laurent,
 
-
-在 2026/9/15 02:47, Suravee Suthikulpanit 写道:
-> The IOMMU PCI function does not go through the normal device attach
-> path, so it has no iommu_dev_data. Add amd_iommu_alloc_dev_data()
-> and amd_iommu_free_dev_data() for a synthetic object that is not
-> interned in pci_seg->dev_data_xa. Program that DTE with the private
-> IPA domain's v1 page table so the IOMMU can DMA to its own vIOMMU
-> backing store.
+On Mon, 21 Sept 2026 at 19:54, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
 >
-> Leave the synthetic DTE off pdom->dev_list and with no struct
-> device so clone_aliases() is skipped; it is only iommu->devid.
-> Rewrite it from amd_iommu_change_top() when the IPA table grows
-> so later high maps remain reachable.
+> Why did you submit a v2 ignoring my latest comments on v1 ?
 >
-> Do this after viommu_private_space_init() so viommu_pdom exists.
-> Clear the DTE and free the object on teardown. Failed self DTE
-> allocation unwinds through amd_viommu_uninit().
+> On Mon, Sep 21, 2026 at 05:21:28PM +0800, Guangshuo Li wrote:
+> > sgm3140_probe() obtains a reference to the LED child node with
+> > device_get_next_child_node(), but the reference is not released after a
+> > successful probe.
+> >
+> > The child node is also passed to devm_led_classdev_flash_register_ext().
+> > The LED class device stores the fwnode without taking a reference of its
+> > own, so the reference obtained by sgm3140_probe() must remain valid until
+> > the LED class device is unregistered.
+> >
+> > Manage the child node reference with a devm action registered before the
+> > LED class device. This ensures that the LED class device is unregistered
+> > before the child node reference is dropped, while also handling probe
+> > failure and device removal.
+> >
+> > Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> > v2:
+> >   - Keep the child node reference alive until the LED class device is
+> >     unregistered, as pointed out by Laurent Pinchart.
+> >   - Manage the reference with a devm action registered before the LED
+> >     class device registration.
+> >
+> >  drivers/leds/flash/leds-sgm3140.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
+> > index dc6840357370..973676b1dbb1 100644
+> > --- a/drivers/leds/flash/leds-sgm3140.c
+> > +++ b/drivers/leds/flash/leds-sgm3140.c
+> > @@ -182,6 +182,11 @@ static void sgm3140_init_v4l2_flash_config(struct sgm3140 *priv,
+> >  }
+> >  #endif
+> >
+> > +static void sgm3140_fwnode_put(void *data)
+> > +{
+> > +     fwnode_handle_put(data);
+> > +}
+> > +
+> >  static int sgm3140_probe(struct platform_device *pdev)
+> >  {
+> >       struct sgm3140 *priv;
+> > @@ -220,6 +225,10 @@ static int sgm3140_probe(struct platform_device *pdev)
+> >                       "No fwnode child node found for connected LED.\n");
+> >               return -EINVAL;
+> >       }
+> > +     ret = devm_add_action_or_reset(&pdev->dev, sgm3140_fwnode_put,
+> > +                                    child_node);
+> > +     if (ret)
+> > +             return ret;
+> >
+> >       ret = fwnode_property_read_u32(child_node, "flash-max-timeout-us",
+> >                                      &priv->max_timeout);
+> > @@ -276,7 +285,6 @@ static int sgm3140_probe(struct platform_device *pdev)
+> >       return ret;
+> >
+> >  err:
+> > -     fwnode_handle_put(child_node);
+> >       return ret;
+> >  }
+> >
 >
-> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-> ---
->  drivers/iommu/amd/amd_iommu.h       |   4 ++
->  drivers/iommu/amd/amd_iommu_types.h |   2 +
->  drivers/iommu/amd/iommu.c           | 102 +++++++++++++++++++++++++---
->  drivers/iommu/amd/viommu.c          |  48 +++++++++++++
->  4 files changed, 148 insertions(+), 8 deletions(-)
+> --
+> Regards,
 >
-> diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
-> index 9cc5da745a73..6ac64524208b 100644
-> --- a/drivers/iommu/amd/amd_iommu.h
-> +++ b/drivers/iommu/amd/amd_iommu.h
-> @@ -50,6 +50,10 @@ extern u8 amd_iommu_hpt_vasize;
->  extern unsigned long amd_iommu_pgsize_bitmap;
->  extern bool amd_iommu_hatdis;
->  
-> +struct iommu_dev_data *amd_iommu_alloc_dev_data(u16 devid);
-> +void amd_iommu_free_dev_data(struct amd_iommu *iommu,
-> +			     struct iommu_dev_data *dev_data);
-> +
->  /* Protection domain ops */
->  void amd_iommu_init_identity_domain(void);
->  struct protection_domain *protection_domain_alloc(void);
-> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-> index d02f49a39a90..4b48ec8bacd6 100644
-> --- a/drivers/iommu/amd/amd_iommu_types.h
-> +++ b/drivers/iommu/amd/amd_iommu_types.h
-> @@ -814,6 +814,8 @@ struct amd_iommu {
->  	struct ida gid_ida;		 /* guest IDs for this IOMMU */
->  
->  	/* HW vIOMMU support */
-> +	/* Synthetic IOMMU-self DTE; not in pci_seg->dev_data_xa or pdom->dev_list */
-> +	struct iommu_dev_data *viommu_dev_data;
->  	struct protection_domain *viommu_pdom;
->  	void *viommu_priv_region[VIOMMU_PRIV_SUBREGION_CNT];
->  };
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index 2b039f38f9ef..bcbd5af75d00 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -217,7 +217,12 @@ void amd_iommu_update_dte(struct amd_iommu *iommu,
->  			     struct dev_table_entry *new)
->  {
->  	update_dte256(iommu, dev_data, new);
-> -	clone_aliases(iommu, dev_data->dev);
-> +	/*
-> +	 * Synthetic DTEs (vIOMMU self, translate-device-id) leave
-> +	 * dev_data->dev NULL so clone_aliases() is skipped.
-> +	 */
-> +	if (dev_data->dev)
-> +		clone_aliases(iommu, dev_data->dev);
->  	device_flush_dte(iommu, dev_data);
->  	iommu_completion_wait(iommu);
->  }
-> @@ -391,14 +396,13 @@ static struct amd_iommu *rlookup_amd_iommu(struct device *dev)
->  }
->  
->  /*
-> - * Allocate an immortal per-devid object stored in pci_seg->dev_data_xa.
-> - * These are never erased: amd_iommu_release_device() keeps them for
-> - * replug, and IRQ/DTE paths look them up locklessly via xa_load().
-> + * Allocate a synthetic DTE object that is not inserted into
-> + * pci_seg->dev_data_xa. Lifetime is owned by the caller (vIOMMU
-> + * self DTE or translate-device-id).
->   */
-> -static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
-> +struct iommu_dev_data *amd_iommu_alloc_dev_data(u16 devid)
->  {
-> -	struct iommu_dev_data *dev_data, *old;
-> -	struct amd_iommu_pci_seg *pci_seg = iommu->pci_seg;
-> +	struct iommu_dev_data *dev_data;
->  
->  	dev_data = kzalloc_obj(*dev_data);
->  	if (!dev_data)
-> @@ -408,6 +412,22 @@ static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
->  	spin_lock_init(&dev_data->dte_lock);
->  	dev_data->devid = devid;
->  	ratelimit_default_init(&dev_data->rs);
-> +	return dev_data;
-> +}
-> +
-> +/*
-> + * Allocate an immortal per-devid object stored in pci_seg->dev_data_xa.
-> + * These are never erased: amd_iommu_release_device() keeps them for
-> + * replug, and IRQ/DTE paths look them up locklessly via xa_load().
-> + */
-> +static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
-> +{
-> +	struct iommu_dev_data *dev_data, *old;
-> +	struct amd_iommu_pci_seg *pci_seg = iommu->pci_seg;
-> +
-> +	dev_data = amd_iommu_alloc_dev_data(devid);
-> +	if (!dev_data)
-> +		return NULL;
->  
->  	old = xa_cmpxchg(&pci_seg->dev_data_xa, devid, NULL, dev_data,
->  			 GFP_KERNEL);
-> @@ -428,6 +448,22 @@ struct iommu_dev_data *search_dev_data(struct amd_iommu *iommu, u16 devid)
->  	return xa_load(&iommu->pci_seg->dev_data_xa, devid);
->  }
->  
-> +void amd_iommu_free_dev_data(struct amd_iommu *iommu,
-> +			     struct iommu_dev_data *dev_data)
-> +{
-> +	if (!dev_data)
-> +		return;
-> +
-> +	/*
-> +	 * PCI/alias objects in the xarray are immortal. Never kfree
-> +	 * those; synthetics must not be stored there.
-> +	 */
-> +	if (WARN_ON_ONCE(search_dev_data(iommu, dev_data->devid) == dev_data))
-> +		return;
-> +
-> +	kfree(dev_data);
-> +}
-> +
->  static int clone_alias(struct pci_dev *pdev_origin, u16 alias, void *data)
->  {
->  	struct dev_table_entry new;
-> @@ -1826,7 +1862,11 @@ static int device_flush_dte(struct amd_iommu *iommu, struct iommu_dev_data *dev_
->  	u16 alias;
->  	int ret;
->  
-> -	if (dev_is_pci(dev_data->dev))
-> +	/*
-> +	 * Synthetic DTEs leave dev_data->dev NULL; flush iommu->devid
-> +	 * rather than walking PCI DMA aliases.
-> +	 */
-> +	if (dev_data->dev && dev_is_pci(dev_data->dev))
->  		pdev = to_pci_dev(dev_data->dev);
->  
->  	if (pdev)
-> @@ -2770,6 +2810,51 @@ static spinlock_t *amd_iommu_get_top_lock(struct pt_iommu *iommupt)
->  	return &pdom->lock;
->  }
->  
-> +#if IS_ENABLED(CONFIG_AMD_IOMMU_IOMMUFD)
-> +/*
-> + * The vIOMMU private IPA domain programs a synthetic DTE for the
-> + * IOMMU's own requester ID so hardware can DMA to backing store.
-> + * That object is not on pdom->dev_list: it is not an IOMMU-API
-> + * attach, and walkers such as rlookup and clone_aliases assume a
-> + * real struct device.
-> + *
-> + * amd_iommu_change_top() therefore misses it. Early maps fit under
-> + * the initial page-table top (PT_FEAT_DYNAMIC_TOP). Later DevID and
-> + * DomID maps at high IPA call increase_top(); the old root stays
-> + * live as a child of the new one, but the self DTE still holds the
-> + * old MODE and would not translate those IOVAs.
-> + *
-> + * Walk iommu_array (from amd_iommu_pdom_bind_iommu()) and rewrite
-> + * iommu->viommu_dev_data when this domain is that IOMMU's private
-> + * IPA table. set_dte_entry() skips clone_aliases() because the
-> + * synthetic DTE has no struct device.
-> + */
-> +static void update_viommu_self_dte(struct protection_domain *pdom,
-> +				   phys_addr_t top_paddr,
-> +				   unsigned int top_level)
-> +{
-> +	struct pdom_iommu_info *pdom_iommu_info;
-> +	unsigned long i;
-> +
-> +	lockdep_assert_held(&pdom->lock);
-> +
-> +	xa_for_each(&pdom->iommu_array, i, pdom_iommu_info) {
-> +		struct amd_iommu *iommu = pdom_iommu_info->iommu;
-> +
-> +		if (iommu->viommu_pdom != pdom || !iommu->viommu_dev_data)
-> +			continue;
-> +		set_dte_entry(iommu, iommu->viommu_dev_data, top_paddr,
-> +			      top_level);
-> +	}
-> +}
-> +#else
-> +static inline void update_viommu_self_dte(struct protection_domain *pdom,
-> +					  phys_addr_t top_paddr,
-> +					  unsigned int top_level)
-> +{
-> +}
-> +#endif
-> +
->  /*
->   * Update all HW references to the domain with a new pgtable configuration.
->   */
-> @@ -2792,6 +2877,7 @@ static void amd_iommu_change_top(struct pt_iommu *iommu_table,
->  		device_flush_dte(iommu, dev_data);
->  	}
->  
-> +	update_viommu_self_dte(pdom, top_paddr, top_level);
->  	domain_flush_complete(pdom);
->  }
->  
-> diff --git a/drivers/iommu/amd/viommu.c b/drivers/iommu/amd/viommu.c
-> index 89d6dc520b2c..3ec907a498c2 100644
-> --- a/drivers/iommu/amd/viommu.c
-> +++ b/drivers/iommu/amd/viommu.c
-> @@ -40,11 +40,55 @@ static void __init amd_viommu_vf_vfcntl_unmap(struct amd_iommu *iommu)
->  	}
->  }
->  
-> +
-> +static void viommu_free_self_dev_data(struct amd_iommu *iommu)
-> +{
-> +	struct iommu_dev_data *dev_data = iommu->viommu_dev_data;
-> +	struct dev_table_entry new = {};
-> +
-> +	if (!dev_data)
-> +		return;
-> +
-> +	amd_iommu_make_clear_dte(iommu, dev_data->devid, &new);
-> +	amd_iommu_update_dte(iommu, dev_data, &new);
-Should check viommu_cmdbuf_enabled() first? If enabled then update dte.
+> Laurent Pinchart
 
-Best Regards,
-Guixin Liu
-> +	amd_iommu_free_dev_data(iommu, dev_data);
-> +	iommu->viommu_dev_data = NULL;
-> +}
-> +
-> +static int viommu_alloc_self_dev_data(struct amd_iommu *iommu)
-> +{
-> +	struct protection_domain *pdom = iommu->viommu_pdom;
-> +	struct pt_iommu_amdv1_hw_info pt_info;
-> +	struct iommu_dev_data *dev_data;
-> +	struct dev_table_entry new = {};
-> +
-> +	dev_data = amd_iommu_alloc_dev_data(iommu->devid);
-> +	if (!dev_data) {
-> +		pr_err("%s: Failed to allocate dev_data\n", __func__);
-> +		return -ENOMEM;
-> +	}
-> +	/*
-> +	 * Synthetic DTE for iommu->devid only: no struct device, so
-> +	 * amd_iommu_update_dte() skips clone_aliases(), and not on
-> +	 * pdom->dev_list (not an IOMMU-API attach).
-> +	 */
-> +	dev_data->dev = NULL;
-> +	dev_data->domain = pdom;
-> +	iommu->viommu_dev_data = dev_data;
-> +
-> +	amd_iommu_make_clear_dte(iommu, iommu->devid, &new);
-> +	pt_iommu_amdv1_hw_info(&pdom->amdv1, &pt_info);
-> +	amd_iommu_set_dte_v1(dev_data, pdom, pdom->id, &pt_info, &new);
-> +	amd_iommu_update_dte(iommu, dev_data, &new);
-> +	return 0;
-> +}
-> +
->  static void viommu_private_space_uninit(struct amd_iommu *iommu);
->  
->  void __init amd_viommu_uninit(struct amd_iommu *iommu)
->  {
->  	iommu->flags &= ~AMD_IOMMU_FLAG_VIOMMU_EN;
-> +	viommu_free_self_dev_data(iommu);
->  	viommu_private_space_uninit(iommu);
->  	amd_viommu_vf_vfcntl_unmap(iommu);
->  }
-> @@ -319,6 +363,10 @@ int __init amd_viommu_init(struct amd_iommu *iommu)
->  	if (ret)
->  		goto err;
->  
-> +	ret = viommu_alloc_self_dev_data(iommu);
-> +	if (ret)
-> +		goto err;
-> +
->  	iommu->flags |= AMD_IOMMU_FLAG_VIOMMU_EN;
->  	return 0;
->  err:
+You're right. I sent v2 too quickly and failed to take your latest
+comment on v1 into account. Sorry about that.
 
+What led me to this issue was the documentation for
+device_get_next_child_node(), which says the caller must call
+fwnode_handle_put() on the returned fwnode. I focused too narrowly on
+balancing that reference and missed the lifetime implications of passing
+it to the LED core.
+
+Would it make more sense for the LED core to take its own reference to
+init_data->fwnode when associating it with the LED device, and keep that
+reference for the lifetime of the LED class device? The driver could then
+drop the temporary reference obtained from device_get_next_child_node()
+after registration.
+
+Does that sound like the right ownership model?
+
+Thanks,
+Guangshuo
