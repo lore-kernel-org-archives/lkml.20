@@ -1,153 +1,129 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA341388396
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758743F788F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790052206; cv=none; b=ekvaPBv09YAgLcE72V4DWxqDylq5QmQimdZvJAGOHP8R6TlHPrpdD0sPk0bU9CeitfWW6dhe+hiEUqvpALsYJ7gHr0FaNIPaIJ/RztNNlGE4B5dUZwn7HbaosuMA8OoRKVWJ4GdxIqdnu0m0/qGmxzkrwfs6dJuhjlNgW9nmvy4=
+	t=1790052255; cv=none; b=iXCpgEVsROHKyWJcAUaWaftOhMKOIGMcFgEQ9EUxpVtzYixJ/Vi7GLX8OtzbM7WvWqyXo3O7hFt5VkEgEOULukvhOgaQyEan8qDpC5ciK+Z67U75tpcbf44x+TPlbu/7AFPdQbaBNjTJiWZV5QOGwt33hRkzNAKFeVNQEt19ABw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790052206; c=relaxed/simple;
-	bh=OQYTdW+feEtU0nT1xZhwdc+cpH45B0yaM48jILy8Y7s=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=Y/RMLPEji3+967/uT8n0+IszwedW15w+Aq9t2MzrCWfdhw4WKQFyWcxhdAR4K+WokOvSL3NDLbSG8C5ze9eZiG27JlsN/LQUnOTOwJKY5qUMk0RtY0MkArHMfYf+nDRToBKwVcv/uwRTstGLb/CqELfvisfhITmn9JC/BCb69KE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cb254da90eso5030845b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:43:24 -0700 (PDT)
+	s=arc-20240116; t=1790052255; c=relaxed/simple;
+	bh=opW3UCyYmUGIh685jbNut0YC/KSIFOxVldRZxwjwqf8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=POocv3/u4B72Zsm+1B7Qa4WJdfeH+/uOGwwKjsTH45lVDpPYtcthqhxfG/H3sCL8hr3gZpqO8pyAbPO8cFjmLGoFGnuU6X0/46/hzS0SPIIFqZle51el7HCZEAEqAZ3KB6maii01HK5QscXVczfgWSEczX3lwH73voc7Mz5ugi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JCs/Gi5z; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JCs/Gi5z"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-398cb5615deso4329732a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:44:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790052252; x=1790657052; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nd2sNIwsDlUojlzUKsazShmKean8n/g0XREbYRxOeao=;
+        b=JCs/Gi5zIsBW2gU4j05Wt5wOYcGAR3qiK9Dhk9x0TJzUujKDoX6uid4zemMzJYT1KI
+         JVaTaqXNDpSDO64+8TR8aazTJ3ijcRnfpuiVKuq4dhQclUG2N26UwL7mqYPt0IXYocFw
+         fL9BB/0jfojTT55ff5tN1SpzFfY0dN17C5Pxg1Q9Sz+S4HFIL7zS/Lm39m0h+mGiXf+8
+         QUC3NXFtAfdkkLDwBk5Ukkyt6zvQe2YZlkmomcEguYWs0J7l3/x9Oe3GQdKLS0+h8Iag
+         PZLYe07wQGdWj5Yt421+meDNZMtLcfr598QT+w+ZQQzA40i6SqyLpf8k+9O78MAjsXCR
+         vNhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790052203; x=1790657003;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ii6CpxlMOU2YNsdl7Ju/KYaeAqAaiitDP3dlw9IiSoU=;
-        b=FuwIkGWpnTQIqBlVm7M0V7q/wWoeo1QXV5qJwxKOngPivsoZdXI+t8luwJTJzCqVF7
-         f/6RPb07MTm/XUVw7lTfDXER2WKZcUKc4QZ45hYYXFUFBZ2NXrx0H0s08VfsiSvtq4DA
-         MapVgy8ZekayUyz000KT1W8bApfKxQ0TKlhwLGOn6vnxaE3Wz3Y1UqkhsYHaoABOB2s+
-         hT85NvaoSW9sdYRqY3Mi8yx+JCIQrotZH7NVIoboRr7fGhjIQDMkZBdHYLL9ihPjsOZo
-         yCE68uuOdpQJpAMH02KXpc6ngg9niHNTqyD2pTnKbMOxyTjbzK739Mj43Ab4VibiSC5m
-         Vtiw==
-X-Forwarded-Encrypted: i=1; AKwUvBx6Icn85onj6+3FfOvLiTJza4S9pvMGjUZt6cFj/msrcYFJmYNCYcrBTyHHHnEecqrKS6kiH+LXfJasMms=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6fkGjIdLn82GCNQjKk28GF/WWMzxSrJ8DdarKHufHyX36anHl
-	itC9sZqA6PmE/72AS0mR4rDfEMYsotpnA1J71e+4w6VWTGoP2mbOE3CREWuJm0/mwP7rQDKs/cp
-	g2qTIDMTGl2nKs72eubjwACQoj9+KuTBQJiA3ACmIUhFumtZz6+cnUSwSqdE=
+        d=1e100.net; s=20260707; t=1790052252; x=1790657052;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nd2sNIwsDlUojlzUKsazShmKean8n/g0XREbYRxOeao=;
+        b=m05aOU2RRemRXPWoqwOQ7bKr1mO7wEHstClOnYCkcu/meyK5xfKLLH8XjRUBU+kPOX
+         OBsGjO3DPkubgjXIMHEHZ4HGYmtrZTWvpCEbYJp9XDAdmB3fXb9dcz1LtiL5dftF4vHO
+         UEvw7KdJMq6ew9V2w33OeKtf3H0rE8PRfhNkJfgfEfJqjox2DAed/cP5h2CUwqwKOBI+
+         AS6X6yDYHIB1YzubtH3IYZFz7/bQo2gHmqf7nBw30ZYeGd48GAzZxBt6KYbal/N3BAdP
+         bABfbSx5Jgd0rSLAndCIp6RnqWPtXmEiHYAn1qpsGsKosAEwCOZv0ytOnz2VsNWtOLkg
+         z2yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9CRd4Dp9YGPxfIuebaQWcBUVI1g8aeEMZypKixB1NWmO2XGfDoHwbzuY8Ft+McWhjOleques3R0GorQQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVFWByo7SlUPPdt0+AVKOfyYYrHyimTOsPdRoiSd0DfczutyQa
+	RDneY313jqwwmB+nFV+8KDpHYxjOq1MvDzl2l540mjEx6xcSc6rb/VsA
+X-Gm-Gg: AYBFou2Ds/ZKNA4Xq+llBUA/rKy8sjxrbOMvQZMB2WY+Py8ab3hi3B2sYIlmwCqyl/B
+	lcWx1XdJPajP/xsMSCEgYyPiqs9k/p7zpc6isMMq35PJcHkXwUUezPwhCre92Xl3l7bLYQFt6ln
+	X9xVdrgCIxNiFy6ei/XRLKRDM6N+3SMmKiu46GQ/vK07vHR9k0s3Ms8hN1TUbHsQpq+lrJs65p2
+	xF1aftxVDKF2TDYIilkhMWeQgIAeoJTEWsCTUO+IR1/M0ZhNjjFSrPjBtJTLaFrUilVDVDkY57/
+	A5dvF5gJyrCz6BNCsR5mdn+SVWVd1KaA3ZL4anrJ1Q2QscuUB3etjdfu8OmL34/XedsYeqG6C+R
+	nurONB7FWk+yUGtvPWyjjsMogZM35TpUj94XzQbFOa/DJBaTmgRDsHgYXvJzOZYztD4ICIBLim9
+	lIgck8bVoRLxJI6/K6lwqzYEhKA+RPFa5V2uPv9BqVpIbgtP2oY+KV66FrYkoAzk6hIGSFp8uOc
+	cayVD5kW3Df0/xC4s0lHPSd6QEiCJy2BeuMZaJSJowQyRRc7GS/RUGVcCUi9WDR2JcIkkVhcg==
+X-Received: by 2002:a17:90b:580c:b0:39e:4c81:6c96 with SMTP id 98e67ed59e1d1-39e54f8a187mr19084529a91.28.1790052252288;
+        Mon, 21 Sep 2026 21:44:12 -0700 (PDT)
+Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:6cb2:ad3:ad92:1570])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5751f2sm943802a91.9.2026.09.21.21.44.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 21:44:11 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: code@tyhicks.com
+Cc: blum@kernel.org,
+	chenyichong@uniontech.com,
+	a.velichayshiy@ispras.ru,
+	kees@kernel.org,
+	liubaolin@kylinos.cn,
+	eilaimemedsnaimel@gmail.com,
+	ebiggers@kernel.org,
+	roberto.sassu@polito.it,
+	ecryptfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
+Subject: [PATCH] ecryptfs: validate auth_tok key payload size before use
+Date: Tue, 22 Sep 2026 10:14:00 +0530
+Message-ID: <20260922044400.14078-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:ee0b:0:b0:6bd:f79e:501c with SMTP id
- 006d021491bc7-6ca9ab437d8mr11629437eaf.16.1790052203652; Mon, 21 Sep 2026
- 21:43:23 -0700 (PDT)
-Date: Mon, 21 Sep 2026 21:43:23 -0700
-In-Reply-To: <20260919221735.3708237-1-benquike@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab2076b.e548f532.1ca396.0017.GAE@google.com>
-Subject: [syzbot ci] Re: af_unix: fix u->inq_len accounting in manage_oob()
- and unix_stream_read_skb()
-From: syzbot ci <syzbot+ci55fe8f14f29976ef@syzkaller.appspotmail.com>
-To: benquike@gmail.com, davem@davemloft.net, edumazet@google.com, 
-	horms@kernel.org, kuba@kernel.org, kuniyu@google.com, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot ci has tested the following series
+ecryptfs_verify_auth_tok_from_key() casts a "user" type key's raw
+payload directly to struct ecryptfs_auth_tok without checking that
+the key actually holds enough data to back that struct. Since a
+user-type key's payload length is fully attacker-controlled via
+add_key(2), an undersized key whose description matches
+global_default_fnek_sig lets later code (e.g.
+ecryptfs_write_tag_70_packet()) read fields such as
+session_key_encryption_key/session_key_encryption_key_bytes past the
+end of the actual allocation, causing a slab-out-of-bounds read.
 
-[v1] af_unix: fix u->inq_len accounting in manage_oob() and unix_stream_read_skb()
-https://lore.kernel.org/all/20260919221735.3708237-1-benquike@gmail.com
-* [PATCH] af_unix: fix u->inq_len accounting in manage_oob() and unix_stream_read_skb()
+Reject the key up front if its datalen is smaller than
+sizeof(struct ecryptfs_auth_tok).
 
-and found the following issue:
-kernel BUG in unix_stream_read_skb
-
-Full report is available here:
-https://ci.syzbot.org/series/0ffad94e-8c51-41d9-b85f-9793ff3deaf5
-
-***
-
-kernel BUG in unix_stream_read_skb
-
-tree:      net-next
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net-next.git
-base:      b5a051f6b840d48f159166ef073d3021989bfb50
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/127895ae-9f2e-46db-a972-bc6f975448e6/config
-
-skb linear:   00000100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-skb linear:   00000110: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-skb linear:   00000120: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-------------[ cut here ]------------
-kernel BUG at ./include/linux/skbuff.h:2847!
-Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
-CPU: 1 UID: 0 PID: 16941 Comm: syz.0.3527 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:skb_pull+0x1c4/0x1d0
-Code: b2 8c f8 8b 44 24 04 89 43 70 48 c7 c7 c0 ba 22 8d 89 ee e8 9e 96 7c f7 48 c7 c7 00 bb 22 8d 48 89 de 31 d2 e8 7d 00 ff ff 90 <0f> 0b 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffc9000629f758 EFLAGS: 00010282
-RAX: ffffffff89aa3aaa RBX: ffff888107756780 RCX: 0000000000080000
-RDX: ffffc90021fe7000 RSI: 000000000000b6ec RDI: 000000000000b6ed
-RBP: 0000000000001000 R08: ffff88823c624713 R09: 1ffff110478c48e2
-R10: dffffc0000000000 R11: ffffed10478c48e3 R12: 0000000000008000
-R13: dffffc0000000000 R14: 1ffff11020eeacfe R15: 0000000000007ec0
-FS:  00007f4d8a7ef6c0(0000) GS:ffff8882a8cce000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00002000000c4000 CR3: 000000002253a000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- unix_stream_read_skb+0x34a/0x500
- sk_psock_verdict_data_ready+0x25f/0x690
- unix_stream_sendmsg+0x84e/0xde0
- sock_sendmsg_nosec+0x13a/0x180
- ____sys_sendmsg+0x54e/0x850
- ___sys_sendmsg+0x2a5/0x360
- __x64_sys_sendmsg+0x1b1/0x290
- do_syscall_64+0x166/0x520
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f4d8999e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f4d8a7ef028 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
-RAX: ffffffffffffffda RBX: 00007f4d89c26180 RCX: 00007f4d8999e159
-RDX: 0000000000000000 RSI: 0000200000000500 RDI: 0000000000000005
-RBP: 00007f4d89a3506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f4d89c26218 R14: 00007f4d89c26180 R15: 00007ffd1de3bf98
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:skb_pull+0x1c4/0x1d0
-Code: b2 8c f8 8b 44 24 04 89 43 70 48 c7 c7 c0 ba 22 8d 89 ee e8 9e 96 7c f7 48 c7 c7 00 bb 22 8d 48 89 de 31 d2 e8 7d 00 ff ff 90 <0f> 0b 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffc9000629f758 EFLAGS: 00010282
-RAX: ffffffff89aa3aaa RBX: ffff888107756780 RCX: 0000000000080000
-RDX: ffffc90021fe7000 RSI: 000000000000b6ec RDI: 000000000000b6ed
-RBP: 0000000000001000 R08: ffff88823c624713 R09: 1ffff110478c48e2
-R10: dffffc0000000000 R11: ffffed10478c48e3 R12: 0000000000008000
-R13: dffffc0000000000 R14: 1ffff11020eeacfe R15: 0000000000007ec0
-FS:  00007f4d8a7ef6c0(0000) GS:ffff88818d6ce000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fda6ffeb840 CR3: 000000002253a000 CR4: 00000000000006f0
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
+Fixes: 0e1fc5ef470cc ("eCryptfs: verify authentication tokens before their use")
+Reported-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e4391e0d6e7c89b8c84e
+Tested-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+ fs/ecryptfs/keystore.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+index 51651314b7a6..81768a0e43b1 100644
+--- a/fs/ecryptfs/keystore.c
++++ b/fs/ecryptfs/keystore.c
+@@ -462,6 +461,14 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
+ 		goto out;
+ 	}
+ 
++	if (auth_tok_key->datalen < sizeof(struct ecryptfs_auth_tok)) {
++		printk(KERN_ERR "Auth tok key payload too small (have %d bytes; need %zu)\n",
++		       auth_tok_key->datalen, sizeof(struct ecryptfs_auth_tok));
++		rc = -EINVAL;
++		*auth_tok = NULL;
++		goto out;
++	}
++
+ 	if (ecryptfs_verify_version((*auth_tok)->version)) {
+ 		printk(KERN_ERR "Data structure version mismatch. Userspace "
+ 		       "tools must match eCryptfs kernel module with major "
+-- 
+2.43.0
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
