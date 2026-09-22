@@ -1,63 +1,63 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9DF49480F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B61049B44C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101786; cv=none; b=BAp4E/sx5LHZrn9f4CaQElBUy3b7zvR+eSBW9JWjDlyR1GvOhaQ4fWKedkhhuNYAgNb68RswuBXjHiPZ6LAuJZE8G4A5KfHPDtTk7VpcQM61/8/YDH7/+8zJoJo9gQGv918Ann7vcithG6e+qclvwnJF1Ue8Gbg/8ZZS1mq4YbQ=
+	t=1790101787; cv=none; b=hPv9+Jqdh1zSZkwVYKAi/LgA/wwb65mO/Mu8tjBPWDjxdRbT7UYY+6wmnRDw+UZW3n9MZK8XZvsazpQeqqR+vl356Gz2GgOBGRgSHA7j/vE3956fibPf/4F/Ufp5uC4XYDntzBO6bo5mRn2dMudA7/HCBQ8fN2nCbCN/Dz2C5Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101786; c=relaxed/simple;
-	bh=h5CQimn+pnGcNICzqnW9+AOKntw/eMMcYRRlL+m7m9E=;
+	s=arc-20240116; t=1790101787; c=relaxed/simple;
+	bh=n6JqVCExDT3lN80dM6YcCQVpCL3hT3SrhDfa6lpEbp4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZU73kHJXklIs0WMAe5ioUS87E+btfRrdYJStEGmufiVedXaNChOar5x8OumuE0G1iPlkVu14o/vW250dybRsTfySK8d9IAJD9s5NFxdxpmxFbqkMSXSknywdhSFJ0n1H4032HqgTbipKAPctOvFP53yWI7eRwtHC0WCWWd3L8/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=SBD7C8Gi; arc=none smtp.client-ip=74.125.230.235
+	 MIME-Version; b=s/177sd1CG/J8FYO8/VrD4m4wKzXYvj6zfE2guglQGVP8oq0pV0HupA6ZckpkPgobvzgSgkDgBjg+/zdwdSi3jERkyjA5/MHfSUWk0gLcPNBPhrOlT6+3Z7CvStwdox2WAYArZpIdvf+bqJc8itgeihPd7NGLdCLbpDfA0jYWls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=jQQCzHcj; arc=none smtp.client-ip=74.125.230.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="SBD7C8Gi"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cadeb0so14589185a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:29:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="jQQCzHcj"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfa7b2093so22299785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:29:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790101783; x=1790706583; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1790101785; x=1790706585; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qVt6tYIl/AHtUN/63hgHvGCs0fPV42UvfQxmNYHhn/o=;
-        b=SBD7C8Gia8h4vFBY3RUXVtwy2dNdNLs+cNdaecaR++yTtXzW+UNFho7nAXf3WNT1NE
-         vVO6wA2VDa7yhRky3t8FVAKOwb1VFyig2M3BQFZ0G5YCOZTxyhcapJB7mjpY6go9fzwz
-         33wIzxfo5GVo43m7stLuA0Jow3J6rs4Prb7GaUqB+U07Mkim3lYYuxhswGiKVVXv5wU2
-         FbV0aOQtf1IprAi9rRfroZtGfubF+H6Ppmwtc3MQZb/emfBpsEP4BuThcUehWm1HmIMB
-         J5QXBMb1sIOYAUkUqhYSyVu+WHqj8HoB/zTQf3LRczYy7taRAB8smdsWPHxNNp8CvrZf
-         1c1w==
+        bh=IEBH2G+jGtGbGG4yhB6a6/Qs6IdlZYnf6Lv/AMN6/lM=;
+        b=jQQCzHcjFH+hl2ldSJxKE1x/ZZwI/1emLrqVH98PFsYRXP+F1EpQ1/LQWdoxT65kdH
+         s4KB+ytslUFA4ToNRCObgM/o28BaZpOPbUKgW4YG871Zv1bdX5g4SqwMLCb9JU3Oc1Ks
+         PMLjd4lP1Mi+7DThyEJcmOrVEnB4IlfnjZ3W3VZCHETV3VN4KpscoIzcOGwsFo/8AaKv
+         GNe7EB3P9EPLx55jFK3+BSnGDF7+1JJnuzkNqAn9xt+sNU1tQei57ZdQ3D2+n6GPpwa4
+         O/EpCvjc+0i/ZRnK/Edtb8BaAaDc71xj7qi2ktvp0MHN6Xk3Wu+u056quj2SJSDLzabD
+         j2zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790101783; x=1790706583;
+        d=1e100.net; s=20260707; t=1790101785; x=1790706585;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qVt6tYIl/AHtUN/63hgHvGCs0fPV42UvfQxmNYHhn/o=;
-        b=UUPQmVXaMaa7xZE3BuugXXGhoQJW22YP0Gzf5SR0aWW0k224fC+xKP7DaUEGFMYNRl
-         SU6o9ouF923cDY82XhKhA4eQ57k1Ku8VqK47Hky86JmBbfK0sTTq7VdDkX4wUIsg/Zzl
-         XEg17AlN0UyI5U2V5PjmZ08R6f6KfnT+apJg2VurB7XGfIlAH9lPfmDBsDZpdPj78r4B
-         oieIJG96Himo9MRh9lFLwzyk5KEDkz9jDt6xVDW7cMoYjloVngQZ6fI6I0Yr2DSTNunU
-         aA9FEpGiAWIdmmmJ4EppInr4zjtSti+5NApVPn6Ix4Dbk54NKs/2NYsTKCy5KwzhDnnq
-         GZFg==
-X-Gm-Message-State: AFuF++l3XoH/uNhd8v+S9Gf4w93zZs90r/PMI1e/NB8QNoB448cUdH7j
-	M8/YqLVnXrEDE5URwvDSXpcgJQ4CVFs+flQ56tHPYeyRnJDWg5RGTPQg0g95L2rqCJA=
-X-Gm-Gg: AYBFou14fFNXyFmb6goIhMSzSpMi0iId4WV+k+ieJsI7/rI+m66z5IC7GZlcAg6US4e
-	9joEB7zHhoGa9pGfRpe6JfD+1E9x3ntk1aVIUCaYGEiUqZC8gF/FdF3Z1+r14bEltNAkULQimay
-	/3flmn4lty9inFnpXuoN+O6WtBitGH0SYzWpPHLJJgbU/3lSKOALKFNnP7pSj5M/S4UwxutEXqe
-	6/V/ksRpINUQL+0zLGGyyq2GEC6u68Ll85dYJi5eEB7MNGuS3N6wVYXUjU3HH5Mhe2gbiLl2bKq
-	xW1Zn9XfBTPJzXYsBMdaP57rl9VZgjy70Ik+6phl7rsx4nRClSzZ5hSAKQxfE/L12sMr3Wvj+Y7
-	0y+sxDZ83mwXhILCAjZIsyEKkGM8w2BDvUoqHjMY4H0NCXsJFljlZknfn6BFeMZLm8+zdHXtbbF
-	Xkb+8p0dmBjS+5SlMxEh4wY9+fTbR2MfygJD/GJ0dBYi0BUtEVouPHORUNQ4w0BGmDaVQBX8w9b
-	vcp3whr6amtRFuPjlfUKGuOPErWOCrdXN656ceogFdOU40duBqdsNmNwPFZDw==
-X-Received: by 2002:a05:620a:19a3:b0:930:9585:e08e with SMTP id af79cd13be357-93c25080ba2mr41386185a.10.1790101782763;
-        Tue, 22 Sep 2026 11:29:42 -0700 (PDT)
+        bh=IEBH2G+jGtGbGG4yhB6a6/Qs6IdlZYnf6Lv/AMN6/lM=;
+        b=ArGZfmee7jkO+VrokPfm9wgHMTCG8WtjoJAbmbwwRWX5rbVwJJN6kEOqQP1HKrmfDK
+         MkZeZlpsxDpTu0flQR9amD52kUW4DLwY7PNNhqVi7EAF1+YG0pskdp0oif9TucR7Or1c
+         d+YDxni9mIgcz4Y0Cv7khV/vMyL0vVDwVRurlglZsyHjsprmZj8O9fBFuPYZMrHxaCn4
+         LR87YhUiVRpCtyPJ5vUXyrolSJkgmN7jrks5bW0r+vSFjVS8nDvZyh+L+RPUfKclp7t5
+         TMHuUGH6+F+87qWvSvBwxw9edFmX32gTRYYUDDqbuGyz30+NKEGo1sY4vso5lOsi6W6j
+         +qvA==
+X-Gm-Message-State: AFuF++kmSm98PM8348ukHCa+c8P0ozSGeqARA4p4+lueVFaue/m+3iU+
+	twLbgt0FfnGMpnCN0XnoVxhyY6Ir5viKIzFsZXZVeMo9uwNrYja694dzlPEHepISlI8=
+X-Gm-Gg: AYBFou2DB0rB9PVYyagkRIPSZYKnsuQbJZzEkx5cufL0SChMy7gaww2MGb8nz5e45i0
+	Q4Yf4+GQKjGINsQd2+xW9yCE4+m3z50zyWNwT3vIjl/LHvwWdTLPHKrf3KgMOYLoqusQ0yJyhgm
+	TQ1FsXLWStnwS4on9IFbYvUh7m6+5xxwwnUH9FMEW9pBIqLRjYCmOs3V5Fp5Mk0LdpmxiiO3nyn
+	REqCof86Gg8hZw8CHWfgjPFrkhVjuzvte2/BSqx8d7Zykd75aVnIbYflc1MHhZMCKWOaKKDWvLM
+	m5sTA7mwasYbj0saA8Q4NMRUAKpNnahsOY3H0XoezY0hYEE+GGkXxzGBDxHUnb5s4NcOJQt3Kra
+	eS1stFPbY7uBUQ3tCBzMgPJBkncRkwOoZ1+YkxoxCkw22pwWs3dBwJU15RPgmpfG2dW17Gar3Kp
+	p3Eb4VGgqfgi9FOERYu38p+ciWD3CTxUSX3215eRJcNo6k1gNlgSCVZtPd7E8anutEa+IkBMfKQ
+	o6TgTvSlDS2oxDf88FNfNhPSEgra9VW9G8gwpSPYzlw7qXDbUqa7gYA3fQ8
+X-Received: by 2002:a05:620a:29c8:b0:939:2c5c:7977 with SMTP id af79cd13be357-93c250a3567mr41425285a.20.1790101784800;
+        Tue, 22 Sep 2026 11:29:44 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24889ac9sm37130085a.27.2026.09.22.11.29.41
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24889ac9sm37130085a.27.2026.09.22.11.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 11:29:42 -0700 (PDT)
+        Tue, 22 Sep 2026 11:29:44 -0700 (PDT)
 From: Gregory Price <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -101,9 +101,9 @@ Cc: linux-kernel@vger.kernel.org,
 	hannes@cmpxchg.org,
 	shy828301@gmail.com,
 	raghavendra.kt@amd.com
-Subject: [PATCH v3 6/7] mm: use BIT() for change_protection() flags
-Date: Tue, 22 Sep 2026 14:29:27 -0400
-Message-ID: <20260922182928.2199090-7-gourry@gourry.net>
+Subject: [PATCH v3 7/7] mm: use VMA flag helpers in NUMA balancing
+Date: Tue, 22 Sep 2026 14:29:28 -0400
+Message-ID: <20260922182928.2199090-8-gourry@gourry.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922182928.2199090-1-gourry@gourry.net>
 References: <20260922182928.2199090-1-gourry@gourry.net>
@@ -117,52 +117,62 @@ Content-Transfer-Encoding: 8bit
 
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-The MM_CP_* flags are individual bits expressed as open-coded shifts.
-Use BIT() consistently for the complete block.
+Use vma_test() instead of accessing vm_flags directly in the NUMA
+balancing code touched by the preceding fixes. Keep the existing flag
+predicates unchanged.
 
 No functional change intended.
 
-Suggested-by: David Hildenbrand <david@kernel.org>
-Link: https://lore.kernel.org/r/9b5e1573-6fd8-48a5-a274-a6e7ff83d2fe@kernel.org
+Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
+Link: https://lore.kernel.org/r/aq1FDhy00epXXtgd@gremlin
 Assisted-by: LLM
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- include/linux/mm.h | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ kernel/sched/fair.c | 3 ++-
+ mm/internal.h       | 2 +-
+ mm/migrate.c        | 2 +-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 225ba26c9d503..c2ffba42019c0 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3596,21 +3596,21 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
-  * because something (e.g., COW, uffd-wp) blocks that from happening for all
-  * PTEs automatically in a writable mapping.
-  */
--#define  MM_CP_TRY_CHANGE_WRITABLE	   (1UL << 0)
-+#define  MM_CP_TRY_CHANGE_WRITABLE	   BIT(0)
- /* Whether this protection change is for NUMA hints */
--#define  MM_CP_PROT_NUMA                   (1UL << 1)
-+#define  MM_CP_PROT_NUMA                   BIT(1)
- /* Whether this change is for write protecting */
--#define  MM_CP_UFFD_WP                     (1UL << 2) /* do wp */
--#define  MM_CP_UFFD_WP_RESOLVE             (1UL << 3) /* Resolve wp */
-+#define  MM_CP_UFFD_WP                     BIT(2) /* do wp */
-+#define  MM_CP_UFFD_WP_RESOLVE             BIT(3) /* Resolve wp */
- #define  MM_CP_UFFD_WP_ALL                 (MM_CP_UFFD_WP | \
- 					    MM_CP_UFFD_WP_RESOLVE)
- /* Whether this change is for uffd RWP */
--#define  MM_CP_UFFD_RWP                    (1UL << 4) /* do rwp */
--#define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
-+#define  MM_CP_UFFD_RWP                    BIT(4) /* do rwp */
-+#define  MM_CP_UFFD_RWP_RESOLVE            BIT(5) /* resolve rwp */
- #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
- 					    MM_CP_UFFD_RWP_RESOLVE)
- /* Whether a MM_CP_PROT_NUMA change is for promotion only */
--#define  MM_CP_PROT_NUMA_PROMO_ONLY        (1UL << 6)
-+#define  MM_CP_PROT_NUMA_PROMO_ONLY        BIT(6)
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 412c72084a63d..0d48d595740bf 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -4224,7 +4224,8 @@ static void task_numa_work(struct callback_head *work)
+ 		 * under cache pressure can drive considerable bandwidth.
+ 		 */
+ 		placement_scan = !(vma->vm_file &&
+-			(vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ);
++		    vma_test(vma, VMA_READ_BIT) &&
++		    !vma_test(vma, VMA_WRITE_BIT));
  
- bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
- 			     pte_t pte);
+ 		if (!vma->vm_mm || (!placement_scan && !tiering)) {
+ 			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_SHARED_RO);
+diff --git a/mm/internal.h b/mm/internal.h
+index cbeaf1fc38cfc..560406c36a757 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1240,7 +1240,7 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
+ 
+ static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
+ {
+-	if (vma->vm_flags & VM_SHARED)
++	if (vma_test(vma, VMA_SHARED_BIT))
+ 		return false;
+ 
+ 	return atomic_read(&vma->vm_mm->mm_users) == 1;
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 6a08690cfe219..8e1e5ff1cb580 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2705,7 +2705,7 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
+ 		 * See folio_maybe_mapped_shared() on possible imprecision
+ 		 * when we cannot easily detect if a folio is shared.
+ 		 */
+-		if ((vma->vm_flags & VM_EXEC) &&
++		if (vma_test(vma, VMA_EXEC_BIT) &&
+ 		    folio_maybe_mapped_shared(folio) &&
+ 		    (!folio_in_lowtier(folio) || !node_is_toptier(node)))
+ 			return -EACCES;
 -- 
 2.53.0-Meta
 
