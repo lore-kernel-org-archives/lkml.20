@@ -1,384 +1,158 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D126843934D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B2A851991C;
+	Tue, 22 Sep 2026 21:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790113952; cv=none; b=o6cWAYuLXFY/ozZKSBACijNJHYMkELYY6WT5QZ8XfRIMiuKCiCgOqlS+DV67MA04Uy50wj8RuLeHCgEnb9PpRZ8gZH3gTAt3sx5SncdT5GCkhdhzB1Kqju7ZBQH1G3m1qVdHMfBxU5vDTxmvQKnTLbCvdlox6Z5XkN6PxBvSijc=
+	t=1790114050; cv=none; b=qlg+Huo3kgyIQWgjkmsJrfHttut+1oGjnHkhzRpvRmXEp0cC8LZdLvojzX3I9KRDnWt50DsPtHT6DWjU9eBVzFhMTGaDVA+ucaWeiHmlq+LaYxKF3p3CJ4w/80yKlwkqjDDuaP0lSQt8gzearFIeR7+wduNFYel5rrEvyuc8m6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790113952; c=relaxed/simple;
-	bh=urTZ69sfotSRNr3yRQFdTcNB1ixPj2XhlGVls350Uuk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D0MkOdUIMHOgigUIkKfDucnnk/5JvvGl2YCMX7AgmJxsxLOv6DJ8pJA1QkMysj+WyC29v6fttQlpM8f7RmdVuaUPbuAq3UjnPqvUQv8FoZP9DRI/5FF+jF0aqB3FzKiS813EB758R22B+9S9Edblz7wLgMmynuityRHBgx/Q3tI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=a8/d5e5c; arc=none smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1790114050; c=relaxed/simple;
+	bh=iEXKQcOzPMWsKYq75EaN1jiHJmAyzN7PwBoNzOtpC8s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RysxuvHoaoeau/Aadbtbqw5TUBTjgmDQ+Gmuy6d/YEsKhj6iaL8Ue+KqZVz4BSrLJUjJV9/DY58cJK6IUAsix+r7FGUQKQtptT17cxG45tySS+TUe6PM2lfUOtGxACbs9m2Rz/Naniu5vAvNYI/0Xwutf6MdpcKe0Qe+FqqV8Hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Oo+XUytA; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="a8/d5e5c"
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-8961cca9193so7657467b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:52:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1790113940; x=1790718740; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=urTZ69sfotSRNr3yRQFdTcNB1ixPj2XhlGVls350Uuk=;
-        b=a8/d5e5cEazayFRyZAHttB78mHtesi5LKviqIj9GKGOXr8s0+valbhsVtOzwRpr2lv
-         HEooO9c07SCcbm5KzQP8EuGjABemJbP2QtJcjoRO0MO1XoXe3kPZ+7Zl+b/sKlhZaPXR
-         N/l1cBBXcZwPxsC2JgIGvwlF1wEfRiaUtIr4bYUhBPoioStAZZZagQJ+Kk70UjJdp4o3
-         rC5FNg5CTu0reQ+aM0mLIIIo8oOvoCqLs7YS0nM1fMJu3UYPj9gl3R14N3C+hXqbc5Ls
-         Scp8U/H861cF5xJGeaEykkKndzbuvTT6PHbF+NA0ELzdPTjBmwxIho3/sTDDs98fbGbS
-         axKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790113940; x=1790718740;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=urTZ69sfotSRNr3yRQFdTcNB1ixPj2XhlGVls350Uuk=;
-        b=qXiBqxM6g3K4Ng6ZCTlocVXRX8zxjwBGZRXMw2dCKNwdHYsXNL2uq3oFBb5gELl5Qi
-         O3XcTTYly1uaKBggPabpxFWxir1Bm5PSTyVGNRRr5kC0qF9XpsqULp+xaGvwZIVkfdhp
-         uMOrDsU7l1zsksPm4PZTrtsNvyW3t7qW3TkXIxuTyljiRGbjytRcf8HOoJEHV0MeQ+Dv
-         bBCgGrkDabJq4nNBPq3yyNoEz2+ggqKCVqFr1b+bDIKeQBlcBK7gPoRXVFuHfQ8dgduu
-         li3mELJH0poyFnobGvfjp6wqwEXaq2dEtsApv2tLtKgk3inqLzRbuomPOIuCOxKWB7vA
-         yMWA==
-X-Forwarded-Encrypted: i=1; AKwUvBySsardKBMk61JCs/0a94Xkj/l5Ur1kOsxqXMSUEZQtd3NVImkXR+8grdqvLJTleQXfQBUDL8dQ0vo01ko=@vger.kernel.org
-X-Gm-Message-State: AFuF++nginuumlDLygGWZEJIHkOKQYB0UIXtz3Tg5tR5qgvVByKiC1Ze
-	BODsemS+CBIXeP/kMauYmvxeH0lIT8vPUwz0x4TlFSI5pfiNLqIKGTXjd9+0VKzcRLeTbiK2Zu9
-	JuNAXR7iSWQ==
-X-Gm-Gg: AYBFou37XqjBM2yX/BK1e1C9MREX1HeyCP1IC+HvPmnOFnCeafS/lZ56v5u2URJXklH
-	PJIZIN4mBJ+dzXyKB8tOVIYl/b+xW4OPU+CXYRdRdeKKyrKuHpyfoP+elKRPtjl/0ANtcRg5iKA
-	/SWqzLTopVxSd15XWgIcXmTjL9kN/Fy39HvZJdjmCuLanoQcmBs0pzQ23+IfV4//+DUI7owIG1e
-	TAZvT5NZzw99IPcgbv4AMOSI1Zd7EdCrEULi9dknUd5PO73Xj9c1rjaz0p0UGaAVA4WYklkEi4A
-	7J5WCgB/IfeMXfm1sJP7AaJqrPVBvzMS9c8ZyPBJVIAiYAWkGHLvLW7NM9n8Hxv5JdeN/c028+L
-	6bjvpronk6HRM3heJ9rcZUTtFw7Z5cyD3sxQzso4ZcmIRn0T8ni2BD+nsSqJsGgSvP79T/QiujN
-	3R2IL0VcuU4thVKKp7Sj1yI4XwqXA1Fi1s4wvWXilBE5LZKOjawFGifiOZW+fMUzqgibNbxE6wC
-	vNmH5MDMjsa2iFNZOYOW/yrk/S9hhJn4VE0TG0UNGIGowBEL20Xo5xfnQTjRcwXFRQ2lh17RV8V
-	K+cGMSc171FsxEo26Zbv9EfHuWOk+gtqe6uWtKUv9RJdX5LPuzvK1xWmkogvSwfzTzFeB83bVxA
-	=
-X-Received: by 2002:a05:690e:151c:b0:671:70d1:d6c8 with SMTP id 956f58d0204a3-672d58c288amr447516d50.58.1790113939894;
-        Tue, 22 Sep 2026 14:52:19 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:af0a:8535:f1b1:7cb0? ([2600:1700:6476:1430:af0a:8535:f1b1:7cb0])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d81e102asm188929d50.19.2026.09.22.14.52.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 14:52:19 -0700 (PDT)
-Message-ID: <abb39d97b90401669f7d6ba24d35747a676fded0.camel@dubeyko.com>
-Subject: Re: [PATCH v4] nilfs2: fix checkpoint root lifetime on sysfs errors
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>, dubeyko@comp.asu.ru
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 22 Sep 2026 14:52:16 -0700
-In-Reply-To: <CAKFNMokXBG6C2gHfM+PnhjhJK7BbT84Oou3Gnr+4StR6XTb1Aw@mail.gmail.com>
-References: 
-	<CAKFNMonYVUbzjYm343Aw-=xjUk78x4EdUwGBfNRwE6zfmRVhvA@mail.gmail.com>
-	 <20260921152144.3983736-1-qwe.aldo@gmail.com>
-	 <20260921152144.3983736-2-qwe.aldo@gmail.com>
-	 <CAKFNMokXBG6C2gHfM+PnhjhJK7BbT84Oou3Gnr+4StR6XTb1Aw@mail.gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Oo+XUytA"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 345A21576;
+	Tue, 22 Sep 2026 14:53:54 -0700 (PDT)
+Received: from [10.57.9.113] (unknown [10.57.9.113])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A78413F86C;
+	Tue, 22 Sep 2026 14:53:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790114037; bh=iEXKQcOzPMWsKYq75EaN1jiHJmAyzN7PwBoNzOtpC8s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Oo+XUytAkDyV7Fg+PyMe7Zxe7vGy6ZfCfXw6bhiHy3FmXwXm3igb53OC7fXqwk2aA
+	 he530u1cUMeV+mpe6hv50rPvo5d7JeAOVBYfRDmkigHtNOUiTluS4EKTFJC3kRrFJY
+	 TFjqq5HT+a5NTBNXq06KQJiu5AtKO/xsciJ3ehWc=
+Message-ID: <528f3c4a-723f-47ad-a387-6e6a4179c96a@arm.com>
+Date: Tue, 22 Sep 2026 22:53:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 01/20] KVM: arm64: protected VM: Handle user writes to
+ CNTVCT_EL0/CNTPCT_EL0
+Content-Language: en-GB
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+ <20260920212845.707-2-suzuki.poulose@arm.com>
+ <20260922122542.00006868@oss.qualcomm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260922122542.00006868@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-09-22 at 08:55 +0900, Ryusuke Konishi wrote:
-> On Tue, Sep 22, 2026 at 12:22=E2=80=AFAM Aldo Ariel Panzardo wrote:
-> >=20
-> > nilfs_find_or_create_root() links a new checkpoint root into the
-> > checkpoint tree and drops ns_cptree_lock before creating the root's
-> > sysfs group.=C2=A0 If nilfs_sysfs_create_snapshot_group() then fails,
-> > the
-> > root is freed while it is still reachable from ns_cptree, so a
-> > concurrent nilfs_lookup_root() can dereference freed memory.
-> >=20
-> > nilfs_sysfs_create_snapshot_group() allocates memory and creates
-> > sysfs
-> > nodes and may sleep, so it cannot run under the ns_cptree_lock
-> > spinlock.
-> > Reorder the creation path so that the sysfs group is set up before
-> > the
-> > root is published: initialize the root, create its sysfs group
-> > outside
-> > the lock, and only then take ns_cptree_lock to link it into the
-> > tree.
-> > On sysfs failure the root was never visible and is freed directly;
-> > in
-> > the unlikely case a root with the same checkpoint number is already
-> > present, the sysfs group of the new root is removed before it is
-> > freed.
-> > Concurrent insertions are already serialized by
-> > ns_snapshot_mount_mutex,
-> > so only the race against nilfs_lookup_root() needs to be closed.
-> >=20
-> > Because kobject_put() does not guarantee that the embedded
-> > kobject's
-> > release callback has run by the time it returns
-> > (CONFIG_DEBUG_KOBJECT_RELEASE defers it), the container must not be
-> > freed until the release completes.=C2=A0 Keep that wait_for_completion(=
-)
-> > of
-> > snapshot_kobj_unregister inside the sysfs helpers, so both the
-> > creation
-> > error path and nilfs_sysfs_delete_snapshot_group() wait for the
-> > release
-> > before their callers free the root.
-> >=20
-> > Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> > ---
-> > Changes in v4:
-> > =C2=A0 - Keep ns_cptree_lock as a spinlock instead of converting it to =
-a
-> > =C2=A0=C2=A0=C2=A0 mutex, and create the sysfs group before taking the =
-lock, as
-> > =C2=A0=C2=A0=C2=A0 suggested by Ryusuke Konishi. Concurrent insertions =
-are already
-> > =C2=A0=C2=A0=C2=A0 serialized by ns_snapshot_mount_mutex; only the race=
- against
-> > =C2=A0=C2=A0=C2=A0 nilfs_lookup_root() needs to be closed.
-> > =C2=A0 - Move the wait_for_completion() of snapshot_kobj_unregister int=
-o
-> > the
-> > =C2=A0=C2=A0=C2=A0 sysfs helpers (create error path and delete), so the=
- checkpoint
-> > =C2=A0=C2=A0=C2=A0 tree functions no longer manage the kobject completi=
-on state,
-> > as
-> > =C2=A0=C2=A0=C2=A0 suggested by Ryusuke Konishi.
-> >=20
-> > Changes in v3:
-> > =C2=A0 - Move wait_for_completion() out of the locked section in
-> > =C2=A0=C2=A0=C2=A0 nilfs_put_root() (the mutex-based v2/v3 approach; dr=
-opped in
-> > v4).
-> >=20
-> > Changes in v2:
-> > =C2=A0 - Serialize the sysfs registration against the tree instead of
-> > adding
-> > =C2=A0=C2=A0=C2=A0 a second lock, as suggested by Viacheslav Dubeyko.
->=20
-> Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
->=20
-> Looks good to me.
->=20
-> Viacheslav, could you please apply this v4 patch directly?
-> (Please keep the 'Cc: stable' tag this time, since this fixes a
-> Use-After-Free bug.)
->=20
-> One note regarding this change: if a sysfs directory corresponding to
-> the checkpoint already exists, nilfs_sysfs_create_snapshot_group()
-> will not only return an error, but kobject_init_and_add() will also
-> output an
-> error message.
->=20
-> However, nilfs_find_or_create_root() checks for an existing entry at
-> the beginning using nilfs_lookup_root(), and
-> nilfs_attach_checkpoint(), which calls this function, is always
-> invoked exclusively =E2=80=94 either under 'ns_snapshot_mount_mutex' or
-> during
-> the serialized initial mount path.
-> Therefore, this side effect is avoided.
->=20
-> Thanks,
-> Ryusuke Konishi
->=20
-> >=20
-> > =C2=A0fs/nilfs2/sysfs.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++++-
-> > =C2=A0fs/nilfs2/the_nilfs.c | 34 +++++++++++++++++++++-------------
-> > =C2=A02 files changed, 25 insertions(+), 14 deletions(-)
-> >=20
-> > diff --git a/fs/nilfs2/sysfs.c b/fs/nilfs2/sysfs.c
-> > index bc52afbfc5c7..5bb74a45ad1e 100644
-> > --- a/fs/nilfs2/sysfs.c
-> > +++ b/fs/nilfs2/sysfs.c
-> > @@ -195,8 +195,10 @@ int nilfs_sysfs_create_snapshot_group(struct
-> > nilfs_root *root)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "%llu", root->cno);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 kobject_put(&root->snapshot_kobj);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 wait_for_completion(&root-
-> > >snapshot_kobj_unregister);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
-> > =C2=A0}
-> > @@ -204,6 +206,7 @@ int nilfs_sysfs_create_snapshot_group(struct
-> > nilfs_root *root)
-> > =C2=A0void nilfs_sysfs_delete_snapshot_group(struct nilfs_root *root)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kobject_put(&root->snapshot_=
-kobj);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wait_for_completion(&root->snapsh=
-ot_kobj_unregister);
-> > =C2=A0}
-> >=20
-> > =C2=A0/****************************************************************=
-*
-> > *******
-> > diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-> > index ecd71c190885..1d5d2293c9c7 100644
-> > --- a/fs/nilfs2/the_nilfs.c
-> > +++ b/fs/nilfs2/the_nilfs.c
-> > @@ -869,6 +869,26 @@ nilfs_find_or_create_root(struct the_nilfs
-> > *nilfs, __u64 cno)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!new)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return NULL;
-> >=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->cno =3D cno;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->ifile =3D NULL;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->nilfs =3D nilfs;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 refcount_set(&new->count, 1);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->inodes_count, =
-0);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->blocks_count, =
-0);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Register the sysfs group =
-before publishing the root in
-> > the
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * checkpoint tree.=C2=A0 ni=
-lfs_sysfs_create_snapshot_group()
-> > can sleep,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * so it must run outside ns=
-_cptree_lock; creating it first
-> > also
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * ensures a concurrent nilf=
-s_lookup_root() can never
-> > observe a root
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * whose sysfs registration =
-later fails and gets freed.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D nilfs_sysfs_create_snapsh=
-ot_group(new);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 kfree(new);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 return NULL;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > +
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&nilfs->ns_cptree_=
-lock);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 p =3D &nilfs->ns_cptree.rb_n=
-ode;
-> > @@ -885,29 +905,17 @@ nilfs_find_or_create_root(struct the_nilfs
-> > *nilfs, __u64 cno)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 } else {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 refco=
-unt_inc(&root->count);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_=
-unlock(&nilfs->ns_cptree_lock);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sysfs=
-_delete_snapshot_group(new);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree=
-(new);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retur=
-n root;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 }
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->cno =3D cno;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->ifile =3D NULL;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 new->nilfs =3D nilfs;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 refcount_set(&new->count, 1);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->inodes_count, =
-0);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic64_set(&new->blocks_count, =
-0);
-> > -
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rb_link_node(&new->rb_node, =
-parent, p);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rb_insert_color(&new->rb_nod=
-e, &nilfs->ns_cptree);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&nilfs->ns_cptre=
-e_lock);
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D nilfs_sysfs_create_snapsh=
-ot_group(new);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err) {
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 kfree(new);
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 new =3D NULL;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > -
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return new;
-> > =C2=A0}
-> >=20
-> > --
-> > 2.43.0
-> >=20
+On 22/09/2026 20:25, Jonathan Cameron wrote:
+> On Sun, 20 Sep 2026 22:28:26 +0100
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> 
+> Hi Suzuki,
+> 
+>> Protected VMs doesn't allow setting offsets for virtual and phyiscal
+> 
+> physical
+> 
+>> counters, as the offset is always fixed to 0. The VM ioclt is filtered
+> 
+> ioctl
+> 
+>> out based on the cap. However we don't prevent the userspace from trying
+>> to write to the CNTVCT/CNTPCT registers. This would lead to KVM triggering
+>> a WARN() in timer_set_offset() as the vm_offset pointer is set to NULL.
+>>
+>> Fix this by always "fixing" the timer offsets to 0 and marking that the
+>> timer offset is set in the kvm->arch.flags at KVM init time for protected
+>> VMs. A userspace writing to the CNT*CT_EL0 would observe success, without
+>> any real effect. This was chosen over preventing the writes to these
+>> registers and returning -EPERM.
+> 
+> Why?  I don't mind the decision but telling us what was chosen is something
+> we can see in the code - patch description should give us the stuff we
+> can't see.
 
-Applied.
+I have modified the paragraph to :
 
-Thanks,
-Slava.
+"Fix this by always "fixing" the timer offsets to 0 and marking that the
+timer offset is set in the kvm->arch.flags at KVM init time for
+protected VMs. This prevents the access to the VM specific vm_offset at
+low cost. A userspace writing to the CNT*CT_EL0 would observe success,
+without any real effect. This is cleaner over spilling *_is_protected()"
+checks and "matches" what we really do in practise. i.e., always run
+with "fixed counter offset of 0".
+
+> 
+> One comment on the comment below.
+>>
+>> Reported by Sashiko
+>>
+>> Link: https://lore.kernel.org/all/20260908164641.416911F00A3A@smtp.kernel.org
+>> Fixes: f7d05ee84a6a ("KVM: arm64: Prevent host from managing timer offsets for protected VMs")
+>> Suggested-by: Marc Zyngier <maz@kernel.org>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>> Changes since v18:
+>>   - Retain NULL vm_offset for protected VMs to avoid host tampering with the
+>>     offset.
+>>   - Moved the flag setting into kvm_timer_init_vm(), where it should have been
+>>     in the first place
+>> ---
+>>   arch/arm64/kvm/arch_timer.c | 12 ++++++++++--
+>>   1 file changed, 10 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
+>> index 6ac3321f4c575..226cd5a495c8b 100644
+>> --- a/arch/arm64/kvm/arch_timer.c
+>> +++ b/arch/arm64/kvm/arch_timer.c
+>> @@ -1110,8 +1110,7 @@ void kvm_timer_vcpu_init(struct kvm_vcpu *vcpu)
+>>   		timer_context_init(vcpu, i);
+>>   
+>>   	/* Synchronize offsets across timers of a VM if not already provided */
+>> -	if (!vcpu_is_protected(vcpu) &&
+>> -	    !test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+>> +	if (!test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+>>   		timer_set_offset(vcpu_vtimer(vcpu), kvm_phys_timer_read());
+>>   		timer_set_offset(vcpu_ptimer(vcpu), 0);
+>>   	}
+>> @@ -1133,6 +1132,15 @@ void kvm_timer_init_vm(struct kvm *kvm)
+>>   	 */
+>>   	for (int i = 0; i < NR_KVM_TIMERS; i++)
+>>   		kvm->arch.timer_data.ppi[i] = get_vgic_ppi(kvm, default_ppi[i]);
+>> +
+>> +	/*
+>> +	 * Protected VMs don't allow any offset being set from userspace,
+>> +	 * either set via writes to the counters or using the dedicated
+> This sentence confused me.  Second clause isn't obviously the ways that
+> are being blocked. Maybe shorten to:
+> 
+> 	Protected VMs don't allow the offset to be set from userspace,
+> 	whether via writes to the counters or the dedicated ioctl.
+
+Ack, will improve it.
+
+Cheers
+Suzuki
+
+> 
+>> +	 * ioctl. Pretend the offset has already been set and rely on the
+>> +	 * default offset being 0.
+>> +	 */
+>> +	if (kvm_vm_is_protected(kvm))
+>> +		set_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &kvm->arch.flags);
+>>   }
+>>   
+>>   void kvm_timer_cpu_up(void)
+> 
+
