@@ -1,251 +1,219 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBE0559CB7;
-	Tue, 22 Sep 2026 15:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F3355C33D;
+	Tue, 22 Sep 2026 15:37:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091420; cv=none; b=fz2W38Hm6IjustFRk77FRKOBy0LPWsV/rhD0+9jNrlldZbAd/X0l49E1iZdZGXsRImELNNDjQgyPvPqd3/XdapbIwQcHwymVcHqCJ2fMoXIN7d1pMXtgqz3nL2rlf5gjhx7knDameF0MddiwUpN0tX967n1cQnpMnSmXcVDw5zg=
+	t=1790091424; cv=none; b=WJtpNdr541YcnFTGyU7ZmMz88VG0Zho2SMbKzds4rpm38yQt/VykTTDgVEaDI1rUEVm3ZsHxV1d24b+oU4zeaaPRNs1kfBDyOYybQIlQjfa4V4yFdvvXdshDjlDuqJeWTeD0YzOTlBrrYQTm16MtKBqL+V0VTP1jDyHFWWrZQp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091420; c=relaxed/simple;
-	bh=henzipa1JQvP3ZJSUdVpc3i3Gyb5R1tpkdjoqO30NaM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VXw5IjyZKES30noxXQ936KOiU7Z63B1BcXmmJ0/2M16uUVfT+QHZMQBgRKkUaI80Ye5gkN+MCq95R8OKjK9OrfBOwGPKqC6leXGkYeBVDNvX1Tp712w/21yKL8h//ytP1Ol4YnrNOwqOVha2YV9E2KVr9FMfrktnKOpvdwpEqJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O5OnRqsH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790091424; c=relaxed/simple;
+	bh=rsMDvdAbtvoABYwhg/X/cTGymXJ9hKGwhRWcnnt6A68=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QlAmMPpWIyGjpwDM8uhjao+qgwZr7Wy5d4Tv46XHIQDyHpFUODE9NgQOruKwga7E3wAivT7kc/lXbFddvobeNIXXlZSGEKtCNmKOjPLAVERDle1lAN6DnvGuKZTjWvi5IQJkeUBpb178q1OYN/mOT3nGFvP9KjECn6VrWcgGKqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGuqbTJ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O5OnRqsH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324F91F00893;
-	Tue, 22 Sep 2026 15:36:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGuqbTJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78E31F000FF;
+	Tue, 22 Sep 2026 15:37:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091418;
-	bh=J1kULK2uo5iIlycPGFV3SVU1kRYTeuiXaUNtJjPTvlY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=O5OnRqsHWVSboGiycATXii3kxCgUoPSM2nTvyWAlnmjffTTXW+gJ0VBID4vvQUgI/
-	 O9lywv7inXl6KjGb7/0VlcptxGCYMi4pmk8E1K0Key0xXSKimb8qT2xAQNzcqn3bgc
-	 NZ8SfEmhiX7Y6teqyn3WgbVZVXuwQ21QpRixohrxv/tDwY33XXtc8Vonec6u9sD/gt
-	 UBZbxXOIRgMuJj27Gvy7eryEkVKiqbSFWzONLl9IV9J/OcuxzDqnw+q8cSlW/JFZYS
-	 AGVcvEeYheEIUqWRkuYddTr13SdWfC/C4XoFemKzJCBJh9/mvAoKeri9l3zT04ZF4l
-	 EG7/hz9SzpOrg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 22 Sep 2026 16:35:32 +0100
-Subject: [PATCH v4 01/12] mm/khugepaged: deposit a newly allocated page
- table on collapse
+	s=k20260515; t=1790091422;
+	bh=S13S5usVPAem3KF3x7SHy0e4q0NgWKp/T4RI6TxtJjw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jGuqbTJ85HdCyG9Ktgs4IzfMWqgI9cPqd9NFr39PjZnZI9NnpkrObG0x8QVVVKy2U
+	 WS+KIEK4DmnSbpS0sqkP3chZjqptyB6cY1VKuCaorDB73cHof0QdP6yuAY0N2EUtOF
+	 S9JzxEbFdWV/sYhhAaVFpcFaL1hEx7+pYWKcozC/g9q2po8gN7hRC4taW2xpNARYTv
+	 BNr0c1NwW7ly8X2lsr2VO8es0Wxd40e2yS1SCJwh5B7gWIQoGA12948iGkPDbaw5x/
+	 2S6tBqFjc9vw0G15i+OA8HIkcNXGzu36WlZEpvTsaONYj8Y4akn1idnGBsgQiGoVld
+	 9SkWrENTKfmnA==
+Subject:
+ Re: [PATCH] ipv6: check per-interface proxy_ndp in forwarding and NA paths
+From: netdev-bot+sashiko@kernel.org
+To: adrianox@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 22 Sep 2026 15:37:01 +0000
+Message-ID: <179009142113.2160803.656958485064300227@kernel.org>
+In-Reply-To: <20260918151405.716075-1-adrianox@gmail.com>
+References: <20260918151405.716075-1-adrianox@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-rcu-pagetable-freeing-v4-1-fe1ad1f1e303@kernel.org>
-References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
-In-Reply-To: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- Jonas Bonn <jonas@southpole.se>, 
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
- Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
- Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
- Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Richard Henderson <richard.henderson@linaro.org>, 
- Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
- WANG Xuerui <kernel@xen0n.name>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
- Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Jonathan Corbet <corbet@lwn.net>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
- linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
- linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
- Qi Zheng <qi.zheng@linux.dev>, linux-doc@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4993; i=ljs@kernel.org;
- h=from:subject:message-id; bh=henzipa1JQvP3ZJSUdVpc3i3Gyb5R1tpkdjoqO30NaM=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI2LciKU2R7ePSEh5juaqtbvSfO7/tsdvP2okrVGpW4O
- S1pJfNPdZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiVy8z/E9ov/RlY+ua9MdM
- 6+s1Yp/Jfrky6d3F/7/bC1/kWQaf9Y5hZLj38RDHHLVN1kKTwqNu25zf+0q/e6HuefG01W+Lpf+
- b9LAAAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-collapse_huge_page() deposits a PTE page table on PMD collapse in order
-that it can be utilised for subsequent split operations, meaning that those
-operations do not need to perform an allocation (as they are in a context
-where it might be unwise).
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-However the PTE page table which is deposited is the one which is currently
-mapped by the PMD entry that is in the process of being collapsed.
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-Once deposited, the PTE page table may be used in a split of any other
-unrelated PMD entry.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This is currently not an issue as this operation is performed with VMA/mmap
-write lock + anon rmap locks held, so ordinary page table walkers will
-never accidentally end up walking the wrong thing, and GUP-fast is
-protected by an IPI via tlb_remove_table_sync_one().
+- [Medium] Incomplete alignment in ndisc_recv_na(): the patch makes the
+  proxy_ndp half of the proxy-NA suppression test per-interface aware…
+- [Medium] In ip6_forward() the newly added per-interface test reads
+  `idev->cnf.proxy_ndp`, where `idev` is derived from `IP6CB(skb)->iif`…
 
-However, the series to which this commit belongs implements RCU-safe page
-table traversal, at which point this becomes problematic.
+--
 
-This can be resolved by using pte_offset_map_lock() which gates on a PTE
-PTL and a pmd_same() check, but lockless walks are unsafe as things stand.
+ipv6: check per-interface proxy_ndp in forwarding and NA paths
 
-Resolve this by simply allocating a new, zeroed, PTE page table to deposit
-at the point of collapse.
+This makes ip6_forward() and ndisc_recv_na() consider the per-interface
+proxy_ndp setting in addition to the global net.ipv6.conf.all.proxy_ndp,
+matching what ndisc_recv_ns() already does.
 
-This path is already costly and an allocation has already been performed
-for the huge folio, so this allocation is statistical noise in terms of
-performance and memory usage at this point.
+> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+> index 550965058991..738fa46a892a 100644
+> --- a/net/ipv6/ip6_output.c
+> +++ b/net/ipv6/ip6_output.c
+> @@ -581,8 +581,8 @@ int ip6_forward(struct sk_buff *skb)
+>  		return -ETIMEDOUT;
+>  	}
+>  
+> -	/* XXX: idev->cnf.proxy_ndp? */
+> -	if (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) &&
+> +	if ((READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
+> +	     (idev && READ_ONCE(idev->cnf.proxy_ndp))) &&
+>  	    pneigh_lookup(&nd_tbl, net, &hdr->daddr, skb->dev)) {
 
-With this PTE page table deposited, RCU-free the existing PTE page table
-so it is safe for page table walkers to traverse within a grace period.
+[Severity: Medium]
+Is the device used for the new per-interface read the same one used by the
+lookup on the next line?  In ip6_forward(), idev comes from IP6CB(skb)->iif:
 
-This also brings this deposit case in line with all other page table
-deposit logic which deposit a fresh page table.
+net/ipv6/ip6_output.c:ip6_forward() {
+	idev = __in6_dev_get_safely(dev_get_by_index_rcu(net, IP6CB(skb)->iif));
+	...
+}
 
-Additionally, this was the only place in the kernel that displaced a page
-table like this, so eliminating it also helps consistency.
+while pneigh_lookup() is called with skb->dev.
 
-An edge case for deposit exists for powerpc and its hash-based MMU - it
-stores hash slot data in deposited page tables and zeroes them on withdraw,
-so a zeroed deposited page table works correctly for it.
+IP6CB(skb)->iif is recorded in ip6_rcv_core() before the l3mdev receive
+handler runs:
 
-Since khugepaged runs as a kernel thread, do a little dance in
-alloc_deposit_pte() to correctly charge the allocation.
+net/ipv6/ip6_input.c:ip6_rcv_core() {
+	IP6CB(skb)->iif = skb_valid_dst(skb) ?
+				ip6_dst_idev(skb_dst(skb))->dev->ifindex :
+				dev->ifindex;
+}
 
-This is already done for the folio allocation via alloc_charge_folio() but
-no such wrapper exists for a page table allocation.
+and vrf_ip6_rcv() then replaces skb->dev without rewriting IP6CB->iif:
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/khugepaged.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
+drivers/net/vrf.c:vrf_ip6_rcv() {
+	if (!is_ndisc) {
+		struct net_device *orig_dev = skb->dev;
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index f49a6710933b..dab421f8233e 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1278,6 +1278,23 @@ static enum scan_result alloc_charge_folio(struct folio **foliop, struct mm_stru
- 	return SCAN_SUCCEED;
- }
- 
-+static pgtable_t alloc_deposit_pte(struct mm_struct *mm)
-+{
-+	/*
-+	 * khugepaged is run from a kernel thread, so need to manually set the
-+	 * correct memcg so the allocation gets charged correctly.
-+	 */
-+	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
-+	struct mem_cgroup *old_memcg = set_active_memcg(memcg);
-+	pgtable_t pgtable;
-+
-+	pgtable = pte_alloc_one(mm);
-+
-+	set_active_memcg(old_memcg);
-+	mem_cgroup_put(memcg);
-+	return pgtable;
-+}
-+
- /*
-  * collapse_huge_page() expects the mmap_lock to be unlocked before entering and
-  * will always return with the lock unlocked, to avoid holding the mmap_lock
-@@ -1293,7 +1310,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
- 	LIST_HEAD(compound_pagelist);
- 	pmd_t *pmd, _pmd;
- 	pte_t *pte = NULL;
--	pgtable_t pgtable;
-+	pgtable_t pgtable = NULL;
- 	struct folio *folio;
- 	spinlock_t *pmd_ptl, *pte_ptl;
- 	enum scan_result result = SCAN_FAIL;
-@@ -1310,6 +1327,12 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
- 		goto out_nolock;
- 	}
- 
-+	if (is_pmd_order(order)) {
-+		pgtable = alloc_deposit_pte(mm);
-+		if (!pgtable)
-+			goto out_nolock;
-+	}
-+
- 	mmap_read_lock(mm);
- 	result = hugepage_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
- 					 &vma, cc, order);
-@@ -1433,8 +1456,8 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
- 	spin_lock(pmd_ptl);
- 	VM_WARN_ON_ONCE(!pmd_none(*pmd));
- 	if (is_pmd_order(order)) {
--		pgtable = pmd_pgtable(_pmd);
- 		pgtable_trans_huge_deposit(mm, pmd, pgtable);
-+		pgtable = NULL;
- 		map_anon_folio_pmd_nopf(folio, pmd, vma, pmd_addr);
- 	} else {
- 		/*
-@@ -1453,6 +1476,9 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
- 	}
- 	spin_unlock(pmd_ptl);
- 
-+	if (is_pmd_order(order))
-+		pte_free_defer(mm, pmd_pgtable(_pmd));
-+
- 	folio = NULL;
- 
- 	result = SCAN_SUCCEED;
-@@ -1463,6 +1489,8 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
- 		anon_vma_unlock_write(vma->anon_vma);
- 	mmap_write_unlock(mm);
- out_nolock:
-+	if (pgtable)
-+		pte_free(mm, pgtable);
- 	if (folio)
- 		folio_put(folio);
- 	trace_mm_collapse_huge_page(mm, result == SCAN_SUCCEED, result, order);
+		dev_dstats_rx_add(vrf_dev, skb->len);
+		skb->dev = vrf_dev;
+		skb->skb_iif = vrf_dev->ifindex;
+	...
+}
+
+The device-preserving NDISC branch is chosen by ipv6_ndisc_frame(), which
+only matches when iph->nexthdr == NEXTHDR_ICMP, with the in-file comment
+noting "This really fails for multiple next protocols (e.g., NEXTHDR_HOP).
+But it is a start."
+
+So for non-NDP traffic to a proxied address, or an NS/NA behind a
+hop-by-hop or destination-option header, idev is the slave while skb->dev
+is the VRF master.  pneigh_lookup() only matches the requested device or a
+wildcard entry:
+
+net/core/neighbour.c:pneigh_lookup() {
+		if (!memcmp(n->key, pkey, key_len) &&
+		    net_eq(pneigh_net(n), net) &&
+		    (n->dev == dev || !n->dev))
+	...
+}
+
+Can this end up consulting proxy_ndp on one interface while looking up
+proxy entries on another?  In that case the master's own proxy_ndp is
+ignored (the packet is forwarded with the hop limit decremented instead of
+going to ip6_input(), and the link-local dst_link_failure() path in
+ip6_forward_proxy_check() is skipped), and conversely a slave's flag can
+enable the proxy check against a wildcard entry on the master.
+
+Both ndisc.c call sites use skb->dev for the per-device read and for the
+lookup, and the removed "/* XXX: idev->cnf.proxy_ndp? */" comment sat
+directly above the skb->dev based lookup.  Would reading
+__in6_dev_get(skb->dev) here (or doing the lookup on the iif device) be
+more consistent?
+
+> diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+> index 75515fd99383..f787082069b7 100644
+> --- a/net/ipv6/ndisc.c
+> +++ b/net/ipv6/ndisc.c
+> @@ -1097,9 +1097,9 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
+>  		 */
+>  		if (lladdr && !memcmp(lladdr, dev->dev_addr, dev->addr_len) &&
+>  		    READ_ONCE(net->ipv6.devconf_all->forwarding) &&
+> -		    READ_ONCE(net->ipv6.devconf_all->proxy_ndp) &&
+> +		    (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
+> +		     (idev && READ_ONCE(idev->cnf.proxy_ndp))) &&
+>  		    pneigh_lookup(&nd_tbl, net, &msg->target, dev)) {
+> -			/* XXX: idev->cnf.proxy_ndp */
+>  			goto out;
+>  		}
+
+[Severity: Medium]
+Should the forwarding test here be made per-interface too?  The condition
+still short-circuits on devconf_all->forwarding, so with global forwarding
+at 0 the newly added per-interface proxy_ndp term is never evaluated.
+
+The site the changelog names as the reference uses the per-device value:
+
+net/ipv6/ndisc.c:ndisc_recv_ns() {
+		if (ipv6_chk_acast_addr(net, dev, &msg->target) ||
+		    (READ_ONCE(idev->cnf.forwarding) &&
+		     (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
+		      READ_ONCE(idev->cnf.proxy_ndp)) &&
+	...
+}
+
+and ndisc_recv_na() itself uses the per-device value a little earlier for
+the RFC 9131 decision:
+
+	if (!neigh && lladdr && idev && READ_ONCE(idev->cnf.forwarding)) {
+
+ip6_forward() also admits forwarding on the per-device flag alone:
+
+net/ipv6/ip6_output.c:ip6_forward() {
+	if (!READ_ONCE(net->ipv6.devconf_all->forwarding) &&
+	    (!idev || !READ_ONCE(idev->cnf.force_forwarding)))
+		goto error;
+}
+
+with Documentation/networking/ip-sysctl.rst describing force_forwarding as
+"Enable forwarding on this interface only -- regardless of the setting on
+``conf/all/forwarding``".
+
+For conf/all/forwarding=0, conf/<dev>/forwarding=1,
+conf/<dev>/force_forwarding=1, conf/all/proxy_ndp=0 and
+conf/<dev>/proxy_ndp=1 with a proxy neigh entry, ndisc_recv_ns() answers
+the proxy NS and ip6_forward() now takes the proxy path, but this test
+falls through to ndisc_update() for a proxy NA carrying the router's own
+MAC, which is what the "Don't update the neighbor cache entry on a proxy NA
+from ourselves" comment is guarding against.
+
+For an entry that is not NUD_VALID, __neigh_update() installs the supplied
+lladdr without the override restriction:
+
+net/core/neighbour.c:__neigh_update() {
+	if (old & NUD_VALID) {
+		if (lladdr != neigh->ha && !(flags & NEIGH_UPDATE_F_OVERRIDE)) {
+	...
+}
+
+so can the proxied target's entry end up holding the router's own MAC in
+that configuration?
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918151405.716075-1-adrianox%40gmail.com
