@@ -1,86 +1,86 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A3C4908C6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCF8493D2E
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055876; cv=none; b=nqENROj6njpj5XWUvThDfE1j0ACE8OW1MVSLk3D3zttgRMfH6V684oGcgX5pUZf7Pet6MEWbve8t2n3iaPxJsX5DhVIUvGbHPZdbJFXqtC6BwSgdTcBVZS57s7e/A+U8vI+aXJsLjc6nlGEqNcpP6Gjo2JlJIOTyHjsz4ffx3Iw=
+	t=1790055905; cv=none; b=atok8qIbdncaQUCmrVtfcAsU5n5CigLnEDBOl+SSmAwGJIGaCN5ROU1dN1Ma41PcGxRrtoQ7BQBjYXuoarM8elcOTRvMvm65JaxWZW/eWWemsnDSpCfSRKKZeSVJh2Eh7UYZCf4nGua/f9+6ShiJ1RDK1RgKSrtRtp9LFSoVOwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055876; c=relaxed/simple;
-	bh=1GIdHNxhGE182IYP1h+OGr+Y4dRWIRPsmZ9dxSNVj2M=;
+	s=arc-20240116; t=1790055905; c=relaxed/simple;
+	bh=idhVttimfBl8kiSSJ4Dd8bcSrrbYEB7MNan3+I62CeE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rLwnAZKxDsrW2SMzWuHzJe0Bbs+8SPkTzfW3nNRbw4RxW0F6JAq5Hx9zTL3f23By2cSwnPMf09aR+s5MDk5xHt3+Zyhj7r8SAvDTlmRN2oL+zT16cERsy9WyXQkdA8L97rXhYMjp5sfOk8bmnEEry1oyyrpr9EoaTzh+Md93oz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gmrMrUKy; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=lqZm9IfV; arc=none smtp.client-ip=170.10.129.124
+	 In-Reply-To:Content-Type; b=A14krIuL9i++8kwmAUucFQAZXwzeVeKr8DLcjj+nUzdGjMmBVf7xyI5tpX28GszyGg6ZWWfjUq0buPwpWSscR4D2szfHTV8DiaZKVrkxic6d4HSQskbrUx0I2xRPXmO2V98c+NWI904sm/Uy+LvYS/f+YU5F4pcsoVFyO+a4S1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DjE8kP38; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cIspwzh+; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gmrMrUKy";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="lqZm9IfV"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DjE8kP38";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cIspwzh+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790055873;
+	s=mimecast20190719; t=1790055895;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pmA9jiPk7zoomWkGiowG3gCebu1IH8Li4eqPWHiVK/8=;
-	b=gmrMrUKyxQ2tTTGK0BP1KJVWBTFardkT7JqbO20wn/HQXulCOg9xFa6gxoOfwAoQsIrju6
-	EH3zNUG9NS07Dcl06ry45PgPO/ffGryFpv32xe9+aUWB7KGZrPN+giVmNlB0ASZztW8Isy
-	93zxlC5oX7upP7GsO8o/AMkiOXw7E5I=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=rnnA+hu4V8aSPXEUCWQPC65BdY+sjOrXVnMp6lLQJmQ=;
+	b=DjE8kP38Fe+k6/J0QnW8J16ZylkX4aCOyZIOkgP5DezM8EBEdiRS0epUGzE+mSxBzYp3AJ
+	9vrnf75Cc+wAxPnSstMT6VYt6GX5DfSt9d1lyiFotbZGQmrMwK9YK0EcTX5YC/fVC6QK93
+	pF46cm5fUwZ9nz0QISlkWfFFjCh8aLE=
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-639-VqFWtYb_NpmGMTxcLZRD3w-1; Tue, 22 Sep 2026 01:44:30 -0400
-X-MC-Unique: VqFWtYb_NpmGMTxcLZRD3w-1
-X-Mimecast-MFC-AGG-ID: VqFWtYb_NpmGMTxcLZRD3w_1790055869
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39e18af9f48so765968a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:44:30 -0700 (PDT)
+ us-mta-453-g_yq3939NMmuW3oLOnhmKw-1; Tue, 22 Sep 2026 01:44:53 -0400
+X-MC-Unique: g_yq3939NMmuW3oLOnhmKw-1
+X-Mimecast-MFC-AGG-ID: g_yq3939NMmuW3oLOnhmKw_1790055892
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dc92350888so67740365ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:44:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790055869; x=1790660669; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790055892; x=1790660692; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pmA9jiPk7zoomWkGiowG3gCebu1IH8Li4eqPWHiVK/8=;
-        b=lqZm9IfVDQAhc4ARsNemZl0zh6glHd4eNJHgKuHm9kYWXXnqYBb8Lux8PPX3BZCt8L
-         kRiriPNh0vV0iH9mBRMnu9Eg9F+OLQjLl8XDLICzxLXff1tJy+g68pgIawiPrPciJBe4
-         iTTF6w88samcwmWyYGSuUGAwF6TpEydTCDPSlMvtHPWDYR++Xa/G2Q8zSXkw2UvFmpNK
-         s3SEz0UkWOd4Si350u5mDQ8ZUcoBvbbuO175JnxLQTOajWZ/7GhvK/L4B1wLkvCpvkHY
-         pCr63iQZaVws3yZoIY9clwMKGiJoMlIFQeqjKkVrnfDXKiMIXng/t+RSNTktL/IJ3SEd
-         zzvA==
+        bh=rnnA+hu4V8aSPXEUCWQPC65BdY+sjOrXVnMp6lLQJmQ=;
+        b=cIspwzh+EtrkVZf9e0Y5QwPrSjXPnWrJ//zXL4ltkGFG66BbfoyjMd+xSnoHLUaPup
+         3wRFyhDRsevp3qJaTFeiefXUQAES1w4uNn/sSJWZz6UxIu5VHOg/gkJQChU0d6bCgPE6
+         Gyj1lcP08hdnxlUgY8f08McOHn6m3ZI2E06X9sB2piujEr+eqZgvzFwwvGjqWztreiv+
+         hph1b0OltwR6GZhcxJgpwNLOCp0ZJQBJprlmBOI2R8KbiEz6F0cQdzgNI2OL+kv+4A/V
+         2vtXk+tjWl7YFeVtS5ps4IB9NropzScAOnxpMYdy9XYujrkl1MH7L6TmYs++UgDNHzB2
+         eCHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790055869; x=1790660669;
+        d=1e100.net; s=20260707; t=1790055892; x=1790660692;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pmA9jiPk7zoomWkGiowG3gCebu1IH8Li4eqPWHiVK/8=;
-        b=b3sPelv9/ZGwDw0idud6UV2yHfJeliWy/qH9YsbycqDHtLxNLOaQuXB7+s8M7BRc39
-         GdvteXStBFP3newlO6EhHU3dK51Yjg+iYPB6nA9f59dBRJZgZVsr7L4qixJUgkxxIxYe
-         B1ji1fQfHWGMEUnlcijNSFngXFugD7jvKVALt2ZiKCHMlDUGTQ52smQO6FRt5POEHRKE
-         05qThqGY6AkkUdT0g2TNFBfQLtnIMOX5msZj5Qq9oIv7axMVAnhjM2ts+gs5W127jf6r
-         BSX2be06bjorRBUmd+ve/4dTk8MAcdcqjdamix21LocqswOdGF89cwlW//K0l9mteKLo
-         scIw==
-X-Forwarded-Encrypted: i=1; AKwUvByvhwSk1K2ej9j83A5MJDhptvTaFghz3zMUrhZh5AY+JLev2EqREF6QLN8WrRk+fhgMUxrIPSB7Vrf+cLk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGjDuc1Xy75gvTY9vfYyJltIVLP+eswVp/1Cy3JBglQIokLI+h
-	wWrl/EkIQF+NvAVPKX2lbsK+rrpC7JiErIZWdfDFP7LDjMpzUdGmJbEIa6QkrDPnBdXEmsHM92R
-	03kOh9UcyPhEW2TIzImvBNsMY7JO8kYQSJa8Qv7lLIKB/xbEtnJ85iQXO/adu//8dFQ==
-X-Gm-Gg: AYBFou3TKEb3GJC+WA/6sS8KMdGK1U0CTC6VIzRVC4qE62hNH4iJPGZWg7UDy86tjnD
-	wJuU9Lg1oSSs01Xt6R5IHRwEBFJaeOREkK0LLQrFuKC7TjXpj5F2407dRCKZ8OXUgqRMd/jdLEr
-	oyAL5h4qfjKrZ2y7tAXPG7hlEBNJVOhYSqNptNVSXdAD85VOoXpKU8pH7GU3bLO/ltI/HRkZ12z
-	Aem2zzOWIKqnWkqXA+OTuf+iDdhrWx5Zemud7WhjUGmOIfybP/VymL3DzbmmCqAeSgDni1KbXzv
-	kmz2jWfCsuQsDVvI8fooWWjh5pgfWaJhQJt5oGGb+plj0rf55VFHyGYbsMIcuo98v/zcZYsQbCO
-	40f8yHmanGXfTF5mM4DuKZLk9Ucd4HpuJ8Z4VwFB2Jw==
-X-Received: by 2002:a17:90b:5846:b0:39e:6a7f:6188 with SMTP id 98e67ed59e1d1-3a073680db6mr6849a91.25.1790055868917;
-        Mon, 21 Sep 2026 22:44:28 -0700 (PDT)
-X-Received: by 2002:a17:90b:5846:b0:39e:6a7f:6188 with SMTP id 98e67ed59e1d1-3a073680db6mr6837a91.25.1790055868458;
-        Mon, 21 Sep 2026 22:44:28 -0700 (PDT)
+        bh=rnnA+hu4V8aSPXEUCWQPC65BdY+sjOrXVnMp6lLQJmQ=;
+        b=R0hWNa289cr9ZdBJ/6hoM609x1QUy4VeJsh+UGRQQ4nfmo4mTfoDNsd1rkjp5dZCjl
+         VgD6KiYEEfkiu/cEdZ5fMUpgvMeOZz85RSmDez6nIZcGicxcuSFkOzVg6OyNXjaj5VhE
+         /gQPrsbwYjm+hDJ3HIkzw2yspPTO9NXBP3wW9KeMuPuvpqecGgybod23S3eU5Wo6h/pz
+         mQWlcVIoj/KEC29sfRuO+ODSo1jrEobte9sentqCa3djS+U27I/7jGRV3Lop+/iW5GMq
+         SABJOad+nXfkmVqBJa8dWztwLjzacrKg0pTCDyBigQombFPV04cFZ8eLDVfkWU70eJt3
+         oFDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy7QfN+FIwlk97p/nk1blnA5bdSG087gchUXrftgsrhhASIGjR9JYPbkmM6tvgFKFQZ8fEuIRUt6S3+H30=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ0I/lgQRXa0LPZcDQmlpWRRjJO5CJ5SgbFTWPaalU4VOE2R20
+	OI0x0oQlWHZio0/8RYR46q6RHY/Qi+1mxiO2/eDBv5p380zkbIehFEwIcYEKfjm5nog6ykFcI0t
+	Kngk7NRkdyQLRTxCtgY/0x7uvWz+h/rcQbjpIGxOouZ8aJK/nwtxfxW5woN968W1K6g==
+X-Gm-Gg: AYBFou04fwr4j7F5Gyc2HR/6roMOwEAHP976W8czxm4ibKydc8YQoSLstbdJMv39hb5
+	OxE9h5q/niI0iiTe8VwiMCddSAGQnjjMdCf2r5TR0D/XcmdK6Dw2NtkurGw/7A5Q2GLSJDld1c2
+	szzyinXtPhX3FNpP7mLQnoQX/WfC8t9aNmQIHPwwTYByYkLLMZUUdkHJ/d00tCDXrUarOHKVhkN
+	LedrscVCZ+LVRK7D5FKwAEkxMYMX8StWuElvBd8GH9IHJGUW7fyYjGWnHdWE7BS2T1TX2u8e5RD
+	DOHG1gMfVAoLB2UM1lCB8s3a51hL/jGeScIEb0ACI27CG0H/jLPuN/s4z7FzXtQl1KpVDLRonl2
+	O1NbXZHt6GbNncEnXQKxwiXCLlL8vi+URh8TbLJXNLg==
+X-Received: by 2002:a17:902:c94b:b0:2dd:ad73:c939 with SMTP id d9443c01a7336-2df609d71cfmr1169345ad.26.1790055892343;
+        Mon, 21 Sep 2026 22:44:52 -0700 (PDT)
+X-Received: by 2002:a17:902:c94b:b0:2dd:ad73:c939 with SMTP id d9443c01a7336-2df609d71cfmr1169035ad.26.1790055891896;
+        Mon, 21 Sep 2026 22:44:51 -0700 (PDT)
 Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e53c107sm1266677a91.5.2026.09.21.22.44.24
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d01965esm3653455ad.23.2026.09.21.22.44.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 22:44:27 -0700 (PDT)
-Message-ID: <6b0e04b1-f0a2-418a-9b24-9803713676a5@redhat.com>
-Date: Tue, 22 Sep 2026 15:44:22 +1000
+        Mon, 21 Sep 2026 22:44:51 -0700 (PDT)
+Message-ID: <89cf5ea2-d0bb-4cb8-a32b-ca843658e894@redhat.com>
+Date: Tue, 22 Sep 2026 15:44:47 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,47 +88,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/12] arm_mpam: resctrl: Make read_mon_cdp_safe() self
- consistent
+Subject: Re: [PATCH v2 10/12] arm_mpam: Don't loop forever if there is the
+ maximum possible amount of PARTIDs
 To: Ben Horgan <ben.horgan@arm.com>
 Cc: james.morse@arm.com, reinette.chatre@intel.com, fenghuay@nvidia.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  dave.martin@arm.com, andre.przywara@arm.com
 References: <20260917145617.2202986-1-ben.horgan@arm.com>
- <20260917145617.2202986-10-ben.horgan@arm.com>
+ <20260917145617.2202986-11-ben.horgan@arm.com>
 Content-Language: en-US
 From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260917145617.2202986-10-ben.horgan@arm.com>
+In-Reply-To: <20260917145617.2202986-11-ben.horgan@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 9/18/26 12:56 AM, Ben Horgan wrote:
-> When read_mon_cdp_safe() is called with cdp_enabled equal to false then the
-> reading returned in val is the sum of the monitor values for the given
-> component. However, when cdp_enabled equal to true it is again the sum of
-> the monitor values but with the initial value of val also added. Both
-> resctrl_arch_cntr_read() and resctrl_arch_rmid_read() call
-> read_mon_cdp_safe() and are documented to return the val directly without
-> consideration of the older value.
+> On a theoretical platform with the maximum possible number of usable
+> PARTIDs, 0XFFFF, the loops iterating over PARTID in mpam_reset_ris() and
+> mpam_reprogram_ris() will never reach their termination condition leading
+> to a system hang when register the cpu hotplug handlers when MPAM is
+> enabling.
 > 
->   The val is always zeroed before read_mon_cdp_safe() is called except in
->   __check_limbo() and __l3_mon_event_count_sum() but the latter is not
->   relevant on MPAM systems.  The extra accumulation in __check_limbo() means
->   when there are multiple RMIDs in limbo some of them may be marked dirty
->   when they are already clean.
+> Fix these loops.
 > 
-> Change the cdp_enabled equals true case to match the false case and the
-> documentation of the resctrl arch hooks.
-> 
-> Fixes: fb56b29932ca ("arm_mpam: resctrl: Add resctrl_arch_rmid_read()")
+> Fixes: f188a36ca241 ("arm_mpam: Reset MSC controls from cpuhp callbacks")
+> Fixes: 09b89d2a72f3 ("arm_mpam: Allow configuration to be applied and restored during cpu online")
 > Signed-off-by: Ben Horgan <ben.horgan@arm.com>
 > Tested-by: Gavin Shan <gshan@redhat.com>
 > ---
-> Add fixes tag as actually fixes an issue (Sashiko)
-> Update commit message
-> ---
->   drivers/resctrl/mpam_resctrl.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/resctrl/mpam_devices.c | 7 +++----
+>   1 file changed, 3 insertions(+), 4 deletions(-)
 > 
 Reviewed-by: Gavin Shan <gshan@redhat.com>
 
