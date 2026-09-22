@@ -1,171 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011040.outbound.protection.outlook.com [52.101.70.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33801E51E0;
-	Tue, 22 Sep 2026 14:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790086170; cv=none; b=F1mKXfYik5czBeft5Xh/f4bQBPe1EnDi8LZYdyLjEdnq852Mqy4H3mAfv5eXZvgWLcQSz+rPzTBh2TpjDTxUtkEWoLdUBuYzAJyWsM6xYiAhc50Hj/wKELuHKgLmbcJ8BOr+mV2BTDDD1Jk4dPZw74Ag10YidASh8iZouMnM8U8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790086170; c=relaxed/simple;
-	bh=5eUWwYmyoYKd8yyHHOjwiHKH6MfndOASxVI4Yvk4aGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qjXRE+aanWCuaxCkhxFAZKbzdIaSLExBfii5fhx8ay7Agfbg1RIHjcIsRevudHoZSgZoajPGDgtJ/a+aNsBuS78m5CftowfLO/R0sdSybzIl5fb2cm1Wk1oaU9vAtsaau4G1mzBiX8Qnl6sP70oxRW1KvR2J2Mw6RdufioGBkgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iIP2jaeb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360B147C0EE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:09:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790086182; cv=fail; b=Vo7rsEdh0MxjgkVY1GnAq6AI6ApnA/WMCqlKBkD0HuuCnid6txswXpg1JXJoe1HYz6YNdx+fmYV15+VKOBU2cJAkaZwE+tby4EcS/7ehsWOUaitcRXQGTF23aE/ekVEwDdj7PggGcvf6cIA5AiI72XCN7yn0CJAI1JePF5mfGZM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790086182; c=relaxed/simple;
+	bh=427QmRfvF+Uf04Yg98jhCbDTDSLrDWWZAz1S3ZF2png=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kaMpxAq11Vi2+om+FQtByi+iS11FFzIILk6I903rnmA1hBU+G2vbsrhV1ODCglDywXiggG6VYk3QXzOvSErSMzPqC+B/bGgfO2qOvil6mWQtcQ95vTIOdyLqaYFmDk4YebjczDn3nnMSm7Xfmev32IeZcQkMP0DRvYFhCr7jG6M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=U2M6NdbD; arc=fail smtp.client-ip=52.101.70.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iIP2jaeb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D75B1F000FF;
-	Tue, 22 Sep 2026 14:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790086168;
-	bh=D6Aavxp3VhJXWJ3oPsCmDA1giEaBo0wNTN0QHHkvpZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iIP2jaebLtctuzSGbrZY0QfqI9chrrXPXz3jFj5CwKIMmBFUnN8SEm+i+1/moEraU
-	 sH8paMLNbdoCaCfmuSIGin8lywL6pEBdLlc+REioPrGgw1HKriAGIutx7Jko5Z286s
-	 thBUGglIHN/JC+Z73IFSBSdj5LiqTV05ZrYIi25I+GsWhdrOqnq7jvyAWOuuYyJPux
-	 OYQXzvBXh2H/GTh9yWZrEI4iV1RE9xdfLfiRNud9pJNjo0T35MmbIOqfShv9RIXKgz
-	 dzZhJkUIRJVqWrD36Uo4KJcLIF0p49iScqBTPPaQhNiR1RP0bZOVrhqFIflhR/GR6i
-	 whHXp1KEtRKGQ==
-Date: Tue, 22 Sep 2026 16:09:25 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
-	Richard Weinberger <richard@nod.at>
-Subject: Re: [PATCH 1/2] driver: core: Allow drivers to opt out of
- driver_override
-Message-ID: <arKLt__frMjzSA4t@orome>
-References: <20260922-driver-override-opt-out-v1-0-58c35ded3b83@nvidia.com>
- <20260922-driver-override-opt-out-v1-1-58c35ded3b83@nvidia.com>
- <2026092227-marbling-untying-c1df@gregkh>
- <arJ6s51FV4T9IK5w@monoceros>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="U2M6NdbD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oAUUQLPcxZlSd2Mfc/wSO17+HW56P/FTYRIRgmpIZxcgjitLLlA2fxaQfoI1a/LgeIqHaoYJOsB3/8il2EsA2GF3ibzF8p0L+kP53h/xDq5XpWQnxLmnIq8efkEC5gBWfDlDPtz35qRqUpHZcQaMkFlANrp1JfCe4PlT/omKok3LE2JmgGWE3RRZZTv0f79VgY1KJ0yFOl/lPmAXMg3vZXNJ580laA8I49lHNPc+5+5TtbKFeuEP9VbfbxQX/dRrPaLc3Oc0rqIzf0nlQ2VhsHl/K2rgSHPM9ptowIfuDmDEkwpg/2Mc5UZFQm5NG1NrguMvLM7JytYhYMRUGnN2ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CcEmOegIQstPE4tx/39/EBfjM/ApKso1D+9TEGy2Uyk=;
+ b=A6AtLZ8n33bsq+kHdab1G1klGV2v/Cy2vDPhMrjN9ziOAFOlWHJ3o2eKOxlay3PDIBEfG6x1BSHhALKja9dM3oQFfIhyAa/E/XY7b27eWRMjCLTU4/ZQnz11rxMqIZxkS12V9qYfDBUGr7ew8d7VdeMb6nBrx+CkyqNOcDDa+N696zM74KDUlNd0bXEdUstfnKLLJ2fBD7paedf3SPZfHmFHJTwG8MKo8owltjHmPh6dv5OnUtT4IFcm8/uYt0ewJUhRaKaeaAfnSH7ScKmLe8fTlxWn9S2/pnRrgbnC4lFDShz4XSGDqfa3QaYZnQdxhUAopudV07QxEcoUaT10vA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CcEmOegIQstPE4tx/39/EBfjM/ApKso1D+9TEGy2Uyk=;
+ b=U2M6NdbDo+/KGGn/gBmAnNsO6IjNHYBMRDaZWAkugLbLxFaY80JoF96FSXl9qb2/C7Bj69UtRYhlanTzXRijrOGH/+/vozs9mC/IMr2yByXWAXIbIqvEIVgrBzeTqe17icJW9GeE/RzgmT9AR3E3/+tyzO5wsCrtThzQcOmLbZc9J9iy4GQKOtvmsBzOGrV8lUkWJvBC9vVTZzozC6uC0A6ahnxHCx1GdtZYhXstFDuyo2QMxiuSVKQX0arIdgYcWmlsxVbV45MD/NIh0xKvuw2bNl6m+L2orwgbntYF0m2YXjN9QCjYLYD9mIFQqWHm0/HSGpXQ3Oz6zTYruUmEiA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by OSKPR04MB11343.eurprd04.prod.outlook.com (2603:10a6:e10:95::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 14:09:36 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 14:09:35 +0000
+Date: Tue, 22 Sep 2026 22:13:56 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jpb@kernel.org,
+	jgg@ziepe.ca, linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	peng.fan@nxp.com
+Subject: Re: [PATCH RFC v2 2/4] iommu/arm-smmu-v3: Support shared SIDs in
+ insert/remove_master
+Message-ID: <arKNJH2YWQT9KL7x@shlinux89>
+References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
+ <20260921123846.1663580-1-peng.fan@oss.nxp.com>
+ <arG6hmng3NddGEHm@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arG6hmng3NddGEHm@nvidia.com>
+X-ClientProxiedBy: MA0PR01CA0107.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:af::15) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kwbsr3rt6ars6dkv"
-Content-Disposition: inline
-In-Reply-To: <arJ6s51FV4T9IK5w@monoceros>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|OSKPR04MB11343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fa7ecef-ce9f-4288-9faa-08df18b321c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|19092799006|23010399003|18002099003|22082099003|11063799006|10067099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	dnJarWEIPb6WwQse465wJ2dG253u/uUOjNWr61WHuv7MNkkPnaJyjdCV07b53w6q2q25RTvzITNt90ZB1MkZ4Y2AnAvzWOOmqkKTEBlkvw4+r+qyGaM49f7ZzmqRPAST1IqqgBhrQBBDyM392mdbFAuoTbUK6jvTmsR3P/xj60hGFhFiF/Eciwrg1PwTIYDUZifvTTnXxlYCxN7YcNmYJN2CaWO6dPlCByq6b17j2sTNYJpXAOGcJxHqsSRe0Tg0CGA74tMgjpPH8X2JEmjGsqvjvl+rEW4GLfxpG2iEcCNgFlY6EkD6Uoz5UcFZKkxGN4xjfMV/5TYoAaemAnWM3ObnYb60X3SEcYSOWD8xlfNphX/Usi9W8Zwsv2wMYgugfzmSgtVn3FtKkAgo9+2lc5dBQivnU1GgQ6s8iW3ux6VJ81+Q79i1sPVQ+7G0F97VQ4iXK5ybhnTITNrBP5GibPf4W7mwdaYo4lRyq1a03GfA8FqsxCgHchsyWpD05t7PN9i1HORgep62iqu6dDjy4aRnNf0/tNJd7B6ueKQUrghLEqxBkuJPvA/7XDhLx3an+sFW5fArjpNlv1bBkAtp8lGaEIwp4P4bYpC+pDB+FgvWa/V/xWIKmGyiDlMLS6FJw5+/CZ11OTInt0lRbzj2tb6G1GPiSnDKw0Hs/CNxQQo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(19092799006)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PfAc2O04aeG6ILpWQ38Abjug64jJC7nqaLND5UUltwhZ9PRcUj4YzXwwtnK0?=
+ =?us-ascii?Q?AE6n6lBFg6twKd4QTiQrh4AyCKrHo9Jl8OBjB281E1ePAm641H1oz2ChKi+E?=
+ =?us-ascii?Q?ZIbvR092dXbRoYrt1QSgA44XJfa6QbwYEYRjPeRZL9ZmvU0pYk7sxXXiYlPJ?=
+ =?us-ascii?Q?3jHeHlONyzcNcYNh/IO7S0CDINQcp2QETDv0atagLeTB9zhIiiZnYlM9RT5g?=
+ =?us-ascii?Q?aZWA1RMA3h4yJ9P68exuoJi0jiqo3hbcNS0nqUg1vwl4StbI8gYErK/4cFUS?=
+ =?us-ascii?Q?5D15aaGHX0vAyDULySjZSYkX1KEbGlcmMzttL/Fk6PqF448Pmz2VzarsY69v?=
+ =?us-ascii?Q?7JMtNWzt5StGsL/ZvI4lyQEhn5gH5qw9W8MhqM3QGfujisY7IllVrumfR8VS?=
+ =?us-ascii?Q?YqvrxYXXOaa5IpJ5xSgbCqsYO4jkyHAyGQpo/3tDsYfjzjB/eC6uIQov3UTp?=
+ =?us-ascii?Q?bmp7Ab9osBQbJ5bmjFRtq7d96lowl77Y1zbNERC5fMmYpGx4ZqPG4qxYumXx?=
+ =?us-ascii?Q?9sUAFzj+KeCvM81KN0eUFoEAENSZhpcgylEYIe7em5wvSiSL+CjPBnFoncKK?=
+ =?us-ascii?Q?25cMnyl6PqXMYxjV109ZDfT4C5/XYhh3gEP42VL+r8vMCiQ4iVOap8FejoWv?=
+ =?us-ascii?Q?wXNt1OavOGJdLMXTMVA5s2nS17cDIUh14Z63d+mR9Wani/2WcLK+j+G65n5T?=
+ =?us-ascii?Q?0gEgIHtoVDkJ/FbBGyl9i7uhm7eANGx4+f14ebMe/O0TSRQbUxTPvQ4uiKk4?=
+ =?us-ascii?Q?rXhKqCyBqVgYbEyJ2Vt1rjI2V3WMRrdapqmpcmYTIA1u164KCNpx/TAoxrdg?=
+ =?us-ascii?Q?3bSGBn3biyoGcTZPkodzqfd1jYQl+qpTPD9Eus4kgX0NmFaNK/JtcZfokZ+X?=
+ =?us-ascii?Q?dSA6KBf5AFiV9oStChOPQIMQ153WZEU99BjGHigV9mDXLdWat+XIy0XP9OJI?=
+ =?us-ascii?Q?KRmb3tfoavxGtZCXsSZHsWTTX4xjEpb8embkMv3SgG9MyBW4u/479Ux47VtL?=
+ =?us-ascii?Q?1DTKb8y8YmLe00um6aYLM6aQSX/CvESSEHPJJzsdoEiov0EvbZkBfcSK83s6?=
+ =?us-ascii?Q?tfr7tjMkVXjb1Xi5BhEnSh2x2QVeaiZ4+QVCq1FVsXtzZzpP7Pcp6og4xiJr?=
+ =?us-ascii?Q?jRbRbj91VhQnltz4GIi6pjOs9RSQwOqNEz1t8U2cEYUiFkHTBfjl9DoDmh1N?=
+ =?us-ascii?Q?ExGi+AxDN2lfGEMra4YgRJltycSm5uLpuC8odjYqfR3L6oTHxCNYLHVU+B2V?=
+ =?us-ascii?Q?dzw0IhCX1wDAlBYNasf8TM5eJ4zBJtaBgdqmPGe48Yrmz+qOAZPoIDxBTv1G?=
+ =?us-ascii?Q?dLTfNE0rWc1aJWUh/e+dCFUn3lVdthYPN5oPvSqHDleBOOrLBiwpZIfgtCx5?=
+ =?us-ascii?Q?bFFrX/YE/qRF+Ys5VyyKkH0KlpxW5mOfYgzDfNBpqXiC9n9f49T4Bf/Fan8H?=
+ =?us-ascii?Q?6Ks+Up9EXzFj74KIXm0QvH3TFL/BP+fCR23E0rNFsll+WmlMKgyj5ohzCzp2?=
+ =?us-ascii?Q?09sH5qinViQnNektNhtaQX3rJedFazryIgq0sGg9/AEnKeiY6KtmX4XpeVMD?=
+ =?us-ascii?Q?VJr61S6ifgD2BX6RchNE8ymCtQAiAYHCfmlJdsCjbBC09RKABfdzT/7Eu9pX?=
+ =?us-ascii?Q?qXeDcpYouVjTHyrh8voUMs+PcHPNmpVilcw/zngaZw/NqPAkGMLMRlHHnHAA?=
+ =?us-ascii?Q?fNA4qmXeArKys5BomCNsBgJuuv30VKOpnKlrg5KPKVwdpgoq9/Evs+M+53gk?=
+ =?us-ascii?Q?c3LSXZvxBL3AS54tCOaVp272t2RW6wC7aIURCCi5p0WsZaGhaZA3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fa7ecef-ce9f-4288-9faa-08df18b321c5
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 14:09:35.6423
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3lJo7gCWHIfm0ta7365ciGUgwPSFia1Bvx81zl4lJEv8E21x/q60nOH+gXL89/8WSs4si+FZjidCLs+ocSUbj0774rEjqSggpwFnZemZTzsqqvjzSXHh+Rf5V4voY8yz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSKPR04MB11343
 
+On Mon, Sep 21, 2026 at 04:15:18PM -0700, Nicolin Chen wrote:
+>On Mon, Sep 21, 2026 at 08:38:46PM +0800, Peng Fan (OSS) wrote:
+>> @@ -976,6 +976,24 @@ struct arm_smmu_device {
+>>  struct arm_smmu_stream {
+>>  	u32				id;
+>>  	struct arm_smmu_master		*master;
+>> +	/*
+>> +	 * ref_count > 1 means multiple masters share this SID.  Protected by
+>> +	 * smmu->streams_mutex.
+>> +	 */
+>> +	unsigned int			ref_count;
+>> +	/*
+>> +	 * When ref_count > 1 the STE has already been written by the first
+>> +	 * master; subsequent masters must skip the write.
+>> +	 */
+>> +	bool				ste_installed;
+>> +	/*
+>> +	 * Links all arm_smmu_stream objects that share the same SID across
+>> +	 * different masters.  The canonical (XArray-stored) entry is the list
+>> +	 * head; non-owning sharers are linked into it.  Used to transfer
+>> +	 * XArray ownership when the current owner is removed.
+>> +	 * Protected by smmu->streams_mutex.
+>> +	 */
+>> +	struct list_head		shared_link;
+>>  };
+>
+>SID-sharing masters still allocate their own streams. Though the
+>SIDs are the same number, they own duplicated streams linked via
+>that "shared_link" list.
+>
+>  master_a->stream[0] --> stream (SID=X) --|
+>                                      shared_link
+>  master_b->stream[0] --> stream (SID=X) --|
+>
+>But maybe they could share the stream structure directly? I.e.
+>
+>  master_a->stream[0] --|
+>                        |--> shared stream (SID=X)
+>  master_b->stream[0] --|
+>
+>
+>The stream structure would still need a list for shared_masters:
+>
+>struct arm_smmu_stream {
+>[...]
+>	/* Every sharing master, ->master included. Empty unless shared */
+>	struct list_head shared_masters;
+>};
+>
+>ref_count could be simply !list_empty(&stream->shared_masters).
 
---kwbsr3rt6ars6dkv
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] driver: core: Allow drivers to opt out of
- driver_override
-MIME-Version: 1.0
+Agree.
 
-On Tue, Sep 22, 2026 at 03:17:26PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> Hello Greg,
->=20
-> On Tue, Sep 22, 2026 at 02:13:58PM +0200, Greg Kroah-Hartman wrote:
-> > On Tue, Sep 22, 2026 at 01:38:28PM +0200, Thierry Reding wrote:
-> > > From: Thierry Reding <treding@nvidia.com>
-> > >=20
-> > > Some drivers rely on device data obtained through device ID matching =
-and
-> > > will not work otherwise. Some such drivers don't check for the validi=
-ty
-> > > of the device data because it is never NULL when the device is matched
-> > > against the device ID table.
-> > >=20
-> > > However, Uwe recently pointed out that drivers always need to check t=
-his
-> > > device data because any device can be forced to bind against a driver=
- if
-> > > their driver_override sysfs attribute is set and the driver rebound. =
-Any
-> > > such device will now not have device data from a device ID match table
-> > > and may crash.
-> > >=20
-> > > Add a flag that allows drivers to opt out of the override mechanism w=
-hen
-> > > it doesn't make sense. This allows us to deal with these situations in
-> > > the core rather than sprinkle checks throughout all of these drivers =
-to
-> > > check for validity of the device data.
-> > >=20
-> > > Cc: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
-> > > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > > ---
-> > >  include/linux/device.h        | 12 +++++++++---
-> > >  include/linux/device/driver.h | 12 ++++++++++++
-> > >  2 files changed, 21 insertions(+), 3 deletions(-)
-> > >=20
-> > > diff --git a/include/linux/device.h b/include/linux/device.h
-> > > index 90cdd77458bb..45c23cc5efa8 100644
-> > > --- a/include/linux/device.h
-> > > +++ b/include/linux/device.h
-> > > @@ -899,14 +899,20 @@ static inline bool device_has_driver_override(s=
-truct device *dev)
-> > >   *
-> > >   * Returns > 0 if a driver override is set and matches the given dri=
-ver, 0 if a
-> > >   * driver override is set but does not match, or < 0 if a driver ove=
-rride is not
-> > > - * set at all.
-> > > + * set at all or the driver opts out of the override mechanism.
-> >=20
-> > What's wrong with just not allowing bind/unbind at all?  Why would you
-> > want that, but NOT the driver_override file?
->=20
-> bind/unbind and driver_override are two very different operations. The
-> first is something that should generally work and I consider it a safe
-> operation. The practical use includes reloading drivers that hang and
-> also switching operational devices on a devboard that cannot be used at
-> the same time due to pinctrl conflicts or different clk needs.
->=20
-> driver_override is a foot gun that allows to bind unsuspecting drivers
-> on foreign devices and thus make e.g. of_device_get_match_data() return
-> NULL for a driver that assumes that cannot happen because all
-> of_device_id entries have a non-NULL .driver_data yielding null pointer
-> exceptions.
->=20
-> See also the feedback you got on
-> https://lore.kernel.org/all/20260914-bind_taint-v4-0-eadf8a090903@linuxfo=
-undation.org/
-> where (apart from me) Danilo Krummrich argued that unbind/bind should be
-> considered safe compared to driver_override and also our conversation in
-> #kernelnewbies where Richard Weinberger concurred to that.
->=20
-> Having said that I think there is only a handful of drivers that are
-> actually supposed to work when used in a driver override (vfio stuff,
-> spidev and i2c-dev come to mind), so I'd prefer that drivers opt-in
-> instead of opt-out. Otherwise we yet another flag that drivers should
-> set in general but don't because driver authors are not aware[1]. The
-> few drivers that rely on driver overriding should be identified quickly,
-> and if we miss one that doesn't result in a way to make the kernel oops.
+>
+>
+>Does i.MX need to support SID-sharing with multi-SD device? If not,
+>the master could have only a simple shared_masters_elm:
 
-We could easily invert the logic in this patch to make this opt-in, but
-it might be difficult to know exactly which ones want to opt-in, given
-it's been enabled by default for a really long time.
+For i.MX, there is no need to support SID sharing for multi-SID device for now.
+Not sure, in future there are cases that needs SID sharing for multi-SID device.
 
-Thierry
+I could update in V3 following your suggestion.
 
---kwbsr3rt6ars6dkv
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
+Peng
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqyjBUACgkQ3SOs138+
-s6FB0w//YYnwrP3Ylhg3ZzfG+Tds7tZLFcuHw1pBiUwC/YxW5Q3fl7JDC3t2SL/3
-ogmRufIr6xCsCX1DtB17OjdEo1gGTToxG6eFNKV6DsUvRpyW+nF+r0S+RW+Zz1BC
-+uq+s6cSV1rujTJlevs4rBHDnau1YUc6I651fTS6X3xvZBoXSslUqxePtmU8n0aC
-JhiXR856APtcRyFOs7OX3MEHJB+SpUosWU8qrC05Rpx5piHEcbj+yfo8RypfV2PH
-nDcHQRANYSnLQmjYtTB0cmrPC8HT9UQVo5ALJI1WCuX1i8MzKiCRnMvIeTigIBO5
-Dq3rhf/Yg3wejrxtPpcDFDFcgQu5dLnBEi3eTAfEFQa3rk8xvg1Qq6rsMLkk7Af4
-mjV7NDbUW6P56nUSfsb0n9RvbocBb57b5gdo3+Qr4J3VkJYcWQAvf/G9IW05rPfY
-fjmo+Wnns8IDVz9xVdtBF1Oc0MQLlkM+plzSIcE5a/C9T30iLZtx0MAHTPsMi36T
-BpB2226AJYXXWtJY5FfzrIP97iUn67QPcSZQqEJedPUtq2aG5Xh/1IbkfMXyMNFo
-yXae75FKPsBMsvm/3uk9uYq9WiblC7Gy+15sNTRyI0z/TDsOeiIzuWLApB+fvoFU
-3CLOuTay5DYZ1Z/n8UEuniB99361gX/HCv0+y7R4P83SIVBvF+o=
-=ohp9
------END PGP SIGNATURE-----
-
---kwbsr3rt6ars6dkv--
+>
+>struct arm_smmu_master {
+>[....]
+>	/* Supports num_streams == 1 only. Empty if SID is not shared */
+>	struct list_head shared_masters_elm;
+>};
+>
+>> @@ -1024,6 +1042,11 @@ struct arm_smmu_master {
+>>  	bool				ste_ats_enabled : 1;
+>>  	bool				stall_enabled;
+>>  	bool				ats_always_on;
+>> +	/*
+>> +	 * True when at least one of this master's SIDs is shared with another
+>> +	 * master.  SVA, stall and IOPF are disabled for such masters.
+>> +	 */
+>> +	bool				shared_sid;
+>
+>Then, this could be !list_empty(&master->shared_masters_elm).
+>
+>Nicolin
+>
+>
