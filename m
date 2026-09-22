@@ -1,242 +1,81 @@
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57AE3558210
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:13:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE21548570
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790082817; cv=none; b=Ob7Vv/8zu1X66FIY5aq56gtq67NrOKFXTogvVVWwJP+WY0WLCprORNFocnlGO783RxGsbIJgXJ6TtJDGNX/SkpaevPn9R5g4WTbY+S7XCYI0supUOscC5FXypkJfBaSSP7Aipp5jeME/mydGLJChjxw7xSpJjdA4TtTMjxw3IXs=
+	t=1790082834; cv=none; b=FrPh3fThT5mzkXlZa44c+twJ0NiUmj8vcNcOJRwjAmMAYatR+jSOAPAqLT4V87ueU0K6FQJ3RWnTKIlHxlp9CuYU9Vq4SpAxPi5XOov0ENw9Db5l4bz03u74jdyGT0nt5UilDlY0oW7T/kvM3clIvFVr5gp206TPUiQ8DwXez34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790082817; c=relaxed/simple;
-	bh=E2DLmDPzNZlSKKL6JJDQS3FYAGA/WLF+RiEGF3VgGe4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JcDeX3Br2lK38dj7fF0W/M49/1MfYn9xAA8gTiSJHjStvF5Q5Y187QT5oSalT74dV9Iby6ewmLFbGJTP+iD7Oxea3nOspFWRoX0lP5+wvMlqshHz4VGdn8/IZgBvxhIfKT68ytO5mZ8TUOp3F+ZGGU1+UmMKodZpztA/uOOdXc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uKbsI5Sp; arc=none smtp.client-ip=209.85.208.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
+	s=arc-20240116; t=1790082834; c=relaxed/simple;
+	bh=oOui4zK6FIe70bxPh3uf6x1iuyJg4jcWicCOXddxrNQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VHM3Gbk4EKWhWfOaIqIBckCToCmEY60HRNWJgP8wYDU9SRDC5D57t9tV4/9vqfzPeIyM0GYC4Gve8yoBpCtqmNYAJb9RhyYAYHP43WXRTa82bskLQWvb7p890fbquaV0j3fn/vxRmwrdh21ywq8/v7moc5iJ1yPRT3WC1snZA+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PjH/QJ8h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uKbsI5Sp"
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6a9b7c7f405so4447877a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:13:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790082812; x=1790687612; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7x6tfErkSiFlzGsGfOwlIUPo7E3FNSLjiZHvuCyhifo=;
-        b=uKbsI5SpzzpoKWkFn2mY/th6FWJrP+XMHzT+/wTkDw57ZQ7nwD8ZPdir+EnIzOex+H
-         1aQRUOF7gMesHoQffCkyf6+wZeE8Ni8/zbEm7Y38upPnChmrcoQ3Vm2WhInqznjfrMmy
-         WHthMXOdnVKO2mbfz/uckIzrilZcAmqRkva8CCtkkzGYBE0PWdgK0jhmiUv9d3j/yWxO
-         MnMxOoJgwPRwgYG4ffMKP++7ShlWETWdhvTo9wvdlzQBFlWt8Zvrk8R6Whshoz4UYTy/
-         wG1KMqL6VtdC0ZSPmxjno2Z2EQHLeEXag6gxRkM3lRMXreHVGAW5vZi+4WgxffqXnDuM
-         COYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790082812; x=1790687612;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7x6tfErkSiFlzGsGfOwlIUPo7E3FNSLjiZHvuCyhifo=;
-        b=PpfJAG+rppmURz3Ky1sqrltZBekHDSw3bPaXpmIcpv+CEy6z16RHVAPPdQ2m246HXm
-         MxuWQ54fdgv/tH8vwjYxaWkFyM1lxgcWPMhuIMFqF2d3Qm5uVMJIhdfMAoc0carmALVA
-         7JLT7WV2UBp7gHCf5bKjiW0jcSH2NDRL4fIwQhxTRrftfR8iynGJ/GcCMZS2KjJrpzf5
-         LUMmvUXIPiR0CvZuxRSUAv4MANBozAKoArrC0IJ6ZLe8xf7aydbLLsL/tdv9ozlkeJWh
-         f/gINsWhuCaCo/iTeD67YvktGSSh8tk0HQlp9Kg6KKL7noaOwAvU8M0IBlY+BPF5GvIF
-         Lr4w==
-X-Forwarded-Encrypted: i=1; AKwUvBxeAdzVLgOjhOGQHdDl5Jb+ycJaazo0wxoMnApvLP9Ll54ZvQB1jAw0IgQLGUI7cc2Gf4Fb23m+ah/Zwb0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvYwPs0Tu/N80raxzsGfTBttDz7eXrDpZjlvEevJtXccUJjccV
-	uaT+oqQwr5g4tIC4A+8INX6JUbB7O5JCSmR3piIPCuk6CUlOSrHIGepBS6b4Br5wPbH7ac/sbsz
-	sYoVRQzjG78U1AQ==
-X-Received: from edyc10.prod.google.com ([2002:aa7:df0a:0:b0:6aa:13a8:bf07])
- (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:1942:b0:6aa:a133:cfd1 with SMTP id 4fb4d7f45d1cf-6aaa133d1e9mr2304164a12.20.1790082811557;
- Tue, 22 Sep 2026 06:13:31 -0700 (PDT)
-Date: Tue, 22 Sep 2026 13:12:57 +0000
-In-Reply-To: <20260922131259.2975334-1-smostafa@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PjH/QJ8h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967A21F00A0E
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790082832;
+	bh=oOui4zK6FIe70bxPh3uf6x1iuyJg4jcWicCOXddxrNQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PjH/QJ8hvA0sOl2Dpfs8o9nh3ZPYx/skwjWu6d+Lm0WirmbyAFPVzv3IqYUUEoVsV
+	 rnkr5IPkYjwet47lyZR62BE4UDJstR+kHrWs2IM0IwrENJJd1WsXYFA+4Wew743eui
+	 mQkFvGLz4awouErA26ETfEZbzyS5gC9BqfskAR7D1Iernc7qbiirkSNiZ4RtjvI+VC
+	 DDNVV12LLIXURBAzFaKK5+1Jvf++r/vR9YMUBmVHo5sOPXEBhukRf+tlxw6wyL2AQt
+	 cUC6XMW1gmTthUjE1BcG7Ii/IP3/c0wmTAKOhG2vJM6XHYfgDetPWLT4DccRMzUiUV
+	 cNGf/1KuAQfsA==
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso5624560a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:13:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz9X1eyd+6LjonergUoir759Jz1mkWT0Ur+bew/cwtm6KW11BRmsOZABMlCi/M+kUa1AJv/hwqIlbGLdDc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lm6XjB87/ZHjq45Ucfm55fOvk/2aPgECDxg1mDqu1Q1uPeWh9Y
+	38OzFxwy+rznHrl4Foe+ZQ2NpX7iAgKSXxoeHB3DOjIGz+yq1+RhO5bTJeR2A6xgRtUTCumq4ir
+	qTLb1oKwMyCfaZviENusgCOWLwUiRi9k=
+X-Received: by 2002:a05:6402:a509:10b0:6aa:96b3:9d7b with SMTP id
+ 4fb4d7f45d1cf-6aa96b39e75mr2793518a12.45.1790082831228; Tue, 22 Sep 2026
+ 06:13:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922131259.2975334-1-smostafa@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260922131259.2975334-25-smostafa@google.com>
-Subject: [PATCH v8 24/25] iommu/arm-smmu-v3-kvm: Enable nesting
-From: Mostafa Saleh <smostafa@google.com>
-To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev
-Cc: catalin.marinas@arm.com, will@kernel.org, maz@kernel.org, 
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com, 
-	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca, mark.rutland@arm.com, 
-	qperret@google.com, tabba@google.com, vdonnefort@google.com, 
-	sebastianene@google.com, keirf@google.com, 
-	Mostafa Saleh <smostafa@google.com>
+MIME-Version: 1.0
+References: <20260922043301.15101-1-kmehltretter@gmail.com>
+In-Reply-To: <20260922043301.15101-1-kmehltretter@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 22 Sep 2026 22:13:39 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_3w_pjF9Y4H97UrCQ5Q6wYtCmfbiFBYa4t+5HkcJOYJQ@mail.gmail.com>
+X-Gm-Features: AclHuK8pziMClaJLRmRE5rz8-0BWbIB6CDlKWZzsGG_dIfU-CEW00nSs6TQpmGs
+Message-ID: <CAKYAXd_3w_pjF9Y4H97UrCQ5Q6wYtCmfbiFBYa4t+5HkcJOYJQ@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: include the final partial cluster in sync writes
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-As now the hypervisor controls the command queue, stream table,
-and shadows the stage-2 page table, we enable stage-2 translation
-in case the host puts an STE in bypass or stage-1.
-
-The hypervisor will control the S2 part of the STE and sanitize it.
-
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
----
- .../iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c  | 109 +++++++++++++++++-
- 1 file changed, 103 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c
-index 5417a5c2bf58..39c97404e039 100644
---- a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c
-@@ -461,6 +461,57 @@ static int smmu_init_cmdq(struct hyp_arm_smmu_v3_device *smmu)
- 	return 0;
- }
- 
-+static int smmu_attach_stage_2(struct arm_smmu_ste *ste)
-+{
-+	unsigned long vttbr, cfg;
-+	unsigned long ts, sl, ic, oc, sh, tg, ps;
-+	struct io_pgtable_cfg *pgt_cfg = &idmap_pgtable->cfg;
-+
-+	cfg = FIELD_GET(STRTAB_STE_0_CFG, le64_to_cpu(ste->data[0]));
-+	if (!FIELD_GET(STRTAB_STE_0_V, le64_to_cpu(ste->data[0])) ||
-+	    (cfg == STRTAB_STE_0_CFG_ABORT)) {
-+		return 0;
-+	}
-+	/* S2 is not advertised, that should never be attempted. */
-+	if ((cfg == STRTAB_STE_0_CFG_S2_TRANS) ||
-+	    (cfg == STRTAB_STE_0_CFG_NESTED))
-+		return -EINVAL;
-+	vttbr = pgt_cfg->arm_lpae_s2_cfg.vttbr;
-+	ps = pgt_cfg->arm_lpae_s2_cfg.vtcr.ps;
-+	tg = pgt_cfg->arm_lpae_s2_cfg.vtcr.tg;
-+	sh = pgt_cfg->arm_lpae_s2_cfg.vtcr.sh;
-+	oc = pgt_cfg->arm_lpae_s2_cfg.vtcr.orgn;
-+	ic = pgt_cfg->arm_lpae_s2_cfg.vtcr.irgn;
-+	sl = pgt_cfg->arm_lpae_s2_cfg.vtcr.sl;
-+	ts = pgt_cfg->arm_lpae_s2_cfg.vtcr.tsz;
-+
-+	ste->data[1] &= ~cpu_to_le64(STRTAB_STE_1_SHCFG);
-+	ste->data[1] |= cpu_to_le64(FIELD_PREP(STRTAB_STE_1_SHCFG, STRTAB_STE_1_SHCFG_INCOMING));
-+
-+	ste->data[1] &= ~cpu_to_le64(STRTAB_STE_1_EATS | STRTAB_STE_1_S2FWB | STRTAB_STE_1_STRW);
-+
-+	/* The host shouldn't write dwords 2 and 3, overwrite them. */
-+	ste->data[2] = cpu_to_le64(FIELD_PREP(STRTAB_STE_2_VTCR,
-+					      FIELD_PREP(STRTAB_STE_2_VTCR_S2PS, ps) |
-+					      FIELD_PREP(STRTAB_STE_2_VTCR_S2TG, tg) |
-+					      FIELD_PREP(STRTAB_STE_2_VTCR_S2SH0, sh) |
-+					      FIELD_PREP(STRTAB_STE_2_VTCR_S2OR0, oc) |
-+					      FIELD_PREP(STRTAB_STE_2_VTCR_S2IR0, ic) |
-+					      FIELD_PREP(STRTAB_STE_2_VTCR_S2SL0, sl) |
-+					      FIELD_PREP(STRTAB_STE_2_VTCR_S2T0SZ, ts)) |
-+				   FIELD_PREP(STRTAB_STE_2_S2VMID, 0) |
-+				   STRTAB_STE_2_S2AA64 | STRTAB_STE_2_S2R |
-+#ifdef __BIG_ENDIAN
-+				   STRTAB_STE_2_S2ENDI |
-+#endif
-+				   STRTAB_STE_2_S2PTW);
-+
-+	ste->data[3] = cpu_to_le64(vttbr & STRTAB_STE_3_S2TTB_MASK);
-+	/* Convert S1 => nested and bypass => S2 */
-+	ste->data[0] |= cpu_to_le64(FIELD_PREP(STRTAB_STE_0_CFG, cfg | BIT(1)));
-+	return 0;
-+}
-+
- static int smmu_get_host_l2_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid,
- 				struct arm_smmu_ste *host_ste_out)
- {
-@@ -490,12 +541,40 @@ static int smmu_get_host_l2_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid,
- 	return 0;
- }
- 
-+struct smmu_ste_writer {
-+	struct arm_smmu_entry_writer writer;
-+	struct hyp_arm_smmu_v3_device *smmu;
-+	u32 sid;
-+};
-+
-+static void smmu_ste_writer_sync_entry(struct arm_smmu_entry_writer *writer)
-+{
-+	struct smmu_ste_writer *ste_writer =
-+		container_of(writer, struct smmu_ste_writer, writer);
-+	struct arm_smmu_cmd cfgi_cmd = arm_smmu_make_cmd_cfgi_ste(ste_writer->sid, true);
-+
-+	WARN_ON(smmu_send_cmd(ste_writer->smmu, &cfgi_cmd));
-+}
-+
-+static const struct arm_smmu_entry_writer_ops smmu_ste_writer_ops = {
-+	.get_used = arm_smmu_get_ste_used,
-+	.get_update_safe = arm_smmu_get_ste_update_safe,
-+	.sync = smmu_ste_writer_sync_entry,
-+};
-+
- static int smmu_reshadow_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid, bool leaf)
- {
- 	struct arm_smmu_strtab_cfg *cfg = &smmu->strtab_cfg;
--	struct arm_smmu_ste *hyp_ste_ptr, *host_ste_ptr, host_ste_copy;
-+	struct arm_smmu_ste *hyp_ste_ptr;
- 	u64 *hyp_ste_base = strtab_hyp_base(smmu);
-+	__le64 used[STRTAB_STE_DWORDS] = {};
-+	struct arm_smmu_ste target = {};
- 	int ret, i;
-+	struct smmu_ste_writer ste_writer = {
-+		.writer.ops = &smmu_ste_writer_ops,
-+		.smmu = smmu,
-+		.sid = sid,
-+	};
- 
- 	/* Leaf = 0 is not supported, as the kernel driver. */
- 	if (!leaf || !is_smmu_enabled(smmu) ||
-@@ -511,7 +590,7 @@ static int smmu_reshadow_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid, bool
- 			return -E2BIG;
- 
- 		hyp_ste_ptr = &hyp_table[sid];
--		host_ste_ptr = &host_table[sid];
-+		memcpy(target.data, host_table[sid].data, STRTAB_STE_DWORDS << 3);
- 	} else {
- 		struct arm_smmu_strtab_l1 *l1tab = (struct arm_smmu_strtab_l1 *)hyp_ste_base;
- 		u32 l1_idx = arm_smmu_strtab_l1_idx(sid);
-@@ -520,8 +599,7 @@ static int smmu_reshadow_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid, bool
- 		if (l1_idx >= cfg->l2.num_l1_ents)
- 			return -E2BIG;
- 
--		host_ste_ptr = &host_ste_copy;
--		ret = smmu_get_host_l2_ste(smmu, sid, host_ste_ptr);
-+		ret = smmu_get_host_l2_ste(smmu, sid, &target);
- 		if (ret)
- 			return ret;
- 
-@@ -541,8 +619,27 @@ static int smmu_reshadow_ste(struct hyp_arm_smmu_v3_device *smmu, u32 sid, bool
- 		hyp_ste_ptr = &l2ptr->stes[arm_smmu_strtab_l2_idx(sid)];
- 	}
- 
--	for (i = 0; i < STRTAB_STE_DWORDS; ++i)
--		WRITE_ONCE(hyp_ste_ptr->data[i], host_ste_ptr->data[i]);
-+	/*
-+	 * Summary of each host emulated state vs real HW.
-+	 * |	Host	|	HW	|
-+	 * ==============================
-+	 * |	V=0	|	V=0	|
-+	 * |	Abort	|	Abort	|
-+	 * |	Bypass	|	S2	|
-+	 * |	S1	|	S1+S2	|
-+	 */
-+	ret = smmu_attach_stage_2(&target);
-+	if (ret)
-+		return ret;
-+
-+	/* The HW ignores unused fields, don't let the host set them. */
-+	arm_smmu_get_ste_used(target.data, used);
-+	for (i = 0; i < STRTAB_STE_DWORDS; i++)
-+		target.data[i] &= used[i];
-+
-+	hyp_spin_lock(&smmu->hw_lock);
-+	arm_smmu_write_entry(&ste_writer.writer, hyp_ste_ptr->data, target.data);
-+	hyp_spin_unlock(&smmu->hw_lock);
- 	return 0;
- }
- 
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+On Tue, Sep 22, 2026 at 1:33=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
+l.com> wrote:
+>
+> ntfs_attrlist_repack() synchronously writes the replacement attribute
+> list before updating its mapping pairs and freeing the old run. With
+> 512-byte clusters, a 544-byte list submits a 512-byte bio, but the
+> write returns 544 and repack accepts it as complete. If the later
+> buffered update does not reach disk, the replacement list lacks its
+> final 32 bytes.
+>
+> __ntfs_inode_non_resident_attr_pwrite() converts attr_len to clusters
+> with ntfs_bytes_to_cluster(), which rounds down. Before repack, its
+> synchronous callers used either cluster-aligned lengths or lengths
+> smaller than one cluster, where max_t() selects one.
+>
+> Round attr_len up so repack writes the final partial cluster before
+> publishing the new mapping pairs.
+>
+> Fixes: b1d732e62a5b ("ntfs: repack $MFT/$ATTRIBUTE LIST")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Applied it to #ntfs-next.
+Thanks!
