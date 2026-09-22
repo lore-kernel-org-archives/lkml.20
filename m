@@ -1,125 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9BB4D2ED0;
-	Tue, 22 Sep 2026 09:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29F4529401
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067777; cv=none; b=RnuoliJDdGiVskCnUt7bmx+5E/V8iM4hVNJc6bpDL7mOY3g3+yM+NhvUnXP+/FId8/MCnTTpPdy2EtRXtU0xfwXlVaXDPjV4A5VbR+MOl84ZTvwlTDuTc8bZdCTchP7eqCzigFqI+K+afYPlxqoYmzCq/LixZoohtv0M2RuFkw0=
+	t=1790067780; cv=none; b=EWCLB1gj7fvXfgDdR11DyveCTw2eBOUNRLJV7TOTk1prmukOQwHMMK2KMazqQKNH8zvap48O0hrCcZKwFLCcA7iTVQDFpP1e5NuPg/m+f6GWvIC49isBWAehl58ngWAKCwB4LWrpljR2CHpocORC92QVbz/7i2ePlDAikvF3gVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067777; c=relaxed/simple;
-	bh=eDrtESrCV+F2i5tlO1zl18MePWnt6NhFaqPLy+AF5xk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IjI8uPv5XsBwF6jEFCt4Ti/lDsk90K5EW8YKJ30HL/wf/IeXjbUqkHmRDmI5UMdckSM7KK7fnXpfO0MnZC3BrzWGW9fLKfrAJdjTtiOJcUXaIU0GAlzBLC7JLSZEncRpBdyKIjlr+nT1XUXkN7g69eY8fofq/8B1J1uzbTCTUk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e17ouVhx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790067780; c=relaxed/simple;
+	bh=zK0UVi9dWHfDbHzuZO3crWWWwMQtMZ4hLWNPjSr0u5o=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Wl4IE8zXTkD+l9rbiuCAYsY5rl5apnMkuIm3t8DR5HGA0I3eyv+PQvuHf91mUuhaPKFtfihoPe5DGaf+idvwIcfRGE7Bn6qr905+rvpnoQX4KIoMqdAh37vZBfXK/p2BdfqIgjPALYcpa8UBWkltO78wRFuOV1dVf4wBdG8sFjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nXy5zJ/0; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e17ouVhx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B01541F000FF;
-	Tue, 22 Sep 2026 09:02:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790067775;
-	bh=JnhzTAx413FwpdKahXPNOcr3FwWYv2J2Y6dhd+67auQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e17ouVhx7pCa4EJXvSkinhLyV94jWOdGlljXb86UFt04mTtWxN7lu6AysEmUU3QLo
-	 AY/5/KTGz63a1+nHe+QBAv7i9L3bkjvPynyjRfU1ZKNv39Ud+MifCRynvPn4HfDheh
-	 /qodv7Z+OrXbHXZqlzP36IohhsehpVwOMtTCPMRaUWthRowSEohGKneZhUzEIWf48B
-	 +RQ0gOP/EPvltRkXJ/AL9wU/EPgrO8maZ0xKOAvkdpqMfAX5JcoShYoS+IQIzmWQkZ
-	 cfWweH9aPTBakCZQdL3x6Uw1Z/VAMetOe1jYzWpZLI1Hjn9BkaGnmlNtDWAUYaCfP/
-	 WkRJ8YEnGI6hw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/9] memblock: introduce MEMBLOCK_NODUMP flag
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>, robh@kernel.org, rppt@kernel.org, baoquan.he@linux.dev, m.szyprowski@samsung.com
-Cc: aou@eecs.berkeley.edu, palmer@dabbelt.com, akpm@linux-foundation.org, conor+dt@kernel.org, bp@alien8.de, pasha.tatashin@soleen.com, ruirui.yang@linux.dev, mingo@redhat.com, hpa@zytor.com, saravanak@kernel.org, x86@kernel.org, robin.murphy@arm.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, alex@ghiti.fr, pratyush@kernel.org, kernel@xen0n.name, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, dave.hansen@linux.intel.com, kexec@lists.infradead.org, linux-riscv@lists.infradead.org, pjw@kernel.org, loongarch@lists.linux.dev, tglx@kernel.org, linux-mm@kvack.org, chenhuacai@kernel.org
-In-Reply-To: <20260922084256.1515554-6-chenwandun1@gmail.com>
-References: <20260922084256.1515554-1-chenwandun1@gmail.com>
- <20260922084256.1515554-6-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 09:02:52 +0000
-Message-Id: <20260922090252.B01541F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nXy5zJ/0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790067779; x=1821603779;
+  h=date:from:to:cc:subject:message-id;
+  bh=zK0UVi9dWHfDbHzuZO3crWWWwMQtMZ4hLWNPjSr0u5o=;
+  b=nXy5zJ/0hcKbl4rYYmbM3bYC8d6+yOJ7u6rN1RjmtIbD+//8VqyigsJN
+   YyTR1UJA9RbohpYIqWv7iBiOLJ19BFT42sRm4qQHRx3y703YJLInYF97e
+   iaTC4SjwwQNmv9c8QWOs4Ozv47phe0p0juEZtJ/pCoeJK4C6xWoUq5Isi
+   EY+rsSLo0ZeGwNISJ8Ct6Zqp4VjYyLbpgbvbyXPSQ3odFG+u1OVbuavG5
+   /dSEmmLi343E1ZRAsQTAnw8EjhwA6KGygGdWs/xZjmQ8FXvULeq9N6On2
+   RHBZzJ+VtLP0IMghNe8XpUXs1lgb3QidjBbkkO0fv/RdR9AmjSqjflh0f
+   A==;
+X-CSE-ConnectionGUID: gc8MFAOYQXuACAccjJpuSg==
+X-CSE-MsgGUID: t6NpkAFATDyvNBlBUYQv1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1156304"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1156304"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 02:02:58 -0700
+X-CSE-ConnectionGUID: IdKNh2rgQBe9jevsghn1eA==
+X-CSE-MsgGUID: JltGVy5zRoeJFeJJDuRzxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="281108559"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 22 Sep 2026 02:02:56 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8wOr-00000000FFk-3qsx;
+	Tue, 22 Sep 2026 09:02:53 +0000
+Date: Tue, 22 Sep 2026 17:02:49 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sami Tolvanen <samitolvanen@google.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alexei Starovoitov <ast@kernel.org>
+Subject: kernel/bpf/crypto.c:264:18: sparse: sparse: symbol
+ 'bpf_crypto_ctx_release_dtor' was not declared. Should it be static?
+Message-ID: <202609221605.3H6cpcne-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mm: lockless mutation of memblock.memory causes UAF in concurrent =
-readers
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+commit: b40a5d724f29fc2eed23ff353808a9aae616b48a bpf: crypto: Use the correct destructor kfunc type
+date:   8 months ago
+config: x86_64-randconfig-1301-20260922 (https://download.01.org/0day-ci/archive/20260922/202609221605.3H6cpcne-lkp@intel.com/config)
+compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609221605.3H6cpcne-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: b40a5d724f29 ("bpf: crypto: Use the correct destructor kfunc type")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609221605.3H6cpcne-lkp@intel.com/
+
+sparse warnings: (new ones prefixed by >>)
+>> kernel/bpf/crypto.c:264:18: sparse: sparse: symbol 'bpf_crypto_ctx_release_dtor' was not declared. Should it be static?
+
+vim +/bpf_crypto_ctx_release_dtor +264 kernel/bpf/crypto.c
+
+   263	
+ > 264	__bpf_kfunc void bpf_crypto_ctx_release_dtor(void *ctx)
+   265	{
+   266		bpf_crypto_ctx_release(ctx);
+   267	}
+   268	CFI_NOSEAL(bpf_crypto_ctx_release_dtor);
+   269	
+
 --
-
-commit 3e0d4f57949330268c708beeb66dc1c0fb65db32
-Author: Wandun Chen <chenwandun@lixiang.com>
-Subject: memblock: introduce MEMBLOCK_NODUMP flag
-
-This patch introduces the MEMBLOCK_NODUMP flag to mark memory regions that
-should be excluded from kdump vmcores. It also adds logic to clear this flag
-when reserved memory, such as the initrd, is freed so the memory can be
-properly reused.
-
-> diff --git a/mm/memblock.c b/mm/memblock.c
-> index ea0de4b5f3568..48cabfe5cdf16 100644
-> --- a/mm/memblock.c
-> +++ b/mm/memblock.c
-[ ... ]
-> @@ -949,9 +951,13 @@ unsigned long free_reserved_area(void *start, void *=
-end, int poison, const char
->  	}
-> =20
->  	if (IS_ENABLED(CONFIG_ARCH_KEEP_MEMBLOCK)) {
-> -		if (start_pa < end_pa)
-> +		if (start_pa < end_pa) {
->  			memblock_remove_range(&memblock.reserved,
->  					      start_pa, end_pa - start_pa);
-> +
-> +			if (IS_ENABLED(CONFIG_CRASH_DUMP))
-> +				memblock_clear_nodump(start_pa, end_pa - start_pa);
-> +		}
->  	}
-
-[Severity: High]
-Could this lockless mutation of memblock.memory race with concurrent reader=
-s?
-
-This code path is triggered during asynchronous initrd freeing
-(e.g., via do_populate_rootfs using async_schedule_domain).
-
-Calling memblock_clear_nodump() modifies the memblock.memory array lockless=
-ly
-via memblock_setclr_flag() and memblock_isolate_range().
-memblock_isolate_range() can split ranges using memmove(), which disrupts
-array ordering, and can even call memblock_double_array() which kfree()s
-the old array.
-
-Concurrently, subsystems rely on memblock.memory being immutable after early
-boot. For example, on ARM64, ioremap() calls pfn_is_map_memory(), which
-performs a lockless binary search (memblock_search()) directly on
-memblock.memory.regions.
-
-If memblock_clear_nodump() splits or reallocates the array while ioremap()
-is executing during driver probes, could this result in a use-after-free
-on the freed array or an out-of-bounds access from broken binary search
-invariants?
-
-[ ... ]
-> @@ -995,8 +1001,11 @@ int __init_memblock memblock_phys_free(phys_addr_t =
-base, phys_addr_t size)
-> =20
->  	kmemleak_free_part_phys(base, size);
-> =20
-> -	if (!slab_is_available() || IS_ENABLED(CONFIG_ARCH_KEEP_MEMBLOCK))
-> +	if (!slab_is_available() || IS_ENABLED(CONFIG_ARCH_KEEP_MEMBLOCK)) {
->  		ret =3D memblock_remove_range(&memblock.reserved, base, size);
-> +		if (IS_ENABLED(CONFIG_CRASH_DUMP))
-> +			memblock_clear_nodump(base, size);
-> +	}
-
-[Severity: High]
-Similar to the above, does this introduce the same lockless mutation risk
-when called during runtime module unloads or CMA frees?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922084256.1515=
-554-1-chenwandun1@gmail.com?part=3D5
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
