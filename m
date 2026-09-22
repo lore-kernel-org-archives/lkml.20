@@ -1,139 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778B8348C75;
-	Tue, 22 Sep 2026 17:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96883E171E
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096595; cv=none; b=ZcZM5iD/uX6Eer1AzUqc2zndn+5NzJ68LXBaL8D3nTzEJVmYJ2kNJ5CfLu4gExom+yP6Ef3NZElYPOXHh8OBDeWxOckuiKAKM8nvSzrKO1JzPOnIkSksH6v+HJrM2p8stXooK+oMH/zb8pCqzyUCHsByrpTegEZusUPbGmJv/Vw=
+	t=1790096617; cv=none; b=a9DiwLnSP1uzO2pJ+DiNZaYfPqnmgjCpxOwqhuh0YuNCa1kYmWwXN4DvtxU07LtlmaGxkaj7tiO9Rqf/yvvsMW96fKNUEBe5DwdzqL0HhXNZ3DQ/6VYDUviW6TVoZlPy3j9h5000r7em9hYrwyaxNSBNSQMbaUxNEz03bOkxNU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096595; c=relaxed/simple;
-	bh=YWVXGn05t59bBwYol/9eivEUZrMBbQ7aZl7i8X/Tq9s=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=o5PPZjlKZ/DYISi13AP6uIDIn/O60swjQ2LnUYZ9A3dXij1C/whPk/t+P6EAbKoew81eIcT2ETvil3DAwl76YOrJ+b1yBC7SCw5J13f+V0iARr07G3QVEEFXmwqGCCUxqVZvkEi33gL6NKVjq+H2ZHxar4mQsixhloVuNcuYTm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxf06q/c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790096617; c=relaxed/simple;
+	bh=vuv3LXP65HtJJDO/jOb2jpgskyphoyKJJGzgUDUNQs8=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=PS8NYXNCu+TvWVDqQTzmhVnXhnppFR1t02Kg+pV6uFddupCTEZkMK4HClt/0+58O8/217mnSYE6t1YegbTqOt/P8a9EKjmlt6StHkA2C53lNefg2C3lQ1lUN4V8pF8LjcubjbKdpdkp/EUbc6N+lLmbtYSEy/28/eOrwU877MJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aehw4cBx; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxf06q/c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4995F1F000FF;
-	Tue, 22 Sep 2026 17:03:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790096594;
-	bh=DTgI03Mb2guSbNjbgohk2ODS86HEBC4CplwUVNmAa0I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dxf06q/cfVdRc+b9A3STWRA0UWGDXlKXGJvWITgIYlNSzK3Cujfv2zQh7kDpaa6bX
-	 /9LasdNdUBAjHzz2yRUdmGjaeueKsI80375q2iIEJaa7r3XT6GSB2KtKqBHD4AkRkT
-	 pKIQhXRJr0zBqcPYFpD/TOpGuIdsB0Rddz01va4QQ73GpWAPrBJ+WGedlLqjinn5WH
-	 E/auFJGb3Qf9HbyAa/84wZWJa4DOdyO5Og/K6SWUU0py0yhYpbfA+RZFY9ix5ff0X7
-	 EftFWNgSzEdOG9rbRpd4KjNOOUT5rVRMazCOXpqwYnxMDwmL8sSnYBGJx39seh2IQr
-	 5KsMgWWG+HlhA==
-Subject: Re: [net PATCH] net: ethernet: mediatek: only enable WED for ARM64
- architecture
-From: netdev-bot+sashiko@kernel.org
-To: yangshiji66@outlook.com
-Cc: netdev@vger.kernel.org, nbd@nbd.name, lorenzo@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- stable@vger.kernel.org
-Date: Tue, 22 Sep 2026 17:03:12 +0000
-Message-ID: <179009659284.2160803.2402786454793152027@kernel.org>
-In-Reply-To: =?utf-8?q?=3COSZPR01MB8140B889AD227E0B547F5F87BC872=40OSZPR01MB?=
- =?utf-8?q?8140=2Ejpnprd01=2Eprod=2Eoutlook=2Ecom=3E?=
-References: =?utf-8?q?=3COSZPR01MB8140B889AD227E0B547F5F87BC872=40OSZPR01MB8?=
- =?utf-8?q?140=2Ejpnprd01=2Eprod=2Eoutlook=2Ecom=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aehw4cBx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790096615; x=1821632615;
+  h=date:from:to:cc:subject:message-id;
+  bh=vuv3LXP65HtJJDO/jOb2jpgskyphoyKJJGzgUDUNQs8=;
+  b=aehw4cBxAph/8/+XVhdrPN1P0ffznJAeRmzM9l+ojO783ezgCcdqlCPz
+   H4k16/3jYqm699jkHr80HCnsigkhZCyqltSxw0kQKVjBDSe65dJJW37SF
+   g8CgfRHOjcHtKUxXdu1Tn+fNTN8pqCjfT9v7VnolVQYoMLuF9EnQgz4w6
+   DE48N13Svv5r8D02Zl2tD9iFGwberWQu0+7gk15aMTtUf8KQ9DzT1Pe7P
+   nUMwf5P9K68qX3n4k0VvGWacamdCEDf0UaugoKefgh2HfqdfWNs1znpmS
+   VejI76kPbuzRRBHAMvwIHoBNMbV/a76JtfD5eTPKkyOVl9ZN84lCIlT8A
+   A==;
+X-CSE-ConnectionGUID: 8hu7ZAyDQ3uuZkZJ8VABRw==
+X-CSE-MsgGUID: VYxZK64oTseQZ8pzp20KpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1223655"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1223655"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:03:34 -0700
+X-CSE-ConnectionGUID: S9ejweXlS824zg/UW0bGIA==
+X-CSE-MsgGUID: adVUItJJSw+cPZ8f5oEayQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="277975662"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 10:03:32 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x93tx-00000000FmI-2QIo;
+	Tue, 22 Sep 2026 17:03:29 +0000
+Date: Wed, 23 Sep 2026 01:02:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sagi Grimberg <sagi@grimberg.me>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>
+Subject: drivers/nvme/target/tcp.c:1325:46: sparse: sparse: incorrect
+ type in assignment (different base types)
+Message-ID: <202609230152.YAKhcW2K-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+commit: dbbd07d0a7020b80f6a7028e561908f7b83b3d5a nvmet-tcp: Fix potential UAF when ddgst mismatch
+date:   4 months ago
+config: microblaze-randconfig-r1307-20260922 (https://download.01.org/0day-ci/archive/20260923/202609230152.YAKhcW2K-lkp@intel.com/config)
+compiler: microblaze-linux-gcc (GCC) 14.3.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260923/202609230152.YAKhcW2K-lkp@intel.com/reproduce)
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: dbbd07d0a702 ("nvmet-tcp: Fix potential UAF when ddgst mismatch")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609230152.YAKhcW2K-lkp@intel.com/
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+sparse warnings: (new ones prefixed by >>)
+>> drivers/nvme/target/tcp.c:1325:46: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __le16 [usertype] status @@     got int @@
+   drivers/nvme/target/tcp.c:1325:46: sparse:     expected restricted __le16 [usertype] status
+   drivers/nvme/target/tcp.c:1325:46: sparse:     got int
 
-- [Medium] Inappropriate `Fixes:` tag: the commit claims to fix
-  804775dfc288 ("net: ethernet: mtk_eth_soc: add support for Wireless…
+vim +1325 drivers/nvme/target/tcp.c
+
+  1288	
+  1289	static int nvmet_tcp_try_recv_ddgst(struct nvmet_tcp_queue *queue)
+  1290	{
+  1291		struct nvmet_tcp_cmd *cmd = queue->cmd;
+  1292		int ret, len;
+  1293		char cbuf[CMSG_LEN(sizeof(char))] = {};
+  1294		struct msghdr msg = { .msg_flags = MSG_DONTWAIT };
+  1295		struct kvec iov = {
+  1296			.iov_base = (void *)&cmd->recv_ddgst + queue->offset,
+  1297			.iov_len = queue->left
+  1298		};
+  1299	
+  1300		if (queue->tls_pskid) {
+  1301			msg.msg_control = cbuf;
+  1302			msg.msg_controllen = sizeof(cbuf);
+  1303		}
+  1304		len = kernel_recvmsg(queue->sock, &msg, &iov, 1,
+  1305				iov.iov_len, msg.msg_flags);
+  1306		if (unlikely(len < 0))
+  1307			return len;
+  1308		if (queue->tls_pskid) {
+  1309			ret = nvmet_tcp_tls_record_ok(queue, &msg, cbuf);
+  1310			if (ret < 0)
+  1311				return ret;
+  1312		}
+  1313	
+  1314		queue->offset += len;
+  1315		queue->left -= len;
+  1316		if (queue->left)
+  1317			return -EAGAIN;
+  1318	
+  1319		if (queue->data_digest && cmd->exp_ddgst != cmd->recv_ddgst) {
+  1320			pr_err("queue %d: cmd %d pdu (%d) data digest error: recv %#x expected %#x\n",
+  1321				queue->idx, cmd->req.cmd->common.command_id,
+  1322				queue->pdu.cmd.hdr.type, le32_to_cpu(cmd->recv_ddgst),
+  1323				le32_to_cpu(cmd->exp_ddgst));
+  1324			if (!(cmd->flags & NVMET_TCP_F_INIT_FAILED)) {
+> 1325				cmd->req.cqe->status = NVME_SC_CMD_SEQ_ERROR;
+  1326				nvmet_req_uninit(&cmd->req);
+  1327			}
+  1328			nvmet_tcp_free_cmd_buffers(cmd);
+  1329			ret = -EPROTO;
+  1330			goto out;
+  1331		}
+  1332	
+  1333		if (cmd->rbytes_done == cmd->req.transfer_len)
+  1334			nvmet_tcp_execute_request(cmd);
+  1335	
+  1336		ret = 0;
+  1337	out:
+  1338		nvmet_prepare_receive_pdu(queue);
+  1339		return ret;
+  1340	}
+  1341	
 
 --
-
-net: ethernet: mediatek: only enable WED for ARM64 architecture
-
-This narrows the dependency of the hidden def_bool symbol
-NET_MEDIATEK_SOC_WED so it is only enabled on ARM64 ARCH_MEDIATEK
-builds, on the grounds that only MT7622 and MT798x implement WED.
-
-> diff --git a/drivers/net/ethernet/mediatek/Kconfig b/drivers/net/ethernet/mediatek/Kconfig
-> index 2ba361f8ce7d..7737f2f15478 100644
-> --- a/drivers/net/ethernet/mediatek/Kconfig
-> +++ b/drivers/net/ethernet/mediatek/Kconfig
-
->     Fixes: 804775dfc288 ("net: ethernet: mtk_eth_soc: add support for Wireless Ethernet Dispatch (WED)")
-
-[Severity: Medium]
-
-Is the Fixes: tag appropriate here?  The changelog does not describe a
-defect, only a hardware-scope observation and a prediction:
-
-    Currently, only MT7622 and MT798x SoCs support WED features. They
-    are all ARM64 platforms. And it is unlikely that MediaTek will
-    release a new net chip based on ARM32 architecture in the future.
-
-As far as I can tell nothing misbehaves on 32-bit today.  WED is only
-instantiated when the ethernet DT node carries a mediatek,wed phandle:
-
-drivers/net/ethernet/mediatek/mtk_eth_soc.c:mtk_probe() {
-	...
-	np = of_parse_phandle(pdev->dev.of_node,
-			      "mediatek,wed", i);
-	if (!np)
-		break;
-	...
-	mtk_wed_add_hw(np, eth, eth->base + wdma_base, wdma_phy, i);
-	...
-}
-
-and git grep wed arch/arm/boot/dts/mediatek returns no matches, so no
-32-bit MediaTek platform can reach mtk_wed_add_hw().
-
-There also does not appear to be any 64-bit-only construct that a
-depends on ARM64 would be repairing: mtk_wed.c, mtk_wed_wo.c,
-mtk_wed_mcu.c and mtk_wed.h contain no readq/writeq, no >> 32 address
-splitting and no CONFIG_64BIT conditionals (the only CONFIG_64BIT use in
-the directory is in mtk_eth_soc.h, which this symbol does not gate).
-
-> @@ -8,7 +8,7 @@ config NET_VENDOR_MEDIATEK
->  if NET_VENDOR_MEDIATEK
->  
->  config NET_MEDIATEK_SOC_WED
-> -	depends on ARCH_MEDIATEK || COMPILE_TEST
-> +	depends on (ARCH_MEDIATEK && ARM64) || COMPILE_TEST
->  	def_bool NET_MEDIATEK_SOC != n
-
-Since the Fixes: tag makes this a candidate for stable backporting, could
-this silently flip a config symbol in released kernels?  On a stable tree
-with 32-bit ARCH_MEDIATEK, the depends on line becomes false and
-NET_MEDIATEK_SOC_WED is a hidden def_bool, so make olddefconfig drops
-mtk_wed*.o from the build with no prompt or warning.
-
-Would it make sense to drop the Fixes: tag and describe this as a build
-scope cleanup instead?
-
-One more question on the ARM64 condition itself: if something in the WED
-code really is not buildable on 32-bit, does the || COMPILE_TEST branch
-leave that unaddressed, since it still builds the identical code on
-non-ARM64 targets?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/OSZPR01MB8140B889AD227E0B547F5F87BC872%40OSZPR01MB8140.jpnprd01.prod.outlook.com
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
