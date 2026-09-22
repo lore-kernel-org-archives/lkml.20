@@ -1,585 +1,1456 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEFF576EB6;
-	Tue, 22 Sep 2026 17:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D89723E5592;
+	Tue, 22 Sep 2026 17:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098394; cv=none; b=V3XhvWonT+bYzcoXZmotgqeMuOZk72v4M+ezqjiSuyRvefaOh6qLdNkyVEcsa3fSF46XxKb2dZ8v55WxD2Ns1Uzn8tGYLSuVd/krmbiqtkllV750MmJCYU3whtmqWbEbMTsd8vYxdLPbeJwAtV/f7GIRbgCuk1PVVZs6N0r6L6s=
+	t=1790098384; cv=none; b=Yoe1gLqRJ9V8ADruaH13aakYL+wluVsjaHjpLJ1qcKU6OKaWoxBeUiMLKaVgYjSAou008GctWgpHpnhXWg/KdhW6xQE+AdVW5e3noi9g+OwG5SnVdgnyS9r51M5ca/YqC2y2e7TKkr0IbaKNwVLpKeGduGAeuv45I+hU9tzCgyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098394; c=relaxed/simple;
-	bh=+57jVvwAKGV1jk81tJivydCRmwV1oudj5Xa86utxyZ0=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=DEW/JM3AIVlgjTgxpH9YZ5hBOMfmUP7EhvWhvKup1Wz51QAsttqt4oRa9Hzcz8JWO8mbqg8wjuXwtWOIwp+9u/wAAt7z88lAx4oIYRh8qwQuAmNmV5d+DPJ/tSmLhMQfpe4e+ZoVlrl3nzm5ewcmt4m3t2iIEo+CQJ6Qh/7zlRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=wpnieT5E; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ISiY4KM5; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1790098384; c=relaxed/simple;
+	bh=hIZ/hiH2SCX47+Q9tkaaUal44tf7eoSyrdUhb3hE0eI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oazUAekwIT4CyzStc77pmQeUAvr6Ksiil0ep5WPXtx3bddVyv2Oit6BeVOK9sayVkcIqBihMZcbxaAMQ/v9ErqNIG4NUIzEOEu5WxLtGKxZLuS+mdgkqqHSqwQ1dkkTf0R8FmeMphTDn1n/SHkHY8VWOC3Li4JZ0X/P1R1fPZSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=e0Ddf46c; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="wpnieT5E";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ISiY4KM5"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfout.stl.internal (Postfix) with ESMTP id 8B2D61D000AB;
-	Tue, 22 Sep 2026 13:33:02 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Tue, 22 Sep 2026 13:33:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1790098382;
-	 x=1790184782; bh=qUwIFaa8eQSh2PjMn7HmRiSZdhkcYj2HQT29rFIIez4=; b=
-	wpnieT5EcoQvx8OyPEN7nPdoNw8HOzpRApwriTzPzaUnuuLrXD7mAFTK2U8grBtp
-	OADRaGiRvAwdN/BYzV0y7ymfd/RhEQbZz4NE/LYR9Hjv1F6GpWZkck4JiLvn+IlF
-	p1kHgKvwgssYIVGhF8lql9rN/9FeArWibYBezYXHlt/cPOnTVG0CSO1QHI3zkR6I
-	2cI86prHBmN/XlNgLSXbWOlV/i/BfAW2r9ngGQM1zEyxdWWc0FMkvIgQRSmMD9Xq
-	Pdp0T8SR6Q1m2CkEr6SFbqzFOWKwd6VDrmYGdbjQoaG0/QN3Q0Pn+8OG4GZi3mDe
-	Dj/+PnBvEWv761sd7nSEqQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790098382; x=
-	1790184782; bh=qUwIFaa8eQSh2PjMn7HmRiSZdhkcYj2HQT29rFIIez4=; b=I
-	SiY4KM5haivpn/JDN9GTQ1aBoROd1pZvXFRe4v4w/JoK82td78IJstbiP18a8G+R
-	B4X4MRJ9gg51muUMZeMIH5TdxeAoE/2iYMY8pBIxLeb0lj7iFK50pKhHlxWdPwGd
-	c0YxFB/TS8pV80L220P5UihobT8LmjW+NBLR5EEgwBq9we3tOjlrzvCEnb0Fa96g
-	KGApTCDrch5Xq2ZI3TgPebNRQHmCzqNsowA5tT1jhRnY/7BFhnhg9+4HLRth7J1a
-	AI8zFdiPJ0/BkzRuzqvUprj+Z/EMzU3Kx6xY+3W8MyNaeui66EsmK/JG8HdTm+UU
-	aULAXeSGW5y636kPcoV6g==
-X-ME-Sender: <xms:zbuyaqBUJOwhLKtJVmwe_kbSDt-UVTtX0XN10aFF04uFt6OE_epRrA>
-    <xme:zbuyavWbjs5azBRqbzj3g5vItQZP-61IJfRlBKjExzIG4Cuw-l-wPKvcLinS8xDi5
-    8gEnULaFpj47ZUgAH5AA5PXnjJPd9yF4rRbmu0j8-pSNXftj0NHo0dt>
-X-ME-Proxy-Cause: dmFkZTFGZveDz+39oxixZBVxVwdNUz9J0bbBD/3nMlOMza/z6fYj77Qh/5URw0gsaNHtCv
-    oSBuz/yCjOJhy/Axl7DHJ+yLWtUP7045OlRVhYC7nBrAQa5JsIrNLEwHp4o0tqylvgQol+
-    izILcE9zAbCP9DLUT3lKEpM7I9NHEjJw5eviESo5aQNUTin1d/upP5h/R/I5JNwNwV8enP
-    vyN1ZJ0auMwUb+on6EG89bJKpl4leJnSg8WZtg6RbqI5LHtjHrdVEuAK/lyF4HogPx4Dkg
-    wlMhX6KXIkwUyPdkZLyZJO7FLrAsUd8wQ8kO/MYXGsxjEyH0MzNC89cG+4I4JRQRnQCrLV
-    jNxNTtjYlgxMi0M6ffD/z1j0zlYamm7WlROEVIVf13Mb7RjpBTtSTFoF3yf03gVRIm4VTd
-    8/iIfSoaklbvxVseBoF6VsYYhyeLCQlaRwtCs2QSK3HuN3PGimjCmr6RSuDJ9udHcQAS1O
-    jScljp/QckGfB6o1ZzslBn3zcd4eylBGy0UbyuxPhhoaGe1fuSH1bLAlsQq8vm5jRK3vDc
-    gYAP+GvmSOUXil+yS1aN3ptVmHalrkBSmc3eawjV7RFWvoMg9IHTDuSRY13SPdy3h6q2l0
-    dZAPAKnwlrR7C1ao27Z5SIxcqHMu+nY8ZE8jbIIppCWbOmCsO2x+1oxCHYyQ
-X-ME-Proxy: <xmx:zbuyahhTpzUn61ammvdb_5G7j1mIBv2dqQbeYpAwERmROebIfrHgdw>
-    <xmx:zbuyainY0Q6HZ2yqjGUculRGHUFrHNZL1BTJu6NQXXueFCOJSwI54w>
-    <xmx:zbuyalgYAB8TYrfgTglokaadcDChrrDzBiZT_QqBYhn7JBZO0VxwYg>
-    <xmx:zbuyatFufjrz6Khbo-rpSleKmqoeYi0UH4Xof0vc0YvVHK4oVu3HXQ>
-    <xmx:zruyagMuihH4bzVmok8a0PUnIOZAbf-QrA5Sh9OZO1sNcQRfHleAtbEL>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id A02082C00067; Tue, 22 Sep 2026 13:33:01 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="e0Ddf46c"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87D8F1595;
+	Tue, 22 Sep 2026 10:32:50 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 604A43F86C;
+	Tue, 22 Sep 2026 10:32:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790098374; bh=hIZ/hiH2SCX47+Q9tkaaUal44tf7eoSyrdUhb3hE0eI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=e0Ddf46cdbBKTsIXQoDqYQ1biN6PpHlZlKsAObtO3Ox9C8LMNj6L6vFxBiwd39DrM
+	 hNakk2zXKnMhkbdptEJkCN6cwdIM0GvBKgAMxVwwMn8ZrmrN/QVOL/fp+BmtsV4gEt
+	 jSQS1AXE2J1l/vkWJ2tR3RFEXXRE1rrTaMnmmRrQ=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Date: Tue, 22 Sep 2026 18:31:56 +0100
+Subject: [PATCH v2 1/6] arm64: use hw_pte_t for HW PTE pointers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: Ah5D1kAduVmc
-Date: Tue, 22 Sep 2026 13:32:41 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Rong Zhang" <i@rong.moe>, "Marco Giunta" <marco_giunta@outlook.it>
-Cc: "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>, "Huang Wei" <huangwei@kylinos.cn>,
- "Ike Panhc" <ikepanhc@gmail.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- linux-kernel@vger.kernel.org,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>
-Message-Id: <5997344f-b3ff-4694-9563-762061295a57@app.fastmail.com>
-In-Reply-To: <63afee899ccf13730af1b6b281c528ecdfa568c3.camel@rong.moe>
-References: <d867a4f6b798809776164542972e68d724f29fd5.camel@rong.moe>
- <SN6PR19MB2303278926469783FA99824CFC842@SN6PR19MB2303.namprd19.prod.outlook.com>
- <9be0971e7f84162bc57e01eb4cde508ed15e3096.camel@rong.moe>
- <048278d5-8c58-415f-890a-3ca45f3d31c9@app.fastmail.com>
- <271a88b113a0734b150d5a0d812c4c6e2a6418e3.camel@rong.moe>
- <63afee899ccf13730af1b6b281c528ecdfa568c3.camel@rong.moe>
-Subject: Re: [PATCH v2] platform/x86: ideapad-laptop: Report camera switch as
- SW_CAMERA_LENS_COVER
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-pte0_arm-v2-1-a3f1ddff0a8a@arm.com>
+References: <20260922-pte0_arm-v2-0-a3f1ddff0a8a@arm.com>
+In-Reply-To: <20260922-pte0_arm-v2-0-a3f1ddff0a8a@arm.com>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
 
-Hi Rong
+With pte_t * used for HW PTE pointers, the compiler cannot distinguish
+them from SW PTE value pointers. The generic HW PTE interfaces already
+use hw_pte_t *, so arm64 HW PTE pointers must use that type before
+ARCH_HAS_HW_PTE_T can make it distinct.
 
-On Tue, Sep 22, 2026, at 12:42 PM, Rong Zhang wrote:
-> Hi Mark,
->
-> On Tue, 2026-09-22 at 23:58 +0800, Rong Zhang wrote:
->> Hi Mark,
->>=20
->> On Tue, 2026-09-22 at 11:52 -0400, Mark Pearson wrote:
->> > Hi Rong
->> >=20
->> > On Tue, Sep 22, 2026, at 8:18 AM, Rong Zhang wrote:
->> > > Hi Marco,
->> > >=20
->> > > On Mon, 2026-09-21 at 21:00 +0200, Marco Giunta wrote:
->> > > > Hi Rong,
->> > > >=20
->> > > > Thank you so much for your detailed reply and the much improved=
- patch.
->> > > >=20
->> > > > Let me immediately go on record and say that, apart from a smal=
-l addition
->> > > > to the SMI driver and one line in ideapad-laptop, I am mostly a=
-ctive in
->> > > > the sound system, and therefore consider myself a platform/x86 =
-newbie.
->> > > > So I really appreciate you sharing your knowledge here.
->> > > >=20
->> > > > > > * I considered a couple of alternatives to the approach in =
-this patch:
->> > > > > >=20
->> > > > > >   1.  Simply map 0x0c and 0x0d to KEY_CAMERA_ACCESS_ENABLE/=
-DISABLE:
->> > > > > >=20
->> > > > > >       { KE_KEY,	0x0c | IDEAPAD_WMI_KEY, { KEY_CAMERA_ACCESS=
-_ENABLE } },
->> > > > > >       { KE_KEY,	0x0d | IDEAPAD_WMI_KEY, { KEY_CAMERA_ACCESS=
-_DISABLE } },
->> > > > > >=20
->> > > > > >       similar to the touchpad off/on hkey events (66/67) th=
-is driver emits
->> > > > > >       after the firmware has toggled the touchpad state. Ho=
-wever, HUTRR72
->> > > > > >       describes these hkey events as asserting a camera acc=
-ess state for
->> > > > > >       the host to apply, rather than reporting one the firm=
-ware has
->> > > > > >       already applied.
->> > > > > >=20
->> > > > >=20
->> > > > > Well, it really doesn't matter how the specification says; wh=
-at matters
->> > > > > is how devices in reality do: whenever the HID Usage Table do=
-esn't define
->> > > > > a usage for hardware/firmware to report the already-applied v=
-alue but
->> > > > > defines a usage for notifying the host to apply a specific va=
-lue, a lot
->> > > > > of devices will emerge, using the latter even when the former=
- is
->> > > > > intended.
->> > > > >=20
->> > > > > For example, many USB Audio Class devices come with volume co=
-ntrol
->> > > > > buttons or knobs. Some of them tune the volume themselves as =
-well as
->> > > > > emitting Volume Increment/Decrement HID events.
->> > > > >=20
->> > > > > In this case, the audio stack, in response to the HID events,
->> > > > > intentionally overrides the volume set by hardware, effective=
-ly
->> > > > > synchronizing the hardware and software volume value.
->> > > > >=20
->> > > > > The pattern has become so common that many devices like that =
-also
->> > > > > implement an internal timeout mechanism. They only set the vo=
-lume
->> > > > > themselves when reaching the timeout with no UAC volume contr=
-ol request
->> > > > > received.
->> > > > >=20
->> > > > > IOW, it doesn't matter whether the hardware/firmware has done=
- its job as
->> > > > > long as the subsequent software control is harmless. That's w=
-hy we can
->> > > > > safely use KEY_TOUCHPAD_ON/OFF even if the firmware has toggl=
-ed the
->> > > > > touchpad state. They cause the desktop environment to mask/un=
-mask
->> > > > > touchpad input, which is essentially a no-op (thus a safe ope=
-ration) when
->> > > > > the firmware has already disabled/enabled the touchpad.
->> > > > >=20
->> > > > > Fundamentally speaking, using KEY_CAMERA_ACCESS_ENABLE/DISABL=
-E is also
->> > > > > OK. It's just...
->> > > > >=20
->> > > > > > Furthermore, lenovo-wmi-camera moved away from
->> > > > > >       these hkey events in favor of SW_CAMERA_LENS_COVER in=
- the quoted
->> > > > > >       commit, which is arguably the closest relevant preced=
-ent.
->> > > > >=20
->> > > > > ...relatively new and isn't widely used compared to SW_CAMERA=
-_LENS_COVER.
->> > > > >=20
->> > > > > Thus, I agreed that using SW_CAMERA_LENS_COVER is a better ap=
-proach as it
->> > > > > aligns with other drivers' behavior. The patch seems over-eng=
-ineered
->> > > > > though, see below.
->> > > >=20
->> > > > This seems pretty reasonable to me, I figured that a single sta=
-ndard was
->> > > > hard to enforce and also not strictly needed in practice (the "=
-harmless
->> > > > no-op" argument above).
->> > > > I was mostly wondering about certain discussions I saw online w=
-hile doing
->> > > > research for this patch of people arguing that such a no-op sho=
-uld be
->> > > > avoided, see e.g.:
->> > > > https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_re=
-quests/181
->> > >=20
->> > > Thanks for the context. I didn't know the behavior of GNOME as I =
-use KDE
->> > > Plasma, whose behavior is unmask/mask touchpad events on
->> > > KEY_TOUCHPAD_ON/OFF.
->> > >=20
->> > > >=20
->> > > > Still, your point that userspace duplicating an action already =
-applied by
->> > > > the hardware is common practice, and fine as long as it is harm=
-less, makes
->> > > > perfect sense to me. So overall I have no objections to your re=
-asoning here.
->> > > >=20
->> > > > > >=20
->> > > > > >   2.  Ignore these events like the firmware-handled FnLock =
-events:
->> > > > > >=20
->> > > > > > 			{ KE_IGNORE,	0x0c | IDEAPAD_WMI_KEY },
->> > > > > > 			{ KE_IGNORE,	0x0d | IDEAPAD_WMI_KEY },
->> > > > > >=20
->> > > > > >       This fixes the KEY_UNKNOWN issue, but userspace gets =
-no information.
->> > > > > >=20
->> > > > > >   Overall, in the end I copied the approach of the lenovo-w=
-mi-camera
->> > > > > >   driver. Kindly let me know if there are other/better solu=
-tions.
->> > > > > >=20
->> > > > > > * Unlike the touchpad, whose state this driver reads with V=
-PCCMD_R_TOUCHPAD
->> > > > > >   at probe, on resume and on each event,
->> > > > > >=20
->> > > > >=20
->> > > > > At least for the input device, the synchronization on probe o=
-r on resume
->> > > > > does not matter, as no input event is emitted due to !send_ev=
-ents.
->> > > >=20
->> > > > Good point, I was conflating stuff.
->> > > >=20
->> > > > > > the camera switch state is only
->> > > > > >   available in EC-private fields, and the two tested laptop=
-s even use
->> > > > > >   different ones. Hence the lenovo-wmi-camera approach: the=
- switch appears
->> > > > > >   on the first event, and a change made while suspended is =
-not reported,
->> > > > > >   leaving the state wrong until the switch is toggled again.
->> > > > >=20
->> > > > > So the difference compared to the lenovo-wmi-camera approach =
-is only
->> > > > > about when and how the input device is registered.
->> > > > >=20
->> > > > > On recent models, the firmware neither emits VPCCMD_R_TOUCHPA=
-D nor
->> > > > > toggles the touchpad. It leaves the job to software by emitti=
-ng WMI key
->> > > > > event 0x29, which is converted to KEY_TOUCHPAD_TOGGLE via ide=
-apad_keymap.
->> > > > > It'd be tidier to take that approach and reuse the existing i=
-nput device.
->> > > > > Sparse keymap supports KEY_SW, so it's viable to map the two =
-WMI events
->> > > > > to SW_CAMERA_LENS_COVER with appropriate switch value.
->> > > >=20
->> > > > This makes a lot of sense to me. I appreciate the simplicity of=
- this
->> > > > approach.
->> > > >=20
->> > > > Part of the reason why I initially adopted the "separate input =
-device"
->> > > > approach was this comment from
->> > > > drivers/platform/x86/dell/dell-wmi-privacy.c:
->> > > >=20
->> > > > /*
->> > > >  * Unlike keys where only presses matter, userspace may act
->> > > >  * on switches in both of their positions. Only register
->> > > >  * SW_CAMERA_LENS_COVER if it is actually there.
->> > > >  */
->> > >=20
->> > > Hmm, this makes some sense. Ideally we should prevent exposing
->> > > SW_CAMERA_LENS_COVER unless it's there. I wonder, if the capabili=
-ty is
->> > > declared in LENOVO_UTILITY_DATA? AFAIK, LENOVO_UTILITY_EVENT (8FC=
-0DE0C-
->> > > B4E4-43FD-B0F3-8871711C1294) shares the same ACPI device as
->> > > LENOVO_UTILITY_DATA (CE6C0974-0407-4F50-88BA-4FC3B6559AD8). The f=
-ormer's
->> > > driver is ideapad-laptop, while latter's driver is lenovo-wmi-hot=
-key-
->> > > utilities.
->> > >=20
->> > >    [WMI, Dynamic, Provider("WmiProv"), Locale("MS\\0x409"),=20
->> > > Description("Lenovo Utility Key Press Event"),=20
->> > > guid("{8fc0de0c-b4e4-43fd-b0f3-8871711c1294}")]
->> > >    class LENOVO_UTILITY_EVENT : WMIEvent {
->> > >      [key, read] string InstanceName;
->> > >      [read] boolean Active;
->> > >      [WmiDataId(1), read, Description("Lenovo Utility Press key=20
->> > > Event")] uint32 PressTypeDataVal;
->> > >    };
->> > >  =20
->> > >    [WMI, Dynamic, Provider("WmiProv"), Locale("MS\\0x409"),=20
->> > > Description("LENOVO_UTILITY_DATA class"),=20
->> > > guid("{ce6c0974-0407-4f50-88ba-4fc3b6559ad8}")]
->> > >    class LENOVO_UTILITY_DATA {
->> > >      [key, read] string InstanceName;
->> > >      [read] boolean Active;
->> > >  =20
->> > >      [WmiMethodId(1), Implemented, Description("Utility 3.1 funct=
-ion is=20
->> > > Support or the function Version")] void GetIfSupportOrVersion([in=
-,=20
->> > > Description("Control type")] uint32 datatype, [out, Description("=
-0 is=20
->> > > not support 1,2,3...version")] uint32 Data);
->> > >      [WmiMethodId(2), Implemented, Description("Utility 3.1 Set f=
-eature=20
->> > > function ")] void SetFeature([in, Description("Control type")] ui=
-nt32=20
->> > > featuretype, [out, Description("Control result 0 is success 1,2,3=
-...is=20
->> > > failed")] uint32 Data);
->> > >      [WmiMethodId(3), Implemented, Description("Utility 3.2 Set f=
-eature=20
->> > > function ")] void SetFeatureEx([in] uint32 IDs, [in] uint32 Value=
-,=20
->> > > [out, Description("result 0 is success 1,2,3...is failed")] uint3=
-2 Ret);
->> > >    };
->> > >=20
->> > >=20
->> > > I just checked several DSDT tables from different devices (they d=
-on't
->> > > have camera switches though). The ACPI device is usually \_SB.WMI=
-U. The
->> > > former's=C2=A0WMI event is usually implemented by \_SB.WMIU._WED,=
- while the
->> > > latter's WMI methods are usually implemented by \_SB.WMIU.WMSK. T=
-here may
->> > > be some capabilities defined in the first WMI method, and the WMI=
- event
->> > > may also reveal some details in EC query handling.
->> > >=20
->> > > Could you dump the ACPI tables of the two devices and attach the =
-acpidump
->> > > files in your reply?
->> > >=20
->> > > As you've said, "the camera switch state is only available in EC-=
-private
->> > > fields, and the two tested laptops even use different ones." Coul=
-d you
->> > > elaborate it as well? Such information may be helpful when cross-
->> > > referencing ACPI tables.
->> > >=20
->> >=20
->> > I'm way behind on my emails and trying to get through my inbox a bi=
-t...so apologies if I've missed subtleties as I skim read this a bit
->> >=20
->> > Reading the internal spec - there are some WMI calls I can see that=
- return C status:
->> > LENOVO_OTHER_METHOD (GUID dc2a8805-3a8c-41ba-a6f7-092e0089cd3b)
->> > Get CV DSP Camera Shutter Status - Input ID 0x00200000 - returns 0 =
-(closed) or 1 (open)
->> > Get Normal Camera Shutter Status - Input ID 0x00201000 - returns 0 =
-(closed) or 1 (open)
->> >=20
->> > I can't find the Utility GUIDs mentioned at all I'm afraid. Is the =
-above useful?
->>=20
->> Thanks for the information. It's useful! I will cross-check with the =
-DSL
->> code of the correlated WMI method.
->
-> I just checked a DSDT dump from 83JR [1], and it does implement
-> 0x00200000!
->
-> In detail, LENOVO_CAPABILITY_DATA_00 exposes 0x00200000 as
-> valid+read+write conditionally, while LENOVO_OTHER_METHOD can be used =
-to
-> get/set the camera shutter.
->
-> Still, I have three questions. Could you kindly check the internal
-> specification and shed some light?
->
-> What's the difference between "CV DSP Camera Shutter" and the "Normal"
-> one? I guess the former is a firmware switch while the latter is a
-> hardware switch, am I correct?
->
-The Normal ID is new and was just added in the latest version of the spe=
-c.
-It's possible it is on a not-released platform yet.
-As a note - the 'Normal" entry is get only.
+Convert HW PTE pointers to hw_pte_t *, retaining pte_t for SW PTE
+values. Helpers shared with PMD and PUD operations keep explicit casts
+because this series does not introduce distinct entry types for those
+levels.
 
-Afraid my hooks into the Yoga and Legion team are still quite new and we=
-'re figuring out some of the pieces needed at the moment :)
-The WMI spec seems to cover a lot of different platforms that I've not h=
-ad much experience with too.
+arm64 still uses the hw_pte_t alias in this patch. The new pointer
+spelling therefore denotes the same type until the final opt-in.
 
-> The device does not implement LENOVO_CAPABILITY_DATA_01 at all. Is it
-> possible to determine its existence programmatically using
-> LENOVO_CAPABILITY_DATA_00? Missing the former is fatal in the current
-> lenovo-wmi-capdata and lenovo-wmi-other implementations, resulting in
-> both driver non-functional. We need a programmatic way to tolerate its
-> non-existence so that we can bind the two drivers via the component
-> framework in any case.
->
-It should be under CAPABILITY DATA_00, at least from what I'm seeing (pa=
-sting a table in text....):
+Include linux/pgtable_types.h in pi.h to make hw_pte_t visible.
 
-CV DSP Camera Shutter
-uint32 IDs //0x00200000
-uint32 Capability // 7 :by project
-bit 2: 0: not support SetFeatureValue(), 1: support SetFeatureValue()
-bit 1: 0: not support GetFeatureValue(), 1: support GetFeatureValue()
-bit 0: 0: not support CV DSP Camera Shutter, 1: support CV DSP Camera Sh=
-utter
-uint32 DefaultValue // 0 : by project
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+---
+ arch/arm64/include/asm/hugetlb.h  |  19 +++++----
+ arch/arm64/include/asm/pgalloc.h  |   2 +-
+ arch/arm64/include/asm/pgtable.h  | 143 ++++++++++++++++++++++++++++++++++------------------------------
+ arch/arm64/include/asm/vmalloc.h  |   2 +-
+ arch/arm64/kernel/efi.c           |   3 +-
+ arch/arm64/kernel/pi/map_kernel.c |   4 +-
+ arch/arm64/kernel/pi/map_range.c  |   9 ++--
+ arch/arm64/kernel/pi/pi.h         |   3 +-
+ arch/arm64/mm/contpte.c           |  49 +++++++++++-----------
+ arch/arm64/mm/fault.c             |   5 ++-
+ arch/arm64/mm/fixmap.c            |   6 +--
+ arch/arm64/mm/hugetlbpage.c       |  48 +++++++++++-----------
+ arch/arm64/mm/kasan_init.c        |   4 +-
+ arch/arm64/mm/mmu.c               |  46 ++++++++++++---------
+ arch/arm64/mm/pageattr.c          |   4 +-
+ arch/arm64/mm/trans_pgd.c         |   4 +-
+ 16 files changed, 190 insertions(+), 161 deletions(-)
 
-Normal Camera Shutter Status
-uint32 IDs //0x00201000
-uint32 Capability // 3 :by project
-bit 2: 0: not support SetFeatureValue(), 1: support SetFeatureValue()
-bit 1: 0: not support GetFeatureValue(), 1: support GetFeatureValue()
-bit 0: 0: not support Normal Camera Shutter Status, 1: support Normal Ca=
-mera Shutter Status
-uint32 DefaultValue // 1 : by project
+diff --git a/arch/arm64/include/asm/hugetlb.h b/arch/arm64/include/asm/hugetlb.h
+index d038ff14d16ca..15b3cf53aa2ca 100644
+--- a/arch/arm64/include/asm/hugetlb.h
++++ b/arch/arm64/include/asm/hugetlb.h
+@@ -36,33 +36,34 @@ pte_t arch_make_huge_pte(pte_t entry, unsigned int shift, vm_flags_t flags);
+ #define arch_make_huge_pte arch_make_huge_pte
+ #define __HAVE_ARCH_HUGE_SET_HUGE_PTE_AT
+ extern void set_huge_pte_at(struct mm_struct *mm, unsigned long addr,
+-			    pte_t *ptep, pte_t pte, unsigned long sz);
++			    hw_pte_t *ptep, pte_t pte, unsigned long sz);
+ #define __HAVE_ARCH_HUGE_PTEP_SET_ACCESS_FLAGS
+ extern int huge_ptep_set_access_flags(struct vm_area_struct *vma,
+-				      unsigned long addr, pte_t *ptep,
++				      unsigned long addr, hw_pte_t *ptep,
+ 				      pte_t pte, int dirty);
+ #define __HAVE_ARCH_HUGE_PTEP_GET_AND_CLEAR
+ extern pte_t huge_ptep_get_and_clear(struct mm_struct *mm, unsigned long addr,
+-				     pte_t *ptep, unsigned long sz);
++				     hw_pte_t *ptep, unsigned long sz);
+ #define __HAVE_ARCH_HUGE_PTEP_SET_WRPROTECT
+ extern void huge_ptep_set_wrprotect(struct mm_struct *mm,
+-				    unsigned long addr, pte_t *ptep);
++				    unsigned long addr, hw_pte_t *ptep);
+ #define __HAVE_ARCH_HUGE_PTEP_CLEAR_FLUSH
+ extern pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+-				   unsigned long addr, pte_t *ptep);
++				   unsigned long addr, hw_pte_t *ptep);
+ #define __HAVE_ARCH_HUGE_PTE_CLEAR
+ extern void huge_pte_clear(struct mm_struct *mm, unsigned long addr,
+-			   pte_t *ptep, unsigned long sz);
++			   hw_pte_t *ptep, unsigned long sz);
+ #define __HAVE_ARCH_HUGE_PTEP_GET
+-extern pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep);
++extern pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr,
++			   hw_pte_t *ptep);
+ 
+ #define huge_ptep_modify_prot_start huge_ptep_modify_prot_start
+ extern pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma,
+-					 unsigned long addr, pte_t *ptep);
++					 unsigned long addr, hw_pte_t *ptep);
+ 
+ #define huge_ptep_modify_prot_commit huge_ptep_modify_prot_commit
+ extern void huge_ptep_modify_prot_commit(struct vm_area_struct *vma,
+-					 unsigned long addr, pte_t *ptep,
++					 unsigned long addr, hw_pte_t *ptep,
+ 					 pte_t old_pte, pte_t new_pte);
+ 
+ #include <asm-generic/hugetlb.h>
+diff --git a/arch/arm64/include/asm/pgalloc.h b/arch/arm64/include/asm/pgalloc.h
+index 1b4509d3382c6..80063dd4d2722 100644
+--- a/arch/arm64/include/asm/pgalloc.h
++++ b/arch/arm64/include/asm/pgalloc.h
+@@ -106,7 +106,7 @@ static inline void __pmd_populate(pmd_t *pmdp, phys_addr_t ptep,
+  * of the mm address space.
+  */
+ static inline void
+-pmd_populate_kernel(struct mm_struct *mm, pmd_t *pmdp, pte_t *ptep)
++pmd_populate_kernel(struct mm_struct *mm, pmd_t *pmdp, hw_pte_t *ptep)
+ {
+ 	VM_BUG_ON(mm && mm != &init_mm);
+ 	__pmd_populate(pmdp, __pa(ptep),
+diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+index e89ec5f4787b4..652ce413be389 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -358,7 +358,7 @@ static inline pte_t pte_clear_uffd(pte_t pte)
+ }
+ #endif /* CONFIG_HAVE_ARCH_USERFAULTFD_WP */
+ 
+-static inline void __set_pte_nosync(pte_t *ptep, pte_t pte)
++static inline void __set_pte_nosync(hw_pte_t *ptep, pte_t pte)
+ {
+ 	WRITE_ONCE(*ptep, pte);
+ }
+@@ -373,13 +373,13 @@ static inline void __set_pte_complete(pte_t pte)
+ 		queue_pte_barriers();
+ }
+ 
+-static inline void __set_pte(pte_t *ptep, pte_t pte)
++static inline void __set_pte(hw_pte_t *ptep, pte_t pte)
+ {
+ 	__set_pte_nosync(ptep, pte);
+ 	__set_pte_complete(pte);
+ }
+ 
+-static inline pte_t __ptep_get(pte_t *ptep)
++static inline pte_t __ptep_get(hw_pte_t *ptep)
+ {
+ 	return READ_ONCE(*ptep);
+ }
+@@ -403,7 +403,8 @@ bool pgattr_change_is_safe(pteval_t old, pteval_t new);
+  *   PTE_DIRTY || (PTE_WRITE && !PTE_RDONLY)
+  */
+ 
+-static inline void __check_safe_pte_update(struct mm_struct *mm, pte_t *ptep,
++static inline void __check_safe_pte_update(struct mm_struct *mm,
++					   hw_pte_t *ptep,
+ 					   pte_t pte)
+ {
+ 	pte_t old_pte;
+@@ -669,7 +670,8 @@ static inline pgprot_t pud_pgprot(pud_t pud)
+ }
+ 
+ static inline void __set_ptes_anysz(struct mm_struct *mm, unsigned long addr,
+-				    pte_t *ptep, pte_t pte, unsigned int nr,
++				    hw_pte_t *ptep, pte_t pte,
++				    unsigned int nr,
+ 				    unsigned long pgsize)
+ {
+ 	unsigned long stride = pgsize >> PAGE_SHIFT;
+@@ -707,7 +709,7 @@ static inline void __set_ptes_anysz(struct mm_struct *mm, unsigned long addr,
+ }
+ 
+ static inline void __set_ptes(struct mm_struct *mm, unsigned long addr,
+-			      pte_t *ptep, pte_t pte, unsigned int nr)
++			      hw_pte_t *ptep, pte_t pte, unsigned int nr)
+ {
+ 	__set_ptes_anysz(mm, addr, ptep, pte, nr, PAGE_SIZE);
+ }
+@@ -715,14 +717,16 @@ static inline void __set_ptes(struct mm_struct *mm, unsigned long addr,
+ static inline void __set_pmds(struct mm_struct *mm, unsigned long addr,
+ 			      pmd_t *pmdp, pmd_t pmd, unsigned int nr)
+ {
+-	__set_ptes_anysz(mm, addr, (pte_t *)pmdp, pmd_pte(pmd), nr, PMD_SIZE);
++	__set_ptes_anysz(mm, addr, (hw_pte_t *)pmdp, pmd_pte(pmd), nr,
++			 PMD_SIZE);
+ }
+ #define set_pmd_at(mm, addr, pmdp, pmd) __set_pmds(mm, addr, pmdp, pmd, 1)
+ 
+ static inline void __set_puds(struct mm_struct *mm, unsigned long addr,
+ 			      pud_t *pudp, pud_t pud, unsigned int nr)
+ {
+-	__set_ptes_anysz(mm, addr, (pte_t *)pudp, pud_pte(pud), nr, PUD_SIZE);
++	__set_ptes_anysz(mm, addr, (hw_pte_t *)pudp, pud_pte(pud), nr,
++			 PUD_SIZE);
+ }
+ #define set_pud_at(mm, addr, pudp, pud) __set_puds(mm, addr, pudp, pud, 1)
+ 
+@@ -850,16 +854,16 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
+ }
+ 
+ /* Find an entry in the third-level page table. */
+-#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
++#define pte_offset_phys(dir, addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(hw_pte_t))
+ 
+-#define pte_set_fixmap(addr)		((pte_t *)set_fixmap_offset(FIX_PTE, addr))
++#define pte_set_fixmap(addr)		((hw_pte_t *)set_fixmap_offset(FIX_PTE, addr))
+ #define pte_set_fixmap_offset(pmd, addr)	pte_set_fixmap(pte_offset_phys(pmd, addr))
+ #define pte_clear_fixmap()		clear_fixmap(FIX_PTE)
+ 
+ #define pmd_page(pmd)			phys_to_page(__pmd_to_phys(pmd))
+ 
+ /* use ONLY for statically allocated translation tables */
+-#define pte_offset_kimg(dir,addr)	((pte_t *)__phys_to_kimg(pte_offset_phys((dir), (addr))))
++#define pte_offset_kimg(dir, addr)	((hw_pte_t *)__phys_to_kimg(pte_offset_phys((dir), (addr))))
+ 
+ #if CONFIG_PGTABLE_LEVELS > 2
+ 
+@@ -1238,12 +1242,14 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newprot)
+ }
+ 
+ extern int __ptep_set_access_flags_anysz(struct vm_area_struct *vma,
+-					 unsigned long address, pte_t *ptep,
++					 unsigned long address,
++					 hw_pte_t *ptep,
+ 					 pte_t entry, int dirty,
+ 					 unsigned long pgsize);
+ 
+ static inline int __ptep_set_access_flags(struct vm_area_struct *vma,
+-					  unsigned long address, pte_t *ptep,
++					  unsigned long address,
++					  hw_pte_t *ptep,
+ 					  pte_t entry, int dirty)
+ {
+ 	return __ptep_set_access_flags_anysz(vma, address, ptep, entry, dirty,
+@@ -1256,7 +1262,7 @@ static inline int pmdp_set_access_flags(struct vm_area_struct *vma,
+ 					unsigned long address, pmd_t *pmdp,
+ 					pmd_t entry, int dirty)
+ {
+-	return __ptep_set_access_flags_anysz(vma, address, (pte_t *)pmdp,
++	return __ptep_set_access_flags_anysz(vma, address, (hw_pte_t *)pmdp,
+ 					     pmd_pte(entry), dirty, PMD_SIZE);
+ }
+ #endif
+@@ -1283,13 +1289,13 @@ static inline bool pud_user_accessible_page(struct mm_struct *mm, unsigned long
+  */
+ 
+ static inline void __pte_clear(struct mm_struct *mm,
+-			       unsigned long addr, pte_t *ptep)
++			       unsigned long addr, hw_pte_t *ptep)
+ {
+ 	__set_pte(ptep, __pte(0));
+ }
+ 
+ static inline bool __ptep_test_and_clear_young(struct vm_area_struct *vma,
+-		unsigned long address, pte_t *ptep)
++		unsigned long address, hw_pte_t *ptep)
+ {
+ 	pte_t old_pte, pte;
+ 
+@@ -1305,7 +1311,7 @@ static inline bool __ptep_test_and_clear_young(struct vm_area_struct *vma,
+ }
+ 
+ static inline bool __ptep_clear_flush_young(struct vm_area_struct *vma,
+-		unsigned long address, pte_t *ptep)
++		unsigned long address, hw_pte_t *ptep)
+ {
+ 	bool young = __ptep_test_and_clear_young(vma, address, ptep);
+ 
+@@ -1331,13 +1337,13 @@ static inline bool pmdp_test_and_clear_young(struct vm_area_struct *vma,
+ {
+ 	/* Operation applies to PMD table entry only if FEAT_HAFT is enabled */
+ 	VM_WARN_ON(pmd_table(READ_ONCE(*pmdp)) && !system_supports_haft());
+-	return __ptep_test_and_clear_young(vma, address, (pte_t *)pmdp);
++	return __ptep_test_and_clear_young(vma, address, (hw_pte_t *)pmdp);
+ }
+ #endif /* CONFIG_TRANSPARENT_HUGEPAGE || CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG */
+ 
+ static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
+ 					       unsigned long address,
+-					       pte_t *ptep,
++					       hw_pte_t *ptep,
+ 					       unsigned long pgsize)
+ {
+ 	pte_t pte = __pte(xchg_relaxed(&pte_val(*ptep), 0));
+@@ -1362,13 +1368,13 @@ static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
+ }
+ 
+ static inline pte_t __ptep_get_and_clear(struct mm_struct *mm,
+-				       unsigned long address, pte_t *ptep)
++				       unsigned long address, hw_pte_t *ptep)
+ {
+ 	return __ptep_get_and_clear_anysz(mm, address, ptep, PAGE_SIZE);
+ }
+ 
+ static inline void __clear_full_ptes(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, unsigned int nr, int full)
++				hw_pte_t *ptep, unsigned int nr, int full)
+ {
+ 	for (;;) {
+ 		__ptep_get_and_clear(mm, addr, ptep);
+@@ -1380,7 +1386,7 @@ static inline void __clear_full_ptes(struct mm_struct *mm, unsigned long addr,
+ }
+ 
+ static inline pte_t __get_and_clear_full_ptes(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep,
++				unsigned long addr, hw_pte_t *ptep,
+ 				unsigned int nr, int full)
+ {
+ 	pte_t pte, tmp_pte;
+@@ -1403,12 +1409,12 @@ static inline pte_t __get_and_clear_full_ptes(struct mm_struct *mm,
+ static inline pmd_t pmdp_huge_get_and_clear(struct mm_struct *mm,
+ 					    unsigned long address, pmd_t *pmdp)
+ {
+-	return pte_pmd(__ptep_get_and_clear_anysz(mm, address, (pte_t *)pmdp, PMD_SIZE));
++	return pte_pmd(__ptep_get_and_clear_anysz(mm, address, (hw_pte_t *)pmdp, PMD_SIZE));
+ }
+ #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+ 
+ static inline void ___ptep_set_wrprotect(struct mm_struct *mm,
+-					unsigned long address, pte_t *ptep,
++					unsigned long address, hw_pte_t *ptep,
+ 					pte_t pte)
+ {
+ 	pte_t old_pte;
+@@ -1426,13 +1432,13 @@ static inline void ___ptep_set_wrprotect(struct mm_struct *mm,
+  * dirty status (PTE_DBM && !PTE_RDONLY) to the software PTE_DIRTY bit.
+  */
+ static inline void __ptep_set_wrprotect(struct mm_struct *mm,
+-					unsigned long address, pte_t *ptep)
++					unsigned long address, hw_pte_t *ptep)
+ {
+ 	___ptep_set_wrprotect(mm, address, ptep, __ptep_get(ptep));
+ }
+ 
+ static inline void __wrprotect_ptes(struct mm_struct *mm, unsigned long address,
+-				pte_t *ptep, unsigned int nr)
++				hw_pte_t *ptep, unsigned int nr)
+ {
+ 	unsigned int i;
+ 
+@@ -1441,7 +1447,7 @@ static inline void __wrprotect_ptes(struct mm_struct *mm, unsigned long address,
+ }
+ 
+ static inline void __clear_young_dirty_pte(struct vm_area_struct *vma,
+-					   unsigned long addr, pte_t *ptep,
++					   unsigned long addr, hw_pte_t *ptep,
+ 					   pte_t pte, cydp_t flags)
+ {
+ 	pte_t old_pte;
+@@ -1460,7 +1466,8 @@ static inline void __clear_young_dirty_pte(struct vm_area_struct *vma,
+ }
+ 
+ static inline void __clear_young_dirty_ptes(struct vm_area_struct *vma,
+-					    unsigned long addr, pte_t *ptep,
++					    unsigned long addr,
++					    hw_pte_t *ptep,
+ 					    unsigned int nr, cydp_t flags)
+ {
+ 	pte_t pte;
+@@ -1485,7 +1492,7 @@ static inline void __clear_young_dirty_ptes(struct vm_area_struct *vma,
+ static inline void pmdp_set_wrprotect(struct mm_struct *mm,
+ 				      unsigned long address, pmd_t *pmdp)
+ {
+-	__ptep_set_wrprotect(mm, address, (pte_t *)pmdp);
++	__ptep_set_wrprotect(mm, address, (hw_pte_t *)pmdp);
+ }
+ 
+ #define pmdp_establish pmdp_establish
+@@ -1558,7 +1565,8 @@ extern void arch_swap_restore(swp_entry_t entry, struct folio *folio);
+  * On AArch64, the cache coherency is handled via the __set_ptes() function.
+  */
+ static inline void update_mmu_cache_range(struct vm_fault *vmf,
+-		struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++		struct vm_area_struct *vma, unsigned long addr,
++		hw_pte_t *ptep,
+ 		unsigned int nr)
+ {
+ 	/*
+@@ -1613,21 +1621,21 @@ static inline bool pud_sect_supported(void)
+ #define __HAVE_ARCH_PTEP_MODIFY_PROT_TRANSACTION
+ #define ptep_modify_prot_start ptep_modify_prot_start
+ extern pte_t ptep_modify_prot_start(struct vm_area_struct *vma,
+-				    unsigned long addr, pte_t *ptep);
++				    unsigned long addr, hw_pte_t *ptep);
+ 
+ #define ptep_modify_prot_commit ptep_modify_prot_commit
+ extern void ptep_modify_prot_commit(struct vm_area_struct *vma,
+-				    unsigned long addr, pte_t *ptep,
++				    unsigned long addr, hw_pte_t *ptep,
+ 				    pte_t old_pte, pte_t new_pte);
+ 
+ #define modify_prot_start_ptes modify_prot_start_ptes
+ extern pte_t modify_prot_start_ptes(struct vm_area_struct *vma,
+-				    unsigned long addr, pte_t *ptep,
++				    unsigned long addr, hw_pte_t *ptep,
+ 				    unsigned int nr);
+ 
+ #define modify_prot_commit_ptes modify_prot_commit_ptes
+ extern void modify_prot_commit_ptes(struct vm_area_struct *vma, unsigned long addr,
+-				    pte_t *ptep, pte_t old_pte, pte_t pte,
++				    hw_pte_t *ptep, pte_t old_pte, pte_t pte,
+ 				    unsigned int nr);
+ 
+ #ifdef CONFIG_ARM64_CONTPTE
+@@ -1638,33 +1646,35 @@ extern void modify_prot_commit_ptes(struct vm_area_struct *vma, unsigned long ad
+  * a private implementation detail of the public ptep API (see below).
+  */
+ extern void __contpte_try_fold(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, pte_t pte);
++				hw_pte_t *ptep, pte_t pte);
+ extern void __contpte_try_unfold(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, pte_t pte);
+-extern pte_t contpte_ptep_get(pte_t *ptep, pte_t orig_pte);
+-extern pte_t contpte_ptep_get_lockless(pte_t *orig_ptep);
++				hw_pte_t *ptep, pte_t pte);
++extern pte_t contpte_ptep_get(hw_pte_t *ptep, pte_t orig_pte);
++extern pte_t contpte_ptep_get_lockless(hw_pte_t *orig_ptep);
+ extern void contpte_set_ptes(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, pte_t pte, unsigned int nr);
++				hw_pte_t *ptep, pte_t pte, unsigned int nr);
+ extern void contpte_clear_full_ptes(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, unsigned int nr, int full);
++				hw_pte_t *ptep, unsigned int nr, int full);
+ extern pte_t contpte_get_and_clear_full_ptes(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep,
++				unsigned long addr, hw_pte_t *ptep,
+ 				unsigned int nr, int full);
+ bool contpte_test_and_clear_young_ptes(struct vm_area_struct *vma,
+-				unsigned long addr, pte_t *ptep, unsigned int nr);
++				unsigned long addr, hw_pte_t *ptep,
++				unsigned int nr);
+ bool contpte_clear_flush_young_ptes(struct vm_area_struct *vma,
+-				unsigned long addr, pte_t *ptep, unsigned int nr);
++				unsigned long addr, hw_pte_t *ptep,
++				unsigned int nr);
+ extern void contpte_wrprotect_ptes(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, unsigned int nr);
++				hw_pte_t *ptep, unsigned int nr);
+ extern int contpte_ptep_set_access_flags(struct vm_area_struct *vma,
+-				unsigned long addr, pte_t *ptep,
++				unsigned long addr, hw_pte_t *ptep,
+ 				pte_t entry, int dirty);
+ extern void contpte_clear_young_dirty_ptes(struct vm_area_struct *vma,
+-				unsigned long addr, pte_t *ptep,
++				unsigned long addr, hw_pte_t *ptep,
+ 				unsigned int nr, cydp_t flags);
+ 
+ static __always_inline void contpte_try_fold(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep, pte_t pte)
++				unsigned long addr, hw_pte_t *ptep, pte_t pte)
+ {
+ 	/*
+ 	 * Only bother trying if both the virtual and physical addresses are
+@@ -1687,14 +1697,14 @@ static __always_inline void contpte_try_fold(struct mm_struct *mm,
+ }
+ 
+ static __always_inline void contpte_try_unfold(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep, pte_t pte)
++				unsigned long addr, hw_pte_t *ptep, pte_t pte)
+ {
+ 	if (unlikely(pte_valid_cont(pte)))
+ 		__contpte_try_unfold(mm, addr, ptep, pte);
+ }
+ 
+ #define pte_batch_hint pte_batch_hint
+-static inline unsigned int pte_batch_hint(pte_t *ptep, pte_t pte)
++static inline unsigned int pte_batch_hint(hw_pte_t *ptep, pte_t pte)
+ {
+ 	if (!pte_valid_cont(pte))
+ 		return 1;
+@@ -1721,7 +1731,7 @@ static inline unsigned int pte_batch_hint(pte_t *ptep, pte_t pte)
+  */
+ 
+ #define ptep_get ptep_get
+-static inline pte_t ptep_get(pte_t *ptep)
++static inline pte_t ptep_get(hw_pte_t *ptep)
+ {
+ 	pte_t pte = __ptep_get(ptep);
+ 
+@@ -1732,7 +1742,7 @@ static inline pte_t ptep_get(pte_t *ptep)
+ }
+ 
+ #define ptep_get_lockless ptep_get_lockless
+-static inline pte_t ptep_get_lockless(pte_t *ptep)
++static inline pte_t ptep_get_lockless(hw_pte_t *ptep)
+ {
+ 	pte_t pte = __ptep_get(ptep);
+ 
+@@ -1742,7 +1752,7 @@ static inline pte_t ptep_get_lockless(pte_t *ptep)
+ 	return contpte_ptep_get_lockless(ptep);
+ }
+ 
+-static inline void set_pte(pte_t *ptep, pte_t pte)
++static inline void set_pte(hw_pte_t *ptep, pte_t pte)
+ {
+ 	/*
+ 	 * We don't have the mm or vaddr so cannot unfold contig entries (since
+@@ -1759,7 +1769,7 @@ static inline void set_pte(pte_t *ptep, pte_t pte)
+ 
+ #define set_ptes set_ptes
+ static __always_inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, pte_t pte, unsigned int nr)
++				hw_pte_t *ptep, pte_t pte, unsigned int nr)
+ {
+ 	pte = pte_mknoncont(pte);
+ 
+@@ -1773,7 +1783,7 @@ static __always_inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+ }
+ 
+ static inline void pte_clear(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep)
++				unsigned long addr, hw_pte_t *ptep)
+ {
+ 	contpte_try_unfold(mm, addr, ptep, __ptep_get(ptep));
+ 	__pte_clear(mm, addr, ptep);
+@@ -1781,7 +1791,7 @@ static inline void pte_clear(struct mm_struct *mm,
+ 
+ #define clear_full_ptes clear_full_ptes
+ static inline void clear_full_ptes(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, unsigned int nr, int full)
++				hw_pte_t *ptep, unsigned int nr, int full)
+ {
+ 	if (likely(nr == 1)) {
+ 		contpte_try_unfold(mm, addr, ptep, __ptep_get(ptep));
+@@ -1793,7 +1803,7 @@ static inline void clear_full_ptes(struct mm_struct *mm, unsigned long addr,
+ 
+ #define get_and_clear_full_ptes get_and_clear_full_ptes
+ static inline pte_t get_and_clear_full_ptes(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep,
++				unsigned long addr, hw_pte_t *ptep,
+ 				unsigned int nr, int full)
+ {
+ 	pte_t pte;
+@@ -1810,13 +1820,13 @@ static inline pte_t get_and_clear_full_ptes(struct mm_struct *mm,
+ 
+ #define __HAVE_ARCH_PTEP_GET_AND_CLEAR
+ static inline pte_t ptep_get_and_clear(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep)
++				unsigned long addr, hw_pte_t *ptep)
+ {
+ 	contpte_try_unfold(mm, addr, ptep, __ptep_get(ptep));
+ 	return __ptep_get_and_clear(mm, addr, ptep);
+ }
+ 
+-static inline bool ptep_try_set(pte_t *ptep, pte_t new_pte)
++static inline bool ptep_try_set(hw_pte_t *ptep, pte_t new_pte)
+ {
+ 	pteval_t old = 0;
+ 
+@@ -1846,7 +1856,7 @@ static inline void flush_tlb_before_set(unsigned long addr)
+ 
+ #define test_and_clear_young_ptes test_and_clear_young_ptes
+ static inline bool test_and_clear_young_ptes(struct vm_area_struct *vma,
+-		unsigned long addr, pte_t *ptep, unsigned int nr)
++		unsigned long addr, hw_pte_t *ptep, unsigned int nr)
+ {
+ 	if (likely(nr == 1 && !pte_cont(__ptep_get(ptep))))
+ 		return __ptep_test_and_clear_young(vma, addr, ptep);
+@@ -1856,14 +1866,14 @@ static inline bool test_and_clear_young_ptes(struct vm_area_struct *vma,
+ 
+ #define __HAVE_ARCH_PTEP_TEST_AND_CLEAR_YOUNG
+ static inline bool ptep_test_and_clear_young(struct vm_area_struct *vma,
+-		unsigned long addr, pte_t *ptep)
++		unsigned long addr, hw_pte_t *ptep)
+ {
+ 	return test_and_clear_young_ptes(vma, addr, ptep, 1);
+ }
+ 
+ #define __HAVE_ARCH_PTEP_CLEAR_YOUNG_FLUSH
+ static inline bool ptep_clear_flush_young(struct vm_area_struct *vma,
+-		unsigned long addr, pte_t *ptep)
++		unsigned long addr, hw_pte_t *ptep)
+ {
+ 	pte_t orig_pte = __ptep_get(ptep);
+ 
+@@ -1875,7 +1885,7 @@ static inline bool ptep_clear_flush_young(struct vm_area_struct *vma,
+ 
+ #define clear_flush_young_ptes clear_flush_young_ptes
+ static inline bool clear_flush_young_ptes(struct vm_area_struct *vma,
+-		unsigned long addr, pte_t *ptep, unsigned int nr)
++		unsigned long addr, hw_pte_t *ptep, unsigned int nr)
+ {
+ 	if (likely(nr == 1 && !pte_cont(__ptep_get(ptep))))
+ 		return __ptep_clear_flush_young(vma, addr, ptep);
+@@ -1885,7 +1895,8 @@ static inline bool clear_flush_young_ptes(struct vm_area_struct *vma,
+ 
+ #define wrprotect_ptes wrprotect_ptes
+ static __always_inline void wrprotect_ptes(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep, unsigned int nr)
++				unsigned long addr, hw_pte_t *ptep,
++				unsigned int nr)
+ {
+ 	if (likely(nr == 1)) {
+ 		/*
+@@ -1909,14 +1920,14 @@ static __always_inline void wrprotect_ptes(struct mm_struct *mm,
+ 
+ #define __HAVE_ARCH_PTEP_SET_WRPROTECT
+ static inline void ptep_set_wrprotect(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep)
++				unsigned long addr, hw_pte_t *ptep)
+ {
+ 	wrprotect_ptes(mm, addr, ptep, 1);
+ }
+ 
+ #define __HAVE_ARCH_PTEP_SET_ACCESS_FLAGS
+ static inline int ptep_set_access_flags(struct vm_area_struct *vma,
+-				unsigned long addr, pte_t *ptep,
++				unsigned long addr, hw_pte_t *ptep,
+ 				pte_t entry, int dirty)
+ {
+ 	pte_t orig_pte = __ptep_get(ptep);
+@@ -1931,7 +1942,7 @@ static inline int ptep_set_access_flags(struct vm_area_struct *vma,
+ 
+ #define clear_young_dirty_ptes clear_young_dirty_ptes
+ static inline void clear_young_dirty_ptes(struct vm_area_struct *vma,
+-					  unsigned long addr, pte_t *ptep,
++					  unsigned long addr, hw_pte_t *ptep,
+ 					  unsigned int nr, cydp_t flags)
+ {
+ 	if (likely(nr == 1 && !pte_cont(__ptep_get(ptep))))
+diff --git a/arch/arm64/include/asm/vmalloc.h b/arch/arm64/include/asm/vmalloc.h
+index 4ec1acd3c1b34..28d3e89f90e43 100644
+--- a/arch/arm64/include/asm/vmalloc.h
++++ b/arch/arm64/include/asm/vmalloc.h
+@@ -45,7 +45,7 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
+ 
+ #define arch_vmap_pte_range_unmap_size arch_vmap_pte_range_unmap_size
+ static inline unsigned long arch_vmap_pte_range_unmap_size(unsigned long addr,
+-							   pte_t *ptep)
++							   hw_pte_t *ptep)
+ {
+ 	/*
+ 	 * The caller handles alignment so it's sufficient just to check
+diff --git a/arch/arm64/kernel/efi.c b/arch/arm64/kernel/efi.c
+index 0ec90fd1754ed..68ff21310604d 100644
+--- a/arch/arm64/kernel/efi.c
++++ b/arch/arm64/kernel/efi.c
+@@ -111,7 +111,8 @@ struct set_perm_data {
+ 	bool			has_bti;
+ };
+ 
+-static int __init set_permissions(pte_t *ptep, unsigned long addr, void *data)
++static int __init set_permissions(hw_pte_t *ptep, unsigned long addr,
++				  void *data)
+ {
+ 	struct set_perm_data *spd = data;
+ 	const efi_memory_desc_t *md = spd->md;
+diff --git a/arch/arm64/kernel/pi/map_kernel.c b/arch/arm64/kernel/pi/map_kernel.c
+index fb44cbdd2f292..2b7e7be5fd6f3 100644
+--- a/arch/arm64/kernel/pi/map_kernel.c
++++ b/arch/arm64/kernel/pi/map_kernel.c
+@@ -26,7 +26,7 @@ static void __init map_segment(pgd_t *pg_dir, phys_addr_t *pgd, u64 va_offset,
+ {
+ 	map_range(pgd, ((u64)start + va_offset) & ~PAGE_OFFSET,
+ 		  ((u64)end + va_offset) & ~PAGE_OFFSET, (u64)start,
+-		  prot, root_level, (pte_t *)pg_dir, may_use_cont, 0);
++		  prot, root_level, (hw_pte_t *)pg_dir, may_use_cont, 0);
+ }
+ 
+ static void __init unmap_segment(pgd_t *pg_dir, u64 va_offset, void *start,
+@@ -209,7 +209,7 @@ static void *__init map_fdt(phys_addr_t fdt)
+ 	 */
+ 	map_range(&ptep, fdt, (u64)_text > fdt ? min((u64)_text, efdt) : efdt,
+ 		  fdt, PAGE_KERNEL, IDMAP_ROOT_LEVEL,
+-		  (pte_t *)init_idmap_pg_dir, false, 0);
++		  (hw_pte_t *)init_idmap_pg_dir, false, 0);
+ 	dsb(ishst);
+ 
+ 	return (void *)fdt;
+diff --git a/arch/arm64/kernel/pi/map_range.c b/arch/arm64/kernel/pi/map_range.c
+index 761b14893f748..94f06da76e333 100644
+--- a/arch/arm64/kernel/pi/map_range.c
++++ b/arch/arm64/kernel/pi/map_range.c
+@@ -27,7 +27,8 @@
+  * 			in the VA space
+  */
+ void __init map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
+-		      pgprot_t prot, int level, pte_t *tbl, bool may_use_cont,
++		      pgprot_t prot, int level, hw_pte_t *tbl,
++		      bool may_use_cont,
+ 		      u64 va_offset)
+ {
+ 	u64 cmask = (level == 3) ? CONT_PTE_SIZE - 1 : U64_MAX;
+@@ -62,7 +63,7 @@ void __init map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
+ 				*pte += PTRS_PER_PTE * sizeof(pte_t);
+ 			}
+ 			map_range(pte, start, next, pa, prot, level + 1,
+-				  (pte_t *)(__pte_to_phys(*tbl) + va_offset),
++				  (hw_pte_t *)(__pte_to_phys(*tbl) + va_offset),
+ 				  may_use_cont, va_offset);
+ 		} else {
+ 			/*
+@@ -100,10 +101,10 @@ asmlinkage phys_addr_t __init create_init_idmap(pgd_t *pg_dir, ptval_t clrmask)
+ 	/* MMU is off; pointer casts to phys_addr_t are safe */
+ 	map_range(&ptep, (u64)_stext, (u64)__initdata_begin,
+ 		  (phys_addr_t)_stext, text_prot, IDMAP_ROOT_LEVEL,
+-		  (pte_t *)pg_dir, false, 0);
++		  (hw_pte_t *)pg_dir, false, 0);
+ 	map_range(&ptep, (u64)__initdata_begin, (u64)_end,
+ 		  (phys_addr_t)__initdata_begin, data_prot, IDMAP_ROOT_LEVEL,
+-		  (pte_t *)pg_dir, false, 0);
++		  (hw_pte_t *)pg_dir, false, 0);
+ 
+ 	return ptep;
+ }
+diff --git a/arch/arm64/kernel/pi/pi.h b/arch/arm64/kernel/pi/pi.h
+index 5dfd8484d2005..a7d09a2fa8f9f 100644
+--- a/arch/arm64/kernel/pi/pi.h
++++ b/arch/arm64/kernel/pi/pi.h
+@@ -2,6 +2,7 @@
+ // Copyright 2023 Google LLC
+ // Author: Ard Biesheuvel <ardb@google.com>
+ 
++#include <linux/pgtable_types.h>
+ #include <linux/types.h>
+ 
+ #define __prel64_initconst	__section(".init.rodata.prel64")
+@@ -30,7 +31,7 @@ void relocate_kernel(u64 offset);
+ int scs_patch(const u8 eh_frame[], int size, bool skip_dry_run);
+ 
+ void map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
+-	       pgprot_t prot, int level, pte_t *tbl, bool may_use_cont,
++	       pgprot_t prot, int level, hw_pte_t *tbl, bool may_use_cont,
+ 	       u64 va_offset);
+ 
+ asmlinkage void early_map_kernel(u64 boot_status, phys_addr_t fdt);
+diff --git a/arch/arm64/mm/contpte.c b/arch/arm64/mm/contpte.c
+index 0acab179fc1a5..753267c0b41e5 100644
+--- a/arch/arm64/mm/contpte.c
++++ b/arch/arm64/mm/contpte.c
+@@ -21,13 +21,14 @@ static inline bool mm_is_user(struct mm_struct *mm)
+ 	return mm != &init_mm;
+ }
+ 
+-static inline pte_t *contpte_align_down(pte_t *ptep)
++static inline hw_pte_t *contpte_align_down(hw_pte_t *ptep)
+ {
+ 	return PTR_ALIGN_DOWN(ptep, sizeof(*ptep) * CONT_PTES);
+ }
+ 
+-static inline pte_t *contpte_align_addr_ptep(unsigned long *start,
+-					     unsigned long *end, pte_t *ptep,
++static inline hw_pte_t *contpte_align_addr_ptep(unsigned long *start,
++					     unsigned long *end,
++					     hw_pte_t *ptep,
+ 					     unsigned int nr)
+ {
+ 	/*
+@@ -47,7 +48,7 @@ static inline pte_t *contpte_align_addr_ptep(unsigned long *start,
+ }
+ 
+ static void contpte_try_unfold_partial(struct mm_struct *mm, unsigned long addr,
+-					pte_t *ptep, unsigned int nr)
++					hw_pte_t *ptep, unsigned int nr)
+ {
+ 	/*
+ 	 * Unfold any partially covered contpte block at the beginning and end
+@@ -59,7 +60,7 @@ static void contpte_try_unfold_partial(struct mm_struct *mm, unsigned long addr,
+ 
+ 	if (ptep + nr != contpte_align_down(ptep + nr)) {
+ 		unsigned long last_addr = addr + PAGE_SIZE * (nr - 1);
+-		pte_t *last_ptep = ptep + nr - 1;
++		hw_pte_t *last_ptep = ptep + nr - 1;
+ 
+ 		contpte_try_unfold(mm, last_addr, last_ptep,
+ 				   __ptep_get(last_ptep));
+@@ -67,11 +68,11 @@ static void contpte_try_unfold_partial(struct mm_struct *mm, unsigned long addr,
+ }
+ 
+ static void contpte_convert(struct mm_struct *mm, unsigned long addr,
+-			    pte_t *ptep, pte_t pte)
++			    hw_pte_t *ptep, pte_t pte)
+ {
+ 	struct vm_area_struct vma = TLB_FLUSH_VMA(mm, 0);
+ 	unsigned long start_addr;
+-	pte_t *start_ptep;
++	hw_pte_t *start_ptep;
+ 	int i;
+ 
+ 	start_ptep = ptep = contpte_align_down(ptep);
+@@ -227,7 +228,7 @@ static void contpte_convert(struct mm_struct *mm, unsigned long addr,
+ }
+ 
+ void __contpte_try_fold(struct mm_struct *mm, unsigned long addr,
+-			pte_t *ptep, pte_t pte)
++			hw_pte_t *ptep, pte_t pte)
+ {
+ 	/*
+ 	 * We have already checked that the virtual and pysical addresses are
+@@ -253,7 +254,7 @@ void __contpte_try_fold(struct mm_struct *mm, unsigned long addr,
+ 	struct folio *folio;
+ 	struct page *page;
+ 	unsigned long pfn;
+-	pte_t *orig_ptep;
++	hw_pte_t *orig_ptep;
+ 	pgprot_t prot;
+ 
+ 	int i;
+@@ -291,7 +292,7 @@ void __contpte_try_fold(struct mm_struct *mm, unsigned long addr,
+ EXPORT_SYMBOL_GPL(__contpte_try_fold);
+ 
+ void __contpte_try_unfold(struct mm_struct *mm, unsigned long addr,
+-			pte_t *ptep, pte_t pte)
++			hw_pte_t *ptep, pte_t pte)
+ {
+ 	/*
+ 	 * We have already checked that the ptes are contiguous in
+@@ -305,7 +306,7 @@ void __contpte_try_unfold(struct mm_struct *mm, unsigned long addr,
+ }
+ EXPORT_SYMBOL_GPL(__contpte_try_unfold);
+ 
+-pte_t contpte_ptep_get(pte_t *ptep, pte_t orig_pte)
++pte_t contpte_ptep_get(hw_pte_t *ptep, pte_t orig_pte)
+ {
+ 	/*
+ 	 * Gather access/dirty bits, which may be populated in any of the ptes
+@@ -362,7 +363,7 @@ static inline bool contpte_is_consistent(pte_t pte, unsigned long pfn,
+ 			pgprot_val(prot) == pgprot_val(orig_prot);
+ }
+ 
+-pte_t contpte_ptep_get_lockless(pte_t *orig_ptep)
++pte_t contpte_ptep_get_lockless(hw_pte_t *orig_ptep)
+ {
+ 	/*
+ 	 * The ptep_get_lockless() API requires us to read and return *orig_ptep
+@@ -384,7 +385,7 @@ pte_t contpte_ptep_get_lockless(pte_t *orig_ptep)
+ 	pgprot_t orig_prot;
+ 	unsigned long pfn;
+ 	pte_t orig_pte;
+-	pte_t *ptep;
++	hw_pte_t *ptep;
+ 	pte_t pte;
+ 	int i;
+ 
+@@ -445,7 +446,8 @@ pte_t contpte_ptep_get_lockless(pte_t *orig_ptep)
+ EXPORT_SYMBOL_GPL(contpte_ptep_get_lockless);
+ 
+ void contpte_set_ptes(struct mm_struct *mm, unsigned long addr,
+-					pte_t *ptep, pte_t pte, unsigned int nr)
++					hw_pte_t *ptep, pte_t pte,
++					unsigned int nr)
+ {
+ 	unsigned long next;
+ 	unsigned long end;
+@@ -488,7 +490,7 @@ void contpte_set_ptes(struct mm_struct *mm, unsigned long addr,
+ EXPORT_SYMBOL_GPL(contpte_set_ptes);
+ 
+ void contpte_clear_full_ptes(struct mm_struct *mm, unsigned long addr,
+-				pte_t *ptep, unsigned int nr, int full)
++				hw_pte_t *ptep, unsigned int nr, int full)
+ {
+ 	contpte_try_unfold_partial(mm, addr, ptep, nr);
+ 	__clear_full_ptes(mm, addr, ptep, nr, full);
+@@ -496,7 +498,7 @@ void contpte_clear_full_ptes(struct mm_struct *mm, unsigned long addr,
+ EXPORT_SYMBOL_GPL(contpte_clear_full_ptes);
+ 
+ pte_t contpte_get_and_clear_full_ptes(struct mm_struct *mm,
+-				unsigned long addr, pte_t *ptep,
++				unsigned long addr, hw_pte_t *ptep,
+ 				unsigned int nr, int full)
+ {
+ 	contpte_try_unfold_partial(mm, addr, ptep, nr);
+@@ -505,7 +507,7 @@ pte_t contpte_get_and_clear_full_ptes(struct mm_struct *mm,
+ EXPORT_SYMBOL_GPL(contpte_get_and_clear_full_ptes);
+ 
+ bool contpte_test_and_clear_young_ptes(struct vm_area_struct *vma,
+-		unsigned long addr, pte_t *ptep, unsigned int nr)
++		unsigned long addr, hw_pte_t *ptep, unsigned int nr)
+ {
+ 	/*
+ 	 * ptep_clear_flush_young() technically requires us to clear the access
+@@ -531,7 +533,7 @@ bool contpte_test_and_clear_young_ptes(struct vm_area_struct *vma,
+ EXPORT_SYMBOL_GPL(contpte_test_and_clear_young_ptes);
+ 
+ bool contpte_clear_flush_young_ptes(struct vm_area_struct *vma,
+-		unsigned long addr, pte_t *ptep, unsigned int nr)
++		unsigned long addr, hw_pte_t *ptep, unsigned int nr)
+ {
+ 	bool young;
+ 
+@@ -554,7 +556,7 @@ bool contpte_clear_flush_young_ptes(struct vm_area_struct *vma,
+ EXPORT_SYMBOL_GPL(contpte_clear_flush_young_ptes);
+ 
+ void contpte_wrprotect_ptes(struct mm_struct *mm, unsigned long addr,
+-					pte_t *ptep, unsigned int nr)
++					hw_pte_t *ptep, unsigned int nr)
+ {
+ 	/*
+ 	 * If wrprotecting an entire contig range, we can avoid unfolding. Just
+@@ -572,7 +574,7 @@ void contpte_wrprotect_ptes(struct mm_struct *mm, unsigned long addr,
+ EXPORT_SYMBOL_GPL(contpte_wrprotect_ptes);
+ 
+ void contpte_clear_young_dirty_ptes(struct vm_area_struct *vma,
+-				    unsigned long addr, pte_t *ptep,
++				    unsigned long addr, hw_pte_t *ptep,
+ 				    unsigned int nr, cydp_t flags)
+ {
+ 	/*
+@@ -593,9 +595,10 @@ void contpte_clear_young_dirty_ptes(struct vm_area_struct *vma,
+ }
+ EXPORT_SYMBOL_GPL(contpte_clear_young_dirty_ptes);
+ 
+-static bool contpte_all_subptes_match_access_flags(pte_t *ptep, pte_t entry)
++static bool contpte_all_subptes_match_access_flags(hw_pte_t *ptep,
++						   pte_t entry)
+ {
+-	pte_t *cont_ptep = contpte_align_down(ptep);
++	hw_pte_t *cont_ptep = contpte_align_down(ptep);
+ 	/*
+ 	 * PFNs differ per sub-PTE. Match only bits consumed by
+ 	 * __ptep_set_access_flags(): AF, DIRTY and write permission.
+@@ -615,7 +618,7 @@ static bool contpte_all_subptes_match_access_flags(pte_t *ptep, pte_t entry)
+ }
+ 
+ int contpte_ptep_set_access_flags(struct vm_area_struct *vma,
+-					unsigned long addr, pte_t *ptep,
++					unsigned long addr, hw_pte_t *ptep,
+ 					pte_t entry, int dirty)
+ {
+ 	unsigned long start_addr;
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index 0b52557652be6..b77f4be88e3ea 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -162,7 +162,8 @@ static void show_pte(unsigned long addr)
+ 		p4d_t *p4dp, p4d;
+ 		pud_t *pudp, pud;
+ 		pmd_t *pmdp, pmd;
+-		pte_t *ptep, pte;
++		hw_pte_t *ptep;
++		pte_t pte;
+ 
+ 		if (pgd_none(pgd) || pgd_bad(pgd))
+ 			break;
+@@ -208,7 +209,7 @@ static void show_pte(unsigned long addr)
+  * Returns whether or not the PTE actually changed.
+  */
+ int __ptep_set_access_flags_anysz(struct vm_area_struct *vma,
+-				  unsigned long address, pte_t *ptep,
++				  unsigned long address, hw_pte_t *ptep,
+ 				  pte_t entry, int dirty, unsigned long pgsize)
+ {
+ 	pteval_t old_pteval, pteval;
+diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+index f66a0016dd02d..237a9136bc73b 100644
+--- a/arch/arm64/mm/fixmap.c
++++ b/arch/arm64/mm/fixmap.c
+@@ -35,7 +35,7 @@ static pte_t bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
+ static pmd_t bm_pmd[PTRS_PER_PMD] __bss_pgtbl __maybe_unused;
+ static pud_t bm_pud[PTRS_PER_PUD] __bss_pgtbl __maybe_unused;
+ 
+-static inline pte_t *fixmap_pte(unsigned long addr)
++static inline hw_pte_t *fixmap_pte(unsigned long addr)
+ {
+ 	return &bm_pte[BM_PTE_TABLE_IDX(addr)][pte_index(addr)];
+ }
+@@ -43,7 +43,7 @@ static inline pte_t *fixmap_pte(unsigned long addr)
+ static void __init early_fixmap_init_pte(pmd_t *pmdp, unsigned long addr)
+ {
+ 	pmd_t pmd = READ_ONCE(*pmdp);
+-	pte_t *ptep;
++	hw_pte_t *ptep;
+ 
+ 	if (pmd_none(pmd)) {
+ 		ptep = bm_pte[BM_PTE_TABLE_IDX(addr)];
+@@ -120,7 +120,7 @@ void __set_fixmap(enum fixed_addresses idx,
+ 			       phys_addr_t phys, pgprot_t flags)
+ {
+ 	unsigned long addr = __fix_to_virt(idx);
+-	pte_t *ptep;
++	hw_pte_t *ptep;
+ 
+ 	BUG_ON(idx <= FIX_HOLE || idx >= __end_of_fixed_addresses);
+ 
+diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+index 8e799c1fe0aa6..560c0f16cd8e4 100644
+--- a/arch/arm64/mm/hugetlbpage.c
++++ b/arch/arm64/mm/hugetlbpage.c
+@@ -76,7 +76,7 @@ bool arch_hugetlb_migration_supported(struct hstate *h)
+ #endif
+ 
+ static int find_num_contig(struct mm_struct *mm, unsigned long addr,
+-			   pte_t *ptep, size_t *pgsize)
++			   hw_pte_t *ptep, size_t *pgsize)
+ {
+ 	pgd_t *pgdp = pgd_offset(mm, addr);
+ 	p4d_t *p4dp;
+@@ -87,7 +87,7 @@ static int find_num_contig(struct mm_struct *mm, unsigned long addr,
+ 	p4dp = p4d_offset(pgdp, addr);
+ 	pudp = pud_offset(p4dp, addr);
+ 	pmdp = pmd_offset(pudp, addr);
+-	if ((pte_t *)PTR_ALIGN_DOWN(pmdp, sizeof(*pmdp) * CONT_PMDS) == ptep) {
++	if ((hw_pte_t *)PTR_ALIGN_DOWN(pmdp, sizeof(*pmdp) * CONT_PMDS) == ptep) {
+ 		*pgsize = PMD_SIZE;
+ 		return CONT_PMDS;
+ 	}
+@@ -116,7 +116,7 @@ static inline int num_contig_ptes(unsigned long size, size_t *pgsize)
+ 	return contig_ptes;
+ }
+ 
+-pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
++pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, hw_pte_t *ptep)
+ {
+ 	int ncontig, i;
+ 	size_t pgsize;
+@@ -148,7 +148,7 @@ pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+  */
+ static pte_t get_clear_contig(struct mm_struct *mm,
+ 			     unsigned long addr,
+-			     pte_t *ptep,
++			     hw_pte_t *ptep,
+ 			     unsigned long pgsize,
+ 			     unsigned long ncontig)
+ {
+@@ -173,7 +173,7 @@ static pte_t get_clear_contig(struct mm_struct *mm,
+ 
+ static pte_t get_clear_contig_flush(struct mm_struct *mm,
+ 				    unsigned long addr,
+-				    pte_t *ptep,
++				    hw_pte_t *ptep,
+ 				    unsigned long pgsize,
+ 				    unsigned long ncontig)
+ {
+@@ -196,7 +196,7 @@ static pte_t get_clear_contig_flush(struct mm_struct *mm,
+  */
+ static void clear_flush(struct mm_struct *mm,
+ 			     unsigned long addr,
+-			     pte_t *ptep,
++			     hw_pte_t *ptep,
+ 			     unsigned long pgsize,
+ 			     unsigned long ncontig)
+ {
+@@ -213,7 +213,7 @@ static void clear_flush(struct mm_struct *mm,
+ }
+ 
+ void set_huge_pte_at(struct mm_struct *mm, unsigned long addr,
+-			    pte_t *ptep, pte_t pte, unsigned long sz)
++			    hw_pte_t *ptep, pte_t pte, unsigned long sz)
+ {
+ 	size_t pgsize;
+ 	int i;
+@@ -234,14 +234,14 @@ void set_huge_pte_at(struct mm_struct *mm, unsigned long addr,
+ 	__set_ptes_anysz(mm, addr, ptep, pte, ncontig, pgsize);
+ }
+ 
+-pte_t *huge_pte_alloc(struct mm_struct *mm, struct vm_area_struct *vma,
++hw_pte_t *huge_pte_alloc(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		      unsigned long addr, unsigned long sz)
+ {
+ 	pgd_t *pgdp;
+ 	p4d_t *p4dp;
+ 	pud_t *pudp;
+ 	pmd_t *pmdp;
+-	pte_t *ptep = NULL;
++	hw_pte_t *ptep = NULL;
+ 
+ 	pgdp = pgd_offset(mm, addr);
+ 	p4dp = p4d_alloc(mm, pgdp, addr);
+@@ -253,7 +253,7 @@ pte_t *huge_pte_alloc(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		return NULL;
+ 
+ 	if (sz == PUD_SIZE) {
+-		ptep = (pte_t *)pudp;
++		ptep = (hw_pte_t *)pudp;
+ 	} else if (sz == (CONT_PTE_SIZE)) {
+ 		pmdp = pmd_alloc(mm, pudp, addr);
+ 		if (!pmdp)
+@@ -265,17 +265,17 @@ pte_t *huge_pte_alloc(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		if (want_pmd_share(vma, addr) && pud_none(READ_ONCE(*pudp)))
+ 			ptep = huge_pmd_share(mm, vma, addr, pudp);
+ 		else
+-			ptep = (pte_t *)pmd_alloc(mm, pudp, addr);
++			ptep = (hw_pte_t *)pmd_alloc(mm, pudp, addr);
+ 	} else if (sz == (CONT_PMD_SIZE)) {
+ 		pmdp = pmd_alloc(mm, pudp, addr);
+ 		WARN_ON(addr & (sz - 1));
+-		return (pte_t *)pmdp;
++		return (hw_pte_t *)pmdp;
+ 	}
+ 
+ 	return ptep;
+ }
+ 
+-pte_t *huge_pte_offset(struct mm_struct *mm,
++hw_pte_t *huge_pte_offset(struct mm_struct *mm,
+ 		       unsigned long addr, unsigned long sz)
+ {
+ 	pgd_t *pgdp;
+@@ -297,7 +297,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
+ 		return NULL;
+ 	/* hugepage or swap? */
+ 	if (pud_leaf(pud) || !pud_present(pud))
+-		return (pte_t *)pudp;
++		return (hw_pte_t *)pudp;
+ 	/* table; check the next level */
+ 
+ 	if (sz == CONT_PMD_SIZE)
+@@ -309,7 +309,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
+ 	    pmd_none(pmd))
+ 		return NULL;
+ 	if (pmd_leaf(pmd) || !pmd_present(pmd))
+-		return (pte_t *)pmdp;
++		return (hw_pte_t *)pmdp;
+ 
+ 	if (sz == CONT_PTE_SIZE)
+ 		return pte_offset_huge(pmdp, (addr & CONT_PTE_MASK));
+@@ -367,7 +367,7 @@ pte_t arch_make_huge_pte(pte_t entry, unsigned int shift, vm_flags_t flags)
+ }
+ 
+ void huge_pte_clear(struct mm_struct *mm, unsigned long addr,
+-		    pte_t *ptep, unsigned long sz)
++		    hw_pte_t *ptep, unsigned long sz)
+ {
+ 	int i, ncontig;
+ 	size_t pgsize;
+@@ -379,7 +379,7 @@ void huge_pte_clear(struct mm_struct *mm, unsigned long addr,
+ }
+ 
+ pte_t huge_ptep_get_and_clear(struct mm_struct *mm, unsigned long addr,
+-			      pte_t *ptep, unsigned long sz)
++			      hw_pte_t *ptep, unsigned long sz)
+ {
+ 	int ncontig;
+ 	size_t pgsize;
+@@ -397,7 +397,7 @@ pte_t huge_ptep_get_and_clear(struct mm_struct *mm, unsigned long addr,
+  * all the contiguous ptes we need to check whether or not there is a
+  * discrepancy between dirty or young.
+  */
+-static int __cont_access_flags_changed(pte_t *ptep, pte_t pte, int ncontig)
++static int __cont_access_flags_changed(hw_pte_t *ptep, pte_t pte, int ncontig)
+ {
+ 	int i;
+ 
+@@ -418,7 +418,7 @@ static int __cont_access_flags_changed(pte_t *ptep, pte_t pte, int ncontig)
+ }
+ 
+ int huge_ptep_set_access_flags(struct vm_area_struct *vma,
+-			       unsigned long addr, pte_t *ptep,
++			       unsigned long addr, hw_pte_t *ptep,
+ 			       pte_t pte, int dirty)
+ {
+ 	int ncontig;
+@@ -451,7 +451,7 @@ int huge_ptep_set_access_flags(struct vm_area_struct *vma,
+ }
+ 
+ void huge_ptep_set_wrprotect(struct mm_struct *mm,
+-			     unsigned long addr, pte_t *ptep)
++			     unsigned long addr, hw_pte_t *ptep)
+ {
+ 	int ncontig;
+ 	size_t pgsize;
+@@ -474,7 +474,7 @@ void huge_ptep_set_wrprotect(struct mm_struct *mm,
+ }
+ 
+ pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+-			    unsigned long addr, pte_t *ptep)
++			    unsigned long addr, hw_pte_t *ptep)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	size_t pgsize;
+@@ -514,7 +514,8 @@ bool __init arch_hugetlb_valid_size(unsigned long size)
+ 	return __hugetlb_valid_size(size);
+ }
+ 
+-pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep)
++pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr,
++				  hw_pte_t *ptep)
+ {
+ 	unsigned long psize = huge_page_size(hstate_vma(vma));
+ 
+@@ -530,7 +531,8 @@ pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr
+ 	return huge_ptep_get_and_clear(vma->vm_mm, addr, ptep, psize);
+ }
+ 
+-void huge_ptep_modify_prot_commit(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++void huge_ptep_modify_prot_commit(struct vm_area_struct *vma, unsigned long addr,
++				  hw_pte_t *ptep,
+ 				  pte_t old_pte, pte_t pte)
+ {
+ 	unsigned long psize = huge_page_size(hstate_vma(vma));
+diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
+index 45fbdce684c89..dccb736b32e9b 100644
+--- a/arch/arm64/mm/kasan_init.c
++++ b/arch/arm64/mm/kasan_init.c
+@@ -59,7 +59,7 @@ static phys_addr_t __init kasan_alloc_raw_page(int node)
+ 	return __pa(p);
+ }
+ 
+-static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
++static hw_pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
+ 				      bool early)
+ {
+ 	if (pmd_none(READ_ONCE(*pmdp))) {
+@@ -116,7 +116,7 @@ static void __init kasan_pte_populate(pmd_t *pmdp, unsigned long addr,
+ 				      unsigned long end, int node, bool early)
+ {
+ 	unsigned long next;
+-	pte_t *ptep = kasan_pte_offset(pmdp, addr, node, early);
++	hw_pte_t *ptep = kasan_pte_offset(pmdp, addr, node, early);
+ 
+ 	do {
+ 		phys_addr_t page_phys = early ?
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index 79d90226fd5dc..f02b974ad64df 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -159,7 +159,7 @@ static void init_clear_pgtable(void *table)
+ 	dsb(ishst);
+ }
+ 
+-static void init_pte(pte_t *ptep, unsigned long addr, unsigned long end,
++static void init_pte(hw_pte_t *ptep, unsigned long addr, unsigned long end,
+ 		     phys_addr_t phys, pgprot_t prot)
+ {
+ 	do {
+@@ -182,7 +182,7 @@ static void init_pte(pte_t *ptep, unsigned long addr, unsigned long end,
+ 	} while (ptep++, addr += PAGE_SIZE, addr != end);
+ }
+ 
+-static bool pte_range_has_valid_noncont(pte_t *ptep)
++static bool pte_range_has_valid_noncont(hw_pte_t *ptep)
+ {
+ 	for (int i = 0; i < CONT_PTES; i++) {
+ 		pte_t pte = __ptep_get(&ptep[i]);
+@@ -201,7 +201,7 @@ static int alloc_init_cont_pte(pmd_t *pmdp, unsigned long addr,
+ {
+ 	unsigned long next;
+ 	pmd_t pmd = READ_ONCE(*pmdp);
+-	pte_t *ptep;
++	hw_pte_t *ptep;
+ 
+ 	BUG_ON(pmd_leaf(pmd));
+ 	if (pmd_none(pmd)) {
+@@ -592,7 +592,7 @@ pgd_pgtable_alloc_special_mm(enum pgtable_level pgtable_level)
+ 	return  __pgd_pgtable_alloc(NULL, GFP_PGTABLE_KERNEL, pgtable_level);
+ }
+ 
+-static void split_contpte(pte_t *ptep)
++static void split_contpte(hw_pte_t *ptep)
+ {
+ 	int i;
+ 
+@@ -607,13 +607,13 @@ static int split_pmd(pmd_t *pmdp, pmd_t pmd, gfp_t gfp, bool to_cont)
+ 	unsigned long pfn = pmd_pfn(pmd);
+ 	pgprot_t prot = pmd_pgprot(pmd);
+ 	phys_addr_t pte_phys;
+-	pte_t *ptep;
++	hw_pte_t *ptep;
+ 	int i;
+ 
+ 	pte_phys = pgd_pgtable_alloc_init_mm_gfp(PGTABLE_LEVEL_PTE, gfp);
+ 	if (pte_phys == INVALID_PHYS_ADDR)
+ 		return -ENOMEM;
+-	ptep = (pte_t *)phys_to_virt(pte_phys);
++	ptep = (hw_pte_t *)phys_to_virt(pte_phys);
+ 
+ 	if (pgprot_val(prot) & PMD_SECT_PXN)
+ 		tableprot |= PMD_TABLE_PXN;
+@@ -691,7 +691,8 @@ static int split_kernel_leaf_mapping_locked(unsigned long addr)
+ 	p4d_t *p4dp, p4d;
+ 	pud_t *pudp, pud;
+ 	pmd_t *pmdp, pmd;
+-	pte_t *ptep, pte;
++	hw_pte_t *ptep;
++	pte_t pte;
+ 	int ret = 0;
+ 
+ 	/*
+@@ -904,7 +905,7 @@ static int split_to_ptes_pmd_entry(pmd_t *pmdp, unsigned long addr,
+ 	return ret;
+ }
+ 
+-static int split_to_ptes_pte_entry(pte_t *ptep, unsigned long addr,
++static int split_to_ptes_pte_entry(hw_pte_t *ptep, unsigned long addr,
+ 				   unsigned long next, struct mm_walk *walk)
+ {
+ 	pte_t pte = __ptep_get(ptep);
+@@ -1438,7 +1439,8 @@ static void __init declare_kernel_vmas(void)
+ }
+ 
+ void __pi_map_range(phys_addr_t *pte, u64 start, u64 end, phys_addr_t pa,
+-		    pgprot_t prot, int level, pte_t *tbl, bool may_use_cont,
++		    pgprot_t prot, int level, hw_pte_t *tbl,
++		    bool may_use_cont,
+ 		    u64 va_offset);
+ 
+ static u8 idmap_ptes[IDMAP_LEVELS - 1][PAGE_SIZE] __aligned(PAGE_SIZE) __ro_after_init,
+@@ -1451,7 +1453,7 @@ static void __init create_idmap(void)
+ 	phys_addr_t ptep  = __pa_symbol(idmap_ptes);
+ 
+ 	__pi_map_range(&ptep, start, end, start, PAGE_KERNEL_ROX,
+-		       IDMAP_ROOT_LEVEL, (pte_t *)idmap_pg_dir, false,
++		       IDMAP_ROOT_LEVEL, (hw_pte_t *)idmap_pg_dir, false,
+ 		       __phys_to_virt(ptep) - ptep);
+ 
+ 	if (linear_map_requires_bbml3 ||
+@@ -1466,7 +1468,8 @@ static void __init create_idmap(void)
+ 		 */
+ 		ptep = __pa_symbol(kpti_bbml3_ptes);
+ 		__pi_map_range(&ptep, pa, pa + sizeof(u32), pa, PAGE_KERNEL,
+-			       IDMAP_ROOT_LEVEL, (pte_t *)idmap_pg_dir, false,
++			       IDMAP_ROOT_LEVEL, (hw_pte_t *)idmap_pg_dir,
++			       false,
+ 			       __phys_to_virt(ptep) - ptep);
+ 	}
+ }
+@@ -1522,7 +1525,8 @@ static void unmap_hotplug_pte_range(pmd_t *pmdp, unsigned long addr,
+ 				    unsigned long end, bool free_mapped,
+ 				    struct vmem_altmap *altmap)
+ {
+-	pte_t *ptep, pte;
++	hw_pte_t *ptep;
++	pte_t pte;
+ 
+ 	do {
+ 		ptep = pte_offset_kernel(pmdp, addr);
+@@ -1665,7 +1669,8 @@ static void free_empty_pte_table(pmd_t *pmdp, unsigned long addr,
+ 				 unsigned long end, unsigned long floor,
+ 				 unsigned long ceiling)
+ {
+-	pte_t *ptep, pte;
++	hw_pte_t *ptep;
++	pte_t pte;
+ 	unsigned long i, start = addr;
+ 
+ 	do {
+@@ -1914,7 +1919,7 @@ int pmd_clear_huge(pmd_t *pmdp)
+ 
+ int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
+ {
+-	pte_t *table;
++	hw_pte_t *table;
+ 	pmd_t pmd;
+ 
+ 	pmd = READ_ONCE(*pmdp);
+@@ -2056,7 +2061,8 @@ static bool addr_splits_kernel_leaf(unsigned long addr)
+ 	p4d_t *p4dp, p4d;
+ 	pud_t *pudp, pud;
+ 	pmd_t *pmdp, pmd;
+-	pte_t *ptep, pte;
++	hw_pte_t *ptep;
++	pte_t pte;
+ 
+ 	/*
+ 	 * If the given address points at a the start address of
+@@ -2284,7 +2290,7 @@ early_initcall(prevent_memory_remove_init);
+ #endif
+ 
+ pte_t modify_prot_start_ptes(struct vm_area_struct *vma, unsigned long addr,
+-			     pte_t *ptep, unsigned int nr)
++			     hw_pte_t *ptep, unsigned int nr)
+ {
+ 	pte_t pte = get_and_clear_ptes(vma->vm_mm, addr, ptep, nr);
+ 
+@@ -2302,19 +2308,21 @@ pte_t modify_prot_start_ptes(struct vm_area_struct *vma, unsigned long addr,
+ 	return pte;
+ }
+ 
+-pte_t ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep)
++pte_t ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr,
++			     hw_pte_t *ptep)
+ {
+ 	return modify_prot_start_ptes(vma, addr, ptep, 1);
+ }
+ 
+ void modify_prot_commit_ptes(struct vm_area_struct *vma, unsigned long addr,
+-			     pte_t *ptep, pte_t old_pte, pte_t pte,
++			     hw_pte_t *ptep, pte_t old_pte, pte_t pte,
+ 			     unsigned int nr)
+ {
+ 	set_ptes(vma->vm_mm, addr, ptep, pte, nr);
+ }
+ 
+-void ptep_modify_prot_commit(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep,
++void ptep_modify_prot_commit(struct vm_area_struct *vma, unsigned long addr,
++			     hw_pte_t *ptep,
+ 			     pte_t old_pte, pte_t pte)
+ {
+ 	modify_prot_commit_ptes(vma, addr, ptep, old_pte, pte, 1);
+diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+index 132938b32eb16..895014212a81c 100644
+--- a/arch/arm64/mm/pageattr.c
++++ b/arch/arm64/mm/pageattr.c
+@@ -68,7 +68,7 @@ static int pageattr_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	return 0;
+ }
+ 
+-static int pageattr_pte_entry(pte_t *pte, unsigned long addr,
++static int pageattr_pte_entry(hw_pte_t *pte, unsigned long addr,
+ 			      unsigned long next, struct mm_walk *walk)
+ {
+ 	pte_t val = __ptep_get(pte);
+@@ -379,7 +379,7 @@ bool kernel_page_present(struct page *page)
+ 	p4d_t *p4dp;
+ 	pud_t *pudp, pud;
+ 	pmd_t *pmdp, pmd;
+-	pte_t *ptep;
++	hw_pte_t *ptep;
+ 	unsigned long addr = (unsigned long)page_address(page);
+ 
+ 	pgdp = pgd_offset_k(addr);
+diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
+index cca9706a875c3..845417792ad48 100644
+--- a/arch/arm64/mm/trans_pgd.c
++++ b/arch/arm64/mm/trans_pgd.c
+@@ -34,8 +34,8 @@ static void *trans_alloc(struct trans_pgd_info *info)
+ static int copy_pte(struct trans_pgd_info *info, pmd_t *dst_pmdp,
+ 		    pmd_t *src_pmdp, unsigned long start, unsigned long end)
+ {
+-	pte_t *src_ptep;
+-	pte_t *dst_ptep;
++	hw_pte_t *src_ptep;
++	hw_pte_t *dst_ptep;
+ 	unsigned long addr = start;
+ 
+ 	dst_ptep = trans_alloc(info);
 
-> There is an WMI query in the DSDT dump that looks like
-> LENOVO_CAPABILITY_DATA_03. What is it?
->
-No idea - my spec sheet doesn't have 03 defined.
-Scanning through my doc I'm not spotting anything that looks like a matc=
-h for WQC either
+-- 
+2.47.3
 
-Mark
-
-
-> [1]: I never have such a device. I got the dump when fixing
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
->
-> Appendix (DSDT snippet):
->
->                     Device (GZFD)
->                     {
->                         Name (_HID, "PNP0C14" /* Windows Management=20
-> Instrumentation Device */)  // _HID: Hardware ID
->                         Name (_UID, "GMZN")  // _UID: Unique ID
-> [..]
-> /* This is LENOVO_OTHER_METHOD. */
->                         Method (WMAE, 3, NotSerialized)
->                         {
->                             Local0 =3D Arg1
->                             CreateDWordField (Arg2, Zero, SIDS)
->                             CreateDWordField (Arg2, 0x04, SVAL)
-> [..]
->                             If ((Arg1 =3D=3D 0x11))
->                             {
-> [..]
-> /* Get 0x00200000. */
->                                 If ((SIDS =3D=3D 0x00200000))
->                                 {
->                                     Local0 =3D ^^PCI0.LPC0.EC0.DCSS /*=20
-> \_SB_.PCI0.LPC0.EC0_.DCSS */
->                                     Return (Local0)
->                                 }
-> [..]
->                             }
->
->                             If ((Arg1 =3D=3D 0x12))
->                             {
-> [..]
-> /* Set 0x00200000. */
->                                 If ((SIDS =3D=3D 0x00200000))
->                                 {
->                                     Local0 =3D ToInteger (SVAL)
->                                     ^^PCI0.LPC0.EC0.DCSS =3D Local0
->                                     Return (Zero)
->                                 }
->                             }
-> [..]
->                         }
-> /* The device has no LENOVO_CAPABILITY_DATA_01. */
->
-> /* Is this something like LENOVO_CAPABILITY_DATA_03? */
->                         Method (WQC3, 1, NotSerialized)
->                         {
->                             If ((Arg0 =3D=3D Zero))
->                             {
->                                 Return (Buffer (0x10)
->                                 {
->                                     /* 0000 */  0x01, 0x00, 0x00, 0x00=
-,=20
-> 0x01, 0x00, 0x00, 0x00,  // ........
->                                     /* 0008 */  0x10, 0x27, 0x00, 0x00=
-,=20
-> 0xDC, 0x05, 0x00, 0x00   // .'......
->                                 })
->                             }
->                         }
-> [..]
-> /* This is LENOVO_CAPABILITY_DATA_00. */
->                         Name (CPD0, Buffer (0x0C)
->                         {
->                              0x00                                     =
- =20
->       // .
->                         })
->                         CreateDWordField (CPD0, Zero, C0ID)
->                         CreateDWordField (CPD0, 0x04, C0CP)
->                         CreateDWordField (CPD0, 0x08, C0DV)
->                         Method (WQC0, 1, NotSerialized)
->                         {
->                             If ((Arg0 =3D=3D Zero))
->                             {
->                                 Return (Buffer (0x0C)
->                                 {
->                                     /* 0000 */  0x00, 0x00, 0x05, 0x04=
-,=20
-> 0x07, 0x00, 0x00, 0x00,  // ........
->                                     /* 0008 */  0x00, 0x00, 0x00, 0x00=
- =20
->                          // ....
->                                 })
->                             }
->
->                             If ((Arg0 =3D=3D One))
->                             {
-> /* 0x00200000 is exposed conditionally. */
->                                 C0ID =3D 0x00200000
->                                 C0DV =3D Zero
->                                 If ((^^PCI0.LPC0.EC0.CVSP =3D=3D One))
->                                 {
->                                     C0CP =3D 0x07
->                                 }
->                                 Else
->                                 {
->                                     C0CP =3D Zero
->                                 }
->                             }
->
->                             Return (CPD0) /* \_SB_.GZFD.CPD0 */
->                         }
-> [..]
->                     }
->
-> Thanks,
-> Rong
->
->>=20
->> >=20
->> > When I get a chance I'll check this out on a Legion platform I have=
- that has this switch and confirm....but it might take a little while.
->>=20
->> Take your time and don't worry :-)
->>=20
->> Thanks,
->> Rong
->>=20
->> >=20
->> > Mark
