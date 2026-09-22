@@ -1,226 +1,131 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50AE5518138;
-	Tue, 22 Sep 2026 21:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80EA3E8C78
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790111478; cv=none; b=ur+G5G+E8IQzj4k9z9fTTqqn0Bqa/xW1ipdsZ7d1UHUuirsicPTvVhoGZwRpN6X5V89J2IjFBqvRYkldJrSKQJPBQZWNn4c/IFE1XpEBLN8TifY44awfwLRc7ZVrGG+cuYJp757NkynPGNYpLg86+cPABLOQSQTf5P0gnGz9LtM=
+	t=1790111524; cv=none; b=QORwVkC5yTcMMnu9BN7BAPzH6+Wz5lmI2XVNeqFQWUhVMOmLYXDUUBOPmINJQDCdH6whmHodcjv2IeNtVjBpYVDJ8WiEV2vkY367Rnru+TEjWbDhAXzOh/JNDKSUkavB0uzC9954P2tAgCUwHGBMryuP1IO0GcFfTny+PioxvYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790111478; c=relaxed/simple;
-	bh=phFQKAmd8PZp5IEcEIl4n5t+Nhm90bkDehflIIAjUI4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jqHWvFWPLVpRntkLM2hOI9zJmcsFNb3hBjeGpPbEPzrYJK7Vsw/tIlabQ8CmXMB250/8mIXR73jCWv1+1tt43zCMO12qaDXvLir8LAo4sxYnXCL1KRSFu2Lu0/NOLVuKIcUk0qPeYZOm19UpDVFLu6yYYGfkZb11Lm8ZSFQHQms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=lznS7Iu7; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790111524; c=relaxed/simple;
+	bh=pwkIcIUByJ9bqE4bpqhEhpT5m+9siVjLIN8nEvUfo1c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VB+bo3wHu7nQqQ+YypMbsXQwcpzJ5gHEa73KJQW2rZ7oow/fzd+6hfxDq2VnzLq5dfgysH4egQIB1MvuNxq1+dZRMuXwLerm1hfPHLr5QIfHMrkMSA+weVCCquAbKSQp4YJq9V4AbiHNk1M9OEU60k3J5y0HDq4oMgiOkhrn/pQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j225aI0o; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="lznS7Iu7"
-Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 492D920B7168;
-	Tue, 22 Sep 2026 14:10:11 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 492D920B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790111411;
-	bh=eZicChKoJTjR/A7vBb/SAhHxATpY05vM08b6UBH+Z7M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lznS7Iu7rVBHW+vgs50a5lCSNCjZutEXNNJ2ArVtsoSXOOrkd3zFSiuV35I4a9wfm
-	 AlmnCCCSTDsa8pRuzSFZ6jpTyohPPOp7y/C/cTHUnYsX10gycZYTjUEGRQ4lSvA8RV
-	 jRrQ6/kUwQMCNONbK8TxaKnhVSWb6ePRiVEDkN4g=
-Message-ID: <c75bbe43-d6cc-25d2-d45e-6b85bebd6562@linux.microsoft.com>
-Date: Tue, 22 Sep 2026 14:10:58 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j225aI0o"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33b9e805130so178686eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:11:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790111511; x=1790716311; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HFc3cVt28AUvIwgg0fMAo3JWLIDnX5xw3DJZeSq88MY=;
+        b=j225aI0o7rU7Lql2ONANtcjymgdYQXyGyUE5AqFgx8dcKu2o018VnCrt102qzR9N8T
+         I3lx9iN7NV2SqIqqpqyAqY+7LjE0yCcPkHZGBBaHzQRBm/jjpOu33jfzaxTPj91Jq4XN
+         gHozCPjnad7DsQcjx/67TedonU9FVAE7352mkZmsBdPhk/ZJKqQFhAhbDoz2eey+JONX
+         mZObAcw8yMYlnD3fjT0fPrGij6dhbI1+uOsVa817xu+btH+8FeAsUOJLxJwpt+dKM+w5
+         ap0TBicLcSPpFGrA7NvO0cB3HmKXCH74lnpCu8/VHVnk7oyJOiLr0k66yjUTRad9zBnY
+         JL3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790111511; x=1790716311;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HFc3cVt28AUvIwgg0fMAo3JWLIDnX5xw3DJZeSq88MY=;
+        b=oRT71qEvmvqgmTdXQ209F5wLnm19yTIRXE7tbUx9T2/yfJFgLmUosVBDpJkl3XTPxr
+         OSIeWIBYst4gOB2rba++mCihmq8gOzTvBxqmxhvNes9t/oam8pyszY53EOnzPH2jZ3vT
+         Ls2x293TuPGI2iCwLSm+4NKMIe1mUDjvkcrflXezdVCoBDz0AS+JjEjY4dgEiqe4aH+R
+         CTTnrgjB6TEOCg8fD8JP5Az0j0Z5IIEyaVebV3ZrFu4ezmNrV/gAjlNPag5zjshScBUD
+         MS/OvMbEfAZVQN2tWpnTHAg8IthitOJ7vIGShEvH6kwESqvqkfkjtZWPvGu+m+pBCQFf
+         EQlA==
+X-Forwarded-Encrypted: i=1; AKwUvByQU4cjO7zEAGeXSojS3CWVBoq0+rY7rRV3s0M0j9S2jkOUfWO/Vtk7nvH413JhXFiRzie4bQy6WtamqxQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1evcrnAbawVnFMEZcckoB5T35HWB7i1hc9M1myXEXvUdg4O5+
+	U7X40cBIPwrm3DHXqvdNiOrToczM5AbhzQ7feLsL3q7E8uQKQ/dNnT89
+X-Gm-Gg: AYBFou385Y/gwiTZRvQnPMJtAGhEGvttmSq5opb/3KY18Pm9WOBCldFw1aqL+C4ziCL
+	M01wl+UYTamg4XMSvEg8MLWgw/DU3WdU3pWHfe49zo5b6G0BsrDvIxr13bKTrMcQKv5oB2rc82e
+	27tryjt0JcbDdA5GA9NIb1iK6b6uBKmOgKQgIIXxVjhGzUIQcWH8F3LneDQHxtpBcxRir4tiq65
+	L3PAmWOKQjVOODJJy61kcitrZcPrcynO3pg4hoCZevLRO/Xu0tu+eIl0XG2l8D2WH9Z0QUhpErL
+	7LbntzvIKKrvYjRUkkeqc374VU3kiQ6XpJ0rDQr421UtPWYbQ7dWJjqbPXfljM6X2thbVE/m21B
+	nu7TZahGdmcXqVBo2FL70oUvYSr8hfEJ+n9qHPkZKjzyiPKV2F/IlVW4uWbFlXC8iVKn561WHP0
+	zrNTPotGRRaCdZ68IFnNEovd0aFCwbA5Vbi4V0obu7Za0GxSYRc/xn7+cC8lEV6OBXiuOqbMtdY
+	gQvkg6AU7kgrhuf6BdN7XxMvaW150Gziz7caV7LRgf5s/SYOLSeLfhb3vTv5eoJqqfO/Lx0hV4=
+X-Received: by 2002:a05:693c:41db:10b0:33e:6b65:5eb6 with SMTP id 5a478bee46e88-33e8dec45f6mr503707eec.30.1790111510073;
+        Tue, 22 Sep 2026 14:11:50 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:f16e:2102:25ad:9cdb])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdd91sm943147eec.4.2026.09.22.14.11.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 14:11:49 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jiri@resnulli.us,
+	jhs@mojatatu.com,
+	linux-kernel@vger.kernel.org,
+	vishy0777@gmail.com,
+	tahiliani@nitk.edu.in,
+	"Hemendra M. Naik" <hemendranaik@gmail.com>
+Subject: [PATCH iproute2-next v7 0/2] tc: fq_pie: add per-flow class statistics support
+Date: Wed, 23 Sep 2026 02:41:37 +0530
+Message-Id: <20260922211139.38570-1-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH V0 2/3] mshv: Import data structs around device domains
- from hyperv headers
-Content-Language: en-US
-To: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-arch@vger.kernel.org, jgg@nvidia.com,
- jacob.pan@linux.microsoft.com, kys@microsoft.com, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
-References: <20260921225028.4007330-1-mrathor@linux.microsoft.com>
- <20260921225028.4007330-3-mrathor@linux.microsoft.com>
- <5b292db7-1d55-4aef-9053-be2156c6e886@linux.microsoft.com>
-From: Mukesh R <mrathor@linux.microsoft.com>
-In-Reply-To: <5b292db7-1d55-4aef-9053-be2156c6e886@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/22/26 10:48, Easwar Hariharan wrote:
-> On 9/21/2026 15:50, Mukesh R wrote:
->> Copy/import from Hyper-V public headers, definitions and declarations that
->> are related to creating iommu domains in the hypervisor, attaching devices
->> to them, doing the reverse, etc.
->>
->> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
->> ---
->>   include/hyperv/hvgdk_mini.h |  9 ++++
->>   include/hyperv/hvhdk_mini.h | 90 +++++++++++++++++++++++++++++++++++++
->>   2 files changed, 99 insertions(+)
->>
->> diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
->> index 6a4e8b9d570f..3b74f3c0229d 100644
->> --- a/include/hyperv/hvgdk_mini.h
->> +++ b/include/hyperv/hvgdk_mini.h
->> @@ -326,6 +326,8 @@ union hv_hypervisor_version_info {
->>   /* stimer Direct Mode is available */
->>   #define HV_STIMER_DIRECT_MODE_AVAILABLE			BIT(19)
->>   
->> +#define HV_DEVICE_DOMAIN_AVAILABLE			BIT(24)
->> +
-> 
-> For my understanding, how is ms_hyperv.misc_features.HV_DEVICE_DOMAIN_AVAILABLE = 1
-> different from HV_IOMMU_CAP_PRESENT = 1 combined with HV_IOMMU_CAP_S2 = 1?
-> It seems like there is room to combine forces with the guest driver and just go with
-> the latter.
+FQ-PIE exposes no per-flow AQM state in userspace today. This series
+adds tc support for printing per-flow statistics via
+'tc -s class show', matching the kernel fq_pie class ops series.
 
-It's different. we want to make sure the version of the hypervisor
-supports creating device domains. see: HVCALL_CREATE_DEVICE_DOMAIN
+The corresponding kernel series can be viewed here:
+https://lore.kernel.org/netdev/20260922205924.32173-1-hemendranaik@gmail.com/
 
-Thanks,
--Mukesh
+Both the kernel and iproute2 patches can also be found in GitHub:
+- https://github.com/H-N41K/linux-net-next/tree/fq_pie_class_stats/
+- https://github.com/H-N41K/iproute2-next/tree/fq_pie_class_stats/
+---
+Changelog:
 
->>   /*
->>    * Implementation recommendations. Indicates which behaviors the hypervisor
->>    * recommends the OS implement for optimal performance.
->> @@ -486,9 +488,15 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
->>   #define HVCALL_GET_VP_INDEX_FROM_APIC_ID		0x009a
->>   #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_SPACE	0x00af
->>   #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST	0x00b0
->> +#define HVCALL_CREATE_DEVICE_DOMAIN                     0x00b1
->> +#define HVCALL_ATTACH_DEVICE_DOMAIN                     0x00b2
->> +#define HVCALL_MAP_DEVICE_GPA_PAGES                     0x00b3
->> +#define HVCALL_UNMAP_DEVICE_GPA_PAGES                   0x00b4
->>   #define HVCALL_SIGNAL_EVENT_DIRECT			0x00c0
->>   #define HVCALL_POST_MESSAGE_DIRECT			0x00c1
->>   #define HVCALL_DISPATCH_VP				0x00c2
->> +#define HVCALL_DETACH_DEVICE_DOMAIN                     0x00c4
->> +#define HVCALL_DELETE_DEVICE_DOMAIN                     0x00c5
->>   #define HVCALL_GET_GPA_PAGES_ACCESS_STATES		0x00c9
->>   #define HVCALL_ACQUIRE_SPARSE_SPA_PAGE_HOST_ACCESS	0x00d7
->>   #define HVCALL_RELEASE_SPARSE_SPA_PAGE_HOST_ACCESS	0x00d8
->> @@ -502,6 +510,7 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
->>   #define HVCALL_MMIO_READ				0x0106
->>   #define HVCALL_MMIO_WRITE				0x0107
->>   #define HVCALL_DISABLE_HYP_EX                           0x010f
->> +#define HVCALL_GET_IOMMU_CAPABILITIES			0x0125
->>   #define HVCALL_MAP_STATS_PAGE2				0x0131
->>   
->>   /* HV_HYPERCALL_INPUT */
->> diff --git a/include/hyperv/hvhdk_mini.h b/include/hyperv/hvhdk_mini.h
->> index 035ba20870f7..3bb052fd6e06 100644
->> --- a/include/hyperv/hvhdk_mini.h
->> +++ b/include/hyperv/hvhdk_mini.h
->> @@ -548,4 +548,94 @@ union hv_device_id {		/* HV_DEVICE_ID */
->>   	} acpi;
->>   } __packed;
->>   
->> +/* 3 domain types: stage 1, stage 2, and SOC */
->> +#define HV_DEVICE_DOMAIN_TYPE_S2  0 /* HV_DEVICE_DOMAIN_ID_TYPE_S2 */
->> +#define HV_DEVICE_DOMAIN_TYPE_S1  1 /* HV_DEVICE_DOMAIN_ID_TYPE_S1 */
-> 
-> 
->> +#define HV_DEVICE_DOMAIN_TYPE_SOC 2 /* HV_DEVICE_DOMAIN_ID_TYPE_SOC */
-> 
-> I don't think this domain type is used in patch 3, perhaps we bring it in when needed?
-> 
->> +
->> +/* ID for stage 2 default domain and NULL domain */
-> 
-> I think this comment would be more useful if it related the MSHV default and NULL domains to
-> the Linux equivalents of identity and blocking respectively. As it stands, it just repeats the
-> names of the defines it is a comment for.
-> 
->> +#define HV_DEVICE_DOMAIN_ID_S2_DEFAULT 0
->> +#define HV_DEVICE_DOMAIN_ID_S2_NULL    0xFFFFFFFFULL
->> +
->> +union hv_device_domain_id {
->> +	u64 as_uint64;
->> +	struct {
->> +		u32 type : 4;
->> +		u32 reserved : 28;
->> +		u32 id;
->> +	};
->> +} __packed;
->> +
->> +struct hv_input_device_domain { /* HV_INPUT_DEVICE_DOMAIN */
->> +	u64 partition_id;
->> +	union hv_input_vtl owner_vtl;
->> +	u8 padding[7];
->> +	union hv_device_domain_id domain_id;
->> +} __packed;
->> +
->> +union hv_create_device_domain_flags {	/* HV_CREATE_DEVICE_DOMAIN_FLAGS */
->> +	u32 as_uint32;
->> +	struct {
->> +		u32 forward_progress_required : 1;
->> +		u32 inherit_owning_vtl : 1;
->> +		u32 reserved : 30;
->> +	} __packed;
->> +} __packed;
->> +
->> +struct hv_input_create_device_domain {	/* HV_INPUT_CREATE_DEVICE_DOMAIN */
->> +	struct hv_input_device_domain device_domain;
->> +	union hv_create_device_domain_flags create_device_domain_flags;
->> +} __packed;
->> +
->> +struct hv_input_delete_device_domain {	/* HV_INPUT_DELETE_DEVICE_DOMAIN */
->> +	struct hv_input_device_domain device_domain;
->> +} __packed;
->> +
->> +struct hv_input_attach_device_domain {	/* HV_INPUT_ATTACH_DEVICE_DOMAIN */
->> +	struct hv_input_device_domain device_domain;
->> +	union hv_device_id device_id;
->> +} __packed;
->> +
->> +struct hv_input_detach_device_domain {	/* HV_INPUT_DETACH_DEVICE_DOMAIN */
->> +	u64 partition_id;
->> +	union hv_device_id device_id;
->> +} __packed;
->> +
->> +/* HV_INPUT_GET_IOMMU_CAPABILITIES */
->> +struct hv_input_get_iommu_capabilities {
->> +	u64 partition_id;
->> +	u64 reserved;
->> +} __packed;
->> +
->> +#define HV_IOMMU_CAP_PRESENT    BIT_ULL(0)
->> +#define HV_IOMMU_CAP_S2         BIT_ULL(1)
->> +#define HV_IOMMU_CAP_S1         BIT_ULL(2)
->> +#define HV_IOMMU_CAP_S1_5LVL    BIT_ULL(3)
->> +#define HV_IOMMU_CAP_PASID      BIT_ULL(4)
->> +#define HV_IOMMU_CAP_ATS        BIT_ULL(5)
->> +#define HV_IOMMU_CAP_PRI        BIT_ULL(6)
->> +
->> +struct hv_output_get_iommu_capabilities { /* HV_OUTPUT_GET_IOMMU_CAPABILITIES */
->> +	u32 size;
->> +	u16 reserved;
->> +	u8  max_iova_width;
->> +	u8  max_pasid_width;
->> +	u64 iommu_cap;          /* HV_IOMMU_CAP_* above */
->> +	u64 pgsize_bitmap;
->> +} __packed;
->> +
->> +struct hv_input_map_device_gpa_pages {	/* HV_INPUT_MAP_DEVICE_GPA_PAGES */
->> +	struct hv_input_device_domain device_domain;
->> +	union hv_input_vtl target_vtl;
->> +	u8 padding[3];
->> +	u32 map_flags;
->> +	u64 target_device_va_base;
->> +	u64 gpa_page_list[];
->> +} __packed;
->> +
->> +struct hv_input_unmap_device_gpa_pages {  /* HV_INPUT_UNMAP_DEVICE_GPA_PAGES */
->> +	struct hv_input_device_domain device_domain;
->> +	u64 target_device_va_base;
->> +} __packed;
->> +
->>   #endif /* _HV_HVHDK_MINI_H */
+v7:
+- Removed UAPI header changes. The series now contains 2 commits.
+
+v6: https://lore.kernel.org/netdev/20260919061254.39678-1-hemendranaik@gmail.com/
+- No code changes since v5.
+- Rebased over the latest iproute2-next tree and re-submitted patch.
+
+v5: https://lore.kernel.org/netdev/20260902040221.83734-1-hemendranaik@gmail.com/
+- Addressed Sashiko review comments (folded into patch 1/3):
+ - Dropped empty tc_fq_pie_xqd_stats placeholder; class_stats is now a direct
+   struct member in the UAPI header.
+
+v4: https://lore.kernel.org/netdev/20260727165028.106817-1-hemendranaik@gmail.com/
+- Split into 3 patches: fq_pie class stats, pie avg_dq_rate
+  formatting, and tc_pie_xstats comment fixes.
+
+v3: https://lore.kernel.org/netdev/20260630184453.171410-1-hemendranaik@gmail.com/
+- Moved print_nl() into each xstats type block to preserve output
+  formatting.
+
+v2: https://lore.kernel.org/netdev/20260614130729.10076-1-hemendranaik@gmail.com/
+- Addressed ABI backward compatibility issue.
+
+v1: https://lore.kernel.org/netdev/20260531131411.28213-1-hemendranaik@gmail.com/
+- Initial submission
+
+Hemendra M. Naik (2):
+  tc: fq_pie: add support for printing per-flow PIE statistics
+  tc: pie: print avg_dq_rate in human-readable format
+
+ man/man8/tc-fq_pie.8 | 18 ++++++++++++++
+ man/man8/tc-pie.8    |  2 +-
+ tc/q_fq_pie.c        | 59 ++++++++++++++++++++++++++++++--------------
+ tc/q_pie.c           |  4 +--
+ 4 files changed, 61 insertions(+), 22 deletions(-)
+
+-- 
+2.34.1
 
