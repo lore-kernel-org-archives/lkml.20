@@ -1,96 +1,244 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78784417340
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065042; cv=none; b=Wez0fvBStkKEDXb4oY+TH5+QGCHjqy5rPuyHWLuC9vytf8qgJq6NR7Icc3txbVNIwMegPZn9RSrG++QrDpO/t7DpPVcPVJx1cf4Fw9MTSbz2/5wfwq9N1XQTY/U0eecb1mZZ0DaA2U0P5NUTal8Z4w4v/TJmqUUP5UM9gVh5j/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065042; c=relaxed/simple;
-	bh=KIQ7IN0bMoaTb8Bxsp9Sn4TMN3MWOxJYIHQZdVBoVWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QPJYWTHaFaUTTJgxvtwP3ElFJol2eeZMor1J6UelBDYy2KHizMIvMQ/puofLZS1W7WvV5Sp6bERo5fi91puSOaMKzyxUB4d1PuVIkcyiEVW85QLoeIldv1WI8WshTgzuHljIvdQyn/RyvbJJG2SPHSz6wWkMu0roBK3SNBNH9XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=jmQBILqr; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F3E418361
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790065054; cv=pass; b=EyiH8AID5yIiUOrbBilgdNZ4z8wcO51Iu2R+EeuQkdu8axda9jgSEWWhMHNH634IEpHGsICwG99WwCoe7pIgHHvsf0uX9zc5p3OZr6I5TEKwTO9KrOE3cWYj/VxgVHrqrNPl+HtQ0pVD0/zTKwz3AKSFgbyrvYNJtzs59krSHHA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790065054; c=relaxed/simple;
+	bh=j8oOfovRmLewVX/ZIXchvTplxAiNODpkmMBMcI+S5WQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pXIz/6OpqKXdqKGy3vWLbQroYUL71eiKtV/HP5XuYHkRggN2HUPwcTNgV/EJAQiq/D+oiYlQv6Gp3p1QTAWFbkBk54w99Yj9FYx2ieHz07HS+PE33LsvrwSVzfahFNoDNcSaw1H95m7YElfThh7SgGdPKGrDDy7NDfpneZqoHNs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GlTbhVxO; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="jmQBILqr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6jLlFLO/Fg5yW4vvYQnf50txMvWhV+uL240xi237wsA=; b=jmQBILqrAf7hH9eiiNcEz2DjdF
-	m5SrDCuaKYqZ3dag0o3qWBeEL6oGUm+citBMlau1NL4Ey5uoOCKzgqwQSQanULeA20Vuf+Mg+GMOj
-	YN/r8Ib0nbnvx+RsVc84AShaqGfabi6IQ4Z9kBlhUrcLkVjQg+BPgRFAxfFfg/aBG2M/ZHN8I3rX/
-	47dyA7kNzFOUr9Pqbc/TYx+DmtfKSjUkybFlTvYIfFxHS55OdZGs2jaoTGCatNLroS1+/ZaLRGp35
-	sPqM3l/ro05uNGX95+CpQLVMbVrIx5RyE5i2SGdpnE+Aqb9PS+q3tOU6OywFNJmDTn31ooMuilgj5
-	BV2vPR5Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x8vgZ-0000000DFoD-49MN;
-	Tue, 22 Sep 2026 08:17:08 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7591C300708; Tue, 22 Sep 2026 10:17:06 +0200 (CEST)
-Date: Tue, 22 Sep 2026 10:17:06 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: mingo@redhat.com, hannes@cmpxchg.org, surenb@google.com,
-	jstultz@google.com, connoro@google.com, metin.kaya@arm.com,
-	sh_def@163.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
-Subject: Re: [PATCH] sched/core: Account PSI IRQ time to the execution context
-Message-ID: <20260922081706.GE2009045@noisy.programming.kicks-ass.net>
-References: <20260918132915.1236312-1-zhanxusheng@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GlTbhVxO"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-67109935888so3795648d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:17:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790065051; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zjq41Q5GQMPUd5XzGLDZQQlOv6RDkTW0zykDxtK657qaxCq1Ktpav7nHe9up30aUKL
+         ZjvhHjVkbfV/tOrrtqcd9qZYoaVm0lo/wO2w/257Ujjx+BCPQUuqcdSdlUTvbYkZX/SS
+         AEwSf1U5DWXldY9YbvllFdk+kM4uvoK+2Gu8jqWp9Fuy4EsT4AJYlD8oMn1wOG6ctC9y
+         V9eItl9uR54G5DjCzGZHiyTykT2YLu2MP/FuTbAnh52v8FQDRtAoMpqoc3dNM/+ChBMJ
+         r4dtpmMy9y/nGJWrH7HQu5SBc/LRXmuSgazrL7L5BEB+HO9srCgv7yGOD8uhXbV+T7Lo
+         cChw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vBfgPYH3xqS4b5IB6dzOxOSHigmrLH/EHKKr5wvFYwc=;
+        fh=2tpEfbB1gGvRc4BAaOhCZ09w8VXG81B5LS8o65/7XNo=;
+        b=VkHT/0OGz2l6esgtZ0plhNXNRoZY+E20Rtad1GOow1ku1x5IrkHS7Uf54XYpQILVkx
+         geHrmDDsMf/1v1xJFgUEwJphh70tN7ceGh2VhwmyU7XPujHcf2a8pNYKBO3+TeCpkZcM
+         1nUGGkyAo/eAbkWopMqM5arIFNfASr5hqTypQSVw7mcXt3qydvWB7wZHE6apAFQX4Smh
+         Nza4mnGsUJSL9ifJvSyAodc5gJTl5PUmFyirZdoVl4qh+/pv5F1HudS26H/7ByR8UVhE
+         kJqPUTM1AoFctXaJdA6ydw+PcHaf4FhGmW1YmO87Spwm71BCtWYOTQCLWktu0uX5u6A5
+         J7Qw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790065051; x=1790669851; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vBfgPYH3xqS4b5IB6dzOxOSHigmrLH/EHKKr5wvFYwc=;
+        b=GlTbhVxO2A6vPW+hwN87bN12BcwLVeelMIFP2m2Xg7uLsR5l+i3M09HKoai/m5vc+y
+         hHkm58Me2TK6RpmpdTc8M5BSIMz1NqkqFaBojHpA0J26sLZsomrQ4Y5bcWTr8nwu28wA
+         QyU2AjKjVgvwqU/Yic5cq/VfEN98FWHZCFyo3JvUxF1fYIIstXHnBEn+WGq4jhW2Lshl
+         tDmA8zGbFQM8RmmduyT75awLNgzIYbKjJGVcHVdz9Ss0Tyjue/smRa0WuoW6HUEVn2CA
+         1BOi1eGGZKpjv+FneCH4r0+d6ec9LF93UwRP600heNMVVmASSs7zOs/dh3Pc1eJZ6DWU
+         o9Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790065051; x=1790669851;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vBfgPYH3xqS4b5IB6dzOxOSHigmrLH/EHKKr5wvFYwc=;
+        b=xnI3s/UMWyzhwZzH4qo0w8HEwmRhXNaYG/js95MAUwi0Yv3r3G0gIa80JeZ2Lctiuk
+         1kRt2l0CXxLRbXwtbtGg+bCXzCwNm91rNfFTddoyCgZ4sz4oEI3K9y2n7DjR+DQrR1qB
+         nQ7hzd+MUXP8p+KCro+FsP4nWV5B0fhJd8riKObVK+DBxpUgONcvqvfYPcuxq49Los+7
+         fDFRSqDW8PjCWDJusqfztZNpJ6CAcWYzQaNPu100MmzibXhq3vsVI5mfd2gaodUIKf4N
+         9Cd+1+WmsDEDlvBBwRr/8LrC9zEZf6cM21PSXgQSnb9U+HWsgQuqRmbitXtBG+L4jI+x
+         hJ5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzr+O1sTOtVA949Y2DkNazut8fVp2NGLoQkOpb/hho2/Z/nRzravzRTy0+mRjmsEaTgdqiGPt/12jCzaYo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0FOxfnDClBXynZK9w3y71YHibiGAJuzNcri6WaL9q0KiHwEF3
+	+XHPs/eiWjvCqJZnw8tMaWrh9jFFtagaF30qwy3z1PAQ11M4iSMTuPNjy6dOCtrHb+OO5Y53Pxe
+	QbF2L8hfPny7lbziWRZ4TKQQW05aPh8U=
+X-Gm-Gg: AYBFou1cGB6Z3Yu2989YkGeThtj80FEVew7Z+XZI6h2FG5zlgH3gB2lZ/rj/vKS1t3d
+	5UwSs4qJy4I7frvBFt2xOp+G4uVHmabwXI5FFfRvVXAg+9fQql3AN2SVd0p0c2p/PlLiZ1grHrY
+	cmqMiYXX2w/I9qaDYqxwsmuDm9HncyquucCo2bTZjkWMKlEh52phmX+XnKWjI3ZqN9EMh9AnPWh
+	dK98/AOxqFB2jC4meDykYXnl39FYhMQyQVQCALbycNW/B0xgyxi0VRzRDcHQNu6DsdID+OZPAQP
+	3sO/ncR5Sgd+GnUIePjzU45HyfEhGB0PyT8lHabZlLZrE5YbWECsty52uAZAyr3L1wv+K0Alh1W
+	Awfg=
+X-Received: by 2002:a05:690e:1181:b0:671:70d2:527b with SMTP id
+ 956f58d0204a3-6717fd6a661mr4552451d50.62.1790065051220; Tue, 22 Sep 2026
+ 01:17:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918132915.1236312-1-zhanxusheng@xiaomi.com>
+References: <20260921073847.63505-1-lgs201920130244@gmail.com> <dd60ce64-4af1-479e-99d3-1787a06da882@intel.com>
+In-Reply-To: <dd60ce64-4af1-479e-99d3-1787a06da882@intel.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 16:17:18 +0800
+X-Gm-Features: AcwNN1VVB2-e-7AnvOjQHk0rNG0E7RaHB9itWJcRpS2P7W5iTDsETsT01Vfbeag
+Message-ID: <CANUHTR9F+D1C49MLiiy5z1snyKtbBtdU1cnuhsgr0cysp+yOcQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: stable@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Mark Brown <broonie@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 18, 2026 at 09:29:15PM +0800, Zhan Xusheng wrote:
-> psi_account_irqtime() has two callers which share rq->psi_irq_time, and
-> they disagree about the context: __schedule() passes the outgoing rq->curr,
-> sched_tick() passes rq->donor.  Under proxy execution the donor is blocked
-> on a mutex while rq->curr burns the CPU.
-> 
-> The tick charges PSI_IRQ_FULL to the donor's cgroup and advances the
-> timestamp, so the call from __schedule() then finds delta <= 0 and charges
-> nothing.  The delta is not counted twice, it lands on the wrong cgroup.
-> 
-> Pass rq->curr, which is what the call read before commit af0c8b2bf67b
-> ("sched: Split scheduler and execution contexts") renamed curr to donor
-> across sched_tick().  Without CONFIG_SCHED_PROXY_EXEC the two rq members
-> are a union, so this only changes anything where that option is set, and
-> it depends on EXPERT.
-> 
-> Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
-> Built and booted on x86_64 with CONFIG_SCHED_PROXY_EXEC=y, PSI and
-> IRQ_TIME_ACCOUNTING enabled, under x86_debug.config and panic_on_warn.
-> I did not construct a case where donor and curr differ.
->  kernel/sched/core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 7885ff76e69f..2b48ae0ab372 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -5791,7 +5791,7 @@ void sched_tick(void)
->  	curr = rq->curr;
->  	donor = rq->donor;
->  
-> -	psi_account_irqtime(rq, donor, NULL);
-> +	psi_account_irqtime(rq, curr, NULL);
->  
->  	update_rq_clock(rq);
->  	hw_pressure = arch_scale_hw_pressure(cpu_of(rq));
+Hi Czarek,
 
-Does not in fact apply. There is no curr in sched_tick anymore.
+Thanks for the review.
+
+On Mon, 21 Sept 2026 at 17:31, Cezary Rojewski
+<cezary.rojewski@intel.com> wrote:
+>
+> On 9/21/2026 9:38 AM, Guangshuo Li wrote:
+> > sst_acpi_probe() registers platform devices for the SST platform and
+> > machine drivers using platform_device_register_data(), but does not
+> > unregister them when later probe steps fail.
+>
+> s/machine drivers/machine board/
+>
+> The above paragraph alone is sufficient, please drop everything else in
+> the commit message.  There is no need to write wall-of-text for a fix
+> addressing a missing error path.  In case this wall was provided by an
+> agent, relevant Assisted-by: tag is needed in the tag area.
+>
+> You can keep the very last sentence if you want to.
+>
+> > If machine device registration fails, the already registered SST platform
+> > device is left registered. The same leak happens when
+> > sst_platform_get_resources() or sst_context_init() fails after both
+> > platform devices have been successfully registered.
+> >
+> > A registered platform device owns resources allocated by the platform
+> > device core and must be released with platform_device_unregister() so
+> > that the device reference is dropped and platform_device_release() can
+> > free the backing platform_object.
+> >
+> > Unregister the created platform devices on all failure paths to restore
+> > the missing cleanup.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+>
+> For the commit title: please update to:
+>         ASoC: Intel: atom: Fix (...)
+>
+> Provided both the commit title and message are updated, feel free to add:
+> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+>
+> > ---
+> >  sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
+> >  1 file changed, 10 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
+> > index 73624e1b138a..a1f16083bd3d 100644
+> > --- a/sound/soc/intel/atom/sst/sst_acpi.c
+> > +++ b/sound/soc/intel/atom/sst/sst_acpi.c
+> > @@ -352,7 +352,8 @@ static int sst_acpi_probe(struct platform_device *pdev)
+> >       if (IS_ERR(mdev)) {
+> >               dev_err(dev, "Failed to create machine device: %s\n",
+> >                       mach->drv_name);
+> > -             return PTR_ERR(mdev);
+> > +             ret = PTR_ERR(mdev);
+> > +             goto err_unregister_plat_dev;
+> >       }
+> >
+> >       /* Fill sst platform data */
+> > @@ -361,15 +362,21 @@ static int sst_acpi_probe(struct platform_device *pdev)
+> >
+> >       ret = sst_platform_get_resources(ctx);
+> >       if (ret)
+> > -             return ret;
+> > +             goto err_unregister_mdev;
+> >
+> >       ret = sst_context_init(ctx);
+> >       if (ret < 0)
+> > -             return ret;
+> > +             goto err_unregister_mdev;
+> >
+> >       sst_configure_runtime_pm(ctx);
+> >       platform_set_drvdata(pdev, ctx);
+> >       return ret;
+> > +
+> > +err_unregister_mdev:
+> > +     platform_device_unregister(mdev);
+> > +err_unregister_plat_dev:
+> > +     platform_device_unregister(plat_dev);
+> > +     return ret;
+> >  }
+>
+> Looks like sst_acpi_remove() does not unregister the devices either.
+> That could be fixed by enlisting devm_add_action_or_reset() in
+> sst_acpi_probe() without altering sst_acpi_remove() at all.
+>
+> Would you mind sending a separate patch updating the function so both
+> the error path and the driver-unload clean up the device objects?
+>
+>
+> Kind regards,
+> Czarek
+
+I'll update the title to:
+
+ASoC: Intel: atom: Fix platform device leak on probe failure
+
+and trim the commit message as suggested, including the
+s/machine drivers/machine board/ change. I'll also add your Reviewed-by.
+
+For the separate cleanup patch, do you mean something like this?
+
++static void sst_unregister_platform_device(void *data)
++{
++        platform_device_unregister(data);
++}
++
+        plat_dev = platform_device_register_data(...);
+        if (IS_ERR(plat_dev))
+                return PTR_ERR(plat_dev);
++
++       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
++                                      plat_dev);
++       if (ret)
++               return ret;
+
+        ...
+
+        mdev = platform_device_register_data(...);
+        if (IS_ERR(mdev))
+                return PTR_ERR(mdev);
++
++       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
++                                      mdev);
++       if (ret)
++               return ret;
+
+This would let devres clean up both devices on later probe failure and on
+driver unload, so the explicit unregister error paths from the first patch
+would no longer be needed after this patch.
+
+Would this be what you had in mind? If so, I'll follow Krzysztof's
+suggestion, organize the related changes into a proper patch series,
+and send a two-patch v2.
+
+Thanks,
+Guangshuo
