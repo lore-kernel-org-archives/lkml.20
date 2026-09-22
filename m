@@ -1,77 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D195616A9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E2E5616C7;
 	Tue, 22 Sep 2026 15:39:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091551; cv=none; b=NkNhqsEqgHnzo03Zj2n3q9AIq/k48vwKbxCDytK+Iedm1dqizTuKBDQYzJjqjR0MeeQojyG+v7NOxVAOuxu0eIpLlSgw1x9pa8u6FKNQQM8tP3i8R8t8APSBW4/F1pceoOJYxvvf8dJFoRRKYNCckzSK6VSTU4m/XI+puMQJIpo=
+	t=1790091552; cv=none; b=naTmZNTs6cnEZN9DWcma6Omph/hEbURqO4EaoFKJrElXK/daf83yF+/RctIXvZRlUAzSoLGD2NyVCiOKCb23hX0eu0Rez8vzzYs4JYpvAelMIDZIz78MMJauu6udoAz6fwWKjQLj/8qAiOWjRtNZ5nEcEs6zjttyl9j9gdytzMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091551; c=relaxed/simple;
-	bh=J8gtASVf2ZCBOhs0YoN57vOdmTFG9Wz0oy8DfqcXF9s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EUPnWAi3PMrdhJ1VohcV1K2At9oI63SNqBPQvCxhPvUCQPgAcxZY3d7OCAah7FSnr/ojPCdpfIONr+OnIbZRc9bnddspMr6eN55cmYEtpaULAn8WNVcQBwxgrl9k5Wf6yIQ2A7txmiatD4mTrPLYniI866cwRww2ypQSCnQfnFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7ZJxzn4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790091552; c=relaxed/simple;
+	bh=BvcyYBL/6DvMpTsf26rSU6vpsqM4Qkuzt9TqOJJPzlE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=U5BBkmo8UP72OuMynv3Iz+OLLriCuEcQiCvpAiLx3Xx5/43FNrsgoLkExaPEFI+Kk+vSgt4GPFTLFABImqNt04qYx+ydaVFhFwj4D2+jhtwPq2MzRD1dGis9jhd5H0O/DqyW23MD4nobCcqPw32yescJvYZb5ZkIuvEQ69h5F1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YMqHdadW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7ZJxzn4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF811F00898;
-	Tue, 22 Sep 2026 15:39:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YMqHdadW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104DB1F000FF;
+	Tue, 22 Sep 2026 15:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790091550;
-	bh=PjgypYmRhAqvP/YXsH7ILQ63kUcsnyoWe+qNLLaPITo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g7ZJxzn4Cb/hn2ax8mPwh5TNt4r1LbBytJy1vHc3Hlv6GpffcVElv42SZnAefAY6V
-	 Dueba0OkBtctne2seDwJRHaErBhlBt+eyOl3FIdc0yrW7IFIEbgYmP9Wj/SYkGKhH2
-	 zKAPRAD/gENoi323TgI/qeW5EW/6jwLzfvd36UUcXxQzJyz/wIH0Qq59I9heTu0O/c
-	 yObgAOuMT0JsG2Qjr8lCYQm55FjDklw7ENkIHnztusRHWQGxsCB6fo7/wqiHN6X6Nr
-	 f2+hHwVC8dA9uXzilPuPskOKQ15t/5LpT5Fbl1UJ4XC9a8TZoG0NT1ZuKOMacUEoGZ
-	 aWGAF6NYteW+Q==
-From: Sasha Levin <sashal@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-input <linux-input@vger.kernel.org>,
-	Linux Regressions <regressions@lists.linux.dev>,
-	Linux Stable <stable@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jann Horn <jannh@google.com>,
-	Grant King <gking@serow.io>
-Subject: Re: [REGRESSION 6.18.48 -> 6.18.49] hid-asus: ROG N-Key keyboard dead, also in 6.12.y
-Date: Tue, 22 Sep 2026 11:38:58 -0400
-Message-ID: <2026-09-22-daily-reply-0005-re-hid-asus-nkey-regression-report@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <069bd866-4eb0-4c42-bcf4-6983ba59aa49@slotpi16m74>
-References: <069bd866-4eb0-4c42-bcf4-6983ba59aa49@slotpi16m74>
+	bh=AAMKCdWX5FPiRKf/xR0S9vZ7DBMPzl1KsARK3tocs/E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YMqHdadWNJEO3nv+PyQF5bVEZubijamwPceNJ4F8tT2+2ZTV+UP1+hpAtqqBUk1Fd
+	 voiXsP6pb6YTENL+WTRClpOH0TMQ40BAFAqSgDKZIOVDwLm1HJoQ6G0eRWVohQdgum
+	 Nl8dEFGs1KeJ0KvfjLwvm1mRbV/OC+0QARjQRhXrmu+CUCXPtNUIlItZ9fmFFh/4lk
+	 Cd+7gDypesGbNgTkvr4sgDfjCXnp+ZHQNy74dphXcSKDVwEt33Sx2mZ81N4Kql5n8E
+	 VPYMPcglZkBnOox3M7uLnWPrS83jiJKvEcBCwqKNcVq2pwp+Ns6KW1BlRLT+YsBTdv
+	 pSwqpEDGHSJtg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 22 Sep 2026 16:35:38 +0100
+Subject: [PATCH v4 07/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for
+ m68k-coldfire
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-rcu-pagetable-freeing-v4-7-fe1ad1f1e303@kernel.org>
+References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
+In-Reply-To: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Jonathan Corbet <corbet@lwn.net>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, linux-doc@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1893; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=BvcyYBL/6DvMpTsf26rSU6vpsqM4Qkuzt9TqOJJPzlE=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI2LchO7lPnkNFb6m/L/nyu7j/vVyJfNO9dt7n/f2af5
+ sKaK4e6O0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR1ycY/nsf0VwbWJQ+SXe1
+ Udg/Z9f7lsvu9GmKiXzd+u5tv/JZQW6G/6GVnR+mLzi8ee7FGXqSBg6bjuWJnz3tl357s8ulqb5
+ F/lwA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-> So either revert d0754db7883c in both trees and rework the hid_is_usb()
-> fix against the old structure, or backport 0919db9f3583 alongside it.
-> The revert looks like less risk for stable, but that is your call.
+Similar to sun3, the coldfire variant of m68k uses 2-level page tables.
 
-Your diagnosis is correct, and thank you for the report descriptor, it made the
--EOVERFLOW unambiguous.
+Update its __pte_free_tlb() function to use tlb_remove_ptdesc() in order
+that, with CONFIG_MMU_GATHER_RCU_TABLE_FREE, page tables are freed under
+RCU.
 
-I went with the forward fix rather than the revert. Antheas named the right
-commit in his reply: e82ae34af29e ("HID: asus: fortify keyboard handshake")
-raises FEATURE_KBD_REPORT_SIZE to 64, so the GET_REPORT for 0x5a is large
-enough for the 62 bytes your controller declares and asus_kbd_get_functions()
-stops failing. It is queued for 6.18 and 6.12.  Reverting would have meant
-reworking Jann's hid_is_usb() fix against the old structure on two trees, which
-is the larger change of the two.
+The page tables occupy a page each and have no odd semantics, so this
+change suffices to allow enabling of CONFIG_MMU_GATHER_RCU_TABLE_FREE for
+m68k-coldfire, so do so.
 
-You offered to build a vanilla kernel and test. If you can confirm the keyboard
-comes back on the GA403UV with that commit on top of 6.18.49, I would like to
-have that before it goes out.
+This forms part of an overall effort to switch every architecture to this
+mode.
+
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ arch/m68k/Kconfig                   | 2 +-
+ arch/m68k/include/asm/mcf_pgalloc.h | 5 +----
+ 2 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/arch/m68k/Kconfig b/arch/m68k/Kconfig
+index e29610fd1240..6b8ec67c86fd 100644
+--- a/arch/m68k/Kconfig
++++ b/arch/m68k/Kconfig
+@@ -36,7 +36,7 @@ config M68K
+ 	select HAVE_MOD_ARCH_SPECIFIC
+ 	select HAVE_UID16
+ 	select MMU_GATHER_NO_RANGE if MMU
+-	select MMU_GATHER_RCU_TABLE_FREE if MMU && SUN3
++	select MMU_GATHER_RCU_TABLE_FREE if MMU && (SUN3 || COLDFIRE)
+ 	select MODULES_USE_ELF_REL
+ 	select MODULES_USE_ELF_RELA
+ 	select NO_DMA if !MMU && !COLDFIRE
+diff --git a/arch/m68k/include/asm/mcf_pgalloc.h b/arch/m68k/include/asm/mcf_pgalloc.h
+index fc5454d37da3..b53ff0950db2 100644
+--- a/arch/m68k/include/asm/mcf_pgalloc.h
++++ b/arch/m68k/include/asm/mcf_pgalloc.h
+@@ -39,10 +39,7 @@ extern inline pmd_t *pmd_alloc_kernel(pgd_t *pgd, unsigned long address)
+ static inline void __pte_free_tlb(struct mmu_gather *tlb, pgtable_t pgtable,
+ 				  unsigned long address)
+ {
+-	struct ptdesc *ptdesc = virt_to_ptdesc(pgtable);
+-
+-	pagetable_dtor(ptdesc);
+-	pagetable_free(ptdesc);
++	tlb_remove_ptdesc(tlb, virt_to_ptdesc(pgtable));
+ }
+ 
+ static inline pgtable_t pte_alloc_one(struct mm_struct *mm)
 
 -- 
-Thanks,
-Sasha
+2.55.0
+
