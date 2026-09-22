@@ -1,228 +1,200 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010018.outbound.protection.outlook.com [52.101.193.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f7.google.com (mail-wr2-f7.google.com [74.125.225.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5753C6600;
-	Tue, 22 Sep 2026 15:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090966; cv=fail; b=q11qBW1DJH7k4e2XGXjGZcK9lsmMDA6kbxJkiwWOoqdZzgYoMbm62JAa8QZ/+am6E09THTJD+WNdoPyYoewee2snCvwIFcTkR6Pgdx2/mOr9ICzSkbb9sB2Vg6acAQZjbEsV1CD6R006ANuXtY36qOUNfnBlXmM3y5dSE7Bjtjg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090966; c=relaxed/simple;
-	bh=hubVGyZH1uaMgjZCrQT/WDfASLEYRAI/MlH49DGiTk8=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=cz2RGnYxttw9fxV5TJXC70tLAsTV2pg/yMOgVDIbMD9d8RyH/Et8tgGWGnTTSE4BfKiF32ib/qXVT9zz6c9QBnyDJHvlVwfAvIBeLewRBjfVdE6tjkQ3qmPLYhQ4lyiMoiZkgg8DxZLT2RfKLljH+wb9AsHSAUhtlovoByTIi7Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qW+Qv1Vd; arc=fail smtp.client-ip=52.101.193.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qW+Qv1Vd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YaTCLdjhBSIyq7lG3wBVA/xB9iWFZgEKvh6aiQKkYXz0Jb/89+o7Dhh9jo8NfOWXjx8wypkJCD5qEaMVLLsXu2ueAvhyhO+UL51e2ggaFvZPvuJV/S+aJTbBCO40FFHl3ohus+mw1bWCfvWm0lpw4TvlWujRuh9Fptwt4wFh0qulC+QD7SHMv9U15nXWg0fV/Mw/dBOXHaCTE2+58mqn7YyUXi4h0t9cWz6kzViUHtQv2/dKyet9j4QPBE8fjwhdaa4sLGK39DY3ruyX0fAmPHmCfFlphQKbFJgvz39O0oVHKGObTgQu6ComWozp3PBL8T7TpsFu7fGg2MCmxRjakQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aUnoVLscby481jfLIaBWdEA7g93FRfehjwVF6UygmYI=;
- b=rWWNrftilvJiFvMA6KpRZ7KZrVV7EHqjzlATJtigsLQaADfu19qhrckK3qQwFJLJiAbixM54ND6R0hWEwZ99Hb3pQxNIZBQTugh0USttEvAbNxsXatOgtQaX1wGbv5R7ZLT/oi6NDbB/C56KAQH2XZVwLTpyiJQr1+ogXqTgdbI1YJ+012ElMtJSqI3fbZLdpGNllqn6Cv3FOzTCHVpBO0Nk5RKQov7cJDJMrcvZSMttnAk14LTPjqf3WhPH4nAHvvoAJiC7+l/wuLzd8GsHSkjib+DHsAIn989LnIMxPse3ce9dqatb979WStrsOxq2CB/oiyt9zohPYDqfztaciQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aUnoVLscby481jfLIaBWdEA7g93FRfehjwVF6UygmYI=;
- b=qW+Qv1VdQr9J+/mx1NkyEL1Tc3I/kr/TBvl9FOW3jAiGe7FJ0l+eqIMTau5us2rtuEu7tAzqCBKLajz7yy+VcjpMxNcwwk1Y3WhC91GnWBuCvWeUs+ha6p0qv9XLvOsRRztZXn3Mw++syFze7u0Z0SvqWB7y7r1MVHqZzoTWlI49WVRuozT1NyltveX7sNhIGxbGgD0TQexqhRxXmxgI17huoErr4tnKHEc3whQoVbch0D0Oflsz+B8j7jJIuQ6gB1ryvskUS6/4r1vL8GBXLvNmDEMDTXdhcLqVjaq9tSpo14qpImzgYAqpqq+tCnzRkSyTkI+mOIOh/B70OvTHnA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH7PR12MB6935.namprd12.prod.outlook.com (2603:10b6:510:1b9::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 15:29:19 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 15:29:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 11:29:17 -0400
-Message-Id: <DLLYA97QG5ES.P4FF23PGA3MQ@nvidia.com>
-Subject: Re: [PATCH v4 1/4] mm/truncate: align truncation boundaries to
- mapping minimum folio order
-Cc: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-ext4@vger.kernel.org>, <akpm@linux-foundation.org>,
- <david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
- <vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>,
- <mhocko@suse.com>, <hughd@google.com>, <baolin.wang@linux.alibaba.com>,
- <willy@infradead.org>, <jack@suse.cz>, <bfoster@redhat.com>,
- <joannelkoong@gmail.com>, <djwong@kernel.org>, <yi.zhang@huawei.com>,
- <yizhang089@gmail.com>, <yangerkun@huawei.com>, <chengzhihao1@huawei.com>,
- <wangkefeng.wang@huawei.com>, <yukuai@fnnas.com>
-To: "Zhang Yi" <yi.zhang@huaweicloud.com>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
- <20260922110703.468389-2-yi.zhang@huaweicloud.com>
-In-Reply-To: <20260922110703.468389-2-yi.zhang@huaweicloud.com>
-X-ClientProxiedBy: BN1PR12CA0024.namprd12.prod.outlook.com
- (2603:10b6:408:e1::29) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF44559CA0
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790090973; cv=none; b=OpS1OlLAgjHxtqAOj2VdpkZ646rEYMQtHxU1Q4/8EUL3qfDZPZM60muO4q2b/TH507AWR50uhYXbyg5JiNiP284vFnLzKsY4HlO/n9rmjDt2ALUxIJtvztkfT1yEZfUaZLLMrljM+XhO5lpWqnjKbPFmj+gKZTFrde3xJnGRPhY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790090973; c=relaxed/simple;
+	bh=WGdxf4JWgsj7qXEES4uwLAJCsB8IbrSJIDy8qKtOpcM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rbGDw3PY2jagVhwvP0kHtjX5i/Yqky+tg6G/PezI9OVki6gvwHuNP9HSnSJ6M81FFXCQpQ89iuB0qCXH9A9BHVgHpoNVhCCPQ++pnsj/YIjZkA8pzTImfSCtmBYYRIAmfFsnvHMRu7uTNIIzmNqWCVX9p+bSyDg/Y1CRZtIt4m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f7.google.com with SMTP id ffacd0b85a97d-487166a578eso8621f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:29:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790090970; x=1790695770;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QFN5eT2UnxXyQbw0Bbtp+XvC5zxP4g1xuK4mAIg36L4=;
+        b=fyA1i2rF38f1tmk/cTOvp9B6ZNr4THcHVscnkxNv1qzcLvwNH+reiN79Sy3VhRg41k
+         RNwCI3rOTmTug0BCP0sDp7MA/DAaZWGNG6+VIO0Cwj+lEiNlSnt6USJzTFnzt9GHUE/4
+         Mqx75we2vyrjEo5tZLSRmlqqziGLRq32lmAAy6F8n3GHFKRAVRbJzlWe6QC+z7KcnueB
+         V3w4tNklcxfLpp7dqVAzea7hux18ExWeRb74dWQFACxd4MVDeruHySrnD4vbHC8aJ/zZ
+         ksH7HiDqPAdLP0JxHzGwftFLpL8EWnuCQoAnTb01gxt/+EUUXfHXHoWSswKb5GJ9aV/6
+         Flvg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYst85YuwMzK2V2YmVfrakZhm+FO6ETQ9FX2tvn2D/GlNqQo/SZsbpkp6QjbzYUp/oLFrghyMZLdZ2tWY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbpWwz78aaucb6UqvZ6Ka3eOFql8YYbfxbrK9aASKdYtHNl7Me
+	joFCYEvuuRP+FQULsR518f7bTV115qwff12Mmj5helXNBVmK8FClpjY9
+X-Gm-Gg: AYBFou3YhdVQ37+sz6EUuvo+VG04v2wfll0je+dFBZp9foHOicYVDar+3i7agIaNBbE
+	hDvoN0Bx13R5GjM9fJ7gksBi6qen1FJziWKC0MCCTn3soFvqZP2HACu0kkfytE/ADjxkp6C6QhQ
+	5vWMkJmBEpvO6fpa3IvJShO4srgvfgrqBhAvQMMhs2+biNdlPwgnNqX5loWCQHBHDU3CNRnyfTJ
+	2MwIILZ2fKb4eQvIriUwfUXbNnP13jTUQqBe53f4JlcHGJwJzCM3v3jzakJNKLbRexRI4mKAsQh
+	22v2JkQ79i92bXrAcSi94NgjeM+O0wNCoNE2tzhikZ4tZcGU9Vdw6Y4eEb6eD+4bSI0DPFQ1E/u
+	M04AgEGpsP2R/LT6VW0r5ZPKK2iKVopwdK7KD9Z310e7NSRyfCBBmOSJA4K852uATgJTnO/JXE+
+	rfuIeDXJIaexGe+f6bOoKiR/fZgyZRytWyRx8yDwMCsAM25iO9xh09H4OEe5uCUAmymWW+Vn1sO
+	KXIl0PY/TC94PZ6ZjDdhjMqyGx0TA+GQRUUNZE8xkVvSJU=
+X-Received: by 2002:a05:600c:8b10:b0:49d:2936:8ad1 with SMTP id 5b1f17b1804b1-49fd8853834mr49427975e9.1.1790090969679;
+        Tue, 22 Sep 2026 08:29:29 -0700 (PDT)
+Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f04f7sm96753605e9.0.2026.09.22.08.29.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 08:29:29 -0700 (PDT)
+Message-ID: <e3e001ae-cf08-408a-9059-4255de915110@ovn.org>
+Date: Tue, 22 Sep 2026 17:29:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB6935:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc1e9e98-2931-423b-ea03-08df18be454d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|56012099006|6133799003|10067099003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	liXCwOex0MSy3aUoaqGjUqyXdzbe4erG3D7q0cl/Oj3jbjpysY8K1hbzoOGQu5wD92lUruwMo1y6CZ/Ge3Drl/9AUrRRoTals1WKgVvNj9rF3v2/ZUEiJbyPVGThU4eDLqUYbcq9zUnPMkJI9swED/Zu7YT3VOwkFnELOGiF/beIwKFgnD8lJpZn8ZTCcGy9+4BXzqZo8cLoJAQLdUDnxJ8iyjhKzfrd2HfUhrSl+yUmOcZDdddyPXGT7tyHqw4g21wyU5+JUy+CXDS1Bj49fouy/SkKf3SEhZQcvdga6kwi/c/scqIbGJeUZ4CwxyVULZjBxIlO6a2xOdf/UQGzGxF1KuhLrWxiz7LxhA5pp2BwOaJITK5tCIta+JGfEoIPPbqF4YZRXlh0VhvxEAZxS5FN2ErpYxUBwChp2bgVU8qiabj/Ai/IDarXNfXu+JSv4nqNNyQMguvF8zEP8zbjMtklUjerOLZ8BTh019sMpayi2jqF+Joj0pmA9St3jtTComU41RoV7nWXzOUK9SaG5lDsmGMR1FkZ1dmwLbYYfwsYW7oy4OnEfzx2qUMzjNpXP4d3sbXU0KTRs4mD8wk3nQHPyy2qDeMZ1s5usgqYY7cDnJODtKOmUvQonLdC5+uZZuYjy/exgN+J34xb2gBOdRbx2jtl5SI3qrfuY/BeTog=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(56012099006)(6133799003)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MHZIKytibFpaYm40cjVidDRJSjZWV2dHT094K0Z0RmNUWXlyNHYvY3NVRkdV?=
- =?utf-8?B?KzhDN1hyQ2FGNzc4WU80OGxkaHNPZmgrOFBLb0FqOU9KMjU0d204R245bnFr?=
- =?utf-8?B?YmJJL01LbjE0NjhHRmtMVzZJdFVxK1BxMkRVN2NaVkpEM0t3RVh1VExFRHNk?=
- =?utf-8?B?ZHEvM2ZpaDBtWEVVaTNUbXZ2cjNCQ3FGUUwzRnhWS1JzaS9EUllmM0lXVThO?=
- =?utf-8?B?UitlWWVBZjhmQ1dWQ1hBR3JhRDhJdE5XV0UrbE1zS0R2OTZseHUydk1JZm1C?=
- =?utf-8?B?cnNuSHNyaFVINWRzZHJEVmFjS1RFVEk4WTBtcC83d2dVKzgwMEthUjVZSkdQ?=
- =?utf-8?B?eHd0T2x4di9XV0xFTThVek5BMDNRV21SU05ORit3SWlXQkVSUUs3OGJhbFVV?=
- =?utf-8?B?STdqeDdLMEdxZ2NpZ0lYMDg3b1ovWnpwcGc1U3RFd3MxRHFOSWJseldpdTNl?=
- =?utf-8?B?NERKVUEyY2xYUXl1aU54N21uZlpvN0c4N0pFMi84aVdjeHRqd1VVMHN2ZWVl?=
- =?utf-8?B?V1RmNnFob2pSSEFwTUZuSjVoNUZmWmV0QkFmcDcxT21RclMxeFJWOXAwalp2?=
- =?utf-8?B?Um9lR0UvdTlqaTRJSmx4Y0VTaWVQZko0RXczMzd6R2FNOVkrVEJXdWFkaktT?=
- =?utf-8?B?THlKaHJtVW8wKzdrWmdGcktncEhSc0lIczlsczlYTThXOHZ0WEMxeHRZSzJz?=
- =?utf-8?B?R25tOU1vV05idWxKRExQWExHbEloR3l0bmFCUElWeDlkcjJITXRZbkprbVhR?=
- =?utf-8?B?dlJIcjlyNlFiNmlrVm9nTWE4OUFrelNIaVN1K2NseU90akMyUkh4ZzFHOTdv?=
- =?utf-8?B?QVN2TldwK0dpQ2UyR3pFRVpGM0JrZjN2d1V4Q3RTc0pXbGZLaTJKSVhvbEpp?=
- =?utf-8?B?KytqNGlCaDU1Q2xQTW1oNHB3RHF6cGRsNXpvVEkxanlmZzRoSTJlOTRnbm9U?=
- =?utf-8?B?bHFqaVhsaVlkOE01YWJmdVJuOWYrY2lhaWlrQS9kRFIzaDZqVXBRV1VPZU5P?=
- =?utf-8?B?d1drV1pRWmdMSlJNL2FJTjd4VVVaMlVsazQwTWxNUllWV0gxNVNFZUNlZ1VP?=
- =?utf-8?B?dkpwTjdhVS94UmFmY1hCUVZXYjhsSUFFUjR5aHZFMzJWeWZQcERLRGkrTFVx?=
- =?utf-8?B?dDR2ekROUzdUcFYyc3Y5NWhhRWZUM01ZTk5ZS0E3TUVhZTF1UHNMMkxIVXhD?=
- =?utf-8?B?c2g4R3VYU2I3eDUwMmh3TC8yMCtWb2o0c2ltTlBrT3NmREtSYkRuNnFVY1FM?=
- =?utf-8?B?SWdRNEhsWmk4VWY0dW9maHA1QjFibldQelVKeWtaK2Z5WWJ3VVJWQTd4R0Q1?=
- =?utf-8?B?UExFMHNnVlFHVXNMTVYvYS9BOUFMb2tic2M0cW9UN0dqOW1BeTZTSC9lZDJv?=
- =?utf-8?B?citYZUU0SFg1ekxGOTZOaUwydDM4YjFVd3JFOWlCQllZUkpOR2VBQ2h6aE1o?=
- =?utf-8?B?cWdUdkJJV1BuWWE3MTRhckU5OUNpNXEvcjhTY3VUelI3Z0U3ck1QbjM0R2RQ?=
- =?utf-8?B?TFNzSUlCR0VScTg3ZkRLOWtsdkgrN0lEVjBuMUFLSitvSHdrb2RaQUpBSyt5?=
- =?utf-8?B?NFAySXYxK1lLR3BnS0J0SXFrVStVKzBSaW9sTmM5RHQ4Nko4aDJCY2pwdER0?=
- =?utf-8?B?ZWJJV2IzZTIyQ0VIc0dCRjROWFh3UE5SZTBjK1Bub1BUQXlpVmp5VXdiVjFo?=
- =?utf-8?B?Zzd0NjBRdm5EekRObDh6SmNPL0w0VVhSdUY5QjM5Kzh3NG1jcGRMRzRKUW1l?=
- =?utf-8?B?c0trWDk1S0Z0ZzZ1K01mMnQ1Y3JFb2xYcjVod3RveklmaWxlczJPOXpmb3Rs?=
- =?utf-8?B?UnV1alBwSlFCNkRzL1RiYm5lSTc0OG44VTllYUdaTVpibnd6SEJ4eXNySjhK?=
- =?utf-8?B?NnI0QnZ3OXJmbDFVU0x5N0V5TzErZU9zTXFOdDhvR2hRcVl4T3lETUdlUGJX?=
- =?utf-8?B?Uy95T0s4SlZoVFJPbTZtNXVsVDIvRnhVYSswc0tld3pzUlNQWStMRVlySEN6?=
- =?utf-8?B?c1pDY21oYkdIYVgwN0l5N3hadUxsaGQwZE9IdGd2QVNPMlhSQUxVOVdUMWZN?=
- =?utf-8?B?UElualZiclNOSjFwZVhSUC93SEFmWjV5SnVrL3hCcXlmMitFdHFtZmgwQjUy?=
- =?utf-8?B?amRrODNuNmJmYkJRaWNONVpwS2NyS2pyUmo3YjlkSUgwN1RqOU5HcFpmbWY5?=
- =?utf-8?B?UitkdGN3QWExNHM2WGtKQjBrN0RXcDc3ZHlzR0UxT004ZEpiMm5yVXkrOWdB?=
- =?utf-8?B?anc4dThnOU1odWU4NEF3cmYwK2RCcnRFMXdJeHNQckpoZFRxZ3ZCWkJvYzU3?=
- =?utf-8?Q?0k7Qnx/WQhtPXSn2Za?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc1e9e98-2931-423b-ea03-08df18be454d
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 15:29:19.6979
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GVRqUyc1tsqUqOJseJKEpV1+/BG0lE4DMrypl6pr9LkrsQTgomQpKvwd6Uw7hvXI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6935
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/6] net: openvswitch: conntrack: remove 'add_helper'
+ dead code
+To: netdev-bot+sashiko@kernel.org, i.maximets@ovn.org
+Cc: netdev@vger.kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, aconole@redhat.com,
+ echaudro@redhat.com, jhs@mojatatu.com, jiri@resnulli.us,
+ lucien.xin@gmail.com, marcelo.leitner@gmail.com,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-kernel@vger.kernel.org, dev@openvswitch.org, stable@vger.kernel.org
+References: <20260921145655.3167436-3-i.maximets@ovn.org>
+ <179008911774.2160803.5007856848467620850@kernel.org>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <179008911774.2160803.5007856848467620850@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue Sep 22, 2026 at 7:07 AM EDT, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
->
-> When the mapping has a non-zero minimum folio order (min_order),
-> folio_split() in truncate_inode_partial_folio() stops at min_order
-> instead of order 0, so the sub-folio containing a split point stays
-> aligned to 1 << min_order rather than to a single page. The original
-> boundaries in truncate_inode_pages_range() were based on page
-> granularity, so either boundary could land inside the min_order chunk at
-> its edge, and the truncation loop would drop that whole chunk, valid
-> out-of-range tail included.
->
-> For example, a 64K (order-4) folio with min_order =3D 2 (16K) punched fro=
-m
-> offset 0 to 36K:
->
->   split @p0 -> [p0-p3, p4-p7, p8-p15]         # non-uniform, min_order
->   folio2 =3D p8-p15           # straddles: p8 in range, p9-p15 tail valid
->   2nd split of folio2 -> [p8-p11, p12-p15]    # success
->   end(old) =3D p9                               # BUG: p9 inside [p8-p11]
->   loop truncates ... p8-p11               # p9-p11's valid tail is lost
->
-> It has gone unnoticed so far for two reasons. A non-zero min_order is
-> only used by filesystems with a block or sector size larger than the
-> page size, and those either always write back the affected range before
-> punching a hole or truncating, or they carry filesystem private data on
-> dirty folios (e.g. buffer_head), which makes filemap_release_folio()
-> fail and folio_split() abort with -EBUSY, so the folio is never split
-> and the old start/end boundaries remain valid. The bug only becomes
-> reachable on paths that truncate dirty large folios without prior
-> writeback and without filesystem private data, such as the upcoming ext4
-> iomap buffered I/O path.
->
-> Align both start (rounded up) and end (rounded down) to the mapping
-> minimum folio order so they always fall on a folio boundary.
->
-> Reported-by: Joanne Koong <joannelkoong@gmail.com>
-> Link: https://lore.kernel.org/linux-mm/CAJnrk1bQYUe6+1ryyJur5EEnZYrC+_5AY=
-sy=3DOWzVRgD4202y1g@mail.gmail.com/
-> Fixes: e220917fa5077 ("mm: split a folio in minimum folio order chunks")
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-> ---
->  mm/truncate.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
+On 9/22/26 4:58 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] Concern: after this patch the comment above the helper call reads
+>   '- nf_conntrack_in() was executed above ("!cached"), or - When…
+> 
+> --
+> 
+> net: openvswitch: conntrack: remove 'add_helper' dead code
+> 
+> This drops the add_helper variable in __ovs_ct_lookup(), since it is only
+> ever set for unconfirmed connections while it is only read on the
+> confirmed branch of the helper-call condition.  The helper-call condition
+> is simplified to nf_ct_is_confirmed(ct) ? !cached : info->commit.
+> 
+>> diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+>> index a733029c28dd0..c20f096eef40e 100644
+>> --- a/net/openvswitch/conntrack.c
+>> +++ b/net/openvswitch/conntrack.c
+> 
+> [ ... ]
+> 
+>> @@ -821,13 +818,10 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+>>  		}
+>>  
+>>  		/* Call the helper only if:
+>> -		 * - nf_conntrack_in() was executed above ("!cached") or a
+>> -		 *   helper was just attached ("add_helper") for a confirmed
+>> -		 *   connection, or
+>> +		 * - nf_conntrack_in() was executed above ("!cached"), or
+>>  		 * - When committing an unconfirmed connection.
+>>  		 */
+>> -		if ((nf_ct_is_confirmed(ct) ? !cached || add_helper :
+>> -					      info->commit)) {
+>> +		if ((nf_ct_is_confirmed(ct) ? !cached : info->commit)) {
+> 
+> [Severity: Low]
+> This isn't a bug, but does the reworded comment still match the condition?
+> 
+> The first bullet now reads as an unqualified statement:
+> 
+> 	/* Call the helper only if:
+> 	 * - nf_conntrack_in() was executed above ("!cached"), or
+> 	 * - When committing an unconfirmed connection.
+> 	 */
+> 
+> while the code only honours "!cached" on the confirmed side of the
+> ternary:
+> 
+> 	if ((nf_ct_is_confirmed(ct) ? !cached : info->commit)) {
+> 
+> For a non-committing ct() action on a new packet in __ovs_ct_lookup(),
+> cached is false, the entry returned by nf_ct_get() is not yet confirmed
+> and info->commit is 0, so nf_ct_helper() is not called even though the
+> first bullet says it should be.
+> 
+> Worth noting that the following patch in the series, "net: openvswitch:
+> conntrack: fix helper UAF due to extensions realloc", rewrites both the
+> comment and the condition to:
+> 
+> 	/* Call the helper only if nf_conntrack_in() was executed
+> 	 * above ("!cached").
+> 	 *
+> 	 * For unconfirmed connections it will be called later during
+> 	 * commit as we need to have all the other extensions allocated
+> 	 * before the call.
+> 	 */
+> 	if (nf_ct_is_confirmed(ct) && !cached) {
+> 
+> so the mismatch only exists in this intermediate commit.  Could the
+> deferral note be pulled into this patch to keep each commit
+> self-consistent, given this one is tagged for stable?
+Comments do not need to spell out verbatim what the code is doing,
+it is pointless for the most part.  The current comment, IMO, is
+conveying the intention clear enough.  It is also re-written in the
+very next patch.
 
-LGTM. Just a nit below.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
->
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index b58ba940be47..f9625bb4916f 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -345,9 +345,11 @@ long mapping_evict_folio(struct address_space *mappi=
-ng, struct folio *folio)
->   * @lstart: offset from which to truncate
->   * @lend: offset to which to truncate (inclusive)
->   *
-> - * Truncate the page cache, removing the pages that are between
-> - * specified offsets (and zeroing out partial pages
-> - * if lstart or lend + 1 is not page aligned).
-> + * Truncate the page cache, removing the folios that are between specifi=
-ed
-> + * offsets (and zeroing out partial folios if lstart or lend + 1 is not
-> + * folio aligned).  For mappings with a non-zero minimum folio order, th=
-e
-> + * boundaries are aligned inwards to 1 << min_order so the edge sub-foli=
-o
-> + * straddling the range is kept.
->   *
->   * Truncate takes two passes - the first pass is nonblocking.  It will n=
-ot
->   * block on page locks and it will not block on writeback.  The second p=
-ass
-> @@ -374,14 +376,14 @@ void truncate_inode_pages_range(struct address_spac=
-e *mapping,
->  	int		i;
->  	struct folio	*folio;
->  	bool		same_folio;
-> +	pgoff_t		min_nrpages =3D mapping_min_folio_nrpages(mapping);
-> =20
-
-It is better to put it at the top (reverse christmas tree).
-
-
---=20
-Best Regards,
-Yan, Zi
-
+Best regards, Ilya Maximets.
