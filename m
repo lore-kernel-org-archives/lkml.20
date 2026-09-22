@@ -1,151 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA35445628F;
-	Tue, 22 Sep 2026 09:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC146456E0A;
+	Tue, 22 Sep 2026 09:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069249; cv=none; b=rliydO15U4N0Eotgb/JG+tz44tu7RO2iWK0xeSzcIWDOYEAVkt8/WNZEezPQqhKl2LQiiKbNg8Sja8LU++5diPMVi4oeYT20auvcXlLeaxQCX0Q7ZazPdt2NBeluAjq7xZrr5ojBCJS8iNiJFXa0v0NirMLnTbNltwXmmteUeSU=
+	t=1790069266; cv=none; b=spmTBDMHfQ2jkccFbanXVkDcHGc1AnbdJK1C/lZP0Y9sq5Q2B8Z8s4AnckDbsIzZnQcWA+QdNbvZdxJoxHjFUHCICqmzpN5BBM7qXRO2eyKt31bK4+89RwAtMdRDEhw0TZIQX5PheGdZtQSsxebJneZ/t0qVt4nAsHqPpNZLxwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069249; c=relaxed/simple;
-	bh=HpJa7NteA3anjJK0Gh8U7wyiuLd4yWFS0aG3ZQjT4Vo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aVbzorFnveqzx7Qg2EREpomPznAai8VXqztg3gsCypcqOIPpgFOS7loEkELyDB7EbKzQOceIh6dws/J/8ooAZ4g4Au9XMAaOqD9kjXv71zgLpQ9t9ateKENQyQNB9LpcMJUDCJ4y2EtW/v5KqPG+6+lDbGT36dn/R35VzwaRtaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KCWZigGs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790069266; c=relaxed/simple;
+	bh=Dz06FPZPayJGVz2Pc5dBqcMZCH31Phvzy0hr12FeLlU=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=R211ySUvkwbIVz8Te6cqic1gUv7nCwM8dobFJ1qh3UDa/pTArp3KSgLqORPwW0ezA0eDK13B4kFaTl3Dzt3uAVNmDedqp6oqhXyCny7S+zXkUIzuqlcCzXguakpDnrXsaYOu4l8RBaT6lQNPge64BtNsHwr0NKPBLMJwcIImUZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UV30IZQI; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KCWZigGs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903531F000FF;
-	Tue, 22 Sep 2026 09:27:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790069247;
-	bh=jd/IdHJWT+tury6J4+3Ec3QcvTOjp339LQd8LtVieYg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KCWZigGscaFX2Ksj0oDFvvEIQKPzh+wDUoQDy364G1GTj0VbBCLfQtUGi0jw5tqT0
-	 28P0CKRstYURwRNanLmX85OZkDaG2/KrfBo+e6u0+pO69MbCtPrk5NHbgNJnV550ok
-	 QJZ0yybs/U0ep7+4NQMBEkSyFB+/CZc6ffjovcNI=
-Date: Tue, 22 Sep 2026 11:21:33 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: qianweili <qianweili@huawei.com>
-Cc: herbert@gondor.apana.org.au, wangzhou1@hisilicon.com,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	huangchenghai2@huawei.com, liulongfang@huawei.com
-Subject: Re: [PATCH 1/2] uacce: add device usage sysfs interface
-Message-ID: <2026092205-wrist-growing-0f04@gregkh>
-References: <20260921075131.1062155-1-qianweili@huawei.com>
- <20260921075131.1062155-2-qianweili@huawei.com>
- <2026092125-define-unit-ac52@gregkh>
- <fd71cb7c-b9da-5cd9-c52e-ee287923073b@huawei.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UV30IZQI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790069265; x=1821605265;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=Dz06FPZPayJGVz2Pc5dBqcMZCH31Phvzy0hr12FeLlU=;
+  b=UV30IZQIHXEEwwSLsUtLUFKzSBTKz0AeBbNvFf12MetGknE1ZA+F1SgY
+   /C1nfu9mbJHgmZ/CUt1BqljNQms99zEETkWmHnJlvGUtKYY9okcBE2cSc
+   9fFYXTISPvkLhpBv5WedqY5rsFjn6sd5srPkXpgDsIJ3uot409ci+24Vr
+   5KGEj9X8M9ItN2ckmjQrfLGHe02kaCDg7S+nbwhOWie5vlbdl/VEn/998
+   GFAsm7hVHObk+yMEBxMGbBg14IByMcrbY2ayLoPtfEa8iq6uDhn/1MoIc
+   TT0+cB+Lm9uHKSPuv8Uet5OdmIj9jgB8/B/RZDk2XGCq6Ds+Ph41HSx/r
+   g==;
+X-CSE-ConnectionGUID: V4s0I8G/TaOqQlupZWaJ9Q==
+X-CSE-MsgGUID: fK1uNodmQoaFJx5blrUtcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90524287"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="90524287"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 02:27:44 -0700
+X-CSE-ConnectionGUID: 2YImfgsnTAu+ldaXf1Kjsg==
+X-CSE-MsgGUID: ExxeUIY1TrCgmcB6W1e8LA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="272551655"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 02:27:40 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 22 Sep 2026 12:27:37 +0300 (EEST)
+To: Hui Peng <benquike@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] serial: core: reject baud_base values that overflow
+ port->uartclk in uart_set_info()
+In-Reply-To: <20260922083152.4055969-4-benquike@gmail.com>
+Message-ID: <90ddd895-856a-f7ae-162b-c80a6042d788@linux.intel.com>
+References: <20260922083152.4055969-1-benquike@gmail.com> <20260922083152.4055969-4-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fd71cb7c-b9da-5cd9-c52e-ee287923073b@huawei.com>
+Content-Type: multipart/mixed; boundary="8323328-1689351862-1790069257=:1233"
 
-On Tue, Sep 22, 2026 at 05:11:55PM +0800, qianweili wrote:
-> 
-> 
-> On 2026/9/21 16:12, Greg KH wrote:
-> > On Mon, Sep 21, 2026 at 03:51:30PM +0800, Weili Qian wrote:
-> > > Userspace has no way to query the runtime usage of a UACCE
-> > > device; it can only be inferred indirectly from queue state, which is
-> > > neither accurate nor uniform across drivers.
-> > > 
-> > > Add a read-only dev_usage sysfs attribute and a get_dev_usage callback
-> > > in struct uacce_ops. A driver implementing the callback writes the
-> > > current usage as a percentage (0-100) string into the caller-provided
-> > > buffer and returns the number of bytes written; dev_usage_show()
-> > > appends the trailing newline. The attribute is hidden via
-> > > uacce_dev_is_visible() when the driver does not provide the callback.
-> > > 
-> > > The corresponding ABI entry is added to Documentation/ABI/testing/
-> > > sysfs-driver-uacce.
-> > > 
-> > > Signed-off-by: Weili Qian <qianweili@huawei.com>
-> > > ---
-> > >   Documentation/ABI/testing/sysfs-driver-uacce |  9 +++++++++
-> > >   drivers/misc/uacce/uacce.c                   | 19 +++++++++++++++++++
-> > >   include/linux/uacce.h                        |  5 +++++
-> > >   3 files changed, 33 insertions(+)
-> > > 
-> > > diff --git a/Documentation/ABI/testing/sysfs-driver-uacce b/Documentation/ABI/testing/sysfs-driver-uacce
-> > > index d3f0b8f3c589..3e4af4c1e5a9 100644
-> > > --- a/Documentation/ABI/testing/sysfs-driver-uacce
-> > > +++ b/Documentation/ABI/testing/sysfs-driver-uacce
-> > > @@ -55,3 +55,12 @@ Date:           Feb 2020
-> > >   KernelVersion:  5.7
-> > >   Contact:        linux-accelerators@lists.ozlabs.org
-> > >   Description:    Size (bytes) of dus region queue file
-> > > +
-> > > +What:           /sys/class/uacce/<dev_name>/dev_usage
-> > > +Date:           Sep 2026
-> > > +KernelVersion:  7.3
-> > That's not going to happen here :(
-> I'll change it to 7.4 in the next version.
-> > 
-> > > +Contact:        linux-accelerators@lists.ozlabs.org
-> > > +Description:    (R) Current usage of the device, reported as a driver-defined
-> > > +                string of up to PAGE_SIZE - 1 bytes. Usage is expressed as a
-> > > +                percentage (0-100). The attribute is hidden if the driver does
-> > > +                not implement the get_dev_usage callback.
-> > > diff --git a/drivers/misc/uacce/uacce.c b/drivers/misc/uacce/uacce.c
-> > > index 45521d4a56d1..545ba35a590b 100644
-> > > --- a/drivers/misc/uacce/uacce.c
-> > > +++ b/drivers/misc/uacce/uacce.c
-> > > @@ -433,6 +433,20 @@ static ssize_t isolate_strategy_store(struct device *dev, struct device_attribut
-> > >   	return count;
-> > >   }
-> > > +static ssize_t dev_usage_show(struct device *dev, struct device_attribute *attr, char *buf)
-> > > +{
-> > > +	struct uacce_device *uacce = to_uacce_device(dev);
-> > > +	int ret;
-> > > +
-> > > +	ret = uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE - 1);
-> > Why can't you use sysfs_emit()?  That way you don't have to worry about
-> > PAGE_SIZE, and you don't have to do:
-> > 
-> > > +	if (ret < 0)
-> > > +		return ret;
-> > > +
-> > > +	buf[ret++] = '\n';
-> > That type of thing :(
-> > 
-> > Also, you got your math wrong above :(
-> sysfs_emit() is useful when the framework side knows the format string
-> upfront.  Here get_dev_usage is a driver callback that dynamically
-> generates content -- the format is not known to the framework, so
-> there is no format string to emit.  Having the callback write into a
-> temporary buffer and then sysfs_emit(buf, "%s", tmp) in the show
-> function would just add an unnecessary copy without gaining the
-> overflow protection that sysfs_emit normally provides.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Then that is going to be a mess, sysfs files should be in a consistant
-way, don't have random formats for the same filename depending on random
-hardware types.  Use different sysfs files if you want to do that.
+--8323328-1689351862-1790069257=:1233
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-And this is just going to be a single value, nothing complex, so why do
-you need a callback for that?
+On Tue, 22 Sep 2026, Hui Peng wrote:
 
-> But you're right that the manual newline append and the PAGE_SIZE - 1
-> math were unnecessary.  In the next version I'll rework the callback
-> contract so the driver writes the complete output (including any
-> trailing newlines) and dev_usage_show() just returns the callback
-> result directly:
-> 
->     static ssize_t dev_usage_show(struct device *dev,
->                                   struct device_attribute *attr, char *buf)
->     {
->         struct uacce_device *uacce = to_uacce_device(dev);
-> 
->         return uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE);
+> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+> uport->uartclk (an unsigned int):
+>=20
+>   uport->uartclk =3D new_info->baud_base * 16;
+>=20
+> While uart_set_info() checks if (uartclk =3D=3D 0) and
+> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
+> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
+> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero valu=
+e
+> (16), bypassing both uartclk =3D=3D 0 and new_info->baud_base < 9600 and
+> setting uport->uartclk =3D 16 (baud_base =3D 1, well below the required
+> minimum of 9600 * 16).
+>=20
+> Reject new_info->baud_base > UINT_MAX / 16 alongside the uartclk =3D=3D 0
+> check in uart_set_info().
+>=20
+> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+> &ss) with ss.baud_base =3D 0x10000001 on /dev/ttyS1: on the unfixed kerne=
+l
+> TIOCSSERIAL succeeds (ret =3D 0) and wraps uport->uartclk to 16
+> (TIOCGSERIAL reports baud_base =3D 1), whereas with the fix applied
+> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divid=
+e by zero")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v3:
+> - Add missing #include <linux/limits.h> for UINT_MAX and move the
+>   new_info->baud_base > UINT_MAX / 16 check to the uartclk =3D=3D 0 check=
+, as
+>   suggested by Ilpo J=C3=A4rvinen.
+>=20
+> Changes in v2:
+> - Split out into patch 3/3 of the series, add Cc: stable@vger.kernel.org,
+>   and document the QEMU test method, as requested by Greg Kroah-Hartman.
+>=20
+>  drivers/tty/serial/serial_core.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial=
+_core.c
+> index 3845fb582f45..362dd6648ba4 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/console.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/kernel.h>
+> +#include <linux/limits.h>
+>  #include <linux/of.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/proc_fs.h>
+> @@ -933,7 +934,7 @@ static int uart_set_info(struct tty_struct *tty, stru=
+ct tty_port *port,
+>  =09if (!(uport->flags & UPF_FIXED_PORT)) {
+>  =09=09unsigned int uartclk =3D new_info->baud_base * 16;
+>  =09=09/* check needs to be done here before other settings made */
+> -=09=09if (uartclk =3D=3D 0)
+> +=09=09if (uartclk =3D=3D 0 || new_info->baud_base > UINT_MAX / 16)
 
-Why not have the get_dev_usage() return the value that you want to write
-to the buffer, and then use sysfs_emit() to write it?  Then no need to
-worry about PAGE_SIZE at all.
+Logically it would make more sense to check the overflow before=20
+multiplying even if this order too produces the "correct" result.
 
-thanks,
+>  =09=09=09return -EINVAL;
+>  =09}
+>  =09if (!capable(CAP_SYS_ADMIN)) {
+>=20
 
-greg k-h
+--=20
+ i.
+
+--8323328-1689351862-1790069257=:1233--
