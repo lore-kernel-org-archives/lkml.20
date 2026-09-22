@@ -1,209 +1,147 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010002.outbound.protection.outlook.com [52.101.85.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F9C517BC4;
-	Tue, 22 Sep 2026 07:22:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061770; cv=fail; b=XYkvOQfOLrU87fVIQTCVWyK5tLrzKUESD8Pv8kCI89HRTwe7VBcI7D+E6lDX4Es0MjVqevSB1uYYuLJs60BnavLM8NKZBo87p2Cha5RzT6kmO/+yiHXXmPwZ2l83SaO03+Pj+BVhQG4cCWpXrarEx2br8owJ0PGX7VKeb+n9Z3c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061770; c=relaxed/simple;
-	bh=R/Fyyq7HZR21uvvsc6HIfZ8TFJLr5RZZTpxvEtIcuQ0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=inApqINLe0suRtTqmVEuByQHvGVkjFON8jnuc7mNzipeMuFahC2/KQ750F+mtQN1CqwGDix2atpqKDkp78RnqIHSI+RftXJWJGIcLy2okusLxVvXN/SQWZPEsC/p5k9IrAodGAqX7Rlt+PVt+ubNtVqwljMldSew4WCggXeBlcc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JY7wvdhu; arc=fail smtp.client-ip=52.101.85.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CDD51C07A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790061777; cv=none; b=pQwN10vdbg04bU51IZ9JfnEv3+V7yiUbRZn5n3I5GvCa1TLwMs/qlGufEI/qTf+xG6CeGFEHqtV7Yggnqofa17DULc5wb8bWC6kF9kah2AWN/OnxTKucjFskTpnVqTKOAGo/MJ9mBikAoHNRYVWKXPNTVAIQHUVWntgYBagWRyA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790061777; c=relaxed/simple;
+	bh=g2Xy9jDjDZ3K6DmNsnmaoN1dj1u+mGq37X7BB/6Az8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bXAH5RTIt0PcEdvgrjMHOjsS0idDZB2O8l7m+xqGPOHbysO4cf2E7liEMmRaqAsVj93EuVo3vxpstPBtZmfei8GLeOHquiH/dpCK68kwDBCUVbli0NoEwCuZA+7cM6NF5QVZbazLJKsXrhjrL5Lc9UWI9Bg9HLTx63+UViOAgDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJQ8jYIp; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JY7wvdhu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WF4MzpvFUu/uki69upGAAkBe6cTiIW09IHTW7jsCVCrBXC2MIy/LoGPVtx2H+4MmgyHRtxx9wzxDZbwDE9iTcwcdOxGv6nRU5MIXxJfAL3PBd9uQeYj+o+/Ju/xoRmg/VsIz1J4Gnaio1dk7ac7J66FqMVF/NQ/x/mRLQsqGbtZS7eSLdWbpBWFLST79fQf5tl5bjEVjaRehoqLtuTljkHXh4dOknxaTczIIFefCTc/FyftQmEx4zlcnt59dSt4hyai4jnYpo/ebwDQAPji04NWIOAgfe5lbDjDfAGfAi+nkc441Mf9qaDD2X5IFoDjs3ApNpyuPjILmhaegfskf6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tOLMWVmHH8IosztErSAptf6JvK7DG7NMIJcTGGTOsPk=;
- b=QdNizghMd0wqEfqbbRGXlSZAgb+vY5aL/FHiaRiSR3KbtowblWePSDIpkenJ8DWNvGqsn/qf09IbyfMXffmRvPSvRLtQR4nOK3xjrKOJE6Fl+djj1twyg4qNcW+cpiNRH+SOGQBh+MetDWV3hzjUNR7kj9SvtYAPR00tLwtzFBLjyk0qpaYHlUEZjYWopmaR7dEUmYheh4N+2kzcWPl3Bl+0AnkyLHznWEJi21zTTzHLOqykveU/BiY0ZLa2p4xoLPnyQPlgSaW1FqmEAlGTWCdueXqNVynBLXf5gMWrQrcZEqdJV3+OxwzlUf/S84QAR1g43Lm1Jdstf+4Xyz+Juw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tOLMWVmHH8IosztErSAptf6JvK7DG7NMIJcTGGTOsPk=;
- b=JY7wvdhug0pOP2fda0jNREXlm62rO32ap7UiG1mES063gRBwg9Ki0ZaSuNOvE121C4HnGsyvsiO8qKX+H0+AtWtRt7EcErDjTUdv+Sug2H+KGoe64SFMvhULg1RCMD6xECgFsxJL34quLHf9fVOnbDAbURlENSfY9nAYflCVEkE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB6987.namprd12.prod.outlook.com (2603:10b6:510:1be::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Tue, 22 Sep
- 2026 07:22:46 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 07:22:46 +0000
-Message-ID: <5be99821-cf16-46d7-9e4e-9720d0a06321@amd.com>
-Date: Tue, 22 Sep 2026 09:22:38 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/udmabuf: reinstate a reasonable default size
- limit
-To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>, kraxel@redhat.com,
- vivek.kasireddy@intel.com, sumit.semwal@linaro.org
-Cc: robert.mader@collabora.com, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260922012341.367268-1-xujiakai24@mails.ucas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260922012341.367268-1-xujiakai24@mails.ucas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0357.namprd13.prod.outlook.com
- (2603:10b6:208:2c6::32) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJQ8jYIp"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48586861639so306928f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:22:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790061773; x=1790666573; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zOpUj0Pnwod3tVYOQ3yCnTP6vZoRZm1tHkQP7O06AhU=;
+        b=DJQ8jYIpkqCnzQzOVX8ElvdpMq4WB9zTxZW+N7+moxSrZW0gLFoG6CJLMljnRO4OEL
+         eAdNQb4WyHZvTWaAdkEZhutbCMwg7y3MqYKtrxg8TazD1+QsibKE9YIk99JqUh4aHTn3
+         haCoXSuZ7+KogBQeEj+pbpKEMhMWpPmqqhvu2kvt6ISF48yVUwyg2SaFjZnlAZ3akfne
+         pgwSvrHdmvzT+0yr5D1uvdh6QE/9NDgV59lm39Bwjdkg4Xq37p4grHI+9r3pMe01C24c
+         lJ2DkXx3Dc60SHVeX0AbiUrWxT79ZmbeUjft03/Vi3C9gu6OLTqz3iam7dMjhy1C51IA
+         UYGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790061773; x=1790666573;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zOpUj0Pnwod3tVYOQ3yCnTP6vZoRZm1tHkQP7O06AhU=;
+        b=p/0F8J6rgaW35rljDlCOH7od4a09IM15mNCPOZ+p3KZymcqaxnUzJ3h+03SctyRqJq
+         WG+cV9BlrdZ6S341V5yLXqHdNL6rWOCenFRl3BJtoLRDjFiFhLDze6njY2vRv0O08AOt
+         PLi4eS/j1zDv3w4cHwUVBjpKoSpg2xtRt38aGWqs1GFr7bDtSAr8f5JzgbEnYnFFUxRY
+         8xXHqKcCej3ne7WvRGNYP/VlRPUXBJ7bCH4wxCJtDdot3zuMnTD2y70+kqXxeA48c5M4
+         +kIORfOWb3itCaoJfMwQTxJXmSPT/UkAQzW3BUwtt7AHIucD3xq7+KFmRp0ESY9UEgSI
+         QdBA==
+X-Forwarded-Encrypted: i=1; AKwUvByYff6DE0pN35hg+j8DFyWDOvmCu4nJzMgEA1Pq9D4zWJLvTx4gQiRe3UJS3XChsfjl9X8ZleVfAAs3RCk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzz9DbHXCkWULODYDYAGG7ZH8yRf5emNj/UCqjAe45LSWC5EYb
+	xHfaUJDs41EwmKUobw3JcxbNZ+Waqf8vlQhGpWJCNQE2pKf42qN4kqEg
+X-Gm-Gg: AYBFou14LdAfwkbpqecZr7xRs9VXrk4s2eCTlWgjU0hKmToU2AFt56nNkUB2QB9mpUh
+	NxpTZE3LWUu8pPsz+RH1ghSfkEWWQuEc5hZ8AR8R9iL5GXKdb7p/Whb4GPvao+eF/rVXyuITaLU
+	q1fcuWW/Pu94PgvPfVyyxLO/5G2vl6yk1NsLWxAXnFdfY+vp3KgJpPYxiy7e3NNqcy/MY/nV6Sc
+	HRFSbNPmvR6z3D1OkwGqkTkfmWE1UwR7H/fmVppjYXzODRL8pBRQ7Xc91qYlhoagC9Tguru1UBj
+	WMaOjvThP09P8hQCb0JmmilfkbkUSEBj0/AqYhCbYSluvsZCuf7mVmcotdf0ONErYObUo6YfLRJ
+	oTJ4ILOXPWnxUzVTLBhYTIbn1n3WsxJooDSdxbWVlNJDRDNrKpV7X/F/Z3HHUGU7kDoZ/OaKYZA
+	n6DDOWyE5og3DJ2+KQmT2epmdXF8Ljcxvk9EtTszZfHyG8gHn5xDoiOAn1og+BJJy+jTkOUX9wA
+	mRwpQ==
+X-Received: by 2002:a05:6000:41f8:b0:485:8226:c69e with SMTP id ffacd0b85a97d-48861021808mr2450244f8f.29.1790061773363;
+        Tue, 22 Sep 2026 00:22:53 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862793792sm3387192f8f.31.2026.09.22.00.22.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 00:22:52 -0700 (PDT)
+Date: Tue, 22 Sep 2026 10:22:48 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Lucas Costa <2000.costalucas@gmail.com>
+Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Teddy Wang <teddy.wang@siliconmotion.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: sm750fb: free cmap on framebuffer release
+Message-ID: <arIsyPJno_UGVvSK@stanley.mountain>
+References: <20260922035302.167378-1-2000.costalucas@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6987:EE_
-X-MS-Office365-Filtering-Correlation-Id: f934e2bf-efdf-44e2-6de7-08df187a4c66
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|6133799003|56012099006|11063799006|22082099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	knG5lJPGPojuDbm/kZ/2eyp+DctLQtDQzBlWYcShZdXRr6An0eRN1y2e+TG3kPmWQrLOaF5SQkolg5YGuduES7bhizHoYVTdlIL8Urs5O4hFVe0r33FVgsNK/zZpN4H8QvU4QxNhjOC7YBXVpkhJjef6yGFyto7iFGhbr0uFoi4d/R6AnXkAk2l7mdWBhj5wiBz3rPLjQ6ctqYsrwtffVfPESZyKHYjDNI8Cy3najxsgfrct6NtAXH+qGUCbaHoMzqGbJQLmTJBR9uk29vY2sHXKtYVCj7lUVkkvwdghuIynFD0OxAkYnUTxSKek+3+gAfoU1OMMAotlqFMSnlnWIbw+m7spjieivoZvezaKpnvSuMRUxW0BoVMHCzJsi0Y1EGm45DlitqCczHrh4abve6AzQpKmS9fSr3gI4IC1kgkxAaKAIfBo6r1RBw+hQzzstaSs1IRrVv3XMYBd4M+9SheHnEqX9kpNfLSAL+P+ygDQI7VSriOncNcCBc9Y6XRTKoolSfyuJDKIZ8bUbCeHjtmwdzp+nRdWAx8VJ7sZNdWarI+nxo+EYeyQ0+5VWeXJNDSATsYMFae5hIQxszs1NuHWXapS8vT+zFF/0sdUTq3aQf9T2z8yvpio/5PBwbnBCSIaO2sDJh0JhQ6rRwb8CxFlY9sgC0jYoNB+UN7rjmY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(6133799003)(56012099006)(11063799006)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d0JjSUVzWW53RGNqblRDYVNOOHpscjZKVnNqU1FMTHlab2RUR0RNUDFvRjE1?=
- =?utf-8?B?cEQ3K2pVYWNjU2dhdnlxMGdNL0h2eVJaMlhhOXhjcjdPTTZkZUN2V0ZFdWQx?=
- =?utf-8?B?a1pTeTlTSVoreEFTUm42VTI2L2p4bHpOVVlXOXFWVk5nTkxXVWdJd3VacWtG?=
- =?utf-8?B?OTQrbGFreFdzcG8vQzdoY2UzK2RMWGVEV3ZqaW9qYTdoa1RFQUUrODFtZWRr?=
- =?utf-8?B?UFBmRTJBTktrVXp1eVYyaVkwMzZvaE9NQUNGVDgxVU9POUd1VEh2NnZjM3l6?=
- =?utf-8?B?OTQwU2FrQllVZWpuNzA5QnFWb0xCS0VFY3FidDZ6MG5YWjB3djdqcjNvUjBN?=
- =?utf-8?B?T2xLazVzcTlMU3JLdmtiMUhRb1FHbTRpZjNaSThaRHhBN1JMRGZyUnVISXJu?=
- =?utf-8?B?dGtjN1gvRlBNM3NkMWdTTXQvbCtraG1VNXR4WFdNeWZBc3JwSDZSOVZSTkpx?=
- =?utf-8?B?TTJCSHlrQlRhc2Y4cGhKWVRxMXh1RHBhVGNid0Z2LzJYSjdnb0phK0R0bW1u?=
- =?utf-8?B?TjJXRVI3WGcxa3ZtLzFhQ3gwT2tpcWxHNG80RVpDYk5BMWRPa2JCcE5DMWVP?=
- =?utf-8?B?cEJWMXY0Tmg3NW1na3FNS0luK0pNdUR0OXF3UWdHaFEyb1EwUkgwdzAwSnlX?=
- =?utf-8?B?b053dWNFR3dPeE1sQktZTmp0cWV4NWV2bHUrUitxREZ2ZGJFZWwxWHZIajZj?=
- =?utf-8?B?bDJ6Uk9MWldmNjE0S240ZkRKSjM2dm9nSGZIVzQ2dkNJbzBGVEFkZGdjUWJa?=
- =?utf-8?B?UERyNFJIczVBRUYxeTdBTU5pQi82SjFOMzlHOHhKNmxmK1d1ODhoVjdldm1n?=
- =?utf-8?B?WW9SbmxQWEhnZGpqZlM3QkRHZ1lHWEw0amhpaEpLRDRQaTlKZkdJMkFOenJI?=
- =?utf-8?B?MTB3dTJiR0RFQTlZZUphSVVRaTRucHR2eG5XZ0dsVkEwSEFiN2J4amV3bW9h?=
- =?utf-8?B?UHhFb0N5VVJkRkwvUGtCTGN2TDU2ZlhBTy8ycXRxWHR0NThFVEkvdjVtVUsv?=
- =?utf-8?B?NmdKSzE2RmlSWkppbTdDc0U2UHBmdFRHK01iclZuVXNSNTdEM2VKSGpRV3dU?=
- =?utf-8?B?WGE4TC94OTQ2Zkp2alhYWHpjamNkeVNIdGorSzZMRHlueUVLMUJyN0xFdlV2?=
- =?utf-8?B?QVFlSDNHeS9WZFZNMzhPeWJoNHlRZHdwb2FkYjZ1emozMkQ0YXo1c2diYmhn?=
- =?utf-8?B?dWh3Q3A5NU1Oc09wSUlRdlZENFAvSHY5L2xFWTNiQlE0OEZ0MGhhR1cyaDFI?=
- =?utf-8?B?dzJoNlk4ZWVBSzBjRlVZWEQrQWNVN0liUmkwQTI1OWNCZW00ZmFaclBYZTEv?=
- =?utf-8?B?OEg3enhCTVFuZmcwNjJ6TnpOYy9sOUl1eEhyOHM2N094WVpabU9NMndidHlK?=
- =?utf-8?B?RHMrREpIbHNNdnFkbUkvSnVlNUNrcXZLa3p0ayt3Z1lIQ2NJTUhFcEdWQTRC?=
- =?utf-8?B?bjBYanYvMFg2Tmk2MXRXcWhBRE1uSmtocThIRHRQOGlROGVZWFM0bnltc2t1?=
- =?utf-8?B?Y1VEMVhiVTBWSTZoR3pZZHZlcVZjdGFkWUtpeXAxY0N4NXJYTEt1a3NiZ2lX?=
- =?utf-8?B?TFRDV0s0bThUU2RiRXdrYXVqZFJ1VWpPb2k0TVh2YTB3cG1DR2RMempzdkZI?=
- =?utf-8?B?azRtNVBGek1sb1pBUHhiQ1JPdnpqaVM3WnRReTJoeUErV20wc3VSeFNHQjRw?=
- =?utf-8?B?RXlXbU1PcVFZbDhINzRPV0FIRkdMUWFUNkx5RVhBMGJJeWVDaHVobytZT2lZ?=
- =?utf-8?B?dm51S3lXSk53M2szN1JIcXBiWk9VK1NkSW1Dcm1JamU1MGxYVEFnSE9DZEpu?=
- =?utf-8?B?ZncxSUU4aXg1TmVyVkFZNXo3R05Pb2VQeWFtMWZRYzZNclhJNVgrL0NKemxl?=
- =?utf-8?B?dW5pUmMzOGlYRnNyckJhbDk2MnhLV2EybXEyLzNUM1l3VVB6K1RjR0MwcXg3?=
- =?utf-8?B?cHV6RWRvZDR4UGRaQXRsZDIvd21ZWkIrcy95aG5uTmVaaS8wZiszcjRRdUlE?=
- =?utf-8?B?djV1c1dtZDNwY3JZOTFvMDBnSytUNUx5dStkWkNpbzlDSCt6RXgxTzFMMGo1?=
- =?utf-8?B?MGliZnB2L2RPMC83MTBmVERhZGNudkRTQjkzTVRReHJtZUJoRUlWWktpRE9u?=
- =?utf-8?B?eFdlOWJ2MUVUTkxCbG1XeG4xOVpiQmUyd1FLQXVyQmpHT0NhdTExWWk3eUtX?=
- =?utf-8?B?bTR2VHcyUUd3V2JySnR6NEdZeExiNWZYakliWHNuTDZoWldzMUZHWlZZYUph?=
- =?utf-8?B?ZUpJNjRUUkEyTFhuVkpkek1UM0R0eGlINk5JMVgxaVd1S3NnMHE2SWJWaUV5?=
- =?utf-8?Q?ecQBCYUdnP9gDV+jcH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f934e2bf-efdf-44e2-6de7-08df187a4c66
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 07:22:46.0116
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bBDwDSVg/a+9fibUYPYw7k13ksrmowjA3aifGoeVZcxv157AiVBZxvThawAeVea8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6987
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922035302.167378-1-2000.costalucas@gmail.com>
 
-On 9/22/26 03:23, Jiakai Xu wrote:
-> Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-> default") raised the default size_limit_mb from 64 to INT_MAX.
+On Tue, Sep 22, 2026 at 12:53:02AM -0300, Lucas Costa wrote:
+> The driver never calls fb_dealloc_cmap() after it has been allocated,
+> so when the buffer is torn down we leak.
 > 
-> With 4 KiB pages on a 64-bit system, creating a buffer larger than
-> about 1 TiB makes the two per-page pointer arrays in init_udmabuf()
-> exceed what kvmalloc() can handle.  __kvmalloc_node_noprof() warns and
-> fails when the requested size exceeds INT_MAX bytes, which is
-> trivially triggerable by unprivileged users through the UDMABUF_CREATE
-> ioctls:
+> This happens on every unbind, and when an error is detected in
+> sm750fb_framebuffer_alloc().
 > 
->   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
->   Call Trace:
->    udmabuf_create
->    udmabuf_ioctl_create_list
+> fb_dealloc_cmap() gets called before framebuffer_release() in both places.
 > 
-> Instead of using a fixed megabyte value, derive the default limit from
-> the kvmalloc() threshold:
+> Fixes: 81dee67e215b ("staging: sm750fb: add sm750 to staging")
 > 
->   (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT
-> 
-> On a 64-bit system with 4 KiB pages, this evaluates to 1044480 MB
-> (1020 GiB), allowing buffers a little below 1 TiB while keeping the
-> per-page pointer array allocations below INT_MAX bytes.
-> 
-> Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Assisted-by: OpenCode:DeepSeek-V4-Flash
-> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-Going to push that to drm-misc-fixes later today.
-
-Regards,
-Christian.
-
+> Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
 > ---
-> V2 -> V3:
-> - Replace the fixed 256 MB default with a limit derived from the
->   kvmalloc() INT_MAX threshold, as suggested by Christian König.  On
->   64-bit systems with 4 KiB pages, this allows buffers just below
->   1 TiB.
+>  drivers/staging/sm750fb/sm750.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> V1 -> V2:
-> - Instead of adding a pgcnt check in udmabuf_create(), restore a
->   reasonable default size limit (256 MB), as suggested by Christian
->   König.
-> - Drop the second Fixes tag; the regression is solely due to
->   44e9eb5a7621.
-> - Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
->   not shipped in any released kernel yet.
-> 
-> V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
-> V2: https://lore.kernel.org/all/20260919015731.2077604-1-xujiakai24@mails.ucas.ac.cn/
-> ---
->  drivers/dma-buf/udmabuf.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index df6dd00462423..7ec269809fb49 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -20,9 +20,10 @@ static int list_limit = 1024;
->  module_param(list_limit, int, 0644);
->  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+> diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+> index 8b93bfeb217b..92412534239c 100644
+> --- a/drivers/staging/sm750fb/sm750.c
+> +++ b/drivers/staging/sm750fb/sm750.c
+> @@ -910,6 +910,7 @@ static void sm750fb_framebuffer_release(struct sm750_dev *sm750_dev)
+>  	while (sm750_dev->fb_count) {
+>  		fb_info = sm750_dev->fbinfo[sm750_dev->fb_count - 1];
+>  		unregister_framebuffer(fb_info);
+> +		fb_dealloc_cmap(&fb_info->cmap);
+>  		framebuffer_release(fb_info);
+>  		sm750_dev->fb_count--;
+>  	}
+> @@ -943,6 +944,7 @@ static int sm750fb_framebuffer_alloc(struct sm750_dev *sm750_dev, int fbidx)
+>  	return 0;
 >  
-> -static int size_limit_mb = INT_MAX;
-> +static int size_limit_mb = (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT;
->  module_param(size_limit_mb, int, 0644);
-> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
-> +MODULE_PARM_DESC(size_limit_mb,
-> +		 "Max size of a dmabuf, in megabytes. Default is derived from the kvmalloc() limit.");
->  
->  struct udmabuf {
->  	pgoff_t pagecount;
+>  release_fb:
+> +	fb_dealloc_cmap(&fb_info->cmap);
+>  	framebuffer_release(fb_info);
+>  	return err;
+
+This works, but I don't love One Err label style cleanup.  The label
+name is no longer accurate.
+
+The cmap is allocated by:
+
+	err = lynxfb_set_fbinfo(fb_info, fbidx);
+
+So ideally there would be a cleanup function which is called something
+like:
+
+	lynxfb_unset_fbinfo(fb_info);
+
+Then we would only call it if lynxfb_set_fbinfo() succeeds instead of
+if it succeeds or fails.
+
+unset_fb:
+	lynxfb_unset_fbinfo(fb_info);
+release_fb:
+	framebuffer_release(fb_info);
+
+	return err;
+
+See my blog for more details.
+staticthinking.wordpress.com/2022/04/28/free-the-last-thing-style/
+
+regards,
+dan carpenter
 
