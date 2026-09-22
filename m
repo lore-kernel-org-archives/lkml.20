@@ -1,126 +1,153 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E981A3EFFBD
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790052119; cv=pass; b=sLoCTRcBqA2i4Tosis1CzGPv0lrga4kCWgpdXjKqJ0Vf6L6gbFM7GbkjSYUedExfYQlR3WnCSE2D0gw2wg37qAmSt7pAbHwEj2eyPZZHdKYf53SZ/cnjftXJ1TWP3DxemGZuyTP4zYCoidB0aaCsuY6kh120Ba9bkPry41TpxAI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790052119; c=relaxed/simple;
-	bh=5c25rEpnWwjQq0kdbCWbDLkdxQo6pekDJrSKx37Wl5k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uC0ihbRIWk2xm4XSxlux+LHFE+XmvMeM8LSvPeCUQOwmcYkdSXA7bDGLzqany6iYhoBn2Y/KItwJlS+TdDvZJ09H36daGvy44WSBrU/u9EYhSULE9H90zHsYJtyBLzq4zxmhzf+3JTToXfNtqKlVNz0PAH6Nc6WnnVVb2XruJz4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XVT3bM4c; arc=pass smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XVT3bM4c"
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672c2880f58so634415d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:41:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790052117; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SwLDjiTBX2DweJJDXF6Y9yrQMYoMXneM3PdS3keZtcJDjMd8st4ThNx64msa57e51w
-         ooq4i3+IC+Hm3glsPo8De9SzNBoAQrCaa+PQodRDs37K2D2U9vP8DuLOHP9JYQHrCbs/
-         NI3N4VlhaziO5z8SRrwZAfPXryNHNsS8DHQprP9x18BeLqxanigxysNqJC2uBzkzZ+P8
-         1oKucEJ+Vpx24GS79WNvMUwpErM03PH4AoRob6x1KOvDavApOltLxiDgJi2qJSraQfUD
-         xjhQSJUcq4yWdkxZ6m2avjgmRJRMwj29ky+gLBgf2uLSWDsLSSTKCHRfJ+Snddkxrjtb
-         /aqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5c25rEpnWwjQq0kdbCWbDLkdxQo6pekDJrSKx37Wl5k=;
-        fh=EwB4XYmuaotSqmM1WZ7a0lGKIyXwjIycBw+0gvZpDyU=;
-        b=notAkc9yDDZA4VrAy6EKphqg9qPj2kxsJoP3AceRnw1m2kuQ/b02p1rm+LQwwjSjp1
-         EFoR1eCkfRoZXgl02c5rYuePq0nhzg0z6hBDJstttr6nR5cUfsmowDa5mMPszF1fYNat
-         w/Gun2xJj1S1oT8xgAw+p6dPN1/NAESQba6Z+QZjh9BauhZ0nljHmJg4BOqVMvhL1CIf
-         vPZ4a5NPJ0E2ssxa/nm9iOTLasi+vQ+jorWY8mgZ59Er9bbeMD8lHtbaUNFT7N6OTwp7
-         tZtBVmN8sGAm9iCLiYt74voqofL3IsOtQzu5tiwlTs7t3WM6k5BUCMM2hO0MuZBUjAjn
-         YMVQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790052117; x=1790656917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5c25rEpnWwjQq0kdbCWbDLkdxQo6pekDJrSKx37Wl5k=;
-        b=XVT3bM4cyq4/9vQHKU6vekdxjffmr+y4AI/uWOTOeFyvpzHUzo01RLZ6NjxDLJjhYm
-         CQaPl9xDDSev/7tprplYRPy11yQBBX7p0ppXEfOeFZGoSJsNX5JtWFeycrgxy8kPD2Ax
-         sL60BPdMyxA+WtI6yerw73vWTEdepBzWm+Wz5fX6du8nnablfdwWNGWLq8EINx6LmkNQ
-         gZOHhVLDslkXWZVlyJZ6qqbbLbPUNy6343vUssy9C5zEhUigyE8hAphpWhGD21oBGyZ6
-         vCN2ps78/nLkX0mP7mInfjQleCtQ5MEmkSqSykXaZZO0a0qEAbH0mx4psz4S98NirB85
-         mLEg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA341388396
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790052206; cv=none; b=ekvaPBv09YAgLcE72V4DWxqDylq5QmQimdZvJAGOHP8R6TlHPrpdD0sPk0bU9CeitfWW6dhe+hiEUqvpALsYJ7gHr0FaNIPaIJ/RztNNlGE4B5dUZwn7HbaosuMA8OoRKVWJ4GdxIqdnu0m0/qGmxzkrwfs6dJuhjlNgW9nmvy4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790052206; c=relaxed/simple;
+	bh=OQYTdW+feEtU0nT1xZhwdc+cpH45B0yaM48jILy8Y7s=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=Y/RMLPEji3+967/uT8n0+IszwedW15w+Aq9t2MzrCWfdhw4WKQFyWcxhdAR4K+WokOvSL3NDLbSG8C5ze9eZiG27JlsN/LQUnOTOwJKY5qUMk0RtY0MkArHMfYf+nDRToBKwVcv/uwRTstGLb/CqELfvisfhITmn9JC/BCb69KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cb254da90eso5030845b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:43:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790052117; x=1790656917;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5c25rEpnWwjQq0kdbCWbDLkdxQo6pekDJrSKx37Wl5k=;
-        b=JDdw/O8c29uiaMNDVvg64xT+rNcteuwiJpkxRagewHKp+KKdhWzRUzaa0fM9/fZrrE
-         JTQ5zYFIlb/PnOKuFjnt3zfCjxcm+1yMPUL5njIfmOJNFWjfYLjNeZ1zmEwDvssS66UF
-         cip22HxX7L974nuucuDJd7q03cmUD6MrhPvIieoryl10UQ65UNMjm8k4qAkg4lCIHyVv
-         LAkNm6ll2KFPcBRsPCGJlOFVTh+cqlokYhFNywVFCJ9081zRmfr0Dk822SFiDw9jD5e6
-         w2iILDPc0mvDZlMfR36Bnx6L96Am8oqB3aSBFgBIvljbJQOAuksZl/TPDQB/IjYUiA1J
-         nQWw==
-X-Forwarded-Encrypted: i=1; AKwUvBz26nKWDEbMxbwPkFBx2MIMUi2CamTAFn1imgedeaqvkxWQVZD7q13ZTTbHDUrYz4CIwqkVOJuhInB2tHQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ll2OS/mYBJ1EdANFEQ58Q4DJnwHYi+3bpGh4wh2jmcrbIUuu6S
-	6Td2wUnXlBAOUTdY0w9DfDCKs4YDXDJyyWNJ5fJoidOPrVyUnCwcFHhfUGRR6Sc1QJ+zcocLMFT
-	MgtV91riIt25wXONwxytsTVn8UPv6sUg=
-X-Gm-Gg: AYBFou3lrm3eDAaKYB98I+nPioDLWFCG0LNvB9XPiSB4LzHMZG+Ym/S9cRJ3KTNapI/
-	9iAJnZIwqheBalnsMdPF6nyN+fh/nCFaLshPT8YZMlaCvGHclojKIrIZYL3GgBIZ5sSJPcec/Fr
-	HSsiIOz3poYdhgNGYVYDU2+ajR0S5YZVE7c4pCquctmQAzy3cHcrgvl2qkHx20Q1cw4oHj1RXpD
-	tVFilRenNGva5j4gKGm7Npfotbsbcpe5K60TLMGzuq6yK7PgMzy6+dlgaI3XCwujS25q5dTzkJ9
-	81kyzp86j5RuKscj4iRuFSlqp8QFM2HylAwjiFCaewfEwsFBHVuBZie22qz+eSsKKkas0dJA5Aq
-	ItQ6UiDeXa7d5/xe0ASY7x0sgjBimioUMIhS51B6QNwkJ
-X-Received: by 2002:a05:690e:b4b:b0:672:a4a6:298c with SMTP id
- 956f58d0204a3-672a4a62b60mr3004078d50.6.1790052116810; Mon, 21 Sep 2026
- 21:41:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790052203; x=1790657003;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ii6CpxlMOU2YNsdl7Ju/KYaeAqAaiitDP3dlw9IiSoU=;
+        b=FuwIkGWpnTQIqBlVm7M0V7q/wWoeo1QXV5qJwxKOngPivsoZdXI+t8luwJTJzCqVF7
+         f/6RPb07MTm/XUVw7lTfDXER2WKZcUKc4QZ45hYYXFUFBZ2NXrx0H0s08VfsiSvtq4DA
+         MapVgy8ZekayUyz000KT1W8bApfKxQ0TKlhwLGOn6vnxaE3Wz3Y1UqkhsYHaoABOB2s+
+         hT85NvaoSW9sdYRqY3Mi8yx+JCIQrotZH7NVIoboRr7fGhjIQDMkZBdHYLL9ihPjsOZo
+         yCE68uuOdpQJpAMH02KXpc6ngg9niHNTqyD2pTnKbMOxyTjbzK739Mj43Ab4VibiSC5m
+         Vtiw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6Icn85onj6+3FfOvLiTJza4S9pvMGjUZt6cFj/msrcYFJmYNCYcrBTyHHHnEecqrKS6kiH+LXfJasMms=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6fkGjIdLn82GCNQjKk28GF/WWMzxSrJ8DdarKHufHyX36anHl
+	itC9sZqA6PmE/72AS0mR4rDfEMYsotpnA1J71e+4w6VWTGoP2mbOE3CREWuJm0/mwP7rQDKs/cp
+	g2qTIDMTGl2nKs72eubjwACQoj9+KuTBQJiA3ACmIUhFumtZz6+cnUSwSqdE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com> <202609211605.9F15E5B1@keescook>
-In-Reply-To: <202609211605.9F15E5B1@keescook>
-From: jim.cromie@gmail.com
-Date: Mon, 21 Sep 2026 22:41:30 -0600
-X-Gm-Features: AcwNN1Utyycyg5fZYcTu3CM11pNZpX7emt-G0eshr0PTJzFXqlmzavs0XJTRWL8
-Message-ID: <CAJfuBxyYYpk44BEV3vig2Aeo3yn1mNDL9wVA+G4y1z8BP4aeRg@mail.gmail.com>
-Subject: Re: [PATCH 0/3] kallsyms: Accelerate symbol name lookups by ~19x
-To: Kees Cook <kees@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
-	david.laight.linux@gmail.com
+X-Received: by 2002:a4a:ee0b:0:b0:6bd:f79e:501c with SMTP id
+ 006d021491bc7-6ca9ab437d8mr11629437eaf.16.1790052203652; Mon, 21 Sep 2026
+ 21:43:23 -0700 (PDT)
+Date: Mon, 21 Sep 2026 21:43:23 -0700
+In-Reply-To: <20260919221735.3708237-1-benquike@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab2076b.e548f532.1ca396.0017.GAE@google.com>
+Subject: [syzbot ci] Re: af_unix: fix u->inq_len accounting in manage_oob()
+ and unix_stream_read_skb()
+From: syzbot ci <syzbot+ci55fe8f14f29976ef@syzkaller.appspotmail.com>
+To: benquike@gmail.com, davem@davemloft.net, edumazet@google.com, 
+	horms@kernel.org, kuba@kernel.org, kuniyu@google.com, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 5:07=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
->
-> On Sat, Sep 19, 2026 at 09:58:54PM -0600, Jim Cromie wrote:
-> > Memory footprint: +573 KiB .rodata for kallsyms_names_offsets (191k
-> > symbols * 3 bytes on x86_64 defconfig), minus ~2 KiB from dropping
-> > kallsyms_markers[].
->
-> The speed-up is impressive, but I have to say 500KB is not exactly
-> trivial. It's not _huge_, but it's not small. Is the rate of symbol
-> lookups in the kernel high enough to justify this loss of memory?
->
+syzbot ci has tested the following series
 
-IIUC the use is quite lumpy.
-so a dynamic allocation could solve all the problems.
-1- 32 bit table, since 24 bit fiddling is silly on table thats freed soon.
-2- can do David Laights stride-2 thing almost for free
-3 - 0 bytes rodata
-4 - no conflict with Lorenzo's patchset - no touches to scripts/kallsyms.c
+[v1] af_unix: fix u->inq_len accounting in manage_oob() and unix_stream_read_skb()
+https://lore.kernel.org/all/20260919221735.3708237-1-benquike@gmail.com
+* [PATCH] af_unix: fix u->inq_len accounting in manage_oob() and unix_stream_read_skb()
 
-It could be batch-loaded and freed, w fallback to existing slow search.
-or left around till OOM
-I will play with this.
+and found the following issue:
+kernel BUG in unix_stream_read_skb
+
+Full report is available here:
+https://ci.syzbot.org/series/0ffad94e-8c51-41d9-b85f-9793ff3deaf5
+
+***
+
+kernel BUG in unix_stream_read_skb
+
+tree:      net-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net-next.git
+base:      b5a051f6b840d48f159166ef073d3021989bfb50
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/127895ae-9f2e-46db-a972-bc6f975448e6/config
+
+skb linear:   00000100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+skb linear:   00000110: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+skb linear:   00000120: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+------------[ cut here ]------------
+kernel BUG at ./include/linux/skbuff.h:2847!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 1 UID: 0 PID: 16941 Comm: syz.0.3527 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:skb_pull+0x1c4/0x1d0
+Code: b2 8c f8 8b 44 24 04 89 43 70 48 c7 c7 c0 ba 22 8d 89 ee e8 9e 96 7c f7 48 c7 c7 00 bb 22 8d 48 89 de 31 d2 e8 7d 00 ff ff 90 <0f> 0b 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90
+RSP: 0018:ffffc9000629f758 EFLAGS: 00010282
+RAX: ffffffff89aa3aaa RBX: ffff888107756780 RCX: 0000000000080000
+RDX: ffffc90021fe7000 RSI: 000000000000b6ec RDI: 000000000000b6ed
+RBP: 0000000000001000 R08: ffff88823c624713 R09: 1ffff110478c48e2
+R10: dffffc0000000000 R11: ffffed10478c48e3 R12: 0000000000008000
+R13: dffffc0000000000 R14: 1ffff11020eeacfe R15: 0000000000007ec0
+FS:  00007f4d8a7ef6c0(0000) GS:ffff8882a8cce000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00002000000c4000 CR3: 000000002253a000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ unix_stream_read_skb+0x34a/0x500
+ sk_psock_verdict_data_ready+0x25f/0x690
+ unix_stream_sendmsg+0x84e/0xde0
+ sock_sendmsg_nosec+0x13a/0x180
+ ____sys_sendmsg+0x54e/0x850
+ ___sys_sendmsg+0x2a5/0x360
+ __x64_sys_sendmsg+0x1b1/0x290
+ do_syscall_64+0x166/0x520
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f4d8999e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f4d8a7ef028 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+RAX: ffffffffffffffda RBX: 00007f4d89c26180 RCX: 00007f4d8999e159
+RDX: 0000000000000000 RSI: 0000200000000500 RDI: 0000000000000005
+RBP: 00007f4d89a3506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f4d89c26218 R14: 00007f4d89c26180 R15: 00007ffd1de3bf98
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:skb_pull+0x1c4/0x1d0
+Code: b2 8c f8 8b 44 24 04 89 43 70 48 c7 c7 c0 ba 22 8d 89 ee e8 9e 96 7c f7 48 c7 c7 00 bb 22 8d 48 89 de 31 d2 e8 7d 00 ff ff 90 <0f> 0b 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90
+RSP: 0018:ffffc9000629f758 EFLAGS: 00010282
+RAX: ffffffff89aa3aaa RBX: ffff888107756780 RCX: 0000000000080000
+RDX: ffffc90021fe7000 RSI: 000000000000b6ec RDI: 000000000000b6ed
+RBP: 0000000000001000 R08: ffff88823c624713 R09: 1ffff110478c48e2
+R10: dffffc0000000000 R11: ffffed10478c48e3 R12: 0000000000008000
+R13: dffffc0000000000 R14: 1ffff11020eeacfe R15: 0000000000007ec0
+FS:  00007f4d8a7ef6c0(0000) GS:ffff88818d6ce000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fda6ffeb840 CR3: 000000002253a000 CR4: 00000000000006f0
 
 
-> --
-> Kees Cook
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
