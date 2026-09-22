@@ -1,383 +1,144 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235154E780B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109644; cv=pass; b=VYdNemrXyIpCv2nwPy6itAjUKKzUV/zqQj4hmgGl8IndfpYovDXzdVAG84pp4z9N0U5l1LlEloQaBrOkdwJBZRR55hmPiQP2B1LablEcu3AjnVnZi20Ek+N7+vDjyy264QzyDrrC5Q+S+R/QTTwFuKQbFJhpHsqRPfrZohi5EPw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109644; c=relaxed/simple;
-	bh=T5qON6NA5741RSYOZ73ufhgHMwUbpgwOLeDYHKzAZ/8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V0QQN7pLr6mOYnlLT9+q08/L5yLT2hQcXDfvN9TQn2QffWM0qJXBiofrgVHyueZcuMaYvTPKjpNvhBHFc//u/fytKIFePuAOLpJYp+opEA9Vrp2u5atIeQ3oml1K+S58ExFPT+keDkcAMLpisd/JHbUv8hc1tpqSw9sM2+lFLo0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JQIeuLBy; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D6E49BD76
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109680; cv=none; b=nshL8Lz+3DzzA31Is1hH23pAu588T7pvy1mygwv47KA9moji5BR6DbkObSZ/5vtJjy9da7sJruICplynRgJfGIgme7y1/hOy2NNdD58z8mgSlijakEuQALOfpCQycBYOh/EPeZdiLUp6LwDtrmyGjxHrbu54bcWUxfAOQhmCJn4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109680; c=relaxed/simple;
+	bh=Was9xrJcKA0i5gWxWGN8G4b+EGFRxvYGC6c1tInqrrs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M5kqy89eBXIwSnKCHPlKSo/KoibRZBMszqxUL0EX4Zdxvsf7zeo/cF7SVvprUj44eyCF2T55TOKgsNCMqj+maDcGsdHmMc+YkeDrrUOAPDWeEJEFNxaNx7n35QZTsxYROmgwWPPYAKchiACL4Dy1Yw1q+0xltRzZPPoDc53P4Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JE2AiTm6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f8UbU0rG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JQIeuLBy"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so187948a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:40:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790109622; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N1ONeyuNFQ7bgnpHT+NzQA6nhTXVklj/0j+CwjGeStuHVXmjgiYg4CgxNJJFdyFPTd
-         ahjD3Wj6FiNxF3Dqcfau5J1p03kmto30eROymXfW+gN9pHNex2aRky5A2M9UvfQ8TNo0
-         lVYtE8DCHMqSnc4wAjSpiStbLy/Txm4Ku3Hyj7kFo+SqHkcnO8P65SvJ0pkZO+H6uZkp
-         pGtpNax/l0ju0f1lhve3VYYlMEpH9221Y5EcxRtthz9Ejr8MLmiU0OVtPy/bU9ZqRBLY
-         c0MwX74x2RPefEmPgKi9B7UAVsolQPIDDZfO8S0q851JxabtAT8DVxjx85wT0Wa0tcOH
-         Vzkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pt1Jvyl7y2ucT15n2cP/CxwuiPgjJqJ1dgsK6z+frno=;
-        fh=aZnjf6JDfGc27higbIWi7dntcwI7Gw/EMfLY4rSFsWo=;
-        b=TJyI3VzkCsVLDEFJC2BJc8a+xpKZo8Pw3LAxslm0Daafh519vtZnl/GImipAfuzYJP
-         tvD+kvMwCqsKNUe30ET9YtehFaRv6V0zaoWiMOIUoZDvfaJW9+BUNmSPjYIXIcIjKsmO
-         4Hcme0j/futRcR8awW20ZEFZyfBpbOuP1rT1dNWy+XIqApiHUv9Pc8XAE0yHxhbJCK3L
-         HhsOcL/A6X86naqJNMcX2cQGFCqACu6fSduouBShgtBrHvVevHDCo+fbwhves+uY/cPW
-         GjFd8BLG389RZoVdEcsxof6ZYUQDTVlx+5VQWqJvEiPFx6TyuU8Sdh7JrscEnjtuq+Jr
-         ojGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JE2AiTm6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f8UbU0rG"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI724L1153693
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:40:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=kpSBu9jvqWp5KjJaZ47d6NVO
+	S4pKiq3srWWOoTSWhdc=; b=JE2AiTm624Nz2B/YsNFX2W7LqpTQpX9Yh/3jJjfZ
+	0CrqXl912W5uaWLr29JAO/zJsUKnuF4DQbqWjcWgv3kwUk7Us4iU4pFJdoomeNKO
+	zd2LWkzp+i06V0/OumiOHxlYhUYcMYsYWqf9BeNk70yI+U0mEQSBtq9iLK8CzsGF
+	jEs87pMVdRmTqRDCWqbAR1esY7Uf7NZQnXi0jZNE6u95J1Jact+xm9LjzP0SQE4t
+	XWJ+dZ9hL3ciNsOtHJm+lrqtZpMXTKndWRIAJtmEFRFwGhJwhbMLYEY+N2AVJRaJ
+	pGXWmLJ450mccGRVuQtYwf/Llx7bLwV9hBfqixEDxJbSiQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guvw7hg8u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:40:59 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78fb9f59781so271034137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:40:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790109622; x=1790714422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1790109659; x=1790714459; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pt1Jvyl7y2ucT15n2cP/CxwuiPgjJqJ1dgsK6z+frno=;
-        b=JQIeuLBy90mdr/qiiXpdhBoElXkSGzRJibOBQ/q8sc9zthsCsAA3TEXIBpn3TyL/I5
-         zbuQ2XeZQiiXCsl9KexGojmhjF96XblINGP9wBtQan8igCjjmnm+WgundPmIU3hDNxBL
-         e3CHIiiy3vwLGVsbI7lWK/D9BmynlQACCZ6d6SVM+iqeACgcUx7O6NNtAP7O9NPfZKWI
-         kXd3qe3+GtafpKk5BF1RI7XKfZqBEwv0M1oErf9N5Sfka3A1hzruiDD9Jo1dmrtx0JNS
-         bbezXfebzq4SWO0Rzl3/t0O2Im5k48rIyFHsqpkYEPxKEjQoHvSedYEGe4IdxfqEPBdq
-         l2kA==
+        bh=kpSBu9jvqWp5KjJaZ47d6NVOS4pKiq3srWWOoTSWhdc=;
+        b=f8UbU0rGAfened+Vhx9NFgFGtPe2KJ3E87RmiVCE/l5zN3Skca1vsoN1SmOt7twzn3
+         1Nc3truS9Lz3tMu7NcVKat9Uij8TdVb/ShQtOrkk1q82aiZtXeZKmSr3SDCClR2qWVEG
+         33SPZCjKQV4DvqvgGebuzmM3hUOAkGeYlrGZ5IRPHcQHsRXIqwMyXnXWUoYGJnPDx1LV
+         qw7h/cRsLd3YkIBedzb8W4+Ag4SLZpsMjx6FqQO1Lg8lbXSNBAZMwDSc1afLApYCTGzR
+         ij5sNJ0iJLhuWtWWzXrg2QXab1B0yyioohxFXpWuppllbx99sg+c9ROayhoa+KzSIfEZ
+         P9ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790109622; x=1790714422;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790109659; x=1790714459;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pt1Jvyl7y2ucT15n2cP/CxwuiPgjJqJ1dgsK6z+frno=;
-        b=rdHg2rgBarp5BjXlNAp73OmKw2vFlijGSnPaPuI+fz3JmCyKbxOvqCPELpShUSh7HK
-         VYLpwgeLjNKkHvky+V+ynxzXT/1oVL5xWosJfm2DDuqEaFN9UjVhopxrjHsZvdUbCAXi
-         BMEsgWa3kO9yU4BgJfoTyJcdC806y30/0xMBza1uPgSTB1JgmhJi32GkjhzOguhxwiXH
-         xzC9dzH+mhJUO7zxMTZThZGGzQg8KNHBFNWx6HeE53yeKh2vRUgnxX2x40jbL1BTCtPe
-         05JQ3Zqtcpnvm3fTSAzKiSKHdDRdzi9o0a799A0I28X70UgMtwzERfsuSlCtwlwMoAMJ
-         75Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBxLwxr7E6mu8zq1/P3bFJEoBITsZTnBKQaiypi3nh7EstNGc5a+/oDRDwqG2kFS2BaOVro/wtQOloKB3VE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRAyqCLjq7/MwjG/WpLRDP708WHAc/6wUMcuPEXPFlFqA4oJIY
-	eMngtuqcBehyg8XLM4OUr1oBcTJW27oXhwkXIudIDzcbHkaA8GirYi8FP3OgbQ5R/+Zz/9LrmEf
-	dtxXX+IH6252uBhiWOu6B5eA+8y1QpHU=
-X-Gm-Gg: AYBFou3J2fI5xABooVT1FCX3f7eqHaNPyfIjSSjrpUsAcMwiY9l6JF8azkuTclGGiGr
-	8LteA0NNVghIPHWpMGhfRnEoucPCxRyLuKlBhLpRxJaV1JsBEIU+QhKu3f7ZrL4ZpeK5Sxd5BM/
-	wtD+HFupjBoCf1X47xr8Yza1eoh0v4in9MFn+9/LRrkGT86gBkdwizSFIogmp3pA+z+xELqsnvY
-	l2lg9g3FAQkk0DF/phN/+cK/c1YbvxupqD3388XzBr/uB0IwlZGRugdX2QZ/mD8zWd7z6ZLw7xw
-	Z3VhsgsPBZgYAgOlvaVaiNj+jZ+YeT2nbymK51vLvDE5QYrsDWLQyjTDOnRhJR2QLTV5ETH91a8
-	CA2DYCC+egaSgZgqsD2VFqoT2FnoF6HAmYrM2sFogGs9v565OKuS6
-X-Received: by 2002:a17:90b:1dc9:b0:398:9bd5:490b with SMTP id
- 98e67ed59e1d1-3a07e5e929amr377167a91.18.1790109621759; Tue, 22 Sep 2026
- 13:40:21 -0700 (PDT)
+        bh=kpSBu9jvqWp5KjJaZ47d6NVOS4pKiq3srWWOoTSWhdc=;
+        b=ACGj70xWe0vOk99K6PHH98MfkugcY/jdemxsuM9CP3apaMsXOKLBoDuxwNcMrHlqND
+         ngfu5tGln4b45x5njdPxrLU3hisZwdAaa6zytg11CBLfNORVDrW5EPeFF22sVR/4wumh
+         TV2Nfvd9KXuPDqgTExQJsR3LXQoFP6ZDfWuKMi7tfIj40oPyaNc1PybYfO32HoPq1FHS
+         fUUsT0DtkSJMgYQvnhw2RPJDQzm0Sc7UZpt7TjweVe/V7cbiVs7ZBgNDJpuHxJjqEOkF
+         DNP9VX5zmNtdLkducMP5+ueSzVptdkWo7byz/nUwsCA6Tc8F7R7iNkqGNAo9MIc1E3x7
+         aGOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzoCgAygb9QClOM2npJUbx255DSIZ0gAyZzoJcZzrJGsmBrP1j7X2lBr/NzR0sZk7EEOG0fOU1/BTAU+A4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfPVwFjyVvdw1lHE9Wkmn7t1Tvu1xpA5XiSkmpCtCbG4Lasz40
+	d6BAgy4jOtBGkGKZJooTPbUoGZazg2nyMeqSkBL9nMNUGKkv/PWXWzFI/s3nVsjk0XNhoNNrfPu
+	SJlXXFQet647JVo/Yb+BCVeKBbhUpvseIDkuTAeU1OdRnbDFUV3NrSoQ/mJLcptOytag=
+X-Gm-Gg: AYBFou1J6J7kipQQfYtY9jKM/VPUFinWBRnAdA7THtIRF9o1LCHiCPC3v9iT0uvBW18
+	9MGxiMVrDZ7PjKxynrtxPRft41LI+0yWM1RB//Wg2n2gE9TofBM5gB/l4tnowmE2VdqyelQ9keE
+	7SNtCfxHBAnFXUNRC8aBt5RcV7g6AlXW60oUF01olx4cBK/yGP2lWcpY9zzID2CQGThlF4GPovT
+	UwP4Ea53lUX9mCLgxEb1eQnNpTqsocmRQVG7nbexCCUaxfb5u395hYfiKXz5iBguW1l+QjLNmVT
+	DwKV8/DNyflZ0gRt0ni0rqalknJ9TxPZvIu1lNe5X7sHhVovZPffrB9KfI1OMmoEyOjG2KhCWqf
+	I3ywuIYpurpl3gg==
+X-Received: by 2002:a05:6102:6896:b0:7a1:f7d2:e82a with SMTP id ada2fe7eead31-7ac1e65c1c3mr771091137.35.1790109658730;
+        Tue, 22 Sep 2026 13:40:58 -0700 (PDT)
+X-Received: by 2002:a05:6102:6896:b0:7a1:f7d2:e82a with SMTP id ada2fe7eead31-7ac1e65c1c3mr771060137.35.1790109658190;
+        Tue, 22 Sep 2026 13:40:58 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1e045dsm18896285e9.11.2026.09.22.13.40.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 13:40:57 -0700 (PDT)
+Date: Tue, 22 Sep 2026 23:40:56 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] clk: qcom: Add lpass audio clock controller driver
+ for Glymur
+Message-ID: <acfvnzzcwzqq2pcchzxkrnesdcpqthmucax4elht2xzw6kd767@yqium6n6lb3r>
+References: <20260922184425.56114-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260922184425.56114-4-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810164622.1829843-1-puranjay@kernel.org> <CANk7y0ixo5a3Vfzj_HVhVHRNce2Rsit4pP27GCtXd4jHHzmiKg@mail.gmail.com>
-In-Reply-To: <CANk7y0ixo5a3Vfzj_HVhVHRNce2Rsit4pP27GCtXd4jHHzmiKg@mail.gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Tue, 22 Sep 2026 13:40:06 -0700
-X-Gm-Features: AcwNN1VfX9BxvsRTDOPajUz-x6IR-_JlVRJ0qqTEHps-VTBBc72fFFdiYC1A20M
-Message-ID: <CAEf4BzapC=7YM2QLMyKKfyOWGgBTfEJmPPN8e9Jf5xT9SutBTQ@mail.gmail.com>
-Subject: Re: [PATCH v6 0/3] arm64: Add BRBE support for bpf_get_branch_snapshot()
-To: Mark Rutland <mark.rutland@arm.com>, Will Deacon <will@kernel.org>, 
-	James Clark <james.clark@linaro.org>
-Cc: bpf@vger.kernel.org, Puranjay Mohan <puranjay12@gmail.com>, 
-	Anshuman Khandual <anshuman.khandual@arm.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Leo Yan <leo.yan@arm.com>, Rob Herring <robh@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Shuah Khan <shuah@kernel.org>, 
-	Breno Leitao <leitao@debian.org>, Ravi Bangoria <ravi.bangoria@amd.com>, 
-	Stephane Eranian <eranian@google.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Usama Arif <usama.arif@linux.dev>, 
-	linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922184425.56114-4-srinivas.kandagatla@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI5NSBTYWx0ZWRfX2jBBdykGdjfj
+ vp9PzIHXKgLpwHROA8ODytZZ2zqJrhISq8YlcZv1RsP3MoPH+JQMK8b7/FTBFyAn/AzBVOZhbH3
+ aWdF7FnalJxxTVsryyKnJY8IF89lSo0=
+X-Authority-Analysis: v=2.4 cv=ZYqIpcVA c=1 sm=1 tr=0 ts=6ab2e7db cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=6XYEiC8ceDmu1LDSX3kA:9 a=CjuIK1q_8ugA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-ORIG-GUID: eP-OvpV0CKPd_2MaPM5s9RNVRCi-WK2l
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI5NSBTYWx0ZWRfX/mRELrLTH3Jq
+ ViDj0XBGqGuL6N3WsToALvyySZ/RvfTZToMs0m/E4ziP4zr43W1npLsndLD73LSmG+9MKaH3wXW
+ 7ZrSK1f0rdlmW5r6U0uWDGi5xOSr/YVHLrjcAeJXl8vcRlZM6UpmO5JFWyK30xJU+N1j59Q8+m3
+ Xwb7RgmmctLyoR1HOKzb2esF6hkVrLdVgEoWf3ZauxcPlfZLIOJWxwIWoXpTGVK7OeovrrpIJrU
+ cRxq23vIGCFYiyHcqoe93+el/+f97lKzH/b9k6KlNLD1t6hh6+imotrAx0Z/+0J0d39gK9Vb9BX
+ 6+VE2LBfCvC4RPRKWgJzWsCzv/gZVizYRrmbNxOrYeZ8it1rtRrVJyishNfqwyvZnuTY6TrOYmd
+ zePFgMLXBtS/0/LO4ov0lfBDMriWahQQG5zvZUAZUm9W66lCLH2ifkZRtFpasOVDMqIvL4vKlvF
+ A8Q5zKLOy5dB9imPSsQ==
+X-Proofpoint-GUID: eP-OvpV0CKPd_2MaPM5s9RNVRCi-WK2l
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220295
 
-On Tue, Sep 1, 2026 at 6:45=E2=80=AFAM Puranjay Mohan <puranjay12@gmail.com=
-> wrote:
->
-> Hi James,
->
-> Can you review this version of the patchset? It is implementing what
-> we discussed in the thread on the last version.
->
+On 26-09-22 19:44:24, Srinivas Kandagatla wrote:
+> Add support for the lpass audio clock controller found on Glymur based
+> devices. This would allow lpass peripheral loader drivers to control the
+> clocks and bring the subsystems out of reset.
+> 
+> Currently this patch only supports resets as the Q6DSP is in control of
+> LPASS IP which manages most of the clocks via Q6PRM service on GPR rpmsg
+> channel.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-James, do you mind reviewing the patches again, seems like Puranjay
-went with the implementation you suggested, would be nice to review
-and ack, if it looks good to you.
-
-Mark, Will, you guys seems to be designated as maintainers for
-drivers/perf/arm_brbe.c, can you please take a look and give your
-feedback as well? This is important and useful feature for newer arm64
-CPUs, it would be great to get access to this functionality that we
-had on x86-64 side for a long while now. Please help get this upstream
-or, if it's not in the right shape, guide Puranjay towards a better
-implementation. Thank you!
-
-> Thanks,
-> Puranjay
->
-> On Mon, Aug 10, 2026 at 5:46=E2=80=AFPM Puranjay Mohan <puranjay@kernel.o=
-rg> wrote:
-> >
-> > Changelog:
-> > v5: https://lore.kernel.org/all/20260616155716.2631508-1-puranjay@kerne=
-l.org/
-> > Changes in v6:
-> > - Split the two perf/core patches out into their own series [3]. They
-> >   fix bugs of their own and do not depend on this one.
-> > - Add raw_local_daif_save() and raw_local_daif_restore(), so the
-> >   snapshot can mask exceptions without trace_hardirqs_off() evicting
-> >   the records it is about to read (new patch 1).
-> > - Rework the snapshot. Clear PMCR_EL0.E across the BRBFCR_EL1
-> >   read-modify-write so that a freeze cannot set PAUSED behind the saved
-> >   value, and unpause before restarting the counters, since a paused
-> >   BRBE cannot freeze for its own overflow handler (James Clark).
-> > - Skip the pause entirely when BRBE is disabled or already frozen, and
-> >   invalidate only when the snapshot was the one to pause it.
-> > - Run valid_brbe_version() before masking exceptions; the static call
-> >   is only reached from BPF programs, which run with migration disabled.
-> > - Fold cpu_has_brbe() into valid_brbe_version() and drop the
-> >   arm_brbe_ prefix from the snapshot callback (James Clark).
-> > - Derive the selftest skip threshold from the waste and hit limits it
-> >   depends on, so the two cannot drift apart.
-> >
-> > v4: https://lore.kernel.org/all/20260527121207.2312181-1-puranjay@kerne=
-l.org/
-> > Changes in v5:
-> > - Rework patch 2: drop the UAPI union. Instead rename the helper to per=
-f_clear_branch_entry() and
-> >   clear the entry with a single
-> >         *br =3D (struct perf_branch_entry){ }.
-> >   This stays kernel-internal, with no changes to the uapi/ or tools/ he=
-aders (James Clark).
-> > - Add an isb() to the BRBCR_EL1 =3D=3D 0 early-exit in the snapshot, fo=
-r consistency with the other
-> >   two exit paths (bpf-ci).
-> > - Add Rob Herring's Reviewed-by to patch 3
-> >
-> > v3: https://lore.kernel.org/all/20260413185740.3286146-1-puranjay@kerne=
-l.org/
-> > Changes in v4:
-> > - Fix leaking branch records when scheduled task has an unrelated perf =
-event (Sashiko)
-> > - Update tools/include/uapi/linux/perf_event.h as well for patch 2
-> > - Introduce cpu_has_brbe() and use it in
-> >   arm_brbe_snapshot_branch_stack(0 to make sure we don't run on a CPU
-> >   without BRBE.
-> > - Add explicit isb() after after writing to SYS_BRBFCR_EL1.
-> > - Rebase on latest arm64 tree.
-> >
-> > v2: https://lore.kernel.org/all/20260318171706.2840512-1-puranjay@kerne=
-l.org/
-> > Changes in v3:
-> > - Move NULL pmu_ctx fix from arm_pmuv3.c to perf core (Leo Yan)
-> > - Use union to clear branch entry bitfields instead of per-field
-> >   zeroing (Leo Yan)
-> > - Remove per-CPU brbe_active flag; check BRBCR_EL1 =3D=3D 0 instead (Ro=
-b
-> >   Herring)
-> > - Remove redundant valid_brbidr() check in snapshot path (Rob Herring)
-> > - Introduce for_each_brbe_entry() iterator to deduplicate bank
-> >   iteration (Rob Herring)
-> > - Include perf core maintainers (Leo Yan, Rob Herring)
-> >
-> > v1: https://lore.kernel.org/all/20260313180352.3800358-1-puranjay@kerne=
-l.org/
-> > Changes in v2:
-> > - Rebased on arm64/for-next/core
-> > - Add per-CPU brbe_active flag to guard against UNDEFINED sysreg access
-> >   on non-BRBE CPUs in heterogeneous big.LITTLE systems.
-> > - Fix pre-existing bug in perf_clear_branch_entry_bitfields() that miss=
-ed
-> >   zeroing new_type and priv bitfields, added as a separate patch with
-> >   Fixes tags (new patch 2).
-> > - Use architecture-specific selftest threshold (#if defined(__aarch64__=
-))
-> >   instead of raising the global threshold, to preserve x86 regression
-> >   detection.
-> >
-> > RFC: https://lore.kernel.org/all/20260102214043.1410242-1-puranjay@kern=
-el.org/
-> > Changes from RFC:
-> >  - Fix pre-existing NULL pointer dereference in armv8pmu_sched_task()
-> >    found by Leo Yan during testing (patch 1)
-> >  - Pause BRBE before local_daif_save() to avoid branch pollution from
-> >    trace_hardirqs_off()
-> >  - Use local_daif_save() to prevent pNMI race from counter overflow
-> >    (Mark Rutland)
-> >  - Reuse perf_entry_from_brbe_regset() instead of duplicating register
-> >    read logic, by making it accept NULL event (Mark Rutland)
-> >  - Invalidate BRBE after reading to maintain record contiguity for
-> >    other consumers (Mark Rutland)
-> >  - Adjust selftest wasted_entries threshold for ARM64 (patch 3)
-> >  - Tested on ARM FVP with BRBE enabled
-> >
-> > This series enables the bpf_get_branch_snapshot() BPF helper on ARM64
-> > by implementing the perf_snapshot_branch_stack static call for ARM's
-> > Branch Record Buffer Extension (BRBE).
-> >
-> > bpf_get_branch_snapshot() [1] allows BPF programs to capture hardware
-> > branch records on-demand from any BPF tracing context. This was
-> > previously only available on x86 (Intel LBR) since v5.16. With BRBE
-> > available on ARMv9, this series closes the gap for ARM64.
-> >
-> > Usage model
-> > -----------
-> >
-> > The helper works in conjunction with perf events. The userspace
-> > component of the BPF application opens a perf event with
-> > PERF_SAMPLE_BRANCH_STACK on each CPU, which configures the hardware
-> > to continuously record branches into BRBE (on ARM64) or LBR (on x86).
-> > A BPF program attached to a tracepoint, kprobe, or fentry hook can
-> > then call bpf_get_branch_snapshot() to snapshot the branch buffer at
-> > any point. Without an active perf event, BRBE is not recording and
-> > the buffer is empty.
-> >
-> > On-demand branch snapshots from BPF are useful for diagnosing which
-> > specific code path was taken inside a function. Stack traces only show
-> > function boundaries, but branch records reveal the exact sequence of
-> > jumps, calls, and returns within a function -- making it possible to
-> > identify which specific error check triggered a failure, or which
-> > callback implementation was invoked through a function pointer.
-> >
-> > For example, retsnoop [2] is a BPF-based tool for non-intrusive
-> > mass-tracing of kernel internals. Its LBR mode (--lbr) creates per-CPU
-> > perf events with PERF_SAMPLE_BRANCH_STACK and then uses
-> > bpf_get_branch_snapshot() in its fentry/fexit BPF programs to capture
-> > branch records whenever a traced function returns an error.
-> >
-> > Consider debugging a bpf() syscall that returns -EINVAL when creating
-> > a BPF map with invalid parameters. Running retsnoop on an ARM64 FVP
-> > with BRBE to trace the bpf() syscall and array_map_alloc_check():
-> >
-> >   $ retsnoop -e '*sys_bpf' -a 'array_map_alloc_check' --lbr=3Dany \
-> >              -F -k vmlinux --debug full-lbr
-> >   $ simfail bpf-bad-map-max-entries-array  # in another terminal
-> >
-> > Output of retsnoop:
-> >
-> >   --- fentry BPF program (entries #63-#17) ---
-> >
-> >   [#63-#59] __htab_map_lookup_elem: hash table walk with memcmp        =
-(hashtab.c)
-> >   [#58] __htab_map_lookup_elem+0x98  -> dump_bpf_prog+0xc850           =
-(hashtab.c:750)
-> >   [#57-#55] ... dump_bpf_prog internal branches ...
-> >   [#54] dump_bpf_prog+0xcab8        -> bpf_get_current_pid_tgid+0x0    =
-(helpers.c:225)
-> >   [#53] bpf_get_current_pid_tgid+0x1c -> dump_bpf_prog+0xcabc          =
-(helpers.c:225)
-> >   [#52-#51] ... dump_bpf_prog -> __htab_map_lookup_elem ...
-> >   [#50-#47] __htab_map_lookup_elem: htab_map_hash (jhash2), select_buck=
-et
-> >   [#46-#42] lookup_nulls_elem_raw: hash chain walk with memcmp         =
-(hashtab.c:717)
-> >   [#41] __htab_map_lookup_elem+0x98  -> dump_bpf_prog+0xcaf8           =
-(hashtab.c:750)
-> >   [#40-#37] ... dump_bpf_prog -> bpf_ktime_get_ns ...
-> >   [#36] bpf_ktime_get_ns+0x10       -> ktime_get_mono_fast_ns+0x0      =
-(helpers.c:178)
-> >   [#35-#32] ktime_get_mono_fast_ns: tk_clock_read -> arch_counter_get_c=
-ntpct
-> >   [#31] ktime_get_mono_fast_ns+0x9c -> bpf_ktime_get_ns+0x14           =
-(timekeeping.c:493)
-> >   [#30] bpf_ktime_get_ns+0x18       -> dump_bpf_prog+0xcd50            =
-(helpers.c:178)
-> >   [#29-#25] ... dump_bpf_prog internal branches ...
-> >   [#24] dump_bpf_prog+0x11b28       -> __bpf_prog_exit_recur+0x0       =
-(trampoline.c:1190)
-> >   [#23-#17] __bpf_prog_exit_recur: rcu_read_unlock, migrate_enable     =
-(trampoline.c:1195)
-> >
-> >   --- array_map_alloc_check (entries #16-#12) ---
-> >
-> >   [#16] dump_bpf_prog+0x11b38       -> array_map_alloc_check+0x8       =
-(arraymap.c:55)
-> >   [#15] array_map_alloc_check+0x18  -> array_map_alloc_check+0xb8      =
-(arraymap.c:56)
-> >         . bpf_map_attr_numa_node       . bpf_map_attr_numa_node
-> >   [#14] array_map_alloc_check+0xbc  -> array_map_alloc_check+0x20      =
-(arraymap.c:59)
-> >         . bpf_map_attr_numa_node
-> >   [#13] array_map_alloc_check+0x24  -> array_map_alloc_check+0x94      =
-(arraymap.c:64)
-> >   [#12] array_map_alloc_check+0x98  -> dump_bpf_prog+0x11b3c           =
-(arraymap.c:82)
-> >
-> >   --- fexit trampoline overhead (entries #11-#00) ---
-> >
-> >   [#11] dump_bpf_prog+0x11b5c       -> __bpf_prog_enter_recur+0x0      =
-(trampoline.c:1145)
-> >   [#10-#03] __bpf_prog_enter_recur: rcu_read_lock, migrate_disable     =
-(trampoline.c:1146)
-> >   [#02] __bpf_prog_enter_recur+0x114 -> dump_bpf_prog+0x11b60          =
-(trampoline.c:1157)
-> >   [#01] dump_bpf_prog+0x11b6c       -> dump_bpf_prog+0xd230
-> >   [#00] dump_bpf_prog+0xd340        -> brbe_snapshot_branch_stack+0x0  =
-   (arm_brbe.c:814)
-> >
-> >                    el0t_64_sync+0x168
-> >                    el0t_64_sync_handler+0x98
-> >                    el0_svc+0x28
-> >                    do_el0_svc+0x4c
-> >                    invoke_syscall.constprop.0+0x54
-> >     373us [-EINVAL] __arm64_sys_bpf+0x8
-> >                     __sys_bpf+0x87c
-> >                     map_create+0x120
-> >      95us [-EINVAL] array_map_alloc_check+0x8
-> >
-> > The FVP's BRBE buffer has 64 entries (BRBE supports 8, 16, 32, or
-> > 64). Of these, entries #63-#17 (47) are consumed by the fentry BPF
-> > trampoline that ran before the function, and entries #11-#00 (12)
-> > are consumed by the fexit trampoline that runs after. Entry #00
-> > shows the very last branch recorded before BRBE is paused: the call
-> > into brbe_snapshot_branch_stack().
-> >
-> > The 5 useful entries (#16-#12) show the exact path taken inside
-> > array_map_alloc_check(). Record #14 shows a jump from line 56
-> > (bpf_map_attr_numa_node) to line 59 (the if-condition), and #13
-> > shows an immediate jump from line 59 (attr->max_entries =3D=3D 0) to
-> > line 64 (return -EINVAL), skipping lines 60-63. This pinpoints
-> > max_entries=3D=3D0 as the cause -- a diagnosis impossible with stack
-> > traces alone.
-> >
-> > [1] 856c02dbce4f ("bpf: Introduce helper bpf_get_branch_snapshot")
-> > [2] https://github.com/anakryiko/retsnoop
-> > [3] https://lore.kernel.org/all/20260810133540.1947118-1-puranjay@kerne=
-l.org/
-> >
-> > Puranjay Mohan (3):
-> >   arm64: Add raw variants of local_daif_save() and local_daif_restore()
-> >   perf/arm64: Add BRBE support for bpf_get_branch_snapshot()
-> >   selftests/bpf: Adjust entry thresholds for ARM64 BRBE
-> >
-> >  arch/arm64/include/asm/daifflags.h            |  41 +++++-
-> >  arch/arm64/kernel/suspend.c                   |   7 +-
-> >  drivers/perf/arm_brbe.c                       | 135 ++++++++++++++----
-> >  drivers/perf/arm_brbe.h                       |   9 ++
-> >  drivers/perf/arm_pmuv3.c                      |   5 +-
-> >  .../bpf/prog_tests/get_branch_snapshot.c      |  28 ++--
-> >  6 files changed, 175 insertions(+), 50 deletions(-)
-> >
-> >
-> > base-commit: 03a2e393994ca27567fe060e066806589c547fbc
-> > --
-> > 2.53.0-Meta
-> >
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
