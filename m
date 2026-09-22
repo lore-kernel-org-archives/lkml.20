@@ -1,120 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A7E5592F4
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:31:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDB9542EF6
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091064; cv=none; b=Y0wWhejVJ1Vp+xvexsY7mc2W3IlAKkpKZDZs8m/8XKgbjB68DvBZiDhfHpkyqGbUElB1GtMRUd1tMQmyk228eybYvtgAi5QdWq+lRaPq5b3wXNovCHaelQ0a/h8SS5QU8TOwqNfOm9oJ3kb9/m4Y0Hy+J+6IBF+2J5Pri4jyx1E=
+	t=1790091074; cv=none; b=cCOD8R1IJpnhabIqJY/4C69QojKHG05yUFkV8icjWGzxyNkBXtd/akqlfpg6vaEIPr+bXnl6Keh79nRdFV28F/hSnNozxiMcNTyJPcid1nCBTVx6iLJc8YkzpPcCEqKAvlN934qD1tks29LT4BTrx6TIRrPZ81cpjGAp+PdDCog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091064; c=relaxed/simple;
-	bh=WjK1rso8gurasV2KREJhuQVyxlazrxmPZ7mJelduaeY=;
+	s=arc-20240116; t=1790091074; c=relaxed/simple;
+	bh=0IK9+EwvsBoYDJYGUac8cxaRSG01Rz8fKvCBOkF5H0E=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IeKhxEyu+ydAb2KXekmD52x2vc9zHfIiSjQaAKjGchkZdOeVQ2MdSVgk2pDy1Dl6qhsa0besuwsOdbnBsfzDNwVor+iVMLauvzbqGGpXvU8aASLCQbOD21h4ftPwMsL1e9vq40PHT+3CWX5mybxou3kyzLqy7VaYz1Gybz7FW4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxoYO/hf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxoYO/hf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B3E1F008BF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091062;
-	bh=WjK1rso8gurasV2KREJhuQVyxlazrxmPZ7mJelduaeY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cxoYO/hfDuXSHTQ5Dxnl6SmOSX9U+dJ8slNR5avEpnawT5V6HZgPy75HhzBKpPA3y
-	 sEnpDu9LA3p1Y5Fo70ao5AblIJ3yeM0YOpwYLJfabK2kx3pyyE3yWKywSroUWJAxKO
-	 pcv+htWoFQfi3RRwddJtUZzvx0Z5hBps2kELz5DJxflcrmDkffWZbe0SkJGAY8Z3Vv
-	 RUvt0WHXx2juTBnv70nRp375ScuCb8+zFLghqhZkQ09fYjfG5I9pIbrVKFwXH3hjxJ
-	 zs0YIGJt3oA7eaBNknm1vmxsJX6mdqU/LNIbNPfN7jsmvY0vdh9G7RNqIowWJgGEwc
-	 QOKGOa9WUsTlQ==
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-670fee39d73so4537436d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzg8zaiLUFBQ6qIFJhfs7mE9+mSjrcwS9aMV00mmxapP/NGIVOGLKJ/6WeXY6+hKyZsSss4RsdloQSlmj0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ln+bLtmUgpLePbl5zChPHr2Iz8iOjg5iwxr+gKI2/MIiOSVSdw
-	SFfgXu4KaNI7ecUC/GV3IHLa05thP1Chvhc3TDKVSe6b9orOqKKtUuIJ5Nx8CFIWzizEShZ6IHv
-	Ju7svBJgO7ywDFbb6sAaIHpZq2EmfdtQkypTe7mrPqg==
-X-Received: by 2002:a05:690e:191b:b0:66f:c1bc:4036 with SMTP id
- 956f58d0204a3-6717fe635efmr5296462d50.99.1790091061887; Tue, 22 Sep 2026
- 08:31:01 -0700 (PDT)
+	 To:Cc:Content-Type; b=RH6pjBsol3psKFqzi9CXC9Jg6cm4VwRyTLV5ud+Mstv1hxmzCHCktzO30lTdNpn2WByS0Ccy52vQ6iUBn/gEKP2/ya4Zs79WpA437BpQ6ZHOZFHVAi7waSYiHtBwDHa4mVOLT1f8TYd9/2KfFmgOQxaLSQtjxKQ4p4UcGicGnj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfa7b2093so5270285a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790091072; x=1790695872;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/Ivia3s8tcpv+jz42ruOpNgJ1iPkEln4U/VwumY2Fss=;
+        b=bjwSZL93ROs4QmNTCQG/rp6PXhU+tQw6AqIlUdj8psFrllC4uNVx0IQpYx3fF13zft
+         zt5gNKCf9d2gQHXUpmwXu9/oQnB3zopkUEzq8f5Ii3An8Dy3SmlrVJOk96OCYtkX85Fa
+         RpvuQH8R/8QwXJ4fAdqLWvLr8crTnk3jwH1pTwhQOv8EcrqzAbdK3AMceVXUes6MsEIg
+         RW2VIp6SnpVT6njJYX004FxNMf5wl2yyJ6E0UOyD+jVZ+XiZBCwsvAluNRpETRlJIqvu
+         xve3DQLqN4XPhaqRnp9/H5q2jwhtCwHZQ3gnPBLcnFawoTvQ+nAenRhe96dxiCIt5Tmd
+         BQcw==
+X-Forwarded-Encrypted: i=1; AKwUvBx9sge1sjIkQ27BlhAOyCUy6zI947EBY7CH9BJkcaVLbmKvi5eMtM9+PkSZ4Q2cTW+YR+QKuzWyH28yPEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mi6pKmJSYrvTqrGiWftvk17X1LTw+5sF1KlQop0iRvEnAXd7Zx
+	gftXUTq3XkCFZDJUBZZ+Q9zdKYart5DjcXDdGyczANhVtslLcdFwV9YFqEN0bWW7
+X-Gm-Gg: AYBFou0HCjLE6nOwwhrA+AD+92t6JA0nBNd0JYyg1Sm8qaZo3v3DfJPHuiC1hR36Yu6
+	KY0rLHtHhmmrw3EKH7QAbB33z9NdbaQMcdLfdrAjxWel8V1suPPfbgrbtaRJtPrhjZ1P6HBm9fB
+	PpKlfCgwWXkoWU1dM0qRMBTgApDgJFHP2a/AOXDYE3gKKOqRWHjo3WWFqE5k8+rC37zkGOLBBIl
+	cfgqk1li7U473kFQM09oI2P29MvZ79j6jN3KTDReowTMuRDXP5blX7OAcbkA53kZQSnWZ0qbAXD
+	cr50SPJvVxW2EXS/jPw3ironUJC4aUozWZHvkaiT1MGW7m9Frd63kWOiRLzn4S5mPRtLNlQZEU9
+	SH28Se8xcO5/92/mnoXn4POls5GcLRkIRMjXKN9mxQllR+bRY8CkoEB1QXMTfKSABk8gGKUdbc9
+	ffoiaDHtZ47TZs1zy3luTp5oeGkja3xYY0j8bB+VyNak28dIfp4IVy/Hp31WdLlFuFmCGdRXqbI
+	UVOvqLg2WV/xLfVdFg9zW2H2P8emz5oTuGR
+X-Received: by 2002:a05:6102:809e:b0:7a1:fa0f:1106 with SMTP id ada2fe7eead31-7a55cd7f911mr7793496137.36.1790091061506;
+        Tue, 22 Sep 2026 08:31:01 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf6087f6dsm123042137.9.2026.09.22.08.31.00
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 08:31:00 -0700 (PDT)
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5292faso1936533e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByAag0ug65CnGc1+KoAff5xKRnO67zbVVmSaXLJ3se3QJguluHPz4hycBHGwM3PhAkHrx/UA0njM5nwZWs=@vger.kernel.org
+X-Received: by 2002:a05:6122:e230:b0:5bd:b2e1:e1f5 with SMTP id
+ 71dfb90a1353d-5c9b58fd54cmr8860951e0c.2.1790091060069; Tue, 22 Sep 2026
+ 08:31:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <arKRdaNEaKvFOtMg@linux.dev> <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
- <arKZpJDpsavixjPx@cmpxchg.org>
-In-Reply-To: <arKZpJDpsavixjPx@cmpxchg.org>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 05:30:44 -1000
-X-Gmail-Original-Message-ID: <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UR9s99Z2X-MSlUitUJloq4Rfa7jHbZFSt53b5lYV5PDEZumwr42GjBDY0
-Message-ID: <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <20260921110144.44425-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260921110144.44425-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260921110144.44425-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 22 Sep 2026 17:30:47 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
+X-Gm-Features: AclHuK_p5w8PzHnOOSGm4t2QYnyy-nd81aSQvB28I4MJvz8KTxnmCW8kHjNnqd8
+Message-ID: <CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: renesas,r9a09g077-adc: Drop
+ unwired interrupts
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 5:07=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
-> wrote:
+Hi Prabhakar,
+
+Thanks for your patch!
+
+On Mon, 21 Sept 2026 at 13:01, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 >
-> On Tue, Sep 22, 2026 at 04:56:48AM -1000, Chris Li wrote:
-> > On Tue, Sep 22, 2026 at 4:43=E2=80=AFAM Shakeel Butt <shakeel.butt@linu=
-x.dev> wrote:
-> > >
-> > > People can speak for themselves and suggest other time slots. You do =
-not speak
-> > > for anyone but yourself here. At this point this is derailing the con=
-versation.
-> > >
-> >
-> > I am expressing my opinion, freedom of speech. As you can see in the
-> > previous discussion, Baoquan wasn't able to join that time slot. He is
-> > a major shareholder in XSwap. I worry that alignment vswap vs xswap
-> > without Baoquan is ineffective. That is my opinion.
->
-> Actually, he said he is not sure if he can make it, and before Nhat
-> could respond to that soft push you drew a hard line without actually
-> proposing a workable alternative that made Nhat give up instead.
+> Remove the compare match and compare mismatch interrupts from the binding,
+> as these interrupts are not wired to the GIC on RZ/T2H and RZ/N2H SoCs
+> according to the hardware manual Rev. 1.30.
 
-Please consider that it is 1AM in Beijing if I remember correctly. I
-don't consider that is a workable and reasonable ask.
-
-> So my free speech opinion is the same as Shakeel's: you're speaking
-> for others and thereby derailing efforts to align on something.
-
-I sympathize with asking Baoquan to join a meeting at midnight.
+These are indeed only wired to the DMAC and Event Link Controller.
 
 >
-> We all want Baoquan in the room.
+> While this change introduces an ABI break, the expected impact on existing
+> users is minimal, if any, since the interrupts are not wired to the GIC
+> and are not used by the driver.
+>
+> Fixes: 4d8d58987cb5 ("dt-bindings: iio: adc: document RZ/T2H and RZ/N2H ADC")
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-In Chinese we have this saying: don't apply things to others that you
-wouldn't want applied to yourself. Do you want to participate in a
-technical meeting at 1 AM?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Chris
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
