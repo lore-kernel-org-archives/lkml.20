@@ -1,51 +1,43 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4210240BCB8;
-	Tue, 22 Sep 2026 21:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D2051EDE0;
+	Tue, 22 Sep 2026 21:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790112000; cv=none; b=O2r/dmpnH74M+eFb8wT1VA83Xm7pG9mi5ZulKOxJIkcb7AY6gwHKLsODhnDLMxz8fcSIDjpDk70U5sI2s/5WVofQyiGXCvH3VWTblfyZIhBUdwM/7Z968HLJCRadfXhO6FwnmDbYdMTgHxA94pMaAoULqBqNQkIyyObcwd78e30=
+	t=1790112110; cv=none; b=dtBmZt8He6DG4qHxz+O+1PTNF2oocZSJilCzb9ki6141uHzDKw1BrycGl3k3gFfIAfdW+x036lyYD0EAtvNDZB/lDpDAyIB6hMLYQk7o9i8RY+HUOUAirTNpF6a/EOL3Jzrms3Sr4hXg9B+i6v0YArV6ecOWEY29uNURFcXV2p8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790112000; c=relaxed/simple;
-	bh=wkj63igz2n0L80foLfuBrvS7vAHmjCxtgkFjyJo5Mw0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KBlmh7fqpsuKa86D3v7QLrMo4tvqqLU1PD1+3FFfGomZoPhXlOMtW9PWLz57GK9pSr754XJ+6crSR3KZvSIzMJCAH6CytAbHYKQ15BIMCqpdaEyvO4gV90b2DWSVSntm/BoQJ0jumwkp60fS4pfYJQRTvMzlFQow0niZw3dP+n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=c36laCDy; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790112110; c=relaxed/simple;
+	bh=lOMseSHWIsudkCCb79ow5JV7GEZEvs7VqkveSuaOwcg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XliojcGz++a7EaMk1BhPVUdAbh9NtfWijg2udKpD4/ezMLKyJIJt1C8fTiUXhbT1j+CloAsOUF8yfYQiU3oYXkZBIsf4QEgfc+CvbTZBHgmJEn3Rx9k5CLjyU5iaSRWInWL1VDi1hukafLkzXhHmCZIwm5yPFUkrUktOD5bvEFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lpbR9rdH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="c36laCDy"
-Received: from localhost.localdomain (unknown [4.194.122.136])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6A8F420B7167;
-	Tue, 22 Sep 2026 14:18:50 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6A8F420B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790111939;
-	bh=wkj63igz2n0L80foLfuBrvS7vAHmjCxtgkFjyJo5Mw0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=c36laCDyc2pn6ERE5d0NgbLXHp7R7eSDPzXS/BgH30wxGyY5YiPEyBkyR9uvzYjK9
-	 zZGUqlAqI1P99dJuC9U959csJYBTEqLLprxjnLnmmt/LhIdCqPqn4iHLHYFVJ5E+W1
-	 sxtS9uqihcjc/jiPzXzycG3sBnz2C2K3TMRVujxc=
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-To: ap420073@gmail.com
-Cc: AutonomousCodeSecurity@microsoft.com,
-	andrew+netdev@lunn.ch,
-	blbllhy@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	kuba@kernel.org,
-	kys@microsoft.com,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	tgopinath@linux.microsoft.com,
-	xmei5@asu.edu
-Subject: Re: [PATCH net] amt: do not store tunnel pointer in skb control block
-Date: Tue, 22 Sep 2026 17:19:27 -0400
-Message-ID: <20260922211927.9198-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAMArcTV=zbS=XAPsBAEP7j9yzHiAjri44XmDK-a78JrOX1yv=A@mail.gmail.com>
-References: <CAMArcTV=zbS=XAPsBAEP7j9yzHiAjri44XmDK-a78JrOX1yv=A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lpbR9rdH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB801F000FF;
+	Tue, 22 Sep 2026 21:21:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790112092;
+	bh=aRj2Pfut3w4gPlraMQFDMz6M4M2ctzv1ixckYhyIY2Y=;
+	h=From:To:Cc:Subject:Date;
+	b=lpbR9rdHU/K1iDh/Uok82Dr0KnU5HiLjeEfmMuZcZPtLPFOtLu+EKT60NoTfBd4aB
+	 pDN8R/4qL9B1mjQMkrw1zHIjoqixCBMRpy+8WgvhSDBDuqAj6VUwlqdVQQPfGqRoX1
+	 ENgHSbLXED6wwsy1oNX8zdbiG3DHy8c7I5ZVSnKIrt1sY7tlTgpr93cvBRii4+Tdj/
+	 y2RrwKd7yNpYPpWDjk4J8sWGeXCdN+VUmPbB/JrlHNfHsoede8VT6moYHGIILO3t4J
+	 yrAnjdaShOA/N+tJwIM1pU8vOvKeuUukeV2NjZunrKp9TWbNSNDkJDImvsN18IxvC2
+	 tmiWpbSAHDD8g==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shenghao Ding <shenghao-ding@ti.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: dt-bindings: Fix TAS2563 address constraints
+Date: Tue, 22 Sep 2026 16:21:21 -0500
+Message-ID: <20260922212122.1116270-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,26 +46,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 09:56:35PM +0900, Taehee Yoo wrote:
-> How about protecting amt_tunnel_list with a refcount?
-> Currently amt_tunnel_expire() frees the tunnel immediately, but with a
-> refcount we could just drop the reference there and let the memory be
-> freed once it reaches 0.
->
-> What do you think?
+Apply the TAS2781 register range only when the compatible is exactly
+ti,tas2781. This avoids applying the TAS2781 single-address rule to
+TAS2563 nodes with 0x4c-0x4f addresses.
 
-Sorry for the late reply, I was busy with something else and am back
-on this now.
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/sound/ti,tas2781.yaml | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-I checked this for a while and I believe we cannot keep a refcount
-balanced from skb->cb: once the skb enters the qdisc/tc layer it can
-be dropped, cloned or orphaned before it reaches amt_dev_xmit(),
-depending on the user's qdisc/tc commands. So a put inside
-amt_dev_xmit() cannot be balanced against the get taken before
-queueing, and the tunnel would either leak or be freed early.
+diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+index aa5a317b5a36..50c7792b24f8 100644
+--- a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
++++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+@@ -219,9 +219,7 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          contains:
+-            enum:
+-              - ti,tas2781
++          const: ti,tas2781
+     then:
+       properties:
+         reg:
+-- 
+2.53.0
 
-I will send a v2 with the comment removed, from my corporate address
-cenzhang@linux.microsoft.com.
-
-Thanks,
-Cen
