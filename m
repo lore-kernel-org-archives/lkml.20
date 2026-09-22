@@ -1,114 +1,101 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDB9542EF6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D81559CAA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091074; cv=none; b=cCOD8R1IJpnhabIqJY/4C69QojKHG05yUFkV8icjWGzxyNkBXtd/akqlfpg6vaEIPr+bXnl6Keh79nRdFV28F/hSnNozxiMcNTyJPcid1nCBTVx6iLJc8YkzpPcCEqKAvlN934qD1tks29LT4BTrx6TIRrPZ81cpjGAp+PdDCog=
+	t=1790091081; cv=none; b=U63Itc91yPN/gHk+7X7oR0mndQsdlXSwbg2CPLSujaLlcem3iKq/y13SRP80sbudW9bmu5HfUUwLrJElWHQNKiXSlAt9yv2ky3NJlMyQNvEWIOgR9DJigMo2QSJOUJF4I2ZFdqCgYuIiOS9DdxP8QAf+UNxbnDrY0Rm/4umpV9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091074; c=relaxed/simple;
-	bh=0IK9+EwvsBoYDJYGUac8cxaRSG01Rz8fKvCBOkF5H0E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RH6pjBsol3psKFqzi9CXC9Jg6cm4VwRyTLV5ud+Mstv1hxmzCHCktzO30lTdNpn2WByS0Ccy52vQ6iUBn/gEKP2/ya4Zs79WpA437BpQ6ZHOZFHVAi7waSYiHtBwDHa4mVOLT1f8TYd9/2KfFmgOQxaLSQtjxKQ4p4UcGicGnj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfa7b2093so5270285a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091072; x=1790695872;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/Ivia3s8tcpv+jz42ruOpNgJ1iPkEln4U/VwumY2Fss=;
-        b=bjwSZL93ROs4QmNTCQG/rp6PXhU+tQw6AqIlUdj8psFrllC4uNVx0IQpYx3fF13zft
-         zt5gNKCf9d2gQHXUpmwXu9/oQnB3zopkUEzq8f5Ii3An8Dy3SmlrVJOk96OCYtkX85Fa
-         RpvuQH8R/8QwXJ4fAdqLWvLr8crTnk3jwH1pTwhQOv8EcrqzAbdK3AMceVXUes6MsEIg
-         RW2VIp6SnpVT6njJYX004FxNMf5wl2yyJ6E0UOyD+jVZ+XiZBCwsvAluNRpETRlJIqvu
-         xve3DQLqN4XPhaqRnp9/H5q2jwhtCwHZQ3gnPBLcnFawoTvQ+nAenRhe96dxiCIt5Tmd
-         BQcw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9sge1sjIkQ27BlhAOyCUy6zI947EBY7CH9BJkcaVLbmKvi5eMtM9+PkSZ4Q2cTW+YR+QKuzWyH28yPEU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mi6pKmJSYrvTqrGiWftvk17X1LTw+5sF1KlQop0iRvEnAXd7Zx
-	gftXUTq3XkCFZDJUBZZ+Q9zdKYart5DjcXDdGyczANhVtslLcdFwV9YFqEN0bWW7
-X-Gm-Gg: AYBFou0HCjLE6nOwwhrA+AD+92t6JA0nBNd0JYyg1Sm8qaZo3v3DfJPHuiC1hR36Yu6
-	KY0rLHtHhmmrw3EKH7QAbB33z9NdbaQMcdLfdrAjxWel8V1suPPfbgrbtaRJtPrhjZ1P6HBm9fB
-	PpKlfCgwWXkoWU1dM0qRMBTgApDgJFHP2a/AOXDYE3gKKOqRWHjo3WWFqE5k8+rC37zkGOLBBIl
-	cfgqk1li7U473kFQM09oI2P29MvZ79j6jN3KTDReowTMuRDXP5blX7OAcbkA53kZQSnWZ0qbAXD
-	cr50SPJvVxW2EXS/jPw3ironUJC4aUozWZHvkaiT1MGW7m9Frd63kWOiRLzn4S5mPRtLNlQZEU9
-	SH28Se8xcO5/92/mnoXn4POls5GcLRkIRMjXKN9mxQllR+bRY8CkoEB1QXMTfKSABk8gGKUdbc9
-	ffoiaDHtZ47TZs1zy3luTp5oeGkja3xYY0j8bB+VyNak28dIfp4IVy/Hp31WdLlFuFmCGdRXqbI
-	UVOvqLg2WV/xLfVdFg9zW2H2P8emz5oTuGR
-X-Received: by 2002:a05:6102:809e:b0:7a1:fa0f:1106 with SMTP id ada2fe7eead31-7a55cd7f911mr7793496137.36.1790091061506;
-        Tue, 22 Sep 2026 08:31:01 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf6087f6dsm123042137.9.2026.09.22.08.31.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 08:31:00 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5292faso1936533e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByAag0ug65CnGc1+KoAff5xKRnO67zbVVmSaXLJ3se3QJguluHPz4hycBHGwM3PhAkHrx/UA0njM5nwZWs=@vger.kernel.org
-X-Received: by 2002:a05:6122:e230:b0:5bd:b2e1:e1f5 with SMTP id
- 71dfb90a1353d-5c9b58fd54cmr8860951e0c.2.1790091060069; Tue, 22 Sep 2026
- 08:31:00 -0700 (PDT)
+	s=arc-20240116; t=1790091081; c=relaxed/simple;
+	bh=w+e+YMq9XDrtWVq8mo1VWOIHqkLb15a2rZMpEEDSUCk=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=aZVcn9MkNYHuUnvY7pZj6ROJd4wuCGwHR4jZp++g0iz7Kw2dbM6sdW416uXMZvtStgHQUcRZVWGVQfYLJyWis1MYpbGp9/75s2XSpUFkx88+gVXpAOw+C0chNzvWwe8UQ4RXVPYzHuwiwH7hAflo85EzXON0tjiEta9mznBlIaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7W9t6F7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7W9t6F7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0C11F000FF;
+	Tue, 22 Sep 2026 15:31:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790091079;
+	bh=gLHV9+LwHObukot+dBkPuq1xcenN0BPej2dFqPlitiE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Y7W9t6F7vM5oB+0WKjEp15WYPLyHRFH4aIPF1M5Q2GuvhzusSuqwuJejdHKQRlTdm
+	 iLLYEjUuWGhE+4XxaytYcQsfXenK4guCJi5AJfvz2qC8/ITEwKTUq6b+8KMIU+FVDS
+	 ZYAcKg9qCVAYo3spmANKrv88bOCV7AQ4h7FH3ob0GHXAkmNNEJQE/aX8EE5CG8Cb4t
+	 w3qlD1JuwzsThKAEcVoi9dvkou8ksXYQ+jyM6GH6oXzL5i8AgwkQUYrxFTb9y86zYl
+	 4wOcgpGDOTCzZ7Dg5c1UAtB7KW6L7Htg2zvjxV5T0kUsZTJ9BqGp0ajmMdG6ZhFpFo
+	 V6rwUJV/VlF+Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939B03811A4B;
+	Tue, 22 Sep 2026 15:30:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921110144.44425-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260921110144.44425-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260921110144.44425-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 22 Sep 2026 17:30:47 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
-X-Gm-Features: AclHuK_p5w8PzHnOOSGm4t2QYnyy-nd81aSQvB28I4MJvz8KTxnmCW8kHjNnqd8
-Message-ID: <CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: renesas,r9a09g077-adc: Drop
- unwired interrupts
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [f2fs-dev] [PATCH v9 00/12] f2fs: introduce metadata cache
+From: patchwork-bot+f2fs@kernel.org
+Message-Id: 
+ <179009101040.4140645.6043365279524140950.git-patchwork-notify@kernel.org>
+Date: Tue, 22 Sep 2026 15:30:10 +0000
+References: <20260917073343.2823157-1-chao@kernel.org>
+In-Reply-To: <20260917073343.2823157-1-chao@kernel.org>
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
 
-Hi Prabhakar,
+Hello:
 
-Thanks for your patch!
+This series was applied to jaegeuk/f2fs.git (dev)
+by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Mon, 21 Sept 2026 at 13:01, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Remove the compare match and compare mismatch interrupts from the binding,
-> as these interrupts are not wired to the GIC on RZ/T2H and RZ/N2H SoCs
-> according to the hardware manual Rev. 1.30.
+On Thu, 17 Sep 2026 15:33:31 +0800 you wrote:
+> This patchset introduces a self-managed metadata block cache in f2fs,
+> decoupling meta blocks, node blocks, and compressed data blocks from
+> the Linux VFS page cache and fake internal inodes.
+> 
+> === 1. Background & Motivation ===
+> 
+> Currently, F2FS uses fake VFS inodes (meta_inode, node_inode, and
+> compress_inode) to manage internal block caching through the VFS page
+> cache. Because of this implementation, the f2fs block size was
+> historically coupled to the kernel page size.
+> 
+> [...]
 
-These are indeed only wired to the DMAC and Event Link Controller.
+Here is the summary with links:
+  - [f2fs-dev,v9,01/12] f2fs: cache: implement metadata cache
+    https://git.kernel.org/jaegeuk/f2fs/c/4e80250bcfbc
+  - [f2fs-dev,v9,02/12] f2fs: cache: initialize meta cache
+    https://git.kernel.org/jaegeuk/f2fs/c/20fccd31926b
+  - [f2fs-dev,v9,03/12] f2fs: cache: introduce shrinker
+    https://git.kernel.org/jaegeuk/f2fs/c/fe1c66b4a6e1
+  - [f2fs-dev,v9,04/12] f2fs: cache: introduce writeback thread
+    https://git.kernel.org/jaegeuk/f2fs/c/f45afeabd5df
+  - [f2fs-dev,v9,05/12] f2fs: cache: use meta cache
+    https://git.kernel.org/jaegeuk/f2fs/c/7a1cf2a76b71
+  - [f2fs-dev,v9,06/12] f2fs: cache: initialize node cache
+    https://git.kernel.org/jaegeuk/f2fs/c/26185263c121
+  - [f2fs-dev,v9,07/12] f2fs: cache: use node cache
+    https://git.kernel.org/jaegeuk/f2fs/c/493b9dc8b52c
+  - [f2fs-dev,v9,08/12] f2fs: cache: initialize compress cache
+    https://git.kernel.org/jaegeuk/f2fs/c/bf452b33bdb6
+  - [f2fs-dev,v9,09/12] f2fs: cache: use compress cache
+    https://git.kernel.org/jaegeuk/f2fs/c/6a78d0488116
+  - [f2fs-dev,v9,10/12] f2fs: cache: support fault injection
+    https://git.kernel.org/jaegeuk/f2fs/c/4f9ad04b59c6
+  - [f2fs-dev,v9,11/12] f2fs: cache: introduce tracepoints
+    https://git.kernel.org/jaegeuk/f2fs/c/cc46c2e9336b
+  - [f2fs-dev,v9,12/12] f2fs: cache: show per-cache usage in debugfs
+    https://git.kernel.org/jaegeuk/f2fs/c/f17987c6219e
 
->
-> While this change introduces an ABI break, the expected impact on existing
-> users is minimal, if any, since the interrupts are not wired to the GIC
-> and are not used by the driver.
->
-> Fixes: 4d8d58987cb5 ("dt-bindings: iio: adc: document RZ/T2H and RZ/N2H ADC")
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+You are awesome, thank you!
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
