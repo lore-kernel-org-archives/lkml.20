@@ -1,214 +1,114 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4D4244F54B;
-	Tue, 22 Sep 2026 09:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-m19731118.qiye.163.com (mail-m19731118.qiye.163.com [220.197.31.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B682448BA8;
+	Tue, 22 Sep 2026 09:55:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070924; cv=none; b=ZU7/Bh7YlNsJAce3YoHLBhorUWTgac4NQG4vhgU4/J2U9dGXCnEAE8NDtnX7JxLY3uDvtJ5RT0pNZptxgk0+ZOlv/n4GO2fjGOBI7Hynn2zDGSYTgz15pY2wvSDdnoAe3GZHrcLc4AFyhj87kquu5PXRVPU3rNZXtS3Shgw/BAo=
+	t=1790070943; cv=none; b=hu+wNlXt2eGJ1xMeHe+mhScuSdDo8hXGjoT53BokDwsaA26J2ina2et6FHn4y4dodgk6A5Q6ZddnsfJ+5CH2ZfMlQs33CEDV7uTuAknBn4/IMCRv29t0k7Y/E44KagLGvQqCvjFNeG/9ukyV/7nqkvaqdWu2edegxYUe4qGWtKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070924; c=relaxed/simple;
-	bh=1USIA3QuKT3HfWYjrwytG+eI3HrgQopFvJxZ0ymZ0DU=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=BNMiYeJExEwEP8g1PYYW36ojyRUTVomZO4OZegs0UmAnT7GoROYECB8CzV0Y3nd8yuV/T2BL24HgWTOPGb12GWbKwOTUaZBdLcTSqgZ5PI9HUZT04BUaJOCk6Bu8mX06S0+rHlyz1IAVa9CW4Vh/DvaFqvRCgGNctH8yaB0JZTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.159])
-	by gateway (Coremail) with SMTP id _____8CxvtKGULJqIpkOAA--.42672S3;
-	Tue, 22 Sep 2026 17:55:18 +0800 (CST)
-Received: from [10.161.0.102] (unknown [223.64.68.159])
-	by front1 (Coremail) with SMTP id qMiowJAx3c6CULJqSbcjAA--.10868S2;
-	Tue, 22 Sep 2026 17:55:15 +0800 (CST)
-Message-ID: <52183cd9-4b43-456d-896d-ee2fea6d5d72@loongson.cn>
-Date: Tue, 22 Sep 2026 17:55:13 +0800
+	s=arc-20240116; t=1790070943; c=relaxed/simple;
+	bh=oSR3RX6lW2WzBQ9wzxQ9L0dh2fh5A2soSY+c4RxAr3E=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=pxVHDQeX7/Apay0IxpiOuM/4b5zZkXMYV8RTFe2YQYiMQTzSabYCFE0Fdw4p9qy06laQK4Qsa3BevR8Ajb9MWUxuVL0JZRMjC7S/qqXJJHOIswC2CVkiNhwsl0ldjgpj3pFgzfCfW6FEm2eZqqc+d2oUzF6s3YCcJ8Dji40cN0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=D+pgf7Qa; arc=none smtp.client-ip=220.197.31.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="D+pgf7Qa"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4eb71259a;
+	Tue, 22 Sep 2026 17:40:11 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Shawn Lin <shawn.lin@rock-chips.com>
+Subject: [PATCH] mmc: sdhci-of-dwcmshc: Disable CQE error halt request for Rockchip
+Date: Tue, 22 Sep 2026 17:40:07 +0800
+Message-Id: <1790070007-11769-1-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+X-HM-Tid: 0aa0c87cb5f703a4kunm19317a9c3dd933
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGktLGVZLSUsdGkwfHh
+	1OGUNWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=D+pgf7QaJchbI6V0QzlalGg7A9cBibSDwBSd/jIc7xDfJIq82KPc5Llkg1loawvmPLOCx0+TLL4tFvTQaAqGn3NhVK8zulUcDk/K2kvrFynOs7lVqnZg3qG2yGrnshHdecFApnUJY3y11AAbruARPM9cZ2a1ZXXanW6gs996CSQ=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=omXEob1gsfEqKiAmnKblrTqqqrVd7A7fcEatHpMuRrE=;
+	h=date:mime-version:subject:message-id:from;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: Re: [PATCH RFC v9 0/8] mfd: ls2kbmc: multiple fixes for this driver
-To: shankerwangmiao@gmail.com, Chong Qiao <qiaochong@loongson.cn>,
- Lee Jones <lee@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
- Corey Minyard <corey@minyard.net>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: Xi Ruoyao <xry111@xry111.site>, WANG Xuerui <kernel@xen0n.name>,
- Yinbo Zhu <zhuyinbo@loongson.cn>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- Corey Minyard <cminyard@mvista.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260811-ls2kbmc-mod-v9-0-4fa9a5584406@gmail.com>
-In-Reply-To: <20260811-ls2kbmc-mod-v9-0-4fa9a5584406@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx3c6CULJqSbcjAA--.10868S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgESCGqx8fgGjgAAsD
-X-Coremail-Antispam: 1Uk129KBj93XoWxuFW7uF1UCw43Xw43Kr45Arc_yoWxtry7pF
-	Z0kFW3Cr4DJr4xKFsa93WxuFya9an7JF43GrnrK3s8ua45uFyxZrW3KFyY9FyDArZ3uF1S
-	vF15tFnrGFyDA3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	AVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8loGPUUUUU==
 
-Hi:
+In CMDQ mode an I/O error in one task (data_crc_err, data_end_bit_err,
+etc.) makes the controller raise a halt request. While the halt request
+is pending, the controller rejects doorbell writes with a slave response
+error, which hangs the CPU (or raises SError on ARM) on Rockchip
+platforms.
 
-On 2026/8/11 16:07, Miao Wang via B4 Relay wrote:
-> Previously, the driver has been introduced to support the Loongson 2K
-> BMC running on the Loongson Servers, which is essential to prevent
-> the system from hanging when the BMC is being reset and the default
-> efi-framebuffer is being used. However, there are some drawbacks in the
-> driver.
-> 
-> Firstly, the driver tries to read and write to the connected PCI-E host
-> controller registers, assuming that the BMC is connected to LS7A PCI-E
-> host controller. This assumption should be true for real products, but
-> to prevent from accidentally reading and writing to the wrong PCI-E host
-> controller, this driver should be modified to check this before
-> accessing the registers.
-> 
-> Secondly, the driver uses non-exported functions to tell the vt
-> subsystem to redraw the screen, preventing the driver from being
-> compiling as a module. This can be fixed by using the exported
-> functions instead.
-> 
-> Thirdly, the driver directly accesses the GPIO controller registers
-> using hard-coded addresses, which might conflict with the loaded GPIO
-> controller driver for the same GPIO controller. This is fixed in this
-> series by using the GPIO subsystem APIs instead. To associate a GPIO pin
-> with a certian PCI device, it should be declared in the firmware level,
-> i.e. in the ACPI table or the device tree, and thus the firmware
-> interface should be discussed and coordinated with Loongson personnels.
-> Despite of this, the proposed solution in this series should be the
-> minimum necessary change to express such association. Furthermore, the
-> conventional GPIO pin number and the controller address are also
-> provided, to be used as a fallback when the GPIO pin is not declared.
-> 
-> Finally, there is a minor issue in the driver where it changes the
-> mode string describing the screen resolution during probing, which
-> prevents the device from being probed again if -EPROBE_DEFER is
-> returned by the probe function.
-> 
-> I have tested the changes in this series on a single-socket Loongson
-> 3C6000 server with a Loongson 2K BMC, and the driver works as expected
-> when the corresponding GPIO driver is additionally loaded.
-> 
-> Signed-off-by: Miao Wang <shankerwangmiao@gmail.com>
-> ---
-> Changes in v9:
-> - Extend the kernel docs for gpio_device_get_fwnode() to describe the
->    usage of this function, as suggested by Bartosz.
-> - Link to v8: https://lore.kernel.org/r/20260810-ls2kbmc-mod-v8-0-16e44f7322f4@gmail.com
+A software workaround[1] clears CQHCI_CTL right before ringing the
+doorbell to narrow down the window, but a race remains: an I/O error can
+still happen in another slot between the CQHCI_CTL write and the
+doorbell kick, so the hang is not fully solved.
 
-I’m deeply sorry for the delayed response due to personal reasons.
+To fix this once and for all, newer silicon introduces
+SW_ERR_HALR_REQ_DISABLE (CQHCI_CTL[1]) which stops the controller from
+raising a halt request on I/O errors. Set the bit when the CQE is
+enabled, which is the last CQHCI_CTL write before any doorbell write.
 
-Regarding Patch-1, I don’t mind using your current version as is—it’s 
-more complete. However, I received another email from lkp[1] a few days 
-ago, and I still hope this patch can be merged sooner.
+Older SoCs keep this bit reserved, so writing it is a no-op and nothing
+changes in the wild, thus no fixes tag is needed.
 
-The current discussion is focused on the GPIO-related patch, but in 
-reality, it isn’t closely tied to the other patches; it’s more of an 
-optimization. If possible, I personally think we could set it aside for 
-now and treat it as a separate set of feature optimization patches.
+[1] https://github.com/rockchip-linux/kernel/commit/4b7ea0500a1a5c186807b737fecfc6bb4d4e06f8
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-[1]: https://lore.kernel.org/all/202608230816.ifMzE0No-lkp@intel.com/
-> 
-> Changes in v8:
-> - Address issues found by the Sashiko AI review bot
->    - Fix the error path of the probe function, preventing unintentionally
->      returning 0 on failure
->    - Reorder the patches in the series to make the change to the Kconfig
->      entry for ls2kbmc to be the last patch, to satisfy the AI bot's
->      concern on failure to clean up when the driver is built as a module
->      and is being removed.
-> - Link to v7: https://lore.kernel.org/r/20260810-ls2kbmc-mod-v7-0-8aa0fb5a5462@gmail.com
-> 
-> Changes in v7:
-> - When parsing the mode string, require the mode string to start with
->    "video=", reverting the change in v5. Add a comment to describe the
->    reason for this change to satisfy the AI bot's concern.
-> - When printing the invalid mode string, use %*pE to print the string
->    to prevent the string from printing garbage characters, as suggested
->    by the AI bot.
-> - When calculating the stride, check that the multiplication of width
->    and depth does not overflow, as suggested by the AI bot.
-> - Add gpio_device_get_fwnode() into gpiolib.c as a library function to
->    get the fwnode of a GPIO device, as suggested by Bartosz.
-> - Adjust the coding style of the patch as suggested by Bartosz.
-> - Link to v6: https://lore.kernel.org/r/20260805-ls2kbmc-mod-v6-0-16ccde412d86@gmail.com
-> 
-> Changes in v6:
-> - Ajdust the Kconfig entry for IPMI_LS2K, moving the dependency on
->    MFD_LS2K_BMC_CORE to the IPMI_SI Kconfig entry, as discussed with
->    and agreed by Corey.
-> - Link to v5: https://lore.kernel.org/r/20260804-ls2kbmc-mod-v5-0-e6bc5cdd9a93@gmail.com
-> 
-> Changes in v5:
-> - Address issues found by the Sashiko AI review bot
->    - Maintain the compatibility with possible unexpected mode string when
->      parsing, although such mode string is actually not expected, to
->      satisfy the AI bot's concern.
->    - Add a comment to point out that the adjustment of the Kconfig entry
->      for ls2kbmc is in the following patch, to satisfy the AI bot's
->      concern.
-> - Link to v4: https://lore.kernel.org/r/20260731-ls2kbmc-mod-v4-0-d201502ba239@gmail.com
-> 
-> Changes in v4:
-> - Use a better way to get the GPIO device fwnode.
-> - Add a comment to describe a problem found by AI bot which is actually
->    intended.
-> - Link to v3: https://lore.kernel.org/r/20260710-ls2kbmc-mod-v3-0-ef718636e78e@gmail.com
-> 
-> Changes in v3:
-> - Check the return value of devm_add_action_or_reset when registering
->    the cleanup hook of the work queue
-> - Use swnode to create the link between the device to the GPIO chip,
->    and prevent borrowing the legacy GPIO APIs
-> - Link to v2: https://lore.kernel.org/r/20260708-ls2kbmc-mod-v2-0-2afdd1741766@gmail.com
-> 
-> Changes in v2:
-> - Several fixes suggested by the Sashiko AI review bot
-> - Add a cleanup function for the wq on removal of the device
-> - Relax the reverse dependency from CONFIG_IPMI_LS2K to
->    CONFIG_MFD_LS2K_BMC_CORE to allow the driver to be built as a module
-> - Link to v1: https://lore.kernel.org/r/20260708-ls2kbmc-mod-v1-0-c344bf5defa3@gmail.com
-> 
-> ---
-> Miao Wang (8):
->        mfd: ls2kbmc: Make a copy when parsing mode string
->        mfd: ls2kbmc: Sanity check for the connected pci port
->        mfd: ls2kbmc: Redraw using exported functions
->        mfd: ls2kbmc: Cancel the work queue on removal
->        ipmi: ls2k: adjust dependency to its mfd driver
->        gpiolib: add gpio_device_get_fwnode() helper
->        mfd: ls2kbmc: Capture the reset event of BMC through GPIO
->        mfd: ls2kbmc: Able to be compiled as a module
-> 
->   drivers/char/ipmi/Kconfig   |   2 +-
->   drivers/gpio/gpiolib.c      |  17 +++
->   drivers/mfd/Kconfig         |   2 +-
->   drivers/mfd/ls2k-bmc-core.c | 247 ++++++++++++++++++++++++++++++++++----------
->   include/linux/gpio/driver.h |   1 +
->   5 files changed, 210 insertions(+), 59 deletions(-)
-> ---
-> base-commit: 11028ab62899e4191e074ee364c712b77823a9c4
-> change-id: 20260626-ls2kbmc-mod-5209193009b2
-> 
-> Best regards,
+---
 
+ drivers/mmc/host/sdhci-of-dwcmshc.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci-of-dwcmshc.c
+index 1baa237..0970202 100644
+--- a/drivers/mmc/host/sdhci-of-dwcmshc.c
++++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
+@@ -239,6 +239,8 @@
+ 					 SDHCI_TRNS_BLK_CNT_EN | \
+ 					 SDHCI_TRNS_DMA)
+ 
++#define CQHCI_SW_ERR_HALT_REQ_DISABLE	BIT(1)
++
+ #define to_pltfm_data(priv, name) \
+ 	container_of((priv)->dwcmshc_pdata, struct name##_pltfm_data, dwcmshc_pdata)
+ 
+@@ -702,6 +704,8 @@ static void rk35xx_sdhci_cqe_pre_enable(struct mmc_host *mmc)
+ static void rk35xx_sdhci_cqe_enable(struct mmc_host *mmc)
+ {
+ 	struct sdhci_host *host = mmc_priv(mmc);
++	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
++	struct dwcmshc_priv *dwc_priv = sdhci_pltfm_priv(pltfm_host);
+ 	u32 reg;
+ 
+ 	reg = sdhci_readl(host, SDHCI_PRESENT_STATE);
+@@ -712,6 +716,15 @@ static void rk35xx_sdhci_cqe_enable(struct mmc_host *mmc)
+ 
+ 	sdhci_writew(host, DWCMSHC_SDHCI_CQE_TRNS_MODE, SDHCI_TRANSFER_MODE);
+ 
++	/*
++	 * Disable the halt request raised on an I/O error, otherwise a
++	 * doorbell write gets a slave response error while the halt request
++	 * is pending and hangs the CPU. This bit is reserved on older SoCs,
++	 * so the write is a no-op there.
++	 */
++	sdhci_writel(host, CQHCI_SW_ERR_HALT_REQ_DISABLE,
++		     dwc_priv->vendor_specific_area2 + CQHCI_CTL);
++
+ 	sdhci_cqe_enable(mmc);
+ }
+ 
 -- 
-Thanks.
-Binbin
+2.7.4
 
