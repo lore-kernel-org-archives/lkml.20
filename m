@@ -1,105 +1,170 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E51429825;
-	Tue, 22 Sep 2026 05:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34AC430CF9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790053869; cv=none; b=NymhPBtTY17gFPFCTlmTL+NktK+7I4aG/3I1Euu0q+B6HEFoA86Tko86M+fkBVBiiXX2ZqCfHaVaCV3veg2ufk6YMnEBpZWbq2YQBf8KgRWAzH7mhLem9q2PUp4Mx2YOMKjtghh6uQGpnUYNDxyJvA+605TMhGsQCaW8jdNvM8Y=
+	t=1790053897; cv=none; b=MHl6UaCtqChxsX523QAjupQgW/RfJmoUVSfoeBr0irAr4ftohwK/jtIy4DsRaDmh0P9NJTJbcqlyrHdXfGbRlSp36QvxlPK/HSMCYq2ZlAqtUcxCYCWg+ad6StzaolZ43wq185czyGAxoOQCzFHbpigjhNVp+tJKCjRexrf9Xxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790053869; c=relaxed/simple;
-	bh=+rOLlOcSnTuhGolRvrYiCHv46Rgbvvy135eqpmo7aKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UVMEzJdADZEfv+0zd6fNLv8wrAiJIjHwzu8qEZePepJl8XkoeSoWG4f4YokB3uOqxxY0Hy3wA82jAJLyn0u1xN4XS38a2EBdzsHQhmNycNAysEYOQprWnzUh6oUWTdW0bqx720vRdlwuAEwMw1qT1VnbiGgkg5s6pnkqrf4bNkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=agc4q3v+; arc=none smtp.client-ip=188.68.63.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1790053897; c=relaxed/simple;
+	bh=y6LW+4EMD/h/HE/Ap7AiqFOjRDXaX850YiMwFVMKzHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EeY8iiFp3HIPXzZ7D1l1ZLY/Lh0yzowAieML+a955fBuXKohvHbs0Yut+u3d4c+sK2CwRzt0Z2hDJfDrv0JdVno2/4SiM/osqVv6JUV6iHgD/K66d54nmIQw60uLvcj/KlEVLmnYrLTzwDTx+pr3GWDZpNF2AwOfV/09azYe3Lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BydgOa4R; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="agc4q3v+"
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hpp8M14Sbz6Nb7;
-	Tue, 22 Sep 2026 07:10:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1790053843;
-	bh=+rOLlOcSnTuhGolRvrYiCHv46Rgbvvy135eqpmo7aKM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=agc4q3v+peuu8FcSl7YvGQT+gGnGjdR2Iwq5IGGaf3fq46pRICiA1kkUmX/F8LBMQ
-	 tiyUEzOeXiAa3phinZE9rjLUgFNr8P/aeol4P4IfMwYEdiKlqDUp+DWJK6alZTKWBV
-	 XlT+n6pYPx3X6OVX0NHMzBb8WArje/497mMKP2WeaqgGkgA7pCsbNHYb6Y1dXJwULS
-	 PUj8aI/iea0jzUc+sGylCYSr+UJ9+xa4HUdzSqUnMX8+L2dN4FYAY1Daw+7Z3zY+6z
-	 cKLmHJYfcQKs884cMSa0vG5BNYJmQoXQqzbBvRoanRnNHxQ0023dIVajY5VNca3M4e
-	 ctgpSAqPt9RuA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hpp8M0Kkkz4ybD;
-	Tue, 22 Sep 2026 07:10:43 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hpp8L0xWZz8sbH;
-	Tue, 22 Sep 2026 07:10:42 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 1DB055FC2E;
-	Tue, 22 Sep 2026 07:10:41 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <1d25a149-8f00-4d3f-8b5e-56943a9bfa02@leemhuis.info>
-Date: Tue, 22 Sep 2026 07:10:39 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BydgOa4R"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398c066106cso2907089a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:11:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790053895; x=1790658695; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qq9YgbcyezjZVLeoF3eLYnfuwbVIa3eTW8+FxgVEdT8=;
+        b=BydgOa4RF/sR111y8M1BWNTJ57eAQeka+Zx5YVWEj5t1lLipKAZ6fNT0iDDYRVI4qs
+         BRtAyQnRyrihzubZs3aayIaPHqiW5Sxxyp8VIujD0s9bMQauE9tLQ7vbKo6S/O/jN+Z4
+         IqMeiooDW0ecZLBpYumI2OmVbF0PzcAdokbuYnGxOFABRpWyooHqA9sxkVGA8up0ABov
+         2GeQq1MQpIrAbSu6lW+zJJReF7rNz83MYaguYgWaVI02VfCPBzU4fmUDjUuBWG7RxKWK
+         B0X8VtzRJs2D3EZgBik0zpRDgHkMXULBzpaB9P6atjADvbypVjqr7I5W79iGDUGFjNcR
+         Evaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790053895; x=1790658695;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qq9YgbcyezjZVLeoF3eLYnfuwbVIa3eTW8+FxgVEdT8=;
+        b=lHP95+rU/1NbwghUnYc5KkN0tXgg0a4HNy83oWMHPNcuTG7zcaV3I68edaamBKWY2D
+         IMk28ApnVtW8M6O4cagdP3AwpSZikpHthbeexg6HmpqtHShxPFUR5ghxVefQ7bGW1SVt
+         JcpMAUCrCu1SaGyilfoFZptGqzG3W8O0ht3ol06AwZQyeeAj0emQYaYGr4lWfYm6mMyH
+         9E+JAqTnuuiaVkebPneY48LMvkC4SKT1+SP+B30S/IdoTiVjTNy+pnurEQWN8s0Jkwfw
+         wWCkudNNZxJN/Lk1hLl6rgXsKkp/ZzniIHO4iYbzIMrAC6a1cz0haeFzcYyhSC3gAL7y
+         DeSg==
+X-Forwarded-Encrypted: i=1; AKwUvByfF/A7c5nsbglxrLdBxhSi5c+HjOCIAcwrC2KcW3W+bbWgaUG6XROIzsIE7Ga2o86N/opQdVbHoTGQFH4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2oYtyF5DH4Zz0Fp44exF9icbkIZzsxmbOBQKzMadMgkoUgosz
+	hysd1CAG1aFAu79S4ZQfrUM3xdAFcwDv8RkN3rJ89e2vsodCEdC8vv1xHUhGoA==
+X-Gm-Gg: AYBFou3ElBULowqlcqD6EvUDbz86GyTSCYAgXhp/y7/LDswm9ZdldZ1LoqrbJjC1hNM
+	sRv3xHkMwgfGeZ/JDl0XK4vbQo9DwsfnnnKu4z4gzbs6cqt/YlYR4JgkcT4qc2ZVr+v9z/VpRhM
+	Dgpyp97IRjxnRF/cs5/NnYDJISVLxPUX+WR247m6Tc6Pe6kPAq/1cKflN/39jzidPytR+D+Op+N
+	k8Dp5omtCWmyOrgyWySbZ3EcI/sI7TRB5fPBslUL+T2AlMpTBPRVa32T7xwHf0FuvuW2V0txBc+
+	0LAJnIl7BBNnE4bPJZvnVPt8PDtzv/cDG+WNA+hVROJbPf6TtAqrngMihGoxooplBu1FimRHWLr
+	FmpFUfiTc0WXyvhqlCQcBZhYk3d7wgtwKsihtw6W9zDjR8SoTjwiUfOUxCw4iqccnvlivIO7E8Q
+	Z3QB3LlD9EA9wtPqTsMQge5yxuCbJQHUiYe84MEzcO1mMsgdaBlSwSyD1BesF7M0woKAudzYTB+
+	fxAqhOF9/3qlJa79Fj5i/pLKdOKXvpRWBA=
+X-Received: by 2002:a17:90b:57c7:b0:3a0:42a8:b357 with SMTP id 98e67ed59e1d1-3a07306ce52mr18290a91.4.1790053895006;
+        Mon, 21 Sep 2026 22:11:35 -0700 (PDT)
+Received: from nineveh.sos.local ([131.191.24.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5cdb48sm1051375a91.17.2026.09.21.22.11.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 22:11:34 -0700 (PDT)
+From: Jeremy Bingham <jbingham@gmail.com>
+To: benquike@gmail.com
+Cc: brauner@kernel.org,
+	jack@suse.cz,
+	jlayton@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] minix: validate s_imap_blocks and s_zmap_blocks in minix_check_superblock()
+Date: Mon, 21 Sep 2026 22:11:25 -0700
+Message-ID: <20260922051125.3727163-1-jbingham@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260919222621.3796976-1-benquike@gmail.com>
+References: <20260919222621.3796976-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PM: hibernate: Freeze kernel threads after image
- preallocation
-To: Florian Schmaus <flo@geekplace.eu>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Len Brown <lenb@kernel.org>, Matthew Leach <matthew.leach@collabora.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- David Lomas <david.s.lomas@gmail.com>, Hic Haec Hoc <h.haechoc@gmail.com>
-References: <20260920-fix-hibernation-v1-1-f9940c2d7d7f@geekplace.eu>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260920-fix-hibernation-v1-1-f9940c2d7d7f@geekplace.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <179005384163.4132640.15499112207501133857@mxe9fb.netcup.net>
-X-NC-CID: Uhis3gRudamMTVFkNuULSZleteeot9H2AYWWqpJyf2lwR0kA8xc=
+Content-Transfer-Encoding: 8bit
 
-On 9/20/26 16:35, Florian Schmaus wrote:
-> Commit 783c81098445 ("PM: hibernate: call preallocate_image() after freeze
-> prepare") moved hibernate_preallocate_memory() after dpm_prepare() so
-> that device drivers have the opportunity to release pinned/unswappable
-> memory during their ->prepare() callback before memory is preallocated
-> for the snapshot image.
+On Sat, Sep 19, 2026 at 22:26:21 +0000, Hui Peng wrote:
 > 
-> However, that commit also placed hibernate_preallocate_memory() after
-> freeze_kernel_threads(). While it was assumed during review that swap
-> I/O submitted via submit_bio() is synchronous and would not depend on
-> frozen kernel threads, this does not hold in practice. Calling
-> hibernate_preallocate_memory() with kernel threads frozen leads to
-> intermittent deadlocks during hibernation.
-> [...]
-> Fixes: 783c81098445 ("PM: hibernate: call preallocate_image() after freeze prepare")
-> Signed-off-by: Florian Schmaus <flo@geekplace.eu>
+> In minix_check_superblock() and minix_fill_super() (fs/minix/inode.c),
+> verify that s_imap_blocks and s_zmap_blocks are large enough to cover
+> s_ninodes + 1 and s_zones, and check the return value of
+> sb_set_blocksize() to prevent out-of-bounds bitmap array reads in
+> minix_count_free_inodes() and minix_new_inode().
 
-TWIMC, there are two reports about hibernate problems that identified
-the mentioned commit as culprit (in one case while a stable backport was
-prepared that was dropped meanwhile). One of the reporters mentioned
-that the quoted patch fixed things in 7.2.y (see the last of the
-following links):
+This issue has already been taken care of with commit fb3e566cafc3,
+which changed DIV_ROUND_UP to DIV_ROUND_UP_POW2 to prevent this very
+overflow issue. The return value of sb_set_blocksize() isn't actually
+checked in this patch, but that's OK because the code was already
+checking those return values at both call sites.
 
-https://lore.kernel.org/all/CALjEBWT9wyBYtWPgtg8Xd_FxRU_XnatzQMcwMB9_P2Fdj83+cQ@mail.gmail.com/#t
-https://lore.kernel.org/all/CALjEBWQo0-Sdimo+aRNKUQvgDGw=jBFCcfwCXaqVdtoPrHLAQA@mail.gmail.com/
-https://lore.kernel.org/all/CAKp=m=DkRA3FQdJC+1AKDtn1X8ZuO0HRF5H7PJVf15uQyBuEbg@mail.gmail.com/
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 
+For what it's worth, this is the very first commit to the Linux git
+tree. 
 
-Adding a stable tag would likely a nice touch.
+> Assisted-by: LLM
 
-Ciao, Thorsten
+Did you review the commit message and patch generated by the LLM? Even
+when you use LLM tools to assist with coding tasks, it's important to
+make sure their output both makes sense and that it actually does what
+it claims.
+
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/fs/minix/inode.c b/fs/minix/inode.c
+> index daf83e4ff25c..b0857dfc1b46 100644
+> --- a/fs/minix/inode.c
+> +++ b/fs/minix/inode.c
+> @@ -185,15 +185,15 @@ static bool minix_check_superblock(struct super_block *sb)
+>  		return false;
+>  	}
+>  
+> -	if (sbi->s_ninodes < 1 || sbi->s_firstdatazone <= 4 ||
+> -	    sbi->s_firstdatazone >= sbi->s_nzones)
+> +	if (sbi->s_ninodes == 0 || sbi->s_ninodes == UINT_MAX ||
+> +	    sbi->s_firstdatazone <= 4 || sbi->s_firstdatazone >= sbi->s_nzones)
+>  		return false;
+
+This is not the right way to check for an overflow here. s_ninodes is an
+unsigned long, not an unsigned int, and I wouldn't want to rely on them
+having the same overflow. Also, 'sbi->s_ninodes == UINT_MAX' would never
+fire for V1/V2 filesystems, since the underlying types for those
+versions are u16 and will never reach UINT_MAX, and it would only match
+exactly one value for V3 filesystems (but see below).
+
+>  	/* Apparently minix can create filesystems that allocate more blocks for
+>  	 * the bitmaps than needed.  We simply ignore that, but verify it didn't
+>  	 * create one with not enough blocks and bail out if so.
+>  	 */
+> -	block = minix_blocks_needed(sbi->s_ninodes, sb->s_blocksize);
+> +	block = minix_blocks_needed((u64)sbi->s_ninodes + 1, sb->s_blocksize);
+
+The u64 cast doesn't add anything. The operands are already unsigned
+longs and '(u64)sbi->s_ninodes + 1' would, if sbi->s_ninodes were
+UINT_MAX, equal 0x100000000. minix_blocks_needed takes unsigned ints for
+its arguments, so that sum would end up being truncated to 0. The
+'sbi->s_ninodes == UINT_MAX' guards against this, but the only reason
+that guard needs to be there is because of 's_ninodes + 1'.
+
+>  	if (sbi->s_imap_blocks < block) {
+>  		printk("MINIX-fs: file system does not have enough "
+>  		       "imap blocks allocated. Refusing to mount.\n");
+> @@ -201,7 +201,7 @@ static bool minix_check_superblock(struct super_block *sb)
+>  	}
+>  
+>  	block = minix_blocks_needed(
+> -			(sbi->s_nzones - sbi->s_firstdatazone + 1),
+> +			(u64)sbi->s_nzones - sbi->s_firstdatazone + 1,
+
+As above, the cast adds nothing.
+
+>  			sb->s_blocksize);
+>  	if (sbi->s_zmap_blocks < block) {
+>  		printk("MINIX-fs: file system does not have enough "
+
+Note that the pre-image in your index line (daf83e4ff25c) is the current
+fs/minix/inode.c in mainline, so this patch was made against a tree that
+already contains fb3e566cafc3. In other words, the out-of-bounds reads
+the commit message describes are already fixed there. Unfortunately,
+this patch gets a NAK from me.
+
+Thanks,
+
+-j
