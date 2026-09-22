@@ -1,99 +1,148 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE6E372ECB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 969E43E4C75
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790051589; cv=none; b=d2a8VmA+yRPm9U1kOT2P6Ma+YLV1IwPng6+NxYIRmjPy6t4rH2MDN9aSx3uH7I4376QTi7KK1yolryE7YZo+7nU2NRiyKV5rojXXQCL/IoUOI+zUNYBjb9gFR0YW/jy45XI0tX8EC4rSBibINZuyCVTkx1+ds+DjJGaj1uvwjNM=
+	t=1790051590; cv=none; b=Q3Ub5s+7sOa+6dIIHCa8jBzDI49t9xRHNpV3RzLjjkqyKVRWZZ6pxBTUbRy30mchOzkPclBdp4tar4RIPhQEb1rd9wJ91N90yiRJUOAqDgbSTl0oTbVoQPpiR2QeIbyhhP7kRE6QjbxVaDNR4KUw4ar+8Rec0P469iMNr8Meoh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790051589; c=relaxed/simple;
-	bh=jOsq6u4GxP4+4otPjCoyuUQDELVcpp12xkpbUnN0QYI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f7CaCC3/YpC4EUhudzf9Tc/RABK8FJ9KqaeWBcEydPcG/kjjZm5hfJNb4Pf+l7e/MovsG/1p66DebGCXeCx7i6tyQi6OEd0QTJTAeFIEoBZOQrqq+JO/dscB3RCqdMpGAaA3EQIXzlCaQCJLMBKMh4+PxbC5SddvT5ebj76syoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=SwwFKotn; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1790051590; c=relaxed/simple;
+	bh=B6CpHE1fDzJtw02VVA6XiCr6+jtSG7DDQ8B6ZbaZFOU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kFCZytWtYL4J9SYIgAM6ePz1k0HOj80mXFGFyqXQ3JIlFRVCYpdErInwB8MShWTFrNn8qN9u4dEl3E1sZrPvg4yBZ210hbSb/DFJnK9koQdpvfIYjBir1qtucMZJCgt1um9EkzPeB35+jUKYM8sF+cgQoSvzhRCb/rPpOLX/9hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C5ALZ20X; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="SwwFKotn"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910c9ff1fso408570385a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:33:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C5ALZ20X"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso2003740f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:33:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1790051586; x=1790656386; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jOsq6u4GxP4+4otPjCoyuUQDELVcpp12xkpbUnN0QYI=;
-        b=SwwFKotnPBXyAbiOip6KsvyrvaAEbPUrIfT80hNkZjo47vt2S7zb46+DsrO824Kju8
-         puzQblb2Wd8o/O/NwysSgAn5MJOykWDfo/D4/aXt2o756MdsFmrk6Nu/TEZqUeAYjumz
-         MzUTkori8hd3yjHDVyWBCSicVhkOnCraKpaS8=
+        d=gmail.com; s=20251104; t=1790051587; x=1790656387; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HkSG5y+EkU99t9dm75vxcWD0esNMkVyz0Y8AlZlwrNo=;
+        b=C5ALZ20XsUS209xtO44XOm2SKIv/Ca/2QIKM9Tjwe7AMCZD5vMz1RYQtZq9+BXOXVM
+         E0xorcAV+5MYEVcEAedy23NdDNYzh550mNTRYdRl/Nqqws7c8uSJq97sHgBxkBHb+brC
+         /JuAqOZ5aebzMjhSE2CmiB5x9gBRKGkS7/hQ9IG/97NokkGhkSOTxo8qdBi99vJXUvNb
+         DZ+7WxGcmXQ43EyzL2BEaBKGO+bBsSK9m4vVl5R8JOlOQcnfps7+aZ2JEUakUDZhxlGQ
+         6cete4GNS1ZH7fUgpLQO6FabTpAR5tPrk0120UeQVFu++SLFk8fdIC58VGijA5GfJTYW
+         aOTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790051586; x=1790656386;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jOsq6u4GxP4+4otPjCoyuUQDELVcpp12xkpbUnN0QYI=;
-        b=RbxUI/vWhRqZv+b8dPzjL7AAW1IF8TwcjUXjGlYjGpoekmAVi/Tk2qS8OxGF8ueUDL
-         GoRcxuuFitno8RmXnPjGfprMg6sd63DGbQWk90RsDMcyndiPsGcMx9HHAePDJFt2j8bv
-         C7p2q6/w5GLQQNubjUx9DpBBtzKr/xEZsVTMlYyLAInGiHZB58kxTd/rRJ5YfH4mfL0n
-         pbQ8pEGGEY+3xFoGFV1hb4vD/ev4tMMR9Nv0a8r/7imXNk14wKOao12SV/vptO6RrwH5
-         1XG659hh4TyD8pmtMViAxFP3TDFinlvu/JCiT/DGDtWqLCoKRzSq+33T499WNAx8trH+
-         3zcg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfo8zCcsAyM5fkZ5fRqhg6b+q8LVXur0aFIt73DS5rBiFLChdrYpuQU4IAdzug4V+EyApxTHM4MDimAIo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBA8lMw2r4xhNUMTsjG3cmzmXTBR/zizXqylZ8WIYswWMVBj2T
-	gYuXl3YluCeALrVOOunhmOIKSBjjDwyLGs8mz+6kkWPCn/3GYnGFkPCrHfDNO+Mn0W0=
-X-Gm-Gg: AYBFou2TZAI0349xAhYJAZbg6prHLWQYegcLeYoRf6VJEzQ2Z+Gm8+V+TshJr8XlOL0
-	Zx/8t/5YbsuydUfptlo+CgPP8ensGEXf0ILuyg6Rb+HHVrFIhYzUUOjeb/2m3GySIBxOOj+GeV4
-	CEqMV3nu+QuACIg8Qz/q26344jfHuKz6B4ycVXI79UK3iPhaJLywYSCgNIwpFDIjgl0UxzvwZmm
-	t/KhtLM2OaX9rcbMx1KRV+Im/g/+Jj463UfwlaUXxW05w7t2n9mEhxUG3GJOOL1chTCFp5qROds
-	8pTa03B86xgLVI55idUKpVjkoSRPAgkinfEs92Q1K5D+tSBomYr8ITfdCtRH596UVG3GrwCxzuC
-	E/r4yHEIect4016e5IR1E7rNODah4E2aRDfrBmjiSc7gwQU4kWhr4r+76qu72dJo9c1O6+etDz5
-	DU7DOZHlX7ABD+ZpeA8V1IGWvx/+sNtmpxuLPTRMoSBVp+bxTBovSxqDMqb4qV1/wVU2WDZG02u
-	tTlk5aETjX9hh4nlGx+IZ9ePc9O6JqJTxWzwBz2hWB9qn9tmlO6DQ==
-X-Received: by 2002:a05:620a:44ca:b0:93a:10b8:4c3b with SMTP id af79cd13be357-93c15d583a0mr373213285a.2.1790051586610;
+        d=1e100.net; s=20260707; t=1790051587; x=1790656387;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HkSG5y+EkU99t9dm75vxcWD0esNMkVyz0Y8AlZlwrNo=;
+        b=ggA6Rnj8wueeHZ47GJs9NRj7kJzCSBGI7JEgiY9emxb4MMfqTKiDjUkLuukMMDfkDx
+         fHf9h66VgMh5cYsVBl3bGI5QXh2xxm9h15is2MlFvUk+hAHsukI/oWPHYo4wUYyuDlCS
+         zcaoYzyxQKxAm/XTkZiBJxcwxLwWWqgO2AFaTIxhcQCWswtpecjoswtuwKuNhREBVQtt
+         ZRLZT9FP0IwYfKGRF73oPES4YwK0Ub0ALr8heu84+uoffL99WcgPkloensJJBzLAeo+h
+         TXzFCCoEvgLbWvd1FduPPu1unSFzkYzoCsGSju2H5i3GsvcqngpEe7D7zfyXsCo5R2eT
+         lHQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpKy6JVf4bWhsThS3Pi1aDFTjB3epZhDEc/JoxK2HjFrwInUhchla2L569HeDxmLkky8rE58yfhElPSrk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXMnldaIrS8QF7JgbFx5jorE5CbRVZ9P6Ba1gPbPXu/jZTfd7q
+	fr4aGhgP/AgiObHEFkzKzRYjtuzjB+e3cYBRZ8pD1g1dS6dUmJXd1HLZ
+X-Gm-Gg: AYBFou0DKnBxL9o4oXVEbl/UmxzVatKH2wC1ntuwym+rtslSHUI3w6ryuuwgFqx9orn
+	8lrCoGK71pm6TxxefYT3ysHlP7gaYMqdFUwApwcVAHD1boxBm2o+nxOuLCY8XhzS2ioK461KkzT
+	LqOm+2QDNCOkzjdQkkimhBgfa/g3YtEFEaxCQaCAQ5ShOYjD1axZWEOOxAQCFF6DO5qF8+jRl69
+	BDTHjFON4PIxK5pFaoOh1blrHiGBTef3aTO1CQ5nnPeSIYTb/fTihq3Tk5rNgA9UhrtWhtFK5i2
+	JZH/F2q5jpoUkF7HhbELkx47twexJ5MbxdFjmB9Cq+JRuVqck9xPGzHJyNThHUeOxPkP30yWWf5
+	/naNcV2bwdGF9W+/JrqVlA/rQfqnJmMbfZjXUsETaC8b2L8LuTAR95yafKfP+bzeQJQWw/FCgx4
+	IO/S7pTMinywC9BDkwe/MyoazekCWc39qU5bIhW4z39lO18x4s1+G5/EKim64eOTSOvuB/znCn6
+	iudLKLQp0isQrGEvwOM6BWRzMbeZJj1J3rXNBU7nHKxs+15HUJTz3T4Gujav9Emcu86b7REeORj
+	qqkpU663EIcSh6iAnHlAxpcVdMLNIPLFsxu+zRLHmVyHPUSyCXUrt5MQdWgkYE8+z8iCDX/gP4K
+	cXdPgZw==
+X-Received: by 2002:a05:600c:3b98:b0:49d:1f10:8b9f with SMTP id 5b1f17b1804b1-49fc56dba0dmr220453475e9.7.1790051586799;
         Mon, 21 Sep 2026 21:33:06 -0700 (PDT)
-Received: from com-94485 ([199.47.143.14])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1cf0e6bbsm45125785a.1.2026.09.21.21.33.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+Received: from localhost.localdomain (dynamic-2a02-3100-a5e6-3401-ecdc-1e24-2e52-02d6.310.pool.telefonica.de. [2a02:3100:a5e6:3401:ecdc:1e24:2e52:2d6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862773ee0sm1751410f8f.6.2026.09.21.21.33.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
         Mon, 21 Sep 2026 21:33:06 -0700 (PDT)
-Date: Mon, 21 Sep 2026 21:33:02 -0700
-From: Jeff Jo <jeffjo@openai.com>
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, ncardwell@google.com, kuniyu@google.com,
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net 2/2] selftests: net: check timestamp echo after an
- old ACK
-Message-ID: <arIE_i8Ysz5nOI2W@com-94485>
-References: <20260921222609.50824-4-jeffjo@openai.com>
- <20260921222609.50824-6-jeffjo@openai.com>
- <CANn89iK00zXGA8sdpH9Y1CkFK3n=uKG9Bci3+=69fGV0UDQ80w@mail.gmail.com>
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs: include the final partial cluster in sync writes
+Date: Tue, 22 Sep 2026 06:33:01 +0200
+Message-Id: <20260922043301.15101-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANn89iK00zXGA8sdpH9Y1CkFK3n=uKG9Bci3+=69fGV0UDQ80w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 02:08:47AM +0200, Eric Dumazet wrote:
-> Note: Even with existing packetdrill binaries in the wild that don't
-> check TS ecr,
-> tp->rx_opt.ts_recent is still directly testable in pure .pkt via PAWS
-> (tcp_paws_discard()),
-> the same way tcp_ts_recent_invalid_ack.pkt works:
+ntfs_attrlist_repack() synchronously writes the replacement attribute
+list before updating its mapping pairs and freeing the old run. With
+512-byte clusters, a 544-byte list submits a 512-byte bio, but the
+write returns 544 and repack accepts it as complete. If the later
+buffered update does not reach disk, the replacement list lacks its
+final 32 bytes.
 
-Thanks for the feedback. I'll send a v2 series tomorrow removing the
-redundant SYN_RECV check and replacing the test with a plain .pkt test
-that uses PAWS for the assertion. I've verified that the revised test
-detects the bug with unmodified packetdrill and passes with the
-simplified kernel fix.
+__ntfs_inode_non_resident_attr_pwrite() converts attr_len to clusters
+with ntfs_bytes_to_cluster(), which rounds down. Before repack, its
+synchronous callers used either cluster-aligned lengths or lengths
+smaller than one cluster, where max_t() selects one.
 
-For the PAWS probe, I used TSval 300998 rather than 300999, since
-Linux's one-tick PAWS tolerance allows the latter through.
+Round attr_len up so repack writes the final partial cluster before
+publishing the new mapping pairs.
 
-I'll follow up with a separate packetdrill fix. How does that sound?
+Fixes: b1d732e62a5b ("ntfs: repack $MFT/$ATTRIBUTE LIST")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Built fs/ntfs/ at 444c7dc82415 with W=1 and NTFS_FS=m for x86_64 and
+i386 using GCC 15.2.0. Both builds completed without warnings.
+
+Runtime-tested with QEMU 10.2.1, x86_64 TCG and virtio-blk cache=none
+on 4904082812d5, a v7.2.7 stable queue containing b1d732e62a5b. Test
+hooks called the normal unlocked update, forced the optional expansion
+to return -ENOSPC and used a 64 KiB reserve on a 16 MiB image.
+
+With 512-byte clusters and a 544-byte list, both kernels paused after
+repack and before the buffered update. The old code submitted 512 bytes,
+returned 544 and left a marker in the second cluster unchanged. The
+fixed code submitted 1024 bytes and wrote the exact 32-byte tail. A
+1024-byte list wrote exactly two clusters and left a marker in the
+third cluster unchanged.
+
+A test hook returned -EIO instead of submitting the 1024-byte BIO. The
+rollback restored the original mapping and all 544 bytes, and freed the
+entire replacement run. The image cleanly unmounted and remounted
+with the unmodified queue kernel.
+
+Runtime coverage was limited to the repack caller, which writes at
+offset zero.
+
+The base's scripts/checkpatch.pl --strict reports no findings.
+
+ fs/ntfs/inode.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index cadf623d54d48..d8d3a7b7b8a9a 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -3761,7 +3761,9 @@ static s64 __ntfs_inode_non_resident_attr_pwrite(struct inode *vi,
+ 			struct runlist_element *rl;
+ 			int bio_err;
+ 
+-			lcn_count = max_t(s64, 1, ntfs_bytes_to_cluster(vol, attr_len));
++			lcn_count = max_t(s64, 1,
++					  ntfs_bytes_to_cluster(vol, attr_len +
++								vol->cluster_size - 1));
+ 			vcn = ntfs_pidx_to_cluster(vol, folio->index);
+ 
+ 			do {
+
+base-commit: 444c7dc82415a353b57e43189f276124cc5fd785
+-- 
+2.53.0
+
