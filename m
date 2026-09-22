@@ -1,184 +1,121 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE76D4457D9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B1F442367;
+	Tue, 22 Sep 2026 08:35:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066102; cv=none; b=tTJ8vlAXiS5FmAXp6/hcRFNsFY+HG9ujX2n8a5ZPXVC0iygE4tUWToDMfUYOHcL8uC2wzNzmO4vMItWqYLqpd3HXptJz64dwQFwPVDonG6GK5xhdyQq2AYFAV7BFRMM663YP78Wyboh0T9jXejJEBbt4AQF3jC/kj7KMAjM/xa8=
+	t=1790066106; cv=none; b=SbtPAFOg4G5NJKOGuXaqi2zHD291LTqSwiFvBUj8bK4fsj6YdKY7+7S9drUv9V4o2CVJ/SCU2XGqJ0X7Xu/0HAev03Ah0Jfy8MMxup96UX31lVrblrYtq4H85gmUmXx85Nco227KDAm1cvxdK6exukQA4S6J0CGIuPkCCxweLPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066102; c=relaxed/simple;
-	bh=/MQ9q/kMBz035pPCnw9vOBp/PRzg9yLdoKxGmuxx3uw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XjUHud/0WdAJnTuBoMlC5sdcQY4Gpb2DdVbsZbLJq0F+PFdIuKTop3xq/6mFr3VqdYgWBGpmOSj0zCxPuIb/I2eP+kf+EGHOQfwnoMitQyMePTfn0xGHoyN5A5jTlM/uZWDK2KmO9cis0sbdFN8YuD1VrlKktOK+D5EK8Mc9tlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WUZNK4I3; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790066106; c=relaxed/simple;
+	bh=gGUIYieV24A6lUUX1gSh58XZU7HKx2PCY9euDoctP+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SK3QlYhvERcy71XRB22u4SepkTGI/WTSwb2A/rauoNKXAYLRvUwqdxTCMaG64ArtbLbUvKUMYbvK5/K/NUODmAU6EtY/VPwmrC+yTz8ItLjAPzE2gViIdn+1CybsuR58dsDB3KmNXmoFVWZmKCM8nLPQrKDnD3ctXapZN8FWzDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=AHlmL3yv; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WUZNK4I3"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ece3so2945781f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:35:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790066099; x=1790670899; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6vCaHzev1h/MoHQH435Co/njJMhx1fq16i2vRv4vluc=;
-        b=WUZNK4I3gs/n/SLhPw/0Q9mXJdnqA+J/UphS8qjja67DhSLDZktAf8akSnSXNTSbJq
-         OdS+EIhUjSI5pqbjGVwWSVsrICOP4F4afN0obJU5B+bsyzLZC9dYq/4WZiuqf8iXIQ2E
-         umsUhEYlCqXc8797ma5H8ziwz6aWpZH7qlVlT8hqoor8ePFz9WoXnhS6WUwkCiXOJ2xj
-         8XbEj1ogJgr6OqQrHm6HzysRZmwJgS+o7LJ3XpaG3qT4ssiv7dL0Avkp0DKMcPca0jou
-         Fc+wfO86vr0RzLfJXL+8fxS4MWzVRlttpp5IvGW/jlorwGsGzIzP4gP3KcnUVR4hRBwF
-         lsQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066099; x=1790670899;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6vCaHzev1h/MoHQH435Co/njJMhx1fq16i2vRv4vluc=;
-        b=RWd6t/WXTTK9IDe+CuUxStsP7s6WeZorGvOhn3Myd854MRIKo0D2MNne7L/+oYmJqt
-         WuNSsC95BcyCj5cxfvAvUdDDrBIpMN4iMKqoIQ6rAFXBX5FCoDes3bYqwgLdODyrtYAT
-         Cbjai8KnYXIGeyfrHJ+hnKhcjVVz0R4wJ0ILMcJho9ZTbGDMmBnMZtnU2MspyfEu6olv
-         tmcZeumfZRJCJEMpDHj2H+gyeW9glWFoHCiK59n2P/JfUoYeEnMRMSn2Z/62p/1+H3jJ
-         O4VOQ97vEC6gdK1Vg0/pw43WgMV015q2I1PQvy9vb62TMNpc6sOR5YPTDSgVjAoo+mIT
-         DSrg==
-X-Forwarded-Encrypted: i=1; AKwUvByTycoxBhiWKOOzT7rqTrbZy+DUi09sClOYJsrH242KCQHMufJskMAxYrGZ6UHzXem/hCh9MFa5qhxTce4=@vger.kernel.org
-X-Gm-Message-State: AFuF++noEh2hTFKkdI6ydbLqx2Qo3euNrJ94nMGxQXqIz3f7hYRvhwmd
-	9BYvAQxNp/xEByvQPMxdQWLFGWUcu7o3UL4oWrNQIDOfnL+yvFfiYCpaFTmEeSd31Og=
-X-Gm-Gg: AYBFou3jXlpmNZkTX2NfaIfc9ZrDcYmI1Px2xSxdJ4QbiaIGwEpPoaGwW+picV9aEmb
-	6pvS9FcfpgKw+07JOViAACi1Q+SB+kD0Sz+hleFCexD9abP8c9C9eIOPo03OBQOH+tkSbfh8GOS
-	jCrb+Ku8+G1g0rtZoWzVIyFWiVhL+nI5Z1NQLw1YUgBtGfiVlim7dDyzUEnRJEidd1NlgdneLuq
-	wiBxPi0XEARHO4fjTTbM99TwPq2tZvJ+n98kWWPijbWnXzYPoEeTkF7IN4M3HF/BdXqAdZQ3pE4
-	rJp9p2HXar0yBzoOfVJoM9qAqFMXV0vHyfeLDxw+c+qvlIUXS9+Nd8gcUjuknG/6RFj+o8Q+B00
-	9obgTaR4qgvJOgs/9H/0Jyywt9uUBKzbZ06LFPzNQT2vNdThEwglh6xsJeADPiqV4BSCwPQo+fF
-	+vhxStjaorEXd/6tLmjfqcN+g1SFIsS5TL9oXIJyYPWd6U8KyommI1RYYCteyVOAmsIyRRFLnDb
-	onr2ClSmlk58yu0IMs2Ln1x/l2e7mt71mBJFkAB
-X-Received: by 2002:a05:6000:3113:b0:487:10a9:57cb with SMTP id ffacd0b85a97d-4871e3778e6mr19151883f8f.49.1790066099179;
-        Tue, 22 Sep 2026 01:34:59 -0700 (PDT)
-Received: from ?IPV6:2001:a61:13f0:9e01:9a7c:db93:afba:8f7f? ([2001:a61:13f0:9e01:9a7c:db93:afba:8f7f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488627314d2sm3372106f8f.2.2026.09.22.01.34.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 01:34:58 -0700 (PDT)
-Message-ID: <d3639d68-0213-4b70-a771-aa5dc3ec9767@suse.com>
-Date: Tue, 22 Sep 2026 10:34:58 +0200
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="AHlmL3yv"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 26C0114C2D6;
+	Tue, 22 Sep 2026 10:34:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1790066102;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1wp8p1aEBwAksuFVWvFD43qsY5klCVg78/py079j2N4=;
+	b=AHlmL3yvGghWeG82SismoGhcaDe1YC6MzyvPHcGQNArDWsskn4fs4iWj62tQ817vpfHASp
+	zFUiqC2cC4mQawowwydaT+x/NsNZ9HedPekT73MjsJ94bdN7JqhnR/FNpycft5C6cShlMk
+	B7U8r6TPPq/UCbsRh+IrHgzTQ520jY9OiQ/PNUZkhOQ/OlSOkv/TutmTS2C7mn7GBZS0Nu
+	gQkQmQ4SJKXKNT7OkO2jENSHrDJS3IAPAtZfz15NmcgpIsB/dkbXYh5uBtJ2RgCtjNZLe6
+	CnIkwTbdV8VT4eXEmZoSqEeZMIu/7FvXxKvMldocAVNeUPvrIdQwlATXbTN3SA==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 5b7922d3;
+	Tue, 22 Sep 2026 08:34:55 +0000 (UTC)
+Date: Tue, 22 Sep 2026 17:34:40 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Christian Schoenebeck <linux_oss@crudebyte.com>
+Cc: ericvh@kernel.org, lucho@ionkov.net, v9fs@lists.linux.dev,
+	Haobin Wu <853555@gmail.com>, jack@suse.cz, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org,
+	aneesh.kumar@linux.vnet.ibm.com, willy@infradead.org,
+	dhowells@redhat.com, viro@zeniv.linux.org.uk, brauner@kernel.org
+Subject: Re: [PATCH v3 3/3] 9p: skip over-long directory entry names for
+ legacy 9p2000 too
+Message-ID: <arI9oOXMsB-iG7jm@codewreck.org>
+References: <20260918024851.51229-1-853555@gmail.com>
+ <20260918024851.51229-4-853555@gmail.com>
+ <2050867.PYKUYFuaPT@weasel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] usb: uas: quiesce SCSI before stopping endpoints on
- unbind
-To: Jiayi Li <lijiayi@kylinos.cn>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
- Michal Pecio <michal.pecio@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- linux-kernel@vger.kernel.org
-References: <20260922031102.141043-1-lijiayi@kylinos.cn>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20260922031102.141043-1-lijiayi@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2050867.PYKUYFuaPT@weasel>
 
+Haobin Wu,
+Thanks, I picked up all three patches
 
+Christian Schoenebeck wrote on Fri, Sep 18, 2026 at 02:08:00PM +0200:
+> On Friday, 18 September 2026 04:48:51 CEST Haobin Wu wrote:
+> > The legacy 9p2000 and 9p2000.u readdir path, v9fs_dir_readdir(), parses
+> > each entry with p9stat_read() and, unlike the 9p2000.L path, never had
+> > a 256-byte name limit: a name of any length up to the wire maximum was
+> > handed to dir_emit(). getdents64() therefore returned names longer than
+> > NAME_MAX that no later syscall can use, and failed with -EIO for names
+> > of PATH_MAX bytes or more.
+> > 
+> > Apply the same NAME_MAX check as the previous patch does for
+> > v9fs_dir_readdir_dotl(), so both protocol variants behave the same.
+> > 
+> > Note that this is a behaviour change for 9p2000 and 9p2000.u: entries
+> > with names longer than NAME_MAX used to be listed and are now skipped.
+> 
+> That sentence is a bit misleading, isn't it?
+> 
+> Name length 256..4095:
+>   - before: listed, but unusable (ENAMETOOLONG)
+>   - now: entry skipped, fetch continues
+> 
+> Name length >=4096:
+>   - before: aborts the entire fetch (similar to 9p2000.L side)
+>   - now: entry skipped, fetch continues
 
-On 22.09.26 05:11, Jiayi Li wrote:
-> Unbinding uas while READ commands are in flight can leave the storage
-> device unusable after the driver is rebound.  The first post-bind
-> INQUIRY Data-In transfer completes with -EOVERFLOW, and SCSI error
-> handling eventually offlines the device:
-> 
->    scsi host7: uas
->    scsi 7:0:0:0: tag#4 data cmplt err -75 uas-tag 1 inflight: CMD
->    scsi 7:0:0:0: tag#4 CDB: Inquiry 12 00 00 00 24 00
->    scsi 7:0:0:0: tag#4 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD
->    usb 2-2: reset SuperSpeed USB device number 2 using xhci_hcd
->    scsi host7: uas_eh_device_reset_handler success
->    ...
->    scsi 7:0:0:0: tag#7 CDB: Test Unit Ready 00 00 00 00 00 00
->    scsi host7: uas_eh_device_reset_handler success
->    sd 7:0:0:0: Device offlined - not ready after error recovery
-> 
-> A command URB may already have delivered a SCSI command when usbcore
-> disables the interface endpoints and kills the data and status URBs
-> before ->disconnect.  uas_disconnect() then removes the SCSI host only
-> after killing its anchored URBs, so SCSI teardown cannot first quiesce
-> the accepted commands.  A newly bound UAS instance can encounter the
-> residual transport state.
-> 
-> The failure reproduced with a VIA Labs 2109:0715 storage bridge on both
-> Zhaoxin 1d17:9204 and Intel 8086:a2af xHCI controllers.  USB device reset
-> and xHCI unbind/rebind did not recover the device; physical reconnection
-> did.
-> 
-> Set soft_unbind so the endpoints remain available during driver unbind.
-> Cancel pending scanning and remove the SCSI host before setting resetting
-> and killing the anchored URBs.  Use the same teardown order for every
-> disconnect path and rely on SCSI host removal to handle a device that can
-> no longer communicate.
-> 
-> With the change, 10 of 10 zero-delay unbind/rebind iterations with 30
-> READ commands in flight reattached the disk and completed a post-bind
-> O_DIRECT read.  Unbind took 82 to 109 ms, with no UAS completion error or
-> command timeout after rebind.
-> 
-> Signed-off-by: Jiayi Li <lijiayi@kylinos.cn>
-Acked-by: Oliver Neukum <oneukum@suse.com>
-> ---
-> Changes in v2:
-> - Remove the USB_STATE_NOTATTACHED-based disconnect classification.
-> - Use the same teardown ordering for all disconnect paths.
-> - Reword the commit message.
-> 
-> Link: https://lore.kernel.org/lkml/20260920012358.3362053-1-lijiayi@kylinos.cn/
-> 
->   drivers/usb/storage/uas.c | 16 +++++++++-------
->   1 file changed, 9 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
-> index 8655edbd66b16..8752cecb45915 100644
-> --- a/drivers/usb/storage/uas.c
-> +++ b/drivers/usb/storage/uas.c
-> @@ -1217,6 +1217,14 @@ static void uas_disconnect(struct usb_interface *intf)
->   	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
->   	unsigned long flags;
->   
-> +	/*
-> +	 * Prevent SCSI scanning (if it hasn't started yet)
-> +	 * or wait for the SCSI-scanning routine to stop.
-> +	 */
-> +	cancel_work_sync(&devinfo->scan_work);
-> +
-> +	scsi_remove_host(shost);
-> +
->   	spin_lock_irqsave(&devinfo->lock, flags);
->   	devinfo->resetting = 1;
->   	spin_unlock_irqrestore(&devinfo->lock, flags);
-> @@ -1227,13 +1235,6 @@ static void uas_disconnect(struct usb_interface *intf)
->   	usb_kill_anchored_urbs(&devinfo->data_urbs);
->   	uas_zap_pending(devinfo, DID_NO_CONNECT);
->   
-> -	/*
-> -	 * Prevent SCSI scanning (if it hasn't started yet)
-> -	 * or wait for the SCSI-scanning routine to stop.
-> -	 */
-> -	cancel_work_sync(&devinfo->scan_work);
-> -
-> -	scsi_remove_host(shost);
->   	uas_free_streams(devinfo);
->   	scsi_host_put(shost);
->   }
-> @@ -1267,6 +1268,7 @@ static struct usb_driver uas_driver = {
->   	.suspend = uas_suspend,
->   	.resume = uas_resume,
->   	.reset_resume = uas_reset_resume,
-> +	.soft_unbind = 1,
->   	.shutdown = uas_shutdown,
->   	.id_table = uas_usb_ids,
->   };
+Right, I've shamelessly copied that in when applying
+https://github.com/martinetd/linux/commit/55d6732b8015705a657d96fc5bd37fbed349624a
 
+> > @@ -126,8 +128,16 @@ static int v9fs_dir_readdir(struct file *file, struct
+> > dir_context *ctx) return -EIO;
+> >  			}
+> > 
+> > -			over = !dir_emit(ctx, st.name, strlen(st.name),
+> > -					QID2INO(&st.qid), dt_type(&st));
+> > +			namelen = strlen(st.name);
+> > +			if (namelen > NAME_MAX) {
+> 
+> ... maybe better if (namelen >= PATH_MAX) here for legacy 9p2000(.u)?
+
+Given things won't work after the name is picked up anyway (from what I
+tried at least stat didn't work), I don't think it matters much, but I'm
+fine breaking compatibility here.
+We can bring the limit back up to PATH_MAX if someone claims it's useful
+somewhere.
+
+> > +				p9_debug(P9_DEBUG_ERROR,
+> > +					 "skip dentry: name length %zu > NAME_MAX\n",
+> > +					 namelen);
+> > +				over = false;
+> 
+> Nit: alternative would be init over = false and dropping explicit assignment 
+> inside loop branch here. But that's already personal taste level.
+
+(I actually had the same comment, so made the swap locally)
+
+-- 
+Dominique Martinet | Asmadeus
