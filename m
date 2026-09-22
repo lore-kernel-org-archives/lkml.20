@@ -1,84 +1,83 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C275616D2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:52:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092367; cv=none; b=DTgJh6UbF+b2LD6+kNOshVVTYHMSIkVcEEPtAIbAIT6JP8T0xjLpPnhZK/xuwbGHuGOVpwVm9JLnqxQSa0PzoZdykTk1Afrp+A3Gt4GFD1PWhv9lRFN75aWn8YlXTCyxzy5M+RlHTHkRHALIKcr3gEtjPqeD7HxfIdKBcggWtlA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092367; c=relaxed/simple;
-	bh=nCTXi0QrphbUuOg5+DmqnjVX+1Bepe6BZKUN+z7NmgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nV7PzlDuiZM+0VsLJywMEzUBrC7Oj0bLbqfGAUc7oN3L3Hb46+KU42d3cXw/3eXHrzs5U5tOljAHy/v2vQWhB9Na0RLAIS8C4GlyGoXr/FbF7Dp+lZD/NqQ6bjm7q9sUwMLX0UCMESmU9+l9UyPqqBUpFHrXWcFpD6gZQ3odLEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aQ3bg2ao; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8E7560AC6;
+	Tue, 22 Sep 2026 15:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790092372; cv=fail; b=J4ZIVJ8tJVHbeshn2YQeH6FYFce/KslMuXZFW6DE3zgfF2yG08FMfH5vkN2NT2j9gmUt2PsCeF7m4voaVE2MUz/YiSFsRFoqGLrpAMkd6YHTpekJwaTb8zYtoGzdNyUnjUyVN5WL/dDij71kWwSypeCjMJaMyH73p9v3aAg6E2k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790092372; c=relaxed/simple;
+	bh=vyxky55saR20D8RVWroa4976RydiqaqM5jdSo6aQQVE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HWRKziK2pJhdZEiEpCeJedwovcBid6iLDxjIx5N6J5sBjyEczC3wIPJ2QWS1JZ6OxT6aGD1TISLrBBUjXe1GXDiQKGsA5V167Ss24DS4ClebxksUowlnReZBKlofdwn4MM2oo/BRzkHMby9qqcs6bQAKl8XwzrbjlRqCbc/K+s4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=m1nJ5Gk6; arc=fail smtp.client-ip=52.101.43.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aQ3bg2ao"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55eff0so640071266b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:52:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790092364; x=1790697164; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nsDs23DcdYwkDSFn0tiJfOUbVshOv/zFLmietT3ibk8=;
-        b=aQ3bg2aoQfVkcaZ0YhUXoMaXyfkbTN9PaIeJWwoQdGUPkKJT2T3aqxWA3nqZI5BszR
-         +L80OZooJkPZFhwIRv3DY3Mp7lD6evmk3tTVpZY/x+IRnzvuGy8gK6rpptM6e2XW9v1F
-         GHcSE1r7FBZ97MQhf74fst31BhQ9zZySegFyJXK30vfw7j+wpOKqLovkisCs3W4yQrAh
-         64yoo4Is5W6uoZU1rkc7BrFpEajNcBrb4S7PqyGFvUA8NIyBlW4sxewLYboUQVGLZU7p
-         Z2kl11gciK5NAEJkHKOXpKE7Z5Gl3+15z+gM6He6zPcWuDjieCNvk65/7/GHRx0IQkcf
-         f0Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092364; x=1790697164;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nsDs23DcdYwkDSFn0tiJfOUbVshOv/zFLmietT3ibk8=;
-        b=m5zajdAwUJDLT3ULzbMh4V58xBn36z1nRbtJzY47/BPT8U+Jf795lJa/QsMuFP+Gsm
-         meYBzfOuQSROgeirsv1obVzg7baQ1qRBJHcgonI/gJx/k2+85ypSZR4xhOUI3Wl2sRVb
-         RTySsG6mey2/IhvG6rz0WDIFCSSF5woikBsUZI1CDemAcKQDAqCv9eyVsT6Is+Bfc5co
-         bbRTkOyo54vIg3b1vywSVHpXz9neJfN8jYn2GKR1GjhZoJy79DCDDAb3xNs4TTdk9KGg
-         jEvRQpkgFuV0lMd2lRsWsKsx2R7JBQSwVLJcyZweeLfitHRGspNFQ1JR7aI93haLXoAi
-         eI1A==
-X-Forwarded-Encrypted: i=1; AKwUvBwVuRdocpBmtX3L/odmxK9qVSieNUiNXTn16wcqWi615gKJjtpeLtYH/utZ6B16OAT/SSJcM8w2Rl74S74=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgVdI43SInN46ExZ/lmmOQ6R20ruZNPMenEhzlqReshnkuHNFG
-	L/T6iu6VNwi6aMj1uWWZt7eRMzjWDUIapBFBAL4ESz8y8PXtcZfWVr3z
-X-Gm-Gg: AYBFou1ANwN8zZx70eHCnSqvPYXPOEjJsucgwymzng59vp7+s4SvSRHKzvXVOAmbT7Y
-	zW6FRkCXGIYxT0MxPFyosItKEW2VJtrHU7Co61furGv1pP32avhbKPasCTAhhqxzGuRXJuMY7kH
-	ItYE+/NdZaR7nylxe3ZK1OmBjjLrUIimSeViQFPRDio1ZaseLyWYXKZ2ghJ8ewuqnL2NRh2zGGd
-	KUBQpqqYbeKYoOn+Yk1Rj4h3w9wtzOma+TAc4HmI2rMQPbKSSwHoLeoMhFCGQa4B03LeYBbkUaz
-	bRuaKRJcqYT2udri23wPWxSMQfVeIcvSXfWsFhE1/X63LHw0br/e7Oo+db9KKCr6NqXTle49R87
-	2wjC+yPyHTLPWyc9xp0oXZPfeFM8HtSzxOiFDAEEmAHdD59j3zsNufLBJjPDYXgsoVEp99KVwxS
-	7YTwVkJbLfnwrxi7l0g/4uCLoa9IW4+REAiMUk0rNRi0+60v5zy3ZtVifHS9/V+kjwFhh37YDZ7
-	meecKsk0QDyNEm4
-X-Received: by 2002:a17:906:c14e:b0:c29:5af0:3b44 with SMTP id a640c23a62f3a-c2a157fc26emr1145456766b.41.1790092363539;
-        Tue, 22 Sep 2026 08:52:43 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.182.136])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c628056sm109308666b.54.2026.09.22.08.52.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:52:43 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: kuba@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com
-Cc: andrew+netdev@lunn.ch,
-	ffainelli@freebox.fr,
-	auke-jan.h.kok@intel.com,
-	jgarzik@redhat.com,
-	joe@perches.com,
-	aleksandr.loktionov@intel.com,
-	intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-Subject: [PATCH net v2] net: e1000: fix warning in iounmap on probe failure
-Date: Tue, 22 Sep 2026 18:52:38 +0300
-Message-ID: <20260922155238.67445-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="m1nJ5Gk6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jXAMs0W9jhIOTCMnsIAR8DRC9f9a4ynIGfQIxsrhFzXF1ZaMZYaS4HlORle1oVtv0DLgzu3xjc2IcH7AlRd55Tc9NQu9ToKY+16vDaKoO08Kr+r1Ofa6+hbwT6K1MzGJGNb5OgySibCi3UKGU/Au0LXfxMWzZXTKy95nrZJswcQdGRq89yyE9wNA4hj4LR50EcatZJwRDrzyPxPAr31iKeoPVx6nEO0eqjxZeB9E8zOvBb5WgEAPaBq8yGq4KFZOutpZoEUBNjBZCu3zosL2d7Cwq6NcXpmHXfDuS9otrubZqCa8wXkpv0HMp81FtPBjm/yXm816xU6jZm6D1EZcHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vyxky55saR20D8RVWroa4976RydiqaqM5jdSo6aQQVE=;
+ b=KJNL+xGPch3qqQ1Ncw7CI5K/IiiEj3zgyngeJVSk5J1a1KMfmYycT7pMhV3zMw7PfFaC4h7tqWtEjHSjc1Y3ED94P3cLp2i6oj2BIgi05LSv2sJRAhTNV2npKDbNQPdKj6fOn2MP2howvjHwqP/VsShf1fg9f4YnE3paWFqQ839EZTjaATgXRsSYpolc0MCKxMUSWAUce0aYwLmrv4Ly6cfAmEQz8qmgdm4zglmD0sNurQ+SwjdrgHBo+ixlgCm5qZhjNwzdOFWG/KwNtud3fhibMdJJ/PD4S4itnUasIN+lNs3B5ZTmW4rx36XRwy+FAkuJycqYHGEsM3zcHkzESA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vyxky55saR20D8RVWroa4976RydiqaqM5jdSo6aQQVE=;
+ b=m1nJ5Gk6EdK7dtzi3VN3zTzOiBmXNVCO9pnfQXsYgZj999iTzTkLghADREL3uVgG0T5xBS5vHmNprCkoDjUlWQpG04eS4211DZq9ZO8uNoeO5GkohBHc3e5ui9yBvMx1Ee2tA/0woj/Jnv4TwOlskYagBWH5rgBMW35wfPMF5KQBaCSjOEw/znL4L7CqlssfN9KWtOuGwjKugrzf7d5TQGk0c+TeSbuBhI3fHsE6oi2yYl4C0WiuSRu/NbjO9MlIoylZeXNqKIvgGE80tl07wPM9k0DDcXwyfu3/eD3EHM12Ghg16aC4z75LGYxiYMBJ9TN4Ai//iT7TEjTuvRsMJw==
+Received: from BN0PR04CA0136.namprd04.prod.outlook.com (2603:10b6:408:ed::21)
+ by IA0PR12MB7577.namprd12.prod.outlook.com (2603:10b6:208:43e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 15:52:41 +0000
+Received: from BN3PEPF00022BDA.namprd03.prod.outlook.com
+ (2603:10b6:408:ed:cafe::6c) by BN0PR04CA0136.outlook.office365.com
+ (2603:10b6:408:ed::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
+ 22 Sep 2026 15:52:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN3PEPF00022BDA.mail.protection.outlook.com (10.167.248.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 15:52:41 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
+ 2026 08:52:12 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
+ 2026 08:52:11 -0700
+Received: from dgx-1v-42.nvidia.com (10.127.8.11) by mail.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 22 Sep 2026 08:52:11 -0700
+From: Jamie Nguyen <jamien@nvidia.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>
+CC: Jamie Nguyen <jamien@nvidia.com>, Lorenzo Pieralisi
+	<lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, "Rafael J. Wysocki"
+	<rafael@kernel.org>, Len Brown <lenb@kernel.org>, Dat Mach
+	<dmach@nvidia.com>, <linux-acpi@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 0/3] ACPI: arm64: FFH Operation Region support for FF-A (offset 2)
+Date: Tue, 22 Sep 2026 08:52:11 -0700
+Message-ID: <20260922155211.676134-1-jamien@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260922-purring-fennec-of-exercise-bbce5e@sudeepholla>
+References: <20260901192906.133670-1-jamien@nvidia.com> <20260922-purring-fennec-of-exercise-bbce5e@sudeepholla>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,49 +85,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BDA:EE_|IA0PR12MB7577:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f367d70-681b-4fa2-1632-08df18c1891f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|36860700016|82310400026|6133799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	jrGHwinW5yyIaE6hisvvyZgxwhSZsgDmUOZu77F/KKBDGyIP7MzIAIJR+SLspIMcPf4shw5AruAApGYNVOsFdLeMiIt0HO5G+/cF18SmuF24/kLX55sCMM8ufOScGBdVjGimMDiDMBMitAUlKm8DHavJPtiyIKO0vuEph5kCBDl0ze3t4M/u02tExdh3TjlWaKmVkOLtbevShTfUXBim1Kg9muOhQAVIzaQu1R11RH0d92HoD4qsxL2Jixv7cA4PnY3oTCywMBudtGgIkqZ8jujbSiz9vFUQJPulJ6p9lOBtiwa1cfPLCYfU03pYlTiKzQjFECObYzSO1opO5Y8A96ZEO7yBYzQ6zAfqu15l3PsmUaSJE84N5UoHnt74UHnqZwsgc5SXanE4ICk5gtKXfI19+e4qn1VPkC/rGBBQp3ulvEIma7R4wrqS3DqmQj3baodEW3VRDysDCjq9kBtzZAhBHiu5OHlLAfHxlfP7due51F7caYr5RlTNmXOatGWzh81e06X9rL39P6AjdWaCkFcaYN0hJSWoU/XVM7yE8HgRNrzbWQMaAGFL1Vf8z6hVHgtE2wO68HQvxQtWl0fiquQKXwXSdmMpPlsXFnLgvJ88am3qxi1tIMnsFLlHHxEgx3PlNhzlw8GNe+0P+zht1x2YK4nQXPfRJr8pLnHzmcpAYXk6eAaxlZ/8EXO7frVNNki3XKuJwtiVtnOrfSZAbQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(36860700016)(82310400026)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bN15vzE9wnMIM0GROtawBhJYDUXMCW0pWJ1MK73Y8TulqVFs4Xg98FGaX/CMvECDjrivW1HrFTSIhTjytffWCUcAyxDoDU9SsdBPW/1fD/3lVCI+K8gljL0Uqfmo/3mCJxAYwa7w44IRlTj3J85e4r2FBtWpee7oQT7fiYC9JCCDgCOE8ZRiVAmJnLM0cI6MO+5DxSg8d5pC6vLVzF7ZU3dwLjUnfm7OEjeNLlN5xIS8WLFwHAl1xXZRDNuojE6yQmfrAguEHZKRDg30WaPsiSFjhIXKlTFQ12JrVWHtD+0UNa8F9XvAYPXWoIgATilIEUmMKpgo8IcyS+f6mL2Asu570cgIRkIz3xrQqspPkMR1UZv+y2rt0ACx2mwBrH6Qv+V6pdlBOQ3osufGlY4M1Ja8Q+S7UpdKa1XpdAKiT7AvFQKg9SEm8U2olDGRgCe9
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 15:52:41.6284
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f367d70-681b-4fa2-1632-08df18c1891f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BDA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7577
 
-During a probe failure, the e1000 driver error handling path calls
-iounmap() on hw->ce4100_gbe_mdio_base_virt and hw->hw_addr without
-checking if they were previously mapped. This triggers a kernel warning
-(WARN) rather than a fatal crash when passed an uninitialized pointer.
+On Tue, Sep 22, 2026 at 09:46:59AM +0100, Sudeep Holla wrote:
+> Could you clarify how the build and runtime behavior are protected when
+> the FF-A driver is disabled?
 
-This issue was found by Syzbot. The exact kernel configuration (.config)
-and the C reproducer used to trigger this warning are available on the
-Syzbot dashboard.
+There is no build-time dependency from ACPI FFH to the FF-A driver. The
+registration direction is from FF-A into FFH: the FF-A driver registers an
+optional backend after probe and unregisters it on removal.
 
-Fix this by adding NULL checks before calling iounmap().
+With CONFIG_ARM_FFA_TRANSPORT=n, no backend is registered and an offset 2
+access returns FFH_FFA_NOT_SUPPORTED. With CONFIG_ACPI_FFH=n, the
+registration functions are static inline stubs.
 
-Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
-Fixes: 13acde8fffc0a ("e1000: cleanup CE4100 MDIO registers access")
-Fixes: 1dc329180fe22 ("e1000: Use hw, er32, and ew32")
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
-v2:
-  - Expanded commit message to answer reviewer questions (reproduction details)
-  - Added appropriate Fixes tags
-  - Added Reviewed-by tag from Aleksandr Loktionov
+I have also built CONFIG_ACPI_FFH=y with CONFIG_ARM_FFA_TRANSPORT=n.
+The W=1 build and full vmlinux link are clean, with no unresolved
+references to the FF-A transport driver. I'll mention this case in the v3
+cover letter.
 
- drivers/net/ethernet/intel/e1000/e1000_main.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> Are there any other technical justifications for this tight coupling?
 
-diff --git a/drivers/net/ethernet/intel/e1000/e1000_main.c b/drivers/net/ethernet/intel/e1000/e1000_main.c
-index d7f5c6f16142..156903089fa6 100644
---- a/drivers/net/ethernet/intel/e1000/e1000_main.c
-+++ b/drivers/net/ethernet/intel/e1000/e1000_main.c
-@@ -1227,8 +1227,10 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	kfree(adapter->rx_ring);
- err_dma:
- err_sw_init:
--	iounmap(hw->ce4100_gbe_mdio_base_virt);
--	iounmap(hw->hw_addr);
-+	if (hw->ce4100_gbe_mdio_base_virt)
-+		iounmap(hw->ce4100_gbe_mdio_base_virt);
-+	if (hw->hw_addr)
-+		iounmap(hw->hw_addr);
- err_ioremap:
- 	disable_dev = !test_and_set_bit(__E1000_DISABLED, &adapter->flags);
- 	free_netdev(netdev);
--- 
-2.47.3
+FFA_MSG_SEND_DIRECT_REQ2 requires FF-A state already owned by the driver:
+the selected SMC or HVC conduit, the sender endpoint ID from FFA_ID_GET,
+UUID-to-endpoint resolution through the partition discovery ABIs, REQ2
+feature detection, and FFA_RUN handling after FFA_YIELD or FFA_INTERRUPT.
 
+Open-coding those operations in ffh.c would duplicate FF-A initialization
+and state management. The ops registration lets FFH use that state when the
+driver is available while degrading cleanly when it is not.
