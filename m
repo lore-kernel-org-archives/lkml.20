@@ -1,182 +1,134 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E7DF568528
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9538A55C33F;
+	Tue, 22 Sep 2026 16:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095340; cv=none; b=VVJIHOljKWsIRpr6eTwRs6eiksCQNiwHQJmt6/4iPYqoe7XBqYochLJwKZHKIpkj+9QZZQuZAci0v0Kmilh3G0F/drSqhbFKV9irsI3RZcyNI1dKo/O2brYrvJ7EJLOmf7n5Y7Ib9Rv6tq8b7ZIKARJd0XMsaPtlcEL/cpJ/Od4=
+	t=1790095388; cv=none; b=ZDgn5xjvnpsUHPkt2RC7VwBEw3Pz5LZ+zMAD8JF9sY3hu8gzvXQaLUv8I6Ba9OK+G31Fjwo6dhXxo6wuZCVtIT87A+dvRRLMNpDN6Z/Mvhs1jot3txgsCwQ0OXK79fbCjbJic9dZWjjwZsZXgHT4ukhwm+SIJzrlWsc7e/16sMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790095340; c=relaxed/simple;
-	bh=d/Mpn1ZpFaNOER/CgAQ3D20zXsFpahTQPNfzJEQeDiY=;
+	s=arc-20240116; t=1790095388; c=relaxed/simple;
+	bh=14Jwv5SqG/STLi+i1lVISv+YxviZldN+nSDRF/nZ4aI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qwDjRmFQPlHEyzLbiaY7Kgg1ncfMJ6zTtqPf/6OTf9o6Fz4SygyFxEBhUkZQizMPA1MFXEvMBYFY2Xpoa4O3mZhSG29t9q6W2duUHM4/BHtd+clMwcoXsD5kJvbejktTV5yN/4U5vvN2+Cz8z5yjecbLksKuHOBYHOtSYsVPygs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Z7r7rrhy; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=YT6QyjWIa6M8H72XjgrlOtJIXFsrvMW6Tk4uRNyl5P7DoDUTwViIM+pJoqN/VqUKh7avusm3rgoHezEe/WZ+Ku89SA2IKsUODzdI/flH/mtbg7kEFZbnJb+JT2cSt19gn92WwlGaIpvWBZsgg7qcLUVYu23MTMqfWLMmTx7gLCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=DXSA/Gcd; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Z7r7rrhy"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 052821576
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:42:14 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4583A3F632
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:42:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790095337; bh=d/Mpn1ZpFaNOER/CgAQ3D20zXsFpahTQPNfzJEQeDiY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z7r7rrhymBcpUc+D3A2JX/GPvKIHWixfKbMFLiUcIzb3lt/a1u92VicUB7Re+vzwn
-	 9WGdS/kXEelxIu450IBp6BXpiWx+RuWQsLTbVPXut5YzQZxA1ipU9JqPP9P8QtS3Zw
-	 swEY1B47v+VZFoPsB6aYg3MXYkKDvz6Wqpg077h4=
-Date: Tue, 22 Sep 2026 17:42:05 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
-	=?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] drm/panthor: Consolidate the is-huge-page-mapping
- test
-Message-ID: <arKv3XLUkRLjcdnQ@e142607>
-References: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
- <20260917-panthor-fix-partial-unmap-v1-3-c7008f15fea3@collabora.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DXSA/Gcd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=acmbGOYX6e5b9nsGkh+Evf65NkqvOdBjs0iMPuA3tME=; b=DXSA/GcdR6HXs2iM/AY4Vz+edJ
+	kA/NioItpmK4uLBa+N+yBYGy/TG5czyqFC4qExUiAy7txhD2ZetX+uytMySoVkb7vf95MpnQHobXs
+	5nj+vhS0PUVYU2/JaoirFCdNajGdEWvlQ4wdWlfiL1oP8Yf0G8zCFuk5lYCptlXSEaQ0KOZm+zJN+
+	NG7W2GGIrdOancjdcnpkIbZqCN7FFw8zwNf+GSbFUdO+K8gp+sYxBhPsjldvrqJGrSpLKHYWgpKte
+	3kxOzApBvbjROOxG3nl5IbBdc+LakvvRp2Rg1UGqSPeIiJ9mKJOUkUI2TQFNOzS2neJmoa4FFivIy
+	UMSxC1qg==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x93ZL-00000009bF8-0eHw;
+	Tue, 22 Sep 2026 16:42:11 +0000
+Date: Tue, 22 Sep 2026 17:42:10 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Simon Schuster <schuster.simon@siemens-energy.com>,
+	Jonas Bonn <jonas@southpole.se>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Russell King <linux@armlinux.org.uk>,
+	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>,
+	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Matt Turner <mattst88@gmail.com>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Arnd Bergmann <arnd@arndb.de>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
+	linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org,
+	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org, linux-um@lists.infradead.org,
+	Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 00/12] mm: make userland page table freeing RCU-safe
+Message-ID: <arKv4qbF04KB2WxQ@casper.infradead.org>
+References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917-panthor-fix-partial-unmap-v1-3-c7008f15fea3@collabora.com>
+In-Reply-To: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
 
-On Thu, Sep 17, 2026 at 02:33:45PM +0200, Boris Brezillon wrote:
-> Right now the logic to determine whether a given VA in the drm_gpuva
-> being unmapped is a huge page mapping or not is scattered
-> in two functions: unmap_hugepage_align() and
-> iova_mapped_as_huge_page(). This makes it harder to reason about the
-> logic being implemented for very little gain (some simple checks being
-> done twice), so let's consolidate all the checks related to huge page
-> mapping testing in iova_mapped_as_huge_page() and leave
-> unmap_hugepage_align() as a simple user of this helper that aligns the
-> area to unmap based on the return of iova_mapped_as_huge_page().
+On Tue, Sep 22, 2026 at 04:35:31PM +0100, Lorenzo Stoakes (ARM) wrote:
+> m68k-motorola required the biggest change - since RCU page table freeing
+> uses call_rcu(), this means page table freeing can arise from softirq
+> context.
 > 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> This was fixed with an IRQ-safe spin lock used in both get_pointer_table()
+> and free_pointer_table().
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+You don't need to use an irq-safe spinlock for softirqs.  It does work,
+but it's overkill since it disables hardirqs.  If you use spin_lock_bh(),
+only softirqs are prevented from running (and it's safe to call
+spin_lock_bh() when in softirq context, just like it's safe to call
+spin_lock_irqsave() in hardirq or softirq context).
 
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 57 +++++++++++++++++------------------
->  1 file changed, 28 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 6cef954e2cba..d2897099763e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2301,10 +2301,11 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
->  	pgoff_t bo_offset;
->  
-> -	/* If the 2M-aligned VA is outside the mapping being tested, we know
-> -	 * it's not a huge map.
-> +	/* If the 2M section being tested is crossing the mapping boundary
-> +	 * we know it's not a huge map.
->  	 */
-> -	if (aligned_va < mapping->va.addr)
-> +	if (aligned_va < mapping->va.addr ||
-> +	    aligned_va + SZ_2M > mapping->va.addr + mapping->va.range)
->  		return false;
->  
->  	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
-> @@ -2337,10 +2338,21 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  		return false;
->  	} else {
->  		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
-> +		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
-> +		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
->  
-> -		/* In case of shmem backing, we know we can only have a huge mapping
-> -		 * if the bo_offset is 2M aligned, meaning we can skip the folio size
-> -		 * check if it's not the case.
-> +		/* If the unmapped VMA stands for a sparse mapping, always
-> +		 * assume the backing storage is a THP, since the overhead of
-> +		 * unmapping 2MiB worth of 4KiB pages and remapping some of
-> +		 * them is offset by the logic of working out whether it's
-> +		 * the opposite case right below.
-> +		 */
-> +		if (is_sparse)
-> +			return true;
-> +
-> +		/* In case of shmem backing, we know we can only have a huge
-> +		 * mapping if the bo_offset is 2M aligned, meaning we can skip
-> +		 * the folio size check if it's not the case.
->  		 */
->  		if (!IS_ALIGNED(bo_offset, SZ_2M))
->  			return false;
-> @@ -2353,36 +2365,23 @@ static void
->  unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
->  		     u64 *unmap_start, u64 *unmap_range)
->  {
-> -	struct panthor_vma *unmap_vma = container_of(op->unmap->va, struct panthor_vma, base);
-> -	bool is_sparse = unmap_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
-> -	u64 aligned_unmap_start, aligned_unmap_end, unmap_end;
-> -
-> -	unmap_end = *unmap_start + *unmap_range;
-> -	aligned_unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
-> -	aligned_unmap_end = ALIGN(unmap_end, SZ_2M);
-> +	u64 unmap_end = *unmap_start + *unmap_range;
->  
->  	/* If we're dealing with a huge page, make sure the unmap region is
-> -	 * aligned on the start of the page. If the unmapped VMA stands for
-> -	 * a sparse mapping, always assume the backing storage is a THP, since
-> -	 * the overhead of unmapping 2MiB worth of 4KiB pages and remapping
-> -	 * some of them is offset by the logic of working out whether it's
-> -	 * the opposite case right below. This also holds true for op->next.
-> +	 * aligned on the start of the page.
->  	 */
-> -	if (op->prev && aligned_unmap_start < *unmap_start &&
-> -	    op->prev->va.addr <= aligned_unmap_start &&
-> -	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, *unmap_start))) {
-> -		*unmap_range += *unmap_start - aligned_unmap_start;
-> -		*unmap_start = aligned_unmap_start;
-> -	}
-> +	if (op->prev && !IS_ALIGNED(*unmap_start, SZ_2M) &&
-> +	    iova_mapped_as_huge_page(op->unmap->va, *unmap_start))
-> +		*unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
->  
->  	/* If we're dealing with a huge page, make sure the unmap region is
->  	 * aligned on the end of the page.
->  	 */
-> -	if (op->next && aligned_unmap_end > unmap_end &&
-> -	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
-> -	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))) {
-> -		*unmap_range += aligned_unmap_end - unmap_end;
-> -	}
-> +	if (op->next && !IS_ALIGNED(unmap_end, SZ_2M) &&
-> +	    iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))
-> +		unmap_end = ALIGN(unmap_end, SZ_2M);
-> +
-> +	*unmap_range = unmap_end - *unmap_start;
->  }
->  
->  static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
-> 
-> -- 
-> 2.55.0
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
