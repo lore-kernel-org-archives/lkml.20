@@ -1,50 +1,33 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDFD558215
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8966A559CA3;
+	Tue, 22 Sep 2026 15:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090675; cv=none; b=czqrjDHXCG/jidNcyTOMAD3lmMImjAzsIzO5tvoYPLsz8YXVRoxx4Kkwh/W5QSh3ZV59k4j35oVr7mtgzdaHHQ3fmUi6ET02tmZCDq6qq9nyoo2+mThl3WS/25vlTtbmGSUFqNL1jSQh0PT8JNjJt4sxZsRzD0wpNAsibwnrtyo=
+	t=1790090735; cv=none; b=cp/VBRhhnGtbhz8QejlAuPBW0nL4gIIKiQbrvnFQXG/uFf0xxZztFoVpZ7NY1zQSIzY1saB0MSnOW9uxA4VC6IPCfvZEPQq2iMIRWjtVlxWUx36pr3d7+H/O7Z35CfQi0/bOeD97YaP+mNW9KO9itJLBOB5zvdDXa4T8P0e5n7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090675; c=relaxed/simple;
-	bh=OyXaGjZqn8qSmBy1AD4h/wsptjeLeNc8R7vTGyPvGpU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=obV3UYwM/In3kEtaChGv0tEvk+09ynhEMrQLnUYsISHlyfjWrD/SL5WHMAkKvgY5JVNfvr6z54XjiDPPAD8M8KOzyYquTXrahYKet3jEpT0YOHK02eyc7yzrfpvbikHELf6FSfP6fmgWMsTv2iiCcFFu7TUHqiVILwSOPU8eK3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z1un93Y+; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790090735; c=relaxed/simple;
+	bh=eXwvSrn947RaZhU1ef5JaSq5I291UhojbgSspUVbEX8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=RE2zDUwAmCfPqlaOQA//VJTZDuV5xU7VOQIGDVL5mh7WqtWEUiJINDi60LTufdAZzCAjp/2uP7iduaMzclxOA4UJcLly+wB3Z3WHLPgujssDdLTyzq3XSycGFfAfF5Q66NQJzu9Jqu4whqzRHQxUWEWFLA7rVSIP5kfhGiOpQJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CuTpb89x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z1un93Y+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790090674; x=1821626674;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=OyXaGjZqn8qSmBy1AD4h/wsptjeLeNc8R7vTGyPvGpU=;
-  b=Z1un93Y+tm3ZTvGLqK3ed0Lg6Bn4+1s58dRys1xDf6LOzrEqVAfuYEFs
-   S02bMyke4zfyfGz6U20JMQtnPrrNfI61j0mNSAZwr8vGx1JEv71G6/tzq
-   +/navUgX4fYDxEJxFtcGb5NP9e2UKjbKZHbAM9NO3pqGUcrJdZ+j0hLPP
-   XlqtXsA32qj+9v3OCgPJUre5DRRt6S6NoldDnu9ggFOraqPMSoKRqYLgq
-   oZYHzsP2186ppy9HF4MBZR0yMwzG+b+adIFQEysW2UW/brEiA5y+QeHbb
-   d8pjN7kA0KlhvBlNlfvdH/Gy46Sd1bQ510Kh/oSGFI0v47ssR92tIqX5X
-   w==;
-X-CSE-ConnectionGUID: r9hExIESTTeIIighODVLpA==
-X-CSE-MsgGUID: OoyzM96BQaeqbGX+SafDrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="102056948"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="102056948"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 08:24:33 -0700
-X-CSE-ConnectionGUID: 1WLGIF3dSNqKR0r1GeSRmw==
-X-CSE-MsgGUID: xqZe3QZgSMiLZ14WZOpybQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="299436280"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.110.31]) ([10.125.110.31])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 08:24:32 -0700
-Message-ID: <01a1d68b-a4e2-40e3-b3b8-c1046faa6c77@intel.com>
-Date: Tue, 22 Sep 2026 08:24:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CuTpb89x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7651F000FF;
+	Tue, 22 Sep 2026 15:25:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790090734;
+	bh=KSJ683uGfNg+FWeVxe5zMe2yBPzCa7cxhBOyuob1v0w=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=CuTpb89xP6BBMtYj1FHbTy/UkyOKn5q9To79fhDa1qWRwejmqgja3K0IAyELiaHiD
+	 2FOH17gGvmhc6RbIK4AflZo/c8tTSTcMlMMdJBi//vMQFZz6F8yBAn2vldvzMPm6vC
+	 De5pe1rEyQq73d+pdmmqVog8XvlafhPM+JNRw/JR8ifa9OvLbY5BSfLeB+29DLxQgJ
+	 qteHrNQI46fpiF94VWEB7gl+nUznF4rKHlQBwjrX6K+L/INzVRjWnxvK6jXGnsfUIR
+	 c49GsVY4EeRSRflBdSxajHB2r9HVR8rsDZGfcgWAv5hvgOHfEAehSpseB8EuRHfayb
+	 VSDXtACawOQPA==
+Message-ID: <09d2bb84-7077-4471-ab24-eaea2cb7a2ab@kernel.org>
+Date: Tue, 22 Sep 2026 17:25:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,121 +35,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: x86 CPUID mutable return values
-To: ludloff@gmail.com
-Cc: Borislav Petkov <bp@alien8.de>, "Ahmed S. Darwish" <darwi@linutronix.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andrew Cooper <andrew.cooper3@citrix.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Sean Christopherson <seanjc@google.com>,
- David Woodhouse <dwmw2@infradead.org>, Peter Zijlstra
- <peterz@infradead.org>, Sohil Mehta <sohil.mehta@intel.com>,
- John Ogness <john.ogness@linutronix.de>, x86@kernel.org,
- x86-cpuid@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
-References: <CAKSQd8V28WjMcsfh05P5SNfXXvtafBH6fyiyqMzQ9GtU8fQGSA@mail.gmail.com>
- <f133c35f-b013-4395-ad1f-53765114d4b9@intel.com>
- <CAKSQd8WqQdNDoEqM+PZNHg-yr_4VJTGYdV=bCbYfRDyR7kUjbg@mail.gmail.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <CAKSQd8WqQdNDoEqM+PZNHg-yr_4VJTGYdV=bCbYfRDyR7kUjbg@mail.gmail.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: cobalt: bound the dv timings to the descriptor
+ buffers
+To: Guo Zihao <guozh23@xiaopeng.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Liu Chao <liuc63@xiaopeng.com>
+References: <20260920015924.750499-1-guozh23@xiaopeng.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260920015924.750499-1-guozh23@xiaopeng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 9/22/26 01:43, Christian Ludloff wrote:
-> On Mon, Sep 21, 2026 at 11:32 PM Dave Hansen <dave.hansen@intel.com> wrote:
->>
->> On 9/21/26 11:36, Christian Ludloff wrote:
->>> Q for Intel: is MSR FEATURE_CONFIG 0x13C bit 1 expected
->>> to affect CPUID 1.ECX.25 and 7.0.ECX.9 and 19.EBX.0/2, or
->>> just just a subset of them? Also, what about PCLMUL?
->>
->> Are you looking to document architecture or implementation here?
+On 20/09/2026 03:59, Guo Zihao wrote:
+> The DMA descriptor buffers are sized from the maximum frame the driver
+> supports:
 > 
-> Just the reality of mutable CPUID return values.
+>         const size_t max_pages_per_line =
+>                 (COBALT_MAX_WIDTH * COBALT_MAX_BPP) / PAGE_SIZE + 2;
+>         const size_t bytes =
+>                 COBALT_MAX_HEIGHT * max_pages_per_line * 0x20;
 > 
-> Because it matters. When trying to cache them.
-
-Of course.
-
-I'm all for documenting this stuff. I wish it was more open. But I do
-worry a bit that someone will read that, for example, "KL is immutable".
-$CUSTOMER starts depending on it. Then, $CPU_VENDOR decides that was a
-mistake and fixes it in a future implementation.
-
-> Based on some experiments, I think that VAES
-> does follow AES (i.e. is mutable as well), while
-> KL and PCLMUL do not (i.e. are immutable) –
-> so that's what I am seeking confirmation for.
-
-Are you OK with just checking a recent implementation or do you need a
-wider search of older implementations?
-
->> Honestly, FEATURE_CONFIG looks more like something that should have been in the BIOS writers' guide rather than the SDM.
+> With COBALT_MAX_WIDTH 1920, COBALT_MAX_HEIGHT 1200 and COBALT_MAX_BPP 3
+> that is 115200 bytes, or 3600 descriptors of 0x20 bytes each.
 > 
-> I for one appreciate that the SDM attempts to
-> provide a list of mutable CPUID return values
-> and that it has the FEATURE_CONFIG MSR.
+> cobalt_s_dv_timings() however records whatever the subdevice accepts
+> without checking it against those maxima:
 > 
-> After all... the most recent public Intel BWG is
-> more than 30 years old by now [aka P6 days],
-> and https://en.wikipedia.org/wiki/Appendix_H
-> was a thing that also happened back then.  :)
+>         err = v4l2_subdev_call(s->sd, pad, s_dv_timings, 0, timings);
+>         if (!err) {
+>                 s->timings = *timings;
+>                 s->width = timings->bt.width;
+>                 s->height = timings->bt.height;
+>                 s->stride = timings->bt.width * s->bpp;
+>         }
 > 
-> PS: Should Linux boot check/fix that LOCK?
-I don't really feel a strong need to do it. I honestly don't know why
-the lock bit is even there. I'd randomly _guess_ that Intel's
-implementation was not certified for $THINGS and they got nervous and
-asked to have a chicken bit exposed for it just so it couldn't
-accidentally get used.
+> descriptor_list_create() in cobalt-omnitek.c then walks the whole frame
+> and writes one descriptor per scatterlist segment, with no upper bound of
+> its own. An HDMI source at 4096x2160 with bpp 3 gives stride 12288 and
+> size 26542080, which needs far more than the 3600 descriptors the buffer
+> holds, so d[] walks off the end of the coherent allocation.
+> 
+> cobalt_try_fmt_vid_cap() and cobalt_try_fmt_vid_out() already cap width
+> and height at 1920x1080, and this patch adds the same bound for the
+> timings path plus a stride limit on the pixelformat path.
+> 
+> No Fixes tag. The descriptor sizing and s_dv_timings() both come from the
+> initial driver, 85756a069c55 ("[media] cobalt: add new driver").
+> 
+> Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 
-But, for Linux, the kernel doesn't currently munging the disable or lock
-bits. If someone munges it with wrmsr(1), they get to keep the pieces
-just like any old wrmsr(1) user. I'm struggling to think of a scenario
-where being able to twiddle either of the bits could be useful to an
-attacker.
+Rejected-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-So I'm not sure it's worth prodding, even if we think it's got a funny
-value.
+The dv timings are checked in the subdevices code, so there is no
+need to add the check here.
+
+And bytesperline can definitely be larger than the width of the captured
+video: in that case it will be composed into the larger buffer.
+
+Regards,
+
+	Hans
+
+> ---
+> v2: declare the local struct cobalt pointer in cobalt_s_dv_timings().
+>     The cobalt_info() macro expands to v4l2_info(&cobalt->v4l2_dev, ...),
+>     so the function needs a variable of that name, which the previous
+>     version was missing. Found by the kernel test robot.
+> 
+>  drivers/media/pci/cobalt/cobalt-v4l2.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/media/pci/cobalt/cobalt-v4l2.c b/drivers/media/pci/cobalt/cobalt-v4l2.c
+> index 51fd9576c..8ffee8ed6 100644
+> --- a/drivers/media/pci/cobalt/cobalt-v4l2.c
+> +++ b/drivers/media/pci/cobalt/cobalt-v4l2.c
+> @@ -617,6 +617,7 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
+>  				    struct v4l2_dv_timings *timings)
+>  {
+>  	struct cobalt_stream *s = video_drvdata(file);
+> +	struct cobalt *cobalt = s->cobalt;
+>  	int err;
+>  
+>  	if (s->input == 1) {
+> @@ -630,6 +631,13 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
+>  	if (vb2_is_busy(&s->q))
+>  		return -EBUSY;
+>  
+> +	if (timings->bt.width > COBALT_MAX_WIDTH ||
+> +	    timings->bt.height > COBALT_MAX_HEIGHT) {
+> +		cobalt_info("timings %ux%u out of range\n",
+> +			    timings->bt.width, timings->bt.height);
+> +		return -EINVAL;
+> +	}
+> +
+>  	err = v4l2_subdev_call(s->sd,
+>  			pad, s_dv_timings, 0, timings);
+>  	if (!err) {
+> @@ -781,6 +789,14 @@ static int cobalt_try_fmt_vid_cap(struct file *file, void *priv,
+>  		break;
+>  	}
+>  
+> +	/*
+> +	 * The DMA descriptor buffers are sized for at most
+> +	 * COBALT_MAX_WIDTH x COBALT_MAX_HEIGHT, so limit the line stride
+> +	 * accordingly.
+> +	 */
+> +	if (pix->bytesperline > COBALT_MAX_WIDTH * COBALT_MAX_BPP)
+> +		pix->bytesperline = COBALT_MAX_WIDTH * COBALT_MAX_BPP;
+> +
+>  	pix->sizeimage = pix->bytesperline * pix->height;
+>  	pix->field = V4L2_FIELD_NONE;
+>  
+
