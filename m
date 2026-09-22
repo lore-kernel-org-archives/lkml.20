@@ -1,196 +1,153 @@
-Received: from mout.web.de (mout.web.de [212.227.15.14])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506933DB62B;
-	Tue, 22 Sep 2026 09:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA404C1503;
+	Tue, 22 Sep 2026 09:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068553; cv=none; b=B0/C38c6Ei4RsZTkmSxEH7ckGRFZOEPYesNJuasvyU1hW7vf5CoTeupm49dy9N5mtUxSX7YH/p378zZOEO9TZh0RQR7FpkcloyQBBFjfpJziPXQeYwLVjOVwQrLa1Jqtl+23mXuM8r2SFCM744ZmHviHUwDiYd0V6dHCft6DITk=
+	t=1790068556; cv=none; b=UpThqyKevmx/lNDrckn53kK/f+uu/wzg6cP0GSWvwv5YifonWQZ02cBTupezNzPUpPKcUY/EH4Y8m53oDqRoAC4q1k4kRgEcT/oBeRalnG3+aVTvDRlMJ16t1cm5x9GSJnuHQS4/jSGFX+yKzEHlrge9SyQNIM7zeXTsuuuU2xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068553; c=relaxed/simple;
-	bh=AJCFjg60lw4n1Yvuc1s3T2B0Z4bcSQF+vsyrpGdItKw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t8yYI6slco6emha4yEvudmdQIQYbUKqOh4kyYJSwmFnoDl810YAsRAGjYqhSTZ1EVH+ZTu89mXI6/Wfpm4k9NF3lHHEyiAnq6SLPu0SYgvmQHMN/iJOI9jhtMDaB2MvRviMMvagRVj9S4ZelyviwANp0uteu4+DIijFe0uaTXnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=eTahjscp; arc=none smtp.client-ip=212.227.15.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1790068556; c=relaxed/simple;
+	bh=mp8D3wC+bVDIhad8y52ugtU7AX3KDD//fgI45f8Fi8s=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OQaIC9HB7Op1qB02U02sotGkKF7x9ycuRV23XZjXAQefZJ5Hq7KRBR2LkqajCfm/FJF8y6u7O/nw0sD/Zt0j2rbG1Hky9+T2PcI9hVvw+W+Eunc9Kd9U9VtlDA/NbbD8pxEhFX5s4FQ50jgECovJMFf4hulL0rRjhB0e7wxqytA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=l7fxrBGP; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="eTahjscp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1790068530; x=1790673330; i=markus.elfring@web.de;
-	bh=pfw6dyACFzdZKGitUbun/qXTmJLQ1ieg2kNuly6syGU=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=eTahjscpJEhOnSg62f+pUPVn5sSESOREj6i7QtJOuZ1su9qvEO6s3b7JpjvNh987
-	 Yfg/TqV4y3lUGYAUTkwqc97jWVi/mTQNoS4pCRZXMEKAPAhhUg6MXuROmEvad8/lV
-	 Jw6N3m50r45xJjk46wBZpqv86bzV65nTizs/+yansjR/8WJqzDYC1ALEuOhN51VQ8
-	 dlGmZOAAASwUrHctBJyo/Q0JUGP2i/9IIONFjg+lvNIJqGKgiUetX1H67J9QHS3OM
-	 t3IYCLOVuIwoSbxt5v9GVb8GR0b/8qHtG9YBf83xZ7j2t8rSF0yeaWgUoWVIk/tVV
-	 6+8UcGP584SY08Z8aQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mdf89-1wa9sR1Dov-00lUuA; Tue, 22
- Sep 2026 11:15:30 +0200
-Message-ID: <aa283243-da00-4461-b6a7-39c1454d6bf5@web.de>
-Date: Tue, 22 Sep 2026 11:15:26 +0200
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="l7fxrBGP"
+X-UUID: 2e402db8b66611f18dc8c9802ae25ab1-20260922
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=o4dQh+eP3k0XZMerp4wMsm0Sg1sBn5LGN/u8lunFpx0=;
+	b=l7fxrBGPplCinjvS0Oas53trfZ8hW9cOcPIHzyqWwEuGWKwt3sIdFW0UWjgXXi1RWokz3Qlgrqbyk66huGqt3HRQPQ0++q3UOAqS7gHzSDKcvyqeExxQfwLiy2Ld0Q0CrJBnNYaUoqV78nIptPA3CbIqdGdc5nayiv9o+PrWhMo=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:61ae3d80-d07f-4859-8c19-e5d3da1c69eb,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:eae426e3-72a5-4ba1-af40-18bbd6ea8ffd,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
+	15|50|99,EDM:2|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:
+	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2e402db8b66611f18dc8c9802ae25ab1-20260922
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 510349039; Tue, 22 Sep 2026 17:15:40 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 22 Sep 2026 17:15:39 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 22 Sep 2026 17:15:38 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>,
+	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil
+	<hverkuil@kernel.org>, irui wang <irui.wang@mediatek.com>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Kyrie Wu <kyrie.wu@mediatek.com>
+Subject: [PATCH v17 06/12] media: mediatek: jpeg: fix buffer state update timing
+Date: Tue, 22 Sep 2026 17:15:23 +0800
+Message-ID: <20260922091530.241762-7-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260922091530.241762-1-kyrie.wu@mediatek.com>
+References: <20260922091530.241762-1-kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dca: fix provider device memory leak on domain allocation
- failure
-To: Guangshuo Li <lgs201920130244@gmail.com>, kernel-janitors@vger.kernel.org
-Cc: Dan Williams <djbw@kernel.org>, Kees Cook <kees@kernel.org>,
- Maciej Sosnowski <maciej.sosnowski@intel.com>, stable@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>
-References: <20260919175925.3739806-1-lgs201920130244@gmail.com>
- <4d1536a9-6836-430b-a84d-aaa19f6af9c6@web.de>
- <CANUHTR-um24oLb-446LRtHLFBGtJ7h=QwEksSjvig-SFonJpRQ@mail.gmail.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <CANUHTR-um24oLb-446LRtHLFBGtJ7h=QwEksSjvig-SFonJpRQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:fjy3HIGfHtankcCaHnS48fYoWkhF3wfXVHYrW1tRlpQumTdldSe
- wxQkYO6O/0wFSfwhmXhL8WuZjZYM3962e3SvlnZRe+qXyjGpyNrwd+y3ctiqEBlwVKhiiDC
- 3pGUvKPAizrrac28LvMrja2R7BhCvDD/own+Onb4vLVnDaPnmvFdAZ0Lnxrr5HxX6LkibXv
- trvQi0atjzM8cAssZynxQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:UmBF/EO5OAE=;FfZ39SwiYC01Xm5ED2ewtOSPdFB
- 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
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
->> =E2=80=A6
->>> +++ b/drivers/dca/dca-core.c
->>> @@ -368,8 +368,11 @@ int register_dca_provider(struct dca_provider *dc=
-a, struct device *dev)
->>>               raw_spin_unlock_irqrestore(&dca_lock, flags);
->>>               rc =3D dca_pci_rc_from_dev(dev);
->>>               newdomain =3D dca_allocate_domain(rc);
->>> -             if (!newdomain)
->>> +             if (!newdomain) {
->>> +                     dca_sysfs_remove_provider(dca);
->>>                       return -ENODEV;
->>> +             }
->>> +
->>>               raw_spin_lock_irqsave(&dca_lock, flags);
->> =E2=80=A6
->>
->> Please avoid a bit of duplicate source code in this function implementa=
-tion
->> by using another goto chain.
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/process/coding-style.rst?h=3Dv7.3-rc4#n572
->>
->> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/dca/dca-core.c=
-#L335-L389
-=E2=80=A6
-> Do you mean using a common error path like this?
-=E2=80=A6
->         return 0;
-> +
-> +err_remove_provider:
-> +       dca_sysfs_remove_provider(dca);
-> +       return -ENODEV;
->  }
+Update the destination buffer state only after the decoder has selected
+a hardware core and resumed its runtime PM state successfully. This avoids
+assigning frame tracking data to buffers that will be returned early, such
+as when a source resolution change is detected.
 
-Yes.
+Protect the destination buffer state update with the hardware spinlock so
+the completion path observes a consistent context and frame number. Stop
+walking the done queue after completing the next expected frame, since the
+remaining buffers still need to wait for their own frame order.
 
+Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c   | 9 +++------
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c | 1 +
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c | 1 +
+ 3 files changed, 5 insertions(+), 6 deletions(-)
 
-> Would this be the preferred change? =E2=80=A6
-Coding style preferences are also evolving into further directions.
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index a5a1f6126..e152ebae0 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1735,7 +1735,6 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 
+ 	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+ 	jpeg_src_buf = mtk_jpeg_vb2_to_srcbuf(&src_buf->vb2_buf);
+-	jpeg_dst_buf = mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
+ 
+ 	if (mtk_jpeg_check_resolution_change(ctx,
+ 					     &jpeg_src_buf->dec_param)) {
+@@ -1744,11 +1743,6 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 		goto getbuf_fail;
+ 	}
+ 
+-	jpeg_src_buf->curr_ctx = ctx;
+-	jpeg_src_buf->frame_num = ctx->total_frame_num;
+-	jpeg_dst_buf->curr_ctx = ctx;
+-	jpeg_dst_buf->frame_num = ctx->total_frame_num;
+-
+ 	mtk_jpegdec_set_hw_param(ctx, hw_id, src_buf, dst_buf);
+ 	ret = pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
+ 	if (ret < 0) {
+@@ -1773,6 +1767,9 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
+ 
+ 	spin_lock_irqsave(&comp_jpeg[hw_id]->hw_lock, flags);
++	jpeg_dst_buf = mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
++	jpeg_dst_buf->curr_ctx = ctx;
++	jpeg_dst_buf->frame_num = ctx->total_frame_num;
+ 	ctx->total_frame_num++;
+ 	mtk_jpeg_dec_reset(comp_jpeg[hw_id]->reg_base);
+ 	mtk_jpeg_dec_set_config(comp_jpeg[hw_id]->reg_base,
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+index 970c0a30e..426150bff 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+@@ -513,6 +513,7 @@ static void mtk_jpegdec_put_buf(struct mtk_jpegdec_comp_dev *jpeg)
+ 				v4l2_m2m_buf_done(&tmp_dst_done_buf->b,
+ 						  VB2_BUF_STATE_DONE);
+ 				ctx->last_done_frame_num++;
++				break;
+ 			}
+ 		}
+ 	}
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+index 4a8559c35..47e95d4ac 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+@@ -241,6 +241,7 @@ static void mtk_jpegenc_put_buf(struct mtk_jpegenc_comp_dev *jpeg)
+ 				v4l2_m2m_buf_done(&tmp_dst_done_buf->b,
+ 						  VB2_BUF_STATE_DONE);
+ 				ctx->last_done_frame_num++;
++				break;
+ 			}
+ 		}
+ 	}
+-- 
+2.51.0.windows.2
 
-Regards,
-Markus
