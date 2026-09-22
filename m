@@ -1,197 +1,270 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457025616C7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344A148E0E7
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790116175; cv=none; b=CekZVbxceSo07yEm5118liLkakxKOnVWdgf5+kHV5TXcVTRNXJtpO0g+E+8NpANajnzlg7EOjq5UxV274CIKnEgOIlsgO8wgrmoecGRN5lj8FInNudGdu3Lc4mHnFDHOpknG7NBf7xGqMBJbu1eO5OMyxROzAGu0n+PQ3bORuvA=
+	t=1790116209; cv=none; b=PZeKnsoS06FzqsN2MU/+yqw2xpwDppsfW3rnA6+MITVRqV0vu98yNmaBrdjMTK9J9+9KVxAPXLWleqb6DLz+kAWrZjBBEFtxsFwbrCIznl7IjUokL0AgZZp57UQXRRhzhrRwqEkIiqvpz4FlGSXyxyaXLAReWrhiZ2e2gClft2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790116175; c=relaxed/simple;
-	bh=RHQNmebjm5fLr1dV9L/YoNA7XquXexIl0yHVtAtTAXk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qZs/66H/Y2NGiiL0tr26GLwG48lSvC8wLg2v8cxQmKo1oK/nkC35h3nIEB8AI9v9M1Kz8iukUA0rLz8DbRw86jp+KfdWowkoWtKbIii+Y9RLtYYrffdNOUXmzK7nz2XBM2or8f/wBAjyqbW3btISwd6MShnsmE2oKCzb/BEMY2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c6FIxJDz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gt4MwZkb; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790116209; c=relaxed/simple;
+	bh=GPLKcgE/IGUmibjYksV+m38Ut7/zFBjUgzhUH19TbD8=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=hRo73VS2EnfkZkITm3z4AVB5QaoRxvSoLxrg1NkfTfOLIL30tX2I1esx0KRiSwij7cmCPGeEKdw3bqSvFffoU6cIlI1uYkKabCAiPagAdl9JaE15zpFs5GDeIaVRYmxMZfet+ZcaaZ+W0PFJnrnH9aUlcVqyk+vnD6GI0fZuduo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ys9uvVRS; arc=none smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c6FIxJDz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gt4MwZkb"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI74uE1873608
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:29:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	p+w2R4Sw24z92+mWmBOXbaEBwTszL/ulokoyz0K44OU=; b=c6FIxJDzSdijI5PS
-	sUyB8CJsU1gphs2rxSzit1qmionaLaYBBY1nMGxjoHQcTlAhStLkZQUwtO020Ybq
-	krf3S02fGvuP56aEH8e2XoMnvafNwqF6Dq9Gd00NmkqJcTjYqTE6eh4qF1FrUj/3
-	/u9IGtBP+VWMu5TyYAVp29uPG6suUK6CagJxGf/B0Xys4MowqJH7RVOL+BB7KvS+
-	kVGpTxswAY5KUnV/vzi0hasGUtWm7cJipO4L75Ri1/wGSiuzMu8oCfWOXhqcX0xp
-	f5rLquRaImhc3JAXWWxi1i9cFiX1IgSX0SIDOiJP+hN4GL2uT+kfU/tr6diVMFVp
-	GZ2Zkg==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guqk4udv2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:29:25 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-32ab0911226so297588eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:29:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ys9uvVRS"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d45ae011cso6224907b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:29:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790116165; x=1790720965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=p+w2R4Sw24z92+mWmBOXbaEBwTszL/ulokoyz0K44OU=;
-        b=gt4MwZkbGlXbpkAlm6yWhVNSGr+t0ux2K1qNmYD+7IF/95/+/AmzLbsWkOQtaWpZan
-         XJbjAPPZFlHUdXbHZG45+LFBpEZgQuxdgiYLJo6Qm8i0kFaO4QXLz7Y1a3jNxRHkNFIx
-         k+snmNboEncl+kG0ZyC86R1xw/wgqk+Kgnmx2HQkzEOLYvYAV2TeRff80QW5FgcszKCY
-         QXBDErvHyOR+R5t/hKrbbtHe/SpuHf2kPv7Bna+CqBn8PsBG9OFDziqR6iVTevM/9t2d
-         x3uqksSqF5SF96YowpwjJEUVJTsWih0dAQT4cZekjmUTxElo7B+fvhqUEZqrrooPCd2Y
-         GfUw==
+        d=gmail.com; s=20251104; t=1790116191; x=1790720991; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0qPZh/r/REXP5ZSy0nxs+oUBSRD0aY6qVWm9CYsML3E=;
+        b=Ys9uvVRSJwCh5svQvp/RAv00KXVGJmhotLNBqseMO2qZ0tq1W3XoM19jTFngBc0CRr
+         aKCTfpDG8pIwoJgXDx/C0r/xid3JPY17ccgySynzqXO2NGmF7/z8auG7q6K44UxkVTPF
+         pKgXIiWKiSqd8ReKKb0/IOSr332hkOjBy7ApNSj8aNEk0r8sIu7sBc4fjEKTfAZoPUP6
+         gun44WmVspZgPYZpsJwE8NIoLAWSe7Hup9S2fHfPSHgFaeDfyKZJy63Apne5wKhEMOj5
+         cTSAKVyWfKIPchJl/qQSNI+I7Q5LgYEcwg/ZBzCim+gcSS56Ok5yGQE7vVv7fBBSAK55
+         ryOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790116165; x=1790720965;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790116191; x=1790720991;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p+w2R4Sw24z92+mWmBOXbaEBwTszL/ulokoyz0K44OU=;
-        b=XxLMQj5b8vt3s6PUxEPDd4AFnYbQN2+1jjDKGuIXhZNPlSgVViXM7DwOGRffQd7fE2
-         DRQOno8iYXHuh6Kpx5705UwJFeLbHYLi4OoAHU2gsoQzOwBntFOixIeeIJL3MDhn5HTh
-         RGT5odltjBcs7/m+YnSsgQk+lT3gFS2neenfYWJtyTm5mpYKafjZOOyUD8WoEIjmqU8e
-         r89EZk0hzajYO5xf7aBs8NVnGn9TPwohftUFmT2V985+kC7zgtyI0utQt60QUN6e5NdB
-         v8vT4a5LVzuzH/VJWhWwR2MUDe4F8yQ7KK+9AwDrwjYkxN5V4Bdbje7EmIWO3QSjRQZr
-         +6Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAsCiniAOZW7/XpEm1mya4zIxXvvr5NcV6frCon0rtMO7jsTGNgQvBpSotZ0WPJMDKLePlz/ETkNuoHbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQmwvjrdOhhGRWHWdDo8851NIJWmMHQEeDF4tAGav6MWDN3wg2
-	jw0eH17v/n0UHSrGk78uDomg3D4Jtl20Hvd2wJEqDTV+hUJmUbJSs5A3vND2LXH7kL/L5CbthaW
-	YNCsw8l34Uf0KVFGgU1jys8oyGkD+I5hgoe7nwbcO28co2fxQ71AZBZfnH22jfxz0AoI=
-X-Gm-Gg: AYBFou1ja0WsMWAM8/q4SLu8gBJj+61EW4yW3yXcQv5kpRpAZk65C/+khSkyvgUBFfl
-	rP+KN9Rl89LcRpGvPBZiYOvVNeoGUtjFqC09FuWELUqniU/F2LmD96otncSQ8FiDPyqLsc6sIvY
-	JerAT4SPK28gOs9f+Bepbw0gYki3crOXFMocHWgxT187tnJ1fFWDGZI97WAR3BnJTBxWrWH4+0G
-	76AVHq+EHbG/siUL+O7ZlhVdjXoczKt2gvwJ9XGFw/zwv4umyqnwiBCJW8LRnPybunadAwdPaVG
-	TP7J455GDSkkdwsDdeHk1jy2XdHj6GskWHBsgwlZydMvXNlVWhElItFhIKyidCDMApBSZC2viKb
-	NyJ1V66fZuxCMg3IiNCQvbKkg3K4IXe3WH+Eud5dxc9KC7/e4n1Mzlg==
-X-Received: by 2002:a05:701b:4248:20b0:144:e259:b1f with SMTP id a92af1059eb24-144f8de7fafmr949938c88.13.1790116164894;
-        Tue, 22 Sep 2026 15:29:24 -0700 (PDT)
-X-Received: by 2002:a05:701b:4248:20b0:144:e259:b1f with SMTP id a92af1059eb24-144f8de7fafmr949922c88.13.1790116164404;
-        Tue, 22 Sep 2026 15:29:24 -0700 (PDT)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98542c8sm1351499c88.8.2026.09.22.15.29.22
+        bh=0qPZh/r/REXP5ZSy0nxs+oUBSRD0aY6qVWm9CYsML3E=;
+        b=ws3F23smKAPuGNYjjT3AZoBR8RxPwCPMsB9lcsEA0a1mdjqy+oA1vIXiJQtY6yl6hS
+         F2FGIpgqM3Hfxmyc/3LL5rCrGp0KWyPl0midRKjMimV2/gaiq8F1kW7iSUjo6kGhDdC7
+         /g8Km3v4MhIAX+5sdmmS3et0+y+szkR0hyGw+nzyxOZl/UZZeHtjjL3eYVFxsTU1j49P
+         cLC3oVQvgsOxK+L0UqAtpEaTWkvtbGLZDBIG2g5N90+rRNvJwP1vpIs0Gl55tMvLl3RX
+         o6qsyA7p92BWH6HwmaV40X8uzfJhvdD/ZiM8EAsXZi+eVYHWzZSSRW+Ezm9UAAglSEER
+         I9Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBySiR09Iwm3wAGZwX8WSLdQgWZA+mCCCAbxoJhDpeRWLwtZvxitQHjEaw4mhFohPePY6NDoQ7etZbbZkbw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCIk87J6ni3o60Kk3U+zZz0wgriDGdbRKz4ggZoe77oKU5KGEa
+	aBnqaGRZF20ixEZiYxlI/13i1n+h+0vFwlZ4uq7gqztaa/mMr8LNjAaL
+X-Gm-Gg: AYBFou2S+DAEtCcLzcgL9Gv06CsfbJuA1LTESwB5rwsKRDOZvAXhZ912HzkOaD0XEob
+	5JiI/2NdTcPscTEeqeoUU7vgTIYGfK/hUYoiAUdWNrUgTQtozOaz6Bpop3pl8rc5cHlBGo4VFIO
+	pw1iSr5Voox0uq2a8tw4Nyf+kDAEGdE4jOKKbl5LL+dwmoms/jyB06iO5yAQqayZqTlG3q+f+ci
+	jC9uITHWMc0S1pp0r+WlSrpbx2mzf0B1YokJUhKR8uLsMNXdw7XKDQqsmynAH4Mb4/aYFPRo743
+	bvWI8B4BQjpMzBmjUUJ7SxKVK64hqOi2xu48CJOmEtzk1+DPwXq83fW9LDyZLkmWuj1D6Ldh2/S
+	7fgbkxHzSzlYmkD1ZshfAWprVjYuQoB+XY67ePWXNK3zFkMzv1uq+UGZoSHp6J8K4A5xmqw3fA7
+	EEIpKP+sgw6SOtlIb59KbGDinGGyN8nl4n/B8gfYkfEIdCN7ZejldXHbzOOjho0kyt6FCKMTt/e
+	YtgW+Y3+O23J/fO+UIR4uHjifMiJy3UncKUxc41ApqyQhwxmoMM
+X-Received: by 2002:a05:690c:c:b0:873:5bb2:6c32 with SMTP id 00721157ae682-8a45bb75c4bmr5165927b3.57.1790116191128;
+        Tue, 22 Sep 2026 15:29:51 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a465ec41acsm3153167b3.26.2026.09.22.15.29.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 15:29:24 -0700 (PDT)
-Date: Tue, 22 Sep 2026 15:29:14 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v19 09/20] KVM: arm64: Add VM specific callback for S2
- MMU operations
-Message-ID: <20260922152914.00001221@oss.qualcomm.com>
-In-Reply-To: <20260920212845.707-10-suzuki.poulose@arm.com>
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
-	<20260920212845.707-10-suzuki.poulose@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Tue, 22 Sep 2026 15:29:50 -0700 (PDT)
+Date: Tue, 22 Sep 2026 18:29:49 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Paulos Yibelo <habte.yibelo@gmail.com>, 
+ netdev@vger.kernel.org
+Cc: richard@nod.at, 
+ anton.ivanov@cambridgegreys.com, 
+ johannes@sipsolutions.net, 
+ willemdebruijn.kernel@gmail.com, 
+ jasowangio@gmail.com, 
+ mst@redhat.com, 
+ eperezma@redhat.com, 
+ xuanzhuo@linux.alibaba.com, 
+ andrew+netdev@lunn.ch, 
+ pablo@netfilter.org, 
+ fw@strlen.de, 
+ phil@nwl.cc, 
+ razor@blackwall.org, 
+ idosch@nvidia.com, 
+ dsahern@kernel.org, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ linux-um@lists.infradead.org, 
+ virtualization@lists.linux.dev, 
+ netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, 
+ bridge@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.259bc7096258d@gmail.com>
+In-Reply-To: <20260922030310.8684-2-habte.yibelo@gmail.com>
+References: <20260922030310.8684-1-habte.yibelo@gmail.com>
+ <20260922030310.8684-2-habte.yibelo@gmail.com>
+Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
+ network header
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMiBTYWx0ZWRfX833OIIDbr6p3
- UyiAWO1dFt7UAbStR0k5P7WuTMl5FSCl9XqprzY/gHr7hakk3yONFPhzmW4L0fOCzbIVZ9Ea86D
- kZkUNchJSRBrHtGM47/ctQHP6HPUWu/C1QB40ORGbLjtfhuFxxHOoeuea4r8jgZyDidbr0z4I9J
- FG2/1ecJrfciCL3+jPSyIBoxrX0c46HiADzx9rRhzpYR96qHKmVAamWIwDlWC6Pwm/m4iEyF7UP
- cXut8fsCMgiEC7pG5OT48fHbWy/B8Juprpxo4YVMpbT8NfxUn02/a4Hhk2JtDBqkwQbwfkFY648
- 3snfho+8Jkm/asqumu0rd0olP3By7qXTpiaGJGoMGnYYbvJwSktV62n67bPt+fFac4fzoZq1Neu
- l86Cs9UxQ8Fl906eWkeYp437WLIiJxfabMp2oBnbN1sjYcEnqx1O1nBpaBEN2FnC3qmZQecRnHS
- C141+tXiIoHBRzJ581w==
-X-Proofpoint-GUID: WKye8CykszI2bIrofHxDkpQ1ED7OekhQ
-X-Proofpoint-ORIG-GUID: WKye8CykszI2bIrofHxDkpQ1ED7OekhQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMiBTYWx0ZWRfX41zFMo/3rknM
- mUW/5sNuSjUlWeu4F9BOBwRT1x1NHvNHldfpO1dNVJ2fFSb6sUI4nGJ+4EThxNsgAQaS0UOjdA5
- mauB5IvTkF/6TLftPRj7Z18XiX9ie8c=
-X-Authority-Analysis: v=2.4 cv=XrVvqlF9 c=1 sm=1 tr=0 ts=6ab30145 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=-iJiB5zC6xgh5EJSZLsA:9 a=CjuIK1q_8ugA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
- phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220302
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 20 Sep 2026 22:28:34 +0100
-Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+Paulos Yibelo wrote:
+> __virtio_net_hdr_to_skb() checks a minimum network-header length for
+> CHECKSUM_PARTIAL packets. Its checksum start is relative to skb->data,
+> but some callers have not established skb->network_header when they
+> convert the virtio header.
+> =
 
-> Add VM type specific S2 MMU operation backends which can be initialized per
-> VM flavor, to keep the handling cleaner.
-> 
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Pass the data-relative L3 origin explicitly. Ethernet receive paths
+> parse the frame and nested VLAN headers without changing skb state.
+> AF_PACKET uses the frame's actual L3 origin even when the socket
+> protocol is ETH_P_IP and the raw frame carries VLAN tags. Non-Ethernet
+> AF_PACKET devices retain their established skb network offset.
+> =
 
-A small suggestion inline that makes it explicit when there isn't
-range operation and a full flush of tlb is needed.
+> Also pass the actual L3 protocol so IPv6 packets use the 40-byte base
+> header minimum even without TCPv6 GSO. IFF_TUN obtains that protocol
+> from the packet before skb->protocol is set. Name the Ethernet parser
+> accordingly, use the same origin for tunnel validation, and propagate
+> conversion failures in UML.
+> =
 
-I don't mind either way, but thought I'd mention it anyway in case
-you hadn't already dismissed it.
+> The bound remains a minimum; fragmentation paths separately validate
+> the parsed IPv4 or IPv6 header length before completing a checksum.
+> =
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_=
+net_hdr_to_skb()")
+> Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO t=
+unneling.")
+> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo=
+@gmail.com/
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> ---
+>  arch/um/drivers/vector_transports.c | 13 ++++-
+>  drivers/net/tun_vnet.h              | 52 ++++++++++++++++-
+>  drivers/net/virtio_net.c            | 10 +++-
+>  include/linux/virtio_net.h          | 87 ++++++++++++++++++++++++-----=
 
+>  net/packet/af_packet.c              | 24 +++++++-
+>  5 files changed, 163 insertions(+), 23 deletions(-)
 
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 03f2017a7404a..d97a4a1bca23f 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -37,6 +37,8 @@ static unsigned long __ro_after_init io_map_base;
->  
->  #define KVM_PGT_FN(fn)		(!is_protected_kvm_enabled() ? fn : p ## fn)
->  
+The fix may still miss the case IPv4 packets have options.
 
->  /**
->   * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
->   * @kvm:	pointer to kvm structure.
-> @@ -174,26 +188,36 @@ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
->   */
->  int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
->  {
-> -	if (is_protected_kvm_enabled())
-> -		kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
-> -	else
-> -		kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
-> -	return 0;
-> +	if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
-> +		return 1;
+This version is a very large patch.
 
-For consistency with other cases and because it looks nicer
-blank line here.
+Untested shorter first suggestion by bot, which looks plausible as a
+starting point for discussion.
 
-> +	return kvm->arch.vm_s2_ops->vm_flush_remote_tlbs(kvm);
->  }
->  
-> -int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
-> -				      gfn_t gfn, u64 nr_pages)
-> +static int pkvm_flush_remote_tlbs_range(struct kvm *kvm,
-> +					gfn_t gfn, u64 nr_pages)
-> +{
-> +	return pkvm_flush_remote_tlbs(kvm);
+    --- a/drivers/net/tun_vnet.h
+    +++ b/drivers/net/tun_vnet.h
+    @@ -152,6 +152,9 @@ static inline int tun_vnet_hdr_to_skb(unsigned in=
+t flags, struct sk_buff *skb,
+                           const struct virtio_net_hdr *hdr)
+     {
+    +    if ((flags & TUN_TYPE_MASK) =3D=3D IFF_TUN)
+    +        skb_reset_network_header(skb);
+    +
+         return virtio_net_hdr_to_skb(skb, hdr, tun_is_little_endian(flag=
+s));
+     }
 
-For the cases where there isn't a range call, perhaps you should just
-not provide the op and have the wrapper fall back to
-calling the 'flush all' variant if there is no range one available?
+    --- a/include/linux/virtio_net.h
+    +++ b/include/linux/virtio_net.h
+    @@ -71,9 +71,27 @@ static inline int __virtio_net_hdr_to_skb(struct s=
+k_buff *skb,
+             if (!pskb_may_pull(skb, needed))
+                 return -EINVAL;
+     =
 
-> +}
+    +        if (!skb_network_header_was_set(skb) ||
+    +            (skb->dev && skb->dev->type =3D=3D ARPHRD_ETHER)) {
+    +            int nhoff =3D ETH_HLEN;
+    +
+    +            if (unlikely(start < ETH_HLEN + nh_min_len))
+    +                return -EINVAL;
+    +            __vlan_get_protocol(skb, eth_hdr(skb)->h_proto, &nhoff);=
 
+    +            nh_min_len +=3D nhoff;
+    +        } else {
+    +            nh_min_len +=3D skb_network_offset(skb);
+    +        }
+    +        if (unlikely(start < nh_min_len))
+    +            return -EINVAL;
+    +
+    +        const struct iphdr *iph =3D (void *)(skb->data + nh_min_len =
+- sizeof(*iph));
+    +        if (iph->version =3D=3D 4)
+    +            nh_min_len +=3D max_t(u32, iph->ihl * 4, sizeof(*iph)) -=
+ sizeof(*iph);
+    +        else if (iph->version =3D=3D 6)
+                 /* ..here I don't trust the initial bug output, but the =
+branch is clear.. */
+    +        if (unlikely(start < nh_min_len))
+    +            return -EINVAL;
+    +
+             if (!skb_partial_csum_set(skb, start, off))
+                 return -EINVAL;
+    -        if (skb_transport_offset(skb) < nh_min_len)
+    -            return -EINVAL;
+         }
 
+    --- a/net/ipv4/ip_output.c
+    +++ b/net/ipv4/ip_output.c
+    @@ -772,7 +772,9 @@ int ip_do_fragment(struct net *net, struct sock *=
+sk, struct sk_buff *skb,
+         if (skb->ip_summed =3D=3D CHECKSUM_PARTIAL &&
+             (!(dev->features & NETIF_F_CSUM_MASK) ||
+    -         skb_checksum_help(skb)))
+    +         skb_checksum_start_offset(skb) < (int)(iph->ihl * 4) ||
+    +         skb_checksum_help(skb)))
+             goto fail;
+  =
+
+And the summary of the problem:
+
+  ### 1. What the Problem Is
+
+  When userspace (AF_PACKET, TUN/TAP, vhost-net) or a device (virtio_net,=
+ UML) injects a CHECKSUM_PARTIAL packet using struct virtio_net_hdr,
+  virtio_net.h:47-119 validates hdr->csum_start:
+
+    // include/linux/virtio_net.h:107 (added by commit 49d14b54a527)
+    if (skb_transport_offset(skb) < nh_min_len)
+        return -EINVAL;
+
+  This validation has three bugs:
+
+  1. Missing L2 + VLAN offset: skb_transport_offset(skb) (hdr->csum_start=
+) is an offset from skb->data, which points to the L2 header (14
+  bytes for Ethernet + 4 * n bytes for 802.1Q/802.1ad VLAN tags) on Ether=
+net callers (virtio_net, IFF_TAP, PACKET_SOCK_DGRAM/SOCK_RAW).
+  Comparing csum_start < 20 allows csum_start to land inside the L2 VLAN =
+tags (14..21) or inside the L3 header (22..33).
+  2. Wrong nh_min_len for IPv6 non-GSO: nh_min_len defaults to sizeof(str=
+uct iphdr) (20) and is only raised to sizeof(struct ipv6hdr) (40)
+  when gso_type is VIRTIO_NET_HDR_GSO_TCPV6. A non-GSO or GSO_UDP_L4 IPv6=
+ packet is only checked against 20 bytes.
+  3. Ignores IPv4 options (iph->ihl > 5): Even without an L2 header (IFF_=
+TUN), an IPv4 header with options can be up to 60 bytes (ihl =3D 15),
+  allowing csum_start =3D 20 to point 40 bytes inside the IPv4 options ar=
+ea.
+
+  This causes two kernel bugs downstream:
+
+  =E2=80=A2 Bug A (WARN_ONCE / panic_on_warn in skb_checksum_help): With =
+2 VLAN tags (22 bytes L2), csum_start =3D 20 passes 20 >=3D 20. Once
+  eth_type_trans() + skb_vlan_untag() pull 22 bytes, skb_checksum_start_o=
+ffset(skb) (csum_start - skb_headroom(skb)) becomes -2. In
+  dev.c:3645, offset >=3D skb_headlen(skb) promotes signed -2 to 0xffffff=
+feU, firing WARN_ONCE(1, ...) and crashing panic_on_warn=3D1 hosts.
+  =E2=80=A2 Bug B (TOCTOU L3 Header Corruption -> OOB Read in ip_do_fragm=
+ent): With csum_start =3D 20, csum_offset =3D 0 on TAP/AF_PACKET, csum_st=
+art
+  lands at byte 6 of struct iphdr (frag_off) or byte 0 (version/ihl on do=
+uble-VLAN frames). In ip_output.c:774 and nf_conntrack_bridge.c:42,
+  skb_checksum_help(skb) runs before hlen =3D iph->ihl * 4 is read. The 1=
+6-bit checksum write corrupts iph->ihl (e.g. from 5 [20B] to 15 [60B])
+  after ip_rcv_core() already validated it, causing ip_do_fragment() to r=
+ead 60 bytes out-of-bounds from skb->data.
