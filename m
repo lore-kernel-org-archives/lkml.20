@@ -1,117 +1,101 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F3C525A84
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:40:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B621A521238;
+	Tue, 22 Sep 2026 08:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066421; cv=none; b=txoZfmy4Vi4zzIBslJoxrw+iZQvTdVC9TLVjFHFzVkSOY5vC8BupsWYQczEZ20NR6fgeXlSsJDf+hq9UcUS3fH7siX3BJyG5lgWeOmr6SBalFBio6RmUZjJghE5fWgpourCwm6gNk7mUZRuLMqRiQEY0AjucasqKnLuumF4rN1M=
+	t=1790066440; cv=none; b=ECkIbNryYYNknkQXb4vQPtPAm+m+n1Cs5ngGmZ/fs4TSuhpNkIIu5vPd9J+dGA6Jz4fJn0g0QEWH89W4Au9rxP4fK9s0c5TRADdJXmDTBK5CjuoRDJyIrkVKlPB5OjBQKNusDWpeEUe40UaCp20dqm3krA5NpnIgnIKaHaouc6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066421; c=relaxed/simple;
-	bh=7ddEEDYiWcRGK/WOOFx/dsbsKYz9W7gultIVoWDHN8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4t4gagrnawZvXkzicnEl/ZzdMXTv1Hpcht/EYWrL1g/jATBxBYkd6bktjkOExl3rDF82RxVBQZDhj7LHzr1mFZmoyU/Eak0nhdGXF/gRZ+8Kz8XFAgWIUO5OAn5IU3wzcIFk0dKMdmXXucdfV+2GqjE2lACaE1TcDsoRnpKf2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S7b5jlVL; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790066440; c=relaxed/simple;
+	bh=j+KwcXqBNYVOd8F1jgNTEgAGvrfQKSmMZwv3O6JX/Ls=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=uesinMEvJ8XSUas5LKC12QNei+baxB4B8BV8M0tNIkTMUY9uqjFZHuFVsNVHcXSXVonhPu5U7ewQ6VJDJg+Z83Fq1/6IfuPYMCpHMhNOS279/zxLrbo+KsUdiEdcxrRrWYRYikwAdPTMuTDR/R3zug2VmUgjwh2Ib7oqCZJj4bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=5EKzP+vE; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S7b5jlVL"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso3512308a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:40:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790066419; x=1790671219; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v7Fu3Ae5XFkGmOXs4h7NOUGECaveVKHxHBmx2pZiZGA=;
-        b=S7b5jlVLzBu9WYNvC2D1P5pR9P/PxA7kHhvtH8tQSIGdN91mXnimQhGG4bpFDnLlMt
-         J7uq7sRwGYGvocTijBN4hmrP0AookObkCYffirveEu8/1pzxlaTOkt6HTOi/h8hyfp2S
-         3LiGXGCU+vNBYHdhI+7cRg9qOSN4MAXR0oHPY8PJmUOx2DjWjDsjGtqmO552Xn/TDOMb
-         X6vFH9HD7ajeWdBPlznHFSag0FqueokTdPto7vOuIwHMZ5oounjlOmYrit8a6Rw/E6w0
-         rreeZ51P57EACr88qUebw77qEpiTlyGoSjagn2vjsF3d7jAJvloZDw7jeMKdZiKjWb4P
-         kk0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066419; x=1790671219;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v7Fu3Ae5XFkGmOXs4h7NOUGECaveVKHxHBmx2pZiZGA=;
-        b=IKiJ9JvUhnCwMijIn/Apa2Ne/8UFL6Wc5S2AbuNgoyYv/tOiYCXGyLQyIen0Rjv4Xx
-         d/WEqsc1g7KFCVFHTmjawjVPL3qA+5ODLs1lK3AAFqo4LaSPNkpZr05wpQ1Am6NF3t+O
-         NfxdGXKo0ERAIaQ9e4EqIV9qqxFzOls3lrID5MmuzEz0/5wBsiGJmYMlEoYMKRK1Ndlu
-         Ese1S+c3ckktrcO3ZA7lit3L8rGMD+UjcvKUfst+fTrm29G2CWxa2yd207ndjLLcTD6L
-         qrIXXoABkUC63b6iSiZCCWn1p62sTRpcAq0E8oilYXtAS/G0HBbrwm0a1R+32laQl2v8
-         zNFg==
-X-Forwarded-Encrypted: i=1; AKwUvBxhus+GRXjox246eM9/MFcneqkEu90Zu3uA+AzKem3szY35VwRmNPcNt7xRPQasmCb9STpL+twyF0um4z8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvfvBdJ2LVDyOz7s1qug40lNioo8m5wCSKwZQruF2dxuHwaKDp
-	lB577br6Yeq2Td5N75LK1zXN0nDFleKHrfL7SzHxrzMOaS9THlOFIOls
-X-Gm-Gg: AYBFou0VB0OCKneLhLmq4PhbImM6sJCq2Dwyp3Qxt16MqRzxGnbningWWUHECXBmCuW
-	XJqnNGeNivUH5+mDMNxljVzqIpXrLhISjN/dJQX88+gD/4Vk1xA/kmaNZENgV7rcCR3WhYdoaUW
-	Zm5yMngjLJkin7JJekeXhqo0n1ruNyZTIH9t7GlL5SBTMf+Vw6qsyXq6KkVAHGjri5/qMI/UHSd
-	MpHP5MG2SO4a6/a7FXrIVxOUjkY3RmWybAkTsjxrgTxFCaRQiVQ6jY37Wp+ISJg0rdA79safmRR
-	o9QNmikiOzqJw4RvZFLbsfkkGDgIfWtYW967ljrU855Ds1X/oq10492GsEoaPNtOqWm88Zyhu71
-	tD/KSksUTZBIt3ElHzruEd1pxP3Zh8HIj0hdlqIZvAgqw+SzNsqr7PeG7PGHsogx+ngPwsCDnvO
-	SKKDC+8kCjTsHPi5NcqbzhzqBDyqCau0E4/PXU8sGEjFF0AKtc+uaL2hs=
-X-Received: by 2002:a17:90b:55cd:b0:39e:4c80:44bd with SMTP id 98e67ed59e1d1-3a0731eca18mr446217a91.32.1790066419395;
-        Tue, 22 Sep 2026 01:40:19 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f294e4acsm3380134c88.1.2026.09.22.01.40.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:40:18 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: i2c: ov5647: fix power cleanup on remove
-Date: Tue, 22 Sep 2026 16:40:09 +0800
-Message-ID: <20260922084009.506362-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="5EKzP+vE"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 66DDBA48A8;
+	Tue, 22 Sep 2026 10:40:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790066436; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Lpn4802mDFN1oIHUdnnPfgkOobcpbPp+Oe/46qmE5cM=;
+	b=5EKzP+vERDMQYwJtyinfH7H9vqufUCqTS+djSOzpf5DVnICFdCFWxVCvetSMwzmTUNUnDh
+	62rUH5FGivaniw7HdVbEA/qZXZpGXZk+GrSulR3SJ/aQR5IDkYHAe3XOStcdDtA9liRQPr
+	XAT15ZwqNE1dPDhMEbf5bE3e3M2b2G7u/dRUuafxzM96qJA/gT2FNl1d7bAVTfm2DbmMmh
+	ye/O+fWv+rfUlkqWGlvfsd5+lApPw+H0WvaQpAgYaB5B5eI3dsSPs2VP+Vp1msqvWxYH3M
+	Mv6l/wSW/zeLiklRU78ICQqQBQnJpHQl+YQAfPgcqHlwTYGTx/+tiEX90vWSaQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 22 Sep 2026 10:40:36 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
+ internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
+ <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 06/12] net: systemport: Fix RUNT MIB counter register
+ offset calculation
+In-Reply-To: <20260921231305.394773-7-florian.fainelli@broadcom.com>
+References: <20260921231305.394773-1-florian.fainelli@broadcom.com>
+ <20260921231305.394773-7-florian.fainelli@broadcom.com>
+Message-ID: <e21638baa23c4dab20eeee9638cd19de@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-ov5647_remove() disables runtime PM without powering off the sensor if
-it is still runtime active. pm_runtime_disable() does not invoke the
-runtime suspend callback, so the sensor can remain powered on.
+On 22.9.2026 01:12, Florian Fainelli wrote:
+> In UniMAC hardware, there is a 0xC byte gap between the RX MIB counters
+> and the TX MIB counters, and a second 0xC byte gap between the TX MIB
+> counters and the RX RUNT MIB counters.
+> 
+> In bcm_sysport_update_mib_counters(), 'offset' was only set to
+> UMAC_MIB_STAT_OFFSET (0xC) for all non-RX counters, omitting the second
+> 0xC gap for BCM_SYSPORT_STAT_RUNT counters. As a result, all 4 RUNT MIB
+> counters were read from unmapped gap register space.
+> 
+> Fix this by setting offset to 2 * UMAC_MIB_STAT_OFFSET (0x18) when
+> reading BCM_SYSPORT_STAT_RUNT counters.
+> 
+> Fixes: 80105befdb4b ("net: systemport: add Broadcom SYSTEMPORT Ethernet 
+> MAC driver")
+> Assisted-by: LLM
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
+>  drivers/net/ethernet/broadcom/bcmsysport.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/broadcom/bcmsysport.c 
+> b/drivers/net/ethernet/broadcom/bcmsysport.c
+> index 7f2e5e4efb8d..b69833d34bd5 100644
+> --- a/drivers/net/ethernet/broadcom/bcmsysport.c
+> +++ b/drivers/net/ethernet/broadcom/bcmsysport.c
+> @@ -391,8 +391,10 @@ static void bcm_sysport_update_mib_counters(struct 
+> bcm_sysport_priv *priv)
+>  			if (priv->is_lite)
+>  				continue;
+> 
+> -			if (s->type != BCM_SYSPORT_STAT_MIB_RX)
+> +			if (s->type == BCM_SYSPORT_STAT_MIB_TX)
+>  				offset = UMAC_MIB_STAT_OFFSET;
+> +			else if (s->type == BCM_SYSPORT_STAT_RUNT)
+> +				offset = 2 * UMAC_MIB_STAT_OFFSET;
+>  			val = umac_readl(priv, UMAC_MIB_START + j + offset);
+>  			break;
+>  		case BCM_SYSPORT_STAT_RXCHK
 
-If the device is not already runtime suspended, call ov5647_power_off()
-and mark the runtime PM state as suspended.
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-This issue was found by manual code inspection.
-
-Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v2 :
-  - Move pm_runtime_set_suspended() into the conditional so it is only
-    called when the sensor is explicitly powered off.
-
- drivers/media/i2c/ov5647.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-index 3facf92b3841..3b3e5653a0c6 100644
---- a/drivers/media/i2c/ov5647.c
-+++ b/drivers/media/i2c/ov5647.c
-@@ -1271,6 +1271,10 @@ static void ov5647_remove(struct i2c_client *client)
- 	v4l2_ctrl_handler_free(&sensor->ctrls);
- 	v4l2_device_unregister_subdev(sd);
- 	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		ov5647_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
-+	}
- }
- 
- static const struct dev_pm_ops ov5647_pm_ops = {
--- 
-2.43.0
-
+Thanks,
+Nicolai
