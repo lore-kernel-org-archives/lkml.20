@@ -1,82 +1,73 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 064EB4F7CA4;
-	Tue, 22 Sep 2026 07:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DBD29DB8F;
+	Tue, 22 Sep 2026 07:09:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060971; cv=none; b=lnVlL8MjYF1p45C8deSw6sHp0GFJDjColPwzxw84q/yeMpOE4Pdcm8haqDj5Mos1XhhcOXJAMIvAnAXqI7DZ1ldQJVaGVCvAZjyu0oSl4sMkObWropDm+5AiUU8NpccUHbj4m1fsbLaTK8S+9Kpz8xy3A5gAoWj4Ra4GnlrjmoA=
+	t=1790060987; cv=none; b=NibewHyTT7Iy5VduSEkhVFn9AXPIZSzSKwwwrEUcRU/SY538LMRyRjYCXUJhf/k0D4JGgw1xRq3RKlWHosYbuZEdVC512hR9axsoch1342wimIVXO4p1awmOnQqTsztI6yRNfWsmNxzFdcFzAmLcMJ99MTEg6GBon5DxieSivDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060971; c=relaxed/simple;
-	bh=X2elJjOWX+I6p0hkyb//O2VmgJU8aZwYp3GER8YVCRQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NI/ZMZNy9Nn7YejpKLFqotcT6puyQpBBOXTa3TYOTLUAr8GiJgcCSvYnyq5ku1clLsegRM36DCpx0aLDzfOuIrvoNSy/H3TQqbThMBnS13M1OZjhp6Vp71jCO+Qt1kJ+lKXfOfX45G1Vw/DICaF9Z9O50gKCwazSTaTw/veuUWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FtxLmGoW; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790060987; c=relaxed/simple;
+	bh=rcFewv9OxapmeYE4E1fxP6conHMDHSDBlxWDqmo7ljw=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=ubNwOsYXSOgPTad98ObpOlMd5v8qzBuK4PlM5IHsHsRZYwHutoBk58qq7EE4LsplEVXl8x/Oth8irpnnCpGabIGV++Aj8q+sQnn5lPk3gyd4Uue/mideaDVT5PnIimLPRFLwFkLc5AAzyh5lT+aurBQViifBQ+6tgLorharRLAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBphDY33; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FtxLmGoW"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4FE1D1476;
-	Tue, 22 Sep 2026 00:09:25 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E57CE3F528;
-	Tue, 22 Sep 2026 00:09:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790060968; bh=X2elJjOWX+I6p0hkyb//O2VmgJU8aZwYp3GER8YVCRQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FtxLmGoWO8aL//MyFM2NR6VNOmEyr2TmdtJY8DnZSFG0+8YvHYjUp35bg/UOxlhK9
-	 JFpg4usURYN6gUMNLnUjxV32IdrKQLjslmdts2//QkfNANa4WIlue6KyW4G14mkAC3
-	 vMlXXzh4ouDVIMQNNNipuDWCpX4HibahJYp8rWpY=
-Message-ID: <2e0a8157-a529-4355-bd7e-11ef0234b825@arm.com>
-Date: Tue, 22 Sep 2026 12:39:24 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBphDY33"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD0F1F000FF;
+	Tue, 22 Sep 2026 07:09:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790060986;
+	bh=y2GGkrgzKCsgm0mwf6UdJFHfN95qxznzs56jCuPDyFw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc;
+	b=EBphDY338h1X323tWP1cLxM2et1PqxVvsgo6xqwgld5xaEIPOb+VThqfivND4ugAT
+	 8i6MaPiC07iPrjefCXEdKl0AybWYuoyRyjo4gOJ6Ip2+PniX1YOnyoIb9Ui40sgIvO
+	 2miUtk0lbPFbAEeSjAVn5gF9ZqO/wG7WIzN1OcArF8pmYZHYtmGx8sY/nl8C4t0zK6
+	 IKyPWGKm8AweRYEalzbwsykmKumd0k/sig1a0ztd8xsONgsEDzhEHC1POHcL/D5NUV
+	 jIjcDd5U2fDg5m6oIegk+jwz9qXgrC6MQVqqzWRNt6CLaFj/YUNCbNGiKBamFyBO4P
+	 58PtuvgAvPi2Q==
+Message-ID: <ea873a72b009d3fc34feab6bd3cfaf01@kernel.org>
+Date: Tue, 22 Sep 2026 07:09:42 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v3 13/19] drm/bridge: fsl-ldb: don't create a
+ panel_bridge
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-13-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-13-83afb4f1a707@bootlin.com>
+Cc: asahi@lists.linux.dev, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org, "Albert
+ Esteve" <aesteve@redhat.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Anusha
+ Srivatsa" <asrivats@redhat.com>, "David Airlie" <airlied@gmail.com>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Fabio Estevam" <festevam@gmail.com>, "Frank
+ Li" <Frank.Li@nxp.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Inki
+ Dae" <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang" <jesszhan0024@gmail.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>, "Jonathan Corbet" <corbet@lwn.net>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Linus
+ Walleij" <linusw@kernel.org>, "Lucas Stach" <l.stach@pengutronix.de>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maxime
+ Ripard" <mripard@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Paul
+ Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Randy Dunlap" <rdunlap@infradead.org>, "Robert
+ Foss" <rfoss@kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Sean
+ Paul" <sean@poorly.run>, "Shuah Khan" <skhan@linuxfoundation.org>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: mremap_test: handle ENOSYS for userfaultfd
- and add missing newlines
-To: Park Tae-sun <ts930@dgu.ac.kr>, Andrew Morton
- <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260922065143.118702-1-ts930@dgu.ac.kr>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <20260922065143.118702-1-ts930@dgu.ac.kr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Park Tae-sun!
+On Wed, 16 Sep 2026 15:45:37 +0200, Luca Ceresoli wrote:
+> Now a panel_bridge is automatically created for every drm_panel and the
+> panel-bridge API is just a deprecated wrapper to access it.
+> 
+> Update and simplify the code by just getting a reference to the
+> already-existing bridge using of_drm_find_and_get_bridge().
+> 
+> [ ... ]
 
-On 9/22/26 12:21 PM, Park Tae-sun wrote:
-> When running mremap_test on a kernel built without CONFIG_USERFAULTFD,
-> test 26 fails:
-> 
->     userfaultfd: Function not implemented
->     not ok 26 mremap move multiple invalid vmas
-> 
-> This happens because mremap_move_multi_invalid_vmas() only checks for
-> EPERM, so ENOSYS is treated as an unexpected failure instead of being
-> skipped.
-> 
-> In addition, ksft_test_result_skip() in both
-> mremap_move_multi_invalid_vmas() and its fallback stub is missing a
-> trailing newline, which causes the subsequent TAP summary count to get
-> stuck on the same line:
-> 
->     ok 26 # SKIP ... - missing uffd# 1 skipped test(s) detected...
-> 
-> Fix this following the switch pattern in guard-regions.c (lines 1498-1506):
-> check for EPERM (advising running as root) and ENOSYS (missing uffd), move
-> perror() to default so expected skips don't print noise to stderr, and add
-> the missing '\n' to both skip strings.
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Thanks for the fix, but I have posted a series of patches already [1]
-which include skipping incase of ENOSYS and fixing the newline issue in
-ksft_test_result_skip(). If it is okay with you, can we go ahead with my
-patches since it solves some other issues as well?
-
-[1]
-https://lore.kernel.org/all/20260917111951.188266-1-sarthak.sharma@arm.com/
+Thanks!
+Maxime
