@@ -1,93 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203DE441600
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EAA437130
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067188; cv=none; b=NdkUVYCMCjxoWPQQXCNPN+zo4+P5o0/5XjX9LeAmxcfb9boS40o+hK/Pq9kOcTtEdPzulyJWcvcQ6gwUBmCV5V4qbevcKIToTIX1ePeHrx9k24jims+S2qjQbqn6PxcC4mpR7qLakMyOerisSPmtoEavamRBGLrMALMFdQf631g=
+	t=1790067204; cv=none; b=hvA3cp+YgsQ4fL0KVoeWKOUMrCyDf87LWspnHtOqUTgJVvCKIPFeV/fzDZV0UVWLeZK4BNEhR9w13HxNHIoAdP4MvacklI0Z1a9ulWtR6/10N15qLdL7TznA7SPE/FhfF5hv1TV5rqtrL565LEFuMZHyadD6J0UrAbIhPVJc5PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067188; c=relaxed/simple;
-	bh=pRTDJDK9EW1jEeZqKwFH96oBkO/dZl6A0f1ILw5pqSw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=As3UNHNbxmyMnIsLG3BKxCeHxY+e9sKuu8lDhWQp1bNUYXZOi/v8b41ISmyMg3gV+/uO6ywqFMzDhnfl3JhnTna/oVVbal2AL+qPCWwrq3+76f9FvsT9cPgrqMzUjLW8mvkRB5kEyVu/U+TczKzeVv6FVxjtrZLAiEu+DYUimW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlhrzD68; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790067204; c=relaxed/simple;
+	bh=cwkQkF8AomV2dnbKJf7T2kOh90w6b9kYZ0Q3BS/MIos=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IUu7LG2pZTeiYptQykSrwv+KoLhthQmnHcSFXVwk0aZiRbPj70JkxKW/hm3fV0a1oxr93wtvlcyajpD3RO74ZJpSWW7eQ3QzrAdMuyyJhi0gLrafdX5Uf9N3U+aun5OFOxn5mSDkwpLVbpRE/hFuypjDCgAWy2EHY0A7geD+UL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U3uYbXx/; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlhrzD68"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03CC1F008A1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790067186;
-	bh=pRTDJDK9EW1jEeZqKwFH96oBkO/dZl6A0f1ILw5pqSw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KlhrzD68zCgzYUViZwYOFPRjRUzOuT7fyO3U3rwgTcrxAwfyub62TdnRVitovVoNp
-	 KWR1turWzPPoOsSjEPUqt/wh4YDf90diNBX7nNV/wALDLpdn3no6oQSm5JN6+t7cA8
-	 QgoUDdm21iIOWcklji8pn/dj35y9WuWqJBfhjrIhVgs5/w4j/Jho9oOIlIdxXWuDbn
-	 2GzOscwzHZZ1WjYL2JNx3hMyXsoOt8KKhLnbODpQzmtR0uF2b4e4r7L2mrlQWbfjIG
-	 +qvXp6/aJSnfv+UKTYepNt/zYwNG/0QZirBMWlcIaTxqup2954a3YhRCFQwu/wKdtc
-	 TYC/JDJkPEing==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1801fso3866094e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:53:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxhv+dczdgwERhJ7s15d+oG2rHKFWCRrbE24opmR7v3FGZICeEsHq/veLN5nWZI7s0zIO0gxvGoSrGlHuQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwlIjAnNQosMT7EnlrUTRpKCHRpCGY0iCJBdwLLpi2pHKUQWjz
-	fPePy4MuR+uZp+asMs3VTaHlmzJ4BNb7s29x6cawB0ctnHXKAjT426swfKa9oQhM+jT8FseP25Z
-	AzqCWA5pJ4ik/bLn7m499xWmUgqoGS1U=
-X-Received: by 2002:a05:6512:3e08:b0:5b6:172a:c36e with SMTP id
- 2adb3069b0e04-5b8c17f2023mr4223635e87.8.1790067185256; Tue, 22 Sep 2026
- 01:53:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U3uYbXx/"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso18783725e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:53:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790067201; x=1790672001; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0GErKr9K3VAL0iFgFHZZrAHFzNuomMjoi+stMILpMQk=;
+        b=U3uYbXx/8vyGkMOwkCoDp5bAjLPUR7AWh0B6hx3lKkSU4aa9YBNuFshTbmkMp/3Vay
+         uDMRe9fj63AeYQ/xJSeekI73IN3cQCzJkwan4pcSVs8SFBX33iuytK7FRYf6RmmpS0lW
+         pJsyz9k2hItYA0XOQGc8/jrN5SEs1Lz1yvAon15q+qciLMR42iylsMuQhcrudqxwVUy8
+         PDotFqE3vGXKJwhE+I4Gzb0En3HBd7mk//jgm4yL796SbW7ISBClWBqRyFWVyU/Bw7RZ
+         OdJcyepTOcOsEJuzIMJQ3Pa6VwB8qk2YW27vFLs0K3wUN2DkaT1NT7rt16BegZqDqYht
+         VHFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790067201; x=1790672001;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0GErKr9K3VAL0iFgFHZZrAHFzNuomMjoi+stMILpMQk=;
+        b=m1yeng9fXLj/41gAcD0YQLIaoUCl1kAGVBlNKR4d7tw/pC5jt390H7+xBNlSnFGmQC
+         aAda5eTBh7s2tAk/iz5A2ibjZPjvu9kzUfKn6wlw8pm3XeKKStJsPPOaHtFGpKE3NCZP
+         XVpgyNbS/OAmRP7CkvywInwqRhaPs06X0mPpAM+uvukeP75HPR6FvmJn2s6iIRUW0kbv
+         4iMmqi9FwTDWNoinwCBksPKyqqt7NpeI5uMpKj6PUtvDhXUlPgLnwWIj5gejAIsb5XHb
+         4kBqsiD3QWS9SX1a5pDFv9ihUxutyTGuhbK0ZxBo9+sbu+eJNVU91uZDz27JkevOPFF1
+         fMJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOgeh/Nr/4q6eqFy3unonV5B0zWCfZc71pGFF3yQ/YiJWoZC7ZLtqeQWbkjQrKgfA/GoeI5cu959Y6NZ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCy4JiDdjmtxW18/EYYhbGcSGg2pB5J++IGbde/19WfTrdGIyS
+	4LM984wyPfv+pt5WC6tHzJ4Io6QitTP2YnXWU8HDf7v5vEjzFvZFSqvo
+X-Gm-Gg: AYBFou3PzMukF8pQW2R0d2gTXeKz+WQ4ZnqlHLa2tPep8e34sQwKYd1BBLqsNXWTBwG
+	iK7LOPObV4nSJ0cfqF5Ae9DVo7SzPtw694pnNCKbckC3pS9Cn4rgyWL22ye4gm/JFa7evLYoTvT
+	iysVXgtRVASe68lSvfkkViZEoR7Ie3Sc4OsZSYvbY0ErQnhgCdpI6ZXrQFA/QyPrnUeOZiEzKyz
+	dwXGygb+Bv1RpOfuXhV0KdsYbTl/PVS84WvQM4kzpEESAVNsZb3GmRuOZzduwtEMNpb9CGpF3bY
+	TAaq7iZiSizDA5fStQ6BELn7WGWTZo9DA4aYeLSuWotwSMOzqX7jvNEcaqPzCiZmH3wad5/uhWx
+	oGveVq0gVP+yhcI1k0ohntiDYq1XtZvsJOIgDwwY6RMvq9/KL+WceaDc4+TsqQpeE7FO2/H3Ei0
+	64oFlQWcB+6C1rocPl5RE86JvuhUBeKf43O3U1pF4QdQOOANJ6OFfqwjjiPXzXamy3jQ6nunkKn
+	f6Ep/kihlMrZNTwyIV+5ePKwCA8r46FpZ+zAOlE9y90eF2gN/ZAjO4CIY9RRTqJnMNhqJGD18+w
+	gw+V
+X-Received: by 2002:a05:600c:8584:b0:49f:cbf1:e76d with SMTP id 5b1f17b1804b1-49fcbf1e9a5mr119933255e9.0.1790067200729;
+        Tue, 22 Sep 2026 01:53:20 -0700 (PDT)
+Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad36439sm52688975e9.6.2026.09.22.01.53.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 01:53:20 -0700 (PDT)
+Date: Tue, 22 Sep 2026 10:53:14 +0200
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] iomap: don't resubmit an ioend after
+ ->writeback_submit() failed
+Message-ID: <arJB-tAZTbcuPaZJ@andreayoga.localdomain>
+References: <20260921083133.2960-1-parri.andrea@gmail.com>
+ <20260921083133.2960-2-parri.andrea@gmail.com>
+ <20260921222953.GM6283@frogsfrogsfrogs>
+ <arITXTsUhrA0N-qr@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com> <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
-In-Reply-To: <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 10:52:52 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
-X-Gm-Features: AclHuK9Y1QMax6-R6N3W6XKZsP5OW6rOHXGLWKISlcK8k5n-6-JwlZacROssNGg
-Message-ID: <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
-Subject: Re: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>, 
-	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arITXTsUhrA0N-qr@infradead.org>
 
-On Tue, Sep 22, 2026 at 10:44=E2=80=AFAM zl020895 <zl020895@163.com> wrote:
+> > Do you need to do the same thing for the ->writeback_submit call in
+> > iomap_writepages?
+> 
+> No, after that the wpc is not reused.
 
-> No LLM was used for coding or testing. Different developers are responsib=
-le for
-> different parts of the code. LLM was only used to polish commit messages.
-> Could you advise whether I still need to disclose this?
+Matches what I found too, thanks for confirming, Christoph.
 
-We add it even if it just used for commit messages, we don't really
-differentiate.
+Darrick, I'll pick up the v6.17 stable tag for v2.
 
-Maybe this is to coarse but it's what we have.
-
-The tag doesn't really mean much, it just mean "an LLM was
-involved with something related to this patch", it could
-have been used just for testing or review.
-
-Since we have Sashiko reviewing everything I guess in theory
-we should even add it if we looked at the Sashiko reviews,
-but nobody does that. So it's a bit arbitrary. Nobody's gonna
-be upset about either, it's just some helpful metadata.
-
-Yours,
-Linus Walleij
+Thanks!
+  Andrea
