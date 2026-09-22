@@ -1,76 +1,58 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CDD51C07A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FAF47986D;
+	Tue, 22 Sep 2026 07:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061777; cv=none; b=pQwN10vdbg04bU51IZ9JfnEv3+V7yiUbRZn5n3I5GvCa1TLwMs/qlGufEI/qTf+xG6CeGFEHqtV7Yggnqofa17DULc5wb8bWC6kF9kah2AWN/OnxTKucjFskTpnVqTKOAGo/MJ9mBikAoHNRYVWKXPNTVAIQHUVWntgYBagWRyA=
+	t=1790061794; cv=none; b=BwE7E7Yr+tcQyrlASXjU9XVr5w/PeRMNjtm4RxsnZf5LHRYOYxz0KWD9cLz5zUaObdqT72EO474kixfSzWmISxabM3XFO3KFcEToqJ8YHx96J7uC2jmy59JqSCs5+TkDQ/2R+UHH2ayyK7JGLUxXI3/7r4eFpu2YWmijTCqWXLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061777; c=relaxed/simple;
-	bh=g2Xy9jDjDZ3K6DmNsnmaoN1dj1u+mGq37X7BB/6Az8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bXAH5RTIt0PcEdvgrjMHOjsS0idDZB2O8l7m+xqGPOHbysO4cf2E7liEMmRaqAsVj93EuVo3vxpstPBtZmfei8GLeOHquiH/dpCK68kwDBCUVbli0NoEwCuZA+7cM6NF5QVZbazLJKsXrhjrL5Lc9UWI9Bg9HLTx63+UViOAgDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJQ8jYIp; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790061794; c=relaxed/simple;
+	bh=oG0xvub+pWhjgDDUHqMEF75UKWqTKLX50Voi38p/N0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=jXzZIlNLvdA8v5ojrpbKSbPvYJAl6hU3zB6oBPCFn/bZazMdNr+ZMeGfR/uRNFrhXLvHY4n/Zf2W66rr+dg0SXGYCLWUVF5nkxsZ3a5j6YCZprSDRBn/ymI6XzQs2shBrp45pOgmCChIinVFPrnoFnqwvx3wRsYhYa/ePqg4exY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nkSLojwn; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJQ8jYIp"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48586861639so306928f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:22:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790061773; x=1790666573; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zOpUj0Pnwod3tVYOQ3yCnTP6vZoRZm1tHkQP7O06AhU=;
-        b=DJQ8jYIpkqCnzQzOVX8ElvdpMq4WB9zTxZW+N7+moxSrZW0gLFoG6CJLMljnRO4OEL
-         eAdNQb4WyHZvTWaAdkEZhutbCMwg7y3MqYKtrxg8TazD1+QsibKE9YIk99JqUh4aHTn3
-         haCoXSuZ7+KogBQeEj+pbpKEMhMWpPmqqhvu2kvt6ISF48yVUwyg2SaFjZnlAZ3akfne
-         pgwSvrHdmvzT+0yr5D1uvdh6QE/9NDgV59lm39Bwjdkg4Xq37p4grHI+9r3pMe01C24c
-         lJ2DkXx3Dc60SHVeX0AbiUrWxT79ZmbeUjft03/Vi3C9gu6OLTqz3iam7dMjhy1C51IA
-         UYGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790061773; x=1790666573;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zOpUj0Pnwod3tVYOQ3yCnTP6vZoRZm1tHkQP7O06AhU=;
-        b=p/0F8J6rgaW35rljDlCOH7od4a09IM15mNCPOZ+p3KZymcqaxnUzJ3h+03SctyRqJq
-         WG+cV9BlrdZ6S341V5yLXqHdNL6rWOCenFRl3BJtoLRDjFiFhLDze6njY2vRv0O08AOt
-         PLi4eS/j1zDv3w4cHwUVBjpKoSpg2xtRt38aGWqs1GFr7bDtSAr8f5JzgbEnYnFFUxRY
-         8xXHqKcCej3ne7WvRGNYP/VlRPUXBJ7bCH4wxCJtDdot3zuMnTD2y70+kqXxeA48c5M4
-         +kIORfOWb3itCaoJfMwQTxJXmSPT/UkAQzW3BUwtt7AHIucD3xq7+KFmRp0ESY9UEgSI
-         QdBA==
-X-Forwarded-Encrypted: i=1; AKwUvByYff6DE0pN35hg+j8DFyWDOvmCu4nJzMgEA1Pq9D4zWJLvTx4gQiRe3UJS3XChsfjl9X8ZleVfAAs3RCk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzz9DbHXCkWULODYDYAGG7ZH8yRf5emNj/UCqjAe45LSWC5EYb
-	xHfaUJDs41EwmKUobw3JcxbNZ+Waqf8vlQhGpWJCNQE2pKf42qN4kqEg
-X-Gm-Gg: AYBFou14LdAfwkbpqecZr7xRs9VXrk4s2eCTlWgjU0hKmToU2AFt56nNkUB2QB9mpUh
-	NxpTZE3LWUu8pPsz+RH1ghSfkEWWQuEc5hZ8AR8R9iL5GXKdb7p/Whb4GPvao+eF/rVXyuITaLU
-	q1fcuWW/Pu94PgvPfVyyxLO/5G2vl6yk1NsLWxAXnFdfY+vp3KgJpPYxiy7e3NNqcy/MY/nV6Sc
-	HRFSbNPmvR6z3D1OkwGqkTkfmWE1UwR7H/fmVppjYXzODRL8pBRQ7Xc91qYlhoagC9Tguru1UBj
-	WMaOjvThP09P8hQCb0JmmilfkbkUSEBj0/AqYhCbYSluvsZCuf7mVmcotdf0ONErYObUo6YfLRJ
-	oTJ4ILOXPWnxUzVTLBhYTIbn1n3WsxJooDSdxbWVlNJDRDNrKpV7X/F/Z3HHUGU7kDoZ/OaKYZA
-	n6DDOWyE5og3DJ2+KQmT2epmdXF8Ljcxvk9EtTszZfHyG8gHn5xDoiOAn1og+BJJy+jTkOUX9wA
-	mRwpQ==
-X-Received: by 2002:a05:6000:41f8:b0:485:8226:c69e with SMTP id ffacd0b85a97d-48861021808mr2450244f8f.29.1790061773363;
-        Tue, 22 Sep 2026 00:22:53 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862793792sm3387192f8f.31.2026.09.22.00.22.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 00:22:52 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:22:48 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Lucas Costa <2000.costalucas@gmail.com>
-Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-	Teddy Wang <teddy.wang@siliconmotion.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: sm750fb: free cmap on framebuffer release
-Message-ID: <arIsyPJno_UGVvSK@stanley.mountain>
-References: <20260922035302.167378-1-2000.costalucas@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nkSLojwn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790061791; x=1821597791;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=oG0xvub+pWhjgDDUHqMEF75UKWqTKLX50Voi38p/N0k=;
+  b=nkSLojwnj8RN7U17+9aEYhw5GHQppC1bAqivcSeg2S3FBoY/5o6nT0bJ
+   aGg1o+9S0agbW6fTsXNXuFUY+7o5zrxxsZJOnNo2+kB/fx4L3bgo7WFh+
+   MLX8gBKjIokpJVWibnFnCuy/dyVfEz9xNOcrWV25ZD1jsGKBTbFWkgi8U
+   dzFBxxocsWiowrJHR+qfSlx+nSyeoweB9DIm6GoOwEodL2vTwDzZv7joZ
+   0F6r4RHLsILTWokT036HNp8JZIl6x5ME+HICuV7ghuBYDegjneHJj8QyI
+   OxmJlUy2aSYbr9DmmeClHun2ncatl3FrX28zBkxFuhKoYmDR95dwwckWP
+   Q==;
+X-CSE-ConnectionGUID: RI2co96HQrK//6NaUJ9NHg==
+X-CSE-MsgGUID: SaJWA5nfRaWDoQMWSmY4UQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="101230203"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="101230203"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 00:23:11 -0700
+X-CSE-ConnectionGUID: cH0olBJBTGy/6woawrGjpQ==
+X-CSE-MsgGUID: 5kYOOCXET7GNklhLXKQ4dg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="300941614"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 00:23:08 -0700
+Date: Tue, 22 Sep 2026 15:23:00 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com,
+	linux-arm-kernel@lists.infradead.org, arm@kernel.org,
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+	yi1.lai@intel.com
+Subject: [soc:board-remove-7.3] [net]  8d91a5ecce:
+ EIP:kernfs_remove_by_name_ns
+Message-ID: <202609221423.71fce5fb-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,69 +61,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922035302.167378-1-2000.costalucas@gmail.com>
 
-On Tue, Sep 22, 2026 at 12:53:02AM -0300, Lucas Costa wrote:
-> The driver never calls fb_dealloc_cmap() after it has been allocated,
-> so when the buffer is torn down we leak.
-> 
-> This happens on every unbind, and when an error is detected in
-> sm750fb_framebuffer_alloc().
-> 
-> fb_dealloc_cmap() gets called before framebuffer_release() in both places.
-> 
-> Fixes: 81dee67e215b ("staging: sm750fb: add sm750 to staging")
-> 
-> Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
-> ---
->  drivers/staging/sm750fb/sm750.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-> index 8b93bfeb217b..92412534239c 100644
-> --- a/drivers/staging/sm750fb/sm750.c
-> +++ b/drivers/staging/sm750fb/sm750.c
-> @@ -910,6 +910,7 @@ static void sm750fb_framebuffer_release(struct sm750_dev *sm750_dev)
->  	while (sm750_dev->fb_count) {
->  		fb_info = sm750_dev->fbinfo[sm750_dev->fb_count - 1];
->  		unregister_framebuffer(fb_info);
-> +		fb_dealloc_cmap(&fb_info->cmap);
->  		framebuffer_release(fb_info);
->  		sm750_dev->fb_count--;
->  	}
-> @@ -943,6 +944,7 @@ static int sm750fb_framebuffer_alloc(struct sm750_dev *sm750_dev, int fbidx)
->  	return 0;
->  
->  release_fb:
-> +	fb_dealloc_cmap(&fb_info->cmap);
->  	framebuffer_release(fb_info);
->  	return err;
 
-This works, but I don't love One Err label style cleanup.  The label
-name is no longer accurate.
 
-The cmap is allocated by:
+Hello,
 
-	err = lynxfb_set_fbinfo(fb_info, fbidx);
+kernel test robot noticed "EIP:kernfs_remove_by_name_ns" on:
 
-So ideally there would be a cleanup function which is called something
-like:
+commit: 8d91a5ecce11412c646ad1f1637334ef9546ea90 ("net: wireless: brcmfmac: remove platform data based probe") https://git.kernel.org/cgit/linux/kernel/git/soc/soc.git board-remove-7.3
 
-	lynxfb_unset_fbinfo(fb_info);
+in testcase: boot
 
-Then we would only call it if lynxfb_set_fbinfo() succeeds instead of
-if it succeeds or fails.
+config: i386-randconfig-011-20260914
+compiler: clang-22
+test machine: qemu-system-i386 -enable-kvm -cpu SandyBridge -smp 4 -m 4G
 
-unset_fb:
-	lynxfb_unset_fbinfo(fb_info);
-release_fb:
-	framebuffer_release(fb_info);
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202609221423.71fce5fb-lkp@intel.com
 
-	return err;
 
-See my blog for more details.
-staticthinking.wordpress.com/2022/04/28/free-the-last-thing-style/
+[    5.486950][    T1] ------------[ cut here ]------------
+[    5.488426][    T1] kernfs: can not remove 'uevent', no directory
+[    5.489919][    T1] WARNING: fs/kernfs/dir.c:1786 at kernfs_remove_by_name_ns+0x7b/0xc0, CPU#0: swapper/0/1
+[    5.492378][    T1] Modules linked in:
+[    5.493281][    T1] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc2-00073-g8d91a5ecce11 #1 PREEMPTLAZY
+[    5.495837][    T1] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    5.498316][    T1] EIP: kernfs_remove_by_name_ns (kernfs/dir.c:1785)
+[    5.499706][    T1] Code: 74 5a a8 03 75 5c ff 00 89 c1 89 c6 e8 5e f9 ff ff 89 f0 e8 d7 d8 ff ff 31 f6 eb 1c 53 68 30 84 07 c3 e8 08 1b d4 ff 83 c4 08 <0f> 0b be fe ff ff ff eb 14 be fe ff ff ff 89 f8 e8 70 da da ff 8b
+All code
+========
+   0:	74 5a                	je     0x5c
+   2:	a8 03                	test   $0x3,%al
+   4:	75 5c                	jne    0x62
+   6:	ff 00                	incl   (%rax)
+   8:	89 c1                	mov    %eax,%ecx
+   a:	89 c6                	mov    %eax,%esi
+   c:	e8 5e f9 ff ff       	call   0xfffffffffffff96f
+  11:	89 f0                	mov    %esi,%eax
+  13:	e8 d7 d8 ff ff       	call   0xffffffffffffd8ef
+  18:	31 f6                	xor    %esi,%esi
+  1a:	eb 1c                	jmp    0x38
+  1c:	53                   	push   %rbx
+  1d:	68 30 84 07 c3       	push   $0xffffffffc3078430
+  22:	e8 08 1b d4 ff       	call   0xffffffffffd41b2f
+  27:	83 c4 08             	add    $0x8,%esp
+  2a:*	0f 0b                	ud2		<-- trapping instruction
+  2c:	be fe ff ff ff       	mov    $0xfffffffe,%esi
+  31:	eb 14                	jmp    0x47
+  33:	be fe ff ff ff       	mov    $0xfffffffe,%esi
+  38:	89 f8                	mov    %edi,%eax
+  3a:	e8 70 da da ff       	call   0xffffffffffdadaaf
+  3f:	8b                   	.byte 0x8b
 
-regards,
-dan carpenter
+Code starting with the faulting instruction ===========================================
+   0:	0f 0b                	ud2
+   2:	be fe ff ff ff       	mov    $0xfffffffe,%esi
+   7:	eb 14                	jmp    0x1d
+   9:	be fe ff ff ff       	mov    $0xfffffffe,%esi
+   e:	89 f8                	mov    %edi,%eax
+  10:	e8 70 da da ff       	call   0xffffffffffdada85
+  15:	8b                   	.byte 0x8b
+[    5.504411][    T1] EAX: 00000000 EBX: c3095d8c ECX: 00000000 EDX: 00000000
+[    5.506084][    T1] ESI: c35f2608 EDI: c01dd42c EBP: c0245c1c ESP: c0245c08
+[    5.507830][    T1] DS: 007b ES: 007b FS: 0000 GS: 0000 SS: 0068 EFLAGS: 00010282
+[    5.509606][    T1] CR0: 80050033 CR2: ffd97000 CR3: 0386e000 CR4: 000406d0
+[    5.511412][    T1] Call Trace:
+[    5.512419][    T1]  driver_remove_file (sysfs/file.c:515 linux/sysfs.h:780 base/driver.c:126)
+[    5.513635][    T1]  bus_remove_driver (base/bus.c:830)
+[    5.514785][    T1]  driver_unregister (base/driver.c:202)
+[    5.515927][    T1]  brcmfmac_module_init (base/platform.c:1005 net/wireless/broadcom/brcm80211/brcmfmac/common.c:580)
+[    5.517104][    T1]  __initstub__kmod_brcmfmac__510_591_brcmfmac_module_init6 (net/wireless/broadcom/brcm80211/brcmfmac/common.c:591)
+[    5.519013][    T1]  do_one_initcall (main.c:1357)
+[    5.520164][    T1]  ? __initstub__kmod_ath6kl_sdio__508_1430_ath6kl_sdio_driver_init6 (usercopy_32.c:?)
+[    5.522289][    T1]  ? __lock_acquire (locking/lockdep.c:4718)
+[    5.523491][    T1]  ? __lock_acquire (locking/lockdep.c:4718)
+[    5.525180][    T1]  ? lock_acquire (locking/lockdep.c:5942)
+[    5.526824][    T1]  ? __lock_acquire (locking/lockdep.c:4718)
+[    5.530956][    T1]  ? __lock_acquire (locking/lockdep.c:4718)
+[    5.532755][    T1]  ? lock_acquire (locking/lockdep.c:5942)
+[    5.534332][    T1]  ? lock_acquire (locking/lockdep.c:5942)
+[    5.536001][    T1]  ? __this_cpu_preempt_check (smp_processor_id.c:64)
+[    5.537894][    T1]  ? __this_cpu_preempt_check (smp_processor_id.c:64)
+[    5.539914][    T1]  ? ktime_get (time/timekeeping.c:1002)
+[    5.541408][    T1]  ? ktime_get (time/timekeeping.c:1002)
+[    5.542911][    T1]  ? ktime_get (time/timekeeping.c:321 time/timekeeping.c:482 time/timekeeping.c:1004)
+[    5.544554][    T1]  ? clockevents_program_event (time/clockevents.c:372)
+[    5.546602][    T1]  ? irqentry_exit (linux/irq-entry-common.h:507)
+[    5.548377][    T1]  ? __this_cpu_preempt_check (smp_processor_id.c:64)
+[    5.550315][    T1]  ? lockdep_hardirqs_on (locking/lockdep.c:4516)
+[    5.552128][    T1]  ? irqentry_exit (linux/irq-entry-common.h:507)
+[    5.553774][    T1]  ? sysvec_apic_timer_interrupt (x86/kernel/apic/apic.c:1062)
+[    5.559179][    T1]  ? trace_hardirqs_on (trace/trace_preemptirq.c:79)
+[    5.560942][    T1]  ? vmware_sched_clock (vmware.c:?)
+[    5.562784][    T1]  ? irqentry_exit (linux/irq-entry-common.h:507)
+[    5.564594][    T1]  ? vmware_sched_clock (vmware.c:?)
+[    5.566492][    T1]  ? sysvec_apic_timer_interrupt (x86/kernel/apic/apic.c:1062)
+[    5.568555][    T1]  ? handle_exception (x86/entry/entry_32.S:1044)
+[    5.570285][    T1]  ? parameq (params.c:98)
+[    5.571797][    T1]  ? next_arg (cmdline.c:283)
+[    5.573381][    T1]  ? parameq (linux/fortify-string.h:218 params.c:99)
+[    5.574711][    T1]  ? parse_args (params.c:153)
+[    5.579714][    T1]  do_initcall_level (main.c:1419)
+[    5.581382][    T1]  do_initcalls (main.c:1435)
+[    5.582841][    T1]  ? rest_init (main.c:?)
+[    5.584478][    T1]  do_basic_setup (main.c:1455)
+[    5.586016][    T1]  kernel_init_freeable (main.c:1670)
+[    5.587875][    T1]  ? rest_init (main.c:?)
+[    5.589472][    T1]  kernel_init (main.c:1560)
+[    5.590987][    T1]  ret_from_fork (x86/kernel/process.c:158)
+[    5.592643][    T1]  ? rest_init (main.c:?)
+[    5.594157][    T1]  ret_from_fork_asm (x86/entry/entry_32.S:736)
+[    5.595882][    T1]  entry_INT80_32 (x86/entry/entry_32.S:940)
+[    5.597546][    T1] irq event stamp: 90237
+[    5.598888][    T1] hardirqs last  enabled at (90251): __console_unlock (printk/printk.c:347)
+[    5.600980][    T1] hardirqs last disabled at (90266): __console_unlock (printk/printk.c:345)
+[    5.603033][    T1] softirqs last  enabled at (90070): __do_softirq (softirq.c:679)
+[    5.604968][    T1] softirqs last disabled at (90061): __do_softirq (softirq.c:679)
+[    5.606947][    T1] ---[ end trace 0000000000000000 ]---
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20260922/202609221423.71fce5fb-lkp@intel.com
+
+
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
