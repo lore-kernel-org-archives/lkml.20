@@ -1,65 +1,65 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5E552842D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E595526ABA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064116; cv=none; b=pqxb/DbF8AJL5P0BpUC9CNP73fqd7xaSybgtdfXg0EKf0YLyGZ6c81azWlcvGOzcqXMzPIwwTdetuz4ZX/mJ1YSSgjfTN13WY74BndHiLSvOCIfOhaL2XhbZ3thLaGqkSZQz3I/zWcCmTiw7yn0DjJ/g79GnXlE+zkl4qnrj02U=
+	t=1790064112; cv=none; b=AGH1zn4sjDOvzdSGIAWfR2ikkjYTPFxwbXYl2xGSPJKsTTKLaGQ+uOOOkwS9tPl+HAzuhQzBRatYqYG4+Xnp5h4EeLuqfzX1IZd8apAvnHYyH3XZOl1brzyJt7vZ7X5PoL0TpIXe+ehffDUzEVKAQvnEhfxtUd4a/8rAKdmiFKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064116; c=relaxed/simple;
-	bh=8caMejK8hgruIPCiytRhmYLDcurgxrGWdTVCVpsRw0U=;
+	s=arc-20240116; t=1790064112; c=relaxed/simple;
+	bh=4fAmXMpgpOU0t8UQuei0xUmAiikImQmBQYIZpvHFWWw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o9GblOOWOq2XBtYaJhxzoHTROWUlQ5NJwyvxLJ5N3/AtRy20zB1dazYeEHGyn7OVeoS7WNpDiI94UvWlyyTUlcOBy5DFF0rkxRwYpInqLNVL7Jv1D9yDGma/yhQPh9gspAyYBg3Em2cqkqLdiMSVxkf1rtUt69qI6o/ICcqrnlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qf+nY3bJ; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=eZg8t71FMqnVaVA15VpTcvj2bcShMsYMkQRJpgJbuCkLRq4carCmjHjy7CX4QfQXMj/fnfEyiPrEEvl5Qnt7JcADBlSm4Q3FUQpAkdFU0jIZPaM9TEVRmoLgM6ImwL8S7DkFy9YNqHxQ3qzHDsyMnOQi+t9M2Q0l1RrEiLs1rsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EfDMltdY; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qf+nY3bJ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d0726cdbcso2018165e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:01:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EfDMltdY"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482e1b30c94so340724f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:01:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790064101; x=1790668901; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790064095; x=1790668895; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k8SSEreitnBFuEXQj3F3dce2S1yQFmhptrw7zyYrACU=;
-        b=qf+nY3bJ0l4kr1VWLZG7cczDhzi0I0pbqnIGx0g2Ca16CelTZIS3wgyAlHU7Q3ZF+T
-         l3GyoPioQCGr4o+Ymi5fe+rwTJUIcf0pxEbt0dm3UrHYNiQ2Efu4KEEtsfpadkOj5WKu
-         PD0UrdqVCAcrqyYHOLqoODqlg6q1UUw1ysOVm0QCwDu2eqtaUEhU3a8OYqlKEmlf2p4l
-         pLZf/ZLXsvoGHP+OHJKWCI5v60PbFo/olg49RqIdQcQaezuKKnii/GtCGtgEK850S1Iu
-         4gZ9nvv+RcYzjfPYilp3D6iyRufxOlOSvym9fKuTyrAF3r5f7CYQMePOTWFYjnYTLam9
-         vOlw==
+        bh=gRVzD7/e6IROrFrMTSU32rtgAKkxa5C4zngEyHP7gSA=;
+        b=EfDMltdYW1PUQlnAdKSDFTENYYpdIvKawKc8C9rs+DKMwvsCdWQIM9NgveLCdQ9D2b
+         2qUmsrkWVEAEAJPeoNx90PUOVkAG28NIOTcpnt2RBMUwCxnG0SRKQ32mJk0EyshQ+5w/
+         TOt4oEGRM/sV5bJWj3flKbOvrJ8DWL53IuvRAV8ECGSzOBeIrCyfHjCJ7YVrogzDbeHZ
+         5QAXfiACoTfaIpiAXn85aPyaQAq435plR2smwwL+wTNkU9cS9yOZ3zbAZAddroAKYsVr
+         POWc/1JmzFAxmGTLYggl3VuCNU8te+IWKuSkoUGEicDezAZlnopKMNX3ah1wdR3n1Njo
+         +2aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790064101; x=1790668901;
+        d=1e100.net; s=20260707; t=1790064095; x=1790668895;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k8SSEreitnBFuEXQj3F3dce2S1yQFmhptrw7zyYrACU=;
-        b=TlwDTwrF87g29tB73HRP8BC0h0fd0SxCdw2b2ezAVBTNQqXIShjRNOcgOGrOIEjyzM
-         MOKxo7p6t6RT0Q5lLDIiRgvU3OL3HBX4Rihu81PQt70tg2rD1Vn5/fVLRH8l7xqHTwxm
-         am52ykrUOddy7mNZl37xJ68WHiik29VSPAyKeBk3yYK65D0vFrgd/G6m6qX0VnGjl4Kd
-         T70WUqx1UFSOH8uyKHchtmK24LamlFpE7/7MN6rb+kQrGO7EE9zKAlN2ArtBgFTLqG/F
-         PhWyhS4kVNBUqLHT/iMF+qYsuXEyvCgHCEpfV2CGpSlRdKWTqvoT6tkt2+jJskbReYU8
-         N+BA==
-X-Forwarded-Encrypted: i=1; AKwUvByzDwtJAB9DJ6np+aFb2C2bdAu935xw3uvKqxv3tT4o9cVrOUw4iC/9T1sUktJBXNL3vQUmii7S5FoFIRQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndbba/2qEmk0LCwzuwg+0ayrEZmP+LcrgudfozBWVs5DAd1F2Q
-	VfhrpAEMz2EqWKelu+atx/y/AeZjKkDm/2DrqCYYFNX5xqrKvHNX2iZu
-X-Gm-Gg: AYBFou3fRfoNKEqvNtsbIkanH9/vmX2m9/2VfpCkBYkDTI1xIp2fmGq2tzT7FgbJTSy
-	g1Zrzj2PKhf1kYd14e4NlZAtQaJrcHxSsEa4A6NRk8Qp+apw3HNK9oQVBoCpGUcsGQvBTc2ZbcK
-	xFDBrIxXQ4yHDefajVVl2GvBVZQZqvtu5Cz94roOqWww5VWGgSSwdTAtJV5Rt0yFq8WJplmu4A6
-	8RLoaUH0jmZhda0q2Avfq5TdV+K4hIxpSRtFvm2YbCpGp/zm1t56uZCiEwNZ7ikom7MXg3+LY4z
-	3ranushpWU50YM6bF4d6QF6GWEd5BbA3DzF4mFAjZtqibqqccp7/waY3GoPjy7BzuoBmEJDkNn/
-	YE20XkM6MVBFvG4H7smpKrE/sIUGj6jHcdGCtdEdo4iWVF+gW9ucCKLzdLpquYbeQ5ED4v/KsEZ
-	Pzx+b3X/zev/MAIHNMwLSYST2zQyKxlgUbwWYYPZxSTAIuwPaijLYl3gNo+uL4pxtT8b2uMQjq9
-	ru58fRWtFn1NwXggKWZZzxmti8BpvrXAysApq4FR5ZmnFBqsxtppdxCX+b//+dnVoxPJIVcSKJ7
-	3Hc=
-X-Received: by 2002:a05:600c:6992:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49fc7b7a756mr226941795e9.0.1790064100738;
-        Tue, 22 Sep 2026 01:01:40 -0700 (PDT)
+        bh=gRVzD7/e6IROrFrMTSU32rtgAKkxa5C4zngEyHP7gSA=;
+        b=islXztIGKlgd6kpekAAg5XD+NPTruHupxzk3mLUvRVvge7H6cZ2zFRDN8jP5i8dPAO
+         eZYE49rFcu/XuuhSCCNcd6EC12wxWLdn68Om0bsvflhja2M3b7HzxvjyXChBBHiT7w8w
+         HMuQ459qy/esB4/paTuIDccnNt/EjTrybl7IwBSWonnaV2xuRqHxwaJqaO49p674i/QC
+         wXB9Qumy3+qOMIrmW1/cH4UlswjN5vyPWLKW1adIo4bB/xnVY4LQGhm2ERe+n6cmBEwm
+         Y2vm59Dafpj86QKRIWNN84B/1wWYTvKyYmgKcF1nFkCZ6YGiEmvqd23QyrPckXIa2xJk
+         eyFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzDTW2VsWr9CgLhc/7p+Ow684EnJf/ijftXcxsihZzvWihimBcqKf4N1YyQroG/qCha4hc7YNGQhKbdSwc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mr4OXJ12gjiNkHoGwarg9ZZRlqGSo0UYzLPzjAIVaNpn36atfS
+	wyLtxTe9ebrbK2e+CUGiqQ7+AtQmJLBVC4uU9JrB7Mu6S8UlInDnKV/h
+X-Gm-Gg: AYBFou0EiMn6Xt744RS4AXqtt0ZgZWJgFDYul6LKCvrQAHwzW4sRSTttxXiVgRlX5fu
+	W4eQG5X4YQsKS6aX71ggiRj0rvOJ7p38nBEAQMynMGDNJNhaGpx3Wc+OmgrX72nx2yj58S36QuK
+	aFK3etOrFxNSNut0SFkc/GxVcIXeVJlwVWp+0wsOies0ZTF9U+OPav8thFyT6bKurJHJ7hUJtDE
+	EEf6iv/HTGlQamcEV1/uYiYOrkXl6bzg3kwlVlWneAlTXSujEhYZ9AMJa8d6hQmz+RoB8oPYgP1
+	4dpBNu9tUmXOQDp3GoYndLwy5G/7/QXnn7ou60xXpwO3f1VeD5fq+7IiEbOMkJAlCNWJ2osCCUq
+	EPIB4poI1UXoS4ioRlRTgkaSV1sp22KWeuX4TCnOCJ6SVYk689GlwPEl8Ad5HsfZv+fgdggBvB/
+	LMg+7yghmLLcZPpvcp9YI4d9pl/Upek2zZhBcM89HMRehKfYrrOT0kNSDaArJhURv1fuPlZHVtv
+	0mLenlKvRCzChBSo5r4LE3jeY3dFJ96GgSv7SrcmPlZaS6cgbLQl8nxjfjNv6R2CCvAbOEX+kTf
+	BKc=
+X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fc7f2bdc8mr199260285e9.2.1790064093776;
+        Tue, 22 Sep 2026 01:01:33 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu. [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.39
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:01:40 -0700 (PDT)
+        Tue, 22 Sep 2026 01:01:33 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
 	Oded Gabbay <ogabbay@kernel.org>,
@@ -83,9 +83,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 11/11] arm64: dts: rockchip: rk3588: add passive cooling to the NPU thermal zone
-Date: Tue, 22 Sep 2026 10:01:14 +0200
-Message-ID: <20260922080114.44662-12-royalnet026@gmail.com>
+Subject: [PATCH v2 06/11] dt-bindings: npu: rockchip: allow DVFS and thermal properties
+Date: Tue, 22 Sep 2026 10:01:09 +0200
+Message-ID: <20260922080114.44662-7-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922080114.44662-1-royalnet026@gmail.com>
 References: <20260922080114.44662-1-royalnet026@gmail.com>
@@ -97,84 +97,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NPU zone has had only a critical trip at 115 degrees, which is a
-shutdown and not a cooling policy. Now that the NPU can be throttled by
-capping its clock, give the zone a passive trip and a cooling map, in the
-same shape and at the same temperatures as the GPU zone right above it:
-85 degrees with 2 degrees of hysteresis, and a 100 ms passive polling
-delay.
+The three NPU cores on the RK3588 are fed by a single clock and a single
+supply, and the firmware accepts a fixed set of rates for that clock.
+Describing those rates as an operating-points-v2 table is what lets a
+driver scale the NPU instead of leaving it at whatever rate the bootloader
+set, so allow the property on the core node.
 
-The #cooling-cells property goes on rknn_core_0, the first of the three
-core nodes, as the one node that stands for the shared clock as a cooling
-device. The other two cores have no clock of their own and cannot be
-throttled independently of it.
+Throttling the NPU from a thermal zone needs a core node to be usable as
+a cooling device, so allow #cooling-cells too.
 
-The cooling map is inert until the driver registers a cooling device:
-thermal_of_should_bind() only resolves a map entry once a matching cdev
-appears, so this patch on its own changes nothing but the trip point. On a
-board that leaves the NPU disabled the passive trip has no cooling device
-to act on and only changes the polling rate above 85 degrees, as the GPU
-zone's trip already does on a board without the GPU.
+The OPP table belongs on every core, with opp-shared: the cores have no
+clock of their own, and one shared table for one shared clock is the same
+shape a CPU cluster uses. #cooling-cells goes on one core only, the one a
+thermal zone's cooling map names, because the cores cannot be throttled
+independently. Naming one representative node for a shared frequency
+domain is the established shape, as in "Cpufreq cooling device on CPU0"
+in Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
 
-The thermal path itself has not been exercised on the board this was
-written on. Reaching 85 degrees on an NPU workload with the fan curve here
-has not been possible, so what is verified is that the zone parses and
-binds, not that throttling engages at temperature.
+The schema cannot enforce which core carries #cooling-cells, because all
+three cores share a compatible string and a node name pattern, so that
+stays a devicetree convention. That is the same situation as for CPU
+cooling, where cpus.yaml does not restrict #cooling-cells to cpu@0
+either.
 
-Assisted-by: LLM checkpatch dtbs_check
+The example gains #cooling-cells; the operating-points-v2 property is
+exercised by the RK3588 devicetree later in this series.
+
+Assisted-by: LLM checkpatch dt_binding_check
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-v2: commit message only: wording for the shared table, and a sentence
-on boards that leave the NPU disabled. The diff is unchanged.
+v2: the text on where the properties go is rewritten for opp-shared on
+all three cores, following Nicolas Dufresne's review of v1 3/7. The
+only change to the schema file is the wording of the #cooling-cells
+description; the constraints and the example are unchanged. Conor, your
+Ack is kept on that basis; please say if it no longer holds.
 
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ .../bindings/npu/rockchip,rk3588-rknn-core.yaml        | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e07869..c3d22b08f415b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1162,6 +1162,7 @@ rknn_core_0: npu@fdab0000 {
- 		clock-names = "aclk", "hclk", "npu", "pclk";
- 		assigned-clocks = <&scmi_clk SCMI_CLK_NPU>;
- 		assigned-clock-rates = <200000000>;
-+		#cooling-cells = <2>;
- 		resets = <&cru SRST_A_RKNN0>, <&cru SRST_H_RKNN0>;
- 		reset-names = "srst_a", "srst_h";
- 		power-domains = <&power RK3588_PD_NPUTOP>;
-@@ -3212,17 +3213,31 @@ map0 {
- 		};
+diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+index caca2a4903cd1..beba1896156f5 100644
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@ -42,6 +42,13 @@ properties:
+       - const: npu
+       - const: pclk
  
- 		npu_thermal: npu-thermal {
--			polling-delay-passive = <0>;
-+			polling-delay-passive = <100>;
- 			polling-delay = <0>;
- 			thermal-sensors = <&tsadc 6>;
- 
- 			trips {
-+				npu_alert: npu-alert {
-+					temperature = <85000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
++  "#cooling-cells":
++    description:
++      Present on one core only, the first, which stands for the shared NPU
++      clock as a cooling device. The other cores have no clock of their own
++      and cannot be throttled independently of it.
++    const: 2
 +
- 				npu_crit: npu-crit {
- 					temperature = <115000>;
- 					hysteresis = <0>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&npu_alert>;
-+					cooling-device =
-+						<&rknn_core_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 	};
+   interrupts:
+     maxItems: 1
  
+@@ -50,6 +57,8 @@ properties:
+ 
+   npu-supply: true
+ 
++  operating-points-v2: true
++
+   power-domains:
+     maxItems: 1
+ 
+@@ -100,6 +109,7 @@ examples:
+         clocks = <&cru ACLK_NPU0>, <&cru HCLK_NPU0>,
+                  <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_ROOT>;
+         clock-names = "aclk", "hclk", "npu", "pclk";
++        #cooling-cells = <2>;
+         interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH 0>;
+         iommus = <&rknn_mmu_0>;
+         npu-supply = <&vdd_npu_s0>;
 -- 
 2.43.0
 
