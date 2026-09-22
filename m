@@ -1,94 +1,94 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C27D05581F7;
-	Tue, 22 Sep 2026 15:17:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61E1055820C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090262; cv=none; b=T0O25ZtgIYWEeunEchxFNdc84BqdTFZ/dumgsUQMrvgphl07a1aKLc8YjOFsTR4N9DiNQUIpPTyXfSdE/aZUJaXA9Ntp17UYcszbN8Yv0/Jk0ZOXZwtlRUvi0Xv1RQ/TtmS/1hjssIv9i25qolJupFXlSeTfmhajzNGnYeoVlRY=
+	t=1790090265; cv=none; b=QcttnnPjRD3mKgfS3/P6jm2JWLzqmx1mbm0ymq4x6PB90TVi7JNpiiO+HZ4wEX0eJXWhQ4JRQ+b2X2gPHndRYuJq4oayGY0mixwVnFLbEYQ9uJGWQLwJpsnovAVvnrpewhtHizku1O1ES/DDjV4K8h9RrM/Jm85slyTZoFYoadA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090262; c=relaxed/simple;
-	bh=WJQlexOEFB2+rLfSFe39873Vz8dqsCQdE/Ket6GyZWs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f8udFSj5E2qoZnNTwzdRi399XWi0SZeGFkmt6py+urAVnjcJpJU58aBh5WgVrXMi/aKHwqgkznxw1RE8lvpErwcXr3q9t+UY9OjdUBpzdW9eesDLZSclNs1RI4v3JF5vHIPenPNZRr/HmaVfz1yrLDxoM1e9SfoeFx90TuNqeZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rbbtwE1o; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1790090265; c=relaxed/simple;
+	bh=qcQAZi3C9KEKVCBrKlQm5wPF/QzOabtzbyH89pFNqKQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R2Tkwf/FCo3jyAXdKpFgl8gW4DpbGmdtdwwjTfbQZ1Y/lS9/vZLODrQGNnwXEgcHUNsmXj127t9oVE7kRvdwmgNwmi1iKMAiKjcEQ3CuByLYtahzcoCrEO5N6rfoNBuWGVy5RdoMM1nB+e4FjFa1zIkAyWuCdA2KNI1DklkhEgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=c7KOIxYw; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rbbtwE1o"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="c7KOIxYw"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAA3E1576;
-	Tue, 22 Sep 2026 08:17:35 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A3B5E3F86F;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0D7771576;
+	Tue, 22 Sep 2026 08:17:39 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F0863FA32;
 	Tue, 22 Sep 2026 08:17:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790090259; bh=WJQlexOEFB2+rLfSFe39873Vz8dqsCQdE/Ket6GyZWs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=rbbtwE1ovFBalioA6W+2gPtB+Lf+eeY2UhEbfO4cyQAl6aEdNz/ibBXCm8yq2qud/
-	 4Louz5/9Gmmuqn+m4/QJHqLBdKAqr3l3GaqDV/UlaAGU2bLOrCwwsvMCkOhwAMZ9FL
-	 QonY6Pasx3dWe8xeQ5MvLOTFa1SK5C7RpOGceWT4=
-Message-ID: <7d0fa712-bbc4-441c-90c2-38e9faeee228@arm.com>
-Date: Tue, 22 Sep 2026 16:17:37 +0100
+	t=1790090262; bh=qcQAZi3C9KEKVCBrKlQm5wPF/QzOabtzbyH89pFNqKQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=c7KOIxYw+wpS/RrOBtHZPEoa57VsVibuLFGNxbuxwd5gOZ0PyKUaEoISzKjUkGm+O
+	 cRnFupxuwJe0JyM2CbdZiq/dPP8ao0o7SFv2+hYk1oun7k8V+WaxzzZjfFLG9EUXEY
+	 OuYRrdnKbDr0QYRRHufbQIooq5EOPRgeXMonIamE=
+Date: Tue, 22 Sep 2026 16:17:35 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH v3 12/13] arm64: Kbuild: Remove vestigial big-endian
+ support
+Message-ID: <arKcDyE6pkBI9YVt@arm.com>
+References: <20260918145217.1669-1-will@kernel.org>
+ <20260918145217.1669-13-will@kernel.org>
+ <arEF5IOJSlQyYwX5@arm.com>
+ <arKaWVwH5RXKpDTf@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: Provide !ACPI stub for acpi_device_uid()
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: lenb@kernel.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <513319f19ed6b0b6d4c76dc517074531966b98f5.1789745223.git.robin.murphy@arm.com>
- <CAJZ5v0j72dht4wiVcoFmk2Rt1pvPL7Yrr_29jihzfKAb3Pu24g@mail.gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <CAJZ5v0j72dht4wiVcoFmk2Rt1pvPL7Yrr_29jihzfKAb3Pu24g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arKaWVwH5RXKpDTf@willie-the-truck>
 
-On 22/09/2026 12:40 pm, Rafael J. Wysocki (Intel) wrote:
-> On Fri, Sep 18, 2026 at 5:27 PM Robin Murphy <robin.murphy@arm.com> wrote:
->>
->> While the likes of acpi_dev_uid_to_integer() and acpi_dev_uid_match()
->> already have stubs for !ACPI, the basic acpi_device_uid() getter does
->> not. As with acpi_device_hid(), add one for the convenience of portable
->> drivers who just want the string itself - in fact they are so much alike
->> that we can simply alias the exact same stub definition.
->>
->> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
->> ---
->>   include/acpi/acpi_bus.h | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
->> index 1a45e0d521d8..ed309ea4785d 100644
->> --- a/include/acpi/acpi_bus.h
->> +++ b/include/acpi/acpi_bus.h
->> @@ -963,6 +963,7 @@ static inline const char *acpi_device_hid(struct acpi_device *device)
->>   {
->>          return "";
->>   }
->> +#define acpi_device_uid acpi_device_hid
->>
->>   static inline bool
->>   acpi_get_physical_device_location(acpi_handle handle, struct acpi_pld_info **pld)
->> --
+On Tue, Sep 22, 2026 at 04:10:17PM +0100, Will Deacon wrote:
+> On Mon, Sep 21, 2026 at 11:24:36AM +0100, Catalin Marinas wrote:
+> > On Fri, Sep 18, 2026 at 03:52:14PM +0100, Will Deacon wrote:
+> > > -choice
+> > > -	prompt "Endianness"
+> > > -	default CPU_LITTLE_ENDIAN
+> > > -	help
+> > > -	  Select the endianness of data accesses performed by the CPU. Userspace
+> > > -	  applications will need to be compiled and linked for the endianness
+> > > -	  that is selected here.
+> > > -
+> > > -config CPU_BIG_ENDIAN
+> > > -	bool "Build big-endian kernel"
+> > > -	depends on BROKEN
+> > > -	help
+> > > -	  Say Y if you plan on running a kernel with a big-endian userspace.
+> > > -
+> > > -config CPU_LITTLE_ENDIAN
+> > > -	bool "Build little-endian kernel"
+> > > -	help
+> > > -	  Say Y if you plan on running a kernel with a little-endian userspace.
+> > > -	  This is usually the case for distributions targeting arm64.
+> > 
+> > Running the checks through an LLM found that CONFIG_GVE depends on
+> > X86 || CPU_LITTLE_ENDIAN, so it won't be enabled anymore.
+> > 
+> > I think that's the only positive test of CPU_LITTLE_ENDIAN.
 > 
-> Sashiko has reservations that look valid:
-> 
-> https://sashiko.dev/#/patchset/513319f19ed6b0b6d4c76dc517074531966b98f5.1789745223.git.robin.murphy%40arm.com
+> Would you like me to add a '|| arm64' in there? I was a bit wary of doing
+> so, given that I don't have a way to test it. Removing CPU_LITTLE_ENDIAN
+> forces the issue, somewhat.
 
-Oops, indeed apparently I missed that acpi_device_pnp::unique_id isn't 
-actually const - it probably should be IMO, but that would be a whole 
-other patch.
+Or turn the dependency into X86 || !CPU_BIG_ENDIAN.
 
-FWIW I can't see that the return value itself actually matters here 
-since !ACPI code couldn't have a valid acpi_device to legitimately call 
-this with at runtime. In fact even for compile-testing, references 
-should usually be under a condition like has_acpi_companion() which 
-would lead to them getting DCE's under !ACPI without needing the stub - 
-this was really just for completeness to shut up annoying Sashiko noise 
-on that point.
+Was arm64 the only one to define CPU_LITTLE_ENDIAN before?
 
-Thanks,
-Robin.
+-- 
+Catalin
