@@ -1,142 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67A63ACA5B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA724516154
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061488; cv=none; b=H010u3fbzBcYeDF+RI33HDO1XlpLAl0nGrJWUbo1bfSReOE376Df0zlvGStM79wwDktUQXvPmdX+1u6q0oqcBl3rrgf1GR/zqJOOyj8DMh3scdUjJlKUWbq45/HHrx/w+WUACUZChuXyY6YAMj7SwkAwVnHcm2wqh9R7cdOICAk=
+	t=1790061519; cv=none; b=fV2sxzDi2VHdrnYa8BpX7I1IkwFEbm0o5S7wSpG/tD6NAUfHCOZXa70bBwFrR1ZR2iSNR5ajERAoqCU6kpiplZQHBt7T+ApP5YxI0//SU7TGBphywI9SnPLR11UZ8boylXuFerIIW3gX/VRZn0DnNI0UntpO9TBoyKqahOTG0oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061488; c=relaxed/simple;
-	bh=vfAOnWF9ma8enyqr4D1jm+4ryfaUF06KvZPYdakyP4g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=boqUXP1mjr8P8GARw69KEFCDOjEgukx3uOMsY6thT2hEbH+zQfhs1tYYK1scqI144M5abCT4DZZXdOFqLe4JUMB4HBapE8vv5UONSiIjkJp6RBUl0mQJ3WoatS+xGm1FMKxfj+OPaJfn9vcWXGuF8NeYHVO/FkkYeOW5u2yT/CM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdgKWF2E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790061519; c=relaxed/simple;
+	bh=v6xZErlacr+A9mo6omiPPVicOPdkpTeC65FS62sInss=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JEOJEOyqrw6f3qhpFwE+zrYBavYeu9w9OOQ8349zcWwaEl7sD2LVJ3xUOZt7P2Pozkoi7lPSzBsLFUjPR+SazNcHMhVf+R8Y8gzli03BSb1c67KvFckYCZXGrUHAH6dP1v0RxvfQGj0a/n4iykBTxI3CpVvp1MVDXCAqd7mgGoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=C0hX1X9h; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdgKWF2E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 436DF1F00898
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:18:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790061482;
-	bh=Kiu2zTEU4eOPd6KYh9rbDUJ7UJD3txxYyQibAU4/O4U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TdgKWF2EpS1w3ADvij2BopLpxhHXGdHIunEVbiZcvtASTMdf/9sUcUsOCpknA/t97
-	 OUDjR9pY9+X6TC0C7nH/sd0n5JKYjOW0JKYTuP8kSz9UyZwWuiPuD1OnzwLncY14m+
-	 z1V4mE8i6JRQJ8xGQB6k1qtTQZeDJ4qv7cs7bLXpyPTP0U9wqBJH/nZLelCYQq7Oe/
-	 oVPXn1WdL76/wYtlx9Psk9Oc9CxpkcIhZFCd2IyFMqmD6QUbOpcXGzpKktQRoSmHOm
-	 ce6l5zgc+wWVOzGg3rCucrtknj4lDC33ancgZfwJYKmtGTfPVghJMT7Jko+pc3V0Te
-	 Uou8jemMlGVvg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c7a1aeecso2653106e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:18:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByANnucKPDUCg8r4pTeVBhzIhKAvt2lVf/NuVBVmDDG3fpFwMxG+MbBB6YIfzlbufiaVB7PZ4mK26CdaFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++khhdrYq+3jbPbLZXCU2fl2XvuFqvEnhO6cks/Z1U+j/+h1NkGw
-	Pvwjyus44cjiDKYkbKq/5cm0sdTUogkk6zm3e6C1XzCR2F+iawbVAx4lDJLkTypIfk69MQQyn77
-	k1/Y+qdQCJB84dG3wC+Y3KsoKi09jqaM=
-X-Received: by 2002:ac2:51c3:0:b0:5b8:bc5e:b572 with SMTP id
- 2adb3069b0e04-5b8c1845684mr4028396e87.42.1790061480637; Tue, 22 Sep 2026
- 00:18:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="C0hX1X9h"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ygrPZm8eDcUQ7MoHLmGIK5pbHdtwj7Bl+cfPIeIvl7c=; b=C0hX1X9h6tbKVp8gdcWbmSLfel
+	lBPMsguauBM3lc4UNKTZhuOI2pewCMdfGP0xz1twOL7jvkuRrPIPmpQwsVzbNKIp3RkBS+jkSpQ9o
+	6QVtNUVRENhAUchD3WD6+mA37qdi+bnLbsmXjMrPK8754zymtq9eAvm6V2iBiKPdWpFWvKQrlUQJA
+	2e+oT++vks1qDBxfdqDiB4vFUUKe8rckqRDvM6gmgumeXmyX0S74O9vkH8emwPDk7P6DzQQFyYApr
+	aPPB7JPA0GknCA5X8XiXN2t3kkKOgpsKbC2/NG5+GzVvQn8t1aaU4kP9oo4ETzQEnUXhZgSvkXXWU
+	OeQaVsrQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8uld-00000007U1N-3jx3;
+	Tue, 22 Sep 2026 07:18:18 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 07875300708; Tue, 22 Sep 2026 09:18:17 +0200 (CEST)
+Date: Tue, 22 Sep 2026 09:18:16 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: John Stultz <jstultz@google.com>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>, Hui Su <sh_def@163.com>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Zhidao Su <soolaugust@gmail.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/1] sched/proxy_exec: detect cycles in proxy walks
+Message-ID: <20260922071816.GT4121339@noisy.programming.kicks-ass.net>
+References: <20260914165455.2126134-1-sh_def@163.com>
+ <20260914165455.2126134-2-sh_def@163.com>
+ <CANDhNCqZwGk+wqhB4N8Emq0rPmzsrVWzHmayiSj9ptg-vLzo3Q@mail.gmail.com>
+ <8669890e-c8a5-448e-b059-d959e3a1d73c@amd.com>
+ <CANDhNCqKYjO=0mFM1aidHyAWaRirD2zO4_HqH=qB+0x-Uhk9PQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-8-282ff5d98dda@ambarella.com>
-In-Reply-To: <20260921-cv75-v5-v8-8-282ff5d98dda@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 09:17:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkSfPvuO=ZgqwYnbBBjxuu4ns1EDpHXQxKgWGqK9E130A@mail.gmail.com>
-X-Gm-Features: AclHuK98tk4GqYStUdUYs2m51yzirRsfrNvcnULTogZGKv-tdFHo0QJgErcoW2U
-Message-ID: <CAD++jLkSfPvuO=ZgqwYnbBBjxuu4ns1EDpHXQxKgWGqK9E130A@mail.gmail.com>
-Subject: Re: [PATCH v8 08/18] gpiolib: regmap: add write_data_after_dir quirk
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANDhNCqKYjO=0mFM1aidHyAWaRirD2zO4_HqH=qB+0x-Uhk9PQ@mail.gmail.com>
 
-Hi Long,
+On Mon, Sep 21, 2026 at 11:06:52PM -0700, John Stultz wrote:
 
-this is starting to look good!
+> > So if we are eventually planning on returning -EDEADLK to userspace
+> > (context: https://lore.kernel.org/lkml/20260917153649.GK4121339@noisy.programming.kicks-ass.net/)
+> > do we care where the chain starts or can we return -EDEADLK anywhere
+> > in the chain?
+> 
+> So returning EDEADLK to userland seems like a new feature to me, as I
+> don't believe existing futexes (which can still have dependency cycles
+> or just ABA style usage) currently do this.
 
-On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+  git grep -e DEADLK -e DEADLOCK kernel/{futex,locking}
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Some controllers ignore data-register writes while a line is still an
-> input. Optionally write the output value again after switching the
-> direction, matching the existing PL061 behaviour.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-(...)
+We definitely return -EDEADLK for PI futexes and rt_mutex. And given the
+whole proxy thing hard relies on the block graph being acyclic, it
+seems rather mandatory we enforce this before exposing it to userspace.
 
-> +++ b/include/linux/gpio/regmap.h
-> @@ -48,6 +48,13 @@ struct regmap;
->   *                     (Optional) Bitmap representing the fixed directio=
-n of
->   *                     the GPIO lines. Useful when there are GPIO lines =
-with a
->   *                     fixed direction mixed together in the same regist=
-er.
-> + * @write_data_after_dir:
-> + *                     (Optional) Write the output value again after
-> + *                     switching a line to output in ->direction_output(=
-).
-> + *                     Needed for hardware which ignores data register
-> + *                     writes while the line is configured as an input.
-> + *                     This is a legacy quirk (e.g. ARM PL061); new hard=
-ware
-> + *                     must not use it. Direction changes will glitch.
->   * @drvdata:           (Optional) Pointer to driver specific data which =
-is
->   *                     not used by gpio-remap but is provided "as is" to=
- the
->   *                     driver callback(s).
-> @@ -94,6 +101,7 @@ struct gpio_regmap_config {
->         unsigned int reg_dir_out_base;
->         int reg_stride;
->         int ngpio_per_reg;
-> +       bool write_data_after_dir;
->         struct irq_domain *irq_domain;
->         unsigned long *fixed_direction_mask;
->         unsigned long *fixed_direction_output;
-
-1. You have put the kerneldoc in a completely different place in the order
-of thing than where you put the flag in the struct.
-
-2. Put a comment above the behaviour flags because there will
-invariably be more of them! Something like:
-/* Regmap GPIO behaviour flags */
-
-3. Put a newline before & after the flags so they end up in a separate
-section of the struct, so people know where to add them.
-
-I would put them:
-
-        struct device *parent;
-        struct regmap *regmap;
-        struct fwnode_handle *fwnode;
-
-        const char *label;
-        int ngpio;
-        const char *const *names;
-
-HERE
-
-        unsigned int reg_dat_base;
-        unsigned int reg_set_base;
-
-Yours,
-Linus Walleij
