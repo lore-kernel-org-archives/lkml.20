@@ -1,172 +1,235 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D0D5540BF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1227F4570D0;
+	Tue, 22 Sep 2026 15:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090271; cv=none; b=ZDXUp+53t1SFhC1gqMiBcveGAFPLyOMDhSdawc5YdMlZ2sLSZ7qy7U6rRfyU3Rqmxqe90K39PbxyReFS6hpgavBMHPvn82CTDNswpQZqdcNf1kKurx816WWxOEpgArINOJdwlXa6thUgdkjmg4027vSnvaSTygpN78qKyDfnln0=
+	t=1790090284; cv=none; b=TQNw0ziZoFoIHlFxxqKRlY12cIfnvcERezQVneXvwBdgHxxF0Gz41+Dax/H7maJ7/o0Hf51FUTnTLxnJEhukLn+p+rf88nZHwr9pV/rLjgvoXHkUXmM7CI8MHuAU6ssrc2LGfoFDv0TQlX0eVEEC6fvLicWXL6/GCKJASlVk6c4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090271; c=relaxed/simple;
-	bh=CGwfGX7tsRpqOKKJ0miq2JDg5a0dolCInmXOCA+qY6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PRJ3k9bD76CQrtQcHhYcn0zJCM6uyHiXwW4mpyl8fx4FMzLcLfhiOZvxZlze3T5+29Oy8gN2fd2lwUcYdpC45iwhBDrNWwFMz1o6Nk4UFKJhNSjdF88v9C+K64UVpQCmSOmwygmIkJQRK2UyTALitCvacU5hWxJL8FyYCsPnUAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qgh7EGsP; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790090284; c=relaxed/simple;
+	bh=15HkibEpQmCW+19fUFq8VXDh4YsgQ14loxKhOxO0lII=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WQeTUZwa8G0leMCP+z8UR9cZx/qlvYLMlGXi+yUnCSkyAk1mNUkxHV93NYvy6IQ8U+THl5cyhwkJJpSVqLOkZiUc++UupHUN6wKa+BAKFOzDc6H49y03Ky/BqMBecr5bfHBVPv6HguYBE+PkR5J8msz98mjNM7PZzmh6pdAuop8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6CXXqI5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qgh7EGsP"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-868b2e5be4eso2254629b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:17:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790090269; x=1790695069; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IHB9IxVUxavOjDPhu5rxEe8qPGJRa/948zvhQlxvPGI=;
-        b=Qgh7EGsPfWl55YdLntFwdw033arm4nQ/stwnQJmQ1/IJ5v2WtiK/YoZAKc394DCLiF
-         xwaAkhAkHgFHm2lPRSe/itOl8TXYrbOUQueGfcyvKIFNfOg6cqNN0wTH2qJJLU1a+7/7
-         jq1W7npN463MH5j+P9Z6PTWC9iSqbPcMps/EPxwj1MGHMGAoIfoYF0jqY0GsnyKPHk8C
-         lwI0XFztT4VPDOfIjWs6eVLkkSsZlsOwzZd09rNvuSZZr2jhSWSfw3OGMP6C15sasIXE
-         tTmp0Nk8BDfCHzMXNmoflLqx5jKEO/A/PlNWhRZwaScWzXzHbzCM0M8jlm1y1xK6+fG7
-         xRNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790090269; x=1790695069;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IHB9IxVUxavOjDPhu5rxEe8qPGJRa/948zvhQlxvPGI=;
-        b=HbYYNoV0QSX8D6T8+c0vPX1QuIgzVHClQpUuph6gXyFtseB98inxUumbRfN7kfJ6Vu
-         QFte3EYplQD47Aa5XCqI2mluFpPNRi57S7ndr3f6xKu0rRe0W8P5wsfl8igeWOFlEzcS
-         e3+1/hFON6TQgxw8ypuLmSYdCLNW2P6rqGbmu3MhycQE6ggHbeYpGVv94beV1Y+sxyiR
-         Xr0y3iPO8dwiiAj/6lZSTLDcua/8qMt+lStcYkgYCRzNNLqBUWwI7POZyjTvMLNkh6ou
-         UfEWPT6eJtK/Hs8b6+6D3CO0KNfmxbk8clIoRhPCCC9TI9M1+k5x0787yeN2cMgO5UMM
-         weaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzraFnt09XOeZxLPayG+uYY4Ycva80L6AWt/Q0Od3wYW5BZn6MT3WwjuGDvG+9kyf2nwvfXlE6RWyf8D7I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJboD4OfYT08VUiIZc9y28RG8J13KMeK1Lut241UmiYWboipG9
-	921vNryFOO3N8GhvI8P4U6OyyszL7S37S54FosjTlHgKUr54ATrsR/wX
-X-Gm-Gg: AYBFou2oXeAIQ6B1dG9vdZmAjq7M0dqYJI9Atk10aXdjrpnAL/dWlAOZvgT/aaeu529
-	xNCv4Y9Msordd8fAIO/5YWUBvQM6EEUn1ov3SiRKsPgFA2VsZcAMQNLhNZD1ABy7wY3FDSQS5Wq
-	UdH3dXpcsDzlAyD4JeOGKmXfseS4vfKqfvMGnEyWpzDDYnWbFCx5UOI6582tGj8A3CceLLJpLmg
-	xKP3eULlrKio06hkFPC4S859X4J2mJbvs+l456UVVnI/4iVJ6X2mCZpoxQE0xG/o7+1LiuPjOuj
-	6uaR+0iQoSW/Iicw200NMg6NbwlCiyP5d+I6KmQRH2yVS4+8qCxpYRc2HwvcD/ELZMJxG0tX6MH
-	FfCampoSWq7S0AXkti8LyvdTVB5BXNkIaGYfiY5ibdRe681cDr/S7oQQvOD3uQFMcSi1b36sfa8
-	RG2qWIoRTzeF2fmHUn5a6q7vfKvie0qH7r1IjUe1xUpIZUCV+IDuA2rkLiK5+5V8eA8XBojE58K
-	nsQ5mz/IwmH1zJjWfqh1d53Xaxri7IUfpe/bJMXMQHt/w==
-X-Received: by 2002:a05:6a00:1496:b0:878:37e1:aa76 with SMTP id d2e1a72fcca58-87c855f6437mr1731047b3a.56.1790090268489;
-        Tue, 22 Sep 2026 08:17:48 -0700 (PDT)
-Received: from SANGHOON.tail18dcf4.ts.net ([1.220.132.212])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c332aca11sm1074819b3a.54.2026.09.22.08.17.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:17:47 -0700 (PDT)
-From: Sang-Hoon Choi <csh0052@gmail.com>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Cc: Sang-Hoon Choi <csh0052@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	linux-remoteproc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] tty: rpmsg: close port lookup-to-get race
-Date: Wed, 23 Sep 2026 00:17:41 +0900
-Message-ID: <20260923001647.1337001-1-csh0052@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092154-anger-sensually-aae8@gregkh>
-References: <179000811428.1227592.8003229121862460039.idr-bug-84@gmail.com> <2026092154-anger-sensually-aae8@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6CXXqI5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E98AD1F000FF;
+	Tue, 22 Sep 2026 15:18:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790090282;
+	bh=SCUskFf4P9uSaGgRY2DVcZeibiyVC9XecefXdSM92Hg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=k6CXXqI5y/J0EJrREtniefQG6Xg6CdtuQprCHaleooshSYJWEUL04kAFvwXdyB2PU
+	 lbNAnhPKZ4SpEThqh06cABShaNf5S1kfH7G4mCtN0xULjmZ++sW5ZxoxzEmcrwvBSm
+	 QxKFai5SDu+iH96dCDJPNue7ShuxbQ+MBQ6u3g7uF6XvwwfJAyKPBB3mbuGKhTkvl/
+	 dK56IVjCbEWDgKzcYqj/TEpotv8SG/KNy/qS/tY/jZU2DLgO0Ov7tN93TjXaTRYT7O
+	 ccfyQVWRje1ZYZ0PZfUES2qJixyraN+hLoC/ej+Ke7RNHQK/dsLf8WfIiGuuBIkU4O
+	 eTlYRZexoknJw==
+Subject:
+ Re: [PATCH net] ice: detach the VF representor when ice_start_vfs() fails
+From: netdev-bot+sashiko@kernel.org
+To: xiaolinkui@126.com
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn,
+ stable@vger.kernel.org
+Date: Tue, 22 Sep 2026 15:18:01 +0000
+Message-ID: <179009028142.2160803.9147341738754348504@kernel.org>
+In-Reply-To: <20260921031616.3390259-1-xiaolinkui@126.com>
+References: <20260921031616.3390259-1-xiaolinkui@126.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 8bit
 
-rpmsg_tty_install() obtains cport from tty_idr before taking a port
-reference. rpmsg_tty_destruct_port() removes the entry under idr_lock
-and frees cport. If channel removal drops the last reference between
-idr_find() and tty_port_get(), the install path dereferences freed
-memory.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The first-open path and channel removal can run concurrently. tty_mutex
-serializes TTY initialization, but rpmsg_tty_remove() does not take that
-mutex. tty_unregister_device() prevents later opens through cdev_del(),
-but cdev_del() does not wait for an open which has already entered the
-driver. Before rpmsg_tty_install() finishes, the port is not attached to
-the new TTY, so tty_port_tty_hangup() does not close this interval.
+Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 0
 
-RPMsg channel removal may be initiated asynchronously by the remote
-processor or transport. In the test, the local process only needs
-permission to open the TTY node; channel removal is initiated
-independently.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-I reproduced this with a UML kernel built with KASAN and a synthetic
-RPMsg device using the real rpmsg_tty probe and remove paths. Test-only
-synchronization forces removal after idr_find() and before
-tty_port_get(). The opening process drops to UID 1000 and GID 1000 first.
-The unpatched kernel reports:
+- [High] The newly added ice_eswitch_detach_vf(pf, vf) in the
+  ice_start_vfs() teardown loop…
 
-  BUG: KASAN: slab-use-after-free in rpmsg_tty_install
-  Read of size 4 ... by task init/23
-  CPU: 0 UID: 1000 PID: 23
+Pre-existing issues:
+- [High] AB-BA lock ordering inversion between pf->vfs.table_lock and the
+  devlink instance lock.
+- [Medium] ice_start_vfs() teardown loop
+  (drivers/net/ethernet/intel/ice/ice_sriov.c:507-515) still never…
 
-The allocation stack ends in rpmsg_tty_probe(). The free stack is
-rpmsg_tty_remove() -> tty_port_put() -> rpmsg_tty_destruct_port(), and
-the invalid read is in rpmsg_tty_install().
+--
 
-Take idr_lock across idr_find() and tty_port_get(). If the entry is gone
-or its reference count has reached zero, fail the installation with
--ENODEV. With the same forced overlap, the UID 1000 open returns ENODEV
-and KASAN stays quiet.
+ice: detach the VF representor when ice_start_vfs() fails
 
-The test uses a synthetic transport and deliberately widens the race
-window. It demonstrates the lifetime bug and an unprivileged opener, but
-does not show that an unprivileged user can deliberately cause channel
-removal on every RPMsg platform. I am therefore reporting this as a
-normal lifetime bug.
+The patch adds a call to ice_eswitch_detach_vf() in the ice_start_vfs()
+teardown loop so that port representors created by ice_eswitch_attach_vf()
+are destroyed when VF startup fails. It is placed ahead of
+ice_vf_vsi_release() so that repr->src_vsi is still valid. A few questions
+about the new call site below.
 
-Fixes: 7c0408d80579 ("tty: add rpmsg driver")
-Reported-by: Changyul Lee <lcy8047@gmail.com>
-Link: https://lore.kernel.org/all/179000811428.1227592.8003229121862460039.idr-bug-84@gmail.com/
-Assisted-by: LLM
-Signed-off-by: Sang-Hoon Choi <csh0052@gmail.com>
----
-Greg, thanks for the feedback. I went back and reproduced the race under
-KASAN before preparing this patch. I can also provide the test-only
-instrumentation and the complete KASAN log if useful.
+> diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
+> index e04de0215596..1b563aba3bbd 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_sriov.c
+> +++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
+> @@ -508,6 +508,7 @@ static int ice_start_vfs(struct ice_pf *pf)
+>  		if (it_cnt == 0)
+>  			break;
+>  
+> +		ice_eswitch_detach_vf(pf, vf);
 
- drivers/tty/rpmsg_tty.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+[Severity: High]
+Should this call be made with vf->cfg_lock held?
 
-diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
-index c5fd6d9b3..b2765bae2 100644
---- a/drivers/tty/rpmsg_tty.c
-+++ b/drivers/tty/rpmsg_tty.c
-@@ -49,12 +49,19 @@ static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *p
- 
- static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
- {
--	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
--	struct tty_port *port;
-+	struct rpmsg_tty_port *cport;
-+	struct tty_port *port = NULL;
- 
--	tty->driver_data = cport;
-+	mutex_lock(&idr_lock);
-+	cport = idr_find(&tty_idr, tty->index);
-+	if (cport)
-+		port = tty_port_get(&cport->port);
-+	mutex_unlock(&idr_lock);
-+
-+	if (!port)
-+		return -ENODEV;
- 
--	port = tty_port_get(&cport->port);
-+	tty->driver_data = cport;
- 	return tty_port_install(port, driver, tty);
- }
- 
+ice_start_vfs() only holds pf->vfs.table_lock (see the
+lockdep_assert_held(&pf->vfs.table_lock) at the top of the function). Both
+existing callers of ice_eswitch_detach_vf() hold vf->cfg_lock across it:
+
+drivers/net/ethernet/intel/ice/ice_sriov.c:ice_free_vfs() {
+	ice_for_each_vf(pf, bkt, vf) {
+		mutex_lock(&vf->cfg_lock);
+
+		ice_eswitch_detach_vf(pf, vf);
+	...
+}
+
+and ice_reset_all_vfs() in ice_vf_lib.c does the same.
+
+cfg_lock rather than table_lock is what serializes VF reconfiguration:
+ice_vc_process_vf_msg() in virt/virtchnl.c takes only
+mutex_lock(&vf->cfg_lock) before dispatching through vf->virtchnl_ops, and
+the ndo handlers ice_set_vf_mac(), ice_set_vf_trust() and
+ice_set_vf_port_vlan() take cfg_lock and then call ice_reset_vf(), which
+reaches ice_eswitch_update_repr().
+
+Since pci_enable_sriov() has already run by the time ice_start_vfs() is
+called, and ice_sriov_configure() does not take rtnl, can the following
+interleave?
+
+CPU0 (sysfs sriov_numvfs, teardown loop, no cfg_lock)
+ice_eswitch_detach_vf()
+  ice_eswitch_detach()
+    xa_erase(&pf->eswitch.reprs, repr->id);
+    ice_repr_destroy(repr);   /* free_netdev()/kfree() */
+
+CPU1 (ip link set dev ... vf N trust on, cfg_lock only)
+ice_reset_vf()
+  ice_eswitch_update_repr() {
+	repr = xa_load(&pf->eswitch.reprs, *repr_id);
+	if (!repr)
+		return;
+
+	repr->src_vsi = vsi;
+	repr->dst->u.port_info.port_id = vsi->vsi_num;
+
+	if (repr->br_port)
+		repr->br_port->vsi = vsi;
+  }
+
+Does this write through a freed struct ice_repr? The VFs this loop walks
+still have ICE_VF_STATE_INIT set and ICE_VF_STATE_DIS clear, so
+ice_check_vf_ready_for_cfg() succeeds on the concurrent path; unlike
+ice_free_vfs(), the new loop never sets ICE_VF_STATE_DIS.
+
+The same unlocked window also has ice_repr_rem_vf() calling
+ice_virtchnl_set_dflt_ops(repr->vf) while ice_vc_process_vf_msg() reads
+vf->virtchnl_ops under cfg_lock.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it adds one more instance of
+it: ice_eswitch_detach_vf() takes the devlink instance lock internally,
+
+drivers/net/ethernet/intel/ice/ice_eswitch.c:ice_eswitch_detach_vf() {
+	...
+	devl_lock(devlink);
+	ice_eswitch_detach(pf, repr);
+	devl_unlock(devlink);
+}
+
+so this call establishes table_lock -> devl_lock, the same order that
+ice_eswitch_attach_vf() in this function and ice_eswitch_detach_vf() in
+ice_free_vfs() already use.
+
+The reverse order exists in ice_tear_down_devlink_rate_tree():
+
+drivers/net/ethernet/intel/ice/devlink/devlink.c {
+	devl_lock(devlink);
+	mutex_lock(&pf->vfs.table_lock);
+	ice_for_each_vf(pf, bkt, vf) {
+	...
+}
+
+which is reached from ice_setup_tc_mqprio_qdisc() in ice_main.c and from
+ice_pf_dcb_cfg() in ice_dcb_lib.c, neither of which holds devl_lock
+already and neither of which is excluded while switchdev/SR-IOV is active.
+
+Can this deadlock?
+
+CPU0: write to sriov_numvfs -> ice_ena_vfs() -> ice_start_vfs() rollback
+      holds pf->vfs.table_lock, blocks on devl_lock
+
+CPU1: tc qdisc ... mqprio hw 1 mode channel, or a DCB reconfiguration
+      holds devl_lock, blocks on pf->vfs.table_lock
+
+ice_sriov_configure() runs under the PCI sysfs device_lock and takes no
+rtnl, while the TC/DCB paths run under rtnl, so the two sides do not seem
+to be mutually exclusive. Would it make sense to converge on one hierarchy
+here, for example acquiring devl_lock outside table_lock in ice_ena_vfs()
+and using lock-held attach/detach helpers?
+
+>  		ice_dis_vf_mappings(vf);
+>  		ice_vf_vsi_release(vf);
+>  		it_cnt--;
+
+[Severity: Medium]
+This is a pre-existing issue, but since the loop is being made symmetric
+with ice_free_vfs(), does this loop also need to return the VF MSI-X
+window?
+
+ice_init_vf_vsi_res() reserves it:
+
+	vf->first_vector_idx = ice_virt_get_irqs(pf, vf->num_msix);
+	if (vf->first_vector_idx < 0)
+		return -ENOMEM;
+
+ice_virt_get_irqs() does bitmap_set() on the PF-wide
+pf->virt_irq_tracker.bm, and the only release helper,
+ice_virt_free_irqs(), is not called anywhere on this failure path: not in
+this teardown loop, not at the release_vsi label of
+ice_init_vf_vsi_res(), not in the ice_eswitch_attach_vf() failure branch,
+and not in the caller, where err_unroll_vf_entries -> ice_free_vf_entries()
+-> ice_put_vf() -> ice_sriov_free_vf() only does mutex_destroy() and
+kfree_rcu().
+
+ice_free_vfs() pairs the two calls the new loop now half-mirrors:
+
+		ice_eswitch_detach_vf(pf, vf);
+		ice_dis_vf_qs(vf);
+		ice_virt_free_irqs(pf, vf->first_vector_idx, vf->num_msix);
+
+The tracker bitmap is allocated once per PF in
+ice_init_virt_irq_tracker() and freed only in
+ice_deinit_virt_irq_tracker(), and ice_set_per_vf_res() sizes VFs from
+pf->virt_irq_tracker.num_entries rather than from the number of free bits.
+Does each failed "echo N > sriov_numvfs" therefore leak
+num_vfs * num_msix_per_vf entries of the VF MSI-X range until
+ice_virt_get_irqs() starts returning an error and SR-IOV can no longer be
+enabled without a driver reload?
+
+Note also that ice_dis_vf_mappings() clears VPINT_ALLOC/VPINT_ALLOC_PCI and
+re-points GLINT_VECT2FUNC of exactly those vectors back at the PF, so the
+hardware mapping and the software bookkeeping end up disagreeing.
+
 -- 
-2.43.0
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921031616.3390259-1-xiaolinkui%40126.com
