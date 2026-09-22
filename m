@@ -1,105 +1,114 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEE54F5DE1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF9743B4AA;
+	Tue, 22 Sep 2026 20:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790110337; cv=none; b=nF4hK21SnkcqpOv7zlKW419pbXtACW1NUldLtpDNadrfw0O5IKqFHWsjem+4VdBaSYaeujXSpVYLX8DCZhVOrbAgRGKrGskP6OrPHRN10oKZuIoCOsluBRf9wilLO3ykIMlSuHqosMmODrq1Kq9MwLJZXICJnCFZpY6Ii1qoKpY=
+	t=1790110384; cv=none; b=NqjvOkroLF57yZWlKEVdI2lh5HFM0E4NeizXCoBrdYpTsSNwC+ybewNso4TFcr5Hz8phbDeFA/cURcywYfG0An/wr+NaKJ0okiwgzcrrGQohSIS9/8KJmzsMORiy7dOJG/prPFbVZA3uBh6dYp+Yx3iRfy8UNpsgtghNlmxcgZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790110337; c=relaxed/simple;
-	bh=3h7mHOameIoi2QgF0fHWnYb2LmLJUJCfP/tMiTq5a6Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AyC+DNjHcRKDpOzSE7mRlVu/xZjiYrCFkLoFZmV5ARHSKMfswsdatfsBi+3p63VMvZTsF7hrgtqoTsS69QhtnRrz1Z4mLERDMQYQyad6D8b0DKReDb17R9fn32eFYOcb6kKFCzkIkNO1ntligbgZFq3N8Jz09c3ZT7lPszHZAvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=c0E/YnmX; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790110384; c=relaxed/simple;
+	bh=u1oUaITjzjpvz1A9ArnfyFRgBZB3uQ8BhHx7NUp0WHc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o7yUXyG2hDmZngfNInOKiLvPwkah1kILxV3LddYiuuR0oiCFBsgJFG1EoXfIwYcqJOX1TCZzzUJW5XZaais0ZII69CHEGCXcvmAiQMgBU7hEFH1zc5b0OvaDdyPuLSHqLEzwjA8aUiedDmtOE8gyz/mrBXAX5P0Bj8r3H8PhAVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sr77r2wP; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="c0E/YnmX"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f705536so42200566b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:51:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790110310; x=1790715110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KHGFgcODsPMbkSrmYbc3O6srVnG6fm23/lscBsfkk7o=;
-        b=c0E/YnmXDXnA0W3TY21R/IkeyKdJM2PpgPM/9UWIoPip44XcT37DiRU56ajGfXQreh
-         XbtA98MmU003IP6aVE4vo0e7CFyewR+OJ6jlfYpHYkyBd6EtaQIYyWn1hiueZsvbu0M8
-         EXoMuH1p32WWhWL+KxL+ztT3EUV77T8v6fUfmRpjNfhwRjryLLsNB8U3ACckWJayzkCn
-         tu6km0rP8tjoDF9kCDSbh8AReDVGATgSGvziAE5cjurIpws64KF6b9ezV0Br8sB8esxO
-         TsLzrDM8RVugeqCt3GH3kPPLaFoCYbRrHtgMGl+cdl526gxQp0Gr8XJXS59TD1pgFWW3
-         Viww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790110310; x=1790715110;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KHGFgcODsPMbkSrmYbc3O6srVnG6fm23/lscBsfkk7o=;
-        b=VztEbPARNvduuaYhFepuDt/ah1hyWzbKncQVw+eka9tD4HGW3oOgXT2lcqer+yij2F
-         /9fIJrcqHYL1nCJiS3UN0MUKwYRg+gYVrohs2cP9IK3dHz5Ct/GUHEIkP9GtZoQDc+OL
-         suhs7Jg3AoB/EjyC9pjdHe86+eMX1oUQm8NImnP0/nQPJvF8FrKB114UCjCm+SiWmK6l
-         /O/8+CZ3WAS3MgMWqoNKrBLIfeqojEKH/2a5H8AmdvLd4zs/Pk/XiIm2HAFPsxK60oPF
-         28sdig93LPrNLCWP9YY8tF4bwFmD//ypjMwGivJPu08bVzgtCqF8c/DZmPsPNYCvTRZd
-         ZbGg==
-X-Forwarded-Encrypted: i=1; AKwUvBzqwF9l4epfAjwtCCjXHfWIHx2AWnL5Sar0xFpX06v9Re64W3wbXjD+Nr4nWnsTTzfnj4Nu1f/dkxdR06I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSUbJK7rlEaz0t7KawdooJusmSFoQfCIgrsK0mCo9V15kHDdgF
-	KuFB2TUq7L4Btu9e44YR+ngwFowjcJzcBseGnttTFnSpReliebzdeOUj27ujeCqK4Z0=
-X-Gm-Gg: AYBFou3tFGVG20EibKrKwDK4qfdGpXTBToUpoqhFjBQUmqEN1mwH5E3eYUDhTmvNI77
-	2XUYLd5nuXYZySer34mOUjfyuFFEFIvuR2cvl9NnJLrLbIaeUXcMGJYlnZu/McmMXAftmcH90Dx
-	nIPhjo+6769VGk0vIP1SMuogLDGvX7mpBFATGsYyz668NVil6j5JOXpM1x4JS0RNpioIh786f2O
-	S/dCcMTer8C0JLafGLVNbtGeubSXMO4s7lqzji2yljqhlSMXKi7Ij8l1ASo/dlwLrwElorEV1uc
-	8mQAfsX6HriZdZraKH6MYC3qisXkj+ioyfPeNKiTuz3SQzuqK3cEa5G/MJiJotegRIvQyR0RTOO
-	Gx0uNMg83t6y7s3R6lU9xySnxksrD76kJvD9r+XfHMLnap/3PtsH5mQxTv68U9n9rOyNuPn6mTb
-	nqKJ+gorzyF+sdj9q697FQxZbtnkWwJa7X+Q9sYC6Y//i/zNH7eRDn+XIamANYx6XKZXaz7eNQb
-	+MLNNrfqMjP
-X-Received: by 2002:a17:906:7309:b0:c26:227f:5f7 with SMTP id a640c23a62f3a-c2aae1202f3mr32384666b.46.1790110310034;
-        Tue, 22 Sep 2026 13:51:50 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.71.182])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae61aa6bsm12294566b.30.2026.09.22.13.51.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 13:51:49 -0700 (PDT)
-Message-ID: <1eb43e3c-268e-43a0-8eb5-b3671bc85a8a@linaro.org>
-Date: Tue, 22 Sep 2026 21:51:48 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sr77r2wP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790110373; x=1821646373;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=u1oUaITjzjpvz1A9ArnfyFRgBZB3uQ8BhHx7NUp0WHc=;
+  b=Sr77r2wPmv+KeDqqVr39oPv/A/vgtFqWprEsEyqloEy0jnsDYLMQlFWg
+   mkbKM/gmQ29BaBu4/p/KpxBOgBEqBnJRCrXwOm6wzNRkjhM0WEr1/Slr/
+   8hp5IaLiIcqA9+OXtdlVOSvgeqAenqQyomiPJlJSzI4YhxljINZDo4PiH
+   j/Il67njFlSMKYbMmamI8++MLGakAGY9YltflxSYUpd8s7pXgKfEq5mbY
+   QsBuIRFf4M1lgHEtgdfCX24BXf4rUh2RdoWbX4H4FP9RBMMnQsqvIf30v
+   LO2bbyBfPFr/xk4OCHsqzsCHXMXrRW/mVD981CfXHimjPFYG6hjoRtBd3
+   w==;
+X-CSE-ConnectionGUID: i2UHsvPWR3GV1FOBjqH11A==
+X-CSE-MsgGUID: +KyJm6Z+RS+pH6HFifPGuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101343602"
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="101343602"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:52:43 -0700
+X-CSE-ConnectionGUID: 25cP273ATAiRduuy7bBCKQ==
+X-CSE-MsgGUID: Gh8mjI+iT4ucDQ403mXBNA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="271877314"
+Received: from rpedgeco-desk.jf.intel.com ([10.24.81.149])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:52:43 -0700
+From: Rick Edgecombe <rick.p.edgecombe@intel.com>
+To: pbonzini@redhat.com,
+	dave.hansen@intel.com,
+	seanjc@google.com,
+	x86@kernel.org,
+	kas@kernel.org,
+	adrian.hunter@intel.com,
+	yan.y.zhao@intel.com,
+	binbin.wu@intel.com,
+	xiaoyao.li@intel.com,
+	chao.gao@intel.com,
+	linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: rick.p.edgecombe@intel.com
+Subject: [PATCH 0/2] Drop unneeded cache flushing
+Date: Tue, 22 Sep 2026 13:52:13 -0700
+Message-ID: <20260922205215.870563-1-rick.p.edgecombe@intel.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: iris: fix VPSS line buffer width and height order
-To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <xj8gcJD42EUlaYqevxWqTohqhMOfEkOw9HpA3v6Sz5tHhGNi-JzG49H7eV8bKDlC5PhXlgSllU9Vho0Ht-GW9w==@protonmail.internalid>
- <20260922-vpu4x_buffer_fix-v1-1-d1b6f1c24285@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260922-vpu4x_buffer_fix-v1-1-d1b6f1c24285@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/09/2026 04:24, Wangao Wang wrote:
-> Fixes: df816dce1b01 ("media: iris: Introduce buffer size calculations for vpu4")
-> 
-> Signed-off-by: Wangao Wang<wangao.wang@oss.qualcomm.com>
+Hi TDX developers,
 
-For future reference
+Can I get a round of review before we ask Dave and Sean to look at it?
 
-Drop the \n between the fixes and the Signed off
-Add Cc: stable@vger.kernel.org
+In the early days of TDX it was assumed the HW would need some cache 
+flushing help around transitioning memory between KeyIDs, and so TDX arch 
+was designed to specify how the VMM needed to help the module perform 
+this. But it turned out the HW was able to handle these issues without SW 
+help. For some reason the TDX arch around performing the flushes remained. 
+Now the TDX arch is getting fixed and Linux can remove the code that was 
+helping perform this unneeded cache flushing. The changes will appear in 
+a future documentation update.
 
-Please
+Especially, please consider if the explanation is clear enough for 
+maintainers and future git archaeologists.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+As some more context, while this is nice cleanup as is, merging these 
+patches will let us drop 2 patches out of the TDX huge pages series. Then 
+that series doesn't need to modify these flushes to work with TDX huge 
+pages. It also addresses Kiryl's comment about the cache flushing in 
+tdh_mem_page_aug() not respecting the 'level' arg, or warning about that 
+non-4KB sizes are not supported.[0]
 
----
-bod
+Based on v7.3-rc1.
+
+Thanks,
+
+Rick
+
+[0] https://lore.kernel.org/lkml/20260825025533.25663-1-yan.y.zhao@intel.com/#t
+
+Rick Edgecombe (2):
+  x86/virt/tdx: Drop tdx_clflush_*()
+  x86/virt/tdx: Drop tdh_phymem_page_wbinvd_*()
+
+ arch/x86/include/asm/tdx.h  |  2 --
+ arch/x86/kvm/vmx/tdx.c      | 14 -----------
+ arch/x86/virt/vmx/tdx/tdx.c | 49 -------------------------------------
+ arch/x86/virt/vmx/tdx/tdx.h |  1 -
+ 4 files changed, 66 deletions(-)
+
+-- 
+2.55.0
+
