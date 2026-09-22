@@ -1,85 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EEB37646C;
-	Tue, 22 Sep 2026 04:19:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C113CE4BE;
+	Tue, 22 Sep 2026 04:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790050757; cv=none; b=EoIbVvaW7fTrFAMktdwhYZ5RY3Esmf4QzPMPZWGcHlKXavV1gMoum3oRoafY54gBKj+r1ZsNDCU5/0GOcItZ58ZQuqiRCNZHRKdw0t3Z7NUT6hTCkmKY9Ui3NoKjp9e+Jzxl9SciznIz38O5L4/kMHpRqp7RbPlEa7QcOcpo8pM=
+	t=1790050760; cv=none; b=OrFWBWPK6+yfFhg1wlz+qG3+K3k4f9GTyG67Kx0qbIkQlws7kN3EOL2DGTgWA95sLAACenhPkoajx7L/lU861x1wTt7YVeaKZ8a/9R0zFysK1wkmq71uyuZnHU/hkjunkHV6Eu6X1Rb8af0x1/VAmlHt4d/Fd7nb/fEroEOxnW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790050757; c=relaxed/simple;
-	bh=RSkNLe7Sg4XW5hNedsHvH2OlF9gD0i811YKpi50IXHE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p6kLYP5dDiCsRDRfUZ9oxBCAP1MeMDNYW7mgZuJtzugLC6l2rNyfuxxEyPi8koWdLujXqZ4BdxDf2rFd1x42SY7umwG/6cKVdxgICsULAnmJILgTzPZ7T6KTzY7GO2ssIHHXQT9hLUYSwOsi67CHrYperVpnZ9OJ3h4HzrC7Sb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmENK7hI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790050760; c=relaxed/simple;
+	bh=CFUjfWW/pDRAB45ZPOTLMOkYRqsV9MvW8Ya0iftlsh4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jMzt7CXjjF2qMrNSYsOuJE7TKkMuwi4v1ueG8vkgG7bUIFpxl0lD7wTfr8amHE+4jkjiRuIBuXvFjTdkynv2sXWJQULhYDa+LcAbz1TmclAWjLPXUmE20BMUtnkVO+Ni4dkCm6hL3/yI1vq/INIwLVfJzAgTORdY4SIB4fXWdYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9TK1a5Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmENK7hI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E0E1F000FF;
-	Tue, 22 Sep 2026 04:19:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9TK1a5Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84161F00893;
+	Tue, 22 Sep 2026 04:19:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790050755;
-	bh=k3B9ThvTz5RGopdNhG1qzUIIExt5TxIgr3PrinYt/7I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hmENK7hIfI4nkqA98Oh/niUu0cIYksY6wSgej1XD5+GYL6UXYorVaivtQlNyJiSpX
-	 nivALJV8ZrE7rhhAByx7cYv653GwJshpUX47k6uUQFnx5+BhDo2hnkqJvqBaKu8Kcw
-	 5kMLFDuvGBAw1GqmMdPK2hMzY6yraEn+9mzKbOYvqVjynlIICrYbanO4a00LJ1hKGf
-	 gt8roYO5nUtNDUk5yGSvSZ1FAZ0JvgPEoiMFQBfEzxCb3Y4jtyqy5ZbqMnBE30e7v+
-	 Vt6XOWIKes5R7kUjN3pLm25oTTAPCGJ+vkJy+7XIE9X0KXiGe2DEjJC1NPnNwKtQDv
-	 uQYg1gExUb+SA==
-Date: Tue, 22 Sep 2026 06:19:08 +0200
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Ira Weiny <iweiny@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-	linux-mm@kvack.org, nvdimm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH 2/2] nvdimm/pmem: Remove test_and_clear_pmem_poison()
-Message-ID: <arIBvO3cFQ53ivG3@localhost.localdomain>
-References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
- <20260903053535.17611-3-kaitao.cheng@linux.dev>
+	s=k20260515; t=1790050758;
+	bh=CFUjfWW/pDRAB45ZPOTLMOkYRqsV9MvW8Ya0iftlsh4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=A9TK1a5YzUWGYSTQvvf9KGUghwtbj8wOjMaM5Bl+fLvfFzQ4EFM6CaBOIX6Rg0RY4
+	 66qmp6KLIm5DZQMTJPO21zraA7UaHca1Akg1SaA6LE+1BK44hKzNTHQtZZUghCC9gP
+	 FwBsVMznVAAlfYMkK5IFKOa6DqP7/01hmIQGLORaOfrpaL45aKC/cN1IFNnE4uwR+r
+	 cuFRlPBNfZzVNCpdrFpLMFOBBkWiLwq67Q3BSP5xnp96qcGbZCAspgdUWFququqvnF
+	 uC5Aj8sb5cT1L05VCKITCqYzkx1e3NfbY72JS8j0tNO0GNBeB600clVwoJXtIprtxc
+	 a5n4vjOQintkw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/4] memblock: rename KHO_SCRATCH to KHO_NOPRSRV
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jonathan Corbet" <corbet@lwn.net>, "Rob Herring" <robh@kernel.org>, "Pasha
+ Tatashin" <pasha.tatashin@soleen.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Michal
+ Hocko" <mhocko@suse.com>, "Ard Biesheuvel" <ardb@kernel.org>, "Borislav
+ Petkov" <bp@alien8.de>, "Suren Baghdasaryan" <surenb@google.com>, "Thomas
+ Gleixner" <tglx@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>, "Alexander
+ Graf" <graf@amazon.com>, "David Hildenbrand" <david@kernel.org>, "Ingo
+ Molnar" <mingo@redhat.com>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Andrew Morton" <akpm@linux-foundation.org>, "Baoquan
+ He" <baoquan.he@linux.dev>, "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, "Liam
+ R. Howlett" <liam@infradead.org>, "Lorenzo Stoakes" <ljs@kernel.org>
+Cc: robh@kernel.org, kexec@lists.infradead.org, linux-arch@vger.kernel.org, linux-doc@vger.kernel.org, linux-mm@kvack.org, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, x86@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922041321.233986-3-pratyush@kernel.org>
+References: <20260922041321.233986-1-pratyush@kernel.org>
+ <20260922041321.233986-3-pratyush@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 04:19:16 +0000
+Message-Id: <20260922041916.A84161F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903053535.17611-3-kaitao.cheng@linux.dev>
 
-On Thu, Sep 03, 2026 at 01:35:35PM +0800, Kaitao Cheng wrote:
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> TestClearPageHWPoison() is now defined regardless of whether
-> CONFIG_MEMORY_FAILURE is enabled, returning false when memory failure
-> handling is unavailable.
-> 
-> The test_and_clear_pmem_poison() wrapper duplicates this configuration
-> handling and has no other pmem-specific behavior.
-> 
-> Call TestClearPageHWPoison() directly and remove the redundant wrapper.
-> This also removes the need to include page-flags.h from pmem.h.
-> 
-> No functional change is intended.
-> 
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+>=20
+> The term "KHO scratch" is vague. It does not accurately describe what
+> the memory is for. Generally, scratch is for things that don't contain
+> anything useful. This is not true.
+>=20
+> For memblock, KHO_SCRATCH is the _only_ useful memory during a KHO boot.
+> It is memory passed by the previous kernel that is guaranteed to have no
+> preserved pages, and so is the only thing safe to allocate from early in
+> boot.
+>=20
+> In addition, KHO now has the ability to discover other "scratch" areas.
+> These aren't directly passed by the previous kernel. Instead, they are
+> found by searching the KHO preserved memory map.
+>=20
+> Memblock does not care about the difference between the two. From
+> memblock's perspective, both are memory areas with no preservations and
+> so they are safe to allocate from before KHO fully initializes.
+>=20
+> Rename MEMBLOCK_KHO_SCRATCH to MEMBLOCK_KHO_NOPRSRV. This name clearly
+> shows what the memory is for from memblock's perspective. Update
+> memblock functions and comments that refer to scratch to use noprsrv.
+>=20
+> There are no functional changes apart from the flag name change in
+> debugfs.
+>=20
+> Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 
-Nice cleanup, but as David noted, please squash patch#1 into this one.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922041321.2339=
+86-1-pratyush@kernel.org?part=3D2
 
- 
-
--- 
-Oscar Salvador
-SUSE Labs
