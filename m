@@ -1,93 +1,113 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FB147FB0C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:26:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79CDB568526;
+	Tue, 22 Sep 2026 16:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790094368; cv=none; b=dlZ1bcWZby3sLMJXcIhWqLIWYBekycgrIx4cnQ1BC47vbvkm8ZIo7qELub0Of9ZXPgG7HadL84X011X4xsWkwib9Xf5WZ4fr28+x5fp5ca7JNWOPle97jz8IcW8dHKe+ykiA5l2cBA4ryu2+nBRXnmKAtgCYx9prcFS35jaj8vg=
+	t=1790094369; cv=none; b=OKu2sveKPVfxppnqCo6pZPwMPvoccl/XIW6RmSOEmbdy25EOed2/XWmRM/Dd14Vhfayw/PV7oQYr8vjn4kgp4SQKB2sRWfxcqi4TcelxjQBJbyg1ZzaH2bIVlq8tviK42n65TZyP73CqOvCD+LyzB0OxnX+2IFa0Gs9Gi2TtI2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790094368; c=relaxed/simple;
-	bh=75xifshhMhGE0zG1GfFtGKkEULils3W6gikSq9G6cAw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NA9/09RvMQKnxLJiqrUcIfa9U40OTCuyR69mKYVWVgckZ2v23NshYHelZiE9q2ZaTqRLD+ZqaaF5pOjJLZnnHeFXFeBpLdqQHRRfcmJ6iE20U6ns3dXNoPlNpyIhkty9UYcjayJalSQh5gVyh0nNbQJoMWW4WQJVhKQm5T4zAa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KbMEflfr; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790094369; c=relaxed/simple;
+	bh=ayic+nVzRT7jF2h19D33qb2NxY0nfyFpS1c2IauCEkw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZDXBFJcuxFJyRbl1vkJdtN1Ee2Kv8n9fkyLRvZEpM20k+WjWEoqFpNsdDa8KoIw9mRKy7Zq9xt9bz7q+KK220xwxzTVGwNcd6ZjIOkwpbNIpQPhvJpSE1kQAwoj8AIJRUIBhfesjznwZ6LHkhCNcXi+sra9b4O843u7IEYApj4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vLKpHlXy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KbMEflfr"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 14B6F1A0FCE;
-	Tue, 22 Sep 2026 16:26:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DB58A60580;
-	Tue, 22 Sep 2026 16:26:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9521F103292CA;
-	Tue, 22 Sep 2026 18:25:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790094358; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=YRCEsU9owQDChhSiuiHFbeIZzKL/egDpwwGl4F/22+0=;
-	b=KbMEflfrlAIwU+HoKLLxyJOChtx3xhmWGMGxALmi86ITa+Tkb/nm0lLPwJ+CMqe7YYJJ1t
-	nHp96lPGFbiQCbMnAMvYcdiSv95qZwCDOwwjuHlk9pabj6cF0lXK/RfzfWSv7ijaEOexGN
-	ifrLgsrTCUHTipmrG1GFGVjUZg8f10mgjuPfQ1agpGSTZrJNHZ0qZH1mvGUsNgkF+APEob
-	PAqwuaW1rWcEnGToXzVLV1ynobWJ9DrtrcXphFlt5/29ZQeNa+/Y5z6zvyhqoYvN7g6SFH
-	FtTiPXXCiWzIuQeqX5gf1Rv22t9mTW379cAA4PgAglIqqLoNK87dehhVX2V0yg==
-Date: Tue, 22 Sep 2026 18:25:47 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 12/15] libfdt: Introduce fdt_getprop_offset_namelen()
-Message-ID: <20260922182547.6cc7475c@bootlin.com>
-In-Reply-To: <arDJmHPwgvwwmITG@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-13-herve.codina@bootlin.com>
-	<arDJmHPwgvwwmITG@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vLKpHlXy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 177FF1576;
+	Tue, 22 Sep 2026 09:26:00 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 06CF23F632;
+	Tue, 22 Sep 2026 09:26:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790094363; bh=ayic+nVzRT7jF2h19D33qb2NxY0nfyFpS1c2IauCEkw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vLKpHlXy9TeAxplzn8LuOxnhs+NZZT08I8jSb7+j1I6L64gZFqCGnchXfZ3Dqibh8
+	 eQMv80pCWNlnv73z0GmxiYSywlJm2UuyVrhWN9MyheshF5MMnKprwZkReiNsEO3hTc
+	 KddnGGEGanHe0MFeVvE3aGvk5G7QNuyyTWu9q8xw=
+Date: Tue, 22 Sep 2026 17:25:58 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+Message-ID: <arKsFofudnTYpXj1@arm.com>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921144847.501151-3-aneesh.kumar@kernel.org>
 
-On Mon, 21 Sep 2026 16:07:21 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+On Mon, Sep 21, 2026 at 08:18:36PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> +int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
+> +		size_t requested, struct cc_shared_pages *mem)
+> +{
+> +	struct cc_shared_layout layout;
+> +	struct page *page;
+> +	unsigned int order;
+> +	bool zero = gfp & __GFP_ZERO;
+> +	int ret;
+> +
+> +	if (!mem)
+> +		return -EINVAL;
+> +
+> +	ret = cc_shared_calc_layout(requested, &layout);
+> +	if (ret)
+> +		return ret;
+> +
+> +	order = get_order(layout.shared_size);
+> +	if (order > MAX_PAGE_ORDER)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * State transitions require a linear-map address and may modify memory.
+> +	 * Allocate from low memory and defer requested zeroing until afterwards.
+> +	 */
+> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
+> +	if (nid == NUMA_NO_NODE)
+> +		page = alloc_pages(gfp, order);
+> +	else
+> +		page = alloc_pages_node(nid, gfp, order);
+> +	if (!page)
+> +		return -ENOMEM;
+> +
+> +	ret = cc_make_shared(page_address(page), layout.shared_size);
+> +	if (ret) {
+> +		if (!cc_make_private(page_address(page), layout.shared_size))
+> +			__free_pages(page, order);
+> +		else
+> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
+> +					    layout.shared_size);
+> +		return ret;
+> +	}
+> +
+> +	if (zero)
+> +		memset(page_address(page), 0, layout.shared_size);
 
-> On Wed, Aug 26, 2026 at 10:31:43AM +0200, Herve Codina wrote:
-> > Future operations, such as handling unknown tags on dtb modifications,
-> > need to get an offset to a property based on the node offset and the
-> > property name.
-> > 
-> > Several function exists to get a property based on the node offset
-> > and the property name but none of them allows to get the property
-> > offset.
-> > 
-> > Fill the lack and introduce fdt_getprop_offset_namelen() and its
-> > simple variant fdt_getprop_offset().
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
-> 
-> This seems redundant with fdt_ptr_offset_(), which can trivially get
-> this information when combined with fdt_get_property().
+Does the memset() post sharing logic work for pKVM as well? If nothing
+clears it, we have a small window where guest data is leaked to the
+host.
 
-Indeed, It should be ok using both functions you pointed out.
+Is there a case where we *do not* need the memory cleared? If not, maybe
+we can move the logic in the arch set_memory_decrypted().
 
-I will remove fdt_getprop_offset_namelen() introduced here and use directly 
-functions mentionned in the next iteration without wrapping those calls in
-a new function. 
-
-Best regards,
-Hervé
+-- 
+Catalin
