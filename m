@@ -1,185 +1,115 @@
-Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28225559CB5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503E255820D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091675; cv=none; b=qH/maf7YLurtjUsX4NYTSkmQKtOnmViMWShsfe4doGTvtJ7n7URxWavmTiBkZ0vwic8vOEkraqg7VICkwVo8EDPVF8px7dkUHaVb0SLt/NUf7sVaqnksjn2o0sHRKJp5z7EgM0mITpISLaichOZr/PuV8ZKXqFeDfzSzitWr4c4=
+	t=1790091789; cv=none; b=dB55UAWVqEc/IUwapm83YAfudsgCJYU7569KLnvPmT/QNqBeRz987fppCRhjxXPk+3VfLIke/mjh8H2G949rITAhJ/OzBoy3rw6sbCiFezz969Dm7JPUCNwjw8/fHTgDdiLrNRXLmfJD+63RwRgcGRgCcO6AqYdYiYt5eNME40k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091675; c=relaxed/simple;
-	bh=dHMxnUNtaUY6rvFit1CCqRauzQAmyxSzNleLDs0LNWw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y7NIjNZyQ7ARyvdYyLLXLRFRea02tlvO8bSOoTAhYrBig7/f5tMMyTnoaDKBOzhIMBiPtleO0D7wld0z5kfVEFOHr8H1HQ/TPi+fgWH+wonk2fUWQTLF+3kBNkNqKwb+AbHkg6paTnQe7mS643TSP1QMfbp2da5gYa521Vl8ckQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d7Apm4g2; arc=none smtp.client-ip=91.218.175.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790091789; c=relaxed/simple;
+	bh=l07At5e/FtwvFEhvmUdFRuvOuYiPaFWdFCcvR7eYvUQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iiUMsh7Jb6OaKBPZWgLZdx8knAeIFKsJK+S8BzqApUA0sFzpua6QKaksZ9PGudOjJGSSqYgy3GCCcP9OMaIaoohCC6hwtfPhFIUX1RBO7uOUecep9yTh9UUo8StyFSTLPs5wX4eUFVlMVlqh3RGZMcXEllGyb7htnDgrlH+c5Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=HmGRtZ1u; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d7Apm4g2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dHMxnUNtaUY6rvFit1CCqRauzQAmyxSzNleLDs0LNWw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790091670; v=1; x=1790696470;
- b=d7Apm4g2R0FwIFu07jchxmzS7ZOXTEE77/GgfPL01lg5M903E01xpwO7VMJXby1m7QE53d+u
- n2ZysCCo4JfZb22OQFEW362NyRSUHmcNXKuC1n1PX3d/Sy0oAI4Ol8q90vIQ/VF7tYty4c16Lx2
- 7cmiHSerCQNpza94h9+/veY0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c035e23439589bfb;
-	Tue, 22 Sep 2026 15:41:00 +0000
-X-Mizu-Trace-ID: c035e23439589bfb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e56bce9d-ddfb-4ff3-ab14-4dc3778e2337@linux.dev>
-Date: Tue, 22 Sep 2026 23:40:48 +0800
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="HmGRtZ1u"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-939109f067cso3416985a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:43:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1790091783; x=1790696583; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NGKku8nyry7LJ3cQ2W+BxzqUbPO2qtN0RpKOVM2oOc8=;
+        b=HmGRtZ1uXSJy5W2bLzIdB1jBwSa2qtnPXke0stGNe+fv+pNP9rnPPL4WDaTnfqr3bt
+         /7mN16YmsLXQjygdMHRJMwD2buCTN0SwoJvV9Xt71/2SJDmRyKHX7Yxant0YMAAeTh+n
+         zMMYMgD9RkdDN6WmPHeeAVOpKlJgusqLOlJYPXWrg6OPzNRnLOF1cumRsSfzMYfMedQo
+         SasVdnkynUDXsyn2hBqYSpiJfXtJLmzc6JYBrZc3FciPxHOnxvkykWzZTP51OwaxXsYW
+         3y9TznhMdcQCZSOBat6hh6sqcQaexAnF22qR4Uwcg6gLuk5bp/ze94gRCCbIZz7PJxHx
+         fp+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790091783; x=1790696583;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NGKku8nyry7LJ3cQ2W+BxzqUbPO2qtN0RpKOVM2oOc8=;
+        b=KC9HM/gES+3k4zlTXXvaTQFqX4btHcgtchSzCghFy2UAoCOJPiH3FFWrgjiQd2h787
+         SQ1czR8oEHkdkT8NXJHPLZgpdTFqYw+6htQ31WpTtVOM473LbYrzvK1GnkjJpfrVVK8e
+         3In6cQm8baSiF2lvImliZD7hMSP+7Tcjw9Us8Ba23Ho25VixAAbcPCYIB4ni1sBSHg4t
+         5V+OJSr9BSe7DgLmx0GV89Fz0mt40pV+lzy5jTKVVzQviRkpWpH6hYlsmUgym5f2T7C4
+         7ivgZK8y2RNu44w8WhaQrdaaSxQf9l1hBiJtMez90mfTYzceyKoBvHGjtSDiiZqkEwX2
+         JCdg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7/ryPBzGGujOwxHGaiziW+zsP8GhegzEbUYYInBRslhDUVCEp2mQMi9hXHSX1hBbtqx4fWrougaUP+nQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqQUjgo7gIcev5tTxYlPLnMP9sMTww/IxZwj3/XqXexpqjgvlU
+	syB6CO4vg59ih7bFRKdHxne7QwAHSX1+lQxfiqcLr0c87rC8yd8JtTtfxezLOOfS9VU=
+X-Gm-Gg: AYBFou0NpDZVs0KnWz/Cymcbozsic/SQxrFrlQRAmjGdFCA9ydgqxO+ur1aZSGYz8hp
+	1oXMcfDzbLw1OIchXwMYwaYvBcBlgSVWSvafyfTV2m9NrldkAQnRQdDszEKFsqq0Bf1qb2UVEY3
+	xufKf8NNYJYMBCtPWK7+j3fI5G33zvVXk6t+errJM7ygWKMut28nQWOhOWiviXoYLPx+fHz03DE
+	4eAdiizuV8rVMHZSfFKJJ9QsdprbMv+UrMrXoUnq+CTSVSwFMjeGjXNZlWaeGAtQQCF6L4Oitgd
+	Fqo8nySTn6ZrDGouDsgoZKrLUdQVl1WBydWrVAQ8W1yDinNWLf2XJxvRAW1yCGbX6/wBwKhOdUh
+	k1U42xwvqiCX1VMJxE3pvtfI0bhocRCyHkSy4Pua75yp0DTRfjd70u1PNt/N2J5pPNvc+/U0JOf
+	Ymn0TBVWXVgsw+IY9HQNxC8Jk55G6Z3UbYf6esbcfzjqIFeXp+++g567Ige5dEqhQiJXVd0Ek+u
+	+TE3l+kGDwJtWI=
+X-Received: by 2002:a05:620a:6006:b0:93b:d79f:d955 with SMTP id af79cd13be357-93c15f2e6e5mr588176085a.74.1790091783184;
+        Tue, 22 Sep 2026 08:43:03 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.243])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485dce4sm1063585a.23.2026.09.22.08.43.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:43:01 -0700 (PDT)
+Date: Tue, 22 Sep 2026 15:42:15 +0000
+Message-ID: <d36fdaad78296f3c43f84bc9c5b15a36.josef@toxicpanda.com>
+From: Josef Bacik <josef@toxicpanda.com>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation for reader-marked trampolines
+In-Reply-To: <aqxLgT41UyA-bV5J@pavilion.home>
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com> <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com> <aqxLgT41UyA-bV5J@pavilion.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v2] bpf: cpumap: fix use-after-free of dev_rx on
- netdev unregister
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, davem@davemloft.net,
- kuba@kernel.org, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, martin.lau@kernel.org,
- mason@kernel.org
-References: <20260922121022.256777-1-jiayuan.chen@linux.dev>
- <f6e17da46b7895d19df3b379a6e879cd0ff237c50dc387127c87c6f48a48a7d1@mail.kernel.org>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <f6e17da46b7895d19df3b379a6e879cd0ff237c50dc387127c87c6f48a48a7d1@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On Thu, 17 Sep 2026 22:20:17 +0200, Frederic Weisbecker wrote:
+> > +	lockdep_assert_irqs_disabled();
+> > +	WRITE_ONCE(t->rcu_tasks_irq_ip, ip);
+> > +	t->rcu_tasks_exit_cpu = smp_processor_id();
+> > +	raw_spin_lock_rcu_node(rtpcp);
+> > +	list_add(&t->rcu_tasks_exit_list, &rtpcp->rtp_exit_list);
+> > +	raw_spin_unlock_rcu_node(rtpcp);
+>
+> I don't think we can do that. This is too much unconditional overhead
+> on the hot preemption path. rcu_tasks_trampoline_text() should be
+> a condition here.
 
-On 9/22/26 9:36 PM, bot+bpf-ci@kernel.org wrote:
->> diff --git a/kernel/bpf/cpumap.c b/kernel/bpf/cpumap.c
->> index 5e59ab896f058..0c9647f28034d 100644
->> --- a/kernel/bpf/cpumap.c
->> +++ b/kernel/bpf/cpumap.c
-> [ ... ]
->
->> @@ -832,3 +879,39 @@ void __cpu_map_flush(struct list_head *flush_list)
->>   		wake_up_process(bq->obj->kthread);
->>   	}
->>   }
->> +
->> +/* Frames in the ring and skbs in GRO hold a raw pointer to the ingress
->> + * device, make every kthread consume them before the device is freed.
->> + */
->                                     ^^^
->
-> The BPF subsystem requires multi-line comments to have the opening /*
-> on its own line, with text starting on the next line. This is a newly
-> added comment. Should it be reformatted like this?
->
-> /*
->   * Frames in the ring and skbs in GRO hold a raw pointer to the ingress
->   * device, make every kthread consume them before the device is freed.
->   */
->
->> +static int cpu_map_netdev_event(struct notifier_block *nb,
->> +				unsigned long event, void *ptr)
->> +{
->> +	struct bpf_cpu_map_entry *rcpu;
->> +
->> +	if (event != NETDEV_UNREGISTER)
->> +		return NOTIFY_OK;
->> +
->> +	mutex_lock(&cpu_map_mutex);
->> +	list_for_each_entry(rcpu, &cpu_map_list, list) {
->> +		/* the whole ring, plus a batch already pulled out */
->> +		WRITE_ONCE(rcpu->drain_left, rcpu->queue->size + CPUMAP_BATCH);
->> +		wake_up_process(rcpu->kthread);
->> +	}
->> +	list_for_each_entry(rcpu, &cpu_map_list, list)
->> +		wait_event(rcpu->drain_wq, !READ_ONCE(rcpu->drain_left));
->> +	mutex_unlock(&cpu_map_mutex);
->> +
->> +	return NOTIFY_OK;
->> +}
-> NETDEV_UNREGISTER notifiers run with RTNL held:
-> call_netdevice_notifiers_info() contains ASSERT_RTNL(), and the call
-> site in unregister_netdevice_many_notify() also does ASSERT_RTNL() at
-> entry.
->
-> The wait_event() holds RTNL until every cpumap kthread in the system
-> has consumed rcpu->queue->size + CPUMAP_BATCH frames. The ring size is
-> bounded only by the 16384 sanity limit in cpu_map_update_elem(), and
-> the countdown is decremented by frames actually consumed, so a ring
-> that is continuously fed by a different, still-registered device forces
-> the full 16392-frame count to be pushed through before returning.
->
-> unregister_netdevice_many_notify() calls the notifier once per device
-> in the batch, so a batched teardown such as netns exit with many veths
-> multiplies this: N devices x 16392 frames of RTNL-held work,
-> serialized.
->
-> The commit message addresses the bound ("The work is bounded by the
-> ring size, and the frames had to be consumed anyway") but not the fact
-> that RTNL is held for the whole drain. Also, the "frames had to be
-> consumed anyway" statement is only true for frames already queued - the
-> size+BATCH countdown can force consumption of many newly produced
-> frames belonging to unrelated devices.
->
-> This is not a deadlock (the drain is bounded and the kthread cannot
-> block indefinitely since its work runs under local_bh_disable()), but
-> could this cause latency or stall issues on systems with many devices
-> or large ring sizes?
->
-> [ ... ]
+Sorry, I missed this one before sending v4/v5. Agreed, and it is gone
+for v6: the hook is now just the WRITE_ONCE() of the IP plus the
+rcu_tasks_trampoline_text() check, and the exit side a single store.
 
+The IP store itself has to stay unconditional because of the kprobe
+jump optimizer: its window is ordinary text, so a task parked there
+before the optimizer decided to patch was not "trampoline text" when it
+was preempted, and the optimizer needs to find it afterwards.
 
-The concern is an unbounded wait under RTNL. It is bounded: qsize is
-capped at 16384 in cpu_map_update_elem(), so each entry consumes at
-most one ring plus a GRO flush, and the kthreads do that in parallel.
+> And do we really need to maintain both lists? I understand that they
+> have different purposes.
+[...]
+> Can the latter replace the former?
 
-Those frames had to be consumed anyway, the drain only moves that
-work before free_netdev(). We can't tell which ring holds frames of
-the device without tracking it per frame, and that would touch the
-fast path.
+With the above there is only the holdout list left. The optimizer's
+rcu_tasks_wait_irq_preempted() now does what classic does for its scan:
+walk the task list plus the per-CPU exit lists (exit_tasks_rcu_start()
+and friends stay shared between the two flavors for that), checking each
+task's recorded IP. That is a slow path that only kprobe optimization
+hits.
 
+And thanks for picking up the core-RCU follow-on.
 
->> -    Fixes: 9c270af37bb6 ("bpf: XDP_REDIRECT enable use of cpumap")
->> +    Fixes: 70280ed91cb8 ("bpf: cpumap convert to use generic xdp_frame")
->>       Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> The Fixes tag points to commit 9c270af37bb6 ("bpf: XDP_REDIRECT enable
-> use of cpumap"), but is this the right commit?
->
-> That commit (October 2017) introduced the cpu_map_enqueue() function
-> signature but did not store dev_rx anywhere - it used data_hard_start
-> as a void pointer with a comment saying "Followup patch will generalize
-> this".
->
-> The actual storage of the device pointer without a reference
-> (xdpf->dev_rx = dev_rx;) was added 6 months later in commit
-> 70280ed91cb8 ("bpf: cpumap convert to use generic xdp_frame", April
-> 2018) when the code was converted to use the generic xdp_frame
-> structure. This is where the use-after-free bug was introduced.
->
-> Should the Fixes tag be:
->
->    Fixes: 70280ed91cb8 ("bpf: cpumap convert to use generic xdp_frame")
-
-
-Right, 9c270af37bb6 only added the dev_rx argument. The pointer is
-
-stored and used from 1c601d829ab0 ("bpf: cpumap xdp_buff to skb
-
-conversion and allocation").
-
-pw-bot: cr
-
-
-Sorry for the noise
-
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35727192473
+Josef
