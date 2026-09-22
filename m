@@ -1,129 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 2.mo560.mail-out.ovh.net (2.mo560.mail-out.ovh.net [188.165.53.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F78645628F;
-	Tue, 22 Sep 2026 09:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C18456DE2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.53.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069165; cv=none; b=PgRBE0RIkuDlMhXFLAbXCiDH44ErXQvHkLOOo25Y9AbjJclX+3U7LgykfUtD7jSSJ/F3Xrmjjpcnq12fVDZpml0GaA09htDNam+eHSL8a4hwLpmNJl3eZE/n+gKHgSkmyy4WHQ0eJJTFsT6VKooMelsm9vbgjsBurxf8UoZp/uo=
+	t=1790069227; cv=none; b=I8Tkh43MCAae5B5Ya/VUevnrdk/35pqoYzs8p4jEifC3shGSZJkBbcDNIQmdEHCMNKHmPOUX0RVOfwbDdY3SRbjEz8gz6JzbMvgkfJpSwc/DKE35b+OudrwbYX9hepaQoZtu79HKQI1t8r99qazEUjGuyGUUgXDgFJr8SG76yDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069165; c=relaxed/simple;
-	bh=/czamlANrYy0od3lmrtj/LjJRZu5G+OvdYZ/I8xRYFU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NFzR7w0Gm+pd9/NbvJ3RTiSG4Xj08F93Q8Kys+nocCXoToDjCt+kvXZ5ByyrOqiLgBCUbytk5mJwCcblTDSPxUvWsCsZ0U4ECvSRqHnGjQKhPtCDrzEjk5TFdZntDiB1wklJRHBAWVXh3Zf1zTwZJay0ojQDW0wdGrW2Gq+Bhz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKEof/d/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790069227; c=relaxed/simple;
+	bh=vozS4Tn8G6O6ng5sDEwLGPHZJL36uoe21Z6znm0P5kI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nAGpYt9t4t63CuqniDEm03cSidZ76OAgNtlzkP7/DU13AmPMFJQeMcbbOFVfwlFb+tdj1EghG8bxGpKgnXmAL29jEJ/LqJ5D9i1oFTnbzCXLNekotxgiv5fgDxcpbQ1SyNxO+ggz4FzUfLmK1VCKU/jv8qwMJTOoqwgCTPEkrXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr; spf=pass smtp.mailfrom=quelquesmots.fr; dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b=E7JH3Jry; arc=none smtp.client-ip=188.165.53.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quelquesmots.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKEof/d/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DC091F000FF;
-	Tue, 22 Sep 2026 09:26:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790069163;
-	bh=rnUA/meXTogPz3GsOPNeYu661jZ5us8UlNuxG2VZ7Jg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kKEof/d/QGqqvEMieqPcq+iNbah4miWQ+uYdxMOhLMYpA+UGfhL7Rj4Zwp+2u9HzE
-	 vr9LclbaTGguy8ICWkSRUpb0+uOiBBA9uEx8/DitWMMHhbIDUVYyqDXYTge07CuQYi
-	 ICq9pc4ldXl82zrkQWBoiyDFCEhfwRFtDamwwtvxrawKTgjy4iTdMK2UPWySGypleG
-	 OK9v9ed/WPwqqSyRCPofNx7UeEUyu672bKbH5G0HbXp6OHFlaThk/fIuL2WJSQ78OX
-	 D7Y2GjecVdut0Y2AQPjA7f9E06kCgkoLp8EKs/d+HV9JCqiuu348mREXpUXdbd72gB
-	 D5451IcxHeBZQ==
-Date: Tue, 22 Sep 2026 11:26:00 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org,
-	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 02/13] rcu-tasks: Add a Tasks RCU implementation for
- reader-marked trampolines
-Message-ID: <arJJqAjqy1dWnPkn@localhost.localdomain>
-References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
- <20260922-b4-rcu-tasks-preempt-qs-v5-2-410f57770bad@toxicpanda.com>
+	dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b="E7JH3Jry"
+Received: from director2.ghost.mail-out.ovh.net (unknown [10.110.43.183])
+	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4hpv2M5JVszBKsc
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:50:51 +0000 (UTC)
+Received: from ghost-submission-c7b579475-9ghvt (unknown [10.108.54.199])
+	by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 8661CC04C9;
+	Tue, 22 Sep 2026 08:50:49 +0000 (UTC)
+Received: from quelquesmots.fr ([37.59.142.102])
+	by ghost-submission-c7b579475-9ghvt with ESMTPSA
+	id ko1GFWlBsmqwRQQA5nG6ng
+	(envelope-from <l.wandrebeck@quelquesmots.fr>); Tue, 22 Sep 2026 08:50:49 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-102R00457fffa61-1c32-48c3-8fd4-5f58ed46588f,
+                    635681CF4E92E4A6CAC13A4CB71CF26F70416E4A) smtp.auth=l.wandrebeck@quelquesmots.fr
+X-OVh-ClientIp:109.190.254.62
+From: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Dave Hansen <dave.hansen@intel.com>
+Subject: [PATCH v2] x86/mm: don't apply va_align to hugetlb mappings on AMD F15h
+Date: Tue, 22 Sep 2026 10:50:32 +0200
+Message-Id: <20260922085032.46144-1-l.wandrebeck@quelquesmots.fr>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-2-410f57770bad@toxicpanda.com>
+x-ovh-tracer-id: 4713861437617077698
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGubFdNA5Mq04fBGK3gC9kqCB9FIck7QMQA+k7zsgkXFpQR6t03Yg6ArBdu2SLNHNSGg7Gp75cH+yqP1FxecSY0Z2atvMw97uOSYR21lGq+8FfOVS2tfEZH/tOdy1HKrEh0kcT4iwUdHWw2gGOQIpms4D3Loc/lrJKp9bcImETjs4ZXylOFjG0jV8OmMOoRhGyuzcFK0EDN2HewpJEdOUWuTA9li5UxHN1K9ye8Gb4k68i0joFn1hAmNYK6COPknkNquwiPR9HpfGJNyBEZ/K/YHzjNNMkaQNbcijFwXMMWpiQoQEHgJkjS24hIYFI1MYzIWHfP4xWDroyu4WkTVv9NMf3YuRZJQSCej0DGFTVSfj7CICAbyti/EAFbfQogPnoubWXEwSd0Kzmpl0gWDoDK03fY2bs70oyyV/r3eV7wfSNc3MxIc+Tv3TO5j73IhzAELE5ZMEdXhwK3n1gZGNVPw6vp916oL1QK2KiIxrB9Dd5EAFArvfqtkCZojVMy0wJLzLfhe+qQRfff2i0tSD4fUr2sva2eC6nV1yWYCH/e2Di3YSF00jyaFC5Nv8WzaFKnUoERCLvZhrFKmIc7S6sDU0UGJ4wdWECiRgum1FJYIng08IuQkwT3U/dz0fM7tY49+ArHhn5+tmE1h0TYCN9JVT+AigUoZtfQ7PybKf8Zpw
+DKIM-Signature: a=rsa-sha256; bh=w7/Bt3TycCT1K1u24fOFFkzDbe41NlkwbsLDq3UP4wk=;
+ c=relaxed/relaxed; d=quelquesmots.fr; h=From; s=ovhmo4049951-selector1;
+ t=1790067051; v=1;
+ b=E7JH3JryapxuyaFq5Ln44rkYkxGQdMMuSEdB8GxzzENa2NSD43RPdPGf36ANfoWfogTKMDLy
+ r4fewj4/17TVT53s2XVBKl2jzbXH1VWWM5+ziPwZ5bj1PKXuQNDsIcKFEQ+bA/eZ8/LOZl9EVYv
+ IIqIoRT9wRtNPm785B441TmX7yoRijcVzYhKbLcplKyZBXfRAyJxKm+6fwrXk5AVibjo3YrCTjh
+ VXCmFx3WjkQVWfRS1l/9JpcVb60p52HRrXAJkifLyvcn+Jha/T4Kq5GuET8bVQVH0eCWiselvod
+ 3p8Ul/KV5zlV0Xuu4ACwH4pg/AZ0kPdLMyQeZXo4xtgfw==
 
-Le Tue, Sep 22, 2026 at 02:23:21AM +0000, Josef Bacik a écrit :
-> Tasks RCU waits for every task to pass through a voluntary context
-> switch, usermode or idle, because a preempted task might be sitting in a
-> trampoline that is about to be freed and nothing marks it as such.  With
-> PREEMPT_LAZY that is a poor fit for servers: cond_resched() is a no-op,
-> so a CPU-bound kthread only ever leaves the CPU by preemption, and one
-> such kthread holds every synchronize_rcu_tasks() caller -- ftrace and
-> BPF trampoline teardown under their mutexes, the kprobe jump optimizer
-> under text_mutex and cpus_read_lock() -- hostage for as long as it runs.
-> 
-> Following the discussion on v2, take the other road: let the
-> architecture make its trampolines Tasks Trace RCU readers.  When an
-> architecture selects HAVE_RCU_TRAMPOLINE_READERS it promises that every
-> trampoline whose lifetime Tasks RCU guards enters rcu_read_lock_trace()
-> (or its assembly equivalent) before calling out and leaves it before
-> returning, so a task anywhere inside such a call-out, preempted or not,
-> is an ordinary Tasks Trace reader.
-> 
-> That leaves the few instructions of trampoline text before the reader is
-> entered and after it is left (plus, in a later patch, the bytes a kprobe
-> jump optimization is about to overwrite). A task can only linger there
-> by being interrupted there, and such text never calls anything that
-> schedules, so instead of tracking tasks we track CPUs: every pass
-> through __schedule() is a per-CPU quiescent event, except that the one
-> context switch that can catch a task at an arbitrary instruction -- a
-> preemption from irq exit -- first records the interrupted IP in the task
-> and parks it on a per-CPU list for the duration (reusing the fields and
-> lists the classic flavor keeps for its exit-path bookkeeping), and, if
-> the IP is inside such "unmarked" text, puts the task on a short holdout
-> list; the task takes itself off at its next context switch outside such
-> a preemption or irq-exit check that finds it elsewhere. Usermode (the
-> existing tick hook, or a nohz_full CPU in an RCU extended quiescent
-> state) and idle count as well. rcu_tasks_trampoline_text() does the
-> classification: anything outside core and module text, plus an arch hook
-> for things like static ftrace stubs and return thunks.
-> 
-> The grace period, run by the existing rcu_tasks kthread so that
-> call_rcu_tasks(), synchronize_rcu_tasks() and rcu_barrier_tasks() keep
-> their names and callers, is: wait for every online CPU to context switch
-> or be seen in an RCU extended quiescent state (nudging stragglers with
-> resched_cpu() after a jiffy), drain the holdout list as it stood,
-> synchronize_rcu_tasks_trace() for everything inside the readers, then
-> one more CPU pass and drain for tasks that have since left the reader
-> into the trailing instructions. That is bounded by a few jiffies,
-> preempt-off latency and an SRCU grace period rather than by the longest
-> stretch any task runs without sleeping, needs no per-task scan, and
-> makes cond_resched_tasks_rcu_qs() unnecessary on such architectures.
-> Unlike the classic flavor it also waits for an idle task caught in a
-> trampoline, since an idle CPU only counts while RCU is not watching it.
-> rcu_tasks_wait_irq_preempted() walks the parked lists for the one caller
-> (the kprobe jump optimizer, later in the series) that makes ordinary
-> text unsafe to be parked in and so has to wait out tasks that were
-> preempted there before it said so.
-> 
-> The classic implementation is untouched and remains the default; the
-> new one is built only as CONFIG_TASKS_RCU_TRAMPOLINE_READERS when the
-> architecture opts in and uses the generic irq entry code, whose
-> reschedule check gains the rcu_tasks_irq_resched() call.  Nothing
-> selects it yet.
-> 
-> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> Suggested-by: Alexei Starovoitov <ast@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+get_align_mask() returns huge_page_mask_align() for hugetlbfs, but
+get_align_bits() adds va_align.bits regardless, so vm_unmapped_area()
+returns an address off the huge page boundary and
+__unmap_hugepage_range() hits BUG_ON(start & ~huge_page_mask(h)) at
+teardown.
 
-One review might have fell into the cracks: https://lore.kernel.org/lkml/aqxLgT41UyA-bV5J@pavilion.home/
+Pass the file to get_align_bits() and skip the randomisation for
+hugetlbfs. Reproduced on Carrizo and FX-8370E, both hstates.
 
+Fixes: 1317a5e7f7b1 ("arch/x86: teach arch_get_unmapped_area_vmflags to handle hugetlb mappings")
+Cc: stable@vger.kernel.org # 6.13+
+Suggested-by: Dave Hansen <dave.hansen@intel.com>
+Signed-off-by: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+---
+v2: put the hugetlb case in get_align_bits() instead of guarding both call
+    sites, per Dave's suggestion to pass filp through. Masking rather than
+    returning early cannot clear the bits: va_align.mask is an L1I way
+    size, so it is a subset of huge_page_mask_align().
+
+    Re-tested on Carrizo, both hstates.
+
+    Link: https://lore.kernel.org/all/20260828135747.724789-1-l.wandrebeck@quelquesmots.fr/
+ arch/x86/kernel/sys_x86_64.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/arch/x86/kernel/sys_x86_64.c b/arch/x86/kernel/sys_x86_64.c
+index 776ae6fa7f2d..4c078827f26a 100644
+--- a/arch/x86/kernel/sys_x86_64.c
++++ b/arch/x86/kernel/sys_x86_64.c
+@@ -50,9 +50,16 @@ static unsigned long get_align_mask(struct file *filp)
+  * value before calling vm_unmapped_area() or ORed directly to the
+  * address.
+  */
+-static unsigned long get_align_bits(void)
++static unsigned long get_align_bits(struct file *filp)
+ {
+-	return va_align.bits & get_align_mask(NULL);
++	/*
++	 * va_align.bits is smaller than the huge page size and will
++	 * lead to misaligned huge pages. Ignore it for huge mappings.
++	 */
++	if (is_file_hugepages(filp))
++		return 0;
++
++	return va_align.bits & get_align_mask(filp);
+ }
+ 
+ static int __init control_va_addr_alignment(char *str)
+@@ -157,7 +164,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr, unsigned long len,
+ 	}
+ 	if (filp) {
+ 		info.align_mask = get_align_mask(filp);
+-		info.align_offset += get_align_bits();
++		info.align_offset += get_align_bits(filp);
+ 	}
+ 
+ 	return vm_unmapped_area(&info);
+@@ -222,7 +229,7 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr0,
+ 
+ 	if (filp) {
+ 		info.align_mask = get_align_mask(filp);
+-		info.align_offset += get_align_bits();
++		info.align_offset += get_align_bits(filp);
+ 	}
+ 	addr = vm_unmapped_area(&info);
+ 	if (!(addr & ~PAGE_MASK))
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.34.1
+
