@@ -1,116 +1,204 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6B34DBD63
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808D94F30FD
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790115257; cv=none; b=J2pVeboATWxEIVniLZcyH6/TD4qjho/jZFDdYVi6tkRqcMUW97pNMmfgPUNMRYz15Ijo1Bk5lViJYydAhe5DYscUeMRTP2j0hKhzoCPKuxQKmsCoMkU9YmYaCzbqpyrZgvqppKHecSW5IEcGiBxJuwPycu4b2t8b4syyJre6jAw=
+	t=1790115322; cv=none; b=I93so4r4VUbfmGhmo3uW10IWz31mQNmI92dEKIyx51+E4zFiHiZ+0H1fsIPOqXLpkZNazVKyomeFwbqhnDT4gunb5fYJunlYWbf0Kh63lDY991giB/sMcUmCHN/pSdX2ulnrcDgA/XFM33QKjwUhsWXsHS+hiFSavHW2Q4XptUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790115257; c=relaxed/simple;
-	bh=WyydwY/U8atKCLyGB+LE/CS+4E8aJoROKnbv71RNPmA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=KNs62hJi+WHeRPDRg2urpII3zhJ+e3FgaQpRD664uAc6Fsmi4seVUuT4b4ZfOW/Bo4/e0xpD1a998MDz813IqXzGVpfBUIkb6NL1U5NuAW6al3RhliNexSmy3hSrkodmrZ/JARgVfOOKOmQYW9TgMxYW5DN5HtJ12hdRwJs4y98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=DtRscbna; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1790115322; c=relaxed/simple;
+	bh=IJxtcG7YfbiDy65B/kZAOBJ0kfmYIHS62vZo/60rgr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H78JeiwaWdZqzAOqHadc8iZgYBYWes4IkXcc40oZrluuLu+mMAUWCdv2wVYZxy2hD8Q/MKeAsFrzSmZwGBwpMLJ2P4y6j+LJ9JbaEft4nTJ1IWLo0MMvTQJ4rgUxgIWhkouZC3iL/RMak3aUCEn8m1h4nOVQlvjA8LPnO/Wc2RY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pWFRxnuU; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="DtRscbna"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
-	:From:Date:MIME-Version:From:Reply-To;
-	bh=QrSu8YGOsu2E9jgIjM8USyvJdljVhVLowKN8872lW1E=; b=DtRscbnaZHf4PSBLM2a5VVIE+r
-	ap7ZAz4U5sN/ScaRvrzsqpXlYbFfFlBfaJVzgGX9APtb3XHxiRuS6Ab4zpJ+ps1JO93pKQn3tsNS2
-	9YDX0uh5LIo//Vb9bSlwrPPMIrx6EoPSKPIWctZSLYHuASjT0RIBhzEVAYIuP4rsDEzLNkEmoLfku
-	paInSpSfda95+QQUSHTnU+uRbIZxlF2J1kLW321YhpPNUeMHo+7zvPUV7twbPpq3ScB3mvMWIPGWm
-	wU5WxR0JebnjBOM08fiyiacE43HGRqwq61uL2yiHHJSGHpBTWOiOBAiKqYBinXUIytlmMZOy6At+k
-	uwEEPSjA==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
-	by fanzine2.igalia.com with esmtps 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x98k4-005qrI-QL; Wed, 23 Sep 2026 00:13:36 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
-	by mail.igalia.com with esmtp (Exim)
-	id 1x98k3-007Hg8-LC; Wed, 23 Sep 2026 00:13:36 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
-	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
-	(envelope-from <mfo@igalia.com>)
-	id 1x98k3-00000003pWQ-2v5j;
-	Wed, 23 Sep 2026 00:13:35 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pWFRxnuU"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d47b5987so224985e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:15:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790115313; x=1790720113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pBgKampETMPka2XZirh+gpBK7oF1vIpX/nPi2mOFejw=;
+        b=pWFRxnuUOU7j3xwCy2WnSytmfAGp09tYsov4Kkpa8MTymak7+z/OOotkHAEwJBceKQ
+         K9dTkBULPd022jqkQa+rhqt46AD5h4u6TqpSrXU0hB3H73uxmSMwgy4KaOVAeLNNBd2z
+         yzw2GcSN4rx0e7DDv9/v6k0af4CSW7xT5M14STIz5CIgR02OaW9UsT1BLgDMrA3M6CLq
+         1f+6EW/NfpwDXNgcncNsCIGaqlnoA1EQpEgG6405IQygFRYnvbYed2JIXei8Wn3dnFoY
+         kSfCujj4vqpe1/0mdNHrK49Je2Gs/hevUr+i3IJWWcfgvREe7vXGNtPW86+ORRn3D2qf
+         O8hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790115313; x=1790720113;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pBgKampETMPka2XZirh+gpBK7oF1vIpX/nPi2mOFejw=;
+        b=ZNq6apoqeSrBkwMoi0yiwjaSPSVa7CrNRumuwRA6/eUf12jOnISx9SZVqcI1H02VwZ
+         Uf+k6lDTKBUylLOj/QMcJr0uot6w4NQqLQ8aaA4+RdSOWIOiXrR+k2QsnwQGBjqro5GC
+         hnTYNWCNPLUJJrQPFKeOuRv7S5OP6UEvs/IIgEO2fUDj3BsYkxcmMoHBA/Ze0cL3YGwp
+         UTRxZfLWiicHZaHIFF6b9YNk7T2plACt7MJld4Ko6ZQfV62aXrUU7KR4ct5KZhyVOPZk
+         aWN6883m57Cyvsu7tPPZaofMhZx3XHtLoETRF8yZS1rsTQEGZjnxpiD05fHzYGpFHJbm
+         cz/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzVUICWRcpKR8FDBvR9YJXOz9zuYiUnNkx/musceylBD9KxxRox94OInpCGrpXxd28RJSryWYtrQI9cGW0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZkn9GXszE4Wz22z//GDun09YMPqEcedAHWdnT65WvPPdMLFrt
+	4C2zGnsdi+q/Eo40tOXtwNSOj89UFeYEPZgyAXp9870dEhLHYAgFKgwB
+X-Gm-Gg: AYBFou3Y79GRMxk0VnmSxv3wlGPvUWeIPReC0ShG7CqBt0WSZvV//Mih/EfOjXFyMFt
+	UiMCafPuZ0CquLusn/9RQMEipC7t4kqMugl1w3r7UbZOdREFbzZ1mlxtB6zteab5Dk6SXwUQ40r
+	fw2LGAXCcP75fdhWah+q7cqNXRRDWplqsMUg15syydgbEEnXZR1xSxZCuVkO+6K5glMkqzo5Ije
+	tjgWe/42svVWMliposbpDXhTijPQlAC1/hqmZrTJBtHXtu623PLohzzXCBfRQLouwxoQ9lukgNM
+	N5VOleInvrQZs1n5NxASSWqWSAgJjounctFeIoPtMdFOH8fSrfIfX5SYbyboUJcGfTRxv7rq2ND
+	qKgGqm0TiutPuVbIT7SMbO9VS4ZQOgXRoMODr4CXGu1Ue6tTMGGI88qPYhX+Awdpfx79tYYxFCR
+	Dti74Jx8iauj4WvPmI27Mey3zBNV/82OTcx6gbhWY68QO/FU0Cuo7HRwp/b/yXu/w1Y9ylfvNlx
+	8/zUGGu3cRhb20aZaPgk36tDLFrQkdcvbpsL5J9EsNcM9KAbcgoh7sPSD9vy+SgPow2K8OhYg==
+X-Received: by 2002:a05:6512:2246:b0:5b6:1a7c:aa17 with SMTP id 2adb3069b0e04-5b8d89a701emr177445e87.47.1790115313232;
+        Tue, 22 Sep 2026 15:15:13 -0700 (PDT)
+Received: from dau-home-pc.megasoftware.org ([94.28.220.48])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d857873asm164920e87.17.2026.09.22.15.15.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 15:15:11 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	David Ahern <dsahern@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4 00/10] tunnels: add core and gre drop reasons
+Date: Wed, 23 Sep 2026 01:14:57 +0300
+Message-ID: <20260922221507.3268127-1-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 19:13:35 -0300
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave
- Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
- <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
- Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v10 0/4] x86/pvh: fix unbootable VMs again (PVH + KASAN)
-In-Reply-To: <20260922035815.GFarH819yHRX8WWnG9@fat_crate.local>
-References: <20260921-pvh-kasan-inline-v10-0-08da47943d8e@igalia.com>
- <20260922035815.GFarH819yHRX8WWnG9@fat_crate.local>
-Message-ID: <3ed7ea3908233ef72660ddfa1f92e914@igalia.com>
-X-Sender: mfo@igalia.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
-X-Spam-Score: -20
-X-Spam-Bar: --
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-22 00:58, Borislav Petkov wrote:
-> On Mon, Sep 21, 2026 at 10:36:31PM -0300, Mauricio Faria de Oliveira wrote:
->> The issue of unbootable VMs with CONFIG_PVH due to CONFIG_KASAN is back.
->> 
->> Booting directly from vmlinux (instead of bzImage) now fails with gcc-14/15
->> (but works with gcc-12/13) if CONFIG_KASAN_GENERIC is set, on Ubuntu 25.10.
->> 
->> The PVH code is required/supposed not to use the KASAN memory access check
->> in the kernel entry point as KASAN has not yet been setup, or an exception
->> is hit and the boot fails.
->> 
->> This was previously described and addressed with __builtin_mem{cmp,set}():
->> - commit 661362e3dcab ("xen, pvh: fix unbootable VMs (PVH + KASAN - AMD_MEM_ENCRYPT)")
->> - commit 416a33c9afce ("x86/cpu: fix unbootable VMs by inlining memcmp() in hypervisor_cpuid_base()")
->> - commit fbe5a6dfe492 ("xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()")
->> 
->> However, even with __builtin the compiler may decide to use the out of line
->> function instead of the inline implementation. So, that does not really fix
->> the issue unconditionally; see details below.
-> 
-> So, this whole deal doesn't sound to me like we need to backport it to stable
-> - it rather looks more like fixing some configs which want to enable KASAN on
-> PVH guests.
-> 
-> In that case, I'll queue this for 7.4.
-> 
-> If this needs to go to stable, then there better be a pretty good reason for
-> it.
-> 
-> Right?
+Only vxlan reports drop reasons among the tunnel drivers today. The ones
+converted here free what they drop with kfree_skb(), which drop_monitor
+and the skb:kfree_skb tracepoint do report, but as NOT_SPECIFIED, with
+the call site as the only hint at which check failed. That hint does not
+go far: all the failures of ip_tunnel_rcv() end at one call site, and so
+do nearly all of those of each transmit function. The call site is not a
+stable interface either: its offset moves with the compiler, inlining
+and the configuration, so a filter on it has to follow every rebuild.
+The reason stays the same across kernels, whether NET_DM_ATTR_REASON
+reports it or a BPF program matches it by name. The device counters
+group the failures coarsely too: rx_errors and tx_errors each lump
+together unrelated conditions.
 
-I think that is fine, yes. Even though it's a boot failure, actually
-hitting it depends on all of: CONFIG_KASAN, CONFIG_PVH, booting from the
-PVH entry point, _plus_ a compiler version that triggers it.
+This series covers the generic paths shared by ipip, sit, gre and their
+IPv6 counterparts, plus the GRE specific code, in both directions.
+A later series will do the same for geneve, bareudp, fou and the
+remaining IP in IP drivers.
 
-Nonetheless, this may be picked up for stable due to the Fixes: tags,
-but I can provide backports as needed.
+Patches 1-2 convert the generic receive paths, ip_tunnel_rcv() and
+__ip6_tnl_rcv(). Two reasons are added:
 
-BTW, I just realized that the title of patch 4/4 is missing memset().
-Would you mind adding it, please? Or I can send v11.
--x86/cpuid: fix unbootable VMs by really inlining memcmp() in
-cpuid_base_hypervisor() and xen_prepare_pvh()
-+x86/cpuid: fix unbootable VMs by really inlining memcmp() and memset()
-in cpuid_base_hypervisor() and xen_prepare_pvh()
+  TNL_OPT_MISMATCH  the options a packet carries do not match the
+                    tunnel configuration
+  TNL_OLD_SEQ       the sequence number is older than the one the
+                    tunnel expects, like TCP_OLD_SEQUENCE for TCP
 
-Thanks,
+The second one has a failure mode worth naming: when a peer reboots, its
+outgoing sequence number restarts at zero, and the receiver drops
+everything until the peer's numbers get past the last one the receiver
+accepted. By the counters alone that looks like a misconfiguration: a
+packet without the sequence number option bumps the same rx_fifo_errors.
+
+Patches 3-6 convert the GRE specific receive path. gre_parse_header()
+returns -EINVAL for every failure, and the only detail its callers could
+get was a csum_err flag that none of them read: both ip_gre and ip6_gre
+declared it, passed it in and ignored it. gre_parse_header() now returns
+a drop reason instead, and its callers take the header length from
+tpi->hdr_len. The receive helpers below gre_rcv() return the drop reason
+instead of a PACKET_* code, and the PACKET_* codes go away. Three
+reasons are added: GRE_INVALID_HDR and GRE_TUNNEL_NOT_FOUND, mirroring
+vxlan's VXLAN_INVALID_HDR and VXLAN_VNI_NOT_FOUND, and GRE_CSUM, like
+TCP_CSUM and UDP_CSUM.
+
+Patch 4 adds __iptunnel_pull_header_reason(), because
+__iptunnel_pull_header() reports a packet too short to pull as -ENOMEM,
+the same as an allocation failure, and ip6_gre calls it for every GRE
+packet, before the tunnel lookup.
+
+Patches 7-10 convert the transmit side of ip_tunnel, ip_gre, ip6_tunnel
+and ip6_gre. One reason is added, TNL_ENCAP, for a failure to build the
+encapsulation header. Patch 9 is a small preparation:
+prepare_ip6gre_xmit_other() cannot fail, so it is made void rather than
+given a drop reason for a branch that never runs. ip6_tnl_xmit() leaves
+freeing the packet to its callers, so it and the helpers between it and
+the ndo_start_xmit handlers return the drop reason instead of an error.
+
+The transmit side has its own case worth naming: tnl_update_pmtu()
+returns -E2BIG after it has already sent the ICMP error back, which is
+path MTU discovery working exactly as intended, yet among the device
+counters the drop only bumps tx_errors, like a failed encapsulation and
+a few other failures do. If the ICMP error never reaches the sender,
+the resulting MTU black hole cannot be told from those by the device
+counters; the reason tells them apart.
+
+Drop reasons on transmit are not new: vxlan already reports several from
+its xmit path, and ip_tunnel_core.c reports RECURSION_LIMIT. They are
+most useful for forwarded packets, which is what a tunnel gateway mostly
+transmits: the sender is another host, which gets an ICMP error for only
+some of these failures, so the drop has to be explained on the gateway.
+
+Changes since v3:
+- the functions that took a drop reason output parameter now return the
+  reason, SKB_NOT_DROPPED_YET on success: gre_parse_header(), the GRE
+  receive helpers, ip6_tnl_xmit() and the helpers between it and the
+  ndo_start_xmit handlers (Jakub)
+- the callers of gre_parse_header() take the header length from
+  tpi->hdr_len; the ICMP error handlers pass a new icmp_err argument
+  instead of a NULL reason pointer
+- the IPv6 transmit paths send the ICMP error on PKT_TOO_BIG, and
+  ipgre_rcv() retries ETH_P_TEB on GRE_TUNNEL_NOT_FOUND: the same
+  conditions as -EMSGSIZE and PACKET_NEXT before
+- the motivation no longer says these drops are invisible; the problem
+  is the NOT_SPECIFIED reason and the call site all the failures of a
+  function share (Eric)
+- new patch 4, __iptunnel_pull_header_reason(): a packet too short to
+  pull is reported as PKT_TOO_SMALL instead of NOMEM
+- PACKET_RCVD, PACKET_REJECT and PACKET_NEXT are removed
+- the ip_tunnel transmit patch no longer says the counters cannot tell
+  an MTU black hole from a failed route lookup
+- the TNL_OPT_MISMATCH kernel-doc also covers an unexpected checksum;
+  other commit message fixes
+
+- v3: https://lore.kernel.org/netdev/20260916143717.1875082-1-littlesmilingcloud@gmail.com/
+- v2: https://lore.kernel.org/netdev/20260913034937.875068-1-littlesmilingcloud@gmail.com/
+- v1: https://lore.kernel.org/netdev/20260831215137.549324-1-littlesmilingcloud@gmail.com/
+
+Anton Danilov (10):
+  ip_tunnel: add drop reasons to the generic RX path
+  ip6_tunnel: add drop reasons to the generic RX path
+  gre: make gre_parse_header() report a drop reason
+  ip_tunnel: add __iptunnel_pull_header_reason()
+  ip_gre: add drop reasons to the RX path
+  ip6_gre: add drop reasons to the RX path
+  ip_tunnel: add drop reasons to the transmit path
+  ip_gre: add drop reasons to the transmit path
+  ip6_gre: make prepare_ip6gre_xmit_other() void
+  ip6_tunnel: add drop reasons to the transmit path
+
+ include/net/dropreason-core.h |  39 +++++++
+ include/net/gre.h             |   5 +-
+ include/net/ip6_tunnel.h      |   5 +-
+ include/net/ip_tunnels.h      |  17 ++-
+ net/ipv4/gre_demux.c          |  42 ++++---
+ net/ipv4/ip_gre.c             | 187 +++++++++++++++++++-----------
+ net/ipv4/ip_tunnel.c          |  60 ++++++++--
+ net/ipv4/ip_tunnel_core.c     |  24 ++--
+ net/ipv6/ip6_gre.c            | 211 ++++++++++++++++++++--------------
+ net/ipv6/ip6_tunnel.c         | 123 ++++++++++++--------
+ 10 files changed, 467 insertions(+), 246 deletions(-)
 
 -- 
-Mauricio
+2.47.3
+
