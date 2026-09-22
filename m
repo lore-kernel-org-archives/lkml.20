@@ -1,93 +1,143 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F25E54EEC5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61599550DA5;
+	Tue, 22 Sep 2026 13:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083106; cv=none; b=kn7OjzRewkPP+FUaoQKIrMD91j5PzgtLS976fRYobQf5DPXMuWJutsVSyNRBXW6sLz/wEvpD4WV+uQ15CTPPC7dh5ZjcURuHlap8MCM32hYXGxOFpITRDchH5m+UBfwj4FsFN66ysMU6341ORFXxF1RjrQnA/PhFLpa7Tooq1XU=
+	t=1790083115; cv=none; b=WnWK5uqbbVWjpThar+3JAu3yOWHQOFYW/zvBXeHrGjsr0qTYwsBojBwjbtEza/l9VhLigMcrnbPvfQt/H4u/LKMRWKkAhMN1JFUv6ZLFvd2QRkjtXrxO5FhYQWho+kbO5MXJ/W5+t2JxVmm598mQTyAp4AfPTZuB7I2Zd2JsJrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083106; c=relaxed/simple;
-	bh=SY22YJ0vcQPmZiJP6Er9mAdvPYI0WQ/d4WQaVFbS2l0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=eT3WPDaz2ZOqD5ceHnWAuunS4ADr0aJYzOOQ7XuBCw03o/OlcO2GzyQTSXXQSZh5z0jNaCgAY7BwR8QTEuszlRGjrONwRIMDfCl1/sfsIkfRKw6HNfRXSM8uHNTD6FihkD8PowXxg3+WKpWXxlfR/YWPY69cD3sbAFrYgARz8pA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HicJvPmV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T23jZA1c; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790083115; c=relaxed/simple;
+	bh=9yuCs3ICIZlrJh2sfuNAqdmLCVu1sxYY38sjHiT2moc=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=DaupfReRGuk3z67N1oucUaorpRfWoCL9oSh/uE2ppJxaM51Lo70IAyQtusmdP0LouzgrKNy+g/mgxhV9aUj8P2/XhrPWt32nHXskc+N9hiEKD6Kea9DitVZDE25Yv1dR98drxzFINZVJH9AYwpwEOa0e7Aykbs4f3e4k1HW39Mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=l+u1niOC; arc=none smtp.client-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HicJvPmV";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T23jZA1c"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790083102;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7na/zEgvL24eO807bvPesMqaeejJjuljgdUjJNNsbx4=;
-	b=HicJvPmVbRatLaMX7/WHQG7d34s9qlCvrz9UBmBhpJBCpwoQ6pki5lR0x67t3u+Ppdjmh0
-	xM+Cf5SGw1sMOL0iwUCutY3t9hW8vth21ydqra8UtYc5ECBf1eWewt/caeujaS8Fay4Qwk
-	Md6r7+YNGCbU2BNU1id76l8jvaWb8avSYySsEJl+OrGz6f4o02eqVAJ488XAlUbmMcmha+
-	QQF3h2hD7n+buuvssK3GDDL/dRiF8kqrq8mCzeQ0h9v7g1kbqP7hpi8AVPjYcqJbTteNX6
-	3k7AamD5kAQ4Oi5j1oRUhrand+u1eS1ULOu/b2Awustv53B48+Afs1OiaciBKw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790083102;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7na/zEgvL24eO807bvPesMqaeejJjuljgdUjJNNsbx4=;
-	b=T23jZA1c9eot3don1pV/rrrU3QoMj0Eoaflw8LoXqo4QO2DVyrouqbkOiplXXJVoPo6hsB
-	lhJq4J9IqRZyrYCA==
-To: Petr Mladek <pmladek@suse.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH v2] printk: Use two irq_works instead per-CPU
-In-Reply-To: <arJKkvOTNs2DD9ba@pathway.suse.cz>
-References: <20260914143412.1sMcp89V@linutronix.de>
- <20260922070834.2kmMtN82@linutronix.de> <arJKkvOTNs2DD9ba@pathway.suse.cz>
-Date: Tue, 22 Sep 2026 15:24:22 +0206
-Message-ID: <8733v1v2zl.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="l+u1niOC"
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1x90OD-0038hi-PS; Tue, 22 Sep 2026 15:18:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
+	bh=1i2pY8YvcU7k2lAUuqqEj5EdeGuvSv0X4JAnH12lwRs=; b=l+u1niOCpKWaxb2/grmDTst070
+	DP1OY/UMkNo7C2z8Dn7imHGLCOngLoIOii5SxJaKz96M1HZsCbhCm4oC1rQCJXtV7X/CR3xJvs0jK
+	EhV3yGJ9CTzo3zNKOPdYtTjS65HWUYRgB5Vy3aTcZkKl8CvY4YSybl1ss47o+RNqxWFJzFpSzMut8
+	LQ0HxcJzGmLEZeJFbRVHwV9hoeNHoIuBCGHnCxQCoC2IFcmET88U655KykfsxEMALhSCTIfDUkTGq
+	WR5ArhqccLAiv8rfmRX25h9ajEQ2YKpU8LqTzRDZpm10GEJUS5swUwhJn73bxAF6Q/iIWn79r8U7a
+	IeoCO76w==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1x90O8-00054A-Er; Tue, 22 Sep 2026 15:18:24 +0200
+Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1x90Ny-00HI7x-W2;
+	Tue, 22 Sep 2026 15:18:15 +0200
+Message-ID: <0bc40e5c-8790-4a36-84bc-80e0bfe6b504@rbox.co>
+Date: Tue, 22 Sep 2026 15:18:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+From: Michal Luczaj <mhal@rbox.co>
+Subject: Re: [PATCH net v2 3/5] vsock: Enforce no-transport invariant for
+ TCP_LISTEN sockets
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Asias He <asias@redhat.com>,
+ kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260915-vsock-connect-reset-closing-v2-0-a1d9abb472f7@rbox.co>
+ <20260915-vsock-connect-reset-closing-v2-3-a1d9abb472f7@rbox.co>
+ <aqp7CV9DnfsG1GJc@sgarzare-redhat>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <aqp7CV9DnfsG1GJc@sgarzare-redhat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-22, Petr Mladek <pmladek@suse.com> wrote:
->> Sashiko complains here, https://sashiko.dev/#/patchset/20260914143412.1sMcp89V%40linutronix.de
->> 
->> | Does replacing the per-CPU irq_work items with global items introduce a
->> | system-wide starvation vulnerability on PREEMPT_RT?
->> | On PREEMPT_RT, IRQ_WORK_LAZY items are processed by a per-CPU irq_work thread
->> | running at a low SCHED_FIFO priority.
->> | If one CPU queues pending_wakeup_work or pending_output_work, the item is
->> | added to its local lazy_list and marked as pending. If that CPU runs a
->> | higher priority RT task for an extended period, the irq_work thread is starved.
->> | Since the irq_work structs are now global, their IRQ_WORK_PENDING flag remains
->> | set during this time. Any subsequent calls to irq_work_queue() on other CPUs
->> | will fail to queue the work and drop the wakeup requests.
->> | Could an RT workload on a single CPU starve the global printk/klogd mechanisms
->> | for the entire system, degrading the isolation provided by the previous per-CPU
->> | design?
->> 
->> while this is true, it is not limited to printk but any workload would
->> starve in such a scenario. Also, for the per-CPU variant to make a
->> difference, one would need to have a printk output on another CPU, which
->> is not busy with long running RT tasks.
->> Long term this is probably the "legacy" system as console drivers should
->> transform into nbcon interface. Here this irq-work would be reduced the
->> userland wake up while the printing would happen via the nbcon thread
->> which also has a single irq_work queue.
->> 
->> I don't see a problem with this.
->
-> I agree with your explanation. I do not see this as a problem either.
+On 9/16/26 14:30, Stefano Garzarella wrote:
+> On Tue, Sep 15, 2026 at 03:15:14PM +0200, Michal Luczaj wrote:
+>> A non-blocking connect() running in parallel with a blocking connect(),
+>> combined with a racy listen() that hits right after a connect timeout:
+>> TCP_SYN_SENT -> TCP_CLOSE -> TCP_LISTEN, while the connect() loop is still
+>> in progress.
+>>
+>> Enforce the invariant. Prevent a socket from becoming a listener after
+>> acquiring a transport.
+> 
+> We should improve this comment; it's not entirely clear to me, TBH.
 
-I also agree with the explanation. This is not a new problem because
-starvation was always possible. With nbcon we have the advantage that
-if an "RT-loaded CPU" enters the emergency state, the backlog will be
-flushed in atomic mode.
+The race I was thinking about:
 
-John
+sk is CLOSE UNCONNECTED
+non-blocking connect():
+  sk := SYN_SENT CONNECTING
+  enqueue vsock_connect_timeout()
+                                   blocking connect():
+                                     release_sock()
+                                     schedule_timeout()
+vsock_connect_timeout():
+  sk := CLOSE UNCONNECTED
+listen():
+  sk := LISTEN UNCONNECTED
+                                     lock_sock()
+                                     sk is TCP_LISTEN UNCONNECTED
+
+It's not really critical (blocking connect() just timeouts), but I thought
+the invariant should be enforced once and for all.
+
+>> @@ -1973,13 +1973,13 @@ static int vsock_listen(struct socket *sock, int backlog)
+>> 		goto out;
+>> 	}
+>>
+>> -	if (sock->state != SS_UNCONNECTED) {
+>> +	vsk = vsock_sk(sk);
+>> +
+>> +	if (sock->state != SS_UNCONNECTED || vsk->transport) {
+> 
+> Are we changing the behavior when an error occurs?
+> 
+> If we call `connect()` on a socket (with no others running in parallel), 
+> it fails, and then when we call `listen()`, it now fails, whereas before 
+> it didn't. Can this happen? Is that what we want?
+
+Ah, true, I didn't consider that. So yeah, we'd changing the behaviour.
+
+> If so, we should mention it at least in the commit description; if not, 
+> perhaps we should unassign the transport in the `connect` call.
+
+Do you mean immediately un-assign on every transition from SYN_SENT to
+CLOSE (failure, timeout, signal)? Then we could also drop the re-assign
+logic. I think that's a nice idea.
+
+---
+
+I've addressed all your other comments for v2 and went through Ashiko's
+reports (side effects of lockless peer_shutdown write, imperfect
+no-transport TCP_LISTENER enforcement). I've decided to try the
+eager-unassign approach. I think/hope this way we sidestep the lockless
+writes and enforce the invariant without breaking the API, while fixing the
+bugs.
+
+This should probably be RFC, but I'm posting as v3[1] so netdev's LLM can
+have a go (too). Hope I'm not breaking any workflow. Let me know what you
+think.
+
+[1]:
+https://lore.kernel.org/netdev/20260922-vsock-connect-reset-closing-v3-0-78907b8200d4@rbox.co/
+
+thanks,
+Michal
