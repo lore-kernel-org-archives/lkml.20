@@ -1,130 +1,184 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3748439E19C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045320; cv=none; b=TkNMDGSyRqWr8JPP6S63+Wav9zIH2LPuUfqxuaG8wHJer0T8oQQeNrzQNIl+HiYkp3h1Ubw4jjhGlLPWUYXSSwCJs2ixooKbXtKR1T7za5y1KUjJFVd0yFRZ4Azv2nV3gfL+6Ir8T2VtXlbAlEq+X+ca/8qlNqK9YYfejvq1OoA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045320; c=relaxed/simple;
-	bh=QstOwR4MoLepqPhwXXcdqhaZXi3o+22oqo/jORxNnxQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qT1E/LMpyzKTL64c3+/ia9rEkbUx/BIK3gdmEvI9xoMbWuI/Fy0FFtofIFM/IwJls0zcKtWrHZU3zSkCUaBT4yLy1+Ltygy2fZnHslvqnjOcpgS1MFx1iegozRoPToYxzhD4PcEMD7Phw2Slfpg3gq+srTNYw3nnWHPR7P6i/54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmnDdwo6; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B0013B5B3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790045323; cv=pass; b=ht1aDFhGe0aqn/W1T/bduKzfNSK95nEDU2W0168Z9Jes+LqIWFnDYBbtf7RNjNI4lnED7CjGxSZQ4fP1ZFCmjrJ8jpLllyqF5yRUjtoElCy4ml6E3fayF07sxmm/BJunqfJD7EwED26MTpEjQMmwfjg0vldfTZbcrnVVAAvZi8c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790045323; c=relaxed/simple;
+	bh=BTNod3yCiVITqkGUTzHOAxx2QYkllbtfz8BL73slXFE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JK17qEslUdXs97PaRDnxMm7rxypQz+pQjyWm7qyxd5F8LD5ken5zvdMg6ZVo/+8wp70gQxFZuMTKW8G2fBm6HIz7/+rLvLA/CyY4w5e2cJF84e+i5d57n6bfoyTYIWzF8uAdipwuWU4bmrB4Lzs8fAoX/shZHP6xQBR48rjnig4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCP3YP06; arc=pass smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmnDdwo6"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4c9d14b8so5181565ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:48:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCP3YP06"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e56a1fe3fso3442801d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:48:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790045321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=spTu/4uXCNC/u5Z4CQOFyaD5HKMpzWG2RCSKvxEuav/N/hytpbPo8hyx+YtV9VDKI+
+         cvuCVtHuFA98Hd64f32kV/6VvFLuYstS9W59DAG847B4SgqmjJrl1WNvAZV0t+hxmokF
+         6jHnzWByTCZzn8MWuV85gzMU+xjIjFCFJrmNs3Z5u589uImusE6JBtjujgwmQ7aosbH0
+         xYM9DhLBXrwLWdbsoOYDkP7DslXSrAU1wt1bKyUiogDcA6WKxohqcYtacnLhXq4I2I79
+         8W58V13u3U9EftxNOQxgj3qZ1r2jal8peTaTsvBNBm49Gj1Dk9NcOKnLkRInUCrX16tE
+         JPEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=EwWA3LgMjt74XDEZ31Q/wUl2bcv/dp/523dBsTBjRfg=;
+        fh=V7tMknDUjtoOTCeGKsTWQ0fcJMq+Uk/jkYMJMT4xmfs=;
+        b=SMyezCplCdRt4OZxikWxK83o+10S3ReUI2vCHosnvPLEO5IqVdXaGQGGau9snzeHQD
+         q524fgA1bFnKRygSHOQ1TnheGJx2SL37uLTU8eSO8UX55wTwEy+hvOtNXqFC/gVsW6QO
+         7V382YG98+cC3GAPfAsjkwOUs2IC2wnpYLeAch26QtMCSghLZUycauMiC9LG0DiOUqwi
+         AoWhlTEaQKS5pM6EhnWyPuhvk3aRZeKVhiNDfnXUe/aGVgloeISZzsknWu5UxdonBGWL
+         LP6ipum0OmJ/CzRUVukZABZqO8dbH/SDyCW/DNthUgSCV+1xIJHMH9FJuqRtBaIe/0ST
+         zlvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790045316; x=1790650116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JQsnO6nBZnTmHd9o3wzHwpj6ldm3p0l1ScGQLsRwCts=;
-        b=KmnDdwo6IDTvhGn9L1EHokueD8DwKYuaoRaNHR4rwKrUHeSLhPCBpVRz5Q/jjExCuI
-         F1AN00FrJJI2uyWnnJdJRmjjKofMsb709IQhW8tcRghnwfY3wgJCvViBvpGIp5dAFyjP
-         fO+v1GiNWQFn7gMTl3ZtMA0tPJ+j2drrKQcx0AABU6iFyeYA0YK6iVCF01eKljIWW/JY
-         tIVW3fKE4KjYu7MuYLZfUroNHrXNA38bkGuB2kq4A6fdFKv1WKuJetgPZjsmDKCITGQr
-         RqpaYMVdXO4gve1W36PQzGMcmQMJk7feF577pmkP0F9JW7ySESZ0UgPc5La/yJMxzi9S
-         Rpkg==
+        d=gmail.com; s=20251104; t=1790045321; x=1790650121; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EwWA3LgMjt74XDEZ31Q/wUl2bcv/dp/523dBsTBjRfg=;
+        b=OCP3YP06F13D0Is8mrxp+Hl2BJDVBihPjBs3Uo8vxgDg4/VbCZqmai7HtFnRpmbvC1
+         xpqWRj2NgtjDsOsJLggDYqTnSf78B+LKs3nDWjbOICMMFG8j00pxUWywGYejUmfuAX91
+         0iVt5FXof6FSLCS4Ior4GDPhmBmrCwQVPhKtMM46pUgfRuJZMw5Q2SEng1H4hdGmjXPx
+         PX4PY+oL/SekL6FZC8n0Ji000zsDy0cs7sM+xU3BzJkPodvULhQh940ci63re/rWO98D
+         2bbVmlJDg6X7pOQRqpjlHGaUNELq7OXtun8yUWfwsjDN5p3oROK477OPz2psy7O6Eavp
+         CX7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790045316; x=1790650116;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JQsnO6nBZnTmHd9o3wzHwpj6ldm3p0l1ScGQLsRwCts=;
-        b=ybsl2NEjscVEYCRSzs4Uv0cXuxKo5c98c/m4NUU6fZJHbil2dBGro4+NFc3x3Jqg+g
-         OAoW43FnAR0ONWnT/7WUxSr3S1L3Gew4TZ4NyYEMK9ZxeE0Wpr19xOuP+5qO2zADNkfG
-         gMEyDmxBSgz0/7LQVpKCQ+bWPwycDoIyykrDzRnoPMJgQTKNG+qs5Hk/4cLIzK5qnb4J
-         nC8MhHb6OGmlwAqDqkqRzMHreosW2GmSrq+a4undsVOwuLC8uDBucnAKMwNmDNZqnGwl
-         /9aIYvxRIdrp/oBTJ3u6mUVIWLIT6jAd0hndUCNdGWmtTHCocQhilpIAtTfqi47XU/gj
-         mVWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvLUrW1O3b6aJghA07PrkDqqFwH7yVmVPA7aJZrCZatvjnXDSDW1vOwVunEAFeaQeHtz9JXV2XMxKqnJs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDY7KmhrS/ltKPpXcIjbZbERXtRec5Uqz4QxIYohH6tkbKHtow
-	5eNS9XJ3tseVd10J8sKA8hgzQCuknFHoqqZUCu/jL1mQ76XXM3OpUGXp
-X-Gm-Gg: AYBFou2ur9ltMqY8Zrnu5hNym/TVgRD0e9rb2U69A7FT3RKDKZYyQnT4DDkmOjVqCEn
-	RpZsnhH0exA5xhcCESUFnLw+8RV5IRSqJIk5S2O8zejm6q98a46NdNIEN3RBC/noCjRnsD3XV8e
-	eZ0kO8FP8LVowCke/HeDRpOQ0eQKfzrGALGavLSpvuD5lizr0v+MRmkP6lFZ8WnZVlQ8Sn7+KGd
-	7Z3E7zQRHKRI3+zRezpY4MDDXBoGJEXAwprMSwx6MUrQMVUaj1LEUvQchh3cohcjG+tlKwaa2Um
-	Epu9caw7l1HpbR5FZyFATQcEvPo4jM+2jBW8HyaL1BRndx4Oae5fCVHWowwG4W41BFrgEzjzCot
-	hn0hgkK/oEAfkAKQLRawzZrm8LZFMfeXoUTl/aoeHM4D/pNvJvkYyf4pUwHgJSYxKyMRiZzV5rT
-	uMtFz1dA5C8Bub4t235++GR6DGQg+Tj6QSbhkt5FGv5Aw+PcYko9dTt/reD6C/SmmF5KECwHzvK
-	/aFelX1
-X-Received: by 2002:a17:903:2ecf:b0:2dd:c100:251e with SMTP id d9443c01a7336-2df59a72ef5mr12835995ad.39.1790045316497;
-        Mon, 21 Sep 2026 19:48:36 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d02e929sm1619035ad.33.2026.09.21.19.48.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 19:48:36 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Damon Ding <damon.ding@rock-chips.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-usb@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [RFC PATCH 5/5] drm: bridge: analogix/dp: Adapt the return value changed for disabled blob
-Date: Tue, 22 Sep 2026 10:47:20 +0800
-Message-ID: <20260922024724.191412-6-inochiama@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922024724.191412-1-inochiama@gmail.com>
-References: <20260922024724.191412-1-inochiama@gmail.com>
+        d=1e100.net; s=20260707; t=1790045321; x=1790650121;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EwWA3LgMjt74XDEZ31Q/wUl2bcv/dp/523dBsTBjRfg=;
+        b=ha39SkV2S3Oi7Z6OuIJNyB11JOqTwFlMDMAMrgaf3K0OE2T4IgIQMlGA/rjCkgomnF
+         j3EZnOczHGr8LQHwYGvaBgVw1GjwMHKMXKyTt3eQDaxt7ylmdrUPzAmGzaZWCalDmwYb
+         uudf+9SYeP2NJHz8tjd2K7elATNPtQrbHvBwzge/ahSofVvUi1N8IB+kg3NpN/74fNb+
+         S0E+B6kZen5rnJOTduRH/iEfi/hQT2JEIgi+9okofUkaV6IhiOuVs1a0NZFTF+ahSTNW
+         /mGNGdwfPr5zys8kVbB01A4+7OksCLaRvIZf7EiaKx/GMcsXHjyy1eWImNNy1dPCPCe3
+         I3rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyW2XEX3rv8wKZsqPBvYUeXUVrzy40dCO1dIsh14+aI96LE+66cwkQ3KHRGmfvRT3HP9bHUV6xIjEQ1uE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k26c5FB82bY7+ZfJItAM0g8s5UBS2wnmY82FoEeU5f+UP4g54L
+	LuAlAD4tdhHrl9+QRORxSZoLpAiYBVC8glzt/WE9iUKzqzmtOhDoy3GgHOt9HeNs+dDiI8IyGd4
+	z7XImakV48AqV8KwFpCQxHC6mGJzZGW8=
+X-Gm-Gg: AYBFou3E3XI4F7RU2ciL7ydlwqnvW0rIy/l7maLrmxOWUmFKHQz6kUD9nzkjs7SkPxd
+	s4BvkHQIlr5QAzN8js1G+ZLjKwp/f/C0jHGcOhPNKGDpKuA9kvbiTqzQAkOFTg8PfnbxZSRYU3T
+	IpcpjkDUZEr0+peOS5XFLpgJ3/OnUHG0bsu9GvIsDDnMe10zl+e4YCMlsjOlESZjQW37Hyu0JND
+	yQ6BdYkUXNNXVT+Jdyy7HGeC1XULFeRXCWRO17t+b0w219Efrf/7vxSFYOt7XL+AOjZHXwGB2gP
+	pY4r8jDANhBjCPqbUgukWceHHohqIJsJiIiBivcMzJ4sRMkc61mCRMRItw==
+X-Received: by 2002:a05:690e:4419:b0:668:9230:e266 with SMTP id
+ 956f58d0204a3-6717fdb20a6mr2869967d50.46.1790045321076; Mon, 21 Sep 2026
+ 19:48:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260919175925.3739806-1-lgs201920130244@gmail.com> <arFJeRFJdL-fwRmk@quoll>
+In-Reply-To: <arFJeRFJdL-fwRmk@quoll>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 10:48:28 +0800
+X-Gm-Features: AcwNN1VhjH0umtEATXdXl4Fw6zfObXCRNks60FtGl0HS8f4Ga7r0Rf1ihREbjxQ
+Message-ID: <CANUHTR8we6L7TXR7_HR-xZK1kYWnqpoUY2sGcrjeFOHn=Hxf_w@mail.gmail.com>
+Subject: Re: [PATCH] dca: fix provider device memory leak on domain allocation failure
+To: krzk@kernel.org
+Cc: stable@vger.kernel.org, Maciej Sosnowski <maciej.sosnowski@intel.com>, 
+	Dan Williams <djbw@kernel.org>, Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Check EOPNOTSUPP for disabled helper function as the change in phy core.
+Hi Krzysztof,
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thank you for your feedback.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 30c0c0b41d5a..8e26cd772482 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1360,7 +1360,7 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
- 			 * phy itself is not enabled, so we can move forward
- 			 * assigning NULL to phy pointer.
- 			 */
--			if (ret == -ENOSYS || ret == -ENODEV)
-+			if (ret == -EOPNOTSUPP || ret == -ENODEV)
- 				dp->phy = NULL;
- 			else
- 				return ERR_PTR(ret);
--- 
-2.55.0
+On Mon, 21 Sept 2026 at 23:13, <krzk@kernel.org> wrote:
+>
+>
+> On Sun, 20 Sep 2026 01:59:24 +0800, Guangshuo Li wrote:
+> > register_dca_provider() calls dca_sysfs_add_provider() before looking up
+> > or allocating the DCA domain. A successful dca_sysfs_add_provider()
+> > allocates an IDR entry and creates the dca%d class device.
+> >
+> > If no domain exists and dca_allocate_domain() fails, the function
+> > returns -ENODEV without calling dca_sysfs_remove_provider(). The class
+> > device therefore remains registered and the IDR entry remains
+> > allocated. The caller may subsequently free the dca_provider, leaving
+> > the IDR entry pointing to freed memory.
+> >
+> > Since the class device is never unregistered, its device reference is
+> > not dropped and device_create_release() is never reached, leaking the
+> > struct device allocation.
+> >
+> > Call dca_sysfs_remove_provider() before returning when domain allocation
+> > fails. This unregisters the class device and removes the corresponding
+> > IDR entry.
+> >
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: 1a5aeeecd550 ("dca: registering requesters in multiple dca domains")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/dca/dca-core.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> >
+>
+>
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
+>
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
+>
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
+>
+> Please read kernel documentation BEFORE posting more work. It will
+> explain you how to identify subsystems, how to organize your work per
+> subsystem, how to document usage of LLM and how what you should not
+> do if this was posted in a good faith.
+>
+> Best regards,
+> Krzysztof
+>
+>
+>
 
+I would like to clarify that these patches were manually reviewed and
+audited by us; they were not simply generated and submitted by an LLM.
+However, I understand why the recent submission pattern may have given
+that impression. We sent too many patches in a short period of time,
+and we also failed to respond to some discussions in a timely manner,
+which made the situation look worse.
+
+Many of the recent patches, especially the v2 revisions, are
+corrections and improvements based on previous review feedback rather
+than completely new untested changes. That said, we recognize that the
+way we submitted them increased the burden on maintainers and
+reviewers.
+
+We apologize for the pressure this caused to the community. We will be
+more careful about organizing patches by subsystem, preparing proper
+patchsets, and following the kernel contribution guidelines before
+sending future work.
+
+Thank you again for pointing this out.
+
+Best regards,
+Guangshuo
