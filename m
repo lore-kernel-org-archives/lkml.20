@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC64155C305;
-	Tue, 22 Sep 2026 15:35:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B637D559C92;
+	Tue, 22 Sep 2026 15:35:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091314; cv=none; b=kSN2IKd9TfMdULG1fXLAdAHTZjltZBaT5gd1Bt1DdMair5VOKXInk3sabZNG5llFyifR34FFAlP3PAKW8f0+2RQN655fWDzoDmxpnxqh07qcuVe56YFNAc8cYNbJX+h8kmXEVcKsnTIA0wjKv0uP1aq1TRiGXCLkTN+LXG0xaDU=
+	t=1790091314; cv=none; b=daBHjDkUi7msAjFEYYkNXc7RR4OvbLjyqGqGiNzQezTmXelUjRiUZJV2xg6o1lgQGsjTDhtNih7zEFfhVvhW61Nx8JlYHp9fdikbwKaWEMQFEjVKWN2T7O2ziDdUR6AZw1R2IrBTkxplVacNyvne/zziA3ZXoGydPkuJo3WCCEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790091314; c=relaxed/simple;
-	bh=ypWsx4p0Qcqo+3XCtIdEzsMYcaAoPzYRo8OzrIX4Qro=;
+	bh=8c9mOEfPLVh+05JwkGqkDFhZ4eGD9h3DRTAtQNs4Izk=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=S4enHK9zp1UFnxsZ4QxNCjnIuriBiO8BMVZ/BjUy3+SPmL7YsWdpH8XnwwnC8zSTvUK8UZ7rmO/VDMFVN4Ap5GKpJahOhtKMJe81v5iY1iHCs4+LYoffDU8fbJZMBJuidoYIK0zRJnMM/50I1CXiM75T/KYrMXgIXVu0hSJrCj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGaf6fuP; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=lZTJ8EDCJAgnzIquWSdeLK58bHYsoy6vw3ql1x/mUaMFMeNzx3haxUVFLzq7R+CYKLikSBI1+ekC58e092meZgsfsBVMHHTXfUiAmm8mv8vA0nWd+Bps+iDguvS9LhaK5H1gLhTRBcOCxSuiTLykzu/yMqEtakWUQAMSm9UfPpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FAEuAuUn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGaf6fuP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBCE1F000FF;
-	Tue, 22 Sep 2026 15:35:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FAEuAuUn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D1C1F00893;
+	Tue, 22 Sep 2026 15:35:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091312;
-	bh=qJu86Ld8XnTBZH5sZa1vlfZEborsNw+EF8dWwLK5Ra0=;
+	s=k20260515; t=1790091313;
+	bh=l0v14wN/DvIVEXrfeeixUuljRDiJFlaL5YhfUPp5MGg=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=VGaf6fuPEs+fxknL+LWvY8Ddh2s5HsZrAcbSCbhvXY1Q21YQw/C2tg8oAtLptzDzc
-	 jiE9YRhok3zN6XksBeisZ5S73fSs2eDXZZYkqxfhpSTIV3JDoXT6QAhUsohrJpczN7
-	 EQUttGxwq1El5IDFC2suL22X0/uf7ApuXGMcNddZQrpylfRwlGPJTinJu4myn+3KRE
-	 lPs1UROEPRfTVmTAA92U7IkpnEWW/lom7CeUn7ng7hZLh48gnifsLKsw+ht0OlVtFD
-	 tIbOIi29yUJubmBPdrw72JrYsKFe2pAp+O2uxPLViCvPbjKOcZbmh5atdDhuhZJvA6
-	 2ZpK1v2hJFZ/A==
-Date: Tue, 22 Sep 2026 10:35:11 -0500
+	b=FAEuAuUn7kgoyZZ5n2Ox49MDzAdPBYxMURL/+BCnLWgBGp3kM2N5Ov5hzVAm5GnW0
+	 bXGEil0Yiot1b8wRlwG/cD3mqBpEEaugJZ3dHLjjclotRwwecwJwQMIicScFoR6CMG
+	 UjhGV9ooobke83LAdjenFv6oZQT9nTYoIef3dgM0dQkWdbTvg5roJrjmpuZUqPbpWJ
+	 /yeprhGcOEwvD+DvumQLp753vt01BUoJWTFX3kJ6PbjheWdRKufgwQ069vDXW0sLXb
+	 E46tU47X/251YQSxrzr2YNuehN9c/zL/gx9uVwJZUV83IuBc37GMduyggKYy4RzHQR
+	 T/e1aJAx8ka5g==
+Date: Tue, 22 Sep 2026 10:35:12 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,32 +36,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, conor+dt@kernel.org, 
- lgirdwood@gmail.com, devicetree@vger.kernel.org, broonie@kernel.org, 
- perex@perex.cz, krzk+dt@kernel.org, tiwai@suse.com, 
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com, 
- p.zabel@pengutronix.de, linux-sound@vger.kernel.org
+Cc: devicetree@vger.kernel.org, broonie@kernel.org, tiwai@suse.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-sound@vger.kernel.org, cix-kernel-upstream@cixtech.com, 
+ perex@perex.cz, lgirdwood@gmail.com, krzk+dt@kernel.org, 
+ p.zabel@pengutronix.de, conor+dt@kernel.org
 To: joakim.zhang@cixtech.com
-In-Reply-To: <20260922112134.4167305-2-joakim.zhang@cixtech.com>
+In-Reply-To: <20260922112134.4167305-4-joakim.zhang@cixtech.com>
 References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
- <20260922112134.4167305-2-joakim.zhang@cixtech.com>
-Message-Id: <179009091064.3383676.14654535260595852559.robh@kernel.org>
-Subject: Re: [PATCH 1/4] ASoC: dt-bindings: Add Cadence I2S-SC controller
+ <20260922112134.4167305-4-joakim.zhang@cixtech.com>
+Message-Id: <179009091298.3383748.7497658110500328179.robh@kernel.org>
+Subject: Re: [PATCH 3/4] ASoC: dt-bindings: Add Cadence I2S-MC controller
 
 
-On Tue, 22 Sep 2026 19:21:31 +0800, joakim.zhang@cixtech.com wrote:
+On Tue, 22 Sep 2026 19:21:33 +0800, joakim.zhang@cixtech.com wrote:
 > From: Joakim Zhang <joakim.zhang@cixtech.com>
 > 
-> Add the DT binding for the Cadence I2S-SC controller integrated in
-> the CIX SKY1 audio subsystem. I2S-SC is a full-duplex stereo
-> controller supporting standard I2S, left/right-justified and DSP
-> formats, plus TDM operation with up to 16 slots.
+> Add the DT binding for the Cadence I2S-MC multi-channel controller
+> integrated in the CIX SKY1 audio subsystem. The controller exposes a
+> transmit DAI and a receive DAI and moves audio through a configurable
+> set of its 8 data pins. Which pins are wired out and in which
+> direction is fixed by the board design and described by the
+> cix,pin-out-num, cix,pin-rx-mask and cix,pin-tx-mask properties.
 > 
 > Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
 > ---
->  .../bindings/sound/cix,sky1-i2s-sc.yaml       | 94 +++++++++++++++++++
->  1 file changed, 94 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+>  .../bindings/sound/cix,sky1-i2s-mc.yaml       | 124 ++++++++++++++++++
+>  1 file changed, 124 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/cix,sky1-i2s-mc.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -70,10 +72,11 @@ yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
 Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.example.dtb: /example-0/dma-controller: failed to match any schema with compatible: ['cix,sky1-audss-dmac']
+Documentation/devicetree/bindings/sound/cix,sky1-i2s-mc.example.dtb: /example-0/dma-controller: failed to match any schema with compatible: ['cix,sky1-audss-dmac']
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260922112134.4167305-2-joakim.zhang@cixtech.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260922112134.4167305-4-joakim.zhang@cixtech.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
