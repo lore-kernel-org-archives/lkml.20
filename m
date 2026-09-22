@@ -1,75 +1,106 @@
-Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D45445628F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783CA539764
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074974; cv=none; b=Uges1wUjZS6PIArUKJT8ERfNtr2CaZJ7kn/LY7KgJu9xMyvravr4nRqYM5wf7lC/Ltm0NTHW/0sKDW7xHdcCqZfzu1A7FDrsqq9Ld3vkJLfGXvZmCindJE1xHrfl26FRXxdP4QrR24tmgxoUZl+bmTALOVNTf61cgDPch1GS2AM=
+	t=1790075000; cv=none; b=RsMSXeF9sGYwNsCDk2UWYNorJjaQdZDLac+P6eHpQekrAh4mRDfyg613p0ZHS7UfwCY1Ys5BwwvuiLtf7p0e0/5rEoi2h+MdL0b4uI5b/sVk3iqpB5+Ng3Ilmi8TBnjAInUZIndEPZBQlodHXcBmGfBGnNEL4NA9wMTrKsgzrfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074974; c=relaxed/simple;
-	bh=1899KeD85uKRGfXlEpmON98ChfRq+XnW3qXz5M6N/+4=;
-	h=Cc:Date:To:From:Subject:Message-Id:Mime-Version:Content-Type; b=bKmMcTDF9gXRS00CU9kf2JHDaY+jrbSccgf30z7xc/rmYdXBiFah8Xna+omld0WinonY+bJA5G5bpNWkvwkt2AvI9gmBtCqTh2Rb1bO/sqiFbDBpHjXNWlJvg38CR8QSt7KO/XEiU93xBawCuwapkdK8bRWFObc8V0qI7fEbRFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=0NCiP/zK; arc=none smtp.client-ip=209.127.231.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	s=arc-20240116; t=1790075000; c=relaxed/simple;
+	bh=AKXo4HFyGH+qOtzhSzfVmyUzvAxDbIKAOw+B0wfwJ/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=er8FjU8kFkQwAV+RePkyVDDYGGItwqlt1WwmQCz+0+lEtmSoAGKANNCGSubhpD8/U+PFbwi/0Ghf3qzPSKvhzN5NbYa/oN8yhL1BZAtiHS/eIuJYwCZmOPfMWCdC+YWQZPqjcJDO20rKLMcRXbb2UPthLrY0uz9II4AnvzAa/zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Re0GYu4S; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="0NCiP/zK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790074961;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=iFgJigE7aPx9rcthpS190in8b+smB38KzrjCrY8jyZE=;
- b=0NCiP/zKr/rJgj1+Zx+mOuh2xXMNG82cVBLX/lHIs3PjGSvbamCqznwvmbTuZV0ibJs8vt
- gMDyAd/xyuNw+zDfVJiS74ke+GMi/8RuzvVF6/v6kncxkaimuSqb0iWFIe/4DnYYxG0Ihm
- onYnfRnX0Z7+pRCsTOijy1qRbnVvmEaR+jGs07mMu8ZZtUFeM2xJhNlRZv37qPNrMpvmN/
- wU9YYEnmSxhblcNnuOaY2qS/apR0cBHULle4ZyXLED+Te1nTQ1CzcuTFh/tw7jvvIQLJOB
- aM1EqeTHvWRtkZfHtwTgC/GldqYqnZK6ITghHQK2i7nNtCTtxl6ZQ3dsAd3cIQ==
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Date: Tue, 22 Sep 2026 19:02:31 +0800
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.43.0
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-X-Lms-Return-Path: <lba+26ab2604f+1f6f27+vger.kernel.org+sandie.cao@deepcomputing.io>
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Subject: [PATCH 0/3] Enable USB and SD for Deepcomputing FML13V05 board
-Message-Id: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Re0GYu4S"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so20560855e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:03:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1790074998; x=1790679798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AKXo4HFyGH+qOtzhSzfVmyUzvAxDbIKAOw+B0wfwJ/s=;
+        b=Re0GYu4SyfK5Lso5wuUrGXWsmztb++hqnMp+ez0X7BtQj1KAQJD6r/kNUWsdKU9e2S
+         h/kmIHD8iHd6qKR30qub41YANqNlf5E2sz6Qfl6SuVUsXdNE1+Cnj08zknSn2cW7PqHX
+         rxCWmnitCxgzkmqAfG/ye/6RjoZI9lbssLO1/b6FlMaWs10vKnw07fcWaGXeIUv1tOFv
+         s2ili8uiFjg5EKCdZcqBviCWpZwDgfN7qmm2it3taECCZWRsV3NlCYE/2wBkdYuRN4O2
+         QSkCBXmw6d9zWTL0igkSb8y0TTTvwWQdwRhrogdgFOhzV/g11uUQxt+EbJvq1rNjHjZd
+         VLHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790074998; x=1790679798;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AKXo4HFyGH+qOtzhSzfVmyUzvAxDbIKAOw+B0wfwJ/s=;
+        b=XFuq1oZEyx5adc/kSKJN1hINzGkoOcAiNTVsAmySUk0ZG87AE0zwXboE3ILdJtQsIb
+         nhUvUYFpE4B9YIoLraa1NhhRfV1rfIc+EYF39DuRHr+jibrfi7E17sS927iJ9MFH2Pv2
+         5IqW5ojedQrLBw9o/oPX0BNpsc6yA8FbkcIQj15lLJyu2YhRVr9oYywP3/P25gn0H9+y
+         LOvyxFTlDQIWL5cmTQagK4WMrHnGZEzGzhbM26zwlvXcJPNGgW2zqTX0s6+GQxiDXMp+
+         w5rDGYMZx9WiGLQRWzyPq/KYI4BAeTLat6hq6mlEUBDr1OwBFw+TCW19UQWUMWGaxyZM
+         aoww==
+X-Forwarded-Encrypted: i=1; AKwUvByT32MkrQbm1p1/9C0sG5kYbHPZSrCt0fw/Yx469GaswG++wnFiUZ5boApxrzGdwM3w7nRMEphXN5i1oyE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqrY0TClLdHsWwZFpYGfihHzSt2OqxWjLthHVaeX82QlQPVZAK
+	eudxx9aFE7JQ1WEsa/RCHNhFbjhKZS3IOUpk41f9gynMjQ2SdaCgGfwORhR1zWyXrco=
+X-Gm-Gg: AYBFou0PcZT/0WBfGVDaEuK4TNWTBiuAjHHSCM5VX4oOFLzNBiGl3IopJxJ38adaWXH
+	Mdrb4K7Go+57IT+DcHs1dd9cGwfWLmSAy4oZnEJpzNnL0cksxwi9nRo0M9H4rdcAfCU8fLSgffA
+	f22NhyDEw0FPnhPO282SHFrm6awGFV+ZqDw3XGCfWQv9iNSbLlW4/vXhYnYmLsnIf4WpPW+47IV
+	0L6VGgC9FjGuJVKZowg0EAK4frZ0skwjmRZlSH+1ybJo0utuxoz2g2BxZoMhO3rn1ib6HeHE5LI
+	LsAI3S/xvJIQJ9xY3R4ba7n21f1QbqeSEPCbAvUq13wth80cW1UCUZGzudDpPuzUBL1BigfgD2Q
+	8TA9cWkIPSIglpi9qwRCfac7a/nclcAY7eZM0Vkfxe+oNRLy/JjiMk2o73SQv4EEeNwJFAph54/
+	le2wdUrrxyWWhKCVqXzFGIhdUES7IYcztziY0sXIFcMLqeu5XCuw==
+X-Received: by 2002:a05:600c:1c20:b0:49c:fa20:cc07 with SMTP id 5b1f17b1804b1-49fc5741914mr220584495e9.30.1790074997555;
+        Tue, 22 Sep 2026 04:03:17 -0700 (PDT)
+Received: from remote-01 ([84.17.55.230])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdab0c240sm29990795e9.4.2026.09.22.04.03.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 04:03:16 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: netdev@vger.kernel.org
+Cc: Aleksei Sviridkin <f@lex.la>,
+	andrew@lunn.ch,
+	andrew+netdev@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	olteanv@gmail.com,
+	Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	steve.glendinning@shawell.net,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v9 0/4] net: phy: keep a PHY interrupt across a generic bind cycle
+Date: Tue, 22 Sep 2026 14:03:14 +0300
+Message-ID: <20260922110314.4028755-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260919015326.499479-1-f@lex.la>
+References: <20260919015326.499479-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.111.1]) by smtp.feishu.cn with ESMTPS; Tue, 22 Sep 2026 19:02:38 +0800
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-This series updates Deepcomputing FML13V05 Device Tree: Add P1 PMIC regulator
-tree, add USB controller and USB phy, Enable SD card.
+Andrew, please don't spend time on v9. A v10 follows with one code
+change.
 
-This series is based on next-20260918.
+The store in phy_detach() moves inside the generic-driver branch. As
+posted it runs on every detach, so it also takes the value from the
+drivers you listed that set PHY_MAC_INTERRUPT in phydev->irq alone,
+which is what you said genphy should not touch.
 
-Sandie Cao (3):
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator
-    tree
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller
-    and USB phy support
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card
-    support
+There is a second case for the same fix. After a failed request
+phy_request_interrupt() leaves PHY_POLL in phydev->irq while the bus
+table still holds the number that failed, so an unconditional restore
+hands that number back on the next cycle.
 
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 218 ++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi          |  66 ++++++
- 2 files changed, 284 insertions(+)
-
-
-base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
--- 
-2.43.0
+pw-bot: cr
