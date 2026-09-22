@@ -1,137 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629B451AFC6;
-	Tue, 22 Sep 2026 10:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B12368957;
+	Tue, 22 Sep 2026 10:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074035; cv=none; b=VGmKgpcg82n/pNKssPd1PoUWRXPAfXlB0z0OWTiXU91dnTHA8vkczjQboTmznT/XXsRR3pYWWkCvxl2mz1L3iupy62KibzhhlPoJ1kn6FH7geeoJrKJonmY2RFzcOyoXTOJ/Umcktz0nuAwG1+vPcE+jzQVmAuVR0XkgJfHdhBI=
+	t=1790074036; cv=none; b=vCOpZRfJzGhQV3SpzoDt4D9SYGdzNxbucPBPz4HvcwcQ+B3vTH2Dt2IDQfRyGpe78WQxvzA2zZDt38qrup1pjaDcOJ87cm5Uj4BnQW70wrgjt4+NK6nr+xHzakVAhFCr6jxZByQPrKMJEy/OWaEqtfexQKnZNMSDkpolBw+t8hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074035; c=relaxed/simple;
-	bh=IawLj7aqwzQGc78V1Oo5gGQ67uJJH0blchz2xUDXHGc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CtMKbpeXwRf9l/d5Krx6Jzky5LBO2Y/kePkioT9shq5RCCA/a5S1+CKH3E8TLhtG9Q9bXZMrDi73d4lAWyZ32LiQKEHB9HWiansSDmFdm6ck9NGUKh8c5UxCpmuHr2N1v+Vn/F6rwxBIFcRCZBpkANwI/xp2tN2PitwjOQlJ2SQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vs/PHQPu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790074036; c=relaxed/simple;
+	bh=N6a/rQh49QdPXeYV7dNM1/2pkcYBKmdmRlFzKVH049o=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=jRmLGapH7kp8QakAE/FY2ilHvNd/pey1+7D4kWqtdMEOOni0J+IjFYBcFT0Pg+F+bXzEAdjCIEeUOjWse3viewFeeac1/C6r3VOu8ETjtL3adeyXlyAP9Ol1vAgOpU7Hb7bY4Jm8ehiWDlptzqeH1orV87ZwJJLSVM/lxBo5Z24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=zdXL1eBK; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vs/PHQPu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96E61F000FF;
-	Tue, 22 Sep 2026 10:47:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074034;
-	bh=IawLj7aqwzQGc78V1Oo5gGQ67uJJH0blchz2xUDXHGc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vs/PHQPuN9SJlA/5opT2vG+BItdARiKWnhmDyAZoecXIcm5CJua1eS0xuvsUwHFTF
-	 x9hHYldMcpXJ0QSU0Me0VRQqkyXjGEqqxU63D5/kKy7Jacd+mRaJRY3paMOxc/3Vi9
-	 HVl4mpfFzOAAjaQX8sbjC6mkRBWIm/b1X2iSPNbNLhVNQ2E8VPAE8Dq4Hz4zXE2VXI
-	 buRSl9jM0z39Rle0zZ0v771qFBajKvVuD/6ROjIhu+seL6iGJLoEjWO+ULiB3+K7xL
-	 rACxLPzvK7iKVoGxfFS2KiZXzupDNAOJaVnuJ9mmNkryS+tPzh9DWcnO0gTGRHDsl1
-	 p4+8QZt+EZYdg==
-Date: Tue, 22 Sep 2026 11:47:03 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Barry Song <baohua@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
-	liam@infradead.org, vbabka@kernel.org, jannh@google.com, chrisl@kernel.org, 
-	kasong@tencent.com, shikemeng@huaweicloud.com, nphamcs@gmail.com, 
-	baoquan.he@linux.dev, youngjun.park@lge.com, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org, chengming.zhou@linux.dev, 
-	kunwu.chan@gmail.com, tz2294@columbia.edu, hch@lst.de, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback
- completion
-Message-ID: <arJcPIaqJOzLpkel@gremlin>
-References: <20260921152449.629486-1-alex@ghiti.fr>
- <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
- <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
- <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org>
- <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="zdXL1eBK"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 46511A3808;
+	Tue, 22 Sep 2026 12:47:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790074030; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=cS0IwhYjB6pNlVNQO32h2kqy3Eo5NytkBTi9r+07Xn4=;
+	b=zdXL1eBKFqxEnrw7+G8svuA7bJ+pgK8l48KQ7IFDfoWeWWidar2pxBSCj7YrzyAknI96aq
+	zlPXIlsXE+dqtz18dSFHqLgvIck242+OQmt7WDEqFS9A4XwC/YnySoCcjjhdEMAzA4S8Sj
+	hBdRGtnCd64MWWgYNy7mqn4nnaWqlpUrv8nxiDOUlYgUgoV9FHkhOhkKi46jEZ2SlG2MId
+	DH3NBC5YaToQSWhY1Zo8cUQ+n8Bj7aUdQHzfvLsHkVYW0JV2AY78IFshanFY4TxpA5NSas
+	tyr5R2N+f1+0mv0AloPX0lBQxgCCsQlnmZkdj0kV9W8ICPPc01WfLVHrEmMDWA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
+Date: Tue, 22 Sep 2026 12:47:03 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: 5mghybrid@khu.ac.kr
+Cc: netdev@vger.kernel.org, =?UTF-8?Q?Th=C3=A9o_Lebrun?=
+ <theo.lebrun@bootlin.com>, Rafal Ozieblo <rafalo@cadence.com>, Conor Dooley
+ <conor.dooley@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Richard Cochran
+ <richardcochran@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/4] net: macb: Preserve timestamp settings on
+ rejected requests
+In-Reply-To: <20260922-codex-macb-hwtstamp-submit-v1-1-9d1abaa53296@khu.ac.kr>
+References: <20260922-codex-macb-hwtstamp-submit-v1-0-9d1abaa53296@khu.ac.kr>
+ <20260922-codex-macb-hwtstamp-submit-v1-1-9d1abaa53296@khu.ac.kr>
+Message-ID: <700e15209a1266f1ba3ab32f2d6e0e75@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 22, 2026 at 06:37:38PM +0800, Barry Song wrote:
-> On Tue, Sep 22, 2026 at 6:20 PM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
-> >
-> > On 9/21/26 23:56, Barry Song wrote:
-> > > On Mon, Sep 21, 2026 at 11:37 PM David Hildenbrand (Arm)
-> > > <david@kernel.org> wrote:
-> > >>
-> > >> On 9/21/26 17:24, Alexandre Ghiti wrote:
-> > >>> On an asynchronous swap device MADV_PAGEOUT only marks the folio
-> > >>> PG_reclaim and rotates it to the tail of the inactive list once its
-> > >>> writeback completes, so the memory is not actually freed until a later
-> > >>> reclaim scan removes the by then clean swap cache folio.
-> > >> But we have the same behavior when just reclaiming memory ordinarily? It's added
-> > >> to the swapcache and only the next scan actually frees up the memory.
-> > >>
-> > >> Wouldn't we memory we reclaim ... just gone, like in the sync case?
-> > >
-> > > For synchronous I/O, such as zswap and zram, the memory is released
-> > > immediately after sync I/O is done.
-> > >
-> > > For asynchronous I/O, such as NVMe, the swapcache is currently
-> > > expected to be rotated back to the tail of the LRU and wait for
-> > > another scan. Alexandre once mentioned that when he tried handling
-> > > async I/O the same way as sync I/O—releasing the memory once the I/O
-> > > completed—he saw some regression. So, delaying the release until a
-> > > later scan may allow swapcache hits before the folios are eventually
-> > > reclaimed.
-> >
-> > "may", do we have any evidence that this actually is relevant in practice?
-> >
-> > We asked to reclaim memory. We wrote the memory out to disk. We unmapped it from
-> > the page tables. We made the workload the could, access the page immediately
-> > again suffer already.
-> >
-> > We should just evict them as soon as possible to free up memory.
->
-> I suggested this to Alexandre, and he found that it could regress some
-> workloads [1]. That is why Alexandre is only making the folios
-> immediately reclaimable for `MADV_PAGEOUT`.
->
-> See Alexandre's description:
->
-> "Future work
-> -----------
-> Barry suggested extending this to MADV_PAGEOUT and general reclaim. I
-> prototyped dropbehind for all reclaimed swap folios and it regressed
-> sysbench OLTP throughput by ~15% on NVMe swap: dropping the swap cache
-> immediately turns cheap in-cache refaults into disk reads and collapses
-> swap readahead clustering. Neither blk-wbt, mq-deadline nor a PG_workingset
-> gate recovered it. MADV_PAGEOUT alone may still be worth it, since there
-> userspace has explicitly declared the range cold, but I have not measured
-> that case in isolation yet."
->
-> [1] https://lore.kernel.org/linux-mm/20260921151306.625134-1-alex@ghiti.fr/
->
-> Best Regards
-> Barry
+On 22.9.2026 11:10, Kim Wooseok via B4 Relay wrote:
+> From: Kim Wooseok <5mghybrid@khu.ac.kr>
+> 
+> gem_set_hwtst() can reject a request after changing the TX one-step
+> setting, because it programs the TX mode before checking the RX
+> filter. The call returns -ERANGE, but the hardware may no longer match
+> the cached configuration.
+> 
+> Validate both settings first and keep the adjusted RX filter local
+> until validation succeeds. Then apply the register settings and update
+> the configuration. A rejected request now leaves the hardware, the
+> caller's settings and the cached configuration unchanged.
+> 
+> Protect the NCR read-modify-write with bp->lock, keeping the descriptor
+> writes and cache update in the same section. With the register writes
+> now in the setter, remove gem_ptp_set_one_step_sync() and
+> gem_ptp_set_ts_mode().
+> 
+> Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
+> Assisted-by: GPT-6 Astra
+> Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+> ---
+>  drivers/net/ethernet/cadence/macb_ptp.c | 61 
+> ++++++++++++++-------------------
+>  1 file changed, 25 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c 
+> b/drivers/net/ethernet/cadence/macb_ptp.c
+> index 14ae57fa0..4dbb6daa6 100644
+> --- a/drivers/net/ethernet/cadence/macb_ptp.c
+> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
 
-This patch as-is is just way way way WAY too complicated and fragile IMO.
+> [...]
 
-Whatever cases you have found, they need to be fixed somewhere
-fundamental. All of this feels like a hack.
+>  int gem_set_hwtst(struct net_device *netdev,
+>  		  struct kernel_hwtstamp_config *tstamp_config,
+>  		  struct netlink_ext_ack *extack)
+>  {
+> +	u32 ncr_mask = 0;
+>  	enum macb_bd_control tx_bd_control = TSTAMP_DISABLED;
+>  	enum macb_bd_control rx_bd_control = TSTAMP_DISABLED;
+> +	int rx_filter = tstamp_config->rx_filter;
+>  	struct macb *bp = netdev_priv(netdev);
+> +	unsigned long flags;
+> +	u32 ncr_bits = 0;
+>  	u32 regval;
 
-If you're having to write a comment like:
+Please re-order to keep RCS [1]
 
-/*
- * If X is Y, but not if B, and if Z is J but not if the moon's bright at
- * night, then maybe we will foo the bar, but only if the baz is blarghed,
- * ...
- */
+> [...]
 
-That usually means you're doing something horribly wrong.
+[1] 
+https://www.kernel.org/doc/html/v6.2/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
 
-And this patch has multiple comments like that.
+With the above fixed:
 
---
-Cheers, Lorenzo
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+
+Thanks,
+Nicolai
