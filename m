@@ -1,106 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0478853ED0A;
-	Tue, 22 Sep 2026 12:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A562541464
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079436; cv=none; b=kI5SFqS93BPSXQ2K7fj0ak0LTDoNNMzMGYm49y8drXxcK4B9GTJdLbYhjib1QY/anE2Xdnkct+W8MoWV61Z1Ay2VQf91mkXD9hRaaxcaBj9UaaSX0Zczc8e+LSGjUTkdBvel+/MBshf+X9K98gAG2GKCrGY1ynexIJYZS7nNj6o=
+	t=1790079462; cv=none; b=Dm/wE47DpDFrB626zh/t9PyaSsIeJedVdT21ENnRmNnumcpo66YU1i+haX6nAVQ3nADBEfL9OHJxIxU9Xdhkr0lIiBPPmsEAOOOSLP96cQ2evi5txXOlpzCCAt01Kz9b2xiMDslGD0kNQGADGPSyD4F0Mm5Ovkg/G+RZysqv+0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079436; c=relaxed/simple;
-	bh=rMI6B+D6SZSLJn+SA1zuRmeZYw8aPU/OrVYykgg7/bA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ur6Xesrp2yjZ7dBC0BNHnn03Vo+A9L7Ojlqqc8KEwx55CKXoOXu5EFF/v5MWBe173QGY1+tYcdLXhhuYnULsqQtIyov2yMuB3YIqNUdkllcP+34OEHgz59WQnP/l56qj9sKRcmkLnuDPKatDcBKlQ9aX2FbxpVsKAhWPo4k2cjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IZ/dkR1D; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790079462; c=relaxed/simple;
+	bh=Jwu8MyzOC2LLhO+SlqloCZGM/Bml9CbxrRt/Few6LS8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HPyOf7NYdheeT/W/Iuy/lGw7aVjm3E+Y0MfAbWvkr4ySh3AyKpFcgyFLHyd97I4yq/Dtd2EiDC9wGc0t3VATX8BUu19Q5oBr+voLPcMNfHn/N16GhjtCwi9NMkF8lWf/6jjdd3ydfGmUmM4fYRcBM6RyR4Z8QADml6luc3TCqE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YLsBVL20; arc=none smtp.client-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IZ/dkR1D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790079434; x=1821615434;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rMI6B+D6SZSLJn+SA1zuRmeZYw8aPU/OrVYykgg7/bA=;
-  b=IZ/dkR1DbZraV/xCbOwneOwjRvd4FshaKT1Z34xVT0iyEgm6qyCCRE1+
-   jHqqYisuTxHqCwr3PmqDSMWXSjtdq21Gkw/lbkdvt3cXu7sghAy85qdzB
-   NPs7ZnYCgDFXre1aOJ/NjVt0wLMSkW+NT3aQ+JO99I9uw/ndCBkt+HQwX
-   0T3UgibrwVBy5sxvksZFchbzyxIg5U+7Hb2eUYfFyjynif5R3BGCbLByb
-   CMNPcPvSYIfKEMSa8+2df4KMDq7EnniaoktJkr+K2Izxmcag1mL9fctHX
-   gJkx8Par9bSuM62B6V+Hh6Y1JWzrRZynA/VYbVy+HN7JoND44XiPyfPg4
-   w==;
-X-CSE-ConnectionGUID: dhZDtFPSSsKeIUX5r8xdeg==
-X-CSE-MsgGUID: /uNBnPYdQgOI/xQPgLjSLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90697888"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="90697888"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:17:13 -0700
-X-CSE-ConnectionGUID: 3d26ICrWTM6w/w3d6setew==
-X-CSE-MsgGUID: cuipcsZ0SGim99igoxD8pw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="272603919"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa007.fm.intel.com with ESMTP; 22 Sep 2026 05:17:12 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 63BFD99; Tue, 22 Sep 2026 14:17:07 +0200 (CEST)
-Date: Tue, 22 Sep 2026 14:17:07 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Prashanth K <prashanth.k@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: Get the connector fwnode based on reg
- value
-Message-ID: <arJxwyOeMuSUc4HV@black.igk.intel.com>
-References: <20260916042808.2879079-1-prashanth.k@oss.qualcomm.com>
- <aq0B1fbrqk5_ppsv@black.igk.intel.com>
- <81666138-d6b4-460d-90fa-3b372e9da99c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YLsBVL20"
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-39e37c430bbso1915716a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:17:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790079461; x=1790684261; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e05fSioi2aryDDHJ7lqPTQ6ph0EZpuAJ3Kl8RbYZsrw=;
+        b=YLsBVL20HBq1ziEnnDx5jxBZSoH+eRapyznoHKXU4clGjLPGMPk+EoxZ/US63K2+Aa
+         3gUlyTb1dQwGcYH8KqSdhb8bowPR9JxOUaDfHAv+0CVhAzUnQAf3sphInUKC6hUeWgLP
+         Zzrtlo5Zin48JK8QzPuF0YZSIYer6qwf5hwEzSnW/BySAftaiWTsUicVdBJiGu9HlTPb
+         BU9XKw465PYzQbisqpQcDDHMzGUTEVRnHSrkgWOakO2xzDUSjaxstbTeftp3o4WRPtlk
+         h2VacJY/D2Mftu9xC86kSSDQpJEhbJexX6VSw1itX8uWxzr2+sc8Z72TMC49TpRIoCgK
+         pbTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790079461; x=1790684261;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e05fSioi2aryDDHJ7lqPTQ6ph0EZpuAJ3Kl8RbYZsrw=;
+        b=Daos14XFi9/IHepp4lpqt+QwbjkUMn/AIjsrCZ/tD5xTllnLRv3fWkBKFZ6tHcgGAR
+         K2Oc9l9WOhPPgCPL3KZBrsyRGOa/SmFBYDT4bo2dUci2aDlxMbP/KxDCirvSgrYWS6Ot
+         J5riPmG6BrLtq47iw5P3YrqlFHG2E9jYtBSmIrnqGI9aS4w3FKDvBXxt3YmNC9Ptl4Jr
+         DCJzYDv5Td49zLNcqJKm6tIO6PE06PFveGaC25n3X9NF/k91EJSJQ3hnI6hqecVFAqJK
+         ngWFlcVJisRF5LBSNWSUa9WNx/iRUvB1fjfq3Af5xkw1q/hWS2LJ4TlyKslKLnP7Vsma
+         FAdg==
+X-Forwarded-Encrypted: i=1; AKwUvByMkKL9KKTH/WQqeETF49E4tPTWsCeljkTaqxZa4SWSAkzqy8Fauko73xyZCWQOr9kJFnR6bL82smmdB5k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMDTMRiIzXiIs0NrbU0lsHft7gx5H5AOnvvywSVvSLy1XE9H1q
+	9DFphyG/zZAa+i1TQpHz7NdmhttvH6oJa9svPWSID47GiLgiDz+kLcOt
+X-Gm-Gg: AYBFou3xIYHVVhmhOAoUi70iBPZnMoNIteMCqRfKZcM+ilhSgQUEArFLMAEJ/e38Nj+
+	hoxCNBvJ/I4GVmRgLTH4GKIz1tLamlpiwHKG/YUyz9ZtItFD8Fc+zPOuUddlMo0EiZY+MaKpDm2
+	N61Q6njpkEcFvyB2TH5JXlunoALiu7LPcHNCwy28RBB/cgJZU9TgB75OsYzZqpV2Zcx7dn4v5VI
+	86ozOsAHsm/1NbroJC4UXfsHzDY3MAl2su6D6E5j+oIEbe9DWBDP6hUndhYs9hJ/FS67oJU/Evk
+	mrVbACAjYZr10hRiewW+VNtZVXAU/bjJzdyTgl4mXagLWOZ5vdIEoBAMYZLa0GEBzBZbN1DoeOB
+	8JnhWcAcWDVt4Aj50gz64kVMZJnOUwzlnP3MIK7pU7LGZUt+/7rZfxGJkBJtFmCNxS81YTGVkPm
+	wo42d5j05JqBy8nWZKlmN3qOZ6GF6tkr133fv0XGoNO3EZpIyMiG89Mz3ID0O79Ogr7URrjIie4
+	XE1ObNfVW1MkvkLrtOMlowdMGqiHB0urNkrcKPAPGmfxjrZmsmcbx1C
+X-Received: by 2002:a17:90a:e7cc:b0:3a0:2900:f57e with SMTP id 98e67ed59e1d1-3a07320034amr1105288a91.40.1790079460421;
+        Tue, 22 Sep 2026 05:17:40 -0700 (PDT)
+Received: from Raccoon ([2409:408d:3188:aa03:3bb2:acc7:b581:620])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f2a44cc8sm4892510c88.13.2026.09.22.05.17.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:17:39 -0700 (PDT)
+From: Rohinthan <rokinthanp03@gmail.com>
+To: Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rohinthan <rokinthanp03@gmail.com>,
+	syzbot+fb23651a7efbea8868ed@syzkaller.appspotmail.com
+Subject: [PATCH] zram: reject zero or overflowed disksize in disksize_store
+Date: Tue, 22 Sep 2026 17:47:20 +0530
+Message-ID: <20260922121720.11241-1-rokinthanp03@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <81666138-d6b4-460d-90fa-3b372e9da99c@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 03:03:55PM +0530, Prashanth K wrote:
-> 
-> 
-> On 9/18/2026 2:48 PM, Heikki Krogerus wrote:
-> > On Wed, Sep 16, 2026 at 09:58:08AM +0530, Prashanth K wrote:
-> >> ucsi_find_fwnode() currently maps UCSI connectors to Device tree
-> >> connector nodes based on the order in which connector child nodes
-> >> are described in DT.
-> >>
-> >> This can fail because the ordering of child nodes isn't guaranteed
-> >> in Device-tree. For example, DTB may contain connector@1 before
-> >> connector@0, causing connector numbers to be associated with the wrong
-> >> fwnode. As a result, role switch and Type-C notifications can be
-> >> delivered to the wrong remote endpoints.
-> >>
-> >> Fix this by using the "reg" property of each connector to match
-> >> its corresponding fwnode. While at it, if the reg property isn't
-> >> present, then fall back to the old method.
-> >>
-> >> Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-> > 
-> > That commit does not yet include any kind of support for DT.
-> > 
-> 
-> I understand DT wasn't added at the point where this commit was
-> authored. But this is the base commit where the bug was introduced,
-> that's why I added it in fixes tag. Do you have any other suggestion ?
-> 
-> The patch simply distinguishes connectors with and without <reg>
-> property and uses different logics, hence it should work for all targets.
+When userspace writes a value close to U64_MAX (such as (u64)-1) to the
+sysfs attribute /sys/block/zram<id>/disksize, disksize_store() parses it
+with memparse() and then calls:
 
-Fair enough.
+    disksize = PAGE_ALIGN(disksize);
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Because adding PAGE_SIZE - 1 to values in the range
+[U64_MAX - PAGE_SIZE + 2, U64_MAX] causes an integer overflow wrapping
+to 0, disksize becomes 0. disksize_store() then passes 0 to
+zram_meta_alloc(), which computes num_pages = 0 and calls vzalloc(0).
 
+In mm/vmalloc.c, __vmalloc_node_range_noprof() checks
+`if (WARN_ON_ONCE(!size))` and triggers a kernel warning:
+
+    WARNING: mm/vmalloc.c:4038 at __vmalloc_node_range_noprof
+    Call trace:
+     __vmalloc_node_range_noprof
+     vzalloc_noprof
+     disksize_store
+     dev_attr_store
+     sysfs_kf_write
+
+Fix this by checking if disksize wrapped to 0 after PAGE_ALIGN(disksize)
+and returning -EINVAL. Also add a defensive check in zram_meta_alloc()
+to return false if disksize is 0, avoiding vzalloc(0) under any
+circumstance.
+
+Fixes: cd67e10ac699 ("zram: promote zram from staging")
+Reported-by: syzbot+fb23651a7efbea8868ed@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fb23651a7efbea8868ed
+Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
+---
+ drivers/block/zram/zram_drv.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 6cb44e2..fdd13df 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -1989,6 +1989,9 @@ static bool zram_meta_alloc(struct zram *zram, u64 disksize)
+ {
+ 	size_t num_pages;
+ 
++	if (!disksize)
++		return false;
++
+ 	num_pages = disksize >> PAGE_SHIFT;
+ 	zram->table = vzalloc(array_size(num_pages, sizeof(*zram->table)));
+ 	if (!zram->table)
+@@ -2878,6 +2881,9 @@ static ssize_t disksize_store(struct device *dev, struct device_attribute *attr,
+ 	}
+ 
+ 	disksize = PAGE_ALIGN(disksize);
++	if (!disksize)
++		return -EINVAL;
++
+ 	if (!zram_meta_alloc(zram, disksize))
+ 		return -ENOMEM;
+ 
 -- 
-heikki
+2.53.0
+
