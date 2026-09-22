@@ -1,178 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A8236EA88;
-	Tue, 22 Sep 2026 01:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78AC361970;
+	Tue, 22 Sep 2026 01:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790040285; cv=none; b=JdggTpeFMQEsmelCcCFddrCa+q5aJnEkVIKTQMM7DBSMo8J/Vwfn36M3UvcC4q8P46LEQiesBwwY87bTV5vNJyw+NiRpzSI3LC7sA+lF4XEGRyX44w0M6J6JkaGn9lvkRVqLuMTX2tU2z/dNJA7K+RETKfX2/tVAguFxUzecFzw=
+	t=1790040326; cv=none; b=QKucKrxumGFA0rUde7bUOdB8XdKHyyNWrMe96uITWD13rzKS7U6DfkKOYfecQgOBDd2U0TK7NoX+fXWDgKXxQ45CpDUkQ7TXuoGlivrqiqpOJSdJtHbsE6SLyaoYu7U2H9WFuJRYYgr9rjJ40nI+/YFZs95DnXESUhEOS+IMQzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790040285; c=relaxed/simple;
-	bh=9zCLaBHANTRL5xorvVG/TxnrCgCcu3PPyV46iQEFDPU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E4unibMlpdsdR77rUEUf9R0B/9+Y6OExQVemh2qVvq/TcnoTH9ks57S21iDvC4cnHgIjgZNw6A0o30ll91AdnMQ57Eedwza03JYIscKVbFYY4SbDOJOlKUrbDULrGthZsCnTH9gwmYI8K0yZvC7/j9NfGo9WsqEXtISUOjAEaJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SE5WO0aR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790040326; c=relaxed/simple;
+	bh=lPAFJBA6CQZVEGhykqv1zy83g0pr6sOeKWxqZ9PtWlE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BVKbuqelpHPeYDcIZjSN+5rGJ3spmtozSASkw2GKCO0scSSlCFmAv6U1targDSauJsVFQL2wrQk6MmjQPubAFd+0HegiChssIS3LSyKg8fta1zU4yT68OWMAAHJQYsLknw66Uhc1WLOBaQYgiVo2qYAlypVsIBmWOMzSPEK0hpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9PdAT14; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SE5WO0aR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4FFBAC2BCF7;
-	Tue, 22 Sep 2026 01:24:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790040285;
-	bh=9zCLaBHANTRL5xorvVG/TxnrCgCcu3PPyV46iQEFDPU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SE5WO0aRgOy3iqpTBe8Hf3Wbk2EA2xnhn16DDeDCfmBl28FNT72u61gBE1i+u/pNh
-	 woUjQgR2IbIUIEjYUjk9LSdQ5ulA+VZWjQzM6sb7ijlSV6zA0WicyjECzz+bTWQyk7
-	 zEkxU0iX+ZJ6Fe5V9om16UqMJBwYwcKgU8GFOkkK+cpyUbYO9dKeowOdu4BksX9Ocm
-	 hFAT2s3AMJ/e4T7odr0VO/QS9ltUKRIw9UYpYH/6QbeLyR4MFmtLXFpUMTXb+GJY2j
-	 xnpPLbHoTUbiWKgP9Ttr7ovru7lchH4qc262YNIzEpMabyu2UI982c6vFH3Z2kWtHC
-	 BRhA7iGGrLcIA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 271C8C982FC;
-	Tue, 22 Sep 2026 01:24:45 +0000 (UTC)
-From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 21:24:42 -0400
-Subject: [PATCH 1/2] PM: sleep: publish pm_transition with release
- semantics
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9PdAT14"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772F41F000FF;
+	Tue, 22 Sep 2026 01:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790040324;
+	bh=U0iRbAKnpxq8JC4/aMZEZXRDS3DY733wFMUpUEjItJI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h9PdAT14tZN0OBK075QEHa4loozSySynmzjt7trkPX9EcEtviczVeC2pyTH/wCqDL
+	 ZWNHUXqmcpz8UhoYu9UMy2qwXlOiOVXTefU3f5wSZHeavqHP7MHQRzO8mDrG4DRgDJ
+	 0ZTK8W/ojO+Za7sqQ9u2zCNTDBY5J0Ye0HY2UR+Zlm57DqWs8y9qUkpWw8da+8fBXg
+	 qW4qpjRS3Smoe1FsaYvp+2ZV7TJ1v/phIcnCocvOf59s0O/vxmQI0GGpc5E2NLczod
+	 wHeL42rM5LsmcdBORJRVcyOoXfUdjXC+2ZMeAcH6ynNjcC6MM6cbsncOfZ2KGOxE78
+	 xXW/ubKXlUVrQ==
+Date: Tue, 22 Sep 2026 02:25:18 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Richard Cheng <icheng@nvidia.com>
+Cc: "Lucero Palau, Alejandro" <alejandro.lucero-palau@amd.com>,
+ dave@stgolabs.net, dave.jiang@intel.com, alison.schofield@intel.com,
+ vishal.l.verma@intel.com, djbw@kernel.org, iweiny@kernel.org,
+ ming.li@zohomail.com, gourry@gourry.net, rrichter@amd.com,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ newtonl@nvidia.com, kristinc@nvidia.com, kaihengf@nvidia.com,
+ kobak@nvidia.com
+Subject: Re: [RFC PATCH 0/3] cxl: Auto-create a region for Type-2 memdev
+ attach
+Message-ID: <20260922022518.1002b083@jic23-hlaptop>
+In-Reply-To: <apU6tyyxSIGvzSs6@MWDK4CY14F>
+References: <20260805074042.30173-1-icheng@nvidia.com>
+	<a3978557-59d5-49bc-bdb3-9ef2dfa025d3@amd.com>
+	<aobIoBYBACGlJ-OD@MWDK4CY14F>
+	<53689d31-3707-4c15-9eb9-eb6c77ab3ca0@amd.com>
+	<apU6tyyxSIGvzSs6@MWDK4CY14F>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-pm-main-v1-1-1d4cbd9d2b2c@vt.edu>
-References: <20260921-mb-pm-main-v1-0-1d4cbd9d2b2c@vt.edu>
-In-Reply-To: <20260921-mb-pm-main-v1-0-1d4cbd9d2b2c@vt.edu>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Danilo Krummrich <dakr@kernel.org>
-Cc: linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Jaidev Shastri <jaidevshastri@vt.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790040284; l=3715;
- i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=azdyUjMWNlvyw0fWXxRiaZkcMY5OCgItug2q1XG165w=;
- b=6VABRbjIMJcJxQBTxhBhk1XqpoAWb0JsYa9rkb5VV9NS+MSMw8qAdiMDgVPVMixaoOUY3aFkj
- sJY7Uv6cz0PBDbNMU9Ze44+p8qhRScze0mGb1kxLuSnpc3nHbSVoX1l
-X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
- pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
-X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
- auth_id=1044
-X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
-Reply-To: jaidevshastri@vt.edu
 
-From: Jaidev Shastri <jaidevshastri@vt.edu>
+On Mon, 31 Aug 2026 16:52:29 +0800
+Richard Cheng <icheng@nvidia.com> wrote:
 
-Each dpm_*() phase function stores the current transition to
-pm_transition with a plain store before it schedules the asynchronous
-device callbacks. dev_pm_skip_resume() and pm_hibernate_is_recovering()
-read pm_transition.event from those callbacks, on other CPUs, with plain
-loads.
+> On Tue, Aug 25, 2026 at 10:50:06AM +0800, Lucero Palau, Alejandro wrote:
+> > Hi Richard,
+> > 
+> > On 20/08/2026 10:41, Richard Cheng wrote:  
+> > > On Wed, Aug 12, 2026 at 10:58:02AM +0800, Alejandro Lucero Palau wrote:  
+> > > > Hi Richard,
+> > > > 
+> > > > 
+> > > > Some comments below.
+> > > > 
+> > > > 
+> > > > Thanks!
+> > > > 
+> > > > 
+> > > > On 8/5/26 08:40, Richard Cheng wrote:  
+> > 
+> > 
+> > <snip>
+> >   
+> > > Hi Alejandro,
+> > > 
+> > > Thanks for the review and explanation. I've read them all.
+> > > 
+> > > I think you are right that this RFC doesn't currently have a production platform
+> > > where the system FW publishes a Type-2 CFMWS but leaves the EP decoder
+> > > uncommitted.
+> > > 
+> > > However, the config appears to be permitted by the CXL model. A CFMWS describes
+> > > a FW-established root HPA window and the restrictions governing its use,
+> > > including Type-2 v.s. Type-3 and volatile v.s. PMEM. The CFMWS def also
+> > > describes OSPM assigning HPA ranges from those windows to discovered CXL.mem
+> > > devices [1].  
+> > 
+> > 
+> > Right. I'm not saying this should not be supported, just pointing out the
+> > use case does not make sense with current BIOS functionality. I think BIOS
+> > will/could support a config option for just leaving a Type2 HDM uncommitted,
+> > but then why the kernel should do the same a default BIOS config would do?
+> >  
+> 
+> Agreed. The kernel shouldn't recreate the config that BIOS would normally provide.
 
-Store the event with smp_store_release() and read it with
-smp_load_acquire().
+I'm a bit lost. Both BIOS doing nothing beyond cfmws as a design decision and
+hotplug (where bios isn't in the loop) require this sort of flow.
 
-Found with MBCheck, a static herd7-based memory consistency checker.
+Sure both might not be what you happen to have today but they are both
+very much real usecases!
 
-Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
----
- drivers/base/power/main.c | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
+Jonathan
 
-diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index e130da428..bf4b4fd1b 100644
---- a/drivers/base/power/main.c
-+++ b/drivers/base/power/main.c
-@@ -78,7 +78,8 @@ static int async_error;
-  */
- bool pm_hibernate_is_recovering(void)
- {
--	return pm_transition.event == PM_EVENT_RECOVER;
-+	/* Pairs with the smp_store_release() in the dpm_*() phase functions. */
-+	return smp_load_acquire(&pm_transition.event) == PM_EVENT_RECOVER;
- }
- EXPORT_SYMBOL_GPL(pm_hibernate_is_recovering);
- 
-@@ -682,10 +683,13 @@ static void dpm_watchdog_clear(struct dpm_watchdog *wd)
-  */
- bool dev_pm_skip_resume(struct device *dev)
- {
--	if (pm_transition.event == PM_EVENT_RESTORE)
-+	/* Pairs with the smp_store_release() in the dpm_*() phase functions. */
-+	int event = smp_load_acquire(&pm_transition.event);
-+
-+	if (event == PM_EVENT_RESTORE)
- 		return false;
- 
--	if (pm_transition.event == PM_EVENT_THAW)
-+	if (event == PM_EVENT_THAW)
- 		return dev_pm_skip_suspend(dev);
- 
- 	return !dev->power.must_resume;
-@@ -902,7 +906,8 @@ static void dpm_noirq_resume_devices(pm_message_t state)
- 	trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, true);
- 
- 	async_error = 0;
--	pm_transition = state;
-+	/* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-+	smp_store_release(&pm_transition.event, state.event);
- 
- 	mutex_lock(&dpm_list_mtx);
- 
-@@ -1052,7 +1057,8 @@ void dpm_resume_early(pm_message_t state)
- 	trace_suspend_resume(TPS("dpm_resume_early"), state.event, true);
- 
- 	async_error = 0;
--	pm_transition = state;
-+	/* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-+	smp_store_release(&pm_transition.event, state.event);
- 
- 	mutex_lock(&dpm_list_mtx);
- 
-@@ -1230,7 +1236,8 @@ void dpm_resume(pm_message_t state)
- 
- 	trace_suspend_resume(TPS("dpm_resume"), state.event, true);
- 
--	pm_transition = state;
-+	/* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-+	smp_store_release(&pm_transition.event, state.event);
- 	async_error = 0;
- 
- 	mutex_lock(&dpm_list_mtx);
-@@ -1595,7 +1602,8 @@ static int dpm_noirq_suspend_devices(pm_message_t state)
- 
- 	trace_suspend_resume(TPS("dpm_suspend_noirq"), state.event, true);
- 
--	pm_transition = state;
-+	/* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-+	smp_store_release(&pm_transition.event, state.event);
- 	async_error = 0;
- 
- 	mutex_lock(&dpm_list_mtx);
-@@ -1798,7 +1806,8 @@ int dpm_suspend_late(pm_message_t state)
- 
- 	trace_suspend_resume(TPS("dpm_suspend_late"), state.event, true);
- 
--	pm_transition = state;
-+	/* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-+	smp_store_release(&pm_transition.event, state.event);
- 	async_error = 0;
- 
- 	wake_up_all_idle_cpus();
-@@ -2091,7 +2100,8 @@ int dpm_suspend(pm_message_t state)
- 	devfreq_suspend();
- 	cpufreq_suspend();
- 
--	pm_transition = state;
-+	/* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
-+	smp_store_release(&pm_transition.event, state.event);
- 	async_error = 0;
- 
- 	mutex_lock(&dpm_list_mtx);
-
--- 
-2.43.0
-
+> And that's why I think we should move region createion out of devm_cxl_probe_mem().
+> That helper should discover and attach to an already committed region.
+> 
+> If FW leaves the decoders unconfigured intentionally , a driver may explicitly request a region
+> and provide the size it needs.
+> 
+> In my mind the new model should be
+> - FW-committed config is only discovered and attached
+> - an uncommitted config remains untouched unless a driver explicitly requests it
+> - CXL core supplieds the allocation, validation, programming, accounting and teardown mechnism
+> - the requesting driver owns the policy and the use of the region
+> 
+> So far I think PMEM reconstruction form label data maybe be a potential use case, though it's not
+> provided in kernel right now, we can work on it in the future, or work on that one first and we'll
+> continue the auto-create region part.
+> 
+> What do you think ?
+> 
+>  
+> >   
+> > > 
+> > > The Linux CXL doc similarly states that only root decoders are required to be
+> > > programmed during probe. Switch and EP decoder may remain available for runtime
+> > > programming when the platform supports it [2].  
+> > 
+> > 
+> > Tangential to this discussion, but I have problems with this assertion. Any
+> > switch or EP HDM programming will need a root port HDM programming as well.
+> > Not sure which root decoders will need to be programmed at boot time: a
+> > CFMWS is "programmed" by the BIOS and root decoders will need to be
+> > programmed as well for any Type2/switch found with an enabled link.
+> > 
+> >   
+> 
+> Here root decoder I mean the logical object created from a CFMWS. I didn't mean switch or EP
+> decoder can be programmed independently.
+> 
+> My point was that FW establishes the CFMWS window, while the platform may leave downstream decoder
+> path for later programming.
+> 
+> > > 
+> > > I raise the RFC intended for the question of how Linux should support that
+> > > architecturally permitted config.
+> > > 
+> > > The cxl_test config added in patch 3/3 constructs this scenario synthetically.
+> > > This demonstrates the proposed kernel behavior, but I agree I don't know
+> > > whether there exists a deployed FW scenario.
+> > > 
+> > > 
+> > > And I agree that devm_cxl_probe_mem() shouldn't silently change from
+> > > "attach to a FW-established region" into "allocate resources and program a new
+> > > region". Those operations should have different semantics and ownership
+> > > expectations.  
+> > 
+> > 
+> > Glad with the consensus :-)
+> > 
+> >   
+> > > 
+> > > I am planning to rebase onto cxl/nexxt and rework the proposal as the following,
+> > > please take a look and see if that matches your imagination or not.
+> > > * Keep devm_cxl_probe_mem() behavior unchanged for FW-committed regions
+> > > * Make region creation an explicit request from the accelerator provider,
+> > >    rather than an automatic fallback during memdev attach
+> > > * Have the provider specify the required size. CXL core shouldn't assume
+> > >    that it maybe consume the entire volatile DPA partition as you mentioned.
+> > > * Separate the reusable region-provisioning mechanism from the initial Type-2
+> > >    policy.
+> > > * The common mechanism should handle HPA/DPA allocation, decoder-path
+> > >    construction, commit , rollback and managed teardown.
+> > > * The initial type-2 caller would constrain that to volatile DEVMEM, IW=1
+> > >    and a provider-requested size.
+> > > 
+> > > Oh and I'll replace "x1" with "IW=1" and explain the initial decoder,
+> > > root-selection and granularity restriction more clearly.
+> > > 
+> > > How does that sound to you ?  
+> > 
+> > 
+> > It sounds perfect!
+> > 
+> > 
+> > FWIW, you likely saw Gregory's comment (discord) on this work requiring the
+> > support for PMEM or at least the awareness PMEM support will need to use
+> > same interface. His opinion and mine came from Dan's vision on this, and
+> > your work will be the base for such PMEM support. I do not have an impending
+> > reason for working on this PMEM support, but I am really interested in how
+> > Type3 PMEMs can leverage CXL.mem for improving storage needs, and currently
+> > reading/thinking about all this ...
+> > 
+> > 
+> > Thanks!
+> >   
+> 
+> Hmmm for this part I have no idea for now, I'll study more and discuss with you guys.
+> 
+> Best regards,
+> Richard Cheng.
+> 
+> >   
+> > > [1]: https://computeexpresslink.org/wp-content/uploads/2024/02/CEDT_ECN_1.0A_Eval.pdf
+> > > [2]: https://docs.kernel.org/driver-api/cxl/linux/cxl-driver.html#runtime-programming
+> > > 
+> > > Best regards,
+> > > Richard Cheng.  
+> > > > > Testing result is in the following.
+> > > > > - Built clean with clang/LLVM on arm64
+> > > > > - cxl_test, type2_test=1. accel0 takes the unchanged attach path. accel1
+> > > > >     drives auto_create -> a committed 512 MB RAM region. The test asserts
+> > > > >     the 512 MB HPA range. committed state and 256 byte granularity confirmed
+> > > > >     via sysfs.
+> > > > > - Unbind tears the region down with no orphaned decoder, rebind re-creates
+> > > > >     a fresh committed region.
+> > > > > - Mock test only. Real accelerators whose FW commits a decoder take the
+> > > > >     attach path, and vfio-cxl binds only FW-committed devices, so auto-create
+> > > > >     has no real-HW caller yet.
+> > > > > 
+> > > > > Best regards,
+> > > > > Richard Cheng.
+> > > > > 
+> > > > > Richard Cheng (3):
+> > > > >     cxl/region: Reset software-created regions on memdev detach
+> > > > >     cxl/region: Auto-create a region for memdev attach
+> > > > >     cxl/test: Exercise Type-2 automatic region creation
+> > > > > 
+> > > > >    drivers/cxl/core/region.c      | 422 +++++++++++++++++++++++++++++----
+> > > > >    tools/testing/cxl/test/accel.c |   7 +
+> > > > >    tools/testing/cxl/test/cxl.c   |  61 ++++-
+> > > > >    3 files changed, 439 insertions(+), 51 deletions(-)
+> > > > > 
+> > > > > 
+> > > > > base-commit: 1c6b4ceafc3b994871c29340e0c1ddb0af5800e7  
 
