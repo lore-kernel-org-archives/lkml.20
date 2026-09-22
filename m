@@ -1,182 +1,115 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f11.google.com (mail-pz2-f11.google.com [74.125.228.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EE13F5BF5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109862; cv=pass; b=ogN9vE92ZbvHb65YdvtalWMMpXMMy33vmRKccB2QGh5U1+jLo3g4wEWsXw34qrdJp8uy+zHm8kHKCXjKjXLLXgqYlSjVvOlr4hmhloznZPxIN4kuavCjk1HSPCNCfbgYP8hdYlW2AZqm6VHuaS81DHLzH7ciLvWHPIGuLijh0Zo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109862; c=relaxed/simple;
-	bh=P+lcMuK5hQh5O0IlQrlqy9m+daoCKm3PxvImyC7y6p0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fjIDzhL6OpPL2DA9v7fkuZ8fct2NRqJOaKI4FjS6orRIgqhL7piDoTD3TIqhmC4ypdpAsjUvEeid9E80UWVst5B0XsWPHnoji578B0D/v16lNwdu2IgpCZfZwd5n6QMqQlrwg8fTG5SyRN5ZAlhHQasFei+7WjLpUXsTRplZSR8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kN3AtHDp; arc=pass smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EBE51AFFB
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:43:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109861; cv=none; b=l1XmvzKUHodaKZeKkG4laYTZcUqvotbSgK2vOfxoJlcLkf0g/4Ax2ziM7O6IFj+uKXJTsOeDWpaJHoQ1v8vfcKGGXIxO4Sg6FRe1h8PAn0dTb8nP5AbI2FAYyhyzyqRk56YVAJheERAV7Nz2mXzyRi4/5FeRW2mqbPKGS1YMtcc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109861; c=relaxed/simple;
+	bh=CvPWprNtj2/h7qYd3ZKQiVW+cdulTxr3CaN7at07Ro4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qydcf8T5HOsZyK4+b3TPA/yqBpM0o6QFsBasJ/dIsKoRVpWct8yXp2b3kc5YJhhfaD36zlWNMlRQN9JuolUEXiZGN67LLq1feIF/34+76k635W4JXAtbMX9S485ohPSIHkm52jUjE4OZ0DNSLDJBSM2ZEpZlj9M3gtjAjpJ/82I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bAANVfL+; arc=none smtp.client-ip=74.125.228.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kN3AtHDp"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso214562a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:44:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790109842; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DepT/NvsdO3EA51xDDujI6A1djAQ5P8g+GKCvuGBvtpQ/Q24WbtBXNZpuOECEtOR6n
-         MFVfQmbpc4YV8dNaXUYANUWXj+hw14cQ4zU0LtK4gZM/KPcI4IJ6Kd8tZQBfG6XBF9+/
-         T/2z2zm/qCT/zxCXpzF0yefHLsf9Z3JqnXxsTd7sm4Rh1gcOHBEooBjBXbSCU8sLqT57
-         fSB5jmWIX+Ogax4a4+o8TyuukIfS/WWopu4dv0otMSJRkjCpY+ojTJzJ4hsWkP2qzMQE
-         b1v0dVs4fC1uD3ccyxADDj429hbwHTGgiWniVLdb8m2AdNRWnFHo9KMVFLQOp+jVhE3i
-         h7aQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9uOUnWBMatAL9szZ+HFkI4Lili+9ziWjf14eBlgXmc4=;
-        fh=B1YOEW38UAa+VZY0uD6kT2jPbt91+6BxUfPWfioNEMY=;
-        b=IaFmoq4dKzBYSYTPNTvASb1E58KGPeKEmOijANgv957fQ1mSPUsy4TRZ1XlNUS5UCG
-         yC6AY86JyOlAgltpSRaxBgQHE4i6UYzIS4jCt+37bobBKdA0j4lZnJEpaYwLFfqgyiYg
-         d0vw+QeuELwhL8q+hl+bPkkCURzEmDx8zJVxdIS2LpSRzcaTk7H2sjUpWp5/yTBl2mX5
-         CT5LJCjuJPLKZsr4e71ReUn4bCLN+ZzB7951uYVSlPbohTKWVCQ1rGLHPyJYhPXbUI0J
-         oTE1JtWr59h2ncm5JtT4mCJ+VCtQNg4m+mEHUmvArRgv3eDeKluEp6z+TTUD1krQRKWI
-         YXaw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bAANVfL+"
+Received: by mail-pz2-f11.google.com with SMTP id 41be03b00d2f7-cc1c2963c92so109111a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:43:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790109842; x=1790714642; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9uOUnWBMatAL9szZ+HFkI4Lili+9ziWjf14eBlgXmc4=;
-        b=kN3AtHDpVGwD+cwN/jEw0l059yxgDsYK/hwZ+xBcqWCvp/+PVZH8oiBYiOH9R+Xiwm
-         shE9VjxZEllX95TKkzPfgAtVsJBVqe7g3antDH+WhsalUsopqvTIgrmPo9AUKi2SucYn
-         6N2sHsFmhe290cp9GtygvUG9DOuBrqFgQhA5sP7g2edfEq3Rdj1BVm6Wgs96JRev4T69
-         Sygz6yfy3MEAfBVxoXEyg/q9UQJoA9xuBnjY9qash4Hqznh6YpPTlYT9BTM0OHSVK9g3
-         6T0nWp9czZq35/P26b0M2egkhf+RYRKxXOZLqWxvU9NXhnZplRaoEryIMmuFugH6laF0
-         1UeQ==
+        d=gmail.com; s=20251104; t=1790109830; x=1790714630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gMpSTn93NNFEOpIjn813NWg6HwKgpaeEXImngFElSS8=;
+        b=bAANVfL+RXtqnSbOnA2QMuo0fAQDAC98/9wUjefyttPpqXsPVWmh7OjlESXRXHbokY
+         I8yfmpKqZnzJV7PssTgmWGNkG9LLhYXhfR+eFoGwG62IzdfM0sagVP+Hj39tHQNL1BFQ
+         rkG2Eg+cyKQzwzJQQ9HMvdsO5fIV5sDRxz81j8irJgAhwx4fA5QNAfhm2gziWf/MjZlP
+         Cz3YNLcFYRjRxKnH2B+Op6WWqZEwpl+6NUD0D5EGd+Mr1VZffwMnYIdSV98APmPoXhyN
+         6s4erbfPcI8H4O8/pK4Bcweb6bM9Wf8RJUVQUa1gdi09otXZaH+GwP2UjXNWgd6JDEoA
+         2yCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790109842; x=1790714642;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9uOUnWBMatAL9szZ+HFkI4Lili+9ziWjf14eBlgXmc4=;
-        b=nIWKTqARvNIZnoukvoNL5vGaMSAM7rbmFxjXM7jlvuiTQlbJ05gPHixPm067DB623R
-         vKGW9/cM8f0zbPzuRzUc2YveDcWtW6Xncz+lYxARpm80CrO2N1rXvDl7qSE5piVmvMyv
-         EMOy4Ez2GpofXXsJfr0o5teuSCwlg0PCbTGqjDlIIHO1gWUP77l522uUtap79rEyaW7F
-         h5/TZFYRWpkIfUUCUFvOQWLScSbpoVHDAzsXFmPw+MOSz8kIhRmw3A5bpHbxsD6GkIHb
-         2JANqE0iOiWSTs6vydkxuW4UXRXtKwfUn3GAFYJGc7wT8vA5S1YaNQgBEDNKLqdP09fS
-         5PeA==
-X-Forwarded-Encrypted: i=1; AKwUvByup8aqsb5eMKcg+yk60ZG06FX0eHCruD4Xm3uNzpdWRANCCSZQEyAWq6numXcdt9H85rPC9To/L8RJ1ag=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA7FNpxQJ2WkWq11yKrwwALgcwzFaogWpp4UqSXHaPFCx5dZLq
-	2p69G7K9SoWREyk6YPwnY7w0kf4XNdR58npgkymN6oUe5RJ9w92SUFZQMpkEyyumBCW/smGydr5
-	BhCdnmZs+S70G+fIYz4v/4Db3T123I/0=
-X-Gm-Gg: AYBFou0IMYfQJlWJIXGZBWxm2hTh9RKZs+NwvfmvunqBhjqSKvQgi/NVvvLZ6o36AU8
-	CRkgbHaoBrk97vzH6xkvAmw7+dBj0m9YvLZPx/Fa3dp0/Hs6iUYLR/wtti+BTDAfGEtdzKraALd
-	eaV8CfuMffP19FqH3L8aTvff4Ep93DEJgYij0HY9exmWzPXPkoVT4FOeApW1THjP0zhqAVVZlnc
-	dNTl9U8UOxhDUbTz1TMtAB3MUTR/OmTgoi1klGAUNNWAPLad11sVlEgcSNAanDaowcdd5awjRT0
-	XIrf3xq7Xj3Wui4u+pvDIXHP459jFc81Rh2UOYLQ7r/JlOUwSaptHPlYbSR49LrPhQH6gyAYUZU
-	/0slM/ljPDMpLKbRbrUxNspT2SN/T1G8QlDCGS3ZuteJfHUz+1pn4DEBQbpCyg5yA
-X-Received: by 2002:a05:6a20:7293:b0:3dd:85aa:4527 with SMTP id
- adf61e73a8af0-3ddf82adf58mr565061637.34.1790109842514; Tue, 22 Sep 2026
- 13:44:02 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790109830; x=1790714630;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gMpSTn93NNFEOpIjn813NWg6HwKgpaeEXImngFElSS8=;
+        b=ySMXrIlSa/ruu+Z1sjqSM+5SGn8R+TUqparJrBPTYc4zZ+o7H3okjfd9UjMCvoM7o8
+         SQAHcMvQ9mqbAHaxfIAtpyfQgAYLI6U5XUEPOGpV8L7tYALZxr+NrbnKFTrs+YcDaweU
+         Du6KUhnzoAbDLQtxC6rTLBVepl2l4CDP7QndHe50ljLRwAU8E98crrrWSPJkM5+dR1SS
+         dAJ2UiTZN7e0D/PwfhZcNREWDmDNYyapaxVZtx/oTfb6ydpfR/gxuJkUcTOM4HZkv0sN
+         9MYPuioQZ7wkklXICpScx33KaSmfRTS0MrFNRKidFPsesJKdq9vimtLuuwrHh9nlwTOu
+         4cgg==
+X-Forwarded-Encrypted: i=1; AKwUvBzGQuOP7vP0qjFus8qX1JAcwlJKu+EgFTniv22EdsQ19UVTXNIHYPEmjiwm1LtqgQ9pN487Z1Tc7klE2lw=@vger.kernel.org
+X-Gm-Message-State: AFuF++njMi5sS9deEoTjNCHR+PMwskEvnldPow3IVU0eITT+zMaD4Vpg
+	Y3jGlvW25W3p8RHAC6pfVih88G7urp1qjRtm+fO9FrrrdVYOZy7qSpLr
+X-Gm-Gg: AYBFou17ola7ovcowKZH2vl09m9gVfi7PE2AAWPc9Xw67tDnB2pI3DkJgiXPXSOVvIq
+	L3J4NWQoGE/2vSo0eKQkkuX1MEmy1cX5mqnSxDwL6ipFA/ebt9PCLPIcboJDcP3nBfKxSsVpnXW
+	Sn5OxtF+wQkjA0E721c/0fQXv7o9PwAvQKG+2Lb1jVl2um98o2lkBb50LKyHA6c1N8ToBbs3a79
+	fkBzJrTn2R9ZgMkg6YLr2MED1r+3SgsGbpRowJE0Y6nvC4sMczwfZ7JCxrZLbinfCWSfpnAde0p
+	DOOfbcJ5G3tlJkDWP6uCKDxkfupXwRGWQJZiZzf2tFBZsik8BuA8qGPlxXqW70k98gX0SEQ6/WD
+	78vTQtNwDUmba4SF9wKxLS+rCXbGpPUHGeEKqBEGaIjGinLsmeFZu8AfuvrhOhXEA1UgyIWWNla
+	uKL9xfUqAS/QTEmfmGzNxbNo6nyNMTqn+Yr7YMEWFR2kuP8hUIad+/nlLxTQC7Qss=
+X-Received: by 2002:a05:6a00:854:b0:87c:9094:b72f with SMTP id d2e1a72fcca58-87d1a7af70bmr703595b3a.12.1790109829787;
+        Tue, 22 Sep 2026 13:43:49 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:8::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1d4c483asm289145b3a.21.2026.09.22.13.43.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 13:43:49 -0700 (PDT)
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	hawk@kernel.org,
+	ilias.apalodimas@linaro.org,
+	asml.silence@gmail.com,
+	axboe@kernel.dk,
+	sdf@fomichev.me,
+	bobbyeshleman@meta.com,
+	almasrymina@google.com,
+	kaiyuanz@google.com,
+	linux-kernel@vger.kernel.org,
+	io-uring@vger.kernel.org
+Subject: [PATCH net-next 0/3] net: consolidate net_iov freelist and DMA handling
+Date: Tue, 22 Sep 2026 13:43:45 -0700
+Message-ID: <20260922204348.717198-1-sdf@fomichev.me>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921145655.3167436-1-i.maximets@ovn.org> <20260921145655.3167436-7-i.maximets@ovn.org>
-In-Reply-To: <20260921145655.3167436-7-i.maximets@ovn.org>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 22 Sep 2026 16:43:51 -0400
-X-Gm-Features: AcwNN1Wxvg5q08SpmktKVndNHz2CGqilUY2VDTceI09JMLfUxf8v9o9CPku839U
-Message-ID: <CADvbK_es1LF3eAnX2iTfZKeCxWFOt8cux+9F8E9OSN55SQuc-A@mail.gmail.com>
-Subject: Re: [PATCH net 6/6] net/sched: act_ct: fix helper UAF due to
- extensions realloc
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: netdev@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Aaron Conole <aconole@redhat.com>, 
-	Eelco Chaudron <echaudro@redhat.com>, Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, netfilter-devel@vger.kernel.org, 
-	coreteam@netfilter.org, linux-kernel@vger.kernel.org, dev@openvswitch.org, 
-	stable@vger.kernel.org, Axel Mierczuk <axel.mierczuk@1password.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 10:57=E2=80=AFAM Ilya Maximets <i.maximets@ovn.org>=
- wrote:
->
-> While calling the helpers, a raw pointer to the extensions area is
-> wired into expectations list:
->
->   -> nf_ct_helper()
->    -> helper->help()
->     -> nf_ct_expect_related_report()
->      -> nf_ct_expect_insert()
->       -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
->
-> In case the connection is not confirmed yet, more extensions can be
-> added afterwards with *_ext_add() calls reallocating the extension
-> space and leaving the now invalid pointer in the expectations list
-> that is later accessed while removing the expectation.
->
-> Make sure that helpers are called at the end after all the other
-> extensions are already added.
->
-> Note that the helper rejection now leaves the mark and labels set,
-> but that's not different from how the NAT was handled before or how
-> the mark and the labels were handled on confirmation failure.  And
-> there are no atomicity guarantees provided by the API anyway.
->
-> Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
-> Cc: stable@vger.kernel.org
-> Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-> ---
->  net/sched/act_ct.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
->
-> diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-> index f62051ec9d57d..411e3dd92d072 100644
-> --- a/net/sched/act_ct.c
-> +++ b/net/sched/act_ct.c
-> @@ -1102,19 +1102,25 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *=
-skb, const struct tc_action *a,
->                 }
->         }
->
-> -       if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
-> -               err =3D nf_ct_helper(skb, ct, ctinfo, family);
-> -               if (err !=3D NF_ACCEPT)
-> -                       goto nf_error;
-> -       }
-> -
->         if (commit) {
->                 tcf_ct_act_set_mark(ct, p->mark, p->mark_mask);
->                 tcf_ct_act_set_labels(ct, p->labels, p->labels_mask);
->
->                 if (!nf_ct_is_confirmed(ct))
->                         nf_conn_act_ct_ext_add(skb, ct, ctinfo);
-> +       }
->
-> +       /* Run helpers for the connection if nf_conntrack_in() was execut=
-ed
-> +        * or if we're about to commit.  This has to be done after all th=
-e
-> +        * extensions are already added.
-> +        */
-> +       if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
-> +               err =3D nf_ct_helper(skb, ct, ctinfo, family);
-> +               if (err !=3D NF_ACCEPT)
-> +                       goto nf_error;
-> +       }
-> +
-> +       if (commit) {
->                 /* This will take care of sending queued events
->                  * even if the connection is already confirmed.
->                  */
-> --
-> 2.55.0
->
+Follow up on the recently merged devmem gen_pool removal by consolidating
+the remaining net_iov freelist and DMA-address handling.
 
-Reviewed-by: Xin Long <lucien.xin@gmail.com>
+- move shared freelist state and operations into net_iov_area
+- switch devmem to public memory-provider helpers and reject DMA
+  addresses that cannot be represented
+- decode stored DMA addresses for TX on 32-bit systems with 64-bit
+  dma_addr_t
+
+Stanislav Fomichev (3):
+  net: netmem: add net_iov_area freelist helpers
+  net: devmem: use memory provider helpers for net_iovs
+  net: devmem: decode DMA addresses for TX
+
+ include/linux/skbuff.h          |  7 ++-
+ include/net/netmem.h            | 55 ++++++++++++++++++++++-
+ include/net/page_pool/helpers.h | 10 +----
+ io_uring/zcrx.c                 | 25 ++++-------
+ io_uring/zcrx.h                 |  4 --
+ net/core/devmem.c               | 77 +++++++++++++++------------------
+ net/core/devmem.h               |  7 ++-
+ net/core/page_pool_priv.h       | 14 +-----
+ 8 files changed, 108 insertions(+), 91 deletions(-)
+
+-- 
+2.53.0-Meta
+
