@@ -1,172 +1,368 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3F54A3D41;
-	Tue, 22 Sep 2026 20:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790108454; cv=none; b=nvyfu7r5BPYx4QAsFTvsLcGbQwC7mtcIIjG8+MTVyB6uVEAbhJEV40lUXcEi9eRS8xMl+6rc040pmFtJ8RYZ64ERwHVLQSO4MHu7hnjfghJ0JhDSmdx/WCE7dJXN1aK+HXEWsoh9qy0QPWIoDMjxbqeOOwu3fiYMUe0pxOE0qnI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790108454; c=relaxed/simple;
-	bh=yYFOxPWxF+ebjxNifaNu6ojjenfBN450qHPMmQOo3ao=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q4eAzZiuJ6Z1sbqDnVRJTmnGMUsKooGBbeuJrCiag9kggd73R05/CAqKuQinnx1igDDdX2U9U4K0zNFmxR8SxUODZ1ZreEPDeMsfhkmqvvGk5y5rGXRceDtw5+1hcQ0Xu4GoKJRQVpITrfpxl+CA+Qyv74QBR1L0ytLpkcz2jSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HCAwcBm0; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68954AC147;
+	Tue, 22 Sep 2026 20:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790108448; cv=pass; b=Ay/gSmEPqit+ZCfyEMBq5WiOkjAKAUsOOHRT/RJUiG53dE5r/D292zNUl/QrNYYh2NpJufZHwnXHZ/P1HKxFVU7MOMi6fdmEHPdsguaAU7MCpnzz2+gG1+VnazlLJBYMf5OgbuRc8dPVDFoSmeIwx4J4gQe1/4mb16gmoe74vTE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790108448; c=relaxed/simple;
+	bh=0WVIKbcOsdwoXz5omIyem/bJ7sFg+LvjnvYwgCd83rQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=odlx3fty88MXMeTIcm3ItkOL3KUezXV4ZworW30MgyjP50LtitgTAcfJ2/XpB7KtK/IZJ6Mz9xD1kX1blLLc0iqsXL6FUH+r3M73dc2gL+PeMySmsmD8ap89ijmP4lXeAGGdVbMXTXvMdh1txL4P0EBlyDxxIWTR+cDIcld48gQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=fet/B7hj; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=EpfMWehE; arc=pass smtp.client-ip=185.56.87.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HCAwcBm0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790108436; x=1821644436;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=yYFOxPWxF+ebjxNifaNu6ojjenfBN450qHPMmQOo3ao=;
-  b=HCAwcBm0lRmas9tHizv+LxXr0lUW1MaB71yz7leKb0ePpMRl6ryToqEp
-   gZZNJ7rk+6ImErNpl9tRitWtZYgZn3Rg5hBCo66Uni5tZt4MmLKZMUO4e
-   38QlN5W9pmVXNeGy5oEhAJcwm9UAFA4XEkeTspduyr6OSa6zyO7QbJNlW
-   IQPYWjRlzOSYeor5PRUXjYdYI77DDZT05crmU0J6rmmm+9klEdxRiCHsW
-   J4et4xOvx87FHSYLK3iuzsrOAYaxqz7AxSh95lhexwxJZsCDJForlsPRI
-   qPnikLfYq0EJNOmu3z+1ZpPg7ETrKqFkr+atgQfkhwpRB00Tm/Fq0QqD7
-   w==;
-X-CSE-ConnectionGUID: o0JqbPCoSsu0HT7LUnsZMg==
-X-CSE-MsgGUID: TDvj2cTmSKSZq3FBdyf0kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101340431"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="101340431"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:20:29 -0700
-X-CSE-ConnectionGUID: uyRPUhUQSH2oL1g+/2wGAg==
-X-CSE-MsgGUID: moj0U3maQ5GLF5cg/MoDjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="269799192"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.110.60])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:20:29 -0700
-From: Vishal Verma <vishal.l.verma@intel.com>
-Date: Tue, 22 Sep 2026 14:20:06 -0600
-Subject: [PATCH v3 1/2] x86/tdx: Move port I/O definitions to a shared
- header
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="fet/B7hj";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="EpfMWehE"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-n5kd.prod.antispam.mailspamprotection.com; s=arckey; t=1790108421;
+	 b=cPse/S3xDkd07mAfZPvXtPAsorFv2LgmHukRnYXfliEdRVHUF99DuZ9J1yx9ynEe+j+Ys4SOLR
+	  W5rIMXaU03qoRtbM23OI4K8VWRV9JM5BHMbaszrs9Y2p1/saZXBkCC23AdVU51/ITfZPlA7fQG
+	  7URGYkX4KJwDEXEZhX9wp9kB0DGBd5i1eqBdgALKs77/7UFXHk1WfMGYwea0Y2kRsulpLdcyGo
+	  GrAqW7E9P/LrgEs9Hm9Rp4ddnZeeCt3nd+i6MJszhWdy8GxigKNHNpsBXxtoSIhJhoTKFOJdYq
+	  29e/oAEwGXoHqAITmeAbHU9ZGts6KoVYrqkO6vlERmH2JA==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-n5kd.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-n5kd.prod.antispam.mailspamprotection.com; s=arckey; t=1790108421;
+	bh=0WVIKbcOsdwoXz5omIyem/bJ7sFg+LvjnvYwgCd83rQ=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=gd9oBzEQPEE2pimIpAINaweeXoJ2ifKe6kJlD6q7Oo6/xQ4qxtAvGL6iHqNtL0XwtuTwEGLgha
+	  m2PviSHnUr93IDoNJLKyVNPXQjcv6eDzg/tcJvxdjd0PJ8uZBWnTPzEej3/dMYmZQjWuuaXqJ4
+	  mDqThMm9CF/pSRwxwu4iwlmZM5gK/bfCyUiKaQPLlbHrss7naID6DoD1L6myj5qmGJIU7JtmSh
+	  EdgCgVWU9VWBOi10HQwaSyE/xFA0pAz3ZLa9s9UTR0uv6Kom3HEjMkK2ZhGUzBS0/pxGQV5b6x
+	  9raCUTwcMmO+W+mE7qCwV2fVOetDOn+KYgD7jhc99DdhGA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=eKnrLV23HgV/Tt/v6XD8WD1ByL0WlpYBpZXbv5lCaho=; b=fet/B7hjU0R9w+Q4nDHX0fyZlV
+	l2tnmad66tVwCARyKIFJYxaNQ1C2uTDJiIHZTC6+sl3YNsE55sTd1KQ+++cL6ReFBm/d8EWG1YyKA
+	EaN8AP0EMgGkPcmUq7KAWg85FcRO9iXy55U5pidDlOsgD7VQUyscdeeMZITdAo1PdtiQ=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-n5kd.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x96yI-00000008GWM-1B7C;
+	Tue, 22 Sep 2026 20:20:11 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=eKnrLV23HgV/Tt/v6XD8WD1ByL0WlpYBpZXbv5lCaho=; b=EpfMWehEBuPf3r4MM/IaAgqfdL
+	vt5NbMHtSb89q+lrYJjXn+wXkZtPuUlklXIMYNDeID8m8kSGbs0RtfVQm5Fvy/JydWJpS6pmLQpUY
+	0UQBM3zyxD3O9XzFYG+D5rR24UPr2Wxf5g2AY0BoWJIIicCE4puC96gknCoAF51ur4Wk=;
+Received: from [79.43.46.244] (port=63142 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x96xy-00000000NML-2uZM;
+	Tue, 22 Sep 2026 20:19:50 +0000
+Date: Tue, 22 Sep 2026 22:19:48 +0200
+From: Francesco Valla <francesco@valla.it>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Message-ID: <arLawAw6kgFT2e0W@bywater>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+ <arKiOCGrWAKyc-bc@p14s>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-b4-tdx_earlyprintk_tdcalls-v3-1-6ebaa599df10@intel.com>
-References: <20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com>
-In-Reply-To: <20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com>
-To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
- Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
- kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
- Vishal Verma <vishal.l.verma@intel.com>
-X-Mailer: b4 0.16-dev-62088
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3102;
- i=vishal.l.verma@intel.com; h=from:subject:message-id;
- bh=yYFOxPWxF+ebjxNifaNu6ojjenfBN450qHPMmQOo3ao=;
- b=owGbwMvMwCXGf25diOft7jLG02pJDFmbHvM4cHfJHMkQW7m7RvGvQPHrre2l7mwpeY2Bq3V2V
- 01b8KGso5SFQYyLQVZMkeXvno+Mx+S25/MEJjjCzGFlAhnCwMUpABORqGf4X7pyynr3w6J7YjrX
- hT+dwZthuZ1dwu4J//6M+5PXzt4mHMXwV95QM33aGrVonoSIR7ZHpaQ7Unc5P/e/9cOw7g17Q5I
- uEwA=
-X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
- fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arKiOCGrWAKyc-bc@p14s>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: ce023167bcfef6e621d9827fd204f800
+X-AntiAbuse: ID - ce023167bcfef6e621d9827fd204f800
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1x96yI-00000008GWM-1B7C-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-n5kd.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-In preparation for adding a 'tdx' option for early_printk which uses
-direct TDVMCALLs for I/O, factor out the PORT_READ and PORT_WRITE
-definitions from arch/x86/coco/tdx/tdx.c into
-arch/x86/include/asm/shared/tdx.h, and namespace them with 'TDVMCALL_'.
+On Tue, Sep 22, 2026 at 09:43:52AM -0600, Mathieu Poirier wrote:
+> On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
+> > Add rings for multiple vdevs, as well as the required virtio nodes for
+> > I2C, SPI and GPIO functionalities. On top of that, add example
+> > peripherals using all of them.
+> > 
+> > NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+> > 
+> > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > ---
+> >  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
+> >  1 file changed, 119 insertions(+), 9 deletions(-)
+> > 
+> > diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > index bd14ba28690c..dfa3b122ac5f 100644
+> > --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > @@ -53,6 +53,32 @@ button-k3 {
+> >  		};
+> >  	};
+> >  
+> > +	gpio-keys-virtio {
+> > +		compatible = "gpio-keys-polled";
+> > +		poll-interval = <100>;
+> > +
+> > +		button-v1 {
+> > +			label = "Button V1";
+> > +			linux,code = <BTN_3>;
+> > +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
+> > +		};
+> > +
+> > +		button-v2 {
+> > +			label = "Button V2";
+> > +			linux,code = <BTN_4>;
+> > +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
+> > +		};
+> > +	};
+> > +
+> > +	leds {
+> > +		compatible = "gpio-leds";
+> > +
+> > +		led {
+> > +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
+> > +			label = "LED V";
+> > +		};
+> > +	};
+> > +
+> >  	reg_usdhc2_vmmc: regulator-usdhc2 {
+> >  		compatible = "regulator-fixed";
+> >  		off-on-delay-us = <12000>;
+> > @@ -89,11 +115,6 @@ linux,cma {
+> >  			linux,cma-default;
+> >  		};
+> >  
+> > -		rsc_table: rsc-table@2021e000 {
+> > -			reg = <0 0x2021e000 0 0x1000>;
+> > -			no-map;
+> > -		};
+> > -
+> 
+> Why is the resource table removed?  There is no mention of that in the
+> changelog...
+>
 
-The decompressor also used 0/1 literals in its tdx_io_{in,out} helpers -
-switch those to use the new definitions.
+You are obviously right, the commit message here should have been a
+poem, not a form of hermetic poetry. My bad.
 
-Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
----
- arch/x86/include/asm/shared/tdx.h | 6 ++++++
- arch/x86/boot/compressed/tdx.c    | 4 ++--
- arch/x86/coco/tdx/tdx.c           | 8 ++------
- 3 files changed, 10 insertions(+), 8 deletions(-)
+The resource table here is causing problems with how Zephyr is managing
+it at its side. If it is kept in a separate memory location and copied
+there at runtime by the remote processor firmware during its startup
+(which is the current Zephyr behavior), then there might be a race
+condition when the aforesaid firmware is loaded and started by Linux
+*and* at least one of the vdev drivers (here including rpmsg_bus) is
+built-in. In this case, the copy of the resource table done by the
+remote processor might - depending on the async execution of the two
+processors - overwrite the status bit set by the Linux driver:
 
-diff --git a/arch/x86/include/asm/shared/tdx.h b/arch/x86/include/asm/shared/tdx.h
-index f20e91d7ac35..ecaf965f059b 100644
---- a/arch/x86/include/asm/shared/tdx.h
-+++ b/arch/x86/include/asm/shared/tdx.h
-@@ -84,6 +84,12 @@
- #define TDVMCALL_STATUS_ALIGN_ERROR	0x8000000000000002ULL
- #define TDVMCALL_STATUS_SUBFUNC_UNSUPPORTED	0x8000000000000003ULL
- 
-+/*
-+ * TDG.VP.VMCALL<Instruction.IO> direction (passed in R13)
-+ */
-+#define TDVMCALL_PORT_READ		0
-+#define TDVMCALL_PORT_WRITE		1
-+
- /*
-  * Bitmasks of exposed registers (with VMM).
-  */
-diff --git a/arch/x86/boot/compressed/tdx.c b/arch/x86/boot/compressed/tdx.c
-index 8451d6a1030c..ed278bac3c93 100644
---- a/arch/x86/boot/compressed/tdx.c
-+++ b/arch/x86/boot/compressed/tdx.c
-@@ -22,7 +22,7 @@ static inline unsigned int tdx_io_in(int size, u16 port)
- 		.r10 = TDX_HYPERCALL_STANDARD,
- 		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
- 		.r12 = size,
--		.r13 = 0,
-+		.r13 = TDVMCALL_PORT_READ,
- 		.r14 = port,
- 	};
- 
-@@ -38,7 +38,7 @@ static inline void tdx_io_out(int size, u16 port, u32 value)
- 		.r10 = TDX_HYPERCALL_STANDARD,
- 		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
- 		.r12 = size,
--		.r13 = 1,
-+		.r13 = TDVMCALL_PORT_WRITE,
- 		.r14 = port,
- 		.r15 = value,
- 	};
-diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-index f904a636d449..7d1a93ee2534 100644
---- a/arch/x86/coco/tdx/tdx.c
-+++ b/arch/x86/coco/tdx/tdx.c
-@@ -24,10 +24,6 @@
- #define EPT_READ	0
- #define EPT_WRITE	1
- 
--/* Port I/O direction */
--#define PORT_READ	0
--#define PORT_WRITE	1
--
- /* See Exit Qualification for I/O Instructions in VMX documentation */
- #define VE_IS_IO_IN(e)		((e) & BIT(3))
- #define VE_GET_IO_SIZE(e)	(((e) & GENMASK(2, 0)) + 1)
-@@ -691,7 +687,7 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
- 		.r10 = TDX_HYPERCALL_STANDARD,
- 		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
- 		.r12 = size,
--		.r13 = PORT_READ,
-+		.r13 = TDVMCALL_PORT_READ,
- 		.r14 = port,
- 	};
- 	bool success;
-@@ -720,7 +716,7 @@ static bool handle_out(struct pt_regs *regs, int size, int port)
- 	 * "TDG.VP.VMCALL<Instruction.IO>".
- 	 */
- 	return !_tdx_hypercall(hcall_func(EXIT_REASON_IO_INSTRUCTION), size,
--			       PORT_WRITE, port, regs->ax & mask);
-+			       TDVMCALL_PORT_WRITE, port, regs->ax & mask);
- }
- 
- /*
+  Firmware load and startup (echo start > /sys/.../state)
+                           |
+			   |
+			   V
+  The vdev devices get registered (by register_virtio_device())
+                           |
+			   |
+			   V
+  If a driver is built-in, it probes and sets the vdev status
+  inside the resource table @rsc-table.
+                           .
+			   . (in the mean time)
+			   .
+  The remote processor starts up and copies the resource table from its
+  dedicated section to @rsc-table.
 
--- 
-2.55.0
+Depending on the system load and the complexity of the firmware, the two
+operations can happen in whatever sequence, causing a race condition.
 
+This is somewhat masked if vdev drivers are built as modules, as the
+devices does not probe immediately but only after the modules have been
+loaded, giving the remote processor time to start. Note that this is not
+a solution! but a workaround.
+
+If the rsc-table node is not there, the startup logic falls back to the
+classic rproc_elf_find_loaded_rsc_table().
+
+This is specific to i.MX platforms [1] and is probably not normally an
+issue because - as stated in [1] - the offical SDK from NXP seems not
+to check the status inside the resource table.
+
+> >  		vdev0vring0: vdev0vring0@a4000000 {
+> >  			reg = <0 0xa4000000 0 0x8000>;
+> >  			no-map;
+> > @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
+> >  		};
+> >  
+> >  		vdev1vring0: vdev1vring0@a4010000 {
+> > -			reg = <0 0xa4010000 0 0x8000>;
+> > +			reg = <0 0xa4010000 0 0x1000>;
+> > +			no-map;
+> > +		};
+> > +
+> > +		vdev2vring0: vdev2vring0@a4011000 {
+> > +			reg = <0 0xa4011000 0 0x2000>;
+> > +			no-map;
+> > +		};
+> > +
+> > +		vdev2vring1: vdev2vring1@a4013000 {
+> > +			reg = <0 0xa4013000 0 0x2000>;
+> > +			no-map;
+> > +		};
+> > +
+> > +		vdev3vring0: vdev3vring0@a4015000 {
+> > +			reg = <0 0xa4015000 0 0x2000>;
+> > +			no-map;
+> > +		};
+> > +
+> > +		vdev4vring0: vdev4vring0@a4017000 {
+> > +			reg = <0 0xa4017000 0 0x4000>;
+> > +			no-map;
+> > +		};
+> > +
+> > +		vdev5vring0: vdev5vring0@a401B000 {
+> > +			reg = <0 0xa401B000 0 0x2000>;
+> > +			no-map;
+> > +		};
+> > +
+> > +		vdev5vring1: vdev5vring1@a401D000 {
+> > +			reg = <0 0xa401D000 0 0x2000>;
+> >  			no-map;
+> >  		};
+> >  
+> > -		vdev1vring1: vdev1vring1@a4018000 {
+> > -			reg = <0 0xa4018000 0 0x8000>;
+> > +		vdev5vring2: vdev5vring2@a401F000 {
+> > +			reg = <0 0xa401F000 0 0x1000>;
+> >  			no-map;
+> >  		};
+> >  
+> > @@ -149,8 +200,67 @@ &cm33 {
+> >  		 <&mu1 3 1>;
+> >  	mbox-names = "tx", "rx", "rxdb";
+> >  	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+> > -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
+> > +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> > +			<&vdev3vring0>, <&vdev4vring0>,
+> > +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
+> 
+> Who is using vdev5 vrings?  
+> 
+
+Another thing that should have been in the commit message. Vdevs are
+defined, in the Zephyr application I am using as PoC, as follows:
+
+ - vdev0: RPMSG (tx and rx vrings)
+ - vdev1: entropy (single request vring)
+ - vdev2: GPIO (request and event vrings)
+ - vdev3: I2C (single request vring)
+ - vdev4: SPI (single request vring)
+ - vdev5: CAN (tx, rx and control vrings)
+
+vdev5 is not represented inside the devicetree because the can-virtio
+driver registers a single CAN network device and has thus no need for
+such representation.
+
+> >  	status = "okay";
+> > +
+> > +	virtio {
+> > +		#address-cells = <1>;
+> > +		#size-cells = <0>;
+> > +
+> > +		vdev@2 {
+> > +			reg = <2>;
+> > +
+> > +			v_gpio: gpio {
+> > +				compatible = "virtio,device29";
+> > +				gpio-controller;
+> > +				#gpio-cells = <2>;
+> > +				interrupt-controller;
+> > +				#interrupt-cells = <2>;
+> > +			};
+> > +		};
+> > +
+> > +		vdev@3 {
+> > +			reg = <3>;
+> > +
+> > +			i2c {
+> > +				compatible = "virtio,device22";
+> > +				#address-cells = <1>;
+> > +				#size-cells = <0>;
+> > +
+> > +				eeprom@50 {
+> > +					compatible = "atmel,24c1025";
+> > +					reg = <0x50>;
+> > +				};
+> > +			};
+> > +		};
+> > +
+> > +		vdev@4 {
+> > +			reg = <4>;
+> > +
+> > +			spi {
+> > +				compatible = "virtio,device2d";
+> > +				#address-cells = <1>;
+> > +				#size-cells = <0>;
+> > +
+> > +				sram@0 {
+> > +					compatible = "microchip,mchp23k256";
+> > +					reg = <0>;
+> > +					spi-max-frequency = <20000000>;
+> > +				};
+> > +
+> > +				lcd@1 {
+> > +					compatible = "adafruit,yx240qv29", "ilitek,ili9341";
+> > +					reg = <1>;
+> > +					spi-max-frequency = <10000000>;
+> > +					dc-gpios = <&v_gpio 21 GPIO_ACTIVE_HIGH>;
+> > +					reset-gpios = <&v_gpio 20 GPIO_ACTIVE_HIGH>;
+> > +					rotation = <90>;
+> > +				};
+> > +			};
+> > +		};
+> > +	};
+> >  };
+> >  
+> >  &eqos {
+> > 
+> > -- 
+> > 2.55.0
+> >
+
+Thank you!
+
+Regards,
+Francesco
+
+
+[1] https://lore.kernel.org/all/20240719-imx_rproc-v2-2-10d0268c7eb1@nxp.com/
