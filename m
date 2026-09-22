@@ -1,172 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72EB4343F2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:23:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574564A2058
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790104986; cv=none; b=EcozTRojOiOOG8y9r+f8TyZxFCL4e7flp3ezqQWmmLT+9qkPdwiVU6JDi8eGfvGT1PndnTbJkorw/wRjI8AbXqdbbDW+IIOpZWt2YlqzwSj8Mcu4wb356Tsk16vqWf+8MF9b7FypKQRLJ+MEhLiYvwffPtf+ZLoxoGOBgzneeSM=
+	t=1790105005; cv=none; b=ZVMEh/evQTzaFlalfmmXqX3XxwqP4PrM9m5jLYQCXyWjWpT2dcfICiAm6jufYlqv+8Zm0beVZZ10k6WoEdy2oS+tQEMrxbXIeJWT71VgCSIQrQ1ORUSxWzsuTccIqOiuQPIsdUdhmfuoknl+1hv9o1BMP0sL+l8QK0xlf6Ri7qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790104986; c=relaxed/simple;
-	bh=6+jWmzAMpzZFHnkcLGjZJ1J8P6nJWosJEjYxYxNzf2o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mlYCqYBl39+aXrDKco2afsGsP8JCknQZGqmBNvimhA81KQDigxIXXKpTXSzTWuQ/ss8GajZei3fMVvDIt/ipRs2IWzmgLkETXYl/PDIyRePIejrLTvhktpfDIj+p1nBLKsucnkz7d5R/X1D7xfoSs+zMALhtR0abD0r23rrlY2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwS1NeNU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790105005; c=relaxed/simple;
+	bh=7Muid3eY0Q5+9CzXdt1nCxBCxSWyOFhu9qjSiaxjaVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FA0Xhw0yMnK2GRaNeWm3Qkld65mIUtbfTrJ4cqm+LAOGlwJ5xF6O6Gl7M+FYettDxVWpg4Ldj0xai1umiYV+25KNO4Y+jLPZ/kuB34CY22mHAe4bIXeDikxprOhRVNtUHPeApJDx5UZPkLD2AW4+1rURXKwzQZllgR6kzKjN0jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OdHzwHCv; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwS1NeNU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF631F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:23:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790104983;
-	bh=afdFbb0Oxpswz4JQtJZyx58sYBBrJDryxTxTGWpHsUs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cwS1NeNU/1megkIFwX7RWYEYgR6blyuYff+wv2z2HaJkf5i1I/6ykUVcoWIv9xERr
-	 yso3akEDXwi02+tRu8BUn9ihzUBUpdjI9czzVajdXCxlkOZedOsk76aokQ5yP1/0PQ
-	 uQ2In8SXt9CUDLFrKlLF8lcXQqHQN7s9awifazewZ8sFS18R7Jrg6EN7dleq/nxsbk
-	 NufD8mryXvdPqaL3NjbpNkZnOuApjHBIDu95kZsojYid46p3QNFSJqObf2jX6SKAjm
-	 TfFD9ngatyHZP2ZiCCHw03yx8PtH+WXVhf8xcUZDUYO4sKQjfQzRjs6OqM2SFqRJwl
-	 f2Ig6uOwlq2eg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so119919e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:23:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxvMP7eYHtx11fMCq25yAA0e36PFTtK2g4dOB98GqkQ9rLexeutrN4xj+TzxcqaHYfCvW6S5DR9JZmRCLo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/za6EX0oG8sBqz19HP2W3xgjEZ9ar5wy/S31G9orJ/gkmD7Y9
-	fVA3+WoR+f/lG1V/ttNwVjUDAwVJf7NPRrRTj0ZJ5ckPN1tOGz9PDiTpZdjyn3LBCW0giLbBqHN
-	Eu4Jl60THkQyz+X645kLTTf9S0Rxt6B8=
-X-Received: by 2002:a05:6512:3ca0:b0:5b8:bc5e:b574 with SMTP id
- 2adb3069b0e04-5b8d89b0a6bmr80176e87.44.1790104981582; Tue, 22 Sep 2026
- 12:23:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OdHzwHCv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790104998;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vQAC0it22WmNqLqirMrRoxhux+gr8MPT7ObOzletlqE=;
+	b=OdHzwHCvU0musKziMX5nrXW5q9KEHLsNV/3jzM6s52Rxl1hXSwEFHbc0kSm2Fx6mVO2vVC
+	rEHo0Br0zpnokxtgBOkHbf6kXbGxJCzqGR/ypKZJ+3apKpUe2Nu3rXqVjC5ewXVMK6GnQW
+	phGL/j8qG2jMXkwCa9651H9/VHlrsZk=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-543-a_kUyRYgOCyg9kJI5fcJtQ-1; Tue,
+ 22 Sep 2026 15:23:14 -0400
+X-MC-Unique: a_kUyRYgOCyg9kJI5fcJtQ-1
+X-Mimecast-MFC-AGG-ID: a_kUyRYgOCyg9kJI5fcJtQ_1790104988
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E1BF2195606B;
+	Tue, 22 Sep 2026 19:23:07 +0000 (UTC)
+Received: from wsxc.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1F59C3001070;
+	Tue, 22 Sep 2026 19:22:51 +0000 (UTC)
+From: Ricardo Robaina <rrobaina@redhat.com>
+To: audit@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-csky@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-openrisc@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	bpf@vger.kernel.org
+Cc: paul@paul-moore.com,
+	eparis@redhat.com,
+	sgrubb@redhat.com,
+	oleg@redhat.com,
+	richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linmag7@gmail.com,
+	linux@armlinux.org.uk,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	guoren@kernel.org,
+	monstr@monstr.eu,
+	tsbogend@alpha.franken.de,
+	jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com,
+	James.Bottomley@HansenPartnership.com,
+	deller@gmx.de,
+	ysato@users.sourceforge.jp,
+	dalias@libc.org,
+	glaubitz@physik.fu-berlin.de,
+	davem@davemloft.net,
+	andreas@gaisler.com,
+	richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net,
+	chris@zankel.net,
+	jcmvbkbc@gmail.com,
+	tglx@kernel.org,
+	peterz@infradead.org,
+	luto@kernel.org,
+	Ricardo Robaina <rrobaina@redhat.com>
+Subject: [PATCH v3 06/14] mips: pass pt_regs to audit_syscall_entry()
+Date: Tue, 22 Sep 2026 16:19:58 -0300
+Message-ID: <682a26fb450b72cd72d438a089093b7ef42a825a.1790088067.git.rrobaina@redhat.com>
+In-Reply-To: <cover.1790088067.git.rrobaina@redhat.com>
+References: <cover.1790088067.git.rrobaina@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922-step_wise_multi_zone_stale_vote_fix-v1-1-789f68dab229@oss.qualcomm.com>
-In-Reply-To: <20260922-step_wise_multi_zone_stale_vote_fix-v1-1-789f68dab229@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 22 Sep 2026 21:21:29 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0h8w4Za5jU7M5Vos7OWf6hkXXHoRetR87-_A7U-Rj9-Zw@mail.gmail.com>
-X-Gm-Features: AcwNN1VYiKZQLUWuoqK1GWIegsgx5WasS_Lrro2nwSBi5LKy9AFX7qy1FHw6H04
-Message-ID: <CAJZ5v0h8w4Za5jU7M5Vos7OWf6hkXXHoRetR87-_A7U-Rj9-Zw@mail.gmail.com>
-Subject: Re: [PATCH] thermal: gov_step_wise: Fix stale mitigation vote with
- non-zero lower bounds
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Tue, Sep 22, 2026 at 2:19=E2=80=AFPM Manaf Meethalavalappu Pallikunhi
-<manaf.pallikunhi@oss.qualcomm.com> wrote:
->
-> When two or more thermal zones bind to a common cooling device and one zo=
-ne
-> uses a non-zero instance->lower value, there is a bug where the instance
-> holds a stale mitigation vote even after its trip is cleared.
->
-> Problem scenario:
-> - thermal-zone1: Trip at 50=C2=B0C, cooling-map with lower=3D0
-> - thermal-zone2: Trip at 55=C2=B0C, cooling-map with lower=3D2
-> - Both zones share the same cooling device (e.g., CPU)
->
-> Issue flow:
-> 1. Both trips trigger, zone1 requests state 5, zone2 also mitigates
-> 2. Zone2 trip clears (temp < 53=C2=B0C due to hysteresis)
-> 3. When throttle=3Dfalse and trend=3DTHERMAL_TREND_DROPPING:
->    - Current code checks: if (cur_state <=3D instance->lower)
->      return THERMAL_NO_TARGET
->    - Since cur_state (5) > instance->lower (2),
->      it returns instance->lower (2)
->    - This is the BUG where it returns instance->lower even though
->      trip is cleared
-> 4. Zone2's passive polling stops (tz->passive reaches 0) - no more update=
-s
->    for zone2
-> 5. Zone2's stale vote of 2 persists indefinitely
-> 6. Even when zone1 wants to reduce cooling to state, the cooling device
->    cannot go below state 2 due to zone2's stale vote
->
-> When a trip is cleared (throttle =3D=3D false), always return THERMAL_NO_=
-TARGET
-> instead of instance->lower. Remove the unnecessary check comparing
-> cur_state with instance->lower. Since passive polling is already
-> deactivated when the trip is cleared, the instance should always be
-> deactivated regardless of its current cooling state. This ensures that
-> instances with non-zero lower bounds do not retain stale mitigation votes
-> after their trips are cleared.
->
-> Fixes: 042a3d80f118 ("thermal: core: Move passive polling management to t=
-he core")
-> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qua=
-lcomm.com>
-> ---
-> When two thermal zones bind to a common cooling device and one zone uses
-> a non-zero instance->lower value, there is a bug where the instance holds
-> a stale mitigation vote even after its trip is cleared.
->
-> Problem scenario:
-> - thermal-zone1: Trip at 50=C2=B0C, cooling-map with lower=3D0
-> - thermal-zone2: Trip at 55=C2=B0C, cooling-map with lower=3D2
-> - Both zones share the same cooling device (e.g., CPU)
->
-> Issue flow:
-> 1. Both trips trigger, zone1 requests state 5, zone2 also mitigates
-> 2. Zone2 trip clears (temp < 53=C2=B0C due to hysteresis)
-> 3. When throttle=3Dfalse and trend=3DTHERMAL_TREND_DROPPING:
->    - Current code checks: if (cur_state <=3D instance->lower)
->      return THERMAL_NO_TARGET
->    - Since cur_state (5) > instance->lower (2),
->      it returns instance->lower (2)
->    - This is the BUG where it returns instance->lower even though
->      trip is cleared
-> 4. Zone2's passive polling stops (tz->passive reaches 0) - no more update=
-s
->    for zone2
-> 5. Zone2's stale vote of 2 persists indefinitely
-> 6. Even when zone1 wants to reduce cooling to state, the cooling device
->    cannot go below state 2 due to zone2's stale vote
->
-> When a trip is cleared (throttle =3D=3D false), always return THERMAL_NO_=
-TARGET
-> instead of instance->lower. Remove the unnecessary check comparing
-> cur_state with instance->lower. Since passive polling is already
-> deactivated when the trip is cleared, the instance should always be
-> deactivated regardless of its current cooling state. This ensures that
-> instances with non-zero lower bounds do not retain stale mitigation votes
-> after their trips are cleared.
-> ---
->  drivers/thermal/gov_step_wise.c | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/thermal/gov_step_wise.c b/drivers/thermal/gov_step_w=
-ise.c
-> index ea277c466d8d..4fa4377f0d42 100644
-> --- a/drivers/thermal/gov_step_wise.c
-> +++ b/drivers/thermal/gov_step_wise.c
-> @@ -65,14 +65,12 @@ static unsigned long get_target_state(struct thermal_=
-instance *instance,
->                                      min(instance->lower + 1, instance->u=
-pper),
->                                      instance->upper);
->         } else if (trend =3D=3D THERMAL_TREND_DROPPING) {
-> -               if (cur_state <=3D instance->lower)
-> -                       return THERMAL_NO_TARGET;
-> -
->                 /*
-> -                * If 'throttle' is false, no mitigation is necessary, so
-> -                * request the lower state for this instance.
-> +                * If 'throttle' is false, no mitigation is necessary and
-> +                * passive polling is already deactivated, so clear this
-> +                * instance state by returning THERMAL_NO_TARGET.
->                  */
-> -               return instance->lower;
-> +               return THERMAL_NO_TARGET;
->         }
->
->         return instance->target;
->
-> ---
+audit_syscall_entry() now takes a pointer to pt_regs and extracts
+the syscall arguments itself via syscall_get_arguments(). Drop the
+individual argument registers from the call and pass regs instead.
 
-Applied as 7.3-rc material, thanks!
+Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+---
+ arch/mips/kernel/ptrace.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/arch/mips/kernel/ptrace.c b/arch/mips/kernel/ptrace.c
+index 17dc7249b8ca..c6f4e801cfae 100644
+--- a/arch/mips/kernel/ptrace.c
++++ b/arch/mips/kernel/ptrace.c
+@@ -1338,9 +1338,7 @@ asmlinkage long syscall_trace_enter(struct pt_regs *regs)
+ 	if (unlikely(test_thread_flag(TIF_SYSCALL_TRACEPOINT)))
+ 		trace_sys_enter(regs, regs->regs[2]);
+ 
+-	audit_syscall_entry(current_thread_info()->syscall,
+-			    regs->regs[4], regs->regs[5],
+-			    regs->regs[6], regs->regs[7]);
++	audit_syscall_entry_regs(current_thread_info()->syscall, regs);
+ 
+ 	/*
+ 	 * Negative syscall numbers are mistaken for rejected syscalls, but
+-- 
+2.55.0
+
