@@ -1,103 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B933E123F;
-	Tue, 22 Sep 2026 04:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1547238C423
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790050283; cv=none; b=f1cYKUQjrWcUyijHq6+AOzoqfr2govNfUbmJs9645QhF+Sruvg3GnAN/bvINNZZ9K8G+3EJcXcgn2n1s6eMY7dqRZyWm2YXsRZUmso0+ub9z5mCGOh+k3jS4wf9WduCEvZJ3V6o/AdFpij/0Ujueluu03QH/GEhkLdivXwjwJHI=
+	t=1790050335; cv=none; b=SelaMnaJX4toB0YeSEQW0uJIBFxwHCT6amUGENPCGQ4GZwiuqN/cKAlh5Tjvqp6FPmiHsd8CU9g1PJOzfS4EETuE4HAJn/p6cUywrTwZRB19Yv8fcMX0Nfk0AVqv1k0ulr0BeRBVacXiPOEZwxNB2oJajjiia8UZHjP8mCk+An4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790050283; c=relaxed/simple;
-	bh=fFsVaHpUJI+QU9Ho+BfwDVekjM5QPRLw2Msse0Qdk28=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVMTOhqMn8dYXkQeabhEJckhQGjvubNE2cmkzq/lnC4g5F09lKZ5AOANPXLyji+IYLErFTZeLWEvlSGD1rhddhszDn1GQJuTkWVbYVxylPWBqw7t9J1ekXjTjLFq5hisp3JJ1fO+nQZ+5LcFiiG8xMFMupjWGYaltF1LMFXDL94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RbELCuYz; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RbELCuYz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790050282; x=1821586282;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fFsVaHpUJI+QU9Ho+BfwDVekjM5QPRLw2Msse0Qdk28=;
-  b=RbELCuYz7S9XwoRnP0p9sHcq8qsvI+wPas1g+V5PzTqwOrErMXF8reHD
-   FrpemYDTM8Lf5OCJ8raAaWwpZk9RkoDwT3YhZnlhs5vEc56p2v+IihT7M
-   T0suStfFBGZinMCRMc3pF+MP4gSujX/GAlRcA0A5WMPjXzlq8J4NSgBrI
-   bSgKWRKBO/fHrOrQkriPAec/eysIfebYqAfZG5RWPJQvr6NKpOW+3Z5g7
-   L2e+fm1WjBDi+vygZKPEFkmsjEC7brpK5dDRg/WvvsRDQty23wAIF0LWO
-   mYEvkm8IKQgtn8UKiPam+Jj3pouMwnOd1K6OfiUvbtoYsea8Kw76tQNMI
-   Q==;
-X-CSE-ConnectionGUID: 5uZJYq2kTVCt6M+80U0pOw==
-X-CSE-MsgGUID: P0Gryag/Tf2ZP3+hm54Ygw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89754381"
-X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
-   d="scan'208";a="89754381"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 21:11:21 -0700
-X-CSE-ConnectionGUID: U8FTD9nfTFWj2CIZG16ZJg==
-X-CSE-MsgGUID: x+w5ldHnTyyTiq5abmunmw==
-X-ExtLoop1: 1
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa003.fm.intel.com with ESMTP; 21 Sep 2026 21:11:19 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 1C48499; Tue, 22 Sep 2026 06:11:14 +0200 (CEST)
-Date: Tue, 22 Sep 2026 06:11:14 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Ivy Lopez <skunkolee@gmail.com>
-Cc: westeri@kernel.org, andreas.noever@gmail.com, YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: stream: Make read return framing error to
- the userspace
-Message-ID: <20260922041114.GY106095@black.igk.intel.com>
-References: <20260921111921.3289289-1-mika.westerberg@linux.intel.com>
- <20260922001742.14332-1-skunkolee@gmail.com>
+	s=arc-20240116; t=1790050335; c=relaxed/simple;
+	bh=5aL03vW1m9jKduYwV6IRhyFNcudiVyfwVkrHgYrxGyE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=tat6TkqCTJCME8c8qXZGVpHYx8Kvf/9lBgbEMCDp/8Z+MoD8sS9ItDdPRW2b74wyFkB9uwltcpBNUQOhTbxuSb4EWvWXdEIfDuqSsZeDjMpqJiDoYZxQnWuhltswsC1EO1lei0MEMJulNu7Z1zuBkEF5uhLPzAtduieoFXuZTNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab4ca7ce3fso4143549b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:12:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790050333; x=1790655133;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HIrNxOnWEBb08j6CkzaxA9I/x7kXrNK+Z/qZ8wXXpzA=;
+        b=RRFUQLpNTkNulHI7jC6GonVWdt2dFfyfY64jfZkKxMgSyaxTJfAFpDwWlOilQ0swCH
+         n+zDoHEIxeREtYn+29U4ulFZwZ8HSrC4yKmd1Vz1L83YLYWH0EQOX0kJQ6g+qg4TwhvW
+         4boYOlZbYAVyq0wfBN9Ab7kLzFgrPbHiruf+b6mKkCWiIVGog55hC4ULs/LMYbL3RghK
+         RbYYepTJdDHsdHJZXpR5jMsiiqRqhhT5qgKe3EsmXrINsDpOnp6cFhdKguajGcyP2LuG
+         KiMtbbvVU99MFg7kTjizfNXkJeuieGBiKdQh1cDtL+f74nT4/x82MKI5a5BQ1JtFQpvF
+         +9Bg==
+X-Gm-Message-State: AFuF++mH+rn6Kglb8XQSiTdJF3d71j2tZTysXRooRSck0ZRvVS2QiQh5
+	Elqdd4jehJChqPIMWWJfrWUZtN8iYtn6D4TWOuIEnTPIb6GDsG9k2fphuTW2a7jRZHDvip+/bfv
+	0kwqdr3NM4euV3t2spGsRRmoNWws1jmYpnxt/tz7+pDnuQFfyzr6U5PUFOVU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922001742.14332-1-skunkolee@gmail.com>
+X-Received: by 2002:a05:6820:906:b0:6be:19a6:fe60 with SMTP id
+ 006d021491bc7-6d18fb37b65mr1101733eaf.41.1790050332967; Mon, 21 Sep 2026
+ 21:12:12 -0700 (PDT)
+Date: Mon, 21 Sep 2026 21:12:12 -0700
+In-Reply-To: <6ab152fc.71f81b7d.15fa6d.0030.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab2001c.3179f8cd.1e36b2.0026.GAE@google.com>
+Subject: Forwarded: [PATCH] ecryptfs: validate auth_tok key payload size
+ before use
+From: syzbot <syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-On Mon, Sep 21, 2026 at 06:17:42PM -0600, Ivy Lopez wrote:
-> On Mon, Sep 21, 2026 at 11:19 AM UTC, Mika Westerberg wrote:
-> > +                     if (!nbytes) {
-> > +                             pr_warn("corrupted frame received, flags %#x\n",
-> > +                                     sf->frame.flags);
-> > +                             tbstream_dev_consume_rx(sdev);
-> > +                             ret = -EIO;
-> > +                     }
-> > +                     break;
-> 
-> One question: EPOLLIN is set unconditionally in the rx callback
-> regardless of frame flags, and tbstream_dev_fops_poll() only checks
-> tbstream_ring_available() (pure ring depth), never frame flags.
-> EPOLLERR is used elsewhere in this file but only for device-level
-> invalidity, not per-frame corruption. So userspace still has no way
-> to learn a corrupted frame is queued via poll() before calling
-> read() and getting -EIO. I'm just wondering, is this intentional,
-> or worth a follow-up?
+***
 
-It's intentional. EPOLLERR is used to indicate that this file is
-"finished". A single framing error would allow the userspace still to
-continue.
+Subject: [PATCH] ecryptfs: validate auth_tok key payload size before use
+Author: kartikey406@gmail.com
 
-> Also, fwiw, this doesn't apply cleanly against current usb-next for
-> me, git apply fails on the rx_callback hunk. Looks like it's against
-> a tree predating the busy-polling changes.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-It'a against thunderbolt.git/next [1].
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/westeri/thunderbolt.git/log/?h=next
 
-> Not a blocker either way.
-> 
-> Reviewed-by: Ivy Lopez <skunkolee@gmail.com>
+ecryptfs_verify_auth_tok_from_key() casts a "user" type key's raw
+payload directly to struct ecryptfs_auth_tok without checking that
+the key actually holds enough data to back that struct. Since a
+user-type key's payload length is fully attacker-controlled via
+add_key(2), an undersized key whose description matches
+global_default_fnek_sig lets later code (e.g.
+ecryptfs_write_tag_70_packet()) read fields such as
+session_key_encryption_key/session_key_encryption_key_bytes past the
+end of the actual allocation, causing a slab-out-of-bounds read.
 
-Thanks!
+Reject the key up front if its datalen is smaller than
+sizeof(struct ecryptfs_auth_tok).
+
+Reported-by: syzbot+e4391e0d6e7c89b8c84e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e4391e0d6e7c89b8c84e
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ fs/ecryptfs/keystore.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+index 51651314b7a6..81768a0e43b1 100644
+--- a/fs/ecryptfs/keystore.c
++++ b/fs/ecryptfs/keystore.c
+@@ -462,6 +462,15 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
+ 		goto out;
+ 	}
+ 
++	if (auth_tok_key->datalen < sizeof(struct ecryptfs_auth_tok)) {
++		printk(KERN_ERR "Auth tok key payload too small "
++                       "(have %d bytes; need %zu)\n",
++                       auth_tok_key->datalen, sizeof(struct ecryptfs_auth_tok));
++		rc = -EINVAL;
++		*auth_tok = NULL;
++		goto out;
++	}
++
+ 	if (ecryptfs_verify_version((*auth_tok)->version)) {
+ 		printk(KERN_ERR "Data structure version mismatch. Userspace "
+ 		       "tools must match eCryptfs kernel module with major "
+-- 
+2.43.0
+
