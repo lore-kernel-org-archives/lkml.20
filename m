@@ -1,96 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E6B5158B7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2881C53ECF7
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089024; cv=none; b=colzom1NPG1z8Ycui/XeuoAC0rDExxQpfmgmMBn0r65iHX7KivrFIKS7W3VQ1cPonZCmCJH/QSd2QrcssVc7AEyvjiRfeXreDD7XQ6S2ycxj0g9X17rxW4qpNOoojVVlbSNl/vJBpqDUaggAZ0cUzZOEuBXFNV1nAMO1DQM+Jco=
+	t=1790089072; cv=none; b=Li5znStQic3+Q1ymQiDs5/l91PO5xPKJvncrFnqHLaZiOwpoK085SVQWotODh4dPb2wVjglchpMWaevMq62HR2Gb5cDXv4c1DSH23y4ytpRHdVFqmFUwxtNMc/YSHlJKjc96ib7trNxCr+bONxmRJ8Kfe7S3LYlj26nGMBdDgCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089024; c=relaxed/simple;
-	bh=QPkW4aVoe/0NbA4NwEjKqNu/gW6+hIbN3gcfVZFJ3bA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W6rLmmNMSY4xEJhhgjEmO/TK3zZA+gpYs5N47H4nW8UARyleYMvtEubvt+VdKKin2P1dFv0WuORDf6pYRkHwmXNOyAGnYCQUqU62UnOA7+xiNyOfLI/2hqn4vobFediImzzebdXLhOSh/w2g1prmgz+7mePZaNaWakwVjpyd4tI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nU5cizik; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nU5cizik"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6681F0089E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:57:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790089022;
-	bh=QPkW4aVoe/0NbA4NwEjKqNu/gW6+hIbN3gcfVZFJ3bA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nU5cizikVeG90hQ67WUZ/2iqO23zxRSX4tvcl/ihr1EnECPjY3jsEUifxf5AuFoXk
-	 PD8AYKfvhCHXW+PTVhgd9Iz9l79DsIvD35nCLi+IQPuElmiTZ8em9P5wbYFl3bFtFy
-	 bv/WZIVg54XgkZjFOtd8+mknkwz4gCLYi8diXG/Um/OIiVrNFUxsGL3hZGbcC9MfWS
-	 qaIm7Tgbad0joSp0XFTY1WdvyQgQWROQxbBoAhM0UuEyyzzLO0vU5q+02QWvfQ714w
-	 M9USA/7XkCkmohYmSEQ2m2UFUqpDsmL5KelcVBUG+EWB1gV/KsTpWZTnyKOJUoQdRx
-	 Os3tthbSa8reA==
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672c2880f58so1192526d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:57:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByvr6bSM7QA1t5WG0ob/uxl/qO78KoRKhuNUJEgtuY02iXWrcyfMhrm4AJQQg+m4NOLO0kzfglPL1G1HwY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWi+TBJC4/35zd6PwoS8pkTsl3Y17ccd6p75Uxwsce7BuymqGn
-	iIt+piyi1CmcPL7sWI6Kg6xWqWP/rggVBwtqEBHYkPVvVflqVT5icE+PCVKkSTQja2bkcR9ybid
-	02N1O0Nc+Wo/IO+lIQ/q8v16oxkv1Ui9x3SXz9DXGSQ==
-X-Received: by 2002:a05:690e:454e:20b0:66f:c1be:a65c with SMTP id
- 956f58d0204a3-6717fdcfd37mr3462183d50.78.1790089020967; Tue, 22 Sep 2026
- 07:57:00 -0700 (PDT)
+	s=arc-20240116; t=1790089072; c=relaxed/simple;
+	bh=wo2hhVqXSDFNsEqid+p3Qr8x3erIJj3OEshDQsUgz5c=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=HJ1i7aEfiVp1QyAQ+APqWbMjysY8zntITY+AIEcXQ9FZ+OJwN/bKhqLNsz9+ZJ0pSOtt2SdxtAUk9TQ1HUgvlJ7M4RKEIJiBNqG036I3Q8CDppnV8VIVsGxANeMyHGtF7sWtKwKC0FjeRYs73u7yQPQTDKoNMNwXh7gNv75dHSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f9.google.com with SMTP id 46e09a7af769-7f4e9ec63a7so3762a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:57:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790089065; x=1790693865;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kOSrLV6iwvAWsPLksNnW/w4j/mbXLy6tE/r1nVS/H88=;
+        b=ezt/T2qxq6k4UHtwfu6l3EqsNN6CXi46tmZbpPSpLIzHfJVolsDKhg5X+8vqzeBLq2
+         XbpWp6kiIDrmWfVp7OKBIx0KbfKHG3ET/iJ+lu2wkIUdRFoAd6ySYfri5ackdG4dfGSt
+         B6svKbY8PKZ/Zz6QFW/sIgrHufUlHctwDJlY6/2oRrYnWlHuOslKGSgK/Qkmyf+wchpo
+         /jnzdCo1GMYG5wf1TMYg635oYHIPdBIJQ7GW1/OG/Iu6IC7NEyu2xx70+nhCXx7cP9b1
+         TSMTgwbaDFTDOAvweOtmH9+zyMxXdDS0i6g2j+yw/j+MAwQfTn0LafqBWLaSG7z9RPW+
+         8Kdg==
+X-Forwarded-Encrypted: i=1; AKwUvBycqr1zV3JnjzbQEapjHmdmgjxOKMidbEK5uKdUd84zVZ1SeZZhzQwFurt2IVSU3ztubis1BxUfSYt0A4Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8n7vyimleGvHnsLzorxLZEl6UZqDNjbQSAzwVVbu6cfqxj6mc
+	p6MB8tkP2//vtQhRV2hgrZybryVXDnfAG0unL5hGC1o3I67lrSW7PzY+JKNE6D5w75lcj8kao9p
+	qwJuGRdBHWhkgsBq8F9+1eyUfc1cZcIxhoDwLK7SNZfOzi2MjYZzZOCjccl8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com> <arKRdaNEaKvFOtMg@linux.dev>
-In-Reply-To: <arKRdaNEaKvFOtMg@linux.dev>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 04:56:48 -1000
-X-Gmail-Original-Message-ID: <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
-X-Gm-Features: AcwNN1WXZFPYF0mNrLqLpQPBa1zvff82T2VNW1CuKAu09epCVErwfyw7KrXxM2s
-Message-ID: <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Kairui Song <ryncsn@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
+X-Received: by 2002:a05:6820:168b:b0:6d2:9ab6:471c with SMTP id
+ 006d021491bc7-6d29ab64a21mr248105eaf.84.1790089064861; Tue, 22 Sep 2026
+ 07:57:44 -0700 (PDT)
+Date: Tue, 22 Sep 2026 07:57:44 -0700
+In-Reply-To: <6a73d174.5aeeccc9.207e63.000c.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab29768.514bccd6.255447.001e.GAE@google.com>
+Subject: Re: [syzbot] [net?] [afs?] kernel BUG in rxrpc_destroy_all_connections
+ (2)
+From: syzbot <syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com>
+To: davem@davemloft.net, dhowells@redhat.com, edumazet@google.com, 
+	horms@kernel.org, kuba@kernel.org, linux-afs@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, marc.dionne@auristor.com, 
+	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 4:43=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
-v> wrote:
->
-> People can speak for themselves and suggest other time slots. You do not =
-speak
-> for anyone but yourself here. At this point this is derailing the convers=
-ation.
->
+syzbot has found a reproducer for the following issue on:
 
-I am expressing my opinion, freedom of speech. As you can see in the
-previous discussion, Baoquan wasn't able to join that time slot. He is
-a major shareholder in XSwap. I worry that alignment vswap vs xswap
-without Baoquan is ineffective. That is my opinion.
+HEAD commit:    f0100363d8c3 Merge tag 'xfs-fixes-7.3-rc5' of gitolite.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17660c5e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=89001660f14fb7684c83
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11ecb805580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16e6f525580000
 
-Chris
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-f0100363.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/57240753f5ee/vmlinux-f0100363.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/2930b9a97546/bzImage-f0100363.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+89001660f14fb7684c83@syzkaller.appspotmail.com
+
+netdevsim netdevsim0 netdevsim3 (unregistering): unset [1, 0] type 2 family 0 port 6081 - 0
+netdevsim netdevsim0 netdevsim2 (unregistering): unset [1, 0] type 2 family 0 port 6081 - 0
+netdevsim netdevsim0 netdevsim1 (unregistering): unset [1, 0] type 2 family 0 port 6081 - 0
+netdevsim netdevsim0 netdevsim0 (unregistering): unset [1, 0] type 2 family 0 port 6081 - 0
+bridge_slave_1: left allmulticast mode
+bridge_slave_1: left promiscuous mode
+bridge0: port 2(bridge_slave_1) entered disabled state
+bridge_slave_0: left allmulticast mode
+bridge_slave_0: left promiscuous mode
+bridge0: port 1(bridge_slave_0) entered disabled state
+bond0 (unregistering): (slave bond_slave_0): Releasing backup interface
+bond0 (unregistering): (slave bond_slave_1): Releasing backup interface
+bond0 (unregistering): Released all slaves
+rxrpc: Assertion failed
+------------[ cut here ]------------
+kernel BUG at net/rxrpc/conn_object.c:488!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 2 UID: 0 PID: 5766 Comm: kworker/u32:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: netns cleanup_net
+RIP: 0010:rxrpc_destroy_all_connections.cold+0x12/0x14 net/rxrpc/conn_object.c:488
+Code: ff 90 0f 0b e8 39 99 99 00 48 c7 c7 60 6a 5d 8d e8 3d c0 af ff 90 0f 0b e8 25 99 99 00 48 c7 c7 60 6a 5d 8d e8 29 c0 af ff 90 <0f> 0b e8 11 99 99 00 49 63 d6 48 83 ce ff 48 c7 c7 40 f3 00 91 e8
+RSP: 0018:ffffc90003f27970 EFLAGS: 00010286
+RAX: 0000000000000017 RBX: ffff8880394c0000 RCX: 0000000000000000
+RDX: 0000000000000017 RSI: ffffffff81ea1579 RDI: fffff520007e4f1f
+RBP: ffff8880394c0064 R08: 0000000000000007 R09: 0000000000000000
+R10: 8000000000000000 R11: 0000000000000001 R12: 1ffff920007e4f30
+R13: ffff8880394c0078 R14: ffff8880394c0088 R15: ffff8880394c0088
+FS:  0000000000000000(0000) GS:ffff8880d5d53000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055a4b15ca000 CR3: 000000003c5bd000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ rxrpc_exit_net+0x7b/0xc0 net/rxrpc/net_ns.c:113
+ ops_exit_list net/core/net_namespace.c:200 [inline]
+ ops_undo_list+0x2ee/0xab0 net/core/net_namespace.c:253
+ cleanup_net+0x499/0x920 net/core/net_namespace.c:706
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:rxrpc_destroy_all_connections.cold+0x12/0x14 net/rxrpc/conn_object.c:488
+Code: ff 90 0f 0b e8 39 99 99 00 48 c7 c7 60 6a 5d 8d e8 3d c0 af ff 90 0f 0b e8 25 99 99 00 48 c7 c7 60 6a 5d 8d e8 29 c0 af ff 90 <0f> 0b e8 11 99 99 00 49 63 d6 48 83 ce ff 48 c7 c7 40 f3 00 91 e8
+RSP: 0018:ffffc90003f27970 EFLAGS: 00010286
+RAX: 0000000000000017 RBX: ffff8880394c0000 RCX: 0000000000000000
+RDX: 0000000000000017 RSI: ffffffff81ea1579 RDI: fffff520007e4f1f
+RBP: ffff8880394c0064 R08: 0000000000000007 R09: 0000000000000000
+R10: 8000000000000000 R11: 0000000000000001 R12: 1ffff920007e4f30
+R13: ffff8880394c0078 R14: ffff8880394c0088 R15: ffff8880394c0088
+FS:  0000000000000000(0000) GS:ffff8880d5d53000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055a4b15ca000 CR3: 000000003c5bd000 CR4: 0000000000352ef0
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
