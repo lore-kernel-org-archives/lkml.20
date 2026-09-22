@@ -1,146 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781945326CD;
-	Tue, 22 Sep 2026 10:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720265349D8;
+	Tue, 22 Sep 2026 10:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072558; cv=none; b=LRku5kEGB5HxYE3pb/DeT42FksYXSo1hbXiFm0i8IScTBq7nhI/L6z+3LZ3WfxJZ2ouWJgoatirBhvLF6F7rbSz+6AxyRu5K7BgberY5ZJDeIycx5phkA3+kQhHl/xRPxQj2yFApgVj2B+Ev16o4rlsUaGKXQRKYASDT/Wq1x34=
+	t=1790072584; cv=none; b=N9eA9nlISBQh0NH1E8DkB3kdYwIx7a8WNkcmaJtuZYpcywCbfq/3TZ26H819AAfzvG3kYyxr2YeVUcbuybW4omjXKsWYOToZHTw2rnc+iamkqpZu0VPj/zXa55q3zypbo8Asqx13ktUZVFL5TmMh76ZBn+f3Ssb/b9Bebk4CqUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072558; c=relaxed/simple;
-	bh=R569XAwdmmOiD7erNy5+Hyo0+62FkYyZfHWHrrTjUmY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HeiE02S7zFrbtBDNjDy/RGQ8xJdVZHUfgdvgqxlGwiniXNllCOmFhaa5n/NtuWY5pfn3IhZqSHCXLwQEmWL0AHe83RXUojl7j8vkIZoVOkjl7ygLYWdUKnGM/77/6WwXDK3P3wqlCXo4Ucl0a56Y73mPx5vOUDTK1vRwgSSKH9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihY+h/wb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790072584; c=relaxed/simple;
+	bh=MxKLDNsSEbsAZ2FsjkGj1Cd9kOeqGhPW8SlTehjOBsk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=o90cXuuT715Yu1xBHzb9jxSVmnixqv/C+NGLM6RYhZVfUHUhP4CwresQj9C1rCEnr7tef20NJ42MuTPmBe9U/sz049TLKq/lmS01zvhQI9TP3M8tsW+iQnjz7RIymFyZOfXgHpbiSfO0vuYVIcha5jblkId9l3daZHfrK/kZNsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=geja6OAj; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihY+h/wb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8A61F000FF;
-	Tue, 22 Sep 2026 10:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790072553;
-	bh=DN0EkF+UVww2zD+JWORW1dS7pehZEzk3ZOGPbCH+2mU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ihY+h/wbIr9rgYOMg9hmVVaut1LOYTuIrifpMlalFf74N6LgXDLXSnn910Zz74fR2
-	 LvFYMvp/3j7aVJDQtj/SqNTrpyudQKmeZPHt1ubnVVg+8srIjVkJCENRqEN74MChDf
-	 +Ec08GzZgLLY3pq+E3KpbetqEL5kRgkx8VZv+BkAvKLkazMolEzzw3ENwaGK0ZN/tz
-	 AQi6pagd6hE+NAy+Eanob4UxWff+yVMYCEpMDHw/ynqWj3Nx7gK6fUJt4gsMZfAspn
-	 pRGXUZD2aVt+239kbQMIxpM5SZujE0wc8bFmvhyuw8Cy9lfK9tsbvO5ky7faQZPaM2
-	 wFGJ8zpD9PinA==
-Message-ID: <53761d0c-e4c2-41c8-89e6-3c9916934c69@kernel.org>
-Date: Tue, 22 Sep 2026 12:22:21 +0200
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="geja6OAj"
+Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MA2Y9x2142606;
+	Tue, 22 Sep 2026 03:22:38 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=blza3JfDKhjzui9dlwsD3ff
+	M8UFDDjdz5j2XBWxUlC8=; b=geja6OAjCSXx0+lgv3UQJdKW94doyuYdPG/GTE+
+	si8FSg2StE38O9HOgsyjgLh+frJwx+7BRfnUNL9/AJCjNRYA67MacZdltHV7shZi
+	TyZKIpu1Tr8UY7FTV/chq6/hi6o7URkxeFuqesd6viLAT7Vv9D5DG0NS7qkzFcXx
+	utFohedeMgzUKj9enMMEX5HPODmW5g4mN/7Ebyksi7NyFREmE4XdiMBsIbci7E7v
+	yJHuFune/vTngcG9cX9dHQ8U/+VkeqabMwlYREU94/XhZdruCs7/H9WlZnedSHOd
+	VQPHdXopls16om6XYZdQeL1uTXz04tmHxlKsJrNtI2ZEMPA==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gudhbaf70-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 03:22:37 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Tue, 22 Sep 2026 03:21:54 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Tue, 22 Sep 2026 03:21:54 -0700
+Received: from numbat.caveonetworks.com (unknown [10.29.36.45])
+	by maili.marvell.com (Postfix) with ESMTP id C5F8C3F7080;
+	Tue, 22 Sep 2026 03:21:50 -0700 (PDT)
+From: Subrat Pandey <subratp@marvell.com>
+To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
+CC: <pabeni@redhat.com>, <kuba@kernel.org>, <edumazet@google.com>,
+        <davem@davemloft.net>, <andrew+netdev@lunn.ch>, <sbhatta@marvell.com>,
+        <rkannoth@marvell.com>, <gakula@marvell.com>, <sgoutham@marvell.com>,
+        <subratp@marvell.com>
+Subject: [PATCH net v7 0/2] octeontx2: Misc fixes for RVU drivers
+Date: Tue, 22 Sep 2026 15:51:47 +0530
+Message-ID: <20260922102149.2078168-1-subratp@marvell.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/13] mm/sparse: move __highest_used_section_nr
- handling
-To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
- Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
-References: <20260921-b4-sparsemem_cleanups-v2-0-54d81d65e125@kernel.org>
- <20260921-b4-sparsemem_cleanups-v2-8-54d81d65e125@kernel.org>
- <arIC7BheTHzBnLoq@localhost.localdomain>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <arIC7BheTHzBnLoq@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE0OCBTYWx0ZWRfX+1C8FkjR5A3v
+ /89LFFro1TjeSf/UPM2E/O84Z/+eSyj/EUOLzVBFL/nMm7ILc/ipfvucgedgf5mzBGOToGaMieW
+ 67ZvwwNSC3t7QEeY9dLfUVDABg3M43E=
+X-Proofpoint-GUID: bpeJoKG9a3nIYc2-FOOEqepQ5GZIQ21H
+X-Proofpoint-ORIG-GUID: bpeJoKG9a3nIYc2-FOOEqepQ5GZIQ21H
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE0OCBTYWx0ZWRfX2razPFz+w9Ki
+ MLFhUJBGDfW4yvFaGFD7oLdmVPyfLWxFIzbmx9x4xyvBoTj703adxbgOTqR8TCNSlA3Ofv4qAhG
+ /VKTti7g4WE0sGpSt277MCm8zL898Q9oErDA9gpjMccfjx9WuuaRTwtTYxwPk1s8kcDnG2Ogrll
+ 8gDxWUCmlFFGT8PH+8lQCGUmQ9Twfhd3tyscV4EplarbgWBWmCmHwKEU1dByVH4J1lbmXJEpvO4
+ qcz2bDSzwleh6OXwPFcxeiG0jJ2v4XzpcxoxMtrY9TVnqkKXJJHUOMrVRsRV8MO7e4fZnIg3kCD
+ qxVtqRAyoF8TaAmy9vCUvkmf6ATzeFXoMDUSfkS6K2h2X1Gdoffb4WUgmK39aV2p4hSY1MQ21im
+ A8IZ9zX9kvZSl/mnklp6edhnpKfp2LhNxSbz21vEKhPStws5j9nOti3VqJbVNflCIMTcfbsBQaJ
+ lAzFw2okbMMlLSrwUCg==
+X-Authority-Analysis: v=2.4 cv=EpRHPicA c=1 sm=1 tr=0 ts=6ab256ed cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=TtqV-g6YmW1Jfm2GSLaY:22 a=VwQbUJbxAAAA:8 a=M5GUcnROAAAA:8
+ a=4I0ENqp42E1HAAk-qN4A:9 a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
 
-On 9/22/26 06:24, Oscar Salvador (SUSE) wrote:
-> On Mon, Sep 21, 2026 at 09:59:00PM +0200, David Hildenbrand (Arm) wrote:
->> In preparation for removing __section_mark_present(), let's move
->> __highest_used_section_nr handling into its callers. Verify in
->> sparse_init_one_section() that it was properly updated.
->>
->> In sparse_sections_init() we can just set it to the last processed
->> section_nr.
->>
->> No functional change intended.
->>
->> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Acked-by: Oscar Salvador <osalvador@suse.de>
-> 
->> ---
-> ...
->> --- a/mm/sparse.h
->> +++ b/mm/sparse.h
->> @@ -26,6 +26,7 @@ static inline void sparse_init_one_section(struct mem_section *ms,
->>  	unsigned long coded_mem_map;
->>  
->>  	BUILD_BUG_ON(SECTION_MAP_LAST_BIT > PFN_SECTION_SHIFT);
->> +	VM_WARN_ON_ONCE(section_nr > __highest_used_section_nr);
-> 
-> I wonder, have we seen this in the wild?
+A few independent fixes for the Marvell OcteonTX2 (RVU AF/PF) drivers:
 
-No, it would be highly unexpected (thus VM_WARN_ON_ONCE).
+ - Fix aura/CQ BPID assignment under CONFIG_DCB, which assumed
+   queue_to_pfc_map was always allocated (not true for SDP VFs).
+ - Fix the SC resource cleanup loop that iterated over secy.max
+   instead of sc.max.
 
-Thanks!
+Changes in v7:
+ - v6: https://lore.kernel.org/all/20260910062657.3712256-1-subratp@marvell.com/
+ - patch 1: NULL check for queue_to_pfc_map in otx2_get_bpid_idx().
+ - patch 2: Reword commit message.
+
+Changes in v6:
+ - None. Rebased onto latest net tree.
+
+Changes in v5:
+ - patch 1: Fixing the compilation issue when CONFIG_DCB is
+   disabled.
+
+Changes in v4:
+ - patch 1: Add 'inline' qualifier to otx2_get_bpid_idx() helper
+   defined in the header.
+ - patch 2: Correct commit subject in Fixes: tag to match the actual
+   upstream commit title.
+
+Changes in v3:
+ - patch 1: Unify the BPID index logic into a shared otx2_get_bpid_idx()
+   helper, dropping the per-file #ifdef CONFIG_DCB.
+ - patch 2: Extend the sc.max fix to the SC stats loop in
+   mcs_clear_all_stats(); add Fixes: tag.
+
+Changes in v2:
+ - Dropped "octeontx2-af: Fix mcs string buffer size", will
+   re-target it to net-next.
+
+Baha Mesleh (1):
+  octeontx2-af: mcs: Fix SC resource cleanup loop
+
+Geetha sowjanya (1):
+  octeontx2-pf: Fix aura BPID assignment when CONFIG_DCB is enabled
+
+ drivers/net/ethernet/marvell/octeontx2/af/mcs.c  |  4 ++--
+ .../net/ethernet/marvell/octeontx2/nic/cn20k.c   | 11 +----------
+ .../ethernet/marvell/octeontx2/nic/otx2_common.c | 16 ++++++----------
+ .../ethernet/marvell/octeontx2/nic/otx2_common.h |  9 +++++++++
+ 4 files changed, 18 insertions(+), 22 deletions(-)
 
 -- 
-Cheers,
-
-David
+2.43.0
