@@ -1,186 +1,115 @@
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F422F527599
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE014189BA;
+	Tue, 22 Sep 2026 09:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068110; cv=none; b=Ao+gOeD7bOogKgjoVGmVwnzNZnAnVViogt6tsMJiv0JmJusn/+cnOPvpwNlNMiIhv9FVVQWLn3MKM8xk7OMqbZUOntVPnE4Qm7HFJ9J8tq1lSF/3l+P4NHtHO3Gf/2EiH8oomHsXHYMdRDsFMBmiS5QBqEITy7c6dHr47MuZNn4=
+	t=1790068115; cv=none; b=Ua1P+yz0iEC2EzF72ZlAzRM16SH6nRb4bmhof7IeofHg+8DF++xa8Tgy6sdqteLRT2fmpZEM41VLCu5AUemzwvvpUI9Fh1sW3lo7ENJjk0v6cDFhhlmkfASh38BrPiDMsUKA2nGHOzx9P+QmBLHXAEcO2ZYFxoLpNvFNmlhnfKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068110; c=relaxed/simple;
-	bh=Z5cChD2qcf7SKc+B5CIy+kWqB70rvU/M1atPmI5mdZk=;
-	h=Message-Id:To:Cc:Mime-Version:Date:From:Subject:Content-Type; b=ZhKqsn5lsGJdHSL0nZNDKHb377+4WLj/nx1XfdcCQeDbpgGYtAyO9S5wLKY5ZkJ8TmaEvhaoKreDMGU67D8NuUZr90pN/DomGOPEsjXbtRqoKjUWoEWWZEUkmlkYhy7+wwnWTja4fXUCILRx0SAHFOM8muCiWITtLvLHQ7r3qP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ifVQQpA5; arc=none smtp.client-ip=209.127.230.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790068115; c=relaxed/simple;
+	bh=aWEqlZnVkFRgp0qQKu7X23kGg0ZHVehrYng8L//OeY0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mA3XSBbtkzAIkfzS7/TibvxeEsK93whXPR5qpqj6xD7PlahDHjvrF6uNOpZ8kuTkxtThavJrSWKerpNAld2zkIgUGRgMhk5UJ4QYbpifvJk2SmjUUMp6lGcHAzfCrvvstMICAvBgRbk0VmiqVDt8n7jlnsdQIbLUA2QlusW314Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwyC67CJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ifVQQpA5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790068102; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=f43TmgQRALeNk9ZBHseTt/FnXdw6N5ADxp4C+n/kWzM=;
- b=ifVQQpA5ocE2AhjwzK2WTk1pMKo+np7D2KD+ln6paixFSGUBQjexUfSUp7E/lsYv6oxBfu
- ylgMAohOSmrdvVUqaW20Qa3iI7Y7PI/HxQ+qq6yIsNKDmY49svCnL6rqgt+NCz9N2YsWIY
- PWoC3lUu5HidQEFKaVjdb5W4QrbMzBhDuB8xzYkCqiCs8GO6Svv54jg7/u0MflcF8Q1KWi
- c0qQdla6dFr27rqP0Thwp2gqrtRVgX2IC1n16UxJADeLitPIj6ZCqmrKlpCDuTXZUhnQZU
- Tk7yoGIkXFparE0zat4O0x4BYR+m/OX7l8u8/s2qRoZTtxw2CE7nPfSBhv5rKg==
-Message-Id: <20260922090749.24905-1-lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.45.2
-To: <akpm@linux-foundation.org>, <david@kernel.org>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>
-Cc: <aiqi.i7@bytedance.com>, <linux-kernel@vger.kernel.org>, 
-	<linux-mm@kvack.org>, "Li Zhe" <lizhe.67@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwyC67CJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C8E61C2BCB8;
+	Tue, 22 Sep 2026 09:08:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790068114;
+	bh=aWEqlZnVkFRgp0qQKu7X23kGg0ZHVehrYng8L//OeY0=;
+	h=From:Date:Subject:To:Cc:From;
+	b=cwyC67CJTTnwPjKJ8FlgqgfhQDe55lCyCaslHwZ3X993TMNn3NocalVYthl8VVuW7
+	 ZfwrnlMAxCq16OHPmZ4FtZs+YKLJZaVA7BZqI0VvwQtLQJRZ33wfmyaCll0EczpW1v
+	 91d8raG6rRq07cOfbzycDBE+AxHHyvnPhr74o8Hwj8IJtiEbyobgUKuPVMqufQXZN7
+	 UvgTwSXn+qb2X20UsRxTlJIXl8Y9ci/rDHIbqsc7jdlvVB7TyrF5XeS2V1b8Cd2QBY
+	 mO+e8LJfu+AY1QJ8RWPqwnr/QUiov15WSvpojqK8rtIVcreK6cboqkfE3MqnUADQl+
+	 943P103SfCoXg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1BB1C982FA;
+	Tue, 22 Sep 2026 09:08:34 +0000 (UTC)
+From: Joel Granados <joel.granados@kernel.org>
+Date: Tue, 22 Sep 2026 11:08:13 +0200
+Subject: [PATCH] ipvs: skip committing sync_threshold when proc_dointvec
+ fails
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ab24581+b6711f+vger.kernel.org+lizhe.67@bytedance.com>
-Date: Tue, 22 Sep 2026 17:07:49 +0800
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Subject: [PATCH v2] mm/hugetlb: fix overbroad MMU notifiers for unshared PMDs
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-lklm-sysctl-retval-fix-v1-1-7290ea4253a4@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAHxFsmoC/x2M2wpAQBBAf0XzbIpRxK/Iw9odTNalHYnk320ez
+ 6lzHlAOwgpN8kDgU1S2NUKeJmAns46M4iIDZVRmNRH62S+ot9rDY+DjNB4HudD0xlHtbFH1DmK
+ 8B476H7fd+350fIRlaAAAAA==
+X-Change-ID: 20260922-lklm-sysctl-retval-fix-abad29dc37bd
+To: Simon Horman <horms@verge.net.au>, Julian Anastasov <ja@ssi.bg>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+ Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+ lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, linux-kernel@vger.kernel.org, 
+ Joel Granados <joel.granados@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1296;
+ i=joel.granados@kernel.org; h=from:subject:message-id;
+ bh=aWEqlZnVkFRgp0qQKu7X23kGg0ZHVehrYng8L//OeY0=;
+ b=owJ4nAHtARL+kA0DAAoBupfNUreWQU8ByyZiAGqyRZGUA0KCGTVtlF++nMgUcIdQrRiZq3RUU
+ /YgHZ0t3bnNBokBswQAAQoAHRYhBK5HCVcl5jElzssnkLqXzVK3lkFPBQJqskWRAAoJELqXzVK3
+ lkFPDmYMAJI5M0li0IFDoGjBI7dEFL6+2/SLWT6ezLqZGKpiiRPP3nCorSqTS0ybmW666HQuCL5
+ dl+yPbeZ7QhF6ret88F/aAbXd0D24GHNSsgns1igp2JdZSpfgJWVFwYXed3twvuH8C7ZOlkpwTY
+ q1MDtTpBcHHo3iasIgrhs3ve760S3aEWRFx0m5t1X1HsiBqF0OPl/4E4A/0D/lKXV3Xll3mhnSA
+ zH+0b2/bmW/N68hXf1BeUgxPRQzrejpqiGy+VTMxfT/XF0fvpktRdIaDPyOeFVRvIfLX+gkPl8b
+ qjWI21hUbFwmQUmDe+gJ1A743mX4qpKw+PuIcR9xo/hk0P3pN05i4WcBUhtfinx7cYQTmjRwZrh
+ 9//gOU3degccRS6r4Ot/Qqyb3+EX0RtqReRilJAdaB5Kvx46ukpCnBvX8vuYHKfDoc2wXLjiOQg
+ S/GVKugi5BLDPXCSqC1jArJQzeBwgwu7Z11zRLwTe70gaQiOU+S7nkCHMrYk9fTuS93/sayKDF5
+ do=
+X-Developer-Key: i=joel.granados@kernel.org; a=openpgp;
+ fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
+X-Endpoint-Received: by B4 Relay for joel.granados@kernel.org/default with
+ auth_id=239
 
-Hugetlb currently expands MMU notifier ranges to PUD boundaries whenever
-PMD sharing is possible. That is only needed when huge_pmd_unshare()
-actually detaches a shared PMD page table, because clearing the PUD
-invalidates the whole PUD-sized virtual address range.
+Forward rc value and skip updating sysctl_sync_threshold when
+proc_dointvec fails. This targets a write such as "5 x" which would fail
+with -EINVAL but would store the first element anyway.
 
-For hugetlbfs hole punch, and similarly for other hugetlb unmap paths,
-a shared mapping can pass the "PMD sharing is possible" range test in
-adjust_range_if_pmd_sharing_possible() even when the hugetlbfs file has
-never actually had any shared PMD page tables. KVM then receives a 1G
-invalidation for a 2M operation and zaps unrelated secondary mappings,
-so the guest has to fault them back in.
-
-Avoid this by remembering, per hugetlbfs inode, whether PMD sharing was
-ever established for the file. Set the flag when huge_pmd_share()
-successfully populates a shared PMD table. For the hugetlb unmap paths,
-skip the conservative PUD-sized notifier expansion while the file has
-never seen PMD sharing.
-
-The state is intentionally sticky and file-wide. Once PMD sharing has
-ever happened for the file, the unmap paths keep the existing
-conservative expansion. This avoids the no-sharing case without adding a
-page-table walk to every unmap.
-
-On a Redis-in-VM workload that punches cold 2M hugetlb pages, this patch
-improves P99 QPS stability while punching pages, reducing the QPS
-degradation ratio from 7.09% to 1.45%.
-
-Reported-by: aiqi.i7 <aiqi.i7@bytedance.com>
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+Signed-off-by: Joel Granados <joel.granados@kernel.org>
 ---
-v1: https://lore.kernel.org/all/20260831091023.66581-1-lizhe.67@bytedance.com/
+ net/netfilter/ipvs/ip_vs_ctl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-ChangeLogs:
-- Rework the implementation based on David's suggestion: remember
-  whether PMD sharing ever happened for a hugetlbfs file, and skip the
-  conservative notifier range expansion while it has not. This avoids
-  the per-unmap page-table walk.
-
- fs/hugetlbfs/inode.c    |  3 +++
- include/linux/hugetlb.h | 24 ++++++++++++++++++++++++
- mm/hugetlb.c            | 11 ++++++++---
- 3 files changed, 35 insertions(+), 3 deletions(-)
-
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 7611a84..1e24b8d 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -921,6 +921,9 @@ static struct inode *hugetlbfs_get_inode(struct super_block *sb,
- 		simple_inode_init_ts(inode);
- 		info->resv_map = resv_map;
- 		info->seals = F_SEAL_SEAL;
-+#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-+		info->pmd_sharing_seen = false;
-+#endif
- 		switch (mode & S_IFMT) {
- 		default:
- 			init_special_inode(inode, mode, dev);
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 16c4c4c..8f1f899 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -509,6 +509,9 @@ struct hugetlbfs_inode_info {
- 	struct inode vfs_inode;
- 	struct resv_map *resv_map;
- 	unsigned int seals;
-+#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-+	bool pmd_sharing_seen;
-+#endif
- };
- 
- static inline struct hugetlbfs_inode_info *HUGETLBFS_I(struct inode *inode)
-@@ -516,6 +519,27 @@ static inline struct hugetlbfs_inode_info *HUGETLBFS_I(struct inode *inode)
- 	return container_of(inode, struct hugetlbfs_inode_info, vfs_inode);
+diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
+index 4c1c739446b76ea455dab2958a844d05e31a46a7..7c260529238cd2015f1d30abd094d25b056b30fa 100644
+--- a/net/netfilter/ipvs/ip_vs_ctl.c
++++ b/net/netfilter/ipvs/ip_vs_ctl.c
+@@ -2454,6 +2454,8 @@ proc_do_sync_threshold(const struct ctl_table *table, int write,
+ 	mutex_lock(&ipvs->sync_mutex);
+ 	memcpy(val, valp, sizeof(val));
+ 	rc = proc_dointvec(&tmp, write, buffer, lenp, ppos);
++	if (rc)
++		goto out;
+ 	if (write) {
+ 		if (val[0] < 0 || val[1] < 0 ||
+ 		    (val[0] >= val[1] && val[1]))
+@@ -2461,6 +2463,7 @@ proc_do_sync_threshold(const struct ctl_table *table, int write,
+ 		else
+ 			memcpy(valp, val, sizeof(val));
+ 	}
++out:
+ 	mutex_unlock(&ipvs->sync_mutex);
+ 	return rc;
  }
- 
-+#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-+static inline void hugetlbfs_set_pmd_sharing_seen(struct inode *inode)
-+{
-+	HUGETLBFS_I(inode)->pmd_sharing_seen = true;
-+}
-+
-+static inline bool hugetlbfs_pmd_sharing_seen(struct inode *inode)
-+{
-+	return HUGETLBFS_I(inode)->pmd_sharing_seen;
-+}
-+#else
-+static inline void hugetlbfs_set_pmd_sharing_seen(struct inode *inode)
-+{
-+}
-+
-+static inline bool hugetlbfs_pmd_sharing_seen(struct inode *inode)
-+{
-+	return false;
-+}
-+#endif
-+
- extern const struct vm_operations_struct hugetlb_vm_ops;
- struct file *hugetlb_file_setup(const char *name, size_t size, vma_flags_t acct,
- 				int creat_flags, int page_size_log);
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 7857728..e370960 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5359,10 +5359,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *vma,
- 	if (!vma->vm_file)	/* hugetlbfs_file_mmap error */
- 		return;
- 
--	adjust_range_if_pmd_sharing_possible(vma, start, end);
- 	hugetlb_vma_lock_write(vma);
--	if (vma->vm_file)
-+	if (vma->vm_file) {
- 		i_mmap_lock_write(vma->vm_file->f_mapping);
-+		if (hugetlbfs_pmd_sharing_seen(file_inode(vma->vm_file)))
-+			adjust_range_if_pmd_sharing_possible(vma, start, end);
-+	}
- }
- 
- void __hugetlb_zap_end(struct vm_area_struct *vma,
-@@ -5401,7 +5403,9 @@ void unmap_hugepage_range(struct vm_area_struct *vma, unsigned long start,
- 
- 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
- 				start, end);
--	adjust_range_if_pmd_sharing_possible(vma, &range.start, &range.end);
-+	if (hugetlbfs_pmd_sharing_seen(file_inode(vma->vm_file)))
-+		adjust_range_if_pmd_sharing_possible(vma, &range.start,
-+						     &range.end);
- 	mmu_notifier_invalidate_range_start(&range);
- 	tlb_gather_mmu(&tlb, vma->vm_mm);
- 
-@@ -7004,6 +7008,7 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
- 	if (pud_none(*pud)) {
- 		pud_populate(mm, pud,
- 				(pmd_t *)((unsigned long)spte & PAGE_MASK));
-+		hugetlbfs_set_pmd_sharing_seen(mapping->host);
- 		mm_inc_nr_pmds(mm);
- 	} else {
- 		ptdesc_pmd_pts_dec(virt_to_ptdesc(spte));
+
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260922-lklm-sysctl-retval-fix-abad29dc37bd
+
+Best regards,
 -- 
-2.45.2
+Joel Granados <joel.granados@kernel.org>
+
+
