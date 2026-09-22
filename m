@@ -1,310 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28C751AFEC;
-	Tue, 22 Sep 2026 23:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790118562; cv=none; b=Lrc/RPYJ/kxgie4vfjI1BfJ0e6HGN0GuxD1z/PSePB3TKSCiJpUsZB4+VMpDzvvbyVpX0GAJR1MBzn3BbWLapixCEZVIK2mqXmb6JQaWti5AUvD3ZU6E9MD0zxHAlseKzfh9D1qzNfuTwSPhepQpNX6k9VwUjGCrBewOFrqdJ8U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790118562; c=relaxed/simple;
-	bh=1TOAMxqkO48nfNBJrJSPoy218qnCyaKxgthTx2KtYZE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UDfZLsGdvw5XZ97qyFEiRaVcz+Lifo0cuplrNtH7Qoe3dZKJD7/mvs+B1V/WzVJz7PvUgRYPGoUGkbEWmHkY3J066Kc4EVyDMWFIkOsCk1mlTnqRYdvUFgHxnojkR8HZTUsA1SwK1u/2acZtnePNS+608OsPNpLCETiBfwm7VxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3zp+/j3; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80D54570F8;
+	Tue, 22 Sep 2026 23:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790118986; cv=pass; b=mMu53gWnHJZXbIn4f6Q3gLzJbtZnqoeqgHnb+WuOS77vYvcjzgznmJv/kmgsrT5GZFirmGRhv83klPGLe5BwAPc+AQsrJ6lwDXod/qYxTHl7ZUor860QwAb8+yO+cZ8iqHuKxnSnvJTv7HdC25uaChPqhDEdlogpNCWgn7deOqw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790118986; c=relaxed/simple;
+	bh=rA7Q97uhEejy46pnz3jpCfb75C7irewmrdSSzlhAAzo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=n7vtWTSl81tQt5JGU3Uo6tnTOY8/193UCoDV7qL4xGHrSF9k3GrIVhd+abB3FbZVbfKFWYTU/mNQU0U6BNMWwLDjZnq5M0BytZVkRVjH/zAwwimXEE8ckiTp8aB+FQ08ZtbpJH8enUaK7FhNc2i4JQeb94j7n4VkKHBcsSHrCzo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=Yx3HZM8y; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3zp+/j3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790118560; x=1821654560;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=1TOAMxqkO48nfNBJrJSPoy218qnCyaKxgthTx2KtYZE=;
-  b=n3zp+/j3fyKvVbWJZ7v/5s868VoU9J5VplcYL3I5HjBdJ7Ypp3gPH7vj
-   r6G7/Zsjos7ttVuftx1jokUOzWkUkE3M4p6S8+D7LE4o1Ptcnkf7Au8YS
-   jx2IcVvh3QoR5iaRawgXsZe7mu0bVM/voTmkL0rHETgaBziNJ5WIftnsI
-   JEfqw5SXx2BITEJRMBa2uSwmtMlcoRx2y/KL4lfDGU9v4MkbphcGp/jMP
-   8a9Ow55CgTLadj+4nXXdrCJK+axzfq8XQulRrynALJcuGDF5WELfS/ka8
-   zXsZ7hh//MPGkYw3j4JStYnQrl+pB//UJSlMJnanCFcjNEspp8TT0dYZm
-   A==;
-X-CSE-ConnectionGUID: k0GlXm0XTTKZeyPZrUiS6Q==
-X-CSE-MsgGUID: DK7JoJMARyeYlBv6xBoIoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89686411"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="89686411"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 16:09:19 -0700
-X-CSE-ConnectionGUID: 4U5aPbVoQqmx97Dc4s1tUQ==
-X-CSE-MsgGUID: zzMGiacpS9mQiph3S0ldXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="4634624"
-Received: from bradocaj-mobl.ger.corp.intel.com (HELO [10.125.110.50]) ([10.125.110.50])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 16:09:18 -0700
-Message-ID: <b40fa0d7-fbd0-4ee8-b99c-781d08c18838@intel.com>
-Date: Tue, 22 Sep 2026 16:09:16 -0700
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="Yx3HZM8y"
+ARC-Seal: i=1; a=rsa-sha256; t=1790118974; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=n1llWulrYEIajR7IuM3qosDEMUQeCV7BGxsVK8gaFOxPkUo4f4mKqEigC4ADV/XB+cmpOaYSRtRTLKv2wcLzor9v/WgH63c1uZEuTz0ZqdP1ajiTc1m2P5B+PZA4sQypflJBm4qreuMRn8Jz+Ele9r05Tu3enAhS8CQ3kl6JoAk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790118974; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=vhoc42pCqHiQewv5L6Ecg/vqH9ZIuVDppghiEGTI8KU=; 
+	b=BYhCsoHVolXDo4zaX3NgCuFJ/iqllm2gj4NlEwopI985mTq7mYlLS3L4wt4EBF0wx63tDsbO2O7jcfwKYZ5aE1pMYw+ND6MlWy9JSM4O3+93iaIJblqptpskfxyrq06m8WvSbqKxgd+c7/e/pVzfYsbvSuB/4O0DTYrVu4U0zXQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790118974;
+	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+	bh=vhoc42pCqHiQewv5L6Ecg/vqH9ZIuVDppghiEGTI8KU=;
+	b=Yx3HZM8yUTKZo4pSaZayKXxhsC15q2csGUKJLRsAg5sIS4ns3HtCZOp9rrRsB8X1
+	+rln+LaGk+cRQY8AUz6XBbZ+NqryQe9hYkygCGfPVNylV4QZMLpN/0hC0B/+EIBisHn
+	W6uul6ZX4EcHApBkAntY9vaY5/rSEvz8N+K/cgTA=
+Received: by smtp.zohomail.com with SMTPS id 1790118972361369.87324403281946;
+	Tue, 22 Sep 2026 16:16:12 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Tue, 22 Sep 2026 16:16:08 -0700
+Subject: [PATCH] drm/tyr: gpu_info: zero out new/unused fields
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] dmaengine: change dmaengine_get_unmap_data() first
- arg to dma_chan
-To: Frank.Li@oss.nxp.com, Dan Williams <djbw@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Jon Mason <jdmason@kudzu.us>,
- Allen Hubbe <allenbh@gmail.com>, Ard Biesheuvel <ardb@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Eric Biggers
- <ebiggers@kernel.org>, "open list:CRYPTO API"
- <linux-crypto@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- "open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM"
- <dmaengine@vger.kernel.org>, "open list:NTB DRIVER CORE"
- <ntb@lists.linux.dev>
-Cc: imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-References: <20260922184527.2414043-1-Frank.Li@oss.nxp.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260922184527.2414043-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b4-gpu_info_zero-v1-1-7259840069c6@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAIBRG4a3EHSeUhGVbiYgev3YnGkoRhXtPG
+ n6Dc16KCIxIffFSwMWRvcuoy4LWfXYWgrdskpVUlZZSLI2wxzmxM356ELww7QoFKD13mnJ2BBi
+ +/+UwpvQBobu/imIAAAA=
+X-Change-ID: 20260922-b4-gpu_info_zero-f7ce6ee69a89
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, karunika.choo@arm.com, 
+ boris.brezillon@collabora.com, laura.nao@collabora.com, 
+ steven.price@arm.com, liviu.dudau@arm.com, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1442;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=rA7Q97uhEejy46pnz3jpCfb75C7irewmrdSSzlhAAzo=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmbeay3hOy4bM72xm6W/M93Dww8W4vmiaQlCUxk536nb
+ 7pNqoe9o5SFQYyLQVZMkeWsvVGPeNV7I935/5th5rAygQxh4OIUgIncr2P4p6yzQtwpTd0sZvbD
+ xv0pRzrfR5gfK1n25vLc1A9qx129cxn+GYTsYJH3fM3i+jxdwHimmXPqr4Oxt0739uq9NZ2WMtG
+ fEQA=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
+If a new field is added to the struct drm_panthor_gpu_info in the panthor
+uapi, Tyr must initialize this field or it will cause a compile error.
 
+To pre-emptively avoid compile errors, use ..pin_init::zeroed() to zero
+out all new fields added to this struct. Tyr can subsequently change the
+initialization as necessary. Also use it instead of manually zeroing out
+existing fields at the end of the struct.
 
-On 9/22/26 11:45 AM, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Replace the struct device *dev argument with struct dma_chan *chan so
-> callers do not need to reach into the dma_device internals to obtain
-> the device pointer.  The implementation now derives the device via
-> dmaengine_get_dma_device(chan), which correctly handles the per-channel
-> IOMMU mapping case.
-> 
-> Prepare to make dma_device private and make dmaengine API consistent.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+ drivers/gpu/drm/tyr/gpu.rs | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-For the NTB bits:
-Acked-by: Dave Jiang <dave.jiang@intel.com>
+diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
+index 592b8bb16eba..e1b04a0c5159 100644
+--- a/drivers/gpu/drm/tyr/gpu.rs
++++ b/drivers/gpu/drm/tyr/gpu.rs
+@@ -74,10 +74,8 @@ pub(crate) fn new(io: &IoMem<'_>) -> Self {
+                 io.read(TILER_PRESENT_HI).into_raw(),
+             ),
+             core_features: io.read(CORE_FEATURES).into_raw(),
+-            // Padding must be zero.
+-            pad: 0,
+-            //GPU_FEATURES register is not available; it was introduced in arch 11.x.
+-            gpu_features: 0,
++            // Zero unsupported and newly added UAPI fields.
++            ..pin_init::zeroed()
+         })
+     }
+ 
 
+---
+base-commit: e1a9f41b896f0d57eb1165dd8a4c7446be6af638
+change-id: 20260922-b4-gpu_info_zero-f7ce6ee69a89
 
-> ---
->  crypto/async_tx/async_memcpy.c      | 4 ++--
->  crypto/async_tx/async_pq.c          | 4 ++--
->  crypto/async_tx/async_raid6_recov.c | 4 ++--
->  crypto/async_tx/async_xor.c         | 8 ++++----
-
-Maybe one day Dan's wishes will become true and someone will finally deprecate async_tx....
-
-DJ>  drivers/dma/dmaengine.c             | 4 ++--
->  drivers/dma/dmatest.c               | 2 +-
->  drivers/dma/mv_xor.c                | 4 ++--
->  drivers/ntb/ntb_transport.c         | 4 ++--
->  drivers/ntb/test/ntb_perf.c         | 2 +-
->  include/linux/dmaengine.h           | 4 ++--
->  10 files changed, 20 insertions(+), 20 deletions(-)
-> 
-> diff --git a/crypto/async_tx/async_memcpy.c b/crypto/async_tx/async_memcpy.c
-> index 323152c89b3a1..d03e9a9bc1e2d 100644
-> --- a/crypto/async_tx/async_memcpy.c
-> +++ b/crypto/async_tx/async_memcpy.c
-> @@ -39,8 +39,8 @@ async_memcpy(struct page *dest, struct page *src, unsigned int dest_offset,
->  	struct dma_async_tx_descriptor *tx = NULL;
->  	struct dmaengine_unmap_data *unmap = NULL;
->  
-> -	if (device)
-> -		unmap = dmaengine_get_unmap_data(device->dev, 2, GFP_NOWAIT);
-> +	if (chan)
-> +		unmap = dmaengine_get_unmap_data(chan, 2, GFP_NOWAIT);
->  
->  	if (unmap && dmaengine_is_copy_aligned(chan, src_offset, dest_offset, len)) {
->  		unsigned long dma_prep_flags = 0;
-> diff --git a/crypto/async_tx/async_pq.c b/crypto/async_tx/async_pq.c
-> index fcc8d9ebc0fec..6a31271852cd4 100644
-> --- a/crypto/async_tx/async_pq.c
-> +++ b/crypto/async_tx/async_pq.c
-> @@ -188,7 +188,7 @@ async_gen_syndrome(struct page **blocks, unsigned int *offsets, int disks,
->  	BUG_ON(disks > MAX_DISKS || !(P(blocks, disks) || Q(blocks, disks)));
->  
->  	if (device)
-> -		unmap = dmaengine_get_unmap_data(device->dev, disks, GFP_NOWAIT);
-> +		unmap = dmaengine_get_unmap_data(chan, disks, GFP_NOWAIT);
->  
->  	/* XORing P/Q is only implemented in software */
->  	if (unmap && !(submit->flags & ASYNC_TX_PQ_XOR_DST) &&
-> @@ -310,7 +310,7 @@ async_syndrome_val(struct page **blocks, unsigned int *offsets, int disks,
->  	BUG_ON(disks < 4 || disks > MAX_DISKS);
->  
->  	if (device)
-> -		unmap = dmaengine_get_unmap_data(device->dev, disks, GFP_NOWAIT);
-> +		unmap = dmaengine_get_unmap_data(chan, disks, GFP_NOWAIT);
->  
->  	if (unmap && disks <= dma_maxpq(device, 0) &&
->  	    is_dma_pq_aligned_offs(chan, offsets, disks, len)) {
-> diff --git a/crypto/async_tx/async_raid6_recov.c b/crypto/async_tx/async_raid6_recov.c
-> index 27909afda694a..5055531145bd2 100644
-> --- a/crypto/async_tx/async_raid6_recov.c
-> +++ b/crypto/async_tx/async_raid6_recov.c
-> @@ -29,7 +29,7 @@ async_sum_product(struct page *dest, unsigned int d_off,
->  	u8 *a, *b, *c;
->  
->  	if (dma)
-> -		unmap = dmaengine_get_unmap_data(dma->dev, 3, GFP_NOWAIT);
-> +		unmap = dmaengine_get_unmap_data(chan, 3, GFP_NOWAIT);
->  
->  	if (unmap) {
->  		struct device *dev = dma->dev;
-> @@ -97,7 +97,7 @@ async_mult(struct page *dest, unsigned int d_off, struct page *src,
->  	u8 *d, *s;
->  
->  	if (dma)
-> -		unmap = dmaengine_get_unmap_data(dma->dev, 3, GFP_NOWAIT);
-> +		unmap = dmaengine_get_unmap_data(chan, 3, GFP_NOWAIT);
->  
->  	if (unmap) {
->  		dma_addr_t dma_dest[2];
-> diff --git a/crypto/async_tx/async_xor.c b/crypto/async_tx/async_xor.c
-> index 4ed9d3196fc46..9ed331d9b8e64 100644
-> --- a/crypto/async_tx/async_xor.c
-> +++ b/crypto/async_tx/async_xor.c
-> @@ -178,8 +178,8 @@ async_xor_offs(struct page *dest, unsigned int offset,
->  
->  	BUG_ON(src_cnt <= 1);
->  
-> -	if (device)
-> -		unmap = dmaengine_get_unmap_data(device->dev, src_cnt+1, GFP_NOWAIT);
-> +	if (chan)
-> +		unmap = dmaengine_get_unmap_data(chan, src_cnt + 1, GFP_NOWAIT);
->  
->  	if (unmap && dma_xor_aligned_offsets(chan, offset, src_offs,
->  					     src_cnt, len)) {
-> @@ -310,8 +310,8 @@ async_xor_val_offs(struct page *dest, unsigned int offset,
->  
->  	BUG_ON(src_cnt <= 1);
->  
-> -	if (device)
-> -		unmap = dmaengine_get_unmap_data(device->dev, src_cnt, GFP_NOWAIT);
-> +	if (chan)
-> +		unmap = dmaengine_get_unmap_data(chan, src_cnt, GFP_NOWAIT);
->  
->  	if (unmap && src_cnt <= device->max_xor &&
->  	    dma_xor_aligned_offsets(chan, offset, src_offs, src_cnt, len)) {
-> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-> index cc1c0a7c9f33d..4585ebcd2e8cd 100644
-> --- a/drivers/dma/dmaengine.c
-> +++ b/drivers/dma/dmaengine.c
-> @@ -1474,7 +1474,7 @@ static int __init dmaengine_init_unmap_pool(void)
->  }
->  
->  struct dmaengine_unmap_data *
-> -dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags)
-> +dmaengine_get_unmap_data(struct dma_chan *chan, int nr, gfp_t flags)
->  {
->  	struct dmaengine_unmap_data *unmap;
->  
-> @@ -1484,7 +1484,7 @@ dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags)
->  
->  	memset(unmap, 0, sizeof(*unmap));
->  	kref_init(&unmap->kref);
-> -	unmap->dev = dev;
-> +	unmap->dev = dmaengine_get_dma_device(chan);
->  	unmap->map_cnt = nr;
->  
->  	return unmap;
-> diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
-> index 2ae3469397f37..043bb065dd68a 100644
-> --- a/drivers/dma/dmatest.c
-> +++ b/drivers/dma/dmatest.c
-> @@ -748,7 +748,7 @@ static int dmatest_func(void *data)
->  			filltime = ktime_add(filltime, diff);
->  		}
->  
-> -		um = dmaengine_get_unmap_data(dma_dev, src->cnt + dst->cnt,
-> +		um = dmaengine_get_unmap_data(chan, src->cnt + dst->cnt,
->  					      GFP_KERNEL);
->  		if (!um) {
->  			failed_tests++;
-> diff --git a/drivers/dma/mv_xor.c b/drivers/dma/mv_xor.c
-> index c4e0dce3ca64e..dec01b6264d7a 100644
-> --- a/drivers/dma/mv_xor.c
-> +++ b/drivers/dma/mv_xor.c
-> @@ -794,7 +794,7 @@ static int mv_chan_memcpy_self_test(struct mv_xor_chan *mv_chan)
->  		goto out;
->  	}
->  
-> -	unmap = dmaengine_get_unmap_data(dma_chan->device->dev, 2, GFP_KERNEL);
-> +	unmap = dmaengine_get_unmap_data(dma_chan, 2, GFP_KERNEL);
->  	if (!unmap) {
->  		err = -ENOMEM;
->  		goto free_resources;
-> @@ -927,7 +927,7 @@ mv_chan_xor_self_test(struct mv_xor_chan *mv_chan)
->  		goto out;
->  	}
->  
-> -	unmap = dmaengine_get_unmap_data(dma_chan->device->dev, src_count + 1,
-> +	unmap = dmaengine_get_unmap_data(dma_chan, src_count + 1,
->  					 GFP_KERNEL);
->  	if (!unmap) {
->  		err = -ENOMEM;
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index b8f8b333b89eb..e9e1506df71d6 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -1532,7 +1532,7 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
->  	if (!dmaengine_is_copy_aligned(chan, pay_off, buff_off, len))
->  		goto err;
->  
-> -	unmap = dmaengine_get_unmap_data(dma_dev, 2, GFP_NOWAIT);
-> +	unmap = dmaengine_get_unmap_data(chan, 2, GFP_NOWAIT);
->  	if (!unmap)
->  		goto err;
->  
-> @@ -1871,7 +1871,7 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
->  	if (!dmaengine_is_copy_aligned(chan, buff_off, dest_off, len))
->  		goto err;
->  
-> -	unmap = dmaengine_get_unmap_data(dma_dev, 1, GFP_NOWAIT);
-> +	unmap = dmaengine_get_unmap_data(chan, 1, GFP_NOWAIT);
->  	if (!unmap)
->  		goto err;
->  
-> diff --git a/drivers/ntb/test/ntb_perf.c b/drivers/ntb/test/ntb_perf.c
-> index 774e643c9f4c6..1cb991e2f0cf7 100644
-> --- a/drivers/ntb/test/ntb_perf.c
-> +++ b/drivers/ntb/test/ntb_perf.c
-> @@ -809,7 +809,7 @@ static int perf_copy_chunk(struct perf_thread *pthr,
->  	dst_vaddr = dst;
->  	dst_dma_addr = peer->dma_dst_addr + (dst_vaddr - vbase);
->  
-> -	unmap = dmaengine_get_unmap_data(dma_dev, 1, GFP_NOWAIT);
-> +	unmap = dmaengine_get_unmap_data(pthr->dma_chan, 1, GFP_NOWAIT);
->  	if (!unmap)
->  		return -ENOMEM;
->  
-> diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
-> index fc661e76de84d..c8ecf80288f13 100644
-> --- a/include/linux/dmaengine.h
-> +++ b/include/linux/dmaengine.h
-> @@ -656,7 +656,7 @@ static inline void dma_set_unmap(struct dma_async_tx_descriptor *tx,
->  }
->  
->  struct dmaengine_unmap_data *
-> -dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags);
-> +dmaengine_get_unmap_data(struct dma_chan *chan, int nr, gfp_t flags);
->  void dmaengine_unmap_put(struct dmaengine_unmap_data *unmap);
->  #else
->  static inline void dma_set_unmap(struct dma_async_tx_descriptor *tx,
-> @@ -664,7 +664,7 @@ static inline void dma_set_unmap(struct dma_async_tx_descriptor *tx,
->  {
->  }
->  static inline struct dmaengine_unmap_data *
-> -dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags)
-> +dmaengine_get_unmap_data(struct dma_chan *chan, int nr, gfp_t flags)
->  {
->  	return NULL;
->  }
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
