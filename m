@@ -1,148 +1,176 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011048.outbound.protection.outlook.com [40.93.194.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6803D548562
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096259; cv=fail; b=CV2qKUVjlLMXdySVl14AYISBKhTra+a1oltOPbuWKD2P1qTtD3T8IiGPS2qV4w3LGciBx5CK6ukpm6IY0RFCRcho5nosi/VWxvAFqNZcfOcDoHcz9KZzHy5efAi2m/JojE+ofHeMjjQRs6QymgCfKGGTHmarJRSQFIizTkc2NbY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096259; c=relaxed/simple;
-	bh=N+fFlA+4T+SG01fgBN4lyoOm4H0EH8CPR3fAhDFMnjs=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dCcmJu/CD2vKi/Oq2+B9FMpUYkfXHluUXIOWoxxZzEqOJsT3pbtybf8kgWF1dAV7cvl+btT1ClzmOFsBEmcxT7GQzVeNFgMhse9+rcirUvS69ho78Z+xyWUOvnAdapL+7mWGY1c0O+kqJqDrmvb25518GdR3dgDPqPaP/Zk4Xqs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BCp1D8qN; arc=fail smtp.client-ip=40.93.194.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD68A56C652
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790096270; cv=none; b=mYri3CfVCeTm/oQVxQqIkP/BKxTo1Z4EBos30hE5insf/Go+7W/fCbOijdllHhm7vdcuSO39f5wucSWCfWoIHBfHad74Tmp3BBPkAFwTdQj1dnLJan6nko2+5ua9rASG5h7/1udDZ2W+T7wLmmIQ4JZd/Dz5vimRPUg8dm6J65E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790096270; c=relaxed/simple;
+	bh=Opaa4qHTu1RKoFEExt76ZG9DA7XfTBlmgdj8DMxvDi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K21ghB3K6mPcv36/yrMpz3aYBDbDIaa2UE60rsaU/OrdoAn2KilVP3YvAMoqbhwKwZOU1DLHkXSg62AkWRRr7tiBe4XDIWdzHAF7b52pxLJpfQhp39VmvqVE7hSiBNE15oPJspKQ3I0W4+RfTAIgL311rpJ3Ay6v69WgiNirJTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CnEiaZxY; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BCp1D8qN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U0PTJvZ8KMf+jur3eRYj+agBLr8Kpq0Ao6BzWK/w5/gJOHLNqikrai1Pk/nEgV3oBr3dUdWPsTCug3zhukP8/sKKM754M9c7TjqFSyC7AVjnU548o+IepJcoLV6PcnWBQSj+6cKk9f8icFHiIzdp26yM0GCXu17LNzCosSFp4FZw/FsIUgOWRXD9BjqpfhN25BblU7V25uMD/4tnoTcvGn3gTmC655wTpfNBVEabXnI923Z2iKxIu/ZJQ8alIUpikHJ5coJvwjRLsUqciY8gqEsmnA2d37DMk2tI+hLlqPA4i7JNXs8xgfZRMqXpvKXFyptv05GJWGJgRxi03CyL2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zUVJOjqAY6ZKGAG9+ZN2cDa8oLcN+Mu0uyn6y/92Ndc=;
- b=UjNmSQeZcyLIe/EBGxZMYiMdOnRmG8mdkw5SzLprJaby7Yf1FX+YpkWX+H0qS9rGj0GBghnuafyIqeau3Bom6QaDT45hPz9OWIdZlIjpgpgRlYgx6IwRTlq947Jag/h5B5Wl1BM7CdgzrvUhKxEBl372DedbtQkYNh48PP6UbS35KNIF4711zv38Hs+9q6Wp2kDCbx9RtTXL8roid8gQCMr7BYnAV2Ll7R24r7Z4EOIZptf34WtFAze+iOp0MDr3cr8ncHg0SZNmiEmURAo0jQ8o+wq+y2Iu/aXqh+AJFPsu6FYlWIYFoEnwsm9ETixZxmIp94h8fnQmQwwpwtuuQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zUVJOjqAY6ZKGAG9+ZN2cDa8oLcN+Mu0uyn6y/92Ndc=;
- b=BCp1D8qNl0VHtYqfVIObysdJ82MGdHdCCYQ2FrA9Llt1+VQxeUbuAHFVAC8JKsRRyWWZIyzEmbsFn4nW5orhk1rOFddNTrTl0UgyLVOPHlmlknfCCxbjtmR4KGdlw9MgMlPC03NNR/HkEVZyWWumWMbAlxyiUD7WP0+qjC5P7bgCaMBGTIMTD6WYzLBpLqfBvnEwC7SceCSJFuyJglmEWZAIGBcG4qMNUp8plrWvzw1KfSBbDvdZwEdVbqZR/hTvzmabWHAuQlDUPNKqdz6Sc/lKyh+7wqLlyl/kMwtbNu/NKObQ1q3PCVWYc6oxNP9om5Txwi4jphnApp4RWRN3kQ==
-Received: from PH7PR13CA0012.namprd13.prod.outlook.com (2603:10b6:510:174::18)
- by PH7PR12MB5831.namprd12.prod.outlook.com (2603:10b6:510:1d6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 16:57:28 +0000
-Received: from BY1PEPF0002695B.namprd05.prod.outlook.com
- (2603:10b6:510:174:cafe::f) by PH7PR13CA0012.outlook.office365.com
- (2603:10b6:510:174::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
- 22 Sep 2026 16:57:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BY1PEPF0002695B.mail.protection.outlook.com (10.167.244.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 16:57:27 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 09:56:55 -0700
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 09:56:55 -0700
-Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.129.68.8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 22 Sep 2026 09:56:54 -0700
-Date: Tue, 22 Sep 2026 09:56:52 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Peng Fan <peng.fan@oss.nxp.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
- Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, Peng Fan
-	<peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v2 1/4] iommu/arm-smmu-v3: Convert streams from RB
- tree to XArray
-Message-ID: <arKzVL3PA/d2o8lF@nvidia.com>
-References: <20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com>
- <20260921-smmu-shared-sid-v2-1-4b656ce68178@nxp.com>
- <arGEXU2GqmYYBBjb@nvidia.com>
- <arKK9+M85xeknRa9@shlinux89>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CnEiaZxY"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so58575e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:57:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790096267; x=1790701067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p3ag/oHbtIM6+V/aikFJfaAMmVWKBVeRaNNTxQrHoig=;
+        b=CnEiaZxYlCcFKrue00aSvhPWtB/d7nqxEZpWgsQctLGEZBQNgA/pNYVavt1KZ/u7ul
+         OS0/uyDX7uPaEIiiUKEIom14Hih7nFp063qxKTXlXufzl9IWjrWLRCONAxJ4F60kX5TP
+         r35sj4dmtn5eNbebrSWYu12v1Kd9zkJZu6Iey6UYQP84l7SeYB9iDOYANua28a+WzlhZ
+         emur1YpEi775qTinH8wyEoBR+oPAQxocysyy+uUKXnQDOwH0n+WNOuYKeIgH/xQVa6hq
+         DAvR57FZ2lKpW/CqDu6FsyEA1QvC8aDC1yfrpcO2IXKvd4FRxXALyED4LWy0Rc2gKgu9
+         gIzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790096267; x=1790701067;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p3ag/oHbtIM6+V/aikFJfaAMmVWKBVeRaNNTxQrHoig=;
+        b=1HkLla5VvIL0P7bT3P/cW/YOt3kNolMH1v8skr1eCSAzrLhsDn3obPY/cVuPepNAn4
+         sBHhOQeD/JDk2wHvUA9lU+Y7ShQlb0TCqnhYOgv4PhMXKKf6ZlYsT+OMWIYPfXRxMxmv
+         RXZw7vbnEBNmFwxkKR37V3bfp0IB3841skrs+9SW8IDOumxmqRbspd0DZOGdAJMGrJi5
+         k6tdUxuXB6pZ00k2/CZnFB7jJX+UP4O56d+aA0QQ6JzuaEEgbpwSy/BtHe1uuzwcSe+N
+         blBLOoVVTezbbkcepAUOwnDoPQ2NjJUlJffOhLTmJ4AidICeORbPf1DCvZ5nsF8iF/Hc
+         jDxA==
+X-Forwarded-Encrypted: i=1; AKwUvBygggXmF2KIDiGMFJ9mD7Q/0ISCY9KId1l/pV9r1agP8DNj0f5gpcb/cnSZQxIIwup/ddstqQnVRgB9O6Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYQGtJnYyj+4yxCuDCxGlHQ5riWSP9j9TthAfinlcKTfiRBKn+
+	BrgAYBW+yHRzv8xOSDuxCo6MiUF7xMug2tF2bJ8lBTK0bS2kq9U3xnRI
+X-Gm-Gg: AYBFou0y2LC/j96ZUv/K1wzAgOPx7JhfGFZOQr1AiC5LYAw8cNDh3g8uFO0letst7kt
+	ObZtcS2At6MYptMrxEAOjCEwSumbf6nP930Nxk6kS6I9Q2oSh7p7OYZg3Hzyz0NANqnLwmVTJcH
+	HY8unSIc+qiUikmTk98DtMzQ/hayqQ7Pi/wzM7KDkgfJCgAKxb6OIMbcmTctYk12XwbnEywPyQ5
+	nVXCK+lI0+dDhmfZpi5qhb4apSzWjTKEm5JPUHJMCyYAWBCybCbtNbjlfua8APuir/Ih/iRDcy8
+	MU6DXJbL3kyuBJha5crC7eTI9HiKIIjXLpPgWBZfD87UJE2jM3606yVD3JpPR3NPVbD0zDWN/BM
+	3bVL8SvLbC86hpTPGobih92J3dC/XLqiV1THLfLwLLe8NknjOFLwaJfsNEkaiQKAnaAWy8qfB3F
+	pumjiWv3Ci6+CgmJb2wcjq2QqePlQK6bLokbhsuFysUP10UWIF8wWxmCoT1QZDfRe0+Bz41b4G4
+	SGqLxCh
+X-Received: by 2002:a05:600c:3493:b0:49f:bd3c:bc21 with SMTP id 5b1f17b1804b1-49fc573b55emr199224285e9.28.1790096266769;
+        Tue, 22 Sep 2026 09:57:46 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.113])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fdabe8a2asm68693625e9.4.2026.09.22.09.57.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 09:57:46 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: [PATCH v4 0/3] platform/arm64: Lenovo Yoga Slim 7x Gen 11 embedded controller
+Date: Tue, 22 Sep 2026 18:57:34 +0200
+Message-ID: <20260922165737.260443-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <arKK9+M85xeknRa9@shlinux89>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0002695B:EE_|PH7PR12MB5831:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31ac6c9e-f053-497b-ef52-08df18ca955b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|7416014|1800799024|376014|10067099003|18002099003|22082099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	xWwn1Cp2MmQMliErK03wpQFqig6mMJ67WTPFEZCNYnzzjYuhw/VtjCHyTh7VjzmNG3s4a3PpyLxFvEjGhoUAP0yqgxGOCvM+ZwbImNDz65S28MiTyqw/fFtL8iWSajsehxJKgrv3LRMkGcdtm3qwwACq+bk9Hvgyrf+A0v8E9JoG5vwWqXKc2K86+PxGdN5GFHWyD5ltD1Lgt9episkzi6wCzC05USCQ1zFeXZ3zAUEngHaP1VM4o2gKG4vIKMoNpeYGkA3rVF21k9OxTb4kFUeQ0yBdXCq8iJb4H+F7fdyHLOqNSDJJJPdbG/Sp1K5xRH7QZjMW+dKX8mF0Io0fEDLOPN5bppH0RpeWbQxP6DbHzUH2+VnKQ6GfJJRktQ7TS+N3anoy7BXZNa1lELeOOdulU2qTWmOMAxgjhHipNFgShKD/Xvl4jvlG5Wa8zYwzLQJCOKTi1XMnEUvY64ULU6Lr6mw7AKQeKi2KahoqVHgnbASqQgpO8azvG/wDa9TMvGHlS1iWKuo+/dT2IvCtYaS+VATk3C161yJbZFlXGxuFOwhrh+kMbkMRR8vghsFsKpbmhiE7Kxu8+DJAyWswu2iFi5w85ufSL5u7ph+C4qH0MZt3JOKqn5WIgB1788x1QhaVMtOUzN2INAHRzZXDsx8j1QW6B8Fr1+YWzrp/lSxryWCW0jOdx1aiXh8J/4xYg3btfZrZ2O2u0EQ+U8GuKw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(7416014)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	idCZSX/VW6FVDEXd7SoUwktOMbWu1varLrU1eqvJmj+s9L4GAAMtceFBnkUs9qdAg+M6JlqpTuAhqW/w7/QIW5965Sax+IBamwEF4R3xJ9noJf4AdlTFM018Lvk1djrELxEqAluVWr7KPkINVTuIBCzk7hyU6qCB7ZA9gIV0hWhlT9wii0z2AMd8JTu8aJBWvaic1OKsL0NHjuhUsZJvoJ2MSEb30qcJ89o9MAVM01MUgasCeivt7a4ruGnrAWfLllvJTEK+rMSeBDBfmwZAxxAluB5gdAhsyq14mwVqqMwJ6bLN0Z1oJp1mAtCsId5kDrql0nxWL2mBj6FQc05jLzFJwL2tAqOD6gEsg6eeZdnQl9IbWVE2iE4nnKqkIh3JfixQL0cPsMuxEofT716WASklEM7SY+gapnbXD/02oia30ye7gqAz/8npnLxGryMy
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 16:57:27.7900
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31ac6c9e-f053-497b-ef52-08df18ca955b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0002695B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5831
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 10:04:39PM +0800, Peng Fan wrote:
-> >... and slightly mentions "simplifies". Maybe it should write about
-> >why this is necessary and how xarray would simplify vs RB tree?
-> 
-> Jean had a comment that "maybe simplify the driver first by moving to a xarray",
-> see [1] [2].
-> 
-> [1] https://lore.kernel.org/linux-iommu/20230518130459.GA2587493@myrica/
-> [2] https://lore.kernel.org/linux-iommu/ecb3725c-27c4-944b-b42c-f4e293521f94@arm.com/#t
+The Lenovo Yoga Slim 7x Gen 11 is a Qualcomm Snapdragon X2 Elite (glymur)
+laptop. It carries a Compal EF06 embedded controller on I2C at address
+0x70, which is the only source on this machine for the board thermistors,
+the battery cell voltages, the fan tachometer, the keyboard backlight, and
+the mic-mute and airplane-mode keys.
 
-You should have put a suggested-by tag and likely one of the links
-as well.
+Patch 1 documents the binding, patch 2 adds the driver, patch 3 adds the
+node to the board.
 
-With that being said, I don't see the reasoning in those emails very
-convincing either. I don't dislike xarray. Yet in this series, there
-seems no compelling reason on switching RB tree to xarray.
+Why one driver
+--------------
 
-> A subsequent patch needs to look up an existing stream by SID and
-> then decide to share it rather than reject it - two separate
-> operations. The RB tree's rb_find_add() fuses lookup and insertion
-> atomically: it either inserts or returns the collision, making
-> "find, then conditionally share" impossible without restructuring.
-> XArray's xa_load() and xa_store() are independent operations that
-> naturally support this pattern.
+The automated review of v2 asked for the hwmon part to become an
+auxiliary driver under drivers/hwmon/. The hwmon channels, the LED and
+the input device all sit behind one command mailbox and one interrupt,
+so the driver stays in one file, like huawei-gaokun-ec,
+lenovo-thinkpad-t14s and qcom-hamoa-ec next to it. It is documented
+under Documentation/ABI only.
 
-If you avoid duplicated stream structures as I suggested in PATCH-2,
-there is no need of that, since you would only insert once to the RB
-tree.
+Notes
+-----
 
-Nicolin
+Fan speed is reported but not controlled, deliberately - the EC enforces no
+thermal floor over a manual setpoint. Patch 2 has the measurement.
+
+Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11").
+
+Changes in v4:
+- Patch 2, after Ilpo's review: the missing includes added where the
+  symbols are used; the cache and stale periods defined in milliseconds
+  with the unit in the name and converted to jiffies at the call;
+  lockdep_assert_held() in the command path every EC access goes
+  through; each EC read checked right after the call; ARRAY_SIZE() for
+  the cell loop; MILLIDEGREE_PER_DEGREE from units.h; braces on the
+  multi-line returns; the ABI entry dated September 2026 for 7.4.
+- Patch 2: the i2c id was 20 characters, the size of i2c_device_id.name,
+  leaving no room for the terminator; now "slim7x-gen11-ec".
+- Patch 2: symbol prefix renamed from yoga_ec to slim7x11_ec, naming the
+  machine like the driver does. No user-visible name changes.
+- Link to v3: https://lore.kernel.org/all/20260921144953.15113-1-okerixx@gmail.com/
+
+Changes in v3:
+- Add the board DT node as patch 3. It was posted on its own [1], and a
+  node cannot be merged before its binding (Konrad).
+- Add the "Why one driver" section above.
+- Patch 2: name the driver after the module, and the i2c id after the
+  compatible.
+- Patch 2: spell out both SCUK bits the Fn-lock toggle moves instead of
+  the 0xa0/0x5f masks.
+- Patch 2: return -ENODATA for a thermistor reading of 0, as probe already
+  treats 0 as "not fitted".
+- Patch 2: ten tries for a cell-voltage sample instead of thirty.
+- Patch 2: include what is used directly, devm_mutex_init(), comment the
+  mutex, fix the address in MODULE_AUTHOR, say in the commit message that
+  results cannot be matched to commands.
+- Link to v2: https://lore.kernel.org/all/20260908183403.2107-1-okerixx@gmail.com/
+
+Changes in v2:
+- Patch 2: drop #include <linux/mod_devicetable.h>; <linux/i2c.h> already
+  provides both of_device_id (via linux/of.h) and i2c_device_id (via
+  linux/device-id/i2c.h), and the header is on its way out.
+  Reported-by: Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>
+- Patch 2: add "depends on INPUT" to EC_LENOVO_YOGA_SLIM7X_GEN11; the driver
+  registers an input device unconditionally, so a config with INPUT=n did
+  not link.
+- Patch 1: pick up Conor Dooley's Acked-by.
+- Link to v1: https://lore.kernel.org/all/20260908091752.5508-1-okerixx@gmail.com/
+
+[1] https://lore.kernel.org/all/20260914082950.9393-1-okerixx@gmail.com/
+
+Oleg Keri (3):
+  dt-bindings: embedded-controller: add Lenovo Yoga Slim 7x Gen 11 EC
+  platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+  arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded controller
+
+ .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec       |  21 +
+ .../lenovo,yoga-slim7x-gen11-ec.yaml               |  56 ++
+ MAINTAINERS                                        |   8 +
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    |  12 +-
+ drivers/platform/arm64/Kconfig                     |  23 +
+ drivers/platform/arm64/Makefile                    |   1 +
+ .../platform/arm64/lenovo-yoga-slim7x-gen11-ec.c   | 671 +++++++++++++++++++++
+ 7 files changed, 790 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
+ create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+
+-- 
+2.55.0
