@@ -1,120 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B1747C0EE
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E574E0B63;
+	Tue, 22 Sep 2026 12:01:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078426; cv=none; b=HimZS+0goU4sk3K47iDugRKv54eGsYkmP+VGtCA1D0JJ350yqXVwPbADVGuM70ybRzeiAaDW/MJNvnjKU/tkl7o9bWAXZmB0uAqr3howT5ut68wUVJ0sknVRJwB/Anh6fqiNP6i2HpxLrAA4Vtpu1DzOl0Mik5ZG9u8dMYnliGE=
+	t=1790078512; cv=none; b=XeIfqE3YHnvo6XxlomWQWG7Zit+rJAMXExrn7/2zR5FCNXPQFE9u03hoPD297B+e3LkfKL9LOB17Zk3XGOcupU8ZAY44ZDs16SxFq8tKPtWApFCQ9EDjm+LU5HA2VHJvuLJHmjfiNhaqikMtR3xHO6Bc6vNaNGl8ZxLZsxEtogc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078426; c=relaxed/simple;
-	bh=IITuGJnyd7hkwpPEYGZaVjoaxUkycDV8iiciOq/U27E=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pUjsOK8UM3apB5SzicfJSIqcsPHIh/BsbHLml0vofeWz77E6y69TlbHY4rSieTJ+oqX9jnsnypsg09g7z/pqjb162uFFc8zj0jsw3lcP1C8Dw7Y0M8s5ZT2h0UGNUc4TMAgY1hYbOg0G5p2KgN/nlpDFwZzYxsvqW2grf5QSBVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tv97CqDy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790078512; c=relaxed/simple;
+	bh=95S3V5+vI0rbCT6+PAtnrR4unwZRVWia0i/Kr5LSaQ0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eok0aO7s6GgqQx4f58nBw8JW45E8Pukws67nMAfuw5p1EeRw68KnzzJ+sSIZRzhZXKaxoRA+A1ElOQv9I5jDFNSHV720gmaGqSu0uw8mgmLGrl3dIku1jzGCu/8mZqpEwVJBLwMkeEi2m6Aj6NRAn5lgsfQz/unCQH+9tQ1zZ2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dk6F/vEV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tv97CqDy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69471F000FF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:00:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dk6F/vEV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603071F00898;
+	Tue, 22 Sep 2026 12:01:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790078424;
-	bh=6RM4rZOUQ/CGY0vjeyqh4qsEp2qijHYaOlsrJFXq8X4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Tv97CqDy/Pp2O52gdF3/yHVWM42iREArDgyqcnuHDNiCnfmaj0uxfI+npda7+QdCU
-	 rmIkY6P/Jpp8qDdeKNEVZbd3R1QHNzBoDsWi0ivAkDyMb0MAVwmIFIC8utInBvCp5L
-	 HLhjWPfIZg22fHW2uCqqXMUb6lbb0vnVV5psiEWw4IWcReWId5nuPlbE+cC6GpQbTy
-	 OdshfMz7t3riUWQlNAyH+4k8RQ31xtzjRQWgS9CvQmiZim5W8qOxYU/gmGJ102xhTC
-	 g7j6H5JNdImOPO9gIir1l7pCOL0HPiuiZG/gPlHndDE/llc2ITHhOJSJwLIFT6ZTFb
-	 LDtNkz5KFEkmQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15cfdso3733886e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:00:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx078f3MlOTm3NU0wtSJwzs411a9MzCwVDyoZC5zr8+L4C58T8jV/bGx7UtAxIAHiWp9hZqflb69391+x0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqXr0AhqzWBkox/CJixWLOkAHXJMxq60tBB9s+EzHmhAyLufiI
-	0hj1XwlhjkfYJ8ay9Bw9UgORmLb8ADzDbifSe22rObA8RaDyMjI90/YujNAawGfQAtpHF9ZW1tV
-	xxYRLD2e0SowR+TvWo120hd5tyR+iHTNm52v/Ox1J0g==
-X-Received: by 2002:a05:6512:688e:10b0:5b6:e07:8f95 with SMTP id
- 2adb3069b0e04-5b8d74fdd5bmr16988e87.24.1790078423599; Tue, 22 Sep 2026
- 05:00:23 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 05:00:22 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 05:00:22 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <03e3cd69-0d7a-4494-bc0c-d6a623f37681@oss.qualcomm.com>
+	s=k20260515; t=1790078511;
+	bh=Kds8JbMZPWooK0BCcIhbxnKHotJjxiX6A56WabKUx5g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dk6F/vEVdxQAf2/Rje3VhT6eOMWMsGD4i7E4Hlk2ms0P229iCw+DvW6jrGxENlbf/
+	 984+YRPN5JG4LLKVfUwgNZWk7LLcMOKD7k7vrwYtPNoU616EzEYEv96zPMTuGMZUlz
+	 LLPUPKF7B7murPMu+W4mXMY2A4PBf/Sttz413CMca6hl9dSqJ50OSEc15VK09I6pZu
+	 mk4xjNQuYX8A1pYt8fYSOTGp6W2d5G6Gd3GZJgc2IH+hEWro9m1cbtX3pIXYuVodqw
+	 RxGrw3K/k7tk8HpcHm4v/C5T2l4mV3nZWUeLUvGNSIuWlZQmyZEacHbz/bxR1Dcb1C
+	 zdjuo+PinagMQ==
+Subject: Re: [PATCH net-next v2 2/3] selftests: drv-net: Check the features
+ set by set_ethtool_feat()
+From: netdev-bot+sashiko@kernel.org
+To: ovidiu.panait.rb@renesas.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org, nb@tipi-net.de,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Date: Tue, 22 Sep 2026 12:01:49 +0000
+Message-ID: <179007850985.2160803.6821263866052929617@kernel.org>
+In-Reply-To: <20260918112529.96039-3-ovidiu.panait.rb@renesas.com>
+References: <20260918112529.96039-3-ovidiu.panait.rb@renesas.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921195636.1925869-1-mukesh.ojha@oss.qualcomm.com>
- <20260921195636.1925869-2-mukesh.ojha@oss.qualcomm.com> <03e3cd69-0d7a-4494-bc0c-d6a623f37681@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 05:00:22 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeJtvTW-V2BU-VCVqhs8wWv==Ga7k-8svDCi3LjcbwE_w@mail.gmail.com>
-X-Gm-Features: AcwNN1VUJjlhGvAjEhiOxnkoCaI8DflYJv5IiO5T1oY0X2kpNBbh9kbFnSb5MnY
-Message-ID: <CAMRc=MeJtvTW-V2BU-VCVqhs8wWv==Ga7k-8svDCi3LjcbwE_w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] firmware: qcom_scm: handle empty PAS resource table
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Abel Vesa <abelvesa@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 22 Sep 2026 12:42:57 +0200, Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> said:
-> On 9/21/26 9:56 PM, Mukesh Ojha wrote:
->> The PAS resource-table query may successfully return a zero-sized
->> table. kmemdup() with a zero length returns ZERO_SIZE_PTR,
->> which is stored in rproc->table_ptr. The remoteproc core then
->> dereferences this invalid pointer while processing resources.
->>
->> Treat a zero-sized result as an absent resource table and return
->> NULL after releasing the TrustZone memory buffer. This allows the
->> remoteproc core to skip resource-table processing.
->>
->> Fixes: 8b9d2050cfa0 ("firmware: qcom_scm: Add qcom_scm_pas_get_rsc_table() to get resource table")
->> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
->> ---
->
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->
->
->> Changes in v2:
->>  - New change.
->>
->>  drivers/firmware/qcom/qcom_scm.c | 10 +++++++++-
->>  1 file changed, 9 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
->> index df20773dd754..b5959f833dd7 100644
->> --- a/drivers/firmware/qcom/qcom_scm.c
->> +++ b/drivers/firmware/qcom/qcom_scm.c
->> @@ -823,6 +823,14 @@ static void *qcom_scm_pas_get_rsc_table(struct device *dev,
->>  		goto free_input_rt;
->>  	}
->>
->> +	*output_rt_size = size;
->> +
->> +	/* A zero-sized table means that TrustZone has no resource table. */
->> +	if (!size) {
->> +		tbl_ptr = NULL;
->> +		goto free_output_rt;
->> +	}
->> +
->>  	tbl_ptr = kmemdup(output_rt_tzm, size, GFP_KERNEL);
->>  	if (!tbl_ptr) {
->>  		qcom_tzmem_free(output_rt_tzm);
->
-> ^ this hunk can additionally be remodeled to jump to this new label
-> too
->
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-This wouldn't be needed if with my series using cleanup.h[1] in this driver.
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-Just sayin'... :)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Bart
+- [Medium] In gro_lib._setup() the "hw" mode passes check=False to
+  set_ethtool_feat(), which disables the newly added read-back for the…
+- [Medium] The read-back verification added to the shared helper
+  set_ethtool_feat() (drivers/net/lib/py/feat.py:40-43) is not mirrored…
 
-[1] https://lore.kernel.org/all/20260903-qcom-scm-code-shrink-v3-0-8237f3a654e1@oss.qualcomm.com/
+--
+
+selftests: drv-net: Check the features set by set_ethtool_feat()
+
+This adds a read-back of the device features after running ethtool -K in
+set_ethtool_feat(), raising KsftXfailEx when the requested state was not
+applied.  A new check parameter allows callers to skip the verification, and
+the GRO "hw" setup mode in gro_lib.py uses it.
+
+> diff --git a/tools/testing/selftests/drivers/net/gro_lib.py b/tools/testing/selftests/drivers/net/gro_lib.py
+> index 7856ebdd49d3..875a715b2ae1 100644
+> --- a/tools/testing/selftests/drivers/net/gro_lib.py
+> +++ b/tools/testing/selftests/drivers/net/gro_lib.py
+> @@ -263,7 +263,8 @@ def _setup(cfg, mode, test_name):
+>          set_ethtool_feat(cfg.ifname, cfg.feat,
+>                           {"generic-receive-offload": False,
+>                            "rx-gro-hw": True,
+> -                          "large-receive-offload": False})
+> +                          "large-receive-offload": False},
+> +                          check=False)
+
+[Severity: Medium]
+The commit message justifies skipping the check only for rx-gro-hw ("the
+GRO "hw" mode handles the case where HW GRO is cleared by the driver"), but
+check=False disables verification for all three features in this request.
+
+The follow-up read-back in _setup() only looks at rx-gro-hw:
+
+        feat = ethtool(f"-k {cfg.ifname}", json=True)[0]
+        if not feat["rx-gro-hw"]["active"]:
+            ksft_pr("Driver clears HW GRO and SW GRO is cleared, using generic XDP workaround")
+
+so generic-receive-offload is never verified in this path.  If a driver
+accepts rx-gro-hw but leaves SW GRO active, the XDP generic workaround
+branch is not taken (it only runs when rx-gro-hw is inactive) and the
+gro_hw.py tests then run with SW GRO enabled, which can coalesce in
+software and pass even when the hardware offload does nothing.  Isn't that
+the same "test could run with a different configuration than the requested
+one" case the patch is meant to catch?
+
+Note that for the third feature the kernel does enforce the requested
+state, netdev_fix_features() drops LRO when HW GRO is requested:
+
+	if ((features & NETIF_F_GRO_HW) && (features & NETIF_F_LRO)) {
+		netdev_dbg(dev, "Dropping LRO feature since HW-GRO is requested.\n");
+		features &= ~NETIF_F_LRO;
+
+but there is no equivalent rule tying generic GRO to HW GRO.  Would a
+per-feature exemption (skip verification of rx-gro-hw only) instead of the
+all-or-nothing boolean work here?
+
+> diff --git a/tools/testing/selftests/drivers/net/lib/py/feat.py b/tools/testing/selftests/drivers/net/lib/py/feat.py
+> index b94a24214e59..f0630844f023 100644
+> --- a/tools/testing/selftests/drivers/net/lib/py/feat.py
+> +++ b/tools/testing/selftests/drivers/net/lib/py/feat.py
+> @@ -33,3 +33,11 @@ def set_ethtool_feat(dev, current, feats, host=None):
+>      # If ethtool printed something kernel must have modified some features
+>      if eth_cmd.stdout:
+>          ksft_pr(eth_cmd)
+> +
+> +    if not check:
+> +        return
+> +
+> +    current = ethtool(f"-k {dev}", json=True, host=host)[0]
+> +    for name, state in feats.items():
+> +        if current[name]["active"] != state:
+> +            raise KsftXfailEx(f"{name} was not set to {s2n[state]}")
+
+[Severity: Medium]
+Should the private copy of this helper in
+tools/testing/selftests/drivers/net/hw/gro_stats.py be converted as well?
+
+After this series the tree carries two copies of the same ethtool -K helper
+with different semantics.  _set_ethtool_feat() in gro_stats.py still ends
+with no read-back:
+
+    eth_cmd = ethtool(" ".join(new))
+    defer(ethtool, " ".join(old))
+
+    # If ethtool printed something kernel must have modified some features
+    if eth_cmd.stdout:
+        ksft_pr(eth_cmd)
+
+and it raises KsftSkipEx for fixed features where the shared helper raises
+KsftXfailEx.
+
+_setup_hw_gro() in gro_stats.py repeats the gro_lib.py "hw" logic including
+the XDP generic workaround, and its final request is unverified:
+
+        _set_ethtool_feat(cfg, feat,
+                          {"generic-receive-offload": True,
+                           "rx-gro-hw": True,
+                           "large-receive-offload": False})
+
+so the HW GRO qstats assertions that follow can run with rx-gro-hw
+inactive, and the resulting delta mismatch gives no hint about the real
+cause.  drivers/net/hw/lib/py/__init__.py already imports and re-exports
+the shared set_ethtool_feat, so is there a reason the consolidation done in
+the earlier "selftests: drv-net: Move _set_ethtool_feat() into lib" patch
+stops short of this file?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918112529.96039-1-ovidiu.panait.rb%40renesas.com
