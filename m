@@ -1,87 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B436E390609;
-	Tue, 22 Sep 2026 14:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCF838D686
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088792; cv=none; b=aAh1Tr7QzG+tuitiBJe01qXKA4oHfJ60x9vTtuCqjdu7vQ6YnfWtzPAdafSdm0b8RnGhORYWSM4BJqf5ZJzYfSeNs9wzjZ1Ts8xmZ3cL4kgWCAWaFHe5C2TdR9R91CdXwgacI2diIVVnZ488xEuMQ6zv+O70Xo3Q93rIpYSuvFk=
+	t=1790088824; cv=none; b=UyPl09QdTriayeevtmR8eTCfM4IDYe9c+oQRt4K4eV4ubiQ6wjIOhTaEdjCkv+Bv42SXzLWF35lr68oCYV2JgDq5Yu4C8YzFwzA6KZMmx6GvQy8WVlotdVZ24VHrb920u3rzd1vLqyC1C29te//IAGP3/m4bENsE/1aS3FtxqIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088792; c=relaxed/simple;
-	bh=+lEw7mJyRhd/lo6EBvoSB9sqc7G34JP86/ycKm+ZmzM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ONG1L4tUlD/s0b0KJmm41VUyC27V95rGGqH16rR4UJEBZ/8Ugq0DSnFw2birDIXIF+UdacDY/oLw+EcViSukjCL7QbgrK+j0Hi0AtsPfcZFtG/CojyF6/rTQ1f63GYVyD6db+TcK4+ISut5HjGSM/hHhjhEIVarPdL4iCxWmEO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Teso46Iw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790088824; c=relaxed/simple;
+	bh=hghF98NYK78YNHXX1dgieJtN7r6JRJ6pzIa0JQe6vbc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hPx38Y6XnlPioDUZsXCnxLPYEMG9Rqx4ZLNJOpYMGlssAGA+Tq02550/6IogNVV0hPwGl6lvyV7Vpyxw7qSwTSVxFCc7R+5NfiMSC9Ec0VhTz/Nu6+uPdncxgnqRukwEmMHttkVnRXqPI/+YAGcWlvfqzpnFFKbkGBN7dWVIGdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=CwKohdlU; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Teso46Iw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396081F000FF;
-	Tue, 22 Sep 2026 14:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790088791;
-	bh=MNIzUj+H/4D7L4WZcUVggtuHpI4+FmeR5jq8I48Gyzk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Teso46Iwn8LZtX+dg1zOIzktP/UH6EskMRtxm53Mb879GUMXIeVRE+c72YAwPlnzI
-	 qSyJG/3mNcKInY5JeyxTfpVrFKNGABeFZWz7wDVRtAh4ismWnaxQDqzBKotkI+KyrU
-	 Yk/L40P9+jUM+TgLfIrccMKXP8magr5fm8S6o4pqVbvPsT7nhKSPfo+0j70XaTOD1R
-	 y/ttzNtf7+DiPERj9WRA1hMvpIzlSUjsTG4N092aCjyCdPDGJm/6FGXC2G8OlvrAjd
-	 GbD8m+gnSd2YbNxcq+63D/5h5H3BH2lE33m4Gq19+FiPeI+ywOTIlmkPcRyhZ2KIFw
-	 LSdA0UStNhfQA==
-Date: Tue, 22 Sep 2026 16:53:07 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Pei Xiao <xiaopei01@kylinos.cn>
-Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] ata: pata_parport: pin the protocol module before
- device_register()
-Message-ID: <arKWUwJeXUdGHpp0@ryzen>
-References: <cover.1790047457.git.xiaopei01@kylinos.cn>
- <952bac5f61dc69079c3ffe62d6392bcc89f6aac0.1790047457.git.xiaopei01@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="CwKohdlU"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so23388435e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:53:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790088821; x=1790693621; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZdXUXs+Kfd08foCbufXmHwGq0BzwF/4pD5Iu/UeB7bk=;
+        b=CwKohdlUD17rHg35WuwS78r95cJg4lU9oAXAGfUbvlyRzxxSbpq/dyvXNaGan62JtZ
+         PT3/EuzzPEGnsEVmBc/bECCNU7e1qVB3BAMPEd6dA+jBiEcrX7dP8X4Jd6+quw8RiSb8
+         J4VoQuVGZENc75ggYvnoqeB2+HeVHf3E/YUiSvgd+Vbl2sPhR5Qnj+g/4IMgzKIat0FJ
+         FJ8LyJsulV8C8FllKniX5P41gwSR94e6tal4mIc51LeGZvsBMEtELIenNMzUDmsO5tMU
+         ylgtRoMZwS2cSBw61whJA8/ZRdbE8i2OtmpIJa9FzvOtOHpciXqN5vLrVaQ9T7ulDVpQ
+         8Gxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790088821; x=1790693621;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZdXUXs+Kfd08foCbufXmHwGq0BzwF/4pD5Iu/UeB7bk=;
+        b=ZTYjLFa3eSxr9ITQ3/flapsYCKyaci625u0Skg+HKPpWxOCVvpvEnEppmDNpqkF4EN
+         R7fXA6tGJehjXDo3Vzb+qrhrWZqyXiuXyL8NtLq1/RmWPCmfId7v2FMouC6e7dyGRPuz
+         idAiy7I0I8D8sG6mTbLaBReK7JCVoT/lY+dxdxSJwv/nYMPAVMzQkcw5qlNGapQuNHtM
+         ajJ8cuc0LIjDTZ4DLwF9Wh00VFLkVbRNf5rMNeXvjO8JznmIJ96cHs6vklmjHzMm7yVJ
+         zSJXm3KrLzP8ZNFfavExpiXfH2joiiXZAfg+uCEh4XK7c3ZQRljIJ+ECJvl6lBgcPHBg
+         ohiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzc5cp5BrASKpzK20ImrSbwCdQUI5A9Pvrpe8eq4rk7AIUmHNFx3am8EVTB3Hvyf/WG1zjqwvOTe4XcTFI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmsBi+IhZW8xDUstCdQG5HU8BMCqZLbyEacEeiFNmyjKJjrJjg
+	M+pcSfN1d493U1YYtzRpTcWbLxMgzGSuPplA5iqfKlZWMB1/bLMDuJN2ZwBV5P3V+WM=
+X-Gm-Gg: AYBFou3ZVSYelbxeUMESKP3R1pdTqvWwiQ9MGcGn0QuAzAUlc/gIi+DsXbi7/mhzqgz
+	sj0ivtB1ooLPP9s6352ar66GMLeTQZKQEO/Qot/ifV+UMS132V2Az2lXBPzk+QCf5RdVqzLgy1q
+	ycTMX8ER3FpB4onnWnbtvYoJayyA5uRzlFb/uDImCX9YI1GRYoBZzyUgt7/9jtAzk30ug6/i9F2
+	+eINhy4K/H4DFU7Lxiz81/10h+vapUpLrCCdp8XoKC6uAdOjtYBANn+oX8sJFZsrpC18rI5ZAiS
+	SMiZRINtQlOIv3vgRct+T9H2BDJXR3cWg6Z7P28J+7YrE6uOVJLk3BIkirJMzlFZcMAavxua+qp
+	eq9riWiNHhdNgThUyXmgRpPVgrxPqrbXKOTMEhwuDZDsaDxBqHuna4nvzd4zHu1E7SJPOHsSAj3
+	8fSkujs8XGBZGdUQkZuhd/HJ9jhf1xtQtO8vgEGyedl76+sQdLJEYdViUSMc/t6ZqrUsBdJCP8o
+	lOqHm7/
+X-Received: by 2002:a05:600c:a415:b0:49f:ddc0:6e8f with SMTP id 5b1f17b1804b1-49fddc06f09mr4681645e9.5.1790088820973;
+        Tue, 22 Sep 2026 07:53:40 -0700 (PDT)
+Received: from localhost ([2a02:168:9d56:1:84ba:d001:a11c:487b])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4886279298asm4771587f8f.34.2026.09.22.07.53.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 07:53:40 -0700 (PDT)
+From: Bruno Produit <bruno.produit@trailofbits.com>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: netdev@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	linux-kernel@vger.kernel.org,
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
+	stable@vger.kernel.org,
+	Bruno Produit <bruno.produit@trailofbits.com>
+Subject: [PATCH] xfrm: espintcp: build sk_msg locally before publishing
+Date: Tue, 22 Sep 2026 16:53:35 +0200
+Message-ID: <20260922145335.2016559-1-bruno.produit@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <952bac5f61dc69079c3ffe62d6392bcc89f6aac0.1790047457.git.xiaopei01@kylinos.cn>
+Content-Transfer-Encoding: 8bit
 
-Hello Pei,
+From: Kyle Zeng <kylebot@openai.com>
 
-On Tue, Sep 22, 2026 at 11:38:00AM +0800, Pei Xiao wrote:
-> pi_init_one() calls device_register() before try_module_get(). Between
-> these two calls the device is already visible but the module is not
-> pinned yet, so an unload in this window leaves pi->proto dangling:
-> 
->     pi_init_one()                       rmmod -f <proto>
->     --------------------------------------------------------
->     device_register(&pi->dev)
->          device visible on the bus
->                                            module memory freed
->          pi->proto = pr        <- writes into freed memory / dangles
->          try_module_get(...)   <- too late, module already gone
-> 
-> Take the module reference before registering the device, and drop it
-> on the device_register() failure path.
-> 
-> Fixes: 246a1c4c6b7f ("ata: pata_parport: add driver (PARIDE replacement)")
-> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+espintcp_sendmsg() builds a new message directly in ctx->partial. If
+allocation fails, sk_stream_wait_memory() drops the socket lock while
+the shared sk_msg remains unpublished with emsg->len equal to zero. A
+concurrent sender can then reuse the same slot. If the first sender is
+interrupted, its failure path frees state now owned by the second sender
+while TCP may still be consuming it, causing a use-after-free.
 
-Looking at the code, this race cannot happen.
+Construct the message in a call-local sk_msg instead. After allocation
+and any lock-dropping wait, recheck that the shared partial slot is still
+free, then transfer the completed message into it. Failure cleanup
+consequently releases only state owned by the current call. The recheck
+also covers packets submitted through the common IPv4 and IPv6
+espintcp_push_skb() path.
 
-All three callers hold pi_mutex throughout pi_init_one().
+Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
+---
+ net/xfrm/espintcp.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-pata_parport_unregister_driver() also acquires the mutex
-before unregistering.
+diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
+index 674aedc..1642b34 100644
+--- a/net/xfrm/espintcp.c
++++ b/net/xfrm/espintcp.c
+@@ -311,6 +311,7 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 	struct espintcp_msg *emsg = &ctx->partial;
+ 	struct iov_iter pfx_iter;
+ 	struct kvec pfx_iov = {};
++	struct sk_msg *skmsg;
+ 	size_t msglen = size + 2;
+ 	char buf[2] = {0};
+ 	int err, end;
+@@ -324,6 +325,11 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 	if (msg->msg_controllen)
+ 		return -EOPNOTSUPP;
+ 
++	skmsg = kmalloc_obj(*skmsg);
++	if (!skmsg)
++		return -ENOMEM;
++	sk_msg_init(skmsg);
++
+ 	lock_sock(sk);
+ 
+ 	err = espintcp_push_msgs(sk, msg->msg_flags & MSG_DONTWAIT);
+@@ -337,10 +343,9 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 		goto unlock;
+ 	}
+ 
+-	sk_msg_init(&emsg->skmsg);
+ 	while (1) {
+ 		/* only -ENOMEM is possible since we don't coalesce */
+-		err = sk_msg_alloc(sk, &emsg->skmsg, msglen, 0);
++		err = sk_msg_alloc(sk, skmsg, msglen, 0);
+ 		if (!err)
+ 			break;
+ 
+@@ -348,25 +353,30 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 		if (err)
+ 			goto fail;
+ 	}
++	if (emsg->len) {
++		err = -ENOBUFS;
++		goto fail;
++	}
+ 
+ 	*((__be16 *)buf) = cpu_to_be16(msglen);
+ 	pfx_iov.iov_base = buf;
+ 	pfx_iov.iov_len = sizeof(buf);
+ 	iov_iter_kvec(&pfx_iter, ITER_SOURCE, &pfx_iov, 1, pfx_iov.iov_len);
+ 
+-	err = sk_msg_memcopy_from_iter(sk, &pfx_iter, &emsg->skmsg,
++	err = sk_msg_memcopy_from_iter(sk, &pfx_iter, skmsg,
+ 				       pfx_iov.iov_len);
+ 	if (err < 0)
+ 		goto fail;
+ 
+-	err = sk_msg_memcopy_from_iter(sk, &msg->msg_iter, &emsg->skmsg, size);
++	err = sk_msg_memcopy_from_iter(sk, &msg->msg_iter, skmsg, size);
+ 	if (err < 0)
+ 		goto fail;
+ 
+-	end = emsg->skmsg.sg.end;
+-	emsg->len = size;
++	end = skmsg->sg.end;
+ 	sk_msg_iter_var_prev(end);
+-	sg_mark_end(sk_msg_elem(&emsg->skmsg, end));
++	sg_mark_end(sk_msg_elem(skmsg, end));
++	sk_msg_xfer_full(&emsg->skmsg, skmsg);
++	emsg->len = size;
+ 
+ 	tcp_rate_check_app_limited(sk);
+ 
+@@ -374,14 +384,15 @@ static int espintcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 	/* this message could be partially sent, keep it */
+ 
+ 	release_sock(sk);
++	kfree(skmsg);
+ 
+ 	return size;
+ 
+ fail:
+-	sk_msg_free(sk, &emsg->skmsg);
+-	memset(emsg, 0, sizeof(*emsg));
++	sk_msg_free(sk, skmsg);
+ unlock:
+ 	release_sock(sk);
++	kfree(skmsg);
+ 	return err;
+ }
+ 
+-- 
+2.53.0
 
-Thus, unload cannot complete at the same time as pi_init_one().
-So the motivation looks wrong.
-
-Additionally, rmmod -f bypasses a non-zero module reference count,
-so I don't see how taking a refcount earlier would solve a rmmod -f.
-
-Are you building your kernel with CONFIG_MODULE_FORCE_UNLOAD ?
-
-
-Kind regards,
-Niklas
