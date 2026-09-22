@@ -1,200 +1,282 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B174755294B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9B655293C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083203; cv=none; b=QL/SP20LRpjNHwr757bBTfRAPHQjpJzHSM5gva1MApZQABMWTgFivWSFNQPPEAOJtJxq+NIzi/meTxaEDNXym2+2YoJQAOmfrS+2AZWeriXC2DCJurci6Ps2MnRT9Im3tiPcah8SpPr1kPTSeZFrpqGMHeZ32yDiIJooAc9n+sE=
+	t=1790083202; cv=none; b=QjtFf6GxT0aAhfjG3yGFtygYVA5sqUEj+di3Xm5i4WZUeUgYiK+hFMia8s0FG3uvHk9oB1DYMKEHomKgfydbqPOoF/fS74qXbeXpWDaVqDdmMtoIA2R55n48UMw2CirIPxYzHXWxmWawr0yXKuZMFKJf1DG0YHw8Wzt6DYN02ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083203; c=relaxed/simple;
-	bh=wDjm/dE3nweP1SOQr+aX+Uq4XCvibLo55uFnxjrJzC0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ALwp+sQOVdVbgaC25GgOgjZQLK6XyjxrlXDLcL/qxSId/4OQhT+rLNYOJoFy4B38/6NCGcLHFPoKGdFWet6b7ONu/Xtua9VNc3g/aTrEVZ2aA7RnVsAt9aGJnwpSDUnAztdMuXWSsQDBmAGG7/mZDnsGGHKuAhrtWZeXpQ+qfz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gFjlTr+V; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790083202; c=relaxed/simple;
+	bh=hNqYfoxEta6yayuVGifvUciuQ8J6upVwEpfzs/v+b2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eJo5dgf+rCa+KQqvA5EJOiHyy9akeI8FivqHTNkNfkpjaPFb+r0WqWZ/XgagZbdUIU8a/ynii6tXvuOLjIHnCGOEOSjEKQFQdidDv/sNNLI2aCBe4GnvKfe29KSFyMlB1uvm1z2m64g5bfYuok7InkvTshX+gaI20tHizM7RShk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VSVZW5gw; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gFjlTr+V"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBZxCr344073;
-	Tue, 22 Sep 2026 13:19:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=r9mQcK
-	nRoBYgpFB9rmm9mjOTYait0+LcCI/gOCTAZNY=; b=gFjlTr+Vz2LleKZ0H9sZh7
-	6BB+XUB+YgWzq5RiqM5QGZdgTrx+tiogfRTUeL669471uRw0NZfF+5na+Z+SROmG
-	P0m8TrVJnzvZeseJJmXjmlIzFj95qinh9LOIea7VoyrRymTyo9hQ38XN3lV9V2W/
-	TKMdfCbGfJuTbLf6jjasJXEny4XFVgvRd/TdgHfaCvKONMUAEXLhgbljicOkP2lm
-	ltDXBbCe0HUo0JaFMLszZ6rTwKFGCz22jNkc1fmdeKCslYz/YFro4qJeuTofmF7z
-	CUhBOiEOP5dLSpIsg5KErfmUZeN6yNPyzl2FTtiwlOzBeyzyNWUEQ0EUUXq7fyTQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdv5m9u-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 13:19:39 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBWTSF2751909;
-	Tue, 22 Sep 2026 13:19:39 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt5qjsxm3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 13:19:38 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MDJaOe39780862
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 22 Sep 2026 13:19:36 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BE1A62004B;
-	Tue, 22 Sep 2026 13:19:36 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5C99920040;
-	Tue, 22 Sep 2026 13:19:34 +0000 (GMT)
-Received: from [9.123.14.142] (unknown [9.123.14.142])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 22 Sep 2026 13:19:34 +0000 (GMT)
-Message-ID: <5c8ed4b7-e740-424e-beed-e34cf5c10932@linux.ibm.com>
-Date: Tue, 22 Sep 2026 18:49:33 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VSVZW5gw"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4c08393dfso3384523a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:20:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790083200; x=1790688000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0HuHouIXMmXXF1mGK08VBIvb7z6Q3KyojyCZuU1PWGs=;
+        b=VSVZW5gw8UeGrn1fekDe69hEQNVFjHMriRUM9bQIzO+Oh6/rYYKTSwACduUVyHZmlu
+         gZ/IoJyIVvaCIbQ0bsMdUMkjE2RvdbcuyCnqNhnJzg6TzQxUCsm0o3wCW13Zp0Kg94Db
+         2pTTLRZezTc1UzxjlwZ3Sf3V6ETuFBDnJmiASKEEUi2mTHVBnm63hvd2nRNEkHBGfmZW
+         0NQv5xn0nrPiR8GaHEP4eYoV+Jnwkqku8NvlcIp9jXMpVfwQGaJMU2+iPWnL2fqDbjzR
+         Ru75p+0sfLv8zGUqyiVi3sO2YDSk9eJD1/yn4p8PwfasWY5AMOymEE3s+u96tpJT1F22
+         meNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790083200; x=1790688000;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0HuHouIXMmXXF1mGK08VBIvb7z6Q3KyojyCZuU1PWGs=;
+        b=sz+rZk3OD6ZC09CbKvuI7HPRKIzxwjSF2j5hPBpdVxEFo42eH3/ZBxXEQmMTLPZ2rH
+         kU6GLk+Tcp6aUy8hcHnLynQa5EKf60/oDKrvQ+MClDTNV7k/S/d88rkyUM9wFE1lPfi8
+         VKLeneXPX76Acw2oCtkKG/wHvkfMbKSjfiFa4fYNfxMNx1hhFXz6fpewu/N1tCsf1R43
+         020hY7l8eP6ldKxIY3ygbUHS6bzy0VKhqIeVYqdSeIGtwV7QhP5FCQOdQZBcVNkLUv0b
+         bieq2tuvLc8G+6zAY0sMgnlataBUxMay97BFqN+P+5r0llWuNCX+J+IJaKn7a+4Q+IKN
+         JbOA==
+X-Forwarded-Encrypted: i=1; AKwUvByB1iqyl1cvSmZpwQmnYB2gvcP3Ua60rx2RRvQGE8sDlXk4cJvQSzAhnURna/EDbp7+GBUu64Zmr8y9Ilk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ8zuzsyOdTyuHN4orTMUcRrPsaizYkOgGB0+lw1kPdtkqwIAp
+	DhfGqfLxRd7s6TVj3fv5IbZSz/a4uyTu/juWr605Zf9fkFrOuD8I4gAv
+X-Gm-Gg: AYBFou3SFmr8u+LdopjYhgxy68b3xkd7Hd2eL+8p45dvJlvvaxkzeP2lPGFlxx7mHu4
+	vPhJnd9R27o+XfHsaGkuNA8Cx66k622A9Ywbu7WZPUtEwQY/HKYfZSD5AgacDTq1vV6UQVP5k0y
+	LpnA0SXA/a/P7DJgxcmE6CygHDfovH47Id96IE7TGL2kCzlMZ6HX1wiGXraQJsZ9yNTLSbSkSnk
+	lFgY6klv7bNzDyyZD+j6ht8I/gENu5rt2bhUfE7XKALAk0O/JQDciFFoCXzmsx2WmkBowOSmddV
+	v0D/J0yW8XWsyt+hhVP1Utzsy9MCAkIZp8oCLnAaitEorKW9Bgy5nfo6JH5yaTVyOv3Ikmn25zq
+	9zCYRNbTCR1jZYH406mMcRUfU0qGUo/QwK7RsGiq9DAUnLwGF3kxwTpIJue3OsbNgP5D9v1rzM9
+	xZWHNsjJZCHH/KchNZCL8Nw/1WN6ujIXVBX60OoAS29rSmd8aogLIoEz+1lZn+ixVkPs1xupdXi
+	dDQr2vvpc4=
+X-Received: by 2002:a17:90b:4b0a:b0:39e:4c80:44b7 with SMTP id 98e67ed59e1d1-3a0730fa737mr1299033a91.26.1790083199680;
+        Tue, 22 Sep 2026 06:19:59 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06741d485sm4946783a91.8.2026.09.22.06.19.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 06:19:59 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: namhyung@kernel.org
+Cc: irogers@google.com,
+	acme@kernel.org,
+	changbin.du@huawei.com,
+	adrian.hunter@intel.com,
+	jolsa@kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: [PATCH v3] perf symbols: Apply the symfs flat layout to the composed filename
+Date: Tue, 22 Sep 2026 21:19:52 +0800
+Message-ID: <20260922131952.2922816-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] liveupdate: kho: calculate per-node scratch sizes
- before allocation
-To: George Guo <dongtai.guo@linux.dev>, pratyush@kernel.org
-Cc: rppt@kernel.org, pasha.tatashin@soleen.com, graf@amazon.com,
-        changyuanl@google.com, akpm@linux-foundation.org,
-        chenhuacai@kernel.org, liukexin@kylinos.cn, guodongtai@kylinos.cn,
-        kexec@lists.infradead.org, linux-mm@kvack.org,
-        loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <2vxz1par7amw.fsf@kernel.org>
- <20260918093317.12216-1-dongtai.guo@linux.dev>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260918093317.12216-1-dongtai.guo@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: 87AK1B9mEztPQkSf0G_DppO4qm63DQGB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE5MCBTYWx0ZWRfX/AtLnrIwey3b
- JkX70rIQAk1Y7fj+OdLjZmKQB9KU6hjYVtWaoJvuUL+Wy03ZGI+VWVNGKORM11QDm543Ahi6fV0
- IjIm2IclEX+TeKA87ZBvDgIPeyh9whI=
-X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab2806c cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=xLVVGacSiyHbIRLvvMUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: VcKO_7tJv7M8Dxm83gVGSP1EYRW-VZ20
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE5MCBTYWx0ZWRfX2E9QoJ3BhLS6
- kbIg5XO7q6jYhPZcOkB9U7GP4SrS+4Mc7dmYgAtCddKhr5gjpY3xdR5Tc/jtnt7NjlaC2/Xw8zX
- MfX5843cfq6NbkPrC/Y/B47NuiCITjZ9rMy+ZDCxxo8oNv0goKtzJHUUBZ1GXLlHgvFu4+5jBQV
- MwdcDcJYnl+9G6krVgo52LSlPTkYiXCzFfYTym8Fy3tBTNFKL7XPsJkzsfGkqjYzzJBZ51LL1Ct
- 6CpuczdZPG4Yf5OtuYVLG5E/piavBvHpEAuka2vlc+xrpAb0DclS2JJOxxTs/5PB605dquyg6kQ
- qJD9rcvWXaq6q2XqWsaNQi2svws5ZacCnIP9Z64YMY/sTgGHBlu9Mi1LKzw/6Q7AbTwalEzuGBF
- 6+SeBNjQTUTxnWZ4/OG2z03Shr9XFIVd82011/jLKHZiKmJ0AZAp3Es7rAtPKGCMalxxtFfgk+Q
- c3Af03MqFN9V1xq+X4A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609220190
+Content-Transfer-Encoding: 8bit
 
+--symfs=<dir>,flat documents itself as matching only the base name, so a
+debuginfo lookup for /usr/lib/x86_64-linux-gnu/libc.so.6 should land on
+<dir>/libc.so.6.debug.  It lands on
+<dir>/debug/usr/lib/x86_64-linux-gnu/libc.so.6.debug instead, because the
+layout is applied to a fixed prefix and the file name arrives afterwards:
 
+	len = __symbol__join_symfs(filename, size, "/usr/lib/debug");
+	snprintf(filename + len, size - len, "%s.debug", dso__long_name(dso));
 
-On 18/09/26 15:03, George Guo wrote:
-> Hi Sourabh, Pratyush,
->
->> But in practice, this problem is only on CONFIG_NUMA=n and I don't think
->> in practice KHO or LUO is being used in non-NUMA systems. So while I
->> think it is worth fixing, I think we should also have a test where we
->> enable CONFIG_NUMA.
-> Confirmed. My vmtest kernel has CONFIG_NUMA unset, and your analysis
-> matches the data.
->
-> I reran the vmtest with Sourabh's debug prints on both configurations:
-> same kernel, same QEMU command, and without my this fix patch, so the
-> default percentage policy is exercised. The only difference is
-> CONFIG_NUMA.
->
-> Without CONFIG_NUMA:
->
->    KHO: Before low and global scratch allocations
->    KHO: low size = 330185 KB
->    KHO: global size = 322 MB
->    KHO: Per node 0 = 672 MB
->    KHO: After low and global scratch allocations
->    KHO: low size = 330185 KB
->    KHO: global size = 322 MB
->    KHO: Per node 0 = 672 MB
->    KHO: Failed to reserve nid 0 scratch buffer
->    KHO: Failed to reserve scratch area, disabling kexec handover
->
-> With CONFIG_NUMA=y:
->
->    KHO: Before low and global scratch allocations
->    KHO: low size = 330197 KB
->    KHO: global size = 322 MB
->    KHO: Per node 0 = 96 MB
->    KHO: After low and global scratch allocations
->    KHO: low size = 330197 KB
->    KHO: global size = 322 MB
->    KHO: Per node 0 = 96 MB
->    KHO: After per node allocation
->    KHO: low size = 428501 KB
->    KHO: global size = 418 MB
->    KHO: Per node 0 = 288 MB
+perf_basename() only ever sees "/usr/lib/debug", so neither layout comes
+out of it.
 
-[...]
+Compose the path as it would appear on the profiled system and join it
+once, which puts the layout on the whole name.  That covers
+FEDORA_DEBUGINFO, UBUNTU_DEBUGINFO, MIXEDUP_UBUNTU_DEBUGINFO,
+OPENEMBEDDED_DEBUGINFO and BUILDID_DEBUGINFO, plus the same composition in
+build_id_cache__find_debug().
 
->
-> In the run without CONFIG_NUMA, the reserved-kern sum the sizing sees
-> is 330185 KB, which is the 98.45 MiB baseline plus the 224 MiB lowmem
-> scratch area: with memblock_get_region_node() hardcoded to return 0,
-> the NUMA_NO_NODE lowmem area is counted as node 0's kernel reservation.
-> Node 0 therefore requests 200% of (98.45 MiB + 224 MiB), rounded up to
-> 32 MiB alignment: 672 MiB. That no longer fits next to the other areas
-> in the 1 GiB guest, and KHO disables itself.
->
-> In the run with CONFIG_NUMA=y, the real node ID excludes the
-> NUMA_NO_NODE regions, so node 0 requests 96 MiB. The allocation
-> succeeds and is visible in the sums printed afterwards (330197 KB ->
-> 428501 KB), and the KHO selftest passes end to end ("KHO: found kexec
-> handover data", restore succeeds).
->
-> Sourabh, this also answers your question. Your PowerPC system runs
-> CONFIG_NUMA=y, so the node filter excludes the lowmem and global areas
-> and your numbers stay flat. Your experiment and mine are the two halves
-> of the same mechanism.
->
->> I think on NUMA systems the problem is the other way round. The
->> calculation for the global scratch also counts per-node allocations.
->> So I think the proper fix for scratch sizing is what this patch does
->> and then a fixup for the global scratch calculation as well.
-> Agreed. For v2 I plan to:
->
->    - Compute all scratch sizes (lowmem, global, per-node) before any
->      scratch area is allocated, per Mike's comment. The sizes are a
->      function of the pre-allocation state, so this seals both feedback
->      directions at once.
->    - State the !CONFIG_NUMA condition in the commit message. The feedback
->      described there is not unconditional, which is what triggered the
->      question.
->    - Add the LLM attribution Mike asked for.
->    - Include the CONFIG_NUMA=y vmtest result as coverage.
->    - Look at the global scratch calculation on NUMA systems as a
->      follow-up.
+BUILDID_DEBUGINFO needs one more step: the build id cache splits the first
+two characters of the build id off into a directory name, so the basename
+of the hierarchy path is only part of the build id.  Name the flat file
+after the whole build id.
 
-I have sent a fix to handle global scratch calculation on NUMA systems.
-https://lore.kernel.org/all/20260922131217.698809-1-sourabhjain@linux.ibm.com/
+dso__disassemble_filename() passes a path from perf's own build id cache
+rather than one on the profiled system, and every entry there is named
+"elf" or "debug".  Use path__join() so the layout does not apply.
 
-Please review the changes and share your comments.
+With --symfs /s,flat the lookups are now /s/libc.so.6, /s/libc.so.6.debug,
+/s/sleep and /s/<build id>.debug.  hierarchy is unchanged.
 
-- Sourabh Jain
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+v2->v3: different approach.  v1 and v2 took the four sites out of the
+layout; Namhyung asked for the layout to be made to work instead, so v3
+composes the filename first and joins once.
+
+v2: https://lore.kernel.org/r/20260819094621.844115-1-zhanxusheng@xiaomi.com
+
+Traced openat()/newfstatat() under --symfs /s,flat and /s,hierarchy with
+perf record -- sleep 0.3 before and after: flat goes from 21 paths to 15,
+hierarchy is identical at 21.
+ tools/perf/util/build-id.c | 12 +++++++----
+ tools/perf/util/disasm.c   |  8 ++++++-
+ tools/perf/util/dso.c      | 43 +++++++++++++++++++++++++-------------
+ 3 files changed, 44 insertions(+), 19 deletions(-)
+
+diff --git a/tools/perf/util/build-id.c b/tools/perf/util/build-id.c
+index eb95ab90f974..02233ef0eaff 100644
+--- a/tools/perf/util/build-id.c
++++ b/tools/perf/util/build-id.c
+@@ -586,9 +586,9 @@ static char *build_id_cache__find_debug(const char *sbuild_id,
+ 	const char *dirname = "/usr/lib/debug/.build-id/";
+ 	char *realname = NULL;
+ 	char dirbuf[PATH_MAX];
++	char pathbuf[PATH_MAX];
+ 	char *debugfile;
+ 	struct nscookie nsc;
+-	size_t len = 0;
+ 
+ 	debugfile = calloc(1, PATH_MAX);
+ 	if (!debugfile)
+@@ -599,9 +599,13 @@ static char *build_id_cache__find_debug(const char *sbuild_id,
+ 		dirname = dirbuf;
+ 	}
+ 
+-	len = __symbol__join_symfs(debugfile, PATH_MAX, dirname);
+-	snprintf(debugfile + len, PATH_MAX - len, "%.2s/%s.debug", sbuild_id,
+-		 sbuild_id + 2);
++	/* See the build id note in dso__read_binary_type_filename(). */
++	if (symbol_conf.symfs_layout_flat)
++		scnprintf(pathbuf, PATH_MAX, "/%s.debug", sbuild_id);
++	else
++		scnprintf(pathbuf, PATH_MAX, "%s%.2s/%s.debug", dirname,
++			  sbuild_id, sbuild_id + 2);
++	__symbol__join_symfs(debugfile, PATH_MAX, pathbuf);
+ 
+ 	nsinfo__mountns_enter(nsi, &nsc);
+ 	realname = realpath(debugfile, NULL);
+diff --git a/tools/perf/util/disasm.c b/tools/perf/util/disasm.c
+index 6cfdbabbb8c7..1148dde6c975 100644
+--- a/tools/perf/util/disasm.c
++++ b/tools/perf/util/disasm.c
+@@ -31,6 +31,7 @@
+ #include "map.h"
+ #include "maps.h"
+ #include "namespaces.h"
++#include "path.h"
+ #include "srcline.h"
+ #include "symbol.h"
+ #include "thread.h"
+@@ -1173,7 +1174,12 @@ static int dso__disassemble_filename(struct dso *dso, char *filename, size_t fil
+ 
+ 	build_id_filename = dso__build_id_filename(dso, NULL, 0, false);
+ 	if (build_id_filename) {
+-		__symbol__join_symfs(filename, filename_size, build_id_filename);
++		/*
++		 * This is a path in perf's own build id cache, not a path on
++		 * the profiled system, so the symfs layout does not apply.
++		 */
++		path__join(filename, filename_size, symbol_conf.symfs,
++			   build_id_filename);
+ 		free(build_id_filename);
+ 	} else {
+ 		if (dso__has_build_id(dso))
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index 42bfe30a3b51..e52de7cc1bc6 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -115,6 +115,7 @@ int dso__read_binary_type_filename(const struct dso *dso,
+ 				   const char *root_dir, char *filename, size_t size)
+ {
+ 	char build_id_hex[SBUILD_ID_SIZE];
++	char relative[PATH_MAX];
+ 	int ret = 0;
+ 	size_t len;
+ 
+@@ -167,13 +168,15 @@ int dso__read_binary_type_filename(const struct dso *dso,
+ 		break;
+ 
+ 	case DSO_BINARY_TYPE__FEDORA_DEBUGINFO:
+-		len = __symbol__join_symfs(filename, size, "/usr/lib/debug");
+-		snprintf(filename + len, size - len, "%s.debug", dso__long_name(dso));
++		snprintf(relative, sizeof(relative), "/usr/lib/debug%s.debug",
++			 dso__long_name(dso));
++		__symbol__join_symfs(filename, size, relative);
+ 		break;
+ 
+ 	case DSO_BINARY_TYPE__UBUNTU_DEBUGINFO:
+-		len = __symbol__join_symfs(filename, size, "/usr/lib/debug");
+-		snprintf(filename + len, size - len, "%s", dso__long_name(dso));
++		snprintf(relative, sizeof(relative), "/usr/lib/debug%s",
++			 dso__long_name(dso));
++		__symbol__join_symfs(filename, size, relative);
+ 		break;
+ 
+ 	case DSO_BINARY_TYPE__MIXEDUP_UBUNTU_DEBUGINFO:
+@@ -187,8 +190,9 @@ int dso__read_binary_type_filename(const struct dso *dso,
+ 			ret = -1;
+ 			break;
+ 		}
+-		len = __symbol__join_symfs(filename, size, "/usr/lib/debug");
+-		snprintf(filename + len, size - len, "%s", dso__long_name(dso) + 4);
++		snprintf(relative, sizeof(relative), "/usr/lib/debug%s",
++			 dso__long_name(dso) + 4);
++		__symbol__join_symfs(filename, size, relative);
+ 		break;
+ 
+ 	case DSO_BINARY_TYPE__OPENEMBEDDED_DEBUGINFO:
+@@ -200,15 +204,15 @@ int dso__read_binary_type_filename(const struct dso *dso,
+ 		while (last_slash != dso__long_name(dso) && *last_slash != '/')
+ 			last_slash--;
+ 
+-		len = __symbol__join_symfs(filename, size, "");
+ 		dir_size = last_slash - dso__long_name(dso) + 2;
+-		if (dir_size > (size - len)) {
++		if (dir_size > sizeof(relative)) {
+ 			ret = -1;
+ 			break;
+ 		}
+-		len += scnprintf(filename + len, dir_size, "%s",  dso__long_name(dso));
+-		len += scnprintf(filename + len , size - len, ".debug%s",
+-								last_slash);
++		len = scnprintf(relative, dir_size, "%s", dso__long_name(dso));
++		scnprintf(relative + len, sizeof(relative) - len, ".debug%s",
++			  last_slash);
++		__symbol__join_symfs(filename, size, relative);
+ 		break;
+ 	}
+ 
+@@ -219,9 +223,20 @@ int dso__read_binary_type_filename(const struct dso *dso,
+ 		}
+ 
+ 		build_id__snprintf(dso__bid(dso), build_id_hex, sizeof(build_id_hex));
+-		len = __symbol__join_symfs(filename, size, "/usr/lib/debug/.build-id/");
+-		snprintf(filename + len, size - len, "%.2s/%s.debug",
+-			 build_id_hex, build_id_hex + 2);
++		/*
++		 * The build id cache layout splits the first two characters off
++		 * into a directory name, so the basename of the hierarchy path
++		 * is only part of the build id. Name the flat file after the
++		 * whole build id instead.
++		 */
++		if (symbol_conf.symfs_layout_flat)
++			snprintf(relative, sizeof(relative), "/%s.debug",
++				 build_id_hex);
++		else
++			snprintf(relative, sizeof(relative),
++				 "/usr/lib/debug/.build-id/%.2s/%s.debug",
++				 build_id_hex, build_id_hex + 2);
++		__symbol__join_symfs(filename, size, relative);
+ 		break;
+ 
+ 	case DSO_BINARY_TYPE__VMLINUX:
+
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+-- 
+2.43.0
+
