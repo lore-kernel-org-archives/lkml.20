@@ -1,158 +1,241 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1244A092A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056609; cv=pass; b=Of+hLGDBkwuA2TyyTb9j19kezSoHXDMjZbqYaNxFzO2l/tsOO6NxOHiOIT85VDwtAhAidDfhekOCJwqw9bWIXA7gC20hDV3Oin2LVGkk83lCfiYgdeIhBz6HY+Xz3ATDRu1jP9Rm3zJ2nKQnuHl7pHABBZb0+Mmh8ky3xr9U1G4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056609; c=relaxed/simple;
-	bh=d1drO2+NdEIIrNX/sl99P7Ke1u/gWR0GTaJkJTV0hL0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hUWLTBd/TVPbF7BwyYPj/NAocxSBLhZgxEsWiaLegOy6kg0iP07xDtAVmC/k+rhMI62zFnQ4UiE9cBTxcdGr7EIL29i5Ay4A4fwnJ/itPEAu4w6pLmQUx5iWZnWbscnirsLuqiQI7X+coMJnPR+F3WXPjy+RpQMysHQD2fzX7Vw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=H0lna6WF; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9012930568B;
+	Tue, 22 Sep 2026 05:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790056640; cv=none; b=EErdkkyLbuLioiEXhr1pda+wGM3rpWlldeVfWLvMYorJbcLUADN3kRtItf+AdZ64dImUH63/oaeltwx4OgS/cBrmLL269/AYGtIUnCwOG13b1bwgmdGloSToyuNpaHbvmnBOOVQPeKD8lqxXL+2oiYC9EYuDcQJMngfvH4Uwv1A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790056640; c=relaxed/simple;
+	bh=oA4X8bg4D69EtOBe5V6cBG+ESypw2o0LdcbV1QdnU98=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nAZ9dK/KyMgKRV5kMhH7jPL7HoRs+3aR1uaRPgWrJjgf3YeyUk7DO4ptumgN6zaCJ/CCLNhIxu6vnWPRN3zCYcQdEy0ie6fhp2W5u2JxgNFMq9qq/ldIn3QMoAmMcNwsLryxRwUv3HI81Uz4SdLxh0CzxxWQg1QYtmXrEr2Og9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H+bx1QbA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="H0lna6WF"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c254fa663bfso566525566b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:56:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790056605; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FaOGQ4ID4N60uy3iXKTzBsEScPgk68/ZusvLQxS+XoHUR3YNsJzdeH9qajkXEgaf1w
-         ypwKt/Z0TRksw7FM38lTBqgh1EgGd8EU5J9dZmtDbHJj4wZVI9uP7OPxOQw7JuSBDjKT
-         gr6qff0/gMNs6d8BL5X6elzheqQgbF5wOo61oa+aOLV186VRU+GRBBax+EIAFGRaLp69
-         EYPnGqnT2FhhLWIOt+wm4kqvnKcnfA4FRhdgOH9IFF411btS4WIcxXiGCjd6ZJeMcMpO
-         xHO9jQ1E8VOzQ/QePyVwcQ9sQ7E/TOOpEyPQoY+if+pOqVOBaBhYYq32pDCEA0NCshgs
-         yTXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fgDSjYBkKIqmCo86GGEHf9xuLVU4KxLyJ0+RC/3vTOU=;
-        fh=aCGaSORxlqdL8rHN2LXD2/goceYVz19U9uVeupyc9P4=;
-        b=imfqxVY3jU5GCuYu6QouGmLN4ri2mrxf+rqO1QHdNwDTcvqsXtGJ4/NVpJxDrigSPG
-         sSzgsY+gOy6BDbZMYJvzZK9lR1xBzC6Gegv59Eifn3ABftYpt31o3nTkBFWgYmNucmly
-         FaB7lWmlcind++1+x3NhejEynxfc7TXR1Eox0DBk0Rox8o85UNhGgldbc262PrGi5txm
-         9sTbRgRMrVhUsLYzNcs2w78bXh17xqgFzxzcmQq5aaG2tsOz8flY30mwRxEyy1pY2uZA
-         i6du4B6IGJRrdLLbdrQSCA+dFFbla52TgH33fsUivxDVYQVks17+EpH/wGXlrqzfyxAU
-         geHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790056605; x=1790661405; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fgDSjYBkKIqmCo86GGEHf9xuLVU4KxLyJ0+RC/3vTOU=;
-        b=H0lna6WF5YRJnzN5oBp3iMZxC7iLmMAjUXWU9tUSVue4ECeZ7BeKTPem8RU0RYIlyM
-         PlPa73PId72dAoZEFTwKjSLFmIVLCtcEXG/BXYUX1BNjiyCqIy6t0CA1CBcl5CpvJtDs
-         pHoxncaCN6BESqBcbKBzM7fSgRDZMAQa5SWNxFHFcI0qRif7oMVOMyzt8zM4anbOLEVS
-         BFB7nr0sW+zvxz6u1EHPkoeEtodNDY1YR3Jw6akUemCB1y+I6v3R8phDwwQlLyPF85yf
-         VE7d0iHvm78N/YesueEImY9w118pkciy9VZCakqRvOIpu4+iRqRTAqPkEkISjpQBYIa6
-         a1VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790056605; x=1790661405;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fgDSjYBkKIqmCo86GGEHf9xuLVU4KxLyJ0+RC/3vTOU=;
-        b=gTTI7A9u6KQXV5S8fqukkIvW/5Jr86NOOhxu11FEk7BfiXLT6eMnw+fKN+PCAjfW92
-         rSiL0+VznXPEyQ5ecoNUSd6JZXB+pkzlw+gkEhwQR8YJhGtmTGtOJb4/gekoZA656ySh
-         V35mOyUrtx8vGMD8mhk6pwk4nbDyhQYfQQ5Y5ISo7AFpddkG0JpIBK9xqwklpXlHaRza
-         M4SSCqhm618uuqpKeYqAcRtCJW5bmkqG5sHa79fSR6AhVb724A0m5E4/oN47crb1fzby
-         p4B1nG7CDDJI1HElVznnI9cvDD9D14GT5KCN5ZiaLen0VyPqZRSn5ig+cwEXiaOG5p95
-         fNDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWmJPKf7kxrBOPQorXXazn8rfRidz55XpXFozVRq7lPjqZuC7fElDZNRE1B6S1Yrn+I5Itq2MGMPnNcwQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nv3n1/fiNgcOItOIzHO08vRRhDDGyjL+8zdAI5MgriFZ038upW
-	wJuzZYoxBnckqBbxI5HXUf4q2nUeww+vpfjxPu5jF4kIS5Naw46OY3frqUU0qp/90WT/do2oaSW
-	Uc0E/zUAskkjymdI0G86CGaI/XskPKzvWTs/NACH1Ug==
-X-Gm-Gg: AYBFou3VLXfkdcWhvVdbnATzfoPasR4wHcTyos2jRt8WXwCBiYnvyQEbxQQPRB043c6
-	WHrJ+nKT5PKwDzJ5qNO7YDJbsjcIiJEaUCUKr0rVzFqNTZonArwcQpw0fzybndYQMWMNkJhwzTY
-	wflt2iN3SdpAcGxnx3x78BJfe8cXdlsLKSiu4iL8OJqeAk7qWSwr9MEnJes37QiP1tTTto38/29
-	BViru3NT8VA65sq5XLX9q3LJpD+afT+iKX5hXOxbDzGE8o2IAlWasUgpfcUdqpH8yYsnmRXkb1S
-	hbnVZA9zoNlp8KEtuYMk+NPuqg2IJS+l9UtfF2flUOCJJREnS2x8XBbaOgmKl29UHpbBI+owFBp
-	ESC2xS18aDeM=
-X-Received: by 2002:a17:907:3f0f:b0:c25:cbec:22cc with SMTP id
- a640c23a62f3a-c2a15699894mr1063051866b.5.1790056605440; Mon, 21 Sep 2026
- 22:56:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H+bx1QbA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C4481F000FF;
+	Tue, 22 Sep 2026 05:57:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790056639;
+	bh=+ObChoFplMy58dVx0xmB9riQUjVBXhcLJqj+sig+tvA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H+bx1QbAFtCK5w8M9OLBwMjmshn4FWUiM1fycWLxf1SkhL43AQrFieZcHFmE4hLD7
+	 L01DQCz8u9gjWUXZHVl4yoTr35oGoeOxVRwlyyli2yh3joHBvr2bDgrG/P1Gwxnjp4
+	 YU5rWSRq0+ZliYAOl716wxH5pV6K88X22O+wziPNMz4YOCA8PmNkr0y9cqXTH/afTF
+	 AIjOAQGxDNSj9LhUrUQ5dXXTcJ8U7cxZSUMA6EiztqiDPY8n/S5MrMvWllIw47pb4u
+	 4RNeLomvR5MwdcZRd1Jc4Vnx4G5VblBp8nrsrn18gr1MR6hcFNL7oCIQU6mxN8Owij
+	 LRVYFNUFrY6tQ==
+Date: Tue, 22 Sep 2026 11:27:10 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org,
+	akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
+	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <arIYtjmSKCs14SqO@sumit-xelite>
+Mail-Followup-To: Vincent Donnefort <vdonnefort@google.com>,
+	catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org,
+	akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
+	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260921110050.3977591-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921152238.3804392-6-vincent.guittot@linaro.org> <20260921160619.3418-1-kayracizmeci@gmail.com>
-In-Reply-To: <20260921160619.3418-1-kayracizmeci@gmail.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Tue, 22 Sep 2026 07:56:33 +0200
-X-Gm-Features: AcwNN1VwPneWCua05QJpyt2oxqQ3VUZliB_2INgPDcmHvhBgBQT7f_gfAuqnYpI
-Message-ID: <CAKfTPtDQxuME7geidfYtcMZwjdVr8OQw5WrNPWDhLrTa2_HZEQ@mail.gmail.com>
-Subject: Re: [PATCH 5/8] sched/eevdf: Reset lag when waking up on idle cpu
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: bsegall@google.com, dietmar.eggemann@arm.com, juri.lelli@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, mgorman@suse.de, 
-	mingo@redhat.com, peterz@infradead.org, qyousef@layalina.io, 
-	rostedt@goodmis.org, vschneid@redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260921110050.3977591-1-vdonnefort@google.com>
 
-On Mon, 21 Sept 2026 at 18:06, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+Hi Vincent,
+
+On Mon, 21 Sep 2026 at 12:00:42 +0100, Vincent Donnefort wrote:
+>This series is a follow-up to the discussion that has started here [1].
 >
-> Hi Vincent,
+>When memory is lent to the Secure world via FF-A, CPU speculative
+>accesses from NS to the lent pages can still occur as long as it retains
+>a cacheable mapping to it.
 >
-> > @@ -908,18 +908,25 @@ void decay_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
-> >       if (vlag <= 0)
-> >               return;
-> >
-> > -     if (flags & ENQUEUE_MIGRATED)
-> > -             return;
-> > +     rq = rq_of(cfs_rq);
-> >
-> > -     /* Compute the sleep time */
-> > -     delta_exec = rq_clock_task(rq_of(cfs_rq)) - se->exec_start;
-> > -     if (unlikely(delta_exec <= 0))
-> > -             return;
-> > +     if (rq->curr == rq->idle) {
-> > +             /* You can't claim any lag when waking on idle CPU */
-> > +             vlag = 0;
-> > +     } else if (!(flags & ENQUEUE_MIGRATED)) {
-> > +             u64 now = rq_clock_task(rq);
-> > +             s64 delta_exec;
-> >
-> > -     vlag -= calc_delta_fair(delta_exec, se);
-> > +             /* Compute the sleep time */
-> > +             delta_exec = now - se->exec_start;
-> > +             if (unlikely(delta_exec <= 0))
-> > +                     return;
-> >
-> > -     /* vlag can't become negative while sleeping */
-> > -     se->vlag = max(0, vlag);
-> > +             vlag -= calc_delta_fair(delta_exec, se);
-> > +
-> > +             /* vlag can't become neg while sleeping */
-> > +             se->vlag = max(0, vlag);
-> > +     }
-> >  }
+>Ideally, lent memory would be "no-map" but that would mean giving up
+>MiBs of useful memory, so let's try to do better with the help of a CMA
+>pool.
 >
-> When if (rq->curr == rq->idle) runs the else if does not. So on that branch
-> we just set local vlag to 0. I think you wanted to set se->vlag to 0?
+>On arm64, modifying the direct map at runtime is generally restricted
+>because the linear map defaults to block mapping and splitting blocks at
+>runtime may trigger fatal page fault, unless the CPU implements BBML3
+>or the entire direct map was mapped at page granularity from boot.
+>Forcing last-level mappings system-wide incurs a severe penalty we want
+>to avoid. Instead, this series introduces targeted last-level mappings
+>for designated memory regions, along with the "arm,ffa-lend-pool" CMA
+>driver to manage unmapping and remapping on lend/reclaim transitions:
+>
+>1. memblock:
+>   - Introduce MEMBLOCK_PTEMAP to force PTE mappings only for a specific region.
+>
+>2. set_memory infrastructure:
+>   - Introduce can_set_direct_map_range() to check if a specific address
+>     range is mapped with last-level entries and can be modified safely.
+>   - Introduce __set_direct_map_*() variants that bypass redundant checks
+>     when the caller has already validated the range.
+>
+>3. "arm,ffa-lend-pool" driver
+>   - Introduce the "arm,ffa-lend-pool" CMA reserved-memory driver, which
+>     unmaps pages prior to lending (ffa_prepare_lend()) and restores them
+>     when reclaimed (ffa_lend_reclaimed()).
+>
+>4. Optee support
+>   - Hook OP-TEE dynamic protected memory pools to "arm,ffa-lend-pool" for
+>     both SMC (via DT memory-region phandle) and FF-A (via
+>     ffa_lend_pool_attach()) transports.
 
-Argh, I messed up when cleaning the patch
 
-yes it should be se->vlag = 0 for idle case
+Thanks for your proposal in trying to solve this hard problem of
+unmapping pages from kernel linear map. I remember discussing this
+problem last year at LPC too.
 
-I re-ran tests, and the latency with hackbench decreased a bit
+Have you had a chance to look at a more generic MM proposal around this
+issue here [1]?
 
-scheduling latency (us) for cyclictest and hackbench
-                   tip/sched/core| this patchset
-slice                 8ms / 16ms |  8ms  / 16 ms
-99th Percentile               75 |    70 (  7 %)
-99.9th Percentile            730 |   532 (+27 %)
-Maximum                    15996 |  5290 (+67 %)
+One of the major concern for me with your proposal is tying the
+protected memory allocation to fixed sized platform specific pool size
+based on DT. Then the cost of granular mappings/unmapping if the
+platforms choose to enlarge these pools.
 
-Thanks
+As you maybe aware one of the major use-cases here for protected DMAbufs
+is the secure media pipeline use-case which is memory intensive
+workload. IMO, the solution proposed at [1] seems to address it although
+people have flagged rough edges there but should be addressable.
+
+Can you try a port of [1] for arm64 since the author did all the work
+with x86 as reference?
+
+[1] https://lore.kernel.org/all/20260726-page_alloc-unmapped-v3-0-6f5729aa9832@google.com/
+
+-Sumit
 
 >
+>Testing:
+>========
 >
-> Thanks,
-> Kayra :>
+>Tested with QEMU v8 using OP-TEE OS (built with CFG_CORE_DYN_PROTMEM=y)
+>under both SMC and FF-A transports [2]
+>
+>static void dump_direct_map(const char *label)
+>{
+>	printf("\n=== %s ===\n", label);
+>	fflush(stdout);
+>	system("sed -n '/Linear Mapping start/,/Linear Mapping end/p' /sys/kernel/debug/kernel_page_tables");
+>	fflush(stdout);
+>}
+>
+>int main(int argc, char *argv[])
+>{
+>	int heap_fd;
+>	int dmabuf_fd;
+>	struct dma_heap_allocation_data data = { 0 };
+>	size_t size = 1024 * 1024; /* 1MB */
+>
+>	if (argc > 1)
+>		size = strtoul(argv[1], NULL, 0);
+>
+>	dump_direct_map("BEFORE ALLOCATION");
+>
+>	heap_fd = open("/dev/dma_heap/protected,secure-video", O_RDWR);
+>	if (heap_fd < 0) {
+>		perror("open /dev/dma_heap/protected,secure-video");
+>		return 1;
+>	}
+>
+>	printf("\nOpened /dev/dma_heap/protected,secure-video\n");
+>	printf("Allocating %zu bytes of protected memory via DMA heap...\n", size);
+>
+>	data.len = size;
+>	data.fd_flags = O_RDWR | O_CLOEXEC;
+>	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &data) < 0) {
+>		perror("ioctl DMA_HEAP_IOCTL_ALLOC");
+>		close(heap_fd);
+>		return 1;
+>	}
+>
+>	dmabuf_fd = data.fd;
+>	printf("Successfully allocated %zu bytes! dmabuf_fd = %d\n", size, dmabuf_fd);
+>
+>	dump_direct_map("DURING LEND (EXPECT HOLE IN DIRECT MAP)");
+>
+>	printf("\nReleasing dmabuf_fd...\n");
+>	close(dmabuf_fd);
+>	close(heap_fd);
+>
+>	dump_direct_map("AFTER RECLAIM (RESTORED DIRECT MAP)");
+>
+>	return 0;
+>}
+>
+>[1] https://lore.kernel.org/all/20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com/
+>[2] https://optee.readthedocs.io/en/latest/building/gits/build.html#qemu-v8
+>
+>Changelog:
+>
+>v2:
+>  - Rename MEMBLOCK_LLMAP to MEMBLOCK_PTEMAP (Mike)
+>  - Warn on conflicting MEMBLOCK_NOMAP and MEMBLOCK_PTEMAP flags (Mike)
+>  - Drop DT "ll-map" property and mark MEMBLOCK_PTEMAP from ffa_lend_pool_setup() (Rob, Thierry)
+>  - Drop "reusable" and "no-map" property checks from ffa_lend_pool_setup() (Rob)
+>  - dt-bindings: Document arm,ffa-lend-pool (Rob)
+>  - Rework the Optee support with a separate ffa_lend_pool.c file.
+>  - use walk_kernel_page_table_range_lockless() for
+>    can_set_direct_map_range() to fix folded page table (Sashiko)
+>  - Add missing TLB flush in ffa_prepare_lend()
+>  - Disable hibernation
+>  - Rebase on linux-next (next-20260918) to use the new set_direct_map*() ranges (Mike)
+>
+>v1 (https://lore.kernel.org/all/20260902104712.2399797-1-vdonnefort@google.com/)
+>
+>Vincent Donnefort (8):
+>  memblock: Introduce MEMBLOCK_PTEMAP
+>  arm64: Introduce can_set_direct_map_range()
+>  arm64: Introduce __set_direct_map*()
+>  arm64: Add support for MEMBLOCK_PTEMAP
+>  firmware: arm_ffa: Introduce ffa-lend-pool
+>  optee: Add support for arm,ffa-lend-pool
+>  dt-bindings: reserved-memory: Add Arm FF-A lend pool
+>  dt-bindings: firmware: optee: Add memory-region property
+>
+> .../arm/firmware/linaro,optee-tz.yaml         |   5 +
+> .../reserved-memory/arm,ffa-lend-pool.yaml    |  55 ++++
+> arch/arm64/include/asm/set_memory.h           |   7 +
+> arch/arm64/mm/mmu.c                           |  23 +-
+> arch/arm64/mm/pageattr.c                      |  72 ++++-
+> drivers/firmware/arm_ffa/Kconfig              |   5 +
+> drivers/firmware/arm_ffa/Makefile             |   1 +
+> drivers/firmware/arm_ffa/lend_pool.c          | 261 ++++++++++++++++++
+> drivers/tee/optee/Makefile                    |   1 +
+> drivers/tee/optee/core.c                      |   6 +
+> drivers/tee/optee/ffa_abi.c                   |  13 +-
+> drivers/tee/optee/ffa_lend_pool.c             |  72 +++++
+> drivers/tee/optee/optee_private.h             |   4 +
+> drivers/tee/optee/protmem.c                   |  20 +-
+> drivers/tee/optee/smc_abi.c                   |  21 +-
+> include/linux/arm_ffa.h                       |  23 ++
+> include/linux/memblock.h                      |  18 ++
+> mm/memblock.c                                 |  30 ++
+> 18 files changed, 608 insertions(+), 29 deletions(-)
+> create mode 100644 Documentation/devicetree/bindings/reserved-memory/arm,ffa-lend-pool.yaml
+> create mode 100644 drivers/firmware/arm_ffa/lend_pool.c
+> create mode 100644 drivers/tee/optee/ffa_lend_pool.c
+>
+>
+>base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+>-- 
+>2.55.0.1082.g2b9226bbc0-goog
+>
