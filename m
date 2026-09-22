@@ -1,154 +1,136 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A44201278
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043171; cv=pass; b=Xy1ENkVEPahiTAKcaEDxknNZwdEVBE4gWRbcaDuhApNf5FWus4EAb3FJkqymZxyCRkXk61FE6dDg/fS2WSVyWLXq3O2+ZhQDbDnp2IZlxmI3yAPoS3QeAgIlI9JA/DGgwYOssGwCo0EpyoPWBMEUAO1XiaiicqASueA1NFDiBug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043171; c=relaxed/simple;
-	bh=UEaKqlpg1S/qgYKAuWWYje5xwb8CJQleJ6eVFFV1h8k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OIyDeOlnS3+XycKc54fZcQebwUd04tztVlUDVQmBhG/NYP5Z1zipEg4tCJRJZvYXhridZS4zzUUq5669bd9FOA+EBtb/G8IbqyzdHvsnKQp+AET/cZQxGBqa0+zXT3HQq2bDcmcgUNxlRBnjdP/xtxKab116w4FwLyLAJLU/iHI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Spb7umaG; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1714201278;
+	Tue, 22 Sep 2026 02:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790043190; cv=none; b=tjxrLnQQHTaI0BXNjPibiNZ+l8tiW+iSIDNIGjmE+kSqJQljdcVaTkjbAoxxb0XQfNCTJJ4XqfB50R0bMcv43JSjs/21MJa/0s/cUR/77NZps0QDjmpZkcIAxTyeZEGtKwpmX2urnUnVjXU0slKsaD6pof1fzigF2xDwA7KjasM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790043190; c=relaxed/simple;
+	bh=MWdlY+uGG8yD79147C8VttozeTqIra4ztcFEY3Z3YKs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VxvRRVQuXbqFX23jmEji3+ZFax9G5a1L+f1W5v0oL8EFEgIx+K6NPryWL2tesQos3btTTg/f1cWoo5FHXPiuHZaYfYLxh7syWAzyMSl8hJ2Oq9efC+i5bb9xAmJTUfobCXwLw0GYGjjGzH+42z/9Qi7URaWoWa7sP8/Vm+HApd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kMkOO2ih; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Spb7umaG"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e50968489so3404864d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:12:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790043169; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aSJuk4b4p/+bqmPJDaEDSAuCsCirKb6trAZhSlXB0/HCyoWkbN6NjTSgFfJiv8PYSP
-         eGAmjgfsa/CfSUA/bxmj8wp1MPs2DWIx4FFRDjzso/4jAiENzaptke2NwAhuRz26KZPV
-         az0hCjbID2Ntm67LRPiNWfgnH0C17C0qIGc/Q732XHcqc9IvAUGoaDCE2QWQsBqvrMrH
-         Q1yAG4I2rqnLpVUWz4llIRcS6xBJFuegDMmpqYGkHmERhorcKDuaWdh1+RCEtHkzDtmm
-         11fptyNJhf4yka0lRYYoz/PnprGDInlL+yka4oscrSypuprz0Jqa/6GYd7szHs+tJelu
-         L2JQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UEaKqlpg1S/qgYKAuWWYje5xwb8CJQleJ6eVFFV1h8k=;
-        fh=beOYL7Yy9Ycc45Hjy+Bk80rTE5zhMiRPJ+JRw04TkLI=;
-        b=LMcWwPRwQHFsD2PcJ4KPaLrtcO6Zd0cL1r1hjKKjnXeqK0kMLH1rfGhk7ikKXhX557
-         VqyLLz9hEt+U9yMgsn7RUdrkZfqTdfertJ6Hpkw0Fd5N6rsxDGA6jEnO6QmAG3lPEEeg
-         Wa/Bgz8wpfS50FJQ9Capto6XbPQhzXOyuAElDIgegCCvGwRL0g993uTpLOO/kDWB+uSR
-         HqS+B7tUDkaA2C3C27JKEEfIU0/hBrKy1xeNC6EaIxh+HeuKUuJowgMDQFsd2QrCe+dA
-         ADx41Eg3qoMFYNLu1wsqvBnrX4P4UIlv1hNktHD7WaBaMBPAbYFkK19WNiN9cHVHz0gs
-         CbLw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790043169; x=1790647969; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UEaKqlpg1S/qgYKAuWWYje5xwb8CJQleJ6eVFFV1h8k=;
-        b=Spb7umaGVHS9WmfBhptaLE+0kwzfkWnwdXBdWpFB46nmupD9rwL8ITFCE8xkzJs5Re
-         7vnpaufiSCHcnfxbYPQWhGb0aZodlPkgCyCNbhgBz2Fz36u+8GE2lRgHPWAYnwFPZUJD
-         cwri/DXltIwkuPF0aFw/0lMhTIbqfnrBZbab6AEHwoM7givrKohwV9vQ3buuO2TmpmBz
-         mF/dJSw9m+j5nDwSTokckcnjcFnM/7mHIDhQsBM1r9XDTrELwUZXsdVr6BuHSMtuAKy7
-         C2I+WTPaZNpOjAs/LZs7kuRFVAI21D9hScg4cMEh1yq2aUi5tMD7grDwOUvMwLlzLnN8
-         oEdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790043169; x=1790647969;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UEaKqlpg1S/qgYKAuWWYje5xwb8CJQleJ6eVFFV1h8k=;
-        b=mceGfjvfcCn2TcCloEI5FidDG04iWB7nuPFNIlWfiarkQ5NQY+k5pcR/6EeR1wx7Oi
-         +fIMhsOy2ajqbAd+fodPG/nA4rDuY1BbkZiSvOCLQ5xPDoq90bZXQ2R//GPnX/4frGfy
-         m/62SD9CqEBIzZvTPUGSx1dnFE0EkdXt0NKyRl3U3K3z+ITg2EUNuFOeLyUNzPj15Yx6
-         dkqQqi0piO8wNGzNwSJfMTcTfe9O0/gTFU7DowQ28yvLNYDN6Zl+Z9xQUAt6WvW2pSQs
-         3NwGReIVzqkgkUoDf/wkikw6Z8AgfXUQnPcLMUsOvbLpv2lapMkDO+hhE+8o1tDpQ20V
-         xGCg==
-X-Forwarded-Encrypted: i=1; AKwUvByArWJL1ZpNtsi74Iu0CXhugTU1sExM2q6FibIH+JdVJ2Xna8N5XiHrvy+KN7/BIsBLPMZREyZlmM10TUU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdDsAL4Jhh+uYuc0YA0+XsnF5sA4teFWUSfXREItxtWJQGA8lL
-	kZdq5XDKmNXXrpzesO7ibPKs7UsFtzoUULxWQ4L6JBJY5UcFYSLeS1eymNVlwntLoKN3l7dgGMm
-	gUiShk5N9e1Zwt66RN1hELtfc13EJNUM=
-X-Gm-Gg: AYBFou301AeJtbSHwk+HDlCjZkiaKZNfvRtltpIBeAJ4h+DMMwRXuDdgCJPO+/HAGYT
-	FlFUMPMfBhc+QHEMrFajOT2mXnNSN7/FZM9BN3qm3e+ifbR9wNRsX5Gwt85UihPQ4XLCyhAsE2E
-	Zu8RwT/q+2Wk+HnGRxO34/1KC2dbENqRspJcEmzyHV/lbmBR/8kBlNPYslDpGxm7efQDIaPsidr
-	jhb/Pcr05KGcX7kF/o2cYKgrb4aYrQDtngkONEhaiUkK6iQXdPLKXFXyp1feXmwZ0j4NO9JcO06
-	g8QutMz5nc3NAFa7pTKeL+G24Ur8DCCyrdkkHScePUJ/r2AIF8pRtq6ONvi/FFSZOBY6
-X-Received: by 2002:a05:690e:128b:b0:672:a546:64a8 with SMTP id
- 956f58d0204a3-672a54668a7mr3570659d50.107.1790043169134; Mon, 21 Sep 2026
- 19:12:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kMkOO2ih"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790043188; x=1821579188;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=MWdlY+uGG8yD79147C8VttozeTqIra4ztcFEY3Z3YKs=;
+  b=kMkOO2ihSgGHeMGw2Hk3fg4oXJqCz3VLZ8YKwWk15hhGtsWQr1A3zf1z
+   x8AaR2ZjXrdcvbs/VNJ4k7k72Iv2LaGxO2DUGiGub5AYOXrgzG2/hH/hJ
+   g9r/kGS4g7b+0R6ivjajqiuSRqd+XRH1DHSbmipSqtXPsbHQpM9Zon9bk
+   JmF+Nw9aR3+YAQFCCg/aevsiKN59NghjlooHnuYQC+hTmNHLwRgTKOGEb
+   gIBpy2WmwA9DM5G1GM1ah8OpEUEOt2Uz1rt2MD1jAtMciJKI8NekU5GRI
+   YKa1uRbd6s9PzienX9D2qYdYktcxFdRbGrajp+BygqgG36vRbyRUs8XKc
+   w==;
+X-CSE-ConnectionGUID: 9NCnzin/Sw2E+rGYb2XCyQ==
+X-CSE-MsgGUID: RYVfAFLYSyqAvIxz8hxeXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1113339"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="1113339"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 19:13:06 -0700
+X-CSE-ConnectionGUID: sZSDNPtRTQOC4RlkQ00MfQ==
+X-CSE-MsgGUID: Ic7wktafSeq3KJgk4b9T9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="272113751"
+Received: from unknown (HELO [10.238.2.139]) ([10.238.2.139])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 19:13:04 -0700
+Message-ID: <14db958c-be80-4a91-b79d-1775fc058daf@linux.intel.com>
+Date: Tue, 22 Sep 2026 10:13:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921154202.471662-1-lgs201920130244@gmail.com>
- <20260921154202.471662-2-lgs201920130244@gmail.com> <179001756287.8372.475254242129499819.b4-review@b4>
- <1804a859-371f-4bfa-ba48-d5cd26819cd3@kernel.org>
-In-Reply-To: <1804a859-371f-4bfa-ba48-d5cd26819cd3@kernel.org>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 10:12:36 +0800
-X-Gm-Features: AcwNN1VAnINknji1fkt2WEpdwkqP4l6wafMfAOYzvmtdGrYl5oQg1J8YZy6n3vs
-Message-ID: <CANUHTR9BSNmmrMQqXNd-qap2qoOxWf-ZtGAaV6icw4wpFaCFSA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] net: ena: fix PHC cleanup on probe failure
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Arthur Kiyanovski <akiyano@amazon.com>, David Arinzon <darinzon@amazon.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Ioana Ciornei <ioana.ciornei@nxp.com>, Sang-Heon Jeon <ekffu200098@gmail.com>, 
-	Dawei Feng <dawei.feng@seu.edu.cn>, Amit Bernstein <amitbern@amazon.com>, 
-	Netanel Belgazal <netanel@annapurnalabs.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: VMX: Formally define KVM's "0xdead" exit reason used
+ for failed VM-Enter
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Yan Zhao <yan.y.zhao@intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+References: <20260921235656.1107929-1-seanjc@google.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20260921235656.1107929-1-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
+On 9/22/2026 7:56 AM, Sean Christopherson wrote:
+> Add EXIT_REASON_UNDEFINED to track KVM's magic "0xdead" value that's used
+> to stuff the exit reason on a failed VM-Enter so that the magic can be
+> reused by TDX, and to make it more obvious that it's an arbitrary, KVM-
+> defined value (though the whole "dead" thing makes it pretty darn obvious).
+> 
+> Opportunistically add a compile-time assert to ensure the KVM-defined exit
+> reason never collides with a "real" exit reason.
+> 
+> No functional change intended.
+> 
+> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+> Cc: Yan Zhao <yan.y.zhao@intel.com>
+> Cc: Binbin Wu <binbin.wu@linux.intel.com>
+> Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Thank you for your feedback.
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
-On Tue, 22 Sept 2026 at 06:02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 21/09/2026 21:06, Arthur Kiyanovski wrote:
-> > On Mon, 21 Sep 2026 23:42:01 +0800, Guangshuo Li <lgs201920130244@gmail.com> wrote:
-> >> ena_probe() initializes the PHC as part of ena_device_init(), but the
-> >> probe failure path does not destroy it before freeing the PHC private
-> >> data.
-> >>
-> >> The normal removal path calls ena_phc_destroy() through
-> >> ena_destroy_device() before ena_phc_free(). However, if probe fails
-> >> after ena_device_init() succeeds, the error path reaches ena_phc_free()
-> >
-> > This part:
-> >
-> >> without unregistering the PTP clock or destroying the device PHC
-> >> resources.
-> >
-> > is inaccurate, see my explanation bellow.
-> >
->
-> Don't waste your time. This is AI slop agent posting (one of 500 more of
-> postings where agent does not care about replies).
->
-> Best regards,
-> Krzysztof
+> ---
+>  arch/x86/include/asm/vmx.h | 8 ++++++++
+>  arch/x86/kvm/vmx/vmx.c     | 4 +++-
+>  2 files changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/include/asm/vmx.h b/arch/x86/include/asm/vmx.h
+> index 3f1b3096ff04..e49b836c7313 100644
+> --- a/arch/x86/include/asm/vmx.h
+> +++ b/arch/x86/include/asm/vmx.h
+> @@ -20,6 +20,14 @@
+>  #include <asm/trapnr.h>
+>  #include <asm/vmxfeatures.h>
+>  
+> +/*
+> + * UNDEFINED is a KVM-defined value used to indicate that the basic exit reason
+> + * is undefined/invalid, e.g. on VM-Fail or if TDX never attempted VM-Enter.
+> + * The value itself is arbitrary, it just needs to not collide with a real exit
+> + * reason.
+> + */
+> +#define EXIT_REASON_UNDEFINED			0xdead
+> +
+>  struct vmcs_hdr {
+>  	u32 revision_id:31;
+>  	u32 shadow_vmcs:1;
+> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+> index 612ab07d4100..c897dbf0e954 100644
+> --- a/arch/x86/kvm/vmx/vmx.c
+> +++ b/arch/x86/kvm/vmx/vmx.c
+> @@ -6388,6 +6388,8 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
+>  static const int kvm_vmx_max_exit_handlers =
+>  	ARRAY_SIZE(kvm_vmx_exit_handlers);
+>  
+> +static_assert(EXIT_REASON_UNDEFINED >= ARRAY_SIZE(kvm_vmx_exit_handlers));
+> +
+>  void vmx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
+>  		       u64 *info1, u64 *info2, u32 *intr_info, u32 *error_code)
+>  {
+> @@ -7474,7 +7476,7 @@ static noinstr void vmx_vcpu_enter_exit(struct kvm_vcpu *vcpu,
+>  	vmx_enable_fb_clear(vmx);
+>  
+>  	if (unlikely(vmx->fail)) {
+> -		vmx->vt.exit_reason.full = 0xdead;
+> +		vmx->vt.exit_reason.full = EXIT_REASON_UNDEFINED;
+>  		goto out;
+>  	}
+>  
+> 
+> base-commit: d4b7fb647204f0c81dfeae2d1a708e4d858e0c94
 
-I would like to clarify that these patches were manually reviewed and
-audited by us; they were not simply generated and submitted by an LLM.
-However, I understand why the recent submission pattern may have given
-that impression. We sent too many patches in a short period of time,
-and we also failed to respond to some discussions in a timely manner,
-which made the situation look worse.
-
-Many of the recent patches, especially the v2 revisions, are
-corrections and improvements based on previous review feedback rather
-than completely new untested changes. That said, we recognize that the
-way we submitted them increased the burden on maintainers and
-reviewers.
-
-We apologize for the pressure this caused to the community. We will be
-more careful about organizing patches by subsystem, preparing proper
-patchsets, and following the kernel contribution guidelines before
-sending future work.
-
-Thank you again for pointing this out.
-
-Best regards,
-Guangshuo
