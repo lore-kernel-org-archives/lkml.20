@@ -1,186 +1,147 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7413E563281
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06AD38F620;
+	Tue, 22 Sep 2026 15:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092431; cv=none; b=ZQxsJo5RbDSht7/SR/lmOZ9zm1r7Xpt5N5zxxH8cU4SrTjkWECYx2oq/vwes/ie5A0lGo0R5Agdvy/Dewh8VkapXN1sI3YTa5CiNjpdHU2WN7hiebrSIYPtQZ+FeWyxAJ/HUZ9iTXoHFXVV9r/6zBskOwt0ZsZCa+tDdIpMvkyo=
+	t=1790092441; cv=none; b=E1/q9cgL/eNvVMxeUO21RrzyHMGd+1CS3C0Tn8duxVvuBzTdyMm5J6nDlQkW4XeKZGUfc4XojuwsdzAoVbEfSYd7qMq/w0qxLR5V97AAMeKk62Ax9GS2Wqt60shymIGGog4j95f1ukyzR9sWH2r1CETckQhjEWi2Fe6UmyhS4BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092431; c=relaxed/simple;
-	bh=x2Afa3TS2BODsNDUCq1vjP7z73/Tlk0WEhCAaO8UvBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JNEQwsdbZXEGsv5vb+rgVjxJrMefJJn2r7wsf/noG+bGKarSqBYqLbM83eiB9X1O4DrxarfxQ7wtCwa22OK+1UE0GOUIDrJbSetq9zeM3PrzTSqLlTGESBIssJieqZsVAc2/PCQL7Fwb1+H6ICx2kg0Hsxs/dK3yTXxcHKgGbbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NuMeLAuR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RPbDacHO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790092441; c=relaxed/simple;
+	bh=Gxq5RbPZaBaThrnfCbXwlLeSspEvvoh3Fk+LKjVlj8M=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=P3G5n7TY+1sNktTvxd0FDYE2KM9yHk8svGDr9AM8piitCwWZzjpvCUQn/7dXO2BjjzPsud6/TTqD/ZYra83X9pCEC10f4nJq2A3m6N4VVrL+K+9YEBDTW+JohA1rbeRncp3le+TB30J0ubXbamtAxhBoCLzHJVVM3paGgW4wYck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=PBuaBZLF; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NuMeLAuR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RPbDacHO"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MEjoTn3952917
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:53:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c+J89754OJs4CwOKUDXJfrEClFP9Q3mGTwu9yywPVJA=; b=NuMeLAuRxk12TzIe
-	2IIKpHxD60B9aAf3ow+MH682YLp0nF6MS2HFAXX94vXONizlwGdqGAAN8sPJWzRg
-	Gq9U9BEcMqtYxGyeZcoJHRdXXPjfWEKYhfaW82mTj7tzVT3UJGpzXdnzX5Az7ynb
-	LUwkFaaqqddedNOJCQ6c+4ubxNthQFBXxxquvTjrvVD5uIQzbIwt62deMogHfY8C
-	khe+yMHcpSwhrgpX8EZpa2sgiN5eKaNVnSncvYPVQpJmTS5cG1Si5f8ADGD3bwBX
-	Z5QlZFbkrJKiizsw8ODUnvVcpZDrcDW3vrswzq0u/yc40XqZGiBcUblpn/jX5HwO
-	FBIZtQ==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gufsqbdav-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:53:46 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c7d6767d06so240532e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:53:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790092426; x=1790697226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c+J89754OJs4CwOKUDXJfrEClFP9Q3mGTwu9yywPVJA=;
-        b=RPbDacHOCxGzYv2JRPFvwEIMRF2F+24ayYtBgrBWOc7Bjjb8zUYGIfkXsvCg1OACsg
-         akGd1+GqXDxH/mwacI8cmPg1JIWhVnOVtsxLt7D9OpQCO4SXkESeoqEwFfKtBjUy0v+a
-         68hd1G61G/QEMtUJVS6L1sYMFEwNtGniwUAPLvdZMmWj1Td/Tdf48GEiTD07ElHdM+dW
-         XYcYtonhP2dJ08K0LrM0n0MDVaZ7RXbA/O/H3h6+y/JuNx+fXIG44M134suqXwLwJ7lu
-         5K1Zv7PrsBB24FB1L1splC+DQiKNK8a+5MW/xQsA24vvjIJC4BukWBNt+vxMiWlb+XQ3
-         g3AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092426; x=1790697226;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c+J89754OJs4CwOKUDXJfrEClFP9Q3mGTwu9yywPVJA=;
-        b=rV6Gnm/s5PZ5IJEYLd4IUE+ijMqVRbRN0/pTCaBgzje0KJfuwmVNfsARxRdSXtJrGo
-         qBoAd9O1XHwCCqADWSHLrrUNb48ZSMpT8eicOQFdy2O9zvPCTVFWJR3IiFvHn1YPY1DN
-         LYWYL6BvdLLBl6bEPS+O1XrFKNxDTkvX9ks2GmOqM35rQCoKKGFKLWBK48QDToyx9aPl
-         oIrSstZteH+kDI5yuUjxmBeizWlEOVTxC6uEvnnR8/Vlh9K2dnw/6EtHlir9ocHv5nVo
-         K4jTvKwQjdDk05VVzDWDLNY+39ntEKCHj9DSGnKfalhxTqTXJS/IeL6KQzbhvcQCqx0I
-         DBHw==
-X-Forwarded-Encrypted: i=1; AKwUvBwsTpJ8kFC8sch9A3GRRJDtKjWyleMKraXQHIAmTsP9xiGjNCL0SRsJLjCij+kQySy2sgme5URlXl/Us38=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltfqUbPTrQUljkZRB6Gutv15MVaO8oYYFouLwFEfNDAjRuFGo1
-	ELkac1htaqKPvGfTamzz921ATomtC2gfoXSfdBDTWOpnjUqrpq+e5YV/ZW8pXK3Jes2G0hgqnXv
-	X9EH61NjY/+09K1m4s5me6POjyeP+bwTd7fP5ptjDfxrecdwqb7XxFYDwuKD+QxbrFjQ=
-X-Gm-Gg: AYBFou2rfWWcbKH5Tkc6xovSBqygT3pqxxDrvZb3dv5mAF5DReKUtaLx2Suec/AJbfZ
-	c7d9Rqf1FhmPXUuEwQ82Go84SvfkKqA/1NaVxy9399vHgvTTt6lJG0dAf/o4W7+H2tgmUbAJUGA
-	Tsg8LJcoRS4a/LFi7hsN0u9J47WNwq5k4+v1+iibAZDJq1O/+sfM5vmkIYvz5HX++mYxSpTEKTU
-	KWdsen09VC6dTxPgRc+///RFI9TrMRBBK8ZBuXr6mYAcnNhClbDQn6JqY/8v7lO88OCfjTtcmJH
-	QhBHpaXnjzBqvzAwJl+15UiOJInnsK8WkhWiSUuv6b7Cs1JAQqiHxgQo4gcAlZYCzhiPzchgNPA
-	hqsBbOXMAH1hkW9Uw+ZadrQ==
-X-Received: by 2002:a05:6102:3710:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7a7326b6d93mr6495472137.2.1790092426356;
-        Tue, 22 Sep 2026 08:53:46 -0700 (PDT)
-X-Received: by 2002:a05:6102:3710:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7a7326b6d93mr6495425137.2.1790092425877;
-        Tue, 22 Sep 2026 08:53:45 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5808dasm107428966b.23.2026.09.22.08.53.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 08:53:44 -0700 (PDT)
-Message-ID: <578c26c4-a340-4158-aea8-40944a1067c2@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 17:53:41 +0200
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="PBuaBZLF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=Gxq5RbPZaBaThrnfCbXwlLeSspEvvoh3Fk+LKjVlj8M=; b=PBuaBZ
+	LFtXvTTKu8ThDiaJWjea3KKn0i0u9LPgCfI6+TTUCEGLj8AlMSRP0gbyCAaDkq5lsmUORVTuBAkCx
+	6Ik9Abux7GDtk3GKH1m8QZKE/rxAJSKEhlk7eW2hbYVkesYUwK2Ncb1MNy/9EyK+iN53bP6iGMkob
+	xhonKo+LZnkT18EmkqYGLrgRELQ0Ub9SYS/S93KVNM/A0QsXkbftlwiDzDvw94CbzlWNF86DLs7wx
+	bN6cyRrNI8HpTyCydoNrhTHahYRMsc5YJBRQmEEPYiaplAE/HpLGjZgld79w2uuCTf8lf0zgQurY8
+	aPPV4sR1h+cF6UHG0fkmPmUOhMdQ==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x92nZ-00000001pCW-3Y9V;
+	Tue, 22 Sep 2026 15:52:49 +0000
+Message-ID: <5a7ad159b2fabf377b7e1fc4248c433287ac11fb.camel@surriel.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>, Gregory Price <gourry@gourry.net>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>,
+  Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, Michal
+ Hocko <mhocko@kernel.org>,  Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+ David Hildenbrand	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Kemeng Shi	 <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>,
+ YoungJun Park	 <youngjun.park@lge.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
+ Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Wenchao Hao
+ <haowenchao22@gmail.com>, Jonathan Corbet	 <corbet@lwn.net>, Hugh Dickins
+ <hughd@google.com>, Baolin Wang	 <baolin.wang@linux.alibaba.com>, Tejun Heo
+ <tj@kernel.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>,
+ Meta kernel team <kernel-team@meta.com>, Linux Memory Management List	
+ <linux-mm@kvack.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Tue, 22 Sep 2026 11:52:49 -0400
+In-Reply-To: <CACePvbWW4avTV2WB6iRU+LN5zqkMTg3UhBrq41R0iw91-7Ni0g@mail.gmail.com>
+References: <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
+	 <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+	 <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
+	 <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+	 <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
+	 <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
+	 <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
+	 <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
+	 <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
+	 <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
+	 <arKbXe1Qe-FDCTMM@gourry-fedora-PF4VCD3F>
+	 <CACePvbWW4avTV2WB6iRU+LN5zqkMTg3UhBrq41R0iw91-7Ni0g@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 5/5] arm64: dts: qcom: shikra-iqs-evk-imx577-camera:
- Add DT overlay for Shikra
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260917-shikra-camss-review-v8-0-9b9596221cfa@oss.qualcomm.com>
- <20260917-shikra-camss-review-v8-5-9b9596221cfa@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260917-shikra-camss-review-v8-5-9b9596221cfa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: beT_dXE2-q_C1FywrcuFg2gxNzxud2tp
-X-Proofpoint-GUID: beT_dXE2-q_C1FywrcuFg2gxNzxud2tp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIzMSBTYWx0ZWRfX6CVmYckMdiyh
- W3kFq4SdrguIGeiAx9JzaPruRGK9P+ku8hZ/W5wRZK2M1N0SpFPQ2R4Sqy04J/MJ4x1Z6Vx0HnJ
- erzxEzbkn1XUIkiC583YJ4Pun5Kesfo=
-X-Authority-Analysis: v=2.4 cv=NKBAaE6g c=1 sm=1 tr=0 ts=6ab2a48a cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=XE-wypd_VeY0GsksmEIA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIzMSBTYWx0ZWRfXxja1nMsVMAtX
- MlcL5m7v0kQqZMTX9dNvSOM4QRZ0cbv++tXrT9IM0o9Sd1Aqi15Wlzo2zoAjX9x8VpzvhfYCoQP
- Oy0JHL1RBud6Db1gLk0R7KmGTRUNd0uE6C1pF6o+MQb4raJnfyb/Yot5rABjAIODiO0DQu+RF5b
- K4+Sw1TUQYoc5yY4juOXi9DOURalJJbYyFHryha5X/3kme9lyf+NmyxgBTAWKU70oqzXZcCm75T
- PDcfhjFjih++5G0jrS0RRlCdstgONv5K0HbBcFPOqg4b0C53mBRzR6JIA21TnhH4rsVC4EiBL+h
- YEMwS+QldwKq5gRyIRlTXyI5Qur/AFs2d7yz5KoQBE3qF70FoRr8YnSYwe365W4J1er7FjiSmw6
- KvUOatVCFdTLxf0hWZ6fwaBvsvpg/MCBDXVCkER6v4IW07mtghzqlm1kLSvSImP3VPj3Lvqfz58
- Y0u0sMV4hiBaET9qIww==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0
- clxscore=1015 phishscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220231
 
-On 9/17/26 1:41 PM, Nihal Kumar Gupta wrote:
-> Shikra IQS is an industrial-grade variant using PM8150 PMIC, requiring
-> different CSIPHY and sensor supply rails compared to the retail boards
-> (CQM and CQS) which use PM4125.
-> 
-> Add a dedicated overlay for optional IMX577 integration via CSIPHY1.
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
+On Tue, 2026-09-22 at 05:43 -1000, Chris Li wrote:
+> On Tue, Sep 22, 2026 at 5:20=E2=80=AFAM Gregory Price <gourry@gourry.net>
+> wrote:
+> >=20
+> > On Tue, Sep 22, 2026 at 03:32:44AM -1000, Chris Li wrote:
+> > > > Right now it has 64GB of memory.
+> > >=20
+> > > That is exactly my point. You are running 1/8 =3D 12.5% system ram.
+> > >=20
+> >=20
+> > Chris you are missing the point
+> >=20
+> > Zswap:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 8812=
+236 kB
+> > Zswapped:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 24927876 kB
+>=20
+> I am well aware of the point. The 7%-10% data I provided is before
+> compression. After compression, the real saving is about 1.5% - 2%.
+>=20
+Here I'm at 28% without any issues, with room for
+more.
 
-[...]
+> You are not listening. The boundary was set due to feedback from the
+> application SLO. Those are real deployments not imaginary usage.
+> Please respect the user.
+>=20
+Different users need different things.
 
-> +&camss {
-> +	vdd-csiphy-1p2-supply = <&pm8150_l11>;
-> +	vdd-csiphy-1p8-supply = <&pm8150_l12>;
-> +
-> +	status = "okay";
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@1 {
-> +			reg = <1>;
-> +
-> +			csiphy1_ep: endpoint {
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&imx577_ep1>;
-> +			};
-> +		};
+The kernel needs to be able to accommodate all of them.
 
-Likewise
+The kernel default should accommodate the people who
+are least capable of configuring their systems.
 
-Konrad
+Hyperscalers can set their own defaults across their
+fleets. They know how to adjust settings.
+
+--=20
+All Rights Reversed.
