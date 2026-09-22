@@ -1,72 +1,65 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3423C4779A9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB084C10FD
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080774; cv=none; b=QdeNjpcBXGmOcYc08IxTq66ZYSWDAeGtHpMfwmWftUBESOHWjdtWiVA0SpI8h+QIFD0z5A6740bhA5rLfiZCLhGl4XZeDt8LORF0BzOYiOL+HyePJgLE+0NY6AJEpWGYP2ROwU0OfhXGDuT0wd9pNiu9eMeyjd2m1T3psfZZXOg=
+	t=1790080804; cv=none; b=aPlSJjjnpigdhxB+z12169yHh232IQtn1aED26va9fx39C/9SUQXBPRxW7AMBG67Si/8hyRbw5ykKU6T95uevewoSKqQ98gUTeZGH/TpDFjLaEsF45GXglTa0RRb0ZGSTLOPEVDhrj5BEea3ay37bklCp+gRAZD6JMKHhWXvdQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080774; c=relaxed/simple;
-	bh=uVRWMm+rocRisGEScvol7U2RN1IebvUu9uPE2VFgG9Q=;
+	s=arc-20240116; t=1790080804; c=relaxed/simple;
+	bh=wFmJBrwWil7bpAeYIpoN4GzUL1HvXOt5ldn6IIIiFHY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TbSuU4/ZPp07Bp4ZsdXl8Yw07+XSt6IXbEgPeoYuOfgMuqpJmthB9Bo6SFTGt6iHq+PZggtaeqv2Pex3cL10scEDnC/ke3GvRGge8J4V1+XsiHioS8Hc37Zq1WYLfZAt9A/pKvVpSb0kh5VksuZdduQyErIbjanyfjtIJVv14Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Le0aQFOb; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=M6Vul1G8kCk9QCc6ZAwk03kmzGNGFX2gAEshghWyARzraS7X2qQNefpFW4cFXc1GiyFmsKN1nT8hkWVJiz2rsR9/WPpwpm5Y19OyTBdfqSmJNnx0DCh2khKA6ETGfAwZLwlNxRHqtiV+qbX5hA4E9G8hsO/F9EMYUM8gy1NAGTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=O2oXCldz; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Le0aQFOb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790080772;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7rZHGjrhc0+tlCgX+JeQpKinKuN2xlIHFPD7PX5sonQ=;
-	b=Le0aQFObMydCmqkfbZ21MV/bXfhA5vXf327F42vQS3w71FNxTVGdLiR7CB90KEgI58G8MP
-	VORr2Wep04kkFh2+vN/6IhiuzDC9B6CGGX8K79DJmKCRaqwdOPSEay+vNyyBqebXQrpi/v
-	AyAxXLs9fLI7W7SJN2nOUCkvk479Sic=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-522--c2YFg3bNfmTDIF58wrKoQ-1; Tue, 22 Sep 2026 08:39:29 -0400
-X-MC-Unique: -c2YFg3bNfmTDIF58wrKoQ-1
-X-Mimecast-MFC-AGG-ID: -c2YFg3bNfmTDIF58wrKoQ_1790080769
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ae8e7e546so810419085a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:39:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="O2oXCldz"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso2705507241.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:40:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google; t=1790080799; x=1790685599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o9blDfaIlaDE7zWOzf7sAkl81n8mIgiGQIMLz8R8dVg=;
+        b=O2oXCldzJ3LpA4QHBbXInqG6gPFkiSS8IpezgH8R+ZrmCNrQGw2qZ3cz2HJXPR/LD3
+         nDnwu+h/q1ydJlARyj62co9tTwdWIgt6A4ziEIgZPoWy6ktNQVyLZgBsOE9UYoUt4d3f
+         ApfWcUtfyoMebnbxzEyQSfJL5IYMdQPZlYtb0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080769; x=1790685569;
+        d=1e100.net; s=20260707; t=1790080799; x=1790685599;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7rZHGjrhc0+tlCgX+JeQpKinKuN2xlIHFPD7PX5sonQ=;
-        b=l+t1bMvaJBQ1cLQTjWmyNkB7YHeLh/IqMhtMUfrcN7Ts/yAt8vgpjSEQK4cscG09hI
-         JEAJstv6plJ7K6oVVh21XSpL39kub2zfsauj4QcO1cVCj61e1FexURIjQ+hT6zzVLEvD
-         DSDvKuxpK7ci5w13KjNMu/lDR594NrrypcO875NVZ28PyTlh4ASi2Qh+jrXCtArP0VJb
-         oQD6FWrvVUmKjqj+NhooztkzIf6apjtS5gPEKWplbWux0+MHjrQz9D2RD3dHNkrywJof
-         Fwu0OJKhal/1J1/HepoeyIOPUlk8P6v4gQ7mXV6vhJcw3P6zTZ3G0pG/ZZbYkMj3wjwl
-         D/vQ==
-X-Forwarded-Encrypted: i=1; AKwUvByP73eWlN/gcXZXzyH5hxmcmQTA4f6ao2JlDolFJcgDRY38xFy+QdRS5/kO223pvpC6LmO6WDRjMOm5Tco=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMm7C7g+IEbvl3aN8CdWTdJrLbAt4cnotktjZBSIuPvCQ6d6D/
-	5FygwrJd2hLZXIC8xaQI8t3PUSGMJj9BFPnoVP2ZxfJ6en4JXmCmAT2vDlnvExLoqSHuI8HC/A6
-	o1AbY058FA9YVHDWXj7A0SPEQdsQlychJ/sogNHaU77zT+KUxTpcRv0C7Jw2XKZ3Qfg==
-X-Gm-Gg: AYBFou1dwoO5kzs4j5kO3uTOqKNAAE0s7+EKrRtXjA8fRsDoYJ4LlW2pU+rjzWSX81W
-	fMCuc9BCFoRC8jKnyCXe0StVU7lT+dCoMsj+p25JRHjUTTfLY+6IN8lmVyFij2tQ0x0qpbmT0y6
-	LX5CE2/94KovBtEVX9cXw2SBi8DXxqVt0kj9aHi/gELXH8iUiOjNQU3zu7KdNeY21PGucxKGSST
-	HHtXiNb1szGv+W4iDdrL597LDnC56NNlzJ+kC+I4u4yDiVMm+CadVevNPQn2EukL/5kFmgaK+ue
-	jmhm7al1IP4qhgwccy7bxhF/pBilU/RO0TcSokS0UUh19TWffAQ1fgg4oIgDts0VV4LKgsUgSNF
-	7I3Y=
-X-Received: by 2002:a05:620a:45a5:b0:93b:b4e0:1c89 with SMTP id af79cd13be357-93c15eed479mr514960685a.40.1790080768691;
-        Tue, 22 Sep 2026 05:39:28 -0700 (PDT)
-X-Received: by 2002:a05:620a:45a5:b0:93b:b4e0:1c89 with SMTP id af79cd13be357-93c15eed479mr514957085a.40.1790080768165;
-        Tue, 22 Sep 2026 05:39:28 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d249f9bsm133721685a.44.2026.09.22.05.39.27
+        bh=o9blDfaIlaDE7zWOzf7sAkl81n8mIgiGQIMLz8R8dVg=;
+        b=zx2+s9o7e/EMzmyP3uQ7nZ71vwV8QARt3TlBflhZmUN/+5iMPcJgBz8Sqbe7yCvF9D
+         wKOoRjjCw5h+tc9pKbH6SIRocMLfO+6ltuUYx7pjYVNWZ5+ZrXjOdKiQOy55MpcZPJAO
+         cF2zOuervtkkivEr59dYOp6a5TgG2I6gSopgwSF8CIM1dYsfWZ8xtPpoyFuokzBsKELZ
+         VBMWfckrwwxtDqVqxmoLC1BA8n7HSDvOXjaTAhvgX7QXosKJvl+acW+s7XlAoW6lQlsG
+         ABRIHzh83yDchD3uL2Uqrfs6jmbAc1RoCLlbXpY1pDESsz7mkeSPmlm/M3s/GniXG8Js
+         hDsw==
+X-Forwarded-Encrypted: i=1; AKwUvByC8sCnMMQ7kH2xlnjH41XPLcGDAcJzBmYd2s5IHBlUEDi/Z8dy2IMd/62cGc7cCUYp61q/zKo27+J4zo0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nR4M6rzy/B4yo65nesP/0wYqlki2cnXJNjjIqAkaTQjhcxFNlO
+	EzAfCuXZCPLixZZfwhHazlP2UDZgaepoIaDe5EonoZgdtRENoC+WvhJ0SIdnctq2Gw==
+X-Gm-Gg: AYBFou2TD3L9AYXQLtT+ZpFDZ8wcZQDqUx1JFMp6Etgi+wb680ener5IhF90xmB40qh
+	Jc95JL+bsOzNphcCKGz0Yam/gNdgVbRQOjvk7RsDE5bSKrPTUkaIedDdzsgHc3AI9qU9WjHFfhN
+	2maraoCpS2jri+2cuFkw+1fbGiasCX+PEM7QDW7O977xckwi57BlV56HBQTa/JP0NherVOTxTeP
+	r98AuC2lQ55r98KQoF6h083yYMfBRGhbisBUycvaxLCGO5ZjBwCPQxLqZD0jG6/9zk4gdLggrpM
+	1rMV4WplZN0y9DWJvEKJC9NuOICUKNbVrl5APJRjm23jwEidxeVlMIVMkbKAOCv/w9cmuyrdgvK
+	dd2ZOrutYCI800zegm485rkTy/BhKUuOq8rU1Q+4HXNx3nhR7uiMhYozRO3llg2G0p79LyLPBH3
+	eZNviTuEKVzSfp8xKPvbSBOH7Dnc82e9uOP4/+Yymm8Uk3K3CxSugLFRF56pyVgxOR5HZb8OPPi
+	t/l
+X-Received: by 2002:a05:6122:e22b:b0:5c9:a60c:2736 with SMTP id 71dfb90a1353d-5c9b598e442mr8405960e0c.14.1790080799199;
+        Tue, 22 Sep 2026 05:39:59 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id 6a1803df08f44-91402535ce1sm14566906d6.48.2026.09.22.05.39.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 05:39:27 -0700 (PDT)
-Message-ID: <0a7789b4-f77f-4522-bcf0-3e7b532f2340@redhat.com>
-Date: Tue, 22 Sep 2026 08:39:27 -0400
+        Tue, 22 Sep 2026 05:39:53 -0700 (PDT)
+Message-ID: <d2052425-3fb4-4104-b1ed-f2d53e5a710d@ieee.org>
+Date: Tue, 22 Sep 2026 07:39:47 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,122 +67,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [USB] WARNING: mm/page_alloc.c:5345 at
- __alloc_frozen_pages_noprof+0x39a/0x3d0, CPU#41: swapper/0/1
-To: Hao Ge <hao.ge@linux.dev>
-Cc: akpm@linux-foundation.org, mathias.nyman@intel.com,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, linux-mm@kvack.org
-References: <8b77688e-3219-4133-af0f-395e342acb25@redhat.com>
- <f151fb61-6e9d-4f42-8a3e-89cf5f4fcaea@linux.dev>
+Subject: Re: [PATCH v3 1/3] umh, treewide: Explicitly include linux/umh.h
+ where needed
+To: Petr Pavlu <petr.pavlu@suse.com>, Tony Luck <tony.luck@intel.com>,
+ Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Pavel Machek <pavel@kernel.org>,
+ Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, Nikolay Aleksandrov
+ <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+ drbd-dev@lists.linux.dev, linux-block@vger.kernel.org,
+ greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
+ linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ cgroups@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+References: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
+ <20260911-module-include-kmod-v3-1-6ebccc3e0731@suse.com>
 Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <f151fb61-6e9d-4f42-8a3e-89cf5f4fcaea@linux.dev>
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20260911-module-include-kmod-v3-1-6ebccc3e0731@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-
-On 9/21/26 11:13 PM, Hao Ge wrote:
-> Hi Luiz
+On 9/11/26 9:46 AM, Petr Pavlu wrote:
+> The usermode helper declarations were previously provided by linux/kmod.h
+> but commit c1f3fa2a4fde ("kmod: split off umh headers into its own file")
+> moved them to linux/umh.h in 2017.
 > 
-> On 2026/9/22 10:28, Luiz Capitulino wrote:
->> Hello,
->>
->> When booting the latest Andrew Morton's mm-new tree[1] commit 498ee28e5ec4
->> ("mm/swap, PM: hibernate: atomically replace hibernation pin") on a KVM guest,
->> I'm getting the following MM warning being triggered:
->>
->> """
->> [    1.667197] [      T1] WARNING: mm/page_alloc.c:5345 at __alloc_frozen_pages_noprof+0x39a/0x3d0, CPU#41: swapper/0/1
->> [    1.691217] [      T1] CPU: 41 UID: 0 PID: 1 Comm: swapper/0 Tainted: G        W           7.3.0-rc1+ #12 PREEMPT(full)
->> [    1.692073] [      T1] Tainted: [W]=WARN
->> [    1.692378] [      T1] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS edk2-20260812-8.fc44 08/12/2026
->> [    1.693158] [      T1] RIP: 0010:__alloc_frozen_pages_noprof+0x39a/0x3d0
->> [    1.693685] [      T1] Code: e2 04 e8 49 85 ff ff 45 31 c9 e9 14 fe ff ff 0f 0b e9 e7 fe ff ff 80 3d 6d 3a f2 05 00 0f 85 2b fe ff ff c6 05 60 3a f2 05 01 <0f> 0b e9 1d fe ff ff 48 89 5c 24 40 48 89 6c 24 48 4c 89 64 24 50
->> [    1.695238] [      T1] RSP: 0000:ff46f50b801538d8 EFLAGS: 00010246
->> [    1.695723] [      T1] RAX: 0000000000000000 RBX: 0000000000000cc0 RCX: 0000000000000000
->> [    1.696356] [      T1] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000cc0
->> [    1.696981] [      T1] RBP: 0000000000000034 R08: 0000000000000000 R09: 0000000000000cc0
->> [    1.697605] [      T1] R10: 0000000000000034 R11: 0000000000000100 R12: 0000000000000034
->> [    1.698231] [      T1] R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
->> [    1.698872] [      T1] FS:  0000000000000000(0000) GS:ff2b932745209000(0000) knlGS:0000000000000000
->> [    1.699592] [      T1] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [    1.700119] [      T1] CR2: 0000000000000000 CR3: 00000006ede4a001 CR4: 0000000000773ef0
->> [    1.700745] [      T1] PKRU: 55555554
->> [    1.701023] [      T1] Call Trace:
->> [    1.701283] [      T1]  <TASK>
->> [    1.701512] [      T1]  alloc_pages_node_noprof+0x4c/0xc0
->> [    1.701919] [      T1]  __dma_direct_alloc_pages.isra.0+0x164/0x1f0
->> [    1.702402] [      T1]  dma_direct_alloc+0x19f/0x2b0
->> [    1.702767] [      T1]  dma_alloc_attrs+0x8d/0x200
->> [    1.703133] [      T1]  xhci_alloc_interrupter+0xc9/0x190
->> [    1.703543] [      T1]  xhci_mem_init+0x283/0x340
->> [    1.703902] [      T1]  ? __pfx_xhci_pci_quirks+0x10/0x10
->> [    1.704317] [      T1]  xhci_gen_setup+0x35e/0x4f0
->> [    1.704684] [      T1]  xhci_pci_setup+0x52/0x1c0
->> [    1.705038] [      T1]  usb_add_hcd.cold+0x241/0x5d8
->> [    1.705413] [      T1]  usb_hcd_pci_probe+0x188/0x480
->> [    1.705803] [      T1]  xhci_pci_common_probe+0x6b/0x2f0
->> [    1.706218] [      T1]  local_pci_probe+0x4a/0x90
->> [    1.706582] [      T1]  ? cpu_hotplug_disable+0x15/0x30
->> [    1.706986] [      T1]  pci_call_probe+0x55/0x150
->> [    1.707357] [      T1]  pci_device_probe+0xae/0x150
->> [    1.707734] [      T1]  ? kernfs_create_link+0x61/0xb0
->> [    1.708139] [      T1]  ? sysfs_do_create_link_sd+0x81/0xf0
->> [    1.708562] [      T1]  call_driver_probe+0x23/0x100
->> [    1.708949] [      T1]  ? driver_sysfs_add+0x55/0xc0
->> [    1.709334] [      T1]  really_probe+0xd7/0x2d0
->> [    1.709681] [      T1]  ? _raw_spin_unlock_irq+0xe/0x30
->> [    1.710098] [      T1]  __driver_probe_device+0x9c/0x1b0
->> [    1.710503] [      T1]  driver_probe_device+0x1f/0x80
->> [    1.710892] [      T1]  ? __pfx___driver_attach+0x10/0x10
->> [    1.711323] [      T1]  __driver_attach+0x10a/0x210
->> [    1.711706] [      T1]  ? __pfx___driver_attach+0x10/0x10
->> [    1.712125] [      T1]  bus_for_each_dev+0x86/0xf0
->> [    1.712488] [      T1]  bus_add_driver+0x13e/0x230
->> [    1.712858] [      T1]  ? __pfx_xhci_pci_init+0x10/0x10
->> [    1.713273] [      T1]  ? __pfx_xhci_pci_init+0x10/0x10
->> [    1.713681] [      T1]  driver_register+0x75/0xe0
->> [    1.714049] [      T1]  do_one_initcall+0x7a/0x1c0
->> [    1.714429] [      T1]  do_initcalls+0xe1/0x100
->> [    1.714780] [      T1]  kernel_init_freeable+0x152/0x1c0
->> [    1.715199] [      T1]  ? __pfx_kernel_init+0x10/0x10
->> [    1.715592] [      T1]  kernel_init+0x1f/0x140
->> [    1.715928] [      T1]  ret_from_fork+0x19e/0x270
->> [    1.716296] [      T1]  ? __pfx_kernel_init+0x10/0x10
->> [    1.716680] [      T1]  ? __pfx_kernel_init+0x10/0x10
->> [    1.717071] [      T1]  ret_from_fork_asm+0x1a/0x30
->> [    1.717438] [      T1]  </TASK>
->> [    1.717663] [      T1] ---[ end trace 0000000000000000 ]---
->> """
->>
->> This does not happen with latest Linus tree 40288c9206c1 ("Merge tag
->> 'drm-fixes-2026-09-19' of https://gitlab.freedesktop.org/drm/kernel").
->>
->> What I could determine is:
->>
->> - In xhci_alloc_interrupter() max_segs=0, which leds to seg=0
->>
->> - This eventually leads to passing size=0 to get_order() in
->>    __dma_direct_alloc_pages() (call sequenece below). Passing size=0 to
->>    get_order() is undefined and returns order=52 on my guest, whch leads
->>    to the warning since 52 > MAX_PAGE_ORDER
->>
->>      xhci_alloc_erst()
->>        dma_alloc_coherent()
->>          dma_alloc_attrs()
->>            dma_direct_alloc()
->>              __dma_direct_alloc_pages()
->>              get_order()
->>              alloc_pages_node()
->>
->> [1] git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm origin/mm-new
->>
+> Add explicit includes of linux/umh.h to files that use usermode helpers and
+> remove linux/kmod.h where it is no longer needed.
 > 
-> Thanks for the report. From my understanding, it is already
-> fixed in mainline by 045b5bef916d ("usb: xhci: Fix HCS_ERST_MAX conversion").
+> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+> ---
+>   arch/x86/kernel/cpu/mce/dev-mcelog.c | 2 +-
+>   drivers/block/drbd/drbd_nl.c         | 1 +
+>   drivers/greybus/svc_watchdog.c       | 1 +
 
-You're right, cherry picking this into mm-new fixed the issue for me.
-Andrew hasn't rebased on top of v7.3-rc2 yet. Thanks for the quick
-reply.
+For Greybus:
 
+Acked-by: Alex Elder <elder@riscstar.com>
+
+>   drivers/macintosh/windfarm_core.c    | 1 +
+>   drivers/pnp/pnpbios/core.c           | 2 +-
+>   drivers/video/fbdev/uvesafb.c        | 1 +
+>   fs/coredump.c                        | 2 +-
+>   fs/nfs/cache_lib.c                   | 2 +-
+>   fs/nfsd/nfs4layouts.c                | 2 +-
+>   fs/nfsd/nfs4recover.c                | 1 +
+>   fs/ocfs2/stackglue.c                 | 1 +
+>   kernel/cgroup/cgroup-v1.c            | 2 +-
+>   kernel/module/kmod.c                 | 1 +
+>   kernel/power/process.c               | 2 +-
+>   kernel/reboot.c                      | 2 +-
+>   kernel/umh.c                         | 2 +-
+>   lib/kobject_uevent.c                 | 2 +-
+>   net/bridge/br_stp_if.c               | 2 +-
+>   security/keys/request_key.c          | 2 +-
+>   security/tomoyo/common.h             | 2 +-
+>   20 files changed, 20 insertions(+), 13 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/mce/dev-mcelog.c b/arch/x86/kernel/cpu/mce/dev-mcelog.c
+> index 053555206d81..af4e76babe7a 100644
+> --- a/arch/x86/kernel/cpu/mce/dev-mcelog.c
+> +++ b/arch/x86/kernel/cpu/mce/dev-mcelog.c
+> @@ -11,7 +11,7 @@
+>   
+>   #include <linux/miscdevice.h>
+>   #include <linux/slab.h>
+> -#include <linux/kmod.h>
+> +#include <linux/umh.h>
+>   #include <linux/poll.h>
+>   
+>   #include "internal.h"
+> diff --git a/drivers/block/drbd/drbd_nl.c b/drivers/block/drbd/drbd_nl.c
+> index b77f901fc3ef..6f5d059394b3 100644
+> --- a/drivers/block/drbd/drbd_nl.c
+> +++ b/drivers/block/drbd/drbd_nl.c
+> @@ -14,6 +14,7 @@
+>   #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
+>   
+>   #include <linux/module.h>
+> +#include <linux/umh.h>
+>   #include <linux/drbd.h>
+>   #include <linux/in.h>
+>   #include <linux/fs.h>
+> diff --git a/drivers/greybus/svc_watchdog.c b/drivers/greybus/svc_watchdog.c
+> index 16e6de5e9eff..b318eb34bcca 100644
+> --- a/drivers/greybus/svc_watchdog.c
+> +++ b/drivers/greybus/svc_watchdog.c
+> @@ -7,6 +7,7 @@
+>   
+>   #include <linux/delay.h>
+>   #include <linux/suspend.h>
+> +#include <linux/umh.h>
+>   #include <linux/workqueue.h>
+>   #include <linux/greybus.h>
+>   
+. . .
