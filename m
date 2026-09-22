@@ -1,173 +1,149 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1EE403EB9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790108954; cv=pass; b=md3AnVPgBKYlbgtFmxu43DpuQGWX0jw99Uk9qlA+7yLKOfJt1J61vmWAq4NFVk26dK9yWC7icogyseZ8wg2HB7aIPD99eZTcr9hLPwrlH2Ft76cSj18BKAvd4CAuGOJeh3MGL/GvEW/wS4W7sfgSnVpyJcrGJAfm6zDNmovZ4EE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790108954; c=relaxed/simple;
-	bh=nl0WayBfnBzXB16tsQQ8C7lVQDuEYmE5cOfzxnYFlOY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cW8yRdKoVprjrzvyyaEoCDrOuQkOiy6utblToke9Hr6kNduPMWHHjFXJSV1PO210PCyFOv2W1+QF3xgPkJYfik21bgOtZRANq9QsIcOYHM5+1TWRpfsKjSm93/4mVDPh2TtGiNsxvjLh4jjiheooDuXJOzO+cgcvZHOf0judF6M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Xz3lNUej; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726C03F5BC0;
+	Tue, 22 Sep 2026 20:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790108955; cv=none; b=AUJ7eexOVQz7loBOQkW6sL1pVvaGzSA2dQiYHxWUuQz/4dvl9AYflrWOa9FHod0no1BpV8zhfrNllxptEKEmY6Z6ee/j7aMdZHcgQfIzkCYPOlXenyhuLaTScJdV1C+Le35Vs9t+7dGl0ie9lPvoyt1EDcM3yhHdtWDmWXOGIG0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790108955; c=relaxed/simple;
+	bh=OO/tGThV8FpOPUBfEbGDjQQx/xIpfvh9+2flmtnHsU8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uSqE2AzLxeR5VflDbnJX4n//+OeG2d+QGoiRNFA8xqG8L8nhv94ScE/EiWE8kHdBom8FWQlYTB2mWbjINovFHxYse5HONBAQW6p7m+6eiCZOATRSHFezBPlqOFXVpfEOEfRsSaCoy08lTZhkWbExNilE775VG6QzXKYHAl+lKSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=d0R0iIGh; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Xz3lNUej"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a9d74e8292so706a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:29:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790108944; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gkeF+JBNvW0llzw/we44+qWLlNfC+USOMES6FunfCcZ0lRNQpFJ0da0+2OI3LH1exx
-         eLdgiIRELMEC/VH7MhBFR2m8Guqvrr5YeJNaqW2ha7pfmNEiKeZ9AT6WmOs/shpkVrm4
-         0Dtlr13IFijwGd10YmOW2Y/bmzmCuDaFqfKZYHmVwVtBn09x+xulRl5smDruvJZ0rnxP
-         G3HJ6nDHhiQR7h+upk71zQswsxCrYFLnj0eDWSiLw0F5C2widAyuSqlPwnfHRhYKoHL7
-         M0pI0nUBDpcMfm+qsA12aOS8ld6LRMKBKOsk4jjEOP29WnsT30/YiiBVUWhB8OLORGw6
-         ISpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=f4auqSnGVaI9/viQvIpi/oQzDocBQYdGMjQ8F0EupbI=;
-        fh=CyhXtEmBwojfE1MXzIfYjOg9zxOJx4sv8S8OZjWMPZY=;
-        b=IDNCXZfWyW0QLaXgLwKd46KyJ9M4tYfvg7bCeiC83UtWfW6KaUubG1mYST5oEX7xjB
-         rw0TmcG+0MpCQtiWv/5GQMFDJpd8XOYvJO8tPxPRLiYriR/tLI8eesGWI4we+UgXcEaS
-         gvG77zCM5mTGl8Mzu+0eqovsSVRSOAki3Nm2kHe4aR0vkXyQHmPpXznFjQr3lYq7nUIe
-         sdfTxRI5TAkPSRapfNZbsSodwBX/4716ZVYYvSaDJSswt7vCWP5APb6yrJLk55ytIDBZ
-         3SVm1jzuQlRDxEpNbQNSyY3YqUmsVLWoNQGnUY3AHOseXzcWPbjlrYsmIcEUOTY7eml9
-         o1Dg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790108944; x=1790713744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f4auqSnGVaI9/viQvIpi/oQzDocBQYdGMjQ8F0EupbI=;
-        b=Xz3lNUej9X8VdZDr8tqKR2RBNQ8sjqxUZeWOZhQTAps9hA468+vYGp4qrb25FFAgX4
-         GevH59xtPZy8XUwYStm65+wcB+kG49zfUUEUo+d3/JJR4FVrf+3C8JVYJhDoEaRGYUH6
-         vyVI/Xd7elY9LlGnqji6588OhLgxDmxyED9rmSyF3zE12+KK9NXmpMMCieDzFmjIizff
-         os3tQbObDZ3wudFkxlG5LRwlRvyAYs8llnK+Ue/v9Ga9Bcb4qmWOaCtCbMwL5rrtThct
-         /mW5PCz2BAR6oBnCULgKWtTgMIUZgfv3voYk/U3Sktb+sMGey3rpCnRMFZngdV4gB/ZJ
-         QoBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790108944; x=1790713744;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f4auqSnGVaI9/viQvIpi/oQzDocBQYdGMjQ8F0EupbI=;
-        b=rtEnSbfaJ51rB5QQ6ifWOXQ5a2sYkbX8owTA/gvP2lE2o0MypFonXInu2WcMcVfxLK
-         SAqS3mUTBmlEandkG/vagikh/DJHI7x27ETMKBfsf3RHlqJTTp8puUHDSkUPOy9HC35x
-         F8usNh/NZeSpyqRtt0X7zCkDWh8z3ZkU4/zjSQpjpWR1t9cOUEPgwInUh+e261KqfcQW
-         /6ojiJF1sRC/FfnddLpRfKFIzUB54cBC1WD0/lzBAEUlaECPfizB3G48PuHlnGKUzw+x
-         7uybh1upE7bcnFVVZ7KH22wWd+B2Ehq0F1q7uHyQ0/2tF1AZ31ejAhb6kLhshpfR2/Pq
-         wmJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzR35bEKLVkVHpDC8JQdyT3+CjSromYUxEw8RM/D3JalCA42Nz8cePZEjGwjOxslZsFtnhZbKPpywSneCI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ml/1VaeLvLhChkBItEPRJ+DOJOwisWPCtmoYChpS6DVTKN6KXP
-	JyiAuet0wgBpGslmkWOntdPbkdbfCCe6vyQz52Ez4KKBdUxDAgIUVEw5GRcPWUViQvxrOFa0iA3
-	i1ei1E8roqyyqAUfFNacq+IMpVdSa9ankaGNVoJ8=
-X-Gm-Gg: AYBFou2nwJN3Bop8vptdlzvRkl/3axscpMtrYsPvsQ0AzenJwlCpzwpQqEM7WhgXwGk
-	7tkdij8ja/q/2rDb9ahjq2K1aLBvvWilOYYut7Uoz49yiC1QHDOjCWie9WizwUkOUchdJhcmwRb
-	hxAyM5nTtIB5naIrxm0eG3yvagOlrSY8hBfc609f4TT9kUmLRn2rA9RHICuxkYr5fQn5eK/Qfuv
-	5ZDySLKu68dXSXeNdE9BcLAWy2Cfikm+yNLWzL3ZOY1RZiVrPC4txgiRwM4f3uoJJHfss6+JWhE
-	sJrRXNb3DmU0elR2Kh5jhvJSFXh1H52OEzUfkETh2GCThX5qXPYW1B5M8O6G2K7iPNGYN9offSC
-	/+H9UfGVf
-X-Received: by 2002:a05:6402:683:b0:6aa:128c:36ad with SMTP id
- 4fb4d7f45d1cf-6aab3b997d0mr10064a12.10.1790108943216; Tue, 22 Sep 2026
- 13:29:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="d0R0iIGh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=yDG+FihD99g6EiGkCeXjNO3B7eVRuJlKpK6IMk1FsyI=; b=d0R0iIGhO99IWvXWtISK6Zds4C
+	KXUHLOdVxAMvDPFcmyVN/jYtvHFa9AZVRIQQUjmDnd0FggJ7xWA14CKRocYEVC2ULPtD61L4d0cHo
+	RnOriFgeWDpmRf90cR0gn2nIrNJwy4eebhKjJ8cGLXdNfjZN5UNv0xAVL1o/kwNeBs0AvPvIrKr2n
+	rBYSYqpMMnumJ7hBtP0mWGGOCp4so9lF5uDzsWGt+FA83MWB7tplElNFoEwQyqRl6LMZ4TULVAse8
+	AgTppPY46W5H5q8cqeYrBUiYbhq6ZtESuwM5QuI0jh/Z8EWMduDOZ9EhD0otntu6inF0Awn+oT11R
+	35X9e50w==;
+Received: from [151.115.150.205] (port=44866 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x976p-0000000BLWr-1poj;
+	Tue, 22 Sep 2026 22:28:58 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Paul Moore <paul@paul-moore.com>,
+	Eric Paris <eparis@redhat.com>
+Cc: rrobaina@redhat.com,
+	brads@mainlining.org,
+	audit@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH v2] audit: fix exe mark UAF in kill_rules()
+Date: Tue, 22 Sep 2026 20:27:35 +0000
+Message-ID: <20260922202734.1344770-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com>
- <0b2d8858-b361-4a64-986a-4c179210fbec@amd.com> <aqlWt4jb4CSPnecN@google.com>
- <d6179d34-a4b0-4548-8298-b790b333d22f@amd.com> <CAJxe5ctcVxmhRSw3Gt0POQTzRKoxXo7+Y3CPDe7cUZvC0QPK+g@mail.gmail.com>
- <aqrhFvwFJsQTaEkz@google.com> <CAJxe5csCb0DHZmJo9a-asXZ-tYdcyK1y0Y4Y9Uoixqn=sa8zRQ@mail.gmail.com>
- <arF9CXWC_UDYUMmf@google.com>
-In-Reply-To: <arF9CXWC_UDYUMmf@google.com>
-From: Jacky Li <jackyli@google.com>
-Date: Tue, 22 Sep 2026 13:28:51 -0700
-X-Gm-Features: AclHuK_mY43f-bAoEDGwDRGxsfpJ91_apKdGyjoPSuWVw4gI8ssd82nL_grfFCw
-Message-ID: <CAJxe5csuNRcULSTeRRAq0GGQASTTpgwqOCXwNZJtApeZb_Va3A@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer
- access failure
-To: Sean Christopherson <seanjc@google.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Michael Roth <michael.roth@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
-	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Mon, Sep 21, 2026 at 11:53=E2=80=AFAM Sean Christopherson <seanjc@google=
-.com> wrote:
->
-> No, kvm_vcpu_map() actually has far worse semantics.  GUP pins the *page*=
-, it does
-> not pin the userspace mapping.  I.e. kvm_vcpu_map() guarantees that KVM w=
-on't write
-> to a freed page, but that's literally it.  E.g. if userspace mprotect()'s=
- the page
-> to make it read-only, KVM will write to what is supposed to be a RO page.=
-  Or if
-> userspace completely unmaps the page, KVM will write to soon-to-be-freed =
-memory.
+kill_rules() removes mixed AUDIT_DIR and AUDIT_EXE rules when an audit
+tree is pruned. It drops entry->rule.exe before removing the rule from
+the RCU-visible filter lists.
 
-Sorry for the confusion. I didn't mean writing to the response page through
-map.hva; I only meant calling kvm_vcpu_map() to validate and pin the page,
-while still using kvm_write_guest() to copy the response back:
+After a rule has been installed with AUDIT_ADD_RULE, which requires
+CAP_AUDIT_CONTROL, removing the watched directory can race with another
+task that is still evaluating the rule. In that case, fsnotify can free
+the executable mark before the reader reaches audit_mark_compare(),
+causing a use-after-free.
 
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -4231,19 +4231,25 @@ static int snp_handle_guest_req(struct
-vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
-  if (kvm_read_guest(kvm, req_gpa, sev->guest_req_buf, PAGE_SIZE))
-  return -EIO;
+KASAN reports:
 
-+ CLASS(kvm_vcpu_map_local, map)(&svm->vcpu, gpa_to_gfn(resp_gpa));
-+ if (map.ret) {
-+ svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+ return 1;
-+ }
+    BUG: KASAN: slab-use-after-free in audit_mark_compare+0x8d/0xa0
+
+Unlink the published rules from the RCU-visible lists and retain them
+on tree->rules for cleanup. If any rule has an executable mark, wait for
+a single RCU grace period before removing the marks and scheduling the
+entries for freeing. Otherwise, call_rcu() already provides the required
+deferred freeing without a synchronous wait.
+
+Fixes: 34d99af52ad4 ("audit: implement audit by executable")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+
+v2: Address Sashiko's review with Ricardo Robaina's improved patch:
+- Batch executable-mark teardown behind one synchronize_rcu() after
+  unlinking all rules, instead of waiting once per rule under the audit
+  mutexes.
+- Skip the synchronous wait when none of the removed rules has an
+  executable mark.
+
+v1: https://lore.kernel.org/all/20260921195921.4174830-2-Jeremy.Jean@oss.cyber.gouv.fr/
+
+ kernel/audit_tree.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+index 1ed19b775912..f2e81be8265e 100644
+--- a/kernel/audit_tree.c
++++ b/kernel/audit_tree.c
+@@ -545,22 +545,38 @@ static void kill_rules(struct audit_context *context, struct audit_tree *tree)
+ {
+ 	struct audit_krule *rule, *next;
+ 	struct audit_entry *entry;
++	bool need_sync = false;
+ 
+ 	list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+ 		entry = container_of(rule, struct audit_entry, rule);
+ 
+-		list_del_init(&rule->rlist);
+ 		if (rule->tree) {
+ 			/* not a half-baked one */
+ 			audit_tree_log_remove_rule(context, rule);
+-			if (entry->rule.exe)
+-				audit_remove_mark(entry->rule.exe);
+ 			rule->tree = NULL;
+ 			list_del_rcu(&entry->list);
+ 			list_del(&entry->rule.list);
+-			call_rcu(&entry->rcu, audit_free_rule_rcu);
++			if (entry->rule.exe)
++				need_sync = true;
++		} else {
++			list_del_init(&rule->rlist);
+ 		}
+ 	}
 +
-  data.gctx_paddr =3D __psp_pa(sev->snp_context);
-  data.req_paddr =3D __psp_pa(sev->guest_req_buf);
-  data.res_paddr =3D __psp_pa(sev->guest_resp_buf);
-
-  /*
-  * Firmware failures are propagated on to guest, but any other failure
-  * condition along the way should be reported to userspace. E.g. if
-  * the PSP is dead and commands are timing out.
-  */
-  ret =3D sev_issue_cmd(kvm, SEV_CMD_SNP_GUEST_REQUEST, &data, &fw_err);
-  if (ret && !fw_err)
-  return ret;
-
-  if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE))
-  return -EIO;
-
-Because the actual payload write still goes through kvm_write_guest()
-(uaccess) rather than map.hva, a concurrent mprotect(PROT_READ) or
-munmap() would still cause kvm_write_guest() to fail rather than
-overwriting a read-only page or soon-to-be-freed memory.
-
-> Who cares?  The guest can only hurt itself by converting resp_gpa to priv=
-ate.
-
-The only reason we care from the hypervisor's perspective is that
-a post-command -EIO/-EFAULT exit causes the VMM to abort and looks like
-a hypervisor infrastructure failure rather than a guest error.
-
-That said, this only matters if a malicious guest deliberately races a
-conversion against its own request. Given the complexity of a gpc and
-that kvm_vcpu_map() is being phased out, the 1-byte tickle write is much
-simpler and good enough to protect normal guests from burning their
-VMPCK or killing the VM over a bad resp_gpa.
-
-I'll send a v2 with the tickle approach. Thanks!
++	if (list_empty(&tree->rules))
++		return;
++
++	if (need_sync)
++		synchronize_rcu();
++
++	list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
++		entry = container_of(rule, struct audit_entry, rule);
++
++		list_del_init(&rule->rlist);
++		if (entry->rule.exe)
++			audit_remove_mark(entry->rule.exe);
++		call_rcu(&entry->rcu, audit_free_rule_rcu);
++	}
+ }
+ 
+ /*
