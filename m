@@ -1,127 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6D5375ADD;
-	Tue, 22 Sep 2026 12:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078931; cv=none; b=K8Un7RE9Hr/9SxZA3fA0V1l6Hov63Igqfcik65eIQZVCn5Elut8Wqz94BNfgQoQs0lydBd+1U9TyzpQTpAWZb3R0MAww56n8n+Jwral/yWNmFymaaYHuq+FxSQo4F84HO4WcJt4Zuyx3Qu88Y2McI8I6ue5IXn+50pKEuqeOT/U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078931; c=relaxed/simple;
-	bh=Vjt+g7Xzasz723axhPTuNVzFKkdg4sQ6vitGnW6TTeQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qNIFfbXVM9aH8j5T0bzYcScYJT7P5Zh+LltPa7rg9XjN48RMaAm4OBXPM4IRF180G35utAwjDNCTVPRAS5Vfo4mz53zy2+kHccEqebqzQfporq2R15VolI3d2vACYCPP1w7nIxZbPholB6VGcq/pYfJKceOPbysnGGhnpa1Pkpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aBmK4h4l; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B5F53C3D9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:10:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790079008; cv=pass; b=EwJ1yHj0ZEgNG2s9ZQESIMF8HGUb3PL68L83W9AL3aeAqgH8NHD5dXw/YWSwWNPoD1b1ViUKAcJ6M5zcRsz2CTS648ee9rRVjdBTlkZqvA+EZqvQFwnJo+0Vuh6EmSRsRHZP0+VyG+9KXZCDVhkT3pBPC2r1gaOLzZ3mu2rPb0o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790079008; c=relaxed/simple;
+	bh=EEicGhaPn1nMCsQoVuKYMwhQ6GyzIikHfbYLcTzbN20=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E00Fp/5CISU+zcV5CE28O5bGYwM3IGJLwkJtFBWqV592hfh8z9S1j6DIqSG+EXJNihJgtbEw45X5bbeZrHepdXZG94Pe212eO54F6vSGJiVKxBhZDqbziPTfH3/vrN+1v5++njYIlQfhlYTpetX6EvlLEElU5iurz5tuvbLGQEs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=dlsCwRIm; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aBmK4h4l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE741F000FF;
-	Tue, 22 Sep 2026 12:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790078929;
-	bh=lq/wHdaSQa/z2s8nS/PetepYnkUErjugT93n4BkcV9A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aBmK4h4lv074Tbs7davGM/gGOn1tHm/rDVnAuFCAPjfC+IsjX1ePCgSAo2QpdvvVV
-	 4ISfCrc27gfBne3DCyk/AHODwXJBHIURepOZyTluOEhE2SWagb1WeFEb8lgZgNVjEZ
-	 uYpTIEQ/4iiumdSl5gbjRqmbaBmhLkwkebDklTJB/f72STau2droEilZlsp3/JE/4z
-	 5GEDGnE0Tm2SVNE8m/ersTxjC7Zxq+jh5YNDwmoEUj9tcdRIsz7+1CZXAvaN4Ju6vv
-	 7JbwvmeHLnQvyMXT+QSAKTA35T0aMySRYhOUdOszJ5Xg784AIBEKT8PWtwXL93//ut
-	 9+wZRV22Uni8g==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/damon/core: preserve the caller's quota in damon_new_scheme()
-Date: Tue, 22 Sep 2026 05:08:44 -0700
-Message-ID: <20260922120845.44460-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921171155.3359-1-sj@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="dlsCwRIm"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b355ffso2435837b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:10:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790079007; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kjzF5XxXOI4Hfe9T+skNrIdpncJa00CLgBlqbwguLYmyr8B9hMxCOqLQUsns67aAM3
+         rlZYCcB2rJeCGFORUWcDQH23cm+uvmzlygUtcnVZ46iOisDp6P8+wAbASpZJpBjukFL9
+         migUDU/Cj4miVpWjbDcrKXIkXxZbgaouz8dfJnOhVfO8/ei/D12/P6UK1+JuzJL1oWfe
+         ToZVgFFkjzh9AwJuKSAYUE0xjzbSxtpAFk1mjkVmSheH92ztjJ7948VQynspqMMjWJju
+         ysvvCmT8CPcCZ/SkL5C8V4G004YD4wtW5YPBCb6h5XJkxM1bEDays0kg/yaBca6Z7SbD
+         2uqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YqZypLrUWsygd/HKyP66Nb8yxEOESbP2MWGoMZWSdRg=;
+        fh=2Jvz183+FuZfGBS5NoV2Tar8FDghSrDKJ8kASNxONCs=;
+        b=M5L9wL5sfoMT7PQ+waJBuztJMS8/s+YTIRTQWd+dVnjGbQLmXH0xtfMZx1ddztO6Pi
+         ljlZ7jhbe0YfF8Uc64QLF1nLpRxCtAQh4b6foUXw+D269mWD+Mq7Wi7awx3v8Fc0r5GA
+         tco4tsbdHjiZTTfR6nSbZ+CebvFJI6bMMFU36asej5KWUB9gn7m0NX2UnI5ojQOBZ020
+         O0yKYx980L0ZyfiZETi4XyLGRbZwFRvp/97sgu87nuFTzHVh0Y652FTcx+XwQEeGJDlB
+         jJmXpbXYIG7pd5wi2e5xaEtpIEnHLaypX+b0YV6H5/RMSyiB42h2x4P0uWrMJyIqe1EC
+         anaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1790079007; x=1790683807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YqZypLrUWsygd/HKyP66Nb8yxEOESbP2MWGoMZWSdRg=;
+        b=dlsCwRIm4HVRezPlXgMjqL2pwFl3y7jEdYHkWisPlod+xjNJOXLjGgx/ai7bwzBAp0
+         4S/E3YvWDP2zUQqrq3yOsIQeU5RwYHMwL8Q5ZpPNoSntHmAGNX+vcHz1CyJ+iU/4QTY9
+         QP0DIWJ+CFIpazkjDeUCbJdiTNi43nM8h2xxvR12JmftguwKzG4WRc4m4cb4MsmL8X6Z
+         zFSGwDcOeuUNlGfdWN1wCSKmJHk0+tnRnfId7s0EnZCAJHEqu9iflxD/D8k2q/nTe5XA
+         QFUR8YG/YIh4ZVXTP+rjpgLEE8nY6EZGEMOngbUIpk2dU1CB905tM6h1tBS4v54QJ2Dh
+         gIOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790079007; x=1790683807;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YqZypLrUWsygd/HKyP66Nb8yxEOESbP2MWGoMZWSdRg=;
+        b=LjJZmGb/WwSAzOixf90nGF63g2NmUF3ZAW1Muww9kQbkUIQdxWGgumWIUrFjrcnNH6
+         6iZyf3ZJ1wBYHZpgvGHlh2R6Oc/q6eBRhWY0zuKVmvKx/FVvzJ2lEz8Cpai8Pwh9ODBl
+         HIRwgK4Pd7CH0H0wcJX50QNRicJHJg7NvD2OrPKP0uRySBVNKj4wm7oKSUQ4VpXddhHS
+         jNP3rKdpN6huUGfKkn4GzzovwQKIOVDBUejQ7azCaXO7kTEVtEQ3mqUvVKMJGR22Eq10
+         VAG1KwA2iUE971eV39i12Y/Cj4gp11s3FbGdhlNFPPUlcw6yEvKfRCO3Y0DldwQHzbrr
+         JmZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTvtBswfNbTJUyVZZ06XeVTatpko8n7WQ1mooTedRPyUVzhV3QQYPG1NaGRlgA5LEKbxJzZKQVcBiGFdI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mp7kWiQCRLEKcKo7jiAQgkh52PgnNgtQedOzzOC28k5MTxm0rS
+	16Az8lGGjHt0MsW+uzt3uFxxTLeDdY/XwvMs8SLVXrwTcbLaoydR7x+7Mvvs72GRpg6z78Ww75z
+	NhXPE53Lt1cUpjbBLc40JW7n4I/SDM5cLU2bA30+OmA==
+X-Gm-Gg: AYBFou3c2lZEqxc6Z5KtGrUQy8Nq9l4knskYQx0dc+YM5vxiSuqIK1Ika7QH3VOLdLE
+	z4fvFZFSqrQZEU5jIHKAvhM4w2+nSquFh3ihDOMpI1IlUhI+rlSFlGR2MWftLaCeDWVmhMf/sdl
+	qXjMINbWMdWNjWG9vxzFIEaEGfkGoT/6I+XNwEPzvP48yZckHmYY0CFiFJD8pJHJ0/iLemwHAs+
+	NPn7aCvcHoqOh5nZUhdRXb66ElJiBYJCbsY4b/t7gd7JN9udhZxIsVLZ/UIAB9m2BAgFxC4QGQQ
+	v+MnynOlK1dwcjBumQ+JxSrvc9Zj7B7Aarvt54vYSDyhM3HsGEt8uHc9cKJ1FYp752xZsuz9VB7
+	tnvqNNvhsiINgmGKG/6ORpoNc1jPoBvTOo50=
+X-Received: by 2002:a05:6a00:3a25:b0:878:34d7:69a1 with SMTP id
+ d2e1a72fcca58-87c8472a93dmr1072253b3a.49.1790079006604; Tue, 22 Sep 2026
+ 05:10:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907132617.1198548-1-robert.marko@sartura.hr>
+ <20260907132617.1198548-4-robert.marko@sartura.hr> <2d7a6e8b-029a-4b9e-b7d4-8b7e96ea6aa0@intel.com>
+In-Reply-To: <2d7a6e8b-029a-4b9e-b7d4-8b7e96ea6aa0@intel.com>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Tue, 22 Sep 2026 14:09:55 +0200
+X-Gm-Features: AcwNN1WXi_VCQa282Ypqp9POkhX7gCRsmqb0WReRGFy-rkyIzQdlxyeytRee81g
+Message-ID: <CA+HBbNHz4_HTMHPv8wPGq_6UP+S_RbfcToAt6W_GN57aB5hG1A@mail.gmail.com>
+Subject: Re: [PATCH v2 3/6] mmc: sdhci-of-at91: add LAN969x support
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
+	claudiu.beznea@tuxon.dev, aubin.constans@microchip.com, ehristev@kernel.org, 
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	luka.perkov@sartura.hr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 21 Sep 2026 10:11:54 -0700 SJ Park <sj@kernel.org> wrote:
+On Wed, Sep 9, 2026 at 12:42=E2=80=AFPM Adrian Hunter <adrian.hunter@intel.=
+com> wrote:
+>
+> On 07/09/2026 16:25, Robert Marko wrote:
+> > LAN969x uses the same internally generated base clock layout as SAM9X60=
+,
+> > but its SDMMC controller stops responding when runtime PM gates its clo=
+cks.
+> > Software resets then fail to complete and the internal SDHCI clock neve=
+r
+> > stabilises, causing subsequent I/O requests to time out.
+>
+> Is this a known issue of the SoC?  Is there perhaps a hardware reset
+> for the controller that would bring it back to life?
 
-> On Mon, 21 Sep 2026 02:30:46 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> 
-> > damon_new_scheme() calls damos_quota_init() on the caller's quota before
-> > copying it to the new scheme. This clears the caller's effective quota,
-> > feedback input and charging state as a side effect.
-> 
-> Apparently the above paragraph assumes it is called under damon_commit_ctx().
-> Lack of the context makes this quite confusing.  Could you please rewrite?
+Hi Adrian,
+It seems like the controller was reused from SAMA7G5, which shares the
+same behaviour.
+Unfortunately, there is no HW reset for the controller.
 
-To calrify my opinion more, "caller's quota" feels unclear to me.  I hope it to
-be more clear that it means "the quota that is passed as a parameter to the
-function".
+>
+> Does that mean unbind and rebind of the device from the driver
+> also does not work?
 
-> 
-> > 
-> > damon_commit_ctx() first copies the running context into a temporary
-> > context for validating the proposed parameters.
+It works as long as we avoid disabling the clocks.
 
-I'd prefer using the term, 'commit' instead of 'copies' for clarity.
+Regards,
+Robert
 
-> > When
-> > damon_commit_schemes() creates the temporary schemes, it passes the quota
-> > of each running scheme to damon_new_scheme(). The quota pointer therefore
-> > refers to the running scheme, and damos_quota_init() clears that scheme's
-> > state before it is copied to the temporary scheme. Even an update
-> > rejected with -EINVAL loses the running quota state.
-> > 
-> > For a size quota, this discards the bytes already charged and allows the
-> > scheme to use a fresh quota before the reset interval has elapsed. For a
-> > goal-driven quota, the consist tuner loses its accumulated input and
-> > restarts from its minimum input. A time quota loses its throughput
-> > estimate and falls back to the initial estimate.
-> > 
-> > The constructor side effect was introduced by commit 70e0c1d1bf94
-> > ("mm/damon/core: factor out 'damos_quota' private fileds initialization").
-> > Commit 60bd24f272d0 ("mm/damon/sysfs: test commit input against realistic
-> > destination"), merged in v6.19, exposed it when
-> > validating sysfs updates against a copy of the running context. Commit
-> > b90408ef1163 ("mm/damon/core: safely validate src on damon_commit_ctx()")
-> > later moved that validation into the core API.
-
-I overlooked this part in the previous reply, sorry.  And thank you for adding
-this detailed context.
-
-> > 
-> > Sashiko reported the same side effect [1] on the RFC of the core API
-> > change.
-
-Nice catch, I misunderstood Sashiko's point.  Thank you for catching this,
-Karl.
-
-> > 
-> > Copy the quota to the new scheme first, then initialize that copy. Make
-> > damos_quota_init() return void, since its return value is no longer needed.
-> > 
-> > Fixes: 70e0c1d1bf94 ("mm/damon/core: factor out 'damos_quota' private fileds initialization")
-> > Cc: <stable@vger.kernel.org> # 6.19.x
-> 
-> The Fixes commit was introduced in 6.1.  So the comment on Cc: stable@ line
-> should be fixed.  Also, at the time of the commit, validation purpose running
-> ctx committing didn't exist.  So, the issue you are explaining cannot happen on
-> the commit.  Or, am I missing something?  If I'm not incorrect, could you
-> please find the proper Fixes: commit and fix it?
-> 
-> Also, are you using LLM for Fixes...?  If so, the LLM seems not good at that.
-> Your previous patch also made a similar mistake.  Please manually work on
-> Fixes: tag or double check LLM's output.
-
-Now I understand you added the comment for commit 60bd24f272d0.  I think Fixes:
-should also be 60bd24f272d0.
+>
+> >
+> > Add LAN969x-specific SoC data using the SAM9X60 clock layout and select=
+ the
+> > option to leave its clocks enabled across runtime suspend.
+> >
+> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> >
+> >  drivers/mmc/host/sdhci-of-at91.c | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+> >
+> > diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-=
+of-at91.c
+> > index b7e2a89da348..e7affca8da25 100644
+> > --- a/drivers/mmc/host/sdhci-of-at91.c
+> > +++ b/drivers/mmc/host/sdhci-of-at91.c
+> > @@ -158,9 +158,17 @@ static const struct sdhci_at91_soc_data soc_data_s=
+am9x60 =3D {
+> >       .divider_for_baseclk =3D 2,
+> >  };
+> >
+> > +static const struct sdhci_at91_soc_data soc_data_lan969x =3D {
+> > +     .pdata =3D &sdhci_sama5d2_pdata,
+> > +     .baseclk_is_generated_internally =3D true,
+>
+> Should be a comment here explaining the issue that needs
+> keep_clks_on =3D true
+>
+> > +     .keep_clks_on =3D true,
+> > +     .divider_for_baseclk =3D 2,
+> > +};
+> > +
+> >  static const struct of_device_id sdhci_at91_dt_match[] =3D {
+> >       { .compatible =3D "atmel,sama5d2-sdhci", .data =3D &soc_data_sama=
+5d2 },
+> >       { .compatible =3D "microchip,sam9x60-sdhci", .data =3D &soc_data_=
+sam9x60 },
+> > +     { .compatible =3D "microchip,lan9691-sdhci", .data =3D &soc_data_=
+lan969x },
+> >       {}
+> >  };
+> >  MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
+>
 
 
-Thanks,
-SJ
-
-[...]
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
