@@ -1,120 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EC753358B;
-	Tue, 22 Sep 2026 10:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F32953359A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072384; cv=none; b=ib9Txe8kAFlbiirpNsDT38CTD9oLb9ll5rl4HF1M2ZbOZJh+WPc0DO26gGOV35mQ6OAxLpkavaEgW5XtbdDdj+YRJdDjUEnb/XFxYA6puf9JrWuD0lfx7t3+W3bGjvUHchGVwoffx17YtVEtQR2FNUM24nJR3PsfwRZRp6ut2nA=
+	t=1790072395; cv=none; b=cR03SOuyUPBA9YXi0Cpj3I/cmORLK3rR+O1/5ZgGZVN/pPDImESWHnLDqhIGFXUQDKuHYzLGEPPFc7DnRn9qsS8/7+8UR5SC81cjycnLlcbP55371PDNnM0u5ghwfeEC9X/1fWGgmLSl+M+PjWI5Vq+jnNpTFh0JWwJNfUpret0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072384; c=relaxed/simple;
-	bh=NpYj/w7JrVMxb72Egg41zbl3BexlzNDaGODghtpR9r8=;
+	s=arc-20240116; t=1790072395; c=relaxed/simple;
+	bh=9ZIx6hCzaagwHIVNpanCCamcLeL0IjcXqNXCk5Dupfo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H+BgzPHDQ2ESU8JyJjWr4ksgNMbTH3MAdy0aQpFuB8eTUoUJwvVO2r3764tIiUACBPLSzxys+HlQPdiLeMg3jKh6crakF4ZAKoY3+ZgmuYhL1l6HnO0cS9pNZL/9ySyiobajfBgZ7DUMLc7EK+cK7adyZDJUZa4n4/IlStLPRhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSBP02VO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OfHJdZJHOXCleUFa0kLhur72a97tTgrPwifBxBnG+L2XlyhBbmy2utvsf7vcOf8pXaxIbgcgi6eIeN/2CEsO8Nw7Sxcdc0wKqijyB3KorSzKqU3T/k7HeJidSE6L9uG2TGV8f72a91gOjnZvu760eYcFswOc0bN2BIoc1znpKZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=X3i86bBM; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSBP02VO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4DA1F000FF;
-	Tue, 22 Sep 2026 10:19:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790072383;
-	bh=n7LFSDEMCwiBD8uC0TjgGv7LWrQWTiCqCH2xY+/MbLY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kSBP02VOwf91dCgmesuMT0TwaFqaTnnV4CxIqN9JfJyvPzO7KBCAPLNIu4AF63mIS
-	 rZ4nwp/GRZjjzHuiYiogfKeeeAMaLdYVSWa/Hw9YhW5RgOf51bDd/m7G3aljA9Mpvk
-	 otDqtpoEMjlbxucNNxcPXhJuGroxrrhMWUeXnJyKPr6f8MzfNwuMkuq0tbh1GY6ke8
-	 EAhInVkYsSlhJ5JKDNqLfuCU1lPwBDZ/kmQWZrFUI0jE9d0ILYZioURkjdGjBt8BXj
-	 0TkfdEEmoZYJN5AHjES2NM6awLzRPnIvknYKZNtx40khxBwyJWJsHKFG+EwLn1+WG4
-	 gS0y/gBgQugTw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 155D31980058;
-	Tue, 22 Sep 2026 06:19:40 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 22 Sep 2026 06:19:41 -0400
-X-ME-Sender: <xms:O1ayahRIIIAx4yZPGHMV5uYJsP1mh8Beuf1PVxMgsUCtjqhsSuoAlA>
-    <xme:O1ayajhEGfatURE8uTu56xgaw295aGwAQ6JqKMKQ7K_K8vtzGlJk0HsD2K5WC9Q85
-    H8U-iBBsrU-SIFw1fIxqIeD_g0IH7Y9Ers56PS3LMXh7U1CjhtsVbw>
-X-ME-Received: <xmr:O1ayalh7SzphRsP-NVv_Y0Qh7fBQdQP8y7en2dPRvI2Ln2UwojxdAlG8bc8>
-X-ME-Proxy-Cause: dmFkZTFebrgmgfLsEhx3TIuYynyaetrC8bxDg2N3FUeEkPDsFDpbU8ZDJB/GjgqNZ2H2EV
-    9LthqEPNCRaTAuUnWKvt5Y0OhobYIxx/51Ui7ASNOD5N4uHH35IQ9MRFdYHyJA8+zC9o8v
-    LmGiIDUocZNjkidtFRUqreoW8QFoirsvzf/x53Cwu/xdIAK6BXPHglprpbRqYgGANjDij3
-    CTJ/Ao10w9EbB/cYcJFJqkKbpz8AXsPODKLn6LT3MYIpQkHk9/uFAGq6f2ib5laTlgLPi3
-    ARKx84DRLdH2hzwWYtlGtmADabldbt8ZTElrZC0H2VKPTLw1JckMZ6DG7N+lfxYPHJhCbZ
-    5FouLCaatbs/4WIDyqLmO79XgpMvBfqydUDWGwYTxCGW2DY98/ZRkJFlUjLoCOI3EF5hEg
-    N1/Tl8kd5onOpAtaLcsd/Y1DpnAf1galp6coVqua6GmSQPRAL161BPff/Nh6zT3BOjhUN1
-    +Xo3YrRVZGHuyrNkPl5c13o4cJU6lKIDpNhfM0EL+wQEsVtNbXHuOlOvEdp17cnvTacqNd
-    t0KvvqeqkCb48m+rNePmdsg+tN1ww6FwmA+6gEo0bBTMinAImqrVH8Mu2keWt94a4LKCDU
-    S5s3zlhd3FK8AvQt6OIph8M2zHcxOvlzg+7bL0f6hxpdF97wVWeKy2nfN3DQ
-X-ME-Proxy: <xmx:O1ayarYrLwotjQmtIOPoE-e7Wb5SvjNEz1_1QcGk6USazfxDwererw>
-    <xmx:O1ayauXf2XKXKiaHAoAWjEyonKOKL_ZYrdjmmW20uC8YnHY7nRCg9g>
-    <xmx:O1ayaijJ_qaJJqQm8UA1UT66tSA4Hvov4XUGfxobTpa0ZQZh44M7rA>
-    <xmx:O1ayapmfuznqf1YFJlc820pLoOgosvxk9iZyaDts-42Qjt-wPuYqZA>
-    <xmx:O1ayarzHNQqa-uoEXrH3iAUtQgjfruILZoR-I3msjn5iqUb--niazGUf>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 22 Sep 2026 06:19:39 -0400 (EDT)
-Date: Tue, 22 Sep 2026 11:19:37 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Verma, Vishal L" <vishal.l.verma@intel.com>
-Cc: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, 
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "ak@linux.intel.com" <ak@linux.intel.com>, 
-	"x86@kernel.org" <x86@kernel.org>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
-Subject: Re: [PATCH] x86/tdx: Remove the early #VE handler
-Message-ID: <arJVpaAi9TqEfV7E@thinkstation>
-References: <20260910-b4-tdx_remove_early_ve_handler-v1-1-bf47a4d360c5@intel.com>
- <b41da075607d1eaa9d96eddbf3acc24502edd604.camel@intel.com>
- <aqPTIyi--7f2Fzxm@thinkstation>
- <4238bd74efaeea1a6158b79f9475a5f8d1aa7e0a.camel@intel.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="X3i86bBM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=w/jFYS2Lavdop6AozOiikY5mafstNYtaNxOmlZYiKOg=; b=X3i86bBMDUnnuClu5rLSJT+U7Q
+	ARDJM7IrQn8trF+ZlbhBq78IkAbwxmwh/Y6ykF1xLRDvIlx2NalirKuHFJFe+tu0BQk+8b3eS39w6
+	Q7K3vHqFeko1C1ulwTNBaCrd3/+Qy3XPP3mazGse52jLXvZ/7Np30a1sbSGHhqvOIYZ0+M19qQYdv
+	cAOI1lb9enz9C6w+sEzLMzRP0m8lgkRrbKtWJ50ZLM/AtSwaUfoaK8vnhXAJUqIG3mm/U4mvhUGTz
+	cggBKHsypOC5pRUJ6+WdntBHx7ZT+syalPXjkVkbq35HkS25NTpDiVLg693IPa+chmAQ01IVL++Gx
+	vJlF80Pw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8xan-000000089vz-1slu;
+	Tue, 22 Sep 2026 10:19:17 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 3920A300708; Tue, 22 Sep 2026 12:13:04 +0200 (CEST)
+Date: Tue, 22 Sep 2026 12:13:04 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, qyousef@layalina.io
+Subject: Re: [PATCH 5/8] sched/eevdf: Reset lag when waking up on idle cpu
+Message-ID: <20260922101304.GQ776954@noisy.programming.kicks-ass.net>
+References: <20260921152238.3804392-1-vincent.guittot@linaro.org>
+ <20260921152238.3804392-6-vincent.guittot@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4238bd74efaeea1a6158b79f9475a5f8d1aa7e0a.camel@intel.com>
+In-Reply-To: <20260921152238.3804392-6-vincent.guittot@linaro.org>
 
-On Mon, Sep 21, 2026 at 09:20:18PM +0000, Verma, Vishal L wrote:
-> On Fri, 2026-09-11 at 11:37 +0100, Kiryl Shutsemau wrote:
-> > 
-> > Rick, could you actually test it?
-> > 
-> > Are we sure there's no other port I/O in before idt_setup_early_traps()?
-> > 
-> > I don't see anything direct, but exception path is different story.
-> > 
-> > native_machine_emergency_restart() does port I/O for BOOT_KBD which
-> > seems to be reachable and leads to #VE with the patch:
-> > 
-> > machine_emergency_restart()
-> >   __machine_emergency_restart(1)
-> >     machine_ops.emergency_restart()
-> >       native_machine_emergency_restart()
-> >         reboot_type == BOOT_ACPI (default)
-> > 	acpi_reboot()
-> > 	reboot_type = BOOT_KBD
-> >   	  kb_wait()
-> >             inb(0x64) --> #VE
-> > 
-> > Could you check if the patch changes panic() behaviour in the window
-> > before idt_setup_early_traps()?
+On Mon, Sep 21, 2026 at 05:22:35PM +0200, Vincent Guittot wrote:
+> When several tasks wake up simultaneously on an idle CPU, their final vlag
+> will depend of the ordering as the first one will lose its lag but not
+> the next ones.
+> Reset the lag when the enqueue happens while no fair task has already been
+> picked et set as the running task.
 > 
-> Hi Kiryl - not sure how I would test this - but looking at it a bit
-> more - 
+> As a typical example:
+> CPU0 is idle
+> TA with vlag 0ms and TB with vlag 5ms wake up on CPU0 simultaneously.
+> Depending which grab the lock 1st the behavior will be different:
+> If TA is enqueued 1st, TB will be enqueued with a positive lag and will
+> be picked 1st.
+> But if TB is enqueued 1st, it will loose its positive vlag and both TA and
+> TB will have 0 vlag when fair will pick a task.
 > 
-> vpanic() only goes to the machine_emergency_restart() path if
-> CONFIG_PANIC_TIMEOUT is something other than 0. Distros and Kconfig
-> both default it to 0. This could be overridden by panic=N on the
-> command line, but that is parsed after idt_setup_early_traps(), so that
-> would behave normally.
+> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> ---
+>  kernel/sched/fair.c | 27 +++++++++++++++++----------
+>  1 file changed, 17 insertions(+), 10 deletions(-)
 > 
-> So at least this path should, in practice, never cause a problem.
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 4230954d10d0..739a3af60520 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -900,7 +900,7 @@ static __always_inline
+>  void decay_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+>  {
+>  	s64 vlag = se->vlag;
+> -	s64 delta_exec;
+> +	struct rq *rq;
+>  
+>  	WARN_ON_ONCE(se->on_rq);
+>  
+> @@ -908,18 +908,25 @@ void decay_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+>  	if (vlag <= 0)
+>  		return;
+>  
+> -	if (flags & ENQUEUE_MIGRATED)
+> -		return;
+> +	rq = rq_of(cfs_rq);
+>  
+> -	/* Compute the sleep time */
+> -	delta_exec = rq_clock_task(rq_of(cfs_rq)) - se->exec_start;
+> -	if (unlikely(delta_exec <= 0))
+> -		return;
+> +	if (rq->curr == rq->idle) {
+> +		/* You can't claim any lag when waking on idle CPU */
+> +		vlag = 0;
 
-Could you just check what happens you panic early (like in
-tdx_early_init()) with and without the patch?
+Right. As I mentioned during OSPM, one of the crazy ideas I had was to
+do something like the below. All of the lag stuff only makes sense while
+there is contention.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Now, I've not actually tried this -- and at the very least the migation
+case is broken. But it should very much capture the rq->curr == rq->idle
+case and then some.
+
+
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index dac15ec36d1e..70fe8fadafac 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -592,6 +592,7 @@ struct sched_entity {
+ 	u64				vruntime;
+ 	/* Approximated virtual lag: */
+ 	s64				vlag;
++	u32				vlag_seq;
+ 	/* 'Protected' deadline, to give out minimum quantums: */
+ 	u64				vprot;
+ 	u64				slice;
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 2ad46fb2eafe..3e3dde5f2117 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -898,6 +898,7 @@ bool update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
+ 			vlag = min(vlag, 0);
+ 	}
+ 	se->vlag = vlag;
++	se->vlag_seq = cfs_rq->idle_seq;
+ 
+ 	return avruntime - vlag != se->vruntime;
+ }
+@@ -6397,6 +6398,9 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+ 	if (flags & ENQUEUE_QUEUED)
+ 		nr_queued -= 1;
+ 
++	if (se->vlag_seq != cfs_rq->idle_seq)
++		se->vlag = 0;
++
+ 	/*
+ 	 * Due to how V is constructed as the weighted average of entities,
+ 	 * adding tasks with positive lag, or removing tasks with negative lag
+@@ -8374,6 +8378,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+ 
+ 	dequeue_hierarchy(p, flags);
+ 
++	if (!cfs_rq->h_nr_queued)
++		cfs_rq->idle_seq++;
++
+ 	if (sched_feat(PLACE_REL_DEADLINE) && !task_sleep) {
+ 		se->deadline -= se->vruntime;
+ 		se->rel_deadline = 1;
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 6c3ad70e58b8..0f0edb77e235 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -689,6 +689,7 @@ struct cfs_rq {
+ 	u64			sum_weight;
+ 	u64			zero_vruntime;
+ 	unsigned int		sum_shift;
++	u32			idle_seq;
+ 
+ #ifdef CONFIG_SCHED_CORE
+ 	unsigned int		forceidle_seq;
