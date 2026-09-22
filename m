@@ -1,85 +1,113 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE1A493D5A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EF548F000
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101778; cv=none; b=oW0H5d0mkoCOsHJMmqe36nCyhJJqtuKldEN6moxOmjNh5fYKt56gCIUHhV9UcZ94sYCv3TIXj1A5NuIgwUkCvfd2P+QNElYCYeeR7tpIYe3XqoIdodyYI5BAErTyYQ7YNHLRfdsy7fU6X+ZsqXHJ5Nb3eKyZ/K/3dYcZ0Zosf3M=
+	t=1790101777; cv=none; b=noh2/hmKbAuWPKfyeL9k+/scBusqH5BuhnULI8xA3HbBO7SXoiQMa5crrwQHtkSM4h4erjca2oj5oSNxajuL3n0ihusL8aEbMCCOdUtFEnhp78mGJx9khPrydr82lakpQ0yKVhsZAY/rx3IoxN/78+xLUnpgx8flupEkIsoRuPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101778; c=relaxed/simple;
-	bh=cfR5Tc8cPyr7CMqES84GrCGAqHdjC/kTxRxFWGkznFk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Dx7fbF0/m3bw7N/kKmz7VWb4OcSY6rzwx+gVqRbzPyl79SSSQR+w6IWZcBh5qLZZ5BLhiPaIxVhC4p+HnDvKqBITNB18krqA+S5mdsQVL5CP7Xd9z13/VlJKdqbu4+DiwnpjPb/WCfBgV1fhK/Ft1Rq/tuexZ3wApYyDRu7nSWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J329RoNU; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790101777; c=relaxed/simple;
+	bh=DUuMJtRLPKdLJIOxwHMx3Bh+ZGPd3Aw74L7rounBegw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FoKKWrt9uP2K2vKKLIxVKp1mvZZJ5BIVoig2V/YctNS5XR6miHhOyXHeVI6xHPhXsenXC+kWRNdVO4ky0styspF7YT5ekfZCb97wyNSoTu0vNewKbUntUL912pnpvGfmevhODQYjR4cqa+2SrzO5CvPWmjDiSDgBhd+YHVsaJuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=TRtFFBM/; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J329RoNU"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-32dbbe82e13so87655eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:29:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="TRtFFBM/"
+Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93bd580489dso20476385a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:29:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790101776; x=1790706576; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1790101773; x=1790706573; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pjvCz/V+hHRF2vZEcQUC+5VRgYkjP2X2UGtP/7PKl2I=;
-        b=J329RoNUhlNqUwcTqGTnEoInBcX98DC/NEUJ6rTNn9SvAOFN2nCwc2fENz7F5wZvpL
-         tI2ir6DuSG88KukyYTKf4G+5keu4Pg+ooFnzve8h1Sg0b8PxEM5QulEx0rd2PzTQVud3
-         O2KsqLVxnxMHLKU+FfloV+Yy4EN2EB619ws96oNNCN/JV54/4zyMZJcqGHOghZOnnElR
-         8WMG4f4cy6zO8oO8itOanyvz6gwYRW5AHXij4B42rU2oLsDB4Dzk/WRcM9brQFVA3X1h
-         hU73wGDJxwuxpqt4HfattOXWwISVSn+dqUYCjW/wNJO7//OFz/c389AkcqH5x34sMzry
-         981g==
+        bh=I23ituCzWdUZNH9RRsiqmg7x+KgPhziEZ7cFA0c9iYo=;
+        b=TRtFFBM/Vq/UQ4KkmD0Sl9Z+RtjQzb22ocMyp2NqeBz9I5ORzci9b6CwrCFmVnzQDf
+         +ctDnr0s3vbAQXChnMzgcEaFD3BztNbZEp/8IG+0XCcqNrMOPs6LpThb9Jg6H+ca57Ck
+         O5H78VYZZWkOKx10mbU+xVc0h+a7sMZiCZS2vMrZjwFUNNOAzOy0dAv/2BeNh7NdmoEl
+         58k7fS2E2xU9sWtLismvXd6gWMcYb1j6E+ieaH4bUb9X3L3rk7ZOvwUDFgvKHXXxUQXW
+         51EOp0tZ6RUPyjM8mj+Mo7vn5ryiFiTvhx1odveFEFEG2ha1jEbdjXbKe0uaJY5Xcom5
+         VPaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790101776; x=1790706576;
+        d=1e100.net; s=20260707; t=1790101773; x=1790706573;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pjvCz/V+hHRF2vZEcQUC+5VRgYkjP2X2UGtP/7PKl2I=;
-        b=1F4MtD5QKzWT/zd5Zr+LkTs4nWWR88iHidw0GSbwjP9J29HAKna9np9K4jKZks61+B
-         8URkPMb9jVL7CwKh4J2J42lG6ppCWE97hXm+hYo1mUrnDcrOpE0yBnm6EGRqzEoRNR9u
-         wy5+v+1KInu3ag1NIVd5ermPf/EL2dSVMm5bK5LY6T2suWPzL3X/TTLFHB6BEdnTAWxK
-         P4fHTaSvGm1c019z6CRtSVozfWk/IhN/Q4WTPHMqhcQXJfkLPz1IP3IKoT/w7Ob8CKk4
-         4flpWeTnSWEwCMTcA9MLuSAgfkHlAt7vniIGELJRLhCx1YBNGkS24gpzRcn2/D/RuZ1X
-         ghxg==
-X-Forwarded-Encrypted: i=1; AKwUvBwVaOdTO/R1aRM3i8AatUu//725pl/vW5kopi5H3IfNyTk+SgCPlim//0hBpo9RmjINFwCnESl8MLRS+xQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFZRfN6r348rR6QrCjyXdbZ/cM7gqSvQVC5zEmC+b5O5mVnpAR
-	yRoLUjB4WucwNq1E46++kYBS7Udif2JbW35cUvzkrw0UNZQlB5McJRzW
-X-Gm-Gg: AYBFou3vJEziKMVybOwInxX9W992fJNA755VAIvM45evkIb37bbZixcTLDcRbiRRbtU
-	Uh/3cs0NcUGl6wU/qd7dtP1gayYTCnjyvAVslycpzGUfUwR9lBKYba/Tk4kDaJEWhtPUE6w8546
-	wYKuEetLhyc+YhoIsmORTGP8U1vJX4t9HfW+ZDHhMivuL1vJkTzBrJbvGLwraw6qnkpUILopj5/
-	Onl8L5HRlGSePbkgoLp9EUr5Qf/PymsWnc9zNQ2OuDNG1Zi+Pp2v54gK7MT2ckPd0/c04iqdzvP
-	5HA5xoq30h/hK7rEVkw+eTiFlOHnL5CXYc4uunVL0qgCyGVtFT66LA22Wvn+foJPWlW7kwoT2Lf
-	6LF9rrIzczM2+fAMhbCXh582pfZWl/ZlDuUH/WW3expCipQYm3RkEe43yWAT+z7Ist2nK1vUxZh
-	4srGWPpaM034++jk1ooeBMMlvWclZ3YSU4/6aFuHxxGSJoTKDtuJpM3a+BlgcJ0WsBgoQj6ay0i
-	N4GOTp5UbrRUPWGvHnS0FZToKVjdr1QkJrpsL4vKf7ELjYkPXrsbJhH/ffbxecv545aWYBwUE/I
-	Ihf03Q==
-X-Received: by 2002:a05:7301:d597:b0:33c:1521:89aa with SMTP id 5a478bee46e88-33e8d2ebdafmr126981eec.24.1790101775482;
-        Tue, 22 Sep 2026 11:29:35 -0700 (PDT)
-Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdabcsm154315eec.3.2026.09.22.11.29.30
+        bh=I23ituCzWdUZNH9RRsiqmg7x+KgPhziEZ7cFA0c9iYo=;
+        b=FczBiYbYAVUAIuKm5tkmq4ut0XWl+FtE+HLOaDFufYOtYqv/yrfHLYfO+kjuad9wfg
+         zxFl0pTYetYIHkWH07XvwkpQXMLoH4Ftmd2Z+ecztMi7xS4ZAJdb/ZZ6ePq1kVWKQLs8
+         DwZp5FOEVrfcxKFa9lsd1OiJdk/LMxdeVAu3LN4aKo1Ijb0ivUNYOjo4MXKj3wJndO+A
+         DnHZW3iYJStvkqQpSpbJ+CbcIKWgDRfxr43uijqyVJcv5A4YDfRHoKLhybtJlxxX9cVd
+         sbUoa3WauPekL93iJaXr4BVSR7kxsAovFVZIw6Nc0tjCzFPqyYbmayLeEskTiD3ztWql
+         qzKg==
+X-Gm-Message-State: AFuF++lcnz4MOHmvJQO31MgB3gASnp9DHnZF4eUNmWi9P/w2I3bGUIiK
+	58WFzleHEyCbnANDhPYez8MqsmYS6tKnP+CPAKnTjGx4O/or3EUm/rTOu7Ke/hwBGWk=
+X-Gm-Gg: AYBFou2WNDjYQN4aZfLhGPljFBmtI2t1HFx/syzb9sTDAI3LErDTs1KES6ZcrDFRC1h
+	Z7zraGBM6cM/7TzO1l8ovYyY1gzFpmDTEv/fEtivPNRRXusACktKUVbgZ7/GtBkhvryzjC0GFl/
+	VWKgVIbgfXjsaj451d9QyM3DCaEQunti5LC0yI00F+2AaKV5D87oIDWlLzmXqga+rlK4adiJ+Su
+	jydGiTA+LIseWoXkOIvJLpACRGf7ukQVLx2mcFxSCiwfp76TDKkgl0uL23rJQs5HTuJHRb+Y3CW
+	RSEFkBaFvRLKJBEDXSCQcoERxPgAD1TQVQ9LbsZaE66YzVfmijFMUYGOaeQwyMp+nhSezKSVQPV
+	JmLzf3nk35kABeu3hzDEJY/5DYFEBe/jmYYU5zyzRW1QdatLyqCXWpecgViCJ0wRSdTmF89mWUr
+	/adzGHMkyo5scyFbJSt63cOVXZcyFEDKe62+sp6SRH6R7fJtRczJAOhxJh385XVQou3Nl3q/Ejp
+	Iuv0KRTePVI9eEYW35RUg26yh25AQKPMoEVHE/H/De/gMgGJ/gUtbX/kNhp
+X-Received: by 2002:a05:620a:31a4:b0:93a:2e8:5afa with SMTP id af79cd13be357-93c2514141amr37871485a.30.1790101773423;
+        Tue, 22 Sep 2026 11:29:33 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24889ac9sm37130085a.27.2026.09.22.11.29.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 11:29:34 -0700 (PDT)
-From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-To: kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Anushree Mathur <anushree.mathur@linux.ibm.com>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH v5 4/9] KVM: selftests: Split out a KVM_CREATE_VCPU helper that can fail
-Date: Tue, 22 Sep 2026 23:58:48 +0530
-Message-Id: <ea46f5af08bec1e6c4c3124a6a02c785983519a0.1790101179.git.ritesh.list@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1790101179.git.ritesh.list@gmail.com>
-References: <cover.1790101179.git.ritesh.list@gmail.com>
+        Tue, 22 Sep 2026 11:29:33 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hannes@cmpxchg.org,
+	shy828301@gmail.com,
+	raghavendra.kt@amd.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/7] mm: support promotion-only NUMA hinting scans
+Date: Tue, 22 Sep 2026 14:29:22 -0400
+Message-ID: <20260922182928.2199090-2-gourry@gourry.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922182928.2199090-1-gourry@gourry.net>
+References: <20260922182928.2199090-1-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,82 +116,255 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__vm_vcpu_add() currently asserts on KVM_CREATE_VCPU, which is what most
-callers want. But sometimes a test may want to handle ENOMEM without
-dropping all that other setup that __vm_vcpu_add() has.
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-This patch adds a helper __vm_vcpu_try_add() for such test cases and
-make __vm_vcpu_add() a wrapper around that.
+folio_can_map_prot_numa() derives folio eligibility from the global
+balancing mode. The mode (normal, tiering, or combined) describes
+which balancing mechanisms are enabled (placement vs promotion).
 
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+The global setting itself cannot describe the intent of an individual
+protection walk because normal-mode tempers its scanning activity based
+on a number of heuristics (read-only VMAs, activeness of VMA, etc).
+
+In tiering or combined mode, applying these normal-mode optimizations
+to an entire VMA is incorrect and breaks tiering.
+
+ - Opting VMAs out of scanning because they became inactive obviously
+   breaks tiering - because the intent is to identify when a VMA
+   becomes active.  Applying it in tiering modes causes
+
+ - Opting Read-only file VMAs out of scanning is just incorrect for
+   tiering modes because its intent is to prevent bouncing between
+   sockets (east-west), while tiering controls tier migration
+   (north-south).  The result is hot read-only files can overload
+   lower tier bandwidth.
+
+Add MM_CP_PROT_NUMA_PROMO_ONLY and let task_numa_work() select the type
+of walk. Build the change-protection flags there and pass them unchanged
+through change_prot_numa() so its PTE/PMD paths use the same decision.
+
+Have folio_can_map_prot_numa() derive the single-threaded private state at
+the point of use instead of adding another precomputed boolean to the
+protection-walk interface. This keeps the interface focused on scan intent
+and avoids plumbing VMA-derived state beside cp_flags.
+
+The tradeoff for the cleaner interface is an atomic mm_users read for each
+folio, rather than once per PTE range. Check the promotion-only top-tier
+exclusion bit first as a mild optimization.
+
+The scan-intent interface is required by the following memory-tiering
+fixes and must accompany them when backported.
+
+Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
+Cc: stable@vger.kernel.org
+Suggested-by: David Hildenbrand <david@kernel.org>
+Link: https://lore.kernel.org/r/4d2853c9-edf4-4685-b186-7214ed6abd84@kernel.org
+Assisted-by: LLM
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- .../testing/selftests/kvm/include/kvm_util.h  |  1 +
- tools/testing/selftests/kvm/lib/kvm_util.c    | 26 ++++++++++++++-----
- 2 files changed, 21 insertions(+), 6 deletions(-)
+ include/linux/mm.h  |  6 ++++--
+ kernel/sched/fair.c |  7 ++++++-
+ mm/huge_memory.c    |  3 +--
+ mm/internal.h       |  4 ++--
+ mm/mempolicy.c      | 27 ++++++++++++---------------
+ mm/mprotect.c       |  7 +------
+ 6 files changed, 26 insertions(+), 28 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
-index 9df16c8dc82a..aa521b383abe 100644
---- a/tools/testing/selftests/kvm/include/kvm_util.h
-+++ b/tools/testing/selftests/kvm/include/kvm_util.h
-@@ -784,6 +784,7 @@ void vm_mem_region_set_flags(struct kvm_vm *vm, u32 slot, u32 flags);
- void vm_mem_region_reload(struct kvm_vm *vm, u32 slot);
- void vm_mem_region_move(struct kvm_vm *vm, u32 slot, u64 new_gpa);
- void vm_mem_region_delete(struct kvm_vm *vm, u32 slot);
-+struct kvm_vcpu *__vm_vcpu_try_add(struct kvm_vm *vm, u32 vcpu_id);
- struct kvm_vcpu *__vm_vcpu_add(struct kvm_vm *vm, u32 vcpu_id);
- void vm_populate_gva_bitmap(struct kvm_vm *vm);
- gva_t vm_unused_gva_gap(struct kvm_vm *vm, size_t sz, gva_t min_gva);
-diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
-index 2be79c240ebf..7084ed90e4cc 100644
---- a/tools/testing/selftests/kvm/lib/kvm_util.c
-+++ b/tools/testing/selftests/kvm/lib/kvm_util.c
-@@ -1367,11 +1367,7 @@ static bool vcpu_exists(struct kvm_vm *vm, u32 vcpu_id)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index e3d29f87567f8..beab621e6f88d 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3608,6 +3608,8 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
+ #define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
+ #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
+ 					    MM_CP_UFFD_RWP_RESOLVE)
++/* Whether a MM_CP_PROT_NUMA change is for promotion only */
++#define  MM_CP_PROT_NUMA_PROMO_ONLY        (1UL << 6)
+ 
+ bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
+ 			     pte_t pte);
+@@ -4980,8 +4982,8 @@ static inline void vma_set_page_prot(struct vm_area_struct *vma)
+ void vma_set_file(struct vm_area_struct *vma, struct file *file);
+ 
+ #ifdef CONFIG_NUMA_BALANCING
+-unsigned long change_prot_numa(struct vm_area_struct *vma,
+-			unsigned long start, unsigned long end);
++unsigned long change_prot_numa(struct vm_area_struct *vma, unsigned long start,
++		unsigned long end, unsigned long cp_flags);
+ #endif
+ 
+ struct vm_area_struct *find_extend_vma_locked(struct mm_struct *,
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index ae6c1a606eb5d..9f544e3df9490 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -4124,6 +4124,7 @@ static void task_numa_work(struct callback_head *work)
+ 	struct mm_struct *mm = p->mm;
+ 	u64 runtime = p->se.sum_exec_runtime;
+ 	struct vm_area_struct *vma;
++	unsigned long cp_flags = MM_CP_PROT_NUMA;
+ 	unsigned long start, end;
+ 	unsigned long nr_pte_updates = 0;
+ 	long pages, virtpages;
+@@ -4131,6 +4132,9 @@ static void task_numa_work(struct callback_head *work)
+ 	bool vma_pids_skipped;
+ 	bool vma_pids_forced = false;
+ 
++	if (!(READ_ONCE(sysctl_numa_balancing_mode) & NUMA_BALANCING_NORMAL))
++		cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
++
+ 	WARN_ON_ONCE(p != container_of(work, struct task_struct, numa_work));
+ 
+ 	work->next = work;
+@@ -4307,7 +4311,8 @@ static void task_numa_work(struct callback_head *work)
+ 			start = max(start, vma->vm_start);
+ 			end = ALIGN(start + (pages << PAGE_SHIFT), HPAGE_SIZE);
+ 			end = min(end, vma->vm_end);
+-			nr_pte_updates = change_prot_numa(vma, start, end);
++			nr_pte_updates = change_prot_numa(vma, start, end,
++							  cp_flags);
+ 
+ 			/*
+ 			 * Try to scan sysctl_numa_balancing_size worth of
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 493b29cabee59..da9cf87903a55 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2769,8 +2769,7 @@ int change_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		if (is_huge_zero_pmd(*pmd))
+ 			goto unlock;
+ 
+-		if (!folio_can_map_prot_numa(pmd_folio(*pmd), vma,
+-					     vma_is_single_threaded_private(vma)))
++		if (!folio_can_map_prot_numa(pmd_folio(*pmd), vma, cp_flags))
+ 			goto unlock;
+ 	}
+ 	/*
+diff --git a/mm/internal.h b/mm/internal.h
+index 0434dfcfc36f1..cbeaf1fc38cfc 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1248,11 +1248,11 @@ static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
+ 
+ #ifdef CONFIG_NUMA_BALANCING
+ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
+-		bool is_private_single_threaded);
++		unsigned long cp_flags);
+ 
+ #else
+ static inline bool folio_can_map_prot_numa(struct folio *folio,
+-		struct vm_area_struct *vma, bool is_private_single_threaded)
++		struct vm_area_struct *vma, unsigned long cp_flags)
+ {
  	return false;
  }
- 
--/*
-- * Adds a virtual CPU to the VM specified by vm with the ID given by vcpu_id.
-- * No additional vCPU setup is done.  Returns the vCPU.
-- */
--struct kvm_vcpu *__vm_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
-+struct kvm_vcpu *__vm_vcpu_try_add(struct kvm_vm *vm, u32 vcpu_id)
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 4c0b8ff1a7e66..1427e1b6213b6 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -847,7 +847,7 @@ static int queue_folios_hugetlb(pte_t *pte, unsigned long hmask,
+  * folio_can_map_prot_numa() - check whether the folio can map prot numa
+  * @folio: The folio whose mapping considered for being made NUMA hintable
+  * @vma: The VMA that the folio belongs to.
+- * @is_private_single_threaded: Is this a single-threaded private VMA or not
++ * @cp_flags: Flags describing the protection change
+  *
+  * This function checks to see if the folio actually indicates that
+  * we need to make the mapping one which causes a NUMA hinting fault,
+@@ -857,7 +857,7 @@ static int queue_folios_hugetlb(pte_t *pte, unsigned long hmask,
+  * Return: True if the mapping of the folio needs to be changed, false otherwise.
+  */
+ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
+-		bool is_private_single_threaded)
++		unsigned long cp_flags)
  {
- 	struct kvm_vcpu *vcpu;
+ 	int nid;
  
-@@ -1385,7 +1381,13 @@ struct kvm_vcpu *__vm_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
- 	vcpu->vm = vm;
- 	vcpu->id = vcpu_id;
- 	vcpu->fd = __vm_ioctl(vm, KVM_CREATE_VCPU, (void *)(unsigned long)vcpu_id);
--	TEST_ASSERT_VM_VCPU_IOCTL(vcpu->fd >= 0, KVM_CREATE_VCPU, vcpu->fd, vm);
-+	if (vcpu->fd < 0) {
-+		int __errno = errno;
-+
-+		free(vcpu);
-+		errno = __errno;
-+		return NULL;
-+	}
+@@ -880,22 +880,17 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
+ 	if (folio_is_file_lru(folio) && folio_test_dirty(folio))
+ 		return false;
  
- 	TEST_ASSERT(vcpu_mmap_sz() >= sizeof(*vcpu->run), "vcpu mmap size "
- 		"smaller than expected, vcpu_mmap_sz: %zi expected_min: %zi",
-@@ -1404,6 +1406,18 @@ struct kvm_vcpu *__vm_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
- 	return vcpu;
- }
+-	/*
+-	 * Don't mess with PTEs if folio is already on the node
+-	 * a single-threaded process is running on.
+-	 */
+ 	nid = folio_nid(folio);
+-	if (is_private_single_threaded && (nid == numa_node_id()))
++	/* Promotion-only scans do not mark top-tier folios. */
++	if ((cp_flags & MM_CP_PROT_NUMA_PROMO_ONLY) && node_is_toptier(nid))
+ 		return false;
  
-+/*
-+ * Adds a virtual CPU to the VM specified by vm with the ID given by vcpu_id.
-+ * No additional vCPU setup is done.  Returns the vCPU.
-+ */
-+struct kvm_vcpu *__vm_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
-+{
-+	struct kvm_vcpu *vcpu = __vm_vcpu_try_add(vm, vcpu_id);
-+
-+	TEST_ASSERT_VM_VCPU_IOCTL(vcpu, KVM_CREATE_VCPU, -1, vm);
-+	return vcpu;
-+}
-+
- /*
-  * Within the VM specified by @vm, locates the lowest starting guest virtual
-  * address >= @min_gva, that has at least @sz unallocated bytes.  A
+ 	/*
+-	 * Skip scanning top tier node if normal numa
+-	 * balancing is disabled
++	 * Don't mess with PTEs if folio is already on the node
++	 * a single-threaded process is running on.
+ 	 */
+-	if (!(sysctl_numa_balancing_mode & NUMA_BALANCING_NORMAL) &&
+-	    node_is_toptier(nid))
++	if (vma_is_single_threaded_private(vma) && nid == numa_node_id())
+ 		return false;
+-
+ 	if (folio_use_access_time(folio))
+ 		folio_xchg_access_time(folio, jiffies_to_msecs(jiffies));
+ 
+@@ -907,19 +902,21 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
+  * These are later cleared by a NUMA hinting fault. Depending on these
+  * faults, pages may be migrated for better NUMA placement.
+  *
++ * @cp_flags carries the NUMA scan policy through the protection walk.
++ *
+  * This is assuming that NUMA faults are handled using PROT_NONE. If
+  * an architecture makes a different choice, it will need further
+  * changes to the core.
+  */
+-unsigned long change_prot_numa(struct vm_area_struct *vma,
+-			unsigned long addr, unsigned long end)
++unsigned long change_prot_numa(struct vm_area_struct *vma, unsigned long addr,
++		unsigned long end, unsigned long cp_flags)
+ {
+ 	struct mmu_gather tlb;
+ 	long nr_updated;
+ 
+ 	tlb_gather_mmu(&tlb, vma->vm_mm);
+ 
+-	nr_updated = change_protection(&tlb, vma, addr, end, MM_CP_PROT_NUMA);
++	nr_updated = change_protection(&tlb, vma, addr, end, cp_flags);
+ 	if (nr_updated > 0) {
+ 		count_vm_numa_events(NUMA_PTE_UPDATES, nr_updated);
+ 		count_memcg_events_mm(vma->vm_mm, NUMA_PTE_UPDATES, nr_updated);
+diff --git a/mm/mprotect.c b/mm/mprotect.c
+index e59c69cb5a238..7a247ed4cd55f 100644
+--- a/mm/mprotect.c
++++ b/mm/mprotect.c
+@@ -335,7 +335,6 @@ static long change_pte_range(struct mmu_gather *tlb,
+ 	pte_t *pte, oldpte;
+ 	spinlock_t *ptl;
+ 	long pages = 0;
+-	bool is_private_single_threaded;
+ 	bool prot_numa = cp_flags & MM_CP_PROT_NUMA;
+ 	bool uffd_rwp = cp_flags & MM_CP_UFFD_RWP;
+ 	bool uffd_wp = cp_flags & MM_CP_UFFD_WP;
+@@ -346,9 +345,6 @@ static long change_pte_range(struct mmu_gather *tlb,
+ 	if (!pte)
+ 		return -EAGAIN;
+ 
+-	if (prot_numa)
+-		is_private_single_threaded = vma_is_single_threaded_private(vma);
+-
+ 	flush_tlb_batched_pending(vma->vm_mm);
+ 	lazy_mmu_mode_enable();
+ 	do {
+@@ -383,8 +379,7 @@ static long change_pte_range(struct mmu_gather *tlb,
+ 			 * must set protnone regardless of NUMA placement.
+ 			 */
+ 			if (prot_numa &&
+-			    !folio_can_map_prot_numa(folio, vma,
+-						is_private_single_threaded)) {
++			    !folio_can_map_prot_numa(folio, vma, cp_flags)) {
+ 
+ 				/* determine batch to skip */
+ 				nr_ptes = mprotect_folio_pte_batch(folio,
 -- 
-2.39.5
+2.53.0-Meta
 
