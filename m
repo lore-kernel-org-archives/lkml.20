@@ -1,148 +1,83 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023135.outbound.protection.outlook.com [40.107.44.135])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AB237F337;
-	Tue, 22 Sep 2026 03:34:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.135
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790048107; cv=fail; b=TG8h0zhWi1hquLuIi+EaVILCGH/6jb4roaS1QqptM1jEYnX1aYF2CuehDddEM8xB2PjJOVonHoPeO4WsdPgsEFqGBn8SZC3KhOQ7DGMIYONbI9j1l0R13Z8aAwLumfNZZXWEH0mw98uhG2DfttZSHJ+V3ceZY9I79uWVt2NUjYM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790048107; c=relaxed/simple;
-	bh=pzwV7Rhi18YzPW0ZX3P8rBVNDYR3FSnysMgQ27SNFow=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FEvkMAbH1WtZn6AZsW/OqRcWsiOvNb/QGKfNh9mkawuGaSO3YwInnFx/Pd5nXCRWG8aWPt+1rxBOZOTMJXI2Zk+fojLF9fxKK/QNed/DLpuu+NAzCX3C0kW9M3F6hnABI91lLoiW+/QSKy5a5/muIIcG8isTcck32BwL3LKglJA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NtmNHhPANa0LMzgRrbrTFxD6lYNOdGxB4y4Uslpmw8TaGrrwW9qnMwmVdVo14CcqEu4MVLkuA0OfsaKkknp8FLSwtkx2YhBUGK39QukRKABoYUBUk/7M6O7qqbWYW1GUgaxSPtNLIQnV2wh02FB6Rl1+KBidywvHE3EJOkiG+45l/U5MevF8gZzMwfmIukUXf1VhZeIQjghbBFIJJKt7rMnrxgd9mxnyGUrcWscJeHcOK0Zueo7q37DyWoyiKyzid5ZjtR8tR9G8EyYNh7XIDR8PsNjfUAHTcTN4d3mBt0REedvV25JkfngCyJidSWfufwPctZJ5LxmSODlKAG93TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NpbqVr5HyIk2SCyabfYXcZ+TYBkN2qY6yuK+RIjHt/o=;
- b=NyUCREbnuwiqPtd8QNMkFW3wXnc3YSXeT+QFj0qopK/zwIKYgIbmzHAj9dcvyAWtQXuaisinr2+SxyzmWUjFNp5uKEBfhAUSXFLD4JJ2eBoKDwGNZSP8nl2ZeGv+VZDyRqOt1mlQ1RVAItvlU6SCiDzm0LjLbGF40CLes9zYGl2R57tw1lL0cbddo+bZMoXj+7tfEuzu7c4my0jX9t6EBJtzb67JC1A4bmyeJIcaMJmmHH4XEzd/mBsNfNkvfPXprPlq+Ibz/QJHXFyOoerBtmgVX/NWW8sknKMJBDS2NnTYzuuCgla9nTpQRGr0Pfbl72sdc6twkbdmB0zujoNN7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR01CA0025.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::10) by SEZPR06MB5558.apcprd06.prod.outlook.com
- (2603:1096:101:cc::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 03:34:52 +0000
-Received: from SG1PEPF000082E8.apcprd02.prod.outlook.com
- (2603:1096:4:192:cafe::99) by SI2PR01CA0025.outlook.office365.com
- (2603:1096:4:192::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Tue,
- 22 Sep 2026 03:34:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E8.mail.protection.outlook.com (10.167.240.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 03:34:50 +0000
-Received: from jfliu-System-Product-Name (unknown [172.20.64.65])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id D4FF8427F202;
-	Tue, 22 Sep 2026 11:34:48 +0800 (CST)
-From: Jianfeng Liu <Jianfeng.Liu@cixtech.com>
-To: cix-kernel-upstream@cixtech.com
-Cc: Jianfeng Liu <Jianfeng.Liu@cixtech.com>,
-	"Fugang.duan" <fugang.duan@cixtech.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Gary Yang <gary.yang@cixtech.com>,
-	Hans Zhang <hans.zhang@cixtech.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Peter Chen <peter.chen@cixtech.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: cix: sky1: fix RCSU strap/status reg of pcie_x2_rc node
-Date: Tue, 22 Sep 2026 11:34:28 +0800
-Message-ID: <20260922033448.1094694-1-Jianfeng.Liu@cixtech.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE88038C423;
+	Tue, 22 Sep 2026 03:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790048138; cv=none; b=ZXaeQN3v8NUVheJARK2PRH4xtsfKLUX0wZ6+P53JO2l77VBwCxrqBdBtk/JjkkalWWGVxBZVFQxckba4aAIDtiqnEMcxa/Ssr4ruIWQf+l9xpVq8v8s+rto4G9SR/KLn6bpnPh5BrHxoSx710SzlCF7aiLHmG3x3zKalUsBBHco=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790048138; c=relaxed/simple;
+	bh=+FWlMO2cLI9SxgR2ihPHzlFIH0pLd+kC4fMPBKil/Qc=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=NKlRWZ5BsBo5fcsWcI7Z5ij6srq/3Y/IrhnWG8Cr+wBF32aSFtK4NYqix3VJK7CBjHkIhhGDGSpze9sjKHWdqXoTEJWBZIfzu+yBP4GmIo2JwRrlW4nzYkr8gCYGmNq0QysMDXwRasbZ36xfsPGiD98ghwWFQ/iktYZl7bZbIzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fUKNa/hd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fUKNa/hd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52DA1F000FF;
+	Tue, 22 Sep 2026 03:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790048133;
+	bh=WtEJJnI23HMrvJ1nLmsa7kWdStULy778TOJcpNKSbbw=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=fUKNa/hdOHyAYp1daoHBAx94b+RvDrx0R9Hp5CTaq6b60oFQ59lV4J8Okxeofqpao
+	 kgTZ6GQcYMEXK5UK6Dnu19icDYfUBIr9McTHB3xfjciF5SroVP9m4AIXHYE0ToFc9Y
+	 m/650gxZ5ZnaJTCtGxDfgYCe16zZ7XRLMzT1bqFmSY/a8LOeY3MZfqckQ39jbwVcdt
+	 SeG0xq89Q33ndu0hMf2e3vXGUc6HzoaBSyZVi1gzjMAH1q9KLW7Hk3q/JcAbqIIN8P
+	 lOUJpEaHYN9pqK+VweionZyb+PRU6EDSdmLX7zNglw5+wahlPcbyVdQcuzinDzvvnn
+	 RH9ocCGbXPjOg==
+Content-Type: multipart/mixed; boundary="===============6597116511644733316=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E8:EE_|SEZPR06MB5558:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 0f9bd60b-8546-4ed0-06c2-08df185a753e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|6133799003|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	nlszQRPnuojlXLfyRmay4O+I8okyLIe0um2T4NEvrkBMsQVoV1DSqbNOXpVLT9SOC2QK6jcsvWDh6kCrYF2No4ajJhNiSTJr6o5RX3MEI8cSViK9yX+52YNu0qLiP2bW6oBVWBRmoM9OX6aJ35GoBehdjrBucz8rkcLc/LHAWTbK6bRj4G0iO4rV9K6BUGkfq8LtnBAMwS+nAgwZLKAx/jAooKS/TMRMfRZL/hMCmHjpIGG79+x1onwx1kBYUQQJ0rDLwD/aj6LZeJ3MmTvRsh0zQSHTXXdiqDMNm9ZlO6ambtWgvjfZwD2xNsi79eUvNQESRSpkMxj1b5wENE9PgZ73G45mt+nK8ue+xeg2m9N3IHkxjSG7qdRkubtq0OWL3SKJ0TijFFmc1nqOFR9BXW85B4MIITUEisglCxnw/0aYRx7xB1/nJqA34+KiD+yu908nmGVCOklN5VFaNZPYWtvH/4ELblxZvcTz0fLpR7Ivm0ZWyYCOksrAxtosE6EPIYI9cbymgyeV28mG3ZQEbZ8t97f7oH4tdX7C9D7nRG1V44xhXx7EE/sUqwFDiluWrQCzaM9/I+n3JqUEewZ+bzByEYcxuBjMVg3FffPRaN9XvrNIZMF5JhP8d1qB+CxJVf0BBBqsE+WcKMggTyVyZqv/oAXbJZcEmANKLe7iWqpHve8hUkgMJ8KMeyzfQJTQzYZv1mXxYdRyDMIVwj7/ng==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dfoyqmlLjY0X1zhQ9NYqVHrldc9MWKlGNPDmPXhrnI5hANk8xWaRY5izzF5+rz0l2pHeNEczcgeWE0hfBkFZmdYNDlZ4GJvNisQqzjJH4E56V+wByTaW9wfwV3DWtrJQFqNadrZo+Uy0lsZgHYRI7MqTVxsdzVe9aHwCVhtgWY3/bRj8IySDJ7rDZCgVvdr6KuQekjCefCGa41dG1zqOEJ0CHQzqRf/5JdbBMwKXlF9C/HLXJqh1BiJ/TBIG2peE51nkYcs0PYU5VdVoWwXqevtNSW2RrJhclyhrxmf0/Opa4guQknKVOWhtNVCAivfai2a/o0ZRVyOAc/AuinVrYjImoPcuVVrxlsaTu7JTHCyDcJmqi6d7JMWT+Lpv5MXFvd6hFbGXXCEy1MGhwzAQdknh0+D1w3+DRQDRolm1ssObNJcSb4blD3bwidj5Z12Q
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 03:34:50.0842
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f9bd60b-8546-4ed0-06c2-08df185a753e
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E8.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5558
+Message-Id: <5de177edfbaed1c26e91a222f2636a56b48a96001cba1d4dab7e37b57e312a0b@mail.kernel.org>
+In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-10-410f57770bad@toxicpanda.com>
+References: <20260922-b4-rcu-tasks-preempt-qs-v5-10-410f57770bad@toxicpanda.com>
+Subject: Re: [PATCH v5 10/13] samples: ftrace: Make the direct-call trampolines Tasks Trace readers
+From: bot+bpf-ci@kernel.org
+To: josef@toxicpanda.com,paulmck@kernel.org,frederic@kernel.org,ast@kernel.org,rostedt@goodmis.org
+Cc: boqun@kernel.org,mhiramat@kernel.org,mark.rutland@arm.com,peterz@infradead.org,tglx@kernel.org,daniel@iogearbox.net,andrii@kernel.org,puranjay@kernel.org,rcu@vger.kernel.org,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-kernel@vger.kernel.org,josef@toxicpanda.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 22 Sep 2026 03:35:30 +0000 (UTC)
 
-The "rcsu_strap" and "rcsu_status" reg entries of the pcie_x2_rc node
-contain a spurious "0", yielding 9-digit addresses 0x0a0600340 and
-0x0a0600440 instead of 0x0a060340 and 0x0a060440.
+--===============6597116511644733316==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The other Sky1 PCIe controllers use a 0x20 stride within the 0x0a060000
-RCSU block:
+> commit 1deb3b548a13555ffd63d9373f054d6da02ad75e
+> Author: Josef Bacik <josef@toxicpanda.com>
+> Date:   Tue Sep 22 02:23:29 2026 +0000
+>
+>     samples: ftrace: Make the direct-call trampolines Tasks Trace readers
+>
+>     The sample direct trampolines are exactly the kind of out-of-line
+>     register_ftrace_direct() user whose lifetime depends on Tasks RCU
+>     waiting for a task inside them: nothing else stops rmmod while a task is
+>     preempted in my_direct_func().  On HAVE_RCU_TRAMPOLINE_READERS
+>     architectures that wait only covers Tasks Trace RCU readers, so give the
+>     samples a small shared header with rcu_read_lock_trace() and
+>     rcu_read_unlock_trace() open-coded as instruction strings for x86-64 and
+>     arm64 -- the same sequences as ftrace_64.S and entry-ftrace.S, using
+>     caller-saved non-argument scratch registers -- and bracket every
+>     call-out with them.  The instructions outside the bracket are module
+>     text, covered by ftrace_direct_mark_module().  Other architectures get
+>     empty definitions.
+>
+>     Assisted-by: LLM
+>     Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-	pcie_x8_rc:   0x0a060300 / 0x0a060400
-	pcie_x2_rc:   0x0a060340 / 0x0a060440  (fixed)
-	pcie_x1_0_rc: 0x0a060360 / 0x0a060460
-	pcie_x1_1_rc: 0x0a060380 / 0x0a060480
+This looks like a bug fix for the direct trampoline lifetime issue.
+Should this include:
 
-With the typo the driver reads the strap/status registers 0x1000 bytes
-off, landing in the neighbouring controller's RCSU bank. Fix the
-addresses so the correct registers are accessed.
+  Fixes: 32999f49426a ("rcu-tasks: Add a Tasks RCU implementation for reader-marked trampolines")
 
-Fixes: 0b014cd8f15e ("arm64: dts: cix: Add PCIe Root Complex on sky1")
-Signed-off-by: Jianfeng Liu <Jianfeng.Liu@cixtech.com>
-Reviewed-by: Fugang.duan <fugang.duan@cixtech.com>
+
 ---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
- arch/arm64/boot/dts/cix/sky1.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index 0a820f45feb9..d64cd935970e 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -661,8 +661,8 @@ pcie_x2_rc: pcie@a0c0000 {
- 			compatible = "cix,sky1-pcie-host";
- 			reg = <0x00 0x0a0c0000 0x00 0x10000>,
- 			      <0x00 0x26000000 0x00 0x3000000>,
--			      <0x00 0x0a0600340 0x00 0x20>,
--			      <0x00 0x0a0600440 0x00 0x20>,
-+			      <0x00 0x0a060340 0x00 0x20>,
-+			      <0x00 0x0a060440 0x00 0x20>,
- 			      <0x00 0x40000000 0x00 0x00100000>;
- 			reg-names = "reg", "cfg", "rcsu_strap", "rcsu_status", "msg";
- 			ranges = <0x01000000 0x0 0x40100000 0x0 0x40100000 0x0 0x00100000>,
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-branch: fix-mainline-pcie-x2
-
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35680506278
+--===============6597116511644733316==--
