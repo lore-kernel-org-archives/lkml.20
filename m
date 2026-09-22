@@ -1,103 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C74C48A8A4;
-	Tue, 22 Sep 2026 05:37:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1573B48C8D2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055478; cv=none; b=bEYTgtX8YPW+wcp6hTad4GbpIZux7Szxss3Czy4CsTtoYGzsqIUMntLDKMIxVDTtWtMBM6rTaNNZIX+oUNlb8U3Yj98Gssb7HTsSOe4uLQaCuPh/E7Uv0MPy0X/1HDZ7sulV6JlezUQg5mY8sUpQzlc5X5+s+GVLVw0Edrtv2r8=
+	t=1790055612; cv=none; b=H2iyBndPJsEkVstnzWh0C9cX8P9YhiBccYzxtT5cTReE90lnUcgiB4wjeuSwhSRxVNYC8ftO9y/XRlnoI4Cn2sNuu2ulOzDItck4nFP32YrfZTRrJ8K0f2CouzAjCzfD2avkStrtKNEyqv1CJ7WG3X9VWBenK2pmm0fky6CQl30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055478; c=relaxed/simple;
-	bh=xZp9r60+dCXnIa0A3ozzNGf0cC3IAb+FgBmuAxrQszs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nN8tMU5zDbCbmij7cAE13y4EXEThsFn7pvR17o1V11S+kwFdPSp97MGt2zWvbXVqgIH8k+w15qUORa2TGwuYocYkIdo30dVWFQcP7By9aqMPakWufA1QJ+r8LOM8LPM1IYTjivThl20/pE6cJ1aqW0yDlliiM3vdgaivFVbUOgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y4UeLvnT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790055612; c=relaxed/simple;
+	bh=cRi6x2IoUIDe1cpioh8hUI0Fi9qcSw8xL5YcTT1TuxA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=us973/hKvxFCpnjvh3W7jKLXOuJ36R29Gxwl1hLmtprRrUl+Kln4F+JNP3wBAHw0UYqUlpWWyZkSDOXMfj+MrQ2+eoF508Apc9FxhqFniB0dFkJ9McF+hJYWEnQMtqd7hqWh7HsBaEYmYXrtZBaj1/o9VvIEjeIkZG0oGnKQbWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=OtFzbtS7; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y4UeLvnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0CA1F000FF;
-	Tue, 22 Sep 2026 05:37:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790055465;
-	bh=WrxXD5R9VUQi7qUjgHG9Pa6uBFBwGP/N2AEeSkpeg4c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y4UeLvnT9ESvaLjRVUfDxsMLCYn12RSn8ZmCqCwMse5WUryxP/1iiVlagkc6um9EE
-	 PYK1TR2DMtoJO+bc5qU6+nbKrKcCzdh0A/3X9Qe/zswL2UzGOu8pNFOxJObM+jRKyv
-	 CPBuDAcNDVxwTrxr3JMuE+NHBHOwcKnr5ePhe96E=
-Date: Tue, 22 Sep 2026 07:37:41 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Hongren Zheng <i@zenithal.me>, Ijae Kim <ae878000@gmail.com>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usbip: vudc: Prevent transfer timer rearm during teardown
-Message-ID: <2026092207-secluded-pregame-8464@gregkh>
-References: <20260921224130.492681-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="OtFzbtS7"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M5HYCj075256;
+	Tue, 22 Sep 2026 06:39:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=wbwTC0PEwT+1K8L3X+Yu9Np
+	KjK166tvKiyw2LhiQvF4=; b=OtFzbtS7hU5IevPldRmcPFU0AJa8bQeMkgfOyW1
+	4PrCBLXO7RG+dLyqaLdNNEUNCXYazAYwkkrH917Dy/UEzL8PdUOiKj+ZAAfBzeR2
+	q9ymyBMG+nCMBJH/L3rAMxsR2qqiITUwlR50DIAp1pZC6IEAFRjnZ9cdoLMFmFBS
+	Oe8bfmZ094VwzR5KOidWhQ5ihEsgjvsrZJUbhm/2SlUDnhcKFcT3lIcViazHBz/G
+	Ch6hNC0f1U6/x3PzvKy8yAAV1lE0M3CQpL8IzRtGFxmzZ3ez/PylckNkOinT7qW+
+	HTiGZB8CjgzbYpVqXR/fDRpSAJw92g+cgq+iaR4lzkGu6Bw==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq23p4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 06:39:44 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 22 Sep
+ 2026 06:39:42 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 22 Sep 2026 08:39:30 +0300
+Subject: [PATCH v3] drm/imagination: Fix parameter validation in
+ pvr_fw_object_destroy()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921224130.492681-1-mhun512@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260922-fix-null-pointer-dereference-v3-1-f099763ed676@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAJEUsmoC/43NQQ6CMBAF0KuQrq1pByGtK+9hXEiZwhgopAWCI
+ dzdggvjShez+Jmf9xcW0BMGdk4W5nGiQJ2LIT0kzNR3VyGnMmYGAnKhJHBLM3dj0/C+Izeg5yV
+ 6tPGcQQ5GaSlPUGqlWCT6+KJ556+3dw5j8UAzbObWqCkMnX/u+5Pcen9OTZJLbnNdgLWoMxAXa
+ qsBzdF0Ldu2JvhoWqQ/NIiaTJW1usitEtmXtq7rC3XV+2kpAQAA
+X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>,
+        "Alexandru
+ Dadu" <alexandru.dadu@imgtec.com>,
+        Donald Robson <donald.robson@imgtec.com>,
+        Sarah Walker <sarah.walker@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790055582; l=2725;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=cRi6x2IoUIDe1cpioh8hUI0Fi9qcSw8xL5YcTT1TuxA=;
+ b=78LKVvnMQ2NavNqEJG0qeFKFliMjO6DQnyU0f6yrfR2E87J6tOTE/HJXwclDS2fiOwEDFLpr9
+ m/sLbM5xRnTCXMwR/+W0h63ZO/ZIwHVo12w0AKVBlMzh6zol1neNWyF
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA3OSBTYWx0ZWRfX/+clD6IzyaUT
+ iRJScjxPE0iAP5HfRIJlh7zV1JAeR2gBoTBygNK3kQ959elu7m0NnDBjaqIukbSjv13paYj0egV
+ uQMeYJORQ236eaNmsEk7Weo1LZOjicCgeFkTL13YGHYeM4cFBC5mJ6lSZTRZ9wCoNMhJ2hjxLf9
+ f+09LBUYZYcwZJ+0I47MeOJRm5HnvUKdfND0TSmKcwsmE1aT8Ru9V9vLewQr18kJWlZouYQtpsZ
+ cwR1X+yR0N8LB4L2SNyEr7Pn2sBz7IMz2oTRPNxl1yC+CBKBOlLMsPVC//IoR/K0ml/BVNpgK0b
+ qMyzKFoEu2Q1I3zUGkzy53ryJyemrV44I4qulVlitJ6yJZJuRe1JpjxcEs77uHn/kI+OyqyekPX
+ i0Jc1byzB+f4M8BP9zk32cynBb0whBIfjNFHu8KfDF1mpvBQP9Zi+Tk9XVD5RrDzn74hSnTXzSI
+ mCYokacPlo8OJLWhttw==
+X-Proofpoint-ORIG-GUID: x-ww0CcH-HSXD9YkWZYOfUDhhUwtHQsC
+X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab214a0 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8
+ a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=craggXHLatwVVKPEDpEA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: x-ww0CcH-HSXD9YkWZYOfUDhhUwtHQsC
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA3OSBTYWx0ZWRfX85ZrQ4XFSudJ
+ n443KM7nGahBI6UCNXCddeBwV5h1Ro9o9rDxAoK7hO3B9FKnX1i2k+XpXJrGSCEHEqM/46saNSn
+ lK1gvNb0qfZkg4hx4rUAx8cab0Jdoys=
 
-On Mon, Sep 21, 2026 at 06:41:30PM -0400, Myeonghun Pak wrote:
-> Commit d96209626a29 ("usbip: vudc: Fix use after free bug in
-> vudc_remove due to race condition") made v_stop_timer() delete the
-> transfer timer synchronously before vudc_remove() frees its containing
-> struct vudc.
-> 
-> That does not close the race with the receive thread, which is stopped
-> later through usb_del_gadget_udc() and vudc_shutdown().  The thread
-> calls v_kick_timer() for CMD_SUBMIT and CMD_UNLINK packets, and
-> v_kick_timer() deliberately calls mod_timer() when the transfer state is
-> VUDC_TR_STOPPED.  A packet received after v_stop_timer() returns can
-> therefore enqueue the timer again before the vudc is freed.
-> 
-> timer_delete_sync() only drains the current timer instance and cannot
-> prevent such a rearm.  Use timer_shutdown_sync(), which makes subsequent
-> attempts to arm the timer no-ops.  The transfer state no longer needs to
-> be updated, as it is freed along with the timer.
-> 
-> On a KASAN and DEBUG_OBJECTS enabled x86_64 QEMU guest, repeatedly
-> binding the device, submitting a request and unbinding it produced a
-> "free active timer_list" warning followed by a slab-use-after-free in
-> v_timer().  With this change the same harness completed 4000 iterations
-> cleanly.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
-> 
-> Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in vudc_remove due to race condition")
-> Link: https://lore.kernel.org/all/20230316180940.1601515-1-zyytlz.wz@163.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/usb/usbip/vudc_transfer.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/usbip/vudc_transfer.c b/drivers/usb/usbip/vudc_transfer.c
-> index d4ce85c4c6a2..4146b746a320 100644
-> --- a/drivers/usb/usbip/vudc_transfer.c
-> +++ b/drivers/usb/usbip/vudc_transfer.c
-> @@ -441,7 +441,7 @@ static void v_timer(struct timer_list *t)
->  	spin_unlock_irqrestore(&udc->lock, flags);
->  }
->  
-> -/* All timer functions are run with udc->lock held */
-> +/* v_start_timer() and v_kick_timer() are called with udc->lock held. */
+Fix parameter validation to avoid possible NULL pointer dereference from
+pvr_fw_object_destroy() when handling allocation failures.
 
-If this is true, use the correct documentation/metadata style for this,
-so that checkers can catch this.  A comment like this will not work.
+Sashiko report:
+If pvr_gem_object_create() fails in
+pvr_fw_object_create_and_map_common(), fw_obj->gem is explicitly set to
+NULL before jumping to the error cleanup path.
+The cleanup path then calls pvr_fw_object_destroy().
 
-thanks,
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/dri-devel/20260810132202.3C16D1F000E9@smtp.kernel.org/
+Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v3:
+- Skimed the commit message removing redundant information.
+- Refactored the parameter validation to return early.
+- Link to v2: https://patch.msgid.link/20260903-fix-null-pointer-dereference-v2-1-138ff9b6f805@imgtec.com
 
-greg k-h
+Changes in v2:
+- Commit message and cover letter updates.
+- Link to v1: https://patch.msgid.link/20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com
+
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Donald Robson <donald.robson@imgtec.com>
+To: Sarah Walker <sarah.walker@imgtec.com>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/imagination/pvr_fw.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index 850a3ec8e775..9977f4da3d8d 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1429,6 +1429,12 @@ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
+ 	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
+ 	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
+ 
++	if (!fw_obj)
++		return;
++
++	if (!fw_obj->gem)
++		return;
++
+ 	mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
+ 	list_del(&fw_obj->node);
+ 	mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
+@@ -1439,8 +1445,7 @@ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
+ 			return;
+ 	}
+ 
+-	if (fw_obj->gem)
+-		pvr_gem_object_put(fw_obj->gem);
++	pvr_gem_object_put(fw_obj->gem);
+ 
+ 	kfree(fw_obj);
+ }
+
+---
+base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
+change-id: 20260812-fix-null-pointer-dereference-2c891142d988
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
