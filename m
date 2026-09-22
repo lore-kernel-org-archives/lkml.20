@@ -1,221 +1,91 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23CC4D2ECF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07274D2ECF
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060997; cv=none; b=JrYE/YTLyn6M+huIOuS5Ut8zvdJdFA8Ogw0/ga1e35TXnOeE155TeGFlhlHX1xZlbJD/1K4ozbK4aqBItd/5IYHA0PU48JbDgjyH5JJlXkaWWjGBSwXTkwwC6oBx26EDeTUeMLuER76+ZvxBQgjlEjfq0G+/OuvVDxPMIWPdcvQ=
+	t=1790061002; cv=none; b=IqvP8t7P092sEmljVfwa3zTBoN/3OQss6pC2pReCfXBQoYIdy3tthQO/TDLbI3GnPL0du9TUjrpNNWV6ZCIaVibSSIFRCvW3wE4u7/J1C1lvO+3QTOpe4Chq0WLtcO7sLzo9wRvM3Om3FS4lUDGwCx9Az/6AflQopxYiPT5qIZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060997; c=relaxed/simple;
-	bh=l4ETgjoi9sLVdEUOvHOO9DwcohkqbndYpHAAUEXbE6k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RuepVeuseRBpp9Ny2YzZl6rftyHOHGj3zrL8ryTIFCYR3C8werk4PADgwiScdLmvQ4SoZsVnzsXElqqU8QoZbcVBOOS4W1kAzbqOWyQXjvrpkkcStdpZDySrfJ3rcdzo0jYqQLQATnWVjyxOZ31f3aL3gWW3rEs5H3mRoYCAMws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=FB5q73m4; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790061002; c=relaxed/simple;
+	bh=a4cyxVYCBVmcPNndbCsJoEaef2oO8iP3vRoY8gmzuEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QfrQyWSbQItIyIpLbR+ph3Od6BbY2E4BHnnUR+ByNRnHJZyfd33akoM+PUK+BhNlMFSPm67EiZWbNbwFtdtJift9yDq7KuCEQJIHdDCmcBctN/TpHpDqEzl8AVx8UecnEey0hoKyBQTI0s+iVmrLRDIZToTSsrF9Ag41xH8n/Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SYRiU0Hu; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="FB5q73m4"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790060992; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Oo8Dq0mN2ZDYBVRnEYfmR+J/FTRcTErPirL0m9RByFs=;
-	b=FB5q73m45h9jMtb+8GYSGSTE/vO9DD4LM/XyfFax/WyuCcND0L0OYi6ZYK4iSkd2jiK/CgPML/ZnLaGYuoUUvFHPoaF2xPZhj4C8vBjElJA7FUQwOzqwoFO0N4TLke7ybMmzKwrvtvXwKxWL4iIhnGdxBS3woVhriCAGWqlRoqU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=kanie@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XBT-CI9_1790060989;
-Received: from 30.178.81.152(mailfrom:kanie@linux.alibaba.com fp:SMTPD_---0XBT-CI9_1790060989 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 15:09:51 +0800
-Message-ID: <d4a0360a-fae1-484d-81ca-c926e4450265@linux.alibaba.com>
-Date: Tue, 22 Sep 2026 15:09:49 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SYRiU0Hu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790060999;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Lh8RRN115hHENZhRVI/HJKnLn1gmr4TNfVUEedSzXSE=;
+	b=SYRiU0HuoOY8j/OyRXrT6nfAwUVgXOLTWjg9G60kJEw2jmaefYnuJ70P7TN5D5DYwRzLqw
+	s84TZ8UmmNRkCYFSJ29c7bVbGi6K0M3XSB15ctiaUDMHdOl10yk15pcsBfXYbMqfxaeHj2
+	62VXnbVsRd9oQFCJ+FxQ4lepg2BEKds=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-518-h3zLrZ1PPYetoFlWi0zq1A-1; Tue,
+ 22 Sep 2026 03:09:56 -0400
+X-MC-Unique: h3zLrZ1PPYetoFlWi0zq1A-1
+X-Mimecast-MFC-AGG-ID: h3zLrZ1PPYetoFlWi0zq1A_1790060995
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 96E351843AD4;
+	Tue, 22 Sep 2026 07:09:54 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 843B91956041;
+	Tue, 22 Sep 2026 07:09:51 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ARM: BCM7XXX: Replace __ASSEMBLY__ with __ASSEMBLER__
+Date: Tue, 22 Sep 2026 09:09:50 +0200
+Message-ID: <20260922070950.76946-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 23/24] iommu/amd: Assign per-vIOMMU translate device ID
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
- Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
- wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com, guanghuifeng@linux.alibaba.com
-References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
- <20260914184750.222939-24-suravee.suthikulpanit@amd.com>
-From: Guixin Liu <kanie@linux.alibaba.com>
-In-Reply-To: <20260914184750.222939-24-suravee.suthikulpanit@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
+While the GCC and Clang compilers already define __ASSEMBLER__ auto-
+matically when compiling assembly code, __ASSEMBLY__ is a macro that
+only gets defined by the Makefiles in the kernel. This can be very
+confusing when switching between userspace and kernelspace coding, or
+when dealing with uapi headers that rather should use __ASSEMBLER__
+instead. Let's standardize now on the __ASSEMBLER__ macro to avoid
+this confusion.
 
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ v2: Added Florian's Reviewed-by and fixup up the CC: list
 
-在 2026/9/15 02:47, Suravee Suthikulpanit 写道:
-> Allocate one translate-device-id per IOMMUFD vIOMMU instance from the
-> per-segment pool on init.  Reset MMIO first, then program translation
-> DTE and VFctrl TransDevID under trans_devid_lock so PCI-probe relocate
-> cannot interleave.  Clear both on init error and destroy, and drop the
-> id before amd_viommu_uninit_one().
->
-> Initialize pdom_list before set_translate_dte() so list_empty() is
-> valid. Drop the late list_add; set_translate_dte() already publishes
-> the vIOMMU on viommu_list under pdom->lock. list_del_init() on init
-> error if that add ran.
->
-> Free the synthetic translate-device-id DTE object on init error and
-> destroy; it is not stored in the per-segment xarray.
->
-> Add per-vIOMMU trans_devid_lock to serialize DTE and VFctrl TransDevID
-> updates on init and teardown.  VFctrl TransDevID is not written from
-> amd_viommu_uninit_one().
->
-> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-> ---
->  drivers/iommu/amd/amd_iommu_types.h | 10 +++++
->  drivers/iommu/amd/iommufd.c         | 66 +++++++++++++++++++++++++----
->  2 files changed, 67 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-> index 5f84f25e3f37..c748bab27509 100644
-> --- a/drivers/iommu/amd/amd_iommu_types.h
-> +++ b/drivers/iommu/amd/amd_iommu_types.h
-> @@ -556,6 +556,16 @@ struct amd_iommu_viommu {
->  	/* Synthetic DTE; not stored in pci_seg->dev_data_xa */
->  	struct iommu_dev_data *trans_dev_data;
->  
-> +	/*
-> +	 * Serializes this vIOMMU's translation DTE and VFctrl TransDevID
-> +	 * updates on init and teardown. VFctrl TransDevID is not written
-> +	 * from amd_viommu_uninit_one().
-> +	 *
-> +	 * Nested lock order: trans_devid_lock, then
-> +	 * pci_seg->trans_devid_mutex.
-> +	 */
-> +	struct mutex trans_devid_lock;
-> +
->  	/*
->  	 * Serializes VFCTRL Guest DID map CONTROL0/CONTROL1 doorbells
->  	 * (DevID and DomID table updates) for this gid. Those registers
-> diff --git a/drivers/iommu/amd/iommufd.c b/drivers/iommu/amd/iommufd.c
-> index 5760b183ce62..1c29d846beed 100644
-> --- a/drivers/iommu/amd/iommufd.c
-> +++ b/drivers/iommu/amd/iommufd.c
-> @@ -53,6 +53,9 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
->  	int ret;
->  	unsigned long flags;
->  	phys_addr_t page_base;
-> +	bool trans_devid_allocated = false;
-> +	bool trans_dte_set = false;
-> +	bool uninit_on_err = false;
->  	struct iommu_viommu_amd data = {};
->  	struct protection_domain *pdom = to_pdomain(parent);
->  	struct amd_iommu_viommu *aviommu = container_of(viommu, struct amd_iommu_viommu, core);
-> @@ -70,7 +73,9 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
->  	if (ret)
->  		return ret;
->  
-> +	mutex_init(&aviommu->trans_devid_lock);
->  	mutex_init(&aviommu->vfctrl_lock);
-> +	INIT_LIST_HEAD(&aviommu->pdom_list);
->  	xa_init_flags(&aviommu->gdomid_array, XA_FLAGS_ALLOC1);
->  	aviommu->parent = pdom;
->  
-> @@ -93,31 +98,63 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
->  
->  	data.out_vfmmio_mmap_offset = aviommu->vfmmio_mmap_offset;
->  
-> -	/* Reset vIOMMU MMIOs to initialize the vIOMMU */
-> +	/* Reset vIOMMU MMIOs before the trans_devid is visible in the pool. */
->  	ret = amd_iommu_reset_vmmio(iommu, aviommu->gid);
->  	if (ret)
-> -		goto err_init;
-> +		goto err_trans_devid;
-> +
-> +	mutex_lock(&aviommu->trans_devid_lock);
-> +	ret = amd_iommu_trans_devid_alloc(iommu->pci_seg, aviommu);
-> +	if (ret < 0) {
-> +		mutex_unlock(&aviommu->trans_devid_lock);
-> +		goto err_trans_devid;
-> +	}
-> +	trans_devid_allocated = true;
-> +	aviommu->trans_devid = ret;
-> +
-> +	ret = amd_iommu_set_translate_dte(viommu);
-> +	if (ret)
-> +		goto err_init_unlock;
-> +	trans_dte_set = true;
-> +	amd_iommu_update_vfctrl_mmio_translate_devid(iommu, aviommu->gid,
-> +						     aviommu->trans_devid);
-> +	mutex_unlock(&aviommu->trans_devid_lock);
->  
->  	ret = amd_viommu_init_one(iommu, aviommu);
->  	if (ret)
->  		goto err_init;
-> +	uninit_on_err = true;
->  
->  	ret = iommu_copy_struct_to_user(user_data, &data,
->  					IOMMU_VIOMMU_TYPE_AMD,
->  					out_vfmmio_mmap_offset);
->  	if (ret)
-> -		goto err_init_one;
-> +		goto err_init;
->  
->  	viommu->ops = &amd_viommu_ops;
->  
-> -	spin_lock_irqsave(&pdom->lock, flags);
-> -	list_add(&aviommu->pdom_list, &pdom->viommu_list);
-> -	spin_unlock_irqrestore(&pdom->lock, flags);
-> -
->  	return 0;
-> -err_init_one:
-> -	amd_viommu_uninit_one(iommu, aviommu);
->  err_init:
-> +	mutex_lock(&aviommu->trans_devid_lock);
-> +err_init_unlock:
-> +	if (trans_dte_set) {
-> +		spin_lock_irqsave(&pdom->lock, flags);
-> +		if (!list_empty(&aviommu->pdom_list))
-> +			list_del_init(&aviommu->pdom_list);
-> +		spin_unlock_irqrestore(&pdom->lock, flags);
-> +		amd_iommu_update_vfctrl_mmio_translate_devid(iommu, aviommu->gid, 0);
-> +		amd_iommu_clear_translate_dte(iommu, aviommu->trans_dev_data,
-> +					      aviommu->trans_devid);
-> +		amd_iommu_free_dev_data(iommu, aviommu->trans_dev_data);
-> +		aviommu->trans_dev_data = NULL;
-> +	}
-> +	if (trans_devid_allocated)
-> +		amd_iommu_trans_devid_free(iommu->pci_seg, aviommu->trans_devid,
-> +					   aviommu);
-> +	mutex_unlock(&aviommu->trans_devid_lock);
-> +	if (uninit_on_err)
-> +		amd_viommu_uninit_one(iommu, aviommu);
-> +err_trans_devid:
->  	iommufd_viommu_destroy_mmap(&aviommu->core, aviommu->vfmmio_mmap_offset);
->  err_mmap:
->  	amd_iommu_gid_free(iommu, aviommu->gid);
-> @@ -140,6 +177,17 @@ static void amd_iommufd_viommu_destroy(struct iommufd_viommu *viommu)
->  	spin_unlock_irqrestore(&pdom->lock, flags);
->  	xa_destroy(&aviommu->gdomid_array);
->  	iommufd_viommu_destroy_mmap(&aviommu->core, aviommu->vfmmio_mmap_offset);
-> +
-> +	mutex_lock(&aviommu->trans_devid_lock);
-> +	amd_iommu_update_vfctrl_mmio_translate_devid(iommu, aviommu->gid, 0);
-> +	amd_iommu_clear_translate_dte(iommu, aviommu->trans_dev_data,
-> +				      aviommu->trans_devid);
-> +	amd_iommu_free_dev_data(iommu, aviommu->trans_dev_data);
-> +	aviommu->trans_dev_data = NULL;
-> +	amd_iommu_trans_devid_free(iommu->pci_seg, aviommu->trans_devid,
-> +				   aviommu);
-> +	mutex_unlock(&aviommu->trans_devid_lock);
-> +
->  	amd_viommu_uninit_one(iommu, aviommu);
->  	amd_iommu_gid_free(iommu, aviommu->gid);
->  	mutex_destroy(&aviommu->vfctrl_lock);
-Should destroy trans_devid_lock too.
+ arch/arm/include/asm/hardware/cache-b15-rac.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best Regards,
-Guixin Liu
+diff --git a/arch/arm/include/asm/hardware/cache-b15-rac.h b/arch/arm/include/asm/hardware/cache-b15-rac.h
+index 3d43ec06fd359..b96365bfb2a87 100644
+--- a/arch/arm/include/asm/hardware/cache-b15-rac.h
++++ b/arch/arm/include/asm/hardware/cache-b15-rac.h
+@@ -1,7 +1,7 @@
+ #ifndef __ASM_ARM_HARDWARE_CACHE_B15_RAC_H
+ #define __ASM_ARM_HARDWARE_CACHE_B15_RAC_H
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ 
+ void b15_flush_kern_cache_all(void);
+ 
+-- 
+2.55.0
 
