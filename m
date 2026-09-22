@@ -1,126 +1,141 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010069.outbound.protection.outlook.com [52.101.201.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9FB43DEDF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:23:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101433; cv=fail; b=NnS8fxejto5p32Ar8LmJnRAsISBgLfgIXX32NqYtCtmFLaMfI6NG9CXcnZDd9AypYEV0OsH+nKLVfS/BpOemgWJ3QI2FFwNNOUNi38yYZ+Ggopkni5UvpYu/HdK0qPc/LaJw5rLIDdArFxusowFDMZemw4Bc53s01n1c9osDivw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101433; c=relaxed/simple;
-	bh=qx9tjfkWc4//Ko3o3ZApuPrx9CgoCy9GEhAmtHPeUxE=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OJLBMSns+6RHmzdlZ0RBwBnUQvWpsvowaMqMuFKG879UnJAqL/2l4Oq/SxdEZMONUCEvZrhIUowepijBk8XSJUdTd28UwulJzG+kgsyvxLLoLs/j3KwlMZzxm1qnXSOezNiZZyWjy2oXzdkTRdaJpno8PC+sjeFH/+E8I/JDR9E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lXdnlxZu; arc=fail smtp.client-ip=52.101.201.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCC648B398
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790101461; cv=none; b=WpMIWOLwAuirSA77h1wHx6aEdJELwj/76QE+rOYOCPLZ4qgd9EGv6oKHf/0RBCfJvciRx/1oQg+Ph3JVCDgWGrihAU++osyXEyHvEkcdV8ResjbUHbywtofvzbRTLo4TudvVD2EF8EvZRjOzAGz6MiH5+HwOWMBxFyHl7HcsXeU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790101461; c=relaxed/simple;
+	bh=JxjffhNsexrmC8+bVvEf/LuSzi1MYoSUYWH6uds8NiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m2VfshXLZNwEgqZeDCPbPKP12qOy5oJoZTHBlQeUsAiVRAUnyeFyvSPhTd/XHPqBYpQliwKYQi9FamPHGCSoQBqPzkZ6e0Ke1L3H3zIsjIwO5mw22XkeSoSeBbEpnrGy29vZ/NxgcbCsgWmjmr6umxDJe+6j0aJj2Yn/348uPqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=ykqx23B/; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lXdnlxZu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fta3U01juUnohiAk7KVbwjcQxuAk3TDlq8+fe4P0hWwKl1y7sojSbDN8qXSv+96X4mVW/fbx2NOvjT0ewKGH7mKe5bD1wK+DXrMv6qJtssogckoBkX2ybZ6/QZ3VykrgfnTr37c+8wmSlnO0BJhTCXi7+Ufs30tx9mVoLbrL0Jh/MGd2pUqrhE5mtH4UUwDN+SkNc4aHji0h97RhkDzRd77xbaxTtF9DHjPT1n1q5Z00pODoiKw1z6YUFRgLqtmw7dyejSeEYIUA68RhG4JAxstuW8RkevNZD4Iqm9ruCLwVfnsFMiEv2dNAubT7f/Igr+0oj+3IbUOV0OvQVsJAsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PJ2vLxRJOkQPloNa2sZzRcDluTyH6MwkjdlwHIgY+k0=;
- b=M73gY6+Wgkzv0BIMGIFZC6PEdevU/g+wVstYw03o1GpaL8IzlGibUow25y65l6yvnAIexfZKMQRfkI0z2bnQqnEz9XBzYwqF5kGZdA6dk4SqDKA91Yiulv+0Q9GBEdA6J7/4gXYe1XM0w73FLMQAWv0leRPvzWy1Geb3RCAHcn8bFwkPzK2Ss9MeL/x6OnqSq8mtVzKgja1JlQY1r6XrZ2X9ltX/AxHXbmSbGAwLa6ynPBacSr7Scd48W4/H210suwabSTWNeSJ1o32DDRBkRSflA/VSbWTFPYd0OxqcJ3RSfNqHkAWfpJxRUs88sG1CbCsR5GcZwo5bM86tqL4+BQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PJ2vLxRJOkQPloNa2sZzRcDluTyH6MwkjdlwHIgY+k0=;
- b=lXdnlxZuMzq5/uoVFEnlx/uzZMcyOne5RISWS6oObn/FW/Urp7Bckba97Tq5YIqb7Eg7CvbF9up+iyanFN0zK7QUvxsBSNzpeO2fA/5EVkwSu6d3C+Dz4neRsllUouvm9MxyGgbCGNuWJyxQ1RS14aR7HJYU9zg1MVHA/LKxi8RTpsXfxYAGaA07visMhcBrOJKVhWTXScZ9/p7bx0Rm2z3o+uKsSISOQ3VcuARQv35kZ9ECCW6UfGWTDWfL98kP9YfhgFmWO6UWJf/5Hcg0LPSra9q4BHZs34dUcHklMzSfj+SsTTa4rquMCjgzYRb4zJX3QBNUPQn0PrC70YO9dw==
-Received: from DS7PR03CA0188.namprd03.prod.outlook.com (2603:10b6:5:3b6::13)
- by SJ0PR12MB5675.namprd12.prod.outlook.com (2603:10b6:a03:42d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 18:23:46 +0000
-Received: from BL02EPF00021F6C.namprd02.prod.outlook.com
- (2603:10b6:5:3b6:cafe::69) by DS7PR03CA0188.outlook.office365.com
- (2603:10b6:5:3b6::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Tue,
- 22 Sep 2026 18:23:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL02EPF00021F6C.mail.protection.outlook.com (10.167.249.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 18:23:45 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 11:23:15 -0700
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 11:23:15 -0700
-Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.129.68.10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 22 Sep 2026 11:23:12 -0700
-Date: Tue, 22 Sep 2026 11:23:11 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
-	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
-	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>,
-	<sebastianene@google.com>, <keirf@google.com>
-Subject: Re: [PATCH v8 02/25] iommu/arm-smmu-v3: Move Queue and STE functions
- to header
-Message-ID: <arLHj4/aXNBlUFvM@nvidia.com>
-References: <20260922131259.2975334-1-smostafa@google.com>
- <20260922131259.2975334-3-smostafa@google.com>
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="ykqx23B/"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef3so299646a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:24:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790101458; x=1790706258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3bol2sXwPiGUerQXDqRvJQ0NGyxQSLBBHVEfWPm2X2E=;
+        b=ykqx23B/3L+Q90KZkcuHWNBQYKqERaqeprwTKtHOMXzaWI+A44DXJm7BhD3knKxaXl
+         JwFNe9bqWc4Re7TAEx1Qlmra3qjbBwPpbxetoleNxGHrzMJg6rDFkgC0UqrHC+fxMdQg
+         f6TyAnYe+JOokD7rxfMlJOiwl0HjeMttNrz6NcY9yzP1cELf0yINOoYKiE2pbOyLIb9M
+         VCarkAH0BmkBGfR9sO6WfPbHCcObhS/teJIsHmVvqDn5RxmSLPAVHsSXvO0m6tvqxDky
+         KZ8pkYyt3vwOV19h52QWxyzr2kfL/hiXdERRkbmvRvHeK4vvX88Yq2+wSLgX1McF+fLu
+         J6qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790101458; x=1790706258;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3bol2sXwPiGUerQXDqRvJQ0NGyxQSLBBHVEfWPm2X2E=;
+        b=kqpInPbRIHfbxusSfcH+ghp/9fpVBCO85uSuLcqJgs8iHLaqnzLsZp3SlB380D+MSr
+         bkrai51Cei2jGJio0j1avfHGOlkSczlxsXfjMEQJ7QkrhZBQRxG85X8K9stCybLvV+RU
+         azb+SBCB2oo+wiEGtWhOnlAC7encpqk0NYV/DKF2x6DrLNJKI8ESbNewlv7RPTrwjHfF
+         0nDoot2PYeXI7lq068ctxJO8IoS3iiCDcW1hWos3iwDH6nycJ6AsirLmltU3nfZv/JTE
+         3oe00ZIa72yNUufyBOkA9AHdZTgdyG+alSJnyPSkDkYIWsnvbGnhF8XLUvZQ697P/wyo
+         E6/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzb7R1yML/z3eayEyTwIF2zrjXOzUGkl60CzknXOFuDvxQIvkZvj9iKwTOGZYkNGjHm2Trdcb+xS0JPmdc=@vger.kernel.org
+X-Gm-Message-State: AFuF++knIFuRQUGHb3ngBVC7IySdjZ0zTUu9OPEybAlj58dv5xuF7OAa
+	ce2Oj5kugUcyuOKIHwjlPSASE2zZaX2ETJC/WNACaadskVsss/m3ieAwz4hT5wW9iTQ=
+X-Gm-Gg: AYBFou1jj0eSfvnlKs2zigwtL/3xtma8UVlFJJCyUz3GvzbYaoVx1BImOe6XCeTh8ry
+	+qK/bWJb1pBLcXedJ/xlOJoStCgMG4dsCMB8tmuA6s4VLZgPNmJTInseJDFaDxWWTQJP+V/eGHZ
+	6PL+Bg6Qg2ZoJjMZGGLOzMiYMvclASS8czzpXGo/U2r6UjuTvuvy0W9Ghn65X0a4+hOIcjbMlZN
+	M4rUNyl7bpvz2zQz3zRtYbeOqsERX51ph4Ga0jq5haKKdtTofHhy9JAkYtBmOnIw4pCYUkTLfSj
+	9/kSL0YeDEpo4WKSusfOAEjSWCmR6UMdO3evuOqu5JYUBIfMAAQzkt91eHCeJssxvP8ap1q2cxY
+	yWZuf3OM0+nxgYEPIlnCS2+/SIbS1BRxIqd3Pguf4RCmL76tnWtOvkS72QLvZE9zY2rSNPRcr6o
+	PSZOwgUWtQD0U1aJFX/H3+pxgDDuFqZLH01g5LQ1SB3og/fassB6U6
+X-Received: by 2002:a05:6a20:cc0e:b0:3dd:a197:edea with SMTP id adf61e73a8af0-3ddf83053dbmr281533637.57.1790101457665;
+        Tue, 22 Sep 2026 11:24:17 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4a::])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3f4173sm8509a12.20.2026.09.22.11.24.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 11:24:17 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Joe Damato <joe@dama.to>
+Subject: [RFC net v2 0/3] bnxt_en: Make RING FREE more robust
+Date: Tue, 22 Sep 2026 11:24:00 -0700
+Message-ID: <20260922182405.1290749-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260922131259.2975334-3-smostafa@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6C:EE_|SJ0PR12MB5675:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d31df3e-a6ce-409f-2509-08df18d6a3ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|82310400026|376014|36860700016|1800799024|6133799003|18002099003|22082099003|4143699003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	P76+DNMHZdaJmtmOTL7TtTEoKs8qXGTEsS3bEAhtTO+8CDAcvkzHzhxN2r4u0Ik0NSxlLvWbMW8DhP2BtN8W4X9lY9Tk9tBpg4Iswa4ATiGv6KDanwgRh4MOvqiedNTPkIUWBeXa+wckYSbaYsBRWrpzs/JwF341llLYenVSde43fgJCmDI3H1vL/gozQLvE7OUyW7M36G2lk1Ni3wAD93vH3lVfd+xNWo3zNqaGo6sEp509Dsq2MNqL8/nQP1j+8jL+MuC0EDJNqRzrT4d7cRCttfp/XSbfXKVK/wlHOOeWZVmbGlc0f9Bm30TL1ttTeR8MFP5i5aiv3b1HVa7JIzaYuP525ugMwChmhk+SpLf23X/gONfdQhKQWAen4BjG+3i0DVx/4eq/JJJdoH9OE0dZAj8eBMKylxIVQQckE542699w54p9N73wzlmXpXC6WSmX2kmTV8x6kc3CW4ub6xWDO1HEK/4SDGpLnTiFIBF6RPDcW3MPNGs3SbAOkY/jYQV7h+4ObeoU2am2OwZSuKfkEYmLIL/EUVU2m4rOW+WUvfKul7QHgWuu7sIwuXzPF6BKyxBw7zDtEFYtmSsuVzydK8XGYRqBibRrZjrvelJB9Ange32iZYjyXZOe7lAqhHUt7D6Zw+AjcG8yWra2xm39bD+xc253Q/k5zDszclBmlPyJGs8ZQfl2NdcC5z2xFMNzfRH7ZzCrqVHRK3lQ+Q==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(82310400026)(376014)(36860700016)(1800799024)(6133799003)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NiZU+9ofmNEaFHsVmJ+FdmOI6wFjcv69ypjNuOc+16igF4Sw1EbQcSWSsKJXclNiegGU9JThciv0633eklBYGJZYXHGj7eZFj+3o5MwDzd6bjt4I758AB2oPEI1Je8jc9dOHkGfDkwsldsKcUhcj2C633ry5FALYBcsWBDtc9PwAX1sMXDXkLyBluf78VYmEyj6L4g7cG2RnExFYmfyLopPxYgVmLHNQRzKMbMAh91QuUECiQS4740/AjVPlJiqokX65IrUqNm47BHHcRwTbCRcc6bgp5bb/hgFHS5n7J/EpWUXduqOp/PtlGQ48t/RUlT/2mR37THZRVftztwxJ90obgBqWrGpD2KlKcI9Appq8GkebUOJXH0arnDms4FFjWJHjNvamFzKLzi0mFIrGABy8NofwUa4lwgKTDE2hGAK25D37ErCyUdWiUckcqcxS
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 18:23:45.6020
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d31df3e-a6ce-409f-2509-08df18d6a3ac
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5675
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 01:12:35PM +0000, Mostafa Saleh wrote:
-> The KVM SMMUv3 driver would re-use some of the CMDQ and STE code
-> inside the hypervisor. Move those functions to the header file that
-> would be shared between the host kernel and the hypervisor.
-> 
-> Signed-off-by: Mostafa Saleh <smostafa@google.com>
+Greetings:
 
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+This is a follow up to the previous RFC (linked below), which takes a slightly
+different approach, is now targeted at net instead of net-next, and has a new
+subject line :)
+
+On two production systems, I saw the following dmesg pattern:
+
+  NETDEV WATCHDOG: transmit queue 0 timed out 6073 ms
+  Resp cmpl intr err msg: 0x51                  x20
+  hwrm_ring_free type 1 failed                  x12
+  hwrm_ring_free type 2 failed                  x8
+  AMD-Vi: IO_PAGE_FAULT  x3
+
+This suggests that, for some currently unknown reason, TX completions stall
+and the netdev watchdog fires. The driver asks FW to free the rings, this
+times out, but the driver ignores the possible failure and frees ring memory.
+Since the FW didn't respond to the ring free command, it is possible that the
+FW is still DMAing to the memory which was freed.
+
+This series tries to prevent this by:
+
+ - Returning and checking ring free command return values
+ - Examining the FW response if the ring free command times out. It is
+   possible that, for some reason, the FW did complete the ring free but was
+   unable to respond with an IRQ. This seems unlikely given what appears to be
+   a use after free in dmesg, but worth logging just in case.
+ - Lastly, disable the device to stop DMA before the driver frees ring memory,
+   which should prevent any possible use after free.
+
+Sending this as an RFC so that the Broadcom folks have some time to take a
+look and test as needed.
+
+Thanks,
+Joe
+
+v2:
+  - No changes to patch 1
+  - Patch 2 from v1 dropped
+  - Patch 2 in the v2 now checks the response and logs state before giving up
+  - Patch 3 in the v2 disables the device to stop DMA before freeing ring
+    memory
+
+RFCv1: https://lore.kernel.org/netdev/20260917233218.1160001-1-joe@dama.to/
+
+Joe Damato (3):
+  bnxt_en: return the RING_FREE status to callers
+  bnxt_en: check HWRM response if completion never arrives
+  bnxt_en: stop DMA before releasing rings the firmware did not free
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     | 69 +++++++++++------
+ .../net/ethernet/broadcom/bnxt/bnxt_hwrm.c    | 75 ++++++++++++++-----
+ 2 files changed, 102 insertions(+), 42 deletions(-)
+
+
+base-commit: 17741334d00bf5ebd37f8c1c36bc9c146a351deb
+-- 
+2.53.0-Meta
+
