@@ -1,161 +1,353 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518484C8C49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F964E4C2C
 	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070771; cv=none; b=rsQfa6tggkhzcRoT+UwckX4aqi9fHuRYL7n/S044KJI5IZWtzZQn+0jlnsrflhNn/qO/7mkAaEbkG7WRSWDEULHp/CcMr1kZEgPFmB5FfKGp3YuTWyZaLy0sSqaDF9e9yJKJR9QCh8RaM1M0JIs4oSvVsBTlR4DPoDr6ZIotJGQ=
+	t=1790070772; cv=none; b=eMvcfkX8qH3Ez6FwexCMO3GKdj9JyjjPExVlSIu3UnG5I60fTGE8gLXSJ/03euofbB22+zOBwi7/EWnestnzSCrUxQ1kLwe6SPxFfJs7NKW/hyLO+IdAx+I4lHx8+6eiT9aFpduc2hjzVdlelMLvt35crAaV3+p8wfo9HmT6jWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070771; c=relaxed/simple;
-	bh=oW5fjXkU1LjFKqoyF7Qy3vvc5V+m/IzJ7Oa3bKJcpYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d/WAWkXgzKIT6PYjqw6WIv7t3r/UW9HmRz7fcv+PUa2LmKIHcqaV9Nn5GuTxwA6Gw7kC0Mvj07nESA1RS6y4aujRbPgqjT5fUmsFXTrwT27lxWI+/ih5usmzxp52Gwy4KOooCBzi+lv3oCYd3FFZY7w6bRWA3iX2f+fvhFHovnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=rIZb1s8/; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790070772; c=relaxed/simple;
+	bh=/hyB+hEw6RLudRjQ7dI1d4NFysBDKsw1sQJA+/qf+iA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KHbj1dqvMepa6j3D3E9pUvTMvFtt/L/eJsRghgva/bwlJchYAk4kF9QPM5PpYTVZ75X/2AAK5aWuN9s8vsHwGf6kGbClzyQUb+mIJ1nQ+onW5DXJPg11inuEKX6ilcyD9JCoRBdBeAliYCmPwh2BsEjPOyXkN+gvXCVcBFjf8FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=UbU7CoLf; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="rIZb1s8/"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so3420519a91.0
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="UbU7CoLf"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so21799375e9.1
         for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790070769; x=1790675569; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UnrR1m0kZk2/oAOYVJ8Ilr0rQHlguOaTVy++aK2OkWM=;
-        b=rIZb1s8/XeYrPs2dr+9tO7v/sM09EMTZJb6a6gP//sqvoJNfxvjsVGQ+YcDXVMUpkX
-         AmJfvM3W2DQrg+jF1lqa7/2YSDd4G58yzF5reFSUQgPi3WVLDYclpMAW5SmvzZkKmDSu
-         acQ1Dnjm7QFljTSrw3JDONafkcN1bnT78K0OIf50raXWAMPeKZUs6f3FILz707dmGdYn
-         En1z4fdGlc96OIKShQFo+YCAYLsrvH+WC26s5F3hDoJXHOQt20oWEkCN2g6E92B3NZhN
-         SBmJQs+/zQGtdns8LdRWY6Jd1oU0UFiX990PMmy3VFjhCtI+0JyoqbiFlKrNnqD1sSzF
-         akfA==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790070768; x=1790675568; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QYbygSoXTPt7jaWPgoihIOPAkjKBdxHc4l1yrHc4AGQ=;
+        b=UbU7CoLfLA/KildSyTRxEZBDk5ouIV5wcTT9FwSAVXX8IztropXtW1B9tVhPOnvuDZ
+         vFXmRhh3nCtiSGXIfhRbM1IfCHFksGd16/TQWuamEwysvpbtDXAouWp3f3T+OQMWV8zv
+         69/gXuQV4zk/6RRYvJbtHDq99YWgX7WplJUvOnpz5o0Vxf2gHJnI146KvWlx3w/mG8p/
+         8lOCdfWMGH1kq2abyoeVe6OMV/AHqxEHBiVp8lyzWHj+9/tTK1tykmdHCa3vs5fVY1rm
+         VoVgspEI1ogbm6jhKX3gm1axLHQ3goZHo3FI4UuVNbvDOqbBUbZb6V28XFZMLChN5ohE
+         AAfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790070769; x=1790675569;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UnrR1m0kZk2/oAOYVJ8Ilr0rQHlguOaTVy++aK2OkWM=;
-        b=TJj4Wvdvlob0ej6nT5r16YvjkMRsMQLVP9o8swaeQ3n3e3S5ycWHDcn+9tdeZrV8le
-         JTrpTE0F76UcyMyUQ5IIOCXIPcHHKJtDS9wANHTiwRqR+rx7WAehrCgGzdGQpid/tYkL
-         YE7HFxC3cHceN4MfG4/AQm7ss35IxPQH/qTnnqBHY4FIrp2/QdMSDU69R6kO1P76h9tQ
-         kam0FUkGu2rnJX3N9KWNCqAIPQDAZdLb1VDfa0LZorZT5HWh/YiSgExovs+vKYUefZSk
-         WFj+VA5/XGVElpO12ahnCiDoqxmQLge9NOVlYI3WEdWkrOiKEcS4+CdL6T80nlGK7Vu2
-         pkNw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9Coff8vdH1qqGpo3cCnbTk34NWt4iD4GJW66BRNohnXS4rTbcobiIuCLnXS+vBr68KgsSbqkwixaijaA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIffGlNm98Kd8uaLdNfXSnabXTSFPv0L7iHChmWgSC8N3VWO7q
-	Z4UqWxLfGy50mziswIiA+4dDJo3DHGZosSEHnpcU9Sturkahc2p8irswijXx9NdaXNTb
-X-Gm-Gg: AYBFou14a+gqErPqBm6ezlRO0DTDIQEsJpm7fIgK/TQwKYaS8yJts2T5vkvlO7hH4g/
-	lZvbND4EkIM/FE30DTL9V88vOeoP3BMKbcDHDmfnfQXwo8u+tmJsnz4zQpjpGy29YvwqGZQ1/r6
-	pI4DNdkFujqzbGnMbziL9pr2vXudipPCE4EeThKbvxx3Wa2/kWLz5zwsIen0V2naKc7gvt+LtUz
-	IhmOcPILWGcQ1+iprwwfp1nEu7Cpenm4ZZeFFvOWrxzO3eVG0f+pLt71LJiKe7/lggke2caplqW
-	Qm1snw7AXez7FSilF1t4saj6F7fa/oYa+N3dPUjK74Jui1eizUzbcMHIvLF5LAVAzZXAZxT0/ZP
-	0HIShvQnEHZBPzlC5m8hjQU2XE/+Dua2kHmLLMO2UFCDlozUfLU9YayHFi93oJpLAkGSPJqzQvE
-	X60OdteiGWdJpzGGbmBUk0XvMhqPAR9TqxVylX6FsAIAScM7KaasKI2Wi8yromWpc3pG2/E29rv
-	uWtiapP3UEo/3OvPNbWTlRiLsajF/c=
-X-Received: by 2002:a17:90b:2ccb:b0:39e:6c68:c77a with SMTP id 98e67ed59e1d1-3a07323d479mr709033a91.48.1790070768485;
-        Tue, 22 Sep 2026 02:52:48 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06dfd6705sm2679525a91.0.2026.09.22.02.52.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1790070768; x=1790675568;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QYbygSoXTPt7jaWPgoihIOPAkjKBdxHc4l1yrHc4AGQ=;
+        b=BWtTORk33puGEctKZbb3eCY++uYwWaeskoa1Jxqg4H0sXpxddzQcLJGjnE5IMi+HmE
+         dbKW+pSl/iherNudvs644oj7ne+WxR66kGy7WSGlgDOd1oH05sUx2EYNfk5vsjkibAxk
+         zI/YcS/C+GeWxGfeO9mlYeb8D2Ia7OYzZS8OveyguM9+s1DESP/C8osYtGm+2KGEwrhe
+         PU9xho3v6QWdgsZpSag652FpKw1v03YJv6eKT1O0v7bGBbiinSSMoBF08noWNMnMiMCd
+         0Rfx/W60m6/2DtG8b/8pKeLGGksRePZVZfQnbboPf6RtFLvX1gYBHluO80uYE9FBkgre
+         NYGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwslAS40ky9YlGaqRLd+rY8eqssmpymyByqzsgKU7PVv9AIeqp0mvl1fgslx2jhKA7jVrUpUKwOo1nLYAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kC3Yz+DRXtZ/hKxWx/7D6vYRB8OA1BoQ3t2B6sYclA3BGEXlYB
+	613wiK21zAZB3tkn3PNNZJ3262IyH+vjxiSJQs2H5J0Oc/r69Rmbag1uyWAfiTN4CtA=
+X-Gm-Gg: AYBFou3WE+FQCt804mNqf3JfHJOv3+bTZSlDmJ2apJ9Gn4s9OK9v5cNheYIIBKdwgoM
+	QAyjdLC6V7RLWQhcSotoyQj+Y9fhocIxQrXEVDnF7INovVkpg+3LRpiIAD1iIirS3NI1LI55CAA
+	tK0GiJXMKZrb5SlxpFQ2JUyHb+xdDcf8ALYHQtGTgOvgCvdOw8wItolO97b+XaxGMRMB69Ovt6E
+	1fGX04xRm/HWsU0+VcxCDRwYTNbiO+aUbQEyXFhd89DcMD54J4suvL6gBDxxtKnomflI/e35L9p
+	5CP3BmhvIGs2TROUT9znOghXrlDFkt1jbXDwoEjjYxEaO+F2Fxc3yWoazcaX7xU4CjrKaV4ifLL
+	8GbKsFgaV/z6yjJqk3Ucntw3ouy2MyY/00h/Zf9biRJeqmo+UxSu1jaYyJz5lnj7fSFkI+WZsAd
+	AdMuAXP+AsEOU7Qu+e/Qy0keQQ+c0RHRcmo9XldohPBgn1AEEdc52iC2gFcjIBJeklqMliT4XWL
+	eYenIL4DtG3+MJPWU82fJuipUGQ9MsFgPFi244oncZ/INdk3N/rQPWoe4qbZMZNi8UaUedFkDHn
+	XHDMWjFr9DPwTs2oXlLt468oqXHcyEGQ2+oeIf2paYHVorFMOt4Ag0WuWUk=
+X-Received: by 2002:a05:600c:46cf:b0:49c:de80:b833 with SMTP id 5b1f17b1804b1-49fc5687b6cmr202804085e9.2.1790070767607;
         Tue, 22 Sep 2026 02:52:47 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: zihanx@nebusec.ai,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf v3 1/1] netfilter: nf_dup: disable duplication in user namespaces
-Date: Tue, 22 Sep 2026 09:52:31 +0000
-Message-ID: <b9e860571e049e0830d3b08626e28ca571e1ecc0.1790042930.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790042930.git.zihanx@nebusec.ai>
-References: <cover.1790042930.git.zihanx@nebusec.ai>
+Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaa9dbd6sm42235115e9.2.2026.09.22.02.52.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:52:46 -0700 (PDT)
+Date: Tue, 22 Sep 2026 10:52:44 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: kavakliyigitcan@gmail.com
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Henrik Rydberg <rydberg@bitmath.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, linux-input@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 02/10] backlight: add Kinetic KTD3136 driver
+Message-ID: <arJP7AMM5DqNoc8e@aspen.lan>
+References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
+ <20260911-ginkgo-submission-final-v1-2-0e68e63a18d4@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260911-ginkgo-submission-final-v1-2-0e68e63a18d4@gmail.com>
 
-nf_dup_ipv4() and nf_dup_ipv6() send a cloned packet through
-ip_local_out() or ip6_local_out(), so the clone can traverse netfilter
-hooks again. A network namespace owned by a non-initial user namespace
-can combine NFQUEUE with TEE or nftables dup and retain the clone until
-a later verdict resumes it. The transient in_nf_duplicate task guard
-has already been cleared by then, so the resumed clone can be
-duplicated again and generate packets without bound.
+On Fri, Sep 11, 2026 at 11:50:59AM +0300, YİĞİTCAN KAVAKLI via B4 Relay wrote:
+>  obj-$(CONFIG_BACKLIGHT_LM3630A)		+= lm3630a_bl.o
+> diff --git a/drivers/video/backlight/ktd3136-backlight.c b/drivers/video/backlight/ktd3136-backlight.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..a8ebe3b23c99f3ada9f45c60688f8b8c78d72def
+> --- /dev/null
+> +++ b/drivers/video/backlight/ktd3136-backlight.c
+> @@ -0,0 +1,262 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Kinetic Technologies KTD3136 3-Channel LED Backlight Driver
+> + *
+> + * Copyright (C) 2026
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/init.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#define KTD3136_REG_DEV_ID		0x00
+> +#define KTD3136_REG_SW_RESET		0x01
+> +#define KTD3136_REG_MODE		0x02
+> +#define KTD3136_REG_CONTROL		0x03
+> +#define KTD3136_REG_RATIO_LSB		0x04
+> +#define KTD3136_REG_RATIO_MSB		0x05
+> +#define KTD3136_REG_PWM			0x06
+> +#define KTD3136_REG_STATUS		0x0A
+> +
+> +#define KTD3136_DEV_ID_VAL		0x18
+> +#define KTD3136_DEV_ID_VAL2		0x19
+> +
+> +#define KTD3136_MODE_ON			0xC9	/* Boost ON, 3 channels enabled */
+> +#define KTD3136_MODE_STANDBY		0x98	/* Standby mode */
+> +#define KTD3136_CONTROL_LINEAR		0x02	/* Linear dimming mapping */
+> +#define KTD3136_PWM_DEFAULT		0x1B	/* Default PWM/boost frequency */
+> +
+> +#define KTD3136_DEFAULT_MAX_BRIGHTNESS	2047	/* 11-bit resolution */
+> +#define KTD3136_DEFAULT_BRIGHTNESS	2047
+> +
+> +struct ktd3136_data {
+> +	struct i2c_client *client;
+> +	struct backlight_device *bd;
+> +	struct gpio_desc *enable_gpio;
+> +	struct regulator *vin;
+> +	/* Protects chip registers and state */
+> +	struct mutex lock;
+> +	bool is_enabled;
+> +};
+> +
+> +static int ktd3136_write(struct ktd3136_data *chip, u8 reg, u8 val)
+> +{
+> +	int ret;
+> +
+> +	ret = i2c_smbus_write_byte_data(chip->client, reg, val);
+> +	if (ret < 0)
+> +		dev_err(&chip->client->dev, "failed to write reg 0x%02x: %d\n", reg, ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ktd3136_read(struct ktd3136_data *chip, u8 reg)
+> +{
+> +	int ret;
+> +
+> +	ret = i2c_smbus_read_byte_data(chip->client, reg);
+> +	if (ret < 0)
+> +		dev_err(&chip->client->dev, "failed to read reg 0x%02x: %d\n", reg, ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ktd3136_power_on(struct ktd3136_data *chip)
+> +{
+> +	int ret;
+> +
+> +	if (chip->is_enabled)
+> +		return 0;
+> +
+> +	if (chip->enable_gpio) {
+> +		gpiod_set_value_cansleep(chip->enable_gpio, 1);
+> +		/* Allow oscillator and internal logic to stabilize */
+> +		usleep_range(2000, 3000);
+> +	}
+> +
+> +	ret = ktd3136_write(chip, KTD3136_REG_CONTROL, KTD3136_CONTROL_LINEAR);
+> +	if (ret < 0)
+> +		goto err_off;
+> +
+> +	ret = ktd3136_write(chip, KTD3136_REG_PWM, KTD3136_PWM_DEFAULT);
+> +	if (ret < 0)
+> +		goto err_off;
+> +
+> +	chip->is_enabled = true;
+> +	return 0;
+> +
+> +err_off:
+> +	if (chip->enable_gpio)
+> +		gpiod_set_value_cansleep(chip->enable_gpio, 0);
+> +	return ret;
+> +}
+> +
+> +static void ktd3136_power_off(struct ktd3136_data *chip)
+> +{
+> +	if (!chip->is_enabled)
+> +		return;
+> +
+> +	ktd3136_write(chip, KTD3136_REG_MODE, KTD3136_MODE_STANDBY);
+> +
+> +	if (chip->enable_gpio)
+> +		gpiod_set_value_cansleep(chip->enable_gpio, 0);
 
-There is no sensible use case for packet duplication in a user
-namespace. Skip IPv4 and IPv6 duplication when the network namespace
-is not owned by the initial user namespace. Keep the existing TEE/dup
-behavior in the initial user namespace.
+Why does this powering off leave the regulator active?
 
-Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v3:
-  - rerolled the unchanged fix against the latest nf.git main
-    after no follow-up was received on v2
-  - add the required Co-developed-by trailer and matching
-    Signed-off-by
-  - v2 Link: https://lore.kernel.org/all/cover.1788425393.git.zihanx@nebusec.ai/
-changes in v2:
-  - drop the persistent struct sk_buff::nf_duplicated field and nf_copy()
-    change from v1
-  - disable IPv4/IPv6 duplication in network namespaces owned by a
-    non-initial user namespace, as preferred on review
-  - v1 Link: https://lore.kernel.org/all/cover.1787903722.git.zihanx@nebusec.ai/
 
- net/ipv4/netfilter/nf_dup_ipv4.c | 3 +++
- net/ipv6/netfilter/nf_dup_ipv6.c | 3 +++
- 2 files changed, 6 insertions(+)
+> +
+> +	chip->is_enabled = false;
+> +}
+> +
+> +static int ktd3136_update_status(struct backlight_device *bd)
+> +{
+> +	struct ktd3136_data *chip = bl_get_data(bd);
+> +	int brightness = backlight_get_brightness(bd);
+> +	int ret = 0;
+> +	u8 lsb, msb;
+> +
+> +	mutex_lock(&chip->lock);
+> +
+> +	if (backlight_is_blank(bd) || brightness == 0) {
+> +		ktd3136_power_off(chip);
+> +		goto out;
+> +	}
+> +
+> +	ret = ktd3136_power_on(chip);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	lsb = brightness & 0x07;
+> +	msb = (brightness >> 3) & 0xFF;
+> +
+> +	ret = ktd3136_write(chip, KTD3136_REG_RATIO_LSB, lsb);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret = ktd3136_write(chip, KTD3136_REG_RATIO_MSB, msb);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret = ktd3136_write(chip, KTD3136_REG_MODE, KTD3136_MODE_ON);
+> +
+> +out:
+> +	mutex_unlock(&chip->lock);
+> +	return ret;
+> +}
+> +
+> +static const struct backlight_ops ktd3136_backlight_ops = {
+> +	.options = BL_CORE_SUSPENDRESUME,
+> +	.update_status = ktd3136_update_status,
+> +};
+> +
+> +static int ktd3136_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct backlight_properties props;
+> +	struct ktd3136_data *chip;
+> +	int ret, val;
+> +	u32 def_brightness = KTD3136_DEFAULT_BRIGHTNESS;
+> +	u32 max_brightness = KTD3136_DEFAULT_MAX_BRIGHTNESS;
+> +
+> +	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
+> +	if (!chip)
+> +		return -ENOMEM;
+> +
+> +	chip->client = client;
+> +	mutex_init(&chip->lock);
+> +
+> +	chip->vin = devm_regulator_get_optional(dev, "vin");
+> +	if (IS_ERR(chip->vin)) {
+> +		ret = PTR_ERR(chip->vin);
+> +		if (ret != -ENODEV)
+> +			return dev_err_probe(dev, ret, "Failed to get vin regulator\n");
+> +		chip->vin = NULL;
+> +	}
+> +
+> +	if (chip->vin) {
+> +		ret = regulator_enable(chip->vin);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Failed to enable vin regulator\n");
+> +	}
 
-diff --git a/net/ipv4/netfilter/nf_dup_ipv4.c b/net/ipv4/netfilter/nf_dup_ipv4.c
-index 9a773502f10ac..c33dae248c477 100644
---- a/net/ipv4/netfilter/nf_dup_ipv4.c
-+++ b/net/ipv4/netfilter/nf_dup_ipv4.c
-@@ -53,6 +53,9 @@ void nf_dup_ipv4(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- {
- 	struct iphdr *iph;
- 
-+	if (net->user_ns != &init_user_ns)
-+		return;
-+
- 	local_bh_disable();
- 	if (current->in_nf_duplicate)
- 		goto out;
-diff --git a/net/ipv6/netfilter/nf_dup_ipv6.c b/net/ipv6/netfilter/nf_dup_ipv6.c
-index 6da3102b7c1b3..a5f6f074a7e91 100644
---- a/net/ipv6/netfilter/nf_dup_ipv6.c
-+++ b/net/ipv6/netfilter/nf_dup_ipv6.c
-@@ -47,6 +47,9 @@ static bool nf_dup_ipv6_route(struct net *net, struct sk_buff *skb,
- void nf_dup_ipv6(struct net *net, struct sk_buff *skb, unsigned int hooknum,
- 		 const struct in6_addr *gw, int oif)
- {
-+	if (net->user_ns != &init_user_ns)
-+		return;
-+
- 	local_bh_disable();
- 	if (current->in_nf_duplicate)
- 		goto out;
--- 
-2.43.0
+Why is the regulator managed here rather than in the power_on/off functions?
 
+Also, you need to keep track of the regulator state. You must "put" the
+regulator before allowing devm to clean it up (handling the regulator
+state in power_on/off would solve this).
+
+
+> +
+> +	chip->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(chip->enable_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(chip->enable_gpio),
+> +				     "Failed to get enable GPIO\n");
+> +
+> +	if (chip->enable_gpio)
+> +		usleep_range(2000, 3000);
+> +
+> +	val = ktd3136_read(chip, KTD3136_REG_DEV_ID);
+> +	if (val < 0)
+> +		return dev_err_probe(dev, val, "Failed to read device ID\n");
+> +
+> +	if (val != KTD3136_DEV_ID_VAL && val != KTD3136_DEV_ID_VAL2) {
+> +		dev_err(dev, "Unknown device ID: 0x%02x\n", val);
+> +		return -ENODEV;
+> +	}
+> +
+> +	dev_info(dev, "Kinetic KTD3136 detected (ID: 0x%02x)\n", val);
+
+Remove this. Happy noises are still noise!
+
+
+> +
+> +	device_property_read_u32(dev, "max-brightness", &max_brightness);
+> +	if (max_brightness > KTD3136_DEFAULT_MAX_BRIGHTNESS)
+> +		max_brightness = KTD3136_DEFAULT_MAX_BRIGHTNESS;
+> +
+> +	device_property_read_u32(dev, "default-brightness", &def_brightness);
+> +	if (def_brightness > max_brightness)
+> +		def_brightness = max_brightness;
+> +
+> +	memset(&props, 0, sizeof(props));
+> +	props.type = BACKLIGHT_RAW;
+> +	props.max_brightness = max_brightness;
+> +	props.brightness = def_brightness;
+
+The scale property needs to be set here.
+
+
+Daniel.
