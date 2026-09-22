@@ -1,93 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C432F260C;
-	Tue, 22 Sep 2026 13:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8088D548575;
+	Tue, 22 Sep 2026 13:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790082914; cv=none; b=jVTOS4q8Vd/JUE9hHjN1RjazKTM8Jh4sIeawX9qQxbjfa9vl7aIDeV1jo2SX9mCun+IrlfgC+jdnaLQr/x0AA+XeqfsYUQbBP9TnCXUVPTHCcFgRYY6j4I1DDqFkKwg6KkTIA8vIBaB0jwxZ+TYuG1f28d+7D26nIULpI7J4soQ=
+	t=1790082926; cv=none; b=fKu5BcmZFrYos7d1XJs4Ba77AucDGOQ+V4DTmNSQeXfX2FDClRRbh98NXTqVo4o5FkFzNVVyn1TwaxiHOx/pByVUyi2m9MmxF/AcTvjTOrMWdrR0JcFS21KhcdVvn97adMbjOoe2IKIJSwBgp/Bij6cIspzw5yALL8geg9KTbQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790082914; c=relaxed/simple;
-	bh=CWqKBopev0DtqoTGjObPQvbDogwg603nphg8euSqWN8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NwQk1VlB4lLm/FbvzBU4aGvzsrBm9DPmC9uosqozjcg857ZCKAtUi8uAMKb0T5ZjFxiqwsP2Fe+7UfDBdYJ+1OHVmJvn9vwHo8F8mpzZCgGXOAo0eSSAq+AkB7Mj8agXTtLELSedOLNQpS4j7hcOT3dPGtqAo/g+XR6/JJKuP1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gw+gsEEp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790082926; c=relaxed/simple;
+	bh=fAfooiMjSiosKY29Z+1N7buwVfnIs/hM0E9viUjLAwg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kz1z7Susj4+8BNrUdYYFjvNGN6qLzyagv3YOpJLNIhwc9C0QPTSz+kA82gOgfuYqkfZmUVmvNaFjPMACfkYW2HW3MuoWQF8RosOtL30x12FQe5q31RHcu2UAnFj8JVVZhQUpQK2792sYeox+5QEFdnuVV2oJBMErc5lLycG2q7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdtNwO08; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gw+gsEEp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62DD91F000FF;
-	Tue, 22 Sep 2026 13:15:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdtNwO08"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2371F000FF;
+	Tue, 22 Sep 2026 13:15:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790082913;
-	bh=A2GjMlZydqdG8KlmnrTtS91yqc6IaV8j4mtQvdX7USE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gw+gsEEp1ReAwh7I/Cg9V58ERQAjG1y5v1S/xRrsF7TTzdHhaC1GFUbLEPW6p7hXK
-	 Al0YFgMAjgOVrulywncA3KEcuXV7JM6/2Nkc8c1h+trb5/Mh/XfX+y7S7zKR2TDSVU
-	 hPGP7hc0lHM9C2DQLO1l7dMCTnqby3mrqLVxXev8FVRDNv8SWSHKoUzduaYFtHMc7x
-	 g/PpS2GVYVJKe1jXATN8Dryg8orAZL7MXE3AMKXh0MnxPcatQ3D24Q6kP0k8Mt1vx+
-	 7qmv2hIofOsGqaORX5Yjc9Oxdp7Ze5FpkZWkpdfSu/4j9AlNZIdi1LNs59Laa3u3wE
-	 RG5jGOP5nsolA==
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Yishai Hadas <yishaih@nvidia.com>, 
- Chengchang Tang <tangchengchang@huawei.com>, 
- Junxian Huang <huangjunxian6@hisilicon.com>, 
- Edward Srouji <edwards@nvidia.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev
-In-Reply-To: <20260915-fix-cq-cleanup-v1-0-e991944cf898@nvidia.com>
-References: <20260915-fix-cq-cleanup-v1-0-e991944cf898@nvidia.com>
-Subject: Re: [PATCH rdma-next 0/4] RDMA: Use unsigned comparison in CQ
- cleanup loops
-Message-Id: <179008291023.3238769.13558406499996514040.b4-ty@kernel.org>
-Date: Tue, 22 Sep 2026 09:15:10 -0400
+	s=k20260515; t=1790082925;
+	bh=RDmILnS69iCDqBGrV+DzvEqx/4VWsco+asG5Xcvrajc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZdtNwO08OPlHYOCw0qsQ1DkoJVljhe6kQ2vGsP5S6G9dMJa31CAGgEsp1oecXHqIV
+	 H1nQUBrMrNnJYMRg65OdsvVQn0NhwWpqiaL+D1LxW3ef0CUoMC3owIgcrlRQEt57NV
+	 hd7Q+rNVRggaVGqXDdsseEJZWxE2uDRH9B4kcSi6GODs1rqi57IHM0g7ysr8ZyG4GB
+	 9PhUrGYFciY4GLLFpcVMxJDd3y0PByS/Yfhk1iEYkFzAmvJSJ4s7UiDFCXPIRWRuk3
+	 iwgXvO0QuGy71UV9Am/zPtcAk9QnbcTQzxzaw/vR5s5mT7eVlrhiJ+rRw8TYgPu3U9
+	 /H5ZrrM1vcSOA==
+Date: Tue, 22 Sep 2026 15:15:16 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v18 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Message-ID: <6h6rw73eu7jd57g3v2v233ostssqtngojqyx3fwfzkjswa3ybt@t3dkzk2zwig4>
+References: <20260917-x1e-csi2-phy-v18-0-6515b5255fa9@linaro.org>
+ <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
 
-
-On Tue, 15 Sep 2026 18:33:27 +0300, Edward Srouji wrote:
-> mlx5, mlx4, mthca and hns all sweep the CQ backwards when cleaning
-> completions for a QP that is being destroyed, using the same open-coded
-> loop (mlx5 shown):
-> 	while ((int) --prod_index - (int) cq->mcq.cons_index >= 0)
-> Both indexes are free running u32 counters, so the comparison has to be
-> done modulo 2^32. Casting each operand to int and subtracting does not
-> do that: the subtraction overflows once the two indexes straddle 2^31,
-> which is undefined behaviour, and a compiler that assumes signed
-> overflow cannot occur is free to fold the expression into a plain signed
-> comparison that is not wraparound safe.
-> This is not a fix. The kernel is built with -fno-strict-overflow, so
-> gcc and clang both retain the subtraction, the generated code is
-> unaffected, and there is no known user-visible impact.  The casts buy
-> nothing, though, and the correctness of these loops should not rest on
-> a build flag. The series drops the arithmetic instead:
-> 	while (prod_index != cq->mcq.cons_index) {
-> 		--prod_index;
-> 		...
-> No functional change intended.
+On Thu, Sep 17, 2026 at 12:58:39AM +0100, Bryan O'Donoghue wrote:
+> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
+> existing CAMSS CSI PHY init sequences are imported in order to save time
+> and effort in later patches.
 > 
-> [...]
+> The following devices are supported in this drop:
+> "qcom,x1e80100-csi2-phy"
+> 
+> In-line with other PHY drivers the process node is included in the name.
+> Data-lane and clock lane positioning and polarity selection via newly
+> amended struct phy_configure_opts_mipi_dphy{} is supported.
+> 
+> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
+> DPHY is supported.
+> 
+> In porting some of the logic over from camss-csiphy*.c to here its also
+> possible to rationalise some of the code.
+> 
+> In particular use of regulator_bulk and clk_bulk as well as dropping the
+> seemingly useless and unused interrupt handler.
+> 
+> The PHY sequences and a lot of the logic that goes with them are well
+> proven in CAMSS and mature so the main thing to watch out for here is how
+> to get the right sequencing of regulators, clocks and register-writes.
+> 
+> The register init sequence table is imported verbatim from the existing
+> CAMSS csiphy driver. A follow-up series will rework the table to extract
+> the repetitive per-lane pattern into a loop.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Applied, thanks!
+If you are planning for a cleanup series, please drop 'inline' keyword from
+'mipi_csi2phy_device_regs()'.
 
-[1/4] RDMA/mlx5: Use unsigned comparison in the CQ cleanup loop
-      https://git.kernel.org/rdma/rdma/c/c6aa5feb521066
-[2/4] RDMA/mlx4: Use unsigned comparison in the CQ cleanup loop
-      https://git.kernel.org/rdma/rdma/c/c5fe428bb23edc
-[3/4] RDMA/mthca: Use unsigned comparison in the CQ cleanup loop
-      https://git.kernel.org/rdma/rdma/c/b934024d3aafb9
-[4/4] RDMA/hns: Use unsigned comparison in the CQ cleanup loop
-      https://git.kernel.org/rdma/rdma/c/ebb65190349537
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Best regards,
+- Mani
+
 -- 
-Leon Romanovsky <leon@kernel.org>
-
+மணிவண்ணன் சதாசிவம்
