@@ -1,283 +1,147 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FA04AB1A3;
-	Tue, 22 Sep 2026 20:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE0D4B1262
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:21:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790108468; cv=none; b=AraIQr++KbDtvhxtFfCGh6f1/h7E3sC3GZyKWSaRr8OqiRK/mzdDpqeCxXktg3a5MB4SaGX3Yju9t4IdgvnrgQ0IOt06TRC6Krn57H4dlvfJGgCfaWumCUFjOGWgpaKIgTRrFdjt5BNL8IgF3xXosSJhgDA9fLqa6yJiav7FCIQ=
+	t=1790108508; cv=none; b=r0Xjg4GaCtHu1+scvHhQBxYLuVxet948kpwn/9wSjzziphJPQk5hphYIh+QQVwfYbagAib/T0EggGeNQlTkEse1KxW6Thkd9asoZnhQcGKcQqH0+ce4vVDwIYPzeCkMPk1yFyOsTG13QpCCgiv5mPMNlvZLKVF8dKV1JiHTZsC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790108468; c=relaxed/simple;
-	bh=LfqTiuToe7fF43mv5efr3OznHeOkkyK34UuQKPN6huo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AhzsObTI2h5+Afr4jlzKmSuHo+fe5TUEjp3tcKIc7eZ3VIL+ylZuqLho8v0PtL9h4VCRaRGcnGPYjoaCygNuurWZeIuXvEcjVOf9rtE+WL8pNmJpjyKEVyofBpaMcrG2c5fXY9kOY14MpgkW0ZJLQMrx7LR2xY4e8T7Qw9Oq5bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T4rLk54d; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790108508; c=relaxed/simple;
+	bh=qf7Jhvlpto+YQaPLd8xjFzZPBrjOJul/qhE2Z1fkH1w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FaA0RasL1VfWvTnfFT8xSuEP+iJjxan20XARHwQ+b6EFZhSqpedk3tAiQ8pJ8dZ1onJGq6thrszYXsNYUwz5fw3DGuIOAVgPQ0iI5E2V4joCK/O249xA0g4hT3D5j/Je58473CIUOgMBF25Dld+AHj431BFBqv4uQmlRgygp1nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Li40UMtd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T4rLk54d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790108453; x=1821644453;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=LfqTiuToe7fF43mv5efr3OznHeOkkyK34UuQKPN6huo=;
-  b=T4rLk54dJVrvtyRmCNmjd/jX0mlhj+dSHFNcsSyRjOTTztoMjAFi5Qi/
-   NK0MWFQVg+E+cCJY0O41v6MJ4W2AzD9vPxZcKqAAe+BcS0LyqKk7HmFvZ
-   /GP/fotYJUtjyk1CY8PTlgO4Ww9r4LxIYvCbPZ4618oFpR4qxvGwnXegW
-   CyMPHpE6xFhB0c2OpJgyn1Nn107Nc74ileJRuCLKO4YsDMVmzBtsjpx9D
-   nJgCoGKZJH4/S2Ooi900TPoZy59mPYlX0dRda81PovM9rAugfQ9ti8Dxv
-   hPTpvEnUTXGerauvOeNvYrhihNC/4XAISsusJei/e9D/TAAl0Vyzrfu5n
-   w==;
-X-CSE-ConnectionGUID: bYyW6nAeTTWJCh3lBBgvgA==
-X-CSE-MsgGUID: WmB9i6bGQCG0u+EvmhXqwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101340438"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="101340438"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:20:30 -0700
-X-CSE-ConnectionGUID: VbC8ywc4RiGj0HieDxm3ag==
-X-CSE-MsgGUID: Ev1uNTSKTW2KB+Xdpd4QXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="269799195"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.110.60])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:20:30 -0700
-From: Vishal Verma <vishal.l.verma@intel.com>
-Date: Tue, 22 Sep 2026 14:20:07 -0600
-Subject: [PATCH v3 2/2] x86/early_printk: Add earlyprintk=tdx to drive the
- UART with TDVMCALLs
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Li40UMtd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790108500;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lmFVZilOMn/yRZfsmK1Eg1J9bzLw2lur3L0aHYwLcTo=;
+	b=Li40UMtdIMuWORsiX18PbpJCC1HzzomYFatnJ+p0zuFgkRXmvk4wuayozsxTYIbbTz3fZS
+	pu63p9R1rqr9OlGngNMTNrtb1sPRkhVuBDj6CcIGhsHqU4PMAD8tanbVLmhgqJiGdNGBpc
+	q6LlgoRBZtsG9PObNItsr86uc54U4qU=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-623-r7jBYWoeMJKo6n2PqoYroA-1; Tue,
+ 22 Sep 2026 16:21:36 -0400
+X-MC-Unique: r7jBYWoeMJKo6n2PqoYroA-1
+X-Mimecast-MFC-AGG-ID: r7jBYWoeMJKo6n2PqoYroA_1790108494
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 552B119772F3;
+	Tue, 22 Sep 2026 20:21:34 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 35FA1300106D;
+	Tue, 22 Sep 2026 20:21:32 +0000 (UTC)
+Message-ID: <d95e0c38-87f4-4ff7-bdb9-e76da31547b8@redhat.com>
+Date: Tue, 22 Sep 2026 16:21:31 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] cgroup/cpuset: prevent activating local partition
+ over remote one
+To: Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Ridong Chen <ridong.chen@linux.dev>
+Cc: Michal Koutny <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
+ <20260920181449.3122336-1-benquike@gmail.com>
+ <20260920181449.3122336-2-benquike@gmail.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20260920181449.3122336-2-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-b4-tdx_earlyprintk_tdcalls-v3-2-6ebaa599df10@intel.com>
-References: <20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com>
-In-Reply-To: <20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com>
-To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
- Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
- kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
- Vishal Verma <vishal.l.verma@intel.com>
-X-Mailer: b4 0.16-dev-62088
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7218;
- i=vishal.l.verma@intel.com; h=from:subject:message-id;
- bh=LfqTiuToe7fF43mv5efr3OznHeOkkyK34UuQKPN6huo=;
- b=owGbwMvMwCXGf25diOft7jLG02pJDFmbHvPsTQyODz5Z/4DfxKDOY6ZK1MuCYPdJBY7/9cMCd
- E+9ML3WUcrCIMbFICumyPJ3z0fGY3Lb83kCExxh5rAygQxh4OIUgImUaDMyXJKaFpgYtae5allX
- /Y2bZmunb3p+28LktPpzsUX/O5yE+RgZFvB7vM7WKHq9Sl26uv/yvyksh+8fNWYOO3X8RGuu1po
- p3AA=
-X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
- fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-A TDX guest cannot execute port I/O instructions directly, but
-earlyprintk's serial console still issues plain inb()/outb() and lets
-each one fault into the #VE handler to be emulated as a TDVMCALL.
+On 9/20/26 2:14 PM, Hui Peng wrote:
+> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
+> partition over a remote one") added a check in update_prstate() to reject
+> creating a top-level local partition whose cs->exclusive_cpus intersects
+> subpartitions_cpus.
+>
+> However, if a top-level cgroup A1 is first set to "root" with all CPUs
+> (CX0-7:P1, becoming "root invalid" because no CPUs would remain in
+> top_cpuset), has a child A1/A2 enabled as a remote partition on a subset
+> of those exclusive CPUs (CX2-3:P2), and A1 is then updated to a valid CPU
+> subset (CX1-3), update_exclusive_cpumask() / update_cpumask() calls
+> validate_partition() without going through update_prstate(). Because
+> validate_partition() does not check trialcs->exclusive_cpus against
+> subpartitions_cpus, A1 transitions from "root invalid" to a valid local
+> partition over the existing remote partition A1/A2 and triggers:
+>
+>    WARNING: kernel/cgroup/cpuset.c:1943 at update_parent_effective_cpumask+0x189b/0x1fd0
+>
+> Check trialcs->exclusive_cpus against subpartitions_cpus in
+> validate_partition() when !is_partition_valid(cs), and add a regression
+> test case to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Tested in QEMU on Linux 7.3.0-rc3 using
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+>
+> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v3:
+> - Split the validate_partition() fix (Fixes: 6da580ec656a) and the
+>    cpus_excl_conflict() fix (Fixes: 2a3602030d80) into separate patches.
+>
+>   kernel/cgroup/cpuset.c                        | 4 ++++
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
+>   2 files changed, 6 insertions(+)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7381fa8502e7..7c5b4a8f1f3a 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2415,6 +2415,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
+>   	if (cpumask_empty(trialcs->effective_xcpus))
+>   		return PERR_INVCPUS;
+>   
+> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
+> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
+> +		return PERR_REMOTE;
+> +
+This additional check looks good.
+>   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
+>   					  trialcs->effective_xcpus))
+>   		return PERR_HKEEPING;
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index b732078bf319..f4d1822d4e21 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -321,6 +321,8 @@ TEST_MATRIX=(
+>   	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
+>   	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
+>   	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
+> +	" CX0-7:P1 CX2-3:P2 .      .    CX1-3    .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
+> +								       A1:P-1|A2:P2 2-3"
 
-While that works, it is a roundabout way to get a character out.
-early_serial_putc() polls the LSR, and then writes a byte, but since the
-TDX guest can't directly do port I/O, a #VE exception is raised. The #VE
-handler must call TDG.VP.VEINFO.GET to find out what faulted, and then
-it can issue the TDVMCALL that does the actual work.
+This test will not work because you are assuming the test system only 
+have 8 CPUs. That may not be the case and 2 local partitions may be 
+created instead.
 
-This makes #VE a functional mechanism for doing I/O, which is not
-desirable, is unnecessarily complicated and fragile, and results in
-twice the number of calls into the TDX module.
+Cheers,
+Longman
 
-Instead, add an earlyprintk=tdx option, which can issue the TDVMCALLs
-directly. Add a pair of tdx_serial_in() and tdx_serial_out() accessors
-and set them up in this case.
-
-Note that the output does not appear any earlier - "earlyprintk=" is an
-early_param(), so the console is still registered from
-parse_early_param(). This only changes how the bytes leave the guest
-once it is up.
-
-LLMs were used under supervision to create this patch, to help
-understand the scope and mechanisms, create testing instrumentation
-(throwaway) to count #VEs in the serial vs tdx earlyprintk setups,
-and to drive lab machines to do this testing.
-
-Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
----
- Documentation/admin-guide/kernel-parameters.txt |  9 ++++++
- arch/x86/include/asm/tdx.h                      |  3 ++
- arch/x86/coco/tdx/tdx.c                         | 39 +++++++++++++++++++++++
- arch/x86/kernel/early_printk.c                  | 41 +++++++++++++++++++++++++
- 4 files changed, 92 insertions(+)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 33cd30996e47..f8dac4a58327 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1543,6 +1543,7 @@ Kernel parameters
- 			earlyprintk=serial[,ttySn[,baudrate]]
- 			earlyprintk=serial[,0x...[,baudrate]]
- 			earlyprintk=ttySn[,baudrate]
-+			earlyprintk=tdx
- 			earlyprintk=dbgp[debugController#]
- 			earlyprintk=mmio32,membase[,{nocfg|baudrate}]
- 			earlyprintk=pciserial[,force],bus:device.function[,{nocfg|baudrate}]
-@@ -1556,6 +1557,14 @@ Kernel parameters
- 			Use "nocfg" to skip UART configuration, assume
- 			BIOS/firmware has configured UART correctly.
- 
-+			On x86, "tdx" is a fixed COM1 console, and takes no
-+			options. In a TDX guest the port is driven with
-+			TDVMCALLs rather than port I/O instructions, avoiding
-+			the #VE exception that would otherwise be taken to
-+			emulate every access. Outside a TDX guest it falls back
-+			to port I/O, behaving like "earlyprintk=serial". If
-+			CONFIG_INTEL_TDX_GUEST is not set, it is ignored.
-+
- 			Append ",keep" to not disable it when the real console
- 			takes over.
- 
-diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
-index 89e97d5761d8..325dd7c5929f 100644
---- a/arch/x86/include/asm/tdx.h
-+++ b/arch/x86/include/asm/tdx.h
-@@ -83,6 +83,9 @@ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
- 
- u64 tdx_hcall_get_quote(u8 *buf, size_t size);
- 
-+u8 tdx_inb(u16 port);
-+void tdx_outb(u8 value, u16 port);
-+
- void __init tdx_dump_attributes(u64 td_attr);
- void __init tdx_dump_td_ctls(u64 td_ctls);
- 
-diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-index 7d1a93ee2534..d8887a2a524b 100644
---- a/arch/x86/coco/tdx/tdx.c
-+++ b/arch/x86/coco/tdx/tdx.c
-@@ -194,6 +194,45 @@ u64 tdx_hcall_get_quote(u8 *buf, size_t size)
- }
- EXPORT_SYMBOL_GPL(tdx_hcall_get_quote);
- 
-+/**
-+ * tdx_inb() - Read a byte from an I/O port without a #VE
-+ * @port: I/O port to read from
-+ *
-+ * Ask the VMM to perform the read with TDG.VP.VMCALL<Instruction.IO>, rather
-+ * than executing an IN instruction and having the resulting #VE emulate it.
-+ *
-+ * Return: the byte read, or 0xFF if the hypercall failed.
-+ */
-+u8 tdx_inb(u16 port)
-+{
-+	struct tdx_module_args args = {
-+		.r10 = TDX_HYPERCALL_STANDARD,
-+		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
-+		.r12 = 1,
-+		.r13 = TDVMCALL_PORT_READ,
-+		.r14 = port,
-+	};
-+
-+	if (__tdx_hypercall(&args))
-+		return 0xFF;
-+
-+	return args.r11;
-+}
-+
-+/**
-+ * tdx_outb() - Write a byte to an I/O port without a #VE
-+ * @value: byte to write
-+ * @port: I/O port to write to
-+ *
-+ * Ask the VMM to perform the write with TDG.VP.VMCALL<Instruction.IO>, rather
-+ * than executing an OUT instruction and having the resulting #VE emulate it.
-+ */
-+void tdx_outb(u8 value, u16 port)
-+{
-+	_tdx_hypercall(hcall_func(EXIT_REASON_IO_INSTRUCTION), 1,
-+		       TDVMCALL_PORT_WRITE, port, value);
-+}
-+
- static void __noreturn tdx_panic(const char *msg)
- {
- 	struct tdx_module_args args = {
-diff --git a/arch/x86/kernel/early_printk.c b/arch/x86/kernel/early_printk.c
-index cba75306e5b6..194737a3e9a0 100644
---- a/arch/x86/kernel/early_printk.c
-+++ b/arch/x86/kernel/early_printk.c
-@@ -21,6 +21,7 @@
- #include <linux/usb/xhci-dbgp.h>
- #include <asm/pci_x86.h>
- #include <linux/static_call.h>
-+#include <asm/tdx.h>
- 
- /* Simple VGA output */
- #define VGABASE		(__ISA_IO_base + 0xb8000)
-@@ -111,6 +112,23 @@ ANNOTATE_NOENDBR_SYM(io_serial_out);
- DEFINE_STATIC_CALL(serial_in, io_serial_in);
- DEFINE_STATIC_CALL(serial_out, io_serial_out);
- 
-+#ifdef CONFIG_INTEL_TDX_GUEST
-+/*
-+ * A TDX guest cannot execute port I/O instructions, so ask the VMM to do it.
-+ */
-+static __noendbr unsigned int tdx_serial_in(unsigned long addr, int offset)
-+{
-+	return tdx_inb(addr + offset);
-+}
-+ANNOTATE_NOENDBR_SYM(tdx_serial_in);
-+
-+static __noendbr void tdx_serial_out(unsigned long addr, int offset, int value)
-+{
-+	tdx_outb(value, addr + offset);
-+}
-+ANNOTATE_NOENDBR_SYM(tdx_serial_out);
-+#endif /* CONFIG_INTEL_TDX_GUEST */
-+
- static int early_serial_putc(unsigned char ch)
- {
- 	unsigned timeout = 0xffff;
-@@ -196,6 +214,22 @@ static __init void early_serial_init(char *s)
- 	early_serial_hw_init(divisor);
- }
- 
-+#ifdef CONFIG_INTEL_TDX_GUEST
-+/*
-+ * Use early_serial_base (COM1) and same default baud rate as
-+ * "earlyprintk=serial"
-+ */
-+static __init void early_serial_tdx_init(void)
-+{
-+	if (cpu_feature_enabled(X86_FEATURE_TDX_GUEST)) {
-+		static_call_update(serial_in, tdx_serial_in);
-+		static_call_update(serial_out, tdx_serial_out);
-+	}
-+
-+	early_serial_hw_init(115200 / DEFAULT_BAUD);
-+}
-+#endif /* CONFIG_INTEL_TDX_GUEST */
-+
- static __noendbr void mem32_serial_out(unsigned long addr, int offset, int value)
- {
- 	u32 __iomem *vaddr = (u32 __iomem *)addr;
-@@ -414,6 +448,13 @@ static int __init setup_early_printk(char *buf)
- 			early_serial_init(buf + 4);
- 			early_console_register(&early_serial_console, keep);
- 		}
-+#ifdef CONFIG_INTEL_TDX_GUEST
-+		if (!strncmp(buf, "tdx", 3)) {
-+			early_serial_tdx_init();
-+			early_console_register(&early_serial_console, keep);
-+			break;
-+		}
-+#endif
- #ifdef CONFIG_PCI
- 		if (!strncmp(buf, "pciserial", 9)) {
- 			buf += 9; /* Keep from match the above "pciserial" */
-
--- 
-2.55.0
+>   
+>   	# Local partition invalidation tests
+>   	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
 
