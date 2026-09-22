@@ -1,105 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E97B53F694
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5342434408;
+	Tue, 22 Sep 2026 14:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790086002; cv=none; b=cs8HVi54YAPpCc0/YGVFezn/GqWTRdp3iBRrxOC1nf7AzY8qjz5s4ooxunH58ZK2vXY8rOz/z2qtyg3m34vg9fkoNikduBxm+pPLHo2pOqWy+HlZiLKPrHnXREd6MW37KG4RiRYjI6i4aUInF35bBsPx+51q0D8GLSS7h9piKQU=
+	t=1790086018; cv=none; b=UX6IaT/EBS679bmH3aY6zVFZP3OBnHP8djuqaiH3hBNIWvOL6lfz4t7jZsg/Jm+Yu2gPiplCIemzHvdZi56aDYUua6N8rYA7lijdMlj/rNhMlsFIBdh0kPPVhB4HUIgYjFjA3Pw/xgWP7rQYDHUKcJi7h3AnT2AUiq5KHZLCFOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790086002; c=relaxed/simple;
-	bh=8YT7zCTEOtTi+DhThW3Q2EI4+sV3BD+6ovKn3PFEKsM=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=dc897buAZvSuF6pjpNT4HXNNSMhso1GS85QbA2kZz5No43wHBk816uciWazIPMmq0gDWhedWj8Sqysrqlosd6/Lzpit/W2a46nLKoSx2xAgOjPdGCgz/4BZQpOGmztcY63DqE3dC3jx5J/hh8EIHxWmTACeLf9jSATjrWA+tSPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtdqFT2/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790086018; c=relaxed/simple;
+	bh=Ab6VLiURMeVmj2kT0Pnx0Vi0Cryu18twXpKjCl+8eyw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tuOld8xoWA777Y4zFKyuHI64Y7VR7ZbKOwYfuq8UgGWt/a7uSHhzR/rKkWwnlIj738Te991DMZQBqx2T9wNB/6Y4qsnwMZQKOKT/zVBJN43on2fR58BfsDWQsivmeuEeeX0IyQnPHrZbgsRe7gr0/U8/FUb/HRCeFEqiuFUAv1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Te7BBp7p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtdqFT2/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F2601F00898;
-	Tue, 22 Sep 2026 14:06:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Te7BBp7p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6DB31F000FF;
+	Tue, 22 Sep 2026 14:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790086000;
-	bh=L//P5NyOuHR1Jrk9NeNBtxDdceW2fcOYPJ4vvra3O+o=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=GtdqFT2/zw30B2Q2Ul14yhkeTcdg4jIzh5ovaw2xMPbdPmJ/W3aFiLXLATevDCCiK
-	 WNaznQr7psEdEbX53GAJXR2iqlmPzzNeDJoh85xPSSfmMak5HNDmvSxcSlU1S9Qaxn
-	 EaTre23Qrw6hFDEnDEsT04kaUpMsQAkYJKYTweYlmZatdrCfsNuKul34CyOPHDT9/P
-	 iYBbb1BiOjz4ZJ24ejy3N6tHjCTw5Xbl1Ll/GZF1Esp3/I4XUGfGg/h9m++852BS5c
-	 Dq2e8JupGtLz+kIt9rc6DABIQbTCTP/nNzgz7abLa703crVeEqFrSil3HUMb/KkyDz
-	 JOrAFRFsYi2zg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 3CCF7F40068;
-	Tue, 22 Sep 2026 10:06:39 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Tue, 22 Sep 2026 10:06:39 -0400
-X-ME-Sender: <xms:b4uyapW-vT9BiWbzHHcbEpzKuNDKnEGNMWt4oPwAQCXcyb6C6M8x4g>
-    <xme:b4uyakbX7l_7sfNG8qI46yZQ4qNOzingX8sETZ6HO4Bqn6ifbi3h_Vi8LsW-Gphj5
-    HCT8HQtpkpVQZsnt7Hxucc4SvH-vtUictTuyQo0JrhS4xs3-d9F7s3D>
-X-ME-Proxy-Cause: dmFkZTGrdFg+p1NEcMQqgNPzVSTWrwg0fiEELVFhhoBp2f+DUziSJk1MdsO4OypE12VT1Q
-    DseutIxhZfb8rcnKiPI7dBbYC5OAekK7MnaejmiXbzYmA841FT60o4jPM7co0LcE8Dcali
-    4+1n2GIEHGotrN9dAE3kBO9shwLsK9BaFcRF8mOoDSM7T4FbJQ5JzPQ33zOAHFXSBJORuj
-    UcZXsPPLkxUTcktsbSrXg1b67bl+/q7V/UxTfiMYPT1vzUGM1lSwBcGjVlcU6Nn/D/eu0J
-    h0CILJAPSEX/D8Ang29e52FrREU7+0pD79mGl6PISHgE5TzJlHfn/7BfLwCsu35TQCZBpM
-    v63P54tsWi7BIH08ADpzFATQ/Yq4AVvSOJamWu7lXiO2VQxXHIFj5Ok7qXj6ik9kGSvFP+
-    W4VYueg0hA4X8gj2haD3/HqWAO121JpvC30J4S2CXELTIAdLsiWpqR8pWlydeORlhKpbbh
-    znWU4Gk2VflSJqPmA5g5DuemC6dl+9jmYsumYsU0JmrcJcDRV2PMPsM07NwjnQ0LEL2ttb
-    qlWSOG6gLfFs5JSWET+QyZuL9qKwFeiE1zIgzhaM6q9UdO2NKxOkEzxOOTYZkifuTGxeJj
-    THIIsANAj0SHEebejcvq8ioCGGYlpItn3LK/op0p5n6y/ENDuK6Jv775CUeQ
-X-ME-Proxy: <xmx:b4uyatxK71TEC9QeIW6FAt4SWR2Up86zzADpN9V7nO3_3HCyAFJjzw>
-    <xmx:b4uyaseiv8FNjyvTjzDsBUP3lNnE_BJtQM4t7-m2twu48aiZ7QvhoQ>
-    <xmx:b4uyaqCDfAl7kZ0GU0KZ1LAW8EuyE4zf69c51_J3kvmamoSCSyJyVA>
-    <xmx:b4uyao4EF8iEG6sWvNijjNDCySqm37oOGCakuGn3IfKm320tMZwgGw>
-    <xmx:b4uyarfBemmT6PaP2DuWrkHPHQAMb-DVwOifGyjeHEIEpSL2419pJb-5>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 1406E780070; Tue, 22 Sep 2026 10:06:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1790086016;
+	bh=zGOdSloDA68Nekx4bjuhH4FjzDmUEr+Zb1RVHTBtpk4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Te7BBp7pxZ05tJUGL23/L547RbXBTMwPTtziJ69d+9pNqzlI579Lqx6j1TD2b9PLz
+	 xMNCT1bvIAloC5njtuY02/MfVR+6YVrcJPHmGex58wXU3kD2lKzuC3DGlNYqPNZsT4
+	 oZSxvu7LoJbMaHmTsv90nujC4b4lO2VKwgvY4hqLJgZbk8pLFYIH9GGj+t9kobXohQ
+	 wIU+x/5MR5RTIoXtWYEETeYGqiiThGgV+A4g/3p8CQfdOJ6cz32Uzu+vWT/RQmnZiE
+	 CrJ0RL2maBv1oAqaWqfngPgxywZsCPU6tm6wgfgav3Q97cuVEws2IgWWYgWWh7gNrg
+	 tPHlPq5U64Zfw==
+Date: Tue, 22 Sep 2026 17:06:51 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Konstantin Taranov <kotaranov@linux.microsoft.com>
+Cc: kotaranov@microsoft.com, snsanghvi@microsoft.com, longli@microsoft.com,
+	jgg@ziepe.ca, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH rdma-next 0/5] RDMA/mana_ib: Streamline kernel UD/GSI
+ posting and completion handling
+Message-ID: <20260922140651.GJ563127@unreal>
+References: <20260916134835.2380971-1-kotaranov@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AVt1c__qMuMw
-Date: Tue, 22 Sep 2026 10:06:08 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Mayank Jangid (OpenSec Intelligence)" <mayank.jangid.moon@gmail.com>
-Cc: jlayton@kernel.org, neil@brown.name, okorniev@redhat.com,
- Dai.Ngo@oracle.com, tom@talpey.com, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, security@kernel.org,
- "Kushal Khemka" <kushalkhemka559@gmail.com>,
- "Kkartik Aggarwal" <aggarwalkkartik@gmail.com>
-Message-Id: <29830200-dcb0-452f-9e19-80a595b46fe7@slotpi15m67>
-In-Reply-To: <20260922112608.1256363-1-mayank.jangid.moon@gmail.com>
-References: <20260922112608.1256363-1-mayank.jangid.moon@gmail.com>
-Subject: Re: [PATCH] nfsd: prevent NFSv4.1 SEQUENCE reply-cache overflow
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916134835.2380971-1-kotaranov@linux.microsoft.com>
 
-On 9/22/26 7:26 AM, Mayank Jangid (OpenSec Intelligence) wrote:
-> nfsd4_sequence() narrows the reply buffer to the session cached-respon=
-se
-> limit before accepting the slot sequence ID. A client can negotiate
-> ca_maxresponsesize_cached down to NFSD_MIN_HDR_SEQ_SZ, leaving no stor=
-age
-> in the slot trailing sl_data[] array.
+On Wed, Sep 16, 2026 at 06:48:30AM -0700, Konstantin Taranov wrote:
+> From: Konstantin Taranov <kotaranov@microsoft.com>
+> 
+> This series updates the kernel UD/GSI work-request and completion paths in
+> the MANA RDMA driver. The existing completion path copies CQE information
+> into shadow entries and then walks the QPs attached to a CQ to produce
+> work completions. This adds bookkeeping and a second pass over information
+> that is already available when processing the CQE.
+> 
+> Generate work completions directly from CQEs and the corresponding posted
+> shadow entries instead. Keep only QPs requiring software flushing on the
+> CQ's error lists, and use the caller's remaining completion budget to
+> retire their outstanding requests. The explicit GSI send-drain path adds
+> the QP to the error list and invokes the CQ handler.
+> 
+> The shared GDMA SGE writer and explicit-index doorbell helper are included
+> with their first users so this series does not depend on a later GDMA
+> change. The WQE definitions and polling context also provide groundwork
+> for a separate kernel RC series; RC posting, PSN/FSN processing, hardware
+> error-CQE handling.
 
-Thanks for the report and the patch. J=C3=A9r=C3=A9my Jean reported the =
-same
-issue in August, and a fix for it is already queued in the nfsd-testing
-branch:
+I read the commit messages, but couldn't find much information about what
+you are doing or why. They only describe the implementation, in AI prose.
 
-  https://lore.kernel.org/linux-nfs/20260817-jean-v1-0-9e356596ab85@kern=
-el.org/
+Thanks
 
-Patch 1/2 there adds the same pre-flight check of the SEQUENCE reply
-size before nfsd4_sequence() narrows the buffer and accepts the slot,
-and patch 2/2 sets op->status when an operation header cannot be
-encoded. Your patch does the same two things, so I won't apply it on
-top of that series.
-
-If you can test the queued fix against your reproducer and confirm it
-addresses the overflow you found, a Tested-by: on that thread would be
-welcome.
-
---=20
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+> 
+> Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+> 
+> Konstantin Taranov (5):
+>   RDMA/mana_ib: Optimize shadow queue bookkeeping
+>   RDMA/mana_ib: Revise UD send posting and WQE definitions
+>   RDMA/mana_ib: Revise UD receive posting with GDMA_WR_IB_SGL
+>   RDMA/mana_ib: Make kernel CQ arming robust
+>   RDMA/mana_ib: Poll UD completions and flush software error QPs
+> 
+>  drivers/infiniband/hw/mana/cq.c               | 315 +++++++++++++-----
+>  drivers/infiniband/hw/mana/mana_ib.h          | 101 +++++-
+>  drivers/infiniband/hw/mana/qp.c               |  78 +++--
+>  drivers/infiniband/hw/mana/shadow_queue.h     |  60 ++--
+>  drivers/infiniband/hw/mana/wr.c               | 141 ++++----
+>  .../net/ethernet/microsoft/mana/gdma_main.c   |  43 ++-
+>  include/net/mana/gdma.h                       |   9 +-
+>  7 files changed, 527 insertions(+), 220 deletions(-)
+> 
+> 
+> base-commit: 63367df6e7255067ad6a83abe0d2799dfa491876
+> -- 
+> 2.43.0
