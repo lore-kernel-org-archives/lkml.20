@@ -1,102 +1,72 @@
-Received: from mout-y-209.mailbox.org (mout-y-209.mailbox.org [91.198.250.237])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3C654281A;
-	Tue, 22 Sep 2026 12:38:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.198.250.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3F554281A;
+	Tue, 22 Sep 2026 12:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080712; cv=none; b=JwQFi2cfWZYqcyc2zZqrvYzSf8HqDRMXHOjBsZtvUja0XroPhcqcSO4SZ0JmUymyHmE5ab7Lh58Y9qkKj2J9iGbP4BJISA+bULfOVjNuZ5/LVaVoNSw/3ym924Pyy94u9jnklIaL4PJsvVtqOIEs/osy+eVsC3HbpSSJM/A4L5A=
+	t=1790080746; cv=none; b=Bojfy9tHmk3EiYyfoDbUxF5KDLxmqE0AA3F18HcJKvWf04mK9+kk0cb1Ex5zHhZteTqZPB3hf+jHEvJhX9QTor2sen2YtuTKTlVqLgvtlUEN1rd3MiMFaxuR6p0i132tx5/FyQsn0YqEM+YoApxEMcw4PKrsCjDaccjhEfpxVIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080712; c=relaxed/simple;
-	bh=FIDOhx16bKTnLhDsEzKck56HBIFnn9qu9WN0aTyG/g8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Xajn0acjxdHbxlvQWyU0edJIlgeWELzQZdQsEf5ovsC86W7hkYksGR6PNedNZARhj6wVzPgJxR+Y7mkCFRv1mjdvMpFS/+bvtG7AoGov8nFypUccXeHf/5kIDTni0cGdO3DfEXbqiEqHLvCEDKnlUuG1jqwM3vrfMUH+DsmHPmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro; spf=pass smtp.mailfrom=chimac.ro; dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b=1sXIa/iN; arc=none smtp.client-ip=91.198.250.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chimac.ro
+	s=arc-20240116; t=1790080746; c=relaxed/simple;
+	bh=TsJ3XIPVwt9acaX3COTgWLQRCn8mKSI32QPnuB3vMqg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GwxiUBX8spn5F8CL4N8CTQHBTY+wLZsroS/N1I9BkpB4J2JW8/mJlNMqio1ZfeB8x/+GDV1tmzuSI8QeWS3nbhwkeU6FQ0wGu1fWDJZftR6EYcX51zw+EjKhB8hE45bh19ejHp5jpolzHiv0yWMokOIRlHS4MKzTq8YNFDxBYHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lbg9w3Rz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b="1sXIa/iN"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-y-209.mailbox.org (Postfix) with ESMTPS id 4hpzbB66Vhz7t7d;
-	Tue, 22 Sep 2026 14:16:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chimac.ro; s=MBO0001;
-	t=1790079366;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TWtGuJsSnA6q09a1WdY7USh/zxzDAqnc0W6q2GxteG0=;
-	b=1sXIa/iNpsllNyxwkMqBMBw2hr9u8Pp3ChUwD3OE9mw+HbBoo3L2xitGuyqF9Jo65+Dhn3
-	QggpkO9IzXmQ1pzDuxM2GLL4KrkbBD+goQeKf6fwuJPIo0AaWWQmBAYpkRaEHsmz3FcwJ+
-	OKl8GjYCIwSavNikyt2wJXW1b4G682ig23SP7dBGTeR5+XxWHD5Acugr7VGXRiAwf1Qzkb
-	hxX16r89t70Aalzrx+eaj3Jg14ElzUlwjIyZJ5O5Irs2CTXNjpb/KSnq/3fo1VjbJCmDCp
-	gC0tJXUp6TEnqvmB7R9Ewxw7n73pt5kITWY66EHd7qVHzJW+vO0CRXobfEbz9g==
-From: Alexandru Chimac <alex@chimac.ro>
-Date: Tue, 22 Sep 2026 15:15:13 +0300
-Subject: [PATCH] dt-bindings: pinctrl: samsung: Require clocks for
- Exynos9610 pinctrl nodes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lbg9w3Rz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0C61F000FF;
+	Tue, 22 Sep 2026 12:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790080744;
+	bh=QLoR3dFRtXbr6vPpFSReD2HvpuUUBOOt3jsnT9F9Frc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lbg9w3Rz3woeKACoCIpmcshyiaV/8/f16ymbB2wNrdyYUdFqIWZMzlxKfZidEYr2h
+	 SOjBt2oKQ1Ihl/vyvS47nsOVuPEKiPWD/FNNM9HSWSXC30yEWsbESaXtBtAOcukFVl
+	 vAw/bjUNfBHO5BH4iZvS7cVdeKVL1pZZMhkLRzGV64gWGjvneOqJKbIKKEKljgjPmh
+	 vTS6Bp8ED3jJbd1ZuzAquguJwtAmDeaRoKw789DnTgUyB+AIRAj9tZc/U6WpwKtne2
+	 Cs1PD96yqhKHOHHghVoVX895aG/2QqeoQ/Xcir6ZllR/O4cCCPkDhJtlpL5qmEyPFp
+	 dy2/h7AjKGENg==
+Date: Tue, 22 Sep 2026 14:38:51 +0200
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Chen Pei <cp0613@linux.alibaba.com>, peterz@infradead.org,
+	mingo@redhat.com, namhyung@kernel.org, mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+	adrian.hunter@intel.com, james.clark@linaro.org,
+	john.g.garry@oracle.com, will@kernel.org, mike.leach@arm.com,
+	leo.yan@linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf test: Fix a leaked map reference in the arch dwarf
+ unwind tests
+Message-ID: <arJ22-nHya17_ns2@x2>
+References: <20260914121903.1212-1-cp0613@linux.alibaba.com>
+ <CAP-5=fVW6nJXoh8qf4e_jkLXGUzCGCTCg9YivHkN9kkVJmMa-A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-exynos9610-pinctrl-patch-v1-1-f6d816696591@chimac.ro>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CMBBFr0Jm7Zi2JCBcxbAowyhjpGBbCIZwd
- 6u4fMn7728Q2AsHqLMNPC8SZHQJ9CkD6q27M0qXGIwyhaqMQV7fbgxVoRVO4ij6J042Uo+siEq
- tLx1VJaT55Pkm6y99bQ4Oc/tgit/e3/D8mtNnPDRobWCkcRgk1tlSnnP0lEOz7x87AquXqAAAA
- A==
-X-Change-ID: 20260922-exynos9610-pinctrl-patch-e0cc7118dc97
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Tomasz Figa <tomasz.figa@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexandru Chimac <alex@chimac.ro>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790079314; l=1196;
- i=alex@chimac.ro; s=20250914; h=from:subject:message-id;
- bh=FIDOhx16bKTnLhDsEzKck56HBIFnn9qu9WN0aTyG/g8=;
- b=+yXOurx997N4Jd5a4koBFSR5j4JT4+C0xfTJcebVE2TZYaDznrzmZicOMCcbKqIsfB1XCg+pz
- RY2i4KOLPrjAG53adnbI3g+b4UEwVuKXxMijPYG3jywtUZUGWWboAGs
-X-Developer-Key: i=alex@chimac.ro; a=ed25519;
- pk=OKD+X09b7uEsyw05zyuqq14SLGg8B/X4xey5tJeYCig=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fVW6nJXoh8qf4e_jkLXGUzCGCTCg9YivHkN9kkVJmMa-A@mail.gmail.com>
 
-All Exynos9610 pin controllers (except PINCTRL_TOP) have clocks assigned
-to them, so force the nodes to have clocks assigned to them.
+On Tue, Sep 15, 2026 at 12:35:23PM -0700, Ian Rogers wrote:
+> On Mon, Sep 14, 2026 at 5:19 AM Chen Pei <cp0613@linux.alibaba.com> wrote:
+> >
+> > maps__find() has returned a reference to the map it finds since
+> > commit 42fd623b58db ("perf maps: Get map before returning in
+> > maps__find"), which updated arch/x86/tests/dwarf-unwind.c but missed
+> > the arm, arm64 and powerpc copies. Release the map after reading its
+> > end, as x86 does. All other callers of maps__find() already release
+> > what they get.
+> >
+> > Fixes: 42fd623b58db ("perf maps: Get map before returning in maps__find")
+> > Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+> 
+> Reviewed-by: Ian Rogers <irogers@google.com>
 
-Signed-off-by: Alexandru Chimac <alex@chimac.ro>
----
-Most Samsung Exynos9610 pin controllers (except TOP) have clocks
-designated for them, so allow the device tree node to include clock
-information for the driver.
----
- Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Thanks, applied to perf-tools-next, for v7.4.
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
-index 1feb6a6fc690..e4fdedb29631 100644
---- a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
-@@ -140,6 +140,7 @@ allOf:
-             enum:
-               - google,gs101-pinctrl
-               - samsung,exynos8890-pinctrl
-+              - samsung,exynos9610-pinctrl
-     then:
-       required:
-         - clocks
-
----
-base-commit: c2cd463d6ee7d55a3ec0719d93c49ff99022d58f
-change-id: 20260922-exynos9610-pinctrl-patch-e0cc7118dc97
-
-Best regards,
---  
-Alexandru Chimac <alex@chimac.ro>
-
+- Arnaldo
