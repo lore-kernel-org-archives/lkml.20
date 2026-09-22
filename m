@@ -1,158 +1,168 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149C54C651E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE334A64F4;
+	Tue, 22 Sep 2026 06:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058406; cv=none; b=rQITyx1i5keahBd8KRP3tQi9wPO0u8ELHNOev6F4BQnLRWFsgcJiIs85elu6VnW2X84a+fayWlX4JVuCijI8ueWm3lx82Bw9tx7L6Mzr8Zj/XUJM8oVJ9NiZe4PraUucjz7Yn1a33cPZef64cf4LYIFIebi/Qj/P6YMBwG+pndk=
+	t=1790058493; cv=none; b=Jq4DlFveoA8WCV6gCuZsXThUHlLgzLuGCBKsdZizI6zX4y9pqW6ACYWW8FCmLLuyVR5VSaP3xuSc2Xk9NP7NP4m/vKW+HsnrYs1e/1w6ZbL9EAdfRhkLYbGcRoRdxtnfmypIfQJunVtZijAzQM9xQY8DiFfBUs6AeVlST9ZJUYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058406; c=relaxed/simple;
-	bh=gCCZTNytWnIxWCYHEoPTrOwIW/6pCspfX62WAIvm7w0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PJUqo8tNnMnoOh/x6yE+WHnbAaPkUU688hZTQbxhORzp+lT088j1i9528tGaN9CaX8W4YAwMLJA4qPkX4B4bNiu6WYUS5YmdeqHVguKB+87wo789KGJpbKP2gGTYXoZuwqaWoPMQm0yN2N/CRfXea8nLmdWUgRFZVfv+JZOJcBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3Qf0WxV; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790058493; c=relaxed/simple;
+	bh=2JIymY9yv7UEMLFvfjDgIn3mrJFnccBF1D2xhLC1wTM=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=BmHhrKBTat+ielF3ie1mBOY7h3d2KtCTWrqxM25V/IPgBuPZ4ePh6qAenyw5JtaOL0gQieQScljiZ2Gptw0juGb4PgQrZ4d5Xj+e58pgyfOn+SZmvSl1ax9wqskZ8Il6LOpTi7GEXnD5a2oMdm9YeidYTc9mZ/qU3i/4R4dvbac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=TVb/Xxdn; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3Qf0WxV"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so17764625e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:26:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790058403; x=1790663203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+vbqlDVlDE9plp1xBzyFomZPRR9qR+IwVJ7RoXadrJk=;
-        b=W3Qf0WxV/aiS0u30iTUkTFHKFVAZynfYDwACCP/07qhF2l0A8NKnM0hOlnSQ1+7pxc
-         j2LU/pxrbO5VcJzUKWjWQafAto5XIMiNNrDd2MnL7bzMHyl/OntqO0KddyKSkHkPj3Pn
-         mE6AeHc00epaqn+lc1L9b4QgDoePAykGvGRXKtI6eSiXN1Xy2M9KNXhJaPEFimnzGPVA
-         MffsbIaVRrW2g0RxRG334QqSNEXEp1XkQA5YFrlxsJlGhoT4ZIO4sP/NTDVCDwiDUGiM
-         rtgSbFDXEB2ftMp6RIhNB+6CVxM3rYsUgu52TUgkmuqcW5ux0d7zg3M/00YO/SLj1orc
-         uFhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790058403; x=1790663203;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+vbqlDVlDE9plp1xBzyFomZPRR9qR+IwVJ7RoXadrJk=;
-        b=tfE/HV5sZVIAv7S+rAnrkz3fxxKOp6TrLmG8O9dNZ9uUTSwijMOfXBxl5EQs2Bcka/
-         To/S6v2RmAGBdq2/DwELKkf+tCUQZPvsU3EZbgXCEx6CdLn9mQM1E1Jsbl+hMhYYuy+L
-         SyxJHjLtlSl4VtVg2T0pm8Mx6kMcJF7def7LbAWGORGXCw6R/uk/FdxoSpe7C2kL83dM
-         DWwDeyrdYZXWmvRmYOJiQAqjN4n6hgBAQccRfwfSpiolZWUJWzlsO7w+Y4D+krNASkeU
-         A53Oou0RouIZr4ZoNuXlTu8+bpF+sfiPfPmAkrivVwT9k6aMH8EwgytL6FGtfoe6gYXz
-         0uKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZE0jZgRzX5V1EkLs6cm7pwItjY1eYd+4mBkhjxSL+g1QWl8PtEagWNsmdZfYF0NZubiE1OgUQ5sY6PhA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8j7pJVYPAxO0bQIwcpFGCj9AsjZw8n8Dor++0Iod5byWy6FEV
-	2cJeaItBkz3F+6FEmiszkPt6czXQNkKRBnkBzCb3Ohe1L6AhyiX2+FG9
-X-Gm-Gg: AYBFou0fcVZyxQ97EDNV06OnMF7clv+UMgKMBMMM5ixKNgIm8JHtsc2QhmEqoHPTasy
-	o5vwbdT6+M6Vc41bv9LUOgUuFrC8rvR4R52L89XyV/wHtaIFepYXRo8OhOc5GAph4V4Av7LKwAf
-	46Jl+dEjWefUnfVRfIAmmkeMxgN4bkKQQ+X5HBQxWuE137mdOLRbt6j5IAgR+Vhx2YTJ7vpcIxb
-	C7t1MjSZWts+a9bMSotr3fsI1WCpmvbZyHVHYp+w3gJ4GREMG0C4KKNh5ku4T4PpWRcAmrc/Gt8
-	yj08nLqZFxstPbhES8BMT7JRr9GUsWH75V3VpbBSke5uEpin9JNW2Bc5DHS2Pn2+Hy5fqtz0Ef5
-	bT78vY8dwNriCRhKrqrXB3Hb6MfrGr+bKpPgzPHXjtGIIgg5c8McxVjwQRAyrGVnEgaGakBBp3h
-	NvtVbyjWZ/2mvdtfmItxD1jzE0QtDuumiF7It3e4RMl0fX7f5SbFOG2QLqGlUKIDwhv4c+gRQY2
-	DRe
-X-Received: by 2002:a05:600c:5020:b0:49d:726:cc9f with SMTP id 5b1f17b1804b1-49fc56716f3mr171280135e9.5.1790058403025;
-        Mon, 21 Sep 2026 23:26:43 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f04f7sm41006555e9.0.2026.09.21.23.26.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 23:26:42 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH rtw-next] wifi: rtw88: honour the transmit power mac80211 asks for
-Date: Tue, 22 Sep 2026 08:26:41 +0200
-Message-ID: <20260922062641.1313856-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <dc09d252a96c4992ad18e2ba70cfad31@realtek.com>
-References: 
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="TVb/Xxdn"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=FGbhkQwIGfdAyVtjg1Ql4s8k82iByJqzyE4qhg2yGrY=;
+	b=TVb/XxdniyjxDFy7pVMTRQxolIRi+rQVHqCEnlKh1dbNqIt3c2xKfhY78rYOnafftzF8lAstD
+	xy2sKyyG+aKfvZphbGF6i0pqXqKi4+Lx7oBYcGyOLnBdBgO4nzlpnNBmoKdAIsiGoqcxSUoEfMe
+	/ubLcOzVXiphJvNeeFaqF5c=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hpqcs4qVZzLlXZ;
+	Tue, 22 Sep 2026 14:17:01 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id EDB3440573;
+	Tue, 22 Sep 2026 14:28:03 +0800 (CST)
+Received: from [10.173.124.160] (10.173.124.160) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 22 Sep 2026 14:28:00 +0800
+Subject: Re: [PATCH v5 0/9] mm/memory-failure: keep hardware-poisoned pages
+ out of the next kexec
+To: Breno Leitao <leitao@debian.org>
+CC: <linux-efi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <rmikey@meta.com>, <riel@surriel.com>,
+	<harry@kernel.org>, <linux-cxl@vger.kernel.org>,
+	<driver-core@lists.linux.dev>, <kernel-team@meta.com>, Ard Biesheuvel
+	<ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, Naoya
+ Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>, <kas@kernel.org>, <kexec@lists.infradead.org>,
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+	<hpa@zytor.com>, Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner
+	<hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Oscar Salvador
+	<osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+	<hannes@cmpxchg.or>, <shakeel.butt@linux.dev>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <d6e35901-f74d-bf81-75d3-bac4b26d9d72@huawei.com>
+Date: Tue, 22 Sep 2026 14:27:59 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-On Tue, 22 Sep 2026, Ping-Ke Shih wrote:
+On 2026/9/15 20:53, Breno Leitao wrote:
+> Problem:
+> ========
+> 
+> When a page is hard-offlined due to an uncorrectable memory error (multi
+> bit ECC), memory_failure() sets PG_hwpoison, unmaps it, removes it from
+> the buddy allocator. This information is not carried to the next kernel
+> that is kexeced. The new kernel kexecs and trip over that bad memory
+> bank _again_.
+> 
+> Why now:
+> ========
+> 
+> Several industry trends make this increasingly important:
+> 
+>     1) DRAM is getting more expensive
+>     2) soldered / on-package memory (LPDDR, HBM) is becoming more common, so a
+>        failing part can no longer simply be swapped;
+>     3) memory is kept in service far longer (at Meta, DRAM lifetime is being
+>        drastically extended).
+>     4) It is more and more common to kexec instead of full reboot
+>     5) Increase of memory per system with CXL
+> 
+> What was done already:
+> ======================
+> 
+> In order make linux deal better with the problem above, I've done
+> already fixed a bunch of stuff in this area, such as:
+> 
+> 1) Panic on unrecoverable errors, instead of "printk and carry over":
+> https://lore.kernel.org/all/20260630-ecc_panic-v10-0-c6ed5b62eea2@debian.org/
+> 
+> 2) Respect poisoned memory at kexec time
+> https://lore.kernel.org/all/20260812-kexec_posioned-v6-0-e477887086f0@debian.org/
+> 
+> Now, the natural follow up is to carry the poisoned memory information
+> to the next kexec kernel, avoiding tripping over a known "bad page".
+> 
+> Proposed Solution:
+> ==================
+> 
+> Carry the poisoned frames to the next kernel in a new EFI configuration
+> table, LINUX_EFI_POISONED_MEMORY.
+> 
+> The table is a bitmap with one bit per 2MB of physical memory, modeled
+> on LINUX_EFI_UNACCEPTED_MEMORY. The stub sizes it from the EFI memory
+> map and installs it empty while boot services are up -- a running kernel
+> cannot install a configuration table, it can only flip bits -- and a
+> table inherited from an earlier boot is reused as-is. That is one
+> fixed-size allocation, 64KB per TiB of the span the memory map describes,
+> with no list to grow at runtime and no chain to trust at parse time.
+> 
+> The mechanism is architecture independent, so x86 and arm64 use the same
+> code.
+> 
+> Each hard offline sets the bit for its unit. Soft-offlined pages are not
+> recorded: they are still functional, and were offlined predictively.
+> 
+> The next kernel takes the table into use from efi_config_parse_tables(),
+> which vets the inherited header and hands the table's pages to memblock.
+> It is EFI ACPI reclaim memory, which x86 leaves out of memblock and so
+> out of the direct map; the unaccepted memory table is handled the same
+> way for the same reason.
+> 
+> The frames themselves are poisoned in __free_pages_core(), as each block
+> reaches the buddy allocator. That is the one point every producer passes
+> through -- memblock_free_pages() early, deferred_free_pages() once the
+> deferred struct pages are up, and generic_online_page() at any later
+> hotplug -- and it is already where the unaccepted memory table is
+> consulted. The recorded frames are held back and the rest of the block is
+> freed, so they never enter the allocator instead of being taken back out
+> of it. They end up in the state a frame poisoned by this kernel would be
+> in, so everything that already understands PG_hwpoison covers them --
+> including the kexec segment placement check from the series linked above,
+> which keeps the segments a kexec places off these frames.
+> 
+> Granularity is the trade-off: one bad 4KB frame costs a whole 2MB unit in
+> every later kernel of the chain. In exchange, a row or column fault --
+> roughly a quarter of the DRAM faults reported in [1], and potentially
+> thousands of 4KB pages scattered over gigabytes -- collapses into a bit
+> or two.
+> 
+> A bit is never cleared, which is a known limitation: it stands for a
+> whole unit, so an unpoison of one frame cannot tell whether the unit as a
+> whole is good again.
 
-> How did you measure the TX power decreasing as your expectation?
+Thanks for your patches. I have a question about unpoison: If a bit is never
+cleared, after we do some memory-failure+unpoison tests, kexec will lose the
+tested memory without reboot?
 
-Two ways. The exact check is the tx_pwr_tbl debugfs table on the AP
-before and after "iw phy phy0 set txpower fixed <mBm>": with fixed 1000
-on the RTL8822BU every rate that sat above 10 dBm moved to the 7 dBm
-index (10 dBm less the 3 dB two-path share) and the rates already below
-it kept their index; fixed 100 gave index 0 instead of the wrap that
-patch 1 of v2 fixes; fixed 2000 and "auto" left every index as the
-stock driver programs it.
+Thanks.
+.
 
-Over the air, a second radio (an RTL8821CU in station mode on a second
-unit, at a fixed distance) read the AP's beacons at about -52 dBm with
-"auto", -59 with fixed 1000, -62 with fixed 500 and -66 with fixed 100,
-and about -52 again after "auto". The drop is smaller than the request
-because the beacon goes out at the 1 Mbit/s CCK rate, whose calibrated
-index already sits below the channel maximum, so the table is the exact
-check and the second radio confirms direction and order.
-
-> And, curiously, what is the purpose you added this? which application?
-
-A handheld measuring instrument that carries the module as its access
-point. The hardware team wanted to be able to run the module a fixed
-number of dB below the regulatory maximum for an RF exposure
-assessment. On the other products of the family the module is an
-ath9k_htc one, where "iw set txpower" is the knob we use; on this one
-the same command was accepted and mac80211 reported it as in force
-while the chip kept transmitting at the maximum.
-
-When I wrote v1 I did not know that rtw88 already exposes
-set_sar_specs. I have since verified it on the RTL8822BU: it caps the
-per-path index from the given dBm and covers our exposure case, so we
-will use it. That leaves the patch as a consistency question rather
-than a need of ours: should rtw88 honour the level mac80211 hands over,
-as ath9k and most other drivers do, instead of accepting it and letting
-mac80211 report it as applied? If you want that, a v2 with your review
-points addressed is ready and I will send it. If you prefer SAR to be
-the only way to lower the power on these chips, I will drop it.
-
-> Miss to add pwr_param->pwr_user to rtw_debugfs_get_tx_pwr_tbl() to
-> show the correct final TX power and pwr_user factor.
-
-Done in v2: a "usr" column, and the effective ceiling column now takes
-it into account.
-
-> > +	if (changed & IEEE80211_CONF_CHANGE_CHANNEL)
-> > +		rtw_set_channel(rtwdev);
-> > +	else if (changed & IEEE80211_CONF_CHANGE_POWER)
->
-> Should it be 'if' instead of 'else if'?
-
-rtw_set_channel() ends with rtw_phy_set_tx_power_level(), so when the
-channel changed the tables are already programmed with the level kept
-in rtw_hal, and a second pass would program the same values again. The
-explicit call is only needed when the level changed on its own, so I
-kept the else. If you prefer the plain if for readability I will change
-it.
-
-> In reverse X'mas tree order.
-
-Fixed in v2.
-
-> > +	return (s8)clamp_t(s32, idx, -chip->max_power_index - 1,
-> > +			   chip->max_power_index) - base;
->
-> Should it clamp after 'idx - base' ?
-
-The function returns an offset relative to the by-rate base, like the
-limit and SAR values it is compared with, and that offset has to go
-negative to pull a rate below its base; clamping idx - base would forbid
-exactly that. What has to stay inside the chip's index range is the
-requested absolute index, so that is what is clamped, and the final sum
-is clamped in patch 1 of v2. In v2 the clamp is on its own line before
-the subtraction so the order is visible.
-
-Mehmet
