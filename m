@@ -1,142 +1,204 @@
-Received: from mail-qv2-f14.google.com (mail-qv2-f14.google.com [74.125.230.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156A148822D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:02:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0024F5DE1;
+	Tue, 22 Sep 2026 21:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790110952; cv=none; b=U7Y7ae278wFa/xrIIASXlUhPGPw261usK8FxZVwDEjE0fE9ai0qv8p64o8iwJiqEc7nhSqbEUkpG5FvRv9SySQaXtBzBp6gMcLNAHN+0gGwKL2ez0maoXZ58hjRct03qg/7cdpeH4qee05ET6OVVhKchQpKT6vXy+5ZAZqiBHvM=
+	t=1790110960; cv=none; b=AAkCKxlygS9ltH7/jcJk7keBHTxRQ4CR7qujViCgXXDUmryARszJ+a5Of5KE7NKWFtihuKvNYa3CaoAdbc4qeztUCy1dbvesHiW3nUZ2hmW+y35Xnumd3w1KFOw4pQRFX1vbkDEguwRpXgUFzCFM4S2HfjyRfCeZ3syWFOAMS1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790110952; c=relaxed/simple;
-	bh=mUiTpuXZ08jRjcCjuhENhAkI/h8z83dpTQbKz9it2Yg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=NOW1BHe8OIy1IooBMba39ElsB1gMOLLDJrRHnbYCMwT1kzaXRFOhq5inPUaA04WcOU21ATIbIMkO+6i30JtI7IC2KZRAKAH+odG5Yt/lKO9xkvg2Gj5AIMbyoN9Yf0r1LpcWAfYCDJ56+5zjcGD4/akWiDxsSx0ldXI+jAasUKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Xz3QqWbe; arc=none smtp.client-ip=74.125.230.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790110960; c=relaxed/simple;
+	bh=M+YuJ6+BbSs49sATSNSOc+DxmvKvfUYxPeauTiC3NcI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MlsK/6FW0gdoyfi5fx91JBA0BkktM8sPZRilZSNfH3+sJ2gGw63r7P6A4x792++sjSWMNT/sILqOP3GLlSwEUKk9/w60kK1Lo5wQf3AQKow9CUcKNLgGv+j3onOCnGXgr3xyqodhdtw2g/YnWw7/ZV4VEDQvGAmH9QlR3CQgc4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sNKFLieF; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Xz3QqWbe"
-Received: by mail-qv2-f14.google.com with SMTP id 6a1803df08f44-90cdfcbe20aso2786656d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:02:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790110930; x=1790715730; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b9Tj2oRUZivsRV4DF4owfEOUU+s6qPBlsbxiJLCQngg=;
-        b=Xz3QqWbeNe6T5XRZz5L3+ChBpuAe4QPy1Y7mRbru5/87Cowhbal5ABl6u9iE2l4eQ1
-         TERdKW/fX4uCs4gZiVPwynPb23FRQYsBNj4CR5aFLLDYlKY4M3Ir9uhjDfsWygU7s5Ww
-         HyvmXKfYHhu+gwetWtM7Q+Kuw3YVA3QgGhHoJXqupjIUePjx7LhiGMDtPhatKgwHLBuR
-         /7YOGD3GWNNj01hLOQhodylUG4ITUQ+KcNwlGjtGpdSZ+czxVMiZLdDKSOXmGQqPATQ9
-         Tu59Wo3o73/oS7jmXsm8quAeT+Tbt3jir2usiSjE27Fss38BKaM8kC/77bYr4GFs4mzq
-         XnDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790110930; x=1790715730;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b9Tj2oRUZivsRV4DF4owfEOUU+s6qPBlsbxiJLCQngg=;
-        b=yxAfaK8r6cusUL9ZfqqWb3IZUyrd+QcjRUM+PlL3H/o4KWkxh48AGTagm9JBrwf3xK
-         aXicJB+Ksck/TQ/UMgc0IslHNeoO/W4mm74A21W8GmrQqiejzYVZYpCbPaeASWCQSdqY
-         wRPz178Rrm7Sob0ucKxdUTYHst6ykKmPgmxZRJ3bF9+CJ8vgRXHKPvvscVPmm5ubt5pG
-         3+aAJJoorV0DOmXSQc8tgTyDRB2wdXFt7t2/m2bo69lcWsSHsZJDHEs/2YUUvsrm8Ytx
-         vxLFvV9VL2YVUURNHwbF9qe6MqQAd5Ip01q1HFSjuys0h3WxlpxvnxWc0Nr3ho7E/j+H
-         SowQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxG+z8U8XmlVKlf+n95wuCGAD0LRH06K8qn/hrZvUFCgy0+7c+FrOksbbdnXKT656nyhuHXHZCF+zA3xHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOaoxVqfHZEgLU0iIiz2UEJmrajoTit2RFHLrEOU3UYq/Q5V24
-	p/e1GpRG0b8rcM04kfKRQ3hpbuhnsvp+17ECLRwYD/htHBWuZ0Cb+Px5WU8BrXSNEo0=
-X-Gm-Gg: AYBFou3xJvwXQeZPrD0/QGpWqD5hsG19emG2TUxe5BhHiMljQg/+/B3s4UNb0hacSk8
-	eySOupJ155LyjWfy237yviXyoKjDrmQ+rQTwZemus2ELxpGlEydWQz4svun83JctcV2A8Oj8yQB
-	j8lMDZs3C7vfOpRJI9tObzKesXgTNbKo07bIesd8Ri1tvFSbxSdy+zFgncvTIncn3C34LGmppX6
-	Xojc8hUHI3kOGzz/ttBGkrKniRwUG8KA+Yxz0edToODTMTnAQWFmMvZdFakgwiuI7bEpmMuFGq2
-	DK5Cg/Gfzd0JYr9Z4g6BdStRlmYhT3Ubilwi9y4ZFCag5cfYWB07Ytae7qb9fxzTo+3euygsNZa
-	xgSqkAaOXWXUzW5JH8Qf3C5/yu3ZA44BxzcAYNT1jDpcj6UOtciWCBDAxFvEGNj0mZM1j4DPMmv
-	yey5f04+diXPTgawuRDv97h2kGpydNIhYlfSwRpPmRdElundxGbkkOtJAXITzrwPOSra3mmio=
-X-Received: by 2002:a05:620a:2682:b0:93c:2419:37d6 with SMTP id af79cd13be357-93c252555e7mr100858985a.66.1790110929661;
-        Tue, 22 Sep 2026 14:02:09 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24822e3asm69157885a.16.2026.09.22.14.02.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 14:02:09 -0700 (PDT)
-Message-ID: <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
-Date: Tue, 22 Sep 2026 16:02:07 -0500
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sNKFLieF"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hqCGQ5WmlzMlF2;
+	Tue, 22 Sep 2026 23:02:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790110942;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XTslkiXIVplCu3AnBYkWgwj7/gIMyu6gg3YCKOJ1/hQ=;
+	b=sNKFLieFKKCI0I+/1RoOM3gR2muNAD0Yfoa2jTTCpedqPjRp2PVweHjzqEo8YyYtoBWUTS
+	dcQlsVspl2mPayqlxIIk5B4K744iUGVOFVrRfsU9d/tSdxZB6pLbQ+64kwntHr1LeVOj+P
+	adTzA/MfVeggGB0MTThvJRkvokApjSwqLFlKkFoCoandl48WmmqAcPOnqQbGmQWhYuS88e
+	oehStBeepVvGjByTpAQfKqIWTvN7CV8Wq4r15QIg532ojwNzvPIo1URf4u32pYlFwN5l9o
+	LT6Jj50fZLhLDpftd8sEjk7y4SBRXikO0id2JwMDlDbzIBvGOhDo69qheZMHkQ==
+Message-ID: <c2807afc-3e69-4744-8588-20f60839a603@mailbox.org>
+Date: Tue, 22 Sep 2026 22:56:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
-From: Alex Elder <elder@riscstar.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-2-elder@riscstar.com>
- <20260920-fiery-fanatic-manticore-6abf0a@quoll>
- <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
+Subject: Re: [PATCH 02/11] PCI: rcar-gen4: Drop the APP-based link_up check
+To: Koichiro Den <den@valinux.co.jp>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-3-den@valinux.co.jp>
 Content-Language: en-US
-In-Reply-To: <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260918032038.2216471-3-den@valinux.co.jp>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: bgrh71wp63h1bo4gwdrsrodgbheawy8s
+X-MBO-RS-ID: df39a8f2dfa6ffd0da6
 
-On 9/21/26 4:46 PM, Alex Elder wrote:
->> I also have doubts that this is needed - I see no updates to the misc
->> binding, which would be referencing it. But then another point would be,
->> that you do not need separate child node, which has no properties.
+Hello Den-san,
 
-Krzysztof, I've done some additional work on this based on
-your feedback.
+I apologize for my late reply.
 
-I think you are correct that there is no need to define
-this as a special syscon with its own compatible string.
+On 9/18/26 5:20 AM, Koichiro Den wrote:
+> rcar_gen4_pcie_link_up() checks link state using SMLH_LINK_UP and
+> RDLH_LINK_UP in PCIEINTSTS0. However, these bits do not reflect the live
+> link state. On an R-Car S4, after taking down the endpoint, a link-down
+> interrupt saw PCIEINTSTS0 = 0x20a000c5 with both bits still set. Even
+> after resetting the controller with the LTSSM back in Polling, they read
+> 0xa000c5, still set.
+> 
+> As a result, dw_pcie_link_up() keeps reporting the link as up after it
+> has gone down. That defeats the check in dw_pcie_other_conf_map_bus(),
+> which is supposed to stop config accesses to downstream devices while
+> the link is down, so such accesses go out on the dead link and stall the
+> host. It also makes the callback useless for the link-down recovery
+> added later, which has to wait for the link to actually come back after
+> resetting the controller.
+> 
+> Drop the callback and let the DesignWare core use its PORT_DEBUG1 check
+> instead, which correctly detects the downed link.
+> 
+> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+>   drivers/pci/controller/dwc/pcie-rcar-gen4.c | 14 --------------
+>   1 file changed, 14 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> index 5a076aa3f490..fe1f1940e809 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -44,8 +44,6 @@
+>   /* PCIe Interrupt Status 0 Enable */
+>   #define PCIEINTSTS0EN		0x0310
+>   #define MSI_CTRL_INT		BIT(26)
+> -#define SMLH_LINK_UP		BIT(7)
+> -#define RDLH_LINK_UP		BIT(6)
+>   
+>   /* PCIe DMA Interrupt Status Enable */
+>   #define PCIEDMAINTSTSEN		0x0314
+> @@ -102,17 +100,6 @@ struct rcar_gen4_pcie {
+>   #define to_rcar_gen4_pcie(_dw)	container_of(_dw, struct rcar_gen4_pcie, dw)
+>   
+>   /* Common */
+> -static bool rcar_gen4_pcie_link_up(struct dw_pcie *dw)
+> -{
+> -	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+> -	u32 val, mask;
+> -
+> -	val = readl(rcar->base + PCIEINTSTS0);
+> -	mask = RDLH_LINK_UP | SMLH_LINK_UP;
+> -
+> -	return (val & mask) == mask;
+> -}
+> -
+>   /*
+>    * Manually initiate the speed change. Return 0 if change succeeded; otherwise
+>    * -ETIMEDOUT.
+> @@ -298,7 +285,6 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+>   static const struct dw_pcie_ops dw_pcie_ops = {
+>   	.start_link = rcar_gen4_pcie_start_link,
+>   	.stop_link = rcar_gen4_pcie_stop_link,
+> -	.link_up = rcar_gen4_pcie_link_up,
+>   };
+>   
+>   static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
 
-Instead, I can simply define a simple syscon with a label:
+Can we include some form of the draft patch below, so the S4 Reference 
+Manual rev.1.40 , page 1564 , Figure 104.5 Initial Setting of PCIEC , 
+bottommost diamond in the figure (smlh_link_up and rdlh_link_up = 1 
+test), would still be fulfilled, and the initialization code in the 
+driver would not diverge from the initialization sequence listed in the 
+reference manual ? What do you think ?
 
-         tc9564_config_syscon0: syscon@0 {
-                 compatible = "syscon";
-                 reg = <0x0 0x2000>;
-         };
+The PCIEINTSTS0CLR should clear the link state bits before the link gets 
+started, so the initialization code should be able to sample those bits 
+after the link came up and confirm they were set during the link up.
 
-And then have the devices that need to use it, refer to
-its label using a phandle:
+The PCIEINTSTS0CLR usage however won't solve the case where the DWC PCIe 
+core code has to sample PCIe link state at arbitrary time, this is what 
+this patch does solve correctly.
 
-         tc9564_clock0: clock@1004 {
-                 compatible = "toshiba,tc9564-clock";
-                 toshiba,config-syscon = <&tc9564_config_syscon0>;
-                 #clock-cells = <1>;
-                 #reset-cells = <1>;
-         };
+"
+diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c 
+b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+index e5833f36625d2..9f29055f0bed7 100644
+--- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
++++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+@@ -203,17 +203,28 @@ static int rcar_gen5_pcie_speed_control(struct 
+rcar_gen4_pcie *rcar)
+   * Enable LTSSM of this controller and manually initiate the speed change.
+   * Always return 0.
+   */
++#define PCIEINTSTS0CLR		0x0340
+  static int rcar_gen4_pcie_start_link(struct dw_pcie *dw)
+  {
+  	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
++	u32 val, mask;
+  	int ret;
 
-         tc9564_emac0: ethernet@40000 {
-                 compatible = "toshiba,tc9564-xgmac";
-                 reg = <0x40000 0x8000>;
-                 toshiba,config-syscon = <&tc9564_config_syscon0 0x1070>;
-		. . .
-	};
++	/* Clear RDLH/SMLH link state */
++	writel(RDLH_LINK_UP | SMLH_LINK_UP, rcar->base + PCIEINTSTS0CLR);
++
+  	if (rcar->drvdata->ltssm_control) {
+  		ret = rcar->drvdata->ltssm_control(rcar, true);
+  		if (ret)
+  			return ret;
+  	}
 
-         tc9564_emac1: ethernet@48000 {
-                 compatible = "toshiba,tc9564-xgmac";
-                 reg = <0x48000 0x8000>;
-                 toshiba,config-syscon = <&tc9564_config_syscon0 0x1074>;
-		. . .
-	};
++	ret = rcar->drvdata->speed_control(rcar);
++	if (ret)
++		return ret;
++
++	val = readl(rcar->base + PCIEINTSTS0);
++	mask = RDLH_LINK_UP | SMLH_LINK_UP;
++	return ((val & mask) == mask)
+  }
 
-That simplifies things a bit, and requires no devicetree binding.
+@@ -223,6 +234,9 @@ static void rcar_gen4_pcie_stop_link(struct dw_pcie *dw)
 
-If you think this is incorrect, please let me know, otherwise it
-is the direction I plan to go with the next version of this
-series.
+  	if (rcar->drvdata->ltssm_control)
+  		rcar->drvdata->ltssm_control(rcar, false);
++
++	/* Clear RDLH/SMLH link state */
++	writel(RDLH_LINK_UP | SMLH_LINK_UP, rcar->base + PCIEINTSTS0CLR);
+  }
 
-Thank you again for your review.
+  static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
+"
 
-					-Alex
+-- 
+Best regards,
+Marek Vasut
