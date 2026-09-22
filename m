@@ -1,71 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-y-209.mailbox.org (mout-y-209.mailbox.org [91.198.250.237])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4B73BFE3F;
-	Tue, 22 Sep 2026 12:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3C654281A;
+	Tue, 22 Sep 2026 12:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.198.250.237
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080686; cv=none; b=oTnBhD95hzatZK/+ZQ+9ofD5N21aLC3xXkqvyYXJMlM+qEwubTgcxIcLMeLa5YPp95U1wZOxtMqa5O2AJ9MKO4rSAcorvS9/kxjnTUWQOEvE/fOZmnxNnudExRG7hlHhv5fQUzBH7duDQTzF/Z7kOQytf4zVvxw4+jY3XgMN410=
+	t=1790080712; cv=none; b=JwQFi2cfWZYqcyc2zZqrvYzSf8HqDRMXHOjBsZtvUja0XroPhcqcSO4SZ0JmUymyHmE5ab7Lh58Y9qkKj2J9iGbP4BJISA+bULfOVjNuZ5/LVaVoNSw/3ym924Pyy94u9jnklIaL4PJsvVtqOIEs/osy+eVsC3HbpSSJM/A4L5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080686; c=relaxed/simple;
-	bh=2A4lC32lS8scRN7uTcTXPY1AN63fKpTgCO4ThYXNRcE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q+IBeCQR9f8tZWdI+CspgfMsEoIFxVwl2qkYgvhDoIKGfDnyrmE7n0OkIVTuBoPcUuBlFNI/8NXoqRZ45eMuNcnRyxxzcvlC562YufYAy6n6awYeiv9/WEBfH6MKCf2LVnafkx4RCo0WT6/uW5gRN0LK0zCjo4Dvrotpq7LHve0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qunjsvms; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790080712; c=relaxed/simple;
+	bh=FIDOhx16bKTnLhDsEzKck56HBIFnn9qu9WN0aTyG/g8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Xajn0acjxdHbxlvQWyU0edJIlgeWELzQZdQsEf5ovsC86W7hkYksGR6PNedNZARhj6wVzPgJxR+Y7mkCFRv1mjdvMpFS/+bvtG7AoGov8nFypUccXeHf/5kIDTni0cGdO3DfEXbqiEqHLvCEDKnlUuG1jqwM3vrfMUH+DsmHPmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro; spf=pass smtp.mailfrom=chimac.ro; dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b=1sXIa/iN; arc=none smtp.client-ip=91.198.250.237
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chimac.ro
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qunjsvms"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D391F008A0;
-	Tue, 22 Sep 2026 12:37:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790080685;
-	bh=J8+ca+gcpuLslZLTovu0Gzm9+ZZc7DYd8Nmf5QdLI6A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QunjsvmsZuEbdErQzbL2KnbidMZvxv7Kdr8MUmJ9yOICqRkOoZvEnZfPSsjl8ZSI5
-	 3FbgUpG8pDmZTil+8Py5ZK2ZhxoBNhrICg+mV1YGtfHBma6BEhAsyXQvKqmYrBoihC
-	 a8fdsFBAsvV1n/vcWSN7wH4T5eN/GOHOUBXFAHCIrhBARSH0fcQSmCkNq6YW9aPL5n
-	 42WDBjx8nxl99BG5A6H/lS14Ua6AAQsSCgMCL5qVPFDMGmZxCXhtDvU7CZrfW7QXiq
-	 bSlhmqip2n1wxBe0xmMrf9KRDfSTtnakaWcY7CqACBiLpqNbLRuSL0RSAboXPtzXeJ
-	 e3rECrvz5iaLQ==
-Date: Tue, 22 Sep 2026 14:37:53 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v20 4/6] phy: core: Add missing kerneldoc colon in two
- locations
-Message-ID: <qjmvybdgxf7vpxhiqogzgwgaiz3klheil33lxohgrlbjaexm74@wvjxm6clvmfe>
-References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
- <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-4-dc244e124e71@linaro.org>
+	dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b="1sXIa/iN"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-y-209.mailbox.org (Postfix) with ESMTPS id 4hpzbB66Vhz7t7d;
+	Tue, 22 Sep 2026 14:16:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chimac.ro; s=MBO0001;
+	t=1790079366;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=TWtGuJsSnA6q09a1WdY7USh/zxzDAqnc0W6q2GxteG0=;
+	b=1sXIa/iNpsllNyxwkMqBMBw2hr9u8Pp3ChUwD3OE9mw+HbBoo3L2xitGuyqF9Jo65+Dhn3
+	QggpkO9IzXmQ1pzDuxM2GLL4KrkbBD+goQeKf6fwuJPIo0AaWWQmBAYpkRaEHsmz3FcwJ+
+	OKl8GjYCIwSavNikyt2wJXW1b4G682ig23SP7dBGTeR5+XxWHD5Acugr7VGXRiAwf1Qzkb
+	hxX16r89t70Aalzrx+eaj3Jg14ElzUlwjIyZJ5O5Irs2CTXNjpb/KSnq/3fo1VjbJCmDCp
+	gC0tJXUp6TEnqvmB7R9Ewxw7n73pt5kITWY66EHd7qVHzJW+vO0CRXobfEbz9g==
+From: Alexandru Chimac <alex@chimac.ro>
+Date: Tue, 22 Sep 2026 15:15:13 +0300
+Subject: [PATCH] dt-bindings: pinctrl: samsung: Require clocks for
+ Exynos9610 pinctrl nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-4-dc244e124e71@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-exynos9610-pinctrl-patch-v1-1-f6d816696591@chimac.ro>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CMBBFr0Jm7Zi2JCBcxbAowyhjpGBbCIZwd
+ 6u4fMn7728Q2AsHqLMNPC8SZHQJ9CkD6q27M0qXGIwyhaqMQV7fbgxVoRVO4ij6J042Uo+siEq
+ tLx1VJaT55Pkm6y99bQ4Oc/tgit/e3/D8mtNnPDRobWCkcRgk1tlSnnP0lEOz7x87AquXqAAAA
+ A==
+X-Change-ID: 20260922-exynos9610-pinctrl-patch-e0cc7118dc97
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Tomasz Figa <tomasz.figa@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexandru Chimac <alex@chimac.ro>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790079314; l=1196;
+ i=alex@chimac.ro; s=20250914; h=from:subject:message-id;
+ bh=FIDOhx16bKTnLhDsEzKck56HBIFnn9qu9WN0aTyG/g8=;
+ b=+yXOurx997N4Jd5a4koBFSR5j4JT4+C0xfTJcebVE2TZYaDznrzmZicOMCcbKqIsfB1XCg+pz
+ RY2i4KOLPrjAG53adnbI3g+b4UEwVuKXxMijPYG3jywtUZUGWWboAGs
+X-Developer-Key: i=alex@chimac.ro; a=ed25519;
+ pk=OKD+X09b7uEsyw05zyuqq14SLGg8B/X4xey5tJeYCig=
 
-On Fri, Sep 18, 2026 at 02:56:39PM +0100, Bryan O'Donoghue wrote:
-> Correct missing colon after Return in kernel doc.
-> 
-> Suggested-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+All Exynos9610 pin controllers (except PINCTRL_TOP) have clocks assigned
+to them, so force the nodes to have clocks assigned to them.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Alexandru Chimac <alex@chimac.ro>
+---
+Most Samsung Exynos9610 pin controllers (except TOP) have clocks
+designated for them, so allow the device tree node to include clock
+information for the driver.
+---
+ Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-- Mani
+diff --git a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+index 1feb6a6fc690..e4fdedb29631 100644
+--- a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+@@ -140,6 +140,7 @@ allOf:
+             enum:
+               - google,gs101-pinctrl
+               - samsung,exynos8890-pinctrl
++              - samsung,exynos9610-pinctrl
+     then:
+       required:
+         - clocks
 
--- 
-மணிவண்ணன் சதாசிவம்
+---
+base-commit: c2cd463d6ee7d55a3ec0719d93c49ff99022d58f
+change-id: 20260922-exynos9610-pinctrl-patch-e0cc7118dc97
+
+Best regards,
+--  
+Alexandru Chimac <alex@chimac.ro>
+
