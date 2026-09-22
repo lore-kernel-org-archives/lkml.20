@@ -1,229 +1,176 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8496F3AFAF8;
-	Tue, 22 Sep 2026 11:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F00047D44F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790076784; cv=none; b=i4N1U/loy/wPy/b825RPx/Uq/XdJluWnFyxIu0iiuoL4NcVXD42ZxFzsL2uH1tqz93v+QAtjUCswDY3YHHSvmtfGrb7anZFo+E2E9FPjgnlk07/SSul+QBdgoCmdTbBs1Y19Zt5NuaK66f22GK5edBIcfhNvZSfkF1qS2s0ZJ84=
+	t=1790076796; cv=none; b=PaFj0pSqev6JsxjS1l0zm4Yq1Zgvigf9HVos5cGi1TE719VTUOE6Bo6ONr+Z764SPbWuYBWYSXX3sxc3G2eO+0Vyc2xuHA4Lwveqcu4mOR2Sz26ljy3/ZgITkP9BaAGBtICyxe1iStNOVA/Nc6gkB+dCL2JZZTtEy8P4koL4KM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790076784; c=relaxed/simple;
-	bh=UZcpxsK7+haISNbUhHekrYGgLE/nNFgu9VzubUjAvZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tbsdGc0L86JVRrYhceliCim0jRcXBoacviPYz52x1ZWaBoCFSotENC/Ht8aegvnSJCENyJdrUWkoJ5QdF/DZJJ4LkpO7ZskkDK7wT+C19sbo+XEvQzTKp9x7ftUvtpvq/uzOV6JoVRgA7xoVH2NZNn//u7Ey61bDh931AnD3oII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=lqw/VHsF; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Bt7fouIx; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Z7nMRJA3; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=g82nSuCf; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790076796; c=relaxed/simple;
+	bh=vAqHJkJK8NybKzUEyFkNm7wHMeyR870vyueLoGzt3yE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UhvDLLPHMBCjixx4WYzV2sQvCd0J6lubjXcGubNK7j1EL15S74ZWNk4S8XIz5DoTjkdQpzbYuNtaXZBYC077V1mD/hIkD8+pT88ikT6ZwdDEuljVme7h5GwcrFkvgbbp0lrE/e8KjiiWQNc/qZbC6mFGfTZkK0RDGAZIJyfPzOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=boFpp0hn; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="lqw/VHsF";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Bt7fouIx";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Z7nMRJA3";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="g82nSuCf"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1F39F1F769;
-	Tue, 22 Sep 2026 11:32:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790076769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qHNqRhZsY4PDDoaGfo9Y4rMrXjw8S4znraHltHttsGg=;
-	b=lqw/VHsFOyM1PsjsKWmUnjEAiCZrbCnlFP2c7OK+0emnIHPmzIbSp1YpgckUrEHrz2AjrC
-	/aWIoTkEXg8IG0wwc6BsWf1vGj9FIih8N+MsndNSIotYIWQbAi16PyUfu0l/F5ZxazwUu0
-	D7t+jRi1ynyV3tEtiFWjEZ2J9nt4SSk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790076769;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qHNqRhZsY4PDDoaGfo9Y4rMrXjw8S4znraHltHttsGg=;
-	b=Bt7fouIx/zmaW99whmgqogNbfULuwiK8aUDCtch2h0xdWVV8aNbOOh48S9YFiJQO1/U7I7
-	N46r8uF2MkoG7lAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790076765; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qHNqRhZsY4PDDoaGfo9Y4rMrXjw8S4znraHltHttsGg=;
-	b=Z7nMRJA3v3h9WyGyPMrFub5U360su5GbXavnZdD3x71RC76+r8aj4DqIxF2+lT6vTLsEZi
-	tz3IkGHeqZQKzlpmnjbKbwVKmS/uyNNA3TW7nHY7PkNnz7f6/w1Gbg0cju42okiZ0tMzOx
-	TTkuY2HSZWOHUN6TVyOA5wO4PVMcbxY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790076765;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qHNqRhZsY4PDDoaGfo9Y4rMrXjw8S4znraHltHttsGg=;
-	b=g82nSuCfFgyI2FLYZDCH/OAHmR7BQZm0QS3txU3OBpo0yR30jLM02PapAsE9RY8V8EeHGk
-	Aih5aEjTgmXiYZAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E2D60132D3;
-	Tue, 22 Sep 2026 11:32:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id mNjuLFxnsmpTcgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 22 Sep 2026 11:32:44 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 67F14A13D4; Tue, 22 Sep 2026 13:32:36 +0200 (CEST)
-Date: Tue, 22 Sep 2026 13:32:36 +0200
-From: Jan Kara <jack@suse.cz>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org, akpm@linux-foundation.org, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hughd@google.com, 
-	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz, ziy@nvidia.com, 
-	bfoster@redhat.com, joannelkoong@gmail.com, djwong@kernel.org, yi.zhang@huawei.com, 
-	yizhang089@gmail.com, yangerkun@huawei.com, chengzhihao1@huawei.com, 
-	wangkefeng.wang@huawei.com, yukuai@fnnas.com
-Subject: Re: [PATCH v4 1/4] mm/truncate: align truncation boundaries to
- mapping minimum folio order
-Message-ID: <uo7xgm7zk53f77i6qnrubqbhxf3tg6tp7qscci5nkylifnfahv@nf2xpxbkqwbe>
-References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
- <20260922110703.468389-2-yi.zhang@huaweicloud.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="boFpp0hn"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d9004a1ac0so26235285ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:33:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790076791; x=1790681591; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSk3TeVnQVuy0Nz0PmBxSCcv2Duz1teV8o735BciAQA=;
+        b=boFpp0hnxtVmMwKd1XF04JeyJRLiKHsV2LY2OHi/YdmIz7nnpla3zJX24n/ATy10Qi
+         BeAJ0Psj4Mw7QhMQ2ZM68TK3Kd+2TmkKD+1S4g35sUblsBmUh/SZhlsZl+3OYZ7Mfukr
+         WJauVjl/ksQu4u/DDUny06YI4vLb1jwedjg2I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790076791; x=1790681591;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fSk3TeVnQVuy0Nz0PmBxSCcv2Duz1teV8o735BciAQA=;
+        b=0ctu4S6io/pxJxQ01RXIViFkOaUKT/sVgm+C0frjBsRcWFXmHFUcmbEcndHRyG/cuq
+         Qn3Vl6puuhKA+TJKLkP9JZSr45gkbB0EYcd75V9MWQMrtsOjG8nI41XH/cYBrNGoXCOC
+         O4mXeJ6UjcA+CqgDphgquUYMeRdXr/sCdBcaEEGJdjOXBk+qW01OSrFsM0BeQF12J7m8
+         SV/nrzfrPFaj9j5vSDyTMJUtyL5an6kAQ4nMkOAmcCM4jzzr4Bjj5Yfu2Wa+4qSOmq8x
+         NwqNwPnqDmgzra9F9Xd5bZCjwWTnRsPl+Vb50Vy2OsC2GXa0a7viPbCP/HMd1U8+EBM5
+         7KsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxqHSqClcjNXE39jNquXK8yVDHBRT6rlEmMY+PymuzyBx0oyu9Rqv36BImaQc7h+KjYDjmfhPoL1g1T4Pc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxDPk+AvpiyTMldIpupF5zObx2Y4xJeOpCB5ii5xKrsy5K3VDe
+	Vq8tD2kcI0F+Wf8PeUAxdozHT9JoV0MwZjb0FWYeQG2xveLoR3zdRXLIwuRQz0t0nFrfZxjXJvO
+	LqDOugA==
+X-Gm-Gg: AYBFou3KIlYqqEwHJ8k0cevweL7SWUL5kL1RP5i4XJ3wY5FT6ECwwNGWeRI9VBOgSMw
+	znNjpuR25NdLj+odlY4imXsOXvv5ZoHKQkDpOPAr4eB3xlqef33IDHeast6aoBryRwPPAJh02Hp
+	3JjVziZ2r8yFOShvLwaHnJ+7UUm45B/LHhAQ+0e+Zp4SLnW8WqbJVBauvAPsjDR0NfOpqM1BIbc
+	Hm/PDx6sYCfyQrumau1pp3nTIlP4vDvWqmZFMC9FyH3Gg1Uqi8yvNxMmsyTOQYenHKZCponG5+g
+	dETr/oEDnnxWuX4ZwFjCO/dQ7WZ5Yiqpplcn9SKCK17CYBeMMnAAOMoE/Xhg2prnv+9S4CAGsc+
+	UneDYljMke+DA4Pvb2fCLDRf21j4lfZCfK50Ewh6n4VKDEjFIY08snXNhchOidQbA5S2CiLSEvQ
+	olE56GgVpsLr4U3j55Tx897+L0ftRlomqNh63aTM/IAGpI7v6N0YBlnRPPPSOX5sdQnwd+/bcbj
+	UW2mogvmO4Nl3sMwFS6VxgyUnX7EHYxTwZhk4D9BnlFASU=
+X-Received: by 2002:a17:903:b48:b0:2c8:2808:3ec9 with SMTP id d9443c01a7336-2df609b207amr10567715ad.12.1790076791238;
+        Tue, 22 Sep 2026 04:33:11 -0700 (PDT)
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com. [74.125.228.12])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d030ea6sm8477385ad.44.2026.09.22.04.33.10
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 04:33:10 -0700 (PDT)
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4c79fso1742827a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:33:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzKwcwjX/Mr+NtqHvtuMj0syZlzxlElB30JS9vhVeqaQFwRMlOop5LEwCMcra4uKflrM1fv/M1P7D3Ld9w=@vger.kernel.org
+X-Received: by 2002:a17:90a:e183:b0:39e:6c6a:209b with SMTP id
+ 98e67ed59e1d1-3a0732aab47mr857626a91.60.1790076789532; Tue, 22 Sep 2026
+ 04:33:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922110703.468389-2-yi.zhang@huaweicloud.com>
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[27];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kvack.org,vger.kernel.org,linux-foundation.org,kernel.org,infradead.org,google.com,suse.com,linux.alibaba.com,suse.cz,nvidia.com,redhat.com,gmail.com,huawei.com,fnnas.com];
-	R_RATELIMIT(0.00)[to_ip_from(RLh65wkrmjx1yjc7agkshaaime)];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:email,suse.com:email,nvidia.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Flag: NO
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <apqGlTiybdvQX3Ao@kekkonen.localdomain> <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
+ <aqU5QFGmYlCtbdiE@kekkonen.localdomain> <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
+ <aqfyYSagcejWb4xD@stanley.mountain> <CANiDSCtEmAZippX45kaxjWAHs+cd+vpFFtxOnnz00nmVnkgqzQ@mail.gmail.com>
+ <arJjxjiWVlnHhioR@kekkonen.localdomain>
+In-Reply-To: <arJjxjiWVlnHhioR@kekkonen.localdomain>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 22 Sep 2026 13:32:56 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsD_OO_7_ZQ0NvWHXRN4jo2Aqr-XGZamn3bCzwnZ6gmZQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XSEqnhRqXFFRQlQKzrgp_us5KopVV821iFq_cxHFRxG_Sd7N3TpS2PoSA
+Message-ID: <CANiDSCsD_OO_7_ZQ0NvWHXRN4jo2Aqr-XGZamn3bCzwnZ6gmZQ@mail.gmail.com>
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dan Carpenter <error27@gmail.com>, Ceclan Dumitru <mitrutzceclan@gmail.com>, 
+	dumitru.ceclan@analog.com, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+	Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu <Adrian.Suciu@analog.com>, 
+	Cosmin Tanislav <demonsingur@gmail.com>, Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue 22-09-26 19:07:00, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
-> 
-> When the mapping has a non-zero minimum folio order (min_order),
-> folio_split() in truncate_inode_partial_folio() stops at min_order
-> instead of order 0, so the sub-folio containing a split point stays
-> aligned to 1 << min_order rather than to a single page. The original
-> boundaries in truncate_inode_pages_range() were based on page
-> granularity, so either boundary could land inside the min_order chunk at
-> its edge, and the truncation loop would drop that whole chunk, valid
-> out-of-range tail included.
-> 
-> For example, a 64K (order-4) folio with min_order = 2 (16K) punched from
-> offset 0 to 36K:
-> 
->   split @p0 -> [p0-p3, p4-p7, p8-p15]         # non-uniform, min_order
->   folio2 = p8-p15           # straddles: p8 in range, p9-p15 tail valid
->   2nd split of folio2 -> [p8-p11, p12-p15]    # success
->   end(old) = p9                               # BUG: p9 inside [p8-p11]
->   loop truncates ... p8-p11               # p9-p11's valid tail is lost
-> 
-> It has gone unnoticed so far for two reasons. A non-zero min_order is
-> only used by filesystems with a block or sector size larger than the
-> page size, and those either always write back the affected range before
-> punching a hole or truncating, or they carry filesystem private data on
-> dirty folios (e.g. buffer_head), which makes filemap_release_folio()
-> fail and folio_split() abort with -EBUSY, so the folio is never split
-> and the old start/end boundaries remain valid. The bug only becomes
-> reachable on paths that truncate dirty large folios without prior
-> writeback and without filesystem private data, such as the upcoming ext4
-> iomap buffered I/O path.
-> 
-> Align both start (rounded up) and end (rounded down) to the mapping
-> minimum folio order so they always fall on a folio boundary.
-> 
-> Reported-by: Joanne Koong <joannelkoong@gmail.com>
-> Link: https://lore.kernel.org/linux-mm/CAJnrk1bQYUe6+1ryyJur5EEnZYrC+_5AYsy=OWzVRgD4202y1g@mail.gmail.com/
-> Fixes: e220917fa5077 ("mm: split a folio in minimum folio order chunks")
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+On Tue, 22 Sept 2026 at 13:17, Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
+>
+> Hi Ricardo, Dan,
+>
+> On Tue, Sep 15, 2026 at 05:56:43PM +0200, Ricardo Ribalda wrote:
+> > Hi Dan, Hi Sakari
+> >
+> > On Mon, 14 Sept 2026 at 15:11, Dan Carpenter <error27@gmail.com> wrote:
+> > >
+> > > On Mon, Sep 14, 2026 at 02:10:10PM +0200, Ricardo Ribalda wrote:
+> > > > Hi Sakari
+> > > >
+> > > > On Sat, 12 Sept 2026 at 13:36, Sakari Ailus
+> > > > <sakari.ailus@linux.intel.com> wrote:
+> > > > >
+> > > > > Hi Dumitru, Dan, Ricardo,
+> > > > >
+> > > > > On Tue, Sep 08, 2026 at 01:35:05PM +0300, Ceclan Dumitru wrote:
+> > > > > > > Can you check this
+> > > > > > > <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
+> > > > > > > please? If there's a single patch that needs to be modified, I can squash a
+> > > > > > > patch into that, otherwise v17 it is.
+> > > > > > >
+> > > > > >
+> > > > > > These are the same warns reported by Niklas in V13. Dan fixed them in
+> > > > > > smatch in devel branch but fix is not in master. Testing with smatch on
+> > > > > > that branch yields no warnings.
+> > > > >
+> > > > > Dan: any plans to merge these things to master some time soon? Or:
+> > > > >
+> > > > > Ricardo: could we use devel branch of smatch for some time?
+> > > >
+> > > > Do you know what patch fixes it? If it is easy to cherry pick I can
+> > > > add it to our list of smatch patches
+> > > > https://gitlab.freedesktop.org/linux-media/media-ci/-/tree/main/third_party?ref_type=heads
+> > > >
+> > >
+> > > Commit d12183645a31 ("precedence: silence some false positives")
+> > >
+> > > Sorry, I felt like I was close to merging devel but then I started
+> > > another major surgery to the core and got stuck.
+> >
+> > Thanks for the pointer. I have added the patch to media-ci
+> > https://gitlab.freedesktop.org/linux-media/media-ci/-/merge_requests/351
+> >
+> > Now that I have your attention ... :P
+> >
+> > May I ask you to look int
+> > https://lore.kernel.org/all/20260914-unqual-v2-0-60a1407a0cd4@chromium.org/
+> > in case you have missed it?
+>
+> I understand the required commit is there and I tried to push the Maxim
+> serdes driver again but I'm still getting
+> <URL:https://gitlab.freedesktop.org/linux-media/users/sailus/-/jobs/110822240/artifacts/file/junit/test-smatch.log.txt>.
+>
+> I wonder if we could have the devel branch there or some more commits...?
 
-Looks good. Feel free to add:
+I managed to reproduce it also in my computer, so I do not think that
+it is an issue in media-ci.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+I would prefer using only tagged versions in media-ci.
 
-								Honza
+Dan, how far are you from making a release?
 
-> ---
->  mm/truncate.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index b58ba940be47..f9625bb4916f 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -345,9 +345,11 @@ long mapping_evict_folio(struct address_space *mapping, struct folio *folio)
->   * @lstart: offset from which to truncate
->   * @lend: offset to which to truncate (inclusive)
->   *
-> - * Truncate the page cache, removing the pages that are between
-> - * specified offsets (and zeroing out partial pages
-> - * if lstart or lend + 1 is not page aligned).
-> + * Truncate the page cache, removing the folios that are between specified
-> + * offsets (and zeroing out partial folios if lstart or lend + 1 is not
-> + * folio aligned).  For mappings with a non-zero minimum folio order, the
-> + * boundaries are aligned inwards to 1 << min_order so the edge sub-folio
-> + * straddling the range is kept.
->   *
->   * Truncate takes two passes - the first pass is nonblocking.  It will not
->   * block on page locks and it will not block on writeback.  The second pass
-> @@ -374,14 +376,14 @@ void truncate_inode_pages_range(struct address_space *mapping,
->  	int		i;
->  	struct folio	*folio;
->  	bool		same_folio;
-> +	pgoff_t		min_nrpages = mapping_min_folio_nrpages(mapping);
->  
->  	if (mapping_empty(mapping))
->  		return;
->  
->  	/*
-> -	 * 'start' and 'end' always covers the range of pages to be fully
-> -	 * truncated. Partial pages are covered with 'partial_start' at the
-> -	 * start of the range and 'partial_end' at the end of the range.
-> +	 * 'start' and 'end' always covers the range of folios to be fully
-> +	 * truncated, with both boundaries aligned inwards to 1 << min_order.
->  	 * Note that 'end' is exclusive while 'lend' is inclusive.
->  	 */
->  	start = (lstart + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> @@ -395,6 +397,10 @@ void truncate_inode_pages_range(struct address_space *mapping,
->  	else
->  		end = (lend + 1) >> PAGE_SHIFT;
->  
-> +	start = round_up(start, min_nrpages);
-> +	if (end != (pgoff_t)-1)
-> +		end = round_down(end, min_nrpages);
-> +
->  	folio_batch_init(&fbatch);
->  	index = start;
->  	while (index < end && find_lock_entries(mapping, &index, end - 1,
-> -- 
-> 2.52.0
-> 
+>
+> --
+> Regards,
+>
+> Sakari Ailus
+
+
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Ricardo Ribalda
