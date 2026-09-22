@@ -1,104 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19303476060
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:34:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8B7472F63;
+	Tue, 22 Sep 2026 11:34:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790076853; cv=none; b=ZJqVCpWHwhIT1sLEBDrgeoyEvHoMvpx+vhcXTuzb8+snPBIn1ZbFxyMp1RicQe9QE/JTtAXQXYK/wVPtZykYwvZyYL2z6eZhteOPn+fUafVKjx1xZGolimMWTe5GiY9eLG0NZPTJ7+oDSE3jjkL+T5WS95O9ckJYXNjWAs/NjVc=
+	t=1790076861; cv=none; b=sE4hL3/etmUASAoYeGd92lgixx1KtMvDoDijBkMrBZLQUQvkEhvW9eA6mNKuY8v/IhV+nBupQF4eQnMqyLImQFOhxNny7ljRgpJrVyELQvRDBkw5UlkkuvWcVb0HywDCXBkZKpJLnDjlxEIiJEJfUroMUGjT07GaDV9exuk17Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790076853; c=relaxed/simple;
-	bh=kqrxpOtC9TmFQKJ2F2EA+yKbkatII6M9RfRQ5ETZtSo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LXSnandQC2wApSs2hFnkl3KWA2JE1kFz+RZ4hrPr5FsFy5P9gY6SuQ1Pm6xMJ1dHLlaModsvE72GllyGE3X0NrnTjHQU7UD/8trZw9X3LJDRsU4cEZyYs9PP7/dllrKxXa838fgBdk7qoQS6V4zkrl8KhLLbiydK8lyDyhFBL84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZenWE/4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790076861; c=relaxed/simple;
+	bh=tetoouqKM6x3srM9fS0s9Rmg2CTzXDOW9oGLZrjQ9b0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fdducSPdxX8qLPPnXwCOgRWI1uf1DRG/sdNYACSMDTa70wtkRWC3jcqccu1N5EHBAO++pY9e6bD12YEQ6v2LCQpnlo0DNdkqkNgqJAAaEb99SpLQSn8n7M6ehth54btMmcuX5opSluqWWwmFz+KHp/22utzP72LFfwdvcuoadnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBbEb8eg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZenWE/4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C405D1F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:34:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBbEb8eg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B231F00893;
+	Tue, 22 Sep 2026 11:34:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790076849;
-	bh=m4HWBGO3ZaSoKC9pMZnbu5+IJhOdzdjKInC7dPn7fCE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kZenWE/4Z3K7w4LlyOlEQ7T19MhU2++qBUukAxxxqs6jdTCNN4Z2/ehOlzzRKe7Vf
-	 h0GFoMDTpXqXUYATgYTVLJVR8BQkrrQWm/udYZhkOyAbbbphC7m5xpTA08fPVMigni
-	 Wg9BCWRzA6rL9F8cE2/OX9obybLFmWcOdODPyLg6O3GZXLL4fPDKEXZVD+pBIHhxVg
-	 +Bx/m3UX0WTrmAcS78beckTHz+B24cgHlQOP3mK8cr/OesbRfJMj0z6wcBdX0RsrIm
-	 qRk71h+LR/KgIt0p5+Iyn1Gil6vKfuIpnfBOTT1G8epH9VNM5d9vPYbtgHRcFoaJxE
-	 OCBd+PzqVOfxg==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a318299b38so36364581fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:34:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzXrrKJVJqqhOiB/ROZS2+i8hXmXHPUuooA5jDs0TEe1oBZm/dFCHMXRL1nANg/YfyE3NIx0TPxT8AGmEk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCQJL1uMryFs+hykfH4AhT+veHIM6emgvQSaD+ES4vM09BIMzG
-	+NVNbBooInbtYBBDK9uyVbnj8G/Y6upewoucQDLPHQ/7DA9qwOvByaGZT45lqSIvEHGEPyCxCG/
-	SJo0+7ridL6MbwKmrRk1tR7lXhKRnqDM=
-X-Received: by 2002:a05:651c:1543:b0:3a3:7680:67f9 with SMTP id
- 38308e7fff4ca-3a5fbfa0d6fmr29455801fa.24.1790076848154; Tue, 22 Sep 2026
- 04:34:08 -0700 (PDT)
+	s=k20260515; t=1790076859;
+	bh=8MPz51/AleVqrB9iFqCx4mq9xp/agFzW+2KTIHJEgnc=;
+	h=From:Subject:Date:To:Cc;
+	b=nBbEb8egguabqjrVzmzMNSUqdTo4bs3RSq/ArplsVaIb9l8ajUQvjFAb2oU6RmhIp
+	 EAwH7TV+CMZoiAYuGGY93rxNfPAckENr/+b+pVy5U9CP7pAhF+gHbljxwB5K/wczes
+	 WGiCwTSfhrpCVgVkh8FU1H1tnCZvRziDJcWAnX7mixtltlhuQC0L4j9d6nSqAxLHsH
+	 7PUd1WkNFryhNeH4AexvPsjlyzIeXN2OwIVLzVL5wXzSaI073WRlC4myWq6iTEFoO+
+	 JAuh4XFgjpI6NxlpnMlumOIZicSlSahXtENpqc8FDoASPyfWoggYTnMLMM180z8LCv
+	 gFp7uN6IGp7Kg==
+From: Jeff Layton <jlayton@kernel.org>
+Subject: [PATCH v2 0/8] nfsd: reduce the scope of the nfsd_mutex
+Date: Tue, 22 Sep 2026 07:34:01 -0400
+Message-Id: <20260922-nfsd-per-net-mutex-v2-0-4a5da8243a73@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920092808.17234-1-i.pavluhin@ya.ru> <20260920092808.17234-2-i.pavluhin@ya.ru>
-In-Reply-To: <20260920092808.17234-2-i.pavluhin@ya.ru>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 22 Sep 2026 13:32:36 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0j4e7S1fO9h0dT9yFY_eFdp-pyy-tYFw2pe-+G1JATtYw@mail.gmail.com>
-X-Gm-Features: AcwNN1WdwKgRfnt2Dcv33bE8YSi3aDk7bQn6dtZyC4cQf4ApRwtBc9jTvaZzyxg
-Message-ID: <CAJZ5v0j4e7S1fO9h0dT9yFY_eFdp-pyy-tYFw2pe-+G1JATtYw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] ACPI: scan: Add CLSA0102 to the serial bus ignore list
-To: Ilya Pavlukhin <i.pavluhin@ya.ru>
-Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, 
-	David Rhodes <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
-	linux-acpi@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0Jm7Zi2aQu48h6GBYEBGrWQaSUY0
+ rtbiUuX7yX//R0CsaMAl2IHptUFN/sM6lRAN7V+JHR9ZlBCWVHLCv0QelyI0VPE5yvShpU1prS
+ 61qLtIA8XpsFtR/TWZJ5ciDO/j49Vfu0vp+S/3CpRoG5LVZWDNUJ31zuxp8d55hGalNIHe37fg
+ LUAAAA=
+X-Change-ID: 20260918-nfsd-per-net-mutex-8655764940ac
+To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2996; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=tetoouqKM6x3srM9fS0s9Rmg2CTzXDOW9oGLZrjQ9b0=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqsmevVh/20L3zjeMpksNMAyjJxwaz1PW6OTxRa
+ VOFxrNJDHOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCarJnrwAKCRAADmhBGVaC
+ FVKPD/0aXeeF8iIti+pN23JOjN4G9uIdYc929dgtr73TPjJz8Vqljs5vAUixQjCAdQRAz7S4N9r
+ ehBrJZsYj9hP0F16EoMA61raWO/5TxAWZQvctIj75w9Ag+CP6YbsG1h14WaId6FlCaSU7HhK1HG
+ zDg2/U6JUJslKssqx5HgPc7eFeTQn+gClHKPXUWwB+zA7/c/GoqAjFxtRsDEj1DLjU7vB1YLa0/
+ 1fcU6jWcNVpvelHzpTqZbVdfdyXSULuNgd8H70Kx1dtPjFyUKTn1bKIS4kvGvk1udgrVe7trwC5
+ Xfi9ewRVLAGLpHKPwWvMWXjhEVPYbrpqwXMWLn/m2ZEuI77/nUS/kG4gVrFd+bfO3EEXXGSfxP0
+ dcPXuhoHipraKPJHRtLIjDpI0u0bu2EEQvtyD9LmYN4i7zbytSLusDChqIV26z9rxs9f9soM/TU
+ apuk7xjDG+NtfFoI9oeQ3vtyCJ97nvpkxqCLgE5v73UHVXw6KYP7ePYol+6FIJijgWR1Yr5/G/1
+ cn3Y0sTf+Cgxr43AVfH8xZ8YeIQ5DbFCq/cPkj9SzjMPEOR/nlq7NFBvkiF9UNjzgICvlEJolS5
+ aHfldJ+XGTwATx9xPu0MvfKiuHQ7/e1fe83kz98fSBbvFVRFAGyuMrcE+9cKbzWbS29Tx23jZ9Q
+ sYd/AjoU5ABocjA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-On Sun, Sep 20, 2026 at 11:28=E2=80=AFAM Ilya Pavlukhin <i.pavluhin@ya.ru> =
-wrote:
->
-> The Lenovo Yoga Slim 7 Carbon 14ACN6 (82L0) describes the two CS35L41
-> amplifiers of its bass speakers as a single ACPI node, HID CLSA0102,
-> with two I2cSerialBusV2 resources (0x40 and 0x41), like CLSA0100 and
-> CLSA0101 on the Legion 7. Skip the default I2C enumeration so that
-> serial-multi-instantiate can create a client for each amplifier.
->
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D215632
+This version fixes a couple of minor issues that Sashiko flagged, and
+also implements a suggestion by Neil to use guard() with the new
+filecache mutex.
 
-For the change
+Original cover letter follows:
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+-------------------8<--------------------
 
-> Assisted-by: Claude Opus 5
+Currently much of nfsd's administration is serialized under the global
+nfsd_mutex, even though most of the objects managed under it are
+segregated by net namespace.
 
-Come on.
+This patchset does a couple of small cleanups and then adds a new
+per-net mutex and moves all of the appropriate per-net data structures
+to be protected by it instead of the global mutex. The filecache is
+given its own mutex, and the global mutex is renamed and left for
+managing just the few remaning global objects.
 
-> Signed-off-by: Ilya Pavlukhin <i.pavluhin@ya.ru>
-> ---
->  drivers/acpi/scan.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> index f48715ed8..1d9698df9 100644
-> --- a/drivers/acpi/scan.c
-> +++ b/drivers/acpi/scan.c
-> @@ -1768,6 +1768,7 @@ static bool acpi_device_enumeration_by_parent(struc=
-t acpi_device *device)
->                 /* Non-conforming _HID for Cirrus Logic already released =
-*/
->                 {"CLSA0100", },
->                 {"CLSA0101", },
-> +               {"CLSA0102", },
->         /*
->          * Some ACPI devs contain SerialBus resources even though they ar=
-e not
->          * attached to a serial bus at all.
-> --
-> 2.43.0
->
+I also had an LLM cook up some selftests so we can hopefully keep all of
+this working properly in the future.
+
+Please consider for v7.4.
+
+Thanks,
+Jeff
+
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+Changes in v2:
+- Fix potential deadlock in cross-namespace isolation selftest
+- Drop binaries from selftest patches
+- Use guard() in nfsd_file_cache_init()
+- Link to v1: https://lore.kernel.org/r/20260921-nfsd-per-net-mutex-v1-0-4a7287f6504c@kernel.org
+
+---
+Jeff Layton (8):
+      nfsd: clear NFSD_NET_UP before dropping the generic resource reference
+      nfsd: make max_blksize a per-namespace setting
+      nfsd: move the control plane to a per-namespace mutex
+      nfsd: rename nfsd_mutex to nfsd_global_mutex
+      nfsd: give the open file cache its own mutex
+      selftests/nfsd: factor the netlink plumbing into a shared header
+      selftests/nfsd: add cross-namespace isolation tests
+      selftests/nfsd: add a cross-namespace control-plane soak
+
+ fs/nfsd/export.c                                   |  22 +-
+ fs/nfsd/filecache.c                                |  26 +-
+ fs/nfsd/netns.h                                    |  16 +
+ fs/nfsd/nfs4proc.c                                 |   4 +-
+ fs/nfsd/nfs4state.c                                |   8 +-
+ fs/nfsd/nfsctl.c                                   | 129 ++---
+ fs/nfsd/nfsd.h                                     |   4 +-
+ fs/nfsd/nfssvc.c                                   | 146 ++++--
+ tools/testing/selftests/nfsd/.gitignore            |   2 +
+ tools/testing/selftests/nfsd/Makefile              |   2 +
+ tools/testing/selftests/nfsd/config                |   6 +
+ tools/testing/selftests/nfsd/nfsd_netlink.h        | 319 ++++++++++++
+ .../testing/selftests/nfsd/nfsd_netlink_listener.c | 301 +----------
+ .../testing/selftests/nfsd/nfsd_netns_isolation.c  | 468 +++++++++++++++++
+ tools/testing/selftests/nfsd/nfsd_netns_stress.c   | 572 +++++++++++++++++++++
+ tools/testing/selftests/nfsd/settings              |   2 +-
+ 16 files changed, 1592 insertions(+), 435 deletions(-)
+---
+base-commit: aeaddc6a3711283c09a9183068897d4fe1fb464f
+change-id: 20260918-nfsd-per-net-mutex-8655764940ac
+
+Best regards,
+-- 
+Jeff Layton <jlayton@kernel.org>
+
