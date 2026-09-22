@@ -1,51 +1,74 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC6A37F33D;
-	Tue, 22 Sep 2026 03:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BAF37F33D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046693; cv=none; b=Nuo1qhYdVbwar+nHmYkxpLAZYzEwtTbz0FTU6JVews6X9xlfqNKR6j9ANWbIEIVfc3KUway3iLMMDftTbzzKPnBKlqbZdpLafhUptQhbQKKU+1wHjK5ByoTsKHdwMN0JFvh5iJwWMW9pyX4LXlfP8DuzpKQqKJ6QdXRuJY5YODo=
+	t=1790046756; cv=none; b=uCe3tLW/sqrAHAwEh00XkIWN1LDKgU9LIa8eeuPjjoZ4LqAa4Y/c/hveBj/vVfJtBI0VKZstByqgt3aE0ys1Gf/gpS6iFd0FcMIV1bozKh5MVElFDf25biSVMxCsXZAUtVPpqrJVJL5J8Fqfcgk588urO4iejhuhQO1rP9296cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046693; c=relaxed/simple;
-	bh=lQ68GCEp0M1/8iWXnt1MdgLFrQR9b+XzPvlHTeQbjoM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XXeXsOb8pKDkdffOaLyci2X6C4ywYiw+tzaLsnmrxBPYGh5AOOrL1qALJAGxLOS1xTLQtaCSmfSWolaIgJ0tRO86gWYXc283rZToTWz4EpDEM0iHx8FDIomoSruWOeOsg12ZBRoRIm3Jq84nP+oEnBy60XirSm71WGTSa1LT1Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 453a1c78b63311f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:142be212-b367-46c9-9856-2bd415814978,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:7d093fac6273d8700a5a3c8a794578fd,BulkI
-	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP:nil
-	,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,L
-	ES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 453a1c78b63311f19a56ed5b684f684d-20260922
-X-User: lijiayi@kylinos.cn
-Received: from thinksys.tail1c7620.ts.net [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lijiayi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1234149315; Tue, 22 Sep 2026 11:11:14 +0800
-From: Jiayi Li <lijiayi@kylinos.cn>
-To: Oliver Neukum <oneukum@suse.com>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Michal Pecio <michal.pecio@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
+	s=arc-20240116; t=1790046756; c=relaxed/simple;
+	bh=9B5L81kvVSXlVKSqFNeGPUoI3a3c4odt73AUe65yXX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l2OYP63v9ldZj6lFakGr1cDruiXBXDiq/yHowQN4kMwx44Lxh3rEWgqTYXYoyHD+8pILDhVW/maF0A4jjwEgJO59tYIK232jdviwH1TDmLGvPgKwb2B+NBqtqT4Ueqi6Kd15HiMflxCt1GFvGdrR2epjDpPIyvpeH44sxxMPZaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oI852utW; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oI852utW"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-3a02902dce2so1542076a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:12:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790046755; x=1790651555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M7jvHxTv14GtRHevnUIJSj/4ENOuym9r9hmNx9q8r8M=;
+        b=oI852utWqgN1AoQJn9zVJil6aaWCIi/MYzdESr7UhYzu4f4eqa0pl/Xnu6xB/gnaKN
+         /liNrUJCN69ebkEzo4UW3ms/ZUcfmW54VMrporansmc3M2kw+XSoCg4ZN2JffWB8AvQM
+         WQAkpiETikh+IGxG40W0EhZlQpF+cTcIskEJJlAp10w2pxKZMPtNAkg/la4u9j+3PsH+
+         x2V04HHzvpoTNqE7cpbLfWB1rgJgehb8kPzE0iAJF0CUQlvTQqoNgDfAiDFYWHJmhAGB
+         ChG7mQzua8mmr7MBCKAfHVuQHyYNS1lmuDocBI2JeUuu5b9z7lEv5MrE0m2pIjasp7Ot
+         EXsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790046755; x=1790651555;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M7jvHxTv14GtRHevnUIJSj/4ENOuym9r9hmNx9q8r8M=;
+        b=czhAxwSos+YHgeKNLiCyMQbixmtkpBh+TqTqSmFkO4PFDGdbcfMRSpPyjaZWRB6l6W
+         k8Be00zC1OfvM7KamUyDzphB6CPbrHwKMq11hBaGmGpVjVWVED/bTfVWCp397rSdLLgm
+         /hitL8MK0XIueO6vLQ35tRKLlRpOZgPR+RIgAkRA0aH6cuEpF+6KWIjHZu8lYA4g12rq
+         2+3pG0F3z3eajtp/ptD6LNy7z7y0fNSaC8Znly01LrKqBYfn/5zZzwcKBCyqGiYGkz9g
+         MU4eENbsz3Kv/9MoQVBlEi3EHwALUnHG1DegLbyeXUgTDA+D+yk8pu3WVdM2d5Yv63qg
+         s5RA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3+gKsJpbB++PU1dBPf27nBccp3D79e41uMKi9+lg99oc3X/YAz19us89CmO06T95Ox4hA3i0lYnVkiMQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKGvwOMKW1jgeLWQ2A9Frj9xAeP1q+vr3wfy+/HA6ghvXVF8zx
+	FHPYhkIw7uMRvh7Qd5/26JelMhcyNYmuQScfTZwQOOZXSZNHXO+1yHjy
+X-Gm-Gg: AYBFou3sZEuWl8tZLcrfa9h9nN22dirUCyxcgBHZXThPSQGMbUqUzsmn90a3f1ZKgBs
+	LtAKVEIWc4YNnf9OM4p2FNB3BbQy9olki0mwK8PJiqC0JCXQ/0iSeQm+o/86pnfGZ3fLNkwIOR1
+	svAIAgsPd58F601hlbk0dxjQ/0LVGHqcjpeE6Ds1HQJtSnc3MSQHOPb9w4OErImpJ3VVKhpa3wl
+	vLroQdiyTi1BM3AuHWNoVDM1qmMp54eMqIPhSKOfBHPVw8nWjvWDs37HneXZ5NYVV7xBV5yMtKD
+	XKgQRd39cm3t+QSFtY2MZ6i7H5009cAP00Hrqknzgp/aS8TXDPRRoPUAtvyO+B56xLZZT8AbIiX
+	49PbeGghHWX/Qs1JT7oYub6DuMI0Y8gRyLR3X2NxtTChkfejeAmTS2PhuJHGpdLwVxWyRlrwsST
+	TsIx/arBvK4VzHp/xKoDWlOOItVyn/MLnuxCbfKUY1eeEfwA1bLQAJNs7Us0aAAB099rqHSJu9H
+	97IGB3XQC4=
+X-Received: by 2002:a17:90b:3ccf:b0:39e:4c7f:7309 with SMTP id 98e67ed59e1d1-39e550784ecmr18060387a91.32.1790046754990;
+        Mon, 21 Sep 2026 20:12:34 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06cbe3714sm294627a91.0.2026.09.21.20.12.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 20:12:34 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: kees@kernel.org,
+	joel.granados@kernel.org
+Cc: kuniyu@google.com,
 	linux-kernel@vger.kernel.org,
-	Jiayi Li <lijiayi@kylinos.cn>
-Subject: [PATCH v2] usb: uas: quiesce SCSI before stopping endpoints on unbind
-Date: Tue, 22 Sep 2026 11:11:02 +0800
-Message-Id: <20260922031102.141043-1-lijiayi@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-fsdevel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: [PATCH 0/2] sysctl: Two jiffies converter regressions from 2dc164a48e6f
+Date: Tue, 22 Sep 2026 11:12:26 +0800
+Message-ID: <20260922031229.2300283-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,95 +77,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unbinding uas while READ commands are in flight can leave the storage
-device unusable after the driver is rebound.  The first post-bind
-INQUIRY Data-In transfer completes with -EOVERFLOW, and SCSI error
-handling eventually offlines the device:
+Following commit afdf35cfae0d ("sysctl: Fix type truncation in
+sysctl_msec_to_jiffies") I went through the rest of the converter family.
+Commit 2dc164a48e6f ("sysctl: Create converter functions with two new
+macros") dropped two guards when it folded the open-coded conversions into
+macros:
 
-  scsi host7: uas
-  scsi 7:0:0:0: tag#4 data cmplt err -75 uas-tag 1 inflight: CMD
-  scsi 7:0:0:0: tag#4 CDB: Inquiry 12 00 00 00 24 00
-  scsi 7:0:0:0: tag#4 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD
-  usb 2-2: reset SuperSpeed USB device number 2 using xhci_hcd
-  scsi host7: uas_eh_device_reset_handler success
-  ...
-  scsi 7:0:0:0: tag#7 CDB: Test Unit Ready 00 00 00 00 00 00
-  scsi host7: uas_eh_device_reset_handler success
-  sd 7:0:0:0: Device offlined - not ready after error recovery
+  - the read path hands a sign-extended int to the converter, so reading
+    back any negative value produces a wrapped number
 
-A command URB may already have delivered a SCSI command when usbcore
-disables the interface endpoints and kills the data and status URBs
-before ->disconnect.  uas_disconnect() then removes the SCSI host only
-after killing its anchored URBs, so SCSI teardown cannot first quiesce
-the accepted commands.  A newly bound UAS instance can encounter the
-residual transport state.
+  - mult_hz() multiplies unbounded, and the caller's INT_MAX check
+    inspects the product, so it cannot see a wrap
 
-The failure reproduced with a VIA Labs 2109:0715 storage bridge on both
-Zhaoxin 1d17:9204 and Intel 8086:a2af xHCI controllers.  USB device reset
-and xHCI unbind/rebind did not recover the device; physical reconnection
-did.
+clock_t_to_jiffies(), used by the userhz variant, kept its own saturation
+and is not affected.
 
-Set soft_unbind so the endpoints remain available during driver unbind.
-Cancel pending scanning and remove the SCSI host before setting resetting
-and killing the anchored URBs.  Use the same teardown order for every
-disconnect path and rely on SCSI host removal to handle a device that can
-no longer communicate.
+Tested on x86_64 at HZ=1000 under QEMU, writing and reading back
+tcp_fin_timeout, tcp_keepalive_time, ipfrag_time, icmp_ratelimit and
+neigh/default/retrans_time before and after.  I did not test 32-bit or
+other HZ values.
 
-With the change, 10 of 10 zero-delay unbind/rebind iterations with 30
-READ commands in flight reattached the disk and completed a post-bind
-O_DIRECT read.  Unbind took 82 to 109 ms, with no UAS completion error or
-command timeout after rebind.
+One thing I am not sure about: afdf35cfae0d carries Fixes: b96b5c6708ea,
+but the "jif > INT_MAX" guard the ms variant used to have also went away
+in 2dc164a48e6f.
 
-Signed-off-by: Jiayi Li <lijiayi@kylinos.cn>
----
-Changes in v2:
-- Remove the USB_STATE_NOTATTACHED-based disconnect classification.
-- Use the same teardown ordering for all disconnect paths.
-- Reword the commit message.
+Zhan Xusheng (2):
+  sysctl: Negate before converting in the int read path
+  time/jiffies: Saturate in mult_hz() instead of wrapping
 
-Link: https://lore.kernel.org/lkml/20260920012358.3362053-1-lijiayi@kylinos.cn/
+ kernel/sysctl.c       | 2 +-
+ kernel/time/jiffies.c | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
- drivers/usb/storage/uas.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
-index 8655edbd66b16..8752cecb45915 100644
---- a/drivers/usb/storage/uas.c
-+++ b/drivers/usb/storage/uas.c
-@@ -1217,6 +1217,14 @@ static void uas_disconnect(struct usb_interface *intf)
- 	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
- 	unsigned long flags;
- 
-+	/*
-+	 * Prevent SCSI scanning (if it hasn't started yet)
-+	 * or wait for the SCSI-scanning routine to stop.
-+	 */
-+	cancel_work_sync(&devinfo->scan_work);
-+
-+	scsi_remove_host(shost);
-+
- 	spin_lock_irqsave(&devinfo->lock, flags);
- 	devinfo->resetting = 1;
- 	spin_unlock_irqrestore(&devinfo->lock, flags);
-@@ -1227,13 +1235,6 @@ static void uas_disconnect(struct usb_interface *intf)
- 	usb_kill_anchored_urbs(&devinfo->data_urbs);
- 	uas_zap_pending(devinfo, DID_NO_CONNECT);
- 
--	/*
--	 * Prevent SCSI scanning (if it hasn't started yet)
--	 * or wait for the SCSI-scanning routine to stop.
--	 */
--	cancel_work_sync(&devinfo->scan_work);
--
--	scsi_remove_host(shost);
- 	uas_free_streams(devinfo);
- 	scsi_host_put(shost);
- }
-@@ -1267,6 +1268,7 @@ static struct usb_driver uas_driver = {
- 	.suspend = uas_suspend,
- 	.resume = uas_resume,
- 	.reset_resume = uas_reset_resume,
-+	.soft_unbind = 1,
- 	.shutdown = uas_shutdown,
- 	.id_table = uas_usb_ids,
- };
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+-- 
+2.43.0
+
