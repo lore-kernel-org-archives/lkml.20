@@ -1,110 +1,181 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BB84A64C9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AE14A68A8
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790057521; cv=none; b=kWKEqmrglHLy0lpIddzaC5JESBaMaLukYTcBzMoL0iRaU4CFcSIOVKnoBl78mMZIwFv/mvph/3/1f1+LTSVNccsJ3XllilnxLUDG6gcV0ObP9wEL7x5/UAilw1k+WGhZkZr+7b/zGjKTMP/2xL/oiznCf3AENqhq86WsSAcoJsQ=
+	t=1790057525; cv=none; b=Un3BTUyRV4QMaoIE1JEJnBfDvAMwUJKzbxtCG17KHx+KQoB/oOnD2YhzOCFUgKx63iw54wyiqWB1Zl6MvlVzCSb7jz5JuCdUE0QlibT+vBJMnnLm6zfTvvecsS3TDfVJmS03DJljS3m+JTyn0RNXSpVJ/Zm461ECryFPGV59JQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790057521; c=relaxed/simple;
-	bh=E8YVM0lkb/F4gw1PQaH0+hECNdTEEr2VOF55Jy5TLIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a9+3/5Dj2jNN2CwhRSL0ndHJKd2+jak1cZlKWrtWW6o4fdv0dzyhchDWXhAeGlc0UiHguwt9zXlz2TAGpvfcaIUV2oBb+4wstrGT0ycjyfSCY1g4IGRk25QuEQkqxvPb1+IFOIffWb4C+qvhGeD5GnMp0/TK1AGMrpuHNBEFs5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XwDCT5uh; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790057525; c=relaxed/simple;
+	bh=dTPBRt1/cBuUzzuTU5LVCE6TjlRw01N5hVVOsf87m2w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=Xcf1g6RebiDyHQH4mf1J9bCoqUttJn7iyZuGqmMwYJYTr6zmFY1Zw/Deiv11AbQ7TdwuTkNcgkYMB3QDI4MjIDVrl0enS8eKmAWtctdCew2xltqT6zctYt1Salmyz5s7oTSB70HvaRYCyB/bhA2KcxvdB0AO0dtV6M/waB6anDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=BknPp55r; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XwDCT5uh"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87ac7657a24so786269b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:11:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790057519; x=1790662319; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KARpXPYlM2wZhUyrKSogeHTLUD5EXLXuvN4rvW+uIK8=;
-        b=XwDCT5uhRQ7K14nuhlXtK+CQ2AqUDac+8WMSbMqe+SkXu1wBNlvnAHjU88ECcE5PKO
-         6Wd+5lYk61vWgybtcS8FBCg4AxLq0by7j86V99XCCmQw6ctrdtmr2nSrkdcluSZoVYT8
-         Bzqv/RjNZ34vgCXJUKcAbSrTT7mU7tKsb+YFpjOPhH7m2f/qczDzNiFgG4DWIzjGrry6
-         30NAntTrCbHMh4XXNGTyXyUUA3eyu6qbGNLJusFpFn1KxcLvWJ6W9VMy2KBihfmE4Dsb
-         xHx0BNljnBeYWiIfvFWthcyaXArCAp0DSu5bWZkjrfUpJZV3mjNvBqtXnsZhOFsPSmRa
-         f7GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790057519; x=1790662319;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KARpXPYlM2wZhUyrKSogeHTLUD5EXLXuvN4rvW+uIK8=;
-        b=yJi53ufr579hBdIrT1NF12xGDTzjTPO8yEkwxJ+LTIl+1BSKXusA7Z5Ob/DCOV0B/e
-         mb6ua11gUi63eI06s70PR2chhMGEmiFKmRFLX0Tcxu84wmHu3IBXi02rctoJwO3rcAGe
-         udgvYGJ/JRIDdZ+4C46mUWIVu/QfMiq7ux94XLBZR2/Yk4gnRbnzHHYVmDoOXU8UhY4A
-         39EwpP/xQYW/58Nzlm4cyodP6nvGCCLW2u7GhHj24AK3+9VZJ2ZiRnUOfpmIc2TEIUOs
-         7xvELJ6uYJEMOnsSioldFofMuMd3qxpKOzBtciGIloKCAAEChwY1ZZJrim1izJLIt7+L
-         mrNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvvDJ1P/4vj9WVP1YF4avr6ARw2qBbLnk1cHNMt5eVOmYpn+35Osh0rbjXnaShxyJPqSYM4QbMJuowvKE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8ZtEiXgQiXTCqRBMNSpoC+k2pG9MykCBbqlqtU1MaiLch/DL/
-	vcm/FvLUYNe5JbWg10kGh3EPczmT57u/6PA7OVwV8nmXjcpo0k6jCd0e
-X-Gm-Gg: AYBFou27gCgx/Uf25HZsmPFuFa6yDVWNPCjuG7XFPa++brxa4v9Ahh+wzjA/g008VWZ
-	ipW0zzQiAfwMZxnuBmIIvVBIMt3lnP3il2xsSaniTh44NiQmdTp9EEjpph6CwvD+zRY2BfWLrDo
-	2bSxXkXq2BQ21hmjYXYKABJaAvgW/Pe0+w0igxaIrAOCtij8v1gjJ7fxoHJCtsbV+QlFtvBSVHc
-	VbIC2eLSmHqkh+WLs5b3fkAtNFduPI2BBMAf+FXdzxdtRRj4RxSL8VjwD3U4uQAd2FyViU1AgTj
-	JcIiJXUTtY1UBc5XGZzrooaZJz04V7DqvPTilf8x2xSH9/IZRSKJ6pUl8SKFbVPynHd/BwPzcuc
-	nCxFjm7fI9Gsr4fygqYWqWkl0oW6VajtQFbZX7f6lV5Mi3mEyw1HlVi3BVSCRoVT1YsXtu+5v/W
-	kljKp7xRP+AVk2J8ryItOmdzbgfTqjTG2FjejD4E1jSA7aU/7ChKxAa80U0R2GZq7ZFPs0
-X-Received: by 2002:a05:6a00:844:b0:879:1046:f4a2 with SMTP id d2e1a72fcca58-87c83c49a03mr112992b3a.33.1790057519137;
-        Mon, 21 Sep 2026 23:11:59 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c31ee8a96sm317135b3a.20.2026.09.21.23.11.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 23:11:58 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:11:06 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, 
-	Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Minas Harutyunyan <hminas@synopsys.com>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Damon Ding <damon.ding@rock-chips.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Heiko Stuebner <heiko@sntech.de>, linux-ide@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
-	linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [RFC PATCH 4/5] usb: dwc3: core: Adapt the return value changed
- for disabled blob
-Message-ID: <arIb22v8tjUBpGEn@inochi.infowork>
-References: <20260922024724.191412-1-inochiama@gmail.com>
- <20260922024724.191412-5-inochiama@gmail.com>
- <2026092202-armband-avatar-0dd7@gregkh>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="BknPp55r"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M5QK2m091855;
+	Tue, 22 Sep 2026 07:11:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=8X7CkusW0IfB/2rTSn/EA15
+	auoWZN8aQINjTfeKtdq4=; b=BknPp55rouYhdGiL2w+MeinGwLdVPAnEZhfrNP3
+	4O1CV/3PM7f69OBCgWOAklfx91JS9lI5RSXaSqVlbp8KnxBAt5JqrkWxqEjD7Ksp
+	Y3xP8AxtxFU08vmnxerehiQ+NCXFy81oiiaCgJidH8vpJl3LdovC9XUtNlMypqVp
+	a8DIVfLdu6X5ZQ2szu9f/+uU0H4VL6gMnER732+M5IHftxflnWnl9Z7oS7JWbuZK
+	q+tzg9GS+4woKOFnAnnInH8N9+8yYVC0zm89SBEtkjpff/O1SSBU7S0Q18xscY+x
+	4Aa6JI1goSq/RqCe00676zWTVqXAt9aanvPtYPiykYo4IxQ==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq249s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 07:11:43 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 22 Sep
+ 2026 07:11:41 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 22 Sep 2026 09:11:28 +0300
+Subject: [PATCH v4] drm/imagination: Fix parameter validation in
+ pvr_fw_object_destroy()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026092202-armband-avatar-0dd7@gregkh>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260922-fix-null-pointer-dereference-v4-1-6c7369b83437@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAA8csmoC/43OwQ7CIAwG4FcxnMVAUQRPvofx4FiZNcoMzEVj9
+ u7CPKjxoIce/rT5/t5ZwkiY2GpyZxF7StSGHObTCXP7XWiQU50zAwFaGAnc05WHy/HIzy2FDiO
+ vMaLPExxycMZKOYfaGsMycc4ruo78ZvvM6VId0HXFLBd7Sl0bb2N/L8vdn1W95JJ7bSvwHu0Cx
+ JpOTYdu5toTK109vDQr1A8NsiaV8d5W2hux+NLUmwa/flPlN2HtUius9VJ/aMMwPABfy7TAdwE
+ AAA==
+X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>,
+        "Alexandru
+ Dadu" <alexandru.dadu@imgtec.com>,
+        Donald Robson <donald.robson@imgtec.com>,
+        Sarah Walker <sarah.walker@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790057501; l=2989;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=dTPBRt1/cBuUzzuTU5LVCE6TjlRw01N5hVVOsf87m2w=;
+ b=2XlUJ2Vb7JqvHPL9ERsDjyC1akbLDPyDuPFBoecrQeO7csovYOHX392U/acOU0D9kaGt4Z68L
+ pjOEWwY+F6UDy2S+YtkuMqdU3zHd6JLLBwQAo9AJgADxtLJI/zYaGxI
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA4NiBTYWx0ZWRfX0QHVrlyohn0/
+ X7syzwWn6H8EBarQqwvcISTt6yeo4Un+dhDZ+4Xe3NJWm8sQo7sU8wm50L09uAFjsXpmygVV+fD
+ 1HjbgnsIJ5ehDSeQNyZD6PAXQlL6dRLUk7FY4xJhIz/J6ojHZrTu7NlfVMmcAcPsEW1B8vswTE8
+ /pDn6mfzL4X4UAJrntYfESntRdEb2YW/Zku4OztEAV4WKNypaTJ0MSqZknZk1kbgSxwKA1RUQID
+ t+9KqzP3Vh4xbaozO86RczCNzqxkAkq5/zVBHGWWAHHkV81zi7TMtN9YVxYT0vyo/KbIoWDGo3k
+ mkbdOs0xS/sERcGOYDmCsX3h/yH0rgjJfKu2ag48b0OKYkHXfr3/QYBuUrIOnuIseLGsDZhS5hd
+ yAALzHDOoeiHW8Y3HFBn0Vn61jLc68qAnD3opsw3X8ZJYakCmN1UHJrBJPll5Z8PJ6E+AJLoX3M
+ ThKXfV/TJ0dXw87nm5Q==
+X-Proofpoint-ORIG-GUID: dYukE0-1_-6dzPa21YfW1eDK7TC4NA1B
+X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab21c1f cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8
+ a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=craggXHLatwVVKPEDpEA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: dYukE0-1_-6dzPa21YfW1eDK7TC4NA1B
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA4NiBTYWx0ZWRfX6ZRSPOKtllPW
+ 0nqOD7BolWSCPfx2jmkVQn7AaiHmD3mfYILjF4CgjYEJ5tUGu31vnGBQpKZSOGzy2P+AVVdKlRS
+ nqtgwJsJ/T1or8XiwOmJUjJ2md+pVJI=
 
-On Tue, Sep 22, 2026 at 07:34:31AM +0200, Greg Kroah-Hartman wrote:
-> On Tue, Sep 22, 2026 at 10:47:19AM +0800, Inochi Amaoto wrote:
-> > Check EOPNOTSUPP for disabled helper function as the change in phy core.
-> 
-> That says what, but not why.  And what "as the change" specifically?  Be
-> verbose please.
-> 
-> thanks,
-> 
-> greg k-h
+Fix parameter validation to avoid possible NULL pointer dereference from
+pvr_fw_object_destroy() when handling allocation failures.
 
-Thanks for this reminder, I will express this verbosely in the
-next version.
+Sashiko report:
+If pvr_gem_object_create() fails in
+pvr_fw_object_create_and_map_common(), fw_obj->gem is explicitly set to
+NULL before jumping to the error cleanup path.
+The cleanup path then calls pvr_fw_object_destroy().
 
-Regards,
-Inochi
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/dri-devel/20260810132202.3C16D1F000E9@smtp.kernel.org/
+Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v4:
+- Move the structs declarations after the early return to fix V3.
+- Added kfree() to the early return path.
+- Link to v3: https://patch.msgid.link/20260922-fix-null-pointer-dereference-v3-1-f099763ed676@imgtec.com
+
+Changes in v3:
+- Skimed the commit message removing redundant information.
+- Refactored the parameter validation to return early.
+- Link to v2: https://patch.msgid.link/20260903-fix-null-pointer-dereference-v2-1-138ff9b6f805@imgtec.com
+
+Changes in v2:
+- Commit message and cover letter updates.
+- Link to v1: https://patch.msgid.link/20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com
+
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Donald Robson <donald.robson@imgtec.com>
+To: Sarah Walker <sarah.walker@imgtec.com>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/imagination/pvr_fw.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index 850a3ec8e775..39d70f51f126 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1425,6 +1425,14 @@ pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev,
+  */
+ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
+ {
++	if (!fw_obj)
++		return;
++
++	if (!fw_obj->gem) {
++		kfree(fw_obj);
++		return;
++	}
++
+ 	struct pvr_gem_object *pvr_obj = fw_obj->gem;
+ 	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
+ 	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
+@@ -1439,8 +1447,7 @@ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
+ 			return;
+ 	}
+ 
+-	if (fw_obj->gem)
+-		pvr_gem_object_put(fw_obj->gem);
++	pvr_gem_object_put(fw_obj->gem);
+ 
+ 	kfree(fw_obj);
+ }
+
+---
+base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
+change-id: 20260812-fix-null-pointer-dereference-2c891142d988
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
