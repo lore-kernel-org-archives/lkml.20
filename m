@@ -1,149 +1,132 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9704C56855C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790097826; cv=none; b=WER5j+P/EvPbZUyX3kf/7e1M0LNVMpawAOz/rplx2AkzkkpnKdJf+0+D7LvbPaW81vYvF/PA3re+uEkrlhNx2Cx7l5dL2V27s/QzPENS/Rf/Q+4B2LRVazzMiXbR8cvN3xdEi1jORIhbtNriRnwH5KVyxXj1C+0Uu7Xewhp0owY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790097826; c=relaxed/simple;
-	bh=YagJ7G/Lr2bkyPLb96nex2Ieu1fELferKNmlqik77Pg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YogpRZdfb05huRCU38pSI9RwqNNKquEgzbo9jhPOJ4qJJCu8T8br3nifrhTvbzKRHCpF5PKCATxTmCqEVu8zski4WACjd3Wgjyyui03MXxfVJ1lYwR8GTwGb3T+/vHucLEakyuWFJ7YSgqwphVffU9naOzAwIwTglyqS3d/X58Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dxRdjVco; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C830C579805
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790097896; cv=pass; b=Zns2M/oZFXyyZNSgDiKQLb7TBOPd2j/rWZxhrjUgZpzQrOOo1Mp2yP79vFXCl9AsJHQD1hz9ly1tGlrAAjSWCFpiPyYiCr5ACNgZx+ObKiu3kYMVzVnUyomAM7XFhvrVdcM6jVmWNAd/0LNW3beMtp5as/wCgx9vM/Z7DO9IhiQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790097896; c=relaxed/simple;
+	bh=HHFUJjRx9PILiAJgW+PPi+mo2/L/wFoyjksNl22C0XI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=nfZGLiq164yZXSvURqA+czZdYJogYzQSlN7SbmqzkyzzmndM4OmCrYfgxg4zGhONaH/30rHlZVruo+FP3ewfmWYgL0rgy6etbsImX2vc20GbsLP2mY4/dIKGFOTzUIafcG7EAyke0dIxzbPLtrzXzqHdvh3fG00gXyn+rxLxJiU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=HHHAi5pT; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dxRdjVco"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so237740a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:23:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790097825; x=1790702625; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ql6e6uyZc8xZzxZ3KoRlBfpeEOGwWkJ5hNC8a9M29d8=;
-        b=dxRdjVcoLsnFcCZhSW7boiZa9GWAyA9oTvoHs3GxJSiw+lm0gVHBSZpJFnOSOJaD0s
-         NgeHv4VUPkENZPxLcU90YFpkfTGPZqlOoySmejuRj+TVuID6Aq35g8g/x9FiEnnO/Cn6
-         ojebIkvtr083C+t0fZSS0oFJ3c09BBVH2C5tVe06Ewgxd4e/3y+Ms6wR+zTIIKlBd2gI
-         QFCH36SibkjBuclExMD6fhGVYo1vJczPVTTOk3eEQIiCyj1e/lWrNDbiappama75zVQq
-         gUEzxrclcY+iy80WgXqNMm9HIRlEdqFmLYAznae7+oqPeW+rt5qUIIYf9opBKN7KEamE
-         tdbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790097825; x=1790702625;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ql6e6uyZc8xZzxZ3KoRlBfpeEOGwWkJ5hNC8a9M29d8=;
-        b=T3zaUkkcB75hsemvXWVDesToju/F5isMxaIusVkYATxDWVL40wJ0Vuf6WJJyYbeW/p
-         UGEtzbyhK6Cgy1g4U2gLG7CJa/eDaBzLm/JmPlDEJQcqBB5vcVCLVEVWgXLUzqTTJW7v
-         sW7VKfvSllggw0wO67g8JGgd1qx0N4daT3lJc8yDCPZh/RdAHjUYCw301DkQmtvVHTr+
-         PdC02RwUq4JvolSzdZOVly4/agrHyxsCys99l9Ix9Rup5O44lzpg5XLW8YGmO2g+nbTO
-         sAEo+FJqcnVRfdmVKS5vy09pI/HrSHy3eF+GBcC6j/QJ3fFsiYCFh/kedlqoDUY8c3Rd
-         KAoA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPRS3aELg4Wfbhithqiu8+aOBRkq/6UuzKCOseciS9/1kkS9ckUKbvcqHIIFKK/3YygpdxeYUNsu8ASX8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKbCPHdTddIy6hUnBI0D6eigwR9+PCuk/Mu8KK7I6kGGM50nsu
-	xN4n54iiUbxy4azvb//rtwvoV0NpPQesMxowbG6o3CasknnxdmmjDEdbeL14/7oaD52jcJHInFO
-	5/gp2jQ==
-X-Received: from pgdg5.prod.google.com ([2002:a05:6a02:51c5:b0:cc5:111b:b53f])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1848:b0:2dd:c100:7cb7
- with SMTP id d9443c01a7336-2df69de9aaamr563645ad.51.1790097824659; Tue, 22
- Sep 2026 10:23:44 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:23:43 -0700
-In-Reply-To: <arKxjsxuO1F5ExrY@kernel.org>
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="HHHAi5pT"
+Received: from fauth-c1-smtp.messagingengine.com (fauth-c1-smtp.messagingengine.com [204.75.18.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hq6RL3rmpzyQq;
+	Tue, 22 Sep 2026 20:24:46 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1790097887;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HDJ3kpUsd0EZIs2+o3fDTdQpM9JrBURLXPpPlz86z4A=;
+	b=HHHAi5pTIyfNLPhHWJffqmLZ0tYOg/8rNLgWU9Pak2sgCSXEV5H8chEtoMa7IUZG25vzQZ
+	iexYcoQ5qMrEXOuXDcdWzEo1UN+iGHeZUd12KhfqJ2ZYBh9s0yWj0RMlZhkvnmSW2V618U
+	B7xWUaJIRYQ2ZTix4eS5vdl7r/0JhzI=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1790097887;
+	b=npOCs6kg6dbMUd5ONKwNo34npWd+kgAp1JDU0xo7LqMtlWxBJPO8mfrbcg9DogoGJqUK8V
+	0P5et+HdKL8YAnagSSVNWkvdAotcE/FceXukAOY7P5sQt1rF2KvPMtI4VhZ3n31ODvhVRi
+	m3dact53s4GGBsJMcVj3jgFy1825y5s=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1790097887;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HDJ3kpUsd0EZIs2+o3fDTdQpM9JrBURLXPpPlz86z4A=;
+	b=Ib79IEXVQMinzM81lAzeJY4pnozl1wdKlWWFFhhatOltbtUpnI4o0mNiSreTN81HRdYdq8
+	TFSDP3fMl+x6JKv+R3/JLKnq7aOT+FRoF+evsGrGUvTcxEyJYt+F8NH800aTgMaKLjZhoG
+	u+fpJTYWBd09Ayct7Ult/MXi2/r4Bpk=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 79ED4198004A;
+	Tue, 22 Sep 2026 13:24:45 -0400 (EDT)
+Received: from ams-imap-13 ([10.64.2.33])
+  by ams-compute-02.internal (MEProxy); Tue, 22 Sep 2026 13:24:45 -0400
+X-ME-Sender: <xms:2rmyalO-uDHM__APmsv-YucoLtmwXPbokENmYIZ4aAX-XJPDAFZnCw>
+    <xme:2rmyaixvunDe_7PXCVVHloSH4gHagMW0K_rUgOIiwnwlIpLsnw2cGWwjTX12CR16v
+    vjzpvHwLk8BtZ8JTVTF8SiXUiXUBOdVBEbNaGtQm5Kqk-jc5Wcjb9ga>
+X-ME-Proxy-Cause: dmFkZTExBE7TvAv+Zlf649UCtMysU4jgxLizrL/IBJYd7zHzxzT0E//+kCYwyYrOvTbdX7
+    thiX6uwyBdaqKYLIfeZJ3RcvzLm/3F257FpQsxcIGc0IR8IeUn+JveJzBAUm26dusdHpHb
+    4rCDP6SW6PPxmAGHkJcp96m2+dumXAK9SzB1cqw6pj3h/jjfwcGQLm32LmrT4r8T0dyLe6
+    LJng2/+kgbJToCdXVDqepDpT2QJ7XXUfsqi34Egv4IOJoLl14yXPc6ANLbyChYO7LNigZt
+    jwUsH17joUGk+1NTUjGVgWQTPO0oLx3fVKrwmfDei61P4V0PWrnvZXm79oiL4aLRajiMPp
+    mSHnzPlhvLSufXQNeYF6/Ba9VLhI6tZCz54Iz1NKZgs3fSxXq3eYBasca9fA+B8bAF8Wgs
+    UiKvZD1UVDYM3Zw5plFc57o4OA1N8YaSnibSXFrs5/GbuEsHfD14izqu+QWqh5nukYUVBA
+    Y4nc7u5V9DS+k2IB/m2oTQmtoS8g15v7OsBsTYha0Wsh/yf/IbN20v7hHPSSpB6J7yZxwn
+    E74pAgoYA8v9K4jch1QYz8XqdeZlDGOV/m1b/J96h5QpgVEsf3QZdeOYd8l4Btsaz4uhiv
+    TjC9xdad21b1uuwvGdayX4uQsJDh5bas8KDmcN7kYDevZIFYgraxIAWKFRyA
+X-ME-Proxy: <xmx:3bmyajO3-KLnvAYYUqJ0goQhW8LvQIFqjDSCpEB-2cNrFwhmSj5Qkg>
+    <xmx:3bmyaiNvfMOcy_9oWo2PNwJMNBste8eUD0F8Y9BQrhKmG8DOcB_5Wg>
+    <xmx:3bmyal23adjBGHFVsr8yQKW5zfDQXHJzulpxpPpsr7RP94wdQKA8Iw>
+    <xmx:3bmyam2xqCfBONWk2NKYCeGl-T3mLL58l-8JQSxdaTnnw_ePFTxkcQ>
+    <xmx:3bmyakxJWpVombHSQ8IhhUZyN99U25G6dGSdkDwwGem_10UgNte0ac9b>
+Feedback-ID: i02414972:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3C3C5F8008B; Tue, 22 Sep 2026 13:24:42 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
- <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org> <arKxjsxuO1F5ExrY@kernel.org>
-Message-ID: <arK5n9HrbZMCOHOt@google.com>
-Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
-From: Sean Christopherson <seanjc@google.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-ThreadId: A_PuV4p-mAYk
+Date: Tue, 22 Sep 2026 20:24:21 +0300
+From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
+To: "Youssef Samir" <youssef.abdulrahman@oss.qualcomm.com>,
+ "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>,
+ "Manivannan Sadhasivam" <mani@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Jeff Johnson" <jjohnson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ "Chris Lew" <christopher.lew@oss.qualcomm.com>,
+ "Deepak Kumar Singh" <deepak.singh@oss.qualcomm.com>,
+ "Raj Kumar Bhagat" <raj.bhagat@oss.qualcomm.com>,
+ "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>
+Message-Id: <8ed398ba-2ebe-488a-a213-8ca7ecbe861d@app.fastmail.com>
+In-Reply-To: <a16d507e-17f7-4074-8817-4b8da3a71c3b@oss.qualcomm.com>
+References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
+ <20260921-qrtr-multi-ep-v2-2-27dd80d841a0@oss.qualcomm.com>
+ <a16d507e-17f7-4074-8817-4b8da3a71c3b@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/4] net: qrtr: Assign unique node id for MHI endpoints
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026, Oliver Upton wrote:
-> Hi Lorenzo,
-> 
-> On Tue, Sep 22, 2026 at 03:17:55PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > +bool __weak kvm_arch_vcpu_allow_pre_fault_memory(struct kvm_vcpu *vcpu)
-> > +{
-> > +	return true;
-> > +}
+On Tue, Sep 22, 2026, at 20:14, Youssef Samir wrote:
+> On 9/21/2026 12:23 PM, Manivannan Sadhasivam via B4 Relay wrote:
 > > +
-> >  void kvm_vcpu_on_spin(struct kvm_vcpu *me, bool yield_to_kernel_mode)
-> >  {
-> >  	int nr_vcpus, start, i, idx, yielded;
-> > @@ -4365,6 +4370,9 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
-> >  	    range->gpa + range->size <= range->gpa)
-> >  		return -EINVAL;
-> >  
-> > +	if (!kvm_arch_vcpu_allow_pre_fault_memory(vcpu))
-> > +		return -ENOEXEC;
-> > +
-> 
-> nit: it'd be better to let the arch hook return an error of its choosing
-> but in reality this is only going to be used by arm64.
+> > +/* The offset is chosen carefully to not collide with the node ids allocated by
+> > + * the remote nodes. All the remote nodes use node ids in range 0 to 0xffff.
+> This assumption does not hold up for QRTR V1 headers where the node ids are 32bit.
+> QAIC devices use BHI_SERIALNUM as the node ID, and it is definitely larger than
+> 0xFFFF.> + */
 
-Heh, except x86 already has something similar.
+Does that mean we have to go back to my endpoint id patchset?  It's an
+option, but a quite complex one.
 
-	if (!vcpu->kvm->arch.pre_fault_allowed)
-		return -EOPNOTSUPP;
+However, what is the likelihood that serial number would clash with
+these host node id values? Maybe just adjusting the comment could be
+acceptable.
 
-As does s390:
-	
-	if (kvm_is_ucontrol(vcpu->kvm))
-		return -EINVAL;
+Also, rewriting QRTR node_id for more than just MHI devices could help
+here. If all are rewritten, the problem goes away.
 
-I also don't like that this is subtly about avoiding vcpu_load(); it will be all
-too easy to overlook that detail in the future.
-
-Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
-generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
-the return value, the connection to vcpu_load() is obvious, and we don't need to
-add another pre-check if future (or cleaned-up existing?) ioctls want to do
-vcpu_load() in common code.
-
-I'd also be tempted to say it can be a macro, not a __weak function.  E.g.
-
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 27fe0cd5b2d7..99613df254cf 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1533,6 +1533,7 @@ static inline bool __vcpu_has_feature(const struct kvm_arch *ka, int feature)
- #define vcpu_has_feature(v, f)	__vcpu_has_feature(&(v)->kvm->arch, (f))
- 
- #define kvm_vcpu_initialized(v) vcpu_get_flag(v, VCPU_INITIALIZED)
-+#define kvm_is_vcpu_loadable kvm_vcpu_initialized
- 
- int kvm_trng_call(struct kvm_vcpu *vcpu);
- #ifdef CONFIG_KVM
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 3dd04605f2e5..02401b080507 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -1053,6 +1053,9 @@ int kvm_trylock_all_vcpus(struct kvm *kvm);
- int kvm_lock_all_vcpus(struct kvm *kvm);
- void kvm_unlock_all_vcpus(struct kvm *kvm);
- 
-+#ifndef kvm_is_vcpu_loadable
-+#define kvm_is_vcpu_loadable(v) true
-+#endif
- void vcpu_load(struct kvm_vcpu *vcpu);
- void vcpu_put(struct kvm_vcpu *vcpu);
+BR, Juha-Matti
