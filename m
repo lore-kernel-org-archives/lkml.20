@@ -1,144 +1,275 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272EF550DC2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790086782; cv=pass; b=N6bzH6Du3TjSz4pGmYN17mzKDLRTeHRqyAwGvISNtyE/mDJeCFsIYLz6f8iPVRuh5II1zQcShfozyWWki84dkWLWdkf6JzZtbPo68BzW8WGmgScexuK3nYKckvTP0MV3p25EOOMRzfY3qpX55tXn3ebM9i4nXjw9UVPi09TZ1d4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790086782; c=relaxed/simple;
-	bh=zkz5RLnud3RzFc6Ib7cQ62atsctMsdRsODmModBNlG0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EWBP1ogrrDsusjb03jXZSiW+Rxlr76m+hSnDoWh4P3I36Yn2xonLF4V+EBT3AnwmE7w6QEo1RUqUPfGRJx1UbCCsoBvy747cQj/ofAWNR1+MAHAhoFVRMglvRBPynTLuwdNWv2YNStLLlzozvowH6V78JCQPpZjFs60lwqrfYgY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FPxk8rAW; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54485556B86;
+	Tue, 22 Sep 2026 14:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790086785; cv=none; b=dInUwaWuUFjQ61lDXCWcppMLJ/tluGvB9PHyHyB/1L0mGWEnidTGiTL3XJsmeIlX/i2FBXw3XhDLlZqAVaw00gxW/F79VKRHHy8OWyz3DJHY3tGFasOq2F3EIlppRRGYJXAT70u0agEU1+AvCFd5Ah7iBcYhtuejq6kO9FwhCTI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790086785; c=relaxed/simple;
+	bh=lYNhvOmtl8x3eG3JzJ1ufKePrvQwLNKR6wf0Cd9MA9E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=U4ucDILwEMnl+ZYU0PVh4rGRQsHTGRLEChKrYFFez8ChYjyYLNJeeybdcCY1AMm5wtkjMapM2UIJ2Y9u1XXgY2pbKzpJ/03zcXZN4IPGab0ylqFTyJg6WOdzAlLxtVpoln8/zORrY4sLZEqYtK+Lfguc0vtcrIh8pmOSw22kw+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NsOrsrOx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FPxk8rAW"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efebso623642366b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:19:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790086779; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vnoo8cwdKyFij5moHILHnmFzEq2ruRbV78Qy8hZRQo4KCugIDIw807O/HibFiq7q+g
-         uAdsgDaX62ZNLtSfNSqJEKYw579C1TX7PuViKlWMK5+IwhUpk+zRSGiXyxt8ESZWiQeA
-         WRSFRNWHzh22VwGhvxzb/O9/IV35WlXErtdJl4O/d2QYx8i8ML6cq9d+2BytYqbf28qq
-         +5JpxRYR3rjMGOvQzJdDctivS0iZmE0nVM1m21f0VPLEynt8B3DL5ZpEOJLnZs5kpQEm
-         xFCxfZ6UF7M421F/ZDpquNsZnGWy9kQFKVsD+DdUabIkQ4xh2rCh7KtmxpOXzuco7Y53
-         adnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=3/tNZqWYHwZZzsWF4FchE0g7ESkGTQfDfnqo89GOpIU=;
-        fh=Ax1GIcdf/7rE8mWvVpHdmQaa+83sTAqTftamgEfVIss=;
-        b=IiZeyHpo96YHSP2u9/yitYhSpMifCwRXebL1nQvTQwL24RUU/EQJjt6FVWcIU/2MkE
-         i/wNf5quhxyxrAB6wLx91LWeqdO6gYQ9JknMlmk3e6zM/UU8CkmPGkbbPLcCP2ZRZM9T
-         L8hrWg3+dq1goiIOeTBgSSIFK84BBLNEDwOYG8qLmm3zIKa6eXTV2hGCMxjSZijBZWT1
-         6e6ci1jRYHP8LIqS82xjgjLh7Gv7+DMkvpEEUNbo8+WCFXCtP02PLBDjpgUxzeEq2AnT
-         //Lt/ZGOHS4xGZ6VLMTpju5ixM+SyWSC8goIE6uzIiWVF6StJf2Wis3eJ/GERyNwrGab
-         heMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790086779; x=1790691579; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3/tNZqWYHwZZzsWF4FchE0g7ESkGTQfDfnqo89GOpIU=;
-        b=FPxk8rAWZ9hRK5p6cxc+AWyhoMUOfY5e2+AIksz0Z8kfpw+jAL1oTHNtVmBsx4C1L3
-         S/vNZmF6N9fYbDR5SdlxnhZsakJ3id31hZErUarwk+6uY2Az09Rr9sdyNo8E7xtCVcXs
-         +giQ+eqgGP/OaZd9brLIEd2FSlWsmZlRPEagv/yG+RV/9K9lvPVOVAa81IGGf5Rioar/
-         0mi1xa0FCBRyo5mraI1wZUPtNe75uvtVoiBoC2vkzNvz23tfyn1UHOPnXD5uqaccp6SB
-         LFgn5G2rFLIQ+oOdnFX3mEkSmztOX50jmZ99g2NQhrdLq7OYdx5lhzJMsG223dBM+wnR
-         TzJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790086779; x=1790691579;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3/tNZqWYHwZZzsWF4FchE0g7ESkGTQfDfnqo89GOpIU=;
-        b=yrus2n/+xXTWHLPG818EWAB26/8aX8xkFVtwvsfrKVxjgr60I0dANA7Jh19xY3gX4z
-         Zbz/KcuVQufYRDTeO1kyiMkOYAPh+tYfczXxYGiuEw4WY533E01yPIviVnWRP1TNX9ip
-         itP5RcSEj4ssochB10VhSghnli+v46gajDm5G7YkTEmh74ZsC5BMmZjmkxPQH6Pc9bQz
-         KqkN//emhM8rlsOwgRzLBIRCMTF7aSRnSEoOY4Z2Q5VPO91FWDa+oWp7gCz3EVjkCseA
-         bMWZzGmHdRRZawJAyrfOA9dtH4wQwZda2UpAph7IuXsfUe9WucvDzIA/QPW6N586MSwZ
-         aWuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjc2iwffyOU3GdQ7ucKHA6EL1c4cR0b3EKM/dgp8KRzWPQcc80zjni/zL9P4baXM/kNEEaLObDgfMt1QQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUsvZW/htgiR+EIuGXwgv75fKaJ+RmaiPemsp8wd0QeVipEO06
-	fybNLglA+Lwq2gWpQ9jqwxYXa1sCANd7k6rPO2HtNl/nAdM2ptGCjW6aQYlUzh9E4n9vXlj9qCt
-	kyBs3UP5qG2UeY56M2+G9DzDMPL6EpA7ZIxPp0Qebsg==
-X-Gm-Gg: AYBFou09XSW5eAnKnjkJRMi+yKbExlX1I6G1HHiwkf/FVIEpFVtgNqH8fGbcdRKKNjl
-	R4ivwzNEyXiIXdVGqDLB+qwlzABXjTl/okwWl3w2xLShYWInQ3dilaxAK7hJ4MXMPTKJDG8FHOT
-	lpdwFsH5VVZ1t8YACDidxMC2K2DBbWJ7lm4S5hC2JWU9hCXuKu39MixxaZPNalpRe2L0ognKoWP
-	ZcfqMEGv8O1Ym3D+eRWo78835Bosvd7VZJbw45aDwnliu7dK103biA8LnOcUeXGqAVTrcywgEIL
-	1upUhbR9n6auKNdR3FYIVzc+OwOjr+J6fSdC3HSstzq+peOE3z8pO9fdQomsRqHIej+y7dLbmcz
-	frkGHQZpYG1CA
-X-Received: by 2002:a17:907:3f0a:b0:c29:62d8:68af with SMTP id
- a640c23a62f3a-c2a158299d8mr1195821966b.47.1790086779239; Tue, 22 Sep 2026
- 07:19:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NsOrsrOx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9009C1F00893;
+	Tue, 22 Sep 2026 14:19:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790086783;
+	bh=XgRHq7+1jqr2wU62ZWV9jXu7/qZx15n3kymagUR1wMA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=NsOrsrOxZj0nm/8ucByePfIZhqc68WuUHJjOHYkES9wRrc4MpndRF3nJoWNLEP5/k
+	 n322GbCn3aDp8ur3Q+RP30hbuUSRa+ByiYQgmcwmGZKsvqE3BDslrCo2rd6QF39aaC
+	 1rwYNziaiL+gw9zl7yMw/zQ0XfBEzHw7Mhy3dlBL/DY+7E9riXeIa5mVW19XdEXHT/
+	 HO3V1CIaUXT9gBMLe+jbuwya/ublZOh1w6HafXeIsK+nDEdHSIgRQNPiX59zxCZkzQ
+	 GwmOC2vyCV0g2PB/ahqJ11biazLvAd9rd14aSFOD14MFzaafeSnNEyhvOgEeEDHGzS
+	 9tUjiOx8SPTCg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 22 Sep 2026 15:18:08 +0100
+Subject: [PATCH v3 14/14] KVM: selftests: Add nested pre-fault test for
+ arm64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921152238.3804392-1-vincent.guittot@linaro.org>
- <20260921152238.3804392-7-vincent.guittot@linaro.org> <20260922101735.GR776954@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260922101735.GR776954@noisy.programming.kicks-ass.net>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Tue, 22 Sep 2026 16:19:26 +0200
-X-Gm-Features: AcwNN1Xy54zDw4ahM98Ul9L2UM8O-l61d96SXNqfO5J2Z6fbweyL-0ChSNIlyjA
-Message-ID: <CAKfTPtAi8J9mdLx9DhBCwMK3dy8ffNkvL25irdvgnenj5GKuxw@mail.gmail.com>
-Subject: Re: [PATCH 6/8] sched/eevdf: Add per cpu cached min_slice
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, qyousef@layalina.io
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-kvm-arm-prefault-v3-14-787bd3bc7e3f@kernel.org>
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+In-Reply-To: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+ Steffen Eiden <seiden@linux.ibm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, 
+ Fuad Tabba <fuad.tabba@linux.dev>, Randy Dunlap <rdunlap@infradead.org>, 
+ Fuad Tabba <fuad.tabba@linux.dev>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
+ Jack Thomson <jackabt.amazon@gmail.com>, 
+ Alexandru Elisei <alexandru.elisei@arm.com>, 
+ Vincent Donnefort <vdonnefort@google.com>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Sean Christopherson <seanjc@google.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6315; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=lYNhvOmtl8x3eG3JzJ1ufKePrvQwLNKR6wf0Cd9MA9E=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI29UnZLmH+dfOn+AMtx7NzFEKWBojkqeusbfuXp7PWV
+ Wr68ZLQjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEyE+wwjwym5OZKBXIZbNpas
+ +Dht0xUOOxmfpVYXzbdmVjlOFJvnVcPwP/3qkXvPrr9ZmsV4M2R2wePZeeYNp5YL3i7RfR6u96h
+ alR8A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, 22 Sept 2026 at 12:17, Peter Zijlstra <peterz@infradead.org> wrote:
->
-> On Mon, Sep 21, 2026 at 05:22:36PM +0200, Vincent Guittot wrote:
-> > In order to use min_slice during cpu selection, update a cached value when
-> > needed after en/dequeing a new task. This cached value includes current
-> > task.
-> >
-> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> > ---
-> >  kernel/sched/fair.c | 19 +++++++++++++++++++
-> >  1 file changed, 19 insertions(+)
-> >
-> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > index 739a3af60520..a01a88dde811 100644
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -1089,6 +1089,21 @@ static inline bool min_vruntime_update(struct sched_entity *se, bool exit)
-> >  RB_DECLARE_CALLBACKS(static, min_vruntime_cb, struct sched_entity,
-> >                    run_node, min_vruntime, min_vruntime_update);
-> >
-> > +static DEFINE_PER_CPU(u64, rq_min_slice) = INT_MAX;
->
-> Would it not be better to place this in struct rq, near data that is
-> already accessed in select_idle_siblings()? This more or less guarantees
-> a cache miss.
+Add an arm64 nested-virtualisation selftest for KVM_PRE_FAULT_MEMORY.
 
-Yes, probably.
+The guest enters vEL2, sets up its EL2 translation configuration into the
+real EL1 registers then ERETs to vEL1 and exits to userspace so its vCPU
+last-run context is nested backed by a shadow stage 2 MMU.
 
+The test then asserts that pre-faulting ignores that and instead targets
+the canonical stage 2 page tables only.
 
->
-> > +static u64 get_rq_min_slice(struct rq *rq)
-> > +{
-> > +     return READ_ONCE(per_cpu(rq_min_slice, cpu_of(rq)));
-> > +}
-> > +
-> > +static void __update_rq_min_slice(struct rq *rq)
-> > +{
-> > +     u64 min = cfs_rq_min_slice(&rq->cfs);
-> > +
-> > +     if (min != get_rq_min_slice(rq))
-> > +             WRITE_ONCE(per_cpu(rq_min_slice, cpu_of(rq)), min);
-> > +}
-> > +
-> >  /*
-> >   * Enqueue an entity into the rb-tree:
-> >   */
+Userspace cannot observe a mistargeted pre-fault, so simply assert that the
+pre-faulting works correctly when the last-run context was nested.
+
+Based on a patch by Jack Thomson with gratitude. The test here is
+simplified and focused on what can be asserted.
+
+Link: https://lore.kernel.org/kvmarm/20260612162354.73378-6-jackabt.amazon@gmail.com/
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ tools/testing/selftests/kvm/Makefile.kvm           |   1 +
+ .../selftests/kvm/arm64/nv_pre_fault_memory_test.c | 158 +++++++++++++++++++++
+ 2 files changed, 159 insertions(+)
+
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 874ff9097384..908bdc7cf4f5 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -178,6 +178,7 @@ TEST_GEN_PROGS_arm64 += arm64/debug-exceptions
+ TEST_GEN_PROGS_arm64 += arm64/hello_el2
+ TEST_GEN_PROGS_arm64 += arm64/host_sve
+ TEST_GEN_PROGS_arm64 += arm64/hypercalls
++TEST_GEN_PROGS_arm64 += arm64/nv_pre_fault_memory_test
+ TEST_GEN_PROGS_arm64 += arm64/external_aborts
+ TEST_GEN_PROGS_arm64 += arm64/mmio_sign_ext
+ TEST_GEN_PROGS_arm64 += arm64/page_fault_test
+diff --git a/tools/testing/selftests/kvm/arm64/nv_pre_fault_memory_test.c b/tools/testing/selftests/kvm/arm64/nv_pre_fault_memory_test.c
+new file mode 100644
+index 000000000000..09c1db303856
+--- /dev/null
++++ b/tools/testing/selftests/kvm/arm64/nv_pre_fault_memory_test.c
+@@ -0,0 +1,158 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * nv_pre_fault_memory_test - Test KVM_PRE_FAULT_MEMORY on a vCPU whose
++ * last-run context is nested.
++ *
++ * The guest enters vEL2, sets up its EL2 translation configuration into the
++ * real EL1 registers then ERETs to vEL1 and exits to userspace so its vCPU
++ * last-run context is nested backed by a shadow stage 2 MMU.
++ *
++ * Assert that pre-faulting ignores that and targets the canonical stage-2
++ * page tables only.
++ */
++#include "kvm_util.h"
++#include "processor.h"
++#include "test_util.h"
++#include "ucall.h"
++
++#include <asm/sysreg.h>
++#include <linux/sizes.h>
++
++#define TEST_MEM_SLOT		10
++#define TEST_MEM_SIZE		SZ_2M
++#define TEST_MEM_GPA		SZ_1G
++
++static void guest_el1_code(void)
++{
++	u64 offset;
++
++	GUEST_ASSERT_EQ(get_current_el(), 1);
++
++	/* Exit to userspace with the vEL1 (nested) context live. */
++	GUEST_SYNC(1);
++
++	/*
++	 * Touch the prefaulted range. vstage-2 is disabled, so the shadow
++	 * stage-2 is a 1:1 view of the canonical IPA space.
++	 */
++	for (offset = 0; offset < TEST_MEM_SIZE; offset += SZ_4K)
++		READ_ONCE(*(u64 *)(TEST_MEM_GPA + offset));
++
++	GUEST_DONE();
++}
++
++static void guest_code(void)
++{
++	u64 sp;
++
++	GUEST_ASSERT_EQ(get_current_el(), 2);
++
++	/*
++	 * Mirror the EL2 translation regime into the real EL1 registers so
++	 * that vEL1 runs on the test's stage-1 page tables. With E2H=1, the
++	 * _EL1 accessors read the EL2 registers, and the _EL12 accessors
++	 * write the real EL1 registers.
++	 */
++	write_sysreg_s(read_sysreg(sctlr_el1), SYS_SCTLR_EL12);
++	write_sysreg_s(read_sysreg(tcr_el1), SYS_TCR_EL12);
++	write_sysreg_s(read_sysreg(ttbr0_el1), SYS_TTBR0_EL12);
++	write_sysreg_s(read_sysreg(mair_el1), SYS_MAIR_EL12);
++	write_sysreg_s(read_sysreg(cpacr_el1), SYS_CPACR_EL12);
++
++	/* Run vEL1 on the same stack. */
++	asm volatile("mov %0, sp" : "=r"(sp));
++	write_sysreg(sp, sp_el1);
++
++	/*
++	 * Drop TGE so that vEL1 is a nested context rather than host EL0.
++	 * KVM backs it with a shadow stage-2 MMU even though vstage-2 is
++	 * disabled (HCR_EL2.VM=0).
++	 */
++	write_sysreg(read_sysreg(hcr_el2) & ~HCR_EL2_TGE, hcr_el2);
++	isb();
++
++	write_sysreg(PSR_MODE_EL1h | PSR_F_BIT | PSR_I_BIT | PSR_A_BIT |
++		     PSR_D_BIT, spsr_el2);
++	write_sysreg((u64)guest_el1_code, elr_el2);
++	asm volatile("eret");
++
++	GUEST_ASSERT(false);
++}
++
++static void pre_fault(struct kvm_vcpu *vcpu, u64 gpa, u64 size)
++{
++	struct kvm_pre_fault_memory range = {
++		.gpa = gpa,
++		.size = size,
++	};
++	int ret;
++
++	do {
++		ret = __vcpu_ioctl(vcpu, KVM_PRE_FAULT_MEMORY, &range);
++	} while ((!ret && range.size) ||
++		 (ret < 0 && (errno == EINTR || errno == EAGAIN)));
++
++	TEST_ASSERT(!ret, "KVM_PRE_FAULT_MEMORY failed, ret: %d errno: %d",
++		    ret, errno);
++	TEST_ASSERT_EQ(range.size, 0);
++}
++
++int main(void)
++{
++	struct kvm_vcpu_init init;
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	struct ucall uc;
++	u64 npages;
++
++	TEST_REQUIRE(test_supports_el2());
++	TEST_REQUIRE(kvm_check_cap(KVM_CAP_PRE_FAULT_MEMORY));
++
++	vm = vm_create(1);
++
++	kvm_get_default_vcpu_target(vm, &init);
++	init.features[0] |= BIT(KVM_ARM_VCPU_HAS_EL2);
++	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
++	kvm_arch_vm_finalize_vcpus(vm);
++
++	npages = TEST_MEM_SIZE / vm->page_size;
++	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, TEST_MEM_GPA,
++				    TEST_MEM_SLOT, npages, 0);
++	virt_map(vm, TEST_MEM_GPA, TEST_MEM_GPA, npages);
++
++	/* Run the guest until it has ERET'd from vEL2 to vEL1. */
++	vcpu_run(vcpu);
++	switch (get_ucall(vcpu, &uc)) {
++	case UCALL_SYNC:
++		TEST_ASSERT_EQ(uc.args[1], 1);
++		break;
++	case UCALL_ABORT:
++		REPORT_GUEST_ASSERT(uc);
++		break;
++	default:
++		TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
++	}
++
++	/*
++	 * The vCPU's last-run context is vEL1, so its hw_mmu is a shadow
++	 * stage-2 MMU.
++	 *
++	 * Pre-faulting must ignore that and populate the canonical stage-2.
++	 */
++	pre_fault(vcpu, TEST_MEM_GPA, TEST_MEM_SIZE);
++
++	/* Resume at vEL1 and touch the prefaulted range. */
++	vcpu_run(vcpu);
++	switch (get_ucall(vcpu, &uc)) {
++	case UCALL_DONE:
++		break;
++	case UCALL_ABORT:
++		REPORT_GUEST_ASSERT(uc);
++		break;
++	default:
++		TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
++	}
++
++	kvm_vm_free(vm);
++	return 0;
++}
+
+-- 
+2.55.0
+
