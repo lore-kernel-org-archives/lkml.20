@@ -1,288 +1,203 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE462305660;
-	Tue, 22 Sep 2026 00:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8269F2E7378
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790037893; cv=none; b=C3P1d7+tVM1Jk9OWNYdAq7J0PmWnsWO+68lQLcQX+pJQ3bFR51z4JcpcVYMUC8IRK1M/irJ0F/29t3YJiRo4jdBErVxkxoyw5SWp+10TbSYW8TzfTdunSLQ+a6BFygVRcG5tp04ENE1af77BuE5/dkt5JrSGpqm10UKuQSkWfI0=
+	t=1790037929; cv=none; b=bn43S4Sbrc43HNmDuqY4Pr1LG4tpgDnRRQ0K7wvrgRCpxGV7pP13B1FtVz+mx18wdZT71r78rTL+NwT+lxAItI6W4uyhwsP6veNPr8N4iGntZBbR7EZV4eOJeeszNM/VAF23ZJfK2wuGMI92/C8XgZHVXuP9fJFGPjIKteLsLds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790037893; c=relaxed/simple;
-	bh=VrLlNC5NjUVGIlBg5If8kxVhB2ZN9HvHbIjY3kAZXFM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mXt3evqEcjFU7IzPWdOpDoiWQ1we3PfwNpxuBkXM9FxgSbPCBUMbko6Ws8ZRVwQqkt9/uch8Hn5OUEyb5jtyQ1ezxAhLMEeff55XnYBegTBXqN5Jlcu3ohJ6xlbp0SAstjHx+9Oy5zd4Q93oVzoSsYVoJg1j7FRuLofBLgYLBgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Sl6TGMZI; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790037929; c=relaxed/simple;
+	bh=iYob4REqadu0E5LMJQUvWHZge0MxmBjAeGhfjKnxPMw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=j/8VZuCky/yYdGNAEr6z6D3Jm2mTW/jZnqywTwuAjrnJcy0bafmTeo1mW7WgoMq16PLDC+oGx8X6M0Ep+9bWfXWtGTwAtN+lkn9W0S7i78CUnY8t1pyyH9BYcrrfj9RZt9kOGQvSlPddi8t0m5wBSOnwJ0bW63SjzsF5MyQxVbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akwbkY+U; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Sl6TGMZI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Co
-	hANUA8pAKzf6hG5EKMwzcIpvCRsFVt2WMDD3wkgV0=; b=Sl6TGMZIlGVYed0tgx
-	UKcLwoP+7qilJAKLT3mZag5yzdF0TvL+eaxOwmvum5TyGpJu2uKBbXqDHYi5CLlZ
-	2loQrE/3/ddtll8lKdyNDjsFVEJb4wvDtAVxwxO21k2Pggp6OTqryrRfBOXB78Q2
-	wKbiPC94WZf7jc0CHrOvvqYLs=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCnR1Zgz7FqqM3RAg--.28552S3;
-	Tue, 22 Sep 2026 08:44:17 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: b-liu@ti.com
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	s.nawrocki@samsung.com,
-	kishon@kernel.org,
-	balbi@ti.com,
-	tony@atomide.com,
-	hppiscas@163.com
-Subject: [PATCH v2 1/3] usb: musb: omap2430: track PHY references and check initial setup
-Date: Tue, 22 Sep 2026 08:44:12 +0800
-Message-ID: <20260922004414.4192-2-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260922004414.4192-1-hppiscas@163.com>
-References: <20260922004414.4192-1-hppiscas@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akwbkY+U"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c2c08ff3f8so2482164b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:45:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790037926; x=1790642726; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2/OAn78xm1OSx5ilLefyLSI7VeBwJOO8ghkxmHGyO8o=;
+        b=akwbkY+UzPi34DmaQGni1DtUhlX3nud4X9312ne97+KTTN3K9rxzoK24hVmId/ZMsm
+         87TQQpHZ4Azb4d4TLgvCXg+yLRhMtE2Nh+/yWU7dSgx1HnFwPzi6GmTA3+f1KKASEBi/
+         2XeSLt+eoGC0m8miR7g6aby85tpzrPQJt8pm/IjieEj4qvZUoD/P/VULNw+720ssbqx5
+         KSDyGsxkIxqK3lqGx/tAYYAhDSpOEBzZhJvAEdj9vm8jaKne2BJ8FovapXMaWdV4dkMf
+         WEkkExkcU1l7Y3aEe6GnXEAYqRtk91qEo/Pdv5n+0s1O5Rel6DquDoE0XliBEz8x33U9
+         HL6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790037926; x=1790642726;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2/OAn78xm1OSx5ilLefyLSI7VeBwJOO8ghkxmHGyO8o=;
+        b=iK8LJ9IIXdgvipzxufg6wE4cqWogUENblPZVjQuCkhR3QUfmNOz62X94rG/uHIfBIz
+         1b8W/MotBzzOA+C8WdBrFT99WOw/p3qUUvnveFrvR9KG0c1u4cVnDLAvSg6MptrrNx2+
+         u7Ix/Fu/XcowFETEy/QMu64r7x/5WgcVXlZHY5S7ovXn7qC+hg+1SX/iibswo7AN1uZ2
+         Ozc7kA3QI8zRwTMCF0lX9u5h5TUPsNjTMjSH0d3www1vy3NUF4VFLyj2goFW0ww2I1Bh
+         /ex0UsboiSG90IKlRx1VFI1etxxp5XUJ8I7HB6nhwdq2URT4WoGO/njGkH2Ws31cFUZP
+         kf2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzKEiNFXBhqpUvVKCWSK38FLvF0be6aDaSObKfLsu7Y6ET1IQDCnb+8XiGZd4FaW/E+rdmo8hlbstSGoW0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIH83sjfiJPcg7lzaxUYBcxpOknMDoW9dgn6ZgTKU/zqpX7in+
+	Gl7BtN9Ab8kZhbXaIvm3jNwHBUQrPwsPjh5Z76cQ8FyBN8y09VBg8Uqv
+X-Gm-Gg: AYBFou0Mqq3lp2r+ADskh/1CKkWpWd9Wsnp6C9Zytpe5PNiDttb1pDGXv2Mn38Q+x11
+	m3rt2HWh+5dl25ZTI88mLiURupTJ+l18P6rPlL5Nv+g7bKwb6sR6qgQojwCDOL7kyR//WOtXY8G
+	Mkbn9D4jIfvxxkzbWpCtvSHqz+82DRZzF+P3kXGfsHY2KqUK/ngpMbC8N0mPZ8XpIUNmfJ04WGt
+	t7ybMVhOlKFoazfrbJgIoHYTa5T/HDu6zX7s3w0hCYzAjiySmSsspmlHzwdhLQTePLRVh/4aaAL
+	bKW0LXFBemN3AbiBzQQCohf1lXl0Yohujtr/wYZ1jhOVtKsfXwfsxnfBYN9v2grpNB3+B/CsO/N
+	V9lXH92SjXiL68vJB9kHpiO8AcLpysQEm5/4UVcnBnsWFlwEkeHfd2A8eA+aVy97S7xD4vvuzOc
+	yHcwAxaYixlcpAsPvaJ3kj6bxGK4wBsQALExs5X5IAi85GQjWLc0SDWwZA6/f9NJttBzIE0ph4Q
+	7R5Uo22758RDjbhrNoNOFauVkX4Eu4tpMy31BSHd61/oz//0EV2+3gawSGKJBOYFxEWHV/LTsgY
+	wsPVyU1qvR5ZdODWNiy9uwlfJ3zwctmXDIFLjf61FdgZtQoMuMvEaZDvd+U6m9HhimrvTVsuVgL
+	js6NJpkEqGPMX4us0Jd7e3Q==
+X-Received: by 2002:a05:6808:680a:b0:4b2:8d7b:390b with SMTP id 5614622812f47-4d464080f0dmr1026002b6e.19.1790037926314;
+        Mon, 21 Sep 2026 17:45:26 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d4bb6be7b3sm60201b6e.0.2026.09.21.17.45.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 17:45:25 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net-next v5 0/3] net: stmmac: add Allwinner H616 EMAC1
+ support
+Date: Mon, 21 Sep 2026 18:45:23 -0600
+Message-Id: <20260921-submit-h616-emac1-v1-v5-0-ada661ed9e9b@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCnR1Zgz7FqqM3RAg--.28552S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WF47KFWkCryxKr1kuFWxWFg_yoWxZFWrpw
-	4qgayrKr4kJr9rKasxtw4UAFn5C3s3KFZrG34I9w4fur13G34qkr15AFyjvF15Grn5tFWj
-	qF40qa1UWrs0grJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UDrcDUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QET22qxz2GM-wAA3i
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwWrDMAwG4FcpPs/Fkh0n2WnvMXqwHKVxWZIRu
+ 6Gj5N3npjuEskJBFyHp+3UVkafAUbzvrmLiOcQwDrkp3nbCd244sgxN7gUqtKoGI+OZ+pBkZ8F
+ K7p0HOYMEo0ulK4OOSOTT74nbcFnZTzFwkgNfkjjcJ1k4sU839bbbhZjG6Wf9YIb14i+s+D8sl
+ 5JQFw0rImgr93HsXfja+7FfI2Z8BcGMaETSyEYx1Y+I3iLlE0RnxKKnSoNlqOkRMRsE1RPEZKT
+ SpmxaRqay2SLLsvwC4mFjqqMBAAA=
+X-Change-ID: 20260914-submit-h616-emac1-v1-143703842abb
+To: Richard Genoud <richard.genoud@bootlin.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ LABBE Corentin <clabbe.montjoie@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>
+Cc: Alastair D'Silva <alastair@d-silva.org>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>, netdev@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Andre Przywara <andre.przywara@arm.com>
+X-Mailer: b4 0.15.2
 
-omap2430_musb_init() ignores generic PHY initialization and power-on
-errors before accessing the controller. The same PHY is later acquired
-and released by runtime PM, system PM and platform exit.
+The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
+system-control clock register at offset 0x34. Add its binding and a
+sun8i stmmac variant using that register. A distinct compatible without
+an older fallback prevents the driver from using EMAC0's clock register.
 
-Track initialization and power references separately, and use shared
-helpers at all these acquisition and release sites. A failed power-on
-releases its initialization reference when possible; a failed release
-retains the corresponding ownership flag so a later cleanup does not
-double-release or lose track of it. Suspend failures attempt to restore
-the PHY before returning the original error.
+EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
+no external PHY pins. Leave PHY initialization to the PHY driver instead
+of using the H3 internal-PHY controls. The RMII-only variant does not
+expose the RGMII clock-delay properties.
 
-Abort initial setup before accessing the interface registers on failure.
-musb_init_controller() skips platform exit when platform init fails, so
-initial setup must unwind its own references. Platform exit uses the same
-ownership-aware release path when entered after later setup failures.
-Keep the PHY pointer in the parent glue, which owns the managed PHY
-handle, so parent removal can retry a release left by a failed child
-initialization or exit even after the child clears musb->phy.
+First move the MAC software reset from probe to the DMA reset callback,
+after PHY initialization. This lets the MAC and its MDIO bus remain
+registered when the PHY driver or one of its suppliers is not ready yet.
+Mask interrupts before requesting reset and clear DMA and interrupt state
+even if it times out. Keep the separate H3 MDIO-mux reset sequence
+unchanged.
 
-Keep phy_suspended as the system-sleep ordering flag: it defers access to
-I2C/SPI PHYs until their normal resume phase. It is not a substitute for
-tracking the two generic PHY reference counts.
+The AC200/AC300 EPHY driver and package bindings are already in
+net-next. This series separates the H616 EMAC1 MAC driver and binding
+support from the earlier combined series. PWM, MFD and device-tree
+enablement are being handled separately.
 
-The issue was found by our static-analysis tool.
-
-Fixes: 3e3101d57c50 ("usb: musb: omap2430: use the new generic PHY framework")
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/usb/musb/omap2430.c | 105 +++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 93 insertions(+), 12 deletions(-)
+Changes in v5:
+- Split the three generic phylink/stmmac recovery fixes into a separate
+  net series, as requested by Maxime Chevallier. Keep the sun8i MAC-reset
+  change, EMAC1 binding and variant in this net-next series.
+- Add the originating driver's Fixes tag to the sun8i reset patch.
+- Link to v4: https://patch.msgid.link/20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com
 
-diff --git a/drivers/usb/musb/omap2430.c b/drivers/usb/musb/omap2430.c
-index 6e749faac33c..df807ee9deec 100644
---- a/drivers/usb/musb/omap2430.c
-+++ b/drivers/usb/musb/omap2430.c
-@@ -34,14 +34,71 @@ struct omap2430_glue {
- 	enum musb_vbus_id_status status;
- 	struct work_struct	omap_musb_mailbox_work;
- 	struct device		*control_otghs;
-+	struct phy		*phy;
- 	unsigned int		is_runtime_suspended:1;
- 	unsigned int		needs_resume:1;
-+	/* Defer PHY access until the normal system-resume phase. */
- 	unsigned int		phy_suspended:1;
-+	unsigned int		phy_initialized:1;
-+	unsigned int		phy_powered:1;
- };
- #define glue_to_musb(g)		platform_get_drvdata(g->musb)
- 
- static struct omap2430_glue	*_glue;
- 
-+static int omap2430_phy_power_on(struct omap2430_glue *glue)
-+{
-+	int ret;
-+
-+	if (!glue->phy)
-+		return 0;
-+
-+	if (!glue->phy_initialized) {
-+		ret = phy_init(glue->phy);
-+		if (ret)
-+			return ret;
-+		glue->phy_initialized = 1;
-+	}
-+
-+	if (glue->phy_powered)
-+		return 0;
-+
-+	ret = phy_power_on(glue->phy);
-+	if (ret) {
-+		/* Keep ownership if phy_exit() itself cannot release the reference. */
-+		if (!phy_exit(glue->phy))
-+			glue->phy_initialized = 0;
-+		return ret;
-+	}
-+	glue->phy_powered = 1;
-+
-+	return 0;
-+}
-+
-+static int omap2430_phy_power_off(struct omap2430_glue *glue)
-+{
-+	int ret;
-+
-+	if (!glue->phy)
-+		return 0;
-+
-+	if (glue->phy_powered) {
-+		ret = phy_power_off(glue->phy);
-+		if (ret)
-+			return ret;
-+		glue->phy_powered = 0;
-+	}
-+
-+	if (glue->phy_initialized) {
-+		ret = phy_exit(glue->phy);
-+		if (ret)
-+			return ret;
-+		glue->phy_initialized = 0;
-+	}
-+
-+	return 0;
-+}
-+
- static inline void omap2430_low_level_exit(struct musb *musb)
- {
- 	u32 l;
-@@ -192,6 +249,7 @@ static int omap2430_musb_init(struct musb *musb)
- 	struct device *dev = musb->controller;
- 	struct musb_hdrc_platform_data *plat = dev_get_platdata(dev);
- 	struct omap_musb_board_data *data = plat->board_data;
-+	struct omap2430_glue *glue = dev_get_drvdata(dev->parent);
- 
- 	/* We require some kind of external transceiver, hooked
- 	 * up through ULPI.  TWL4030-family PMICs include one,
-@@ -222,8 +280,10 @@ static int omap2430_musb_init(struct musb *musb)
- 		return PTR_ERR(musb->phy);
- 	}
- 	musb->isr = omap2430_musb_interrupt;
--	phy_init(musb->phy);
--	phy_power_on(musb->phy);
-+	glue->phy = musb->phy;
-+	status = omap2430_phy_power_on(glue);
-+	if (status)
-+		return status;
- 
- 	l = musb_readl(musb->mregs, OTG_INTERFSEL);
- 
-@@ -272,10 +332,12 @@ static int omap2430_musb_exit(struct musb *musb)
- {
- 	struct device *dev = musb->controller;
- 	struct omap2430_glue *glue = dev_get_drvdata(dev->parent);
-+	int ret;
- 
- 	omap2430_low_level_exit(musb);
--	phy_power_off(musb->phy);
--	phy_exit(musb->phy);
-+	ret = omap2430_phy_power_off(glue);
-+	if (ret)
-+		dev_err(dev, "failed to shut down PHY: %d\n", ret);
- 	musb->phy = NULL;
- 	cancel_work_sync(&glue->omap_musb_mailbox_work);
- 
-@@ -471,9 +533,13 @@ static int omap2430_probe(struct platform_device *pdev)
- static void omap2430_remove(struct platform_device *pdev)
- {
- 	struct omap2430_glue *glue = platform_get_drvdata(pdev);
-+	int ret;
- 
- 	platform_device_unregister(glue->musb);
- 	pm_runtime_disable(glue->dev);
-+	ret = omap2430_phy_power_off(glue);
-+	if (ret)
-+		dev_err(&pdev->dev, "failed to release PHY references: %d\n", ret);
- 	if (!IS_ERR(glue->control_otghs))
- 		put_device(glue->control_otghs);
- }
-@@ -484,6 +550,7 @@ static int omap2430_runtime_suspend(struct device *dev)
- {
- 	struct omap2430_glue		*glue = dev_get_drvdata(dev);
- 	struct musb			*musb = glue_to_musb(glue);
-+	int ret;
- 
- 	if (!musb)
- 		return 0;
-@@ -494,8 +561,13 @@ static int omap2430_runtime_suspend(struct device *dev)
- 	omap2430_low_level_exit(musb);
- 
- 	if (!glue->phy_suspended) {
--		phy_power_off(musb->phy);
--		phy_exit(musb->phy);
-+		ret = omap2430_phy_power_off(glue);
-+		if (ret) {
-+			if (omap2430_phy_power_on(glue))
-+				dev_err(dev, "failed to restore PHY after suspend error\n");
-+			omap2430_low_level_init(musb);
-+			return ret;
-+		}
- 	}
- 
- 	glue->is_runtime_suspended = 1;
-@@ -512,8 +584,7 @@ static int omap2430_runtime_resume(struct device *dev)
- 		return 0;
- 
- 	if (!glue->phy_suspended) {
--		phy_init(musb->phy);
--		phy_power_on(musb->phy);
-+		omap2430_phy_power_on(glue);
- 	}
- 
- 	omap2430_low_level_init(musb);
-@@ -533,9 +604,17 @@ static int omap2430_suspend(struct device *dev)
- {
- 	struct omap2430_glue *glue = dev_get_drvdata(dev);
- 	struct musb *musb = glue_to_musb(glue);
-+	int ret;
- 
--	phy_power_off(musb->phy);
--	phy_exit(musb->phy);
-+	if (!musb)
-+		return 0;
-+
-+	ret = omap2430_phy_power_off(glue);
-+	if (ret) {
-+		if (omap2430_phy_power_on(glue))
-+			dev_err(dev, "failed to restore PHY after suspend error\n");
-+		return ret;
-+	}
- 	glue->phy_suspended = 1;
- 
- 	return 0;
-@@ -571,8 +650,10 @@ static int omap2430_resume(struct device *dev)
- 	struct omap2430_glue *glue = dev_get_drvdata(dev);
- 	struct musb *musb = glue_to_musb(glue);
- 
--	phy_init(musb->phy);
--	phy_power_on(musb->phy);
-+	if (!musb)
-+		return 0;
-+
-+	omap2430_phy_power_on(glue);
- 	glue->phy_suspended = 0;
- 
- 	return 0;
+Changes in v4:
+- Add a prerequisite stmmac core fix closing the interface after a failed
+  MTU-change reopen without repeating DMA, IRQ or NAPI teardown.
+- Close the interface after failed hardware resume, and let phylink
+  finish shutdown directly from its suspended state.
+- Retain DMA and interrupt-register clearing when the sun8i MAC reset
+  times out, and return the original reset error.
+- Link to v3: https://patch.msgid.link/20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com
 
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
--- 
-2.50.1 (Apple Git-155)
+Changes in v3:
+- Add a prerequisite fix moving the MAC software reset to the DMA reset
+  callback, after PHY initialization, so delayed module loading and
+  deferred PHY probes do not tear down the MAC and its MDIO bus.
+- Preserve the H3 MDIO-mux reset and propagate hardware-reset failures
+  through the normal stmmac hardware-setup error path.
+- Add Alastair D'Silva to Cc and rebase onto current net-next.
+- Link to v2: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v2-0-322b32e40eb9@gmail.com
+
+Changes in v2:
+- Drop EMAC1 TX/RX clock-delay property support and keep the existing
+  RGMII-only delay descriptions unchanged, as requested by Maxime Ripard.
+- Clarify that EMAC1 connects internally to a co-packaged PHY, not an
+  external PHY or the H3-style internal-PHY controls.
+- Rebase onto current net-next.
+- Link to v1: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v1-0-195de0bb1f8a@gmail.com
+
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: LABBE Corentin <clabbe.montjoie@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+To: Jose Abreu <joabreu@synopsys.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+James Hilliard (3):
+      net: stmmac: sun8i: reset the MAC after PHY initialization
+      dt-bindings: net: allwinner: add H616 EMAC1
+      net: stmmac: sun8i: add support for Allwinner H616 EMAC1
+
+ .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 13 ++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |  2 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  | 69 +++++++++++++---------
+ 3 files changed, 57 insertions(+), 27 deletions(-)
+---
+base-commit: 1b4efa0399f549d9b9bf82b3e2450e10a06d65b8
+change-id: 20260914-submit-h616-emac1-v1-143703842abb
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
