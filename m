@@ -1,83 +1,83 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF85241D647
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA6748EC85
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:11:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790115116; cv=none; b=nGiHG+yTXn5lLhv0luWt9S7r6UiwTnIMrH/dU+X1zhRMISnDaQMuiNBZVCzB2eaJRBOOU83sMDnzRH4yMA9Irk2pbSx4vpykeEk/Kzxk1qBKKRmri6jZPujQMY0TFM44awl5iyF9ztMudZ58yZ7Wz9lixLS2ILNsMQO8vJVFaL8=
+	t=1790115122; cv=none; b=NIGdH1Vigy2EkxwAFHAHI2i2AczFbiDTmkXLAgZZjc2k8H2ysJqIXa6MZqvQ1iBZVCugwAyOD7RFtyHzl7qmKXLT2Fr6hkkSowicZOTyT2TF4AR38emya14VyKgxE0zkrCTCRywrbXJAgZrDaGN4wnXVxDBTMf/qaC2AJ1ZTkv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790115116; c=relaxed/simple;
-	bh=GV0RIdXOtkfjMVPId86FT3OFmS+8Og4nR8K49a3WgB4=;
+	s=arc-20240116; t=1790115122; c=relaxed/simple;
+	bh=OmXjFGhBNzHuev1ToYpS+/g6gbD2jZQAPZWQtH2A5SE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N1B4s5m6ZqPYNJdVbH5sg2JPG4taAwZq4ZiCLZvvXa3guNLQ2tK8T18KUORFgSE2RE6fsxl41CKaLrBllbcjJghFNPN0LzJZnAbjYNCGUW0kE6Ir6TLqZWL+JELqarddPWfdSVecXZY3XhcbQ1nTB0CFQHaHb3xywucPOUWr5Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W+9A0AUE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Re9ZD9VN; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=M6orv+rcOz5O8MfjjogI/NV48GMokQ3B8td16XDWSc62EPcZZnIdyQYG2dY0lOayOIRugEpJGIabyLSF1QxpJ7r93RxXOQsrA/xs02P3ZFPDWcZyeG+Pm5VaKudaS06IXt4CcXK92DlCa00hV8ngxdi+uwXp4lSDIkIvTZjj5bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XL9ocmPx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PNttmTW5; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W+9A0AUE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Re9ZD9VN"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI6wMc178706
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:11:45 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XL9ocmPx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PNttmTW5"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7DVh368062
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:11:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=DS28oPm7nJH
-	+RSuD3M1Gk+EsxwlEoa/DmGIN9P6AsqM=; b=W+9A0AUE7+o492Aohc4oqSvJK57
-	jTSaWEjZS2CTjKIEyy9AOrOZ+QO1H6VuG88khneuaCOj6YQsr95ghGyv7F36lw1G
-	1T4Ac+/lIqafE7DG8hguqfQ9mdM7CYZ+9DRpaHA+0Orx8TEzBAw0UoFCZRLGTC7G
-	KRvGVn7B+PzM71irgeA6djIqtteiFavwCVmAyPLnqUA9QnyJO7bJW+j30prsDwKO
-	G93aoSWjTJ62/cNtlOWVyybfbo2nkBeQZG/PryDtcbZi8blrM0mrSuwO+t1X3oYz
-	c6OHoHSvxmS8Pz8qtgm2mUWP3x/3AFZPsAE9/Ju6G/JBnUTKMx4em6UwJ7Q==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guuec2bax-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=r+t6o+vTCc8
+	nNWCoXMqzHlRWb3sKkFrmjSbHzmJ4QFQ=; b=XL9ocmPxDx2FBkKtzxKORMHiqhk
+	APcdi7DENvLSHZkDrEG0l8rbJTWnL2a0oWDRFvTIbbAnNR8ZF1bAPD5aKuWgJIhJ
+	8tlfTYRe3LjbnX2fdPjQBw9aMUxEQD2+7Qx1IxXWWVeTBIg+ROZ20hwLtwM8SVj/
+	nYBSwikFKTjiiWppIzEInK02yWnclIcAM+zmwgHXBH46opw1kevrvp5Pp11jfCbE
+	WkzYTQSJa6wRt3sKKxFS9cKhiRDoRUPFwYCKBBmyoYfA7kLhiQslAmfuHZlc+FQy
+	TMA9b+UiCmwkmBoP26DDMsIpQPDd8KBl6WrjsgLu/8oCv5fD23VVJSwS57w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gurntb7ep-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:11:45 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-97e9e2deaa4so348840241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:11:45 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:11:49 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a1bffc2eeso78900185a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:11:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790115104; x=1790719904; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790115108; x=1790719908; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DS28oPm7nJH+RSuD3M1Gk+EsxwlEoa/DmGIN9P6AsqM=;
-        b=Re9ZD9VN5kaNiiDa2EvAfHpcMOfjWssn0f5pgoCyOXtmiGDG+PLfoluBOJutyJ2ttX
-         48/Xru+LWMIUBwbMTxqbtp6TVY2Nx/Jw8wJ4Jjxqz+BXNs1pLHOxtYpSOUMfDVVCQh8x
-         tWqSH43P+qFahWiL2MRMSkkppeel0Krd59Vj/3kCZARTibK2ALVotuJi7kT0azyfncAx
-         Z81GoFdV/KJu/1FzGdd2L2CJzz9OzN89Ax2Hth9QmZcVGHasWrrAdeDNyt7zeI8pBUrP
-         a5nei07Mr6PmCrI+/8eCJFBcnT3RAr9Iq03KmTqDdZnooLeyI+iJfJujoli1GXPz8yqX
-         v9lw==
+        bh=r+t6o+vTCc8nNWCoXMqzHlRWb3sKkFrmjSbHzmJ4QFQ=;
+        b=PNttmTW5tbcTQ4e5qq5S3Grm5oKcWuNYUWGqAeCWBHH+c3MeQqZ5CXa+iBKV7pS2QV
+         C26W4R8rCc1c7lfPEqAMTU7R6zmq7CgbATf0BibU2n3WmzmbsppDa7RXi5lFYvIYHe9y
+         A6skkLoKQ2BfLc7OnmfktSg0Yo+P3Dgf4YT1ngrWjQrB4IYNc6G6Bfeytazm0XD+9r/A
+         lN7vq0hBYOFAe4ip50tgsn+pT6dxo+pyDhcKTNiylvesav1FIz8JfPx9TZw4t6w/6fw7
+         PtADa3KqzkhX6ndv7Q1US24iLGwLYqxIJ83Gwr7JpuRDWAb7J9MHTcns8BMxBGIuSVLY
+         WLyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790115104; x=1790719904;
+        d=1e100.net; s=20260707; t=1790115108; x=1790719908;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DS28oPm7nJH+RSuD3M1Gk+EsxwlEoa/DmGIN9P6AsqM=;
-        b=b5gMzrJO+OwfGjQkr5XOdI4Zndl0fPsrY/wGa+t3fbxDhm3OIWqDLxBai3MYW5Eo5w
-         8hdpPtyFqGemvGllopH0F60GHNjp9azzinIQNiG5b+9A8OqAjRvF6NC6F5yLLvuTAwiJ
-         P9IXnrpEItimFUnd9MomXWDUMtokr7TksNeafLxDS3hAqWoevRr/c0Nu1tTlA7bHKTr3
-         sZxyGGdr+q5BVdyi3lyWVY4SSIwa7uIdUGSjoLB5acaNr61sSM0kj72V0rH264PUApXR
-         F33RMFtFhuPvKtWDE/e9jAJMHU0GDSEgHkOpizwDy9N2wIRdLJv+pCYhAn8tqlzzYXUt
-         CSXA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0BAVf3WO0qOFGIdbRA+sUshhyGEoAAfOaVoBsuBgXVD71H8K7Ddvp1vf+qN86Rq3HSb/IH2FW9YynhfM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCvGOx8wBrNiNlnSEzAE/nnWaFEgmBukFskhaIu6Qh3DC3qNPi
-	nbnp8AudBkEe2kxvP386mptewWUf/HTtgajj+NLlksHGeA2uhheV9S388Z4A4m0rwMYN9dQsgyB
-	bi5JugS+LXncmdX35uS+7EpLIbqzVVHSQ1CV3CH0SMrvDfpIHMP3tOdYaADohE8h+O8smz92NWc
-	qlaA==
-X-Gm-Gg: AYBFou0UtexiM/IVhvs0dn8Yxrb3Y0Y4hqgNKhGkh6dvgMzsVx98/niQxQ9qSEWebhE
-	kNr08ro9MurCbKqfrrhb8EWRZtF1oHFXA8jXQYyECQ0b8xX1BolMRvk4HNVS5t/sm82MMSye3Ac
-	UQK0RP7WiBmUCO857uBLUO+cvrVpGqF10oqQYKJV5kLbxlSBMYouKunoF7U6rWDH24nadRIkPcr
-	dnXzllCVPugQSflKxyZJ+IwYw5TbcwGvY5CQzXKQC7LGfJ0KKb9MZomL/nLhDNVD2Vw++WiZdbm
-	lk4YyyRIDLg1N/VyUW3NsZgIsq1S69C0C2evaEJgpcV9/EW4imVcLsRxP/K8GgDdWGRT2Rn+Tle
-	cHmy4vCjtFh59RXmF1OVE24zzkiSY/suoILnMj5xwMinHF6RQ0Eq8eJ1EV94FSP5b
-X-Received: by 2002:a05:6102:f83:b0:7a1:f7e2:aae3 with SMTP id ada2fe7eead31-7ac1d0cb103mr873918137.21.1790115104428;
-        Tue, 22 Sep 2026 15:11:44 -0700 (PDT)
-X-Received: by 2002:a05:6102:f83:b0:7a1:f7e2:aae3 with SMTP id ada2fe7eead31-7ac1d0cb103mr873903137.21.1790115103968;
-        Tue, 22 Sep 2026 15:11:43 -0700 (PDT)
+        bh=r+t6o+vTCc8nNWCoXMqzHlRWb3sKkFrmjSbHzmJ4QFQ=;
+        b=MqZuOPqYINhd84DLEju2xJ9siwZ9FtZI/n3og6i3wPAfoYavLCRh/sigl+PdMD68qF
+         nXpjV1+AE7n5WdUdm5uy80rrH2rqJKG0WQ9dgZqWs6tosQwYTF+7r6so6MbaSJITmiW4
+         prKdQbTHGZ1ko6JCKp/fHzVPriMMc6aoSk2Uz+mKPHjHkwNZAYVhxIq2CIOzuv7HXcR5
+         92ot6eqz93gxBi0zH6pwGwWLO9sNePkqGoOLXeCBD3DFcP0/+N5KaD/QoNsZU5h3XF15
+         n9yALkqq2/xa2diPkX3+L6/dhKg/4QSIw5vuPEVEPNKbVWxfD9i2dmKPWUR7wUMEhJ08
+         TJTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMOWydg50zGz6BzGQHyYy0wxojWzRr3PxUKk4696oiIGsqT/4j7eYnvY1aDz429e5VfaZQWVJB3IdWEFE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUVcHRzPOSu25f6mk1TVGTNzid1g2Ti9m6791oPwWHI48qiZp8
+	qiOm6uXOwKEUf7pln4ssAdjOkf5eO+DhX52HpGF2EZHYWxUbDSlJeVgjSfDiaW3bS4OxosOA9hf
+	oO6FzTrgvj/bOJ8Zo4NiTVyOO/ajvZJhTnmjnzvRJe+jjaZk8threWtNk59dzK/rHZLw=
+X-Gm-Gg: AYBFou18wwOv8udVc4PxoBZfpWAKFRHD5NFNTwapAIDo/aB6vaym8FQDno4Rtw8qIgr
+	ew+C0uNaZteu++iHOCn2aSeS2m+6nllCxhKm3VcI2EM2CtoM7pAF/XTwqle0bkDXp8JbnvEXhT9
+	nwQZcz1ToCe39UzlK+V0IcHnbPnFVgudrdFIYFNAOfFIXEwfTtix9dH2mSBHkFPF9R5btquxKmO
+	zMMLOak0CAs8SQKhs1FOeNg1Zbk6ioXTQ1/pxC+Wp3I0zWpEcH3tJdzNvfJ0+CIyAXhn8lUY27k
+	tnWclSPq++t8vLbrd7DJCL5QA9h3u4+yAcjMt9Inh/5HVoG0h0jyplGlRgVfNdEN7lZJX+NV/qM
+	3swT6MTEvmia3FfXABn4JNvn2dfGpGpXGRbMAsBwmfA458pCwO+Yy1ZLBco3Dho7ZqB9WQGGL8a
+	s=
+X-Received: by 2002:a05:620a:27cc:b0:93c:22c9:68b2 with SMTP id af79cd13be357-93c251d5db2mr129891185a.47.1790115108177;
+        Tue, 22 Sep 2026 15:11:48 -0700 (PDT)
+X-Received: by 2002:a05:620a:27cc:b0:93c:22c9:68b2 with SMTP id af79cd13be357-93c251d5db2mr129885785a.47.1790115107736;
+        Tue, 22 Sep 2026 15:11:47 -0700 (PDT)
 Received: from debian (cust-west-par-46-193-35-178.cust.wifirst.net. [46.193.35.178])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488688856f0sm1400270f8f.30.2026.09.22.15.11.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488688856f0sm1400270f8f.30.2026.09.22.15.11.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 15:11:43 -0700 (PDT)
+        Tue, 22 Sep 2026 15:11:46 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 To: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
         andersson@kernel.org, konradybcio@kernel.org, sboyd@kernel.org
@@ -85,12 +85,12 @@ Cc: dmitry.baryshkov@oss.qualcomm.com, alexey.klimov@linaro.org,
         r.mereu@arduino.cc, srini@kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH v3 0/5] arm64: dts: arduino-imola: add support for sound
-Date: Tue, 22 Sep 2026 23:11:22 +0100
-Message-ID: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v3 2/5] dt-bindings: mfd: qcom,spmi-pmic: add compatibles for pm4124-codec
+Date: Tue, 22 Sep 2026 23:11:24 +0100
+Message-ID: <566b4bc1822bc86a5844cbe1b2fe91d05b5ee9e4.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260223133950.221234-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260223133950.221234-1-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,81 +98,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfX4HD+lErQ3MID
- m2raUlBQy6T1Xh0uW9yRKEkWn513gJPTlC7OxC9XGexOUVFObkPk0lMdjvxxlU2IPcDn+Wl2cU/
- ZDJ1sZzJHNwSnbyT807NvA4/CYXscmlIZhZOs8oZ7nJ9dTdkPrsiIU5OpThGmd1ELSYlRKz7BVD
- +NC+yhljei41mGfzgeRD4by2iSxJw0FRaFkEBUIxPy7DiS6Doo6SYUG7R9x8UOJbj4DzmQTgpoJ
- i9wY4ux+qkkTXG2zTOVZFDbPIeXVANiaE86POT5x06oPPzFJkEqZRooRf53oaaeSvHEUN+HJ8Fw
- hx4Pz5JqqVeC+KZJJkKYGjRlIXnaQf9CScInMI/ZxaGoYgjPLXpfMOy+8ydf/NppO7tVfWnSRkZ
- 8M9FvG8J4Vm/bVJ2PqwXfpnxlmsr0SO2e8dtxxgZ4ohVOx22CTftm5Oam9l0BrfsUGDcOiEwtiM
- TTCRxcv458MHY66ibPw==
-X-Authority-Analysis: v=2.4 cv=VKdIDNPX c=1 sm=1 tr=0 ts=6ab2fd21 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=Hji71o54RgNgZYqDgtlrhw==:17
+X-Proofpoint-ORIG-GUID: VOZjIwqn2DGKCUQAyL2yDSJK2e4_nDGg
+X-Authority-Analysis: v=2.4 cv=eauo7LEH c=1 sm=1 tr=0 ts=6ab2fd25 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Hji71o54RgNgZYqDgtlrhw==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=qC_FGOx9AAAA:8
- a=cOr29_qJNzhy3HpcGCgA:9 a=TOPH6uDL9cOC6tEoww4z:22 a=fsdK_YakeE02zTmptMdW:22
-X-Proofpoint-GUID: YBiUyrEh8EYznaKkqb159eDq1VMlqlqO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfXyz1+kit0IMgt
- 3IhYPrE9IL4R2YKRmgmSJl6f6J0jmMnC9GrssFeL26iyRrcbfzPm4aW5VGLigWjsLneFqYzX0+t
- DDKJbZE8Zmv4GBJewSlxZhvH70jLQuk=
-X-Proofpoint-ORIG-GUID: YBiUyrEh8EYznaKkqb159eDq1VMlqlqO
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=1S9TnuZ4X9D0nYt2MHYA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfX+Q4IvuoWA4a5
+ dIRa/sAmIoS7lym2etx4sMa0JQ8uKPdl/Yy4OSsVfHHOjVKuwGZ0eo8STr8JskwGw3b/9vQPawN
+ woN3cTY2LqyHzrhijqsHts7flwacTBdhCHnvtiIk+RVQHpGpYnpuxvm1UBGJAvMpK2/SrPjgJoh
+ +HxBcZDckmhPYlV3wxkivwEsBt8fcs0BUY1N9C46leeJINLlCJyUKxXGLFxWRn7ZFhzsGJfHv3B
+ YSzLv9S4c8ysQ30ea1dR6C3/7A7R4O/i+3/F+GNMqqreLxXT3cW7zy7BpyRkQxutWeUZH4a/RVX
+ WFa4JLR02lo7njeKaggYMtoQ+FGp/Gr3cKgxNTY48PnLsyKWnFUx4Y2TvahuU49ROF1OPRChzwr
+ uQMLCtw6qHIldjk75R55JX2X2aMkqX9BjBNthdZ+hDEc3G5GuPzVkxHGg7FcQAGj+g8++JHHsDb
+ O3+yyAO/TcxoOOeROaA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfX/OYVWkS23nY1
+ qQd1k1CEeKetL6vyLo0wLXiQwsQeGYPts2Q41lmdagSu2v3JAL/vDZgZUY5q4yQ6buVvtHHeTXy
+ HYHwRM3HSOuFqA+T579DPRVqKiHAPHI=
+X-Proofpoint-GUID: VOZjIwqn2DGKCUQAyL2yDSJK2e4_nDGg
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 malwarescore=0
- suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 bulkscore=0 adultscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220301
 
-This patchset adds support for audio on Arduino-Imola platform which is
-based on Agatti SoC. Some of Alexey's patches are reworked and sent
-here as per previous review comments, mainly on the dt-bindings part.
+From: Alexey Klimov <alexey.klimov@linaro.org>
 
-Base SoC-level dtsi bits are picked up from
-https://git.codelinaro.org/alexey.klimov/linux_next_tracking/-/commits/rb1_audio_wip_v3?ref_type=HEADS
+Qualcomm Agatti SoC has PM4125 PMIC, which includes audio codec.
+Audio codec has TX and RX soundwire slave devices to connect to on-chip
+soundwire master.
 
-Along with these changes, add sound nodes for Imola, a clk fix and
-defconfig changes.
+Add missing qcom,pm4125-codec compatible to pattern of audio-codec node
+properties in mfd qcom,spmi-pmic schema to complete the audio codec support.
 
-thanks,
-Srini
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+[Srini: reworked the patch]
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+---
+ .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml        | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Changes since v2:
-    - dt-bindings/mfd: switch to properties.compatible.contains.enum
-      with required: compatible, per Rob.
-    - agatti.dtsi: collapse each <&q6afecc ...> clock cell onto a
-      single line, per Dmitry.
-    - keep qcom,sm6115-lpassaudiocc / qcom,sm6115-lpasscc compatibles;
-      Konrad Acked staying with the established practice.
-    - defconfig: carry Reviewed-by from Dmitry.
-    - rebase on next-20260917.
-
-Changes since v1:
-    - updated various register ranges as per documentation.
-    - added a fix for sm6115 lpasscc driver.
-    - updated commit log
-    - fixed various style issues in dt nodes.
-
-Alexey Klimov (2):
-  dt-bindings: mfd: qcom,spmi-pmic: add compatibles for pm4124-codec
-  arm64: dts: qcom: agatti: add LPASS devices
-
-Srinivas Kandagatla (3):
-  clk: qcom: fix SM6115 lpasscc register offset
-  arm64: dts: arduino-imola: add support for sound
-  arm64: defconfig: Enable configs for audio drivers on Arduino UnoQ
-
- .../bindings/mfd/qcom,spmi-pmic.yaml          |  10 +-
- arch/arm64/boot/dts/qcom/agatti.dtsi          | 157 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/pm4125.dtsi          |   7 +
- .../boot/dts/qcom/qrb2210-arduino-imola.dts   | 134 +++++++++++++++
- arch/arm64/configs/defconfig                  |   2 +
- drivers/clk/qcom/lpasscc-sm6115.c             |   4 +-
- 6 files changed, 311 insertions(+), 3 deletions(-)
-
-
-base-commit: e657a464aba873f5eaf3ca821b6e4016674492d6
+diff --git a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+index f6534e9e9912..d750da31ae3f 100644
+--- a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
++++ b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
+@@ -148,7 +148,15 @@ patternProperties:
+ 
+   "^audio-codec@[0-9a-f]+$":
+     type: object
+-    $ref: /schemas/sound/qcom,pm8916-wcd-analog-codec.yaml#
++    properties:
++      compatible:
++        contains:
++          enum:
++            - qcom,pm4125-codec
++            - qcom,pm8916-wcd-analog-codec
++
++    required:
++      - compatible
+ 
+   "^battery@[0-9a-f]+$":
+     type: object
 -- 
 2.53.0
 
