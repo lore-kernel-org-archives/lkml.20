@@ -1,36 +1,40 @@
-Received: from mta0.migadu.com (out-247.mta0.migadu.com [91.218.175.247])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86272544D5C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:47:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.247
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A074A0139
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790113673; cv=none; b=Mw2qF5rXOb9U4+VPfkWyjHYItHxWLcKjtUTkbxTJf9gev5zUSi6Ey4lQ2kCVKBKnFD0C4zuWp0CxjxhUgiIf6R05r4DloKtBxdPVB23yzw+mnSqrTvlDvVCUZrygY6lfscsGYvaBcBD8LUZOW1JLFh88fz0l1/zA4H6rbTqF7Xo=
+	t=1790113672; cv=none; b=b8Ds1Ydqmh4I2TB7UBF/0yPOGdHLpRJHLHTd1z0ydCnmjASAmmFXxqBSoMLAkRf3hISG+efOkPS7Bv2KRue3QiHqJMwm3EC4J94mFgw28yvdJ18IqpM3N4Y2MY5Rnv3rnPLC3h02jzgWJSDamVJOGr+bh2g4Qa1gUB3/13U0uFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790113673; c=relaxed/simple;
-	bh=j978S3kujL0t2IzwtfW4gW4OFjeQsDQ4dfVPJMp9cw0=;
+	s=arc-20240116; t=1790113672; c=relaxed/simple;
+	bh=FOqR8vAhGr8g9sZu0webAkiaaU1DJsScfo8uOPGzLSM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BiLBYdLe2qk27vXOuIKQvWgzzOJ4BaAG8l08JTpCFCulrFiP0yBDXQ4D27c0sXSiJFNoIGNr/t4kxrfwk1FdVnOGdFY6v+QOQg0EYZcKvcQidzWGuU4/oI6NVE4bqti5GTpiR49btcL+R6swNBIMBvSuiScl68Bk7ybPYkKcXh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mvujhRK3; arc=none smtp.client-ip=91.218.175.247
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=o++Wqnk3L1WT5KSjO9is/1EYZ1ZnD3kyf2chQ/neIKTLevWvJXeFlfsWrqCbvkW1W4nBZahDFWGDH9UBSyPGwNgfWoUwFSUnDRIKPQIh+7smUa2OXR9VelaF/FPmCkwg0ZOOWWvlPfb6eyattF3APX99x6toP0v0k70uuHNlrt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GkzVjr1K; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mvujhRK3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=j978S3kujL0t2IzwtfW4gW4OFjeQsDQ4dfVPJMp9cw0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790113658; v=1; x=1790718458;
- b=mvujhRK3HPNWh5jZ1O6mWbwgc5ofxed21gj77WTukikBzLL5PMkjFm9ZNtoKhhu+ze6BQWY9
- S62VL/gheKaPl6qzTKvUmIpaGRvnG4+/Yk5aA9180TL2mN1+7ZAiTJkXbJDW9pMpJjimd9oazka
- 4AbRgZbCIhZWTlIX8GqCS3dA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dcd07712fee43c99;
-	Tue, 22 Sep 2026 21:47:38 +0000
-X-Mizu-Trace-ID: dcd07712fee43c99
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4e893390-ac53-4c50-b2b4-50d415ff3d1f@linux.dev>
-Date: Tue, 22 Sep 2026 14:47:31 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GkzVjr1K"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 85B634E41030;
+	Tue, 22 Sep 2026 21:47:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5579D60580;
+	Tue, 22 Sep 2026 21:47:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DD6710328B89;
+	Tue, 22 Sep 2026 23:47:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790113640; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=m0JlreyEJJ3u2gi6KYmZFs3Q667NRJY6xEL00ZUN48k=;
+	b=GkzVjr1KUbIzep8704/Oq868HuBRpjy+UE1zRrlKJFA84olbhB5nE+cSD4yyzfdBX3E43S
+	laXVPESvop1qvxsmpSLLADC6KmQp4ER+hey5ZR9XGqIFd3TM8GTfL46EQj4hNC1Qol6AQ8
+	1cdApNAHu0Pkj2FD6nBnnuRIX2oP+iExIHsG/JlbH1lWiQSDPTV0s49sHMVH7ffaFGauoO
+	EapgmWWjn38kySHKIXHWlVFgTtmVosdpxkKonu62c5BjurblPAt05ngUXeLwGtmpp+RdH5
+	pdlSKIqJ3zjfxwpcSmFezYfmn4ekqIcHrcuUT5RTgHK/OJlYKRjOfgUDhL96EA==
+Message-ID: <59edcef4-6b2c-403e-bc36-1e4e222231c3@bootlin.com>
+Date: Tue, 22 Sep 2026 23:47:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,274 +42,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 00/13] PCI: liveupdate: PCI core support for Live
- Update
-To: David Matlack <dmatlack@google.com>, kexec@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-pci@vger.kernel.org
-Cc: Adithya Jayachandran <ajayachandra@nvidia.com>,
- Alexander Graf <graf@amazon.com>, Alex Williamson <alex@shazbot.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
- David Rientjes <rientjes@google.com>,
- Jacob Pan <jacob.pan@linux.microsoft.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>,
- Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
- Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pranjal Shrivastava <praan@google.com>, Pratyush Yadav
- <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma <vipinsh@google.com>,
- William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-References: <20260918200640.887030-1-dmatlack@google.com>
- <079e343d-c6a6-4430-b900-25918197bfad@linux.dev>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <079e343d-c6a6-4430-b900-25918197bfad@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net 3/3] net: stmmac: close the interface after failed
+ hardware resume
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
+Cc: Richard Genoud <richard.genoud@bootlin.com>,
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921-submit-stmmac-reset-fixes-v1-v1-0-87a4e431ee00@gmail.com>
+ <20260921-submit-stmmac-reset-fixes-v1-v1-3-87a4e431ee00@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260921-submit-stmmac-reset-fixes-v1-v1-3-87a4e431ee00@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
-在 2026/9/22 11:54, Zhu Yanjun 写道:
-> 在 2026/9/18 13:06, David Matlack 写道:
->> This series can be found on GitHub:
->>
->>    https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v9
->>
->> This series introduces support in the PCI core for Live Update, enabling
->> drivers to preserve PCI devices across a kexec-based kernel update
->> without interrupting the device. This functionality is critical for
->> minimizing downtime in environments where PCI devices (e.g., those
->> assigned to VMs via VFIO) must continue operating or maintain state
->> across a host kernel upgrade.
->>
->> Specifically, this series allows preserved PCI devices to perform
->> uninterrupted memory transactions (DMA) targeting system memory
->> (specifically, preserved memfds) across a Live Update. These devices can
->> be behind a bridge but must not be VFs. Support for P2P and VF
->> preservation will be addressed in future series.
->>
->> Series Overview
->> ---------------
->>
->> This series implements the following to support PCI device preservation
->> across Live Update:
->>
->>    1. Set up a File-Lifecycle-Bound (FLB) handler to track and preserve
->>       PCI-specific state (struct pci_ser) across Live Update using Kexec
->>       Handover (KHO).
->>
->>    2. Add APIs for drivers to register devices for preservation
->>       (outgoing) and for the PCI core to identify preserved devices
->>       during enumeration (incoming)
->>
->>    3. Automatically preserve all upstream bridges for any preserved
->>       endpoint. Use reference counting to ensure bridges remain 
->> preserved
->>       as long as any downstream device is preserved.
->>
->>    4. Guarantee that preserved devices retain the same RequesterID (bus,
->>       device, function) for the duration of their preservation by
->>       inheriting secondary bus numbers, subordinate bus numbers, and ARI
->>       Forwarding Enable on preserved bridges.
->>
->>    5. Guarantee that memory transactions to/from preserved devices are
->>       routed consistently by inheriting Access Control Services (ACS)
->>       flags across a Live Update, from the endpoint up to the root port.
->>
->>    6. Modify the PCI shutdown path to avoid disabling bus mastering on
->>       preserved devices, thereby allowing preserved devices to perform
->>       uninterrupted during kexec for Live Update.
->>
->>    7. Provide comprehensive documentation for the FLB API, device
->>       tracking mechanisms, and the division of responsibilities between
->>       the PCI core, drivers, and userspace.
->>
->> Merge Plan
->> ----------
->>
->> This series will be merged through liveupdate.git, matching the
->> agreed-upon tree in the MAINTAINERS entry for PCI LIVE UPDATE.
->>
->> Testing
->> -------
->>
->> This series was tested in conjunction with v5 of the VFIO PCI driver
->> series:
->>
->> https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
->>
->> The full set of patches used for testing can be found on GitHub.
->>
->> https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v9-with-vfio
->>
->> Testing was performed using the new VFIO selftests:
->>
->>    - vfio_pci_liveupdate_uapi_test
->>    - vfio_pci_liveupdate_kexec_test
->
-> With this vfio_pci_liveupdate_kexec_test based on this patchset v9, I 
-> have made tests in my local kvm. It worked as expected.
->
-> Yanjun Zhu
+On 9/21/26 18:54, James Hilliard wrote:
+> System suspend disables NAPI and suspends phylink but retains the IRQs
+> and DMA resources. If hardware setup fails during resume, the interface
+> remains administratively up with NAPI still disabled. Closing it later
+> calls napi_disable() a second time and can hang indefinitely.
+> 
+> On hardware-setup failure, stop DMA and disable the MAC, then release the
+> suspended data path without repeating NAPI disable. Stop phylink directly
+> from its suspended state rather than restarting the link on hardware
+> which failed to resume. Drop the driver mutex before teardown, retaining
+> RTNL across cleanup and network-core close.
+> 
+> Close the netdev to detach the PHY, release its runtime-PM reference and
+> clear its administrative state. Reattach the now-down netdev so a later
+> open can allocate new resources and retry. Preserve the original resume
+> error and leave successful resume unchanged.
 
-The test result with vfio_pci_liveupdate_kexec_test is as below.
+So this changes the admin state of the interface upon resume failure ?
 
+using netif_close() in drivers is not common at all, only 3 drivers do that,
+and among that, fbnic does that for the selftests...
 
-1.
-insmod 
-/lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/iommu/iommufd/iommufd.ko
-insmod /lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/vfio.ko
-insmod 
-/lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/vfio_iommu_type1.ko
-insmod 
-/lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/pci/vfio-pci-core.ko
-insmod /lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/pci/vfio-pci.ko
-+ echo "vfio-pci" > /sys/bus/pci/devices/0000:00:04.0/driver_override
-+ echo "0000:00:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
-Preserving device in session
-Preserving memfd of size 0x40100000 in session
-# [STAGE 1] Forking persistent child to hold sessions...
-# [STAGE 1] Child PID: 1214. Resources are pinned.
-# [STAGE 1] You may now perform kexec reboot.
+Let's instead focus on making the state coherent.
 
-2. kexec reboot
+Before entering suspend, interface is up and running. suspend happens, then
+resume, and something goes wrong. As you mention, the next logical step as
+the interface is now dead is to bring it down, and freshly set it back up.
 
-3.
-insmod 
-/lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/iommu/iommufd/iommufd.ko
-insmod /lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/vfio.ko
-insmod 
-/lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/vfio_iommu_type1.ko
-insmod 
-/lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/pci/vfio-pci-core.ko
-insmod /lib/modules/7.3.0-rc1-dmabuf+/kernel/drivers/vfio/pci/vfio-pci.ko
-+ echo "vfio-pci" > /sys/bus/pci/devices/0000:00:04.0/driver_override
-+ echo "0000:00:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
-Retrieving memfd from LUO
-Finishing the session before retrieving the device (should fail)
-Retrieving the device FD from LUO
-Finishing the session before binding to iommufd (should fail)
-Binding the device to an iommufd and setting it up
-Finishing the session
+I'd say, either the __stmmac_open / __stmmac_release are not at the right 
+granularity, or there's an ordering issue, but we should focus on making
+sure down'ing the interface after such a failure puts it back in a clean
+state. I'm not really convinced with the boolean to the release indicating
+if something's already cleaned or not.
 
-Yanjun Zhu
-
->
->>
->> Both tests were run in a QEMU-based VM environment (using a single
->> virtio-net PCIe device connected to a root port to exercise bridge
->> support) and on bare metal using an Intel EMR server with 8x Intel DSA
->> PCIe devices and 1x NVMe device.
->>
->> Future Work
->> -----------
->>
->> Following this series, we expect to make further improvements to the PCI
->> core support for Live Update:
->>
->>    - Allow P2P across Live Update by avoiding resizing or moving
->>      preserved device BARs and preserving all upstream bridge windows.
->>
->>    - Support preserving Virtual Functions by preserving SR-IOV
->>      configuration on PFs and enumerating VFs after Live Update.
->>
->> Changelog
->> ---------
->>
->> v9:
->>   - Simplify pci_liveupdate_preserve_bus_numbers() to always return true
->>     if a device was preserved and drop pci_liveupdate_scan_bridge_end()
->>     (Bjorn)
->>   - Add pci_liveupdate_refuse_bus_numbers() to determine when it is safe
->>     for the PCI core to assign bus numbers to unconfigured bridges. This
->>     required moving "Auto-preserve upstream bridges across Live Update"
->>     before "Preserve bus numbers during Live Update" (Bjorn)
->>   - Add "PCI: Save and restore the ACS Control register" so that the ACS
->>     Control register is handled by the normal save/restore path (Bjorn)
->>   - Rename struct pci_liveupdate::was_preserved to was_incoming, to
->>     disambiguate incoming from outgoing preservation (me)
->>   - Log unfinished preserved devices from the incoming FLB rather than
->>     by walking struct pci_dev (Sashiko)
->>   - Document that state handed over by the previous kernel is trusted,
->>     and panic in pci_flb_retrieve() where failures are detected rather
->>     than unwinding into a caller that panics anyway (Sashiko)
->>   - Fall back to programming ACS from scratch when a preserved device 
->> has
->>     no ACS save buffer, since there is nowhere to record the adopted
->>     controls and they would be lost by the first reset (Sashiko)
->>   - Drop Reviewed-by tags from "Preserve bus numbers during Live Update"
->>     and "Adopt ACS controls in incoming preserved devices", both of 
->> which
->>     changed materially since v8
->>   - Extend commit messages and kernel-doc comments to make the FLB code
->>     flow more clear (Bjorn)
->>   - Address various spelling, formatting, and stylistic issues (Bjorn)
->>
->> v8: 
->> https://lore.kernel.org/linux-pci/20260728221007.2098560-1-dmatlack@google.com/
->> v7: 
->> https://lore.kernel.org/linux-pci/20260710212616.1351130-1-dmatlack@google.com/
->> v6: 
->> https://lore.kernel.org/linux-pci/20260522202410.3104264-1-dmatlack@google.com/
->> v5: 
->> https://lore.kernel.org/linux-pci/20260512184846.119396-1-dmatlack@google.com/
->> v4: 
->> https://lore.kernel.org/linux-pci/20260423212316.3431746-1-dmatlack@google.com/
->> v3: 
->> https://lore.kernel.org/kvm/20260323235817.1960573-1-dmatlack@google.com/
->> v2: 
->> https://lore.kernel.org/kvm/20260129212510.967611-1-dmatlack@google.com/
->> v1: 
->> https://lore.kernel.org/kvm/20251126193608.2678510-1-dmatlack@google.com/
->> rfc: 
->> https://lore.kernel.org/kvm/20251018000713.677779-1-vipinsh@google.com/
->>
->>
->> David Matlack (13):
->>    PCI: liveupdate: Set up FLB handler for the PCI core
->>    PCI: liveupdate: Track outgoing preserved PCI devices
->>    PCI: liveupdate: Track incoming preserved PCI devices
->>    PCI: liveupdate: Document driver binding responsibilities
->>    PCI: liveupdate: Auto-preserve upstream bridges across Live Update
->>    PCI: liveupdate: Preserve bus numbers during Live Update
->>    PCI: Refactor matching logic for pci_dev_acs_ops
->>    PCI: Save and restore the ACS Control register
->>    PCI: liveupdate: Adopt ACS controls in incoming preserved devices
->>    PCI: liveupdate: Adopt ARI Forwarding Enable on preserved bridges
->>    PCI: liveupdate: Freeze preservation status during shutdown
->>    PCI: liveupdate: Do not disable bus mastering on preserved devices
->>      during kexec
->>    Documentation: PCI: Add documentation for Live Update
->>
->>   Documentation/PCI/index.rst                   |    1 +
->>   Documentation/PCI/liveupdate.rst              |   35 +
->>   .../admin-guide/kernel-parameters.txt         |    7 +-
->>   Documentation/core-api/liveupdate.rst         |    5 +
->>   MAINTAINERS                                   |   15 +
->>   drivers/pci/Kconfig                           |   15 +
->>   drivers/pci/Makefile                          |    1 +
->>   drivers/pci/liveupdate.c                      | 1015 +++++++++++++++++
->>   drivers/pci/liveupdate.h                      |   62 +
->>   drivers/pci/pci-driver.c                      |    9 +-
->>   drivers/pci/pci.c                             |   79 +-
->>   drivers/pci/pci.h                             |    5 +
->>   drivers/pci/probe.c                           |   16 +-
->>   drivers/pci/quirks.c                          |   58 +-
->>   include/linux/kho/abi/pci.h                   |   66 ++
->>   include/linux/pci.h                           |    7 +
->>   include/linux/pci_liveupdate.h                |   72 ++
->>   17 files changed, 1429 insertions(+), 39 deletions(-)
->>   create mode 100644 Documentation/PCI/liveupdate.rst
->>   create mode 100644 drivers/pci/liveupdate.c
->>   create mode 100644 drivers/pci/liveupdate.h
->>   create mode 100644 include/linux/kho/abi/pci.h
->>   create mode 100644 include/linux/pci_liveupdate.h
->>
->>
->> base-commit: 945d61765894dda2f0344de50cb1ade2e51b66fd
->
--- 
-Best Regards,
-Yanjun.Zhu
+Maxime> 
+> Fixes: 6896c2449a18 ("net: stmmac: Check stmmac_hw_setup() in stmmac_resume()")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 29 ++++++++++++++++-------
+>  1 file changed, 21 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 44b59d0f56b5..87cb0978ed6a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4245,7 +4245,7 @@ static int stmmac_open(struct net_device *dev)
+>  	return ret;
+>  }
+>  
+> -static void __stmmac_release(struct net_device *dev)
+> +static void __stmmac_release(struct net_device *dev, bool napi_disabled)
+>  {
+>  	struct stmmac_priv *priv = netdev_priv(dev);
+>  	u8 chan;
+> @@ -4258,7 +4258,9 @@ static void __stmmac_release(struct net_device *dev)
+>  	/* Stop and disconnect the PHY */
+>  	phylink_stop(priv->phylink);
+>  
+> -	stmmac_disable_all_queues(priv);
+> +	/* Suspend has already disabled NAPI when hardware resume fails. */
+> +	if (!napi_disabled)
+> +		stmmac_disable_all_queues(priv);
+>  
+>  	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+>  		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
+> @@ -4297,7 +4299,7 @@ static int stmmac_release(struct net_device *dev)
+>  	if (device_may_wakeup(priv->device))
+>  		phylink_speed_down(priv->phylink, false);
+>  
+> -	__stmmac_release(dev);
+> +	__stmmac_release(dev, false);
+>  
+>  	stmmac_legacy_serdes_power_down(priv);
+>  	phylink_disconnect_phy(priv->phylink);
+> @@ -6174,7 +6176,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+>  			return PTR_ERR(dma_conf);
+>  		}
+>  
+> -		__stmmac_release(dev);
+> +		__stmmac_release(dev, false);
+>  
+>  		ret = __stmmac_open(dev, dma_conf);
+>  		if (ret) {
+> @@ -8356,10 +8358,7 @@ int stmmac_resume(struct device *dev)
+>  	ret = stmmac_hw_setup(ndev);
+>  	if (ret < 0) {
+>  		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
+> -		stmmac_legacy_serdes_power_down(priv);
+> -		mutex_unlock(&priv->lock);
+> -		rtnl_unlock();
+> -		return ret;
+> +		goto error_stop_dma;
+>  	}
+>  
+>  	stmmac_init_timestamping(priv);
+> @@ -8386,6 +8385,20 @@ int stmmac_resume(struct device *dev)
+>  	netif_device_attach(ndev);
+>  
+>  	return 0;
+> +
+> +error_stop_dma:
+> +	stmmac_stop_all_dma(priv);
+> +	stmmac_mac_set(priv, priv->ioaddr, false);
+> +	mutex_unlock(&priv->lock);
+> +	/* Release the suspended data path before ndo_stop(), which must not
+> +	 * disable NAPI or free these resources a second time.
+> +	 */
+> +	__stmmac_release(ndev, true);
+> +	netif_close(ndev);
+> +	netif_device_attach(ndev);
+> +	rtnl_unlock();
+> +
+> +	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(stmmac_resume);
+>  
+> 
 
