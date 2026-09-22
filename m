@@ -1,134 +1,102 @@
-Received: from mail-pj2-f36.google.com (mail-pj2-f36.google.com [74.125.227.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpcmd13147.aruba.it (smtpcmd13147.aruba.it [62.149.156.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5013D0907
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4023C3E1D14
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062973; cv=none; b=gYmacwzKmvC7oqLL+L8r+gwjwUVusATFfr0CWPsVCFV+51FPcUpek14OqfRdRXXG7ns5X0oNUK80HwEGHdQjk8v5fhjSSLDSnIimwGDhOu99gK6rmut7wr1sV5CXw5WF8Yf56rw1leNe2iiqyq2e4t0RgdNCeoXoKHgS5zcmriA=
+	t=1790062995; cv=none; b=Q/6/H/76Xpur5luIaSoEjN0jT+35RK1ZFax13Qpx/I1H/SrHZ1b/kDmMCQ83CP+M8jQdwFNKonwi66VPEYTUJzzYInMnbEfpzIPo55V1WMiYnd7aM1w6P178g0XtU6eudg9uV9a521ksK7lqMd+02yUhAs7vZ0se9hcd5CKSg4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062973; c=relaxed/simple;
-	bh=6mIcN5UR5Jby1K67kSg7q6vCQLLiQj+bsnPcHyWPHXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GqfkKH2ILed+fve5fZCG6PCDd5KKM5ORtp+q/wDKMIVcYyVQeDCl8vy1Zx4yEFPMUwkenm8e5YWQLnH/MN5N9+26BAJ1SZvIBg4+UJPNO2aTyqFe26l2EgRUqNPmuyU5rkT6X9zKIkLokXaJzBCW+6HbWBNG98SuYj/R9BL1zao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=newp8E6P; arc=none smtp.client-ip=74.125.227.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790062995; c=relaxed/simple;
+	bh=Grkpg6QwvGEub0FOHWQG+hEYsY3k1eI0F0dR26tBMeQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ojy+XGCqGMbGhkRl0Z9KChyp91ngE8Hu96J9P4P8+KYt9rjYprWydEO1vQIHHyuIkNpA0bTtw82WsHr+nOng/+UgfYiyQAqTzYT4uoDrdopVqtE2xTBW2z3CLov1PW8pLFb7dNfyeGn1SZHNwiw86eOhYM6s9vj+1jyAlggCzw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=MqnwknVN; arc=none smtp.client-ip=62.149.156.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="newp8E6P"
-Received: by mail-pj2-f36.google.com with SMTP id d9443c01a7336-2d8fdc579daso42710715ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:42:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790062972; x=1790667772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T4bXv4ioTNcgEst1EUu0msleevfYTOmr0PXPd7ZaOJ4=;
-        b=newp8E6PQSiBq7JbvDujX7GXrvi4EgGUlvyIx9af2uRw077RSCpH9XzOnxRRHsPfGx
-         0R8VK+a6ZuxjvTIHJmapSDY+KAz3AMR15gNYjDEhHxp6Mq6BfMRUEK2eEn27ZpDx+5IO
-         Ls7W6xessLJw1MSxxQb4u+qKxr+luopUJOOk5tSCCHO8DtB6yg6Cv+rbTpmAkJgrtG9K
-         yvB55fMoOxOjBNE1ADMVK5MrWxB/ATQqvccOVX4DkUZrewOtdPMAmOuTWDYMZWHAx9fp
-         MhEUbr/+1fA1u8Wiq0wady8H+j0cZV6AtX3bfDQ8syeda3qVCJNBzhcUVMB4uHa4ntVl
-         GhWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790062972; x=1790667772;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T4bXv4ioTNcgEst1EUu0msleevfYTOmr0PXPd7ZaOJ4=;
-        b=MpWZfHdAPBUVxDniV4fcDej2jG8QhNJQdS7h/CLp5kpHrySv+Nwx7MDnM8DkBTor6W
-         1iDiEFXSrJ8rrOwEFJF1nt2jK60GsNQ+lIg2IjOOhZZAIzifJJ6noqziExVbP3pcMjaJ
-         q95Oty6BRy9Hc0JqdqGZUvKjaXMvjH2luMGaXN10oTuQ3+QBjkRtSKnFnB6lmwveGqRT
-         tNpxeBoq934MFLWw71PfNAnsBbApz0odK7AI1wn4dQJEX74FiY+sKb1ZZeKR3PTPgbtP
-         nCdUWAnFOaXjEhguigiXpqAq09WXj6oS08r/Y5Q0Ca3CncmcLjDQI2FAOEqHARNbPkqJ
-         0mzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw2D/V2Y68Q/B6fgaEtgPZJ6ZQXy2O3hWHgwIlFOGK5T/xzI6UkUJOn5YU7aon8/i0slPN5XAOTzgsdOoY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lk5+3NnS4Fcm+gWuUnISk1Q/rz2o2ZqkJ8duk4meqlKUzUaA5N
-	9q9zfpJzUUXC/prBoeyXUQxCm4CNF3HKHY3sbey9HcDbAPAVcNvP1QGhs/QWjPhTqR/iQg==
-X-Gm-Gg: AYBFou3h51NKxZ5XurlZM7qBkT7l6ID7OPHe/t7dTq70dlsjlh7Ty8u5bbG7eY5zmqI
-	5hMXCf9UW25aoLh1mVU914bOm1nk6fQ6z3xVcMQO+O0dtLa+G0YPZ+p4yG0XamvRJaLcnO/37+A
-	ZxnDd1bzWpR8qcWkwZkM3qUsGjqsRaxYjYCMofFmtmmpWJ7jy9pQ+8WKT3C36po/u8kTX2gUBuF
-	0xwHgwVzpdxp+iPSp0noB1bhflnxdCpM60sW5Rla36ipqQzzs5+GnVfMA2Msiv6vIDGh8DZ4YSh
-	vHWjFJddRxFaFWrKsl3dSHL4jYYmc6vaLjS0RrYTst+OdwYfs0rUG8NeBTMq+2UwEK0to+KXfy/
-	HB6T5yz7if9eERb4d7FX4PfPp+CIl011xMFdAsoEEyU9Y+C3p8/h7L80Qz3d+GEtqXoebfQXZCp
-	yNIVtF5AnRzfT9fXpZj3/ojQ+9vt2zcqGE2eRniKInL4gi+MGj4NsWcltJ443yCcosQ8y1MTE2P
-	sZJk95NobjUX3NZXmadzLYNDgjheJkEFIyhxQuCem2BxKS6TdnVQMHw
-X-Received: by 2002:a17:903:2f48:b0:2dd:c100:3131 with SMTP id d9443c01a7336-2df60b4cdc6mr3361165ad.45.1790062971717;
-        Tue, 22 Sep 2026 00:42:51 -0700 (PDT)
-Received: from localhost.localdomain (5.240.104.34.bc.googleusercontent.com. [34.104.240.5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d05602csm5215005ad.65.2026.09.22.00.42.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 00:42:51 -0700 (PDT)
-From: Ginger Li <ginger.jzllee@gmail.com>
-To: saeedm@nvidia.com,
-	leon@kernel.org,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net/mlx5: HV VHCA: Fix the agent registration race
-Date: Tue, 22 Sep 2026 15:42:46 +0800
-Message-ID: <20260922074246.20411-1-ginger.jzllee@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="MqnwknVN"
+Received: from [172.18.100.99] ([109.238.20.116])
+	by Aruba SMTP with ESMTPSA
+	id 8v6gxQEfXbk7m8v6gxujqZ; Tue, 22 Sep 2026 09:40:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790062803; bh=Grkpg6QwvGEub0FOHWQG+hEYsY3k1eI0F0dR26tBMeQ=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=MqnwknVNCIwe/LMq9j8eGuY7KR83AP/iKBJ0ZfsPjFjdTTgwGbzMbrlfGQtLpefql
+	 Q1DscbwnJfxik2uaUsqGBWe1mab8OLvwWxVZHCYUTRZ+q0GEzwBK2GyrwZERvwQXMV
+	 PsfjkMrrwUghzvpaETWeR4rAwhdCScG5pOi90SA1JEuUxUR4/uUs4GtiJZbOGVQgFf
+	 G6Ce6Z5f1mDZS53bdwJ0whP5tBqRk4JkvulEie17LZn7gRl8HIlqj1HjXhyBLJ4xPV
+	 +Y69vHdVLSBL525Tj7wO8cWgeSUJZtL3qB/yjgjSKkVqkqLnviu/g8H560ZAV3mvC/
+	 PV2/9fwv5nuVA==
+Message-ID: <6ffa766f-9a99-41d0-b5df-6c517d1e94e6@enneenne.com>
+Date: Tue, 22 Sep 2026 09:40:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] pps-gpio: restore pin mux on unbind and shutdown
+To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917075611.47881-1-farbere@amazon.com>
+ <20260919171157.5502-1-farbere@amazon.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+Content-Language: en-US
+In-Reply-To: <20260919171157.5502-1-farbere@amazon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfKe5A5lEJTTmrC4MYyp1N8ycdHvrlcy/UeRZEGvfMgfp7Taj3aM+znC1YaQZ30GLUxBYTYURwiymJHBmwcXUN/HqOcdVRVx5ThX+5/U7YBoIjKZlwq6A
+ IAV8lvQTh5AAIcVHMNxX0IUQPdJAKvIQvH8jV4XNlOD0y24zkcitq7AaEw5vSIEptCNdNT3S+GWZ+qN35QEWsLM0kZcmGZAolbaWn02ezu4Bv6xpdKbPJXaB
+ o5q829u1cEzOpdm6j6+8FE0F4XkDUCZkBTjAbDFING/1K1OXc+7F1O/JHUMqNNTIPvPf257RtBVUFy5JArUeDpvoteqz69aLuhAuhhHNO0E9DTfvMa60MTry
+ wpKpQ/i4Y70Pl3KQeR8p3Oigxv9RqGgHFRb2vwqO+HVB9cWaQlPxgjkZn9nUQZcEcugD9hJIOyl0rNWh0sRa3Sv3q+jiCub6vJ2yXnxPCB1sWuVzF0frt6sN
+ rl0b0Ye4UvzhaISQr5anp/iJSjKybkWWO1HEMGXZaYdGJe7S5D26wA/kxmoi4UwEQ2uq9QlDpNd6jrIVF1shHMiQ21DtcqzQcnKM9Q==
 
-mlx5_hv_vhca_agent_create() drops agents_lock between checking whether an
-agent is already registered for the type and publishing the new agent, so two
-concurrent create calls for the same type can both pass the check.  The second
-one then silently replaces the first one in hv_vhca->agents[], and the agent
-allocated by the first call is leaked.
+On Sat, Sep 19, 2026 at 05:11:54PM +0000, Eliav Farber wrote:
+> Open question for the maintainers (patch 3): a probe that fails before
+> pps_gpio_get_pins() has run -- devm_kzalloc() or pps_gpio_setup() -- returns
+> without going through err_release_pins, so the pins are left in the
+> core-applied "default" state rather than "inactive". I did not change this
+> in v4 as I would like your guidance on the preferred approach; the trade-offs
+> are laid out at the end of patch 3's changelog. In short:
+>
+>   A. Move pps_gpio_get_pins() to the top of probe and route the
+>      pps_gpio_setup() failure through err_release_pins too, so every path
+>      the driver can act on restores "inactive". (The devm_kzalloc() failure
+>      is inherently before the driver holds any pinctrl handle, so it cannot
+>      be covered by the driver in any option.)
+>   B. Keep v4 as-is and treat "inactive" as a successful-ownership concern:
+>      a probe that never looked up the state never took the pins, so leaving
+>      the core-applied "default" (long-standing behaviour) is acceptable.
+>   C. As A, but keep the release helper's existing NULL guard so it is robust
+>      regardless of ordering (belt and braces).
+>
+> I lean towards B (the restore is meaningful only once the driver has taken
+> ownership), but I am happy to implement A/C if you prefer uniform failure
+> paths.
 
-Hold agents_lock for the whole registration.  While at it, read
-hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL] under the lock in
-mlx5_hv_vhca_cleanup() as well, since that slot is written under the lock.
+I would choose option A, keeping the NULL check in the release helper;
+I believe this corresponds to your option C. In fact, to me, it
+represents the symmetrical counterpart to what the core did on the
+driver's behalf.
 
-Fixes: 87175120defd ("net/mlx5: Add HV VHCA infrastructure")
-Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+One thing I would verify on your board before proceeding is this: with
+option A, an -EPROBE_DEFER error returned by pps_gpio_setup() would
+result in the "inactive" state being selected, and the core would
+re-apply "default" on the next attempt. I assume this mux switching is
+harmless, but the hardware is available to you, not me.
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/hv_vhca.c
-@@ -228,7 +228,10 @@ void mlx5_hv_vhca_cleanup(struct mlx5_hv_vhca *hv_vhca
- 	if (!hv_vhca)
- 		return;
- 
-+	mutex_lock(&hv_vhca->agents_lock);
- 	agent = hv_vhca->agents[MLX5_HV_VHCA_AGENT_CONTROL];
-+	mutex_unlock(&hv_vhca->agents_lock);
-+
- 	if (agent)
- 		mlx5_hv_vhca_control_agent_destroy(agent);
- 
-@@ -270,11 +273,12 @@ mlx5_hv_vhca_agent_create(struct mlx5_hv_vhca *hv_vhca
- 		mutex_unlock(&hv_vhca->agents_lock);
- 		return ERR_PTR(-EINVAL);
- 	}
--	mutex_unlock(&hv_vhca->agents_lock);
- 
- 	agent = kzalloc_obj(*agent);
--	if (!agent)
-+	if (!agent) {
-+		mutex_unlock(&hv_vhca->agents_lock);
- 		return ERR_PTR(-ENOMEM);
-+	}
- 
- 	agent->type      = type;
- 	agent->hv_vhca   = hv_vhca;
-@@ -286,7 +290,6 @@ mlx5_hv_vhca_agent_create(struct mlx5_hv_vhca *hv_vhca
- 	if (ctx_update)
- 		WRITE_ONCE(*ctx_update, agent);
- 
--	mutex_lock(&hv_vhca->agents_lock);
- 	hv_vhca->agents[type] = agent;
- 	mutex_unlock(&hv_vhca->agents_lock);
- 
--- 
-2.43.0
+I wouldn't worry too much about the devm_kzalloc() case.
+
+I also have a couple of observations regarding patches 1/3 and 3/3; I
+will send them directly in response to the patches themselves.
+
+Ciao,
+
+Rodolfo
