@@ -1,37 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E6C23BCED;
-	Tue, 22 Sep 2026 01:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EC735CB7F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:14:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790039610; cv=none; b=jKR+HsbV5YiFTqLH67Jvn6foHgU3MpoKMiWeZPE+2Hp/O55woRy1PRgkbBOwrHbm2qPT7wXYFmrd3nwbzJYDT1+IRjMKTzibLWhj+vT2qnoOodAgXdIFATu2Kkn3eKWH61wkFoDgwnohQ4CJRKxz9OGIFO+8Lag6h4GjcxY5wu4=
+	t=1790039694; cv=none; b=OfFx66zynE/PE4HtTvVyVxc48ewp8IQEUYJcCpGbhAsgUHKcjYQlAFrle2Edw7h6C90zvT+Atufu3q+5K1y1SzTUMqckDCgOq6iJL9CuvNXsyV6QHSELhFAkYUOdpU7frbeOdIf8UwbiIA82zKlsDIBn20DPgejmB2an4oc3WxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790039610; c=relaxed/simple;
-	bh=YXL9stNuFSe0druMEK4OBXRkQjvEGxpipLAr1y5OXtc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mtMzFa0EX+kBxxO1hzCOe6Comavzuny7qHcAr1uEbOY2nIS/GR6Tq1xPOwKiiMZB4NkX4UEz2cSaHrAUyd3NRFHwg7W56kSMDMIwnLng2ihzawlR3HtFJnmuI+8iCSwgsZmiI9CJ0dKtAn4t+wpzCX07WwdkEF04+J+7QzeAu1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rjRVPBCs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790039694; c=relaxed/simple;
+	bh=m3LsZOYKXpBxu2jAlB5YJTHDy68xjmQ8m4RqAnY7buc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=S/m4xSxb60ArSf26fwNEGaDS/ms8AcMtqzD8Cv9BAUk0ZxHPs4ejEzHJUXeq+BsNAyWJLyM4p4RK/Zw69G4PZCLHJ/3KiTz3UbBR5OeZ+R0XWlK6T7azN0FD5kFVdfIaQ1fHlkCT83CY4MxRfoStSXl82HiJ2ggaMJyygxOTpHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OshD3BQf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rjRVPBCs"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EC4D1C2BCF6;
-	Tue, 22 Sep 2026 01:13:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OshD3BQf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 82C0BC2BCB3;
+	Tue, 22 Sep 2026 01:14:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790039610;
-	bh=YXL9stNuFSe0druMEK4OBXRkQjvEGxpipLAr1y5OXtc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rjRVPBCsGj/b9M3MvgIMfdgtRfsQOG3OG5ZgCFquGbWRvwyBUFvdER+noZhfDKb4M
-	 R3lSEU+ZT1fy3Io2lCAoaEQ8ZxeNGtkpQHKMsV/UHlexInowrT7vv7v+p3awlL3AXZ
-	 zVm9AMFlLBOciOa6E+CB2icCXnTOzi6e8+8hstuVn9Fzd0UPmrZYFKJFzVLVHNY9TR
-	 d5u3xmBc7tnK53ELcNPOiFW2sm8Xu0V0tTeK4ljGTJTm7iWt1IzRJ1qQn7YygrXSvh
-	 2pGqSNLy8VQOgsxJRhaRQIEjdsuqxTiXlvKRcLsArHb1XTJfMxaGGC4b6FZb9Gc1Se
-	 +FJgL8dj2arhg==
+	s=k20201202; t=1790039694;
+	bh=m3LsZOYKXpBxu2jAlB5YJTHDy68xjmQ8m4RqAnY7buc=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=OshD3BQfh9BhJu5uNQp2FG3/KqPInw+5i8WTKaJ43CSjwpWEPppk+JHwKLD0tV2DK
+	 WXO0iN3LmPo0mA7JMoLS1p/28CSZeD6A5yg6pk+GsaaICj5V/uiahLdjodn4FXKrkz
+	 rWkV8Fl66NWLd38Pk7Ek98gf97OqNm82xcqM+3EsoHnClZRC8u2cJN660XLz/ErUvU
+	 +Ks9wMJjqOkbBz74Z3af6x7EB3aUxKIlXypXYt0CgwvCuMUPl99pgshozZQ/QJVFzl
+	 SYdPYY/U/vXye+/ACk5m5r9cm8aQLhE3fuCoNMmc8mriV7rGF8fI1g9dciTFd1zOSe
+	 w50U7GrIVY+MQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA1F0C982F0;
-	Tue, 22 Sep 2026 01:13:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E744C982FB;
+	Tue, 22 Sep 2026 01:14:54 +0000 (UTC)
 From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 21:13:24 -0400
-Subject: [PATCH 1/3] perf/core: publish the aux_event link with release
+Date: Mon, 21 Sep 2026 21:14:52 -0400
+Subject: [PATCH] firmware: arm_sdei: publish sdei_entry_point with release
  semantics
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,24 +40,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-perf-core-v1-1-ac56a719c02b@vt.edu>
-References: <20260921-mb-perf-core-v1-0-ac56a719c02b@vt.edu>
-In-Reply-To: <20260921-mb-perf-core-v1-0-ac56a719c02b@vt.edu>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+Message-Id: <20260921-mb-arm-sdei-v1-1-6d12d12a7cba@vt.edu>
+X-B4-Tracking: v=1; b=H4sIAIvWsWoC/yXMzQrCMBAE4Fcpe3YljVKNryIe8rOxKzTKrhah9
+ N1N6vEbZmYBJWFSuHQLCM2s/CwV/a6DOPpyJ+RUDdbYwTjb4xTQy4SaiDEPLjtjw7k3CeriJZT
+ 5u71db3/rJzwovttFawSvhEF8iWOLNs6n/QElHmFdf6MD9r+PAAAA
+X-Change-ID: 20260921-mb-arm-sdei-f69f902b810d
+To: James Morse <james.morse@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Jaidev Shastri <jaidevshastri@vt.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790039609; l=2045;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790039693; l=3316;
  i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=Hy0/fktxi3buuF66+I6+QW/1V+ole54AgH7uVyKIW/c=;
- b=qTk3z/ml5HJ1ZgNOvAaiiTN6s5dcMJurLA/dd6L/hXaZ5pFrdMDyzkTnWMC/UqtkzGQ5YsYKr
- h/0ZpyMn9NrCpIXOgzFsu8ubcFfW+7EAoeqsiAm7lTCfZ/Hmttj+k1c
+ bh=kwRV/aHBCufpjFjA3xGTlvIAqmYK7kG+Dzi8qsvpfdU=;
+ b=Fgbe9A5j8oOXTX+D4bvOXfcOfpfGlHrCYiIHUVy5lzThSYDd/gVtl2n+KkwU/cSS5swWUe4rz
+ cfIXERHDaG2CXS+vG1wOV/wF4ctaKXQuHdeBN2m3d9IcRLLINEGmlme
 X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
  pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
 X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
@@ -68,58 +63,97 @@ Reply-To: jaidevshastri@vt.edu
 
 From: Jaidev Shastri <jaidevshastri@vt.edu>
 
-perf_get_aux_event() links an aux_output event to its group leader with
-a plain store to event->aux_event once the leader has been validated.
-perf_aux_output_begin() and the AUX sample path read the link with plain
-loads, from the PMU interrupt on the CPU the event is scheduled on.
+sdei_probe() stores the SDEI entry point to the file-scope
+sdei_entry_point with a plain store after the platform reset.
+sdei_event_register(), the cross-call helper _local_event_register() and
+the re-registration path pass it to the firmware with plain loads.
 
-Store the link with smp_store_release() and read it with
-smp_load_acquire(), so that a reader that sees the link also sees the
-state of the leader it points at.
+Keep it in a local and publish it with smp_store_release(). Read it
+through a new sdei_get_entry_point() accessor at the three call sites.
 
 Found with MBCheck, a static herd7-based memory consistency checker.
 
 Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
 ---
- kernel/events/core.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/firmware/arm_sdei.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index db7b76d6b..7cce3fc7c 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -2332,7 +2332,8 @@ static int perf_get_aux_event(struct perf_event *event,
- 	 * group in torn down, the aux_output events loose their
- 	 * link to the aux_event and can't schedule any more.
- 	 */
--	event->aux_event = group_leader;
-+	/* Pairs with the smp_load_acquire() in the AUX output paths. */
-+	smp_store_release(&event->aux_event, group_leader);
+diff --git a/drivers/firmware/arm_sdei.c b/drivers/firmware/arm_sdei.c
+index e8dd2f0f3..a75203469 100644
+--- a/drivers/firmware/arm_sdei.c
++++ b/drivers/firmware/arm_sdei.c
+@@ -43,6 +43,12 @@ static asmlinkage void (*sdei_firmware_call)(unsigned long function_id,
+ /* entry point from firmware to arch asm code */
+ static unsigned long sdei_entry_point;
  
- 	return 1;
- }
-@@ -7974,7 +7975,8 @@ static unsigned long perf_prepare_sample_aux(struct perf_event *event,
- 					  struct perf_sample_data *data,
- 					  size_t size)
- {
--	struct perf_event *sampler = event->aux_event;
-+	/* Pairs with the smp_store_release() in perf_get_aux_event(). */
-+	struct perf_event *sampler = smp_load_acquire(&event->aux_event);
- 	struct perf_buffer *rb;
++static unsigned long sdei_get_entry_point(void)
++{
++	/* Pairs with the smp_store_release() in sdei_probe(). */
++	return smp_load_acquire(&sdei_entry_point);
++}
++
+ static int sdei_hp_state;
  
- 	data->aux_size = 0;
-@@ -8046,7 +8048,8 @@ static void perf_aux_sample_output(struct perf_event *event,
- 				   struct perf_output_handle *handle,
- 				   struct perf_sample_data *data)
+ struct sdei_event {
+@@ -582,7 +588,7 @@ static void _local_event_register(void *data)
+ 	struct sdei_crosscall_args *arg = data;
+ 
+ 	reg = per_cpu_ptr(arg->event->private_registered, smp_processor_id());
+-	err = sdei_api_event_register(arg->event->event_num, sdei_entry_point,
++	err = sdei_api_event_register(arg->event->event_num, sdei_get_entry_point(),
+ 				      reg, 0, 0);
+ 
+ 	sdei_cross_call_return(arg, err);
+@@ -612,7 +618,7 @@ int sdei_event_register(u32 event_num, sdei_event_callback *cb, void *arg)
+ 	cpus_read_lock();
+ 	if (event->type == SDEI_EVENT_TYPE_SHARED) {
+ 		err = sdei_api_event_register(event->event_num,
+-					      sdei_entry_point,
++					      sdei_get_entry_point(),
+ 					      event->registered,
+ 					      SDEI_EVENT_REGISTER_RM_ANY, 0);
+ 	} else {
+@@ -650,7 +656,7 @@ static int sdei_reregister_shared(void)
+ 
+ 		if (event->reregister) {
+ 			err = sdei_api_event_register(event->event_num,
+-					sdei_entry_point, event->registered,
++					sdei_get_entry_point(), event->registered,
+ 					SDEI_EVENT_REGISTER_RM_ANY, 0);
+ 			if (err) {
+ 				pr_err("Failed to re-register event %u\n",
+@@ -978,6 +984,7 @@ static int sdei_get_conduit(struct platform_device *pdev)
+ 
+ static int sdei_probe(struct platform_device *pdev)
  {
--	struct perf_event *sampler = event->aux_event;
-+	/* Pairs with the smp_store_release() in perf_get_aux_event(). */
-+	struct perf_event *sampler = smp_load_acquire(&event->aux_event);
- 	struct perf_buffer *rb;
- 	unsigned long pad;
- 	long size;
++	unsigned long entry_point;
+ 	int err;
+ 	u64 ver = 0;
+ 	int conduit;
+@@ -1007,12 +1014,14 @@ static int sdei_probe(struct platform_device *pdev)
+ 	if (err)
+ 		return err;
+ 
+-	sdei_entry_point = sdei_arch_get_entry_point(conduit);
+-	if (!sdei_entry_point) {
++	entry_point = sdei_arch_get_entry_point(conduit);
++	if (!entry_point) {
+ 		/* Not supported due to hardware or boot configuration */
+ 		sdei_mark_interface_broken();
+ 		return 0;
+ 	}
++	/* Pairs with the smp_load_acquire() in sdei_get_entry_point(). */
++	smp_store_release(&sdei_entry_point, entry_point);
+ 
+ 	err = cpu_pm_register_notifier(&sdei_pm_nb);
+ 	if (err) {
 
--- 
-2.43.0
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260921-mb-arm-sdei-f69f902b810d
+
+Best regards,
+--  
+Jaidev Shastri <jaidevshastri@vt.edu>
 
 
