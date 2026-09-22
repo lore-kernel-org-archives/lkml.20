@@ -1,528 +1,185 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010012.outbound.protection.outlook.com [52.101.46.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94FB47C11F;
-	Tue, 22 Sep 2026 13:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083374; cv=none; b=fKii34hcCkDOfa3NHbUEO9DHwV0FVw2EsJC85cIzAsyF8B+F6e/+FioLb7EWK0Ychnk6WVgRfsGcXgDaNsSJDtiaWdZwjBsZIu3lhz4K1yHhzMbuicHO78XETe2ArODIX3ZsvMQLJikR+wolNuvQlAymJ5MjWWWEwDcqQfg/gAQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083374; c=relaxed/simple;
-	bh=PAfJWrS38Rys+g1BbZwyx8fEc3jQBktDDkL/zsbyKAE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GoNtTWINhYNfX+fZSw6XZl6e09tikeribMCPCP+FIotM8Sv/YHvDJ2yl+dBCtKmXtFzWdH2n+4Ssagt8l/LT516rD+QBOYmRoDVdHhO8ByDTmZaDWT4SOEr7NI7Dgh/1p50yRhSXbn8KkgE27dcvM/kRj0k9c4nR2UoLShZZCps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 688CD3E97F;
-	Tue, 22 Sep 2026 13:22:35 +0000 (UTC)
-Message-ID: <6f377965-c743-4d9f-81a7-3aa3294d61d3@ghiti.fr>
-Date: Tue, 22 Sep 2026 15:22:34 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF362479873
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790083421; cv=fail; b=lRbQ2+guIXSFGX6CH/21gAHuyQ3F+vNMtfEG8LZWfiI87mHc4CVOSH1BbKC4Sm4THtDye8F5Nut5JoaN3UzoWASfCPMRLq7DpA91UuqhavLM3+X5DgLzw0aRymWaBEBu/s0FaGwRj0z8oBXFMvahWQiIrsVJV42Fodo25xvLEhA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790083421; c=relaxed/simple;
+	bh=Xc2sZ16ugqQwTMV6JsIhEvcV9O6DDe5dLccmDVZEEWs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=hQEAsFtXYFc6YCGwnn4SISlFu/HgmcaiIqVdFjst3+wT7OgcjVdVsHSSqolVkl6NwSXIxQeCT9yQpvsg3Q2YldFRmeThXeSy72U01oaAukC4/QTKVkXhsnEIiUs9ndiVzAv8Whh08fHTE7Xl+RgXGk2hzYkCEAyFszeYji7pZaI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sAB9FDXG; arc=fail smtp.client-ip=52.101.46.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sAB9FDXG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qvwNggu2C7Ca/yHzKtwyO1SXlmb/RlDFDT+SvIi6MEoWKPTDHEpCtGyc+bA/7FleobTo4nBM5PIo5sx41XQ6uUVT5OR2m1uEUYb/GuXhmCqcj62RCaAkqbSMHSxCcaqlao8d2HVNifXh0Me2eBtgklWH7bI600w8IZHD+Jx4bmrwZy0Pv6ch1OM9E/4+tdOzHmO4Cnu5sDoPOj1Dt67uReb2UeDtiUSsbgj7cimlO48NBpPdXKwI3JwjqimRPUYqKmXfIEtBopS0vMAaBWNY36uwJEYYQI7EViGTk1h2hp4hwZSzB3Ge0KCjfQUwVQJ2CldPc+0MbH/sGW2e8xR4UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xc2sZ16ugqQwTMV6JsIhEvcV9O6DDe5dLccmDVZEEWs=;
+ b=s5yMj2+H6xg+GOrP4bsXuzJ6Uv1piXa6lKEV9Yw3ydjwa8mGBTDCCqrfsrKvmsMCtfKgTeS/QBNbfzLUDtEoygTmpBLRnHFwAxkj3e4FNrMfaR45KN8oXrpX3k0ZrDtIn0Ufz7BJjrCa+iwQQ0IOR5QIXNZXTVk+hViap7N2x9OxcBd2riK5hTB+w7lOMl5RkhYPU0wDubyl6MCCga3KnfTUowpONMyzWDMsvg8EpO0ie7/YHN6jQ51VU0e8R5V8bFgt/jf3gkOCUohmNXmEkPAUrPxiAWKwyR+e3qv7CO+f7YOQuyibh5Pru7PTkCG4YItRDXo9cw8y1OiWImGvcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xc2sZ16ugqQwTMV6JsIhEvcV9O6DDe5dLccmDVZEEWs=;
+ b=sAB9FDXGCaTSLlgMTmKbwx49SzJrxTVBBOtA9UcJ+eFgulc8VWWjb17nytLqdwh+jaOVs3o5PJuklMBI6qSrnWEWFc/YE90wTs10LHnnyvo1wDERi0+UULqT7GY5BsWENLo2saubAv9GcpYLViP/6srb6NqSqLXNTaXGYmR2UdAkPfLMpuFIt4F5rK6h3QGv4WmBr5H5ucrmmP6ajc/1oDjtG4+iJqiv54nfPdW7cK2fpkXGB0Q9m766gHOLArhftB335v+clOy3Bu3iWkXj09OxhpgSlF1Ruis8xKbtT/4Y0t1XrP3lZiB+NmuED7aNSQ569fbDmBEpxsHuMVC21g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SA1PR12MB7341.namprd12.prod.outlook.com (2603:10b6:806:2ba::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 13:23:30 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
+ 13:23:30 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 22:23:27 +0900
+Message-Id: <DLLVLWJRODXZ.1WPWHMSMWJLJK@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/3] gpu: nova-core: extract radix3 page table into its
+ own module
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260913195413.742143-1-jhubbard@nvidia.com>
+ <20260913195413.742143-2-jhubbard@nvidia.com>
+In-Reply-To: <20260913195413.742143-2-jhubbard@nvidia.com>
+X-ClientProxiedBy: TY6PR01CA0024.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bb::8) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback
- completion
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz,
- liam@infradead.org, david@kernel.org, vbabka@kernel.org, jannh@google.com,
- chrisl@kernel.org, kasong@tencent.com, shikemeng@huaweicloud.com,
- nphamcs@gmail.com, baoquan.he@linux.dev, baohua@kernel.org,
- youngjun.park@lge.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
- axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
- hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org,
- chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu,
- hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260921152449.629486-1-alex@ghiti.fr> <arJYmwKnEu-djZlK@gremlin>
-Content-Language: en-US
-From: Alexandre Ghiti <alex@ghiti.fr>
-In-Reply-To: <arJYmwKnEu-djZlK@gremlin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-State: clean
-X-GND-Score: 0
-X-GND-Cause: dmFkZTF/8uKKPssWFWWUf2U9HYiLJp5w+tXmVv+YDcS50c92DN1fQwYMZw1OuAUFlMAUzydZ4lXRRy6z7Brsk1rMOWSDgAXu2353p2ew8iHihpx2mRh5MZnvnXouWJxc60fJs6S7hvviAdPurSzfBVWd8mosx9G2KkRsOYox/bM3YbLfwA0jA+DT3WldNx5VY0Jw33Qfh9MvmRLsqwaQgUJFthpc8Pk9S7RlBCLZNe7P0rvwHW1S88CjPepTSS/ejhOtF40J4dIzcwN3W3ULvldJtBYhvzLc2p+CY7GTYR7O8AKecnKvTUVzeiXR4yg2Aalo68fBlf3hRylxr6oUVGV6RgnuR92bC4P5hIC+zFhEYfhVxTpIxW4EQByzng8e7n0Wp3Mf9SWj7MDYuZjqdnQSNKIoX1lVar0PxeDT6UEppvXgClrGTJNiG1HW3cq+eP4h7hFHjV400HCqHxSlfXsgtRIaPJTfEzHmXekmvJiR1jceQUGwyB/cJJpsyyqUp1n0zBD2PdPCUtO5ZedRCY0z8CDcO4JyyvRYHZ9VkLt92wIUWMwW+UjMbQOXUR6kdTolQsKXo7rNygnRjt5L+8VluOfUAy+SgfpBW+4iTT5u8I49L62jFrhWz2n0TAbH4VtPcImIAr1CrjY4sSTahPrEwdJkuiVwlMbayGO/Jxeb+/VDZA
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA1PR12MB7341:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0ca90b5-de5d-4d6f-e323-08df18acb196
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|10070799003|376014|7416014|23010399003|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	vXwa5XNd7uSw9mNVWjVeOiMAGLKV+2ySzwioyHvstVLhJsRlMAtFI+mpBaJzDjXtSLBjMH80laHH6UAjDLD6l2FB7qr8Age5rFXKUmTRoliK5qqODs1yDcCljJD+FKSbskWtPcDweXYCyY4zWfQCRSCg4ACV5j8j4cN+R3tIo9UrRRVYiG0aqnKwxVNdLUwrQoyO1YMbka2eb7gdPdrTsft3I6a6UTMSUAr+8R+Phu0FO6HmZ4VPXmOasJlq1SaVg77R8nxjoivs2JmCt/slmlaNZkBFuVMpYZQDmQbF4mCmCdltGXIma6NsreJks7TdzpmYAwGPjpIzD/qrggfl/aO+v/SpK8pO49BIMeGAX9/qfZAjZn9PLC6kOwYVqo/gH764TsiWpUOSCGwW3MQWgUPC4ss2ppIUuv7yvR8KhqOnhCd+IlEdf3iMR2C8BVpHj6sLKkuc2038ekIZ10ceW/fexsaDWcN194SMcX9s8mgEoBhyKfiDQjXAUYrs4aKZ+Yv3YuVIVpPMUjTKAtRCr+DeRDvlXGZpmu8BUXUQ2uMP3c0KEl92RF++TNtma4qNHPVaR+CkSGWXvAIyi3WVtsxvurGJiaaQCDGaIugNoTe9R2ZyHUrQhBWtHNNcqkWhk3TSA8Zq1Nxbx/G3A3FXvSQ755r6xn7HoO7EG0+tuIY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(7416014)(23010399003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MFYzYlBkK1ZYRS9JM0syTW5RSVdqUW5DOHh3MkRWbk5DQTlOVXVld1JrR1Vv?=
+ =?utf-8?B?REsvS1oxTHdaT0RhcWJhaEJuWDZhSGQrakN1MVdVdVhzZUdoRE9mdVBRMGZR?=
+ =?utf-8?B?WjRRVWdkd3FndjVRWjREUm5jUXY4M1B6VzlaNjM0eHdkV29aVDFsQjZuTW9X?=
+ =?utf-8?B?M2duZi84UVJmcUdMQVRNOFJqQ2hFdmt2bVdJandNcEtjcmRTV1FzcExaKy9K?=
+ =?utf-8?B?SU0zR2FReGpHL0pzeVZpTjUwWUxQaElBdklqTHpRMlBpTjZsZ2lIc3QzVk94?=
+ =?utf-8?B?ZCtOK2xhWVNZdklyY1JIaVQ5ZFdBSXk3SGdOVk16cWhyRGRGOVVoczlIcnc4?=
+ =?utf-8?B?K3JZaElEMVQvaXc1TkhNNjBIdWdHVVIzTno3VEw4Qys0VjErcWZabllzbkFN?=
+ =?utf-8?B?b2xVeFY2UGJMYng0blZPd0VtbitqSjhYREtwMWlvbDJkRWtjT0dLRm5ERlpu?=
+ =?utf-8?B?WlJhS24yWkJzWTM4TGM2ZHppaGc0N1gvRitUZ1hVKzdsNTdUZzZReHNRR2g2?=
+ =?utf-8?B?bEFqM01aQ2o2OGF2Q1hZUEFJc3Z4TWxmZjdvdVZwRDRYQWZmUTlzUzE2OU1q?=
+ =?utf-8?B?M3U5ZFlnOTg0c2RoMStERStQVTJZb1cwcm1udks5RmdIclVaa2x4TlJ5ZXZw?=
+ =?utf-8?B?RkR5VEtIeEJnV1NKeVBJeE00b3g3QzIxZUQweERCaVNoVXNCWEdFbTZuNzgx?=
+ =?utf-8?B?LzhHT3NDNUQvNjBiVHNodmZ6dUZ2MnJVR3ViZStlUjNiWThzTkUwd0dlMjNT?=
+ =?utf-8?B?NkhrcmtLbXFSa1FFeEhBNFNPL1h1SGpOK2hDMEhvY2V2T0M4YmNkQVNIblBW?=
+ =?utf-8?B?NFJGTnZWc2IrZ3BNbUFTSGt2SGVrU2pUTkRrVXN4bkhtMXlRQVMzcnpkVzcr?=
+ =?utf-8?B?VHd3bEd0M3NNSE1iMmdPL0NuQzJCRjlhaEI4Sk5uVE5nckhOWWNDZ3BXVytt?=
+ =?utf-8?B?dEs2czRTVXlTOUxmRGhINGZzRFl6VlNscHdFMHBQVFk2Q2FSMjVLMTk0Zkdh?=
+ =?utf-8?B?T1RwL2x4VDl4dmEvVDhUUmNHalY1NjlQQ2Jqb01xeEJUMDY0TlZMUVdab3RV?=
+ =?utf-8?B?cjNnR0g5RUlmMEcvNkFOQXNYSHB2anVFS1pLZjBHak1oSUV1YmNCclh3a2ZZ?=
+ =?utf-8?B?cnRYWFVsVWdEcy9iVEttZnpoTVZpZFloNDNKTG9xQkhsOEticnJMMVNwcjBW?=
+ =?utf-8?B?OG1UL3FROVpELzR6L3dNbTBlYkV1bFp1empWSEdnRXR2Y29FOHE5T2NDSGNE?=
+ =?utf-8?B?dzE5aGRwZmxUMkpnWERzSU5lemtvVktvRDNvWVVnQitWdW0rV0pQTU1kcm1C?=
+ =?utf-8?B?dUg1cGNQR00rRURCdzUzYmhtVVdaZjZWbFdmQXNGRmZ2OThBaGxJZGVITFow?=
+ =?utf-8?B?bmkzTnVZUUVxaVcwanpUQ2VOQnoveXJZRFBTNzA4N0RBeHdETzZUY05md01O?=
+ =?utf-8?B?dXNBQlVQRzdETXBJZTIxZFRVc3FZMUY2VjVRc3IvMXBPMFhaTDI1SCtGREh2?=
+ =?utf-8?B?dGgwU0QrcUgxemtVWEo2WVdWWnRLeWZ2bDBIQkxnN2c0NFBhZWlCSVA2VENw?=
+ =?utf-8?B?VG5iRHl3TUVoWUc4N081bVNIbmkxa2RDenNMWFFXZUJQRzJQZUtnS0swOE5i?=
+ =?utf-8?B?bTVBdUVwVTl3aEpnTVF3V1J4TEREQmJsa0NwODlmOUd6dm1qcnhUVVZlMzhI?=
+ =?utf-8?B?UnRzNitoaEJWVlJ4WFp6OE82MVcxOWRPWGxNL2VDaVhuUnV1YVZOOUxmVTFC?=
+ =?utf-8?B?MVR5S0RudUQybnRXdzlsS1JsTm8wYlgvNzAvMVFMdzRKbEt2NXZFM201ckl2?=
+ =?utf-8?B?VS9GSVBoYTRRVEtmSlVxU1NMZnFTbC9NNkx5alIwTHZaQWtvZitSTUR0dlM0?=
+ =?utf-8?B?dFF1dHdjMEQrcmptNnpVN1prdmhIS0ExZ2hFY1dqZjhsd0hGWWo3T2UzWmhP?=
+ =?utf-8?B?N0UvVit6TnJCRmJMN3lpL2N5ZDZYeDlpT3R2aGRkb2ZHMEo2QXFaWXpsTnNw?=
+ =?utf-8?B?ZTZraVdjeFpFYXVDRVBYWGJjcHZWdUxaeXV3TXNBTGJ5YVZpTVVTRnErSUtp?=
+ =?utf-8?B?Ti9pdGcvakdlZkdneXUwVjVmT1pHcHRFR09jRkhmakdlVWNZN1g4MFkvWU5L?=
+ =?utf-8?B?di8yS2hzWE1uWVJRZDVsQlZFOWJodFlsaDdOSkJ0SWZBeWV4Y1F6MWQ0WmxK?=
+ =?utf-8?B?L21GVEhPWTlYVzBhbGc5WkZUcFZ5ck44RTg3R0NmaUp0VW1WQlArNmpybXNQ?=
+ =?utf-8?B?K1I2UFM4VVZSQWlhZlhaUnVTczFVZXQ3OCtMenFnRGc2RUY4cmozQjJsM2Rq?=
+ =?utf-8?B?NnRSWFZ5ZnZ1ZGsyL2JEalVPZTVITXVwUTZJYlMvS2wrN2x0SUQyOXE0RWgz?=
+ =?utf-8?Q?tns7PZLB/Dcx9kgq11m/jjONyTTY9hlao4rmo+YWg6lzp?=
+X-MS-Exchange-AntiSpam-MessageData-1: lTSBsQhGCIdVuA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0ca90b5-de5d-4d6f-e323-08df18acb196
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 13:23:30.5605
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wfxmyX9AN0eetio0phacg8sGGrrTnMQzBsVMRYZDwmexOfG+QFAFGSVZbjIy4AwovB0lT5wMsdpoWCG8vyBr1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7341
 
-Hi Lorenzo,
-
-On 9/22/26 12:44, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Sep 21, 2026 at 05:24:33PM +0200, Alexandre Ghiti wrote:
->> On an asynchronous swap device MADV_PAGEOUT only marks the folio
->> PG_reclaim and rotates it to the tail of the inactive list once its
->> writeback completes, so the memory is not actually freed until a later
->> reclaim scan removes the by then clean swap cache folio. Mark those
->> folios dropbehind at isolation time instead and let folio_end_writeback()
->> drop them from the swap cache as each write lands.
-> Please split out very large paragraphs like this. It's hard to read this.
+On Mon Sep 14, 2026 at 4:54 AM JST, John Hubbard wrote:
+> In order to boot the GSP, nova-core loads the GSP firmware image into
+> system memory, and the GPU copies it into the framebuffer, the GPU's own
+> memory. The GPU finds the GSP firmware image's pages via "radix3", a
+> three-level page table of 4 KiB pages that the driver builds. Today the
+> table exists as fields within the GSP firmware wrapper, which is fine
+> because there is only one radix3 consumer.
 >
-> You aren't giving any justification here you're saying 'X happens so don't do X
-> any more'.
+> The upcoming r000 series[1], however, introduces a second radix3 caller:
+> the ucodes firmware image. That is because the GSP has been changed, so
+> that it automatically fetches the subset of ucodes that it requires,
+> thus reducing the size of the GSP image. This is a helpful change for
+> the firmware situation overall, but it will require nova-core to load
+> and provide ucodes, in much the same way that it was loading and
+> providing the GSP firmware image.
 >
-> Why? That should come FIRST.
-
-
-You are right. I believe leaving those folios in memory creates useless 
-memory pressure and then should be freed as soon as possible.
-
-
->
->> A dropbehind folio is dropped by whoever completes its writeback, so the
-> Ugh I really don't love 'dropbehind'. But I guess it's a thing then?
->
-> Can you explain what that is? This commit message isn't really teling me much.
-
-
-I'll do in the next revision. And indeed I have been playing with 
-dropbehind quite a bit lately and I believe (and benchmarked) it 
-prevents useless reclaim (see the zswap writeback dropbehind patchset).
-
-
->
->> reference the submitter holds has to be released before the write is
->> submitted. As reclaim does before freeing a folio, flush the pending TLB
->> batch first.
-> Why do you do that? I don't care if something does something, _why_?
-
-
-To prevent stale TLB entries to persist while the folio has been freed 
-by the callback. I'll add that in the next revision, thanks.
-
-
->
->> Note that for dropbehind folios nr_reclaimed is now credited when the
->> write is submitted rather than when the folio is actually freed, since the
->> reclaimer never sees the folio again.
-> That sounds iffy...
->
-> If this is a change that you are actively doing don't say 'note that' as if it's
-> a fact that can't be avoided.
->
-> You are _choosing_ to make a change, justify it then say you did it.
-
-
-Yes, this is questionable indeed, hence the note so that I can have 
-feedback. Even if it is too early to state the folios were reclaimed, I 
-believe it must be done somehow, I'll add that in the next version.
-
-
->
->> Suggested-by: Barry Song <baohua@kernel.org>
->> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
->> ---
->> This applies on top of "[PATCH v6 0/3] mm: zswap: free cold writeback folios
->> promptly":
->>
->> https://lore.kernel.org/linux-mm/20260921151306.625134-1-alex@ghiti.fr/
-> Hmm, but you're targeting mm-unstable no?
-
-
-Yes, I was not sure how to proceed here: should I RFC instead? Or is it ok?
-
-
->
->>   mm/filemap.c |  7 +++++++
->>   mm/madvise.c | 23 ++++++++++++++++++----
->>   mm/page_io.c | 55 ++++++++++++++++++++++++++++++++++++++++++++++++++--
->>   mm/swap.h    |  2 ++
->>   mm/vmscan.c  | 10 ++++++++++
->>   mm/zswap.c   |  9 ++++-----
-> Why is this a core mm change which also changes madvise but you're changing
-> zswap too? This feels like it needs to be broken out into commits.
-
-
-Because I make modifications in the core mm that is then not needed 
-anymore in zswap (the release of the reference). But I can split that 
-into another patch, I'll do. Thanks
-
-
->
->>   6 files changed, 95 insertions(+), 11 deletions(-)
->>
->> diff --git a/mm/filemap.c b/mm/filemap.c
->> index e1f1bbe943ce..14fa96fca8b8 100644
->> --- a/mm/filemap.c
->> +++ b/mm/filemap.c
->> @@ -1630,6 +1630,13 @@ void folio_end_dropbehind(struct folio *folio)
->>   	if (!folio_test_dropbehind(folio))
->>   		return;
->>
->> +	/*
->> +	 * PG_dropbehind could be set on an anonymous folio after
->> +	 * folio_end_writeback() samples it (for example MADV_PAGEOUT).
->> +	 */
-> I don't really feel this comment explains why you're exiting here? It's like you
-> randomly state a fact as a comment.
->
-> Something like 'do not end dropbehind for anon because < reason >' no?
-
-
-We need to test anon here because PG_dropbehind could be set in parallel 
-by MADV_PAGEOUT and that would make the anon folio reach 
-filemap_end_dropbehind(), which is wrong. I'll improve the comment. Thanks
-
-
->
->> +	if (folio_test_anon(folio))
->> +		return;
->> +
->>   	/*
->>   	 * Hitting !in_task() should not happen off RWF_DONTCACHE writeback,
->>   	 * but can happen if normal writeback just happens to find dirty folios
->> diff --git a/mm/madvise.c b/mm/madvise.c
->> index eeee82cf2b3f..63164f95720b 100644
->> --- a/mm/madvise.c
->> +++ b/mm/madvise.c
->> @@ -359,6 +359,17 @@ static inline int madvise_folio_pte_batch(unsigned long addr, unsigned long end,
->>   				     FPB_MERGE_YOUNG_DIRTY);
->>   }
->>
->> +static void madvise_mark_dropbehind(struct folio *folio)
->> +{
->> +	/*
->> +	 * A folio already under writeback is skipped: that writeback is not
->> +	 * ours to hand over, so reclaim will put the folio back on the LRU
->> +	 * while its completion could be dropping it at the same time.
->> +	 */
->> +	if (folio_test_anon(folio) && !folio_test_writeback(folio))
->> +		folio_set_dropbehind(folio);
->> +}
->> +
->>   static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
->>   				unsigned long addr, unsigned long end,
->>   				struct mm_walk *walk)
->> @@ -439,10 +450,12 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
->>   			folio_set_workingset(folio);
->>   		if (pageout) {
->>   			if (folio_isolate_lru(folio)) {
->> -				if (folio_test_unevictable(folio))
->> +				if (folio_test_unevictable(folio)) {
->>   					folio_putback_lru(folio);
->> -				else
->> +				} else {
->> +					madvise_mark_dropbehind(folio);
->>   					list_add(&folio->lru, &folio_list);
->> +				}
->>   			}
->>   		} else
->>   			folio_deactivate(folio);
->> @@ -554,10 +567,12 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
->>   			folio_set_workingset(folio);
->>   		if (pageout) {
->>   			if (folio_isolate_lru(folio)) {
->> -				if (folio_test_unevictable(folio))
->> +				if (folio_test_unevictable(folio)) {
->>   					folio_putback_lru(folio);
->> -				else
->> +				} else {
->> +					madvise_mark_dropbehind(folio);
->>   					list_add(&folio->lru, &folio_list);
->> +				}
->>   			}
-> This existing code is utterly horrible can we maybe do some refactoring before
-> adding yet more functionality here?
-
-
-I can't speak for him but I think Gregory Price has prepared a patchset 
-that indeed refactors this code, I'll check with him.
-
-
->
-> I feel like the 'pay down technical debt first' take I had in THP is pretty
-> valid here also.
->
-> But also, yeah you DEFINITELY need to separate out patches here.
-
-
-Ok, I'll improve that in v2.
-
-
->
->
->>   		} else
->>   			folio_deactivate(folio);
->> diff --git a/mm/page_io.c b/mm/page_io.c
->> index 52eae99de6e3..bf8238768cc9 100644
->> --- a/mm/page_io.c
->> +++ b/mm/page_io.c
->> @@ -26,9 +26,12 @@
->>   #include <linux/delayacct.h>
->>   #include <linux/zswap.h>
->>   #include <linux/swap_ops.h>
->> +#include "internal.h"
->>   #include "swap.h"
->>   #include "swap_table.h"
->>
->> +#include <trace/events/vmscan.h>
->> +
->>   int generic_swapfile_activate(struct swap_info_struct *sis,
->>   				struct file *swap_file,
->>   				sector_t *span)
->> @@ -248,8 +251,19 @@ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
->>   	}
->>   	rcu_read_unlock();
->>
->> +	if (folio_test_dropbehind(folio)) {
->> +		/*
->> +		 * pageout() traces and accounts at its tail, which we can't do
->> +		 * because dropbehind folios may already be freed by then.
->> +		 */
-> I'm really confused by this comment.
->
-> You're in swap_writeout() but you're talking about pageout() and what they 'may'
-> be freed by then so you're tracing/accounting in more than one place which
-> sounds wrong?
->
-> This  at least needs to be clarified.
-
-
-I see, it's not obvious: trace_mm_vmscan_write_folio(folio) is usually called in pageout() after calling swap_writeout(). But with dropbehind, the folio could be freed when swap_writeout() returns and then we can't use the folio anymore. I'll be more explicit in v2, thanks.
-
-
->
->> +		trace_mm_vmscan_write_folio(folio);
->> +		lruvec_stat_mod_folio(folio, NR_VMSCAN_WRITE,
->> +				      folio_nr_pages(folio));
->> +		ret = SWAP_WRITE_DROPBEHIND;
-> Not sure the comment explains why you're chaging the ret here?
-
-
-The folio could be freed and must not be touched after the IO was 
-submitted. I'll make it more explicit.
-
-
->
->> +	}
->> +
->>   	__swap_writepage(ctx, folio);
->> -	return 0;
->> +	return ret;
->>   out_unlock:
->>   	folio_unlock(folio);
->>   	return ret;
->> @@ -692,8 +706,45 @@ EXPORT_SYMBOL_GPL(swap_fs_activate);
->>
->>   void swap_write_submit(struct swap_io_ctx *ctx)
->>   {
->> -	if (!ctx->sio)
->> +	struct swap_iocb *sio = ctx->sio;
->> +	bool dropbehind = false;
->> +	int p;
->> +
->> +	if (!sio)
->>   		return;
->> +
->> +	for (p = 0; p < sio->nr_bvecs; p++) {
->> +		if (folio_test_dropbehind(bvec_folio(&sio->bvecs[p]))) {
->> +			dropbehind = true;
->> +			break;
->> +		}
->> +	}
->> +
->> +	if (dropbehind) {
->> +		/*
->> +		 * A dropbehind folio is freed by the completion, not by the
->> +		 * reclaimer, and freeing needs every deferred unmap flushed,
->> +		 * not just the writable ones try_to_unmap_flush_dirty() covers
->> +		 * before the IO.  The reclaimer flushes before it frees, but
->> +		 * that is too late for a batch swap_add_folio() already
->> +		 * submitted mid-loop.  A no-op once that flush has happened.
->> +		 */
-> please use newlines to separate paragraphs :))
->
-> This is really hard to read, it's an LLM-like wall of text.
->
-> There's so much going on here.
->
-> - A dropbehind folio is freed by completion not by reclaimer
->
-> - Freeing needs every deferred unmap to be flushed (not only blah blah)
->
-> - Reclaimer flushes before it frees but then it's too late for blah blah
->
-> - This is somehow a no-op once a flush has happened.
->
-> Reading all that really makes me think that this solution isn't the right one,
-> instinctively? If you're having to juggle many many delicate things all at once
-> to justify some code that generally implies your design is wrong or at a wrong
-> granularity.
-
-
-I don't think it's that delicate, the comment may be too complicated 
-though: we simply need to make sure to flush tlb entries here before the 
-folio is freed to avoid stale entries. I tried to explain why 
-try_to_unmap_flush_dirty() in shrink_folio_list() is not enough...etc. 
-I'll keep it short and I think it should be enough (?).
-
-
->
->> +		try_to_unmap_flush();
->> +
->> +		/*
->> +		 * Now that the TLB is clean, drop the submitter's reference:
->> +		 * the swap cache then holds the only ones left, which is what
->> +		 * __remove_mapping() expects when the completion drops the
->> +		 * folio.  This has to happen before the write is submitted.
->> +		 */
->> +		for (p = 0; p < sio->nr_bvecs; p++) {
->> +			struct folio *folio = bvec_folio(&sio->bvecs[p]);
->> +
->> +			if (folio_test_dropbehind(folio))
->> +				folio_put(folio);
->> +		}
-> Is it ok to iterate through a bvec folio and start fiddling with refrences like
-> this? What if your put frees the folio, is the bv->bv_page not now a dangling
-> pointer?
-
-
-Here, at least the swap cache holds references on the folio, to me it 
-cannot be freed, I'll check again though.
-
-
->
-> Also the comment for bvec_folio() makes me worry:
->
->   * A bvec can contain non-folio memory, so this should only be called by
->   * the creator of the bvec; drivers have no business looking at the owner
->   * of the memory.  It may not even be the right interface for the caller
->   * to use as a bvec can span multiple folios.  You may be better off using
->   * something like bio_for_each_folio_all() which iterates over all folios.
->
-> Can each bvec span multiple folios? Why is bio_for_each_folio_all() not right
-> here?
-
-
-I don't have answers for that now, I'll check. Thanks
-
-
->
->> +	}
->> +
->>   	count_vm_events(NRSWPOUT, 1);
->>   	ctx->sis->ops->submit_write(ctx);
->>   	ctx->sio = NULL;
->> diff --git a/mm/swap.h b/mm/swap.h
->> index 8679cb61268e..81114ad9e44a 100644
->> --- a/mm/swap.h
->> +++ b/mm/swap.h
->> @@ -92,6 +92,8 @@ static inline int mem_cgroup_swappiness(struct mem_cgroup *memcg)
->>   	return READ_ONCE(vm_swappiness);
->>   }
->>
->> +#define SWAP_WRITE_DROPBEHIND	1
->> +
->>   #ifdef CONFIG_SWAP
->>   #include <linux/swapops.h> /* for swp_offset */
->>   #include <linux/blk_types.h> /* for bio_end_io_t */
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index a02f942418d3..5435fa5111b3 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -613,6 +613,8 @@ typedef enum {
->>   	PAGE_SUCCESS,
->>   	/* folio is clean and locked */
->>   	PAGE_CLEAN,
->> +	/* folio will be freed after writeback, do not touch */
->> +	PAGE_DROPBEHIND,
-> Oh god, really? Do we have to add a whole new outcome possibility for CORE
-> reclaim logic just for this?
->
-> Ugh man.
-
-
-Dirty as hell, I agree! But this is the only way I found so that the 
-folio, which may have been freed in the meantime, is not touched anymore.
-
-
->
->>   } pageout_t;
->>
->>   /*
->> @@ -659,6 +661,9 @@ static pageout_t pageout(struct swap_io_ctx *ctx, struct address_space *mapping,
->>   	else
->>   		res = swap_writeout(ctx, folio);
->>
->> +	if (res == SWAP_WRITE_DROPBEHIND)
->> +		return PAGE_DROPBEHIND;
->> +
->>   	if (res < 0)
->>   		handle_write_error(mapping, folio, res);
->>   	if (res == AOP_WRITEPAGE_ACTIVATE) {
->> @@ -1437,6 +1442,9 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
->>   					nr_pages = 1;
->>   				}
->>   				goto activate_locked;
->> +			case PAGE_DROPBEHIND:
->> +				nr_reclaimed += nr_pages;
->> +				continue;
->>   			case PAGE_SUCCESS:
->>   				if (nr_pages > 1 && !folio_test_large(folio)) {
->>   					sc->nr_scanned -= (nr_pages - 1);
->> @@ -2198,6 +2206,8 @@ static unsigned int reclaim_folio_list(struct list_head *folio_list,
->>   	while (!list_empty(folio_list)) {
->>   		folio = lru_to_folio(folio_list);
->>   		list_del(&folio->lru);
->> +		if (folio_test_anon(folio))
->> +			folio_clear_dropbehind(folio);
->>   		folio_putback_lru(folio);
->>   	}
->>   	trace_mm_vmscan_reclaim_pages(pgdat->node_id, sc.nr_scanned, nr_reclaimed, &stat);
->> diff --git a/mm/zswap.c b/mm/zswap.c
->> index dc8425d6b21e..640936fe7464 100644
->> --- a/mm/zswap.c
->> +++ b/mm/zswap.c
->> @@ -1051,17 +1051,16 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
->>   	folio_set_dropbehind(folio);
->>
->>   	/*
->> -	 * Drop our reference before starting writeback so the swap cache holds
->> -	 * the only one: the drop in folio_end_writeback() needs that for
->> -	 * remove_mapping_set_shadow() to succeed, otherwise the folio is
->> -	 * handed back to reclaim instead.
->> +	 * Our reference is donated to swap_write_submit(), which drops it just
->> +	 * before submitting so the swap cache holds the only one left: the drop
->> +	 * in folio_end_writeback() needs that for remove_mapping_set_shadow()
->> +	 * to succeed, otherwise the folio is handed back to reclaim instead.
-> This feels really conplicated.
->
-> My instinct with this change overall, though I'm not familiar with the
-> dropbehind code, is that thi
-
-
-I'm sure this works as explained, but I can't argue with you it's not 
-complicated, if you have any idea to make that clearer, I'm happy to try.
-
-
->
->>   	 *
->>   	 * Nothing can free the folio in the meantime: we hold the folio lock
->>   	 * until writeback starts, PG_writeback then blocks swap cache removal,
->>   	 * and folio_end_writeback() takes its own reference before clearing
->>   	 * PG_writeback and donates it to the drop.
->>   	 */
-> This comment is now a comment on...? Nothing?
-
-
-I still think it is an important comment so I'll "attach" it to 
-__swap_writepage() below. Thanks
-
-Thanks for the thorough review!
-
-Alex
-
-
->
->> -	folio_put(folio);
->>
->>   	/* start writeback */
->>   	__swap_writepage(&ctx, folio);
->> --
->> 2.53.0-Meta
->>
-> --
-> Cheers, Lorenzo
+> Therefore, split out radix3 into its own module.
+
+This patch does a multitude of renames and comment updates as it moves
+code around, which makes it difficult to review with `--color-moved`.
+
+`--color-moved` is a really nice git option that applies a different
+color to lines that have just moved instead of having changed; on a
+patch like this one I expect to see mostly the "this has moved" color,
+which allows me to confirm that no undesirable side-effect has taken
+place.
+
+But unfortunately the mix of move and changes turns the `--color-moved`
+augmented diff into a Christmas tree of moves mixed with code changes,
+defeating its purpose.
+
+So in order to be able to review properly I had to split this patch into
+the mechanical move, plus two patches on top to handle the rename and
+comments updates.
+
+This makes the first patch's mechanical move easy to confirm using
+`--color-moved`, and as a bonus the other changes also become easily
+reviewable on top of that.
+
+Anyway, all this to say that this series is merged with a couple of
+extra commits (and some removed comments kept as they were useful imho).
+Please check the end result of this patch with `--color-moved` to see
+what I mean, and let's make sure to keep code moves and changes
+separated from now on to make reviews easier.
