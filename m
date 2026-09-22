@@ -1,193 +1,380 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021088.outbound.protection.outlook.com [52.101.100.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A1032C8B;
-	Tue, 22 Sep 2026 19:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B994A688B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:55:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106922; cv=fail; b=sYRJ4hE7wzZEC9ym0omZ9fcV2Pir/rJiDtEgMQ45MxV+G/HJi+gJ+11nJAk2PRlAHGgxtQIdUcgowY0vl2opejiaXXUyFXFP3IyUZuYyV884PclTGS9S16oE3C2NgpXHZF9mKWobLzStgS7FrL0nk1Xwf5vecrfGP6wyyyLplzs=
+	t=1790106925; cv=pass; b=HE2vAF37dBiWv8RhvPrUNCTZO6niqsel3cCRZhqKZedHAQAtVqoAIRuYSzVZPaBCZM0PXzDQFoDxNAr9NwrMQWbwrkONFGOpE++HRkcVltrXnrN3eUEHGVfp8EwCsgkfeH6Df9kdoRleC3yH/3qNqXxGfVtZxR6eW+TLnjNWVLQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106922; c=relaxed/simple;
-	bh=mSfiDhcaXgwpyCg+UT8M4nh3dWCLRe73ZbFKmdJ+XCg=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=T8TZP15NF9rn1/JWdy8Nr7RcGB3vmYau7oSYvm6PhgU2vogMqOL8LFjeVLjwBVcHTwlIXDbJcJoW+uQzmc2VBeydP7c6N3QZ6TXUJlammZzQEucsDGz3GrR7iZa1CE8lFlzdLg8JpLsA7/6INOnh+itWM+6P+UVV1I1HreCcioc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=EPECTbpU; arc=fail smtp.client-ip=52.101.100.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1790106925; c=relaxed/simple;
+	bh=zB6lNLmcf4TXFD1nthxq4b0MqaJa5h13GLTe9DTQAQ4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QS6/kyYgCLMEcyTOFDklSdWpq4DbbwHcqmNTxIwKFkkzSQNwA107rXwgR6qA2cOfUIxPJYNYEmSUONjmIoUMgpVqbCBVZRJ9lYklYV/WfPy7F5i8onChi2x+xA4tOeVVvIJ1Po6xlUW0PzZAyRrzolR+CiN9cOo9ut6qgJlXgh0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=DOTN+VRj; arc=pass smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="EPECTbpU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NlrtILow7QFwPV3AO54Ige69Wj3NqUQMrsMx6n9m46T/SYu7eN45nQrOf9ptwFlVyXH8NnrNGXF4j2CcGcGu6VXaFgDulRbV/PJMTA1v9ooh0y/7urdOYPPSPHY6kp8n0an7Etmdc2gwIXNTmzf6PEtzmF6gbf4rSQbOZ0ctidj3l6A5brGuaWhF9K6qQvCd/XA+ALo3qRnu694+2UDW6iBJZd589OZ/wB0gf94eTPqLPj4pCaevIlyYjxArs4z+ZJlANX3cLjIOqIeAioTRjvuniIpxmx4ngj/wMKsKr28ntrc1ng/nWHMSpGetrdkMt7b/iReCcS+8mwWm4VWfUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mSfiDhcaXgwpyCg+UT8M4nh3dWCLRe73ZbFKmdJ+XCg=;
- b=MKOpCxwgV2Ma6O0azgk33aCMe+7lq+IBAPxA5kKdZ5n/4Y4HnC1kbI5QMtzsKOHSu5lxprZVAdOvCMfOb+jHAjXPaxEciKv7Sl1CVXWFCusYfsXvasA6QSYyRlpgRmlv0KOik9jo2pOSjlFnkmRJ4pilMu4ld9lJtOybZ8HuWMeSN7SYROrfLnZWUJ03r//dophV++4nEOhFmCPZ5X1cZFQi1Teei4QHDuTsXF1vgIFjBCq4akMtiC+cmUtrtZVdbFqSPfpWLmX59dgA95mzv4YfHKlpYgKVtARiKMWU5GR466kn4PWTDAiLFGedsn0WVcAv8BX9MayWkkYupPFfhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mSfiDhcaXgwpyCg+UT8M4nh3dWCLRe73ZbFKmdJ+XCg=;
- b=EPECTbpUkUG+DuoppqhReDH0zOZV2UxI1SDRvih3bJDL0S2J1ju8FnzjPUr0kfF0dSpLIlK8qdQM7NNWios3zOeyyW+KPiAhmwBaF9ncTLakMMt6RzUD1wr40jMTBXUpW9dm1HwEr+7z97l7M8ePlZFWdgbs2lCy3xH22v8kws4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO0P265MB6341.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2d0::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 19:55:17 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
- 19:55:17 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 20:55:16 +0100
-Message-Id: <DLM3XWG7NZM6.1B4YP1MC0E3OV@garyguo.net>
-Cc: "Alexander Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner"
- <brauner@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Jan Kara"
- <jack@suse.cz>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-fsdevel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: file: handle fd table teardown in file descriptor
- APIs
-From: "Gary Guo" <gary@garyguo.net>
-To: "Georgios Androutsopoulos" <georgeandrout13@gmail.com>, "Gary Guo"
- <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260920200154.1194983-1-georgeandrout13@gmail.com>
- <DLKFTVSN56P2.2NHCFW6NIUOAH@garyguo.net>
- <CAESH5oeuKoDyr6ZcGR3Fa+_nPn+ceg9PbqBXoXjRsstaSKtJtw@mail.gmail.com>
-In-Reply-To: <CAESH5oeuKoDyr6ZcGR3Fa+_nPn+ceg9PbqBXoXjRsstaSKtJtw@mail.gmail.com>
-X-ClientProxiedBy: LO4P123CA0533.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:2c5::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="DOTN+VRj"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb767cc71so2426771cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:55:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790106921; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lr82tI+ZvFYFX5R0qdGOGQVlfwJ3DQk2AevVwIjj1SWuyjl/LA9Jn6HexJNM/IwAg8
+         zJoLyV8fAdJTTWwRTUFIh+2677H2kItkdbGVaHZl4XOHpOrfTOY3p2LwKCR28P5COzQ7
+         DWMOA/de+NRKa2DSUmB0Of9OWJqhxmGW6auz/5qSuUq2SsVGVmMKDPQUbSO0wNtvRFS8
+         8fefkMTm9PankM0pCN5j/JZWQ36dM4rcA2vOiN7hxmHj9ojw1mWllVO00/LXO/hmOD+b
+         PWlTfXdzOxgF0eBgteie3k5/ta3Na85ytqnMI3NxzygFBfjJScbAKvGrdIrBTcfp3KOu
+         /E6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3MJR+9B05XkGSZVsnTWPOt9y1Fup8Pf5AVkP65nsWhM=;
+        fh=pmAaWylISy51LhoF7LSH2ik3sm/F5+/0mz2Q2x6/ZRs=;
+        b=DY0Hymtk/2NhBCZ7IjyzQdWhwLdulmauz/YvWxgPPD5POebld4vMLMG7y/gO9q7pos
+         45Av8HdLmiQoE0BZ9Ko/Jif2WzkIgXlH0CCuZyq0+Ti67q/wLB0cbmVm8rNy92QI5hcQ
+         CcNC+GBb9E4MSLcvDUNGZEkZFdpNNjR5HkT90qkbY2H54yw1crGjefHrPjg7gfS9FJvL
+         mq+QTcWGtY/5v5nfczJM1Ql3EPWpOvmzJRJPCAuyQFsSUYsgrcLAgt9QAHRl3HiN2h4x
+         da4U0xzZ8TAwkcVOU15sSIlDSdgzYE8mLo8J8deK+2DKMrmaLGOCEIgo05BeCWmhDIqr
+         OeCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1790106921; x=1790711721; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3MJR+9B05XkGSZVsnTWPOt9y1Fup8Pf5AVkP65nsWhM=;
+        b=DOTN+VRji/NeX2O6qxY5aUmVm2REIX2+7TwCG7f3HLcx9/T1vcQztYsFwCZ1eRaSR1
+         l/I+zrDv2lRm2ZbZ1w2VlfQ1oyzaCRavvfw0tRXlK+GYH9AnzJakrZILzPYB33QuN8sb
+         12+eJ0J1FiTDclThEOf5Gi8FQCOWhiN2OzxL3Zn8AIcKNH5nSBy6Ey40nonD0J2hnCnF
+         +awYYnS6S5MRli7XpqnNhIX+vkgQBQYKifR2qZHLEjaTUtgNFSOEnBBXyLeXJQhSU0JT
+         WRQTyGHo/RVtTuIQ792bQcuTn879MaFJSdLgVKxAmd/x3zMKkm5QuXNc6NGwLWo1Jmj/
+         MY6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790106921; x=1790711721;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3MJR+9B05XkGSZVsnTWPOt9y1Fup8Pf5AVkP65nsWhM=;
+        b=B507ivWR0CUBXI6DWeFDftoRak1grnmQOvyJpuvRMWOg685cooC6xxYhJRt0UigqY6
+         mH5QhQ28SyPbTS3c9nc/SQaOxoZW1plChhwugA2VEkxhpZBpJsILIudOgW+98JOol9B6
+         oUHuBaZ+1nxQB7/h4HQRCHDL1WAMTFYV+vEyt6x5Y6FgS+AU2LlyBnKbVPsPnWxI9vJM
+         gJLOpOcJA8mTVp8COPoohpy1zuL3DtrPGiDMiLRKqa9zZffeF4TME6238n68aHIAZidF
+         wL7Y36Jb1VX4OE0gWqqvNUlUGCm41wl2qRuFj87MZTztm6hIM4sNYbCGsQkUhhYxQxG/
+         atnw==
+X-Forwarded-Encrypted: i=1; AKwUvBwCbyFf8fKPUIa5Nn6sAsYy77VestcStfZWymhIhCfvMRMnXDeHtftwPKLarZOiUTAR215uFvWWeuWD+A8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktLMpTwor77FprH2HchedsIlxWlKudfsRWFIEUKKiSujAFp3+E
+	bNYudZjL0kNt6jTUNgI48q5TXetbaSDQ4bu/nIXQe5/zNpjpLfg/WuIxtg3nEAEnDDIfwYuTHa1
+	5LOD7Bn5B6noFUaU+X37EEzlJHvr6K4IlwTbCEuOEvA==
+X-Gm-Gg: AYBFou1RLEYeGVJngBbcrKWnjzRTgxuJ3b7pqsadHBrQR/q8crQeh5GfmRyHindKmmT
+	OWIcuVTEUzIecccMCjNtnJNZYQZyq0dLvwdmzORUW36JdWE94zaV92HZAqxGxYYTUcKl/KTU6hN
+	BxBfqo9nSWA++dSL3Grl3xhFi+cos70FsJ6dsNl2ci58XkI/mTbEfzzzMA5/6PpoYiY8i8bpKxZ
+	+YvUyWJKypI2zNT0RoNRQUiOusMcwZvF1qcne/8bBtcVT14R5NUlOU+hArZDTZfPbF1uOGE2Bvu
+	MDBop6ZR1ejr0rMKvCf07KCRymroCQBcTgWY9V0hQfZTpQM8YCTUY7IV
+X-Received: by 2002:a05:622a:4807:b0:532:d0ab:f3cb with SMTP id
+ d75a77b69052e-532eadbd4b5mr10656351cf.59.1790106921022; Tue, 22 Sep 2026
+ 12:55:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB6341:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18839801-93fb-4066-8469-08df18e36cc9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|6133799003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	cpy30xSkzr16CqyNd/AiRSKRu7Pjw4LcjHqeQGiHz00wtUbaZG6DDcmry1AtOZaBXCKyrau6senoS12q7gcb//KtYm7SU/gwmh4xafEC0GxCVYOh70bU7VHVftiMksMqBK465kOrAjfNUiftf7s7hbnVdllaE+uUBV+Nv3xCmlTkWP+rPbmdrsm4ASSfB4YEnDKcmpp61pW6n5ZDooBPx7xsna9Kc14hHV0ZF4z/JaSDAnbOGGwsC7L8jj4elysf18ioO2DQpvQz9cI61dY77wk5PrywpiUHLI6f/2Mxr3RZWNRh09ULE75sCuSzMgV2ZZpvl07S7+tnyhKavdpgppMNe9cIy/15juc9Nty5WsCRJyGP0z6uDirYCBxUNmTKpg3GwNUJ8p2cF6ubNznmDA6kMWqE1CwMmCUkHmY/P8IIi4/K2CKkd3WxlleGbu8JEe6ehV9arbhluX7bar3GVPFr8kF3hIRmGMZ4J7I/vEIS07fMttLSWnP08yBC/PThhSVol8/Cs728jrQNWSh2ypA2084tX48Y7Tdm0fFuHUt7wvH38Llz2f9nVy9MhbcGaaywYW2ZXmvkuPD3185kCsgs7NDdsDXuPtFRgBuLEr/ERoQYxAUz2Xl32pbaGgQP3mIu5ZUdR4Bnzrz6NZzUnnslvQ92Q5kIC7SohcpSbXY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(6133799003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZEo4TTRtVnNkTWFGWFdDTFhMT3FVb01CSk5QL3AwaTBGMlNpWVBrU1FKOHZT?=
- =?utf-8?B?ZnlSNUk2NUhsaEUzZFIrNmQ2RGwwbUg0Um1hYnpuTUNCd1ZwbGcyY3h4UUxF?=
- =?utf-8?B?YS90QnRZSWhDMlNzWGwzbWliV2tvc21UQmtyNFBlT0pVSmFUeWUweW1vbmRI?=
- =?utf-8?B?UW5IK2pQeE5ZZnlCSTlUajYvWlpOUW9PeElCZ2haejc5WmNpM09aQi9XUFJI?=
- =?utf-8?B?bU9jVE1FM3FoNlhZY0Zmd3F4ckR6ajBxNFd5Wi9SekVJR3FkNUNhakl2Y3NN?=
- =?utf-8?B?Mi96VFVUb055M0dZY3I5MFZVWkxxOW11WDl4czgrbW9CZGcwMlZvSS9rQ3A0?=
- =?utf-8?B?cEtvNzh6SHNOYXNQbk4vNWZpR1VoQkg0OUp6OVhWRE9XUUxSV25kbU5YNytj?=
- =?utf-8?B?eXh3UXVBY3Q3ZlpNS1lPSzFRRmRDRXJqYm4rMGsxRUE0QTRUcDY1dXA0RGw4?=
- =?utf-8?B?TWRlb1VqQlk3VWozNmtOc2Z4a1hETkNjbnovOUxUVzIvOXVUNXhObW5RUGJy?=
- =?utf-8?B?YXdBZE14NERDWHpHR0JjYnlaemM4a0JpOU1aREJxL3djckI1NXFaQkZrSUxV?=
- =?utf-8?B?T3VJdjFUSzJ1ckNMYm9ZV1RLVW02bWxtSFpHbnJiamxjSEFPYVRuMG0xTjFp?=
- =?utf-8?B?RVNseFpBaUM1cTBGYnNsOEN2SmdyVXhQeE82S2ZmYVRpVXhteXpiSi93NUZX?=
- =?utf-8?B?WFViZGM1cXdHVk8yUVZJaGp0K0pGblZtT2pCTDkxMmpCMjRUeGJMdEVVendi?=
- =?utf-8?B?NmwzQjg4Z3piMGsvQml0NFFhMmhIcXhrV2hWVDVCTzYydVg3S1laRDhCT3ZY?=
- =?utf-8?B?cENqVHFPUnlWajIzanpKUFdPZWJrUkZwN3hJcU5VdlBLaHJWbE5QdWdmd2FT?=
- =?utf-8?B?c0ljU2RXUndncUFQSHZSYzRrYTFMMFV6TkllVm54N25xWDJGdDFXWDd6RHdU?=
- =?utf-8?B?NzB0NU0ya2NaVy9XdEJCa0x4K2VXK3JYZjNsbXcrUlk3ZG5DNkJ6QXlsRS9r?=
- =?utf-8?B?OStvamZhL1ZvR3RQS0RzdWFnc3JHMUE1SllDQWsxZGNJYUNZV1FDajJteEJm?=
- =?utf-8?B?V1lNdVNmQm9WV1A4ZnZrZFhLZTF3Q1RXeFVPT0pmNkw1WjdoaEZXM1V0Ky9w?=
- =?utf-8?B?K1lCVDlUc25UWWpZak5ULzJvNGlVQU5UdFhJeCtweVYyenpmSEFxMk1EUUVV?=
- =?utf-8?B?M3FpSFRwMi9hVFBBdklSbDJGb05DMjBaRmR6a0hSakdmKzV1T2F2K2wwVU5a?=
- =?utf-8?B?cjZrZUV3TzJNMHhhcVhMWVdvTkNYTEdGT0plKzRJYkVZSHVLclQ0VGVJQUcw?=
- =?utf-8?B?UXJRek1WNzhQOEZLWGxKWVM2Umd3a2tUcXF4aTZlWDN1MlRRQ0w3dlJWOU1Y?=
- =?utf-8?B?Z2txclBlTUQ2cmhFU2dyV2NzL01IMkxQVCtFRUJQdS8yeGhnV3FROXhyVzBv?=
- =?utf-8?B?L21MMHpjelIxR0ZwTlFpblpKcUMxUzRqMi9wYmxnWlEva0RsUUVONndhUXpV?=
- =?utf-8?B?ZDZXNHhSWWdIUmRleGhuUEJhQ1VBNDNtbU5EN1hxa3ltTHRmeXlSTVVsRVVN?=
- =?utf-8?B?OTlsQ2FaaEdOQmEzUnloYXRqcG01TG1IbUhKVktGK0RkQlhqZWdzR28wMkti?=
- =?utf-8?B?TVZkWVo3M2JQNU5uUUhaeWZEZFZkTFVaaXA3dW9oem1KaDg3Zjg0aEEyN0Mz?=
- =?utf-8?B?WlBsc2hxS0t2UktHMTNSZG83THpZcDNMSkhtL0V6cVBCNGE0Y0d6VHhlamtR?=
- =?utf-8?B?c29NelRjdlZ3VkdXeVorbitibUFjYTE4bHBDMG9mZFJpZlVPSmV4Q0d4dXNE?=
- =?utf-8?B?MW9zNXA3SlRDK1M5WGRqQkVTTy9hQWM0dFRScmRJY2h1MlA2OG9pb2d3bGM4?=
- =?utf-8?B?WVRZODFVUEw5VmhTMjJkWFlBRFJHOVo2Z243bGtxY3Vxc2hJK09CdmI5K1dI?=
- =?utf-8?B?Mml0b2FaRXNWQXErK1Bna3pkdzAyUlFBRW16UWMvWkVld0ZiN2tRWXM2Z0I3?=
- =?utf-8?B?RXlZbVZxNTA1TWcxL0wrY3pnODkvbERrY3pMa2tuK3gxMityUm5iN3BPOU5z?=
- =?utf-8?B?d2NRVFBUZ1ZkZTZNT3VxMytiMXhnQkJPVXRRdldjMXlTb09ZeHV6YVg3RUNx?=
- =?utf-8?B?UGZROUdNd2VyNExXTmRrYUxJbnU5ZTJRc2RQUHkrMUNpS1dWczFWRTNLMFhv?=
- =?utf-8?B?dk51MUkvM09SY3B0SktidFh1WUhvc2lIUnMwNlM5cjJTTGd6ZVlPUVNrMnlZ?=
- =?utf-8?B?OVY1TUdKZXpEenQrR0xJYy9KRWRuNVpNT0YzVW5Xdjh0dHVma3ZvWnRSTmZy?=
- =?utf-8?Q?44b1o3WPXMFXUJQAHu?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18839801-93fb-4066-8469-08df18e36cc9
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 19:55:17.2339
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M1Ma5NvlhLGBtix1mwNr838dvP3FN/UnyEdWwI53eXejXDgrkJGs2+0mYcYH8I3Ttxo3LVvFIOKnuovSx6/TaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6341
+References: <20260910202812.1642832-1-sgogte@purestorage.com>
+ <20260910202812.1642832-4-sgogte@purestorage.com> <bec91f99-4498-4be9-bf96-f3021c79f3f1@grimberg.me>
+In-Reply-To: <bec91f99-4498-4be9-bf96-f3021c79f3f1@grimberg.me>
+From: "Surabhi Gogte (she/her)" <sgogte@purestorage.com>
+Date: Tue, 22 Sep 2026 12:54:45 -0700
+X-Gm-Features: AcwNN1Uz64RWiq9roHL-G4V9fQSjEC7rP5r0n-KWaGYq3XCS5Khgm1bpMuH2QRo
+Message-ID: <CAMof9cWqVs89MVr0D8nsNBwvuQU25itf3SqCn=OZrrZKY_MkMA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] nvme-tcp: parallelize I/O queue allocation and startup
+To: Sagi Grimberg <sagi@grimberg.me>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+	Solganik Alexander <sashas@lightbitslabs.com>, Roy Shterman <roys@lightbitslabs.com>, 
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	mkhalfella@purestorage.com, randyj@purestorage.com, adailey@purestorage.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue Sep 22, 2026 at 7:30 PM BST, Georgios Androutsopoulos wrote:
-> On Sun, Sep 20, 2026 at 4:48=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote=
-:
->> I think we want to add `unlikely()` on them (which is being added by
->> https://lore.kernel.org/rust-for-linux/20260406095820.465994-2-ojeda@ker=
-nel.org/).
+On Fri, Sep 11, 2026 at 2:27=E2=80=AFPM Sagi Grimberg <sagi@grimberg.me> wr=
+ote:
 >
-> I checked current `linux-next` and `rust-next`, but this does not seem to
-> have landed yet. Should I leave these as regular checks for now and add a
-> `TODO:` to use `unlikely()` once it is available?
-
-Regular checks are fine, no need for TODO either. Just bring this up to nud=
-ge
-Miguel to pick the patch :)
-
 >
->> I wonder if we should upgrade this to `WARN_ONCE`. As code being execute=
-d when
->> exiting are cleanup code, for this code path to be hit, it would mean th=
-at some
->> code is installing FD descriptor while being dropped -- which is likely =
-a bug.
->>
->> Putting a "BTW, some Rust code is installing a FD when process is exitin=
-g" in
->> dmesg is not going to be useful to understand what's going on. We'd want=
- a full
->> backtrace.
 >
-> `WARN_ONCE` does not seem to be available on the Rust side yet either.
-> `warn_on!()` is available on the current base and would give us the
-> backtrace. Would you prefer using that here for now?
-
-I would prefer `warn_on!()`.
-
-Best,
-Gary
-
+> On 10/09/2026 23:28, Surabhi Gogte wrote:
+> > Similar to commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue
+> > allocation and startup"), refactor nvme tcp I/O queue setup to use asyn=
+c
+> > API, combining allocation and startup into a single parallel operation
+> > per queue. This reduces connection and reconnection setup time when
+> > there are delays in establishing connections, which is especially
+> > important for high-core-count hosts.
+> >
+> > Key changes:
+> > - Use async API to facilitate parallel calls for io queue setup.
+> > - Add nvme_tcp_queue_setup_ctx for propagating errors from async
+> >    workers.
+> > - Remove nvme_tcp_start_io_queues() and __nvme_tcp_alloc_io_queues();
+> >    their logic is folded into nvme_tcp_setup_io_queues() and
+> >    nvme_tcp_configure_io_queues().
+> > - Allocate the io tag set before the queues so that the queue range is
+> >    known, and only set up the reconnect grow case if the queue count
+> >    actually increased.
+> > - Serialize the cpu scan and claim in nvme_tcp_set_queue_io_cpu() with =
+a
+> >    spinlock, as concurrent callers would otherwise select the same cpu.
+> >    The per-cpu counters no longer need to be atomics.
+> >
+> > Testing on a 64-core host with 64 IO-queues shows nvme-tcp connection
+> > time reduced from 61ms to 11ms.
+> >
+> > Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
+> > ---
+> >   drivers/nvme/host/tcp.c | 124 +++++++++++++++++++++++++--------------=
+-
+> >   1 file changed, 79 insertions(+), 45 deletions(-)
+> >
+> > diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+> > index fe0e581608b4..0fc244e676f9 100644
+> > --- a/drivers/nvme/host/tcp.c
+> > +++ b/drivers/nvme/host/tcp.c
+> > @@ -7,6 +7,7 @@
+> >   #include <linux/module.h>
+> >   #include <linux/init.h>
+> >   #include <linux/slab.h>
+> > +#include <linux/async.h>
+> >   #include <linux/err.h>
+> >   #include <linux/crc32.h>
+> >   #include <linux/nvme-tcp.h>
+> > @@ -54,7 +55,8 @@ MODULE_PARM_DESC(tls_handshake_timeout,
+> >                "nvme TLS handshake timeout in seconds (default 10)");
+> >   #endif
+> >
+> > -static atomic_t nvme_tcp_cpu_queues[NR_CPUS];
+> > +static int nvme_tcp_cpu_queues[NR_CPUS];
+> > +static DEFINE_SPINLOCK(nvme_tcp_cpu_queues_lock);
+> >
+> >   enum nvme_tcp_send_state {
+> >       NVME_TCP_SEND_CMD_PDU =3D 0,
+> > @@ -154,6 +156,12 @@ struct nvme_tcp_queue {
+> >   static DEFINE_MUTEX(nvme_tcp_ctrl_mutex);
+> >   static LIST_HEAD_GUARDED(nvme_tcp_ctrl_list, nvme_tcp_ctrl_mutex);
+> >
+> > +struct nvme_tcp_queue_setup_ctx {
+> > +     struct nvme_ctrl        *ctrl;
+> > +     int                     qid;
+> > +     int                     *err;
+> > +};
+> > +
+> >   struct nvme_tcp_ctrl {
+> >       /* read only in the hot path */
+> >       struct nvme_tcp_queue   *queues;
+> > @@ -1719,9 +1727,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvm=
+e_tcp_queue *queue)
+> >               goto out;
+> >
+> >       /* Search for the least used cpu from the mq_map */
+> > +     spin_lock(&nvme_tcp_cpu_queues_lock);
+> >       io_cpu =3D WORK_CPU_UNBOUND;
+> >       for_each_online_cpu(cpu) {
+> > -             int num_queues =3D atomic_read(&nvme_tcp_cpu_queues[cpu])=
+;
+> > +             int num_queues =3D nvme_tcp_cpu_queues[cpu];
+> >
+> >               if (mq_map[cpu] !=3D qid)
+> >                       continue;
+> > @@ -1732,9 +1741,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvm=
+e_tcp_queue *queue)
+> >       }
+> >       if (io_cpu !=3D WORK_CPU_UNBOUND) {
+> >               queue->io_cpu =3D io_cpu;
+> > -             atomic_inc(&nvme_tcp_cpu_queues[io_cpu]);
+> > +             nvme_tcp_cpu_queues[io_cpu]++;
+> >               set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
+> >       }
+> > +     spin_unlock(&nvme_tcp_cpu_queues_lock);
+> >   out:
+> >       dev_dbg(ctrl->ctrl.device, "queue %d: using cpu %d\n",
+> >               qid, queue->io_cpu);
+> > @@ -2011,8 +2021,11 @@ static void nvme_tcp_stop_queue_nowait(struct nv=
+me_ctrl *nctrl, int qid)
+> >       if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
+> >               return;
+> >
+> > -     if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
+> > -             atomic_dec(&nvme_tcp_cpu_queues[queue->io_cpu]);
+> > +     if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags)) {
+> > +             spin_lock(&nvme_tcp_cpu_queues_lock);
+> > +             nvme_tcp_cpu_queues[queue->io_cpu]--;
+> > +             spin_unlock(&nvme_tcp_cpu_queues_lock);
+> > +     }
+> >
+> >       mutex_lock(&queue->queue_lock);
+> >       if (test_and_clear_bit(NVME_TCP_Q_LIVE, &queue->flags))
+> > @@ -2119,25 +2132,6 @@ static void nvme_tcp_stop_io_queues(struct nvme_=
+ctrl *ctrl)
+> >               nvme_tcp_wait_queue(ctrl, i);
+> >   }
+> >
+> > -static int nvme_tcp_start_io_queues(struct nvme_ctrl *ctrl,
+> > -                                 int first, int last)
+> > -{
+> > -     int i, ret;
+> > -
+> > -     for (i =3D first; i < last; i++) {
+> > -             ret =3D nvme_tcp_start_queue(ctrl, i);
+> > -             if (ret)
+> > -                     goto out_stop_queues;
+> > -     }
+> > -
+> > -     return 0;
+> > -
+> > -out_stop_queues:
+> > -     for (i--; i >=3D first; i--)
+> > -             nvme_tcp_stop_queue(ctrl, i);
+> > -     return ret;
+> > -}
+> > -
+> >   static int nvme_tcp_alloc_admin_queue(struct nvme_ctrl *ctrl)
+> >   {
+> >       int ret;
+> > @@ -2198,22 +2192,64 @@ static int nvme_tcp_tls_check_psk(struct nvme_c=
+trl *ctrl)
+> >       return 0;
+> >   }
+> >
+> > -static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> > +static void nvme_tcp_setup_queue_async(void *data, async_cookie_t cook=
+ie)
+> >   {
+> > -     int i, ret;
+> > +     struct nvme_tcp_queue_setup_ctx *ctx =3D data;
+> > +     struct nvme_ctrl *ctrl =3D ctx->ctrl;
+> > +     int ret;
+> >
+> > -     for (i =3D 1; i < ctrl->queue_count; i++) {
+> > -             ret =3D nvme_tcp_alloc_queue(ctrl, i,
+> > -                             ctrl->tls_pskid);
+> > -             if (ret)
+> > -                     goto out_free_queues;
+> > +     ret =3D nvme_tcp_alloc_queue(ctrl, ctx->qid, ctrl->tls_pskid);
+> > +     if (ret)
+> > +             goto out_err;
+> > +
+> > +     ret =3D nvme_tcp_start_queue(ctrl, ctx->qid);
+> > +     if (ret)
+> > +             goto out_err;
+> > +
+> > +     return;
+> > +
+> > +out_err:
+> > +     WRITE_ONCE(*ctx->err, ret);
+> > +}
+> > +
+> > +static int nvme_tcp_setup_io_queues(struct nvme_ctrl *ctrl, unsigned i=
+nt first,
+> > +             unsigned int last)
+> > +{
+> > +     ASYNC_DOMAIN_EXCLUSIVE(queue_domain);
+> > +     struct nvme_tcp_queue_setup_ctx *ctxs;
+> > +     int nr_queues =3D last - first;
+> > +     int err =3D 0, i, ret;
+> > +
+> > +     ctxs =3D kmalloc_objs(*ctxs, nr_queues);
+> > +     if (!ctxs)
+> > +             return -ENOMEM;
+> > +
+> > +     for (i =3D 0; i < nr_queues; i++) {
+> > +             ctxs[i].ctrl =3D ctrl;
+> > +             ctxs[i].qid =3D first + i;
+> > +             ctxs[i].err =3D &err;
+> > +             async_schedule_domain(nvme_tcp_setup_queue_async, &ctxs[i=
+],
+> > +                             &queue_domain);
+> >       }
+> >
+> > +     async_synchronize_full_domain(&queue_domain);
+> > +     kfree(ctxs);
+> > +
+> > +     ret =3D READ_ONCE(err);
+> > +     if (ret)
+> > +             goto out_free_queues;
+> > +
+> >       return 0;
+> >
+> >   out_free_queues:
+> > -     for (i--; i >=3D 1; i--)
+> > -             nvme_tcp_free_queue(ctrl, i);
+> > +     for (i =3D first; i < last; i++) {
+> > +             struct nvme_tcp_queue *queue =3D &to_tcp_ctrl(ctrl)->queu=
+es[i];
+> > +
+> > +             if (test_bit(NVME_TCP_Q_LIVE, &queue->flags))
+> > +                     nvme_tcp_stop_queue(ctrl, i);
+> > +             if (test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
+> > +                     nvme_tcp_free_queue(ctrl, i);
+> > +     }
+> >
+> >       return ret;
+> >   }
+> > @@ -2255,10 +2291,6 @@ static int nvme_tcp_configure_io_queues(struct n=
+vme_ctrl *ctrl, bool new)
+> >       if (ret)
+> >               return ret;
+> >
+> > -     ret =3D __nvme_tcp_alloc_io_queues(ctrl);
+> > -     if (ret)
+> > -             return ret;
+> > -
+> >       if (new) {
+> >               ret =3D nvme_alloc_io_tag_set(ctrl, &to_tcp_ctrl(ctrl)->t=
+ag_set,
+> >                               &nvme_tcp_mq_ops,
+> > @@ -2269,12 +2301,12 @@ static int nvme_tcp_configure_io_queues(struct =
+nvme_ctrl *ctrl, bool new)
+> >       }
+> >
+> >       /*
+> > -      * Only start IO queues for which we have allocated the tagset
+> > +      * Only setup IO queues for which we have allocated the tagset
+> >        * and limited it to the available queues. On reconnects, the
+> >        * queue number might have changed.
+> >        */
+> >       nr_queues =3D min(ctrl->tagset->nr_hw_queues + 1, ctrl->queue_cou=
+nt);
+> > -     ret =3D nvme_tcp_start_io_queues(ctrl, 1, nr_queues);
+> > +     ret =3D nvme_tcp_setup_io_queues(ctrl, 1, nr_queues);
+> >       if (ret)
+> >               goto out_cleanup_connect_q;
+> >
+> > @@ -2298,12 +2330,14 @@ static int nvme_tcp_configure_io_queues(struct =
+nvme_ctrl *ctrl, bool new)
+> >
+> >       /*
+> >        * If the number of queues has increased (reconnect case)
+> > -      * start all new queues now.
+> > +      * setup all new queues now.
+> >        */
+> > -     ret =3D nvme_tcp_start_io_queues(ctrl, nr_queues,
+> > -                                    ctrl->tagset->nr_hw_queues + 1);
+> > -     if (ret)
+> > -             goto out_wait_freeze_timed_out;
+> > +     if (ctrl->tagset->nr_hw_queues + 1 > nr_queues) {
+> > +             ret =3D nvme_tcp_setup_io_queues(ctrl, nr_queues,
+> > +                             ctrl->tagset->nr_hw_queues + 1);
+> > +             if (ret)
+> > +                     goto out_wait_freeze_timed_out;
+> > +     }
 >
->> I think we can remove this warning. Skipping put_unused_fd isn't actuall=
-y
->> leaking anything as the files_struct is cleaned up.
->
-> Agreed. I'll treat dropping the reservation after fd table teardown as
-> normal cleanup, skip `put_unused_fd()`, and document that this can happen=
-.
->
-> Best,
-> George
+> This if condition can probably move into nvme_tcp_setup_io_queues() and
+> exit early if both are the same. Other than that, patch looks solid. Can
+> you please also run blktests to see that nothing broke. There may be
+> some tests that have subtle race conditions. rdma and tcp btw.
 
-
+Thanks. Sending a v4 version with this change. Also, I ran blktests
+for tcp and rdma. The blktests nvme/062 "Create TLS-encrypted
+connections" and nvme/063 "Create authenticated TCP connections with
+secure concatenation" related to tls need ktls-utils-1.4.0 (c63c04b)
+(tlshd) linked against gnutls 3.8.5. rdma also passed fine.
