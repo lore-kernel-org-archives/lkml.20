@@ -1,205 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAF24570D4;
-	Tue, 22 Sep 2026 10:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBFD4F4D06
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:05:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071510; cv=none; b=X/wy20/fGFCnmUIwKGlIapoGUXjQjQfaaLivYJ3HQlloJ8w+mvjdIvQt1kYZ2NhdqyXSXmz/ByipikGUbrD+kvR8vuhShDouZIdKljJOFLgYpuVFxUL2yLKlTYCh0QdYx5ZXt60QueRtvcDFLy4Sr9tyQgHrpZviYwUWroVKXgw=
+	t=1790071524; cv=none; b=ai6aGKh4ACVIfDV/QIwM6/Vvd20DncXAUPiRgVVPE/aOtqnHSAl/koeM7eyU8/DSiFwvwcc8CBcB8tSGW933QXjaMr4Q3hh6Gql4Sq0HspJbfw/OcPiok0NLuUgBs6CZWjbo7UA6bC5HkwopdKri6v/i1Jny1+838Ab171MFYxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071510; c=relaxed/simple;
-	bh=e1OPguSznv0oaoWEQ835BMLZphcamQK6RYvbQxI3zms=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=U9wnvJn2/Klu7++xRgRZJKpYA+gpgMzcx7yTlyFk8P5IXM3zzhrcZeE4ecx6clrRRbZGAxO0lHT4s21hcBUsfay0AXxKrGCIbfDP5V+ZJya3z8IPZN2si0g5c289Ws9eNR6fatLv8l2gsJHh6MNFwdpvz3gExrYyaQhklC+iWcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKE6s0xy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790071524; c=relaxed/simple;
+	bh=ZE7nqI7ReohaMIqdHQOYLxEmwtEvbS+hkW9GmiQfECg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KQVhFp7kiZOOzj8eHHhu0dTz7/tnEbbF7o1qQ4I9fXkLPIFVmDZmJhFYfr2UjNy1n637T8KP0ROr3fz6qhObGWe2EzYpl/9NEJxxPslHmC4ZOQTU0CfezJURVv7Qv7FPiaKSj9YvzLkdK7ItTxePCil3VvEQmBbdarEdMugHodY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iivziHVg; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKE6s0xy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D95E1F000FF;
-	Tue, 22 Sep 2026 10:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790071508;
-	bh=w2sZxf+PXOvNNTzDd/9WHwR+bGg7r6uPFpZLwJ0woQc=;
-	h=Date:From:To:Cc:Subject;
-	b=TKE6s0xyO5zpNxZoQf3uHhv9ip5+KCBng83OcGHn3+tREzOEhut9Hl+xkeeVvNVUH
-	 dfxSX9qwyAHQwXxFBRiTcNabV3FIQEdYbaSLCIEA43wiR2f5SslQ6UuuKJGQ92+qiT
-	 55NYXQ4Yhy4QKTw0RGt6ZUF3PuMTbSCrwGVVTey53KBpRH8nMR70GRiwHNwIXqkwVK
-	 Axt9vijRZK5ovkmoGiVwigZi4G3IsIpjNwYFvbgzgiGfZLzE319dDNR2JfRpJqrBLm
-	 Z8ZIuRnNQUGRZ42SzrZ0QTBi8Dg9J0EirYjyyqf9ZSBUlNGrctLGszbMXJ1yCT/oYh
-	 ublzq4ZqjGfPg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id DA04F1AC56BF; Tue, 22 Sep 2026 11:05:02 +0100 (BST)
-Date: Tue, 22 Sep 2026 12:05:02 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the bpf-next tree with the bpf tree
-Message-ID: <arJSzo-jhnM-Tkvm@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iivziHVg"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666e7c9efso310062a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:05:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790071522; x=1790676322; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K2+Rzsvc6cT42wPihpbCzyttfrFEcFhBrHOmp0V8ZiA=;
+        b=iivziHVgD5IWTAO2MO+0qIwBtuJXWx7A6lzDVKNDFAZ33ork4p1ah4qYWwWuAeMUcr
+         rVejHDOak9Wg34rDqPXBVjzIlq1pxwnzJh3mU0/d83E99R+Wyc8IQ72nSqWkwlIhESIT
+         DlZDr8Fe5Fb4c80jS6HJ7VUj7/b3yKs+xmfWYvo3VzLE+NehbPGjeVY6Suw7HFv38JCE
+         F8/CNjK/rRpwKo7SpAXo95QUuKll3tFCSdFaOfAjFgg5u1NGpH8sD3abxMYtXgx3Ki5p
+         i7LCsxZZxofFxeWkiXPmTgu06iorOx4E4BgfvSUOMgmGP46TV2axwJ7LWFZNQVrNsvf3
+         xRHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790071522; x=1790676322;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K2+Rzsvc6cT42wPihpbCzyttfrFEcFhBrHOmp0V8ZiA=;
+        b=oIpY5xWs7ZFQ0ezQs0vLLoK4NkFFSbf/+dRvpt0U/ZGPDwszUNl9hPj2/HMzFvaRDh
+         qmREQ+1rM05ueLSbISjzQeam9h7ZAPSyancUOEGHEYgOaiVuMu4orLs1s5QC0ymETDVv
+         J8SEm4yIGQDhRAt+6+yAr0Zi5iEpCRsZIBkI/99vGUQHAiZsSYufZhi0z2vQI5F7pHoj
+         aCdKEsyP9aaiZdTXamEv22DSqW4aUX8oTKB7kAjVyIFkJJEg1Dll/WkjM9nRzU+wHmzt
+         dbeQ7NvIsQF5TIMfpoGdLzLXf/4385FQi02/jWoiP0fPk4e0N9BQ6V2Mr+oVCwQfo7HR
+         l4rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPIrMwo2hGUpiM4V4NhcbNW90sSr56Z+3MEfzebdo8uxbccQo3SqLWS6E22F3BCUgVJYou1XMNXoqvkj8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nT/dnLlvhFrdwWJqSSkwD/ewxvGwSvwRvPprZoDRRxzIq6lhgy
+	qjWF55jXD104j+eD/C/KMM4olOwL02D17gJQ4lUccIpqy/E15rLTVT1N
+X-Gm-Gg: AYBFou0Kbj5QkLiuQI2r4Aq1hP6vo39tdHVWei+8c9+lcf1JdHDbochAmWkTWlwLgcU
+	JXka+9xr0MmHA9v0SVpIJUOfbsQRLhJnUCimFEY0pRePzAJzRemxJfbmJAUK3v/KI/dzixDCeoX
+	tegmq5MwVZYACe93fZ3Lf7YEUirmN62T9Bj1mKqNEBlf4SSmmDA40Qku4bGYFgq2/ls5xdzstZH
+	E61g+Gp4JTRZz9HfxgqNvUajU3nUxI5Emjo+q7/uZpXHiwNCD40NvC4gszhtnkZns17zHTBlL2T
+	W/xJpNBRX6TYYcw/C3qs1bdS14gAjtqIFKI6vznDvRz/p8LvnG0yJuIfSK9bg4eoFVROQhau5DL
+	wYohpvxfxh6XJEuPfDDZ5CglhrBUHDeq1wATh/icG7c1BqyJDdjVPJf83ONV8dBoQY47G5ISZWA
+	B+w9uuFa0jY6Ut2HBYu9/uA58Z5notVL+6i/zIa9XWR94joMtXy7w93UC4tKRXHR+ek7VkdDBJq
+	LpSjY/yC6SLS89jRKSbc9Cc
+X-Received: by 2002:a17:90b:2ccb:b0:39e:fbf:e7b5 with SMTP id 98e67ed59e1d1-3a073394643mr1152114a91.6.1790071522133;
+        Tue, 22 Sep 2026 03:05:22 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a067021ca6sm3984718a91.2.2026.09.22.03.05.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 03:05:20 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] Add support for Acer Swift SFA14-11
+Date: Tue, 22 Sep 2026 18:04:34 +0800
+Message-ID: <20260922100501.8888-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pyZ6XOk+o1SSkcvv"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+
+Add support for Acer Swift SFA14-11, a laptop based on the Qualcomm
+X1E78100 SoC.
+
+The following hardware has been tested and is working:
+
+- NVMe SSD
+- WiFi and Bluetooth (UART)
+- USB-A ports
+- USB-C port with DP alt mode
+- eDP display with PWM backlight
+- HDMI (via DP bridge)
+- I2C HID keyboard and touchpad
+- Audio: speakers, headphone jack, DP alt mode and HDMI
+- GPU and video decoding
+- Battery charging
+
+Note on the compatible string: There are two names:
+- Swift SFA14-11[1]
+- SFA14-11[2]
+from the support site of acer.com, but the UEFI firmware reports the
+Product Name as SFA14-11. The compatible string follows the firmware
+("acer,sfa14-11"), while the model string uses "Acer Swift SFA14-11"
+for readability.
+
+[1] https://www.acer.com/au-en/support/product-support/Swift_SFA14-11
+[2] https://www.acer.com/au-en/support/product-support/SFA14-11
 
 
---pyZ6XOk+o1SSkcvv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Jianfeng Liu (3):
+  dt-bindings: arm: qcom: Add Acer Swift SFA14-11
+  arm64: dts: qcom: Add Acer Swift SFA14-11
+  firmware: qcom: scm: Allow QSEECOM on Acer Swift SFA14-11
 
-Hi all,
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../boot/dts/qcom/x1e78100-acer-sfa14-11.dts  | 1520 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ 4 files changed, 1524 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
 
-Today's linux-next merge of the bpf-next tree got a conflict in:
+---
+base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+branch: sfa14-11-next-20260921
 
-  tools/testing/selftests/bpf/prog_tests/verifier.c
+-- 
+2.47.3
 
-between commit:
-
-  a903f145a8914 ("selftests/bpf: Add tests for the KF_PERFMON gates")
-
-=66rom the bpf tree and commit:
-
-  a8bbd9ee1bbc7 ("selftests/bpf: Cover generic __uninit output initializati=
-on")
-
-=66rom the bpf-next tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc kernel/bpf/helpers.c
-index 712dca5a2c5bd,501c7ce35cba9..0000000000000
---- a/kernel/bpf/helpers.c
-+++ b/kernel/bpf/helpers.c
-@@@ -4920,12 -5049,14 +5049,14 @@@ BTF_ID_FLAGS(func, bpf_wq_set_callback
-  BTF_ID_FLAGS(func, bpf_wq_start)
-  BTF_ID_FLAGS(func, bpf_preempt_disable)
-  BTF_ID_FLAGS(func, bpf_preempt_enable)
- -BTF_ID_FLAGS(func, bpf_iter_bits_new, KF_ITER_NEW)
- +BTF_ID_FLAGS(func, bpf_iter_bits_new, KF_ITER_NEW | KF_PERFMON)
-  BTF_ID_FLAGS(func, bpf_iter_bits_next, KF_ITER_NEXT | KF_RET_NULL)
-  BTF_ID_FLAGS(func, bpf_iter_bits_destroy, KF_ITER_DESTROY)
- -BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE)
- -BTF_ID_FLAGS(func, bpf_copy_from_user_mm, KF_SLEEPABLE)
- -BTF_ID_FLAGS(func, bpf_copy_from_user_mm_str, KF_SLEEPABLE)
- -BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE)
- -BTF_ID_FLAGS(func, bpf_get_kmem_cache)
- +BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE | KF_PERFMON)
-++BTF_ID_FLAGS(func, bpf_copy_from_user_mm, KF_SLEEPABLE | KF_PERFMON)
-++BTF_ID_FLAGS(func, bpf_copy_from_user_mm_str, KF_SLEEPABLE | KF_PERFMON)
- +BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE | KF_PERFMON)
- +BTF_ID_FLAGS(func, bpf_get_kmem_cache, KF_PERFMON)
-  BTF_ID_FLAGS(func, bpf_iter_kmem_cache_new, KF_ITER_NEW | KF_SLEEPABLE)
-  BTF_ID_FLAGS(func, bpf_iter_kmem_cache_next, KF_ITER_NEXT | KF_RET_NULL |=
- KF_SLEEPABLE)
-  BTF_ID_FLAGS(func, bpf_iter_kmem_cache_destroy, KF_ITER_DESTROY | KF_SLEE=
-PABLE)
-diff --cc mm/internal.h
-index 0434dfcfc36f1,9e3be236f18c0..0000000000000
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@@ -24,7 -23,17 +24,10 @@@
-  #include "vma.h"
- =20
-  struct folio_batch;
- -struct hstate;
- =20
-+ int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-+ 		void *buf, int len, unsigned int gup_flags);
-+=20
- -struct huge_bootmem_page {
- -	struct list_head list;
- -	struct hstate *hstate;
- -	unsigned long flags;
- -};
- -
-  /* mm/workingset.c */
-  bool workingset_test_recent(void *shadow, bool file, bool *workingset,
-  			    bool flush);
-diff --cc tools/testing/selftests/bpf/prog_tests/cb_refs.c
-index 490e15e7126d9,c32c6dab49bce..0000000000000
---- a/tools/testing/selftests/bpf/prog_tests/cb_refs.c
-+++ b/tools/testing/selftests/bpf/prog_tests/cb_refs.c
-@@@ -11,9 -11,9 +11,9 @@@ struct=20
-  	const char *prog_name;
-  	const char *err_msg;
-  } cb_refs_tests[] =3D {
-- 	{ "underflow_prog", "release kfunc bpf_kfunc_call_test_release expects r=
-eferenced PTR_TO_BTF_ID passed to R1" },
-- 	{ "leak_prog", "Possibly NULL pointer passed to helper R2" },
-+ 	{ "underflow_prog", "R1 type=3Dscalar expected=3Dptr_, trusted_ptr_, rcu=
-_ptr_" },
-+ 	{ "leak_prog", "Unreleased reference id=3D4 alloc_insn=3D3" }, /* alloc_=
-insn=3D3{2,3} */
- -	{ "nested_cb", "Unreleased reference id=3D4 alloc_insn=3D2" }, /* alloc_=
-insn=3D2{4,5} */
- +	{ "nested_cb", "Unreleased reference id=3D5 alloc_insn=3D2" }, /* alloc_=
-insn=3D2{4,5} */
-  	{ "non_cb_transfer_ref", "Unreleased reference id=3D4 alloc_insn=3D1" },=
- /* alloc_insn=3D1{1,2} */
-  };
- =20
-diff --cc tools/testing/selftests/bpf/prog_tests/verifier.c
-index 8b439e194bcc5,4f1e1c1cd5ab3..0000000000000
---- a/tools/testing/selftests/bpf/prog_tests/verifier.c
-+++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
-@@@ -54,7 -55,9 +56,10 @@@
-  #include "verifier_iterating_callbacks.skel.h"
-  #include "verifier_jeq_infer_not_null.skel.h"
-  #include "verifier_jit_convergence.skel.h"
-+ #include "verifier_kfunc_packet_access.skel.h"
- +#include "verifier_kfunc_perfmon.skel.h"
-+ #include "verifier_kfunc_uninit.skel.h"
-+ #include "verifier_kfunc_uninit_multi.skel.h"
-  #include "verifier_ld_ind.skel.h"
-  #include "verifier_ldsx.skel.h"
-  #include "verifier_leak_ptr.skel.h"
-@@@ -219,7 -224,9 +227,10 @@@ void test_verifier_int_ptr(void
-  void test_verifier_iterating_callbacks(void)  { RUN(verifier_iterating_ca=
-llbacks); }
-  void test_verifier_jeq_infer_not_null(void)   { RUN(verifier_jeq_infer_no=
-t_null); }
-  void test_verifier_jit_convergence(void)      { RUN(verifier_jit_converge=
-nce); }
-+ void test_verifier_kfunc_packet_access(void)  { RUN_TESTS(verifier_kfunc_=
-packet_access); }
- +void test_verifier_kfunc_perfmon(void)        { RUN(verifier_kfunc_perfmo=
-n); }
-+ void test_verifier_kfunc_uninit(void)         { RUN_TESTS(verifier_kfunc_=
-uninit); }
-+ void test_verifier_kfunc_uninit_multi(void)   { RUN_TESTS(verifier_kfunc_=
-uninit_multi); }
-  void test_verifier_load_acquire(void)         { RUN(verifier_load_acquire=
-); }
-  void test_verifier_ld_ind(void)               { RUN(verifier_ld_ind); }
-  void test_verifier_ldsx(void)                  { RUN(verifier_ldsx); }
-
---pyZ6XOk+o1SSkcvv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqyUssACgkQJNaLcl1U
-h9AJLgf/b204gVZX/IeKYjNsCB9oiOd1gN6gDrO/ftoVIVnn1GXoRKJqyV7RC60s
-PewUH50nX3R5Ttqo+hS1upltjwYW0azQ69Z+F2VAOZ+eDpTZTeDbdP0P+DwQqWqg
-OuvRZXgaqFTmuC/cw6GlDJImOwWKFNR67KYU0596NVx690UOBR6X2+oB8luyTu/y
-QTMOT6ThGrqIFTKw/LKUqRDJaCIt8e+CT6ZbAPWSM5HrEfWL6qG8PSnkcC3LcazC
-umNCvfubGCzXxYDwi8U8Qr2dJWWp7EoUD6E7L8RAB6MA6oqOuNpQ4jDrOPJFJx0B
-1ZUUGgeRTDKC3JdAFDpsp+uak+L7RQ==
-=qm5D
------END PGP SIGNATURE-----
-
---pyZ6XOk+o1SSkcvv--
