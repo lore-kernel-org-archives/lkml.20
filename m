@@ -1,151 +1,92 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0A8202F71
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790054809; cv=pass; b=Sw1lbK05xu5rIx7Ymfy10risaKt3mGB2/pMcJX5AyRQLQqUsk+yRI86LdVqjYfYLHjlEF6wkdY7iEM0fjUdaMk8J7UiA/B9QBTjjhpCq41JswqYUks6ur9dLbsfjFy3bz2M3TgxudaT9XOhlErrMwDc9Nw32I2rsOnM/0QzqABY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790054809; c=relaxed/simple;
-	bh=rYFyfbP/CzYucLP5KfxCO5aW3V9+0lxq26u4CmXuTbk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BDixykq1EruY4vFtnxT8B1zqur1duV9avWf3qrpnkSOmzaIjUEjCww3YduzUWrwZ9KGrHnFSZpz4X71sAHc54lRWaZAe2kRfdUxPVePetmLXZk02uT8GBZj6gNLCodfVI/HbpI54OudZq9fKzszseQvs8VFpbcCT2u9L0jXY5Uc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bSAYwNoP; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A9C202F71
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790054834; cv=none; b=XiHbXpPTWQoosyq+dNJjvW26plah6+VTrqBYchtpwNBuypKXwlL00opS50JQGWdYU+7XsIh7KDWU5vLFk5UPaOOoS4mhoQm1jYuy6lkgUesXAq8rD/rzQ25vAQyfxlNb9TAnrWznq285XlP6sw0NxXIawmx7dqd/oo7dulhLFzA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790054834; c=relaxed/simple;
+	bh=K5IIm+APc4jympK0qEjgHtsW6H8PpwZR1cTQjS5Fgpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FhwmEgz9w+RViEt2UTOj9QFLsMR8OUsAsd8iMwAwn6QvWmfj9s8tdGJHKgOBB/tresjF3I3phMQP64H1LpBa8CAImBUxdYJX3ECEUgPGTP8n0ea48UMiGg5mABYAvXRSBNcmHZLc8qhWLq3MgjlmSa1kQXrzNxDN5tWUSzl5rgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MHhtvQ/k; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bSAYwNoP"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c2790ccso2227978f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:26:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790054806; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XTiKLTAnIU+zD9s5XRW92XxnKh28rXChEX7f7jKOD58MViSY2syqcp12foIZqdpX+O
-         96bCKK5D7nteNrz7vlNSpnunrpzvaYQ9IMRlSMoAAhqEhNZm8xvPjsofr17EXmSBVV3W
-         Keto5iBmL2ATTwXs5JZI2SrTkLMFym14l9v0/5asEylnUVvPWak19MswsEYzYUAe3EB2
-         4M9HgncdbQrWu4L+vFelDxp7rA3vRDBS9KP1BscsFVPXyPgwuzUfBIH9YRkS/O5Pkd2k
-         HgjZ63uFW3JfN9GTVMkIog1id1gIiIyPy7vLjK69vxct6HL4A2mAzPehcKOuesRfU5xk
-         +M4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rYFyfbP/CzYucLP5KfxCO5aW3V9+0lxq26u4CmXuTbk=;
-        fh=xfeeqlZ7pRBm+w/yIXsLhX9+8P+FBhEtRub3wE0HgoQ=;
-        b=YygS4IsterSHa/BGbAa0vCxZR7vihNhPsfBj5dqUUSPqU/ll7K2QRwuuoNV3SUN6Et
-         w1nWt4/MTS9F6r8dIs3yvPcKE/qsbcpvIp7Jc3gpq4zEG2C5RA3Blw/YPVACg1c9HrbM
-         OC0umdyDgNTIH9eT21JWZ3zwV0uAR3LceipOwfhav7eNvUM0nicoLHelqwMdHfSXYAkx
-         OgCcAwbN9qx1frArPboja3FKQjnagOh+5byJO1ty6K6gi+gtZLQUuHjieBvqj0u/jJzq
-         asKRJ6jtVpzardGqItUFZQyaehrGFv/WIWfqt+jlLwCY7cjmsxqEjg91oaHVsjfk4g8D
-         SaWA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790054806; x=1790659606; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rYFyfbP/CzYucLP5KfxCO5aW3V9+0lxq26u4CmXuTbk=;
-        b=bSAYwNoPx8thYMmtxJyb2x7EQVFhLYsVcAw5p/+wEPBzQY5BBm8xh+fNSObpsQfAOI
-         id/rNJPoTinjWDY7Aiwk2Sw82UUSf5nkDGkC4C3N6TsNavOPHJp3506IVX62YdDbncCr
-         kFthl/LOPo6na8lcgX/pJhL7lHmeeqsnfMybGkTADdA5JsRkVnPst3tYdQpOz5leQsrV
-         v1RgtgtX3UsRfBmYuiaSQCFq2RtlpZUGh6QyZzdzaW/s0nXHerS6AEAyleR7/yGkaXtO
-         CMkk4ucbiUxCHtnE3PjSU/YGZ3uMAJ3/cL1yRq8kq9k54LXmuiI9ybymBJip7wpTw1FI
-         rRlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790054806; x=1790659606;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rYFyfbP/CzYucLP5KfxCO5aW3V9+0lxq26u4CmXuTbk=;
-        b=iPyeENXPtAvdf73oyQC3P3GW3ayaqkHlG4DrQ0p1Ge2PhemiWR8TgoRms9i2lb4Kjt
-         sVtOJLOtNw7Q42b17LouMFwr46wmbW25Oc/pVwgnlHHFdRoMJBZVFV+Iq8R5eBimsyp9
-         zMrIdIZyW8sbkEB6uBivGYjAJzZ72CBln57UiGkFJ/+dU1inBzQ4Sp00vXF+aE+p6uT9
-         Fw8hH0K4vBOepNlWVfHsA6ZoK6F/+XbiKCSIM2G317AvTiNwIIGwNbKfH3FKBUH+2SHa
-         uSzxGqzCTwI9PrNkQGo5nKZCoMRx8qkDOsZrlR0SIJchiU265OYlVYzgFMIsdEJm37Kq
-         34IA==
-X-Forwarded-Encrypted: i=1; AKwUvBzw5oEH9SRlh80RRshF/DNe2/hIKrz3VzoBAxy5qZLVYT7HVtgqtwK6O3gkkLvg8YQpYOuc/ygG5rUSAn4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4/5+fJa0kWXliDSKAvg7kCX2N0iomPEbqPQxd3hIw2412oHLW
-	zsYFK3UQPxqs9u+KbCa1AGFla2WghhE6TQcM4qy3tFuVIq/8muQ+V0/gNqA/hGLOnLcJs/k66xr
-	bCqxoUEL1qsz7sm4I7MH4skr7iSy+030ijahB4P8=
-X-Gm-Gg: AYBFou0geZkbchbaZvB0Ui0D6rZPSU2S/dR0kgEcxfcYA0/EPD3jDD6YSvc0kKk5jL3
-	rTDwQ3fLy4JeORU515PPIVC6eHotfHKppxJ5gi0JoX72CQr2OSLZekoIRKBYoVrkjtJhzgn2Smr
-	Cb0pFdJ/T/5+USSohS5qzNcxu4yl8ZmV6LbV8D0nks1B5TTrL/rTJouYUuz6kBAA38gMxNQo2js
-	bjs7ksWVmmgI8YCEhTEz5uNv/Uc7hvh2mNtEXasQQa70kw5wu89SJIRMp5gDAdhF8h5Ps3mYjba
-	y//d0eObgImVbGSnKm4HBVawBmuWi0hyu/yF68QwdPBIskJN2o8IC3SA/4FmdQlcQ3Pp3S0AA5i
-	nF5qS5ac37mUYcARRRyFyDvAOXsA5RuqQQJLEoH54HkXmUx3rEefRPZrEPMg15o4mqys+H5ay5k
-	5A0dNA4/g=
-X-Received: by 2002:a05:6000:4903:b0:486:f301:11df with SMTP id
- ffacd0b85a97d-4871e20cffcmr16415045f8f.6.1790054805817; Mon, 21 Sep 2026
- 22:26:45 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MHhtvQ/k"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id C15EA40E01C9;
+	Tue, 22 Sep 2026 05:27:09 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id bP2jk45YfsSk; Tue, 22 Sep 2026 05:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790054819; bh=qOuM0qw78jV5zIJNqnzmCzJozkbA4TbDq7iK4HvjKS0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MHhtvQ/kzJJdFhj/Q7bDYoEAdcCTkvgtlHQSgQ0iuT3vKOQ6An4jC5xkIai4s+Grd
+	 4k1WHdj6bcOZVzat+PkxR0txLMJ2jP+wcsAMhde/rxY7cC2BIFi2ojp8dlGvHCBwX/
+	 dirlpTRG4osGjh5Fp8Dv4/ZhkG1yNaXBusq7uu33I91Pj6D+GpFabuD5aGs6Plvz2+
+	 YjodTskBb6Y1Vw+Wwcda3gDS10QqER/PbTMT5WkRjoKy/eWAUx2SqymakDIurrX6Se
+	 /jz+ZQ1OOUnSvgbT75P2t2aW8tPfFubqqRGTtZrvMLJWuNJ2n3gP2Gi6XP42C8ulv9
+	 cap4jtXxpGHb3QtMOmKk+8+UNlo7d7ytVjX9ywjbk6BxmV/GnPegrMVnhWQsg4o54m
+	 FtV56fDdrrd7Ws/CxRS49nokVUwwTJbV0K5m3kdStV7fIF285sbe1zidfkCCSg2cWD
+	 3BTjWhmYM0KAoA52vOMsZwluBnYbk40FnoJ4C8pbnUjtAbzufQsXelZWhtD6Zi05uy
+	 /Tk2u40gR7DG84Jz5MYD/ZLh5pIxRvfVNAF5dcw7i2y74ivsROGu5y14m2E9nbc2xr
+	 43J294QBjorus8ZttOG5ezSA9D2XEadMuV8XFGsNZnI8DwKVJLd4S4pNyNG5oNV6SY
+	 rMhMR8CA8NF2c7OrK/gd8uRA=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4C15140E0173;
+	Tue, 22 Sep 2026 05:26:48 +0000 (UTC)
+Date: Mon, 21 Sep 2026 22:26:44 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Robert Richter <rrichter@amd.com>
+Cc: "Naveen N Rao (AMD)" <naveen@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-kernel@vger.kernel.org, x86@kernel.org,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Bharata B Rao <bharata@amd.com>,
+	Manali Shukla <manali.shukla@amd.com>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH RESEND v4 1/3] perf/amd/ibs: Limit the max EILVT register
+ count for AMD family 0x10
+Message-ID: <20260922052644.GAarIRlC8y3-LTM9LB@fat_crate.local>
+References: <cover.1788425679.git.naveen@kernel.org>
+ <b98bf368f4c0e2af51ab8f9dbe3acaf11ebfee40.1788425679.git.naveen@kernel.org>
+ <20260919034035.GDaq4EM5Z41kzGVw1i@fat_crate.local>
+ <arD2XOBh5SQnKjof@rric.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914165455.2126134-1-sh_def@163.com> <20260914165455.2126134-2-sh_def@163.com>
-In-Reply-To: <20260914165455.2126134-2-sh_def@163.com>
-From: John Stultz <jstultz@google.com>
-Date: Mon, 21 Sep 2026 22:26:33 -0700
-X-Gm-Features: AcwNN1UyM8ZGuVf5qcFbKoLLp1sQ6OQrRZ_v2oDWYywldbfFGzAKf__stf5lX70
-Message-ID: <CANDhNCqZwGk+wqhB4N8Emq0rPmzsrVWzHmayiSj9ptg-vLzo3Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/1] sched/proxy_exec: detect cycles in proxy walks
-To: Hui Su <sh_def@163.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	K Prateek Nayak <kprateek.nayak@amd.com>, Zhidao Su <soolaugust@gmail.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <arD2XOBh5SQnKjof@rric.localdomain>
 
-On Mon, Sep 14, 2026 at 9:55=E2=80=AFAM Hui Su <sh_def@163.com> wrote:
->
-> Proxy execution follows blocked_on relationships to find a runnable lock
-> owner. A cycle in that chain can make find_proxy_task() loop indefinitely
-> while holding rq->lock.
->
-> Use Brent checkpoint state directly in the real owner walk. Cycle detecti=
-on
-> reuses the owner resolution already performed by that walk and requires n=
-o
-> separate preflight traversal. The checkpoint, power, and span state are a=
-ll
-> invocation-local.
->
-> Keep the existing owner =3D=3D p wakeup-race handling ahead of cycle dete=
-ction.
-> Unlike a sequence-marker approach, this adds no task_struct or runqueue
-> state and requires no activation-time reset.
->
-> The online walk can temporarily install a blocked_donor cycle before the
-> delayed Brent detection point. In the tested recovery path, the selected
-> task's blocked_donor was cleared before it resumed. A forced-stale contro=
-l
-> also confirmed that mutex handoff revalidates the donor's blocked_on
-> relationship before consuming a backlink. Validation of this trade-off an=
-d
-> comparative measurements against the sequence-marker approach are include=
-d
-> in the cover letter.
->
-> Signed-off-by: Hui Su <sh_def@163.com>
+On Mon, Sep 21, 2026 at 11:18:20AM +0200, Robert Richter wrote:
+> > What is this "fixing"?
+> 
+> Nothing to do as long APIC_EILVT_NR_MAX does not change.
+> 
+> It shouldn't be sent as a standalone patch. Instead, embed it in a
+> broader change to keep it in that context.
 
-Hey! Thanks for sending this out and apologies for my slow response to
-your patches.
+Aha, it looks like patch 3 is the candidate for that.
 
-This looks interesting, and with Suleiman's futex work, it becomes
-more critical to include.
+:)
 
-I think similar to what Peter already mentioned, having a max depth
-counter is probably still a good idea, but it does seem like this
-would catch smaller cycles earlier without much overhead.
+-- 
+Regards/Gruss,
+    Boris.
 
-I've included an simplified version of Zhidao Su's earlier work (using
-a fixed MAX_PROXY_CHAIN_DEPTH) in my tree, but will include this as
-well as an potential optimization.
-
-thanks
--john
+https://people.kernel.org/tglx/notes-about-netiquette
