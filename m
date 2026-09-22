@@ -1,90 +1,132 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B19539763
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:16:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B432053A382
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075817; cv=none; b=M2BBagb/W9xfsoFKwdOk6F+KbHJZ3VXF7Q7OFb7HDonI8Lx66Nd9Hd6b+I8KdY42ac7VqAsG+qygOYVx475z/1G2An4coas1+14LZUJ2K7BykG8vkfW6FvKZIVBVKo8GYLIl0YXqpFyTSonpDfjWhJus3Y6N0xp1TpQlVtJNfOs=
+	t=1790075819; cv=none; b=t0lBXVSR2MzjgUUdPSoGlUQFI+sWnl2ehOIfRUcFaMvJex/EkPnsgtmTtl36IlXSJbmIxigXV+9BGTIy/BfUeaTUqxzYam2KCRAzcTGNn1QYxEOiGL4+pvgfZcsEUJDwtLM5010o2p1ocmkxi0RGm1Qt9pTGBJi/ClUYxZfaSC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075817; c=relaxed/simple;
-	bh=X0vNJnpNs6hOMaqFf2v45FfFc3LhXGrCSlWSamftktA=;
+	s=arc-20240116; t=1790075819; c=relaxed/simple;
+	bh=Gww32BnzCP+2gnnL0+cONTfGmkRFWldN0S9BsHfwgMU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IoPP70Y5kjqfOlHHkB8RKget7f5TCr6U3NUoMaz0uFgeD+ZBnQiJdgjeqOU57qZBFNMX3fb4MtdSuIN22gaWv+yNy1eSz5D63+vQztzFqAimftD3OzDaseqcv8p5SKkNPXxFt8xnSMZG3e8ETKo1Yzw8KUsEcc8UTHGCWtwEJ+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--snehalreddy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OB6ca9em; arc=none smtp.client-ip=209.85.128.72
+	 To:Cc:Content-Type; b=RwATiCMxB1QGfK3r+jvLioGfaopnQQnCBrprcThrcmyuaQ9+X9T4LTNzwRM1QMEnOHWHAOX0xxOQo1LbWhnm3KGsBUj74eHGopHlm0olO7jDibNKeTq9/fUruqQ76ElAZqamBuFkQgrX9o3vkTT6PnWCIF/iOc9Pj2ZPJnjc+PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--snehalreddy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VQvt1CUT; arc=none smtp.client-ip=209.85.128.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--snehalreddy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OB6ca9em"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-490a767c7dcso30142515e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:16:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VQvt1CUT"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e76a80fe5so56377925e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:16:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790075814; x=1790680614; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790075816; x=1790680616; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pz5XMLJlH/ksqI/ieLps3ISvdTbA9aZ9LqHyagA1F+o=;
-        b=OB6ca9emDtCKpUcJmgMH5lJJmDzOk4JvkCuMy9CXjDAB0AL+86zMI+J1MsbmxxHLnj
-         msqJECkWrqP2Rltz/AiewuQhN82daEcFQxi+GWpr9uZfQM7veZRkD8oUg59eJJMmy+pp
-         F5UGOEvoEXg7fNDfG6sF3krSVbnDvPzHUp3d5IlHKJRNc5dn/Nz1vET6x4f8w7knzgBa
-         P34CBHWM3VXErgnMTPwWzoywuKdo07boVT6M7s4GQLNTlrUfyQztxQfm+4wdS682V+IG
-         CHNzjrTEPCiuyjSTSP6/lVCpNpZPfxJWBtyfyIPNJHvdDNSwlIPwEKUPhl+YfEoBnZX/
-         QCAA==
+        bh=cXSrQeMyHW+MKEBO/LMvcq3vJUhSUVerpVL28o1KObI=;
+        b=VQvt1CUTVQPRI/OZ0f/LLNjkUhu0Nmo7wjudJOnTsU83U+iH6Zsk/JBgoL3zlRahDy
+         B+abTwrnqxxKoeP+t8xiF3nnEZ8qqyxRg5cqQLJTmPwwzIPSTAA/aOIpH6Q9jP1KrPmV
+         3maBdp0ZIN8eO22j8vWOIMIerthCzt08CR126Z3C91lk1rdbsLz29jt4zHmRFrgrj3J5
+         w5DuCCzxSVBoJlTq+0b7ORehwQhBc5Hq9IshOmSTt7lFNHwHpuLwLhtPw2p6JIwv2SjQ
+         mLgT6unLfE7D8zQs/mw8wKj1qSxH/SZNIje9cPi4XKJxw5d/4F39wmkwjlJcSq4mL+BA
+         Xe+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790075814; x=1790680614;
+        d=1e100.net; s=20260707; t=1790075816; x=1790680616;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pz5XMLJlH/ksqI/ieLps3ISvdTbA9aZ9LqHyagA1F+o=;
-        b=h1Zfx0jot+sKz/5IwWPs4TR7xCdbT0pBpIwjJcCe9dQ0ZQ0jBaTsjj0h7VOOVwY80x
-         3CtS3NYlWQj2m1jCsVR6l3ar0MetTjh+0jsEtRcsUtYjhMfZ5zZ87FddRKJRn5PTIoop
-         Rtqi4VNITUq8wOXHO0RE5/x7sj19ifuYcTk1Yw4D7d72VXEcsL2MfFjek24o5ghDg1Ep
-         FA47KODG7eN1TyP2f4wijO+HWHoM80yzg2HHXMTLk6xgEupdJV1oI88cXqRYp94qw2EB
-         PWO5KxWbUfUfE4STrADIw6n5+SmOWSwiuNh/s3KnD69/9+26oDS/6fZsAybjvLh7Mb1m
-         FFHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPry3rDsKRMbr8jkqRofVF7JheII7wdGAJ7QVRDbg8clgazF41WnU5UrS807SbN8hltZnlKl2LMrKbgKE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1vACZX+QFKM7GgTRX0NqOVxlZfPYW6BOLx5dFYCiAmukhnE4g
-	GcuOopglrcw8QeT4kOKTFBMLZ4k1GqeVottI6BXs4RhzqSt11uwpRHTDYTpVnGKBZ63BHANCIYV
-	AyPNX07hfSz+YLy8xrwhCMEnG7Q==
-X-Received: from wmdp20.prod.google.com ([2002:a05:600c:5d4:b0:49e:8337:332])
+        bh=cXSrQeMyHW+MKEBO/LMvcq3vJUhSUVerpVL28o1KObI=;
+        b=ON/lnakB7Z9ygjOUIWRxkpfdLfJk1YVcMgXihRDh3rWT7R1/QYUf1md8RohhTT5i5U
+         64VNzLsO5hiJqQ4jwqrN5S+ZdXYYdUZHntseJvq75eBBRaLg6CO6JwQWEwzlje2GpXwn
+         Z/VoEXJmOx77b6oPjpmCYfM2XNQtAibh/xNbPsA3LgYquY76dln4bLjJg9k9LfNMlwXl
+         uirk87z9R7BaeJDcdt5YIYFKFR7c4Jzbcm/jVN3d4XseRoowGHBeYSCqi19Jb2+9jUJ6
+         EMI6stcjsVBDGUSZmcPNqBeHehkZourvdS/ur5rgDK6JcDtdG56WipurdUEV0wu/713v
+         L6dA==
+X-Forwarded-Encrypted: i=1; AKwUvByULvm4e38RQWazRmQILtbncEuZ+tyE2m/IMe+rodueadb4pJsuRh3nJg9KKbJny9ujiYNScK5zrg7tQgI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwQv8Tj2x2J+N89140sV8Zc7f9/z3J2cV8uVH2n6Dxo0IRGpWl
+	No9XsIGOxqzXKwdgnjhHk5ZyE/m+9K60V8QY2kGzhu/V5/+QSt4XOI5oaTds2ImCBUTTBndb1aq
+	9ZJ9a/j50qLEQ5isww/iAo6HOhQ==
+X-Received: from wmbju2.prod.google.com ([2002:a05:600c:56c2:b0:499:b2d6:1572])
  (user=snehalreddy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3b8e:b0:49f:bc43:9e96 with SMTP id 5b1f17b1804b1-49fc57144aamr246286785e9.8.1790075813829;
- Tue, 22 Sep 2026 04:16:53 -0700 (PDT)
-Date: Tue, 22 Sep 2026 11:16:52 +0000
-In-Reply-To: <20260921165841.93EE21F000FF@smtp.kernel.org>
+ 2002:a05:600c:1c1a:b0:49d:1de5:ce0a with SMTP id 5b1f17b1804b1-49fc56d4238mr237637205e9.13.1790075815186;
+ Tue, 22 Sep 2026 04:16:55 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:16:54 +0000
+In-Reply-To: <arJTf9C-dr3eMnsW@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260921165841.93EE21F000FF@smtp.kernel.org>
+References: <arJTf9C-dr3eMnsW@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260922111652.1024606-1-snehalreddy@google.com>
-Subject: Re: [PATCH 1/2] firmware: arm_ffa: Add FFA_FN64_MEM_RECLAIM2 function ID
+Message-ID: <20260922111654.1024808-1-snehalreddy@google.com>
+Subject: Re: [PATCH 2/2] KVM: arm64: Support FFA_FN64_MEM_RECLAIM2 in host handler
 From: Snehal Koukuntla <snehalreddy@google.com>
-To: Sudeep Holla <sudeep.holla@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oliver.upton@linux.dev>
-Cc: Vincent Donnefort <vdonnefort@google.com>, Snehal Koukuntla <snehalreddy@google.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Sudeep Holla <sudeep.holla@arm.com>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Sebastian Ene <sebastianene@google.com>, Mostafa Saleh <smostafa@google.com>, 
+	Snehal Koukuntla <snehalreddy@google.com>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 21, 2026 at 04:58:41PM +0000, sashiko-bot wrote:
-> [Severity: Low]
-> Does the missing 32-bit counterpart for FFA_FN64_MEM_RECLAIM2 break
-> FFA_FN_NATIVE() compatibility on 32-bit architectures?
-> 
-> Every other FFA_FN64_ prefix in the header has a 32-bit counterpart. If
-> FFA_FN_NATIVE(MEM_RECLAIM2) is ever used on a 32-bit build, it will evaluate
-> to FFA_MEM_RECLAIM2 due to the architecture-conditional logic, which does
-> not exist here, and would cause a compilation failure.
-> 
-> For 64-bit exclusive ABIs like FFA_MSG_SEND_DIRECT_REQ2, the convention
-> is to omit the FN64_ prefix entirely.
+Hi Vincent,
 
-Ack, I will rename this to FFA_MEM_RECLAIM2 in v2 to follow the existing
-convention for 64-bit-only ABIs in arm_ffa.h.
+On Tue, Sep 22, 2026 at 10:07:27AM +0000, Vincent Donnefort wrote:
+> > +	if (ffa_check_unused_args_sbz(ctxt, 6) || (flags & ~1ULL) || (x4 >> 32)) {
+> 
+> nit: (flags > 1) ?
+
+Ack, will update in v2.
+
+> > +	if (offset % desc_size != 0) {
+> 
+> nit: 
+> 
+> if (offset % desc_size) is enough
+
+Ack.
+
+> > +	if (offset >= (u64)req_desc_cnt * desc_size) {
+> > +		ffa_to_smccc_res(res, FFA_RET_INVALID_PARAMETERS);
+> > +		return;
+> > +	}
+> 
+> Not sure I understand what Sashiko means here offset can not be bigger than the
+> number of constituents we have...
+> 
+> > +
+> > +	hyp_spin_lock(&host_buffers.lock);
+> > +	if (!host_buffers.tx) {
+> > +		ret = FFA_RET_INVALID_PARAMETERS;
+> > +		goto out_unlock;
+> > +	}
+> > +
+> > +	memcpy(hyp_buffers.tx, host_buffers.tx, (u64)req_desc_cnt * desc_size);
+> 
+> Either I or Sashiko is confused here. The invocation will not do more than
+> req_desc_cnt will it?
+
+Agreed. Per [S0039] and [S0047] in the spec, req_desc_cnt is the total
+count of constituent descriptors in the TX buffer array starting at
+offset 0, and offset indexes into that array so callers can advance
+offset on subsequent invocations without repopulating the array.
+
+> > +
+> > +	range = (void *)hyp_buffers.tx + offset;
+> > +	if (page_index >= range->pg_cnt) {
+> > +		ret = FFA_RET_INVALID_PARAMETERS;
+> > +		goto out_unlock;
+> > +	}
+> 
+> Should we also verify total_pages here?
+
+Good catch. I will add a check in v2 to verify that the sum of pg_cnt
+across the constituent descriptors matches total_pages (without
+overflowing) before forwarding the call.
 
 Thanks,
 Snehal
