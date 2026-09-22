@@ -1,96 +1,134 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4737F40928D;
-	Tue, 22 Sep 2026 08:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22DD44781A;
+	Tue, 22 Sep 2026 08:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066281; cv=none; b=gcYJZxDHm2snJWWqiOsX3fy/2KKcrSBFbd7LhZXHNgZ1zXSdT7cPatKC2hNskCMG/25X242lv4789bddqYjzs2SuvH//GiJ9qcU0L67uB+IeAZkDxt6CJqSSJ5a0t2JLio4mlLx56fDBmKdBUz1Z56jMpd8MZpXosQbMGQ6YSLY=
+	t=1790066309; cv=none; b=KwHwAlUG8F25eeh8YN6gQu6G9zQT6zyUZJAFJLJ3ZCPAAhBP2jsBy/x/9Id+9ec1o9epucV6S0aeM8Xnm6ZjNxPaOKSpbp3FMU9RM39nA3yiF99lBYlRMhOA7bmyVhU+aDKS3nLU6Suzq693y+G/3VecAwdAikj4WA7K4XLYsPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066281; c=relaxed/simple;
-	bh=KYe1+Grph1p0Z1bjExAgq4W/tuXK/0qSgQLERHvEBOo=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=dTqjWgCdqRRje8AcATQEML6BTZSuHpPftbH1VSem0Y31fc03HRRWTIB1eHacRBMoBGiMjaI3Wt4HmBPzvJk9MPYSuDZSB40uf1httd9gxiF11RPCNUniwvtipF1tVDWVtyVTE/a5M9PemC4tWBxkVvUNs755wUTnmDCzV2TKjfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=iepPiYbU; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790066309; c=relaxed/simple;
+	bh=Quu5JpjsqB31b31e9ok9qojvyEBty9pRwvRIr3LlWL4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rYMG21XKhp+vzR/ZxQk1vmCWF4jMTjhmvQwDxs8plzEwTGJkc6Y8L1bHpId9ikL53q0DxhxDWBXQvTBxFdK4s4yFu/ztMJQGXhksSy1C/zlVt6i+82vuhCscCkxPwAVI9bkKQ34ApDGVdaByLUdcVgDB9IyRBVylP8raci9MNYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DIiJO9AK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="iepPiYbU"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51DF1A3808;
-	Tue, 22 Sep 2026 10:37:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790066278; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=PYf7cw75FbfjBsnFH9g8uivtElGUN60205IE1EUJJkQ=;
-	b=iepPiYbUb6xvOQI+qep915Mk9cpODqyIiw7U1XeI2MStio1ysSPdAqakDcPA81RT3aTihK
-	bXWI/RJMXqS0FXTYoiPZ0AhRubOwvlgPb767UKDNepZJ24NPNLlyoy+fJLVrZXw9offB3+
-	7ddqmvRhiIWUeqZ7tGKgAyh4Dp54TNBqXV4OpTlBAMBnehJh6rlvYs0gKhQXpDDu+Bq8gr
-	VqbfaKwmQX8v6HYdIJ0NqHS6yJ7tAeEUH9iQsPEph7n0eQKB7o8yu//IZiuGpsHtOkK339
-	ATC2YLzpMIZC+KmjrsHzIVB68CVomTybgNOG2/HYoSBH7lRpbRx9UaivHVXGzQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DIiJO9AK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF0C41F000FF;
+	Tue, 22 Sep 2026 08:38:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790066307;
+	bh=/0PJ1Y0fdVdEdVlkEBVy6/bOil5nzH/MclyCeJ0MOyg=;
+	h=From:To:Cc:Subject:Date;
+	b=DIiJO9AKQSIhY95QfmUBDsITyFavLwZ05MHS+SSVN/tkFtADbFcb5B033hW53njGs
+	 QG2r+EuwXHg3DBDA+w6Ek7SiCmKT5XGsaHvdS/si0o8Y8ItrVRbKyWUuiMIzuw/x5r
+	 XdHjTcAHA/cvvg0IgL8D5Mkhc5GwX9oM557Lwpkeyyj0qFryDq5BH4RCG0Fb0WAWpa
+	 KCV/bI12MprrZ2F8DCDrF0cCJrJTdjlphVfKKL3pVhjn7a3tkORtzT41UNAQeRhy7t
+	 B+gqQk9IlQNAkhY4GjJEulgAYBe2+BKBvrO5p4kj5D7FTQeoe+NPniRluY7V9AGxgr
+	 cTzC5/g27oKsg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH] rust: DmaFence: Remove static lifetime
+Date: Tue, 22 Sep 2026 10:36:32 +0200
+Message-ID: <20260922083631.444614-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 10:37:58 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 03/12] net: systemport: Fix NULL pointer dereference
- in bcm_sysport_fini_rx_ring()
-In-Reply-To: <20260921231305.394773-4-florian.fainelli@broadcom.com>
-References: <20260921231305.394773-1-florian.fainelli@broadcom.com>
- <20260921231305.394773-4-florian.fainelli@broadcom.com>
-Message-ID: <db054c94545471b2c4f6c9eb52b8977e@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 22.9.2026 01:12, Florian Fainelli wrote:
-> If allocation of priv->rx_cbs fails during bcm_sysport_init_rx_ring(),
-> error unwinding in bcm_sysport_open() calls bcm_sysport_fini_rx_ring().
-> Without checking if priv->rx_cbs is non-NULL, 
-> bcm_sysport_fini_rx_ring()
-> dereferences priv->rx_cbs, resulting in a NULL pointer dereference.
-> 
-> Add a check for !priv->rx_cbs at the beginning of
-> bcm_sysport_fini_rx_ring(), matching bcm_sysport_fini_tx_ring().
-> 
-> Fixes: 80105befdb4b ("net: systemport: add Broadcom SYSTEMPORT Ethernet 
-> MAC driver")
-> Assisted-by: LLM
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> ---
->  drivers/net/ethernet/broadcom/bcmsysport.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/broadcom/bcmsysport.c 
-> b/drivers/net/ethernet/broadcom/bcmsysport.c
-> index 8328fe824d15..b91a57540f55 100644
-> --- a/drivers/net/ethernet/broadcom/bcmsysport.c
-> +++ b/drivers/net/ethernet/broadcom/bcmsysport.c
-> @@ -1717,6 +1717,9 @@ static void bcm_sysport_fini_rx_ring(struct 
-> bcm_sysport_priv *priv)
->  	if (!(reg & RDMA_DISABLED))
->  		netdev_warn(priv->netdev, "RDMA not stopped!\n");
-> 
-> +	if (!priv->rx_cbs)
-> +		return;
-> +
->  	for (i = 0; i < priv->num_rx_bds; i++) {
->  		cb = &priv->rx_cbs[i];
->  		if (dma_unmap_addr(cb, dma_addr))
+A FenceCallbackRegistration can stem from another party than the one
+that has created a Fence. Should that party forget the registration
+object (for example through a refcount cycle) and then unload the
+module, a fence signaling would run into the unloaded module, causing
+UAF bugs.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+So far, this has been solved by demanding that the payload data of the
+registration object demanding static lifetime.
 
-Thanks,
-Nicolai
+It turns out, however, that this is harmful because the static lifetime
+bubbles up to all users, ultimately potentially causing a large amount
+of driver data to be static, which renders the lifetime obsolete.
+
+Solve this issue instead through an unsafe requirement which demands
+that the user does not forget the registration object. This is also the
+solution chosen by ScopedWork.
+
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index 18a43e1bb442..c3fa68c4df86 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {
+ ///     }
+ /// }
+ /// ```
+-pub trait FenceCallback: Send + 'static {
++pub trait FenceCallback: Send {
+     /// Called when the fence is signaled.
+     ///
+     /// This is called from the fence signaling path, which may be in interrupt
+@@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {
+ /// When this object is dropped, the callback is automatically removed if it
+ /// hasn't been called yet.
+ #[pin_data(PinnedDrop)]
+-pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {
++pub struct FenceCallbackRegistration<T: FenceCallback> {
+     #[pin]
+     callback_foreign: Opaque<bindings::dma_fence_cb>,
+     callback: ManuallyDrop<T>,
+@@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> {
+     /// On success the callback is pinned in place and will fire when the fence
+     /// signals. On `AlreadySignaled` the callback is returned to the caller so
+     /// that owned resources can be reclaimed.
+-    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, CallbackError<T>> + 'a
++    ///
++    /// # Safety
++    ///
++    /// `callback` must not be forgotten.
++    pub unsafe fn new<'a>(
++        fence: &'a Fence,
++        callback: T,
++    ) -> impl PinInit<Self, CallbackError<T>> + 'a
+     where
+         T: 'a,
+     {
+@@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///
+ /// let cb_data = CallbackData { };
+ /// let waiting_fence = ARef::from(fence.as_fence());
+-/// let cb_reg = FenceCallbackRegistration::new(&waiting_fence, cb_data);
++/// // SAFETY: `cb_data`'s content is not forgotten.
++/// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
+ /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
+ ///
+ /// // TODO signalling guards
+-- 
+2.55.0
+
