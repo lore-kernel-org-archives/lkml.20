@@ -1,192 +1,144 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7F1529401;
-	Tue, 22 Sep 2026 09:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1592B4189BA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068171; cv=none; b=NV+artdPY19Rq5Mms5gLH5noYAStx6uiuXMEGc15+J8AXfe4ZaiwmaTxCUterfJY/vXfnGdbioC6Fw9xx745IjBmPrid4RaImWSHAqqX/DjyCntTdgSQt1EpMTvZmS0asGyanw+UE4VDPz6dT08Hdg3XBdQrpSuPbWQpvP4Zc1I=
+	t=1790068204; cv=none; b=K/5DbJm97AEV/DM+JYrLVyv6m4c9jenpfMkzZjVawsB4pmlcJUFidXVNHhA9DSVicaS6sG6v+/uYgb1pRyanHog0bOhGEPUz+lIDxAw1CM2U9epQu1Tq6PitL5UB4GpHuiEbX61l4jxUqssicuwIXvpT0IHm1aJkKDV0ZjZ890k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068171; c=relaxed/simple;
-	bh=YfRXSPro+uDj/F6BEZLZNNd63lMTt5yxDoob4IlU44Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MQRat/Cw0DJtppEgoKjpCcR5lIFl+IY0bNWLoQGNlvDDuLWpeFtkib6iZhGJNlNl9EZPu4Lp6wGDFJWWCGt8JhZ6KJCDLOf8TJtuRgfRSS0ul9fPUORA9nxBKCDqFAxCCmu19d4l3IyCvgqORIcVz3zpzUItZwasuinfbo/dGug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RVzYoTFp; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790068204; c=relaxed/simple;
+	bh=mBKCdwfTWDIJbik3smJ3FVVaENLpL49N6QgmGQgMO0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aZb49aUBH7srpNhOjmODQSN+sjuCRbPf0+jf0omIamA0Y0TnGadEzjx3ezxsfg6ziqr+DxzqYZrYSiZpzh46D3BIPGZmOvxqhRZFnJ+u9yKZU7MDE5yj+NEaA+AjdZ8yyqFAvfZvuRjOvoHzLMQ+4NKITHrBjYGeIsc6kMrVNqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjoHib4E; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RVzYoTFp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ro
-	iZPSCU88QygX7bo5nR/bW1y+/DZdenzXqm3MmxBs8=; b=RVzYoTFp9Jwt8W98S3
-	VbTPYnrCOsuIm1F1xc2YJjKHR0WTtJgjafSdF3WVVFBA2d00O4P03ZOjArMxNVr7
-	lwIz0ZNW1+8nYD3JiCSfeQbpTwA9Y6YRKqNhIeL0f/RgmX161AVlDD+PlNf0syiU
-	u1bBdclULseELVwINzcYM6R10=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3X8edRbJqCNNdAA--.41173S2;
-	Tue, 22 Sep 2026 17:08:47 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Andre Przywara <andre.przywara@arm.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH v2] dt-bindings: arm: vexpress: drop the obsolete hwmon and regulator text files
-Date: Tue, 22 Sep 2026 17:08:36 +0800
-Message-ID: <20260922090836.111516-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjoHib4E"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300816so11505025ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790068202; x=1790673002; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6sUggSTSWzovoPTvZ/2iI6ZTqKPXi6q928x/LkDAbDk=;
+        b=PjoHib4E0Surftr+HNkx/qSOVU2BvH0cmRGEy62GPQtup708OWvVQ/ZWG1q04yhuUe
+         Cfrw7CzLQuY+zCX5gBifNDWqmiJvVqC2vMayMfpzvzJ2UyLlqS+crtbpa92UbkUU3D8E
+         KDgohJw1X0ZeQs1IWm29KeDTdu9Vjk83mx5rfj6ITtIsAqawD/JD1Ufqrs2CcotG1B7w
+         WeVKQM4eKAy83XMrEHIUiOjuasHiNJQ4HhldGtGF6e0uqcEnw1nblOk30PAr3gDjhvX9
+         itIpYwByB9cy1u+78ELhSI04J+HBW+E5CiF2uZ0DsVaiw1fDDiIWYBMCIE57HJP+c1Yh
+         XEiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790068202; x=1790673002;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6sUggSTSWzovoPTvZ/2iI6ZTqKPXi6q928x/LkDAbDk=;
+        b=M8NA+axE7n+b/PabG3R9G1s7b/cG/rr/HpqFFJDKsH28oBvAj8e0fkxdxkiuUHPc2w
+         JeYIxvbpmdFVfGLUohTiLy/iQQT99dJAYyv9+LNaL3Ou6nJGBFFCKrs7Jhx30uvmDAvT
+         JdRVT7Q+ebaDtT7a8XNy08VU19FHxdz+qxUj21eV9vSevxJhwnOgsWnZ7QR8KAHGv1bo
+         B4LTud3ng/WU47I46rbwpOThDHpVwkwKwHgJ396OlETXMFGetWkAtCgDqkktct99FMd8
+         gogEVnUnsg+HMZa/lDU4v4xxKhSQGvLpJXXxJnvT3ow8n/AUomKmY/LOQzhcyTTLYKZ5
+         p9sA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtcuXU39zPcKcnaw9e7kYYPzAZcDgyS2Kpbk8AmabNigL2AIsKTBkTnQzusyQc1YvWQXwtdTr4v7416Vw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJXJByv00GHSC6bBbUf2/0k3m7/PilXX9x1A/onKWsaQWbHIQE
+	kvP+osPVbSL9lLWMecpB9KK2kIMlRGjjzHjLRULwyhHvxVaCMZLQg1+rZa8J+3AX
+X-Gm-Gg: AYBFou0ElhDfW3/VMPl7ngUSFDN1GCywgXwL9ICLcK3CaJbTe0h3cM/YO+nYOyaNbWu
+	T1sIPbpkcYn6LkXyFPwKWFFocXoDN7F1B2RaE4M/0figqbE1p1K9YlJJrPDRM6Rk3XqABq+gSyp
+	Rhz0zXo7TYiNvV5FfSYD4BE1p5iv/dEhtKt9fBbvgCWWrmJ3Lu5HE3EqQP43UFhcitFCuoQXgpS
+	i1ab5OFMaI8M3FgH6fltHw88RGMKktnGAfJmMhwuG+yuC4a6NPBdSIjTkuZz1kR4GPRArrxz0SO
+	cqes9gmCfI7JK+uB2WpFVmCY9CGJswT+KazNSOjHEaQCy8N3ehZot925ckwIBtBuckZ22A8JEu0
+	gnPWIOuC9RTKHvCsXzTw8xPsTzfjVq6CqPx2FS1IGIsEEETDUSpySaNC2PVwqTnMidLNI0QYb3h
+	8aJUhZjRCWXa1YqIi/WlQWfraVeykXZ6gc4HLN4C/vGmyfJmQ/cZMNIrfyf8Pvij2SlwVFsh3ma
+	meK+6ZdAYNUq+1OSBos37GzniqivQ==
+X-Received: by 2002:a17:902:e892:b0:2dd:c053:b9c8 with SMTP id d9443c01a7336-2df60ee2fc6mr3676585ad.25.1790068202190;
+        Tue, 22 Sep 2026 02:10:02 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5cf84150sm6490615ad.6.2026.09.22.02.09.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:10:01 -0700 (PDT)
+Date: Tue, 22 Sep 2026 17:09:55 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3] gpio: cdev: fix kernel stack leak to user-space in
+ error path
+Message-ID: <20260922090955.GA35938@rigel>
+References: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X8edRbJqCNNdAA--.41173S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Jw45Ww47CFW8Cw4kXF1kKrg_yoW7Wr43pF
-	43Zrn7CF48JFyxJw45t3WIkw45Xr1UC3s7Cr1kZrW8X3Z8AasxJrnakr1rAFy8JrWkGayU
-	trWUur1rJF17Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piAwIDUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-x+-NWqyRZ8D8AAA3b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
 
-Documentation/devicetree/bindings/hwmon/vexpress.txt describes the
-arm,vexpress-volt, -amp, -temp, -power and -energy sensors, and
-Documentation/devicetree/bindings/regulator/vexpress.txt describes the
-arm,vexpress-volt regulator.
+On Tue, Sep 22, 2026 at 10:52:28AM +0200, Bartosz Golaszewski wrote:
+> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+> return immediately before zeroing the info struct we'll end up passing
+> to the user-space later in lineinfo_get_v1(). This may leak the kernel
+> stack contents. Make gpio_desc_to_lineinfo() return int so that the
+> -ENODEV returned on failure to acquire the guard can be propagated to
+> the callers.
+> 
+> While not strictly necessary: move the memset() before trying to acquire
+> the SRCU read lock too for good measure.
+> 
+> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> Changes in v3:
+> - Don't emit an error log message from the line info notifier if we fail
+>   to acquire the chip guard
+> - Link to v2: https://patch.msgid.link/20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Make gpio_desc_to_lineinfo() return an integer return value so that
+>   the error code returned in case of a failure to acquire the guard can
+>   be propagated down the stack
+> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
+> ---
+>  drivers/gpio/gpiolib-cdev.c | 32 +++++++++++++++++++++++++-------
+>  1 file changed, 25 insertions(+), 7 deletions(-)
+> 
 
-Both restate what arm/vexpress-config.yaml already documents: the same
-compatibles, the arm,vexpress-sysreg,func property and the label property.
-The regulator node refers to regulator.yaml for the generic regulator
-properties.
+> @@ -2491,6 +2502,7 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>  	struct lineinfo_changed_ctx *ctx;
+>  	struct gpio_desc *desc = data;
+>  	struct file *fp;
+> +	int ret;
+>  
+>  	if (!test_bit(gpiod_hwgpio(desc), cdev->watched_lines))
+>  		return NOTIFY_DONE;
+> @@ -2521,7 +2533,13 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>  
+>  	ctx->chg.event_type = action;
+>  	ctx->chg.timestamp_ns = ktime_get_ns();
+> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+> +
+> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+> +	if (ret) {
+> +		fput(fp);
+> +		return NOTIFY_DONE;
+> +	}
+> +
 
-The regulator file also lists two of them as required, regulator-name and
-regulator-always-on. regulator.yaml defines both but requires neither, so
-removing the file without doing anything else would quietly drop that
-constraint. Add them to the regulator node's required list; all 13 in-tree
-arm,vexpress-volt nodes set both.
+Drop the ret and just test the return directly?
 
-One sentence in the regulator file is not a restatement: it says that a
-supply without regulator-min-microvolt and regulator-max-microvolt is
-treated as fixed. vexpress_regulator_probe() implements that by selecting
-vexpress_regulator_ops_ro when the two properties do not both define a
-range. Move the note into the regulator node description in the schema,
-so that removing the file does not lose it.
+Sorry - should've picked that up in the previous version.
 
-Nothing else refers to the two files. Remove them.
-
-Assisted-by: LLM
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
-
-Changes in v2:
-- Add regulator-name and regulator-always-on to the required list of the
-  regulator node. The deleted text file listed both as required while
-  regulator.yaml requires neither, so the constraint would have been lost
-  silently. Reported by sashiko.
- .../bindings/arm/vexpress-config.yaml         |  6 ++++
- .../devicetree/bindings/hwmon/vexpress.txt    | 23 -------------
- .../bindings/regulator/vexpress.txt           | 32 -------------------
- 3 files changed, 6 insertions(+), 55 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/hwmon/vexpress.txt
- delete mode 100644 Documentation/devicetree/bindings/regulator/vexpress.txt
-
-diff --git a/Documentation/devicetree/bindings/arm/vexpress-config.yaml b/Documentation/devicetree/bindings/arm/vexpress-config.yaml
-index 41c53e3acc12..8fe24a997cfd 100644
---- a/Documentation/devicetree/bindings/arm/vexpress-config.yaml
-+++ b/Documentation/devicetree/bindings/arm/vexpress-config.yaml
-@@ -139,6 +139,10 @@ patternProperties:
- 
-   "^regulator-.+$":
-     $ref: /schemas/regulator/regulator.yaml#
-+    description:
-+      If regulator-min-microvolt and regulator-max-microvolt do not both
-+      define a range, the supply is treated as fixed and only its voltage
-+      can be read.
-     properties:
-       compatible:
-         const: arm,vexpress-volt
-@@ -157,6 +161,8 @@ patternProperties:
-     required:
-       - compatible
-       - arm,vexpress-sysreg,func
-+      - regulator-name
-+      - regulator-always-on
- 
-   "^amp-.+$":
-     type: object
-diff --git a/Documentation/devicetree/bindings/hwmon/vexpress.txt b/Documentation/devicetree/bindings/hwmon/vexpress.txt
-deleted file mode 100644
-index 4a4df4ffc460..000000000000
---- a/Documentation/devicetree/bindings/hwmon/vexpress.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--Versatile Express hwmon sensors
---------------------------------
--
--Requires node properties:
--- "compatible" value : one of
--	"arm,vexpress-volt"
--	"arm,vexpress-amp"
--	"arm,vexpress-temp"
--	"arm,vexpress-power"
--	"arm,vexpress-energy"
--- "arm,vexpress-sysreg,func" when controlled via vexpress-sysreg
--  (see Documentation/devicetree/bindings/arm/vexpress-config.yaml
--  for more details)
--
--Optional node properties:
--- label : string describing the monitored value
--
--Example:
--	energy@0 {
--		compatible = "arm,vexpress-energy";
--		arm,vexpress-sysreg,func = <13 0>;
--		label = "A15 Jcore";
--	};
-diff --git a/Documentation/devicetree/bindings/regulator/vexpress.txt b/Documentation/devicetree/bindings/regulator/vexpress.txt
-deleted file mode 100644
-index 1c2e92c7831e..000000000000
---- a/Documentation/devicetree/bindings/regulator/vexpress.txt
-+++ /dev/null
-@@ -1,32 +0,0 @@
--Versatile Express voltage regulators
--------------------------------------
--
--Requires node properties:
--- "compatible" value: "arm,vexpress-volt"
--- "arm,vexpress-sysreg,func" when controlled via vexpress-sysreg
--  (see Documentation/devicetree/bindings/arm/vexpress-config.yaml
--  for more details)
--
--Required regulator properties:
--- "regulator-name"
--- "regulator-always-on"
--
--Optional regulator properties:
--- "regulator-min-microvolt"
--- "regulator-max-microvolt"
--
--See Documentation/devicetree/bindings/regulator/regulator.txt
--for more details about the regulator properties.
--
--When no "regulator-[min|max]-microvolt" properties are defined,
--the device is treated as fixed (or rather "read-only") regulator.
--
--Example:
--	volt@0 {
--		compatible = "arm,vexpress-volt";
--		arm,vexpress-sysreg,func = <2 0>;
--		regulator-name = "Cores";
--		regulator-min-microvolt = <800000>;
--		regulator-max-microvolt = <1050000>;
--		regulator-always-on;
--	};
--- 
-2.43.0
+Cheers,
+Kent.
 
