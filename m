@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1767047CA95;
-	Tue, 22 Sep 2026 11:34:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A25538D91;
+	Tue, 22 Sep 2026 11:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790076863; cv=none; b=KqsVqvhoqhHkbTH9Oq2DTYTofchFvuDqRQWVPpD9LLyhcWOEVJHLAZiWWGfnUgXdh/AbizOvWaahkIjZUwDRmDURQJDxSX3I09N7QRAO/IGWwo85YnXZjKOWs80Pd6KHFS+u3FjtUCQCrGe/FcBKTeh04w4JCELGlnq5yQil+Qk=
+	t=1790076866; cv=none; b=n9Dzu/T654eiekOKKb0gBHztQw2NLwn0kMyvNetKRVJyIii9NbhgYo/pla2OtshZivOwOZZzoXNU28G7SfwLN+rCc4lmTLQDEv66LT8HLMobxbwcOuA8R99J0V5bx/vgLBrRzP8vRA7Ufrvk0YFSGxsH+6AVxwrOryCXi6ZN2J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790076863; c=relaxed/simple;
-	bh=ImZu2rrTp3BgaUjvgrhT8+XgUZVUh9pI+IzGxU0cFQ8=;
+	s=arc-20240116; t=1790076866; c=relaxed/simple;
+	bh=9yOyKfLbgAQCiwsB8y/tXz9WKfPm1n0GduTeDPF6LG0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FFn4MTvXAoZZJPWjLno9/JBjJ1gzd5e8YlOeokLts1++x7fC8Imb/xhhRx/HQnNJVshXcnpeBpAki61GSR+Rtav/gCC/C23EcjqAqj8Ki3XuB0Uik40gsEOdEWYTOr9rvHbhipUjNW058ZqH9QcFLBliB5SpejIpv13yi6n39GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFnk/Gff; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=LJZlV6loADL6TShly9oWpg+vvZXZxodXpzLS4Qe+bRHUfcamqk869OlbHoggNkDAx/dJ++4zEX08sULz9qO98M/BHvDSLCjZPrcMb9/1NePAyNL3lPr6p4M1SvJ5T8OLTiTVA8I/bQl225CL5NMhfIP2gwrrQlF0RBqT4s83GVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TSkWoyIo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFnk/Gff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6891F00898;
-	Tue, 22 Sep 2026 11:34:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TSkWoyIo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47491F00893;
+	Tue, 22 Sep 2026 11:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790076861;
-	bh=LsBdDva0KrdXCVvAA86ZG5+kA6vb0RfnH5D+cyesTgw=;
+	s=k20260515; t=1790076864;
+	bh=mBQU3uBQGhPYntNb5Yath9p2lTfYe1lGY1j/HkI3Jx4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=AFnk/GffxQ7fk6dYKEbnD1VVzyhd4LN/JNK/WaqMCPNS5DnESrdK5YKjmapjLPHJr
-	 auybBiDR4P09oGAIpeU1dSmqwMKm7MFLIgW83yUI5ss/1TxYbLwAkaurBA/Xq89kq3
-	 D1y3Ayeij10igSB4fasuqbGxnf71biRrj4Kdj4eJX2QvY7gItevlYtw5OJy8FTeVBI
-	 +7YgeVDOctdmX48ngGXIV3Hlw8HB+pf1K9zF+d9IT3Otfk4qMd8k8rwA4zPzbFgqUf
-	 kGo4CLeH4G9pKdKCQJrkZ4K4dWtJUaR7+TQTdHSH7yVFqAXLyYpGIFRMF2eVCl6uPf
-	 Io3ro5/3JpG1g==
+	b=TSkWoyIoeaOFX4inbfUq+MSUMJMNoSxanTrG2qvnlhjwVu254+C9Ub0My0gjMyodg
+	 cBHEb/MZhjumgEKSpbIz/gocwjGtEpjbfYfhXBM6m6z4bSJUZg1aqWAEp5WsBXn3u9
+	 cAGaVomkenskgsb8Bk9LpJI9TrdCnVMDSnIt3uT7sg16rkA2KBPfjQnptMKDQe5Ib1
+	 CkzH3k20l/RXfpOGfVW0PJvFpmsJ4SEPiBGcULJ7y6Ka2dJsHjbtd5qr1tXOOUHjCI
+	 hptjl7mswpVPaTdIUP3jb3FxRmOrbE5ZKh/qf4qLAnJzk4rRTwPWBoI6E6riAMq/QW
+	 THczv4NfLfwlw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 22 Sep 2026 07:34:03 -0400
-Subject: [PATCH v2 2/8] nfsd: make max_blksize a per-namespace setting
+Date: Tue, 22 Sep 2026 07:34:06 -0400
+Subject: [PATCH v2 5/8] nfsd: give the open file cache its own mutex
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-nfsd-per-net-mutex-v2-2-4a5da8243a73@kernel.org>
+Message-Id: <20260922-nfsd-per-net-mutex-v2-5-4a5da8243a73@kernel.org>
 References: <20260922-nfsd-per-net-mutex-v2-0-4a5da8243a73@kernel.org>
 In-Reply-To: <20260922-nfsd-per-net-mutex-v2-0-4a5da8243a73@kernel.org>
 To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
@@ -46,122 +46,155 @@ To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>,
 Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3112; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=ImZu2rrTp3BgaUjvgrhT8+XgUZVUh9pI+IzGxU0cFQ8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqsme4X9HBu2mmnhbrrA8HOPjrhGAmRdUpIB1R2
- 2GS6zffUjOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCarJnuAAKCRAADmhBGVaC
- Fd/mEADIbLTXkkdy7b8rjk+6j854vsPUNN8dMFng7Quz8xPCs/PsCeDJD5HEXC7/LlrmF0fcYoq
- 0UbKmjKrUx93yTwu/qYT3Ki5fRN/7T8Z7P5e9tU4zIhWZOXz/LMS91dY7sq20aNfL6NVwEW9wYb
- geigzwLPplOULxAu1wLaTn/1Cc/xT3Jy5kT+7zv92ZhJu7O64Q5Gb0kbgIhrXasEra3lSZVFJJc
- +qQUecmB4R+XHMSvK0c3KN9Nxwuqgne78iAmQKIk7qsCga3NJnHIf1FK9rh2B+3BcywdKqdSW5+
- Duz1eve01bP548EH11At7ynJ7Pe+m47s6n3MEI4+FZWIGkYtsslclLk5dzKDz3e/DoUc4VUJF0q
- 36bm9M3ZmAFmD4HHkGVB1Sfgj2nva+r03iSnFi19b5PwDIR1/otAAerdr+5pcrJBCX1ESztY0Vm
- ymVeh+CzYdkezAHNTsqEt8FcCuD9xizrG/sUoubSlzrxqirHBt67ROjelU0FS6/ODp1tOnZuxmS
- pTOfo0KzIqVazOYIg8368fKPv4suLfT4iOw5yUoNpH1kK7EQcFlo9RIWkGBODNTkXsN0tthxp/+
- +N5zI+L2mVltr8huXlPK4CA3ePjXVD4reARFpbXeQRd2DwUVcRrH5sz2eeHvBtZIX4Jok/ITpOV
- p5haoA9MjvAmWZw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5329; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=9yOyKfLbgAQCiwsB8y/tXz9WKfPm1n0GduTeDPF6LG0=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqsme50sVKamje/qJ8dxUQVn0zulVB498ElBMWG
+ N/v0VwQd6yJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCarJnuQAKCRAADmhBGVaC
+ FetOEACnEZVW4f7WSCmBfIH82E1Km7q41BDWEbBNMvaGUMFxV5qrXG38gEi5NlnccncMa1TVo5f
+ rMurSuL/r+rCCHUharONw8+KlTTTJ1oqy323NvrrGNTd/4RxfH2VD+ey5Jz/wJXdADNIUH1FUyI
+ Jcq9Q7YCTS4qFfjwN2y/10YNSHptVkMFbvss7HkE28BmthI1uBQ4X6AWnewGj4vn7ZQ7WhVqVq2
+ ScbHDmvF8R2ReddIPD4YgsB4mfrWCq0QddFPEDb8akOulzzIRDt0p3aUwU+Dqqh+frYsqEElo1Y
+ 8QbmpFGY2hdRkU1PY55kvjJPi7cbPXKT4TLC95o3fvucIINmYoCT+WTmRdAH8iAKm0uoPPksPhz
+ kSyrEy+3/4+2pAKIb2ZyNDhCeEpQ45RkqbX1bqB0sEgcoMdVskL3mCLE603LcS0amfg8oKNUczj
+ u89oG05TebWKTh9b22MpvrWKEuwag54XMf8qu8h4xR7Up+K6C9tGWfCqT2QbjFSW2JbX4/FEns1
+ 5ZodEBzQCegml2IKh0W6U+By8mJaP1HDFuFQd3lAiIHvAFgW2CAz1dp8gQa0FcpEUD3uW0DgZDx
+ kMyzJsYT4crJAxPEm1j5bXHQY4NrybKgh+LsoBCuvXa7wjQJ7hlZy6Ggb4o7PdwoSUTsklm/8kD
+ NQUZ29Yp30Fb1Iw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-nfsd_max_blksize is module-scope, but /proc/fs/nfsd/max_block_size is a
-per-netns file. A container writing it therefore changes the payload size
-that every other namespace's next server start will use.
+nfsd_global_mutex still serializes file cache flushes against server
+start/stop in unrelated namespaces. nfsd_file_cache_purge() is reached from
+expkey_flush() on every "exportfs -f", which makes it the only frequent
+taker of the global lock -- and it has nothing to do with nfsd_users or the
+NFSv4 global tables it would be waiting on.
 
-Move it into struct nfsd_net as ->max_blksize. The lazy
-nfsd_get_default_max_blksize() fill-in now happens per namespace on first
-nfsd_create_serv().
+Move NFSD_FILE_CACHE_UP and the objects it covers (rhltable, LRU, slabs,
+shrinker, fsnotify groups) onto a nfsd_file_cache_mutex private to
+filecache.c. nfsd_file_cache_init() and nfsd_file_cache_shutdown() take it
+themselves rather than asserting the caller holds the global one, so
+nfssvc.c no longer needs to know how the cache locks itself.
 
-User-visible change: max_block_size no longer leaks across namespaces.
+nfsd_global_mutex is left holding only nfsd_users, the notifier count and
+user_recovery_dirname, all of which are touched solely on server
+start/stop.
 
-Fixes: 11f779421a39 ("nfsd: containerize NFSd filesystem")
+Ordering is nn->nfsd_mutex outside nfsd_global_mutex outside
+nfsd_file_cache_mutex. The cache mutex is reached three ways, all
+consistent with that: from nfsd_startup_generic()/nfsd_shutdown_generic()
+under the global mutex, from nfsd_shutdown_net() under nn->nfsd_mutex, and
+bare from expkey_flush() and the filecache stats file. Nothing called with
+the cache mutex held takes either of the others.
+
 Assisted-by: LLM
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfsd/netns.h  | 6 ++++++
- fs/nfsd/nfsctl.c | 8 +++-----
- fs/nfsd/nfsd.h   | 2 --
- fs/nfsd/nfssvc.c | 6 +++---
- 4 files changed, 12 insertions(+), 10 deletions(-)
+ fs/nfsd/filecache.c | 29 ++++++++++++++++++++---------
+ fs/nfsd/nfssvc.c    |  9 +++++----
+ 2 files changed, 25 insertions(+), 13 deletions(-)
 
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index 0ce7da20aba3..374ce83e2ba0 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -154,6 +154,12 @@ struct nfsd_net {
- 	 */
- 	unsigned int min_threads;
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index 501772bc8f8d..42bd8c7859cf 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -67,6 +67,17 @@
+  */
+ static DEFINE_SPINLOCK(nfsd_gc_lock);
  
-+	/*
-+	 * Maximum size of an NFS READ or WRITE payload.  Zero until the
-+	 * first server start in this namespace picks a default.
-+	 */
-+	unsigned int max_blksize;
++/*
++ * Guards NFSD_FILE_CACHE_UP and the host-wide objects it covers: the
++ * rhltable, the LRU, the slabs, the shrinker and the fsnotify groups.
++ * Held across cache bring-up and teardown, and by readers and walkers
++ * that need the cache to stay up for the duration (->cache_purge, the
++ * stats file).
++ *
++ * Nests inside nfsd_global_mutex and inside nn->nfsd_mutex.
++ */
++static DEFINE_MUTEX(nfsd_file_cache_mutex);
 +
- 	u32 clientid_base;
- 	u32 clientid_counter;
- 	u32 clverifier_counter;
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index f32311f2d7cf..330d0f12e199 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -885,8 +885,6 @@ static ssize_t write_ports(struct file *file, char *buf, size_t size)
- }
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_cache_hits);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_acquisitions);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_allocations);
+@@ -869,7 +880,7 @@ nfsd_file_cache_init(void)
+ {
+ 	int ret;
  
+-	lockdep_assert_held(&nfsd_global_mutex);
++	guard(mutex)(&nfsd_file_cache_mutex);
+ 	if (test_and_set_bit(NFSD_FILE_CACHE_UP, &nfsd_file_flags) == 1)
+ 		return 0;
  
--int nfsd_max_blksize;
--
- /*
-  * write_maxblksize - Set or report the current NFS blksize
+@@ -1011,16 +1022,16 @@ nfsd_file_cache_start_net(struct net *net)
+  * nfsd_file_cache_purge - Remove all cache items associated with @net
+  * @net: target net namespace
   *
-@@ -931,12 +929,12 @@ static ssize_t write_maxblksize(struct file *file, char *buf, size_t size)
- 			mutex_unlock(&nfsd_mutex);
- 			return -EBUSY;
- 		}
--		nfsd_max_blksize = bsize;
-+		nn->max_blksize = bsize;
- 		mutex_unlock(&nfsd_mutex);
- 	}
- 
--	return scnprintf(buf, SIMPLE_TRANSACTION_LIMIT, "%d\n",
--							nfsd_max_blksize);
-+	return scnprintf(buf, SIMPLE_TRANSACTION_LIMIT, "%u\n",
-+							nn->max_blksize);
+- * Takes nfsd_global_mutex so the cache cannot be torn down underneath the
+- * walk.  Callers must not already hold it.
++ * Takes nfsd_file_cache_mutex so the cache cannot be torn down underneath
++ * the walk.  Callers must not already hold it.
+  */
+ void
+ nfsd_file_cache_purge(struct net *net)
+ {
+-	mutex_lock(&nfsd_global_mutex);
++	mutex_lock(&nfsd_file_cache_mutex);
+ 	if (test_bit(NFSD_FILE_CACHE_UP, &nfsd_file_flags) == 1)
+ 		__nfsd_file_cache_purge(net);
+-	mutex_unlock(&nfsd_global_mutex);
++	mutex_unlock(&nfsd_file_cache_mutex);
  }
  
- #ifdef CONFIG_NFSD_V4
-diff --git a/fs/nfsd/nfsd.h b/fs/nfsd/nfsd.h
-index d1e413d21e76..0864d6d564e2 100644
---- a/fs/nfsd/nfsd.h
-+++ b/fs/nfsd/nfsd.h
-@@ -143,8 +143,6 @@ enum {
- extern u64 nfsd_io_cache_read __read_mostly;
- extern u64 nfsd_io_cache_write __read_mostly;
+ void
+@@ -1045,7 +1056,7 @@ nfsd_file_cache_shutdown(void)
+ {
+ 	int i;
  
--extern int nfsd_max_blksize;
--
- bool nfsd_v4client(struct svc_rqst *rqstp);
+-	lockdep_assert_held(&nfsd_global_mutex);
++	guard(mutex)(&nfsd_file_cache_mutex);
+ 	if (test_and_clear_bit(NFSD_FILE_CACHE_UP, &nfsd_file_flags) == 0)
+ 		return;
  
- /*
+@@ -1476,8 +1487,8 @@ int nfsd_file_cache_stats_show(struct seq_file *m, void *v)
+ 	unsigned int i, count = 0, buckets = 0;
+ 	unsigned long lru = 0, total_age = 0;
+ 
+-	/* Serialize with server shutdown */
+-	mutex_lock(&nfsd_global_mutex);
++	/* Serialize with cache teardown */
++	mutex_lock(&nfsd_file_cache_mutex);
+ 	if (test_bit(NFSD_FILE_CACHE_UP, &nfsd_file_flags) == 1) {
+ 		struct bucket_table *tbl;
+ 		struct rhashtable *ht;
+@@ -1491,7 +1502,7 @@ int nfsd_file_cache_stats_show(struct seq_file *m, void *v)
+ 		buckets = tbl->size;
+ 		rcu_read_unlock();
+ 	}
+-	mutex_unlock(&nfsd_global_mutex);
++	mutex_unlock(&nfsd_file_cache_mutex);
+ 
+ 	for_each_possible_cpu(i) {
+ 		hits += per_cpu(nfsd_file_cache_hits, i);
 diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
-index d75fe1523436..77e1e6ba686d 100644
+index 5cb92c3829f9..b2c215775e08 100644
 --- a/fs/nfsd/nfssvc.c
 +++ b/fs/nfsd/nfssvc.c
-@@ -630,12 +630,12 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
- 	init_completion(&nn->nfsd_net_free_done);
- 	init_completion(&nn->nfsd_net_confirm_done);
+@@ -66,11 +66,12 @@ static __be32			nfsd_init_request(struct svc_rqst *,
+  *
+  * nfsd_global_mutex covers only what is genuinely shared between
+  * namespaces: the nfsd_users refcount and the host-wide resources it
+- * brings up and tears down (the open file cache and the NFSv4 global
+- * tables), the address-notifier registration, and user_recovery_dirname.
++ * brings up and tears down (the NFSv4 global tables, and the open file
++ * cache -- which guards its own internals with nfsd_file_cache_mutex),
++ * the address-notifier registration, and user_recovery_dirname.
+  *
+- * Lock ordering is nn->nfsd_mutex outside nfsd_global_mutex.  Nothing takes
+- * two namespaces' nfsd_mutexes.
++ * Lock ordering is nn->nfsd_mutex outside nfsd_global_mutex outside
++ * nfsd_file_cache_mutex.  Nothing takes two namespaces' nfsd_mutexes.
+  */
+ DEFINE_MUTEX(nfsd_global_mutex);
  
--	if (nfsd_max_blksize == 0)
--		nfsd_max_blksize = nfsd_get_default_max_blksize();
-+	if (nn->max_blksize == 0)
-+		nn->max_blksize = nfsd_get_default_max_blksize();
- 	nfsd_reset_versions(nn);
- 	serv = svc_create_pooled(nfsd_programs, ARRAY_SIZE(nfsd_programs),
- 				 &nn->nfsd_svcstats,
--				 nfsd_max_blksize, nfsd);
-+				 nn->max_blksize, nfsd);
- 	if (serv == NULL) {
- 		percpu_ref_exit(&nn->nfsd_net_ref);
- 		return -ENOMEM;
 
 -- 
 2.55.0
