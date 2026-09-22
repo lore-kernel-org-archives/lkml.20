@@ -1,107 +1,165 @@
-Received: from wxsgout04.xfusion.com (wxsgout04.xfusion.com [36.139.87.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287BC48A2C3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=36.139.87.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762E54C8C49;
+	Tue, 22 Sep 2026 09:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070317; cv=none; b=b5OwdSRoin8v01qF0qlkevCyqPXIhkP1h+r/vRNTKYhkMG+8FN/+tgiHgGrM0Ma5uWMQftJtLvbM8Cybn3DNIDC7/YJ3I2b6vhAw/wn33sinikyy1h7Fs4HTVyQBzG+E29v4/ol+dpNi5SPRYnVfmr0JieErKxh23Dnjo+96dyA=
+	t=1790070355; cv=none; b=oidgkI22mkUF3OyaOrBpu6BUBgFnd3HzVLiS+0CsWILEcwVPkaDLBGayvKbKUggt2ihboEWnwQZHHhQ0bauMFxeASvg3MtysoPS9u20nFmWUYZ02b/O/ouzoeTjZGB35AaJ1UwKS7ZTB97whTT/MVUGwVUhD1o5YIgKZ8uC9wVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070317; c=relaxed/simple;
-	bh=ztySHFXq2gSJ5+M84QAuNrOBdVBkeDnqsysF8B+HxGo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sGIjv0AVH2QFASt4ex5jjYA/I1+9F0QRSD6Mr01jaX5XZULnK3RYWcpcshXPG1lG4ZexYavPADDNYA+S6a/S3KiEZMKInRxmGMjOg3txdkGc4ZxZG9CH3a2F80ZzU+k0XLHOYj5aJK02uGcbBPMR2y7m8xr21hVG+mXIFBJQWi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com; spf=pass smtp.mailfrom=xfusion.com; arc=none smtp.client-ip=36.139.87.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xfusion.com
-Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
-	by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4hpwDf0XgwzBDqc2;
-	Tue, 22 Sep 2026 17:44:50 +0800 (CST)
-Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
- wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.46;
- Tue, 22 Sep 2026 17:45:03 +0800
-From: shechenglong <shechenglong@xfusion.com>
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>, Thomas Zimmermann
-	<tzimmermann@suse.de>
-CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
-	<olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <stone.xulei@xfusion.com>,
-	<chenjialong@xfusion.com>, shechenglong <shechenglong@xfusion.com>
-Subject: [PATCH] drm/virtio: expose GEM memory statistics through fdinfo
-Date: Tue, 22 Sep 2026 17:44:55 +0800
-Message-ID: <20260922094455.1799-1-shechenglong@xfusion.com>
-X-Mailer: git-send-email 2.37.1.windows.1
+	s=arc-20240116; t=1790070355; c=relaxed/simple;
+	bh=hkPgMj6V8nxIiV0/ioP/4qUj5o6+3Isvq9cpsjTLfMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WPaqK+CDgvm9r8QjwWgY1ktsioDAQIFBJW9cmEr7AS6Qy0SrhqXDkeCzr1WDqVy/dlrwSrjyzVc1IJq9Usa+5C420Jw26KZixcEOjBXh4ntvDIX25qxnXERVB/9YRRc7+FzPnrhDl2OAgIy/s8xar+4eSvVd6FqiQBLachVA8L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=jm9/EmLl; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=lkViGiFi; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=oCz+dN+g; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=mmL4U+ZD; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jm9/EmLl";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="lkViGiFi";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oCz+dN+g";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="mmL4U+ZD"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4386C1F747;
+	Tue, 22 Sep 2026 09:45:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790070348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T4oDoMpfQHzeTjZzlp/kmyeXgYE0Pl2kt+Su8jYEVvE=;
+	b=jm9/EmLlY+CQkI10k6kyCowe+KF5SHWY56q+uv+T4Il0d7fcurqJyKJrKKvLZfpgL765kL
+	LsaqMGXhiYa+/p1xsQAUJsc4GgdjtMTGswqrhjn8xMeUSADn/l7wig9FWD7kmii8eZrSR0
+	cd9OOql1Fl1QW7aB8iScA80kDGL2E54=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790070348;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T4oDoMpfQHzeTjZzlp/kmyeXgYE0Pl2kt+Su8jYEVvE=;
+	b=lkViGiFi/fUoe+eRVPkoFpCHq+jlvXYKtM4dOjkGx7oo4rq7mFeDUMFaMW57grtEtbqry9
+	xnSCMes9oujJ4RCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790070344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T4oDoMpfQHzeTjZzlp/kmyeXgYE0Pl2kt+Su8jYEVvE=;
+	b=oCz+dN+gbCpsV+94+vLEYeOtmSOTZJyiSyx6xV7X1l53QEE6nRmmHEd1B/5MuEZdh9gR0m
+	Jvw+oo8XCVN5XpfBffa6L1zefsGGwwUst4cbS/MI4AG6M6gZLk24LCCTHmbaQ0afy3QtsK
+	X2LDHuBTJGkhntjWgObLGVhk6qnSI9Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790070344;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T4oDoMpfQHzeTjZzlp/kmyeXgYE0Pl2kt+Su8jYEVvE=;
+	b=mmL4U+ZDNrI7ALKAGm0NC6/MWAYGFrxYhy3aBndYZa/bNCrU926PxoIk2fRs+sGXfGwuk2
+	rPZzhEQkO/C48TDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D8393136D9;
+	Tue, 22 Sep 2026 09:45:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CXZDK0dOsmrveAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 22 Sep 2026 09:45:43 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 320C6A13D4; Tue, 22 Sep 2026 11:45:37 +0200 (CEST)
+Date: Tue, 22 Sep 2026 11:45:37 +0200
+From: Jan Kara <jack@suse.cz>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] initramfs: Reduce hardlink hash allocation sizes
+Message-ID: <cbvwd3loa6edt7tjnd24vuv4dqnu6gul2ysbaooftx7d7o7zlo@xwg2ixm5ac37>
+References: <20260919213859.24667-3-blum@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: wuxpheds03047.xfusion.com (10.32.141.63) To
- wuxpheds03048.xfusion.com (10.32.143.30)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919213859.24667-3-blum@kernel.org>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 
-virtio-gpu does not expose per-client GEM memory usage through DRM=0D
-fdinfo, leaving monitoring tools unable to account for buffers owned by a=0D
-client.=0D
-=0D
-Wire up the DRM fdinfo helpers and use drm_show_memory_stats() to report=0D
-the standard drm-total-memory, drm-shared-memory and drm-active-memory=0D
-fields for GEM objects referenced by each DRM file.=0D
-=0D
-Tested on a QEMU/KVM guest with virtio-gpu. After running:=0D
-=0D
-  modetest -M virtio_gpu -s 40:1024x768=0D
-=0D
-the DRM file descriptor of the modetest process shows the following in=0D
-/proc/<pid>/fdinfo/<fd>:=0D
-=0D
-  drm-driver:         virtio_gpu=0D
-  drm-client-id:      8=0D
-  drm-pdev:           0000:00:02.0=0D
-  drm-total-memory:   3 MiB=0D
-  drm-shared-memory:  3 MiB=0D
-=0D
-Signed-off-by: shechenglong <shechenglong@xfusion.com>=0D
----=0D
- drivers/gpu/drm/virtio/virtgpu_drv.c | 13 ++++++++++++-=0D
- 1 file changed, 12 insertions(+), 1 deletion(-)=0D
-=0D
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/=
-virtgpu_drv.c=0D
-index 2aaa7cb0808..d43d7ddac60 100644=0D
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c=0D
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c=0D
-@@ -323,7 +323,17 @@ MODULE_AUTHOR("Dave Airlie <airlied@redhat.com>");=0D
- MODULE_AUTHOR("Gerd Hoffmann <kraxel@redhat.com>");=0D
- MODULE_AUTHOR("Alon Levy");=0D
-=0D
--DEFINE_DRM_GEM_FOPS(virtio_gpu_driver_fops);=0D
-+static void virtio_gpu_show_fdinfo(struct drm_printer *p,=0D
-+                                  struct drm_file *file)=0D
-+{=0D
-+       drm_show_memory_stats(p, file);=0D
-+}=0D
-+=0D
-+static const struct file_operations virtio_gpu_driver_fops =3D {=0D
-+       .owner =3D THIS_MODULE,=0D
-+       DRM_GEM_FOPS,=0D
-+       .show_fdinfo =3D drm_show_fdinfo,=0D
-+};=0D
-=0D
- static const struct drm_driver driver =3D {=0D
-        /*=0D
-@@ -347,6 +357,7 @@ static const struct drm_driver driver =3D {=0D
-=0D
-        .gem_create_object =3D virtio_gpu_create_object,=0D
-        .fops =3D &virtio_gpu_driver_fops,=0D
-+       .show_fdinfo =3D virtio_gpu_show_fdinfo,=0D
-=0D
-        .ioctls =3D virtio_gpu_ioctls,=0D
-        .num_ioctls =3D DRM_VIRTIO_NUM_IOCTLS,=0D
---=0D
-2.43.0=0D
+On Sat 19-09-26 23:39:00, Thorsten Blum wrote:
+> Each hardlink hash entry reserves N_ALIGN(PATH_MAX) bytes for its name.
+> This makes every allocation larger than 4 KiB, placing it in the
+> kmalloc-8k bucket even for short names.
+> 
+> Use a flexible array with the already validated cpio name_len to reduce
+> allocation sizes.
+> 
+> Also use const for the read-only name parameter.
+> 
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+
+...
+
+> @@ -106,14 +106,15 @@ static char __init *find_link(int major, int minor, int ino,
+>  			continue;
+>  		return (*p)->name;
+>  	}
+> -	q = kmalloc_obj(struct hash);
+> +
+> +	q = kmalloc_flex(struct hash, name, nlen);
+>  	if (!q)
+>  		panic_show_mem("can't allocate link hash entry");
+>  	q->major = major;
+>  	q->minor = minor;
+>  	q->ino = ino;
+>  	q->mode = mode;
+> -	strscpy(q->name, name);
+> +	strscpy(q->name, name, nlen);
+>  	q->next = NULL;
+>  	*p = q;
+>  	hardlink_seen = true;
+
+What about the space for terminating \0 ? This way the stored 'name' will
+be actually one character shorter because strscpy() will overwrite the last
+character by \0. Or do I miss something?
+
+								Honza
+
+> @@ -355,7 +356,7 @@ static void __init clean_path(char *path, umode_t fmode)
+>  static int __init maybe_link(void)
+>  {
+>  	if (nlink >= 2) {
+> -		char *old = find_link(major, minor, ino, mode, collected);
+> +		char *old = find_link(major, minor, ino, mode, collected, name_len);
+>  		if (old) {
+>  			clean_path(collected, 0);
+>  			return (init_link(old, collected) < 0) ? -1 : 1;
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
