@@ -1,122 +1,318 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93947544D5C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A04D3F1ADE;
+	Tue, 22 Sep 2026 21:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790112307; cv=none; b=CM1gNr0KhM64jZ3/6Y6FIoGMwkfnEIx/cmXO7BNVPfkPg0yPmh6qsZK8Oe70v8/qpZS5YdniYJXjAOpiMGxd6zw+uk5H0+z8gVPF0KlkfVwrz7h0cpjqPQTiyPZ6BW2fn0lahSkIFRsXXnluXncg8VgvrXp7lvMQK+CHojmWzps=
+	t=1790112589; cv=none; b=V/JC8VPVRYceLkosUEmp4aINvLKUhMCkzqiv+hadMWNHFKpdsN/HkES6zsEdblgKjfJdBEdQUJ5FOKOuyLGH1wv/vjtRkYPWr2r5g2znEG5l3mahlnvt/L5lGlM2xFJA0rnShy740+3VxLDv2YXgjQvrt/WPTijAfbAl2tJ7wdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790112307; c=relaxed/simple;
-	bh=no/OHCTGZ4vWGPddZ9QLuhpUGxiTm8p9NsSWN+Ypb30=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=nGztA2WmGc5YdEHuHURnXTKmbUyHlSoIERlq6i+ItatUM9LBQIGSNSHGLb0Erez0LGyoDO5VNcjkZ+HKvfMYyZw4emO0/mdxUXZB0kMEaJi0NGBjCHbl/FoWA9QgQekkJYsruDNacAYNgCUUVchIPo74IvOexcQB28cJrbVWX40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lItEh/Fx; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790112589; c=relaxed/simple;
+	bh=WRYsuw02M5uiU3Hup8d51SIi6ysZk/AvEI/aXNqoooE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RePbKbjEbBfg6kztM6XzcsfauC0goo4CZ15ApTkfYFOq5WK8TQdQ1gbo9GzktnIrXToyTeCtFZsHUP8pbReGONg/L6/Xbu0m5HY+XrBT230EneK2RnkGik0SN1fsCxitfJk8kJC3f4mUN/brPk/szgegEsFEW5FnWwpTVRbFLDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a36lGqaq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lItEh/Fx"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bb1a50f6fso126537eec.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:25:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790112301; x=1790717101; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=no/OHCTGZ4vWGPddZ9QLuhpUGxiTm8p9NsSWN+Ypb30=;
-        b=lItEh/FxsD/j8z3dz9Al44YrTdL+1qVmEQifaa/ibIjrYozFB1gRRNZPdjNX/ZblWP
-         LlTRTmrE1wgOJgKWWzi+9MKAVtGDYwTxj1CXS+g4C3tAQlNgyuF1j/p7BW+ZG+TtpdxN
-         s8zPcK8Ae0AbyZ1WZkBy98+DmsVkeJ5yrxLj+eb3FhR3OPdzug2InQdsqBynZaVUMzw9
-         DTAxgZ+9Iq5PC298ItQ0i8INoQNMPLKsan4oTLGF61AFSSlHRmrGbqvKveaw6PId8eN1
-         jnKm4m4GZmhDynTAXiTajEsBQdeAJB5b/dGDFklBk99beYO5K8XwJtBkXbzvgxanzcWw
-         o0VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790112301; x=1790717101;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=no/OHCTGZ4vWGPddZ9QLuhpUGxiTm8p9NsSWN+Ypb30=;
-        b=IrM905hyQiAPO06IVximx8EVSvSqyokg8HVCzS0v9x7CEuU+QetTrHV1EOK38qe7wo
-         /onvpkWyWUeDzdJVfW0O/cqKbIWNJiu6j8QYEH4WuRpN5bo6iohUhoA7uDRBmGsNc+Tx
-         toOSEwtDwR3Al3JlFUHHYzITcgf5zkQV40h3tFsp6tJrY8ZcC/wH7H2t/U7AYouenOc3
-         wZIAtYdZ3GTDbWvuJ1W6iavlt3/3dpinKmmdAz3k6oYMtCTQ8azQcSoWGL7fpKg2Qr/A
-         ixH2jJ+NK1r4U7XBnOoZPNbt5kSV+QMwIhkEDdztNgOizYv12ChO4MNiieaK3kOgHQPp
-         +PtA==
-X-Forwarded-Encrypted: i=1; AKwUvBwp+fpej/JPml6YxVefZH2knRCtN//AP8I8DfEX40H0JAA0UsKrvtK8Ak8BRKUak9/Gb94km5MjKL+DG/k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYORDT2K54k+5VbzBj6u8K3ee7cNshhBdm0Bs+z6gMhzU4wwaH
-	rokNW5OFN0svw+Q701U2R0Sit56hzfNvofznkIADGpSCVYa3aXsW4X1O
-X-Gm-Gg: AYBFou2pNX/wy2UzCTcC80aUI1y576e9JxYYD78A8zSU9WZdThe/ULdRNuLF2nBRd56
-	Au8dy7EdR80wwoiq3TaesAtB0CYOyzEt4cBOIDKm8DIqUcOhy37aySbD1rgZ4Uy/afMX7/Qh2kA
-	DTAgFpke9e6m4MQIs0zCdrO5vuctooNB0/haxZmlP9DfSbYMpJNHrSRmVzcPrbi+ThL5aysFpdk
-	DKVm6n5H9RFPtux4HbvQvWgG6BuZZgzJrwxgfDHUBBQuTY4ekpjH/Io9utNaGy92IfVuXoeBMWK
-	/B4H2YHoiLWiucqLBl56XU+HINeHNB9e0ISmfU++i/XtLX5eBK7Na3074p0WpwQ05bO8rDTGolI
-	DNCNHLSc27T7tYqe0uf6aVl4Tu4SmsmbZYX5ZK2/B4LvAhneYFZAm8wjA0YdBv9NPAuZE64AsCS
-	zbeW2xzT7eJx4EZq39tYVGn0Z6FGZtYjjF4+0swhZPnGvRnfxrcHY1tN8FHnQaJLO5v0zAg5OT8
-	rDLoP4A/zj/KdXlHVOGXwOKtPdTeNWr+/u+PFlugaxwYfYN5vGqTJfPEo6S/e3/rS5DoRg72q6G
-	55c=
-X-Received: by 2002:a05:693c:41c1:10b0:339:7f8c:7f9d with SMTP id 5a478bee46e88-33e8d8d21d5mr615779eec.28.1790112301177;
-        Tue, 22 Sep 2026 14:25:01 -0700 (PDT)
-Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdd91sm1014841eec.4.2026.09.22.14.25.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 14:25:00 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:25:00 -0700
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>, Aditya Dash <mradityadash@gmail.com>
-CC: Benjamin Tissoires <bentiss@kernel.org>,
- Mark Pearson <mpearson-lenovo@squebb.ca>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_5/7=5D_HID=3A_hid-lenovo-go?=
- =?US-ASCII?Q?=3A_normalize_calibration_failure_status?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <p1o757n0-2rro-rnqp-56qo-56q08q5p29pp@xreary.bet>
-References: <205C547F-BF6B-43D3-A8F0-829B657167EC@gmail.com> <20260905061054.50663-1-mradityadash@gmail.com> <p1o757n0-2rro-rnqp-56qo-56q08q5p29pp@xreary.bet>
-Message-ID: <836F1B09-60CA-4A82-8293-0F9CF506E593@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a36lGqaq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9FA1F000FF;
+	Tue, 22 Sep 2026 21:29:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790112576;
+	bh=yKojB88UjpXGtOazU2N02Nu8K9kCYOGjnI2fYZ70c1A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a36lGqaqd3Pv41FJOCCFv/gToPy7yWy9a+rGuV5XEh9jGn3pAmk2/Re7X/2T14T4c
+	 XYbVENqyEjfdRCukK8xWbbBat5IU7uFJ/+Nd3rre19Rw7eAS6DZQe80te/WAeSLg0X
+	 u8EN1uITsAhOKRIqnkwXqvCJ4SvdqO+9Mn3Z8pKRoAGU58wPdwZxAHezLeRgwFxb4Q
+	 kEQ64ECFV6Nx42t+7+X0T2CFgunw51Mw3iqA3tUTP4LdOsaIKstSo11O1wJAF0VxiD
+	 +XiYHo2oHruR7VfwiglKPyawb4eNm4gSN8ze4laYrOtvZ942sN0JEOKWwivTH/Q6+i
+	 P64Y+LlCZ+s5g==
+Date: Tue, 22 Sep 2026 22:29:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Michal Simek <michal.simek@amd.com>,
+	Shubham Patil <shubhamsanjay.patil@amd.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <20260922-unadvised-stalling-5cbeff8f982a@spud>
+References: <aqGHlWpQjpHEft3j@SMW015318>
+ <aqKWTT47S_zPzvbN@squawk>
+ <aqLQaHndX4t1kKLG@SMW015318>
+ <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
+ <20260922-ethics-flap-9760347e869d@spud>
+ <20260922-bullpen-reprise-f62e01922d88@spud>
+ <20260922-immersion-salvage-00450539f1ce@spud>
+ <arKr-oapsl5qzo_E@SMW015318>
+ <20260922-purple-overnight-2cdd2ddd5270@spud>
+ <arLKWE1tJrKnzGdp@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LkC3daycRRxByKPg"
+Content-Disposition: inline
+In-Reply-To: <arLKWE1tJrKnzGdp@SMW015318>
+
+--LkC3daycRRxByKPg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On September 22, 2026 11:54:36 AM PDT, Jiri Kosina <jikos@kernel=2Eorg> wro=
-te:
->On Sat, 5 Sep 2026, Aditya Dash wrote:
->
->> Hi Derek,
->>=20
->> The Stop reply changes based on calibration state=2E Its status appears=
- to be
->> the current failure_mask + 1=2E However, this mask does not always matc=
-h the
->> failure mask returned when calibration times out=2E
->>=20
->> Here are some requests and responses from the experiments done:
->
->[ =2E=2E=2E snip =2E=2E=2E ]
->
->Derek,
->
->do you have any final followup / verdict on this series, please?
->
->Thanks,
->
-Hi Jiri,
+On Tue, Sep 22, 2026 at 01:35:04PM -0500, Frank Li wrote:
+> On Tue, Sep 22, 2026 at 06:24:52PM +0100, Conor Dooley wrote:
+> > On Tue, Sep 22, 2026 at 11:25:30AM -0500, Frank Li wrote:
+> > > On Tue, Sep 22, 2026 at 10:39:23AM +0100, Conor Dooley wrote:
+> > > > On Tue, Sep 22, 2026 at 10:38:17AM +0100, Conor Dooley wrote:
+> > > > > On Tue, Sep 22, 2026 at 10:33:44AM +0100, Conor Dooley wrote:
+> > > > > > On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrote:
+> > > > > > >
+> > > > > > >
+> > > > > > > On 9/10/26 17:44, Frank Li wrote:
+> > > > > > > > On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley wrot=
+e:
+> > > > > > > > > On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
+> > > > > > > > > > On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley =
+wrote:
+> > > > > > > > > > > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Pat=
+il wrote:
+> > > > > > > > > > > > In-Band Interrupt and Hot-Join are synthesis-time o=
+ptions of the AXI I3C
+> > > > > > > > > > > > IP. Describe them with two boolean properties.
+> > > > > > > > > > > >
+> > > > > > > > > > > > A Hot-Join request is acknowledged by the IBI machi=
+nery, so a hot-join
+> > > > > > > > > > > > capable design is always IBI capable as well. Both =
+events are reported
+> > > > > > > > > > > > through the controller interrupt, which is therefor=
+e required whenever
+> > > > > > > > > > > > the capability is present.
+> > > > > > > > > > > >
+> > > > > > > > > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@a=
+md.com>
+> > > > > > > > > > > > ---
+> > > > > > > > > > > > Changes in V3:
+> > > > > > > > > > > > - Move in-band-interrupt-capable and hot-join-capab=
+le into the common
+> > > > > > > > > > > >    i3c.yaml schema and drop the xlnx, prefix.
+> > > > > > > > > > > > - Keep dependencies in the AMD binding.
+> > > > > > > > > > > > - Update the commit description accordingly.
+> > > > > > > > > > > > - Conor Dooley acked v2 with the xlnx,-prefixed pro=
+perties in the AMD
+> > > > > > > > > > > >    binding [1].
+> > > > > > > > > > > >    That Acked-by is not carried here: the names los=
+t the vendor prefix
+> > > > > > > > > > > >    and the definitions moved to i3c.yaml after Fran=
+k Li's comment.
+> > > > > > > > > > > >    [1]:https://lore.kernel.org/all/20260824-tightwa=
+d-impose-495476599087@spud/
+> > > > > > > > > > >
+> > > > > > > > > > > I disagree with Frank. These properties make sense fo=
+r Xilinx because it
+> > > > > > > > > > > is an FPGA IP and synthesis options impact this. For =
+other devices, this
+> > > > > > > > > > > should be determined from the compatible.
+> > > > > > > > > > > Please revert to how things were done in v2, especial=
+ly as no rationale
+> > > > > > > > > > > was provided for why these should be common.
+> > > > > > > > > >
+> > > > > > > > > > It is common problems, when IP intergrate by SOC, which=
+ may defeature some
+> > > > > > > > > > part, It is not appeared now just because IBI and HJ ha=
+ve not enabled
+> > > > > > > > > > widely.
+> > > > > > > > > >
+> > > > > > > > > > IBI and HJ is optional features of I3C. Ideally it shou=
+ld be indicated by
+> > > > > > > > > > some registers. But not all vendor implement provide th=
+is CAP registers.
+> > > > > > > > > >
+> > > > > > > > > > IBI and HJ depend on some slow clocks, which monitor SD=
+A line change.
+> > > > > > > > > > Some instances of IP may not have such slow clocks. Som=
+e IP's IBI and HJ
+> > > > > > > > > > use seperate IRQ line, but these irq line may not conne=
+ct of difference
+> > > > > > > > > > instances.
+> > > > > > > > >
+> > > > > > > > > All of this should be able to be dealt with by appropriat=
+e use of
+> > > > > > > > > specific compatibles.
+> > > > > > > >
+> > > > > > > > I understand compatible can cover most cases. Need variance=
+ for property.
+> > > > > > > >
+> > > > > > > > >
+> > > > > > > > > > like previous SPI vendor customized property, we takes =
+efforts to convert
+> > > > > > > > > > to common one and also meet back compatiblity problem a=
+t convert. I don't
+> > > > > > > > > > want to do it again. This kind property is most likely =
+as below.
+> > > > > > > > >
+> > > > > > > > > What SPI controller specific properties are you talking a=
+bout here?
+> > > > > > > > > There are relatively few properties in spi-controller.yam=
+l, and none of
+> > > > > > > > > them deal with these kinds of capabilities.
+> > > > > > > >
+> > > > > > > > num-cs vs fsl,espi-num-chipselects. Total number CS of IP i=
+s fixed, but
+> > > > > > > > some instances have not route all CS to pad.
+> > > > > > > >
+> > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > default: 	decide by comaptible string or hardware cap
+> > > > > > > > > > force-disabled: force disable for some reason, like, mi=
+ss connect irq line
+> > > > > > > > > > or missed some clock, or IP bugs, or board desgin's som=
+e level shift chip
+> > > > > > > > > > broken IBI/HJ timing requirements.
+> > > > > > > > >
+> > > > > > > > > Of these, only the last would be a valid reason for havin=
+g a property
+> > > > > > > > > for it. Missing interrupts, clocks or IP bugs should all =
+be dealt with
+> > > > > > > > > using device specific compatibles.
+> > > > > > > > > If board wiring causes the breakage, the property may be =
+more
+> > > > > > > > > appropriate at the i3c device level rather than the contr=
+oller given
+> > > > > > > > > that wiring to some devices on the bus may not have the p=
+roblems?
+> > > > > > > >
+> > > > > > > > I3C.yaml is for both master controller and devices now. I3C=
+ is bus, which
+> > > > > > > > connect many devices, if wiring issue, whole bus can't supp=
+ort IBI. And
+> > > > > > > > if any broken devices happen at address arbitation, whole b=
+us can't support
+> > > > > > > > IBI.
+> > > > > > > >
+> > > > > > > > at beging, I suggest 3 state,
+> > > > > > > >
+> > > > > > > > [default, enable, disable], but now I think IBI_broken, HJ_=
+broken is more
+> > > > > > > > reasonable to disable it, default value should be set by co=
+mpatible
+> > > > > > > > string or DCR of I3C regiser.
+> > > > > > > >
+> > > > > > > > And some I3C device may be failure to work with IBI even DC=
+R of I3C register
+> > > > > > > > show it support IBI.
+> > > > > > > >
+> > > > > > > > I don't want to appear two similar property between vendor =
+and common, like
+> > > > > > > > num-cs vs fsl,espi-num-chipselects.
+> > > > > > > >
+> > > > > > > > such as IBI-broken can be used for controller and devices c=
+ase.
+> > > > > > > >
+> > > > > > > > > That said, I think that problem should be dealt with when=
+ it arises,
+> > > > > > > > > rather than starting a trend of adding capabilities prope=
+rties at the
+> > > > > > > > > controller level when I am not convinced that there's goi=
+ng to be other
+> > > > > > > > > users in the same vein.
+> > > > > > > >
+> > > > > >
+> > > > > > > > Understand, I3C is realtive new protocal. 'IBI-broken' is m=
+ore easy
+> > > > > > > > understand,  logically equial to in-band-interrupt-capable.
+> > > > > > > Conor: Any update on this one? I think this thread is stuck a=
+t this stage.
+> > > > > >
+> > > > > > I didn't think there was any need to reply. I took the first se=
+ntence of
+> > > > > > this snippet to be acceptance of what I was saying.
+> > > > > >
+> > > > > > If yous desperately want to have a generic property, the negati=
+ve
+> > > > > > connotation of the "-broken" is probably better in that it'd be=
+ more
+> > > > > > likely to make people set stuff by compatible rather than have =
+to use a
+> > > > > > property with that word in it.
+> > > > >
+> > > > > That said, technically this platform could be both
+> > > > > "amd,in-band-interrupt-capable" and "ibi-broken" at the same time=
+, since
+> > > > > one describes the way the IP has been compiled and the other wiri=
+ng. I'm
+> > > > > not entirely sure whether conflating the two is possible? Depends=
+ on if
+> > > > > your IP's programming model changes if the option is enabled even=
+ if it
+> > > > > cannot be used. Not beyond the realms of possibility.
+> > > > >
+> > > > > Also, ibi-broken doesn't work for your platform, since the default
+> > > > > before this patch is no ibi and requiring a property for no ibi w=
+ould be
+> > > > > an ABI break.
+> > > >
+> > > > The perils of FPGA IP I suppose, and not being quite careful enough=
+ to
+> > > > document all of the relevant options from the start. Been guilty of=
+ that
+> > > > myself.
+> > > >
+> > >
+> > > Check impliment code
+> > >
+> > > +       /*
+> > > +        * The interrupt only carries IBI events, so it is only descr=
+ibed for
+> > > +        * designs synthesized with that feature.
+> > > +        */
+> > > +       if (master->ibi_capable) {
+> > > +               xi3c_master_init_ibi_ops(master);
+> > > +
+> > > +               master->irq =3D platform_get_irq(pdev, 0);
+> > > +               if (master->irq < 0)
+> > > +                       return master->irq;
+> > > +
+> > > +               ret =3D devm_request_irq(master->dev, master->irq,
+> > > +                                      xi3c_master_irq_handler, IRQF_=
+NO_AUTOEN,
+> > > +                                      dev_name(master->dev), master);
+> > > +               if (ret)
+> > > +                       return dev_err_probe(master->dev, ret,
+> > > +                                            "Failed to request IRQ\n=
+");
+> > > +       }
+> > >
+> > > They can use master->irq is determinate if support IBI.
+> >
+> > That seems viable. Where does that leave them for hot join though?
+>=20
+> No reason to keep hj because the difference between HJ and IBI is the
+> address when address arbitration. If hardware support IBI, it should supp=
+ort
+> HJ. HJ just use special address 0x2.
 
-Thanks for the ping=2E I missed the last response=2E
+For this IP, they appear to be controlled by different configuration time
+parameters, so I don't think conflating the two is the right thing to do
+here:
+https://docs.amd.com/r/en-US/pg439-axi-i3c/Configuration-Tab
+Per this doc, and the original commit, hotjoin configuration is not
+permitted when ibi is not supported but can be enabled and disabled
+separately when it is.
 
-Aditya,
+--LkC3daycRRxByKPg
+Content-Type: application/pgp-signature; name=signature.asc
 
-Seems pretty inconsistent and I can't really see a pattern emerging=2E I'l=
-l look into this more later when I revisit the driver architecture with som=
-e other much needed fixes=2E For now I think just reporting success/fail li=
-ke we have been is fine, we just need to make sure we're reading from the c=
-orrect byte=2E
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Derek
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarLzOwAKCRB4tDGHoIJi
+0tlLAP0fpiGDzo/aM4C0+bwrQ47VfXaCXmELfQhUlx6RC3bwgAD/Yb6FqXnTDZ1l
+1Two2fYpvNw8zDGzFTi2XW+6yG8JYgQ=
+=j+JB
+-----END PGP SIGNATURE-----
 
+--LkC3daycRRxByKPg--
