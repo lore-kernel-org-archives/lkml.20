@@ -1,140 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E602B525A6F;
-	Tue, 22 Sep 2026 10:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC85C530DEB;
+	Tue, 22 Sep 2026 10:20:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072429; cv=none; b=I2QGsAyoQvO0OGKyt3dncHgL2tSBc1YmIYGiPr7vRAcGvhrqfUDEfkLuTfFDKJG01QV9p0wf6AvwbPA3Z98bR87ccr3vKQx0JAdR1+Q1UYaAagOHTOYqBoXO7aZv5k+ythzOnI8sGjNdFXbO6mh0p693PkkNPD5gf5OujAfvdmg=
+	t=1790072460; cv=none; b=Z+HI4NrNDdNYa0wi8i1oT+IhMP9KFyjdSpwy98oqigh7KFeghLmAQudenKE/Bm50lQvOfhfJgi+Tdx82gbh/HfPXmLdqMBIrhRE6XWugZkS9HetQgnBOErNvHGu039AEf4szWcPxVdcKl2YgSwqIod1Qu0XE+aNNpWre9EGNYV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072429; c=relaxed/simple;
-	bh=2pxcHxBuNUXVLmi2clbaqM0u0/WGSgVYxRAgLLbG42A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iwb67aPwivSn5HWOe26vdszyIN7rg5UNOvkCefyTu+Kr1JT/gKGsWzQlzbz9Qv6ybUKdpA5oJiX3/ErQUyamEExxOCnzUW4ikY1duETJ7NssAHhoKEfpf32y8lIgXC3Yrng05IJ7ikKMVzDB8CnGjT5nbs0UnC60iLsHmYvJ89M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EG8irrhl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790072460; c=relaxed/simple;
+	bh=ZaLCi8tedOXUacdNuIHrsRsHRIY0f9Ioz2/NPuEwGlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pH7O/ERwD7jcu3+U3v0rczQsP/HdITuCfBQXkmOWt6jnNX1R6ZmRaqA6ftY8ga46zG1ygJdyKYHjFEVygzZhR8mhchz5xra0auZZ04p5oBx6XvREd1pEyLPuoGLie1M1qNHIuXlYJIOHgIYlJ64ofNCiErpmp/2NeS0zEMcaYUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pH/IjMeu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OvIiBQPU; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LVyxfCN0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SmHGB/SI; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EG8irrhl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55571F000FF;
-	Tue, 22 Sep 2026 10:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790072425;
-	bh=wWA54+thjo72RZTenAXavughrhfStRlphPd5wFtIuK0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EG8irrhleE5tGp0cIzec1UDmMwg/NeWfH/qbHqYh3X2NcQG0P6D/1wL73MVMSQsOk
-	 kIHQFMhrkHU1Mbd6HIxWWlpxfwmvYcco1naWatJJxl+Tdst/kyR/7LS4ngmKnyu3ZU
-	 7+RqqevYl9vwRXJJ7fVX0VB8+29EE5ZE0sPkcgs8w/udNwBiols12ivEUDX4VTP/Bp
-	 z5Np+m6N4bj6mxzF3UtaJu2XFnS01VT1HLTmi/x+9r2DV+cMhKZlDkK0UkIs5t9jYz
-	 zcGjvrWGN3F+T1+ZYbtBBr1JGOa0KWTRCFxNQGXp/8RB2RurPahWQSUWREShdFexmb
-	 7NtNg5XOP0nAA==
-Message-ID: <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org>
-Date: Tue, 22 Sep 2026 12:20:13 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pH/IjMeu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OvIiBQPU";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LVyxfCN0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SmHGB/SI"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AAF7021CE4;
+	Tue, 22 Sep 2026 10:20:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790072452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tq2QDVpBjjYWYAhsxdz+8PGZW/rKjO4PXD0rtR+Sk7E=;
+	b=pH/IjMeuGAJ3LQe6XHHZbPMlZpk84c/SjMDd/TOnxDdCSOFROoMvdeYnLT5UqXP+/yevxi
+	fvAPcdYIYnSDCk4XE5b7rD5tRx77a3LEjXsxaYOsaUfGo7oo++pC9CZoTM8tlcJafwx/KB
+	+MggSO1tBd9K07UsKLn46hXu2hO3ybg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790072452;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tq2QDVpBjjYWYAhsxdz+8PGZW/rKjO4PXD0rtR+Sk7E=;
+	b=OvIiBQPUnBhJktefDYsIHOdJs4oJ7XXgV9/pjWdpYYl5Nrsp0bblnHw4bZNmb0eefLe0z2
+	0eW1w3Z1AQXZYCBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790072448; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tq2QDVpBjjYWYAhsxdz+8PGZW/rKjO4PXD0rtR+Sk7E=;
+	b=LVyxfCN0dT3V/fWCa+D7ubIyjCziP1KpZaBraLyP6vmbwzbkwbgc0zqD19igGtvTzer9V5
+	s34/9cn9h4gb8BkDQZmyouIKkA9fzazIvcqWsXLaG95GwHnnP4cEHYpk0AfsOU2FJXOjKq
+	lL+AmEXL5Wgskan5o2LhhbgcBZRPRjU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790072448;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tq2QDVpBjjYWYAhsxdz+8PGZW/rKjO4PXD0rtR+Sk7E=;
+	b=SmHGB/SIgoix+o6WIHsJQwJbpG3IlM383k2yj1MUdF/MD4xU0J3BimrF5maYlprlVkos6X
+	noyw2ZTiZQHZ6JBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D89D9132D3;
+	Tue, 22 Sep 2026 10:20:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3mGhIn5WsmqaIAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 22 Sep 2026 10:20:46 +0000
+Date: Tue, 22 Sep 2026 11:20:40 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Kees Cook <kees@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	Kuniyuki Iwashima <kuniyu@google.com>, linux-hardening@vger.kernel.org, 
+	Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jason Xing <kerneljasonxing@gmail.com>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+	Jiayuan Chen <jiayuan.chen@linux.dev>, Willem de Bruijn <willemb@google.com>, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v4 6/7] mm/slab: Let a bucket set handle __GFP_ACCOUNT
+Message-ID: <arJVktqS-CL7zNX0@pedro-suse.tail5790ac.ts.net>
+References: <20260921075811.too.775-kees@kernel.org>
+ <20260921075820.1718334-6-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback
- completion
-To: Barry Song <baohua@kernel.org>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org,
- willy@infradead.org, jack@suse.cz, liam@infradead.org, ljs@kernel.org,
- vbabka@kernel.org, jannh@google.com, chrisl@kernel.org, kasong@tencent.com,
- shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev,
- youngjun.park@lge.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
- axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
- hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org,
- chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu,
- hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260921152449.629486-1-alex@ghiti.fr>
- <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
- <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921075820.1718334-6-kees@kernel.org>
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	FREEMAIL_CC(0.00)[kernel.org,linux-foundation.org,linux.dev,gentwo.org,google.com,kvack.org,vger.kernel.org,davemloft.net,redhat.com,gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[pedro-suse.tail5790ac.ts.net:mid,imap1.dmz-prg2.suse.org:helo]
 
-On 9/21/26 23:56, Barry Song wrote:
-> On Mon, Sep 21, 2026 at 11:37 PM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
->>
->> On 9/21/26 17:24, Alexandre Ghiti wrote:
->>> On an asynchronous swap device MADV_PAGEOUT only marks the folio
->>> PG_reclaim and rotates it to the tail of the inactive list once its
->>> writeback completes, so the memory is not actually freed until a later
->>> reclaim scan removes the by then clean swap cache folio.
->> But we have the same behavior when just reclaiming memory ordinarily? It's added
->> to the swapcache and only the next scan actually frees up the memory.
->>
->> Wouldn't we memory we reclaim ... just gone, like in the sync case?
+On Mon, Sep 21, 2026 at 12:58:17AM -0700, Kees Cook wrote:
+> A bucket set holds one row of caches, cloned from KMALLOC_NORMAL, and an
+> allocation of any other kmalloc type falls back to the general caches.
+> Extend this to handle __GFP_ACCOUNT, so that a single bucket user can
+> isolate either GFP_KERNEL or GFP_KERNEL_ACCOUNT allocations, as is
+> needed for skb data, where AF_UNIX uses:
 > 
-> For synchronous I/O, such as zswap and zram, the memory is released
-> immediately after sync I/O is done.
+> 	sk->sk_allocation = GFP_KERNEL_ACCOUNT;
 > 
-> For asynchronous I/O, such as NVMe, the swapcache is currently
-> expected to be rotated back to the tail of the LRU and wait for
-> another scan. Alexandre once mentioned that when he tried handling
-> async I/O the same way as sync I/O—releasing the memory once the I/O
-> completed—he saw some regression. So, delaying the release until a
-> later scan may allow swapcache hits before the folios are eventually
-> reclaimed.
+> The coverage is selected at bucket creation time:
+> 
+> 	b = kmem_buckets_create_types(name, flags, 0, INT_MAX, NULL,
+> 				      BIT(KMEM_BUCKET_NORMAL) |
+> 				      BIT(KMEM_BUCKET_CGROUP));
+> 
+> The prior kmem_buckets_create() function keeps its name and defaults
+> to only KMEM_BUCKET_NORMAL, leaving existing users as-is.
+> 
+> Only the accounted type is offered. Nothing wants a reclaimable or
+> no-obj-ext row, and of the twelve places passing GFP_DMA to an skb
+> allocator, all rare hardware: b44, b43legacy, prestera and s390 ctcm.
 
-"may", do we have any evidence that this actually is relevant in practice?
+Well, yes, BUT I don't think silently falling back is a great option.
+I would rather things be done Properly(tm) and kmem_buckets allowing
+instantiation of most/all kmalloc cache types. Given it's security stuff,
+I would prefer being quite explicit over silent.
 
-We asked to reclaim memory. We wrote the memory out to disk. We unmapped it from
-the page tables. We made the workload the could, access the page immediately
-again suffer already.
+Perhaps, to save on memory, users could choose to fall back to the default
+caches. But at kmem_buckets_create time.
 
-We should just evict them as soon as possible to free up memory.
 
 -- 
-Cheers,
-
-David
+Pedro
