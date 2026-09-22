@@ -1,158 +1,92 @@
-Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3BF522EF3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFE436404D;
+	Tue, 22 Sep 2026 08:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064192; cv=none; b=sh2YFsCZT6Jqz6F6l16CLkDl1/inqKh6Q2rXckyuTtwA45IjVYXsnYyiwI5v2zgpHCOCgVWo8k9jhXpoFW/uYiZuCerSsuhy8Mz3QEzQpCn72tIkaIScdVneQuPcxjEpTh2WMHR9MNShjOs8gApOAYKPLeUwwdZIW3uo5bJWcFg=
+	t=1790064243; cv=none; b=CVWPvGZ7X8CWLoGi/s1PCmJ4cmNHWN6xxOve7w+/zk/g7h3ra5AsJtkiOFbKvhym8jf18YA6ewHHmYT9owh1qH3ZsREq9Zy8ROmSNirF21GBXjEWilkAVCxdhRytbDjPbfA1lM4nUcHHKi8sPAm+mMJ7lTL3MyAvPXWhEWb85l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064192; c=relaxed/simple;
-	bh=EOuJmH4XWkfRTntzYM5OUcyHR52bdbnBGOL16e7ckho=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jCjmB5HzWdL4+AiJ3iEuypbHaRFuGv0fH2B4tkjzCv0hZsvioJE0FNvYifcu1o51AKPjAO0OOU4rJlJAFMBVe2bAKBIXrq9Tkh4rOx5PCVA52lo1CXV5ONIu5md4m0/qv2KPaxHBo/mG7Cur7WveADjs3+F7xvbcq7DP5EgT8sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZvTATnpc; arc=none smtp.client-ip=91.218.175.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790064243; c=relaxed/simple;
+	bh=rKzC6ijtYS99rEzAal5n4agHKy/S1Dy0DTP3DnN+7g0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YLasYf1XF/SE9w1Lu0/dYdLOSOTFf+4BglZOzQuRH8fEGRLCJxtrqmXRyqssyTbfgZ59KY7TWrI0WCQzI7Hqf6Id410EY2g+7PxWIWDv5pcPKEco5OcROwtbA4uLWz21qesAkUOVDn2glWcfyTZSD/VW1ZZLtbU3eBBI3VbAbIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pkk8hJkz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZvTATnpc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EOuJmH4XWkfRTntzYM5OUcyHR52bdbnBGOL16e7ckho=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790064174; v=1; x=1790668974;
- b=ZvTATnpcs/aV2Gp6tFIYAKaMInDABpGmadf6B4ywmoM/dKY81t6WWonTc/xQIiiGzxDpISRp
- dWyIi2RfJ38BfXFUjGjShW2JP+fE1aLsyWEiC1zqhs5ysNLcLIJCzASqGJxIsNKhCMmc/UgBPQ8
- rYdiNHOj6E6NXUavHx+h5MoA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 432c8cc7e60c9375;
-	Tue, 22 Sep 2026 08:02:54 +0000
-X-Mizu-Trace-ID: 432c8cc7e60c9375
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <dad55fc6-56ff-4375-893b-938404238ca8@linux.dev>
-Date: Tue, 22 Sep 2026 16:02:45 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pkk8hJkz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E1991F000FF;
+	Tue, 22 Sep 2026 08:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790064230;
+	bh=iz5ZvXuN69BjPyv2G6HIms6qrpA+v8co7aU/JAxPMNE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pkk8hJkz+KwRWDTWURSLDurufWOnqDbYDUTIZvYXp9jfWOkdjCM/lvETnNtDoI+LS
+	 weuk7KILNbiDpsCFZUmltc1Xv7VITIdVF1H2oDuxtlrKssjRaAsgmNRV2hAr5C4SeQ
+	 bZ/80zCO8tXpnUnlLHyelefCFy8yEvMbmP9VMlwSO1DLccj29DgxZ7QexRl8x2wU7k
+	 fTdqHnUv9AVXxk5dnorcXIFA8Peq7IgJWCVjlGznMMm05cuXM6uyfS9EWxIwApJwpK
+	 DXsQ17/1MOkMBuP4zJ74q36cN6eF1s7VZkd7lMrYU+rofAevR3gfQLNsSR3/mGgEhl
+	 sgglkuVP99KSA==
+Date: Tue, 22 Sep 2026 09:03:40 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: linuszeng@tencent.com
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Maarten Lankhorst <dev@lankhorst.se>, 
+	Maxime Ripard <mripard@kernel.org>, Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Oscar Salvador <osalvador@suse.de>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jingxiang Zeng <jingxiangzeng.cas@gmail.com>, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH 0/6] mm: memcontrol: implement the memsw limit on cgroup
+ v2
+Message-ID: <arI2So8-IHlUjuv0@gremlin>
+References: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] mm/sparse-vmemmap: support device DAX in common
- vmemmap path
-To: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
- <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev
-References: <20260913083734.86802-1-songmuchun@bytedance.com>
- <20260913083734.86802-3-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260913083734.86802-3-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
 
+Hi,
 
+For one of several possible reasons this mail has triggered an AI
+detector script.
 
-On 9/13/26 4:37 PM, Muchun Song wrote:
-> The common vmemmap population path cannot yet handle optimized Device DAX
-> mappings on its own. It uses pfn_to_zone() to find the shared tail page,
-> but Device DAX populates its vmemmap at runtime before the ZONE_DEVICE span
-> is initialized.
-> 
-> Teach the common path to use device_zone() for runtime optimized vmemmap
-> population while retaining pfn_to_zone() for early boot. This allows the
-> same path to support both early boot mappings and Device DAX.
-> 
-> The backing PFN supplied by the Device DAX-specific population path is no
-> longer used, allowing the redundant lookup and population code to be
-> removed later.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->   mm/sparse-vmemmap.c | 44 +++++++++++++++++++-------------------------
->   1 file changed, 19 insertions(+), 25 deletions(-)
-> 
-> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-> index 878d29a4e862..e83821768c12 100644
-> --- a/mm/sparse-vmemmap.c
-> +++ b/mm/sparse-vmemmap.c
-> @@ -208,18 +208,27 @@ static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
->   	struct page *page;
->   	const unsigned int order = pfn_to_section_compound_order(pfn);
->   
-> -	/*
-> -	 * Device DAX still relies on vmemmap_populate_compound_pages() for
-> -	 * head/first-tail allocation and tail-page reuse.
-> -	 */
->   	if (!vmemmap_optimizable_pfn(pfn))
->   		return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
->   
-> -	zone = pfn_to_zone(pfn, node);
-> +	/*
-> +	 * At runtime (slab available), only ZONE_DEVICE pages trigger vmemmap
-> +	 * optimization, so device_zone() suffices. Note that pfn_to_zone()
-> +	 * cannot be used at runtime because the zone span is not set up now.
-> +	 */
-> +	zone = slab_is_available() ? device_zone(node) : pfn_to_zone(pfn, node);
->   	page = vmemmap_shared_tail_page(order, zone);
->   	if (!page)
->   		return NULL;
->   
-> +	/*
-> +	 * When a PTE entry is freed, a free_pages() call occurs. This get_page()
-> +	 * pairs with put_page_testzero() on the freeing path. This can only occur
-> +	 * when slab is available.
-> +	 */
-> +	if (slab_is_available())
+Note that, while we are fine with AI assistance, it is kernel
+policy that you must disclose this with an Assisted-by tag like:
 
-Would it make sense to introduce a helper function that wraps
-slab_is_available() for better readability? Also, it might be worth
-adding a comment to the helper function as well.
+Assisted-by: LLM
 
-At least for me, encountering this always causes a moment of confusion.
+See https://docs.kernel.org/process/coding-assistants.html
 
-> +		get_page(page);
-> +
->   	return page_address(page);
->   }
->   
-> @@ -231,27 +240,12 @@ static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
->   
->   	if (pte_none(ptep_get(pte))) {
->   		pte_t entry;
-> +		void *p = vmemmap_alloc_pte(pfn, node, altmap);
->   
-> -		if (ptpfn == (unsigned long)-1) {
-> -			void *p = vmemmap_alloc_pte(pfn, node, altmap);
-> -
-> -			if (!p)
-> -				return NULL;
-> -			ptpfn = PHYS_PFN(__pa(p));
-> -		} else {
-> -			/*
-> -			 * When a PTE/PMD entry is freed from the init_mm
-> -			 * there's a free_pages() call to this page allocated
-> -			 * above. Thus this get_page() is paired with the
-> -			 * put_page_testzero() on the freeing path.
-> -			 * This can only called by certain ZONE_DEVICE path,
-> -			 * and through vmemmap_populate_compound_pages() when
-> -			 * slab is available.
-> -			 */
-> -			if (slab_is_available())
-> -				get_page(pfn_to_page(ptpfn));
-> -		}
-> -		entry = pfn_pte(ptpfn, PAGE_KERNEL);
-> +		if (!p)
-> +			return NULL;
-> +
-> +		entry = pfn_pte(PHYS_PFN(__pa(p)), PAGE_KERNEL);
->   		set_pte_at(&init_mm, addr, pte, entry);
->   	} else if (WARN_ON_ONCE(vmemmap_optimizable_pfn(pfn)))
->   		return NULL;
+It is also kernel policy that you must fully understand and take
+responsibility for every patch that you send.
 
+See https://docs.kernel.org/process/generated-content.html most
+notably:
+
+        If tools permit you to generate a contribution automatically, expect
+        additional scrutiny in proportion to how much of it was generated.
+
+        As with the output of any tooling, the result may be incorrect or
+        inappropriate. You are expected to understand and to be able to
+        defend everything you submit. If you are unable to do so, then do
+        not submit the resulting changes.
+
+        If you do so anyway, maintainers are entitled to reject your series
+        without detailed review.
+
+In general, if you are a newcomer to mm, we expect you to do smaller work
+before moving on to larger changes, so you build understanding of both the
+technical aspects of mm and how we do things.
+
+--
+Cheers, Lorenzo
