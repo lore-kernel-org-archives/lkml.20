@@ -1,158 +1,116 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C8A5678EA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D642456B872
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098879; cv=none; b=MgbSfh+fL88qRmb0tAUQrLri4wiORaW1/nXPksvs3s6FJ6nSBLIl+CBlJEGyTPRugnkUizbOL+mcAwcOEbDo7h5/lkT1628XXYYd9AOeUjhfgOj3b0mQykc6Z84L1AsheIUstg6F312vwAduVG/L84gISj8Nz+RiorlYYGsMn5s=
+	t=1790098920; cv=none; b=XlmXtyN47h7xB4UfpY5QBytsmB1XsxDDMS9DtU5xEUXHRUO8BQBYkdzGgJXWVU0vg1wWC9bELaIFOGmMd9n4mAz6lKY1Fhvg6Q49enB6V6EG8EdAyIBIoHNNCwbYROZdMSdHF3Px5DbV//2BNpQ+QETb3omMTxnw90BBM2VAebo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098879; c=relaxed/simple;
-	bh=bPFkHCUf+6FtH0ZCu5qND9AO4RF8i3O3qWdtLqBTnAI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=R/i4QG43WD+tyzQ1eCkmpemd7Tw8htB4PdBDPJSxvR31SFBIPVQzPSILMGmcF1exi7FlBSTw56v7v+oHznevgU3OSlFtdE+dlfMma7UbfFzr5sCRTAslTVtMfiSjEIAhVpp+NsNPKThYbqD7O67F8e/MRclASoeJ8/1bcCTgOdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RKkhgY2o; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790098920; c=relaxed/simple;
+	bh=YbQWCoLbJ2TBrHcsvoDcg8EEVw/4pDqVEBIsrTk1cBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u9IDouFVer9RnUjg+awZNGa5GiEviR0BRTj2ggXiFLGQAETk5aXJBpE8S5x3Uho8WurkoT9KhyXWgaPBBtVksgBYClTaXsPvucOx3nUZwnnHpUThgCpv/+lsVoIScPOVYonEzd0ueMIQACXiBm8hUykU2n9NVtKMtJRnzKNOssE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KrUvrx3m; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RKkhgY2o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790098877;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pL4BW2rf46UNolfAMEWqBNp9AHFrnYSaffiDXV2pInk=;
-	b=RKkhgY2oRD8U6bEc5g4IPVKbpe7NV2uRcIQ0MGDPCRcv4jn7Lg5MPQ+A92WHXxPafVepGN
-	KnFgPNwp1kdkk+hkrdVxgNp5Gzb2Jx75p2BVu43nvSMJMQWajxyL3tilpkrqmqGzsjDR6d
-	YbRESNTi7anST9+8z/DH4e6pklXPjpk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-587--yykJJ3lPFCa4-U1PybGVQ-1; Tue,
- 22 Sep 2026 13:41:12 -0400
-X-MC-Unique: -yykJJ3lPFCa4-U1PybGVQ-1
-X-Mimecast-MFC-AGG-ID: -yykJJ3lPFCa4-U1PybGVQ_1790098871
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8EC23180066C;
-	Tue, 22 Sep 2026 17:41:11 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AADD330001B9;
-	Tue, 22 Sep 2026 17:41:09 +0000 (UTC)
-Date: Tue, 22 Sep 2026 19:41:06 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: =?ISO-8859-15?Q?L=E9o_Terziman?= <leo.terziman@gmail.com>
-cc: dm-devel@lists.linux.dev, linux-block@vger.kernel.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [BUG] NULL deref in mempool_free_bulk via crypt_endio on dm-crypt
- teardown (6.8 -> 7.0 regression)
-In-Reply-To: <CAKjZdKjO0WVs2T3jM3txaqxYEt4uJhSc_G9mviWiq9XBe+8jkw@mail.gmail.com>
-Message-ID: <61ea45dc-d0a6-e5e1-fcf5-14c512b17114@redhat.com>
-References: <CAKjZdKjO0WVs2T3jM3txaqxYEt4uJhSc_G9mviWiq9XBe+8jkw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KrUvrx3m"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144df39b6cfso75238c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:41:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790098918; x=1790703718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KpXDs9omfosdMoHljEwPZp4DRs9tPWpEJWp4t5OaeUo=;
+        b=KrUvrx3mS1t0oBKVtGl64s3X1+iAfRpO3LCWQRrQFc4X+Bi3kaHAsKBDPt55UGQ+oL
+         cw+B9+OK22Tzy7U1CHVToemknfM9l+PhNfohtBcWFy2q/vGCB1a01jNLWB1Vru/AMvyM
+         ZZ1KWgJw4tt07YCyBoVIneSEem7E+DJxGPjPwId69pXZzBA/S1YLRiSv4kwYwjlqYPzo
+         oG1+Wqto6gvEZNf8cdj5pyrGuMApMawrioYpweEEa+eCENFJz4hwyrM6BnXgHiCdKs9S
+         xslRKD8QXeos0G2IjD5d1DdEkQ9VAqtRy6w9Uaw8dLHBXTfK2mwlQAbkFxkx9L45QoLy
+         i5yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790098918; x=1790703718;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KpXDs9omfosdMoHljEwPZp4DRs9tPWpEJWp4t5OaeUo=;
+        b=NwkJTNmEvtPrNAMXcr3jldzjfxgg2kEVN6s1jnD0Jiju1VmA10MlHJr84Q56O85Ke7
+         aSFDxcKMCb5RrbtYcR6U3I07f68368PduZyIGB/SubOpVhDeC7h2BjuQd491LNMDzyCX
+         fVEjk+fWuxY7BCR8THYxANhAjBDXo/DJ8f2WA4Lasx5vYyq0dybrSh5Bi+i8t6zyAa05
+         /x8V30P2GIasLd2osqg58O7qDlB/2NsqY87OkI3rNxSabgV6hlM53Ki0xXVTnTrGxRYd
+         bbI3n6tZas8mvn9bW0YZ4HwYoMF8TNecZgtDPr3eZKAUV/wv4mwrTViEK2QQM79PrHh4
+         j/eA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVXFVTy4yTqOrV9t1TewVaquazEBqGWaLTx3gjoL5Xw/B6O2GSMUBbeYOkn3GzL/gYG6RrNsmtXc2HnuU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kae2ket4YtQD2Lg2J2Gpz1VzrscbBIZRmEDwSWfS087lffAtal
+	OmqWRJmdfddzHrPUM0zAao0dytPginZcZ1zeNVUgE1JRR8LNHAl5QuT0AFYkgBr5
+X-Gm-Gg: AYBFou1jytm4nhEGbRQObLCUiCPb7huZf4RIMuTl8XpwiKPHaoWDptvQCEpKnUu3Yxf
+	KmD4q88KRz10+MKFtE5H2N4Ayj4kt0R9MFQAX8FQnP6tAF3RgylnEj7orH8QboewcVKtVXW8ZAP
+	JvPbJ4FcKOAI2pzkh3cUMO0Z4X3YYBwAZW9texOd2fVqeCmDUCOLxIhEvTnLO/eJaB/YsSFLaRR
+	SBbftydEueuxm/3B4DcgE7xRxjJ7xBFB3plpnauwF1CCK6BZGcf722D2BEH2M+Ry1SYymEKJ+fS
+	AyapNrlj9Ra5mNA6QsLNkfvDKkwGMdgQm+rTLS6oAg+TV83bIeXYHxO3LKY9H0vo6WRwnXbIY2z
+	Ene5cs7ttcCLE8WGUvyFkmxX01c2VCb1GT0Y+1XkRtmCS0NjzkJ6Nbnquby1yM7fFGDf7mUA78h
+	bFdcTlcQTbDbNruRlEODke6ozBOJX/nm8673VVIu2eqgueCU4Vp1FnJBtc1SZ4/L4p4Iw4TJh7J
+	Do24qtT8CELyubvydnsFA==
+X-Received: by 2002:a05:7022:29c:10b0:143:26ee:4203 with SMTP id a92af1059eb24-144f91547bamr91844c88.30.1790098917567;
+        Tue, 22 Sep 2026 10:41:57 -0700 (PDT)
+Received: from FredPC ([2600:382:8d06:9b8b:d94d:e185:fcc4:f1c4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f9040420sm110074c88.15.2026.09.22.10.41.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 10:41:57 -0700 (PDT)
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Tom Talpey <tom@talpey.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fredric Cover <fredric.cover.lkernel@gmail.com>
+Subject: [PATCH] smb: client: use GFP_KERNEL in get_targets()
+Date: Tue, 22 Sep 2026 10:37:59 -0700
+Message-ID: <20260922173759.67445-1-fredric.cover.lkernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="-1463801984-263208959-1790085153=:217987"
-Content-ID: <91848acf-1742-94da-4847-c71a2526d4c0@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Currently, get_targets() uses GFP_ATOMIC to allocate the cache target
+iterator and to duplicate t->name. The callers of get_targets() are
+in a sleepable context; therefore, switch to GFP_KERNEL to reduce
+risk of failure and reduce pressure on emergency pools in low-memory
+scenarios.
 
----1463801984-263208959-1790085153=:217987
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-Content-ID: <130d1c3c-d8b1-c2e3-790b-be259fa6b730@redhat.com>
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+---
+ fs/smb/client/dfs_cache.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-
-On Wed, 16 Sep 2026, Léo Terziman wrote:
-
-> NULL pointer dereference in mempool_free_bulk via crypt_endio during
-> dm-crypt device teardown
-> 
-> SUMMARY
-> =======
-> Since upgrading from Ubuntu 24.04 (Linux 6.8) to Ubuntu 26.04 (Linux 7.0),
-> this machine panics roughly once a week. The panic is always a NULL pointer
-> dereference in mempool_free_bulk(), reached from crypt_endio() in dm_crypt
-> via bio_put()/bio_free(), running in softirq context from a SCSI completion.
-> 
-> It reproduces during teardown of a dm-crypt device: a late bio completion
-> arrives after the dm-crypt target's bio_set has already been destroyed, so
-> bio_free() returns the bio to a mempool whose ->elements is NULL.
-> 
-> The system was stable on 6.8 for approximately two years with the identical
-> storage configuration and the identical backup script. Nothing in userspace
-> changed at the time the crashes began.
-> 
-> 
-> ENVIRONMENT
-> ===========
-> Distribution:  Ubuntu 26.04 LTS
-> Kernel:        7.0.0-31-generic #31-Ubuntu PREEMPT(lazy) x86_64
-> Hardware:      Supermicro X13SAE-F, BIOS 5.3 06/04/2026
-> Memory:        64 GB ECC (ie31200_edac; 0 CE, 0 UE reported)
-> DKMS modules:  none
-> Taint:         G W  -- the W is an unrelated boot-time WARN in i915
->                (print_ddi_port, intel_bios.c VBT parsing, headless system).
->                No out-of-tree modules are loaded.
-> 
-> 
-> STORAGE STACK
-> =============
-> Four backup volumes, each:
-> 
->   iSCSI (iscsi_tcp, Synology target over TCP/IP)
->     -> sd (SCSI disk)
->       -> dm-crypt
->         -> btrfs (zstd:3, blake2b csums, async discard enabled)
-> 
-> Mounted together nightly by a backup script, then unmounted and torn down
-> (umount -> cryptsetup close -> iscsiadm logout) when the backup finishes.
-> 
-> Separate from this, the system also uses hardware RAID -> bcache -> btrfs
-> for primary storage and md RAID1 for SSD storage. Neither appears in any
-> crash trace.
-> 
-> 
-> TRIGGER
-> =======
-> Every crash occurs during teardown of the backup volumes, within seconds of
-> unmount. The preceding log is consistent across occurrences:
-> 
->   [256109.45] BTRFS info (device dm-15): last unmount of filesystem ...
->   [256109.53] sd 9:0:0:1:  [sdb] Synchronizing SCSI cache
->   [256109.75] BTRFS info (device dm-16): last unmount of filesystem ...
->   [256109.96] sd 10:0:0:1: [sdc] Synchronizing SCSI cache
->   [256110.06] BTRFS info (device dm-17): last unmount of filesystem ...
->   [256110.17] sd 11:0:0:1: [sdd] Synchronizing SCSI cache
->   [256111.50] BTRFS info (device dm-18): last unmount of filesystem ...
->   [256115.15] BTRFS warning (device dm-18): folio private not zero on folio
->               906100736
->               [~100 more identical warnings for consecutive folios]
->   [256115.18] BUG: kernel NULL pointer dereference, address: 0000000000000000
-> 
-> The "folio private not zero" flood immediately before the oops indicates
-> btrfs is releasing folios that still carry I/O state, i.e. the unmount is
-> completing while work is still outstanding beneath it.
-
-I suspect that this is btrfs bug. It seems that btrfs closes a block 
-device without waiting for bios to finish.
-
-The mempool_free function was reworked between 6.8 and 7.0. In 6.8 it 
-didn't crash if we attempted to free an entry into a free mempool. In 7.0 
-it crashes in this case. So, the btrfs bug could have been there forever, 
-it was just latent and didn't result in a crash on old kernels.
-
-You can try to apply the patch 83f7e52b7ed1c3e03b79123e20b6f6adf8d886bb - 
-maybe it helps.
-
-Mikulas
----1463801984-263208959-1790085153=:217987--
+diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
+index f6c4259479c5..f727fb261331 100644
+--- a/fs/smb/client/dfs_cache.c
++++ b/fs/smb/client/dfs_cache.c
+@@ -798,13 +798,13 @@ static int get_targets(struct cache_entry *ce, struct dfs_cache_tgt_list *tl)
+ 	INIT_LIST_HEAD(head);
+ 
+ 	list_for_each_entry(t, &ce->tlist, list) {
+-		it = kzalloc_obj(*it, GFP_ATOMIC);
++		it = kzalloc_obj(*it, GFP_KERNEL);
+ 		if (!it) {
+ 			rc = -ENOMEM;
+ 			goto err_free_it;
+ 		}
+ 
+-		it->it_name = kstrdup(t->name, GFP_ATOMIC);
++		it->it_name = kstrdup(t->name, GFP_KERNEL);
+ 		if (!it->it_name) {
+ 			kfree(it);
+ 			rc = -ENOMEM;
+-- 
+2.53.0
 
