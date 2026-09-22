@@ -1,139 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E83C3F64;
-	Tue, 22 Sep 2026 12:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF33C43785C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081317; cv=none; b=gpKOK79vd/acaoxuBzBJuMc0YvFhudxGs8Z85eZpdcGISpmXLcHp/9qTOSOfp+NjICOtWzq3JKBEEWBf3OopYD1jnb11ZuvKvuQ3Ih+whKXceLnquyqtxACfkuI1JzRQd1Ppbqr/W5AciEzVs2pahWQkjF8HzGcjN/RJbjcCPf8=
+	t=1790081326; cv=none; b=U32oTo935vYSnFwch8adkpE4O1HR3t1BcuDuY5HspLPez7KOzdcjgO+ULHpzRj8ElTJooLi9HonDVHHHAZ55t4NmA7RB/qHiw5/OBg1zjWQboW4kx7hnMCODSH8RU71ZvI9zL+1Y6ZfSXBLJtJ4GGzu4TYxjTjDGNSqlQcIUXAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081317; c=relaxed/simple;
-	bh=qpF5www/qPUXSNZo2UHhbjLD5x+pblk2MWF/eef8p7I=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=azoQk3oGWinAO0AB7OKRFful7+ftCUZPqaOfZuhnY8piNkn0rnF8zNg9u6dWJCpXFqvaYwjvdPL3LuTmNc80j2WfNpbzeKvCo47786D+RRGE8RfXjicoc85xIUakNgF+rnhpoqdaGcpCOCG59Omi6xnYlb4DsPPhEyiYIz3DCUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ggRV/+t6; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790081326; c=relaxed/simple;
+	bh=wzEk4sVRhnKEVhasilKpOv1uZCDcHlKB164cBBTlxVg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ob6gBirfAXGh3/K92CxH1jK2VyKLL9NpmF7LYP4OgciTD/n4RihFfy3y6HX9b5Ez08Y5corF62762+gUIjJC9PonUCDbVR/IRNk77g/4KOMf+0jW3E2VVvQ8q2ImvaX0lhxHlRVQUZapM2+tYI9sdzcrg/QVwrOq6xWYKnx39Yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ScIUg1yc; arc=none smtp.client-ip=95.215.58.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ggRV/+t6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790081315; x=1821617315;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=qpF5www/qPUXSNZo2UHhbjLD5x+pblk2MWF/eef8p7I=;
-  b=ggRV/+t6rkMcSi5yHn4cGG0U2Fon7SDCUFWO0eLQjBmP3h4j17DENuqq
-   2IfALFjN2ZHnHpItjBh7hSpb1WuZI/kXFNbFMb0p5wcXDLlaGKGj5wDu1
-   D2kTCcdsUOtxoUaYM/w1Tkfz0nls7kC+4ssUOj8XGPjInjwfM837nFPOL
-   /1EYotmCXPC9lhfFxOe4QTorb5/kAlZt0sTAX4q3pMuJvGjJzu0rqGD4h
-   6KLnyKHtOA2IBuXfv9RV/jcNIryeAaqHyW7TSkybxwrgK7Fd4q9FxCrkE
-   T2mqR3Y0vcwnfxE0LbOb3WfYF2r0+DlzlP7dCHPSJJQWgmX+E0LHIeLBS
-   A==;
-X-CSE-ConnectionGUID: rRJf5XnETuSTdOb9egAF5A==
-X-CSE-MsgGUID: AXvh3yyRSwiJkczHEbOSgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90796977"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="90796977"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:48:34 -0700
-X-CSE-ConnectionGUID: I61J/lMPR6yWm2SobW9uzQ==
-X-CSE-MsgGUID: Y5GxCWZmT3qY5hE+HY8CAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="301039531"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:48:21 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 22 Sep 2026 15:48:19 +0300 (EEST)
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-cc: Linux ACPI <linux-acpi@vger.kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Mika Westerberg <mika.westerberg@linux.intel.com>, 
-    Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-    Hanjun Guo <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-    linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>, 
-    Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org, 
-    Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-    "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-    Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    David Rhodes <david.rhodes@cirrus.com>, 
-    Richard Fitzgerald <rf@opensource.cirrus.com>, 
-    Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-    linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>, 
-    Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
-    Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
-    Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
-    Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-    Cezary Rojewski <cezary.rojewski@intel.com>, 
-    Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-    Bard Liao <yung-chuan.liao@linux.intel.com>, 
-    Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-    Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
-    Binbin Zhou <zhoubinbin@loongson.cn>, 
-    Andreas Noever <andreas.noever@gmail.com>, 
-    Mika Westerberg <westeri@kernel.org>, 
-    Yehezkel Bernat <YehezkelShB@gmail.com>
-Subject: Re: [PATCH v1 06/17] platform/x86: serdev_helpers: Switch to use
- acpi_bus_get_primary_device()
-In-Reply-To: <2720286.Lt9SDvczpP@rafael.j.wysocki>
-Message-ID: <5fa97997-ae1f-0ff3-918c-e3195164c2ef@linux.intel.com>
-References: <7995179.EvYhyI6sBW@rafael.j.wysocki> <2720286.Lt9SDvczpP@rafael.j.wysocki>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ScIUg1yc"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wzEk4sVRhnKEVhasilKpOv1uZCDcHlKB164cBBTlxVg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790081321; v=1; x=1790686121;
+ b=ScIUg1ycfRo/nD9Kja2lpXBYOE6RWOnBn+P75dYa43XguSRz+XP4POoPKz98trp/QpBrVHe0
+ zYBLxubVICiMqLMjFPjAd8/d0I2Q0/pPjmrpGpCzkFzVGKY3i+okkxseYrGdTH8OxuOdB74euNu
+ ZMqgqTHrc4MUktsCQy/swjYU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ef79b9281d7277d;
+	Tue, 22 Sep 2026 12:48:41 +0000
+X-Mizu-Trace-ID: 5ef79b9281d7277d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fada6164-9d84-48b6-b2f1-18f9a18c1590@linux.dev>
+Date: Tue, 22 Sep 2026 13:48:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1862122475-1790081299=:1233"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 04/29] powerpc: mm: add PMD swap-exclusive helpers
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com,
+ Madhavan Srinivasan <maddy@linux.ibm.com>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-5-usama.arif@linux.dev>
+ <47ccd5ce-2301-4ddd-881c-d57cb82b562c@kernel.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <47ccd5ce-2301-4ddd-881c-d57cb82b562c@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323328-1862122475-1790081299=:1233
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On Mon, 21 Sep 2026, Rafael J. Wysocki wrote:
+On 18/09/2026 22:22, David Hildenbrand (Arm) wrote:
+> On 9/14/26 14:27, Usama Arif wrote:
+>> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+>> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+>> not just in a swap PTE.
+>>
+>> book3s64 builds a swap PMD by running the PTE encoding over pmd_pte(), so
+>> the PMD helpers use the same _PAGE_SWP_EXCLUSIVE bit. It is also the only
+>> powerpc variant that selects ARCH_HAS_PMD_SOFTLEAVES, via PPC_THP.
+>>
+>> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>>  arch/powerpc/include/asm/book3s/64/pgtable.h | 17 +++++++++++++++++
+>>  1 file changed, 17 insertions(+)
+>>
+>> diff --git a/arch/powerpc/include/asm/book3s/64/pgtable.h b/arch/powerpc/include/asm/book3s/64/pgtable.h
+>> index dff8790a047db..28943ef3c1c80 100644
+>> --- a/arch/powerpc/include/asm/book3s/64/pgtable.h
+>> +++ b/arch/powerpc/include/asm/book3s/64/pgtable.h
+>> @@ -699,6 +699,23 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>>  	return __pte_raw(pte_raw(pte) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
+>>  }
+>>  
+>> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+>> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+>> +{
+>> +	return __pmd_raw(pmd_raw(pmd) | cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
+>> +}
+>> +
+>> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+>> +{
+>> +	return !!(pmd_raw(pmd) & cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
+>> +}
+>> +
+>> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+>> +{
+>> +	return __pmd_raw(pmd_raw(pmd) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
+>> +}
+>> +#endif
+> 
+> This should likely go below the pmd_swp_mksoft_dirty() handling block?
+> 
+> For softdirty it's e.g.,
+> 
+> #define pmd_swp_mksoft_dirty(pmd)	pte_pmd(pte_swp_mksoft_dirty(pmd_pte(pmd)))
+> 
+> 
+> Why can't we follow a similar model here?
+> 
 
-> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
->=20
-> Replace acpi_get_first_physical_node() that is slated for removal
-> with acpi_bus_get_primary_device() that takes a reference to the
-> device it is about to return.
->=20
-> This addresses a potential use-after-free that may occur if the
-> device returned by acpi_get_first_physical_node() is removed right
-> after dropping its ACPI companion's physical_node_lock in that
-> function.
->=20
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> ---
->  drivers/platform/x86/serdev_helpers.h | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/serdev_helpers.h b/drivers/platform/x86=
-/serdev_helpers.h
-> index 57eac75805e2..20267e1941f1 100644
-> --- a/drivers/platform/x86/serdev_helpers.h
-> +++ b/drivers/platform/x86/serdev_helpers.h
-> @@ -74,8 +74,7 @@ get_serdev_controller(const char *serial_ctrl_hid,
->  =09=09return ERR_PTR(-ENODEV);
->  =09}
-> =20
-> -=09/* get_first_physical_node() returns a weak ref */
-> -=09parent =3D get_device(acpi_get_first_physical_node(adev));
-> +=09parent =3D acpi_bus_get_primary_device(adev);
->  =09acpi_dev_put(adev);
->  =09if (!parent) {
->  =09=09pr_err("error could not get %s/%s serial-ctrl physical node\n",
->=20
+I had just copied from pte_swp_mkexclusive()/pte_swp_exclusive()/pte_swp_clear_exclusive().
 
-Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 
---=20
- i.
+I will do this in the following revision for this patch:
 
---8323328-1862122475-1790081299=:1233--
+
+diff --git a/arch/powerpc/include/asm/book3s/64/pgtable.h b/arch/powerpc/include/asm/book3s/64/pgtable.h
+index dff8790a047db..458c85cebfa65 100644
+--- a/arch/powerpc/include/asm/book3s/64/pgtable.h
++++ b/arch/powerpc/include/asm/book3s/64/pgtable.h
+@@ -1060,6 +1060,12 @@ static inline pte_t *pmdp_ptep(pmd_t *pmd)
+ #endif
+ #endif /* CONFIG_HAVE_ARCH_SOFT_DIRTY */
+
++#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
++#define pmd_swp_mkexclusive(pmd)       pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)))
++#define pmd_swp_exclusive(pmd)         pte_swp_exclusive(pmd_pte(pmd))
++#define pmd_swp_clear_exclusive(pmd)   pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)))
++#endif
++
+ #ifdef CONFIG_ARCH_HAS_PTE_PROTNONE
+ static inline int pmd_protnone(pmd_t pmd)
+ {
+
