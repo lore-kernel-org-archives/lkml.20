@@ -1,139 +1,111 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650F4472F8A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088073; cv=pass; b=SqAvOyu3AeyJG6eE9Wejphiz4BorAGQj48K518ainpZeE+MV9ODSrx9DxxuRo4xoPK/KaZy9P9f9NX1uIRScyKsVbKEDupRQw0rCEdtcOsyrHywTxjl8V8WK+VGm57ZoXUcrRaFisHV+2sbp7wioeJaMXbMsEyZwcdLuUzy0FGs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088073; c=relaxed/simple;
-	bh=iYkoLLjFuLaOLIFnl2IacK4JF+N4rG+CagfraarYei4=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vs7iEdyK05rPhJPeZdat2dqEZmsRtymQNgITAPGNoNkTusOjiSzCk+NfZRTBKD3BB0jGp1Us2VKQcG+muz9cL1nfQwYjV2zMCnkMqdX58+CFYZW9oJdtFVQo6YPs/qxXoiYyE1/X+UbhEMA0JzH/KNjxFQdWP2B63x7brkdeQhA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pPVxjpNy; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578B62F260C;
+	Tue, 22 Sep 2026 14:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790088117; cv=none; b=Yi+l26oeNe0SSnDoEB5tqFbys7PInT5NHv33PdRc2gJbojqrjjh8yn6zANNec6R3i6/AroHhrURtEb+hXV3UHMwVtWBydcMNHY4CjwHDgBIpNe/cSlryz9WjJEFjbZLHCT+/wVil4alsyDk2VsAHcrp+QMUSJ+cTRitIbzN9MGY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790088117; c=relaxed/simple;
+	bh=Mr0BcbuzVjx02muvY50bn5Nj1YUsnUM+s4POErGD674=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=cntgURkDiuQLc7/fj80icYAO8IQZEhdaiUeJNpD/9/DwgR5ql91ec8/kWE1uwwr22PaoXpMzFqIfU0ZJZ6jxsd/JSyK47A5nWWbkJ13YAR0Ba3n18ZKiM4WZ6rpTX9fQN+SPU/AUK7eNZYcng5HTnRMbOhoeThMtDBg/3WkUeiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3lqNQmdu; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=M1eQalyf; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pPVxjpNy"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbfso473217066b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:41:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790088069; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EKSS/NJnM8A9Fux2moYEMJRNKUzrCw/6urlf+vipT3hY6HmWmfeXTTKptCzOyF0F8F
-         mvq0T5CHvz1XqZ2JX3M3bcdxvh9Zq02CDSgfKCT5vHCopxWIZT+nlLgYwlCJmI3WfwdL
-         89csr7BLWiNzLYfO9gMkw8oPQV5RqPVXa5add3emITJgV7k0gUakuInLsp8m3DYdh/eW
-         wb2cdjT2Rn6BnOgpM7ShcnM2ZSETK6N/w4kXCflQlUtqzIvWjY7rn2E4T2Ej63i5jZWs
-         VkoXN3S1/P4mT7i9WCG8KOMVY1GzCyjUU7K6f6HV4iMtqqo6mlDbc8Vtis71dvP/9A5I
-         At3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=aobqVTftx2RUrnHTqiqb5TNxJi/O+H0hYNwZcfYit+Y=;
-        fh=8hpPPtLm1Lwfp4TbjcRIT0eF5QQy6BrI6FZRjsl6/OE=;
-        b=F6o7QT8oEo6I34m6U5fj2YfEBzMMdpflA+5TRJeaE1YcwdEiNakypEVx6/P2y/dGRZ
-         8nbtc3y0FyFesPK0mkBpZff5hJQW2IH2EiSYWgIg2LLwbinlwHHz9zMak+dEzfafOgSS
-         Cp1yk9O0Q/6f6bx1sAG+g9iEnai8j/2PxbXoDMFoCQVvCf9y9SrVNEyus2X5vJ+4qjpF
-         3YrSfIjjOdzNWMi7XRdET9Lghla9OjzFQmwR04AQg4mSd7hjep+4I9YSHg6qMtyWjDYs
-         izwDH+EyzKb1wmv/6MJ6e8Qos8beYbFnj4Qa65nIXew65fhTCSxbFtXlQ3LRT6UjJJEk
-         SOog==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790088069; x=1790692869; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aobqVTftx2RUrnHTqiqb5TNxJi/O+H0hYNwZcfYit+Y=;
-        b=pPVxjpNyTrNK+5ZOq0PM2wCKcDZs7hZyct3huk+9SPzuvcVEW/QIcGiGOrqOaydR/5
-         Zq63oCKR7m97TtIrvMEmWJUzQm4k3CDT8LPJZgbTG36I3hZ7OrUZonzr6Y/RbyFf2LsH
-         LbCxa/SdUf8gJ/0mAZJ7ivod1C0S+6tGCkTLH3SbbEfEv0XaIXyukmGAjTNDQOYL4urZ
-         2QyPbk4QhmyQkGIJ6t9Ib16Erp+tu0l9mpxN2nzih2QhgRmVOA3pzGGt2pTp8ugegUeC
-         7NKABHf6QzukcTJtc1JR07/x+H7IW44H0PmCc6EA+HhcQ+FslOzCKb9xu4TMmMTG0poe
-         BXpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790088069; x=1790692869;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aobqVTftx2RUrnHTqiqb5TNxJi/O+H0hYNwZcfYit+Y=;
-        b=VHABLzhEemCopSveO4r//bWHBFpCrBHOtUQswg5MbWOVOzd655UCgFeYVulazUAU0c
-         Z6yqvtRG+mEkbSocBFvGeTfHL77NE9WK/DqMMVh0tueaXcmj93uWn081P/qINfuEmqKc
-         Vcxh5REB27moWDJUeVwpzeLnlbDkoNYhcyRMX3oOMUBlzq+5RIN83jIvOI9r6teNOrRH
-         4tnj58ad6MIXT5VNR+sh4jTdg83Ka11pxxE7bvilW1mJ8oNJJ/wPD3CKmg0wDojQeQEy
-         VOO8M9Dt85U4o9jHJri811/rWhNgX65XBkcLDrJ5ARDcxmWE5IOMiHfrWUkxoCW29XL/
-         er9w==
-X-Forwarded-Encrypted: i=1; AKwUvByl2m59hLTwi5M/U3eQ5MvHrlXTR1KlYTccWDQ8ssiHOnjtEolpC2sEz8WhZNXxuf46hlj1ioMVt7WtOk0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS14BpomOmYO0u+SNmNSeaebdzp0hvF4AkS9k8+jMcteBjpDXF
-	rgMQ8etJzg3jbvFGDUR/ey8HeTwQZfrKdFgAJXvGkxlaaPt0qp+n/8hsJ85D8lltE9dOPJRyuJZ
-	AXOR1jocZXNIQaC6oerNxMBsU66WNRq3/ru+7
-X-Gm-Gg: AYBFou1lHGNz2A7PLt54DbZT3NNdY1Xczerl3fqhZDHZA729mWzcraxtAXG5mqxD1EI
-	pOdx/E5vuzn2TqYIZBNIhxozeK71qHk767yZ2RKCp8TRca/4w75jdu2bT1u+e8Jw3tejzXItVe0
-	XFa6E0vFeifKzLmuqQy+OgjuVzFdXJZXSsrG9y2Pp+mdZqZVlkdSB/T/aNeQZZs/H7FmW5DqWi1
-	288zI7kj555wGbwp8FDG7RQ0curgGPNe0FXILgORLAf2LiScTjhluYOmR0y0tOpddYkiJVFLgIG
-	4E+UGINVJiGzuatVlnqxE8tgsn6V0J+Zc45xK//303dpB54JluOj18QVUid13RDqRZ6HWC9VAUW
-	w2nJyo5x+HPQJ1rTLycrdLdeD+sUWn7T919zN1nV9oaSkijWhekzd71KAEb3SmDdFDqdMbAKdYP
-	5NIw7+6coy8VP7Sbu8HJWOwF82rJZgHmFNfbaU6RZMTw==
-X-Received: by 2002:a17:907:7b87:b0:c29:5a49:f8ae with SMTP id
- a640c23a62f3a-c2a156d4889mr1174425166b.12.1790088068900; Tue, 22 Sep 2026
- 07:41:08 -0700 (PDT)
-Received: from 1057883412519 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 07:41:07 -0700
-Received: from 1057883412519 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 07:41:07 -0700
-From: Zack Gomez <zack.gomez@gmail.com>
-In-Reply-To: <aqpnhJyXHYrqqohg@gmail.com>
-References: <20260914041221.1028092-1-zack.gomez@gmail.com>
- <aqeyvaw06I2883Fo@gmail.com> <CAErB-w3fmW4bQqRg7895dZ4ZRqkDJmfb7FSCLPvRCkwrhQzaqQ@mail.gmail.com>
- <aqpnhJyXHYrqqohg@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3lqNQmdu";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="M1eQalyf"
+Date: Tue, 22 Sep 2026 16:41:52 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790088113;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=lNI0rcEaCDgoUY5N6IqDb074LzbMBFwwALJ1DKhdTKQ=;
+	b=3lqNQmdu5mmU+b1DyJIEQg438MDKuLMsJYTJ26jGQNeWFtfObcKGu30yo2EeqkwuIgF9jo
+	5e3uNuci4KtLt1u8rpUXIrU/4LbgN3yQd2cFAyLvuTAm40rer1lTstZf6O1oyhgBRmtrRr
+	ZAHdoC3Se4BNmAwwjx5GKT+X6yeyvZV5RdY7jYy+V8F7gDw+FQXNNuPhcLWquHJPtiZJ7z
+	NXCH5PHgqm82Hkbfjc5mPv0970j9yYwk3FUREl+XTaso3hcYHgNRdlgCYdJIK3kbKA0Aao
+	g9Jk5EBN0xSusX6/NfkJbKfmidskK3Bg7BLuW8t8m35lWcKl9Lj6HM/r9EjJDg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790088113;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=lNI0rcEaCDgoUY5N6IqDb074LzbMBFwwALJ1DKhdTKQ=;
+	b=M1eQalyfFVbOzCG9XFQodiX5FJl5Nkb6L9iCBft0VUGS8HT19a2OkIiUJYnXp+Sel10YTv
+	hN76pdiEQwoTkLAg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Thomas Gleixner <tglx@linutronix.de>, linux-rt-devel@lists.linux.dev
+Cc: LKML <linux-kernel@vger.kernel.org>, linux-rt-users@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>
+Subject: [ANNOUNCE] v7.3-rc4-rt1
+Message-ID: <20260922144152.x2J3_tNz@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 07:41:07 -0700
-X-Gm-Features: AcwNN1WJEk5oAzhiFwYCAEjZSZzcOxsgWSi9YoYm3E2lZNizP7dV3aoB5UEvxfE
-Message-ID: <CAErB-w0sQ6mg9UpK9_YM-VXjQrf=shY+nwtkWMYbSF=zk+cSeQ@mail.gmail.com>
-Subject: Re: [PATCH net] netpoll: bound the deferred transmit queue
-To: Breno Leitao <leitao@debian.org>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-On Wed, Sep 16, 2026 at 03:01:30AM -0700, Breno Leitao wrote:
-> My concern is some other netpoll users that do not check for return
-> value. Is this change going to affect them?
->
-> For instance, team doesn't even check the return value.
+Dear RT folks!
 
-They only lose the accounting. bond, bridge, team, vlan, macvlan
-and dsa reach netpoll_send_skb() only under netpoll_tx_running(),
-when the upper device's xmit was itself entered from netpoll, so the
-skb they hand down is always netconsole's, and it is consumed whether
-sent, parked or dropped. The drop lands on the lower device's txq,
-which is the queue that fills, so the bound holds for them too. What
-none of them see is the drop itself, bond included: NET_XMIT_DROP
-from the nested call is below NET_XMIT_MASK, so the outer
-__netpoll_send_skb() reports a completed transmit and xmit_drop_count
-never moves. The existing !npinfo / !netif_running() drops behave
-the same way today, and netconsole never had a delivery promise to
-lose (UDP, and netpoll_send_udp() already drops on pool exhaustion).
+I'm pleased to announce the v7.3-rc4-rt1 patch set. 
 
-> If a WARN is too heavy and it seems it might be, would a drop with
-> a reason be better than just dev_kfree_skb_irq() ?
->
->       dev_kfree_skb_irq_reason(skb, SKB_DROP_REASON_FULL_RING);
+Changes since v7.2-rt5:
 
-Will do in v2, though it will rarely be seen:
-dev_kfree_skb_irq_reason() defers the free to the completion queue,
-and the next find_skb() on that CPU zaps it with __kfree_skb(), so
-the reason seldom reaches the tracepoint. v2 therefore also does
-dev_core_stats_tx_dropped_inc() on the device whose queue is full,
-so the loss shows in its tx_dropped in the stacked case (tun pairs
-the two the same way for its ring). I'd rather not WARN: the path
-runs from the console being drained, and with a flood in progress
-the splat is one more thing queued behind it.
+  - Rebase to v7.3-rc4
 
-Zack
+The printk related changes are all gone. What is left in the queue is
+PowerPC, i915 and a sysfs file:
+- PowerPC
+  Some progress has been made. What is left is a pseries related MMU
+  change, a patch dropping KVM_MPIC (which is e500 only) and a stack
+  protector related workaround.
+  The stack protector workaround might work with a different fix since
+  only arch/powerpc is using boot_init_stack_canary().
+
+- i915
+  The patches in the queue are different compared to what is worked on.
+  Both sides seem to be stuck. The XE driver seemed to be an alternative
+  on platforms which are supported. Now that I test it has the same
+  vblank issues as the i915.
+
+- sysfs file, /sys/kernel/realtime
+  This file has been around since forever. It was used to "easily"
+  detect if the PREEMPT_RT patch has been applied and the required
+  Kconfig symbol has been enabled.
+  There has been a discussion if this file should be upstreamed, if it
+  should remain at the same location or if it should become a folder
+  with features.
+  Any change here implies that users need to update their scripts. Even
+  if the file is present in !PREEMPT_RT kernels and returns 0 (as the
+  file was created with the patch queue applied but CONFIG_PREEMPT_RT nt
+  selected).
+  Given that this never part of an upstream kernel, it is probably best to
+  no include it. The uname(2) interface provides the same information.
+
+I am considering not updating the queue anymore given how much has been
+accomplished.
+
+Known issues
+    - Yoann Congal reported a bit spinlock in dm_exception_table_lock().
+        https://lore.kernel.org/all/Z8GTjqgDe_5EkE3t@P-ASN-ECS-830T8C3.local
+
+You can get this release via the git tree at:
+
+    https://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-rt-devel.git v7.3-rc4-rt1
+
+The RT patch against v7.3-rc4 can be found here:
+
+    https://cdn.kernel.org/pub/linux/kernel/projects/rt/7.3/older/patch-7.3-rc4-rt1.patch.xz
+
+The split quilt queue is available at:
+
+    https://cdn.kernel.org/pub/linux/kernel/projects/rt/7.3/older/patches-7.3-rc4-rt1.tar.xz
+
+Sebastian
