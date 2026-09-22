@@ -1,147 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9972AD03;
-	Tue, 22 Sep 2026 15:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3A5550DCE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089362; cv=none; b=MNK/lLZHpGIvntUX8uJS7U3jEyIYqDMWtXroHHlYDOF01KPJ4hnnSnKJKxkvjQ/Ny5jEZXKmXnDkcfFWIuckojD5dXHUyxmyiu4xNb72in8yfrTqbaJ4lC1h2CrkofP6Xid2RvY4G0JkFtDerr6/xB1um5wbRWB49xJq1QOLnPw=
+	t=1790089377; cv=none; b=f/PvjNj0OXCtyumo/16dmtLC2E59Ol1t4VTte2+J20Wu4ZA1pziR1LkEk5JE32q78XI0i9+LX+YDb8Z8Ng1X8FiYHE5DEjaP0q+tM3m7PoErlG2KWp5KmldmsM7L3IU9XMc6RWXMyTKZcgLdVhYvzNd5vk/MrwFeWBYMWx4d/30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089362; c=relaxed/simple;
-	bh=dkdmowZeLA68PqT4aiTaWrXQum02acntxxBhvRvX/1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m8Hk0ESGDDU2zKLm14kEc7BcvtAS68KLfGpigEBisWuU/REKGulQcMq5JVvk90RfpkEvBBmcXYVvxSTYhdxvVmh62+gknetN+Vbn8swlFlWxf9H3vK5w4dmyr5tD6jQ+46HNoAVN/hgRQ/tPRpL61aBngCntKNdwIKpDurutqoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NEMlG1kU; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NEMlG1kU"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 894311F000FF;
-	Tue, 22 Sep 2026 15:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790089360;
-	bh=G1HtwqTKTxAAYspc1QgCb9R84JZgDhzw+6RQmEyd80U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NEMlG1kUjWnqGhiHXoZMx3JEyFcuv5c8uxxT50mBnIBFmFm8lg5d9oApBUpkAe09A
-	 UoQSsYWi9Jp6XxDNeob6QupZn5k4KS/AUoOMiiO4X/TfktVqFL5X8BkSDGwKfq+OyK
-	 IVXnIs2bG82ykwSd7+z8s1e/1aaB/2fzwkhSgYC275HbEgPCLxGEp7UyKNgBMdwwsg
-	 G5KONNs6XSjcDMqybT+FUHDflz6TX2Uek0sX1WZdxIWUOH4xurBzPJZbUxywYohpB8
-	 I6wr/VSBhbhjeNcR8DNtkOhiZBSjssB/ADZuJCGnhIxo8r/W5gsTUDc8BL3UCEyJw2
-	 uyTMRJ2bH6Fag==
-Date: Tue, 22 Sep 2026 08:02:40 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: MingTao Huang <1037827920@qq.com>
-Cc: Carlos Maiolino <cem@kernel.org>, Dave Chinner <dchinner@redhat.com>,
-	Chandan Babu R <chandanbabu@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	MingTao Huang <mintaohuang@tencent.com>
-Subject: Re: [PATCH] xfs: fix skipped flushing items not counted in
- xfsaild_push()
-Message-ID: <20260922150240.GQ2705364@frogsfrogsfrogs>
-References: <tencent_F801A9436DFB447AAFEC63D3E615B8052405@qq.com>
+	s=arc-20240116; t=1790089377; c=relaxed/simple;
+	bh=YQ7ys8Y0eaSHGJp2vboFfSiYHINwTd2XD0CWPFDYwK0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=owjSu/ijfbgYEF2UXuG7WdRDzpIR582NMS7+icA89oo7aNzahzgJukszxO0Ow/cD1dQ8XKWDpSezDIIRvLG18hb9lNmaoxmgxcII4KRX7f/N1hLEJn1Vm5VDBAfe28txUkThAwJZQHJfLq+z6YqF5ZYVIEtfm5jjWr5rBf/z5Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f5.google.com with SMTP id 006d021491bc7-6c17d3bdc70so1536788eaf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:02:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790089374; x=1790694174;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ArxMwdNqa1Pa4d+hxX0OUt5zftaLEfb4a/34J0DlhTY=;
+        b=G/ufXS4G+LSw+867pELYXxnbZxGogDaS31sysXX7298iS8xbNZcmFg4Q057Be0k/+b
+         d+UX+LPZwHx07p2AzYqRkc3paVOJJT4gENDWb32bfkUJGGldRmkohhhu4TSMgnWvv2LC
+         c2HzR3JBN0sNsTBY8E54Pkg3Pza84uLx1vdps5Tcjezzi4EtPumsyq+K1tVVkDld0Hwg
+         FdmGDRjhEq/xmtyts9WFlF0GYAs5Nc7gad78a/+Gehh4+bPgy2NT1H4eoxKUtyzKP4Ia
+         GTBMBYQyThNHQbT20FgoVZH3bYWMu6GPDFDDNYMyRFjX5rc5Oy1ZLIOfsir5oQLJe+4A
+         X4Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBy3gKEHE8eS3TjSipKa/1E6WlIhSghUSq3lMdPLEr2cXeKRkqfpX5gQU452XAb+1df/1BgVqCptfPwDWHs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLD9FKUQPCedhdwzrjOM/5Ot7XsnBdIhAvuims0FUfXJX00iv0
+	G3To7rHq1x/xaiuC/t56EUfM1DDueiJiGCpO8Wmzyq/9rXtcp4uNzU6y921XaNguU3anLm1Rp0I
+	54oVgy+U0T7L6XmQw7Ia/CVtv+nJkMiBmaomzfRsz/idBUG2RRcZHp5dCGik=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_F801A9436DFB447AAFEC63D3E615B8052405@qq.com>
+X-Received: by 2002:a05:6820:814:b0:6cd:3ffc:ad08 with SMTP id
+ 006d021491bc7-6d191112420mr2308553eaf.88.1790089374284; Tue, 22 Sep 2026
+ 08:02:54 -0700 (PDT)
+Date: Tue, 22 Sep 2026 08:02:54 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab2989e.a6af0033.177e91.0021.GAE@google.com>
+Subject: [syzbot] [net?] [afs?] kernel BUG in rxrpc_purge_client_connections
+From: syzbot <syzbot+e2f5927fc701355ef101@syzkaller.appspotmail.com>
+To: davem@davemloft.net, dhowells@redhat.com, edumazet@google.com, 
+	horms@kernel.org, kuba@kernel.org, linux-afs@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, marc.dionne@auristor.com, 
+	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 22, 2026 at 04:14:29PM +0800, MingTao Huang wrote:
-> From: MingTao Huang <mintaohuang@tencent.com>
-> 
-> Commit f3f7ae68a4ea ("xfs: skip flushing log items during push")
-> introduced a fast path in xfsaild_push() that uses
-> test_bit(XFS_LI_FLUSHING) to skip log items already being
-> flushed.  However, the fast path jumps directly to the
-> next_item label, bypassing flushing++, count++, and the
-> ail_last_pushed_lsn update.  This causes three problems:
-> 
-> 1. The loop exit condition "count > 1000" becomes much harder to
->    trigger.  count was meant to track every item visited, but now it
->    only increments for non-flushing items that enter
->    xfsaild_push_item().  Each such item typically triggers an inode
->    cluster flush that marks dozens of neighbouring inodes as flushing,
->    so count effectively counts cluster flushes rather than individual
->    items.  The threshold shifts from 1000 items to ~1000 clusters,
->    letting the loop scan an order of magnitude more items per round.
->    Each cluster flush adds a buffer to ail_buf_list, and the resulting
->    oversized list causes xfs_buf_delwri_submit_nowait() -- which runs
->    list_sort() plus per-buffer trylock and IO submission -- to take so
->    long that the watchdog fires.
-> 
-> 2. The timeout decision "(stuck + flushing) * 100 / count > 90" is
->    computed without the fast-path flushing items, so the flushing ratio
->    is severely under-reported.  When most of the AIL is flushing, the
->    ratio appears near 0%.  xfsaild therefore selects
->    "tout = 0" when it should select "tout = 20" (20 ms
->    back-off to let IO complete).  The zero-backoff tight loop compounds
->    the ail_buf_list accumulation across rounds.
-> 
-> 3. ail_last_pushed_lsn is not advanced past flushing items, so the
->    next push round restarts scanning from the same position, repeatedly
->    traversing items that are still in-flight.
-> 
-> We hit this as a soft lockup during stress testing on an internal
-> kernel that includes commit f3f7ae68a4ea ("xfs: skip flushing log
-> items during push").  The xfsaild kthread was stuck for
-> 22 seconds inside xfs_buf_delwri_submit_nowait(), called from
-> xfsaild_push(), processing an excessively large ail_buf_list:
-> 
->   watchdog: BUG: soft lockup - CPU#48 stuck for 22s! [xfsaild/dm-1:4931]
->   RIP: 0010:xfs_buf_delwri_submit_buffers+0xf2/0x250 [xfs]
->   Call Trace:
->    <TASK>
->    xfsaild_push+0x19b/0x7d0 [xfs]
->    xfsaild+0xb8/0x1a0 [xfs]
->    kthread+0xcc/0x100
->    ret_from_fork+0x5f/0xa0
->    ret_from_fork_asm+0x1b/0x30
->    </TASK>
->   Kernel panic - not syncing: softlockup: hung tasks
-> 
-> Fix this by accounting for flushing items in the fast path -- increment
-> flushing and count, and update ail_last_pushed_lsn -- to match what the
-> XFS_ITEM_FLUSHING case in xfsaild_push_item() already does.  This
+Hello,
 
-Am I missing something?  xfsaild_push_item in 7.3-rc4 doesn't seem to
-handle flushing.  Maybe you meant xfsaild_process_logitem?  In which
-case bumping flushing/counted makes sense.  I /think/ bumping
-ail_last_pushed_lsn makes sense too, but I want to think about that
-more.
+syzbot found the following issue on:
 
-<confused>
+HEAD commit:    f0100363d8c3 Merge tag 'xfs-fixes-7.3-rc5' of gitolite.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11f20c5e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=e2f5927fc701355ef101
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15f20c5e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11ae34c9580000
 
---D
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-f0100363.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/57240753f5ee/vmlinux-f0100363.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/2930b9a97546/bzImage-f0100363.xz
 
-> ensures the loop exit condition, the timeout ratio, and the resume
-> position all reflect the true state of the AIL.
-> 
-> Fixes: f3f7ae68a4ea ("xfs: skip flushing log items during push")
-> Signed-off-by: MingTao Huang <mintaohuang@tencent.com>
-> ---
->  fs/xfs/xfs_trans_ail.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/xfs_trans_ail.c b/fs/xfs/xfs_trans_ail.c
-> index 99a9bf3762b7..0f72cd4e6983 100644
-> --- a/fs/xfs/xfs_trans_ail.c
-> +++ b/fs/xfs/xfs_trans_ail.c
-> @@ -580,8 +580,12 @@ xfsaild_push(
->  	lsn = lip->li_lsn;
->  	while ((XFS_LSN_CMP(lip->li_lsn, ailp->ail_target) <= 0)) {
->  
-> -		if (test_bit(XFS_LI_FLUSHING, &lip->li_flags))
-> +		if (test_bit(XFS_LI_FLUSHING, &lip->li_flags)) {
-> +			flushing++;
-> +			count++;
-> +			ailp->ail_last_pushed_lsn = lsn;
->  			goto next_item;
-> +		}
->  
->  		xfsaild_process_logitem(ailp, lip, &stuck, &flushing);
->  		count++;
-> -- 
-> 2.43.7
-> 
-> 
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e2f5927fc701355ef101@syzkaller.appspotmail.com
+
+rxrpc: AF_RXRPC: Leaked client conn ffff888055bb9000 {1}
+------------[ cut here ]------------
+kernel BUG at net/rxrpc/conn_client.c:64!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 5919 Comm: krxrpcio/4660 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:rxrpc_destroy_client_conn_ids net/rxrpc/conn_client.c:64 [inline]
+RIP: 0010:rxrpc_purge_client_connections+0xc0/0x1a0 net/rxrpc/conn_client.c:145
+Code: 2b 31 db 48 8d 6c 24 28 e8 ed 4b 15 f7 48 89 ee 4c 89 ef 89 5c 24 28 e8 1e 7f d0 00 48 89 c3 48 85 c0 75 73 e8 d1 4b 15 f7 90 <0f> 0b e8 c9 4b 15 f7 31 f6 4c 89 ef e8 4f 5f d5 00 31 ff 89 c3 89
+RSP: 0018:ffffc900038e7a80 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: ffff888024d3cb00 RSI: ffffffff8af6d6bf RDI: ffff888024d3cb00
+RBP: ffffc900038e7aa8 R08: 0000000000000007 R09: 000000007fffffff
+R10: 000000002bb346e4 R11: 0000000000000001 R12: ffff888055bb9038
+R13: ffff888054eb7270 R14: ffff888054eb7038 R15: ffff888038d94180
+FS:  0000000000000000(0000) GS:ffff8880d5b53000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000000 CR3: 000000003566e000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ rxrpc_destroy_local+0x262/0x300 net/rxrpc/local_object.c:451
+ rxrpc_io_thread+0x2e1a/0x3820 net/rxrpc/io_thread.c:579
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:rxrpc_destroy_client_conn_ids net/rxrpc/conn_client.c:64 [inline]
+RIP: 0010:rxrpc_purge_client_connections+0xc0/0x1a0 net/rxrpc/conn_client.c:145
+Code: 2b 31 db 48 8d 6c 24 28 e8 ed 4b 15 f7 48 89 ee 4c 89 ef 89 5c 24 28 e8 1e 7f d0 00 48 89 c3 48 85 c0 75 73 e8 d1 4b 15 f7 90 <0f> 0b e8 c9 4b 15 f7 31 f6 4c 89 ef e8 4f 5f d5 00 31 ff 89 c3 89
+RSP: 0018:ffffc900038e7a80 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: ffff888024d3cb00 RSI: ffffffff8af6d6bf RDI: ffff888024d3cb00
+RBP: ffffc900038e7aa8 R08: 0000000000000007 R09: 000000007fffffff
+R10: 000000002bb346e4 R11: 0000000000000001 R12: ffff888055bb9038
+R13: ffff888054eb7270 R14: ffff888054eb7038 R15: ffff888038d94180
+FS:  0000000000000000(0000) GS:ffff8880d5c53000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b33024008 CR3: 000000000eb96000 CR4: 0000000000352ef0
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
