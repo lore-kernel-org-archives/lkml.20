@@ -1,132 +1,227 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73ACD559CB8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FEE54857A;
+	Tue, 22 Sep 2026 13:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790082999; cv=none; b=hBLsPwcrzoE5iXzl/5DAJoLkcsTsKfnz18u12zbvurUyMdgGEWP9kmlM65wzRGRgFZ1CD8/zmDdc2IxefD9fEcYp2NYqGKxmb1ZHoXolR4qjq54gEyj7ZW42C+qYjroDhuJuIpcWGNNr+I8ZQJfyywxLTl83A2LCSiZDzx6yLgI=
+	t=1790083046; cv=none; b=Ifdxxz4ePq9KMHyxXdhNFpzlBtHGuzq/vbrlcHHUU2WOTmvoZaZU7OhwwqlGJuGL4LCQ80ZwLVQF0RybAFZljeoAwgwK7+HL606CCSGUYzddD2atAAxj7lpGnF7Rl2B3wVSY+xCTIh01dFiWmxF5lcHz16KzfoHmIHMW5E9zTUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790082999; c=relaxed/simple;
-	bh=4WbZxV4Aknx80aOP97GV1nVAXrD+X49GsJ+s3LXshEA=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=S+88QcKPdGtv30x+nFkBd/tWoZt43FJHbLtgq5oQkZUBApNomIFWEaE8ODQPL3jTkTpl/grAE89uVkr0jUtfZNIguOh03IljQYIrmcDAjtGBVyVUJKFUTcvjs95EzFv5qzliPZlIjvRreMPsAFGvb6lMg/FHe2NbKACEH0xe3VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=aG5rQdD7; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+	s=arc-20240116; t=1790083046; c=relaxed/simple;
+	bh=0/3a0JjW6ylRj0k59AgsVm5HEMziuQJGAhyydVI9VLE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gAGhsW67ZDx4BBT3p9T+20ci0P9AyJYrj0rf5UgXAIFC938YXtbnOQvl4tZZkPZ6/gI1QRFAyg18dXwearnaNlVS/36aFvmPQE3YUv+DuTNF2SmXnvuUf9/6kPhxDdDK+DXR4BURg7yx395juhW2vBzLaKMQ9x4nWbDAVZR495U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZQdp8Gz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="aG5rQdD7"
-Received: from smtpclient.apple (unknown [IPV6:240e:305:1b9d:c001:85f9:8c92:21c2:aa08])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4ebc6db18;
-	Tue, 22 Sep 2026 21:16:32 +0800 (GMT+08:00)
-From: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZQdp8Gz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA3C1F000FF;
+	Tue, 22 Sep 2026 13:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790083044;
+	bh=xtWicn9O6gT4E2OJnJEip9rrDQNx9KlDp8AU1gBi+3E=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=bZQdp8Gzxj4vs7A5Q9S5bsql9UvW3xI9yiDm+73qOy3gn/rSq8/x9j1iAUMNzUhLW
+	 K1DCfe8/q3mFQL7AJEw4X2TYRfMeC8aoPYdm2EaQBtrNnqnZQVDiANgHzpbRY/gCsJ
+	 WtFRtW6xqBO/hJnsHenhbDYGzauV4XoJDf+Z848VNp8C3IrGnWLGhTyvZYjY2+4+nL
+	 C7XN5QQNR3bQjfG0UClzM0yOfxylC7XcaO3PMdC2H1qPDVhRChzgx2fsGyy++HwxQM
+	 lJ4IDk65kJ1BX6dSG2vTb4zccV3oWx/MkSjR/3NAWGnAbEINhIgfPvIvqoo1u5O9wK
+	 /WgHfhurllPYQ==
+Message-ID: <38a64473-87cb-4dcd-b5dc-24550f4d24af@kernel.org>
+Date: Tue, 22 Sep 2026 15:17:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: [PATCH] 9p: do not store the create fid on special files
-Message-Id: <92377346-29E9-46D3-96F5-AABA8A64CD57@stu.pku.edu.cn>
-Date: Tue, 22 Sep 2026 21:16:22 +0800
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- linux-kernel@vger.kernel.org
-To: v9fs@lists.linux.dev
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-HM-Tid: 0aa0c942c9e803a1kunmda6e7a4493942
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhoeVktMHkgaS0wZTkkdHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUhLTkFKGUIfQRhLS0pBQ04dQkFDGEJJQUlKGElBGh
-	pLQ1lXWRYaDxIVHRRZQVlPS0hVSktJSE5DQ1VKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=aG5rQdD7QfvUAikYaLSHl6XAnZ55kbhgjFcPwR+UiQqchW7SFsJoGm6cWueo0UEVITT5N02mux4u+RHfH/SPzc0NFlVv0+lXtygVAa87Dd+QNGBmPtM9+bNBo5yT+xOQEVpGFVrpT/jQvzNqk+FBJjswHMBfor+IhGWPwipQYL0=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
-	bh=y8hchbK2esqehkjjNjIUoRkxfPth210npqXQCiCPAsg=;
-	h=date:mime-version:subject:message-id:from;
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v6 1/5] media: v4l2-core: add new control type
+ V4L2_CTRL_TYPE_S8
+To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20260915-enc_roi_enable-v6-0-29dd4c8bccff@oss.qualcomm.com>
+ <20260915-enc_roi_enable-v6-1-29dd4c8bccff@oss.qualcomm.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260915-enc_roi_enable-v6-1-29dd4c8bccff@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-v9fs_vfs_atomic_open_dotl() always stores the create fid in
-file->private_data after finish_open().  FIFO and device inodes
-already have type-specific file_operations that own that field.
-Overwriting it with the fid makes later read/write/close treat the
-p9_fid as a pipe_inode_info, which corrupts the fid and can use it
-after it has been clunked.  The non-dotl atomic_open path does not
-assign the fid this way.
+Hi Deepa,
 
-Only attach the fid for regular files and directories.  Special
-files do not need the create fid; leave it for the existing
-p9_fid_put() on the out path so it is clunked before return.
+On 16/09/2026 00:00, Deepa Guthyappa Madivalara wrote:
+> Introduce V4L2_CTRL_TYPE_S8 (enum value 0x0103) as a new
+> control type for signed 8-bit values. Add necessary support in
+> v4l2_ext_control, v4l2_ctrl_ptr and handling in v4l2-ctrls-core,
+> v4l2-ctrls-api.
 
-KASAN report, linux-stable 4982d3552a3b:
+One reason I asked you to split up adding the type and the control is
+that this makes it easy to do a 'git grep V4L2_CTRL_TYPE_U8' and compare
+that with 'git grep V4L2_CTRL_TYPE_S8' and see if the same number of changes
+is made in documentation, headers, and core code.
 
-BUG: KASAN: slab-use-after-free in =
-anon_pipe_prefill_and_lock+0x376/0x3f0
-Read of size 4 at addr ffff88800ab30538 by task repro/1
+And I see that S8 support is missing in v4l2_ctrl_type_op_validate() and
+check_range(), so that has to be added in a v7.
 
-Call Trace:
- <TASK>
- anon_pipe_prefill_and_lock+0x376/0x3f0
- anon_pipe_write+0x127/0x1600
- fifo_pipe_write+0x24/0x300
- vfs_write+0x659/0xd00
- ksys_write+0x10f/0x200
- do_syscall_64+0xdd/0x4a0
- </TASK>
+Regards,
 
-Fixes: 30d904947459 ("kill struct opendata")
-Signed-off-by: Yuanfu Xie <yuanfuxie@stu.pku.edu.cn>
+	Hans
 
----
-The private_data guard was boot-tested on a 9P2000.L mount: a write
-to a FIFO reached a reader again, and regular-file I/O stayed clean.
-Without the guard the same write returned success but the reader
-saw nothing.  Skipping v9fs_open_fid_add() for special files is so
-the unused create fid is clunked by the existing put on the out
-path; that part is compile-checked on 4982d3552a3b.
+> 
+> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+> ---
+>  .../userspace-api/media/v4l/videodev2.h.rst.exceptions        |  1 +
+>  Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst  |  4 ++++
+>  Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst    |  6 ++++++
+>  drivers/media/v4l2-core/v4l2-ctrls-api.c                      |  1 +
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c                     | 11 +++++++++++
+>  include/media/v4l2-ctrls.h                                    |  2 ++
+>  include/uapi/linux/videodev2.h                                |  2 ++
+>  7 files changed, 27 insertions(+)
+> 
+> diff --git a/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
+> index 6182b4e2d2ee002c0d3562e1cc3bc2fd9c4286d6..b036ed3ec2f0744175cad1cbc4e73fe828e0c955 100644
+> --- a/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
+> +++ b/Documentation/userspace-api/media/v4l/videodev2.h.rst.exceptions
+> @@ -141,6 +141,7 @@ replace symbol V4L2_CTRL_TYPE_STRING :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_U16 :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_U32 :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_U8 :c:type:`V4L.v4l2_ctrl_type`
+> +replace symbol V4L2_CTRL_TYPE_S8 :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_MPEG2_SEQUENCE :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_MPEG2_PICTURE :c:type:`V4L.v4l2_ctrl_type`
+>  replace symbol V4L2_CTRL_TYPE_MPEG2_QUANTISATION :c:type:`V4L.v4l2_ctrl_type`
+> diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> index d78328152b7552f8f0d30a9e2f7c104bfd4b70d3..fe5f8992389c32d8f35f432229ef2f734002644e 100644
+> --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+> @@ -188,6 +188,10 @@ still cause this situation.
+>        - ``p_u32``
+>        - A pointer to a matrix control of unsigned 32-bit values. Valid if
+>  	this control is of type ``V4L2_CTRL_TYPE_U32``.
+> +    * - __s8 *
+> +      - ``p_s8``
+> +      - A pointer to a matrix control of signed 8-bit values. Valid if
+> +	this control is of type ``V4L2_CTRL_TYPE_S8``.
+>      * - __s32 *
+>        - ``p_s32``
+>        - A pointer to a matrix control of signed 32-bit values. Valid if
+> diff --git a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> index 82c8b52e771ce9301491b3f752e501a8fe7e2434..57e1652ae72e0324742142446acf32a16b94941c 100644
+> --- a/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> +++ b/Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst
+> @@ -425,6 +425,12 @@ See also the examples in :ref:`control`.
+>        - any
+>        - An unsigned 32-bit valued control ranging from minimum to maximum
+>  	inclusive. The step value indicates the increment between values.
+> +    * - ``V4L2_CTRL_TYPE_S8``
+> +      - any
+> +      - any
+> +      - any
+> +      - A signed 8-bit valued control ranging from minimum to maximum
+> +	inclusive. The step value indicates the increment between values.
+>      * - ``V4L2_CTRL_TYPE_MPEG2_QUANTISATION``
+>        - n/a
+>        - n/a
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> index 93d8d4012d0f4fef004e417d0aee2ae44b1b30bd..7d41cfd7378baaa929d4da0266c45f731bb54285 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
+> @@ -980,6 +980,7 @@ int __v4l2_ctrl_modify_range(struct v4l2_ctrl *ctrl,
+>  	case V4L2_CTRL_TYPE_U8:
+>  	case V4L2_CTRL_TYPE_U16:
+>  	case V4L2_CTRL_TYPE_U32:
+> +	case V4L2_CTRL_TYPE_S8:
+>  		if (ctrl->is_array)
+>  			return -EINVAL;
+>  		ret = check_range(ctrl->type, min, max, step, def);
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> index 9caca56478d1a97ccde582a2086e7039411b52ed..b78992e32e21c79b1c70ec673b81759c9ca84206 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -297,6 +297,9 @@ static void __v4l2_ctrl_type_op_init(const struct v4l2_ctrl *ctrl, u32 from_idx,
+>  			memset(ptr.p_u32 + from_idx, 0, elems * sizeof(u32));
+>  		}
+>  		break;
+> +	case V4L2_CTRL_TYPE_S8:
+> +		memset(ptr.p_s8 + from_idx, (u8)value, elems);
+> +		break;
+>  	default:
+>  		for (i = from_idx; i < tot_elems; i++) {
+>  			switch (which) {
+> @@ -377,6 +380,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+>  	case V4L2_CTRL_TYPE_U32:
+>  		pr_cont("%u", (unsigned)*ptr.p_u32);
+>  		break;
+> +	case V4L2_CTRL_TYPE_S8:
+> +		pr_cont("%d", *ptr.p_s8);
+> +		break;
+>  	case V4L2_CTRL_TYPE_AREA:
+>  		pr_cont("%ux%u", ptr.p_area->width, ptr.p_area->height);
+>  		break;
+> @@ -1442,6 +1448,8 @@ static int std_validate_elem(const struct v4l2_ctrl *ctrl, u32 idx,
+>  		return ROUND_TO_RANGE(ptr.p_u16[idx], u16, ctrl);
+>  	case V4L2_CTRL_TYPE_U32:
+>  		return ROUND_TO_RANGE(ptr.p_u32[idx], u32, ctrl);
+> +	case V4L2_CTRL_TYPE_S8:
+> +		return ROUND_TO_RANGE(ptr.p_s8[idx], u8, ctrl);
+>  
+>  	case V4L2_CTRL_TYPE_BOOLEAN:
+>  		ptr.p_s32[idx] = !!ptr.p_s32[idx];
+> @@ -2037,6 +2045,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>  	case V4L2_CTRL_TYPE_U32:
+>  		elem_size = sizeof(u32);
+>  		break;
+> +	case V4L2_CTRL_TYPE_S8:
+> +		elem_size = sizeof(s8);
+> +		break;
+>  	case V4L2_CTRL_TYPE_MPEG2_SEQUENCE:
+>  		elem_size = sizeof(struct v4l2_ctrl_mpeg2_sequence);
+>  		break;
+> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+> index 327976b14d50b73a631e4d2ed95d9f4d146c45ab..9a68a3555e349f1e55aa01af5c10f08201d62bae 100644
+> --- a/include/media/v4l2-ctrls.h
+> +++ b/include/media/v4l2-ctrls.h
+> @@ -27,6 +27,7 @@ struct video_device;
+>  
+>  /**
+>   * union v4l2_ctrl_ptr - A pointer to a control value.
+> + * @p_s8:			Pointer to a 8-bit signed value.
+>   * @p_s32:			Pointer to a 32-bit signed value.
+>   * @p_s64:			Pointer to a 64-bit signed value.
+>   * @p_u8:			Pointer to a 8-bit unsigned value.
+> @@ -61,6 +62,7 @@ struct video_device;
+>   * @p_const:			Pointer to a constant compound value.
+>   */
+>  union v4l2_ctrl_ptr {
+> +	s8 *p_s8;
+>  	s32 *p_s32;
+>  	s64 *p_s64;
+>  	u8 *p_u8;
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+> index 5373dba640fae3d19247ab1c74ba336e05dc0fe0..ac588d0093df9cc35c11d0b9d41d052d5e800925 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -1884,6 +1884,7 @@ struct v4l2_ext_control {
+>  		__s64 value64;
+>  		char __user *string;
+>  		__u8 __user *p_u8;
+> +		__s8 __user *p_s8;
+>  		__u16 __user *p_u16;
+>  		__u32 __user *p_u32;
+>  		__s32 __user *p_s32;
+> @@ -1961,6 +1962,7 @@ enum v4l2_ctrl_type {
+>  	V4L2_CTRL_TYPE_U8	     = 0x0100,
+>  	V4L2_CTRL_TYPE_U16	     = 0x0101,
+>  	V4L2_CTRL_TYPE_U32	     = 0x0102,
+> +	V4L2_CTRL_TYPE_S8	     = 0x0103,
+>  	V4L2_CTRL_TYPE_AREA          = 0x0106,
+>  	V4L2_CTRL_TYPE_RECT	     = 0x0107,
+>  
+> 
 
- fs/9p/vfs_inode_dotl.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
-
-diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
-index 116b29e95f21e..ff5b21e956b12 100644
---- a/fs/9p/vfs_inode_dotl.c
-+++ b/fs/9p/vfs_inode_dotl.c
-@@ -316,16 +316,24 @@ v9fs_vfs_atomic_open_dotl(struct inode *dir, =
-struct dentry *dentry,
- 	err =3D finish_open(file, dentry, generic_file_open);
- 	if (err)
- 		goto out;
--	file->private_data =3D ofid;
-+	/*
-+	 * Special files have type-specific fops that own
-+	 * file->private_data.  The create fid is unused
-+	 * there: leave it for p9_fid_put() on the out
-+	 * path so it is clunked before we return.
-+	 */
-+	if (S_ISREG(inode->i_mode) || S_ISDIR(inode->i_mode)) {
-+		file->private_data =3D ofid;
- #ifdef CONFIG_9P_FSCACHE
--	if (v9ses->cache & CACHE_FSCACHE) {
--		struct v9fs_inode *v9inode =3D V9FS_I(inode);
--		fscache_use_cookie(v9fs_inode_cookie(v9inode),
--				   file->f_mode & FMODE_WRITE);
--	}
-+		if (v9ses->cache & CACHE_FSCACHE) {
-+			struct v9fs_inode *v9inode =3D V9FS_I(inode);
-+			fscache_use_cookie(v9fs_inode_cookie(v9inode),
-+					   file->f_mode & FMODE_WRITE);
-+		}
- #endif
--	v9fs_fid_add_modes(ofid, v9ses->flags, v9ses->cache, flags);
--	v9fs_open_fid_add(inode, &ofid);
-+		v9fs_fid_add_modes(ofid, v9ses->flags, v9ses->cache, =
-flags);
-+		v9fs_open_fid_add(inode, &ofid);
-+	}
- 	file->f_mode |=3D FMODE_CREATED;
- out:
- 	p9_fid_put(dfid);=
