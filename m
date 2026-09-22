@@ -1,140 +1,182 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7807568525
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E7DF568528
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095192; cv=none; b=cnkP38c/6gFDWjwfQ7QRMlwrn1uc54txUNfZ05mMNvOa8TERmDVZJFOQWdNOVitemlKLvMDIcRD2Bq1semt/Qs27ZyLdWr2wJk5894R4U+nSFCvTsw7t4lZGPZL808k3YaG+xXXwCNMjsjscYKQxNa6AgMc8UI7LSVRTrchMa0Q=
+	t=1790095340; cv=none; b=VVJIHOljKWsIRpr6eTwRs6eiksCQNiwHQJmt6/4iPYqoe7XBqYochLJwKZHKIpkj+9QZZQuZAci0v0Kmilh3G0F/drSqhbFKV9irsI3RZcyNI1dKo/O2brYrvJ7EJLOmf7n5Y7Ib9Rv6tq8b7ZIKARJd0XMsaPtlcEL/cpJ/Od4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790095192; c=relaxed/simple;
-	bh=XumR3Wy9fE5xGCpIol7Xpgk6iG7KROyRi0hEfy7kmGU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WqMDcer0Djl6NOF2ofaaji9F8GsltH2Q3lBC1MD95/FWc+wySmgJvFn18AYTdmZsOZ4ZOqGNuO00eyja5DjnmVmTzZ/DjM07Bi8v1dRMq/vTYPzaMH5V7EgqE4/ei/+oW661jx0N3w46mdB57yhADdBEXpUFzaUBt3qj+W+GRcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVjXZ2Ut; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790095340; c=relaxed/simple;
+	bh=d/Mpn1ZpFaNOER/CgAQ3D20zXsFpahTQPNfzJEQeDiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qwDjRmFQPlHEyzLbiaY7Kgg1ncfMJ6zTtqPf/6OTf9o6Fz4SygyFxEBhUkZQizMPA1MFXEvMBYFY2Xpoa4O3mZhSG29t9q6W2duUHM4/BHtd+clMwcoXsD5kJvbejktTV5yN/4U5vvN2+Cz8z5yjecbLksKuHOBYHOtSYsVPygs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Z7r7rrhy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVjXZ2Ut"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so4174259e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:39:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790095187; x=1790699987; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HIREcnpSbtoZzKxFZ29E3etQk4OTENVP+V4H8YsjCyQ=;
-        b=GVjXZ2Uth1Ov4XRBnptNx5MAJU6HLuMfr8khCSjRjXxAzHin9rut1cJm2J3MhoahuP
-         ed778gYyaUQLt7UuTcU7sOp5lo3j73UFvYOSmXAjHvGPMXJ2b8qGNk7YF/74WWm+tGfD
-         YRR/i420ww/TLF4IKexB3V5SKyq+eKn3JGACMebwFa36yhQC03ryI28cjKz6lPWCpxAu
-         AU1NbCPZId0cm3+EzpTYZLtCCbubvAhBnoR83MRTYuodepQ9n8gsbjmCs8rHGxdbJBTa
-         inEATaGsSlyyIt3MKxDO63pFy/xlOs2aG2h50KHBSbnPlMGesyINhFAwPTdcLE2FVD7N
-         js5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790095187; x=1790699987;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HIREcnpSbtoZzKxFZ29E3etQk4OTENVP+V4H8YsjCyQ=;
-        b=nPIBFfJvoEgBClwFCNqaQhoymoU8E/2XzuK2IwVuNiaE2oFa5nXGNDFXsjTU3dqNot
-         aG609SFtyccLcBkMC19/x+w7yFmt/tjwcfkuxoFv1v4BJChLTOGgrT2TykXWMVNJ+IwY
-         nlqBRvmCXvAedyzd9J4cIF3kX4dVCpZcy4Y6lINf6giO/8Y2r/UxwzLwk76WNrhDOJqr
-         QPNOhWMD9bucIzXFtee4WKEBgSsYkrb2lspN2pqmS2ap0vEhx5RSyHM01NL5SZcikonA
-         3rE6BpIJyGR8wyjtGryd7borPhq9JoEKPukC3Dlc5FOAD/+EazOD8ou1hMskLjDQshAE
-         ek0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwyriffUH5rfKP9biI1UdFMBw79+9DcZHrbu1XyTt/a4Tj/Gn6dl5iTdmEypBdo95mbZJNr1lnmmHq9D6g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwwCxd1FRNxb8SdIJ5PghBNMD4acQX/IgKHKgxI4F42g0vxmnP
-	y++JLX8R8PXhAXShIWiZ3q1fSTk9kJMGJwKDHzNaY4t4EBPzCrkqYPTd
-X-Gm-Gg: AYBFou1fMliga9RnZ/xX6oyWcC7rkwAF9eK+BUUsWIPbJn2b4B9k9ZSIFOg1tWpSW0g
-	M3zccH39513YhkzMDCE5vL8rbiXaZSblclMF2oe1qzAQe1wlDICLfjiQtt9YjHMdy/QFuL54UPv
-	bcAV5jEfg7iVKQK1M9cFTdsvqfjNht1ms7OOX0rUT/ywIndWAN8CJUi13u+jnbAMo2STcvLChph
-	n3ntYcg7lkFBvlpC5L2Xl+Itc/OmJX9V6QU2zjBztP5JCsXvltUQjEGiG9FCU0nz43dbHW7mMv4
-	kTE3hqAm/jijYT7srLg+PKsbHXg+cof9ItOaNyxFLnlVTNOReJMimQd3etXWePQWGvidqzRG0HU
-	bGBGsT8W+6SAx369f2TUmJ2A0lrKPVoVPmUbHAFUwaNmvOuIo97dg1KMttqYWLb0eGV0nR22qSY
-	p7IdnecqXTjz9EvdudNCF71UKCSipUCSEmd81/FPrks/lsLz5kPf9pAjphAzVdZXGcowagzueJn
-	b44kICUO08IOA==
-X-Received: by 2002:a05:6512:3e0b:b0:5b8:c05d:2aae with SMTP id 2adb3069b0e04-5b8c17fde11mr4355336e87.15.1790095187065;
-        Tue, 22 Sep 2026 09:39:47 -0700 (PDT)
-Received: from [181.93.0.0] ([104.28.200.204])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d8589e3fsm18444e87.55.2026.09.22.09.39.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 09:39:44 -0700 (PDT)
-Message-ID: <41f8ed8e-1466-4002-8411-bf9871da2adc@gmail.com>
-Date: Tue, 22 Sep 2026 19:39:41 +0300
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Z7r7rrhy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 052821576
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:42:14 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4583A3F632
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:42:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790095337; bh=d/Mpn1ZpFaNOER/CgAQ3D20zXsFpahTQPNfzJEQeDiY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z7r7rrhymBcpUc+D3A2JX/GPvKIHWixfKbMFLiUcIzb3lt/a1u92VicUB7Re+vzwn
+	 9WGdS/kXEelxIu450IBp6BXpiWx+RuWQsLTbVPXut5YzQZxA1ipU9JqPP9P8QtS3Zw
+	 swEY1B47v+VZFoPsB6aYg3MXYkKDvz6Wqpg077h4=
+Date: Tue, 22 Sep 2026 17:42:05 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+	=?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
+	Akash Goel <akash.goel@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] drm/panthor: Consolidate the is-huge-page-mapping
+ test
+Message-ID: <arKv3XLUkRLjcdnQ@e142607>
+References: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
+ <20260917-panthor-fix-partial-unmap-v1-3-c7008f15fea3@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] HID: multitouch: add support for Goodix GXTP7863
- touchpad
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: jikos@kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260814171247.16707-1-daminovruzal7@gmail.com>
- <20260819123326.3242-1-daminovruzal7@gmail.com> <aquWNXpJuQr8HLBU@beelink>
- <51055e02-5bf1-4b1e-b430-382d00d3d004@gmail.com> <aqwUYWPz_nORoFr6@beelink>
- <33a7c239-ede5-4091-ba72-ff429d97013c@gmail.com>
- <816a300c-1f63-4d4a-a0f9-8eef5bd7e748@gmail.com> <arJ-vvEvd93l_aAp@beelink>
-Content-Language: en-US
-From: Ruzal <daminovruzal7@gmail.com>
-In-Reply-To: <arJ-vvEvd93l_aAp@beelink>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917-panthor-fix-partial-unmap-v1-3-c7008f15fea3@collabora.com>
 
-On 9/22/26 4:24 PM, Benjamin Tissoires wrote:
-> Actually, after a lot of debugging, it turns out that the session stall
-> was a red herring: it's hid-replay's behavior which basically only
-> listen for SET_REPORT events before it is ready, but then ignores
-> everything else.
+On Thu, Sep 17, 2026 at 02:33:45PM +0200, Boris Brezillon wrote:
+> Right now the logic to determine whether a given VA in the drm_gpuva
+> being unmapped is a huge page mapping or not is scattered
+> in two functions: unmap_hugepage_align() and
+> iova_mapped_as_huge_page(). This makes it harder to reason about the
+> logic being implemented for very little gain (some simple checks being
+> done twice), so let's consolidate all the checks related to huge page
+> mapping testing in iova_mapped_as_huge_page() and leave
+> unmap_hugepage_align() as a simple user of this helper that aligns the
+> area to unmap based on the return of iova_mapped_as_huge_page().
 > 
-> And in the case where the UNKNOWN input node didn't have the KEY_*,
-> systemd-logind would not keep the hid node opened, and would further
-> re-open it, 3 times, and 3 times we have a timeout of 5 seconds due to
-> uhid not responding to SET_REPORT.
-> 
-> TL;DR: changing the report descriptor is doable, and there won't be this
-> session lock with a real device.
-> 
-> Regarding the `map_abs(ABS_MISC)`, you are almost correct. The solution
-> is simply to not use an unknown vendor usage. the second vendor
-> collection is 0xff00, which matches HID_UP_MSVENDOR which goes to
-> ignore.
-> 
-> So making the 0xff01 bogus collection 0xff09 (HID_UP_LOGIVENDOR2) or any
-> other HID_UP_LOGIVENDOR* also goes to ignore, and the phantom node just
-> disappears.
-> 
-> And TL;DR of rest, changing the usage page of the report ID 8 from
-> 0xff01 to 0xff09 solves the problem entirely :)
-> 
-> 
-> Thanks for this attempt, however, this is not great because there are
-> multiple checks for MT_CLS_WIN_8 throughout the code, and so your patch
-> misses them.
-> 
-> It is not great to have a BPF to work around a kernel bug, but in that
-> case I think that's the most sensible thing to do. A proper fix is to
-> restrict the parsing of 0xff01 for non keyboards or for non HP machines,
-> but as mentioned previously, this is prone to regressions :(
-> 
-> Also, I've just checked the fwupd sources, and I think changing the
-> vendor collection is fine. Hopefully this won't break any user space
-> program, but OTOH the touchpad is pretty unusable at the moment.
-> 
-> Cheers,
-> Benjamin
-Hi Benjamin,
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Got it, the uhid SET_REPORT explanation makes a lot of sense.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Are you already working on the BPF fixup, or should I write it and open a merge request in the udev-hid-bpf repo?
+Best regards,
+Liviu
 
-I can test it anytime.
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 57 +++++++++++++++++------------------
+>  1 file changed, 28 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 6cef954e2cba..d2897099763e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2301,10 +2301,11 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>  	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
+>  	pgoff_t bo_offset;
+>  
+> -	/* If the 2M-aligned VA is outside the mapping being tested, we know
+> -	 * it's not a huge map.
+> +	/* If the 2M section being tested is crossing the mapping boundary
+> +	 * we know it's not a huge map.
+>  	 */
+> -	if (aligned_va < mapping->va.addr)
+> +	if (aligned_va < mapping->va.addr ||
+> +	    aligned_va + SZ_2M > mapping->va.addr + mapping->va.range)
+>  		return false;
+>  
+>  	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
+> @@ -2337,10 +2338,21 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>  		return false;
+>  	} else {
+>  		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+> +		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
+> +		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+>  
+> -		/* In case of shmem backing, we know we can only have a huge mapping
+> -		 * if the bo_offset is 2M aligned, meaning we can skip the folio size
+> -		 * check if it's not the case.
+> +		/* If the unmapped VMA stands for a sparse mapping, always
+> +		 * assume the backing storage is a THP, since the overhead of
+> +		 * unmapping 2MiB worth of 4KiB pages and remapping some of
+> +		 * them is offset by the logic of working out whether it's
+> +		 * the opposite case right below.
+> +		 */
+> +		if (is_sparse)
+> +			return true;
+> +
+> +		/* In case of shmem backing, we know we can only have a huge
+> +		 * mapping if the bo_offset is 2M aligned, meaning we can skip
+> +		 * the folio size check if it's not the case.
+>  		 */
+>  		if (!IS_ALIGNED(bo_offset, SZ_2M))
+>  			return false;
+> @@ -2353,36 +2365,23 @@ static void
+>  unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
+>  		     u64 *unmap_start, u64 *unmap_range)
+>  {
+> -	struct panthor_vma *unmap_vma = container_of(op->unmap->va, struct panthor_vma, base);
+> -	bool is_sparse = unmap_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+> -	u64 aligned_unmap_start, aligned_unmap_end, unmap_end;
+> -
+> -	unmap_end = *unmap_start + *unmap_range;
+> -	aligned_unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
+> -	aligned_unmap_end = ALIGN(unmap_end, SZ_2M);
+> +	u64 unmap_end = *unmap_start + *unmap_range;
+>  
+>  	/* If we're dealing with a huge page, make sure the unmap region is
+> -	 * aligned on the start of the page. If the unmapped VMA stands for
+> -	 * a sparse mapping, always assume the backing storage is a THP, since
+> -	 * the overhead of unmapping 2MiB worth of 4KiB pages and remapping
+> -	 * some of them is offset by the logic of working out whether it's
+> -	 * the opposite case right below. This also holds true for op->next.
+> +	 * aligned on the start of the page.
+>  	 */
+> -	if (op->prev && aligned_unmap_start < *unmap_start &&
+> -	    op->prev->va.addr <= aligned_unmap_start &&
+> -	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, *unmap_start))) {
+> -		*unmap_range += *unmap_start - aligned_unmap_start;
+> -		*unmap_start = aligned_unmap_start;
+> -	}
+> +	if (op->prev && !IS_ALIGNED(*unmap_start, SZ_2M) &&
+> +	    iova_mapped_as_huge_page(op->unmap->va, *unmap_start))
+> +		*unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
+>  
+>  	/* If we're dealing with a huge page, make sure the unmap region is
+>  	 * aligned on the end of the page.
+>  	 */
+> -	if (op->next && aligned_unmap_end > unmap_end &&
+> -	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
+> -	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))) {
+> -		*unmap_range += aligned_unmap_end - unmap_end;
+> -	}
+> +	if (op->next && !IS_ALIGNED(unmap_end, SZ_2M) &&
+> +	    iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))
+> +		unmap_end = ALIGN(unmap_end, SZ_2M);
+> +
+> +	*unmap_range = unmap_end - *unmap_start;
+>  }
+>  
+>  static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+> 
+> -- 
+> 2.55.0
+> 
 
-Cheers,
-Ruzal
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
