@@ -1,164 +1,116 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EAD422E37
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CED03DB62B;
+	Tue, 22 Sep 2026 09:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069339; cv=none; b=t7jhZ0rgnexwZT4e99SGahlpe2GDgSf9qsVS8fgT0LaBGMRBkcheBrH/6vXpz1Lg+Ra3cKZ7EnyXhsTm308UtyWDoZowJG4RfL6bVCMzCNbzeZvF8BHjl+jZmbCd6U47kD8vLzma/l7DiuK2TwBO9uBf0oIdHzDRlHl5a+hQAYk=
+	t=1790069366; cv=none; b=h2kg+tAqPVPyI36wb6eVMSCkSi5H25pLRJ8UqzBTxQvpD//2hzYZ1yzRHesulnWILmdbjcJ8u4xGED1d/n8BM4PoJ3FnddGZBZTKteQQceQiWQBDBG67adeBE54zovqq2gIw0WpUgabe7GNF5e1UyedOB55H1bUsbsoUh8kFjxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069339; c=relaxed/simple;
-	bh=Q9gZjzEG8eqqtIXa1GCIg+oajKTGvuL2w+lld+u2M7w=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=juLbNBHVPf/zdPBozYAFJT+GiFPRoIADzEeuX9UNrfsuevn9b0ElATDyMSfAV+3Uv0HUeYxiIVCgXn8CYZNYb7q84heQcAFH6gMd3NtTlcmP6J0/vBYNCFPs0Fca+wsbVQ2+uihCjhJ9OBY9m0yKBuh4OoxA5iCRXPFKwZtSdok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=yF1dkCxc; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790069366; c=relaxed/simple;
+	bh=j2jR10kCHvpHCNyicsNRz78S1Ffisd+3RzqfY0lLzkI=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=CKmHmGh00MYG/6ePCQfWCGDJMPSqow7DcCQInd5q/rQfVxz25H2EBtPUD6l6uxdpTClJQoFV5H+IY8gso/b4wyNojvSjjMMVkMQNrmhz6qY8d/MY6kjnxHvEsRI9Z61KEeis2hqCASEbxaY2AsCFd9k5hLRDQcNd+5l0mfZvhM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=stpcFFVU; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="yF1dkCxc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790069116;
-	bh=MqF3JT5Ag+/84VYxDV0JRl7knayiQkoPpeM2DvkLl/0=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=yF1dkCxcmEM+uf2mx/nkBm1nIE85t0VniLdhcXqvPs9NDNv6IUVQQfbvRMjhfwNUN
-	 F77q4rNEuK/ApEUW8mUa75Vb9A7XSL2JW5tstv4gt4LFHlKsFBsEWESt/8nMgdnXCj
-	 foRNl0ValeXXn1fnSYAwlAYsK+eexLPeRIc/XNuw=
-X-QQ-mid: esmtpgz10t1790069108teb6a8f46
-X-QQ-Originating-IP: X3aDg93GYWSWkmWKw2TeisR1sv3OIpjcWXfaT9hhycM=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 22 Sep 2026 17:25:05 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 18293615287119513376
-EX-QQ-RecipientCnt: 23
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="stpcFFVU"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=HGkT9Ui8IWBvThLwNwtH5JiFUDnabT7ULMWL9InJHFU=;
+	b=stpcFFVUA5sWEn3kkPHrfPiLr8qBRiZbNZDh7aVd9XnAuytPymZceOrcl8vSrbJBulCPVDCTw
+	olYFpOv609kH+6MaWDjwTkqVpeODVsVsPvdBngDQ3tJ8srYzmm23k97FGyQxixbsn8Vuj4RMKxU
+	zUe4jbOpnHoBTAbKsk4aHxI=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hpvd5362fz1T4JM;
+	Tue, 22 Sep 2026 17:17:29 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 69CFE202E6;
+	Tue, 22 Sep 2026 17:29:19 +0800 (CST)
+Received: from [10.173.124.160] (10.173.124.160) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 22 Sep 2026 17:29:15 +0800
+Subject: Re: [PATCH v5 0/9] mm/memory-failure: keep hardware-poisoned pages
+ out of the next kexec
+To: Breno Leitao <leitao@debian.org>
+CC: <linux-efi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <rmikey@meta.com>, <riel@surriel.com>,
+	<harry@kernel.org>, <linux-cxl@vger.kernel.org>,
+	<driver-core@lists.linux.dev>, <kernel-team@meta.com>, Ard Biesheuvel
+	<ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, Naoya
+ Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>, <kas@kernel.org>, <kexec@lists.infradead.org>,
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
+ Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+	<hpa@zytor.com>, Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner
+	<hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Oscar Salvador
+	<osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+	<hannes@cmpxchg.or>, <shakeel.butt@linux.dev>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <d6e35901-f74d-bf81-75d3-bac4b26d9d72@huawei.com>
+ <arJBkNOgbR8NrgFP@gmail.com>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <16baab50-692c-308b-d60d-1b0a328df1e3@huawei.com>
+Date: Tue, 22 Sep 2026 17:29:14 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=c50080b08dfc874b0cb25ecf11d489b0d1e616c2128732cb9c89443b278c;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 22 Sep 2026 17:25:03 +0800
-Message-Id: <DLLQJDEA91FU.18Q1TSX09AUR3@linux.spacemit.com>
-Cc: "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Aurelien Jarno"
- <aurelien@aurel32.net>, "Jennifer Berringer" <jberring@redhat.com>,
- <linux-scsi@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH v6 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
- driver
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Yixun Lan" <dlan@kernel.org>, "Alim Akhtar" <alim.akhtar@samsung.com>,
- "Avri Altman" <avri.altman@sandisk.com>, "Bart Van Assche"
- <bvanassche@acm.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Martin K. Petersen" <mkp@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0-reader-ipc2
-References: <20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org>
- <20260921-08-k3-ufs-support-v6-2-3479768a2299@kernel.org>
-In-Reply-To: <20260921-08-k3-ufs-support-v6-2-3479768a2299@kernel.org>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NuVTqMOgygVl/uH81H+rVPO7vXO6xh+Apb8/ViQcPw/mkBtiIQd1SNCZ
-	gV3uU/ypbb3edu1s3/5peU+5QsbkRZSYtwyiDwn2QiVchGqQAlTRHehuD7yYQXIVYp/Kl3z
-	Mrx8SWZZrAi+qQcuPbtg05BeprJtJWKt7HDcS930sdhtvcd674pkWpJxZ5jS89kdQPT/gSt
-	KGZX4yP6hXPSR+nxCUegByxf07SZkBQECclubyM4JEYJmecQ20LrAVqcLPU+FkQ1P7HAU4d
-	/IKT2vLybwwSPswWamH7eSdFVve9cquIiH27jD/Cq8Y3e2+gAwnsnYw9Ru3BT+gYh62fYwt
-	XDXGx/C+FsD1smTdKKY+wYV8VJunhxLlvV5nzoAQp9zcUSrj1Q/oPbU9iNo4lmkJ0s9CzGC
-	C9NBCy3EBdwMjumbKLCTYsyEJKFTQf4T9/23IvVz2yTksf9pTTNr+WLiZ698kdtzCTDibde
-	+Q4jhX5vmvq2KsEk85aclslrCw2Kack4j1PJt55AKGOkwlMvD9P5KusBkLmQ5u35zIZxaRr
-	R286ODEl3voJxA8nLZww4i5klTy8YumkZzdyQCpvwaKBxaEepBWqB4Bag6QjYfCQn4lrNgi
-	luB3MeeMu9WMYRWePBOTBHgBO7WbzImIzqwE1/OQF7NmDQah/vLan1AyKx6i//2zCICyW25
-	DoSNhzFkn3L//u+Bo26s/+DnKRkJcqzftSgpVVw2MfskUEJEWA1F1Nr9edfUzUZrZppJR5Z
-	X6d01RPjVFrXcmGjNcoF2EwUtqDsSKo4qxE2bWSLRqJIgtKyDQnn6xN7KsyU6sAgkyObfuC
-	9bLgdxJiI+nWdVV/aPbmQefURgBW/RPFEVI8TkCwRTHrwnNDH92oG2Vq97JKpF0mGs56aHu
-	sVjiAUetKomJ7zf4EE9p80UxPu+zaDfT7W5qgdu1NhhlHFBQJ95udvvj9hZvQQYqJpJ9cRP
-	V6TqR4CyJ0kYq7+242PxoSeCcoMZxMykjlyhG/QYTpLhvlr88vinCoCp6F94HVFHep4fZ7H
-	uDkTJycLl+t0hYRIGjg8RHO70iBiNIcmiij0H+JDAMQFdMYQxPthEzgDzju3ddZuwr4VAq4
-	5hhOSoqTN0HXJVdzpAF9tCeMd+08jwwuQ==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+In-Reply-To: <arJBkNOgbR8NrgFP@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
---c50080b08dfc874b0cb25ecf11d489b0d1e616c2128732cb9c89443b278c
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On 2026/9/22 17:14, Breno Leitao wrote:
+> Hello Miaohe,
+> 
+> On Tue, Sep 22, 2026 at 02:27:59PM +0800, Miaohe Lin wrote:
+>>> A bit is never cleared, which is a known limitation: it stands for a
+>>> whole unit, so an unpoison of one frame cannot tell whether the unit as a
+>>> whole is good again.
+>>
+>> Thanks for your patches. I have a question about unpoison: If a bit is never
+>> cleared, after we do some memory-failure+unpoison tests, kexec will lose the
+>> tested memory without reboot?
+> 
+> Correct, A bit stands for a 2M unit, so every tested page that falls in
+> a distinct unit costs 2M in each kernel after the kexec.
+> 
+> Worth being precise about the state today: the unpoison itself works.
+> The frame goes back to the allocator and num_poisoned_pages drops. Only
+> the bit stays, so the next kernel poisons the frame again. Test loop
+> in, memory out, and nothing gives it back.
+> 
+> Important to say that nothing block us from unpoison the bitmap, and in
+> fact my initial patchset had it. I also _think_ we should unpoison the
+> bitmap once we unpoison the page. 
+> 
+> I have just kept it out of this patch in order to simplify the patchset and
+> get the basis correct, and then evolve on top of it.
+> 
 
-On Mon Sep 21, 2026 at 8:36 PM +08, Yixun Lan wrote:
-> [...]
->
-> +static int ufs_spacemit_link_startup_pre_change(struct ufs_hba *hba)
-> +{
-> +	u32 value, sys1clk_1us;
-> +	int err;
-> +
-> +	err =3D ufs_spacemit_mphy_init(hba);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	err =3D ufs_spacemit_uniprov1p6_init(hba);
-> +	if (err < 0)
-> +		return err;
-> +
+Makes sense to me. Thanks for your work.
 
-Should this be `if (err)`? The call chain is:
+> That said, If you think this is a must have in first patchset, I am more
+> than happy to do it now, but just keep it in mind that it will grow the
+> patchset by about 2 extra functions.
+> 
+> Thanks the review,
+> --breno
+> .
+> 
 
-  ufs_spacemit_uniprov1p6_init()
-    -> ufs_spacemit_dme_set()
-      -> ufshcd_dme_set()
-        -> ufshcd_dme_set_attr()
-
-ufshcd_dme_set_attr() returns 0 on success and non-zero on failure,
-including positive UIC error codes. The current check misses those.
-
-Also, ufshcd_link_startup() ignores the PRE_CHANGE return value in this
-series' base, so returning an error here alone will not abort startup.
-
-> [...]
->
-> +static int ufs_spacemit_apply_dev_quirks(struct ufs_hba *hba)
-> +{
-> [...]
-> +	err =3D ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs))=
-;
-> +	if (err < 0)
-> +		return err;
-The same `if (err)` check is needed here for positive DME errors.
-
-> +
-> +	return ufs_spacemit_wait_mphy_pll_lock(hba);
-> +}
-> +
-> [...]
->
-> +static int ufs_spacemit_init(struct ufs_hba *hba)
-> +{
-> [...]
-> +	hba->caps |=3D UFSHCD_CAP_RPM_AUTOSUSPEND;
-> +
-> +	return 0;
-> +}
-> +
-
---=20
-Troy Mitchell
-
---c50080b08dfc874b0cb25ecf11d489b0d1e616c2128732cb9c89443b278c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarJJbw0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvJ1gA/22uBA65WxxSQ+7npmcBkm5HKq8LkzpjDIOXS2jr
-brfJAQCOnLcMv4qGA1z+Oh4psRDSDEz61/5c2j+bZNBXkVZIDw==
-=l/Ay
------END PGP SIGNATURE-----
-
---c50080b08dfc874b0cb25ecf11d489b0d1e616c2128732cb9c89443b278c--
