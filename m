@@ -1,132 +1,111 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0F5357D1D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAE530567B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790052378; cv=none; b=hVmKnVzr7m14EuM28/IwA6QtaaFoBnuGTn3l4oifNb88pCnvsfSxwXur6oVUsVOBvO4WQeKPX9W4dZp6W7YSjsHhpfbmQa0IZDeBUMEdSxc88bGy344laUp4d+BNtAmOeRy4FJh5+DnYXx6tW5xXlD6PEtbVGoeP06PdjIgnvP4=
+	t=1790052487; cv=none; b=Dvv6xg9aMt9gXcZoJSvCSB0YaZi7OEpJ09j8AXYFORv2txx9wuT/9UGxjvtSVt9mPvoL23bx27JRh+6ADywDBBwzXAVd98evUkzWBlL/Ul0IfdciWTsbawCgK1KyO/I21M2Jt+CwcOHUryBxGBdNE+x5bKwQ6w8S8HMSRPjkQ+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790052378; c=relaxed/simple;
-	bh=LmqjBasxDWd9/DMzUXY/MJPkJcpcAJYfwEVP/qtHFmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BgqLKH4OEh2dxnRq/ax0ncQUUtf3n8fdNKR5e2zdt1Cziaj0VouC71pkEZseeWfx1X3tVWpFSNm7x8J56agU7j9QJWRVSw2/+ox1cQidiGK4sAxWBR96sm94fTJU/MDF4b6gR1UD+TTlFRY6189/zk9E17zID9JH4MHN+QEaFDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6TKSxS+; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790052487; c=relaxed/simple;
+	bh=DRso7SbL8e4As3H+pvVXw6BzQtWRETrRQMqxN1VYZOQ=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:MIME-Version; b=OuNyqP1/z1GqIsnLRkbDeFRk3oUTT9Sevb5tPg1l1g9ozpXDuCTbrPCRXdOBKPIPM1ar4cXuAXwlLofWOcw9CmUkxJ1Ow/ClxI6I4Rdptf3lMP6iI47e78C1e9fhhUCqyUKJRzdeaqeoxeRFwBj7ocX2AgwOd0iCvC07Ukx0Gbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RPhu+Tcd; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6TKSxS+"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso2664212a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:46:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RPhu+Tcd"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef3so3277451a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 21:48:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790052373; x=1790657173; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790052483; x=1790657283; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3E+ocT2Bhu1iX7K4xkDhu5H7aG48frP1ov4mPcFNMD8=;
-        b=p6TKSxS+3n5KXKvQNMuj1ceiHogZzRt+Ix9wwUuBtRE6VKdXLY1K07u6E3k8FtSd/p
-         lfiSIe8ZE/Hvvc/rThv38IX4jMepEQwojMu5p1MG3d6dFrZ17/yNmGIVuLH4wVhEFjpr
-         dr2Dn/JCKsBYl31lFQ8u5M2p8qb5++wn9pkynZs65WZ7I7TqeLHJ3FH7U6uY9pB0fORT
-         GU0tPU8y3cbXzLEr8J9QuTiP+iw7CFObuGTBPPjGGvIlXU7plTGIsH6TBEvENXulG6ef
-         s6RCyFO0+l386GOYfzh7dRpDIhjb2X7EOPXRKRC5yLSM50CG6cWj61ra7HXRKnuwZA/4
-         XySQ==
+        bh=9yu04hZXDiXWGAL1P3A8arsPpXEh1RVC3U31vsrwLYk=;
+        b=RPhu+TcdaWpiRoXAg6/wRviuBTZ7KWfATLI5nL/A5BHcoOP6fNRNoTftIWHRjgYHlu
+         muQbLOadTfZODfG2fGvSkWe5oYq7y2PcRZIbbstDYc3FKwlQI3/1wWHrmPWyC95yRO8U
+         NaOfGPpnqy09lvYFF8ujCE5BBY5eK7EQE4wiewyKoiWavZQ6/Gv/bP5KDMw/90j1m1e0
+         K4VLg5GSC0L1FyEzCdiqjH1BIuNMmm7qNo9/Ev+7T1WFev5XCHYiWLl+0N39C/9rWHpQ
+         HoyJb6N/Dz9WsHDrTd5+8POP5xKhb9OKNPdof0eqUDkCbuUa6/vB4E4ycoMAILDEzm2l
+         uniA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790052373; x=1790657173;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3E+ocT2Bhu1iX7K4xkDhu5H7aG48frP1ov4mPcFNMD8=;
-        b=nRm1qCfCW6ViaYz0+AynxPDf7tEFNKkBzxSj2dtZjSwONRL/fZeDH7DEhYeZisxff+
-         88Fozc+8k8YUjUCgOv1uER+7H1Hxd7+DK+VyXpm2sH5ou9/RFG3311yD6TmCciyuhUFK
-         UDPI30hE0nMHTp3DeX9GMwwjt1FWI/Dk7BLVcjAilx1c4EAMESlHICJtkxdhcuO0qR9q
-         eBUaWd/CDtmsYRioYVR7piu5xiuFgqtJtS65KM2HNNChf/ZQxs1b7P7IhNhOBtc43Wlz
-         oE5iqlVZjG1e9InHZq4qQZ7jfOcW0laDFoJULnnIYb0F2GkfvKmpG0a0uxm8fKwfXis/
-         Ry+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByiqrrqkGLhrdel9Zbfx2uXE6JgGndbZ8B0ZiEAG5HmGJn/jhodrRVXwPaRc4XQDa/6uWn0jrjfj5CckKg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktrQ/Uh3skn0hHyQJF2Cj5p461nMy523FyjcXHpSbsaMa0TiS5
-	K5fwS7AbrDpuopYEIqHpzaHFxs7fI8l1MkpgiaVEu5kUuPCIwnmpQ7o7
-X-Gm-Gg: AYBFou3rlTy8uojB4+v21O4cG+K+6baZNptYqTOe2sjjjZyIBQ8jLJguTWDcR1wMnV0
-	54k4xPG0mnmxxgEnrKfkzgjSbsTyrpZgdZS/VxDjkC6ciX5I4X8Ukcy7oHOLz6BhPgCZmMKb59N
-	1/lCXd0CfDDd/RbUKlRsULjK3nydZe8K9IgFlyKfRL4qfqtuTrofE2yZ3T8zmmbVHu0kcjZBmIF
-	fAbSfb8YUEOcurkVocxKjyAFBRB+FkSjxpH5sZlnI3MmvbuH3YnM2U6fmF2cWXc4dF/LF729Kri
-	Aq34lKCCQ3mdB6N3cFcM+wuJOAqhn/fAsZoMTtt+tivbq04wNpFY6KE1iJJoe67o3WvNDENtIAY
-	otEBEy+CvAQdTj68csBjyClOA4PSWz/ZBMvzKJldRl1E0nusqxsKIoPNQZRTOA0T5zuQr2IP0Ru
-	nfhW07FT8bQUON2Bfph0FXJodM++LkYnvQXtp85g4iBkTjg4w8shNLZR6A/3Wdm4DgPYFKitly2
-	VM0phGE5TCg1wZIOtljgawlI/uC0aTzUuEWULo=
-X-Received: by 2002:a17:90b:55d0:b0:39e:6a81:c921 with SMTP id 98e67ed59e1d1-39e6a81c9bbmr14597347a91.20.1790052373331;
-        Mon, 21 Sep 2026 21:46:13 -0700 (PDT)
-Received: from localhost.localdomain ([2409:8a1e:2e81:7320:3443:b4ea:307f:cc4a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e570d9esm937101a91.10.2026.09.21.21.46.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 21:46:13 -0700 (PDT)
-From: Yuchao Zhang <ndaugoing@gmail.com>
-To: Yu Kuai <yukuai@fygo.io>,
-	Song Liu <song@kernel.org>
-Cc: Xiao Ni <xni@redhat.com>,
-	NeilBrown <neilb@suse.de>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH v2] md: validate bblog_size when loading v1.x badblocks metadata
-Date: Tue, 22 Sep 2026 12:46:06 +0800
-Message-ID: <20260922044606.30774-1-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <fad92649-e362-443a-93ea-205b11247e6d@fygo.io>
-References: <fad92649-e362-443a-93ea-205b11247e6d@fygo.io>
+        d=1e100.net; s=20260707; t=1790052483; x=1790657283;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9yu04hZXDiXWGAL1P3A8arsPpXEh1RVC3U31vsrwLYk=;
+        b=Bg0lEViOT0HYHxqcr9Z/TQmh9M4n1wGQsL3q9qJCwdXKMexVY+lDpqP8PziA2Bbt5V
+         YyzvkbZin752qTFQesRmS7vYntjndkj+RwnCtW1S1gfX9Bbw+/rcIrPGtSW9/ZP839gp
+         1UA1Ajf0bgk5MI7Qgk786dvGWLp9HbKCw0/pwPsO+wLKvOvk4NQ48J1ckPeYf6uevPeW
+         PQ8LJZ/FiTaMYrMFEWtQYTJLPW1kteL47XQfgHQaE8tAQzNUySLpfayO9m/vxl6skPH5
+         nCtJGo1pEYzEtTZk6HTusC7ggLlYFbiA+bN4RJ6u1U73i9iflRixUPq6rE+atvqjqV4K
+         MeFA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/caB/WEjqplloLH9nywCRRcFnWbCGw01noTdeKa5PVrY/92gWhIaOYKtlC1w/Hsi4/T9eMW0d5BYwHA0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lauv6C6uZoOE5eb/FV8s98ai2ELOFWrwTopuYcKosowuVKMrP3
+	QdGNMdokBbYfRBLI6UUqBi9unzR2pqslJcX0jSb1I3oq5g5kWIDR/aCd
+X-Gm-Gg: AYBFou1tgoRPrhAcupnTRv8kVBJ6BO2HNhP9Uk2qbyXIAf1terBS7+pVKr563kFEhXn
+	h/nUGu7nQDN2tt3SnbxemZGKD3ZIDJReRPN5LCFLkRAOoPJi5Ki7Jp/d8Z3fCoIf+mbYfFXf7wW
+	/gXQuzhlJy/mMQYhDNtO0/8S4yTKAQ3LxOf7CLggX1v5eMlkqIDMSLs8PVttbuWGNwZP17PrQbs
+	J5v6HEDPnLmNQjAVRsnR4unXmd9nTzxmQlMXZTFVeRVbEVtjxMj5xcQY0jXOpvvt+Hi42Ox3jBz
+	SbgS7spKScl7ZDT1wH8aHtrJqq/kLZrAvzP6MHV4uRVyBkbiyu7vHo4PI0/8crzAddd3aW0dwNm
+	Wygq10pK3liNV++y5qYOQXwyEwyywqHsT9SdJDEU6+xcyMz4blFnEqk7IDi16aq4IEd+HzDh8Q9
+	I7wK7lFDvCUgWAzIC/SKFmwc/ScZoim3+AF6jddQuGVQZt3lJvkwoft81gOWmTqOaDq6jvatXEU
+	I+5QHma3bdAAuRAVkgnEAuKy2vxo8ElYN8awI9XDJITMlKzYwKJPwKT3J/GlKzb5dgSwEVDMjoF
+	y4Dp
+X-Received: by 2002:a17:90b:5388:b0:39e:21a7:5dff with SMTP id 98e67ed59e1d1-39e54d1e037mr20177534a91.11.1790052483431;
+        Mon, 21 Sep 2026 21:48:03 -0700 (PDT)
+Received: from localhost ([153.61.198.247])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06cbe369dsm455307a91.0.2026.09.21.21.48.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 21:48:03 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 04:48:02 +0000
+Message-Id: <DLLKN9WTMVHD.1601DUU5LBVAB@gmail.com>
+To: "Eric Biggers" <ebiggers@kernel.org>, <bpf@vger.kernel.org>, "Vadim
+ Fedorenko" <vadim.fedorenko@linux.dev>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>
+Cc: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Karl Mehltretter" <kmehltretter@gmail.com>
+Subject: Re: [PATCH bpf-next v3] bpf: crypto: Use AES-CBC and AES-ECB
+ libraries
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+In-Reply-To: <20260922040413.28885-1-ebiggers@kernel.org>
+References: <20260922040413.28885-1-ebiggers@kernel.org>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-In super_1_load(), when the on-disk feature_map does not have
-MD_FEATURE_BAD_BLOCKS set but sb->bblog_offset is non-zero,
-rdev->badblocks.shift is initialized to 0 without validating
-sb->bblog_size.  The same field is validated in the
-MD_FEATURE_BAD_BLOCKS branch ("sectors > (PAGE_SIZE / 512)"), but this
-branch bypasses that check.
+On Mon, Sep 21, 2026 at 09:04 PM Eric Biggers <ebiggers@kernel.org> wrote:
+> +config BPF_CRYPTO
+> +	def_bool y
+> +	depends on BPF_SYSCALL
+> +	depends on CRYPTO_LIB_AES_CBC
+> +	depends on CRYPTO_LIB_AES_ECB
 
-A forged on-disk superblock (malicious storage device or crafted
-image) can therefore carry an oversized sb->bblog_size.  When bad
-blocks are later recorded, super_1_sync() sets bb->size from
-sb->bblog_size and md_write_metadata() issues a bio larger than the
-single rdev->bb_page, reading beyond the page and leaking kernel
-memory contents to disk.
+This will break the build with CRYPTO_AES=m.
 
-sb->bblog_size is never modified by the kernel between load and sync,
-and the MD_FEATURE_BAD_BLOCKS branch already validates it, so checking
-it in this branch is sufficient to cover both paths.
+>  struct bpf_crypto_ctx {
+> -	const struct bpf_crypto_type *type;
+> -	void *tfm;
+> -	u32 siv_len;
+> +	enum bpf_crypto_algo_id algo;
+> +	void *key;
 
-Fix this by rejecting an oversized sb->bblog_size with -EINVAL,
-matching the existing check in the MD_FEATURE_BAD_BLOCKS branch.
+No need for this. The bot was wrong.
+Reading any field of struct bpf_crypto_ctx requires CAP_PERFMON.
 
-Fixes: 2699b67223ac ("md: load/store badblock list from v1.x metadata")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
----
- drivers/md/md.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..1caa92b40f9a 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -1934,8 +1934,11 @@ static int super_1_load(struct md_rdev *rdev, struct md_rdev *refdev, int minor_
- 			if (!badblocks_set(&rdev->badblocks, sector, count, 1))
- 				return -EINVAL;
- 		}
--	} else if (sb->bblog_offset != 0)
-+	} else if (sb->bblog_offset != 0) {
-+		if (le16_to_cpu(sb->bblog_size) > (PAGE_SIZE / 512))
-+			return -EINVAL;
- 		rdev->badblocks.shift = 0;
-+	}
- 
- 	if ((le32_to_cpu(sb->feature_map) &
- 	    (MD_FEATURE_PPL | MD_FEATURE_MULTIPLE_PPLS))) {
--- 
-2.53.0
-
+pw-bot: cr
