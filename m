@@ -1,108 +1,157 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-ed2-f19.google.com (mail-ed2-f19.google.com [74.125.228.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B97B53ED04
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B7653ED1B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079177; cv=none; b=Q68OJIu6bMzezbdBnv3gPLkrvbgVkZuAehZreu5WE8a7S2usIg3IjYvQJWG/hqiwGeR/qKgY7A1tqthZ1Jkt7fIyh/eJCdGDzGPEOt5A7mtpDVGmnuX6VY8yVxi+NxDjfBha/YyomcGwiTBZCkQNuFIjoIFAyawUixhzuMvUjNQ=
+	t=1790079231; cv=none; b=MYyMik0YeY2SjuJUN6Ufsc6qnXm4MqOCSSMvaXMB1Sl8DBLFp4W/2G7gLLLTmOI/GmqvqT/Mo0oHYEN96Iv7cM5kZtZ7r8sCOio8/IqBMr9kmn99H9+gnV5Sb/5KR/NTpjpTaa2PedoMuC2nT3sFSWLlY7SKfbkPd8hYborJyw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079177; c=relaxed/simple;
-	bh=rFtM7Y/4hLz4QUzVQrWr8hZpi5xC8pCu87wXIa+Qv9U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tBL9ubnCC+kbEAVuXZhvYDwvRcOfVvQGXH0spMo6u51TNgxiaInLa72SVmave9VjCqUy6ShFf/Dg8EitHPk9LlMpjEvXeJW3M6WvPWP+5U8rcHVih535gjK9gMtyYAsntuXLmYZNQobRJ6PQ4q9LzW8y5POJHCIe0o+V+xIeus0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKwgBvV/; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790079231; c=relaxed/simple;
+	bh=YI5qeuYEzeG0ydgPhXQYpf3v0xARxeUmxUKsKpI6Szs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=owPB6cuPT5z86nnjyu6IEpNfUK05kOx4PpX0mZM39wekozSFSA3ik0ac9rKUBd/aaOGPb6b45VH8fTZow61ZORuek3+4ca2l/j64HJA0SwHqV+pQy32whFoNDJMQXv0liM8Ai1AkDvVM3ssa5/tL+WZMRFxV6aP9fjheLV5G23Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LscFlo8W; arc=none smtp.client-ip=74.125.228.83
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKwgBvV/"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39da614ab21so310467a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:12:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LscFlo8W"
+Received: by mail-ed2-f19.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae52so6440933a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:13:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790079175; x=1790683975; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rFtM7Y/4hLz4QUzVQrWr8hZpi5xC8pCu87wXIa+Qv9U=;
-        b=PKwgBvV/eCibDTYKGd/9k780slqUN1qZ2/60FDez3ZAiiv94EFoR11P/kv1y7w7wCb
-         vwNwkwYgXj3noI1MWXCDFcM+NdOgBRbJsgDaSyMbr/vVtNZ8Nsy76MBucpYi8vwG5AGW
-         6vhkgfOw6/5o7C+LHSwD4AdKHgIZPtGzay1rP6OIYs8UK4as1bzKqFnr8t5wP6+8Br58
-         Wd5hQoyj4ME+6fiWS4qMr5K03zzbtEgzKQg05EN402BH05BQ70HIWu96Tmv+JJxsw/fW
-         Ov6uny3LeWmy/w2N63icdRQEagL8In46hV636msMDV/CqCS79MQuGYhar/woQZj3fliq
-         0Itg==
+        d=gmail.com; s=20251104; t=1790079229; x=1790684029; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OjbpV8gXw6DnzPOP9Yav5BVijNjxxO/HGQyrKRqAqnI=;
+        b=LscFlo8WvI5sm8M2I95FkrTYjOuyh7+AeqIfQjYVyALUROYAUnOImR/EtJYQE4GRod
+         HP83IIvK5LvPz43GCZtAXwWSBaew/hIrqTv0gwjFbPXirHTRr+xQ7UEvVqD2GzxqZJ1w
+         Cps1G8ClVJpw2Bf0lde7FizPSoo5+XuVg+1UnfuP6c1JLqWFQUE+VF8aKFksAHq9Rype
+         6Raow56+ssg3gVZqQ17MK+g7Fzlr4TgSoby5DnUPwGFxasrwtvlVSleAWuv3bIlMN50h
+         8MTxf1S4mBcJdRk/h5Ofl3U+Rf+DQI9zo//9K0MAZ7JhE+RlfxTO/ftzTJ45+uX2MPJh
+         j8Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790079175; x=1790683975;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rFtM7Y/4hLz4QUzVQrWr8hZpi5xC8pCu87wXIa+Qv9U=;
-        b=QtpWcuxCZqRnQ2bspzNA4GcwYfKoDm2coPqPVdjzZnOasOv/d6LATIf+8inPKAsS8z
-         I3Gs7C4Kx+BLGiDcSvB4tvMHuOPM47HDID4XPVuh/rzMmJ0U46bLnfVLeJUImCWcXeID
-         zAaUkFI6QRzHLDBo6wY1rSAINwqyZCyGAUyaHXv5F0vJxH15OtdOUkLigqWi5KUYTg03
-         P3o+lm5q+cO+JNJoSpf4ZuBqddBVSn1pw9TJVD2fOr38dDGc6Oa2mtGmsS32Kvr4034X
-         kOvEqjfq2I88JXN3ah1wEOK+gFPbhNS3KkbvcIPEzfKZQGCdFfn3GglHdusHFlwNhTxS
-         fCzA==
-X-Forwarded-Encrypted: i=1; AKwUvBw7HNphTERVdGne6YN1AP2T8OWiMC3m4uyICka1pTzZM2dTHJiHmQS6E8Erg9g7oqEjen+Le05ga+Y+5rc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH6AeijBVe8h5YGGDRJGrui8wHnssVFgTqh/S3Zm4DguTtZ4ak
-	2btZrdey5vWxuGmnElTfIr50ssbQEzFmslnQjWMEXCY0IaUIsUVdmzDJxpzFJA==
-X-Gm-Gg: AYBFou33KUIFGA+cgGgzz3kgaN7FUBx2cNtPmBsV0G25MMQ5R8nXceRRcotTvWjl4jT
-	JKM1qxdu9Cq261AtwhHC8TDd9ZZlKK43bn03iybiS0LGlEcNT+TqgifE7KiZHXKF1PbAC0+ABu7
-	AtOoBw3/ay1QyPQUlyQXh0ASDmBAOaRHEzZLTjMM7n7s5XSEXDeHwEzp1RABJqJYrvZGLztFzub
-	2yYpDnRZ9djkJdTYMuMtQUB0pDkPDaQosx8A5tPyGdhRYp9ZguVy4Yp1qQH+4qnNcSCeEo1ANB7
-	yUI9F3DyfjIQdgUYMWQnfWwfNoReGjf6GH5JahciRraQevU80a3ErBoDoQXx+I0VZfYmFqnYkp3
-	YuKlDNUnC2co+1re/BaM2zO2LOWvrD2Muvqt3UdwiFpQAQknJxUoxXxkaTsCI1cb1fPdZRIHnvI
-	1AjXzYly+7MlN/o8BEVLP5XOawmyjRdvSjjs9j4+yXaAC1qKrBtItrefnHez4+m7jjRig/0qnoV
-	ktEhvQNd37g7hV7VULiqdIHLX/oSNlAnV1lfmQac8dRr23QHVjVq6x85sxfwOUvcrNrhvitsI7k
-	Z62todTCQn/g1bXw7/F3kHzxBYzXgw==
-X-Received: by 2002:a17:90b:4e8e:b0:39e:3728:3b11 with SMTP id 98e67ed59e1d1-3a0732ba084mr1605467a91.3.1790079175243;
-        Tue, 22 Sep 2026 05:12:55 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e6129a33esm5771625eec.14.2026.09.22.05.12.52
+        d=1e100.net; s=20260707; t=1790079229; x=1790684029;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OjbpV8gXw6DnzPOP9Yav5BVijNjxxO/HGQyrKRqAqnI=;
+        b=kpaDKi7P16Vy0Xo1JhkEGsUzXpM6qRrIEWjNxv1KqYWGtcDfCi6xxBEmH5v+s2DOGY
+         5yI0IDZRMq3XoSHdG5lgl8z9rpk494RFXsfvanS7YKkBsNrALKrWrX+ZXZgRPo2WIpOn
+         Fvkp04BFF6TOvAjiLs/KAI8L/kBj3DvS3G1aaiKqwlpWsk9iyKPrrrdqEdlFKmJWDpgb
+         LZOqegN07buSzqYldTUu2HMlvOFdxbzRh7LxxDdWcNCkyr/HsJdHzEZRt/6An9uFDD90
+         0Bmi//MyiSXZ9lTqRcHe9PZMeJsRVxNVSDH7n/tSPunfP1wzx04EiLlVxvDTWoVxeCGc
+         YqNw==
+X-Forwarded-Encrypted: i=1; AKwUvByTloAeqpiKQlnz4DaOL+b5Z152hxgzfxCBEnARnbX3l70528dlE5Jd6G2Ooo1hYbasJollANX8SXx3UJ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3hBoDGxRfT8V2GT09MeE5X0wVT7u7j6XIIMD0Tv+GnKssMKMF
+	JMoJyP8DDLs6WnwAGER4MMwDeBMhI1DqH3VSL/JuqCrYI1q9QCT+T/n0
+X-Gm-Gg: AYBFou3qWRlbGhBc8y0ugzIvhqrwGIRzJHtrZWoayuchmgc5OO8UOLKEM19VdySqVzb
+	GqWb4Lz4cyKpsyDJsu30DnFO2JDtSxJjrWSGIwlzk0RpGSx6tO+gz8dCuC4F1ex8tfla4ewPI7m
+	F4F435W+6dLfXRvhJ3Lszqd2YrmMAGCi9ixA63PT/8yPKrJd+IMd6w7v2roRE7u1DfOxwIY8Rnh
+	al11L0+NqrSgHyWUKnPA3bm1QLhpjIKaObpQnX4V698m07wK9U4vuuoi3gFDnzIjdWIMvy6OulN
+	yZVZ0r+o6cR9zYyDOxBxKVjbWhMmhQrmOy/nsKB94OCLvZ0elxzSUXFgy8ZiA70Vra0RF0RoEJE
+	prJ24XTb0w1/h5b2kWkULDj7uF6FCMzx7r/8Cy5N4GjmHtY/4Z5GoC3OncT1tYB+rfBxW780z7Q
+	vl0uXZAj1xDTyIBaozoc8KHrEAqoo2AM3vvlNT
+X-Received: by 2002:a05:6402:249a:b0:6aa:734a:a08f with SMTP id 4fb4d7f45d1cf-6aa734aa2b2mr8449809a12.38.1790079228363;
+        Tue, 22 Sep 2026 05:13:48 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa44e6abdsm917994a12.13.2026.09.22.05.13.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:12:54 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: designware: size the RX FIFO threshold to the queued transfer
-Date: Tue, 22 Sep 2026 17:42:49 +0530
-Message-ID: <20260922121249.46057-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arJRC4Ou1LSAMGTs@ashevche-desk.local>
-References: <20260919232647.448748-1-navonjohnlukose@gmail.com> <arJRC4Ou1LSAMGTs@ashevche-desk.local>
+        Tue, 22 Sep 2026 05:13:47 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Tue, 22 Sep 2026 14:13:45 +0200
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Uladzislau Rezki <urezki@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
+Subject: Re: [PATCH v2 3/3] mm/vmalloc: skip vmalloc_dump_obj for non-vmalloc
+ addresses
+Message-ID: <arJw-VKQNxWA0RSc@milan>
+References: <20260921-vmalloc_dump_obj-v2-0-73fceb3ed1c8@linux.dev>
+ <20260921-vmalloc_dump_obj-v2-3-73fceb3ed1c8@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-vmalloc_dump_obj-v2-3-73fceb3ed1c8@linux.dev>
 
-On Tue, Sep 22, 2026 at 12:57:31PM +0300, Andy Shevchenko wrote:
-> Nobody will go with 0 in cpu_dma_latency. It basically kills the idea of CPU
-> power states.
+On Mon, Sep 21, 2026 at 09:17:23PM +0800, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> vmalloc_dump_obj() unconditionally searches all vmap nodes even when
+> called with a non-vmalloc address (e.g. a slab or stack pointer from
+> mem_dump_obj()).  Add an is_vmalloc_or_module_addr() check at the
+> entry to avoid the unnecessary per-node trylock and rb-tree traversal.
+> 
+> Use is_vmalloc_or_module_addr() rather than is_vmalloc_addr() because
+> module, BPF, and execmem allocations reside in MODULES_VADDR..MODULES_END
+> on x86_64, arm64, and riscv -- outside VMALLOC_START..VMALLOC_END -- but
+> are still tracked in the same vmap_nodes rb-tree.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> ---
+>  mm/vmalloc.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 30c610f678dc..d8095b558365 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -5277,6 +5277,9 @@ bool vmalloc_dump_obj(void *object)
+>  	unsigned long addr;
+>  	unsigned long nr_pages;
+>  
+> +	if (!is_vmalloc_or_module_addr(object))
+> +		return false;
+> +
+>  	addr = PAGE_ALIGN_DOWN((unsigned long) object);
+>  
+>  	/*
+> 
+> -- 
+> 2.25.1
+>
+Do we need this check? If it is not the vmalloc address, we just return
+noting. Another question is why do you want is_vmalloc_or_module_addr()?
 
-Agreed, and the patch does not ask anyone to. Holding it at 0 was how I
-measured where the added latency comes from. Mika raised the same point and
-there is more detail in that subthread:
+vmalloc_dump_obj() is about VMALLOC_START..VMALLOC_END, IMO.
 
-https://lore.kernel.org/all/20260921170456.53354-1-navonjohnlukose@gmail.com/
+There are only two users of it and both rely on the VMALLOC_START..VMALLOC_END
+range:
 
-> If you need a dynamic run-time PM QoS, patch the HID subsystem to
-> make those when they want to heavily communicate with the HW.
+<snip>
+*** mm/kasan/report.c:
+print_address_description[403] if (!vmalloc_dump_obj(addr))
 
-A QoS request would bound the latency, AFAIK. It would not change that the
-controller raises RX_FULL once per received byte, which is what this patch
-is about, so I do not think one blocks the other.
+*** mm/util.c:
+mem_dump_obj[1096]             if (vmalloc_dump_obj(object))
+<snip>
 
-> There is also the issue of the interrupt locality.
+	if (is_vmalloc_addr(addr)) {
+		pr_err("The buggy address belongs to a");
+		if (!vmalloc_dump_obj(addr))
+			pr_cont(" vmalloc virtual mapping\n");
+		page = vmalloc_to_page(addr);
+	}
 
-I am not sure what the i2c driver can do about that. What did you have in
-mind?
+and
 
-Worth noting i2c_dw_configure_mode() sets TX_TL to half the FIFO and
-RX_TL to 0 on adjacent lines, so a transmit interrupt moves up to half a
-FIFO and a receive interrupt moves one byte, which is what this patch
-changes.
+<snip>
+	if (vmalloc_dump_obj(object))
+		return;
+
+	if (is_vmalloc_addr(object))
+		type = "vmalloc memory";
+<snip>
+
+--
+Uladzislau Rezki
