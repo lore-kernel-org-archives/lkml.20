@@ -1,64 +1,64 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C211E559301
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C51B559C8B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790087331; cv=none; b=FkcIalg3TH8ucVb3e8YNNYgmxEpMKo+Z3se4N0utNy4P1ngOMiTC3xMfUKz2qhCem+qGLJ1AvNR6tyW59XuWylzura+Fm1l1i3hDpH9HrAkXmLkgVtN7pZ5ha4AS7pWRuj9wPd0EcHnXLbs3mXxBVxfLGyY2pJgE6v29vobdCxc=
+	t=1790087333; cv=none; b=JLg7++e6/fK1PQ+VqYVN4IwSnJVowHGt5P2Bt2ISk+RTAZZcfVukZ3H99OW+3fCd+ogIsoQSLLEMTk0bi6AZA0b821p04SzxEcKYWabpZDYIP0eUSyGZxUD6s9ltK/6ew51Kn/Hr8JG6ob7/wJIvbgOjbOHpIYy3rsn08YJyc+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790087331; c=relaxed/simple;
-	bh=XA55q142D8aRkadxqfCagWbQvXMi9cPh2wIUiWNw0Sw=;
+	s=arc-20240116; t=1790087333; c=relaxed/simple;
+	bh=vmXda7q3sDpJEX8AFmmpa4DPRcImaRBMRm6OQHAWGGE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cxiyS8nNM3LEmlDRFrTBH82V5mAQYh/8mPmmOMfTdh/8G0sNuEeM4f+LAxvbvn0rn926+x2qkLrS1v8R73wHsNkY2Tyay51TU4qg3qc27cm4dUbOMttPMVx5JpzHa5dV9F8XzeyENdCQOWA4wzksL0l9kUsXb4y5J0PUlaSOzyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FmSMFL1F; arc=none smtp.client-ip=74.125.229.205
+	 MIME-Version; b=NXy2upTkd9ehlzXRbTfNjgM0yDQfLDInOmFtW39j0ShVz0zsCvM2Vj1+Ixp8To+4niPsZC1Vq8rockBufumbM8rKNmNQ4oQhdy0p2YKsrEoyIWchyWBZBQcYt/97M84fId1nzU7RB/LYtV0Ctmv5yaMa7Z5o8vo6QxwhLtjf9Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VijQ3XL8; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FmSMFL1F"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d7263f0cso264812e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:28:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VijQ3XL8"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c81so3625984e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:28:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790087327; x=1790692127; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790087330; x=1790692130; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Np0pzXK9nCSAZ/EqFO5RnAzXdV1OHTysVqZnz2yyn3g=;
-        b=FmSMFL1FoGwl+TLSh8/4uDlQzap6oEjQOh1Z/XAEZDsQSbWlk3P4MDLTZ7IzKrsv02
-         WVRJjnj6lheSfNIYw7+xfShqspXWVdwOwj4ab1y28KccfuwxATOqRmhB5UfD5TTLw/NB
-         d0xQJdwgFG9lQROLugG9gAxpN4DaoCsEyfSXEbx919I1J7Xhb3mAqrXoC0p8XhGuufWq
-         4z4EOw1t2yhKVbPx2LzXLZsbfXESCRfzISSvDlZLboo0mTHN453KAhwixPPbxCu0I8en
-         7ewzbdwJakEGxNTR+ItcSPHWTzQmedf/fhPih4dvwIVm5YYbfu1fqyaaI2qthxkegI5X
-         JOOw==
+        bh=tCnqW3uWQK4vADqWc0y/sNw0Dm5EpPQnotxldEeM2YU=;
+        b=VijQ3XL8mcNzlFTQCPeDqWlpAWFBrdyBLIiesM/qzOa/uiameADm5DzLR49ACYIN27
+         w3ysbVpjEBSUX8ZXwH3ccjFzObRtXLANTGHvVwJ4kDPGAX5+Xy3tyJ++uJ6k97PptoSW
+         tEIAkUrg657+mfUuSxRFNAqvbOLRkw2TwOvuhBCIufALBg9LJHLdCKv8+EXY5UBQljtb
+         RIKrj+KdfVVhmx2q1bxH0Y6sz6xF+6TvkOZNkJDhaTeKv2JITQpHkXseSYEjTa//06wh
+         0tODbO1HYl7B4zXwtEipB/SLDni+3RcfDrGIzYO7jozKH3kvnHtfcp1yxKWxHlHWLJ6y
+         RikA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790087327; x=1790692127;
+        d=1e100.net; s=20260707; t=1790087330; x=1790692130;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Np0pzXK9nCSAZ/EqFO5RnAzXdV1OHTysVqZnz2yyn3g=;
-        b=RCp3x930YXgPTyR8HIusi6ZryFqRx2PyXAG/Y4y/JQdoYaLRK/0pVFlU7Kb6ZM9vTW
-         PKy8KMG4B3DEdwrnHp5d3jANIoKhbQjOJ89hc9qCX/MaiC1zPV7wuPNSYCAOOhjtoRP0
-         +sjOtr/DrMBylChd74kzf95jgRuakwxSh+2WRHdFgqCHpzxHCu4vUsW+x4S6aGFaKdT3
-         7bzFe0Znf9ylh7MibLZwBS2ckzU8wEpal77jNCI0i/Zd6WM3c2J7vwZjBuEfuJwYRrw0
-         LCClwblNFIPct1XyJtKINyk3wPG5x2L53z4QhwNDMQW3SGi+YQu1/Qw1QxUFETqoaMEZ
-         2sZg==
-X-Forwarded-Encrypted: i=1; AKwUvBwfAAMWQX3Fw7GWRxsKQtquc2tpmhnKekLd5lUG+bnKoiGlNPr8AuKHQU69iaAi8LVqQnp0pHlq1LrGcAs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqrxHbfnclwDiNhIapz2Z5KOoH/mG+LBE1TBjLgZokzwYxmJCP
-	ZeAR/21u1XpFCbaR54DMTCG8E95wyjhxk159MSsa7YHrN4T+cjdR38nQ
-X-Gm-Gg: AYBFou1kBmYXSbARI+DlyqAlCbGc2dORbYxFBMX9YDibGiqFjinyfBUr+efowdwpHvf
-	jbL6Ob2P5llP9QgdpsD7b4YGprK5JVEIz+pttXEzWiWawcCS29mSbVaRzFpdMdXZl/gn06tRQn9
-	Cd6HlE+EYIhl9efydeuBFJ8RWtp7812c3cRlJUZ9ZXGm50+s7MNndN9C1nfzjpluVbMTNJOXZEW
-	T/DQm/8+xnotlSAhAp8rFJVLkeFhoTJLM1+VDI3fV31vQPi5WT7nf9GSCM+ckgLL5TaaCZnK1ZY
-	IqBR2Vlohd5kQzkeKiGSSwZDYUd6vFE7PDtC+H98nYvcpe8fkQyzD6hQh+0CJcfSZLaPHbP6hjN
-	sKeCzowaquEhSpDAaiH97ghU2NCeFi4dn04Sb+fZ0004fQau2W98xwKdjJYQRd5AF6sf2Lje14V
-	jExOiARH4xB13b2sELFHGhzMXHwqZk47bjtFJzzjVZK9pa7V9+9AG+TG05LsaIGO1KhI4cCkGeh
-	p+MAaR2QmQ79o0GDFixC3byDswrtR1soxGf8IxL
-X-Received: by 2002:a05:6512:3a8e:b0:5b2:a967:c0bf with SMTP id 2adb3069b0e04-5b8c17f5f54mr4811816e87.10.1790087325948;
-        Tue, 22 Sep 2026 07:28:45 -0700 (PDT)
+        bh=tCnqW3uWQK4vADqWc0y/sNw0Dm5EpPQnotxldEeM2YU=;
+        b=RasmVJGeZRBgLFGXuNdc55L9+CSt2Gj5vEBX6vfK+dHytXfHgoC2aSL6iMCbN1znEU
+         j657TtdFMVj2FwTjaLSdYf1nE4FLqDRiLT9BTeeANhkICa/5aOfUKouw9yXudHDq9ub+
+         3tBk1upxWkzllQPhwVRE0FIqnYO93fNPOyCUjV6RNJ07UdkmUMA4xB3GxEBdSJhjva/1
+         736vFkS8u0LkL8Mg6JYJX7uFGLgxcD6fVHHSrxqAlN8SVKT6zF0hpMFoHUZAe2zbMntf
+         V67byQKWPRE+VMM42eHxoCJmYJJvUuExKDv+egCui91gRr0urUWN274U9Ow5/W8YG4AA
+         rXWA==
+X-Forwarded-Encrypted: i=1; AKwUvBz6WNQqMf+CzRb7khRnhgQlaHxPayFZUvJYRlwgHe/EKXAKrMlnoRksbAFo0Hs2r9Mguk/prIwtBVP+Cvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOY+AWgJits8OwcrhiQGlAVjkMqSlPD81rM4DR/pgpyhxUr8EH
+	F2oQcqAiuWi2eg/Rb0YH8kMHsR6/OsxxHRdaZ+98jLayFAL1nWOJ0eWr
+X-Gm-Gg: AYBFou1CSGTJLiZzspYEQhjaXeUUYPMaWypd0yB1+GfAKZ3/PX6g9w4DgcP3EvItvA2
+	9UgxF/zWPwnGuRBJGMHzAK9JbypOur0B4WIYwkWpPadkKRDed7+9Bz5uNiUx3LuYamGwsYRq1+P
+	02AZZaL+yVVVrhbIhxNgM7AxGNdwcHHdk/dQz4AhBtLryd9bO2YbwLsI026a0QJ2Z/NhpiG5857
+	fEtj4uuac4FiZEdIrS0bxdngFF94/EP9Pj7CjRl1zUqVJhSjwmjSrasdX7yL3h+ArAR20/l90SE
+	FCdjsjdAKR/z0n7ZG43BYYaVECu9QpZ851yg30iV8qYhrHkzR1w6w6rx9Z5qtBILdfczc8SQsGq
+	vrAAtXvjz2piu3ofwmzWbwJ2AzHXntCfx8mrkH3e51rRqmpmj6xjx5CmR8LwGELnEGySf0vroKH
+	uDMrv5T1M3+aQeUzCrUBNxo51MzgNXSvIJr4hlQWJqxsvVHSXXNlntXdFucFlsw9tjYVkxR0c51
+	YHNCe6pr5KZzvn6zz0l6nkQuaK+Wg9p6jtvmcZd
+X-Received: by 2002:a05:6512:3b2a:b0:5b6:1a81:1c8d with SMTP id 2adb3069b0e04-5b8c197976cmr4302647e87.66.1790087328717;
+        Tue, 22 Sep 2026 07:28:48 -0700 (PDT)
 Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46d2064sm589691e87.24.2026.09.22.07.28.43
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46d2064sm589691e87.24.2026.09.22.07.28.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:28:45 -0700 (PDT)
+        Tue, 22 Sep 2026 07:28:48 -0700 (PDT)
 From: Sagi Maimon <maimon.sagi@gmail.com>
 To: Richard Cochran <richardcochran@gmail.com>,
 	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
@@ -76,10 +76,11 @@ To: Richard Cochran <richardcochran@gmail.com>,
 	netdev@vger.kernel.org
 Cc: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net-next 5/9] ptp: ocp: correct the CPLD bookkeeping comments and the flash progress
-Date: Tue, 22 Sep 2026 17:28:25 +0300
-Message-ID: <20260922142829.57740-6-maimon.sagi@gmail.com>
+	Sagi Maimon <maimon.sagi@gmail.com>,
+	netdev-bot+sashiko@kernel.org
+Subject: [PATCH net-next 6/9] ptp: ocp: report fw.cpld with an empty value until the USERCODE is read
+Date: Tue, 22 Sep 2026 17:28:26 +0300
+Message-ID: <20260922142829.57740-7-maimon.sagi@gmail.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20260922142829.57740-1-maimon.sagi@gmail.com>
 References: <20260922142829.57740-1-maimon.sagi@gmail.com>
@@ -91,112 +92,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The struct ptp_ocp member comments overstate the locking.
-cpld_i2c_adap_nr was documented as "Under cpld_adap_lock" and cpld_id_tried
-as "under cpld_lock", but every reader takes neither: the design is that
-the writers are serialised while readers may see a stale value and
-re-validate it - adva_x1_bus_claim() re-checks the adapter's parent, and a
-stale cpld_id_tried only costs one extra attempt.  Describe that instead.
+The fw.cpld running version was published as the literal string "unknown"
+before the USERCODE had been read, which contradicts both the changelog
+and the .rst entry describing it as the USERCODE formatted as 0x%08x, and
+is not a version anyone can use.
 
-Pair the stores of cpld_id_tried with those unlocked readers using
-WRITE_ONCE() rather than plain stores.
+The string was there because naming the component is what lets
+"devlink dev flash ... component fw.cpld" through, and a part left holding
+a bad image answers neither READ_ID nor READ_USERCODE - gating the
+component on the read would make exactly that state unrecoverable.
 
-The flash progress notification reported the offset of the page that had
-just been written rather than the number of bytes written, so it was one
-page behind and never reached fw->size from inside the loop.
+An empty value gives both: devlink_info_version_put() invokes its
+version_cb, which is what devlink_flash_component_get() collects names
+with, before returning early on an empty value, so the component stays
+flashable while no version attribute is emitted.
 
-No functional change beyond the reported progress value.
-
-Fixes: 3b815e29966f ("ptp: ocp: add TAP CPLD access for ADVA TimeCard X1")
+Suggested-by: netdev-bot+sashiko@kernel.org
 Fixes: a4b7c15aa78f ("ptp: ocp: add TAP CPLD flashing via devlink")
 Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
 ---
- drivers/ptp/ptp_ocp.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ drivers/ptp/ptp_ocp.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 45313143b6f7..e10f6b5149c9 100644
+index e10f6b5149c9..4ce86df6e196 100644
 --- a/drivers/ptp/ptp_ocp.c
 +++ b/drivers/ptp/ptp_ocp.c
-@@ -428,9 +428,12 @@ struct ptp_ocp {
- 	/* adva_x1 CPLD I2C (internal use only) */
- 	/* serialises CPLD operations */
- 	struct mutex		cpld_lock;
--	/* guards cpld_i2c_adap_nr against the bus notifier */
-+	/* serialises the cpld_i2c_adap_nr writers against each other */
- 	spinlock_t		cpld_adap_lock;
--	/* I2C adapter nr; -1 if absent.  Under cpld_adap_lock */
-+	/* I2C adapter nr, -1 if absent.  Writers hold cpld_adap_lock;
-+	 * readers take no lock and re-validate what they got, since the
-+	 * number can be recycled - see adva_x1_bus_claim().
-+	 */
- 	int			cpld_i2c_adap_nr;
- 	/* claimed adapter; valid under cpld_lock */
- 	struct i2c_adapter	*cpld_adap;
-@@ -442,9 +445,12 @@ struct ptp_ocp {
- 	u32			cpld_usercode;
- 	/* cpld_usercode has been read since the last flash */
- 	bool			cpld_usercode_ok;
--	/* one-shot ID read finished, successfully or not; under cpld_lock */
-+	/* one-shot ID read finished, successfully or not.  Written under
-+	 * cpld_lock; the worker reads it unlocked, where a stale value only
-+	 * costs one extra attempt.
-+	 */
- 	bool			cpld_id_tried;
--	/* failed ID read attempts so far; under cpld_lock */
-+	/* failed ID read attempts so far; cpld_lock */
- 	unsigned int		cpld_id_attempts;
- 	/* x1 TAP CPLD present */
- 	bool			has_cpld;
-@@ -4616,7 +4622,7 @@ static void adva_x1_cache_i2c_adap(struct ptp_ocp *bp)
- 	 * the rest of the binding.
- 	 */
- 	scoped_guard(mutex, &bp->cpld_lock) {
--		bp->cpld_id_tried = false;
-+		WRITE_ONCE(bp->cpld_id_tried, false);
- 		bp->cpld_id_attempts = 0;
- 	}
- 
-@@ -4900,7 +4906,7 @@ static int adva_x1_cpld_read_id(struct ptp_ocp *bp)
- 	 * worker that had already finished reading.
- 	 */
- 	if (!ret || ++bp->cpld_id_attempts >= CPLD_ID_MAX_ATTEMPTS)
--		bp->cpld_id_tried = true;
-+		WRITE_ONCE(bp->cpld_id_tried, true);
- 	mutex_unlock(&bp->cpld_lock);
- 	if (ret)
- 		dev_dbg(&bp->pdev->dev,
-@@ -5047,7 +5053,7 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
- 	 */
- 	WRITE_ONCE(bp->cpld_id, 0);
- 	WRITE_ONCE(bp->cpld_usercode_ok, false);
--	bp->cpld_id_tried = false;
-+	WRITE_ONCE(bp->cpld_id_tried, false);
- 	bp->cpld_id_attempts = 0;
- 
- 	err = adva_x1_cpld_write(bp, CPLD_CMD_RESET_ADDR);
-@@ -5056,6 +5062,7 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
- 
- 	for (offset = 0; offset < fw->size; offset += CPLD_PAGE_SIZE) {
- 		u8 args[3 + CPLD_PAGE_SIZE] = { 0x00, 0x00, 0x01 };
-+		size_t done;
- 
- 		/* The loop holds cpld_lock and the i2c root lock for the
- 		 * whole image, so give a dying task a way out.  The part is
-@@ -5075,11 +5082,12 @@ static int adva_x1_cpld_flash(struct ptp_ocp *bp, struct devlink *devlink,
+@@ -2264,15 +2264,20 @@ ptp_ocp_devlink_info_get(struct devlink *devlink, struct devlink_info_req *req,
+ 		/* The flashable component.  Naming it here is what lets
+ 		 * "devlink dev flash ... component fw.cpld" through, as the
+ 		 * core matches the name against the versions reported here,
+-		 * so it is reported for every board that has the part and not
++		 * so it is named for every board that has the part and not
+ 		 * only once its USERCODE has been read: a part left holding a
+ 		 * bad image answers neither, and gating the component on the
+ 		 * read would make that state unrecoverable.
++		 *
++		 * An empty value still registers the name with the core -
++		 * devlink_info_version_put() runs its version_cb before the
++		 * empty-value early-out - while emitting no version attribute,
++		 * so nothing is published until the USERCODE has been read.
+ 		 */
+ 		if (smp_load_acquire(&bp->cpld_usercode_ok))
+ 			sprintf(buf, "0x%08x", READ_ONCE(bp->cpld_usercode));
+ 		else
+-			strscpy(buf, "unknown", sizeof(buf));
++			buf[0] = '\0';
+ 		err = devlink_info_version_running_put_ext(req, "fw.cpld", buf,
+ 							   ver_type);
  		if (err)
- 			goto exit_config;
- 
-+		done = offset + CPLD_PAGE_SIZE;
- 		if (!(offset % (CPLD_PAGE_SIZE * 64)))
- 			devlink_flash_update_status_notify(devlink,
- 							   "Programming",
- 							   ADVA_CPLD_COMPONENT,
--							   offset, fw->size);
-+							   done, fw->size);
- 	}
- 	devlink_flash_update_status_notify(devlink, "Programming",
- 					   ADVA_CPLD_COMPONENT,
 -- 
 2.47.0
 
