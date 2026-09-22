@@ -1,127 +1,182 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBF454DACC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619EF4756B5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790084830; cv=none; b=H5NCnToS+Dnw+dbCKVeT4Xl3WPPwxwbDJ3N9b0dSLPjzlf7Gc0irElaRZDcvWah1rDUddg4tiHAIRxqSwdeTycVA2dNExTgd0ts9gwEvtOIwr8pAiqHsu6ud3Bc4riBZyh/NgOWp4JOCCZnxrighkPWRslQfxEYolB0gOWCP5r8=
+	t=1790084898; cv=none; b=eM1Hn/AMlzKSjexO8UabRkFSS8TD5NAS32OpmmH5kuQ1+7FhIeNfu0t8cOusP2pS4/vZkdH7ptiyV0nk47ZXUx/RBgdIui9mKTB40viwUaM6qeLdM0dKprHAtYPb5RhwJwDPrmLAENfvCBpP8Q3zPonrX/PpW1lGY9ZvvenxI6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790084830; c=relaxed/simple;
-	bh=5gvU+dfQVMRPWQ21gMFhIRzC1AVqMIy6KUq7tbBNbqk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oUrc3ck0/imVzwerUdzPCqLNBA5sjanwnmX2yF7SmRQk0nefn57Y5oxiOweAB10RKAMniSS76QIM7ILpoTo1cyFqQ8L+pCpj7kRsn3pDVhmf0GLyunVNnUEPDpmE8szdww9a4HuNEr0VuQiTNotk5dQ7oMG2APangngvtJ6yZ4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=obtd6cey; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790084898; c=relaxed/simple;
+	bh=w10RBxsUGtOFHpPwTlagk7zihbsxVZOw5yPuLYb1AY8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FSHoXX3lquuhT/GTx8jJ0k+UAKSplcephEIjH1fXmcJE8qYjrKtSA5CRC9zMkHGHWNEDaSlzva/oQftU6g6pMKHMAvNwuOM8ifvMh6tjtYyNrfxM+R8TZ04VLOUqtsXzh0J67ym8DTCtPW+YfJDxNPb11GF0ez3y4WtPkRVo/CQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iqMOITd1; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="obtd6cey"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4922b7c31so4001554a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:47:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790084828; x=1790689628; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gFVUblfJev4NVGqt+kG3dG5mRgj7javR5w3TB/1uDD0=;
-        b=obtd6ceyRGwK7No7zsPtVWXCogKk9sj8ZKTY8CJGgfdXV/t0NheLAGxpEIq2gq3+Ep
-         FKYc+GWKv3W9C8jx4AB4bRHt0vzI7Qc59WHPNYzTAC3QtgnqQQI90VbSGLdqapL5FidD
-         sPgNBVXzfAi5+PLAVjG3vrz/0cH8XIomXowyoPSCrKv819FY42fyl+qZtGdeLaKaS/Bk
-         rfVljYNxwPFQGteZo5JWfVy+4aS+MvqvTQa9xQaOJzv7c9n3Z4JBdFremJyrwhvE0edE
-         weszMmwe7s2hM4Sx7xxPAIepmoNAhpEGltfQm/fQixNNI+PMFi0KAvfBGddjTjEuOWO0
-         gKBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790084828; x=1790689628;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gFVUblfJev4NVGqt+kG3dG5mRgj7javR5w3TB/1uDD0=;
-        b=Q+gLDK//KBI+5bIPSnY+GD+F67dgA+5KfVKyWxzaJVRYyGRMK4iGo51fGUZTOPIbZM
-         7wLaQLzqo+iFwiZ6399yjYiE7Z7rBN/i7LYUoZCubZHO79fo/PX5rLq/YtDz0R72AOzt
-         6iUVFYq2bjMvxovxHhohm0pjxk+CXkCdpX52d+o2Q81xxr6Iu172E5RGNmLXQC9iHcLJ
-         VLNVmw3WD9moVum7nCk0waT5sJEmZxL4gfMtaqMAqVa+MLSqigc+HvwwouE98tyWiYzo
-         ZexzGrjfq9H3mQTV+Wy7QYZcMo45B+8d7Yctg8GuGbAWpiz8VSSkcDBKvWHj5//Bs7BE
-         lZww==
-X-Forwarded-Encrypted: i=1; AKwUvBwno2otB/X5MfTqLJjyZ5qAu2m0zMAhtFKG/iVzhLNiFNByizWsI9ZothFgj5vlv9a7hrO0tywzCKTVD0s=@vger.kernel.org
-X-Gm-Message-State: AFuF++ka4UpQY4WQ7O0dzaJBjx4TVMh6bmO7RMQQ+tEtjYXuNf/5RKHV
-	wgB+TG/h0cUsSu/UgK09JnT4LdKPzhHmT0awyzAtCUO3tyuR8OgALMHlFfsf0+FyFHYtk1FY+Y1
-	v0mEGjQ==
-X-Received: from pflr16.prod.google.com ([2002:aa7:9890:0:b0:87b:2034:f271])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3e28:b0:86c:a9a8:844f
- with SMTP id d2e1a72fcca58-87c81cc17e7mr1327689b3a.1.1790084827682; Tue, 22
- Sep 2026 06:47:07 -0700 (PDT)
-Date: Tue, 22 Sep 2026 06:47:05 -0700
-In-Reply-To: <arJsKA8MkSdpQxNm@yzhao56-desk.sh.intel.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iqMOITd1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790084895;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6IrbNKYXaxBgTnuatiYDHte9IqTtxWZJRiUhRvSTwak=;
+	b=iqMOITd13xmvy/DSRXNUxqAiQOVd+tftAh5Y3r7hWqjrmQpW3jDjj/9oG0EJkRbLbCbZoZ
+	C9gW3Mo1g61XVInuxlKF0vj8MHAcnvlvCtnEaOUdqpn7W4D5x3MI5bF6QqSZd7NaWuXd1c
+	opiQpHnwdcnk7dMMmdnKXFOyt1AuV8w=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-299--PafZw6uO163-ZRW7g_LJA-1; Tue,
+ 22 Sep 2026 09:48:11 -0400
+X-MC-Unique: -PafZw6uO163-ZRW7g_LJA-1
+X-Mimecast-MFC-AGG-ID: -PafZw6uO163-ZRW7g_LJA_1790084888
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6E1E8183090D;
+	Tue, 22 Sep 2026 13:48:06 +0000 (UTC)
+Received: from bfoster (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6486930001B9;
+	Tue, 22 Sep 2026 13:48:00 +0000 (UTC)
+Date: Tue, 22 Sep 2026 09:47:58 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+	surenb@google.com, mhocko@suse.com, hughd@google.com,
+	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
+	ziy@nvidia.com, joannelkoong@gmail.com, djwong@kernel.org,
+	yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
+	chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: Re: [PATCH v4 0/4] mm/truncate: fix data loss when truncating
+ straddling large folios
+Message-ID: <arKHDqdDkQajvAk6@bfoster>
+References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922001332.1121266-1-seanjc@google.com> <20260922001332.1121266-7-seanjc@google.com>
- <arJsKA8MkSdpQxNm@yzhao56-desk.sh.intel.com>
-Message-ID: <arKG2UnTWySdOAkc@google.com>
-Subject: Re: [PATCH v5 6/6] KVM: guest_memfd: Drop superfluous WRITE_ONCE()
- when binding a memslot
-From: Sean Christopherson <seanjc@google.com>
-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>, 
-	Dennis Tighe <dtighe@google.com>, Sashiko Bot <sashiko-bot@kernel.org>, 
-	Ackerley Tng <ackerleytng@google.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Tue, Sep 22, 2026, Yan Zhao wrote:
-> On Mon, Sep 21, 2026 at 05:13:32PM -0700, Sean Christopherson wrote:
-> > Drop the superfluous WRITE_ONCE() when setting a memslot's guest_memfd file
-> > during initial binding, as the memslot *must* be inactive and unreachable.
-> > The superfluous WRITE_ONCE() was added by commit 67b43038ce14 ("KVM:
-> > guest_memfd: Remove RCU-protected attribute from slot->gmem.file") to
-> > maintain rough "parity" with the existing rcu_assign_pointer(), not
-> > realizing that the only reason rcu_assign_pointer() was used was to make
-> > sparse and other checkers happy.
-> > 
-> > Cc: Yan Zhao <yan.y.zhao@intel.com>
-> > Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Reviewed-by: Ackerley Tng <ackerleytng@google.com>
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > ---
-> >  virt/kvm/guest_memfd.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> > index 80932f4ec4a3..826d26036926 100644
-> > --- a/virt/kvm/guest_memfd.c
-> > +++ b/virt/kvm/guest_memfd.c
-> > @@ -677,7 +677,7 @@ int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot
-> >  	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
-> >  	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
-> >  	 */
-> > -	WRITE_ONCE(slot->gmem.file, file);
-> > +	slot->gmem.file = file;
-> >  	slot->gmem.pgoff = offset >> PAGE_SHIFT;
-> >  	if (kvm_gmem_supports_mmap(inode))
-> >  		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
-> > 
-> Thanks for the fix.
-> Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
+On Tue, Sep 22, 2026 at 07:06:59PM +0800, Zhang Yi wrote:
+> From: Zhang Yi <yi.zhang@huawei.com>
 > 
-> BTW: some questions regarding read/write to slot->gmem.file:
+> Hello,
 > 
-> The WRITE_ONCE() in kvm_gmem_unbind() and kvm_gmem_release() are also invoked
-> when the memslot is inactive and unreachable -- are they also superfluous?
+> This is the fourth version fixing data loss when truncating straddling
+> large folios caught on the upcomming ext4 + iomap buffered I/O
+> conversion.
+> 
+> When truncate_inode_pages_range() punches a hole or truncates a file,
+> truncate_inode_partial_folio() splits a large folio so that the caller
+> can drop the in-range sub-folios while keeping the out-of-range tail
+> intact.  This series fixes three distinct problems in that path that
+> can each lose the valid out-of-range tail of a straddling folio, plus a
+> follow-up that clarifies the return value semantics.
+> 
+> Patch 01 aligns the truncation boundaries inwards to the mapping minimum
+> folio order in truncate_inode_pages_range().  With a non-zero min_order,
+> folio_split() stops at min_order instead of order 0, so a boundary
+> computed at page granularity can land inside a min-order-aligned
+> sub-folio and the truncate loop drops that whole chunk, valid tail
+> included, causing data loss.
+> 
+> Patch 02 looks the end-edge straddler up by its page index through
+> __filemap_get_folio() in truncate_inode_partial_folio().  After the
+> first split the straddler is unlocked and only transiently ref'd in the
+> page cache, so the page pointer derived from the original folio can be
+> freed and reallocated as a different folio in the same mapping, and the
+> mapping check cannot catch it, which may cause incorrect splitting and
+> potential data loss.
+> 
+> Patch 03 reworks the contract between truncate_inode_partial_folio() and
+> its callers.  If the second split of the straddler fails, the function
+> reported success unconditionally, and the leftover incorrect end
+> position could cause the truncate loop to drop that valid tail.  After
+> rework, it tells the caller the exact page range safe to discard via new
+> pstart/pend out-parameters, so the truncate loop never touches a
+> straddling folio that still holds valid out-of-range data.
+> 
+> Patch 04 clarifies the return value semantics to "at least one split
+> succeeded", which is all the shmem caller needs to decide whether to
+> reset its scan loop.
+> 
+> 
+> The second patch fixes a pre-existing race issue that is reachable
+> today, so it is Cc'd to stable.  Patches 01 and 03 require a dirty large
+> folio that carries no filesystem private data, so they are not reachable
+> on current filesystems.  They were found while developing the upcoming
+> ext4 iomap buffered I/O path[1].
+> 
+> Thanks,
+> Yi.
+> 
 
-The WRITE_ONCE() in release() is necessary, because the file could be freed/released
-while it is still attached to a memslot.
+Hi Yi,
 
-I _think_ the one in unbind() is now superfluous after 0ee2c883b62d ("KVM:
-guest_memfd: take the invalidate lock when unbinding a dying file"), but that one
-needs more analysis.
+Modulo Jan's comment on patch 4, this series looks good to me. FWIW:
 
-> Do we need the READ_ONCE() in __kvm_gmem_get_pfn(), considering that other slot
-> fields (e.g., slot->gmem.pgoff) are read without READ_ONCE()?
+Reviewed-by: Brian Foster <bfoster@redhat.com>
 
-Yes, it's needed, because of the aforementioned release().  The other slot fields
-are only ever modified when the slot is inactive, i.e. unreachable.  That's why
-I think the unbind() WRITE_ONCE() is unnecessary; KVM should only unbind when the
-slot is inactive.
+Brian
+
+> [1] https://lore.kernel.org/linux-fsdevel/a638a8fb-c184-4069-ae33-379ec12cd514@huaweicloud.com/
+> 
+> 
+> v3->v4:
+>  - Move the patch that fixes data loss when min_order is non-zero to the
+>    first patch position, aligning start and end in
+>    truncate_inode_pages_range(). (Zi Yan)
+>  - Add patch 2, fixing the invalid folio2 issue under concurrency when
+>    truncate_inode_partial_folio() splits at the end position. Use
+>    __filemap_get_folio() to obtain a reliable folio2. (Jan Kara)
+> 
+> v2->v3:
+>  - Rework the folio2 validity check logic to fix the invalid
+>    folio->index issue. (sashiko)
+>  - Clarify the pstart and pend setting logic and the corresponding
+>    comments to make it more readable. (Brian, Joanne)
+>  - Split the patch into 3 small patches. (Zi Yan)
+> 
+> v1->v2:
+>  - Export pstart as a new parameter so that the generic and shmem
+>    truncate paths don't need to recompute the start value from the
+>    return value. (Brian)
+>  - When min_order is non-zero, align [pstart, pend] to the inner
+>    boundaries of the folio to ensure they do not point into the middle
+>    of a large folio, which could otherwise cause valid data within the
+>    folio to be incorrectly cleared. (Joanne)
+> 
+> v3: https://lore.kernel.org/linux-mm/20260916092450.654408-1-yi.zhang@huaweicloud.com/
+> v2: https://lore.kernel.org/linux-mm/20260909062339.473816-1-yi.zhang@huaweicloud.com/
+> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
+> 
+> 
+> Zhang Yi (4):
+>   mm/truncate: align truncation boundaries to mapping minimum folio
+>     order
+>   mm/truncate: look up the end-edge straddler by index
+>   mm/truncate: fix data loss when splitting straddling large folios
+>     fails
+>   mm/truncate: clarify return value of truncate_inode_partial_folio()
+> 
+>  mm/internal.h |   4 +-
+>  mm/shmem.c    |  13 ++---
+>  mm/truncate.c | 128 +++++++++++++++++++++++++++++++++-----------------
+>  3 files changed, 91 insertions(+), 54 deletions(-)
+> 
+> --
+> 2.54.0
+> 
+
