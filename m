@@ -1,95 +1,128 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C27138E5EF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E2E541459
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:36:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080560; cv=none; b=DYGVt52LN9Gjse8QnK/OcQO9QdNVXeAAKdJThqbOyXs5cXwCJiNJo/CMB0Om4gOisKLNRf75rzG2DaEYTjfeYIkCJLaiz4q/DEPSGXOSe0XpabOz5vRDPnyce714rBOfjwvnEohppa+dQvEiFLHOx7nF0KNo8ZXSEtzKHVEZ4c8=
+	t=1790080581; cv=none; b=hcE3fkrF4byfVLRWFsu3xLBO8tWfeoRMD0Okz+CfECjfi3lklVD67NWdog108CX4vb5Tmb6ooDFLb5MAySj8e2Z0rkWVd9mZnySg1ozxY6GZet8rgGVwZ0kVAzUrFKqRQES4O2wQ5pq/xm9sEFwvVqjt13v3qO9omZuztg29pzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080560; c=relaxed/simple;
-	bh=FHcE3cZ6fwiMxVpjYkw+FYvWo6dydU6bYcNdLdIYu54=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kmY3KlEz5Jd5n0T1PZXCo3laeZaP8qwd3l3LLBUgRBQG6ocpl/AIpYz9HdVAyx5j9wjOUEBj/4gASC5ITevHq72oFGVH98CqTtUTXfndIG/gYHs0XdvheY/a0wrxw7HkHuyXOXat3P1Lq6AnrW9L7NJ7174l0nKIxhpVOK3A40o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=C9Q1dLPl; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790080581; c=relaxed/simple;
+	bh=GoGkE5EBBcF0xNkn44j81SKlA+0e0NfoylLHnBMjWV4=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=S4ZKyRfa9iG2hqVMLTUnfv9wNIM1H4VSXz4upNsGtH3nDHPfvyavCb0JkUH0HOylrwb03E5seQ6yww3lSIN8sjKMev0zsjeDXn+0hyIGubhmM4kAsFel4SzLxEiae3/lv+wg+1Ejrh0d9T4CK2yvdRSjmB91hcZ8kn+yzSvjPpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W/4mHOHs; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="C9Q1dLPl"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so24458455e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:35:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790080557; x=1790685357; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FHcE3cZ6fwiMxVpjYkw+FYvWo6dydU6bYcNdLdIYu54=;
-        b=C9Q1dLPlTIqKTQXe4iQtNDUzZAlq2GTJ2d8qKPzvB/DAXYTioASUz3akGBtO7GbGJW
-         q7bmos8QtDnMiMlmiZzziW4Bq5LbD5n8meCGy7ttIUY4yRN6YqLYw4wOXnd0IaOiAOcM
-         gvv10G47j61rSKzhIyW36r6dkrRD9M8kOHqsYl0Se/Cr2ElQFN79Qwp1cGw9yDiOGJpx
-         yiaWLUkjrX9wjOBlFDPjCwPpVUhsHnIp5hDL1VV9r+WO27fyMTbn2utt8/KnBWWKdPfe
-         bYYh2WaTtcSfQRRE4x/yBJ/7bATe0xwNAqM/N0LPP3G7+HByHKQc7g66bESKhn27XYmX
-         Fk4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080557; x=1790685357;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FHcE3cZ6fwiMxVpjYkw+FYvWo6dydU6bYcNdLdIYu54=;
-        b=eN5TTqapGCd5Mr2UQqb646KSFeTCXRbQ3xATbdEtF67BAkQXmxtDcL7ohrTlx/zcB7
-         /NrEa/7Z/72IrkDrVpfUh2MI+M2MiAwi8ECocyT3BDkwumxxNqGVfU2QJDuR8TkbBqUi
-         IvlLUy7v3wvZCeXhAlga8jHVm6JKSYXWKY+9edv51HHao6Esyxne/oLr8aGnnsu7FmYj
-         JRVJcY+bCgwYbnL1cruGsTGvFZtkJIg69x77fl6BFJgS6K4jyyUo/e7X5/deninTGYiV
-         HZqNbvkBpVOXUl4XhIKx/Am1jAQhDz/WUln54M5QkWo1v7IQdOEAE3h8+xQDb7n1/ygW
-         iMfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzduJUFf5Qa2cRBc5DEF9YaMboozk4Y7NB0kheuK9+D6HMhoNR7IB4qqE2dPvi8WyQQ9V2LfjKZbHgoTxE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lY/FVM0KFFIEa6aI6YYUM51goNwJpk8Oe00ejES0iEG5/8W7cK
-	kKPdgw7GeDRvdMnaaVCLHU39o+kuH06XONvRNrwOZCIRq9S+dVHw3hhJCAnOtD+Vkk4=
-X-Gm-Gg: AYBFou2bCpHd0PKmtN8l0Z+xA1UdjJGQoPKftBts0q8A3xGnpiZmnQYMud523wHfSoX
-	kzTBdqrTxrdnjRAJsuYv5tkRXYvQi/FTv8MwHZKn6rZd1hsy8GzZO8H8xH9g4m34s8J4L15up6q
-	93px9DnIeXl8JOWm+0/IF9RqBw1rzmt33VyCogzH3xq3l2H4jy0sz2GFY8EMVsr3KGaCt5JMi5Q
-	aJQbbf1QeAY7Y3wYhP0LaoEldEnbT1QCbhLB71LEHZtjCHpvL1pJxI42VLiiSY0Al/jpGP1Dfub
-	f3wrQ5vWn0Hb/FFRN7iizjQQSQyte97BhE4rbwBRQ92H8gXaYJDI3p+k8CCyIysqIsUqloDHcmi
-	pPigPdehAQ8eA5cQGmKE18wgwLtbWS/KHNKcWhSRfYUUEbJp0dq2oR95RVSV730jTIpz9v4UFGV
-	DcTy9Lm06ecADDy5n8xK/9kwt6qsYcIbokt5VdTcUzG+zSmGc/BClsELQEqwjyiXu5LXG4e7XP
-X-Received: by 2002:a05:600c:154c:b0:49f:c451:b4ab with SMTP id 5b1f17b1804b1-49fc5743c34mr186953035e9.29.1790080556773;
-        Tue, 22 Sep 2026 05:35:56 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad40b32sm41331985e9.9.2026.09.22.05.35.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:35:56 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:35:54 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jinchao Wang <wangjinchao600@gmail.com>,
-	Craig Lamparter <craig.lamparter@hpe.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/6] panic: fix panic_force_cpu= redirect races and
- NMI bypass
-Message-ID: <arJ2KqCA7aBgt71r@pathway.suse.cz>
-References: <20260916182957.7788-1-brads@mainlining.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W/4mHOHs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790080578; x=1821616578;
+  h=date:from:to:cc:subject:message-id;
+  bh=GoGkE5EBBcF0xNkn44j81SKlA+0e0NfoylLHnBMjWV4=;
+  b=W/4mHOHs1xN6MvMWn6tyHD+hbudl+YsdkVj7cSu0bYaqjHXAQniMptW0
+   rB4SZc/s9do9A9267V/E3I+6eS2X30Z+Mo+lOrlt8Rdxzi2QLEOzgd6Nj
+   ky5WQU4g6b4Fd8D3TLY2qWDhQzLn3Daz3v3qB0e4EWFOYZE4m9nLgvUku
+   nSkamVec7FqC25DZjXL9TroPfy0fAlw+hx00cPfchREM+jGVwcWB8ZQUT
+   i1mMtwKRecqB3j5jPHcEQVe6FSXFtACwkeWae/EI+q6TFcA2/ObYCr3Oh
+   pf84t+nm7nG/xegAsY7+1FkCNlq7/zBM1wsQo9nlGVvfOpFNoR5OxwMzu
+   w==;
+X-CSE-ConnectionGUID: BRkQAtWzRMSCE1V7PNGHaQ==
+X-CSE-MsgGUID: iiz3bwkKRh+BRY8OK2j+Rw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1186022"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1186022"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:36:18 -0700
+X-CSE-ConnectionGUID: DAFzLh9JS5ifA1zLBMTK0A==
+X-CSE-MsgGUID: oxCaRQBKTBClQ4vug5w94w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="269628019"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 22 Sep 2026 05:36:15 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8zjJ-00000000FUc-0hV0;
+	Tue, 22 Sep 2026 12:36:13 +0000
+Date: Tue, 22 Sep 2026 20:36:07 +0800
+From: kernel test robot <lkp@intel.com>
+To: Keith Busch <kbusch@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Christoph Hellwig <hch@lst.de>
+Subject: arch/nios2/include/asm/checksum.h:30:24: sparse: sparse:
+ restricted __wsum degrades to integer
+Message-ID: <202609222053.5gjiJjtb-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916182957.7788-1-brads@mainlining.org>
 
-On Wed 2026-09-16 18:29:51, Bradley Morgan wrote:
-> The panic_force_cpu= parameter redirects a panic to a specific CPU so
-> the crash kernel runs there. The redirect code in panic_try_force_cpu()
-> had two races and an NMI bypass, all found by Sashiko. This series
-> closes them and kills one more hack that the rework turned up.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+commit: 203247c5cb972af5d46bdb7d41ef40078048810b blk-integrity: support arbitrary buffer alignment
+date:   6 months ago
+config: nios2-randconfig-r1305-20260922 (https://download.01.org/0day-ci/archive/20260922/202609222053.5gjiJjtb-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609222053.5gjiJjtb-lkp@intel.com/reproduce)
 
-IMHO, this version is ready to go. It would be great to fix the commit
-message in the 4th patch but I think that Andrew could do the fixup.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 203247c5cb97 ("blk-integrity: support arbitrary buffer alignment")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609222053.5gjiJjtb-lkp@intel.com/
 
-Best Regards,
-Petr
+sparse warnings: (new ones prefixed by >>)
+   block/t10-pi.c: note: in included file (through include/net/checksum.h):
+>> arch/nios2/include/asm/checksum.h:30:24: sparse: sparse: restricted __wsum degrades to integer
+   block/t10-pi.c: note: in included file (through include/uapi/linux/swab.h, include/linux/swab.h, include/uapi/linux/byteorder/little_endian.h, ...):
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:25:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:25:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:25:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:25:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+   arch/nios2/include/asm/swab.h:31:24: sparse: sparse: too many arguments for function __builtin_custom_ini
+
+vim +30 arch/nios2/include/asm/checksum.h
+
+eea9507a69d637 Ley Foon Tan 2014-11-06  17  
+eea9507a69d637 Ley Foon Tan 2014-11-06  18  /*
+eea9507a69d637 Ley Foon Tan 2014-11-06  19   * Fold a partial checksum
+eea9507a69d637 Ley Foon Tan 2014-11-06  20   */
+eea9507a69d637 Ley Foon Tan 2014-11-06  21  static inline __sum16 csum_fold(__wsum sum)
+eea9507a69d637 Ley Foon Tan 2014-11-06  22  {
+eea9507a69d637 Ley Foon Tan 2014-11-06  23  	__asm__ __volatile__(
+eea9507a69d637 Ley Foon Tan 2014-11-06  24  		"add	%0, %1, %0\n"
+eea9507a69d637 Ley Foon Tan 2014-11-06  25  		"cmpltu	r8, %0, %1\n"
+eea9507a69d637 Ley Foon Tan 2014-11-06  26  		"srli	%0, %0, 16\n"
+eea9507a69d637 Ley Foon Tan 2014-11-06  27  		"add	%0, %0, r8\n"
+eea9507a69d637 Ley Foon Tan 2014-11-06  28  		"nor	%0, %0, %0\n"
+eea9507a69d637 Ley Foon Tan 2014-11-06  29  		: "=r" (sum)
+eea9507a69d637 Ley Foon Tan 2014-11-06 @30  		: "r" (sum << 16), "0" (sum)
+eea9507a69d637 Ley Foon Tan 2014-11-06  31  		: "r8");
+eea9507a69d637 Ley Foon Tan 2014-11-06  32  	return (__force __sum16) sum;
+eea9507a69d637 Ley Foon Tan 2014-11-06  33  }
+eea9507a69d637 Ley Foon Tan 2014-11-06  34  
+
+:::::: The code at line 30 was first introduced by commit
+:::::: eea9507a69d637d52705de8703b168bf6bfe5643 nios2: Library functions
+
+:::::: TO: Ley Foon Tan <lftan@altera.com>
+:::::: CC: Ley Foon Tan <lftan@altera.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
