@@ -1,142 +1,167 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BE9455612
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092199; cv=pass; b=KpGTXPtr2mtgCVl6k2ZsKDW56rqCDXvbH3zAYQXqmFA4eXOrdnbHL/CzwvqqYs5h8tOV8gzwqsnFtYWd5PYmlDQz87nFJXEWqxfaDbmE92CS38zkX5GnQYOtO798NjBMdj0G4LKDI8ZLbuyn7if20XM7RGUrhzx4bwZVGYVuIe8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092199; c=relaxed/simple;
-	bh=FwvYiaDcG7fL1f29jUItXT2GNsF0KQa+Oubzhul7ezg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kemCmxaVVn3jEKJ84aRb+IWdJCtP1+CHxJYy/XcjpSdVxGveq240iZ+aP1FvZKG8kEqp9hMgG2Inbu2jzu6b+JshWlOawZ4bpx5pXGVSzmnEJnu8mqXWbHZiSxYabQhe0kIhcovXqFmmP32TR0cYSeL3qP7/WOislkMfuBErfkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=BgxwzVEb; arc=pass smtp.client-ip=74.125.231.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253932E6CB8;
+	Tue, 22 Sep 2026 15:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790092208; cv=none; b=aL+eETtRmlSbh7EOlDXw4rZw5pBhSb7bi6eUicsvRcODkhyW96e8rycRnJY4kXzqxO4CmkZK382Uq9yfU7//kYGGG7LPi0fJaPHac/0qNGY1+DzgTyRmd4+5jH/FWSCFW4O/DCqwkxYj2ckW05YcL4cmlju9DT5Q8eiV4a+9kA4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790092208; c=relaxed/simple;
+	bh=/bkJu23UOULz3yPDYNr6BuLm3UrRrVgL3Ir6c9UiC8w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Em36dJjp5E8+Me3b6rbsoHw6+MvQRmS/lXePE4na7kvn2HK3C1OZipIGbdcBpVBAt4bruXEdJvedftLGi794UhJyvhoxARLIwtc+3Bhc4bWB+6zmZD2hE3bRUB6Z1k//3CEocw+foLfQw7se2ZuXjzQ6p7YXcSELA6g6WIt9WcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=JAbyvQXS; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="BgxwzVEb"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6bd42f1c01cso2541366eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:49:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790092195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GN09zC0FLAmXjtW+bq/EJ52HYlDj5jGbU4O41JMyli5gIfBfZMFkIcXn7htglXWVvo
-         +cPwqtFbX54khBlo5IegPEsbh+fsxL42Duifk0Wy0au5xsmCq8uP8hC0elALV1Cm0X/9
-         R4fHlytm2O7EewmxZ3h2DKSkfSfjK/LG9pUmbLZawCn+IKmRxCNw120y1I+IzRQ8NvTQ
-         ymETb+iq75W5Y6U3ykBO1LMval143phd02ceQA1Ih5SD6bPeXgUsKVxtAZ2VsJW4hFC8
-         62coiSxfM+VZSY1FcrJzv6ipCX5E9RL87gqrMFhYYl6/xzO1FTDz9P5FnHtf8JLDV/7i
-         dnxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
-        fh=xZbZC3ceYH+UQONTCpBhIQY7Yo74QdOGPrkS+NYngik=;
-        b=cZXwfIynDsYdAi7K6ZK/9otkAnr1TrqU3FjxSFzTjRWLiwhv2NZyyYv27eamp4kB4d
-         TUBirwK0W+DPtUFFZBlmzDKl7aReP2HxYBLGdVt6GUiw12MAIxHiiRUaaMkb4Qws7qbN
-         UwUDnZ5rJcrxCxVWujTEGQsCvNF4x0vkP0t/R5OYAhQ0JIriu+d0T4n60rs+x2eZPkMB
-         xyb8fsAfYLXdVIg7UTXurlx7sm3HlACHf3MxpgjVXuI2vTWThpKlCeOD0FWLhRnvBSnl
-         lcOYa/mPHVYmD6jS4l+2WunipmdC5QjnE8k5y/+Ux0xNGq1owKSgz/vjoTeWyU3EhQa6
-         dUJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1790092195; x=1790696995; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
-        b=BgxwzVEblWiqw4mRVWVmI4pnlSxui5x0Bf2OsqGawV5jibxnZZTyjI4MjWPGo2rORP
-         UT6n/LXhCEKVuxz8IonyoR1PKSb5yUCKUVvf4DGwH6ODiisG6cGvoZi/pu155G+mFP34
-         oPSxUs//AqOi3kpCEhwsxxKi+gjRBPzCP6Ana/VnUzg7JLEY98J6+DsmqNCyE5As9b07
-         zioKxS79+XJ1i1Jw2TTEd+bTdobHk1YebdEh1JY/ku0Y72fAbnSF+hT5hbgVAPei9omU
-         3pjrJOaLYHmx8r/Q3Sv4TC6ewMkMQF9bysJadkgmINToJbiVvoLNJRONum13BQlWHFoF
-         XaAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092195; x=1790696995;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+IB+UJijWjaTnFVpSDyUcRlyFG+GunEChS+weWwWm14=;
-        b=hEuHpqcYP8iEGJMOv29OY0xnVNRdWNGMoWr8WumDuaQJjRJor4uDr95FKcmsKTp8jn
-         Wq/Vvm1hsgsvHFbmrmtsmD2SH6smKpdWkgp6FmuNuDNNzJEyW2t6YenjP13yuU3V+Z2Q
-         1QRB8thNtPPi0L3LIGwBv9EVDWS9Y8GPC3HSbUtc+YiPJV+9Q8RdFqbKapkP+GOmML3t
-         yPy5NkInIsRkUlX3iNfeGzcYqbrdo2TlYKL5shN8o0OK/w6y8TFKOMlLRfkk2swIRWR5
-         QXM+1D4AYIQ27k/dwos/W9YxhBmIuJbiew4/Ymz3ey1g2zl0jHykAz6+xTRjvSmNZFAU
-         SSTg==
-X-Forwarded-Encrypted: i=1; AKwUvByniFsTPwNeYyW4zL/tBq2rHfh6wtUTtcR2PNhzl/y0qo+bxHiIscuJQIx2/MD9D3mpOmuFhhTVmRDZqMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++meSLdwmZ+tN4DWfgFQxsKVk4m9AN2uTQrVxonrIuDLnNYMpBcx
-	pEN6aSytou4hqB3A9EFZZFNe3SBEK+3tYZkH6OhOrL/ShSVyMMD1Hafd6Hvy80b1lsqx/8mmu8Q
-	DuryCG6k00PLvzOhmTmS/5AMv0jNx2KxGG6aDumEjqw==
-X-Gm-Gg: AYBFou06sYUaAZ5BZ0f0TJADrOuFD2NqS72xLemQaj8Fht8l7o0TAi3K/+BBCijg0Rs
-	SVr9IHCQtVfpL7Q67QSjgNyB1zUlwcD1I8uEQEiN/95bxjm1nURvQcgHQAlWhE6pOP/OCa/HvdA
-	iRq/L0GTmE7yjcQLqM5AA1KfdowklfhQ8ZGb3GbjQwHemoyVPILeHzp0ory3yeAMIH0txt2wXaq
-	iMRbvwW19gQ9ezYXlHRzQ9QoEFeBj4TWROQ+LUGsPewlw6ACRZjEV4L4lkJZ7nB3/ioOepwYYkx
-	bTO0o+4ovpXmeabb+s+66kbq5j9XH1xh4p99+mGRhoaez9oqwzvhbnkXEnK4spDBHJN9aoTzbrR
-	UYupzq5PZ6BLoa8apPUMYo4yDy+/Uaucyoa4SwjVkTtLSaCcw27ZkHd/QlGm5ndh3QNPMVmM=
-X-Received: by 2002:a05:6820:4b91:b0:6cd:3ffc:e32a with SMTP id
- 006d021491bc7-6cd3ffcea03mr10302175eaf.72.1790092195059; Tue, 22 Sep 2026
- 08:49:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="JAbyvQXS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=6K3Ud4EKI3engeNS8qIUkp6OAKXd2y5YW5HabWOrebM=; b=JAbyvQ
+	XSsMgjn0TEho6JwbjAC+6MlhZm3WuAyVwsdbjj/BiRvbJSHeQjI3bYRbF+LZjdLLYapYp2Tm6yzfg
+	1Yr6nkIUwU3z4mpwAts4tEMORWUQF9JrNLKy160v6+9xBb83yzqa9/Yh/TtiYyLjAT5ZDRYOXzWpt
+	jpHhuA8UWbUXZ72zGeitYDGHuVD4jja4A/B2ZimNojNkNPgZl18cXb5SCt34DZsO8pC1W3ZLdvyIR
+	cQXBWRZ7u2ALckyB/ahi1boUpuRHzHH9Jt238N4XCnoFResgML5BRwDrLBuaYjb8Yo0LCLf9m9nDv
+	iUzFg5dH3p2uZo8/Bm5s4nz3m9MQ==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x92jp-00000001ofN-0kte;
+	Tue, 22 Sep 2026 15:48:57 +0000
+Message-ID: <02616d611c9e862afc6c8c3118b6be096756b3bb.camel@surriel.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>
+Cc: Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>,
+  Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, Kairui
+ Song <kasong@tencent.com>,  Michal Hocko <mhocko@kernel.org>, Roman
+ Gushchin <roman.gushchin@linux.dev>, Shakeel Butt	
+ <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, David Hildenbrand
+	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, Kemeng Shi	
+ <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, YoungJun Park	
+ <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	
+ <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen	
+ <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
+ <weixugc@google.com>, Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet
+	 <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, Baolin Wang	
+ <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>, Meta
+ kernel team <kernel-team@meta.com>, Linux Memory Management List	
+ <linux-mm@kvack.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Tue, 22 Sep 2026 11:48:56 -0400
+In-Reply-To: <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
+References: 
+	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+	 <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org>
+	 <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
+	 <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
+	 <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+	 <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
+	 <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+	 <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
+	 <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
+	 <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
+	 <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
+	 <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
+	 <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
+	 <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
+	 <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922084009.506362-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260922084009.506362-1-lgs201920130244@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 22 Sep 2026 16:49:38 +0100
-X-Gm-Features: AcwNN1UYho_M2TCkxcYs2QRUgoK-S9ENUK4v-9idaeTrzc5fL3QAaoHR4mTs8VA
-Message-ID: <CAPY8ntD6kWi7Q57oL43SLe37szXpptdBXs6cs+vxVehA0eJPjg@mail.gmail.com>
-Subject: Re: [PATCH v2] media: i2c: ov5647: fix power cleanup on remove
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Jacopo Mondi <jacopo@jmondi.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Thanks Guangshuo
+On Tue, 2026-09-22 at 05:23 -1000, Chris Li wrote:
+>=20
+> > > > > > Zswap:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 8812236 kB
+> > > > > > Zswapped:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 24927876 kB
+>=20
 
-On Tue, 22 Sept 2026 at 09:40, Guangshuo Li <lgs201920130244@gmail.com> wrote:
->
-> ov5647_remove() disables runtime PM without powering off the sensor if
-> it is still runtime active. pm_runtime_disable() does not invoke the
-> runtime suspend callback, so the sensor can remain powered on.
->
-> If the device is not already runtime suspended, call ov5647_power_off()
-> and mark the runtime PM state as suspended.
->
-> This issue was found by manual code inspection.
->
-> Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> My original request was for the whole system: what percentage of the
+> total system RAM size has been swapped out to zswap.
+>=20
+24.9 GB out of 64 GB is 28%
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+That is how much application memory was swapped out to zswap.
 
-> ---
-> v2 :
->   - Move pm_runtime_set_suspended() into the conditional so it is only
->     called when the sensor is explicitly powered off.
->
->  drivers/media/i2c/ov5647.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-> index 3facf92b3841..3b3e5653a0c6 100644
-> --- a/drivers/media/i2c/ov5647.c
-> +++ b/drivers/media/i2c/ov5647.c
-> @@ -1271,6 +1271,10 @@ static void ov5647_remove(struct i2c_client *client)
->         v4l2_ctrl_handler_free(&sensor->ctrls);
->         v4l2_device_unregister_subdev(sd);
->         pm_runtime_disable(&client->dev);
-> +       if (!pm_runtime_status_suspended(&client->dev)) {
-> +               ov5647_power_off(&client->dev);
-> +               pm_runtime_set_suspended(&client->dev);
-> +       }
->  }
->
->  static const struct dev_pm_ops ov5647_pm_ops = {
-> --
-> 2.43.0
->
+12% is how much system memory is used by zswap.
+
+Those are two very different things, and it really is not
+clear to me which of the two you are talking about at what
+point in time.
+
+
+>  My observation is that, even with zswap, when 100% of
+> system RAM is swapped out, the application suffers greatly. There is
+> a
+> reason why we only have 7-10% system RAM swapped out.
+
+You mean for your specific workload, you do not
+want more than 5-8 GB out of 64GB to be swapped
+out?
+
+That is perfectly acceptable. You should be able
+to configure that.
+
+However, your configuration values are not a good
+default for my setup.
+
+I believe we need to set the default to something
+that accommodates a diverse range of desktop and
+mobile users.=C2=A0
+
+Most of those users do not know what they will need,=C2=A0
+but they will know to close a few browser tabs when=C2=A0
+things get slow.
+
+The companies running thousands of servers that
+are carefully managed, and which overwhelmingly
+have the same configuration values deployed to
+them are more than capable of setting the dozen
+or so config values their entire fleet might
+need.
+
+--=20
+All Rights Reversed.
