@@ -1,241 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC30F3C6600;
-	Tue, 22 Sep 2026 11:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99527535FB9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077926; cv=none; b=jCg1LGCAViiLHVplO2k5+m5ejwRrETQ6bZX1y0xz+w53E+3tqg3pIkppzBiTjFOb5Wbor8oPjWwSYp7WKneC7fFE9pwWL+gbDx2ryU7MoMeGCMuBminNSsBA6t9vagFpzzuTs0pcCkbBVqVixEqxmPwfIlFe0j5Atvx6TqWSLDw=
+	t=1790077943; cv=none; b=m5CNjJaLyqwoKw7hroU+jwdsIPWc76A/6JCwPLX0AFWl0vRZHfpTCbRwlOGKYhR0tp0EiefeIB0ma2TCJuQ1Ptp8frau5DU16mrYjisOznqxolzwMKeelAsWL+65HuLuOVarx8spefgoDgeT7gN6en1HgWGjMoK8t6K67kT2Cyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077926; c=relaxed/simple;
-	bh=D9ZnlxhLyS5+nP0zqh4D73xmn+7BRn5CzcEEG4vfSJ4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=HiNC7i0uWi9AMC5ME9INDSpOb2zHQhv9fmSgiRhpXeBcgP5CywJ54637Pb5MebVBvOOBk0dft8Aa/VJZYjBFC2BpR3W/SMYPNIAVVb93kpVc/52HL1uZ11A/Cib1SD9yBNyWOm0RCdA/qz1XEDW6n0a9ezg8CZI46BIIqcq0/z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ipzqRLhR; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790077943; c=relaxed/simple;
+	bh=tZSNk29erPo1ut1HXL5T/TOdFnETV8lEDFNO+DhX4zA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dIcO+Ph35eODAR4jO/NVZe0pz4wBmq0P5LdiKN48tKSaQYdVQH0/k4iR6oT6PCqvZNNb1x4CTGn0UliNOMdtUGbe6jWfdf0RC6gqp63gX+9EdEHBWUbcsX361WGMMKln1duXHbtyJMrHSyGs2s2oQpU596E9Bff0ydQeqV0POjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfZFLWWO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ipzqRLhR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790077924; x=1821613924;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=D9ZnlxhLyS5+nP0zqh4D73xmn+7BRn5CzcEEG4vfSJ4=;
-  b=ipzqRLhRHg+58pQSPIf5EsMTzqYEy0zhsJlyVbclUzngDRMkIa1zMJ/L
-   7FJl4Tr9j+gcmwK3cOWDaLRDA3Q7lLKA5WpB3+zLpzoVe7ih+B5iWeQFZ
-   68sOYqS8svMi5H8DiPLup5kEVj6wFtzk8tQiuAAWEeqPZo3IOAFtupC8w
-   +5pYVJFq+p7yl2ADksGaOglgUIf2YyS22O45Fu6+8NH8CbGOkdVTfmNgR
-   9YOK8+Ldm5EUeqoWet4GO45oTrVCcIZ8UhBCYxBBHo/ZI0j0Zv+b4+wyb
-   x2nMLy7oP18aYhbiwwlXrFNjUr5ZskpU3BZUCUQPs418VCXGVOXM9mg5J
-   A==;
-X-CSE-ConnectionGUID: Gqqvh3MVSwqVHgk31LOL1A==
-X-CSE-MsgGUID: ckty+CXgQrKzle8EbW1oJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89806327"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="89806327"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:52:03 -0700
-X-CSE-ConnectionGUID: R4SQEZlLRnWYR+hGiUhMnA==
-X-CSE-MsgGUID: yAZKAI+QQPOLPkwXu+xHeg==
-X-ExtLoop1: 1
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:52:00 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 22 Sep 2026 14:51:57 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: jorge.lopez2@hp.com, Hans de Goede <hansg@kernel.org>, 
-    linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] platform/x86: hp-bioscfg: fix heap OOB read and
- buffer desync in hp_get_string_from_buffer()
-In-Reply-To: <CADqcGBnuzxwKiQ-r94gin0+8oWpvsWQ+tL=PRpK=tee7A2okdw@mail.gmail.com>
-Message-ID: <328dceac-d5cd-269d-518d-6f7a7bbf52f0@linux.intel.com>
-References: <20260824225610.18471-1-meatuni001@gmail.com> <20260824225610.18471-3-meatuni001@gmail.com> <a67d4e52-5e87-0e76-4c91-cb8ba2be31f9@linux.intel.com> <CADqcGBnGHd+rRn6b=eWVjhWDU-NQ4CFb-3B9cgwBeouN-sbw4Q@mail.gmail.com> <ab2078e1-4388-6311-0363-afdfc131ea60@linux.intel.com>
- <CADqcGBnuzxwKiQ-r94gin0+8oWpvsWQ+tL=PRpK=tee7A2okdw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfZFLWWO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EDE41F0089A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790077941;
+	bh=U+XdmS7Wo+p7xecYNaHq/QnaJdgBC5+JYJOarRisQ6g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UfZFLWWOOPtqdPKYx11/X42B3hBFqVEnAYSat+ebn6Q47e39ZC/sRcQSWIz62wV75
+	 pW6CBoImpWxl31gQ4zCITnu+nx27CSVM0C+/XyiG2nytpfadpqATK8d9AefKrtTUyu
+	 twDSsjYo5mzaFJZYIGny38kHqEJqcjlRWhtJ3/G70GqcsATwQ9fSa5Y3d7r03yuuSt
+	 9bUsqfjnMfdNkH/2YQ0m5KuJ6YAhQj3wnTBlo/wLAg258tbVuHSMjQlp1UmwEVLBYl
+	 5umPFf9U0qcjguSx6nm2Pgtj8YU6OQe8UjRSamyBjN8ctxoBcEkCuOOTMxvI2OP8k0
+	 0fkbf/lCyspig==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e548cd7dso31689591fa.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:52:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByieqXhQJ5lt3w6ACp1DOJRPOqGTy/wy1zPGnDnxIVqPCePAPFfvckGeOz94hVNkJbIzehirQ4dN/QBQxU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCamQr3lA/TdxWank0SqHB+Hd+dVJzJDxCzloNCS0WJpxZjVp7
+	9aRff+9gGAo+VuYviOGeggTZC0F2QPntJj0mzXybkFiZIguAnCHWcWjDIJrxiy8CVVMMXNQy89M
+	bWBZ9MucxP+OenoZWFXqJnI7fZyP62Ns=
+X-Received: by 2002:a05:651c:509:b0:39c:624d:82b9 with SMTP id
+ 38308e7fff4ca-3a5fbe86acdmr30197701fa.4.1790077939620; Tue, 22 Sep 2026
+ 04:52:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1313611999-1790077917=:1233"
+References: <20260722131553.2117835-1-sudeep.holla@kernel.org>
+ <20260722131553.2117835-2-sudeep.holla@kernel.org> <CAJZ5v0hdxtuEbFQdwRe=T+Q2xRki+uN9PP7PPw7AdW4Obe3fqA@mail.gmail.com>
+ <20260813-demonic-athletic-manul-e1d7bb@sudeepholla> <CAJZ5v0gMU1NjMKgEUMW6cmU7uquPyES2TejZVQqkwDH5C6FWvw@mail.gmail.com>
+In-Reply-To: <CAJZ5v0gMU1NjMKgEUMW6cmU7uquPyES2TejZVQqkwDH5C6FWvw@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 22 Sep 2026 13:50:46 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gqo_n39PGnBkB-5ozE_dQyau4t=5OxvdnZxu4D+ivhHQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XPaifcY_RruxbhZfDplOPIZGg6XKR3TIQJNsiQWlI8PUzApyEt7nR_8c0
+Message-ID: <CAJZ5v0gqo_n39PGnBkB-5ozE_dQyau4t=5OxvdnZxu4D+ivhHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] ACPICA: Fix PCC OperationRegion command offsets
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, acpica-devel@lists.linux.dev, 
+	Saket Dumbre <saket.dumbre@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-1313611999-1790077917=:1233
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Tue, 22 Sep 2026, Muhammad Bilal wrote:
-
-> That makes sense, thanks for the pointers. Here's what I found and a
-> concrete proposal.
->=20
-> string_escape_mem() (lib/string_helpers.c) does exactly what the
-> manual loop is trying to do, safely: it takes a source byte buffer and
-> length, writes escaped output into dst up to osz without ever writing
-> past it, and returns the true escaped length so truncation is
-> detectable by comparing the return value to osz. I checked
-> escape_passthrough(), the fallback for anything not matched by a flag:
-> it copies the byte through unchanged. ESCAPE_SPACE covers \n \r \t \v
-> \f, ESCAPE_SPECIAL covers \\ \a \e and ".
-
-I think what we don't want is to add other characters beyond \\ from this=
-=20
-ESCAPE_SPECIAL set, definitely not " I'd way. So one needs to perhaps add=
-=20
-another flag to have it do only backslash escapes _without_ changing the=20
-meaning of ESCAPE_SPECIAL.
-
-> All of those are ASCII
-> values below 0x80, so none of them can collide with a UTF-8
-> continuation or lead byte (those are always >=3D 0x80). So running
-> string_escape_mem() over already-converted UTF-8 output is safe
-> without needing to be UTF-8-aware itself.
-
-Yes. I didn't realize this >=3D 0x80 property earlier.
-
-> Proposed shape: convert with utf16s_to_utf8s() into a scratch buffer,
-> then string_escape_mem() that scratch buffer into dst.
->=20
-> char utf8_buf[MAX_BUFF_SIZE];
-> int utf8_len;
-> int escaped_len;
->=20
-> utf8_len =3D utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN,
-> utf8_buf, sizeof(utf8_buf));
->=20
-> escaped_len =3D string_escape_mem(utf8_buf, utf8_len, dst, dst_size - 1,
-> ESCAPE_SPACE | ESCAPE_SPECIAL, NULL);
-> dst[escaped_len] =3D 0;
->=20
-> I want to flag the scratch buffer sizing specifically, since I got
-> this wrong in my first pass at this reply and want to be upfront about
-> it. src_size is attacker/firmware controlled (a u16 read straight from
-> the WMI buffer), so orig_size can be up to ~32767 u16 units, worst
-> case UTF-8 expansion of that is close to 100KB, nowhere near safe for
-> a fixed-size stack buffer, and the kernel doesn't allow sizing a stack
-> array off a runtime value. I checked all three call sites in this
-> file: dst_size is 512 (MAX_BUFF_SIZE) at every one of them, no
-> exceptions. So the above caps the conversion at MAX_BUFF_SIZE
-> regardless of what orig_size claims, same capping discipline the
-> current code already applies to conv_dst_size, just applied a step
-> earlier, before the escape-inflated count. Open to a different
-> constant or a kmalloc'd buffer instead if you'd rather not hardcode a
-> dependency on MAX_BUFF_SIZE inside this function.
->=20
-> Two more things I want your input on:
->=20
-> 1. Quote handling changes. ESCAPE_SPECIAL turns " into \", the current
-> code turns it into ' instead (no backslash). Switching to the library
-> means losing that substitution, a visible output change I'd rather
-> confirm than assume is fine.
->=20
-> 2. \v and \f get escaped now, where they weren't before. Matches what
-> you said about \v being an oversight,
-
-It might be AI just parroting what I said about it being an oversight, I=20
-don't know if it was an oversight or not but having these strings contain=
-=20
-\v in unescaped form doesn't seem very useful, same goes for \f which I=20
-just didn't remember (I didn't check the code that deeply while writing=20
-the previous email).
-
-> just flagging that \f comes
-> along with it from the same flag, there's no way to get one without
-> the other from ESCAPE_SPACE.
-
-I'm arguing ESCAPE_SPACE might work for us, because both \f and \v relate=
-=20
-to characters that might not have use in realistic characters this=20
-interface is going to have, BUT I'm definitely not sure of that. But it=20
-would seem worth a try.
-
-=2E..And not using ESCAPE_SPECIAL but add ESCAPE_BACKSLASH along side with=
-=20
-ESCAPE_SPECIAL. It's easy to claim that \ always needs escapes when=20
-there's any escaping going on so the justification for adding it=20
-separately is there (both ESCAPE_SPACE and ESCAPE_NULL currently produce=20
-broken output without backslashes getting escaped).
-
-> On utf8clen(): found it, static inline and duplicated in both
-> fs/unicode/mkutf8data.c and fs/unicode/utf8-norm.c, unusable from a
-> driver as is. I don't think this fix needs it though,
-> string_escape_mem() is already byte-transparent to UTF-8 as noted
-> above. The only thing utf8clen() would buy is guaranteeing a dst_size
-> truncation never lands mid-character. Given this is short BIOS
-> attribute strings, I'd lean toward leaving that as a known, minor
-> limitation for now rather than pulling in a separate cross-subsystem
-> cleanup patch to fs/unicode just for it. Let me know if you'd rather I
-> do that properly first.
-
-Yes, since string_escape_mem() likely works, utf8clen() doesn't matter.
-
---=20
- i.
-
->=20
-> Thanks,
-> Muhammad
->=20
-> On Mon, Sep 21, 2026 at 7:29=E2=80=AFPM Ilpo J=C3=A4rvinen
-> <ilpo.jarvinen@linux.intel.com> wrote:
+On Thu, Aug 13, 2026 at 11:13=E2=80=AFAM Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
+>
+> On Thu, Aug 13, 2026 at 5:00=E2=80=AFAM Sudeep Holla <sudeep.holla@kernel=
+.org> wrote:
 > >
-> > On Sat, 19 Sep 2026, Muhammad Bilal wrote:
-> >
-> > > Confirmed, you're right about the redundancy.
+> > On Wed, Aug 05, 2026 at 06:46:15PM +0200, Rafael J. Wysocki (Intel) wro=
+te:
+> > > On Wed, Jul 22, 2026 at 3:16=E2=80=AFPM Sudeep Holla <sudeep.holla@ke=
+rnel.org> wrote:
+> > > >
+> > > > ACPI 6.3, section 5.5.2.4.7.3, states that the PCC Operation
+> > > > Region is associated with the region of shared memory that follows =
+the
+> > > > PCC signature.
+> > > >
+> > > > The generic and extended PCC shared memory layouts include the 4-by=
+te
+> > > > signature at offset 0, so their raw shared memory COMMAND fields ar=
+e at
+> > > > offsets 4 and 12 respectively. Since AML field offsets for the PCC
+> > > > OperationRegion are relative to the region after that signature, AC=
+PICA
+> > > > must look for those COMMAND fields at OperationRegion offsets 0 and=
+ 8.
+> > > >
+> > > > Adjust the generic and master subspace command checks to use those
+> > > > OperationRegion-relative offsets. Otherwise writes to the COMMAND f=
+ield
+> > > > can fail to invoke the PCC address space handler at the offset desc=
+ribed
+> > > > by the PCC OperationRegion definition.
+> > > >
+> > > > Fixes: aa6ec56b574d ("ACPICA: ACPI 6.3: add PCC operation region su=
+pport for AML interpreter")
+> > > > Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
+> > > > ---
+> > > >  drivers/acpi/acpica/exfield.c | 11 ++++++-----
+> > > >  1 file changed, 6 insertions(+), 5 deletions(-)
+> > > >
+> > > > diff --git a/drivers/acpi/acpica/exfield.c b/drivers/acpi/acpica/ex=
+field.c
+> > > > index 9a55524ed8f4..a7fac63938b3 100644
+> > > > --- a/drivers/acpi/acpica/exfield.c
+> > > > +++ b/drivers/acpi/acpica/exfield.c
+> > > > @@ -45,12 +45,13 @@ static const u8 acpi_protocol_lengths[] =3D {
+> > > >
+> > > >  /*
+> > > >   * The following macros determine a given offset is a COMD field.
+> > > > - * According to the specification, generic subspaces (types 0-2) c=
+ontains a
+> > > > - * 2-byte COMD field at offset 4 and master subspaces (type 3) con=
+tains a 4-byte
+> > > > - * COMD field starting at offset 12.
+> > > > + * According to the specification, the PCC OperationRegion begins =
+after
+> > > > + * the PCC signature. The raw shared memory COMD offsets of 4 for =
+generic
+> > > > + * subspaces (types 0-2) and 12 for master subspaces (type 3) ther=
+efore
+> > > > + * appear at OperationRegion offsets 0 and 8.
+> > > >   */
+> > > > -#define GENERIC_SUBSPACE_COMMAND(a)     (4 =3D=3D a || a =3D=3D 5)
+> > > > -#define MASTER_SUBSPACE_COMMAND(a)      (12 <=3D a && a <=3D 15)
+> > > > +#define GENERIC_SUBSPACE_COMMAND(a)     ((a) < 2)
+> > > > +#define MASTER_SUBSPACE_COMMAND(a)      (((a) - 8) < 4)
+> > > >
+> > > >  /*****************************************************************=
+**************
+> > > >   *
+> > > > --
 > > >
-> > > utf16s_to_utf8s() takes src by value, so it can't advance the caller'=
-s
-> > > src pointer. The second loop then restarts from the same position and
-> > > overwrites everything the conversion just wrote, using dst[i] =3D *sr=
-c,
-> > > a raw truncating cast with no UTF-8 encoding. So step 2 is currently
-> > > dead work, and the function is ASCII-only in practice: any character
-> > > above 0x7f gets truncated to garbage instead of being properly
-> > > encoded.
+> > > Can you please see the corresponding upstream ACPICA pull request?
+> > > There are concerns regarding it.
 > > >
-> > > Two ways to fix that, and I'd like your preference before I send
-> > > anything more for it:
-> > >
-> > > (a) Keep utf16s_to_utf8s() as the real conversion, and rewrite the
-> > > second loop to do escaping as a pass over its UTF-8 output instead of
-> > > re-deriving from UTF-16 src.
 > >
-> > Not exactly this, but somewhere there.
-> >
-> > You should not try to build the escaping nor utf-8 parsing/length
-> > calculation within the driver but use generic code for that.
-> >
-> > To give some directions...
-> >
-> > There seems to be some escaping function in lib/string_helpers.c but si=
-nce
-> > we're dealing with an UTF-8 string here, there might not be a readily
-> > available function for string inputs/outputs.
-> >
-> > escape_space() seems to also cover escaping \v, which wasn't among the
-> > characters this driver escapes. You might need to check that particular
-> > character in driver before calling the library's escape funtion though
-> > I'm more thinking along the lines of not escaping it was an oversight f=
-rom
-> > the original submitter (given the questionable quality of this driver t=
-o
-> > begin with).
-> >
-> > utf8clen() seems to exists, but is currently in inconvinient place (and
-> > already duplicated so it should be placed into some header anyway).
-> >
-> > > (b) Drop utf16s_to_utf8s() entirely if ASCII-only was always the
-> > > intent, and keep only the manual loop, fixing its bounds instead..
-> >
-> > I think ASCII only was not the intent, but it just happens to work in
-> > many cases which is why this has survived so far.
-> >
-> > --
-> >  i.
-> >
->=20
---8323328-1313611999-1790077917=:1233--
+> > Sorry for the delay in response, currently I am on vacation and don't
+> > have all the setup to validate anything. I will follow up once I am bac=
+k.
+> > It is OK to miss v7.3
+>
+> OK, I'll wait then, thanks!
+
+A new version of this has been applied upstream:
+
+https://github.com/open-acpica/acpica/commit/57a2afa78dbe3580e19307aedd19f3=
+2388512094
+
+so can you please rebase and resend the series?
+
+Thanks!
