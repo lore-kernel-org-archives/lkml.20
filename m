@@ -1,165 +1,407 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92013538D96
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44CBA5221DA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075118; cv=none; b=fLYb4E9htso2G+K7SELW2kI9TwPdvTwPqcp+xZlxRZ0vyclzXBoCJx2gCMEmmGvooXu+jqhmSqvlrhKtKiWIpYMKvwTk2Hw+5t9om2LStamLXa1jKty2Ona/VW3sYfVWHUaJAw2K/b2FpMLarqD4MnK+Wa9hJHeXcyuHsTnLijk=
+	t=1790075141; cv=none; b=I6faFBGhyJriS/FuOHjF7tHlQwiI7nBU6sqDI4+kBgEuOKTG+Oy29ukx84dzvkQGr6Nn0NvD4spTiV7ENEBWAyJudihhyjVk0R7JdUZGMKBs6rBlSQ6ajBcuksH6bC+1BIh3vb6N8GBZJtYOzYbKJHZHBequPW3h/uzGRfGCAD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075118; c=relaxed/simple;
-	bh=UbQgd5un0qukt/+fB9cHHvTZOjcrEQ9kR7JHq5n/lh0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gZGj9X1i91WmDeay2eY66/0RcB+q3gQ48id4PvwQh2RPDFXo/muxlMdSIraM9op3aPkc5aFS7SDtRYrrkQCSlngtHlE+zn7ZZO3Zmh2ijl9BM1ijtLusPY64nSoFR4EuCG2Ws6zKIzgpeQM8q9/tdyvQW56Sl2ELjzy4Ab1LuEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V2cuTS78; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hisv+sUk; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790075141; c=relaxed/simple;
+	bh=vdpJQTeEtOllcXQJjVMU7hXgz2GEeQqRp8Z+KE+fl0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b7DghAlOPDCj4V0+bE/583FIT/DG5Up+OnHqhwxxVpS1o3fDXu36bHAZZ5CVnCwi70RSZZuAvJE/sAy6RHhnkh2eJ2J3DYrUGgwebd75h3Qe3x6FWbN0OZlLtm18fUGNA9KS9ZJ1rlJ8rMVlmc53dd7SOcM5Z0+euo/MrFzw+Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Hj1ezZBC; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V2cuTS78";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hisv+sUk"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MATG3K1023153
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:05:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qpELZ5f9XpMmdmJv5+YoiaMSy8WH96P37pYEqhI4u7g=; b=V2cuTS78aB7dwG5g
-	p+VNYNNaQvlPwj4nxua//Ea0uIQcnxZqPmLBnMURrWOKkXTx8flCiHbRoVe8Sz95
-	EkPdKqpnsL5kgIfsMMF94wIrrqRM970pOujSHfA/JS1MmcAMGyt9SMMjpl6Yl+SH
-	6zTobyTTi2m/GLo2RMPR+n7gQYktokuHhcFfKIJzrUyjosZ4AYlpy8wS1lsda7U6
-	rZ3p5clKxIR2ryc0CsvQBxfjrefxcU3xpF19G9d45Uc+lwgVQl0uTrlyx0rIUfKS
-	c/tmdZjNm5/UIK/DE/P/JSgZLHp8hBpLEkuWnpfRv5KU2e9A3mWdanMtx9ywwD7E
-	saWuVw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guqycr46m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:05:16 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c89704da8c7so5460716a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:05:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Hj1ezZBC"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so3009197a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:05:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790075116; x=1790679916; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qpELZ5f9XpMmdmJv5+YoiaMSy8WH96P37pYEqhI4u7g=;
-        b=hisv+sUk9ed8+hnduxQxvfKEyzBJZ2KuXBuTBVF7sJl2mAbUui3jj/0bHjIRIgvjg4
-         tZ9UFwgEz3nPCjlldhiHjpI7t8y02tmyJvkaYJ2Nil9PKMJX63JorkkpyVLASLjJbJNA
-         fKE/zrqAppXj3zmv1UGZ70KpQB1iAU41bwP1H3PIXVyRjO2GlIuUzy1tl6EUbnexl9HF
-         +SR3GnhYE4KQPED0iyZhlP6VlB3FPkzYjZ6zsmrFUpZH7cHafnyVDeHDpRrhn9SsaXKB
-         e7QziB457LOv29ZtXzr+mV9q6J5l5fq6CByDkg9xZNMqCQpbUV0ClmLyxY4DITP6FXyB
-         G6qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790075116; x=1790679916;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=nebusec.ai; s=google; t=1790075139; x=1790679939; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qpELZ5f9XpMmdmJv5+YoiaMSy8WH96P37pYEqhI4u7g=;
-        b=kyUHsKiGHm3pVZ1q6DVHC+A8iehCKGcBdSlx8Ed3uKE9F/of0DTipdVsluDFndLu0J
-         2uTq+BObM85O+mNV46Z2VAAnmKyVQmaEbH4OkGbcOoP9+xycgTmoemSiJ2wyGJGzQqMQ
-         4XU7uZPeemQPlMqLocAIm2+X5YHG/UNBMDDpw2hXVgTVwyRXNk3MXBAVmETHygpcQHRQ
-         cJ1j3nOIFmxuTC4XCa1Tb5AScmCnaU7RLOrDOzR8e8XJDsJ1dtYcKuiskFZmOK1XlbV7
-         Fp+heBs2JBxjHz0veT2YailNpj7Zzq0XdwzEBCGEDyT6piKFF3bLXNMdhwFPnjuaRK3C
-         4D/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwPnt/RXAXgknjLEmCkgUyl+FeU7riimUM5WP9UO4FBp712dH4VqxHn7OEGQiJJfrn47UwmJp7B1IIiOo0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQEm0qJyHu67EOHmk3BgRrg78NTT3kQWdCz9uO/JWmKtOVHgBY
-	5Qof7Kt4i82qUvSwxmoZpSUbsNLDNeP5DYsyUapK2v7AfzYP9i1IETud0R6nGlhTucTR3eN/SgI
-	CGutEsGwtdOUs0hRtyRRDATAGuHw4PagaAaUmcSNQC+VDt7qAX/PQyypC/awFUgglx6Y=
-X-Gm-Gg: AYBFou3Tkvj2JbwHVIDqH9fRsm/2oLofQpwXz6DJkScilTDdwqa3vkJaDeuAX1JE3ec
-	06Ivh5JZQgatecOwqMZtsh+vrSrymCEcYShEB82aqTnOtBxKVlPJo7zlxiZYUW3P/fCnmJAHXhq
-	eUk7m4S6ujtgOdi94P1YR0MM7I0v/WZnoP45tzS4miEP4NRgLvEBddlItdULGjBFnQknR4neFM0
-	ck2pJpQeVng+wMqGKhjLHmTTGsNNHvPfRZUIQWBq1pEb8NabtLdOghP015Z8Pvz8BYXIEj60hr7
-	S4ShFmv2x+/UJM7egOo+glsnCPd1liUkEg297IM1x2RQoPieAnkyYEDYhsVAQnxAoN5JM/hsE1l
-	Ec7raIFxGkhMwCq12e4m0n59cbe6YC9WVXjc2J/NRfvfl+j0=
-X-Received: by 2002:a17:903:24e:b0:2d9:2fc9:5706 with SMTP id d9443c01a7336-2df609b0c4cmr8781985ad.2.1790075115983;
-        Tue, 22 Sep 2026 04:05:15 -0700 (PDT)
-X-Received: by 2002:a17:903:24e:b0:2d9:2fc9:5706 with SMTP id d9443c01a7336-2df609b0c4cmr8781755ad.2.1790075115554;
-        Tue, 22 Sep 2026 04:05:15 -0700 (PDT)
-Received: from [10.152.209.53] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e61340e56sm6822733eec.30.2026.09.22.04.05.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 04:05:14 -0700 (PDT)
-Message-ID: <c802e9aa-6261-4dd6-8229-8c9862965d87@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 16:35:03 +0530
+        bh=T8b3QDIzUD0LXnbEbF+81PEacSx/x7ZJ2mY8am2vDV8=;
+        b=Hj1ezZBCb/ehAnQuoWE12ACQp+zw2x3lCf4uFCrc5AeoekmgO3ICBckP3sx33Veumn
+         mNLBY53n34P+V46zxVcw47omjykZnl90UtIlRnMtrnx6nMKitkMN0yV8UcgBDpz20bXA
+         +QXzFl7lU/tipqcljL6NcMscYFiUrYIUnDB9kQoWWgowwT55QO10ZYPEXexPX5zemqQq
+         BEmcl7uXVVv8a5AMUvcvjL25xriCrjiLokegYAybWRKMtf+tLOakLD4E6w2MfER6o4tM
+         AteUIKMNDZjgvY0GTRjnbWWg6bJ4Huwo+OyX2avT/DuOk89LtMWC0SsvjSjfSxS7NOsW
+         XgXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790075139; x=1790679939;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T8b3QDIzUD0LXnbEbF+81PEacSx/x7ZJ2mY8am2vDV8=;
+        b=c8wMHbL3oRM6QZNip91BXOjd7WK3xGOT53GdaqzfvJWXIKc2eKueRCiOIhvBpHuTag
+         BCpgg+BufN2w78qAt3Yew2jZNdTay0TxCLHT8X2u2G2phCU7aeN71dUOJYfAzKDYaByU
+         zPP7NupeiwyV3n6vo1DHDqmi6RUiZTDoM/bfGXFtqV5+TajB+jQYxqTmD5Vfs5QmWoIT
+         3vPQfI1bSDnmjzpK7NuwDH2JJAjyVxafotrjkrq+vXgKLK87TIG9oEBvnNU/cgCSTacH
+         clYmGuczh6ZLmBOVhUgwPUfRihKqA1pkVN/qXXiWv2syMql+jEWgXplM7Euw8IABZn76
+         d85g==
+X-Forwarded-Encrypted: i=1; AKwUvBxP9909Xy8h2/NgG+5UEioePp3wHa9PV1jkD87t9/adJZ1BW65qZ22qoNNqZAeeqGQtNdQxmwZGPEDsD3g=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2L1H4iuMEcdM6y/DSDVd3XNleSJvzdyuh99GkwkcCfnK39L3k
+	BF9wZ4e4q6XHPUXBwQvNUY4rQ/XMmYNmZTn314Tyc6oICr7XjcyKduwW8XQNX09Srw+S
+X-Gm-Gg: AYBFou0Fhx9BH4OLc998bfmWiB+cd/BMb35as0iGMJyaXYxjYvVER20JphWxh7OmDe5
+	lWF+CNxFs5zvIazTjHRcouwJZvMnpi5GUOoROZffOfQPO9jCmyoHIzPZH8zVden3gDCePr+604n
+	v4e2HHtEKLdYoJHmxtWYJC4zufCuG+kCddIWi/6v7JWr0kf2OnD1PNRYN3Rrfi8WVxbbSoO22Eq
+	3mUx2GXxFeOQKcOgkYigDRdr6Ar0nm4J3kQb3P14QiV6usV+z+RlnEQS5KR0H/N99KyKM3L8zQI
+	fU6VzRJjompAGFQIg4hkZbqiN/cHkE2VJuG2qQzB7XpMrFneoiik631yQcE+rkUNeAx0nsmyz2J
+	RredN8HSH3gx3aTUuYI0Lq0ER+kxjBAoG7cJkVIO8VLN5ZUiIRWSgCKpa702i9IxsPKaZn7/laM
+	FVmcmwspMYbmdRIQ+oU0FnNeXNrr1JsFC8kagvy4EmoPxi5sUR8FZMhEx0NasijUr/Nn0/6chNE
+	B86FDGymbz97f+DH1cXMx5TcDW9Bw==
+X-Received: by 2002:a17:90b:4a88:b0:39e:6c68:1557 with SMTP id 98e67ed59e1d1-3a07324b450mr790008a91.31.1790075138203;
+        Tue, 22 Sep 2026 04:05:38 -0700 (PDT)
+Received: from 954df21a5119.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06741d485sm4382985a91.8.2026.09.22.04.05.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 04:05:37 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: zihanx@nebusec.ai,
+	linux-kernel@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Subject: [PATCH net v11 1/1] llc: fix listener child socket leaks
+Date: Tue, 22 Sep 2026 11:05:24 +0000
+Message-ID: <8e9a9b20d10d978ac91105fa0eac4ee370d38189.1790062133.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790062133.git.zihanx@nebusec.ai>
+References: <cover.1790062133.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] wifi: ath12k: Connect to the QMI server belonging
- to the device owned by this driver
-To: manivannan.sadhasivam@oss.qualcomm.com,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath11k@lists.infradead.org, ath12k@lists.infradead.org,
-        Bjorn Andersson <andersson@kernel.org>,
-        Chris Lew <christopher.lew@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
-        Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-        Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
- <20260921-qrtr-multi-ep-v2-4-27dd80d841a0@oss.qualcomm.com>
-Content-Language: en-US
-From: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
-In-Reply-To: <20260921-qrtr-multi-ep-v2-4-27dd80d841a0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: beIkCXXKyuUA27hBv0nwGuQXuDH_D8qZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE2MCBTYWx0ZWRfX5xsMcGtUvA1i
- oyMJcGMkwYltN+f7XEkOzDYj+ntVpAQwYjisfGpkkRmahC0N3kBk1dLBN+mQnkchyWX5ZxVAD8a
- Le3aH+8RnX7UpUck3Ad6hzGnfuXIStrD+56O9VInHtCu2mmTwKYeL8NnzE1rQ4SED5SGalaRMkv
- 2/ueYYdsg5fApY2wTmDpSITcXIfu5id6OwTAfwDmwWb2q38tAVZPQSZfDkxIqk/oWuGSZ3HxmTY
- M+YkS3+tdLRnbVRUHS7jqWhubPyCeR+Jaxx9vozZbzzoRTARx9wxTRgxXsY0w4AAYUiRdTL7QPw
- OuXiMqhBKpB974m7W8dfHgivJLEOYUmtS2u6UXvhLiKiy6pXiZo2myNPNVI1w4afY41YIZLJs9d
- O9SD+piVaLOB2fQHq+G6tu/6dRW7BgfWhxz0WBaK9Dnop49ScjsnaLx4Z1jPK97TMzdvphXlROU
- on5N8WaNZIaasHkZBEg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE2MCBTYWx0ZWRfX3IjlKU5mkY8T
- 9OXj9ndR62WatOnZOrwP48ihhkbSTOmAFT6PsjRfRd43YI0ZX0NJrhzHGUYFliXyuwK9/wikECI
- MXLsYmXKSeO7oT2KiU+V5aurx+QR6yo=
-X-Authority-Analysis: v=2.4 cv=c8I+0h9l c=1 sm=1 tr=0 ts=6ab260ec cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=bQg6oyjaoxrshYPP:21 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=R4z_reooDQMcG2LTbH8A:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: beIkCXXKyuUA27hBv0nwGuQXuDH_D8qZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0
- adultscore=0 spamscore=0 impostorscore=0 malwarescore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220160
+Content-Transfer-Encoding: 8bit
 
+llc_conn_handler() used to create and publish a child socket for every
+frame that matched a listening socket. Non-SABME frames never complete a
+passive open, leaving the child in the SAP tables with its device
+reference held and no path to accept().
 
+Valid SABME frames could also accumulate without accounting for the
+listener's accept backlog. A state-machine failure could strand a
+published child, while listener teardown could free its connection
+indication skb without releasing the child and its device reference.
 
-On 9/21/2026 4:53 PM, Manivannan Sadhasivam via B4 Relay wrote:
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> 
-> When two identical ath12k PCIe devices are connected to the same host, both
-> advertise the WLFW service with the same service and instance id. The QMI
-> lookup reports both servers to each device, so a device may connect to the
-> firmware running on the other device.
-> 
-> But now, QRTR provides each MHI endpoint a unique node id which is
-> different from the node id announced by the device. So use the same id to
-> pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
-> the node id derived from the MHI controller index and zero for transports
-> that do not assign one. In the new_server callback, skip any service whose
-> node id does not match. A node id of zero disables the check, so transports
-> that do not assign one keep their current behavior.
-> 
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Create children only for SABME commands. Answer DISC and other P=1
+commands directly from the listener and drop the remaining non-SABME
+frames. Defer child creation for listener-owned packets until backlog
+admission succeeds, roll back children when passive-open processing
+fails, and release queued children during listener teardown after freeing
+their indication skbs.
 
-Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
+Serialize child publication and teardown with the socket lock. Keep
+bottom halves disabled while a backlog-created child is published and
+processed, and use bottom-half exclusion for process-context teardown.
+Reject stale or out-of-service lookup results before state-table dispatch
+while keeping a pending SABME child hashed until passive-open processing
+completes.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v11:
+  - Keep bottom halves disabled while a backlog-created child is locked,
+    published, and processed, preventing same-CPU receive deadlock.
+  - v10 Link:
+    https://lore.kernel.org/all/cover.1789824800.git.zihanx@nebusec.ai/
+changes in v10:
+  - Reclaim SABME children when direct or backlog passive-open processing
+    fails, and account successful indications against the accept backlog.
+  - Defer child creation for listener-owned packets until backlog admission
+    succeeds.
+  - Release queued child sockets during listener teardown after freeing the
+    indication skbs, including bottom-half-safe child locking.
+  - Serialize child publication and packet processing with the child socket
+    lock, and reject stale or out-of-service lookup results.
+  - Keep the llc_ui_accept() NULL-dereference concern out of scope as a
+    separate issue.
+  - v9 Link:
+    https://lore.kernel.org/all/cover.1789216793.git.zihanx@nebusec.ai/
+---
+ net/llc/llc_conn.c | 183 +++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 170 insertions(+), 13 deletions(-)
+
+diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
+index 260460d50f54c..eacc8c3ecc636 100644
+--- a/net/llc/llc_conn.c
++++ b/net/llc/llc_conn.c
+@@ -32,6 +32,7 @@ static int llc_exec_conn_trans_actions(struct sock *sk,
+ 				       struct sk_buff *ev);
+ static const struct llc_conn_state_trans *llc_qualify_conn_ev(struct sock *sk,
+ 							      struct sk_buff *skb);
++static void __llc_sk_free(struct sock *sk, bool sync);
+ 
+ /* Offset table on connection states transition diagram */
+ static int llc_offset_table[NBR_CONN_STATES][NBR_CONN_EV];
+@@ -90,6 +91,8 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
+ 		 */
+ 		skb_get(skb);
+ 		skb_queue_tail(&sk->sk_receive_queue, skb);
++		if (sk->sk_state == TCP_LISTEN)
++			sk_acceptq_added(sk);
+ 		sk->sk_state_change(sk);
+ 		break;
+ 	case LLC_DISC_PRIM:
+@@ -765,16 +768,101 @@ static struct sock *llc_create_incoming_sock(struct sock *sk,
+ 	memcpy(&newllc->laddr, daddr, sizeof(newllc->laddr));
+ 	memcpy(&newllc->daddr, saddr, sizeof(newllc->daddr));
+ 	newllc->dev = dev;
+-	dev_hold(dev);
++	netdev_hold(dev, &newllc->dev_tracker, GFP_ATOMIC);
++	/* Serialize packets that can find the child after it is hashed. */
++	bh_lock_sock_nested(newsk);
+ 	llc_sap_add_socket(llc->sap, newsk);
+ out:
+ 	return newsk;
+ }
+ 
++static struct sock *llc_create_incoming_sock_from_skb(struct sock *sk,
++						      struct sk_buff *skb)
++{
++	struct llc_addr saddr, daddr;
++
++	llc_pdu_decode_sa(skb, saddr.mac);
++	llc_pdu_decode_ssap(skb, &saddr.lsap);
++	llc_pdu_decode_da(skb, daddr.mac);
++	llc_pdu_decode_dsap(skb, &daddr.lsap);
++
++	return llc_create_incoming_sock(sk, skb->dev, &saddr, &daddr);
++}
++
++static bool llc_sk_unhashed(const struct sock *sk)
++{
++	return hlist_nulls_unhashed_lockless(&sk->sk_nulls_node);
++}
++
++static void llc_release_incoming_sock(struct sock *sk)
++{
++	struct llc_sock *llc = llc_sk(sk);
++
++	local_bh_disable();
++	bh_lock_sock_nested(sk);
++	llc->state = LLC_CONN_OUT_OF_SVC;
++	llc_sap_remove_socket(llc->sap, sk);
++	bh_unlock_sock(sk);
++	local_bh_enable();
++	netdev_put(llc->dev, &llc->dev_tracker);
++	sock_orphan(sk);
++	/* llc_sk_free() drops the allocation reference. */
++	llc_sk_free(sk);
++}
++
++static void llc_abort_incoming_sock(struct sock *sk)
++{
++	struct llc_sock *llc = llc_sk(sk);
++
++	/* The passive-open child is still locked by its creator. */
++	llc->state = LLC_CONN_OUT_OF_SVC;
++	llc_sap_remove_socket(llc->sap, sk);
++	bh_unlock_sock(sk);
++	netdev_put(llc->dev, &llc->dev_tracker);
++	sock_orphan(sk);
++	/* No child timer is armed before passive-open setup completes. */
++	__llc_sk_free(sk, false);
++}
++
++static void llc_conn_send_dm_rsp(struct llc_sap *sap, struct sk_buff *skb,
++				 const struct llc_addr *saddr, u8 f_bit)
++{
++	struct sk_buff *nskb;
++	int rc;
++
++	nskb = llc_alloc_frame(NULL, skb->dev, LLC_PDU_TYPE_U, 0);
++	if (!nskb)
++		return;
++
++	llc_pdu_header_init(nskb, LLC_PDU_TYPE_U, sap->laddr.lsap,
++			    saddr->lsap, LLC_PDU_RSP);
++	llc_pdu_init_as_dm_rsp(nskb, f_bit);
++	rc = llc_mac_hdr_init(nskb, skb->dev->dev_addr, saddr->mac);
++	if (unlikely(rc))
++		kfree_skb(nskb);
++	else
++		dev_queue_xmit(nskb);
++}
++
++static void llc_listener_send_dm(struct llc_sap *sap, struct sock *sk,
++				 struct sk_buff *skb, const struct llc_addr *saddr)
++{
++	if (!llc_conn_ev_rx_disc_cmd_pbit_set_x(sk, skb)) {
++		u8 f_bit;
++
++		llc_pdu_decode_pf_bit(skb, &f_bit);
++		llc_conn_send_dm_rsp(sap, skb, saddr, f_bit);
++	} else if (!llc_conn_ev_rx_xxx_cmd_pbit_set_1(sk, skb)) {
++		llc_conn_send_dm_rsp(sap, skb, saddr, 1);
++	}
++}
++
+ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
+ {
+ 	struct llc_addr saddr, daddr;
++	struct sock *newsk = NULL;
+ 	struct sock *sk;
++	int rc;
+ 
+ 	llc_pdu_decode_sa(skb, saddr.mac);
+ 	llc_pdu_decode_ssap(skb, &saddr.lsap);
+@@ -786,6 +874,10 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
+ 		goto drop;
+ 
+ 	bh_lock_sock(sk);
++	if (unlikely(llc_sk_unhashed(sk)))
++		goto drop_unlock;
++	if (unlikely(llc_sk(sk)->state == LLC_CONN_OUT_OF_SVC))
++		goto drop_unlock;
+ 	/*
+ 	 * This has to be done here and not at the upper layer ->accept
+ 	 * method because of the way the PROCOM state machine works:
+@@ -795,11 +887,18 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
+ 	 * in the newly created struct sock private area. -acme
+ 	 */
+ 	if (unlikely(sk->sk_state == TCP_LISTEN)) {
+-		struct sock *newsk = llc_create_incoming_sock(sk, skb->dev,
+-							      &saddr, &daddr);
+-		if (!newsk)
++		if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
++			llc_listener_send_dm(sap, sk, skb, &saddr);
+ 			goto drop_unlock;
+-		skb_set_owner_r(skb, newsk);
++		} else if (!sock_owned_by_user(sk)) {
++			if (sk_acceptq_is_full(sk))
++				goto drop_unlock;
++			newsk = llc_create_incoming_sock(sk, skb->dev, &saddr,
++							 &daddr);
++			if (!newsk)
++				goto drop_unlock;
++			skb_set_owner_r(skb, newsk);
++		}
+ 	} else {
+ 		/*
+ 		 * Can't be skb_set_owner_r, this will be done at the
+@@ -813,9 +912,15 @@ void llc_conn_handler(struct llc_sap *sap, struct sk_buff *skb)
+ 		skb->sk = sk;
+ 		skb->destructor = sock_efree;
+ 	}
+-	if (!sock_owned_by_user(sk))
+-		llc_conn_rcv(sk, skb);
+-	else {
++	if (!sock_owned_by_user(sk)) {
++		rc = llc_conn_rcv(sk, skb);
++		if (unlikely(rc) && newsk) {
++			llc_abort_incoming_sock(newsk);
++			goto out;
++		}
++		if (newsk)
++			bh_unlock_sock(newsk);
++	} else {
+ 		dprintk("%s: adding to backlog...\n", __func__);
+ 		llc_set_backlog_type(skb, LLC_PACKET);
+ 		if (sk_add_backlog(sk, skb, READ_ONCE(sk->sk_rcvbuf)))
+@@ -852,12 +957,44 @@ static int llc_backlog_rcv(struct sock *sk, struct sk_buff *skb)
+ {
+ 	int rc = 0;
+ 	struct llc_sock *llc = llc_sk(sk);
++	struct sock *newsk = NULL;
+ 
+ 	if (likely(llc_backlog_type(skb) == LLC_PACKET)) {
+-		if (likely(llc->state > 1)) /* not closed */
+-			rc = llc_conn_rcv(sk, skb);
+-		else
++		if (unlikely(sk->sk_state == TCP_LISTEN)) {
++			struct llc_addr saddr;
++
++			if (llc_sk_unhashed(sk))
++				goto out_kfree_skb;
++			if (llc_conn_ev_rx_sabme_cmd_pbit_set_x(sk, skb)) {
++				llc_pdu_decode_sa(skb, saddr.mac);
++				llc_pdu_decode_ssap(skb, &saddr.lsap);
++				llc_listener_send_dm(llc->sap, sk, skb, &saddr);
++				goto out_kfree_skb;
++			}
++			if (sk_acceptq_is_full(sk))
++				goto out_kfree_skb;
++			/*
++			 * The child is locked before it is published.  Keep bottom
++			 * halves disabled until that lock is released so a packet
++			 * received on this CPU cannot deadlock on the child lock.
++			 */
++			local_bh_disable();
++			newsk = llc_create_incoming_sock_from_skb(sk, skb);
++			if (!newsk) {
++				local_bh_enable();
++				goto out_kfree_skb;
++			}
++			skb_set_owner_r(skb, newsk);
++		} else if (unlikely(llc->state <= 1)) {
+ 			goto out_kfree_skb;
++		}
++		rc = llc_conn_rcv(sk, skb);
++		if (unlikely(rc) && newsk)
++			llc_abort_incoming_sock(newsk);
++		else if (newsk)
++			bh_unlock_sock(newsk);
++		if (newsk)
++			local_bh_enable();
+ 	} else if (llc_backlog_type(skb) == LLC_EVENT) {
+ 		/* timer expiration event */
+ 		if (likely(llc->state > 1))  /* not closed */
+@@ -964,18 +1101,38 @@ void llc_sk_stop_all_timers(struct sock *sk, bool sync)
+  *	Frees a LLC socket
+  */
+ void llc_sk_free(struct sock *sk)
++{
++	__llc_sk_free(sk, true);
++}
++
++static void __llc_sk_free(struct sock *sk, bool sync)
+ {
+ 	struct llc_sock *llc = llc_sk(sk);
++	struct sk_buff *skb;
+ 
+ 	llc->state = LLC_CONN_OUT_OF_SVC;
+ 	/* Stop all (possibly) running timers */
+-	llc_sk_stop_all_timers(sk, true);
++	llc_sk_stop_all_timers(sk, sync);
+ #ifdef DEBUG_LLC_CONN_ALLOC
+ 	printk(KERN_INFO "%s: unackq=%d, txq=%d\n", __func__,
+ 		skb_queue_len(&llc->pdu_unack_q),
+ 		skb_queue_len(&sk->sk_write_queue));
+ #endif
+-	skb_queue_purge(&sk->sk_receive_queue);
++	/* Pending accept indications do not hold a reference to their child. */
++	if (sk->sk_state == TCP_LISTEN) {
++		while ((skb = skb_dequeue(&sk->sk_receive_queue))) {
++			struct sock *newsk = skb->sk;
++
++			if (newsk && newsk != sk)
++				sk_acceptq_removed(sk);
++			/* sock_rfree() still needs skb->sk to charge the child. */
++			kfree_skb(skb);
++			if (newsk && newsk != sk)
++				llc_release_incoming_sock(newsk);
++		}
++	} else {
++		skb_queue_purge(&sk->sk_receive_queue);
++	}
+ 	skb_queue_purge(&sk->sk_write_queue);
+ 	skb_queue_purge(&llc->pdu_unack_q);
+ #ifdef LLC_REFCNT_DEBUG
+-- 
+2.55.0.windows.3
 
