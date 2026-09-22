@@ -1,207 +1,152 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51274E0B84
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:59:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1FC421237
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060367; cv=none; b=JPsW8L/3hwVKS2ByRwGnHBPpqqbw0q9mckhfdZSsnKu+vNF5jKy1cNCtEadY5BeOW6cTwMRb97ilI01nZ4YNkReevtD9v/rafaJWIg9owfT8DctR8JB3/bBvlW5w66AVNm610Ka7ga4WP0cm9neIs2ranr9wNbRMNCGkSAg8qAk=
+	t=1790060370; cv=none; b=gy09n11cpq6x9vcl8JjArNteFgPxddALmzXQmm462EEaus+CewYxu+mFd6GOtj3dIR+X1vd3LUAlTJZ7lKDvIryxOMAgY3ZSfCdW8iM6gfuWjVGi6AmXb+cGszjcsY9VPsApbZlKYOC272+8emprBmO0LPsjaVXalB8889goUg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060367; c=relaxed/simple;
-	bh=iyEuj8ZuYgVHXZdeWaPQ0WiZOh4LrnZeOC9Ro6Ud3gA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mOBVZBrSTo2iSR95kSUIqefrLbRCpVU79CyPrupKt1K9E/1lxC3xdPcxoFQHVP+VhCCSFiY/89HtiLp5ClPf1lUBZSPDgdSetlk4akA5LUtX+70R0zbSAEWvOQ074mb32DtoErLXxEw24lMWOO9e68/PnOJvCRTn81s/tY8OfC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XgnTBIpF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aSI50jMR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790060370; c=relaxed/simple;
+	bh=1TiV2Ip4e4Vs333/dEmHkKjYSPHQHH9TAPa+dveTvNc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FKiznIG3ZWGDgdUOi2FW2JGNIkVHcJIJA9fvzmUjmkNBGj6rsWyqfW+NXOS8s3oyHcagP9usFzWoCZr1cgcYE+w5WTqKZNXvR2au6j1OR5UpPl9gfxm0LDoEKMeMsosuT6Yra6JNFfU5Es07OdWzFgwCNpTwUtV0/w5jFscG5xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=04z+sDMf; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XgnTBIpF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aSI50jMR"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M00Hr33676875
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:59:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=1LsyYh4hypDdEF2qoePNSyxQNqBxZYGA+BY
-	ImKY2Xj8=; b=XgnTBIpFZgJJhJwucppSR0e3ozsp6iMzFXWuAycQ4CpZE/KnBKX
-	xjlG4uUgd5ZWvwppmAFN4646cpu1Wy2dexfOSLBBPYqmjQyZfoR1oZaf+iAEe/ou
-	k8NIdADkdBWyVAWtdFFs8Xh9QmolDsYwdaD1Sd/ROem4f43DnEB3lG2v74tbgK2I
-	GyyKJvAsixYCaucHp2U3vPTx4f/fkS7Av9xF09hTEYTboFAEv6HynGwdH5dX/4/s
-	Vnuu2DWCPNhpV8bYegJb5KNxIOsm5u2zp/62TCPD1zGppKxB2afUzUOisZI3RZzc
-	I4PFD6MG5Y2GCRJow/DFAbS2836OhelITYg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu85vjwac-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:59:19 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8688139460bso4155287b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790060359; x=1790665159; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1LsyYh4hypDdEF2qoePNSyxQNqBxZYGA+BYImKY2Xj8=;
-        b=aSI50jMRMaTCxwpnBvlFcDY8wGty6ajBBeVsNSzb9oTPL114GAKIECFnKIrKVSCB46
-         XutN/9VTyV2kDnZkaa1Dimske3flXyVx9qCkw2KWcObRYZiQYC392sFVfSe3zEcZKxBH
-         Ur7Jp74d6opK7O8jd/hx9MNvni7LDLy5LuiAc4weRm/IddOlcqSQMnH+YfqpZrncAVXY
-         t4tZGsqZsWu35Se5jh2av0jFxkc9mEA05eP22OKBqbkkrMtgbN0CNEHmb7cKXOfdiEIc
-         78US3sxJ2RwoSaWFK+pPrZ/BFYGpAEnmyqPsAzg0ha0/0o0Qn3TbEKtcdzf0IPjY6z1J
-         zBeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790060359; x=1790665159;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1LsyYh4hypDdEF2qoePNSyxQNqBxZYGA+BYImKY2Xj8=;
-        b=pMN8QmH/oNPfuNaDbI0LPirWzs3ZiPuMNIMoK9L96NISQfp/Fgfxj70WSoIuvMYJLF
-         NBEBjGj079BxagH6zBIN4dZrb4c+4KUNdw6ZngfqildUykf7l1apfWk01PU+UUlD3Ymi
-         ZTAI2cbH4HSAPNTjZXgYWuIpP93DP2EXr6o5kuv5kA5k2q0r6nKFwybIeYuaFuc3PY+O
-         D6460VtsQriicRryQ4W7PD3ODuhwnwJk+6bftjHYfg3WSrSXBCXmc3y1dPhktKl3FOUa
-         f4pEZxNp4hn16BBwTiOX2BNQ3nZP6gqaigJ3pzhl0/Eyf5ItE+cBhWOGnR0HpnGkGfVa
-         PYZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBUhIn3aeL0mcGRc9d8GAYlc1CoTHunDi7ficLEZwF7GZkkRvgETha2mCR3SbTlzhK6UJW50Lr79smSL4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVWRyZeEK2HkbFP9A4LVrjY0S5LvMhl+yGb7y2dMYdSvOi5w9H
-	j7L8ggyd8eaHk/2WpwU6I519mWEDli0pYk5gQ4zsueuWDuz/RCKGUU4W7IFx032MCm9W5E52u0e
-	HGyODZTg2NOV2rq265PY6i5+JKAvFgR6yA9NSbrT3BPfNtNcSwINLJzvGapa94Uk5ZZM=
-X-Gm-Gg: AYBFou2jrtnI5TnwY9gPL61Xs0TThfr6CKufhLrz7chq+bgVFry9P8gNY1FGvPJyILi
-	df+LcJ/kD/NlKDs8PIBv8+jcqkwSfyN3XqEHtayaC7CoDdpRbvyP8dUdncepScDrqALUERWaetB
-	Odtgq8O+yO4MvlYLt/VW41XH5YcselBoqKdxo6kMO+aqM3P+y+B7+TV8s01obYjp+IDAVl5+ti/
-	XxVng+13jrVepDE/S0fVeKJavimMi+PrbII4rJBG6+GJ6diJbzWiYFf3i4XJ0nfhCVCHITb7NKt
-	7OgZjm+v8mCBamMwDbxabthvhFfMxNX5yqYYB8tmGE+PzrxsIQIAIjXrLw7iep3TOoM15yee7jO
-	zgWqfouKcEpKJYa7l9nZi0bxx5SUtE1NDVGu5T6CuN/kpS7PhnQg/zF7AEBk=
-X-Received: by 2002:a05:6a20:c90e:b0:3dd:85a9:559b with SMTP id adf61e73a8af0-3ddec661693mr304195637.29.1790060359187;
-        Mon, 21 Sep 2026 23:59:19 -0700 (PDT)
-X-Received: by 2002:a05:6a20:c90e:b0:3dd:85a9:559b with SMTP id adf61e73a8af0-3ddec661693mr304165637.29.1790060358595;
-        Mon, 21 Sep 2026 23:59:18 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e61271041sm2999418eec.10.2026.09.21.23.59.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 23:59:18 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v2] pinctrl: qcom: spmi-gpio: make direction changes exclusive
-Date: Tue, 22 Sep 2026 14:59:08 +0800
-Message-ID: <20260922065908.477523-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="04z+sDMf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D7C4B1A0F5C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:59:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9947560580;
+	Tue, 22 Sep 2026 06:59:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2AD541032920C;
+	Tue, 22 Sep 2026 08:59:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790060361; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=CYJeYVq+zoPSXgvrTiKhlttbrwfDZWH+MXsuurAOmL4=;
+	b=04z+sDMfWGyJYBXSgQNXBy3AkYLFY8XpueASItQKWpzYTtG8+ABBFthFjuGX7LlEsXTh5T
+	2TQ/8CPiNBsIHa5Wxg3NMxlaB/ekvbjTBgF/LPvPYvJjPEd9ZiDyHmMURMMwMt7RSSo09m
+	PRdjI3GEuMVpgPBiFEc45AXbxcuhVOm3pOb3eNgj1Y+hPTojTMjAtUgsZql5UnqYLxEzaf
+	JLQqOFIOz8QGxZOGo/0lln2uuvMiodSirzz3w1ZXmE6Jp/BJP1BoosQEmyTSEaJWT0K/SY
+	MKLBHtp3HUpFOMk+MPyJN35Gd2n1rfSIwY70mcoBkcc0nPUTrmM9FintCMWsJg==
+Message-ID: <839fd50c-f74a-4189-86f4-1d5173050fca@bootlin.com>
+Date: Tue, 22 Sep 2026 08:59:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA5OSBTYWx0ZWRfXz2CH4OjLT6Xh
- 6oR6TeXrOGu0NAp7cz4WvYNHcdepciKxO7jIRtXZSA1osxFV5LWgk8VMNvl9Y9krvJfoEMZUVEL
- LtTIql6I0xnptjhFkLZHUCCpuiNbkHo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA5OSBTYWx0ZWRfXzfnVM0AcBU7f
- JWtr7VJZxEX453iB9NU46IN3j2yOO4pIhOTJCSpFxlIJW2pcUrr0dUqgju+sGl8vdNAhSAbtkmz
- 6s5bHsowrqXmGc0ue70U82o2ighyiE3aFqWg8+w1ZIhQo95wqz0jrD8mGMeWAWhpW9KgZWpt3gn
- 3KyvHeYpk/8bCvMIbDx1YzhMmtPIQmgZh1W1XfTbcHhwJLE8zXA5BHrTYR0dkOM+4W3oH2x6WEc
- TDf7Oz9rrvn/Gaym6AY9wn1ZoNLe8WlU2GbY+5eFKI9LTpO9iJ8YNvOazpkk7XKh5nf2N65W+5z
- vF42fBz5Rs74s5Z02OL5lM+/WjwvFyL19TP+/f3CS4vsNhxl+mfaMUD6B98+Z2zh766n+WyCpCv
- ckglJRvta0l7JoWSUsnQ1kXm7zfnIiijStMLXlLVYX9I4YU4hk2YC4vIuVW0Op+D7elCLoX8GCy
- HgQWhxWnnP4FpVKGG4A==
-X-Authority-Analysis: v=2.4 cv=E8FYNqdl c=1 sm=1 tr=0 ts=6ab22747 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=jHABHta5L3jSstw6_KYA:9 a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-ORIG-GUID: 23TPh1eq2J5cgL3QkAfuBZ6tycaPp8Rm
-X-Proofpoint-GUID: 23TPh1eq2J5cgL3QkAfuBZ6tycaPp8Rm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0
- phishscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220099
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 4/4] net: stmmac: dwmac-socfpga: Add support
+ for Agilex5 TSN GMAC with FPGA converter
+To: muhammad.nazim.amirul.nazle.asmade@altera.com, dinguyen@kernel.org
+Cc: rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260908070557.3585-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260908070557.3585-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
-the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
-DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
-buffer enabled.  Neither direction callback clears the opposite buffer:
-.direction_output() only packs PIN_CONFIG_LEVEL, which sets
-output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
-which sets input_enabled.  Requesting either direction on such a pad
-therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
-direction.
+Hi,
 
-That silently breaks both directions.  After gpiod_direction_input() the
-pad keeps driving the line, since the output buffer is never disabled.
-And after gpiod_direction_output() pmic_gpio_get_direction() still reports
-GPIO_LINE_DIRECTION_IN, because it cannot tell plain input from
-input+output, which makes gpiolib consider the line an input while the
-driver is driving it.  On a board where several regulator-fixed nodes
-share one PMIC GPIO the shared GPIO proxy reads that direction back and
-rejects every consumer after the first:
+On 9/8/26 09:05, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> 
+> The Agilex5 SoCDK TSN Config2 board uses a GMII-to-RGMII converter
+> implemented as FPGA soft IP between gmac1 and its PHY. This converter
+> provides the RGMII TX/RX clock delays, so the MAC interface selector
+> must be configured for GMII while the PHY is configured without delays.
+> 
+> Add the "altr,socfpga-stmmac-agilex5-tsn" compatible with dedicated
+> match .data ops that extend the standard Agilex5 setup: force GMII for
+> the MAC interface selector and strip delay bits from phy_interface so
+> the PHY is not configured to add delays already provided by the FPGA
+> converter.
+> 
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-  reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
-  reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
-direction so that the resulting MODE_CTL is DIGITAL_INPUT or
-DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
-once after walking all configs, so this stays a single register write.
+Maxime
 
-Pads that are genuinely bidirectional can still be described that way
-through pinconf, which is the interface that has always been able to
-express it; the gpiolib direction callbacks now mean what gpiolib says
-they mean.
-
-Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
-Assisted-by: LLM
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
-Changes for v2:
-- Drop GPIO shared-proxy patch
-- Update Fixes tag (Thanks Neil!)
-- Link to v1: https://lore.kernel.org/all/20260915014447.282121-1-shengchao.guo@oss.qualcomm.com/
-
- drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-index f6dc43e27b38..eb4431591331 100644
---- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-+++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-@@ -741,22 +741,26 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
- static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
- {
- 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
--	unsigned long config;
-+	unsigned long configs[2];
- 
--	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
-+	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-+	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
- 
--	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
-+	return pmic_gpio_config_set(state->ctrl, pin, configs,
-+				    ARRAY_SIZE(configs));
- }
- 
- static int pmic_gpio_direction_output(struct gpio_chip *chip,
- 				      unsigned pin, int val)
- {
- 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
--	unsigned long config;
-+	unsigned long configs[2];
- 
--	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
-+	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 0);
-+	configs[1] = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
- 
--	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
-+	return pmic_gpio_config_set(state->ctrl, pin, configs,
-+				    ARRAY_SIZE(configs));
- }
- 
- static int pmic_gpio_get(struct gpio_chip *chip, unsigned pin)
--- 
-2.43.0
+> ---
+> v6: No changes from v5.
+> v5: Replace of_device_is_compatible() probe check with dedicated
+>     socfpga_agilex5_tsn_gmac_ops via match .data, per Krzysztof
+>     Kozlowski and Dinh Nguyen.
+> v4: Add Reviewed-by from Andrew Lunn.
+> 
+>  .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 23 ++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> index 1d7f0a57d288..0632105b420f 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> @@ -69,12 +69,13 @@ struct socfpga_dwmac {
+>  	void __iomem *tse_pcs_base;
+>  	void __iomem *sgmii_adapter_base;
+>  	bool f2h_ptp_ref_clk;
+> +	phy_interface_t mac_interface;
+>  	const struct socfpga_dwmac_ops *ops;
+>  };
+>  
+>  static phy_interface_t socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
+>  {
+> -	return dwmac->plat_dat->phy_interface;
+> +	return dwmac->mac_interface;
+>  }
+>  
+>  static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
+> @@ -650,6 +651,8 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+>  	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
+>  	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
+>  
+> +	dwmac->mac_interface = plat_dat->phy_interface;
+> +
+>  	ops->setup_plat_dat(dwmac);
+>  
+>  	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
+> @@ -670,10 +673,28 @@ static const struct socfpga_dwmac_ops socfpga_agilex5_ops = {
+>  	.setup_plat_dat = socfpga_agilex5_setup_plat_dat,
+>  };
+>  
+> +static void socfpga_agilex5_tsn_gmac_setup_plat_dat(struct socfpga_dwmac *dwmac)
+> +{
+> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
+> +
+> +	socfpga_agilex5_setup_plat_dat(dwmac);
+> +
+> +	/* FPGA converter supplies RGMII delays; MAC uses GMII, PHY gets plain RGMII */
+> +	dwmac->mac_interface = PHY_INTERFACE_MODE_GMII;
+> +	if (phy_interface_mode_is_rgmii(plat_dat->phy_interface))
+> +		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+> +}
+> +
+> +static const struct socfpga_dwmac_ops socfpga_agilex5_tsn_gmac_ops = {
+> +	.set_phy_mode = socfpga_gen10_set_phy_mode,
+> +	.setup_plat_dat = socfpga_agilex5_tsn_gmac_setup_plat_dat,
+> +};
+> +
+>  static const struct of_device_id socfpga_dwmac_match[] = {
+>  	{ .compatible = "altr,socfpga-stmmac", .data = &socfpga_gen5_ops },
+>  	{ .compatible = "altr,socfpga-stmmac-a10-s10", .data = &socfpga_gen10_ops },
+>  	{ .compatible = "altr,socfpga-stmmac-agilex5", .data = &socfpga_agilex5_ops },
+> +	{ .compatible = "altr,socfpga-stmmac-agilex5-tsn", .data = &socfpga_agilex5_tsn_gmac_ops },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
 
