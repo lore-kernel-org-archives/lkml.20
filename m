@@ -1,233 +1,192 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012039.outbound.protection.outlook.com [52.101.126.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34CAC399004
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036153BBFD6
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.39
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046993; cv=pass; b=Op6HB9YoXf6clb5xB8hn0fBtOuTUsd0FsoO5++PQ3RzPotUZqfrZhTw/IwFT0EULpg/JpBp9+NMu2/QgaeI1aqkF4AGpsatdgwJ4Ay587Ncj87ModsNui+4pPtMo/8+wGbVXiAwGfTjlbZ/NAxrlL3qYKF4vQshA8pGlxVjbNkU=
+	t=1790047001; cv=fail; b=jMYfZvgOf2uA1MRQSFdNfReyWbt9QbwIroXZZTwPwoY7TZAVulb0rtNRLG+4a0pBC+PDKxdLPOwFa3Z9yfJVnnCIsNi5MTOBjbHifZ4ExjaUBcirDFF2tFv/18FW1MJdaxMSnXXlXxT8L4WkuTAUaJ0Lq6NTIUjrKZNRIleu5So=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046993; c=relaxed/simple;
-	bh=nxcBcIIu8q5gjVlpoqJK0T82KS5DXH91pbYJkPqLAyI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r6kL85MWPzlBR42lH+eRwDihvSK66T+giru22Z3mHx7wCJFsfEop7pydXvGqlPWcGTqWOKPi12USBeYF+4tL6Pf2oNRbYUOxT4FoYjJ9ESHFYsg8CLKbT+uXSiLrkzbmbgs2ENEpEjXnVPeqoUltkjcZgFqMfqesw8YQJtSlz2c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OttL4iFp; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790047001; c=relaxed/simple;
+	bh=BfuIj5EltW2JIX7ZPFCjwPndbltNtZgoMi/lVH1p7jc=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=PSVlGSi/xeEHA5O/SVleGgikA/7h0+wSvLKTQwmsxSpTiZitutwKX4zTb3i+0cm5efVJ5oqNjcWTj6+rfdkUxga91CjrmkaPfYpr5qzwsAC+zDH5hcF2vpidFliHPkdGnr1HPfmq1gzBE185Ejwto9dfbzoEShzoD2xs/UDolZg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=cXTjmkJk; arc=fail smtp.client-ip=52.101.126.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OttL4iFp"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso26913885e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:16:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790046989; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LNKODJFbVBqtbf29lkPWM1SiJCwJUHzc8KIjb0J8TWb4zV9VjAsjl0AYl0h5Zrj+bM
-         kGrzr+uXTFVcQzcnS7kQ2SWJ6Ad0o457OO2mj3ADZHmrXfI6jfft4u5pDgr+twXKjIL9
-         mWR6csqEYRn90OD1ZH+Jr1SjKvOvdexVRypFbmzUylmHvv+LGMEvygLhXEZLoZaKIVOH
-         2cyJr2t/8mTwxdty7SLB4vDulEZix5BP1Rxb77MINnxsFcGuz+mcdapy8G2AI+Pw8Uc9
-         7DSmzqR/9hDiIB8wSzgy1slQzN1aYmzc4g4p72K/AEVKgtMtaTOnLXQTxdYaJCjQVXm6
-         ikHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T0hVWGyySlLly+28D7LGfZKDh0uXJmKT1sB0yr2I6gM=;
-        fh=Gh3/I+XB4rGZI1J0dPpZva5bIVD5PV05X+X4F+d0YNo=;
-        b=R/BP7k6HpfSHdQxFu354QH50v/5yfA004tOrJe48utPbxtFXTycxHyhA4mU+1LOgIx
-         +FVxJ12TPAbCX9F9XRCes8ejt/7baY8lWcQpyXql/2GyteNgv38Um5smHHd2jSDqxdwK
-         QOp3Pc6lSCG35XuZi1R3LHSmtXxAiLneGcrc1wtnwIpEhNNlGDJtUmOIiWU2aHYFvWAG
-         N40WZQaadFx8jhTQmHGO1Ji4KJqkpwXlUjFD6gz1meSHn87TyMu6Tx01TwijrLpJscfZ
-         UhmckZKjr7cieZDtzMXathnMk7ihHDlZCQhQ5zkAORFyAiTy5y0ysPVR9KO8GbxfD7VD
-         hcwA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790046989; x=1790651789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T0hVWGyySlLly+28D7LGfZKDh0uXJmKT1sB0yr2I6gM=;
-        b=OttL4iFp1xOGLN3gQnlMB1tq0xJngLmH/krKaax6xy5z4RxYekCTxh9Pp5E7snJIS8
-         ZobS1E0MjajLMNyvFy7990rcYKr++EK/BWqlFO10y85xevVnAspMQkzcxXzPTMmBUn16
-         O0G3myRMed/g5rzaHBAU3uWu/wfB21Dcma6GjYJPOPLx7aR9vC0WtB94c3WyUTdrpnoa
-         H4qtZJ+iHtgMcAK09zQLOy0AZ4jCix0Ts7e+HOLW6ZGtcTJ0I4WtsWreqCdP5gC4ZD2G
-         UAIvrnTEZ2sjIyjTwWzRwKmDL02BxsXALzX3e57Rz67SZ57uoZZTMabSsbMu01Fj6Hhi
-         yRGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790046989; x=1790651789;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T0hVWGyySlLly+28D7LGfZKDh0uXJmKT1sB0yr2I6gM=;
-        b=VJ3oFyQyicMxFtdwzSGmdZiIrtGX2J+7tJWB3QGcQVBbpujn+U9qG4rZxKoM8T9JpM
-         Z1LKUVkk4o1fJc7a2Id6l/p68MGhgrm7oQcK8fidfwzkRu5uwP/cGa569RjAG+k2j8qO
-         yqvRYV+COQH4yVkkJU8qdaybLQ2nIWaWikIVOLQ1v2lLGfSNBnGUCKemuzCjbJchbKQX
-         R7B4xuoIVdZD1Jayc1OpHVZ+q+ekjfNWPV9ngBdOVX2jOkrnBh/HhLP6sN/30w97eGYM
-         Dtv4H4qNl4u7sfpZtvmbj2vmJJlD2LVr7Lzujsdnp4Bl13/+ZMIYcfi48VFmBVjc3sGq
-         fj4A==
-X-Forwarded-Encrypted: i=1; AKwUvBxV9wYL1uXjBsVwvuAriTmsr4uMFvU6BAoH/VQ/CRC7hZmVPndDR8lrzzz4Gtj1RoxJ36F86feOrhjKN/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXw/JLdlx/HRYoRifr0aUGkwbWHgUr01MLytc1rHDe7bQptJUU
-	Bsl7+ac84zY4uQOEQdQcHrKr++DgBsd5iHQs6ksXwCK8m5JZl+7E/Ohu5M04uSP9hcHz8AtL7Mm
-	xv+sABjs9/ulmRVYQXMSG1vpa+t3s+uY=
-X-Gm-Gg: AYBFou1QB7mUDh5Xa6V43HkQIEE9sVQ44KNCF4EJ4nbeqB1b5HNST1rCNA+EJt1gxz3
-	8uYjNKVisC/8rb7VrNaTMFlhoiCMmyZwfzMyncem96X4/4JB3ShoaUeofaj6VtVlJPsjyoVbBJP
-	QqV9M2vq7Eg7l8KNdroNmJKpUeU2exVY5pjjJJtAgbJATsn4flv82W9yjqpGIQEooLWNWo06PQ3
-	mcTov9JQLBX7JY68du5aaDHUYJ5LoQzwSsDJfXMqR14hA2ImkGmAuRgDEDvINr3HKcBcBpeMzpV
-	Ijk/WSXEj27S+JlOUT629YEyLTpS6k0tIq1I3X0eS3fAdNfuauMb401gf/5UryL7NxCOhEDafbq
-	lDGz4YkDQqz96mQ==
-X-Received: by 2002:a05:600c:46cc:b0:493:f5bf:4dc6 with SMTP id
- 5b1f17b1804b1-49fc566951dmr171043015e9.7.1790046989155; Mon, 21 Sep 2026
- 20:16:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="cXTjmkJk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lVImYO+GBdX5e5H9cur7JszjUHaFXaSWtrwpUGnZiQW0Nr20+0KZeY0B+SvxIezdiF6OCghaY9hD9j5617VY1V0hLOCrhNTGUnLFSFmHNbSokHfB6e4WhYPl0cHJaKlavcSs60zBB5ZwUMEaZOS+/xG6wiGAGYp+Qe2nT5lYrYOkl0C6YxObexzY+G9ORjvay72GJTf1wulNcpemMM7xPO6/4FU2ETKycAeRjwyMd3KIkfWPmwTheAXKaTXpY8/HJA1QzyWwiEUGATwpj3oZIrjvq2KCsBzBwNUu+z+naE7Rl0/ntQrj5REqDpE/dmlYa18ZDFenDgIlyHkR8arfsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=njHuQPuXl1BrKVgAxg1XtuDpP0oCePwjw3cXkyLhqBc=;
+ b=swQ7x/VbxSkLGUa/42SR2hjZkJnQ1/KZRfmKV77+2FsEOjNBLgu8u9Ab03jcTaiT2rqOofE016+Pmp6+TgfzFj5yAdHRiHSLrz/hr/Y09eiErtkfbkDWshHV3lPKAd0OsUrJ+jD+KD5OtUSds3mE9CGSJXfKlDikQqYjegyfrLBcXcExAkCgoOau1E1TagLsWjlex+ny48nJgBGR7/oI5W5hd/NX9oX5JwVYI4OwJd3pR8hyaE6qCqpudafoqumVQwIoCHXhn5KWSteDDz7Ta3qjQ5QId+AV/n3Cy23Xleq2oznM8F1X5/fuEV2K/fuewg5ulHeSfZV1rvDLHnnjhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=njHuQPuXl1BrKVgAxg1XtuDpP0oCePwjw3cXkyLhqBc=;
+ b=cXTjmkJkoxtxZG2tV1yKLRv6S2TSD5mAe7xGTZALmY/lBRUvUt1mY7UhWHD3aKj3vjNwpewT3+T/HkWkGK9Bvn18cCiVY93ZLsYSx/Uj1PqYEm6P0V2H6IqXGVjVujW8XRVPKx7jsLCMy1RO1Q4IlsWSQTep3Tax/2Pf0HPE5QYsQZRUlk0JfWPDTa16oAYR4BFhggztQIHeRWHtQ1MYOgNJiwSJlbkjphRUlOGAyT2zvr3etbuZPHGZmYqYeY/0isBwLWFV9GFgJe7L/XK4x06l4velbNbwlTTM5VvcJ3GUDirkUJVGTRp4b/li9Qfl1KpBDv/3gFHQHcGuaK+J+A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com (2603:1096:301:b5::13)
+ by TYZPR06MB6894.apcprd06.prod.outlook.com (2603:1096:405:20::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 03:16:29 +0000
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571]) by PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 03:16:29 +0000
+From: Fuyu Zhao <zhaofuyu@vivo.com>
+To: tj@kernel.org,
+	void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com
+Cc: sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Fuyu Zhao <zhaofuyu@vivo.com>
+Subject: [PATCH] tools/sched_ext: Add SCX_OPS_OPEN_OPTS for schedulers using open opts
+Date: Tue, 22 Sep 2026 11:16:18 +0800
+Message-Id: <20260922031618.2858-1-zhaofuyu@vivo.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR01CA0009.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::18) To PUZPR06MB4742.apcprd06.prod.outlook.com
+ (2603:1096:301:b5::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920211920.928306-1-dwmw2@infradead.org>
-In-Reply-To: <20260920211920.928306-1-dwmw2@infradead.org>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Tue, 22 Sep 2026 11:16:17 +0800
-X-Gm-Features: AcwNN1WrYNyWGp1bGXe-bJN9POYZPs3FjeCDYohf8fnVdXEdiDT26MiduZxqtjc
-Message-ID: <CAN_Opa9YWJZxr=YEjnkS-Khm=83P-xqGVZ6tq2nVQzMNOiThbg@mail.gmail.com>
-Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache,
- reinstate guest mode for x86 nesting
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Paul Durrant <paul@xen.org>, 
-	Vitaly Kuznetsov <vkuznets@redhat.com>, Fred Griffoul <fgriffo@amazon.co.uk>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Zqiang <qiang.zhang@linux.dev>, Boqun Feng <boqun.feng@gmail.com>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Josh Triplett <josh@joshtriplett.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Jason Gunthorpe <jgg@ziepe.ca>, Michal Hocko <mhocko@suse.com>, 
-	Nikita Kalyazin <kalyazin@amazon.com>, Keir Fraser <keirf@google.com>, 
-	David Matlack <dmatlack@google.com>, nh-open-source@amazon.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR06MB4742:EE_|TYZPR06MB6894:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63990225-d3b1-46eb-32bb-08df1857e49a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|1800799024|23010399003|366016|38350700014|6133799003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	QIX0GgzbiYYTXSEh1HlSdahVV5QC6/BFmc4Td697aD+DwNrA5VDyieoZCzHuFxC+oZ4orX1jxH5joevrSfA4vK5+PmUi71Gjmq0DCt1SJh8UOxUWsjPVIEUa703SlLjRBWrFrkM6eDAVcPeMIKGjZiJ4SfPsfB9jxvID5Xc9Lht2oD2JigoCDewqmQntWwPpHgS7IRiaCgZR5/0/rHONumMBjAazxOxmrhE6Yp/aVMSqu4npSWK824Hv9vVmRhkwF5aO2d3p7SZnDGCAG37+5IZgAViOdaJ7CduUz5msbamYktfhqogA/SivqY2WrfMqcukZhdjal2E9UOXYS0XsMmrHk/GsZXfgjZofkt78DiOp5zcrwvF4TNkqYr4qzsVWhV9tJyemauu6ozwM0tewBUDyUGEeztBpZhEWrXYTArUavZuCCSx5+oxCqxyl72BnbI9q53sPqYCWaH4yHqMvMr+kLXtiDz6sz2VPQxd2C+yg3MQXb9WFifJlO/MWkzcRAa8tpLOsnnsik5wKrKLFNUT7jhHJzVJj/3bcpncf3w7CNUpak+b2pg2l18TNbSZCk1gZG6iMh971lS/R1DmQvpUwM5e+1QJR4OsMHuXZEhgF43RGWjnUneHun9h/ATW/xIln/Ae3OYOnr0JduSdLMAb+p8tufTeKHKgswk576GAZvdLNjeRHhv1mSidY7ROrlval7zsX+8H3ced0VWK81A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR06MB4742.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(23010399003)(366016)(38350700014)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?7RUTluvJ65OCXvor4Km/DBaxG/dvTbvUAcGs6hnJ+chOtik6bwVy+I7GMjuU?=
+ =?us-ascii?Q?neS5GZJuZcilm0lELF+eONAaXnRCX8V8eMnXHV3Ri7F2GTLPeeQ8czpLBBDP?=
+ =?us-ascii?Q?R/pHgtsLhSL+wpiQljd9goXi3oVj3My4O6Vfeqw0YA+q28jN+hsyDu9sIIGR?=
+ =?us-ascii?Q?aqn7+0jPwRhGKdAZlGk3p+AQ1QUoBwUAE6litpEvUn9zPV+qCWSjvZVt7uJI?=
+ =?us-ascii?Q?v3ObSRpx3pOjkVWPdWcY1ih0h8j0MOg1XSEg9aii6pWIS2RuIUu2ie47b9J6?=
+ =?us-ascii?Q?d79deG0+m1UxNA20AwdOmFRmcJfJ79O1K7CVQcxoLzMMXQHdrGewaP/RA/38?=
+ =?us-ascii?Q?JnXjvFxPt64mlaQmcdCwfeXxz7eL2uIwe7/LE8FYcRhD7yhwJzfcxhikJjlS?=
+ =?us-ascii?Q?Qx0jqrSWYqEuUF14uXdH0Tu/oYdAnrZjYm3TfYgm5txSMqvhLH8COt67K7on?=
+ =?us-ascii?Q?j80tca517d/pPLgMvv6bhMOm+e5b3PuNQkm/V6QxNlb7wcFdqvfkYY69TSzI?=
+ =?us-ascii?Q?07/kuZzxAtDApU0OZxilybvQVhWVCX+MjaniQufI3S/HRA+CEv8312AMhFEu?=
+ =?us-ascii?Q?VnOoPsiTpt1vURCfod809NIjje/qK0bVApIeQXcOgufIT5/dzYQ4D45ENO2P?=
+ =?us-ascii?Q?Ms02E4Lyyg4Ggy30EOPOZFnLrs0hHxiRtBWOt6mvoE2hC2S8cL4DALiZ09Nm?=
+ =?us-ascii?Q?+W5I5i7LHy39fWKILuMxuxdwetZ1GdKJN6Bz5qAcuv/pWOQboLYMuBCNb4Rd?=
+ =?us-ascii?Q?cHLTOXbLCkMtDPm2I3OkjUXNpSJDyFn7ZUF1B/5j7N55i055zK/kr6J1Q0eq?=
+ =?us-ascii?Q?lGgj/8b96AawL7C591Dz3dNA1YTSDiSgYW7lyj3MBGiI1S1kyrrAojzvco3H?=
+ =?us-ascii?Q?fikRXfjj9XRF5DxQJK8I606Lm3Tq6qEcRZp5+AqLJqyTHzKyCtlRebjT6JJS?=
+ =?us-ascii?Q?NJj9fPhzOzLfeShITonFM0tB2r4tcKQjvkPsQc1Ia/jq8dF6S5JlqkG/MCmr?=
+ =?us-ascii?Q?rOnKYTa+YNb0SLlAfzP8NG7e49iWuPRtExb3gGg9JDejiYN9OVqucjms93Qb?=
+ =?us-ascii?Q?jC2L5Uu1KmtIk2TfHX/3wb37/RYT8ww1Ews+ZdGmjqgj9Mq3qUWUFutR9NMV?=
+ =?us-ascii?Q?3uqBRkN9apSVPoA6YtaTx+SmbmwCMhgTSGUgkGvPziPiC/FT/9lMjGi1B5jQ?=
+ =?us-ascii?Q?MBjHExMGqq618xjQ43czDpUE21HHlRc4J+/WopbpvNWLdxd00Ngbwmrd2aLb?=
+ =?us-ascii?Q?753oBAEKIrFBlxcWG7cNO+rZCsee6W+GKMNecSTS9M4kcIySZmhMCvs5GRcV?=
+ =?us-ascii?Q?KdyvS+YfvEsGaUSMqGn/ypzWiPFzBQcvEY6/w8CZj/xgiXQYsVY/Hd778wdM?=
+ =?us-ascii?Q?qt+YUaY0v9jIMX5V95i404zQdAvEkQiVKfemZiFOTpATdTkMjrXTmwgr5yvf?=
+ =?us-ascii?Q?bOVdeuN0PegCKFF1aY+FFrQC0zQglouB8+ddqjmEnbGGr1QB4qG18LmZGveW?=
+ =?us-ascii?Q?cW7N8aHg6vssKJBgv+mfja1uU7tUO98WlDoefnl8syStFwj2pnnqd1Rj1IcN?=
+ =?us-ascii?Q?uXgJDa+sG1df7qp6X025Do+A9WhH9sx94glZPxfuwu2mYptV0DxxTZWngfvH?=
+ =?us-ascii?Q?OpXwodrrQgo2rq0kmZJK0MHS5v00CUCTD5JF1EWtxoI/5gKHNJDc+92DGt+N?=
+ =?us-ascii?Q?PU7OngGf+13XnnuXemX/hByyjVRnMQ/xAXmiwBcc0D1hMzNagDhRiWZwmaSS?=
+ =?us-ascii?Q?jo6ZN1wW9Q=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63990225-d3b1-46eb-32bb-08df1857e49a
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR06MB4742.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 03:16:29.2309
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 917XiHwRd+2ttkgS66Eb3zLX4uuUEbXTyd9v3nX0fACJRdYU2LCrnAPdJFASlOLH9D4J0yFvwGZ2C+yL4mmBxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6894
 
-Hi David,
+Add SCX_OPS_OPEN_OPTS() to allow sched_ext schedulers to pass
+bpf_object_open_opts when opening BPF skeletons.
 
-Thanks for the series. I noticed the testing results, but didn't see
-a performance comparison for the SRCU change itself.
+Using the *_open_opts() interface generated by bpftool directly would
+bypass the compatibility checks performed by SCX_OPS_OPEN(). Use
+SCX_OPS_OPEN_OPTS() instead to pass open opts while retaining the
+existing compatibility handling.
 
-Do you happen to have any numbers comparing the GPC invalidation
-latency with regular SRCU vs. `synchronize_srcu_atomic()`? If there
-are also numbers with the reader-free fastpath, that would be useful
-for understanding its impact as well.
+Signed-off-by: Fuyu Zhao <zhaofuyu@vivo.com>
+---
+ tools/sched_ext/include/scx/compat.h | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-No need to run anything specifically if you don't already have the
-numbers.
+diff --git a/tools/sched_ext/include/scx/compat.h b/tools/sched_ext/include/scx/compat.h
+index d2e4384df..f8c9bf657 100644
+--- a/tools/sched_ext/include/scx/compat.h
++++ b/tools/sched_ext/include/scx/compat.h
+@@ -177,23 +177,25 @@ static inline long scx_hotplug_seq(void)
+  * - v7.1:  ops.sub_attach(), ops.sub_detach(), ops.sub_cgroup_id
+  * - v7.3:  ops.rescue_bandwidth_ppt, ops.rescue_quantum_us
+  */
+-#define __SCX_OPS_OPEN(__ops_name, __scx_name, __ops_struct) ({			\
++#define __SCX_OPS_OPEN_SKEL(__ops_name, __scx_name, __ops_struct,		\
++			    __open_expr) ({					\
+ 	struct __scx_name *__oskel;						\
+ 										\
+ 	SCX_BUG_ON(!__COMPAT_struct_has_field(__ops_struct, "dump"),		\
+ 		   __ops_struct ".dump() missing, kernel too old?");		\
+ 										\
+-	__oskel = __scx_name##__open();						\
++	__oskel = (__open_expr);						\
+ 	SCX_BUG_ON(!__oskel, "Could not open " #__scx_name);			\
+ 	__oskel->struct_ops.__ops_name->hotplug_seq = scx_hotplug_seq();	\
+ 	SCX_ENUM_INIT(__oskel);							\
+ 	__oskel;								\
+ })
+ 
+-#define SCX_OPS_OPEN(__ops_name, __scx_name) ({					\
++#define __SCX_OPS_OPEN(__ops_name, __scx_name, __open_expr) ({			\
+ 	struct __scx_name *__skel;						\
+ 										\
+-	__skel = __SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops");	\
++	__skel = __SCX_OPS_OPEN_SKEL(__ops_name, __scx_name,			\
++				     "sched_ext_ops", __open_expr);		\
+ 	if (__skel->struct_ops.__ops_name->cgroup_set_bandwidth &&		\
+ 	    !__COMPAT_struct_has_field("sched_ext_ops", "cgroup_set_bandwidth")) { \
+ 		fprintf(stderr, "WARNING: kernel doesn't support ops.cgroup_set_bandwidth()\n"); \
+@@ -232,12 +234,20 @@ static inline long scx_hotplug_seq(void)
+ 	__skel; 								\
+ })
+ 
++#define SCX_OPS_OPEN(__ops_name, __scx_name)					\
++	__SCX_OPS_OPEN(__ops_name, __scx_name, __scx_name##__open())
++
++#define SCX_OPS_OPEN_OPTS(__ops_name, __scx_name, __opts)			\
++	__SCX_OPS_OPEN(__ops_name, __scx_name,					\
++		       __scx_name##__open_opts(__opts))
++
+ /*
+  * Open a cid-form (struct sched_ext_ops_cid) skeleton. The cid form postdates
+  * every op the load-time fix-ups above handle, so none of them apply.
+  */
+ #define SCX_OPS_CID_OPEN(__ops_name, __scx_name)				\
+-	__SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops_cid")
++	__SCX_OPS_OPEN_SKEL(__ops_name, __scx_name,				\
++			    "sched_ext_ops_cid", __scx_name##__open())
+ 
+ /*
+  * Associate non-struct_ops BPF programs with the scheduler's struct_ops map so
+-- 
+2.34.1
 
-Thanks,
-Kunwu
-
-On Mon, Sep 21, 2026 at 5:19=E2=80=AFAM David Woodhouse <dwmw2@infradead.or=
-g> wrote:
->
-> Now that Paul et al have so kindly provided atomic SRCU for us, it would
-> be churlish not to use it.
->
-> Based on the merge of kvm/next (d4b7fb647204) with Paul's dev.2026.09.17a=
-=C2=B9
-> as posted last week=C2=B2, this series:
->
->  =E2=80=A2 Converts the GPC to use atomic SRCU, ditching the rwlock which=
- was a
->    scaling and latency problem, and which PREEMPT_RT hated because it
->    turned the rwlock into a sleeping lock.
->
->  =E2=80=A2 Cleans up the intentional lack of dirty-tracking of Xen shinfo=
- and
->    vcpu_info pages (Sean).
->
->  =E2=80=A2 Converts steal-time / preempted status to use gfn_to_pfn_cache=
-. (Carsten)
->
->  =E2=80=A2 Reinstates guest-mode pinning: replacing the old GUEST_USES_PF=
-N mode,
->    letting nested state pages be cached and pinned while in guest context=
-.
->
->  =E2=80=A2 nVMX: Uses GPC for the L1 MSR bitmap, and guest mode for APIC =
-access
->    and vAPIC pages. (Fred)
->
->  =E2=80=A2 nSVM: Uses GPC for vmcb12 / MSR-permissions / IO-permissions p=
-ages. This
->    cuts the vmcb12 transition cost measurably (selftest included).
->
->  =E2=80=A2 Returns -EAGAIN from cache lookups which race with memslot upd=
-ates,
->    and re-posts KVM_REQ_GET_NESTED_STATE_PAGES on memslot generation
->    bumps so pinned caches are revalidated lazily.
->
-> Tested: rcutorture atomic-SRCU (srcud, reader_flavor=3D0x10) on three
-> hosts; KVM selftests including new invalidation and transition tests;
-> >1 week soak of VM lifecycle + invalidation reproducers on 128-way
-> RT+KASAN+lockdep, 192-way RT and 192-way PREEMPT_DYNAMIC hosts. And
-> booted an actual Xen guest in QEMU a few times...
->
-> =C2=B9 https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.=
-git dev.2026.09.17a
-> =C2=B2 https://lore.kernel.org/rcu/20260919003521.3134552-1-paulmck@kerne=
-l.org/
->
-> There have been previous series which attempt to deal with various parts
-> of GPC locking, and the steal time one has definitely been posted before
-> a few times, but let's just call this v1:
-> https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dshortlog;h=3Dref=
-s/heads/gpc-srcu
->
-> Carsten Stollmaier (1):
->       KVM: x86: Use gfn_to_pfn_cache for steal time / preempted status
->
-> David Woodhouse (10):
->       KVM: pfncache: Use atomic SRCU for readers instead of a rwlock
->       KVM: x86: Request the guest TLB flush from record_steal_time()
->       KVM: pfncache: Add guest-mode pinning (GUEST_USES_PFN successor)
->       KVM: pfncache: Return -EAGAIN for a lookup which hits an invalid me=
-mslot
->       KVM: x86: Post KVM_REQ_GET_NESTED_STATE_PAGES on memslot updates
->       KVM: x86: Move nested GPC lock helpers to x86.h as kvm_gpc_lock_pag=
-e()
->       KVM: nSVM: Use a gfn_to_pfn_cache for the vmcb12 page
->       KVM: nSVM: Cache L1's MSR permissions map pages
->       KVM: nSVM: Cache L1's IO permissions map pages
->       KVM: selftests: Add nested transition benchmark
->
-> Fred Griffoul (3):
->       KVM: nVMX: Implement cache for L1 MSR bitmap
->       KVM: nVMX: Use pinned pfncache for L1 APIC virtualization pages
->       KVM: selftests: Add nested VMX APIC cache invalidation test
->
-> Sean Christopherson (3):
->       KVM: x86/xen: Extract delivery of event to vCPU into a separate hel=
-per
->       KVM: x86/xen: Explicitly tag "shared info" page as never being dirt=
-y tracked
->       KVM: x86/xen: Don't dirty track "vCPU info" page
->
->
->  arch/x86/include/asm/kvm_host.h                    |   2 +-
->  arch/x86/kvm/msrs.c                                |   7 +-
->  arch/x86/kvm/svm/nested.c                          | 112 +++-
->  arch/x86/kvm/svm/svm.h                             |  16 +
->  arch/x86/kvm/vmx/nested.c                          | 356 ++++++++++--
->  arch/x86/kvm/vmx/vmx.c                             |  11 +-
->  arch/x86/kvm/vmx/vmx.h                             |  16 +-
->  arch/x86/kvm/x86.c                                 | 181 ++++---
->  arch/x86/kvm/x86.h                                 |  33 ++
->  arch/x86/kvm/xen.c                                 | 279 +++++-----
->  include/linux/kvm_host.h                           |  86 ++-
->  include/linux/kvm_types.h                          |  52 +-
->  include/linux/srcu.h                               |   7 +
->  tools/testing/selftests/kvm/Makefile.kvm           |   2 +
->  .../selftests/kvm/x86/nested_transition_bench.c    | 204 +++++++
->  .../selftests/kvm/x86/vmx_apic_update_test.c       | 299 +++++++++++
->  virt/kvm/kvm_main.c                                |   9 +
->  virt/kvm/pfncache.c                                | 596 +++++++++++++++=
-++----
->  18 files changed, 1876 insertions(+), 392 deletions(-)
