@@ -1,380 +1,227 @@
-Received: from mta1.migadu.com (out-99.mta1.migadu.com [95.215.58.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93DB5349D6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C6553C3D9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079041; cv=none; b=kfKnOMuWF4tbDVnEvjctfGTLwRhhMud44yHyfznVF6CTXgzIQYCLlXRdfQENyt6hvLNo7z5vFi90e+fEWTLRFXtraNS5iiOu14i7ycyAURpFw0yp0uqXYHXXVJUAU5sMcIDIPSMzYJPHH2u5VjxhHTTSjKTVFF9pnBjjWNdqE9E=
+	t=1790079054; cv=none; b=WIOuw34GBrtjEiwb095D7z8bN+ZLku0MIKRsWFFEZVa5/Da71qSXu2BkBfyEUYmtfReELy3JHiH/u0ZOlUQrO64fPIilLz2XOZjVhtvMAkjwFTqfVFOV7HuNV2IgunsK+nIJyVClKDD2wMl4EXdHhnsyNPItBO0JuVtPoLibiWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079041; c=relaxed/simple;
-	bh=vt4twKhHToTZQ4mk3vFAk0FAk9f+KetW0Nnj+b/Xldc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XDm+2AnpRyfFoXnMqYkj54GDgJ46qg64QnUhTivHXRzjNIFsxJ9gIKYroYALUlOfCWSXfZ79kzcPEIinSVGL0Mo6Ls8PEJdpWRhRXYg3lB+z/mWwTTtnMQGCIXeqP1DHPT66MzJai7UR21ynA1wGqFMHjPRVeqEtEFd1ZsSYFyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ce6IWnk4; arc=none smtp.client-ip=95.215.58.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790079054; c=relaxed/simple;
+	bh=q+96XJpPAwjrzNc4z8gwPbPubuwVJu3js3U311Eo3fg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Iod1YXkOCW86ryrI8llwRPsWwmhbuXWUIgFqQTBiOhlYkdgQnPFOYOQeOKdZb9gLc2Y6iuEwjTopPfl/m4LgLCSBSv+iKgQ8KSOSq7RPheNmQZXBYgIetVLE/oqxjswz7tdBGpNlo+c4gtinDatgfP9K/u5YZiirmKWKJtni04I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i01rFyrL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xf7JLSCW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ce6IWnk4"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vt4twKhHToTZQ4mk3vFAk0FAk9f+KetW0Nnj+b/Xldc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790079037; v=1; x=1790683837;
- b=ce6IWnk4Hr6HQBsdjmrF1SwUNQHsft/m5Kuamhyc4WNCEGwyQjbIJmYCk0hy+LAA0uMcklrW
- 4HsAF7ftKC61Mb51d34b12MYxOP5wn8j+AG6sA2oksSOYGVCFnXjxtkYBtO99OBtQNiTKCo44I+
- 0ZreKNUTQjMXjWDe2E+qvGwM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 48d04d2f32756366;
-	Tue, 22 Sep 2026 12:10:37 +0000
-X-Mizu-Trace-ID: 48d04d2f32756366
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf v2] bpf: cpumap: fix use-after-free of dev_rx on netdev unregister
-Date: Tue, 22 Sep 2026 20:10:20 +0800
-Message-ID: <20260922121022.256777-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i01rFyrL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xf7JLSCW"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBOujX984440
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:10:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WmuNBCn2WcfbClZ5XMSuk70NP23bX3kKvNdyJ4b97To=; b=i01rFyrLz8Io7eud
+	ZDHIioglcZTF0Sri/5VWhE2RsAQ192uXjBkODwYl8QZqw2A2ex8I/WFnfC4KG0Ad
+	88440la7uJRDqxeXHjkqwL6T9A15948QmHnVIOIy5II9NWrOFGqkrMeW01JxHlzK
+	JTbrnnr0ttguVzFe15ntBpGDSUPxHlYNPgmpG/4tjVuJKYfBiySPl0NhJPYqj/dl
+	86dhfYA8sfMUbqyuJ5N5snars3PxjRvchmMWmV/m22Iv2Wq1DN3wW1KPftiFJCM/
+	gmvHHLphfDoF7GaH0q4X69oBpTSNycyAAAeWL4/HBARNpwodMq0B3h/9yckTqsbg
+	zRgIfw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guqk4rf41-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:10:52 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cec4226c70so50312945ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790079051; x=1790683851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WmuNBCn2WcfbClZ5XMSuk70NP23bX3kKvNdyJ4b97To=;
+        b=Xf7JLSCWzVuR73Z4ZbehxuWzddqoYn0aYoC8fg87gUlOHnpP3su6Lyfu/EhTiEfZJh
+         UnoQxBQ/EAr7oMcQkAfCryi2plLw6zZmX8E06jvhU5R3yupD+/kokzTCu0F2Me41ccEN
+         KlexORWZEmuUyg0iQA0ByV/thWpbg6VevPxGaFeWYalUJaEn+bAQwlFS9kiLFlmOVx2w
+         9H6CjXXVyBYLphNfff8IN0gkg/ClzVI696wrL7JmNbHLCOE5U6WIzV9T0eDPdWpufoMQ
+         vv1gJpLNOzHJu0JsNLwNf2ALCpYK9BJeMew92Bp8ChASmVvqZEw5qarWkrpQNjpHnmc8
+         E+Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790079051; x=1790683851;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WmuNBCn2WcfbClZ5XMSuk70NP23bX3kKvNdyJ4b97To=;
+        b=Sx1/5fDq9DUWGIfhDjpqjFIEXs4P0V2/hxYxVge7Horz6nyR7+vsByuimtIxV41CD4
+         UPaDnZ42qr4xHvdEdWOLfgkr31Ra132ZVNVOk1Wcyf8qMhk3sd1ix1/ggXSbhn5EvA1G
+         3Pnl0EnXPJSRFDywYa+hlKi+vHCjzzTDBM7r2Ui9b7Z1bBZ65rMemF9tSRYbVh2vDggz
+         sCshNaTxSsOCdsJbETYGZuwmIN4bu3+nkd0vpgr+8+DgHIS248HuYQuSU7BAOTIudOg0
+         F+e66bUJu3hvRL/H0PwKKY4PEdqBflfI0K7L9vnGtFAcNNBhtXIP0lTsQl25g2joDSF6
+         p+Hg==
+X-Forwarded-Encrypted: i=1; AKwUvBxEbjZWO0QvEVq83aFu4yTWc30kPdzR6hw8Jx2nqgwIyKJ6LjrLntqGhzEToDH7TeljXoEZpaSzcnBr1d4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1RgR9e1nyzwc1FPTtt0LM6ljkkqT1cPPlB9qUuYM4pQYPP3DJ
+	gnA8wVVLx6MrLjYJ4+WbJDJTPDAQwZ0w49EjKoDbSa7hg/FXM4Rgaygv3b3QTnwndScnkV2UW3N
+	8n7K+6436BjfEn4UdBP6Z6SGYQ1SqQyYy7eiXL/6EiZhcN791tlMI+s7auBZTpNBw5/0=
+X-Gm-Gg: AYBFou3luPI7g2++0Ge8byVL6WEj3aNrhF1TmXqjJM0G7mO6tcBxMiwEJiIbDBe5vsx
+	5cl+jEt6Rqvi1ngjYeCrzSMBQvxdAc9mXGOTTn98++6uzvh8FiETUS5OOb2/7UL5Sol/pSM/RLa
+	Gd1lNqakQfsstOQP5+QdcQ+mKhHV3RSZQl+uhDB/tx4NJ4weDbj+OYM8JxWneQ8CpjPGzKvVxTH
+	Hd4h50GNxDQI7XVg1iScwJlZrZJ2SKPX0Je0JBDalifAookbiHRtzVk4eDEk8oHb0vLft0kk0yk
+	BQaO/l8VWGeRbrxUFvfDe/fIyXj60mBZcce1UWaRvt83dP/9TSrSXSG0zYMGGQly+fDP+7Wy4jp
+	b2JIAASSqzsO4smiNN4vmE8tk2lHCo7pcZ4mBzvngGNXb5mdPxIyVkvFNOQ8oivIg/SHB7f77mV
+	gasg0XSf/lEYEQumgTog==
+X-Received: by 2002:a17:903:28f:b0:2db:8c12:6b03 with SMTP id d9443c01a7336-2df609ad83fmr11047205ad.8.1790079051439;
+        Tue, 22 Sep 2026 05:10:51 -0700 (PDT)
+X-Received: by 2002:a17:903:28f:b0:2db:8c12:6b03 with SMTP id d9443c01a7336-2df609ad83fmr11046765ad.8.1790079050851;
+        Tue, 22 Sep 2026 05:10:50 -0700 (PDT)
+Received: from [10.79.116.160] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e612c9ca7sm6295940eec.17.2026.09.22.05.10.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 05:10:50 -0700 (PDT)
+Message-ID: <df0a5e79-f2a2-4f74-868b-8f6291accb04@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 17:40:43 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] dma-buf: system_heap: Set allocation orders for larger
+ page sizes
+To: Juan Yescas <jyescas@google.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+        Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+        Brian Starkey <Brian.Starkey@arm.com>,
+        John Stultz <jstultz@google.com>,
+        "T.J. Mercier" <tjmercier@google.com>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Cc: baohua@kernel.org, dmitry.osipenko@collabora.com, jaewon31.kim@samsung.com,
+        surenb@google.com, kaleshsingh@google.com
+References: <20250417201913.2393655-1-jyescas@google.com>
+Content-Language: en-US
+From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+In-Reply-To: <20250417201913.2393655-1-jyescas@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE3NiBTYWx0ZWRfXy7Pl56z5AOhz
+ x+a7YRzY2xXUlvkgwx72Q2OO9XQxhnX7u1Lom5WBQoCdRX9WHLxk2u4VyVE7HLkHyvclU+VW0kF
+ F6slbAr9mSSqIsvASGinvdgOFqesTb4EjGZxiAAGAaixF760JKlKKca1riXProL/qWMV2TlCMS+
+ W7BEZQtUd7tgdHhZ+tKcymq6ISri62tlAOpcFl2Soa12fXKKkYSHmoaw7daCKMZeE0sVCXVLwIR
+ docDXtNTck8LJ1fqN/PzId7X9DHcKWDQrsJiIeA6KZI5Kul6RTuIMBqvWhyuwWukBV1sE8i6AfF
+ 7eh/HvaX091c0C8x+tWFvqf0kk391bH+9I0p56AO/sqEHpj2VMuHu9jmMOEuuVBwf2O2u6OuzCJ
+ nmjA7Gg3l9Q99C99c2GETTaufMWe+uyRUQ9E/XqKtdfZ6UE+YIefeMlzmatSymJtq30COQ7jXJK
+ EbB9YUPYYUuAKQLpDvg==
+X-Proofpoint-GUID: e5qgX9gx4mV0wy5M9f7fjwDamGYljxht
+X-Proofpoint-ORIG-GUID: e5qgX9gx4mV0wy5M9f7fjwDamGYljxht
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE3NiBTYWx0ZWRfX85JmS9Juym1+
+ BUFGPsaM4/Ibzg8Nyx7dtat44/PZ7UI9XgWryDPXfAmI9r8rnZ3W726WD5PooKiq4hYKRU38mqB
+ K83POHIEKpmIRx1mM8Hslgh0anErPiY=
+X-Authority-Analysis: v=2.4 cv=XrVvqlF9 c=1 sm=1 tr=0 ts=6ab2704c cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1XWaLZrsAAAA:8 a=F0MHshuycdHDXIU-fbcA:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220176
 
-1. The ring holds the ingress device with no reference.
+On 4/18/2025 1:49 AM, Juan Yescas wrote:
+> This change sets the allocation orders for the different page sizes
+> (4k, 16k, 64k) based on PAGE_SHIFT. Before this change, the orders
+> for large page sizes were calculated incorrectly, this caused system
+> heap to allocate from 2% to 4% more memory on 16KiB page size kernels.
+> 
+> This change was tested on 4k/16k page size kernels.
+> 
+> Signed-off-by: Juan Yescas <jyescas@google.com>
+> Acked-by: John Stultz <jstultz@google.com>
+> Reviewed-by: T.J. Mercier <tjmercier@google.com>
+> ---
+> 
+> Changes in v2:
+>   - Add John's Acked-by tag.
+>   - Add TJ's Reviewed-by tag
+>   - Use dma-buf: system_heap: in the subject since this is specific to the
+>     system heap, as per TJ.
+>   - Remove extra space in if statement.
+> 
+> Changes in v3:
+>   - Remove defines for the orders as per Christian.
+>   - Update the order array for 64k page sizes as per TJ
+> 
+>  drivers/dma-buf/heaps/system_heap.c | 21 ++++++++++++++++++---
+>  1 file changed, 18 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+> index 26d5dc89ea16..8c10c0f2b473 100644
+> --- a/drivers/dma-buf/heaps/system_heap.c
+> +++ b/drivers/dma-buf/heaps/system_heap.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/mm.h>
+>  #include <linux/module.h>
+>  #include <linux/scatterlist.h>
+> +#include <linux/sizes.h>
+>  #include <linux/slab.h>
+>  #include <linux/vmalloc.h>
+>  
+> @@ -44,14 +45,28 @@ struct dma_heap_attachment {
+>  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+>  				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
+>  				| __GFP_COMP)
+> -static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
+>  /*
+>   * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
+>   * to match with the sizes often found in IOMMUs. Using order 4 pages instead
+>   * of order 0 pages can significantly improve the performance of many IOMMUs
+>   * by reducing TLB pressure and time spent updating page tables.
+> + *
+> + * Note: When the order is 0, the minimum allocation is PAGE_SIZE. The possible
+> + * page sizes for ARM devices could be 4K, 16K and 64K.
+> + */
+> +#if (PAGE_SIZE == SZ_64K)
+> +static gfp_t order_flags[] = {HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> +/* 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE = 1MiB */
+> +static const unsigned int orders[] = {20 - PAGE_SHIFT, 0};
+> +#else
+> +static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
+> +/*
+> + * 1MiB allocs are calculated with (2 ^ (20 - PAGE_SHIFT)) * PAGE_SIZE = 1MiB
+> + * 64KiB allocs are calculated with (2 ^ (16 - PAGE_SHIFT)) * PAGE_SIZE = 64KiB
+>   */
+> -static const unsigned int orders[] = {8, 4, 0};
+> +static const unsigned int orders[] = {20 - PAGE_SHIFT, 16 - PAGE_SHIFT, 0};
+> +#endif
+> +
+>  #define NUM_ORDERS ARRAY_SIZE(orders)
+>  
+>  static struct sg_table *dup_sg_table(struct sg_table *table)
+> @@ -318,7 +333,7 @@ static struct page *alloc_largest_available(unsigned long size,
+>  	int i;
+>  
+>  	for (i = 0; i < NUM_ORDERS; i++) {
+> -		if (size <  (PAGE_SIZE << orders[i]))
+> +		if (size < (PAGE_SIZE << orders[i]))
+>  			continue;
+>  		if (max_order < orders[i])
+>  			continue;
 
-Native XDP stores it in the frame:
+Hello Juan,
+I've posted a respin of the patch by extending upon your work,
+Can you please review?
+Aplogies for adding signed-off by, will drop it in v2.
 
-	cpu_map_enqueue()
-		xdpf->dev_rx = dev_rx;
-		bq_enqueue()
+Link -
+https://lore.kernel.org/all/20260921-dma_buf_improvement-v1-1-23d82e771dec@oss.qualcomm.com/
 
-Generic XDP queues the skb as is, skb->dev is the ingress device:
-
-	cpu_map_generic_redirect()
-		ptr_ring_produce(rcpu->queue, skb);
-
-Both sit in rcpu->queue until the kthread runs.
-
-2. The kthread builds the skb from that pointer and hands it to the
-stack, skb->dev has no reference either:
-
-	cpu_map_kthread_run()
-		__xdp_build_skb_from_frame()
-			eth_type_trans()	/* sets skb->dev */
-		gro_receive_skb()
-
-The cpumap XDP prog uses it too, as rxq.dev and in xdp_do_redirect().
-
-3. If the device is torn down while the frames wait in the ring, the
-pointer is stale. Nothing in unregister knows about the ring:
-flush_all_backlogs() only walks the softnet backlog, synchronize_net()
-does not wait for a kthread, and no reference stops free_netdev().
-Seen with a veth in a netns, XDP redirect to a cpumap entry, and
-"ip link del" while the kthread was not scheduled:
-
-  BUG: KASAN: slab-use-after-free in eth_type_trans+0x4d9/0x590
-  Read of size 8 at addr ffff888100634500 by task cpumap/1/map:2/623
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x91/0xf0
-   print_report+0xd1/0x630
-   kasan_report+0xf3/0x130
-   __asan_report_load8_noabort+0x14/0x30
-   eth_type_trans+0x4d9/0x590
-   __xdp_build_skb_from_frame+0x311/0x860
-   cpu_map_kthread_run+0x852/0x1ca0
-   kthread+0x3a2/0x4d0
-   ret_from_fork+0x619/0x8e0
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-
-  Allocated by task 609:
-   __kvmalloc_node_noprof+0x382/0xae0
-   alloc_netdev_mqs+0x8a/0x12c0
-   rtnl_create_link+0xad5/0xf10
-   veth_newlink+0x214/0xb50
-   rtnl_newlink+0xd60/0x2640
-   rtnetlink_rcv_msg+0x74a/0xc30
-   netlink_rcv_skb+0x147/0x400
-
-  Freed by task 631:
-   kfree+0x282/0x660
-   kvfree+0x31/0x40
-   netdev_release+0x6d/0x90
-   device_release+0xce/0x250
-   kobject_put+0x18d/0x4f0
-   netdev_run_todo+0x7fb/0x10f0
-   rtnl_dellink+0x392/0xc10
-   rtnetlink_rcv_msg+0x74a/0xc30
-   netlink_rcv_skb+0x147/0x400
-
-The easy fix is a reference per frame:
-
-	cpu_map_enqueue()
-		xdpf->dev_rx = dev_rx;
-		dev_hold()
-	cpu_map_kthread_run()
-		gro_receive_skb()
-		dev_put()
-
-GRO is the problem. The skb may stay in rcpu->gro after
-gro_receive_skb(), and even after cpu_map_gro_flush() some skbs stay,
-flush_old only pushes the old ones. So we can't tell which skbs really
-left, and so can't tell when to dev_put(). Doing it right needs a hook
-in the GRO core path. Not worth it.
-
-So use the netdev notifier and let the kthread finish its work before
-the device is freed:
-
-1. On NETDEV_UNREGISTER, take the ring size and ask the kthread to
-   consume that many frames, or until the ring is empty. After that,
-   every frame that was in the ring has been handled by the stack or
-   dropped. The device is closed, so no new frames for it can show up.
-2. The kthread wakes the notifier once it got there. The device is
-   still alive until then, so the frames go up the stack as usual.
-   Nothing is dropped and frames of other devices are not told apart,
-   unlike flush_backlog(), which only frees the skbs of that device.
-3. On the last round of the drain, flush GRO fully, flush_old is 0.
-   Every other round keeps the flush logic as is.
-
-Entry teardown stops the kthread under the same mutex and unlinks the
-entry after that, so an unregister can't slip in while the ring still
-has frames, and the notifier never waits on a kthread that is gone.
-
-One hole is left: the cpumap prog may redirect the frame to another
-cpumap entry, and that ring may have reported done already. So while
-the device is unregistering, drop on XDP_REDIRECT instead. That check
-only runs when the prog picks XDP_REDIRECT. The check, the redirect and
-the flush are one RCU read section, and unregister does
-synchronize_net() before the notifier runs, so a frame that passed the
-check is in the target ring before the drain starts.
-
-The notifier has to ask every entry, a cpumap entry is not tied to a
-netns and any device can feed it. So an unregister anywhere drains
-every ring in the system, once per device. The work is bounded by the
-ring size, and the frames had to be consumed anyway. Nothing changes
-on the hot path, the kthread reads one field per batch.
-
-Fixes: 9c270af37bb6 ("bpf: XDP_REDIRECT enable use of cpumap")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
-v1 -> v2: stop the kthread under cpu_map_mutex in entry teardown, so an
-unregister can't miss frames still in the ring. Reword the message,
-trim comments.
-v1: https://lore.kernel.org/bpf/DLKA28VU4GIV.I4EVTT076Y5Q@gmail.com/
-
-Local review asked about the full GRO flush handing skbs of the
-unregistering device to RPS after flush_all_backlogs() ran. That can't
-happen: enqueue_to_backlog() drops skbs whose device is not running,
-and dev_close() cleared that before reg_state changed.
-
-Local review also flagged that a full GRO flush can hand a PTP packet to
-skb_defer_rx_timestamp(), which keeps skb->dev in the PHY driver's
-queue. That needs dev->phydev, which phy_disconnect() clears on
-dev_close(), before reg_state changes. Anything queued before that is
-owned by the PHY driver, same as on the normal NAPI path. Not a cpumap
-issue, so not handled here.
----
- kernel/bpf/cpumap.c | 93 ++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 88 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/bpf/cpumap.c b/kernel/bpf/cpumap.c
-index 5e59ab896f058..0c9647f28034d 100644
---- a/kernel/bpf/cpumap.c
-+++ b/kernel/bpf/cpumap.c
-@@ -74,8 +74,15 @@ struct bpf_cpu_map_entry {
- 
- 	struct completion kthread_running;
- 	struct rcu_work free_work;
-+
-+	struct list_head list;
-+	wait_queue_head_t drain_wq;
-+	u32 drain_left; /* frames to consume, see cpu_map_netdev_event() */
- };
- 
-+static LIST_HEAD(cpu_map_list);
-+static DEFINE_MUTEX(cpu_map_mutex);
-+
- struct bpf_cpu_map {
- 	struct bpf_map map;
- 	/* Below members specific for map type */
-@@ -136,6 +143,12 @@ static void __cpu_map_ring_cleanup(struct ptr_ring *ring)
- 	}
- }
- 
-+/* cpumap to cpumap redirect, the target ring may be done draining already */
-+static bool cpu_map_dev_unregistering(const struct net_device *dev)
-+{
-+	return unlikely(READ_ONCE(dev->reg_state) != NETREG_REGISTERED);
-+}
-+
- static u32 cpu_map_bpf_prog_run_skb(struct bpf_cpu_map_entry *rcpu,
- 				    void **skbs, u32 skb_n,
- 				    struct xdp_cpumap_stats *stats)
-@@ -153,6 +166,11 @@ static u32 cpu_map_bpf_prog_run_skb(struct bpf_cpu_map_entry *rcpu,
- 			skbs[pass++] = skb;
- 			break;
- 		case XDP_REDIRECT:
-+			if (cpu_map_dev_unregistering(skb->dev)) {
-+				kfree_skb(skb);
-+				stats->drop++;
-+				break;
-+			}
- 			err = xdp_do_generic_redirect(skb->dev, skb, &xdp,
- 						      rcpu->prog);
- 			if (unlikely(err)) {
-@@ -213,6 +231,11 @@ static int cpu_map_bpf_prog_run_xdp(struct bpf_cpu_map_entry *rcpu,
- 			}
- 			break;
- 		case XDP_REDIRECT:
-+			if (cpu_map_dev_unregistering(xdpf->dev_rx)) {
-+				xdp_return_frame(xdpf);
-+				stats->drop++;
-+				break;
-+			}
- 			err = xdp_do_redirect(xdpf->dev_rx, &xdp,
- 					      rcpu->prog);
- 			if (unlikely(err)) {
-@@ -310,14 +333,16 @@ static int cpu_map_kthread_run(void *data)
- 		struct cpu_map_ret ret = { };
- 		void *frames[CPUMAP_BATCH];
- 		void *skbs[CPUMAP_BATCH];
--		u32 i, n, m;
-+		bool drained = false;
-+		u32 i, n, m, left;
- 		bool empty;
- 
- 		/* Release CPU reschedule checks */
- 		if (__ptr_ring_empty(rcpu->queue)) {
- 			set_current_state(TASK_INTERRUPTIBLE);
- 			/* Recheck to avoid lost wake-up */
--			if (__ptr_ring_empty(rcpu->queue)) {
-+			if (__ptr_ring_empty(rcpu->queue) &&
-+			    !READ_ONCE(rcpu->drain_left)) {
- 				schedule();
- 				sched = 1;
- 				last_qs = jiffies;
-@@ -398,10 +423,23 @@ static int cpu_map_kthread_run(void *data)
- 		/* Flush either every 64 packets or in case of empty ring */
- 		packets += n;
- 		empty = __ptr_ring_empty(rcpu->queue);
--		if (packets >= NAPI_POLL_WEIGHT || empty) {
--			cpu_map_gro_flush(rcpu, empty);
-+		left = READ_ONCE(rcpu->drain_left);
-+		if (unlikely(left)) {
-+			/* We are draining, drained is true on the last round */
-+			left -= min(n, left);
-+			drained = empty || !left;
-+			if (!drained)
-+				WRITE_ONCE(rcpu->drain_left, left);
-+		}
-+		if (packets >= NAPI_POLL_WEIGHT || empty || drained) {
-+			cpu_map_gro_flush(rcpu, empty || drained);
- 			packets = 0;
- 		}
-+		/* Only report back once GRO is flushed too */
-+		if (unlikely(drained)) {
-+			WRITE_ONCE(rcpu->drain_left, 0);
-+			wake_up(&rcpu->drain_wq);
-+		}
- 
- 		local_bh_enable(); /* resched point, may call do_softirq() */
- 	}
-@@ -473,6 +511,7 @@ __cpu_map_entry_alloc(struct bpf_map *map, struct bpf_cpumap_val *value,
- 	rcpu->map_id = map->id;
- 	rcpu->value.qsize  = value->qsize;
- 	gro_init(&rcpu->gro);
-+	init_waitqueue_head(&rcpu->drain_wq);
- 
- 	if (fd > 0) {
- 		err = __cpu_map_load_bpf_program(rcpu, map, fd);
-@@ -500,6 +539,10 @@ __cpu_map_entry_alloc(struct bpf_map *map, struct bpf_cpumap_val *value,
- 	 */
- 	wait_for_completion(&rcpu->kthread_running);
- 
-+	mutex_lock(&cpu_map_mutex);
-+	list_add_tail(&rcpu->list, &cpu_map_list);
-+	mutex_unlock(&cpu_map_mutex);
-+
- 	return rcpu;
- 
- free_prog:
-@@ -530,9 +573,13 @@ static void __cpu_map_entry_free(struct work_struct *work)
- 
- 	/* kthread_stop will wake_up_process and wait for it to complete.
- 	 * cpu_map_kthread_run() makes sure the pointer ring is empty
--	 * before exiting.
-+	 * before exiting. Under the mutex, so the notifier sees either the
-+	 * frames or no entry.
- 	 */
-+	mutex_lock(&cpu_map_mutex);
- 	kthread_stop(rcpu->kthread);
-+	list_del(&rcpu->list);
-+	mutex_unlock(&cpu_map_mutex);
- 
- 	if (rcpu->prog)
- 		bpf_prog_put(rcpu->prog);
-@@ -832,3 +879,39 @@ void __cpu_map_flush(struct list_head *flush_list)
- 		wake_up_process(bq->obj->kthread);
- 	}
- }
-+
-+/* Frames in the ring and skbs in GRO hold a raw pointer to the ingress
-+ * device, make every kthread consume them before the device is freed.
-+ */
-+static int cpu_map_netdev_event(struct notifier_block *nb,
-+				unsigned long event, void *ptr)
-+{
-+	struct bpf_cpu_map_entry *rcpu;
-+
-+	if (event != NETDEV_UNREGISTER)
-+		return NOTIFY_OK;
-+
-+	mutex_lock(&cpu_map_mutex);
-+	list_for_each_entry(rcpu, &cpu_map_list, list) {
-+		/* the whole ring, plus a batch already pulled out */
-+		WRITE_ONCE(rcpu->drain_left, rcpu->queue->size + CPUMAP_BATCH);
-+		wake_up_process(rcpu->kthread);
-+	}
-+	list_for_each_entry(rcpu, &cpu_map_list, list)
-+		wait_event(rcpu->drain_wq, !READ_ONCE(rcpu->drain_left));
-+	mutex_unlock(&cpu_map_mutex);
-+
-+	return NOTIFY_OK;
-+}
-+
-+static struct notifier_block cpu_map_notifier = {
-+	.notifier_call = cpu_map_netdev_event,
-+};
-+
-+static int __init cpu_map_init(void)
-+{
-+	register_netdevice_notifier(&cpu_map_notifier);
-+
-+	return 0;
-+}
-+subsys_initcall(cpu_map_init);
--- 
-2.43.0
 
