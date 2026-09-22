@@ -1,109 +1,76 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D1743B6DA;
-	Tue, 22 Sep 2026 12:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E57153CA72;
+	Tue, 22 Sep 2026 12:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080072; cv=none; b=hJE6zJ9vJv2sW63QKIfPeK9OkE09HjqR17yf2mlRXM3SLpo2Snt+sfakdwGkYj+eujBoIszyI95JZn+R53YCot5+GxQBuna3SZHG704cxyB3Jd0plQDTzXfxRhBC/jFpyLdvD/Vq5wAWm13Q29YXlPnd8czr8k0flWKzZGgLl1o=
+	t=1790080094; cv=none; b=YDSc5yCEyp8cJt0ARRrzJTgzHtt8jTUWVVWhglYDznLmwYIZUVUF9zNu0RFuTCvK3r7no9JpJrvdD6hvCR/2e3E/3zsKpmEHwtuEPsOGIqukBmpcQCryZwGltHoPlXuUSkZzHoQn8Y1pAJsr09okbpRCA31FevMciTHP60tnL4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080072; c=relaxed/simple;
-	bh=Z9OBTdIX8f7OAhs5VeelW2/TsHyjmAyRxASOGqoeuCI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EoPjglFNB94gT3VNk5D2PzbUxc5QQWDcKgjdnvW7HCne2BSnm3eaPnWpzrhhZK2Si4V9NPHjIySupBRZo31VOHJA7pVuGEnb1LOw88DOFjs1Ejo5I0JwezG9J2EK193n9vbYEnIBqaVJhlNhFBtJabFufRNqt+IBctWbbA/fFT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N1xRLb0J; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790080094; c=relaxed/simple;
+	bh=CBNq/q7h+K9XmvP+yU714PyRtRrt2K9y1UWwfYR09Ac=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gUp2JQeQzgfxaaB2xMsiax/AnPW3iEBdTph1trl3lqPMZAzU+w7f6Mx309ziuWluO1nXjmEB7hgZG2/9/KxB3MRXRk8kTEmxlBJzmDjO+ibphtAkv0sz5wI+nVRlNgGPD3mH639quxalRsg8yLYEwXF4KEQvvjjZXR6OU36sz/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOMlpXB6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N1xRLb0J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790080070; x=1821616070;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Z9OBTdIX8f7OAhs5VeelW2/TsHyjmAyRxASOGqoeuCI=;
-  b=N1xRLb0JOFSW+rRSOrj1XjFxUl2FV7SKNScxutHTbyrPjybfkoF6D55K
-   cX9A8NUOD3ueoP4oNKyk7+2WmJDN33toBdhBczXpvfKQkeUzPg/rvywl1
-   0OL+KZNr+YbeKJzUg0fCtt1NW7Y9cb5l6OAx7YQyAMY2BjZESXairnDja
-   bZMqsRPoYWsmHiS43FIKyUCcCduysJ9jL4vZD2oZ85SuF1ausnLuw5pT7
-   8r2L3Yiy4Qk5VsNZ3AiO+PE4kWaIa7Qr6eqKMF1nQYm585UuGqGTsslKg
-   JC+rHiZOMXWK5AOxlH2jMVxEcih0aBXAoHcTNf7QXrFlwpoj1tNuwEP0X
-   A==;
-X-CSE-ConnectionGUID: Qd8Wwf1rQdO9t6D4a3+AZw==
-X-CSE-MsgGUID: 6AFzTnyGTyWAlZWa52LFAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="102027572"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="102027572"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:27:49 -0700
-X-CSE-ConnectionGUID: UeWf61Z1Ts+0FQYfb8yUcQ==
-X-CSE-MsgGUID: F+HmhtM2Tk+xrJxmCqmMTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="4408441"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa013.fm.intel.com with ESMTP; 22 Sep 2026 05:27:47 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 343D799; Tue, 22 Sep 2026 14:27:46 +0200 (CEST)
-Date: Tue, 22 Sep 2026 14:27:46 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/3] usb: typec: mux: ps883x: support TYPEC_DP_STATE_F
-Message-ID: <arJ0QsQpW8UYph-4@black.igk.intel.com>
-References: <20260922-ps883x-disable-usb4-v4-0-0a7b5b70cba3@oldschoolsolutions.biz>
- <20260922-ps883x-disable-usb4-v4-1-0a7b5b70cba3@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOMlpXB6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C305D1F000FF;
+	Tue, 22 Sep 2026 12:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790080093;
+	bh=uAPsKVQUv8IOqU7rxK33jeBLp/R7c5bAQs/dZ2U9RP4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WOMlpXB6Fp14kHIQ98lrV+zKTu+DIcI3LTzpb2qkCj2dg+VWDirc2/qEQXFWDyCKF
+	 YTmhffCenEUFn9BXW3Cs9B/R4c9x4Nkocqkhi7bnJNJl5ctCz5MupkcjvATe5yOr5I
+	 GwY3wlsjuGDjugyibtsAC67LYxui+8O+TZWdpWnsDhV1iicnPs+5CoAXxAciFcwyBy
+	 4RB35VIsyRM47Dh4450fXYfZBR+fUx765j1i3VwJZYBUVY8pNjlqiyVLRGzFL6mp5/
+	 jQ6cQ5abSxyaZX5uoOiw+ZwBuhhLLNxRn2kgSQbFWzCGQU9XjV0CeXd3Np9hgVY9HS
+	 fNNqzY/gPZ6Uw==
+From: SJ Park <sj@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/damon/tests/core-kunit: test preservation of caller quota state
+Date: Tue, 22 Sep 2026 05:28:08 -0700
+Message-ID: <20260922122809.2589-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260921003047.12041-3-kmehltretter@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-ps883x-disable-usb4-v4-1-0a7b5b70cba3@oldschoolsolutions.biz>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 02:20:19PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> Several docks, including the Lenovo 40B0 and SSK SC220, still send the
-> legacy TYPEC_DP_STATE_F mode request (deprecated since DisplayPort Alt
-> Mode spec version 1.0b).
-> 
-> Group it with TYPEC_DP_STATE_D.
-> 
-> Assisted-by: Grok(xAI):4.6
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On Mon, 21 Sep 2026 02:30:47 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Check that damon_new_scheme() initializes the new scheme's quota without
+> changing the caller's quota. Cover all eight fields initialized by
+> damos_quota_init().
+> 
+> Also check that damon_commit_ctx() preserves those fields in the
+> destination scheme for both accepted and rejected parameter updates.
+> Use an invalid min_region_sz for the rejected update and confirm that
+> returning -EINVAL leaves the running quota state unchanged.
+> 
+> Without the preceding fix, all eight fields are cleared in the
+> constructor test and in both context update cases.
 
-> ---
->  drivers/usb/typec/mux/ps883x.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-> index 64e0a61b776a1..a5696aef054ee 100644
-> --- a/drivers/usb/typec/mux/ps883x.c
-> +++ b/drivers/usb/typec/mux/ps883x.c
-> @@ -207,6 +207,7 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
->  
->  			switch (state->mode)  {
->  			case TYPEC_DP_STATE_D:
-> +			case TYPEC_DP_STATE_F:
->  				cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
->  				fallthrough;
->  			case TYPEC_DP_STATE_C:
-> 
-> -- 
-> 2.53.0
-> 
+Looks good to me.
 
--- 
-heikki
+> 
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+
+Thanks,
+SJ
+
+[...]
