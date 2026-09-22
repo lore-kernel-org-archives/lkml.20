@@ -1,175 +1,126 @@
-Received: from mta1.migadu.com (out-21.mta1.migadu.com [95.215.58.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4F1223DCE
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDE31CAAC;
+	Tue, 22 Sep 2026 01:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790039277; cv=none; b=JW7CMOv5CHWdRQuJDROdFmrIE6j8XfrpZrdB0xVu8gB5GunDovOVMe8NV7+06mM/Mty+3Q01JIddgD9mknvvxXB0jUTZ1caZvzskEiV3PG43Q6rp4DU7cUZ0jDw0N5gYengmTeTPNVMx5HkYPZ1kdWnZGWCTlxHEaV9GQgeiUcM=
+	t=1790039327; cv=none; b=MYq4lOz7Epo9/RGAdnuGo4z+FlUWd1XYPNrA9Ywldel885gZrX2BFTItvx8vmW5YEJ+u56M9dLUPg8wqU4kP1mNtNwfiSY49fEfjBLisUUa11fM7H9ZM30Mbace3WdSqJBECqunKoopY+5YsDxBL7CDlDz0PQcmMgpnX8ldMFUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790039277; c=relaxed/simple;
-	bh=l7KQLj3893ZGS3xxgpLpKxm8xm632+Oija+8hydNf4o=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=DnoL8+jy/Ir0GAQ3pEDRj5jZM8nzB9b5/mAHuwktbUEn+nsNmeFhfO5iM/R2eziG0N09lxE7Lxu0R9m8IxD3SOeFogpkp3+HOUUitI65PU+g3ww1hqeql9v0FUOYPhL+fL7tcVzovb7ljK+s63jJOHgRe2b2jEh9iI0dPS8y7CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nB6PXMtB; arc=none smtp.client-ip=95.215.58.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790039327; c=relaxed/simple;
+	bh=ZLRHCQvavybOi9J6uNjJF2aR+HtmKSL8JsZTWcDU790=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kj6HUOlgODbmiJKMHF/EQ9kVhyIFHBwbKWD3Ca9JWScN5Z/PLlkxi3I7nbat/mB4NR++uTbT1C2fPWJ1GDbFgqfAe8sK7OMUzT9ZxDJyHp8ObHdD9TYIZLpxym/gErQehXh1uZcHhfYyXw4UvOw081+NBIBPX5AXlASNljWg/BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1TztdlV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nB6PXMtB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=l7KQLj3893ZGS3xxgpLpKxm8xm632+Oija+8hydNf4o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790039274; v=1; x=1790644074;
- b=nB6PXMtB+8mNDeokUyTqWbTfZVs5bxJ39bxJzzM3heB3pc1ktq0M6586Cao0QAKcJ3G52rqj
- 3CI6EMgqUSCnDKvmFORo2JQeX0AXLlxAM+qhK4pjNTx9Ign/i1pFV0cXehZSzakytXIIaa82wkA
- LPE4iySPNztDtwjc1p213pK4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c3addaacdd50d9a0;
-	Tue, 22 Sep 2026 01:07:53 +0000
-X-Mizu-Trace-ID: c3addaacdd50d9a0
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1TztdlV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 11ED2C2BCF6;
+	Tue, 22 Sep 2026 01:08:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790039327;
+	bh=ZLRHCQvavybOi9J6uNjJF2aR+HtmKSL8JsZTWcDU790=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=U1TztdlVF+c88fx2q+78uK86sybLN/XSiHUjYR7ne4b55KH7wMewhuMjB/nn2vKrr
+	 HxQdONyhfLEjwnyXR+HQaiwKcmf1MZt0DBGByXJbp7msQ8SqE44teRWHSN1buZSJ2g
+	 w5gIyPus3p/5bpAEkNvXFNKm9qvBNWzi1gAiAnoUIkfEDk2uYhyDCTDjtOmyBinxmH
+	 gUXtaeO9cw0yvhlBrbTHIT+gST5cy1XrugGpuHzlXvliMwGWPEg5a9i5gSQdSRCXqU
+	 1imnhHCJesNTSt3brDSBn7NWzPsFsir13uZegB+Y9vLb/A5ELCfeSsmWlDb7qglizd
+	 yQW1AhTuoiYmQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8DC3C982E6;
+	Tue, 22 Sep 2026 01:08:46 +0000 (UTC)
+From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
+Date: Mon, 21 Sep 2026 21:08:41 -0400
+Subject: [PATCH] soc: tegra: cbb: walk cbb_list under cbb_lock in the
+ debugfs path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 01:07:53 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <a4339de07daae1d3ad274067006ed6dfc021434d@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
- driver
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Jeff Johnson"
- <jeff.johnson@oss.qualcomm.com>, "Johannes Berg"
- <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael  
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
- luka.gejak@linux.dev
-In-Reply-To: <2694defa2e284ee894005c59197325a0@realtek.com>
-References: <20260921154347.82317-1-luka.gejak@linux.dev>
- <20260921154347.82317-7-luka.gejak@linux.dev>
- <45eb7d5908f8fff9a18cba603fd3a4abfe8695f9.camel@sipsolutions.net>
- <31285267ebc43aab631a4199059a247a8d937814@linux.dev>
- <c208152fc5cb45e19ae7d4660394dbf2bc5e0271.camel@sipsolutions.net>
- <bcd5a280-8184-4457-ae52-47a9e0fe763c@oss.qualcomm.com>
- <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
- <fe3c6884a96b476799f415a06314f1ba@realtek.com>
- <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
- <2694defa2e284ee894005c59197325a0@realtek.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-mb-tegra-cbb-v1-1-67aa3712aa4b@vt.edu>
+X-B4-Tracking: v=1; b=H4sIABjVsWoC/yXMwQ6CQAwE0F8hPVsDqyL6K8bDtlugJq6mi8SE8
+ O/u4vFNZmaBJKaS4FotYDJr0lfMaHYV8OjjIKghG1zt2vriGnwSTjKYRybCEFwI0p247XrIk7d
+ Jr9/t7nb/O33oITyVj9IgnwTJfOSxRBvn8/6AxkdY1x8JSV+kkAAAAA==
+X-Change-ID: 20260921-mb-tegra-cbb-dd2dde85c68f
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jaidev Shastri <jaidevshastri@vt.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790039326; l=2069;
+ i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
+ bh=TnU7XDcPbIvevl70JeyBncqSk6nfZZH/4bzxa+jtmw8=;
+ b=KGpSDD2inrUNpQy+0tK3z/l30omzvntoM99pEYBBuUqRufWbG1G/py3UW7VHWN/exKYdXk+IB
+ ti30HhShB7+DbiD1ZqN47b+igdSHBtmq9dzlZm23uXBuUC4PLviIrwj
+X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
+ pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
+X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
+ auth_id=1044
+X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
+Reply-To: jaidevshastri@vt.edu
 
-September 22, 2026 at 03:50, "Ping-Ke Shih" <pkshih@realtek.com> wrote:
+From: Jaidev Shastri <jaidevshastri@vt.edu>
 
+tegra194_cbb_probe() and tegra194_cbb_remove() add and remove cbb_list
+entries under cbb_lock, and the error interrupt handler walks the list
+under the same lock. tegra194_cbb_debugfs_show() walks it holding only
+cbb_err_mutex, which the writers never take.
 
->=20
->=20Luka Gejak <luka.gejak@linux.dev> wrote:
->=20
->=20>=20
->=20> September 22, 2026 at 03:28, "Ping-Ke Shih" <pkshih@realtek.com> wr=
-ote:
-> >=20=20
->=20>=20=20
->=20>=20
->=20>  Luka Gejak <luka.gejak@linux.dev> wrote:
-> >=20
->=20>  >
-> >  > September 22, 2026 at 1:35 AM, "Jeff Johnson" <jeff.johnson@oss.qu=
-alcomm.com> wrote:
-> >  >
-> >  >
-> >  >
-> >  > On 9/21/2026 11:14 AM, Johannes Berg wrote:
-> >  >
-> >  > >
-> >  > > On Mon, 2026-09-21 at 16:49 +0000, Luka Gejak wrote:
-> >  > >
-> >  > > >
-> >  > > > It is supposed to work in the same way it works for other driv=
-er
-> >  > > > maintainers. I would review patches and provide my acked by or
-> >  > > > reviewed by them and Ping-Ke would apply them to his rtw-next =
-branch.
-> >  > > >
-> >  > >
-> >  > > I don't think we have a lot of folks below the driver maintainer=
-s who s
-> >  > > end me pull requests (except Toke maybe?) - but as long as I don=
-'t need
-> >  > > to deal with it I'm happy, you can figure it out between yoursel=
-ves :)
-> >  > >
-> >  > For ath.git there are sub-maintainers for ath5k (Multiple), ath9k =
-(Toke),
-> >  > carl9170 (Christian), and wcn36xx (Loic).
-> >  >
-> >  > Toke has a linux-wireless patchwork account so the ath9k patches a=
-re initially
-> >  > assigned to him in patchwork, and he Acks on the list and assigns =
-the
-> >  > patchwork records to me when he approves patches.
-> >  >
-> >  > For the others the maintainers just Ack on the list, and I take th=
-em from there.
-> >  >
-> >  > So the question is do how do you want to handle this in patchwork?
-> >  >
-> >  > /jeff
-> >  >
-> >  >
-> >  > What do you think makes more sense here: patchwork delegate
-> >  > access like Toke has for ath9k, or on list ack based? I'd lean
-> >  > towards delegate access if it's not a big ask on your end, but
-> >  > happy to go with whatever works best operationally for you.
-> >  >
-> >  I'm happy that people join rtw88 reviewers.
-> >=20
->=20>  Personally I prefer people give Reviewed-by tag to the patches, an=
-d
-> >  I can myself take the patches by patchwork state and send pull-reque=
-st
-> >  to Johannes.
-> >=20
->=20>  With additional flows of patchwork and pull-request, it looks much
-> >  hard to maintain, since I don't think there will be a lot of patches=
- of
-> >  drivers/net/wireless/realtek/rtw88/rtw8723b*.{c,h}
-> >=20
->=20>  By the way, if you are interested in rtw88, maybe add a "R:"
-> >  entry to be a reviewer of rtw88?
-> >=20
->=20>  Ping-Ke
-> >=20
->=20>=20=20
->=20>  Hi Ping-Ke,
-> >=20=20
->=20>  I agree that approach is simpler and I am perfectly fine with
-> >  it, if it works better for you. And about being rtw88 reviewer: I
-> >  would happily take that role, so I will send a separate patch
-> >  outside this series.
-> >=20
->=20I think you can change the content of this patch to add yourself to
-> rtw88 reviewer. No need other patch.=20
+A debugfs read of one CBB instance can therefore run while another
+instance is probed or removed. list_add() publishes the node with a
+plain store, so the walker can see a node before its links and private
+data are visible, or step onto a node that remove is freeing.
 
-I=20understand. I will modify this patch to also add myself as R
-for rtw88 and I will send updated version in v4 of this series.
+Take cbb_lock around the walk. cbb_err_mutex keeps its existing job of
+serialising the error log output.
 
->=20
->=20In fact, even you aren't in list of MAINTAINERS, you can still review
-> patches. Just subscribe linux-wireless mailing list (I think you did),
-> and reply patches you have reviewed.=20
+Found with MBCheck, a static herd7-based memory consistency checker.
 
-I=20would prefer to be listed as a reviewer because as such I am
-CC'd on each patch for rtw88. I'm not subscribed to wireless
-mailing list as linux.dev service provided by linux foundation
-states that we shouldn't subscribe to high volume lists.
+Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
+---
+ drivers/soc/tegra/cbb/tegra194-cbb.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/soc/tegra/cbb/tegra194-cbb.c b/drivers/soc/tegra/cbb/tegra194-cbb.c
+index 69ef929e0..d1a80b0b5 100644
+--- a/drivers/soc/tegra/cbb/tegra194-cbb.c
++++ b/drivers/soc/tegra/cbb/tegra194-cbb.c
+@@ -1990,9 +1990,16 @@ static DEFINE_MUTEX(cbb_err_mutex);
+ static int tegra194_cbb_debugfs_show(struct tegra_cbb *cbb, struct seq_file *file, void *data)
+ {
+ 	struct tegra_cbb *noc;
++	unsigned long flags;
+ 
+ 	mutex_lock(&cbb_err_mutex);
+ 
++	/*
++	 * cbb_list is modified under cbb_lock by the probe and remove paths of
++	 * the other CBB instances; cbb_err_mutex alone does not exclude them.
++	 */
++	spin_lock_irqsave(&cbb_lock, flags);
++
+ 	list_for_each_entry(noc, &cbb_list, node) {
+ 		struct tegra194_cbb *priv = to_tegra194_cbb(noc);
+ 		u32 status;
+@@ -2002,6 +2009,8 @@ static int tegra194_cbb_debugfs_show(struct tegra_cbb *cbb, struct seq_file *fil
+ 			print_errlog(file, priv, status);
+ 	}
+ 
++	spin_unlock_irqrestore(&cbb_lock, flags);
++
+ 	mutex_unlock(&cbb_err_mutex);
+ 
+ 	return 0;
+
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260921-mb-tegra-cbb-dd2dde85c68f
 
 Best regards,
-Luka Gejak
+--  
+Jaidev Shastri <jaidevshastri@vt.edu>
 
->=20
->=20Ping-Ke
->
+
