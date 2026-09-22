@@ -1,131 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803133DB62B;
-	Tue, 22 Sep 2026 09:50:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC34383994;
+	Tue, 22 Sep 2026 09:51:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070643; cv=none; b=BuacgEOooafeV0JnK8NAtReD0Fb1YgmjXpJkdA1VBmknUmXNtByLXMQpvzbmIVMgga2Zc9kArlq172szwXFu/Mbr4m7+eBQLeQu8g4RjsTLo4IzU0TIgvRBerviRbESDi6+MgL/2ZcG3OyM2hJjaf7OUDcvLuzui/elS3TuY9gs=
+	t=1790070668; cv=none; b=b0i1y0VdYm2+eGZnxMPgqAs/fSSKvArS8v2BbSI8gE+zSNQJTBMfAQQOhapCkZ28eQ6w0yfjhbea3BAL2m1WhdooR2Jm1Z8IqXV1Qq2oI6LNGYP95OVvHY+sI4cvIVEMerg4666iwn79Ch+xXlSRFdmWb9qbqcg/MU0sLLJQaQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070643; c=relaxed/simple;
-	bh=QgKAaDdXC5l6/AbbVSVV5OAocDwDr0pZZQz7gHJpsvc=;
+	s=arc-20240116; t=1790070668; c=relaxed/simple;
+	bh=fAfhEkc1Ul2E70S7Rky+RKkm5xxP+ys1Tc+3E1/oyaw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VAS5UlJZc2MWl/dkUhk/UYK7Vl2Bt50f58DUB38hiFD7igGDeDIF28mPZ4JNv26/09JYaR04lp9OGomahHgEYb4ys+h0Qm/9i6jV2q+A+6mEcPIOZLsVSSchqjVKV/hp6lXdWcN+9iTZyOWX4SCRGH8Iy0US597uUCdbNDMBgs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MZTxaVWO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HXaw/tTjB+qJK70wDjQWAgMIchQADjYbY3pcU8dVbTxktqtNuV6DzsNSZZ0s0Jervkgyl0CbHxnS2GUyEHJ/3e6UV+uh3L+Xq1ufJkCiZv5eXJOhmDLgnOYvsesHkxZlXANhUYf5GZY2RHZu9s0FYr0AjgSE6yNt8QD8b7BGjYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D3fHZaw7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MZTxaVWO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED171F000FF;
-	Tue, 22 Sep 2026 09:50:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D3fHZaw7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C61D1F000FF;
+	Tue, 22 Sep 2026 09:50:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790070642;
-	bh=sSGIPShcgFy3rov5FPMVkhjLmCaiM9komiyZM5pu8Gw=;
+	s=k20260515; t=1790070667;
+	bh=bluJB05dMB2jV3Y6fJ6wm8ws1q2ZyISwGm5FF9gkYIU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MZTxaVWOeA4+lBd0O7j3wh13UHgZzUVdlLoDzWZdL5uwv6VQ2zb2xL5frLJHwBHYa
-	 b9otouh3/xIKb8wmOMqy9D7ls0GqVZRM4qTTijT1LUvQVelib/kcDF6pqjtlXR/O0u
-	 M0Ieyyyi9K8RIyOV2AHbnDm7pWIS2074LDjp7I/b0ExEzStz2toVkYYFoC5EGsUi5O
-	 2q72xu5s2zQzOohx+bAegYEBzYpT+49nRejVB1G2sD8Kf+2MjfOW7hKFRdNW1sfz/W
-	 cCcFoNNZhuLTlW1DPFQNBRZxvmNrNfpGd3q2moyh7f2s35dAZxrA5AfFoE51rY0b9c
-	 gBA/Szb1uHNKw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id A887D1AC56BF; Tue, 22 Sep 2026 10:50:38 +0100 (BST)
-Date: Tue, 22 Sep 2026 11:50:38 +0200
-From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	b=D3fHZaw7Nl8F58LiaT1FS4IcwtpHChTuSO0a7tIJqVvw8hqUBj1tygbfSikWcBzwm
+	 dnv4LcQJt5S26njBaX6+xsZsJJ4bL67N/7NAWoGkM+FNwibvIeHWXNub6khFdheAx0
+	 8doSkK+QfUddRYgxZ1+j8howiCXMpNN3P09QScNRy3gOE1/cLLXYD3n32bLj8U4BOn
+	 V6pJM9DIjH2QJHA6gV+AbCsOwvd6HZbsfyRkbQHA+IcKRnj83Ofn/J9cEMsjsYewo9
+	 bvSv1sCyUDORess5rRIjQAs7VUGR7mJzg0Rn2ny+MyTSaXnOl0fBDR8OMjW9ZVwWl0
+	 TIfXjHGGp1dHg==
+Date: Tue, 22 Sep 2026 10:50:57 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	linux-efi@vger.kernel.org, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
 	David Rhodes <david.rhodes@cirrus.com>,
 	Richard Fitzgerald <rf@opensource.cirrus.com>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 12/28] ASoC: ops: Introduce 'soc_set_enum_kctl'
-Message-ID: <arJPbqGxMrc5mGvI@sirena.co.uk>
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <20260920-macaudio-v1-12-741cc20a74e5@gmail.com>
+	linux-sound@vger.kernel.org, Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>
+Subject: Re: [PATCH v1 01/17] ACPI: bus: Use acpi/acpi_bus.h without
+ CONFIG_ACPI
+Message-ID: <20260922-quiet-heavy-lyrebird-b245ad@sudeepholla>
+References: <7995179.EvYhyI6sBW@rafael.j.wysocki>
+ <3717753.iIbC2pHGDl@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/Rmff83hTxLA41JR"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260920-macaudio-v1-12-741cc20a74e5@gmail.com>
-X-Cookie: Too clever is dumb.
+In-Reply-To: <3717753.iIbC2pHGDl@rafael.j.wysocki>
+
+On Mon, Sep 21, 2026 at 09:45:59PM +0200, Rafael J. Wysocki wrote:
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> 
+> Corrently acpi/acpi_bus.h is included in linux/acpi.h only if
+> CONFIG_ACPI is set, but it contains declarations that are useful
+> otherwise too.
+> 
+> For consistency, modify linux/acpi.h to always include acpi/acpi_bus.h
+> and update the latter to avoid exposing too much when CONFIG_ACPI is
+> not set.
+> 
+> Since acpi_has_method() is called from some code build when
+> CONFIG_ACPI is unset, add a stub for it to the !CONFIG_ACPI
+> block in acpi/acpi_bus.h.
+> 
+
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
+
+I was planning to just pull acpi_device_hid() out so that I can get rid
+of CONFIG_ACPI in [1]. This looks much more elegant. Thanks for doing it.
+
+-- 
+Regards,
+Sudeep
 
 
---/Rmff83hTxLA41JR
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Sep 20, 2026 at 02:53:51PM +1000, James Calligeros wrote:
-> From: Martin Povi=C5=A1er <povik+lin@cutebit.org>
->=20
-> The new function is to be used to set enumerated controls to desired
-> values -- either a single control or many controls in bulk by pattern.
-> It is something a machine driver may call in fixup_controls.
-
-> +static int soc_set_enum_kctl(struct snd_kcontrol *kctl, const char *strv=
-al)
-> +{
-> +	struct snd_ctl_elem_value value;
-> +	struct snd_ctl_elem_info info;
-
-Probably best to fully initialise the value, in particular while I don't
-think anything currently does it we can have multiple enums in one
-control like with stereo volume controls.
-
-> +	for (i =3D 0; i < info.count; i++)
-> +		value.value.enumerated.item[i] =3D sel;
-> +
-> +	return kctl->put(kctl, &value);
-
-Should check that put exists.
-
-> +/**
-> + * snd_soc_set_enum_kctl - Set enumerated controls matching a pattern
-> + *
-> + * @card: where to look for the controls
-> + * @name: name pattern
-> + * @value: string value to set the controls to
-> + *
-> + * Return number of matching and set controls on success, else error.
-> + * No controls need to match.
-> + */
-> +int snd_soc_set_enum_kctl(struct snd_soc_card *card,
-> +	const char *name, const char *value)
-
-We have both value and strval in different places.
-
---/Rmff83hTxLA41JR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqyT20ACgkQJNaLcl1U
-h9AhGQf+JVR+bwYYZADyxQTTS9vyQAjf+9I5HvHJnkKvFLUB1NZHijso2jQyMRZd
-Hy69TXkZH0NSH/oZnMUwSDVCZbhI5Wo8W/KClkb/jSQKbnO/3fQZqryxL5cr0OYf
-2Z76hVHIqmDZbmJgGX5SHF41yfCSO1ZW8YBvZuqwKzWa44XhOQVhl4FjkN+FMO4m
-yWqcsJS+Qmea0DVnEstz+oXCcUEUSbDnZ6bDJLTYuCjejHGarHVbhse2vCN2RrTF
-RX1UuF5Zbn9PJse8AmjxdKK+pGLw/uw2oEq4TMGGl5U1DJhmwurppOZ2HsxAcTQx
-4yikF8686OVfT+i5/PeT87Ii4biDSw==
-=Aec8
------END PGP SIGNATURE-----
-
---/Rmff83hTxLA41JR--
+[1] https://lore.kernel.org/all/20260915-acpi_scmi_pcc-v5-4-298579e9f359@kernel.org
