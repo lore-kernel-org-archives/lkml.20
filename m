@@ -1,136 +1,135 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A97388E72
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:06:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790100362; cv=pass; b=C2Tfl5j0tIrg1Vd9rCKVXUZxUYJwcrjZ83btqxOMX811BkFFXFwgFjrgVzcCeFgs+gt7UoYUbFeCnhm0Sj0zqzteRLF8rAqBQDd40VVQTFPhoyisyQ0KPn7Kd/D2jIAkEqc2yhDeBhz3kJhIP4zaxcd+R8TT0kT2obHZqY5URE0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790100362; c=relaxed/simple;
-	bh=m++GKzPyuU7UHVuvb7Ivk6mNPNP0mzBVQQ4H9v+ex2g=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OtTv6aia7+2fdINUfCzUC7pzxTR5CJaHNtBAUXyqkxWzQltq90jrqugHDXoMIUPY6PuX8rfRFgBOucqttFk/bbxZrVu6VbIc1lqynlEiCVBVjSeBpltuBvVYfqxaHEitpIaks6noZBP3Wz4Gwattza579muk9bw8I4PBPhPuMhY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TF7OwM9d; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742323A71AD;
+	Tue, 22 Sep 2026 18:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790100367; cv=none; b=dIBL3rCj7bHGwGLnbnvPxZgkXsQJFBx2B1Dl0gYvUxv+IMKFNM0ehTAEE9DP0mBVYKBOnLuiPxKBPppR4fAB2Y4cmXKTEHHSQdKnx0LdBnTdSR/EFx9RP85W9FEeG1uPSQcXSSJHjG7bW38fCXtT/3ttN94zGZJIMHVxTS63Rag=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790100367; c=relaxed/simple;
+	bh=KBDUhWIJKtnn4V82nVX7hrDrkXx2VXjwJLjN3Z00DEI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=onI/z7bqEmzmodw19IN0wJ8bOivunT+l+ZdczY841AN+yPR9RV1rbxKm6ETEp3MODbmrpHHXW1INxklmAvDzx2z8s8LYs5OtNd2xDSp6LNJqGu04NsoRyAuP71ItJVmjNETvFL4OMl2IhIVuQaV60KhCXdzTG4aZY0eNpLG+1hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npJDBT4w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TF7OwM9d"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab22370so85776d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:06:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790100360; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mXtx9L18dnieaX/BksTKoOzgzY+fZARNwvsknQJa7bBCRVl8iLYLNXvD+cWzdIeJgr
-         9UwJPBQkGwuZ/3IremeG+djmlD7qiF8bJhvqd1MVzHq3xzPHeKDKv6iDziFSJ8ZQQgpj
-         mGpkdfpvx+bV5IumEO/4Ag3p3jC/FrvJj89Q+NPF62b6vhpb/y7ZvhPq/98npXnUuoZN
-         2jSlGidMNzmEtBScMm59iTh29yhCYski7VH/EmmLs4mrq5uKSDoZmjqWJWSWiW3E5GPj
-         miMbYAegZu7BkPbDwKYMDjtfyxOO/IDmRxsrLGfznEzQlhRshpng0DRWmMtg2I8GO2Us
-         5UEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=lf7w8zPr6dt4VhD0eugxOymopbvSQ3RHlj+JN+XDuo8=;
-        fh=EJq88jzujv0ISQxWkacJf453jw2lwT3NNd/w696DycA=;
-        b=Elox1INW5ygqv7zjRko1D7BztM+bSK+Gi6hBNLXIhw+SMLMPQP4szNHq+shboW6BI9
-         fxGeuE+3HGE+5OByQZo1dYuQU63e8di4VYA4EkD+cpoOwgpMR5VUGd3g+B+VYtDyedXY
-         MIF0U86BXdqAcMs71oAbQltEkBrfMZqjIeOA9OHWf2wR63h36jej9+dD2B4YC3gM6MJm
-         r/Hmd1325hNdDqOqxhtU50p/uD7I7IM/ozTRGIj4jCouJBNkGurSu42A6wsQIGssDIpO
-         /vtWlJCY1iZ2Q2PAj90z+LZStVyNJJ6V51SW0nm+HiTD84mX+NZ3UfuDJ4M7HJlLMpyX
-         I7tA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790100360; x=1790705160; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lf7w8zPr6dt4VhD0eugxOymopbvSQ3RHlj+JN+XDuo8=;
-        b=TF7OwM9d87e88gdlAAFs/xW9gM3CHo5HBAMw7enXZJL9z/zMQ2OzNCPkGpnkH2KlkT
-         /Ib0P3bAQchVr1qFiWwCY7LXdJtLxH2kcy1tr1IuFb0RjtKPio+pDBAAUgJeubd2iRoi
-         IZzV6OulXPxBgSCJmKwMTz6qlf/uyThW+chdC1HTWp6E7FrjMZ2uIAJL0WRbHN3HbGuT
-         +3yVLhjdXs/fkjGPkSGhzgZEfgZhiBlWlhLHjd7lLJ5rQjJVGsf97SnPwGLWIk+ch92x
-         BnxFQyYLa5m/T7GI5VP7JSJGaEJHm5BhKasgE5jviAvCklsFDQT+j0FPJ3TmriL7pyLw
-         xHVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790100360; x=1790705160;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lf7w8zPr6dt4VhD0eugxOymopbvSQ3RHlj+JN+XDuo8=;
-        b=ZlsJQ5QPlWaI9AE0StHgQSIoHUXdgHSVLuxkoZc6ki//PS+gxDXlSsCFJitteXnbPK
-         gUaheDAnp6dE4HqKETsxWnbaXrfic13okHYS+eqfai9HhxOf6oTVZbjIDjzCOwGCiWMM
-         Xv8o9KwpChUnfP68fxfxJ8kWOzM75HmQA00tSOdjHCM2vjrGMr3eWHbmX92WFIFRbrZh
-         Xi4p9v2B8QfEbPMwjBYZPsYR0lxEOxdkOpLpULqk5GUIdZbzo86rT47pGiCDUa1PK5hn
-         wdZ05o1lr7yh4BYs6CV1/CfOX+4rDHswIjY/vG8jDCWt4qc/mZpQ1Rea3oz2PdQjUT9w
-         ttTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwtfOi8QVLiTezL4osidLJolxWASPeF5l+2Frule3BJ42h3zNyCVPpXRAVMFwUKwLniG+0zWmw5fllbPGY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFUve/J/mslMpVP3B+ZssOtt3cMN+/v9o6ruVpAXVOmLNwT/I0
-	fj9rxh6pKvOzbDdYUkzv/IyHtkzAjexqRZUJEf5E7VK8IMD8tRtBSbTM03zAlzhGTalpzaNYExF
-	J3U2FKL2oQ2Jm8kqAAYnrOp2PeE8hCk9/zK9G8+9V
-X-Gm-Gg: AYBFou0G6ITNfl5w2gJE6JCUopqAWhwRAGFc3sz303IhEgdEU0xq+0ezGyg0KgSQosQ
-	XTwYJIui7NrkFiVxWOay7CCvKoz9aZsVyTdSiA2ytf3o7NDE9ZJEIB9L+9hKvZtHngT5s+j6ZQR
-	MQ9upx+XGnx0l0mJev6CDiLT4jX7aC6c4in5Wzf3yDVsLzpU6I5g958LhlbyVZlp8WKquFU2l08
-	8+uEZAZkjGMiyZzkHp4zQhsD6AeQzFdlDLmANSztRJKbjO/4iIdIV1l/xZMg6yfXhWF+eu0NJ7W
-	WKCDgPLIJXJUmviXVe9DfNhghgTxKdRPSmCktNXqbX+7tyj2yldBMfXEterCUt5ZNIAZttB3o0U
-	4xFFBaRP2JUCUJt1PlNVFbsIQFby9jXjhFHSoUIdPhw==
-X-Received: by 2002:a05:690e:1286:b0:672:c272:f6ec with SMTP id
- 956f58d0204a3-672d59bebf8mr157304d50.80.1790100358515; Tue, 22 Sep 2026
- 11:05:58 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 11:05:57 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 11:05:57 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260806170602.4112602-1-seanjc@google.com>
-References: <20260806170602.4112602-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npJDBT4w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5E71F000FF;
+	Tue, 22 Sep 2026 18:06:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790100365;
+	bh=OTAnb6Oq272HngWK1zOxdvaL3eZ6qI/PfUaNGme30Jc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=npJDBT4wWkW2y8a1n1T/o3bcwHAdPw8oZ3marPpQHY9BkRPrdN/Y1Rf6zZVjKkn7T
+	 otgcVGuutqCTfZtChmaxyuTlNMRoLDbgYCG4xR/Ced4PtVjHVUiCO1WFgHdfjvxtNs
+	 CSbpAamDUES09D8m9Vk1T0a6kVhnuZiJE0wC5I4rQq1IjM9WZsEX8G2IVpqKy7QgEw
+	 K/cOmg/HLObeNiC4k0ini/42I0D+PZrexs0AXSpH2a9HtIqOL7lKD6NRZdQdSDTTb3
+	 wWrM4uHe/MPPkvY8sVwD5DyUtT133teqRInbjSSvIxs36XA8z2X5F7A9l1a+KImSbt
+	 foLsCnS6JCslQ==
+Date: Tue, 22 Sep 2026 19:06:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Wei Xu <xuwei5@hisilicon.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
+Message-ID: <20260922-cheer-reference-c31fc6fb946d@spud>
+References: <20260921232540.3128596-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 11:05:57 -0700
-X-Gm-Features: AcwNN1Vwfxfy5stGyMAgpGhv0mGDDhp716mx7weUKBt_bAXRsWwCzdRg7UtOnP4
-Message-ID: <CAEvNRgFZBHqiZuXawTjDU1oPR=u3yqBzXW5ku+B2rvMAbBM3vA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] KVM: TDX: INIT_MEM_REGION fixes
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Haotian Jiang <jianghaotian.sunday@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xoDyum+tpwGqygp3"
+Content-Disposition: inline
+In-Reply-To: <20260921232540.3128596-1-robh@kernel.org>
 
-Sean Christopherson <seanjc@google.com> writes:
+--xoDyum+tpwGqygp3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> I completely lost track of this, meant to post these patches weeks ago.
-> Compile tested only.
->
-> v2:
->  - Fix an off-by-one bug.
->  - Use gpa_t instead of raw u64.
->  - Tweak the order of checks to bundle similar checks together, and to perform
->    the super basic checks (alignment, size, etc.) first.
->
-> v1: https://lore.kernel.org/all/ak0skG064rhKUC8d@google.com
->
-> Haotian Jiang (1):
->   KVM: TDX: Reject INIT_MEM_REGION if number of bytes would overflow a
->     u64
->
-> Sean Christopherson (1):
->   KVM: TDX: Fix a benign off-by-one bug on the end GPA for
->     INIT_MEM_REGION
->
->  arch/x86/kvm/vmx/tdx.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
->
->
-> base-commit: a806d364ef288a6443a1337820ea8410a7ccc6b3
-> --
-> 2.55.0.679.g6767b8d81c-goog
+On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
+> Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. The
+> node only contains the compatible string and one register window on the
+> local bus.
+>=20
+> Assisted-by: LLM
 
-Looks good to me, just a question on the use of check_*_overflow: I
-thought Sean didn't like burying an out-param in an if-statement? [1]
+Guidance to the LLM should probably include including the reason that
+this is being added to the commit message.
 
-[1] https://lore.kernel.org/all/ag8BmtzxTlcuA_zy@google.com/
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisil=
+icon,hip05-cpld.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hi=
+p05-cpld.yaml b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,h=
+ip05-cpld.yaml
+> new file mode 100644
+> index 000000000000..f9d48b871a4b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpl=
+d.yaml
+> @@ -0,0 +1,35 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/hisilicon/hisilicon,hip05-cpld.ya=
+ml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: HiSilicon HIP05 CPLD registers
+> +
+> +maintainers:
+> +  - Wei Xu <xuwei5@hisilicon.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: hisilicon,hip05-cpld
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    local-bus {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <1>;
+> +
+> +        cpld@100000000 {
+> +            compatible =3D "hisilicon,hip05-cpld";
+> +            reg =3D <1 0x0 0x100>;
 
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Also what's with this example? 1 0x0 0x100 should be 0x1 0x0 0x100?
+
+> +        };
+> +    };
+> --=20
+> 2.53.0
+>=20
+
+--xoDyum+tpwGqygp3
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarLDigAKCRB4tDGHoIJi
+0p2IAP9yPdaLLZo9WKjprTpW7sb6ElXBhBJPZ5GD7K6+q1E94QD+LYi5JSelMhBi
+L0I/pBM9fXFBHCeHUv4kgJhw1QYUNAQ=
+=Virt
+-----END PGP SIGNATURE-----
+
+--xoDyum+tpwGqygp3--
