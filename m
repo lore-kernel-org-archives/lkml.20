@@ -1,140 +1,162 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B229B53CA70;
-	Tue, 22 Sep 2026 11:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF3C53D0D4;
+	Tue, 22 Sep 2026 11:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077241; cv=none; b=aFruNdHUluBD3bJ0BZuJ8S/+YiQiydBthoPZrswo4KHf3JiBMEUhT7kTYPR2hibvspzbaMmXrSyHtYVAf5V+OuZIj2mqiQeC4meHvnNJvKOA7Y6lJsL1nWgiHbygz+Z25419UmyJWc+OUsAPjrfcO7DN0WDShWcEL5rqGKTOOPM=
+	t=1790077270; cv=none; b=O+p/P/9plWTyFz/b0z8oZOJDkgIDvd3TSoIolJ24LseJPmcVDs0L3yYgAmqRAM81NvIfAsVVTgPNWLGNi3Lr4ukeGh0xK103etjW4RaKhaXSos3eOZfZIU97MB/GMfiyaF4Z3bneEFCy6zdR+YEpB7GyKSkl/p1FhZYall7Vyug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077241; c=relaxed/simple;
-	bh=eWdskD3KxH6dOw44b7Wr9sO1tMT30b7LlqeJDS94SbY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=nDEleKkrMs0UTFOeTbVqhJLePGdEi30bUFz2Kp7QRwa4Tl2EGBUW/rfFySTIeUdbSf1iAdS553/RcWbstXnDDHuUEySN9ICW8XSMPTKFV8gAHRqyaH2M/t+VlYxLE2y/bwlERBkk0qpcH5ajJ1rqwRf3zKtQ9uun/w7MGJSb0mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZwuTgT33; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790077270; c=relaxed/simple;
+	bh=jxO2tbCn05NkUfkav108Q3sl+zdNebjag0oxiZ6oa7k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cQ6pB5Ifk8ftASWZtctNsRALANn1cC0zUfwh+TX0Hb0vnXJocuSqgqc5a3GxgQ2ZI5H3k6KqTT0wXHqcUKiAJFVqbxOLO+IEgtxWDDBzUyprWCltph27sr/+We2tXCfM+sE+RmAmFzZkHEeuaX6A2qL06gbMaqsrr1vQH9y+VGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdR85bzh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZwuTgT33"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=eWdskD3KxH6dOw44b7Wr9sO1tMT30b7LlqeJDS94SbY=; b=Z
-	wuTgT33VE4a2FSGNE+u6+hJpYCCstsL6zVJwY4xH+v0FsZ9aHdvECRbMDAkGgJ1d
-	oWCNTO/ECt3IiGzU6THbpcWnks/+vnJ5PS0O3bV7gk6GDe3PE0GSu/l41FzLuJcN
-	PI8b28ljTpZWqqwZ2cvP0mqPGwtimHPIxoD8MDnF0c=
-Received: from slark_xiao$163.com (
- [2409:895b:3826:eb27:7d8b:e02e:d1a2:d0b4] ) by ajax-webmail-wmsvr-40-140
- (Coremail) ; Tue, 22 Sep 2026 19:39:53 +0800 (CST)
-Date: Tue, 22 Sep 2026 19:39:53 +0800 (CST)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: mani@kernel.org, jeff.hugo@oss.qualcomm.com, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
- customized support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
-References: <20260919095506.9570-1-slark_xiao@163.com>
- <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
-X-NTES-SC: AL_Qu2SAvycuEki5SacY+kdnUYVh+s9WsW5uPUl34dUc94FnxDz9SIvZ0FcAULp/N22EAaDoQGeTTRi19ZFUIRlmuewOGA+jN6Wc/a375/4QQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdR85bzh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757891F00898;
+	Tue, 22 Sep 2026 11:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790077258;
+	bh=F+/XiWey5CLZx+RgVIraKLoSGfEXc6kJ7NpnMFbxg/g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MdR85bzh1RoqepA7zsF3/V8Pl3ctZkZaPAwXAkpWebSOYwMiIbBg3nw2cdV5909Er
+	 Uedjv/1PNvNeBmzZVpxsppAHst/XgeDExrGvWwvfJAnxrHh4tAkKsOPgQm6wtCkQfF
+	 6iiKaW9kUgyR0zBRpZOv3kT37aMB6ZltRGaudFj4ZeHkg0ZrOYTxubjYHGxFjhAUDR
+	 ZNZPm7Pp828QoHwc6rw+JMG5FdJKk7qkk51QeZdkB8WLdt7TyuAuCd1jWyFrppvasK
+	 ctEmDZ+yTGQRmAQOCEs7HRUudU4TKL1rsVIklBs9ms2+yTi5bCf+8tCq8DpcgD6HH8
+	 RnGkReCInrnWg==
+Message-ID: <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
+Date: Tue, 22 Sep 2026 13:40:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jCgvCgD3P5kJabJqrHZMAA--.59647W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC6AmjCGqyaQl3GgAA3f
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, akpm@linux-foundation.org,
+ rppt@kernel.org
+Cc: peterx@redhat.com, surenb@google.com, aarcange@redhat.com,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, mhocko@suse.com,
+ shuah@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
+ <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-CkF0IDIwMjYtMDktMjIgMTI6MTI6MzUsICJLcmlzaG5hIENoYWl0YW55YSBDaHVuZHJ1IiA8a3Jp
-c2huYS5jaHVuZHJ1QG9zcy5xdWFsY29tbS5jb20+IHdyb3RlOgo+Cj4KPk9uIDkvMTkvMjAyNiAz
-OjI1IFBNLCBTbGFyayBYaWFvIHdyb3RlOgo+PiBGb3Igc29tZSBXV0FOIGRldmljZSwgaXQgbWF5
-IGdldCBhIFNZUyBFUlJPUiBpc3N1ZSB3aGVuIHJlc3VtaW5nCj4+IGZyb20gc3VzcGVuZCBzdGF0
-ZSBmcmVxdWVudGx5LiBSZWZlciB0byB0aGUgUXVhbGNvbW0gV2luZG93cwo+PiBkcml2ZXIsIHRo
-ZSBkZWZhdWx0IHZhbHVlIG9mIGF1dG9zdXNwZW5kX2RlbGF5X21zIGlzIHNldCBhcyA1MDAwCj4+
-IG1zLiBCdXQgaW4gTGludXggc2lkZSwgYWxsIFdXQU4gZGV2aWNlIHdlcmUgc2V0IGFzIDIwMDBt
-cy4gV2UKPj4gdHJpZWQgdG8gc2V0IHRoaXMgdmFsdWUgdG8gNTAwMG1zIGFuZCB3ZSBjYW4gZ2V0
-IGEgcG9zaXRpdmUgdGVzdAo+PiByZXN1bHQuCj4+Cj4+IFNvIHdlIGFkZCBhIHN1cHBvcnQgdG8g
-YWxsb3cgdmVuZG9yIHRvIHNldCBhIGRpZmZlcmVuY2UgdmFsdWUgZm9yCj4+IHNwZWNpZmljIFdX
-QU4gZGV2aWNlLgo+eW91IGNhbiBjaGFuZ2UgYXV0byBzdXNwZW5kIGRlbGF5IGZyb20gc3lzZnMs
-IHBsZWFzZSB1c2UgdGhhdCB3YXkgaW5zdGVhZCBvZgo+ZG9pbmcgaW4gdGhlIGRyaXZlci4KPgo+
-LSBLcmlzaG5hIENoYWl0YW55YS4KWWVzLCB3ZSBjYW4gZG8gdGhpcyBieSBzZXR0aW5nIHRoZSBz
-eXNmcyBBUEkgLiBIb3dldmVyLCBub3QgYWxsIHVzZXJzIAphcmUgYXdhcmUgb2YgdGhpcyBtZXRo
-b2QuIEFkZGl0aW9uYWxseSwgdGhpcyBhcHByb2FjaCBpcyBvbmx5CmVmZmVjdGl2ZSBmb3IgYSBz
-aW5nbGUgaW5zdGFuY2U7IGl0IHJlcXVpcmVzIHJlY29uZmlndXJhdGlvbiBhZnRlciBlYWNoCnJl
-c3RhcnQsIHdoaWNoIGlzIHF1aXRlIGluY29udmVuaWVudC4KClRob3VnaCBJIHdhbnQgdG8gc2V0
-IHRoZSBkZWZhdWx0IHZhbHVlIGZyb20gMjAwMCB0byA1MDAwLCByZWZlciB0bwp0aGUgUXVhbGNv
-bW0gV2luZG93cyBkcml2ZXIsIEkgZG9uJ3Qgd2FudCB0aGlzIGNoYW5nZSB0byBhZmZlY3QKdGhl
-IGRlZmF1bHQgY29uZmlndXJhdGlvbiBvZiBvdGhlciB2ZW5kb3JzLiAKClRoaXMgYXR0cmlidXRl
-IHNob3VsZCBiZWxvbmcgdG8gc3BlY2lmaWMgV1dBTiBkZXZpY2VzLCBzdWNoIGFzClNEWDY1LCBT
-RFg3MiBvciBRRFUxMDAsIHJhdGhlciB0aGFuIHRvIHRoZSBzYW1lIGNhdGVnb3J5IG9mCmRldmlj
-ZXMsIGxpa2UgYWxsIE1ISSBkZXZpY2VzIHNoYXJpbmcgYSBzaW5nbGUgc2V0dGluZy4KCkJUVywg
-SSBzYXcgc29tZSBvbmUgYWRkICdub19tMycgZmxhZyBmb3IgdGhlaXIgU0RYN1ggZGV2aWNlLgpX
-aHkgY2FuIHRoZXkgZGlzYWJsZSBzdXNwZW5kIG9uIHRoZSBzYW1lIFNEWDdYIGRldmljZSwgd2hp
-bGUKSSBjYW4ndCBhZGp1c3QgdGhlIHN1c3BlbmQgZGVsYXkgdGltZT8gVGhhdCdzIGN1cmlvdXMu
-CgpUaGFua3MKPj4gQlRXLCBiYXNlZCBvbiB0aGUgcHJpbmNpcGxlIG9mIHN0cnVjdHVyZSBhbGln
-bm1lbnQsIEkgbW92ZWQgdGhlCj4+IGxvY2F0aW9uIG9mICd0cmlnZ2VyX2VkbCcuCj4+Cj4+IFNp
-Z25lZC1vZmYtYnk6IFNsYXJrIFhpYW8gPHNsYXJrX3hpYW9AMTYzLmNvbT4KPj4gLS0tCj4+ICBk
-cml2ZXJzL2J1cy9taGkvaG9zdC9wY2lfZ2VuZXJpYy5jIHwgMTQgKysrKysrKysrKystLS0KPj4g
-IDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pgo+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dlbmVyaWMuYyBiL2RyaXZlcnMv
-YnVzL21oaS9ob3N0L3BjaV9nZW5lcmljLmMKPj4gaW5kZXggYjYzNmUyYzIzYjRkLi4zMzM5Yjli
-MmQxNmQgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvYnVzL21oaS9ob3N0L3BjaV9nZW5lcmljLmMK
-Pj4gKysrIGIvZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dlbmVyaWMuYwo+PiBAQCAtMjMsNiAr
-MjMsOCBAQAo+PiAgCj4+ICAjZGVmaW5lIEhFQUxUSF9DSEVDS19QRVJJT0QgKEhaICogMikKPj4g
-IAo+PiArI2RlZmluZSBBVVRPU1VTUEVORF9ERUxBWV9NUyAyMDAwCj4+ICsKPj4gIC8qIFBDSSBW
-SUQgZGVmaW5pdGlvbnMgKi8KPj4gICNkZWZpbmUgUENJX1ZFTkRPUl9JRF9USEFMRVMJMHgxMjY5
-Cj4+ICAjZGVmaW5lIFBDSV9WRU5ET1JfSURfUVVFQ1RFTAkweDFlYWMKPj4gQEAgLTM4LDExICs0
-MCwxMiBAQAo+PiAgICogQG5hbWU6IG5hbWUgb2YgdGhlIFBDSSBtb2R1bGUKPj4gICAqIEBmdzog
-ZmlybXdhcmUgcGF0aCAoaWYgYW55KQo+PiAgICogQGVkbDogZW1lcmdlbmN5IGRvd25sb2FkIG1v
-ZGUgZmlybXdhcmUgcGF0aCAoaWYgYW55KQo+PiAtICogQGVkbF90cmlnZ2VyOiBjYXBhYmxlIG9m
-IHRyaWdnZXJpbmcgRURMIG1vZGUgaW4gdGhlIGRldmljZSAoaWYgc3VwcG9ydGVkKQo+PiAgICog
-QGJhcl9udW06IFBDSSBiYXNlIGFkZHJlc3MgcmVnaXN0ZXIgdG8gdXNlIGZvciBNSEkgTU1JTyBy
-ZWdpc3RlciBzcGFjZQo+PiAgICogQGRtYV9kYXRhX3dpZHRoOiBETUEgdHJhbnNmZXIgd29yZCBz
-aXplICgzMiBvciA2NCBiaXRzKQo+PiAgICogQHZmX2RtYV9kYXRhX3dpZHRoOiBETUEgdHJhbnNm
-ZXIgd29yZCBzaXplIGZvciBWRidzIChvcHRpb25hbCkKPj4gICAqIEBtcnVfZGVmYXVsdDogZGVm
-YXVsdCBNUlUgc2l6ZSBmb3IgTUJJTSBuZXR3b3JrIHBhY2tldHMKPj4gKyAqIEBhdXRvc3VzcGVu
-ZF9kZWxheTogY3VzdG9taXplZCBhdXRvc3VzcGVuZF9kZWxheV9tcyB2YWx1ZSBmb3Igc3BlY2lm
-aWMgbWhpIGRldmljZQo+PiArICogQGVkbF90cmlnZ2VyOiBjYXBhYmxlIG9mIHRyaWdnZXJpbmcg
-RURMIG1vZGUgaW4gdGhlIGRldmljZSAoaWYgc3VwcG9ydGVkKQo+PiAgICogQHNpZGViYW5kX3dh
-a2U6IERldmljZXMgdXNpbmcgZGVkaWNhdGVkIHNpZGViYW5kIEdQSU8gZm9yIHdha2V1cCBpbnN0
-ZWFkCj4+ICAgKgkJICAgb2YgaW5iYW5kIHdha2Ugc3VwcG9ydCAoc3VjaCBhcyBzZHgyNCkKPj4g
-ICAqIEBub19tMzogTTMgbm90IHN1cHBvcnRlZAo+PiBAQCAtNTQsMTEgKzU3LDEyIEBAIHN0cnVj
-dCBtaGlfcGNpX2Rldl9pbmZvIHsKPj4gIAljb25zdCBjaGFyICpuYW1lOwo+PiAgCWNvbnN0IGNo
-YXIgKmZ3Owo+PiAgCWNvbnN0IGNoYXIgKmVkbDsKPj4gLQlib29sIGVkbF90cmlnZ2VyOwo+PiAg
-CXVuc2lnbmVkIGludCBiYXJfbnVtOwo+PiAgCXVuc2lnbmVkIGludCBkbWFfZGF0YV93aWR0aDsK
-Pj4gIAl1bnNpZ25lZCBpbnQgdmZfZG1hX2RhdGFfd2lkdGg7Cj4+ICAJdW5zaWduZWQgaW50IG1y
-dV9kZWZhdWx0Owo+PiArCXVuc2lnbmVkIGludCBhdXRvc3VzcGVuZF9kZWxheTsKPj4gKwlib29s
-IGVkbF90cmlnZ2VyOwo+PiAgCWJvb2wgc2lkZWJhbmRfd2FrZTsKPj4gIAlib29sIG5vX20zOwo+
-PiAgCWJvb2wgcmVzZXRfb25fcmVtb3ZlOwo+PiBAQCAtMTM2OSw2ICsxMzczLDcgQEAgc3RhdGlj
-IGludCBtaGlfcGNpX3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpwZGV2LCBjb25zdCBzdHJ1Y3QgcGNp
-X2RldmljZV9pZCAqaWQpCj4+ICAJc3RydWN0IG1oaV9wY2lfZGV2aWNlICptaGlfcGRldjsKPj4g
-IAlzdHJ1Y3QgbWhpX2NvbnRyb2xsZXIgKm1oaV9jbnRybDsKPj4gIAl1bnNpZ25lZCBpbnQgZG1h
-X2RhdGFfd2lkdGg7Cj4+ICsJdW5zaWduZWQgaW50IGF1dG9zdXNwZW5kX2RlbGF5Owo+PiAgCWlu
-dCBlcnI7Cj4+ICAKPj4gIAlkZXZfaW5mbygmcGRldi0+ZGV2LCAiTUhJIFBDSSBkZXZpY2UgZm91
-bmQ6ICVzXG4iLCBpbmZvLT5uYW1lKTsKPj4gQEAgLTEzOTQsNiArMTM5OSw5IEBAIHN0YXRpYyBp
-bnQgbWhpX3BjaV9wcm9iZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwgY29uc3Qgc3RydWN0IHBjaV9k
-ZXZpY2VfaWQgKmlkKQo+PiAgCWRtYV9kYXRhX3dpZHRoID0gKHBkZXYtPmlzX3ZpcnRmbiAmJiBp
-bmZvLT52Zl9kbWFfZGF0YV93aWR0aCkgPwo+PiAgCQkJICBpbmZvLT52Zl9kbWFfZGF0YV93aWR0
-aCA6IGluZm8tPmRtYV9kYXRhX3dpZHRoOwo+PiAgCj4+ICsJYXV0b3N1c3BlbmRfZGVsYXkgPSBp
-bmZvLT5hdXRvc3VzcGVuZF9kZWxheSA/IGluZm8tPmF1dG9zdXNwZW5kX2RlbGF5IDoKPj4gKwkJ
-CSAgQVVUT1NVU1BFTkRfREVMQVlfTVM7Cj4+ICsKPj4gIAltaGlfY250cmwtPmNudHJsX2RldiA9
-ICZwZGV2LT5kZXY7Cj4+ICAJbWhpX2NudHJsLT5pb3ZhX3N0YXJ0ID0gMDsKPj4gIAltaGlfY250
-cmwtPmlvdmFfc3RvcCA9IChkbWFfYWRkcl90KURNQV9CSVRfTUFTSyhkbWFfZGF0YV93aWR0aCk7
-Cj4+IEBAIC0xNDYzLDcgKzE0NzEsNyBAQCBzdGF0aWMgaW50IG1oaV9wY2lfcHJvYmUoc3RydWN0
-IHBjaV9kZXYgKnBkZXYsIGNvbnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkICppZCkKPj4gIAo+PiAg
-CS8qIEFsbG93IHJ1bnRpbWUgc3VzcGVuZCBvbmx5IGlmIGJvdGggUE1FIGZyb20gRDNIb3QgYW5k
-IE0zIGFyZSBzdXBwb3J0ZWQgKi8KPj4gIAlpZiAocGNpX3BtZV9jYXBhYmxlKHBkZXYsIFBDSV9E
-M2hvdCkgJiYgIShpbmZvLT5ub19tMykpIHsKPj4gLQkJcG1fcnVudGltZV9zZXRfYXV0b3N1c3Bl
-bmRfZGVsYXkoJnBkZXYtPmRldiwgMjAwMCk7Cj4+ICsJCXBtX3J1bnRpbWVfc2V0X2F1dG9zdXNw
-ZW5kX2RlbGF5KCZwZGV2LT5kZXYsIGF1dG9zdXNwZW5kX2RlbGF5KTsKPj4gIAkJcG1fcnVudGlt
-ZV91c2VfYXV0b3N1c3BlbmQoJnBkZXYtPmRldik7Cj4+ICAJCXBtX3J1bnRpbWVfbWFya19sYXN0
-X2J1c3koJnBkZXYtPmRldik7Cj4+ICAJCXBtX3J1bnRpbWVfcHV0X25vaWRsZSgmcGRldi0+ZGV2
-KTsK
+On 9/19/26 02:46, Donggeun Yoo wrote:
+> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+> destination unchanged, so a uffd bit set on the source lands in a
+> destination VMA that was never registered for write protection.  It is
+> then permanent: the bit is dropped only by change_protection() under
+> MM_CP_UFFD_{WP,RWP}_RESOLVE, which uffd_wp_range(), mrwprotect_range()
+> and userfaultfd_clear_vma() issue only for a VMA registered in that
+> mode.  pagemap reports the page as uffd-tracked, and MADV_COLLAPSE
+> refuses the range while the bit is set, because collapse_scan_pmd() is
+> strict about uffd on swap entries.
+> 
+> move_present_ptes() and move_zeropage_pte() build the destination PTE
+> from dst_vma->vm_page_prot and arm RWP only when dst_vma asks for it, so
+> the destination's own registration decides the result.  move_swap_pte()
+> copies the source PTE instead and only ever sets the bit, never clears
+> it, so one UFFDIO_MOVE behaves differently depending on whether the page
+> happened to be resident.
+> 
+> Clear the uffd bit on the moved swap entry unless the destination is
+> RWP-registered, as copy_nonpresent_pte() does where it installs a PTE
+> into a destination that may not be armed.  A WP-registered destination
+> stops inheriting the bit as well, which is already what it gets when the
+> moved page is resident.
+> 
+> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+>  mm/userfaultfd.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 74f04c323c50..6495666c596b 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -1452,6 +1452,8 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+>  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+>  	if (userfaultfd_rwp(dst_vma))
+>  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+> +	else
+> +		orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
+>  	set_pte_at(mm, dst_addr, dst_pte, orig_src_pte);
+>  	double_pt_unlock(dst_ptl, src_ptl);
+>  
+
+In move_present_ptes() we don't run into that issue as we create a new PTE from
+scratch
+
+	orig_dst_pte = folio_mk_pte(src_folio, dst_vma->vm_page_prot);
+
+
+Staring at the
+
+	if (userfaultfd_rwp(dst_vma))
+
+I do wonder why we don't have to take similar care about wp ... I'm sure the is
+a good reason.
+
+Code change itself LGTM.
+
+
+-- 
+Cheers,
+
+David
