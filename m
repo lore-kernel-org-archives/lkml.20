@@ -1,94 +1,215 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0130439F190
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C14442C51C;
+	Tue, 22 Sep 2026 14:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790087889; cv=none; b=E0wDYW6Bznc4yOHIMCX8U4kguqf0KsC1XyN8p7NdNoA8i3QJrOp2CXAZEpGDeoDuD3/LIyGO0qYRuiiwsjMFtxGNjkw7LA7IGmqqzkthbp33POYhBt6/7z4FqowD2j4k47OoPic6kKs9zk/6TANRDL6lCwnzBDsxi9+JcLK4yoE=
+	t=1790087950; cv=none; b=PrdBHj9BOFUuos128+3EDJUUpK6ri4tpQknJ1G8xsVHPciRGRkyN0mtGg83YdLLrtmwg2eLpj3/akWDItyu2uyYMa0oZc7l/f+2pUI8QOuXVwdQFaKPlDhUIPFISnZ0pMfJ75JF4mdZgAwwzD2id/pUKEy8gvlqmJbSG5X3OtXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790087889; c=relaxed/simple;
-	bh=HCuB+gFmzl0g/zR4cNGVTw4/bKbkM4diHu14JZvhNVA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aUwTngNjDZR+/Q7ayOR9rK8qhGy4nwISZHHnGaKjhkUunn2AVKRtbdHvm63QMKLlY/1kXdIx5CfocuStbqyUHpQ8L+ioZILe+8UuX8q9IscZwpIE2njKFrm7vmQb8RaIeNkQVeEiiymGqY801OWSt5Tayj9lcTFMRnJyGPAq0Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BpRU2gAB; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790087950; c=relaxed/simple;
+	bh=af2yWMM4LUFbtaoAA+hAucg10Zu2Ry8R7kzTXbLhkpU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mF/ipXt3SFRBqOoAtYTghLOgcKjCsTpgxlQGXg+C1IpuubNkI84C4I6k7hmzLgaajHdXifeJImihtLW54GRvn7tnLlKGGraO5lfCcO++xtk1MFvojJlehZNiEqxutKjvfkxJtfgeSaBmWjoZ1w9kgBKOzuCUNPxEfyl5c0bsRUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OEGQZdvL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mK8MAT01; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=G3AtbyPX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=A9l0YRPF; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BpRU2gAB"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304784so3732659a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:38:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790087887; x=1790692687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K5WbKNwwi0AYMaZc+AxKq3GAWdEMgZbscVdbl5Zw1Yk=;
-        b=BpRU2gABcXysqVKgWWLyFEnFt1g+FBXDuuOqumMIKCdArAtK2wLYru52uM2URbIhCt
-         HAhxGaXNOqrdZv/R4Vvmth7+LGdhBcwgXOaGeqbsC9FInoqSydfqGizkzL0yv3x90nOu
-         xBTu15DoigOtjC498pwO+Lgb+UyZ4Oq936YV4XbvRh3CYzwXxRqkxZbyw6Na8YRdKCn4
-         lgdQTHfonjvFNWDRjUf/7H0Bj7qzV+IZcudE5eTtvQp0yyQuODaEJyP+RbuavF7yjcLT
-         nQfOL/k1WyqNPrMzoGKS0KjmLAFVHc3ic2wPc8NP7wSN4Ga2jdQJORrWZpBNYp1343cT
-         WexQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790087887; x=1790692687;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K5WbKNwwi0AYMaZc+AxKq3GAWdEMgZbscVdbl5Zw1Yk=;
-        b=QldHonIG0b9PzD6XbFToKmVadQylu+ZBlSnZ8BnYAbF+mBIwgFuyQyno5Pjf9frm+s
-         +TfJTCphx64xA2TZb6rgj5SGiPF9qwnI8Hc6lujSC82YcAKy4o2u1SuUOJhzTJ7jEcdj
-         r6RPbTzufrH4dE+Lwy6k9zPJII33tUR+OcGfgC6NT1kximd90BfeA8NbbvUVxdWhrX6l
-         G9xhj1NtA0uB4Rp77Uo8Pn9dZ5KOERBpU3lU8o3X5XZGMD0dOzGyV035EbmTj6x9Qjz6
-         YCJRdrJ4Hz+H70OXDvObp1bJYYSUaYLZF55IbEYZ8zqciosDIvEeinS7ekzDhqgipbH+
-         M92w==
-X-Forwarded-Encrypted: i=1; AKwUvBzUneIF1MEIhi8koI2IUvuab9vAHGCb24ep5ikuqX/MgGX6HbQeNPSjrOdizazZ1j8rJFVtr0HgaLho3yM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lycHlJP7JTbOJATPeiGY+qLP4ip9tfdk+VH573vXy4eRMkSqbW
-	uZT2uMMnmGyjR1QkmWmQ8+Fvuq4ZlgAlWyvrSduFiRUBdduTHe1srLTM
-X-Gm-Gg: AYBFou02eLdw0THfDuuqcAWWhJrZ4xozLL5fvwAOzR/Z6xPWwGRGakvSON9DaAQ9sAR
-	HEn5gz74vZ9s80qpAD6lHql7xmrPTIRL7NRjAZDidJtIzo16jsQP0wXUFUzN9fZJNeCv2eWJb/G
-	OBBDJsilN9VFDWqiw1qd5FM5spILAXPWFHoo4WY3GS+Up1Cc9V3Mwr5ZZ6Evf1rpH5gUVX7zeUn
-	PqkOb/k/rgDRhepQOQLtSzIChg9x1bKjrb2QxRYwmE1PS364ERhjK733hy3QdAknvuCLYSlhVBT
-	6064IW9UshEBxQfYus8NaVI4AoBQk9SXc2QxjCsbu6xhvIraimeAtNcyT2qusD7O+NLdp65OCA+
-	rsVxy7a2yqYYLTcncxWVN/ZzW+eyC/7HYAOUOCQdR+uhAMvSea10iD2gRDKKiy0CWqlddp78JVX
-	y39jSd2iiWaxlGTlskefS6OYGM8GKjvHhEmd/LQ5o/58JFrCFzPANQQT3n9dTMq7E=
-X-Received: by 2002:a05:6a21:4903:b0:3dd:a006:7b38 with SMTP id adf61e73a8af0-3ddec802498mr1827982637.55.1790087887162;
-        Tue, 22 Sep 2026 07:38:07 -0700 (PDT)
-Received: from dev ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc756a1d386sm1084658a12.10.2026.09.22.07.38.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:38:06 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Yuya Kusakabe <yuya.kusakabe@gmail.com>,
-	Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: ipv6: keep room for the mac header when growing the headroom
-Date: Tue, 22 Sep 2026 23:37:54 +0900
-Message-ID: <20260922233754.2241064-1-yuya.kusakabe@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <11c3ed15-9694-4b03-832f-6c49abd742d9@redhat.com>
-References: <20260918-seg6-maclen-headroom-v2-1-4d370af55b2e@gmail.com> <11c3ed15-9694-4b03-832f-6c49abd742d9@redhat.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OEGQZdvL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mK8MAT01";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="G3AtbyPX";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A9l0YRPF"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A6B5821AEC;
+	Tue, 22 Sep 2026 14:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790087942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bg2sCOwKiRj33zXWVdRM/HUBz9cnyhbUaZqvwJlheOM=;
+	b=OEGQZdvLA9LCZ+w4MZhztgiWM7KNUJKcKjbYtJ+u+I7Kq8eozECweucnr8cLRUVZwqgeFn
+	2iWVvwtNIH950Oo6QCwy+82LuzKnZGLECyyWN7ZljYbi8OZO53bBGpmoevFgDVydStB4cW
+	JDRp/PSP22i2K81d83kMXJO3tpXm+W8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790087942;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bg2sCOwKiRj33zXWVdRM/HUBz9cnyhbUaZqvwJlheOM=;
+	b=mK8MAT01NQpMFsyiuhnWB6BwUtyS9BUiT7xVGdTJadLEuvyhL1T9qfR5PAYsy5hszPDXJK
+	X22O9yE9quE1PMAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790087938; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bg2sCOwKiRj33zXWVdRM/HUBz9cnyhbUaZqvwJlheOM=;
+	b=G3AtbyPXFB9a51ued4JJ1TKkqXaYAlrTWg6vczRcnVaEkb5YlgaDjLJ9/qozbJoKQTf78D
+	nFRoiVYZeq/kwD1kbb/H+sYRGyDKPa8RKm/B1YDHxGeIfaUSfzB943Vxv9BFC1KOydmeVv
+	uXVxzbThQbYDm6/rGc9F91uZgRzm4xk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790087938;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bg2sCOwKiRj33zXWVdRM/HUBz9cnyhbUaZqvwJlheOM=;
+	b=A9l0YRPFxcBJmX2I0S+hdn0PClzmDUsRnDfMUP5zJalpsDPT8n/RdcJChCpWZ0kr1z0ysJ
+	vRCCnmYWz0XE+cCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3AF89136D9;
+	Tue, 22 Sep 2026 14:38:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id U31aAQKTsmruQwAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 22 Sep 2026 14:38:58 +0000
+Message-ID: <0c396008-7e24-4980-a640-3a8582747ee1@suse.de>
+Date: Tue, 22 Sep 2026 16:38:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: libfc: fix directory server rport memory leak
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Robert Love <robert.w.love@intel.com>,
+ James Bottomley <James.Bottomley@suse.de>, Joe Eykholt <jeykholt@cisco.com>,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+ <4ca4f5c5-5021-4a63-bb14-4b7d0502eef6@suse.de>
+ <CANUHTR-AHqeBhiuTpoVSrGjBqpWzug2JW3npaQEv7ZDZj7q9BA@mail.gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <CANUHTR-AHqeBhiuTpoVSrGjBqpWzug2JW3npaQEv7ZDZj7q9BA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MIME_TRACE(0.00)[0:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email]
+X-Spam-Flag: NO
 
-On 9/22/26 15:46, Paolo Abeni wrote:
-> Since all the existing dst_dev_overhead() users are touched here, I
-> suggest moving the max() computation inside dst_dev_overhead().
+On 9/22/26 10:26 AM, Guangshuo Li wrote:
+> Hi Hannes,
+> 
+> On Mon, 21 Sept 2026 at 16:48, Hannes Reinecke <hare@suse.de> wrote:
+>>
+>> On 9/19/26 7:34 PM, Guangshuo Li wrote:
+>>> fc_rport_recv_plogi_req() creates an rport before allocating the frame
+>>> used for the PLOGI LS_ACC response.
+>>>
+>>> fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
+>>> rport list. If fc_frame_alloc() fails while handling a PLOGI from the
+>>> directory server, the function returns without starting the rport state
+>>> machine or dropping the initial rport reference.
+>>>
+>>> Since the directory server rport is not present in the discovery list,
+>>> there is no later teardown path that can find the object and release
+>>> that reference. The allocated fc_rport_priv is therefore leaked.
+>>>
+>>> Record when the failed frame allocation leaves an unlisted directory
+>>> server rport behind and drop its initial reference after releasing the
+>>> rport mutex. Keep the existing lifetime unchanged for ordinary rports,
+>>> which remain owned by the discovery list.
+>>>
+>>> The issue was identified by a static analysis tool I developed and
+>>> confirmed by manual review.
+>>>
+>>> Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+>>> ---
+>>>    drivers/scsi/libfc/fc_rport.c | 7 ++++++-
+>>>    1 file changed, 6 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
+>>> index c25979d96808..884b233c2f72 100644
+>>> --- a/drivers/scsi/libfc/fc_rport.c
+>>> +++ b/drivers/scsi/libfc/fc_rport.c
+>>> @@ -1848,6 +1848,7 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+>>>        struct fc_els_flogi *pl;
+>>>        struct fc_seq_els_data rjt_data;
+>>>        u32 sid;
+>>> +     bool drop_rdata = false;
+>>>
+>>>        lockdep_assert_held(&lport->lp_mutex);
+>>>
+>>> @@ -1940,8 +1941,10 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+>>>         * Send LS_ACC.  If this fails, the originator should retry.
+>>>         */
+>>>        fp = fc_frame_alloc(lport, sizeof(*pl));
+>>> -     if (!fp)
+>>> +     if (!fp) {
+>>> +             drop_rdata = sid == FC_FID_DIR_SERV;
+>>>                goto out;
+>>> +     }
+>>>
+>>>        fc_plogi_fill(lport, fp, ELS_LS_ACC);
+>>>        fc_fill_reply_hdr(fp, rx_fp, FC_RCTL_ELS_REP, 0);
+>>> @@ -1949,6 +1952,8 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+>>>        fc_rport_enter_prli(rdata);
+>>>    out:
+>>>        mutex_unlock(&rdata->rp_mutex);
+>>> +     if (drop_rdata)
+>>> +             kref_put(&rdata->kref, fc_rport_destroy);
+>>>        fc_frame_free(rx_fp);
+>>>        return;
+>>>
+>>
+>> Wouldn't it be better to always create an rport for the directory
+>> server?
+>> That would make the teardown path far easier.
+>>
+> 
+> Yes, that sounds cleaner.
+> 
+> I kept the current directory-server special case to minimize the change, but
+> using the normal rport lifetime would avoid this extra cleanup logic.
+> 
+> Do you mean adding the directory-server rport to the regular rport list as
+> well, so the existing teardown path can release it?
+> 
+Yes. We should always register with the nameserver (like 'normal' FC 
+does it), and then the existing teardown path should take care of it.
 
-Thanks, that is what v3 does, posted before this mail:
+Cheers,
 
-  https://lore.kernel.org/r/20260922-seg6-maclen-headroom-v3-1-7b2f982ef79d@gmail.com
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
