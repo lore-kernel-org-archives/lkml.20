@@ -1,149 +1,96 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D9CD41A50B;
-	Tue, 22 Sep 2026 08:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78784417340
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:17:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065019; cv=none; b=AhA5GX2hHJYkLcawUnDepwhAmHXSQccSMuT6K2UX3zVv553l11pkyv7x8dCvk2y5jpqlYFne7KwBQGtfKo+96AcbIuUX1yC7r1PAUtcg+SyTlOol6BX3HMGShbAqdV0NWFWpW+1x3T/TqOpSiiWPEHOQHdxMhkEKUSmyHcTQ2/Y=
+	t=1790065042; cv=none; b=Wez0fvBStkKEDXb4oY+TH5+QGCHjqy5rPuyHWLuC9vytf8qgJq6NR7Icc3txbVNIwMegPZn9RSrG++QrDpO/t7DpPVcPVJx1cf4Fw9MTSbz2/5wfwq9N1XQTY/U0eecb1mZZ0DaA2U0P5NUTal8Z4w4v/TJmqUUP5UM9gVh5j/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065019; c=relaxed/simple;
-	bh=4HbwZEfa+cRQWF9f/+A2Lw6siv1Umc8ka3GRgBT5ZFY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kSRbv8Pzh1t2ucFlt6Iov9T5tKQvb/0ZjzKPhnTbZ715YqxG9QJOHAtyzBR/RlQ3kVQHCAuPpBWEBcYwjr/968KyYtcWUUwJwZJTM4tEpR/QOBwBEBUO2K1F8MWG6/XZKDrLFcp9D7ASv9nBzQZGIQsAcMObdEWn3NrjEbVyFxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gsyPGIOz; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790065042; c=relaxed/simple;
+	bh=KIQ7IN0bMoaTb8Bxsp9Sn4TMN3MWOxJYIHQZdVBoVWw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QPJYWTHaFaUTTJgxvtwP3ElFJol2eeZMor1J6UelBDYy2KHizMIvMQ/puofLZS1W7WvV5Sp6bERo5fi91puSOaMKzyxUB4d1PuVIkcyiEVW85QLoeIldv1WI8WshTgzuHljIvdQyn/RyvbJJG2SPHSz6wWkMu0roBK3SNBNH9XU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=jmQBILqr; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gsyPGIOz"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD6ED1576;
-	Tue, 22 Sep 2026 01:16:52 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A0DD83F632;
-	Tue, 22 Sep 2026 01:16:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790065016; bh=4HbwZEfa+cRQWF9f/+A2Lw6siv1Umc8ka3GRgBT5ZFY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gsyPGIOzdWO+7ye4dvf4hgM8YlaXqCY8aW4qTmiRM4liCZm/4j7epoLXFMjUuyYgq
-	 22WHSurfxTtl16xdShGOI671c4pDflaXqa3NWYCEcvA9GEWQUsd9G7fGYZt/KyixOz
-	 Au29k3hFlPbdtvH21rGaxqyuBdOyF7JuWcqA4Fnk=
-Message-ID: <beee950f-0659-43dd-9c5e-0a51722ea54a@arm.com>
-Date: Tue, 22 Sep 2026 09:16:52 +0100
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="jmQBILqr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=6jLlFLO/Fg5yW4vvYQnf50txMvWhV+uL240xi237wsA=; b=jmQBILqrAf7hH9eiiNcEz2DjdF
+	m5SrDCuaKYqZ3dag0o3qWBeEL6oGUm+citBMlau1NL4Ey5uoOCKzgqwQSQanULeA20Vuf+Mg+GMOj
+	YN/r8Ib0nbnvx+RsVc84AShaqGfabi6IQ4Z9kBlhUrcLkVjQg+BPgRFAxfFfg/aBG2M/ZHN8I3rX/
+	47dyA7kNzFOUr9Pqbc/TYx+DmtfKSjUkybFlTvYIfFxHS55OdZGs2jaoTGCatNLroS1+/ZaLRGp35
+	sPqM3l/ro05uNGX95+CpQLVMbVrIx5RyE5i2SGdpnE+Aqb9PS+q3tOU6OywFNJmDTn31ooMuilgj5
+	BV2vPR5Q==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x8vgZ-0000000DFoD-49MN;
+	Tue, 22 Sep 2026 08:17:08 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7591C300708; Tue, 22 Sep 2026 10:17:06 +0200 (CEST)
+Date: Tue, 22 Sep 2026 10:17:06 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: mingo@redhat.com, hannes@cmpxchg.org, surenb@google.com,
+	jstultz@google.com, connoro@google.com, metin.kaya@arm.com,
+	sh_def@163.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] sched/core: Account PSI IRQ time to the execution context
+Message-ID: <20260922081706.GE2009045@noisy.programming.kicks-ass.net>
+References: <20260918132915.1236312-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
- <aqvCwM_73qMpqzvV@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <aqvCwM_73qMpqzvV@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918132915.1236312-1-zhanxusheng@xiaomi.com>
 
-On 17/09/2026 11:36, Catalin Marinas wrote:
-> Hi Suzuki,
+On Fri, Sep 18, 2026 at 09:29:15PM +0800, Zhan Xusheng wrote:
+> psi_account_irqtime() has two callers which share rq->psi_irq_time, and
+> they disagree about the context: __schedule() passes the outgoing rq->curr,
+> sched_tick() passes rq->donor.  Under proxy execution the donor is blocked
+> on a mutex while rq->curr burns the CPU.
 > 
-> On Thu, Sep 17, 2026 at 10:03:14AM +0100, Suzuki K Poulose wrote:
->> On 16/09/2026 17:39, Catalin Marinas wrote:
->>> On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
->>>> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
->>>> index 75c3e463df2ef..dc3a87902a60c 100644
->>>> --- a/arch/arm64/mm/fault.c
->>>> +++ b/arch/arm64/mm/fault.c
->>>> @@ -914,6 +914,24 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
->>>>    	return 0;
->>>>    }
->>>> +static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
->>>> +{
->>>> +	const struct fault_info *inf = esr_to_fault_info(esr);
->>>> +	unsigned long addr = untagged_addr(far);
->>>> +
->>>> +	die_kernel_fault(inf->name, addr, esr, regs);
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
->>>> +{
->>>> +	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
->>>> +	    fixup_exception(regs, esr))
->>>> +		return 0;
->>>> +
->>>> +	return 1;
->>>> +}
->>>
->>> We discussed briefly offline. With the latest patches around, would we
->>> ever end up with private memory mapped in the VMM and hence the GPF? If
->>> not, I would still keep this handling but add a
->>> WARN_ON_ONCE(user_mode(regs)).
->>>
->>> However, can we end up delegating a non-guest_memfd memslot page as
->>> protected?
->>>
->>> I played a bit with codex and it reckons it's possible if a guest_memfd
->>> memslot is deleted after its IPA range has been initialised with
->>> RIPAS=RAM. Removing the memslot unmaps and undelegates any data pages
->>> but leaves the RMM state as RAM. The VMM can then install an ordinary
->>> memslot over the same GPA range.
->>
->> This should be prevented by the following predicates:
->>
->> 1) Realms only support guest_memfd backed memslots for mappable memory.
->> 2) Memslots cannot be created after the Realm is created, as is with the
->> protected VMs. (This check seems to have been lost over the iterations,
->>   but should be reinstated).
+> The tick charges PSI_IRQ_FULL to the donor's cgroup and advances the
+> timestamp, so the call from __schedule() then finds delta <= 0 and charges
+> nothing.  The delta is not counted twice, it lands on the wrong cgroup.
 > 
-> If that's the intended model, I think it should work. But v18 doesn't
-> enforce either of them. I noticed the second predicate for pKVM only -
-> your 'Widen the scope of "protected" VMs' patch makes this restriction
-> explicit to pKVM.
-
-Yes, like I said, that seems to have lost. I will put that back in. This
-is not in the v18/v19, but will add it for the next iteration.
-
+> Pass rq->curr, which is what the call read before commit af0c8b2bf67b
+> ("sched: Split scheduler and execution contexts") renamed curr to donor
+> across sched_tick().  Without CONFIG_SCHED_PROXY_EXEC the two rq members
+> are a union, so this only changes anything where that option is set, and
+> it depends on EXPERT.
 > 
-> For the first one, if !kvm_slot_has_gmem(), it simply continues with the
-> registration.
+> Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+> Built and booted on x86_64 with CONFIG_SCHED_PROXY_EXEC=y, PSI and
+> IRQ_TIME_ACCOUNTING enabled, under x86_debug.config and panic_on_warn.
+> I did not construct a case where donor and curr differ.
+>  kernel/sched/core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->>> A subsequent private-IPA S2 fault sees the non-guest_memfd slot, takes
->>> user_mem_abort(), GUPs the user page and passes it to
->>> realm_map_protected(). The userspace mapping remains present, so a later
->>> EL0 access can generate a GPF.
->>
->> The Realm mem abort code should prevent this by ensuring that the
->> memslot is backed by gmem for private_faults. With the mandate of
->> in-place conversion, even the shared pages must come from the
->> gmem backed memslots.
-> 
-> IIUC this only works if the memslot is gmem but I can't see what
-> prevents ordinary slots from being assigned to realms. I think we can
-> enter the user_mem_abort() -> realm_map_ipa() for ordinary slots unless
-> we prevent the deletion of the original slots and enforce gmem only
-> slots early.
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 7885ff76e69f..2b48ae0ab372 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -5791,7 +5791,7 @@ void sched_tick(void)
+>  	curr = rq->curr;
+>  	donor = rq->donor;
+>  
+> -	psi_account_irqtime(rq, donor, NULL);
+> +	psi_account_irqtime(rq, curr, NULL);
+>  
+>  	update_rq_clock(rq);
+>  	hw_pressure = arch_scale_hw_pressure(cpu_of(rq));
 
-Correct. For CCA, we can mandate that the private faults are only
-faulted in from gmem memslots or the "trusted device private" memslots
-when we eventually get the DA support.
-
-I will address this for v20 of the integration series
-
-Cheers
-Suzuki
-
-
-
-> 
-
+Does not in fact apply. There is no curr in sched_tick anymore.
