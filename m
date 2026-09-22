@@ -1,371 +1,106 @@
-Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FE24DE714
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A682414407
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058672; cv=none; b=WAnsaUyeSldRiuzNmZvGYP2c4woqQ8H/BYAK8NTaOk2CTDAeX/zWDPCiDnelKRcwdfQgiFR7nNKsiBpt1PIWh9U4PZDVLfhCFGxDL7kP1QZLYk+GQ9Fcv1n0TH5xxtItQukySbKSwO7NIutqdzKY1AsOxb7oYJR0W6qCh9/rYLI=
+	t=1790058697; cv=none; b=DhDpNwcrax1z1ZH/om2wkd87d2t2zCaH+/fZjaS9r4ML8t4TH9lzgX2rDgx/UhnFOazTsXjoDZ1mirIC+7aLI9IPHns9TJVJTHzlBi83LlHPAHlkWrnCmedCTbHBduVljaWKy6bzuqDjRSdGmSE7Pi31Kafyf4Lde2TAeqx6Eak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058672; c=relaxed/simple;
-	bh=8ych7vh/bUCvdKAZ8mScexBW4iPgAwZvpCc332syeiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q8NuxOeRgut2GbaIm+csGPs7L1Kj9MAQecqLfxQ2KEYPuWZX/Cgy0+Up8hCqBenslWuAGWG9VdqwPrBXuDMztyyX/2AYiJzjH653fzRaMOcG8kWWVtPo2Oe6JO2+1aodCICpn/mKhg/uuM4Ujnb1MSalh8Q/do1ZU+6A7lT34jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=geyAvd+X; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=aVxiHD0j; arc=none smtp.client-ip=140.77.166.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
+	s=arc-20240116; t=1790058697; c=relaxed/simple;
+	bh=WT7L+yjgB0IaOTyJkUQuzdzCWldIgXpJyxmwqVKairA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=PmPw2cqWZ+4c6/+8rbXx50zU4wMeJYhIwfT29mqs0Y0Gufs9MaacAJA22PligmW8NCnpMYJDxJ707sk3ExXgDU0atDBzVRnRkuXiqle4jgBAPSoLCL2vNyCOe5OvhTr85ZBxUllzEYyKNd/Us4q3c/6z5iT4qa6mttsr4tsvJuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oAYNnPDU; arc=none smtp.client-ip=95.215.58.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="geyAvd+X";
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="aVxiHD0j"
-Received: from localhost (localhost [127.0.0.1])
-	by sonata.ens-lyon.org (Postfix) with ESMTP id F1B04A4870;
-	Tue, 22 Sep 2026 08:30:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1790058650; bh=8ych7vh/bUCvdKAZ8mScexBW4iPgAwZvpCc332syeiE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=geyAvd+XWfnJ4ptcgYjvffkGklAPL3i5EL4qT/D+AwnB+oJS5AQmNyEMhkxQRdRKF
-	 6/Of4URTG+zcX3ykAl2IziQHDxdDTTCyaBD7a36RDDno46rA//1k7BwUhfd0seSgOG
-	 gjAoDV37BOAB0IA1LwGp527s0PdYVBOF3MEbla/ZqLLu4kV+3XL8eWu5YwM6W3YqBp
-	 nowSm/Djioea5x+QcARJiOJsl5+LMH1wvDaurFfy1vyd8CdBNU8f3u/gs5z2P04pSj
-	 vcscGL82sSIh29XEIFD4wOR2icD8R3OK//D33VILM0jSxGnuSLh6kSMf5TTyFVRg5U
-	 twe+588VMv6Ug==
-Received: from sonata.ens-lyon.org ([127.0.0.1])
-	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id eBQ_bYRfzN81; Tue, 22 Sep 2026 08:30:49 +0200 (CEST)
-Received: from end (unknown [212.133.41.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by sonata.ens-lyon.org (Postfix) with ESMTPSA id A70B6A1B39;
-	Tue, 22 Sep 2026 08:30:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1790058649; bh=8ych7vh/bUCvdKAZ8mScexBW4iPgAwZvpCc332syeiE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=aVxiHD0jpXZHz4tSwve4MkH3cVkfLz15oPnNFdAwyYy3loohs0/d8WAOPwHd2APdr
-	 OFiImQ228r+uJuUG27nMwBNEdtjePOOtdrBpyEY2xpysw7ttX9u52Zu4Ywgs4rHvw+
-	 9de9MfEUrL5LrG90gd1uZyMnP4ML1jfJjvhoUEDwLHiQRdmaP5cGtAmG2LHsYVLPUe
-	 hy3eVPpLBoMoJeLOKYge09CrHkeT82V1YgqgtAonx1eiyWqXfS0WE5fX4vkQ0K2kt8
-	 wt5f+CVCgVn6m+aI0EPBinH6HfLjPd7hn34HRHBjBYgdtAVQQXKG3HMi5rHIYAElKs
-	 RYppMgkcRzsTw==
-Received: from samy by end with local (Exim 4.100)
-	(envelope-from <samuel.thibault@ens-lyon.org>)
-	id 1x8u1g-00000005qM4-0Sni;
-	Tue, 22 Sep 2026 08:30:48 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: gregkh@linuxfoundation.org
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	w.d.hubbs@gmail.com,
-	chris@the-brannons.com,
-	kirk@reisers.ca,
-	speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] speakup: Drop now-unused serialio operations
-Date: Tue, 22 Sep 2026 08:30:47 +0200
-Message-ID: <20260922063047.1392828-1-samuel.thibault@ens-lyon.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oAYNnPDU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WT7L+yjgB0IaOTyJkUQuzdzCWldIgXpJyxmwqVKairA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790058691; v=1; x=1790663491;
+ b=oAYNnPDU7g0bbd9sOTRK7kokZ2fvrpFZqzEdH3h5e7FRO/fpmVq5lUutgC0S8Yp40F13w1Pa
+ x6WaMn7qZFo3YIXySL9Tvw4umgM7wc7qYeOGHhUwQ7vb32qbdVCmu/335unQTcQ63D34f28E8no
+ eMHM7CG+OFz4076/tOpFUv+o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 3d5eaa6d3b009fbe;
+	Tue, 22 Sep 2026 06:31:31 +0000
+X-Mizu-Trace-ID: 3d5eaa6d3b009fbe
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
+ together with hugetlb folio
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <arIEfJXYpspgX4-G@localhost.localdomain>
+Date: Tue, 22 Sep 2026 14:31:14 +0800
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Hongfu Li <hongfu.li@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Michal Hocko <mhocko@suse.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Chris Down <chris@chrisdown.name>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ cgroups@vger.kernel.org,
+ Hongfu Li <lihongfu@kylinos.cn>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <D086B92E-13A8-48A7-97B6-CD671EE22033@linux.dev>
+References: <arIAyyjYcCKHFmyD@localhost.localdomain>
+ <20260922042054.3264663-1-joshua.hahnjy@gmail.com>
+ <arIEfJXYpspgX4-G@localhost.localdomain>
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-The only users of serialio (acntpc, decpc, dtlk, keypc) don't actually
-define a read_buff_add method, so start_stop_serial_interrupt were not doing
-anything. The other functions were not referenced at all any more since
-bbe6fb5b96bd ("staging: speakup: migrate bns to tty")
 
-Signed-off-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
----
- drivers/accessibility/speakup/serialio.c      | 179 ------------------
- .../accessibility/speakup/speakup_acntpc.c    |   1 -
- drivers/accessibility/speakup/speakup_decpc.c |   1 -
- drivers/accessibility/speakup/speakup_dtlk.c  |   1 -
- drivers/accessibility/speakup/speakup_keypc.c |   1 -
- drivers/accessibility/speakup/spk_priv.h      |   6 -
- 6 files changed, 189 deletions(-)
 
-diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
-index 3418ea31d28f..b8d89dc30704 100644
---- a/drivers/accessibility/speakup/serialio.c
-+++ b/drivers/accessibility/speakup/serialio.c
-@@ -17,8 +17,6 @@
- #define SERIAL_PORT_DFNS
- #endif
- 
--static void start_serial_interrupt(int irq);
--
- static const struct old_serial_port rs_table[] = {
- 	SERIAL_PORT_DFNS
- };
-@@ -45,111 +43,6 @@ struct spk_io_ops spk_serial_io_ops = {
- };
- EXPORT_SYMBOL_GPL(spk_serial_io_ops);
- 
--const struct old_serial_port *spk_serial_init(int index)
--{
--	int baud = 9600, quot = 0;
--	unsigned int cval = 0;
--	int cflag = CREAD | HUPCL | CLOCAL | B9600 | CS8;
--	const struct old_serial_port *ser;
--	int err;
--
--	if (index >= ARRAY_SIZE(rs_table)) {
--		pr_info("no port info for ttyS%d\n", index);
--		return NULL;
--	}
--	ser = rs_table + index;
--
--	/*	Divisor, byte size and parity */
--	quot = ser->baud_base / baud;
--	cval = cflag & (CSIZE | CSTOPB);
--#if defined(__powerpc__) || defined(__alpha__)
--	cval >>= 8;
--#else /* !__powerpc__ && !__alpha__ */
--	cval >>= 4;
--#endif /* !__powerpc__ && !__alpha__ */
--	if (cflag & PARENB)
--		cval |= UART_LCR_PARITY;
--	if (!(cflag & PARODD))
--		cval |= UART_LCR_EPAR;
--	if (synth_request_region(ser->port, 8)) {
--		/* try to take it back. */
--		pr_info("Ports not available, trying to steal them\n");
--		__release_region(&ioport_resource, ser->port, 8);
--		err = synth_request_region(ser->port, 8);
--		if (err) {
--			pr_warn("Unable to allocate port at %x, errno %i",
--				ser->port, err);
--			return NULL;
--		}
--	}
--
--	/*	Disable UART interrupts, set DTR and RTS high
--	 *	and set speed.
--	 */
--	outb(cval | UART_LCR_DLAB, ser->port + UART_LCR);	/* set DLAB */
--	outb(quot & 0xff, ser->port + UART_DLL);	/* LS of divisor */
--	outb(quot >> 8, ser->port + UART_DLM);		/* MS of divisor */
--	outb(cval, ser->port + UART_LCR);		/* reset DLAB */
--
--	/* Turn off Interrupts */
--	outb(0, ser->port + UART_IER);
--	outb(UART_MCR_DTR | UART_MCR_RTS, ser->port + UART_MCR);
--
--	/* If we read 0xff from the LSR, there is no UART here. */
--	if (inb(ser->port + UART_LSR) == 0xff) {
--		synth_release_region(ser->port, 8);
--		serstate = NULL;
--		return NULL;
--	}
--
--	mdelay(1);
--	speakup_info.port_tts = ser->port;
--	serstate = ser;
--
--	start_serial_interrupt(ser->irq);
--
--	return ser;
--}
--
--static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
--{
--	unsigned long flags;
--	int c;
--
--	spin_lock_irqsave(&speakup_info.spinlock, flags);
--	while (inb_p(speakup_info.port_tts + UART_LSR) & UART_LSR_DR) {
--		c = inb_p(speakup_info.port_tts + UART_RX);
--		synth->read_buff_add((u_char)c);
--	}
--	spin_unlock_irqrestore(&speakup_info.spinlock, flags);
--	return IRQ_HANDLED;
--}
--
--static void start_serial_interrupt(int irq)
--{
--	int rv;
--
--	if (!synth->read_buff_add)
--		return;
--
--	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
--			 "serial", (void *)synth_readbuf_handler);
--
--	if (rv)
--		pr_err("Unable to request Speakup serial I R Q\n");
--	/* Set MCR */
--	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
--	     speakup_info.port_tts + UART_MCR);
--	/* Turn on Interrupts */
--	outb(UART_IER_MSI | UART_IER_RLSI | UART_IER_RDI,
--	     speakup_info.port_tts + UART_IER);
--	inb(speakup_info.port_tts + UART_LSR);
--	inb(speakup_info.port_tts + UART_RX);
--	inb(speakup_info.port_tts + UART_IIR);
--	inb(speakup_info.port_tts + UART_MSR);
--	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
--}
--
- static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
- {
- 	int timeout = SPK_XMITR_TIMEOUT;
-@@ -169,50 +62,6 @@ static void spk_serial_tiocmset(struct spk_synth *in_synth, unsigned int set, un
- 	outb((old & ~clear) | set, speakup_info.port_tts + UART_MCR);
- }
- 
--int spk_serial_synth_probe(struct spk_synth *synth)
--{
--	const struct old_serial_port *ser;
--	int failed = 0;
--
--	if ((synth->ser >= SPK_LO_TTY) && (synth->ser <= SPK_HI_TTY)) {
--		ser = spk_serial_init(synth->ser);
--		if (!ser) {
--			failed = -1;
--		} else {
--			outb_p(0, ser->port);
--			mdelay(1);
--			outb_p('\r', ser->port);
--		}
--	} else {
--		failed = -1;
--		pr_warn("ttyS%i is an invalid port\n", synth->ser);
--	}
--	if (failed) {
--		pr_info("%s: not found\n", synth->long_name);
--		return -ENODEV;
--	}
--	pr_info("%s: ttyS%i, Driver Version %s\n",
--		synth->long_name, synth->ser, synth->version);
--	synth->alive = 1;
--	return 0;
--}
--EXPORT_SYMBOL_GPL(spk_serial_synth_probe);
--
--void spk_stop_serial_interrupt(void)
--{
--	if (speakup_info.port_tts == 0)
--		return;
--
--	if (!synth->read_buff_add)
--		return;
--
--	/* Turn off interrupts */
--	outb(0, speakup_info.port_tts + UART_IER);
--	/* Free IRQ */
--	free_irq(serstate->irq, (void *)synth_readbuf_handler);
--}
--EXPORT_SYMBOL_GPL(spk_stop_serial_interrupt);
--
- static int spk_serial_wait_for_xmitr(struct spk_synth *in_synth)
- {
- 	int tmout = SPK_XMITR_TIMEOUT;
-@@ -288,31 +137,3 @@ static int spk_serial_out(struct spk_synth *in_synth, const char ch)
- 	}
- 	return 0;
- }
--
--const char *spk_serial_synth_immediate(struct spk_synth *synth,
--				       const char *buff)
--{
--	u_char ch;
--
--	while ((ch = *buff)) {
--		if (ch == '\n')
--			ch = synth->procspeech;
--		if (spk_serial_wait_for_xmitr(synth))
--			outb(ch, speakup_info.port_tts);
--		else
--			return buff;
--		buff++;
--	}
--	return NULL;
--}
--EXPORT_SYMBOL_GPL(spk_serial_synth_immediate);
--
--void spk_serial_release(struct spk_synth *synth)
--{
--	spk_stop_serial_interrupt();
--	if (speakup_info.port_tts == 0)
--		return;
--	synth_release_region(speakup_info.port_tts, 8);
--	speakup_info.port_tts = 0;
--}
--EXPORT_SYMBOL_GPL(spk_serial_release);
-diff --git a/drivers/accessibility/speakup/speakup_acntpc.c b/drivers/accessibility/speakup/speakup_acntpc.c
-index a27e6bbf05da..1cc6147cafac 100644
---- a/drivers/accessibility/speakup/speakup_acntpc.c
-+++ b/drivers/accessibility/speakup/speakup_acntpc.c
-@@ -305,7 +305,6 @@ static int synth_probe(struct spk_synth *synth)
- 
- static void accent_release(struct spk_synth *synth)
- {
--	spk_stop_serial_interrupt();
- 	if (speakup_info.port_tts)
- 		synth_release_region(speakup_info.port_tts - 1,
- 				     SYNTH_IO_EXTENT);
-diff --git a/drivers/accessibility/speakup/speakup_decpc.c b/drivers/accessibility/speakup/speakup_decpc.c
-index 1bf36d1e5477..4837cac8bafa 100644
---- a/drivers/accessibility/speakup/speakup_decpc.c
-+++ b/drivers/accessibility/speakup/speakup_decpc.c
-@@ -487,7 +487,6 @@ static int synth_probe(struct spk_synth *synth)
- 
- static void dtpc_release(struct spk_synth *synth)
- {
--	spk_stop_serial_interrupt();
- 	if (speakup_info.port_tts)
- 		synth_release_region(speakup_info.port_tts, SYNTH_IO_EXTENT);
- 	speakup_info.port_tts = 0;
-diff --git a/drivers/accessibility/speakup/speakup_dtlk.c b/drivers/accessibility/speakup/speakup_dtlk.c
-index fa826568937b..0a57f7ea894c 100644
---- a/drivers/accessibility/speakup/speakup_dtlk.c
-+++ b/drivers/accessibility/speakup/speakup_dtlk.c
-@@ -377,7 +377,6 @@ static int synth_probe(struct spk_synth *synth)
- 
- static void dtlk_release(struct spk_synth *synth)
- {
--	spk_stop_serial_interrupt();
- 	if (speakup_info.port_tts)
- 		synth_release_region(speakup_info.port_tts - 1,
- 				     SYNTH_IO_EXTENT);
-diff --git a/drivers/accessibility/speakup/speakup_keypc.c b/drivers/accessibility/speakup/speakup_keypc.c
-index 9356f6379560..1e2edc5c4b8b 100644
---- a/drivers/accessibility/speakup/speakup_keypc.c
-+++ b/drivers/accessibility/speakup/speakup_keypc.c
-@@ -306,7 +306,6 @@ static int synth_probe(struct spk_synth *synth)
- 
- static void keynote_release(struct spk_synth *synth)
- {
--	spk_stop_serial_interrupt();
- 	if (synth_port)
- 		synth_release_region(synth_port, SYNTH_IO_EXTENT);
- 	synth_port = 0;
-diff --git a/drivers/accessibility/speakup/spk_priv.h b/drivers/accessibility/speakup/spk_priv.h
-index 9da57ead17cb..704ff9f120d3 100644
---- a/drivers/accessibility/speakup/spk_priv.h
-+++ b/drivers/accessibility/speakup/spk_priv.h
-@@ -32,9 +32,6 @@
- #define SYNTH_DEFAULT_DEV "ttyS0"
- #define SYNTH_DEFAULT_SER 0
- 
--const struct old_serial_port *spk_serial_init(int index);
--void spk_stop_serial_interrupt(void);
--void spk_serial_release(struct spk_synth *synth);
- void spk_ttyio_release(struct spk_synth *synth);
- void spk_ttyio_register_ldisc(void);
- void spk_ttyio_unregister_ldisc(void);
-@@ -49,10 +46,7 @@ ssize_t spk_var_show(struct kobject *kobj, struct kobj_attribute *attr,
- ssize_t spk_var_store(struct kobject *kobj, struct kobj_attribute *attr,
- 		      const char *buf, size_t count);
- 
--int spk_serial_synth_probe(struct spk_synth *synth);
- int spk_ttyio_synth_probe(struct spk_synth *synth);
--const char *spk_serial_synth_immediate(struct spk_synth *synth,
--				       const char *buff);
- const char *spk_ttyio_synth_immediate(struct spk_synth *synth,
- 				      const char *buff);
- void spk_do_catch_up(struct spk_synth *synth);
--- 
-2.47.3
+> On Sep 22, 2026, at 12:30, Oscar Salvador (SUSE) =
+<osalvador@kernel.org> wrote:
+>=20
+> On Mon, Sep 21, 2026 at 09:20:53PM -0700, Joshua Hahn wrote:
+>> On Tue, 22 Sep 2026 06:15:07 +0200 "Oscar Salvador (SUSE)" =
+<osalvador@kernel.org> wrote:
+>=20
+>>> Why do we need the whole thing to be embraced by rcu?
+>>=20
+>> Hi Oscar,
+>=20
+> Hi Joshua,
+>=20
+>>=20
+>> I believe it's because now getting the memcg from the objcg requires
+>> an RCU lock to make sure it doesn't get removed while we work on the
+>> memcg. I think this is since Qi Zheng's "Eliminate Dying Memory
+>> Cgroup" series.
+>=20
+> Yes, I understood that obj_cgroup_memcg might need the rcu-dance, but =
+I was
+> unsure about the mod_memcg_lruvec_state() calls.
+
+The caller needs to make sure the liveness of lruvec, in which case,
+lruvec is from memcg, so rcu lock is needed here.
+
+Thanks,
+Muchun
+
+>=20
+>=20
+> --=20
+> Oscar Salvador
+> SUSE Labs
 
