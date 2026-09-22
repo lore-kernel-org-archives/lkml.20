@@ -1,36 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB65B344052;
-	Tue, 22 Sep 2026 01:19:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9FE3624DE;
+	Tue, 22 Sep 2026 01:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790039942; cv=none; b=QW3aZTq7WRIdsuwLqBQ0sZvws9sPs5A2wYOtbkMIWzUbKXUIaJBl8Z/8oFmyb5s5dflboBOlYsN383PCHmcm8+e9ENWAhgcFNxa87xD0c8XqJllJdVeU2cJTEnhSCZ5p73jbs+MGZ4We5CrOw3My+TQSzAtHa1rF84GelolYr+c=
+	t=1790040013; cv=none; b=Cb2ODWJjYdGHf91I4ToiF88sh0243DRkbCQKaIJqSxGxC2/UKiRJFZOMCickd8uF7Wo3ZzBEkrdH/62SCA4baqw8iJ2EhqRAkfgumpEWJfnnglf0VvI/Gylam/oeS1rCXZGuy6iBubLnYSC3Csi9UGe5nx2ZAfObrWGLsKlt8S0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790039942; c=relaxed/simple;
-	bh=2p+Gq7ah2QKJmZfE/XuzuuJW3qj0Kbm2NKfdOURDWwY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=B8Iqg2vWQXH/OkHg8BJYJzFwRKYqjL0sPL90UKY/SjxhbKkblsLUEvCO3o+DnmJUcMxhBmebGEiSAG9NBOFWYCsiuq5+DseUYCtYnyUm47WPSr9ZpX5VZSCrzc4e/RQr6O6qYBe1Xd3xRRKl0WOKCcuVAqS9ihec5LKcPz80YTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSpNDMsA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790040013; c=relaxed/simple;
+	bh=Z86KznxgeTUIZD2SxMmTodrmCZvMPJnEO7LZsVetIxQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cdkYceDKob0CY+yizLpQGx8oRp+twZBmz5MRrK5fn+CtXCtZWyA4tR5VL4/Ka5epq0UaxAcpyVDIa2TLS33JZpQNHZ0lc1CBLpH5Wt5j7smp0yC/ZZBRLX8l1blEzlcFHXXNvnD8XhF98R1J8WMICNPaqYPOQrbAn4Nw5/OmlgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCsZaIzi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSpNDMsA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 21749C2BCF6;
-	Tue, 22 Sep 2026 01:19:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCsZaIzi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 45232C2BCB3;
+	Tue, 22 Sep 2026 01:20:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790039942;
-	bh=2p+Gq7ah2QKJmZfE/XuzuuJW3qj0Kbm2NKfdOURDWwY=;
+	s=k20201202; t=1790040013;
+	bh=Z86KznxgeTUIZD2SxMmTodrmCZvMPJnEO7LZsVetIxQ=;
 	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=mSpNDMsAwoeLy4iZblAVKUcS+prFNqiuW3LJPLM9YGlUzhoLPuikjAUvr0W+ATmyO
-	 cNDdW0B8x/msLWgGjrj17JeMJfhGB5NvuIrchCzteBVxVwZJizWCG7jLrsuyExIL5G
-	 3Tzz7zBI4z8HZ6opdzCoXZF3c4UzRegBtBh5BbQFc4DEYWqlUDy74T+jkqfiMz1sp6
-	 0jbH6xBNNG+2T0GK6gziYj7Z3Q79mDa92aHrITGeGsZ57kPTDyykSk1VsUDphlBWr7
-	 NW8QXkHVW9NoltZLZgPLR833Iw0xijaMtgFRqQge9crJrqEKkfNBQ0NN8kkVRbq4Up
-	 zkQHkLrCZ9zbQ==
+	b=RCsZaIziqhY96cXeXwjkVyFGsU/aU6xafZ2yF3NJqQiz0QOgt4wHLDnGsVFbB1A9+
+	 lafWep2xCLGmj07PinnDxEYkgIQVb2soHARij1bBz9+LfhYiF57gUWWCTrvFY1FiJJ
+	 9vQXdHIAsynQnmzhEHr4GtE9lCL8Eq+5I0WmeQWkSgJuEAnYRpVF/ed5Nes20I6gzo
+	 4AJCa1IDvUXC+HM2rPAXBLdGOUHFTjOkufNdHD957LzLnWU9tsrUPKumAHNRHZZo5G
+	 8/IyoRAsxGGRiO/KK3Qfd96/dp5o3xIqgaAJPiKISrxjhIHbzpERlhSBBS4zzC2a7d
+	 qqHrS9RIG6aTw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C7CEC982FB;
-	Tue, 22 Sep 2026 01:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 300A0C982E6;
+	Tue, 22 Sep 2026 01:20:13 +0000 (UTC)
 From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 21:19:01 -0400
-Subject: [PATCH] cpufreq: scmi: publish perf_ops with release semantics
+Date: Mon, 21 Sep 2026 21:20:12 -0400
+Subject: [PATCH] serial: amba-pl011: publish amba_ports[] entries with
+ release semantics
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,24 +40,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-scmi-cpufreq-v1-1-934da6400a26@vt.edu>
-X-B4-Tracking: v=1; b=H4sIAITXsWoC/yXMwQ6CMBAE0F8he3ZNqSjqrxgP7bqVmlBhV4gJ4
- d9t8fgmM7OAskRWuFYLCM9R4ztl1LsKqHPpyRgf2WCNPZmLrbH3qNRHpGEKwiOS84H9sTkb20J
- eDcIhfrfH2/1vnfyL6VNuSsM7ZfTiEnUl2ji3+wMKNbCuP0ocyMyTAAAA
-X-Change-ID: 20260921-mb-scmi-cpufreq-cabfeb548027
-To: Sudeep Holla <sudeep.holla@kernel.org>, 
- Cristian Marussi <cristian.marussi@arm.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+Message-Id: <20260921-mb-pl011-v1-1-b378bb057d43@vt.edu>
+X-B4-Tracking: v=1; b=H4sIAMvXsWoC/yXMzQrCMBAE4Fcpe3YlP0bRVykeku3GRjSWrBah9
+ N1N6vEbZmYB4ZJY4NItUHhOkl65Qu86oNHnG2MaqsEoc1Rno/EZcHoordG6GImsGpyLUOtT4Zi
+ +21V//Vs+4c70bvvWCF4YQ/GZxhZtnE97i4UOsK4/S1adcYwAAAA=
+X-Change-ID: 20260921-mb-pl011-35ffcc30d55f
+To: Russell King <linux@armlinux.org.uk>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  Jaidev Shastri <jaidevshastri@vt.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790039941; l=3406;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790040012; l=2804;
  i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=kGiX3bmrLMhZziNSbG0jyDiENr+zWQckZ25mLKshmo0=;
- b=nym2ybqGNPJA//+pWRCqx70dzBAwF7qdlvhnG6trOfnI+wgWRXp5XleSQEOp4Fyg3M06r8Flg
- GNU600DOkyEDXCpirkcdR4Q0AsdbZ4/frGUT1IqYypo92FpuzU1iT7U
+ bh=HVyVKJUfeShA9Cl/yJ9Y9hzw2YOBdrEEPbai4gSDMk8=;
+ b=Uus3PlpLesgrSLqCkQkUW5L4vrXYNJGcYbo55wSXb1LkDNXlCMzWUUa3MDn9II5WNo+ldABIV
+ vOhrLS5voi8BXCPkm/gFc1cd7TDeut2PvYh0k79XPM7pyg5gBDjzLr6
 X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
  pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
 X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
@@ -66,92 +65,78 @@ Reply-To: jaidevshastri@vt.edu
 
 From: Jaidev Shastri <jaidevshastri@vt.edu>
 
-scmi_cpufreq_probe() stores the SCMI performance protocol ops pointer to
-the file-scope perf_ops with a plain store and then registers the
-cpufreq driver. The callbacks read perf_ops with plain loads, starting
-with scmi_cpufreq_init() on whichever CPU brings up a policy.
+pl011_setup_port() fills the port structure and then stores its address
+into amba_ports[] with a plain store. The console callbacks read the
+slot through co->index with plain loads.
 
-Keep the pointer in a local, publish it with smp_store_release() and
-read it with smp_load_acquire() in scmi_cpufreq_init(), the first
-callback invoked for a policy.
+Store the slot with smp_store_release() and read it with
+smp_load_acquire().
 
 Found with MBCheck, a static herd7-based memory consistency checker.
 
 Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
 ---
- drivers/cpufreq/scmi-cpufreq.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ drivers/tty/serial/amba-pl011.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/cpufreq/scmi-cpufreq.c b/drivers/cpufreq/scmi-cpufreq.c
-index 4edb4f7a8..c394f63cc 100644
---- a/drivers/cpufreq/scmi-cpufreq.c
-+++ b/drivers/cpufreq/scmi-cpufreq.c
-@@ -197,6 +197,8 @@ static int scmi_limit_notify_cb(struct notifier_block *nb, unsigned long event,
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index c4824c201..696c12ca9 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -2536,7 +2536,8 @@ static int pl011_console_setup(struct console *co, char *options)
+ 	 */
+ 	if (co->index >= UART_NR)
+ 		co->index = 0;
+-	uap = amba_ports[co->index];
++	/* Pairs with the smp_store_release() in pl011_setup_port(). */
++	uap = smp_load_acquire(&amba_ports[co->index]);
+ 	if (!uap)
+ 		return -ENODEV;
  
- static int scmi_cpufreq_init(struct cpufreq_policy *policy)
+@@ -2574,7 +2575,8 @@ static int pl011_console_setup(struct console *co, char *options)
+ 
+ static int pl011_console_exit(struct console *co)
  {
-+	/* Pairs with the smp_store_release() in scmi_cpufreq_probe(). */
-+	const struct scmi_perf_proto_ops *ops = smp_load_acquire(&perf_ops);
- 	int ret, nr_opp, domain;
- 	unsigned int latency;
- 	struct device *cpu_dev;
-@@ -252,7 +254,7 @@ static int scmi_cpufreq_init(struct cpufreq_policy *policy)
- 	  */
- 	nr_opp = dev_pm_opp_get_opp_count(cpu_dev);
- 	if (nr_opp <= 0) {
--		ret = perf_ops->device_opps_add(ph, cpu_dev, domain);
-+		ret = ops->device_opps_add(ph, cpu_dev, domain);
- 		if (ret) {
- 			dev_warn(cpu_dev, "failed to add opps to the device\n");
- 			goto out_free_cpumask;
-@@ -293,14 +295,14 @@ static int scmi_cpufreq_init(struct cpufreq_policy *policy)
- 	/* SCMI allows DVFS request for any domain from any CPU */
- 	policy->dvfs_possible_from_any_cpu = true;
+-	struct uart_amba_port *uap = amba_ports[co->index];
++	/* Pairs with the smp_store_release() in pl011_setup_port(). */
++	struct uart_amba_port *uap = smp_load_acquire(&amba_ports[co->index]);
  
--	latency = perf_ops->transition_latency_get(ph, domain);
-+	latency = ops->transition_latency_get(ph, domain);
- 	if (!latency)
- 		latency = CPUFREQ_DEFAULT_TRANSITION_LATENCY_NS;
+ 	clk_disable_unprepare(uap->clk);
  
- 	policy->cpuinfo.transition_latency = latency;
+@@ -2644,7 +2646,8 @@ static int pl011_console_match(struct console *co, char *name, int idx,
+ static void
+ pl011_console_write_atomic(struct console *co, struct nbcon_write_context *wctxt)
+ {
+-	struct uart_amba_port *uap = amba_ports[co->index];
++	/* Pairs with the smp_store_release() in pl011_setup_port(). */
++	struct uart_amba_port *uap = smp_load_acquire(&amba_ports[co->index]);
+ 	unsigned int old_cr = 0;
  
- 	policy->fast_switch_possible =
--		perf_ops->fast_switch_possible(ph, domain);
-+		ops->fast_switch_possible(ph, domain);
+ 	if (!nbcon_enter_unsafe(wctxt))
+@@ -2672,7 +2675,8 @@ pl011_console_write_atomic(struct console *co, struct nbcon_write_context *wctxt
+ static void
+ pl011_console_write_thread(struct console *co, struct nbcon_write_context *wctxt)
+ {
+-	struct uart_amba_port *uap = amba_ports[co->index];
++	/* Pairs with the smp_store_release() in pl011_setup_port(). */
++	struct uart_amba_port *uap = smp_load_acquire(&amba_ports[co->index]);
+ 	unsigned int old_cr = 0;
  
- 	policy->transition_delay_us =
- 		scmi_get_rate_limit(domain, policy->fast_switch_possible);
-@@ -443,6 +445,7 @@ static int scmi_cpufreq_probe(struct scmi_device *sdev)
- 	int ret;
- 	struct device *dev = &sdev->dev;
- 	const struct scmi_handle *handle;
-+	const struct scmi_perf_proto_ops *ops;
+ 	if (!nbcon_enter_unsafe(wctxt))
+@@ -2983,7 +2987,8 @@ static int pl011_setup_port(struct device *dev, struct uart_amba_port *uap,
+ 	if (ret)
+ 		return ret;
  
- 	handle = sdev->handle;
+-	amba_ports[index] = uap;
++	/* Pairs with the smp_load_acquire() in the console callbacks. */
++	smp_store_release(&amba_ports[index], uap);
  
-@@ -451,9 +454,15 @@ static int scmi_cpufreq_probe(struct scmi_device *sdev)
- 
- 	scmi_cpufreq_driver.driver_data = sdev;
- 
--	perf_ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_PERF, &ph);
--	if (IS_ERR(perf_ops))
--		return PTR_ERR(perf_ops);
-+	ops = handle->devm_protocol_get(sdev, SCMI_PROTOCOL_PERF, &ph);
-+	if (IS_ERR(ops))
-+		return PTR_ERR(ops);
-+	/*
-+	 * The cpufreq callbacks read perf_ops after cpufreq_register_driver()
-+	 * below. Publish it with release semantics so that ph and the ops are
-+	 * visible together.
-+	 */
-+	smp_store_release(&perf_ops, ops);
- 
- #ifdef CONFIG_COMMON_CLK
- 	/* dummy clock provider as needed by OPP if clocks property is used */
+ 	return 0;
+ }
 
 ---
 base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-mb-scmi-cpufreq-cabfeb548027
+change-id: 20260921-mb-pl011-35ffcc30d55f
 
 Best regards,
 --  
