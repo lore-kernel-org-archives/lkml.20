@@ -1,141 +1,64 @@
-Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D50C388E4E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6CE364EBF;
+	Tue, 22 Sep 2026 02:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043730; cv=none; b=jgKX2w/qGE4yxF90OSdtQ+DXJfWFw2JQyCl66Chto5ifksA4gAOW1p11vBwe0Rt0UM+60CLOjTY4HlG4Km3SWL62rB1k2cVM1qY+LeIoOjoJrqyHbnK16GDiRwzSJLgBGWJTJMRs0qTbGcnTOoOW/XO54KQ0CfWRRyqoPUGp3GQ=
+	t=1790043830; cv=none; b=H672JcLwYcLPo83OHEDoCHPsKeCTL7cT8rY58Oy7IbgjD2uXS1bGXHMJDfGPMjFtxSTVXXCTs0I2x9F9oMYiDeFM/2UUNA3aDyCLeakVu96M2oxtjiOsDmMwGUFXijYShCvYqEZY6vF3W6GB7JIwRUypeK0o4t/eLTpg0vNC5SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043730; c=relaxed/simple;
-	bh=uY4MN/p0vQ0kwgQ+QLFr385tvrIY8OSdK/akjMpR5d8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=KZDdeBA87Te7TNmX4AL+tlq+eba70Xn9xJem1PMk0i1JW/HjLJiErl9Nc55f/0jitDc6P1ed5O6YpjT33sjbYKitWPxVBKiueqRHnUXEqZZdCWCHYJyuwTXJcqfJ+XdkcTtZPVceye70m46c3ft5LfaP13A712VoOkeDT2BpEwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OlzDMFWF; arc=none smtp.client-ip=91.218.175.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790043830; c=relaxed/simple;
+	bh=nHTAfk6up/ZYAY+CtnjjHsvqW4nyG3UPuK9IbK8/oM4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oz+qvMmkUeUhF18njabsJ7xT2toR5+pNVY3TVJakwX9aTykidsrYlIH0ng0++bICbbjqzx4FdM4DTHnhIv+05P6nn4rJptcgnxZo5tz7j5hqfKKqQfeFEXG+kfiavGK5XChtsirsieLwH4NJ2RHZrL59RehOW3hyACBBh2X+0a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKKB/1C3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OlzDMFWF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uY4MN/p0vQ0kwgQ+QLFr385tvrIY8OSdK/akjMpR5d8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790043725; v=1; x=1790648525;
- b=OlzDMFWFk5ohXDEjjdNc+vW69sfUXyvAdG1rhLt/mY8bhC2wpP05QX6VJtY8BShEpydhh3JY
- CoqDO/UiDXvUixFGhKJox+kUdNIi/jeOtECBXXgAXqe9PqmN1lZA704lT2Gut3cySUHFG+zJAQa
- W5kUh9Y3u+2U3yH8hbMM4tZM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 3f4c559851bc5898;
-	Tue, 22 Sep 2026 02:22:05 +0000
-X-Mizu-Trace-ID: 3f4c559851bc5898
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKKB/1C3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6B21F000FF;
+	Tue, 22 Sep 2026 02:23:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790043829;
+	bh=aT3WSQsjijWvUk3bgetXyUamJ9XvWlHmx7vZ7os7un8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hKKB/1C3uOnDztTuRZBpSndHcV/CYFBsxhOq0o8XdkWY3qE1c7b98xtaVX+vAYANG
+	 zcCzllxjA2umT2xCRjwRacv+3UDVqE09H2wtsS2wNf6U4j/2tBNyNHGlFY702LKojn
+	 F90c7qQt3DUlbjupiinYJlyNser2hzkwVl48m9q3VOrKDqMb8R6dqU0rdtPBfXS3G3
+	 ojMs1TJyIpAEH6JNn7XOkj55Np/Lo9yyGHNcKlLXkGJmtUOXd4MTXM153gguPjgHcE
+	 VZn8auKZa1V58AYvMNL5q+RGqlrLSbzNo4KnouZj0TuNLC14b639ZGpy/a/CzIG1e1
+	 M/yGCgcWPhMcw==
+From: Sasha Levin <sashal@kernel.org>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	regressions <regressions@lists.linux.dev>,
+	linux-acpi <linux-acpi@vger.kernel.org>,
+	linux-pm <linux-pm@vger.kernel.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Stable <stable@vger.kernel.org>,
+	Support TRINITY <support@trinity-net.com>
+Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks bare-metal Xen dom0 boot
+Date: Mon, 21 Sep 2026 22:23:38 -0400
+Message-ID: <2026-09-21-daily-reply-0001-re-acpi-cpuidle-xen-dom0-6-18@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com>
+References: <1909296988.289641012.1790015372050.JavaMail.zimbra@trinity-net.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH 1/2] dax/bus: fix Device DAX range alignment validation
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <8a90ff33-97e4-4796-a8a6-f484760557ca@intel.com>
-Date: Tue, 22 Sep 2026 10:21:50 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Dan Williams <djbw@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Joao Martins <joao.m.martins@oracle.com>,
- nvdimm@lists.linux.dev,
- linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D5FDE914-C12B-4E34-B481-56BDEAE84118@linux.dev>
-References: <20260915095621.3744167-1-songmuchun@bytedance.com>
- <20260915095621.3744167-2-songmuchun@bytedance.com>
- <8a90ff33-97e4-4796-a8a6-f484760557ca@intel.com>
-To: Dave Jiang <dave.jiang@intel.com>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+> I will try testing 6.18.52 with commit 0089ce1c056a ("ACPI: processor:
+> Update cpuidle driver check in __acpi_processor_start()") applied,
+> instead of using my lifecycle revert.
 
+Queued for 6.18, thanks.
 
-> On Sep 22, 2026, at 05:01, Dave Jiang <dave.jiang@intel.com> wrote:
->=20
->=20
->=20
-> On 9/15/26 2:56 AM, Muchun Song wrote:
->> dev_dax->align describes the page size used by a Device DAX mapping.
->> Both the start and size of every range must therefore be aligned to =
-it;
->> otherwise the starting PFN cannot represent a naturally aligned page =
-of
->> that size.
->>=20
->> Only range sizes are currently validated. A dynamic device can =
-therefore
->> select a large-page alignment and allocate a range whose start is not
->> naturally aligned to that page size. The device binds successfully, =
-but a
->> subsequent write to a userspace mapping may trigger a kernel panic.
->>=20
->> The automatic resize path can also split a size-aligned request =
-across
->> arbitrary free gaps. When devices with different alignments fragment =
-a
->> region, this can extend a range by less than its alignment. A later
->> allocation then fails, leaving the failed resize partially applied.
->>=20
->> Validate both the start and size of allocated and adjusted ranges. =
-Make
->> the resize path account only for usable aligned space before changing =
-any
->> ranges, and skip gaps that cannot satisfy the device alignment. =
-Initialize
->> the device alignment before allocating its initial range so that all
->> allocations use the same validation.
->>=20
->> A mapping with an unaligned start is now rejected with -EINVAL, while =
-a
->> naturally aligned mapping still binds successfully.
->>=20
->> Fixes: 6d82120f4156 ("device-dax: add an 'align' attribute")
->> Assisted-by: LLM
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> ---
->> drivers/dax/bus.c | 143 =
-+++++++++++++++++++++++++++++++++++-----------
->> 1 file changed, 109 insertions(+), 34 deletions(-)
->>=20
->> diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
->> index b809e1a264af..54e4bbc98218 100644
->> --- a/drivers/dax/bus.c
->> +++ b/drivers/dax/bus.c
->> @@ -848,6 +848,44 @@ static int devm_register_dax_mapping(struct =
-dev_dax *dev_dax, int range_id)
->> return 0;
->> }
->>=20
->> +static inline unsigned long dev_dax_min_align(struct dev_dax =
-*dev_dax)
->> +{
->> + 	return max_t(unsigned long, dev_dax->align, =
-memremap_compat_align());
->> +}
->> +
->> +static inline bool size_is_aligned(struct dev_dax *dev_dax, =
-resource_size_t size)
->=20
-> Leave the name alloc_is_aligned() may generate less churn in this =
-patch
->=20
+Please still post the result of that test once you have it.
 
-Yes, I initially thought that `alloc_is_aligned` was doing a size check,
-in order to keep it clearly consistent with `range_is_aligned`. But this
-did indeed introduce unnecessary churn, and it might be more suitable =
-for
-a separate cleanup later, rather than being squeezed into this series.
-
-Thanks for your review.
-
-Muchun=
+-- 
+Thanks,
+Sasha
