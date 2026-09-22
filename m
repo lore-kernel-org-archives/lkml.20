@@ -1,119 +1,200 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669764EDCAB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F6A4D596D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063092; cv=none; b=PmKzUEoDNeMhS1SKD/LYEsZ0QS8jCKGyC1+hupjfURCjDhU76FtNQa+oAqIKnBZ0ogv0UkyrSsiGDiNlK1XSGjg3MakHCdBMnKRIbXZbD4Y6JsrBEHvQfLibrsaCONbSTjF8qI1w5TRztU5wq5GRfoQfQtOBkzpBodk9eQKHy5o=
+	t=1790063122; cv=none; b=BC2rDpOdA/qlJeQ4jYINSReWK1mnIPo9zpTPkFgDhoJKJtUk8W52nKjdfkMKF/oPIKIOHE6Njohe/5jpOg6ZBgvJgwpdN9Gikxf3XFYW00QSLb8hjs84Bz1rgQ7MwPNMDkndsURT7SE8K0rGpPUyFFaU3kW03uPJQ+cVMzQOtKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063092; c=relaxed/simple;
-	bh=jvDfXM7tVJjTooSsT/SJTYLHJsj3NkXVSvdQ0KYDPus=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CtVgtZ2kRXsxbVX6uEaUyt3lrl04LN9OS2nHN0/jISxm60OcvAHGzrEy15RT9p9FfxAKN3v+A1KuATuC0syniWV41ivj2jAVTrCVBok/imFxSiirmn4GPiFGreyF2JKEh/sUEY6xTBw5WfOO1H2kD+gu1A8lvTjfeZtUJmf5iYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=A+Px+H1T; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790063122; c=relaxed/simple;
+	bh=TpdKMFLGjPzefo61cvunv7j2BylXh6l1j/OMO4CLiOo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dw7626bRlEBjk8LDuGujzpdw2gPV4Tpy9PsttJvNGmiBD8W/sAmQ3QnNIVvf3OCyIOkm9etijnPz95mKODl/sPuz+Y53CoddgOtMCZoVcJ3SEw8bDSmnQmdGg63YGaNGhhNADk8cfYrcHltXmHQ6faXzSoftBzohNfoNuS6II/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=htHEjaBj; arc=none smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="A+Px+H1T"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so18152115e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:44:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="htHEjaBj"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d5bso30788051fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:45:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790063087; x=1790667887; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IDcjrXi200c9VpHrcwV8VwvteD2Tjmxxgo/eDK9i/nk=;
-        b=A+Px+H1Tn7vCk1816k1ip7YqClRJlKuGbgiATTE07N8gO57MQB/XywUKTn07dHRyKB
-         E7eGquj2JwhVqnVFiYlvWCNsWz3TdoHGPmDuQncpvHbab5r8PNdu9k+mN+ZVi/PADHbU
-         B08vp3cvYOva/HJeomIQuVeS+TXx6Q38ptunB6A7zOHBqRsuCBX4LtLGScVT7cuPzYRS
-         +3EGatLaZM7mH65r1TAMnLyJu6G1F19J3Tr89FZrDIgObm45hdERVJyAbF0kn3tYI32o
-         mH6bylho+Dgm+ATHH7fOw2r8J9WpcEUrlBemQRX7621BYHlaFvisZMolizmxwS3AEeK9
-         rHOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790063087; x=1790667887;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790063115; x=1790667915; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IDcjrXi200c9VpHrcwV8VwvteD2Tjmxxgo/eDK9i/nk=;
-        b=diQ+FnSy7/4fOm7i5cBuNj/Jivw5ZsLC5e/i1QlZOKDulXi3pOcGzBImrnxHwOAOEt
-         Faeu51CaFIrp0bMjtUACQFFvJLrAxRvEF2nidezZ7eoOQ3ysdICWjwowSLgZUQ4VGVR5
-         dep3Z8k1nb8gw6u5whSd2RlzNg2jhYCkp4NPQHNv2khey8AXq9HOdEPB/N5HKeSqszxa
-         7eZ5SeDV16VvCjV8DxO4GNs/PB1nSbXO3kJ8qYS7i7blSBOEJAtyaXdEPJSdr9hkVEQ9
-         +Nu6m/PzFcRi8YkH77bkaysWIhDXLIr219UuJNRCp5bLlRNmEPoR2Vwl8T/E7rBXycX8
-         C27A==
-X-Forwarded-Encrypted: i=1; AKwUvBz0QUPLvGd9iBQxG9yQprs/nZMGNUHS2d3YBVonvOdx3dsgV14lrajvrcq5Mq8CGgy7+zFqSl5+DGMNGeo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksI8cNXAtmE2Jees6TrwUk2fgz/hl7QAGGN3BHQBlOrf9gYWo/
-	KYnN8s/4YcAOHL9k62SQ9alPbxC8FowWtIzEFFF0tQHOJBoIcsvWs0epvFkZoVChkHA=
-X-Gm-Gg: AYBFou22KsVCP7cGj27ZaMKWTcX1/6M0sHg66ZiHPoublQL9YomHy8DtFCaSs60qO6Q
-	QM1oUSXkEd+4X47ljuTAEOZmgMug3Ksga5engEEwidGgpRofSLD2K903OMfg0r3F6lBwAcDM+p0
-	IHjmkrLV31wGnZd8ndJB3PQsfxogD1PIVw4jtPG7M3uyzxTktYiKANSFm3LmMmBV0TTkCxOyf0z
-	Kjeqs9uWr2MJtE+8/Ikgji78w78ZVlgBdyR1VImiBvOxFh3huGzYKiQIO+016vdET7wSjwI3xB4
-	bZNitzyMb8xxUG6zjjUcFIn0NALP2kSo19OOyrDtbSBzhRnDcMQfsbdRJE3U4LgW5xrDMCDv/Rk
-	U3gNzJ0YYSwVlI+Z1NJM3HaFREQr5FOzfAXE5g+Cry13TO4nWgPHnttrHXfRquJ8JDO4nycE3d+
-	mIFqymyM2kHF7qA36nciJp403dG2s7MXIvmBYWqSndtaRVE8EDXM4Tl7XJReH6QQUbL5A/4C5B
-X-Received: by 2002:a05:600c:3b09:b0:49f:ce78:356c with SMTP id 5b1f17b1804b1-49fce7836c8mr122173455e9.29.1790063087040;
-        Tue, 22 Sep 2026 00:44:47 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8cf1c85sm61366675e9.15.2026.09.22.00.44.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 00:44:46 -0700 (PDT)
-Date: Tue, 22 Sep 2026 09:44:44 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH tty v2] serial: 8250: Change console_msr_work to
- IRQ_WORK_LAZY
-Message-ID: <arIx7IJRcLmMpEFP@pathway.suse.cz>
-References: <20260921143939.170314-1-john.ogness@linutronix.de>
+        bh=v311mTme30yUrQjluYgG3Q413l6dAIYyGwWk0CumHTE=;
+        b=htHEjaBjFWrhqdasdkHqLZfR4b2wWCswmJi5yWOGumvb7JKBXc8tUxKmjUTE9FPJtO
+         sVEuclxZx73AbB1PVVyFrxPIV+ImjgLH5RMi+Vpw8Ln7RO1RtAwhX+vribbJmKjOE8D3
+         SmWd0J+20GqO4lG1MD8AWi+6Ur88Y2/ThUGP5dIt7qDY45AYcLSJw+L1IxUcQlGZRvNH
+         GcxUNexeieT4mm51TXaDGCGfWeazot5GUODtCzWqtkuT/16qbc7b4jWDl1cdakSMgTSN
+         HaITTWssOhh1K3cN2fHdznLY1sKoCXJnE+XW83Ky6Tv35obACFdQe48MVReF/Pes9sSV
+         h1HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790063115; x=1790667915;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v311mTme30yUrQjluYgG3Q413l6dAIYyGwWk0CumHTE=;
+        b=Qunq8maWLBYLJtlr7qQ3NxWR5ByzkQSk4i7aY50vOEaKyX5KU8jBGwn3jhGE7xHMKK
+         gCBU3DUsYXTRsu/vi6D+TKF1ovoCf6SvO7P4RJnZ2N6kjVpClEpcz+vDDa4xc2W8HPoO
+         NjOgnr14TvJ9wV76y/p+zoCLr+DuFooCvlJvL+nK9wi6KlxS9KEcRmr3gFqoPivc8cMm
+         X2aBfen937IIUVS4R4F5USpFStivH/S6poNVcWNTRgeCaMs5EujmbiXsxvCbNpIj2Wkl
+         bLp0u1Heaar6MMF9fxXKW8bDkQ+3RdQSD1MLAjitZjpZgX6dbUfRz0lhXo5LUy5nj9Qk
+         JWtA==
+X-Forwarded-Encrypted: i=1; AKwUvBzALXyqndZqlX5I1wkMIkdwvR1vmeaVPhYpASHW0I8by2Jo4AMdopzJbxaRhYqiOJwlEj1ZhKTyZFORFwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndtDum2HhEEu/M8qciHrcn67y22mApi1EXo8TS0s0ooLfTdqr8
+	WmpCKZgRKihLCY0b+k4FuIKD6K/YAQZ9xlfCWWiEV3pEH1dnI5/2snYd
+X-Gm-Gg: AYBFou04Ar03m5NQQ1gz74P6VJCKkzi70weN84S+Od3FlQbKKQcCIuYXMdWiL+nhSOI
+	VnlK6ccAQ0VZeWXR3nJ6reZp059fSEdlx6VJXKhM1B7g1bE1Fet+Kb2EHo6bFt8dckstgWiF9f7
+	a38fMsYUZVuNbUJgZHSsTRxVrnBP7x8TfwdotA+wVm+UHJGyLLEuxqLRzpEC7GrQElkkJ5iqb5x
+	1LX7rgqa4IOPmAKZ4BhUD0BcU4VtTYklL0/Rricr3mTJBY/SdW3GRMTW1M6Ukte7ON+HQhYXiYk
+	kfAc8wPOyTjE7tXl2Eq6aGDGk76+uDzKV+pHQVFlandfKoCE1sYm2weGxrC22HNO+bJOo/PkqYa
+	0E/8k4wvZKQFSslvY6PQutfoUyBYWp435yiQT3YpiejD3Nat+9nHCNEsQmLqeL8BvmiHkQrL4qf
+	e8sPiktHk6w9fH/Jpyjuv3+FC1hogCtYaYnLHnQ9Kn9BHm4T1Wkg7rxs3ZPkC0NiXJTMmePJhQR
+	QJVgzq7oN/ZC9qyKd2DDKvLMA3AZBv+lqP5mugePuQjE5Ksa+LpU2E=
+X-Received: by 2002:a05:651c:b23:b0:3a5:f044:fcbb with SMTP id 38308e7fff4ca-3a5fc09bb75mr30555911fa.21.1790063115207;
+        Tue, 22 Sep 2026 00:45:15 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46ad0e9sm276409e87.2.2026.09.22.00.45.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 00:45:14 -0700 (PDT)
+Message-ID: <9ba75a42-a3cb-4ee2-bd29-84f23bbaa70c@gmail.com>
+Date: Tue, 22 Sep 2026 10:45:13 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921143939.170314-1-john.ogness@linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 4/6] reboot: extend psc_reason with power-on and reset
+ causes
+To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+ Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+ Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ avaneesh.dwivedi@oss.qualcomm.com,
+ Umang Chheda <umang.chheda@oss.qualcomm.com>
+References: <20260921-pscrr-framework-v14-0-a16290003b7c@oss.qualcomm.com>
+ <20260921-pscrr-framework-v14-4-a16290003b7c@oss.qualcomm.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260921-pscrr-framework-v14-4-a16290003b7c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon 2026-09-21 16:45:36, John Ogness wrote:
-> Change console_msr_work (defers MSR handling) to be IRQ_WORK_LAZY,
-> thus not raising an IRQ upon irq_work queueing. The irq_work is then
-> handled on the next kernel tick. This additional delay is acceptable
-> because any pending MSR handling is also performed in the interrupt
-> handler, if mctrl is queried, and during console resume. Using
-> IRQ_WORK_LAZY has the benefit of not needing to raise an IRQ for
-> each line of atomic console printing when modem control is active.
+On 21/09/2026 20:44, Faruque Ansari wrote:
+> psc_reason covered only the protection reasons. Extend it to mirror the
+> full POWER_ON_REASON_* vocabulary - power-on, watchdog, software,
+> external, RTC, reset button, CPU clock and crystal failures - so a
+> provider can report why the system last powered on, not only why it was
+> shut down. New values are appended to keep the existing numeric ABI.
 > 
-> On a side note, the Tegra20 and Tegra30 platforms can hang if an
-> irq_work IRQ is raised while entering cpuidle states. This problem
-> was reproducible by performing atomic printing while entering cpuidle.
-> So this change also provides a workaround for these platforms (as
-> long as they are not running tickless). The discussion on this topic
-> is linked below.
+> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
 > 
-> Link: https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
-> Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
-> Signed-off-by: John Ogness <john.ogness@linutronix.de>
+> changes v12:
+> - new patch
+> ---
+>   include/linux/reboot.h | 28 ++++++++++++++++++++++++++++
+>   kernel/reboot.c        |  8 ++++++++
+>   2 files changed, 36 insertions(+)
+> 
+> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+> index 4c5327dd7645..13f004ad1066 100644
+> --- a/include/linux/reboot.h
+> +++ b/include/linux/reboot.h
+> @@ -225,9 +225,28 @@ extern void orderly_reboot(void);
+>    *	management errors, or an unrecoverable hardware fault requiring
+>    *	immediate response.
+>    *
+> + * @PSCR_POWER_ON: Regular cold power-on (e.g. via a PMIC power-on request).
+> + *
+> + * @PSCR_WATCHDOG: Reset caused by a watchdog timeout.
+> + *
+> + * @PSCR_SOFTWARE: Software-initiated reset or reboot.
+> + *
+> + * @PSCR_EXTERNAL: Reset asserted through an external pin or reset input.
+> + *
+> + * @PSCR_RTC: Wake-up or power-on triggered by the RTC.
+> + *
+> + * @PSCR_RESET_BUTTON: Reset triggered by a user reset button.
+> + *
+> + * @PSCR_CPU_CLK_FAIL: Reset caused by a CPU clock failure.
+> + *
+> + * @PSCR_XTAL_FAIL: Reset caused by a crystal oscillator failure.
+> + *
+>    * @PSCR_REASON_COUNT: Number of defined power state change reasons. This
+>    *	value is useful for range checking and potential future extensions
+>    *	while maintaining compatibility.
+> + *
+> + * The reasons mirror the POWER_ON_REASON_* strings in
+> + * <linux/power/power_on_reason.h>; keep the two in sync when extending.
 
-We did the same change also for the nbcon_irq_work which is used
-to wakeup printk kthreads in a safe context, see the commit
-560f4deda32785e ("printk/nbcon: Change nbcon_irq_work to
-IRQ_WORK_LAZY").
+(still a nit)
+We should now also ensure the psc_reason_desc[] in reboot.c stays in 
+sync... (See my nits for 3/6). I have a nagging feeling this is not 
+optimal :)
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
+Is there a reason for having this as a separate patch and not merged 
+with 3/6? If yes:
 
-Best Regards,
-Petr
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+
+>    */
+>   enum psc_reason {
+>   	PSCR_UNKNOWN,
+> @@ -236,6 +255,15 @@ enum psc_reason {
+>   	PSCR_REGULATOR_FAILURE,
+>   	PSCR_OVER_TEMPERATURE,
+>   	PSCR_EC_PANIC,
+> +	/* Append new reasons here; the numeric order is ABI. */
+> +	PSCR_POWER_ON,
+> +	PSCR_WATCHDOG,
+> +	PSCR_SOFTWARE,
+> +	PSCR_EXTERNAL,
+> +	PSCR_RTC,
+> +	PSCR_RESET_BUTTON,
+> +	PSCR_CPU_CLK_FAIL,
+> +	PSCR_XTAL_FAIL,
+>   
+>   	/* Number of reasons */
+>   	PSCR_REASON_COUNT,
+> diff --git a/kernel/reboot.c b/kernel/reboot.c
+> index e53fb31bad06..5d4ecc82b35e 100644
+> --- a/kernel/reboot.c
+> +++ b/kernel/reboot.c
+> @@ -1102,6 +1102,14 @@ static const struct psc_reason_desc psc_reason_descs[] = {
+>   	[PSCR_REGULATOR_FAILURE] = { "regulator-failure", POWER_ON_REASON_REGULATOR_FAILURE },
+>   	[PSCR_OVER_TEMPERATURE]	 = { "over-temperature",  POWER_ON_REASON_OVER_TEMPERATURE },
+>   	[PSCR_EC_PANIC]		 = { "ec-panic",	  POWER_ON_REASON_EC_PANIC },
+> +	[PSCR_POWER_ON]		 = { "power-on",	  POWER_ON_REASON_REGULAR },
+> +	[PSCR_WATCHDOG]		 = { "watchdog",	  POWER_ON_REASON_WATCHDOG },
+> +	[PSCR_SOFTWARE]		 = { "software",	  POWER_ON_REASON_SOFTWARE },
+> +	[PSCR_EXTERNAL]		 = { "external",	  POWER_ON_REASON_EXTERNAL },
+> +	[PSCR_RTC]		 = { "rtc",		  POWER_ON_REASON_RTC },
+> +	[PSCR_RESET_BUTTON]	 = { "reset-button",	  POWER_ON_REASON_RST_BTN },
+> +	[PSCR_CPU_CLK_FAIL]	 = { "cpu-clock-failure", POWER_ON_REASON_CPU_CLK_FAIL },
+> +	[PSCR_XTAL_FAIL]	 = { "crystal-failure",	  POWER_ON_REASON_XTAL_FAIL },
+>   };
+>   
+>   /**
+> 
+
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
