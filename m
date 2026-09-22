@@ -1,200 +1,223 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazolkn19010000.outbound.protection.outlook.com [52.103.33.0])
+Received: from out28-197.mail.aliyun.com (out28-197.mail.aliyun.com [115.124.28.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0482E6CB8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092119; cv=fail; b=MfFzYBsYXJ4+yYFP9oOuJJ/8O3xIQUX/ZbdZNhsaFMo0+BpsymHyVbCdXgSwK6JrU9zm3qtsatCo+S9F0C3WrmETA+RBU6nQwy6yzaFeBN2gpVzIVbOiqOnGJd7cLnWUg1c/Bopt5gupdHviehB2/uCt8wAetzSrLp1QWmh4VUU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092119; c=relaxed/simple;
-	bh=g4lVTpnIN17geSILFkvvalwPVmvqnKD7rlJkW5OO3mc=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=s4O4O10Rrjflu+1o3kKBuCs8QLhxGGedhtHmuLLvAKspIJNkk8iHA34dAujSXkLP5sDStToSdJSqaGPORM8VcpR7YWwDlqsCSCxg2+hD3ZLfGXUjlaHMGsxRoUzxSsZwdMVfVX0tnVDoOQjwqxVILBvDDrlE9SH78vudsm5HIsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=WsYmqPZ1; arc=fail smtp.client-ip=52.103.33.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E710B2E6CB8;
+	Tue, 22 Sep 2026 15:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790092156; cv=none; b=K8VLrLWK1+opdOGYRTP25bVLd38uJaABTg5/8lLFi0E1xdR4Oa1ohbQ1yVAiiABUvR2baFPhNMZj66/UcdKaROMKDZXGr38/O31unj3zRObjmUC+NQ4wFlQyCN7jwUyvCh2xW9wKHAm+AP5yOsnB3WNU5YwbvmkCNiULiElb8Cc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790092156; c=relaxed/simple;
+	bh=m9MzsfBhY2+fdPnGx77j+tlrSCT/JbHFCOAFN90ErJs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m9wZZmIM2TV/A7QKQb0E9IJ4lN/6qp0J9zY4wMS+HlJcRpNK/AwGgzDXhH2tnUCjqqjzfpHU7fXC+Pz51J1nTjX5+Jg4/l2tV1+01OKd9pu1jds3rk5lswYKLclUr457pCCA/8AENcsjmBnO/3Y6bxNw4DntrHeYa+6Tun6I/fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lm8dznlC; arc=none smtp.client-ip=115.124.28.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="WsYmqPZ1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lUPd/W7GNnrHGR+YdXarUvviChW8Q4B9nWHfHNXL1wyPoHfMg5+QSSYgcWu93TCbYxDUHs3Sp8q0YOKSC95mXAbtOg8vVmXrBpfkSPaUSAwTwrZK3RrGJ081Utt2/1ReLkCZvSEiEmRgkSi2QKVJjq9T2SRVT8ZE42rwH6pxvKMe9lRaEWqNC0KPPaxyTZHOG1+s2FNDyT3noJBO3AZhyEi+QpB+YviOnlPfKMU61oNarJmMDYceruV8krzQiZkIqmHyuNUbl5AtAXSDM6s826KLeKAgmgKoWvf2N45/vNTHegj20fHktFXezuI0qqq8F2LYtzyhSnyAqW2vJS6NJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EODjy02mOSJInSi6b1rNgHg7hdRQMuom7JgM3v6y3DQ=;
- b=xa+87YSeYSBFBnxn5EaRYwdFrm4MfOjauR6oEGVALVfGjkBZ1QfpfwEB5XznREvyCG0+iGh/cKVD7VU2pbqI59jAgQU+z4Df8iY0+yL5BUE/wwOLpBdc2213XxRGz3Qz7zYvhcrFtNpSPS3jxm7gSSVkEFXyelIUaKa708cGvNdrAyIhxq2W4Y9lOr+DoR8sN/T3NF3W1i0vXfvoJPM0QJ8sESmKZ7DhKbrVD6SJ9zF4gL6x+J32JP6YyOcH7rg5X/yst7x4HV1asnI1UUHXkRAbNqv6B0H6P2wdiYyC0fkUzi8ROLzGpMLZLsgZ6UlW6agGca2KS8AkNNJ1qHRcBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EODjy02mOSJInSi6b1rNgHg7hdRQMuom7JgM3v6y3DQ=;
- b=WsYmqPZ1XVg4MxRjoAy+94RBNeBfa7XDg2bWg5PPQbWxtjFc78Gj0ryzWE3M+myy7gUw9aq58ddMfKZhNOu+DpxjtFsgpVzi/25HzMRyxNDvMY7wihiXJao8vClBdGh5Zu4fm1G6nqVDpW+YPZPg4wxjk/kR+7S8e+su4KFoJlfRaS7hPVjhYn+FVOf4I7lhTLPAQuJjU0g817DTYON4bAeLrHzso6jKfXoG0jKxKuJMjLiAUm93vuz7devpCwYmonKU21zgVedUGAPVT9IQFTg/9PHV+Oj3LA3z4JZbtsnIx0+0x+hG6moaF7UdK8Yp0datcsFgaTpjQfR4eRTUFg==
-Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
- by AS2PR03MB8868.eurprd03.prod.outlook.com (2603:10a6:20b:557::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 15:48:35 +0000
-Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
- ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
- ([fe80::2ce4:f394:cc5e:6d48%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 15:48:35 +0000
-From: Arthur Liberman <arthur_liberman@hotmail.com>
-To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH] drm/display: fix NULL deref in MST time slot release
-Thread-Topic: [PATCH] drm/display: fix NULL deref in MST time slot release
-Thread-Index: AQHdSqkMHX7Ogigfvki59pOhoo8P/w==
-Date: Tue, 22 Sep 2026 15:48:35 +0000
-Message-ID:
- <DB9PR03MB73882B683E0F81D7E97581228A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|AS2PR03MB8868:EE_
-x-ms-office365-filtering-correlation-id: 8ccdcf6c-0ec3-4c13-eeea-08df18c0f64d
-x-ms-exchange-slblob-mailprops:
- znQPCv1HvwUXBahuwteIkQeW30lJPuxOsRDk/H0rA4HJGL9xZRU/oOVi/yFwA3mhZ1XHeeV4wjAL0imbrRSXKN5tOtiUFvuUHPuewP/EVTenne7dOrfGfw+ymZPfoCdwoIbFxtAfnTxre6rAM25qXK1gA8sCSOW0hS06jxQAoB7bs37ILa0P2HFm0IlXVOsPTLHwab9PHtl5wcpuk1oVh4dasjp+ZziyNZ8/oBn5Dd/xN3cnHy/n8eQqDSoxHPWaeWscDJpPvNYZLD/TqN4wV01PEZzrvAK3ss54A8Pye75Os/fdHUAoDvwGCANoT1ai4AOgtSQep/LwoLFehPjybgfb9S2eOM6hEXX8MLQKEz2cRJxcEZ62i870W062XfhP7GHrvvZT2KAfGXzbWUi6bsG8VZuyT5xwv46VNgsnPdUz0OpdfplRdnW022OgTabQLLka71IdPjeWztCUEXxB1OnHOaWnHw8pjS7mw2/7a5jJ6SDgKAjhorbxr8wBNILSBosTXgBDwXe+Ud48hBNzk0yCLzyGkA8Y4Mi6iPqoI8XglrVWrYhTyJQhzqKwZaOu1LlRHwlvbgGS8H7od6ORba+3lGHKqAYtob25q+jQpKS6v9NcVIwTqGUyLtGgUN5xdHkULdUHhgf1lK0/K7WIGAf0HDQUDxsoD3IhS+ycSpePPmVakzal9cpmKtDjhX5y0JtaZoUmFG1HT9iPZ7jJjBld+RYIZvGMFjYiFQi6HGAl/Sy3O7t9zVU6EPhcKcmn5ccOtYMOYxU=
-x-microsoft-antispam:
- BCL:0;ARA:14566002|25010399006|39105399006|20031999006|4140399003|37011999003|7071999006|15080799012|8062599012|12121999013|19110799012|8060799015|31061999003|15030799006|24021099003|41001999006|5062599005|40105399003|2607281247196008|102099032|440099028|3412199025;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?E7zsda5B9dGXHSeiWkfxakKRQh9391oF3M0JwRt7eOfV88PNBqfMys+sJg?=
- =?iso-8859-1?Q?6tGoaiwIkKbPNBsTlEy2vlmPjofBE7m2oPWiCJIDpeRKCfZJdbSkECUaCS?=
- =?iso-8859-1?Q?Tvqm/81T/VmoI84GxotbujCY4KVoD7Vz47i7aFIKU4QvbyxcnxNqzjfkWd?=
- =?iso-8859-1?Q?viBLrFH7KA/9Vw7+JRFm/9oYxxbbO411OcitykuYT1CbxVdYbNqNiqdU+T?=
- =?iso-8859-1?Q?X6D8B1qqpBrx6B4WzD6pENVbcbtkWHHeJksuOSwYhfvm0O9oSkY+o9rf4h?=
- =?iso-8859-1?Q?QvCCb1QgylDNmfDqv21d51GI+TREamD2OHIO4jyGHuHi1UNmXap6Xrm752?=
- =?iso-8859-1?Q?XaknZRA8VVYWDh/qkuaRDZ+nPQlcsKvqrCqUCgTL3Voj+4/X9KhV12JpAo?=
- =?iso-8859-1?Q?VZp0EC9y/KwpnDtIciCNiR3m6jd9pYRKmzLd20CLbsfyUyeHHLNFYW7587?=
- =?iso-8859-1?Q?8PfCo8TVlFjwgWjFSTTIPIlejhXif8yPP9DykhAdQm/DhKXDYPetlZBFcV?=
- =?iso-8859-1?Q?wG4i/y0BNyWoFkeNqf6fAKQPW4RPpcdMFTgCiGd1tP7V1GydsWL5sVFh3B?=
- =?iso-8859-1?Q?lM7GmbFe7vxnz1vElqC5Zx+uOFYcgaDVGwL3EI2uBz4QjA70uNped6rtaS?=
- =?iso-8859-1?Q?luysMuJIzxG9ywkl8hZl9bRag//FKBvKGSb/M9n8RYcmPMLR6geB+6xudc?=
- =?iso-8859-1?Q?ZoqzDEEYl3FAXgdv5lDAfrWIGbuXk2D54wt9CVGx3FOz7I6qqFlBzL44Mt?=
- =?iso-8859-1?Q?sJfZE6WAAMRVXO/iVn7YNMVvvbnkMDfZ5QELUHeKLhR1/14X/EeO6LtXW1?=
- =?iso-8859-1?Q?4Eki7ZqrqFx+zoDI6pG7KWxsI1bGXd+wnB/7urgfvbgf0F8fxE0TjCrNgT?=
- =?iso-8859-1?Q?qJFDf6YN96nQIu72dKLPbCxGecD2hS2EOEqujCql/syIz21hWEsDyWUNdm?=
- =?iso-8859-1?Q?4PaW57hzdMN9CWnnfLx035EHipGlnmK0z+AAFZDYdH2lYH9j445ZoAPsl9?=
- =?iso-8859-1?Q?GzCcKBgvbLbO/OEK7AWNRVLl0G2VqvfK4CxvXaXwljZFZdqZkDEY2PUs5R?=
- =?iso-8859-1?Q?Tk4hgYNjBoxrBff0kvK2CFm5hU+e/aNnnVvEd2U334gS26PcD1jhLAm5eL?=
- =?iso-8859-1?Q?Jtly8Z8JwRVUOiTFVUFatOYg5FHph6GjbTedBRewMBKkes1dKiGzBEfP1u?=
- =?iso-8859-1?Q?Ol6L4KTO6hthvQ=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?wZ99eTpNWQYpf7ng+rYwUnhn2QGmDRJfIUfmvSXz0MN3/ON7/giei2nGTP?=
- =?iso-8859-1?Q?fIuzAHdU1qMYahazsU8VhmmYs8n+MqjWTI06NzaSEUNmiIovvQhIg06CqJ?=
- =?iso-8859-1?Q?rY7RpkQKpxDdu7qjGUZPfDw1sHl0uoYX0Vm4wIHtJ6hMJeZXa6EQaBgiZg?=
- =?iso-8859-1?Q?Jyx6RuxTi0dKsros9T7Qmt5gLzUWYKDmgfj1CiYBBXEHuIZGMFMQf13nc0?=
- =?iso-8859-1?Q?H90yhrxUZl7e8ZTjmOJoZTQ5PLzC7v3vTCGN7276RfcFBNPtS9tkv813oS?=
- =?iso-8859-1?Q?1a51qgldrdWFaJnPLvJZ0sj3kgyyebLYtSs08Z8LbfNdi0AnrugccdLvD1?=
- =?iso-8859-1?Q?KPLCL+dCv91oTvTbguMQt7wh5/xoVFXtcwlCBVmIrsZf/krPPNq42kQzZ1?=
- =?iso-8859-1?Q?zW0rp+FLlp3aQaOfOfyUxoD2Z43bRtLYAcFRBYVZjD27MvASYdSPchK9VO?=
- =?iso-8859-1?Q?lgorzZpaXIaZ6D75YlEdNbuC7FTShtXeiWKQDjOjw38NTMk1bl4uYHObw/?=
- =?iso-8859-1?Q?gOQPLJOEjvqxWE8lcAOn5yOJ7ABF6xLtLdriKYTS/mNCJu76+tSSL142Dr?=
- =?iso-8859-1?Q?h7b5J740rIXxlQ7562684utSTBxO+CUizVFVx52BfnnidEWfXlf+/QfT5A?=
- =?iso-8859-1?Q?736FtgwMexVfWt1EzLw6Me/iL64mU4yFBPnP8WpdGmEE0ZCr5+z1XtPk9n?=
- =?iso-8859-1?Q?XJ4LF97Ev1glXjwsHzowrtB0a7/6Vzvye3ZlgmzEJhf7ubOs9y2jQ4HdEd?=
- =?iso-8859-1?Q?Mg/6nWXANXDxdMADTAQcVmnJHsCe+Kjjqy1p5J8Ws3LiF0d8/HsHQvjHGf?=
- =?iso-8859-1?Q?tVSf1qc+qhRkZWe/b1qMr7p6Zj1X0oe0xE0/NMIvyF1ECC5tGSVV84xQju?=
- =?iso-8859-1?Q?+zzOXL5a2Y50BXaBxWBJ0t909bC0g599fEpeK29GAUTbz2aM4eMzZE7Q/c?=
- =?iso-8859-1?Q?whODE7hYkELZGXHq3r2mwPgX6X/w4j/j+Co2WQh5LXnekw3Ft9uh+Xfntn?=
- =?iso-8859-1?Q?k+tDrMYb/B8k8MKg6zzhH7bAZwRMzlTmF5u2dVevXIDJAlk2mA+mdpk9aH?=
- =?iso-8859-1?Q?gqQC2eeuO9mPTFtijsGhlNSR47WkHeDEKF42chc3Hc3aVlSq9PyaGV8Ucf?=
- =?iso-8859-1?Q?mWlOG8HbGEqJq3QSy7Rcd/5mED2FAqc8nBPKLDT5pH7ZDDcmOdfhtItUBd?=
- =?iso-8859-1?Q?gZBbRp6QXltNWe0nXiySo7lL0NJ/hFeyQTTIfe7wExFHrszNDo8tczQkno?=
- =?iso-8859-1?Q?Ga1YxFMnWetk+3kLe/CByKJ+N0tRLu9pj7M/jAEAgnfh5FXvsxSh8++op4?=
- =?iso-8859-1?Q?iy2e5bsQdjGN4f3yahSFAA8BPSmDm2NxZxUKt1Q0ITqbOm6+gKSr6mQ4l6?=
- =?iso-8859-1?Q?wlScG7CLZdhmPcso0dgn0igM+f9H/12pBYO6PKEge9mA8JJClKlvpmOJpU?=
- =?iso-8859-1?Q?GzVFPP+xTjAynOEM?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lm8dznlC"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1790092149; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=xzX3oI+nIvhLqrrsstw3vJ/BC6DIPbs/7ONFCx7bqz0=;
+	b=lm8dznlCLAApVm3d6svtBv+vUWhrBYOEUcSvHAVYZ+xzqM7mQweiw4HDGQJrg4UclD3dN4SolQmPtCgrF28PVMbfp25/b8ie/KuN2H7Z2rocjHcpW9B721vmpB2KrJicwCqEQa6wzklz0kk7QRpyVDickh2lzDXIZbS81IZLDj8=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00786389-0.000226249-0.99191;FP=15315377223126031482|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jKA4tlN_1790092147;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jKA4tlN_1790092147 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Sep 2026 23:49:08 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: jason.wessel@windriver.com,
+	danielt@kernel.org,
+	dianders@chromium.org
+Cc: kgdb-bugreport@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
+Date: Tue, 22 Sep 2026 23:49:07 +0800
+Message-ID: <20260922154907.90535-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ccdcf6c-0ec3-4c13-eeea-08df18c0f64d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 15:48:35.4464
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB8868
+Content-Transfer-Encoding: 8bit
 
-From 3252a2098213f539a17de92a7b7af11461d0c5c5 Mon Sep 17 00:00:00 2001=0A=
-Message-ID: <3252a2098213f539a17de92a7b7af11461d0c5c5.1790085016.git.arthur=
-_liberman@hotmail.com>=0A=
-From: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
-Date: Mon, 21 Sep 2026 16:36:47 +0300=0A=
-Subject: [PATCH] drm/display: fix NULL deref in MST time slot release=0A=
-=0A=
-drm_dp_atomic_release_time_slots() is documented as safe to call after=0A=
-the MST port is gone. After topology teardown or reprobe (unplug,=0A=
-start/stop TM), port or port->connector can be NULL. Atomic check then=0A=
-oopses from kwin_wayland:=0A=
-=0A=
-  RIP: drm_dp_atomic_release_time_slots=0A=
-  CR2: 0x80=0A=
-=0A=
-Return 0 if port or port->connector is NULL, and if the old or new=0A=
-connector state is missing.=0A=
-=0A=
-Fixes: a5c2c0d164e9 ("drm/display/dp_mst: Add nonblocking helpers for DP MS=
-T")=0A=
-Cc: stable@vger.kernel.org=0A=
-Assisted-by: Cursor:xai-grok-4.6=0A=
-Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
----=0A=
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 13 ++++++++++++-=0A=
- 1 file changed, 12 insertions(+), 1 deletion(-)=0A=
-=0A=
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/dr=
-m/display/drm_dp_mst_topology.c=0A=
-index 7ce9e212770a..31b30706cda3 100644=0A=
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c=0A=
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c=0A=
-@@ -4536,12 +4536,23 @@ int drm_dp_atomic_release_time_slots(struct drm_ato=
-mic_commit *state,=0A=
- 	struct drm_connector_state *old_conn_state, *new_conn_state;=0A=
- 	bool update_payload =3D true;=0A=
- =0A=
-+	/*=0A=
-+	 * Port may outlive its DRM connector across MST teardown/reprobe=0A=
-+	 * (unplug, topology restart). The helper is documented as safe to=0A=
-+	 * call in that case.=0A=
-+	 */=0A=
-+	if (!port || !port->connector)=0A=
-+		return 0;=0A=
-+=0A=
- 	old_conn_state =3D drm_atomic_get_old_connector_state(state, port->connec=
-tor);=0A=
--	if (!old_conn_state->crtc)=0A=
-+	if (!old_conn_state || !old_conn_state->crtc)=0A=
- 		return 0;=0A=
- =0A=
- 	/* If the CRTC isn't disabled by this state, don't release it's payload *=
-/=0A=
- 	new_conn_state =3D drm_atomic_get_new_connector_state(state, port->connec=
-tor);=0A=
-+	if (!new_conn_state)=0A=
-+		return 0;=0A=
-+=0A=
- 	if (new_conn_state->crtc) {=0A=
- 		struct drm_crtc_state *crtc_state =3D=0A=
- 			drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);=0A=
-=0A=
-base-commit: 8a43738e56d9eb76a573cabab4c9c0e73eab23b2=0A=
--- =0A=
-2.55.0=0A=
-=0A=
+write_mem_msg() passes the length claimed by an 'M' or 'X' packet directly
+to kgdb_hex2mem() or kgdb_ebin2mem(). A malformed packet can claim more
+data than was actually received, causing the decoders to read past
+remcom_in_buffer.
+
+Record the received payload length in get_packet() and use it to bound
+the decoders. 'M' carries two hex characters per byte, while 'X' carries
+one byte per output byte except that a 0x7d escape consumes an additional
+input byte. Pass the packet end to kgdb_ebin2mem() so both reads are
+checked against the received data.
+
+Keep zero-length 'X' packets valid, as GDB uses them to probe binary
+download support.
+
+Fixes: dc7d55270521 ("kgdb: core")
+Cc: stable@vger.kernel.org
+Assisted-by: Hawkeye:GLM-5.3-flash
+Assisted-by: Qoder:Qwen3.8-Max
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
+
+Changes in v2:
+  - Bound the decode by the bytes actually received instead of a fixed
+    divisor. get_packet() now returns the received count and
+    write_mem_msg() uses it as the end of the payload.
+  - Split the 'M' and 'X' bounds. 'X' is no longer capped at BUFMAX / 2,
+    so a valid binary write between BUFMAX / 2 and BUFMAX - header is
+    accepted again; v1 rejected it with E22, and GDB aborts a write
+    that gets E22 rather than falling back to 'M'.
+  - Give kgdb_ebin2mem() a buf_end argument and check it before both
+    reads in the loop, so a 0x7d escape cannot read past the received
+    data.
+  - v1: https://lore.kernel.org/all/20260916080306.13395-1-fangxy@xiaopeng.com/
+
+Write-side sibling of the 'm' memread overflow in gdb_cmd_memread()
+(remcom_out_buffer); both handlers trust the same unvalidated length
+field. The read-side fix was posted separately:
+https://lore.kernel.org/all/20260914180344.15485-1-fangxy@xiaopeng.com/
+
+Reproducer ('M', x86 BUFMAX=1024): send "M<addr>,200:4142434445464748"
+on a kgdboc console. The stub decodes 2 * 512 bytes from an 8-byte
+payload, so the in-place hex conversion runs off remcom_in_buffer.
+Unpatched: KASAN global-out-of-bounds read in kgdb_hex2mem at
+remcom_in_buffer+0x415/0x420, guest panics. Patched: $E22, guest
+resumes. A minimal over-claim reproduces best: a huge length smashes
+past the buffer through the uninstrumented copy in
+copy_to_kernel_nofault() with no report at all.
+
+'X' cases (patched kernel answers shown; x86, same harness):
+  - over-claim "X<addr>,400:" with an 8-byte body: $E22. Unpatched this
+    splats in write_mem_msg (kgdb_ebin2mem inlined) at
+    remcom_in_buffer+0x400/0x420 and the guest dies.
+  - well-formed 900-byte write "X<addr>,384:": $OK, accepted again.
+    This is the packet v1 wrongly rejected; the write lands on
+    init_task, so the harness asserts $OK without resuming the guest.
+  - lone trailing escape "X<addr>,40:": $E22.
+  - zero-length "X0,0:": $OK (GDB's binary-download probe).
+
+Built and run on 704340f1cd0d (9 commits past v7.3-rc3), x86_64
+defconfig + CONFIG_KASAN_GENERIC, gcc 13.2.0, QEMU under TCG; the
+before/after kernels are built from byte-identical .config files and
+differ only by this patch. CONFIG_KGDB_KDB has to be off so the packet
+is parsed by the gdb stub rather than kdb. An unrelated early-boot
+"wild-memory-access in _raw_spin_lock" TCG+KASAN flake can reboot the
+guest before the break-in; re-running the boot clears it.
+
+ kernel/debug/gdbstub.c | 45 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 38 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
+index e271a43..0293524 100644
+--- a/kernel/debug/gdbstub.c
++++ b/kernel/debug/gdbstub.c
+@@ -43,6 +43,8 @@
+ /* Our I/O buffers. */
+ static char			remcom_in_buffer[BUFMAX];
+ static char			remcom_out_buffer[BUFMAX];
++/* Payload bytes get_packet() stored in remcom_in_buffer, excluding the NUL. */
++static int			remcom_in_len;
+ static int			gdbstub_use_prev_in_buf;
+ static int			gdbstub_prev_in_buf_pos;
+ 
+@@ -87,7 +89,7 @@ static int gdbstub_read_wait(void)
+ }
+ #endif
+ /* scan for the sequence $<data>#<checksum> */
+-static void get_packet(char *buffer)
++static int get_packet(char *buffer)
+ {
+ 	unsigned char checksum;
+ 	unsigned char xmitcsum;
+@@ -135,6 +137,8 @@ static void get_packet(char *buffer)
+ 		}
+ 		buffer[count] = 0;
+ 	} while (checksum != xmitcsum);
++
++	return count;
+ }
+ 
+ /*
+@@ -321,16 +325,26 @@ int kgdb_hex2long(char **ptr, unsigned long *long_val)
+  * Copy the binary array pointed to by buf into mem.  Fix $, #, and
+  * 0x7d escaped with 0x7d. Return -EFAULT on failure or 0 on success.
+  * The input buf is overwritten with the result to write to mem.
++ *
++ * buf_end points one past the last byte received for this packet. Each
++ * 0x7d escape consumes a second input byte, so decoding count bytes can
++ * read up to 2 * count input bytes; stop at buf_end rather than running
++ * off the end of remcom_in_buffer.
+  */
+-static int kgdb_ebin2mem(char *buf, char *mem, int count)
++static int kgdb_ebin2mem(char *buf, char *mem, int count, char *buf_end)
+ {
+ 	int size = 0;
+ 	char *c = buf;
+ 
+ 	while (count-- > 0) {
++		if (buf >= buf_end)
++			return -EINVAL;
+ 		c[size] = *buf++;
+-		if (c[size] == 0x7d)
++		if (c[size] == 0x7d) {
++			if (buf >= buf_end)
++				return -EINVAL;
+ 			c[size] = *buf++ ^ 0x20;
++		}
+ 		size++;
+ 	}
+ 
+@@ -367,16 +381,33 @@ void gdb_regs_to_pt_regs(unsigned long *gdb_regs, struct pt_regs *regs)
+ static int write_mem_msg(int binary)
+ {
+ 	char *ptr = &remcom_in_buffer[1];
++	char *buf_end = &remcom_in_buffer[remcom_in_len];
+ 	unsigned long addr;
+ 	unsigned long length;
+ 	int err;
+ 
+ 	if (kgdb_hex2long(&ptr, &addr) > 0 && *(ptr++) == ',' &&
+ 	    kgdb_hex2long(&ptr, &length) > 0 && *(ptr++) == ':') {
+-		if (binary)
+-			err = kgdb_ebin2mem(ptr, (char *)addr, length);
+-		else
++		/*
++		 * Trust only the bytes actually received, not length: the
++		 * client can claim more payload than it sent. 'M' decodes two
++		 * hex chars per byte in place, so it needs 2 * length bytes at
++		 * ptr; 'X' decodes one byte per byte, and kgdb_ebin2mem() bounds
++		 * its extra 0x7d-escape reads against buf_end itself.
++		 */
++		if (ptr >= buf_end)
++			return -EINVAL;
++
++		if (binary) {
++			if (length > (unsigned long)(buf_end - ptr))
++				return -EINVAL;
++			err = kgdb_ebin2mem(ptr, (char *)addr, length, buf_end);
++		} else {
++			if (length > (unsigned long)(buf_end - ptr) / 2)
++				return -EINVAL;
+ 			err = kgdb_hex2mem(ptr, (char *)addr, length);
++		}
++
+ 		if (err)
+ 			return err;
+ 		if (CACHE_FLUSH_IS_SAFE)
+@@ -985,7 +1016,7 @@ int gdb_serial_stub(struct kgdb_state *ks)
+ 		/* Clear the out buffer. */
+ 		memset(remcom_out_buffer, 0, sizeof(remcom_out_buffer));
+ 
+-		get_packet(remcom_in_buffer);
++		remcom_in_len = get_packet(remcom_in_buffer);
+ 
+ 		switch (remcom_in_buffer[0]) {
+ 		case '?': /* gdbserial status */
+-- 
+2.50.1 (Apple Git-155)
+
