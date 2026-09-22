@@ -1,192 +1,162 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010050.outbound.protection.outlook.com [52.101.56.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A074A0139
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790113672; cv=none; b=b8Ds1Ydqmh4I2TB7UBF/0yPOGdHLpRJHLHTd1z0ydCnmjASAmmFXxqBSoMLAkRf3hISG+efOkPS7Bv2KRue3QiHqJMwm3EC4J94mFgw28yvdJ18IqpM3N4Y2MY5Rnv3rnPLC3h02jzgWJSDamVJOGr+bh2g4Qa1gUB3/13U0uFA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790113672; c=relaxed/simple;
-	bh=FOqR8vAhGr8g9sZu0webAkiaaU1DJsScfo8uOPGzLSM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o++Wqnk3L1WT5KSjO9is/1EYZ1ZnD3kyf2chQ/neIKTLevWvJXeFlfsWrqCbvkW1W4nBZahDFWGDH9UBSyPGwNgfWoUwFSUnDRIKPQIh+7smUa2OXR9VelaF/FPmCkwg0ZOOWWvlPfb6eyattF3APX99x6toP0v0k70uuHNlrt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GkzVjr1K; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33782527586
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790113717; cv=fail; b=K/ZWS935NiijXV6nVA5O4W9pMhIgY7pkbJtv3LpfsRKCOphey5VwPhZYZSAiqntLI0uT/+g6PEcLEM87Kci86UqSYfFH3eWx9gpP1huMGVWy3bII9BqqdR0Pqjt2mNa91YfbZ3QhO19xLInhocI4a9CncMTkJslFIHvQ8txoY4Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790113717; c=relaxed/simple;
+	bh=LQ4ec0VAayNBtG3ug3oMCmNtg0EukNzf7c/106pdLPs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=V4N1DqzRnIiLDTyL0OFR9jl+GCsXLc9vRbddp6vyUuMdsiIXalGJnniei8liMNameGLo8qOpk1EdnTNmTN9dTFs07dcGIl1ksp/cNoYoQOF1o85p3qXJr3KaLPIvT8BqXZF3q/aBmXXIDcJIWaJQOmdgTD2NjwcyuEK20QqM5H4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=T5Bret2U; arc=fail smtp.client-ip=52.101.56.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GkzVjr1K"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 85B634E41030;
-	Tue, 22 Sep 2026 21:47:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5579D60580;
-	Tue, 22 Sep 2026 21:47:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DD6710328B89;
-	Tue, 22 Sep 2026 23:47:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790113640; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=m0JlreyEJJ3u2gi6KYmZFs3Q667NRJY6xEL00ZUN48k=;
-	b=GkzVjr1KUbIzep8704/Oq868HuBRpjy+UE1zRrlKJFA84olbhB5nE+cSD4yyzfdBX3E43S
-	laXVPESvop1qvxsmpSLLADC6KmQp4ER+hey5ZR9XGqIFd3TM8GTfL46EQj4hNC1Qol6AQ8
-	1cdApNAHu0Pkj2FD6nBnnuRIX2oP+iExIHsG/JlbH1lWiQSDPTV0s49sHMVH7ffaFGauoO
-	EapgmWWjn38kySHKIXHWlVFgTtmVosdpxkKonu62c5BjurblPAt05ngUXeLwGtmpp+RdH5
-	pdlSKIqJ3zjfxwpcSmFezYfmn4ekqIcHrcuUT5RTgHK/OJlYKRjOfgUDhL96EA==
-Message-ID: <59edcef4-6b2c-403e-bc36-1e4e222231c3@bootlin.com>
-Date: Tue, 22 Sep 2026 23:47:13 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="T5Bret2U"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i6EtBEfwXX+ch6j/kw8c1haKax45/LAGwEp4YLnOApkHl+/ktlxXinRJWgySFnqpWfAKbJ4ajHWCRgPg1DIJILbjYVqy1AhkPS/B5Pj9oaRDzBkarp8JkeWPUyoJAtbo7qBEhqUG/7OXifMhVgOxpJ/hB7DqAkC+Z5z41uewVyHQApxCmvZ7VxIwOwGPjvhoMMPegmjzZCeZWyM2V6AIG480J+luLtkcTJ4g4x7hOXJQFaa1p0XlJzFsha8iS+q8inppD7DJkk84AIThsJRmUrGjThsHrnbcBolQqNSXFQc8Rylf4Nh10USzHY9h0juwEMgdmim6TPVDaMNBtOt10A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eu7Y5n4zuyCKR+jeCYxdl9aFJVXvKKXpXSxo02vSIYg=;
+ b=L/oJhLCIx8XLHJnWxSSIpHmdPAPifj2jkRlF1+46aDAtDWMiSH+HTdD5TGDQGQ4oLu+GhG948mQsPDz6fHCiGLl0rE96vlZN8XZTD/7A4LxrjXrE4sXHRIFHm5j8jIVqw2kuVI6NQYzUmwtQFcB2/KeffYT2mLb1hMJZ/uUdlvqGO4Xm3HR6mKs023FbwxgPhxHGmZrMnytgvnm0oyoCHQoP1jJhcQ5LUO2mbTCz6mLXoQRIMrcs42oJOtsNhCF/eL7OkU5Sh2Sl0ytdAULYmNxLJMagUvVRIM/LdkpuEIZ9/PnIdKDpA2Myjq14hruwdHEezPaEnNBdTOA3FsYQgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eu7Y5n4zuyCKR+jeCYxdl9aFJVXvKKXpXSxo02vSIYg=;
+ b=T5Bret2USO65f9YorCYQl0Jr/fCmvmme7LjQs5YXZv0mXAupgi+4fUdNcz3zrMOJeBqFzDesShCdt52HgBDe8zsuyDAV4SYza5dZgQlDT6NWy8MmHfsMSeYMXMX0zyB7zE5KAY1kIYkncLFibVGmTQsScz+2GW5wIxnRD5V+8NUXHeA2A/Lllf83UY2lXaeh4L7GlD5lLRCXTULL160iqzzH8nZmfs3vnuebY/unCQThSnkBVR7U07FoMC9nV0MZx422LZbS6b3EqNaSQU8C6lOlNCJqEnpGTzMF7svUwYxeWUJocUEqLs5kLNxb9pBPBQb3YWdfEHRlEJfG4l1SxQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by PH0PR12MB7488.namprd12.prod.outlook.com
+ (2603:10b6:510:1e9::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 21:48:20 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 21:48:20 +0000
+Date: Tue, 22 Sep 2026 18:48:18 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: Mostafa Saleh <smostafa@google.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
+	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
+	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
+	yuzenghui@huawei.com, joro@8bytes.org, mark.rutland@arm.com,
+	qperret@google.com, tabba@google.com, vdonnefort@google.com,
+	sebastianene@google.com, keirf@google.com
+Subject: Re: [PATCH v8 04/25] iommu/arm-smmu-v3: Move IDR parsing to common
+ functions
+Message-ID: <20260922214818.GA2545495@nvidia.com>
+References: <20260922131259.2975334-1-smostafa@google.com>
+ <20260922131259.2975334-5-smostafa@google.com>
+ <arLa0E3xq5dGuPpd@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arLa0E3xq5dGuPpd@nvidia.com>
+X-ClientProxiedBy: PH0PR07CA0063.namprd07.prod.outlook.com
+ (2603:10b6:510:f::8) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 3/3] net: stmmac: close the interface after failed
- hardware resume
-To: James Hilliard <james.hilliard1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Joakim Zhang <qiangqing.zhang@nxp.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
-Cc: Richard Genoud <richard.genoud@bootlin.com>,
- Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260921-submit-stmmac-reset-fixes-v1-v1-0-87a4e431ee00@gmail.com>
- <20260921-submit-stmmac-reset-fixes-v1-v1-3-87a4e431ee00@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260921-submit-stmmac-reset-fixes-v1-v1-3-87a4e431ee00@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH0PR12MB7488:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a88cdc9-907d-4bcc-bed0-08df18f337a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	jSTBoVgSB0yzI7duV/WvfX9tOj5loX94W6eKM1vkwTfgY1vY29g6Y/ckRg/Nm3tQtKUsI2ur+dewM3J+1lrsdTJg425Ob2QQkJxX2jbNT+khWXYW2C+tuc5CIr52TXdpKCybNj4MvICD+5rh1HL3HOFqUBpej/7EbSJDn9ET/Hu8WsehsnOu3C3xE9BUpFons69DaW6PUNvF0WdBBpP4+wuADqDxk6A9CPQURSywbbSg5dkh5k0Jjt0QBbsqo5g2jyYdPULx1fwosyZRc5tiZ964wX5rXIb8ZDlJB4aU7TlRAWud66JjZb56VyPZd2tsDrB3dRGeC2d+otlptBfdFaxtntX72ghDGwf7hQzYMkcb5CDyM7QMPJQUlTAv0xrlaScnzEZy1+KNanMND3qDlTG8K1VgaKKHdPWsOJeUWMMdwvZwih/PHWnRM0+gigxArEh2GrvQARpjc2APWkLmpP6ocKdBa0NwzfMHsL2mv5CmU0bS3PnJP2oxRNJBVqmrGgL5NtG9F7yf2+kWa4IfEBtiObjKrm0MiirEEgdx88+AR9j7P745K670wfY2i6pGu+BG9HFRoT9rVU5pMezXjVkXq3xLoTQvV8CNNPs3+HWB8hTG66zzPzV/+k0R+jbKL5GDs/Jjvh6DHnIVuDdjT89Gb5kxQ0m2o1COLVHT/FI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?yPWTGrdjFrarr1KY83GnWnABbe+OfWsMCBolo1dOhoXQKMeciBtdYT9wN1Um?=
+ =?us-ascii?Q?093oYlFRcmmgj0++zE84762tohw1uEH4USz+ehCijyEdXG2U6WWT2shUNf1C?=
+ =?us-ascii?Q?FySax210NXhtVPMLuVtUcXJ6fun3Ds1/+cAaui9Tbr6nhl1vwvsbrG3PyVVf?=
+ =?us-ascii?Q?PBIKcDGabHRGkgvEAzCiVX+Aeh/iSaYUWVVvHk2CrfcJebq3XFPrboIjWlOD?=
+ =?us-ascii?Q?UhetSgMH8wCqGz3LlpkGf5BnQzlFyY083dOdgEJ+zUV7TaqSDcXNCp8Bek5U?=
+ =?us-ascii?Q?Glf9JhyPM7Mn/ZhpnccZopnmYkidUEltQkvK/7qHASJ81BVnTsAnKtSLPXSS?=
+ =?us-ascii?Q?Z4XUqq8U1oXaHKYd42vwksSKxuFyMxF5v/Sk5CqMN/tq7eA2oyWxXqcePIuz?=
+ =?us-ascii?Q?Jw57jIfvXzktcIoUzFf1t2F//P2Bew2E4xC42XvpuxxRwwKM+EfRHw1/JXpc?=
+ =?us-ascii?Q?A50T/m0ikYoI0i8RNvuiIs6fm5fbE1rwspa76i19yecTUKiWhDHvW89jFr4y?=
+ =?us-ascii?Q?O56CkHu8vHgqKmRT6YP9pU/R1en9hO+xrJAV8kOOy9uyg/ri3c+OCBt5Dllx?=
+ =?us-ascii?Q?I3y/BXCrM+4X8YiKqgJ6fK/HF0aUBexA7dmccIkatxIF8cdtF2DTQS1nq7xQ?=
+ =?us-ascii?Q?IXv6nlQ7oYzq6ZQ74FT1BtXJFcZCbp8FHW+DNwFgwtMBZHrsu8pHp57hw3DP?=
+ =?us-ascii?Q?lJ9GENDy0LS04OX1BgxS3Gyewcx1HcvIAPSyIeyIonfrAyqbo8zSLp3PDpLg?=
+ =?us-ascii?Q?HdnK29Ia9Luil3QwVLxWjOKL0xGOVwz/cFGFa4NbFGtfdo6L9QrjwvDRHEPM?=
+ =?us-ascii?Q?wX9jZ9s2UuTtnJSlfz+weXSqBpujIDcaPpXK829ed+EjSYSQLmmfzN9k7G+G?=
+ =?us-ascii?Q?oA6SiP3zsKhzXQVbRRkeGZ5wFlCOSW12oEj9auBHLG6S1V+R6JvBlKWCULVC?=
+ =?us-ascii?Q?zIMmu4Up7lJICes59pC043comMy8GnlINdVeO8z4Ba8CqdC23iJm8liDnX0I?=
+ =?us-ascii?Q?3sjGRfEWzb6lNAUaF2LvB/8Bo5wC1HCMPHrC9AM51txmDn9LyRYyxhQ2dCOu?=
+ =?us-ascii?Q?kNbE+wiR0lcqoMWe6MV+nJQGwQ+L6tq7w2rgiFGkn9TSIhwCQLoG3bSvihXv?=
+ =?us-ascii?Q?J3t6HFZFST9x+etKY/ulEGvu5ndu7r8UppBTK1jJPWYzD9R7WltKMXEnhoX5?=
+ =?us-ascii?Q?aUQs4Z1LDWWEgp6Hridtlm0bd2RKgWXjfKekmnUTMg4SQPPUoN5MZRvTrZbK?=
+ =?us-ascii?Q?pCEeM7jD4LI5aW9KElGYuM5IUDOpGd4dHv1B/NjCyHJVo6yVLa4gZaRDJ2/v?=
+ =?us-ascii?Q?PLx8IxueB4j5w2T6PIm1tBeQ11EBsx0T7wOBjGX4uUZ/189cg0P36e5OBxYm?=
+ =?us-ascii?Q?peRMc/EXqDPxPE9xnm03J2k0dGWGwxIP640Wv/5Fg21oT7JipelulQxJa/2L?=
+ =?us-ascii?Q?9HDzKOhctxtc8zJixhZFcIWBor8L00VKavs907iSy2Dm9/D/ORN/nL3GYBKO?=
+ =?us-ascii?Q?P0ijn0pspmY6pNp3jHFwcJYd9a6pVf2ltqqa0ZO5OaqKO+8RcLYxVfLQs+XQ?=
+ =?us-ascii?Q?mZ7ZF7LrEP/VAitqiPQ8cABldi4qkBIV77zk9dogQFy7gvqo+e9Khb+SjZAG?=
+ =?us-ascii?Q?SGjmczue4Ju0Rz2rzd15X0WgYZLZRp5XUHo+ZV9UO1+txsGgSK6HMAu8Dyp8?=
+ =?us-ascii?Q?xAP8lpCqcbWgMYkUPQbgFelMkGaLLLvtaSfmAwP4eV0ChSWy?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a88cdc9-907d-4bcc-bed0-08df18f337a0
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 21:48:20.0141
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oVh7GV1VDa7iEiSEuGL5FpwcLfI/xg7rYIDLDFzJDXVluFJ7mRQbBnoiXSJ4f9gp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7488
 
-Hi,
+On Tue, Sep 22, 2026 at 12:45:20PM -0700, Nicolin Chen wrote:
 
-On 9/21/26 18:54, James Hilliard wrote:
-> System suspend disables NAPI and suspends phylink but retains the IRQs
-> and DMA resources. If hardware setup fails during resume, the interface
-> remains administratively up with NAPI still disabled. Closing it later
-> calls napi_disable() a second time and can hang indefinitely.
+> Also, Jason's suggestion in v7 was hyp_arm_smmu_v3_device, which
+> looks nicer than ARM_SMMU_OBJ...
+
+I guess the point is to emphasis the substition technique, I don't
+mind.
+
+> > +	if (coherent && !disable_msipolling &&
+> > +	    smmu->features & ARM_SMMU_FEAT_MSI)
+> > +		smmu->options |= ARM_SMMU_OPT_MSIPOLL;
 > 
-> On hardware-setup failure, stop DMA and disable the MAC, then release the
-> suspended data path without repeating NAPI disable. Stop phylink directly
-> from its suspended state rather than restarting the link on hardware
-> which failed to resume. Drop the driver mutex before teardown, retaining
-> RTNL across cleanup and network-core close.
+> Will pKVM ever use MSIPOLL?
+
+Not sure I understood the approach in this patch, why was anything
+left behind? I imagined everything would be moved?
+
+Maybe a few more remarks in the commit message?
+
+> > +	if (smmu->features & ARM_SMMU_FEAT_HYP &&
+> > +	    cpus_have_cap(ARM64_HAS_VIRT_HOST_EXTN))
+> > +		smmu->features |= ARM_SMMU_FEAT_E2H;
 > 
-> Close the netdev to detach the PHY, release its runtime-PM reference and
-> clear its administrative state. Reattach the now-down netdev so a later
-> open can allocate new resources and retry. Preserve the original resume
-> error and leave successful resume unchanged.
+> Why is ARM64_HAS_VIRT_HOST_EXTN left behind?
 
-So this changes the admin state of the interface upon resume failure ?
++1
 
-using netif_close() in drivers is not common at all, only 3 drivers do that,
-and among that, fbnic does that for the selftests...
+And the TT_LE/BE and S1/S2 checks, and ...
 
-Let's instead focus on making the state coherent.
+If kvm doesn't want to dev_err log that's fine, we should able to
+#define that away too shouldn't we? And maybe it does want to log?
 
-Before entering suspend, interface is up and running. suspend happens, then
-resume, and something goes wrong. As you mention, the next logical step as
-the interface is now dead is to bring it down, and freshly set it back up.
+This seems pretty close otherwise
 
-I'd say, either the __stmmac_open / __stmmac_release are not at the right 
-granularity, or there's an ordering issue, but we should focus on making
-sure down'ing the interface after such a failure puts it back in a clean
-state. I'm not really convinced with the boolean to the release indicating
-if something's already cleaned or not.
-
-Maxime> 
-> Fixes: 6896c2449a18 ("net: stmmac: Check stmmac_hw_setup() in stmmac_resume()")
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 29 ++++++++++++++++-------
->  1 file changed, 21 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 44b59d0f56b5..87cb0978ed6a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4245,7 +4245,7 @@ static int stmmac_open(struct net_device *dev)
->  	return ret;
->  }
->  
-> -static void __stmmac_release(struct net_device *dev)
-> +static void __stmmac_release(struct net_device *dev, bool napi_disabled)
->  {
->  	struct stmmac_priv *priv = netdev_priv(dev);
->  	u8 chan;
-> @@ -4258,7 +4258,9 @@ static void __stmmac_release(struct net_device *dev)
->  	/* Stop and disconnect the PHY */
->  	phylink_stop(priv->phylink);
->  
-> -	stmmac_disable_all_queues(priv);
-> +	/* Suspend has already disabled NAPI when hardware resume fails. */
-> +	if (!napi_disabled)
-> +		stmmac_disable_all_queues(priv);
->  
->  	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
->  		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
-> @@ -4297,7 +4299,7 @@ static int stmmac_release(struct net_device *dev)
->  	if (device_may_wakeup(priv->device))
->  		phylink_speed_down(priv->phylink, false);
->  
-> -	__stmmac_release(dev);
-> +	__stmmac_release(dev, false);
->  
->  	stmmac_legacy_serdes_power_down(priv);
->  	phylink_disconnect_phy(priv->phylink);
-> @@ -6174,7 +6176,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
->  			return PTR_ERR(dma_conf);
->  		}
->  
-> -		__stmmac_release(dev);
-> +		__stmmac_release(dev, false);
->  
->  		ret = __stmmac_open(dev, dma_conf);
->  		if (ret) {
-> @@ -8356,10 +8358,7 @@ int stmmac_resume(struct device *dev)
->  	ret = stmmac_hw_setup(ndev);
->  	if (ret < 0) {
->  		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
-> -		stmmac_legacy_serdes_power_down(priv);
-> -		mutex_unlock(&priv->lock);
-> -		rtnl_unlock();
-> -		return ret;
-> +		goto error_stop_dma;
->  	}
->  
->  	stmmac_init_timestamping(priv);
-> @@ -8386,6 +8385,20 @@ int stmmac_resume(struct device *dev)
->  	netif_device_attach(ndev);
->  
->  	return 0;
-> +
-> +error_stop_dma:
-> +	stmmac_stop_all_dma(priv);
-> +	stmmac_mac_set(priv, priv->ioaddr, false);
-> +	mutex_unlock(&priv->lock);
-> +	/* Release the suspended data path before ndo_stop(), which must not
-> +	 * disable NAPI or free these resources a second time.
-> +	 */
-> +	__stmmac_release(ndev, true);
-> +	netif_close(ndev);
-> +	netif_device_attach(ndev);
-> +	rtnl_unlock();
-> +
-> +	return ret;
->  }
->  EXPORT_SYMBOL_GPL(stmmac_resume);
->  
-> 
-
+Jason
