@@ -1,115 +1,186 @@
-Received: from mail-pz2-f11.google.com (mail-pz2-f11.google.com [74.125.228.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013022.outbound.protection.outlook.com [40.93.201.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EBE51AFFB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:43:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109861; cv=none; b=l1XmvzKUHodaKZeKkG4laYTZcUqvotbSgK2vOfxoJlcLkf0g/4Ax2ziM7O6IFj+uKXJTsOeDWpaJHoQ1v8vfcKGGXIxO4Sg6FRe1h8PAn0dTb8nP5AbI2FAYyhyzyqRk56YVAJheERAV7Nz2mXzyRi4/5FeRW2mqbPKGS1YMtcc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109861; c=relaxed/simple;
-	bh=CvPWprNtj2/h7qYd3ZKQiVW+cdulTxr3CaN7at07Ro4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qydcf8T5HOsZyK4+b3TPA/yqBpM0o6QFsBasJ/dIsKoRVpWct8yXp2b3kc5YJhhfaD36zlWNMlRQN9JuolUEXiZGN67LLq1feIF/34+76k635W4JXAtbMX9S485ohPSIHkm52jUjE4OZ0DNSLDJBSM2ZEpZlj9M3gtjAjpJ/82I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bAANVfL+; arc=none smtp.client-ip=74.125.228.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AAF4BEE54;
+	Tue, 22 Sep 2026 20:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109937; cv=fail; b=KIkObvnRH1KuH4leBZBWGev+iFUCUi71MVzSYQR3eMr/tv2MVrCf+UjKx6/t967dWhywH9/ji6tSXslo/PCwJIosNf/vkiwvvGu6Nq0SZB1E9/05r4Hv2D/cfSo5HN+kuIBKdcWEwF2DkAJyeE/f5Gi1Q4VjXRFAJ9BRf+/YIqA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109937; c=relaxed/simple;
+	bh=2xLbOxJSa7bwtGItR8nfeMPlBk8iUM2wRT6rbrSNEHo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rbjBT+PJcfqTmgq0Kl5N4UCmjnbqZiYzh/Cez3iMdHAyfhwuAUwbY2zgSQt7zWlgRMKsTX3lYOJXAduwJG3s62KnjtmAnx4OpQTLGNOh+Ap96Hzx3DUCTXgKQxcQ70WtULwCILJBDhgnvnb2k0hL24E/7aTGGy/LFwcwwHfgKFU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TyBMBhVn; arc=fail smtp.client-ip=40.93.201.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bAANVfL+"
-Received: by mail-pz2-f11.google.com with SMTP id 41be03b00d2f7-cc1c2963c92so109111a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:43:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790109830; x=1790714630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gMpSTn93NNFEOpIjn813NWg6HwKgpaeEXImngFElSS8=;
-        b=bAANVfL+RXtqnSbOnA2QMuo0fAQDAC98/9wUjefyttPpqXsPVWmh7OjlESXRXHbokY
-         I8yfmpKqZnzJV7PssTgmWGNkG9LLhYXhfR+eFoGwG62IzdfM0sagVP+Hj39tHQNL1BFQ
-         rkG2Eg+cyKQzwzJQQ9HMvdsO5fIV5sDRxz81j8irJgAhwx4fA5QNAfhm2gziWf/MjZlP
-         Cz3YNLcFYRjRxKnH2B+Op6WWqZEwpl+6NUD0D5EGd+Mr1VZffwMnYIdSV98APmPoXhyN
-         6s4erbfPcI8H4O8/pK4Bcweb6bM9Wf8RJUVQUa1gdi09otXZaH+GwP2UjXNWgd6JDEoA
-         2yCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790109830; x=1790714630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gMpSTn93NNFEOpIjn813NWg6HwKgpaeEXImngFElSS8=;
-        b=ySMXrIlSa/ruu+Z1sjqSM+5SGn8R+TUqparJrBPTYc4zZ+o7H3okjfd9UjMCvoM7o8
-         SQAHcMvQ9mqbAHaxfIAtpyfQgAYLI6U5XUEPOGpV8L7tYALZxr+NrbnKFTrs+YcDaweU
-         Du6KUhnzoAbDLQtxC6rTLBVepl2l4CDP7QndHe50ljLRwAU8E98crrrWSPJkM5+dR1SS
-         dAJ2UiTZN7e0D/PwfhZcNREWDmDNYyapaxVZtx/oTfb6ydpfR/gxuJkUcTOM4HZkv0sN
-         9MYPuioQZ7wkklXICpScx33KaSmfRTS0MrFNRKidFPsesJKdq9vimtLuuwrHh9nlwTOu
-         4cgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzGQuOP7vP0qjFus8qX1JAcwlJKu+EgFTniv22EdsQ19UVTXNIHYPEmjiwm1LtqgQ9pN487Z1Tc7klE2lw=@vger.kernel.org
-X-Gm-Message-State: AFuF++njMi5sS9deEoTjNCHR+PMwskEvnldPow3IVU0eITT+zMaD4Vpg
-	Y3jGlvW25W3p8RHAC6pfVih88G7urp1qjRtm+fO9FrrrdVYOZy7qSpLr
-X-Gm-Gg: AYBFou17ola7ovcowKZH2vl09m9gVfi7PE2AAWPc9Xw67tDnB2pI3DkJgiXPXSOVvIq
-	L3J4NWQoGE/2vSo0eKQkkuX1MEmy1cX5mqnSxDwL6ipFA/ebt9PCLPIcboJDcP3nBfKxSsVpnXW
-	Sn5OxtF+wQkjA0E721c/0fQXv7o9PwAvQKG+2Lb1jVl2um98o2lkBb50LKyHA6c1N8ToBbs3a79
-	fkBzJrTn2R9ZgMkg6YLr2MED1r+3SgsGbpRowJE0Y6nvC4sMczwfZ7JCxrZLbinfCWSfpnAde0p
-	DOOfbcJ5G3tlJkDWP6uCKDxkfupXwRGWQJZiZzf2tFBZsik8BuA8qGPlxXqW70k98gX0SEQ6/WD
-	78vTQtNwDUmba4SF9wKxLS+rCXbGpPUHGeEKqBEGaIjGinLsmeFZu8AfuvrhOhXEA1UgyIWWNla
-	uKL9xfUqAS/QTEmfmGzNxbNo6nyNMTqn+Yr7YMEWFR2kuP8hUIad+/nlLxTQC7Qss=
-X-Received: by 2002:a05:6a00:854:b0:87c:9094:b72f with SMTP id d2e1a72fcca58-87d1a7af70bmr703595b3a.12.1790109829787;
-        Tue, 22 Sep 2026 13:43:49 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:8::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1d4c483asm289145b3a.21.2026.09.22.13.43.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 13:43:49 -0700 (PDT)
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	hawk@kernel.org,
-	ilias.apalodimas@linaro.org,
-	asml.silence@gmail.com,
-	axboe@kernel.dk,
-	sdf@fomichev.me,
-	bobbyeshleman@meta.com,
-	almasrymina@google.com,
-	kaiyuanz@google.com,
-	linux-kernel@vger.kernel.org,
-	io-uring@vger.kernel.org
-Subject: [PATCH net-next 0/3] net: consolidate net_iov freelist and DMA handling
-Date: Tue, 22 Sep 2026 13:43:45 -0700
-Message-ID: <20260922204348.717198-1-sdf@fomichev.me>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TyBMBhVn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lzVg4ngpEHhPyu77O55OM4gi0sw++JE48XaHurscyPsa2udv4T1dKuGkHgSRzEFiAdCKt/Nf/z/jenV20s8qw85MNKfMl6AY6x7Fbq510EyuOQc3hyf6XZjXISQz/ewN6LGsiawKFNsa07fHI3nMW5S2YPDr0vZRvazr6zHozZSX4QTEsY08QiS3x9zVWY2QhqXYccQeG2U51Dm4Zyt1VtiaCOeU+e86jtajspiSJciD/T4Ko7UTvU2ysU6zcGsdLy8vASbXSXe2LLU5igN20ERQV7qz70N9+6dCl1hVupA6UjEtSnAsxzWMoHzgrY7XzBdBuUCqn+wR77e2TBdRUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=byX2fRaaCdkCqsxpUoABscL30WBVxeiWc6SLj8E75eo=;
+ b=yU/ys2/xFMSVwp/U1jlGM31KdP+p5Z9O27KyRQjxxbq3KUWe+hqdZHmRelnDl/D1U6kmuV0D07L9lz2Emg4IZYYW1Zz4+ICyAwvxegJDAZwogokppT6LVzGYLBT0/n21C2N6YJm7TAgu785oFiB7rrGPz2J8W7ntejv10KmW9HghL79KBnnq9JAfWeB05KTa/n447xsOwLWbQVDOiVGFOcFx6IulaYz4m0fAIYgzJDdex0Qb+GltfDqxpRjfdzO71rLxBC4SgxTsVMU7il2rQGsBnGFSdo5ngJqiOO+MEUowzbcDx1PYp1SvIeeFheLS5Rm5irKPNUj16c75By5vGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=byX2fRaaCdkCqsxpUoABscL30WBVxeiWc6SLj8E75eo=;
+ b=TyBMBhVnmnz91rma3kydfPImfIApzRybzqLDXLrxJQ+mg3U/yeZVA4+41ZZiLhxJ+rPhLmvaOishPJEmZzIQjk31I3oxS/xdB5plV7si3wMmkARpr8n/lTbI64yzoy5ATX5Tr0+HdLF2qOX+/qn6cn8Ty2Vg9abEwKaNAheqOjQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH3PR12MB8660.namprd12.prod.outlook.com (2603:10b6:610:177::5)
+ by IA1PR12MB310634.namprd12.prod.outlook.com (2603:10b6:208:5a2::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 20:45:07 +0000
+Received: from CH3PR12MB8660.namprd12.prod.outlook.com
+ ([fe80::87aa:52e5:4b72:d5f3]) by CH3PR12MB8660.namprd12.prod.outlook.com
+ ([fe80::87aa:52e5:4b72:d5f3%6]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 20:45:07 +0000
+Message-ID: <55683a14-5888-43e5-8e73-04c85d2750ff@amd.com>
+Date: Tue, 22 Sep 2026 16:45:02 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] KVM: SVM: Re-queue events that were never injected
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, pbonzini@redhat.com, thomas.lendacky@amd.com,
+ kim.phillips@amd.com, nikunj@amd.com, michael.roth@amd.com,
+ ashish.kalra@amd.com
+References: <cover.1789399214.git.prsampat@amd.com>
+ <d946de080e3dd34844a665c167179e4910fdc9d4.1789399214.git.prsampat@amd.com>
+ <arEuMojZa_kv9VXA@google.com>
+Content-Language: en-US
+From: "Pratik R. Sampat" <prsampat@amd.com>
+In-Reply-To: <arEuMojZa_kv9VXA@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1P222CA0007.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c7::12) To CH3PR12MB8660.namprd12.prod.outlook.com
+ (2603:10b6:610:177::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8660:EE_|IA1PR12MB310634:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83497869-6bc5-4767-9513-08df18ea62c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	O7uONnFzkx3iMcHEXOV27WS3e35F15UZSrR8iU2tooKZle33DFn4GCYsF5evJ5o+eOVrAJlUyJ2gKtomnGFKIBSN0j8+b6bjl7KBVNf1/Kiji99MtNTHV81ckappsKQiG3N5iUvxIkfpaMmUA6l+vjuxBDNufYIIWly77zom0TPjFiamk/FlaGCswoUXN7hnr5Bx3yXLjebaVbv7IuWZ0Bt8SQ7JVjbjnRuFQR72APoV+3EF1YwTW4okPxGxHIa+Oejg6ubIpvWUUOa30AxzsYKpkJjOUmYTjUmEMv40cPSCt8zn+hLAYQXm9T1mHOA5BAnl2g9rT+HOnUgN5Abl9gkdphtzT48PcLkkJBxTIfA8FrdDK8OBs5/ddeXQ5VdF/dxKjXCcyBoxLri2/FtiRNd5NSEha6v1yGLoEmgweuHMLDF33O0+nFfZ2yCvjD3GmuL6quhSvDXP1e8n9IAqUBA46GQJGcMshIHynXUSwCHBnkHh4/rxCf6DDrWogLUtYX/vlExNyHCZcgJ2VssGtAGXtFr86Ze2W/MWk4cPG+15c0HlulYlTAnRJIFPsR1fTIsYYu46celQ4e+ppCJAMuwJzJ0tuNCrLYebbGH0rIIIB/JMP+DYtGaFkUSvUb/OtvsUEllwlk4aUYV3Xnlg5TVF+8EGQZWzGxp3ByQO4WY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8660.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Uld4cGxVbVpiWiszQy9sOHpTRnJBWE50QzRITnFYeklOaWlieEd2WTJXNkZY?=
+ =?utf-8?B?VkJRcmt0aXZCOGhRY1lUbllTdkpmelg1Qm9zZUdMeDQxa0M5dWlZZEdCemFC?=
+ =?utf-8?B?TFQ4UWREUHNHcjQxN21qZGcyempTSEVYak9FWXdTaWRZMGFDQmQvamtNZ2Mz?=
+ =?utf-8?B?cC9FTVFYbWlCbWdjUDN4d3V0Y3dqaFNpY2RLWDAybFkxU0FaRG9ObFNkcHFN?=
+ =?utf-8?B?Y05hWWtZNlEwRmpyUGhIWGxQaXpRUzhCMWlJV3pHbitmbFRsd1gzYW82Zjlv?=
+ =?utf-8?B?UjdRQWxhTVR2cUU4R1J3bVBvUEV4RHZwVCs5TmRDb2ZtcFBHcWw4NWp2STYx?=
+ =?utf-8?B?SG8vYlZwTk44UFFhL0p4S3pzbmdTQmVFZzdWTU90clVnZThCRWVzRm54VTVR?=
+ =?utf-8?B?SXZQNHNIcnJKZXRPR1Q0RndMM2R1SmZnS3ViTHltd1hzYzRvSjdsdWxqN3Y5?=
+ =?utf-8?B?bk1pTnRndVhnRlRjZVljREdvenBWMktmYnRiSGhSd01GdkZ5R05ZUHh2bTdB?=
+ =?utf-8?B?OVRleWR4TWFhaFRkc2FzY2V4QU8vWnpKbFBmVTJYZ1h4MytxMVhuQlFpNGlW?=
+ =?utf-8?B?RHp0TGVuYlpPUUhoY0tLR005RXNIakJ5TXJtRGhhR3lsbHh5dVloN3NSWDBt?=
+ =?utf-8?B?WFFtVjFOWjdoVkU3d0pKUmRwcXd6THVEWGhBTERMV3NtaUJpWW5kUVZnWGlP?=
+ =?utf-8?B?ZTdBejZOaEtDTkNmRytCOThWTmtLSnZ2cHYwME1ZckJwYjhDN2JicitTdmUz?=
+ =?utf-8?B?a2dvYnFFenhEZVBXWDVlNkRkQmVXY2MzeHlpWlVoQVdlY2I5NmFzWUx4QWdX?=
+ =?utf-8?B?Z1I4Y3AvSXF2T1g0SnNBc1ppZ2toeng4R0xheFU4VTM5UFR3aWVxMUtIdXEr?=
+ =?utf-8?B?L21mSS9QNDVVQmRKN28wSG55SXA5K3Z4U3BSWm81Z0pSelNpMHlUZjVXNFYr?=
+ =?utf-8?B?dkgxM1phUGVjTHpLdE1tbWpxeDRBVmtLUjlpMFp3dVkvdzJWTGFHcEVlTGJk?=
+ =?utf-8?B?dW9xN3g3THFyNklJYVFaQVJUZi95TG52ODJtSDFpWDdGdFQxc01HQmZWU0Nn?=
+ =?utf-8?B?UFVob2Y0Tzl6MjZFQkpWWWZ6aW1mZVNCU0RlWFdSeUJLdURPZkMzdUZjT3Y1?=
+ =?utf-8?B?aU1MVk1IK3B3SUlUZ3h1MXI3NGhWdnJKc1BlWmdTV2kwRXJ5YXF6emZGZHlr?=
+ =?utf-8?B?SGh4aXk3RHhPN0I5ZDlrU2ZiZlo1bEhIeXpaQ1ZRZHdVRFpOa3ZnQTFRRDFv?=
+ =?utf-8?B?MFVnRnJkeC9uMnNhRVBZU0NFUkdrU2JWbmFMTHdkTTFBampvYm1LbXkvVTZK?=
+ =?utf-8?B?NE8yd0xQNk1hTCthVjVYdmVlcjM2cHdsQVJZM2dZa0xESGk1ekF0d2xHVmx6?=
+ =?utf-8?B?aU42ZjlrN3RpbVI4L1B2K0NacmU3elpIbjZ0ZSswekpzM2ZmQ2RLU0hmMXZ2?=
+ =?utf-8?B?bXdsMlA1bmtuaVdtNGVJSjlDRWpZbmdrMDBNaE4xdE9qQUdzaWR6RjByKzZF?=
+ =?utf-8?B?eFRab1ptbE1wTXpURDJLWGdVZUNZY1JyY0dpVlV1Vm9DVGp1eWNJRkExaTlR?=
+ =?utf-8?B?TEpUdUpuc21NRll5clBSekx6RjJPaTRONnc0bEVSN0VyUnQ1MmFaWThqajRj?=
+ =?utf-8?B?eUdBcGpFTmpNNk1MR3ZhZVQ4d3MxTUM5TGRnVHIzcXFHUDZPRkU5Rmd3clBr?=
+ =?utf-8?B?L0M5K3NlSEZOc2RaM0hObjl0T1E0c2M2RVFtaUt1UjMzWFlWdjQ3MUt2cTJa?=
+ =?utf-8?B?bFh1MjVsYlY1N1VUL3o0bWQvRjdVVzNZQURJeXRPaGlsYjAyazFMTC96UmJl?=
+ =?utf-8?B?RWhyL0Q2Tjd4Ykt6RTh5ei92OW9Zb1RWRTd3bU82eTh6VzFHaWE4VWtNaHpE?=
+ =?utf-8?B?YzQzQ0luRnJJdTRvdjN1eWxMelNTZkxranFjdFlQUFhJZUpoRWRGVmJlbGFC?=
+ =?utf-8?B?cXBTZDVNVlZjdlZ1MHhzMXFwYmp5WFdycjRCREJaYUZYbFVyR016TjhQS1Ja?=
+ =?utf-8?B?dmJURnBPUWlQT0ZObnVzZll3eVpVVndDUi8yM1hKdGhibUxLaWpRNDQrZ2hh?=
+ =?utf-8?B?VTNmeWpydXQrR3VlbXI5Tm5KOWJQMEtEZitpVkpNellMaXVad0ZqdUtvc2NN?=
+ =?utf-8?B?YXNQeEM3bXZtMkZWSDJUYXkwVmh4RlVNejc4VUR4TkJQS0U1c3hIYjd3MGJq?=
+ =?utf-8?B?bWYrRTBKZmlRLy85L1ZvN3JmeThncU5ybjNUZTFvdVhZbmVGZkF6Q3ROMm9Z?=
+ =?utf-8?B?UDdDTUFSVW9EWWZaN3pPbmd3Q2FxRVVkUzNSdlIyYys3QlRyRmJUUFRlMUM0?=
+ =?utf-8?Q?BUnTQtmOfU4UtFmcou?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83497869-6bc5-4767-9513-08df18ea62c7
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8660.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 20:45:07.0808
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NMKtUED1B/y/0wBrcHpI+Mf0zOeiD47/G83y8ngD4pwuyX3nRzuvEfxlq4uOK6nPJfxGRFKsx1bu8iV3cqQ9nQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB310634
 
-Follow up on the recently merged devmem gen_pool removal by consolidating
-the remaining net_iov freelist and DMA-address handling.
 
-- move shared freelist state and operations into net_iov_area
-- switch devmem to public memory-provider helpers and reject DMA
-  addresses that cannot be represented
-- decode stored DMA addresses for TX on 32-bit systems with 64-bit
-  dma_addr_t
 
-Stanislav Fomichev (3):
-  net: netmem: add net_iov_area freelist helpers
-  net: devmem: use memory provider helpers for net_iovs
-  net: devmem: decode DMA addresses for TX
+On 9/21/26 9:16 AM, Sean Christopherson wrote:
+> On Mon, Sep 14, 2026, Pratik R. Sampat wrote:
+>> When injecting an event into the guest via the event_inj field, a
+>> non-zero event_inj value on #VMEXIT means that the hardware was not able
+>> to inject the event into the guest.  This used to only occur for the
+>> VMEXIT_INVALID intercept code, which was a fatal error and resulted in
+>> the guest being torn down.
+>>
+>> Enhanced SMT Protection (ESMTP) invalidates that assumption.  When ESMTP
+>> is enabled, VMRUN doesn't enter guest mode immediately; it stalls at a
+>> synchronization point until every sibling thread is either idle or has
+>> executed VMRUN for a legal sibling vCPU.  If an ESMTP timeout / illegal
+>> sibling exit / interrupt arrives while VMRUN is stalled, VMRUN can now
+>> terminate with the corresponding #VMEXIT intercept code, without
+>> entering guest mode, and thus without injecting the event.
+>>
+>> For example, on a 2-way SMT core running vCPU0 on thread 0 and vCPU1 on
+>> thread 1:
+>>   Thread 0 (vCPU0)                         Thread 1 (vCPU1)
+>>   ----------------                         ----------------
+>>   Interrupt A injected to the guest             in host
+>>   VMRUN                                           |
+>>     |                                             |
+>>     v                                             |
+>>   Stall waiting for sibling                       |
+>>     |                                             |
+>>     |  host INTR arrives on thread 0              |
+>>     |  while it waits                             |
+>>     |                                             |
+>>     v                                             |
+>>   #VMEXIT                                         v
+>>   Interrupt B injected to the guest              idle
+>>   VMRUN
+> 
+> So how is KVM_RUN_FORCE_IMMEDIATE_EXIT supposed to work?
 
- include/linux/skbuff.h          |  7 ++-
- include/net/netmem.h            | 55 ++++++++++++++++++++++-
- include/net/page_pool/helpers.h | 10 +----
- io_uring/zcrx.c                 | 25 ++++-------
- io_uring/zcrx.h                 |  4 --
- net/core/devmem.c               | 77 +++++++++++++++------------------
- net/core/devmem.h               |  7 ++-
- net/core/page_pool_priv.h       | 14 +-----
- 8 files changed, 108 insertions(+), 91 deletions(-)
+I don't think KVM_RUN_FORCE_IMMEDIATE_EXIT should be affected negatively right?
 
--- 
-2.53.0-Meta
+On SVM, it queues a self-IPI before VMRUN. Normally, VMRUN enters the guest,
+consumes EVENTINJ, and then exits with VMEXIT_INTR; EXITINTINFO may describe
+interrupted event delivery.
 
+With ESMTP, the pending IPI could terminate a stalled VMRUN before guest entry.
+EVENTINJ would remain valid, and this patch would requeue it for another
+attempt. That should preserve the intended behavior across retries. Of course,
+progress would still be gated on it being a legal sibling to begin with, but
+that should be fine.
+
+Thanks,
+--Pratik
