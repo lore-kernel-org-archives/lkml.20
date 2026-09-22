@@ -1,124 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD22C3C457A;
-	Tue, 22 Sep 2026 03:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D213C13E3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790047349; cv=none; b=W9RTrjp7iwJzjevv+FlyhZSDGrWjeBZYeRcHydF52J8wqj1G4kyrx7fk+YVeNQB0rA9NcD1ndPHEwoVx8DPL9/nfkO8e9B4ijliWQ1PChR7ugxVQZbLtzywogp6kHxTubmSWv4qC/s8T9rxLApvCJNTkK3tdVBoaITu2Ixv07pc=
+	t=1790047351; cv=none; b=SPm5Zmqncku0TVDQ+q2e+CkgInP1Ur0Pna4q2Gh+zagtc2ByRmc9oP6lmh+TXqhggy8F9tuerg6H+vWK3c1krnDBHtMQ5dDsywTpLW/5kqpBt6HSbcLI3qn723NrAZSWhAuZLKRxohQJlQPsKuLGsRQReGMPeKugy9EodzS9cdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790047349; c=relaxed/simple;
-	bh=tkKyb6o/q54YNHkzyMiP8yBks3q9fFthJooG5foOR70=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=bTT9qjnTEYUR96G3zANsu3jeTrv/Q3LSoXA/rWHgEtPqnGQpjAgXz5FLIjsUTeE+twP7XHFt17urjxKIKCojj189gwIi1Me3x3neZ+HXCJMQqXKh6B3BkH5RGF++oaH0FPK+EIYld+L7kLLKE7w1/YdJwa4YNjgBnnpqx+ZWVSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VU09n4gn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790047351; c=relaxed/simple;
+	bh=7JPshgisP/gZKt07zp73sn2ZgmhMnlsFZ1jh2Bjoutk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hunxFiwiXw4mSDZXQuPUNVxAvL0G8APUAucPEOVUu4UrrUKRxWn+HhPradlMlZ1Izz4YFG19UhWP6rxRiThij9BDHG9U9UnUPPAVRCqpMeEhqTGnKozXXYeycX/jBhBgWHnXa+K27/Hz8DRPCS6axIgqmz5RuToBA/J3iG+2SWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qbeh/PYn; arc=none smtp.client-ip=95.215.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VU09n4gn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D2B1F00898;
-	Tue, 22 Sep 2026 03:22:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790047347;
-	bh=GHcrmWBbamtMM40zGOq2ru89k4AwG4f3HlOwSmuke7Q=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=VU09n4gntRUY5Qnyj5Ppo98GZZVHMTByBzKM7F85C91tIVcW/QYHilwjwVG1+/wei
-	 eim87yjXp7eNYYNEs3igBS//pxis1/j817CndDnXAvKJKE+kGf2JdxefXIjTyyx837
-	 FOpqKO1E3+x4q6U5/d7jtPY2zkIxfNgQVwEqQagTNNW53SUhn+wdIF08lbYWd8PWRi
-	 +D3SCrijVlhfeRH4rsYha0ED7KjOdjbk8Ub77KofqdxGCBDVSewaUoCu8YspzlZGCu
-	 6Z3MIfq7cSd3iJjls38cOSM6JCXHwovZxCn89Ey1JS2usitKwJPk+m9uM1ARSKU4Lf
-	 5ev97SE9J3esg==
-Content-Type: multipart/mixed; boundary="===============6129579292215528045=="
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qbeh/PYn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7JPshgisP/gZKt07zp73sn2ZgmhMnlsFZ1jh2Bjoutk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790047347; v=1; x=1790652147;
+ b=qbeh/PYneXt/Z16/KO0X49SzL25xMr46LzdcaT+zpPhASXEJOiIhm/yJhpw8JvqkqwoJwodG
+ 8TU1arKIF5Z2jo0jK7N4ykUxoJHyaXg6Qs9aEcWxTQ8JHtkEjjN3fWcvdvHZW4e3PtO51Gj7PCk
+ SI95588ILYb0kQY/zla9e1tg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0ca956a7054bf7e0;
+	Tue, 22 Sep 2026 03:22:26 +0000
+X-Mizu-Trace-ID: 0ca956a7054bf7e0
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	cgroups@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v2 2/2] docs: cgroup-v2: Describe effective CPUs of partition roots
+Date: Tue, 22 Sep 2026 11:21:30 +0800
+Message-ID: <20260922032130.33777-3-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260922032130.33777-1-guopeng.zhang@linux.dev>
+References: <20260922032130.33777-1-guopeng.zhang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <7095e52a0212058681c54a929368a018f1c64d8d2650f32310c488483d1fc593@mail.kernel.org>
-In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-7-410f57770bad@toxicpanda.com>
-References: <20260922-b4-rcu-tasks-preempt-qs-v5-7-410f57770bad@toxicpanda.com>
-Subject: Re: [PATCH v5 07/13] bpf, x86: Take a Tasks Trace reader in the trampoline around its call-outs
-From: bot+bpf-ci@kernel.org
-To: josef@toxicpanda.com,paulmck@kernel.org,frederic@kernel.org,ast@kernel.org,rostedt@goodmis.org
-Cc: boqun@kernel.org,mhiramat@kernel.org,mark.rutland@arm.com,peterz@infradead.org,tglx@kernel.org,daniel@iogearbox.net,andrii@kernel.org,puranjay@kernel.org,rcu@vger.kernel.org,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-kernel@vger.kernel.org,josef@toxicpanda.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 22 Sep 2026 03:22:25 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============6129579292215528045==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-> index d4a980140b48..93743628b0fa 100644
-> --- a/arch/x86/net/bpf_jit_comp.c
-> +++ b/arch/x86/net/bpf_jit_comp.c
+The cpuset.cpus.effective description says that the effective CPUs are
+granted by the parent and are normally a subset of cpuset.cpus. This
+does not always hold for a valid non-root partition root. Its effective
+CPUs are the active CPUs in cpuset.cpus.exclusive.effective after CPUs
+assigned to valid child partition roots are removed.
 
-[ ... ]
+If cpuset.cpus.exclusive differs from cpuset.cpus, the effective CPUs
+may therefore be outside cpuset.cpus. Remote partitions also do not
+necessarily get their CPUs from their immediate parent.
 
-> @@ -3881,6 +3967,16 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
->  	/* mov QWORD PTR [rbp - rbx_off], rbx */
->  	emit_stx(&prog, BPF_REG_FP, BPF_REG_6, -rbx_off);
->
-> +	/*
-> +	 * Tasks RCU keeps this image alive only while we are a Tasks Trace
-> +	 * reader; the instructions before this point (and after the final
-> +	 * unlock) are covered by the irq-exit IP check.  One reader spans
-> +	 * __bpf_tramp_enter() and the fentry/fmod_ret progs, a second one
-> +	 * the fexit progs and __bpf_tramp_exit(); the original function runs
-> +	 * outside both, with the image pinned by im->pcref instead.
-> +	 */
-> +	emit_trace_rcu_reader(&prog, true);
-> +
-
-Does this take the Tasks Trace reader too late for BPF_TRAMP_F_INDIRECT
-trampolines with FineIBT+BHI mitigation?
-
-Looking back at the code around line 3943 (before this reader lock):
-
-    if (flags & BPF_TRAMP_F_INDIRECT) {
-        /*
-         * Indirect call for bpf_struct_ops
-         */
-        emit_cfi(&prog, image,
-                 cfi_get_func_hash(func_addr),
-                 cfi_get_func_arity(func_addr));
-    } else {
-        x86_call_depth_emit_accounting(&prog, NULL, image);
-    }
-
-When CONFIG_FINEIBT_BHI is enabled, emit_cfi() dispatches to
-emit_fineibt(), which emits:
-
-    EMIT_ENDBR();
-    EMIT1_off32(0x2d, hash);            /* sub $hash, %eax */
-    if (cfi_bhi) {
-        EMIT2(0x2e, 0x2e);              /* cs cs */
-        emit_call(&prog, __bhi_args[arity], ip + 11);
-    }
-
-So the very first instructions in the trampoline (around offset 9,
-before the reader is taken at line 3978) include a call out of the
-image into __bhi_args[arity].
-
-__bhi_args lives in .noinstr.text (arch/x86/lib/bhi.S), which is core
-kernel text. It's not covered by arch_rcu_tasks_trampoline_text()
-(arch/x86/kernel/ftrace.c covers only ftrace_caller ranges,
-__return_thunk ranges, and __rethunk_safe ranges).
-
-If a task is preempted (irq-exit reschedule) inside __bhi_args while its
-return address points back into the trampoline image, it is neither
-holding the Tasks Trace reader nor recognized by the IP check. Can
-bpf_struct_ops_map_free() then complete its synchronize_rcu_tasks() and
-free the image via arch_free_bpf_trampoline() before the task resumes
-and returns into freed memory?
-
-Would moving emit_trace_rcu_reader() before the emit_cfi() call close
-this window, or would adding the __bhi_args range to
-arch_rcu_tasks_trampoline_text() be safer?
-
-
+Suggested-by: Ridong Chen <ridong.chen@linux.dev>
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ Documentation/admin-guide/cgroup-v2.rst | 56 ++++++++++++++++++++-----
+ 1 file changed, 46 insertions(+), 10 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35680506278
---===============6129579292215528045==--
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index 18a01ce4c334..d21bbae3312a 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -2505,16 +2505,52 @@ Cpuset Interface Files
+ 	A read-only multiple values file which exists on all
+ 	cpuset-enabled cgroups.
+ 
+-	It lists the onlined CPUs that are actually granted to this
+-	cgroup by its parent.  These CPUs are allowed to be used by
+-	tasks within the current cgroup.
+-
+-	If "cpuset.cpus" is empty, the "cpuset.cpus.effective" file shows
+-	all the CPUs from the parent cgroup that can be available to
+-	be used by this cgroup.  Otherwise, it should be a subset of
+-	"cpuset.cpus" unless none of the CPUs listed in "cpuset.cpus"
+-	can be granted.  In this case, it will be treated just like an
+-	empty "cpuset.cpus".
++	It lists the active CPUs available to tasks in this cgroup.
++
++	For a cgroup that is not a valid partition root, an empty
++	"cpuset.cpus" makes "cpuset.cpus.effective" show all CPUs
++	available from the parent cgroup. Otherwise, it is a subset
++	of "cpuset.cpus" unless none of the requested CPUs can be
++	granted. In that case, it is treated like an empty
++	"cpuset.cpus".
++
++	For example::
++
++	  P (cpuset.cpus.effective=0-3)
++	  |
++	  +-- C0 (member):       cpuset.cpus=1-2
++	  |                      cpuset.cpus.effective=1-2
++	  +-- C1 (invalid root): cpuset.cpus=4-5
++	  |                      cpuset.cpus.effective=0-3
++	  \-- C2 (member):       cpuset.cpus=<empty>
++	                         cpuset.cpus.effective=0-3
++
++	C0 gets CPUs 1-2 because they are available from P.
++	None of C1's requested CPUs 4-5 are available from P, so C1 uses P's
++	effective CPUs 0-3 instead.
++	C2 has an empty "cpuset.cpus" and therefore also uses P's effective
++	CPUs 0-3.
++
++	For a valid non-root partition root, "cpuset.cpus.effective" contains
++	the active CPUs from "cpuset.cpus.exclusive.effective" except
++	those granted to valid child partition roots. If
++	"cpuset.cpus.exclusive" is set to a value different from
++	"cpuset.cpus", the effective CPUs need not be a subset of
++	"cpuset.cpus".
++
++	For example, if CPUs 2-5 are active, available, and not assigned
++	to a valid child partition root::
++
++	  top (root)
++	  |
++	  \-- P (valid partition root)
++	      cpuset.cpus=0-3
++	      cpuset.cpus.exclusive=2-5
++	      cpuset.cpus.exclusive.effective=2-5
++	      cpuset.cpus.effective=2-5
++
++	P has 2-5 in "cpuset.cpus.effective" even though its
++	"cpuset.cpus" is 0-3.
+ 
+ 	Its value will be affected by CPU hotplug events.
+ 
+-- 
+2.43.0
+
