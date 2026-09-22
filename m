@@ -1,122 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F89417BE5;
-	Tue, 22 Sep 2026 08:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D9CD41A50B;
+	Tue, 22 Sep 2026 08:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065014; cv=none; b=Fz5MgyYeMfpAdpngM2D5ztaIErL8H/r8p1Z28XRuFa/kfBvdlv+ErLkLhrm3LQGMWK8vIyw/2RCLnvoyrs7bseEBQVei/fxMb3jsUjIJ1ejvFS3VnUAAIDOlEYv3H+sz4frIroCvvXNuuV/9MLG0v7Lw7tUKLiB7WNgCKbDELYI=
+	t=1790065019; cv=none; b=AhA5GX2hHJYkLcawUnDepwhAmHXSQccSMuT6K2UX3zVv553l11pkyv7x8dCvk2y5jpqlYFne7KwBQGtfKo+96AcbIuUX1yC7r1PAUtcg+SyTlOol6BX3HMGShbAqdV0NWFWpW+1x3T/TqOpSiiWPEHOQHdxMhkEKUSmyHcTQ2/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065014; c=relaxed/simple;
-	bh=E/NM8T2KZwfRLcR8J/ahxLOTQw75jP+6cRmozKelcwU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=F2VnQqkPMOoYMD157oBpwE/12wvodEqEs36/VaLhD6jPSB+ncBJuV69pTRY+foMtET747/HF14wrQMUJEvXWugOd96j64emPfLJtAnHjxojsVCAmt0cX80UwouB3GcNmwOlf+xNy7OSSc7Vm+vbjltFnx3//bD/xVnbRvZ4negM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WccxMrOh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790065019; c=relaxed/simple;
+	bh=4HbwZEfa+cRQWF9f/+A2Lw6siv1Umc8ka3GRgBT5ZFY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kSRbv8Pzh1t2ucFlt6Iov9T5tKQvb/0ZjzKPhnTbZ715YqxG9QJOHAtyzBR/RlQ3kVQHCAuPpBWEBcYwjr/968KyYtcWUUwJwZJTM4tEpR/QOBwBEBUO2K1F8MWG6/XZKDrLFcp9D7ASv9nBzQZGIQsAcMObdEWn3NrjEbVyFxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gsyPGIOz; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WccxMrOh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D351F000FF;
-	Tue, 22 Sep 2026 08:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790065013;
-	bh=I0h+rOyBFje8okjVnSY4zQj1qK4Lape+dWJDy8+Uol4=;
-	h=From:To:Cc:Subject:Date;
-	b=WccxMrOhps3DHgdoVs4eDAbIVvyC0q/AV6g/sFX7bApeX2XMnDvgocyfnD+R6INI7
-	 D7QNVhii6KBbMilScrhOsoFzzfaLH8LsDmucEmGJRlGK1fL+9zwnauUM/d/VYvQknB
-	 OPq62+lDdwg5TmX+1SpxKlDvjZmBT1RzHdLC8ZWylxp1EuxdvFNrbvZ7mAi/IHB+MB
-	 O9BbdKfR3r3q1uJn6d7lIwUrHr9X8a8doM5tBg2iBNLaEQSgUUo+W4JUiQSdSgQ43S
-	 BL4clA90GSCVQqehGsvBwbyQ2d/1UtVxofXxx1AW46c5VXWIXpbh5tGW5g0Wrkv0ea
-	 Gy4v5+23ULrcw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	=?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	=?UTF-8?q?Beno=C3=AEt=20Sevens?= <bsevens@google.com>,
-	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v6.1-v5.10 1/1] HID: logitech-hidpp: fix race condition when accessing stale stack pointer
-Date: Tue, 22 Sep 2026 08:16:14 +0000
-Message-ID: <20260922081615.821827-1-lee@kernel.org>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gsyPGIOz"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD6ED1576;
+	Tue, 22 Sep 2026 01:16:52 -0700 (PDT)
+Received: from [10.0.128.141] (unknown [10.0.128.141])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A0DD83F632;
+	Tue, 22 Sep 2026 01:16:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790065016; bh=4HbwZEfa+cRQWF9f/+A2Lw6siv1Umc8ka3GRgBT5ZFY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gsyPGIOzdWO+7ye4dvf4hgM8YlaXqCY8aW4qTmiRM4liCZm/4j7epoLXFMjUuyYgq
+	 22WHSurfxTtl16xdShGOI671c4pDflaXqa3NWYCEcvA9GEWQUsd9G7fGYZt/KyixOz
+	 Au29k3hFlPbdtvH21rGaxqyuBdOyF7JuWcqA4Fnk=
+Message-ID: <beee950f-0659-43dd-9c5e-0a51722ea54a@arm.com>
+Date: Tue, 22 Sep 2026 09:16:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Content-Language: en-GB
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+ <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
+ <aqvCwM_73qMpqzvV@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <aqvCwM_73qMpqzvV@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Benoît Sevens <bsevens@google.com>
+On 17/09/2026 11:36, Catalin Marinas wrote:
+> Hi Suzuki,
+> 
+> On Thu, Sep 17, 2026 at 10:03:14AM +0100, Suzuki K Poulose wrote:
+>> On 16/09/2026 17:39, Catalin Marinas wrote:
+>>> On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
+>>>> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+>>>> index 75c3e463df2ef..dc3a87902a60c 100644
+>>>> --- a/arch/arm64/mm/fault.c
+>>>> +++ b/arch/arm64/mm/fault.c
+>>>> @@ -914,6 +914,24 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
+>>>>    	return 0;
+>>>>    }
+>>>> +static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
+>>>> +{
+>>>> +	const struct fault_info *inf = esr_to_fault_info(esr);
+>>>> +	unsigned long addr = untagged_addr(far);
+>>>> +
+>>>> +	die_kernel_fault(inf->name, addr, esr, regs);
+>>>> +	return 0;
+>>>> +}
+>>>> +
+>>>> +static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
+>>>> +{
+>>>> +	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
+>>>> +	    fixup_exception(regs, esr))
+>>>> +		return 0;
+>>>> +
+>>>> +	return 1;
+>>>> +}
+>>>
+>>> We discussed briefly offline. With the latest patches around, would we
+>>> ever end up with private memory mapped in the VMM and hence the GPF? If
+>>> not, I would still keep this handling but add a
+>>> WARN_ON_ONCE(user_mode(regs)).
+>>>
+>>> However, can we end up delegating a non-guest_memfd memslot page as
+>>> protected?
+>>>
+>>> I played a bit with codex and it reckons it's possible if a guest_memfd
+>>> memslot is deleted after its IPA range has been initialised with
+>>> RIPAS=RAM. Removing the memslot unmaps and undelegates any data pages
+>>> but leaves the RMM state as RAM. The VMM can then install an ordinary
+>>> memslot over the same GPA range.
+>>
+>> This should be prevented by the following predicates:
+>>
+>> 1) Realms only support guest_memfd backed memslots for mappable memory.
+>> 2) Memslots cannot be created after the Realm is created, as is with the
+>> protected VMs. (This check seems to have been lost over the iterations,
+>>   but should be reinstated).
+> 
+> If that's the intended model, I think it should work. But v18 doesn't
+> enforce either of them. I noticed the second predicate for pKVM only -
+> your 'Widen the scope of "protected" VMs' patch makes this restriction
+> explicit to pKVM.
 
-commit e2aaf2d3ad92ac4a8afa6b69ad4c38e7747d3d6e upstream.
+Yes, like I said, that seems to have lost. I will put that back in. This
+is not in the v18/v19, but will add it for the next iteration.
 
-The driver uses hidpp->send_receive_buf to point to a stack-allocated
-buffer in the synchronous command path (__do_hidpp_send_message_sync).
-However, this pointer is not cleared when the function returns.
+> 
+> For the first one, if !kvm_slot_has_gmem(), it simply continues with the
+> registration.
+> 
+>>> A subsequent private-IPA S2 fault sees the non-guest_memfd slot, takes
+>>> user_mem_abort(), GUPs the user page and passes it to
+>>> realm_map_protected(). The userspace mapping remains present, so a later
+>>> EL0 access can generate a GPF.
+>>
+>> The Realm mem abort code should prevent this by ensuring that the
+>> memslot is backed by gmem for private_faults. With the mandate of
+>> in-place conversion, even the shared pages must come from the
+>> gmem backed memslots.
+> 
+> IIUC this only works if the memslot is gmem but I can't see what
+> prevents ordinary slots from being assigned to realms. I think we can
+> enter the user_mem_abort() -> realm_map_ipa() for ordinary slots unless
+> we prevent the deletion of the original slots and enforce gmem only
+> slots early.
 
-If an event is processed (e.g. by a different thread) while the
-send_mutex is held by a new command, but before that command has
-updated send_receive_buf, the handler (hidpp_raw_hidpp_event) will
-observe that the mutex is locked and dereference the stale pointer.
+Correct. For CCA, we can mandate that the private faults are only
+faulted in from gmem memslots or the "trusted device private" memslots
+when we eventually get the DA support.
 
-This results in an out-of-bounds access on a different thread's kernel
-stack (or a NULL pointer dereference on the very first command).
+I will address this for v20 of the integration series
 
-Fix this by:
-1. Clearing hidpp->send_receive_buf to NULL before releasing the mutex
-   in the synchronous command path.
-2. Moving the assignment of the local 'question' and 'answer' pointers
-   inside the mutex_is_locked() block in the handler, and adding
-   a NULL check before dereferencing.
+Cheers
+Suzuki
 
-Fixes: 2f31c5252910 ("HID: Introduce hidpp, a module to handle Logitech hid++ devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Benoît Sevens <bsevens@google.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Clear hidpp->send_receive_buf at exit label in hidpp_send_message_sync()
-      as __do_hidpp_send_message_sync() was split out later in 60165ab774cb]
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/hid/hid-logitech-hidpp.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index c65b5f004bac..4f597804c551 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -316,6 +316,7 @@ static int hidpp_send_message_sync(struct hidpp_device *hidpp,
- 	}
- 
- exit:
-+	hidpp->send_receive_buf = NULL;
- 	mutex_unlock(&hidpp->send_mutex);
- 	return ret;
- 
-@@ -3621,8 +3622,7 @@ static int hidpp_input_configured(struct hid_device *hdev,
- static int hidpp_raw_hidpp_event(struct hidpp_device *hidpp, u8 *data,
- 		int size)
- {
--	struct hidpp_report *question = hidpp->send_receive_buf;
--	struct hidpp_report *answer = hidpp->send_receive_buf;
-+	struct hidpp_report *question, *answer;
- 	struct hidpp_report *report = (struct hidpp_report *)data;
- 	int ret;
- 
-@@ -3631,6 +3631,12 @@ static int hidpp_raw_hidpp_event(struct hidpp_device *hidpp, u8 *data,
- 	 * previously sent command.
- 	 */
- 	if (unlikely(mutex_is_locked(&hidpp->send_mutex))) {
-+		question = hidpp->send_receive_buf;
-+		answer = hidpp->send_receive_buf;
-+
-+		if (!question)
-+			return 0;
-+
- 		/*
- 		 * Check for a correct hidpp20 answer or the corresponding
- 		 * error
--- 
-2.55.0.1082.g2b9226bbc0-goog
+
+> 
 
