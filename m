@@ -1,248 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DF0391822;
-	Tue, 22 Sep 2026 02:28:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777E22AD03
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044141; cv=none; b=MgUOF2XsLPFfdpCHpDAky40KdT/mKUCIOsKLnWUtAIEtTn2T3HFlD5gcodGlhhugdQ4Yzs5roVi6Itx2dfeH6fdFZVRcHA5IsTiqffeYSFUY+tMMxyFzsloKgvWv9sSnvJVTI/dtwxequkWVd/a7FydJTly5PmjNl6+OvD5ZZ1Q=
+	t=1790044189; cv=none; b=PnEfWmo3LXwNMm+Fly+DR7n+d74sgWB68mxjQgaKeKKGwyZNBgEJqupo8FUnMOXxqc/1QwsFanw8lzlHjbfvWAOvk1wP5wV2KHl1nzq0pG0ub7FT1FDJBY8396TJsntqpw6J104ke+CMRvTCWIY8JlZ4+b+4LRciXbjKaC6txfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044141; c=relaxed/simple;
-	bh=MFDMQGfK/jj1+utY/7DiytJ7gey82j0ZX9JqOcE4f2k=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RcKgNcP8/bxBbbty1NgYPcvN7s3e8b/pka1+xYrIbCweubMhm2OqlaFktJqcQIKqndZ66JVOukRI4XrBjjVd9eZUAHrIaYytEgRtmhcd53ocCZey6+D52nOLaUBXP4cQQCA61+cfqZ9pJYL6DNuCtKKE0Zl9dLKXD1as8vNfdwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8ku4bOo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790044189; c=relaxed/simple;
+	bh=cyOEpv7E+99KbsYBQF12i4qmiz/SB2W5CJ1v6BiG3CI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BBp5byJKHdn1A1inTZ0vD90Aiesl7QGovkrwDO48iBD2d2MXBZPE/acg4t2s+yBHA/xj6JWFXWCQjsLkYYOKRCeXVyuJ+b4ouyxEwX2Of4qz8dLwrs2HhyQjRN6oJ/MOl8i1dd0hCwP1uKyA8T1hWlAvDzloIF8yj8weehEKYt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=A6Iq5M5b; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8ku4bOo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EE141F000FF;
-	Tue, 22 Sep 2026 02:28:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790044139;
-	bh=5BD9Pt+q14mFIGnlV0fMM6Bjm8EYnY2ODMz79ryRyjE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D8ku4bOokKovNmByhGNIj9WlG71TfGpTYb+RXmc81wef7k3BAdCJYWeJpzfL3wtXd
-	 JHKijvVfgpDFsMoSIAdEbs3mm1CnH5cFLLVIOxKs2mq53J01SjdVVHSJpbMwUvPvE4
-	 ch0tT9rDrxO1djlmeimme5R4nkf+G+IKjx2ZEVUpw0gDbtPj2V+dHvWui3oSnEhaPf
-	 Jf5jRZhJmBwIoeicdvMo90pTwWdmw9ITuXyBJHh0DQAP1tNRnROMXB1EDeWHHEigm1
-	 N7iTVBSnnwoP1+yV9M34ucgEa3wxVvmdn4aF9n9ouQFYc5uwtXrZGYkya3qR77b94o
-	 WBEb3BQyCiDdQ==
-Subject: Re: [PATCH net v8 4/4] net: phy: restore the interrupt when the
- generic bind cycle fails
-From: netdev-bot+sashiko@kernel.org
-To: f@lex.la
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, andrew+netdev@lunn.ch,
- hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- olteanv@gmail.com, Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
- steve.glendinning@shawell.net, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 22 Sep 2026 02:28:58 +0000
-Message-ID: <179004413819.2160803.14290404052748294536@kernel.org>
-In-Reply-To: <20260918015029.2518425-5-f@lex.la>
-References: <20260918015029.2518425-5-f@lex.la>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="A6Iq5M5b"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb76906adso54783431cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:29:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1790044186; x=1790648986; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9lDajmUPmaz8BTxhPEk6XaACKGtk0v9RwI05AN+Obys=;
+        b=A6Iq5M5bPgVhobuemnvHhFbQG6jm+RTffV5wIx7w00uz1L4YTq8GGbBw7igz3LiCes
+         wCcbvC4cyYIp5FoZR9GNMoyL1DJ/1Q+QzdVJ22UXl9EvhoOpV5An4KQ5eOT7+ejxkyIF
+         vGNVKA7o4FVI0yS3caZAq8TGsIjW22efro13CXYtX42w8j0O7XqlZGCsVIrhoUcb/wb0
+         d8W5c6JJLWia/fftkiI/pv30B8QXOaZIds5aYcKN7SKeGCwSmu3OELlQVW8gg1C87jOC
+         b0DIPyFEmMptCu7Ty1ICn14lAGrOLUjNztbZTt0kXDF3INLgfGF6k7bhGx5XTXsSZ+pd
+         a5CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790044186; x=1790648986;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9lDajmUPmaz8BTxhPEk6XaACKGtk0v9RwI05AN+Obys=;
+        b=M9WLL80PFlQ+PksX6/882EaDXAaWS0gMR0a0Y+QjEFoJWKQvUpXgY1galkSr46Ne8b
+         LFLM0gXwl7bwCOzHldiTGewILQ1UHn1fXuidpjoINjoW3qpHQFUDDl373w33aJVozvxh
+         cr8agxyhoE0QRaEKwmPLUW+MLEKypGWYdRn5zMJy8loeoztKsYFCGsf8h+romPyDzglx
+         oBdCcMLGoPhiJInqkYMV/MtE38TtoqmlnSByc60Hnyu5XTsIKNITJyKQchtvKzw7tgL1
+         hu6clRsZNp1XWMfVHmh5F+whBoFW3ANpvFEMTs2RFct2eQxkDiTQhHbMOv/g7NX+MTSv
+         Z7rw==
+X-Forwarded-Encrypted: i=1; AKwUvByrkl6dol6sWX4oOn3Min/8RoVq6vgMQzeP4ozFCyi61dj33JSLHv7nISniTcYHWGjxM0EUlOgtTveU1YE=@vger.kernel.org
+X-Gm-Message-State: AFuF++naAu3JfM1tk7xAwbDnnCaQ0W2ZtDtIJ0IIHHmwh7X1ktdxoUB8
+	qUiP/tXffLywFuxwpXcKMtGQ4gQ7JtighU+ctLuEvs2xlVZEOmaTHWHXRDmKb3Ub5i4=
+X-Gm-Gg: AYBFou0BjzzEsVwyUMnG7A4/plAGguyudwfMKWZ5qo8RtGMiEyOuCyL/s3Mxuunz038
+	79wBtFAl0JdoRjpX1BAZACoUG4oLmcPPedD8uybLNu/uFO7sfxR2WnoLIzXPjpyDwKKNMTrUhRE
+	CH1HX6PJwIsMFijTgjZQFEYz0X5XYPadBrisAQXuCk6XvD3G+oT2KQHCHAitRw9zSejD5ZE+R40
+	7zWGhFnGIpB0g04qWTwFGqYw8Kjlnbo2Yb33F1MVHKxa5jr6JcKe6nkXV85j009IjXXrpkmn5VA
+	s9lHG86RoxUSFQtCzEj5EOQc12L6zaKkP8xzvB0SuAD7kjnPN5I+51BHv7ihv13qblgftIR4d22
+	unKyaJyBtPblGMZmRzEjfpT4RT8ezW/vq52Vym8YUcDY0n+lOP6SxRY6OCabm0IQFm4breVrq0w
+	r+gPPUoks6bmynDCgGRKTMXRspcfpUpVX+PWgPXISJXkSgHvGQofmj4HWemum66sXLc+LpWBqCx
+	My7UBaai3Fmk2Y=
+X-Received: by 2002:a05:622a:5a19:b0:532:b3ce:f38 with SMTP id d75a77b69052e-532dd3cc9a4mr16978661cf.4.1790044186247;
+        Mon, 21 Sep 2026 19:29:46 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.243])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e192c463sm1639311cf.21.2026.09.21.19.29.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 19:29:45 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 22 Sep 2026 02:23:25 +0000
+Subject: [PATCH v5 06/13] x86/kprobes: Take a Tasks Trace reader in the
+ optprobe template
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b4-rcu-tasks-preempt-qs-v5-6-410f57770bad@toxicpanda.com>
+References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: Boqun Feng <boqun@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ rcu@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1790043820; l=3977;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=cyOEpv7E+99KbsYBQF12i4qmiz/SB2W5CJ1v6BiG3CI=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QGWEkZzmBIn08GZX0Y8n1aYaLj9DKrBu1cjgNBvrnGmt+51rXj4Tis5qLbxNWpv8gzG2Md0fp7c
+ HpXWdXp6OPQc=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+The jump-optimized kprobe template calls optimized_callback() from a
+dynamically allocated slot with preemption enabled, and only Tasks RCU
+keeps that slot alive under a task preempted in the callback.  For
+HAVE_RCU_TRAMPOLINE_READERS that means the template must be a Tasks
+Trace reader across the call, so open-code rcu_read_lock_trace() and
+rcu_read_unlock_trace() around it as ftrace_64.S does.  The template
+lives in .rodata and is memcpy()d into each slot without relocation
+processing, so the references to current_task and
+rcu_tasks_trace_srcu_struct are absolute (R_X86_64_32S, relocated for
+KASLR like any other) rather than %rip-relative.  %rax and %rcx have
+already been saved by SAVE_REGS_STRING and are dead after the call.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+The slot itself is dynamically allocated text, so the instructions
+before the lock and after the unlock are covered by the irq-exit check.
+64-bit only; 32-bit x86 does not take part.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ arch/x86/kernel/kprobes/opt.c | 44 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-- [Medium] The exclusion the commit message relies on does not exist as a
-  lock.
-- [Low] The new comment added at drivers/net/phy/phy_device.c:1899
-  ("Before the NULL below, which lets another probe reach this field.")…
-
-Pre-existing issues:
-- [Medium] The error_module_put label that this patch extends
-  (drivers/net/phy/phy_device.c:1897-1903) unwinds only the module…
-
---
-
-net: phy: restore the interrupt when the generic bind cycle fails
-
-This adds a restore of phydev->irq from bus->irq[phydev->mdio.addr] on the
-error_module_put label in phy_attach_direct(), so that the PHY_POLL value
-installed by phy_probe() does not survive a hand-bind of the generic driver
-that never completed. The restore is placed ahead of the d->driver = NULL
-store, and the commit message argues that this ordering keeps phy_probe()
-from being a second writer of phydev->irq.
-
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 8e6b399f95d6..69d8911ea7f6 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -1896,6 +1896,8 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
->  
->  error_module_put:
->  	module_put(d->driver->owner);
-> +	/* Before the NULL below, which lets another probe reach this field. */
-
-[Severity: Low]
-Does the code really establish the ordering this comment describes?  The two
-stores are plain and touch distinct fields, with no data dependency and no
-barrier between them:
-
-drivers/net/phy/phy_device.c:phy_attach_direct() {
-	...
-	phydev->irq = bus->irq[phydev->mdio.addr];
-	phydev->is_genphy_driven = 0;
-	d->driver = NULL;
-	...
-}
-
-Can the compiler, or a weakly ordered CPU, publish the NULL driver pointer
-before the IRQ restore becomes visible?  The admission check the commit
-message refers to reads the field with no acquire pairing:
-
-drivers/base/dd.c:__driver_probe_device() {
-	...
-	if (dev->driver)
-		return -EBUSY;
-	...
-}
-
-so a PHY driver registering on another CPU could pass that check and reach
-phy_probe(), which writes the same field:
-
-drivers/net/phy/phy_device.c:phy_probe() {
-	...
-	if (!phy_drv_supports_irq(phydrv) && phy_interrupt_is_valid(phydev))
-		phydev->irq = PHY_POLL;
-	...
-}
-
-and then the delayed store from the unwind path overwrites PHY_POLL with the
-bus interrupt number.  The attach path re-forces PHY_POLL on the next attach
-in phy_attach_direct(), so the observable effect looks limited to the stated
-guarantee not matching what the stores do.  Would either a real ordering
-primitive, or dropping the claim from the comment and the changelog, be more
-accurate here?  The same wording was added to the phy_detach() restore by the
-preceding commit in the series ("net: phy: take the interrupt back from the
-bus on detach"), so both would need the same treatment.
-
-> +	phydev->irq = bus->irq[phydev->mdio.addr];
-
-[Severity: Medium]
-Is the exclusion the changelog relies on backed by a lock anywhere?  The
-changelog says:
-
-    "That store is what reopens the device to the driver core: until it runs,
-    a driver registering on another CPU is turned away with -EBUSY and
-    phy_probe() cannot be the second writer of this field."
-
-phy_attach_direct() installs the generic driver, calls its probe and calls
-device_bind_driver(d), and later clears d->driver on this label, without ever
-taking device_lock(&phydev->mdio.dev).  The driver core documents the
-opposite requirement:
-
-drivers/base/dd.c, kernel-doc for device_bind_driver():
- * This function must be called with the device lock held.
- *
- * Callers should prefer to use device_driver_attach() instead.
-
-and every driver-core access to dev->driver happens under that mutex, taken
-by __device_driver_lock() on the driver_register() -> driver_attach() ->
-__driver_attach() -> device_driver_attach() -> driver_probe_device() path.
-With an empty lockset intersection, does the -EBUSY check actually serialize
-the two paths?
-
-There also seems to be a wider window than the one this patch reasons about:
-if a concurrent __driver_probe_device() observes dev->driver == NULL just
-before phy_attach_direct() stores the genphy pointer into it, does anything
-prevent really_probe()/device_set_driver() from running while phylib is in
-device_bind_driver() -> driver_sysfs_add()/driver_bound() for the same mdio
-device?  Would doing the generic bind and unbind under device_lock(d), or via
-device_driver_attach()/device_release_driver(), remove the need for the
-ordering-by-convention argument altogether?
-
->  	phydev->is_genphy_driven = 0;
->  	d->driver = NULL;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but while this label is being
-extended: does it leak what phy_probe() allocated when the bind fails at the
-second point?
-
-drivers/net/phy/phy_device.c:phy_attach_direct() {
-	...
-	if (phydev->is_genphy_driven) {
-		err = d->driver->probe(d);
-		if (err >= 0)
-			err = device_bind_driver(d);
-
-		if (err)
-			goto error_module_put;
-	}
-	...
-}
-
-On that path phy_probe() already returned 0, so it has de-asserted the PHY
-reset, created the port objects via phy_setup_ports() and registered the LED
-triggers via phy_led_triggers_register().  device_bind_driver() returns the
-driver_sysfs_add() error without calling the driver's remove callback:
-
-drivers/base/dd.c:device_bind_driver() {
-	ret = driver_sysfs_add(dev);
-	if (!ret) {
-		device_links_force_bind(dev);
-		driver_bound(dev);
-	}
-	else
-		bus_notify(dev, BUS_NOTIFY_DRIVER_NOT_BOUND);
-	return ret;
-}
-
-Since driver_bound() never ran, the driver core will not call phy_remove(),
-which is the only place that undoes those steps:
-
-drivers/net/phy/phy_device.c:phy_remove() {
-	phy_cleanup_ports(phydev);
-
-	if (phydev->drv && phydev->drv->remove)
-		phydev->drv->remove(phydev);
-
-	/* Assert the reset signal */
-	phy_device_reset(phydev, 1);
-
-	phydev->drv = NULL;
-	...
-}
-
-and the release function is a plain kfree():
-
-drivers/net/phy/phy_device.c:phy_device_release() {
-	fwnode_handle_put(dev->fwnode);
-	kfree(to_phy_device(dev));
-}
-
-Does that leak the port objects and the phy_led_triggers/led_link_trigger
-allocations, leave the triggers registered with the LED core for a PHY with
-no driver bound, and leave the reset de-asserted?  phydev->drv also stays
-pointing at genphy_driver while d->driver is cleared, so does a later
-phy_attach_direct() re-run phy_setup_ports() and phy_led_triggers_register()
-on top of that state, overwriting and leaking the previous trigger array?
-
-This path was split onto its own label by 6d9f66ac7fec, the commit named in
-the Fixes: tag, so it predates this change and the changelog does not claim
-to address it.  Would it be worth routing this label through the same cleanup
-as phy_remove(), or noting in the changelog that the label is still an
-incomplete unwind?
-
-> error_put_device:
+diff --git a/arch/x86/kernel/kprobes/opt.c b/arch/x86/kernel/kprobes/opt.c
+index 3f8fea52619f..68a5de6cdabe 100644
+--- a/arch/x86/kernel/kprobes/opt.c
++++ b/arch/x86/kernel/kprobes/opt.c
+@@ -31,6 +31,7 @@
+ #include <asm/set_memory.h>
+ #include <asm/sections.h>
+ #include <asm/nospec-branch.h>
++#include <asm/asm-offsets.h>
+ 
+ #include "common.h"
+ 
+@@ -101,6 +102,47 @@ static void synthesize_set_arg1(kprobe_opcode_t *addr, unsigned long val)
+ 	*(unsigned long *)addr = val;
+ }
+ 
++/*
++ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() around the call
++ * to optimized_callback(), see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the
++ * equivalent macros in ftrace_64.S.  The template is memcpy()d into the slot
++ * without relocation processing, so memory references must be absolute
++ * rather than %rip-relative.  %rax and %rcx are free at both points.
++ */
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++#define OPTPROBE_TRACE_RCU_MB	"	lock addl $0, -4(%rsp)\n"
++#else
++#define OPTPROBE_TRACE_RCU_MB
++#endif
++#define OPTPROBE_TRACE_RCU_READ_LOCK						\
++		"	movq %gs:current_task, %rcx\n"				\
++		"	movl " __stringify(TASK_trc_reader_nesting) "(%rcx), %eax\n"	\
++		"	incl " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
++		"	testl %eax, %eax\n"						\
++		"	jnz 1f\n"							\
++		"	movq rcu_tasks_trace_srcu_struct+" __stringify(SRCU_srcu_ctrp) ", %rax\n" \
++		"	incq %gs:" __stringify(SRCU_CTR_srcu_locks) "(%rax)\n"		\
++		"	movq %rax, " __stringify(TASK_trc_reader_scp) "(%rcx)\n"	\
++		OPTPROBE_TRACE_RCU_MB						\
++		"1:\n"
++#define OPTPROBE_TRACE_RCU_READ_UNLOCK						\
++		"	movq %gs:current_task, %rcx\n"				\
++		"	movl " __stringify(TASK_trc_reader_nesting) "(%rcx), %eax\n"	\
++		"	subl $1, %eax\n"						\
++		"	jnz 2f\n"							\
++		"	movq " __stringify(TASK_trc_reader_scp) "(%rcx), %rax\n"	\
++		"	movl $0, " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
++		OPTPROBE_TRACE_RCU_MB						\
++		"	incq %gs:" __stringify(SRCU_CTR_srcu_unlocks) "(%rax)\n"	\
++		"	jmp 3f\n"							\
++		"2:	movl %eax, " __stringify(TASK_trc_reader_nesting) "(%rcx)\n"	\
++		"3:\n"
++#else
++#define OPTPROBE_TRACE_RCU_READ_LOCK
++#define OPTPROBE_TRACE_RCU_READ_UNLOCK
++#endif
++
+ asm (
+ 			".pushsection .rodata\n"
+ 			".global optprobe_template_entry\n"
+@@ -114,6 +156,7 @@ asm (
+ 			"optprobe_template_clac:\n"
+ 			ASM_NOP3
+ 			SAVE_REGS_STRING
++			OPTPROBE_TRACE_RCU_READ_LOCK
+ 			"	movq %rsp, %rsi\n"
+ 			".global optprobe_template_val\n"
+ 			"optprobe_template_val:\n"
+@@ -122,6 +165,7 @@ asm (
+ 			".global optprobe_template_call\n"
+ 			"optprobe_template_call:\n"
+ 			ASM_NOP5
++			OPTPROBE_TRACE_RCU_READ_UNLOCK
+ 			/* Copy 'regs->flags' into 'regs->ss'. */
+ 			"	movq 18*8(%rsp), %rdx\n"
+ 			"	movq %rdx, 20*8(%rsp)\n"
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918015029.2518425-1-f%40lex.la
+2.55.0
+
