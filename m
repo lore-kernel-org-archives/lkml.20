@@ -1,209 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011028.outbound.protection.outlook.com [40.107.208.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578784AB1AD
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107160; cv=none; b=q3NdJZHDwwec8ra4K/bUQ8IdT0Uati8K9BVEt763HL+PWoMipmpSlS5KI6BYPb2/Lxxg/G+Esp8eZn+TImsHn25XBukPfRFuN+2kvZynC0SiRBpgHZ1hDbc3U5bxW7Lc04+wHs62LeAyPhy1/X2CUKWJw0uFTIkqfTaepuxh9NY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107160; c=relaxed/simple;
-	bh=28zEr8iH+t2B4GCKqddrfZccDG+MVOREujiEBjboFkw=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=kNdXuY/d7IYN78mfDdNv5TNJ+LLXGSuXPp9aE/YNBOVi3OZHZrKzzDLrWFNJ4w/j84iFu+b87559/u/5tqjpIl+sPH/QX97M1irMENM9eajortqZ7lDIgAgefEvCg4ptYdbZtSh4lHqFCitKKOs1dk0h07+FYIfqQYiI2rT2uTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QH1p0Zjm; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3BF4AAC50
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790107224; cv=fail; b=rm/8lOObY/Ma7MU7rcKq8D+gPtiF7HK3rdMFhQa0V1uVhGJdC781AkRtuuaceZdC2cEkZTQ1lRsh4aJ+ifyQk4PZNw8VyllqQfs9rCH+EA9qdOf4n6OvX4iTmwp1h5OAWrpXm205MAqAqsYhWqargWe539fJxNniWyLoDrbWz0w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790107224; c=relaxed/simple;
+	bh=veb65Pn4CpmFEWTKSfNgpLdxKjg+fy5dHsFLVV0vopE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t+S7wxS9YJo9fogS1eQiEUwDkHpKZKAYjdUFtpD1ZJoD95gNVEwmCWXX2p2DY/jS/PSg0a09G0UiSJx3FFLZX/aNt1NRkYxeHWcw7aDZc5Pp8Se3lpvVn/ttFEaO6zeLRhF6Oa+7seNnyjAnReP9NpdP4m/5o1Ur8+eDL49/MlY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RjjiTIby; arc=fail smtp.client-ip=40.107.208.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QH1p0Zjm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790107155; x=1821643155;
-  h=date:from:to:cc:subject:message-id;
-  bh=28zEr8iH+t2B4GCKqddrfZccDG+MVOREujiEBjboFkw=;
-  b=QH1p0ZjmNYfqDxXMLUwiJIzEVhMUqvyegst0p8McxgDgz5t+iHIacLkP
-   /WK7OrXPDPtqM1u3YVJHwQQq9vaJ3mSBR9pAGFpjxOX4vBXXkpCbjXTso
-   LkGHgQcdpJicu2wGvnEhfLadsITJDTAfikhkeObEV+taLbBtPJDgiVkWn
-   ZxHKhIJfViK9j+EHD448pRXtPIwQFqCSuXmn5RcjfNI+SgWE7dnKKKIjE
-   Q1/FsinK4lnF5CMEs78vP1XZUFNT570aqBt6WotaUsnAgxherfFA2lkyH
-   nulfvS0KeOkeZYIK59SDqYmwe/gBdvu7XO0t39KCKn4Lt70Nuik0sUDh1
-   A==;
-X-CSE-ConnectionGUID: Ma9zyZpzS1SKSKBpkJztBQ==
-X-CSE-MsgGUID: 1nFRMzkgSm2JyqXmFkbiOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1250687"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="1250687"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 12:59:11 -0700
-X-CSE-ConnectionGUID: Uc6lPBHxSciIdi8LOmdmvA==
-X-CSE-MsgGUID: TLsZkg1eStOKjQ9sxqSJ5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="281359528"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 22 Sep 2026 12:59:09 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x96du-00000000G25-1er1;
-	Tue, 22 Sep 2026 19:59:06 +0000
-Date: Wed, 23 Sep 2026 03:58:42 +0800
-From: kernel test robot <lkp@intel.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>
-Subject: drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:962:17:
- sparse: sparse: incompatible types in conditional expression (different base
- types):
-Message-ID: <202609230340.Go9OsvQc-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RjjiTIby"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CJpmkn94o/gBLWhxOrJqhg+P6d7wNufuPzaZbVxUTzBS2gDixo8GdgfNeCZjAKEwL23fEKEanUjS74PkNC0c+kjwWdZ1f7Wt9TwtIVFWFig4yt5WjG9PW99MKci30l5eANRkPAJy9gfbutvwjxxmc7120IB+tZmaxWubs/G2zlGLGJlDpeBvueoxay4PdjRrMLNQjqj7E9xFLgGnhq9iGRGJkKtnW7miMPVu1Ca8uMRuAX17UUuVYNPNRiDrC9sJ5h8/4rokKZ/FIkPOv9SwXF15RewyOO+HWWZpPppPu3/ipcFheO6vtZtd4E1ABW8iOsF7S8spcl2p7r2OPQevGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EbrL81ftez1/Lz+4iuhOw9CrE0nMBDsYDdSTGwWCIAA=;
+ b=NDdz7iOXrNrXNz5fBKrPcTwdVT3Y950DQGT6QtJ5S4B/2HS+Q7vMn2jFEH0SqQV7bStLpZVDuSkaVscfLbaK7Ve9qTSmcvSQg4wituKKVVQvwAYwm+qLCUlDKExADeJvTpMGnDl5/1ue0GsCe3p8ycKCM89sNTXWEKdw0buSFnCSv3UPtQllGMxBgSD+RqRtY+fGsZcfnAhMOuxaUAOG9aNVq1QQzy3TMojyJEK42A6AF+buwvKAT2K6Rx0bnIz9lUt3c6TvTdhJC5ekx8uuCIfLXPagH96mk8iWByAKuICyptsunOXXmYu8wsjhlrAIUoGQD9yJghycLghE5xFcLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EbrL81ftez1/Lz+4iuhOw9CrE0nMBDsYDdSTGwWCIAA=;
+ b=RjjiTIby+IHrtgLpu0ss8D4aOW6HByz87grc4D5KIOAwBbMLxjXayZtV+REh7KPB0wg+fYN5sjUNxaPTxL18MrGjrcmEszDhqe7irx/mC2HaFWnhBUW5EZQA7lk4h7nBtVHR2gqSoHptwtH14iiqpBtLEQF6xsFxNsfCSWlULNjUgoespdDNJD96bWKXYh6zN9NsAgVjg9Uh9MSZtx3oL+QCBMg1ulFNBmCP97eukmPuirzmVhVQhjzLtWM0xDO55Um7HKlJLpZvGuf+rMo3HFnx306CkgTup3pqccxbR7PMngWIUEqIDS5VFPz5JCMgnVeMVt1TE/4t4eAuUZz8nA==
+Received: from BN9PR03CA0138.namprd03.prod.outlook.com (2603:10b6:408:fe::23)
+ by PH0PR12MB8052.namprd12.prod.outlook.com (2603:10b6:510:28b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 22 Sep
+ 2026 20:00:02 +0000
+Received: from BN3PEPF00022BD4.namprd03.prod.outlook.com
+ (2603:10b6:408:fe:cafe::5e) by BN9PR03CA0138.outlook.office365.com
+ (2603:10b6:408:fe::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Tue,
+ 22 Sep 2026 20:00:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BN3PEPF00022BD4.mail.protection.outlook.com (10.167.248.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 20:00:01 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
+ 2026 12:59:32 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 22 Sep 2026 12:59:31 -0700
+Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.126.190.182)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 22 Sep 2026 12:59:30 -0700
+Date: Tue, 22 Sep 2026 12:59:28 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
+	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
+	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>,
+	<sebastianene@google.com>, <keirf@google.com>
+Subject: Re: [PATCH v8 05/25] iommu/arm-smmu-v3: Move hitless machinery to
+ common code
+Message-ID: <arLeIO20VQZD80nr@nvidia.com>
+References: <20260922131259.2975334-1-smostafa@google.com>
+ <20260922131259.2975334-6-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260922131259.2975334-6-smostafa@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD4:EE_|PH0PR12MB8052:EE_
+X-MS-Office365-Filtering-Correlation-Id: b37b01eb-ad8a-4211-8f2a-08df18e41685
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|7416014|23010399003|82310400026|1800799024|4143699003|56012099006|11063799006|10067099003|22082099003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	+Vyl0+Ll5m9qQLnbap8TAnXhQhqjO12SETJgCw/8PjwK+UGunwwwRIl3rqi15cOkIOI5EKYb4DIbbNho+cJ8pVSGnXUjWy58sIM5om8pUSBisfk7eyVTjy66Q8GOCFGsgXQnsOmUGAN8rwpWV+0CHSBekfsWSw0a4ALFGZBxgXYBQMQA/BwCrgVHvO6DdyN++01UAhjo6QoNcuSWLuqvVq/+EaCz+HpIy8KdpqWGnmNvn2YcG6P8QQGtO1DuoZVHVDQmIFjp8ayY50xFA2KsE6IpNgm1Gc/9J5jFVsqJxzHRVP6LmPSWvNFABv/Q7Agl5JDIjg9hs6OxxmtyqKA8gpn6Ag2qzjM9eTwTS+JaLGMbQIeaCzLox4JrTYjST4G9jqUzVcVfwOx341Y39GAJgr6Pz2mJ3ahbbYduD5M3jBQo02boQInQKAsvP1i9HQlKWC8Vjxal+if/WXv0E9OoXNx9CaonRUMYws6iRq2XKon+26Qn4Rd7QUwxG+YaEcOqJwWKjMDSMvyFHMhi8vReVNbujZzCxqS5xiuVWuBF0oO6IlkLayYjbNijfnJQDOwyj+dEYNRX+OJcKSoEasRiTcYUyChmtUB6X5JPh2PohV70n6+FOCxJX4Qy3if3KUmLnuvEYvx+PmfOUUlB3Liph7MaG9fZzFJuN8AG7whBhl/2i7cwkwCD0ms/5YoQK3MZUv3CeyMt2KW+T033f8UFCw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(23010399003)(82310400026)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/4LW693ggD79JcwClr+vnytb4k9cVToN9OwKaPfgoPLjoAY8EBagnBbpQ30Gr+JIg6YoaaveN1GP6MZ3s18oXFE9SumxsJWV08seuSRYMPlGiuRurjJ+1ATQuuajvjAVDc+wHhoN5RClAMSmgHf4HTdkv/scCzGrvfNGOv8/CXrvxQGv3N3NmIsSnOVVVH0LvorSt3nvWp6/yC5qAeJhIt4qgfYCLFvg4vnIz5S7Jp9jhxmsKMOBrqJKojuhcOZoZuzVU5mR09gDKo5RyD9Z8XrNE+j9855tcjSvN01m/a/bZi1U9OhCEwoDSDNG8VOui8aUd0zjIv4Kgj++BAi2Ut3jGtXU5K7po80Mplp+t/mD1eF+e0qCOtGtV+Naxf19ogKUFQdgS+YRMAT8Skzf6iKoOAWC3/d/9H0KD4XyP8b+0+uSCtawWffKkCYwEbgA
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 20:00:01.7616
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b37b01eb-ad8a-4211-8f2a-08df18e41685
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BD4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8052
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fe2ec83746e501645709761605c2464a44fd2929
-commit: af3f2f5db2659a13c256d2fb096c473eb50412ef drm/amdgpu: Remove UML build exclusion from Kconfig
-date:   4 months ago
-config: um-randconfig-r1307-20260922 (https://download.01.org/0day-ci/archive/20260923/202609230340.Go9OsvQc-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260923/202609230340.Go9OsvQc-lkp@intel.com/reproduce)
+On Tue, Sep 22, 2026 at 01:12:38PM +0000, Mostafa Saleh wrote:
+> Move the hitless STE functions to the common file so it can be
+> reused by the hypervisor.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: af3f2f5db265 ("drm/amdgpu: Remove UML build exclusion from Kconfig")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609230340.Go9OsvQc-lkp@intel.com/
+s/it/they
 
-sparse warnings: (new ones prefixed by >>)
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c: note: in included file (through drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu_virt.h, drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h):
-   drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgv_sriovmsg.h:519:49: sparse: sparse: static assertion failed: "amd_sriov_msg_vf2pf_info must be 1 KB"
->> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:962:17: sparse: sparse: incompatible types in conditional expression (different base types):
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:962:17: sparse:    void
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:962:17: sparse:    int
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1235:9: sparse: sparse: incompatible types in conditional expression (different base types):
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1235:9: sparse:    void
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1235:9: sparse:    int
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1267:9: sparse: sparse: incompatible types in conditional expression (different base types):
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1267:9: sparse:    void
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1267:9: sparse:    int
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1449:9: sparse: sparse: incompatible types in conditional expression (different base types):
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1449:9: sparse:    void
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1449:9: sparse:    int
---
-   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c: note: in included file (through drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h, drivers/gpu/drm/amd/amdgpu/amdgpu.h):
-   drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:519:49: sparse: sparse: static assertion failed: "amd_sriov_msg_vf2pf_info must be 1 KB"
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1402:9: sparse: sparse: incompatible types in conditional expression (different base types):
-   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1402:9: sparse:    void
-   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1402:9: sparse:    int
---
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c: note: in included file (through drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h, drivers/gpu/drm/amd/amdgpu/amdgpu.h):
-   drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:519:49: sparse: sparse: static assertion failed: "amd_sriov_msg_vf2pf_info must be 1 KB"
->> drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:427:13: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:427:13: sparse:    struct dma_fence [noderef] __rcu *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:427:13: sparse:    struct dma_fence *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const [noderef] __rcu *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const [noderef] __rcu *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const [noderef] __rcu *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const [noderef] __rcu *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const [noderef] __rcu *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:41:26: sparse:    struct dma_fence_ops const *
+> No functional change.
+> 
+> Signed-off-by: Mostafa Saleh <smostafa@google.com>
 
-vim +962 drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
 
-c6ce68e67659fd drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2021-03-19  905  
-3138ab2c5b32ec drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Sunil Khatri  2024-09-26  906  static int smu_late_init(struct amdgpu_ip_block *ip_block)
-bee71d26d22339 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-01-30  907  {
-3138ab2c5b32ec drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Sunil Khatri  2024-09-26  908  	struct amdgpu_device *adev = ip_block->adev;
-ebfc253335af81 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2021-11-22  909  	struct smu_context *smu = adev->powerplay.pp_handle;
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  910  	int ret = 0;
-a254bfa2c5fbd4 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-05-08  911  
-93a8024130e218 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Xiaojian Du   2020-11-12  912  	smu_set_fine_grain_gfx_freq_parameters(smu);
-93a8024130e218 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Xiaojian Du   2020-11-12  913  
-a254bfa2c5fbd4 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-05-08  914  	if (!smu->pm_enabled)
-a254bfa2c5fbd4 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-05-08  915  		return 0;
-51548c0fe3d348 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Huang Rui     2019-07-24  916  
-4bdd4d25ed0d31 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2020-09-01  917  	ret = smu_post_init(smu);
-4bdd4d25ed0d31 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2020-09-01  918  	if (ret) {
-4bdd4d25ed0d31 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2020-09-01  919  		dev_err(adev->dev, "Failed to post smu init!\n");
-4bdd4d25ed0d31 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2020-09-01  920  		return ret;
-4bdd4d25ed0d31 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2020-09-01  921  	}
-4bdd4d25ed0d31 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2020-09-01  922  
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  923  	/*
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  924  	 * Explicitly notify PMFW the power mode the system in. Since
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  925  	 * the PMFW may boot the ASIC with a different mode.
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  926  	 * For those supporting ACDC switch via gpio, PMFW will
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  927  	 * handle the switch automatically. Driver involvement
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  928  	 * is unnecessary.
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  929  	 */
-42ffb3c396b5a5 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Ma Jun        2024-01-17  930  	adev->pm.ac_power = power_supply_is_system_supplied() > 0;
-42ffb3c396b5a5 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Ma Jun        2024-01-17  931  	smu_set_ac_dc(smu);
-572773992e31e0 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2023-05-11  932  
-4e8303cf2c4dd2 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Lijo Lazar    2023-09-11  933  	if ((amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 1)) ||
-4e8303cf2c4dd2 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Lijo Lazar    2023-09-11  934  	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 3)))
-c16e87d6f43184 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Aaron Liu     2021-01-25  935  		return 0;
-c16e87d6f43184 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Aaron Liu     2021-01-25  936  
-4215a11923362e drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Horace Chen   2021-02-25  937  	if (!amdgpu_sriov_vf(adev) || smu->od_enabled) {
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  938  		ret = smu_set_default_od_settings(smu);
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  939  		if (ret) {
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  940  			dev_err(adev->dev, "Failed to setup default OD settings!\n");
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  941  			return ret;
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  942  		}
-4215a11923362e drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Horace Chen   2021-02-25  943  	}
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  944  
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  945  	ret = smu_populate_umd_state_clk(smu);
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  946  	if (ret) {
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  947  		dev_err(adev->dev, "Failed to populate UMD state clocks!\n");
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  948  		return ret;
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  949  	}
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  950  
-488f211dab7d2f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2021-05-19  951  	ret = smu_get_asic_power_limits(smu,
-488f211dab7d2f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2021-05-19  952  					&smu->current_power_limit,
-488f211dab7d2f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2021-05-19  953  					&smu->default_power_limit,
-1958946858a62b drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Ma Jun        2023-10-12  954  					&smu->max_power_limit,
-1958946858a62b drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Ma Jun        2023-10-12  955  					&smu->min_power_limit);
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  956  	if (ret) {
-a141b4e3c722c1 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-08  957  		dev_err(adev->dev, "Failed to get asic power limits!\n");
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  958  		return ret;
-7951e7c036490e drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-05  959  	}
-02cf91c113eacd drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Evan Quan     2020-06-04  960  
-5228cd65742abd drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Jiawei Gu     2021-05-13  961  	if (!amdgpu_sriov_vf(adev))
-81a16241114ba4 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Kent Russell  2020-04-27 @962  		smu_get_unique_id(smu);
-81a16241114ba4 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Kent Russell  2020-04-27  963  
-337b57aecb3e11 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Alex Deucher  2020-08-26  964  	smu_get_fan_parameters(smu);
-337b57aecb3e11 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Alex Deucher  2020-08-26  965  
-ebfc253335af81 drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2021-11-22  966  	smu_handle_task(smu,
-bee71d26d22339 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-01-30  967  			smu->smu_dpm.dpm_level,
-e0638c7abc4d3d drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2021-11-29  968  			AMD_PP_TASK_COMPLETE_INIT);
-bee71d26d22339 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-01-30  969  
-b874c6671b911f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2022-01-19  970  	ret = smu_apply_default_config_table_settings(smu);
-b874c6671b911f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2022-01-19  971  	if (ret && (ret != -EOPNOTSUPP)) {
-b874c6671b911f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2022-01-19  972  		dev_err(adev->dev, "Failed to apply default DriverSmuConfig settings!\n");
-b874c6671b911f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2022-01-19  973  		return ret;
-b874c6671b911f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2022-01-19  974  	}
-b874c6671b911f drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Evan Quan     2022-01-19  975  
-eb3b425166cbdb drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Arunpravin    2021-01-19  976  	smu_restore_dpm_user_profile(smu);
-eb3b425166cbdb drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  Arunpravin    2021-01-19  977  
-bee71d26d22339 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-01-30  978  	return 0;
-bee71d26d22339 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-01-30  979  }
-bee71d26d22339 drivers/gpu/drm/amd/powerplay/amdgpu_smu.c Chengming Gui 2019-01-30  980  
+With some nits:
 
-:::::: The code at line 962 was first introduced by commit
-:::::: 81a16241114ba4e0b188e517e5e8522951dfeb7b drm/amdgpu: Add unique_id and serial_number for Arcturus v3
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -59,10 +59,8 @@ enum arm_smmu_msi_index {
+>  	ARM_SMMU_MAX_MSIS,
+>  };
+>  
+> -#define NUM_ENTRY_QWORDS 8
+>  static_assert(sizeof(struct arm_smmu_ste) == NUM_ENTRY_QWORDS * sizeof(u64));
+>  static_assert(sizeof(struct arm_smmu_cd) == NUM_ENTRY_QWORDS * sizeof(u64));
+> -
+>  static phys_addr_t arm_smmu_msi_cfg[ARM_SMMU_MAX_MSIS][3] = {
 
-:::::: TO: Kent Russell <kent.russell@amd.com>
-:::::: CC: Alex Deucher <alexander.deucher@amd.com>
+This line removal seems unnecessary.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+> @@ -1321,6 +1316,8 @@ static inline u64 arm_smmu_tlb_inv_range_enc(u8 num, u8 scale)
+>  		FIELD_PREP(CMDQ_TLBI_0_SCALE, scale & 0x1f);
+>  }
+>  
+> +#define NUM_ENTRY_QWORDS 8
+> +
+
+Maybe we should drop the duplicated define in arm-smmu-v3-test.c?
+
+Nicolin
