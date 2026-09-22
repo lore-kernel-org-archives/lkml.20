@@ -1,38 +1,51 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE51489FD9;
-	Tue, 22 Sep 2026 05:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B58648988D;
+	Tue, 22 Sep 2026 05:41:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055690; cv=none; b=uWutebZjHjuln8pmkxOHnrk2Uf2b+3Ue9H+AzGZjJ8OEB5lTJm5D3Fv7pn8Qsvx/GKf9mec2NrYI2bAASghWqtQR2cbUNzYe/aSupSAOiYTDBFl/B/OjvdKLPzgD0r7XEQ2TGnTynUYVFiEJLwV7wu4daWLSsKQDeFs4JR64Muc=
+	t=1790055699; cv=none; b=F2NZEDYoxPrtXtgSQPJddn4ESWXOtgXHrXTROWsE6ZsOMB6IlXlYgsd+YXMkA+cgAhdhy1U1TB6KjtGMmVbatdx/6A8AqclcaSvNgP1o8lRkuelnfJ+hxlHDMofjfKVSniJ56YFTwOhqkf7DbB/3SXCkeZ9w4v9cy0oOaBY60rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055690; c=relaxed/simple;
-	bh=XUfOpKItUivTQzfJZZPeBV73mNXXnF63BoKe2YealYQ=;
+	s=arc-20240116; t=1790055699; c=relaxed/simple;
+	bh=kBntcYY1ny8V/wR9eYtrRZ1aTNtH6ws2Zz3TN/WvUbg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gZXvHE/62ABMLiJflP4Q56bEmfYcfwtXO+NNPRJ/hF1VsIZgScapsZDqUyhi96z+okbipeVGV/XB3HTDmq+x2q32Qw4VEu+OAqkVzdHqRMmWRgNhrpnn+fnmxgR7VUEzMweT9Ab5t2BLwfob5amyTMX7G+Fvk567sUqkTQHzzbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=khMrIrLY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CFEdzQDH7dkHbSgIrju/IMt05N+QRPjV4I8+03K6agkPCMv09ZOwuRSzortf/0N2yQarSfHqMzX5hkXXMULFNzTi8Mj+ki8brXOVrXl2mFAM+nWPjDbOyJ/euQlmgxO3R3PK6m10NmrZX6V3Wp5sslmP9/4okUbl8caiZNUOmN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=zwnsc3N2; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="khMrIrLY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A3E1F00893;
-	Tue, 22 Sep 2026 05:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790055689;
-	bh=DrlcUzTgdGShWSLTZcCX91aNyoT35IwgtT0JL3SZWw0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=khMrIrLYkiP5lFsB8RZ4XapvAWHtMWwjNUpW+tUp8rSlP8DMxyWjyFq2HZf0dRZVX
-	 laWWywRn/GKAsjnQq44PboP5IZLMcgicMXbBftxi8LGzt+sJyqHToAI4+nPrX3mNWj
-	 X1Sewp07+M3G9vrHItDIoryOVZOhqRI/1Q1BkAB4=
-Date: Tue, 22 Sep 2026 07:41:25 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Lucas Costa <2000.costalucas@gmail.com>
-Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-	Teddy Wang <teddy.wang@siliconmotion.com>,
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: sm750fb: free cmap on framebuffer release
-Message-ID: <2026092214-corset-unaligned-2cb2@gregkh>
-References: <20260922035302.167378-1-2000.costalucas@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="zwnsc3N2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=lD++dEEXrmisCOCiz9QZ2EX55PzdxN3asJnjkDV58CY=; b=zwnsc3N2WvX4AOi5oNQNBw+UWw
+	ik9dNEl6S17e2+GakyZ/ZS8JZg3rITNfYxkl8XCsUjOxnuGJYR5ui9i2YvD3qld3IOkoFAz0R9A9f
+	GoKjEjBhwL1241Oa5MmARplMgEmW1eFRnBvun8r2qxxyXxMXq6UpOEcK+hYqkfevkrD1HsSe69bcP
+	55kwpgZBRyLX7RoHgAj3xxzpd6pwl9FZ0OXBDAg4rLNCYSrwiRvVYPdILbOVPZMMhhv1ZFDzmqP6H
+	Bef/ALQ2xYwpkh3UfMwmCu7P1uK+bjXDhdKtjNJlKtvxP5m6a/FF1TdF3lw/i/e1myXmmQVqoa1JS
+	W4f1gF+Q==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8tFu-00000004GQO-25oV;
+	Tue, 22 Sep 2026 05:41:26 +0000
+Date: Mon, 21 Sep 2026 22:41:26 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Huang Shijie <huangsj@hygon.cn>
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, zhongyuan@hygon.cn,
+	fangbaoshun@hygon.cn, yingzhiwei@hygon.cn, jack@suse.cz,
+	dev.jain@arm.com, ljs@kernel.org, adobriyan@gmail.com,
+	akpm@linux-foundation.org, hpa@zytor.com, ryan.roberts@arm.com,
+	mjguzik@gmail.com, joel.granados@kernel.org, jannh@google.com,
+	oleg@redhat.com, aleksa@amutable.com, legion@kernel.org,
+	kees@kernel.org, joannelkoong@gmail.com, tj@kernel.org,
+	libaokun@linux.alibaba.com, ebiggers@kernel.org, sandeen@redhat.com,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 1/3] fs/drop_caches: skip filesystems without page
+ cache
+Message-ID: <arIVBpMZk5-O2AZc@infradead.org>
+References: <20260920072811.2064247-1-huangsj@hygon.cn>
+ <20260920072811.2064247-2-huangsj@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,51 +54,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922035302.167378-1-2000.costalucas@gmail.com>
+In-Reply-To: <20260920072811.2064247-2-huangsj@hygon.cn>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Sep 22, 2026 at 12:53:02AM -0300, Lucas Costa wrote:
-> The driver never calls fb_dealloc_cmap() after it has been allocated,
-> so when the buffer is torn down we leak.
+On Sun, Sep 20, 2026 at 03:28:09PM +0800, Huang Shijie wrote:
+> Add a new flag SB_I_NO_PAGECACHE for superblock.
 > 
-> This happens on every unbind, and when an error is detected in
-> sm750fb_framebuffer_alloc().
-> 
-> fb_dealloc_cmap() gets called before framebuffer_release() in both places.
-> 
-> Fixes: 81dee67e215b ("staging: sm750fb: add sm750 to staging")
-> 
-> Signed-off-by: Lucas Costa <2000.costalucas@gmail.com>
-> ---
->  drivers/staging/sm750fb/sm750.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-> index 8b93bfeb217b..92412534239c 100644
-> --- a/drivers/staging/sm750fb/sm750.c
-> +++ b/drivers/staging/sm750fb/sm750.c
-> @@ -910,6 +910,7 @@ static void sm750fb_framebuffer_release(struct sm750_dev *sm750_dev)
->  	while (sm750_dev->fb_count) {
->  		fb_info = sm750_dev->fbinfo[sm750_dev->fb_count - 1];
->  		unregister_framebuffer(fb_info);
-> +		fb_dealloc_cmap(&fb_info->cmap);
->  		framebuffer_release(fb_info);
->  		sm750_dev->fb_count--;
->  	}
-> @@ -943,6 +944,7 @@ static int sm750fb_framebuffer_alloc(struct sm750_dev *sm750_dev, int fbidx)
->  	return 0;
->  
->  release_fb:
-> +	fb_dealloc_cmap(&fb_info->cmap);
->  	framebuffer_release(fb_info);
->  	return err;
->  }
-> -- 
-> 2.43.0
-> 
-> 
+> Skip scanning the inode lists of filesystems that have no page cache
+> in drop_pagecache_sb(), as indicated by the SB_I_NO_PAGECACHE flag.
 
-Nice, how was this found and tested?
+I don't think we need a new flag.  This can check for
 
-thanks,
+	sb->s_bdi == &noop_backing_dev_info
 
-greg k-h
+which is actually the more relevant concept - not if a file system
+uses the page cache, but if it supports page cache writeback.
+E.g. for ramfs there is page cache, but it is the only data store.
+For shmemfs, there is writeback, but it is driven in a different
+way (through the anonymous memory code and not fs writeback).
+
+And most importantly it just work, no need to mark file systems,
+as you're currently missing a lot of those that can have a fair
+number of inodes, e.g., sysfs, kernfs, cgroupfs or configfs.
