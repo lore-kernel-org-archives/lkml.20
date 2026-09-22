@@ -1,371 +1,109 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5583F3BED4F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:22:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949EF3909B3;
+	Tue, 22 Sep 2026 03:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790047361; cv=none; b=m9q7UhRSYUddsl/p/qg+iZYeeh3r5ZMZQHZ4IrOXwGIq1E8N94rQ8JbB4Fpa0/afOXHzUI1u7jLecLGje/7qL+3HEgIQiKOqbnSVVTutw2adgeD4beyFAJ8RPUMn179wVkcNTRv5JUUFB55P/i0YX9WkmwclAo2o1gQ+Js71h78=
+	t=1790047443; cv=none; b=pWcA3S/saHeCMXVlD7Gviqt/69/Bo51FIPuQktaKTIBWxTgaFdkXwaZqUhSPNOAxBqI0XIGV9OdyGJeKeeaAwFfBxECjtInveL8QnVUHVwI2/hfe0jRI7N+k5Z8dNNhNd2PmtfBZm1c9Oa86AFnKjEspJ1n33t7lQwJRUF4RUGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790047361; c=relaxed/simple;
-	bh=I5wIP9Lb3GzPo8AB1Hn1xUTzMr8FY3PyNIw2iVhcHwQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DBKxYUg6/knSfoQLBeggvvDX5Sl60oRwuQWtrhanMuSDSGg5lAxOliG/WmprJ09JCRxku6zcIKvODibknJ+sSDY5tFRjbRu2lyC3udmBQjJ7W68yu4BEXR0MbHACTvVUZZh+AVYpAFv1he7M8dMEZe3jZk++j7XBWkC5JcQGF1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ITFE5Jnx; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790047443; c=relaxed/simple;
+	bh=XUqGq3E6wliJylX/FDBdHcmSuxDx6xPrEWs9647qYjc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HIcoz+1tiRCk/HSijGtmpckhcasTf0OuLWq6UOJjpjPaoJ1Cq7sJr2/1W87bTkZb+1hz8RfPp/i2SoNAofbNZrlLo9uCZRM7NCF8V1tqNEb/8uqzfkJUE+ZT6zOmVh3f/bLgbKR23gy7fLFSm+0jgkPfDP9vHy22PVU7gupY/RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpMJC8Sy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ITFE5Jnx"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fbef5018so45216825ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:22:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790047358; x=1790652158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b9ZOikjG/jKsquUCOs4ef+k0ESK3vg9QpXxcFWfbPnE=;
-        b=ITFE5Jnx8I/90sp1TYyuAKSAtCs2rksOhjyWvk/VSM2jyb6Ptxf3wiqmrC4UPmrKkr
-         Pz97ex9KL0n4NOrBei42SFv4kRLdShNhAA7ZY9MAXnd8LH+i7ABNtpnHEXOFjR68tkgE
-         RVNCYts8jVMaoHzuug/UGjj8wqonWg2GwGazRnNEtvkOqMZsSXsPKw4jZQFvcha9GU87
-         0EmclgDoWpLIiDzBZdu2ASXRN8v7tJdc1LPFfPBFpW37pKtVDhH27+xLXLZhsaOzRGTr
-         c/bCrx0YP0NhQyXuf0P8SY5+i7r56ZIfW7lFtr5ZQOxXXnExGMh7r7CrfaoopGAoLB7E
-         C2zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790047358; x=1790652158;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b9ZOikjG/jKsquUCOs4ef+k0ESK3vg9QpXxcFWfbPnE=;
-        b=gVVM+mZhLgDI3Ou2TbIUb0duAZbMuyV5hVs1nMf0cWUiBIVwfyTjAyL8204Hzc7rMm
-         OAy9h7T9LhWHskbOJvgO0FUoL0RzdAoEh+PKqhAlOD+J5002eJAlKC7tn5KmwfySOPxY
-         G0VlZXXW1BO+g1NT21h267KjqmT7iXJysm/kB2O4Da7nNviofllcJdWxdZ51P/3WjXPA
-         0StDqg/OPdy1GIGzcil24K8bDrK/lkjul38n2TIubQQ2IDjynXjhgEuCRUQGRt3V2/HG
-         8gEuu49ePqkvN/XnOMb56zVddPdrDxXBANfKr0jwZOqw14KuGqA5HMKroDyrnNjN8r5K
-         WFfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYNW2LlwdEiDiLtGfXCfIZ/dT1SC94iMFwG4qoDKe9XruNIgxMNqcHbkM8O5eJRYNmUu7l8Jv+GKG0WNQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0TfO2bcTu09eKoYnNXjGSNkgc82UCuLZ9LbwVS6dtfEzgZSa8
-	zPtep+SpihdJEtO2hARCJNLlqN7iCYK/5EcCYhckm8kwndlSfLaKxIq2Js4OjRdaWRpmkQ==
-X-Gm-Gg: AYBFou0kj+sz8SoFhXzufP27i1plzD40qjhm03zrTij6mcZhg8xhF2RblktEoH9hK1q
-	+8P9kvT0pigdi3jonkjnYqgSgDjsUglABVz1qoV/RerswKFdi4kp3gTUcMr5o/G3YTbDpe2ELIH
-	qIWelMuOcub5KGMQweK+/nqm/ZwhzErkVdh7LjTnPUeMJj/qbhK6aQlrX5kK0dSLKdH1iLy8nH6
-	PZsyUoDi2yr4piV0st+mDsIKvz9aGWtqfbmmBDSU+EsVD25mmo/Kp2CkHSIBXbn9e5mZqSdKtcJ
-	wHobu15tF9LBFe14mL11DGu47bnxi1iLmG8jP2I/Gfaj6xQEF4sGgBIC5SJlBuQJBE7AUdICqda
-	L5/bTQmPs4IIlM6w0kjtwLMRHjRH75GJEyocK/C/d53r6FNZAyALvSTg2lspp2hGN+Ze/TSMFaI
-	WCNtvORzIgvYoS6smyFTacYwxJzvuIfDLlJKwZ5R7TZMzZCKghvjTcC2VHyTRY/LXxCEqIjO99D
-	BLAgAIex4oD3ZZiz/5re0QGcm3HhoS7+u0=
-X-Received: by 2002:a17:903:2349:b0:2dd:c100:3136 with SMTP id d9443c01a7336-2ddc100317fmr123475555ad.50.1790047358371;
-        Mon, 21 Sep 2026 20:22:38 -0700 (PDT)
-Received: from localhost.. (59-124-112-186.hinet-ip.hinet.net. [59.124.112.186])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5cf8390esm1970575ad.8.2026.09.21.20.22.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 20:22:36 -0700 (PDT)
-From: chipang_kao <prozac2734@gmail.com>
-X-Google-Original-From: chipang_kao <chipang_kao@asus.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	W_Armin@gmx.de
-Cc: corentin.chary@gmail.com,
-	luke@ljones.dev,
-	denis.benato@linux.dev,
-	scardracs@disroot.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	chipang_kao <chipang_kao@asus.com>
-Subject: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to wmi/asus
-Date: Tue, 22 Sep 2026 11:21:57 +0800
-Message-ID: <20260922032157.120188-1-chipang_kao@asus.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2384d8f5-106c-4cbd-a119-62d923725bf7@kernel.org>
-References: <2384d8f5-106c-4cbd-a119-62d923725bf7@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpMJC8Sy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2327F1F000FF;
+	Tue, 22 Sep 2026 03:23:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790047440;
+	bh=Ii3qyc0w1aYDJN77yU+YWW/365rbaC06cgQrcopc6Fc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BpMJC8SyVUJOti0rK1Ie6MGWeuSoqdfPyKzTiQwdBRdYY4EI/SNW39IKeIQjIE3cC
+	 VA4qzmdOIj+qc6zlDqH1lojF/6QtemOwrf7+HI1ZQg54dPX48Lg7HyWvEo+bGWWWbU
+	 f+2oMo7f8ZRROQdvOJyhC316ig3XBt30r0S5qm726aq4SYYUOyl980MuUUHamYp7Lb
+	 UAPG/mTuzYQlgL7v/fxhCT1fFstwC6c22j4CJhNHD+CrbVMibx5bphuSm6FK3kIiVp
+	 RdzXvvrPKH4I6L5aexGN64U1ZUyNlI71UeUyUT/s2VFwc/X3aS6MPTty+IAOB2OqK2
+	 T3JK08iR/TlSw==
+Message-ID: <f0db06a2-08e4-4013-96cb-c6754f673126@kernel.org>
+Date: Tue, 22 Sep 2026 12:23:54 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/5] ata: libahci_platform: Adapt the return value
+ changed for disabled blob
+To: Inochi Amaoto <inochiama@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Minas Harutyunyan <hminas@synopsys.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
+ Longbin Li <looong.bin@gmail.com>
+References: <20260922024724.191412-1-inochiama@gmail.com>
+ <20260922024724.191412-3-inochiama@gmail.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20260922024724.191412-3-inochiama@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ASUS WMI and related platform drivers currently reside under
-drivers/platform/x86/. However, with ARM64 devices utilizing ACPI WMI
-interfaces, maintaining these drivers exclusively under x86 creates
-unnecessary architectural restrictions and Kconfig duplications.
+On 9/22/26 11:47, Inochi Amaoto wrote:
+> Check EOPNOTSUPP for disabled helper function as the change in phy core.
+> 
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  drivers/ata/libahci_platform.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
+> index 6e072d681341..3e8ddbeb49b3 100644
+> --- a/drivers/ata/libahci_platform.c
+> +++ b/drivers/ata/libahci_platform.c
+> @@ -371,11 +371,11 @@ static int ahci_platform_get_phy(struct ahci_host_priv *hpriv, u32 port,
+>  
+>  	rc = PTR_ERR(hpriv->phys[port]);
+>  	switch (rc) {
+> -	case -ENOSYS:
+> +	case -EOPNOTSUPP:
+>  		/* No PHY support. Check if PHY is required. */
+>  		if (of_property_present(node, "phys")) {
+>  			dev_err(dev,
+> -				"couldn't get PHY in node %pOFn: ENOSYS\n",
+> +				"couldn't get PHY in node %pOFn: EOPNOTSUPP\n",
 
-To allow ARM64 architectures to build and utilize ASUS WMI drivers
-cleanly:
-1. Relocate all ASUS WMI-based drivers and headers from
-   drivers/platform/x86/ to drivers/platform/wmi/asus/.
-2. Create dedicated Kconfig and Makefile under
-   drivers/platform/wmi/asus/ and source them in
-   drivers/platform/wmi/Kconfig and Makefile.
-3. Update drivers/platform/x86/Kconfig to remove duplicated entries
-   and source the unified WMI-based ASUS configuration.
+I do not see the point in printing an error code name. Instead, let's make the
+error message more sensible. Something like:
 
-No functional code logic changes are introduced in this patch; this is
-a pure code relocation and build infrastructure refactoring.
+	dev_err(dev, "Node %pOFn: PHY not supported\n", node);
 
-Signed-off-by: chipang_kao <chipang_kao@asus.com>
----
+Or
 
-Changes in v3:
-- Refined the file relocation scope to target ONLY pure WMI-based
-  platform drivers (asus-wmi, asus-nb-wmi, and asus-armoury).
-- Retained non-WMI x86 platform drivers (such as asus-laptop,
-  asus-wireless, and asus-tf103c-dock) under drivers/platform/x86/.
-- Updated drivers/platform/wmi/asus/Kconfig and Makefile to only build
-  and export the relocated WMI components.
-- Dropped patch 1/2 from the original series as CONFIG_ACPI_WMI
-  dependency updates are handled by Armin's WMI refactoring series.
+	dev_err(dev, "PHY not supported on node %pOFn\n", node);
 
-Changes in v2:
-- Relocated ASUS platform drivers from drivers/platform/x86/ to
-  drivers/platform/wmi/asus/ to eliminate Kconfig duplication and
-  architectural restrictions for ARM64 platforms.
-- Updated MAINTAINERS file to reflect the new path.
+>  				node);
+>  			break;
+>  		}
 
- MAINTAINERS                                   |  1 +
- drivers/platform/wmi/Kconfig                  |  1 +
- drivers/platform/wmi/Makefile                 |  1 +
- drivers/platform/wmi/asus/Kconfig             | 64 +++++++++++++++++++
- drivers/platform/wmi/asus/Makefile            |  9 +++
- .../platform/{x86 => wmi/asus}/asus-armoury.c |  0
- .../platform/{x86 => wmi/asus}/asus-armoury.h |  0
- .../platform/{x86 => wmi/asus}/asus-nb-wmi.c  |  0
- drivers/platform/{x86 => wmi/asus}/asus-wmi.c |  0
- drivers/platform/{x86 => wmi/asus}/asus-wmi.h |  0
- drivers/platform/x86/Kconfig                  | 58 -----------------
- drivers/platform/x86/Makefile                 |  3 -
- 12 files changed, 76 insertions(+), 61 deletions(-)
- create mode 100644 drivers/platform/wmi/asus/Kconfig
- create mode 100644 drivers/platform/wmi/asus/Makefile
- rename drivers/platform/{x86 => wmi/asus}/asus-armoury.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-armoury.h (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-nb-wmi.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-wmi.c (100%)
- rename drivers/platform/{x86 => wmi/asus}/asus-wmi.h (100%)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..2e4fa6812093 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4124,6 +4124,7 @@ M:	Denis Benato <denis.benato@linux.dev>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- W:	https://asus-linux.org/
-+F:	drivers/platform/wmi/asus/asus*.c
- F:	drivers/platform/x86/asus*.c
- F:	drivers/platform/x86/eeepc*.c
- 
-diff --git a/drivers/platform/wmi/Kconfig b/drivers/platform/wmi/Kconfig
-index d62f51ff3b7f..acce8e9b7264 100644
---- a/drivers/platform/wmi/Kconfig
-+++ b/drivers/platform/wmi/Kconfig
-@@ -33,5 +33,6 @@ config ACPI_WMI_LEGACY_DEVICE_NAMES
- 	  the same GUID to fail in some corner cases.
- 
- source "drivers/platform/wmi/tests/Kconfig"
-+source "drivers/platform/wmi/asus/Kconfig"
- 
- endif # ACPI_WMI
-diff --git a/drivers/platform/wmi/Makefile b/drivers/platform/wmi/Makefile
-index 2feff94a5594..305f4688324f 100644
---- a/drivers/platform/wmi/Makefile
-+++ b/drivers/platform/wmi/Makefile
-@@ -6,6 +6,7 @@
- 
- wmi-y			:= core.o marshalling.o string.o
- obj-$(CONFIG_ACPI_WMI)	+= wmi.o
-+obj-$(CONFIG_ASUS_WMI) += asus/
- 
- # Unit tests
- obj-y			+= tests/
-diff --git a/drivers/platform/wmi/asus/Kconfig b/drivers/platform/wmi/asus/Kconfig
-new file mode 100644
-index 000000000000..75b6dd45af66
---- /dev/null
-+++ b/drivers/platform/wmi/asus/Kconfig
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Asus Platform Specific Drivers
-+#
-+
-+config ASUS_ARMOURY
-+	tristate "ASUS Armoury driver"
-+	depends on ASUS_WMI
-+	select FW_ATTR_CLASS
-+	help
-+	  Say Y here if you have a WMI aware Asus machine and would like to use the
-+	  firmware_attributes API to control various settings typically exposed in
-+	  the ASUS Armoury Crate application available on Windows.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called asus-armoury.
-+
-+config ASUS_WMI
-+	tristate "ASUS WMI Driver"
-+	depends on ACPI_WMI
-+	depends on ACPI_BATTERY
-+	depends on INPUT
-+	depends on HWMON
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	depends on RFKILL || RFKILL = n
-+	depends on HOTPLUG_PCI
-+	depends on ACPI_VIDEO || ACPI_VIDEO = n
-+	depends on SERIO_I8042 || SERIO_I8042 = n
-+	select INPUT_SPARSEKMAP
-+	select LEDS_CLASS
-+	select NEW_LEDS
-+	select ACPI_PLATFORM_PROFILE
-+	help
-+	  Say Y here if you have a WMI aware Asus laptop (like Eee PCs or new
-+	  Asus Notebooks).
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called asus-wmi.
-+
-+config ASUS_WMI_DEPRECATED_ATTRS
-+	bool "BIOS option support in WMI platform (DEPRECATED)"
-+	depends on ASUS_WMI
-+	default y
-+	help
-+	  Say Y to expose the configurable BIOS options through the asus-wmi
-+	  driver.
-+
-+	  This can be used with or without the asus-armoury driver which
-+	  has the same attributes, but more, and better features.
-+
-+config ASUS_NB_WMI
-+	tristate "Asus Notebook WMI Driver"
-+	depends on ASUS_WMI
-+	help
-+	  This is a driver for newer Asus notebooks. It adds extra features
-+	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
-+
-+	  For more information, see
-+	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
-+
-+	  If you have an ACPI-WMI compatible Asus Notebook, say Y or M
-+	  here.
-+
-+
-diff --git a/drivers/platform/wmi/asus/Makefile b/drivers/platform/wmi/asus/Makefile
-new file mode 100644
-index 000000000000..8daa5ebff89f
---- /dev/null
-+++ b/drivers/platform/wmi/asus/Makefile
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Makefile for linux/drivers/platform/wmi/asus
-+# Asus Platform-Specific Drivers
-+#
-+
-+obj-$(CONFIG_ASUS_ARMOURY)	+= asus-armoury.o
-+obj-$(CONFIG_ASUS_WMI)		+= asus-wmi.o
-+obj-$(CONFIG_ASUS_NB_WMI)	+= asus-nb-wmi.o
-diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/wmi/asus/asus-armoury.c
-similarity index 100%
-rename from drivers/platform/x86/asus-armoury.c
-rename to drivers/platform/wmi/asus/asus-armoury.c
-diff --git a/drivers/platform/x86/asus-armoury.h b/drivers/platform/wmi/asus/asus-armoury.h
-similarity index 100%
-rename from drivers/platform/x86/asus-armoury.h
-rename to drivers/platform/wmi/asus/asus-armoury.h
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/wmi/asus/asus-nb-wmi.c
-similarity index 100%
-rename from drivers/platform/x86/asus-nb-wmi.c
-rename to drivers/platform/wmi/asus/asus-nb-wmi.c
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/wmi/asus/asus-wmi.c
-similarity index 100%
-rename from drivers/platform/x86/asus-wmi.c
-rename to drivers/platform/wmi/asus/asus-wmi.c
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/wmi/asus/asus-wmi.h
-similarity index 100%
-rename from drivers/platform/x86/asus-wmi.h
-rename to drivers/platform/wmi/asus/asus-wmi.h
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index 957034f39e4e..68cf99de415d 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -253,64 +253,6 @@ config ASUS_WIRELESS
- 	  If you choose to compile this driver as a module the module will be
- 	  called asus-wireless.
- 
--config ASUS_ARMOURY
--	tristate "ASUS Armoury driver"
--	depends on ASUS_WMI
--	select FW_ATTR_CLASS
--	help
--	  Say Y here if you have a WMI aware Asus machine and would like to use the
--	  firmware_attributes API to control various settings typically exposed in
--	  the ASUS Armoury Crate application available on Windows.
--
--	  To compile this driver as a module, choose M here: the module will
--	  be called asus-armoury.
--
--config ASUS_WMI
--	tristate "ASUS WMI Driver"
--	depends on ACPI_WMI
--	depends on ACPI_BATTERY
--	depends on INPUT
--	depends on HWMON
--	depends on BACKLIGHT_CLASS_DEVICE
--	depends on RFKILL || RFKILL = n
--	depends on HOTPLUG_PCI
--	depends on ACPI_VIDEO || ACPI_VIDEO = n
--	depends on SERIO_I8042 || SERIO_I8042 = n
--	select INPUT_SPARSEKMAP
--	select LEDS_CLASS
--	select NEW_LEDS
--	select ACPI_PLATFORM_PROFILE
--	help
--	  Say Y here if you have a WMI aware Asus laptop (like Eee PCs or new
--	  Asus Notebooks).
--
--	  To compile this driver as a module, choose M here: the module will
--	  be called asus-wmi.
--
--config ASUS_WMI_DEPRECATED_ATTRS
--	bool "BIOS option support in WMI platform (DEPRECATED)"
--	depends on ASUS_WMI
--	default y
--	help
--	  Say Y to expose the configurable BIOS options through the asus-wmi
--	  driver.
--
--	  This can be used with or without the asus-armoury driver which
--	  has the same attributes, but more, and better features.
--
--config ASUS_NB_WMI
--	tristate "Asus Notebook WMI Driver"
--	depends on ASUS_WMI
--	help
--	  This is a driver for newer Asus notebooks. It adds extra features
--	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
--
--	  For more information, see
--	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
--
--	  If you have an ACPI-WMI compatible Asus Notebook, say Y or M
--	  here.
--
- config ASUS_TF103C_DOCK
- 	tristate "Asus TF103C 2-in-1 keyboard dock"
- 	depends on ACPI
-diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
-index 872ac3842391..0bacd55f2fce 100644
---- a/drivers/platform/x86/Makefile
-+++ b/drivers/platform/x86/Makefile
-@@ -33,9 +33,6 @@ obj-$(CONFIG_APPLE_GMUX)	+= apple-gmux.o
- # ASUS
- obj-$(CONFIG_ASUS_LAPTOP)	+= asus-laptop.o
- obj-$(CONFIG_ASUS_WIRELESS)	+= asus-wireless.o
--obj-$(CONFIG_ASUS_ARMOURY)	+= asus-armoury.o
--obj-$(CONFIG_ASUS_WMI)		+= asus-wmi.o
--obj-$(CONFIG_ASUS_NB_WMI)	+= asus-nb-wmi.o
- obj-$(CONFIG_ASUS_TF103C_DOCK)	+= asus-tf103c-dock.o
- obj-$(CONFIG_EEEPC_LAPTOP)	+= eeepc-laptop.o
- obj-$(CONFIG_EEEPC_WMI)		+= eeepc-wmi.o
 -- 
-2.43.0
-
+Damien Le Moal
+Western Digital Research
