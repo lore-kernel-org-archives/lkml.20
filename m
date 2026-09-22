@@ -1,137 +1,140 @@
-Received: from mail-dy2-f22.google.com (mail-dy2-f22.google.com [74.125.229.22])
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C5D41E6DB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101804; cv=none; b=QzB/lCw8SpAU3mY1VxZR9LGnDa2rQzA426w0P/rz8nNwtzTEe5Bdi1nlI20rVGliT3QKVRITDjVY9O9JNKFU9X066EjrJz19J1cZEo7QnlfNiMd6ZLRqV8UgYUZapmowoXqSadPzgx9jCHz/samfGOuY7Ax5maxdvbqJp1kgcKk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101804; c=relaxed/simple;
-	bh=8jJqCGT0V05E31kT2F6hUmHDlVoJbvkdMk/x5qNavzY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Uf6OyoLUzrZ3FEFOOhChfzJ6TqANJKHUWfi9u8Fdyv4oCGa2yBNx1kW32Rq/nc3HFwIQ/1pSUq+Qe+0PpqxbrWuLRvFvHLN+wA1/a1i76iMi1mJTH/UvIi2k4DgjwCYS9MssqIBwUMmGuqA0mkNlHbaSQ7oVMwX8ZxAPHBHS9gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eLm92UZ2; arc=none smtp.client-ip=74.125.229.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA7F1A6838
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790101834; cv=pass; b=HlYyF/kPWiVDqjmi/qPDBejTMfntA6Qa6dt2vCU4RCGksDpGk7WnNYE/ZEyQp3GQluhVFoZpKv7W5/cF8vRl7LDIwNOvOZ2I9V0cr5jZfuS+TEXt0yl4mZL2DzQLKwDo6lLtAokdnWWek2Xr8r4k3NdfgSK62uPPNXU2pv0lW2Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790101834; c=relaxed/simple;
+	bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ny2w7TKU7fE7RBPZLb08gR9m6D64ga3+mXll9hM+Oil0MswQkfVph6lg4s/T68lq8FodH6B5ypXDieTm+Mscjqu+8YnLJtJ21dv6/60KdF4CC/K1NJlq24S//LOh5NsIPceRcg83N4Cvw3dI0r4ALcURem7+Eu2wi3iFm/LcLws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l7Y0Qsbg; arc=pass smtp.client-ip=74.125.231.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eLm92UZ2"
-Received: by mail-dy2-f22.google.com with SMTP id 5a478bee46e88-33bf5a1c4d9so107380eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:30:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l7Y0Qsbg"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a368895so131596b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:30:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790101832; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s++18Jr0t4PdDOWv4TtSw7rhS+3uMoauo2FYuQ0o/hAUGNORItn4lwfC3YbOx4vowb
+         KO6nnVqS9vuzwuudihX8Pt7WZAujkBWm1BkxgvSpPlrhLhF1/PsEIY+xlHf0T3gTm3IO
+         Qlm9vhuSW6Zptl4y636V7qYXP21Je0hKAaYJVZ2lwqYgvxjBGpnlg1BYL5mBgKowJpee
+         UBjuX+P4X+/5L9t0QD2mAy9Vc2ACfjclga3+2O3/gdCx7xYhirfCqkNV3KxGoLFJS8Ku
+         U5L637nD4f1LbWR2gqituR5Ta5QLm+T3RXLcxJkjkH176egPv6bJNptXyGzOuRjLgk2d
+         5K5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
+        fh=kV1MBl3HK0VTu3WDWIiAKHUSAavPZEsP84ButRfx2iM=;
+        b=Yu9JKPRbQfqQTvo2AWNvmGvvZ7WgplkdHxy10UhrKJadHsVgvQBxnTVc46bJvUxdYi
+         rKVdP2C4A+VT1XXQ8rohU1Den8YFmQiq79wzKybrEiKK/wVyX3JIy5zzO2yA/JCJb76F
+         8mhxAiXPEAjjsORF9WJjn4thFH1iFOBGCceFGbRAnWtAQ3vwHiwTM02JlMLupt+9wNr1
+         WVPeTFshwl4lXpFiGgCaDN2a2qu9HxejAtrhjTbu/6SgvQC+DgntsyWCK3LzXudVv2Cf
+         GMXa06ggHWoSfzZxuammlHZ3ZDq+Jp1YxoYkfhaEP+hR4k+8e1D6/s16ozLxldeD7+Pu
+         GKBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790101801; x=1790706601; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RuPCkW/LjqBFJWCaN7Uxk8wfBxmnjaxJZXL9hcftaP0=;
-        b=eLm92UZ2QC1i3OGXgsFe2eRU8bb/ii4HwTMxQubjqfOLdJOoMxBx9OH8fpK6aXvjtQ
-         8J/AXxBYk9Xv2+366fTtiJUEUupTBwd+WJ8b908+KGfduJCtddm6RCU7be0tW/szqv8p
-         invRsdwyteWLW+2HhSa1NeVFwmKzD/oW1D0bpUKUctoHqiehPlPa0O+UYuLOCjk4QUDo
-         zvIcI3RkJ6ex3Wn/R+pD4sPNLz/lVXR4XfUmc5ViBnV6OKR7hlDd6QwEuopLimAL5YN2
-         Arg+cKDrV2ouoTrEjaBy+DC0nIe/o9lHCk4ndbRXbJHuTnevWUK6/+wuqZcxKVgvJoHx
-         Es7A==
+        d=gmail.com; s=20251104; t=1790101832; x=1790706632; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
+        b=l7Y0QsbgxSeX7YI6DdTjrF7Aev0Ksef8ZwY7Fk8NlV/FSRo0NwRxp23nQgMb4hK3Uo
+         jfotH+1SG2sZ7D3wgzjgc7LzsXUa8YPojVdU4AvSkYmugHSKtiuO9J8F/UmkCzPkxk5J
+         qAFrTyN3+AjbroiQSKgCC71lkrk7L/iIoQ671k8UIxLFBZVgiBhi8iSBRImAXI97XuzK
+         FlWiy1xkzoHGC43+ARG2B98dJb8jNrSPefW7R1mAdj1ej5TUz2pfeK4BSUfxMO2gqJL4
+         lkiYlkLUS/3niQMv2RMd1KkyhvYJfOCOQwkAzDYfZnrVp0Hg8jc9z/LHorUSNPAvIQv3
+         RArQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790101801; x=1790706601;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RuPCkW/LjqBFJWCaN7Uxk8wfBxmnjaxJZXL9hcftaP0=;
-        b=zn+k7LH1mHe5A75B3NF2RkuwqZXa9iRTYKX/Oi9UUDW5y1Hg7wNfnwrb6yYhxGT4VV
-         t1h+Ar54JdrQqga1WIJXjdtV2Shg3BgpmXk//EqpcA6kWCqWZ1tOVxse+peYT31OtLX2
-         ne158J8YaabRPIclld5uIwPWNLuQb5HPHBdjSJLpyAhY19NdnJni8L5mF0cCz2dhAZ+5
-         5Kam6kWZFwB2g4c9BXgNIjECcbyZvyrU4hoYXzegWmztFGp7b9wlxb3CBcEcBcLDvBH9
-         Rtu7jkZucj1WDZ31SYLsInJq0ttoY4HfKgAZyDxFmkYKq/qK3vEaSzYGsnVFWrjkkESM
-         YCqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwEPJhbyBYDgOY2PmIO3Z7dcBdDbP4Q1JYd9aOlGXELT034xOgzQLTRZTvyH1b7s/A/0Ts9banEyLOXkUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni86nIYP+zWO2e4ccIak+dg+p/7T9ZmT6arhv4waIX1ZjCBIE+
-	RmJQojbAE92QVsngtOKGGdWJsW7nzbnQwwNFwb7DcvIYLt0UripmxLu7
-X-Gm-Gg: AYBFou1gldyH9KqYyRq/xps7V4JsWOnwyVh3E3Ds9gXb6eGwdcpg2Y5+Cj+d1Xl9S3n
-	Chj6yxnBBufIB8S39O0ygyaW/TYlktW0iRyMMbz3Bl+9WN/FQjffXsa5mclSZuV5D5vvLPq84da
-	ESezHKFGmZBDxYOCQgCa+3hf6KDkJW/qa9reocnzwOXzD9Pm04l7UC7n4YclVrBRZ7WG9Altr9Y
-	/lAZUe0SnlpYujiQS1iBEvalcGEc7rM/S+eOPlu1I5CH0KVS9II8xEzQp1s/3EEabrjZDDSvAze
-	Y+29q3ZUgYnapLK+HDrXGJLMerd5boocW5tSpfbiao/R2UeDdLiqc71wRI1JlRtzMx73T+NdLWC
-	MKfysilD/oC0Z/JrzPo/3n3fBYLgiZLm5TzLBWD4ct/I1WLBYzuCc48IPqls6tTeTFmYeJTt0AF
-	EGMx2QUHSgdcOPozLPTPNcc/+bXaEO8WMDariUqVnhABKYpldQwVD9F+5k3EqnR+Q/Ve3WGj4/+
-	7ynjsZcWatSJkJBZQRR0L/FUYctSGGuFJhVZEAlnR+uGnoJ4oByECPzxbGXPw==
-X-Received: by 2002:a05:7300:fc01:b0:33b:f062:a654 with SMTP id 5a478bee46e88-33e9548f062mr53363eec.16.1790101801265;
-        Tue, 22 Sep 2026 11:30:01 -0700 (PDT)
-Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdabcsm154315eec.3.2026.09.22.11.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 11:30:00 -0700 (PDT)
-From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-To: kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Anushree Mathur <anushree.mathur@linux.ibm.com>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH v5 9/9] KVM: selftests: Move memslot_perf_test off the 256M ELF load address
-Date: Tue, 22 Sep 2026 23:58:53 +0530
-Message-Id: <55452f6b9bd1dc241d0a9a0781fbda1c2850d2ce.1790101179.git.ritesh.list@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1790101179.git.ritesh.list@gmail.com>
-References: <cover.1790101179.git.ritesh.list@gmail.com>
+        d=1e100.net; s=20260707; t=1790101832; x=1790706632;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
+        b=Lejr7SMf5tEzTPIhwFBIP0R+IcPehg3w2e5b7TAv89ntptFGUEO1eMWuiRvWLS9vLE
+         CMMGRtlyUkIglb/yPNuX95MuiR6gDtxHJCvIQ5joCxHhu85obyfSsB9pFyO1xZSgnEYg
+         u+j4SIs4GN7xcrbcM4TjNuBxhVFMHa0WuMgKKngLIIKPKyqLJenvDWW/SjMuM9MGLkAn
+         ZxwsveyM86O20oFW2c7AFokeOtKRNjIJb9OeAemenoJrKI7xQywjlwcLRD+Yrw1iGVxj
+         ZIwcod3pGd93RmhZ1mfYfJOYI9xAv9kmSe2Y+X2eQPEkFg75OtxTrGVis9SAn+hvezDU
+         XnaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzfGpCM6lEZtWXXvDtCGXEakWyi3uCzSKcwiaJ9XabVyvIYheR16idNxlEPmI8dWMSwbj1stUAajVqw/is=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxq0IS+S8UWIhKMZkpmQ82VaFG42RAxYqnay5Y0dBRRuGavd5n
+	0gyB6JXOXEYWCUYIAadDsSSXUyTyUW5Ec6uOrDveZRUo46lEXtCTQn/9LVtQK0gpU96djw7lx9j
+	+FEH374eiaeAEvgTZ6WNXQ/inosCTg9k=
+X-Gm-Gg: AYBFou2780nhckfQyS2yuLzhHBCnrU2//qfstVSqoBRQ8OsNb/XWeOD+3GfdbuRhmpD
+	MSrcTKvDZ5QN5BbDrgz/8JFOfN80ut5oCCRcLCU5Z/IlXZ9/LyMO3wvErahKxlg/T11DFUhGqmm
+	e6lX2yg9FGkSlUZOQgWpc1lNcj2YdGtcpDzCSbChNcIw1OK9Mq79EGpD/tjewt4pSXJImiMn/3T
+	/XDqcFVBYOVrvGBriVC0OK0+2wjzvwyXTdbqVgMTXrl/zLC+xxKU/ekQmbiC8rQBbTPe1EUA/6P
+	pm9cnvLR6WBriRKupoUJe7rhs58Dm0u6yfbnye5zsmbFoq0lP8G3joVDQJy+gT4t2izmHZjgWnZ
+	7Ju0eGdTwfeGc9Ls7iFzEHqI5
+X-Received: by 2002:a05:6808:1247:b0:486:8a11:6e8b with SMTP id
+ 5614622812f47-4d5b7508c71mr243620b6e.2.1790101831981; Tue, 22 Sep 2026
+ 11:30:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260920200154.1194983-1-georgeandrout13@gmail.com> <DLKFTVSN56P2.2NHCFW6NIUOAH@garyguo.net>
+In-Reply-To: <DLKFTVSN56P2.2NHCFW6NIUOAH@garyguo.net>
+From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Date: Tue, 22 Sep 2026 14:30:21 -0400
+X-Gm-Features: AcwNN1WCk-bP1a41pSc70f2QVB_IR4W1RwREP0VVcFOJquCvEG0378Po8h1cQFo
+Message-ID: <CAESH5oeuKoDyr6ZcGR3Fa+_nPn+ceg9PbqBXoXjRsstaSKtJtw@mail.gmail.com>
+Subject: Re: [PATCH] rust: file: handle fd table teardown in file descriptor APIs
+To: Gary Guo <gary@garyguo.net>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>, Boqun Feng <boqun@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-KVM selftests are built with -fno-PIE/-no-pie so the binary uses fixed
-load addresses.
-On powerpc64, GNU ld default links at 0x10000000 (256M) which is also
-the MEM_GPA, so the identity map trips with the error:
-  PTE already present at level: 4 gva: 0x10000000 pte:0xc00000000002018f
+On Sun, Sep 20, 2026 at 4:48=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+> I think we want to add `unlikely()` on them (which is being added by
+> https://lore.kernel.org/rust-for-linux/20260406095820.465994-2-ojeda@kern=
+el.org/).
 
-Put the test slots at 512M instead which is past the ELF.
-e.g. failure w/o this fix:
+I checked current `linux-next` and `rust-next`, but this does not seem to
+have landed yet. Should I leave these as regular checks for now and add a
+`TODO:` to use `unlikely()` once it is available?
 
-./memslot_perf_test -s 514
-Random seed: 0x423558ef
-Testing map performance with 1 runs, 5 seconds each
+> I wonder if we should upgrade this to `WARN_ONCE`. As code being executed=
+ when
+> exiting are cleanup code, for this code path to be hit, it would mean tha=
+t some
+> code is installing FD descriptor while being dropped -- which is likely a=
+ bug.
+>
+> Putting a "BTW, some Rust code is installing a FD when process is exiting=
+" in
+> dmesg is not going to be useful to understand what's going on. We'd want =
+a full
+> backtrace.
 
-==== Test Assertion Failure ====
-  lib/powerpc/processor.c:235: !pte
-  pid=371 tid=371 errno=2 - No such file or directory
-     1  0x0000000010018293: virt_arch_pg_map at processor.c:235
-     2  0x0000000010008b3f: virt_pg_map at kvm_util.h:1325
-     3   (inlined by) virt_map at kvm_util.c:1571
-     4  0x0000000010001cab: prepare_vm at memslot_perf_test.c:353
-     5   (inlined by) test_execute at memslot_perf_test.c:816
-     6   (inlined by) test_loop at memslot_perf_test.c:1062
-     7   (inlined by) main at memslot_perf_test.c:1136
-     8  0x000000001001d713: __libc_start_call_main at libc-start.o:?
-     9  0x000000001001db47: __libc_start_main_impl at ??:?
-  PTE already present at level: 4 gva: 0x10000000 pte:0xc00000000002018f
+`WARN_ONCE` does not seem to be available on the Rust side yet either.
+`warn_on!()` is available on the current base and would give us the
+backtrace. Would you prefer using that here for now?
 
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
----
- tools/testing/selftests/kvm/memslot_perf_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> I think we can remove this warning. Skipping put_unused_fd isn't actually
+> leaking anything as the files_struct is cleaned up.
 
-diff --git a/tools/testing/selftests/kvm/memslot_perf_test.c b/tools/testing/selftests/kvm/memslot_perf_test.c
-index 844ea9b7bb41..2913a4de4cc9 100644
---- a/tools/testing/selftests/kvm/memslot_perf_test.c
-+++ b/tools/testing/selftests/kvm/memslot_perf_test.c
-@@ -30,7 +30,7 @@
- #define MEM_EXTRA_SIZE		SZ_64K
+Agreed. I'll treat dropping the reservation after fd table teardown as
+normal cleanup, skip `put_unused_fd()`, and document that this can happen.
 
- #define MEM_SIZE		(SZ_512M + MEM_EXTRA_SIZE)
--#define MEM_GPA			SZ_256M
-+#define MEM_GPA			SZ_512M
- #define MEM_AUX_GPA		MEM_GPA
- #define MEM_SYNC_GPA		MEM_AUX_GPA
- #define MEM_TEST_GPA		(MEM_AUX_GPA + MEM_EXTRA_SIZE)
---
-2.39.5
-
+Best,
+George
