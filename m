@@ -1,93 +1,606 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC6D569F04;
-	Tue, 22 Sep 2026 16:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4745678EA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790094900; cv=none; b=laz0l1cag1TAxokDe72o5CEX7Z8owmQRtzSmO+GlPUnJhTnc0TpAmQmsaXlDPg5+JTr0fZQMcaE3Uzona+yQxxFZVYzIe6tmRAJA5EeVhCP+F25xd6Qq7NEP0OfiFFOVy+cVvWiqcjy35Dw76ywPrh+hqOc4ssmro2hEns0X3W4=
+	t=1790094919; cv=none; b=Li4K6JMxM5prePx+uZtwMXMRZRa6My++U/bZbEVRqzFbPjkuEYNaZpSD2WC3ATz77Ppc0tHq1GVC7mMduwQ+fnlh15BKumtxa3fsW33Ds30UmlrxgG6X3IWkyQBl+cDiFP8/VrVY6m6Tv19uqmV5BWLkv9FsNfHUVPa52gDgeTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790094900; c=relaxed/simple;
-	bh=JH8bUHoMVtekCvm62x0h6O584h/v3A/r8+Qpzy03oA8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LDrWyhPxEDdFP19zmMlup4UI5OGtafXc8P7cATF+lfr8sir+ptc6rOiU67eamKdqyFzzbavbuNcM+jQjadohy5NIeIOiXc+KpGJFWHwvdgq297IMnuIx0fYdIR+KABy0VaeQrIjSFhMZDjKlCRUWJ/xErCU/sxw8CR4jSukdq3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=wz4vBzen; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1790094919; c=relaxed/simple;
+	bh=c9yzKE7ZGqXcQnqh+NhuAGAZHnXQUR4wRrWVlZsRPuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lEZBwUlXSFChojZ+GiJsAodBKsZClydMup9zEG6p0hBMpl401AXh5b+9OVN75PPpu8neJoGD6uidQ0Rxnancm3CPBnIMhlGoPJGfgSVeLrTu89MCroSZeYfa5iX4/i2YhhS746QTi/wiK+l1t7s8opFNc2Qt0Cgu0y3o7ZxurcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=enqdWZYb; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="wz4vBzen"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hq5Kt4D98z1XM5kW;
-	Tue, 22 Sep 2026 16:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1790094892; x=1792686893; bh=JH8bUHoMVtekCvm62x0h6O58
-	4h/v3A/r8+Qpzy03oA8=; b=wz4vBzenxEznkgNx1G7KYo1lmZ6IraqGwOPKjgcB
-	QUkSARJTf2bmnk1etD/x9+kY6bASX932xrW2jKSs4yKttmNzZMsiuFnmk1rxFcv/
-	IAn/xsseYpfHWbKiTcL18FhAEpOhHhFv5ob1hjoQkw29uBZxDHWn+zTSkSkZSOuj
-	VQJv5uABOUl78/yTXbZ/jrYbU72MUB9ePL17eytjJlbuyDhWigSITL0LUUfSJ69t
-	lACXZKLLQlM0WQM0AmCKL37VlOvz91ZaDuW88GbnEuz2K1+oEXYBPbEJfqwS6rOO
-	UwiXovraWBL+rGbyyB7ggZ/5LYvcQ8H4wuhQb2/gEbZSxw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id rdmk7zB-djfj; Tue, 22 Sep 2026 16:34:52 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:1f32:8c6:3a87:d280] (unknown [104.135.182.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hq5Kj2TKKz1XM4Sx;
-	Tue, 22 Sep 2026 16:34:48 +0000 (UTC)
-Message-ID: <89e1ae39-dc01-46c6-b126-a7175847910d@acm.org>
-Date: Tue, 22 Sep 2026 09:34:48 -0700
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="enqdWZYb"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so118761f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790094915; x=1790699715; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oSRA2tiOFkeqVhp/xadUSBnBtNnq4vAB5RnHAgObzUo=;
+        b=enqdWZYbdWrj56XX2SjwPtdMeF9iKYNvo6UPd7lxDCzFrKmX4tlp9Lkpbg0cFiqPwF
+         KHVypVGhvsWD5Vm3euOb8RdHkKSB5QJnooaybKdBQUkRnzDa2l46jxpmKLGqR4ZuCIm4
+         orWaWv+E2B8sGgdIhGXuk567ZCfB6aV4RF3LnVqu9MsLlUNADqEr7NLNZiNggIdkCa5s
+         OxLiobYxLuVyujrfJUD73WhZcuE7FuKPUsz1XzJH2C1HnX0jVRajmEzb5qqAeOrTq1Kt
+         WtMChrdsxd5Ld5wd/4vW9oJQHWvYXwN7JzrIWaHxuUH7C2WogX6m1PN5SBYPigEFuqYy
+         JurA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790094915; x=1790699715;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oSRA2tiOFkeqVhp/xadUSBnBtNnq4vAB5RnHAgObzUo=;
+        b=BCp4qbcxc0xzFCPLOzrIdtjR/ULbbhrRz5OqAqQ4Y/LttsAuKdXUC+neRzvNprcEmP
+         Kssk6OmvWdqtp4BiVFCKZPelRRtNDeFNDruQmuEqkLHSuI7gZ7pxCUwdTjNIN2YI3BPv
+         YRcM3z3ACxnTFx4Not0zPIIqbQKEtXgoF2yQ3B1yjC1GTi2JckBbbsKez6+dU+OjPWJn
+         1qkYuNK9AbLQOU7X0velYGZHiV0HetAR7qVUgD/14MawhrVDirTaWfMfK4oxqarXxjF1
+         gpcXjSz1ggvobmfajMIGIJwc17R4US5/9Ejvvs4NGs5YngXAE2DALcLQNVJYh/dYnthh
+         L0DA==
+X-Forwarded-Encrypted: i=1; AKwUvByql+jhltHwEebm2pMC/AxB8hbTBDXU1p8jfMduhg0hyELHYP6B1qAQi2nmviz4Wn+qjt8NPRrNMhOVS9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqG0Mb6eFvWEkxPOwyLqQpmpprDsQUBQI8VvPod+gW+JjwLcja
+	wOnOVE2BKhlRpdby1WXW2pJk/u7+esntARc+bHryTY+nfGCtZGegzwd+9aDxbUY0Dg==
+X-Gm-Gg: AYBFou2jXkH31tblyDZk0/WjKynIAZStQhSTdRqGr9w0w5np0jlH1EbNgSJQNc63U4f
+	XqyFsslRM0W8UhBMp2ijxN/hwPO1noWh5j09Mbzil4I5x9kNLTYuGtyqy85PTZ60YOLygWxRivp
+	axgLm5eDffLRUwscv6w/6LcPJplkzKaz98bb94jhd7nRra4R0RaUycvTddpM+TqFGsU1YFG4bis
+	FhlGgGjwqsgISzJdkgUpVzzxgW/8RTI1KhFeFmEf/NFPpQ54sP2Ao2RsWAMEIIUKwD/chQRrsWK
+	N/XrCuiR2D0WUgTtyKy2mHdTDRexb6JHDpBfK59l22B2QTUxbM4xL9k/zOE03pbh092k0sWxGo8
+	TKG4P3yIX1a6/w+7egvEyhQBVmdNmxlaDae6X26fnxtDBl0m454fPmKMgRcosNcut9rJ2Pn5luv
+	IGhQGENvE003n+zuEChwDLQ8fEuY7JyzHve30774e5HTd5PsZeGFP9eaEucm+EgLcyG0hqpVH4W
+	O62pF0vhs/Qcbve7pcG844dbtkWrJvRngsabeNDTio=
+X-Received: by 2002:a05:600c:3115:b0:499:8ff5:8ecc with SMTP id 5b1f17b1804b1-49fddebbe85mr6137545e9.15.1790094913553;
+        Tue, 22 Sep 2026 09:35:13 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18af34sm2725245e9.6.2026.09.22.09.35.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 09:35:12 -0700 (PDT)
+Date: Tue, 22 Sep 2026 17:35:09 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com,
+	tabba@google.com
+Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
+ at EL2
+Message-ID: <arKuPQ-w5EFXo-n8@google.com>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+ <20260914113338.159227-11-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] scsi: ufs: core: Release command resources instead of
- force-completing
-To: Peter Wang <peter.wang@mediatek.com>, Stanley Jhu <stanleyjhu@google.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
- <avri.altman@sandisk.com>, Bean Huo <beanhuo@micron.com>,
- Can Guo <can.guo@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260920143319.3659543-1-stanleyjhu@google.com>
- <20260920143319.3659543-2-stanleyjhu@google.com>
- <fee250ea-8e0b-4320-880e-8e2627e7b103@acm.org>
- <20260921043755.1689675-1-stanleyjhu@google.com>
- <16af6539-24f8-425e-b411-f191897acfce@acm.org>
- <6288ff21af758e0f3739edb6c33abe3bfbdba3dd.camel@mediatek.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <6288ff21af758e0f3739edb6c33abe3bfbdba3dd.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914113338.159227-11-fuad.tabba@linux.dev>
 
-On 9/21/26 8:03 PM, Peter Wang wrote:
-> It appears unreasonable to wait for the entire 30 second timeout,
-> as many UIC errors recover promptly. The resulting 30 second stall
-> would manifest as a noticeable UI freeze. Maybe we shouldn=E2=80=99t le=
-t
-> eh_host_reset_handler call the EH handler at all?
-The default SCSI disk timeout is 30 seconds. That default timeout was
-chosen when hard disks were the most widely used persistent storage
-medium and before NAND storage became widespread. Isn't that default
-timeout too big for UFS devices?
+On Mon, Sep 14, 2026 at 12:33:30PM +0100, Fuad Tabba wrote:
+> EL2 implements PSCI 1.1 for protected VMs: CPU_ON, CPU_OFF,
+> PSCI_VERSION and PSCI_FEATURES are decided at EL2 (CPU_ON and CPU_OFF
+> still exit to the host, which only schedules or parks the target),
+> AFFINITY_INFO, CPU_SUSPEND and the platform power operations are
+> forwarded to the host, and anything else returns NOT_SUPPORTED,
+> including the TRNG calls and the functions above 1.1, SYSTEM_OFF2
+> among them, that the host handled for a protected guest until now.
+> TRNG for protected guests is a follow-up. AFFINITY_INFO stays
+> with the host, which returns OFF only once it has parked the target:
+> the host is what a guest polls to see a CPU_OFF complete before it
+> issues the next CPU_ON, as Linux does on hotplug.
+> 
+> Three consequences follow:
+> 
+>   - A protected VM has one primary vCPU, the first whose hyp vCPU is
+>     created with mp_state RUNNABLE. A second one, or an mp_state other
+>     than RUNNABLE or STOPPED, fails that vCPU's first KVM_RUN with
+>     -EINVAL.
+> 
+>   - CPU_ON finds its target among the hyp vCPUs, which exist from the
+>     target's first KVM_RUN; before that the guest gets
+>     INVALID_PARAMETERS.
+> 
+>   - A vCPU EL2 holds powered off doesn't run: handle___kvm_vcpu_run()
+>     returns ARM_EXCEPTION_IL, reported as KVM_EXIT_FAIL_ENTRY. Its
+>     existing bail-outs return the same code instead of an -EINVAL that
+>     handle_exit() didn't recognise, for every hyp vCPU.
+> 
+> Non-protected VMs keep power_state ON and accept any mp_state.
+> 
+> Each protected vCPU is OFF, ON_PENDING or ON. CPU_ON moves the target
+> to ON_PENDING, and the target's next run resets it and moves it to ON.
+> The racing transitions are cmpxchg, and the reset state is published
+> with a release/acquire pair, documented at each site. CPU_OFF publishes
+> OFF with a release, so the target's clear of reset_state.reset is
+> ordered before it and a CPU_ON that then wins on OFF republishes after
+> the clear. Rolling a CPU_ON the host failed back to OFF needs the
+> host's return value, which the per-EC marshalling patch delivers along
+> with the rollback. Until then such a target stays ON_PENDING, and the
+> reset has no observable effect: flush_hyp_vcpu() copies the host's
+> context in on every entry until that patch removes the copy, so the
+> target enters on the host's values rather than the ones EL2 reset.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  14 ++
+>  arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  25 ++-
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c         | 283 ++++++++++++++++++++++++-
+>  3 files changed, 311 insertions(+), 11 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> index a04b7c04d5135..63b368baf0e72 100644
+> --- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> +++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> @@ -29,6 +29,12 @@ struct pkvm_hyp_vcpu {
+>  
+>  	/* The previous exit's ARM_EXCEPTION_* code. */
+>  	u32 exit_code;
+> +
+> +	/*
+> +	 * PSCI_0_2_AFFINITY_LEVEL_{OFF, ON_PENDING, ON}. A non-protected
+> +	 * vCPU is always ON.
+> +	 */
+> +	int power_state;
+>  };
+>  
+>  /*
+> @@ -46,6 +52,12 @@ struct pkvm_hyp_vm {
+>  	struct hyp_pool pool;
+>  	hyp_spinlock_t lock;
+>  
+> +	/*
+> +	 * The vCPU initialised RUNNABLE: claimed under vm_table_lock,
+> +	 * released only if its own init fails.
+> +	 */
+> +	struct pkvm_hyp_vcpu *primary_vcpu;
+> +
+>  	/* Array of the hyp vCPU structures for this VM. */
+>  	struct pkvm_hyp_vcpu *vcpus[];
+>  };
+> @@ -98,4 +110,6 @@ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
+>  void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
+>  int kvm_check_pvm_sysreg_table(void);
+>  
+> +int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
+> +struct pkvm_hyp_vcpu *pkvm_mpidr_to_hyp_vcpu(struct pkvm_hyp_vm *vm, u64 mpidr);
+>  #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
+> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> index 9cc8ef16897c1..da8ab636063cf 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> @@ -8,6 +8,7 @@
+>  #include <hyp/switch.h>
+>  
+>  #include <linux/irqchip/arm-gic-v3.h>
+> +#include <uapi/linux/psci.h>
+>  
+>  #include <asm/pgtable-types.h>
+>  #include <asm/kvm_asm.h>
+> @@ -456,14 +457,12 @@ static void handle___kvm_vcpu_run(struct kvm_cpu_context *host_ctxt)
+>  {
+>  	struct pkvm_hyp_vcpu *hyp_vcpu;
+>  	struct kvm_vcpu *host_vcpu;
+> -	int ret;
+> +	int ret = ARM_EXCEPTION_IL;
+>  
+>  	host_vcpu = get_host_hyp_vcpus(host_ctxt, 1, &hyp_vcpu);
+>  
+> -	if (!host_vcpu) {
+> -		ret = -EINVAL;
+> +	if (!host_vcpu)
+>  		goto out;
+> -	}
+>  
+>  	if (unlikely(hyp_vcpu)) {
+>  		/*
+> @@ -472,8 +471,22 @@ static void handle___kvm_vcpu_run(struct kvm_cpu_context *host_ctxt)
+>  		 * loading a vcpu. Therefore, if SME features enabled the host
+>  		 * is misbehaving.
+>  		 */
+> -		if (unlikely(system_supports_sme() && read_sysreg_s(SYS_SVCR))) {
+> -			ret = -EINVAL;
+> +		if (unlikely(system_supports_sme() && read_sysreg_s(SYS_SVCR)))
+> +			goto out;
+> +
+> +		/*
+> +		 * ON has a single writer, pkvm_reset_vcpu() on this CPU, so
+> +		 * READ_ONCE suffices. ON_PENDING takes the reset; -ECANCELED
+> +		 * is a rollback that raced it.
+> +		 */
+> +		switch (READ_ONCE(hyp_vcpu->power_state)) {
+> +		case PSCI_0_2_AFFINITY_LEVEL_ON:
+> +			break;
+> +		case PSCI_0_2_AFFINITY_LEVEL_ON_PENDING:
+> +			if (pkvm_reset_vcpu(hyp_vcpu))
+> +				goto out;
+> +			break;
+> +		default:
+>  			goto out;
+>  		}
+>  
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index 855cb77c8bba1..d970cba12ca47 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -5,6 +5,7 @@
+>   */
+>  
+>  #include <kvm/arm_hypercalls.h>
+> +#include <kvm/arm_psci.h>
+>  
+>  #include <linux/kvm_host.h>
+>  #include <linux/mm.h>
+> @@ -433,6 +434,40 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
+>  		   allowed_features, KVM_VCPU_MAX_FEATURES);
+>  }
+>  
+> +static int pkvm_vcpu_init_psci(struct pkvm_hyp_vcpu *hyp_vcpu, u32 mp_state)
+> +{
+> +	struct vcpu_reset_state *reset_state = &hyp_vcpu->vcpu.arch.reset_state;
+> +	struct pkvm_hyp_vm *hyp_vm = pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
+> +	struct kvm_vcpu *host_vcpu;
+> +
+> +	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+> +		/* The host manages a non-protected vCPU: always ON at EL2. */
+> +		hyp_vcpu->power_state = PSCI_0_2_AFFINITY_LEVEL_ON;
+> +		return 0;
+> +	}
+> +
+> +	if (mp_state != KVM_MP_STATE_RUNNABLE && mp_state != KVM_MP_STATE_STOPPED)
+> +		return -EINVAL;
+> +
+> +	if (mp_state == KVM_MP_STATE_STOPPED) {
+> +		reset_state->reset = false;
+> +		hyp_vcpu->power_state = PSCI_0_2_AFFINITY_LEVEL_OFF;
+> +		return 0;
+> +	}
+> +
+> +	hyp_assert_lock_held(&vm_table_lock);
+> +	if (hyp_vm->primary_vcpu)
+> +		return -EINVAL;
+> +	hyp_vm->primary_vcpu = hyp_vcpu;
+> +
+> +	host_vcpu = hyp_vcpu->host_vcpu;
+> +	reset_state->pc = READ_ONCE(host_vcpu->arch.ctxt.regs.pc);
+> +	reset_state->r0 = READ_ONCE(host_vcpu->arch.ctxt.regs.regs[0]);
+> +	reset_state->reset = true;
+> +	hyp_vcpu->power_state = PSCI_0_2_AFFINITY_LEVEL_ON_PENDING;
+> +	return 0;
+> +}
+> +
+>  static void unpin_host_vcpu(struct kvm_vcpu *host_vcpu)
+>  {
+>  	if (host_vcpu)
+> @@ -447,6 +482,9 @@ static void unpin_host_sve_state(struct pkvm_hyp_vcpu *hyp_vcpu)
+>  		return;
+>  
+>  	sve_state = hyp_vcpu->vcpu.arch.sve_state;
+> +	if (!sve_state)
+> +		return;
+> +
+>  	hyp_unpin_shared_mem(sve_state,
+>  			     sve_state + vcpu_sve_state_size(&hyp_vcpu->vcpu));
+>  }
+> @@ -559,10 +597,12 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+>  			      struct kvm_vcpu *host_vcpu)
+>  {
+>  	int ret = 0;
+> +	u32 mp_state;
+>  
+>  	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
+>  		return -EBUSY;
+>  
+> +	mp_state = READ_ONCE(host_vcpu->arch.mp_state.mp_state);
+>  	hyp_vcpu->host_vcpu = host_vcpu;
+>  
+>  	hyp_vcpu->vcpu.kvm = &hyp_vm->kvm;
+> @@ -571,7 +611,6 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+>  
+>  	hyp_vcpu->vcpu.arch.hw_mmu = &hyp_vm->kvm.arch.mmu;
+>  	hyp_vcpu->vcpu.arch.cflags = READ_ONCE(host_vcpu->arch.cflags);
+> -	hyp_vcpu->vcpu.arch.mp_state.mp_state = KVM_MP_STATE_STOPPED;
+>  
+>  	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
+>  		/*
+> @@ -601,9 +640,12 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+>  
+>  	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
+>  		kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
+> +	ret = pkvm_vcpu_init_psci(hyp_vcpu, mp_state);
+>  done:
+> -	if (ret)
+> +	if (ret) {
+>  		unpin_host_vcpu(host_vcpu);
+> +		unpin_host_sve_state(hyp_vcpu);
+> +	}
 
-As mentioned in another email, .eh_host_reset_handler() must abort
-all pending commands and must terminate all ongoing task management
-functions. This implies resetting both the UFS device and the UFS
-host controller. I'm not sure how to do that without calling
-ufshcd_host_reset_and_restore()?
+Was it planned for a different commit of the series?
 
-Thanks,
+>  	return ret;
+>  }
+>  
+> @@ -980,13 +1022,22 @@ int __pkvm_init_vcpu(pkvm_handle_t handle, struct kvm_vcpu *host_vcpu,
+>  
+>  	ret = init_pkvm_hyp_vcpu(hyp_vcpu, hyp_vm, host_vcpu);
+>  	if (ret)
+> -		goto unlock;
+> +		goto unclaim;
+>  
+>  	ret = register_hyp_vcpu(hyp_vm, hyp_vcpu);
+>  	if (ret) {
+>  		unpin_host_vcpu(host_vcpu);
+>  		unpin_host_sve_state(hyp_vcpu);
+> +		goto unclaim;
+>  	}
+> +	goto unlock;
+> +unclaim:
+> +	/*
+> +	 * Under vm_table_lock, so no other claim can have landed: undo
+> +	 * this one.
+> +	 */
+> +	if (hyp_vm->primary_vcpu == hyp_vcpu)
+> +		hyp_vm->primary_vcpu = NULL;
+>  unlock:
+>  	hyp_spin_unlock(&vm_table_lock);
+>  
+> @@ -1178,6 +1229,228 @@ static void pkvm_memunshare_call(u64 *ret, struct kvm_vcpu *vcpu)
+>  		ret[0] = SMCCC_RET_SUCCESS;
+>  }
+>  
+> +/*
+> + * Reset the vCPU to its power-on state and commit ON_PENDING -> ON, on the
+> + * target's own CPU. Returns -ECANCELED, with no side effects, if a rollback
+> + * raced the reset.
+> + */
+> +int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct vcpu_reset_state *reset_state = &hyp_vcpu->vcpu.arch.reset_state;
+> +	int prev;
+> +
+> +	/*
+> +	 * Pairs with smp_store_release(&reset_state->reset, true) in
+> +	 * pvm_psci_vcpu_on(). The acquire must precede the cmpxchg: reversed, a
+> +	 * winning cmpxchg with a false acquire would leave power_state == ON
+> +	 * with the reset skipped.
+> +	 */
+> +	if (!smp_load_acquire(&reset_state->reset))
+> +		return -ECANCELED;
+> +
+> +	prev = cmpxchg_relaxed(&hyp_vcpu->power_state,
+> +			       PSCI_0_2_AFFINITY_LEVEL_ON_PENDING,
+> +			       PSCI_0_2_AFFINITY_LEVEL_ON);
+> +	if (prev != PSCI_0_2_AFFINITY_LEVEL_ON_PENDING) {
+> +		/* The only other writer of ON_PENDING is the rollback. */
+> +		WARN_ON(prev != PSCI_0_2_AFFINITY_LEVEL_OFF);
+> +		return -ECANCELED;
+> +	}
+> +
+> +	kvm_reset_vcpu_core(&hyp_vcpu->vcpu);
+> +	kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
+> +
+> +	/* Must be done after resetting sys registers. */
+> +	kvm_reset_vcpu_psci(&hyp_vcpu->vcpu, reset_state);
+> +
+> +	hyp_vcpu->exit_code = 0;
+> +	/*
+> +	 * A source that raced a rollback can publish after this clear, and
+> +	 * the next cycle then passes the acquire on a stale flag: the pc,
+> +	 * r0 and be it reads are still the guest's own.
+> +	 */
+> +	reset_state->reset = false;
+> +	return 0;
+> +}
+> +
+> +struct pkvm_hyp_vcpu *pkvm_mpidr_to_hyp_vcpu(struct pkvm_hyp_vm *hyp_vm,
+> +					     u64 mpidr)
+> +{
+> +	struct pkvm_hyp_vcpu *hyp_vcpu;
+> +	int i;
+> +
+> +	mpidr &= MPIDR_HWID_BITMASK;
+> +
+> +	for (i = 0; i < hyp_vm->kvm.created_vcpus; i++) {
+> +		/* Pairs with smp_store_release() in register_hyp_vcpu(). */
+> +		hyp_vcpu = smp_load_acquire(&hyp_vm->vcpus[i]);
+> +
+> +		if (!hyp_vcpu)
+> +			continue;
+> +
+> +		if (mpidr == kvm_vcpu_get_mpidr_aff(&hyp_vcpu->vcpu))
+> +			return hyp_vcpu;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +/*
+> + * Returns true when handled at EL2, false when the host must wake the target
+> + * vCPU.
+> + */
+> +static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct pkvm_hyp_vm *hyp_vm = pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
+> +	struct vcpu_reset_state *reset_state;
+> +	struct pkvm_hyp_vcpu *target;
+> +	unsigned long cpu_id, ret;
+> +	int power_state;
+> +
+> +	cpu_id = smccc_get_arg1(&hyp_vcpu->vcpu);
+> +	if (!kvm_psci_valid_affinity(&hyp_vcpu->vcpu, cpu_id)) {
+> +		ret = PSCI_RET_INVALID_PARAMS;
+> +		goto error;
+> +	}
+> +
+> +	target = pkvm_mpidr_to_hyp_vcpu(hyp_vm, cpu_id);
+> +	if (!target) {
+> +		ret = PSCI_RET_INVALID_PARAMS;
+> +		goto error;
+> +	}
+> +
+> +	/*
+> +	 * vCPUs race to power on the same target. Relaxed: reset_state
+> +	 * is published by the release on reset_state.reset below.
+> +	 */
+> +	power_state = cmpxchg_relaxed(&target->power_state,
+> +				      PSCI_0_2_AFFINITY_LEVEL_OFF,
+> +				      PSCI_0_2_AFFINITY_LEVEL_ON_PENDING);
+> +	switch (power_state) {
+> +	case PSCI_0_2_AFFINITY_LEVEL_ON_PENDING:
+> +		ret = PSCI_RET_ON_PENDING;
+> +		goto error;
+> +	case PSCI_0_2_AFFINITY_LEVEL_ON:
+> +		ret = PSCI_RET_ALREADY_ON;
+> +		goto error;
+> +	case PSCI_0_2_AFFINITY_LEVEL_OFF:
+> +		break;
+> +	default:
+> +		ret = PSCI_RET_INTERNAL_FAILURE;
+> +		goto error;
+> +	}
+> +
+> +	reset_state = &target->vcpu.arch.reset_state;
+> +	reset_state->pc = smccc_get_arg2(&hyp_vcpu->vcpu);
+> +	reset_state->r0 = smccc_get_arg3(&hyp_vcpu->vcpu);
+> +	reset_state->be = kvm_vcpu_is_be(&hyp_vcpu->vcpu);
+> +	/*
+> +	 * Publish reset_state.{pc, r0, be} to the target vCPU. Pairs with
+> +	 * smp_load_acquire(&reset_state->reset) in pkvm_reset_vcpu().
+> +	 */
+> +	smp_store_release(&reset_state->reset, true);
+> +
+> +	/* The host requests KVM_REQ_VCPU_RESET and wakes the target. */
+> +	return false;
+> +
+> +error:
+> +	smccc_set_retval(&hyp_vcpu->vcpu, ret, 0, 0, 0);
+> +	return true;
+> +}
+> +
+> +/*
+> + * Returns true when handled at EL2, false when the host must stop scheduling
+> + * the vCPU.
+> + */
+> +static bool pvm_psci_vcpu_off(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	/* No other writer runs while this vCPU is ON and executing. */
+> +	WARN_ON(READ_ONCE(hyp_vcpu->power_state) != PSCI_0_2_AFFINITY_LEVEL_ON);
+> +
+> +	/*
+> +	 * Orders pkvm_reset_vcpu()'s clear of reset_state.reset before OFF, so
+> +	 * a CPU_ON that wins on OFF republishes after it. Pairs with the
+> +	 * cmpxchg in pvm_psci_vcpu_on().
+> +	 */
+> +	smp_store_release(&hyp_vcpu->power_state, PSCI_0_2_AFFINITY_LEVEL_OFF);
+> +
+> +	/* Return to the host so that it can finish powering off the vcpu. */
+> +	return false;
+> +}
+> +
+> +static bool pvm_psci_version(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	/* Nothing to be handled by the host. Go back to the guest. */
+> +	smccc_set_retval(&hyp_vcpu->vcpu, KVM_ARM_PSCI_1_1, 0, 0, 0);
+> +	return true;
+> +}
+> +
+> +static bool pvm_psci_features(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct kvm_vcpu *vcpu = &hyp_vcpu->vcpu;
+> +	u32 feature = smccc_get_arg1(vcpu);
+> +	unsigned long val;
+> +
+> +	switch (feature) {
+> +	case PSCI_0_2_FN_PSCI_VERSION:
+> +	case PSCI_0_2_FN_CPU_SUSPEND:
+> +	case PSCI_0_2_FN64_CPU_SUSPEND:
+> +	case PSCI_0_2_FN_CPU_OFF:
+> +	case PSCI_0_2_FN_CPU_ON:
+> +	case PSCI_0_2_FN64_CPU_ON:
+> +	case PSCI_0_2_FN_AFFINITY_INFO:
+> +	case PSCI_0_2_FN64_AFFINITY_INFO:
+> +	case PSCI_0_2_FN_SYSTEM_OFF:
+> +	case PSCI_0_2_FN_SYSTEM_RESET:
+> +	case PSCI_1_0_FN_PSCI_FEATURES:
+> +	case PSCI_1_1_FN_SYSTEM_RESET2:
+> +	case PSCI_1_1_FN64_SYSTEM_RESET2:
+> +	case ARM_SMCCC_VERSION_FUNC_ID:
+> +		val = PSCI_RET_SUCCESS;
+> +		break;
+> +	default:
+> +		val = PSCI_RET_NOT_SUPPORTED;
+> +		break;
+> +	}
+> +
+> +	/* Nothing to be handled by the host. Go back to the guest. */
+> +	smccc_set_retval(vcpu, val, 0, 0, 0);
+> +	return true;
+> +}
+> +
+> +static bool pkvm_handle_psci(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct kvm_vcpu *vcpu = &hyp_vcpu->vcpu;
+> +	u32 psci_fn = smccc_get_function(vcpu);
+> +
+> +	switch (psci_fn) {
+> +	case PSCI_0_2_FN_CPU_ON:
+> +		kvm_psci_narrow_to_32bit(vcpu);
+> +		fallthrough;
+> +	case PSCI_0_2_FN64_CPU_ON:
+> +		return pvm_psci_vcpu_on(hyp_vcpu);
+> +	case PSCI_0_2_FN_CPU_OFF:
+> +		return pvm_psci_vcpu_off(hyp_vcpu);
+> +	case PSCI_0_2_FN_PSCI_VERSION:
+> +		return pvm_psci_version(hyp_vcpu);
+> +	case PSCI_1_0_FN_PSCI_FEATURES:
+> +		return pvm_psci_features(hyp_vcpu);
+> +	case PSCI_0_2_FN_AFFINITY_INFO:
+> +	case PSCI_0_2_FN64_AFFINITY_INFO:
+> +	case PSCI_0_2_FN_SYSTEM_RESET:
+> +	case PSCI_0_2_FN_CPU_SUSPEND:
+> +	case PSCI_0_2_FN64_CPU_SUSPEND:
+> +	case PSCI_0_2_FN_SYSTEM_OFF:
+> +	case PSCI_1_1_FN_SYSTEM_RESET2:
+> +	case PSCI_1_1_FN64_SYSTEM_RESET2:
+> +		return false; /* Handled by the host. */
+> +	default:
+> +		/* Unknown PSCI calls are answered here, not forwarded. */
+> +		smccc_set_retval(vcpu, PSCI_RET_NOT_SUPPORTED, 0, 0, 0);
+> +		return true;
+> +	}
+> +}
+> +
+>  /*
+>   * Handler for protected VM HVC calls.
+>   *
+> @@ -1187,6 +1460,7 @@ static void pkvm_memunshare_call(u64 *ret, struct kvm_vcpu *vcpu)
+>   */
+>  bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
+>  {
+> +	struct pkvm_hyp_vcpu *hyp_vcpu = container_of(vcpu, struct pkvm_hyp_vcpu, vcpu);
+>  	u64 val[4] = { SMCCC_RET_INVALID_PARAMETER };
+>  	bool handled = true;
+>  	u32 feature;
+> @@ -1285,8 +1559,7 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code)
+>  		pkvm_memunshare_call(val, vcpu);
+>  		break;
+>  	default:
+> -		/* Punt everything else back to the host, for now. */
+> -		handled = false;
+> +		return pkvm_handle_psci(hyp_vcpu);
+>  	}
+>  
+>  	if (handled)
+> -- 
+> 2.39.5
+> 
 
-Bart.
+-- 
+Vincent
