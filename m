@@ -1,63 +1,63 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B88A53A3B0
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6990B53B345
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790121535; cv=none; b=aFcRrXvLsC7uBRqbtwZbipkm/+/STW6IIJ22VvB2TMCry1RWL/uIToB7pCrxKXnAWBbMpnbTv4pNXGD1P4qfrVxNXFq940v65+umpq4SaZt8+ToIMSAkun27oElTONa/paxtactZonxdidGNALcEX3K06QFHCB+2NTdIZlLVi5E=
+	t=1790121536; cv=none; b=GFWqdbM7w58bAy2RJcHmVKsojAt4HnVHwh7d3/CKKMevRv6VnVN0DdBnQ6GuczVBn4BQVppMNBFeiQx57grgkve0HbjxwiEKgCmczz7vevgDKacaoE5NwVYCMDLDtfjbIdj+za0ZCk8yjLM5SUNqmHStVSu0PBIyBk4ASlLp8rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790121535; c=relaxed/simple;
-	bh=mdmK36Yhyq2qbhMWTlH9S7tlgVHXySzUY+72VZaX/r4=;
+	s=arc-20240116; t=1790121536; c=relaxed/simple;
+	bh=4tfxaowEwyLcwym1ubVvN+8S1jtOYuzn6GPPLRK9Vaw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i81iAKOpBZzX3SSsd6bg5kU1ZI1rzry6BKFwmnGTo8toPkU1Hvzd6IslXhV7FPYcYnDDINxzwU/COMCjQfojr8b8+F2GYFTYDViqtF3Ku0eIR7Z8BpMrod3eof2fGILjQ6FF7CLxIVzHvxN33Gg7Y71vBGXqhqIZpX4hIXImt2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=hRBeDa3s; arc=none smtp.client-ip=74.125.230.234
+	 MIME-Version; b=idDHIOo8g/Zflkoqy4G24E9xRWSqGIzqnEzlx43auKKhFKRPukXXyl3Pm+Jpio+A1sdw0l9xb0TDcX4MGzgKTYLuku8jBnx0mpq6hz+DmqFhKib7BEoabl7wFH7H0jERlyj6VJW3G2617Uv6noR8fwb+zcRzdg62ciLhnJ1tNys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=PLnFCRyG; arc=none smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="hRBeDa3s"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-5329fc7b325so3131281cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:58:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="PLnFCRyG"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530e2f50d01so4354461cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:58:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790121529; x=1790726329; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1790121530; x=1790726330; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UWLbjJuQ41hy5QZZXmUfMBTlvhCx61z13QEH9bWMQto=;
-        b=hRBeDa3spPlForJHccFY2fZPouvuZwfEN8x/pEG8YONm7/r8x2KiLMPDn2zicof1Rm
-         PymObrlPR/jkVQbvns/da6s0cNuYn0HuuVodBkslc6nfRxOmVpE3HOmmShEE4eytA/kC
-         HmH9gUZnESZy0SqSWaOBIqkzvl0ejYPzDNs5XMZ4LNVeLfHyYCUx9iNPDDyOhquBf0Wd
-         retmUcR+sM5O6FruUUnLybZhuTOfnvykGv+Op0/a1bX8mUgxlreXJK2eYDbg61mWwMFx
-         HsrSDtGB9HPVXntZDTXv24VK+PhfNgc/bo2qSnMYqTW2f4IOJ1/k06n3fB4vd6UDnoom
-         /j/A==
+        bh=l3xhM/OIBt/SuFbuoCQCsVkZeh3BpJl7fkoqP+MrWAM=;
+        b=PLnFCRyG9XwSahqQaJvq0Fu5ThIzedEFNpa+UfG2Fw7NAJH7p9BJSOpShVDtFNPcr2
+         BloihYSiRgceklrQsI2tRTTre+lky/GxWZVqCoIAaelx/YllZkk4o2NCerlzqW/WuERA
+         uLcWdNMqwe5iGZMb7dUOrgn6CTcBSZVMeAwkImYOTiD9linvBba2Xze1C18omyWYo5jb
+         m5ueaGqyI3gdE++U/lHQqf4KJcQCFmYHa8WS7Jl3g+FMTvjZvOR52lPd7LglYdmnF6gI
+         maiHjTOMzyZSW8YOlG9nHr2BKYahUzEh1VaE6Y2RTF4F1Nd9c1aebWcjQXlgGv00b+4U
+         s4nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790121529; x=1790726329;
+        d=1e100.net; s=20260707; t=1790121530; x=1790726330;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UWLbjJuQ41hy5QZZXmUfMBTlvhCx61z13QEH9bWMQto=;
-        b=dDXP72GxgpMXvCzwAwJV2AWTYRsc5n+xCiYtLlSx3AapoyFclsWCHXhsaZ4rCD0spe
-         5RkAM7Ku7Wk+WKNM3orK7VFUUyv/jZBn3tMZEBufJVEBcOWHQx8nVy3R+oVVb2sauZhU
-         x1Mb0p1qREqPsn8L6wr8EdivW5U7+z1O1VltRWVWE/ZkT50VDR4WyiUaq4jjPliizjbw
-         tIbOWHm2g9xLbFUtZ+TIOPSGFeNl6OrpodYwVEToqsHXxHqmPMYiwOweg5NmMS5uFjwa
-         7Cwp/EyGzYxUPnGWMGK5ObBFMjOFBPz35mpmWUf1ncRIlnFSYiUETHroBKePg8t/01rj
-         MGQw==
-X-Gm-Message-State: AFuF++nY3OyPUwtUOzEA9wicicwqWDJsf9+WV7D3FleIHbYs/bJphvG4
-	BLsygKj5wUM5c1wDtqN2yQ7n0VHIi8VjGkEMRMWprHwCfxES3uwWkB15wM2tlcQ/jLI=
-X-Gm-Gg: AYBFou05yY/7/RwFQ5vOJDwqqV+W+7xY3X22W87U274YIuFgl0tLt/r2XUd3xHwzQMj
-	CQcPtUTVTVZwXWi9dhw0sIv2Qrb16Pe8mKTmz427hhZAaXaTiOA7bmnHOc0XJ9PvwnPhF803Px7
-	o5HTvHJgQBxzsEHxL8FGPZgwfgeg0nfalHGvEXXSe6tzpjhfCzV7Qr+f0seN600/kj3HTXppG8f
-	lnpd3CGghY0bAg2Ni/HvaEt5bMmepZt/3x0ClvhiT8t8zZ4RPRDrCqwjwv1B9udq54Sk/KZF3Wi
-	5q9/+0iII4+ZlVQMvQ7BJsxn7Ufsl/O2F1CdJyhr7KN9dvP7AgtinptRZ0/9t0/F6odqWl4pz+t
-	tT/nHWlCE3o5E6YQRtYJKvmc5ti+YXzXZuTZwd2cuV4GnE9W3dg9hjmSiZrDfrFLOUIdjPv5w7R
-	GcJ8ryb2dtlY2TzJ7HvcvGVyg/SFA0fCXiqWFXW9lSpBTZtcA8TE2Va4YIyZZVMZhXw/tzekcKI
-	sfG0Fp6/LO+sllSsoHU8ysR78G3EYFe+DDPnvE0PtDNKXgOm0Y0xjZ1obmarEaL7l9tv6E=
-X-Received: by 2002:a05:622a:1345:b0:532:d202:328e with SMTP id d75a77b69052e-532ead6aaffmr19546621cf.55.1790121529209;
-        Tue, 22 Sep 2026 16:58:49 -0700 (PDT)
+        bh=l3xhM/OIBt/SuFbuoCQCsVkZeh3BpJl7fkoqP+MrWAM=;
+        b=kLAdXhRH5ilQhN3JWKWw9Dpy2mXOQYg3vJ9WjMKxTCIhCrkE6dA11F7capkJEDVtHa
+         L/xeEkx7pz+XxNzuseuW9c70IcPhAoOotvYxnGMjABqYyHuJjtkW9XDngqGkdTGhq3jM
+         7/NlOFBG61y8exC4SH+wPBP3BWebxVsg0GDfC+Bee5oZUUiqZPoG80mY8bLe+RHknajy
+         sauy7nbwSaCNtRr3g96M+qRitk3JACsVHIyULYkEBPNsrI9XFTB07LRofYdUR5lVJXS2
+         cnA7MN1eS0IO1ml5DDEdholYD2QDna2wRmj7vQDL/2tqPcPtlwEqm8FtmFgBY7K05a+g
+         NbIg==
+X-Gm-Message-State: AFuF++mCnqHX/Woy+vYwMlLyNX7++ySQ67W35oKfgohnc9govCxu0fkJ
+	JLDzACx5SdULETYJvF5CBIuBm6IXNNXpf/gB1ak0/gva46mF07/bGcu1uaeF9NVaiTg=
+X-Gm-Gg: AYBFou29gciLQhMI2JOacMj1TP+ZWUHBDP3jmf7/TXhczOZopZ294YcQzOc6Uz/o7z8
+	jSDPs9p+HMpWxMrgJ9HiTq7wAlaex4C7hsrNpi17nskuDg6UFoSPUKnMDbS/mf0IBFsWQhNuBmA
+	Wt07suW4fOhUPg6npHY9o2vaFFGSnEvMNDEw9N0Lcs+FYRtcoJqXKJk8wjCHSxrSYkQGfuypYKQ
+	8fV/ZkD7V1iKUkqSg27n4U91RvH1FokEgF58rd1vTjg8dYIoWwmDkwoD7whXKIAvJ6+WLw3v4wk
+	jraHqhjdXc7FjCvf4VESG1cX//1e0r/hYrsE5ZRn347BjqxfbqIWLTJW0EZ+YAQi+K9+lTn6ZmC
+	lKgabrzRRtcW/t1jopyWSBUyIsaoHbJsH/HL0t162G8jnbOChgIkOqI6KrI+gCAxVl03i98sAfZ
+	BcufoBm7K9ysz5IxfjXsF65AkB3F7eeProrbrzYQQdwYExBfB8xi4uxCDcok3zmmCL1sqaaN0nr
+	Iq5w0yKZogWjb3ubQVqrfZGWA5jsku795dGu+uzurYnUiiTye8CD02HSBziEe8LGcXLTfI=
+X-Received: by 2002:a05:622a:411a:b0:52f:f73c:3269 with SMTP id d75a77b69052e-532ead1e0c5mr18771951cf.36.1790121530629;
+        Tue, 22 Sep 2026 16:58:50 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eb3c6715sm8323261cf.30.2026.09.22.16.58.47
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eb3c6715sm8323261cf.30.2026.09.22.16.58.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 16:58:48 -0700 (PDT)
+        Tue, 22 Sep 2026 16:58:50 -0700 (PDT)
 From: Gregory Price <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -74,9 +74,9 @@ Cc: linux-kernel@vger.kernel.org,
 	mhocko@suse.com,
 	shuah@kernel.org,
 	"Gregory Price (Meta)" <gourry@gourry.net>
-Subject: [PATCH 08/10] mm/madvise: separate the PTL-held PTE scan
-Date: Tue, 22 Sep 2026 19:58:28 -0400
-Message-ID: <20260922235830.2350770-9-gourry@gourry.net>
+Subject: [PATCH 09/10] mm/madvise: make cold and pageout PTE lock ownership explicit
+Date: Tue, 22 Sep 2026 19:58:29 -0400
+Message-ID: <20260922235830.2350770-10-gourry@gourry.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922235830.2350770-1-gourry@gourry.net>
 References: <20260922235830.2350770-1-gourry@gourry.net>
@@ -88,108 +88,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PTE loop mixes its PTL-protected scan with the surrounding lock drops
-for rescheduling and large-folio splitting.
+The PMD callback still maps and unmaps the PTE table, drives split retries
+and handles rescheduling after dispatching huge PMDs. This leaves PTE lock
+ownership mixed with the page-walk callback.
 
-Move the scan into a helper that runs entirely under the PTE lock. It
-returns a locked and referenced split candidate, or stops at the existing
-scheduling boundary so the caller can drop the lock before yielding.
+Move that lifecycle into madvise_lru_pte_range(). Its outer loop drops the
+lock before splitting or yielding and resumes at the current address,
+leaving the PMD callback to select the huge-PMD or PTE path.
 
 No functional change intended.
 
 Assisted-by: LLM
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/madvise.c | 66 +++++++++++++++++++++++++++++++---------------------
- 1 file changed, 39 insertions(+), 27 deletions(-)
+ mm/madvise.c | 94 ++++++++++++++++++++++++++--------------------------
+ 1 file changed, 47 insertions(+), 47 deletions(-)
 
 diff --git a/mm/madvise.c b/mm/madvise.c
-index 350b854ccc197..e3c3acfcd9b66 100644
+index e3c3acfcd9b66..88a4a03dee04c 100644
 --- a/mm/madvise.c
 +++ b/mm/madvise.c
-@@ -531,6 +531,28 @@ static bool madvise_lru_huge_pmd(pmd_t *pmd, unsigned long addr,
+@@ -553,66 +553,66 @@ madvise_lru_pte_range_locked(pte_t *pte, unsigned long *addr,
+ 	return NULL;
  }
- #endif
  
-+static struct folio *
-+madvise_lru_pte_range_locked(pte_t *pte, unsigned long *addr,
+-static int madvise_lru_pmd_entry(pmd_t *pmd, unsigned long addr,
+-		unsigned long end, struct mm_walk *walk)
++static void madvise_lru_pte_range(pmd_t *pmd, unsigned long addr,
 +		unsigned long end, struct mm_walk *walk,
-+		struct list_head *folio_list, bool pageout_anon_only, int *nr,
-+		unsigned int *batch_count)
-+{
-+	struct folio *folio;
-+
-+	for (; *addr < end; pte += *nr, *addr += *nr * PAGE_SIZE) {
-+		if (++(*batch_count) == SWAP_CLUSTER_MAX) {
-+			*batch_count = 0;
-+			if (need_resched())
-+				return NULL;
-+		}
-+		folio = madvise_lru_pte_batch_locked(pte, *addr, end, walk,
-+				folio_list, pageout_anon_only, nr);
-+		if (folio)
-+			return folio;
-+	}
-+	return NULL;
-+}
-+
- static int madvise_lru_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		unsigned long end, struct mm_walk *walk)
++		bool pageout_anon_only)
  {
-@@ -562,36 +584,26 @@ static int madvise_lru_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		goto out;
- 	flush_tlb_batched_pending(mm);
- 	lazy_mmu_mode_enable();
--	for (; addr < end; pte += nr, addr += nr * PAGE_SIZE) {
--		if (++batch_count == SWAP_CLUSTER_MAX) {
--			batch_count = 0;
--			if (need_resched()) {
--				lazy_mmu_mode_disable();
--				pte_unmap_unlock(start_pte, ptl);
--				cond_resched();
--				goto restart;
--			}
--		}
--
--		folio = madvise_lru_pte_batch_locked(pte, addr, end, walk,
--				&folio_list, pageout_anon_only, &nr);
--		if (!folio)
--			continue;
--
-+	folio = madvise_lru_pte_range_locked(pte, &addr, end, walk,
-+			&folio_list, pageout_anon_only, &nr, &batch_count);
-+	if (!folio && addr < end) {
+-	struct madvise_walk_private *private = walk->private;
+-	struct mmu_gather *tlb = private->tlb;
+-	bool pageout = private->pageout;
+-	struct mm_struct *mm = tlb->mm;
+-	struct vm_area_struct *vma = walk->vma;
++	const struct madvise_walk_private *private = walk->private;
++	struct mm_struct *mm = private->tlb->mm;
++	LIST_HEAD(folio_list);
+ 	pte_t *start_pte, *pte;
+ 	spinlock_t *ptl;
+-	struct folio *folio = NULL;
+-	LIST_HEAD(folio_list);
++	struct folio *folio;
+ 	unsigned int batch_count = 0;
+-	bool pageout_anon_only;
+ 	int nr;
+ 
+-	if (fatal_signal_pending(current))
+-		return -EINTR;
+-	pageout_anon_only = pageout && !vma_is_anonymous(vma) &&
+-				       !can_do_file_pageout(vma);
++	tlb_change_page_size(private->tlb, PAGE_SIZE);
++	while (addr < end) {
++		start_pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
++		if (!start_pte)
++			break;
++		pte = start_pte;
++		flush_tlb_batched_pending(mm);
++		lazy_mmu_mode_enable();
++		folio = madvise_lru_pte_range_locked(pte, &addr, end, walk,
++				&folio_list, pageout_anon_only, &nr, &batch_count);
+ 
+-	if (pmd_trans_huge(*pmd) &&
+-	    madvise_lru_huge_pmd(pmd, addr, end, walk, pageout_anon_only))
+-		return 0;
+-	tlb_change_page_size(tlb, PAGE_SIZE);
+-restart:
+-	start_pte = pte = pte_offset_map_lock(vma->vm_mm, pmd, addr, &ptl);
+-	if (!start_pte)
+-		goto out;
+-	flush_tlb_batched_pending(mm);
+-	lazy_mmu_mode_enable();
+-	folio = madvise_lru_pte_range_locked(pte, &addr, end, walk,
+-			&folio_list, pageout_anon_only, &nr, &batch_count);
+-	if (!folio && addr < end) {
  		lazy_mmu_mode_disable();
  		pte_unmap_unlock(start_pte, ptl);
--		start_pte = NULL;
--		if (!split_folio(folio))
--			nr = 0;
--		folio_unlock(folio);
--		folio_put(folio);
--		start_pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
--		if (!start_pte)
--			break;
--		pte = start_pte;
--		flush_tlb_batched_pending(mm);
--		lazy_mmu_mode_enable();
-+		cond_resched();
-+		goto restart;
- 	}
-+	if (!folio)
-+		goto out;
-+
-+	lazy_mmu_mode_disable();
-+	pte_unmap_unlock(start_pte, ptl);
-+	start_pte = NULL;
-+	if (!split_folio(folio))
-+		nr = 0;
-+	folio_unlock(folio);
-+	folio_put(folio);
-+	addr += nr * PAGE_SIZE;
-+	goto restart;
+-		cond_resched();
+-		goto restart;
+-	}
+-	if (!folio)
+-		goto out;
  
- out:
- 	if (start_pte) {
+-	lazy_mmu_mode_disable();
+-	pte_unmap_unlock(start_pte, ptl);
+-	start_pte = NULL;
+-	if (!split_folio(folio))
+-		nr = 0;
+-	folio_unlock(folio);
+-	folio_put(folio);
+-	addr += nr * PAGE_SIZE;
+-	goto restart;
+-
+-out:
+-	if (start_pte) {
+-		lazy_mmu_mode_disable();
+-		pte_unmap_unlock(start_pte, ptl);
++		if (!folio && addr < end) {
++			cond_resched();
++			continue;
++		}
++		if (folio) {
++			if (!split_folio(folio))
++				nr = 0;
++			folio_unlock(folio);
++			folio_put(folio);
++			addr += nr * PAGE_SIZE;
++		}
+ 	}
+-	if (pageout)
++	if (private->pageout)
+ 		reclaim_pages(&folio_list);
+ 	cond_resched();
++}
++
++static int madvise_lru_pmd_entry(pmd_t *pmd, unsigned long addr,
++		unsigned long next, struct mm_walk *walk)
++{
++	const struct madvise_walk_private *private = walk->private;
++	struct vm_area_struct *vma = walk->vma;
++	bool pageout_anon_only;
++
++	if (fatal_signal_pending(current))
++		return -EINTR;
++	pageout_anon_only = private->pageout && !vma_is_anonymous(vma) &&
++			    !can_do_file_pageout(vma);
++
++	if (pmd_trans_huge(*pmd) &&
++	    madvise_lru_huge_pmd(pmd, addr, next, walk, pageout_anon_only))
++		return 0;
++	madvise_lru_pte_range(pmd, addr, next, walk, pageout_anon_only);
+ 
+ 	return 0;
+ }
 -- 
 2.53.0-Meta
 
