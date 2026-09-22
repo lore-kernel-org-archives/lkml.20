@@ -1,203 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2E64D4868;
-	Tue, 22 Sep 2026 07:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669764EDCAB
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063069; cv=none; b=K1YrwdVHDCnJLktIlVkWketWPBvUNplkkAKlj1vi8ilxkGkdMufrcCQj7je7cqiflvP296pRQNxkLNgh55TD/92PxzJCl1haeq8VgyFgc8luxcN3Ikt8Alm/TU4HexOK6Jc1V09cBrPx9FLg0uIQJwpWCw/5stjKv4CxlpBdBrc=
+	t=1790063092; cv=none; b=PmKzUEoDNeMhS1SKD/LYEsZ0QS8jCKGyC1+hupjfURCjDhU76FtNQa+oAqIKnBZ0ogv0UkyrSsiGDiNlK1XSGjg3MakHCdBMnKRIbXZbD4Y6JsrBEHvQfLibrsaCONbSTjF8qI1w5TRztU5wq5GRfoQfQtOBkzpBodk9eQKHy5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063069; c=relaxed/simple;
-	bh=BLSRwa20kCE7EArPXcKQr5kZ43kSG+lur4OacCc6AJ4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=k3UUs2JFOz2FhFawt5tdAvRP3+Bcqx4V86OtUsRLzeTkeaIAUAHLepUO2ucaiyagcNdWHIXgsjA9lB3liY0GakaLdLNPGDhE2+JHfkswADadorSiYlNbwjPRCQWOVR56o9JK0H+aAkoLaeWSXrYVNZqo6nDxm/+yv94sMvk67uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T7AtoFqx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790063092; c=relaxed/simple;
+	bh=jvDfXM7tVJjTooSsT/SJTYLHJsj3NkXVSvdQ0KYDPus=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CtVgtZ2kRXsxbVX6uEaUyt3lrl04LN9OS2nHN0/jISxm60OcvAHGzrEy15RT9p9FfxAKN3v+A1KuATuC0syniWV41ivj2jAVTrCVBok/imFxSiirmn4GPiFGreyF2JKEh/sUEY6xTBw5WfOO1H2kD+gu1A8lvTjfeZtUJmf5iYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=A+Px+H1T; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T7AtoFqx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF571F00898;
-	Tue, 22 Sep 2026 07:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790063062;
-	bh=Dc+7ht9AUxPqxIO1kN1mC4z7K0gjkXpcd+T6+V+HMG0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=T7AtoFqxlZ/L+zN5uj4QcwJz6QQnFP0ptj2oDUI76ZNHH+kAAt3xl1hQwpzKe/bdJ
-	 mftNDZI88BJLbF++syCex3dTKWYy/vbolwaNjm5+HG7XSiEirMde/O2GaP/crp3m0L
-	 mLLcAZ0/VG16GAQ0VCduqLPCqLHGPqhgeV8ucaOJJTktIJO4AMgOjJY32y040wgcS/
-	 vWdlIQiCGw901fvd5l7IBQiwzlnZPrAXpoMi6bDfZcnBRhppvKj8m3oUjgeia4aaZD
-	 W5rmHQabUIeRpPv9xdz7YaE90y163qrfSiKI8jzzpdu+94jEyJ73sIqq85pq8YKtUv
-	 Dn0edq1huV68Q==
-Subject: Re: [PATCH net v2 4/4] ieee802154: mcr20a: fix 1-byte out-of-bounds
- read in mcr20a_handle_tx()
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: alex.aring@gmail.com, miquel.raynal@bootlin.com, stefan@datenfreihafen.org,
- linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 22 Sep 2026 07:44:21 +0000
-Message-ID: <179006306173.2160803.2024412371470708989@kernel.org>
-In-Reply-To: <20260921074207.2289391-4-benquike@gmail.com>
-References: <20260921074207.2289391-4-benquike@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="A+Px+H1T"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so18152115e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:44:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790063087; x=1790667887; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IDcjrXi200c9VpHrcwV8VwvteD2Tjmxxgo/eDK9i/nk=;
+        b=A+Px+H1Tn7vCk1816k1ip7YqClRJlKuGbgiATTE07N8gO57MQB/XywUKTn07dHRyKB
+         E7eGquj2JwhVqnVFiYlvWCNsWz3TdoHGPmDuQncpvHbab5r8PNdu9k+mN+ZVi/PADHbU
+         B08vp3cvYOva/HJeomIQuVeS+TXx6Q38ptunB6A7zOHBqRsuCBX4LtLGScVT7cuPzYRS
+         +3EGatLaZM7mH65r1TAMnLyJu6G1F19J3Tr89FZrDIgObm45hdERVJyAbF0kn3tYI32o
+         mH6bylho+Dgm+ATHH7fOw2r8J9WpcEUrlBemQRX7621BYHlaFvisZMolizmxwS3AEeK9
+         rHOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790063087; x=1790667887;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IDcjrXi200c9VpHrcwV8VwvteD2Tjmxxgo/eDK9i/nk=;
+        b=diQ+FnSy7/4fOm7i5cBuNj/Jivw5ZsLC5e/i1QlZOKDulXi3pOcGzBImrnxHwOAOEt
+         Faeu51CaFIrp0bMjtUACQFFvJLrAxRvEF2nidezZ7eoOQ3ysdICWjwowSLgZUQ4VGVR5
+         dep3Z8k1nb8gw6u5whSd2RlzNg2jhYCkp4NPQHNv2khey8AXq9HOdEPB/N5HKeSqszxa
+         7eZ5SeDV16VvCjV8DxO4GNs/PB1nSbXO3kJ8qYS7i7blSBOEJAtyaXdEPJSdr9hkVEQ9
+         +Nu6m/PzFcRi8YkH77bkaysWIhDXLIr219UuJNRCp5bLlRNmEPoR2Vwl8T/E7rBXycX8
+         C27A==
+X-Forwarded-Encrypted: i=1; AKwUvBz0QUPLvGd9iBQxG9yQprs/nZMGNUHS2d3YBVonvOdx3dsgV14lrajvrcq5Mq8CGgy7+zFqSl5+DGMNGeo=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksI8cNXAtmE2Jees6TrwUk2fgz/hl7QAGGN3BHQBlOrf9gYWo/
+	KYnN8s/4YcAOHL9k62SQ9alPbxC8FowWtIzEFFF0tQHOJBoIcsvWs0epvFkZoVChkHA=
+X-Gm-Gg: AYBFou22KsVCP7cGj27ZaMKWTcX1/6M0sHg66ZiHPoublQL9YomHy8DtFCaSs60qO6Q
+	QM1oUSXkEd+4X47ljuTAEOZmgMug3Ksga5engEEwidGgpRofSLD2K903OMfg0r3F6lBwAcDM+p0
+	IHjmkrLV31wGnZd8ndJB3PQsfxogD1PIVw4jtPG7M3uyzxTktYiKANSFm3LmMmBV0TTkCxOyf0z
+	Kjeqs9uWr2MJtE+8/Ikgji78w78ZVlgBdyR1VImiBvOxFh3huGzYKiQIO+016vdET7wSjwI3xB4
+	bZNitzyMb8xxUG6zjjUcFIn0NALP2kSo19OOyrDtbSBzhRnDcMQfsbdRJE3U4LgW5xrDMCDv/Rk
+	U3gNzJ0YYSwVlI+Z1NJM3HaFREQr5FOzfAXE5g+Cry13TO4nWgPHnttrHXfRquJ8JDO4nycE3d+
+	mIFqymyM2kHF7qA36nciJp403dG2s7MXIvmBYWqSndtaRVE8EDXM4Tl7XJReH6QQUbL5A/4C5B
+X-Received: by 2002:a05:600c:3b09:b0:49f:ce78:356c with SMTP id 5b1f17b1804b1-49fce7836c8mr122173455e9.29.1790063087040;
+        Tue, 22 Sep 2026 00:44:47 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8cf1c85sm61366675e9.15.2026.09.22.00.44.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 00:44:46 -0700 (PDT)
+Date: Tue, 22 Sep 2026 09:44:44 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH tty v2] serial: 8250: Change console_msr_work to
+ IRQ_WORK_LAZY
+Message-ID: <arIx7IJRcLmMpEFP@pathway.suse.cz>
+References: <20260921143939.170314-1-john.ogness@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921143939.170314-1-john.ogness@linutronix.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon 2026-09-21 16:45:36, John Ogness wrote:
+> Change console_msr_work (defers MSR handling) to be IRQ_WORK_LAZY,
+> thus not raising an IRQ upon irq_work queueing. The irq_work is then
+> handled on the next kernel tick. This additional delay is acceptable
+> because any pending MSR handling is also performed in the interrupt
+> handler, if mctrl is queried, and during console resume. Using
+> IRQ_WORK_LAZY has the benefit of not needing to raise an IRQ for
+> each line of atomic console printing when modem control is active.
+> 
+> On a side note, the Tegra20 and Tegra30 platforms can hang if an
+> irq_work IRQ is raised while entering cpuidle states. This problem
+> was reproducible by performing atomic printing while entering cpuidle.
+> So this change also provides a workaround for these platforms (as
+> long as they are not running tickless). The discussion on this topic
+> is linked below.
+> 
+> Link: https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
+> Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
+> Signed-off-by: John Ogness <john.ogness@linutronix.de>
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+We did the same change also for the nbcon_irq_work which is used
+to wakeup printk kthreads in a safe context, see the commit
+560f4deda32785e ("printk/nbcon: Change nbcon_irq_work to
+IRQ_WORK_LAZY").
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reviewed-by: Petr Mladek <pmladek@suse.com>
 
-- [Medium] The commit message of "ieee802154: mcr20a: fix 1-byte out-of-
-  bounds read in mcr20a_handle_tx()" misrepresents the severity of the…
-
-Pre-existing issues:
-- [High] Unhandled spi_async() failure in the TX state machine leaks the
-  skb and wedges the TX queue forever.
-
---
-
-ieee802154: mcr20a: fix 1-byte out-of-bounds read in mcr20a_handle_tx()
-
-This drops the "+ 1" from lp->tx_xfer_buf.len in mcr20a_handle_tx(), so the
-payload SPI transfer now clocks out exactly lp->tx_skb->len bytes instead of
-one extra byte. The 1-byte psduLength prefix is already carried by the
-separate lp->tx_xfer_len transfer.
-
-A couple of questions below, one about the commit message and one about the
-error path that the hunk touches.
-
->     In mcr20a_handle_tx(), the 1-byte psduLength prefix (lp->tx_len[0]) is
->     already sent in a separate SPI transfer (lp->tx_xfer_len), while
->     lp->tx_xfer_buf transfers the payload from lp->tx_skb->data. Setting
->     lp->tx_xfer_buf.len = lp->tx_skb->len + 1 causes the SPI transfer to read
->     1 byte past the end of lp->tx_skb->data:
->
->       BUG: KASAN: slab-out-of-bounds in mcr20a_handle_tx+0xf5/0x150
->       Read of size 17 at addr ffff8880057f7500 by task init/1
->       ...
->       The buggy address belongs to the object at ffff8880057f7500
->        which belongs to the cache kmalloc-16 of size 16
-
-[Severity: Medium]
-Can this splat actually be produced by the driver's own TX path?
-
-lp->tx_skb comes from mac802154 via mcr20a_xmit(), and an skb head allocated
-by __alloc_skb()/kmalloc_reserve() is always sized as the data area plus
-SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) inside one slab object.
-sizeof(struct skb_shared_info) alone is a few hundred bytes, so an skb head
-cannot live in kmalloc-16, and skb->data[skb->len] always lands inside the
-same allocation (tailroom or shared info) where KASAN has no redzone to
-report.
-
-The last paragraph says:
-
->     Tested in QEMU with KASAN enabled by transferring a 16-byte tx_skb->data
->     buffer in mcr20a_handle_tx().
-
-Would it be clearer to state up front that the trace comes from an
-instrumented/synthetic buffer rather than from a normal transmit, and to
-describe the real effect instead?
-
-As far as I can tell the real effect is that one byte of unrelated
-in-allocation memory was clocked into the transceiver packet buffer at the
-first FCS position, which the chip then overwrites because mcr20a_hw_setup()
-sets IEEE802154_HW_TX_OMIT_CKSUM and the hardware generates the FCS itself.
-That reads as a correctness fix with no kernel memory-safety violation and
-no over-the-air leak, which matters for how stable maintainers judge the
-Cc: stable tag.
-
-The code change itself looks right: mcr20a_setup_tx_spi_messages() already
-sends psduLength as its own transfer:
-
-	lp->tx_xfer_len.len = 1;
-	lp->tx_xfer_len.tx_buf = lp->tx_len;
-
-and at86rf230_write_frame() uses the same layout (length byte = skb->len + 2,
-payload = skb->len bytes).
-
-> diff --git a/drivers/net/ieee802154/mcr20a.c b/drivers/net/ieee802154/mcr20a.c
-> index ee3c1e67ef60..d7e076397550 100644
-> --- a/drivers/net/ieee802154/mcr20a.c
-> +++ b/drivers/net/ieee802154/mcr20a.c
-> @@ -867,8 +867,7 @@ mcr20a_handle_tx(struct mcr20a_local *lp)
->  	/* add 2 bytes of FCS */
->  	lp->tx_len[0]		= lp->tx_skb->len + 2;
->  	lp->tx_xfer_buf.tx_buf	= lp->tx_skb->data;
-> -	/* add 1 byte psduLength */
-> -	lp->tx_xfer_buf.len	= lp->tx_skb->len + 1;
-> +	lp->tx_xfer_buf.len	= lp->tx_skb->len;
->  
->  	ret = spi_async(lp->spi, &lp->tx_buf_msg);
->  	if (ret) {
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the hunk sits right
-above it: does this error path leak lp->tx_skb and stall the TX queue for
-good?
-
-	ret = spi_async(lp->spi, &lp->tx_buf_msg);
-	if (ret) {
-		dev_err(printdev(lp), "SPI write Failed for TX buf\n");
-		return ret;
-	}
-
-On failure the message is never submitted, so no completion callback runs.
-lp->tx_skb is neither completed nor freed and lp->is_tx stays 1. The only
-caller discards the return value:
-
-mcr20a_irq_clean_complete() {
-	...
-	case (DAR_IRQSTS1_SEQIRQ):
-		if (lp->is_tx) {
-			dev_dbg(printdev(lp), "TX is starting\n");
-			mcr20a_handle_tx(lp);
-	...
-}
-
-Meanwhile ieee802154_tx() in net/mac802154/tx.c already did
-ieee802154_hold_queue() and atomic_inc(&local->phy->ongoing_txs) when the
-earlier drv_xmit_async() (mcr20a_xmit()) returned 0, and only
-mcr20a_handle_tx_complete() -> ieee802154_xmit_complete() undoes that. So
-the queue is never woken and ongoing_txs stays non-zero.
-
-Does that then make ieee802154_sync_queue() wait forever?
-
-net/mac802154/tx.c:ieee802154_sync_queue() {
-	...
-	wait_event(local->phy->sync_txq, !atomic_read(&local->phy->ongoing_txs));
-	...
-}
-
-There is no timeout and no alternative wake condition, so any MLME operation
-going through ieee802154_mlme_op_pre() would block indefinitely.
-
-spi_async() can fail for real reasons: -EBUSY when ctlr->bus_lock_flag is
-set by a concurrent spi_bus_lock() user, or an error propagated from
-spi_maybe_optimize_message()/__spi_async().
-
-Would ieee802154_xmit_error(lp->hw, lp->tx_skb, IEEE802154_SYSTEM_ERROR),
-or ieee802154_wake_queue() plus kfree_skb(), together with clearing
-lp->is_tx, be the right handling here?
-
-mcr20a_write_tx_buf_complete() looks to have the same gap for the SEQ TX
-register write:
-
-	ret = spi_async(lp->spi, &lp->reg_msg);
-	if (ret)
-		dev_err(printdev(lp), "failed to set SEQ TX\n");
-
-Should that path also release the skb and the queue?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921074207.2289391-1-benquike%40gmail.com
+Best Regards,
+Petr
