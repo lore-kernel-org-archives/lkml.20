@@ -1,131 +1,88 @@
-Received: from mail-pj2-f23.google.com (mail-pj2-f23.google.com [74.125.227.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287A242E41E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98144D7D25
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066719; cv=none; b=ug8090MZn5jFtcmMoK4mnE+4WQrq8yS66magUvXgwJGM3qucPyceVO2XkjyUIO2Qx4P/yCGw2y9GqqiGZPSFaCY6t9b5WEpFRKv7In521Q24mrvtCPKe+vfXH6jngGdc6mtXDMe730GCONGzNHNd/DLZVynqM7GVriHleZbJqco=
+	t=1790066740; cv=none; b=D2tUE+HYIdMs6vcCOVRbXA/E1nZKcfJGiTAZeXE+w5MLwTM1jGfsGW7dvJIKoMANqcvJk4ahdmRiXo4uHUky1S5+MPbnkOA0FuD0wrgkyjXCVx38wEb+9G/uLeR/3cjtKOoffz/AikTGDCT8IbKtOAr5rqMqPd7BXAzyvn5bFW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066719; c=relaxed/simple;
-	bh=rWOXTAtkNKBbD+uEgNV1nTyqhko/HqdFlDPSq6vVwJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BzHs0Oj0FJQcByVGOHrKRFqtI3BfopdAt1bEJzBLfyZvE5tXet7FoHxXrNqCX5huOCY/KpDPh3qMVmRHW37xRarhaZLvKql0442/yyfrQwZPYx37ww2QnwDpW7zwaploxPFNKRAKwbCij4rR6jt6hBXREG3mdxpT8297pJEJQZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JDiHSjJw; arc=none smtp.client-ip=74.125.227.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790066740; c=relaxed/simple;
+	bh=z+ErQH/dLPjY+2r8NmCdjY4tyB0zuO+gYvECMucs33c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XVxuO4c/lhFFbsnchT0gl/OhFDtH4O3yyhRLOBVa2qVl2hmCYsgoZPoJUWm3vO/zDDRNsZRq6E+Dgud6Vr6KvN0WQn7F55GwssItEMxLfNVHbocMQA23vGw1EOL6rMXJC5xEVW/wZn676YtzlCM25VIhwWrVZMHOhnSEHOuDTCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=PoYMuCbD; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JDiHSjJw"
-Received: by mail-pj2-f23.google.com with SMTP id d9443c01a7336-2d747f066d8so14445835ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:45:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790066717; x=1790671517; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rWOXTAtkNKBbD+uEgNV1nTyqhko/HqdFlDPSq6vVwJM=;
-        b=JDiHSjJwHZTGuhFG4Yb7PLcjNAdg2cPNH07nQl7euJYOZgF37nMxsEDqb4Pk+uFQMw
-         fYZ6LwDyaJqqiVvkB6+WGwLq+bF6PYBNPQXuMfFZ16FcoA0HUmvBEDlWdE1jr//aK6b3
-         g7xiScS9qW5E06jUIiwo8yvb7ITLPRobdIyyyCN4x9Jp4G0lKz3vbAaNSyjHC7KneFkd
-         YgGwTz61AaWyGB+3fhvmdRVlcu9TWub1iZHiy+mmLovF0CVgTPRNJh3mhzBQrXQYAVDF
-         aWDIK1yV2GOnovj1HQsC6SMATNU2e9BFj4tTRJeUMKXF1I/DdOgByd0ayAEblP51k1B7
-         Z59Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066717; x=1790671517;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rWOXTAtkNKBbD+uEgNV1nTyqhko/HqdFlDPSq6vVwJM=;
-        b=uit6Ycvoy08jwlFTldBDm0+hDtwVCjbb6cTwerTMXkaVG0BRwRNzWdDCdqDkbQcw4T
-         2dyPkT1OFE9YW5BGfgpe3Oy3rC3l5MeENOyfxMSNgKgbRsmlHsqK61UYgf448WC3pij5
-         yHoTm5t2Wa4GHdfNa3XFlAKs2ZZlDkSD2PAbOrbvKOFhywBCiPFJX3wCzoHVu6W8xsVc
-         ZCm0De6AUkuiCh2mAw8bnI450l+K5c96ZXXr7qlCiLaEBGfIsWrxQHdqAm62og+g3zZJ
-         aAmsO8sY/z4WRboxnTHdhUEFcXOd7L/1k5fpweBCFbqq8W6vQWEGN22W4OReKpE9kaoo
-         2MxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYdwuJpz71t1MWzKBcltHRClkh4g+z5IvbF/Z150ENjiQnj0ArQYQI5JtDJHiA8oN9B349505V8imqgZM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbyvxqIeM1t/iCsRlh0H6WGiyelUPjWI2pi1KcD+jKVC1ikwMV
-	Yf69sEaXtNrDoTrJHalAbNjPjNgvPpazyZV/doKauo+p9rrQ4Lg3NDtu
-X-Gm-Gg: AYBFou3fsZRzdGmhx9JqVZOcBYekUiF9EnFZJ7jX+6hHp22jkPRrKor6dCTPgtAFknR
-	DZKR7n+Yx4fEaUSJA2jA+bMhXuX2HzZXQ65XvgzvPuQjQSuP7/y+Pf9jAIvXs8+d860PlEpK/EL
-	9h5clxvNi/T7m2/yoX0xK+Hywx/a0xc9RP5K46dCEzS9lqtT3Clu7Dy2Nohm4xpiGQnr+HLjGep
-	MOrA0E01Wt5AKS/M8TZd8N+GaHtqmfiYmB9TRcPbAEjhxgwGUKvP62nM1cJlomr+Lz+cjdL3jK/
-	CG0kJgusYEAqglNRUKv0K4e7H/MzIZNnbq45AtwXf3sce2kDHQIDMr/2hMjd55YgwPfs+NJFuob
-	rn8lEdM1Vsuu4kurQ+/Vz5dVZkVLVhLb3eveqCp4kiY9cQPmjCGegBFTEh1WqWY4NiY+0zRo+5j
-	NI8gRnT4Wt1kliX6OQ70wJVYZRVUz3OzSNMtCDhqv82lUH9fwuJamKOIsnCEkmr+p7iqjmjVlTt
-	jUY9s3VVCeFOH36Hubjc2UKOkE4vZ0RK1iFsdI1
-X-Received: by 2002:a17:902:e952:b0:2dd:c100:251d with SMTP id d9443c01a7336-2df60f2fd27mr3267025ad.38.1790066717422;
-        Tue, 22 Sep 2026 01:45:17 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317699.contaboserver.net. [85.239.239.237])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0588e9sm6100495ad.76.2026.09.22.01.44.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 01:45:16 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: Boqun Feng <boqun@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>,
-	stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	dave@stgolabs.net,
-	josh@joshtriplett.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	urezki@gmail.com,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	include@grrlz.net,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	lianux.mm@gmail.com
-Subject: Re: [RFC/WIP PATCH 1/4] hazptr: add shared-scan kthread
-Date: Tue, 22 Sep 2026 16:44:37 +0800
-Message-ID: <20260922084447.58084-1-lianux.mm@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arI8KNUjYNFBwKf8@MacBook-0RXW5>
-References: <20260922070950.4173245-1-kunwu.chan@gmail.com> <20260922070950.4173245-2-kunwu.chan@gmail.com> <arI8KNUjYNFBwKf8@MacBook-0RXW5>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="PoYMuCbD"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 8158014C2D6;
+	Tue, 22 Sep 2026 10:45:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1790066736;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hMkqWegiB0G0RPwXQW4iIweHXM+gp+p17tn0BymDpW4=;
+	b=PoYMuCbD9oC73v8MabIRDQ3JYH4XeiHnm5aaAnrfKac+pcFVw4u0zG7Q5mO/e9wxlyeOe1
+	wPCpRD4zwp1eT+md7c3/W0aYzOGHlnT6XAd34OlyX3hv644M2SrlvG9My5h0E0JjR/haAm
+	ybqfvaacyuI66Ycljs6YAwFwuRtx0CHUVbs9OxdIiRyxGfXNdfcsrWzVw19u+VGcM8FNWY
+	Im0iNN6j6OH7JGsKriu7qK96ggrORz8IKbl/de/VP6+UJsZ1LQ5eAIWIK96cIou9vZpJ7X
+	62BWFHiHBNxIWrUKhHUP5AY/PpCAmhqqKAFZ0q7bndsF8kef3Gww0bAYOPxKFQ==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 02e7d134;
+	Tue, 22 Sep 2026 08:45:29 +0000 (UTC)
+Date: Tue, 22 Sep 2026 17:45:14 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: syzbot <syzbot+de6fd6789748a8aa64a0@syzkaller.appspotmail.com>,
+	apopple@nvidia.com, byungchul@sk.com, david@kernel.org,
+	gourry@gourry.net, joshua.hahnjy@gmail.com,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	matthew.brost@intel.com, rakie.kim@sk.com,
+	syzkaller-bugs@googlegroups.com, ying.huang@linux.alibaba.com,
+	ziy@nvidia.com, Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	v9fs@lists.linux.dev,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: Re: [syzbot] [mm?] WARNING in v9fs_fid_get_acl (2)
+Message-ID: <arJAGlhkDJbcy2sw@codewreck.org>
+References: <6aae188b.71f81b7d.15fa6d.0004.GAE@google.com>
+ <20260919031451.3f47a8da8405e88fa1ab5398@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260919031451.3f47a8da8405e88fa1ab5398@linux-foundation.org>
 
-Hi Boqun,
+(+Nguyen in Cc as he tried resending sloppy patches after this)
 
-Thanks for the suggestion. Kunwu and I will work together on the next
-iteration of the shared-scan design, including your idea of avoiding
-per-synchronize allocations with a Bloom filter. We will also run the
-rcuscale comparisons and collect IPI counts for the lockdep workloads
-you suggested, then share the results with the thread.
+Andrew Morton wrote on Sat, Sep 19, 2026 at 03:14:51AM -0700:
+> > WARNING: mm/page_alloc.c:5340 at alloc_order_allowed mm/page_alloc.c:5340 [inline], CPU#0: syz.1.357/7872
+> > WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof+0x2137/0x3300 mm/page_alloc.c:5397, CPU#0: syz.1.357/7872
+> 
+> Thanks.  Caused by an old v9fs bug.  A fix was proposed but never merged:
+> https://lists.openwall.net/linux-kernel/2024/02/02/806?utm_source=chatgpt.com
 
-Thanks,
-Lian
+Right, we've been going in circle with this since forever, and nobody
+answered Christian Schoenebeck's question[1] about what the limit should
+be, and while I don't care much ultimately I sort of agree with him
+(e.g. limit should be XATTR_SIZE_MAX for anything that the VFS layer
+touches, but acl are converted within the 9p subsystem and could be
+arbitrarily large so status quo of a KMALLOC_MAX_SIZE limit because they
+could come from something else)
 
-On Tue, 22 Sep 2026 10:28:24 +0200 Boqun Feng <boqun@kernel.org> wrote:
+Andrew, if you have an opinion on whether we should cap the acl sizes
+anyway, please say...
 
-> This would requires allocation during hazptr_synchronize() and I would
-> like to avoid that (it's going to introduce a "allocating memory to free
-> memory" case).
->
-> Mathieu brought up a useful data structure for the scan: A Bloom filter:
->
-> Willing to give it a try?
+[1] https://lore.kernel.org/all/Z1n-Ue19Pa_AWVu0@codewreck.org/T/#md7c1e009696501b3b87940cb613150bdebd1db28
+
+
+-- 
+Dominique Martinet | Asmadeus
