@@ -1,164 +1,118 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE335452B3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081607; cv=none; b=Zlf23kjWT1iZyHTWysKEERs3pUjKw6ocTZGqoyZC3PRnLuGZFK53vI/zO5PlpZhXk9IDDXEHZn39JAfWadAs9wH9wJ409AUe/xYAnRg1HXp3+uK0gn6ds+0CbVHTeUBq5oLrzgYLKRuQ79EuxQjrJ6oE4qX+zvFYd+p0mVQs+9Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081607; c=relaxed/simple;
-	bh=v4Ul7xXqzvPTm1KnAhXO58P90eD2KlGTNsegXWmzADU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E8NnFVF2GOgPGAizl0mzdO0CRZh3302VtmSTiZF6pdz8fI/kRorNVC3s3EVuf8als9kt1/SOV0mqVbXnbSWls4EkOefhTqsHCiDKbAr7JDcHpsU9x00v0xhG1qTGGNagPxokWXodoyr5KIFX09W7opNZOPWa16HUxukKyxmlR1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YhybTcQE; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A8A544D55;
+	Tue, 22 Sep 2026 12:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790081654; cv=pass; b=pbTWvd8tCpemRX9KPCIeTuDDMZodJMjHzG9Rj4xivnQV65Bt90xY/3nntcMO184e53Wwjrz0gnrDO4c0N+Qb9En3e5YqWJibg6MOoDqsy+v767m/qwBXO+9njd04MaBcdFaDZs+J/bV/PDfQFcGFdXoYcaADB1oCAe6f2HoOLbY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790081654; c=relaxed/simple;
+	bh=YOXZg+SwPd/f1O0MhTAgtPPz+wMhQKYLPHMFDh5lflg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QXF5FysRtpK/cGf6u5YtwMS6S0i8NdemmKDADrburTXXmHya6bI0cs/w+vG/YUdG60kgzOMmuOMKP6QWM8Fj8mDQUzFFRQV/h45uzV1RzqfOxwKxbbw/A5qeG447tly4ChtGSgS2VKP4YvCj+h8kTcZr5MFaRbdS5ftj0Rthewc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=NP6zulu9; arc=pass smtp.client-ip=165.173.182.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YhybTcQE"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so1434412f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:53:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790081599; x=1790686399; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UsAsHIO1y8RCUKiEPTTkY3IWmv6reNZonvZkfCzW3Ag=;
-        b=YhybTcQEyKITrmRourFyhi61KkzUyB1QwEiSQUkUdZrWhni2DxJp7ta4BVBp9zNwRF
-         y2I2IRbuSAEwaD27Ia+kB2jfwDci4L+rdlUS8iDjq4WZx5WmunC0XGR9eLRYI0L+G4rC
-         rlXWSwCHXLPFWJpIjRKlLVxRYqkvp51ft5gaVj1mBca1fv5h5UcMeOuwdEpcGx26pdtS
-         IvlINlotnj4BPFUg8Qc+oal3YsHg4Co+Nb0tHlX7GvLle9U+SBySrI+6eB9IRQ/L9RH5
-         Pd/hU95ZC0LGje58BGN4gks3b3x5Q96FoAqLfWJNHXETdcg5n115ejuEhmxM57Nrnkft
-         A7wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790081599; x=1790686399;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UsAsHIO1y8RCUKiEPTTkY3IWmv6reNZonvZkfCzW3Ag=;
-        b=lPRWj9jpdYdJVPKROqgGYJ272KwZkC9lvPuriOUO3MBV3MQDdRq95MB6gnZebKKp9t
-         F00lMfu2zFEJ2eUA12kHF67KQEbRSscjz2PJYiKQz2zUpCjtJoMGSY2Fp7JWd99W7bwH
-         wO5V8UgI7f0fLFLnoOpx4LIK2ESfPlA9Tp9lEvzHnKPbsJQBNLMddAMWV3e8QL1/Visu
-         EKDLhJggOihyVgdRKKcL3MYgi4oXLcJQpS9nJk5bup4fP6l8g61htAQouVFQNGzG07vk
-         b5bxvkDzLsLbdKfHen7eEMBuxLEre8D4faB2sDDLQOYZmFvjc/4po5P2qGpdggrNrUT3
-         xLyg==
-X-Forwarded-Encrypted: i=1; AKwUvBzou4MfjTeERbG7c36JlvsKVy1j2GHGJXU0wzZbkN8W5CCCXxiHlCXt2MRXTMaYyI7kFKFC+s4oMm0awdE=@vger.kernel.org
-X-Gm-Message-State: AFuF++khlSv0gIPgSxonUsksPXafFFqzOuVAM0cYshX3sYFs144SNJtW
-	Jhn+pcRpAiYvgYD9u9SrUy78rlT0cEVWNlB9K6hWHKNXF48d7KCQ5tVj50yN1apZ1fU=
-X-Gm-Gg: AYBFou3cPL6eqGhh4VpyPYZcMlamNRMNf4XqnfMXa1ddTsZGcpEfxNhnBxfZoaLy2cJ
-	WOHecv3AGCcvTTSyLhRsLm6uXxIb6S2fsXzPUx60MUUpTiMRoyqppkayCS/1xZ87jBO5vxzutXj
-	JZP+L8z2Ur9jF/p1N/z1rdBKczeOpFZyvYCbM54XM+Ei7pzly5wGyYYV/I36rROOq0ceqSqUsHJ
-	fY8ETzcVPEsUdM3gLwJWKKgY54zKDFp0mfkgnchghoc/WAE4vZSfCFrokzBDomJ7/Jrc/bhWwT5
-	pmV5KYlgfCtQ2HDBk9ONlUAF4DH6MggWnK6x1Rw4CQWVL1fkImG9+oEKYzQvNT07/msiff3lrSr
-	ri4WcffFWwz3yAs+EcnCR468epzVGtHPqx6hCU/kpL+SicuD/ohz135wz5JCVxMRGie3wWowVg5
-	psg10MOtJsa3HlRsxW8IXfZDutlAsfRs3STV6t49Zs5iFjFwpKLNeuUMMNbk3p/Uub7JKuarUqe
-	tWb3ZXyQTw612EBGCt3pdM1ahFBkm9jHXYlWvZp1lTZHea24wlyVqZMHqAwaQ==
-X-Received: by 2002:a05:6000:4608:b0:487:f31:857f with SMTP id ffacd0b85a97d-488610118bamr4476584f8f.15.1790081599025;
-        Tue, 22 Sep 2026 05:53:19 -0700 (PDT)
-Received: from localhost (p200300f65f19a9041d0e57515b2ea4c8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:1d0e:5751:5b2e:a4c8])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48862731a53sm4931099f8f.4.2026.09.22.05.53.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:53:18 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:53:17 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
-	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, 
-	gustavoars@kernel.org, p.zabel@pengutronix.de, daniel@riscstar.com, 
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
- driver
-Message-ID: <arJ5gQmthKh2ayGg@monoceros>
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-4-elder@riscstar.com>
- <arA1svdQzaj3VanR@monoceros>
- <28ebbf27-24db-4b5f-87f0-831d13f93b8f@riscstar.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="NP6zulu9"
+ARC-Seal: i=1; a=rsa-sha256; t=1790081625; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=hlsHbH5wUsB2LvW/TIQ3d27NK9hS9SktXxOjbse16cKJaVSSnFJFThbdCW02Ql1FOrYFZ9HYLzSOf5//Whptwltk1BJjQJT1ic0tCQxtafmeLlVu0LRruDKdvs201GW+jv7yXjhpn9YwFKRHkin6xTJtAiBD7Cu+KDzzu/gOM78=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790081625; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=hpVDMwfhgJUPfjsF+whIREOUyIQYs5sG2N54ZLJ3X/A=; 
+	b=ZC+RPbeMkgTM8RlHTPgiRAHxLOOQ/Jnq46ZQCjxy7LXxhgPAV8bO/xvhMiXsYL7vbZUmaPLZsFP+e0Os1oFC+awYmRjamkbZL+jkO0VTwr5lL2bVOAwgx1fZKqwo06zO0uqC1RMovbYH1SZ94bqGgIuw38wjmJ0zO5+vwGNv93o=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790081625;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=hpVDMwfhgJUPfjsF+whIREOUyIQYs5sG2N54ZLJ3X/A=;
+	b=NP6zulu98qlVDcoNLznRmtv1qDTCy2YSlU+er83JeK6GQPZEigN/XCBVGMkLBrvO
+	gmCI0tSlTohDYNRLWBE6DdRPz4hwWMPFm9OsEQ4XuQWpLGbE0dtY2r+hnwZGEWvjhga
+	0GEuQ/TkwFX+3bVFYnwuImZnhfxnNHvaP+r1aDBM=
+Received: by smtp.zohomail.com with SMTPS id 1790081623938646.5385671784251;
+	Tue, 22 Sep 2026 05:53:43 -0700 (PDT)
+Message-ID: <da4d2d76-fb8c-4687-b977-b136a2c57f45@collabora.com>
+Date: Tue, 22 Sep 2026 15:53:40 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ztliwx3eij5ch7ku"
-Content-Disposition: inline
-In-Reply-To: <28ebbf27-24db-4b5f-87f0-831d13f93b8f@riscstar.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] media: synopsys: hdmirx: add input status reporting
+ to VIDIOC_ENUMINPUT
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ Hans Verkuil <hverkuil@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>
+Cc: linux-media@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, Gerald Loacker <gerald.loacker@wolfvision.net>
+References: <20260921-hdmirx-fixes-v1-0-495be0beaf93@pengutronix.de>
+ <20260921-hdmirx-fixes-v1-2-495be0beaf93@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260921-hdmirx-fixes-v1-2-495be0beaf93@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
+On 9/21/26 10:15, Sascha Hauer wrote:
+> From: Gerald Loacker <gerald.loacker@wolfvision.net>
+> 
+> Userspace currently has to learn the cable and lock state from the error
+> VIDIOC_QUERY_DV_TIMINGS returns, -ENOLINK or -ENOLCK. Both of those paths
+> log at v4l2_err level, so waiting for a cable fills the kernel log.
+> 
+> Report it where it belongs instead: V4L2_IN_ST_NO_POWER while the source
+> is not driving the connector's +5V line, V4L2_IN_ST_NO_SIGNAL while the
+> receiver has not locked. Both come from the helpers
+> hdmirx_query_dv_timings() already uses, so the two cannot disagree.
+> adv76xx_g_input_status() and adv7842_g_input_status() report the same two
+> flags the same way.
+> 
+> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> ---
+>  drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index 24ec6138a1fb6..75576a9366fd0 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> @@ -1199,6 +1199,9 @@ static void hdmirx_submodule_init(struct snps_hdmirx_dev *hdmirx_dev)
+>  static int hdmirx_enum_input(struct file *file, void *priv,
+>  			     struct v4l2_input *input)
+>  {
+> +	struct hdmirx_stream *stream = video_drvdata(file);
+> +	struct snps_hdmirx_dev *hdmirx_dev = stream->hdmirx_dev;
+> +
+>  	if (input->index > 0)
+>  		return -EINVAL;
+>  
+> @@ -1207,6 +1210,12 @@ static int hdmirx_enum_input(struct file *file, void *priv,
+>  	strscpy(input->name, "HDMI IN", sizeof(input->name));
+>  	input->capabilities = V4L2_IN_CAP_DV_TIMINGS;
+>  
+> +	input->status = 0;
+> +	if (port_no_link(hdmirx_dev))
+> +		input->status |= V4L2_IN_ST_NO_POWER;
+> +	if (signal_not_lock(hdmirx_dev))
+> +		input->status |= V4L2_IN_ST_NO_SIGNAL;
+> +
+>  	return 0;
+>  }
+>  
+> 
 
---ztliwx3eij5ch7ku
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
- driver
-MIME-Version: 1.0
+Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-Hello Alex,
-
-On Tue, Sep 22, 2026 at 07:37:53AM -0500, Alex Elder wrote:
-> On 9/20/26 2:39 PM, Uwe Kleine-K=F6nig wrote:
-> > On Fri, Sep 18, 2026 at 11:52:32AM -0500, Alex Elder wrote:
-> > > +#include <linux/bits.h>
-> > > +#include <linux/clk-provider.h>
-> > > +#include <linux/mfd/syscon.h>
-> > > +#include <linux/mod_devicetable.h>
-> > > +#include <linux/module.h>
-> > > +#include <linux/platform_device.h>
-> > > +#include <linux/regmap.h>
-> > > +#include <linux/reset-controller.h>
-> >=20
-> > Please rely on linux/platform_device.h to provide of_device_id and drop
-> > including <linux/mod_devicetable.h>. (If you want to go full iwyu,
-> > include <linux/device-id/of.h> instead.)
->=20
-> In general I would like to "go full iwyu" but have never heard
-> it expressed that way.  Can you recommend a tool available that
-> will help me do that?
-
-There is `apt install iwyu`, but I only tried that shortly and didn't
-manage to make it work nicely with-in the kernel.
-
-> It looks like "mod_devicetable.h" doesn't help much unless I
-> need struct_cpu_feature (which I do not), so I'll include "of.h".
-
-Yeah, and for struct cpu_feature there is
-https://lore.kernel.org/all/ef103a4b9e1cd7477fa52ee347c4ec301354fba9.178998=
-8540.git.u.kleine-koenig@baylibre.com/
-=2E
-=20
-> > > +static const struct of_device_id tc9564_clk_ids[] =3D {
-> > > +	{ .compatible =3D "toshiba,tc9564-clock" },
-> > > +	{ },
-> > > +};
-> >=20
-> > Drop the trailing comma after the list terminator please.
->=20
-> OK.  Only for the list terminator, right, because nothing
-> will ever follow it?  Non-empty final initializer is OK
-> to have a comma as far as you're concerned?
-
-correct. A non-empty last item even should have a comma.
-
-Best regards
-Uwe
-
---ztliwx3eij5ch7ku
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqyejsACgkQj4D7WH0S
-/k47Vgf+MRlVLPMGuXHor1vwVO9Aio3Q8yy+NUEK/fWTE+YEMTA1w+6YqsgeiJ18
-k46MRbkEremJC2B/gZElmlpu4paEu99Qg+kif1t+k21ZaiC9Kl71V2ue+dNtbP93
-U6/uxACp6gAw5u3yAf2GFlAOJhCXVBaeVd25LntVeVdhRYQb48cp6V5Uo2C2ukK5
-WfEPetJwrAilKQUBpNladzLOIXT4/xVdzLTl1kQCTeJ+k+4f9ubiLI5C6cJOsf2j
-MC4jBXoimClS2rp5jMK42D8blKcvVDH4Z4X87FPzl1sqRy8EI+nFftpZt0hSW/ai
-gYSqxdYQ0cXLyu2XzCARC0BSUETt/g==
-=zJTm
------END PGP SIGNATURE-----
-
---ztliwx3eij5ch7ku--
+-- 
+Best regards,
+Dmitry
