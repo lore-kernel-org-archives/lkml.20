@@ -1,156 +1,225 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD46951A137
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109837; cv=pass; b=qgS37nyMJnTzmmblL3jRFIbnHjmlVBUT/SyR7+GqJ0Lty9iReV2Uv0f8is54G4hLsBdUI6WWEbBal/IzJSu3o7y3oqPuNxPD3l7u/AqNk5b0CmFl0DneqCQW+ehp1lM5MVLRBFP8pUNEYddmISkZZCu8Ue/8dasvvXxTCWOSZhI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109837; c=relaxed/simple;
-	bh=p21WGTeF5sTqb4Jtihp5eAQjvRYAP+4+Ui1owmVnpJc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KSQJEExmkahLeQBFvlrQgc4nBWlHbzine96i7Zi7J8nga8SoMWtryx0c4vZCIUYDeZJqnFZvl1ns5vczz3PARY4q+phBuNHwx4R1A26JetsgqcEPkGQiLFdQ9IaY/7dZrvxVdc2ZGPHLSKFLQrauSFx8f7fW0jpFP4/UDEhSMKk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KahFfhVA; arc=pass smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADEF517BC5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109853; cv=none; b=AiIZPdbloquYKF3qq6wzsDIejtvz4qBDi/vg06qQvUdh5NF/Z0eGgAYkH5qJTQfFxCPGlJlIMoRW/xdMu3R+NmZLtPTIHFluB+kwQKe8moahqj6NQoRrvbVeKpSvjEGRkXJqChWzWF3wraBCdV2zDCweJIdmzDSMl6xfVVPbHPg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109853; c=relaxed/simple;
+	bh=OWLnRy0Kyd8FdV/E9+5Qi5HN1AFVDCBPd909vqVd4d4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t69M60cPPBFtWl4NfmYQEf15Tx6+wS2xdhs8cP7x2td+hBar0+DTNcirzfi6RfgThYhJSgtFc53yOm4EjtdLwV2U1KPPtgLgO9xWs47Qwvz9F+EtLbdXyHIhAeZeUYg/VzhXVJtmYuvheqtXxCIDdGMHyGinT+NT9p5U5U5GVrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LsW/y3zj; arc=none smtp.client-ip=74.125.227.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KahFfhVA"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868a9c48f9eso280324b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:43:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790109818; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QAUavBoQ5DOMrfWciD5JzdefcjQpqVK0OlOx5OyhvJtC3jHqvsptjYhdKhkq3oVy6M
-         raXigo8KrS0W+cfWusHPjoC1aB6UYdohVkdKSMg/yiiry7sD/Ffj2MUOV5k96Wl/H5Mg
-         15lAuM5ObZqv5hM3ed6yPBYRGW2zVvf+Pd/ndQKvEMD9KZHaSxuK/J5wjYLIX/TwUc4y
-         YYhUjj6tVl3KnQtQCWy2uYnUCZryPi3LNnHgPHDNqZP6X2Sj5WZqpDitSSe1RvU6kz09
-         IGJj4e3SpjJi5SexJ49nalnhcEdUJh6YUOm2x3n3wz6yMVfBnEHZ2PnCjJEDlfxTOjlm
-         wV1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MfcOIqK9du/rFNRW98A9Zkgq23mL6C9Bh17nvMfYECA=;
-        fh=msEyxs0O2BXQEXRDtWwAZHNSsJlvibpz0n5VilGCy2s=;
-        b=Q/lC94Wtj/Wfv0PZJgNNs2ga5IGtBwucLPGqB+ziu5osVO3wURoDLU6kc/oTRBN8UA
-         pCWQBBOSbGix50nrEnYCDKjrlydpwIgB23eoK7OlmWYK17dl8I1tdqC2gQ/a/y9C71K9
-         2QES5nap8Q6WlJeBwuIcSS7TzMiMq+7Y4EtwuZuSyIkopPXmbtoPQwEPNtYVxOOhEgIA
-         Ndj41SilOi7nf8jlqPEV1uguKj2eFDlX2/zN6iZgdBN7RgOMQHJHYf7pLnTBPZkJ//GR
-         Xums3QR0l8hQQhqUTSlFNbjMllahqSrpAipO4mQIjkAbX3Il+KXFc5MU8gDcdnWBXLAS
-         QeoQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LsW/y3zj"
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2dd9bce707bso931325ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:43:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790109818; x=1790714618; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MfcOIqK9du/rFNRW98A9Zkgq23mL6C9Bh17nvMfYECA=;
-        b=KahFfhVAl1zOli4/f84UtPothikHnIrypswEjYPe+dRdYAEigooZilfTr7SFP9NFUG
-         7pep1gMTIXj34rHWMSZ5GI6UT8oTXrSoIT0PijLBS8zex5XIjVb5qKW4uYBPPedAZvpy
-         PlygzzcRzt2eGe3feCBETaFYJkp/EIL5QycMtiFt1oufRbMFM9vLY0etZfyS9iMe3XKb
-         8AUndaKPeR3Vay9BNHBJBtSb3YqnZHNBW52bAzwrga4kt++tF/JHKctz7RasW0GxlM/s
-         oXlajhtzwgqVaodFrbCS0SpKJzdl0YMzlW/4qY+CnVqmSUVS9AQLkWn929LbxCLOHYni
-         gvoA==
+        d=gmail.com; s=20251104; t=1790109833; x=1790714633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NWtkhPsIR7rUvSSAcPaCXCFRGMGm2fhAVUCymwEWeyQ=;
+        b=LsW/y3zjvB6uh21uuruh/Ri7fkZYm4WKusxPX4jKNVvoGlr21HDedY5cMenr46pwEP
+         9/gfmdW0U9WhuDu5TEqyCnkVctLyU16gjfA5hLkTySocRoAwBlRyWpAW4bpIiipShmqe
+         F5PlUQlbGF3jZZS8+Gc9zPvuCxBSMHAbxn/FQezpxhTqumXa+e9jpx4/zLPQdKIqqwDI
+         uFHDF4yqYA5qK7zc4fW2wF5dd7kJReZRgtWKUHQ42DkW7eQ5vugrqLsQRYnrhJSY/wR7
+         29Ags8MMbggZA1pmBWShQQCGLPrDUFBQRlt76jDkbKDHl7ebXPColxqRO1glX2ybNt6p
+         GgHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790109818; x=1790714618;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MfcOIqK9du/rFNRW98A9Zkgq23mL6C9Bh17nvMfYECA=;
-        b=uXdL7Lsn0jbok/hYp4fiDzjwz2CoUjB/fVt0XCDv2kmO9R9R52L8gw16TxlRKEj0xA
-         PFypUy/Qq+DKXhcF9GdQ/EgK38vssuT14YaLQ0J3V8cEaIKLN+lQ6IHXjR2IDJdHlXtN
-         wpNNZEKGMAIKU7CfCVmQu74OW1lNLEC0TWO3u9AFyCQVKmYksHDiXd1XFpUcTeJoOi59
-         ALaLNnCQcmEWnFrEJethXmwFSLYXydGq8m5s2yj338n2hMEXi16k5xg/amxfNvk3t8u1
-         NUHcn/QTXPwDreDDT63DwAWLwPXOeUJ/VCamEJST5bVgHbdRRnjhy2bsOSUSA/1i2EW0
-         yppw==
-X-Forwarded-Encrypted: i=1; AKwUvBwG7Dov9c4tMM5ZPbY2mQ+ItVS6hVRYKJcYX5VIdHpw5CJKFqyTRc9rRn3YAR5cZCbeoq7D8saWKMJvCAM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ2BKh9cDEJsjM7DGnal3RyL/AusgIedCVAQGWKoxsbYLs4SBA
-	A3sHfiks4xTpGeXYpP5o5QluHK9l+oQEIJ3S2QoH0uB36G3Khdh1HXa1zqJWBMmJw8AmToH89ma
-	WzhseayQaaYcA6tFFgeMpPLVY/GNUxlk=
-X-Gm-Gg: AYBFou1T99gVOsJj2UwN+ISTDF3vjO70IkGqHLmuTKhI/yJje+i6vCmSIMbVlzn+/qf
-	STpGqTGlt3ATsbw9Ww6rFiUO/9ebOy0eyimTw0B0Q8bJXsFiVjgS+P9ZhjW1qnuZjMaaVp8nDkr
-	ujIfhFQhaCSCB53MffVwEOgdLNKlEv9wdo1Wx7mS3Ekfsf0IKqr25qqIfvQ0rX7b8XJM0QtUR8P
-	sCfbImc7TIkn6RT1gYzMCB8Ih6snQT28XJZqDfCkPL2sOj+qWeAiCdgw1feKLf+WmjznyLk7DiF
-	T5Wh7zGNqyM2BI0HtvUEKRfLmEvCbLDKHeSAjOgGBhJsnc6ovSnfAUk7hUoFXEeo/7r4f9dnNbZ
-	pBWZs94knKtVqEMLJrjvUVSO4eyORxuC9Ht7/Grw9mbRJ9iZmPFG0IbTeWn8gImbB
-X-Received: by 2002:a05:6a00:3d4c:b0:873:2525:9a00 with SMTP id
- d2e1a72fcca58-87d178966c3mr805402b3a.0.1790109817966; Tue, 22 Sep 2026
- 13:43:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790109833; x=1790714633;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NWtkhPsIR7rUvSSAcPaCXCFRGMGm2fhAVUCymwEWeyQ=;
+        b=yKto15zJ+C0yNLOshRiXIhVlRH4hDtjeCLT522kKz8f/IqcCYK3lXOZGpvrHxJ4FQC
+         oZZJAKLm5QY+R+oR3r5KOWU1DQhUvsYTxrwhp+JHuoiV4b/8s6GNz8NBvc3+3LsG/oe4
+         rPOj+hYqC2wluCbV0T7dYlhchjUjB4o4nV7CJD3NzDLvQ4erizeCeOXwe50BjIJOKUOe
+         gvjVWRVEbdJ3/fgeJvHgKGLgc6ZiN6QHMuk35WhpAophhV1+bVyk4eoa3yz8ykrKw53R
+         yl1TOQIrOzdthd8UDvXdmM4u09Zn2E8Ucd5b6upIQV8UZRaMKWbJTucK/sdDYp+alQXN
+         w2bA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+ytA/KcXHPR+OJXBzM23od1IPJkwIL3uTF5vX4vQvD1HPH8UcPNEbgvPvYUqzp/xBO+pSJwQbZxkWrVM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlFRc0VM5o5NZAZqJQuv7um4QiTKpaWvAl9sXamlmOFTtRjlt7
+	HcfEnchHF65ssNN03qVCRLo4QNLEeihGMVwNH3VCmAuDq5O1VCPA7I9CANDYNnJK
+X-Gm-Gg: AYBFou2QDYOm3V0BHEw7mDskDcPxJSHF/08fo9OhFwgNjGf9kwiQbJZGHLc2Qcyd9hU
+	0nCKXzUUAUKFcGOCn16Ciw+VPkmkTSucR5rN40MACcQaNrk6vm6VubA4IyqBxnmxLdXCrwkMSt3
+	ln2/N4ueg4MNrDxuEvHadd5Vr7nlxUYnCZs2eytRVQOsxi4LsAWLEQERnvJjkkqCOQUXlVW/79X
+	9nW1EnFfJd85zl4QsyXC3bNnTa7aJHhvPmIfzwXXqCohO6O9LRgdv0JEWovuOVTSz0bEx42dvKA
+	EKBrSUZ2jpRvjcSjKjSRExNjGmYNhJ2mkhnVLMoE3A8dS3YPZ/mXE4omQf+ze2JJKluX1/G2F4j
+	meD77z+ta+n/VFPPIdZBCMh1CxmhiSypY4dNKvqoVRCrllpggknpBIWvJAmKgRTNp/pjJFSHyzj
+	vP/IiqapdtX19u4puzT8zC0kmETvyj3tBYHV6x4r6AKKb1/cb3JkuyAX3Hqk9GFglB/SMOhhtHp
+	68=
+X-Received: by 2002:a17:903:1ac5:b0:2dd:c053:82f0 with SMTP id d9443c01a7336-2df69dc3fddmr4755005ad.39.1790109833271;
+        Tue, 22 Sep 2026 13:43:53 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:72::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5f965esm879425ad.75.2026.09.22.13.43.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 13:43:52 -0700 (PDT)
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	hawk@kernel.org,
+	ilias.apalodimas@linaro.org,
+	asml.silence@gmail.com,
+	axboe@kernel.dk,
+	sdf@fomichev.me,
+	bobbyeshleman@meta.com,
+	almasrymina@google.com,
+	kaiyuanz@google.com,
+	linux-kernel@vger.kernel.org,
+	io-uring@vger.kernel.org
+Subject: [PATCH net-next 3/3] net: devmem: decode DMA addresses for TX
+Date: Tue, 22 Sep 2026 13:43:48 -0700
+Message-ID: <20260922204348.717198-4-sdf@fomichev.me>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260922204348.717198-1-sdf@fomichev.me>
+References: <20260922204348.717198-1-sdf@fomichev.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921145655.3167436-1-i.maximets@ovn.org> <20260921145655.3167436-6-i.maximets@ovn.org>
-In-Reply-To: <20260921145655.3167436-6-i.maximets@ovn.org>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 22 Sep 2026 16:43:25 -0400
-X-Gm-Features: AcwNN1XXS07Kn-HMsx7mvoCbQqlPeyYonKF1juQSv29HAtUDdVHgyk--e7m0r5w
-Message-ID: <CADvbK_d1zZp6ajv9p8S_AaWZpH2aw7WPF5=TomCFxX3yioVw_g@mail.gmail.com>
-Subject: Re: [PATCH net 5/6] net/sched: act_ct: remove 'add_helper' dead code
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: netdev@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Aaron Conole <aconole@redhat.com>, 
-	Eelco Chaudron <echaudro@redhat.com>, Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, netfilter-devel@vger.kernel.org, 
-	coreteam@netfilter.org, linux-kernel@vger.kernel.org, dev@openvswitch.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 10:57=E2=80=AFAM Ilya Maximets <i.maximets@ovn.org>=
- wrote:
->
-> This variable can only become 'true' when the connection is not
-> confirmed, but it is only checked when it is confirmed.  So, it can be
-> treated as being always false and just removed.
->
-> Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-> ---
->  net/sched/act_ct.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-> index e72143d36b119..f62051ec9d57d 100644
-> --- a/net/sched/act_ct.c
-> +++ b/net/sched/act_ct.c
-> @@ -986,7 +986,6 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb,=
- const struct tc_action *a,
->         struct nf_hook_state state;
->         int nh_ofs, err, retval;
->         struct tcf_ct_params *p;
-> -       bool add_helper =3D false;
->         bool skb_is_ours =3D false;
->         bool skip_add =3D false;
->         bool defrag =3D false;
-> @@ -1096,14 +1095,14 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *=
-skb, const struct tc_action *a,
->                 err =3D __nf_ct_try_assign_helper(ct, p->tmpl, GFP_ATOMIC=
-);
->                 if (err)
->                         goto drop;
-> -               add_helper =3D true;
-> +
->                 if (nat && !nfct_seqadj(ct)) {
->                         if (!nfct_seqadj_ext_add(ct))
->                                 goto drop;
->                 }
->         }
->
-> -       if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helpe=
-r) : commit) {
-> +       if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
->                 err =3D nf_ct_helper(skb, ct, ctinfo, family);
->                 if (err !=3D NF_ACCEPT)
->                         goto nf_error;
-> --
-> 2.55.0
->
+On 32-bit architectures where dma_addr_t is wider than unsigned long,
+page_pool_set_dma_addr_netmem() stores page-aligned DMA addresses shifted
+by PAGE_SHIFT. The net_iov branch of __skb_frag_dma_map() adds byte offsets
+to the encoded value, so the NIC is programmed with an invalid DMA address.
+This can trigger an IOMMU fault or DMA from unintended memory.
 
-Reviewed-by: Xin Long <lucien.xin@gmail.com>
+Consolidate DMA address encoding, decoding, and representability checks in
+netmem helpers. Use the common decoder from the page pool and net_iov TX
+paths so both interpret stored addresses consistently.
+
+Fixes: bd61848900bf ("net: devmem: Implement TX path")
+Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+---
+ include/linux/skbuff.h          |  7 +++++--
+ include/net/netmem.h            | 27 +++++++++++++++++++++++++++
+ include/net/page_pool/helpers.h | 10 +---------
+ net/core/page_pool_priv.h       | 14 ++------------
+ 4 files changed, 35 insertions(+), 23 deletions(-)
+
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index 421f6fc45451..3740d4b15b70 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -3833,9 +3833,12 @@ static inline dma_addr_t __skb_frag_dma_map(struct device *dev,
+ 					    size_t offset, size_t size,
+ 					    enum dma_data_direction dir)
+ {
++	dma_addr_t addr;
++
+ 	if (skb_frag_is_net_iov(frag)) {
+-		return netmem_to_net_iov(frag->netmem)->desc.dma_addr +
+-		       offset + frag->offset;
++		addr = netmem_dma_addr_decode(
++			netmem_get_dma_addr(frag->netmem));
++		return addr + offset + frag->offset;
+ 	}
+ 	return dma_map_page(dev, skb_frag_page(frag),
+ 			    skb_frag_off(frag) + offset, size, dir);
+diff --git a/include/net/netmem.h b/include/net/netmem.h
+index da885d95ea63..4e06a647620a 100644
+--- a/include/net/netmem.h
++++ b/include/net/netmem.h
+@@ -384,6 +384,33 @@ static inline bool netmem_is_pfmemalloc(netmem_ref netmem)
+ 	return page_is_pfmemalloc(netmem_to_page(netmem));
+ }
+ 
++#define NETMEM_32BIT_ARCH_WITH_64BIT_DMA	\
++	(sizeof(dma_addr_t) > sizeof(unsigned long))
++
++static inline unsigned long netmem_dma_addr_encode(dma_addr_t addr)
++{
++	if (NETMEM_32BIT_ARCH_WITH_64BIT_DMA)
++		addr >>= PAGE_SHIFT;
++
++	return addr;
++}
++
++static inline dma_addr_t netmem_dma_addr_decode(unsigned long addr)
++{
++	if (NETMEM_32BIT_ARCH_WITH_64BIT_DMA)
++		return (dma_addr_t)addr << PAGE_SHIFT;
++
++	return addr;
++}
++
++static inline bool netmem_dma_addr_fits(dma_addr_t addr)
++{
++	/* We assume page alignment to shave off bottom bits,
++	 * if this "compression" doesn't work we need to drop.
++	 */
++	return addr == netmem_dma_addr_decode(netmem_dma_addr_encode(addr));
++}
++
+ static inline unsigned long netmem_get_dma_addr(netmem_ref netmem)
+ {
+ 	return netmem_to_nmdesc(netmem)->dma_addr;
+diff --git a/include/net/page_pool/helpers.h b/include/net/page_pool/helpers.h
+index 87a4e13886e1..cd021832c3fa 100644
+--- a/include/net/page_pool/helpers.h
++++ b/include/net/page_pool/helpers.h
+@@ -408,9 +408,6 @@ static inline void page_pool_recycle_direct_netmem(struct page_pool *pool,
+ 	page_pool_put_full_netmem(pool, netmem, true);
+ }
+ 
+-#define PAGE_POOL_32BIT_ARCH_WITH_64BIT_DMA	\
+-		(sizeof(dma_addr_t) > sizeof(unsigned long))
+-
+ /**
+  * page_pool_free_va() - free a va into the page_pool
+  * @pool: pool from which va was allocated
+@@ -427,12 +424,7 @@ static inline void page_pool_free_va(struct page_pool *pool, void *va,
+ 
+ static inline dma_addr_t page_pool_get_dma_addr_netmem(netmem_ref netmem)
+ {
+-	dma_addr_t ret = netmem_get_dma_addr(netmem);
+-
+-	if (PAGE_POOL_32BIT_ARCH_WITH_64BIT_DMA)
+-		ret <<= PAGE_SHIFT;
+-
+-	return ret;
++	return netmem_dma_addr_decode(netmem_get_dma_addr(netmem));
+ }
+ 
+ /**
+diff --git a/net/core/page_pool_priv.h b/net/core/page_pool_priv.h
+index 2fb06d5f6d55..430b97cd88da 100644
+--- a/net/core/page_pool_priv.h
++++ b/net/core/page_pool_priv.h
+@@ -18,18 +18,8 @@ void page_pool_unlist(struct page_pool *pool);
+ static inline bool
+ page_pool_set_dma_addr_netmem(netmem_ref netmem, dma_addr_t addr)
+ {
+-	if (PAGE_POOL_32BIT_ARCH_WITH_64BIT_DMA) {
+-		netmem_set_dma_addr(netmem, addr >> PAGE_SHIFT);
+-
+-		/* We assume page alignment to shave off bottom bits,
+-		 * if this "compression" doesn't work we need to drop.
+-		 */
+-		return addr != (dma_addr_t)netmem_get_dma_addr(netmem)
+-				       << PAGE_SHIFT;
+-	}
+-
+-	netmem_set_dma_addr(netmem, addr);
+-	return false;
++	netmem_set_dma_addr(netmem, netmem_dma_addr_encode(addr));
++	return !netmem_dma_addr_fits(addr);
+ }
+ 
+ static inline bool page_pool_set_dma_addr(struct page *page, dma_addr_t addr)
+-- 
+2.53.0-Meta
+
