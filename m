@@ -1,169 +1,191 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BEC55292D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E9A55C1C2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091243; cv=none; b=bKtfj6N+GtESwA2liX33QtWuuziM7NsZWWJqvnbDmUKuWAwIVeuWOY5J9SW9XJ+lIp+6kUkAx/uVZ06TBSxe01lAuW0DpGAAFnSmV85xS6ae94pJyZ5cbhLP2W1lslCJAjD3MC9rs7oBhBjbjH7f80qNbxKXCP2PmAeWp/+crio=
+	t=1790091264; cv=none; b=pWIkBHTYBA7EgfvCIrWBjkBW1A2XyL8ZOdDAYX3v0OgK8D6N1A6o5RB+wx1fKQUcDjm8T4/XPzmOkV+DFn5YEzUTPrEybSAU7Ielgj6G3BM4pxlwkY7au+c8WrkWPtN1S7L52qJzdoGkhgd3DurQo4KGtTNBsKyS1ELt3s/ooow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091243; c=relaxed/simple;
-	bh=M44KejLjN9PzhtH13UorzrKXY6qmkOaI4F1rztr/4YA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tT6TTT0q54E3WB/PlkTsZWhYQYiHD6V3FuTWAMVix/aYeEhFU2cyvlKTMf+yXuGdJRHMAI9dwA2q10bukZs3VsQ+vsRudggzkeqQhsZMjBzzMpYJ/myZcOBqQsZLNIeVHkB5ArE6EZjlp+XO2vqyIENZ69APunFIJJTTCs4FzC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PBTfh3+n; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790091264; c=relaxed/simple;
+	bh=EJDiYeiJhHLqMS4QEKjrDDO5ntp031Qoz8AN4F9L8IY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=S0vHRp4Vbt3CesNiTEQWoiNxoDLaCRXZ5iOhUzRkF7jGKYZAMuYwZg5yntWsq+ZBQZPIFNgb/tJ9Y7Gc+QXvwqtPC9k2AoYnjJ47Chx/Ew/nOyHwntm2OvZPUUAX7JOsFjXJd3ZKj6eu2FdiubNEBhUgJ5A/4IYflyRp82DKMeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Tr/8VGAX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=B3Y7QpCa; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PBTfh3+n"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so38764a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:34:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Tr/8VGAX";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="B3Y7QpCa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790091261;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tfNl2I4x4/cNHRA9ep8x0OYkNfYTKx3divzOhknoMxE=;
+	b=Tr/8VGAXL5srt9wD9SW4FbktALjJKZB6icnh6tEzYC5uEr2+/MwMfaW6X0WQJOTobZk1vu
+	j7jj3FSNIexMi3kBbcWxRXKAlyMsKdiysq+FOyL6hX8kz/t8e1xsXxM+BoxXhaR5RP33IL
+	lnsPSEjYEd3P4GwxTjD508HUyazcmW8=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-53-7i1EuAcCNCS6EY_aOQFCEw-1; Tue, 22 Sep 2026 11:34:19 -0400
+X-MC-Unique: 7i1EuAcCNCS6EY_aOQFCEw-1
+X-Mimecast-MFC-AGG-ID: 7i1EuAcCNCS6EY_aOQFCEw_1790091258
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so31678375e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:34:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790091241; x=1790696041; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MX4YUTICf0RtvgphPrSl6xSOkCeNscfqMM3Oh4fbG54=;
-        b=PBTfh3+n7dMkYJhumMwoaJGqRYFJBmPd1gUDooELvF1sLwX67eBa5lTtmiGAUtDie5
-         6XdtrCkPKDW1fj9TQ04s71zEekfznfJ1YLFhB1Bkc3zhprPXh55joKkQaSotfOMPIKFP
-         kGYjgI4baQfae79j3s6yo1kSvI10hPOTipSVK2ArnheTkn5pWYewmdFlW+v1+4iieQj3
-         vEu+7OnoPqOKDoMndz/Vjr8wEYerHPHBS6qFHUOX856M8yP0WpMiulp+ruyGCSRQgnCl
-         ZSgNikuHHmPviBrMAWpxJWKMdUVOXiFq7Had4wvQO9Fw4fO35koVm0sSL/Nya6hmya/5
-         PA5A==
+        d=redhat.com; s=google; t=1790091258; x=1790696058; darn=vger.kernel.org;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tfNl2I4x4/cNHRA9ep8x0OYkNfYTKx3divzOhknoMxE=;
+        b=B3Y7QpCaxE1B8dQGISb0d5CAJ4WXA9msrh6YLjRJslTWt0vup6VshfYBUzap+OyNvi
+         fzZ8wmxfomT6BKdZGb+R9WZl49x9RvOHHNFQk5clpz9Eh9nPISPYPq0e/nK5XXxpz0df
+         Sq32C5yo6XI4ExMvurpkqB/tjj7ZDyCeiRTovx7PL1+n1zVRdADl2xg/pbcxIWY2OiMK
+         yE+oPTdcHtyshl02Ht9AF1msLzzp73OF0jilnAtmBQxq021MZzaXb/9Xyq6OeMkHceWF
+         A0lnEJ3VVb/7ys8DfAnyu3pF78QLcR44scsEU+3PPDRO8Ar/OzQE6P8PXPaLr1841Rwg
+         KUzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091241; x=1790696041;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MX4YUTICf0RtvgphPrSl6xSOkCeNscfqMM3Oh4fbG54=;
-        b=S+28nWgc03ncR2UPjLxYqRV6eEcmckByFDuTv+FrpOlLO9Pb/ypsLkVsVQNnFKJTko
-         FOr/erNJKMKM8FO+TKM5j3qdi+Kznl8FbnChyKnGnssYpVCkBRYo29QWj+Q+M6ehPG0F
-         6tE/ui5jVMhWUseIt9FRob8ar19fdmEOsgE7X16YEHPfydxZBBZtfMSS5kWbn2ftsghC
-         itgVg7bpBxbzPP7SYKGATkyuA4akBgygJUBBBLCO0tt+Al2B3aW3SR6DXYmLuojKLUqI
-         Rt6dTqWzva7VzUx20T4911EZQNYbJ0Tm6/ln2C3muWM1kcLXL6s/xmLPSihev3bZdKLd
-         f63A==
-X-Forwarded-Encrypted: i=1; AKwUvBzvpExdfhogga9SG67OU2FoB+K3MwjP/YXvqEqfTmiWKezasAViQrJhXzWsZ2NYtzBU//Z6UXqul46E+ag=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyoA3EYFCGPrI4Lq/dqEBnBeUCt93FKLFvhEt9Sgk8FiDtFWnm
-	y1vuWWWb7R0X3ogBdq3qMfg1kIvLEDhSCAvZ0Ek8kpxXFYRXl2hG+vLc
-X-Gm-Gg: AYBFou0VhaCCDKW4sNWbFiIVqGkB94rlZKdjbCvlzUp0lVVonP4Yz1pn5qbfxh7XVhf
-	4/dapRsevtInifArEYq5BNPQp1VFE1XIO5cHV8lknXEOAeoUV11iyQK4V2EAdtJrd07b9IeQgCm
-	OoPlk0AT//T4ueqpzN0M3hOsE4RkadRg2VBIW/cTDdWWfbnd8eciv0cBi9i1eMNIfUPKjBxeWXV
-	pENZX13DdVLZU7IUQrl6+z61dspzQrkTFZiQzhIBML3tdUJ6hwRPRYUSkzp+sAKV4K6qmEAvZA8
-	W0l1yZS8twDPZeqcZry8IdWBXj+rXvqtEhU9wP4Wpvmk7K7pY7Kl6CMeloMkjgTVe3D+jXUPjP6
-	U3nTyO3RseR/mK2D75dFzeLvj1b93UvWmZYIRLYyPUao99Yo9JjyPVffBMgqkHKA3WHXFL/XiXQ
-	VrFt89xx2O0NxJEaf4bwceHSu6XlFJpYHvV6AtOddxYgk+9eMROAmvNmGNQ/wr6OsdtPVF7dsDo
-	x1FGJZUTpc76eiADaCyvKfhai6JPXSO0lp3pA==
-X-Received: by 2002:a17:90b:4c47:b0:39e:6a7f:1dc6 with SMTP id 98e67ed59e1d1-3a073201bf0mr1653263a91.34.1790091240806;
-        Tue, 22 Sep 2026 08:34:00 -0700 (PDT)
-Received: from eggarch ([152.58.24.177])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07d48e8basm130683a91.17.2026.09.22.08.33.56
+        d=1e100.net; s=20260707; t=1790091258; x=1790696058;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tfNl2I4x4/cNHRA9ep8x0OYkNfYTKx3divzOhknoMxE=;
+        b=H4YKJrVRMM6yPkMf4KUliNGdqkpuYj7EKPw8iRKIGpFcdGUtAmlYI5DwG8bMJX21KU
+         4KqF1Au1WhonKn4zi+egfhqubhqwXV+j2e/IKeS+52eaac3tk63+iuFhLfdBl3BtYvOa
+         nUFINIFnNAODOc2T2oJil+xZ1KDFpMD++t8BWWkhcLXU624VnUvJf57lIz4J2HpOk4fi
+         RUaRl1Zhv0vRKHqDoaB5AO16rlix+w0TR9CiyLUbRNT8HTE+aEtOXr9Up7EPWi/IEWs+
+         Cvltc58nvukMzyhnliIndTWyWtqLrhp+KzD3Q9N+ZICAFOj7GvGCYDcdzeq/yWKROqk9
+         kpBA==
+X-Forwarded-Encrypted: i=1; AKwUvBztQcAf4WEyKHhJ4+6M2J5//G3Qm5YCKeGyQcTvMehuvqr3m6Uzd8HJBDCqNeJvpQyIH28UicWHTDKekbY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9z8cQPcye0h0T33i6aD9qmR6wk0J9iy51+h8J57VtdrmgNxoI
+	Zp003i9UdsdjRjq9cWDKcmFx/U/KPj/k/8r2qY6UP1oVEsk/H0VIUkwYDLpPSAAAK3NDhSHlU5y
+	9fBBV5LtxRdMPZiCkRS/U29x8eM6BlSqCstvmo03yLJKDt7DnfKWKligpD3WvTFDNOA==
+X-Gm-Gg: AYBFou3zpEFPidBrnu+xn0M0lyTioFoXje0sCYzSC705TbSyaBiznNGVB676yqyCDpZ
+	HZmw0DltCyndKUzMR3ZEkjLOOHdm28xbbxVCNHAK3Swz31cJ0TypeBDvfjbuwQFHCxlrdu5NBBl
+	ppicGmKneDnJex9DYspyjH5d08n6jPmdICHSfM5MGXfRPgn3BHPrVvMoK2WTjJcIkOVNciEkPcZ
+	BVVPIxAhYGpWZE7wcze8HggEslCR0lmJky17g//dKz3nm9MgnK1e8weUUaCyJC23up3Rv2m5ICj
+	P28WJ569DEfBEpeq+ww7gj3d5d1gLwC/j0+giHmhV2QnjDkpfuZT08gNB4yEAHh97NbX9itWoz9
+	CLrMl1aO7P8qKSkLtxkFEMQrrGfyM
+X-Received: by 2002:a05:6000:2012:b0:488:640e:f6ca with SMTP id ffacd0b85a97d-488640ef84bmr2884963f8f.55.1790091258419;
+        Tue, 22 Sep 2026 08:34:18 -0700 (PDT)
+X-Received: by 2002:a05:6000:2012:b0:488:640e:f6ca with SMTP id ffacd0b85a97d-488640ef84bmr2884921f8f.55.1790091258077;
+        Tue, 22 Sep 2026 08:34:18 -0700 (PDT)
+Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.25.12])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488626d29dasm6266794f8f.0.2026.09.22.08.34.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:34:00 -0700 (PDT)
-Date: Tue, 22 Sep 2026 21:03:24 +0530
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: Roman Stingler <roman.stingler@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Erik Hakansson <erikhakan@gmail.com>, 
-	Filipe Lains <lains@riseup.net>, Bastien Nocera <hadess@hadess.net>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-Subject: Re: [REGRESSION 7.3-rc1] HID: logitech-hidpp: hi-res scroll mode
- forcibly re-enabled on every reconnect for Bolt devices, overriding
- userspace
-Message-ID: <arJs7GjCP3r4IaM-@eggarch>
-References: <20260920094508.39682-1-roman.stingler@gmail.com>
- <arAe2iRkYh9p98Rf@eggarch>
- <20260920205058.11958-1-roman.stingler@gmail.com>
+        Tue, 22 Sep 2026 08:34:17 -0700 (PDT)
+From: Aaron Conole <aconole@redhat.com>
+To: Ilya Maximets <i.maximets@ovn.org>
+Cc: Johannes Berg <johannes@sipsolutions.net>,  Matthieu Baerts
+ <matttbe@kernel.org>,  Steven Rostedt <rostedt@goodmis.org>,  Masami
+ Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>,  Eelco Chaudron <echaudro@redhat.com>,
+  dev@openvswitch.org,  linux-trace-kernel@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  netdev@vger.kernel.org,  Adrian Moreno
+ <amorenoz@redhat.com>,  Antoine Tenart <atenart@kernel.org>
+Subject: Re: [PATCH v6 3/4] net: dropreason: use new __print_sym() in tracing
+In-Reply-To: <dca799b4-23f5-4b6f-be73-bad5a3d88007@ovn.org> (Ilya Maximets's
+	message of "Tue, 22 Sep 2026 11:01:10 +0200")
+References: <20260921101538.97286-6-johannes@sipsolutions.net>
+	<20260921101538.97286-9-johannes@sipsolutions.net>
+	<98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
+	<7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
+	<99e5f7c0d7debc8a59bac96e93f09600bf488ca8.camel@sipsolutions.net>
+	<4a0240a7b9ff87302620a95c73f4f265cd428618.camel@sipsolutions.net>
+	<dca799b4-23f5-4b6f-be73-bad5a3d88007@ovn.org>
+Date: Tue, 22 Sep 2026 11:34:14 -0400
+Message-ID: <f7tzex99u6h.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920205058.11958-1-roman.stingler@gmail.com>
+Content-Type: text/plain
 
-On Sun, Sep 20, 2026 at 10:50:53PM +0200, Roman Stingler wrote:
-> diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-> index 1504de32b1c8..ffc7cef49b59 100644
-> --- a/drivers/hid/hid-logitech-hidpp.c
-> +++ b/drivers/hid/hid-logitech-hidpp.c
-> @@ -2044,6 +2044,7 @@ static int hidpp_hrs_set_highres_scrolling_mode(struct hidpp_device *hidpp,
->  #define HIDPP_PAGE_HIRES_WHEEL		0x2121
->  
->  #define CMD_HIRES_WHEEL_GET_WHEEL_CAPABILITY	0x00
-> +#define CMD_HIRES_WHEEL_GET_WHEEL_MODE		0x10
->  #define CMD_HIRES_WHEEL_SET_WHEEL_MODE		0x20
->  
->  static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
-> @@ -2072,12 +2073,10 @@ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
->  	return ret;
->  }
->  
-> -static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
-> -	bool high_resolution, bool use_hidpp)
-> +static int hidpp_hrw_get_wheel_mode(struct hidpp_device *hidpp, u8 *mode)
->  {
->  	u8 feature_index;
->  	int ret;
-> -	u8 params[1];
->  	struct hidpp_report response;
->  
->  	ret = hidpp_root_get_feature(hidpp, HIDPP_PAGE_HIRES_WHEEL,
-> @@ -2085,13 +2084,14 @@ static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
->  	if (ret)
->  		return ret;
->  
-> -	params[0] = (invert          ? BIT(2) : 0) |
-> -		    (high_resolution ? BIT(1) : 0) |
-> -		    (use_hidpp       ? BIT(0) : 0);
-> +	ret = hidpp_send_fap_command_sync(hidpp, feature_index,
-> +					  CMD_HIRES_WHEEL_GET_WHEEL_MODE,
-> +					  NULL, 0, &response);
-> +	if (ret)
-> +		return ret;
->  
-> -	return hidpp_send_fap_command_sync(hidpp, feature_index,
-> -					   CMD_HIRES_WHEEL_SET_WHEEL_MODE,
-> -					   params, sizeof(params), &response);
-> +	*mode = response.fap.params[0];
-> +	return 0;
->  }
->  
->  /* -------------------------------------------------------------------------- */
-> @@ -3910,8 +3910,16 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
->  	u8 multiplier = 1;
->  
->  	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
-> -		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true, false);
-> -		if (ret == 0)
-> +		u8 mode;
-> +
-> +		/*
-> +		 * The wheel mode is persistent state in the device, so read it
-> +		 * rather than overwriting it, and scale to match. A device
-> +		 * left in hi-res still gets the multiplier it needs; one the
-> +		 * user configured for low resolution is left alone.
-> +		 */
-> +		ret = hidpp_hrw_get_wheel_mode(hidpp, &mode);
-> +		if (ret == 0 && (mode & BIT(1)))
->  			ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
->  	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_SCROLL) {
->  		ret = hidpp_hrs_set_highres_scrolling_mode(hidpp, true,
-> 
-> Tested on top of 7.3-rc3, installed via DKMS so it is the module loaded at
-> boot. Results against the same device:
-> 
->                             stock   your patch   this
->   suspend/resume                no        yes       yes
->   solaar write sticks           no        yes       yes
->   module reload                 no        no        yes
->   cold boot                     no        no        yes
+Ilya Maximets <i.maximets@ovn.org> writes:
 
-I didn't think of this, your patch seems like a better solution.
-I think you should format and send it.
+> On 9/22/26 1:20 AM, Johannes Berg wrote:
+>> On Tue, 2026-09-22 at 00:36 +0200, Johannes Berg wrote:
+>>>
+>>> Indeed. Something like this (untested right now, didn't manage to spin
+>>> up a test yet):
+>>>
+>>> diff --git a/tools/testing/selftests/net/openvswitch/openvswitch.sh b/tools/testing/selftests/net/openvswitch/openvswitch.sh
+>>> index a31f7fb6882d..9b8edfcd2d1a 100755
+>>> --- a/tools/testing/selftests/net/openvswitch/openvswitch.sh
+>>> +++ b/tools/testing/selftests/net/openvswitch/openvswitch.sh
+>>> @@ -234,7 +234,7 @@ ovs_drop_reason_count()
+>>>  	local reason=$1
+>>>  
+>>>  	local perf_output=`perf script -i ${ovs_dir}/perf.data -F trace:event,trace`
+>>> -	local pattern="skb:kfree_skb:.*reason: $reason"
+>>> +	local pattern="skb:kfree_skb:.*reason: $reason$"
+>>>  
+>>>  	return `echo "$perf_output" | grep "$pattern" | wc -l`
+>>>  }
+>>> @@ -790,15 +790,6 @@ test_psample() {
+>>>  # - drop packets and verify the right drop reason is reported
+>>>  test_drop_reason() {
+>>>  	which perf >/dev/null 2>&1 || return $ksft_skip
+>>> -	which pahole >/dev/null 2>&1 || return $ksft_skip
+>>> -
+>>> -	ovs_drop_subsys=$(pahole -C skb_drop_reason_subsys |
+>>> -			      awk '/OPENVSWITCH/ { print $3; }' |
+>>> -			      tr -d ,)
+>>> -	if [ -z "$ovs_drop_subsys" ]; then
+>>> -		info "failed to get OVS drop subsys ID"
+>>> -		return $ksft_skip
+>>> -	fi
+>>>  
+>>>  	sbx_add "test_drop_reason" || return $?
+>>>  
+>>> @@ -842,7 +833,7 @@ test_drop_reason() {
+>>>  		"in_port(2),eth(),eth_type(0x0800),ipv4(src=172.31.110.20,proto=1),icmp()" 'drop'
+>>>  
+>>>  	ovs_drop_record_and_run "test_drop_reason" ip netns exec client ping -c 2 172.31.110.20
+>>> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0001 # OVS_DROP_FLOW_ACTION
+>>> +	ovs_drop_reason_count OVS_DROP_LAST_ACTION
+>>>  	if [[ "$?" -ne "2" ]]; then
+>>>  		info "Did not detect expected drops: $?"
+>>>  		return 1
+>>> @@ -859,7 +850,7 @@ test_drop_reason() {
+>>>  
+>>>  	ovs_drop_record_and_run \
+>>>              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.110.20 6000
+>>> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0004 # OVS_DROP_EXPLICIT_ACTION_ERROR
+>>> +	ovs_drop_reason_count OVS_DROP_EXPLICIT_WITH_ERROR
+>>>  	if [[ "$?" -ne "1" ]]; then
+>>>  		info "Did not detect expected explicit error drops: $?"
+>>>  		return 1
+>>> @@ -867,7 +858,7 @@ test_drop_reason() {
+>>>  
+>>>  	ovs_drop_record_and_run \
+>>>              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.110.20 7000
+>>> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0003 # OVS_DROP_EXPLICIT_ACTION
+>>> +	ovs_drop_reason_count OVS_DROP_EXPLICIT
+>>>  	if [[ "$?" -ne "1" ]]; then
+>>>  		info "Did not detect expected explicit drops: $?"
+>>>  		return 1
+>>>
+>> 
+>> No longer untested, that works.
+>
+> Looks nicer than parsing obscure numbers indeed!
 
++1 !
 
-Regards,
-Lovekesh
+> Matthieu mentioned we'll need CONFIG_TRACEPOINTS in the selftest config
+> shard: tools/testing/selftests/net/openvswitch/config
+>
+> Is that a new dependency or was it always there we just missed adding it
+> to the config before?  (it's included in the common net config, so that
+> is probably the reason why CI doesn't fail)
+
+Yes, we missed it the first time around.
+
+> Best regards, Ilya Maximets.
+
