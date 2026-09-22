@@ -1,153 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtpcmd01-sp1.aruba.it (smtpcmd01-sp1.aruba.it [62.149.158.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FAB53F6A1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0770B5448A1
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081391; cv=none; b=m6w0daKZRDlJcOaNvZRUKac5RzmCPtwtFEHL1pvEDpj+VQZVtIFYR3X4D2Pn7kFrbOyCot7u4ELSkgq47LD+BpW6MuMnrQwb25udqkBcKIXXJv12LUgCQqI9rzeKMVbBaWT1vNeQX06aJTNRxF37BwUzpg2kydAIBrBfon1CWtU=
+	t=1790081394; cv=none; b=KuZYnApgUofFWPk3LasZv8Rnco1YEl9oL39vv6RYGly966RiZNyubqvdl1bh6ao7D+HRFbsOicFJYVlnShYiHR7Zs/GacIPXghqsSWW4Ur6RPlS69nED4D7pb9mS6Sh23S+wvJlxpV+Wolw8p2P4nSxZehlJpwK3kHwKe83EVNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081391; c=relaxed/simple;
-	bh=H77B/1XoUbsQHeqCDGjv35YwEIvkYUiwrSWHUSL0kKQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cP2qzVlVrxrOHkbhstDs0KAhRQ6TU+q2M3ed8zXr8l5f64DfjHn/8Jv33Ll/nq25NjEd3JQfjXtgrRRyT84xkVsFJNLTuc/qCMWApxyioRSEQrweGFN+MhCFA0UZeoQ49CYcprDqI/BRacb/kq3Zw/EKP6tobCSzzrGVC20sXms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f8LNTFsj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NAKPTNG7; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790081394; c=relaxed/simple;
+	bh=peexCizzEDnRFo3mJoZxvwuBaoNpCS5sk/iv3dr75+c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hEh8kMjCQ1bpOM1cCVVB8/GGglV6woHjWxv3vzuKAJWidhcDcGo4ZatcSscG5LDMaZdSqc4G8t0hcgcms18RJf2pRj9DBoay02wqimc0xVH8XTZ3Wh4CbAyUbukHrp/kRxz25HjYJgVe38dNotxiy3G2D7nXtNX08ZUkCG6+Nf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=HeZGZqpG; arc=none smtp.client-ip=62.149.158.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f8LNTFsj";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NAKPTNG7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790081388;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BMtW18PYGgs3eeFoZyurBYg14pG+Ej8vE9R6o+NDZ70=;
-	b=f8LNTFsjBBwprx81ljPz0eqAFJ8weo5xB6IsBL4zcBVh9rj+BN7P3vIe/70y2UnHaGoAHu
-	M0u68Gn42shPOY/0kxqaJcT6TmGju42DPkBaeWaGSDU8KiexuBLgu4tGWvEkOPEsDh79JA
-	I/sHLIS6C5DNC5jKou9BUzA9ten+jl4=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-189-CnNt-uaaNmea25lv0aWJqA-1; Tue, 22 Sep 2026 08:49:46 -0400
-X-MC-Unique: CnNt-uaaNmea25lv0aWJqA-1
-X-Mimecast-MFC-AGG-ID: CnNt-uaaNmea25lv0aWJqA_1790081386
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-487038a4a88so1355580f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:49:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790081386; x=1790686186; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BMtW18PYGgs3eeFoZyurBYg14pG+Ej8vE9R6o+NDZ70=;
-        b=NAKPTNG7JdTsB6Bxm9bX3sdN5LtnyRqQRgd9sST3DNWU/CQME57S0/v0WwCOBbfKua
-         zCJesy6cqYJd9svn1R/c9cJr2XYzZH6aDwWKtZ9n+fmtarn2doDbfZ+uqq2MdSRTJTJ2
-         CCX2VrQ3uVm3h0d9uq44pgXcCdjdnesXb+zinP3OamE2eQX6NGazRdV8UCdYOi0JNjkM
-         EkAD+Y5Tf4Y8T2AxfkdswCiyIZegK/2/khJ9XEdWSYjm1hU8UYYtNOSC7Nuw0FrSgdE9
-         KDL3ayokHFzp6SrnlLqVQJZgBjDpcTmOrxSqumK7oCopNgBjXKpErkdKZD5bq9Fs8hCw
-         DbAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790081386; x=1790686186;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BMtW18PYGgs3eeFoZyurBYg14pG+Ej8vE9R6o+NDZ70=;
-        b=VrDD/qSCB62x0yDmPdW0+AL7ygH0kdecOGDCASM1UlTo5CFmalIULOoJ0NLhslMyNq
-         1BXdl6mXcWhO/OBvS3Y7hk6iVGNx8x/papuYq0VWwBQHOoXKhAHyBOqXAyFQ7lqY+78n
-         ig8k91sMiDdO3K+Vtg9hNsDwoQWCgMhxvn2ToxNtP9sRyDqpTFWsj1+LeW0gkJezgoFz
-         WegocVNDM3ESgMxIv+xZUuBSk6eBufvGqhRyps7BhGFEA1Xwkhac7mq/BRw+fvfSnEPe
-         Zd7lJ6MV3vBFCU3pqKatEqKRHr+Vpds0EEclABmAHO7tdUMBLB8L2E+YgRw2wTDa/xoe
-         3XrA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtTPl4pj8xipDsT5gPYOjq7HlqN22j7GSayCoI+qdMIx/irkqB7+QV4/wFLow3gxY4zLnU3nQg9IrOWr0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9sMZdhlh6WsVPaooo/hl1duzY3mfO1/kU6M3ljYfZPJsw4Ss1
-	AWba/Ix44fxHtDaar7/M3f+Cw/OP7gCFkTAZ5cUX8nzRohaBf4l3ZEWhpny9dfJpzccWJxl5E6O
-	Cdi4Z/iUkYjbGR2TsSWM83Kkb7NzgDDTLTapF/718AZzTbzs9NJdfmGSqwIqOU1c+EQ==
-X-Gm-Gg: AYBFou2vEM7nrCEbkC/cFvC/yfDFgaTcv4nZ6S3cVD13/ukSkKiSRP1eO/EbLvAQA4I
-	Xz6n8+f+Zp/e/uENiCGrv1hwVDpTAACCPH6YtUPs0f//AOq6IPbNRf7ve+g5NGL/SGF8d5nltHC
-	12jEfe4NcXNUc8ubzsW5ArjPl/tzu9D2rLXUyhaPJaQhRC/V3ZDvJwWwuyXKwikCn93ATjEDT5F
-	z7Kcjel47eG3jdOEPFSdfB2x+XxaoS0+aTz9iNnlKsQwszieeOPSBduuNHiqXNX3UyM8TyuaQhD
-	B1e7zToXx1Yu5gaxXtx7Vr47CVswXhUb/8O7krKP+ruiPLaLYngxPz701wTuerQ/dqkX+PG8uI4
-	to7xGj0kAi3mW1KlKHrTCk24ErqBdkkPpx35ClCbLU1UDEP9SlFc=
-X-Received: by 2002:adf:e19a:0:b0:486:fba3:b95d with SMTP id ffacd0b85a97d-4871e2161fbmr20532334f8f.7.1790081385761;
-        Tue, 22 Sep 2026 05:49:45 -0700 (PDT)
-X-Received: by 2002:adf:e19a:0:b0:486:fba3:b95d with SMTP id ffacd0b85a97d-4871e2161fbmr20532296f8f.7.1790081385348;
-        Tue, 22 Sep 2026 05:49:45 -0700 (PDT)
-Received: from sgarzare-redhat (host-82-53-134-131.retail.telecomitalia.it. [82.53.134.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862774882sm5070366f8f.13.2026.09.22.05.49.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:49:44 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:49:34 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: =?utf-8?Q?Bart=C5=82omiej?= Dmitruk <bartlomiej.dmitruk@isec.pl>
-Cc: Bryan Tan <bryan-bt.tan@broadcom.com>, 
-	Vishnu Dasa <vishnu.dasa@broadcom.com>, bcm-kernel-feedback-list@broadcom.com, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] vsock/vmci: enforce per-netns mode on the
- datagram receive path
-Message-ID: <arJ5LVnY1y0MELJF@sgarzare-redhat>
-References: <20260919123208.29032-1-bartlomiej.dmitruk@isec.pl>
- <20260919123208.29032-2-bartlomiej.dmitruk@isec.pl>
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="HeZGZqpG"
+Received: from [172.18.100.99] ([109.238.20.116])
+	by Aruba SMTP with ESMTPSA
+	id 8ztQxxvaCXmot8ztQxj4ZX; Tue, 22 Sep 2026 14:46:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790081202; bh=peexCizzEDnRFo3mJoZxvwuBaoNpCS5sk/iv3dr75+c=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=HeZGZqpGjmztoi596IWNDAP5/plw+f87WsYJKtgjB+L3PRfm9Tf7H4UivpCkgetRY
+	 psiceuBl1cczYE+wUoZub6UjUixk2qyferzrtxENrbHraLjvAN1m1xHIY63lmCpXZd
+	 yHiGTxosB8sS6h8bJoXrCrIqkAxL/ldCLtrEoMDGUb9RTtHzteVCme0tf1Rq8QnGJC
+	 9LihtwLu4OgiulMtPCN8f2Fta0FB2Sj38gBcGDPuNiKaK7ZDmpyymFsZWHxQGXu0bK
+	 T0mlenZxlgQEkdvnbMNUGXpMjhMxKZO9AsCwdNXXEB+xwP32RMhq3I7QILC+2AfeI7
+	 SuRsDIRU3pIRA==
+Message-ID: <67e6d618-f94e-426f-aabc-304078fda5c2@enneenne.com>
+Date: Tue, 22 Sep 2026 14:46:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260919123208.29032-2-bartlomiej.dmitruk@isec.pl>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/4] dt-bindings: pps: pps-gpio: document optional
+ pinctrl states
+Content-Language: en-US
+To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260919171157.5502-1-farbere@amazon.com>
+ <20260922103051.5257-1-farbere@amazon.com>
+ <20260922103051.5257-4-farbere@amazon.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <20260922103051.5257-4-farbere@amazon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfDYfg9wMoK/6hYkm8HWbB4xHvmBTPDQuAMVUX8FEy+27rJG4a2qRvfgor/zDkE7svENyEU49ob5NFFiKV+6OcERvTDaPR5JjTCo77ELUzX/7uiXqvLER
+ agMulmnKn/UYutfLUHntqooy9ezpA4U7UthRaxMiObJKD8sO55sPImCZO6JwwKe4VMGLIy2Ye/XXk3MmG8vxT1aQzgo2D/I1xPEQ7qqGDJWYNWVPcsytoGDZ
+ tmYQzEUwxcejyVrcC1ZD9ETldETaK+R8ZJyub0ighOrsX182PgsPOZWUXC+xhWr5QwZYmYQo5WUKXrnaTeit0tMRmxTOqd4dr23EYs5jfg7yKbYnNbigCXPH
+ FSK3HA1E3OppDn3LDAqypYif297+5U4M5WMB1ivGQiM/BYJpJx5qOLKj74SZrQGjIrgXLyUwq+7o4JWbwy/LVLIVhRPJtwwCTFilvCwigWRIltZQqe0tJ8Cb
+ doX4dB+c1287wpX89jfGtWMcR+dtNCZLwfm6Al4ZFHsHc0rOZyfh5xyUAJJQYVngI1MQ5VEUsZAgB6g5E6k9h3ji/KUFFUyJmj2g5w==
 
-On Sat, Sep 19, 2026 at 02:31:57PM +0200, Bartłomiej Dmitruk wrote:
->The send hook vmci_transport_dgram_allow() refuses datagrams when the socket's
->netns is not in global mode (vsock_net_mode_global()), but the receive path
->(vmci_transport_recv_dgram_cb() -> vmci_transport_allow_dgram()) did not, so a
->socket bound in a non-global (local) netns received datagrams from peers it
->could never send to, defeating namespace isolation.
->
->Add the check at the start of the receive decision, before the
->VMADDR_CID_HYPERVISOR short-circuit, so the hypervisor CID is covered too
->(matching the send side).
->
->This was found by code inspection; I do not have VMCI hardware to test on
->(compile-tested only).
->
->Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
->Signed-off-by: Bartłomiej Dmitruk <bartlomiej.dmitruk@isec.pl>
->Assisted-by: Claude (Anthropic)
->---
->v2: perform the netns check first (before the hypervisor early return) so
->    hypervisor datagrams are also gated in local mode -- the Sashiko AI review
->    noted v1 left that path partially bypassed.
->v1: https://lore.kernel.org/netdev/20260917220225.56200-1-bartlomiej.dmitruk@isec.pl/
->
+On Tue, Sep 22, 2026 at 10:30:50AM +0000, Eliav Farber wrote:
+> +    minItems: 1
+> +    items:
+> +      - const: default
+> +      - const: inactive
 
-LGTM, but please add a cover letter to a series with multiple patches.
+One observation while testing the series, entirely a devicetree call:
+dtschema derives maxItems from the items list, so this also caps
+pinctrl-names at two and fixes the order --
 
-Stefano
+   "default", "inactive", "sleep"   ->  'is too long'
+   "default", "sleep"               ->  'inactive' was expected
 
->diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
->--- a/net/vmw_vsock/vmci_transport.c
->+++ b/net/vmw_vsock/vmci_transport.c
->@@ -532,6 +532,14 @@
-> static bool vmci_transport_allow_dgram(struct vsock_sock *vsock, u32 peer_cid)
-> {
-> 	u64 access;
->+
->+	/* Enforce the per-netns mode first, symmetrically with the send hook
->+	 * vmci_transport_dgram_allow(): a socket in a non-global (local) netns
->+	 * must not receive datagrams it could never send (this also covers the
->+	 * hypervisor CID).
->+	 */
->+	if (!vsock_net_mode_global(vsock))
->+		return false;
->
-> 	if (VMADDR_CID_HYPERVISOR == peer_cid)
-> 		return true;
->
+I have no opinion on whether that matters for this binding, I just
+wanted it on the record.
 
+Ciao,
+
+Rodolfo
