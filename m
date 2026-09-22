@@ -1,79 +1,79 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BF6054855D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F667544D5B;
+	Tue, 22 Sep 2026 14:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085635; cv=none; b=LjoTh0aj5VodHRWM1Gl3meNG3uZKY5KEJxVYEbxu3Dt9HxM5R31236PszyegUaqGW/kawPuBJXuMDMTejRVjcOHaW43kYUjX5/aLQxS+PkGAgvUmG5SALulsbW1aVv/rdfbcklvRdwIhkuNa3a5qG47k0LocrlcqmRd5sz2WswM=
+	t=1790085676; cv=none; b=O+RN8VT5MDcYTu9OuU+gj8TnYnUbXSR4hvhx6FxWJf+ZBxtuBxvr+vBc//607U1zYwb8CawYc0pQhB36DGjXT5YSBtzjLg2gr7pltDeezl02bo2QfTAVPjrERh8w1kKiwenl24vPGnuSAnNBqE6swpEH18faGTmXpPYu4s2sy7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085635; c=relaxed/simple;
-	bh=aMSPwsonXUOJ1aXDqudRz657VCrZXxupM1rNcnO98Fg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PQBo87DhAZejeObTx+4VfV32W2I3rzljPorgUu1NXfJp8Uu/FPvuyzgqxAtzffvKSRR/zoA7UMSgitA8RP69LqbgkCLLrymp43ZYZwxl4Z8+EhEnD+r1j2ZLMWadHjfx5+dFX1NS62LoVI6GYMkilakVsFFqiLRr9ZFn3iURU+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RkLVk7FJ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790085676; c=relaxed/simple;
+	bh=+xT3lhOevF9cEOl9WZISiKH7vf8j4vxQuX8dCDiLEVU=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=lABwgc9RmoqriAy9SHV8ZjKa+90/895FetzxFGWDqxFmDmDY3dAm7beBTDGqw9lbzoCKrjcJNbJoCIfom8FFfHnZ7k5hLyy67N7wZb0QKJd0grarq+34WVp9KVFUGh0XYuYJ9wtKm1hjyOdHP61WUWtXB+q0ek4HWsINTqlD0BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kts70Emy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RkLVk7FJ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F192D152B;
-	Tue, 22 Sep 2026 07:00:25 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6E923F86F;
-	Tue, 22 Sep 2026 07:00:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790085629; bh=aMSPwsonXUOJ1aXDqudRz657VCrZXxupM1rNcnO98Fg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RkLVk7FJUB6giUbh1Fn6LMGtU3EEBobOs9n5spdUMz3YF+mIhVVDbq6fPqZ+WuNQx
-	 j5xQMBRSifB210fwLNNDOKVqnq0urdF7wEdPopC125+vKEKu+rbhPoQWVhpoHICqZh
-	 0npYJQEaeuaNMZlcSAzrfnFfCUvpgu6SDBTFXikw=
-Date: Tue, 22 Sep 2026 15:00:25 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
-Subject: Re: [PATCH v2 20/21] arm64: tracing: Advertise a mode of EL1t in
- synthetic kernel regs
-Message-ID: <arKJ-T7fltE9u8qG@arm.com>
-References: <20260918161407.2300-1-will@kernel.org>
- <20260918161407.2300-21-will@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kts70Emy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F4A1F000FF;
+	Tue, 22 Sep 2026 14:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790085674;
+	bh=1Ess7UL1IoK9tUC3cvBKwGTxvOb5UlfUK/tcef+tFdk=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=kts70EmyYpMUaKoBIgrTmmimVEk8VqBvrO8X9GJ/lGezN/wrsQNQSqo3focx4AsVE
+	 7DA+RKgFjm9hbsabLj+bGUwWKhXOoD92YPGOORphEH1nLozttsWdTLzMIp37xbCl+D
+	 k71QSnpYL3zD2guL5blAX8EUQ7o3vb1SGz4XrZgcZGaJanr1HcwSUuIrHV77KNaPZh
+	 roYiQydJ0V/MLtYkE366the5xrt8ErLfP/o7IS7QKx/KqpxJk6SrOWhczEPsRb7SNC
+	 XHsumt6AactL6cFTLn6Ibxzf5iwF91zbqOleESDILnCc/V/XehhMGBGkXD0iRN2oiR
+	 7mat9+0owX3aA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 567C738119F8;
+	Tue, 22 Sep 2026 14:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918161407.2300-21-will@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: usb: lan78xx: Fix URB reference leak in
+ lan78xx_submit_deferred_urbs()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179008560489.4097520.9027717710600492085.git-patchwork-notify@kernel.org>
+Date: Tue, 22 Sep 2026 14:00:04 +0000
+References: <20260917115811.2150119-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917115811.2150119-1-vulab@iscas.ac.cn>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Rengarajan.S@microchip.com, Thangaraj.S@microchip.com,
+ UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, john.efstathiades@pebblebay.com, kuba@kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, pabeni@redhat.com, stable@vger.kernel.org
 
-On Fri, Sep 18, 2026 at 05:14:04PM +0100, Will Deacon wrote:
-> When synthesising a kernel regs structure for ftrace or perf, advertise
-> a mode of EL1t to reflect the mode in which the kernel runs for the vast
-> majority of the time.
+Hello:
 
-For consistency, not that it makes any difference in practice, should we
-also do:
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 79a19be88ced..c7f954f1ddbf 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -489,7 +489,7 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
- 		 * be initialized by start_thread() or start_compat_thread().
- 		 */
- 		memset(childregs, 0, sizeof(struct pt_regs));
--		childregs->pstate = PSR_MODE_EL1h | PSR_IL_BIT;
-+		childregs->pstate = PSR_MODE_EL1t | PSR_IL_BIT;
- 		childregs->stackframe.type = FRAME_META_TYPE_FINAL;
+On Thu, 17 Sep 2026 11:58:11 +0000 you wrote:
+> usb_get_from_anchor() hands over a reference to the URB, which the caller
+> must release. lan78xx_submit_deferred_urbs() never does, so every deferred
+> Tx URB keeps an extra reference: the counter grows on each suspend/resume
+> cycle and the URBs are never freed when the buffers are released. Drop
+> the reference after submitting, and on the path that drops the packet
+> instead of submitting it.
+> 
+> [...]
 
- 		p->thread.cpu_context.x19 = (unsigned long)args->fn;
+Here is the summary with links:
+  - net: usb: lan78xx: Fix URB reference leak in lan78xx_submit_deferred_urbs()
+    https://git.kernel.org/netdev/net/c/17741334d00b
 
+You are awesome, thank you!
 -- 
-Catalin
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
