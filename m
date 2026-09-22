@@ -1,220 +1,359 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775B75349D6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40047442FAA;
+	Tue, 22 Sep 2026 13:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081995; cv=none; b=DzRsHEP9mlNDa4JthcLquTc0TaseGfVtdv+HBFRCevyWzySbgJMgdTyNtmT/tthIf/BMoV9pVKpcRZ9RF/9tViBHbrgVIKREin7mvO22TP3p6p+8Bq9tgtzHhJsLTrYkjLDqs9gBjII8sZzP4inT81Q5jxQmY9FCYDyf3/OWfDA=
+	t=1790082047; cv=none; b=bmxXs4j/sZ6kHrkachE0fYl1dHJZbF78IuQS6haX7cn2ze6NuoLgiUtb9WEzzns4msjMNbnhqoyN4syH0mooQgoTJ2r1HALbIBUNNHAZBG6my/i0YR+6BOkVYQR0Ow9M3c+mc7+gZZyEsuLEhFHW7PKfCztX9oLhnv7ngc9qSZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081995; c=relaxed/simple;
-	bh=8GgRFTvdkZTLwU8sEzbVj60ny4PaVMNkfY2LkfBn7gU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=trIkDc9u96U5plm5WQKkOQN5m9ilmcNcxS8G3sMxO4EPEXb91eAOyKC/Ex1YTrYynijXyLcHjF2k47OFKJeCw0ZwlYAU5xL7Kf7f5hKGRZ3m8gMC4qRqFm6nXhRMbPI6HAuYwVymUNUrpGaHylyuf0HYsApFWDHv+9mvGyWeR2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GcKRdATF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dk/CYH8V; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790082047; c=relaxed/simple;
+	bh=NABM3e2WhM5YCtERsiysLz8SOWCNnO9w43TP+pT850Y=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IVpwTzYoW++7sWZG/XCQq+KbBOS6Cj9oDslHkTwUirCZ9CiAlAEpMLaLrUV+WQ24OVJ/3DGRj19rg/PWc/onumbOhrSk0OBPqNuSpQebidslSfp+ybSbQddDQwoxP/kV35eauV2SdY3LX8zYYmoYw9iDd1+MZJ3jPA7+BFpxA3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gvo2zOzv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GcKRdATF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dk/CYH8V"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBPRwf4077903
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:59:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=24nvX1TJGWoOIXKdPCihYhYy
-	Gf+Fdgo4j/yi1DrWoEQ=; b=GcKRdATFNSz2dDkn3chhXt4IugWSiezzYmaNOZ+6
-	6QzKlZZcCJ6tNk7aYB7++k08PTuxb7vb5biZXw68eCUckJ8XPjtv83lJ6OaTTO4L
-	STOxhBzZHZxAPzz+EBQzFwr+m56mSQ7I8JkghZQhS6hGlL9TikjWlSvGoCxmbvs1
-	0pwbFx0A6roUxuCtSByyGDrTiPrCd/avq9BpPc5DdVzhLSmfe8Ekzb95eZwl8pYZ
-	MOkO+UhY/GB7W3od+BE5mV1u8SnPEGkY41iFPAnRtdHxzkvbjrykXHJurrnj4SKa
-	Qzbb7cvbBpCL/VGhvaYMVEeLXcc+hU6DzRrUqT2s1VuLZw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gupbqh2m0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:59:52 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939f248907fso399519185a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:59:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790081991; x=1790686791; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=24nvX1TJGWoOIXKdPCihYhYyGf+Fdgo4j/yi1DrWoEQ=;
-        b=dk/CYH8VP6m8TbGZ/mobUXqiJ1PBUKchk4xS8YbhyabYfAqKlABgM8x33T+J7lgi4l
-         6MPOS5EIsQIOzn7y7fW4eCPP7PjEyUWsQXVJD+A0zrey16oRABX4XU9MHcpg4itkory0
-         XuL669oc8tBN99yVoQoWDTIpXts0L7szmYnOC9tq+sGPFuFZWvC9/CDi2w8D85IST7sX
-         18JSXCtaO/gLO8kS+LHd6MDse2GtturVTi5FNHKBnypOO963PhEkrr8FnBFA/nKzAmiH
-         +nEKzyRjsw1KVneME6lpVRLUa2kJIakOYA+zGowgHRRkL05s7kux0pBAUDPk/kwydQSu
-         CdOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790081991; x=1790686791;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=24nvX1TJGWoOIXKdPCihYhYyGf+Fdgo4j/yi1DrWoEQ=;
-        b=FVB7PnykcziYIzQtsgrf3tSodo4vKjckrDKwclv04UpcIHmEyvIm+hcD6pXkUzWHvp
-         bFnE9+Jiw0hXWKrCMWUimFe8SiK+59ByJDJrZO/tb5rC+5U3Q6L1h/bsOo0/RV8SoX68
-         zWe3/P8l9iUZBQDvIdunXc7wwbBa4e/kE5PD1b2rwbkeJgR2t+ae00HmCjnsGKhSef9v
-         1oZBkpWARf+XQdWneCTP/MzJyO9pm0ueby0z0wz5rVrDVVdPxRGyb8H1Yqms/5NUab5K
-         GDhvzgqUd42capWpbfntEr6EVa5sk/TdMe5hi8+289+lKrks3ioGW+vpzKXavstz3BcJ
-         kSsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlXmh14NWavKSzPU2JqTIbNR8uyo3yF/PbrpXHlw9MWfq00Neg+thkIQgb5sNXMkFc8d2d1rrt7iQm1lA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0i4wxWp86Th+KIyLjeQdso4yB99NMCr9IkMyjVLeEiozjjzTc
-	s1T9PROAolCQkctGGMRqptJ6u+5JiplGKDsZr8i6dGtWg86OYX0bUYUVN5oae1MhdWiGF8+Voxq
-	fvWaDXB9JTsYkC/m0wQZMaTNaPTNNsavsEikD8ng2wfMPRa7uMnj5lV1PT8qCooOexco=
-X-Gm-Gg: AYBFou2wQO4GYuks5j+AdUFXV2iaYLE5XHvTeT2WK7a11fLiDSjXU3NUzXwwJRsqvdx
-	TDkC2d50LHGYCPUsHSdZ3H7z/8LviA/1z3Bf9b5N2dQpgoWSVuH3X9oUNh+58fMsiEbWhfM8iH/
-	YRO3IHAq7uq7X9Y2pkvdHA2nnSDfM3c3FCe/kyLt8ni1hvj2720geFm41Jb6xcP2PfGp1Wsqfzh
-	J2YwkmHbhKL8V+RFiL82r/Y+ZyfFYZC/EsS9EEpiuAVE7P2rE80whychGT1kjVI/5aNHScer0Y7
-	alownsW6fky1aJ9Ym6Ra2nKrRL4b89c6ssDIg1bTkhUhZwVtwvPBFV0ckcnvGfUHFqJEUqVVNgZ
-	gGcMLIzwTIsIaLGZAXl0CmgFkJz7HeSBDIqc2hC6PAiGHegCqSTXPde4Kg983NH6YNqvIJBFyxt
-	2GbyhOEeprJt6I
-X-Received: by 2002:a05:620a:29cb:b0:93b:fe5c:e6f with SMTP id af79cd13be357-93c15d91370mr579611085a.23.1790081991058;
-        Tue, 22 Sep 2026 05:59:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:29cb:b0:93b:fe5c:e6f with SMTP id af79cd13be357-93c15d91370mr579605885a.23.1790081990524;
-        Tue, 22 Sep 2026 05:59:50 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a627d779aasm5197741fa.28.2026.09.22.05.59.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:59:49 -0700 (PDT)
-Date: Tue, 22 Sep 2026 15:59:47 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 1/9] dt-bindings: media: qcom,glymur-iris: Add glymur
- video codec
-Message-ID: <pk5j7gr5m23eocsliy2rtqcwbtzonzxidxdon7w3doysgehiiy@yxtjrrp337ex>
-References: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
- <20260917-glymur-v11-1-e0c8bc914742@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gvo2zOzv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9A61F000FF;
+	Tue, 22 Sep 2026 13:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790082045;
+	bh=LEEG9mS5wOzPf9gOdNrWMyZGlMvYoecIavgIHmxVD9g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Gvo2zOzvTdJikdVr/ZehIEdoP+JvxSzy0KLkTibzz85mVe4C5vIvNTF2qdWAoZDg4
+	 hdFFT0Vkr8PEmoYQCuBmtp2j0ZULDYGp4aPyGTU7GFc5hd1AhjuP+DlaNjA/hsTeKK
+	 qCW3pBBAV7n9IydAWBOSjNHj3aUSba3GefwYzbrL4d36OcX0jr5RWDpQzy808S5Y+F
+	 YUZHqjR5XppDJs/P+kNjyWMbgNpfonMbnH48DpSZAKvHSkADjoYJp86W6EuPZhyU/p
+	 j82Oj2ksqL8q1leeJUMJZtRC8LwHSfLSbVAAkt5/S60sPYzosWTIHMMvaPZu9PPDN+
+	 6OnUHlWV63FNw==
+Subject:
+ Re: [PATCH net-next v7 03/14] net: microchip: fdma: add PCIe ATU support
+From: netdev-bot+sashiko@kernel.org
+To: daniel.machon@microchip.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horatiu.vultur@microchip.com,
+ steen.hegelund@microchip.com, UNGLinuxDriver@microchip.com, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, herve.codina@bootlin.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org, mohsin.bashr@gmail.com, richardcochran@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Date: Tue, 22 Sep 2026 13:00:44 +0000
+Message-ID: <179008204420.2160803.14375469578712775106@kernel.org>
+In-Reply-To: <20260918-lan966x-pci-fdma-v7-3-0ecc179c8a2c@microchip.com>
+References: <20260918-lan966x-pci-fdma-v7-3-0ecc179c8a2c@microchip.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-glymur-v11-1-e0c8bc914742@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE4OSBTYWx0ZWRfXx/wuqfwoFIIy
- VxwV4Sy0QtpqALGJK3/y+i73eS372Op/M4ZWmA09ZFpfxcHOldDmyTD13GAK2YoAA8utpvz+6QD
- xErJomcD3esbUg7+n51jRo8TJiLfLvneIXcNfM3rwuh77qseeKJbMdYbJopT+gnciE54OxRgYmg
- jhPTLqdoHmzfT7NteoDC9kj7nH0q3JWz4X3jKwshtEOLjiSV3l402U/4JvLFo9qndIEVPRP8p1Q
- iUfAlkuuxMgyH4pRpEBW7WEpn7jB8TD6tS8iB27f7Zd1nQiFk5q69VQQ5whP7vdWmaVt0o5sggw
- poYnQPNQnVKp6BGDhksEfnb+QhOjOVYYwr23xo2h6I+ybPS4zarVjbFikK2z1sUTXLlRaF5gXKa
- Xd/QNPkimax2VTgN7H98MDqPdFw6kwEfTHrk7pUEBTLkZNHWEIMUNNfG+A/tDnXq2NcMn5B5k4W
- e7NDZrL41aRyzqfWLXw==
-X-Authority-Analysis: v=2.4 cv=FdaiV5+6 c=1 sm=1 tr=0 ts=6ab27bc8 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=wWFq8rog9-yQDf1E76wA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: qIEhDJurKusqzfk8u1PqsB_vxkjy9Su8
-X-Proofpoint-GUID: qIEhDJurKusqzfk8u1PqsB_vxkjy9Su8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE4OSBTYWx0ZWRfXxeUjd1smgHWY
- 2dguoAgA7JMok18QMUiPXkiOOCXVlcs+88GT9l7CG/s4U6MYit+NZP7NMkN+pNoQ1+urszpAc9X
- 9tE5OdpsXUDo/0bSjDi86LB8YHaiyI4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- malwarescore=0 spamscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220189
 
-On Thu, Sep 17, 2026 at 10:30:20AM +0530, Vishnu Reddy wrote:
-> Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
-> is a new generation of video IP that introduces a dual-core architecture.
-> The second core brings its own power domain, clocks, and reset lines,
-> requiring additional power domains and clocks in the power sequence. The
-> current maxItems constraints for clocks, power-domains and non-pixel
-> iommus in the common venus schema were sized for platforms available at
-> the time of authoring. The glymur platform introduces a dual core
-> architecture that requires more clocks and power domains, exceeding these
-> limits. Raise maxItems for clocks, clock-names, power-domains,
-> power-domain-names and non-pixel iommus to accommodate glymur platform.
-> The glymur platform specific schema have fixed constraints for these
-> properties, so the common schema only acts as an upper bound. Since the
-> common schema now only acts as an upper bound, add explicit maxItems
-> overrides for the non-pixel iommus in the qcom,sm8550-iris and
-> qcom,sm8750-iris schemas to keep the fixed constraints as before.
-> 
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  .../bindings/media/qcom,glymur-iris.yaml           | 218 +++++++++++++++++++++
->  .../bindings/media/qcom,sm8550-iris.yaml           |   6 +
->  .../bindings/media/qcom,sm8750-iris.yaml           |   6 +
->  .../bindings/media/qcom,venus-common.yaml          |  11 +-
->  4 files changed, 236 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] fdma_pci_atu_region_map() programs base/limit/target and then
+  issues the region-enable write (CTRL2 bit31) and returns immediately;…
+- [Low] fdma_pci_atu_region_map()
+  (drivers/net/ethernet/microchip/fdma/fdma_pci.c:138) validates that…
+- [Low] fdma_pci_atu_configure_translation() programs lower/upper base
+  (+0x8/+0xc), limit (+0x10) and lower/upper target (+0x14/+0x18), and…
+- [Low] fdma_pci_atu_translate_addr() (fdma_pci.c:181) computes
+  region->base_addr + (addr - region->target_addr) with no check that…
+
+--
+
+net: microchip: fdma: add PCIe ATU support
+
+Adds a PCIe ATU layer for the Microchip FDMA engine so that a lan966x or
+lan969x acting as a PCIe endpoint can reach host memory. The outbound
+address space 0x10000000-0x1fffffff is split into six regions that are
+claimed and programmed when FDMA buffers are allocated.
+
+A few questions on the new ATU code below.
+
+> diff --git a/drivers/net/ethernet/microchip/fdma/fdma_api.c b/drivers/net/ethernet/microchip/fdma/fdma_api.c
+> index e78c3590da9e..a3c9e3097c5c 100644
+> --- a/drivers/net/ethernet/microchip/fdma/fdma_api.c
+> +++ b/drivers/net/ethernet/microchip/fdma/fdma_api.c
+> @@ -127,6 +127,50 @@ void fdma_free_phys(struct fdma *fdma)
+>  }
+>  EXPORT_SYMBOL_GPL(fdma_free_phys);
+>  
+> +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
+> +/* Allocate coherent DMA memory and map it in the ATU. */
+> +int fdma_alloc_coherent_and_map(struct device *dev, struct fdma *fdma,
+> +				struct fdma_pci_atu *atu)
+> +{
+> +	struct fdma_pci_atu_region *region;
+> +	int err;
+> +
+> +	if (WARN_ON(fdma->atu_region))
+> +		return -EBUSY;
+> +
+> +	/* The ATU cannot express a limit finer than the region granularity, so
+> +	 * the hardware widens the programmed limit to that boundary. Pad the
+> +	 * allocation to match, or the outbound window would extend past the
+> +	 * memory we own.
+> +	 */
+> +	fdma->size = ALIGN(fdma->size, FDMA_PCI_ATU_REGION_ALIGN);
+> +
+> +	err = fdma_alloc_coherent(dev, fdma);
+> +	if (err)
+> +		return err;
+> +
+> +	region = fdma_pci_atu_region_map(atu, fdma->dma, fdma->size);
+> +	if (IS_ERR(region)) {
+> +		fdma_free_coherent(dev, fdma);
+> +		return PTR_ERR(region);
+> +	}
+> +
+> +	fdma->atu_region = region;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(fdma_alloc_coherent_and_map);
+> +
+> +/* Free coherent DMA memory and unmap the memory in the ATU. */
+> +void fdma_free_coherent_and_unmap(struct device *dev, struct fdma *fdma)
+> +{
+> +	fdma_pci_atu_region_unmap(fdma->atu_region);
+> +	fdma->atu_region = NULL;
+> +	fdma_free_coherent(dev, fdma);
+> +}
+> +EXPORT_SYMBOL_GPL(fdma_free_coherent_and_unmap);
+> +#endif
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.c b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
 > new file mode 100644
-> index 000000000000..de4792f3b658
+> index 000000000000..dd1dc46cbc9d
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
-> @@ -0,0 +1,218 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,glymur-iris.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Glymur SoC Iris video encoder and decoder
-> +
-> +maintainers:
-> +  - Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> +
-> +description:
-> +  The Iris video processing unit on Qualcomm Glymur SoC is a video encode and
-> +  decode accelerator.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,glymur-iris
-> +
-> +  clocks:
-> +    maxItems: 9
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core_iface
-> +      - const: core
-> +      - const: vcodec0_core
-> +      - const: vcodec0_iface
-> +      - const: core_freerun
-> +      - const: vcodec0_core_freerun
-> +      - const: vcodec1_iface
-> +      - const: vcodec1_core
+> +++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
+> @@ -0,0 +1,208 @@
 
-Nit: is there any logic in the order of the clocks? Why vcodec0_core
-comes before vcodec0_iface, but vcodec1_core comes after vcodec1_iface?
+[ ... ]
 
-> +      - const: vcodec1_core_freerun
-> +
-> +  dma-coherent: true
-> +
-> +  interconnects:
-> +    maxItems: 2
+> +#define FDMA_PCI_ATU_ADDR            0x300000
+> +#define FDMA_PCI_ATU_IDX_SIZE        0x200
+> +#define FDMA_PCI_ATU_ENA_REG         0x4
+> +#define FDMA_PCI_ATU_ENA_BIT         BIT(31)
+> +#define FDMA_PCI_ATU_LWR_BASE_ADDR   0x8
+> +#define FDMA_PCI_ATU_UPP_BASE_ADDR   0xc
+> +#define FDMA_PCI_ATU_LIMIT_ADDR      0x10
+> +#define FDMA_PCI_ATU_LWR_TARGET_ADDR 0x14
+> +#define FDMA_PCI_ATU_UPP_TARGET_ADDR 0x18
 
+[ ... ]
+
+> +/* Configure the address translation in the ATU. */
+> +static void
+> +fdma_pci_atu_configure_translation(struct fdma_pci_atu_region *region)
+> +{
+> +	struct fdma_pci_atu *atu = region->atu;
+> +	int idx = region->idx;
+> +
+> +	writel(lower_32_bits(region->base_addr),
+> +	       fdma_pci_atu_addr_get(atu->addr,
+> +				     FDMA_PCI_ATU_LWR_BASE_ADDR, idx));
+> +
+> +	writel(upper_32_bits(region->base_addr),
+> +	       fdma_pci_atu_addr_get(atu->addr,
+> +				     FDMA_PCI_ATU_UPP_BASE_ADDR, idx));
+> +
+> +	/* The OB address space lies entirely below 4GB, so the limit always
+> +	 * fits the lower limit register and the upper one is left alone.
+> +	 */
+> +	writel(region->limit_addr,
+> +	       fdma_pci_atu_addr_get(atu->addr, FDMA_PCI_ATU_LIMIT_ADDR, idx));
+> +
+> +	writel(lower_32_bits(region->target_addr),
+> +	       fdma_pci_atu_addr_get(atu->addr,
+> +				     FDMA_PCI_ATU_LWR_TARGET_ADDR, idx));
+> +
+> +	writel(upper_32_bits(region->target_addr),
+> +	       fdma_pci_atu_addr_get(atu->addr,
+> +				     FDMA_PCI_ATU_UPP_TARGET_ADDR, idx));
+> +}
+
+[Severity: Low]
+The offsets used here match the DesignWare unrolled iATU layout: block at
+DBI + 0x300000, 0x200 stride per region, Control 2 at +0x4 with enable in
+bit 31, base at +0x8/+0xc, limit at +0x10, target at +0x14/+0x18.
+
+That layout also has a Control 1 register at +0x0 selecting the outbound
+TLP type, the function number and the ECRC/TD bits, and it is never
+written here. fdma_pci_atu_init() claims all six outbound regions and
+only clears Control 2, so each region keeps whatever Control 1 value it
+already held.
+
+The generic driver for the same block always programs it explicitly
+before enabling:
+
+drivers/pci/controller/dwc/pcie-designware.c:dw_pcie_prog_outbound_atu() {
+	...
+	val = atu->type | atu->routing | PCIE_ATU_FUNC_NUM(atu->func_no);
+	...
+	dw_pcie_writel_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL1, val);
+	...
+}
+
+Is it safe to inherit Control 1 from whatever configured the outbound
+windows before the driver probes, or should it be programmed for the
+memory TLP type explicitly?
+
+> +/* Map a host DMA address into a free outbound region. */
+> +struct fdma_pci_atu_region *
+> +fdma_pci_atu_region_map(struct fdma_pci_atu *atu, u64 target_addr, int size)
+> +{
+> +	struct fdma_pci_atu_region *region;
+> +
+> +	if (!atu)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (size <= 0)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	if (size > fdma_pci_atu_region_size())
+> +		return ERR_PTR(-ERANGE);
+> +
+> +	/* The ATU region base is only ever aligned to FDMA_PCI_ATU_REGION_ALIGN;
+> +	 * require the same alignment of the host target address, since the ATU
+> +	 * translates addr - target_addr + base_addr and any misalignment here
+> +	 * would shift every translated address by the same amount.
+> +	 */
+> +	if (!IS_ALIGNED(target_addr, FDMA_PCI_ATU_REGION_ALIGN))
+> +		return ERR_PTR(-EINVAL);
+
+[Severity: Low]
+Should size also be checked against FDMA_PCI_ATU_REGION_ALIGN here?
+
+fdma_pci.h documents the requirement for both arguments:
+
+/* Outbound regions are 64KB granular (datasheet section 3.24.7.4.1), so both
+ * the region base and the mapped size must be aligned to this.
+ */
+
+/* Map a host DMA address into a free ATU region. target_addr and size must be
+ * FDMA_PCI_ATU_REGION_ALIGN aligned; a misaligned target_addr returns -EINVAL.
+ */
+
+but only target_addr is verified, and the unaligned value then goes
+straight into the hardware limit:
+
+	region->limit_addr = region->base_addr + size - 1;
+
+Per the commit message the hardware widens that limit to the 64KB
+boundary, so an unaligned size would leave the outbound window covering
+up to 64KB - 1 beyond the buffer.
+
+The single in-tree caller, fdma_alloc_coherent_and_map(), pads with
+fdma->size = ALIGN(fdma->size, FDMA_PCI_ATU_REGION_ALIGN) before
+allocating, so nothing can hit this today, but the invariant lives in the
+caller while fdma_pci_atu_region_map() is exported. Would it make sense
+to enforce it in the primitive too?
+
+> +	mutex_lock(&atu->lock);
+> +
+> +	region = fdma_pci_atu_region_get_free(atu);
+> +	if (IS_ERR(region)) {
+> +		mutex_unlock(&atu->lock);
+> +		return region;
+> +	}
+> +
+> +	region->target_addr = target_addr;
+> +	region->limit_addr = region->base_addr + size - 1;
+> +	region->in_use = true;
+> +
+> +	fdma_pci_atu_configure_translation(region);
+> +	fdma_pci_atu_region_enable(region);
+> +
+> +	mutex_unlock(&atu->lock);
+> +
+> +	return region;
+> +}
+> +EXPORT_SYMBOL_GPL(fdma_pci_atu_region_map);
+
+[Severity: Medium]
+Does the enable write need to be read back before the region is treated
+as mapped?
+
+fdma_pci_atu_region_enable() issues a posted write of bit 31 to Control 2
+and fdma_pci_atu_region_map() returns immediately, so the caller can arm
+the FDMA channel (later in the series
+lan966x_fdma_pci_rx_alloc() programs the LLP with region->base_addr and
+lan966x_fdma_rx_start() starts the channel) before the outbound window is
+known to be live. There is also no way for the API to report a window
+that never enables.
+
+The generic driver for this register layout polls instead:
+
+drivers/pci/controller/dwc/pcie-designware.c:dw_pcie_prog_outbound_atu() {
+	...
+	/*
+	 * Make sure ATU enable takes effect before any subsequent config
+	 * and I/O accesses.
+	 */
+	for (retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++) {
+		val = dw_pcie_readl_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL2);
+		if (val & PCIE_ATU_ENABLE)
+			return 0;
+
+		mdelay(LINK_WAIT_IATU);
+	}
+	...
+	return -ETIMEDOUT;
+}
+
+The same applies in reverse on teardown: fdma_pci_atu_region_unmap()
+issues the disable write and fdma_free_coherent_and_unmap() calls
+fdma_free_coherent() right after, without confirming the window is down
+before those pages go back to the allocator.
+
+> +/* Translate a host DMA address to the corresponding OB address. */
+> +u64 fdma_pci_atu_translate_addr(struct fdma_pci_atu_region *region, u64 addr)
+> +{
+> +	return region->base_addr + (addr - region->target_addr);
+> +}
+> +EXPORT_SYMBOL_GPL(fdma_pci_atu_translate_addr);
+
+[Severity: Low]
+Can this return an address belonging to a different region?
+
+All six regions are contiguous slices of the same outbound space
+(base_addr = 0x10000000 + i * region_size), and nothing here checks that
+addr falls inside [target_addr, target_addr + mapped size) or that
+region->in_use is still set. An address outside the mapping silently
+lands in a neighbouring window and the FDMA would then read or write
+another buffer's host target rather than failing.
+
+fdma_pci_atu_region_unmap() also resets target_addr to 0 while leaving
+base_addr alone:
+
+	region->target_addr = 0;
+	region->in_use = false;
+
+so a translation on a released region returns base_addr + addr.
+
+The in-tree users, lan966x_fdma_pci_dataptr_cb() and
+lan966x_fdma_pci_nextptr_cb(), only pass offsets inside the mapped
+buffer, and fdma_free_coherent_and_unmap() clears fdma->atu_region, so no
+current path feeds a bad address. Since the region already stores
+limit_addr, would a bounds and in_use assertion be worth adding?
+
+[ ... ]
 
 -- 
-With best wishes
-Dmitry
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c%40microchip.com
