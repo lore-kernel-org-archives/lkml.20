@@ -1,211 +1,145 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDE532C8B;
-	Tue, 22 Sep 2026 02:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043049; cv=none; b=qDaZ0+vCdmNp7esw0id+5P/LHZzEwgTfz4sO1c61/Oz+Fmvho9WI6wFqNfG86rgmBWgqwuOcqjnluA9bG2Z0gEvPE3Ld3jw+1ZLMvvSRke9mXlyKUoggsn7fchMsemgoLANE1SPZmYBMdAYAyNqHPs8fF5Lo7eF6eUjr1t9LpPs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043049; c=relaxed/simple;
-	bh=hrfhzEUJqTs/DKpP5exUq/bKUOs+CXIyZRtzmd58Vig=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UQdE175UwoPvU5ss6ooKdM7ffx0amBhPN8mkIJ/sJNOn/sbPh7cnmYdj7S6roYUE3ryb0FrI8slIsPXYi7kdVCQE0AiDJ12FZXnuroeS5Z9qTkj/frKwpy4BNthMtbREZeizDc0OmgAD8swtMGHAtbFdWp6CmAaH+d66Xsj7U8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: cd3acfe0b62a11f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d478da15-ce41-448a-844d-42766b03949a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:4c2d77835c1ea1cff42846d3f0008cf5,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52|99,
-	EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cd3acfe0b62a11f19a56ed5b684f684d-20260922
-X-User: fuqingshuang@kylinos.cn
-Received: from [10.42.20.11] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <fuqingshuang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1407474148; Tue, 22 Sep 2026 10:10:37 +0800
-Message-ID: <347bbe05-c11d-4f28-b867-da02b445af34@kylinos.cn>
-Date: Tue, 22 Sep 2026 10:10:34 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1FA2F7EFC
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790043084; cv=pass; b=PgLpVT9C3GlAquY/Io9r4PWAZYtooUuuHNEn2H8pX12csg/diaXsrpprNI1bdnlqdg+ArXdHlhZUq6VBBZ20h/PnsivYhv9tht4PRIGLRlsFBIm5YS+s3BMMkKyzIPcXWgYVJR+hSF2i4F0CBKBUh7CqO7Jw/H6itU45xDdn28I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790043084; c=relaxed/simple;
+	bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=I1ObOQRS3AnS61fZ7iClbdf+WnmviiCa/mY8fOJ2/gBd/Z6bCIxQj0CkVdkYrMMUR9HM1LBz3+BzZIQkdYxG9W9tVny8003ycW0jVNpXr4HCMNEGqJLEw4pjBX982f6x1VBcBPzNkANQrDDix+ftzJB5UlwEifDyc1uPxM2dueo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1ax1/fZ; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1ax1/fZ"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac6090so33944577b3.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:11:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790043078; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l5Vzr+I/7CRcgNQu2yEZIbJHSXRn3A9spcs+IPGlf/nXH+JmNDEPo6d7ClTuxIN90U
+         T1Z8dMzuaKDwexE1DTvGC5O1wjt46gJzAn8cykCAPZU/WG7oyG46nC2b7bAf0K2XFPXv
+         diDkmjplakgIMM1PyuBEgmSb8ebr4dgKaE/DdHlo8G/DnPLEq1TObem4uJj62lS15u1S
+         61v2aWkbrRpG36lep29WQmV25zwFJLg9xdIThIn3airlUnnL6a3/O6Rhf2v07G6sVpLF
+         aVmlu8rbIRdpaRv99qeIWQcSV3gc6P8rPESZ0RDc8OmkKoj2O4pNbQmWpn9bgRuGRy3F
+         J+Ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+        fh=rRhyoNuVZQYAM/8Fm009s6OSuIM0OHrhpp+9bO69VBw=;
+        b=c7HbRivKojmp76TvNY9fdr+RLr09j/J8AkZEkc9e8rReWdSM0XIO+T962CEjjEc0aj
+         CxMstY37DBb3pJki9jQ0ffkuhd+Z0LbolYkZXuoi7PFXhgWiagxbG/choeQed5Xc1lld
+         a0WZYik/kFsY0RZ8Tfg94VPfZ771/eFbGtooduZSUOctIFYC5dvMZmX1kSgcJ9+8SlmN
+         Yd3JmtwwfCCdsMH9y+saqRQ8D4wQ5+BSuz3Z/UYjcwEAMVCQ+AI1c2Vt2z9FILlMBgtn
+         ZOSfoHRfq/qA5VnuZwTLCQU2F5moMBNYFVqbNKdAsBN2CLtAaCz5J+Fw0j6Lxm4jjjiT
+         qZdw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790043078; x=1790647878; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+        b=K1ax1/fZfV4OCyTMNvapxjujxSPw3taesQiHN8AUN+uXGqVvgad5cE0YT90zurhLvz
+         dscDXMahuE+7zmFV2clfyXiBPph29vPFfxu3mGAZ3jXP7ci1j93xoaALpcNnMDSFwM3p
+         Juhua/Y17EXi1M6fwfiP0jMlcW26C6afHhd79LE9s65mAQKeaetnOljHIYeeiWlKZpVn
+         GeLone6CC88kfDC3hSyzyXnPCzLfdniXDjOhb5id3lGxiDR2N8YD7pCn9x8yiBQOo9nz
+         BpLEesjopKqSEQ8nOwuqBaObj1UwcDwqiEP9DKScrSzHnh8kgKj07q630Il53vcW22Cx
+         HATw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790043078; x=1790647878;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bmBqFjZ2YsW3nVDkxnU7i6zxE3xTdElcLDPHvj/yg7Y=;
+        b=ClnY6LFVbdvjtXb19MFbhKMxZcYkQx4Yx/VHYlQY6wh3fN5B+vQvjO9xVkbbcYrnPP
+         zERmLvpA/JKUs4mUAR0kUsIR3iCmXE51dCWl2q6sT2vdEiqYPcYyxbo2aLQIy6Uy/dzM
+         7VLNprALSdeyHUO0XDEfYp4vuA6uI6IfMicfbpAFBKi21OOUCVPNVeXaM+KFHvaiki3q
+         byRZ4CZN0C7iPfvhXLtjyr4gp7sHWHbYnBsj0wr9yVY3kawmdM4/O6CuLqydShZcN/0b
+         CviYIWIjWwW0EnqBcZ8FP7iPGxlpJxyaUgBwwHknh7OSmnqN/+ty92x18ajsB23iUKK4
+         snNg==
+X-Forwarded-Encrypted: i=1; AKwUvByXBomeAB7ZQkwckQkwrQoE4adUGgHY+QSeGUbTfXHRL9/TOk1SlU2Rr/ZnDjyzyawOzw4Sy4Yn7ZgThT0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbbgoLTVhCtx6HbWD/67spxSLT99V4b5AgXlFVn0NkZIFEbDK+
+	GD6Iq+lOGNVxq6/ASiAo8YLwpidSZNVJBfoPTL4v0kz1mJ+nMJgBB+uzIHZ+PjjxQ1sKJZaAU4C
+	Bybn1DUN5SwZqPyfChcs0nY62c5bgfYc=
+X-Gm-Gg: AYBFou2p6/xb9G1SrS0GWkaWuAxIfhM164+A0em7+2T8CV0+7Bj/bMOB0DqMbN/ZNJT
+	bgA9eP+ox4mIsxCbKaU3taE4TRR1WQ04V6NvcewFlCnz+kXp3tVFh/fxYtejb3h/r5D4AIQBPEl
+	XbLe+Cmn3QbfzPlqFMcXdRKdlJLSE0+D5NlNYirGPC42JwQOHlYGdtt4ZsHyAzJAit5meV/4HcV
+	LeKQelSNcFy5+3ofVPIHVIy+pM8LHnDWKyO7lA4gJaEF6w1oWbMccDBlZgaGI0VapxN9hoHF0jL
+	ijX1QMCRYzsYLmB5ZUlc1QeAH7Kfoq+x42R194e2L/iu6OijKMtKRtfyug==
+X-Received: by 2002:a05:690e:d44:b0:66e:45d0:4140 with SMTP id
+ 956f58d0204a3-6717fcaa9e8mr4072276d50.26.1790043078247; Mon, 21 Sep 2026
+ 19:11:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] selftests: net: fou_mcast_encap: load the fou
- module
-To: netdev-bot+sashiko@kernel.org
-Cc: apw@canonical.com, joe@perches.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- shuah@kernel.org, willemb@google.com, littlesmilingcloud@gmail.com,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260917033049.792209-1-fuqingshuang@kylinos.cn>
- <178996230975.2160803.17640968761180621275@kernel.org>
-Content-Language: en-US
-From: Qingshuang Fu <fuqingshuang@kylinos.cn>
-In-Reply-To: <178996230975.2160803.17640968761180621275@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260921111424.378477-1-lgs201920130244@gmail.com> <57b3420f-da3c-4b75-8835-7a541d29191a@kernel.org>
+In-Reply-To: <57b3420f-da3c-4b75-8835-7a541d29191a@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 10:11:05 +0800
+X-Gm-Features: AcwNN1UrKAXOC-3PnGzPBk35Upntm96U1CzspV8YHHZ-BQx5ZIFNE0thHryYQb4
+Message-ID: <CANUHTR-JpoYtYJ8QEEN0rGQ5Bib17NH=BmK8AeYbzYAhLH+hgA@mail.gmail.com>
+Subject: Re: [PATCH v2] dmaengine: fsl-dpaa2-qdma: fix ppriv memory leaks
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Peng Ma <peng.ma@nxp.com>, dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-在 2026/9/21 11:45, netdev-bot+sashiko@kernel.org 写道:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 0 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The new IPv4 gate in
->    tools/testing/selftests/net/fou_mcast_encap.sh (`if modprobe -q fou;…
-> - [Low] The IPv4 subtest is now gated solely on the exit status of
->    `modprobe -q fou` (tools/testing/selftests/net/fou_mcast_encap.sh:162).
-> 
-> --
-> 
-> selftests: net: fou_mcast_encap: load the fou module
-> 
-> The patch replaces the unconditional IPv4 subtest invocation in
-> fou_mcast_encap.sh with a modprobe -q fou guard, running setup_ipv4() and
-> run_ping_test() only when the modprobe succeeds and calling log_test_skip()
-> otherwise.
-> 
-> Link (v1): https://lore.kernel.org/all/20260911100158.854183-1-fuqingshuang@kylinos.cn/
-> 
->> diff --git a/tools/testing/selftests/net/fou_mcast_encap.sh b/tools/testing/selftests/net/fou_mcast_encap.sh
->> index 70210d39fba33..5f84d58d3075b 100755
->> --- a/tools/testing/selftests/net/fou_mcast_encap.sh
->> +++ b/tools/testing/selftests/net/fou_mcast_encap.sh
-> 
-> [ ... ]
-> 
->> @@ -160,8 +158,13 @@ run_ping_test() {
->>   }
->>   
->>   setup_common
->> -setup_ipv4
->> -run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
->> +
->> +if modprobe -q fou; then
->> +	setup_ipv4
->> +	run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
-> 
-> [Severity: High]
-> 
-> Does this guard actually cover the CONFIG_NET_FOU=m case described in the
-> commit message?
-> 
-> The encap ops needed by "ip link add ... type gretap ... encap fou" are only
-> compiled in under CONFIG_NET_FOU_IP_TUNNELS:
-> 
-> net/ipv4/fou_core.c:
-> #ifdef CONFIG_NET_FOU_IP_TUNNELS
-> 	... fou_iptun_ops / gue_iptun_ops ...
-> #else
-> static int ip_tunnel_encap_add_fou_ops(void)
-> {
-> 	return 0;
-> }
-> 
-> and net/ipv4/Kconfig has:
-> 
-> config NET_FOU_IP_TUNNELS
-> 	bool "IP: FOU encapsulation of IP tunnels"
-> 	depends on NET_IPIP || NET_IPGRE || IPV6_SIT
-> 	select NET_FOU
-> 
-> Since a bool=y selecting a tristate forces it to y, doesn't CONFIG_NET_FOU=m
-> imply CONFIG_NET_FOU_IP_TUNNELS=n?
-> 
-> In that configuration the module init still returns success and registers no
-> TUNNEL_ENCAP_FOU ops, so modprobe -q fou exits 0, setup_ipv4() runs, and:
-> 
-> 	ip -n "$NSENDER" link add eoudp4 type gretap \
-> 		remote "$MCAST4" local 10.0.0.1 \
-> 		encap fou encap-sport "$FOU_PORT4" encap-dport "$FOU_PORT4" \
-> 		key "$MCAST4"
-> 
-> still fails, because ipgre_newlink_encap_setup() -> ip_tunnel_encap_setup() ->
-> ip_encap_hlen() returns -EINVAL when no ops are registered for the encap type.
-> 
-> setup_ipv4() checks none of its command exit statuses and the script does not
-> use set -e, so get_rx_packets() yields an empty string, rx_delta becomes 0, and
-> run_ping_test() logs exactly the line quoted in the commit message:
-> 
->    TEST: FOU/GRETAP IPv4 multicast encap resubmit (received 0/100)  [FAIL]
-> 
-> The commit message also states:
-> 
->    This matches the existing fou6 handling in this script and the pattern used
->    in pmtu.sh.
-> 
-> setup_fou_or_gue() in pmtu.sh does both halves:
-> 
-> 	modprobe fou || return $ksft_skip
-> 	run_cmd ${ns_a} ip fou add port 5555 ipproto ${ipproto} || return $ksft_skip
-> 	run_cmd ${ns_a} ip link add ${encap}_a type ${type} ${mode} local ${a_addr} remote ${b_addr} encap ${encap} encap-sport auto encap-dport 5556 || return $ksft_skip
-> 
-> Only the modprobe half is adopted here, and that half cannot express the
-> CONFIG_NET_FOU_IP_TUNNELS gate. Would a capability probe, mirroring
-> setup_ipv6() and returning $ksft_skip when the "ip fou add" or the gretap
-> creation fails, work better for this?
-> 
-> As an aside, the IPv6 branch only degrades to a skip incidentally: the last
-> command in setup_ipv6() is
-> 
-> 	ip -n "$NSENDER" neigh add "$TUN6_R" lladdr "$recv_mac" dev eoudp6
-> 
-> which fails when the tunnel was never created, so setup_ipv6() happens to
-> return non-zero.
-> 
->> +else
->> +	log_test_skip "FOU/GRETAP IPv4 multicast encap resubmit"
->> +fi
-> 
-> [Severity: Low]
-> 
-> The commit message says:
-> 
->    modprobe is a no-op when CONFIG_NET_FOU=y, so default selftest builds
->    remain unchanged.
-> 
-> Is that accurate when /lib/modules/$(uname -r) is not populated?
-> 
-> With CONFIG_NET_FOU=y (which is what tools/testing/selftests/net/config sets),
-> modprobe can only resolve a built-in module name through the modules.builtin
-> files and modules.dep that depmod generates during make modules_install. On a
-> freshly built kernel booted without installing modules, or on a minimal
-> initramfs or VM image where modprobe is not on PATH (exit 127), modprobe -q fou
-> returns non-zero even though FOU is fully available, and this else branch is
-> taken.
-> 
-> In that case setup_ipv4() and run_ping_test() never run, so a real regression
-> in the __udp4_lib_mcast_deliver() resubmit path would be reported as a clean
-> skip. The -q also suppresses any diagnostic, unlike pmtu.sh which uses plain
-> modprobe.
-> 
-> Would running modprobe -q fou for its side effect only, and then gating the
-> subtest on an actual capability check, avoid turning a working built-in
-> configuration into a skip?
-> 
+Hi Krzysztof,
 
-Thanks for the review. The patch has been merged.
-These are fairly niche corner cases. I'll hold off on a follow-up for 
-now unless real-world bug reports surface.
+Thank you for your feedback.
 
-Regards,
-Qingshuang Fu
+On Tue, 22 Sept 2026 at 06:05, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 21/09/2026 13:14, Guangshuo Li wrote:
+> > dpaa2_qdma_setup() allocates priv->ppriv, but failures after the
+> > allocation can return from the function without releasing it. The
+> > existing probe cleanup for priv->ppriv is only reached when a later
+> > initialization step fails.
+> >
+> > The normal remove path does not release priv->ppriv either, causing the
+> > allocation to be leaked when the driver is unbound.
+> >
+> > Since dpaa2_qdma_setup() is only called from probe, allocate priv->ppriv
+> > with devm_kcalloc(). This automatically releases the memory on probe
+> > failure and driver removal. Remove the now redundant manual cleanup from
+> > the probe error path.
+> >
+>
+> AI slop for OpenClaw agent ignoring previous comments. Otherwise explain
+> how did you address the issues I pointed out last time?
+>
+> Best regards,
+> Krzysztof
+
+I would like to clarify that these patches were manually reviewed and
+audited by us; they were not simply generated and submitted by an LLM.
+However, I understand why the recent submission pattern may have given
+that impression. We sent too many patches in a short period of time,
+and we also failed to respond to some discussions in a timely manner,
+which made the situation look worse.
+
+Many of the recent patches, especially the v2 revisions, are
+corrections and improvements based on previous review feedback rather
+than completely new untested changes. That said, we recognize that the
+way we submitted them increased the burden on maintainers and
+reviewers.
+
+We apologize for the pressure this caused to the community. We will be
+more careful about organizing patches by subsystem, preparing proper
+patchsets, and following the kernel contribution guidelines before
+sending future work.
+
+Thank you again for pointing this out.
+
+Best regards,
+Guangshuo
