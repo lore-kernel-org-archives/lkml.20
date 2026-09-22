@@ -1,45 +1,82 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FC33955F0;
-	Tue, 22 Sep 2026 02:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4971839CD11
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044329; cv=none; b=Qk30RRfo3zpZf4u3yHXDOCmLmlEQpYwqv5U5VGcQ6x6XADJF2hN7/SEGWSLGbIICR2PkDpxrLVqgcHk1IToL+VF3GzK0MAil48qip7cqKvRbI4t+HT+kbM1n7kVU2Ts/y2vlbejXl/eAnB6VyeDpZvQQk9YzoaFIE0Ho5X6F9+8=
+	t=1790044330; cv=none; b=ECCU393nucTf3zZjs17aTOq2iVCA7aHY7PZfxqK77oiab9664Da2c1mu2vo2IqTamQl+iTipBicmp58yOvxxgbt/xNndaq1h82xcJW9JYo4sBRN8MeZaF/XAXBYv1HLLEPaPJYqiaLHpVpkVmBLF5ke1Gb/URjYNV7EcSN04ufI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044329; c=relaxed/simple;
-	bh=2k9xMJD26etWKOfzn9yp8I9dceWxNIaD38ECFXHOQ9o=;
+	s=arc-20240116; t=1790044330; c=relaxed/simple;
+	bh=OWrmlEyHyg7cYKICRi9qQd8KLeurdcnjIE3fpyU+tBw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ll8D803B5egJPYNYGRQX/yJ4I338KDiwAc43Oow+gynrpUcAocoGWpDpexlFbQAxGQmT2f5rjMqF2NlyoeCVb6T2bri01zfAeWBZDZjJp5hbucjXZ2CeJLMXbtcdPyQrQXAuXb0E7kKyg3HiAT4crUfQJxykhfDb6m4x1bPVQEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fn7TpeKE; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	 MIME-Version; b=HWOhjOQv+JEbA7orJhdIUzsh15oXKdt9WonKhxHp1hxCu9MLcY1fosVmINTFXIQytJlZRlg6XgU74s2GwLLH2CCuMx4wcEbzcCa/vSxHR5UhCG2oOBGWQnlTATZbnxDay/cMzFibnDHxllDnWGU1bJDStiI0COHEJF3lsyZFMBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LV4Od/BD; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fn7TpeKE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=2k
-	9xMJD26etWKOfzn9yp8I9dceWxNIaD38ECFXHOQ9o=; b=fn7TpeKERc4x7qUfJB
-	monyoJiCbt0MSOk79Y4LYkjdzLyiNdkY4RG643CehnPlkQFnDwPoN/RAeqz5DBbO
-	17B2+V+kznEN+kDF8U/0fTUVg84KQ+cNRmQNHzUqgeBgeAwfLbzTMQsfdNdHGeSJ
-	nxOQZiqIlx4PmZovqZcZTKM70=
-Received: from debian.lenovo.com (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3_0dr6LFqwmEUAA--.8863S2;
-	Tue, 22 Sep 2026 10:31:08 +0800 (CST)
-From: Kean Ren <rh_king@163.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LV4Od/BD"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so2454162a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:32:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790044326; x=1790649126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4mFagjV1SEq8DGpthdMn6xHW8xleMxzMDlgFzTrE6fc=;
+        b=LV4Od/BDzUoepFUMNBt085ZRwbw7pJjHyQ1iahJAwdMY0UrFoabckigEwMJuaotToV
+         Fx1cyiOJeo/GLViQPjpr016MsIeFRU1M+Nje8+KZGLKaWj8nhp8pVuH7yYzLNBvLat7P
+         Bgvt43ETMKH68H2UNa029p7uNMbhfeyGHNIouuB4Oex2uNCj0pAcKGASJLTdIBY/hYI3
+         CuOD66LhweOoNcHdyLlNagX0ylSTck7YStHFBiBp3OhlRxa5yEVnFcsSewzxZDxmAR3B
+         nQ/MwVJ5Q++5UktJ+kaKcgn15pYGJ1/b+uEO3N1s6rcQwkdjmLtO+PTBx9HTRAkvoZOm
+         Drkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790044326; x=1790649126;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4mFagjV1SEq8DGpthdMn6xHW8xleMxzMDlgFzTrE6fc=;
+        b=o62wWseAVsDtSKhF6W8WGnLcgXMa6GT9k0q9SdiDuAqLsADXVtoglLPb+XEp28tUA1
+         27hmFLdCDtPqvZwH8Taw+dsXsyUBP3ZNllVCQfvVwihDm/6XyPfabVNbidKIydGRJ9ST
+         2y7TJppHENDLQLfDfhSP44THrrxbPqd64UIaVES07ANN95NSgBVtSdmLHyGt52kZO2Te
+         W5IlLPBkg39bn7xcdXQSk0F/nsbJXu2KHFZ8Beq3z8jYBjxxO3SwzHYjpK9ocFwQze0y
+         QTw5me+0oJhXYqPHYjgztqAf5UmABB9FhB0XiGEZQcJttpvZj7IRaYhA/DqfQD6prlFs
+         0rrw==
+X-Forwarded-Encrypted: i=1; AKwUvBybs9a+5okukusU/J2NJYFoTJRhMiXRoM9yLjkqbBMwhtE/dfhgdiQhvtrUeCjMpbcn1a8VMVtAkZ/EPdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMKKgpSCt4vgDk3JUx+6vWcwU+f6T0uN04rWUz5nZZWv/nQCtT
+	m4YVeekd1gFr5dw593nTneD2gVjzTVOEWRHCJDbSek3SHNJcMhVj4C3f
+X-Gm-Gg: AYBFou1GIL8lNKnzWzMfZnL9C881QNyuWDIjzSqK9bSWJiufkTdRY9s8BCemu/UhG1E
+	QDutJquEgAsqhEbti1kmTmi8wMND5shI6PdwZ9hUyf6wnjWIiC4G0MxBiFzk7nfAyaDbYkDWTdx
+	qL8ugPQf4Nv78ceGRWRwpKpoQ8ZQbiigC0uixbQy/iONiMF7Ll6ZE1KTJ6x2gJGYDmuEUsisuj9
+	wIMREQrGd1k4+S/kBfHFIehj5nRIT9hkZmzy6TYX6RlTjfhYKEYYFyu5b98FkRAvueM6tHw+CM7
+	0czILrC4kFCT8jRD9rr5SYjHFsdJecVuqHlOd+NyQ9rCNxlM+3w6VLAmWUV6YTP8sY5sl1c/sdN
+	n8umC1VuP1pNb5xmkOIgNK3D0f3cr0sB5iAEMYAhoYqrb0n6Ii27sm30/UgxqMcCL7tLyYFqYyN
+	Xsbo3Pg4+k0hfhPhagqemZRTy3RY9q743dVD4WZcnNRLKm+DHyFQ6mkFvpBqhi54QjsnXCyW0AV
+	75kTizR8MSY1cd4vr7BrPx+JxVqoi9+ovAMceSEJnPWWfbvt3XLzxyfcRH+czMSbm6+4dKF1qHf
+	Ml6lekmb2g==
+X-Received: by 2002:a17:90b:2d44:b0:39d:8794:5564 with SMTP id 98e67ed59e1d1-39e54ce36fdmr19680388a91.12.1790044326199;
+        Mon, 21 Sep 2026 19:32:06 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5a5eb4sm501764a91.14.2026.09.21.19.32.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 19:32:05 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Kean Ren <your-email@example.com>
-Subject: Re: [PATCH 1/1] hwmon: (spd5118) support write protected devices
-Date: Tue, 22 Sep 2026 10:31:00 +0800
-Message-ID: <20260922023106.3078961-1-rh_king@163.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <1274727e-b41a-443b-9955-ac8119417edc@roeck-us.net>
-References: <1274727e-b41a-443b-9955-ac8119417edc@roeck-us.net>
+	linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v5] seccomp: restore knotif->state when SECCOMP_ADDFD_FLAG_SEND is interrupted
+Date: Tue, 22 Sep 2026 02:32:04 +0000
+Message-ID: <20260922023204.2504832-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <202609210158.F3D96F157@keescook>
+References: <202609210158.F3D96F157@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,22 +84,295 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_0dr6LFqwmEUAA--.8863S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU5PfHDUUUU
-X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC+wxcC2qx6Gx7GQAA3d
 
-From: Kean Ren <your-email@example.com>
+In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set in
+addfd.flags, knotif->state is optimistically transitioned from
+SECCOMP_NOTIFY_SENT to SECCOMP_NOTIFY_REPLIED before waking the tracee
+and waiting on kaddfd.completion:
 
-Hi Guenter,
+	if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND) {
+		knotif->state = SECCOMP_NOTIFY_REPLIED;
+		...
+	}
 
-Thanks for the review and for the detailed explanation. I agree that
-read-only mode cannot be supported reliably if the BIOS can change the page
-selector across suspend/resume, and that exposing only page 0 of the NVMEM
-is not useful. I'll drop this patch.
+If wait_for_completion_interruptible(&kaddfd.completion) is interrupted
+by a signal before the tracee dequeues the kaddfd request
+(!list_empty(&kaddfd.list)), seccomp_notify_addfd() removes kaddfd from
+knotif->addfd and returns -EINTR to the supervisor without having
+installed the file descriptor.
 
-Sorry for the noise.
+However, knotif->state is left as SECCOMP_NOTIFY_REPLIED (with
+knotif->error == 0 and knotif->val == 0). This causes two problems:
 
-Thanks,
-Kean
+1. When the tracee runs in do_user_notif(), it checks
+   if (knotif.state != SECCOMP_NOTIFY_REPLIED) after calling
+   seccomp_handle_addfd(). Because knotif->state is already
+   SECCOMP_NOTIFY_REPLIED, the tracee exits the notification wait loop
+   prematurely and returns 0 from the trapped syscall without the file
+   descriptor ever having been installed.
 
+2. If the supervisor retries SECCOMP_IOCTL_NOTIF_ADDFD or
+   SECCOMP_IOCTL_NOTIF_SEND before the tracee runs, it fails with
+   -EINPROGRESS because knotif->state is no longer SECCOMP_NOTIFY_SENT.
+
+Fix this by restoring knotif->state back to SECCOMP_NOTIFY_SENT if
+SECCOMP_ADDFD_FLAG_SEND was set and kaddfd was not consumed before the
+interrupted wait. Also add a seccomp_bpf selftest
+(user_notification_addfd_send_interrupted) covering this race.
+
+Tested in QEMU against Linux 7.3.0-rc3 using the
+user_notification_addfd_send_interrupted selftest added in this patch
+(./seccomp_bpf -t user_notification_addfd_send_interrupted): on the
+unfixed kernel the test fails because the retry ioctl(listener,
+SECCOMP_IOCTL_NOTIF_ADDFD, &addfd) returns -EINPROGRESS (-1) and the
+tracee prematurely exits do_user_notif() with return value 0 instead of
+FD 42, whereas with this patch applied the test passes.
+
+Fixes: 0ae71c7720e3 ("seccomp: Support atomic "addfd + send reply"")
+Cc: stable@vger.kernel.org
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v5:
+- Check the return values of all sched_setscheduler() calls in
+  user_notification_addfd_send_interrupted, as requested by Kees Cook.
+- Restore SCHED_OTHER on the supervisor and tracee immediately after
+  ioctl(SECCOMP_IOCTL_NOTIF_ADDFD) returns (and on fork() failure) so
+  the test cannot remain SCHED_FIFO on a single-CPU VM/CI runner, as
+  suggested by Kees Cook.
+- Rename pid and struct sched_param variables (tracee_pid, sp_zero,
+  sp_fifo_high, sp_fifo_mid) for clarity.
+
+Changes in v4:
+- Restore Reviewed-by: Bradley Morgan <brads@mainlining.org> and Cc:
+  stable@vger.kernel.org tags from v1 (and restore Bradley Morgan to Cc),
+  and add Assisted-by: LLM tag.
+- Fix Fixes: tag SHA and subject (0ae71c7720e3 ("seccomp: Support atomic
+  "addfd + send reply"")).
+- Fix truncated word "interrupted" in the Subject line.
+
+Changes in v3:
+- Actually include the tools/testing/selftests/seccomp/seccomp_bpf.c
+  regression test in the patch diff (v2 accidentally omitted the selftest
+  hunk), with detailed comments explaining the race and test setup.
+
+Changes in v2:
+- Add user_notification_addfd_send_interrupted regression test to
+  tools/testing/selftests/seccomp/seccomp_bpf.c as requested by Kees Cook.
+
+ kernel/seccomp.c                              |   5 +-
+ tools/testing/selftests/seccomp/seccomp_bpf.c | 184 ++++++++++++++++++
+ 2 files changed, 187 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+index 86cf4460d69e..94c7ba80a8f7 100644
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -1808,10 +1808,13 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
+ 	 * We need to check again if the addfd request has been handled,
+ 	 * and if not, we will remove it from the queue.
+ 	 */
+-	if (list_empty(&kaddfd.list))
++	if (list_empty(&kaddfd.list)) {
+ 		ret = kaddfd.ret;
+-	else
++	} else {
+ 		list_del(&kaddfd.list);
++		if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND)
++			knotif->state = SECCOMP_NOTIFY_SENT;
++	}
+ 
+ out_unlock:
+ 	mutex_unlock(&filter->notify_lock);
+diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
+index 0622bc2acad4..8cafac59ec7b 100644
+--- a/tools/testing/selftests/seccomp/seccomp_bpf.c
++++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
+@@ -4368,6 +4368,184 @@ TEST(user_notification_addfd_rlimit)
+ 	close(memfd);
+ }
+ 
++static void sigusr1_handler(int signo)
++{
++}
++
++/*
++ * Verify that when SECCOMP_IOCTL_NOTIF_ADDFD with SECCOMP_ADDFD_FLAG_SEND is
++ * interrupted by a signal before the tracee dequeues the addfd request,
++ * knotif->state is restored from SECCOMP_NOTIFY_REPLIED back to
++ * SECCOMP_NOTIFY_SENT so that:
++ *   1. The woken tracee sees knotif->state == SECCOMP_NOTIFY_SENT in
++ *      do_user_notif() and goes back to sleep instead of prematurely
++ *      returning 0 from the trapped syscall without the FD installed.
++ *   2. The supervisor can retry SECCOMP_IOCTL_NOTIF_ADDFD (or
++ *      SECCOMP_IOCTL_NOTIF_SEND) instead of failing with -EINPROGRESS.
++ *
++ * To deterministically hit the race window where the supervisor sleeps in
++ * wait_for_completion_interruptible(&kaddfd.completion) after waking the
++ * tracee (complete(&knotif->ready)) but before the tracee runs
++ * seccomp_handle_addfd(), pin all processes to a single CPU and enforce a
++ * strict 3-tier scheduling priority hierarchy on that CPU:
++ *   - Supervisor:            SCHED_FIFO priority 99 (highest)
++ *   - Signal helper (sig_pid): SCHED_FIFO priority 50 (middle)
++ *   - Tracee (pid):          SCHED_IDLE             (lowest)
++ */
++TEST(user_notification_addfd_send_interrupted)
++{
++	/*
++	 * Save parent_pid before user_notif_syscall(__NR_getppid, ...) installs
++	 * the seccomp filter on the calling process; children inherit that
++	 * filter, so sig_pid must not call getppid().
++	 */
++	pid_t tracee_pid, sig_pid, parent_pid = getpid();
++	long ret;
++	int status, listener, memfd, err;
++	struct seccomp_notif_addfd addfd = {};
++	struct seccomp_notif req = {};
++	struct sigaction sa = {};
++	struct sched_param sp_zero = { .sched_priority = 0 };
++	struct sched_param sp_fifo_high = { .sched_priority = 99 };
++	struct sched_param sp_fifo_mid = { .sched_priority = 50 };
++	struct timespec delay = { .tv_nsec = 15000000 };
++	cpu_set_t cpuset;
++	int cpu;
++
++	/* Pin the supervisor (and its future child processes) to one CPU. */
++	cpu = sched_getcpu();
++	if (cpu >= 0) {
++		CPU_ZERO(&cpuset);
++		CPU_SET(cpu, &cpuset);
++		sched_setaffinity(0, sizeof(cpuset), &cpuset);
++	}
++
++	sa.sa_handler = sigusr1_handler;
++	ASSERT_EQ(sigaction(SIGUSR1, &sa, NULL), 0);
++
++	memfd = memfd_create("test", 0);
++	ASSERT_GE(memfd, 0);
++
++	ret = prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
++	ASSERT_EQ(0, ret) {
++		TH_LOG("Kernel does not support PR_SET_NO_NEW_PRIVS!");
++	}
++
++	/*
++	 * Follow the convention of other user_notification_* tests in this
++	 * file by trapping __NR_getppid: because the filter is installed on
++	 * the supervisor before fork(), the trapped syscall must be a
++	 * side-effect-free syscall that the supervisor itself never invokes.
++	 * Even though getppid() does not normally return an FD,
++	 * SECCOMP_ADDFD_FLAG_SEND replaces the trapped syscall's return value
++	 * with the newly installed FD number (42).
++	 */
++	listener = user_notif_syscall(__NR_getppid,
++				      SECCOMP_FILTER_FLAG_NEW_LISTENER);
++	ASSERT_GE(listener, 0);
++
++	tracee_pid = fork();
++	ASSERT_GE(tracee_pid, 0);
++
++	if (tracee_pid == 0) {
++		/*
++		 * Tracee: invoke __NR_getppid as a dummy trigger syscall to
++		 * trap into do_user_notif(). Verify that the syscall returns
++		 * the injected FD number (42) and that FD 42 is open.
++		 */
++		ret = syscall(__NR_getppid);
++		exit(ret != 42 || fcntl(42, F_GETFD) < 0);
++	}
++
++	/* Wait for the tracee to trap in do_user_notif(). */
++	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
++
++	/*
++	 * Demote the tracee to SCHED_IDLE and promote the supervisor to
++	 * SCHED_FIFO(99) on the same CPU.
++	 */
++	ASSERT_EQ(sched_setscheduler(tracee_pid, SCHED_IDLE, &sp_zero), 0);
++	if (sched_setscheduler(0, SCHED_FIFO, &sp_fifo_high) != 0) {
++		kill(tracee_pid, SIGKILL);
++		waitpid(tracee_pid, NULL, 0);
++		SKIP(return, "SCHED_FIFO requires CAP_SYS_NICE");
++	}
++
++	addfd.srcfd = memfd;
++	addfd.newfd_flags = O_CLOEXEC;
++	addfd.newfd = 42;
++	addfd.id = req.id;
++	addfd.flags = SECCOMP_ADDFD_FLAG_SETFD | SECCOMP_ADDFD_FLAG_SEND;
++
++	/*
++	 * Fork a signal helper on the same CPU and set it to SCHED_FIFO(50).
++	 * Because the supervisor is currently running at SCHED_FIFO(99) on
++	 * this CPU, sig_pid is queued on the runqueue but cannot run until the
++	 * supervisor blocks inside the kernel.
++	 *
++	 * When the supervisor invokes ioctl(SECCOMP_IOCTL_NOTIF_ADDFD) below:
++	 *   1. seccomp_notify_addfd() sets knotif->state = SECCOMP_NOTIFY_REPLIED,
++	 *      wakes the tracee (SCHED_IDLE), and blocks in
++	 *      wait_for_completion_interruptible(&kaddfd.completion).
++	 *   2. The CPU scheduler immediately runs sig_pid (SCHED_FIFO 50)
++	 *      ahead of the woken tracee (SCHED_IDLE).
++	 *   3. sig_pid sends SIGUSR1 to parent_pid, waking the supervisor
++	 *      (SCHED_FIFO 99), which immediately preempts sig_pid, aborts the
++	 *      wait with -ERESTARTSYS (-EINTR), removes kaddfd from
++	 *      knotif->addfd, and restores knotif->state = SECCOMP_NOTIFY_SENT
++	 *      before the tracee has executed a single instruction.
++	 */
++	sig_pid = fork();
++	if (sig_pid < 0) {
++		sched_setscheduler(0, SCHED_OTHER, &sp_zero);
++		kill(tracee_pid, SIGKILL);
++		waitpid(tracee_pid, NULL, 0);
++	}
++	ASSERT_GE(sig_pid, 0);
++	if (sig_pid == 0) {
++		if (sched_setscheduler(0, SCHED_FIFO, &sp_fifo_mid) != 0)
++			_exit(1);
++		kill(parent_pid, SIGUSR1);
++		_exit(0);
++	}
++
++	ret = ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd);
++	err = errno;
++
++	/*
++	 * Restore normal scheduling ASAP so the supervisor does not remain
++	 * SCHED_FIFO on a single-CPU machine/VM/CI, then sleep briefly so the
++	 * woken tracee runs in do_user_notif(). With knotif->state restored to
++	 * SECCOMP_NOTIFY_SENT, the tracee must loop back to sleep waiting for
++	 * the notification reply rather than returning 0 from __NR_getppid.
++	 */
++	ASSERT_EQ(sched_setscheduler(0, SCHED_OTHER, &sp_zero), 0);
++	ASSERT_EQ(sched_setscheduler(tracee_pid, SCHED_OTHER, &sp_zero), 0);
++
++	EXPECT_EQ(ret, -1);
++	EXPECT_EQ(err, EINTR);
++	EXPECT_EQ(waitpid(sig_pid, &status, 0), sig_pid);
++	EXPECT_EQ(true, WIFEXITED(status));
++	EXPECT_EQ(0, WEXITSTATUS(status));
++
++	nanosleep(&delay, NULL);
++
++	/*
++	 * Retry SECCOMP_IOCTL_NOTIF_ADDFD. Because knotif->state is
++	 * SECCOMP_NOTIFY_SENT, the retry succeeds (returns 42) instead of
++	 * failing with -EINPROGRESS, installs FD 42 into the tracee, and wakes
++	 * the tracee to complete the syscall with return value 42.
++	 */
++	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), 42);
++
++	EXPECT_EQ(waitpid(tracee_pid, &status, 0), tracee_pid);
++	EXPECT_EQ(true, WIFEXITED(status));
++	EXPECT_EQ(0, WEXITSTATUS(status));
++
++	close(listener);
++	close(memfd);
++}
++
+ #ifndef SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
+ #define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)
+ #define SECCOMP_IOCTL_NOTIF_SET_FLAGS  SECCOMP_IOW(4, __u64)
+-- 
+2.49.0
