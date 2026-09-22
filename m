@@ -1,172 +1,180 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA003542F6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2753FF1AD
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790087728; cv=pass; b=e14OsBrNl352goDf4ZlHANcgDuqmqqzSjFGO+KfxwbkCaK3Ca+7rr+nqIO+yMCHjda2qeD+idNiatewDkt4ppKdKGo4EmlBf4J36UPcES8xGUEeSoLgVmZ2FtEhjYOVNFHM849vqC05dSEyBNmDISPR90uYlbCnVU0kycFLmKt0=
+	t=1790087738; cv=pass; b=sZdBSeBqt6S/CRaO0QkuWhSxHyEA7MpEV1VhhakAsUMwnMT1oBFCW2LBnHsPiAX8A3tYdxTbaDjmc6QPUzhgiMwVpj3C4CY3qTPS8+vE7GjHz4rVIkEb31s8j0ggrw1c7QpKCqu2KYa5lBM8iONtyslomm7xQONRfHrrSO1Ybf4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790087728; c=relaxed/simple;
-	bh=NEyIVmq/MepCR0DVp6TI3+6kKc1aiUn/+ROhgJ5gksg=;
-	h=From:References:MIME-Version:In-Reply-To:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZEK/wHLSWoPoy0WBzfhV1Lr14t8RddjA4JKjfUREHzN9BzCsnyCtBNXL2saNPFYACb9pD4oRLE0gICYD1NTylqClsvHcCqlbWMFJvLYDeTge/adk7uW7W7xkhczDYzC0ZEJ2tesm1pyWOqFWf7dHtfR4UeCwFe9OwI1dfxzBdzY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YbNcnKpX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CyjcmFe3; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790087738; c=relaxed/simple;
+	bh=hDy94WcuIGtpKVjdK7YmV9Ul+yIgKHdRmumOIolOZmQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W7183s2/faKn/0ZaM/QJ5hhO3MRWduwQJ+xNXZg8yYZdTFIDLlwPFCjj7jE5mmDceABs7zPxb6G5UOnd+N4tRd8mQwPvB9vZSvKg7JlM6FYdZYeL2BTzHX297t2c9asQINyDQZSQ7ZGCNU5lOJ9pHqSBEW1Th8BYQ1vjC6RhItA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r/fsGBtt; arc=pass smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YbNcnKpX";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CyjcmFe3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790087725;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gK1S9WSj9Xr3eZwZT3BugPd4DtS8wZ7bJxT3IFUTmCk=;
-	b=YbNcnKpXkQCzeYPQRLp76xmekPlNplIhoaMjzoDqxnhXWheywLE7UoKf05Ncmvxq6Qq4qZ
-	ykShcN9ajRGFzeLHeGmgiq7pLZKzxZVQYb98RAzAHh8gepZ7iG/NPvdTfOXXV2mCg2eA1z
-	ei2GDRISRIVeamLifupRYvb3jilgZL4=
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-621-pnN_5r5pNOKl0OiRjMWtUA-1; Tue, 22 Sep 2026 10:35:24 -0400
-X-MC-Unique: pnN_5r5pNOKl0OiRjMWtUA-1
-X-Mimecast-MFC-AGG-ID: pnN_5r5pNOKl0OiRjMWtUA_1790087723
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-97e9e1dd7fbso3159655241.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:35:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790087723; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r/fsGBtt"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-785686d2112so1214877137.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:35:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790087736; cv=none;
         d=google.com; s=arc-20260327;
-        b=pfve7RoXWt2CvpEnrq5r0tKj8pT2I+RyrsvuMhPcER0FfqjWJ+5Jf2WoOkQdwrb2dr
-         8M/Kr2t7GwPBbx43WMo1BGCG19mGW/Z91Q1HmxIsvqz/Hj3h1vHR3sDLiCZwQYvU5/4K
-         0Ri+hEE7E2hVVIvwVRkH7ZPKBO6QwPpq3+4uGRDAx9mJDmvw0A4rdqkZlZa8nbXTU8Dw
-         BZrGllwi7V7B4yUDwoPDPb5d++GQ8xWGNjXI6YqCxeQCFBQ1ndK2WawlY8xqQ4reG7cY
-         1nyA6iFInjT+SO8iBXT2XVx/k05PfxZQICI0Mftozz+GhKtItjQdlZXASVYWpT+PoDVs
-         GEiw==
+        b=lGOUuoWr6k093cVdLjEw/yzHJpVGgK8HNZydQZbNUNnwi5ZNMVznnOUsn/W31GkPeU
+         2W37GEcWwLyf1VXmVNUauTflc4gItFCUKMjFjeLHy2aVQ2YlkfcA8cyCDpwh2d4MHSOl
+         6Zi0PM/+K6tyiRXgFFNizHRNA91p5uChyftyYDyVYcFXwL7zAK7zQgTtt7bhIdIAcbeY
+         6D00WefQOzatezf7Hm1yS4o9263BkMOTfgaj6u8mP2ghuqhLF61vrixlBKlPbRRQfY61
+         84dxAVnVwAvtq6k0XL3THecnMNn830pLaguMRgS6Lq6zxE1KGOkTRT6kyXZ8+HPMzT1/
+         G4YQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:in-reply-to
-         :mime-version:references:from:dkim-signature;
-        bh=gK1S9WSj9Xr3eZwZT3BugPd4DtS8wZ7bJxT3IFUTmCk=;
-        fh=l0X3j+gNw8w8fV0pwZ3cKLxdCmZkrANXE+KJ97jhPzI=;
-        b=h/EfkATRrOGJ7RDpQAPGW/Ih0NfX574myEN8SNcygP8FfylexTxfK/U8aTYB0h7HVd
-         me3yT1UKRYgzgvtp5MhTxcp640brZTScansRxCmuKRIQevcbRC14M1YlkbFcuPgUVhfz
-         ywP4rNfD32hI1oga+il22b476ZApSvxMuNL7MX8tmfziiSmrxsm87pUFkGfsxgqH/Cye
-         kjtdTOKWOOPnnhdPXCJ580xKz5rSVyIHGMaPp+jVb++e+LObgtAJmuR3Trqyvbe7fIDh
-         HLJL9nhIL21F26ROZl6KuEf3v7DGoh9HWd8h0q2Zlr96NuC4a0Q0zKbwr4coSMs/d0is
-         oDnQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BkwKU/k96wk8bIA/BnamNqyLU1VqFIWHcsHLmQnVQJs=;
+        fh=qBhejmLHOnfXfxPViN/pJ8Muyaod1csv3pyLpspMHDs=;
+        b=WWMiqIvgbGxr293WeZJKS1n39HoiX3BIXnCGZcALD+/KnpjSh7N5Z+PEFI98PdZ6dt
+         4+k0Gvl2LdySbD9NMDCaEvrN6PhGl+uGvVHGPLWR7HwkI9eCfkeZU8TfcWbVESBriSLP
+         eINREdERHjQDwYJE+n+UB7hbeRKcmReHWt/odV5hWLdHpSmyTVgbfb9Aite0NRks5vfj
+         jU9j6byG0KN6sKXUGaUlYdKNktYTRZSyRjNCaVQG+jx0wVU32tY4rjZUdUSnsQy+sUJA
+         eME6ZFpynzwk8Q+2XcxNW4x5qTlAXgJWpzBV4oaEglJOA60WJXK0TxVRFfeQG1RBf80X
+         bsIQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790087723; x=1790692523; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790087736; x=1790692536; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:in-reply-to:mime-version:references:from:from:to:cc:subject
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gK1S9WSj9Xr3eZwZT3BugPd4DtS8wZ7bJxT3IFUTmCk=;
-        b=CyjcmFe3B8bZK8OK1HyTl6i85CPQikz/h71+/9QDD/x7f5bkLhrV5bYhC/ThLpufJF
-         Z6i5+UepRrNzNc3KyXD45X2kwJw8o+dcJh2kQpaUB5RVggbNHbgfBtswD8UqWQds4E41
-         hxMUNbjEZtj70gyopci8G1+lCUJ1GKOIZUIvAwfnzhymiyKl2MpnPF2YXySqkUH1yTSs
-         /an1Qk7nenRp+vK3F9zt8QhchMjp31jrI3MJfgg56U9ebztuTI5dzE05mBN2FRMYuJwH
-         z7FEie9qpp4nCI7x7p7KdOkG3q2+ZQMVs/YMk3ccMKSN+WRBd87W6wrA9muOvoK4Yp7v
-         mPqA==
+        bh=BkwKU/k96wk8bIA/BnamNqyLU1VqFIWHcsHLmQnVQJs=;
+        b=r/fsGBttzfUURMeIkcaWuElVmA+ej+6IUFBSt+HoizMiZwJUFQ5mXbwPpuD8ApbPmC
+         M7RLRRM8yDEbT7bVRYl02RI9tGams9LKArEpTZ7OsnsDkya5kQm8O4WdUdqCbzvdBOP2
+         rPYHdRnOqM8qqCdOcUvr+q+2dejAEmqAsZC666I9cneHvERy6TuZKa+SXbIAlLso0xf+
+         tbvOY2aKbHEz657qra93Wa2Q4p36om4CSQVlx6wzhBHa8i/Eq80xg9TU9dVIh0dslii5
+         Ri9Mg+3c5ckL4ixqfx7eqa6mn58kHX24UEZm8nS4aydVzlSCaIwzGyqWGR2rxphhoaB4
+         qnBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790087723; x=1790692523;
+        d=1e100.net; s=20260707; t=1790087736; x=1790692536;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:in-reply-to:mime-version:references:from:x-gm-gg
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gK1S9WSj9Xr3eZwZT3BugPd4DtS8wZ7bJxT3IFUTmCk=;
-        b=IqTJY6T0OR+ZAsdtikZT0jKKneGppFduLqiBMAowvyn47S8LQH/akEpCLrCurpLUmw
-         IYbOkxp8PTe6wcYCrb5C0qw66lO1/VH5WvVX5RpyhtmcSGzU+CBrxgpxxvwcEk3zvbG9
-         t9hDLJZx2TRWSPGEm5hmdWXAn3c9xEal3gmzz+Q+8ATkqGQ96wyGi+o0WXgE2ldvEpAr
-         sSIwV6EG+Xpr3z5ZDOrf3WO5NMvuB5Y26f4oKbROWG1SWvHvbxH0Dfw0d5rnoIP/Nx2B
-         O/V/rEKvrGiVyWFCvj3TIZxsJjBXHe3r+qp42cbXA/iVj6IEI2lJBp+GLDyV+uh+HEKr
-         rMUA==
-X-Forwarded-Encrypted: i=1; AKwUvByVc2LzvJgG5gjBp249VAUdYUM1AKm1YFyi5lJAoxbbQfGZq/+qmfW/Mk11wMC1z6O7Lp+3fk7slRonekc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lb5nRhCyB/xHc1tl13jbgyY0RILas6JLj4tzmCYOcONvjfFEaW
-	9fOcfW2NmtI/ELofuc5hMkK4kjipAo/f0w49xDOaGFusePAImUY4b1k5UOB1rD9LXqCAynsrFia
-	+6t0smZ9fgRQOwpYcTjHtmLNirbDcMhOdxMrF+ciCeJDd78aF5Fdw2VV1eosxrTXSSncBRMpaDP
-	6l7Hwy+aHlpc2Uj6xNuNvDg461aEZGBRhhE30ST6j4
-X-Gm-Gg: AYBFou2gywxbXP6jYn/U4P47kTvRIBADFDCPJdJMQP4j7QxOfBh0RRgfECWoD80upiJ
-	s5FpDv7NCx/U2lZbaSupQ1sa1Kc7fpQ0/GOPUlMg91TAJcM4ch718LrE1z8O1Rk9JJSgrvtTgJ4
-	z65yPVTbET671bY7Mkjx7kyIE9Kv246gRyiyZw4Py1DRYSxquTWGkC3Pw=
-X-Received: by 2002:a05:6102:6b0a:b0:7a8:1817:2765 with SMTP id ada2fe7eead31-7a8181728f4mr5384409137.11.1790087718373;
-        Tue, 22 Sep 2026 07:35:18 -0700 (PDT)
-X-Received: by 2002:a05:6102:6b0a:b0:7a8:1817:2765 with SMTP id
- ada2fe7eead31-7a8181728f4mr5383871137.11.1790087714634; Tue, 22 Sep 2026
- 07:35:14 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 07:35:12 -0700
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 07:35:11 -0700
-From: =?UTF-8?Q?Adri=C3=A1n_Moreno?= <amorenoz@redhat.com>
-References: <20260921101538.97286-6-johannes@sipsolutions.net>
- <20260921101538.97286-9-johannes@sipsolutions.net> <98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
- <7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
+        bh=BkwKU/k96wk8bIA/BnamNqyLU1VqFIWHcsHLmQnVQJs=;
+        b=PXrKZ+AwO++aUm2TRaqk9JhGWg+ZEVv/9LpqsgQIl0dMgN4MtlLTWZ2unFFdnrbbhX
+         BjvWsMPu7CpotBbzjvv1E54bqltCiIdqvBa/1xWyF+kwVtnwaYm3pYxpIgPmD3MLsjU6
+         i83Vk6Y+hYpisx2I5S+lqhu3w3VNWsizoQu1aOchphlpcYFuCIASj2vD8aXvo4HDRjUV
+         q2ZK6RFsRwQxLL41GydW8CTQD/ekIBYEb0kdGgS7q50TnW5QDD+uRkdbW9okzVmBMLYu
+         fkslvL8j+Mi3KzBrm6B3qGJjSP63oqwAhh+Teao+jsiQGi+du4kDPWoLZeKj0oQQy/Ny
+         flTw==
+X-Forwarded-Encrypted: i=1; AKwUvByheWlXG2cqqPYPLlqBQzcc+A9gU/5I9iuHG6brk49XkAtAFSptb3wccajZdmoiVagpy9t35T2aYWkn204=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxA43nb4O5N8DGwxzlrqZDJNRfy/OMsj1aD3bPr1cJIeuINdeJ
+	H3Jf7ILEY60I7kxt3O2UZEP/MxiXKsRw0R0RfWOgwWe9RHZUNMqkhii5qUizYheL9vOm6DpNEQI
+	riQtZwgTViLBX+yXn9GdnwSo5EsOFPI0K6EE8TwU=
+X-Gm-Gg: AYBFou0eaqpEXybLQWl/vJ3CsOp5eas59VU7PhlF0yMTVUTYYftCRBSIG2Op5kakLK3
+	QXtmGc4BZjIUQU0AQzRkluufJFpLBShaeZbkAOl5EeoWdZOAxULoOfgxHRTXA9rfI2+lIKw18bM
+	CJE47RK2zmWGQ/ppMlv0eb9FT70XNkBhztR733qoo1rK1uTEtxLNWTV1x3QYJdj5OuUjayYlayO
+	ZrzCfhrEqJyW6XujJU/bN+qTliOeYQqx1jtltPvbbwcp6M3kHWfG0MNyWrOqSRCtW4CbjSg6dcR
+	sW23Vv+0TEa+zCxNTcMUAGbnQzuihTJpuCgqBcywZducX6IBWEvKVeWRZTy5U6SY9yJz36pmVft
+	9l5rx1QlC/pT2OgU1H7OMAy+yDd7JscngjtGxpQsQ1J9ehDBqSYVqn84En9vn6FnGXmhjPg==
+X-Received: by 2002:a05:6102:4bc9:b0:7a6:bc69:5a34 with SMTP id
+ ada2fe7eead31-7a6bc695c4emr5597229137.22.1790087735769; Tue, 22 Sep 2026
+ 07:35:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
-Date: Tue, 22 Sep 2026 07:35:11 -0700
-X-Gm-Features: AcwNN1XMie8kM7dwxvbQlHH_l7IaHZoq1hw6XOWcr3XDlRFXqBgXY5EO4nZl-zk
-Message-ID: <CAG=2xmNURzYdR+eL8x_kW64Bo9gEe3ne88YXaKQKT+_Ya7XZFQ@mail.gmail.com>
-Subject: Re: [PATCH v6 3/4] net: dropreason: use new __print_sym() in tracing
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: Matthieu Baerts <matttbe@kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Johannes Berg <johannes.berg@intel.com>, 
-	Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>, dev@openvswitch.org, 
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, Antoine Tenart <atenart@kernel.org>
+References: <20260922031247.182335-1-vinicius.m1821@gmail.com>
+In-Reply-To: <20260922031247.182335-1-vinicius.m1821@gmail.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Tue, 22 Sep 2026 11:35:24 -0300
+X-Gm-Features: AcwNN1V3Y0-bIN8uQK0ZGfTsLwYw3XWafCH-NgCxj5vT71QyY6kLcoyP6QRUQRU
+Message-ID: <CAMAsx6d8B=QXh=CG-2bd3gv6mccPsXxHnhNJ3DT8CQZiVfQNWw@mail.gmail.com>
+Subject: Re: [PATCH v2] docs: translations: pt_BR: translate threat-model.rst
+To: vinihsr <vinicius.m1821@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 12:23:55AM +0200, Ilya Maximets wrote:
-> On 9/22/26 12:03 AM, Matthieu Baerts wrote:
-> > Hi Johannes,
-> >
-> > (+Cc openvswitch devs)
-> >
-> > On 21/09/2026 12:06, Johannes Berg wrote:
-> >> From: Johannes Berg <johannes.berg@intel.com>
-> >>
-> >> The __print_symbolic() could only ever print the core
-> >> drop reasons, since that's the way the infrastructure
-> >> works. Now that we have __print_sym() with all the
-> >> advantages mentioned in that commit, convert to that
-> >> and get all the drop reasons from all subsystems. As
-> >> we already have a list of them, that's really easy.
-> >>
-> >> This is a little bit of .text (~100 bytes in my build)
-> >> and saves a lot of .data (~17k).
-> > Thank you for working on that! But it looks like it breaks the
-> > openvswitch test:
-> >
-> > https://netdev-ctrl.bots.linux.dev/logview.html?f=3D%2Flogs%2Fvmksft%2F=
-net%2Fresults%2F833743%2F9-openvswitch-sh%2Fstdout#L168
-> >
-> > Maybe the test needs to be adapted to get the same info differently?
-> > (and adding CONFIG_TRACEPOINTS to the selftest config file)
-> The parsing in the test will definitely need to be updated, i.e.,
-> the numbers swapped with the names of the drop reasons.
+On Tue, Sep 22, 2026 at 00:12:47AM -0300, vinihsr wrote:
+> Translate threat-model.rst into Brazilian Portuguese,
+> maintaining consistency with original formatting rules for v2.
+> And add it to the pt_BR process documentation index.
 >
-> IIUC, this change only affects the printing and doesn't affect debugging
-> tools like retis that attempt to surface the drop reasons.  But, maybe
-> Adrian and Antoine (CCed) may want to have a glance as well.
+> Assisted-by: LLM
 >
+> Signed-off-by: vinihsr <vinicius.m1821@gmail.com>
 
-I don't think this will affect retis in a bad way. We collect the list
-of drop reasons by inspecting the BTF enums. It generally works but we
-need to keep track of new subsystems enums being added so a
-dynamically-generated full-list of drop reasons is interesting.
+Hi Vini,
 
-IIUC, the only way for userspace to read this list is by looking at the
-event format and parse the printf line, right? Any ideas to make this
-more machine-friendly?
+Thanks for the translation. The content is complete and faithful to the
+original, and it applies cleanly on docs-next and builds without warnings.
+There are a few things to fix before it can be merged, so please send a v3.
 
-Thanks
---
-Adri=C3=A1n
+Patch format:
 
+1. Please use your real name in the From: and Signed-off-by: lines.
+   Documentation/process/submitting-patches.rst requires a known identity
+   ("sorry, no anonymous contributions").
+
+2. The blank line between Assisted-by: and Signed-off-by: makes git ignore
+   the Assisted-by: tag, since only the last paragraph is parsed as
+   trailers. Please keep all tags in a single block:
+
+     Assisted-by: LLM
+     Signed-off-by: Your Name <vinicius.m1821@gmail.com>
+
+3. Please add the SPDX line at the top of the new file, as in the other
+   pt_BR translations (checkpatch also warns about it):
+
+     .. SPDX-License-Identifier: GPL-2.0
+
+4. Notes about the version ("for v2") should not be in the commit message.
+   Please add a changelog below the "---" line describing what changed
+   since v1, and send the new version as a reply to the previous one
+   (git send-email --in-reply-to=3D<message-id>).
+
+Translation:
+
+5. The index entry says "Modelos de amea=C3=A7as do kernel do Linux" (plura=
+l),
+   while the document title is "O modelo de amea=C3=A7as do kernel do Linux=
+".
+   Please use the singular in both.
+
+6. "unix domain sockets" -> "UNIX domain sockets", as in the original.
+
+7. "...de forma a permitir que m=C3=BAltiplos usu=C3=A1rios locais obtenham=
+ [...] e,
+   quando o hardware subjacente permitir, atribuir um n=C3=ADvel..."
+   -> "atribuam", to agree with "obtenham".
+
+8. "a=C3=A7=C3=B5es realizadas no namespace do usu=C3=A1rio" -> "a=C3=A7=C3=
+=B5es realizadas em um
+   namespace de usu=C3=A1rio". "User namespace" is the technical term, and =
+it
+   is already translated as "namespace de usu=C3=A1rio" in other pt_BR
+   documents.
+
+9. "bifurca=C3=A7=C3=B5es n=C3=A3o oficiais do kernel" -> "forks n=C3=A3o o=
+ficiais do kernel",
+   which is the term used in the other pt_BR documents.
+
+10. "Hardening" is translated as "fortifica=C3=A7=C3=A3o (hardening)" and l=
+ater as
+    "fortalecido contra entradas hostis". Please use a single term, e.g.
+    "fortificado contra entradas hostis".
+
+11. "tornar o sistema irresponsivo" -> "tornar o sistema sem resposta"
+    (or "n=C3=A3o responsivo").
+
+12. "vazamentos de endere=C3=A7os/ponteiros de mem=C3=B3ria do kernel [...]=
+" is a
+    full sentence in the original ("Leaks of kernel memory..."), so please
+    start it with an uppercase "V".
+
+With these fixed, I'm happy to give my Reviewed-by.
+
+Thanks,
+Daniel
