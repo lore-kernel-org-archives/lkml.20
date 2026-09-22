@@ -1,173 +1,279 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1573B48C8D2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE4A48C8C7;
+	Tue, 22 Sep 2026 05:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055612; cv=none; b=H2iyBndPJsEkVstnzWh0C9cX8P9YhiBccYzxtT5cTReE90lnUcgiB4wjeuSwhSRxVNYC8ftO9y/XRlnoI4Cn2sNuu2ulOzDItck4nFP32YrfZTRrJ8K0f2CouzAjCzfD2avkStrtKNEyqv1CJ7WG3X9VWBenK2pmm0fky6CQl30=
+	t=1790055664; cv=none; b=iMzopzZ/POIxVx7f1CViSOANODniSsOUM0UfY+gQLPJh3duGK4qIYHc9hNbzoJeqU7MOu/Qvbi0QAmVWoLXyz78NuX8McAbGbjV5k4AgMks2Vc+nmNqkgRxqTs8VzElZ4PkVgGb/J5cmwG/0yHROW5FXgR51xzKbna67Zq5iWpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055612; c=relaxed/simple;
-	bh=cRi6x2IoUIDe1cpioh8hUI0Fi9qcSw8xL5YcTT1TuxA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=us973/hKvxFCpnjvh3W7jKLXOuJ36R29Gxwl1hLmtprRrUl+Kln4F+JNP3wBAHw0UYqUlpWWyZkSDOXMfj+MrQ2+eoF508Apc9FxhqFniB0dFkJ9McF+hJYWEnQMtqd7hqWh7HsBaEYmYXrtZBaj1/o9VvIEjeIkZG0oGnKQbWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=OtFzbtS7; arc=none smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1790055664; c=relaxed/simple;
+	bh=0m74/NuXnpdI5HZN7s9BSPJE2QIYMquBSMx4uL9l8E0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jWt1z3F5EdVw+czQcPEdAQcYjhCPg0ari/FYlXWX5hOMietgw31lNyANur+CLel2aP6AwHvJruqpxuGccuwODBPxeE0f7bbTTqh4HsXu72NzTXZbpvHvXrDFxizTtGsSwSJW4lzeSgz2nutYZh+8Lo7AmQWode43GAbvJQfb6C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=d95NfJ38; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=k8LsAIwy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=JiqjT+IH; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fxHB4VJr; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="OtFzbtS7"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M5HYCj075256;
-	Tue, 22 Sep 2026 06:39:45 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=wbwTC0PEwT+1K8L3X+Yu9Np
-	KjK166tvKiyw2LhiQvF4=; b=OtFzbtS7hU5IevPldRmcPFU0AJa8bQeMkgfOyW1
-	4PrCBLXO7RG+dLyqaLdNNEUNCXYazAYwkkrH917Dy/UEzL8PdUOiKj+ZAAfBzeR2
-	q9ymyBMG+nCMBJH/L3rAMxsR2qqiITUwlR50DIAp1pZC6IEAFRjnZ9cdoLMFmFBS
-	Oe8bfmZ094VwzR5KOidWhQ5ihEsgjvsrZJUbhm/2SlUDnhcKFcT3lIcViazHBz/G
-	Ch6hNC0f1U6/x3PzvKy8yAAV1lE0M3CQpL8IzRtGFxmzZ3ez/PylckNkOinT7qW+
-	HTiGZB8CjgzbYpVqXR/fDRpSAJw92g+cgq+iaR4lzkGu6Bw==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq23p4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 06:39:44 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 22 Sep
- 2026 06:39:42 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 22 Sep 2026 08:39:30 +0300
-Subject: [PATCH v3] drm/imagination: Fix parameter validation in
- pvr_fw_object_destroy()
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="d95NfJ38";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="k8LsAIwy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JiqjT+IH";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fxHB4VJr"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 00C581F461;
+	Tue, 22 Sep 2026 05:40:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790055648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=881qMJTzHXTYKTlngI1y105KnwzLXrZERRsJ5Asuak8=;
+	b=d95NfJ38nVTpXOI5LeHSA6yRcU0PTj44ju2v+5SeGf0twYizHNuItn5DQYESyBQ6MQB0tg
+	xK0GdWtHz+kdQrChAuhivFfqZI3kDVHcPbYvuJ3Gu7+S4g3VxG5Ij5oMP/H81qtG3y5b1C
+	2U+lKpQIXwLC4by5KvxaQX232OuW6Uk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790055648;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=881qMJTzHXTYKTlngI1y105KnwzLXrZERRsJ5Asuak8=;
+	b=k8LsAIwyGjN52MTTmqHbN4Ft55EfclU00eq+LrXRLdkRqfqA6iXA6o1eMzV7LPR5f0LIMj
+	Mg1bMPKhLiLJISDQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JiqjT+IH;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fxHB4VJr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1790055644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=881qMJTzHXTYKTlngI1y105KnwzLXrZERRsJ5Asuak8=;
+	b=JiqjT+IHxDG8qLLZmGho/l4WiiVe6J1HP0y2ZnnOlASFQGs63g56+tBjTAcfXGWFsTND7l
+	TUR15/+pl0fHm1ZCul8KMofjx0CxsaX60Qk9nJowo9QJc+2VSX+okR+xgp/3XtRoEY8qX+
+	YwVrFvwrt9zQu+G0Y4t/UfClr1qzftc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1790055644;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=881qMJTzHXTYKTlngI1y105KnwzLXrZERRsJ5Asuak8=;
+	b=fxHB4VJr6JdaD32XpRHn2ejC7SwIkPi0m+pMZ43ZqP0WVzIVKAhRC2reREVE1f01zo/ZNR
+	ZIh9RYw87aiAshCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 64604136D9;
+	Tue, 22 Sep 2026 05:40:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2UlED9sUsmrSawAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 22 Sep 2026 05:40:43 +0000
+Message-ID: <341ec217-4b3b-49aa-9481-4cf7e8952228@suse.de>
+Date: Tue, 22 Sep 2026 07:40:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260922-fix-null-pointer-dereference-v3-1-f099763ed676@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAJEUsmoC/43NQQ6CMBAF0KuQrq1pByGtK+9hXEiZwhgopAWCI
- dzdggvjShez+Jmf9xcW0BMGdk4W5nGiQJ2LIT0kzNR3VyGnMmYGAnKhJHBLM3dj0/C+Izeg5yV
- 6tPGcQQ5GaSlPUGqlWCT6+KJ556+3dw5j8UAzbObWqCkMnX/u+5Pcen9OTZJLbnNdgLWoMxAXa
- qsBzdF0Ldu2JvhoWqQ/NIiaTJW1usitEtmXtq7rC3XV+2kpAQAA
-X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>,
-        "Alexandru
- Dadu" <alexandru.dadu@imgtec.com>,
-        Donald Robson <donald.robson@imgtec.com>,
-        Sarah Walker <sarah.walker@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790055582; l=2725;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=cRi6x2IoUIDe1cpioh8hUI0Fi9qcSw8xL5YcTT1TuxA=;
- b=78LKVvnMQ2NavNqEJG0qeFKFliMjO6DQnyU0f6yrfR2E87J6tOTE/HJXwclDS2fiOwEDFLpr9
- m/sLbM5xRnTCXMwR/+W0h63ZO/ZIwHVo12w0AKVBlMzh6zol1neNWyF
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA3OSBTYWx0ZWRfX/+clD6IzyaUT
- iRJScjxPE0iAP5HfRIJlh7zV1JAeR2gBoTBygNK3kQ959elu7m0NnDBjaqIukbSjv13paYj0egV
- uQMeYJORQ236eaNmsEk7Weo1LZOjicCgeFkTL13YGHYeM4cFBC5mJ6lSZTRZ9wCoNMhJ2hjxLf9
- f+09LBUYZYcwZJ+0I47MeOJRm5HnvUKdfND0TSmKcwsmE1aT8Ru9V9vLewQr18kJWlZouYQtpsZ
- cwR1X+yR0N8LB4L2SNyEr7Pn2sBz7IMz2oTRPNxl1yC+CBKBOlLMsPVC//IoR/K0ml/BVNpgK0b
- qMyzKFoEu2Q1I3zUGkzy53ryJyemrV44I4qulVlitJ6yJZJuRe1JpjxcEs77uHn/kI+OyqyekPX
- i0Jc1byzB+f4M8BP9zk32cynBb0whBIfjNFHu8KfDF1mpvBQP9Zi+Tk9XVD5RrDzn74hSnTXzSI
- mCYokacPlo8OJLWhttw==
-X-Proofpoint-ORIG-GUID: x-ww0CcH-HSXD9YkWZYOfUDhhUwtHQsC
-X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab214a0 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8
- a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=craggXHLatwVVKPEDpEA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: x-ww0CcH-HSXD9YkWZYOfUDhhUwtHQsC
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA3OSBTYWx0ZWRfX85ZrQ4XFSudJ
- n443KM7nGahBI6UCNXCddeBwV5h1Ro9o9rDxAoK7hO3B9FKnX1i2k+XpXJrGSCEHEqM/46saNSn
- lK1gvNb0qfZkg4hx4rUAx8cab0Jdoys=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/8] block: fail a short atomic pin in
+ bio_iov_iter_get_pages()
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ John Garry <john.garry@linux.dev>, Christian Brauner <brauner@kernel.org>,
+ "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260921-blkdev-fixes-v4-0-e2801f71ede9@columbia.edu>
+ <20260921-blkdev-fixes-v4-5-e2801f71ede9@columbia.edu>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260921-blkdev-fixes-v4-5-e2801f71ede9@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: 00C581F461
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid,sashiko.dev:url,columbia.edu:email];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid,columbia.edu:email];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-Fix parameter validation to avoid possible NULL pointer dereference from
-pvr_fw_object_destroy() when handling allocation failures.
+On 9/22/26 4:54 AM, Tal Zussman wrote:
+> On a partial page pin, __blkdev_direct_IO_simple() and
+> __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC set
+> and leave the rest to the buffered fallback, tearing an IOCB_ATOMIC
+> write.
+> 
+> This can be triggered deterministically. A 16K pwritev2(RWF_ATOMIC)
+> whose last page is PROT_NONE, on a scsi_debug device with atomic_wr=1,
+> completes short with only three of the four pages written, violating
+> RWF_ATOMIC semantics.
+> 
+> Make bio_iov_iter_get_pages() release the pins and return -EINVAL when
+> a REQ_ATOMIC bio doesn't cover the whole iterator, since an atomic
+> write is submitted as a single bio and a short one would be torn. That
+> covers iomap as well, where a partially unmapped buffer could trip the
+> WARN_ON_ONCE() in iomap_dio_bio_iter_one(). The async block device path
+> currently sets REQ_ATOMIC after pinning, so set it before, and move
+> REQ_NOWAIT along with it.
+> 
+> Fixes: caf336f81b3a ("block: Add fops atomic write support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>   block/bio.c  | 29 ++++++++++++++++++++++-------
+>   block/fops.c | 12 ++++++------
+>   2 files changed, 28 insertions(+), 13 deletions(-)
+> 
+> diff --git a/block/bio.c b/block/bio.c
+> index f95b63c0604a..14429a5d4e68 100644
+> --- a/block/bio.c
+> +++ b/block/bio.c
+> @@ -1285,6 +1285,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+>   			   unsigned mem_align_mask, unsigned len_align_mask)
+>   {
+>   	iov_iter_extraction_t flags = 0;
+> +	int ret;
+>   
+>   	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+>   		return -EIO;
+> @@ -1304,34 +1305,48 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+>   		flags |= ITER_ALLOW_P2PDMA;
+>   
+>   	do {
+> -		ssize_t ret;
+> +		ssize_t size;
+>   
+> -		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
+> +		size = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
+>   				BIO_MAX_SIZE - bio->bi_iter.bi_size,
+>   				&bio->bi_vcnt, bio->bi_max_vecs,
+>   				mem_align_mask, flags);
+> -		if (ret <= 0) {
+> +		if (size <= 0) {
+>   			/*
+>   			 * A misaligned vector fails the whole I/O.  Release any
+>   			 * pages pinned by earlier iterations before returning
+>   			 * since this bio won't be submitted to release them.
+>   			 */
+> -			if (ret == -EINVAL) {
+> +			if (size == -EINVAL) {
+>   				bio_release_pages(bio, false);
+>   				bio_clear_flag(bio, BIO_PAGE_PINNED);
+>   				bio->bi_vcnt = 0;
+>   			}
+>   			if (!bio->bi_vcnt)
+> -				return ret;
+> +				return size;
+>   			break;
+>   		}
+> -		bio->bi_iter.bi_size += ret;
+> +		bio->bi_iter.bi_size += size;
+>   	} while (iov_iter_count(iter) && !bio_full(bio, 0));
+>   
+I would swizzle the use of 'ret' and 'size' here; leaving 'ret'
+untouched and use 'size' as the new variable. That will reduce
+code churn and makes the patch easier to read.
 
-Sashiko report:
-If pvr_gem_object_create() fails in
-pvr_fw_object_create_and_map_common(), fw_obj->gem is explicitly set to
-NULL before jumping to the error cleanup path.
-The cleanup path then calls pvr_fw_object_destroy().
+>   	if (is_pci_p2pdma_page(bio->bi_io_vec->bv_page))
+>   		bio->bi_opf |= REQ_NOMERGE;
+> -	return bio_iov_iter_align_down(bio, iter,
+> +	ret = bio_iov_iter_align_down(bio, iter,
+>   			&bio->bi_io_vec[bio->bi_vcnt - 1], len_align_mask);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * An atomic write is submitted as a single bio, so it has to cover
+> +	 * the whole iterator or it would be torn.
+> +	 */
+> +	if ((bio->bi_opf & REQ_ATOMIC) && iov_iter_count(iter)) {
+> +		bio_release_pages(bio, false);
+> +		bio_clear_flag(bio, BIO_PAGE_PINNED);
+> +		bio->bi_vcnt = 0;
+> +		return -EINVAL;
+> +	}
+> +	return 0;
+>   }
+>   
+>   static struct folio *folio_alloc_greedy(gfp_t gfp, size_t *size,
+> diff --git a/block/fops.c b/block/fops.c
+> index a3a709697b40..90777e8a9a6c 100644
+> --- a/block/fops.c
+> +++ b/block/fops.c
+> @@ -342,6 +342,12 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
+>   	bio->bi_end_io = blkdev_bio_end_io_async;
+>   	bio->bi_ioprio = iocb->ki_ioprio;
+>   
+> +	if (iocb->ki_flags & IOCB_ATOMIC)
+> +		bio->bi_opf |= REQ_ATOMIC;
+> +
+> +	if (iocb->ki_flags & IOCB_NOWAIT)
+> +		bio->bi_opf |= REQ_NOWAIT;
+> +
+>   	/*
+>   	 * Users don't rely on the iterator being in any particular
+>   	 * state for async I/O returning -EIOCBQUEUED, hence we can
+> @@ -371,12 +377,6 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
+>   			goto out_bio_put;
+>   	}
+>   
+> -	if (iocb->ki_flags & IOCB_ATOMIC)
+> -		bio->bi_opf |= REQ_ATOMIC;
+> -
+> -	if (iocb->ki_flags & IOCB_NOWAIT)
+> -		bio->bi_opf |= REQ_NOWAIT;
+> -
+>   	if (iocb->ki_flags & IOCB_HIPRI) {
+>   		bio->bi_opf |= REQ_POLLED;
+>   		submit_bio(bio);
+> 
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/dri-devel/20260810132202.3C16D1F000E9@smtp.kernel.org/
-Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
-Changes in v3:
-- Skimed the commit message removing redundant information.
-- Refactored the parameter validation to return early.
-- Link to v2: https://patch.msgid.link/20260903-fix-null-pointer-dereference-v2-1-138ff9b6f805@imgtec.com
+Otherwise looks good.
 
-Changes in v2:
-- Commit message and cover letter updates.
-- Link to v1: https://patch.msgid.link/20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com
+Cheers,
 
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Donald Robson <donald.robson@imgtec.com>
-To: Sarah Walker <sarah.walker@imgtec.com>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/imagination/pvr_fw.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 850a3ec8e775..9977f4da3d8d 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -1429,6 +1429,12 @@ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
- 	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
- 	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
- 
-+	if (!fw_obj)
-+		return;
-+
-+	if (!fw_obj->gem)
-+		return;
-+
- 	mutex_lock(&pvr_dev->fw_dev.fw_objs.lock);
- 	list_del(&fw_obj->node);
- 	mutex_unlock(&pvr_dev->fw_dev.fw_objs.lock);
-@@ -1439,8 +1445,7 @@ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
- 			return;
- 	}
- 
--	if (fw_obj->gem)
--		pvr_gem_object_put(fw_obj->gem);
-+	pvr_gem_object_put(fw_obj->gem);
- 
- 	kfree(fw_obj);
- }
-
----
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260812-fix-null-pointer-dereference-2c891142d988
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
-
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
