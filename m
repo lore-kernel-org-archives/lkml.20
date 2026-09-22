@@ -1,130 +1,239 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C754E0B63;
-	Tue, 22 Sep 2026 15:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024823D348C;
+	Tue, 22 Sep 2026 15:09:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089753; cv=none; b=Ra+XANeiZSAs+8dQuv44mvciwCD7qMCJCFnmuhe7Qqgm6Oxa4Xgf+c/SmZiOZSk0vFfzHbfcLGrMKOrrZ39TPBqfEAG6nD/f+74701YjKxCEFnwOkl9909CeP4Pc8b3oEJoaQxkesdIB7fodS6hDF4v/F0zBwtaXt2VpZ63CBLk=
+	t=1790089758; cv=none; b=LU9eGoSz89KWKTLT8RVIf54fa8FZBMB+k4HHN9FJkKd2fUosRWOvSUZHvdCTNHlry5qhgfZZPM0ZTiNa6r2sc5CaRG4RkSs2VlR6ROWplocOn8Y4pp7cLiUuBULeItpwztkhIhCaPg//CkOolV6xhAq5V4XGKR5ZlqPqFs3Sg4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089753; c=relaxed/simple;
-	bh=vMISu29z2RzK6u+xElcyptuoil66xrDONS/3//NHQ3g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rqp73BIeNg2qktxmQrhjcpv2M9tsfaztmc0Ot83D3J884fuZaoAbkfaLXw0RjF+sqD+XilXdf2f8Ay5i+4UBi/bWnf7uNGJOl16S8QShjpwmIMQPmh4M1sCygIiuoqQ+M2iQdDqdoWfsBXweIyhN6qJ1sHpddtOY8uWrf60HiNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=1rKcBwIg; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1790089758; c=relaxed/simple;
+	bh=tQZ6+lpotfNYppShc26CXimpNOk/SKRnqms9adBfFfs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=uQdXvifIdhJAoTir1M9eaZgutmx9zQCG7W7W/5GKz5dAAVfzNh4Ke4N0Zr95swia5ll+9TYNCeapCqwOzcf3lAXKA1Mas0NfQIDaK14utqUi0TfYWwEZFEPQ8r/YAbyiqEp93bzNMlIJp07K8gyAiTWyA6pVtrCumpv9Ax5pAvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=i1L8vno+; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=yFJXcWla; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="1rKcBwIg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=w2UXjozNG2f2VqdmOHhj+O4LU8O13gAFyAi3A95sx5A=; t=1790089751; x=1791299351; 
-	b=1rKcBwIg+Wkf/vCSTBeZ5GlpI/Hz3QDf8mhYxoFjCc1DdDM41kEQqJzo9jQ9yMVp8VWlDsRvJDF
-	G7ZiVM/E836zzJhHIzlVFo0WZARKNRZwaBFfGtrEQHOdz/ad9x/isw8eOB6F/+/Atkhpw/QcfjOur
-	kEb+teo7zHlx9WJfDjByqyWS6y2fIBf9QiWj531eTpRs/wTAZwx25vIX9KHzhrNgLKXrtCGR1EXzO
-	Ehq/zWrwdnGM0kYNnoBhQLCHfHRTOIp4mxLmppztRvCupdLtagP6Koe1vlrwFYVT8b6LWWGcsUlAj
-	LHQlNwvsvgvXkjF+IUSgo6kqzjGoKa8TwVrw==;
-Date: Tue, 22 Sep 2026 17:08:51 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
- <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Subject: Re: [PATCH RFC 2/9] drm: panel: Add panel for Epson Moverio BT200
-Message-ID: <20260922170851.46928a97@kemnade.info>
-In-Reply-To: <arJDcpvQlIMIGJaP@monoceros>
-References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
-	<20260922-b2-panel-via-bridge-v1-2-45ff36b364cf@kemnade.info>
-	<arJDcpvQlIMIGJaP@monoceros>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="i1L8vno+";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="yFJXcWla"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790089707; bh=D4AtkvFA3il1JL3usmeC6+p
+	lRFcaroVqvV8OHCek2OA=; b=i1L8vno+jsevWvLrpPZQPORFU85T6H3zKpuT+aJWvlIxFdSNLK
+	asexkUvA2mHcLROZde6tJqeA3cYkj3JPjk6O9yPydCyRmrnkD4HnWyk1nTTfFiJJ+SHFA52Affz
+	55UxyQw1tExC1W+HOAhHXZsLyN4R7GVuFEK5BhrCpIuX3Q49gfL7nnhIjJpIIhE+f1hAtaoH1n4
+	GM/2x1fL2VlTDAF3PKEQmJyG0N2q3FwGC1pbYFJptSI1iigL+OI6hVn5E+eIYtEKu6QwLHjGyPu
+	uOv6kiAZQkOjmvfUYMW++klMRk20UpjdbMJgaE+okkwL0j/a59tj4+zVVo9a/tVhMig==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790089707; bh=D4AtkvFA3il1JL3usmeC6+p
+	lRFcaroVqvV8OHCek2OA=; b=yFJXcWlaPIcdob9Dydhu9NF41g3sR0zuoNihw9E7/EiHNnyF75
+	gOPpxAMDa/3Lk04+t4uWH/lDe7sBLBkYPTCA==;
+Date: Tue, 22 Sep 2026 16:08:28 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>,
+ Ricardo Robaina <rrobaina@redhat.com>
+CC: Paul Moore <paul@paul-moore.com>, Eric Paris <eparis@redhat.com>,
+ audit@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] audit: fix exe mark UAF in kill_rules()
+In-Reply-To: <e4872a4b49c279e792adb228281d1513@oss.cyber.gouv.fr>
+References: <20260921195921.4174830-2-Jeremy.Jean@oss.cyber.gouv.fr> <CAABTaaC+vZmvg6s26oaYzkmnEvR42ZYcXutKfVNAa8VsK5ApDw@mail.gmail.com> <e4872a4b49c279e792adb228281d1513@oss.cyber.gouv.fr>
+Message-ID: <EFB280AE-6333-4F17-A9CE-45D8B2C1C64E@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 22 Sep 2026 11:13:36 +0200
-Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com> wrote:
+On 22 September 2026 14:46:55 BST, "Jérémy Jean"
+<jeremy.jean@oss.cyber.gouv.fr> wrote:
+>On 2026-09-22 13:26, Ricardo Robaina wrote:
+>> On Mon, Sep 21, 2026 at 5:07 PM Jérémy Jean
+>> <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+>>> 
+>>> kill_rules() removes mixed AUDIT_DIR and AUDIT_EXE rules when an audit
+>>> tree is pruned. It drops entry->rule.exe before removing the rule from
+>>> the RCU-visible filter lists.
+>>> 
+>>> After a rule has been installed with AUDIT_ADD_RULE, which requires
+>>> CAP_AUDIT_CONTROL, removing or moving the watched directory can race
+>>> with another task that is still evaluating the rule. In that case,
+>>> fsnotify can free the executable mark before the reader reaches
+>>> audit_mark_compare(), causing a use-after-free.
+>>> 
+>>> KASAN reports:
+>>> 
+>>>     BUG: KASAN: slab-use-after-free in audit_mark_compare+0x8d/0xa0
+>>> 
+>>> Remove the rule from the RCU-visible filter lists first, wait for a
+>grace
+>>> period, and only then drop the executable mark. audit_del_rule()
+>already
+>>> uses this ordering.
+>>> 
+>>> Fixes: 34d99af52ad4 ("audit: implement audit by executable")
+>>> Assisted-by: Codex:gpt-5
+>>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>>> ---
+>>>  kernel/audit_tree.c | 5 +++--
+>>>  1 file changed, 3 insertions(+), 2 deletions(-)
+>>> 
+>>> diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+>>> index 1ed19b7..864a58b 100644
+>>> --- a/kernel/audit_tree.c
+>>> +++ b/kernel/audit_tree.c
+>>> @@ -553,11 +553,12 @@ static void kill_rules(struct audit_context
+>*context, struct audit_tree *tree)
+>>>                 if (rule->tree) {
+>>>                         /* not a half-baked one */
+>>>                         audit_tree_log_remove_rule(context, rule);
+>>> -                       if (entry->rule.exe)
+>>> -                               audit_remove_mark(entry->rule.exe);
+>>>                         rule->tree = NULL;
+>>>                         list_del_rcu(&entry->list);
+>>>                         list_del(&entry->rule.list);
+>>> +                       synchronize_rcu();
+>>> +                       if (entry->rule.exe)
+>>> +                               audit_remove_mark(entry->rule.exe);
+>>>                         call_rcu(&entry->rcu, audit_free_rule_rcu);
+>>>                 }
+>>>         }
+>>> --
+>>> 2.47.3
+>>> 
+>>> 
+>> 
+>> Hi Jérémy,
+>> 
+>> Thanks for troubleshooting and fixing this bug.
+>> 
+>> sashiko's review makes sense, though: synchronize_rcu() inside the
+>> loop waits a full grace period per rule, and kill_rules() runs with
+>> audit_filter_mutex held, so a tree with many rules stalls other audit
+>> config operations. Below is an untested suggestion to use a single
+>> grace period instead.
+>> 
+>> diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+>> index 1ed19b775912..5a3d7c7ba5ce 100644
+>> --- a/kernel/audit_tree.c
+>> +++ b/kernel/audit_tree.c
+>> @@ -549,18 +549,30 @@ static void kill_rules(struct audit_context
+>> *context, struct audit_tree *tree)
+>>         list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+>>                 entry = container_of(rule, struct audit_entry, rule);
+>> 
+>> -               list_del_init(&rule->rlist);
+>>                 if (rule->tree) {
+>>                         /* not a half-baked one */
+>>                         audit_tree_log_remove_rule(context, rule);
+>> -                       if (entry->rule.exe)
+>> -                               audit_remove_mark(entry->rule.exe);
+>>                         rule->tree = NULL;
+>>                         list_del_rcu(&entry->list);
+>>                         list_del(&entry->rule.list);
+>> -                       call_rcu(&entry->rcu, audit_free_rule_rcu);
+>> +               } else {
+>> +                       list_del_init(&rule->rlist);
+>>                 }
+>>         }
+>> +
+>> +       if (list_empty(&tree->rules))
+>> +               return;
+>> +
+>> +       synchronize_rcu();
+>> +
+>> +       list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+>> +               entry = container_of(rule, struct audit_entry, rule);
+>> +
+>> +               list_del_init(&rule->rlist);
+>> +               if (entry->rule.exe)
+>> +                       audit_remove_mark(entry->rule.exe);
+>> +               call_rcu(&entry->rcu, audit_free_rule_rcu);
+>> +       }
+>>  }
+>> 
+>>  /*
+>
+>Hello Ricardo,
+>
+>Many thanks for your nice and constructive answer.
+>
+>Indeed, sashiko's review makes sense and your suggested v2 is a good fix.
+>I have replayed my reproducer to ensure that it indeeds fix the reported
+>bug.
+>
+>However, I wonder whether the wait should still happen in the case where
+>all removed rules have rule->exe == NULL. Doesn't call_rcu() already
+>free (kernel/auditfilter.c:96)?  If yes, could we skip synchronize_rcu()
+>in
+>that case? If this question is valid, how about this fix based on yours,
+>which
+>simply adds a bool to detect whether synchronize_rcu() should be called.
+>
+>If you think this addition is good, I can send a v2 with that.
+>
+>diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+>index 1ed19b775912..e2cd27b17590 100644
+>--- a/kernel/audit_tree.c
+>+++ b/kernel/audit_tree.c
+>@@ -545,22 +545,38 @@ static void kill_rules(struct audit_context *context, struct audit_tree *tree)
+> {
+>        struct audit_krule *rule, *next;
+>        struct audit_entry *entry;
+>+       bool need_sync = false;
+>
+>        list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+>                entry = container_of(rule, struct audit_entry, rule);
+>
+>-               list_del_init(&rule->rlist);
+>                if (rule->tree) {
+>                        /* not a half-baked one */
+>                        audit_tree_log_remove_rule(context, rule);
+>-                       if (entry->rule.exe)
+>-                               audit_remove_mark(entry->rule.exe);
+>                        rule->tree = NULL;
+>                        list_del_rcu(&entry->list);
+>                        list_del(&entry->rule.list);
+>-                       call_rcu(&entry->rcu, audit_free_rule_rcu);
+>+                       if (rule->exe)
+>+                               need_sync = true;
+>+               } else {
+>+                       list_del_init(&rule->rlist);
+>                }
+>        }
+>+
+>+       if (list_empty(&tree->rules))
+>+               return;
+>+
+>+       if (need_sync)
+>+               synchronize_rcu();
+>+
+>+       list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+>+               entry = container_of(rule, struct audit_entry, rule);
+>+
+>+               list_del_init(&rule->rlist);
+>+               if (entry->rule.exe)
+>+                       audit_remove_mark(entry->rule.exe);
+>+               call_rcu(&entry->rcu, audit_free_rule_rcu);
+>+       }
+> }
+>
+> /*
+
+LGTM!
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
 
-> > +/* found this table in vendor kernel */
-> > +static struct {
-> > +	u8 addr;
-> > +	u8 data;
-> > +} lcddr_init[] =3D {
-> > +	{0x01, 0x00}, {0x02, 0x00}, {0x03, 0x00}, {0x05, 0x01},
-> > +	{0x07, 0x00}, {0x0A, 0x00}, {0x10, 0x03}, {0x11, 0x44},
-> > +	{0x12, 0x44}, {0x13, 0x55}, {0x14, 0x03}, {0x15, 0x00},
-> > +	{0x16, 0x2A}, {0x17, 0x20}, {0x18, 0x00}, {0x19, 0x10},
-> > +	{0x1A, 0x12}, {0x1B, 0x0E}, {0x1C, 0x0F}, {0x1D, 0x10},
-> > +	{0x1E, 0x0F}, {0x1F, 0x1B}, {0x20, 0x0F}, {0x21, 0x00},
-> > +	{0x22, 0x00}, {0x23, 0x00}, {0x24, 0x00}, {0x28, 0x14},
-> > +	{0x29, 0x19}, {0x2A, 0x17}, {0x2B, 0x2B}, {0x2C, 0x99},
-> > +	{0x2D, 0x13}, {0x2E, 0x2A}, {0x30, 0x0B}, {0x31, 0x00},
-> > +	{0x32, 0x00}, {0x33, 0x01}, {0x34, 0x00}, {0x35, 0x0B},
-> > +	{0x36, 0x04}, {0x37, 0x21}, {0x38, 0x00}, {0x39, 0x46},
-> > +	{0x3A, 0x01}, {0x3B, 0x06}, {0x3C, 0x03}, {0x3D, 0x00},
-> > +	{0x3E, 0x06}, {0x3F, 0x04}, {0x40, 0x00}, {0x41, 0x0D},
-> > +	{0x42, 0x00}, {0x43, 0x2E}, {0x45, 0x08}, {0x46, 0x00},
-> > +	{0x47, 0x01}, {0x48, 0x00}, {0x49, 0x00}, {0x4A, 0x0B},
-> > +	{0x4B, 0x38}, {0x4C, 0x03}, {0x4D, 0x04}, {0x50, 0x0F},
-> > +	{0x51, 0x04}, {0x52, 0x01}, {0x53, 0x0E}, {0x54, 0x11},
-> > +	{0x55, 0x9F}, {0x56, 0x36}, {0x57, 0x00}, {0x58, 0x68},
-> > +	{0x59, 0x01}, {0x5A, 0xE0}, {0x5B, 0x00}, {0x5C, 0x00},
-> > +	{0x5D, 0x10}, {0x5E, 0x36}, {0x5F, 0x36}, {0x60, 0x00},
-> > +	{0x61, 0x04}, {0x62, 0x12}, {0x63, 0x00}, {0x64, 0x80},
-> > +	{0x65, 0x00}, {0x66, 0x80}, {0x67, 0x1C}, {0x68, 0x00},
-> > +	{0x69, 0x00}, {0x6A, 0x00}, {0x6B, 0x00}, {0x6C, 0x00},
-> > +	{0x70, 0x00}, {0x71, 0x55}, {0x72, 0x44}, {0x73, 0x33},
-> > +	{0x74, 0x22}, {0x75, 0x33}, {0x76, 0x22}, {0x77, 0x22},
-> > +	{0x78, 0x33}, {0x79, 0x22}, {0x7A, 0x44}, {0x7B, 0x55},
-> > +	{0x7C, 0x00}, {0x80, 0x00}, {0x81, 0x66}, {0x82, 0x22},
-> > +	{0x83, 0x33}, {0x84, 0x22}, {0x85, 0x33}, {0x86, 0x22},
-> > +	{0x87, 0x22}, {0x88, 0x33}, {0x89, 0x44}, {0x8A, 0x44},
-> > +	{0x8B, 0x44}, {0x8C, 0x00}, {0x90, 0x00}, {0x91, 0x77},
-> > +	{0x92, 0x66}, {0x93, 0x33}, {0x94, 0x11}, {0x95, 0x33},
-> > +	{0x96, 0x22}, {0x97, 0x22}, {0x98, 0x44}, {0x99, 0x44},
-> > +	{0x9A, 0x33}, {0x9B, 0x44}, {0x9C, 0x00}, {0xA0, 0x88},
-> > +	{0xA1, 0x88}, {0xA2, 0x88}, {0xA3, 0x88}, {0xA4, 0x88},
-> > +	{0xA5, 0x88}, {0xA6, 0x88}, {0xA7, 0x88}, {0xA8, 0x88},
-> > +	{0xA9, 0x88}, {0xAA, 0x88}, {0xAB, 0x88}, {0xAC, 0x88},
-> > +	{0xAD, 0x88}, {0xAE, 0x88}, {0xAF, 0x88}, {0xB0, 0x88},
-> > +	{0xB1, 0x88}, {0xB2, 0x88}, {0xB3, 0x88}, {0xB4, 0x88},
-> > +	{0xB5, 0x88}, {0xB6, 0x88}, {0xB7, 0x88}, {0xB8, 0x88},
-> > +	{0xB9, 0x88}, {0xBA, 0x88}, {0xBB, 0xA6}, {0xBC, 0x88},
-> > +	{0xBD, 0x88}, {0xBE, 0x88}, {0xBF, 0x88}, {0xC0, 0x88},
-> > +	{0xC1, 0x88}, {0xC2, 0x88}, {0xC3, 0x88}, {0xC4, 0x88},
-> > +	{0xC5, 0x88}, {0xC6, 0x88}, {0xC7, 0x88}, {0xC8, 0x88},
-> > +	{0xC9, 0x88}, {0xD0, 0x36}, {0xD1, 0x26}, {0xD2, 0x21},
-> > +	{0xD3, 0x1F}, {0xD4, 0x17}, {0xD5, 0x15}, {0xD6, 0x13},
-> > +	{0xD7, 0x10}, {0xD8, 0x08}, {0xD9, 0x08}, {0xDA, 0x18},
-> > +	{0xDB, 0x1D}, {0xDC, 0x1F}, {0xDD, 0x27}, {0xDE, 0x29},
-> > +	{0xDF, 0x2B}, {0xE0, 0x2E}, {0xE1, 0x36}, {0xE6, 0x00},
-> > +	{0xF1, 0x00}, {0xF2, 0x00}, {0xF3, 0x00} =20
->=20
-> Smells non-GPLly. Maybe ask the provider of the vendor kernel for "the
-> preferred form of the work for making modifications to it".
->=20
-hmm, e.g.
-panel-novatek-nt36523.c
+What do you reckon Ricardo?
 
-has similar large init sequences with magic numbers.
-So nothing unusual in upstream.
 
-Regards,
-Andreas
+>
+>Regards,
+>Jérémy
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
