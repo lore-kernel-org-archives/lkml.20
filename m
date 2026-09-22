@@ -1,116 +1,171 @@
-Received: from mta1.migadu.com (out-167.mta1.migadu.com [95.215.58.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com [115.124.28.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3123522692
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3016F521204;
+	Tue, 22 Sep 2026 07:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063685; cv=none; b=uls4Z/Tam5HFzl+rt5VDjinzwh10Mb2Vtdpd/AC/RuEhhlITsAkPKY4Q2bS2QM0ORn2pzWJhOhtGv+q6/gndRpwQ/bk7Y1DYTyB4zfehCzlLWQbwagtHQonXH1534sAFvcU6+LqqNctMySlx/GNs4yyvoYfTwSLljhA46tmOa4E=
+	t=1790063685; cv=none; b=RuIUtg0elzx3XcMCE9lU+GX8EPwcsaHcWC3haZdNizBJ1HKnMNoLhpJqC6loXjK4QESpt2OZ8bJKNScOONc7gyOzO2rHhN+twuqWAIS7V6Gr1/itKPMsX67ytJpUc2iJG0Ya02/JgtRfuOHt0xAk+AIMRHRGE4yYmY7jAMW9VJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790063685; c=relaxed/simple;
-	bh=0TJo2ZSluV7GOtUR+gK4tKoCDniJGIYoMCtvZ+NvpCE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VqyhkOrok5xNqOJszJiDncm/0QuiV2XMFZdTWPYOBWinWe8Dun66DLJN921OG3tqjXpY8JBHkdfxlUZQUMbm/RGBUfLE4pmW++6EOWGUGDi9SnCnCCBKewjERw1f202FdbXyGohsjGnExYWk8oO5L05FrvX1p4Sq6uAWNu5hpsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tGB5EvHd; arc=none smtp.client-ip=95.215.58.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=pBafSgCnUiYFLdgAXKnRhBiqSwDUOAgem5tI4RZ1hLg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j2Ac6Mhi+WRNvWDkfW4zZA/JwphttdnYBHw8/eHQ3QRC5E9Yt6rjLvIA3e1TDTDq462ULUDONg5XJ1/PK9MoJbpxw3m29bEjx746UYA/vsl/rTtbf1RmTJ3YFgdqOCV1jA7MVp9pcAJytgYAJ87syn0LFR9oO8p9L8WRwjGpkek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=KnV0owlH; arc=none smtp.client-ip=115.124.28.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tGB5EvHd"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0TJo2ZSluV7GOtUR+gK4tKoCDniJGIYoMCtvZ+NvpCE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790063672; v=1; x=1790668472;
- b=tGB5EvHd07V3TRZMw3nlxhs4aBNVlsx9LjWONbG45hiYxCmkXpi1+InKeO+o5RER8f1Q0RNp
- YIO7kc+oY9gkGrf5WxWAB1KwqWnpMeNUX9h0Y7ftfm9Chl7NGjuKMGxLmLNGKWn8EuT3o/ZXnO4
- NxjusKf1p68ZfxMuFgFYMbAs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 994fcd1d9a4dc67b;
-	Tue, 22 Sep 2026 07:54:32 +0000
-X-Mizu-Trace-ID: 994fcd1d9a4dc67b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <47038cfd-59a7-4dab-891c-0469cbeb37c8@linux.dev>
-Date: Tue, 22 Sep 2026 15:54:26 +0800
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="KnV0owlH"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1790063662; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=R/X3OD8Nby/QSTgWlm2KLdCBm1FvXrQ8pE8PyW5ZCy0=;
+	b=KnV0owlH+NEp7OHMHGB8E86mtXipmcZSwqO3ypX/CTmAVgsy9kMn6/m1ZssF31LYrFx1yKxFHFQ1EyDjzxzdWeznq+wI8C4Qh26cPfnHMHdpFsp1mAguPHFQMve5EsQHT21DO+lLFxivrm1DyP7Oto6mkR+iIL1HDT/nPBepW7g=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07443159|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0396591-0.00202204-0.958319;FP=13502539487106581925|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jJpRiGY_1790063660;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jJpRiGY_1790063660 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Sep 2026 15:54:21 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH v2] media: cxd2880: avoid a division by zero in the BER period setup
+Date: Tue, 22 Sep 2026 15:54:20 +0800
+Message-ID: <20260922075420.1347279-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260913083734.86802-1-songmuchun@bytedance.com>
- <20260913083734.86802-2-songmuchun@bytedance.com>
- <186ee2ba-daf3-4120-a3e3-101cac1ff5a1@linux.dev>
- <4AA6C66B-0FD8-49F3-8447-959A3E438FC2@linux.dev>
- <95d326cb-ebb4-492c-9062-5d373609e18b@linux.dev>
- <6479325A-E6FA-45BD-9392-262E71467EDB@linux.dev>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <6479325A-E6FA-45BD-9392-262E71467EDB@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+cxd2880_set_ber_per_period_t2() computes the BER measurement intervals
+from the number of blocks the demodulator reports, and uses the result
+as a divisor:
 
+        pre_ber_rate =
+                (plp.num_blocks_max * 1000000 + (denominator / 2)) /
+                denominator;
 
-On 9/21/26 11:49 AM, Muchun Song wrote:
-> 
-> 
->> On Sep 21, 2026, at 11:43, Qi Zheng <qi.zheng@linux.dev> wrote:
->> On 9/19/26 10:07 PM, Muchun Song wrote:
->>>> On Sep 19, 2026, at 22:01, Qi Zheng <qi.zheng@linux.dev> wrote:
->>>> On 9/13/26 4:37 PM, Muchun Song wrote:
->>>>> VMEMMAP_POPULATE_DAX currently distinguishes DAX vmemmap population in two
->>>>> places: it keeps allocations on the normal path and takes a reference when
->>>>> a backing page is supplied for reuse.
->>>>> After Device DAX switched to the common per-zone shared tail page, both
->>>>> conditions can be determined locally. DAX supplies ptpfn for every shared
->>>>> tail mapping and requests an allocation only for compound head mappings,
->>>>> whose PFNs are not optimizable. Therefore, vmemmap_optimizable_pfn() alone
->>>>> selects the correct allocation path.
->>>>> When ptpfn is supplied, the caller is reusing an existing backing page.
->>>>> Once the slab allocator is available, take a reference for each reused
->>>>
->>>> Does the availability of slab mean the buddy allocator is already being
->>>> used? Could there be a window where the buddy allocator is functional
->>>> but slab hasn't become available yet?
->>> Yes, because the slab allocator is based on buddy allocator. But I want to know
->>> what's your concern here?
->>
->> The goal here is to check if the buddy allocator is ready, but the code
->> actually checks for slab.
->>
->> I'm concerned there could be a gap between these two:
->>
->> buddy is ready <-- gap --> slab is ready
-> 
-> There is no vmemmap population during the gap. We don't need to concern the gap.
+        post_ber_rate = pre_ber_rate;
 
-Okay, perhaps we could add more explanation in the commit message.
+        mes_exp = intlog2(pre_ber_rate) >> 24;
+        priv->pre_ber_interval =
+                ((1U << mes_exp) * 1000 + (pre_ber_rate / 2)) /
+                pre_ber_rate;
 
-With this, LGTM, so:
+With num_blocks_max zero the numerator is denominator / 2, which is
+smaller than denominator, so integer division gives zero and the
+division below it traps. That is a normal state for the register, not a
+corrupt one: num_blocks_max comes from
+cxd2880_tnrdmd_dvbt2_mon_active_plp() reading the demodulator, and the
+field is zero before the demodulator has locked.
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+intlog2() is called on the same value and warns for a zero argument
+before returning, so the warning is reached first and the division
+follows.
 
-Thanks,
-Qi
+Clamp the rates to 1 before the divisions, in both functions, so that a
+zero derived from the registers produces a large interval instead of a
+trap.
 
-> 
-> Thanks.
-> 
->>
->> Thanks,
->> Qi
->>
->>
-> 
+No Fixes tag. Both functions came in with the driver, 9593810cd42a
+("media: cxd2880: Add top level of the driver").
+
+Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+Assisted-by: LLM
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+---
+v2: add the CXD2880 maintainer to the recipients.
+
+    The previous version also claimed the DVB-T function
+    (cxd2880_set_ber_per_period_t()) reaches zero the same way. Its rate
+    is computed from cr_table[] and denominator_tbl[], and the smallest
+    value those produce is well above zero, so that claim is dropped.
+    The clamp is still applied there, because the input comes from the
+    demodulator in the same way, but the DVB-T2 path is the one with a
+    case that reaches zero.
+
+    Add the Assisted-by tag.
+
+The values come from the demodulator registers, so the rates depend on
+the state of the tuner rather than on anything userspace supplies.
+Reachable through FE_READ_BER / FE_READ_UNCORRECTED_BLOCKS.
+---
+ .../media/dvb-frontends/cxd2880/cxd2880_top.c | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c b/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
+index 0d058b59a..1a1c58613 100644
+--- a/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
++++ b/drivers/media/dvb-frontends/cxd2880/cxd2880_top.c
+@@ -764,6 +764,12 @@ static int cxd2880_set_ber_per_period_t(struct dvb_frontend *fe)
+ 		}
+ 	}
+ 
++	/*
++	 * A zero rate can be derived from bogus or not yet locked
++	 * demodulator registers. Avoid dividing by it below.
++	 */
++	if (!pre_ber_rate)
++		pre_ber_rate = 1;
+ 	mes_exp = pre_ber_rate < 8192 ? 8 : intlog2(pre_ber_rate) >> 24;
+ 	priv->pre_ber_interval =
+ 		((1U << mes_exp) * 1000 + (pre_ber_rate / 2)) /
+@@ -772,6 +778,8 @@ static int cxd2880_set_ber_per_period_t(struct dvb_frontend *fe)
+ 			       CXD2880_TNRDMD_CFG_DVBT_VBER_PERIOD,
+ 			       mes_exp == 8 ? 0 : mes_exp - 12);
+ 
++	if (!post_ber_rate)
++		post_ber_rate = 1;
+ 	mes_exp = intlog2(post_ber_rate) >> 24;
+ 	priv->post_ber_interval =
+ 		((1U << mes_exp) * 1000 + (post_ber_rate / 2)) /
+@@ -780,6 +788,8 @@ static int cxd2880_set_ber_per_period_t(struct dvb_frontend *fe)
+ 			       CXD2880_TNRDMD_CFG_DVBT_BERN_PERIOD,
+ 			       mes_exp);
+ 
++	if (!ucblock_rate)
++		ucblock_rate = 1;
+ 	mes_exp = intlog2(ucblock_rate) >> 24;
+ 	priv->ucblock_interval =
+ 		((1U << mes_exp) * 1000 + (ucblock_rate / 2)) /
+@@ -886,6 +896,13 @@ static int cxd2880_set_ber_per_period_t2(struct dvb_frontend *fe)
+ 
+ 	post_ber_rate = pre_ber_rate;
+ 
++	/*
++	 * A zero rate can be derived from bogus or not yet locked
++	 * demodulator registers (e.g. plp.num_blocks_max == 0).
++	 * Avoid dividing by it below.
++	 */
++	if (!pre_ber_rate)
++		pre_ber_rate = 1;
+ 	mes_exp = intlog2(pre_ber_rate) >> 24;
+ 	priv->pre_ber_interval =
+ 		((1U << mes_exp) * 1000 + (pre_ber_rate / 2)) /
+@@ -894,6 +911,8 @@ static int cxd2880_set_ber_per_period_t2(struct dvb_frontend *fe)
+ 			       CXD2880_TNRDMD_CFG_DVBT2_LBER_MES,
+ 			       mes_exp);
+ 
++	if (!post_ber_rate)
++		post_ber_rate = 1;
+ 	mes_exp = intlog2(post_ber_rate) >> 24;
+ 	priv->post_ber_interval =
+ 		((1U << mes_exp) * 1000 + (post_ber_rate / 2)) /
+@@ -929,6 +948,8 @@ static int cxd2880_set_ber_per_period_t2(struct dvb_frontend *fe)
+ 		goto error_ucblock_setting;
+ 	}
+ 
++	if (!ucblock_rate)
++		ucblock_rate = 1;
+ 	mes_exp = intlog2(ucblock_rate) >> 24;
+ 	priv->ucblock_interval =
+ 		((1U << mes_exp) * 1000 + (ucblock_rate / 2)) /
+-- 
+2.50.1
 
