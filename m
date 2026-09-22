@@ -1,198 +1,124 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB084C10FD
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA5454489D;
+	Tue, 22 Sep 2026 12:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080804; cv=none; b=aPlSJjjnpigdhxB+z12169yHh232IQtn1aED26va9fx39C/9SUQXBPRxW7AMBG67Si/8hyRbw5ykKU6T95uevewoSKqQ98gUTeZGH/TpDFjLaEsF45GXglTa0RRb0ZGSTLOPEVDhrj5BEea3ay37bklCp+gRAZD6JMKHhWXvdQM=
+	t=1790080858; cv=none; b=URNoXFqdT7yEsoAyJa1BnAM0jQxn4wstmpRmkT/efIV2s2PV5jpdZ3VV/y5oOnTT41CFRd5pZSZFsRIzjCiUvaVg2UB1oPvQ9gTWFmikEoLSJQyvwu9qEA2WFP6BwomE450FhZZHdckKS+F/1OyOsamtRqOgFoi+1FFchYnoaEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080804; c=relaxed/simple;
-	bh=wFmJBrwWil7bpAeYIpoN4GzUL1HvXOt5ldn6IIIiFHY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M6Vul1G8kCk9QCc6ZAwk03kmzGNGFX2gAEshghWyARzraS7X2qQNefpFW4cFXc1GiyFmsKN1nT8hkWVJiz2rsR9/WPpwpm5Y19OyTBdfqSmJNnx0DCh2khKA6ETGfAwZLwlNxRHqtiV+qbX5hA4E9G8hsO/F9EMYUM8gy1NAGTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=O2oXCldz; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	s=arc-20240116; t=1790080858; c=relaxed/simple;
+	bh=kZV6ZLZgI/wrqlr69pqr0fOAak+X0p8hf4KUVheyMqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tQp64JhXUNChrd6NWs2Uayps/0l9Dckk6SKOheVYb8ijc8AMyJbT9igaccqkIrJTTS4bqPMTWWUjJZ2CazhzY1IiEvONsIt4gdwuLPAo9Wq4ZtCBC2KQh/67bryPWpqD0FTMkVt01qXD6ai7uBafbDdyHshBS9Mq++oFx3/PBTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz2F5oh7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="O2oXCldz"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso2705507241.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:40:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1790080799; x=1790685599; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o9blDfaIlaDE7zWOzf7sAkl81n8mIgiGQIMLz8R8dVg=;
-        b=O2oXCldzJ3LpA4QHBbXInqG6gPFkiSS8IpezgH8R+ZrmCNrQGw2qZ3cz2HJXPR/LD3
-         nDnwu+h/q1ydJlARyj62co9tTwdWIgt6A4ziEIgZPoWy6ktNQVyLZgBsOE9UYoUt4d3f
-         ApfWcUtfyoMebnbxzEyQSfJL5IYMdQPZlYtb0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080799; x=1790685599;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o9blDfaIlaDE7zWOzf7sAkl81n8mIgiGQIMLz8R8dVg=;
-        b=zx2+s9o7e/EMzmyP3uQ7nZ71vwV8QARt3TlBflhZmUN/+5iMPcJgBz8Sqbe7yCvF9D
-         wKOoRjjCw5h+tc9pKbH6SIRocMLfO+6ltuUYx7pjYVNWZ5+ZrXjOdKiQOy55MpcZPJAO
-         cF2zOuervtkkivEr59dYOp6a5TgG2I6gSopgwSF8CIM1dYsfWZ8xtPpoyFuokzBsKELZ
-         VBMWfckrwwxtDqVqxmoLC1BA8n7HSDvOXjaTAhvgX7QXosKJvl+acW+s7XlAoW6lQlsG
-         ABRIHzh83yDchD3uL2Uqrfs6jmbAc1RoCLlbXpY1pDESsz7mkeSPmlm/M3s/GniXG8Js
-         hDsw==
-X-Forwarded-Encrypted: i=1; AKwUvByC8sCnMMQ7kH2xlnjH41XPLcGDAcJzBmYd2s5IHBlUEDi/Z8dy2IMd/62cGc7cCUYp61q/zKo27+J4zo0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nR4M6rzy/B4yo65nesP/0wYqlki2cnXJNjjIqAkaTQjhcxFNlO
-	EzAfCuXZCPLixZZfwhHazlP2UDZgaepoIaDe5EonoZgdtRENoC+WvhJ0SIdnctq2Gw==
-X-Gm-Gg: AYBFou2TD3L9AYXQLtT+ZpFDZ8wcZQDqUx1JFMp6Etgi+wb680ener5IhF90xmB40qh
-	Jc95JL+bsOzNphcCKGz0Yam/gNdgVbRQOjvk7RsDE5bSKrPTUkaIedDdzsgHc3AI9qU9WjHFfhN
-	2maraoCpS2jri+2cuFkw+1fbGiasCX+PEM7QDW7O977xckwi57BlV56HBQTa/JP0NherVOTxTeP
-	r98AuC2lQ55r98KQoF6h083yYMfBRGhbisBUycvaxLCGO5ZjBwCPQxLqZD0jG6/9zk4gdLggrpM
-	1rMV4WplZN0y9DWJvEKJC9NuOICUKNbVrl5APJRjm23jwEidxeVlMIVMkbKAOCv/w9cmuyrdgvK
-	dd2ZOrutYCI800zegm485rkTy/BhKUuOq8rU1Q+4HXNx3nhR7uiMhYozRO3llg2G0p79LyLPBH3
-	eZNviTuEKVzSfp8xKPvbSBOH7Dnc82e9uOP4/+Yymm8Uk3K3CxSugLFRF56pyVgxOR5HZb8OPPi
-	t/l
-X-Received: by 2002:a05:6122:e22b:b0:5c9:a60c:2736 with SMTP id 71dfb90a1353d-5c9b598e442mr8405960e0c.14.1790080799199;
-        Tue, 22 Sep 2026 05:39:59 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 6a1803df08f44-91402535ce1sm14566906d6.48.2026.09.22.05.39.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 05:39:53 -0700 (PDT)
-Message-ID: <d2052425-3fb4-4104-b1ed-f2d53e5a710d@ieee.org>
-Date: Tue, 22 Sep 2026 07:39:47 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz2F5oh7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A950A1F000FF;
+	Tue, 22 Sep 2026 12:40:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790080854;
+	bh=zeSEO72eCnxZ+iTsaOq9jItk1bhUJBMtPWgPqZ5OXvo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bz2F5oh71xSQKDwoPWRQpqlNzjB2lihMXyzz5kpO3Kfw3CSo52E6It6jp2jbgAomW
+	 SlP553uKXXJYkpE+xXb5myXYWAsgs+K/A3TyeAigkDdUrRS9renBuDMC0fFQChMqBY
+	 5cquCzN16jkiXVyKgHwkczMu+K5dVK7njIeKsx75qi8m0b9D+Yvk+KPaKPIOouP18F
+	 2koh5VFtDonUUkS12Tm1exefTuspRMB4fpmRctqkQOWnM7Ou5gh652Nc5parMQ7AXr
+	 Dksgq2lgdHmkAg+sIQryVGtDOc5vzmun+g/ePQkIxmvCWemgUPxbfX7Tjys8Om6foo
+	 hZYQF88KkB6QA==
+Date: Tue, 22 Sep 2026 13:40:51 +0100
+From: Lee Jones <lee@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Jan-Simon Moeller <jansimon.moeller@gmx.de>,
+	Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] leds: blinkm: Remove sysfs group on allocation failure
+Message-ID: <20260922124051.GG3277918@google.com>
+References: <20260915020600.91955-1-mhun512@gmail.com>
+ <20260922123713.GE3277918@google.com>
+ <20260922123745.GF3277918@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] umh, treewide: Explicitly include linux/umh.h
- where needed
-To: Petr Pavlu <petr.pavlu@suse.com>, Tony Luck <tony.luck@intel.com>,
- Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>,
- Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Pavel Machek <pavel@kernel.org>,
- Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Nikolay Aleksandrov
- <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
- drbd-dev@lists.linux.dev, linux-block@vger.kernel.org,
- greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
- linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
- cgroups@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
- bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org,
- linux-security-module@vger.kernel.org
-References: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
- <20260911-module-include-kmod-v3-1-6ebccc3e0731@suse.com>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20260911-module-include-kmod-v3-1-6ebccc3e0731@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922123745.GF3277918@google.com>
 
-On 9/11/26 9:46 AM, Petr Pavlu wrote:
-> The usermode helper declarations were previously provided by linux/kmod.h
-> but commit c1f3fa2a4fde ("kmod: split off umh headers into its own file")
-> moved them to linux/umh.h in 2017.
+On Tue, 22 Sep 2026, Lee Jones wrote:
+
+> On Tue, 22 Sep 2026, Lee Jones wrote:
 > 
-> Add explicit includes of linux/umh.h to files that use usermode helpers and
-> remove linux/kmod.h where it is no longer needed.
+> > On Mon, 14 Sep 2026, Myeonghun Pak wrote:
+> > 
+> > > register_multicolor() returns on allocation failure without removing the
+> > > sysfs group created by blinkm_probe(). Remove it on this path, matching
+> > > the helper's existing LED registration error cleanup.
+> > > 
+> > > This issue was identified during our ongoing static-analysis research
+> > > while reviewing kernel code.
+> > > 
+> > > Fixes: 56e8c56c9af0 ("leds: Add multicolor support to BlinkM LED driver")
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > > ---
+> > >  drivers/leds/leds-blinkm.c | 4 +++-
+> > >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/leds/leds-blinkm.c b/drivers/leds/leds-blinkm.c
+> > > --- a/drivers/leds/leds-blinkm.c
+> > > +++ b/drivers/leds/leds-blinkm.c
+> > > @@ -691,8 +691,10 @@ static int register_multicolor(struct i2c_client *client, struct blinkm_data *da
+> > >  
+> > >  	mc_led_info = devm_kcalloc(&client->dev, NUM_LEDS, sizeof(*mc_led_info),
+> > >  					GFP_KERNEL);
+> > > -	if (!mc_led_info)
+> > > +	if (!mc_led_info) {
+> > > +		sysfs_remove_group(&client->dev.kobj, &blinkm_group);
+> > 
+> > If 'blinkm_group' was created in blinkm_probe(), shouldn't it be cleaned up in
+> > the error path of 'blinkm_probe()' rather than here in the callee?
 > 
-> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-> ---
->   arch/x86/kernel/cpu/mce/dev-mcelog.c | 2 +-
->   drivers/block/drbd/drbd_nl.c         | 1 +
->   drivers/greybus/svc_watchdog.c       | 1 +
+> Same with register_separate_colors() failure, no?
 
-For Greybus:
+What about:
 
-Acked-by: Alex Elder <elder@riscstar.com>
+diff --git a/drivers/leds/leds-blinkm.c b/drivers/leds/leds-blinkm.c
+index ee1589015826..7932095780aa 100644
+--- a/drivers/leds/leds-blinkm.c
++++ b/drivers/leds/leds-blinkm.c
+@@ -749,19 +749,17 @@ static int blinkm_probe(struct i2c_client *client)
+                return err;
+        }
+ 
+-       if (!IS_ENABLED(CONFIG_LEDS_BLINKM_MULTICOLOR)) {
++       if (!IS_ENABLED(CONFIG_LEDS_BLINKM_MULTICOLOR))
+                err = register_separate_colors(client, data);
+-               if (err < 0)
+-                       return err;
+-       } else {
++        else
+                err = register_multicolor(client, data);
+-               if (err < 0)
+-                       return err;
+-       }
+ 
+-       blinkm_init_hw(client);
++       if (err < 0)
++               sysfs_remove_group(&client->dev.kobj, &blinkm_group);
++       else
++               blinkm_init_hw(client);
+ 
+-       return 0;
++       return err;
+ }
 
->   drivers/macintosh/windfarm_core.c    | 1 +
->   drivers/pnp/pnpbios/core.c           | 2 +-
->   drivers/video/fbdev/uvesafb.c        | 1 +
->   fs/coredump.c                        | 2 +-
->   fs/nfs/cache_lib.c                   | 2 +-
->   fs/nfsd/nfs4layouts.c                | 2 +-
->   fs/nfsd/nfs4recover.c                | 1 +
->   fs/ocfs2/stackglue.c                 | 1 +
->   kernel/cgroup/cgroup-v1.c            | 2 +-
->   kernel/module/kmod.c                 | 1 +
->   kernel/power/process.c               | 2 +-
->   kernel/reboot.c                      | 2 +-
->   kernel/umh.c                         | 2 +-
->   lib/kobject_uevent.c                 | 2 +-
->   net/bridge/br_stp_if.c               | 2 +-
->   security/keys/request_key.c          | 2 +-
->   security/tomoyo/common.h             | 2 +-
->   20 files changed, 20 insertions(+), 13 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/cpu/mce/dev-mcelog.c b/arch/x86/kernel/cpu/mce/dev-mcelog.c
-> index 053555206d81..af4e76babe7a 100644
-> --- a/arch/x86/kernel/cpu/mce/dev-mcelog.c
-> +++ b/arch/x86/kernel/cpu/mce/dev-mcelog.c
-> @@ -11,7 +11,7 @@
->   
->   #include <linux/miscdevice.h>
->   #include <linux/slab.h>
-> -#include <linux/kmod.h>
-> +#include <linux/umh.h>
->   #include <linux/poll.h>
->   
->   #include "internal.h"
-> diff --git a/drivers/block/drbd/drbd_nl.c b/drivers/block/drbd/drbd_nl.c
-> index b77f901fc3ef..6f5d059394b3 100644
-> --- a/drivers/block/drbd/drbd_nl.c
-> +++ b/drivers/block/drbd/drbd_nl.c
-> @@ -14,6 +14,7 @@
->   #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
->   
->   #include <linux/module.h>
-> +#include <linux/umh.h>
->   #include <linux/drbd.h>
->   #include <linux/in.h>
->   #include <linux/fs.h>
-> diff --git a/drivers/greybus/svc_watchdog.c b/drivers/greybus/svc_watchdog.c
-> index 16e6de5e9eff..b318eb34bcca 100644
-> --- a/drivers/greybus/svc_watchdog.c
-> +++ b/drivers/greybus/svc_watchdog.c
-> @@ -7,6 +7,7 @@
->   
->   #include <linux/delay.h>
->   #include <linux/suspend.h>
-> +#include <linux/umh.h>
->   #include <linux/workqueue.h>
->   #include <linux/greybus.h>
->   
-. . .
+This is completely untested.
+
+-- 
+Lee Jones
