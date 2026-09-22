@@ -1,58 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FE025A321;
-	Tue, 22 Sep 2026 18:54:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B93040DB4A;
+	Tue, 22 Sep 2026 18:59:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790103284; cv=none; b=ZqZ7q0rMWvNv0OxhHvUu6D5PsC4xoiB2LAi/2ge6Yl+oe2PBiRDwtX3tsSGNXDs8XFIY+dF4/7QOuz+aaBC4zYKKQmS/sqf+Lht9T8XhTdHdP0kqPFFs1/sruoQgUJuEWNri61x+2ioxSjUSuSQVLnZU5s+pX1Bhl6yFktrs9Mc=
+	t=1790103581; cv=none; b=VwDKvoUC91lCBOrZ54odtwDcT7bEwstb39WaUpYcz3iEYLqG+UrGcfRerXE14XRDjmpInU5Fkzv2vlaL97t3K9pXGubzo55bDql3jWSbK0KsLe0ZPdZy9Y7/EHQaRcuu7bKiFuFGxiQxWUi0WgQBu4d3ZcvCgStFHhd9g0Hq4Qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790103284; c=relaxed/simple;
-	bh=zBFx0iHHzZvP5Cna47RqAxQwN2SWJ8HnFtvoenOrRyo=;
+	s=arc-20240116; t=1790103581; c=relaxed/simple;
+	bh=mu9PB79vwgp0Rjt5HJRKG3AfiFHvTniTn/hC1L/y3XI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dNpkDg92QcIKed/bYIyQMTuHp2euLYsu38F0bricT/RcMD66tF8Z3pUTmLSS5ZXNpXxH2DONNNnasvWm1rRbNj3X+I+NsmSsBSGvkfB9hSB/0uHnxa/Hmym9bdP6CnNHoAP6wvM6o47HFB6wRV8diZf41BCs1sUTPZuXcFLujcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXm+/bDn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rkJkVzkEBo2P6MXqW5mO23xtik0jn+LShuc9a9iUqBlapOdjKeywXnNAjSZJlq0dOsgTQZQmB/NZtwJa5/i934h++CAxkBmQE/myeiJdPqA/UEmimnEuTJ553NCroHnLYWa/4XsVow0BW8r3IeALkAfsJaqLKVv1YFWdVTJ4hFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mU7cMGgi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXm+/bDn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D671F0089A;
-	Tue, 22 Sep 2026 18:54:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mU7cMGgi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D261F00893;
+	Tue, 22 Sep 2026 18:59:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790103274;
-	bh=fMv2HRQWdI7L1EwnVqaI+B6hRyZmxW7nfB0fpJ4Rdio=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jXm+/bDndA1K7nV2TVA2OZew3t2LMKoY2U41Xm37ETzJXswGN7qSuV2hjBBflMwyK
-	 axDrW6s7WkRuuSTt1eseU+bUHh+18gEbk9yHlwDhLxTsZ9Buj2TaWQs1a4t7kJcChc
-	 inCyrVZOg63PPJEFjnEDiOe/fsVPfJqgXYR+7Lbx7mpp9vvfhUF1KmoRv7P0SKnIWu
-	 I3Grt4Lc/l48/koMYkNzv7/dm4OxPWMqkL+mLE5sk29TUcavHAmcA6TWWdzarBHyR4
-	 WtV96sN96nZg/PT9N2jxlxzs7R/XWwRZaHt2YGz5YIh5v/HTdhiWTCTqy8l29MOjYI
-	 HwtBQcXixVirA==
-Date: Tue, 22 Sep 2026 19:54:25 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Oliver Upton <oupton@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
-Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
-Message-ID: <arLOn49vQ4EA1brY@gremlin>
-References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
- <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org>
- <arKxjsxuO1F5ExrY@kernel.org>
- <arK5n9HrbZMCOHOt@google.com>
- <arK5ynpRi7VbY7Ek@gremlin>
- <arK8seJVT9wYgVCP@google.com>
- <arLD-eZ6dRvfZ52q@kernel.org>
- <arLJ4AbNN9Y_IUna@gremlin>
- <arLM-vJDoO7gQJXM@google.com>
+	s=k20260515; t=1790103579;
+	bh=2cS0IN+mc7LICkSPU79FRHl95e7HBKcBaYCxbvbel3k=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=mU7cMGgiTHgl6EgoD5ZAQvaO6UK/6ezxZLiGew5Jwl8ZCUXUbkXhYfVHg6T1MtIGe
+	 qvM1nuCU6EqwgLJ8eYlcn6LmSeAR38zdJ11dtLb+FUCNMOKjsfoKIIVFm5EgzWh7BY
+	 UbUkwyhh2tO5IIZx7m65tXRrTMeq12/63dLPpdGJemMK20AyfMMUWFDmc+a2X6NfQ0
+	 4alX4aHc32U0mWaK67LZynEkpMMrJcYkT8ckVk1UEJQhfkGma4mVhtexZlIqs0eB/y
+	 kKJZPKX2eNxxXLlUnc9fOMkM5zX7p7gUPtJA8Evc2MjxZBI4J/CGoooGJBsXyoVO49
+	 bW8MESKURf+CA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 43257CE0836; Tue, 22 Sep 2026 11:59:39 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:59:39 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Vineet Gupta <vgupta@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>, Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+	David Laight <david.laight.linux@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/5] Add two-byte cmpxchg emulation and wire it into
+ the architectures
+Message-ID: <9a7883a3-a1b1-4d37-8234-f4c62b2e6e27@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260922173354.14404-1-brads@mainlining.org>
+ <78f7ab38-46c8-4968-a2ae-4c3c98e32f4d@paulmck-laptop>
+ <7BE5B8EA-FAFB-4CBB-8FF1-ECDEEB1618B0@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,71 +55,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arLM-vJDoO7gQJXM@google.com>
+In-Reply-To: <7BE5B8EA-FAFB-4CBB-8FF1-ECDEEB1618B0@mainlining.org>
 
-On Tue, Sep 22, 2026 at 11:46:18AM -0700, Sean Christopherson wrote:
-> On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Sep 22, 2026 at 11:07:53AM -0700, Oliver Upton wrote:
-> > > On Tue, Sep 22, 2026 at 10:36:49AM -0700, Sean Christopherson wrote:
-> > > > On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
-> > > > > On Tue, Sep 22, 2026 at 10:23:43AM -0700, Sean Christopherson wrote:
-> > > > > > Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
-> > > > > > generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
-> > > > > > the return value, the connection to vcpu_load() is obvious, and we don't need to
-> > > > > > add another pre-check if future (or cleaned-up existing?) ioctls want to do
-> > > > > > vcpu_load() in common code.
-> > > > >
-> > > > > ...this is exactly what I started out with.
-> > > > >
-> > > > > But then you are in a pickle, because _really_ you need to do that check in
-> > > > > vcpu_load(). Which is a void function. Which is called by every single
-> > > > > architecture all over the place.
-> > > > >
-> > > > > So you'd have actually no way of signalling the error back.
-> > > > >
-> > > > > Of course those places are arch code and you could say 'arches should know
-> > > > > better and if they call it it's fine not to call the arch 'can you load'
-> > > > > function.
-> > > >
-> > > > Yes, that's my vote.  It'd be easy enough to clarify that "rule" with a comment
-> > > > in linux/kvm_host.h.
-> > >
-> > > I feel like trying to make this generic will wind up under-documenting
-> > > the single example we have with the pre fault ioctl. Putting the comment
-> > > into a header practically guarantees that nobody will read it either.
-> > >
-> > > I'd favor doing something like below and sticking the comment inline in
-> > > the ioctl handler. Unless I'm missing something blatantly obvious, I
-> > > don't see why the x86 or s390 pre-conditions can't be tested early too.
->
-> Oh, they definitely can.  I'm a-ok with using kvm_arch_pre_fault_allowed() on
-> s390 and x86, the only option I am against is adding kvm_arch_pre_fault_allowed()
-> but then not using it on architectures that obviously perform that exact check.
->
-> > > --- a/virt/kvm/kvm_main.c
-> > > +++ b/virt/kvm/kvm_main.c
-> > > @@ -3961,6 +3961,11 @@ bool __weak kvm_arch_dy_has_pending_interrupt(struct kvm_vcpu *vcpu)
-> > >  	return false;
-> > >  }
-> > >
-> > > +int __weak kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
-> > > +{
-> > > +	return 0;
-> > > +}
->
-> There should be no need for a __weak placeholder since this code is guarded by
-> CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY=y.  I.e. force architectures to define the
-> API.  I don't think it's a coincidence that all of arm64, s390, and x86 ended up
-> with restrictions; pre-faulting is far from a simple operation.
->
-> Actually, that's an argument for a dedicated kvm_arch_pre_fault_allowed() versus
-> a generic kvm_is_vcpu_loadable(): it helps force future architectures to actually
-> think about when exactly pre-faulting is safe.
+On Tue, Sep 22, 2026 at 07:37:54PM +0100, Bradley Morgan wrote:
+> On 22 September 2026 19:29:32 BST, "Paul E. McKenney" <paulmck@kernel.org>
+> wrote:
+> >On Tue, Sep 22, 2026 at 05:33:49PM +0000, Bradley Morgan wrote:
+> >> This is v4 of the two byte cmpxchg emulation series, wiring
+> >> cmpxchg_emu_u16() into arc, csky, sh and xtensa.
+> >> 
+> >> v3 had changed cmpxchg_emu_u8()'s success return to (u16)old, which was
+> >> a 16-bit mask in the 8-bit function, and a dead one at that, since the
+> >> compare guarantees the low 8 bits of old are the byte being returned.
+> >> David Laight asked where that cast came from. v4 returns old unmasked,
+> >> the exact behaviour the one-byte emulator always had, so nothing that
+> >> uses cmpxchg_emu_u8() through the widened prototypes sees a change.
+> >> 
+> >> David also noted v3 extended the (unsigned long)(0 ? *ptr : (old)) type
+> >> check to csky and sh but not arc and xtensa. v4 adds it there too, so a
+> >> cmpxchg(&p, 4, 5) fails to compile on every architecture in the series,
+> >> verified with each architecture's macro instantiated standalone.
+> >> 
+> >> While adding the type check to arc, the switch subject turned out to be
+> >> sizeof((_p_)), the pointer, not sizeof(*(_p_)), the pointee. On 32-bit
+> >> arc the switch was always 4, so the size 1 and size 2 cases were dead
+> >> code and every sub-word cmpxchg() went through the 32-bit llock/scond
+> >> pair, comparing whole words against sub-word values, so the compare
+> >> almost never succeeded. The switch now tests the pointee, and the u8
+> >> path it was always meant to dispatch actually runs, so the one-byte
+> >> emulation works on arc for the first time since the sizeof bug landed
+> >> with the original cmpxchg_emu_u8() wiring.
+> >> 
+> >> The host test of 972 cases across both halfword offsets against a byte
+> >> level reference model still passes, and a 20000 case randomized run
+> >> checking the masked compare and return against a hardware cmpxchg r16
+> >> model passes with zero mismatches.
+> >> 
+> >> David pointed out on v1 that a u16 prototype does not compile warning
+> >> free when exchanging a pointer type, because the switch statements in
+> >> the architecture macros instantiate every size case, so a pointer
+> >> cmpxchg() type checks the two byte case, and the (u16) casts there
+> >> warn. v4 keeps taking the old and new values as unsigned long and
+> >> casting to u16 inside the function, so the call sites need no narrowing
+> >> casts and pointer exchanges compile clean. The function still compares
+> >> and returns exactly the 16 bits the caller asked for, which matches
+> >> hardware cmpxchg r16 behaviour.
+> >> 
+> >> The ARMv6 wiring stays dropped from v1, per Arnd Bergmann's offer to
+> >> take the INTEGRATOR_CM1136JFS cleanup in his platform removal series.
+> >
+> >I have pulled these in, but only to expose them to things like the kernel
+> >test robot.  My guess is that they will go in by some other path.
+> >
+> >And to that end:
+> >
+> >Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> >
+> >But I could of course easily be missing subtle arch-specific bugs.
+> 
+> There are, according to sashiko, but I can't seem to make that thing happy
+> no matter what I do
 
-Ack on all and I agree __weak is not necessary in this case and probably quite
-useful to make arches define it.
+Hahahahaha!!!
 
-Will take this approach on respin thanks all!
+We forgot to CC the architecture maintainers.
 
---
-Cheers, Lorenzo
+For the changes to lib/cmpxchg-emu.c:
+
+	Cc: Andrew Morton <akpm@linux-foundation.org>
+	Cc: Arnd Bergmann <arnd@kernel.org>
+
+For ARC:
+
+	Cc: Vineet Gupta <vgupta@kernel.org>
+	linux-snps-arc@lists.infradead.org
+
+For sh:
+
+	Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+	Cc: Rich Felker <dalias@libc.org>
+	Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+	Cc: <linux-sh@vger.kernel.org>
+
+For csky:
+
+	Cc: Guo Ren <guoren@kernel.org>
+	Cc: <linux-csky@vger.kernel.org>
+	Cc: <linux-kernel@vger.kernel.org>
+
+For xtensa:
+
+	Cc: Chris Zankel <chris@zankel.net>
+	Cc: Max Filippov <jcmvbkbc@gmail.com>
+
+They might be willing to help.  ;-)
+
+							Thanx, Paul
+
+> >> Bradley Morgan (5):
+> >>   lib: Add two-byte cmpxchg emulation function
+> >>   ARC: Emulate two-byte cmpxchg
+> >>   sh: Emulate two-byte cmpxchg
+> >>   csky: Emulate two-byte cmpxchg
+> >>   xtensa: Emulate two-byte cmpxchg
+> 
+> --- Thanks!
+> "I'm not a very positive person" - Linus torvalds
