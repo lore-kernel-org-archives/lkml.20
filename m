@@ -1,123 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D05652B1D2;
-	Tue, 22 Sep 2026 09:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD65952941C;
+	Tue, 22 Sep 2026 09:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068250; cv=none; b=uUvhXzHid4wk7y1mYEmxogk1aP9ZrqqCO94q0sHIKqTMqzsaDnzluiv48Qb9oii3qnUs/ZQ/53ScS2IjtqXh389PBThB5+2i9KntOeegzn2re53/eHPB1ydZyqIGwqXdeOyFZ2DASoI6NNOE/LaSvmkMNwOzr/Kl022r6maXfEs=
+	t=1790068243; cv=none; b=RIGN8G/usTGESh4JPOumfHaZxZyvxEjKNKJGeYIliUtPvT53AOkxv6NwGUpGuMwb8tHGkvWU+oi77/3kRwzTIOvSXPc9eSiCvOgKnT2D1z7PaW1W5+s404gLWXaSRSaI5DS9iV9BdkVM0kl9Kq5OAdAKys3Wmn4y1wGoi+apqvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068250; c=relaxed/simple;
-	bh=++NArL2q0a8Rq+zt75joMwHyZFnjjRheWuposG1DMl8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cVxvIbBA+unzBu0XIbhx0qJHB7jd2ZDa3vYJlDjTaZKhlU2Gr0NibEGKvMyDzWVSAJJzjqp5GLYfRQDJ7dJfH1HjLbktPVHZ5itwKs8BYJb16Cj98a5dI+2lCnI+XbnGgNTwWgnZQIv0SINg/DEZ4vYfGjOWxFNlafz5xTPAfmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcnQZoqS; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790068243; c=relaxed/simple;
+	bh=HgNPZpTKClc/Bo/qq9vfCxCccTNYewVv7YgeFQs+kt4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NKtFokPkpzfPUXHwaarboWrWgNuDG+9T3tuecwT7uUDKyiW1SEA2fYrpqWY6M49XzYCpluhx/aF/BuqKGwMq43pAPeRxEaSn6qHWGduAz7JpmX3Z5Rfax2olEDDBdDifu/IQ5zWKKTxLfy+EmGsxJo3xuGc2FVThEiyvSRfYY5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=ier3rHDD; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcnQZoqS"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2564AC2BCF5;
-	Tue, 22 Sep 2026 09:10:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790068250;
-	bh=++NArL2q0a8Rq+zt75joMwHyZFnjjRheWuposG1DMl8=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=kcnQZoqSb7o9V9cxQeBRDoTr9ywnzppSC31N5zhwRfwNLykbe3pi7Ptg1VSJsJiL6
-	 XnvXWOtBg0dNlMMabX+5P37jv6uF+5UgeAQMiFFxzYbGr6ERzRkTNFr0MN+2OoFf30
-	 ovC1XmbZu0544+YaUT06URLtvoon+IUoSGCdxrm36YWFVc9AHYYeUkBFX4gzqBCFL1
-	 Fa6TMw4rJ34YQs/fePJZIDT3ihOzC+L2ZRYR+Q1pw5hBZVwVWll+w/OWn4r2YdYDft
-	 9CDj489dJ9NhCqAfqxtf6DDd6vMht0uyVrv28b90ntJu33OJ87HTv/alK7Okr1s86b
-	 7s6o4EjKn1VwQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11003C982FF;
-	Tue, 22 Sep 2026 09:10:50 +0000 (UTC)
-From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
-Subject: [PATCH net-next 0/4] net: macb: Rework hardware timestamp
- configuration
-Date: Tue, 22 Sep 2026 18:10:48 +0900
-Message-Id: <20260922-codex-macb-hwtstamp-submit-v1-0-9d1abaa53296@khu.ac.kr>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="ier3rHDD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=lTIWqkgW/6XrBcOyuAOlGNAiOa8BHpB9D8z7LSFGgBo=; 
+	b=ier3rHDDJlJUQBz3c36Be5kf/981YOqlS3a2HBR4Mp6UH1nMuGB2PFUdV3PGqD6e7HCLBnu2GD/
+	F051EddPgPc6AyP4Tp0cEY1Z6zykTt0A0lP5iQgdb2iCgbnGs45VP/JDYxSqjt38cKa3T32wRacZW
+	/EschcBGB86E7L18quk5VXK0DNInRu4MmpsDeUAaiWnXmvBECDTKyYjqt5dTgZlQDJ3iNJCsdaWY4
+	W3zBNPH1EkjeUdABpC+lSIQ2V9MCFH8pinyd4Kypw6TGx7j/2X2WX0QL41f84XXTb8DwvtbgqlDuw
+	Yd26yyqd5pUmgQkn3Jqh1YmpRt4fPsFUHuXw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x8wWA-0000000Ga8S-1wID;
+	Tue, 22 Sep 2026 17:10:27 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 22 Sep 2026 19:10:26 +1000
+Date: Tue, 22 Sep 2026 19:10:26 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	stable@vger.kernel.org, Thara Gopinath <thara.gopinath@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Stanimir Varbanov <svarbanov@mm-sol.com>,
+	Eneas U de Queiroz <cotequeiroz@gmail.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Demi Marie Obenour <demiobenour@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Abel Vesa <abelvesa@kernel.org>
+Subject: Re: [PATCH v8 00/14] crypto: qce - Fix crypto self-test failures
+Message-ID: <arJGAjRRC-5EPjH6@gondor.apana.org.au>
+References: <20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com>
+ <CAMRc=MdWZhLy7AXd2OiVsaT92xTh1EF+B+LNo2b-1D2TO3rAmA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNTQ6CMBCFr0Jm7UScIAlexbiYltGOSQtpq5IQ7
- m6LK5fv73srJIkqCS7NClHemnQKRZwODVjH4SGoY9FALfXtQIR2GmVBz9ag++SU2c+YXsZrRjq
- z6ZikN0MHBTBHueuyw68QJGOQJcPtl5TNU2yu7No1nARN5GBdtfaX4/9LrcC2fQFNbsejswAAA
- A==
-X-Change-ID: 20260922-codex-macb-hwtstamp-submit-25ab4a2e6b94
-To: netdev@vger.kernel.org, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Rafal Ozieblo <rafalo@cadence.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, linux-kernel@vger.kernel.org, 
- Kim Wooseok <5mghybrid@khu.ac.kr>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790068248; l=2436;
- i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
- bh=++NArL2q0a8Rq+zt75joMwHyZFnjjRheWuposG1DMl8=;
- b=wQXn2eJM2sexqJSEKmc4voyyNCPbXLXtHOOAZmQmoGY+F/omgQx6vr6b5ZUGxcMC8xMue+Ixf
- tNVHJpQzOLJAg8jV1zrFtGr9d/Yc1GvshBJPzH/KwnfQi2p3NhiGEdw
-X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
- pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
-X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
- with auth_id=1028
-X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
-Reply-To: 5mghybrid@khu.ac.kr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=MdWZhLy7AXd2OiVsaT92xTh1EF+B+LNo2b-1D2TO3rAmA@mail.gmail.com>
 
-This started with two problems I found while using PTP hardware
-timestamping on a Raspberry Pi 5. A rejected RX filter could still
-change the TX one-step setting, and the PTPv1 Sync and Delay_Req filters
-returned success without enabling RX timestamps.
+On Tue, Sep 22, 2026 at 01:22:31AM -0700, Bartosz Golaszewski wrote:
+>
+> Herbert: Sashiko still says it fails to apply. I have no idea why, it applies
+> fine on top of current linux-next.
 
-This series reworks gem_set_hwtst() to validate the whole request before
-programming the hardware. It calculates the settings locally, then
-updates the registers and saved configuration under bp->lock. With the
-register writes now in the setter, the two helpers are no longer needed.
+The first patch doesn't apply for me either using git apply.  Please
+download the latest cryptodev-2.6 (a9a2152d292fd0bc73814eb4a127278ee7dd3f6a)
+and rebase.
 
-The remaining patches use the existing ALL fallback for the specific
-PTPv1 filters, turn off one-step mode for TX_OFF, and clear SRTSM when
-switching away from a PTPv2 filter. Each change is kept in its own patch.
-
-I compared the old and new behavior on the Pi 5. When I requested a TX
-mode change together with an invalid RX filter, the patched driver
-rejected the request without changing the saved settings or NCR. I
-also switched from one-step TX and PTPv2 RX to other settings and back.
-Only the relevant bits changed, and restoring the original settings
-restored NCR.
-
-For the PTPv1 filters, I checked the effect by sending Sync and Delay_Req
-packets over Ethernet. Before the change, the packets arrived without
-hardware timestamps. With the patches, the driver returned ALL and I
-could read the hardware timestamps from the received packets. PTPv2
-multicast reception continued to provide hardware timestamps, and
-selecting NONE disabled timestamping. I ran these tests with the changes
-backported to the Pi's existing Linux 6.18.46 RT kernel.
-
-On net-next, I built the series with ARM64 allyesconfig and allmodconfig,
-both with W=1. Sparse reported no diagnostics in macb_ptp.c.
-
-Assisted-by: GPT-6 Astra
-Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
----
-Kim Wooseok (4):
-      net: macb: Preserve timestamp settings on rejected requests
-      net: macb: Enable RX timestamping for specific PTPv1 filters
-      net: macb: Disable one-step mode when TX timestamping is off
-      net: macb: Clear SRTSM outside PTPv2 receive filters
-
- drivers/net/ethernet/cadence/macb_ptp.c | 63 ++++++++++++---------------------
- 1 file changed, 23 insertions(+), 40 deletions(-)
----
-base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
-change-id: 20260922-codex-macb-hwtstamp-submit-25ab4a2e6b94
-
-Best regards,
---  
-Kim Wooseok <5mghybrid@khu.ac.kr>
-
-
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
