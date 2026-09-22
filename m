@@ -1,148 +1,184 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104864DDB5F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081771; cv=none; b=oZEw+PvlnCdeS7hZMl484D7oXwvEYNnKjWnS8ofAhspfvGfIJL2CkQaDssRjHQ10bO56geI0khfIt9S8yf2hjC92glPTlpdOlHgwg/PpReEPsYJSwaRmqRot9NDGK4CVckj3WeqeDfsIYsar6FxJW8v0kMigU+7tuVEkETt8K10=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081771; c=relaxed/simple;
-	bh=1RU0Kydm/QO8mPelcrJzOpchI0itEJYTTDNITU5z6sU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kXEH4qR0v+kEnI7TkeHw2MHIiSsy3s+nA0bxE9zoJT6smLbwE8N4k+Mo54WEjnh2nQea/2Gf8eOPuSNG0+jb/3cfESjs3/UK1TCeaxzMMNw/1Es4YaBVhbxzAZfbPF9cMPdDh+zmsJAmykoYEMEDdLkc85IcBWidltE9ltSi6gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=CBm7waLk; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFA34DDB5F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790081831; cv=pass; b=m/SwMTfBYeIbG2cYgw7l7L1pau19iJPslNIQCF2S/odaaIu7wBjgYreYFwyo0K0sXT9eca0rFZZ1fZ1FmGG1cbHfpBW+oLXFBObtDSEtPiazE3Tn0hKyDWhgBicft0pX+snty0Yt9Vp79WGxAefdkYhEsH32kZCQUMOMLQ48Bv4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790081831; c=relaxed/simple;
+	bh=Hhd6LueUkgl2nXOIiriUKvsENO7Cda/AObZMpAYom4o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IYE13BcX06wK2EHRmG+5OSgysdqqI2NeaKIMrWfqCU4t61oVZb+k2kiHMTrJcnRNpBFqc9dsg9OB0AbxFvKDC1HtOSeQ8hUIB9/uDHgQdLIC45l6S6z21rM7sM810H+1i3iJDpoDgPaYFB3fKaKn1KwLhmip9y5WRanJb6YTr90=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=kXMSFoJL; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="CBm7waLk"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so24608585e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:56:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="kXMSFoJL"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f705536so756852266b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:57:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790081828; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YlWmLVoE2x8mXchT+sH0p/Pp1n8pTCHPBWW5EiTmXzfgGBrCh+VI0p3Y9fF3EJ0rds
+         CcxvQy7QnNP7RA1jyz4s6EqF7seVwn7SFN/691R7NSjn0Y4FUD0aoxQxPz3u0pbLHHXB
+         48LnjCJdNZ1GwWPMXLVa7/+qdPvKMa47GS+5gEPKmLAGt+iYut3QR9QHwRcRzm++9PAc
+         PL4PwCKFzeGb9jO3hzj5N4TG+rATtIbhjmrjFfRBB4qBCpwQX3Wp92j1mAb9wT+RP9Ic
+         Cewh9mtNLb+PWLfNh5bIL158HjWEXDdioPDMAavGgK4wc8L8NXm590t2+pQVBMSwnKQ1
+         ef7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=KoSD6wSoEm5LD8SW33yBKEv1Muv/7sX6Gf0U11rs4OY=;
+        fh=MLCuuuUjuE28SvjLASXYcirAR/BK7EsxdwaGWwjnKzA=;
+        b=gFoJMzVGV+vXPliqOX/q4GbM6u7JD4OpaZd9V4Zs5RDVVJAky6uzUBO6bidVyih/Rl
+         QF9bKDf6AaJUNB2ZoC/2MKxu6Rje8kDXbGNIux/zAkYS1xJ79+f46ri8ElvGoNiK30pp
+         rbsMa6xnv9TceC229hzr57YtE22OCktkxDrdjvvGes6kbAuWTo1GscUq5IkW/Gi1Mc/Z
+         k/VaQdbufUtjc8DjVCCOXVLSbw4FTsHv1EURX1lyGn5HFKaVWITqRmuzRNR7tsLuaRmm
+         WSO3WIK00SD8n9wyUaQlxYg3kJtmIK/jvZvsu8C5yf6y5PFMhlcfbhxYwLgLGwNO5KpZ
+         w16g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790081767; x=1790686567; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7PJhsL+lJDEWlsy1P+VAKjdzPyZEVZBx/BR6qGAMVLY=;
-        b=CBm7waLkf1RECVJLUq5O2AnWTfyTm1raSLrdZLm4nOW6vTkEfK33lmeaBL+9FAifRR
-         05XyGO4u8f/ltK2WllgJhyBwa7LHRBPJsZ4lPWAVgLhZ5OJ1vayxv6ilYlENtetsNtJD
-         cvG7K6BmhF80scf0YBtSYcmOf5x/yUsxSmsE57nbU2AQwlEf0W5PPlTKLsEv+J0Ij8nk
-         iageTw80MDFLrfQEdCfeY2TrYB5pxoChG0Cm+xzzCgMltIO+142IoaBKu8nQqF7VtLHj
-         Jbb1iRoLHW8pPQwnBysm72JB1xXnHxaPDtGyeqPMhLu7oEm0DalFA9w4OUc8Ao7AB0Is
-         Lpvg==
+        d=linaro.org; s=google; t=1790081828; x=1790686628; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KoSD6wSoEm5LD8SW33yBKEv1Muv/7sX6Gf0U11rs4OY=;
+        b=kXMSFoJLyqe7HlAa3LxxgQEiWc3F/FG9MTkAIwyIw/3umuhj8/TLXinK2A9ntkp9h+
+         QMKPgKDOoWhEASM1BIcC+hunhG5sONL16MmARizVW4w6TSDB4lyzVvxB5ndx4rI2PBu4
+         DNKSRtFjz7w0O1GJ4Fu+4T++SkmZbPopMzeU+cMGpUXn/q+Wggk5yXS5CKoQCz35SI6r
+         nJlge2kyj5pFdLp+4bcZP3KsH0aetULlIBTU6tZuHcdLpJK82Pyc1HeselZjtGW0B6oJ
+         QyZ/10gC7IB2y/g8xWq9ChlnHerm4p1jclFtIxoWtvxX9PAJJY4eSN0m5lvasvUXD8hj
+         d+oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790081767; x=1790686567;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7PJhsL+lJDEWlsy1P+VAKjdzPyZEVZBx/BR6qGAMVLY=;
-        b=GirfEszBjzUS5PLuCeRZZhPEw0/8S99eCPYslBK5+jdlkFomn8MImEVESC7l103pWL
-         IjLaCmVyPBRhriDYB68G1GVE38Ogeg1g/tNsHr0mvStD7IdgsPMXlKDqU84LmXKrEFCt
-         nTe37Jhc2LVPnTwIPrD731jjrYG0wGxrcIMjiwmtFhoTOb1y9hxYzazMG4s6g+Os+w4P
-         DwiUaycadX9AS2feqbjFOyqsZ0eYgyGtA1gerIy4A3NE1+QKe1gzieA/QgTcKthBWSCL
-         E4EHWwvCDrgXTesAeMdA0CBSm/I2KZ3GM2iwk58W2i2XxzCd1lT4hTA67XISCb3XbmLi
-         VgBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkoeLD3AfGPOTkG3erme47e3X4BR8iygoYw0jh9qranobEoF1xZEplqnCEMrPybAhQWSmX/297006KeuA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHToB7GuzXbUuJRylrJ+z9beV3++jOqKlwwq0ba0f/L4WPRmah
-	Zcw5OMdkDDjqhn7x400HO5VxRnbS+sUumb6W3de6KjAIcHo8buiETzhzo9GiRTNLbxg=
-X-Gm-Gg: AYBFou3oNF+wdar1mos0dzCe/7KKIngNENQmae/57SYcvr2k7Ic91y3NYmQIzwKpNp/
-	loZEPkFStRvmUBLVIUoIfo0nbalwbjozicYm1jWoARV8aE0+TBhuiUxsUk/l/b4WyxFQSoNMpmj
-	ufSaPtFbVR5ab4UNrpSCNPuq0r8Admt9BPN22YWCSEWLC6wXouisTh98GyzQOXDnL/R3kEY252E
-	Q4vY5bt5m/HWgiDPAfY7eRg3e+P8DeTuQiDqb3eIC7VVa6X2R+ZplGsIcP8YrEcVpdcZm+iNgPi
-	aw0UgACwW8BDQHCiD9L4NRR9FY5DxPJSIwGaqpdQzMOwVHnD9UnJ0Zj08Fn+vGe07xDj5VMMVfb
-	gMcVro5PFXxRBWzU2sJpUwAJbKDYOU3PFJ568TkujHb2CjNrzfGXcECUdeVFX+84qIrTOIVHLq7
-	bndlEpbTbr654BIIA5m+Ol5FVvHOg2rNFSSJ548we69TSr7QWxaEyJkM9gNjaSoPfBFSJZ0MQNE
-	nQYv57978Yt
-X-Received: by 2002:a05:600c:154c:b0:49f:c451:b4ab with SMTP id 5b1f17b1804b1-49fc5743c34mr187732015e9.29.1790081767101;
-        Tue, 22 Sep 2026 05:56:07 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886277def8sm5249195f8f.14.2026.09.22.05.56.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:56:06 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:56:04 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Aruna Ramakrishna <aruna.ramakrishna@oracle.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>
-Subject: Re: [PATCH 0/1] printk: Yield console_sem to blocking waiters
-Message-ID: <arJ65Gt8w_97kbux@pathway.suse.cz>
-References: <20260910203331.4139656-1-aruna.ramakrishna@oracle.com>
- <87zexocir6.fsf@jogness.linutronix.de>
- <44239E18-2EE0-4451-9481-EC4283473AF0@oracle.com>
- <FFC322B2-6CD0-4FCC-BAD1-1C6D50D1CE9F@oracle.com>
+        d=1e100.net; s=20260707; t=1790081828; x=1790686628;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KoSD6wSoEm5LD8SW33yBKEv1Muv/7sX6Gf0U11rs4OY=;
+        b=wV3lqxhZEdFpK/+fd41oNWy42dfIgeg8sWK8uXves8k+Kor9sR847kW9NuN6hR3XeE
+         fMQDNnVkK35dfoahPBoM1nRXkJwRZ4F8P6C8XMNJ35SJ5SbNWMPOHEfNkFCjM5qciOcu
+         mJ4RncxGuJ9/nuxriKR1TM6Hw2zSo5iNcSB9Wy1xHRM2fWj0tkMbznSXyQ13zLRiIHYb
+         ZiXVUNk0uRbqGqE1iJnWZfOL5XSpuF+ZSey9kCHMJJbSADb03VOqriT/BfJ0lqpVz583
+         WWfnXIHHmsWv/S0+afOGn6UA6uuPyBSPD/+R7XODyQg4yUEYviRj62vVH/hAW/ztnJbI
+         I3Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWEjbtUaEUvH04e75kr6ghGe7rw2fgOs8E4B24oZS90cyXoR+8f6xnySQmdZrqdJ8RSzCzOO3Q7cpiTN4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntux04qA2DJVsODGl5g137BjTfz/EcP/ZqIPiT8DXk/I0AO2Wj
+	RPQePNVsSNbyCz/5f7Egs4ey0k/uLk/tgvUkRMFa6JGcVoBoxZLTqQgcQuDfktVz9B6+Y8INTWH
+	CKWfzoOmCQmT3GuQ/+ai3m9QIcQuRP9DtJZyxurNYnA==
+X-Gm-Gg: AYBFou1O8p7v7FRegX8tn3HCHf9CqPwbIUo1x1jzstwU++Fi87E66seekGndXCRneGL
+	rlAgJ0NhGT2mKMz+5putgByJqmnInxN239p3bei6qKfFjHMu9AUoqZVXfAVxaVCKu5Db9DakPoz
+	tQN5bvsyCCxMxR2LksTX9ULym09hmvNONCMkVDn4NWOxF9qtr85b0YDrPfGJNt2uHfSCaX4BiqT
+	b3CmZuctvZfu6iqQCHyaWcAlGYxcpEUcBTqDF5+5WVvFWMnluokhETkVmvNY0RNXkwBRt8sSgri
+	mi9c1ceUqEJ5hG4hHyoSaiawnNSkNgOB1dEeP7gsfqNLbgrSBzlkwinw577wbBTR4xvkbNdTtFb
+	4ZQACIVvrzEc6
+X-Received: by 2002:a17:907:7245:b0:c29:6de8:d143 with SMTP id
+ a640c23a62f3a-c2a159ae1d7mr1265292866b.19.1790081828137; Tue, 22 Sep 2026
+ 05:57:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <FFC322B2-6CD0-4FCC-BAD1-1C6D50D1CE9F@oracle.com>
+References: <20260921152238.3804392-1-vincent.guittot@linaro.org>
+ <20260921152238.3804392-5-vincent.guittot@linaro.org> <20260922100233.GP776954@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260922100233.GP776954@noisy.programming.kicks-ass.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Tue, 22 Sep 2026 14:56:56 +0200
+X-Gm-Features: AcwNN1WmWO3imhBTmuffJhecg19-vlEsNaAoP4Y0Gfiax-xm3HEuyDP-er6K-A8
+Message-ID: <CAKfTPtA3332vNLwvxVuM1CwVG+-bMSdBiTmE1Kz8U2Wxg36kkw@mail.gmail.com>
+Subject: Re: [PATCH 4/8] sched/eevdf: Decay positive lag of sleeping entities
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, qyousef@layalina.io
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed 2026-09-16 18:22:12, Aruna Ramakrishna wrote:
-> 
-> > On Sep 11, 2026, at 11:24 AM, Aruna Ramakrishna <aruna.ramakrishna@oracle.com> wrote:
-> > 
-> >> 
-> >> On Sep 11, 2026, at 1:08 AM, John Ogness <john.ogness@linutronix.de> wrote:
-> >> 
-> >> This Message Is From an External Sender
-> >> This message came from outside your organization.
-> >> Report Suspicious
-> >> On 2026-09-10, Aruna Ramakrishna <aruna.ramakrishna@oracle.com> wrote:
-> >>> Problem context:
-> >>> 
-> >>> After a reboot, NetworkManager failed to bring up interfaces because
-> >>> systemd was stalled, due to a flood of printk warnings.
-> >> 
-> >> Note that kernel warnings are considered serious and will put the CPU
-> >> into emergency state.
-> > 
-> > I apologize - I misspoke. These were not KERN_WARNs, rather KERN_INFOs
-> > being used by RDS to warn of connection failures etc. A flood of these caused
-> > the console_lock starvation.
-> > 
-> >> 
-> >>> Systemd was
-> >>> blocked waiting on the console lock for over 122 seconds:
-> >> 
-> >> Also note that the console lock is related to legacy consoles. Rather
-> >> than trying to make the legacy console trainwreck more reliable and
-> >> non-interfering, efforts should be spent converting legacy consoles to
-> >> NBCON.
-> >> 
-> >> What console driver are you using?
-> >> 
-> >> For v7.3 the 8250 driver will be NBCON.
-> >> 
-> >> John
-> >> 
-> > 
-> > This is for the legacy 8250 serial console.
-> > 
-> > Thanks,
-> > Aruna
-> 
-> Hi John,
-> 
-> Even if this patch is not applicable to v7.3, it is still applicable to the older kernel
-> versions, right? Will this be considered for the stable tree, without being merged
-> upstream first? If yes, would you mind reviewing the patch?
+On Tue, 22 Sept 2026 at 12:02, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> On Mon, Sep 21, 2026 at 05:22:34PM +0200, Vincent Guittot wrote:
+> > Similarly to delayed dequeue that enables an entity to decay its negative
+> > lag while sleeping, a task should not keep a positive lag forever.
+> >
+> > The sleep duration and the weight of the entity is used to decay the
+> > positive lag at wakeup.
+> >
+> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > ---
+> >  kernel/sched/fair.c | 33 +++++++++++++++++++++++++++++++--
+> >  1 file changed, 31 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index e6eb9a4c03be..4230954d10d0 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -896,6 +896,32 @@ bool update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
+> >       return avruntime - vlag != se->vruntime;
+> >  }
+> >
+> > +static __always_inline
+> > +void decay_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+> > +{
+> > +     s64 vlag = se->vlag;
+> > +     s64 delta_exec;
+> > +
+> > +     WARN_ON_ONCE(se->on_rq);
+> > +
+> > +     /* Negative lag implies delayed dequeue */
+> > +     if (vlag <= 0)
+> > +             return;
+> > +
+> > +     if (flags & ENQUEUE_MIGRATED)
+> > +             return;
+>
+> Is not this a rather prevalent case?
 
-The patch is not acceptable as is. In particular, it does not handle
-panic, suspend, various emergency situations where the waiters likely
-won't be waken or we do not want to risk the handoff.
+Yes, but this means getting the clock from the prev rq with its lock
+which is costly so I wanted to start simple
 
-I agree with John, let's focus on converting console drivers
-to the NBCON API.
+>
+> > +
+> > +     /* Compute the sleep time */
+> > +     delta_exec = rq_clock_task(rq_of(cfs_rq)) - se->exec_start;
+> > +     if (unlikely(delta_exec <= 0))
+> > +             return;
+>
+> Urgh, are we going to try and bring back all that sleep time stuff
+> again? ;-)
+>
+> > +
+> > +     vlag -= calc_delta_fair(delta_exec, se);
+>
+> Should this not be 'W+w' at the very least?, ideally it would be the
+> complete sum of all decaying weight rather than just 'w', but that might
+> be a tad tricky.
 
-I am sorry but I personally do not have time and motivation to review
-hacks which would be suitable only for stable.
+I spent some time thinking about this. The right solution should be
+the one you suggested in your next reply: keeping the sleeping tasks
+"enqueued" in another tree and computing a zero decay vruntime.
+However, I was afraid of the overhead of managing this new tree and
+taking the lock of another rq to dequeue the task. Anything else in
+between will be an approximation because W at enqueue doesn't reflect
+what happened during the sleep period: The CPU could have been idle
+the entire time, but several tasks wake up simultaneously so the 1st
+enqueued will not see a W whereas the other one will.
 
-Best Regards,
-Petr
+>
+> > +
+> > +     /* vlag can't become negative while sleeping */
+> > +     se->vlag = max(0, vlag);
+> > +}
+>
+> Anyway, the basic observation is that were this thing runnable, it would
+> have only a w/W share of runtime, not a w/w share.
+>
+> Using the full fraction of sleep time like this will make the decay too
+> fast.
+>
+> And dealing with that MIGRATED case is somewhat important; in which case
+> I suppose we can try and approximate by doing something like '(W1+W2)/2
+> + w'.
+>
+>
