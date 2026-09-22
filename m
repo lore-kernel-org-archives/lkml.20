@@ -1,99 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3D738BF97;
-	Tue, 22 Sep 2026 05:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF24331EC2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056720; cv=none; b=kskzJxP/h3BIUyzGY3yZ3Mmq+ODh+NGCon5dVd/rhDzzSDlGtvHPlRnt4SvMiraJyAQJC+qSi9Z+1jcQ3jrXRpo9feUWCugdEF48b5o9u9iclI4mf9ARyz/McV264nLR9JoJxkSrC2QmXRzY7JYwEl0SIz7edi9lomiXAt3ULBg=
+	t=1790056862; cv=none; b=Po8bsSGkJPpZ5sM0wYYRc6ubDKg4yqRaRbezjfeL+wzZqjnfs4h+WPOG6J7ClfXNq3qGn1Dif/BjmKnv6yXj4hMqZlD2nJ/I6J0M04egqeNbGMTNeKUTYFQo9Da+877H3E8rmoiZgk+1UrCLN696zE6duA3cEcK/y4FrRfpY0G0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056720; c=relaxed/simple;
-	bh=MiTuCTeGQ65acj8DTKH5Sh3JcSl8FWqU0wkYXsy7OO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eML+WkEPLAIPaSD/cyFZROoNN/0jY2J9CDl1Ac/qSREWGpPMj/Qki+nufQVGOKxqKAA/86gasi3Pv7KbIqrMYJxhG04Mz0lI9L7jLZkPDGpwuqrbx/YeXzq5Zql1FED49fQMHHUKl3fbd10JgBwKajuGJHp5RM60ak0x0FP1klU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShZNu/nC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790056862; c=relaxed/simple;
+	bh=jwRMV2lzKqCP4gBEUdEB/8pqORMqENAic+GrSVlSju4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S6AqVzGlkhaY300LraQSGDWFylzjtLt5odsKInJjurB8yn8w+6gkIqACrLpY/jcYlJCuh8RqhanOJeAcREJoaOWzSNRRNnqK9WDoT1jncrecqmMAiTVUL/t4idOhobLOhE3PpktN4Bjyp3KibaYGGFqtllzenHTc+trcyyqPcd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G71mR5n7; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShZNu/nC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E85D1F000FF;
-	Tue, 22 Sep 2026 05:58:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790056718;
-	bh=ThtsqR5Wl7QxxCKokbSVj/6isgE9KJQAZrTvGvTnCjA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ShZNu/nCoM9nE2bePF8ETpeKqLEOYSjbX5HcPFir1HgJe+CTqcFYCCijCZX1pdqIf
-	 ZTXKxQ5PLfuLaX1yPDaNtKHGGEtuQ7nzfL/h20baRp69Gzyp4AsTlhiLm+oWE1N6WY
-	 BQCWqkOGY9oRAhQ0rtE6IsWnHNoun4eKbixPrftWpFZW4rHNXJjZyCve6r706EePoC
-	 4B7i9pixgtuZA8dBZd416L+o9WN6at1mCjJP4kMHJyLn2r1VR3+qYQUtBddqWjGmM+
-	 n83SKl7RYeZho1oK0IIAFlzJLY7B+ewQN0OvYXiIDHGP9D3JYjgBILDGzQHPt+xZKa
-	 hzCdtg71aG+aQ==
-Date: Tue, 22 Sep 2026 08:58:32 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: akpm@linux-foundation.org, peterx@redhat.com, surenb@google.com,
-	aarcange@redhat.com, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, mhocko@suse.com,
-	shuah@kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] userfaultfd: clear the inherited uffd bit in
- move_swap_pte()
-Message-ID: <arIZCIiecnNWPtx3@kernel.org>
-References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G71mR5n7"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so1172339a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:01:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790056860; x=1790661660; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zD1+CNlJQSHstEQSAiUKt4lsgldAJyFYDs7AdpQW/fI=;
+        b=G71mR5n7u5uBIaEkWovdkzDbEm7eSKroqorKclzmceDZYP7qfulTmGzB6IgJIIT++v
+         CfhL94tqSZTTU00i+eVXXr+VfBacc7K0VzxJeqzvJ0Mv36KDAz16Vob1T4q1GXfoYaPU
+         SXAHYLwJgK3Nmil/0x6V21TAtfyj6HRqIXDChl/WLESrnwW3lDJFd8j6zNFnZP/bNx6y
+         0I5e7jxie38G90pc/1cb3MWrpsJW8IRxil5MfFf2tAsejhkv+sVAMXE8FFURSs7c4t8k
+         2gVqiWB9EM3wFS/lI88kwpxHhv/CQSmcl+L1T1L+ZXaaIdJ4uym3Q6MUh0lwzdjynl1K
+         N/Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790056860; x=1790661660;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zD1+CNlJQSHstEQSAiUKt4lsgldAJyFYDs7AdpQW/fI=;
+        b=Z/ygC74BwtTAT286fRVfXy0yyulUVLIhg9rIWfoPmgYu0FZBVybHlnmdjariGDyYLU
+         ZTOBO+r98Fe0YdLtW+1czSh1JkZCVHr7Z+MiGyO7EvUks2kwG3NYg34OuVB6d7eJrCt6
+         t8VxC5loqUk3NH0nIvD7x7RLhSGnei6RMaAvHaQHOgLKmf7QEA6ubrh/ZuZq7qgW3nhs
+         CFq7Huls0SpOwzS3F2AjzXz5Uvq5Y2g/H0FAy0jHPMQhqdzrfUuaQ3jCrJQks1lV51sm
+         9mraBkH4+CBBv+0u/L95YFrgBITSZ+BjXYhr79Y5zPmRnJoAbkL86EntqfJo4JW++YN/
+         bamw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcr5epPZzMxlruMmAZb4lxYbRh7k7i/pgrQDWDHHSj3I4gIaSdd9wyLG5TTrxWW2aMvuk3N0PQKkgaWIU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvsgD4E1UlXYIbIY0jZvkXRxQ/inpvcdo/gsYg9NX93AyNRo6h
+	ysMr1ojhoBpL+LlEplOlJJ/RYMCRntrmXDj4muyOTTOYm0XDeoI0wi+O
+X-Gm-Gg: AYBFou0IqSCTdzrL1YqZUlMEQ4tTGKkkX7hW2OngoO4qa3lOVAVbqV1vwWbuiliUbER
+	2mgNdij1KRlbnCqEkOyujKyGgGc7uPiOWKfMixXAaLQdTeoD5BVxxVwu2vyfPD075UioGHTOQ55
+	bgzLM5cgDULrQOMT3ZOAbDieed2IdmzEpdDHimdXNShD8vtrKgop057PQYLRsoc+id1kO200S8S
+	k68LK4JL8aLtIsa8bgqvhGFFqv2mIu7mg6Ll0kAWnHGCNi9bQ54hZ+X6ovX5PvVaqhf7eJ/5mDx
+	2gvQLWdfEQf80XGvHdpZ6TIqCKZ5qWzLzKNOCM4rt2bBsa1IhYrvQDRPeDvloHs8hgsw/xM2Tje
+	bcGOVLVA1TMjNK2G71urhU965/qN4xpTyo5Zk2N/dQS4BiRKYGLc48XntEBF2aBoIjmXmr2ZDEG
+	NdI578at+Fviuqn9p2Hil93nrsL4KolXYh1zfWj6VeM2nOj00k5JK2iLFrprRZt4rNbeoy4Lcic
+	4c/uer87vXdfFci8MRz4VhJWrj/tt3bRA==
+X-Received: by 2002:a17:90a:d2cf:b0:39d:feca:f48d with SMTP id 98e67ed59e1d1-3a0735e2284mr40422a91.3.1790056859956;
+        Mon, 21 Sep 2026 23:00:59 -0700 (PDT)
+Received: from localhost.localdomain ([202.189.109.160])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06dfd6705sm1423138a91.0.2026.09.21.23.00.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 23:00:59 -0700 (PDT)
+From: Ginger Li <ginger.jzllee@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ocfs2: Protect local_alloc_state updates in load/shutdown
+Date: Tue, 22 Sep 2026 14:00:48 +0800
+Message-ID: <20260922060048.13158-1-ginger.jzllee@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+My static analyzer identified a potential issue in 'fs/ocfs2/localalloc.c':
+osb->local_alloc_state is documented as protected by osb->osb_lock in
+struct ocfs2_super, and most of the code follows that rule:
+ocfs2_local_alloc_seen_free_bits(), ocfs2_la_enable_worker() and
+ocfs2_recalc_la_window() all update the field with the lock held.
 
-On Sat, Sep 19, 2026 at 09:46:28AM +0900, Donggeun Yoo wrote:
-> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-> destination unchanged, so a uffd bit set on the source lands in a
-> destination VMA that was never registered for write protection, and
-> nothing clears it afterwards.  Patch 1 clears the bit unless the
-> destination is RWP-registered, which is what the present-page and
-> zeropage move paths already do.  Patch 2 adds the test that catches it.
+ocfs2_load_local_alloc() and ocfs2_shutdown_local_alloc() update
+local_alloc_state, and local_alloc_bh next to it, without taking osb_lock, so
+those stores can race with the reads and writes done by the local alloc
+reserve path.  Those two writers predate the locking convention and were
+never converted.
 
-This and changelogs read like an LLM generated text.
-Please add attribution as per
+Take osb->osb_lock when updating both fields.
 
-https://docs.kernel.org/process/coding-assistants.html#attribution 
+Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+---
+ fs/ocfs2/localalloc.c | 6 ++++++
+ 1 file changed, 6 insertions(+), 0 deletions(-)
 
-> x86_64 defconfig plus USERFAULTFD, TRANSPARENT_HUGEPAGE, GUP_TEST and a
-> swap device, under QEMU, base 17e7b8eacf4c:
-> 
->   uffd-unit-tests                    before   after
->   move-swap-wp on anon               not ok   ok
->   the other 114 unit tests           ok       ok
->   uffd-wp-mremap, 38 tests           ok       ok
-> 
->   pagemap bit 57 at the destination  before   after
->   swapped page, dst not armed        set      clear
->   swapped page, dst WP-armed         set      clear
->   swapped page, dst RWP-armed        set      set
->   resident page, dst WP-armed        clear    clear
-> 
->   MADV_COLLAPSE over 2 MB at dst     EINVAL   0
-> 
-> Donggeun Yoo (2):
->   userfaultfd: clear the inherited uffd bit in move_swap_pte()
->   selftests/mm: add a test for UFFDIO_MOVE of a write-protected swap
->     entry
-> 
->  mm/userfaultfd.c                             |  2 +
->  tools/testing/selftests/mm/uffd-unit-tests.c | 61 ++++++++++++++++++++
->  2 files changed, 63 insertions(+)
-> 
-> 
-> base-commit: 17e7b8eacf4cac800a4fc89a28729df72a2dabda
-> -- 
-> 2.53.0
-> 
-
+diff --git a/fs/ocfs2/localalloc.c b/fs/ocfs2/localalloc.c
+--- a/fs/ocfs2/localalloc.c
++++ b/fs/ocfs2/localalloc.c
+@@ -342,8 +342,10 @@ int ocfs2_load_local_alloc(struct ocfs2_super *osb)
+ 		goto bail;
+ 	}
+ 
++	spin_lock(&osb->osb_lock);
+ 	osb->local_alloc_bh = alloc_bh;
+ 	osb->local_alloc_state = OCFS2_LA_ENABLED;
++	spin_unlock(&osb->osb_lock);
+ 
+ bail:
+ 	if (status < 0)
+@@ -392,7 +394,9 @@ void ocfs2_shutdown_local_alloc(struct ocfs2_super *os
+ 		goto out;
+ 	}
+ 
++	spin_lock(&osb->osb_lock);
+ 	osb->local_alloc_state = OCFS2_LA_DISABLED;
++	spin_unlock(&osb->osb_lock);
+ 
+ 	ocfs2_resmap_uninit(&osb->osb_la_resmap);
+ 
+@@ -441,8 +445,10 @@ void ocfs2_shutdown_local_alloc(struct ocfs2_super *os
+ 	ocfs2_journal_dirty(handle, bh);
+ 
+ 	brelse(bh);
++	spin_lock(&osb->osb_lock);
+ 	osb->local_alloc_bh = NULL;
+ 	osb->local_alloc_state = OCFS2_LA_UNUSED;
++	spin_unlock(&osb->osb_lock);
+ 
+ 	status = ocfs2_sync_local_to_main(osb, handle, alloc_copy,
+ 					  main_bm_inode, main_bm_bh);
 -- 
-Sincerely yours,
-Mike.
+2.43.0
