@@ -1,171 +1,156 @@
-Received: from mail-wr2-f13.google.com (mail-wr2-f13.google.com [74.125.225.77])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6E94E01E9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA183455639
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070461; cv=none; b=p2c5wNEI/1nARSmVYPdBmDpRPal+J274GzIyGmTlJw4FMOgze3NTxTE3L47lvBIh4ROZ1bro65OjlnD1LkcEywCx+1NXtTJYWJgfX8Es8IXdgzSSA3KrUfoTR9FkPub7pJeUvKZDMojC/ycBgR0/UOBj9tck3DrGcW7Ia2xlusw=
+	t=1790070476; cv=none; b=o8R+2ORh+tiEMEckgDYjiRbSYOTVosCmGvGnBEgVGX//oe2GgnD5kOj4Qg0d2nVJx8Tt8KJFHtEx9tnZmMBQiyVOjdAFxco0KbIw+Owu3cCCKUTtdXBQY/e3ZDnXCrJnAOMYTRtOlJShfqADiHk/94oMjc97BiyZwdvQFGNOkDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070461; c=relaxed/simple;
-	bh=2CUH3YGiPlXy555Q9SI3ZYnCZbH8YDJQaUSBvfvqZ6w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Rfyv77v3l0thOtGykaNoH1n8vSISsmTCpu8JNfacp103JYoERiTZTg/QG10jEMRNff8k0gnG/oD2ZpFDgDAXnVjk4LDEWpOfPV/iE4OEzTXqbssAQE2Ne/cZXzkY8J6CpiiHdM4z1iFdSpzp9QnUuQ0oKsoFK2EwgYArdp2CVIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UvNBStGl; arc=none smtp.client-ip=74.125.225.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790070476; c=relaxed/simple;
+	bh=vKmZX7j2+UMDbTs0prpQw63eYE6eWd25yIxQG7e+2sE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CYTTDTIHCf+/Ch5nIDU5ePB8AKvRCOWrzR0S2HUUuwGGjFvtu1XsHJXcpAN1XY6RdSP48gOzBdti6n1qVGWBgPBJ2xSiVRAyHAASoamNg7lOPQi9vArFYuMx1ZuA0O+blAJgrlb8L4QEtMN9YNz4K8MYIRgKEJe6HJ1P1H38hEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Yel9d1Yi; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UvNBStGl"
-Received: by mail-wr2-f13.google.com with SMTP id ffacd0b85a97d-4843378fb37so1906918f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:47:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Yel9d1Yi"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a9ac6aa620so984972a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:47:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790070458; x=1790675258; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1mHA714llFxRbL4YpV3zzI7qdHUQEj56NbS4Oyhz2TE=;
-        b=UvNBStGlptbsfoizP0M7WPR8TBH+UhYLVyjoEPDRLeSoLNQuh7GLHz3T5/m0+UmBNZ
-         RHrrzsLV0K/1tL1nA+hHnjigNFBMWMqOHkC2hAp9rehOuAlFe8SvIs8Z6CpW3d6rTbbu
-         qUN4yFety6ERn2Pq27SISc97Qgyi/FNkA/2oV0hESNH3CrGFm1JB7EYRbfKMluJjr8oK
-         ttR4FN9+EvyTCRmk7aGWOVeyliElH3Fme+P3KYATNqyFatLBn3k0NH1gwluMVxzIirTx
-         DTowTIQwxpjvhHhSZOLcG5y2+hQWEt9qDuVNyafBzvAUvmydtwW4n5iPhqIUqR/Rgbej
-         XPqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790070458; x=1790675258;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1790070472; x=1790675272; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1mHA714llFxRbL4YpV3zzI7qdHUQEj56NbS4Oyhz2TE=;
-        b=niXmzMNBLjbNVhNBapabW7jymka66LnDOB8O2PRYtf564cn5hqJBbOkUiy1/OXnC5P
-         r605bGdbXDOiA53kVmWoDMx8bT3fqYVnzXR9RtSO3G2g9pkoARWuiqDzMxO0NSWcQ27E
-         Kutf4SPnvRTaLPOI86xMe6CJbODhjjEHGC8ZnSAAWCJfonGBEpudxYItrqxI+Jr7EbPh
-         QPTAyJzTDyrfEBxfwN3nox11QHPszmM6LO4uuqOHlnB5nJItpHA68vvV9TmSN0NnSa9b
-         ppAwxQPpCXhA9EoCsNCQb8ZRiWneYMg6lxhDP7yVTNdPuzcxMknCxGLh5EKB3u/FNR1S
-         hnnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzecqeSyz2Tjc8T7kyj3aQhW/Vs6pUNEAt5mWF4GEczVOPtNlKiCsfsIrGONhlKYE69vTahoFC1czIQyo0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDA37xqFdMv695gJIRIXn26cjMyUloJdPUg6knK5jiW4hbYWZ5
-	3W6Enw1n0ebbIskcQP7Veoo+P7XfhGo9SiK37ahyUJ/xkJFxWN2hZR1S
-X-Gm-Gg: AYBFou0BgjD1Co83D+Ivo44UcfGKELSnM6FCOIojMAULP/bUVJqEslI/IvQ6uwg50fV
-	vnHKRkOaS5yqWKwC5x49H/AHdtXvCQrEpxVDVHA3A2pgHGx0+dedK2KG5RmhR/haHr99QRV/YcT
-	Vp0OR9CkQiZ27zf7SH03uFqqLC7byGNb8WFOhz03MWNb0maD0lDC8JOdYe0E0NGcSBBKxzXMNuA
-	WrfZli37LwC3xiR9VCbBTaE6mJ7DRfWt0t6aB6yPVHxUHqILU41IEgPeaJ8Jj9JbkCIHtoKAds+
-	YAa6DqwIJHBs9EbmziDjKBR886zCNe6bcxUdlV2ghS7boh32/NqhcOATFnG9NNRfnbixq24zvDT
-	0C/2JXjcjVfz1TSm1NZ3C76/tc29TtjUbdi/JQHu1yO1POnRdYcUzK1ru2ZbOnJGSy90Z5gxDnv
-	bbBih6R2xFHVNIFKWgbLkowDTRZg8apNxpJIJIQAz6cTIL5JFyjc36cxcMWo3W+tPah1AWm/s0S
-	2QZ0qMqXVytM+ZU9bCW+ltjfaKlVslmKCA=
-X-Received: by 2002:a05:6000:1a8a:b0:487:62d:37dc with SMTP id ffacd0b85a97d-4871e269cd3mr21320913f8f.32.1790070457566;
-        Tue, 22 Sep 2026 02:47:37 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862773ee0sm3708938f8f.6.2026.09.22.02.47.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:47:37 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:47:36 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Harry Morris <h.morris@cascoda.com>, Alexander Aring
- <alex.aring@gmail.com>, Miquel Raynal <miquel.raynal@bootlin.com>, Stefan
- Schmidt <stefan@datenfreihafen.org>, linux-wpan@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net v3 2/3] ieee802154: ca8210: prevent stack buffer
- overflow in hwme_get_request_sync()
-Message-ID: <20260922104736.0e7e20f2@pumpkin>
-In-Reply-To: <20260922093126.141969-3-benquike@gmail.com>
-References: <20260922093126.141969-1-benquike@gmail.com>
-	<20260922093126.141969-3-benquike@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=GFnXezMJTHEfGOyaUx+BGn6Bkr0k5HX/YPJ63ltM7lY=;
+        b=Yel9d1YiUWKckQm9siMITV06DzQmcD/aNeLvSHdUjPGvXWzq+kyZTunnQpLKnaGrsT
+         qVSzU0HV6IpPXWHTimLAwW5zOLVQhbOUsGrZ+OhgnKvFwh1M2OmdCMmUXTOZbyLy1jO8
+         awmbrkjFw5OW+TUapkgRxvaZ0lFclGxbiVTXk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790070472; x=1790675272;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GFnXezMJTHEfGOyaUx+BGn6Bkr0k5HX/YPJ63ltM7lY=;
+        b=ZVyJcc4CIKd0TLdcJA5lmJ9dEgopUtUvrMHtgDrbTwqfDCgYeHHDk2EQT+Q8Kw1E7A
+         X4akQYZAeii8jTtv8hhy1bZ0nNbnLPibAabeDxbs0aykAOSCbmsI4bYq1kS3lPdzTnci
+         FeGCj1YYB589E5bCTMut9mhr/RBCGvPDsF8xLjjKTvQJuSEtImwQMJk7WH1NjZHND/0o
+         1oJOztFeVOoIOwxvuiLZvTMVhCVIyoII3aFuNLSPzq4jE2WuzCC5XTRuFJ3YNE4G+TCv
+         E9FWnAp6tSvFgq3W/jWYArr81jIrqVr1zW9LhkhdMuvpCz31jW+SIC7Y2F6bBhIQw77J
+         2N5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzjYWlIIhi7HvqPoN6MEZn8O2auPbhjJ7mRLwjmt/T6shBRBcA5qXbS37GbcIc0BZth7FtEUeKZkcJ4+i0=@vger.kernel.org
+X-Gm-Message-State: AFuF++npecSAv8cQJVZU0m1QftCRsY+Gv0klrcRaQw2YXxxA5s6LlCEj
+	jAlCNT+7UWaBz8LtHH0Ws3ulpaZr+H77bZFE5bM5y1kg9WOz7dbqWCAh3qbiPgr/ngo=
+X-Gm-Gg: AYBFou0fHJ/hWRbjZ7NZdrh2ln95v/EmujphBcFnWC0JqSQmRmeCSWH+AoIz5xtyxK0
+	XmNNydxL6bu/ZpcFaiNlCxaz3FjQYBgB56TdfVDhnDsx/0XxqQbik1hz4hQjsG6+hbOS7SRZyue
+	5/Ow9CN3uyN45/kQ955NbPAVR2JmMJyW+jrTzVhwkC6uDZ8bXziIeNwF8sFkHE8U2/RWDM0+8jq
+	zH0I6NlUxh5iCepzKCOLb2g8Oc18SoYbmBjn4WGZngm93Odq2EBf2rx/PINjD3XvdW8GbTTH5uw
+	TECXCq0urN/8d7Rjy2kfs9fKnHBggi3Bo1ZuQ9vIMicaJUM+ujACtSf0QJ1QWEWeiwdSSE/Cag2
+	AuPsBjIxPRnaddkwq3lahM24Mia4KGc6/tP8GpAKdq1cy7hJF03zkSyWhCekYXoAMwAcr+8xxKi
+	ExmjcMleEI94EjmJjLSMC162390njO0nocWoKMhKbSkI0cjcZxx13GEh6osmyuxd3XyafBoGFjm
+	tHs68GulSAA
+X-Received: by 2002:a17:907:3fa0:b0:c25:f7dc:2d8 with SMTP id a640c23a62f3a-c2a8d762753mr200948966b.25.1790070472034;
+        Tue, 22 Sep 2026 02:47:52 -0700 (PDT)
+Received: from [10.214.128.75] ([38.97.137.190])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5ec614sm55899666b.45.2026.09.22.02.47.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 02:47:51 -0700 (PDT)
+Message-ID: <e66371e0-5e8b-4e31-b8ad-223ef399b056@linuxfoundation.org>
+Date: Tue, 22 Sep 2026 03:47:45 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usbip: vudc: Prevent transfer timer rearm during teardown
+To: Myeonghun Pak <mhun512@gmail.com>,
+ Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
+ <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Ijae Kim <ae878000@gmail.com>,
+ Michael Bommarito <michael.bommarito@gmail.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260921224130.492681-1-mhun512@gmail.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260921224130.492681-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 22 Sep 2026 09:30:24 +0000
-Hui Peng <benquike@gmail.com> wrote:
-
-> In ca8210_get_ed(), an uninitialized u8 lenvar and a pointer to a 1-byte
-> stack buffer (u8 *level) are passed to hwme_get_request_sync(), which
-> unconditionally copies response.pdata.hwme_get_cnf.hw_attribute_length
-> bytes into hw_attribute_value without checking the caller's destination
-> buffer capacity, overflowing level on the stack when hw_attribute_length
-> exceeds 1:
+On 9/21/26 16:41, Myeonghun Pak wrote:
+> Commit d96209626a29 ("usbip: vudc: Fix use after free bug in
+> vudc_remove due to race condition") made v_stop_timer() delete the
+> transfer timer synchronously before vudc_remove() frees its containing
+> struct vudc.
 > 
->   BUG: KASAN: stack-out-of-bounds in hwme_get_request_sync.constprop.0.isra.0+0xf3/0x170
->   Write of size 16 at addr ffff888001907780 by task init/1
->   Call Trace:
->    <TASK>
->    dump_stack_lvl+0x70/0xa0
->    print_report+0x153/0x4c6
->    kasan_report+0xf1/0x120
->    kasan_check_range+0x125/0x200
->    __asan_memcpy+0x3c/0x60
->    hwme_get_request_sync.constprop.0.isra.0+0xf3/0x170
->    ca8210_get_ed+0x9c/0xf0
->   ...
->   The buggy address belongs to stack of task init/1
->    and is located at offset 48 in frame:
->    ca8210_get_ed+0x0/0xf0
->   This frame has 2 objects:
->    [48, 49) 'level'
->    [64, 65) 'lenvar'
+> That does not close the race with the receive thread, which is stopped
+> later through usb_del_gadget_udc() and vudc_shutdown().  The thread
+> calls v_kick_timer() for CMD_SUBMIT and CMD_UNLINK packets, and
+> v_kick_timer() deliberately calls mod_timer() when the transfer state is
+> VUDC_TR_STOPPED.  A packet received after v_stop_timer() returns can
+> therefore enqueue the timer again before the vudc is freed.
 > 
-> Initialize lenvar = 1 in ca8210_get_ed() and return
-> IEEE802154_SYSTEM_ERROR in hwme_get_request_sync() if
-> response.pdata.hwme_get_cnf.hw_attribute_length exceeds
-> *hw_attribute_length.
+> timer_delete_sync() only drains the current timer instance and cannot
+> prevent such a rearm.  Use timer_shutdown_sync(), which makes subsequent
+> attempts to arm the timer no-ops.  The transfer state no longer needs to
+> be updated, as it is freed along with the timer.
+> 
+> On a KASAN and DEBUG_OBJECTS enabled x86_64 QEMU guest, repeatedly
+> binding the device, submitting a request and unbinding it produced a
+> "free active timer_list" warning followed by a slab-use-after-free in
+> v_timer().  With this change the same harness completed 4000 iterations
+> cleanly.
+> 
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
 
-This function is silly.
-There is exactly one caller, the only valid length seems to 1 (is zero valid?),
-not much point using memcpy() either.
-
-David
+Were you able to reproduce this problem to test and verify that this patch
+fixes it?
 
 > 
-> Tested in QEMU with KASAN enabled by passing an oversized
-> hw_attribute_length response into ca8210_get_ed().
-> 
-> Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
+> Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in vudc_remove due to race condition")
+> Link: https://lore.kernel.org/all/20230316180940.1601515-1-zyytlz.wz@163.com/
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 > ---
-> Changes in v3:
-> - No changes.
+>   drivers/usb/usbip/vudc_transfer.c | 6 ++----
+>   1 file changed, 2 insertions(+), 4 deletions(-)
 > 
-> Changes in v2:
-> - Split out as patch 2/3.
-> - Replaced the temporary stack buffer in ca8210_get_ed() with lenvar = 1
->   and an upper-bound check against *hw_attribute_length in
->   hwme_get_request_sync() as requested by Miquel Raynal.
+> diff --git a/drivers/usb/usbip/vudc_transfer.c b/drivers/usb/usbip/vudc_transfer.c
+> index d4ce85c4c6a2..4146b746a320 100644
+> --- a/drivers/usb/usbip/vudc_transfer.c
+> +++ b/drivers/usb/usbip/vudc_transfer.c
+> @@ -441,7 +441,7 @@ static void v_timer(struct timer_list *t)
+>   	spin_unlock_irqrestore(&udc->lock, flags);
+>   }
+>   
+> -/* All timer functions are run with udc->lock held */
+> +/* v_start_timer() and v_kick_timer() are called with udc->lock held. */
+>   
+>   void v_init_timer(struct vudc *udc)
+>   {
+> @@ -490,8 +490,6 @@ void v_stop_timer(struct vudc *udc)
+>   {
+>   	struct transfer_timer *t = &udc->tr_timer;
+>   
+> -	/* Delete the timer synchronously before teardown frees udc. */
+>   	dev_dbg(&udc->pdev->dev, "timer stop");
+> -	timer_delete_sync(&t->timer);
+> -	t->state = VUDC_TR_STOPPED;
+> +	timer_shutdown_sync(&t->timer);
+>   }
 > 
->  drivers/net/ieee802154/ca8210.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-> index a990a0f..8aa7ffe 100644
-> --- a/drivers/net/ieee802154/ca8210.c
-> +++ b/drivers/net/ieee802154/ca8210.c
-> @@ -1677,6 +1677,9 @@ static u8 hwme_get_request_sync(
->  		return IEEE802154_SYSTEM_ERROR;
->  
->  	if (response.pdata.hwme_get_cnf.status == IEEE802154_SUCCESS) {
-> +		if (response.pdata.hwme_get_cnf.hw_attribute_length >
-> +		    *hw_attribute_length)
-> +			return IEEE802154_SYSTEM_ERROR;
->  		*hw_attribute_length =
->  			response.pdata.hwme_get_cnf.hw_attribute_length;
->  		memcpy(
-> @@ -2027,7 +2030,7 @@ static int ca8210_xmit_async(struct ieee802154_hw *hw, struct sk_buff *skb)
->   */
->  static int ca8210_get_ed(struct ieee802154_hw *hw, u8 *level)
->  {
-> -	u8 lenvar;
-> +	u8 lenvar = 1;
->  	struct ca8210_priv *priv = hw->priv;
->  
->  	return link_to_linux_err(
+> base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+
+thanks,
+-- Shuah
 
