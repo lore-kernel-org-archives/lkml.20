@@ -1,100 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707D64F93D3;
-	Tue, 22 Sep 2026 15:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A077754B1C3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091957; cv=none; b=JSGnWpozeoXNcIesNxDVKtLiUjPdfEld80Zu0/krPbftChytbk4dwVPirn2lRo0pZVse5mTm3NMm9G5MjjS4LpoYZgr9I6yrG107CPdszUHRKQz3cuXrYqY0RaWCN8xRU9/xFITY52ClsUZURQE3AXXnmrd0u4OXw8KZq+Fh/08=
+	t=1790091965; cv=none; b=j1+JcyKAA1e6cV8cDSgPUmwVeYtsisT39o2uEZVZFknzsLbL2OubmCHBISh2I+WH/ESgkB1q0Tna2xwtM2+4NZ6nOOb1cQ++eyzszEK05pA6RgbATyXnQ+SBKdU7Ne6O85033u7zdzkL9L656AoN+4L0zsS5qy31rQhGUERTI24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091957; c=relaxed/simple;
-	bh=VYFqxBIbyB8AcZseEeHLI4kw2vkZo4hD06tuQk0zeBI=;
+	s=arc-20240116; t=1790091965; c=relaxed/simple;
+	bh=E4nsCeMhUyoyfA92nxYsi+1V5mplBSR6abTs7jkapTk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VN1NPkVNaAsJuDreSIM8zOgoyjQvXkGDyrbvRDZUrMl750BcLtmxT9o6W2yYL15FZKtGOjUrJeki3DpUEIZs4A78tEiTYsIE//e/gVmD81Cm5nvBhoZSvcaQu5dgRJDY5rF4JmSck2gaWwUykQ4LnwI9cu20HicZui60WM5JsgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZN0gVgq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=H77cPVmvDRhYkBvv7keP5m6gsOx7r9BO1rpf4PXezJrkStwoagzz+ZDIxTAlcANtp15lNg5gH3n7VoJyphlY2tt7lqYuKN3x63FgD6LqE5X+2hUj/5vTCtfQSNPTd6CXsR9yTLYzOfF8porUDercNl/gfMVj0EwiTWKCaZsmq4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j8Pd6TsC; arc=none smtp.client-ip=91.218.175.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZN0gVgq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30431F000FF;
-	Tue, 22 Sep 2026 15:45:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091950;
-	bh=VV+D1TTg+nypS71novJcWW8ckPVaKfjhtplAFFx3irU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PZN0gVgqMvvffTKAv30e20/TZg2qTPisQ9G0Z9l1JmdgLcblHZpkPps5E3LSvbLut
-	 ytiMNuEFPf0/3pcXVxjb+8Aob8HtErzgWRxyhVEYLmhYQ8vLG0TTbBMMkDxYbFQkwl
-	 VUe4PrvyFl+CJDvBFNn+xSok3n2oRLwAKoFFFWiLFR+K+1Ao9Zrvof2xtWzOGIwcKs
-	 Bhw4WEkx+2BSgH9n0smddGHx43kcd65aJ9sW41ykmDJrzWgyClpRD35WOcBbQfxXnf
-	 Otm4k0kvOVtgsI8/a49+6+fmJniIOKIcu5spCMmbLV+F/Eycabeg0ISVzZ3Yc5c3yp
-	 /KNSop71bhHGw==
-Date: Tue, 22 Sep 2026 16:45:43 +0100
-From: Lee Jones <lee@kernel.org>
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
-	Alexander <alexander.sverdlin@siemens.com>
-Subject: Re: [PATCH v4 05/10] mfd: Support for ROHM BD73800 PMIC core
-Message-ID: <20260922154543.GA3438784@google.com>
-References: <cover.1789538455.git.mazziesaccount@gmail.com>
- <3e3a25abe337e3f68cde585674019dca439ac897.1789538455.git.mazziesaccount@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j8Pd6TsC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=E4nsCeMhUyoyfA92nxYsi+1V5mplBSR6abTs7jkapTk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790091955; v=1; x=1790696755;
+ b=j8Pd6TsCJrJcpukHfn+/ory5A8icclYSiGnK/2ongwQCQlkTubh56qmMQO4Y/GfppFqo+vfs
+ Cz5dOZ6fqnZoFIg6xFTbewHKZL2UTkAzhHLAHP1UM0XSL7SbaGyiqKMfg8mLJ2+gAJIZ/0a43ml
+ sRuIZIdtLkH2Xnz0b1Sz4szk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fbff1a32c447a0a9;
+	Tue, 22 Sep 2026 15:45:54 +0000
+X-Mizu-Trace-ID: fbff1a32c447a0a9
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 22 Sep 2026 08:45:49 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Chris Li <chrisl@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
+	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arKgladcnmeTWUKb@linux.dev>
+References: <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora>
+ <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <arKRdaNEaKvFOtMg@linux.dev>
+ <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
+ <arKZpJDpsavixjPx@cmpxchg.org>
+ <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <3e3a25abe337e3f68cde585674019dca439ac897.1789538455.git.mazziesaccount@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
 
-On Wed, 16 Sep 2026, Matti Vaittinen wrote:
-
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
+On Tue, Sep 22, 2026 at 05:30:44AM -1000, Chris Li wrote:
+> On Tue, Sep 22, 2026 at 5:07 AM Johannes Weiner <hannes@cmpxchg.org> wrote:
+> >
+> > On Tue, Sep 22, 2026 at 04:56:48AM -1000, Chris Li wrote:
+> > > On Tue, Sep 22, 2026 at 4:43 AM Shakeel Butt <shakeel.butt@linux.dev> wrote:
+> > > >
+> > > > People can speak for themselves and suggest other time slots. You do not speak
+> > > > for anyone but yourself here. At this point this is derailing the conversation.
+> > > >
+> > >
+> > > I am expressing my opinion, freedom of speech. As you can see in the
+> > > previous discussion, Baoquan wasn't able to join that time slot. He is
+> > > a major shareholder in XSwap. I worry that alignment vswap vs xswap
+> > > without Baoquan is ineffective. That is my opinion.
+> >
+> > Actually, he said he is not sure if he can make it, and before Nhat
+> > could respond to that soft push you drew a hard line without actually
+> > proposing a workable alternative that made Nhat give up instead.
 > 
-> The BD73800 integrates regulators, ADC (intended for accumulating current /
-> voltage / power values), a real-time clock (RTC), clock gate and GPIOs.
+> Please consider that it is 1AM in Beijing if I remember correctly. I
+> don't consider that is a workable and reasonable ask.
 > 
-> Add core support for ROHM BD73800 Power Management IC.
+> > So my free speech opinion is the same as Shakeel's: you're speaking
+> > for others and thereby derailing efforts to align on something.
 > 
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> Acked-by: Lee Jones <lee@kernel.org>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> I sympathize with asking Baoquan to join a meeting at midnight.
 > 
-> ---
-> Revision history:
->  v3 => v4:
->   - Removed extra whitespace from the end of a file.
->  v2 => v3:
->   - Translated this:
->     https://lore.kernel.org/all/20260813105955.GA1820248@google.com/
->     to an ack. Please, let me know if this isn't ok.
->  v1 => v2:
->   - styling
->   - update copyright years
-> ---
->  drivers/mfd/Kconfig              |  15 +-
->  drivers/mfd/rohm-bd71828.c       | 147 ++++++++++++++-
->  include/linux/mfd/rohm-bd73800.h | 306 +++++++++++++++++++++++++++++++
->  include/linux/mfd/rohm-generic.h |   1 +
->  4 files changed, 461 insertions(+), 8 deletions(-)
->  create mode 100644 include/linux/mfd/rohm-bd73800.h
+> >
+> > We all want Baoquan in the room.
+> 
+> In Chinese we have this saying: don't apply things to others that you
+> wouldn't want applied to yourself. Do you want to participate in a
+> technical meeting at 1 AM?
 
-Looks okay.
+Three emails in, you have rejected the proposed slot and proposed
+none, and your own conclusion was to drop the meeting and keep this on
+the list. That is not inclusiveness, it is a veto, and the outcome
+serves Baoquan and xswap worse than any hour of the day would have.
 
-Let me know when you have all of the Acks and we'll merge it via MFD.
+Baoquan said he was not sure he could make it. He is perfectly capable
+of declining himself, or of sending alternative timeslots to the list.
+You turned his "not sure" into a hard no on his behalf, then argued
+with everyone who pointed that out.
 
--- 
-Lee Jones
+Please reply with two or three specific windows in UTC that work for
+people not in US timezone. If they overlap with the other participants,
+we use one of them.
