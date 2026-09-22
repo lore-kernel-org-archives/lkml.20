@@ -1,387 +1,209 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F7B40B11E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064793; cv=none; b=nTggCb8cX1kMDvE1w9Ld4tQC5yMiLMA8QpAjzOEXqcRHDY2pBippPDTpxhd77vmk3LxRGNyzZCRkN7A3mFqZH1kNbfi6XefJDb73zQyeD/gXBqmc1RhzOQHq+q6VqVDD+rT8t6lB9nDeeZNKWqmAS+XQcR33hGaqNLWlrgdGNxY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064793; c=relaxed/simple;
-	bh=Vey7GwssEZORaEfZORoqubGkgRpTjuM5ae3WHfUAZY8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=l/XLmabCDIuO/JEot4XgXRgXGM1+gLBzno6OLuXsjqOddG/fAV1kwWInU9Fv+DEKQhkbSmmp4nTryDAmBAc0Y1IJAcytn6uPUiiMEvEZuCRbhXVdJVAKCSaaCgHIBTyLlkzS0iCMILjFyIjsh/2pmiprdsFmilCgUXU9I7yxwN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LnTFAd4m; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868523E8C78
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790064813; cv=pass; b=ps5xJx4IEz94tLyF/aF/itPuPcsQcLCNYEo5gq8AwVrxEP1HG89uWiDJ0QbT17w1+RLEqpuwrA9YUUVgVE5gwBv+FhkGrRjXiCDaZ+nxGf/u2UjvMq4laxtb4hTYyugGy59Kegu4yk4DbgbxswpGCHZEp0P1JT4wvYao5ckmmxI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790064813; c=relaxed/simple;
+	bh=z4yJ4d/PQ9eEbkDFB5YDhTveMk44MET3fVjIGIItEhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CdG6UtsbtUBgGTEjfKe6/UqsDb3Qb8u4xJIzXRLlLjUkUYNsG1v9M097cvP63rx68/yp4NwtevAY1KC/saf3qb2LS47GwN7OpVmQArKodX3CSnqlCFEx/6bgq4d2AM6FL8zLQjpBOs89Ff2GEFPAavgxqAnHJQnt3WApCrv/5So=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CumDQ3+V; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LnTFAd4m"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C6AB04E40E9A;
-	Tue, 22 Sep 2026 08:13:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 96D6460580;
-	Tue, 22 Sep 2026 08:13:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D6AFB10328D70;
-	Tue, 22 Sep 2026 10:12:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790064785; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+4tc4WrD7xuF4GfB/Nn6fXDY5uWGKEnQHZ/D87EsmTs=;
-	b=LnTFAd4mCzqGDkYK1NWpQqZp+AHMWYe/3N0CTAWuJBghY34EG9idJRaiDyXJAsymobD+IF
-	rB701F/hR5e7V7STg6lvSSa8ZmcKpy4nvT+F46xFXO9Mymvy/BQ8XB8M989lvRaB3xE25S
-	3hoEf1waSjO0crSI3tT7ge1qgFVFo6ZBPXK9yrs8eEk//hTVglS/nEHgmz0nJDo3wII85h
-	9HJEuGPwB17h8DQYcTIPO/aRwcxnPRHvJfobIyLL4CG7d3Z5wykQEnRIFMF6LYZWsGOnRj
-	2sNEOcA4RUzf23RHAG3mnsxb2hULULkM1K2sNyeFrunTwcZSKiCDraR3DcoVEw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CumDQ3+V"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aae314aso2974611d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:13:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790064810; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CHNs2aVbdi5eyqZbfw05d9DIuULPFFevrXvLS/Tcu6msDoQWGrDbfPo0hjUlSkoBEl
+         E8FipOkyVtuX5iUjOZM02Rk9w8KgnvLpgkwZpBvuSSF6vA5JYbUwb/bxgcnloLc6xLyN
+         V27IXVbdv6Mfal9GPgI8Cauwips9OLoydPc2pQPfTg/0ACBjPfIVWf4TJJN78J5bESNS
+         K0Ai0u3IVGwfLfukgr3KlXlaWcV0EE3zrHIBUM1bPjq5c0nEFc1Z5b3UQHSKb6Kf7Ry4
+         4kM2xunCW4LAiILH85mc2Zp8DAI0yFoiNDPm2D7qXoST+Hhdh+njvSFZockTCySc8oN0
+         Os5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vi+eaHvPeGF3Sdq7zvAZY/QjCGqMSzvenzOG4HC773o=;
+        fh=K4kuyohBnxzL93ZpMaEPIK3yuxvQ6kQS8vhgcRkimAc=;
+        b=jS0LUXiGjGvyUcPAYjuViH1uifoDtMaRZypggCEBesmoBAF2YunC9zDNP/MpUv9CTG
+         eWqBzU87DCNcOQmGgusyoVWg9jP8h9TJur5la03gY28gPRPaMpYMyLwp+wHZrFMACOmo
+         o+wmABc62p3GBNtwSWQSGGYBdJBbF123p2CCZA2CWCcX5joY+izmbFCiYirAO8W6sTPV
+         h2WzlpeVQYeigoxGTXaKvG16HTdy2W03lQFHqKfqmxSzyTgp08Uy8xEZyZtJkn3Szgz0
+         212ZJq2tOyZD/iPkO9keW9GRdXMqjhyP7L7XXsiNBgena5vtXqdqNzZ8kGGhbFnPz2s6
+         li1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790064810; x=1790669610; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vi+eaHvPeGF3Sdq7zvAZY/QjCGqMSzvenzOG4HC773o=;
+        b=CumDQ3+VaWCfRAs+HRcvq/AzKHnhOr/Rj0MD+YQk4F3cQ2sJB06TZPqyScRcjdLmr9
+         JVzPilfNhHcGu6dZNJkcW6VNxmV+O7fzVaYssQJX9X0BTtmzbJD5aZiS7/wbGMJ83D+L
+         6rtop9AoOuw8RoLC+pDt0JQFtekfmuRGrEMO6u1WFDm7Tdt2AJ0m3nfKsD1m9izTA1eB
+         lfRlB0wWGy0J0f5bzLREieD7wOVb1ceQy6ckjeUAez0B1Nbf2gfbGbPeE9NK0FpGbIpo
+         kmKMAR4EERHXZchyCoNI6DbWYm2QijgPOVF6H4bEIjibkOF8gUd4js+7LWTPko3UIQJe
+         02Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790064810; x=1790669610;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vi+eaHvPeGF3Sdq7zvAZY/QjCGqMSzvenzOG4HC773o=;
+        b=ovrOO0Qpzn65Uo45Hyo7s0vTFq4kpmlBTBIniTKhc826+Gb58VrM7brIOwJl8SKYrp
+         lIUD/WkcBpCrfS4BdxZKgwEzUdL1HaxIKeENnPxgvzMZvWAMbq9q3tUp/7cWUdb9yCNs
+         QeMybJ5N2MnrjXqGL3sy/i0f+ZICAXEyNZhiwzSutDHcdahbKpMG01SaeyrRErw4ynTj
+         pJ4cGz62zwVKefTc3frD2SAIUACGWNiZoE0gP45U0nvFmw4m4feX7uMDi6v3DSIosukp
+         0zZsP7uI40KGPv2tH9cc4owPEtwST8eBqt5CUZCT/vjQzkAIXVL/J8J8oboXVbHzzpUO
+         FM4g==
+X-Forwarded-Encrypted: i=1; AKwUvBxL0DQswrEVW4Ss1qxBH+ib8eiZZlbggd6Flv28clsbZUtz+mhw6WMxQw0uuC2XC8LITUs1axxjMlMgfQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPQFl+Hx9zwDGKd5rCOILA8ILz/Cpd9VOnQX0tuhNajd79jIZ3
+	ldkMcXX2spNVKEb8Kcjn1WJt8CGZ+YwvVCgxbscoNjrIet/EbUn3Lo7k5fjblQm1RgZHCpZYqNm
+	ObmlWo0KMMvmi7u1X3XLLKgRL2EgBa+Y=
+X-Gm-Gg: AYBFou2LOLKNHjdj49xqB4zJkIDEgCQZjjjLyPn5A9Bn3boVWiKqeK3s8yO/WsuaA6x
+	JAVEZMPp/M62Mvb7drrgBoxeQsIWy8YV6RsUMFKhvByfvYC8O+y+OGjo55NC6yc0R25uYpIKEqC
+	wG33wFmhamV6PKQhmyOeFHhezG11v4R7rqz17aQbqDLA6kcIICVnuVcmCviU20azBAsfZD2d/+J
+	abAHtlfqNU8HRy1/VNvTUGsOCuQ48ZhbeYStybGHgGJ9YwyFOxyI0y3jYc3b1A+k7LcOutDzR5A
+	wYV5j4auxsw3gTOCE9VjDt8/3D3Q8vT8G20ycLWHspsj35nU1mvp5h4f7g==
+X-Received: by 2002:a05:690e:80d:10b0:671:1a13:99fa with SMTP id
+ 956f58d0204a3-6717fcde0a7mr2703957d50.27.1790064810342; Tue, 22 Sep 2026
+ 01:13:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260921075312.120983-1-lgs201920130244@gmail.com> <cdb67eed-9e75-4310-ae4f-21ca67f20bd2@web.de>
+In-Reply-To: <cdb67eed-9e75-4310-ae4f-21ca67f20bd2@web.de>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 16:13:17 +0800
+X-Gm-Features: AcwNN1WgyEuKR8AButHilBQBtiaREfERPd_f4BSEyPirEeQ1c0aH3J078-wD1lE
+Message-ID: <CANUHTR9+rLuPrd1aifKws++POOKSm+2jxBaJaC1iF5z5x0e13Q@mail.gmail.com>
+Subject: Re: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
+ registration failure
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: platform-driver-x86@vger.kernel.org, 
+	Bao Cheng Su <baocheng.su@siemens.com>, 
+	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>, Hans de Goede <hansg@kernel.org>, 
+	Henning Schild <henning.schild@siemens.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Tobias Schaffner <tobias.schaffner@siemens.com>, stable@vger.kernel.org, 
+	LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 10:12:41 +0200
-Message-Id: <DLLOZYM6YWJ3.6Q0LRD1WABGW@bootlin.com>
-To: "Damon Ding" <damon.ding@rock-chips.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
- "Neil Armstrong" <neil.armstrong@linaro.org>, "Robert Foss"
- <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,
- "Lucas Stach" <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
- Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
- "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
- "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
- <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
- panel_bridge
-Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
- <asrivats@redhat.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-X-Mailer: aerc 0.22.0
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
- <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
-In-Reply-To: <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Damon,
+Hi Markus,
 
-On Mon Sep 21, 2026 at 5:07 AM CEST, Damon Ding wrote:
-> Hi Luca,
+Thanks for the suggestion.
+
+On Mon, 21 Sept 2026 at 18:10, Markus Elfring <Markus.Elfring@web.de> wrote=
+:
 >
-> On 9/16/2026 9:45 PM, Luca Ceresoli wrote:
->> Now a panel_bridge is automatically created for every drm_panel and the
->> panel-bridge API is just a deprecated wrapper to access it.
->>
->> Update and simplify the code by just getting a reference to the
->> already-existing bridge using of_drm_get_bridge_by_endpoint().
->>
->> As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take car=
-e
->> of putting the bridge reference. This is not easily done in the remove p=
-ath
->> due to the different probe paths of the user drivers, so add a devm acti=
-on
->> to ensure the reference is put only when it was taken.
->>
->> Assisted-by: opencode:deepseek-v4-flash-0731
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->> ---
->>   drivers/gpu/drm/bridge/analogix/Kconfig            |  1 -
->>   drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 +++++++++++++-=
---------
->>   drivers/gpu/drm/exynos/exynos_dp.c                 | 36 ++------------=
------
->>   drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  9 -----
->>   include/drm/bridge/analogix_dp.h                   |  1 -
->>   5 files changed, 25 insertions(+), 62 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/bridge/analogix/Kconfig b/drivers/gpu/drm/b=
-ridge/analogix/Kconfig
->> index da156fd15764..5672d83cb4a1 100644
->> --- a/drivers/gpu/drm/bridge/analogix/Kconfig
->> +++ b/drivers/gpu/drm/bridge/analogix/Kconfig
->> @@ -33,7 +33,6 @@ config DRM_ANALOGIX_DP
->>   	depends on DRM
->>   	depends on OF
->>   	select DRM_DISPLAY_DP_AUX_BUS
->> -	select DRM_PANEL
->>
->>   config DRM_ANALOGIX_ANX7625
->>   	tristate "Analogix Anx7625 MIPI to DP interface support"
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/driver=
-s/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 18e76d1e78e1..6df6963740d2 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> @@ -29,7 +29,6 @@
->>   #include <drm/drm_device.h>
->>   #include <drm/drm_edid.h>
->>   #include <drm/drm_of.h>
->> -#include <drm/drm_panel.h>
->>   #include <drm/drm_print.h>
->>   #include <drm/drm_probe_helper.h>
->>
->> @@ -1567,15 +1566,6 @@ int analogix_dp_bind(struct analogix_dp_device *d=
-p, struct drm_device *drm_dev)
->>   	if (ret)
->>   		goto err_unregister_aux;
->>
->> -	if (dp->plat_data->panel) {
->> -		dp->plat_data->next_bridge =3D devm_drm_panel_bridge_add(dp->dev,
->> -								       dp->plat_data->panel);
->> -		if (IS_ERR(dp->plat_data->next_bridge)) {
->> -			ret =3D PTR_ERR(dp->plat_data->next_bridge);
->> -			goto err_unregister_aux;
->> -		}
->> -	}
->> -
->>   	ret =3D drm_bridge_attach(dp->encoder, bridge, NULL, DRM_BRIDGE_ATTAC=
-H_NO_CONNECTOR);
->>   	if (ret) {
->>   		DRM_ERROR("failed to create bridge (%d)\n", ret);
->> @@ -1647,6 +1637,11 @@ struct drm_dp_aux *analogix_dp_get_aux(struct ana=
-logix_dp_device *dp)
->>   }
->>   EXPORT_SYMBOL_GPL(analogix_dp_get_aux);
->>
->> +static void analogix_dp_put_bridge(void *data)
->> +{
->> +	drm_bridge_put(data);
->> +}
->> +
->>   static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
->>   {
->>   	struct analogix_dp_device *dp =3D to_dp(aux);
->> @@ -1655,14 +1650,25 @@ static int analogix_dp_aux_done_probing(struct d=
-rm_dp_aux *aux)
->>   	int ret;
->>
->>   	/*
->> -	 * If drm_of_find_panel_or_bridge() returns -ENODEV, there may be no v=
-alid panel
->> -	 * or bridge nodes. The driver should go on for the driver-free bridge=
- or the DP
->> -	 * mode applications.
->> +	 * If of_drm_get_bridge_by_endpoint() returns -ENODEV, there may be no
->> +	 * valid panel or bridge nodes. The driver should go on for the
->> +	 * driver-free bridge or the DP mode applications.
->>   	 */
->> -	ret =3D drm_of_find_panel_or_bridge(dp->dev->of_node, port, 0,
->> -					  &plat_data->panel, &plat_data->next_bridge);
->> -	if (ret && ret !=3D -ENODEV)
->> -		return ret;
->> +	plat_data->next_bridge =3D of_drm_get_bridge_by_endpoint(dp->dev->of_n=
-ode,
->> +							       port, 0);
->> +	if (IS_ERR(plat_data->next_bridge)) {
->> +		if (PTR_ERR(plat_data->next_bridge) =3D=3D -ENODEV)
->> +			plat_data->next_bridge =3D NULL;
->> +		else
->> +			return PTR_ERR(plat_data->next_bridge);
->> +	}
->> +
->> +	if (plat_data->next_bridge) {
->> +		ret =3D devm_add_action_or_reset(dp->dev, analogix_dp_put_bridge,
->> +					       plat_data->next_bridge);
->> +		if (ret)
->> +			return ret;
->> +	}
->>
->>   	return component_add(dp->dev, plat_data->ops);
->>   }
->> diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos=
-/exynos_dp.c
->> index e1c9e2946b8a..82c238829921 100644
->> --- a/drivers/gpu/drm/exynos/exynos_dp.c
->> +++ b/drivers/gpu/drm/exynos/exynos_dp.c
->> @@ -26,7 +26,6 @@
->>   #include <drm/drm_crtc.h>
->>   #include <drm/drm_encoder.h>
->>   #include <drm/drm_of.h>
->> -#include <drm/drm_panel.h>
->>   #include <drm/drm_print.h>
->>   #include <drm/drm_probe_helper.h>
->>   #include <drm/exynos_drm.h>
->> @@ -147,7 +146,6 @@ static const struct component_ops exynos_dp_ops =3D =
-{
->>   static int exynos_dp_probe(struct platform_device *pdev)
->>   {
->>   	struct device *dev =3D &pdev->dev;
->> -	struct device_node *np;
->>   	struct exynos_dp_device *dp;
->>
->>   	dp =3D devm_kzalloc(&pdev->dev, sizeof(struct exynos_dp_device),
->> @@ -163,18 +161,6 @@ static int exynos_dp_probe(struct platform_device *=
-pdev)
->>   	 */
->>   	platform_set_drvdata(pdev, dp);
->>
->> -	/* This is for the backward compatibility. */
->> -	np =3D of_parse_phandle(dev->of_node, "panel", 0);
->> -	if (np) {
->> -		dp->plat_data.panel =3D of_drm_find_panel(np);
->> -
->> -		of_node_put(np);
->> -		if (IS_ERR(dp->plat_data.panel))
->> -			return PTR_ERR(dp->plat_data.panel);
->> -
->> -		goto out;
->> -	}
->> -
+> =E2=80=A6
+> > +++ b/drivers/platform/x86/siemens/simatic-ipc.c
+> =E2=80=A6
+> > @@ -118,8 +119,11 @@ static int register_platform_devices(u32 station_i=
+d)
+> >                       platform_device_register_data(NULL, pdevname,
+> >                               PLATFORM_DEVID_NONE, &platform_data,
+> >                               sizeof(struct simatic_ipc_platform));
+> > -             if (IS_ERR(ipc_batt_platform_device))
+> > -                     return PTR_ERR(ipc_batt_platform_device);
+> > +             if (IS_ERR(ipc_batt_platform_device)) {
+> > +                     ret =3D PTR_ERR(ipc_batt_platform_device);
+> > +                     ipc_batt_platform_device =3D NULL;
+> > +                     goto err_unregister;
+> > +             }
+> =E2=80=A6
 >
-> TIP: In my WIP v3 patch series, I use of_drm_find_panel() together with
-> devm_drm_panel_bridge_add() to maintain this backward compatibility. But
-> I also think this old approach should be deprecated now. Shall we add
-> some notes in the commit message to mention the deprecation of this metho=
-d?
-
-What is the "WIP v3" series exactly? Do you have a link (to v2 in case v3
-is not yet public)?
-
->>   	if (of_get_display_timings(dev->of_node)) {
->>   		dp->plat_data.next_bridge =3D devm_drm_of_display_mode_bridge(dp->de=
-v,
->>   									dp->dev->of_node,
->> @@ -189,19 +175,11 @@ static int exynos_dp_probe(struct platform_device =
-*pdev)
->>   	dp->plat_data.power_off =3D exynos_dp_poweroff;
->>   	dp->plat_data.ops =3D &exynos_dp_ops;
->>
->> -out:
->>   	dp->adp =3D analogix_dp_probe(dev, &dp->plat_data);
->> -	if (IS_ERR(dp->adp)) {
->> -		/*
->> -		 * The driver core does not invoke remove() for failed probes,
->> -		 * so release the probe-time panel reference here.
->> -		 */
->> -		if (dp->plat_data.panel)
->> -			drm_panel_put(dp->plat_data.panel);
->> +	if (IS_ERR(dp->adp))
->>   		return PTR_ERR(dp->adp);
->> -	}
->>
->> -	if (dp->plat_data.panel || dp->plat_data.next_bridge)
->> +	if (dp->plat_data.next_bridge)
->>   		return component_add(&pdev->dev, &exynos_dp_ops);
->>   	else
->>   		return analogix_dp_finish_probe(dp->adp);
->> @@ -209,16 +187,6 @@ static int exynos_dp_probe(struct platform_device *=
-pdev)
->>
->>   static void exynos_dp_remove(struct platform_device *pdev)
->>   {
->> -	struct exynos_dp_device *dp =3D platform_get_drvdata(pdev);
->> -
->> -	/*
->> -	 * Release the probe-time reference from of_drm_find_panel(). If bind
->> -	 * ran, the panel_bridge holds a second reference that devm cleanup
->> -	 * will release when the bridge is destroyed after remove() returns.
->> -	 */
->> -	if (dp->plat_data.panel)
->> -		drm_panel_put(dp->plat_data.panel);
->> -
->>   	component_del(&pdev->dev, &exynos_dp_ops);
->>   }
->>
->> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/g=
-pu/drm/rockchip/analogix_dp-rockchip.c
->> index 587e60232ec7..071d31aa5288 100644
->> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
->> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
->> @@ -28,7 +28,6 @@
->>   #include <drm/drm_bridge_connector.h>
->>   #include <drm/bridge/analogix_dp.h>
->>   #include <drm/drm_of.h>
->> -#include <drm/drm_panel.h>
->>   #include <drm/drm_print.h>
->>   #include <drm/drm_probe_helper.h>
->>
->> @@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct platform_devi=
-ce *pdev)
->>   {
->>   	struct rockchip_dp_device *dp =3D platform_get_drvdata(pdev);
->>
->> -	/*
->> -	 * Release the probe-time reference from of_drm_find_panel(). If bind
->> -	 * ran, the panel_bridge holds a second reference that devm cleanup
->> -	 * will release when the bridge is destroyed after remove() returns.
->> -	 */
->> -	if (dp->plat_data.panel)
->> -		drm_panel_put(dp->plat_data.panel);
->> -
->>   	component_del(&pdev->dev, &rockchip_dp_component_ops);
->>   }
->>
->> diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analo=
-gix_dp.h
->> index 0e0b87abee59..6033137b651e 100644
->> --- a/include/drm/bridge/analogix_dp.h
->> +++ b/include/drm/bridge/analogix_dp.h
->> @@ -35,7 +35,6 @@ static inline bool analogix_dp_is_rockchip(enum analog=
-ix_dp_devtype type)
->>
->>   struct analogix_dp_plat_data {
->>   	enum analogix_dp_devtype dev_type;
->> -	struct drm_panel *panel;
->>   	struct drm_bridge *next_bridge;
->>   	struct drm_encoder *encoder;
->>   	struct drm_connector *connector;
->>
+> How do you think about to avoid duplicate checks and variable resets
+> in such a function implementation?
 >
-> I apply this patch series with the related one[0], and the eDP work well
-> on my RK3576 board.
->
-> Tested-by: Damon Ding <damon.ding@rock-chips.com>
->
-> In my patch series for Analogix DP HPD support, Heiko also pointed out
-> that devm_drm_of_get_bridge()(deprecated now) can be used to get the
-> panel bridge directly, and the redundant &analogix_dp_plat_data.panel
-> can be removed[1]. Since your patch series already contains these
-> optimizations, I will rebase my patch series on top of yours for
-> subsequent updates.
+> Regards,
+> Markus
 
-Yes, I confirm with this series devm_drm_of_get_bridge() becomes a
-complicated equivalent of of_drm_get_bridge_by_endpoint(). So what Heiko
-suggested is correct for current upstream code, but this patch goes a step
-further, using just the bridge API as the new recommended practice will be
-as soon as this series is applied.
+Would it make sense to share the cleanup path and rely on
+platform_device_unregister() handling NULL/ERR_PTR, like this?
 
-FYI this series is now fully acked, so I plan to apply it by the end of
-this week or early next week.
++static void unregister_platform_devices(void)
++{
++        platform_device_unregister(ipc_wdt_platform_device);
++        platform_device_unregister(ipc_led_platform_device);
++        platform_device_unregister(ipc_batt_platform_device);
++}
++
+ static int register_platform_devices(u32 station_id)
+ {
+        u8 ledmode =3D SIMATIC_IPC_DEVICE_NONE;
+        u8 wdtmode =3D SIMATIC_IPC_DEVICE_NONE;
+        u8 battmode =3D SIMATIC_IPC_DEVICE_NONE;
+        char *pdevname;
++       int ret;
+        int i;
 
-> Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
->
-> [0]
-> https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-0-30=
-401d9406f3@bootlin.com/
-> [1] https://lore.kernel.org/all/5609825.iZASKD2KPV@diego/
+        ...
 
-Thanks for reviewing and testing!
+-       if (IS_ERR(ipc_batt_platform_device))
+-               return PTR_ERR(ipc_batt_platform_device);
++       if (IS_ERR(ipc_batt_platform_device)) {
++               ret =3D PTR_ERR(ipc_batt_platform_device);
++               goto err_unregister;
++       }
 
-Luca
+        ...
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-       if (IS_ERR(ipc_led_platform_device))
+-               return PTR_ERR(ipc_led_platform_device);
++       if (IS_ERR(ipc_led_platform_device)) {
++               ret =3D PTR_ERR(ipc_led_platform_device);
++               goto err_unregister;
++       }
+
+        ...
+
+-       if (IS_ERR(ipc_wdt_platform_device))
+-               return PTR_ERR(ipc_wdt_platform_device);
++       if (IS_ERR(ipc_wdt_platform_device)) {
++               ret =3D PTR_ERR(ipc_wdt_platform_device);
++               goto err_unregister;
++       }
+
+        ...
+
+        return 0;
++
++err_unregister:
++       unregister_platform_devices();
++       return ret;
+ }
+
+ ...
+
+ static void __exit simatic_ipc_exit_module(void)
+ {
+-       platform_device_unregister(ipc_led_platform_device);
+-       ipc_led_platform_device =3D NULL;
+-
+-       platform_device_unregister(ipc_wdt_platform_device);
+-       ipc_wdt_platform_device =3D NULL;
+-       platform_device_unregister(ipc_batt_platform_device);
+-       ipc_batt_platform_device =3D NULL;
++       unregister_platform_devices();
+ }
+
+Would this be closer to what you had in mind?
+
+If so, I'll follow Krzysztof's suggestion and organize the related
+patches into a proper patch series before sending v2.
+
+Thanks,
+Guangshuo
