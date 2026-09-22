@@ -1,155 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE706424D41;
-	Tue, 22 Sep 2026 10:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C024E0B8B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071651; cv=none; b=K5eHiTvvziEXZ2jE2RhC4pL2d7ShAULx2F4vjkI/mZkoxZHCsX4NzW7/kjWz5WC+EFXdrXd5XQzE+mnhwBO6GZn2bFkZD43qshWIFIjKKRYkqwo/MRJfXr6eWUV9E8J7uDCUEIaryA58k8AdnfyJ5xxpUX8+bQRblEJZm9+AqrE=
+	t=1790071659; cv=none; b=RZNVJvSKJqAG4WQhqw9rGIJzeGl1m0dX70XVWf4wd9dvV6tbmYpiPuoelm4OOtVM3yd2Q5C2pkZ54tmoggYiw29LOqDLfOri5XsMB9GLcheyNUizZRjzpBODh0r2Ff3gVMFrxeNoFcSubNRpIjXnvGmXfBZj1P6ubbODKBtRI/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071651; c=relaxed/simple;
-	bh=2y6rfd3V6t8r63itiesJ7pNBadW8mVuB/RTG4AHuQlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zz8EVV7oFODlY5sHAQGYKdUT/UGmFH0npfdl08t/riqwiQHMLbAsMTMSwxHth5AGafvp6uGnNsu/gU+k/BkbJ9zGZ0UXi8FoOznJLPKioVtICEgjdVmaKv2/ZRHlU3RGmxs6fNwwjB/Z8FpvgRpvfkByp+yjki83R+QOrP+T2VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlaYSpBh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790071659; c=relaxed/simple;
+	bh=e/QbGjIvokxqCfY0OdfhXUChmkjkDlvhD/a0sn0aZeI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jLAEeLEgkL68lVyfmCBsGEgj8KFJ2DOQFUlVbr8VWMXNu/i0f8Te/QiUCrEOReC1NcHpTJVrMEv4nnRNkVWTmmULrK1sLmGcmDUd0rG0xoyDqV939/NDcjua2K7jUYuH7Wx8T9M73ZzxotDsMTMZTjM9tn/wWXnnS2rk1lDPf3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q4E02mir; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlaYSpBh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25081F000FF;
-	Tue, 22 Sep 2026 10:07:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790071648;
-	bh=hwh+K2v/178tY1KA4Ry1KdU4gEsYtzRfHe28rjIAvaw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JlaYSpBhIogs5L+R0VqdS/wOu7Uup6pb/dxidITuX3OWvWO72fbVPcM+0pV1XIy/W
-	 FZ2uXAp95b1N6ZfVyywbSTIx8PcinVh1Mn03Rjb7FtGV1HFmuYP8caqjFG96zwzqUm
-	 zHKQ+7vLDnjg/Rrfd6xH+K1PjQ6+t5DvIU9M0J/FpCFUQIgxselxDKsSFFQlpvK4S/
-	 zRMJ3BOm9DJjIVxgi+0joF4DT/U1edWGVD1ufSFjt3J486N9WGka04SZbJIb6wr8MB
-	 TUuRZ4IeE9e1+J0KYj/qXJ8htdFt9Lf6gx5sQeIjRRKn1ePHA/jZgo+sHecZmcW9LP
-	 KMIu2YMQFt3Fw==
-Date: Tue, 22 Sep 2026 12:07:26 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"Ola Chr. Vaage" <ola.christoffer.vage@scoutdi.com>
-Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
-Message-ID: <arJTSEfkILPQmqNV@orome>
-References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
- <b72b16cf704aa662a1b49805db284379d4fa4050.1789741839.git.u.kleine-koenig@baylibre.com>
- <arEAjOHU4rH5aGqb@orome>
- <arE932ZcHGB8RAN6@monoceros>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q4E02mir"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso5351814a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:07:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1790071654; x=1790676454; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M21NvE6hEk+bHsAyKs+VPRDnarAHkFKIx7tvnOO3mWc=;
+        b=Q4E02mirdAFsGxsUn8GNzLsAM6KQFisiieM/GzZeyWlPaRUlF7hx/xx5bvxG2oxT9m
+         IzG8gpIIGSAgVIew5LAFmIKMXzEZQ5RYLCeeyw2ayIaiyNGR1hMC0yKS+lovk1bgy/Vn
+         r7MCTwZf1p1vdR54p0Un1lDhwdzZN1MmhxeXw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790071654; x=1790676454;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M21NvE6hEk+bHsAyKs+VPRDnarAHkFKIx7tvnOO3mWc=;
+        b=VVAFiVUqeVnMK/GXa9BQVCl6f2H8CcQ5U/Ar+us6nbIrPY4FjEHp5xcgJAa04q5vCO
+         kO7mmKjzYu0OIxWNZ5ek/5jI6SkmHArzr8WCfgG2mMliWL4ioqshkXWP8+SidqEGX2aJ
+         rp/BkGqi4ozgzbxLCCzPU6fiU1rwWWtiD5d/KE9XOtxukedfV70QuTqtmpQ3as2CShPR
+         qRp7CkFSw2K+k5w5Y1wji+4tkiBdUgC3QFMlgpFZ+kkXZJEltnqqabk4Kbn+dgg1U4GB
+         U99H6ilWjt8wgFhMzW+jvC7Z8dS6D+k9jN+/b0RPTBXIeyYDyPFJnlm6x5xXS3mTTr1s
+         pVdg==
+X-Forwarded-Encrypted: i=1; AKwUvByM/PL8DjV4yIlhGh05o/N6hraMozvleXbIQ1H2R00IHAEXyWB09zxCkO33lGmxXwTPSdef7hcmdcZa5sI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHl4SuWTFCzEwfZLiDTrrt4xx/D4guZ1FyQ6qD0u7KJ7CzqpS8
+	5s2oPu/IK4PM7IbYx30JXpK4V7agXVmEZhH1qiZcsGQzF6MOKtmarFdr/G0wjV1Jedw=
+X-Gm-Gg: AYBFou3Bwv5PZbRJAJrIwx67NIQHgcDlwSDnHu8chu7btovrpbC0yMD3W2hLDCPpkT4
+	MopWhQwj/VpLfa0/JZLGwNWv+t4Ss1GuI8NrYCTlgCHe14+8EW0uHt46IBI0c4y2HqZMG7ZlkH9
+	fQVSjOHkFp0RkvbcA0hdXb3KOHDYskswtBV87RMoclQBKF5inKXqJg3oL7S+Zlw/V0Xde1oeGVR
+	0digyUBhLPXWPG+WoXCQvk1+kK5SChAVfQCLba76bmJcm84tC4c2/iA4evzIvRO9SNa7meqPUw1
+	YpjXR6K/Rb6VWnqz32dAGnTYeRZ7m+Un2F1X4XivuO8Wxc9RBaZxEKiGqvCYgKStQ/2Kr6Ww8VA
+	oAHCM7UY9sP9pgCb28JRiByRP83cK07mD9cxQ3IAORAtChyAT7P+zPCE5hHhnEMp2WQynz1NrSq
+	GDCir1D7WcW4aJVz7dP5BX+k4HwtDCDFcdiQMfJGVNxr4VcE+6MLs1o5ZQ742xgCDsLQMIS/4ZI
+	ab89rGnMFw=
+X-Received: by 2002:a05:6402:e03:b0:6aa:4529:4cba with SMTP id 4fb4d7f45d1cf-6aa545f7e04mr11215471a12.7.1790071654290;
+        Tue, 22 Sep 2026 03:07:34 -0700 (PDT)
+Received: from [10.214.128.75] ([38.97.137.190])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa440dd61sm774693a12.2.2026.09.22.03.07.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 03:07:32 -0700 (PDT)
+Message-ID: <2f14b623-7490-48e5-a509-d605a04930d1@linuxfoundation.org>
+Date: Tue, 22 Sep 2026 04:07:28 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yq6y463pp52ksygm"
-Content-Disposition: inline
-In-Reply-To: <arE932ZcHGB8RAN6@monoceros>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usbip: add NULL check for calloc in do_standalone_mode
+To: longlong yan <yanlonglong@kylinos.cn>, valentina.manea.m@gmail.com,
+ shuah@kernel.org, gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260817061514.765-1-yanlonglong@kylinos.cn>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260817061514.765-1-yanlonglong@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 8/17/26 00:15, longlong yan wrote:
+> Add a NULL check for the return value of calloc() in
+> do_standalone_mode(). If calloc() fails and returns NULL, the
+> subsequent access to fds[i].fd would cause a NULL pointer
+> dereference.
+> 
+> Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
+> ---
+>   tools/usb/usbip/src/usbipd.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/tools/usb/usbip/src/usbipd.c b/tools/usb/usbip/src/usbipd.c
+> index 3e22b651c754..dbc2b48363b2 100644
+> --- a/tools/usb/usbip/src/usbipd.c
+> +++ b/tools/usb/usbip/src/usbipd.c
+> @@ -544,6 +544,11 @@ static int do_standalone_mode(int daemonize, int ipv4, int ipv6)
+>   	dbg("listening on %d address%s", nsockfd, (nsockfd == 1) ? "" : "es");
+>   
+>   	fds = calloc(nsockfd, sizeof(struct pollfd));
+> +	if (!fds) {
+> +		err("calloc for pollfd");
+> +		usbip_driver_close(driver);
+> +		return -1;
+> +	}
+>   	for (i = 0; i < nsockfd; i++) {
+>   		fds[i].fd = sockfdlist[i];
+>   		fds[i].events = POLLIN;
 
---yq6y463pp52ksygm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 3/3] pwm: tegra: Implement .get_state()
-MIME-Version: 1.0
+It is theoretically possible for calloc() to fail, however how often
+does it fail and were you able to make this allocation to fail?
 
-On Mon, Sep 21, 2026 at 04:26:03PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> Hello Thierry,
->=20
-> On Mon, Sep 21, 2026 at 12:18:16PM +0200, Thierry Reding wrote:
-> > On Fri, Sep 18, 2026 at 04:33:47PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > > The registers of the PWM IP are readable. Use that to implement the
-> > > .get_state() callback.
-> > >=20
-> > > Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
-> > > Tested-by: Ola Chr. Vaage <ola.christoffer.vage@scoutdi.com>
-> > > Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
-> > > ---
-> > >  drivers/pwm/pwm-tegra.c | 48 +++++++++++++++++++++++++++++++++++++++=
-++
-> > >  1 file changed, 48 insertions(+)
-> > >=20
-> > > diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
-> > > index b461d3877f43..0520d025c776 100644
-> > > --- a/drivers/pwm/pwm-tegra.c
-> > > +++ b/drivers/pwm/pwm-tegra.c
-> > > @@ -310,8 +310,56 @@ static int tegra_pwm_apply(struct pwm_chip *chip=
-, struct pwm_device *pwm,
-> > >  	return err;
-> > >  }
-> > > =20
-> > > +static int tegra_pwm_get_state(struct pwm_chip *chip, struct pwm_dev=
-ice *pwm,
-> > > +			       struct pwm_state *state)
-> > > +{
-> > > +	struct tegra_pwm_chip *pc =3D to_tegra_pwm_chip(chip);
-> > > +	int rc;
-> > > +	u32 val;
-> > > +
-> > > +	rc =3D pm_runtime_resume_and_get(pwmchip_parent(chip));
-> > > +	if (rc)
-> > > +		return rc;
-> > > +
-> > > +	val =3D tegra_pwm_readl(pwm, pc->soc->enable_reg);
-> > > +	if (val & TEGRA_PWM_ENABLE) {
-> > > +		u32 scale, pwm0;
-> > > +
-> > > +		if (pc->soc->enable_reg !=3D TEGRA_PWM_CSR_0)
-> > > +			val =3D tegra_pwm_readl(pwm, TEGRA_PWM_CSR_0);
-> > > +
-> > > +		scale =3D (val >> TEGRA_PWM_SCALE_SHIFT) & ((1 << pc->soc->scale_w=
-idth) - 1);
-> > > +		pwm0 =3D (val >> TEGRA_PWM_DUTY_SHIFT) & (2 * TEGRA_PWM_DEPTH - 1);
-> > > +
-> > > +		if (pwm0 > TEGRA_PWM_DEPTH)
-> > > +			pwm0 =3D TEGRA_PWM_DEPTH;
-> >=20
-> > It feels like this has too many assumptions built-in. That's mostly a
-> > predefined issue, but I think if we want to get accurate hardware read-
-> > out, we need to address this.
-> >=20
-> > According to the register documentation, the PWM depth is 16 bits wide
-> > (on generations where it can be programmed). The value defaults to 255
-> > (which is n - 1 encoded, hence TEGRA_PWM_DEPTH), but it can technically
-> > be reprogrammed to any 16-bit value, as far as I can tell.
-> >=20
-> > So I think for this to be correct we'd need to read out the actual value
-> > before overwriting with TEGRA_PWM_CSR_0 contents above. At that point I
-> > think we'd need to either adjust the mask to be (2 * depth) - 1, or
-> > maybe better yet, avoid masking it out arbitrarily based on the depth
-> > and instead cap it at depth so we never exceed the 1:1 ratio for duty
-> > cycle vs. period.
->=20
-> As long as .apply() also hardcodes TEGRA_PWM_DEPTH, it's IMO fine that
-> .get_state() does so, too.
+If not, how did you test this patch? In any case, I am not going to
+take this patch and all the other patches you sent adding checks to
+calloc() calls in other places in usbip tool.
 
-Okay, fair enough.
-
-Thierry
-
---yq6y463pp52ksygm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqyU10ACgkQ3SOs138+
-s6F4MQ/9EH+9WXVcAEauSWTHfQfBYZQong8bCSxqlh3YXSdOH6+QS9T54+FeEhdw
-tLyg1gIzLCg3Dzex/nkGeQo/hC90bUo7LhRKajdj8BH78QOE4Jcrf66tbd1FXutX
-c0O/uLyWwtAL4NUr45fE9evQqPMYmzbCz7HMe1lxo3zCsfZz3iUdOTDvrm1l7QG5
-W0aI7Yu88rd3OjlH6jMEd1o6VIS4reYiERNRCcjr26faAE696ydA+5oUVkwXI2JZ
-s++Nr6AARi4cFmZPJDaPpxPjZpNzZ18slrBNrKvSWXblRowXuya1zx9pyiMXl7n8
-BU0vhWo6E/1Zb4cm1k0HySUEVOTVsGLQWT8ztvUJEiCAd+1VeNRqmPY/tVd9gvZR
-dZl5LuU8PFm7GvhWi97B5CAQbzwf5/kb9KdfOcZKPgamQz6Hx+FaHC/VDtWypoU7
-thp9l7fiL8wGjp0gxxIdKZL5oLa/qwUGHhsj7qQF+LefIv2XmE+w+IeuR9dvgueG
-nZSv2nAy0MP2pBZ5nEysp5Hoip/mKhHSXsRg0DXeUNG6b4p8Il1AGnBHAR8TO/rF
-3DAmTsfdLfjEFnGfx1SPGf1yfjCyTxJZn2S6Tys6MplLklFJ0lRnWFSNtmwwa9jY
-EATSv8FgXgZZwXoVfn6ZDErO0HpF/66pNKbQOIZFXkjaNsSJLWg=
-=YvDB
------END PGP SIGNATURE-----
-
---yq6y463pp52ksygm--
+thanks,
+-- Shuah
