@@ -1,61 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBBD535FAC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA52C390239;
+	Tue, 22 Sep 2026 12:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078901; cv=none; b=UH7lquDN+l4Q0ea3XZILdpKmMpb8hgDnUuRsDfnLjIH0xLoGlLtxLkv3CSTdvyQIm6A0NP2t0NiRfxZiOsBPcRCtsKguwBCE7cFEuA/Bxbdd6XxVTLso8tmEQioAhGqM/3zv9b3XVNNz0soTM4us3hh6rGb+J6X9fsV+AKX/X/I=
+	t=1790078917; cv=none; b=o2vtGP9OPLLe+AzzfaQriWHRSFdEPki53jacuut/V+w2QlGGBNPeXdqDjQ/1RXr64Q96Ou9pybTCVPGsEiP6KAxBTZfob5cLgPNz9P62RH1hrJ6cAWHTpN4comjf7pgyoAu7qHeB5LRCcV2TBmpI65BjWQ6o1BMseUOne4WGNzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078901; c=relaxed/simple;
-	bh=KVHj4KsmvWTwNkzbtpslTvUQiMxIdwrZ6AgLlyWw36g=;
+	s=arc-20240116; t=1790078917; c=relaxed/simple;
+	bh=lxikLCey8JFwQElpr414yvj1dGFi++FR/DoNHZNBXA4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rs8SFrM2UbK06VPU1USIS8BQTgOSKuw9t0HWPcuQBzw2W3GYAxzEhTBImeKNF1WYqIfvjvZc2q0XOGBneeP1MUNhtv0YQu5O5fQUP8eqV1pWklnf9fS/geTOuVcqUyoy5VrSbuKteSDVQtogHS8QBSeoSRC7ad14OufNb55jZL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N5NJSt9o; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=giGmUjMaq4t+HuGhpni9sdlPunkGX1IZZtsFGOUMagzqP3Zq9Hm8nCfHA/Kz6LSWo5R/zP1T1LlUv4IpvG0rvy6HdEbLQOXCBbLW930DnwDFnuH/mgYzcbSn47CnNJhmvGm26yItRid1JHxzpdM20OWLim2nA2ycDtpo7vPN5ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=6Zfhzkjs; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N5NJSt9o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790078901; x=1821614901;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KVHj4KsmvWTwNkzbtpslTvUQiMxIdwrZ6AgLlyWw36g=;
-  b=N5NJSt9oA77l6nE5Hyer+xNJS7pZta8Mgnb4/rLjCy1rs0QbQPnvU+CO
-   Zp6F59tbtxHMUQAqgbY54aQ4FI/yQ+9IxXUKLOTiQD45hq+Vj+/t+3NBD
-   2OfRP1W7qppH1AR2U+f8m+wnhI9/aFeQoZU22fVHHtWltbLbBtz9YgDXm
-   w+GNNvFUgp4VyzHnx1T6OWQYs+KclEUSlVQlY8IYmgMF0ntGfcQDs2i26
-   ugx/9dtQV4vIHMyotmtVVQvkPoWKjjnT2I3yuMDiabTwKJ9SfqSRaRlu7
-   wO4u7kcl+8zEyledVsB9V8vOw/owfE+LAst2TbbC1r2izPgWii8Pid27m
-   Q==;
-X-CSE-ConnectionGUID: yfnAnet0QBy25+UC5dFM5g==
-X-CSE-MsgGUID: bsu8WdxsRRmGVKOu0SRASA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1178376"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1178376"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:08:20 -0700
-X-CSE-ConnectionGUID: +wQKYIt2T9iL1b3TxLkOAw==
-X-CSE-MsgGUID: NaSedg89QyKLDyQmZaVpwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="277893184"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 05:08:18 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x8zIF-00000000FSU-2Les;
-	Tue, 22 Sep 2026 12:08:15 +0000
-Date: Tue, 22 Sep 2026 20:07:58 +0800
-From: kernel test robot <lkp@intel.com>
-To: Alexey Dobriyan <adobriyan@gmail.com>, akpm@linux-foundation.org
-Cc: oe-kbuild-all@lists.linux.dev, Dmitry Antipov <dmantipov@yandex.ru>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kstrtox: delete saturation in case of overflow
-Message-ID: <202609221939.FSyfaCW4-lkp@intel.com>
-References: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="6Zfhzkjs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=MG8xy5bcEMmbhnQisVz4MbMW6OJVIA+/9ZxpoK8P3P8=; b=6ZfhzkjsxabnIW+nrDuY0S5ueI
+	StpgDejclSYGHaStg5BULQ84rmATpfGlYA0SV8XgA5CETGWOWaokPSIPzrFb99esCgHAbgx5NcCsF
+	IQU3ycYMzdj99hWvHB9StG3AMz4KfrHi5AmaVPL47ot98CL6ahXor+7aTIT6dzahZpcM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8zIS-006a3f-M6; Tue, 22 Sep 2026 14:08:28 +0200
+Date: Tue, 22 Sep 2026 14:08:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: nicolo.giuliani6@studio.unibo.it
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+Message-ID: <1817c56f-bc79-4e64-94c3-4eb8cdb1f107@lunn.ch>
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+ <20260921-send-dt-v2-3-fb6b81002ad7@studio.unibo.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,39 +48,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
+In-Reply-To: <20260921-send-dt-v2-3-fb6b81002ad7@studio.unibo.it>
 
-Hi Alexey,
+On Mon, Sep 21, 2026 at 02:26:43AM +0200, Nicolo Giuliani via B4 Relay wrote:
+> From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+> 
+> Add a device tree for the network processing unit (NPU) of the Sophos
+> XGS 87/107 desktop firewalls. The appliance pairs an AMD x86 host with the
+> NPU, a Marvell Armada CN9130 SoC with its own eMMC and SPI NOR flash that
+> runs independently of the host and serves the front panel ports.
+> 
+> The eight RJ45 ports and the SFP cage are connected through a Marvell
+> 88E6193X switch on the MDIO bus of the SoC, at address 2. Switch port 0
+> is the CPU port, a 10GBASE-R link to the first mvpp2 port. Ports 1 to 8
+> are the RJ45 ports, which use the internal PHYs of the switch, and
+> port 9 is the SFP cage, connected over 1000BASE-X.
+> 
+> Describe the UART console, the eMMC, the SPI NOR flash that holds the boot
+> loader and its environment (read-only), the SFP cage and the switch with
+> its ports. The port LEDs, the PCIe link to the x86 host and the USB ports
+> are not described.
+> 
+> The switch is reset through CP GPIO2 pin 17.
+> 
+> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
+> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
+> its eight user ports, and 936 Mbit/s through a front port. The SFP cage is
+> untested.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 
-kernel test robot noticed the following build errors:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-[auto build test ERROR on akpm-mm/mm-nonmm-unstable]
-[also build test ERROR on akpm-mm/mm-everything linus/master v7.3-rc4 next-20260921]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexey-Dobriyan/kstrtox-delete-saturation-in-case-of-overflow/20260917-191707
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-nonmm-unstable
-patch link:    https://lore.kernel.org/r/a396f2ea-8de8-4eca-a216-ff69bc40fe85%40p183
-patch subject: [PATCH] kstrtox: delete saturation in case of overflow
-config: riscv-allnoconfig (https://download.01.org/0day-ci/archive/20260922/202609221939.FSyfaCW4-lkp@intel.com/config)
-compiler: riscv64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609221939.FSyfaCW4-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609221939.FSyfaCW4-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   riscv64-linux-ld: ./drivers/firmware/efi/libstub/lib-cmdline.stub.o: in function `__efistub_memparse':
->> __efistub_cmdline.c:(.init.text+0x13a): undefined reference to `__efistub__parse_integer_fixup_radix'
->> riscv64-linux-ld: __efistub_cmdline.c:(.init.text+0x154): undefined reference to `__efistub__parse_integer_limit'
-   riscv64-linux-ld: .tmp_vmlinux1: hidden symbol `__efistub__parse_integer_fixup_radix' isn't defined
-   riscv64-linux-ld: final link failed: bad value
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+    Andrew
