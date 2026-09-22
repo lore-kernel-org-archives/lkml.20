@@ -1,188 +1,197 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6DF4BFE9C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058179; cv=pass; b=seCMgLarC7KHNRtdWU1tVDmxB69hBpijIvhen+Ms45Gsj+5wwsU7rR9N6X1fnJxFe6FmQ7GeXnbIJ+t+D82AfSKU58mcbYWARssW8lbI3gilDHQHUJgfQBfZ4EgtjNpH7DAy7h6n3Lsj5E4S98PSXz2dJUZk/UZjBxbIEWGvg34=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058179; c=relaxed/simple;
-	bh=hSu1JaeVAndUvAhhkiZSL0QmtqqDPtkeyI7Y+YpJ2t0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SmCKsLzBzJYxHfOHor/hdkadE3qZWPKgmKDgMvLfEVaTnfPI6nazyuimA0QyKUv2qgwUxcV+awV0vsQjoW/DCM2di04LHK0lIiObrK78sQ5xA262i6dYJMPYiht1srZjXpknuCR3tYbRHMq+mkhsIqxMgXca7RtwHg073L9kc44=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dcXA1JNL; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7D53EC6B2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:23:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790058191; cv=none; b=EXYaQysM0+k6oCAsEncH5gFAHlefNgantJEazcvNNPg953kTmZCRdGwn6OsBI4CIK64xoKKQPDHtKB41TCBHOn4lFV+CIPJikWXUocE0q2eeFYAYyn3eVzYcivopPTc/pUgMI0BaSsIlfhs60b3e414RV1nxiMCc/kqPLUrarNA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790058191; c=relaxed/simple;
+	bh=xvaFz7vC2g0c23kySh4YpbizKgZYbTNUlJqPM/Prf6M=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=CWRwkPiAXHc2AB//0M7mldWmgXS2g9rQkp3aCCRvNmdN3MtRq9vx0aE2YqLrW5eh9ySK4rTBLnE2ZjoL4830Kzb6o7Pvy/ITZzboaaWDIkISQc4NI7E8VVHNl+w26ustKnWUPJnl67thxO5j4r+XtDQjkP0lYRNfSnZ5lxH8ph4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HLaQ8ZLd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nlZ7tGQD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dcXA1JNL"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso4394411a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:22:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790058178; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oDRRlzFOOLyNhbQOuL6chDamwWfXFTQEsqx8yqjxdIR3m770WgcQXX4djFpbXO3Ar3
-         wwpuJxGpyWa2ui8/rI33xvAtRoR9G7xn3BnrcUBhZTNZh2CREUdCzvaSBwr00vFGVXBj
-         nf7zaK/nM41bGOwcmb143GkHp24TqVr7FTdmBzwD1E1w156QgJfpA4VZJiZvAsIX8DGK
-         Ia128s5Dtx2+HZV4+nLett7B/v7CzuKvto0Yq2kJs18c660gZY1MLSjT4yLJoAxTa4oC
-         8DclqUYXtiAZUPm/lQsV8HXPF8HyrQHZq81y3uDJUWAv4L9bXYZ5kLvzgJAzOjpS/Mu7
-         KUfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BlRa/2mN1jPTELIhMBL0D+bQZ9346zjX/6r12JwRWOY=;
-        fh=aySTzHfStufIp6lmMM6vudw1vdm3KVzDROPYjeY2rOc=;
-        b=NOrDMerNPdnAJU7N1Ypjhw/hT4pfiC0dgO19gK3CTu6tHW91y4six2U8VrR7JYBuL+
-         1X5rswq22escq8uYKRr1WuBUdmxwC+jT2Kr2xCBG5fFCZFE4yGN/1Xz+TWZ+kdtOle8O
-         z2Bvm4MHeyB1Wh7e0iHgSa1BPs8eBWajAv0Wpg5m1GIk9Qgz7kBpL79W/OiWNPLPKuYW
-         zHo7HkKe+0GGJ7APyDo75cv7LdHKoNKakt25VY86wdZ7w67XOdIkTITPfWQ6W/2HeRQH
-         fnhN55wQhKOyKxLAw7G6wYKMbxi/JRTKYzyWlo3ZX5GGT/zTWW/a8jbRjIC0woBJlHZR
-         jVgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HLaQ8ZLd";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nlZ7tGQD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790058189;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/1jmYqRyXpyyU6dyrYgqvepUerNBQjNM+3vAXNLV/i8=;
+	b=HLaQ8ZLds6xMt/XgYmcaI74JaehoLEoASWV6DLg3N5dlSiaj5eGkFTdIXHfroErHL5k3On
+	bS9T9bx4KI2rKoEe7+rNMRT5qCn1ib36SRpWseIcJM9BdYj1rmSmULy+aSNJNIDmo98WBt
+	Ge7LAl/Dbanm1qStON4gimiZqXupllo=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-357-sc1gsnkONiGkzNNJGBVJKg-1; Tue, 22 Sep 2026 02:23:07 -0400
+X-MC-Unique: sc1gsnkONiGkzNNJGBVJKg-1
+X-Mimecast-MFC-AGG-ID: sc1gsnkONiGkzNNJGBVJKg_1790058186
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-487041c4c82so1120653f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:23:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790058178; x=1790662978; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BlRa/2mN1jPTELIhMBL0D+bQZ9346zjX/6r12JwRWOY=;
-        b=dcXA1JNL+fxKsbQV6PE0pyITEU9Em4HXcYKF+kXE5zYeSw9tK9jUjWRd/hu27r+9hz
-         yLds7xbxrHeWDW3Z8EzNT20H2bR1QHebXGPh+25bLtKskcXjaAS8fcbh/XHJYNJbuhc8
-         86NtZZVpEoxMVBWoSiMT9dRiE5LtZMhuV4fk9qeiIXgHdxeewo8LLwKKlQKcwj0MrJtg
-         jJcqSHkT9O8C2pjpmAsPTO+vqtda1wzGfz23sw5I99gVitvjBfQ9z08Z3mUP+9rjzEJw
-         P6oNFt/q1YhB1awhpWMUJnShObXsd/+wl16K8jxMroWyxgIKWid374mcDsjiVGjg/s2E
-         qp3w==
+        d=redhat.com; s=google; t=1790058186; x=1790662986; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/1jmYqRyXpyyU6dyrYgqvepUerNBQjNM+3vAXNLV/i8=;
+        b=nlZ7tGQDbW2x9wIj1jk4TeXvKCUHHL/2gPWFj9HhdN0G00SdwjXOVviWIVzpNa6XpP
+         LTTapfX+4kByeP2mxE2EGxPmFdUIWdUrnWc5RjxJZO8Rfta5DRdPSIsPOAbGOslbhWVb
+         yRfK3vRiYbXW3il4b5KwUmUcyzDa0va+SeSMTXxlFYQvrReQo9avaP8f9OPU25toRoUJ
+         3fLsix0eev0AVzJWhoS/y6OLbOZ6fjSQPqEy1saqmFJUp8Tg5pVVqQVFyqMTFI5BpwzZ
+         5+FbsyM2Hvka4tokj55Twa3zGxBuXTxdsTXDdxBQWhOfmXxEaWh5TfhuLsGzlO3vHYE1
+         mzug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790058178; x=1790662978;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BlRa/2mN1jPTELIhMBL0D+bQZ9346zjX/6r12JwRWOY=;
-        b=IIIa7Zvc5jcZmGkIXnd7RQtb6LCxylsP5J3LOe2Sz3thdzQVcR4cxsxQA7vl5HimjS
-         1yZiZ5VwZ41allhx+tnLRuCrHxHMmsJvWi5wsQ4njVVnVB7NOS3xGTJztME8wxHIJ8tM
-         FE1Xw1j1y00n9vvVQv9k/IQr1DRJAvuHOMBXGI1DUBu2f1Vq9CZ0d1yf4SfJPABfcTrv
-         4aFKhxWfWvhTqPnTNmtHLDWjbZDR9w6ZwvzqCYqYDITFuPIUTqGWlYTkC2Dz8NEkjx/z
-         xMGfGV9lgnbVrodiqF8f0lHGqjD2n6IuboJfUJB/2CQNXmCE6dd/5DKI/FjGhbWiIUOy
-         DCjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsSNCIil8f1na8LMqd8ZV4uSMBbov3SKGnGLiwVTeyuHkcJ50gZJj0+pJ2U+bEEOH3Ci3Px8vCTilfkoo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni2LxVZl038J7jVbLnlQDbOeuRREtoG3ao+74lnNZObf2YkxUw
-	PA0gjaxyqa4vtRB+AMWYctBQrjwCkzlhcdz3Pm3U4hpprE1XIMaHruznmSnD+ARfHVjA0kPO/47
-	B1pje0cezXC9ac88SbYEy045Ryu5Ig9c=
-X-Gm-Gg: AYBFou2eTJ9sl/Ape3PpxNjjaMGkIrXk8LpZpTiQraIGVoBMLgH+0splSohWXCR7fuu
-	7pBYAdRNE6frpXUPRF6mTFhPhImMFQQQ/SJTyQK0i8xKe/ns1mfSOykB6E/YufO23aMo6JEEEyy
-	6N2NBL9vudPU9IVvyDYAQSwMluRWnmwwrgRgLozq0DqsN7SVqmMAr7Zz+D5o4dJo5glkIqDgr0L
-	b7mf3abb9spOhnRkFPSzZKp2BEuDY9toNQP51WX24HZbK3OKATaUQ6aKkjhr2Mw9qMRdbxvQd7C
-	43rOnwIEt3iZowE6/f8c1kicSCjmZ99GaEQ9m2u1IPbgA6Tg0p+TpKuGr9Qr6Fi08tu4oyD0mri
-	zm5GkYBTQxe4d
-X-Received: by 2002:a17:90b:5685:b0:39e:6a82:afd5 with SMTP id
- 98e67ed59e1d1-3a0731f4259mr175881a91.39.1790058177750; Mon, 21 Sep 2026
- 23:22:57 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790058186; x=1790662986;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/1jmYqRyXpyyU6dyrYgqvepUerNBQjNM+3vAXNLV/i8=;
+        b=v9/Wu5YV0xrG/yNe16f3BNAiiXnUw3S9AwlIpINUVXapM/xOewUorz7uy7Z46QQOKb
+         Z0ZDXcOkBXei58JSU4qP1VOnZ2V0WCs65tQJBfMzPUzSXzrdCNeYOMljSYwVtAWKgqWV
+         aqVkj6G1hPb5FBFC1YOvwZaR/nVuwKK8qtKWQ0ZsDDON4kCIpfY3vk+0404AoTh6HQwF
+         TaazO0v0MW12Z0libHGq1A4w2ueTII+kTsraFClH/HldDZZ2ZEgMiS/YELMYUftR9NJE
+         4MM9AZlqsCzqMHy0xXFp6mKT6Rgy18BS+oN0baf6pvDakHO0dHE6MTGwQaV7hkVkpUoi
+         uypQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhqTwHCCg5n3Pv4ci+AxHYq/1tk5UCtvUOnl6H3DhG18jrhVNRNK9eS/YPGIlcCxymHosm6eRQbLVGOBg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTkbeOs7CS3PLnLd+CaaW8dsCLtQ7yDNjCiK1urPN2yNCavoSe
+	cOQLukY/lS6b8doGCXuYch+XUL4/ZQ7Ims3NQfuI8Rw04WY52J4fIvDksPF6LeNq8Nasjw/Bosn
+	68r087iiropn5Ge62RLcpjM8ZDc+uwK34YlG4R16rsaURYEnE5fbLOeuHobaj9BGDew==
+X-Gm-Gg: AYBFou2+oITrU8a4Ub+u31n6SJOYLv/u7p5ja1eZ/vscP3MHfCmNHxrgCpBCQzbfltm
+	M6i7vZ5IcOVjxfKdvK6MOyTYiuWf/m2/nskUVXTjEQE519oTXTozylGlaLasERSkG+fIDK6VU70
+	PJ3uhue8gldHRASWSpsOo67e3qcl8hzTx98ctDFopXr7lWtJf/SH85MVHLU2XsDAye6Dd+A2/F4
+	2PH8hKNkeXvapcw2VGcMngNm5JosJVCjiQkU7EAl4D0rZBQUY9A6QJaIyRGS9OUE9dqz5OheXhP
+	T/Wt4UX35N2XFHBNmHbzzlTWCB8vI8BzhSgNpJ2fsVxCeAKufhoppdigoaA48gHelKqQxM0s
+X-Received: by 2002:a05:6000:40db:b0:485:9b35:a20e with SMTP id ffacd0b85a97d-4871e3c2896mr19375334f8f.56.1790058186291;
+        Mon, 21 Sep 2026 23:23:06 -0700 (PDT)
+X-Received: by 2002:a05:6000:40db:b0:485:9b35:a20e with SMTP id ffacd0b85a97d-4871e3c2896mr19375324f8f.56.1790058186012;
+        Mon, 21 Sep 2026 23:23:06 -0700 (PDT)
+Received: from [192.168.0.9] ([47.64.113.141])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862789129sm2745795f8f.22.2026.09.21.23.23.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 23:23:05 -0700 (PDT)
+Message-ID: <dd31022e-6211-47f8-b123-edb589dd0471@redhat.com>
+Date: Tue, 22 Sep 2026 08:23:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721095233.420823-1-clamor95@gmail.com> <20260921175234.3137985-2-florian.krischer@fkr.dev>
-In-Reply-To: <20260921175234.3137985-2-florian.krischer@fkr.dev>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 22 Sep 2026 09:22:46 +0300
-X-Gm-Features: AcwNN1ULBI8oVbCxinixK9CqeBUWrSXGHlwss4CieTetvjbU4QPKm0ZMViGeQTk
-Message-ID: <CAPVz0n13hNPrZ4NKxindNQRdCbM28kyj0UDSarqzd35DEpny5Q@mail.gmail.com>
-Subject: Re: [PATCH v10 fixup 1/2] mfd: asus-transformer-ec: use 8-byte event
- reads on SL101
-To: Florian Krischer <florian.krischer@fkr.dev>
-Cc: Lee Jones <lee@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] of: fdt: Replace __ASSEMBLY__ with __ASSEMBLER__ in
+ of_fdt.h header file
+From: Thomas Huth <thuth@redhat.com>
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20260619160234.69568-1-thuth@redhat.com>
+ <a37baafd-56dc-4733-bd7c-c92a8b8c1474@redhat.com>
+Content-Language: en-US
+Autocrypt: addr=thuth@redhat.com; keydata=
+ xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
+ yYkTm9+7zBUc0sW5AuPGR/dp3pSLX/yFWsA/UB4nJsHqgDvDU7BImSeiTrnpMOTXb7Arw2a2
+ 4CflIyFqjCpfDM4MuTmzTjXq4Uov1giGE9X6viNo1pxyEpd7PanlKNnf4PqEQp06X4IgUacW
+ tSGj6Gcns1bCuHV8OPWLkf4hkRnu8hdL6i60Yxz4E6TqlrpxsfYwLXgEeswPHOA6Mn4Cso9O
+ 0lewVYfFfsmokfAVMKWzOl1Sr0KGI5T9CpmRfAiSHpthhHWnECcJFwl72NTi6kUcUzG4se81
+ O6n9d/kTj7pzTmBdfwuOZ0YUSqcqs0W+l1NcASSYZQaDoD3/SLk+nqVeCBB4OnYOGhgmIHNW
+ 0CwMRO/GK+20alxzk//V9GmIM2ACElbfF8+Uug3pqiHkVnKqM7W9/S1NH2qmxB6zMiJUHlTH
+ gnVeZX0dgH27mzstcF786uPcdEqS0KJuxh2kk5IvUSL3Qn3ZgmgdxBMyCPciD/1cb7/Ahazr
+ 3ThHQXSHXkH/aDXdfLsKVuwDzHLVSkdSnZdt5HHh75/NFHxwaTlydgfHmFFwodK8y/TjyiGZ
+ zg2Kje38xnz8zKn9iesFBCcONXS7txENTzX0z80WKBhK+XSFJwARAQABzR5UaG9tYXMgSHV0
+ aCA8dGh1dGhAcmVkaGF0LmNvbT7CwXgEEwECACIFAlVgX6oCGwMGCwkIBwMCBhUIAgkKCwQW
+ AgMBAh4BAheAAAoJEC7Z13T+cC21EbIP/ii9cvT2HHGbFRl8HqGT6+7Wkb+XLMqJBMAIGiQK
+ QIP3xk1HPTsLfVG0ao4hy/oYkGNOP8+ubLnZen6Yq3zAFiMhQ44lvgigDYJo3Ve59gfe99KX
+ EbtB+X95ODARkq0McR6OAsPNJ7gpEUzfkQUUJTXRDQXfG/FX303Gvk+YU0spm2tsIKPl6AmV
+ 1CegDljzjycyfJbk418MQmMu2T82kjrkEofUO2a24ed3VGC0/Uz//XCR2ZTo+vBoBUQl41BD
+ eFFtoCSrzo3yPFS+w5fkH9NT8ChdpSlbNS32NhYQhJtr9zjWyFRf0Zk+T/1P7ECn6gTEkp5k
+ ofFIA4MFBc/fXbaDRtBmPB0N9pqTFApIUI4vuFPPO0JDrII9dLwZ6lO9EKiwuVlvr1wwzsgq
+ zJTPBU3qHaUO4d/8G+gD7AL/6T4zi8Jo/GmjBsnYaTzbm94lf0CjXjsOX3seMhaE6WAZOQQG
+ tZHAO1kAPWpaxne+wtgMKthyPLNwelLf+xzGvrIKvLX6QuLoWMnWldu22z2ICVnLQChlR9d6
+ WW8QFEpo/FK7omuS8KvvopFcOOdlbFMM8Y/8vBgVMSsK6fsYUhruny/PahprPbYGiNIhKqz7
+ UvgyZVl4pBFjTaz/SbimTk210vIlkDyy1WuS8Zsn0htv4+jQPgo9rqFE4mipJjy/iboDzsFN
+ BFH7eUwBEAC2nzfUeeI8dv0C4qrfCPze6NkryUflEut9WwHhfXCLjtvCjnoGqFelH/PE9NF4
+ 4VPSCdvD1SSmFVzu6T9qWdcwMSaC+e7G/z0/AhBfqTeosAF5XvKQlAb9ZPkdDr7YN0a1XDfa
+ +NgA+JZB4ROyBZFFAwNHT+HCnyzy0v9Sh3BgJJwfpXHH2l3LfncvV8rgFv0bvdr70U+On2XH
+ 5bApOyW1WpIG5KPJlDdzcQTyptOJ1dnEHfwnABEfzI3dNf63rlxsGouX/NFRRRNqkdClQR3K
+ gCwciaXfZ7ir7fF0u1N2UuLsWA8Ei1JrNypk+MRxhbvdQC4tyZCZ8mVDk+QOK6pyK2f4rMf/
+ WmqxNTtAVmNuZIwnJdjRMMSs4W4w6N/bRvpqtykSqx7VXcgqtv6eqoDZrNuhGbekQA0sAnCJ
+ VPArerAZGArm63o39me/bRUQeQVSxEBmg66yshF9HkcUPGVeC4B0TPwz+HFcVhheo6hoJjLq
+ knFOPLRj+0h+ZL+D0GenyqD3CyuyeTT5dGcNU9qT74bdSr20k/CklvI7S9yoQje8BeQAHtdV
+ cvO8XCLrpGuw9SgOS7OP5oI26a0548M4KldAY+kqX6XVphEw3/6U1KTf7WxW5zYLTtadjISB
+ X9xsRWSU+Yqs3C7oN5TIPSoj9tXMoxZkCIHWvnqGwZ7JhwARAQABwsFfBBgBAgAJBQJR+3lM
+ AhsMAAoJEC7Z13T+cC21hPAQAIsBL9MdGpdEpvXs9CYrBkd6tS9mbaSWj6XBDfA1AEdQkBOn
+ ZH1Qt7HJesk+qNSnLv6+jP4VwqK5AFMrKJ6IjE7jqgzGxtcZnvSjeDGPF1h2CKZQPpTw890k
+ fy18AvgFHkVk2Oylyexw3aOBsXg6ukN44vIFqPoc+YSU0+0QIdYJp/XFsgWxnFIMYwDpxSHS
+ 5fdDxUjsk3UBHZx+IhFjs2siVZi5wnHIqM7eK9abr2cK2weInTBwXwqVWjsXZ4tq5+jQrwDK
+ cvxIcwXdUTLGxc4/Z/VRH1PZSvfQxdxMGmNTGaXVNfdFZjm4fz0mz+OUi6AHC4CZpwnsliGV
+ ODqwX8Y1zic9viSTbKS01ZNp175POyWViUk9qisPZB7ypfSIVSEULrL347qY/hm9ahhqmn17
+ Ng255syASv3ehvX7iwWDfzXbA0/TVaqwa1YIkec+/8miicV0zMP9siRcYQkyTqSzaTFBBmqD
+ oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
+ IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
+ yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
+In-Reply-To: <a37baafd-56dc-4733-bd7c-c92a8b8c1474@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-=D0=BF=D0=BD, 21 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 20:52 Flor=
-ian Krischer <florian.krischer@fkr.dev> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> The SL101 embedded controller exposes the event window at 0x6a through
-> 8-byte reads. This matches the downstream ASUS SL101 driver, which uses
-> an 8-byte SMBus I2C block read for command responses and events.
->
-> The generic 32-byte event read used by v10 prevents the physical SL101
-> keyboard from completing PS/2 initialization.
->
-> Use a variant-specific event read length for the SL101 in both the
-> clear-buffer and interrupt paths. Keep the 32-byte entry size for other
-> variants.
->
-> Tested on an ASUS Eee Pad Slider SL101 with EC firmware SL101-0202.
-> With the matching serio fixup, the built-in keyboard completes atkbd
-> initialization and works.
->
-> Signed-off-by: Florian Krischer <florian.krischer@fkr.dev>
-> ---
->  drivers/mfd/asus-transformer-ec.c | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
->
+On 13/08/2026 09.40, Thomas Huth wrote:
+> On 19/06/2026 18.02, Thomas Huth wrote:
+>> From: Thomas Huth <thuth@redhat.com>
+>>
+>> While the GCC and Clang compilers already define __ASSEMBLER__
+>> automatically when compiling assembly code, __ASSEMBLY__ is a
+>> macro that only gets defined by the Makefiles in the kernel.
+>> This can be very confusing when switching between userspace
+>> and kernelspace coding, or when dealing with uapi headers that
+>> rather should use __ASSEMBLER__ instead. So let's standardize now
+>> on the __ASSEMBLER__ macro that is provided by the compilers.
+>>
+>> This is a completely mechanical patch (done with a simple "sed -i"
+>> statement).
+>>
+>> Signed-off-by: Thomas Huth <thuth@redhat.com>
+>> ---
+>>   Note: This patch has been split from an earlier bigger patch of
+>>   mine to ease reviewing.
+>>
+>>   include/linux/of_fdt.h | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
+>> index 51dadbaa3d63a..72b452e388eeb 100644
+>> --- a/include/linux/of_fdt.h
+>> +++ b/include/linux/of_fdt.h
+>> @@ -16,7 +16,7 @@
+>>  /* Definitions used by the flattened device tree */
+>>  #define OF_DT_HEADER        0xd00dfeed    /* marker */
+>> -#ifndef __ASSEMBLY__
+>> +#ifndef __ASSEMBLER__
+>>
+>>  #if defined(CONFIG_OF_FLATTREE)
+>>
+>> @@ -103,5 +103,5 @@ static inline void unflatten_device_tree(void) {}
+>>  static inline void unflatten_and_copy_device_tree(void) {}
+>>  #endif /* CONFIG_OF_EARLY_FLATTREE */
+>>
+>> -#endif /* __ASSEMBLY__ */
+>> +#endif /* __ASSEMBLER__ */
+>>  #endif /* _LINUX_OF_FDT_H */
+> 
+> Friendly ping!
+Ping again!
 
-Hello Florian!
+Rob, Saravana, it's not a big patch, could you please pick it up? (or tell 
+me if you don't like it, then I'll stop annoying you ;-))
 
-Thank you for looking in and testing this series.
+  Thanks,
+   Thomas
 
-> --- a/drivers/mfd/asus-transformer-ec.c
-> +++ b/drivers/mfd/asus-transformer-ec.c
-> @@ -229,8 +229,18 @@
->         return ret;
->  }
->
-> +static size_t asus_ec_read_size(const struct asus_ec_data *ddata)
-> +{
-> +       /* SL101 firmware exposes an 8-byte event window at 0x6a. */
-> +       if (ddata->info->variant =3D=3D ASUSEC_SL101_DOCK)
-> +               return 8;
-> +
-> +       return ASUSEC_ENTRY_SIZE;
-> +}
-> +
-
-If SL101 needs a different entry size, it can be passed via
-asus_ec_chip_info structure and will look much cleaner. I will do that
-in the v11. Since this patch is intended to be fold into the series.
-You can test v11 and add your Signed-off-by and Tested-by if it works
-for you. Will that be acceptable?
-
->  static void asus_ec_clear_buffer(struct asus_ec_data *ddata)
->  {
-> +       size_t read_size =3D asus_ec_read_size(ddata);
->         int ret, retry =3D ASUSEC_RSP_BUFFER_SIZE;
->
->         /*
-> @@ -239,8 +249,8 @@
->          */
->         while (retry--) {
->                 ret =3D i2c_smbus_read_i2c_block_data(ddata->client, ASUS=
-EC_READ_BUF,
-> -                                                   ASUSEC_ENTRY_SIZE, dd=
-ata->ec_buf);
-> -               if (ret < ASUSEC_ENTRY_SIZE)
-> +                                                   read_size, ddata->ec_=
-buf);
-> +               if (ret < read_size)
->                         continue;
->
->                 if (ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK)
-> @@ -318,12 +328,13 @@
->  static irqreturn_t asus_ec_interrupt(int irq, void *dev_id)
->  {
->         struct asus_ec_data *ddata =3D dev_id;
-> +       size_t read_size =3D asus_ec_read_size(ddata);
->         unsigned long notify_action;
->         int ret;
->
->         ret =3D i2c_smbus_read_i2c_block_data(ddata->client, ASUSEC_READ_=
-BUF,
-> -                                           ASUSEC_ENTRY_SIZE, ddata->ec_=
-buf);
-> -       if (ret < ASUSEC_ENTRY_SIZE)
-> +                                           read_size, ddata->ec_buf);
-> +       if (ret < read_size)
->                 return IRQ_NONE;
->
->         /* Check status byte with ASUSEC_OBF_MASK if data is valid */
-> --
