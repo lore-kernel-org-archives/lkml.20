@@ -1,116 +1,166 @@
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE64355C312
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7114544D4F;
+	Tue, 22 Sep 2026 15:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091278; cv=none; b=kHrtAvNWUBbpU6n7THvfwkkwaQaZ5hLsuNmorUrEZQkscBUgYiSm0SHkAolFg32T4Hx66lm82/rxwtU6I67826gS99Z2lIQbcHNDJRB6FovoelK6j+y55hvE7l4+4QkpH8fVJYW+rIHTZ88t/bJ04edH12xqHAnvws4W/CgmcZQ=
+	t=1790091309; cv=none; b=a5/RBiPjZUfsT8zoWH4J7U3ROSiKgo9wiTu1JJKqP8xUurvbzh34d3WaqzKOdUB65G32S3X1u0I6tqyi3poRylB7EdOADAPpEL3HC52rdV2t7isEoZQQ755v6ZhMnF9QNg9XhC7fKu6kiAka0fvhcHSpOeMgMtMLks16MOGwR6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091278; c=relaxed/simple;
-	bh=LuiaBeSD0IBnKnMQwy2MeH+wYKQ4HMIUxgxd4XXEt50=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l76kWYh+ThcmUxiEDDI4lgoKPY0/OnOpGPxsMe0hfsLv+cBVJpdc9DriaPSCM9Yf/r8hUL2U/8sMUue8Eie1uLhXkV9pqRQo5PzGaC68Id112/1lsTIowkMQ+bFevbNKdezhvm9hp3Hnd10KItcxEbhgAx8tentYmUmM4CO6nVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=Gc13Dmh3; arc=none smtp.client-ip=67.231.153.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	s=arc-20240116; t=1790091309; c=relaxed/simple;
+	bh=xHBu+r3dPsHMvUdUQo0Eq1m5mecQ/NelcsTIYE5piBk=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=TIapcTeRSyYI+i2RyTQ2WisMngRj6iUsGKJpimhmCe8o3OCpebrcQkFQGQwRtv8i45b75ZZOkFgktZI5ypNnu1J2bbCk/mobBMuKELulyxtL8nGRjqfFhn5Bjju6RGdkUa8LCmOv8/rmndNUzaiMuo21KEqKHk8+6tRgXtVpsLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=vBHFQdAT; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Pob5rp9K; arc=none smtp.client-ip=202.12.124.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="Gc13Dmh3"
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
-	by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68MF2Np82373682
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:34:36 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=l2zHm5Xj3
-	0UEAOy9nk3DRA+Kvmm8ZO804nBKRhqtn60=; b=Gc13Dmh3rdvnXajo5nIwwIXz8
-	9FnjRmsuVSRd0KGYUGyoZ7rCnbIbUdLcLOVvH4LL6bElYcfmhY2TFzYwewGwDA++
-	NEtFrP8ltQNvufJ6007FO0mrH+1YG3NXp8dMX30qr5DmmyzkBG+JS88CqIodv95c
-	6//rXrJIW4S7Zn8OnUUOjH79jn2XyXf+GW9LfX628SGeLJCqAf7aKT/ZSwUT3fGu
-	7sM4CPSSLVFq4K8WCjZCESbdNCoEguwI3lyD4XtiTt9PTVFYJAV0kMWKXVzQ/n5+
-	UdhYfICtqNDLXdDulmhjY7F8d8nECYizpJNVVkMPPoO/ff6EXRAmh3QXCwMfw==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by m0001303.ppops.net (PPS) with ESMTPS id 4gsp29eryq-3
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:34:35 -0700 (PDT)
-Received: from twshared123204.16.frc2.facebook.com (2620:10d:c085:208::7cb7)
- by mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Tue, 22 Sep 2026 15:34:33 +0000
-Received: by devbig197.nha3.facebook.com (Postfix, from userid 544533)
-	id 07E412C3C65D8; Tue, 22 Sep 2026 08:34:17 -0700 (PDT)
-From: Keith Busch <kbusch@meta.com>
-To: <dinguyen@kernel.org>, <schuster.simon@siemens-energy.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-block@vger.kernel.org>,
-        <lftan@altera.com>, Keith Busch <kbusch@kernel.org>,
-        kernel test robot
-	<lkp@intel.com>
-Subject: [PATCH] nios2: fix __wsum type degradation in csum_fold()
-Date: Tue, 22 Sep 2026 08:34:16 -0700
-Message-ID: <20260922153416.730513-1-kbusch@meta.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="vBHFQdAT";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Pob5rp9K"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailflow.stl.internal (Postfix) with ESMTP id A43E81300129;
+	Tue, 22 Sep 2026 11:35:06 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Tue, 22 Sep 2026 11:35:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1790091306;
+	 x=1790098506; bh=k+BJAVmqueRCG6zFCjOD7Eq+W4AZN/slK53nkPTLIzw=; b=
+	vBHFQdATih6l3N7u8kgSaG6ewsD9JgZ06Ng97KLBVVY4J8D6jacpdSiKK+4im8ZS
+	u9VmgAQFMskN57E4t27jHM2UV5j47xEyHitSw055TIgRMzVNfsIbjzSjZ39uZntv
+	YCu/MCU1Q7yPSzNqZVJm5lwm4dADXHwy4KvQTuYP1EInG+nzTh/diV/dVqg96DRP
+	ix8w4/cUUajZ/PV/H3udbOLDTh+JP0ZaMtjGlmHsGQRLVDb2CFP/X8MH1+eRhG99
+	2QZnArTu/ZlbZknU5sE369648aFsvw8DjACMUSh0KoZ8z9jcAL81cgznOSvYSd+j
+	ssMfR4wN5CIcYXWKgDz5Uw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790091306; x=
+	1790098506; bh=k+BJAVmqueRCG6zFCjOD7Eq+W4AZN/slK53nkPTLIzw=; b=P
+	ob5rp9KchqWFsAfq23R+f5NbH/N973omlKPujuzR8A5vBpVsppAzP7k2aakuEsUM
+	dFFLYXhuzzk7Y9AzU9HQGE5NnzoBT6oZM7NWLByxyKKIYejQ+kvmaeNYNHQMCbs/
+	iUVxP+nXDO9oEEWlWoWzxuAYAHNF/tsYmxjmywFMlwkGG7EIYUuN1lCv8qjoDvnr
+	MfWyjDHsdvmFsrJw9q2U8xWy8GteZM/Ex+RvIm4XQmrWiGhUYSYmBjK5pglA4byh
+	gFuyun2S1I6Fuih79yVBUZQ+T116X54O3DxYr6g3OT9+qCQfqB47C4SGeY5qaKJ8
+	6s7nMEh93TuY+ecCimQcA==
+X-ME-Sender: <xms:KKCyam5WgE9ZpY9gXIKLrQngKI2iwNYixA0jfDSr3poQ1N3ET7muhQ>
+    <xme:KKCyaqt0QhS6pQbLBzJVoOJ5hsa19arMRnxx-Qj92ufAF2HPh8Edmiovpn7HEt9QH
+    J74_WyVPC6vRxYuyp1-_d_vI43rh55Oox7D1mGNH9-RWurLMbe_PKRn>
+X-ME-Proxy-Cause: dmFkZTFtO50sYQ5HQ9vqA43bq7Ik43gKK49C4hRnAlX9A2NcSc1pEt79yROnVZUKyvBN/Q
+    PLC8lg14plyO8t93JRmwyuiDu+rSsldUqLFoRsqyyuw9x476BiFA1TJU/iKokRtmSagGho
+    OOZcJCjyQPV1KsVkjZ/gVJdN71ywnrTmwTP9R9Thti3rf06sti9s+JYTC7CXXrspT9q17P
+    zWokE2QYleDx84Xfx9mxpv3xUm5tz8HTKlWamE31/WQbKz22J+mgtXwqR1TS+0EQnuAwYN
+    HL/qx7PGCVOuHBlM8MEJ2N5l4Ooh5pzkmkzmyY5lfAg3Mf/gsytQ7H3AAtIg+LMWZSZFPg
+    7gGBz57Ll3xeJ3dlJj2ooyr7GnRfU0bw3vJ380NbqVLpjBwF5VPInv5bmQpDYD3xVISide
+    F2xq26yalJCzsRfL5A9vA3YMUmHrY741Sp54Y+W71Y3JyBJrPyjbdGUOlzQ599SqoFtdZU
+    kfdCxY4rTHRJqN3xNybcSpmYV2eX8cItJZyvos+ScMdOsZKukpimy3H5NpEAxLtQruJIkS
+    espiz3yptdMvF/YFSjkfprbH93NBPLmJSvB44uQdeM/VP3AvBIfpprI8W4Bl5RSnsm+XEo
+    rAQDJLlULngYuKc1Lp4bKXB7lQ8I7D6WYvr1ZiqFH9YYELj8UbIEVskfuVsg
+X-ME-Proxy: <xmx:KKCyalSdRU9aYYdTZPvOHzfhOe4tMxxJ7yQhCudtGndj_4Rx2UUw2g>
+    <xmx:KKCyahrX-BtlUl3tsOEfwfODrvx-BVtC0m7q13SfBKJfNzFXuARHWg>
+    <xmx:KKCyarqRoDPJ8S7eNSjdk6YKVfzMq2S6b66tkn2oojiaJ9jHh_tXeA>
+    <xmx:KKCyau39fxPH69-2x3g1g77GvHn-TFzVkDG_TsZihIhwUce3RgNqJA>
+    <xmx:KqCyapS2ftzfib71AW2ALWop8XvH1ivIDUWl6S2DCU4uM3zT4Rc63xGx>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 647182C00067; Tue, 22 Sep 2026 11:35:04 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
+X-ThreadId: AVcutaJy7ROZ
+Date: Tue, 22 Sep 2026 11:34:44 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Mika Westerberg" <mika.westerberg@linux.intel.com>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ "Hanjun Guo" <guohanjun@huawei.com>,
+ "Sudeep Holla" <sudeep.holla@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, "Ard Biesheuvel" <ardb@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ linux-efi@vger.kernel.org, "Will Deacon" <will@kernel.org>,
+ "Robin Murphy" <robin.murphy@arm.com>, "Joerg Roedel" <joro@8bytes.org>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "platform-driver-x86@vger.kernel.org"
+ <platform-driver-x86@vger.kernel.org>,
+ "David Rhodes" <david.rhodes@cirrus.com>,
+ "Richard Fitzgerald" <rf@opensource.cirrus.com>,
+ "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, "Shenghao Ding" <shenghao-ding@ti.com>,
+ "Kevin Lu" <kevin-lu@ti.com>, "Baojun Xu" <baojun.xu@ti.com>,
+ "Sen Wang" <sen@ti.com>, "Vijendar Mukunda" <Vijendar.Mukunda@amd.com>,
+ "Venkata Prasad Potturu" <venkataprasad.potturu@amd.com>,
+ "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>,
+ "Cezary Rojewski" <cezary.rojewski@intel.com>,
+ "Peter Ujfalusi" <peter.ujfalusi@linux.intel.com>,
+ "Bard Liao" <yung-chuan.liao@linux.intel.com>,
+ "Kai Vehmanen" <kai.vehmanen@linux.intel.com>,
+ "Pierre-Louis Bossart" <pierre-louis.bossart@linux.dev>,
+ "Binbin Zhou" <zhoubinbin@loongson.cn>,
+ "Andreas Noever" <andreas.noever@gmail.com>,
+ "Mika Westerberg" <westeri@kernel.org>,
+ "Yehezkel Bernat" <YehezkelShB@gmail.com>
+Message-Id: <b4c3aab6-2ce2-41ee-a1ef-3e53234a5213@app.fastmail.com>
+In-Reply-To: <1973238.CQOukoFCf9@rafael.j.wysocki>
+References: <7995179.EvYhyI6sBW@rafael.j.wysocki>
+ <1973238.CQOukoFCf9@rafael.j.wysocki>
+Subject: Re: [PATCH v1 05/17] platform/x86: yogabook: Switch to use
+ acpi_bus_get_primary_device()
 Content-Type: text/plain
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIyNyBTYWx0ZWRfXzaa21aQN0bd6
- ES5Bc0la717nL6p/xEbAvFhEIIdc/63aBMHv/9A1fuAIhh694ODYJltzldSxbfl2XU1aNrFV/ru
- ogYDcezztLLsGg8zZIBpr/V+XoFSDVQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIyNyBTYWx0ZWRfX59YtwaQE3kid
- bqfTm4d0hbkAy8kbG0D+LUQOrnb7yf38KSA5QdnhaHIuzJOzaGOYM24iEkREi6rIadMbPp3/Ve3
- fShNtgwKmPhhKNe9yOc3PPXNnosHrSUSKh6Qr3JQ+RKxWjcamdle9i2mHha9TY69WcO29wAWGPL
- fR8sjNljSzke+4t3CdVBQhLx9n+DwWLWLOnQke0PpW2DbxNnwsVba3XdMvkYw1DNgXCcFEvg0dd
- ExmvFp4EaHCEqus2tsbtD8bVefm2MlwQ2YffHEI+hbwMwKFZh4GkEjf+mH2j+SVeCvJ2HVP0CrL
- t68QeWc+8QTvX/rrPP6tO6H4doSPF/PvAE8y0oKLzqq8dTFmOfa4lQYYKl6I1m6j21WyNV/8Bf/
- sY1dKOYxG7aGsiEchiahTvXg8vAU3xeL3hWyMe04mdqNrraVde1RK4ofYAWL/LocZyFoakWfWui
- /JVAr9t88qNQ2crjIDw==
-X-Proofpoint-GUID: wSGIJFhlZDkVyNtOpC9F3hZB7b-NqCZJ
-X-Proofpoint-ORIG-GUID: wSGIJFhlZDkVyNtOpC9F3hZB7b-NqCZJ
-X-Authority-Analysis: v=2.4 cv=abX0Dhot c=1 sm=1 tr=0 ts=6ab2a00b cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_78whYxrdx1mplLwxq1U:22 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8
- a=QfzvH6fXpEJYp8rZMLYA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
+Content-Transfer-Encoding: 7bit
 
-From: Keith Busch <kbusch@kernel.org>
+On Mon, Sep 21, 2026, at 3:48 PM, Rafael J. Wysocki wrote:
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+>
+> Replace acpi_get_first_physical_node() that is slated for removal
+> with acpi_bus_get_primary_device() that takes a reference to the
+> device it is about to return.
+>
+> This addresses a potential use-after-free that may occur if the
+> device returned by acpi_get_first_physical_node() is removed right
+> after dropping its ACPI companion's physical_node_lock in that
+> function.
+>
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> ---
+>  drivers/platform/x86/lenovo/yogabook.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/platform/x86/lenovo/yogabook.c 
+> b/drivers/platform/x86/lenovo/yogabook.c
+> index 1a4b2ab1f35d..8a91d440724b 100644
+> --- a/drivers/platform/x86/lenovo/yogabook.c
+> +++ b/drivers/platform/x86/lenovo/yogabook.c
+> @@ -353,13 +353,13 @@ static int yogabook_wmi_probe(struct wmi_device 
+> *wdev, const void *context)
+>  		goto error_put_devs;
+>  	}
+> 
+> -	data->kbd_dev = get_device(acpi_get_first_physical_node(data->kbd_adev));
+> +	data->kbd_dev = acpi_bus_get_primary_device(data->kbd_adev);
+>  	if (!data->kbd_dev || !data->kbd_dev->driver) {
+>  		r = -EPROBE_DEFER;
+>  		goto error_put_devs;
+>  	}
+> 
+> -	data->dig_dev = get_device(acpi_get_first_physical_node(data->dig_adev));
+> +	data->dig_dev = acpi_bus_get_primary_device(data->dig_adev);
+>  	if (!data->dig_dev || !data->dig_dev->driver) {
+>  		r = -EPROBE_DEFER;
+>  		goto error_put_devs;
+> -- 
+> 2.51.0
 
-csum_fold() shifts a bitwise __wsum type, which sparse reports as
-"restricted __wsum degrades to integer". Sparse only checks the body of
-a static inline once something instantiates it, so this went unnoticed
-until a recent block layer change added the first csum_fold() caller to
-a file built on this architecture.
-
-Force cast to a __u32 for the shift, as the other architectures do.
-
-Fixes: eea9507a69d6 ("nios2: Library functions")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609222053.5gjiJjtb-lkp@i=
-ntel.com/
-Signed-off-by: Keith Busch <kbusch@kernel.org>
----
- arch/nios2/include/asm/checksum.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/nios2/include/asm/checksum.h b/arch/nios2/include/asm/c=
-hecksum.h
-index 69004e07a1ba3..b6b415ae17a08 100644
---- a/arch/nios2/include/asm/checksum.h
-+++ b/arch/nios2/include/asm/checksum.h
-@@ -27,7 +27,7 @@ static inline __sum16 csum_fold(__wsum sum)
- 		"add	%0, %0, r8\n"
- 		"nor	%0, %0, %0\n"
- 		: "=3Dr" (sum)
--		: "r" (sum << 16), "0" (sum)
-+		: "r" ((__force u32)sum << 16), "0" (sum)
- 		: "r8");
- 	return (__force __sum16) sum;
- }
---=20
-2.52.0
-
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Mark
