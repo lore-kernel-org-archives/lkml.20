@@ -1,93 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8410B434408;
-	Tue, 22 Sep 2026 12:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207C154147F;
+	Tue, 22 Sep 2026 12:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080414; cv=none; b=L2c+LTDIYlGqIvLMFu5rZzVbkO70CJrq3ZZGWIUKYMybTLlrujMwS8RHMv2wJlslg1hDU9Fjur6H5hCJlhwjhYYJXhHpVsbvDUxH6jj5vRl1awbxurpPV9dzefQk3aT56XIfHVA+TSoklX/eZ0nk2bvAzz35sqzoWyjWgj+23fM=
+	t=1790080452; cv=none; b=B298xX08+CsBdtd0LNBbXi3h382wg0sJvrDEJcrcqpOqu5AZKWawWYKHDtsq+vlJhNiqHyrQciyAWjYDP+HZb+h2gT8pEV5+D+RhKiABQ2EnRvJlCfBDlWZL8EYjCPIbH9rdjcx5Ztqj/pmv2Oyw7FwJwUMf70zz+VUUvsZKVuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080414; c=relaxed/simple;
-	bh=W0u4tVLE8c7p0C+3P8Mp+xVEBvJ4vBCxw4pUyIjhKOw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gJ4DNBmz9ka+LeXrJ6XWOn+jmUHlX7j+YrTDZyrpKwUpWKXAuZjdi3tBCjRlNiyn0jvG1sgsbkWsfEwzemxgQw78rhn70gVbr8KPf++TETIpFUHsxHH1qkg/W+tdHGOLmXi3KCAtwX+pqJQZlAHfNW5Wh//DySWMN1MCdqX+r0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOSn8itt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790080452; c=relaxed/simple;
+	bh=Dqvs0rgUGSexRgQ+KJdh6fBoIAiLyge9y9+EBKbrZE0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PNf/7Cb75F8wY/R7xNxzPx06if7Wj2cJ+XfLJx3qsf/2j287I/7gH8YI7VpaWnrTLobgCD05ryytUEK/uRlK5UMUyOFIvrXriFhdZCELHGd5sTSIx/9E6Xpm3rweEbABOKRJ1gp6/TDLQRPhwcHgPkOAv12xykVU5ihlBAmmrQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Lf6S8LmW; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOSn8itt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D305D1F000FF;
-	Tue, 22 Sep 2026 12:33:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790080413;
-	bh=Ed9tjCC2cu3Dfx39Y5UOm3PozqDGAxUybKbOVEaNDLo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kOSn8ittHdEi0s8VFg4XqxaQA5jSahyXH02rRVSrvF+7wtDnzFjwj3OEpyr4ISqml
-	 /k0arKVbodZoLe5nRwngCKYEIu94VMzXPsDYQL5j1mwHNRMPNaLWnFHY5o+Mwd0lI5
-	 bDRZEsFfDxjVHIV3W5OLnR8IuRlk2jI7AhY1KlLRZrbHrPQVSWYZYU94upUDTPXaZv
-	 Wsqd66HO7GQ9mWVldsLYBhnZsG+yVjEWml1zB+oq67mIhOtmcVyjU5lRZ5BVp19FXv
-	 6jo3UnF/rJ4wImbKsavXwCyGPxjGmnq6hUgrrHG1gAYXz6tzfWw0ba5eAcL0SZEcmn
-	 ZRuCyVF8H3w6w==
-Message-ID: <69c93c76-edbf-4c52-9dfc-877d80390d6d@kernel.org>
-Date: Tue, 22 Sep 2026 15:33:25 +0300
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Lf6S8LmW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=jb0fX5ONx8zXHS4pu+Mu0wsvWmdwtiVXcv1U399pV8A=; b=Lf6S8LmWwlRiCwjhZtaQMkvMuS
+	geYDhrwj/zUrHagz9BowKvO3U7q3T5kw3K8yqseBLtpENL2Utn4hPXM9LBrlWRzbTFqD8KR4ajGb4
+	RDSCHCdIewZGMJ1XN1f1Wiy+J56CznnCnWWnBmQNav/jokWrnI4a307/xxE8WNBqoSbg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8zh9-006aTK-W5; Tue, 22 Sep 2026 14:34:00 +0200
+Date: Tue, 22 Sep 2026 14:33:59 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: rouven.czerwinski@linaro.org
+Cc: Xu Liang <lxu@maxlinear.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: phy: mxl-gpy: add 2.5G for MXL68211C
+Message-ID: <b281721e-fcb3-4302-9bb8-589333d9cda8@lunn.ch>
+References: <20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/11] dt-bindings: qcom,ipq5424: add NSS MEMNOC clock and
- ICC IDs
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Varadarajan Narayanan <quic_varada@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
- Sricharan Ramabadhran <quic_srichara@quicinc.com>,
- Kathiravan T <quic_kathirav@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <20260921-ipq_clk_changes-v1-7-d242e3d49648@oss.qualcomm.com>
-From: Georgi Djakov <djakov@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260921-ipq_clk_changes-v1-7-d242e3d49648@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-mainline-rouven-mxl2g5-v1-1-a0ed53631a5f@linaro.org>
 
-On 9/21/26 9:19 AM, Kathiravan Thirumoorthy wrote:
-> Add clock IDs for gcc_nssnoc_memnoc_clk and
-> gcc_nssnoc_memnoc_1_clk, which provide the NSSNOC-to-GEMNOC path
-> required by the NSS block.
+On Tue, Sep 22, 2026 at 01:25:09PM +0200, Rouven Czerwinski via B4 Relay wrote:
+> From: Rouven Czerwinski <rouven.czerwinski@linaro.org>
 > 
-> As these clocks are exposed through the interconnect framework, add the
-> corresponding ICC IDs as well.
+> The MXL86211C also supports 2.5G via 2500BASEX, switch the config init
+> to indicate support for that mode. Datasheet checks indicate that the
+> 2.5G speed indication is the same between GPY211 & MXL68211C.
 > 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
->   include/dt-bindings/clock/qcom,ipq5424-gcc.h    | 4 ++++
->   include/dt-bindings/interconnect/qcom,ipq5424.h | 4 ++++
->   2 files changed, 8 insertions(+)
+> The same should be true for MXL86252 & MXL86282, those are not modified
+> for a lack of testing hardware.
+> 
+> With this change 2.5G negotiates correctly with a Mikrotik
+> CRS310-G+2S+IN.
+> 
+> Signed-off-by: Rouven Czerwinski <rouven.czerwinski@linaro.org>
 
-Acked-by: Georgi Djakov <djakov@kernel.org>
-> diff --git a/include/dt-bindings/interconnect/qcom,ipq5424.h b/include/dt-bindings/interconnect/qcom,ipq5424.h
-> index 07b786bee7d6..50b883b16a12 100644
-> --- a/include/dt-bindings/interconnect/qcom,ipq5424.h
-> +++ b/include/dt-bindings/interconnect/qcom,ipq5424.h
-> @@ -40,6 +40,10 @@
->   #define SLAVE_CNOC_LPASS_CFG		35
->   #define MASTER_SNOC_LPASS		36
->   #define SLAVE_SNOC_LPASS		37
-> +#define MASTER_NSSNOC_MEMNOC		38
-> +#define SLAVE_NSSNOC_MEMNOC		39
-> +#define MASTER_NSSNOC_MEMNOC_1		40
-> +#define SLAVE_NSSNOC_MEMNOC_1		41
->   
->   #define MASTER_CPU			0
->   #define SLAVE_L3			1
-> 
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
+    Andrew
