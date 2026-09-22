@@ -1,155 +1,164 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B44639E19C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C7539E19C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046467; cv=none; b=lC1fMMaNQeuz6glRLGKe5HGDFqjxQGO+Bx0UgA9/C2zAKF1CT25H5rAwclraUCeoZL8Lo/pySEnFO3vaEz3HMAojGOhJtBX+FmtfybaaB5L65PAYKexEqXGraRlwGIJn5TM2PDfYLyviRQHCFgtS357/c4Z2Rbb+G1r2IWSDYk8=
+	t=1790046581; cv=none; b=IUMODwIQZ/S/nQhoSDRNYnVAeEjiC3dWfcJVDyhCNKziiZQZDrH2hbvgymBJdkVmAPMFa/pIxZR+SJ/2R5vMP/Zk8jkh8JICdIkW1rPwT0v64bf0XsFhkerWvYJh+uyoJUAr5j1NTxjoDSBrLpispwcZhZ01bP2OmqkKmBzBwJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046467; c=relaxed/simple;
-	bh=fo2uXbV/YsdosodD5hKrFlrHpx5nxnjuDY7NSFj2QqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PnbeMRjUUcEAFJXWNZh8j2/HbQgIfoQSl9bOAuSvYokeLy8Db26742yD/JX1dNvBJBvIlxnug0tvygtwNCrtrrALjqPpShkTAWLXK6D4XNh0OR6O26owomspwKrSwQtst6hKbU4KZzkfHvK3MmdeLj1+wPU1K288949UBHFtor8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PHmNrNMW; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790046581; c=relaxed/simple;
+	bh=g+4UhE/miynh/nrL+ppRVYV8EK/P7dnl+OZxiQwvWKE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=mw1TLHKC9DL2mC4l8k3uK1AwbiJ+sYHymZG0P6+wvZZ5n22oLCgtME8J5MFmXBTrrZeYLyT2+jlB2iomjiUvFTo/PcUFg3tLjdwTM/jXlxYP3YOC/P+oLPEcXbcr9OuR64dSISEnfZoj24qMA09Ow7v/Pn/cydcRLbB1WHwBZkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iGH8lUKF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PHmNrNMW"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so3040700b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:07:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790046466; x=1790651266; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jpPaqYZF1lhNpWa3wlSSx8EKhADVJbrI8ZsmdqJYbwo=;
-        b=PHmNrNMWR2zssSnG+hcfoMdFNxXn5TPNKqQBSpM8Tqldrds/rD4WaHJMWcXyQzHvGh
-         hVepk3sPokVykr+g/L/hTBGpmhc/uBYm599WGTpGe9jXwr3DUv5Cb0xB/StKbzJ4a4c7
-         oZu8ZMz1CSGr/rnFjV7eQ2lOc4vmqMhQ8Jq5P1ZZx+0vjDhJrLrDy4wqTnbIoGK2NBT2
-         +PblTrZUZM4SZDVHgNu5YKZy+bnaUipVyAeRIivQVuEpabGHWHVJK4bziGWLMl76NG5C
-         AXPvGVrIdAhmGrb68J0YZn/mk/vbJ7aug/+IiXYeq6uMAfNcJblgHuUynSRr4kTXS3OZ
-         xAtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790046466; x=1790651266;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jpPaqYZF1lhNpWa3wlSSx8EKhADVJbrI8ZsmdqJYbwo=;
-        b=y9hSemei1lFkNnEb+DYflBtZeRE06iApAf13Vxcluj/tPrCEfnGaLkExl+hELdzx4l
-         ZfKehCtodK+AL96dCbyCGFOkLt8Vd3Uu5PWCvROt++ZlNTADBSCiQWz7IN9+2ei0liNN
-         /ud+/tpFHCXasQ6GS9BIIxp19r7GD3TWsfW+/HL98LUZX863ZNlZ3eS6aHm118diXzLz
-         sICZHtdlkDIOyTNyYOvd1WAMBHz+l66/2kX/zJ7qfdMEU7thdHqnRv5Y56+tlXZ15l2J
-         61aRvacKjw2v3vF7tLXaxjC0b0DC80ljasnJSRh/h8avHCs03GS20lBOmtAImSpGZKq9
-         UX9A==
-X-Forwarded-Encrypted: i=1; AKwUvByErQjH0WSJosFpiaq8LzKG4uW4t8HOICXrsFvuLbBKUR3NMqfdvYBb055g4ORizosN+OZ1ZxrKqbQcESY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2p4qPZFnoT6EdkpIk2o/FtktPN+IhBFF6NTC+TcxshzY61f+J
-	m+vItc2SgM/jH46jrUPBROqQEIsgtaoSrI60Y/scH+mK0N7nbeFenTY=
-X-Gm-Gg: AYBFou39HOMhylN3bFqO6CETdp6OysLUtWJ5YmHsPJnP/Bv4eL3MIyD83akjx+1lXYq
-	cF9zgwwv3ZyZtvpShQCMRgOqMYjof56V8CU+7QSOoTfp9rem4kPzjw6+WzVw8L6PrHeWQY933iM
-	3d33kM+cHqR69Cwdb0mULAvEYwvgTCVaOT+JT9e4FmeahIm6Mo00EGU0P1Apj6wy3A2GpvZspI1
-	ubfiPetEwZLVBS9SciIENbVRXnthEDavdhRBnauFrcAfJ/wxtcHhFV02hoFidryjhYnq9Xh8beQ
-	NTx7Q5Y/ae6r6f8g7EN8U8m+I5oR3yBRIE6e9+BdQfJsUP93PapGI8mHX76l6z6MG0ufX84bC80
-	Jg7wl5jdxZDYcPc4QQmjRhpO5Z717MI2WGDvkdToSrKEEYhREurYY+a30CHg+UaWwDGBDdzJVqd
-	IFS5XqYkQger8keRmUirK4cGVGWIhwAUUFukbrWluHV3l+TJFxAc0ueHpUmgt0AE5I3NCIh68Q1
-	S8x+iCd4t5y5bxKu6rRAqr1O4I=
-X-Received: by 2002:a05:6a00:130d:b0:878:3538:8f7f with SMTP id d2e1a72fcca58-87c02558923mr842779b3a.45.1790046465483;
-        Mon, 21 Sep 2026 20:07:45 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c32fa8924sm127912b3a.45.2026.09.21.20.07.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 20:07:45 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	longman@redhat.com,
-	tj@kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH] sched: Restore the normalize_rt_tasks() cpuset_mutex exemption
-Date: Tue, 22 Sep 2026 12:07:38 +0900
-Message-ID: <20260922030738.1613919-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iGH8lUKF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFEB11F000FF;
+	Tue, 22 Sep 2026 03:09:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790046579;
+	bh=CBrq0W4hwuHtFakDlzYoO5CFxEwhKTqvSW2yit9CFf4=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=iGH8lUKFZTsbN++vJ/QwgzV0AfW4e21HkwgcxJtIBtce0InGcNNKyQVmFb/Y488e2
+	 sE2k/I6sXlnJ4pSqL6/AWnwzHg/pdkIxKMyaX/5Ccw919j8KpfKtXz7yUnjw10GC/l
+	 gZcuBAPGEW7S4SyL2n2HbnnrxP03XnMOS02PFImiTMo8sUDXLNFV+e65pOlaUMSS/u
+	 OlNxLb2Fa+rjqYCXbTD6Q6cK5VpxXwICBax0bzK9rR/DV5OHGTHvJy3dl8LhmFmDCb
+	 iR+aO663/okc1AjvfWfBa2ujn55i/d3brjCERAr0Kcw7EgdZvFEGSRiS6/pfjPMiI2
+	 5OhybF6cmvJPw==
+Message-ID: <747d2cbe-01ce-4261-a699-e51ede593434@kernel.org>
+Date: Tue, 22 Sep 2026 11:09:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Juan Yescas <jyescas@google.com>, Dev Jain <Dev.Jain@arm.com>,
+ linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v2 14/14] f2fs: make compressed files compatible with
+ large folio
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+ <20260915042503.2912616-4-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260915042503.2912616-4-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-sysrq-n runs normalize_rt_tasks(), which walks the task list under
-read_lock(&tasklist_lock) and hands every user RT or deadline task to
-__sched_setscheduler() with pi == false.  __sched_setscheduler() takes
-cpuset_mutex whenever the old or the new policy is deadline, and
-cpuset_lock() is a plain mutex_lock(), so a single SCHED_DEADLINE user
-task makes the sysrq handler sleep in atomic context:
+On 9/15/26 12:25, Nanzhe Zhao wrote:
+> The compression flag is the hint indicates that the inode can be
+> compressed, when the inode is using large folio, we expected it keeps
+> using the large folio read/write paths and its data stays uncompressed
+> on disk until the inode is evicted and re-read
+> 
+> Let f2fs_write_begin() skip the compression overwrite preparation for
+> such inodes and remove the compressed-file gate in
+> f2fs_read_data_large_folio() so the data is simply read/written as
+> regular blocks.
+> 
+> For the same reason, reject F2FS_IOC_COMPRESS_FILE with -EOPNOTSUPP
+> once the inode mapping is switched to large folios.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>  Documentation/filesystems/f2fs.rst | 10 ++++++++++
+>  fs/f2fs/compress.c                 |  2 ++
+>  fs/f2fs/data.c                     |  9 ++-------
+>  fs/f2fs/file.c                     |  7 +++++++
+>  4 files changed, 21 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+> index 771216f45207..b4f436ffd9ac 100644
+> --- a/Documentation/filesystems/f2fs.rst
+> +++ b/Documentation/filesystems/f2fs.rst
+> @@ -941,6 +941,16 @@ Compression implementation
+>    reserved via ioctl(F2FS_IOC_RESERVE_COMPRESS_BLOCKS) or the file size is
+>    truncated to zero.
+>  
+> +- Compression and large folios are not effective at the same time on a file:
+> +  a compressed inode does not use large folios, while an inode which is
+> +  using large folios keeps its data uncompressed on disk.  If the compression
+> +  flag is set on an inode that is already using large folios, the flag works
+> +  as a hint until the inode is evicted: the inode keeps using the large folio
+> +  read/write paths, f2fs_write_begin() skips the compression overwrite
+> +  preparation, and ioctl(F2FS_IOC_COMPRESS_FILE) fails with -EOPNOTSUPP.
+> +  Once the inode is evicted and read back, it uses order-0 folios again and
+> +  compression is applied as usual.
+> +
+>  Compress metadata layout::
+>  
+>  				[Dnode Structure]
+> diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+> index b130e43b4566..fa0f8449a12c 100644
+> --- a/fs/f2fs/compress.c
+> +++ b/fs/f2fs/compress.c
+> @@ -78,6 +78,8 @@ bool f2fs_is_compressed_page(struct folio *folio)
+>  		return false;
+>  	if (folio_test_f2fs_nonpointer(folio))
+>  		return false;
+> +	if (f2fs_folio_has_ffs(folio))
+> +		return false;
+>  
+>  	f2fs_bug_on(F2FS_F_SB(folio),
+>  		*((u32 *)folio->private) != F2FS_COMPRESSED_PAGE_MAGIC);
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index c9dba8d0ad3d..f5421334ecf3 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -2941,12 +2941,6 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>  	int ret = 0;
+>  	bool folio_in_bio = false;
+>  
+> -	if (f2fs_compressed_file(inode)) {
+> -		if (folio)
+> -			folio_unlock(folio);
+> -		return -EOPNOTSUPP;
+> -	}
+> -
+>  	map.m_seg_type = NO_CHECK_TYPE;
+>  
+>  	if (rac)
+> @@ -4828,7 +4822,8 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>  	}
+>  
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+> -	if (f2fs_compressed_file(inode)) {
+> +	if (f2fs_compressed_file(inode) &&
+> +	    !mapping_large_folio_support(inode->i_mapping)) {
+>  		int ret;
+>  		struct page *page;
+>  
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index db71cadefabd..c5cb0b0384b6 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -5002,6 +5002,13 @@ static int f2fs_ioc_compress_file(struct file *filp)
+>  	if (!(filp->f_mode & FMODE_WRITE))
+>  		return -EBADF;
+>  
+> +	/*
+> +	 * The mapping is already using large folios, where the data is kept
+> +	 * uncompressed, so refuse to start compressing the file.
+> +	 */
+> +	if (mapping_large_folio_support(inode->i_mapping))
 
-  sysrq: Nice All RT Tasks
-  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
-  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1, name: init
-  preempt_count: 1, expected: 0
-  RCU nest depth: 1, expected: 0
-  locks held by init/1: 3, last CPU#1:
-   #0: ffff9fa2c34e1470 (sb_writers#3){.+.+}-{0:0}, at: ksys_write+0x74/0xf0
-   #1: ffffffffb8f66540 (rcu_read_lock){....}-{1:3}, at: __handle_sysrq+0x3a/0x110
-   #2: ffffffffb8e060d8 (tasklist_lock){.+.+}-{3:3}, at: normalize_rt_tasks+0x34/0x150
-  Call Trace:
-   __might_resched.cold+0xe3/0xf5
-   __mutex_lock+0x8a/0x11c0
-   __sched_setscheduler+0x35f/0x9c0
-   normalize_rt_tasks+0xe6/0x150
-   __handle_sysrq.cold+0x9b/0xde
-   write_sysrq_trigger+0x65/0x90
+It needs to print log here to give notice.
 
-Test pi along with the policy. The only pi == false caller is
-normalize_rt_tasks(), where the lock is given up since the sysrq
-emergency already voids deadline guarantees.
+e.g "not support if large folio bit is set, drop inode cache to unset the flag and retry" ?
 
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: stable@vger.kernel.org
----
-Reproduced under qemu-system-x86_64, -smp 2, on tip/sched/core
-e81ee0630837 with x86_64_defconfig plus x86_debug.config less
-GCOV_KERNEL, plus CPUSETS, MAGIC_SYSRQ, DEBUG_ATOMIC_SLEEP,
-DEBUG_MUTEXES and PROVE_RAW_LOCK_NESTING.
+Thanks,
 
-  deadline tasks      base                      patched
-  0, one RT task      no splat, RT normalized   same
-  1 blocked           splat, normalized         no splat, normalized
-  2 blocked, one RT   splat, sysrq-n hangs      no splat, all normalized
-  1 blocked, x3       splat                     no splat
-  1 spinning          splat, normalized         no splat, normalized
-  2 spinning, one RT  splat, sysrq-n hangs      no splat, all normalized
-
- kernel/sched/syscalls.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index b215b0ead9a60..1d931ecfaad88 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -553,10 +553,10 @@ int __sched_setscheduler(struct task_struct *p,
- 	}
- 
- 	/*
--	 * SCHED_DEADLINE bandwidth accounting relies on stable cpusets
--	 * information.
-+	 * SCHED_DEADLINE needs stable cpusets.  However, the pi == false
-+	 * caller normalize_rt_tasks() must skip the lock to avoid sleeping.
- 	 */
--	if (dl_policy(policy) || dl_policy(p->policy)) {
-+	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
- 		cpuset_locked = true;
- 		cpuset_lock();
- 	}
--- 
-2.53.0
+> +		return -EOPNOTSUPP;
+> +
+>  	f2fs_balance_fs(sbi, true);
+>  
+>  	ret = mnt_want_write_file(filp);
 
