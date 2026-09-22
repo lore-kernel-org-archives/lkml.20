@@ -1,95 +1,267 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3217F39934B;
-	Tue, 22 Sep 2026 07:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7066A3939C9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:37:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062572; cv=none; b=VrWO0bfOtcHSGWUlDexwqPXNBrJAwUwecv5XmpLuSPZ+gJamKMRP+O/Lx73H0Njm+LeQORQFxIkDl70df0r9cQMtjTtk94sfuBd0L5uUEtXQNJs3Ki8QhZjhJXBL4kFEZZaWsZlFd7RuX+YNtqivtbgjZQJhC/g3mUjJi6HnLaw=
+	t=1790062629; cv=none; b=ZQMGreSO+GZN8rRE7PQ3cVrRJpE6ox5PYmuVp5PHkE6vmxo/UPpL8g9TdzesEiqlhpOHfYDFYF1Oxq57iTnCweJykkmPSPKJRZMS8ftdNwWuxksfVLVBUxfe5xr3owpidJEdkPpkrgwNyaiirAxWJQsMORm/Qmmz+CmGramVj/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062572; c=relaxed/simple;
-	bh=WupABRg8PQciqkiZODB3KE4SK2+q62N13KdNbofq0MA=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=L5yQfA9eSfh91xh83VjKIaDWRGhwD1tKDnbdbxWh8K9h82/TpFcHN+uK1MdVVlKrwY8UMuQ+m37OqL3hFAifSL/BHNG+aYUnxwNS80hqmfzW8PcJn09apBOjQBP1kGbQLkQVs/3OQPHHH/Sf5/2GoyLZE9lPIBk05oIta4oYojg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=WsTWYFuc; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790062629; c=relaxed/simple;
+	bh=RCOAyYyJ+8UWrD8BLeNfubU6J7FHGPqwqVtqxhezK28=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oBYeGIRXD8qMoyDQHQMpzZd/pyCguoM+8o3YC5VF3AryzEKrjw82/fy8eaAhQfLk5x6hIdRqD3UgSAmpvTYwctBPYqLknZPFuFzWlEIq2hq5HpgCOQVDuqKFqC4MW6PEMekoRWDLNntqBePdoBtKOv+vpTqoJVm+lSnb2BZPX+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sM8MH6pE; arc=none smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="WsTWYFuc"
-X-UUID: 4406c4d0b65811f18dc8c9802ae25ab1-20260922
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=WupABRg8PQciqkiZODB3KE4SK2+q62N13KdNbofq0MA=;
-	b=WsTWYFuccNc2x1TdmCZRXuXMfmIDuEwQC9v7i2EX5es8lnQy7GaLUfuMYoDZdLd/HT710O21Wn0rxL3zeNIHgyQDU+Bncuy/oZYzpbVnWy+dMFgZHQTobgt/Q5In5gOOrjtL9FdXPnfTyZOg32bFsVKdYGl23Bb+wlnsjNlxuxo=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1905e1f5-ffe6-4f6d-b302-6e062f087e0a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:c36fa028-9ebf-4787-bb42-3cd26eee85aa,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|83|102|136|836|865|888|898,TC:-5,Content
-	:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,
-	COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4406c4d0b65811f18dc8c9802ae25ab1-20260922
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1898250511; Tue, 22 Sep 2026 15:36:03 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 22 Sep 2026 15:36:02 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Tue, 22 Sep 2026 15:36:02 +0800
-Message-ID: <96bdcb9f6ccb228ab5cf01161d785b2ed8b80868.camel@mediatek.com>
-Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
- iterator in MCQ
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, Bart Van Assche <bvanassche@acm.org>
-CC: <linux-scsi@vger.kernel.org>, "Martin K. Petersen" <mkp@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Alim Akhtar
-	<alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, Bean Huo
-	<beanhuo@micron.com>, "Bao D. Nguyen" <quic_nguyenb@quicinc.com>, Can Guo
-	<can.guo@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Date: Tue, 22 Sep 2026 15:36:02 +0800
-In-Reply-To: <20260920135014.3528082-1-stanleyjhu@google.com>
-References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
-	 <20260918143809.3034592-1-stanleyjhu@google.com>
-	 <20260918143809.3034592-3-stanleyjhu@google.com>
-	 <1ddc5181-f547-465c-bfbe-dbf14a91493e@acm.org>
-	 <20260920135014.3528082-1-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sM8MH6pE"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a3156692c6so25861461fa.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790062624; x=1790667424; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jdAazOvNHDsZEwumcDHnCWyoCBwbu0/+HO8q4JOpYAE=;
+        b=sM8MH6pEfZNPYQOJAamMGfAEeO2gRFOInm8WUPkjab702L9lT/yWbtJddgeSgsLW14
+         DqYhDehfr0ZSzwJ12YTmWnbmRFSOacBrHbGqWN35L+XW13j+1ZhldLyULDdO9m7oyR3F
+         dbl8mEdpSebfgCaX6cmNsci/6v1xbUgOnWBtKGo1ICRYskUBuiP1ZuOIJrhz1h05fwE3
+         FAtNdZAhGy3OmLg5WVWsaun0d/Fdgx9VVPfl6LhGzX8wf9lISiS+5p6HeEXeBkxvzEnE
+         St14o90yH/vmoUUqXT9PdDOmzbrfG5i7IkaSF4g8+Ibjvao/+Ri5CYSpj1+VB/C1J9tj
+         Nchw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790062624; x=1790667424;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jdAazOvNHDsZEwumcDHnCWyoCBwbu0/+HO8q4JOpYAE=;
+        b=UEC+MyvGsBPD2QgbYmGas15B2YVx77FWBJAL0hokfZRtGJkdtay1z+hcyw2VVOes5c
+         ZGoHbf/KzbnNnS11jsXF/hZg7Ti2ISkY4s1wh/BclO7qZSxo2ENjV4xp3Y30mN8M805p
+         LNq1CnGRkkXQrUKqyWjPl2XZjrbtrJNn1K+faqp+q/il+k730MqWoGMcKU5alVX7CBoG
+         pwzEKeOCuf+iqsLAsFQezAxSRkEF8heoRf1CSJ8jjMRllAk+wARjIzrCV1nmSBcH7qdx
+         aG4PvX/EE+GZr2oz8YcY4t2s1ixSMPfjv1CTB/+ouB7teK3dHFBdZjytj/H2HdTdojTz
+         2a/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwhUhxIauTfaXyjS6kfHdATsIVANCuGeByWwP2I2c9bJUEVqs6u1SSET+REndj9q3Ur9FYzjtRcG89xjB0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXMTp1g3/CU4S3WYD8/ibPRcfgHFy6CD5pqM9jCAzWRGvRiNJq
+	veNJx1bRt3nFF6vZsKX+fffJZdILVETh5sNxK33aXOBlplsGO8w1Au0j
+X-Gm-Gg: AYBFou0QfWgAsqwnEuIBM96b77hVJFFvuWvuSQopSBAnzZbpnwcbDRJBJ9svUt5mVgs
+	xspKAg05kDRH0rF2ckAXY014eGj5EvofZPqlva3jaxEF/s6RNT0K6zjSz9xBm8PcWkun0N2Wh2a
+	C1yu2SwX/bdVY5q+GcjkuvwTo70h3IgWyQ/EqkFFA7+AfeV2gYTPj564OrjASp8zLpofjGN8d6q
+	1YyO1z+roO2WEBiWPYbCyFJteswJ89LMkbeB2akWYzghV8Gl0yTArC1CcKzFTtHyx2yYFUFUZkm
+	eYV2vEtzaKfR+5cPvSj8kXfC4cuvo6v1bsVyUdoQ7/r+lBaK29UE7rGAJd9x7rzo++tEbnA1KJM
+	m7eQ0yR2Nh3k6ktGODSubA9ClXmPIEjGH2rHqh4ox3DasTxxMGnwV6oL1l8CQuVoLhlc9p9szkh
+	Npac6LI2a1oDU7pPlTBJPaUxTqupOII8TpPZ0EEa0qfVy6hpAnSgTpGtHojChKbGmuyGL+6tFqT
+	NGRe7LolppLa3wGVtcugbLKuF86N0GwKByFf/9dYb+g2/qj7UYCcRU=
+X-Received: by 2002:a05:651c:19a8:b0:3a3:74b7:fc07 with SMTP id 38308e7fff4ca-3a5fbfd7ab8mr30363061fa.19.1790062623831;
+        Tue, 22 Sep 2026 00:37:03 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a627d28468sm3244951fa.9.2026.09.22.00.37.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 00:37:03 -0700 (PDT)
+Message-ID: <f4d2e209-1c89-447a-a5d1-92696b51b614@gmail.com>
+Date: Tue, 22 Sep 2026 10:37:00 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 3/6] reboot: add parsable tokens for power state
+ change reasons
+To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+ Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+ Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+ avaneesh.dwivedi@oss.qualcomm.com,
+ Umang Chheda <umang.chheda@oss.qualcomm.com>
+References: <20260921-pscrr-framework-v14-0-a16290003b7c@oss.qualcomm.com>
+ <20260921-pscrr-framework-v14-3-a16290003b7c@oss.qualcomm.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260921-pscrr-framework-v14-3-a16290003b7c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, 2026-09-20 at 21:49 +0800, Stanley Jhu wrote:
-> That said, doing this inside ufshcd_host_reset_and_restore() right
-> after
-> ufshcd_hba_stop() is indeed the wrong place: at controller stop time
+On 21/09/2026 20:44, Faruque Ansari wrote:
+> psc_reason_to_str() returns human-readable labels that contain spaces
+> (e.g. "over temperature"). Those are fine for logs but unusable as
+> values in a space-separated sysfs list or as a write target.
+> 
+> Extend the single reason descriptor table with a stable, space-free
+> token next to the existing label, and add psc_reason_to_token() and
+> psc_reason_from_token() so consumers can emit and parse reasons without
+> inventing their own string table.
+> 
+> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+> 
+> changes v12:
+> - new patch
+> ---
+>   include/linux/reboot.h |  2 ++
+>   kernel/reboot.c        | 77 +++++++++++++++++++++++++++++++++++++++-----------
+>   2 files changed, 63 insertions(+), 16 deletions(-)
+> 
+> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+> index 08a7549bbc40..4c5327dd7645 100644
+> --- a/include/linux/reboot.h
+> +++ b/include/linux/reboot.h
+> @@ -244,6 +244,8 @@ enum psc_reason {
+>   #define PSCR_MAX_REASON	(PSCR_REASON_COUNT - 1)
+>   
+>   const char *psc_reason_to_str(enum psc_reason reason);
+> +const char *psc_reason_to_token(enum psc_reason reason);
+> +int psc_reason_from_token(const char *token, enum psc_reason *reason);
+>   
+>   /**
+>    * enum hw_protection_action - Hardware protection action
+> diff --git a/kernel/reboot.c b/kernel/reboot.c
+> index d5a45db82c3d..e53fb31bad06 100644
+> --- a/kernel/reboot.c
+> +++ b/kernel/reboot.c
+> @@ -1084,34 +1084,79 @@ void set_psc_reason(enum psc_reason reason)
+>   }
+>   EXPORT_SYMBOL_GPL(set_psc_reason);
+>   
+> -static const char * const pscr_reason_strs[] = {
+> -	[PSCR_UNKNOWN]            = POWER_ON_REASON_UNKNOWN,
+> -	[PSCR_UNDER_VOLTAGE]      = POWER_ON_REASON_BROWN_OUT,
+> -	[PSCR_OVER_CURRENT]       = POWER_ON_REASON_OVER_CURRENT,
+> -	[PSCR_REGULATOR_FAILURE]  = POWER_ON_REASON_REGULATOR_FAILURE,
+> -	[PSCR_OVER_TEMPERATURE]   = POWER_ON_REASON_OVER_TEMPERATURE,
+> -	[PSCR_EC_PANIC]           = POWER_ON_REASON_EC_PANIC,
+> +/**
+> + * struct psc_reason_desc - Descriptor for a power state change reason.
+> + * @token: Stable, parsable identifier without spaces (e.g. "over-temperature").
+> + *	   Suitable for use in sysfs values and as a user/kernel contract.
+> + * @label: Human-readable description (e.g. "over temperature"), for logs.
+> + */
+> +struct psc_reason_desc {
+> +	const char *token;
+> +	const char *label;
+> +};
+> +
+> +static const struct psc_reason_desc psc_reason_descs[] = {
+> +	[PSCR_UNKNOWN]		 = { "unknown",		  POWER_ON_REASON_UNKNOWN },
+> +	[PSCR_UNDER_VOLTAGE]	 = { "under-voltage",	  POWER_ON_REASON_BROWN_OUT },
+> +	[PSCR_OVER_CURRENT]	 = { "over-current",	  POWER_ON_REASON_OVER_CURRENT },
+> +	[PSCR_REGULATOR_FAILURE] = { "regulator-failure", POWER_ON_REASON_REGULATOR_FAILURE },
+> +	[PSCR_OVER_TEMPERATURE]	 = { "over-temperature",  POWER_ON_REASON_OVER_TEMPERATURE },
+> +	[PSCR_EC_PANIC]		 = { "ec-panic",	  POWER_ON_REASON_EC_PANIC },
+>   };
 
+nit:
+Is there a reason for having the label as a define while token is a 
+plain string? It may be just me, but I would have expected the userland 
+contract to be defined in a header. (It may be just my false expectation 
+though!).
 
-Hi Stanley,
+>   
+>   /**
+> - * psc_reason_to_str - Converts a power state change reason enum to a string.
+> - * @reason: The `psc_reason` enum value to be converted.
+> - *
+> - * This function provides a human-readable string representation of the power
+> - * state change reason, making it easier to interpret logs and debug messages.
+> + * psc_reason_to_str - Human-readable label for a power state change reason.
+> + * @reason: The `psc_reason` value to convert.
+>    *
+> - * Return:
+> - * - A string corresponding to the given `psc_reason` value.
+> - * - `"Invalid"` if the value is not recognized.
+> + * Return: The label string, or "Invalid" if @reason is out of range. For a
+> + * stable, parsable form use psc_reason_to_token() instead.
+>    */
+>   const char *psc_reason_to_str(enum psc_reason reason)
+>   {
+>   	if (reason < 0 || reason >= PSCR_REASON_COUNT)
+>   		return "Invalid";
+> -	return pscr_reason_strs[reason];
+> +	return psc_reason_descs[reason].label;
 
-I have different idea. The original design was that only after
-the HBA stop can we ensure the host will no longer process the
-remaining commands (those that need to be forcibly requeued)
-due to receiving IRQs or other factors, thus avoiding unnecessary
-racing. Both SDB and MCQ modes are implemented based on this idea.
-However, MCQ indeed does not need to read the CQ register to update
-the CQ, because it holds no meaning after the host reset either.
+nit:
+I would feel a tad safer if the psc_reason_descs[] was always guaranteed 
+to be initialized up-to PSCR_REASON_COUNT. Having the enum and 
+PSCR_REASON_COUNT defined in one place, and psc_reason_descs[] 
+initialized here, adds a window for: "I added new enum value, forgot to 
+update the psc_reason_descs[]". Can we add a NULL check or are we on a 
+very performance critical path here?
 
-Thanks
-Peter
+>   }
+>   EXPORT_SYMBOL_GPL(psc_reason_to_str);
+>   
+> +/**
+> + * psc_reason_to_token - Stable, parsable token for a power state change reason.
+> + * @reason: The `psc_reason` value to convert.
+> + *
+> + * Return: The token string (no spaces), or "invalid" if @reason is out of
+> + * range. Round-trips with psc_reason_from_token().
+> + */
+> +const char *psc_reason_to_token(enum psc_reason reason)
+> +{
+> +	if (reason < 0 || reason >= PSCR_REASON_COUNT)
+> +		return "invalid";
+> +	return psc_reason_descs[reason].token;
 
+Please, see my comment above.
 
+> +}
+> +EXPORT_SYMBOL_GPL(psc_reason_to_token);
+> +
+> +/**
+> + * psc_reason_from_token - Parse a reason token into a `psc_reason` value.
+> + * @token: A token as returned by psc_reason_to_token(). A trailing newline is
+> + *	   tolerated.
+> + * @reason: Output; set on success.
+> + *
+> + * Return: 0 on success or -EINVAL if @token matches no known reason.
+> + */
+> +int psc_reason_from_token(const char *token, enum psc_reason *reason)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < PSCR_REASON_COUNT; i++) {
+> +		if (sysfs_streq(token, psc_reason_descs[i].token)) {
+
+I suppose my comment applies here as well.
+
+> +			*reason = i;
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +EXPORT_SYMBOL_GPL(psc_reason_from_token);
+> +
+>   /**
+>    * __hw_protection_trigger - Trigger an emergency system shutdown or reboot
+>    *
+
+After all these years in the business - it's hard to be as confident as 
+I used to. ;) So, I won't say [aloud] that my preferred way is the only 
+correct way. Please weigh my comments and decide as you see best, this 
+is "good enough" for me if you don't agree with my suggestions.
+
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+
+Yours,
+   -- Matti
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
