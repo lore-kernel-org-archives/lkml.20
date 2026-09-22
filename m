@@ -1,173 +1,123 @@
-Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9BE5476C9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95E6544D72
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081485; cv=none; b=lxTyzXuOhpO2Ghg/K2Cu6yISYS3uCh0Eaiyf4cotT1Uf9QEeeP4aWYGG1jpuXnlwmj/jE3ZBsRUSyohkBr7LLYardPKlr6UvqZWQRI+KIsEjgt1ny8GCKne2jGEjeOlb/S8929Q689asS5TJtEZgASpoEC3s0WRlyEQfeiIlHLI=
+	t=1790081487; cv=none; b=fvT/Jk/WBWHKZhdOBH77pu50EWYD1WWC8Lb1uIuv0sP5pZqnKpFsgTL5L66VMraebqvURjGhDYCsN8qFaEVmrBjlnP1EZI1vE+plXI/d7/23PRqetNThaC63iqJDiDHURdC5JptBxW3Qu1DD9mz+Uf/HmAygxwGzMZIAcsQnoi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081485; c=relaxed/simple;
-	bh=Rd7i7Ne1v4a3mXkwREpKYjo7sQ/rKatj8SZMtz3c+SY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KplK68TPP/nEYq+U+6BuoDT16boMrwe09ablr4BVuHvhRN2ICgCBrPehSF6wf/y0fQbe0BZ/y6kxpbiCNlcFMiOgOvIjA90gSOp5He1qXPyE4HVNf8AOIMzMsudJOTthidmrg5GVZWSEkmQwpX2iSJkQHtTEt1crs8psCfdgcuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XwVWEBeR; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790081487; c=relaxed/simple;
+	bh=1kHbxrDHDoV9Gp60u40KYuFmL3SJ83etztT12QoTrqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dQYbpF8AlfZa6WWLl2H0OkxOtV0QRyY1U46+pLQQ6lovY8/mahvUvdeDXIHd6wYBYGuk+moR4XhG6ZJo5erf8y6Fcnr9jIyi3cl+ScOEXv5dBRAIJ24Ti8XrCidNXjPYC4OHUQP40FWwsvVHR/C8ntW+BMosKWT+2X0/GFQ0iM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=rmIJxAwj; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XwVWEBeR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Rd7i7Ne1v4a3mXkwREpKYjo7sQ/rKatj8SZMtz3c+SY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790081480; v=1; x=1790686280;
- b=XwVWEBeRgAo1mNXe9AB/nvgTjlsiCgJUJZTEEiGwaWJcJ0+MojZMluaabEsTd93z5I0HN9xH
- d+jtgbZjWb4PCb/SN/4OSPSKoa0NXCF6bH+7K5CxbyqQY/D/vFX8E+Hrn7vLHIZb3dVgIBFD2XF
- dH7NKlSV9rg6ERmRUXoGAeqA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e2bd109f32689452;
-	Tue, 22 Sep 2026 12:51:19 +0000
-X-Mizu-Trace-ID: e2bd109f32689452
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <78f80b94-e0d4-47d0-8b1c-3fd5d850a875@linux.dev>
-Date: Tue, 22 Sep 2026 13:51:15 +0100
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="rmIJxAwj"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso5579669a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:51:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1790081484; x=1790686284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CeLYcx3Gh4T3X/EaL6eH6T1aKZ2rWDMD/NMdqi5KPPc=;
+        b=rmIJxAwjZbp1FAQiAxMMdS6POa26n7tjmKVGS6jEHw+edXVF1sHmvTKH5o6s4m69Oi
+         FdI87YhpON3WtCu1V56tgBnSBsKUTDKjcdQQ1jZcoqHg4CAPBH4re0TfxjYk095zKz0s
+         6xbVVZibE68eirahXlTpNNgQ+fs/QGfNCZeHk8M3BNcX0Bhu3iDp8SX8SMHMuZ262y0p
+         amHcdh3iNf/g2nHXujRvgdf8E8+UNic55WTOtNamTRe0dcvG1UCxYoE4GR1jIu6ceq+V
+         gahzkfqB5SFfrKmzUvZtp7dhofe7E15ksp7BRXtOKFMD92XFfxZPjRDM1ZVzyjn9Han7
+         rE2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790081484; x=1790686284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CeLYcx3Gh4T3X/EaL6eH6T1aKZ2rWDMD/NMdqi5KPPc=;
+        b=yMW2Fy3bEpvILUEgPxJZShCeiM3X8p4tKFXfCE7lkvFuEf5lPkoEXmFHqPr5mzEEi+
+         AHBpjo7TK45DEKQ9yWvQY6lEcqw922ikdGj687dj65gLw4vwBtF2VeItz74Bbz01hv4t
+         OVHg2RQli6TU6dzagr4+GeIKnOw/e5VfdqcPfTbeUst+kdysbZwhd0zPz4pShyBV226d
+         opUuaoFeqZX2PXZWg/jjlsDUROJEWPvtNBjcMvj3Yz/y2GUHmzUlLQksX06cz8rWuhbe
+         ZG6twRaubgFmpJVImuP+qX2Ak90mdoqoWxqQIbKo7nq/qcSIsZ8+u03Q/pwr7r//+L9j
+         0UiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrFAaBgLSGmjR6N65UnYb1o1nHVgRWELcF1tzq6TfKjaFvvxLiL5roqNPhKATaw4HBBhPN3AZ9rws4pOU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaqFLVENk3GYYhicpnj547Pf/8suBJFUF/9o/cyF62tHPy4FaS
+	jD+Z/RVydFVvqm0AmdL6htHQgLH0isu2QVcibaQFJX4jGx3Hn5Huy1DWrgQOGhh2F4o=
+X-Gm-Gg: AYBFou1Fd0AKTRx/M0opavgjoXw4qJ1PHZMCPlw003dGD73YgP3qXqB1rE1RDZrAlL2
+	+tsD5yPnAszj8c/TQDie2bYNLEvktXnZoePKX7VIfQofIvOuLzgUkwAOFu0dcX3dZuuXaL0ltoh
+	/gExZ8EU2LAs+BBGnChDkD6FfQD0KyB9AuJp7PryFazKeYgzn1VtlbNUTLtob8ZaJagBzBONG5i
+	IdRK0TknjEbuQ4q2zFf3IyUZtmJlYiaxjF1ooSJnXAU2oYVZHGH8FVjpIngcYjOnqmpkoH+z/cF
+	hZiPfUFvkg475ykGieJ/JoZjcHG40f2QXISSUyAEF3q+2XAvgn4rUhCL1cJoqh11oJfautp5jp8
+	djUPabT3gXne8XlPFFaJUHQenZv7eaGFLW8XJK2cDyhXDFDm9Nzkk6mq5yUMQMnPGTxoahXhN5M
+	eEmV9qVBO/wCHOIMXJe/aKn8q5ItcoJixKxhOJYdigUO2QUmX1WIQXOZFx6EyKd/Q4UDPVlrJwd
+	D9WXeKp01xTqWm/eC744QEuijcEo0GztIcObhiFVFcWCgNI/4r1WIXZwmVJH5Ff4SsNIokph1U7
+	NW/+DjPloxEAVpG/vKXIFSDB0joR8F4kEyc3NZo=
+X-Received: by 2002:a05:6402:23cb:b0:6a9:a628:1402 with SMTP id 4fb4d7f45d1cf-6aa545f2154mr9706503a12.6.1790081483728;
+        Tue, 22 Sep 2026 05:51:23 -0700 (PDT)
+Received: from threadripper-fedora-workstation (dh207-14-163.xnet.hr. [88.207.14.163])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa44d1aa9sm989196a12.10.2026.09.22.05.51.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:51:23 -0700 (PDT)
+From: Robert Marko <robert.marko@sartura.hr>
+To: daniel.machon@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	Steen.Hegelund@microchip.com,
+	netdev@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH net-next] net: lan969x: correct RGMII port mapping index
+Date: Tue, 22 Sep 2026 14:50:37 +0200
+Message-ID: <20260922125112.2111256-1-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v7 06/29] s390: mm: add PMD swap-exclusive helpers
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
- kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
- willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
- baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
- shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
- luizcap@redhat.com, kernel-team@meta.com,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-7-usama.arif@linux.dev>
- <92d0078e-afdc-422a-b624-0a3ca9aa307c@kernel.org>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <92d0078e-afdc-422a-b624-0a3ca9aa307c@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Currently, the lan969x_port_dev_mapping does not check for RGMII ports
+and just returns the physical port index.
 
+However, this does not work for RGMII ports as they have dedicated DEVRGMII
+register space with an dedicated instance per RGMII port.
 
-On 18/09/2026 22:41, David Hildenbrand (Arm) wrote:
-> On 9/14/26 14:27, Usama Arif wrote:
->> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
->> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
->> not just in a swap PTE.
->>
->> s390 is the one architecture where a swap PMD is not a swap PTE in
->> disguise: it is an RSTE with its own layout, converted to a fake PTE swap
->> entry for the common code. Give it its own exclusive bit rather than
->> borrowing the PTE-format macro. The two happen to have the same value, but
->> that is a coincidence. Bit 52 was documented as unused; document what it
->> is now.
->>
->> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
->> Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
->> Cc: Heiko Carstens <hca@linux.ibm.com>
->> Cc: Vasily Gorbik <gor@linux.ibm.com>
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> ---
->>  arch/s390/include/asm/pgtable.h | 28 ++++++++++++++++++++++++++--
->>  1 file changed, 26 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
->> index 2d5c2ab06de98..0790a0884cfab 100644
->> --- a/arch/s390/include/asm/pgtable.h
->> +++ b/arch/s390/include/asm/pgtable.h
->> @@ -333,6 +333,7 @@ void setup_protection_map(void);
->>  /* Common bits in region and segment table entries, for swap entries */
->>  #define _RST_ENTRY_COMM		0x0010	/* Common-Region/Segment, marks swap entry */
->>  #define _RST_ENTRY_INVALID	0x0020	/* invalid region/segment table entry */
->> +#define _RST_ENTRY_SWP_EXCLUSIVE 0x0800	/* SW exclusive swap bit, see mk_swap_rste() */
->>  
->>  #define _CRST_ENTRIES	2048	/* number of region/segment table entries */
->>  #define _PAGE_ENTRIES	256	/* number of page table entries	*/
->> @@ -859,6 +860,28 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
->>  	return clear_pte_bit(pte, __pgprot(_PAGE_SWP_EXCLUSIVE));
->>  }
->>  
->> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
->> +/*
->> + * A PMD swap entry is an RSTE, not a PTE, so it needs its own exclusive bit
->> + * rather than the PTE-format _PAGE_SWP_EXCLUSIVE.  The two happen to have the
->> + * same value; see the RSTE swap layout above mk_swap_rste().
->> + */
-> 
-> I'm not sure the documentation here is warranted. It's all documented above
-> above __SWP_OFFSET_MASK_RSTE, no? I'd just extend the documentation there and
-> keep it away from these helpers that just use the bit.
-> 
-> The fact that they use the same bit doesn't really matter.
+So, check if requested port index is an RGMII port and return the correct
+DEVRGMII index.
 
-Ack, dropped for next revision.
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+---
+ drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-> 
->> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
->> +{
->> +	return set_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
->> +}
->> +
->> +static inline bool pmd_swp_exclusive(pmd_t pmd)
->> +{
->> +	return pmd_val(pmd) & _RST_ENTRY_SWP_EXCLUSIVE;
->> +}
->> +
->> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
->> +{
->> +	return clear_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
->> +}
->> +#endif
-> 
-> I guess we could move it above the pmd_swp_soft_dirty() stuff in the same
-> CONFIG_ARCH_HAS_PMD_SOFTLEAVES block.
-> 
+diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+index f3a9c71bea36a..bf5320c7a6ca8 100644
+--- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
++++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+@@ -142,6 +142,15 @@ static u32 lan969x_get_dev_mode_bit(struct sparx5 *sparx5, int port)
+ 
+ static u32 lan969x_port_dev_mapping(struct sparx5 *sparx5, int port)
+ {
++	if (lan969x_port_is_rgmii(port)) {
++		switch (port) {
++		case 28:
++			return 0;
++		case 29:
++			return 1;
++		}
++	}
++
+ 	if (lan969x_port_is_5g(port)) {
+ 		switch (port) {
+ 		case 9:
+-- 
+2.55.0
 
-Done for the next revision.
->> +
->>  static inline int pte_soft_dirty(pte_t pte)
->>  {
->>  	return pte_val(pte) & _PAGE_SOFT_DIRTY;
->> @@ -1900,15 +1923,16 @@ static inline swp_entry_t __swp_entry(unsigned long type, unsigned long offset)
->>   * Bits 59 and 63 are used to indicate the swap entry. Bit 58 marks the rste
->>   * as invalid.
->>   * A swap entry is indicated by bit pattern (rste & 0x011) == 0x010
->> - * |			  offset			|Xtype |11TT|S0|
->> + * |			  offset			|Etype |11TT|S0|
->>   * |0000000000111111111122222222223333333333444444444455|555555|5566|66|
->>   * |0123456789012345678901234567890123456789012345678901|234567|8901|23|
->>   *
->>   * Bits 0-51 store the offset.
->> + * Bit 52 (E) is used to remember PG_anon_exclusive
->> + * (_RST_ENTRY_SWP_EXCLUSIVE), mirroring bit 52 of a swap pte.
->>   * Bits 53-57 store the type.
->>   * Bit 62 (S) is used for softdirty tracking.
->>   * Bits 60-61 (TT) indicate the table type: 0x01 for REGION3 and 0x00 for SEGMENT.
->> - * Bit 52 (X) is unused.
->>   */
->>  
->>  #define __SWP_OFFSET_MASK_RSTE	((1UL << 52) - 1)
-> 
-> IIRC, __pmd_to_swp_entry() and __swp_entry_to_pmd() will lose the flag, which is
-> the right thing to do.
-> 
-> So conceptually LGTM.
-> 
-
-Thanks for all the reviews!
