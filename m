@@ -1,232 +1,152 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE4752CCDD;
-	Tue, 22 Sep 2026 09:12:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F7952E07F;
+	Tue, 22 Sep 2026 09:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068336; cv=none; b=CqYTZ5/4P6SOICRAcCd07LZtgFlfScVBN0/vih6NhSHcipc719wja/SK1sFn5ETsis3vOcl3wWuvQOBsdM+CXqizMt0bTKQpncNfAPR4wa7eYghb2l0ONYDt5WVv8+j9X+VKh1IisJ8sNNRvBNjFnjEb7B54hSndUZ+XMDk9SzA=
+	t=1790068341; cv=none; b=Pu1/kv3Hli7QKXl4/jCGrOI/IFnDbWcwfUhZJ/egbKlkjy6YKuJ8VpUi9+pHoeQ49+zeQ2oKWFYmHHiB2wgrgdCkn0RxmGzBpJY2apdyDw8mMGTj8Hj8ggjemGTlSJD8BlAj6I/DHw/joVOZYggKpFHtBWSq2zVJdrNSyMioqiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068336; c=relaxed/simple;
-	bh=sQIbSLK4r5T3rVQobu+nzJ2JfwTv5PqVKdayID4MoiE=;
-	h=Subject:To:References:CC:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=DHOAOiVt7MzOBRli/SP3xvSS5RL4WM+GqEewrCG6o0DSrUCoZYNMNo/LAGh9SAQEPnu3zh95dgbTc3UfnfqomIqyAVICA80rU49Z/LnjVpLb8c+DuTWLNFECrAH2lfoRtqOzihLEqmiT6sos8t08uJ9tgfrDrBE1jRaVAn0JxiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=r3qoW8Wy; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790068341; c=relaxed/simple;
+	bh=egUmLikhuwhkzquqLxqxqCXwr1NaX2em5TiZk+sZ1Yg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Eut1c9YIpF8tPYYeytoQwJkMKmSc4fNxTkwDEh9Oy9HnT9nX2rZtp3rhD2q4oNFHt/viak8EpAgqVeeGD3Xu/zYsW6mIu6ux2HOmxj1y/aqXtNHM4huRLTrcM7wrctGP5ySD/cKyKwfEyNsVjdABcpmnjX+FmnGpZaUVuBNp6Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=eT14op8Z; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="r3qoW8Wy"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=NUUh20zjV8l60eJcJvOBW1TaddyIjsUbgBj00DAQWr4=;
-	b=r3qoW8Wy9xEVqfvPS7CnUbseiLABfs2NYKWhnSvM5aJGfOBRaqE6CsrQlqtUqLjwk9bXuQN08
-	y74YoaoIlG9SlNM0vUvhSI3Pv826m4P5C30OGjvoCVTugZwq5RWPMA8JZiWD95co9KjNStl2wga
-	L2FQaj89t69Z2sq8nhbsRY4=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hpvDm3pdyzmVC5;
-	Tue, 22 Sep 2026 16:59:52 +0800 (CST)
-Received: from kwepemf200011.china.huawei.com (unknown [7.202.181.237])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7A60D40586;
-	Tue, 22 Sep 2026 17:11:56 +0800 (CST)
-Received: from [10.67.120.87] (10.67.120.87) by kwepemf200011.china.huawei.com
- (7.202.181.237) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 22 Sep
- 2026 17:11:55 +0800
-Subject: Re: [PATCH 1/2] uacce: add device usage sysfs interface
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20260921075131.1062155-1-qianweili@huawei.com>
- <20260921075131.1062155-2-qianweili@huawei.com>
- <2026092125-define-unit-ac52@gregkh>
-CC: <herbert@gondor.apana.org.au>, <wangzhou1@hisilicon.com>,
-	<linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<huangchenghai2@huawei.com>, <liulongfang@huawei.com>
-From: qianweili <qianweili@huawei.com>
-Message-ID: <fd71cb7c-b9da-5cd9-c52e-ee287923073b@huawei.com>
-Date: Tue, 22 Sep 2026 17:11:55 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.7.1
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="eT14op8Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=JZ
+	B0Slkp1cTB3zAnWSwmos8fcy3POuFLh4py+bqB5yk=; b=eT14op8ZJEjCwld797
+	9NeAezOI4tg/JlPsp4eTU74QEi8ZGnglumaAZ9qg4QvlMEXKBCcn5qhzDn+08rwE
+	lrnz6dJFjcphyWHnfF8YK7bysyiIofF4sAArEWhHqoriZS+D8pMySqT0Ij9IKrJ7
+	9ERRHZEgTrofJv37soEks7LkI=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3HzY9RrJq0uQVAA--.17646S2;
+	Tue, 22 Sep 2026 17:11:25 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: aleksandr.loktionov@intel.com,
+	anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: [PATCH net v3] i40e: limit the DDP profile count returned by the firmware
+Date: Tue, 22 Sep 2026 17:11:23 +0800
+Message-Id: <20260922091123.506598-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <2026092125-define-unit-ac52@gregkh>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemf200011.china.huawei.com (7.202.181.237)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3HzY9RrJq0uQVAA--.17646S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4UWw1Utw18JF1DKw4xtFb_yoWrXr4fpF
+	W5JFWDGryDJa1j93yUGFW7uFyfu3WfAryYga4a93s8urn8tF4kWa48tFWFkFy7ZrWvkr90
+	qFs5Cry8CF4DJwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ul-ewUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlB3nvmqyRj0E1QAA3i
 
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
+i40e_aq_get_ddp_list() writes into a I40E_PROFILE_LIST_SIZE buffer, which
+is sized for I40E_MAX_PROFILE_NUM (16) i40e_profile_info entries plus the
+4 byte p_count header. i40e_ddp_does_profile_exist() and
+i40e_ddp_does_profile_overlap() then loop over profile_list->p_count
+without bounding it, so a firmware reporting more than 16 profiles makes
+both helpers walk past the end of the on-stack buff[] and compare against
+whatever happens to follow it on the stack.
 
-On 2026/9/21 16:12, Greg KH wrote:
-> On Mon, Sep 21, 2026 at 03:51:30PM +0800, Weili Qian wrote:
->> Userspace has no way to query the runtime usage of a UACCE
->> device; it can only be inferred indirectly from queue state, which is
->> neither accurate nor uniform across drivers.
->>
->> Add a read-only dev_usage sysfs attribute and a get_dev_usage callback
->> in struct uacce_ops. A driver implementing the callback writes the
->> current usage as a percentage (0-100) string into the caller-provided
->> buffer and returns the number of bytes written; dev_usage_show()
->> appends the trailing newline. The attribute is hidden via
->> uacce_dev_is_visible() when the driver does not provide the callback.
->>
->> The corresponding ABI entry is added to Documentation/ABI/testing/
->> sysfs-driver-uacce.
->>
->> Signed-off-by: Weili Qian <qianweili@huawei.com>
->> ---
->>   Documentation/ABI/testing/sysfs-driver-uacce |  9 +++++++++
->>   drivers/misc/uacce/uacce.c                   | 19 +++++++++++++++++++
->>   include/linux/uacce.h                        |  5 +++++
->>   3 files changed, 33 insertions(+)
->>
->> diff --git a/Documentation/ABI/testing/sysfs-driver-uacce b/Documentation/ABI/testing/sysfs-driver-uacce
->> index d3f0b8f3c589..3e4af4c1e5a9 100644
->> --- a/Documentation/ABI/testing/sysfs-driver-uacce
->> +++ b/Documentation/ABI/testing/sysfs-driver-uacce
->> @@ -55,3 +55,12 @@ Date:           Feb 2020
->>   KernelVersion:  5.7
->>   Contact:        linux-accelerators@lists.ozlabs.org
->>   Description:    Size (bytes) of dus region queue file
->> +
->> +What:           /sys/class/uacce/<dev_name>/dev_usage
->> +Date:           Sep 2026
->> +KernelVersion:  7.3
-> That's not going to happen here :(
-I'll change it to 7.4 in the next version.
->
->> +Contact:        linux-accelerators@lists.ozlabs.org
->> +Description:    (R) Current usage of the device, reported as a driver-defined
->> +                string of up to PAGE_SIZE - 1 bytes. Usage is expressed as a
->> +                percentage (0-100). The attribute is hidden if the driver does
->> +                not implement the get_dev_usage callback.
->> diff --git a/drivers/misc/uacce/uacce.c b/drivers/misc/uacce/uacce.c
->> index 45521d4a56d1..545ba35a590b 100644
->> --- a/drivers/misc/uacce/uacce.c
->> +++ b/drivers/misc/uacce/uacce.c
->> @@ -433,6 +433,20 @@ static ssize_t isolate_strategy_store(struct device *dev, struct device_attribut
->>   	return count;
->>   }
->>   
->> +static ssize_t dev_usage_show(struct device *dev, struct device_attribute *attr, char *buf)
->> +{
->> +	struct uacce_device *uacce = to_uacce_device(dev);
->> +	int ret;
->> +
->> +	ret = uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE - 1);
-> Why can't you use sysfs_emit()?  That way you don't have to worry about
-> PAGE_SIZE, and you don't have to do:
->
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	buf[ret++] = '\n';
-> That type of thing :(
->
-> Also, you got your math wrong above :(
-sysfs_emit() is useful when the framework side knows the format string
-upfront.  Here get_dev_usage is a driver callback that dynamically
-generates content -- the format is not known to the framework, so
-there is no format string to emit.  Having the callback write into a
-temporary buffer and then sysfs_emit(buf, "%s", tmp) in the show
-function would just add an unnecessary copy without gaining the
-overflow protection that sysfs_emit normally provides.
+The same buffer is handed to the firmware as an indirect admin queue
+buffer, and the admin queue code copies all of it into the DMA bounce
+buffer before submitting the command, so its uninitialized contents were
+visible to the device as well.
 
-But you're right that the manual newline append and the PAGE_SIZE - 1
-math were unnecessary.  In the next version I'll rework the callback
-contract so the driver writes the complete output (including any
-trailing newlines) and dev_usage_show() just returns the callback
-result directly:
+Zero initialize buff[] and reject the list when the firmware reports more
+profiles than the buffer can hold, instead of answering from a list that
+was only partially read. Both helpers already report errors to
+i40e_ddp_load(), which aborts the operation.
 
-     static ssize_t dev_usage_show(struct device *dev,
-                                   struct device_attribute *attr, char *buf)
-     {
-         struct uacce_device *uacce = to_uacce_device(dev);
+Fixes: cdc594e00370 ("i40e: Implement DDP support in i40e driver")
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+Changes in v3:
+- Zero initialize buff[] in both helpers: the whole buffer is copied into
+  the admin queue DMA bounce buffer and copied back afterwards, so its
+  contents were exposed to the device, and entries the firmware never
+  wrote were compared against. (Sashiko AI review)
+- Reject the list when the firmware reports more profiles than buff[] can
+  hold, instead of silently clamping the scan and then answering from a
+  list that was only partially read. (Sashiko AI review)
+- Dropped the Reviewed-by tag, as the code changed after the review.
 
-         return uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE);
-     }
+ drivers/net/ethernet/intel/i40e/i40e_ddp.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-No more PAGE_SIZE - 1, no more manual newline append.  For example,
-the HiSilicon QM driver writes one line per channel with a trailing
-newline ("ch0: 50\nch1: 30\n"), and the framework passes it through
-unchanged.
-
->
->> +
->> +	return ret;
->> +}
->> +
->>   static DEVICE_ATTR_RO(api);
->>   static DEVICE_ATTR_RO(flags);
->>   static DEVICE_ATTR_RO(available_instances);
->> @@ -441,6 +455,7 @@ static DEVICE_ATTR_RO(region_mmio_size);
->>   static DEVICE_ATTR_RO(region_dus_size);
->>   static DEVICE_ATTR_RO(isolate);
->>   static DEVICE_ATTR_RW(isolate_strategy);
->> +static DEVICE_ATTR_RO(dev_usage);
->>   
->>   static struct attribute *uacce_dev_attrs[] = {
->>   	&dev_attr_api.attr,
->> @@ -451,6 +466,7 @@ static struct attribute *uacce_dev_attrs[] = {
->>   	&dev_attr_region_dus_size.attr,
->>   	&dev_attr_isolate.attr,
->>   	&dev_attr_isolate_strategy.attr,
->> +	&dev_attr_dev_usage.attr,
->>   	NULL,
->>   };
->>   
->> @@ -474,6 +490,9 @@ static umode_t uacce_dev_is_visible(struct kobject *kobj,
->>   	if (attr == &dev_attr_isolate.attr && !uacce->ops->get_isolate_state)
->>   		return 0;
->>   
->> +	if (attr == &dev_attr_dev_usage.attr && !uacce->ops->get_dev_usage)
->> +		return 0;
->> +
->>   	return attr->mode;
->>   }
->>   
->> diff --git a/include/linux/uacce.h b/include/linux/uacce.h
->> index e290c0269944..8f0b9765e4b6 100644
->> --- a/include/linux/uacce.h
->> +++ b/include/linux/uacce.h
->> @@ -34,6 +34,10 @@ struct uacce_qfile_region {
->>    * @get_isolate_state: get the device state after set the isolate strategy
->>    * @isolate_err_threshold_write: stored the isolate error threshold to the device
->>    * @isolate_err_threshold_read: read the isolate error threshold value from the device
->> + * @get_dev_usage: get the device usage. Write a string describing current
->> + *                 usage as a percentage (0-100) into @buf, at most @size
->> + *                 bytes, without a trailing newline. Return the number of
->> + *                 bytes written on success or a negative errno on failure.
-> Why the newline thing?
-The "without a trailing newline" contract was over-engineered.  In the
-next version the callback will write a string and the framework
-returns it as-is; the driver decides the formatting.  Updated
-kernel-doc:
-
-     * @get_dev_usage: get the device usage. Write a string into @buf, at
-     *                 most @size bytes. Values within the string are
-     *                 percentages in the range 0-100; the exact format is
-     *                 driver specific. Return the number of bytes written
-     *                 on success or a negative errno on failure.
-
-I'll also reword the ABI description to match: "Values within the
-string are percentages in the range 0-100; the exact format is driver
-specific", since the callback may emit multiple values (e.g. one per
-channel) and the layout is driver-specific, not a single percentage as
-the old wording implied.
-
-Thanks for the review.
-
-Weili
-
->
-> thanks,
->
-> greg k-h
->
-> .
->
+diff --git a/drivers/net/ethernet/intel/i40e/i40e_ddp.c b/drivers/net/ethernet/intel/i40e/i40e_ddp.c
+index daa9f2c42f70..49a98c0e001a 100644
+--- a/drivers/net/ethernet/intel/i40e/i40e_ddp.c
++++ b/drivers/net/ethernet/intel/i40e/i40e_ddp.c
+@@ -53,9 +53,9 @@ static int i40e_ddp_does_profile_exist(struct i40e_hw *hw,
+ 				       struct i40e_profile_info *pinfo)
+ {
+ 	struct i40e_ddp_profile_list *profile_list;
+-	u8 buff[I40E_PROFILE_LIST_SIZE];
++	u8 buff[I40E_PROFILE_LIST_SIZE] = {};
+ 	int status;
+-	int i;
++	u32 i;
+ 
+ 	status = i40e_aq_get_ddp_list(hw, buff, I40E_PROFILE_LIST_SIZE, 0,
+ 				      NULL);
+@@ -63,6 +63,13 @@ static int i40e_ddp_does_profile_exist(struct i40e_hw *hw,
+ 		return -1;
+ 
+ 	profile_list = (struct i40e_ddp_profile_list *)buff;
++	/* The firmware is not required to report a profile count that fits
++	 * into the buffer we gave it; refuse to read such a list instead of
++	 * walking past the end of buff[].
++	 */
++	if (profile_list->p_count > I40E_MAX_PROFILE_NUM)
++		return -EIO;
++
+ 	for (i = 0; i < profile_list->p_count; i++) {
+ 		if (i40e_ddp_profiles_eq(pinfo, &profile_list->p_info[i]))
+ 			return 1;
+@@ -108,9 +115,9 @@ static int i40e_ddp_does_profile_overlap(struct i40e_hw *hw,
+ 					 struct i40e_profile_info *pinfo)
+ {
+ 	struct i40e_ddp_profile_list *profile_list;
+-	u8 buff[I40E_PROFILE_LIST_SIZE];
++	u8 buff[I40E_PROFILE_LIST_SIZE] = {};
+ 	int status;
+-	int i;
++	u32 i;
+ 
+ 	status = i40e_aq_get_ddp_list(hw, buff, I40E_PROFILE_LIST_SIZE, 0,
+ 				      NULL);
+@@ -118,6 +125,13 @@ static int i40e_ddp_does_profile_overlap(struct i40e_hw *hw,
+ 		return -EIO;
+ 
+ 	profile_list = (struct i40e_ddp_profile_list *)buff;
++	/* The firmware is not required to report a profile count that fits
++	 * into the buffer we gave it; refuse to read such a list instead of
++	 * walking past the end of buff[].
++	 */
++	if (profile_list->p_count > I40E_MAX_PROFILE_NUM)
++		return -EIO;
++
+ 	for (i = 0; i < profile_list->p_count; i++) {
+ 		if (i40e_ddp_profiles_overlap(pinfo,
+ 					      &profile_list->p_info[i]))
+-- 
+2.25.1
 
