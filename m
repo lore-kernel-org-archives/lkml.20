@@ -1,158 +1,140 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D258B43DEA9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7807568525
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790095190; cv=none; b=C4Pf3NsTowP3q/0HnHkUSASb8aDDa/W8f+bn149rS9qUFlNyaU/78hd56ZqjS4d0cTqhtW+Q3rsrayBEUl8dVcAgd3sLpA1hEAOq7jBpOM8tvFOFQRhquqYywi5xQ4erz8PHAzIhGYi6zo981l6K/I7CeFSrKPcUYomvWmGEOuU=
+	t=1790095192; cv=none; b=cnkP38c/6gFDWjwfQ7QRMlwrn1uc54txUNfZ05mMNvOa8TERmDVZJFOQWdNOVitemlKLvMDIcRD2Bq1semt/Qs27ZyLdWr2wJk5894R4U+nSFCvTsw7t4lZGPZL808k3YaG+xXXwCNMjsjscYKQxNa6AgMc8UI7LSVRTrchMa0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790095190; c=relaxed/simple;
-	bh=yIc20XTKjSYtSYQlthv6zKQMH2Zh6PUdQGaXjgVvTIA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jz8kZLS2sxGT/lB90yIVGaaoAeCgO8JGRyuWryvzvvjVnMKoDxoLdGPOvO8dfiE/0uQE/mzx4MNBk80Qb6xs/qzkwsZ08TkVzKZh+aHgqcnfM+wOWv4o1Pp65HeVzHEbS/FYjAttIovmaLkSTIOkFGxB+LUC9p9p4FPKKyRjnAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FHgxv7EY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790095192; c=relaxed/simple;
+	bh=XumR3Wy9fE5xGCpIol7Xpgk6iG7KROyRi0hEfy7kmGU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WqMDcer0Djl6NOF2ofaaji9F8GsltH2Q3lBC1MD95/FWc+wySmgJvFn18AYTdmZsOZ4ZOqGNuO00eyja5DjnmVmTzZ/DjM07Bi8v1dRMq/vTYPzaMH5V7EgqE4/ei/+oW661jx0N3w46mdB57yhADdBEXpUFzaUBt3qj+W+GRcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVjXZ2Ut; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FHgxv7EY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 604511576
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:39:43 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AF3683F632
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:39:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790095186; bh=yIc20XTKjSYtSYQlthv6zKQMH2Zh6PUdQGaXjgVvTIA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FHgxv7EYJN4QH1QY1so4N83yh3+sfunEfTXDDb0VbdJZyPWTzrKuz2wNmrtigiFiT
-	 00kcnzo0nDzUL6GViwECnB3jFODtfJc0hz2W/KhcnijNpWVjQA39BCfMp9iahIywxd
-	 /YFDrxvTRN6KdmpWg7LYGr6qNxzFQF//7N1f7eNc=
-Date: Tue, 22 Sep 2026 17:39:36 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
-	=?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] drm/panthor: Fix iova_mapped_as_huge_page() for
- imported BOs
-Message-ID: <arKvSFVr19yW5469@e142607>
-References: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
- <20260917-panthor-fix-partial-unmap-v1-2-c7008f15fea3@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVjXZ2Ut"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so4174259e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:39:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790095187; x=1790699987; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HIREcnpSbtoZzKxFZ29E3etQk4OTENVP+V4H8YsjCyQ=;
+        b=GVjXZ2Uth1Ov4XRBnptNx5MAJU6HLuMfr8khCSjRjXxAzHin9rut1cJm2J3MhoahuP
+         ed778gYyaUQLt7UuTcU7sOp5lo3j73UFvYOSmXAjHvGPMXJ2b8qGNk7YF/74WWm+tGfD
+         YRR/i420ww/TLF4IKexB3V5SKyq+eKn3JGACMebwFa36yhQC03ryI28cjKz6lPWCpxAu
+         AU1NbCPZId0cm3+EzpTYZLtCCbubvAhBnoR83MRTYuodepQ9n8gsbjmCs8rHGxdbJBTa
+         inEATaGsSlyyIt3MKxDO63pFy/xlOs2aG2h50KHBSbnPlMGesyINhFAwPTdcLE2FVD7N
+         js5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790095187; x=1790699987;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HIREcnpSbtoZzKxFZ29E3etQk4OTENVP+V4H8YsjCyQ=;
+        b=nPIBFfJvoEgBClwFCNqaQhoymoU8E/2XzuK2IwVuNiaE2oFa5nXGNDFXsjTU3dqNot
+         aG609SFtyccLcBkMC19/x+w7yFmt/tjwcfkuxoFv1v4BJChLTOGgrT2TykXWMVNJ+IwY
+         nlqBRvmCXvAedyzd9J4cIF3kX4dVCpZcy4Y6lINf6giO/8Y2r/UxwzLwk76WNrhDOJqr
+         QPNOhWMD9bucIzXFtee4WKEBgSsYkrb2lspN2pqmS2ap0vEhx5RSyHM01NL5SZcikonA
+         3rE6BpIJyGR8wyjtGryd7borPhq9JoEKPukC3Dlc5FOAD/+EazOD8ou1hMskLjDQshAE
+         ek0A==
+X-Forwarded-Encrypted: i=1; AKwUvBwyriffUH5rfKP9biI1UdFMBw79+9DcZHrbu1XyTt/a4Tj/Gn6dl5iTdmEypBdo95mbZJNr1lnmmHq9D6g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwwCxd1FRNxb8SdIJ5PghBNMD4acQX/IgKHKgxI4F42g0vxmnP
+	y++JLX8R8PXhAXShIWiZ3q1fSTk9kJMGJwKDHzNaY4t4EBPzCrkqYPTd
+X-Gm-Gg: AYBFou1fMliga9RnZ/xX6oyWcC7rkwAF9eK+BUUsWIPbJn2b4B9k9ZSIFOg1tWpSW0g
+	M3zccH39513YhkzMDCE5vL8rbiXaZSblclMF2oe1qzAQe1wlDICLfjiQtt9YjHMdy/QFuL54UPv
+	bcAV5jEfg7iVKQK1M9cFTdsvqfjNht1ms7OOX0rUT/ywIndWAN8CJUi13u+jnbAMo2STcvLChph
+	n3ntYcg7lkFBvlpC5L2Xl+Itc/OmJX9V6QU2zjBztP5JCsXvltUQjEGiG9FCU0nz43dbHW7mMv4
+	kTE3hqAm/jijYT7srLg+PKsbHXg+cof9ItOaNyxFLnlVTNOReJMimQd3etXWePQWGvidqzRG0HU
+	bGBGsT8W+6SAx369f2TUmJ2A0lrKPVoVPmUbHAFUwaNmvOuIo97dg1KMttqYWLb0eGV0nR22qSY
+	p7IdnecqXTjz9EvdudNCF71UKCSipUCSEmd81/FPrks/lsLz5kPf9pAjphAzVdZXGcowagzueJn
+	b44kICUO08IOA==
+X-Received: by 2002:a05:6512:3e0b:b0:5b8:c05d:2aae with SMTP id 2adb3069b0e04-5b8c17fde11mr4355336e87.15.1790095187065;
+        Tue, 22 Sep 2026 09:39:47 -0700 (PDT)
+Received: from [181.93.0.0] ([104.28.200.204])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d8589e3fsm18444e87.55.2026.09.22.09.39.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 09:39:44 -0700 (PDT)
+Message-ID: <41f8ed8e-1466-4002-8411-bf9871da2adc@gmail.com>
+Date: Tue, 22 Sep 2026 19:39:41 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917-panthor-fix-partial-unmap-v1-2-c7008f15fea3@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] HID: multitouch: add support for Goodix GXTP7863
+ touchpad
+To: Benjamin Tissoires <bentiss@kernel.org>
+Cc: jikos@kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260814171247.16707-1-daminovruzal7@gmail.com>
+ <20260819123326.3242-1-daminovruzal7@gmail.com> <aquWNXpJuQr8HLBU@beelink>
+ <51055e02-5bf1-4b1e-b430-382d00d3d004@gmail.com> <aqwUYWPz_nORoFr6@beelink>
+ <33a7c239-ede5-4091-ba72-ff429d97013c@gmail.com>
+ <816a300c-1f63-4d4a-a0f9-8eef5bd7e748@gmail.com> <arJ-vvEvd93l_aAp@beelink>
+Content-Language: en-US
+From: Ruzal <daminovruzal7@gmail.com>
+In-Reply-To: <arJ-vvEvd93l_aAp@beelink>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 02:33:44PM +0200, Boris Brezillon wrote:
-> Imported BOs have no backing.pages array allocated, leading to a NULL
-> deref when iova_mapped_as_huge_page() gets called on them.
+On 9/22/26 4:24 PM, Benjamin Tissoires wrote:
+> Actually, after a lot of debugging, it turns out that the session stall
+> was a red herring: it's hid-replay's behavior which basically only
+> listen for SET_REPORT events before it is ready, but then ignores
+> everything else.
 > 
-> Implement this check through and sgt walk to reach the position of the
-> sgt targeted by a VA, and check that the DMA address is properly aligned
-> and the size remaining in the SG entry is bigger than a huge page.
-> This is basically matching the logic in vm_map_pages(), with get_pgsize()
-> being replaced by a simpler test, because we don't care about the pgcount
-> info.
+> And in the case where the UNKNOWN input node didn't have the KEY_*,
+> systemd-logind would not keep the hid node opened, and would further
+> re-open it, 3 times, and 3 times we have a timeout of 5 seconds due to
+> uhid not responding to SET_REPORT.
 > 
-> Reported-by: Akash Goel <akash.goel@arm.com>
-> Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> TL;DR: changing the report descriptor is doable, and there won't be this
+> session lock with a real device.
+> 
+> Regarding the `map_abs(ABS_MISC)`, you are almost correct. The solution
+> is simply to not use an unknown vendor usage. the second vendor
+> collection is 0xff00, which matches HID_UP_MSVENDOR which goes to
+> ignore.
+> 
+> So making the 0xff01 bogus collection 0xff09 (HID_UP_LOGIVENDOR2) or any
+> other HID_UP_LOGIVENDOR* also goes to ignore, and the phantom node just
+> disappears.
+> 
+> And TL;DR of rest, changing the usage page of the report ID 8 from
+> 0xff01 to 0xff09 solves the problem entirely :)
+> 
+> 
+> Thanks for this attempt, however, this is not great because there are
+> multiple checks for MT_CLS_WIN_8 throughout the code, and so your patch
+> misses them.
+> 
+> It is not great to have a BPF to work around a kernel bug, but in that
+> case I think that's the most sensible thing to do. A proper fix is to
+> restrict the parsing of 0xff01 for non keyboards or for non HP machines,
+> but as mentioned previously, this is prone to regressions :(
+> 
+> Also, I've just checked the fwupd sources, and I think changing the
+> vendor collection is fine. Hopefully this won't break any user space
+> program, but OTOH the touchpad is pretty unusable at the moment.
+> 
+> Cheers,
+> Benjamin
+Hi Benjamin,
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Got it, the uhid SET_REPORT explanation makes a lot of sense.
 
-Best regards,
-Liviu
+Are you already working on the BPF fixup, or should I write it and open a merge request in the udev-hid-bpf repo?
 
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 44 ++++++++++++++++++++++++++++-------
->  1 file changed, 36 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index b0a7033480e6..6cef954e2cba 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2299,7 +2299,6 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  {
->  	struct panthor_gem_object *bo = to_panthor_bo(mapping->gem.obj);
->  	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
-> -	const struct page *pg;
->  	pgoff_t bo_offset;
->  
->  	/* If the 2M-aligned VA is outside the mapping being tested, we know
-> @@ -2309,16 +2308,45 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  		return false;
->  
->  	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
-> -	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  
-> -	/* In case of shmem backing, we know we can only have a huge mapping
-> -	 * if the bo_offset is 2M aligned, meaning we can skip the folio size
-> -	 * check if it's not the case.
-> -	 */
-> -	if (!IS_ALIGNED(bo_offset, SZ_2M))
-> +	if (drm_gem_is_imported(&bo->base)) {
-> +		struct sg_table *sgt = bo->dmap.sgt;
-> +		struct scatterlist *sgl;
-> +		unsigned int count;
-> +
-> +		/* If this is an imported BO, we have to walk the SGT and
-> +		 * check the dma address/size alignment to determine if it's
-> +		 * a huge map or not.
-> +		 */
-> +		for_each_sgtable_dma_sg(sgt, sgl, count) {
-> +			size_t len = sg_dma_len(sgl);
-> +			dma_addr_t daddr;
-> +
-> +			if (len <= bo_offset) {
-> +				bo_offset -= len;
-> +				continue;
-> +			}
-> +
-> +			len -= bo_offset;
-> +			daddr = sg_dma_address(sgl) + bo_offset;
-> +
-> +			return IS_ALIGNED(daddr, SZ_2M) &&
-> +			       len >= SZ_2M;
-> +		}
-> +
->  		return false;
-> +	} else {
-> +		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  
-> -	return folio_size(page_folio(pg)) >= SZ_2M;
-> +		/* In case of shmem backing, we know we can only have a huge mapping
-> +		 * if the bo_offset is 2M aligned, meaning we can skip the folio size
-> +		 * check if it's not the case.
-> +		 */
-> +		if (!IS_ALIGNED(bo_offset, SZ_2M))
-> +			return false;
-> +
-> +		return folio_size(page_folio(pg)) >= SZ_2M;
-> +	}
->  }
->  
->  static void
-> 
-> -- 
-> 2.55.0
-> 
+I can test it anytime.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Cheers,
+Ruzal
