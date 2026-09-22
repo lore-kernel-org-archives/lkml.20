@@ -1,111 +1,104 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1181E541E70
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E0D541469;
+	Tue, 22 Sep 2026 12:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080138; cv=none; b=C2khOothszm36VOXtJHQU6MnIiqahxDZatskg2NGggcgecJ5Iwg026k8RsgqH2ddf0YOw5iB/SWjAY+29bKUKuoOdcFxN7KEfaTq1Ez0kRWXAwNMrQZ1z9vJGMHj4F/NsqtRYY4BUS3MKnsySpBsrWnFZMmLIZRIZs9EzI+RNrE=
+	t=1790080146; cv=none; b=A/cKl7IGBJ3Bd/jI01S8Cy8pAGRvR9rRl75F84i+PbpEFLhkobskn8MLpo0qivW3imPJ/usF1y9ZxtXYKWyejGmzdWNVydj8kddALB5PWubSTmqIacwAu4ZQUKBV0azj/ebAfLLa7KoV4LdzcJeA7sOWaZaN7vmEA8f0HvpC2us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080138; c=relaxed/simple;
-	bh=9ABO+5g8GIuYBF0nnHligbWWPyo0s+46M+0WjBQRVx4=;
+	s=arc-20240116; t=1790080146; c=relaxed/simple;
+	bh=Iy0Kojtsduo/C/NofpccyqHinUx0QLiR2gm5v8oENng=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LQ/AVEGTPyVM/foJqRrnGvNyo0lyB65SQgY77DIkEVFGB6EdPa/FHlAjgvCHVZFtSWfJbNBFsixwBcZiqBPzSFadHEuVIzZHXKoOYi6JXLyDeA6fNaVL54KjrOPG6caCJ4cmfttBTi3T0W95fx9N1cnEijZc/6jUN++llZfjJ4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=C7c4iJmN; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q8r4Qmi1xc2tMooQ6d2WboBhD7c52aCXWabonYrGfUYpFtTNZXepR6B4venXR3I390RiWP/qAwBu0lKYkajzjDcPOHNaTEc8lCkSsWLKp3XQ9m6J7rt+oYzQbW9m96ulq2eYJwcM9v9EVHDtLMYxiYLkC9FyevU4rn2KciRJYcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BYDJ68Fh; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="C7c4iJmN"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so21811095e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:28:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790080135; x=1790684935; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Lma8hu/u7D8IgJa55SniY71CokbrRGx7Xr4P9sp1efI=;
-        b=C7c4iJmNIsshZAleyUJbs1u+RzYaTws1S2oC3WWQhG/qiLVE8XhDgVzEkuvnTgs9ek
-         rNWLccOdBL1RH1kl1K7W+vf5BM3NOJkb+XEskHF8f4XiL8Td92f6sEShsxvSVuQUNBl1
-         BZWEVTu1ZQXf65V15uTTj8axe0h2Cz6uBIyOw+2iltOoy0OOvVYb4J0esc8/IA8tO7M/
-         5U2hAmJtJoy1OHo/43cnQk7Um1XfDRL39Q0V4cjWu1SuAqhq4Gb3lFwZ400lbYw82QNx
-         jDtIQBUrxOeEdXg+g+uLkkVfMGRRwoG/gIzWd9l03mUt0m3pPVocEkT5g9hNPNq4Ao2K
-         CSKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080135; x=1790684935;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lma8hu/u7D8IgJa55SniY71CokbrRGx7Xr4P9sp1efI=;
-        b=i1Fl28f5wZm4oXP81DL/aXVLT0pG+Dt6RySLEUoth63SJRN0F0lBdlPlhyJ35Y2Dj+
-         D1H4nCeWV1ay6dKxrF/zsOC5HmaSt+q90HpCQW87HhYpN2PXCNhVLvG8W7sk3Pb4ygoP
-         G5xg+mfgW49j4S9MOBIj9rUgcrdAZqP/bjnt3+52Hq1WweAr0g4ZdnvSxKEu92nGEEOa
-         5p3S61D47rpBCvG9VkQaURyOUA0jUwjyLgXWHg47bI49ygwz157TfKwClyOie+//YVhw
-         CjrvZninvig8yWdjQH7hkToIFLmRxxS5WjlZ/Ct8dmcO2/t8OJaQLx/lKxtiEhLPVtsi
-         XNgA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLBW78Km17KYCE4M0WVE9f25AGJpGYR4fMTn7eA1eLRw9/uLfBlEI3LvcVPpY8b03hhRkgWuiH/gcbnfU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQcUaPG/mRc8330FMqsO/EhA9Dc+ME7seASDP4AG11UZ6Xu+7l
-	2C9a1x6ICqLnqhQmn0iPy16zyZPnNmN6IufrnKWsgBTWQUKM+eOcpwMZ3NH0+z3YJzw=
-X-Gm-Gg: AYBFou2DCq7da1Jw2I7uvtKd6ybXiQAoo4fjxzttINSZ5iuhKjWBu9+j6FqXR9qyLbZ
-	kQ/y2H0nVuHwB8j8gSOTeWvS+Ygf2EiPbvK6eXkgqPWEeGq97F/Kqh/TqroA7E1q3jDuR7f5Osr
-	qLzviBAn/96atxBOyWEs0+qFljmw6RgbIts4XYpgZiaD19wm85T9vWUQDwtFXkqDJEbCD+VGkj3
-	0sw/Kg/Ta1FSFRD50qCSXZipnz6xus01CzIQKGqZIlvwZI85j4djW7TRjw5u08XmbI6QQhQzlRn
-	nuq+va198VEp6vJvW55YndpiH38TxvVS429Pwy4o9itzr0ByoTiSq4y8qBqG64xoTx1bAfeBi1n
-	GFoz/Kgymq/cinJLeb4NQ/aa2U6GuZO2zwBRNIR7XBrJ0L3BsvaYMZFioZTGRsrRZWRx24S75Dp
-	L8slC3B6xDImecoYwPcbtT/4Xcx2daZHlJk7LLq6+mcu3jM9+44/d9ZlGOC/uvWsP5SZ6E+zYu
-X-Received: by 2002:a05:600c:4e50:b0:49c:ffde:45ff with SMTP id 5b1f17b1804b1-49fc5728f5amr177123735e9.17.1790080135184;
-        Tue, 22 Sep 2026 05:28:55 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862774882sm4929582f8f.13.2026.09.22.05.28.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:28:54 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:28:52 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jinchao Wang <wangjinchao600@gmail.com>,
-	Craig Lamparter <craig.lamparter@hpe.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BYDJ68Fh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790080145; x=1821616145;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Iy0Kojtsduo/C/NofpccyqHinUx0QLiR2gm5v8oENng=;
+  b=BYDJ68FhxG06xzb/CUbQJxCrz0HAJvgqh0IbciagISC8XFpx8TKovcVP
+   jKgNvHJ2fD+cBZkxMCNvYbyrMuiB35GqZbTr5+aedIbDFil7xJukKtPl2
+   biOE6yBuMqa3WBGkkIuMrwzjJZIpXmmzCTNLFC1ZC7wEb63s0ki6+6dzu
+   InWnL/ka6J6KU2GSNyR8nFlIpLRe3V2CdnCMAOSLhmMjYgQKSTUtCTAzU
+   LNY648K0NPwWlDRaTtTm/luIe8g4gwrQl5gEQRsWWiu+fLE+dZPpPClm5
+   lpaLwvKjULIzQjYexaJ1dGq/P1p5W/Ote/F6oZq+/CjXW7Ajx2Nb8iDam
+   A==;
+X-CSE-ConnectionGUID: mQWJluHDTBOF3HwvGhq2Qw==
+X-CSE-MsgGUID: sedhNU63S1CI5JF4mcZYpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1180513"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1180513"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:29:04 -0700
+X-CSE-ConnectionGUID: wNe+hQAWRJqXFRkQvDNizA==
+X-CSE-MsgGUID: lEZDUfG8R0ymRYbLcx5bfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="277897867"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 05:29:03 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 7338799; Tue, 22 Sep 2026 14:29:02 +0200 (CEST)
+Date: Tue, 22 Sep 2026 14:29:02 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Navon John Lukose <navonjohnlukose@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 6/6] panic: kill the "buffer unavailable" redirect
- fallback
-Message-ID: <arJ0hE0bKWoIzYyG@pathway.suse.cz>
-References: <20260916182957.7788-1-brads@mainlining.org>
- <20260916182957.7788-7-brads@mainlining.org>
+Subject: Re: [PATCH] i2c: designware: size the RX FIFO threshold to the
+ queued transfer
+Message-ID: <20260922122902.GE106095@black.igk.intel.com>
+References: <20260919232647.448748-1-navonjohnlukose@gmail.com>
+ <20260921120526.GV106095@black.igk.intel.com>
+ <20260921170456.53354-1-navonjohnlukose@gmail.com>
+ <20260922065041.GC106095@black.igk.intel.com>
+ <20260922121238.46016-1-navonjohnlukose@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260916182957.7788-7-brads@mainlining.org>
+In-Reply-To: <20260922121238.46016-1-navonjohnlukose@gmail.com>
 
-On Wed 2026-09-16 18:29:57, Bradley Morgan wrote:
-> The redirect buffer is a disgusting terrible hack. panic_force_buf is
-> kmalloc'ed in a late_initcall, and until then the redirect delivers
-> this as the panic message:
-> 
->   Redirected panic (buffer unavailable)
-> 
-> The whole point of the redirect is to hand the panic message to the
-> target CPU, so the crash kernel boots knowing it panicked and not why.
-> And that window is the entire boot, from the early_param to the
-> late_initcall, which is exactly when you most want the message.
-> 
-> Make it a static 1KB buffer and kill the initcall. The cost is 1KB of
-> .bss in SMP crash dump builds, and it is only ever touched when
-> panic_force_cpu= is set anyway. The local msg variable is gone too,
-> the buffer goes directly to panic_smp_redirect_cpu().
-> 
-> Suggested-by: Petr Mladek <pmladek@suse.com>
-> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+Hi,
 
-Look good to me:
+On Tue, Sep 22, 2026 at 05:42:38PM +0530, Navon John Lukose wrote:
+> On Tue, Sep 22, 2026 at 08:50:41AM +0200, Mika Westerberg wrote:
+> > Yes power savings are always good but in this case it also affects the
+> > latency visible to the user so we don't want devices like touchpads become
+> > "sluggish" either. Do you see any such issues with the devices when you
+> > have this enabled and not using /dev/cpu_dma_latency or any other interface
+> > to limit the CPU low power states?
+> 
+> No. I have been running it as my only kernel for a week with nothing set on
+> cpu_dma_latency, and I cannot tell the difference on the touchpad.
+> 
+> This patch increases latency by 0.7 ms on the mean, which I don't think
+> is easily noticeable by humans. Against that, the i2c traffic alone cost
+> 2.24 W on the machine I measured, more than its entire 1.87 W idle draw.
+> 
+> However, if anyone tests and can feel the difference, please let me know.
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
+Yeah I don't think 0.7ms is much but we have things like touchscreens and
+the like with various report sizes so at least it would be good to check if
+those have any issues.
 
-Best Regards,
-Petr
+Unfortunately I don't have any of such devices anymore but I asked our
+validation to check if they have something that could be used to test this.
+
+> Also, i2c_dw_configure_mode() sets TX_TL to half the FIFO and RX_TL to 0
+> on adjacent lines, so a transmit interrupt moves up to half a FIFO of
+> data and a receive interrupt moves one byte, which is what this patch
+> changes.
+
+Right and there is no explanation why 0 but it has been working fine so far
+;-)
