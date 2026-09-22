@@ -1,162 +1,88 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AE741E6B9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6258947D932;
+	Tue, 22 Sep 2026 12:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080401; cv=none; b=L0+Zgv7WjOiTcVopDJjiZiiIPwLSCPGncrm6n7Ag8bWyABwwG5a0Erl4EliZR1MTlarHiht9i3n3TDpVnqQuoj2VDkkY6mqZqUU1AbMEMjcyj73I4KbqWcYhgF7PXmCNHm59ESmiRDN0F/IsnHVJStaVPlqe5uDXXB5Qw1kbYQ4=
+	t=1790080413; cv=none; b=c+rs6FyJFjURSfzYxdhkQYjAXihtiCupLk3AqUifx+R724+4sjrJz0/PwjEMvn3RREQ1w0DRBo8hiAmTNj1yJVAXLchbxR+uGDcrL4eG3erWwXLnqsQCg4tPtHuou3yZ+QkwrqLopVMUuXFPaAhY1IiA13lUd0lRwIyz4aT/III=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080401; c=relaxed/simple;
-	bh=xNKemUhCfIwyBaFE3dn18rH9FQX5gQ/I3YDv1HbBj6U=;
+	s=arc-20240116; t=1790080413; c=relaxed/simple;
+	bh=P3ltc2Duz/f1Q6/dJd0Szn19QXKlHosvcoLDAUNGLP8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nAaWwr7JBvpWJDegM55xUl1bhGrGsk3OfDzYn9TNg924MSj+3fcTAFedTrq3zqkogAtT1a6L64F3oss18Z8/eipv/Lhk16rE0aumjJgXswGHQbCT/bCmo3EBNxF4JwnilgY6LOzUT+FNkr0JM8hU7JuS0jevD8+8p1xFBu15pyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fzyJucyg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DTGLEB6d; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lIrKSRGOOq61EKk/Hwyp/gobZ6/LPg8AQOOnGivzgBrCNHZCFFna0K79coe/hKy9oInqGiSYPPrLRW1CmQTKrclJgEUOckEkIseUTVc9DdVO2Lv1MugzkP2l/aIRKDUaSWV5fUOmvh8m4Od5iumzyahKNHpUklEv5EOUbF7GBWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J/4IA8zk; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fzyJucyg";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DTGLEB6d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790080398;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gp/RspYrZJwOpb3gUhpDI38PyXinoO4/BBI7aDbJ9o0=;
-	b=fzyJucygqZn4ysJVgYNRGT/X67qefxq+MuWgtjWbaxIyS/dLFllVWzU4VVj5Z4S0+l35bm
-	m/3NR/meIv7ZJ60QpL2pQUz0UlKXzsCF78O7l/HZ4uTrhda/L9tHzPvKm2EOcAR3jv5J3C
-	WSzRz2/2lAsTf6+aqYrqvYE6C3QRpRw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-47-hxywNlJXOCG6LYwjcS-OKQ-1; Tue, 22 Sep 2026 08:33:17 -0400
-X-MC-Unique: hxywNlJXOCG6LYwjcS-OKQ-1
-X-Mimecast-MFC-AGG-ID: hxywNlJXOCG6LYwjcS-OKQ_1790080396
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cd83ca361so45804685e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:33:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790080396; x=1790685196; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gp/RspYrZJwOpb3gUhpDI38PyXinoO4/BBI7aDbJ9o0=;
-        b=DTGLEB6d/+DrFGhsQgrW74/Fx7d9pdj3KXCKaKioczvI73pmlBYMiqv8cuZ0lKUym0
-         jFw46evDoQYrf457J7RxAZPYXL5UDZkcTwEs28UQHd/+QXTSBrYjwpRQz+lQ1dxqRk3K
-         9wxsTiih9vAh0zKqtsOReAKOV1RtA8lEg1iVJBaH52Loj34Dj8aD4zAOnhMVPImG7JZk
-         IMcbyzjpvQUGv7+KWRM8oghM7eC5TdT5Q4ObmPTcHoZkdu3Q4GrHGJ6rod/HuxOI6DCN
-         aTswWXjqh7Ndn3+10EYYjrB7vvCmB1OdccFJ0KRxhER2XtNu/9I8uCkPghOc92HHVrkQ
-         ZNzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080396; x=1790685196;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gp/RspYrZJwOpb3gUhpDI38PyXinoO4/BBI7aDbJ9o0=;
-        b=DEwuksjipn0DMguRw5krgX5fnRizergrU+WCjd7YcWwm5ac8oa3U0rDMcDG76/RSoL
-         Npm0n13Qx92mbIYMcwNpjAqdcsZamv2PKXw7p3+b2L9A4BtW+KRmdJWn5U1tKTBQliEO
-         9XU7A4GeTgKKqyKZLWDxoCdsEOvtbJKX9j5KwV6LPr6LfFDSzlLYOHzaFnRqB0ApJluJ
-         xjHRdcqO7LAz60H0L+bjxsdh8iE6K7TgU70kpPFUCiBD8aeN0oxyBb1H/3avqppmXAlD
-         276dlbPoVhaQiWELImDt6td0ySKLFH9bOb1lE7hQfapTDG23yeI678jbaQuzuiEqmw34
-         uycQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxo8yOywzMU2b7VS+5qc+tih4aiEGntmVXRar34UlO0iAdsted/+AwcGG+AZ9ZQgUPhjfS/RK0j/fJm2V8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mc5iyLZrycEbqp0D9hlbiJ8a7TTdQP5VApweZNLEttOGVANxIo
-	WCfRuoFLmbLCAKJooRI3RaKhcSX496tbqmnZ9viOYT7e9mxzS7DAQcv8jCML7K44ih6uYaWVm9R
-	+vanxAQoDK2k9YrNtI6gJj/CclAXkemSKj8eUPtR7yqcz7dZLG406jHeA/FLX6akMPw==
-X-Gm-Gg: AYBFou0L7i/XGbDWf7aKUjcDeNr3wIG+ES7VL7bGrPIcotCtZN075h7mxrqrJw3jkgh
-	VYY0KKDNbv9jGt/GspJTnzCucRV9p9Ds/JVq1ZMa4rdHyVdiwKiF/udhrEICJdRpoePSXm2VACx
-	WLHgKyk9EM++OlFDYzrvXahKNSPWaU5mmuaVvxwQghFKQlrkF3Zlgu8LvvZeX767wwdoXoUtq4D
-	3LjPwwBFWLMbvMeWTJ2F0nZl3c3qiMo9fFB9si0oo8MNpgI0Ww3J+fiYXP2tUEMA9h5XlSL+dbF
-	b68qTsjqLRpMUPcDkWUvhrX2/p33OiwBsa7mnDHni6WRf3EwH43/DzBMTqMiJVce3BrlYEf25V4
-	HWCOFByvt6OB3+C+pGKlshL746QtYgzV0rmlvDOjvfZbfgZBD2ZM=
-X-Received: by 2002:a05:600c:34d0:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49fc5671650mr196407445e9.3.1790080395923;
-        Tue, 22 Sep 2026 05:33:15 -0700 (PDT)
-X-Received: by 2002:a05:600c:34d0:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49fc5671650mr196407095e9.3.1790080395480;
-        Tue, 22 Sep 2026 05:33:15 -0700 (PDT)
-Received: from sgarzare-redhat (host-82-53-134-131.retail.telecomitalia.it. [82.53.134.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488627314d2sm4904907f8f.2.2026.09.22.05.33.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:33:14 -0700 (PDT)
-Date: Tue, 22 Sep 2026 14:33:04 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: =?utf-8?Q?Bart=C5=82omiej?= Dmitruk <bartlomiej.dmitruk@isec.pl>
-Cc: "K . Y . Srinivasan" <kys@microsoft.com>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
-	Long Li <longli@microsoft.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] vsock/hv_sock: don't finish a connection on a socket
- being released
-Message-ID: <arJ0NhXGdCOqRjlj@sgarzare-redhat>
-References: <20260919123128.28868-1-bartlomiej.dmitruk@isec.pl>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J/4IA8zk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790080412; x=1821616412;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=P3ltc2Duz/f1Q6/dJd0Szn19QXKlHosvcoLDAUNGLP8=;
+  b=J/4IA8zkqicgl16ze37cN5+kmBJOMXwSb6iJpSw5N6bOv/uk8aIYWy2V
+   GbjZE1LL/B20isDkxNFQEZxp/wnL3zYlcKDfQw9jKkVnLdaocnTCW+R5b
+   dQGmVmyX4ZpN0PvR2ysVo3fiM3c9yCACuwE1duAJlTbOWZwu4PKdx6wBG
+   vgMCmpOLyPiYWlXGe3PRwSWcjwhzwIWRI37zuhPzZeU0LZZhVfNDaqH2J
+   GtIzi7u5X7aOk9CooDiXSkZcZIDCsOnGmFfoTx1bLP1952LBBoUky1JkC
+   sIMNbGSmKn3QB8aluph5WqBv9ar042GQ5nzXoBZceLaWv6LnyCAUh6l0I
+   w==;
+X-CSE-ConnectionGUID: Cj4Ky979ROC8yqMJ9oE8hA==
+X-CSE-MsgGUID: krBaUK9ATC+tUAbHDomG7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1185660"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1185660"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 05:33:32 -0700
+X-CSE-ConnectionGUID: ydOt1EOfSE6SSZDFTF82ow==
+X-CSE-MsgGUID: wqN6RhUKSom0DG3vXqQ0Kg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="269626874"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 22 Sep 2026 05:33:30 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id E4CA199; Tue, 22 Sep 2026 14:33:15 +0200 (CEST)
+Date: Tue, 22 Sep 2026 14:33:15 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>, Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
+Message-ID: <20260922123315.GF106095@black.igk.intel.com>
+References: <20260921104058.353748-1-lgs201920130244@gmail.com>
+ <20260921110512.GS106095@black.igk.intel.com>
+ <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
+ <arJ0pDlXpdlsF0sT@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260919123128.28868-1-bartlomiej.dmitruk@isec.pl>
+In-Reply-To: <arJ0pDlXpdlsF0sT@ashevche-desk.local>
 
-On Sat, Sep 19, 2026 at 02:31:27PM +0200, Bartłomiej Dmitruk wrote:
->hvs_open_connection() only checks sk->sk_state (TCP_LISTEN for a
->host-initiated connection, TCP_SYN_SENT for a guest-initiated one) before
->proceeding. __vsock_release() sets sk->sk_shutdown = SHUTDOWN_MASK and, for
->a listener, flushes the accept queue, while leaving sk_state unchanged. A
->VMBUS channel offer that races close() therefore still passes the state
->check and either enqueues a child onto the already-flushed accept queue
->(conn_from_host) or completes a connection on a socket being torn down
->(!conn_from_host); the socket and its VMBUS channel then leak.
->
->The virtio transport guards the listener case in
->virtio_transport_recv_listen(); hv_sock has no equivalent. Add a
->sk_shutdown == SHUTDOWN_MASK check to the common path right after
->lock_sock(), so both the host- and guest-initiated paths bail out.
->hv_sock holds lock_sock(sk) across hvs_open_connection(), so the check is
->race-free.
->
->This was found by code inspection; I do not have Hyper-V hardware to test on.
->
->Fixes: ae0078fcf0a5 ("hv_sock: implements Hyper-V transport for Virtual Sockets (AF_VSOCK)")
->Signed-off-by: Bartłomiej Dmitruk <bartlomiej.dmitruk@isec.pl>
->---
->v2: move the SHUTDOWN_MASK check to the common checks after lock_sock() so it
->    also covers the guest-initiated (!conn_from_host) path; add Fixes tag
->    (Stefano Garzarella).
->v1: https://lore.kernel.org/netdev/20260917220156.56015-1-bartlomiej.dmitruk@isec.pl/
->
+On Tue, Sep 22, 2026 at 03:29:24PM +0300, Andy Shevchenko wrote:
+> On Tue, Sep 22, 2026 at 03:59:32PM +0800, Guangshuo Li wrote:
+> > On Mon, 21 Sept 2026 at 19:05, Mika Westerberg
+> > <mika.westerberg@linux.intel.com> wrote:
+> > > On Mon, Sep 21, 2026 at 06:40:58PM +0800, Guangshuo Li wrote:
+> 
+> > > I think this could use devm_mfd_add_devices() instead.
+> > >
+> > > > The issue was identified by a static analysis tool I developed and
+> > > > confirmed by manual review.
+> 
+> > Do you mean converting both MFD registrations to devm_mfd_add_devices()
+> > and dropping the explicit mfd_remove_devices() from the remove path, like
+> > this?
+> 
+> Won't work properly. The rule of thumb, it should be no 'goto' after devm_*() call.
 
-About v1, I see sashiko reporting some pre-existing issues
-https://lore.kernel.org/netdev/179003264046.2160803.3176959842906352107@kernel.org/
-
-The critical one seems real, can you check?
-Maybe it should be fixed before this change.
-
-Stefano
-
->diff --git a/net/vmw_vsock/hyperv_transport.c b/net/vmw_vsock/hyperv_transport.c
->--- a/net/vmw_vsock/hyperv_transport.c
->+++ b/net/vmw_vsock/hyperv_transport.c
->@@ -322,6 +322,15 @@
-> 	    (!conn_from_host && sk->sk_state != TCP_SYN_SENT))
-> 		goto out;
->
->+	/* __vsock_release() may have already set sk_shutdown = SHUTDOWN_MASK
->+	 * (and, for a listener, flushed the accept queue) while leaving the
->+	 * socket in TCP_LISTEN/TCP_SYN_SENT.  Proceeding would enqueue a child
->+	 * onto a released listener, or complete a connection on a released
->+	 * socket, leaking it and its VMBUS channel.
->+	 */
->+	if (sk->sk_shutdown == SHUTDOWN_MASK)
->+		goto out;
->+
-> 	if (conn_from_host) {
-> 		if (sk_acceptq_is_full(sk))
-> 			goto out;
->
-
+hmm, isn't the unwind done in driver core and has nothing to do with goto?
+Maybe things have changed since I last time looked? ;-)
