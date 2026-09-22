@@ -1,116 +1,173 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CED03DB62B;
-	Tue, 22 Sep 2026 09:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788BE3FC5A5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069366; cv=none; b=h2kg+tAqPVPyI36wb6eVMSCkSi5H25pLRJ8UqzBTxQvpD//2hzYZ1yzRHesulnWILmdbjcJ8u4xGED1d/n8BM4PoJ3FnddGZBZTKteQQceQiWQBDBG67adeBE54zovqq2gIw0WpUgabe7GNF5e1UyedOB55H1bUsbsoUh8kFjxg=
+	t=1790069399; cv=none; b=nQD3JxEgkcccSLhbEhBJWucWSp9Rvjvt4U66rkMVF3VsFH7HVLc2CB/nz7kM/l2HtEloNQed1AhemAEjXVWKFbrje+Bd/uuR8RWnHjrIBosM0StiFGPY5C5JquKBP9qIWichpXnG1Arwtj6QWLO79TFiGRmSGy+BDjgV0gdAH8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069366; c=relaxed/simple;
-	bh=j2jR10kCHvpHCNyicsNRz78S1Ffisd+3RzqfY0lLzkI=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=CKmHmGh00MYG/6ePCQfWCGDJMPSqow7DcCQInd5q/rQfVxz25H2EBtPUD6l6uxdpTClJQoFV5H+IY8gso/b4wyNojvSjjMMVkMQNrmhz6qY8d/MY6kjnxHvEsRI9Z61KEeis2hqCASEbxaY2AsCFd9k5hLRDQcNd+5l0mfZvhM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=stpcFFVU; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790069399; c=relaxed/simple;
+	bh=kCs7pv5QqIjoR61lLvcvhkr9df2eaE8KCWdj5A/isNE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=H5ZhfuY6tfItsiq40ab3l3qHtYTA3Np7eYKnghX4IXvCvQp5HNkYRTlL15x0EV09g7BJS/Mf3x5Y9llL4TeWQ82MJ88e+QsTaDp97bJXMDqMhwMxhtGPWfSXMl0eQXw9g0q1lb/SC3HPSIPbbKozdkI9DzU16Jnu573kJLKVDao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btWQfsfk; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="stpcFFVU"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=HGkT9Ui8IWBvThLwNwtH5JiFUDnabT7ULMWL9InJHFU=;
-	b=stpcFFVUA5sWEn3kkPHrfPiLr8qBRiZbNZDh7aVd9XnAuytPymZceOrcl8vSrbJBulCPVDCTw
-	olYFpOv609kH+6MaWDjwTkqVpeODVsVsPvdBngDQ3tJ8srYzmm23k97FGyQxixbsn8Vuj4RMKxU
-	zUe4jbOpnHoBTAbKsk4aHxI=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hpvd5362fz1T4JM;
-	Tue, 22 Sep 2026 17:17:29 +0800 (CST)
-Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 69CFE202E6;
-	Tue, 22 Sep 2026 17:29:19 +0800 (CST)
-Received: from [10.173.124.160] (10.173.124.160) by
- whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 22 Sep 2026 17:29:15 +0800
-Subject: Re: [PATCH v5 0/9] mm/memory-failure: keep hardware-poisoned pages
- out of the next kexec
-To: Breno Leitao <leitao@debian.org>
-CC: <linux-efi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <rmikey@meta.com>, <riel@surriel.com>,
-	<harry@kernel.org>, <linux-cxl@vger.kernel.org>,
-	<driver-core@lists.linux.dev>, <kernel-team@meta.com>, Ard Biesheuvel
-	<ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, Naoya
- Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton
-	<akpm@linux-foundation.org>, <kas@kernel.org>, <kexec@lists.infradead.org>,
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
- R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
- Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
-	<hpa@zytor.com>, Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner
-	<hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Oscar Salvador
-	<osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael
- J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
-	<hannes@cmpxchg.or>, <shakeel.butt@linux.dev>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <d6e35901-f74d-bf81-75d3-bac4b26d9d72@huawei.com>
- <arJBkNOgbR8NrgFP@gmail.com>
-From: Miaohe Lin <linmiaohe@huawei.com>
-Message-ID: <16baab50-692c-308b-d60d-1b0a328df1e3@huawei.com>
-Date: Tue, 22 Sep 2026 17:29:14 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btWQfsfk"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ecdeso3327156f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:29:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790069396; x=1790674196; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kCs7pv5QqIjoR61lLvcvhkr9df2eaE8KCWdj5A/isNE=;
+        b=btWQfsfkiyK6HuYgjswrViFrTSBcAwzGXvem3YK3We8DqkOdTLYufYDpyQIRvZW+jl
+         DVT2lwHNEQ7JVT6geLrKxh1BhoBw4c7mZ0yOstXvf+IYNkUzqtrkGfBuUGCVQHRbCrjo
+         GnilrI/dluC+EycIQqlDTJuhVWa8KDKT154FbBV1q1cdui4dFrcBtwqqsTcv6wQdQLZA
+         d8dio4k1v04q4jlHmXmgkROoPWJYAOyXOrA7LhIBRGNsws/frsalff1zvDEj+8RlnUpS
+         3Jp/SC/1JUafMwBMxUQ2HBWmEVQoVRCEq0eZUBGLL/Wh/gcL24o3YWjAq5ATkIOSCbQy
+         4dng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790069396; x=1790674196;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kCs7pv5QqIjoR61lLvcvhkr9df2eaE8KCWdj5A/isNE=;
+        b=mWvUwsiOIrj/kh3Qxq4YtBnqSb30K8CEBiUSPQPh0WdSKECWTHEmtNf7IIiZhgyG9H
+         3HEO1K675aWik67H4b/Jks0X4BuB4JSodqlBszQzQKtFLoqotgCY7rxZrnxgIXaNz32o
+         3We2BOm34anaSiVzMhws/3h0xOfexvB5bJIM/CajSdXdWAieA3KtPjhXChq5P772Y7aP
+         028ledF6MLPzRkPLK/3N2vWDVprnMMSb2lJ78A2zRJ8evCPsvEnmBbJc7cXi2A6docUm
+         FUXFSsu2qmeuMuxwAmBB++zxNdpQTsBH5MKLgitqE/CGUlKBr3qv29oqtBCuTw8N41ko
+         X76w==
+X-Forwarded-Encrypted: i=1; AKwUvBzIQ2JAEow20lcuPT7fXynPYWUeidC9bBncUM7QfIKGKtX4+Bc05mZJ7odc3WyeEMQ86rLCAFJNWOJiLBA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpppnCbn/Lq8tL8UCpyvvDTngw/K68LKduG5wyrw8yQNfS2ktL
+	/Q998HZYqHPimm+s8r9K+Gi7/IndUNrbs8qW0qlDZO9SmiDWJ83TOG8D
+X-Gm-Gg: AYBFou2ADSyiwjl9bLAuFHxKs9nnxx1Xd1KL5ZwTgexrX9pHrV4j6qr7/4gi7S9bx59
+	AYuSyCV5cdBy6SnQJ9HLH3rq+DXxzhEFy+tDboO2r8iXm94utvmqVIdFVPeaf+IZ/vMSbJEx9/H
+	eu04KkcCrzvH1f9A8DBMaso0Xmn4FiJJ/BccIgWnezm1MsXutDYbU/gRVZ7N456oTPWDxUqR08L
+	b9LUg7jZgn8DYfhDJYsPVkV5R6zioOBfudoMV3gousgLIlOjXYPwIndU1sISDeinWHlnl6hcdNu
+	Cn7hPYeKCztf1q96OR7Qlo1Jd6D65lUR2Ylwn7uqGnCLSA1FvZ+jA5csaTIfP8k9z3fGsPIdzk2
+	yGAsfeGgUg9QiVsz2sF/IENe89+GUNiaUbjXxEv4z7C+KhrX8ta0Taf5PzdXvI4vyvr7DlLC9un
+	2zFfbwxChri6SqHJ/76Z+n0scJDFmL7IJSICJd5bqZxXd4BsRJMVIKqIOlkgbjWMUeltcioZdW6
+	bdaMsUPt2Ikynkko0WXu0D+SjobtmwQeBENTwvvndhz70GyDJQ=
+X-Received: by 2002:a05:6000:40e1:b0:487:6f2:1a45 with SMTP id ffacd0b85a97d-4871e21c762mr19190325f8f.18.1790069395392;
+        Tue, 22 Sep 2026 02:29:55 -0700 (PDT)
+Received: from ?IPv6:2001:8a0:c4c6:f00:a510:942c:f93d:df89? ([2001:8a0:c4c6:f00:a510:942c:f93d:df89])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886279298asm3082048f8f.34.2026.09.22.02.29.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:29:54 -0700 (PDT)
+Message-ID: <c30b21e218bfb00a1eb3c52ea0b7c9f0dc828592.camel@gmail.com>
+Subject: Re: [PATCH ath-next v3] wifi: ath12k: advertise interface MAC
+ address pool
+From: Vitor Soares <ivitro@gmail.com>
+To: Kang Yang <kang.yang@oss.qualcomm.com>, Jeff Johnson
+ <jjohnson@kernel.org>
+Cc: Vitor Soares <vitor.soares@toradex.com>, linux-wireless@vger.kernel.org,
+  ath12k@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ baochen.qiang@oss.qualcomm.com
+Date: Tue, 22 Sep 2026 10:29:53 +0100
+In-Reply-To: <974e540d-d6e2-4ebf-8714-98e4056083d9@oss.qualcomm.com>
+References: <20260921173033.846332-2-ivitro@gmail.com>
+	 <974e540d-d6e2-4ebf-8714-98e4056083d9@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <arJBkNOgbR8NrgFP@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk100004.china.huawei.com (7.152.185.74)
 
-On 2026/9/22 17:14, Breno Leitao wrote:
-> Hello Miaohe,
-> 
-> On Tue, Sep 22, 2026 at 02:27:59PM +0800, Miaohe Lin wrote:
->>> A bit is never cleared, which is a known limitation: it stands for a
->>> whole unit, so an unpoison of one frame cannot tell whether the unit as a
->>> whole is good again.
->>
->> Thanks for your patches. I have a question about unpoison: If a bit is never
->> cleared, after we do some memory-failure+unpoison tests, kexec will lose the
->> tested memory without reboot?
-> 
-> Correct, A bit stands for a 2M unit, so every tested page that falls in
-> a distinct unit costs 2M in each kernel after the kexec.
-> 
-> Worth being precise about the state today: the unpoison itself works.
-> The frame goes back to the allocator and num_poisoned_pages drops. Only
-> the bit stays, so the next kernel poisons the frame again. Test loop
-> in, memory out, and nothing gives it back.
-> 
-> Important to say that nothing block us from unpoison the bitmap, and in
-> fact my initial patchset had it. I also _think_ we should unpoison the
-> bitmap once we unpoison the page. 
-> 
-> I have just kept it out of this patch in order to simplify the patchset and
-> get the basis correct, and then evolve on top of it.
-> 
+On Tue, 2026-09-22 at 14:13 +0800, Kang Yang wrote:
+>=20
+>=20
+> On 9/22/2026 1:30 AM, Vitor Soares wrote:
+> > From: Vitor Soares <vitor.soares@toradex.com>
+> >=20
+> > ath12k supports creating vdevs with addresses provided by mac80211.
+> > Userspace can already make concurrent interfaces work by explicitly
+> > assigning different locally administered addresses.
+> >=20
+> > However, ath12k does not advertise an address list, so when a second
+> > interface is created without an explicit address, mac80211 has nothing
+> > to pick from and falls back to the permanent address. If the first
+> > interface is already running with that address, bringing up the second
+> > one fails with -ENOTUNIQ.
+> >=20
+> > As in ath11k, provide a list of usable addresses so
+> > ieee80211_assign_perm_addr() can hand each new interface an unused one.
+> > Keep the first entry as the wiphy's permanent MAC address. Generate the
+> > remaining entries as locally administered variants by changing only the
+> > upper nibble of the first octet, which naturally limits the pool to 16
+> > unique addresses.
+> >=20
+> > The cfg80211 definition of wiphy->addresses does not specify where the
+> > addresses must come from. Some ath12k platforms use it as an interface
+> > MAC address pool, while others use it for firmware-provided per-radio
+> > addresses. Gate the generated address pool behind
+> > advertise_iface_mac_pool and enable it for WCN7850 and QCC2072.
+> >=20
+> > Other platforms keep the existing behavior.
+> >=20
+> > Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-
+> > QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+> >=20
+>=20
+>=20
+>=20
+> I just did test on QCC2072:
+>=20
+> root@yk-Mayan:/home/yk# sudo iw dev wlo1 interface add wlo2 type station
+> root@yk-Mayan:/home/yk# sudo iw dev wlo1 interface add wlo3 type station
+> phy#0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interface wlo3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 ifindex 6
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 wdev 0x3
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 addr 22:03:7f:12:be:cd
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 type managed
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interface wlo2
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 ifindex 5
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 wdev 0x2
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 addr 12:03:7f:12:be:cd
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 type managed
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interface wlo1
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 ifindex 4
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 wdev 0x1
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 addr 00:03:7f:12:be:cd
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 type managed
+>=20
+>=20
+>=20
+>=20
+> Tested-on: QCC2072 hw1.0 PCI=20
+> WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
+>=20
 
-Makes sense to me. Thanks for your work.
+Thanks for testing this on QCC2072.
 
-> That said, If you think this is a must have in first patchset, I am more
-> than happy to do it now, but just keep it in mind that it will grow the
-> patchset by about 2 extra functions.
-> 
-> Thanks the review,
-> --breno
-> .
-> 
+I've added the QCC2072 Tested-on line for v4. Could you reply with your Tes=
+ted-
+by so I can pick it up?
 
+
+Best regards,
+Vitor
