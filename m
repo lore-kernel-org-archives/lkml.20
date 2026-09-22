@@ -1,98 +1,265 @@
-Received: from adishatz.org (ns314768.ip-37-187-26.eu [37.187.26.192])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8491449F132;
-	Tue, 22 Sep 2026 19:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.26.192
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106551; cv=none; b=Cs0J2P1/4O2cpJXbpFT/Zzy59oz3kaOvhrEnQMcSdMFR8xbxAa0LlfPh8H7tkvym5BLc1V2QO0frvjrWJrRGr1F3UGFp9MyGlLrBwgD8CEzwq8MHCslaBfn/wwTXWCPDsUL2SS8PA1MhuSquV93RWUQ/FiJLRM+Ufqm+ySJP4fI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106551; c=relaxed/simple;
-	bh=YoEEUuRI6691UX/tIKQx9uNVNJ9B7AcQkU1ymq7HQ0s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YTHvasWQAoyTXset1Z59k1iWShyE4oSI4P5Ze3wAHSpkqAN0wnArY9qFhEG1rVVJlq9VcdLXjpT7SNC5cq2CnipJ2LoKihauxOLrMNLx7iU2rluUVCqNcB3NEvDd3f7NUy5qPh5jYc3qWFdBgG4ft1Om+JotSn9NQSjEdf6fXEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=adishatz.org; spf=pass smtp.mailfrom=adishatz.org; dkim=pass (2048-bit key) header.d=adishatz.org header.i=@adishatz.org header.b=R+Xtgodc; arc=none smtp.client-ip=37.187.26.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=adishatz.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=adishatz.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008F54A6887
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790106576; cv=pass; b=ESDMTG015we63gRIUm8PaMrOk8ciF4jjK7W+MuHaFLaXNuoXfblEfsVkWIvjBZMVHR1aSA37Zz6JYrTzkFL+DGLPNtipzzw8CenyNaRt4uGvrTME1aSWo8jkSKf68CUa4QRjS6x4AEzAinoNcJi+bNFCXFeu21hNt7ctj/hTiug=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790106576; c=relaxed/simple;
+	bh=x7s3DPeEKgnZltiyeMLp29m5wmGuN/YNS6Q3Vh1trZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tRNMf8k19SUXRnLzlE/BItfoiwXQOxKGK+nZT88AVCUMhTP1EnVaapUhzQlgLav4NCroPt5Fwq5YOcT+8kCzxvr7F9F2OPleK1LWGtxG4UiA5DVny6hmrhSHTvR1rkr3e3P+sR+tQwTvGnzb2xp9F2b8BorRa+TXvb5Fmw72CJo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=foIrbrCo; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=adishatz.org header.i=@adishatz.org header.b="R+Xtgodc"
-Received: from [192.168.1.197] (88-165-227-194.subs.proxad.net [88.165.227.194])
-	by adishatz.org (Postfix) with ESMTPSA id C97C74C022F;
-	Tue, 22 Sep 2026 21:48:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adishatz.org;
-	s=mail; t=1790106505;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1jv40DTBjObGb5Uny3NuOxw9UrYwrYBzV7l9G7nolcI=;
-	b=R+XtgodccYINOViyDbCnZjP2Tq/8H3fk3s8VRNip7pylld1ohYxJMJ7NZM8rIPf3j0etnS
-	ob528SSS61HfSgK5ezRQkLdagjhZ+rAg1FNWVcQrCZAci81YcSyusio5pb9KrgR08wm+mV
-	ErzEdyuurufZOi4cw2cFmAAYHKXBd1mLVvmEgXGHTpof5zyd29AcVqUDMZ5d2rrFj4o0+x
-	Fk+7QwnoLpOKpTs0BwUHMKkSm7i3N0SrZYiVFSsN+cus7u+kIXEd1tZ78+AFXDy034v7rV
-	3IcEn06D7c1jC3geD2NpX+s/5My1FcFxvQPuK34o0ks0pTwkkopzxNQ71Nn0uQ==
-Authentication-Results: ORIGINATING;
-	auth=pass smtp.auth=cedric.bellegarde smtp.mailfrom=cedric.bellegarde@adishatz.org
-From: =?utf-8?q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>
-Date: Tue, 22 Sep 2026 21:48:13 +0200
-Subject: [PATCH] arm64: dts: qcom: sdm845-oneplus-common: Configure MBHC
- thresholds
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="foIrbrCo"
+ARC-Seal: i=1; a=rsa-sha256; t=1790106536; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MlPBaavk29ZezJmOyPaHh2WVaQ/XgRa3z4yDCD7Bi6IuFbtAwbHvAGgueUkb5E7nN1l+6fgfst7tzHJunIu41pIyv3s7vnZh0cfubkifxd5sFU3w0jggPtFfDRw0ZZMCXprLo13cxVrnpKLkxROIzjF2uX4qntfUX9oMouXHI1Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790106536; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fN4E694cv3ODeRMa+28gkiMvY1YDqV4H4WuCsqs10B8=; 
+	b=HR1ftkVMnUWznJXKEEfR2O3H9RR046f2qT7ftc8Nq5YhKVlgHTeku/0J69DvwgZPCseXjPsjn5Gp+dto8iQiYgyoF/LYoo4TMWmJp0Wi0h0orta3hRuRGVH7W17f3UBvp8NGoLVcLML5zLiWXBveCnrp0NwIonmqCKW/7MmTQyc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790106536;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=fN4E694cv3ODeRMa+28gkiMvY1YDqV4H4WuCsqs10B8=;
+	b=foIrbrCoI7GWAFHuCwD/4LB5NitoLJQI1dFapEo14sNeD/7kP5hp7TpFBUPA6nyD
+	jfHRiP7zJT4uZc/tDMnwtYwPBBAbdxBN+4zv7tJdSd/AKPy3AOsE3Biw2gIpSg9gpz4
+	DzzD8hnZt6nS9TATgdThKDmVf+D+DOFdWXvMXsAo=
+Received: by smtp.zohomail.com with SMTPS id 1790106535786519.7385543340581;
+	Tue, 22 Sep 2026 12:48:55 -0700 (PDT)
+Date: Tue, 22 Sep 2026 20:48:49 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 01/16] drm/panfrost: Move shrinker initialization and
+ unplug one level down
+Message-ID: <arFQG1AYMXlRgmJS@sobremesa>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-1-e588feaa61ef@collabora.com>
+ <20260914103646.6f1b7246@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260922-mbhc-v1-1-bd123e7fb899@adishatz.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSyMj3dykjGRdYxMjQxOLJOO0FNMkJaDSgqLUtMwKsDHRsbW1AFOmKzB
- WAAAA
-X-Change-ID: 20260922-mbhc-342148b3fd5b
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- =?utf-8?q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790106497; l=1147;
- i=cedric.bellegarde@adishatz.org; s=20260922; h=from:subject:message-id;
- bh=YoEEUuRI6691UX/tIKQx9uNVNJ9B7AcQkU1ymq7HQ0s=;
- b=Gmul3B8QsYq1Oh//v8sU1nvAHFDNQmfcl8w5zAdcLWKtS2LlUoxcsH/AXIBx2+x2zxsFNlGkp
- KqLAJrRG7kmAaIo8UPsbBbHJr+CsktorfyL9bwnMfARPCrIMKIJ8for
-X-Developer-Key: i=cedric.bellegarde@adishatz.org; a=ed25519;
- pk=CV2g510IJ+UwW/Jd9MIio7NF2st3gLrxcN5YzVnMuMA=
+In-Reply-To: <20260914103646.6f1b7246@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.95.26
 
-Configure the Multi-Button Headset Control (MBHC) thresholds for the
-WCD9340 audio codec to match the vendor downstream calibration.
+On 14.09.2026 10:36, Boris Brezillon wrote:
+> On Sat, 12 Sep 2026 00:28:02 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > Since the moment we call drm_dev_register() the device should be in a
+> > position to accept jobs, so it's best if the shrinker is already
+> > initialized by then.
+> > 
+> > On top of that, make shrinker functions take an panfrost_device pointer
+> > like other functions in the same sequence and rename them accordingly.
+> > 
+> > Essentially mimic the init/fini behaviour in Panthor.
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> 
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> 
+> One remark below.
+> 
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
+> >  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
+> >  drivers/gpu/drm/panfrost/panfrost_gem.c          | 26 ++++++++++++++----------
+> >  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
+> >  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
+> >  5 files changed, 28 insertions(+), 27 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index 485349faf251..05c40d5a20b5 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  	if (err)
+> >  		goto out_job;
+> >  
+> > -	panfrost_gem_init(pfdev);
+> > +	err = panfrost_gem_init(pfdev);
+> 
+> It feels weird to have the GEM subsystem initialized last when you
+> consider the fact other subsystems might want to allocate GEMs in their
+> _init() function. I know it's where the panfrost_gem_init() is right
+> now, and that ultimately it doesn't prevent anyone from allocating
+> GEMs, but I think it would make sense have this called before any of
+> the other subsystem init functions, still.
 
-Signed-off-by: Cédric Bellegarde <cedric.bellegarde@adishatz.org>
----
- arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+I think we discussed having panfrost_gem_init() be called before the other
+subsystem init functions, but then I checked panthor and saw it's also being
+called right after all the others there too. I think you're right that it's
+best to initialise gem first, because I wonder whether other subsystem init
+functions creating GEMs when the mount point for huge page-backed objects
+hasn't been created yet could lead to some sort of trouble.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 439779f308e3..8a99c3f55bf6 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -1099,6 +1099,10 @@ &wcd9340 {
- 	vdd-tx-supply = <&vreg_s4a_1p8>;
- 	vdd-rx-supply = <&vreg_s4a_1p8>;
- 	vdd-io-supply = <&vreg_s4a_1p8>;
-+	qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000
-+						  500000 500000 500000 500000>;
-+	qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
-+	qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
- };
- 
- &wifi {
+However, given how much this patch series has already grown, I believe it'd
+be best to leave this change for a later one.
 
----
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
-change-id: 20260922-mbhc-342148b3fd5b
+> > +	if (err)
+> > +		goto out_perfcnt;
+> >  
+> >  	return 0;
+> > +
+> > +out_perfcnt:
+> > +	panfrost_perfcnt_fini(pfdev);
+> >  out_job:
+> >  	panfrost_jm_fini(pfdev);
+> >  out_mmu:
+> > @@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  
+> >  void panfrost_device_fini(struct panfrost_device *pfdev)
+> >  {
+> > +	panfrost_gem_fini(pfdev);
+> >  	panfrost_perfcnt_fini(pfdev);
+> >  	panfrost_jm_fini(pfdev);
+> >  	panfrost_mmu_fini(pfdev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > index 96a66d673ba6..9882a3ede75f 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > @@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
+> >  	if (err < 0)
+> >  		goto err_out1;
+> >  
+> > -	err = panfrost_gem_shrinker_init(&pfdev->base);
+> > -	if (err)
+> > -		goto err_out2;
+> >  
+> >  	return 0;
+> >  
+> > -err_out2:
+> > -	drm_dev_unregister(&pfdev->base);
+> >  err_out1:
+> >  	pm_runtime_disable(pfdev->base.dev);
+> >  	panfrost_device_fini(pfdev);
+> > @@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
+> >  	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
+> >  
+> >  	drm_dev_unregister(&pfdev->base);
+> > -	panfrost_gem_shrinker_cleanup(&pfdev->base);
+> >  
+> >  	pm_runtime_get_sync(pfdev->base.dev);
+> >  	pm_runtime_disable(pfdev->base.dev);
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > index 3a7fce428898..f39c0f50ed4f 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+> > @@ -15,20 +15,24 @@
+> >  #include "panfrost_gem.h"
+> >  #include "panfrost_mmu.h"
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev)
+> > +int panfrost_gem_init(struct panfrost_device *pfdev)
+> >  {
+> > -	int err;
+> > +	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
+> > +		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > +
+> > +		if (drm_gem_get_huge_mnt(&pfdev->base))
+> > +			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > +		else if (err)
+> > +			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+> > +				 err);
+> > +	}
+> >  
+> > -	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+> > -	    !panfrost_transparent_hugepage)
+> > -		return;
+> > +	return panfrost_gem_shrinker_init(pfdev);
+> > +}
+> >  
+> > -	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
+> > -	if (drm_gem_get_huge_mnt(&pfdev->base))
+> > -		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
+> > -	else if (err)
+> > -		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
+> > -			 err);
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev)
+> > +{
+> > +	panfrost_gem_shrinker_fini(pfdev);
+> >  }
+> >  
+> >  #ifdef CONFIG_DEBUG_FS
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > index 79d4377019e9..5c823cdbd980 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+> > @@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+> >  	return container_of(node, struct panfrost_gem_mapping, mmnode);
+> >  }
+> >  
+> > -void panfrost_gem_init(struct panfrost_device *pfdev);
+> > +int panfrost_gem_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_fini(struct panfrost_device *pfdev);
+> >  
+> >  struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
+> >  
+> > @@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
+> >  void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+> >  void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
+> >  
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev);
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
+> >  
+> >  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
+> >  int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > index 2fe967a90bcb..fefae87535d6 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+> > @@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+> >   *
+> >   * This function registers and sets up the panfrost shrinker.
+> >   */
+> > -int panfrost_gem_shrinker_init(struct drm_device *dev)
+> > +int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
+> >  	if (!pfdev->shrinker)
+> >  		return -ENOMEM;
+> > @@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
+> >   *
+> >   * This function unregisters the panfrost shrinker.
+> >   */
+> > -void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
+> > +void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
+> >  {
+> > -	struct panfrost_device *pfdev = to_panfrost_device(dev);
+> > -
+> >  	if (pfdev->shrinker)
+> >  		shrinker_free(pfdev->shrinker);
+> >  }
+> > 
 
-Best regards,
--- 
-Cédric Bellegarde <cedric.bellegarde@adishatz.org>
-
+Adrian Larumbe
