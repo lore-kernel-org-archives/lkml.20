@@ -1,38 +1,38 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4E53C585A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E419A2264AB
 	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790049309; cv=none; b=tcM1gBg5pGzzf0yxgx77NIh7302iTU0J0oMIyr4tAnkKozEeZSlbcif0bdev95Bfgy8DcIIhL6r0fggWhnpzYrIor7cWmK4wa0gTVsClNRtd5S9WiXEjwGm7SuGDcw2/m9sTGpgE3XOI+4f1SCdyABv5SfUhQBP/qHEPzvj1SkY=
+	t=1790049310; cv=none; b=nnJeqljUgg/Z8mygiANTor46PjEY7E+K+g/3HrHMK7tYGNPurfbQIMk17trlMB1/Szs2aRbH7XizeOEdYR12vWFxD81aJ6CfOU3d2GaDcTlzK1Uo93i9XSsfccbx5rDzarq67MCJEu5ANfAxU1K0shJr6SkbeTRxwWToRcg8mKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790049309; c=relaxed/simple;
-	bh=/HV3M5Y0YOBypowDYFCBI7ATzlHvdj6rcOCMjnEvQpI=;
+	s=arc-20240116; t=1790049310; c=relaxed/simple;
+	bh=/nBJbaw9/Qa37K7QFeT5mRWvdCSF1pKL6l8WRh5+Pw4=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RorXaZx7ArQh+kLt5Q7zN3AUbiJqjSz78SuInnQuK3aHCrGS/yKpIvW/lqJ2jMW7x6qGKC9/NFsyXkH8/n3rtvUR342wTZu0K4e+7be2919h+9avnMWB5LVx6M6erI8KfkbyDK3Vsgby1d+1QO6g7aFIIVtmjqDsKNpzXH7vVT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Djc5Tq+/; arc=none smtp.client-ip=113.46.200.227
+	 MIME-Version:Content-Type; b=otK0V73AYU0hCXp+bhG5q8BIkL8turEGnyfXRCBXoHPp/WSuAH5SAQl9x8ZI5rhcR1UjFVb1dxn0yw+lT4N1sxMryXxUA/LP2dY0WFxrkeeZQCzfuwnIqTjB1X0EUpt/Cu6Oqt2bUFwGLkcce47UTNuinS+DsCRSOxsnDJDRqvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=PYV2F4rW; arc=none smtp.client-ip=113.46.200.218
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Djc5Tq+/"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="PYV2F4rW"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=nrkb1A7umndhy2bYSvMHLof4oRoyd+N2sYYHpptw3ug=;
-	b=Djc5Tq+/LNX071Ft5LP7daTn17aGlAQb1ay4BuEc28LMAjTu+hkLPqzLQKZB3rSisYyPaGBeS
-	i0ZNPL6LwKcQkLEqub0LHdGbgFbFP3XcHcDTX0G0cHAAcm1/yxnyXj8NrKGZekrI9osWs/4FY4P
-	o1xdULl9KSUC4GD4Ap4b37c=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hpmDJ6WMwznTVd;
-	Tue, 22 Sep 2026 11:44:00 +0800 (CST)
+	bh=qaKQJBiemoQZr3vKvmWTuD+/3eNNt98af8vnN5I52Kg=;
+	b=PYV2F4rWZ0nW3BC9o5lclyg9v9kcdyI2DE4h/YVnVeOvgLh5xKdTVpDaugLAXWRKwStq/8Qb0
+	i2W9Z8ByMzXEYkBQ+jRMxET3G6vNQAah2Pf+95s4neNKoFhlm/UtmMJC7TmoJn0HUvSl7G3f0VH
+	O7PiiLmPCh8Q2KbkK+i8sAo=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hpmCJ0v5SzpStW;
+	Tue, 22 Sep 2026 11:43:08 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id A4ECD40563;
-	Tue, 22 Sep 2026 11:55:02 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id D740E4056D;
+	Tue, 22 Sep 2026 11:55:03 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 22 Sep
- 2026 11:55:01 +0800
+ 2026 11:55:03 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<oleg@redhat.com>, <kees@kernel.org>, <luto@amacapital.net>,
@@ -44,9 +44,9 @@ To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
 	<kmehltretter@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v19 03/14] arm64: ptrace: Open-code seccomp check in syscall_trace_enter()
-Date: Tue, 22 Sep 2026 11:54:59 +0800
-Message-ID: <20260922035510.1090299-4-ruanjinjie@huawei.com>
+Subject: [PATCH v19 05/14] arm64: ptrace: Protect rseq_syscall() from tracer PC modifications
+Date: Tue, 22 Sep 2026 11:55:01 +0800
+Message-ID: <20260922035510.1090299-6-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260922035510.1090299-1-ruanjinjie@huawei.com>
 References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
@@ -61,61 +61,73 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-Refactor syscall_trace_enter() by open-coding the seccomp check to
-align with the generic entry framework.
+Move the rseq_syscall() check earlier in the syscall exit path to ensure
+it operates on the original instruction pointer (regs->pc) before any
+potential modification by a tracer.
 
-The generic entry implementation expands the seccomp check in-place
-by testing SYSCALL_WORK_SECCOMP and directly calling the underlying
-__seccomp_permit_syscall() function. Moreover, generic entry explicitly
-re-reads work flags after ptrace handling to ensure any updates to
-seccomp work flags during the ptrace stop are observed.
+[Background]
+When CONFIG_DEBUG_RSEQ is enabled, rseq_syscall() verifies that a system
+call was not executed within an rseq critical section by examining
+regs->pc. If a violation is detected, it triggers a SIGSEGV.
 
-Bring arm64 in line with this behavior:
-- Re-read thread flags after ptrace handling.
+[Problem]
+Currently, arm64 invokes rseq_syscall() after report_syscall_exit().
+However, during report_syscall_exit(), a ptrace tracer can modify the
+task's instruction pointer via PTRACE_SETREGSET (with NT_PRSTATUS). This
+leads to an inconsistency where rseq may analyze a post-trace PC instead
+of the actual PC at the time of syscall exit.
 
-- Test the updated flags for _TIF_SECCOMP and call
-  __seccomp_permit_syscall().
+[Why this matters]
+The rseq check is intended to validate the execution context of the
+syscall itself. Analyzing a tracer-modified PC can lead to incorrect
+detection or missed violations. Moving the check earlier ensures rseq
+sees the authentic state of the task.
 
-No functional changes are intended; this change simplifies future
-migration to the generic entry framework.
+[Alignment]
+This change aligns arm64 with:
+- Generic entry, which calls rseq_syscall() first.
+- arm32 implementation, which also performs the check before audit.
+
+[Impact]
+There is no functional change to signal delivery; SIGSEGV will still be
+processed in arm64_exit_to_user_mode() at the end of the exit path.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
 Cc: Will Deacon <will@kernel.org>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/all/20260713025712.416366-1-ruanjinjie@huawei.com/
 Reviewed-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
 Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/ptrace.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ arch/arm64/kernel/ptrace.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-index 573b5770698f..f68de40fd351 100644
+index 96c03922baa5..72df4b84ec9a 100644
 --- a/arch/arm64/kernel/ptrace.c
 +++ b/arch/arm64/kernel/ptrace.c
-@@ -2480,11 +2480,16 @@ int syscall_trace_enter(struct pt_regs *regs)
- 		ret = report_syscall_entry(regs);
- 		if (ret || (flags & _TIF_SYSCALL_EMU))
- 			return NO_SYSCALL;
+@@ -2513,6 +2513,8 @@ void syscall_trace_exit(struct pt_regs *regs)
+ 	unsigned long flags = read_thread_flags();
+ 	bool step;
+ 
++	rseq_syscall(regs);
 +
-+		/* ptrace might have changed thread flags */
-+		flags = read_thread_flags();
- 	}
+ 	audit_syscall_exit(regs);
  
- 	/* Do the secure computing after ptrace; failures should be fast. */
--	if (!seccomp_permit_syscall())
--		return NO_SYSCALL;
-+	if (unlikely(flags & _TIF_SECCOMP)) {
-+		if (!__seccomp_permit_syscall())
-+			return NO_SYSCALL;
-+	}
+ 	if (flags & _TIF_SYSCALL_TRACEPOINT)
+@@ -2521,8 +2523,6 @@ void syscall_trace_exit(struct pt_regs *regs)
+ 	step = report_single_step(flags);
+ 	if (step || flags & _TIF_SYSCALL_TRACE)
+ 		report_syscall_exit(regs);
+-
+-	rseq_syscall(regs);
+ }
  
- 	if (test_thread_flag(TIF_SYSCALL_TRACEPOINT))
- 		trace_sys_enter(regs, regs->syscallno);
+ /*
 -- 
 2.34.1
 
