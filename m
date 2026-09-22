@@ -1,77 +1,86 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1592B4189BA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:10:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E9B5275AD
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:10:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068204; cv=none; b=K/5DbJm97AEV/DM+JYrLVyv6m4c9jenpfMkzZjVawsB4pmlcJUFidXVNHhA9DSVicaS6sG6v+/uYgb1pRyanHog0bOhGEPUz+lIDxAw1CM2U9epQu1Tq6PitL5UB4GpHuiEbX61l4jxUqssicuwIXvpT0IHm1aJkKDV0ZjZ890k=
+	t=1790068220; cv=none; b=ngrmSTLLTOwSG7NLx6DMajqAXM+gnFDoPZVjbkV0OJ6+siYC2d2wXjXmXdoXLIPv7otnbIkrtjG6TloKfdlmJOa1GGrrgDOpuXtBXVH9FAebJme85gRC57odDeL5HwHBD46WlF/3ZtRSVSDrZavx3OIIBIvXZLXz0AA2xnybHTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068204; c=relaxed/simple;
-	bh=mBKCdwfTWDIJbik3smJ3FVVaENLpL49N6QgmGQgMO0k=;
+	s=arc-20240116; t=1790068220; c=relaxed/simple;
+	bh=wkOW124WuFQQCipMuwELLw27Qx4x1bj/S8RRLSKncZk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aZb49aUBH7srpNhOjmODQSN+sjuCRbPf0+jf0omIamA0Y0TnGadEzjx3ezxsfg6ziqr+DxzqYZrYSiZpzh46D3BIPGZmOvxqhRZFnJ+u9yKZU7MDE5yj+NEaA+AjdZ8yyqFAvfZvuRjOvoHzLMQ+4NKITHrBjYGeIsc6kMrVNqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjoHib4E; arc=none smtp.client-ip=74.125.227.140
+	 Content-Type:Content-Disposition:In-Reply-To; b=bsrgVaeeQJqvpnPnpasgjn+wpSEihushofnlr4lM4oQT31xYdtkAIviGa9yaC9487hKO4DmgBZfpgms5Lf3wFQdQwg95HVLvW9zGOJMkvi0gsC/QIU6wNU/vym7DrLA9/Iz9ulWJMNUAh71XuOQN9zmheFuDHwW/FW+6QreZLGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qGY+AXxt; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjoHib4E"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300816so11505025ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:10:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qGY+AXxt"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso39358805e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:10:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790068202; x=1790673002; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790068216; x=1790673016; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6sUggSTSWzovoPTvZ/2iI6ZTqKPXi6q928x/LkDAbDk=;
-        b=PjoHib4E0Surftr+HNkx/qSOVU2BvH0cmRGEy62GPQtup708OWvVQ/ZWG1q04yhuUe
-         Cfrw7CzLQuY+zCX5gBifNDWqmiJvVqC2vMayMfpzvzJ2UyLlqS+crtbpa92UbkUU3D8E
-         KDgohJw1X0ZeQs1IWm29KeDTdu9Vjk83mx5rfj6ITtIsAqawD/JD1Ufqrs2CcotG1B7w
-         WeVKQM4eKAy83XMrEHIUiOjuasHiNJQ4HhldGtGF6e0uqcEnw1nblOk30PAr3gDjhvX9
-         itIpYwByB9cy1u+78ELhSI04J+HBW+E5CiF2uZ0DsVaiw1fDDiIWYBMCIE57HJP+c1Yh
-         XEiA==
+        bh=95n40ZP9Z6iTAIldKB90q2CM8xGRzAwUON6dqMEGMLY=;
+        b=qGY+AXxt7623LzERg/mEE6+Ms7RT/rJ3c4pQ6qIeCUP/sUVfnkqW3bjYHDjkr45pwr
+         zH1JbgnOgOdVafF0n+Bf8PnKUf5wR8pc3AOoREg2mslfPW5YQG9yuLde870ytLkWVTjQ
+         JgIbaxrTrFpvt+IJhtMV7Y+SxYGznJNGW27XYYTS5PertN0ho2CZSU0aNLqVzOPMcu3w
+         K/aDKu4JlDeFFd4QnFRZTVX9NH3lt9fhDrcLWggaMsnDP8uH4c44bHz75iEhep1s6cDg
+         hlqEAzSwHoFO7czr2kOTEZGzfvDfum/gMjMzEzq7zsdG/KsmWoNj1p0RHihsNZXqgyQr
+         R/qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790068202; x=1790673002;
+        d=1e100.net; s=20260707; t=1790068216; x=1790673016;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6sUggSTSWzovoPTvZ/2iI6ZTqKPXi6q928x/LkDAbDk=;
-        b=M8NA+axE7n+b/PabG3R9G1s7b/cG/rr/HpqFFJDKsH28oBvAj8e0fkxdxkiuUHPc2w
-         JeYIxvbpmdFVfGLUohTiLy/iQQT99dJAYyv9+LNaL3Ou6nJGBFFCKrs7Jhx30uvmDAvT
-         JdRVT7Q+ebaDtT7a8XNy08VU19FHxdz+qxUj21eV9vSevxJhwnOgsWnZ7QR8KAHGv1bo
-         B4LTud3ng/WU47I46rbwpOThDHpVwkwKwHgJ396OlETXMFGetWkAtCgDqkktct99FMd8
-         gogEVnUnsg+HMZa/lDU4v4xxKhSQGvLpJXXxJnvT3ow8n/AUomKmY/LOQzhcyTTLYKZ5
-         p9sA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtcuXU39zPcKcnaw9e7kYYPzAZcDgyS2Kpbk8AmabNigL2AIsKTBkTnQzusyQc1YvWQXwtdTr4v7416Vw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJXJByv00GHSC6bBbUf2/0k3m7/PilXX9x1A/onKWsaQWbHIQE
-	kvP+osPVbSL9lLWMecpB9KK2kIMlRGjjzHjLRULwyhHvxVaCMZLQg1+rZa8J+3AX
-X-Gm-Gg: AYBFou0ElhDfW3/VMPl7ngUSFDN1GCywgXwL9ICLcK3CaJbTe0h3cM/YO+nYOyaNbWu
-	T1sIPbpkcYn6LkXyFPwKWFFocXoDN7F1B2RaE4M/0figqbE1p1K9YlJJrPDRM6Rk3XqABq+gSyp
-	Rhz0zXo7TYiNvV5FfSYD4BE1p5iv/dEhtKt9fBbvgCWWrmJ3Lu5HE3EqQP43UFhcitFCuoQXgpS
-	i1ab5OFMaI8M3FgH6fltHw88RGMKktnGAfJmMhwuG+yuC4a6NPBdSIjTkuZz1kR4GPRArrxz0SO
-	cqes9gmCfI7JK+uB2WpFVmCY9CGJswT+KazNSOjHEaQCy8N3ehZot925ckwIBtBuckZ22A8JEu0
-	gnPWIOuC9RTKHvCsXzTw8xPsTzfjVq6CqPx2FS1IGIsEEETDUSpySaNC2PVwqTnMidLNI0QYb3h
-	8aJUhZjRCWXa1YqIi/WlQWfraVeykXZ6gc4HLN4C/vGmyfJmQ/cZMNIrfyf8Pvij2SlwVFsh3ma
-	meK+6ZdAYNUq+1OSBos37GzniqivQ==
-X-Received: by 2002:a17:902:e892:b0:2dd:c053:b9c8 with SMTP id d9443c01a7336-2df60ee2fc6mr3676585ad.25.1790068202190;
-        Tue, 22 Sep 2026 02:10:02 -0700 (PDT)
-Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5cf84150sm6490615ad.6.2026.09.22.02.09.58
+        bh=95n40ZP9Z6iTAIldKB90q2CM8xGRzAwUON6dqMEGMLY=;
+        b=fXTJnSv8Pj4iWalT7Th7O7WuuCoQkC68I1Jch2bBRfPV6kZsyQemhRBE/UQ4ixMmSY
+         72tdolzAW4To0lT1O2OJi9SEE2DRDZmVJWs8CZqeEOoEX9OYBEUjkQ5W461aa0b7rxCG
+         riMvJm7LjOVSUm9C4zkZAdgtEspnENhJ6kMwuP6v3dRJXUO+rm90SFzlN3PiyYt6TTk2
+         jtrAbpuqDbpZ29mmoO2XXGjy9ug4TU7zHAi1mUi8tjp9SLdCrhNhnwBXfwGxm/GVIwlT
+         x91yx6ROwAHYtGebhzj2hRmO62OkqZXVhXzzqNoC0Pl3f50m0FTMmdR+hhMe+9YUj56d
+         6G+Q==
+X-Forwarded-Encrypted: i=1; AKwUvByjyEYfDYoxarGynima7kDYUIDhqrDcYWbMfSSCtaIENqauFaVZ2WGhI+ifyv+1skBh6SVkfwQpLvmE2fA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiRUy0xk5KVND3MdMjFf+dYw/FXG1RYRx4vL5Bz3kNZIt7cjRO
+	MKw3iWqFDBHnITW6sCtYdwXSlFvgLjErar/9SVidm630vdnHXxWbxgFd
+X-Gm-Gg: AYBFou36XjMELTf2IzN0vsI5eEwQfLgKNZtmazD6n+vtGsYEzzujpLC42Z1gZgDU8s6
+	zZJS/QnY+5NcuXIjZsDQm0dhFjNc3s70HpHdtB1R6B9BTb+lnfFdfIFb76b/3SZmKIAYiyK3rnU
+	7DMWWnstoeeKpVQroM7YniIIZzZkCcQnt3ZkIX0o6h9T8X0fSsU59nr9USV0wtn1jj63KbnTg3H
+	LjSJJ2nU++L0wjsZe7CrRx1A69RTaDW6SmEj+i+C+pkayfnu040byzpZTkTvGowsVahnhulVsZr
+	6KNShbqKl4b7PDs5pjgpInvNDvFNKmZ+KAK7fLyaT/eaJ1qVcnbxYPyVsWLJAR2JemTE1bs96vs
+	sfjnTWz0Wc6t/SrIZ80RFlwr2yS5vuVAII0vjOrJYDS1RjJ235BNuxfvsG5PzAgQKuwmcgY6mjt
+	39sOH9T14NBwOjirPSSOE7tWLJ0uWYVTWhlVkzfCSrlacloxPnRU4nxy+1I7BO751deFxP3CEfs
+	JfM/+kySgw1UYPbabEyZvPdHEeuzkl55kVlg18w/hCQsLNItJEwEOUxEcZ0OfcZjUaXxHGUzs+u
+	F2VO
+X-Received: by 2002:a05:600c:4e16:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-49fc574a641mr164997875e9.33.1790068216048;
+        Tue, 22 Sep 2026 02:10:16 -0700 (PDT)
+Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f04f7sm57710925e9.0.2026.09.22.02.10.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:10:01 -0700 (PDT)
-Date: Tue, 22 Sep 2026 17:09:55 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v3] gpio: cdev: fix kernel stack leak to user-space in
- error path
-Message-ID: <20260922090955.GA35938@rigel>
-References: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
+        Tue, 22 Sep 2026 02:10:15 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:10:13 +0200
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/3] iomap: don't lose a failed direct I/O bio's error
+ when zeroing the tail
+Message-ID: <arJF9USiUqIEWB1M@andreayoga.localdomain>
+References: <20260921083133.2960-1-parri.andrea@gmail.com>
+ <20260921083133.2960-4-parri.andrea@gmail.com>
+ <20260921223432.GO6283@frogsfrogsfrogs>
+ <arIT5A3MR7VtCeba@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,65 +89,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922-gpio-cdev-stack-leak-fixes-v3-1-7a0c7a4299d5@oss.qualcomm.com>
+In-Reply-To: <arIT5A3MR7VtCeba@infradead.org>
 
-On Tue, Sep 22, 2026 at 10:52:28AM +0200, Bartosz Golaszewski wrote:
-> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
-> return immediately before zeroing the info struct we'll end up passing
-> to the user-space later in lineinfo_get_v1(). This may leak the kernel
-> stack contents. Make gpio_desc_to_lineinfo() return int so that the
-> -ENODEV returned on failure to acquire the guard can be propagated to
-> the callers.
+> > Why ssize_t?  iomap_dio_zero returns int, right?
 > 
-> While not strictly necessary: move the memset() before trying to acquire
-> the SRCU read lock too for good measure.
-> 
-> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Don't emit an error log message from the line info notifier if we fail
->   to acquire the chip guard
-> - Link to v2: https://patch.msgid.link/20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Make gpio_desc_to_lineinfo() return an integer return value so that
->   the error code returned in case of a failure to acquire the guard can
->   be propagated down the stack
-> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
-> ---
->  drivers/gpio/gpiolib-cdev.c | 32 +++++++++++++++++++++++++-------
->  1 file changed, 25 insertions(+), 7 deletions(-)
-> 
+> More importantly iomap_dio_zero can only return an error for a
+> logic bomb assert using WARN_ON.  I'd suggest to simply return without
+> an error there and remove the handling of the iomap_dio_zero return
+> value entirely, as it clearly casues more harm than it helps.
 
-> @@ -2491,6 +2502,7 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
->  	struct lineinfo_changed_ctx *ctx;
->  	struct gpio_desc *desc = data;
->  	struct file *fp;
-> +	int ret;
->  
->  	if (!test_bit(gpiod_hwgpio(desc), cdev->watched_lines))
->  		return NOTIFY_DONE;
-> @@ -2521,7 +2533,13 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
->  
->  	ctx->chg.event_type = action;
->  	ctx->chg.timestamp_ns = ktime_get_ns();
-> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
-> +
-> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
-> +	if (ret) {
-> +		fput(fp);
-> +		return NOTIFY_DONE;
-> +	}
-> +
+Agreed, that's cleaner than retyping the local.  I'll drop the
+zerror/ret handling entirely for v2 and just call iomap_dio_zero()
+without capturing its return.
 
-Drop the ret and just test the return directly?
+Darrick, that also answers your question, the type mismatch goes
+away since there's no local variable left.
 
-Sorry - should've picked that up in the previous version.
-
-Cheers,
-Kent.
-
+Thanks!
+  Andrea
