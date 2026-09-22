@@ -1,157 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F65A3E51C6;
-	Tue, 22 Sep 2026 18:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7C437F015;
+	Tue, 22 Sep 2026 18:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790100118; cv=none; b=Te6rU1I8b6Vd5OnUdjqLoQFQ++o9hKP5h/cOnbHlTrDY+ydGCxTgodH2HweFeFBuYuHxEk90FS8Q0AeFOiMib9jpRSwEF+YjBV4X/SOuphmvgS+8eQeX5qicq4hITJlVaUQuXGNvp5nLZjNq3cLYYAi1yWlvz7jePjyIUDAwQ3Y=
+	t=1790100148; cv=none; b=fZVwOhAv57RjDuMVEo5GzDksv2FzBaEplrE2idx0rGxrPE6Bmxcgc9ESnb+to4PT1Zyfdpq2LTGyp6Y9VcKvQhxZqHd0ZjONQMr3cQQ8bKFugWHj4xgmhaafH91Dm4Qx+Kgg2xrQ8gh4kq5EzjrfJw8CBJaoFZY5qnN1COhrHlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790100118; c=relaxed/simple;
-	bh=6gafUH01UEnEOFZ/RPOfxlqwmZj2EPGoGIHEuVJ2b30=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ieZK1rKS1GEFW+9R9kwc1tU7YRu/oUxdx/Blc2xOGwyvT0iQpX3UVOlPUPpsaRJs90jsz7nQPSTifIASayCvuzf6uvhzE+HPa8jF8D7nTKPwxZipVKsq+N7ZWUYS9DFEqSswHtq79/3lr19X5pCI+0Glcx4lkNTRx9L+tG3hHrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTFAgg2F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790100148; c=relaxed/simple;
+	bh=w4grvdMR+k+K87EvpxsUq+S+Y3NGL1PStjTWbUW4DwA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=T++TUTGWBx5xhE4ka0UuW2RPlJgzwaVQypgecB1Ir9v/pYjWX6ZyWEoDI/KlqxsptYPW8Sb48pP/OSt557hnQL/K28hjo9tgMipt1PXBpsUL4/6Nj9KTAJzAMvEV113RvoNzTdXipq9ktJv3IuSWzHwHCQq77efRLO3L4vssjFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=nRDqSg/P; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=nS5n83DF; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTFAgg2F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74781F000FF;
-	Tue, 22 Sep 2026 18:01:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790100116;
-	bh=XYSOqVERmoLufYUc+VgdIGa26F88+bWdDgX4ohmoDow=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cTFAgg2FOfaMX2m8EsEsOewd3kmF8o+nqmZIgHsg1+9dfNvjg7UsJBnBr7cQLe1gc
-	 NRZa7rq/dJvOZbE4iJ8qwH9xFN5HvTNU602lYu19aCdlJ8/ZK8eFBFvjLwON208EmW
-	 XDFJRh666HOdgBM4mCysh18oZxVAtffvfijp+CEreSklJcAeStfU5ZVdmz/W+G1cMw
-	 tvX2+GxoohyHrtHGMZv+Cxrry+VZhichA61P71tzJM/TfaD+SUPE5zsm6ygKShkw1+
-	 aQtV+4k7suG2DbR/RXLPSqzlhNoXCFydrrlCIBti5D3+SZI3a/BwrfTF6KEv229og0
-	 k/Vt3CWjh0zuQ==
-Date: Tue, 22 Sep 2026 19:01:48 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Oliver Upton <oupton@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
-Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
-Message-ID: <arK8-Hec3-5o4jYs@gremlin>
-References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
- <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org>
- <arKxjsxuO1F5ExrY@kernel.org>
- <arK5n9HrbZMCOHOt@google.com>
- <arK5ynpRi7VbY7Ek@gremlin>
- <arK8seJVT9wYgVCP@google.com>
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="nRDqSg/P";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="nS5n83DF"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id BFAC326F7695;
+	Wed, 23 Sep 2026 02:56:48 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1790099809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=e1vqf+accqYJ6nnoce6kfgYSjfOjlkRuJiYiqwVHPgQ=;
+	b=nRDqSg/Py+7yMxToloNweKHIsB0xbQJCyLS7Glj9ZdNC8OK9Y/wU4Kr+Pa2iqFUc0Sk6RC
+	zB+ZZ2zZEB11liKOpv6e1DxtfJqK2amvoGVAwILKXeWK2OzDtbyUlFWWYkMahO0jyExIL3
+	zCW6FdXGIOZpFTiVflXx5DEAVcuXVX5YwD7bmz1PYEgwgd10SByo5pA1qivHoUn/DxFgv1
+	6au8X2wWqRgHA9ECeSjj+PavDvCKPhJMpwyxFJ+1DRMPl2ZeCax59p92FajD7MN0KgrQrm
+	wQftmoQptAEZWTy4p0R8fcBMFid8B8jybcm2RU/ZV893+NiY9xCT0CtyjS7EWw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1790099809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=e1vqf+accqYJ6nnoce6kfgYSjfOjlkRuJiYiqwVHPgQ=;
+	b=nS5n83DFeUP7Ehz8eYBkJsWofy040lX+CVpFZgzb3NdKnSrqPHNDAj0PCk8T/+1YfoC+Dk
+	GcU+pzAia+wlQ0Aw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 3761DE00117;
+	Wed, 23 Sep 2026 02:56:48 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 2ED3822000F1; Wed, 23 Sep 2026 02:56:48 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Hui Peng <benquike@gmail.com>
+Cc: Jan Kara <jack@suse.cz>,  linux-fsdevel@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fat: avoid freeing clusters on failed directory
+ validation or read-only mounts
+In-Reply-To: <20260919204810.2813594-1-benquike@gmail.com>
+References: <20260919204810.2813594-1-benquike@gmail.com>
+Date: Wed, 23 Sep 2026 02:56:48 +0900
+Message-ID: <877bkdcgpr.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arK8seJVT9wYgVCP@google.com>
+Content-Type: text/plain
 
-On Tue, Sep 22, 2026 at 10:36:49AM -0700, Sean Christopherson wrote:
-> On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Sep 22, 2026 at 10:23:43AM -0700, Sean Christopherson wrote:
-> > > Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
-> > > generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
-> > > the return value, the connection to vcpu_load() is obvious, and we don't need to
-> > > add another pre-check if future (or cleaned-up existing?) ioctls want to do
-> > > vcpu_load() in common code.
-> >
-> > ...this is exactly what I started out with.
-> >
-> > But then you are in a pickle, because _really_ you need to do that check in
-> > vcpu_load(). Which is a void function. Which is called by every single
-> > architecture all over the place.
-> >
-> > So you'd have actually no way of signalling the error back.
-> >
-> > Of course those places are arch code and you could say 'arches should know
-> > better and if they call it it's fine not to call the arch 'can you load'
-> > function.
+Hui Peng <benquike@gmail.com> writes:
+
+> In fat_fill_inode(), set_nlink(inode, fat_subdirs(inode)) is called
+> before fat_validate_dir(inode). If a directory has zero valid
+> subdirectories (so fat_subdirs(inode) returns 0) and fat_validate_dir()
+> subsequently returns -EIO (due to a missing or malformed '.'/'..'
+> entry), fat_build_inode() calls iput(inode) with inode->i_nlink == 0 and
+> inode->i_start still populated.
 >
-> Yes, that's my vote.  It'd be easy enough to clarify that "rule" with a comment
-> in linux/kvm_host.h.
-
-I note you dodge the actually difficult question of what this wrapper function
-would look like ;)
-
-So maybe like:
-
-static int kvm_vcpu_load(struct kvm_vcpu *vcpu)
-{
-	int err;
-
-	err = kvm_arch_allow_vcpu_load(vcpu);
-	if (err)
-		return err;
-
-	vcpu_load(vcpu);
-	return 0;
-}
-
-?
-
-And I do like that you'd actually gate the right thing, I feel you on that,
-obviously since this kind of predicate is what I started out with.
-
-But I'm also looking to do the smallest possible thing here that fits the series
-and doesn't preface it with a 'change how core kvm does something'.
-
-But if Oliver/Marc feel this is viable then sure can go with it.
-
-(Also naming is hard, kvm_vcpu_load()? do_vcpu_load()? maybe_vcpu_load()?
-checked_vcpu_load()? vcpu_load_checked()? :P)
-
+> fat_evict_inode() then checks !inode->i_nlink without checking
+> is_bad_inode(inode) or sb_rdonly(inode->i_sb) and calls
+> fat_truncate_blocks(inode, 0), freeing the cluster chain on disk even on
+> a read-only (MS_RDONLY) mount.
 >
-> > But you're still stuck with the problem of where exactly you put this check.
-> >
-> > So then do you put that check in a wrapper around it?
-> >
-> > Instead you can make the predicate 'don't prefault on a not-yet-initialised
-> > vCPU' which is pretty sensible I think, have a specific place to put it and
-> > all's well with the world.
+> Validate the directory before setting i_nlink in fat_fill_inode(), mark
+> the inode bad on error in fat_build_inode(), and guard cluster
+> truncation and metadata writeback in fat_evict_inode() with
+> !is_bad_inode(inode) && !sb_rdonly(inode->i_sb).
 >
-> But look at it from an x86 perspective.  Pretty much everyone will look at this
-> and expect:
+> Fixes: a3082d526f2d ("fat: add simple validation for directory inode")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
 >
->   bool kvm_arch_vcpu_allow_pre_fault_memory(struct kvm_vcpu *vcpu)
->   {
-> 	return vcpu->kvm->arch.pre_fault_allowed;
->   }
+> diff --git a/fs/fat/inode.c b/fs/fat/inode.c
+> --- a/fs/fat/inode.c
+> +++ b/fs/fat/inode.c
+> @@ -535,11 +535,11 @@ int fat_fill_inode(struct inode *inode, struct msdos_dir_entry *de)
+>  			return error;
+>  		MSDOS_I(inode)->mmu_private = inode->i_size;
+>  
+> -		set_nlink(inode, fat_subdirs(inode));
+> -
+>  		error = fat_validate_dir(inode);
 
-I'm not sure I really get your point here at all? :)
+Without set_nlink(), fat_validate_dir() will always return the error,
+isn't it? If so, this patch is not tested?
 
-Why would it matter what people who are too lazy to go check the implementation
-assume about an arch hook?
+>  		if (error < 0)
+>  			return error;
+> +
+> +		set_nlink(inode, fat_subdirs(inode));
+>  	} else { /* not a directory */
+>  		inode->i_generation |= 1;
+>  		inode->i_mode = fat_make_mode(sbi, de->attr,
+> @@ -610,6 +610,7 @@ struct inode *fat_build_inode(struct super_block *sb,
+>  	inode_set_iversion(inode, 1);
+>  	err = fat_fill_inode(inode, de);
+>  	if (err) {
+> +		make_bad_inode(inode);
+>  		iput(inode);
+>  		inode = ERR_PTR(err);
+>  		goto out;
+> @@ -688,12 +689,14 @@ static void fat_free_eofblocks(struct inode *inode)
+>  static void fat_evict_inode(struct inode *inode)
+>  {
+>  	truncate_inode_pages_final(&inode->i_data);
+> -	if (!inode->i_nlink) {
+> -		inode->i_size = 0;
+> -		fat_truncate_blocks(inode, 0);
+> -	} else {
+> -		mmb_sync(&MSDOS_I(inode)->i_metadata_bhs);
+> -		fat_free_eofblocks(inode);
+> +	if (!is_bad_inode(inode) && !sb_rdonly(inode->i_sb)) {
+> +		if (!inode->i_nlink) {
+> +			inode->i_size = 0;
+> +			fat_truncate_blocks(inode, 0);
+> +		} else {
+> +			mmb_sync(&MSDOS_I(inode)->i_metadata_bhs);
+> +			fat_free_eofblocks(inode);
+> +		}
+>  	}
+>  
+>  	mmb_invalidate(&MSDOS_I(inode)->i_metadata_bhs);
 
->
-> > > I'd also be tempted to say it can be a macro, not a __weak function.  E.g.
-> >
-> > Yeah it can be many things but why would you want a macro if you could possibly
-> > avoid it? :)
->
-> Because it allows arch code to dererefence "struct kvm_vcpu" in kvm_host.h,
-> i.e. allows "inlining" the check.
-
-Yeah I mean, micro-optimising a path run on a costly startup operation seems a
-little unnecessary? :)
-
-It seems the convention is __weak but I'm not going to die on this hill.
-
-(C type safety is something of a myth but I do prefer to try to have what
-little protection it offers when possible :)
-
---
-Cheers, Lorenzo
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
