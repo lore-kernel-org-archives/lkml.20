@@ -1,443 +1,237 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013052.outbound.protection.outlook.com [40.93.201.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7B44756B5;
-	Tue, 22 Sep 2026 13:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790084942; cv=fail; b=iCkpDAYEY2lfjHsBDPA/umJFdiTOZ/+0T/lNcJYpCBgxV3oRsB0ZucuRKxyLTxg64U/JxvWxpZn0w6PLkqiRxhEFgFiuKkUDyW+UusEEiONViQk0i/vW3LuLUe8hNpuCA4yNQo4b1GcRnJf2ATzNLtG20ssDzQE7jN/EDf6aAFc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790084942; c=relaxed/simple;
-	bh=oXOSf5sEdSi4NB+sXLz9k158WpztD2eNkcsMxKke8Lk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TTZEHRc/51ibX9V7alRPXvfVcGp7AEE+a56LLVWpSbHYxmXAi/AVfXzih7kZiXVk8y5lRe5whnqx34C4vX949ZU8PEUzuksrjjH7gqR+bol038V6Jhfs/sdVD1E9IeoM++9HEHPBVXLkPwu/Uj2zK2eJTRINSHE2+JBCKNPb4rU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bY5le9nd; arc=fail smtp.client-ip=40.93.201.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5915349D4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790085027; cv=none; b=trROC/p6/2j6AmxeGKkYfgpOM7I9Xu6yS4NiqrHFOiWys8TgIEUrQWo7h771uqhYs9ieWsOV1KGOBfblSdWoitcSk6ps4gFtCPnXZ/XxRYYXzf6n71cB6bwFheygn0OeoubTK9tICcUdQ+GMune7tvuKuq74+LtYve8XyLoKcg0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790085027; c=relaxed/simple;
+	bh=XBibOZPHW68W0g75OPHH2eBRodk0ZZkXmYVJz/0Vt7g=;
+	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ChJYHQIxC76Ci5Fkr4vlyPfnZ4vpTic6tU0Fe1KFvcgWaFIURzLV+UDA3SMTghKZYzBcloedsn3uoZU+eFDA7D1Yf5Qqnto2lVUTNhLMgnH4DwsOg2f2u3ntlRwsesCTKhZWDO5nTBJ7HJPWKmy8imOj/2omjhET4DLk1LLCAA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=biQxqvgc; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bY5le9nd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s385Ttm1roxG3cr83he9ANf2K4q2aHtl1VN3H7VSNODAks4qr8tOtJcKcjYGDSrTRcAtSVc6ogQSbw0TIBUA77nb/fzG60z3ASWvoiYJCegkO/74962z63a1rX02yvuDC3BBUv8us/7HDSQ7c73UMAZnrKTJGDZzdBWo87nVhNN+7Y6JhpzvVQPH+hwLGHzy+d1UZNld0lTn8CXCn2FrlgsNpfhO+w+g9bhfXAKOdzQKs82RSFsc5hSNedd90ay1JRQ6Ar12ISVAInz/rZ2b5wqwtuiLHSbYhwXsrs7w3yHY3AEsglCuV7l7YJK345/N5iKQxPqPzjQ0On3wZvy4wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MwSlbEgEz9AFntWOePV0tKXfdEjf72dLg2o/hbgYQZ0=;
- b=s6ajIrjpoKSnqFmulyuxDyCLsVfhNuV+xBJH/hCIKTzj8eb7EuFyHgEdVoW+nyoTzkr/X3tNEbFkKsGutkvrlqBpVy3xHtQ7to4P9mCn7hqqu6f55SMjf/IGilVWWo58v8qys5JxTuu/n0sS85VeBbvZpHDprwe6ElhUgn8q+wPr21wcU9xxHOkLu46r66lRPh3gVu3JMRDeQ++uPV7h6Vi5UdcMBPczGgehvo2sLj25h5v3hCAhT7MBz4ZTst8MY42X6MmWx5wJHnPiSfK1dY/TVOCYMjzlACv2re3HimdkprkgUPJZLItRKsm1d28gdtEe+rH6Mz7KINT5h0Rbzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MwSlbEgEz9AFntWOePV0tKXfdEjf72dLg2o/hbgYQZ0=;
- b=bY5le9ndlZICbZhLolROFwE0SH1U5BaQjCMK5ZcO51APclF4vVSpFdy2n7KvFns2FCTGh8b5hFTdJLtTCpVJLZkknXvpYdQV4fj2NDyd8klkfFYZ38iM9lgm3KtC992CUHboKMpIUVxl06Aqy4bMNO2NymjBOg/hcZpLxXcRdaJnPniTSr5YsmMnsell8C1mM6ocrz2CA3SYjaBN7N/75LkYQTEA2Jnaiq7C/LE+oD3/SGSQXiH+8zS70ipeI48CritsMd6XM1kIzGR3YXTqjzokK+uA4uBzMloesLRiqh7fTbEgspfbBfk6pR8OcYeskbf/Znt5Q3GywJoRx42qSQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by IA1PR12MB7734.namprd12.prod.outlook.com (2603:10b6:208:422::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 13:48:56 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 13:48:55 +0000
-Date: Tue, 22 Sep 2026 15:48:48 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: rahadbhuiya <rahadbhuiya2021@gmail.com>
-Cc: Tejun Heo <tj@kernel.org>, bpf@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="biQxqvgc"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d0726cdbcso2319855e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:50:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790085024; x=1790689824; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zZ+5REgljKFAwNjfKUuVzdIQx4h6gyhbms3hAl/gWQs=;
+        b=biQxqvgcGqbKWYpz8/f36woD2wbiFRmrkYhFd1ohj3Sr6MD+qhLj+rw3Pc8V9U6MHL
+         ubSJbOZm2fGxRjok3wrM5f8s4Anedb6TXd5iXLiOCETql+pZF8UAPs3WbNFgR0kMFyFP
+         EjOpLK2Y/sfV3H+2P8N8eY6GOTHWULCyXLiqAcVPWEzLhgo7DTrlhmbJgRkfbzgmG3DD
+         EJTeHxfcbPD5HHwo8bSUJ4lO7LS1BCXO1vrQ3YzaG7s3kOkmjhGA1z5mEeKyDukRb9WL
+         JTwH5YITqYF/ztDbjGUbEO2rcSVUr43EvWU3lYVfGpxepOGstu82hrE1Zj4t6aFokGul
+         3egg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790085024; x=1790689824;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=zZ+5REgljKFAwNjfKUuVzdIQx4h6gyhbms3hAl/gWQs=;
+        b=iFIsZvJBHge0mkJE+rziH8UrtZwcdtm+CaBgouvshrAJW4ixf0XKoqwTLf9znF8edu
+         WqmSRkUFgor+im5k4TPzGkfttfuznsG/0fU+ja2Hpn7GPY2QCBSJTX5INGW4R9nDHv4O
+         RQSl9w3Tm6b6H4MbUguvN2/ipLqd/J5C3Z8CkLhi5PU4a50+Gvg3Fxf4SjzOGVJsjjgm
+         nEeAOeFyrZeC+U9l8FHdZNwAEiRcFK1b2xRku0wYU+qW+9qD9gVmVO6+kgUO4F/MkwMP
+         gB50Kpqe0djPIGVY0zsrfUANug1S5L4XH9Sm5wl3EkFHLjs2nwSOy4Had1ZElYqmE/e5
+         kmUA==
+X-Forwarded-Encrypted: i=1; AKwUvBzZD3Ig5hm9c0T7FLr8BEDMhdQbUiBkr+K4nrOYiCU4TyzRSAAas7jg5u5giEI3O/9kR+omHty7ZrTaHx0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGOCDOA++Ck9564JrBtltevkeY432BkOrap1m0G64KaGwpzMtn
+	4Ws9raKMnBiJ/G6YD1f2TzLuapQqJEiLcIvXv1K4C53NupXhef1i0WLe
+X-Gm-Gg: AYBFou1X/7IMn/oY5wN0xYUYpE05wJoi08egrMrAPk35mSH2x2SD5hH//XIHF72VXeI
+	kNkZZzEpNK3Gje3qAZ8hOgKfZmC4uPdzfmEPXfgC3OWZH114mIosOmFHZAam4KkhhU4tkMPA6ht
+	HZYASL3ZstgJUnPAIQFMPEUs91NnzcSNDeDap9JcAypcDVeE7FHkB9/vUfmnE1/DoLkMIIVu5PW
+	rAKKNxacUpmfYyAZC1t6GktactbVGw5un7I6ReC1o4Ozu0sEi+9x6vdGALBqTcMrIymE6kElWo/
+	7Qti9Rh8xzdyoa661U0d17GNcBevNOzfKv+4ZxHQ4lQa1ZYO+3DKo04NWlsLXbYDSCkUmi20mn2
+	ZPe21nw+oEBk0fo/bN52aJr3Fa13SMzRVaVDvnrR94pLt/fMKimCd7g377ec5mhoJTCnjKdU4Ph
+	/jpEac8M1X4bLixliN42zO8kHYzlgRm1MkPemmr7ysTizCIfoHxPrIfoXfmN6BLOi3blIU8XnBf
+	QN8TvuYm6weg9+LPVE=
+X-Received: by 2002:a05:600c:83cd:b0:49e:6806:5712 with SMTP id 5b1f17b1804b1-49fc7ddb90emr146359295e9.2.1790085023382;
+        Tue, 22 Sep 2026 06:50:23 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaa544e5sm42723515e9.1.2026.09.22.06.50.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 06:50:22 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: Milan Broz <gmazyland@gmail.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dm-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tools/sched_ext: Add scx_priority dual-queue priority
- CPU scheduler
-Message-ID: <arKHQEyAnvgIF4ij@gpd4>
-References: <20260922084557.532-1-rahadbhuiya2021@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922084557.532-1-rahadbhuiya2021@gmail.com>
-X-ClientProxiedBy: MI2PEPF00000B89.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::407) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: Re: [PATCH v2 0/1] dm-crypt: allow encryption sector size up to PAGE_SIZE
+Date: Tue, 22 Sep 2026 16:49:45 +0300
+Message-Id: <20260922134945.667305-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <07e750dc-570b-4f69-9ec3-68de51416a06@gmail.com>
+References: <20260922120330.127262-1-itai.handler@gmail.com> <07e750dc-570b-4f69-9ec3-68de51416a06@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|IA1PR12MB7734:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3db250dd-84ac-4a96-cad2-08df18b03eaa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|56012099006|6133799003|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	QJX7Z+d5a4qHAjVwO4hX3FN5eEEKQ78xJ3RRdsxOaNa2FffJTpF6nHpieorHFE+sWFIDktMfpB/BI+vAF+sREPx5556s/lKnYyxGTODK5UtdjLHkjJMnOnS4Ob4mzfD5sAPkUJkPU1foFk7jKErP668fJEyM7tHMFdah7E8LcISG2n9FD0jY7ODPekTs0ALPlOGdqRNS4QJV8g1XWlLDbHDbpdgNKfl56s52KDclhSzqeeecZEK2gl27+bz44x5m8gLTo+wVQZqRj9KVFIdri5pqOnwQdgQHABA2Q0CQXauqWF0E0hkbBepGJxRz0lmaVuRLt8+L4uFeR1DYHD2XjqBI58pecAveQCYs3LrV+A+TDFB+5E2xSIn8wUcrAofD464BhUtgkvEp5HvFN/S/rx0hppvI5fPeuvyn9G7JXB2yM4eREGI2jDJqow+1JMyztHC+9CFlGfodlfvH7OOxl3A/b8iZtcbpD8W12L8Yc9/lCxps861gOrXgSVc2vHDqJCjxxEoRfgs/bxLCtwvyAu4K852vCEUlqO2t9Ft+ZEA8ydQn0E7r3TgFGT56CzNY3XwjY22MZKNCVajD3SEf131CpM/rRP5XQIxhGHVVP7XHO1jN/M65lX5j1Qs6PB3/S8r5ZRz0Fk6RHISR2cX0oB37fIDA6ePd3oWCXF/xymg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LF5/lnvmrjY0AogvA/TOIv/SRb0MZZoC3YCCfhphIA+Gsb0Wz8CnvVt7t37N?=
- =?us-ascii?Q?q4TgXTr4RlwSQathV9NoePWX9mLzSa1Ogkhv2SlRcuBtHe4SSsPm65APC0Fq?=
- =?us-ascii?Q?jA4S1NI/K3hCh7IqToQ0px3tcBf3p5hk0zSwE66eTLiAJtnG67Bdanrhnbeb?=
- =?us-ascii?Q?feHyk6zO8/sWWMFOMWIINuW5hHfHZI7kwircBiYd7TFPkr7Dc8YUh3W8cWR8?=
- =?us-ascii?Q?N0FGtp3lQCBwicnmJSGxCL/PQ+FaMTja+F1WneTGY9SnzmMUr6SmaX9eXcmY?=
- =?us-ascii?Q?fMDmMPj+Ltvqv8SXCIdEt87Ko6VYO5ngTykTk8YGtjYkCn8iB5JqIRLZEWe2?=
- =?us-ascii?Q?P79z+Ib5r0txtfF4doeUEVyUCCyr0ELfue7JYU2mGBQMb+TM/HvmjQF9UJd2?=
- =?us-ascii?Q?oztPfCa9Ttdn0864oq/RJB2wFp788LOQ84hj+3uawZCQBebLDXL/EB4HLMj5?=
- =?us-ascii?Q?xOhp+Iv1Np5amfqtHVxwmdRPTzhDPjj4IbJ9Kn+9v1DilAtqPgWKpO9mSYJ9?=
- =?us-ascii?Q?JSgwZYzAdTsOXjy8AqMNSlRVo6yIy5oIeFrGcnoQ/Dd226chWNp5BGqPH1GR?=
- =?us-ascii?Q?wDVFiwy2N/UCF7bOEE8wS0fDuVwS6vgTa6fy9P3h/ySjj+Cspg9fw5LlE3lj?=
- =?us-ascii?Q?tfM6PW0QH5bi/0ph8Pi8Y+e6o/AXe79OIGfhWPIEa35ETAmHl6fBWFypaOX2?=
- =?us-ascii?Q?cupYel6tBinp4Z4u4vINoKlb1e/Y57LszF5p9rL7E/CHzg1xHqSygtmTH8fQ?=
- =?us-ascii?Q?26o923k6pyuz1iAYU090JC5IR4iEtTZVXHUJG4Ilq1jxL34huLLeovQ+mVUS?=
- =?us-ascii?Q?BNdFtFHo3qbxM8g32iOxgG8ijlun6lIYky3YmRu/Cr34xvw0paCMYNOk0Rxr?=
- =?us-ascii?Q?0pcxvMVfI/JGzvbUbY4dR7xxMOkVc4Btkl/L171AFK8bi3OM92snqLzj6ege?=
- =?us-ascii?Q?YUK4/ckslc2NCJ/9dLEm/7MsTq//2yIi6IIqaqViLBtlORVOD9wgKhGVM19f?=
- =?us-ascii?Q?WO+FVJpD/267kMvtHUSUb2H60iakqUILwJ93sffX8QP1U2r7rcoXFggXUtxG?=
- =?us-ascii?Q?s/AvsmDRp5JJEkhH8JeS4vGPrwPXv87eaVcN4zQL6IdvVBr8Pug49K8ufd1S?=
- =?us-ascii?Q?KGf/HvkS9MAM6bSrV1lPvMJYOSKeTYlwotsfgTcr1zWu+WMrVRRWloywFV3l?=
- =?us-ascii?Q?dxnaY4ZLxvivPTubuI/R0tPdNq4IVlYo5Pd9OK6hh45xEWyNrrC0qBwDUqnF?=
- =?us-ascii?Q?HjQ7x6rqn9K0HR+b+2XkGOv07eWQLrJtMrl40XLBjhBFbsiHTYoMGuQTcz2N?=
- =?us-ascii?Q?854AIas3+E7fsK46qtYzX1pQQNJ6sd8NDezTAKF6YpfuLyJ2FB2MxRn51mLW?=
- =?us-ascii?Q?fB9MLn2jAx0WRcdevYqIbYLWJaWRNC8ue9dgjK0eivte7SHuta1QndFqUQuk?=
- =?us-ascii?Q?GDn09bILV7+qd0seeGAJDG+4SjuDw3mbNrOD+o+CVWCbOl1u1ZBn8jUK9E0t?=
- =?us-ascii?Q?T/TLLEaOUK57F621iLBnOqJSVU12IqeDpAvpZC4dYW5uPYbkHXM8Ae6y4m0B?=
- =?us-ascii?Q?5eSnKF12YWic+MU/2BIb2+idkwhZBJjOFJKQsD5Pbqag01hK3dFp9fms2Q1u?=
- =?us-ascii?Q?ZrSchtKpXkTJ963qVJhONQxplO1RjOI9X0Paqsv184aZpMqdw9+K4dsZwyUg?=
- =?us-ascii?Q?R9HteBK88g5B1LbGESv88rDLzj9nGB/viGnFT+z5VvV8y/SR4lLeFqIO120Q?=
- =?us-ascii?Q?UA1FZ6HaCw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3db250dd-84ac-4a96-cad2-08df18b03eaa
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 13:48:55.8088
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4y8cZmpTEmYSeNsoa1jf33SJoVH9/FpAW7zb6/8cVuCtP+N9gVGwv2AxNAsMVbxcAgrIP2AABJMbnobJvlCWGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7734
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 02:45:57PM +0600, rahadbhuiya wrote:
-> Add scx_priority, a dual-queue priority CPU scheduler using sched_ext.
-> It differentiates between latency-sensitive/interactive tasks (nice < 0)
-> and normal/batch tasks, dispatching high-priority tasks with boosted
-> slices and draining the high-priority queue first upon core availability.
-> 
-> - Add scx_priority.bpf.c with two DSQs (high priority and normal).
-> - Add scx_priority.c userspace monitor tracking live throughput.
-> - Update Makefile and README.md.
-> 
-> Signed-off-by: rahadbhuiya <rahadbhuiya2021@gmail.com>
+On 22/09/2026 16:07, Milan Broz wrote:
+> Could you please point me to at least one consumer-grade NVMe drive that
+> supports a 64k sector size?
 
-Personally, I don't see a strong motivation to include this in the kernel,
-schedulers under tools/sched_ext are primarily intended as examples to
-demonstrate how to use the sched_ext API, and the functionality covered here is
-already well represented by the existing examples.
+None that I know of, and none is needed - I think my cover letter invited
+that reading, sorry.
 
-If your goal is to offer a scheduler for people to actually use it, I'd
-recommend submitting a PR to the community scheduler repository:
-https://github.com/sched-ext/scx instead.
+The encryption sector size is dm-crypt's crypto chunking unit, not a
+property required of the backing device. dm-crypt never validates it
+against the device. The only use of bdev_logical_block_size() in the
+target is
 
--Andrea
+	sector_align = max(bdev_logical_block_size(cc->dev->bdev),
+			   (unsigned)cc->sector_size);
 
-> ---
->  tools/sched_ext/Makefile           |   2 +-
->  tools/sched_ext/README.md          |   7 ++
->  tools/sched_ext/scx_priority.bpf.c | 117 ++++++++++++++++++++++++++
->  tools/sched_ext/scx_priority.c     | 128 +++++++++++++++++++++++++++++
->  4 files changed, 253 insertions(+), 1 deletion(-)
->  create mode 100644 tools/sched_ext/scx_priority.bpf.c
->  create mode 100644 tools/sched_ext/scx_priority.c
-> 
-> diff --git a/tools/sched_ext/Makefile b/tools/sched_ext/Makefile
-> index 21554f089692..41b80e164cda 100644
-> --- a/tools/sched_ext/Makefile
-> +++ b/tools/sched_ext/Makefile
-> @@ -191,7 +191,7 @@ $(INCLUDE_DIR)/%.bpf.skel.h: $(SCXOBJ_DIR)/%.bpf.o $(INCLUDE_DIR)/vmlinux.h $(BP
->  
->  SCX_COMMON_DEPS := include/scx/common.h include/scx/user_exit_info.h | $(BINDIR)
->  
-> -c-sched-targets = scx_simple scx_cpu0 scx_qmap scx_central scx_flatcg scx_userland scx_pair scx_sdt
-> +c-sched-targets = scx_simple scx_cpu0 scx_qmap scx_central scx_flatcg scx_userland scx_pair scx_sdt scx_priority
->  
->  $(addprefix $(BINDIR)/,$(c-sched-targets)): \
->  	$(BINDIR)/%: \
-> diff --git a/tools/sched_ext/README.md b/tools/sched_ext/README.md
-> index 0ee5a3d997e5..18b80eacc28a 100644
-> --- a/tools/sched_ext/README.md
-> +++ b/tools/sched_ext/README.md
-> @@ -164,6 +164,13 @@ scx_simple can be run in either global weighted vtime mode, or FIFO mode.
->  Though very simple, in limited scenarios, this scheduler can perform reasonably
->  well on single-socket systems with a unified L3 cache.
->  
-> +## scx_priority
-> +
-> +A dual-queue priority scheduler that separates latency-sensitive and interactive
-> +tasks from normal/batch tasks. Tasks with higher priority (nice < 0) are queued
-> +to a dedicated high-priority DSQ with boosted time slices and drained first upon
-> +dispatch.
-> +
->  ## scx_qmap
->  
->  Another simple, yet slightly more complex scheduler that provides an example of
-> diff --git a/tools/sched_ext/scx_priority.bpf.c b/tools/sched_ext/scx_priority.bpf.c
-> new file mode 100644
-> index 000000000000..816b197c4019
-> --- /dev/null
-> +++ b/tools/sched_ext/scx_priority.bpf.c
-> @@ -0,0 +1,117 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * A dual-queue priority scheduler based on sched_ext.
-> + *
-> + * Dispatches latency-sensitive / interactive tasks (nice < 0) to a high-priority
-> + * DSQ, and batch / normal tasks to a standard DSQ. When a CPU core becomes
-> + * available, the high-priority queue is drained first before serving normal tasks.
-> + *
-> + * Copyright (c) 2026 Rahad Bhuiya <rahadbhuiya2021@gmail.com>
-> + */
-> +#include <scx/common.bpf.h>
-> +
-> +char _license[] SEC("license") = "GPL";
-> +
-> +#define PRIO_DSQ_HIGH	0
-> +#define PRIO_DSQ_LOW	1
-> +
-> +/*
-> + * Stats tracking:
-> + * [0] - High priority / interactive tasks queued
-> + * [1] - Standard / batch tasks queued
-> + */
-> +struct {
-> +	__uint(type, BPF_MAP_TYPE_PERCPU_ARRAY);
-> +	__uint(key_size, sizeof(u32));
-> +	__uint(value_size, sizeof(u64));
-> +	__uint(max_entries, 2);
-> +} stats SEC(".maps");
-> +
-> +static void stat_inc(u32 idx)
-> +{
-> +	u64 *cnt_p = bpf_map_lookup_elem(&stats, &idx);
-> +
-> +	if (cnt_p)
-> +		(*cnt_p)++;
-> +}
-> +
-> +static bool is_high_prio(const struct task_struct *p)
-> +{
-> +	/*
-> +	 * In the Linux kernel, static_prio maps nice -20..19 to 100..139.
-> +	 * Default nice 0 corresponds to static_prio 120. Tasks with nice < 0
-> +	 * (static_prio < 120) or real-time policies are prioritized.
-> +	 */
-> +	return p->static_prio < 120;
-> +}
-> +
-> +s32 BPF_STRUCT_OPS(prio_select_cpu, struct task_struct *p, s32 prev_cpu, u64 wake_flags)
-> +{
-> +	bool is_idle = false;
-> +	s32 cpu;
-> +
-> +	cpu = scx_bpf_select_cpu_dfl(p, prev_cpu, wake_flags, &is_idle);
-> +	if (is_idle) {
-> +		u64 slice = is_high_prio(p) ? (2 * SCX_SLICE_DFL) : SCX_SLICE_DFL;
-> +
-> +		stat_inc(is_high_prio(p) ? 0 : 1);
-> +		scx_bpf_dsq_insert(p, SCX_DSQ_LOCAL, slice, 0);
-> +	}
-> +
-> +	return cpu;
-> +}
-> +
-> +void BPF_STRUCT_OPS(prio_enqueue, struct task_struct *p, u64 enq_flags)
-> +{
-> +	if (is_high_prio(p)) {
-> +		stat_inc(0);
-> +		scx_bpf_dsq_insert(p, PRIO_DSQ_HIGH, 2 * SCX_SLICE_DFL, enq_flags);
-> +	} else {
-> +		stat_inc(1);
-> +		scx_bpf_dsq_insert(p, PRIO_DSQ_LOW, SCX_SLICE_DFL, enq_flags);
-> +	}
-> +}
-> +
-> +void BPF_STRUCT_OPS(prio_dispatch, s32 cpu, struct task_struct *prev)
-> +{
-> +	/* First drain high-priority tasks if any are waiting */
-> +	if (scx_bpf_dsq_move_to_local(PRIO_DSQ_HIGH, 0))
-> +		return;
-> +
-> +	/* Otherwise drain standard priority tasks */
-> +	scx_bpf_dsq_move_to_local(PRIO_DSQ_LOW, 0);
-> +}
-> +
-> +s32 BPF_STRUCT_OPS_SLEEPABLE(prio_init)
-> +{
-> +	int ret;
-> +
-> +	ret = scx_bpf_create_dsq(PRIO_DSQ_HIGH, -1);
-> +	if (ret) {
-> +		scx_bpf_error("failed to create high priority DSQ (%d)", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = scx_bpf_create_dsq(PRIO_DSQ_LOW, -1);
-> +	if (ret) {
-> +		scx_bpf_error("failed to create low priority DSQ (%d)", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +UEI_DEFINE(uei);
-> +
-> +void BPF_STRUCT_OPS(prio_exit, struct scx_exit_info *ei)
-> +{
-> +	UEI_RECORD(uei, ei);
-> +}
-> +
-> +SCX_OPS_DEFINE(priority_ops,
-> +	       .select_cpu	= (void *)prio_select_cpu,
-> +	       .enqueue		= (void *)prio_enqueue,
-> +	       .dispatch	= (void *)prio_dispatch,
-> +	       .init		= (void *)prio_init,
-> +	       .exit		= (void *)prio_exit,
-> +	       .name		= "priority");
-> diff --git a/tools/sched_ext/scx_priority.c b/tools/sched_ext/scx_priority.c
-> new file mode 100644
-> index 000000000000..3cf975be3a1e
-> --- /dev/null
-> +++ b/tools/sched_ext/scx_priority.c
-> @@ -0,0 +1,128 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Userspace controller and monitor for scx_priority scheduler.
-> + *
-> + * Copyright (c) 2026 Rahad Bhuiya <rahadbhuiya2021@gmail.com>
-> + */
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <unistd.h>
-> +#include <signal.h>
-> +#include <assert.h>
-> +#include <libgen.h>
-> +#include <bpf/bpf.h>
-> +#include <scx/common.h>
-> +#include "scx_priority.bpf.skel.h"
-> +
-> +const char help_fmt[] =
-> +"A dual-queue priority sched_ext scheduler.\n"
-> +"\n"
-> +"Usage: %s [-i INTERVAL] [-v] [-h]\n"
-> +"\n"
-> +"  -i INTERVAL   Stats monitoring interval in seconds (default: 1)\n"
-> +"  -v            Print libbpf debug messages\n"
-> +"  -h            Display this help and exit\n";
-> +
-> +static bool verbose;
-> +static sig_atomic_t exit_req;
-> +
-> +static int libbpf_print_fn(enum libbpf_print_level level, const char *format, va_list args)
-> +{
-> +	if (level == LIBBPF_DEBUG && !verbose)
-> +		return 0;
-> +	return vfprintf(stderr, format, args);
-> +}
-> +
-> +static void sigint_handler(int sig)
-> +{
-> +	exit_req = 1;
-> +}
-> +
-> +static void read_stats(struct scx_priority *skel, __u64 *stats)
-> +{
-> +	int nr_cpus = libbpf_num_possible_cpus();
-> +	__u64 *cnts[2];
-> +	__u32 idx;
-> +
-> +	assert(nr_cpus > 0);
-> +	cnts[0] = calloc(nr_cpus, sizeof(__u64));
-> +	cnts[1] = calloc(nr_cpus, sizeof(__u64));
-> +	if (!cnts[0] || !cnts[1]) {
-> +		free(cnts[0]);
-> +		free(cnts[1]);
-> +		return;
-> +	}
-> +
-> +	memset(stats, 0, sizeof(stats[0]) * 2);
-> +
-> +	for (idx = 0; idx < 2; idx++) {
-> +		int ret, cpu;
-> +
-> +		ret = bpf_map_lookup_elem(bpf_map__fd(skel->maps.stats),
-> +					  &idx, cnts[idx]);
-> +		if (ret < 0)
-> +			continue;
-> +		for (cpu = 0; cpu < nr_cpus; cpu++)
-> +			stats[idx] += cnts[idx][cpu];
-> +	}
-> +
-> +	free(cnts[0]);
-> +	free(cnts[1]);
-> +}
-> +
-> +int main(int argc, char **argv)
-> +{
-> +	struct scx_priority *skel;
-> +	struct bpf_link *link;
-> +	__s32 opt;
-> +	__u64 ecode;
-> +	int interval = 1;
-> +
-> +	libbpf_set_print(libbpf_print_fn);
-> +	signal(SIGINT, sigint_handler);
-> +	signal(SIGTERM, sigint_handler);
-> +
-> +restart:
-> +	optind = 1;
-> +	skel = SCX_OPS_OPEN(priority_ops, scx_priority);
-> +
-> +	while ((opt = getopt(argc, argv, "i:vh")) != -1) {
-> +		switch (opt) {
-> +		case 'i':
-> +			interval = atoi(optarg);
-> +			if (interval <= 0)
-> +				interval = 1;
-> +			break;
-> +		case 'v':
-> +			verbose = true;
-> +			break;
-> +		default:
-> +			fprintf(stderr, help_fmt, basename(argv[0]));
-> +			return opt != 'h';
-> +		}
-> +	}
-> +
-> +	SCX_OPS_LOAD(skel, priority_ops, scx_priority, uei);
-> +	link = SCX_OPS_ATTACH(skel, priority_ops, scx_priority);
-> +
-> +	printf("scx_priority started (interval: %ds). Press Ctrl-C to stop.\n", interval);
-> +	printf("%-15s %-15s %-15s\n", "HIGH_PRIO(UI)", "LOW_PRIO(BATCH)", "TOTAL_DISPATCH");
-> +
-> +	while (!exit_req && !UEI_EXITED(skel, uei)) {
-> +		__u64 stats[2];
-> +
-> +		read_stats(skel, stats);
-> +		printf("%-15llu %-15llu %-15llu\n",
-> +		       stats[0], stats[1], stats[0] + stats[1]);
-> +		fflush(stdout);
-> +		sleep(interval);
-> +	}
-> +
-> +	bpf_link__destroy(link);
-> +	ecode = UEI_REPORT(skel, uei);
-> +	scx_priority__destroy(skel);
-> +
-> +	if (!exit_req && UEI_ECODE_RESTART(ecode))
-> +		goto restart;
-> +	return 0;
-> +}
-> -- 
-> 2.54.0.windows.1
-> 
+in get_max_request_sectors(), which is request alignment, not a check.
+A mapping whose encryption sector exceeds the drive's block size is
+already the normal case - sector_size:4096 on a 512e drive is exactly
+that.
+
+The drive is also not where the gain comes from; see the last point.
+
+> Allowing a bigger sector size in dm-crypt means you can end up with
+> partial dm-crypt sector writes (after power fail), which opens another
+> can of worms.
+
+This is the objection I take most seriously, and you are right that it
+is real.
+
+It is not a new hazard though - it is the existing one scaled. The same
+tearing is possible whenever the encryption sector exceeds the drive's
+atomic unit, which is every sector_size:4096 mapping on a 512e drive.
+cryptsetup already documents precisely this for --sector-size:
+
+  "Note that using a sector size larger than the underlying storage
+   device's physical sector size may result in data corruption during
+   unexpected power failures.  A power failure during write operations
+   may result in only partial completion of the encryption sector
+   write, leaving encrypted data in an inconsistent state that cannot
+   be properly decrypted."
+
+What a larger sector changes is the width of the window, not its
+existence, and only for a mapping that asks for it - the default stays
+512 bytes.
+
+For the common case the failure mode is also unchanged: with xts(aes)
+each 16-byte block carries its own tweak, so a torn write leaves a
+mixture of old and new plaintext at that granularity rather than
+destroying the sector. The modes that would be worse are already
+restricted - crypt_iv_lmk_ctr() and crypt_iv_tcw_ctr() reject anything
+but 512 bytes. The exception I am aware of is the Elephant diffuser,
+which does diffuse across the whole sector; it is reachable only by
+hand-writing a table, since cryptsetup's BITLK support allows 512 and
+4096 only, but I mention it rather than leave you to find it.
+
+I would rather document this than leave it implicit. If the patch is
+worth pursuing at all, I will add to
+Documentation/admin-guide/device-mapper/dm-crypt.rst:
+
+    An encryption sector larger than the atomic write unit of the
+    underlying device can be torn by a power failure, leaving part of
+    the sector written and part not. This is already possible with a
+    4096 byte sector on a 512e device; a larger sector widens the
+    window. Use one only where that is acceptable.
+
+Reworded however you prefer.
+
+> Your dm-verity argument does not apply here; it is a read-only target.
+
+You are right, and I overreached. dm-verity shows only that PAGE_SIZE is
+an accepted bound for how much data one target request may cover; it
+says nothing about write atomicity, which is the part that matters here.
+I will drop the comparison.
+
+> Also, arguments based on cryptsetup/LUKS2 do not make much sense for
+> kernel code. They must be compatible and work together, but dm-crypt
+> can be used without any userspace validation, so all limits must be
+> checked in the kernel.
+
+Agreed, and that is what the patch does. The limit is enforced in
+crypt_ctr_optional():
+
+	cc->sector_size > DM_CRYPT_MAX_SECTOR_SIZE
+
+with DM_CRYPT_MAX_SECTOR_SIZE = min(PAGE_SIZE, BLK_MAX_BLOCK_SIZE). It
+needs no userspace cooperation: dmsetup and a raw ioctl are bound by it
+exactly as cryptsetup is, and on a 4k-page kernel it is still 4096, so
+nothing changes there at all.
+
+The LUKS2 4k rule is a different kind of thing. It is a property of an
+on-disk format the kernel knows nothing about, so it cannot be enforced
+here and I am not proposing that it should be - it stays in cryptsetup,
+untouched. I raised it only to answer the portability objection from the
+v1 thread, not as an argument for kernel behaviour. Ondrej made the same
+point back to me on the cryptsetup list earlier today, and he was right:
+
+  https://lore.kernel.org/cryptsetup/d3823e0b-3387-4b3a-b5e8-a3d5f266308a@redhat.com/
+
+> LUKS2 limits the sector size to 4k for multiplatform compatibility.
+
+Yes, and nothing in this patch changes that.
+
+> dm-crypt itself can support bigger sectors, but I just do not see much
+> use for it with common NVMe drives or other storage.
+
+Storage is not the use case - crypto offload is.
+
+Where the cipher is a hardware engine driven over DMA, the per-request
+cost is a descriptor setup and a round trip, and that cost dominates.
+Making the request sixteen times larger amortises it. With the in-tree
+qce driver on an arm64 64k-page board, plain dm-crypt over a ramdisk,
+MB/s:
+
+  sector_size   seq read   rand read   seq write   rand write
+        4096        13.3        22.8        27.2         24
+       65536       581         582         586          588
+
+The ramdisk is deliberate - it keeps the storage out of the measurement,
+because the storage is not what is being fixed.
+
+That also answers the NVMe half of the question, and I should have made
+it the main point rather than the ramdisk. A common consumer NVMe drive
+delivers something in the region of 1-3 GB/s. Driving qce with a
+4096-byte sector, dm-crypt manages 13-27 MB/s, so behind any such drive
+the crypto engine is the limit rather than the drive, by about two
+orders of magnitude. At 65536 bytes it reaches roughly 580 MB/s and the
+engine is still the limit. The ramdisk figures are therefore a
+reasonable predictor of what the same setup does on ordinary storage:
+nothing unusual is being asked of the drive, only that the cipher is
+offloaded to an engine reached over DMA. The drive can be entirely
+common - it is the accelerator behind it that is currently being driven
+inefficiently.
+
+The other measurement in the cover letter is the NVMe one, and it is a
+different board: an arm64 Cortex-A53, also 64k pages, but with the CPU
+cipher xts-aes-ce over a Samsung 970 EVO. There the gain is 9-16%,
+which matches your intuition - for a CPU cipher there is very little in
+this, and the drive is not the limit either.
+
+So I would put the case as: it is not about the drive at all. It is for
+systems that have a crypto accelerator and a 64k page granule, where
+dm-crypt currently leaves most of the engine's throughput unused - and
+the storage behind them can be an entirely ordinary NVMe. If that is
+still too narrow to justify the option, that is a fair conclusion to
+reach, but it is the case I am asking about, and the numbers are with
+an in-tree driver.
+
+Thanks for taking the time on this.
+
+Itai
