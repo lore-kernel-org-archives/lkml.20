@@ -1,130 +1,77 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC4D43F0B2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB044A3410
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066003; cv=none; b=RkqjgeMD6A0xeVTGyvIM9se3oVuYQXZ4UeI2zv7p5z3uneOkRo/BSPxwtcDIt7GID8rh5SvrdHJFlhgHMe+3ocRnWajD5JYPkbQm6bbBdTmnLUOmkVnDNHNPwkRhNOANS2EFv0qubu+yfJpJhlbQbJXOIWvfrrwx6I5Toz1Ob8c=
+	t=1790066025; cv=none; b=DV8Syy1h3v91wOTkkjAT75xwsuaGwgBHohX7t2JTqN/7fcxJbtvIsySeJyUiQi55Bqmww3UF/2AyGLtxywPWw3MlISfLk3PhGytVAJg6s3IW0BibZqyvvFApc7LswQCjY6/sD6hJ3izMxHD6q8ISiPZuHLUEzuO8yZKmG/wpWC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066003; c=relaxed/simple;
-	bh=zEomBp/JAYre+ACaiHStIXFRKfBN3mk/YZOtMfOIzaA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lL5xW76ecCn5sTDjJJV6pTDVXQW+YImWXKzXX5AKyzkGbtilnJRKnwjVQH9H6hsvBWTSgQGRg+IGp7j4KltzxL93/aZN2MmNTiPAkPNkJz7pqlMPAXGxUW5iLHGlVV7tipZWFEUammVWX9Flp5gAHcK7P+pYfETq2tJ1lPKbQBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SDFVaqqZ; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790066025; c=relaxed/simple;
+	bh=a2jdZ9Lke6+A6sooRkBfgYI9NYMfLcSpnTEWQfg5qms=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=unAZ+96cNHW22lZ8X2M4EufN4KCwjLDQ2vcbw/cdAphrlU4qUkjwI/z+FOzYJTJAsWcWfn8JBeCWTOrsK+OSjDDFUTKhb371uw7NH//iGVxHetaBVR20w/CbroTOyeRL1tDa4B8F9qXnWQdJqi8CLgCYNhI5QM1Shffppx0x100=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NYhg8Q5j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SDFVaqqZ"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so37263035e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:33:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790065998; x=1790670798; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uU9EGsP0jhjlOuyY9ffTaiqx8NHl2A4tqCF5zEPkwzk=;
-        b=SDFVaqqZfU84z5zv8A0dBFvjQ5ivbjNkUHmEJ7qXw4RP033lXmvKCIDV0XMZNXCfRB
-         ui/pPwbTZABAxe3HFMjfc3b5p/QgarOU2p/jqEl4x5cmgAsvAXZZklTW3gw9MctW4B1w
-         puOuBQA6N8M4qtoWTLlrbp3f7obYQIrRDVzCW/k8YGESOy49RuHBOzzkXtMA8z9VLPZr
-         lh6zJXb11GaufjqWPGfATi+exGxn3U5GRs7jNkQNKNPc+A7Ukxr3e4UUTlTs6CseUm3r
-         1yhGWo0otGrC67Y7qvaRzSed99ajmtn1bqBwcTF5aO4pohbI/xJBUDjj//vwpyALMepV
-         U0Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790065998; x=1790670798;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uU9EGsP0jhjlOuyY9ffTaiqx8NHl2A4tqCF5zEPkwzk=;
-        b=atpy7qn6hoMQS0FOZFo6+7PX8wmHiehfM+b9AocKqDTjYXY28iFSwmM4Ocp7IMVOjt
-         4mchu4tJcppjyJ/nflEHeLxbIed6zSG0XbltMgFe5QUjtXZdVovXR9QyaQ9vlGdKMHiO
-         d+APVVbWp/pgjYKFxhz5M4U4cJYzldR61uGp4fQz0AuLPQ30wg+rfv5/MFjvR/NB8Zre
-         WziL5GW3pI5BBmS+k8n7GsU/jXtjr4AzOyS4C/wiWN/K7/69nGFU+hzk5GPRinywce73
-         E9krxO4ZymRhdDgDhk1SeZhkH5DGmGFF/NlREGOpKJxULrU/3jhrCFOhqOq8mzDP37+Z
-         TUsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBtoNLnTpZ4asDLBSxXG4KYT8YBNyjm/TO6sQV7p9C1jfB6m88XMPJct4LAEumEgwnZtBKKPvJqDaXpuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFcR9And3ioo5+x92WLasq/l/CErHzUQGCYzQRaciCO9jkOfdE
-	JVdWGsJwSxcHH7nPPjupbQiOKVAU0nuM6jn1iAWjsn518ozH2/JZv5peJUvgTLqY578=
-X-Gm-Gg: AYBFou2VenqyReH5oHGQ6ZLolYk2TVimzun05aU/e4koYdY1a8GiQdcJSkbEp1Z7jBp
-	Mhi2RgD1TSRGZiNQxP9IiHbOJLuSztK5B68JDtqxyAo0Sj9O/0GhPqsNqmlBF+QC3BIVWmtAsRI
-	J3OSz2Wys6PhgYcRXvlbOKRqJOU2XQIKuaY/6TqElXDIMpTefnc+k3T+Bgvjyr7/ufWqeBYuFxI
-	CMvov2Nt+/CENYCB/LeGfivC0D+U8EY6NePIu3ZQnJmI5mnyNdhp07fvzW+YyjYdeMeZLRy374i
-	Q7Lu2Jb4VQqsymdnR86I1aPrW6AYGpM4euSVvsahbHuAxZaVsNK7a86CBgwYvWgTHJn/Et2mg7M
-	Sov8IXZfBvcrZ/5mQClDcu6Uh4uhe07W3FBZ5PUrwIB7lTOIIk3b6G2wyT1FeEdSHevxqkT/mP/
-	3Xelk2oHjgJ+IW9dQGXjaQuBjkDiqx5qIxKCyaHB+QUc6LKa37qyyWD67ZQOMI3X6JZWRHU+HKS
-	pH4XteqW5tavzAhr0/fuD6PamSFL1x9OUwgacxJxFsZgsKUHrJxFyZJFiziIg==
-X-Received: by 2002:a05:600d:6503:20b0:49f:d087:6526 with SMTP id 5b1f17b1804b1-49fd0876705mr70277975e9.34.1790065997920;
-        Tue, 22 Sep 2026 01:33:17 -0700 (PDT)
-Received: from localhost (p200300f65f19a9041d0e57515b2ea4c8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:1d0e:5751:5b2e:a4c8])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fdaaf0074sm32730825e9.3.2026.09.22.01.33.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:33:16 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:33:16 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] pwm: tegra: Check for match_data being NULL
-Message-ID: <arI8vXaKTvEJi-Zd@monoceros>
-References: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
- <ed943d9be3b785514e0f65a5b8c13a78aba7a090.1789741839.git.u.kleine-koenig@baylibre.com>
- <arD7N6A6ncBNR1Jk@orome>
- <arE-s0zbTUn14aIr@monoceros>
- <arFYGka5NpcgJ8oQ@orome>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NYhg8Q5j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FFDE1F0089A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:33:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790066018;
+	bh=a2jdZ9Lke6+A6sooRkBfgYI9NYMfLcSpnTEWQfg5qms=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=NYhg8Q5jhOApc6IyRQvX2486Wg6MuIenR+Lo6BVjpALnW17DlG9IDmFDnHRJdyDA1
+	 tCgq/4oxUjgteROu5j7RusqVJNWUYe4fLR9ersrWAC/DhVcAiG53cMpMXSN4GNrjLx
+	 9iVS25hxHvMrI260chno6b7LW2F0UpmeL/jqafjHJPsrQKSqcILZnhh9hQPSEOgGsw
+	 0gOl5H4ZzTuVdoM9wZKzNpwan0ZToeqJQVabCor6xmPfDJzC4pwQzWwHVxEKq7A3/4
+	 b12Awe0VyAkhSoqEEJeSnxw1cfeq+lLwklvUoUBgP+Wb2eJU4vdYEPejQlGg4V4FX4
+	 EwWXKdViluWNA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b845so3170550e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:33:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw14vtd03zVe997mAvAbcRfo/lcDRWd3h5dxkWCyHTomt/CsTGIcXwsbjIf4OYS2o15iGDfBzSPtrXpIlE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyKWi1uxHIlJmykLqiETed4piMFPZKO2C7QStQhiYF4gGZyqjJ
+	YGVdYC7D/HwbVTXZwSE6A+xskmbWYf2LZ/Xmy4+Mm5XfuceG5JYjOGMmXSZkS1rWi10JKiTDJqj
+	UZzkU134+q0c4zf+oLUbrXJnersGE+CfNoIrarnH6aw==
+X-Received: by 2002:a05:6512:2216:b0:5b6:1a7c:aa1f with SMTP id
+ 2adb3069b0e04-5b8c19838e4mr4189989e87.55.1790066016806; Tue, 22 Sep 2026
+ 01:33:36 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 01:33:35 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 01:33:35 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260921195636.1925869-3-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rspyuoriyu3xbsxg"
-Content-Disposition: inline
-In-Reply-To: <arFYGka5NpcgJ8oQ@orome>
+References: <20260921195636.1925869-1-mukesh.ojha@oss.qualcomm.com> <20260921195636.1925869-3-mukesh.ojha@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 01:33:35 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Me0BUbbPsxPzd2N6gsOiYb1_6fskb88mUSP5V=1EgvN_w@mail.gmail.com>
+X-Gm-Features: AcwNN1X5hurPWeLm0TXp4m9zhGTvn7whTEqJAwd-jqZtFt1xSczig6idQw_NH6I
+Message-ID: <CAMRc=Me0BUbbPsxPzd2N6gsOiYb1_6fskb88mUSP5V=1EgvN_w@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] firmware: qcom_scm: align PAS resource table retry
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+On Mon, 21 Sep 2026 21:56:36 +0200, Mukesh Ojha
+<mukesh.ojha@oss.qualcomm.com> said:
+> The initial PAS resource-table buffer can be too small. TrustZone
+> returns the required size and the wrapper retries the SCM call.
+> Although qcom_tzmem_alloc() aligns the allocated buffer,
+> the size passed to TrustZone remained unaligned.
+>
+> Align the retry size to a page boundary so that both the buffer
+> and its advertised size satisfy the PAS/TrustZone contract.
+>
+> Fixes: 8b9d2050cfa0 ("firmware: qcom_scm: Add qcom_scm_pas_get_rsc_table() to get resource table")
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
 
---rspyuoriyu3xbsxg
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v2 2/3] pwm: tegra: Check for match_data being NULL
-MIME-Version: 1.0
-
-Hello,
-
-On Mon, Sep 21, 2026 at 06:24:39PM +0200, Thierry Reding wrote:
-> You're probably not wrong about opt-in being the more natural choice,
-> but looking at commit 3d713e0e382e ("driver core: platform: add device
-> binding path 'driver_override'"), the intended use-cases are very
-> generic, so it would probably lead to a continuous stream of patches
-> needing to be added whenever a new device wants to be supported with
-> vfio or something.
-
-thinking a bit more about that: The use-case presented in that commit is
-about
-
-	echo vfio-platform > /sys/bus/platform/devices/fff51000.ethernet/driver_override
-
-. If we had an opt-in mechanism on the driver side, it would only be
-vfio* that would need it, wouldn't it? That sounds handleable.
-
-Best regards
-Uwe
-
---rspyuoriyu3xbsxg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqyPUoACgkQj4D7WH0S
-/k75uggAjU66rIYhxOlgu7NhEO7xA565YwhTBJeloD4bUMm8+0W08iZNphhaGPvO
-uXNwj8m6MCl1yFVzOCumzKhF8r2ixYGsKW+vmyn59m1b/DAoL0KnjJjPyjkwizOX
-eyNlZMnvMwp4Y65HaziLW9s6eTtc0fNMmGsrCVKvAjtGlZDsrzBZbRnun/Hd2pg8
-J/lYgKQVwTDYJZZnxauPn5Qyq7pZ8Acs5JDvOi7dBto3YRcG8w5OFbnRL6HYAhgr
-neCLHai/wCMyehrQVakEyRkwfYJmyiAMIIv8g0/uUlUF/exQR6RKtaJpd88gX6vT
-X539Y2bk5qA9iu35MHWrmN+RXfuKOQ==
-=XDmF
------END PGP SIGNATURE-----
-
---rspyuoriyu3xbsxg--
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
