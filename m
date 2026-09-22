@@ -1,171 +1,244 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFF154145E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEEF54936E;
+	Tue, 22 Sep 2026 13:46:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790084818; cv=none; b=AwGvXRW7NChrOMEnBmWXBAYL1/8sYYRNbU/bZApMhIBEJY/qT4Kz1LbB1pGHoIYjM4dboxe227HavxNoezthkAD0j8W94J1YfQ1j8PdXMochGno4rqXwxhPjVsvxN/fPvHvlhk9mf4CTzSONwqebjR8oJsHrr5euDUtygIN7LLE=
+	t=1790084820; cv=none; b=CDVMOBBTS3K2FyUcYVR1r/8uPMUIiI16QtB9dDiYK8FaMCYbV/sfXwMjR+i+8ku49h6ItLkEyigeXyM4H4nsdrm7igrJPNru4mcNWyNd2MfcNc4oGhMQRhHcC0ylv6jv2ZENmxW6GuNOvVWzWUtXAuYbB2nmbVNRKKDK0XmTucc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790084818; c=relaxed/simple;
-	bh=A6mptCTqc8JYmR78HHITrrmFcDLHarfAJCWSHu//3Wc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lmxNW7UD/DhBizVAtuqCx1snj+2OHELdY+Tml3wUJRkQyCijrg1QSzgpHNDMDgGILHs4EGO9JkTEzcWS+E0Cpa54obb5AR2c1UJXP5ba/jPjGq79IShS4iemCS80dJfKsP8ha8FbeWP1fXbFTkxILTNz3H8YZNiNC7YmlKZurjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZIopgPbb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fxP84dWm; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790084820; c=relaxed/simple;
+	bh=fFDOC9T0TFhGt6OOLIbQN//Tf57QuWCEbADZvNpzfuM=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=iGAGDqaGX9vUnI2zBDzuIHQGfuHpnza18q8XzFQcKIrv4UGGYT+2JniwdQhkucOX/0vVYrw0pQtpuUhV1qYOhccRFa11Ysd0l3kRSmawNfG2v+oQXFoZWAmnkEuQCPWtvjuT6iJ2gSyxRaVerinzcIAL11zL+658sC25jm2KCns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=jeIJ+Ynk; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZIopgPbb";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fxP84dWm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790084815;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dRpz33ELk1+JRMOqNwfvb0Y3S56rs1Q7qrR4OEuociQ=;
-	b=ZIopgPbbc6uJ8bltJc1DyqYUdDe68HNPFRvH6J/VXvecBogEEOeuIkuGvtk3cCwwLqoPRn
-	oJ46HcsVOrqsr1OdTmnu8tHQabidrQ0HBkvFsLp0OkP0GkRCgiPz05bmHPSLaBLkvcSg7M
-	PBsIW/ye9+K5JMvHigQgRh2aGT55JOI=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-457-5HNNEAWmMXS2sy8Fi2ZF8g-1; Tue, 22 Sep 2026 09:46:54 -0400
-X-MC-Unique: 5HNNEAWmMXS2sy8Fi2ZF8g-1
-X-Mimecast-MFC-AGG-ID: 5HNNEAWmMXS2sy8Fi2ZF8g_1790084813
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so30912505e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:46:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790084813; x=1790689613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dRpz33ELk1+JRMOqNwfvb0Y3S56rs1Q7qrR4OEuociQ=;
-        b=fxP84dWmDETI1q9zz5InT22xV4otHrrILkUz6OCI8GLWA7K0y/0Jd9mLl/DiyuM1R1
-         T0Cqzm1wugmmGPAs07QtcUS/Nkq8Lx8uy9rPwMdXUtaLuF4WaanjBMz+cCMOsm4I00Az
-         zZhmMcNtIf++Mdyl1op7djHRgo+jVvGAIrKj7t9oDLx7lPgr/786ZKfd2VTqeCJxPUnx
-         ipTIWgu0WL+22egXVtF1krSSvQ1OiKhfUbRXz/bK+N+nu/bOhapmy9Agp0S8RGP4jIig
-         /y+CDWyZ8+URb/AMd5BdJBZ7AFnt2YwJxeVzifJM3TkVQKACI9uj0rX0UoNGlpwjZTzf
-         xfVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790084813; x=1790689613;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dRpz33ELk1+JRMOqNwfvb0Y3S56rs1Q7qrR4OEuociQ=;
-        b=QxlIh7+o/qeaVO8si+554ylwNzMoaYRZm/Hd5+cAH2NFMC4Y1byqisFZGego3SxHIi
-         aejZxlnrQJ7stbSHCsTToy/q0B26q4NJ+xn6aATSx7tYv/NJx36fvr/GFwXC8p/o1S9X
-         EY9TyGa9zB323Hpst8OJyObOaFBHCDoJtN5Vk9m3s9Y/668WwxrpDRHPmnxgZYfi3dRt
-         hd7kZFE6bCNju8cHBSxtAmA599LkiNdqBhi2/huW4OyPX/GlC9gJ/s1zaq+Ob7clIT/x
-         Xgy4etlR9VbOgpol0ldlUmTxRXYOOguTLw6jxXYFXKwWO54mN5X6p4EG8mmNscKReNRc
-         7cpA==
-X-Forwarded-Encrypted: i=1; AKwUvBz52Eg5kJZo1vWr87BXTToInHrZYwDLwjZ2dq5OIQIGBRf5y5Bw+TRvsnYF8NyVZyQty0KheOYn6ojJGkw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4WfUYJBFv7sYfuVrL7rv/eUaJrtNoHYST7j+YwFaBZv0Z0Dhh
-	su1gmCPOGDCv0C0junAZCtpHQmYFv6j0LqHXzB9wk8UTGd4753W8zmBi6m9RU3fa1kVaeguIoxT
-	vMvh6wysmwgcXgiIqOo/VZy4rWetdpZJ6bKlqjkR6jhxBKCPk5tYisUa5eE1mmdlUNQ==
-X-Gm-Gg: AYBFou2Fsd9KwmFjbf6d1qaZjeNyK8PKkiZswIW1htEa6fhpcULixWrOkmBzrud5sET
-	qp6rf3pxJI3IHfN06HUSooc0iZ3j4Qa7y30YHtlK4b1I4w9TDxQw2k8B9jn82wdLWf1mwqESn8+
-	t6yDUB8oVjAb7OlJIFeRtYxaZPy9Jz1znR55wWSMC7GGAH5Gul/AM8oo1wE5pfnDvZknrZX6shM
-	aSq3JRJUXNBPNhqwl7LxzriE4TvsP0E3nF6ee8qRR6QqBnWDOheeSw9p/Agj5TqzYSL+zfchtPf
-	LNMafygZ8S8HQxl/PPnCb7ekWlBUjugOIyERbYkHrzM4ksXYMaMyMw3YSviqDPqFT3ctEz6Minc
-	4xtUy2ItwjKZQy7VffLXzFdOZcjDrBLxMUDPLHWmI6loifRYxGlmete8X+b2dQpybXaY+l/O2CQ
-	==
-X-Received: by 2002:a05:600c:3f07:b0:49e:7caa:e7b2 with SMTP id 5b1f17b1804b1-49fc5756f60mr191055475e9.29.1790084813000;
-        Tue, 22 Sep 2026 06:46:53 -0700 (PDT)
-X-Received: by 2002:a05:600c:3f07:b0:49e:7caa:e7b2 with SMTP id 5b1f17b1804b1-49fc5756f60mr191055105e9.29.1790084812619;
-        Tue, 22 Sep 2026 06:46:52 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaafa9cfsm56898185e9.4.2026.09.22.06.46.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 06:46:52 -0700 (PDT)
-Message-ID: <11c3ed15-9694-4b03-832f-6c49abd742d9@redhat.com>
-Date: Tue, 22 Sep 2026 15:46:51 +0200
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="jeIJ+Ynk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=2XHBwmitdcazAFEXQmp0ZNTPvrwOOlTd0HKwfxKvijg=; b=jeIJ+YnkJim6UaUNMK2FL6JrL7
+	OsCIbfnb1eLRrXKN6dmPoLxzDhcukwIfXjrYHTEgvB4JsQUJBMrsrYorWDPvYdMAyYwFMRm3TTUUZ
+	yBIFEcNLPLm/avHRAOQQylVcLZ3Bpef+Iptbi+GcfnnUIaH+y6D6Z1O1UA+MedJ6xyKLi6LpFba4a
+	pUu1OYj/xYlKx/pvRo5NeNTn3LanTwFJidXzwVs6SKfjFUIju3lI6qQsh9MBM1nHMGGaIKufqDkse
+	zf8NcuHR6OfA3/R2sVUCm4/Px+kjrWm1QuH9ri7XNjE5f+LDubBAtCdT+/jXqyxwazIYADe0UEJDT
+	6i4sRSAw==;
+Received: from [::1] (port=33148 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1x90pk-00000003tv9-0WZn;
+	Tue, 22 Sep 2026 15:46:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: ipv6: keep room for the mac header when
- growing the headroom
-To: Yuya Kusakabe <yuya.kusakabe@gmail.com>,
- Andrea Mayer <andrea.mayer@uniroma2.it>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Justin Iurman <justin.iurman@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260918-seg6-maclen-headroom-v2-1-4d370af55b2e@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260918-seg6-maclen-headroom-v2-1-4d370af55b2e@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Tue, 22 Sep 2026 15:46:55 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Ricardo Robaina <rrobaina@redhat.com>
+Cc: Paul Moore <paul@paul-moore.com>, Eric Paris <eparis@redhat.com>,
+ audit@vger.kernel.org, linux-kernel@vger.kernel.org, Bradley Morgan
+ <brads@mainlining.org>
+Subject: Re: [PATCH] audit: fix exe mark UAF in kill_rules()
+In-Reply-To: <CAABTaaC+vZmvg6s26oaYzkmnEvR42ZYcXutKfVNAa8VsK5ApDw@mail.gmail.com>
+References: <20260921195921.4174830-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <CAABTaaC+vZmvg6s26oaYzkmnEvR42ZYcXutKfVNAa8VsK5ApDw@mail.gmail.com>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <e4872a4b49c279e792adb228281d1513@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 9/18/26 03:28, Yuya Kusakabe wrote:
-> The seg6, ioam6 and rpl lwtunnels all grow the headroom with
-> skb_cow_head(), push their new headers into it, and then rebuild the mac
-> header below them with skb_mac_header_rebuild().  The headroom left
-> after the push has to be at least skb->mac_len for that rebuild, but the
-> requests ask for the pushed length plus dst_dev_overhead(), which leaves
-> LL_RESERVED_SPACE() of the egress device, 16 bytes for plain Ethernet.
+On 2026-09-22 13:26, Ricardo Robaina wrote:
+> On Mon, Sep 21, 2026 at 5:07 PM Jérémy Jean
+> <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+>> 
+>> kill_rules() removes mixed AUDIT_DIR and AUDIT_EXE rules when an audit
+>> tree is pruned. It drops entry->rule.exe before removing the rule from
+>> the RCU-visible filter lists.
+>> 
+>> After a rule has been installed with AUDIT_ADD_RULE, which requires
+>> CAP_AUDIT_CONTROL, removing or moving the watched directory can race
+>> with another task that is still evaluating the rule. In that case,
+>> fsnotify can free the executable mark before the reader reaches
+>> audit_mark_compare(), causing a use-after-free.
+>> 
+>> KASAN reports:
+>> 
+>>     BUG: KASAN: slab-use-after-free in audit_mark_compare+0x8d/0xa0
+>> 
+>> Remove the rule from the RCU-visible filter lists first, wait for a 
+>> grace
+>> period, and only then drop the executable mark. audit_del_rule() 
+>> already
+>> uses this ordering.
+>> 
+>> Fixes: 34d99af52ad4 ("audit: implement audit by executable")
+>> Assisted-by: Codex:gpt-5
+>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>> ---
+>>  kernel/audit_tree.c | 5 +++--
+>>  1 file changed, 3 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+>> index 1ed19b7..864a58b 100644
+>> --- a/kernel/audit_tree.c
+>> +++ b/kernel/audit_tree.c
+>> @@ -553,11 +553,12 @@ static void kill_rules(struct audit_context 
+>> *context, struct audit_tree *tree)
+>>                 if (rule->tree) {
+>>                         /* not a half-baked one */
+>>                         audit_tree_log_remove_rule(context, rule);
+>> -                       if (entry->rule.exe)
+>> -                               audit_remove_mark(entry->rule.exe);
+>>                         rule->tree = NULL;
+>>                         list_del_rcu(&entry->list);
+>>                         list_del(&entry->rule.list);
+>> +                       synchronize_rcu();
+>> +                       if (entry->rule.exe)
+>> +                               audit_remove_mark(entry->rule.exe);
+>>                         call_rcu(&entry->rcu, audit_free_rule_rcu);
+>>                 }
+>>         }
+>> --
+>> 2.47.3
+>> 
+>> 
 > 
-> Where the mac header is longer than that, as it is on ingress through a
-> VLAN device with reorder_hdr off, the rebuild runs out of room:
-> skb_set_mac_header(skb, -skb->mac_len) computes a negative offset,
-> stores it unchecked in the u16 skb->mac_header, and the memmove that
-> follows writes skb->mac_len bytes about 64 KB past skb->head.
-> Forwarding plain ping6 traffic through such a device reproduces it on
-> all five seg6 encapsulation modes and on the rpl and ioam6 inline paths;
-> skb->mac_header comes back as 65534 on a 704-byte head.
+> Hi Jérémy,
 > 
-> Ask for whichever of the two is larger.  These requests carried
-> skb->mac_len until the egress overhead took its place rather than
-> joining it.
+> Thanks for troubleshooting and fixing this bug.
 > 
-> Fixes: 40475b63761a ("net: ipv6: seg6_iptunnel: mitigate 2-realloc issue")
-> Fixes: dce525185bc9 ("net: ipv6: ioam6_iptunnel: mitigate 2-realloc issue")
-> Fixes: 985ec6f5e623 ("net: ipv6: rpl_iptunnel: mitigate 2-realloc issue")
-> Assisted-by: LLM
-> Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-> Reviewed-by: Justin Iurman <justin.iurman@gmail.com>
-> ---
-> Changes in v2:
-> - Use max_t(unsigned int, ...) rather than max() [Justin]
-> - Make the same change in ioam6_iptunnel and rpl_iptunnel [Justin]
-> - Reproduce and verify the fix on those two as well: unpatched, rpl
->    underflows in 12 of 16 probed configurations and ioam6 in 3 of 13,
->    both reaching about 64 KB past a 320-byte head; patched, neither
->    underflows in 18
-> - Rewrap the requests so they no longer exceed 80 columns
-> - Retitle for net: ipv6, now that the change spans three files
-> - Link to v1: https://lore.kernel.org/r/20260917-seg6-maclen-headroom-v1-1-02ccec50f096@gmail.com
-> ---
->   net/ipv6/ioam6_iptunnel.c |  8 ++++++--
->   net/ipv6/rpl_iptunnel.c   |  4 +++-
->   net/ipv6/seg6_iptunnel.c  | 12 +++++++++---
->   3 files changed, 18 insertions(+), 6 deletions(-)
+> sashiko's review makes sense, though: synchronize_rcu() inside the
+> loop waits a full grace period per rule, and kill_rules() runs with
+> audit_filter_mutex held, so a tree with many rules stalls other audit
+> config operations. Below is an untested suggestion to use a single
+> grace period instead.
 > 
-> diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
-> index cfb2c41634a0..4fc745f78eaf 100644
-> --- a/net/ipv6/ioam6_iptunnel.c
-> +++ b/net/ipv6/ioam6_iptunnel.c
-> @@ -262,7 +262,9 @@ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
->   
->   	hdrlen = (tuninfo->eh.hdrlen + 1) << 3;
->   
-> -	err = skb_cow_head(skb, hdrlen + dst_dev_overhead(cache_dst, skb));
-> +	err = skb_cow_head(skb, hdrlen +
-> +			   max_t(unsigned int, skb->mac_len,
-> +				 dst_dev_overhead(cache_dst, skb)));
+> diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+> index 1ed19b775912..5a3d7c7ba5ce 100644
+> --- a/kernel/audit_tree.c
+> +++ b/kernel/audit_tree.c
+> @@ -549,18 +549,30 @@ static void kill_rules(struct audit_context
+> *context, struct audit_tree *tree)
+>         list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+>                 entry = container_of(rule, struct audit_entry, rule);
+> 
+> -               list_del_init(&rule->rlist);
+>                 if (rule->tree) {
+>                         /* not a half-baked one */
+>                         audit_tree_log_remove_rule(context, rule);
+> -                       if (entry->rule.exe)
+> -                               audit_remove_mark(entry->rule.exe);
+>                         rule->tree = NULL;
+>                         list_del_rcu(&entry->list);
+>                         list_del(&entry->rule.list);
+> -                       call_rcu(&entry->rcu, audit_free_rule_rcu);
+> +               } else {
+> +                       list_del_init(&rule->rlist);
+>                 }
+>         }
+> +
+> +       if (list_empty(&tree->rules))
+> +               return;
+> +
+> +       synchronize_rcu();
+> +
+> +       list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+> +               entry = container_of(rule, struct audit_entry, rule);
+> +
+> +               list_del_init(&rule->rlist);
+> +               if (entry->rule.exe)
+> +                       audit_remove_mark(entry->rule.exe);
+> +               call_rcu(&entry->rcu, audit_free_rule_rcu);
+> +       }
+>  }
+> 
+>  /*
 
-The above snipped is repeated 6 times verbatim: it's calling loudly for
-some deduplication.
+Hello Ricardo,
 
-Since all the existing dst_dev_overhead() users are touched here, I
-suggest moving the max() computation inside dst_dev_overhead().
+Many thanks for your nice and constructive answer.
 
-/P
+Indeed, sashiko's review makes sense and your suggested v2 is a good 
+fix.
+I have replayed my reproducer to ensure that it indeeds fix the reported 
+bug.
 
+However, I wonder whether the wait should still happen in the case where
+all removed rules have rule->exe == NULL. Doesn't call_rcu() already
+free (kernel/auditfilter.c:96)?  If yes, could we skip synchronize_rcu() 
+in
+that case? If this question is valid, how about this fix based on yours, 
+which
+simply adds a bool to detect whether synchronize_rcu() should be called.
+
+If you think this addition is good, I can send a v2 with that.
+
+diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+index 1ed19b775912..e2cd27b17590 100644
+--- a/kernel/audit_tree.c
++++ b/kernel/audit_tree.c
+@@ -545,22 +545,38 @@ static void kill_rules(struct audit_context 
+*context, struct audit_tree *tree)
+  {
+         struct audit_krule *rule, *next;
+         struct audit_entry *entry;
++       bool need_sync = false;
+
+         list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+                 entry = container_of(rule, struct audit_entry, rule);
+
+-               list_del_init(&rule->rlist);
+                 if (rule->tree) {
+                         /* not a half-baked one */
+                         audit_tree_log_remove_rule(context, rule);
+-                       if (entry->rule.exe)
+-                               audit_remove_mark(entry->rule.exe);
+                         rule->tree = NULL;
+                         list_del_rcu(&entry->list);
+                         list_del(&entry->rule.list);
+-                       call_rcu(&entry->rcu, audit_free_rule_rcu);
++                       if (rule->exe)
++                               need_sync = true;
++               } else {
++                       list_del_init(&rule->rlist);
+                 }
+         }
++
++       if (list_empty(&tree->rules))
++               return;
++
++       if (need_sync)
++               synchronize_rcu();
++
++       list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
++               entry = container_of(rule, struct audit_entry, rule);
++
++               list_del_init(&rule->rlist);
++               if (entry->rule.exe)
++                       audit_remove_mark(entry->rule.exe);
++               call_rcu(&entry->rcu, audit_free_rule_rcu);
++       }
+  }
+
+  /*
+
+Regards,
+Jérémy
