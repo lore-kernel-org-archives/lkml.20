@@ -1,97 +1,203 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8715349CE;
-	Tue, 22 Sep 2026 10:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5365328A2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072822; cv=none; b=GSHNWMhKghMuTptNSOS4Tbyy3LahcIW9e4O80v178dPwRtejwtqsIrNMATkWWwp/4pDp/hv/stsffj6rKgME7H6QC+HprJfbugoVCsfwapBcjOd8JqnDBlwGq9O/rSb8Jptn3bsBN8b08P4OfwzvFZCwwI9k4hJ+dESzJP7Ta64=
+	t=1790072896; cv=none; b=MUzEm8jyQWWqPESXDff+cuMb6M4Dq3S1YerKPrMJqNaH6dw/zT384kvhycdq7NRMbiwrXigRdO2EOsr1aRBKjFsObXfwXD7VlOISCROy0Z1LCLkEXLNhSPwSoGkqTBvfCLR+IP7g/lJpPBXOeuJcrO6qkAJYI/9fVkLUCd0zCuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072822; c=relaxed/simple;
-	bh=Icklkf1mpch5Iw+UOu7Yq9Mryb/MWAFNL9D09km3ees=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SxlKZmdPTahK/qvSYTn11B1rEPE4Vu7c+m23i+tI6UDZAqEnH9jTrSFTnKNw10mxNGGbaCkwaaK0oiGy8LKiNPOh2OMH6x88h6MmrE+T1PugpiJtapeTKI3mMtRM7PU9SEC8oFOqTUdUiOA2gBJvvilgjUdBRLFZg6gYe1xjC2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RFtHI6hE; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790072896; c=relaxed/simple;
+	bh=VqtGF3qSyDZyyD+Ku1dWJYrhsz5Hjv2tT2aunqZtMNo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j58BCMnLSdF+3PehsmLWsL4QogbdXnwcl22T30gGqlrhP2Z0yUnkUN0OyTHyGE8NoTtThfyLuJ455BK4aut2TlhVPFxsWvBGlFyhFwG7D+4002g2vpNeRBQ/vvR0oQSMNN/ibSyjs228ERXHi0yv1aMiUxM9EIrlZllrQV9lDRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fnYBUmgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RFtHI6hE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790072821; x=1821608821;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Icklkf1mpch5Iw+UOu7Yq9Mryb/MWAFNL9D09km3ees=;
-  b=RFtHI6hEZ4Cp+rkYt/4nX4Zh2/AhZXoIhnjx06+QwHnuuWpfmMb5Fekr
-   A/4/8ZsuJIHr+rx0wC3pknC79aoKgSlZSBq1nmRt53TqtN4t6p9MqTASF
-   VTiWX4eTVVcpZodtbdDD+eSQ/2YMsBqRc79APUcinMYcqo+/muepeacyG
-   E2Uj4f+KhNKWTSSNz9+5xmJQcYI5zPceN8TDUWKq7OaXahDHZf/T59kg6
-   mzeK4Ez1iyRQSetriOq13DfAktubVDmzvLRasHmsn7n0e0khw+Hf9dYE7
-   bmZvTLPvIyRC44R60hf1q+e/OOHmLMfB37S4hAqYM4mobyWp8KjcdPcuG
-   w==;
-X-CSE-ConnectionGUID: L0V32GGjS+KGfP6GqgWJHg==
-X-CSE-MsgGUID: NgkCdcBYRAW0C8BOCML4oQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90679204"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="90679204"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 03:27:00 -0700
-X-CSE-ConnectionGUID: E0Y2EYeNR1eXPsZt9wkmZw==
-X-CSE-MsgGUID: FlrqSx3BTbi9FmdUn2EcHQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="273240535"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 03:26:57 -0700
-Date: Tue, 22 Sep 2026 13:26:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: nuno.sa@analog.com, michael.hennerich@analog.com, jic23@kernel.org,
-	dlechner@baylibre.com, andy@kernel.org, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: cdc: ad7150: fix OF matching and publish module
- aliases
-Message-ID: <arJX66ZmCWbZ_4RV@ashevche-desk.local>
-References: <20260920033303.11879-1-hppiscas@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fnYBUmgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6371F000FF;
+	Tue, 22 Sep 2026 10:28:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790072895;
+	bh=LOJp4blY5phc9Vv5SsCAuVuk6WuoBNzFXQ+AbRV2dCA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fnYBUmgRgs+DrsVZ4E7rNjAcBrnd55YcN/xtuScQWsatNfiAK8CaVLVsalX3VbpUU
+	 eNkioZbKquxGIoNHlQ7nqM0jpOUdzZH0J+duAdiQESUtuvBz/gRJVJju43DDfkdx0c
+	 gZzSSLz63VkeapKrh7dhYaDqtES+j9Avm5vKFp9sITBwDo2tVuZCqh99EQfBo6szyV
+	 qCRg19zxrNl9cSUSFHHdaN1c7FR3ysLbmT0alDo2qHpi5LIuANCwx6XPf+Kr2GU1R1
+	 NfnYw5z5if634DwpeVaRGRJoOiBF2kD9dDlQYp1JLCqMUBW7iuBvt8l54XN1v6Mmmr
+	 kQ2acyT8DnXww==
+Message-ID: <0a35cf00-32ba-4a21-b05c-edd44d3ca219@kernel.org>
+Date: Tue, 22 Sep 2026 12:28:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920033303.11879-1-hppiscas@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: fsl: qbman: order the probed flags with
+ release/acquire
+To: jaidevshastri@vt.edu
+Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260921-mb-qbman-v1-1-35f3321aa330@vt.edu>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260921-mb-qbman-v1-1-35f3321aa330@vt.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 11:33:03AM +0800, Pengpeng Hou wrote:
-> The OF match entries use positional initializers, which initialize the
-> name field rather than compatible. Consequently the advertised AD7150,
-> AD7151 and AD7156 compatible strings do not describe OF compatible
-> matches. The table is also not exported for module alias generation.
+Hi,
+
+Le 22/09/2026 à 02:47, Jaidev Shastri via B4 Relay a écrit :
+> [Vous ne recevez pas souvent de courriers de devnull+jaidevshastri.vt.edu@kernel.org. Découvrez pourquoi ceci est important à https://aka.ms/LearnAboutSenderIdentification ]
 > 
-> Use designated compatible initializers and publish the OF table. Keep
-> the existing I2C ID table and its device-variant selection unchanged.
+> From: Jaidev Shastri <jaidevshastri@vt.edu>
 > 
-> The issue was found by our static-analysis tool.
+> dpaa_eth, caam and the portal drivers poll qman_is_probed(),
+> bman_is_probed(), qman_portals_probed() and bman_portals_probed() before
+> they touch the state the probe functions set up: qman_ip_rev, the CCSR
+> and portal register maps, the FQD and PFDR bases, affine_portals and the
+> pool allocators.
 > 
-> Fixes: 89f2d5b080bc ("staging:iio:cdc:ad7150: Add of_match_table")
-> Assisted-by: gpt 5
+> Each flag is set with a plain store at the end of its probe function and
+> read with a plain load in the exported accessor. The stores that build
+> the state are not ordered before the store to the flag, and the
+> consumer's load of the flag is not ordered before its loads of the
+> state. A consumer probing on another CPU can see the flag set and then
+> read state that is still stale or zeroed, and program the hardware with
+> it.
+> 
+> Set the flags with smp_store_release() and read them with
+> smp_load_acquire(). The error paths storing -1 keep their plain stores:
+> a consumer that sees -1 fails its own probe without touching the state.
+> 
+> Found with MBCheck, a static herd7-based memory consistency checker.
 
-Assisted-by: LLM
+Sashiko made comments, can you have a look ?
 
-> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+https://sashiko.dev/#/patchset/20260921-mb-qbman-v1-1-35f3321aa330@vt.edu
 
-Same to other patches with similar tag.
+Christophe
 
-...
-
-TBH, except the commit message I can't see how LLM could be helpful to the
-code. It's quite a simple change...
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> 
+> Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
+> ---
+>   drivers/soc/fsl/qbman/bman_ccsr.c   |  6 ++++--
+>   drivers/soc/fsl/qbman/bman_portal.c |  6 ++++--
+>   drivers/soc/fsl/qbman/qman_ccsr.c   | 11 +++++++++--
+>   drivers/soc/fsl/qbman/qman_portal.c |  6 ++++--
+>   4 files changed, 21 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/soc/fsl/qbman/bman_ccsr.c b/drivers/soc/fsl/qbman/bman_ccsr.c
+> index b0f26f6f7..c5be35aba 100644
+> --- a/drivers/soc/fsl/qbman/bman_ccsr.c
+> +++ b/drivers/soc/fsl/qbman/bman_ccsr.c
+> @@ -180,7 +180,8 @@ static irqreturn_t bman_isr(int irq, void *ptr)
+> 
+>   int bman_is_probed(void)
+>   {
+> -       return __bman_probed;
+> +       /* Pairs with smp_store_release() in fsl_bman_probe(). */
+> +       return smp_load_acquire(&__bman_probed);
+>   }
+>   EXPORT_SYMBOL_GPL(bman_is_probed);
+> 
+> @@ -279,7 +280,8 @@ static int fsl_bman_probe(struct platform_device *pdev)
+>                  return ret;
+>          }
+> 
+> -       __bman_probed = 1;
+> +       /* Order bm_ccsr_start, bman_ip_rev and the pool allocator before the flag. */
+> +       smp_store_release(&__bman_probed, 1);
+> 
+>          return 0;
+>   };
+> diff --git a/drivers/soc/fsl/qbman/bman_portal.c b/drivers/soc/fsl/qbman/bman_portal.c
+> index 4d7b9caee..056fe3fbb 100644
+> --- a/drivers/soc/fsl/qbman/bman_portal.c
+> +++ b/drivers/soc/fsl/qbman/bman_portal.c
+> @@ -90,7 +90,8 @@ static int bman_online_cpu(unsigned int cpu)
+> 
+>   int bman_portals_probed(void)
+>   {
+> -       return __bman_portals_probed;
+> +       /* Pairs with smp_store_release() in bman_portal_probe(). */
+> +       return smp_load_acquire(&__bman_portals_probed);
+>   }
+>   EXPORT_SYMBOL_GPL(bman_portals_probed);
+> 
+> @@ -157,7 +158,8 @@ static int bman_portal_probe(struct platform_device *pdev)
+>          spin_lock(&bman_lock);
+>          cpu = cpumask_first_zero(&portal_cpus);
+>          if (cpu >= nr_cpu_ids) {
+> -               __bman_portals_probed = 1;
+> +               /* All CPU-bound portals are initialised and in affine_bportals. */
+> +               smp_store_release(&__bman_portals_probed, 1);
+>                  /* unassigned portal, skip init */
+>                  spin_unlock(&bman_lock);
+>                  goto check_cleanup;
+> diff --git a/drivers/soc/fsl/qbman/qman_ccsr.c b/drivers/soc/fsl/qbman/qman_ccsr.c
+> index aa5348f49..b46cfb964 100644
+> --- a/drivers/soc/fsl/qbman/qman_ccsr.c
+> +++ b/drivers/soc/fsl/qbman/qman_ccsr.c
+> @@ -711,7 +711,8 @@ static int qman_resource_init(struct device *dev)
+> 
+>   int qman_is_probed(void)
+>   {
+> -       return __qman_probed;
+> +       /* Pairs with smp_store_release() in fsl_qman_probe(). */
+> +       return smp_load_acquire(&__qman_probed);
+>   }
+>   EXPORT_SYMBOL_GPL(qman_is_probed);
+> 
+> @@ -864,7 +865,13 @@ static int fsl_qman_probe(struct platform_device *pdev)
+>          if (ret)
+>                  return ret;
+> 
+> -       __qman_probed = 1;
+> +       /*
+> +        * Publish the flag only after every store made above (qman_ip_rev,
+> +        * qm_ccsr_start, the FQD/PFDR bases, the work queue) is visible to
+> +        * the consumers that poll qman_is_probed() and then call into
+> +        * qman_set_sdest(), qman_liodn_fixup(), qman_alloc_*().
+> +        */
+> +       smp_store_release(&__qman_probed, 1);
+> 
+>          return 0;
+>   }
+> diff --git a/drivers/soc/fsl/qbman/qman_portal.c b/drivers/soc/fsl/qbman/qman_portal.c
+> index 456ef5d5c..181c0f373 100644
+> --- a/drivers/soc/fsl/qbman/qman_portal.c
+> +++ b/drivers/soc/fsl/qbman/qman_portal.c
+> @@ -175,7 +175,8 @@ static int qman_online_cpu(unsigned int cpu)
+> 
+>   int qman_portals_probed(void)
+>   {
+> -       return __qman_portals_probed;
+> +       /* Pairs with smp_store_release() in qman_portal_probe(). */
+> +       return smp_load_acquire(&__qman_portals_probed);
+>   }
+>   EXPORT_SYMBOL_GPL(qman_portals_probed);
+> 
+> @@ -251,7 +252,8 @@ static int qman_portal_probe(struct platform_device *pdev)
+>          spin_lock(&qman_lock);
+>          cpu = cpumask_first_zero(&portal_cpus);
+>          if (cpu >= nr_cpu_ids) {
+> -               __qman_portals_probed = 1;
+> +               /* All CPU-bound portals are initialised and in affine_portals. */
+> +               smp_store_release(&__qman_portals_probed, 1);
+>                  /* unassigned portal, skip init */
+>                  spin_unlock(&qman_lock);
+>                  goto check_cleanup;
+> 
+> ---
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> change-id: 20260921-mb-qbman-84f56ef0f84c
+> 
+> Best regards,
+> --
+> Jaidev Shastri <jaidevshastri@vt.edu>
+> 
+> 
 
