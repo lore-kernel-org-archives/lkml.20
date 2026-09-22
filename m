@@ -1,163 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F4152CCDD;
-	Tue, 22 Sep 2026 12:18:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11420542ED1;
+	Tue, 22 Sep 2026 12:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079535; cv=none; b=n5T4hlkl8GDKsvy6r8JlUaecJsxx9B4FMdocA1FllIVU3vlzKLfxdT0ZY+eGJYvWP1MEfPg2TCk+z45x/pl20Bp6hok60mIo7R2VX6zNOaNxxanJxFKl57QTKlPXscfOQ3CoP1hMHXcXueJkw1tqMiH7djRkIEmaiZG7WajIQT0=
+	t=1790079539; cv=none; b=ZT702/dlu0O9eSv6jZ6HeqotPs+ZVLyZUQeY0MHs3rsUkBPKOEH/Ax39V6IBIIWg7E4kSNZaLN8jRWkhRhQRo1lPLSYZXh6tzKBzRWjDRyAhNBek52y3cXb4GvhJzQFheb9BiEGegNuorCH7xF0CAyocDTeyjIwXpZbTH1YuRcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079535; c=relaxed/simple;
-	bh=IhVHYuh708wIgCRXNQ++esuYVAi1rvWzhiAREt8f/3M=;
+	s=arc-20240116; t=1790079539; c=relaxed/simple;
+	bh=l5RZcKg+LbYgBEC38tBWMYTL90wiPcpCp/KCZSxeShI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BBTp1ejaOuHT7TytW84mvUbfRJkp+B8xEw8e+fMdeGWz/f7gyQ/0BxqEug7n1IlMrs07BY9IxWkRY8h4lK9GDQA1aljV0/rvujS1aJ+ZAk+LTm3hODYCJLh+cF7J1Z8YFVCjV75RuV1hu2Bjf8a2SIY+BTaqh1CM0GrG0NQOzAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TPUo9dAd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gJ8lmrf5C2QlOGLaSJxIzTEgDx1p8LpM8Rxy8sQBz3hxW2Ylx8LqZW56ZEe3fbuNFaLCAeBBDrtY6586QVN2VsHAYy0/ZiUGl3GF5buHZNpznLJBQ4GGd3bj8Hosg/qFLamMb6WZUQbfH12HJw34v3Fy7yudrH+NB/b+6ph7UPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HqFu3q/p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TPUo9dAd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84C91F000FF;
-	Tue, 22 Sep 2026 12:18:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HqFu3q/p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFE51F000FF;
+	Tue, 22 Sep 2026 12:18:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790079534;
-	bh=4M++b2C/tawZhIyaIO/1xeaH0HPHV7NcaX36JloMDQU=;
+	s=korg; t=1790079538;
+	bh=2CErJxI8kyBH6yMs3SPQRJ1NFZT9+yN4VflkNoKBvRk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TPUo9dAdOCPzqp3HzDUJEpJVbFSj49xi2Ayf9zXIZgXd1ui24qH1bHqMHOMxAxoCz
-	 Fwb3pQG7E0Se9a7M5bmpTXrBI1J/Gnu+blFBSIQFsElt2KgTrtrSXDFhEn3cPsJrp+
-	 Ro0dd+xyjWnamyA+0i015UhlCp0mtxpNSm54/n+M=
-Date: Tue, 22 Sep 2026 14:13:13 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Weili Qian <qianweili@huawei.com>
-Cc: herbert@gondor.apana.org.au, wangzhou1@hisilicon.com,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	huangchenghai2@huawei.com, liulongfang@huawei.com
-Subject: Re: [PATCH 1/2] uacce: add device usage sysfs interface
-Message-ID: <2026092235-unfrosted-concept-4bd9@gregkh>
-References: <20260921075131.1062155-1-qianweili@huawei.com>
- <20260921075131.1062155-2-qianweili@huawei.com>
- <2026092125-define-unit-ac52@gregkh>
- <fd71cb7c-b9da-5cd9-c52e-ee287923073b@huawei.com>
- <2026092205-wrist-growing-0f04@gregkh>
- <d171b247-bcd3-bffe-ec74-4ae2df4faef5@huawei.com>
+	b=HqFu3q/pviOh3Oc6Q8MqNEDMW/AVtEW5lj6PEBuc9jg3zmaDBK+B/gh1SQspCGgBQ
+	 ggBEwxbrvfcsrXbfn6vmXjVSsOI9VK5lq0W6Fv/uKRIa1dPppbujzfHpDFh3vuejmG
+	 aaExi+2JBCoFx32lljQzNZVb8eghX74k7pM4wLL4=
+Date: Tue, 22 Sep 2026 14:13:58 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH 1/2] driver: core: Allow drivers to opt out of
+ driver_override
+Message-ID: <2026092227-marbling-untying-c1df@gregkh>
+References: <20260922-driver-override-opt-out-v1-0-58c35ded3b83@nvidia.com>
+ <20260922-driver-override-opt-out-v1-1-58c35ded3b83@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <d171b247-bcd3-bffe-ec74-4ae2df4faef5@huawei.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922-driver-override-opt-out-v1-1-58c35ded3b83@nvidia.com>
 
-On Tue, Sep 22, 2026 at 07:57:14PM +0800, Weili Qian wrote:
+On Tue, Sep 22, 2026 at 01:38:28PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
 > 
+> Some drivers rely on device data obtained through device ID matching and
+> will not work otherwise. Some such drivers don't check for the validity
+> of the device data because it is never NULL when the device is matched
+> against the device ID table.
 > 
-> On 2026/9/22 17:21, Greg KH wrote:
-> > On Tue, Sep 22, 2026 at 05:11:55PM +0800, qianweili wrote:
-> > > 
-> > > On 2026/9/21 16:12, Greg KH wrote:
-> > > > On Mon, Sep 21, 2026 at 03:51:30PM +0800, Weili Qian wrote:
-> > > > > Userspace has no way to query the runtime usage of a UACCE
-> > > > > device; it can only be inferred indirectly from queue state, which is
-> > > > > neither accurate nor uniform across drivers.
-> > > > > 
-> > > > > Add a read-only dev_usage sysfs attribute and a get_dev_usage callback
-> > > > > in struct uacce_ops. A driver implementing the callback writes the
-> > > > > current usage as a percentage (0-100) string into the caller-provided
-> > > > > buffer and returns the number of bytes written; dev_usage_show()
-> > > > > appends the trailing newline. The attribute is hidden via
-> > > > > uacce_dev_is_visible() when the driver does not provide the callback.
-> > > > > 
-> > > > > The corresponding ABI entry is added to Documentation/ABI/testing/
-> > > > > sysfs-driver-uacce.
-> > > > > 
-> > > > > Signed-off-by: Weili Qian <qianweili@huawei.com>
-> > > > > ---
-> > > > >    Documentation/ABI/testing/sysfs-driver-uacce |  9 +++++++++
-> > > > >    drivers/misc/uacce/uacce.c                   | 19 +++++++++++++++++++
-> > > > >    include/linux/uacce.h                        |  5 +++++
-> > > > >    3 files changed, 33 insertions(+)
-> > > > > 
-> > > > > diff --git a/Documentation/ABI/testing/sysfs-driver-uacce b/Documentation/ABI/testing/sysfs-driver-uacce
-> > > > > index d3f0b8f3c589..3e4af4c1e5a9 100644
-> > > > > --- a/Documentation/ABI/testing/sysfs-driver-uacce
-> > > > > +++ b/Documentation/ABI/testing/sysfs-driver-uacce
-> > > > > @@ -55,3 +55,12 @@ Date:           Feb 2020
-> > > > >    KernelVersion:  5.7
-> > > > >    Contact:        linux-accelerators@lists.ozlabs.org
-> > > > >    Description:    Size (bytes) of dus region queue file
-> > > > > +
-> > > > > +What:           /sys/class/uacce/<dev_name>/dev_usage
-> > > > > +Date:           Sep 2026
-> > > > > +KernelVersion:  7.3
-> > > > That's not going to happen here :(
-> > > I'll change it to 7.4 in the next version.
-> > > > > +Contact:        linux-accelerators@lists.ozlabs.org
-> > > > > +Description:    (R) Current usage of the device, reported as a driver-defined
-> > > > > +                string of up to PAGE_SIZE - 1 bytes. Usage is expressed as a
-> > > > > +                percentage (0-100). The attribute is hidden if the driver does
-> > > > > +                not implement the get_dev_usage callback.
-> > > > > diff --git a/drivers/misc/uacce/uacce.c b/drivers/misc/uacce/uacce.c
-> > > > > index 45521d4a56d1..545ba35a590b 100644
-> > > > > --- a/drivers/misc/uacce/uacce.c
-> > > > > +++ b/drivers/misc/uacce/uacce.c
-> > > > > @@ -433,6 +433,20 @@ static ssize_t isolate_strategy_store(struct device *dev, struct device_attribut
-> > > > >    	return count;
-> > > > >    }
-> > > > > +static ssize_t dev_usage_show(struct device *dev, struct device_attribute *attr, char *buf)
-> > > > > +{
-> > > > > +	struct uacce_device *uacce = to_uacce_device(dev);
-> > > > > +	int ret;
-> > > > > +
-> > > > > +	ret = uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE - 1);
-> > > > Why can't you use sysfs_emit()?  That way you don't have to worry about
-> > > > PAGE_SIZE, and you don't have to do:
-> > > > 
-> > > > > +	if (ret < 0)
-> > > > > +		return ret;
-> > > > > +
-> > > > > +	buf[ret++] = '\n';
-> > > > That type of thing :(
-> > > > 
-> > > > Also, you got your math wrong above :(
-> > > sysfs_emit() is useful when the framework side knows the format string
-> > > upfront.  Here get_dev_usage is a driver callback that dynamically
-> > > generates content -- the format is not known to the framework, so
-> > > there is no format string to emit.  Having the callback write into a
-> > > temporary buffer and then sysfs_emit(buf, "%s", tmp) in the show
-> > > function would just add an unnecessary copy without gaining the
-> > > overflow protection that sysfs_emit normally provides.
-> > Then that is going to be a mess, sysfs files should be in a consistant
-> > way, don't have random formats for the same filename depending on random
-> > hardware types.  Use different sysfs files if you want to do that.
-> > 
-> > And this is just going to be a single value, nothing complex, so why do
-> > you need a callback for that?
-> A single device may run multiple independent algorithms in parallel
-> -- e.g. the HiSilicon ZIP device has separate compression and
-> decompression engines whose usage rates are independent and cannot
-> be aggregated into one meaningful number.
-
-Then that can not be a sysfs file, as sysfs files are "one value per
-file".
-
-> Following your suggestion of different sysfs files, one approach is
-> to expose one file per algorithm.  Each file contains a single int
-> (0-100) formatted with sysfs_emit(), and the callback returns int.
-> But the number of algorithms is driver-specific (1 to 3 in the
-> HiSilicon drivers), so the framework would need to create attributes
-> dynamically at registration time, which adds complexity.
+> However, Uwe recently pointed out that drivers always need to check this
+> device data because any device can be forced to bind against a driver if
+> their driver_override sysfs attribute is set and the driver rebound. Any
+> such device will now not have device data from a device ID match table
+> and may crash.
 > 
-> I'm not sure this is the best approach.  Do you have a better
-> suggestion for handling this case?
+> Add a flag that allows drivers to opt out of the override mechanism when
+> it doesn't make sense. This allows us to deal with these situations in
+> the core rather than sprinkle checks throughout all of these drivers to
+> check for validity of the device data.
+> 
+> Cc: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+>  include/linux/device.h        | 12 +++++++++---
+>  include/linux/device/driver.h | 12 ++++++++++++
+>  2 files changed, 21 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/linux/device.h b/include/linux/device.h
+> index 90cdd77458bb..45c23cc5efa8 100644
+> --- a/include/linux/device.h
+> +++ b/include/linux/device.h
+> @@ -899,14 +899,20 @@ static inline bool device_has_driver_override(struct device *dev)
+>   *
+>   * Returns > 0 if a driver override is set and matches the given driver, 0 if a
+>   * driver override is set but does not match, or < 0 if a driver override is not
+> - * set at all.
+> + * set at all or the driver opts out of the override mechanism.
 
-I don't know, just don't violate the one-version-per-file rule AND
-always have the same type of data in the file with the same name (i.e.
-don't have a file that can contain different types of data.)
-
-This propose api seems to violate all of that, so I wouldn't recommend
-it at all.
-
-Why is this info needed in userspace at all?  What is userspace going to
-do with it?
+What's wrong with just not allowing bind/unbind at all?  Why would you
+want that, but NOT the driver_override file?
 
 thanks,
 
