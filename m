@@ -1,72 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4078544D57;
-	Tue, 22 Sep 2026 12:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D11A5448A3;
+	Tue, 22 Sep 2026 12:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081402; cv=none; b=iVoRNxSMSS2O+QBUpA3aPFjeo3w81EggNAOE7sIu/4nZiJr8SwzuxPFf3MKUARFGJoflwKWrUZt51wKEKx+4BVEqg4diUoKgq3g6m/NfJOGo+KXSEN2PCiYBM5SRo6jP7Lw2iqNgYU2dqmVn2AJcaS0PGg1x5y5ls0AxHRR5gGk=
+	t=1790081420; cv=none; b=u3JOi7OIJ2kLkcRVYgsTgcAFBN3Ysu2LXxk35/Gb4+EcBsVt/Dj5T5KKh7uXqoDlvFXhC0apJQ6OiUdbgQEfC8h31P/jUGpIjQ6SJihZ9Ku76TyyQRCfw79E7GfFv0sjrFx5KbWk+DqBwMJ82pkUJMiICAH6T1e7Qks5g488fQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081402; c=relaxed/simple;
-	bh=U61nrlf6Rzr9P45390+WWOxofv7eccqWssOJ/x8m2JQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=MXnZ++w7UfuhnC1PNeODz6GNy5K6v0fR9axsbhoAi+4jVUU8x6mx3eLQ/pfgw/OlOG7BALYR3Bi95yHo36l/kuCPNEjCJKTCpsVn7Ug0P2yv1s1NzAO7cWJcS0NexsAfa1FHVgpZP/RTZCvbg7cVtHcp3Ar36oaKcqC6Lo4LMew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b5rLmd5b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790081420; c=relaxed/simple;
+	bh=3GHTJrgcGpWkQfsap4SwWOsGxwKhu+V/arurGwl6nIU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Rfx2OmWaYsik9sYCgBfulzi25O0M4sIDb6Cy2r3oYIMcqW9or2rp06cP+uIf955zhIfpf7QQk6MW1rgzs85ZvwIotwH+XhNbFN0T1150BdRS7IDvit1QyGi/QRacrhU9TztaJNm/bm9/rkkm0jL16tZKLiz+c7JgviTQjy4t0ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SMWmOhVc; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b5rLmd5b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314C31F000FF;
-	Tue, 22 Sep 2026 12:49:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081400;
-	bh=zA+GCqss1BJt2eyEGaNbn9BPABpPtcuxg8nHLoRtwIY=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=b5rLmd5bWxK5MhXoiYJT/vrxWKDUIQG9wU9NmlecSLJNiy50dmDpiP5HQ1qCkFAbO
-	 xahaUPwLJ3+jghJTj8Lcw5eZxlEiZB9Cvbj0PbaadZGfIm6HL5HnYyxG+YC15KIwEI
-	 5A3vNKw6c+9dq2c8rz1exSDfK9GFqCSktwrHOeBmXlqnA6JU1spy6CEk++lkSbzNtX
-	 Z1/7CQaOJLt5tKp8PSyY2GLQfl3d1uTPPuEhNs2TeKgGX8sM7SXrPE4hSCLYS446ki
-	 VghH/5KIkvUoO5tvWFskqHTHGghkqobAgr5boT72RCG6PeC3SMAsnleQYvRYQvjI+y
-	 /2TCAUes5w0Jg==
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SMWmOhVc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id D7190C5CD71;
+	Tue, 22 Sep 2026 12:51:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 20F0160580;
+	Tue, 22 Sep 2026 12:50:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 645F4103289FC;
+	Tue, 22 Sep 2026 14:49:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790081409; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Pp7mzsLIsbavEPfem5dhuoLyc27UEuONp1Ueoff5SSI=;
+	b=SMWmOhVcC5GkK+X8WZA70hvKKa1Ea1wfG8B8tKZVFCR7esnlKTgnDlY00+AKd/7poPloHR
+	lR4szN4Oz0HMmVM7SP1/j32iV/h2Uq917H6w8dkEjAohMivLHrGDR8Fw+6fUzrnnKNxdjQ
+	4xhNMo2FEdhN08NkltOWX+XkLxiMMc7ufK5UWQhsAdd6lR3tGFmyCoD2TZgRrFK+0I1xcn
+	TURJ6ab/JM9OX1x7Ch01AlIaPajCgUzc6U1MwPCAnwjSMPy8y4AEVW2IeKXCqscj2IIPXj
+	vEq7eaXP0k8jH2rJO/Cw8oKlRfsmb2MZuRrwyqrTY9XcfRn6NR8FbuDvLmERog==
+Message-ID: <033fc935-c37a-4b0f-8b79-68248e45da8f@bootlin.com>
+Date: Tue, 22 Sep 2026 14:49:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v16 00/12] net: pcs: Introduce support for fwnode
+ PCS
+To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev, Coia Prant <coiaprant@gmail.com>
+References: <20260916235200.20712-1-ansuelsmth@gmail.com>
+ <20260921135933.7e8857ba@kernel.org>
+ <CA+_ehUwy9RUKCCHDnqoED3AMVnErgGr9RCrCR4ceg5QONq1wOQ@mail.gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <CA+_ehUwy9RUKCCHDnqoED3AMVnErgGr9RCrCR4ceg5QONq1wOQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 22 Sep 2026 14:49:56 +0200
-Message-Id: <DLLUW8UZUU4G.3FX7WHWGVM1T4@kernel.org>
-Subject: Re: [PATCH 1/2] driver: core: Allow drivers to opt out of
- driver_override
-Cc: "Thierry Reding" <thierry.reding@kernel.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Jonathan Hunter" <jonathanh@nvidia.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-pwm@vger.kernel.org>, <linux-tegra@vger.kernel.org>, "Thierry
- Reding" <treding@nvidia.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260922-driver-override-opt-out-v1-0-58c35ded3b83@nvidia.com>
- <20260922-driver-override-opt-out-v1-1-58c35ded3b83@nvidia.com>
- <2026092227-marbling-untying-c1df@gregkh>
-In-Reply-To: <2026092227-marbling-untying-c1df@gregkh>
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue Sep 22, 2026 at 2:13 PM CEST, Greg Kroah-Hartman wrote:
-> On Tue, Sep 22, 2026 at 01:38:28PM +0200, Thierry Reding wrote:
->> From: Thierry Reding <treding@nvidia.com>
-> What's wrong with just not allowing bind/unbind at all?  Why would you
-> want that, but NOT the driver_override file?
+Hi,
 
-pwm-tegra is a platform driver, but for drivers on hot-pluggable buses we s=
-till
-want bind/unbind for testing, even if we opt-out from driver_override.
+On 9/22/26 12:12, Christian Marangi (Ansuel) wrote:
+> Il giorno lun 21 set 2026 alle ore 22:59 Jakub Kicinski
+> <kuba@kernel.org> ha scritto:
+>>
+>> On Thu, 17 Sep 2026 01:51:26 +0200 Christian Marangi wrote:
+>>> This series introduce a most awaited feature that is correctly
+>>> provide PCS with fwnode without having to use specific export symbol
+>>> and additional handling of PCS in phylink.
+>>>
+>>> At times there were 2 different implementation (this and the one
+>>> from Sean) but Sean agreed that this can be picked and used in favor
+>>> of his implementation as long as his case with race condition is
+>>> correctly handled.
+>>
+>> Looks like the review for one of the patches failed so it won't be
+>> emailed out:
+>> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916235200.20712-2-ansuelsmth@gmail.com
+>>
+>> Are all of the issues invalid?
+> 
+> Only one is relevant, but expected.
+> 
+> The remark on the fwnode patch are invalid. The driver is expected
+> to return those error as probe defer is not supported.
+> (a notifier and late attach/detach is used to align to phylink logic)
+> 
+> For the specific Airoha PCS driver it's really speculation from the AI
+> but HW doesn't work as described by AI.
+> 
+> The only real comment that is valid is about the alternative way
+> to give supported interface with the .get_capabilites OP.
+> 
+> This is currently not supported as there isn't any user and it will
+> be implemented as soon as there will be one. It's really to limit
+> the patch delta of this change and to progress further.
+> 
+> Maybe FIXME might be suitable?
+> 
+>>
+>> Once the AI review is cleared, some human will have to review this
+>> and vouch for you as a maintainer. Better still be your co-maintainer.
+> 
+> I think some revision ago there was Andrew that reviewed some code.
+> Anyway thank a lot for checking this once in a while, I feel it's a pretty
+> important change but I understand it's complex to handle as it does
+> introduce a whole new subsystem.
 
-Besides that, I think that even for buses that do not have hotplug, there a=
-re
-cases where it can be useful to be able test whether a driver survives
-bind/unbind (i.e. follows the device driver lifecycle rules). E.g. because =
-the
-same IP will later receive an implementation on a hot-pluggable bus that sh=
-ares
-driver code, or just to validate driver design in general.
+I'm attending a Rust training until thursday, I'll see if I can squeeze in some
+time to re-test on mvpp2 :(
+
+There're a few series pending for rockchip and S32 on stmmac that deal with
+PCS support and their PCS handle. It would be nice to have some stmmac glue
+maintainers that are using complex PCS to help with maintainance or at least
+testing, maybe Coia can help with the tests ?
+
+Maxime
+
+
