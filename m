@@ -1,160 +1,183 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4901CAAC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:09:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39754343896
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.233
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790039391; cv=pass; b=PlhV8/loEKClBNIEGV/zKS3vGat48T47PlPkDq2j6FcqOZZ3ej9PqH2dX78s/85f8IhrTPex/1uFl/AU/Dmb4aYtCIM/zKMVZcBcEzFh+F2aHdYqAKwxZtCNy8Sni0O0pJZbbLjDk+UALrHV+tuf7JcfQ9EqSGAhelfjSZ5W7SY=
+	t=1790039443; cv=pass; b=LQEapLvhTZFAzOYjFIScT4blnDyz138toDFhIawAM2ZSg4QZBo3KbS7gJNE2+mbQszBZn5FTy+KGZIBQRwvzHK2p4j67Kwkr4CbuWm9pvjVv77XCL0cuyIi+HIESgRNP8dRiPOFDLTbzNpsNr4xybt4Jx02XpfgywCTknpylwcg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790039391; c=relaxed/simple;
-	bh=ezXLVRbb+zxHqJCqPHjFaHsQnF2TTsc2hryxULy4MnE=;
+	s=arc-20240116; t=1790039443; c=relaxed/simple;
+	bh=rDphcxVK0cLwUUna1tpHZp2v6qK6oFhLgiPUmxWlUKc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZZpNdwFT1ijbot9qoIu+0bgX6dcFA4ImwgzAD+l2zS5vhI92Op6KKnar/ho0wCfzBelD0RWAatni3ADTR+G7hXU7GEVPrv/ie87x7NO7WNh/I7omSKMZn7+M9OHx1jTk4NVEnYZZLoCDRsEMVHIHNJk/pf6h7nIhrqRD5d3Ydek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UJzR/CSk; arc=pass smtp.client-ip=74.125.227.140
+	 To:Cc:Content-Type; b=m0lLfGGE0BHRVRMpiAysvadCturrbwwWSLlHR3EtIsfZfmNPnuUoaAnY6ZxCtW6jM2aOmSg6m10aNV5xf8PzQpKYARsUPJ1Q9VvROiS93wcXgnmNvuVk1xZDkMSYhqE584Fj2iHYT9Yt0zd4AVEyJ1eLaSF3wr2TRRKVIB6QF9k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Pwdcy2NN; arc=pass smtp.client-ip=74.125.230.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UJzR/CSk"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so3136992a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:09:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790039390; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Pwdcy2NN"
+Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-532d63f434fso11765921cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 18:10:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790039440; cv=none;
         d=google.com; s=arc-20260327;
-        b=G+yz7ShQ+xvvx3bN338kY2rvN6ID2sfhGSlRwf+peMkrHDcA3LlrxkM8kSJxBJhiz9
-         Bffg3tkrDJYgvwR3vN4wPoUzEidFOkhPMOpW7cWGfUdCI5YxI1TFjO7pXyK4hpsHLRvE
-         vhUSMG7qAWD29XrmHr5jntzygAkEQKrYvaaPPbetG/hffynzteKPyWz5AKHngpewcZhd
-         8X8oPCLOElJbb83Z1Zlm8bwUv9sh1W1nb6QNXaHUzTNRi7X8or59VQIUZ32VZw7DChcc
-         MZ4nwu1ggBD2tRZQhXJb9/LXeS3h7r8x4qgmurLG/yiwncupz0YrAGEygV80BNvs6sKJ
-         F78g==
+        b=LoVKQTk49h8oR26/EnC8OLAgIvq/2P42IC6YeVTk/Uc6G3aHTCIqXJlOiaf4LUio7k
+         ioSOoSqI8h0WH1RQ0x3PUfO1JaDjKM8kZg0EwkP3pBxV8KRyFKRPS9Df7N6EFubg1lX8
+         PHMj7RR30XtJImSMNgw448h7YWb5bMcy2Scs0kNYo+kHlWkPuoe/1ZhSpCqsck6Nl3hf
+         +Rjli0FR0f1FoFNTgCBm2fEssyXfgJmDtS9PKyCZCUNuAnemOO11r/pHYNceFSuyBCYu
+         4UUn28B8Zg7QlHTyw9MTcXFSsqApnPJQmjbb10WwwDTK6EEpq8kGICSmvSlYzjns+Qke
+         VnAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=UUDOXujiqW1xrz8MTucaL1Wl15NF7Mgdmm64Na8Rt60=;
-        fh=ZNF5A8LIp4167h8Qhrzjc3SUfffoVq6c0CvHTgcDwpw=;
-        b=jfuskFtYL/ogVVwyxUKxM++eRjIO+oQpZuYX1ZwcyFdUYquSog6sYh4oWy2cyrSIV8
-         ECgs4L5Z6cmEOgJd2ZLtRwGpw17QOiPNXvL63Bl4f0Z9GXxE6VsyXl2O3/UEbvFA4S34
-         zOLbS0cDnL4/1FsPty8sRAoW8jSnhpv0hC30zs6SjMznOjnnnOokIKm+pbjcJpyjj5GP
-         dxXI7kfni8Ja/ZlPa5H+frcRL9iyUJ+RPeudHT7Ma4cLMkBxydYeKTQindWEar/foMu1
-         ZejXJizILBB8Zir/6FF7c9Usxn+4ZpB19NoPk1SjfNsLYZsAwCShvqQdoHZ4FkGoCSS2
-         SfPQ==;
+        bh=u6Z2U4vAuJb/VjzAk0+RtK9FDIXwMhOB79JAT2yh+ek=;
+        fh=kmjGLDX8xQjzbEvQnJtD+/BTpeMfnjc47Gwt4x0/euM=;
+        b=qk69i8XvvK3jDxgm8IELYa9rYmy4DpY7J/Nnuhsu1UX0VDdgDsTgsGC9YwEQuSN/9S
+         ru325oellyTFq3nd5SvDQBVVt662f4fAQVq1WAqUlmtuvqKJfx7Yo9ngxfx5DfPLyYfv
+         kDd0oc7uVgUlF0dhTzPg+BmI2ATotdP26vWyvO8HyymX4r1ZSyZr+t5fDt/bDaq9Io/y
+         Ip1VEDNzD6Z30MLbN5alg2ZJMquFu315yfUuARSOETV2R1KECkT9qqT3GtAia5rSGA2x
+         l4sfWD+PkIcrTQsl2T6ag0oZ4MDq11kSx+R+4vRQu5+oz5rSgvw7tM/1B/fqB1AzVV3Q
+         CGTA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790039390; x=1790644190; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790039440; x=1790644240; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UUDOXujiqW1xrz8MTucaL1Wl15NF7Mgdmm64Na8Rt60=;
-        b=UJzR/CSk+/f95mo33UQeMKx0O3Z1fL9eBoUL9lszGvJNtPJQGnFsof6zlROGOtUe1m
-         Eqy8jBMz3RjLLj+8Ebty3XQitghXOisu15C9tQQsGu+HwDjXLFDrWOkk0lu6xWcXB6xC
-         QouKMfKF8WHdwqwXCpltebRfJTq0AcAUNPl4yvOmjbzyqiK1kzp0qXhrggRKYBve4gnd
-         1hrzezPtzEkgzFSwAolTZNWuI5DzGoxLh8Ej3q2tOGdYU9XQ9OiIqOJ+lUwDFTaOZsVu
-         SkDkcB/h2GRZapQEJ3sB/vs0JWoew/FpfMFTgtvcOWziDVWaNh+PAIr4k4S+LRj8ncRs
-         Cr3Q==
+        bh=u6Z2U4vAuJb/VjzAk0+RtK9FDIXwMhOB79JAT2yh+ek=;
+        b=Pwdcy2NNDsW68Ziqg7g4ty/PdMAiuuHbk/aIZAm6lGfMCPaFAtMh+U0mlB1CLqDdRV
+         W6MgrQYDcRCm+uvFXHNVE5iXZbLUzUkQQITRAeu+ZromRa9bO2Cu5+jPqGmIMc3fs9cV
+         f3f0vr6CPkQeFtlnyhKRUjDzg/TPdffJo8NMCAeRoYd/bXMBqh6NXjg9ShOkiZS9Iyb2
+         LFDaKICi8PC5x6qK90BcIUstjzncpvf/P6Jm1Rbdh8IWwlDL5HoCTmDfTUy3FA33XPvd
+         oT9K6jAIJpz3hF6049rnJUNLS1gGDoByMrLue2SYByZzHwXU60k0jcnEZjovkUCq2Mki
+         WjyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790039390; x=1790644190;
+        d=1e100.net; s=20260707; t=1790039440; x=1790644240;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UUDOXujiqW1xrz8MTucaL1Wl15NF7Mgdmm64Na8Rt60=;
-        b=Skyq/UkUAWg4Eu9KhXfGS0poUZO8c+QvNlWa+26JDJj3HYrg3EsMa7q8vDHkRP5gdz
-         Ba+JrKSEMFY5P/efOraRiSEtbL295QiXeh0yQCC09xZO2IFjDtFoHjjnjIneRBSYJOxt
-         /de4Y5Mu7slA/KFveW3YiLu+I0cOabfY/doN1jwdGsvu1tc/6eEH6Q6priotjWxcItV5
-         xpgHsYTutnwd9syUMCrFDbMThI/P2icNUgsiPdVrKc7JwoCG6U628DlYvQJeZpLpuTwz
-         o3zQsUHwKcoUTJrzfEV1z8E61S1GhPz5ZQzqHWzbGaG3rk05nBW2xkFhdQx8xcTVkPGp
-         4BaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzyBTThJVp6en4SnCMALwVm1YGeGzWPJy+WfkWZ//8nOEma5ZHO5hDjtHTPRXWh3vHJ8146QzMG/Xrll0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHtB7tomGsKtExHXNy42rgRwXIpiibZzWB3DaJBYFWlMYOh0we
-	l4FJ9e642jJcXIaF9ZybPYl5fEHTxNqa+PcgyYJYkLlaLdRJyGCHIaUA0Y97cZM3V8O1YdolGFy
-	gKhZdQLKmHiEN7iZbW5B9xEKhbUmV6etLAEeKChin
-X-Gm-Gg: AYBFou1czerFp/IQ64qHWpOTmhIPU7tt7lq6TNNR9d4htyS67CYITIc2WWBz8Yefr7f
-	j7pOwm3s1JTsc+zkvvysMxwlPzeC1GIDeUdXWWzghYpW/8WJA8+En36D5MymHj3Pa8I9BOm5PF1
-	aZfCp+xYJdY/e5yhAckoGp7bFiX9UbFnB/9CU6+rtdbHbKq0dYu7ONeCQkTnXsA88SpQgVBSc7n
-	VnitmGNyw2Yeh2l2fVHd1hgqK2hD34wqDkjKAbaEfLNMi0/v6rxXegz36vuYvUivKMs6PAgPepT
-	BX2g4Z560bTLwfVWtCEdJRqpaao3R9/FHj0dOxikBA081hWsQk+ZgnGvSYVQOU9/K4gwad3Yy93
-	T6SSpnQLyu1HbXjSpwKeKF4KOWZOg7dfn6tMJot7/lzs/2liRHvdumeytzqR+0kV/sxP4
-X-Received: by 2002:a17:90b:2681:b0:39e:6c6a:657d with SMTP id
- 98e67ed59e1d1-39e6c6a67c0mr12045871a91.64.1790039389045; Mon, 21 Sep 2026
- 18:09:49 -0700 (PDT)
+        bh=u6Z2U4vAuJb/VjzAk0+RtK9FDIXwMhOB79JAT2yh+ek=;
+        b=DrObQClUOMzpJ+Jx9CVScNBqY67kQUhoyfcWWto0+5hHoVvV02SC3jG9z5LQT4clmp
+         hszM+hgLkq6CHmpDuBKYI+qF9B4YT/ERTKOw7wKUkG7tciOoLPIzeJ0TCKJS9h2THPJT
+         rgibBm0yDrkWQnrAroB6wut5nrfE+XKF2hY7iMfDGgDMddF3Av4jCXlcWCGhH/g1cb0a
+         OIrAYTMyUV/+SXlCQFahXVVcY1+NWxoQ9TXuE/JjVGl4B/END8s6NLDkBEVjot0B+bvi
+         30hL3D1IN6sDOAmoRtvz5+nule3zCpa/MlPzwpb5SSk/bqEI0F3Di89NA4HPailzMsAF
+         Y+8A==
+X-Gm-Message-State: AFuF++mtKadxRC05UZmJH9stTT0A+nPbdGulr3Kb+DCH32KmaaxdZuxH
+	so0VpH9FdVvEbw+lUvlmSipfikFScKbOhtDCQzg1/IwwFKlTZUrVwdYFov4hzXBc+VxplkSCO8T
+	BZOYYTxOtNtXYEANWDzDeMg8/sS9sTeP6PoOSBVNj
+X-Gm-Gg: AYBFou3osYQ6UeGd3QvtRhZGbTPfKh6dlPImGwju4NHpceH4a5kD6fPZrZOox4VztnO
+	rJD700Lr4p1+UeMJGFbF6BuQBzE5SeEdIABbXD1F8YB7dA/keQ8nNvXj5p1Mg2yIQOy0OuskJl/
+	nGkVFZbaTG/shhpW7VqzKWSNi1w5YVNDBrANNoYD9TIbrVOLsFnzbdR4fkpuy9F374OQZ5BdKzp
+	jdebrOM9CVMlbtQH9361BQCAFKuAdAtpXYRRpK7eFWG2Vx10fNRLJddQ11disNV7IITf1PNHPlb
+	K4Ht+OKPpEO8936wbOkehRs4/fAxeM+3XOvmQ+2o3twnCYWr33Ra1HTVR6mDdfQzo6RQiZPmOx3
+	GLVrq8vpZ7znmXVklFxxST+aBQxW2HtTeE4tzaZBlTgrABuu8Xojrco2i+p1dyQzoylvAnA==
+X-Received: by 2002:a05:622a:2287:b0:52e:8ef:5960 with SMTP id
+ d75a77b69052e-532d8e32ebfmr30057471cf.33.1790039439462; Mon, 21 Sep 2026
+ 18:10:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917-udp_hash4_fix_v1-v1-0-718891af0d7a@mpiricsoftware.com> <20260917-udp_hash4_fix_v1-v1-1-718891af0d7a@mpiricsoftware.com>
-In-Reply-To: <20260917-udp_hash4_fix_v1-v1-1-718891af0d7a@mpiricsoftware.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Mon, 21 Sep 2026 18:09:36 -0700
-X-Gm-Features: AcwNN1W4zo0lF11_EKGR56RyaFTOenFLfq5u9TmQaHIyrpW_Y2TQj8_ayHXa_fw
-Message-ID: <CAAVpQUAi6mP4D3ZHZcWksfcuWx25i=2-qBzg6wakvZSDLLxS1g@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] udp: relocate a connected socket in the 4-tuple
- hash table on re-connect
-To: Shardul Bankar <shardul.b@mpiricsoftware.com>
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Philo Lu <lulie@linux.alibaba.com>, Fred Chen <fred.cc@alibaba-inc.com>, 
-	Yubing Qiu <yubing.qiuyubing@alibaba-inc.com>, Willem de Bruijn <willemb@google.com>, 
-	Cambda Zhu <cambda@linux.alibaba.com>, Janak Bhatt <janak@mpiric.us>, 
-	Kalpan Jani <kalpan.jani@mpiricsoftware.com>, Shardul Bankar <shardulsb08@gmail.com>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260914164400.2738350-1-edumazet@google.com>
+In-Reply-To: <20260914164400.2738350-1-edumazet@google.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Tue, 22 Sep 2026 03:10:27 +0200
+X-Gm-Features: AcwNN1XENI3C6DJEuWKSVfu123kER72zrEHAvPUuiU4gn9CTQlz-0sfrY4BfkQw
+Message-ID: <CANn89i+HYuqNO_ifR7XgpZO89r9ZRWk8MOVzezmDff5KfLMp7g@mail.gmail.com>
+Subject: Re: [PATCH] dlm: fix send buffer backpressure handling
+To: Alexander Aring <aahringo@redhat.com>, David Teigland <teigland@redhat.com>
+Cc: linux-kernel <linux-kernel@vger.kernel.org>, gfs2@lists.linux.dev, 
+	Eric Dumazet <eric.dumazet@gmail.com>, netdev@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 2:26=E2=80=AFAM Shardul Bankar
-<shardul.b@mpiricsoftware.com> wrote:
+On Mon, Sep 14, 2026 at 6:44=E2=80=AFPM Eric Dumazet <edumazet@google.com> =
+wrote:
 >
-> A connected UDP socket that connects again to a different peer is not
-> re-filed in the 4-tuple hash table:
+> lowcomms.c tests and clears SOCKWQ_ASYNC_NOSPACE in con->sock->flags,
+> but this bit has not been stored there for ten years.
 >
->     sk binds to 127.0.0.1:21001
->     sk connects to 127.0.0.2:20001      // filed under hash(sk, peer1)
->     sk connects to 127.0.0.3:20002      // still filed under hash(sk, pee=
-r1)
->     packet from 127.0.0.3:20002         // hash(sk, peer2) misses, so the
->                                         // lookup falls back to scoring t=
-he
->                                         // hash2 chain for this address
->                                         // and port
+> Commit 9cd3e072b0be ("net: rename SOCK_ASYNC_NOSPACE and
+> SOCK_ASYNC_WAITDATA") mechanically renamed the two dlm users, then
+> commit ceb5d58b2170 ("net: fix sock_wake_async() rcu protection") moved
+> the bit from socket->flags to the RCU protected socket_wq->flags, where
+> it is reachable only through sk_set_bit() and sk_clear_bit(), and is
+> only maintained for sockets having SOCK_FASYNC set.  dlm uses kernel
+> sockets, which never have SOCK_FASYNC set, and never sets the bit
+> itself, so the test in send_to_sock() has been false ever since.
 >
-> udp_lib_hash4() returns early when the socket is already hashed, assuming
-> ->rehash() relocates it. ->rehash() runs from __ip{4,6}_datagram_connect(=
-)
-> only while the receive address is unset, which a second connect never is:
-> the first connect assigns it, whether the socket was bound to a specific
-> address or to the wildcard. commit 644f9108f3a5 ("udp: Make rehash4
-> independent in udp_lib_rehash()") added that early return and named
-> connect(AF_UNSPEC) as the way around it. That workaround does not help a
-> socket with both SOCK_BINDADDR_LOCK and SOCK_BINDPORT_LOCK set, because
-> __udp_disconnect() skips ->rehash() for the first and ->unhash() for the
-> second.
+> The consequence is that when sock_sendmsg() returns -EAGAIN because the
+> socket send buffer is full, dlm no longer sets CF_APP_LIMITED, does not
+> increment sk_write_pending, and does not return DLM_IO_END to wait for
+> lowcomms_write_space().  It returns DLM_IO_RESCHED instead, and
+> process_send_sockets() immediately requeues the send work.  A connection
+> to a peer that is slow to drain thus keeps cycling through
+> sock_sendmsg() and -EAGAIN, burning CPU, instead of sleeping until TCP
+> reports that space is available again.
 >
-> Delivery is correct either way.
+> Test SOCK_NOSPACE instead.  This is the bit that lives in socket->flags,
+> that TCP sets whenever sendmsg() returns -EAGAIN for lack of send buffer
+> space (tcp_sendmsg_locked() and sk_stream_wait_memory()), and that
+> lowcomms_write_space() already clears.  This restores the semantics dlm
+> had before the bit moved.
 >
-> Relocate the socket when the hash it is filed under differs from the one
-> requested, which is what commit 78c91ae2c6de ("ipv4/udp: Add 4-tuple hash
-> for connected socket") did before the early return became unconditional. =
-It
-> is done here under hslot->lock, which that version did not take, to match
-> udp_lib_rehash() and udp_lib_unhash(). hslot2 is unchanged, so hash4_cnt
-> needs no adjustment, as in udp_lib_rehash(). A first connect is unaffecte=
-d,
-> and IPv6 shares the code.
+> Also remove the clear_bit() of SOCKWQ_ASYNC_NOSPACE from
+> lowcomms_write_space(), for the same reason.
 >
-> With 500 sockets on the port, a re-connected socket measured 522,553 pps
-> without this change and 2,055,078 with it. The UDP side was noted as
-> remaining work in [1].
+> SCTP connections are deliberately left as they are.  SCTP does not set
+> SOCK_NOSPACE, and it never calls sk->sk_write_space(): sctp_wfree() ends
+> up in sctp_wake_up_waiters(), which calls sctp_write_space() directly.
+> lowcomms_write_space() is thus never invoked for an SCTP connection, and
+> the test added here stays false, so send_to_sock() keeps returning
+> DLM_IO_RESCHED as it does today.  This is the only safe behavior, as
+> returning DLM_IO_END would wait for a callback that never comes.
 >
-> Link: https://lore.kernel.org/netdev/apnHqmYZQ4yzOP4N@v4bel/ [1]
+> Fixes: ceb5d58b2170 ("net: fix sock_wake_async() rcu protection")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eric Dumazet <edumazet@google.com>
+> ---
+>  fs/dlm/lowcomms.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+> index 2aff1c7c17de..abe9ae4c643f 100644
+> --- a/fs/dlm/lowcomms.c
+> +++ b/fs/dlm/lowcomms.c
+> @@ -522,10 +522,8 @@ static void lowcomms_write_space(struct sock *sk)
+>         clear_bit(SOCK_NOSPACE, &con->sock->flags);
+>
+>         spin_lock_bh(&con->writequeue_lock);
+> -       if (test_and_clear_bit(CF_APP_LIMITED, &con->flags)) {
+> +       if (test_and_clear_bit(CF_APP_LIMITED, &con->flags))
+>                 con->sock->sk->sk_write_pending--;
+> -               clear_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags);
+> -       }
+>
+>         lowcomms_queue_swork(con);
+>         spin_unlock_bh(&con->writequeue_lock);
+> @@ -1391,7 +1389,7 @@ static int send_to_sock(struct connection *con)
+>         if (ret =3D=3D -EAGAIN || ret =3D=3D 0) {
+>                 lock_sock(con->sock->sk);
+>                 spin_lock_bh(&con->writequeue_lock);
+> -               if (test_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags) &&
+> +               if (test_bit(SOCK_NOSPACE, &con->sock->flags) &&
+>                     !test_and_set_bit(CF_APP_LIMITED, &con->flags)) {
+>                         /* Notify TCP that we're limited by the
+>                          * application window size.
+> --
+> 2.55.0.1007.g17ff1f9808-goog
+>
 
-This link looks random to me.
+Gentle ping ?
 
-> Fixes: 644f9108f3a5 ("udp: Make rehash4 independent in udp_lib_rehash()")
-> Assisted-by: LLM
-> Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
+I have an ongoing series for net-next removing one cache line miss in
+TCP sendmsg() and ACK processing,
+blocked by this patch.
 
-The change itself looks good.
+If you prefer, I can insert this patch into my net-next series.
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Thanks.
