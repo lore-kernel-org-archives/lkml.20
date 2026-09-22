@@ -1,193 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52EF51DE1F;
-	Tue, 22 Sep 2026 14:22:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790086959; cv=none; b=r85+CXgkgxIODpsxoiAzokTztD80EOgcG7FBBv5FoFr5/+ISPcx7W7AKUg3r2ZYJTiJ92D2AdYOoNbQq7OAUc8V44ySui+eeXZR82pJapnhcUYxOgHko2PPnmhhJWONHP5EnfhjliXiHibb3Oo1Se7veFny23P4gYIfH0hx6PBU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790086959; c=relaxed/simple;
-	bh=msjJuGaxSoQQshOdxCcSplNXF6DjNI5rv4QST/Zjo0s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DnuxNK/RgLd43sGpqjF4gSGGwCTSJKPvISi8p5X697TrH9NpNyyNRbXhw2zBfuJNZqAxTQjH1S+ilTQtkUNpRgAjUgVUNtx98Q5UgmdJhFa2s0wf2KkSmcTKMsb70nDTNgOsNnJekK5OxxWHGIjloQd6lThk4J+KUrMd0a72Iho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oKHS5DRa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D8E54CF54
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790086960; cv=pass; b=uDB/UAoVSTTbra1kWu62GsYduQ0vHic/BEDgj5RdIUYekL9GMScwBQGr6n0P05hMLQ3JUBwV3kor6d0TmDlfNqj65KKWnNwbZ1XDQdNsJjsAkHYY5Ssj7i6JTMAPdbnkTaUJNbkalaacICYpvrzpyg0GOrPu1Mm7+d2RAJt3FaQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790086960; c=relaxed/simple;
+	bh=UfRh7sNseGJXTKsVsEpvuIA/dx++uiblm+pTJYzSZD0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HnK4YrvCs0cXU16QZ5aTtnz5Tl4soKOJx+akHJXLEXA2I7MXJVZb2eXxwh3KJx8kTVReevysXVMVVrjOWkbdQFTqd9JzRaTQqaK5FKBMP5xU9mFp+Gm04HJXt6BOuybFg0CjG3IL6Osvy1WEh6PgN5eU2GYB9wfGUcotr1a30UM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NQXAC5zz; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oKHS5DRa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145C31F000FF;
-	Tue, 22 Sep 2026 14:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790086957;
-	bh=L3oO91V4IF4G60vcONMUAfnhjyKqf9fK8HxPqZ7yDx8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=oKHS5DRaI08HjzcvWtYe1RxTCulSKE9K7GAetzK1gAmlKpTZtwVOLsZGx+vxwsIoF
-	 4Fc0Mpej6Jcl6qB59u6qmZuL/+YTub0JsQVybmm6RTyI7v0Jc4UxNynINCYcqAYyW0
-	 NYoQhMY5BLRmt+GhwBGFKduN/BOXph8W1gyKSjcp7z+JdYuGyjY7WwsNHrETDFwZ0a
-	 nyH5Hqi31sadWwRn4whOeg/UOMWCcDyVHsD4okuN88AvFXXac7qasNQ1QrBwPhQqN7
-	 Fl2HjDnnomdmMKFbIv9ftdOEOq/4D5bQZpbVWAvFeve0a6jmcSu42XdS8Mh5BuB2Qj
-	 WY0Nem/ttVZzg==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Jack Thomson <jackabt@amazon.com>,
-	Jack Thomson <jackabt.amazon@gmail.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Leo Soares Passos <Leo.Bras@arm.com>
-Subject: Re: [PATCH v2 00/13] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
-In-Reply-To: <arKB2imOcg4MhXMF@gremlin>
-References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
- <yq5abj9p38vq.fsf@kernel.org> <arJ1BDEzY5CANjjB@gremlin>
- <yq5a8q4t305j.fsf@kernel.org> <arKB2imOcg4MhXMF@gremlin>
-Date: Tue, 22 Sep 2026 19:52:25 +0530
-Message-ID: <yq5a5wzx2wny.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NQXAC5zz"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb766bfd6so40119981cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:22:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790086957; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eDS3TJS9Yr4m8cIC7TNn3k8DlhFG/ixBLi6tHAcOdEa2BWyGX4No6UBuN4h9zaFf21
+         MI4AUyBE1OFMu/8rwSEnWxtnnXg3ceVy34EhTPCh/K6vNIALDAY+P5x2C/BKQGAzZP9L
+         4KjVfLxdBB0UscsrJyF6QjR5QYdICA5ZU+LNjtAjO6BoMN5rhAy+NgGHOnac//Z4dNZ9
+         pmxCrHXf2o1cyCi3FQXRcn2+DUnyt62Gw2uejigumiavzALMdlxwRXWQ7R7xawXJ3d7B
+         a8mqUETo35tl/G+Etfz9PRx1Lo++893uSR3ikniNj8QxCLY5GCCeGuGt9E8/kQSTaNMq
+         8jig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UfRh7sNseGJXTKsVsEpvuIA/dx++uiblm+pTJYzSZD0=;
+        fh=mPs126THd/a4TegS/fa19GEQkigFhhSTNzOj3c5SHb0=;
+        b=peClAvVRBr90F4jpFB3um9tK4FOm1Dne3EfBKJDlDe7h+lel4gQygtvRYjwwxg7p+G
+         OnRCGERE5jAHpV5A3KGSeyCytR53Sno108ZsT5FEAt0cMGvTnuEFGixM+upHKpwRK4lg
+         bAK9OFztT6j/vDfmMuMVc/7g/18dD6Hr06/4ceXUeAq3KpNPPyv+NpdBpsJM1x7iVsHu
+         sMLYalLCJz4yCfNsvYeZWAruTrs4zrjabvU7tD9/ddTapz4jc4lSqw761mrWLmAjI5Zd
+         fC6HG26NaPe+kmr1sOcVIAH+WpoREIUqBkLBRDFUU//5iLJZUx+pXNfZch8AzCLyIyMq
+         SiRA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790086957; x=1790691757; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UfRh7sNseGJXTKsVsEpvuIA/dx++uiblm+pTJYzSZD0=;
+        b=NQXAC5zzLsrSeo6GKczo2TATy4QZHz2Jpi54CVnMwc+Mn5hai3tsQOWqelaMNWSkBA
+         DqZ+0VmqrMBo2sKc3ge3vDRoWACQp9jWubk3KnIIhs/wItFvxuX0/Ltw0VUeJasmrxU8
+         lE4IaLQhXa3RQbcAH9ZHvqYfaYmwLbiRL+LKCg9OqN6hxulpHAPmBB15S3b4Te8EaUmC
+         b1tcbxSLfVlALgFqQHew9RlUD20pZzOfdMNc6J7I7BNJkllg/dtWNxI5H6NIzDTROeav
+         CdvOQf6m3BURhsaU4W31+Mtf2vKdmlQy3qUAPM7Lmn8x5ztLZokjbsw1IyaLO2yjUJZI
+         WEmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790086957; x=1790691757;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UfRh7sNseGJXTKsVsEpvuIA/dx++uiblm+pTJYzSZD0=;
+        b=Se68E+cPXggZPqYa5tIIFlf0Kj5iUQyk/BAQDyyL4dWbwo20HIh+TSKwOiY0N6gcd+
+         edflW9gkAgM5O+vUhNymLaOqd0MkQnrRwWSnFCbY6rr6uMQzOh6EPCrdFQKjggp9wYnV
+         q1wLTEw/3rd66DLSDX0hvKZ+0BG4BrOqGJCSIrcffy1HT4op3RaBlJTdq9u7gqrNKXbk
+         tGyPaERh8oUN9jkUAJNeoCM3yu6OYMT7TdX8ZZ9jsfH9R1EUnyZtoFQKbHsgX0mEQvRV
+         qd+NCFBVJI7DQYT+Y465zV95g072O4hxSVJOx+uXitqtuxfCsYEbqbjZfGdkO+KPXwXW
+         1nGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwR17y3lxdU4owj2APF1zJBhzPvXyGcUgJVoH6LiKyy0LfhYE8fMaRAuF3e58Yy41kD/BdA8So5V833MkA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwO49PrxdIbjDpbPKS3PP7ad5bkiUon7Y6NgwTWsN6GWvaQGHa
+	4SpS30nr/Npj7rzRrQPmSHdv4oyZ+eeRGUtAAD+TZNhuTMA6aS7U7p+IjZWqFtBVwq800+38NjW
+	6qnctjAP/0hkUc0Tt/qyJtOfHehqG0KNQAoP5Ot6gVPtBZ+vYULQGlPVO59w=
+X-Gm-Gg: AYBFou0Lle/iBouewIMXKnsvVHT00Sg238XfUubYlNblEAcUm6mEzFqmXMINjZ7bTad
+	qBaffckloRxVkCMGT8yGeQL64FSYGpf2Wjg1hcSkYgVwHa5cjxPZsnarP5f6x+uq61X7HoUyZWu
+	/WPcCBa9H0z1xG1sKO089m69zaC8OmhJPAwA5Z8Z/iSNqxE1tjhEG2l//AlauHtQnJn3+VorB/o
+	jXy4M6Euzp/f1pXY6a0v/kC3u7uLc4sIQg7tp02E/208GROZPScCMf+OxUWtzJKnpyvEufJVmy9
+	A1h3DaO9yZfsIt4rQk8iU9yJDoby1VAazcHgKtaOXtjEh4en7s5ZpOk28s5MSskPVNmXvz6r2qz
+	j5XnZ+0p/KKo4QAOw5Y/8S1VgHSyUvkdWHGcN7aWSdDVP0wYerUlTm05o+XjUA6uho8+abSqiF+
+	/fLuhU
+X-Received: by 2002:a05:622a:4a8b:b0:532:9adc:63a0 with SMTP id
+ d75a77b69052e-532d8e70eb5mr58677071cf.68.1790086956186; Tue, 22 Sep 2026
+ 07:22:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <729830b8.130.1a0c945579d.Coremail.18983559317@163.com>
+In-Reply-To: <729830b8.130.1a0c945579d.Coremail.18983559317@163.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Tue, 22 Sep 2026 16:22:24 +0200
+X-Gm-Features: AcwNN1WlFAdwrvFcuaEYrLMwWoTh1QrUe7UwPBFveZTKSMv8vTEnEckZQgsXIv4
+Message-ID: <CANn89iJ45jSsXMShe+9gYVSMLwpC15nmBROFkdNWVVR-ZyE5YA@mail.gmail.com>
+Subject: Re: [PATCH net v2] net/mctp: publish the mctp_dev only after it is initialised
+To: Binbin Deng <18983559317@163.com>
+Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Binbin Deng <dengbinbin21@nudt.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> writes:
-
-> On Tue, Sep 22, 2026 at 06:37:04PM +0530, Aneesh Kumar K.V wrote:
->> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> writes:
->>
->> > On Tue, Sep 22, 2026 at 03:28:33PM +0530, Aneesh Kumar K.V wrote:
->> >> > This is because pKVM instantiates vCPUs upon run,
->> >> >
->> >>
->> >> Can pKVM instantiate the hyp vCPU during pre-faulting ?
->> >
->> > It would be an unusual and unexpected thing to do - suddenly a pre-fault
->> > operation is initialising a vCPU explicitly for pKVM.
->> >
->> > A caller is not going to reasonably expect this and might treat a failure to
->> > pre-alloc as fine to carry on whereas in fact it was a failure to initailised a
->> > pKVM vCPU.
->> >
->> > It'd also require significant changes to how pKVM is set up, right now it's
->> > hardcoded to be done unconditionally at run via kvm_arch_vcpu_run_pid_change()
->> > -> pkvm_create_hyp_vcpu(), so all that would have to change and be checked and
->> > tested and... that'd be really out of scope I think :)
->> >
->> > And pre-faulting really makes most sense BEFORE you run a VM. It doesn't make so
->> > much sense mid-run.
->> >
->> > But more fundamentally, the stage 2 page tables, as I understand it, are owned
->> > by pKVM and so aren't really available to be pre-faulted.
->> >
->> > Maybe unprotected-under-pKVM VMs but then it's questionable as to how useful
->> > that would be given that it would be confusing to users vs. how it works for
->> > other VMs.
->> >
->> > So in general, no I don't think it's a good idea.
->> >
->> > And even if we wanted to pursue some version of this, it's _definitely_ out
->> > of scope for the initial pre-faulting bring-up series.
->> >
->> >>
->> >>
->> >> > but pre-faulting is  typically performed before a vCPU is run.  It would be confusing and
->> >> > inconsistent to error out on non-running vCPUs but to pre-fault running
->> >> > ones.
->> >>
->> >>
->> >> I use KVM pre-faulting when transitioning pages from shared to private
->> >
->> > You mean you'd prefer to use? Or you are using it on another arch?
->> >
->> >> with CoCo guest. This ensures that a trusted device can DMA to private
->> >> memory before the guest accesses it.
->> >
->> > Hm what do you mean by private memory?
->> >
->> > I see:
->> >
->> > #ifndef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
->> > static inline bool kvm_arch_has_private_mem(struct kvm *kvm)
->> > {
->> > 	return false;
->> > }
->> > #endif
->> >
->> > And only x86 selects KVM_GENERIC_MEMORY_ATTRIBUTES?
->> >
->> > Do you mean something else?
->> >
->>
->> I am using this with ARM CCA-DA, based on the patch series from Jack Thomson <jackabt.amazon@gmail.com>.
->>
->> https://gitlab.arm.com/linux-arm/kvmtool-cca/-/commit/80e7aad61c5639de2f0cb4a5525dad0c96156428
->>
->> We do this while the VM is running.
+On Tue, Sep 22, 2026 at 3:19=E2=80=AFPM Binbin Deng <18983559317@163.com> w=
+rote:
 >
-> Right, that's a non-mainline kernel I guess? Which presumably implements private memory.
+> From: Binbin Deng <18983559317@163.com>
 >
-> Jack himself experienced a panic with his pKVM code, so the code you're using is
-> not upstreamable, unfortunately. And he'd already shelved pKVM support AFAICT.
+> mctp_add_dev() links the new mctp_dev into dev->mctp_ptr before mdev->dev
+> is assigned, so a reader that picks the device up in that window
+> dereferences a net_device pointer that is still NULL:
 >
-> And reviewers pointed out actually implementing the pKVM stuff properly would be
-> quite involved, even if you wanted to do that (hence follow-up).
->
-> Also you end up stuck with the same problems as I mentioned above - you can't
-> sanely bring the vCPU pre-run, so now you have extremely weird behaviour - only
-> pre-faults if vCPU initialised, running, and unprotected pKVM.
 >
 
-IIUC, pkvm_pgtable_stage2_map() only uses the hyp vCPU's pKVM memcache
-(&vcpu->vcpu.arch.pkvm_memcache). I agree that this does not need to be
-addressed in this series. However, there is also a desire to keep the CCA
-and pKVM code paths similar by using helpers such as kvm_vm_is_protected().
-Since an RMM can create a stage-2 mapping without a REC (vCPU), rejecting
-pre-faulting for all protected VM configurations may be incorrect. I can
-handle this in my series though.
-
-I also want to point out that there are use cases for pre-faulting while
-the VM is running.
-
+> Fix by publishing only once the object is fully initialised:
+> __mctp_dev_get() runs under rcu_read_lock() only and hands
+> this object to readers as soon as mctp_ptr is assigned, so
+> they must never observe mdev->dev =3D=3D NULL.
 >
-> Protected pKVM support is a whole other layer of complexity and it's not obvious
-> that you're really achieving what pre-fault is supposed to.
->
-> In any case Oliver literally just asked me to _simplify_ weird edge cases for
-> this series :) so I am not sure something like that is going to be accepted.
->
-> Are you sure you're actually running in pKVM mode btw? CCA doesn't AFAICT? In
-> which case this series _should_ work fine for you.
->
+> Fixes: 583be982d934 ("mctp: Add device handling and netlink interface")
+> Signed-off-by: Binbin Deng <18983559317@163.com>
+> ---
 
+Reviewed-by: Eric Dumazet <edumazet@google.com>
 
-It is not pKVM; it runs in Realm mode.
+Please next time wait ~24 hours before sending a new version.
 
->
-> Anyway, if we really do need to add something for pKVM it needs to be a follow
-> up. Let's get the basics working first :)
->
-
-sure.
-
-> (Note that kvmtool will need to be updated to retry pre-fault on -EAGAIN, -EINTR
->  as this series can, albeit unlikely, return -EAGAIN.)
->
-
-I will check this when I rebase my kernel onto this series.
-
--aneesh
+Details in Documentation/process/maintainer-netdev.rst
