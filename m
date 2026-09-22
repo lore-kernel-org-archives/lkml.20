@@ -1,242 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA86E5519B0;
-	Tue, 22 Sep 2026 14:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F753955D6
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088421; cv=none; b=c2lUhmPB5S8wYkhRSNaeZ+rpycxVjfns9QAUAPD0SRgdL0DX51WWn5cxYofKm53hnE0XdXlI4aIINXTSl5WVdSt+jBTcvchL1g8gh6C94rMNY0ThdHKVUybbKnjK6zZf5PieBxrzzEtybpP+pO0wsZt9AESC9CVTJ5elHMZ2KCk=
+	t=1790088425; cv=none; b=eEKbFKdcz8p35RWpscc1wJoRXBE5D8npZssquSbX3kCxHjsqH6Z6n1NUgl9I+AiyvCyGwl5tSEtMFZuOPNmqgXZMR6Lft2uCVjfPO6OcgkIPUHpbnCU9J82/RZbX9rD0XJbLmh/amzH/38RKHuIHk1A9OEJF61N/YrCk7LJWY8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088421; c=relaxed/simple;
-	bh=8lPDNNzBmKuMlsZoIjBNbIi5cSRJ8hcKLBvBSFzXhqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FBLsi+53U7zzcBKsqLXnatabVJ91Nbl0pK79va1ICxxQi/rohKdhdZAu6OMMjpgt88FQbdDOjJC6c7vcSH7EU89tC/6XnjWY7jBetCL8jkUETsiPaLXlF58rdUrXg8OA/bGlO7cOFRsNrtWyCBPBtisbtCTpufa6VVsFS9LLTPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sfsl+7vJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sfsl+7vJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE701F00898;
-	Tue, 22 Sep 2026 14:46:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790088419;
-	bh=7VgnifC5bLSn4l21Fhvw+lIrmHDxv1AceVCvE7hJVOk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sfsl+7vJ6LyuUZxzMtKYQiKjj+FuS+ema70Sq/EeF7PlL8HXootOJxqXqaCeTuB0E
-	 hvzAGwuJNpXYoOJ1K491PXQS+l3coTXpQTq1U2Z3vhg0wy3EAXkOXmTWxRkg80BTiM
-	 yico0+9mu0Ba1+kcq6bvzipA/YemVvKspiumdP7unuBLIUwBIgHL8nwsWy+eb5xd01
-	 bzX4hK8EgB6jb/lJVUMTL91KUJaerBTKQHixvlCouQNMae0U3f/k7CeqchlMb3nn0L
-	 bAArf0hLkz9g6K/YspzSQaIgK9gRIm/BmeiXhke4GpA88s6laFlMi7AWQAr2wkThO+
-	 wxacykPLjj4Xw==
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	p.zabel@pengutronix.de
-Cc: claudiu.beznea@tuxon.dev,
-	linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: [PATCH v4 6/8] PCI: rzg3s-host: Move IRQ domain setup code
-Date: Tue, 22 Sep 2026 17:46:26 +0300
-Message-ID: <20260922144629.586997-7-claudiu.beznea@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922144629.586997-1-claudiu.beznea@kernel.org>
-References: <20260922144629.586997-1-claudiu.beznea@kernel.org>
+	s=arc-20240116; t=1790088425; c=relaxed/simple;
+	bh=TbMap+l+wNqfvepdi7vbGTkwx8Z99cmqTQcYec/WyyA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rMKFJn2rCGUPcSZKVKRrOD8rz4DkdkKW2DKfgO+Rld9WoS1LHsVru/OAMtjjiGpQ6OLLErhZ0eudcuap2yamPlnUhgPvEsPvi9UhxYG0yZ+j3UUnfI76ovLo6399wlCWvo/cXEUfatJSGCqWK0cPDQwxLFWot5oAHxmJs4mIqso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e518329so1086568e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:47:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790088423; x=1790693223;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ORXCKUXvqBYFLFFEeuhhJimDvmfdPp/J+FHZ+N9LIhQ=;
+        b=hcV7ceme9B22j8gvLHLxcXOVoRcJeDTzIKGcZIrMjHCEp+YB4XLmgj4KrGcVym2c/b
+         r3VQHBo3OHE/hat9Ut3mMDskAQ7WQ18bSsgQrmtukcCV9YHXYaMg7HYRAKNbBPS1Km6w
+         3tJ7dtAFpVqenLghFq2hnKDHnIDneiUgVcqzdGEK3AJxSMJGXmwRVWeRpCe4CDAJxeQw
+         IXxe9xpUTkWWtP7velBHYNehrIrwRMaXuOZbjMyNeSGRHcOTUisZ2g8EasDUmpS2HGhN
+         JORpHbmeRhfoJL83Fqs1T1ENSbUJSvBMO/naom+THciwEUxf3udl2ROVltjr/DoHM/Xi
+         XjPg==
+X-Forwarded-Encrypted: i=1; AKwUvBzd32eJ7MJ7Bp8GfbNClj5hs3gVjmGa6h1MNaYXsc8i66MrHVutm7AbsRwAeNkGspa9vCxtZzAQlrcehEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYZtUUtQ2arAJ8/6u258L8LonKFcGX79y7Qx0NjSkorHqwhy4Y
+	0GG0Hb8nHfh7ur+famoXW9tIIQ3ao6fuYJVWfXuOEZZjGmQXSvR7hruu37cOBNQE
+X-Gm-Gg: AYBFou2adtjsDn8xFeavqldJXmGGkaAcAocxLwlRrC8QJAr+5l5x2Mvyn+sYTk2Xwrk
+	gMqvfCUeK6Sh9oZnm+bewkmpiHDy6d0QJFg7RteRsfsUy4aRnRjXySCxmddwwPn9msbOlUKjw7o
+	u3dWWLZI5ZZIz8/lyISiarOvCgo9jf4zRg1aDIEFh0DZpQ6sVEx2vAy3YYz1rXd6nSQvo68GwQD
+	D6Z515VBNSyx7aidIWC/U5liuEOWUQKIToxh0HV+11YP+zKFHHqH64mj/fhzmDA2ZwPMFPP7eBC
+	s/7wCrL+rU14osti57IdNqLhgrZ85B68Y9EKt6thXwCCM9dWnFx4TxZphuWCnaMGkHbOSvZKnaR
+	PoLsehKzLq/peATHV8VWthPg2ga0QhN7F2p+nGQEApLDqhEJakRvrfekTNx9hEVZTH3zzQOdmLJ
+	qMNDmTgMJr4JOTUXnHe4pZAs3LJy/12mf8jCHkIUD0vXKZeX2ktF/9dwSSzunz+yyrjuPQgWO4+
+	7Fz9Q1sT4Z3wAHtMpyrOlxyalu+qGGkUJFM
+X-Received: by 2002:a05:6122:1b10:b0:5c9:a830:44cb with SMTP id 71dfb90a1353d-5c9e35c5dd0mr3072879e0c.8.1790088422806;
+        Tue, 22 Sep 2026 07:47:02 -0700 (PDT)
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com. [74.125.227.42])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9850db87356sm1874046241.13.2026.09.22.07.47.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 07:47:02 -0700 (PDT)
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e518329so1086555e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:47:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy6gJh2jykW6Bc43ahX7yd4dWsLSnd962/zik61JyVjYEuGj8XN+SKorvSdMMe4i+FkYwME5t9zEUtYyIo=@vger.kernel.org
+X-Received: by 2002:a05:6122:401b:b0:5c9:a5be:7b52 with SMTP id
+ 71dfb90a1353d-5c9e35f60cbmr3362802e0c.9.1790088421919; Tue, 22 Sep 2026
+ 07:47:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921195943.107247-1-ovidiu.panait.rb@renesas.com>
+In-Reply-To: <20260921195943.107247-1-ovidiu.panait.rb@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 22 Sep 2026 16:46:48 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUGwQXvtLeQZ3KfO0giAhyEBgWSLqmxqx=7yqGqMr+hDw@mail.gmail.com>
+X-Gm-Features: AclHuK_aPQ1jP2rNsXJ9Dmp5IiCiZiuxKDlIrtLLHY5NeT02sngfHtGGckkuD78
+Message-ID: <CAMuHMdUGwQXvtLeQZ3KfO0giAhyEBgWSLqmxqx=7yqGqMr+hDw@mail.gmail.com>
+Subject: Re: [PATCH] spi: rspi: Fix DMA mode when the DMA controller is built
+ as a module
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: broonie@kernel.org, geert+renesas@glider.be, linux-spi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Hi Ovidiu,
 
-Subsequent patches add support for the event IRQ to handle link
-up/down events. The event IRQ handler will use
-rzg3s_pcie_set_max_link_speed(). In preparation for adding event IRQ
-support, move the IRQ domain initialization code after
-rzg3s_pcie_set_max_link_speed().
+On Mon, 21 Sept 2026 at 22:00, Ovidiu Panait
+<ovidiu.panait.rb@renesas.com> wrote:
+> On the Renesas RZ/G2L platform, the RSPI driver falls back to PIO mode
+> instead of using DMA when the DMA controller driver is built as a module
+> (CONFIG_RZ_DMAC=m):
+>
+>     renesas_spi 1004b000.spi: dma_request_slave_channel_compat failed
+>     renesas_spi 1004b000.spi: DMA not available, using PIO
+>
+> The driver requests DMA channels through dma_request_slave_channel_compat()
+> which returns either a valid pointer or NULL and cannot handle
+> -EPROBE_DEFER. If the DMA controller has not probed yet, the driver falls
+> back to PIO directly.
+>
+> Fix this by replacing the dma_request_slave_channel_compat() call with a
+> regular dma_request_chan() call. dma_request_slave_channel_compat() is
+> always passed a NULL fn_param in all code paths, so it actually behaves
+> like a plain dma_request_chan() call.
+>
+> Fixes: e825b8dd2b36 ("spi: rspi: Add DT support to DMA setup")
+> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
----
+Thanks for your patch!
 
-Changes in v4:
-- none
+> --- a/drivers/spi/spi-rspi.c
+> +++ b/drivers/spi/spi-rspi.c
+> @@ -1355,6 +1339,11 @@ static int rspi_probe(struct platform_device *pdev)
+>         }
+>
+>         ret = rspi_request_dma(&pdev->dev, ctlr, res);
+> +       if (ret == -EPROBE_DEFER) {
+> +               dev_err_probe(&pdev->dev, ret,
+> +                             "failed to request DMA channels\n");
+> +               goto error2;
 
-Changes in v3:
-- none, this patch is new
+Doesn't this make the probe fail if the DMA driver is not available
+at all?
 
- drivers/pci/controller/pcie-rzg3s-host.c | 147 +++++++++++------------
- 1 file changed, 73 insertions(+), 74 deletions(-)
+> +       }
+>         if (ret < 0)
+>                 dev_warn(&pdev->dev, "DMA not available, using PIO\n");
 
-diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
-index 40d5ef3e347e..f4b27a77a89d 100644
---- a/drivers/pci/controller/pcie-rzg3s-host.c
-+++ b/drivers/pci/controller/pcie-rzg3s-host.c
-@@ -1006,80 +1006,6 @@ static const struct irq_domain_ops rzg3s_pcie_intx_domain_ops = {
- 	.xlate = irq_domain_xlate_onetwocell,
- };
- 
--static void rzg3s_pcie_teardown_intx(struct rzg3s_pcie_host *host,
--				     int count)
--{
--	while (--count >= 0) {
--		irq_set_chained_handler_and_data(host->intx_irqs[count], NULL,
--						 NULL);
--	}
--
--	if (host->intx_domain)
--		irq_domain_remove(host->intx_domain);
--}
--
--static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
--{
--	struct device *dev = host->dev;
--	struct platform_device *pdev = to_platform_device(dev);
--	int i, ret;
--
--	for (i = 0; i < PCI_NUM_INTX; i++) {
--		char irq_name[5] = {0};
--		int irq;
--
--		scnprintf(irq_name, ARRAY_SIZE(irq_name), "int%c", 'a' + i);
--
--		irq = platform_get_irq_byname(pdev, irq_name);
--		if (irq < 0) {
--			ret = irq;
--			dev_err_probe(dev, ret,
--				      "Failed to parse and map INT%c IRQ\n",
--				      'A' + i);
--			goto teardown_intx;
--		}
--
--		host->intx_irqs[i] = irq;
--		irq_set_chained_handler_and_data(irq,
--						 rzg3s_pcie_intx_irq_handler,
--						 host);
--	}
--
--	host->intx_domain = irq_domain_create_linear(dev_fwnode(dev),
--						     PCI_NUM_INTX,
--						     &rzg3s_pcie_intx_domain_ops,
--						     host);
--	if (!host->intx_domain) {
--		ret = -EINVAL;
--		dev_err_probe(dev, ret,
--			      "Failed to add irq domain for INTx IRQs\n");
--		goto teardown_intx;
--	}
--	irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
--
--	if (IS_ENABLED(CONFIG_PCI_MSI)) {
--		ret = rzg3s_pcie_init_msi(host);
--
--		if (ret)
--			goto teardown_intx;
--	}
--
--	return 0;
--
--teardown_intx:
--	rzg3s_pcie_teardown_intx(host, i);
--
--	return ret;
--}
--
--static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
--{
--	if (IS_ENABLED(CONFIG_PCI_MSI))
--		rzg3s_pcie_teardown_msi(host);
--
--	rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
--}
--
- static int rzg3s_pcie_set_max_link_speed(struct rzg3s_pcie_host *host)
- {
- 	u32 remote_supported_link_speeds, max_supported_link_speeds;
-@@ -1169,6 +1095,79 @@ static int rzg3s_pcie_set_max_link_speed(struct rzg3s_pcie_host *host)
- 	return ret;
- }
- 
-+static void rzg3s_pcie_teardown_intx(struct rzg3s_pcie_host *host, int count)
-+{
-+	if (host->intx_domain)
-+		irq_domain_remove(host->intx_domain);
-+
-+	while (--count >= 0) {
-+		irq_set_chained_handler_and_data(host->intx_irqs[count], NULL,
-+						 NULL);
-+	}
-+}
-+
-+static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
-+{
-+	struct device *dev = host->dev;
-+	struct platform_device *pdev = to_platform_device(dev);
-+	int i, ret;
-+
-+	for (i = 0; i < PCI_NUM_INTX; i++) {
-+		char irq_name[5] = {0};
-+		int irq;
-+
-+		scnprintf(irq_name, ARRAY_SIZE(irq_name), "int%c", 'a' + i);
-+
-+		irq = platform_get_irq_byname(pdev, irq_name);
-+		if (irq < 0) {
-+			ret = irq;
-+			dev_err_probe(dev, ret,
-+				      "Failed to parse and map INT%c IRQ\n",
-+				      'A' + i);
-+			goto teardown_intx;
-+		}
-+
-+		host->intx_irqs[i] = irq;
-+		irq_set_chained_handler_and_data(irq,
-+						 rzg3s_pcie_intx_irq_handler,
-+						 host);
-+	}
-+
-+	host->intx_domain = irq_domain_create_linear(dev_fwnode(dev),
-+						     PCI_NUM_INTX,
-+						     &rzg3s_pcie_intx_domain_ops,
-+						     host);
-+	if (!host->intx_domain) {
-+		ret = -EINVAL;
-+		dev_err_probe(dev, ret,
-+			      "Failed to add irq domain for INTx IRQs\n");
-+		goto teardown_intx;
-+	}
-+	irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
-+
-+	if (IS_ENABLED(CONFIG_PCI_MSI)) {
-+		ret = rzg3s_pcie_init_msi(host);
-+
-+		if (ret)
-+			goto teardown_intx;
-+	}
-+
-+	return 0;
-+
-+teardown_intx:
-+	rzg3s_pcie_teardown_intx(host, i);
-+
-+	return ret;
-+}
-+
-+static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
-+{
-+	if (IS_ENABLED(CONFIG_PCI_MSI))
-+		rzg3s_pcie_teardown_msi(host);
-+
-+	rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
-+}
-+
- static int rzg3s_pcie_config_init(struct rzg3s_pcie_host *host)
- {
- 	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(host);
+The driver still falls back to PIO in case of a missing "dmas"
+property, right?
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.43.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
