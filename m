@@ -1,64 +1,64 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15B441A919
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FCB433BCE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065922; cv=none; b=cR/Zh7GiKC3SOLpUgkWPmlXsytPbS67D0AkabmdB4Us0HsnVFfae4he5bQyqZR3NqIg7WJxmrwSnglLjgcpHwSGh0INcfFbE/qfOjQ998EaHVdnstUcnUM4DiHneyc9RRXLHSZE48MEY1UcKrIVEKRlsgcrIwaJcBSqOwmO522U=
+	t=1790065923; cv=none; b=sC89f1/OR/WsQe5wUFOWLYdR2ZS/QqQjWDgACxNpiMcxDrQmila0vugs46L31cxSiRziBLawLhentbluELzSw4gvCqBN9W8o6sbu3aqNAI2a/K3T5CMOpEL+Qg82LfymKQjUCWIRHlLnwiVdCySIPb1jSnqHNmHNIhTVMKQTuNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065922; c=relaxed/simple;
-	bh=wz90cYMZtML0GXcrY+lp3xTm53JZdWJD4kjFMwcNuCg=;
+	s=arc-20240116; t=1790065923; c=relaxed/simple;
+	bh=+hb6WhVGSbxazqPNFCzPE7V0omcNMJ90KZH/aleX+Cg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bfCjinYnLhK1yPZBWe3sPuNcL8j3uXQ25LYoOmH35mKX7aNd6BpGTOWMIc0bkH0GUv0Dn49dxXNHi3zqeLimQ7sBD/kz6VlPgp0ZJiBzkY6cS/GLi0Hyjrx4lqJagtJ4iQlspQIKsvO4jgodk9AI3pQGbdx/djr09R+koWInY/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g1fwqIM7; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version:Content-Type; b=YLjGYofeG4912tRI+KAoYHzMsSSQl1zoN146WHFNFtBBebc+xw5+SrbardhhdIlJ6w5ii7c1c8uak+w6L8+Ly+t43vh+krNQrMS4nxPYPMgq+HvGvOgCpVPgflsLNPQM5J3JKALPUw3ig9tJd1HMJw3HD3grniqHGfLlsKIFg0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msA5QAbD; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g1fwqIM7"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so38774675ad.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msA5QAbD"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2d91a931f66so27292805ad.0
         for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:31:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1790065917; x=1790670717; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6TICktEuUxPHMgoO/3ExzI6O90rGksd21amxrNGdY8E=;
-        b=g1fwqIM748T39B4dpm762HMlM2SDEs05YpUsZUBjwpmbFecGcOr3zZJushEJllJVJR
-         SbFV9wUQAlU/kXuPznNV6qZy1uwMsLOpkLjUgm6YPu+bSW256FT3CmdJDZbHz+rw+fuC
-         pSPYbuvFrnDQSjQ9ZIQ1vjdmIlVh0dydRHgwDVTP1Z/uFb8bMmzPQL0ADyHU83vCJfGA
-         SPYmMM/7mlroUxnbKCNuikARrTOA4TKPI47yIoDPQnzQsfCwnYui4R4dwsZvJZFqZY05
-         gNE1PgA0oMBZ9mZXAwEN3/LhL3pvQcChLJqcDKUB3f5Gvd1fQRPhQK+0+dqXhok2m0Mk
-         iMGA==
+        bh=a7VfkeZl7fPR5dTy6nweVWt5o/UsHxB20RTbQxUVJM8=;
+        b=msA5QAbDTQiTHal9jp2jcWdZDd+NqRdbjjMox47NYi2L8nwDgRc8o9RLGvJou+DQs4
+         HtRl/wORNBY86OoAQoeJBsVwWkhQj5hMrlIG9SyCRYMc4QA7hs7KpJ08FRRNlNS6IRtD
+         f4NRYZIQafVir12mBbzVgjZ3/2cnuaei5ix70SF9UHfOSWHL7ROK9Ht4LRPF9K0n9x6S
+         Oy9O7cLev+0QHHvti4cUkOO2/FW/lbpnICDruCe1rm2zzcUfvVJUm9Rj+i5cLI56oovh
+         ERx8NefDAlcGFb1DvHLozW+V5kwOccWkGGeh919+Y6vzgXn7qRs4YTIr4QqVmOF8trPi
+         1BXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790065917; x=1790670717;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6TICktEuUxPHMgoO/3ExzI6O90rGksd21amxrNGdY8E=;
-        b=GkKYkqIgThFroSYYq7tprDqHj4qRHdC1luKc4PdNmynXKme/HCLU0SxKHPxwso3/ME
-         w2D7NcXaqbtJmiuBE08tORKLLsohxb4Y/ZfQNXpwBfuRgJnxWN8sAkHp8pZaOWFGX27+
-         4rnZgLl7Z/qgcglIi3nvZkiFcE8+IFELTAAgbszqGfc1f6bEtLlZhcOP6TzMQjFsJSrw
-         A5HejWppBvCu4BgooL12o8YagR6SekxG4+kBAuW8qvG5nFsZ9i/MItUyBm9jqJCB55wU
-         ZZF3iaTzXs+ONzJNo0bGi7ChBPezgVAd9LmJMqWGXV2fBWAGeMBOJzkJjm8lqpC09l1a
-         URCg==
-X-Forwarded-Encrypted: i=1; AKwUvBwm2ZnL/x7fXet5q1lDDqPIaE83x+6ZAkocokc3xjG1F8IY34LnoPhI2Hmx+uoGNkrPYlFYEcN9RrBhwyE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3xu8JWQBZnPhFY0xDPEm43MUWgjv9Q17bmOO/s+/Zlui4+Vh4
-	g3dzlvrhyrv0ooHE0c28AvY5AIPvigtxM9PdPZ5EiqDq+wShE+6+vhQ9
-X-Gm-Gg: AYBFou1KdaE6ZacXeXGFUwsPVk6GI9+PKpPGOW2MuK7pVldkffrSGqjN7ZTABHJ4FkU
-	Mrge5L7iMJpZGBpe8QgXeME18uDCZcTPrvH585hwjYOuxtHHv/XXq36PiZaJfAFobCx2On/dKD/
-	qSXbb0YJIfycjCS5FcnuckSTg4cZhi5Q6Uzhbis4FHDMr14Tgvu2++r4zeYG9uglJEaja14OgQk
-	safli7+b7uIgm79VRHailzfaztysfKqJ5Nv+OeIbDwnHRLqzlrGLje4NYsMbBfWcf9JCtsJOZQG
-	ew3N6bFCi2bEX6Np6f4AukFKi4SEjwHbR9pwmMVR9+b/w+v5qSNbPKjNuj18ycUQnA2nH6Kqq+I
-	4X1lQ7ZQbRKqtL2tkmyg0QHk7ZLltDT8u7Vr69y6Q7qRq6vcJ4rCnlNneat0xASEW2vqRiN0h2l
-	gxn94MJSBFdyH5ZUEzeCEWOVnDlI1eRAW7+qM6sTvl2+SI2lPrXPDvDmkNGAqSI4s44aEo440Cf
-	xc8YMzkMaOg9NHdtN5Xh9KsSc74c/186lVRW8sk1Y6KEIKtdHuB7BsqvnvsMYzfOSF4vTeascb1
-	Lj3lTin0LoJVHGgut7IoOg==
-X-Received: by 2002:a17:903:8d0:b0:2dd:c100:a5ea with SMTP id d9443c01a7336-2df60b7c740mr5387815ad.62.1790065916382;
+        bh=a7VfkeZl7fPR5dTy6nweVWt5o/UsHxB20RTbQxUVJM8=;
+        b=yVdDX/45EpLoYtuUSyjbLgniqA2ooswZuX5gzCrfcDDqmGAb8nSOdlI574uQwD2Nd7
+         QY27WyNfhF7scwL4kraKNNW1y+EfhbTNKXVVazT8fkKp4Ctw3jTX+fRrPgOttfip50AW
+         PM31I223tjz143ojKhvIj2QoP6j5qn2qoP0uj6WnfcDVPvqn2oceis/IeBBJzy+7XzNi
+         uI3+4+7SH+UjxsBy7iId5b0GBbJHHsTb2BZ5SgKzbKF6opAW8n8rcgwJR2wCjEStGakB
+         EZoezeNnZiAJZ+PEmxuZaqD+9iG3xgOiYRiCfWJDJ4L9Pxp3x7VOdte/gPOb7UKGjVPk
+         W3KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzmvdwOVpZ/wlhK4uYHAYhfOy9/9ApggwM8vftB+pOcK3jnw03fKBIOEkZ2P0VPWQj/qV1wY5KvprSlZI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lajMZuERstMfo2QrmnpDUru9oH+HYG07QLC6t7cDAurbNGAmAL
+	JbUyjEJl7o8folrlR4J9mTGBRcL+bvk3CibVlK71BkndS0QchdgpsSnl
+X-Gm-Gg: AYBFou0SPJzqI8dsMeN4pefF2VbICWhvXvSPetE5LYwpupUuOoBBsKFsnXSJg/5btjO
+	pj+V5pSBlBAfjDeo+r2ZTnmgsfLCqClpCX4nFXRMwzdXSMEaVYsL6K4dHeYljrWM63jkI88WY7+
+	xWAYR1UqPGuDfg0/S3f1m/sGFyjqvLWxWjhwpvsC0xT3j7E0EUbDmfAt75dfaofZ3n2548W00eg
+	E3hTiqPAEktuIGlv50uAzRfai40ln+HadgQqaAYS3ZELQdSZRqOxOeEF09X8i1w9qUPcql40nfR
+	LIfIu7Id2P1quqLiH/WYNvPdKhKp6NHQiKnSTNb922z8hMI9sJSF1nKt1pM9mcbgNwMm/Pod/ZQ
+	BusHlSNxH4qSTXWuABg1I5GDXJrb4HgcbSAWn+iYsPQkjaVeewRCd5R5nfuBMGfhdk++hf0LLdR
+	0xMEsVs9XfIkqvZGFZ8c/cRmolOxzjwJeMN0OSMWSxEtXvVMSvhHYN6PbWVyYj04U48rSCIa+Ql
+	795EiuLKQ5ldOMMNk2YNBY6rlL/kT0yO4qH9Bnm4xIAofLjg0AmwG8twiYTYZTC4equP9xR+wmI
+	C6azzzxbiQ==
+X-Received: by 2002:a17:902:ce85:b0:2dd:ad74:6d1d with SMTP id d9443c01a7336-2df60adefe3mr5279055ad.26.1790065916879;
         Tue, 22 Sep 2026 01:31:56 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0197d3sm5848175ad.13.2026.09.22.01.31.55
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0197d3sm5848175ad.13.2026.09.22.01.31.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 22 Sep 2026 01:31:56 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
@@ -71,9 +71,9 @@ Cc: Hui Peng <benquike@gmail.com>,
 	linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/3] serial: core: allow third iteration in uart_get_baud_rate() fallback
-Date: Tue, 22 Sep 2026 08:30:50 +0000
-Message-ID: <20260922083152.4055969-3-benquike@gmail.com>
+Subject: [PATCH v3 3/3] serial: core: reject baud_base values that overflow port->uartclk in uart_set_info()
+Date: Tue, 22 Sep 2026 08:30:51 +0000
+Message-ID: <20260922083152.4055969-4-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 In-Reply-To: <20260922083152.4055969-1-benquike@gmail.com>
 References: <20260922083152.4055969-1-benquike@gmail.com>
@@ -86,80 +86,66 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In uart_get_baud_rate(), when the requested baud rate is out of range
-(try == 0) and old is non-NULL, the function copies the old termios baud
-rate into termios, sets old = NULL, and continues to try == 1. If the
-old baud rate is also out of range (for instance, after uport->uartclk
-was lowered via TIOCSSERIAL so max = uport->uartclk / 16 is smaller than
-both the old and new baud rates), try == 1 clips baud to [min + 1,
-max - 1] and encodes it into termios via tty_termios_encode_baud_rate().
+In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+uport->uartclk (an unsigned int):
 
-However, because the loop bound is for (try = 0; try < 2; try++), the
-loop terminates immediately after try == 1 without re-evaluating
-baud = tty_termios_baud_rate(termios) for the clipped rate, hitting
-WARN_ON(1) and returning 0, which then triggers a fatal divide-by-zero
-(Oops: divide error) in uart_get_divisor():
+  uport->uartclk = new_info->baud_base * 16;
 
-  WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_rate+0x136/0x260, CPU#1: init/1
-  ...
-  Oops: divide error: 0000 [#1] SMP KASAN PTI
-  CPU: 1 UID: 0 PID: 1 Comm: init Tainted: G        W        N  7.3.0-rc3-g5dd1818b15d9 #1 PREEMPT(lazy)
-  RIP: 0010:uart_get_divisor+0x5b/0x100
-  Call Trace:
-   <TASK>
-   serial8250_get_divisor+0x123/0x1a0
-   serial8250_do_set_termios+0x21e/0x1610
-   serial8250_set_termios+0x77/0x90
-   uart_change_line_settings+0xf6/0x720
-   uart_set_termios+0x1c1/0x5b0
-   tty_set_termios+0x5f7/0x920
-   set_termios+0x533/0x7d0
-   tty_mode_ioctl+0x8e4/0xd10
-   n_tty_ioctl_helper+0x3c/0x270
-   n_tty_ioctl+0x4e/0x2c0
-   tty_ioctl+0x1028/0x1480
-   __x64_sys_ioctl+0x184/0x1d0
-   do_syscall_64+0xda/0x4b0
+While uart_set_info() checks if (uartclk == 0) and
+if (new_info->baud_base < 9600), when new_info->baud_base exceeds
+UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
+by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
+(16), bypassing both uartclk == 0 and new_info->baud_base < 9600 and
+setting uport->uartclk = 16 (baud_base = 1, well below the required
+minimum of 9600 * 16).
 
-Increase the loop limit to try < 3 so that the clipped baud rate encoded
-on try == 1 is evaluated and returned on try == 2.
+Reject new_info->baud_base > UINT_MAX / 16 alongside the uartclk == 0
+check in uart_set_info().
 
-Tested in QEMU against Linux 7.3.0-rc3 by setting /dev/ttyS1 to B115200,
-lowering baud_base to 9600 (max = 9600) via TIOCSSERIAL, and calling
-tcsetattr() with B57600 (old = B115200), reproducing the WARNING and
-Oops: divide error in uart_get_divisor() on the unfixed kernel and
-verifying clean execution with 0 warnings/faults with the fix applied.
+Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+&ss) with ss.baud_base = 0x10000001 on /dev/ttyS1: on the unfixed kernel
+TIOCSSERIAL succeeds (ret = 0) and wraps uport->uartclk to 16
+(TIOCGSERIAL reports baud_base = 1), whereas with the fix applied
+TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 091ea8e5d34e ("serial: core: prevent division by zero by always returning non-zero baud rate")
+Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divide by zero")
 Cc: stable@vger.kernel.org
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
 Changes in v3:
-- Collect Reviewed-by from Ilpo Järvinen.
+- Add missing #include <linux/limits.h> for UINT_MAX and move the
+  new_info->baud_base > UINT_MAX / 16 check to the uartclk == 0 check, as
+  suggested by Ilpo Järvinen.
 
 Changes in v2:
-- Split out from the 8250_core.c and uart_set_info() changes into patch
-  2/3, add Cc: stable@vger.kernel.org, and include the QEMU reproducer test
-  details and kernel stack trace, as requested by Greg Kroah-Hartman.
+- Split out into patch 3/3 of the series, add Cc: stable@vger.kernel.org,
+  and document the QEMU test method, as requested by Greg Kroah-Hartman.
 
- drivers/tty/serial/serial_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/serial/serial_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 95774b0f1484..3845fb582f45 100644
+index 3845fb582f45..362dd6648ba4 100644
 --- a/drivers/tty/serial/serial_core.c
 +++ b/drivers/tty/serial/serial_core.c
-@@ -501,7 +501,7 @@ uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
- 		break;
+@@ -16,6 +16,7 @@
+ #include <linux/console.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/kernel.h>
++#include <linux/limits.h>
+ #include <linux/of.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/proc_fs.h>
+@@ -933,7 +934,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+ 	if (!(uport->flags & UPF_FIXED_PORT)) {
+ 		unsigned int uartclk = new_info->baud_base * 16;
+ 		/* check needs to be done here before other settings made */
+-		if (uartclk == 0)
++		if (uartclk == 0 || new_info->baud_base > UINT_MAX / 16)
+ 			return -EINVAL;
  	}
- 
--	for (try = 0; try < 2; try++) {
-+	for (try = 0; try < 3; try++) {
- 		baud = tty_termios_baud_rate(termios);
- 
- 		/*
+ 	if (!capable(CAP_SYS_ADMIN)) {
 -- 
 2.49.0
