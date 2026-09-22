@@ -1,104 +1,197 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010054.outbound.protection.outlook.com [52.101.84.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8221535FAB
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072592; cv=none; b=OZnxhDSQgtT8l/ge1EaHbWEPj5YmHGjCSwVSh/3rW0euoF26tpsEJuepmOefoE+/sVHS2XLcAxHkSC+c38erPJg2rFYnECrxrulrIeosm9roJWT39lGldVXs6HC6jfqod58bNdd85fCFoKCn9Hg/jAvFtvYX8/GvsW/jAKv/xpw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072592; c=relaxed/simple;
-	bh=q/ZtJSAeXkKY8cNGSGgRsE9cZAfPexEkd7ZIvSgC8ZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jsx04sted4Um0SaIsZaHnP+brU1xb3H+83AqTYnPHxj5bWXhbCxzkhhbUTJptJB05Scvtkl7mff+E+57Pb+jRyKDbiTdNI2G7hn2NRN03FFmbZx1zpk/VpCayTANWUMkpBnuNPXU+f4okJ0L8YAoeRyvpMDdWz8rck+2fF0TmTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ocZ3HmTr; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526875349D3;
+	Tue, 22 Sep 2026 10:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790072599; cv=fail; b=EUGHpbHWXIyOZxpwlSmsV4VoJbJqt66AHyRmORY2s54Iq1CCh+yBxKZjgPwMLGIxveh4Jo9d/aSxM42N3lmDz/jej4bz4jCFJxkqCy+HdIBkG4x6ZXR515aaMfyPXJFgLpqKXNQX3CZQQ4AuCPOAgn9KgcOqK7DfWkgdaTxsBiU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790072599; c=relaxed/simple;
+	bh=DQzveorFByygfHxu89169X+pQ1dVc/ALX1BNEgOehdQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Stt+ZJxpTVpwQ+wu+UbRI+tbHbeGEeN6FUCAu+FlsPkY4HswGT6NfOGBp8N1eo91kpQHYjdOlAugMlD3rE88JsVecLSnCgXS7nizMr5mQNfq0EhQUApPmzPfxooKItk46gH/q7yNEgI+QBIwl+6YyX0OETvbuARNU5+i1pb6VqE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=jqQ4zVPh; arc=fail smtp.client-ip=52.101.84.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ocZ3HmTr"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so2132981f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:23:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790072584; x=1790677384; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wznDZnYyXxoiahFqDu0EcYXg1rerGnqVJ/o+12P92BU=;
-        b=ocZ3HmTrvtT93NyOTGsHzYqMtPRe/AIBUtvNtv6bkHUi122MFHr+50+L0RoNYZvRwb
-         Gw33mfeLjldPOwovaFmSlqwXBTmQFm0H0BxNT6dTHp5B2L1W2TbYwhSpfoTLr3mLrr+7
-         EUBqRyZfDhSxnLszmwfh6OYKC2H5/7RmwFjVcMlZwVtC07s1v5sVT0HurW4P0aP1NtpT
-         gM8aRuUDcbSlJ+c79Asm/MhfN4Cd0NXQ7kpa3eHVxeWxko4FLC4ysTMgD+HE262uxj4i
-         kxKOSxUJt13kIvVVOCSRCdwYEW/6CIk53Km5Iy2fFeEG7zKbuK20acbOUwWXKa47+6DE
-         P+tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790072584; x=1790677384;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wznDZnYyXxoiahFqDu0EcYXg1rerGnqVJ/o+12P92BU=;
-        b=Ryo8/qkzwK3C1hJJccBRQAZjcbyq4Bg/s3BjWRTu7xvdr7bcsT6BR7+3MQIenhrsJn
-         7bDmyFhHIwKpI7lOPMGIdqg0YTqA7vGUniYpmq/W2Krn1hq6AZOEayRozXZBaKDc0UzN
-         sseTTduEaAERPJqycCzhQNsEgveWCrhNnq0u8UA8X3PDwYOnFJa/6jwwhWO2mCBMZvcE
-         5bhKW8tSc79AVvCBIPtV41lsRdWRBSTxsxTjwfivHE2xltU5AdHZLq6DTSsXb5EfLht+
-         QkZJOgbX+vc+ynJfWvjyk/GJHuOmhUu2HVCflnZaUa6lA2/iZ5v55Y+s6mvzqtPXX5wc
-         rHdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLBftekyGsU3ys6+QKVFRL5jHzXCo6RBqSU5gV1TNXuUWYXF6ZWYEzGgUgs/UTA5iy+0O594ChTxpS4cQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nViO3LqE9KcR5LcXsZIDh2SdBGnEs3T0/Rvyl/nObWb9Q9TNoL
-	yc70I0CQuAiDHmZS2DXSTtQoP4G8N16RhoBgnfWQ8qt/euVTBdEdYpfA
-X-Gm-Gg: AYBFou3pCO92tm7ORWuojdSXQwXeYUEIXkK41+chkT6/WjDAtDRIpd8EWL9KXDooPlT
-	eTKeDEe4prVk8hG7AzBkp3rNJm9jepXHAw1FwFz5otCu/wk6AyLOqwUYegp7/QWp0a4bFmb4u1k
-	HgQxe7oFzbbYcuGQdHi+HTgbwYSDX6wvNRwE+U5HuMYxLsPLaLw52UJUGKjnRwJ3hpTSIkfrHIp
-	8pMD+Im3kJKokPZK9edb3Z9XdJPpsXBtIiK9OoiXIHvzmZPiKrwJwANjq5BB39quo+Cq9+d4Bjt
-	4A7ey58/5W7On7ZltT64PNTRCbLqW0o8dHyeQZVSYH1x3AaO7wD5Uaixe1rJCa7gIEpf8GFl08Z
-	A75HzikYsl3xDggzrocKL+mnnJOdMiK2JLEVQgEm3TZoqRAOOIfWe5mDa4aD7ZQfyK5YG6JG3ym
-	4/R2nz8JSghVN7ka7aGsZw6M7ukJlSLxa2h364DTl5Eac+Da5KY81mGArHLKPo3KUwPA0=
-X-Received: by 2002:a05:600c:1da8:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-49fdc71e72cmr8878355e9.20.1790072583857;
-        Tue, 22 Sep 2026 03:23:03 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaa4e47csm81291145e9.1.2026.09.22.03.23.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 03:23:03 -0700 (PDT)
-Date: Tue, 22 Sep 2026 13:22:59 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Adi Prasan <itsadi2409@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: rtl8723bs: fix ie_length bound check in
- rtw_cfg80211_inform_bss
-Message-ID: <arJXA7q5a40jcASB@stanley.mountain>
-References: <20260920142849.294162-1-itsadi2409@gmail.com>
- <20260921165527.1379-1-itsadi2409@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="jqQ4zVPh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UacE9j101+C1ZkP0Ymb85UH/07rVfXuTdVRzlaAW2TkBUf2n7bLL5g2RSejPHV/sjyzo8ezSgX2HksiSF+ZWyr+/Vy5QFpNsOXKxtC/4MfQ3V8NIi7xDTqxB9r9ljngB+5Q5dA04LkR/QHti4xqQhmDeHaGhvFzZED8ymn+yIeoAs77l7GiNffQOA3cBlPwPuSLhxD35hFfRoeoYmcTLi3tht12fnPJ7kdTF6EZcCaR6d2OYVJlOM3KtfC/ieK/QECfxU33ejYOWrZOQGjIqvjSmIatylFiVfVdt/jrmFIWgZsxVMvDcqQ5Qli1yLwNjHBVwsI2MdyUB2MrZd95j9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fRvxAsfCFwox82C2mSkDy9Ex8/HiBkOPUhbZ2eJr/ls=;
+ b=YlTW9GafukbBg9BKg6e2lCu0zlbuNBYljP0jYcpeI3FuD1/1zkwnacKBuERXaT4aHP0S/FhGzA0+dkz7uCCGwPIXxjjcRSOHTuxernIKG5OVwb1URfVAALdu0nqMnG77pqK+ckTlf1649S+Au37UCnZfXz6Fgey9qliHZfuMTDCo5Sl0EfiwwpSJyeQJv3Ig9+FJfjCuqFwIdhDJI8J2WkeUi/+rYx25zJtDIHg5e7fY4bx/Uvu4y3SLK1RJPtRtQTXMCtPSZ3QpZ78+zfvv4vxVZqki0eMIbL0K5Xyv+RSKEDFvklIoiRTDccK+j7lclcZqv/D4qQ6KQa/cv+Fzig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fRvxAsfCFwox82C2mSkDy9Ex8/HiBkOPUhbZ2eJr/ls=;
+ b=jqQ4zVPhpbsyWKrjr5rIe4SjElTYA01lG+cRLGQw1FQvBFBdyIgFOXaA6SYwEvPlOuM0sg2ZQaak2eIdiONUNNUFAOl8o8ZoAFYTSQAf7Tj9jywiKAakIUyQHKdFz1VzwaIAfemvp/EEbr7qxhCm5g+h8ebir6yATB1UK8seeQKNkZq6aWvBiRWIfqSzGxHZ93u7QUqgwOkKv7U3UL7Kjz/Wt+hoDtKbyTHHwIRHS2JYAOVb/LA1p164iujvvtKTYeQSLxAd2vmYBqYUeAV7ITf4kteXWl76KeNQcgACaFx4Wf5nRzxpEiaKqX5TZ3OLxwgUQDjNAQoLNNzhANNWZg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
+ by PA4PR04MB9637.eurprd04.prod.outlook.com (2603:10a6:102:272::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 10:23:02 +0000
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc]) by AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc%3]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 10:23:01 +0000
+Message-ID: <e1b7f681-3b4f-4163-afc0-9ad0c2bb4adb@oss.nxp.com>
+Date: Tue, 22 Sep 2026 18:22:43 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pinctrl: pinctrl-generic-mux: Fix provider resource leak
+ on re-parse
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: linusw@kernel.org, Frank.Li@nxp.com, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260916030435.4089460-1-chancel.liu@oss.nxp.com>
+ <aqxVas_FftE9-pTQ@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+In-Reply-To: <aqxVas_FftE9-pTQ@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PH0PR07CA0084.namprd07.prod.outlook.com
+ (2603:10b6:510:f::29) To AM9PR04MB8353.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3ef::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921165527.1379-1-itsadi2409@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8353:EE_|PA4PR04MB9637:EE_
+X-MS-Office365-Filtering-Correlation-Id: 14407c2e-b8fd-404e-1e6d-08df18937aed
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|19092799006|376014|6133799003|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	3EA97XGubQ42X9Wr4h2aynpu+gCJwUV/x3ro8s+6wzHN/0vKVgUQHL4d3zbADNdeNSludFG5xmBSCqzFATqXGvgjO2h93EXGumg6nIacwnAdxB/V4h1zfRDHKfek47YLrMBW/voccRXziyekRysHVSrYb7wdiBnuXLF2xXKdUvao+M6pRW6WGqjhfvdxQJmZKkXotTu0Pi0droV9Q+jd7GYTDzEUUkRc6n7MpYlP28e3jnxxvWR4pQc4D4DJowDf9bqpnldP/eyOcpqgxy976X456w+iySZ9OFL+uaMA0d/rkfIFPM/klO8DaXYiU72wlyRSPTLjoUMx0BtNjYTI2bkMc3K7dbt0zw0GxmOac5Tyj6fhJ8wd73aaqZhxTuck9+zxAhWNR7Yy7oCJEWsPl0ektWfah7tgAMZFIcypxD/gRh9Oi8cnrJ1kSF2GDJktD5n0hbtn3RjZMsd2A1AwZ9Hf9FpUX+DzqEPkS4yk24x0vnFs/+95snIF1C5gAMV8GEH5yv7EYGMqPBZBc50lLtIcmPtpQZ4TLjghqW8XF0zddLvrNfvQ1ZLK7YjaCF/isBuO3o7nAHjqe7YKvTH6RuzVaGUAI2mGueG3jaSsfRPVj0I43QRsV7yp0CrvSK6Xmm+T1y75p1XkyG7C48CheG+V30ZEJM9UmXexFdG4ILc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8353.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(19092799006)(376014)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S2FVUVNJditpOGlML01KZm9FUy92SVJteVhBVnAzeGZnMHFWYU54cnZtZW5E?=
+ =?utf-8?B?QmRkSlFNZzBiNUN2bnYyRkFtZHpHeXdIWTN2MEJQY3FJYUNuR0dNOXJxSWtD?=
+ =?utf-8?B?UkNkNHczQzFVU2JhdjRWdTZyRVdZNGFGNFhXZ1dRVko4YkZTa1o1VlJ0Y1V3?=
+ =?utf-8?B?TDV1TkY5SXJGbXhzS1A3SFNPWjg2Zi8yRE5KajNtSXpCcXJtbTY2c1F4a1Vs?=
+ =?utf-8?B?LzhVdnh4djRzejVTdDJBTVV2U0UyandSQTFLbEZVdnUyNzR6L3lNaURBSkpD?=
+ =?utf-8?B?Z2Rqcnl1eGtGMGIwVDZLSXFjckE1djBrVHQyb3Mxa24xbzlDc2dtcnVJek1n?=
+ =?utf-8?B?WWxiVTNWazBuSHd4aXNVQU5QbGJIcEg0bC9WQnhhR1RCQVdvZGZheVczd3FF?=
+ =?utf-8?B?dCsySTZyQjlwSnlDWEpmeFF5RmRWMjVZUHc1cGkyUVcvVlpRcUw0Qm1ObVdy?=
+ =?utf-8?B?NDI5S2R2N1BrTFJmRzVGNWtibGdXOFBiZ3gzZ0s5dVFRa0NQbnczS201Z3VE?=
+ =?utf-8?B?enRacWlXb1VXZXlWNExSSldaT1JqSlFSd1FZSytvdEZjaHBFeFlKVXZpd2M4?=
+ =?utf-8?B?TE1DRWJlZEgyclJHN0hlcFNTTGlLMWpNZlp2dzdYTXNkbTM2RUd4L3NNSGNT?=
+ =?utf-8?B?bDNEVEZ2TGV3MXhtUkR1ZmNUY2IwUlppejUxWVE5MlZXM3hCMkFlVG1FdEQr?=
+ =?utf-8?B?RFFpN2VUV2Vzc1dBSGFRbmF4K3NZRG1kK2ZYMXVWSDBPc2xwWHhLR21BR2pr?=
+ =?utf-8?B?UUNpNmw1RzhZNHpJWFVwbFp6bkpOaVowMzI3Y2Z4SWxrYW9ZVVBxWVA1b0pQ?=
+ =?utf-8?B?blVUNmdndXFvazdZbHEwUXBGaUhkeUVwbmFRTWpHVlJpYTAwSUp6dlFTWHNQ?=
+ =?utf-8?B?TmZUMlYyQndOcmpjT1NjRk5tZjl5SHBFRGU4U01HS0FCWHQ4dnlBeWU1OWNh?=
+ =?utf-8?B?Y1JTbW95ZGNJdkhaUmdtaUZMZFhubTB6Vmd2amhBSWhyeTQ1Z3NzMm41Q0Q1?=
+ =?utf-8?B?dG92Z1piUGlZMjNLRGRuUXNoRVdrVTFKUEFwT2M0M2k3bitsWmRITy9KUjY5?=
+ =?utf-8?B?akx4Y2ZaN25vbFZxZ2FCUjNvaEVHS2VMYld0NHJXc3Z3QkdOb2RqbnNOSjQr?=
+ =?utf-8?B?TGF4N2ZtK3pHTmsvL1BSeW1WN2ZPVytVbDdhNzRRVmR5VHE5WkxWOEduRHNm?=
+ =?utf-8?B?Y243RFNCcGdUT2dRWXE1OVBPeWlzMnRyV0VGMW1USFdNS2lsSTlQRFNXaDdx?=
+ =?utf-8?B?T3ZsSW1rZjJaYUJvbUJzdWRuVmt0L1pBUW8xV01TS3ovUmtyWkNqY085NDNP?=
+ =?utf-8?B?bTVqMUN1ZUlHeGthdXNBOVRZUWZkWklDSkIxbkJWaXdzMGFYcEphSDVYdkE5?=
+ =?utf-8?B?RmZLdlppNTUrRFFzSUJFbmwzeUNsTTJ6emI4T1V1dUdISkx0T21BRndyNE9E?=
+ =?utf-8?B?U2pYeUtFY1hNeW5LQVluSTR1ODMxQ0lHai9EUnY3b05lZlU5K21ncEpZRWtW?=
+ =?utf-8?B?SmM1SktMdWpuTi9nWk14NktMQ1hKckQvL1JJTUtKeDNWWnlVU2VzczdFZ3px?=
+ =?utf-8?B?Y3o4ejZqd3R4bGdTS05KYm1acnBNc21DekF6dTcwaExQeFZyUzVOTStYRVN4?=
+ =?utf-8?B?ZjRUYm9NbmxXZEErelRaUlJHcWlxdE1xVGJ6cG9uSVdDd3Q5NUp6RW9seldD?=
+ =?utf-8?B?Qmo4d0lxVjY1Ui9pSmhLekhBd3diTmUvM3ZHV0pidjZueU1ZMkg4VzV5WlZ0?=
+ =?utf-8?B?NHZGQzVRenFDM2V5bTRaazYybGEvcWprakR0a2JIc2lya2gxREFPaWVDemJv?=
+ =?utf-8?B?TEpVby9aM2tIOW9vdC95eE13SjdGTytBQTZRNW4zbnVlRGdtN0RNRnRBTkl5?=
+ =?utf-8?B?NFV4ei9kVUk3VUozdjRqRDJmL2ZMdHFSZ0NzMlpnYiswSzJpNC8zaDdCY2ln?=
+ =?utf-8?B?TnFVNGNZNHhSY3NmcWY2M3N5N0NrTmRjeHpZV1pFdmhseDVLb2h0VlZPc2hF?=
+ =?utf-8?B?L0tCZnlKOXptMnZqdWszNEQ4RUxQTFNrMzg5Z3EyWUlHWFNrMWZZQ1JkdDg3?=
+ =?utf-8?B?Y3hmeWN6M2d5Z2ZjRU1qUjJoR2dETjdBbnFMYWZRNlNTZ2xIYUFGRjYwaERa?=
+ =?utf-8?B?aUhKS1ByM0hUYXJDSUN2Z0dtYkVpZXhyYU03Mmp1VTFEejdjZ05VSUQzSGxT?=
+ =?utf-8?B?NWl6aXdscXdsckVSbytndFUyRk1EQkNiVlMvKzRvOFVZcG1xK0Z5WlBacjNy?=
+ =?utf-8?B?ajV6TmtoUmE1UXYrU0F3SnEyK1dBUXFSaWdEemlUbjdYeWkxSU5DYVNRUkRt?=
+ =?utf-8?B?N2E0THlpcTk1a21KdHJKWC9Nd0VDNG9CeTIvQ0lwYlJVNG1HNVA3dz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14407c2e-b8fd-404e-1e6d-08df18937aed
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8353.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 10:23:01.8368
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E5b0a/JrX7//eS2UK6dK3wvkHqif8o9Bgl1gwxPc9Q4C5CLRFB2VM94DQUE2YdGwO57rRUy82rP0YUVlPiIqNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9637
 
-On Mon, Sep 21, 2026 at 04:55:27PM +0000, Adi Prasan wrote:
-> The buffer bound check in rtw_cfg80211_inform_bss() only verifies
-> that bssinf_len (ie_length + header size) does not exceed
-> MAX_BSSINFO_LEN (1000 bytes), but network.ies[] is only MAX_IE_SZ
-> (768) bytes. This allows ie_length values up to ~976 bytes to pass
-> the check while a subsequent memcpy() from network.ies still reads
-> only 768 valid bytes, and other paths that write to network.ies
-> consistently cap ie_length to MAX_IE_SZ.
+On 9/18/2026 5:02 AM, Frank Li wrote:
+> On Wed, Sep 16, 2026 at 12:04:35PM +0900, Chancel Liu wrote:
+>> From: Chancel Liu <chancel.liu@nxp.com>
+>>
+> ...
+>>
+>> +static int mux_pinctrl_probe_dt(struct pinctrl_dev *pctldev,
+>> +				struct device_node *np)
+>> +{
+>> +	struct device *dev = pctldev->dev;
+>> +
+>> +	for_each_available_child_of_node_scoped(np, grp) {
+>> +		struct mux_pin_function *function;
+>> +		const char **group_names;
+>> +		int ret;
+>> +
+>> +		function = devm_kzalloc(dev, sizeof(*function), GFP_KERNEL);
+>> +		if (!function)
+>> +			return -ENOMEM;
+>> +
+>> +		group_names = devm_kcalloc(dev, 1, sizeof(*group_names), GFP_KERNEL);
+>> +		if (!group_names)
+>> +			return -ENOMEM;
+>> +
+>> +		group_names[0] = grp->name;
+>> +
+>> +		function->mux_state = devm_mux_state_get_from_np(dev, NULL, grp);
+>> +		if (IS_ERR(function->mux_state))
+>> +			return dev_err_probe(dev, PTR_ERR(function->mux_state),
+>> +					     "failed to get mux-state for %pOFn\n",
+>> +					     grp);
+>> +
+>> +		ret = pinctrl_generic_add_group(pctldev, grp->name, NULL, 0, NULL);
+>> +		if (ret < 0)
+>> +			return dev_err_probe(dev, ret,
+>> +					     "failed to add group %pOFn\n", grp);
+>> +
+>> +		ret = pinmux_generic_add_function(pctldev, grp->name, group_names,
+>> +						  1, function);
+>> +		if (ret < 0)
+>> +			return dev_err_probe(dev, ret,
+>> +					     "failed to add function %pOFn\n", grp);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
 > 
-> Add an explicit check against MAX_IE_SZ so the bound matches the
-> actual size of network.ies.
+> This method also works, slice difference, if some pin have not used by
+> consumer,  old method may save some memory.
 > 
-> Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
-> Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+> leave to linus to decide which is better way, this one or add free() at
+> .dt_free_map()
+> 
+> Frank
 
-Really do some more checking to see if we can use a more sensible
-limit instead of MAX_BSSINFO_LEN.  Also try figure out where
-pnetwork->network.ie_length is set and verify that it can be out
-out bounds.
+IMHO, the groups and functions of a board-level mux are static and fully
+described by the devicetree, so probe time is the natural place to build
+them, and dt_node_to_map() can then focus on mapping. Happy to go with
+whichever Linus prefers.
 
-regards,
-dan carpenter
+Regards,
+Chancel Liu
 
