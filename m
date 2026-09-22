@@ -1,378 +1,182 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EB851AFF8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:43:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109853; cv=none; b=XbyPwouICDoP93+4Sje0B7dutzuIAAd6mGL63BQj0kFLusRxGxL1UKdhgurKRzsIDO2TFh9MZcG5wrkxE63LeWFILe20bLaA+OJoZIgOyY86lgrIomvcM73UDzyN7JCWlywqF7hruI0We68bGmZHXB0NBWemHb8vI69hC3JpJf8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109853; c=relaxed/simple;
-	bh=Q5TkZR39NYgiwWRYBslQEVd5kt9MNO8iAajWHVC2zJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cibQitg0nQUugUFz2NLu6J3o80Y2Yh+IzNA48OsIybBAHclr0S5nuuJBi0/Ok5Bq8dZ+R6LaM3BVwvLLkoaTQkQiZIaonj72l/1U5tDCptrJoDw3caM7tM3hziORIhEaEHwpgOhrOVJ2wJBY8MtZykWlHLpMQHUoygiAFUtvY+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GULKsRoL; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EE13F5BF5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109862; cv=pass; b=ogN9vE92ZbvHb65YdvtalWMMpXMMy33vmRKccB2QGh5U1+jLo3g4wEWsXw34qrdJp8uy+zHm8kHKCXjKjXLLXgqYlSjVvOlr4hmhloznZPxIN4kuavCjk1HSPCNCfbgYP8hdYlW2AZqm6VHuaS81DHLzH7ciLvWHPIGuLijh0Zo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109862; c=relaxed/simple;
+	bh=P+lcMuK5hQh5O0IlQrlqy9m+daoCKm3PxvImyC7y6p0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fjIDzhL6OpPL2DA9v7fkuZ8fct2NRqJOaKI4FjS6orRIgqhL7piDoTD3TIqhmC4ypdpAsjUvEeid9E80UWVst5B0XsWPHnoji578B0D/v16lNwdu2IgpCZfZwd5n6QMqQlrwg8fTG5SyRN5ZAlhHQasFei+7WjLpUXsTRplZSR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kN3AtHDp; arc=pass smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GULKsRoL"
-Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3965683e9e9so167359a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:43:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kN3AtHDp"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso214562a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:44:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790109842; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DepT/NvsdO3EA51xDDujI6A1djAQ5P8g+GKCvuGBvtpQ/Q24WbtBXNZpuOECEtOR6n
+         MFVfQmbpc4YV8dNaXUYANUWXj+hw14cQ4zU0LtK4gZM/KPcI4IJ6Kd8tZQBfG6XBF9+/
+         T/2z2zm/qCT/zxCXpzF0yefHLsf9Z3JqnXxsTd7sm4Rh1gcOHBEooBjBXbSCU8sLqT57
+         fSB5jmWIX+Ogax4a4+o8TyuukIfS/WWopu4dv0otMSJRkjCpY+ojTJzJ4hsWkP2qzMQE
+         b1v0dVs4fC1uD3ccyxADDj429hbwHTGgiWniVLdb8m2AdNRWnFHo9KMVFLQOp+jVhE3i
+         h7aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9uOUnWBMatAL9szZ+HFkI4Lili+9ziWjf14eBlgXmc4=;
+        fh=B1YOEW38UAa+VZY0uD6kT2jPbt91+6BxUfPWfioNEMY=;
+        b=IaFmoq4dKzBYSYTPNTvASb1E58KGPeKEmOijANgv957fQ1mSPUsy4TRZ1XlNUS5UCG
+         yC6AY86JyOlAgltpSRaxBgQHE4i6UYzIS4jCt+37bobBKdA0j4lZnJEpaYwLFfqgyiYg
+         d0vw+QeuELwhL8q+hl+bPkkCURzEmDx8zJVxdIS2LpSRzcaTk7H2sjUpWp5/yTBl2mX5
+         CT5LJCjuJPLKZsr4e71ReUn4bCLN+ZzB7951uYVSlPbohTKWVCQ1rGLHPyJYhPXbUI0J
+         oTE1JtWr59h2ncm5JtT4mCJ+VCtQNg4m+mEHUmvArRgv3eDeKluEp6z+TTUD1krQRKWI
+         YXaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790109831; x=1790714631; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cxDLGte0XFPc20u8C8dvpS8ZTxM5ZLPAP2KRl1LHufI=;
-        b=GULKsRoL3B1k5oOgZqEvQzT6kYYf+gJ1F6N4aKCxIFoxxrOicumRa3xneYsIakhvqL
-         B2MaRSiIDD4kjUKGR7ljFPGYWgf28+egxyweSDkcFXMHo6sj9TI3GgtKmXqO7498KtOV
-         vXpcBIMrZRUV7u/LWJniRvpL5tNCllyncQlaLoLRLH+3Iupk+2w30hjHP2Udflr5P2jF
-         oKcNMLpHwUVD3Z3sv7Aj5cB1kxju3pM4HsCjqMzXlEa9g3skDpNqxqLJ3XZwMD4uQPHq
-         xv9a3obnnlTMizaTRv1q5NRhPcsmaqTkY4WW0HNGrxkzcH9K29+UsmfpYhmsaB79R8Z5
-         L2TA==
+        d=gmail.com; s=20251104; t=1790109842; x=1790714642; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9uOUnWBMatAL9szZ+HFkI4Lili+9ziWjf14eBlgXmc4=;
+        b=kN3AtHDpVGwD+cwN/jEw0l059yxgDsYK/hwZ+xBcqWCvp/+PVZH8oiBYiOH9R+Xiwm
+         shE9VjxZEllX95TKkzPfgAtVsJBVqe7g3antDH+WhsalUsopqvTIgrmPo9AUKi2SucYn
+         6N2sHsFmhe290cp9GtygvUG9DOuBrqFgQhA5sP7g2edfEq3Rdj1BVm6Wgs96JRev4T69
+         Sygz6yfy3MEAfBVxoXEyg/q9UQJoA9xuBnjY9qash4Hqznh6YpPTlYT9BTM0OHSVK9g3
+         6T0nWp9czZq35/P26b0M2egkhf+RYRKxXOZLqWxvU9NXhnZplRaoEryIMmuFugH6laF0
+         1UeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790109831; x=1790714631;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cxDLGte0XFPc20u8C8dvpS8ZTxM5ZLPAP2KRl1LHufI=;
-        b=EzXQgm/hKrkzK0RY+td+WAx6Gm3Uj7K3jY5RwOtOc1gsDOqeZH5ZgHIutEwFl1RKk0
-         BKtgoL2IWr14l4vjuDgK1+1nOEAkWu5teHKn92jdsM6Qc6g9+wzeJLWV0P2yjJS1+TtO
-         a5xuqSgUa5e/w4WWDRqJB85l7P47c+JyE9tz9Uabq7njMC2FxvADtfkASA/3eVDzVxtc
-         SZNYxknlXUamGRP4srG6661FMAgqLn9bL+l/95jPZNCyQ2piM5jK6AbruS/b/Zy8NRnM
-         CM6NbA/V6J//sDzx6dZqjVWcj1lwKunKA5ek3CBOyVOrMMGhUAm2ri5jku0OFhNRG1n9
-         qYNg==
-X-Forwarded-Encrypted: i=1; AKwUvByhll/kziB1q8D63giWQ6uS7gT7ZsMlOiNKcIwwym/IfIjN6KXwOvM8yDYfbGLlgNA61NKO7wC6bHJ+0zs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0ERVfU5mAET3B45vrK14J93jvWhYa7cfE2Em5b+QQsqOx0VZN
-	PNe+0/FpnhYSwbqTDdBKRE0tk/msLS7mCzOEbE2XIlIzeNr1teK1LKXB
-X-Gm-Gg: AYBFou2m2B9vMO4BKKTqReSwxd5gVaACKrNYv8VlkcXw7GyOqT0iAsCgt3WL1irlXCz
-	pC/QVIITNCJZucJij21JFNgxL1IJThAvFTHc8gN0KGWoId2L4f2plP+FhRlo4xX0DHIpPOP4bFr
-	McCNs9eF1lEVNE+E/2zcJ1IaazB1QMIlKScwOQkCyrl0B5r1rw0RHfNhJrJtfOAweTlqy9XdvNN
-	xxw18W+iBcc1F39zeJ5ZNjATuCanmJIlZ+9kKS6uvMFwF+LT3NCUamfknKMrkK0BfXCdQ24wTZW
-	hSgGgxuK1Wrb9ji4VBYLJqXi84JhnSTUueDsML2+mSoQdd0Ce7g5lsMshNVxbErrn940Ov1Dzzt
-	+wo7Vw1XFBvkipNOQMRlvA2ZkWoz78TKNiPLOXysEJBvKWu27fU3ocQT8u/xe1zxUtmaeDDuxo+
-	Kg9h1S6TSFStC+pcJEDkKoI3a72CX8zZWfXNm3QN2mQUsYqHpA4FyA5F0DcYxGg+w=
-X-Received: by 2002:a05:6a21:398f:b0:3c3:7179:a640 with SMTP id adf61e73a8af0-3ddf7ccd4cfmr658486637.3.1790109830841;
-        Tue, 22 Sep 2026 13:43:50 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3d5ce8sm99133a12.17.2026.09.22.13.43.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 13:43:50 -0700 (PDT)
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	hawk@kernel.org,
-	ilias.apalodimas@linaro.org,
-	asml.silence@gmail.com,
-	axboe@kernel.dk,
-	sdf@fomichev.me,
-	bobbyeshleman@meta.com,
-	almasrymina@google.com,
-	kaiyuanz@google.com,
-	linux-kernel@vger.kernel.org,
-	io-uring@vger.kernel.org
-Subject: [PATCH net-next 1/3] net: netmem: add net_iov_area freelist helpers
-Date: Tue, 22 Sep 2026 13:43:46 -0700
-Message-ID: <20260922204348.717198-2-sdf@fomichev.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922204348.717198-1-sdf@fomichev.me>
-References: <20260922204348.717198-1-sdf@fomichev.me>
+        d=1e100.net; s=20260707; t=1790109842; x=1790714642;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9uOUnWBMatAL9szZ+HFkI4Lili+9ziWjf14eBlgXmc4=;
+        b=nIWKTqARvNIZnoukvoNL5vGaMSAM7rbmFxjXM7jlvuiTQlbJ05gPHixPm067DB623R
+         vKGW9/cM8f0zbPzuRzUc2YveDcWtW6Xncz+lYxARpm80CrO2N1rXvDl7qSE5piVmvMyv
+         EMOy4Ez2GpofXXsJfr0o5teuSCwlg0PCbTGqjDlIIHO1gWUP77l522uUtap79rEyaW7F
+         h5/TZFYRWpkIfUUCUFvOQWLScSbpoVHDAzsXFmPw+MOSz8kIhRmw3A5bpHbxsD6GkIHb
+         2JANqE0iOiWSTs6vydkxuW4UXRXtKwfUn3GAFYJGc7wT8vA5S1YaNQgBEDNKLqdP09fS
+         5PeA==
+X-Forwarded-Encrypted: i=1; AKwUvByup8aqsb5eMKcg+yk60ZG06FX0eHCruD4Xm3uNzpdWRANCCSZQEyAWq6numXcdt9H85rPC9To/L8RJ1ag=@vger.kernel.org
+X-Gm-Message-State: AFuF++kA7FNpxQJ2WkWq11yKrwwALgcwzFaogWpp4UqSXHaPFCx5dZLq
+	2p69G7K9SoWREyk6YPwnY7w0kf4XNdR58npgkymN6oUe5RJ9w92SUFZQMpkEyyumBCW/smGydr5
+	BhCdnmZs+S70G+fIYz4v/4Db3T123I/0=
+X-Gm-Gg: AYBFou0IMYfQJlWJIXGZBWxm2hTh9RKZs+NwvfmvunqBhjqSKvQgi/NVvvLZ6o36AU8
+	CRkgbHaoBrk97vzH6xkvAmw7+dBj0m9YvLZPx/Fa3dp0/Hs6iUYLR/wtti+BTDAfGEtdzKraALd
+	eaV8CfuMffP19FqH3L8aTvff4Ep93DEJgYij0HY9exmWzPXPkoVT4FOeApW1THjP0zhqAVVZlnc
+	dNTl9U8UOxhDUbTz1TMtAB3MUTR/OmTgoi1klGAUNNWAPLad11sVlEgcSNAanDaowcdd5awjRT0
+	XIrf3xq7Xj3Wui4u+pvDIXHP459jFc81Rh2UOYLQ7r/JlOUwSaptHPlYbSR49LrPhQH6gyAYUZU
+	/0slM/ljPDMpLKbRbrUxNspT2SN/T1G8QlDCGS3ZuteJfHUz+1pn4DEBQbpCyg5yA
+X-Received: by 2002:a05:6a20:7293:b0:3dd:85aa:4527 with SMTP id
+ adf61e73a8af0-3ddf82adf58mr565061637.34.1790109842514; Tue, 22 Sep 2026
+ 13:44:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921145655.3167436-1-i.maximets@ovn.org> <20260921145655.3167436-7-i.maximets@ovn.org>
+In-Reply-To: <20260921145655.3167436-7-i.maximets@ovn.org>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Tue, 22 Sep 2026 16:43:51 -0400
+X-Gm-Features: AcwNN1Wxvg5q08SpmktKVndNHz2CGqilUY2VDTceI09JMLfUxf8v9o9CPku839U
+Message-ID: <CADvbK_es1LF3eAnX2iTfZKeCxWFOt8cux+9F8E9OSN55SQuc-A@mail.gmail.com>
+Subject: Re: [PATCH net 6/6] net/sched: act_ct: fix helper UAF due to
+ extensions realloc
+To: Ilya Maximets <i.maximets@ovn.org>
+Cc: netdev@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Aaron Conole <aconole@redhat.com>, 
+	Eelco Chaudron <echaudro@redhat.com>, Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, netfilter-devel@vger.kernel.org, 
+	coreteam@netfilter.org, linux-kernel@vger.kernel.org, dev@openvswitch.org, 
+	stable@vger.kernel.org, Axel Mierczuk <axel.mierczuk@1password.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-io_uring zero-copy receive and devmem both maintain a bounded LIFO for
-net_iovs in a contiguous area. Store the freelist in struct net_iov_area
-and provide common push and pop helpers.
+On Mon, Sep 21, 2026 at 10:57=E2=80=AFAM Ilya Maximets <i.maximets@ovn.org>=
+ wrote:
+>
+> While calling the helpers, a raw pointer to the extensions area is
+> wired into expectations list:
+>
+>   -> nf_ct_helper()
+>    -> helper->help()
+>     -> nf_ct_expect_related_report()
+>      -> nf_ct_expect_insert()
+>       -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
+>
+> In case the connection is not confirmed yet, more extensions can be
+> added afterwards with *_ext_add() calls reallocating the extension
+> space and leaving the now invalid pointer in the expectations list
+> that is later accessed while removing the expectation.
+>
+> Make sure that helpers are called at the end after all the other
+> extensions are already added.
+>
+> Note that the helper rejection now leaves the mark and labels set,
+> but that's not different from how the NAT was handled before or how
+> the mark and the labels were handled on confirmation failure.  And
+> there are no atomicity guarantees provided by the API anyway.
+>
+> Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
+> Cc: stable@vger.kernel.org
+> Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
+> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+> ---
+>  net/sched/act_ct.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+>
+> diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
+> index f62051ec9d57d..411e3dd92d072 100644
+> --- a/net/sched/act_ct.c
+> +++ b/net/sched/act_ct.c
+> @@ -1102,19 +1102,25 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *=
+skb, const struct tc_action *a,
+>                 }
+>         }
+>
+> -       if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
+> -               err =3D nf_ct_helper(skb, ct, ctinfo, family);
+> -               if (err !=3D NF_ACCEPT)
+> -                       goto nf_error;
+> -       }
+> -
+>         if (commit) {
+>                 tcf_ct_act_set_mark(ct, p->mark, p->mark_mask);
+>                 tcf_ct_act_set_labels(ct, p->labels, p->labels_mask);
+>
+>                 if (!nf_ct_is_confirmed(ct))
+>                         nf_conn_act_ct_ext_add(skb, ct, ctinfo);
+> +       }
+>
+> +       /* Run helpers for the connection if nf_conntrack_in() was execut=
+ed
+> +        * or if we're about to commit.  This has to be done after all th=
+e
+> +        * extensions are already added.
+> +        */
+> +       if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
+> +               err =3D nf_ct_helper(skb, ct, ctinfo, family);
+> +               if (err !=3D NF_ACCEPT)
+> +                       goto nf_error;
+> +       }
+> +
+> +       if (commit) {
+>                 /* This will take care of sending queued events
+>                  * even if the connection is already confirmed.
+>                  */
+> --
+> 2.55.0
+>
 
-Leave synchronization to area owners. Keep devmem's area adjacent to its
-lock. Use u32 indices and counts, which halves devmem's freelist storage
-on 64-bit systems. Reject devmem areas with more than U32_MAX entries
-before narrowing the count. With 4 KiB chunks, the limit is almost 16 TiB.
-
-Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
----
- include/net/netmem.h | 28 ++++++++++++++++++++++++++-
- io_uring/zcrx.c      | 25 +++++++++---------------
- io_uring/zcrx.h      |  4 ----
- net/core/devmem.c    | 46 ++++++++++++++++++++++----------------------
- net/core/devmem.h    |  7 +++----
- 5 files changed, 62 insertions(+), 48 deletions(-)
-
-diff --git a/include/net/netmem.h b/include/net/netmem.h
-index bccacd21b6c3..da885d95ea63 100644
---- a/include/net/netmem.h
-+++ b/include/net/netmem.h
-@@ -101,10 +101,15 @@ struct net_iov {
- struct net_iov_area {
- 	/* Array of net_iovs for this area. */
- 	struct net_iov *niovs;
--	size_t num_niovs;
-+
-+	/* Stack of free net_iov indices. */
-+	u32 *freelist;
- 
- 	/* Offset into the dma-buf where this chunk starts.  */
- 	unsigned long base_virtual;
-+
-+	u32 num_niovs;
-+	u32 free_count;
- };
- 
- static inline struct net_iov_area *net_iov_owner(const struct net_iov *niov)
-@@ -117,6 +122,27 @@ static inline unsigned int net_iov_idx(const struct net_iov *niov)
- 	return niov - net_iov_owner(niov)->niovs;
- }
- 
-+static inline struct net_iov *net_iov_area_pop(struct net_iov_area *area)
-+{
-+	u32 idx;
-+
-+	if (unlikely(!area->free_count))
-+		return NULL;
-+
-+	idx = area->freelist[--area->free_count];
-+	return &area->niovs[idx];
-+}
-+
-+static inline void net_iov_area_push(struct net_iov_area *area,
-+				     struct net_iov *niov)
-+{
-+	if (WARN_ON_ONCE(net_iov_owner(niov) != area ||
-+			 area->free_count >= area->num_niovs))
-+		return;
-+
-+	area->freelist[area->free_count++] = net_iov_idx(niov);
-+}
-+
- /* Initialize a niov: stamp the owning area, the memory provider type.
-  */
- static inline void net_iov_init(struct net_iov *niov,
-diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
-index 86d580d4410d..fa6061127b9d 100644
---- a/io_uring/zcrx.c
-+++ b/io_uring/zcrx.c
-@@ -462,7 +462,7 @@ static void io_zcrx_free_area(struct io_zcrx_ifq *ifq,
- 		io_unaccount_mem(ifq->user, ifq->mm_account,
- 				 area->mem.account_pages);
- 
--	kvfree(area->freelist);
-+	kvfree(area->nia.freelist);
- 	kvfree(area->nia.niovs);
- 	kvfree(area->user_refs);
- 	kfree(area);
-@@ -548,9 +548,10 @@ static int __zcrx_create_area(struct io_zcrx_ifq *ifq,
- 	if (!area->nia.niovs)
- 		goto err;
- 
--	area->freelist = kvmalloc_array(nr_iovs, sizeof(area->freelist[0]),
--					GFP_KERNEL_ACCOUNT | __GFP_ZERO);
--	if (!area->freelist)
-+	area->nia.freelist = kvmalloc_array(nr_iovs,
-+					    sizeof(area->nia.freelist[0]),
-+					    GFP_KERNEL_ACCOUNT | __GFP_ZERO);
-+	if (!area->nia.freelist)
- 		goto err;
- 
- 	area->user_refs = kvmalloc_objs(area->user_refs[0], nr_iovs,
-@@ -562,7 +563,7 @@ static int __zcrx_create_area(struct io_zcrx_ifq *ifq,
- 		struct net_iov *niov = &area->nia.niovs[i];
- 
- 		net_iov_init(niov, &area->nia, NET_IOV_IOURING);
--		area->freelist[i] = i;
-+		area->nia.freelist[i] = i;
- 		atomic_set(&area->user_refs[i], 0);
- 	}
- 
-@@ -572,7 +573,7 @@ static int __zcrx_create_area(struct io_zcrx_ifq *ifq,
- 			goto err;
- 	}
- 
--	area->free_count = nr_iovs;
-+	area->nia.free_count = nr_iovs;
- 	/* we're only supporting one area per ifq for now */
- 	area->area_id = zcrx_next_area_id(ifq);
- 	area_reg->rq_area_token = zcrx_area_id_to_token(area->area_id);
-@@ -689,22 +690,14 @@ static void io_zcrx_return_niov_freelist(struct net_iov *niov)
- 	struct io_zcrx_ifq *ifq = area->ifq;
- 
- 	guard(spinlock_bh)(&ifq->alloc_lock);
--	if (WARN_ON_ONCE(area->free_count >= area->nia.num_niovs))
--		return;
--	area->freelist[area->free_count++] = net_iov_idx(niov);
-+	net_iov_area_push(&area->nia, niov);
- }
- 
- static struct net_iov *zcrx_get_free_niov(struct io_zcrx_area *area)
- {
--	unsigned niov_idx;
--
- 	lockdep_assert_held(&area->ifq->alloc_lock);
- 
--	if (unlikely(!area->free_count))
--		return NULL;
--
--	niov_idx = area->freelist[--area->free_count];
--	return &area->nia.niovs[niov_idx];
-+	return net_iov_area_pop(&area->nia);
- }
- 
- static void io_zcrx_return_niov(struct net_iov *niov)
-diff --git a/io_uring/zcrx.h b/io_uring/zcrx.h
-index d4a54b4e17fd..a923291defde 100644
---- a/io_uring/zcrx.h
-+++ b/io_uring/zcrx.h
-@@ -36,10 +36,6 @@ struct io_zcrx_area {
- 	bool			is_mapped;
- 	u16			area_id;
- 
--	/* freelist */
--	u32			free_count;
--	u32			*freelist;
--
- 	struct io_zcrx_mem	mem;
- };
- 
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index a9d86b5a5588..c1c1872b88de 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -42,10 +42,10 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
- {
- 	struct net_devmem_dmabuf_binding *binding = container_of(wq, typeof(*binding), unbind_w);
- 
--	if (binding->freelist)
--		WARN(binding->free_count != binding->area.num_niovs,
--		     "destroying dmabuf binding with outstanding net_iovs: total=%zu, free=%zu",
--		     binding->area.num_niovs, binding->free_count);
-+	if (binding->area.freelist)
-+		WARN(binding->area.free_count != binding->area.num_niovs,
-+		     "destroying dmabuf binding with outstanding net_iovs: total=%u, free=%u",
-+		     binding->area.num_niovs, binding->area.free_count);
- 
- 	kvfree(binding->area.niovs);
- 	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
-@@ -54,7 +54,7 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
- 	dma_buf_put(binding->dmabuf);
- 	xa_destroy(&binding->bound_rxqs);
- 	percpu_ref_exit(&binding->ref);
--	kvfree(binding->freelist);
-+	kvfree(binding->area.freelist);
- 	kvfree(binding->tx_vec);
- 	kfree(binding);
- }
-@@ -67,12 +67,10 @@ net_devmem_alloc_dmabuf_bulk(struct net_devmem_dmabuf_binding *binding,
- 
- 	spin_lock_bh(&binding->freelist_lock);
- 
--	count = min_t(size_t, count, binding->free_count);
--	for (i = 0; i < count; i++) {
--		struct net_iov *niov = binding->freelist[--binding->free_count];
--
--		netmems[i] = net_iov_to_netmem(niov);
--	}
-+	count = min(count, binding->area.free_count);
-+	for (i = 0; i < count; i++)
-+		netmems[i] =
-+			net_iov_to_netmem(net_iov_area_pop(&binding->area));
- 
- 	spin_unlock_bh(&binding->freelist_lock);
- 
-@@ -84,12 +82,7 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
- 	struct net_devmem_dmabuf_binding *binding = net_devmem_iov_binding(niov);
- 
- 	spin_lock_bh(&binding->freelist_lock);
--	if (WARN_ON_ONCE(binding->free_count >= binding->area.num_niovs)) {
--		spin_unlock_bh(&binding->freelist_lock);
--		return;
--	}
--
--	binding->freelist[binding->free_count++] = niov;
-+	net_iov_area_push(&binding->area, niov);
- 	spin_unlock_bh(&binding->freelist_lock);
- }
- 
-@@ -228,6 +221,12 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		goto err_unmap;
- 	}
- 
-+	if ((dmabuf->size >> niov_shift) > U32_MAX) {
-+		err = -E2BIG;
-+		NL_SET_ERR_MSG(extack, "dmabuf contains too many net_iovs");
-+		goto err_unmap;
-+	}
-+
- 	binding->area.base_virtual = 0;
- 	binding->area.num_niovs = dmabuf->size >> niov_shift;
- 	if (direction == DMA_TO_DEVICE) {
-@@ -239,10 +238,11 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		}
- 	} else {
- 		spin_lock_init(&binding->freelist_lock);
--		binding->freelist = kvmalloc_array(binding->area.num_niovs,
--						   sizeof(binding->freelist[0]),
--						   GFP_KERNEL);
--		if (!binding->freelist) {
-+		binding->area.freelist =
-+			kvmalloc_array(binding->area.num_niovs,
-+				       sizeof(binding->area.freelist[0]),
-+				       GFP_KERNEL);
-+		if (!binding->area.freelist) {
- 			err = -ENOMEM;
- 			goto err_unmap;
- 		}
-@@ -279,7 +279,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 			if (direction == DMA_TO_DEVICE)
- 				binding->tx_vec[niov_idx] = niov;
- 			else
--				binding->freelist[binding->free_count++] = niov;
-+				net_iov_area_push(&binding->area, niov);
- 			dma_addr += niov_size;
- 		}
- 	}
-@@ -297,7 +297,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- err_free_niovs:
- 	kvfree(binding->area.niovs);
- err_free_freelist:
--	kvfree(binding->freelist);
-+	kvfree(binding->area.freelist);
- 	kvfree(binding->tx_vec);
- err_unmap:
- 	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
-diff --git a/net/core/devmem.h b/net/core/devmem.h
-index f71d9a2bcb3d..5edb763b89b2 100644
---- a/net/core/devmem.h
-+++ b/net/core/devmem.h
-@@ -17,6 +17,9 @@ struct netlink_ext_ack;
- 
- struct net_devmem_dmabuf_binding {
- 	struct net_iov_area area;
-+	/* Protects area.freelist and area.free_count. */
-+	spinlock_t freelist_lock;
-+
- 	struct dma_buf *dmabuf;
- 	struct dma_buf_attachment *attachment;
- 	struct sg_table *sgt;
-@@ -57,10 +60,6 @@ struct net_devmem_dmabuf_binding {
- 	/* rxq's this binding is active on. */
- 	struct xarray bound_rxqs;
- 
--	spinlock_t freelist_lock ____cacheline_aligned_in_smp;
--	size_t free_count;
--	struct net_iov **freelist;
--
- 	/* ID of this binding. Globally unique to all bindings currently
- 	 * active.
- 	 */
--- 
-2.53.0-Meta
-
+Reviewed-by: Xin Long <lucien.xin@gmail.com>
