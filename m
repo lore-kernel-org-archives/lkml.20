@@ -1,84 +1,127 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA52C390239;
-	Tue, 22 Sep 2026 12:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6D5375ADD;
+	Tue, 22 Sep 2026 12:08:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790078917; cv=none; b=o2vtGP9OPLLe+AzzfaQriWHRSFdEPki53jacuut/V+w2QlGGBNPeXdqDjQ/1RXr64Q96Ou9pybTCVPGsEiP6KAxBTZfob5cLgPNz9P62RH1hrJ6cAWHTpN4comjf7pgyoAu7qHeB5LRCcV2TBmpI65BjWQ6o1BMseUOne4WGNzA=
+	t=1790078931; cv=none; b=K8Un7RE9Hr/9SxZA3fA0V1l6Hov63Igqfcik65eIQZVCn5Elut8Wqz94BNfgQoQs0lydBd+1U9TyzpQTpAWZb3R0MAww56n8n+Jwral/yWNmFymaaYHuq+FxSQo4F84HO4WcJt4Zuyx3Qu88Y2McI8I6ue5IXn+50pKEuqeOT/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790078917; c=relaxed/simple;
-	bh=lxikLCey8JFwQElpr414yvj1dGFi++FR/DoNHZNBXA4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=giGmUjMaq4t+HuGhpni9sdlPunkGX1IZZtsFGOUMagzqP3Zq9Hm8nCfHA/Kz6LSWo5R/zP1T1LlUv4IpvG0rvy6HdEbLQOXCBbLW930DnwDFnuH/mgYzcbSn47CnNJhmvGm26yItRid1JHxzpdM20OWLim2nA2ycDtpo7vPN5ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=6Zfhzkjs; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790078931; c=relaxed/simple;
+	bh=Vjt+g7Xzasz723axhPTuNVzFKkdg4sQ6vitGnW6TTeQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qNIFfbXVM9aH8j5T0bzYcScYJT7P5Zh+LltPa7rg9XjN48RMaAm4OBXPM4IRF180G35utAwjDNCTVPRAS5Vfo4mz53zy2+kHccEqebqzQfporq2R15VolI3d2vACYCPP1w7nIxZbPholB6VGcq/pYfJKceOPbysnGGhnpa1Pkpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aBmK4h4l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="6Zfhzkjs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=MG8xy5bcEMmbhnQisVz4MbMW6OJVIA+/9ZxpoK8P3P8=; b=6ZfhzkjsxabnIW+nrDuY0S5ueI
-	StpgDejclSYGHaStg5BULQ84rmATpfGlYA0SV8XgA5CETGWOWaokPSIPzrFb99esCgHAbgx5NcCsF
-	IQU3ycYMzdj99hWvHB9StG3AMz4KfrHi5AmaVPL47ot98CL6ahXor+7aTIT6dzahZpcM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x8zIS-006a3f-M6; Tue, 22 Sep 2026 14:08:28 +0200
-Date: Tue, 22 Sep 2026 14:08:28 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: nicolo.giuliani6@studio.unibo.it
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
-Message-ID: <1817c56f-bc79-4e64-94c3-4eb8cdb1f107@lunn.ch>
-References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
- <20260921-send-dt-v2-3-fb6b81002ad7@studio.unibo.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aBmK4h4l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE741F000FF;
+	Tue, 22 Sep 2026 12:08:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790078929;
+	bh=lq/wHdaSQa/z2s8nS/PetepYnkUErjugT93n4BkcV9A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aBmK4h4lv074Tbs7davGM/gGOn1tHm/rDVnAuFCAPjfC+IsjX1ePCgSAo2QpdvvVV
+	 4ISfCrc27gfBne3DCyk/AHODwXJBHIURepOZyTluOEhE2SWagb1WeFEb8lgZgNVjEZ
+	 uYpTIEQ/4iiumdSl5gbjRqmbaBmhLkwkebDklTJB/f72STau2droEilZlsp3/JE/4z
+	 5GEDGnE0Tm2SVNE8m/ersTxjC7Zxq+jh5YNDwmoEUj9tcdRIsz7+1CZXAvaN4Ju6vv
+	 7JbwvmeHLnQvyMXT+QSAKTA35T0aMySRYhOUdOszJ5Xg784AIBEKT8PWtwXL93//ut
+	 9+wZRV22Uni8g==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/damon/core: preserve the caller's quota in damon_new_scheme()
+Date: Tue, 22 Sep 2026 05:08:44 -0700
+Message-ID: <20260922120845.44460-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260921171155.3359-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-send-dt-v2-3-fb6b81002ad7@studio.unibo.it>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 02:26:43AM +0200, Nicolo Giuliani via B4 Relay wrote:
-> From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-> 
-> Add a device tree for the network processing unit (NPU) of the Sophos
-> XGS 87/107 desktop firewalls. The appliance pairs an AMD x86 host with the
-> NPU, a Marvell Armada CN9130 SoC with its own eMMC and SPI NOR flash that
-> runs independently of the host and serves the front panel ports.
-> 
-> The eight RJ45 ports and the SFP cage are connected through a Marvell
-> 88E6193X switch on the MDIO bus of the SoC, at address 2. Switch port 0
-> is the CPU port, a 10GBASE-R link to the first mvpp2 port. Ports 1 to 8
-> are the RJ45 ports, which use the internal PHYs of the switch, and
-> port 9 is the SFP cage, connected over 1000BASE-X.
-> 
-> Describe the UART console, the eMMC, the SPI NOR flash that holds the boot
-> loader and its environment (read-only), the SFP cage and the switch with
-> its ports. The port LEDs, the PCIe link to the x86 host and the USB ports
-> are not described.
-> 
-> The switch is reset through CP GPIO2 pin 17.
-> 
-> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
-> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
-> its eight user ports, and 936 Mbit/s through a front port. The SFP cage is
-> untested.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+On Mon, 21 Sep 2026 10:11:54 -0700 SJ Park <sj@kernel.org> wrote:
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> On Mon, 21 Sep 2026 02:30:46 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> 
+> > damon_new_scheme() calls damos_quota_init() on the caller's quota before
+> > copying it to the new scheme. This clears the caller's effective quota,
+> > feedback input and charging state as a side effect.
+> 
+> Apparently the above paragraph assumes it is called under damon_commit_ctx().
+> Lack of the context makes this quite confusing.  Could you please rewrite?
 
-    Andrew
+To calrify my opinion more, "caller's quota" feels unclear to me.  I hope it to
+be more clear that it means "the quota that is passed as a parameter to the
+function".
+
+> 
+> > 
+> > damon_commit_ctx() first copies the running context into a temporary
+> > context for validating the proposed parameters.
+
+I'd prefer using the term, 'commit' instead of 'copies' for clarity.
+
+> > When
+> > damon_commit_schemes() creates the temporary schemes, it passes the quota
+> > of each running scheme to damon_new_scheme(). The quota pointer therefore
+> > refers to the running scheme, and damos_quota_init() clears that scheme's
+> > state before it is copied to the temporary scheme. Even an update
+> > rejected with -EINVAL loses the running quota state.
+> > 
+> > For a size quota, this discards the bytes already charged and allows the
+> > scheme to use a fresh quota before the reset interval has elapsed. For a
+> > goal-driven quota, the consist tuner loses its accumulated input and
+> > restarts from its minimum input. A time quota loses its throughput
+> > estimate and falls back to the initial estimate.
+> > 
+> > The constructor side effect was introduced by commit 70e0c1d1bf94
+> > ("mm/damon/core: factor out 'damos_quota' private fileds initialization").
+> > Commit 60bd24f272d0 ("mm/damon/sysfs: test commit input against realistic
+> > destination"), merged in v6.19, exposed it when
+> > validating sysfs updates against a copy of the running context. Commit
+> > b90408ef1163 ("mm/damon/core: safely validate src on damon_commit_ctx()")
+> > later moved that validation into the core API.
+
+I overlooked this part in the previous reply, sorry.  And thank you for adding
+this detailed context.
+
+> > 
+> > Sashiko reported the same side effect [1] on the RFC of the core API
+> > change.
+
+Nice catch, I misunderstood Sashiko's point.  Thank you for catching this,
+Karl.
+
+> > 
+> > Copy the quota to the new scheme first, then initialize that copy. Make
+> > damos_quota_init() return void, since its return value is no longer needed.
+> > 
+> > Fixes: 70e0c1d1bf94 ("mm/damon/core: factor out 'damos_quota' private fileds initialization")
+> > Cc: <stable@vger.kernel.org> # 6.19.x
+> 
+> The Fixes commit was introduced in 6.1.  So the comment on Cc: stable@ line
+> should be fixed.  Also, at the time of the commit, validation purpose running
+> ctx committing didn't exist.  So, the issue you are explaining cannot happen on
+> the commit.  Or, am I missing something?  If I'm not incorrect, could you
+> please find the proper Fixes: commit and fix it?
+> 
+> Also, are you using LLM for Fixes...?  If so, the LLM seems not good at that.
+> Your previous patch also made a similar mistake.  Please manually work on
+> Fixes: tag or double check LLM's output.
+
+Now I understand you added the comment for commit 60bd24f272d0.  I think Fixes:
+should also be 60bd24f272d0.
+
+
+Thanks,
+SJ
+
+[...]
