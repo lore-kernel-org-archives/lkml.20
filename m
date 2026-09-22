@@ -1,173 +1,122 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788BE3FC5A5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B39A4570F8
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069399; cv=none; b=nQD3JxEgkcccSLhbEhBJWucWSp9Rvjvt4U66rkMVF3VsFH7HVLc2CB/nz7kM/l2HtEloNQed1AhemAEjXVWKFbrje+Bd/uuR8RWnHjrIBosM0StiFGPY5C5JquKBP9qIWichpXnG1Arwtj6QWLO79TFiGRmSGy+BDjgV0gdAH8E=
+	t=1790069400; cv=none; b=cCuQvsxPzw/fsEpeMCfp6nl1c9tKtURQoU/EQdE1Nh5pnDE+D4If/nBDxELCT02oEYSkF9AffLaw45g7UpT/S3lhxynPl+dOW2dsGiARtOP0vbG7PJr9MKxMz9B+v2XtwbDnbjAp95ywgiHrBNTXELPhJN4lefihC218WYg/51s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069399; c=relaxed/simple;
-	bh=kCs7pv5QqIjoR61lLvcvhkr9df2eaE8KCWdj5A/isNE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H5ZhfuY6tfItsiq40ab3l3qHtYTA3Np7eYKnghX4IXvCvQp5HNkYRTlL15x0EV09g7BJS/Mf3x5Y9llL4TeWQ82MJ88e+QsTaDp97bJXMDqMhwMxhtGPWfSXMl0eQXw9g0q1lb/SC3HPSIPbbKozdkI9DzU16Jnu573kJLKVDao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btWQfsfk; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790069400; c=relaxed/simple;
+	bh=5qV6DDgvX5x6DbdcEO4YGwcVCaxOUXL8w7EqJvq6P9A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h7Ub1rcbwF838uYaDHBcqUQm0xTY46swaWIj2bHacx3ZqSOq54gNO99Tf7/2rm7cpn2Na+RyfiFfxBTnL81jMqnhUdUNcMh+7WCWdTMHfSR+ONKXmsL6dniSNrPnB9yKILdDMLP7eFuwS0ZOGRWTVCdmWauGWLjQoD9fhoj3tMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=CUXiCFE3; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btWQfsfk"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ecdeso3327156f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:29:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="CUXiCFE3"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so21655115e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:29:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790069396; x=1790674196; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=kCs7pv5QqIjoR61lLvcvhkr9df2eaE8KCWdj5A/isNE=;
-        b=btWQfsfkiyK6HuYgjswrViFrTSBcAwzGXvem3YK3We8DqkOdTLYufYDpyQIRvZW+jl
-         DVT2lwHNEQ7JVT6geLrKxh1BhoBw4c7mZ0yOstXvf+IYNkUzqtrkGfBuUGCVQHRbCrjo
-         GnilrI/dluC+EycIQqlDTJuhVWa8KDKT154FbBV1q1cdui4dFrcBtwqqsTcv6wQdQLZA
-         d8dio4k1v04q4jlHmXmgkROoPWJYAOyXOrA7LhIBRGNsws/frsalff1zvDEj+8RlnUpS
-         3Jp/SC/1JUafMwBMxUQ2HBWmEVQoVRCEq0eZUBGLL/Wh/gcL24o3YWjAq5ATkIOSCbQy
-         4dng==
+        d=suse.com; s=google; t=1790069397; x=1790674197; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AEYqwYTs3Q+0Tixb6WMwSvunwn+VCtEpmD/qEhNmIGc=;
+        b=CUXiCFE3O14/8Fkf68/a8I6n9Kaq1g3Y9lB92D8l3SrFQWiix7UAo1znM2NFvKu0fm
+         9jYYfeAN435QR4oTSGbWVq6LQ1vAAKQjdlNs1Wy/urvcoewfCLvvvy3Plm8f/S+R6IJ6
+         DwCuGbqY84Azm+1FdCE/1clkKHa2+Hr0gmod21zntHZvTHG4OflaX3prXNkbRqv4Ixhy
+         DCPYusE1lRzdeCGBBfJY/9C1fVYLlZQACgc1UXVnjzDAZMObsAqyt0KBxdj6pzQDaWiY
+         dM1gBGDZbMJ9oy+3p88Hm7+th3MaMAWTrWNdko8yfjtVV6YyZYIoJ9rHzctFLbcrl6Uu
+         Jclw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790069396; x=1790674196;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1790069397; x=1790674197;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kCs7pv5QqIjoR61lLvcvhkr9df2eaE8KCWdj5A/isNE=;
-        b=mWvUwsiOIrj/kh3Qxq4YtBnqSb30K8CEBiUSPQPh0WdSKECWTHEmtNf7IIiZhgyG9H
-         3HEO1K675aWik67H4b/Jks0X4BuB4JSodqlBszQzQKtFLoqotgCY7rxZrnxgIXaNz32o
-         3We2BOm34anaSiVzMhws/3h0xOfexvB5bJIM/CajSdXdWAieA3KtPjhXChq5P772Y7aP
-         028ledF6MLPzRkPLK/3N2vWDVprnMMSb2lJ78A2zRJ8evCPsvEnmBbJc7cXi2A6docUm
-         FUXFSsu2qmeuMuxwAmBB++zxNdpQTsBH5MKLgitqE/CGUlKBr3qv29oqtBCuTw8N41ko
-         X76w==
-X-Forwarded-Encrypted: i=1; AKwUvBzIQ2JAEow20lcuPT7fXynPYWUeidC9bBncUM7QfIKGKtX4+Bc05mZJ7odc3WyeEMQ86rLCAFJNWOJiLBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpppnCbn/Lq8tL8UCpyvvDTngw/K68LKduG5wyrw8yQNfS2ktL
-	/Q998HZYqHPimm+s8r9K+Gi7/IndUNrbs8qW0qlDZO9SmiDWJ83TOG8D
-X-Gm-Gg: AYBFou2ADSyiwjl9bLAuFHxKs9nnxx1Xd1KL5ZwTgexrX9pHrV4j6qr7/4gi7S9bx59
-	AYuSyCV5cdBy6SnQJ9HLH3rq+DXxzhEFy+tDboO2r8iXm94utvmqVIdFVPeaf+IZ/vMSbJEx9/H
-	eu04KkcCrzvH1f9A8DBMaso0Xmn4FiJJ/BccIgWnezm1MsXutDYbU/gRVZ7N456oTPWDxUqR08L
-	b9LUg7jZgn8DYfhDJYsPVkV5R6zioOBfudoMV3gousgLIlOjXYPwIndU1sISDeinWHlnl6hcdNu
-	Cn7hPYeKCztf1q96OR7Qlo1Jd6D65lUR2Ylwn7uqGnCLSA1FvZ+jA5csaTIfP8k9z3fGsPIdzk2
-	yGAsfeGgUg9QiVsz2sF/IENe89+GUNiaUbjXxEv4z7C+KhrX8ta0Taf5PzdXvI4vyvr7DlLC9un
-	2zFfbwxChri6SqHJ/76Z+n0scJDFmL7IJSICJd5bqZxXd4BsRJMVIKqIOlkgbjWMUeltcioZdW6
-	bdaMsUPt2Ikynkko0WXu0D+SjobtmwQeBENTwvvndhz70GyDJQ=
-X-Received: by 2002:a05:6000:40e1:b0:487:6f2:1a45 with SMTP id ffacd0b85a97d-4871e21c762mr19190325f8f.18.1790069395392;
-        Tue, 22 Sep 2026 02:29:55 -0700 (PDT)
-Received: from ?IPv6:2001:8a0:c4c6:f00:a510:942c:f93d:df89? ([2001:8a0:c4c6:f00:a510:942c:f93d:df89])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886279298asm3082048f8f.34.2026.09.22.02.29.54
+        bh=AEYqwYTs3Q+0Tixb6WMwSvunwn+VCtEpmD/qEhNmIGc=;
+        b=XqXqgEJsXHfqXqn4stbn+oBxO/ZbYIG4jOF8n5xV39E9E0B55q07tNkm6S43K55hgx
+         L06wkLR4AUMx5YGCy6l5863ECm7Q+MQKFHysgXjK/xbmaRx/aPTTXC0iQef0OxOuEwRd
+         rmW27cMuFOiDXiGhwQGN+7Lqs6r2WiDZdybSh0XCKfvf5A2iE4o/XqIsLdC1Dk/D1bc/
+         QJAduSSICNGmGvDJrdSv/YRgaBGvXEZwYkdpRhsGQkXTXU16xuXXy3vrx9FgEqpFvWZG
+         qZtibJ0o7MUUoskFz20z3cnkQtI+LZVxrv23sowy0zt2sqFWAuV1RwNeNUxJo103rUfd
+         LVBg==
+X-Gm-Message-State: AFuF++nN6i443M6d2S3hk/y30zJrTeFYiLt1EWStrmmef7E+H3pfpyra
+	rV1bkojaxyaIYg9QyvCSTJCEXbsdKvnxA7JbyjzN1KFgFx9I3pP/oFvuUDHZQPWQ0Mc=
+X-Gm-Gg: AYBFou1H0FwjcUrs0oMun56FpI2CtaL/9T/RH3ou97e3XwLPHRB5QgADoamfxD5bGVV
+	b591FeMG7quPv6w16FfpLWAOb8TpWUHvh55IsdOBsT67PVoQNrMO7uYBE5ClBHdMHZeegXMHZ+i
+	96uUwDExU51EXQyvn2OKs+fqjUWmbOPbHAvbI3367hDfI9ANoJNnnajUNy6qyPMauC2EKLDcbXU
+	Gn1xgjexYAscdNkQ+8s6G8Zq3kcmxcT6HxnuQEyBWwF1ZGweClfnjlc2ckW5M9s2DuuiczO4I+I
+	Bbd5+cb7DAmQhy5ky7Vw1nBbxU27cIcZgmjYhbOatz3oMMdmToImTX7Ln2vyRwjC/2WQjRndH+J
+	Rm7XmDRZKA98FMfRBOrM4f3NdBNb1N8Hx2hZRWqCD3CmTiR+VvYA9I+PnQZi9dQ6GcRYWH4EKrj
+	+vU4o+IrqHA1R/rQ0vE1PiswtZjneVQmFGV74IRn/QP1l+yUg4XW3apZEw5cFKnNsCcrqE4LJzY
+	APr+PfOFXA=
+X-Received: by 2002:a05:600c:138d:b0:49c:fa21:e74a with SMTP id 5b1f17b1804b1-49fdd2e4a91mr1532585e9.32.1790069396663;
+        Tue, 22 Sep 2026 02:29:56 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad6306esm39622985e9.15.2026.09.22.02.29.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:29:54 -0700 (PDT)
-Message-ID: <c30b21e218bfb00a1eb3c52ea0b7c9f0dc828592.camel@gmail.com>
-Subject: Re: [PATCH ath-next v3] wifi: ath12k: advertise interface MAC
- address pool
-From: Vitor Soares <ivitro@gmail.com>
-To: Kang Yang <kang.yang@oss.qualcomm.com>, Jeff Johnson
- <jjohnson@kernel.org>
-Cc: Vitor Soares <vitor.soares@toradex.com>, linux-wireless@vger.kernel.org,
-  ath12k@lists.infradead.org, linux-kernel@vger.kernel.org, 
- baochen.qiang@oss.qualcomm.com
-Date: Tue, 22 Sep 2026 10:29:53 +0100
-In-Reply-To: <974e540d-d6e2-4ebf-8714-98e4056083d9@oss.qualcomm.com>
-References: <20260921173033.846332-2-ivitro@gmail.com>
-	 <974e540d-d6e2-4ebf-8714-98e4056083d9@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+        Tue, 22 Sep 2026 02:29:56 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:29:54 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH v2] printk: Use two irq_works instead per-CPU
+Message-ID: <arJKkvOTNs2DD9ba@pathway.suse.cz>
+References: <20260914143412.1sMcp89V@linutronix.de>
+ <20260922070834.2kmMtN82@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922070834.2kmMtN82@linutronix.de>
 
-On Tue, 2026-09-22 at 14:13 +0800, Kang Yang wrote:
->=20
->=20
-> On 9/22/2026 1:30 AM, Vitor Soares wrote:
-> > From: Vitor Soares <vitor.soares@toradex.com>
-> >=20
-> > ath12k supports creating vdevs with addresses provided by mac80211.
-> > Userspace can already make concurrent interfaces work by explicitly
-> > assigning different locally administered addresses.
-> >=20
-> > However, ath12k does not advertise an address list, so when a second
-> > interface is created without an explicit address, mac80211 has nothing
-> > to pick from and falls back to the permanent address. If the first
-> > interface is already running with that address, bringing up the second
-> > one fails with -ENOTUNIQ.
-> >=20
-> > As in ath11k, provide a list of usable addresses so
-> > ieee80211_assign_perm_addr() can hand each new interface an unused one.
-> > Keep the first entry as the wiphy's permanent MAC address. Generate the
-> > remaining entries as locally administered variants by changing only the
-> > upper nibble of the first octet, which naturally limits the pool to 16
-> > unique addresses.
-> >=20
-> > The cfg80211 definition of wiphy->addresses does not specify where the
-> > addresses must come from. Some ath12k platforms use it as an interface
-> > MAC address pool, while others use it for firmware-provided per-radio
-> > addresses. Gate the generated address pool behind
-> > advertise_iface_mac_pool and enable it for WCN7850 and QCC2072.
-> >=20
-> > Other platforms keep the existing behavior.
-> >=20
-> > Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-
-> > QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
-> >=20
->=20
->=20
->=20
-> I just did test on QCC2072:
->=20
-> root@yk-Mayan:/home/yk# sudo iw dev wlo1 interface add wlo2 type station
-> root@yk-Mayan:/home/yk# sudo iw dev wlo1 interface add wlo3 type station
-> phy#0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interface wlo3
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 ifindex 6
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 wdev 0x3
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 addr 22:03:7f:12:be:cd
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 type managed
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interface wlo2
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 ifindex 5
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 wdev 0x2
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 addr 12:03:7f:12:be:cd
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 type managed
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Interface wlo1
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 ifindex 4
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 wdev 0x1
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 addr 00:03:7f:12:be:cd
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 type managed
->=20
->=20
->=20
->=20
-> Tested-on: QCC2072 hw1.0 PCI=20
-> WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
->=20
+On Tue 2026-09-22 09:08:34, Sebastian Andrzej Siewior wrote:
+> On 2026-09-14 16:34:12 [+0200], To linux-kernel@vger.kernel.org wrote:
+> > In commit b845b517b5e37 ("printk: robustify printk") initially got its
+> > delayed wake up which is today implemented via the irq_work. Back then
+> > it was a variable which was assigned to 1 if a pending wake up was
+> > waiting. This variable was checked on each timer tick. Therefore it
+> > makes sense to assign a per-CPU variable with this task to avoid cache
+> > line bouncing when each CPU reads the variable on each timer tick
+> > simultaneously.
+> 
+> Sashiko complains here, https://sashiko.dev/#/patchset/20260914143412.1sMcp89V%40linutronix.de
+> 
+> | Does replacing the per-CPU irq_work items with global items introduce a
+> | system-wide starvation vulnerability on PREEMPT_RT?
+> | On PREEMPT_RT, IRQ_WORK_LAZY items are processed by a per-CPU irq_work thread
+> | running at a low SCHED_FIFO priority.
+> | If one CPU queues pending_wakeup_work or pending_output_work, the item is
+> | added to its local lazy_list and marked as pending. If that CPU runs a
+> | higher priority RT task for an extended period, the irq_work thread is starved.
+> | Since the irq_work structs are now global, their IRQ_WORK_PENDING flag remains
+> | set during this time. Any subsequent calls to irq_work_queue() on other CPUs
+> | will fail to queue the work and drop the wakeup requests.
+> | Could an RT workload on a single CPU starve the global printk/klogd mechanisms
+> | for the entire system, degrading the isolation provided by the previous per-CPU
+> | design?
+> 
+> while this is true, it is not limited to printk but any workload would
+> starve in such a scenario. Also, for the per-CPU variant to make a
+> difference, one would need to have a printk output on another CPU, which
+> is not busy with long running RT tasks.
+> Long term this is probably the "legacy" system as console drivers should
+> transform into nbcon interface. Here this irq-work would be reduced the
+> userland wake up while the printing would happen via the nbcon thread
+> which also has a single irq_work queue.
+> 
+> I don't see a problem with this.
 
-Thanks for testing this on QCC2072.
+I agree with your explanation. I do not see this as a problem either.
 
-I've added the QCC2072 Tested-on line for v4. Could you reply with your Tes=
-ted-
-by so I can pick it up?
-
-
-Best regards,
-Vitor
+Best Regards,
+Petr
