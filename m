@@ -1,280 +1,229 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8464A6CFC;
-	Tue, 22 Sep 2026 19:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106734; cv=none; b=dcqQ1vFmPxU5s76Wit9iZK6RCmwxtrosUnv+lTm8FpbCGik+LSqmzuQ7KRy58XCSDDxzi5vsB3CqwgkuW1uuhjc53o8czKgxsnJeIueQK5mzNqK2nqSi4k7A3MW9nMoDQ/DctupOXqQdS8sESgpnz60iE3+ReADFvdD6YJYuOjk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106734; c=relaxed/simple;
-	bh=mY4UP2f4L77OnrXNl12uKtgZB9nrnrL7BdEDy+bgdE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HK1h9GvUq96UzMCQ3CUfPr2znHyH/Nudpasd2NogDtIfsiRVAO/mraN8uWPK/Xqe31GBS36flyYmw0Z+gnW2Q8Iyf5CVLqASH1BeBCawJCKQINmFMXbqRwrHYlJbnn/Lk0MFxB8WnuPTBS55xuLp4PJPJNaQ3DzhfdCmo6GgzeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=e3wOmI5r; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC164A7C90
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790106748; cv=pass; b=n5uG3OeI6Ld3y8XjIK/jV9/Pab+llB6bpbUiZhl69ihzIsUY1T4YNSALn81r35Dqo0lZtaiKREumla2n9QZ8yDjxBLg4YkY9z/RUiFV6KRp65fvNIO5tPi17m0IfX0WdUria0LG5C44Kn2AfqmR0+iWgTdduZYBmVykgrWG/rNA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790106748; c=relaxed/simple;
+	bh=/qwwE9Rvz8cayxd847u/AHG6eFdMgXgPKAeSEffzVyA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=lUQvDGYIWq9AMfKLAtPZZRl4EXN8Tn1RBmbEmUTa6hY1wbGZyebyaVmhVfKY9bMbig//89Q8zfyjSQsHlg2n2ZNbNq7+78xF5LZwbvjQ12FbxmfGDu9dv9JmG+rvbC3o8HeQ+U7lpRmAETPjUzi139SpoD7pVGgh/B/o5usmmVA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=QSIfXdIF; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="e3wOmI5r"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI6wXn1128975;
-	Tue, 22 Sep 2026 19:52:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=WNswMr65Ld0ueut0A
-	bNhAv6uW4AjKityQDyk7FgOIZk=; b=e3wOmI5rhFd7wTrWoXfAc2KdIk4p1Tvma
-	Oeln3MPhqQCOIbRp01YRQBNGt89r7kwKbZKFkEpxS2pg5kjaf0I2yB1S4dO/9HxS
-	h8tS39NAg/dSbA3rwskTN8n1oZvjhUAUHvk2jP04uY1LfIY3ACD5o5a8VE7WksJw
-	6J+SJNiBBvOOg/6L6UVyBmSsSihzBmmbTpzuANCdlW8cH0Eyq5Z7GsD5GlGs5epx
-	7C6wUPE9D2LCs/fsyw9ZVfXUdw20OA/KYBxVbz065SQBgWmYE0JmL/bkyIl5ZePw
-	eA+EGYuiD2bmq4ctPT0cUuWVgCS2qapXlb/RMd3tkBEq5iTt0p/kA==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg2fr1j-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 19:52:09 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MIHdGj3279480;
-	Tue, 22 Sep 2026 19:52:09 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt4qqbd04-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 19:52:09 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MJq6OX51183982
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 22 Sep 2026 19:52:06 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 886F958052;
-	Tue, 22 Sep 2026 19:52:06 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B4C2358050;
-	Tue, 22 Sep 2026 19:52:04 +0000 (GMT)
-Received: from Mac.ibm.com (unknown [9.61.246.118])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 22 Sep 2026 19:52:04 +0000 (GMT)
-From: Omar Elghoul <oelghoul@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: oelghoul@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
-        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, alifm@linux.ibm.com,
-        farman@linux.ibm.com, gbayer@linux.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org
-Subject: [PATCH v7 4/4] vfio-pci/zdev: Add VFIO FMB device features
-Date: Tue, 22 Sep 2026 15:51:41 -0400
-Message-ID: <20260922195141.94548-5-oelghoul@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922195141.94548-1-oelghoul@linux.ibm.com>
-References: <20260922195141.94548-1-oelghoul@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="QSIfXdIF"
+ARC-Seal: i=1; a=rsa-sha256; t=1790106715; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=KknR8W+WPisg4iSFYWSzOSytQ3wiyWFe8yEgaur9Fo5CbhNEQB4sE9bFBsJEWfLcI1ePuaevcnOOSIEAR7TQFiuems0/GZqFUm2Na4SGUUIMT7eV5xwzK4szvFfNebxLKyRqO/T6OrvM04ZNK11oB21KaZvjjdlr3fBdjowMqWY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790106715; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=0cY8BufZm8x4L8It6tVcAXvdGnTtJlwa84sEBVLMn4Q=; 
+	b=g4mghrLmbrX3O1z6rJpUmxA47S/ztnwEzY2YrPjy3bnfJ7kqTHTVyx2fkzApLf0XyQIAAavqk2VP1aF6HiTVratm5OWTim6Xz8MzJii/Cx6NI5P6pft5Orw2Y6itSLNU9DcY1wDKUk55VYLhqW04GdYElvx/d450Z1OuTJRO8Bs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790106715;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=0cY8BufZm8x4L8It6tVcAXvdGnTtJlwa84sEBVLMn4Q=;
+	b=QSIfXdIFriQ/JI1Wvyc2nZCCRNQrHeB0dQkhhn0OkXHtKJQljM3fxoowj8wY9H40
+	B8osxyFyVLd1pCSBtsrB54l2N9CLEDRn299xzk+eDBudSTRiEPGXtZt7TGvyphghWcA
+	DdTaBhe/VtnzW6QwgIM6T73/tvhgCwhhWhTr2IqI=
+Received: by smtp.zohomail.com with SMTPS id 1790106714187941.2883807507874;
+	Tue, 22 Sep 2026 12:51:54 -0700 (PDT)
+Date: Tue, 22 Sep 2026 20:51:48 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 06/16] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+Message-ID: <arGhZayS8zH4y-61@sobremesa>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Ih2ZwN7__0c5mkxLI7SuZyeFSp3J2mJ-
-X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab2dc69 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=wtvrgtD0Hc2VqHSVShsA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI4NyBTYWx0ZWRfXxsObF/FjpK+d
- oNrS/XTNC3H6/1bqX3Qu4fmRyvJQWZc6T1Uyu7S8AZIqr+Od0mModclZKL+7gbp7yXR5i6tv8IR
- d1dFrQ1HNard2twTWaPt+bhOsxzS+mUQnJ4ohnQIOFLIpumYhxMFzLhsXudupWzqPPktzvrt5oH
- QLl7SaX2v2/7jvM4x78UhO6giOMk3kqp2gDsLAMKq8rqy/7iFLP5h4P9RjlJ9GuzF7N2ZMLPm7F
- 0frkQOgn2v3gIdKOTmXsTQG3eRvcyOF3XXKgA8eDZlNhjibiRuPCiGrN3zhH3KzqLdkv6eCU6Jn
- USzBg6IPQC8GHl04iSGqdvP2Ima38TIN/3QM/rrbuO70jhK/ijq0wWMghMjPC742dzlXnE9wUMG
- sivyJeSWi9frqn7U4pt0Z42AU2nlRKSeWD9I3l7xLVEURLFRDtmEFqQRItas37m7W7PHcqHl0l3
- 4vqkN+adOP6HSg/LR+Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI4NyBTYWx0ZWRfXzKTaGNEsx5Ha
- Waz0eyrkeTZoVgw/ikSwlJ7X76DOOz9mfcIilxUIw7Q8h5Kl22BHQY9QReNbgL7tTAiPVby0qOD
- LdPcTCyo20FO1BEfb03xjw81918Qk4A=
-X-Proofpoint-GUID: Ih2ZwN7__0c5mkxLI7SuZyeFSp3J2mJ-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220287
+In-Reply-To: <20260914112237.70dedb9c@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.95.26
 
-Introduce new VFIO features for zPCI devices to provide FMB passthrough to
-userspace.
+On 14.09.2026 11:22, Boris Brezillon wrote:
+> On Sat, 12 Sep 2026 00:28:07 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > During device probe(), failure to do a PM get() will leave the usage_count
+> > set to 0, which is the value assigned at device creation time. That means
+> > when the autosuspend delay expires, runtime suspend callback won't be
+> > invoked, so the device will remain powered on forever.
+> > 
+> > On top of that, failure to call PM put() during device unplug means
+> > Panfrost device's PM usage_count increases monotonically for every new
+> > module reload.
+> > 
+> > The outcome of both of the above meant that:
+> > 
+> > - Devfreq OPP transition notifications would be printed all the time,
+> >   even when no jobs are being submitted. This quickly fills the kernel
+> >   ring buffer with junk.
+> > - Because MMU interrupts are only enabled when the device is reset,
+> >   the very first job targeting the tiler heap BO after device probe()
+> >   would always time out, since the driver's PM runtime resume callback
+> >   would not be invoked.
+> > 
+> > To fix the above:
+> > - Manually adjust the PM refcnt at device probe and removal time.
+> > - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
+> > - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
+> > - Move pm_runtime_set_suspended() before panfrost_device_fini() so that
+> >   resource unwinding happens in the opposite order as initialisation.
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
+> > Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_drv.c | 10 ++++++++--
+> >  1 file changed, 8 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > index 55fc22e8d4d4..a3eff77add55 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > @@ -854,6 +854,7 @@ static int panfrost_probe(struct platform_device *pdev)
+> >  
+> >  	pm_runtime_set_active(pfdev->base.dev);
+> >  	pm_runtime_mark_last_busy(pfdev->base.dev);
+> > +	pm_runtime_get_noresume(pfdev->base.dev);
+> >  	pm_runtime_enable(pfdev->base.dev);
+> >  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+> >  	pm_runtime_use_autosuspend(pfdev->base.dev);
+> > @@ -866,13 +867,16 @@ static int panfrost_probe(struct platform_device *pdev)
+> >  	if (err < 0)
+> >  		goto err_out1;
+> >  
+> > +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> >  
+> >  	return 0;
+> >  
+> >  err_out1:
+> > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> >  	pm_runtime_disable(pfdev->base.dev);
+> > -	panfrost_device_fini(pfdev);
+> > +	pm_runtime_put_noidle(pfdev->base.dev);
+> >  	pm_runtime_set_suspended(pfdev->base.dev);
+> > +	panfrost_device_fini(pfdev);
+> 
+> Not an issue per-se, because put_noidle() is a NOP, but I think it'd be
+> easier to reason about with this order:
+> 
+> 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>   	pm_runtime_disable(pfdev->base.dev);
+> 	panfrost_device_fini(pfdev);
+>   	pm_runtime_set_suspended(pfdev->base.dev);
+> 	pm_runtime_put_noidle(pfdev->base.dev);
+> 
+> This makes it clear that panfrost_device_fini() assumes the device is
+> resumed when it's called and suspended when it returns.
 
-Allow the user to enable or disable the FMB using the SET-only feature
-VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE. Likewise allow the user to read the
-latest FMB using the GET-only feature VFIO_DEVICE_FEATURE_ZPCI_FMB_READ
-in the case when the FMB is enabled.
+Your suggestion feels more natural, which makes me wonder why I decided to move
+panfrost_device_fini() to the end of the block. 
 
-Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
----
- drivers/vfio/pci/vfio_pci_core.c |  4 +++
- drivers/vfio/pci/vfio_pci_priv.h | 18 ++++++++++
- drivers/vfio/pci/vfio_pci_zdev.c | 60 ++++++++++++++++++++++++++++++++
- include/uapi/linux/vfio.h        | 29 +++++++++++++++
- 4 files changed, 111 insertions(+)
+IIRC we chatted about where to place pm_runtime_put_noidle() and pm_runtime_set_suspended()
+in panfrost_device_init() when one of the subsystem initialisations failed. My intuition
+had been to leave them until the very bottom of it, in imitation of what you hinted here,
+but then it'd go against the notion that winding down must be done in the opposite order
+as initialisation. And so because panfrost_device_init() happens before all the pm_runtime_*
+incantations, I thought panfrost_device_fini() should be placed at the end in the error
+and driver remove paths.
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 6757054e9d87..3c827a77725b 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1627,6 +1627,10 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
- 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
- 	case VFIO_DEVICE_FEATURE_ZPCI_ERROR:
- 		return vfio_pci_zdev_feature_err(device, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE:
-+		return vfio_pci_zdev_feature_fmb_enable(vdev, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_ZPCI_FMB_READ:
-+		return vfio_pci_zdev_feature_fmb_read(vdev, flags, arg, argsz);
- 	default:
- 		return -ENOTTY;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 4e7162234a2e..e04d7e9d0c30 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -95,6 +95,10 @@ int vfio_pci_zdev_open_device(struct vfio_pci_core_device *vdev);
- void vfio_pci_zdev_close_device(struct vfio_pci_core_device *vdev);
- int vfio_pci_zdev_feature_err(struct vfio_device *device, u32 flags,
- 			      void __user *arg, size_t argsz);
-+int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev, u32 flags,
-+				     void __user *arg, size_t argsz);
-+int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev, u32 flags,
-+				   void __user *arg, size_t argsz);
- #else
- static inline int vfio_pci_info_zdev_add_caps(struct vfio_pci_core_device *vdev,
- 					      struct vfio_info_cap *caps)
-@@ -116,6 +120,20 @@ static inline int vfio_pci_zdev_feature_err(struct vfio_device *device,
- {
- 	return -ENOTTY;
- }
-+
-+static inline int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev,
-+						   u32 flags, void __user *arg,
-+						   size_t argsz)
-+{
-+	return -ENOTTY;
-+}
-+
-+static inline int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev,
-+						 u32 flags, void __user *arg,
-+						 size_t argsz)
-+{
-+	return -ENOTTY;
-+}
- #endif
- 
- static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
-diff --git a/drivers/vfio/pci/vfio_pci_zdev.c b/drivers/vfio/pci/vfio_pci_zdev.c
-index f47f36314a1c..b028de8e08a4 100644
---- a/drivers/vfio/pci/vfio_pci_zdev.c
-+++ b/drivers/vfio/pci/vfio_pci_zdev.c
-@@ -219,3 +219,63 @@ void vfio_pci_zdev_close_device(struct vfio_pci_core_device *vdev)
- 	if (zpci_kvm_hook.kvm_unregister)
- 		zpci_kvm_hook.kvm_unregister(zdev);
- }
-+
-+int vfio_pci_zdev_feature_fmb_enable(struct vfio_pci_core_device *vdev, u32 flags,
-+				     void __user *arg, size_t argsz)
-+{
-+	struct zpci_dev *zdev;
-+	struct vfio_device_feature_zpci_fmb_enable fmb_enable;
-+	int ret;
-+
-+	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET, sizeof(fmb_enable));
-+	if (ret != 1)
-+		return ret;
-+
-+	zdev = to_zpci(vdev->pdev);
-+	if (!zdev)
-+		return -ENODEV;
-+
-+	if (copy_from_user(&fmb_enable, arg, sizeof(fmb_enable)))
-+		return -EFAULT;
-+
-+	guard(mutex)(&zdev->fmb_lock);
-+
-+	if (fmb_enable.enabled)
-+		return zpci_fmb_reenable_device(zdev);
-+	return zpci_fmb_disable_device(zdev);
-+}
-+
-+int vfio_pci_zdev_feature_fmb_read(struct vfio_pci_core_device *vdev, u32 flags,
-+				   void __user *arg, size_t argsz)
-+{
-+	struct zpci_dev *zdev;
-+	struct vfio_device_feature_zpci_fmb_read fmb_read;
-+	struct zpci_fmb fmb_bounce;
-+	int ret;
-+
-+	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_GET, sizeof(fmb_read));
-+	if (ret != 1)
-+		return ret;
-+
-+	zdev = to_zpci(vdev->pdev);
-+	if (!zdev)
-+		return -ENODEV;
-+
-+	if (copy_from_user(&fmb_read, arg, sizeof(fmb_read)))
-+		return -EFAULT;
-+	if (!fmb_read.data)
-+		return -EINVAL;
-+
-+	mutex_lock(&zdev->fmb_lock);
-+	if (!zdev->fmb_enabled) {
-+		mutex_unlock(&zdev->fmb_lock);
-+		return -ENOMSG;
-+	}
-+
-+	memcpy(&fmb_bounce, zdev->fmb, zdev->fmb_length);
-+	mutex_unlock(&zdev->fmb_lock);
-+
-+	if (copy_to_user(u64_to_user_ptr(fmb_read.data), &fmb_bounce, zdev->fmb_length))
-+		return -EFAULT;
-+	return 0;
-+}
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index e41437fa17ad..a8d501e42ef9 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1555,6 +1555,35 @@ struct vfio_device_feature_zpci_err {
- 
- #define VFIO_DEVICE_FEATURE_ZPCI_ERROR 13
- 
-+/**
-+ * Upon VFIO_DEVICE_FEATURE_SET, enable or disable FMB for the VFIO zPCI device.
-+ *
-+ * enabled is treated as a bool, so any non-zero value evaluates to true. Nested
-+ * enabling resets the FMB counters to zero, and nested disabling fails.
-+ *
-+ * Returns: 0 on success, -1 and errno set appropriately on error.
-+ */
-+#define VFIO_DEVICE_FEATURE_ZPCI_FMB_ENABLE 14
-+
-+struct vfio_device_feature_zpci_fmb_enable {
-+	__u8 enabled;
-+};
-+
-+/**
-+ * Upon VFIO_DEVICE_FEATURE_GET, provide FMB passthrough for VFIO zPCI devices.
-+ *
-+ * The user-provided buffer must be at least fmb_length large, where fmb_length
-+ * is reported in VFIO_DEVICE_INFO_CAP_ZPCI_BASE.
-+ *
-+ * Returns: 0 on success, -1 and errno set appropriately on error. errno==ENOMSG
-+ * when the FMB is not enabled.
-+ */
-+#define VFIO_DEVICE_FEATURE_ZPCI_FMB_READ 15
-+
-+struct vfio_device_feature_zpci_fmb_read {
-+	__aligned_u64 data;
-+};
-+
- /* -------- API for Type1 VFIO IOMMU -------- */
- 
- /**
--- 
-2.55.0
+That said, I think a more intuitive init order would be one that imitates what happens in
+Panthor when runtime PM is enabled:
 
+	/* First thing done in pm_runtime_resume_and_get -> pm_runtime_get_active -> __pm_runtime_resume */
+	pm_runtime_get_noresume(pfdev->base.dev);
+	
+	/* Now come subsystem initialisations */
+	panfrost_gpu_init(pfdev);
+	panfrost_mmu_init(pfdev);
+	panfrost_jm_init(pfdev);
+	panfrost_perfcnt_init(pfdev);
+	panfrost_gem_init(pfdev);
+	
+	/* __pm_runtime_resume -> rpm_resume first invokes the resume callback and then
+	 * updates runtime status to RPM_ACTIVE. */
+	pm_runtime_set_active(pfdev->base.dev);
+	
+	pm_runtime_enable(ptdev->base.dev);
+        pm_runtime_mark_last_busy(pfdev->base.dev);
+	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+	pm_runtime_use_autosuspend(pfdev->base.dev);
+
+And then in the error and device remove path would be almost just like you suggest.
+
+        pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+	pm_runtime_disable(pfdev->base.dev);
+	pm_runtime_put_noidle(pfdev->base.dev);
+	panfrost_device_fini(pfdev);
+	pm_runtime_set_suspended(pfdev->base.dev);
+
+The only difference is that pm_runtime_put_noidle() happens before device_fini
+because that's the same order as in __pm_runtime_suspend().
+
+However, that means in the commit where I move all DRM initialisation into
+panfrost_device_init(), in order to keep things consistent, I should move
+pm_runtime_set_suspended() to the very end of the error path.
+
+> >  err_out0:
+> >  	return err;
+> >  }
+> > @@ -884,9 +888,11 @@ static void panfrost_remove(struct platform_device *pdev)
+> >  	drm_dev_unregister(&pfdev->base);
+> >  
+> >  	pm_runtime_get_sync(pfdev->base.dev);
+> > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > +	pm_runtime_put_noidle(pfdev->base.dev);
+> >  	pm_runtime_disable(pfdev->base.dev);
+> 
+> Let's keep the order consistent with the probe path:
+> 
+> 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> 	pm_runtime_disable(pfdev->base.dev);
+> 	panfrost_device_fini(pfdev);
+> 	pm_runtime_set_suspended(pfdev->base.dev);
+> 	pm_runtime_put_noidle(pfdev->base.dev);
+> 
+> I also think this deserves comments to explain the noresume/noidle
+> dance (device_init/fini take care of clks internally, and when they
+> return the device is resumed/suspended, so all we have to is update the
+> state, and acquire a ref).
+
+I don't mind doing this, but I think the fact we're calling noresume/noidle
+functions already implies device power-up is being handled manually rather
+by having RPM invoke resume and suspend callbacks behind the scenes, so
+we've no choice other than adjusting PM user counter and status ourselves.
+
+> > -	panfrost_device_fini(pfdev);
+> >  	pm_runtime_set_suspended(pfdev->base.dev);
+> > +	panfrost_device_fini(pfdev);
+> >  }
+> >  
+> >  static ssize_t profiling_show(struct device *dev,
+> > 
+
+Adrian Larumbe
