@@ -1,407 +1,169 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazolkn19011077.outbound.protection.outlook.com [52.103.32.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B36F5616B0
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092678; cv=none; b=AekJvAnHhosxH+9bFd55DZNCWT9x8gS6b460c1Kb1D9E2Etq7/cN3CjpMxUTbosAVzAfckAZnKDrTP9lBhZnuNX/btKBKt8EJ6mJdfE2sd1kW0hK1SnPOXqm2MJTCW7STaeUyXYwu9wkW7QMIWYDLvyAPb4l7hLCVCNKVa2acFw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092678; c=relaxed/simple;
-	bh=EjdoWGQVSEH2AHQI7YBfJ+ZVVjimW9SOllviym8xCXo=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=My3POJriL4UaS5lJI7/2Te4HhRQJmIMCRGr975R5fH1vI4eE7uK7x1YXoOusWPg5ADN0LfEuVgMixcXchoF4zZY75rXg2U4FrbKUCSU4dFPI7y/RHCAusgwo4zvK4hiXiUe8fkXYE0PbgzAf1G8Obc2NRo1IeJQwZnTdptV+/W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 68MFvl33035256;
-	Wed, 23 Sep 2026 00:57:47 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 68MFvllt035253
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
-	Wed, 23 Sep 2026 00:57:47 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <db497449-b16b-4a61-9f06-fbbe7a3dcc73@I-love.SAKURA.ne.jp>
-Date: Wed, 23 Sep 2026 00:57:44 +0900
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111185616D2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790092687; cv=fail; b=qkxdwZjqek3D8dSxOhlwoUBRyHH5Jmqi0BiYigyXQiSDUr7NjXMf+R2lN1+pRrqIATNc8Fk5ZddP5B3Ynl02cVMn3XscgdMfug+61VturWhSfTKsWpZ3lruonbO6WrsLnSmcB3MYupW45plw1oR3RvQt6DSH342Ipb4J58Opdcw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790092687; c=relaxed/simple;
+	bh=LaRE1lXOUYfcrNDNA6M1gZfSPpC+rkvXxED1JEjmEUY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=l+RbBPkUGRreDGxb70LBJwmNY4BRCwtJG7Nzvw47nzj0U++aF4cATPEQkCmiy4iYZLCs6NS6j0cjq3BY/cY2StfS/wsTP0k0Bhu52UI2mn+wtSyuY2xueCGJtN+/Jzv660Hb3qCj8/2MKmp6J1GbH8aiTbmR7/a7QN7987DzqNw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=UuIteYT3; arc=fail smtp.client-ip=52.103.32.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="UuIteYT3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OHK8ahjck6EE0xQVUybMWOZimfEPN30solPn91lZNE/OQql85tG26XzxmPSiX6q34HsEt8w+7de3wYozjynx8SiGhl3XGx8UvCSiIB2MPxUo78Mepy5ZxS6xT4X7tuA1Ai+dRwj2YjFWPckixhOX2kspWcOll/FjqguevQtcAkCrovHyukKp8wzhI6ApeD+9f0020GLt9dNl8n6lnpqM9Oes+3OlCX/j5H3rJq6JE1nhkxsmbz8mm4Xd2BmwEYJ1FDPSXoVKS/nv/vRy+rTZGd01K2d5zudrVe6alzaBA+RN37QeQjo/Dk6oPzjGoodoK391Ib8QJPD5BN1SPk6ndw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LaRE1lXOUYfcrNDNA6M1gZfSPpC+rkvXxED1JEjmEUY=;
+ b=wDnOC3isO0xtmHsABA/hZmhgJLf2ANzDWxkOJbOC1+h0bKTOnb1Tygg7jg8nmqs8EfD3X9jtQ4oLrKf/1esTBLQk0aMNW4JTTg2SRyiV1DLdd+k0GEkircCemVbVw8q+WUwObtBilv1SXmiXnlRhkV4mU6Vg7yaMdL2Uaqu8sehro2radHGXw4Gm9fUHljFL8eGXM7K2pP1snGgQMzMgzAMzGwbUgCbXjYGISjRMriLRXhslXsH7sUZ9+NYLVjbuz0CdfFkICMgSD96OBhypXf/veZdsZAl9YEdOgo0Nv8mLGb7FK44rdAWepX7wRMcDdd4+w6PI+hGoqL2XJI3Klg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LaRE1lXOUYfcrNDNA6M1gZfSPpC+rkvXxED1JEjmEUY=;
+ b=UuIteYT3VmWyJGfjdpfOYQAGXgPpjQrVCeJs29kr7Endb+TZuMK/W1OZ7GnF5SJMjYy9cn+MV3edstm6wYexK/i/1tmUToJkATuZyJnq9N0kIfKq3CP6eC/bnvFXyE8LRpjBl17lpF1OZnkt8LkP5cR6ReBwcY9MKeeRC2L2s43ODHvFIS8RlN8zWuPxbxabp7atFX6IVsDgoLIpJXDZFW9QxRe9vnHWCPga8WHqEetffARfaCTuAPVURbutCZ5tN3HkkxmbIx/Hvh/xTHmUIdVAJKEoINxRJqseN4eO5I7O/d8kZttuPSRuKV7Yq/zAl3g9ygcIXK5rISz59yJ2mQ==
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
+ by DU5PR03MB10523.eurprd03.prod.outlook.com (2603:10a6:10:525::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 15:58:03 +0000
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 15:58:03 +0000
+From: Arthur Liberman <arthur_liberman@hotmail.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Harry Wentland
+	<harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+	<siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+	=?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
+	"airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+Subject: Re: [PATCH 0/3] drm/amd/display: fix NULL derefs on MST HPD and
+ teardown
+Thread-Topic: [PATCH 0/3] drm/amd/display: fix NULL derefs on MST HPD and
+ teardown
+Thread-Index: AQHdSqoZls0hw0TPkUyfm1fNCkwks7bawNIX
+Date: Tue, 22 Sep 2026 15:58:03 +0000
+Message-ID:
+ <DB9PR03MB73886F9E0F03042EE612BBA38A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+References:
+ <DB9PR03MB73884B0D604BA858636247CF8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+In-Reply-To:
+ <DB9PR03MB73884B0D604BA858636247CF8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|DU5PR03MB10523:EE_
+x-ms-office365-filtering-correlation-id: be0322fd-e78d-4dae-3633-08df18c248d5
+x-ms-exchange-slblob-mailprops:
+ 7qh87CJt6y1mqZO6407WRLxlypE3k+ejgdMR8kH9yjpjQ9b2+P+k+4Z/fgZpbBZNIqPeTE3ON2tzJniAQjrfXtMRI7tEmkeFr0dfgFRquLyv0JHQ5JZQmBpbASXfuQS0BNtnugurwEySB6DloIaHdjOMlEuzY8zEzPITIR+XaxQZsZqKKKkuPw/4Lyy2PXgIwZXgQWfqC3r5/VhckAtPPpkLIxKKNFoffJR3+dwYTHoY2QXJ+D/F4YtYOaqZ44ADtGTZJjMA5qz0WPgeKrIGsqQx4Uv6emQFIBKFPbhM/jsW416YMK2591AjI07FBsMNnUkzUd9rKc/9DGIHke0tmABlSNLoE/vmURQ6pETnQm3oBwy71grII3YOhomg8txxcSUU8uaebJEDPxrPVBmsHfgmSePO+E6bsUu+H8GNqS0UPYRtPOqskvBif6KFdopH0glrGuBxc+KnhPmWsJAOfifjzrtWylSU5oBYqMIlIyiHPZKGF5hIbOY13mF2uxanXYwpwisy2kBHNncBoi+AZTBKX6f+EkstgtoUL/qfReFxkI+mM+zwx31WSx72RoqeH9F8oo8O+dz+8vLOpOz0vjiKhx0DDISYVVktQDmEVsmWkvCNRv9697ecXnS0QFKmOVkZA1g8pau8pdZBhQF6IW8mE/xRQZIo8YbbmLYjEXz8agbvgFSX1+M6zfpr5+CKPbAc7AmVbQs/bM8K2pLXJF5uV7xYU3BuRWDC+fbYFVRUawei/yYUdWYkBzIhe7Ft
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|19110799012|8062599012|51005399006|12121999013|8060799015|25010399006|31061999003|37011999003|24021099003|41001999006|15030799006|15080799012|40105399003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?eQwbYjHuPZsNPk3kCe3AEkcIkJ5bzCIJz3BSJFXuyT8Yfn8qr/tWBnvGJD?=
+ =?iso-8859-1?Q?158mPufx8Ud8DZ30e36TPHOb5uIx2vwV91K/68TmWQzdT8LU8QFfe7syTI?=
+ =?iso-8859-1?Q?f4ovSvs6mam3uuYd1fZ2cVAKZah+x6Nopogu3bCBgPKtLisAQciQlq/Vt3?=
+ =?iso-8859-1?Q?xJFGy/qStnefsOIpr1vlD0GzKUBWK2szJiCgUtNKohjRUJJpOY4bRPc3rc?=
+ =?iso-8859-1?Q?SCzvNA9g6bMlkbdq9an7UN++O6FLqIOffveX4oot15b/lVAOHRP0NTRid8?=
+ =?iso-8859-1?Q?Oe8iNl4uXh5o+yO7lvyRSzKKWX+dhn5BkYrTKzG3+FQl9dF7ILUujYrrmt?=
+ =?iso-8859-1?Q?pkrb3Bx4OSOuTv0GVnJYAr9SE+KrAWkCqNHC1dac4cC7iJp1UAGmjlolLw?=
+ =?iso-8859-1?Q?kwy1KhFsFhj0jWcvS/iiTLyBnQObBWVML7InbdhP8W+NiKrqDzXgn9Iag5?=
+ =?iso-8859-1?Q?jH+AATNX6/WIsi+kX9yoADrMYCG7oQM1SO+mX/LYgmfVOGHNNwZQOHWQAN?=
+ =?iso-8859-1?Q?qoCKhdCo4w3SFcUGF1ywGm1EP/yjP2ijBb2pptRP7MCsw3+5qtm2SsG/xa?=
+ =?iso-8859-1?Q?62aN5o5ZstGDCMi58LXw9zq036Lra+eGvU2zvWx+r3UTMWo513Al+6+k/J?=
+ =?iso-8859-1?Q?dj8K5Hwo3qxaawcM8yIbRvv1QFnxoCD/XPJEgpqdFKd9TK8Awbw29nGXzg?=
+ =?iso-8859-1?Q?yuet7aZe5h+omalEwi1sKFO0DivTo6qgCe13PUmsLqgoi/beUQ6O+peBaf?=
+ =?iso-8859-1?Q?r/lE2Y5VfFEE6n5kZpRDm5/wMsEU6/oJzNAnr8RptMd2Dse8Fuqal/tYNO?=
+ =?iso-8859-1?Q?j808CcA3dxNYiTqFV6tSTzVbaGTXgHguxaPC254Y5IGuUYD3ugYTmPIIRJ?=
+ =?iso-8859-1?Q?KLZ9trPfCP8IemgyadVAK0O0w6mAanUbLHzrua0VHJ8xH+2GqKFeB4M1eV?=
+ =?iso-8859-1?Q?NXH4Y2/5Ce8e9vxLI7DIeQXzD3VKE6NB7GV9Hdzyp+5aoWGGb3Zt6MyxVQ?=
+ =?iso-8859-1?Q?vm+PFNIzRKLxwzi1OriQre4OaDRQPLR8GLmE6eZEksM/HJhEm21S7VYX1b?=
+ =?iso-8859-1?Q?YGNEmETwM+cEmkBki6XG1BFVcBg1t4ZPaFbFicX7y7ur?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?ajQIlJGorjLJ9q7voASMLCTfXadSyoBfV6caeMNDyjfhyznQBJlGO45BP4?=
+ =?iso-8859-1?Q?tQt3hGTHNKqLmlp1/SO/vGJiQErPZw04+RoDn7lhq7t7d0yoQXuM7OelRD?=
+ =?iso-8859-1?Q?5edelKgrm7kLCgWr8E5mrZ/H0jeU/XqXPvkxq5xr/icqyGWqydTCaDFy0+?=
+ =?iso-8859-1?Q?8B9AlcKT32u0WenSEgyu8LhoU281KvF4J+9WevsOB0+ZCdplZQlTha5dUT?=
+ =?iso-8859-1?Q?oFqKw/eHBQhMN8mQFxVzdK0LyVlYkZudo3lx8PmsHRHDj/wS5uoZb0nOb0?=
+ =?iso-8859-1?Q?Tb1NS2MbbJuNApB12sQENw/iVN68oGC6zMliKdeeLgZ4GkxMhFj1xbtSNW?=
+ =?iso-8859-1?Q?jv5NZBw6XxMFC2yTFWqAsej866ZD7hI1OcVPTw9+wYnoSfwEwkF+Bi2Scv?=
+ =?iso-8859-1?Q?1KIC/6nWH43xYI+go9hPR80KXQfdaC+HUFl5+ORRMaPOFwcA/rPKPyhCHF?=
+ =?iso-8859-1?Q?qp5UtNr+3ZuuGraVtDQGaN4w/qvcwucbcqkZj2XvejLWGD098nDWt8oNyC?=
+ =?iso-8859-1?Q?JlTftvA5tlpaA1zXWXUMAvvgY2mmO8LWOhLBr0Qjs1Sz1ionT6WmJrtxxP?=
+ =?iso-8859-1?Q?4V9HHYqQkDOXOAugRH3J+1n3OUisafd6VkQkD6Ar8GjOyPn5yR6FBQp+4P?=
+ =?iso-8859-1?Q?/fSoD/jW2GB2i4wOO6ZY52YfwN235b1RrjuzUGGmAWWo5XKUUirCOaap8P?=
+ =?iso-8859-1?Q?X43SuQXBRZpt6YW+lCSuc8sLKW5xu9Xcok04yuxnsMSzUL6tZBS1zOGAbU?=
+ =?iso-8859-1?Q?p2ULABIxxi3M0fVYr572c7iGOwNV/3QaUdjTcxu23kx+grMbZjlSU2ZB4R?=
+ =?iso-8859-1?Q?tXs88b/ofAdmmZb5hpsMV7flwX1rdo5gKvTb0kcH1CroWhZ/Fopm2bHmzI?=
+ =?iso-8859-1?Q?bGRlqV277QE2LS6jArExHiJhBSkeEIW5AmE09VoMEVazUhgWbg9noL5hJ5?=
+ =?iso-8859-1?Q?Mfl43Cm28kUADNjQhI1CujBqfAAmYyOYkA7SjRAKmt4EamC850GqLwlsCH?=
+ =?iso-8859-1?Q?xtKhxJ2WNTLprdqzH90yu5B3+3gBNsjHkaS444w29/rLBfpLGkPPF4Eqmq?=
+ =?iso-8859-1?Q?EO6VSpElDQLUR1BvzFsHzpgmWcdMffQJ2VR5r2PoTAnDBUDtO8jy5JNAFJ?=
+ =?iso-8859-1?Q?JEwTj+mscudoxsnv5Qm/Y1O4pR7cOaCbF/fdOJt7b9iSghliHdhtDadN3e?=
+ =?iso-8859-1?Q?xwCXSaV854Oda5bCOAOzO9yg52MgPmZOg93EinM1uSAtx5JxX8KdyOAEwW?=
+ =?iso-8859-1?Q?drjAnxqpzTeiwdttw337jdNQuYyDqkaHVHrjeQEaXo5Je/gsxwHxe+JIyp?=
+ =?iso-8859-1?Q?TyZPmWqVoYEhF3yA4v0hATr+DHqcLvnUnxzk1P3EV1LtRTcZpbUjxfZCAd?=
+ =?iso-8859-1?Q?FRIUp6S+9J67jOjiMQuxlxaVQbvnf/HivBOKjFQ2j9WaLmjEiBNaRQDEA9?=
+ =?iso-8859-1?Q?dxs1JUr7SWle8fAz?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: Matthieu Buffet <matthieu@buffet.re>
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Subject: [PATCH] tomoyo: fix socket permission checks
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Anti-Virus-Server: fsav413.rs.sakura.ne.jp
-X-Virus-Status: clean
+X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: be0322fd-e78d-4dae-3633-08df18c248d5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 15:58:03.4241
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR03MB10523
 
-This is a squashed patch addressing three problems.
-
-[PATCH 1/3] tomoyo: Enforce connect policy in TCP Fast Open
-
-  Tomoyo restricted TCP connections in 2011 in commit
-  059d84dbb389 ("TOMOYO: Add socket operation restriction support.")
-  using the socket_connect() LSM hook.
-
-  However, the MSG_FASTOPEN sendmsg() flag was added in 2012 to allow
-  combining connect() and the first sendmsg(). Tomoyo was not updated to
-  take this into account in its send hook.
-
-  This resulted in a TCP connect policy bypass similar to that reported in
-  Landlock in 2024 (see Link below), with the difference that Tomoyo was
-  fine when originally merged, and the problem got introduced when adding
-  fastopen support, possibly due to lack of synchronization between lsm
-  and netdev worlds.
-
-  Add MSG_FASTOPEN handling in Tomoyo's existing send hook.
-
-  Link: https://github.com/landlock-lsm/linux/issues/41
-  Link: https://lore.kernel.org/all/20260616201615.275032-1-hexlabsecurity@proton.me/
-  Fixes: cf60af03ca4e ("net-tcp: Fast Open client - sendmsg(MSG_FASTOPEN)")
-  Cc: stable@kernel.org
-  Signed-off-by: Matthieu Buffet <matthieu@buffet.re>
-  [penguin-kernel: Modified to use tomoyo_sock_family() in order to exempt
-  kernel services. Also, modified not to check sk->sk_protocol because
-  conditions to check became too complicated and error prone because of
-  the second patch.]
-
-[PATCH 2/3] tomoyo: Handle SMC socket
-
-  During the sashiko's review on the first patch, sashiko pointed out that
-  TOMOYO is not checking PF_SMC sockets. If a socket was created using
-  socket(PF_SMC, SOCK_STREAM) instead of socket(PF_INET, SOCK_STREAM),
-  tomoyo_sock_family() was returning 0 despite PF_SMC sockets can communicate
-  like PF_INET socket. Check permissions on PF_SMC sockets, by adding PF_SMC
-  to tomoyo_sock_family() and tomoyo_socket_sendmsg_permission().
-
-  Link: https://sashiko.dev/#/patchset/20260619002207.61104-1-matthieu%40buffet.re
-
-[PATCH 3/3] tomoyo: Handle SCTP socket
-
-  During the sashiko's review on the first patch, sashiko pointed out that
-  TOMOYO is not checking SCTP sockets. Implement sctp_bind_connect callback,
-  using selinux_sctp_bind_connect() as template. Since sctp_bind_connect
-  callback receives pointer to "struct sock", update existing socket hooks
-  to receive pointer to "struct sock". Also, extend policy profile structure
-  because SCTP allows socket(PF_INET, SOCK_SEQPACKET, IPPROTO_SCTP).
-
-  Link: https://sashiko.dev/#/patchset/20260619002207.61104-1-matthieu%40buffet.re
-
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
----
- security/tomoyo/common.c  |  3 ++
- security/tomoyo/common.h  | 12 +++----
- security/tomoyo/network.c | 52 ++++++++++++++++------------
- security/tomoyo/tomoyo.c  | 73 +++++++++++++++++++++++++++++++++++++--
- security/tomoyo/util.c    |  3 ++
- 5 files changed, 112 insertions(+), 31 deletions(-)
-
-diff --git a/security/tomoyo/common.c b/security/tomoyo/common.c
-index fdaeaff01fc1..d645a17d7348 100644
---- a/security/tomoyo/common.c
-+++ b/security/tomoyo/common.c
-@@ -54,6 +54,9 @@ const char * const tomoyo_mac_keywords[TOMOYO_MAX_MAC_INDEX
- 	[TOMOYO_MAC_NETWORK_INET_DGRAM_SEND]        = "inet_dgram_send",
- 	[TOMOYO_MAC_NETWORK_INET_RAW_BIND]          = "inet_raw_bind",
- 	[TOMOYO_MAC_NETWORK_INET_RAW_SEND]          = "inet_raw_send",
-+	[TOMOYO_MAC_NETWORK_INET_SEQPACKET_BIND]    = "inet_seqpacket_bind",
-+	[TOMOYO_MAC_NETWORK_INET_SEQPACKET_LISTEN]  = "inet_seqpacket_listen",
-+	[TOMOYO_MAC_NETWORK_INET_SEQPACKET_CONNECT] = "inet_seqpacket_connect",
- 	[TOMOYO_MAC_NETWORK_UNIX_STREAM_BIND]       = "unix_stream_bind",
- 	[TOMOYO_MAC_NETWORK_UNIX_STREAM_LISTEN]     = "unix_stream_listen",
- 	[TOMOYO_MAC_NETWORK_UNIX_STREAM_CONNECT]    = "unix_stream_connect",
-diff --git a/security/tomoyo/common.h b/security/tomoyo/common.h
-index d098cf8aae61..6db83be62077 100644
---- a/security/tomoyo/common.h
-+++ b/security/tomoyo/common.h
-@@ -354,6 +354,9 @@ enum tomoyo_mac_index {
- 	TOMOYO_MAC_NETWORK_INET_DGRAM_SEND,
- 	TOMOYO_MAC_NETWORK_INET_RAW_BIND,
- 	TOMOYO_MAC_NETWORK_INET_RAW_SEND,
-+	TOMOYO_MAC_NETWORK_INET_SEQPACKET_BIND,
-+	TOMOYO_MAC_NETWORK_INET_SEQPACKET_LISTEN,
-+	TOMOYO_MAC_NETWORK_INET_SEQPACKET_CONNECT,
- 	TOMOYO_MAC_NETWORK_UNIX_STREAM_BIND,
- 	TOMOYO_MAC_NETWORK_UNIX_STREAM_LISTEN,
- 	TOMOYO_MAC_NETWORK_UNIX_STREAM_CONNECT,
-@@ -1023,13 +1026,10 @@ int tomoyo_path_perm(const u8 operation, const struct path *path,
- 		     const char *target);
- __poll_t tomoyo_poll_control(struct file *file, poll_table *wait);
- __poll_t tomoyo_poll_log(struct file *file, poll_table *wait);
--int tomoyo_socket_bind_permission(struct socket *sock, struct sockaddr *addr,
--				  int addr_len);
--int tomoyo_socket_connect_permission(struct socket *sock,
--				     struct sockaddr *addr, int addr_len);
-+int tomoyo_socket_bind_permission(struct sock *sk, struct sockaddr *addr, int addr_len);
-+int tomoyo_socket_connect_permission(struct sock *sk, struct sockaddr *addr, int addr_len);
- int tomoyo_socket_listen_permission(struct socket *sock);
--int tomoyo_socket_sendmsg_permission(struct socket *sock, struct msghdr *msg,
--				     int size);
-+int tomoyo_socket_sendmsg_permission(struct sock *sk, struct msghdr *msg, int size);
- int tomoyo_supervisor(struct tomoyo_request_info *r, const char *fmt, ...)
- 	__must_hold_shared(&tomoyo_ss)
- 	__printf(2, 3);
-diff --git a/security/tomoyo/network.c b/security/tomoyo/network.c
-index cfc2a019de1e..938e10613bb5 100644
---- a/security/tomoyo/network.c
-+++ b/security/tomoyo/network.c
-@@ -152,6 +152,11 @@ static const u8 tomoyo_inet2mac
- 		[TOMOYO_NETWORK_BIND]    = TOMOYO_MAC_NETWORK_INET_RAW_BIND,
- 		[TOMOYO_NETWORK_SEND]    = TOMOYO_MAC_NETWORK_INET_RAW_SEND,
- 	},
-+	[SOCK_SEQPACKET] = {
-+		[TOMOYO_NETWORK_BIND]    = TOMOYO_MAC_NETWORK_INET_SEQPACKET_BIND,
-+		[TOMOYO_NETWORK_LISTEN]  = TOMOYO_MAC_NETWORK_INET_SEQPACKET_LISTEN,
-+		[TOMOYO_NETWORK_CONNECT] = TOMOYO_MAC_NETWORK_INET_SEQPACKET_CONNECT,
-+	},
- };
- 
- /*
-@@ -636,6 +641,7 @@ static u8 tomoyo_sock_family(struct sock *sk)
- 	switch (family) {
- 	case PF_INET:
- 	case PF_INET6:
-+	case PF_SMC:
- 	case PF_UNIX:
- 		return family;
- 	default:
-@@ -680,18 +686,17 @@ int tomoyo_socket_listen_permission(struct socket *sock)
- /**
-  * tomoyo_socket_connect_permission - Check permission for setting the remote address of a socket.
-  *
-- * @sock:     Pointer to "struct socket".
-+ * @sk:       Pointer to "struct sock".
-  * @addr:     Pointer to "struct sockaddr".
-  * @addr_len: Size of @addr.
-  *
-  * Returns 0 on success, negative value otherwise.
-  */
--int tomoyo_socket_connect_permission(struct socket *sock,
--				     struct sockaddr *addr, int addr_len)
-+int tomoyo_socket_connect_permission(struct sock *sk, struct sockaddr *addr, int addr_len)
- {
- 	struct tomoyo_addr_info address;
--	const u8 family = tomoyo_sock_family(sock->sk);
--	const unsigned int type = sock->type;
-+	const u8 family = tomoyo_sock_family(sk);
-+	const unsigned int type = sk->sk_type;
- 
- 	if (!family)
- 		return 0;
-@@ -710,25 +715,23 @@ int tomoyo_socket_connect_permission(struct socket *sock,
- 	}
- 	if (family == PF_UNIX)
- 		return tomoyo_check_unix_address(addr, addr_len, &address);
--	return tomoyo_check_inet_address(addr, addr_len, sock->sk->sk_protocol,
--					 &address);
-+	return tomoyo_check_inet_address(addr, addr_len, sk->sk_protocol, &address);
- }
- 
- /**
-  * tomoyo_socket_bind_permission - Check permission for setting the local address of a socket.
-  *
-- * @sock:     Pointer to "struct socket".
-+ * @sk:       Pointer to "struct sock".
-  * @addr:     Pointer to "struct sockaddr".
-  * @addr_len: Size of @addr.
-  *
-  * Returns 0 on success, negative value otherwise.
-  */
--int tomoyo_socket_bind_permission(struct socket *sock, struct sockaddr *addr,
--				  int addr_len)
-+int tomoyo_socket_bind_permission(struct sock *sk, struct sockaddr *addr, int addr_len)
- {
- 	struct tomoyo_addr_info address;
--	const u8 family = tomoyo_sock_family(sock->sk);
--	const unsigned int type = sock->type;
-+	const u8 family = tomoyo_sock_family(sk);
-+	const unsigned int type = sk->sk_type;
- 
- 	if (!family)
- 		return 0;
-@@ -745,28 +748,33 @@ int tomoyo_socket_bind_permission(struct socket *sock, struct sockaddr *addr,
- 	}
- 	if (family == PF_UNIX)
- 		return tomoyo_check_unix_address(addr, addr_len, &address);
--	return tomoyo_check_inet_address(addr, addr_len, sock->sk->sk_protocol,
--					 &address);
-+	return tomoyo_check_inet_address(addr, addr_len, sk->sk_protocol, &address);
- }
- 
- /**
-  * tomoyo_socket_sendmsg_permission - Check permission for sending a datagram.
-  *
-- * @sock: Pointer to "struct socket".
-+ * @sk:   Pointer to "struct sock".
-  * @msg:  Pointer to "struct msghdr".
-  * @size: Unused.
-  *
-  * Returns 0 on success, negative value otherwise.
-  */
--int tomoyo_socket_sendmsg_permission(struct socket *sock, struct msghdr *msg,
--				     int size)
-+int tomoyo_socket_sendmsg_permission(struct sock *sk, struct msghdr *msg, int size)
- {
- 	struct tomoyo_addr_info address;
--	const u8 family = tomoyo_sock_family(sock->sk);
--	const unsigned int type = sock->type;
-+	const u8 family = tomoyo_sock_family(sk);
-+	const unsigned int type = sk->sk_type;
- 
--	if (!msg->msg_name || !family ||
--	    (type != SOCK_DGRAM && type != SOCK_RAW))
-+	if (!msg->msg_name || !family)
-+		return 0;
-+	if ((msg->msg_flags & MSG_FASTOPEN) && type == SOCK_STREAM && family != PF_UNIX) {
-+		address.protocol = SOCK_STREAM;
-+		address.operation = TOMOYO_NETWORK_CONNECT;
-+		return tomoyo_check_inet_address((struct sockaddr *)msg->msg_name,
-+						 msg->msg_namelen, 0, &address);
-+	}
-+	if (type != SOCK_DGRAM && type != SOCK_RAW)
- 		return 0;
- 	address.protocol = type;
- 	address.operation = TOMOYO_NETWORK_SEND;
-@@ -776,5 +784,5 @@ int tomoyo_socket_sendmsg_permission(struct socket *sock, struct msghdr *msg,
- 						 msg->msg_namelen, &address);
- 	return tomoyo_check_inet_address((struct sockaddr *) msg->msg_name,
- 					 msg->msg_namelen,
--					 sock->sk->sk_protocol, &address);
-+					 sk->sk_protocol, &address);
- }
-diff --git a/security/tomoyo/tomoyo.c b/security/tomoyo/tomoyo.c
-index c66e02ed8ee3..2968a8ce14e1 100644
---- a/security/tomoyo/tomoyo.c
-+++ b/security/tomoyo/tomoyo.c
-@@ -8,6 +8,7 @@
- #include <linux/lsm_hooks.h>
- #include <uapi/linux/lsm.h>
- #include "common.h"
-+#include <linux/sctp.h>
- 
- /**
-  * tomoyo_domain - Get "struct tomoyo_domain_info" for current thread.
-@@ -468,7 +469,7 @@ static int tomoyo_socket_listen(struct socket *sock, int backlog)
- static int tomoyo_socket_connect(struct socket *sock, struct sockaddr *addr,
- 				 int addr_len)
- {
--	return tomoyo_socket_connect_permission(sock, addr, addr_len);
-+	return tomoyo_socket_connect_permission(sock->sk, addr, addr_len);
- }
- 
- /**
-@@ -483,7 +484,7 @@ static int tomoyo_socket_connect(struct socket *sock, struct sockaddr *addr,
- static int tomoyo_socket_bind(struct socket *sock, struct sockaddr *addr,
- 			      int addr_len)
- {
--	return tomoyo_socket_bind_permission(sock, addr, addr_len);
-+	return tomoyo_socket_bind_permission(sock->sk, addr, addr_len);
- }
- 
- /**
-@@ -498,7 +499,72 @@ static int tomoyo_socket_bind(struct socket *sock, struct sockaddr *addr,
- static int tomoyo_socket_sendmsg(struct socket *sock, struct msghdr *msg,
- 				 int size)
- {
--	return tomoyo_socket_sendmsg_permission(sock, msg, size);
-+	return tomoyo_socket_sendmsg_permission(sock->sk, msg, size);
-+}
-+
-+/**
-+ * tomoyo_sctp_bind_connect - Check permission for sctp's bind or connext.
-+ *
-+ * @sk:      Pointer to "struct sock".
-+ * @optname: Type of operation.
-+ * @address: Pointer to "struct sockaddr".
-+ * @addrlen: Size of @address.
-+ *
-+ * Returns 0 on success, negative value otherwise.
-+ */
-+static int tomoyo_sctp_bind_connect(struct sock *sk, int optname, struct sockaddr *address,
-+				    int addrlen)
-+{
-+	int len, err, walk_size = 0;
-+	void *addr_buf;
-+	struct sockaddr *addr;
-+
-+	/* Process one or more addresses that may be IPv4 or IPv6 */
-+	addr_buf = address;
-+
-+	while (walk_size < addrlen) {
-+		if (walk_size + sizeof(sa_family_t) > addrlen)
-+			return -EINVAL;
-+
-+		addr = addr_buf;
-+		switch (addr->sa_family) {
-+		case AF_INET:
-+			len = sizeof(struct sockaddr_in);
-+			break;
-+		case AF_INET6:
-+			len = sizeof(struct sockaddr_in6);
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+		if (walk_size + len > addrlen)
-+			return -EINVAL;
-+
-+		switch (optname) {
-+		/* Bind checks */
-+		case SCTP_PRIMARY_ADDR:
-+		case SCTP_SET_PEER_PRIMARY_ADDR:
-+		case SCTP_SOCKOPT_BINDX_ADD:
-+			err = tomoyo_socket_bind_permission(sk, addr, len);
-+			if (err)
-+				return err;
-+			break;
-+		/* Connect checks */
-+		case SCTP_SOCKOPT_CONNECTX:
-+		case SCTP_PARAM_SET_PRIMARY:
-+		case SCTP_PARAM_ADD_IP:
-+		case SCTP_SENDMSG_CONNECT:
-+			err = tomoyo_socket_connect_permission(sk, addr, len);
-+			if (err)
-+				return err;
-+			break;
-+		}
-+
-+		addr_buf += len;
-+		walk_size += len;
-+	}
-+
-+	return 0;
- }
- 
- struct lsm_blob_sizes tomoyo_blob_sizes __ro_after_init = {
-@@ -583,6 +649,7 @@ static struct security_hook_list tomoyo_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(socket_connect, tomoyo_socket_connect),
- 	LSM_HOOK_INIT(socket_listen, tomoyo_socket_listen),
- 	LSM_HOOK_INIT(socket_sendmsg, tomoyo_socket_sendmsg),
-+	LSM_HOOK_INIT(sctp_bind_connect, tomoyo_sctp_bind_connect),
- };
- 
- /* Lock for GC. */
-diff --git a/security/tomoyo/util.c b/security/tomoyo/util.c
-index 6799b1122c9d..b27b7036e860 100644
---- a/security/tomoyo/util.c
-+++ b/security/tomoyo/util.c
-@@ -60,6 +60,9 @@ const u8 tomoyo_index2category[TOMOYO_MAX_MAC_INDEX] = {
- 	TOMOYO_MAC_CATEGORY_NETWORK,
- 	[TOMOYO_MAC_NETWORK_INET_RAW_SEND]          =
- 	TOMOYO_MAC_CATEGORY_NETWORK,
-+	[TOMOYO_MAC_NETWORK_INET_SEQPACKET_BIND]    = TOMOYO_MAC_CATEGORY_NETWORK,
-+	[TOMOYO_MAC_NETWORK_INET_SEQPACKET_LISTEN]  = TOMOYO_MAC_CATEGORY_NETWORK,
-+	[TOMOYO_MAC_NETWORK_INET_SEQPACKET_CONNECT] = TOMOYO_MAC_CATEGORY_NETWORK,
- 	[TOMOYO_MAC_NETWORK_UNIX_STREAM_BIND]       =
- 	TOMOYO_MAC_CATEGORY_NETWORK,
- 	[TOMOYO_MAC_NETWORK_UNIX_STREAM_LISTEN]     =
--- 
-2.52.0
-
+Sorry, the cover letter still had the placeholder text. The summary is:=0A=
+=0A=
+MST hotplug and topology teardown can run while the CRTCs are still=0A=
+enabled. That oopses in two amdgpu paths, and a third path turns the=0A=
+link off during detection.=0A=
+=0A=
+HPD detect of an MST daisy-chain reaches dc_stream_get_status() from=0A=
+link_set_all_streams_dpms_off_for_link() with a NULL stream. The=0A=
+helpers load stream->ctx with no NULL check. Return NULL when stream=0A=
+is NULL, and skip a NULL entry in the DPMS-off loop.=0A=
+=0A=
+verify_link_capability() DPMS-offs every live stream unless the link=0A=
+is embedded, training is skipped, or dpcd_caps.is_mst_capable is set.=0A=
+detect_link_and_local_sink() re-reads DPCD first and can clear=0A=
+is_mst_capable while the CRTCs are still on, so detect takes the=0A=
+destructive path before MST rediscovery. Keep the non-destructive=0A=
+verify while the link still has DPMS-on master pipes.=0A=
+=0A=
+dm_dp_mst_atomic_check() calls drm_dp_atomic_release_time_slots()=0A=
+after an MST topology restart has cleared mst_root or the output port=0A=
+connector. That is the amdgpu side of a NULL deref in the helper=0A=
+during kwin_wayland atomic check. Call the helper only while=0A=
+mst_root, the port, and port->connector are still present.=0A=
+=0A=
+The matching drm_dp_mst helper fix is sent separately to dri-devel.=0A=
+=0A=
+Reproduced on a Raphael iGPU (Ryzen 9 9950X) with a USB-C to=0A=
+DisplayPort MST daisy-chain.=
