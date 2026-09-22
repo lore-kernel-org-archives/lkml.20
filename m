@@ -1,143 +1,240 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazolkn19011031.outbound.protection.outlook.com [52.103.32.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8E7560AC6;
-	Tue, 22 Sep 2026 15:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC2E55D886
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.31
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092372; cv=fail; b=J4ZIVJ8tJVHbeshn2YQeH6FYFce/KslMuXZFW6DE3zgfF2yG08FMfH5vkN2NT2j9gmUt2PsCeF7m4voaVE2MUz/YiSFsRFoqGLrpAMkd6YHTpekJwaTb8zYtoGzdNyUnjUyVN5WL/dDij71kWwSypeCjMJaMyH73p9v3aAg6E2k=
+	t=1790092386; cv=fail; b=lE0YFTEqtDurPQ7zV61w/yXz5pLV0JKmq6Q43EF2g9/tJlZZwiCxPWMEnSmVacTFFzKVO/kiOlOmTctDWMn1yfAO0VzU081BvjmYLj68Oo/pKBhZVB3XZOsQ1Fcn3EXt6u2cvGk3kGqO+SiXS5OitLZ5ab42aLc89TLFd/0eOKg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092372; c=relaxed/simple;
-	bh=vyxky55saR20D8RVWroa4976RydiqaqM5jdSo6aQQVE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HWRKziK2pJhdZEiEpCeJedwovcBid6iLDxjIx5N6J5sBjyEczC3wIPJ2QWS1JZ6OxT6aGD1TISLrBBUjXe1GXDiQKGsA5V167Ss24DS4ClebxksUowlnReZBKlofdwn4MM2oo/BRzkHMby9qqcs6bQAKl8XwzrbjlRqCbc/K+s4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=m1nJ5Gk6; arc=fail smtp.client-ip=52.101.43.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790092386; c=relaxed/simple;
+	bh=ZA6/N3cy9ZrMXQz6bnU0itI5oXoGAFMGUxbw+zXMD4c=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=D43TCrscHhcT+BbSG6o0Zo2kvxulakyd2Wy6NpPif7vTyTA1AECXaiiBKpmUBFcKoj+f7IuKcFIgDYwXFl1NWIUz3Ab66B08YXN7q9jQ47oB8hUVQaoKHnTh1F9htxDqASEZHYHTG2EGGqsITHAuSjCX4P4djvN0RvsO6C5+t6o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=QvrQ7z5j; arc=fail smtp.client-ip=52.103.32.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="m1nJ5Gk6"
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="QvrQ7z5j"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jXAMs0W9jhIOTCMnsIAR8DRC9f9a4ynIGfQIxsrhFzXF1ZaMZYaS4HlORle1oVtv0DLgzu3xjc2IcH7AlRd55Tc9NQu9ToKY+16vDaKoO08Kr+r1Ofa6+hbwT6K1MzGJGNb5OgySibCi3UKGU/Au0LXfxMWzZXTKy95nrZJswcQdGRq89yyE9wNA4hj4LR50EcatZJwRDrzyPxPAr31iKeoPVx6nEO0eqjxZeB9E8zOvBb5WgEAPaBq8yGq4KFZOutpZoEUBNjBZCu3zosL2d7Cwq6NcXpmHXfDuS9otrubZqCa8wXkpv0HMp81FtPBjm/yXm816xU6jZm6D1EZcHg==
+ b=WdoyVto3OtxeP7Soz+fwTHVsPnM7k5rTIVnastSAxuP4ZKF5rNi7XW603wnO6iomJoVRS+UrRoXbGWpa0VIM8I4vo9JESRGsvESgnznKbY4Kb9+w0iAzslj9BDICxHWSyN5pEkwFbmAvLRq8nDgY7D7ZJfj5pwDdHQkKVEiO02nC2QwWUnMsOelTP5+tRBRK0n2n1/0qn9W871TzrOzPqsDIm1dL3kRRJqM6DQa27zHaGP1+jHz9QxN9ou10D2sIRn+g87aHrpRGE5qLErDGZgvpvhbTK74FDmML1umYtkFHNTIuedp+ARsufM8mBjelAbXeEWWx671atdxLDPorHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vyxky55saR20D8RVWroa4976RydiqaqM5jdSo6aQQVE=;
- b=KJNL+xGPch3qqQ1Ncw7CI5K/IiiEj3zgyngeJVSk5J1a1KMfmYycT7pMhV3zMw7PfFaC4h7tqWtEjHSjc1Y3ED94P3cLp2i6oj2BIgi05LSv2sJRAhTNV2npKDbNQPdKj6fOn2MP2howvjHwqP/VsShf1fg9f4YnE3paWFqQ839EZTjaATgXRsSYpolc0MCKxMUSWAUce0aYwLmrv4Ly6cfAmEQz8qmgdm4zglmD0sNurQ+SwjdrgHBo+ixlgCm5qZhjNwzdOFWG/KwNtud3fhibMdJJ/PD4S4itnUasIN+lNs3B5ZTmW4rx36XRwy+FAkuJycqYHGEsM3zcHkzESA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=iiGJPu6XQOXTxP2MsGsxLsyYmBsdWUADwVunufnDBHM=;
+ b=J/LKQOtk56dae7k3ogwpS3y1Lpeya3M98i2aSUSTXqcaWuK8/EJlevm7dWS2Nsltv6LPD2+7MzrCe2PQGYfwyyNIqavj8NZTQAjhkmXkegA7BZxsaYHBKaHERVqcSATmKjd3TErTROjQxl5cYUHXGM0ixC/mHaPZNO8RMBhIlr1Hz4fWQyRyIEAQrfo7z2bzB6y1w4gBvEPQb/lmGc9PkRadg0HVdk9+pecbLmNSlMjXcVHHQjOiV9dU57ZVnTqhKdv6Rup499oO5mUOGqf4xV5H4ykx/5RFm1puawWCW2xLvuVwmmJ6+eX/vhrJD1Gvr0fF5oCtpnnNTgYETN91gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vyxky55saR20D8RVWroa4976RydiqaqM5jdSo6aQQVE=;
- b=m1nJ5Gk6EdK7dtzi3VN3zTzOiBmXNVCO9pnfQXsYgZj999iTzTkLghADREL3uVgG0T5xBS5vHmNprCkoDjUlWQpG04eS4211DZq9ZO8uNoeO5GkohBHc3e5ui9yBvMx1Ee2tA/0woj/Jnv4TwOlskYagBWH5rgBMW35wfPMF5KQBaCSjOEw/znL4L7CqlssfN9KWtOuGwjKugrzf7d5TQGk0c+TeSbuBhI3fHsE6oi2yYl4C0WiuSRu/NbjO9MlIoylZeXNqKIvgGE80tl07wPM9k0DDcXwyfu3/eD3EHM12Ghg16aC4z75LGYxiYMBJ9TN4Ai//iT7TEjTuvRsMJw==
-Received: from BN0PR04CA0136.namprd04.prod.outlook.com (2603:10b6:408:ed::21)
- by IA0PR12MB7577.namprd12.prod.outlook.com (2603:10b6:208:43e::20) with
+ bh=iiGJPu6XQOXTxP2MsGsxLsyYmBsdWUADwVunufnDBHM=;
+ b=QvrQ7z5j58Kvqe4OczZHlOs5B7xetahXe6pn1b/F5a0mlERXr1MzWm/MdwNvsbyI7KXLD0my0a2YanzyFzvskzmDd4cdwuPZxFPwiE2Cx5NiASvXClCZLQO0+BuWAbg3H6xo0t3riQkhgF9gYIbgGl+jysjs5tDFuDLOLYUyWtWMK1FfXBKHW2R47OQ1y4ljVMSZQ+pCSp89D2BI3mTWPJ4h1+zWUGNC4VDUiCsot1o/d2SQC9odhVKHnz3/KR6futFn7lRMgnKTcaUIq5NG8z+IOs6+DaiRSPrFxnZQJMBZw3gbFEdf1yRxQerFbKAiqLA5nmlngB3hDF6UTIcJnA==
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
+ by DU0PR03MB8743.eurprd03.prod.outlook.com (2603:10a6:10:3ca::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 15:52:41 +0000
-Received: from BN3PEPF00022BDA.namprd03.prod.outlook.com
- (2603:10b6:408:ed:cafe::6c) by BN0PR04CA0136.outlook.office365.com
- (2603:10b6:408:ed::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
- 22 Sep 2026 15:52:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN3PEPF00022BDA.mail.protection.outlook.com (10.167.248.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 15:52:41 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 08:52:12 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 08:52:11 -0700
-Received: from dgx-1v-42.nvidia.com (10.127.8.11) by mail.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 22 Sep 2026 08:52:11 -0700
-From: Jamie Nguyen <jamien@nvidia.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-CC: Jamie Nguyen <jamien@nvidia.com>, Lorenzo Pieralisi
-	<lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, "Rafael J. Wysocki"
-	<rafael@kernel.org>, Len Brown <lenb@kernel.org>, Dat Mach
-	<dmach@nvidia.com>, <linux-acpi@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/3] ACPI: arm64: FFH Operation Region support for FF-A (offset 2)
-Date: Tue, 22 Sep 2026 08:52:11 -0700
-Message-ID: <20260922155211.676134-1-jamien@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922-purring-fennec-of-exercise-bbce5e@sudeepholla>
-References: <20260901192906.133670-1-jamien@nvidia.com> <20260922-purring-fennec-of-exercise-bbce5e@sudeepholla>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 15:53:02 +0000
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 15:53:02 +0000
+From: Arthur Liberman <arthur_liberman@hotmail.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Harry Wentland
+	<harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+	<siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+	=?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
+	"airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+Subject: [PATCH 1/3] drm/amd/display: fix NULL stream deref on MST DPMS-off
+Thread-Topic: [PATCH 1/3] drm/amd/display: fix NULL stream deref on MST
+ DPMS-off
+Thread-Index: AQHdSqpyDHSPp/UimkiniOvaO+3aFg==
+Date: Tue, 22 Sep 2026 15:53:01 +0000
+Message-ID:
+ <DB9PR03MB7388900446938D7712613C9A8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+References:
+ <DB9PR03MB73884B0D604BA858636247CF8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+In-Reply-To:
+ <DB9PR03MB73884B0D604BA858636247CF8A832@DB9PR03MB7388.eurprd03.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|DU0PR03MB8743:EE_
+x-ms-office365-filtering-correlation-id: 3a0f1232-4ea5-423a-1d3f-08df18c19526
+x-ms-exchange-slblob-mailprops:
+ 7qh87CJt6y1mqZO6407WRLxlypE3k+ejehlpddLZeYJhp5aubD9h6XX7qv92vhRR2lbpUfJaQrOPNn9F/juObYyF1rBd0ev505acuHwCm9T6NMfzWi+PI7QG33I3vRudu+wLaMjwpkqlsSHHp75tH4oD0GVaV8850n2IGfESpK3pD8xMLTRLJIcICqRkC+yrtiohy58KosQAQZHXbIb1iRPABiM+qLCol4R3VaA5DUV1TA72r4cRCCPdDdOeMJYNX2X0YU38m6GgdEcJ6xbBwUL35cYYInC8GNDjEC0ROgDhoSNj426WMWrVnTAUlu+C2lVdsl/U6b7jtrfJLEy0BMTlROF60U/shDfvYlr7fydTZuYVBc89QEyNDEy3VPARYFhBEu5GSHHpBAQ+d3P//zBH2j5meYUOsG+AN/1OQL3w3sUe+u0oBA/6qFjD7iTxN2s/y7W/xHCj/PdUdfa8KPCw+HSfMtJFDFvzKpYABYTEep3R0IiMkrorv6kWw/YGKqNyB+BHyBFJ4o8zC0bbL9ZQOyaAZqQub0vMCUuEU1HEA/TJGoB7L2qeTQRJoXIozg5rjr+eSGb+WdxGc4I9Cs8v4VJMgKA3Rsmzsu7GaGhzPWBtrM/LlvMJx1OnwOec9H4DIsZHe7F4jDtjm4u7C1WnfoatNfvxHS2ZqVPOBnuGNjj941ViR3SLPGlVTuT7+MGEwC0cBG2tYkSPA944h7ZLk9Fgv1UkSaal3SLF+Awyj48u+Htq6KompQMxaXDa
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|8062599012|19110799012|12121999013|8060799015|51005399006|25010399006|15080799012|37011999003|31061999003|15030799006|41001999006|24021099003|40105399003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?4Qbi4GN3Zj90KFG8WfjD32XEElVb7oJb6JwxN54GvrwuYEmyjWNmXQiof4?=
+ =?iso-8859-1?Q?axgQUXSZPbXOWslqUHigPiouXbjFttCgXrU46QmoH7/CkDIPgP/PL4h/0F?=
+ =?iso-8859-1?Q?zp/TnteaamnEIdx3jSrTLuMQcU881hON8VjGldyzOsRO2iLSvmYV93z9UQ?=
+ =?iso-8859-1?Q?Dx/i2ngagihAjT5RJUgXtaay8+eztRWmMKoNl3bSIXIQ/frTRSk5/LIQFG?=
+ =?iso-8859-1?Q?uP7YChTLMY+BFQcwiYHOKyhdUXeX4D/LDYY2s8VmmaFzT0II2ZdNC4Y3BU?=
+ =?iso-8859-1?Q?agRTn8OVTnJiJMxt9XWGQ3bzRUfM7zGFOnZ0IhFcZLb5rlVwaWhlPyTl8S?=
+ =?iso-8859-1?Q?/o/1IRIOnpEJW0vH10uf9v0TBNqmtFN4ZKjtFMKau1Rs1Q7hmIXluNw6Mw?=
+ =?iso-8859-1?Q?c7vE149Pr0r5W577mAD8UevYGeQgZ5XrWaJV4PrQ5W4T9R2DvEAJw4sGV9?=
+ =?iso-8859-1?Q?iNQ8jid5OAmqsFSlmEb2iaBKwDtKwzLIp/tTxmLFJw8Mb14QcnEIRupBp7?=
+ =?iso-8859-1?Q?cK7kUrugtmhBIS/ERmh5fEu9EILpNCnSLwC8mRcxgCxi6+kPm2ktHg/H2k?=
+ =?iso-8859-1?Q?2EweBsNtWcSoDnD0uTuPSzNNV3qgbYxWOiHWyHqaH9N260xtiApnfBZHzo?=
+ =?iso-8859-1?Q?drvdb1UWkvMqRzOwY27J62FaRS8R5FpatUUWDNHoaXpV1ucT44i1mJ2tF9?=
+ =?iso-8859-1?Q?gYwZqYQa+qUM/t2Yws5l2KvEmySQ5ph1TAJyHWT7/xX+a2QOCUk2yXkmoW?=
+ =?iso-8859-1?Q?o+qMRKGiEsFpFS18IMvVaZTw9497Q3FGy6xbdFjJCN84wTPxTt1zbiNm00?=
+ =?iso-8859-1?Q?DoBFfsnX5R3LWWIWwFFPl1EmsyD+HnjKO9RqIGW+nWUnChnqcqPOBWcA+p?=
+ =?iso-8859-1?Q?xV60DXsbFT0b9JYBUr9AxgUB62jcl0Ece8ZrkL8Ly7gUlEnv8K5QeV2xc7?=
+ =?iso-8859-1?Q?h9Oa9xbRpEzR3jP7CQuIKfO1+UFiBuVPW/hTVcEdpMUFgKnLPnYYiSUhtB?=
+ =?iso-8859-1?Q?PqbMb8LWO+NehpK/sL5HupIh4POFQ8vi9UM+7BJ+3JePRsN8H2QSYjndoi?=
+ =?iso-8859-1?Q?2Q+U6qJDq2E5O4NzYypxAcYcXBy5gjsFB8DWuCacZp7G?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?3+rTKhgOz7D7GvbuXhTDBR8fPpZpiUlXFfEt6DNpxLSOF/v3UJT/qjLLz1?=
+ =?iso-8859-1?Q?djbcGxta3nMGhJHfOrM1tyT4oWaxbp9gJA454qqPMl56hvcXUga7ZvSCyi?=
+ =?iso-8859-1?Q?dc0ExifcrHm4TknKOHzryvJhPQ5tw3zMVgEPG9ziB4BLj738UcQfmu7Yey?=
+ =?iso-8859-1?Q?qlEeKcHjgVpduwjarOlro/yPDNVyJJnErpWWk8GLN7uYJklZscpBUrEH3F?=
+ =?iso-8859-1?Q?Kh1x6MC8GnzlWKSLGynmB1o1fTbDlZn1G+KUI0ReeEY76mlB76mlITqyca?=
+ =?iso-8859-1?Q?g2myoVf/eH82Yi2TwgFq2daR3jPJ+2IIh8oB89JJUbzwJ5I6+72bxic9oO?=
+ =?iso-8859-1?Q?KoymEBJPIDeflONwMB5HMiJPEc9sF64WfdiPjQ6gQ2COntpde/MWXOnBI4?=
+ =?iso-8859-1?Q?+FFNpE2uG6cH4uZMdVEDSPYlLrcBLvLoQJtsmYB6Oba0Rq3xsqxxbacpls?=
+ =?iso-8859-1?Q?VSBmjTZMddU1pYXNZQt9ERzm7ErCXP13dATf7Xt9ckupT4HzWznCjiTBzG?=
+ =?iso-8859-1?Q?QASmT9oRmC7+cY0qzKY3ZrPJB5J5g+36AUHqgaBoDyjuJhnP0t4on4A0w2?=
+ =?iso-8859-1?Q?nktrW06nPLBIO2ctWjwdcuXsM2EfcFvkYcoAfILZ1dy0TrFwDtAZDMIT3b?=
+ =?iso-8859-1?Q?aMfnbc6y3X1eTIirGIKTXk22WRcdplQKnNMwkAcwWgMt//gOLkew+9ZoaI?=
+ =?iso-8859-1?Q?gY9unlT0dNbFEPHiiYBghg7FDjh5hy+YvHLqEBQ9aqrj/I+8DU4+v0h5uh?=
+ =?iso-8859-1?Q?rkG0Jr57hz/jj+m6DcY62CUfdnlGmcivtu3dx88D5uRDkdQVckbuhsb2Yr?=
+ =?iso-8859-1?Q?Z55deWuzWDUEwFt3JQUYOCpi0OQaTZzroQyByLiXXZIsEsCuCo4AQ04Xjh?=
+ =?iso-8859-1?Q?LXEN3ssugMgLS8iy2j4PSyPtNeEqRKRRMH64Dn700TE3e7+N/3ik3envYP?=
+ =?iso-8859-1?Q?6za1/NbaUa43y8UVTKHO8AY0Izgi/MzWCN2tDwSFjgtrfSklYUg6r0S+wZ?=
+ =?iso-8859-1?Q?4H1PmEOAytLhEnW0Obp6hRVbOzbIgOz7EA5GEKA82ZxOystvAWLjvGE4bS?=
+ =?iso-8859-1?Q?N3imWrG7LCEZuhZz8mwBY4a9h7mrTlkkQLM4WjNEyIVW7gQHmBG2AdyefI?=
+ =?iso-8859-1?Q?geewRLk0H80K64g1wLjVBCv2Qf3+F5dLN3rkmmvKS59dqC+QSZV1Cay5KK?=
+ =?iso-8859-1?Q?Bs7q5j+6U6SqxC9WpqxoE+XuPrl6weWZ2bW4sGBiC5O9uMAGxtM7dVHprJ?=
+ =?iso-8859-1?Q?rXXt8HWJIKUhnV5YPJWrkQwi3QIRCdKFNwu6p9R9CVGvg5EcNIljEWOLCV?=
+ =?iso-8859-1?Q?78oweanNTg/z9Z4u/Pd6ZaWZ9m01Pd6ymqHBd5ThNokMe1/LKanSE41hHH?=
+ =?iso-8859-1?Q?a83aAW0+SBgusDSzFoI4ZlXaaTFCDfr+14DOeEFtsaLiBZpZgbl3PcAekZ?=
+ =?iso-8859-1?Q?mBFxYphDnajhLesb?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BDA:EE_|IA0PR12MB7577:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f367d70-681b-4fa2-1632-08df18c1891f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|36860700016|82310400026|6133799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	jrGHwinW5yyIaE6hisvvyZgxwhSZsgDmUOZu77F/KKBDGyIP7MzIAIJR+SLspIMcPf4shw5AruAApGYNVOsFdLeMiIt0HO5G+/cF18SmuF24/kLX55sCMM8ufOScGBdVjGimMDiDMBMitAUlKm8DHavJPtiyIKO0vuEph5kCBDl0ze3t4M/u02tExdh3TjlWaKmVkOLtbevShTfUXBim1Kg9muOhQAVIzaQu1R11RH0d92HoD4qsxL2Jixv7cA4PnY3oTCywMBudtGgIkqZ8jujbSiz9vFUQJPulJ6p9lOBtiwa1cfPLCYfU03pYlTiKzQjFECObYzSO1opO5Y8A96ZEO7yBYzQ6zAfqu15l3PsmUaSJE84N5UoHnt74UHnqZwsgc5SXanE4ICk5gtKXfI19+e4qn1VPkC/rGBBQp3ulvEIma7R4wrqS3DqmQj3baodEW3VRDysDCjq9kBtzZAhBHiu5OHlLAfHxlfP7due51F7caYr5RlTNmXOatGWzh81e06X9rL39P6AjdWaCkFcaYN0hJSWoU/XVM7yE8HgRNrzbWQMaAGFL1Vf8z6hVHgtE2wO68HQvxQtWl0fiquQKXwXSdmMpPlsXFnLgvJ88am3qxi1tIMnsFLlHHxEgx3PlNhzlw8GNe+0P+zht1x2YK4nQXPfRJr8pLnHzmcpAYXk6eAaxlZ/8EXO7frVNNki3XKuJwtiVtnOrfSZAbQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(36860700016)(82310400026)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bN15vzE9wnMIM0GROtawBhJYDUXMCW0pWJ1MK73Y8TulqVFs4Xg98FGaX/CMvECDjrivW1HrFTSIhTjytffWCUcAyxDoDU9SsdBPW/1fD/3lVCI+K8gljL0Uqfmo/3mCJxAYwa7w44IRlTj3J85e4r2FBtWpee7oQT7fiYC9JCCDgCOE8ZRiVAmJnLM0cI6MO+5DxSg8d5pC6vLVzF7ZU3dwLjUnfm7OEjeNLlN5xIS8WLFwHAl1xXZRDNuojE6yQmfrAguEHZKRDg30WaPsiSFjhIXKlTFQ12JrVWHtD+0UNa8F9XvAYPXWoIgATilIEUmMKpgo8IcyS+f6mL2Asu570cgIRkIz3xrQqspPkMR1UZv+y2rt0ACx2mwBrH6Qv+V6pdlBOQ3osufGlY4M1Ja8Q+S7UpdKa1XpdAKiT7AvFQKg9SEm8U2olDGRgCe9
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 15:52:41.6284
+X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a0f1232-4ea5-423a-1d3f-08df18c19526
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 15:53:01.9486
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f367d70-681b-4fa2-1632-08df18c1891f
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BDA.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7577
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8743
 
-On Tue, Sep 22, 2026 at 09:46:59AM +0100, Sudeep Holla wrote:
-> Could you clarify how the build and runtime behavior are protected when
-> the FF-A driver is disabled?
-
-There is no build-time dependency from ACPI FFH to the FF-A driver. The
-registration direction is from FF-A into FFH: the FF-A driver registers an
-optional backend after probe and unregisters it on removal.
-
-With CONFIG_ARM_FFA_TRANSPORT=n, no backend is registered and an offset 2
-access returns FFH_FFA_NOT_SUPPORTED. With CONFIG_ACPI_FFH=n, the
-registration functions are static inline stubs.
-
-I have also built CONFIG_ACPI_FFH=y with CONFIG_ARM_FFA_TRANSPORT=n.
-The W=1 build and full vmlinux link are clean, with no unresolved
-references to the FF-A transport driver. I'll mention this case in the v3
-cover letter.
-
-> Are there any other technical justifications for this tight coupling?
-
-FFA_MSG_SEND_DIRECT_REQ2 requires FF-A state already owned by the driver:
-the selected SMC or HVC conduit, the sender endpoint ID from FFA_ID_GET,
-UUID-to-endpoint resolution through the partition discovery ABIs, REQ2
-feature detection, and FFA_RUN handling after FFA_YIELD or FFA_INTERRUPT.
-
-Open-coding those operations in ffh.c would duplicate FF-A initialization
-and state management. The ops registration lets FFH use that state when the
-driver is available while degrading cleanly when it is not.
+From dff1f3ce5f313dc88503c1da01c959638b7d42e4 Mon Sep 17 00:00:00 2001=0A=
+Message-ID: <dff1f3ce5f313dc88503c1da01c959638b7d42e4.1790083445.git.arthur=
+_liberman@hotmail.com>=0A=
+In-Reply-To: <cover.1790083445.git.arthur_liberman@hotmail.com>=0A=
+References: <cover.1790083445.git.arthur_liberman@hotmail.com>=0A=
+From: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
+Date: Mon, 21 Sep 2026 01:41:20 +0300=0A=
+Subject: [PATCH 1/3] drm/amd/display: fix NULL stream deref on MST DPMS-off=
+=0A=
+=0A=
+dc_stream_get_status() and dc_stream_get_status_const() load=0A=
+stream->ctx with no NULL check. HPD detect of an MST daisy-chain=0A=
+reaches them from link_set_all_streams_dpms_off_for_link() through=0A=
+dc_commit_updates_for_stream(). On 6.13 that oopsed when the first=0A=
+full update released current_state and the next loop iteration passed=0A=
+the cleared pipe stream:=0A=
+=0A=
+  BUG: unable to handle page fault for address: 0000000000006460=0A=
+  RIP: dc_stream_get_status=0A=
+  Call Trace:=0A=
+    update_planes_and_stream_v1=0A=
+    dc_commit_updates_for_stream=0A=
+    link_set_all_streams_dpms_off_for_link=0A=
+    link_detect=0A=
+    handle_hpd_irq_helper=0A=
+=0A=
+Commit 1561782686cc ("drm/amd/display: fix link_set_dpms_off=0A=
+multi-display MST corner case") caches those pointers before the=0A=
+loop, so the loop no longer re-reads the cleared pipe_ctx. The=0A=
+helpers still oops if a caller passes NULL.=0A=
+=0A=
+Return NULL when stream is NULL, and skip a NULL cached entry in=0A=
+the DPMS-off loop.=0A=
+=0A=
+Fixes: 09f609c34fc8 ("drm/amd/display: Fix driver load crash in amdgpu_dm")=
+=0A=
+Cc: stable@vger.kernel.org=0A=
+Assisted-by: Cursor:xai-grok-4.6=0A=
+Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
+---=0A=
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 14 ++++++++++++--=0A=
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c |  7 +++++++=0A=
+ 2 files changed, 19 insertions(+), 2 deletions(-)=0A=
+=0A=
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/=
+drm/amd/display/dc/core/dc_stream.c=0A=
+index 8d3aacc7b96c..e5134c103bdb 100644=0A=
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c=0A=
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c=0A=
+@@ -267,14 +267,24 @@ struct dc_stream_state *dc_copy_stream(const struct d=
+c_stream_state *stream)=0A=
+ struct dc_stream_status *dc_stream_get_status(=0A=
+ 	struct dc_stream_state *stream)=0A=
+ {=0A=
+-	struct dc *dc =3D stream->ctx->dc;=0A=
++	struct dc *dc;=0A=
++=0A=
++	if (!stream)=0A=
++		return NULL;=0A=
++=0A=
++	dc =3D stream->ctx->dc;=0A=
+ 	return dc_state_get_stream_status(dc->current_state, stream);=0A=
+ }=0A=
+ =0A=
+ const struct dc_stream_status *dc_stream_get_status_const(=0A=
+ 	const struct dc_stream_state *stream)=0A=
+ {=0A=
+-	struct dc *dc =3D stream->ctx->dc;=0A=
++	struct dc *dc;=0A=
++=0A=
++	if (!stream)=0A=
++		return NULL;=0A=
++=0A=
++	dc =3D stream->ctx->dc;=0A=
+ 	return dc_state_get_stream_status(dc->current_state, stream);=0A=
+ }=0A=
+ =0A=
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/=
+drm/amd/display/dc/link/link_dpms.c=0A=
+index 48b086d15ab0..17cb831ce8c4 100644=0A=
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c=0A=
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c=0A=
+@@ -177,6 +177,13 @@ void link_set_all_streams_dpms_off_for_link(struct dc_=
+link *link)=0A=
+ 		streams[i] =3D pipes[i]->stream;=0A=
+ =0A=
+ 	for (i =3D 0; i < count; i++) {=0A=
++		/* A full update can release current_state and NULL remaining=0A=
++		 * pipe streams. MST daisy-chains have multiple streams on one=0A=
++		 * link, so skip any that disappeared mid-loop.=0A=
++		 */=0A=
++		if (!streams[i])=0A=
++			continue;=0A=
++=0A=
+ 		stream_update.stream =3D streams[i];=0A=
+ 		dc_commit_updates_for_stream(link->ctx->dc, NULL, 0,=0A=
+ 				streams[i], &stream_update,=0A=
+-- =0A=
+2.55.0=0A=
+=0A=
