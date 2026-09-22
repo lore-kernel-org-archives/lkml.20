@@ -1,348 +1,297 @@
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470283B2FF8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F89B3A0E86
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107686; cv=none; b=r0Fa6NqI6zxRyImu3deUd2h94sEVKrlu9UAN62YhFnFgqDFuBxe79320sOErkcQqlv8HQnlLgi9g6ol9XccutV1F/z+h6sFJsP3d9kOnJ9bpMUsIrZNw3nxi1hMpE1lromfLqilx48dMmSiGu7GUQttv5y6zo0p5qO/Ws8SIKus=
+	t=1790107725; cv=none; b=BQpsAnCt445HdWZilxKiW/Rn0i8ht7o+VglyEVSgLUpup3Fjz7ztTlh+cbir5BHOo20p3AjkMzzfnbitmH6zJfPTsyjZ6wxfyFeKoPjD20W0U4xG3cD9YeVy8aVDkPOSWv6cgGx9i8RgHe0Dba1xEiVhlywToKKrB4pfiwiaV98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107686; c=relaxed/simple;
-	bh=YrLCdTCgijXxhNeP071upz/ihBFRy7w7FSybZD6lVsc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bj98PhEu76NqYCJpKssJUN/5oax5P+Nm+h6rP2cDkLubGEONR3U564bZryU+CBlYWgG7cR1YjaB1f+rPpVvzigIDbf96YY17lM+8ew3gzc/gKB2NCaooxEJQK+KFJUxIUsu34xP6oijGuQtleEvz3D34VAMJ020w3rkj930/u7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=UItcxZw1; arc=none smtp.client-ip=209.85.214.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1790107725; c=relaxed/simple;
+	bh=uSwF8oSlv0A6TNXHp0b7ZlXImXaVRQqeD6cloMWgLIg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=R6X5lrzKtsH3nfgY6r5nXkjG0SWZYWY+QhuZ5aEqfteUCVirqOUqfsJkyQhJF+UjpRAwS6e1+PTLuvHQIqO7VM67IxaBKotWSWH8tcQ0cV40iwNFPgNR0WoPglZuqEDBS4FO0UpaCEQ2/f2ZGio+SpzqPtKzsksVaEB5VlZQxUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qXi/mCry; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="UItcxZw1"
-Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2df3ae6288cso793645ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:07:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qXi/mCry"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-483c65c2fa7so192532fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:08:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1790107669; x=1790712469; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790107709; x=1790712509; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jKj3QXNJc64ZYZOzUkze7Bi+QP/5m/9g84NFc6owjQw=;
-        b=UItcxZw1iHlRa/gw43U/jo44quuZREgjU96K023KVkkC8fuVITc8d2GF/BwikuoTL3
-         o3L8rpv2AG6KzlQz5tZuyXkrlI5/WFd1YT4ll/sQh1ICBhBp8efdenl1OPLnXLE9KEhz
-         o7b2IQG1rs7TZPwR3pqR52NneBbSLY9HZZ0o+GXtq2i0Ai+RG1pXFj6kFbyCTe4ckh2o
-         2DCDmSMcrMdy9p4hlTjjKCyXZdOhM5SHSLkW1ztEe6MFnKLoTdfN0sh6SVgzDSk5EhOs
-         acbAWjsqBd1fHJgxHdOxFQ7cPzhTexToFt2JS/Mj6yzBP+vLBqdmVX+U/tpYkpXOYueZ
-         GxfA==
+        bh=hU8R4H4DyIVzYPzLtsXcibjq0wK/EbWMtmm1iMO2MGU=;
+        b=qXi/mCryMvu6Qjzs7V7B1D+PkPGpTy8bq2gwbBZXZhxc4YfmTnRgntUxqPF6YuJS3S
+         hhBdirNiKrFrcytPDYq+k/JizqnLdIAi58RcuOl8B8Q6mwDPCXauR9odeTsdw0xhOJFA
+         9eu3wi/UWdLKxf7R3IQBrEgoDPLBwldCsx7ggyekIZCY39CNZtZYLKPzmyKxz8W+jhvY
+         KJM2ddLWKtRIZagsgF/y83A/l2JZvKc24tmStJsSkv68hHmXz+fMLv3AEs/UgWcbLxzI
+         DIxawRUshu8Bius8GJAyrJeTONMt12ZwgSvUBTes5ZjFovTZqGPR2pcSVIwmhRqIYlq5
+         jMRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790107669; x=1790712469;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jKj3QXNJc64ZYZOzUkze7Bi+QP/5m/9g84NFc6owjQw=;
-        b=OOq+3yobwDUw/s09zuKkmah9zZGmzbuB0zrusvYWjXcXCDMHXBYCthNoi7AYzf9Na6
-         0isE8xTBBfdpLFIDEi+Jq0XgzFOWESqKxIk2kHsrMeFUgoNP7RhmXzY0Y8WTlodrGiAP
-         BbpIoi1GZRB552wbidN9gkIVK1ovGsmqP4DSg4wn+8+ndqqMg8FZ0FbQ/XLH7UortMj/
-         8o4OcSUZmeqtZg4GK+RFFfraVawPTSLDZHLEVOSh7ulHmhnDCiGry/QRg7vdXKofTWvk
-         kYZiQ2J5IcQexAWjrLikUQLtBvpJAEk6RsZ6mD2Kw5+lmZyKk4xGTPQ+cjY3BnSPV1e2
-         gf4w==
-X-Forwarded-Encrypted: i=1; AKwUvBxBIbjGsqTeWdM2YQfQkEFWfo0Y750qnTowO9UR2waSJQHUsfnefZnH/ncLEcDfgRmVKDNxhuiw8bcCTIk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOJFiX8zWcQ3JbFxF9u6cNeX4n4jXfLoNRLP+YjackezVjg3ly
-	7LLvlHnhe55jv/lZgIH1i/Np8mgH1NDY4P9BYEZvv65DoG0uilM9BDzJ3rnU9kriHxAh6ZoaWcV
-	G5gXwRE+LJhfj4bG8cX/wibNJOK7FnDxKjoyy4+ieZUqDgMEL3yMn
-X-Gm-Gg: AYBFou3PxPDpCDbELKXTuTbSKmsyPOUCt9y+JB08fKiP7FukT7AsoOrHbsA70fyJJLd
-	kXnNmzjk89/1U0yZdOmyI+X9XgDhYF/26vthj7j2YgmrLVAE0IwoJxjlByJsFP1bHK2CsK13fIH
-	hQ97DTYeXYr4KO3mjuS8RN4Gj37mvJOL3rIMPVJutoFYyWHSM1D6/EkT445SAalTtMmF42gp4QO
-	1l2ru8ebZtewO6cGb/7vFds9e6fdxOMjJl3In5W1hOvprLcMHVLyYYhwxEUhkwip+tbGYQx699n
-	s3lBrMvdhuKStXkKGtvjwg6lotUW4JTYGq+B9RDfRZDGkUomffcV236JrwAkV+OeJi6Pw3h758D
-	aHIXOuby5yL0peLA=
-X-Received: by 2002:a17:90b:2e83:b0:3a0:348a:5118 with SMTP id 98e67ed59e1d1-3a07e7555c3mr451315a91.47.1790107669177;
-        Tue, 22 Sep 2026 13:07:49 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a07dd381f4sm306951a91.7.2026.09.22.13.07.48
+        d=1e100.net; s=20260707; t=1790107709; x=1790712509;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hU8R4H4DyIVzYPzLtsXcibjq0wK/EbWMtmm1iMO2MGU=;
+        b=0oJLhWuBKF0DfV1+S08y2rZpHLmF+TMqrQ+vAbL7D/C1nX405oS3u5JqQKWgb+ynjv
+         DYvOoxEXa2M9FTvqzUPRUhxVTWOEIb4++47iGNcVnZs7Q7IJKz9wJFLkALpBUWc1LIfN
+         6+nX8CONyXKTZCouxOucKvIPxinQP+0Xkcp4/Lurhx14kpMClYC1qkvrcG6ITMN7FPFL
+         EekzAj+gKNe3vHnPXX41Dg8h47p5DvS6G3Yirp4YQl/QbJKcZgpB4i5XGWYrSWY3VXac
+         jiOIsKJho9yF7+1/bEXUgg53nh8Jf0MAy+VpvKw26knbwD4XPwtbfZTUluoICmkOAEza
+         ffog==
+X-Forwarded-Encrypted: i=1; AKwUvByJ08qNWvFuGfyPUNz9clRLETIYxAJcViBawIadg+ByWiFr7mFXiLjIyqmE6mxyUYtNUrsqQiV69+7Sn3s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK48L8xK6uChDvbPrtzymiiAaFgLTGQbAq7VvaSXTDsVyaNLPR
+	eoIbTLZN6OfPOKmf6bXUSn1uGXvlLm/Qsx1XAS5GXvL7pin2IQFiztnwpbPR7A==
+X-Gm-Gg: AYBFou00s2anhrztWz2WJf6lhRB560d94i6/CYUR+FrbQBiaJMd2Cq42AxWAA/uq6ce
+	5QAn6e6ZOpB6G+Gook/u/eF81Jmk0VhkGO/24m+eDuAl8AWbT/u5JBqJhAUxZ7typX8ZR2zq3SF
+	fIQOUBe4lY80nb3eKF1I7WoAO8lepPhkEfsVlCkk7G5fKWRt+uKoA2Yhafp7110qDsVInHLxdHX
+	SKlsldvjpg39aEPG/UvRs+Y5n8V4aUSYP1RNhzEdKKenaGCZYrSbHJu0pPmtnENd3E50btmjQXF
+	ZHZY3QnwlpAclU4P9zYLKseUwt7OaRdfQ9wqSZ1pAUD+Rp+AdNeHWdJ2jPCdrBkRk115oE1El/S
+	KUShXG13NYXohUJHOP/8P2Bt8BnL4Wf6cXNM7olgaeufD/QATr6dx1JrcBkA80vqFZkkCtIdUQv
+	Vq1Tp8feb2RvjoxmXHAF0YsBYLpcPAGg1PzVkUqn36HoQvqNcbY09orRxC2CcfKcKhaavqfDAUi
+	n5QIF1E3IJ78lYRDdP02scoO7UIluM87BabA6NOelcEPSZKPmIf682sKq3WSeqDPJFWIDmqNqTQ
+	DBAPDxaZ8Gfm+yMLiT4=
+X-Received: by 2002:a05:6820:c84:b0:6cd:3fcc:96ce with SMTP id 006d021491bc7-6d2d4011734mr383971eaf.76.1790107708875;
+        Tue, 22 Sep 2026 13:08:28 -0700 (PDT)
+Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-4908eb9237asm564087fac.12.2026.09.22.13.08.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 13:07:49 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-sgogte.dev.purestorage.com (bond0.slc5-n22m24-k8s.dev.purestorage.com [IPv6:2620:125:9025:20::a31:429])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id F0E694014B;
-	Tue, 22 Sep 2026 14:07:47 -0600 (MDT)
-Received: by dev-sgogte.dev.purestorage.com (Postfix, from userid 1557734945)
-	id EE52B3F9F5; Tue, 22 Sep 2026 14:07:47 -0600 (MDT)
-From: Surabhi Gogte <sgogte@purestorage.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	mkhalfella@purestorage.com,
-	randyj@purestorage.com,
-	adailey@purestorage.com,
-	Surabhi Gogte <sgogte@purestorage.com>,
-	Hannes Reinecke <hare@kernel.org>
-Subject: [PATCH v4 3/3] nvme-tcp: parallelize I/O queue allocation and startup
-Date: Tue, 22 Sep 2026 14:07:18 -0600
-Message-ID: <20260922200718.3941465-4-sgogte@purestorage.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922200718.3941465-1-sgogte@purestorage.com>
-References: <20260922200718.3941465-1-sgogte@purestorage.com>
+        Tue, 22 Sep 2026 13:08:28 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Date: Tue, 22 Sep 2026 14:08:19 -0600
+Subject: [PATCH v4 2/4] kallsyms: Match compressed tokens on the fly during
+ binary search
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-ksyms-tune-v4-2-92acea84b911@gmail.com>
+References: <20260922-ksyms-tune-v4-0-92acea84b911@gmail.com>
+In-Reply-To: <20260922-ksyms-tune-v4-0-92acea84b911@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
+ David Laight <david.laight.linux@gmail.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790107704; l=6596;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=uSwF8oSlv0A6TNXHp0b7ZlXImXaVRQqeD6cloMWgLIg=;
+ b=/tW6RZRloOuryOC5xA4efhF3zwIkn8HHOER8txp3BY+91F5eJdUteV4ztrCpuKMcTnyJpH2+R
+ kyP+0nRyZ3uCS8oMyRS2eUwNGKoru1wbFDQ+/KP2i3xCifRtQPccFFb
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-Similar to commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue
-allocation and startup"), refactor nvme tcp I/O queue setup to use async
-API, combining allocation and startup into a single parallel operation
-per queue. This reduces connection and reconnection setup time when
-there are delays in establishing connections, which is especially
-important for high-core-count hosts.
+kallsyms_lookup_names() runs a binary search across kallsyms_names[],
+a packed array of ~130k encoded kernel symbols.  For each of the ~17
+comparisons in the search, it currently decompresses the candidate
+symbol into a temporary buffer on the stack before calling strcmp().
 
-Key changes:
-- Use async API to facilitate parallel calls for io queue setup.
-- Add nvme_tcp_queue_setup_ctx for propagating errors from async
-  workers.
-- Remove nvme_tcp_start_io_queues() and __nvme_tcp_alloc_io_queues();
-  their logic is folded into nvme_tcp_setup_io_queues() and
-  nvme_tcp_configure_io_queues().
-- Allocate the io tag set before the queues so that the queue range is
-  known, and only set up the reconnect grow case if the queue count
-  actually increased.
-- Serialize the cpu scan and claim in nvme_tcp_set_queue_io_cpu() with a
-  spinlock, as concurrent callers would otherwise select the same cpu.
-  The per-cpu counters no longer need to be atomics.
+Comparing raw tokens directly in compressed space is impossible.  The
+BPE token table assigns values by frequency, not alphabetical order
+(e.g. token 0x05 might expand to "zebra" while 0x42 expands to "apple"),
+so comparing raw token values scrambles lexicographical order.
 
-Testing on a 64-core host with 64 IO-queues shows nvme-tcp connection
-time reduced from 61ms to 11ms.
+However, full string expansion is equally wasteful: roughly 16 of the
+17 binary search steps fail within the first two characters.
 
-Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Introduce kallsyms_strcmp_symbol() to compare ASCII queries against
+compressed tokens on the fly.  It walks kallsyms_token_index and
+kallsyms_token_table incrementally, matching characters directly and
+bailing out on the first character mismatch without expanding subsequent
+tokens.
+
+This optimization:
+
+0. Avoids decompressing non-matching tokens, short-circuiting ~94% of
+   binary search character expansions without adding any tables in
+   .rodata.
+
+1. Drops the 512-byte namebuf buffer from the kernel stack in
+   kallsyms_lookup_names().
+
+2. Cuts unindexed lookup latency by ~530 ns (~14% faster) while leaving
+   sequential address ordering and kallsyms_expand_symbol() streaming
+   invariants intact for /proc/kallsyms and table walks.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/nvme/host/tcp.c | 119 ++++++++++++++++++++++++++--------------
- 1 file changed, 77 insertions(+), 42 deletions(-)
+Changes in v3:
+- Reorder patch ahead of dynamic batch index in series, establishing an
+  active proof of string matching savings on unindexed baseline
+  (addresses David Laight review).
+- Optimize kallsyms_strcmp_symbol(): drop skipped_first tracking and
+  test len at loop bottom (addresses David Laight review).
+- Guard first token with while (*tptr) to handle 1-byte type tokens.
+- Introduce get_symbol_data() helper in this patch for reuse in later
+  subsystems.
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 9308feba8a74..ec678ed07af8 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -7,6 +7,7 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-+#include <linux/async.h>
- #include <linux/err.h>
- #include <linux/crc32.h>
- #include <linux/nvme-tcp.h>
-@@ -54,7 +55,8 @@ MODULE_PARM_DESC(tls_handshake_timeout,
- 		 "nvme TLS handshake timeout in seconds (default 10)");
- #endif
+Changes in v2:
+- Rebase onto mainline v7.3-rc4, removing external dependencies on
+  Lorenzo Stoakes' kbuild series.
+---
+ kernel/kallsyms.c | 94 ++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 59 insertions(+), 35 deletions(-)
+
+diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+index aec2f06858af..d18d78e626db 100644
+--- a/kernel/kallsyms.c
++++ b/kernel/kallsyms.c
+@@ -34,6 +34,21 @@
  
--static atomic_t nvme_tcp_cpu_queues[NR_CPUS];
-+static int nvme_tcp_cpu_queues[NR_CPUS];
-+static DEFINE_SPINLOCK(nvme_tcp_cpu_queues_lock);
+ #include "kallsyms_internal.h"
  
- enum nvme_tcp_send_state {
- 	NVME_TCP_SEND_CMD_PDU = 0,
-@@ -154,6 +156,12 @@ struct nvme_tcp_queue {
- static DEFINE_MUTEX(nvme_tcp_ctrl_mutex);
- static LIST_HEAD_GUARDED(nvme_tcp_ctrl_list, nvme_tcp_ctrl_mutex);
- 
-+struct nvme_tcp_queue_setup_ctx {
-+	struct nvme_ctrl	*ctrl;
-+	int			qid;
-+	int			*err;
-+};
++/*
++ * Get the compressed symbol length and data pointer.
++ */
++static inline const u8 *get_symbol_data(unsigned int off, unsigned int *len)
++{
++	const u8 *p = &kallsyms_names[off];
++	unsigned int l = *p++;
 +
- struct nvme_tcp_ctrl {
- 	/* read only in the hot path */
- 	struct nvme_tcp_queue	*queues;
-@@ -1731,9 +1739,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
- 		goto out;
- 
- 	/* Search for the least used cpu from the mq_map */
-+	spin_lock(&nvme_tcp_cpu_queues_lock);
- 	io_cpu = WORK_CPU_UNBOUND;
- 	for_each_online_cpu(cpu) {
--		int num_queues = atomic_read(&nvme_tcp_cpu_queues[cpu]);
-+		int num_queues = nvme_tcp_cpu_queues[cpu];
- 
- 		if (mq_map[cpu] != qid)
- 			continue;
-@@ -1744,9 +1753,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
- 	}
- 	if (io_cpu != WORK_CPU_UNBOUND) {
- 		queue->io_cpu = io_cpu;
--		atomic_inc(&nvme_tcp_cpu_queues[io_cpu]);
-+		nvme_tcp_cpu_queues[io_cpu]++;
- 		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
- 	}
-+	spin_unlock(&nvme_tcp_cpu_queues_lock);
- out:
- 	dev_dbg(ctrl->ctrl.device, "queue %d: using cpu %d\n",
- 		qid, queue->io_cpu);
-@@ -2023,8 +2033,11 @@ static void nvme_tcp_stop_queue_nowait(struct nvme_ctrl *nctrl, int qid)
- 	if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
- 		return;
- 
--	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
--		atomic_dec(&nvme_tcp_cpu_queues[queue->io_cpu]);
-+	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags)) {
-+		spin_lock(&nvme_tcp_cpu_queues_lock);
-+		nvme_tcp_cpu_queues[queue->io_cpu]--;
-+		spin_unlock(&nvme_tcp_cpu_queues_lock);
-+	}
- 
- 	mutex_lock(&queue->queue_lock);
- 	if (test_and_clear_bit(NVME_TCP_Q_LIVE, &queue->flags))
-@@ -2131,25 +2144,6 @@ static void nvme_tcp_stop_io_queues(struct nvme_ctrl *ctrl)
- 		nvme_tcp_wait_queue(ctrl, i);
- }
- 
--static int nvme_tcp_start_io_queues(struct nvme_ctrl *ctrl,
--				    int first, int last)
--{
--	int i, ret;
--
--	for (i = first; i < last; i++) {
--		ret = nvme_tcp_start_queue(ctrl, i);
--		if (ret)
--			goto out_stop_queues;
--	}
--
--	return 0;
--
--out_stop_queues:
--	for (i--; i >= first; i--)
--		nvme_tcp_stop_queue(ctrl, i);
--	return ret;
--}
--
- static int nvme_tcp_alloc_admin_queue(struct nvme_ctrl *ctrl)
- {
- 	int ret;
-@@ -2210,22 +2204,67 @@ static int nvme_tcp_tls_check_psk(struct nvme_ctrl *ctrl)
- 	return 0;
- }
- 
--static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
-+static void nvme_tcp_setup_queue_async(void *data, async_cookie_t cookie)
- {
--	int i, ret;
-+	struct nvme_tcp_queue_setup_ctx *ctx = data;
-+	struct nvme_ctrl *ctrl = ctx->ctrl;
-+	int ret;
- 
--	for (i = 1; i < ctrl->queue_count; i++) {
--		ret = nvme_tcp_alloc_queue(ctrl, i,
--				ctrl->tls_pskid);
--		if (ret)
--			goto out_free_queues;
-+	ret = nvme_tcp_alloc_queue(ctrl, ctx->qid, ctrl->tls_pskid);
-+	if (ret)
-+		goto out_err;
++	if (unlikely(l & 0x80))
++		l = (l & 0x7F) | (*p++ << 7);
++	*len = l;
 +
-+	ret = nvme_tcp_start_queue(ctrl, ctx->qid);
-+	if (ret)
-+		goto out_err;
-+
-+	return;
-+
-+out_err:
-+	WRITE_ONCE(*ctx->err, ret);
++	return p;
 +}
 +
-+static int nvme_tcp_setup_io_queues(struct nvme_ctrl *ctrl, unsigned int first,
-+		unsigned int last)
-+{
-+	ASYNC_DOMAIN_EXCLUSIVE(queue_domain);
-+	struct nvme_tcp_queue_setup_ctx *ctxs;
-+	int nr_queues = last - first;
-+	int err = 0, i, ret;
-+
-+	if (first >= last)
-+		return 0;
-+
-+	ctxs = kmalloc_objs(*ctxs, nr_queues);
-+	if (!ctxs)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < nr_queues; i++) {
-+		ctxs[i].ctrl = ctrl;
-+		ctxs[i].qid = first + i;
-+		ctxs[i].err = &err;
-+		async_schedule_domain(nvme_tcp_setup_queue_async, &ctxs[i],
-+				&queue_domain);
- 	}
+ /*
+  * Expand a compressed symbol data into the resulting uncompressed string,
+  * if uncompressed string is too long (>= maxlen), it will be truncated,
+@@ -42,28 +57,12 @@
+ static unsigned int kallsyms_expand_symbol(unsigned int off,
+ 					   char *result, size_t maxlen)
+ {
+-	int len, skipped_first = 0;
++	int skipped_first = 0;
+ 	const char *tptr;
+-	const u8 *data;
++	unsigned int len;
++	const u8 *data = get_symbol_data(off, &len);
  
-+	async_synchronize_full_domain(&queue_domain);
-+	kfree(ctxs);
-+
-+	ret = READ_ONCE(err);
-+	if (ret)
-+		goto out_free_queues;
-+
- 	return 0;
- 
- out_free_queues:
--	for (i--; i >= 1; i--)
--		nvme_tcp_free_queue(ctrl, i);
-+	for (i = first; i < last; i++) {
-+		struct nvme_tcp_queue *queue = &to_tcp_ctrl(ctrl)->queues[i];
-+
-+		if (test_bit(NVME_TCP_Q_LIVE, &queue->flags))
-+			nvme_tcp_stop_queue(ctrl, i);
-+		if (test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
-+			nvme_tcp_free_queue(ctrl, i);
-+	}
- 
- 	return ret;
- }
-@@ -2267,10 +2306,6 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
- 	if (ret)
- 		return ret;
- 
--	ret = __nvme_tcp_alloc_io_queues(ctrl);
--	if (ret)
--		return ret;
+-	/* Get the compressed symbol length from the first symbol byte. */
+-	data = &kallsyms_names[off];
+-	len = *data;
+-	data++;
+-	off++;
 -
- 	if (new) {
- 		ret = nvme_alloc_io_tag_set(ctrl, &to_tcp_ctrl(ctrl)->tag_set,
- 				&nvme_tcp_mq_ops,
-@@ -2281,12 +2316,12 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
+-	/* If MSB is 1, it is a "big" symbol, so needs an additional byte. */
+-	if ((len & 0x80) != 0) {
+-		len = (len & 0x7F) | (*data << 7);
+-		data++;
+-		off++;
+-	}
+-
+-	/*
+-	 * Update the offset to return the offset for the next symbol on
+-	 * the compressed stream.
+-	 */
+-	off += len;
++	off = (data - kallsyms_names) + len;
+ 
+ 	/*
+ 	 * For every byte on the compressed symbol data, copy the table
+@@ -101,14 +100,43 @@ static unsigned int kallsyms_expand_symbol(unsigned int off,
+  */
+ static char kallsyms_get_symbol_type(unsigned int off)
+ {
+-	/*
+-	 * Get just the first code, look it up in the token table,
+-	 * and return the first char from this token. If MSB of length
+-	 * is 1, it is a "big" symbol, so needs an additional byte.
+-	 */
+-	if (kallsyms_names[off] & 0x80)
+-		off++;
+-	return kallsyms_token_table[kallsyms_token_index[kallsyms_names[off + 1]]];
++	unsigned int len;
++	const u8 *data = get_symbol_data(off, &len);
++
++	return kallsyms_token_table[kallsyms_token_index[*data]];
++}
++
++/*
++ * Compare an uncompressed ASCII string against a compressed symbol table entry.
++ * Returns negative if name < sym, positive if name > sym, 0 if equal.
++ * Exits immediately on the first mismatched character without decompressing
++ * the rest of the symbol name.
++ */
++static int kallsyms_strcmp_symbol(unsigned int off, const char *name)
++{
++	const char *tptr;
++	unsigned int len;
++	const u8 *data = get_symbol_data(off, &len);
++
++	tptr = &kallsyms_token_table[kallsyms_token_index[*data++]] + 1;
++	while (*tptr) {
++		int diff = (unsigned char)*name++ - (unsigned char)*tptr++;
++
++		if (diff)
++			return diff;
++	}
++
++	while (--len) {
++		tptr = &kallsyms_token_table[kallsyms_token_index[*data++]];
++		do {
++			int diff = (unsigned char)*name++ - (unsigned char)*tptr++;
++
++			if (diff)
++				return diff;
++		} while (*tptr);
++	}
++
++	return (unsigned char)*name;
+ }
+ 
+ 
+@@ -174,7 +202,6 @@ static int kallsyms_lookup_names(const char *name,
+ 	int ret;
+ 	int low, mid, high;
+ 	unsigned int seq, off;
+-	char namebuf[KSYM_NAME_LEN];
+ 
+ 	low = 0;
+ 	high = kallsyms_num_syms - 1;
+@@ -183,8 +210,7 @@ static int kallsyms_lookup_names(const char *name,
+ 		mid = low + (high - low) / 2;
+ 		seq = get_symbol_seq(mid);
+ 		off = get_symbol_offset(seq);
+-		kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
+-		ret = strcmp(name, namebuf);
++		ret = kallsyms_strcmp_symbol(off, name);
+ 		if (ret > 0)
+ 			low = mid + 1;
+ 		else if (ret < 0)
+@@ -200,8 +226,7 @@ static int kallsyms_lookup_names(const char *name,
+ 	while (low) {
+ 		seq = get_symbol_seq(low - 1);
+ 		off = get_symbol_offset(seq);
+-		kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
+-		if (strcmp(name, namebuf))
++		if (kallsyms_strcmp_symbol(off, name) != 0)
+ 			break;
+ 		low--;
  	}
- 
- 	/*
--	 * Only start IO queues for which we have allocated the tagset
-+	 * Only setup IO queues for which we have allocated the tagset
- 	 * and limited it to the available queues. On reconnects, the
- 	 * queue number might have changed.
- 	 */
- 	nr_queues = min(ctrl->tagset->nr_hw_queues + 1, ctrl->queue_count);
--	ret = nvme_tcp_start_io_queues(ctrl, 1, nr_queues);
-+	ret = nvme_tcp_setup_io_queues(ctrl, 1, nr_queues);
- 	if (ret)
- 		goto out_cleanup_connect_q;
- 
-@@ -2310,9 +2345,9 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
- 
- 	/*
- 	 * If the number of queues has increased (reconnect case)
--	 * start all new queues now.
-+	 * setup all new queues now.
- 	 */
--	ret = nvme_tcp_start_io_queues(ctrl, nr_queues,
-+	ret = nvme_tcp_setup_io_queues(ctrl, nr_queues,
- 				       ctrl->tagset->nr_hw_queues + 1);
- 	if (ret)
- 		goto out_wait_freeze_timed_out;
-@@ -3157,7 +3192,7 @@ static int __init nvme_tcp_init_module(void)
- 		return -ENOMEM;
- 
- 	for_each_possible_cpu(cpu)
--		atomic_set(&nvme_tcp_cpu_queues[cpu], 0);
-+		nvme_tcp_cpu_queues[cpu] = 0;
- 
- 	nvmf_register_transport(&nvme_tcp_transport);
- 	return 0;
+@@ -212,8 +237,7 @@ static int kallsyms_lookup_names(const char *name,
+ 		while (high < kallsyms_num_syms - 1) {
+ 			seq = get_symbol_seq(high + 1);
+ 			off = get_symbol_offset(seq);
+-			kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
+-			if (strcmp(name, namebuf))
++			if (kallsyms_strcmp_symbol(off, name) != 0)
+ 				break;
+ 			high++;
+ 		}
+
 -- 
 2.55.0
 
