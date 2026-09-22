@@ -1,49 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8422E40B38A;
-	Tue, 22 Sep 2026 18:06:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183A741A575;
+	Tue, 22 Sep 2026 18:07:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790100368; cv=none; b=SrJJZN7WA+yrrUShQOBJT/91f47tot4SipV0VRIhbZlsM/XeBoivghiaX11lij5/j8BOHJk6FzY+WzcopryZTYB4zAJalZ0czg8gyejcmPUnfKz5wxuof9v19xGMbqc1837ncwcxIEA8amirXytFLstmMzEIDuaXqJNSx7NG5BE=
+	t=1790100476; cv=none; b=fFkaioBpLksR8e8SqseO6ZYzaMD03usXH5ifS2WgC2s/W+QQA2AWm7WPDxe3WvNaZLG/QPlfDY6Fn+d6rMebX3IlxvOoWudGB2ERa4mKwHtzDvMvvexPEQllIuq7kkr15LGBe8jOttPG3GN36FD5YodQ+KhZr+ONivq+fq8E5KI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790100368; c=relaxed/simple;
-	bh=JLND+G43VOYhXVnSUeoSEgdGb/RD72trH1G5HX3w/o0=;
+	s=arc-20240116; t=1790100476; c=relaxed/simple;
+	bh=O5NoYloG7xYDgVh/bOtDr0EbSnoomHvovkii+n0xso4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zy48T7doNGs22RaYzqo0Ua2tX50F0q54T+8kOQJicQziN74/dnTXBovW/fCffg6LNM4iCLpJ6Sax64psHrj3hrvv1T2Q6rMOJY5wBc4eKRoaqSxUye8blynyhV58wzBCWyKyC5OQSqjuHVGDMJUVo/HdF8xyAIr9GppvxqVNAgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bjeaxxhi; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=PepuXattCgmLiVKgkwaXB/Qu36u7vRryfS0jzF6nIy0UfvZieHLHhUOSDQU0udBzSp6QSTzUuErJj4wKMsm04bc95j1/O/xRKhjybmsjylmUZ+iAuDn6jxrU+4fSOsqNRCevTbhWrbhS9wr9uNZyAFA0vzQ2eKeW7iltfG18nEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hrInqBzN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bjeaxxhi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170AB1F00893;
-	Tue, 22 Sep 2026 18:06:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hrInqBzN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A8E1F000FF;
+	Tue, 22 Sep 2026 18:07:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790100367;
-	bh=8aha4/q4JfCKqnw/sQC0ZeUyw5tRBX2jwelFYVzPtMc=;
+	s=k20260515; t=1790100474;
+	bh=kb+JzYBVjZ9xE5OHKGAs6buy9QveH8O/36VzTdTmQvE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BjeaxxhixCSh56rNWbZEIjrdJO5kUvDB4KCFv+qdZp2oxY1Zaf15Xg8lUKiwCYC5x
-	 k9yo5iOInVtGXByVspjtza0DjyYVyyOTJp+OxHfatoYu209tvHbj871SzMeQNSkYdC
-	 i186KSrYYfZIcW9pwYkUOCQ2OO/bmGizH6+GjchokKRatbsuAgUaMi1KFa1HCZQ/0n
-	 VycmhrWGd4Y6UM7JWwS+c8vX65o+J1ucaflNimSgFpqTKbAfMGMHURS/0T+e5qYplz
-	 iADoYCr2hvJaZDNJ2ykfI6VKaKS9qlPa9WeyRrv8KJ6t+WtNDh3NVEiDyYBbzL8d2/
-	 /5Ke/biuqSr1Q==
-Date: Tue, 22 Sep 2026 19:06:02 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Jamie Nguyen <jamien@nvidia.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
+	b=hrInqBzNV4tJiXiZRrcGk9/EK7PT8Ecw9NiMTg5FJ+q93MSdUGUuLcoW1mSD2L/Ju
+	 TKFIt/lc06QBmc2Fd7Mtmf6ExYIqb1ttPPbfAIAd2RXWTIA3C8fgvHsFs2Mc3cWG8z
+	 9Dgr8xK6tf/XvvZnNpFYNU4yhMWGtXEavvbww5rbd8dp35z5Uy6MERA6AKszfldh16
+	 WvlFBegdMarxEIkPVrYigek7HKcfSkQAEBNRg8Q2v/zItd9+0vj8BzZdSQ144qY7P8
+	 HbsZMWiU7mbGNeWzxcsWReXhu/OZbZ5gW2+IsG+Edhrxr7FPtfMi5M9/rnDrI0eSe9
+	 ATAE9RwR8JiKg==
+Date: Tue, 22 Sep 2026 11:07:53 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
 	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Dat Mach <dmach@nvidia.com>,
-	linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] ACPI: arm64: FFH Operation Region support for
- FF-A (offset 2)
-Message-ID: <20260922-exuberant-earwig-of-opportunity-4fecff@sudeepholla>
-References: <20260901192906.133670-1-jamien@nvidia.com>
- <20260922-purring-fennec-of-exercise-bbce5e@sudeepholla>
- <20260922155211.676134-1-jamien@nvidia.com>
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Jack Thomson <jackabt@amazon.com>,
+	Jack Thomson <jackabt.amazon@gmail.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Leo Soares Passos <Leo.Bras@arm.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>
+Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
+Message-ID: <arLD-eZ6dRvfZ52q@kernel.org>
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+ <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org>
+ <arKxjsxuO1F5ExrY@kernel.org>
+ <arK5n9HrbZMCOHOt@google.com>
+ <arK5ynpRi7VbY7Ek@gremlin>
+ <arK8seJVT9wYgVCP@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,60 +68,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922155211.676134-1-jamien@nvidia.com>
+In-Reply-To: <arK8seJVT9wYgVCP@google.com>
 
-On Tue, Sep 22, 2026 at 08:52:11AM -0700, Jamie Nguyen wrote:
-> On Tue, Sep 22, 2026 at 09:46:59AM +0100, Sudeep Holla wrote:
-> > Could you clarify how the build and runtime behavior are protected when
-> > the FF-A driver is disabled?
+On Tue, Sep 22, 2026 at 10:36:49AM -0700, Sean Christopherson wrote:
+> On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
+> > On Tue, Sep 22, 2026 at 10:23:43AM -0700, Sean Christopherson wrote:
+> > > Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
+> > > generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
+> > > the return value, the connection to vcpu_load() is obvious, and we don't need to
+> > > add another pre-check if future (or cleaned-up existing?) ioctls want to do
+> > > vcpu_load() in common code.
+> > 
+> > ...this is exactly what I started out with.
+> > 
+> > But then you are in a pickle, because _really_ you need to do that check in
+> > vcpu_load(). Which is a void function. Which is called by every single
+> > architecture all over the place.
+> > 
+> > So you'd have actually no way of signalling the error back.
+> > 
+> > Of course those places are arch code and you could say 'arches should know
+> > better and if they call it it's fine not to call the arch 'can you load'
+> > function.
 > 
-> There is no build-time dependency from ACPI FFH to the FF-A driver. The
-> registration direction is from FF-A into FFH: the FF-A driver registers an
-> optional backend after probe and unregisters it on removal.
-> 
+> Yes, that's my vote.  It'd be easy enough to clarify that "rule" with a comment
+> in linux/kvm_host.h.
 
-Equally ugly. FF-A spec doesn't talk about ACPI FFH, so it doesn't
-belong in FF-A driver.
+I feel like trying to make this generic will wind up under-documenting
+the single example we have with the pre fault ioctl. Putting the comment
+into a header practically guarantees that nobody will read it either.
 
-> With CONFIG_ARM_FFA_TRANSPORT=n, no backend is registered and an offset 2
-> access returns FFH_FFA_NOT_SUPPORTED. With CONFIG_ACPI_FFH=n, the
-> registration functions are static inline stubs.
-> 
+I'd favor doing something like below and sticking the comment inline in
+the ioctl handler. Unless I'm missing something blatantly obvious, I
+don't see why the x86 or s390 pre-conditions can't be tested early too.
 
-So if on a platform, ASL has FFH with offset 2, we fail if FF-A driver fails
-to initialise ? What if this FFH offset 2 is used in some other device
-methods that need to be executed before FF-A module is inserted ? We pull
-that device down as well ? Is that acceptable ?
+But I don't care enough to bikeshed this any further.
 
-> I have also built CONFIG_ACPI_FFH=y with CONFIG_ARM_FFA_TRANSPORT=n.
-> The W=1 build and full vmlinux link are clean, with no unresolved
-> references to the FF-A transport driver. I'll mention this case in the v3
-> cover letter.
-> 
+Thanks,
+Oliver
 
-Fair enough, build dependency was one of the concern and not the only
-concern.
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 8b080804bc90..396e64875fe7 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -1852,6 +1852,14 @@ static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
+ 	return __kvm_arm_vcpu_set_events(vcpu, events);
+ }
+ 
++int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
++{
++	if (!kvm_vcpu_initialized(vcpu))
++		return -ENOEXEC;
++
++	return 0;
++}
++
+ long kvm_arch_vcpu_ioctl(struct file *filp,
+ 			 unsigned int ioctl, unsigned long arg)
+ {
+diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
+index 5c73f43782a7..47fe032444f4 100644
+--- a/arch/s390/kvm/s390/s390.c
++++ b/arch/s390/kvm/s390/s390.c
+@@ -5784,6 +5784,14 @@ void kvm_arch_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *old,
+ 	s390_kvm_mmu_commit_memory_region(kvm, old, new, change);
+ }
+ 
++int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
++{
++	if (kvm_is_ucontrol(vcpu->kvm))
++		return -EINVAL;
++
++	return 0;
++}
++
+ /**
+  * kvm_arch_vcpu_pre_fault_memory() -- pre-fault and link gmap dat tables
+  * @vcpu: the vcpu that shall appear to have generated the fault-in.
+@@ -5810,9 +5818,6 @@ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu, struct kvm_pre_fault_
+ 	gpa_t end;
+ 	int rc;
+ 
+-	if (kvm_is_ucontrol(vcpu->kvm))
+-		return -EINVAL;
+-
+ 	rc = kvm_s390_faultin_gfn(vcpu, NULL, &f);
+ 	if (rc == PGM_ADDRESSING)
+ 		return -ENOENT;
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 064ecc33b926..c35fd2868c20 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -5086,6 +5086,14 @@ static int kvm_tdp_page_prefault(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 	}
+ }
+ 
++int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
++{
++	if (!vcpu->kvm->arch.pre_fault_allowed)
++		return -EOPNOTSUPP;
++
++	return 0;
++}
++
+ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ 				    struct kvm_pre_fault_memory *range)
+ {
+@@ -5095,9 +5103,6 @@ long kvm_arch_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ 	u64 end;
+ 	int r;
+ 
+-	if (!vcpu->kvm->arch.pre_fault_allowed)
+-		return -EOPNOTSUPP;
+-
+ 	if (kvm_is_gfn_alias(vcpu->kvm, gpa_to_gfn(range->gpa)))
+ 		return -EINVAL;
+ 
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 03bfc92864b6..bff842548c04 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -1693,6 +1693,7 @@ int kvm_arch_vcpu_should_kick(struct kvm_vcpu *vcpu);
+ bool kvm_arch_dy_runnable(struct kvm_vcpu *vcpu);
+ bool kvm_arch_dy_has_pending_interrupt(struct kvm_vcpu *vcpu);
+ bool kvm_arch_vcpu_preempted_in_kernel(struct kvm_vcpu *vcpu);
++int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu);
+ void kvm_arch_pre_destroy_vm(struct kvm *kvm);
+ void kvm_arch_create_vm_debugfs(struct kvm *kvm);
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 65eb26a0520d..07f2ce7a3cb3 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -3961,6 +3961,11 @@ bool __weak kvm_arch_dy_has_pending_interrupt(struct kvm_vcpu *vcpu)
+ 	return false;
+ }
+ 
++int __weak kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
++{
++	return 0;
++}
++
+ void kvm_vcpu_on_spin(struct kvm_vcpu *me, bool yield_to_kernel_mode)
+ {
+ 	int nr_vcpus, start, i, idx, yielded;
+@@ -4353,7 +4358,7 @@ static int kvm_vcpu_ioctl_get_stats_fd(struct kvm_vcpu *vcpu)
+ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ 				     struct kvm_pre_fault_memory *range)
+ {
+-	int idx;
++	int idx, ret;
+ 	long r;
+ 	u64 full_size;
+ 
+@@ -4365,6 +4370,14 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+ 	    range->gpa + range->size <= range->gpa)
+ 		return -EINVAL;
+ 
++	/*
++	 * Certain architectures (e.g. arm64) need to reject the ioctl 'early'
++	 * before vcpu_load().
++	 */
++	ret = kvm_arch_pre_fault_allowed(vcpu);
++	if (ret)
++		return ret;
++
+ 	vcpu_load(vcpu);
+ 	idx = srcu_read_lock(&vcpu->kvm->srcu);
 
-> > Are there any other technical justifications for this tight coupling?
-> 
-> FFA_MSG_SEND_DIRECT_REQ2 requires FF-A state already owned by the driver:
-> the selected SMC or HVC conduit, the sender endpoint ID from FFA_ID_GET,
-> UUID-to-endpoint resolution through the partition discovery ABIs, REQ2
-> feature detection, and FFA_RUN handling after FFA_YIELD or FFA_INTERRUPT.
-> 
-
-Yes but are they strong reasons to break some use-case like above.
-
-> Open-coding those operations in ffh.c would duplicate FF-A initialization
-> and state management. The ops registration lets FFH use that state when the
-> driver is available while degrading cleanly when it is not.
-
-There is no state management with simple FFA_MSG_SEND_DIRECT_REQ2, it is
-synchronous send request if you look at it along wih offset 0/1 and without
-FF-A driver knowledge.
-
-I need to think apart from duplication, we shouldn't have much issue.
-
--- 
-Regards,
-Sudeep
+Thanks,
+Oliver
