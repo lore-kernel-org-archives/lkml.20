@@ -1,176 +1,210 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68491322C6D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790109416; cv=pass; b=OYL3l8cbdyi3K6dT5x4p3ANS6gP+tznTJQkS5j6v+TO91d62M4lfu2s1058WRexBmwX7/iFnG6kBoP6rwH/TeJ/vUncNlBkiS4OalYnsRMU22fqz1W44hDt0xZwuOOkxfcwfWadRRmnAp4uFMwVbWmahNFxybvvYrNSHn1gQXQk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790109416; c=relaxed/simple;
-	bh=LigzqXSS8DEfP3cmtfyLjdc0kKiyg4jtx9CgA6a2THg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P/EfzsfpEAUja9Kkn2+Hm7Z84lqk+WVzaO/ZgJv2PmQf09qSa+uA3r1bjJ7MhaKHy2gicD4W9/+WQd7mkMySRLoZ/uQ4B9FmsFzfj1jMivdDcZnAWwR5l0lhbXhbBtLDASvOzRweC8CESWqLwhV/s8bL00vyBdOFlf/rhCzhzSA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HimfdTHF; arc=pass smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34224CEE71;
+	Tue, 22 Sep 2026 20:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790109437; cv=none; b=CMBa/cMdvKogdR6mZLfMdHPwFrGXUJnkfj/AfjPy419D90///AjS84vR6eUvPgpn/CMCAckCvxKBCm8xj/ed8qgrNX2BxPSgZt+0h/wAnC9ihym8CQUbvT+bLxtpsJkN2RUwBySbPh1YvzoUdDBj6cdtdpC8XsW2v1VNwWjOYvw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790109437; c=relaxed/simple;
+	bh=2YnWH9cax97AUtQ38BU1f+kCyda35lBFk7PhQuymp04=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ESvNnUTRwgZ91KaZvTuSuyKjWzEZgcdrrw5TXM15jm9KzWBOlm+ZnRWFOnDuXVcXPHnNOneYYw4RZjADdVc7e87DpRggldyyHlBxfTeNr0wYYhkFZq2I7KxvLJVDzSGK36ZJDYaAgCuf4vIhGLoDJMVCIlCbv15774WeynFz/98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYk8xtcm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HimfdTHF"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c254f55efe5so37106866b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:36:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790109399; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AkYb5Ey9bKMGRntcyfkfRacPMym4dVsYsTPcEYapXCpwE4lESNTHnhoJRpMqBuvkqE
-         CjOcaGtWBT9nnpoNVyJb0+C32JQnVC6c0swal98uEG0TkIT45k6woEY6HKw34h5RAXPF
-         JXHEfrlnnDpaa/yde3iHHhbvxBI82Nmsqa9aTSXKHFXMtecGm2BDWtwzyaG4FGw6rbpf
-         MJ2sxSGKAvpxzzUtGeVJEDZpFSjztPARrJfqU8NU9vyPJSFyiQgk6cn26MuEYWUdUUck
-         GZ6f1wLRsT4YkQT8wxmlsdDffHQQWrusKKfFTuxJghW8NvG4+sz9qJYiY0d/OLaToq/W
-         clHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=62pZ9axW+4CPUrl4s+XApJ/lHsj3XXGYs6lv21lj9Ok=;
-        fh=F1etYhviRqw2xJnw712pUeOQpnr+LACBU8UphXGpQoM=;
-        b=HAbL43lFam4o+tgk0Yby0m+gqABxvW6UOmJ8Wnn5vfEYmcSbGQEa4xfeYGZUgRG+yQ
-         VxAj/g6WKQPl9Fbw0k+mtaBF3CdaQuvh9MiE9YTDoRHX6cyvFnPtgvCFEVe08Ao8HABN
-         KlI1jE/3wcuvzm1BAZRq5AYDcySAXjN6y1Pr4TSfIo9ooZWSfuAUYXtY6d20BwuNX51O
-         bPPd6WPicwwvrP+CCLVJKLN6AnfofwMGfUX4g9ocvTUackYiMsgwgFvJf7xh49TpGIMG
-         y3sPsOYKXqg8+VxX8fnSLI0nKw85Z8TE5g/DW5S3wzZ6rnwtBoiNTtV+hSGR3K1EENEe
-         dUEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790109399; x=1790714199; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=62pZ9axW+4CPUrl4s+XApJ/lHsj3XXGYs6lv21lj9Ok=;
-        b=HimfdTHFHhoLVbMtuj8wsQycCBtA9G6stT2IIfuOWJ6BD48Otdp2Kp4EjiofC3FUN7
-         3PfwrZalqDE7cqdtdl0KJdpBx3GZRW+kFEYETESJrxgdAHzRkhrFJDgdrILJsv9OyHnx
-         tPxcRg+9JLHGn0E7f1BokR2nNsTmlvg6EJN733Ie6MGb/9pXXjE45YBnOdTyFoNJWIMs
-         cUt0VjbJ3A7XMD3mMQwhhVKRqb1rOMAjVQNA5NywOafxDONMVBjSRa9IuUfBd3Zm3g6j
-         KJnlPYadJ15BjA4vYtRyPiZpBZlKy6xWeO1yM9EU4H2srbm8ZGXQk5+uJtu6yok7vfbh
-         S8ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790109399; x=1790714199;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=62pZ9axW+4CPUrl4s+XApJ/lHsj3XXGYs6lv21lj9Ok=;
-        b=I86CwpGChdUDgFA/XewTbeF8WjuAfj2G9SlsCOk2yy7AWlxFjgGtnQmMiSWCKD/SoZ
-         TtFdUHLlNrCpHLHmPe4F/LBVoii6X8tiX6ceRD8XmqOzvKFttzJ07d2dLfkFKFH72SU4
-         /ojalckWqCdXis/rg+BTiKIqAPYLYJKs3NCkP4a42mAm9pz1alNzcA8jWjFdeODd7uPo
-         Q48ywq5j6UQisuLrlJggzpiA3nfbe+ukoXYGDbZq6DtPJoqfRHtnIeclKkKPKx8Kj69x
-         fAO+SXyya2DsmQeywLEhmTUtni1E2+d4XQ1vYL+/F0xEXyOuS4GUcJu9J8GjJGz/Gmdi
-         NawA==
-X-Forwarded-Encrypted: i=1; AKwUvBzkRK8ck/k2vrAjm/EjKEJArJCwG7UFBehtyuChAHIXJjNHZ2jKbygG3NPCN9/4v9YssmkzATBygO9DPNE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mx/wWf4XI2WyV69PeK6824JufWuZWCaeN16M8fcPcXinfFDdvT
-	h2XjjaGXbkHlaH0EVLVI3ivrM2jmQWJlA+9BUoVx3rrS3MBBF+SC/EFSOt3n2zlOywicVKcAjUv
-	F4zAP2GCq714Vv0Ch8aY66Cit676Uhs9j/SuueTU5
-X-Gm-Gg: AYBFou2HvjFInFeMHTzTqdeTO0uEyoXFDlHTncT2IVpGacevC+Mrs240obRY+rZcaR2
-	uk6z6Gg8gHjO96mNYIapBrU9JAPx28YCXyDeOWEZyZkR0l6gXx+GWqtLtVYZ3d6pgJqbqz7ImFz
-	cr5jNPiWnYkA+U6492TwSrLuV5tLM7D0w3MlopWOFS7HVsj4J7lhp6/P3GnWgk9Kk9V1/S0NPiJ
-	gQkj7CNfNY2FGoT4+mq9KTomVzif6x3eyQp55r3CQIUfYkN3Im3+6FFdj7x95zYR4Htdk+YwIHC
-	Boj2ZZ90RgNi3Jb6/475IYfsg4Kq8MlvgnwFR1XNxK6j9IcHNo8IVi7us9CaWVenk7QFVpIHPGR
-	ngdIThkE0xxTEojBmltDOOzezLef/lGia6e/Uo8HIKKnVn3laqGWDjNcJPp8ZBgmkK9ja6cHj+z
-	zCLu75xpC5ZozsltO8jEx4gi8=
-X-Received: by 2002:a17:907:1c94:b0:c26:1691:b368 with SMTP id
- a640c23a62f3a-c2aae0e943cmr30868666b.33.1790109398702; Tue, 22 Sep 2026
- 13:36:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYk8xtcm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 769DC1F0089B;
+	Tue, 22 Sep 2026 20:37:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790109421;
+	bh=rCabQF8E/QYx6N0UAExqR+EIo5OJEHmS/2vGxtXACq0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gYk8xtcmurToLaTNHIBtPQhf2s7wwOG6ycpklK6JAxglcZ8IznaETWmhvakfOLBsk
+	 /BA9bkkwZAGZmJWUmc2/ZkniarUd7y3MuGVZRfd1xIfTA+8LqhWSwXqB11sY1pRfc3
+	 NPX8OPVOZbdJWukaSZP/Qbdh0D7vbvFj8F5V9sRaqd8PkIVWg9bJTLWl+eDeQHeRm+
+	 o39XaHAfeDx5gU1yPumLl6566YTcwM2tRtRuum7HuWG8fM6/d/fPq1lEc1izfzvTYU
+	 Fj3bLcprBZ6KNFhlTEyKtXSZ3suX4aSd5VarjpXdT7lvrQRaJsd4ZxZQEU3BnG3nTf
+	 KXWmyIC4j4Aaw==
+Subject: Re: [PATCH net 1/3] net: macb: never give hardware a NULL RX buffer
+From: netdev-bot+sashiko@kernel.org
+To: theo.lebrun@bootlin.com
+Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ nicolas.ferre@microchip.com, sean.anderson@linux.dev, atenart@kernel.org,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nb@tipi-net.de, vladimir.kondratiev@mobileye.com, gregory.clement@bootlin.com,
+ tawfik.bayouk@mobileye.com, thomas.petazzoni@bootlin.com,
+ maxime.chevallier@bootlin.com, stable@vger.kernel.org
+Date: Tue, 22 Sep 2026 20:37:00 +0000
+Message-ID: <179010942002.2160803.8691011751847108495@kernel.org>
+In-Reply-To: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
+References: <20260918-macb-close-v1-1-05e32ce98813@bootlin.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918094322.152817-1-pbonzini@redhat.com> <arG1Nh2yuMQyAdhV@google.com>
- <CABgObfatLAp3AsPktQVtVq0MgeJV1Bw+54i5LKye5KzjVPqbyQ@mail.gmail.com>
- <arG3L3TL5_xCBtc9@google.com> <CABgObfZTbj7cSUdGEcA2xgGkSgFqZ2NnNrHJ7+uYAHP3_9idqg@mail.gmail.com>
- <arG5raFJQO0hA-Uz@google.com> <CADrL8HWS3SLqGfj0CrHhODscUq3fPdKd6Mg1M_53BFdFh4eLvw@mail.gmail.com>
- <59a45f81-8cb2-4794-a529-eab72a45b93a@redhat.com>
-In-Reply-To: <59a45f81-8cb2-4794-a529-eab72a45b93a@redhat.com>
-From: James Houghton <jthoughton@google.com>
-Date: Tue, 22 Sep 2026 13:36:01 -0700
-X-Gm-Features: AcwNN1XIUgz1BOv1EkxUY7hWgtF3ygs5uynW3bZLjeRdG1EKl46E4yC46HmqtcI
-Message-ID: <CADrL8HWtafbiHA8ZL=DhMqT+GSBeajXew9QzBkVyPUyUJwiTZA@mail.gmail.com>
-Subject: Re: [PATCH] KVM: x86/hyperv: do not overwrite hc->ingpa for slow
- SIGNAL_EVENT hypercall
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 4:33=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com>=
- wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
+
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] gem_init_rx_ring()
+  (drivers/net/ethernet/cadence/macb_main.c:2793) now sets…
+- [High] gem_init_rx_ring() now publishes MACB_BIT(RX_USED) on every RX
+  descriptor of a queue, resets queue->rx_tail/rx_prepared_head and then…
+
+--
+
+net: macb: never give hardware a NULL RX buffer
+
+This makes gem_init_rx_ring() set the RX_USED bit on every RX descriptor
+before calling gem_rx_refill(), so that a refill that fails part way
+through does not leave descriptors owned by hardware while their skb
+pointers are still NULL.  The change affects macb_open(), macb_resume(),
+the HRESP error recovery path and set_ringparam().
+
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index b8234ac4b602..751fa9e68099 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -2785,9 +2785,14 @@ static int macb_alloc(struct macb *bp)
+>  
+>  static void gem_init_rx_ring(struct macb_queue *queue)
+>  {
+> +	unsigned int i;
+> +
+>  	queue->rx_tail = 0;
+>  	queue->rx_prepared_head = 0;
+>  
+> +	for (i = 0; i < queue->bp->rx_ring_size; i++)
+> +		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
+> +
+
+[Severity: High]
+
+Does RX_USED now carry two different meanings that the RX consume path
+cannot tell apart?
+
+gem_rx() uses RX_USED at queue->rx_tail as the only indication that
+hardware delivered a frame, and it has no bound against
+queue->rx_prepared_head:
+
+drivers/net/ethernet/cadence/macb_main.c:gem_rx() {
+	rxused = (desc->addr & MACB_BIT(RX_USED)) ? true : false;
+	addr = macb_get_addr(bp, desc);
+
+	if (!rxused)
+		break;
+	...
+	queue->rx_tail++;
+	count++;
+
+	if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+		netdev_err(bp->netdev,
+			   "not whole frame pointed by descriptor\n");
+		bp->netdev->stats.rx_dropped++;
+		queue->stats.rx_dropped++;
+		break;
+	}
+	skb = queue->rx_skbuff[entry];
+	if (unlikely(!skb)) {
+		netdev_err(bp->netdev,
+			   "inconsistent Rx descriptor chain\n");
+		...
+}
+
+So for a slot that gem_rx_refill() never got to prepare (the exact
+memory-pressure case in the commit message, where it breaks out of the
+loop on netdev_alloc_skb() or dma_map_single() failure), gem_rx() no
+longer stops at "if (!rxused) break;".  It advances rx_tail, counts the
+slot as work, hits the SOF/EOF test with ctrl == 0 on a fresh ring, emits
+a non-ratelimited netdev_err() and bumps rx_dropped.
+
+Then does the poll reschedule itself forever?  macb_rx_poll() consults
+macb_rx_pending(), which also looks only at RX_USED at rx_tail:
+
+drivers/net/ethernet/cadence/macb_main.c:macb_rx_pending() {
+	entry = macb_rx_ring_wrap(bp, queue->rx_tail);
+	desc = macb_rx_desc(queue, entry);
+	rmb();
+	return (desc->addr & MACB_BIT(RX_USED)) != 0;
+}
+
+The next slot is also software-marked RX_USED, so macb_rx_poll() calls
+napi_schedule() again.  Since gem_rx_refill() only fills up to
+CIRC_SPACE(rx_prepared_head, rx_tail, rx_ring_size), the slot at rx_tail
+is never the one refilled, so while allocations keep failing nothing
+clears RX_USED ahead of rx_tail.  Can this turn into a self-sustaining
+NAPI/softirq loop with two unratelimited error lines and one bogus
+rx_dropped per iteration, and once allocations recover, a full ring
+traversal (rx_ring_size, 512 by default) of phantom completions that
+walks rx_tail past slots hardware never wrote?
+
+Before this patch gem_rx() stopped at those same slots on
+"if (!rxused) break;".
+
+Reachable at least via macb_resume() and macb_hresp_error_task(), which
+both ignore the refill result and re-enable RX and NAPI afterwards.
+
+[Severity: High]
+
+Is any exclusion against a running RX poll needed here now that the whole
+ring is published as RX_USED?
+
+macb_hresp_error_task() runs from system_bh_wq, masks queue interrupts,
+clears RE/TE, and then calls mog_init_rings() with no napi_disable(), no
+napi_synchronize() and no lock:
+
+drivers/net/ethernet/cadence/macb_main.c:macb_hresp_error_task() {
+	netif_tx_stop_all_queues(netdev);
+	netif_carrier_off(netdev);
+
+	bp->macbgem_ops.mog_init_rings(bp);
+	...
+}
+
+Masking interrupts does not stop a poll that is already scheduled or
+running on another CPU (per-queue IRQs can be affinitized, and NAPI can
+be threaded).  Previously such a concurrent gem_rx() would stop at the
+first hardware-owned descriptor; with every descriptor marked RX_USED,
+does it now walk the entire ring reading stale desc->ctrl (the new loop
+does not clear ctrl), setting queue->rx_skbuff[entry] = NULL,
+dma_unmap_single()ing and napi_gro_receive()ing the buffers?
+
+Meanwhile gem_rx_refill() called from gem_init_rx_ring() walks the same
+entries, and for any entry whose rx_skbuff it still sees as non-NULL it
+takes the else branch:
+
+drivers/net/ethernet/cadence/macb_main.c:gem_rx_refill() {
+	} else {
+		desc->ctrl = 0;
+		dma_wmb();
+		desc->addr &= ~MACB_BIT(RX_USED);
+	}
+}
+
+which re-arms hardware with the address of a buffer the concurrent poll
+may have just unmapped and handed to the stack.  Can the device then DMA
+into stack-owned memory?  The two contexts also both write
+queue->rx_tail / rx_prepared_head and can both allocate for the same
+entry, leaking an skb and its DMA mapping.
+
+>  	gem_rx_refill(queue);
+>  }
 >
-> On 9/22/26 01:23, James Houghton wrote:
-> >> James, how are you feeling about an early morning PUCK in the near fut=
-ure?
-> > No problems here; the 23rd is fine. The only day I can't do in the
-> > near-ish future is Oct 14. Thanks!
->
-> Great.  To sum up what I would like to understand, this is it:
->
-> 1) the overlap between memory protection attributes and kvm-userfault.
-> It seems to me that they are almost the same, but I may be wrong.
->
-> In particular, they are almost the same in that they are both
-> stop-and-retry interfaces, unlike userfaultfd which hides the
-> stop-and-retry behind a page fault and a stopped thread.
 
-Hi Paolo,
-
-They are very similar, yes. But I am unsure what the new memory
-attribute work is motivated by (maybe I missed it? I don't see it in
-the cover letters I checked).
-
-KVM Userfault was motivated by post-copy live migration (for VMs with
-guest_memfd memslots and as an optimization for userfaultfd-based
-post-copy with conventional VMs). KVM Userfault's interface reflects
-this; it uses a userspace-modifiable bitmap to track state, which has
-predictable memory overhead and is fast to modify. If memory
-attributes are meant to be used for post-copy as well, we'll want a
-bitmap-based interface for userspace and for tracking in KVM.
-
-Other than the interface, KVM Userfault was intentionally limited to
-only EPT/NPT faults because it is always "safe" for those to return to
-userspace with -EFAULT and the bad address. This means that
-implementing post-copy completely requires *also* using userfaultfd
-(or something else) for the other guest memory access cases. Memory
-protection attributes include many of the other important
-(guest-initiated) cases, so post-copy could maybe be implemented
-without userfaultfd. Great!
-
-I was assuming that these new checks would be (1) difficult to
-maintain and (2) potentially cause issues with instruction emulation
-(or any case where unwinding and replaying is challenging).
-
-> 2) what strategy you have implemented, or you have in mind, to handle
-> stop-and-retry for code that does many consecutive memory accesses.  The
-> main one is nested vmentry/vmexit.  I have here some mostly untested
-> code that splits them into prepare/commit/cancel phases, but I haven't
-> dared posting it.
-
-Ah exactly... :) This is why userfaultfd remained in the picture for a
-complete post-copy implementation with KVM Userfault. From my
-perspective, the only way around using userfaultfd is to add support
-for nested vmentry/vmexit going back out to userspace and coming back
-in, like the phases you have.
-
-"KVM Demand Paging" in Google's downstream kernel has essentially the
-same checks that you have in the memory attribute series. It uses a
-netlink socket for the long flows (and waits for userspace to mark the
-page as ready). Perhaps there's an argument that this would be better
-than making the long flows support exiting to userspace? But I doubt
-it.
-
-> (Secondarily, we have a TDX-sized dependency between planes, memory
-> attributes, VBS, and kvm-userfault.  That is probably something worth
-> discussing too, sooner or later).
-
-Yes I want to hear more, I'm not sure of all the context here. :)
-
-Thanks!
-
-James
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918-macb-close-v1-0-05e32ce98813%40bootlin.com
