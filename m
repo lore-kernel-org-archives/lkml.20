@@ -1,158 +1,79 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B943B8922;
-	Tue, 22 Sep 2026 08:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095433DFC88;
+	Tue, 22 Sep 2026 08:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067052; cv=none; b=MVVg6D7+x5np6enO5ZuqxAvz+izRFHFCOjIEK0ngY9VCRhsAFpNyFvhZjml+NaaBmKsALLQwPRNwzwEQ+0uboMFgSe4sxMSmEpwjm/OS39e31JsR9wz2A5d7H9bBjB2BnKIPoh0XwguomvIEXguF1UUvC+Z1swqcIk7Rey4Kd2g=
+	t=1790067064; cv=none; b=bnIXm0BAkSWhOZFCjlHJ/A3TVHU3av+OlctbXe4ikTuebjMgJvxYC8Zo0UjGSluvvaJM5hKFXSt7EbumJxM6L5QKB8T1F049dMKaEKcOasehf/Gy2Vb2Z78EacJctZ5i27UVRAraEAWGIp+CCpQFxlhOinRdHHktH/gaK/OPweI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067052; c=relaxed/simple;
-	bh=4HhU68DVh7t1JbSaNh8DWkWsHhDgqu1TBQnZj3bzDUg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bqW9lE4DbRfcDGK/W3FbYRMy8slY42heovVfufPY4/n1f744TI3P8xxMD7gWwM+yQE2E5/O5G4RAKrd4ga3yvxQL+V4FTg9mVmspME5C0fC+BntwsPBi1LMM+LvvK/MgbafmiSLxZ50nAEaw7aD1fQboIIcASmVZqvO/10UN7DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=YJp1MjoR; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	s=arc-20240116; t=1790067064; c=relaxed/simple;
+	bh=YKmihOtXQwvFU/pxVMgWX5/kUgobkhdA4eUMXbVYkwo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PhzgWmJG1rNXYosE+z+EYf79DA0qKlXSp30tKdqvNt98BuZgHkeVFiZMoP1w1/XVYFdVsy3qlTbukOi/fdrqniTY1QnBP4059J5MU4hI/mHtxEmKCLxD+2XD7WALwVvP0kBgfzdcD5VTsKrX22bOuJWXAhQYVWwulgSm1J09/84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=hkKX5Lpr; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="YJp1MjoR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail2; t=1790067040; x=1790326240;
-	bh=E9NNd/hqIo8h2Ae3BVu7MmGQh7O49JFHokGLTTnK7vI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=YJp1MjoRNPPRgAwoDey61j7Tk7iOXvFdgrIAqisfsLJlSfdQ3M73MN0hiSPliLZLl
-	 x97UT5usS4+82v2KvPvPVoRV/Z/ppuv7r4Xpi2Ywg99v6A8l2ayTfvH9+ApmJroxmW
-	 r57QVUc6643QnFWNuuR/LOb5fzXn8rMQmU23e5ezTa0h3gT9QRdRspMwLHo0/VA0Yq
-	 S/wzC/ccTpR2Nmlz4ZlFHGBeRERW1bpRT0LjZW0LJ1qjCnn1btuX4WEnp+U5Df7dZP
-	 6/ZIZ3WVP4ezTFrOfg2qFagqa96iYHv06bA6WFS91QyAkYHSzWNW0mcMaDmp2k3E5j
-	 y6kuB/ePWcLoA==
-X-Pm-Submission-Id: 4hpv235Vj3z2ScdY
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH] rust: DmaFence: Remove static lifetime
-Date: Tue, 22 Sep 2026 11:50:32 +0300
-Message-ID: <20260922085033.57008-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260922083631.444614-2-phasta@kernel.org>
-References: <20260922083631.444614-2-phasta@kernel.org>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="hkKX5Lpr"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 58A8A14C2D6;
+	Tue, 22 Sep 2026 10:50:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1790067060;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KVKfbQp3WPaMeYti+Oijt6p3rzWkk7V7JE0fk+1xfJE=;
+	b=hkKX5LprM8quVJouJCxw/+YLlRuNfhQpUTEERILasJio86JNFsXkrUkZwbAbChrAu8F1yn
+	X0rylClEd2tW0u83Ds5ZYyAd7BZHU1ZXD+PEzF65wCcBQ98nEXaaPZ3WVjxSq8RkoaZwlR
+	IgmNdflmUt/iRYnoeRhaMlZw/jJX/sKLxDv+AF9F+riy4ZNCNJu4STIvIzTsfcDfhhW1+J
+	CjgCZtzn4MlZKLTUedh5c6E83oTpnFH/0VwAYevORemWT86phy9R6XyM4SgtRPfbCtgvjZ
+	Nz7buYL5EUykmTzKpckwYKYYqOiy3g6AZBJJGkSorP9TpcWiRzXwVefXA+ZsnA==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id ad68f3e2;
+	Tue, 22 Sep 2026 08:50:56 +0000 (UTC)
+Date: Tue, 22 Sep 2026 17:50:41 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Michael Grzeschik <mgr@kernel.org>
+Cc: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	v9fs@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Hyungjung Joo <jhj140711@gmail.com>
+Subject: Re: [PATCH 0/7] usb9pfs: stable fixes
+Message-ID: <arJBYTbo3Vyagunu@codewreck.org>
+References: <20260922-usb9pfsfixes-v1-0-9d8dcc52904c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260922-usb9pfsfixes-v1-0-9d8dcc52904c@kernel.org>
 
-On Tue, 22 Sep 2026 10:36:32 +0200=0D
-Philipp Stanner <phasta@kernel.org> wrote:=0D
-=0D
-> A FenceCallbackRegistration can stem from another party than the one=0D
-> that has created a Fence. Should that party forget the registration=0D
-> object (for example through a refcount cycle) and then unload the=0D
-> module, a fence signaling would run into the unloaded module, causing=0D
-> UAF bugs.=0D
-> =0D
-> So far, this has been solved by demanding that the payload data of the=0D
-> registration object demanding static lifetime.=0D
-> =0D
-> It turns out, however, that this is harmful because the static lifetime=0D
-> bubbles up to all users, ultimately potentially causing a large amount=0D
-> of driver data to be static, which renders the lifetime obsolete.=0D
-> =0D
-> Solve this issue instead through an unsafe requirement which demands=0D
-> that the user does not forget the registration object. This is also the=0D
-> solution chosen by ScopedWork.=0D
-=0D
-Makes sense.=0D
-=0D
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-=0D
-> =0D
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>=0D
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>=0D
-> ---=0D
->  rust/kernel/dma_buf/dma_fence.rs | 16 ++++++++++++----=0D
->  1 file changed, 12 insertions(+), 4 deletions(-)=0D
-> =0D
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs=0D
-> index 18a43e1bb442..c3fa68c4df86 100644=0D
-> --- a/rust/kernel/dma_buf/dma_fence.rs=0D
-> +++ b/rust/kernel/dma_buf/dma_fence.rs=0D
-> @@ -291,7 +291,7 @@ fn from(e: AllocError) -> Self {=0D
->  ///     }=0D
->  /// }=0D
->  /// ```=0D
-> -pub trait FenceCallback: Send + 'static {=0D
-> +pub trait FenceCallback: Send {=0D
->      /// Called when the fence is signaled.=0D
->      ///=0D
->      /// This is called from the fence signaling path, which may be in in=
-terrupt=0D
-> @@ -310,7 +310,7 @@ pub trait FenceCallback: Send + 'static {=0D
->  /// When this object is dropped, the callback is automatically removed i=
-f it=0D
->  /// hasn't been called yet.=0D
->  #[pin_data(PinnedDrop)]=0D
-> -pub struct FenceCallbackRegistration<T: FenceCallback + 'static> {=0D
-> +pub struct FenceCallbackRegistration<T: FenceCallback> {=0D
->      #[pin]=0D
->      callback_foreign: Opaque<bindings::dma_fence_cb>,=0D
->      callback: ManuallyDrop<T>,=0D
-> @@ -326,7 +326,14 @@ impl<T: FenceCallback> FenceCallbackRegistration<T> =
-{=0D
->      /// On success the callback is pinned in place and will fire when th=
-e fence=0D
->      /// signals. On `AlreadySignaled` the callback is returned to the ca=
-ller so=0D
->      /// that owned resources can be reclaimed.=0D
-> -    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, =
-CallbackError<T>> + 'a=0D
-> +    ///=0D
-> +    /// # Safety=0D
-> +    ///=0D
-> +    /// `callback` must not be forgotten.=0D
-> +    pub unsafe fn new<'a>(=0D
-> +        fence: &'a Fence,=0D
-> +        callback: T,=0D
-> +    ) -> impl PinInit<Self, CallbackError<T>> + 'a=0D
->      where=0D
->          T: 'a,=0D
->      {=0D
-> @@ -693,7 +700,8 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
-extOps> {=0D
->  ///=0D
->  /// let cb_data =3D CallbackData { };=0D
->  /// let waiting_fence =3D ARef::from(fence.as_fence());=0D
-> -/// let cb_reg =3D FenceCallbackRegistration::new(&waiting_fence, cb_dat=
-a);=0D
-> +/// // SAFETY: `cb_data`'s content is not forgotten.=0D
-> +/// let cb_reg =3D unsafe { FenceCallbackRegistration::new(&waiting_fenc=
-e, cb_data) };=0D
->  /// let cb_reg =3D KBox::pin_init(cb_reg, GFP_KERNEL)?;=0D
->  ///=0D
->  /// // TODO signalling guards=0D
-> -- =0D
-> 2.55.0=0D
-> =0D
+Michael Grzeschik wrote on Tue, Sep 22, 2026 at 12:25:53AM +0200:
+> This is a breakout series with some additional fixes of the
+> first series of fixes I did sent out earlier this year.
+> 
+> https://lore.kernel.org/all/20260319-9pfixes-v1-0-c977a7433185@pengutronix.de/
+> 
+> It only addresses the stability of the driver and left out
+> the interface rework. Therefor I put all changes into a new
+> series beginning as v1.
+
+Thanks!
+Also thanks for picking up a patch I had missed earlier.
+This didn't apply cleanly but nothing a fuzzy `patch` command couldn't
+handle (unfortunately sashiko gives up too easily on the whole
+series... but there's nothing controversial in here anyway so I won't
+ask you to resend)
+
+I fixed a typo in one of the messages but that aside this looks good to
+me, I've picked this up and will send to -next in a bit
+
+-- 
+Dominique Martinet | Asmadeus
