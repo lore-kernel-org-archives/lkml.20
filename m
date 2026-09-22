@@ -1,187 +1,84 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D6925B09D;
-	Tue, 22 Sep 2026 01:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D737325B09D;
+	Tue, 22 Sep 2026 01:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790041360; cv=none; b=oQRn1VL42BdDobwEnmiz3PSgyJO3he+qM8/UISDzEKzOFcMLt1Q+tf0BADFw98ROvkWRWyD7JZ0KG41BQopO9gtUIIzPD8N1XkRj8ADLEAoWAIAlxt+5oTejJFzv5+ImPbEcdv7E/jMF8kEJb/wCTyFj0xLy0yKC9Ss+r4Q0Zm0=
+	t=1790041430; cv=none; b=lIKmx99ubGSl436hiQJRWIbMUzxfxmJ+6oaMAALI0VskdnPfYEJuuJU71W0SzpH6m3EORWJVyNsULTPFZ+H1KVc2cFcBGjtMsTwqMfNu5gxieWTc90xqnKaS1nYmVeeQ1iVK5Vej9W9qoTXTy0x7W/1ls6govthO/yMcllOvkSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790041360; c=relaxed/simple;
-	bh=h6f4/LvZlOM3R3njDB/lK/tLH6Jqw0vPh5GrtlCYWWE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N2jqQKyQskEK4ACn6mD9o2Mw+kmLZP0U8m0nl4+ArkaXNJSYFKxvlGnp3iIsRSGff9h5Oco4rS0LwbvlvIWjTkVLPeuD4vZuU5OFIQ1ZHjGvVpugoJThYn20brQ0YNw+PhgPZcBlDBnfxhT7OYDwLPMqCMBkrsCHOeD7Dg5KACc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FeFsyE8g; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790041430; c=relaxed/simple;
+	bh=85Irrw/6ITJdM9jK3Jei8UXGHQGiPCBPYfuqxqIj434=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Xp8LIc4oKbAQY0vUZ++SbgjIL9OjlS9SAzp1a+zsLN8ZEJEkudo1ziEO1wl7OxGmh96ZROGINJ7ImzLWBE47tuNrbxjPYRKrkIkU4M3+XjRf58+7vmaau2N6C1Ywn4nkGUXEejodnUEQ0GfQKcbK32/eW73RmFQP6LKZPM4AxZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUrrUo2c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FeFsyE8g"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=AOz+swpZq1Ofp9PUUeztSWFO36gn1JuZ0L2X2nAiOpo=;
-	b=FeFsyE8gSSItRtrD9WZky3UVL6ZlDNUYdbpqVqsV7abiENv0aidGtJioGPdLd5
-	zEasSMe/uB5qCre0IRqZnLn32wr0hgEVXAVqtUu/jVrV6BnZHzGgH/iPLPXExtly
-	a69c+i1BykSnemooL9D11ASDjz71jbw/S6uIk+v2gMVlM=
-Received: from [IPV6:2409:8900:1ee3:222c:420f:a5a2:eb51:8645] (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD317_23LFqukcLAA--.9224S2;
-	Tue, 22 Sep 2026 09:42:16 +0800 (CST)
-Message-ID: <f181c846-b13a-4cdd-b796-eddb3045ff4f@163.com>
-Date: Tue, 22 Sep 2026 09:42:14 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUrrUo2c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ABB81F000FF;
+	Tue, 22 Sep 2026 01:43:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790041429;
+	bh=UtV4KTLxwuDmHdF0FWGFMdJtpQqeq4ANSo2rE8OSC3w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EUrrUo2cChS02DweDNqOl9Sx7mzyGYQwBvRFFVxHQreeYHgvoKW/XO8gzCItOSVdu
+	 ZE6aVJrCY4deRHf76GCdH6U/KBnp3PYlmjFH3WIiNeh9AIp9U2cNAJ1fdIvQWEbbJt
+	 YxoMV4UZd/6Mrd1Gm3qpCxZFSqXXiufbwbWnnsBPfelVTy1hRPioKmNjGuEdn1Zmef
+	 vVRlUrOMRlt4ZCY9Ai1kbYXwZ/O7mhCpyqV8RqkZ2bJH4vukHDNMySUb0fLtxhmSa0
+	 yhwsca2vin8q2kq1bkMFCdIos+W2aYwR9J1rpdD2M2OI65pJZ2+50Xyt7OBxaU8VKx
+	 dobqtVa47YAhg==
+Date: Tue, 22 Sep 2026 02:43:41 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: <mhonap@nvidia.com>
+Cc: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
+ <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
+ <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+ <dave@stgolabs.net>, <alison.schofield@intel.com>,
+ <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
+ <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
+ <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
+Subject: Re: [PATCH v5 03/27] cxl: Move component register defines to
+ uapi/cxl/cxl_regs.h
+Message-ID: <20260922024341.7aecc867@jic23-hlaptop>
+In-Reply-To: <20260916183540.3813685-4-mhonap@nvidia.com>
+References: <20260916183540.3813685-1-mhonap@nvidia.com>
+	<20260916183540.3813685-4-mhonap@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] ntfs: mount hibernated volumes read-only regardless of
- errors=
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260921091907.1491879-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260921091907.1491879-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD317_23LFqukcLAA--.9224S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtw13tF1xtr1rKw4ruFW7Jwb_yoW7ur48pF
-	97Jwnxtr4kKr1a9wn2yay7K3Wrur92kayjkr18Aw4xXrn5JrnIg3yxKw1FgrWSkryFqw4x
-	XF4j93y3WF45AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Us2-5UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRh8R2qx3PhpxgAA3y
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 17 Sep 2026 00:05:16 +0530
+<mhonap@nvidia.com> wrote:
 
-
-在 2026/9/21 17:19, Hongling Zeng 写道:
-> The hibernation check in load_system_files() only converts the
-> superblock to read-only under errors=remount-ro.  With the default
-> errors=continue (and with errors=panic), a hibernated volume is
-> mounted read-write and the mount-time $LogFile emptying writes to it,
-> although a hibernated volume must not be written to at all.
+> From: Manish Honap <mhonap@nvidia.com>
 > 
-> Drop the on_errors term so that a hibernated volume, or a volume whose
-> hibernation state cannot be determined, always mounts read-only.
-> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-> remounts to read-write, and the $LogFile emptying is skipped by its
-> !sb_rdonly() check.
+> The CXL component and HDM decoder register layout is spec-defined and is
+> needed by a userspace consumer that cannot include the private
+> drivers/cxl/cxl.h
 > 
-> The check itself must not apply the errors= policy either: it runs
-> before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
-> call ntfs_error() internally on corruption or I/O errors, which under
-> errors=panic would panic the machine before the read-only fallback has
-> made its decision.  Temporarily substitute errors=remount-ro for
-> errors=panic around the check: nested ntfs_error() calls then fall
-> back to read-only, and any read-only transition they trigger is
-> preserved even when the error is not propagated to the check's return
-> value or recorded in NVolErrors().  This is safe during initial mount,
-> before the super block is published.
+> The vfio-cxl selftest
+> (tools/testing/selftests/vfio/vfio_cxl_type2_test.c) builds against
+> installed uapi headers only. Move those defines to a new uapi header, the
+> way PCI register offsets live in uapi pci_regs.h, and include it from
+> drivers/cxl/cxl.h so existing in-kernel users are unchanged.
 > 
-> If the check reports hibernation or fails, set SB_RDONLY and record
-> NVolErrors() unconditionally: hibernation safety takes precedence over
-> the errors= policy.  A volume with errors recorded during the check or
-> earlier in the mount, e.g. when loading the LogFile, also stays
-> read-only, matching what ntfs_reconfigure() enforces for remounts.
-> 
-> Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
-> Change in v6:
->   - Temporarily substitute errors=remount-ro for errors=panic during
->     the hibernation check.  ntfs_error() does not always set
->     NVolErrors(), so the v5 restore condition could re-enable write
->     access after a real error.
-> ---
->   fs/ntfs/super.c | 25 ++++++++++++++++++++-----
->   1 file changed, 20 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index f4a73e45773d..da2c8f310a7f 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
->   	struct ntfs_attr_search_ctx *ctx;
->   	struct restart_page_header *rp;
->   	int err;
-> +	u8 saved_on_errors;
->   
->   	ntfs_debug("Entering.");
->   	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-> @@ -1572,8 +1573,19 @@ static bool load_system_files(struct ntfs_volume *vol)
->   	 * NVolErrors() without setting the dirty volume flag and mount
->   	 * read-only.  This will prevent read-write remounting and it will also
->   	 * prevent all writes.
-> +	 *
-> +	 * Nested lookup and inode-loading errors must not panic before the
-> +	 * read-only fallback has run.  Temporarily use errors=remount-ro
-> +	 * instead of errors=panic, preserving any read-only transition even
-> +	 * if an error is not propagated to the check's return value or
-> +	 * recorded in NVolErrors().  This is safe during initial mount,
-> +	 * before the super block is published.
->   	 */
-> +	saved_on_errors = vol->on_errors;
-> +	if (saved_on_errors == ON_ERRORS_PANIC)
-> +		vol->on_errors = ON_ERRORS_REMOUNT_RO;
->   	err = check_windows_hibernation_status(vol);
-> +	vol->on_errors = saved_on_errors;
->   	if (unlikely(err)) {
->   		static const char *es1a = "Failed to determine if Windows is hibernated";
->   		static const char *es1b = "Windows is hibernated";
-> @@ -1581,12 +1593,15 @@ static bool load_system_files(struct ntfs_volume *vol)
->   		const char *es1;
->   
->   		es1 = err < 0 ? es1a : es1b;
-> -		/* If a read-write mount, convert it to a read-only mount. */
-> -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
-> -			sb->s_flags |= SB_RDONLY;
-> -			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-> -		}
-> +		/* Hibernation safety takes precedence over the errors= policy. */
-> +		sb->s_flags |= SB_RDONLY;
->   		NVolSetErrors(vol);
-> +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-> +	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
-> +		/* Match the read-write remount restriction for recorded errors. */
-> +		sb->s_flags |= SB_RDONLY;
-> +		ntfs_error(sb,
-> +			   "Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
->   	}
->   
->   	/* If (still) a read-write mount, empty the logfile. */
+> No functional change; the GENMASK and BIT forms are written as plain
+> values as a uapi header requirement.
 
-Hi Hongling,
+I thought we'd fixed that these days...  And indeed we have
+see include/uapi/linux/bits.h for __GENMASK()
+and include/uapi/linux/const.h for _BITUL()
 
-   The change itself looks good to me, and I'm happy to provide a 
-Reviewed-by. However, v6 does not apply cleanly to the latest ntfs-next.
+Both are in use in pci_regs.h for instance.
 
-   Commit 86e6932550ba ("ntfs: sync the volume dirty bit with the 
-recorded error state") added the following after NVolSetErrors(vol) in 
-the hibernation handling in fs/ntfs/super.c:
-
-           /*
-            * Remember it for the lifetime of the mount: see
-            * ntfs_sync_volume_dirty_state().
-            */
-           NVolSetHibernated(vol);
-
-   The third hunk of v6 expects the closing brace immediately after 
-NVolSetErrors(vol), so its context no longer matches.
-
-   Could you please rebase the patch onto the latest ntfs-next, keeping 
-NVolSetHibernated(vol) and its comment inside the if (unlikely(err)) 
-branch? This flag prevents subsequent dirty-bit synchronization from 
-writing to a hibernated volume, so it needs to be preserved.
-
-   This is a context conflict; the hibernation fix itself is still needed.
-
-With the existing flag handling preserved, please feel free to add:
-   Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-
-Thanks,
-Baolin.
-
+Jonathan
