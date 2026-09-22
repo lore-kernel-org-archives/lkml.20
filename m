@@ -1,168 +1,164 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D8337F8DD
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8CB3E51D4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790054235; cv=none; b=H/CgOqYYwllQbtSkllWsSd3y3iLixT3P2iPN8psYKn/M3I8pXHvqVOcVkOVjCFNUyhBPW27UHfFt1xbOyryHoWtcQ/LOFXTGuAXKnN3Gq3Ftw2xZa7WgLAy0OzxeIboyhajjpNzEH2GxkACpEkZ1xKYcteVwOzLR1RtYCKxSJQY=
+	t=1790054238; cv=none; b=l6BowzpliEA9TAuHmI8LQ/gN7nhym1sAoYBHwnaVBLGpzwrmBZEvYDetWFBRIh5j3YcmpgwYFZ0qUTz1ztD+/o3lS6yYnxSciX6/dWZFrRR0VNU5Knggnlbv2vWaRKCrLfR7Y5aUd5K5R5tAsTswWslW16lMaf1FsNfH8eaLM1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790054235; c=relaxed/simple;
-	bh=cJ8LYFjzTM0muHUyVe+/MCjNYgwZO4f/9W0uzAKmrqw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VD+4pM6O+5gi42Z2aSuT8SiBj09At8IiNIHpRne1vM5QwlgApKUQEP8TROQpWPBhLzwBnoQdP97wUIR5IqWKuxVJ5ZkaN2rxdo9TdGr4Osg8MnTqiVuqBoNds+7+19WFkbgPkbIQ2DonOO6BF+eb6hsFAxMTV5SwB2WAXQrOI1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KEE0iqfF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DzjpVvyL; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790054238; c=relaxed/simple;
+	bh=A3i2cfGnNeXe3VK7tWQw8db/YdEXjMvobLDdQsMlEUc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oAN8ZAWDGB/4cr8UBKBq2ImVNn0X2i23ssKBpI3OvBWHyX9rgzD3aPMUGrWe5xwyLIlOwgLAbFhO5kQkRyZUX1RRZYiX7ZktJY7hGeSDHLd70u6Re/hpL457Br+0RmQ9NO+vtHInnKuTyiOvQxrUIgNEhn+2Q/nqABGZOB+6cvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ORFWwpiB; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KEE0iqfF";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DzjpVvyL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790054233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZbjiIJwGtn50Qj/9ch4dBHBIATv1QNB49rzuobzPxM4=;
-	b=KEE0iqfFs7UxB4gUd9jIiT3nCzTiEJqiABW6m318LclYbu7izSTtZpVCrqUs6BPMRy2zeK
-	tjP3w5LMUgs2pEq5lJ01nlaXZa1eLZ29ffNOqIRha7S2ClMSuAlU9QkvEQ+yt+X4gkOo/Q
-	sTpW0+zQr3xsnvemeTJetILP3t9iubY=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-447-kuNHQxQNPoiN334GX9UTCA-1; Tue, 22 Sep 2026 01:17:11 -0400
-X-MC-Unique: kuNHQxQNPoiN334GX9UTCA-1
-X-Mimecast-MFC-AGG-ID: kuNHQxQNPoiN334GX9UTCA_1790054230
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49953abe51fso22231565e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:17:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ORFWwpiB"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874fso1328342f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:17:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790054230; x=1790659030; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZbjiIJwGtn50Qj/9ch4dBHBIATv1QNB49rzuobzPxM4=;
-        b=DzjpVvyLQbK+J0ImsSVj1PjansFk16/JqKP32w3PPrU1bINsbMQmdK7+SyfZffEk/J
-         t6tdkMzKdW/y8ZqJB9r96rLfk64KXhmRW/x1JZAAq9dTQLUsr4zx31Zoq6qVTbiDV1Ik
-         FoTHXrXb3Wi6v+PgYFvSonlxFJcemzh8pq1b8rua2ZFGTNbs09ueCtEY+HVmw6mP5YGc
-         H6jE9YI4VItFK/lFU3JuiG5Z+BTUI5UTAJ5g88i+VWTg/nBp5ssquVr77nuTN1Jv39r7
-         2GtUib+sNsnt8POCZuOzZzLCWCNJvMgGDfgRLyw+eIiNVa09rFXzqmEQQVZ7yJnoCZ+l
-         Bn0Q==
+        d=gmail.com; s=20251104; t=1790054234; x=1790659034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NlrXH2S4Gx6RyWaX9xgNBU26d2RYRNGe8s5uLAI9foA=;
+        b=ORFWwpiBHeq1hUBE+1sV6pezoUoJ/KJ1wvavgzxBnecI8LLvlF8JW8zu7eF1NhK2uQ
+         XGH3EWZIfD8NKaiMq3mPvxAbuh3Yju9pIyzsC9e1f+764yKPAFkaEpjjQLSqW3IEflBL
+         HuSUkSmafQV5+gs4/H4O70RXEFk5StO70stm9tH9oC4uDGl2jlOUpvnmIrz/RZgEJNvp
+         yHAYhsnO/Cnwzq2IJBxyoUEbq+3XKmGBxlQfWipH3Bs5bSNbCxZZLQJ5aZWe8QqF8nmS
+         u/3SNysYU5iEkIZl1OubHr4Zh7JZ1R3DYbCFCLu44Lc0OmR4WbloKDO7pEqMcPSCAnVD
+         x5Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790054230; x=1790659030;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZbjiIJwGtn50Qj/9ch4dBHBIATv1QNB49rzuobzPxM4=;
-        b=m982IRS/c7RzxM2VJkREiyM7OqVG2/JCHDf8zfXYmnrr4hrcdZbLY10D+s+ax3EI4E
-         j0/C/gQuBb22To5Wwv0rpwzf/DomlcnqQU0ZZiLBJ4jSSBD1teVOdGR/fLqAdPuDJas0
-         DWdHQnYaUK78tzbkcuBNKOgl5uA+J3zPUEn1qGkeOC/RLgWribZQB7tgTTu18kO8iJf9
-         WBonQvuXQkhTFumKK57LlGg8GQCDIFJFzsmYDSlme1HLKRRN3TWgJgUQr1IVUXKv91Eg
-         NxMaqXJPDuG8oEbYYDXC/EJvgsBHDUtr5HN1CcGQiV/5OO7Y2AWGq/jG2yBRYpY2Mqvp
-         +2fw==
-X-Forwarded-Encrypted: i=1; AKwUvBxWz5EWC6KMgeSUw43y8FD2eonts5WDfg5Cu0rRELQYMFkddcQ7AnI2/oyH23nzitl+1Nra8UyQGKwZfng=@vger.kernel.org
-X-Gm-Message-State: AFuF++kq0FcN2UTyEM3K2JxTAMd0M6thZ3DnJ2kRrUq5HiRG1GLCQZ1w
-	f8WSswBWCLJunFfVaVLwMyI719CmcdG9wE6EOfN35nixgCVQAn2NIFG5VTFZwshZPN4317PA4Mg
-	IQlD24IS+GcIFHZpvClOoBnvGJbE64qg1JgCnmd10dxbWQhzb12UbiVqItNyXQckwiA==
-X-Gm-Gg: AYBFou3EzxeBNC7xfM5/xUxQzH0Jy01JPAGZ7t1GB8vhQT9WlxBdBirMmpEma0SIzrS
-	wuK3N5BB38h0GsWGdqOP+jaF4BCFT7qglrtjOE6X11TS9YjrT+XzD754W+41w363A/9ZPxcpcWH
-	pRFIHa7v9dTPiApWboUDV7t7C7jFcUgS+SwQQnuLuE9ElfGaHDGH4WGYYYR+n1bE1iOzsMqQwFB
-	E+6LvxAkxj3BOlo7KdUOUuQvQyNxXXqVBkk3N4+EhkgNvisYL/eYEF9ehcE/OPbiMH7GYv1KWoH
-	a2UQ09BAFgMelsk47C6xpb3/YMFsj/aI3lgJszTnWwqSbfZpWO1UXHJv1G8x4XmYbBYcv/XVvAN
-	VzJWqc/N0ljdp7hGRCgkVagM=
-X-Received: by 2002:a05:600c:4f41:b0:49e:8191:e5cb with SMTP id 5b1f17b1804b1-49fc56db975mr194430355e9.5.1790054230069;
-        Mon, 21 Sep 2026 22:17:10 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f41:b0:49e:8191:e5cb with SMTP id 5b1f17b1804b1-49fc56db975mr194430075e9.5.1790054229668;
-        Mon, 21 Sep 2026 22:17:09 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8cc05f9sm44650175e9.3.2026.09.21.22.17.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 22:17:09 -0700 (PDT)
-Date: Tue, 22 Sep 2026 01:17:06 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	"Chen, Jian Jun" <jian.jun.chen@intel.com>,
-	Vincent Whitchurch <vincent.whitchurch@axis.com>,
-	linux-i2c@vger.kernel.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v1] Revert "i2c: virtio: Avoid hang by using
- interruptible completion wait"
-Message-ID: <20260922011619-mutt-send-email-mst@kernel.org>
-References: <20260922050251.403857-1-oss.patchbox@gmail.com>
+        d=1e100.net; s=20260707; t=1790054234; x=1790659034;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NlrXH2S4Gx6RyWaX9xgNBU26d2RYRNGe8s5uLAI9foA=;
+        b=mmYP6rBhbQ1x5c3P397ZlZy6hlpKXQWztzmZVfbvxtJf0oO3bP/Xhv+z3Til5aNgnY
+         dFMWINvwcXCuFe8bP/jyrmBBoIS+Z/6xr+2rpddJCDRFl2lP3XHQkWtAdVCX3uXWVA6Z
+         lp/VSel4BgxQ/0mtC5Cg7RwEEH2QySwZS3FPcajuUUoWTiTuWzFY6sBzuspETrZTWeYa
+         +GgS29eU9xSisfrOM2ZUntL7+nrC/ikdvs3pTbuGgwLPakbSoIQKiq4zKtK1nOCF+C/j
+         rs4ppQVZK/9R1xxZ4QS9A5dQ0fDdHr6pGiEku5p0VuuJ6JvJB0KwM8IQJz7nWUTVQydH
+         jGOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBza0F2E/XpDS5Gs12DarkWra/HkxM60+vsMeu5smlP9kHQA0WaTIwzm9EFwvEqZwetgmpz4yairfx+mqNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l30s+Q0PeLIHp4Or5ncUTRH42lJT0F/hD2q1DvE12qohPTmS2j
+	Yz2XSZT/g7rWZeFI2juWOP47cu6D1yVKtH5fLlIE9TFSKGxVZcV7rsT8
+X-Gm-Gg: AYBFou0wkNA1ZeXPmhLEvY7qR9+Y3BMxS74e8D9dGVznCkKPGpxavx70Mm0PQrvhxKa
+	wkcZGQMkQOd+z61mf0l8bPXTPlIAY5XrHXb64hiqm0mgR2XBAuFHZlWFj6LXkZOkoY574u9uQoR
+	a8j60NjfrrdSsVEQhepMCMT6u53uSLdPbdCno3dJHN4U/biI8xR15wcUnFL4KvPvO7+YwMp1+On
+	7xAueXCgoLISf6cNJCgatilg4eCrVlXn+q1ZXC3xH7q6Vgj4zsY6gjnx4NC7Tc96NncD8N/tqcg
+	78YUQ6UoMt+jtoSRE9Gmo1bZbPPIpXo0stby0hY8+hmQ53AJbTBSBXGTp9ExHGHIT4kHAY+GE7t
+	P0MLIYoCzY3B3cJvzxczbVgW0qPUr3AnhzybEbAPbPbxXjoNdaC9Bkcu1wN+EjUTQViW5odsg5K
+	dfuxs8RoAszFRYNsGh/olS0YCCr/rraokYZ1azEm1C6nXecp43x9atlKD79C938wzUDsa0f3K6c
+	H+a34y7iaKVSUZp0DISmSNDXTKVJbR5/8vBz6sPnK7wdL+Kpk4KXFkI5dx+gLedKnpFhR7PZV/w
+	Y0lVGg+F5za0hgu3WFU68PBAp2Y568rgbX7OvDsSj7SCYfuHLNSUTM2gaiSB3qVb6N9uXiAqtiR
+	raoizeQ==
+X-Received: by 2002:a05:600c:4f90:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fd8853515mr26364115e9.3.1790054234219;
+        Mon, 21 Sep 2026 22:17:14 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a5e6-3401-ecdc-1e24-2e52-02d6.310.pool.telefonica.de. [2a02:3100:a5e6:3401:ecdc:1e24:2e52:2d6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaa99b8bsm17264935e9.1.2026.09.21.22.17.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 22:17:12 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Cyrille Pitchen <cyrille.pitchen@atmel.com>,
+	linux-crypto@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] crypto: atmel: handle authenc requests without plaintext
+Date: Tue, 22 Sep 2026 07:17:04 +0200
+Message-Id: <20260922051705.15329-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922050251.403857-1-oss.patchbox@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 01:02:51AM -0400, Yuho Choi wrote:
-> This reverts commit a663b3c47ab10f66130818cf94eb59c971541c3f.
-> 
-> When a transfer is interrupted by a signal, virtio_i2c_complete_reqs()
-> stops waiting for the remaining requests and virtio_i2c_xfer() frees the
-> reqs array while the virtqueue descriptors are still in flight on the
-> device.  The backend can then write into freed memory, and
-> virtio_i2c_msg_done() calls complete() on already-freed requests.
-> 
-> Commit 84e1d0bf1d71 ("i2c: virtio: disable timeout handling") removed the
-> exact same failure mode caused by timeouts, concluding there was no simple
-> fix because the buffers must be held until the device returns them.  A hang
-> due to an unresponsive backend is preferable to guest memory corruption.
-> Restore the unconditional wait until request lifetime can be decoupled
-> safely.
-> 
-> Fixes: a663b3c47ab1 ("i2c: virtio: Avoid hang by using interruptible completion wait")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Authenc permits a nonempty associated-data string with no plaintext.  The
+Atmel driver accepts such a request, has SHA process the associated data,
+and then unconditionally asks AES DMA to transfer zero bytes.  The Atmel
+DMA engines reject the zero-length descriptor, so the valid request fails,
+normally with -ENOMEM.
 
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
+Skip the AES transfer when textlen is zero and proceed directly to SHA
+finalization.
 
-> ---
-> A proper interruptible wait requires refcounting requests and bounce
-> buffering to hold memory until the backend returns descriptors (similar
-> to virtio_rtc/virtio_pmem). Since that is a larger rework unsuitable for
-> stable, revert to uninterruptible wait first.
+Once an HMAC transform has cached its inner and outer states, SHA can
+complete this path synchronously.  The forced ahash completion callback
+then invokes the AES finalizer through a void function and discards its
+return value.  This loses -EBADMSG for a mismatched tag and reports
+successful decryption.
 
-another way is ring or device reset, if that is acceptable.
+For synchronous SHA completion, release the SHA device without invoking
+the ahash callback and call the AES finalizer directly.  Its result then
+propagates through the synchronous call chain.  Keep the existing callback
+path for asynchronous completion.
 
->  drivers/i2c/busses/i2c-virtio.c | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-virtio.c b/drivers/i2c/busses/i2c-virtio.c
-> index 5da6fef92bec3..581e55b5c65ba 100644
-> --- a/drivers/i2c/busses/i2c-virtio.c
-> +++ b/drivers/i2c/busses/i2c-virtio.c
-> @@ -116,16 +116,15 @@ static int virtio_i2c_complete_reqs(struct virtqueue *vq,
->  	for (i = 0; i < num; i++) {
->  		struct virtio_i2c_req *req = &reqs[i];
->  
-> -		if (!failed) {
-> -			if (wait_for_completion_interruptible(&req->completion))
-> -				failed = true;
-> -			else if (req->in_hdr.status != VIRTIO_I2C_MSG_OK)
-> -				failed = true;
-> -			else
-> -				j++;
-> -		}
-> +		wait_for_completion(&req->completion);
-> +
-> +		if (!failed && req->in_hdr.status != VIRTIO_I2C_MSG_OK)
-> +			failed = true;
->  
->  		i2c_put_dma_safe_msg_buf(reqs[i].buf, &msgs[i], !failed);
-> +
-> +		if (!failed)
-> +			j++;
->  	}
->  
->  	return j;
-> 
-> base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
-> -- 
-> 2.43.0
+On a SAM9X75, the unpatched driver failed valid AAD-only requests and
+returned success for a bad tag after the transform had been used once. With
+this change, bad tags return -EBADMSG for both fresh and reused transforms.
+
+Fixes: 89a82ef87e01 ("crypto: atmel-authenc - add support to authenc(hmac(shaX), Y(aes)) modes")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/crypto/atmel-aes.c |  2 ++
+ drivers/crypto/atmel-sha.c | 14 ++++++++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/drivers/crypto/atmel-aes.c b/drivers/crypto/atmel-aes.c
+index 50d97cef75b89..89594b96e28ce 100644
+--- a/drivers/crypto/atmel-aes.c
++++ b/drivers/crypto/atmel-aes.c
+@@ -1826,6 +1826,8 @@ static int atmel_aes_authenc_transfer(struct atmel_aes_dev *dd, int err,
+ 		dd->is_async = true;
+ 	if (err)
+ 		return atmel_aes_complete(dd, err);
++	if (!rctx->textlen)
++		return atmel_aes_authenc_digest(dd);
+ 
+ 	/* Prepare src and dst scatter-lists to transfer cipher/plain texts. */
+ 	src = scatterwalk_ffwd(rctx->src, req->src, req->assoclen);
+diff --git a/drivers/crypto/atmel-sha.c b/drivers/crypto/atmel-sha.c
+index 48f54b6155042..f1a37d315dd0f 100644
+--- a/drivers/crypto/atmel-sha.c
++++ b/drivers/crypto/atmel-sha.c
+@@ -2383,11 +2383,25 @@ static int atmel_sha_authenc_final_done(struct atmel_sha_dev *dd)
+ {
+ 	struct ahash_request *req = dd->req;
+ 	struct atmel_sha_authenc_reqctx *authctx = ahash_request_ctx(req);
++	atmel_aes_authenc_fn_t cb;
++	struct atmel_aes_dev *aes_dev;
+ 	size_t i, num_words = authctx->digestlen / sizeof(u32);
+ 
+ 	for (i = 0; i < num_words; ++i)
+ 		authctx->digest[i] = atmel_sha_read(dd, SHA_REG_DIGEST(i));
+ 
++	if (!dd->is_async) {
++		/*
++		 * Return the AES finalizer's status directly for synchronous requests.
++		 * The ahash callback cannot propagate it.
++		 */
++		cb = authctx->cb;
++		aes_dev = authctx->aes_dev;
++		dd->force_complete = false;
++		(void)atmel_sha_complete(dd, 0);
++		return cb(aes_dev, 0, false);
++	}
++
+ 	return atmel_sha_complete(dd, 0);
+ }
+ 
+
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+-- 
+2.53.0
 
