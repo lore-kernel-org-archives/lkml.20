@@ -1,189 +1,186 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA1F518138
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2288F457E50
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790115343; cv=none; b=j+YvmEI+Z1kHFv4wZN2Av0R8CJchvbUB6NFL4Y/H4PJny7K4dfm/6uoLVS76XmiaZVJxnc2yjd3ErKxDVC/uy1wUbtwIBiY7HhFAvgRm1lNZEaCHymGTChqCZJXyQPzSN7rhroEb4dfUnArcju60zbbCMPt/R/gTP+E1IOHhUqU=
+	t=1790115337; cv=none; b=ObHnCoXPZOpKlufr7a1jR7ZPftLDmeV4M9OhjekgypQGYNRcHyIGsRQHoGqA5IKg59wAjNWV+udlKJbkkGtSYShUSnUXC5XDzfvmZNYj40J1hcXn8CCYRX9KHGf6mzplxLPMBeO50Lbybz8H0fvBKI7unO9zGWgxs3jyupPHPhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790115343; c=relaxed/simple;
-	bh=VRZNWx4ugJkuvukyHgB8smW2wlSxu5AiMHqtTnuMIyc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lJB4xjTc2A3Fe4J6g9tRi/YpsLZjMr/Gz5Utm4aHckkA3MbhUqWxAlS6C4OtH6bP7Bqa4P5rRYe/YuUgOgataXEUAf2WNm2vdfSUDW0RQnHr26A9gPxWIvnxS8q+Xj+aAfF/ZX1LunPgHBMhVcN7VtrK0CQtWWKIBCSMJ8Z3IH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OFRnd56T; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790115337; c=relaxed/simple;
+	bh=2I+RK594+7yvlbEyJzoCiZ3ZLN/AQWF6AlkeQkLTv14=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LgGF7T6PHzd4jQyrdwzkuMluSqoEOy53jIneJkjLqh1peabC9kAgJQSq2arogQtw8pekfTCXpuEVCFmk/gpZsp8wqIMC+gg1J1MxZgMFSx5wF7oeB9mxRPNy4TCdAZvgvxTaQcg34BcQzCC8jQ+FbecUJ+BKdAepIVsYNyDpxmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LUIg3yqi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZScst4Lp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OFRnd56T"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so222983e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:15:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LUIg3yqi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZScst4Lp"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7HcL1509482
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3J+Y3qFDHro/ofj9RaFrKGahhFH3oBBHZcDF842RuqY=; b=LUIg3yqi9TH9y9gg
+	F/mIr66JscemBMTu6ta06KCd3tUQmpN94F8XDNu2Egp5ULhY9mPCicRZtFxQgTPd
+	HGWoa3EhlM3QVW+9XNz2U1tdp77dEZ64XmmdcwCnIPWNS8kMKkGmaS/Skqccsero
+	ZInCQfVzqdZdF6ngjyH+Lsf4v/G0j7PHPaIMQIDuXKK+RYV3dTQ+QE3CsiYEa3b0
+	BocityRN+JBLonLjGZKk7WPacf64e9IPfnE9NpzTgFwsb8D0R87Ii7AqmXA78xqy
+	6qwoFni+9GOvuAsazk/Dr435tBhsXyyNAEHOW9B54SD34831GriuIr8E0HdmbVGo
+	2zdD0w==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux7xsbwy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:15:18 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3282d5302ffso282657eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:15:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790115325; x=1790720125; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/01E19apDogLQJb8/WrRagKxzGtq0BoJnfIbRYZXRU=;
-        b=OFRnd56Tmbpy1zWuNVMh105PqknKaj4LtsfoaXlN1/CPkKYFpmtH1kPPdLiTNtuHWo
-         wsU6lq/yZ75LakVFx6db6sovPkW5qNoBhncO6xpeJlbNLuCiUD0GR0/IDMbnkBssYFfu
-         FNZXqRtONaKcfDDO7qlEXOSevMr/Fex2Wus7+8SYR6hKD5adtAslGDcdHGUCKzpQiBLQ
-         mWVIPA0dOIH3ZSorXQNJr+F1BgxP3jSx20ed8TOEoA24j1OLAqIei2zBtJitO5qRZZ9z
-         /8ElRdoDJ1qRrx/+68nhpQ+LBOLOOiirbf8eATufRDalhDqg+2FjlZn0Jv2kQa9xrIBp
-         LF9g==
+        d=oss.qualcomm.com; s=google; t=1790115316; x=1790720116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=3J+Y3qFDHro/ofj9RaFrKGahhFH3oBBHZcDF842RuqY=;
+        b=ZScst4Lpe97iX75gCsYgKPhRQduVizXLcG9KhP1KoGPylhFA1oN773svihE6I0DDY2
+         +QGgZcPhfE2KiXEBliSNiIh0BVA423t4qcSSWr6piiV4n1WU7r49y+KDby3va1wr/it7
+         7HfuxvgdU6zq29DAR/tpTyqbouPTFkPcXpwA87bMXmQBnKmWZQehy7jXSDa095UsnxRq
+         wIsqbZIHuKBsu6ZMe5tex/vr0wDCdLXm7+clR/+grhaSNX7RrJA4sN2RkG7yIbOsOQay
+         WbthgLujwgs36BTL3lyvFm4LYMt5VS+zlA2XRB0x9pqYQSrX79IMcruXDh8d+dGa/hyY
+         PqEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790115325; x=1790720125;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I/01E19apDogLQJb8/WrRagKxzGtq0BoJnfIbRYZXRU=;
-        b=rH0fyXxbGKKQo5DiqFRol58MgHr7l0WEF0qPTeDbSleqbkjSsUB7O559w5/qsFhYcH
-         iVVljFUg9eGs0LahmduzssVB8MyJWlbs3P4kvLq6nocnhMv5DWNMfc16NQP49zpdIumt
-         /2oeFc2IE3xFj2p17IH7AB5kVixRXJvDr/PkGdqiK/NH6tAAJ7hjbg41sX25P7y8zRbQ
-         hRZp8h/FxZHErAgxE/8ExHURURfH8bb5MM9b7sYEXh027vbyt2a5wXmcUF/8yS022vSy
-         CrjyFSA9Ily9K2LA5vIV4gTj2SoHbXU2JQFHK7/1hEecexlIlADIMf3QqASPwwt6b40z
-         lZ9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxIYqrNI7AXaDXGtspt0YHt0GR6teT4fKIfE3Y51mX8kkhOZi/dwWPu5NgVhA49p9r6qivurP1R/4wwSf4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWYQ21OHadBkRgLLYY2CBecavRWQoKkoY9Q0v3Ywg0MD6FD53q
-	VAc328HTjmFuRMK3HzROYG2ReVSda2m809VpCJIdP0NuHoG8j51HAkSt
-X-Gm-Gg: AYBFou2Nfv4cg7hyBWDl38GqSWHDrLZoKQ9CP32v2t8kuoWv0dpxA0yy2iutqnTSxlu
-	6hmLzBL64kOB2WkTEFyhLe3AOD3sxClLudjuO8XMyyDtw17ge2SnLhMghDDrWjJIQQ2TtQoQWax
-	+dOL2hDbtaPKbFbyGhJ57fc7JFqSsiPE3vcRBdTV3pSkMA9ehiH4eyhLmNQYUiM0dSQKE+WaSfs
-	toNXksMaML9Asz3gxrbDtmHaJ4LKeZWnceZ0yezXv0btbHl1zjojqrcAFnwdfma5IPalGerfUct
-	LUF6xhXoQmFiUafGiRwpCR6ALScaMpOjiQtBxiiYolAcUtm1zNSWTUwbT4Jl8Oyzn6fC90/UyWU
-	CU6pZhDIE9NCefcCo3k9rs9MCjBhSfB6tQ/W1WkiMK3I9/IYHcLozrF76bNQnFR7tcYrzB33uZ/
-	Cd9UE30gXilrguHzXyFDBEj2y2I3gY8MfabvyE90brOb5z+BPrTon1s4A/W/Ucc7capQL/QEHjR
-	wKvjDjFU2PXwPOhZ2oGESw3d7cOTV6Lx4dEyVF+fdDnY6+k7XysccQpVRM8570NRUZHAosf
-X-Received: by 2002:a05:6512:3b86:b0:5b8:bc5e:b56e with SMTP id 2adb3069b0e04-5b8d89b04f9mr179380e87.38.1790115325212;
-        Tue, 22 Sep 2026 15:15:25 -0700 (PDT)
-Received: from dau-home-pc.megasoftware.org ([94.28.220.48])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d857873asm164920e87.17.2026.09.22.15.15.21
+        d=1e100.net; s=20260707; t=1790115316; x=1790720116;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3J+Y3qFDHro/ofj9RaFrKGahhFH3oBBHZcDF842RuqY=;
+        b=XPlTNaTyKnNggfV0/SKGFqAnXBn/PqZ282u+PeoYv53u96tsYtG3hghyJqA2b/fJZA
+         MhOu6b7kAD/y3hOa9MHsmQk3rl7rdIwqSsKkMo4ERlr5ufKAmrORjM+v5Kb25CBx9Hj9
+         Bn7/oCH0jqu6Mo79lpdFEQs8/roIJIko8tocH2VbvKiCn4G4wTeOZSlA2lGXkfiBxjat
+         EMJkl0k/vjY3pRoOxlYs+uIcfZNmbK1on7gfy1auu/YtYY1XHPjfP2A3f6yTMDAcAe/h
+         O/J05PwqyawfB1RmHseR/LlnbOv7ebtjFPIEdV0KRvM8Ptn214KQjRgfQWhi+/DRF6qD
+         1xHA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpmIg9lMNZy/2NsxBicN45IwOhPo0uTmjS4ZhK2Yt6RfZWNlCPUuW250XgYQGlpD7+8spxJKyfLnrSI90=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljJSXD6nEBbB44i/SlZVbnrTNGkhNURyaXmgzf5g9BemoMKfoy
+	EUHbZXuBKdeI1TScS5n8iuDZJUJr+DZt10dWxszEfc7qvoE8n+bpoLXBw7F05rqA317It6ghR2f
+	I8i5ITzz/1XoxId63yAKTTy8f01TZM6stgjHI43nC2/acoHFU3/C0zWVrNl7k1hGkceM=
+X-Gm-Gg: AYBFou1DIwv098zmouIpy2Sv2fm6ibYtmd1wZPwOZAnGxBIzLr2e9K8gU65BDtSOng6
+	yI6OeimkC3p1F/oYp0eQcAB3AILjvxZYhRYTyu8A/TeFapY5u6yJAFSMJUUGIxmC8S3D273CI3S
+	9k8jQ+ReJMhbklRyODUWlaGoQm22cC3z11vPRAgTMNDCWYs6WkYzr2w1uIfJQsJmv5NscLFwFzB
+	uM1TajzT47ao/o0qz1p3EXq3WH/5TuQ6UmQgDmSlQSIv+tVuFitJSmMcuo0TWw+L8JwI81mhtBJ
+	0TH5XbQMEvdmKxwRVEACzh24iPVj8CA4DZk16ZjhHkufnCPiEZeTTD6zJ/Ax0UECJF0sSMk4jBW
+	Jl3L1ilvP7ENGYA8k7VprVrlwFvC1h7QsZdGmVLBNXESRTXWAWPr5hQ==
+X-Received: by 2002:a05:7300:e9ce:10b0:33e:6c5a:37c3 with SMTP id 5a478bee46e88-33e6c5a3aeamr850815eec.1.1790115315818;
+        Tue, 22 Sep 2026 15:15:15 -0700 (PDT)
+X-Received: by 2002:a05:7300:e9ce:10b0:33e:6c5a:37c3 with SMTP id 5a478bee46e88-33e6c5a3aeamr850779eec.1.1790115315280;
+        Tue, 22 Sep 2026 15:15:15 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9625825asm1072047eec.13.2026.09.22.15.15.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 15:15:23 -0700 (PDT)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v4 04/10] ip_tunnel: add __iptunnel_pull_header_reason()
-Date: Wed, 23 Sep 2026 01:15:01 +0300
-Message-ID: <20260922221507.3268127-5-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260922221507.3268127-1-littlesmilingcloud@gmail.com>
-References: <20260922221507.3268127-1-littlesmilingcloud@gmail.com>
+        Tue, 22 Sep 2026 15:15:14 -0700 (PDT)
+Date: Tue, 22 Sep 2026 15:15:10 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+        Fuad
+ Tabba <fuad.tabba@linux.dev>
+Subject: Re: [PATCH v19 08/20] KVM: arm64: Reuse kvm_stage2_unmap_range in
+ kvm_unmap_gfn_range
+Message-ID: <20260922151510.00003c76@oss.qualcomm.com>
+In-Reply-To: <20260920212845.707-9-suzuki.poulose@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-9-suzuki.poulose@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: lL8bSOg32I0XZrFAHIkp-Hlrk9RjzxFE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfXwQ2n2DavIJ21
+ 4w3gbipX0M+oKOvxyqzHvE+hUWqxHZww/eZCPs3dL8Ac1uuo6LVoZbHwFvSdW0kuI+IrhFGgsuN
+ kQkCw/drow14zn5IkYNAr1r0985B408PokFIUJzTyVGcCP0nsQLZBXBEv0AwUepA6+xBH+tzmj4
+ XXlF5YWiNOrAi4e/mfpyfrOVXb09YDRkuTKh32pZcIkPY+H4wzmASiWmgzwT5Rdz524C+/X5JZv
+ zoJfjxC1ro04lDpAT3R1i2c4V6YzrlxJpCsZ8L41T44O6pvnWNiWEjexNiC2KGD69HkmykdaeKq
+ s0+lunctprH+rBTPFQVr5owIivHV620ONoVNO94X8BVYSls4nufPaNyLzNmF+Rd4323MinMkLF5
+ 5qpsJaWxtbc4xGgMo1pUCjQIb0JT04WXLTojRfyn0FY0E8YtClyv1FcTa9VDBkKBE26Lty+LcY/
+ /HwAxl/xgH/9RtR0ndQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDMwMSBTYWx0ZWRfXz2PdjSUwuBFl
+ 23/7W+LUUYwhhOQ90KrRb39rFjEYgohe/ItrCUOlmN46+lBu2AIwOZY1arKZ+auxuMf6O0kUFGv
+ TO+z4+7BXunK12wBQtpI5Fs+XPXqpQk=
+X-Authority-Analysis: v=2.4 cv=QsDLTlyd c=1 sm=1 tr=0 ts=6ab2fdf6 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=kMqVnm4xDtAkP_aMvZEA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: lL8bSOg32I0XZrFAHIkp-Hlrk9RjzxFE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 lowpriorityscore=0 phishscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220301
 
-__iptunnel_pull_header() returns -ENOMEM whenever it fails. It can
-fail in two pskb_may_pull() calls, one for the tunnel header and one
-for the inner Ethernet header of ETH_P_TEB, and in the skb_unclone()
-done for GSO packets. pskb_may_pull() fails when the packet is shorter
-than the requested length as well as when pulling from the frags cannot
-allocate, so a truncated packet and an allocation failure look the same
-to the callers. The ones that report a drop reason can only pick
-SKB_DROP_REASON_NOMEM, as vxlan_rcv() does, and so would the GRE
-receive paths converted by the following patches. In ip6_gre,
-gre_rcv() calls the helper before the tunnel lookup, so a packet from
-any sender whose ETH_P_TEB inner Ethernet header or WCCPv2 extra word
-is cut short would be reported as an out of memory condition.
+On Sun, 20 Sep 2026 22:28:33 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-Add __iptunnel_pull_header_reason(), which returns the reason
-pskb_may_pull_reason() already computes, SKB_DROP_REASON_NOMEM when
-skb_unclone() fails, and SKB_NOT_DROPPED_YET on success. Turn
-__iptunnel_pull_header() into a static inline wrapper that keeps
-returning -ENOMEM on any failure, so its existing callers are left
-unchanged; the export moves to the new function.
+> In preparation for adding VM specific backends for stage2 operation,
+> switch to kvm_stage2_unmap_range() instead of __unmap_stage2_range()
+> from the kvm_unmap_gfn_range(). Drop the bail out check for protected
+> VMs and defer that to the one in kvm_stage2_unmap_range(). Later we
+> would replace the logic in kvm_stage2_unmap_range() with VM specific
+> backends.
+> 
+> No functional changes intended.
+> 
+> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-Assisted-by: Claude-Code:claude-opus-5
-Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
----
- include/net/ip_tunnels.h  | 13 +++++++++++--
- net/ipv4/ip_tunnel_core.c | 24 ++++++++++++++++--------
- 2 files changed, 27 insertions(+), 10 deletions(-)
+Trivial thing inline. Otherwise this is fine.
 
-diff --git a/include/net/ip_tunnels.h b/include/net/ip_tunnels.h
-index 7102aa11fae2..c68031d01c39 100644
---- a/include/net/ip_tunnels.h
-+++ b/include/net/ip_tunnels.h
-@@ -614,8 +614,17 @@ static inline u8 ip_tunnel_ecn_encap(u8 tos, const struct iphdr *iph,
- 	return INET_ECN_encapsulate(tos, inner);
- }
- 
--int __iptunnel_pull_header(struct sk_buff *skb, int hdr_len,
--			   __be16 inner_proto, bool raw_proto, bool xnet);
-+enum skb_drop_reason
-+__iptunnel_pull_header_reason(struct sk_buff *skb, int hdr_len,
-+			      __be16 inner_proto, bool raw_proto, bool xnet);
-+
-+static inline int __iptunnel_pull_header(struct sk_buff *skb, int hdr_len,
-+					 __be16 inner_proto, bool raw_proto,
-+					 bool xnet)
-+{
-+	return __iptunnel_pull_header_reason(skb, hdr_len, inner_proto,
-+					     raw_proto, xnet) ? -ENOMEM : 0;
-+}
- 
- static inline int iptunnel_pull_header(struct sk_buff *skb, int hdr_len,
- 				       __be16 inner_proto, bool xnet)
-diff --git a/net/ipv4/ip_tunnel_core.c b/net/ipv4/ip_tunnel_core.c
-index bab42b9e277f..51f1537ce6c1 100644
---- a/net/ipv4/ip_tunnel_core.c
-+++ b/net/ipv4/ip_tunnel_core.c
-@@ -106,19 +106,24 @@ void iptunnel_xmit(struct sock *sk, struct rtable *rt, struct sk_buff *skb,
- }
- EXPORT_SYMBOL_GPL(iptunnel_xmit);
- 
--int __iptunnel_pull_header(struct sk_buff *skb, int hdr_len,
--			   __be16 inner_proto, bool raw_proto, bool xnet)
-+enum skb_drop_reason
-+__iptunnel_pull_header_reason(struct sk_buff *skb, int hdr_len,
-+			      __be16 inner_proto, bool raw_proto, bool xnet)
- {
--	if (unlikely(!pskb_may_pull(skb, hdr_len)))
--		return -ENOMEM;
-+	enum skb_drop_reason reason;
-+
-+	reason = pskb_may_pull_reason(skb, hdr_len);
-+	if (unlikely(reason))
-+		return reason;
- 
- 	skb_pull_rcsum(skb, hdr_len);
- 
- 	if (!raw_proto && inner_proto == htons(ETH_P_TEB)) {
- 		struct ethhdr *eh;
- 
--		if (unlikely(!pskb_may_pull(skb, ETH_HLEN)))
--			return -ENOMEM;
-+		reason = pskb_may_pull_reason(skb, ETH_HLEN);
-+		if (unlikely(reason))
-+			return reason;
- 
- 		eh = (struct ethhdr *)skb->data;
- 		if (likely(eth_proto_is_802_3(eh->h_proto)))
-@@ -135,9 +140,12 @@ int __iptunnel_pull_header(struct sk_buff *skb, int hdr_len,
- 	skb_set_queue_mapping(skb, 0);
- 	skb_scrub_packet(skb, xnet);
- 
--	return iptunnel_pull_offloads(skb);
-+	if (unlikely(iptunnel_pull_offloads(skb)))
-+		return SKB_DROP_REASON_NOMEM;
-+
-+	return SKB_NOT_DROPPED_YET;
- }
--EXPORT_SYMBOL_GPL(__iptunnel_pull_header);
-+EXPORT_SYMBOL_GPL(__iptunnel_pull_header_reason);
- 
- struct metadata_dst *iptunnel_metadata_reply(struct metadata_dst *md,
- 					     gfp_t flags)
--- 
-2.47.3
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+> ---
+>  arch/arm64/kvm/mmu.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 0f4e8b71fa85d..03f2017a7404a 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -2436,12 +2436,12 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
+>  
+>  bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+>  {
+> -	if (!kvm->arch.mmu.pgt || kvm_vm_is_protected(kvm))
+> +	if (!kvm->arch.mmu.pgt)
+>  		return false;
+>  
+> -	__unmap_stage2_range(&kvm->arch.mmu, range->start << PAGE_SHIFT,
+> -			     (range->end - range->start) << PAGE_SHIFT,
+> -			     range->may_block);
+> +	kvm_stage2_unmap_range(&kvm->arch.mmu, range->start << PAGE_SHIFT,
+> +				(range->end - range->start) << PAGE_SHIFT,
+
+Looks like indent is 1 too many space.
+
+> +				range->may_block);
+>  
+>  	kvm_nested_s2_unmap(kvm, range->may_block);
+>  	return false;
 
