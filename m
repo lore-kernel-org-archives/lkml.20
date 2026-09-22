@@ -1,59 +1,82 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f31.google.com (mail-pj2-f31.google.com [74.125.227.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C7404078D3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B254B3D8127
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064484; cv=none; b=XiGTYADi+F58h9sKe42lTh+JQVu4FIQxq9e9q4zjWopU2QLnWUcnmGj2gOveaqPzlhimXYDreYS41iD0/+at1hD4UyeTAWSfvXW0GIXtMiYRRKA/yBHDfxEouj/a3FfBX67r7mILvxO12q7p0+j7wZsPqwJnO4OsDIKdhk5wmlw=
+	t=1790064490; cv=none; b=RuKSs13C93GIJvzFsDiv+LRYv1UmY5JdIYwMYOX1FA+x8jpPlK0XWpdXpA0dfV+t5vmEDed0YUB/WaJSCb9MuW3hmpWyNrhTf1QHDDhcypyNPjpGY9fOcU2/uL8KSCDKZBQ8M0Yy5HosEuP8m4QTw1zReKs8K2Dgab8YvIr/FGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064484; c=relaxed/simple;
-	bh=aVHthoY9WqHNGXxO7lgVVAAlrwhS5HBJimpz+6/BoRc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=okuPRn8Je9D2yATVEUZmTwODVGA9/1loSI1DBTB3RgWxgfkE7If3wO92sQfb4xzU7EJb27BXBVAO7miXJb8WQntWNnZRYfcqFLTAv3DcSIvoo84Uns9aBEcTF/4z88gvFgCQQ7FyobijOV5cRJSz3UvW7jXfZPF4KlgVb61YfTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=D3j2pnWN; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790064490; c=relaxed/simple;
+	bh=PB10iJXwaQiQpgWMplLuUrRqupycNcSJ1CXoBYEhb+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DGZygFDcZuaSgTyYzKx6/5+kJNOgPeD4wxJ8Oht5e3u1RAHWSUNCjTuebdjJzyF4PVBrn5bD+Yo267pmhfn9LL5PdLs5Q+0aH2ynCyPwFKWFTtDEhvVOwIAQpuY6lGFD4uopA2HmOBSus+aolAUUYmYhwPTrzBt+KzRJNL/ioOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hW7eogJm; arc=none smtp.client-ip=74.125.227.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="D3j2pnWN"
-X-UUID: b4606edab65c11f18dc8c9802ae25ab1-20260922
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=NL16rk0vLAf1LCmTnxVIbSec1SWALoohuykTOq26AVM=;
-	b=D3j2pnWNRdNOvCJ39NrS4rfOA1N5PZwWGoqXmeEbHW8w2WLw6WIWpuP8b9rUUQcKCJOq/wC9F+ymlKpMtPI4VDJz2wDSwX0N2JZrUBIyKCcqDA9jol0kg2ZQ4VJFK1jc8QXWLpPrEixKr+kL2P62o05nJQzJsA34QWOSI6HSXtc=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:81d3e618-1237-47d9-8b06-b6478447cb1a,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:04c137b0-a3ec-49ae-a57e-d31264ef3097,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b4606edab65c11f18dc8c9802ae25ab1-20260922
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
-	(envelope-from <yenchia.chen@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 500400372; Tue, 22 Sep 2026 16:07:50 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 22 Sep 2026 16:07:49 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 22 Sep 2026 16:07:49 +0800
-From: Yenchia Chen <yenchia.chen@mediatek.com>
-To: Russell King <linux@armlinux.org.uk>
-CC: Yenchia Chen <yenchia.chen@mediatek.com>, Huang-Sen Lin
-	<eddy.lin@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mediatek@lists.infradead.org>
-Subject: [PATCH] ARM: entry: word-align the syscall table
-Date: Tue, 22 Sep 2026 16:07:38 +0800
-Message-ID: <20260922080744.798430-1-yenchia.chen@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hW7eogJm"
+Received: by mail-pj2-f31.google.com with SMTP id d9443c01a7336-2dd53691be5so35698625ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:08:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790064480; x=1790669280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qRPMgMOIc56QBWBupM6kM1mJ5Xh3d/f5V1FOIpaRUQI=;
+        b=hW7eogJmi7wBX3TS/82OiMHwtUW0ANzbNAl3SmwRZXM5okmjtgIzaTORE1dKhbwvTv
+         yFzG42GKPXoldCbk/lgv2AXNFIfNZrousO0Hvotz6Th5CvhvKsuwzpSW9nPxLnpee4El
+         ZLSrIyzEuYg2tKZy6BM+AiUx6cdcUwWIJtkwqxMD4EEIj5O0djeK9lKn5h7flJO/tFWN
+         dStcUlPEkC/b8cEbzejgYQjdfbbn28vP0SWc3XJiUYuP5YrqpcB85WbnS9GVPd2QkBxX
+         +j8atyVlQXTau5dp+ee9IhodZKL3GWmFGGoF+wdXUumbRJNMSk7paDnRhXdHef55oYaG
+         M/eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790064480; x=1790669280;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qRPMgMOIc56QBWBupM6kM1mJ5Xh3d/f5V1FOIpaRUQI=;
+        b=x1Ll0L5ntuNCzg7n+MEmIc5ABYfaW3OneG9U9LwQhl/IX4O9FWsoqHWim9DmzBKGrs
+         +/h89E8u9G/Jy6ibLPCcC4uOYhayh+BdDM2dJREmLhn7AI/0aPb+BdM+6uidV/w1CSmI
+         1cbLmEE4JBZ9YYATgPPzLcATMKY7CNoXpeDpv6oPgUPsk1l4dcmhmhmKHXW9mClEewm7
+         hoDnRiyNexejiPMBVTsQr7EPsMOO4i8mAun4qI6YbEEV0VK8DrfIj7S0olTwYN7kbWPp
+         HK3mbaUkLxD3YCkNh6Vlte4lKPlgP14G5BtUpdpQYHqBtP//+nbtnnBkHi8sTIMTZWvF
+         s1Xg==
+X-Forwarded-Encrypted: i=1; AKwUvBymHu0jJVERTHkT5y++4yTCsCNtbN6JvIh2ZkmMOixlmD/AzbBm4TdSnaXvtsG1ugPSeZgPcNbscPxuE8E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mevmbxC4jkSN+SXPky1sQzs7t44m6kONUIwiVyZAV13CKt5u20
+	fP/H0ApxudxWWe9EB/UKR/3VX4LlnvN0E8oYlMBKFuwPNPueVmTkhtEg
+X-Gm-Gg: AYBFou1CkWDjZTPbKYAB3HNH21DOW2trqPdiARJ/CKFTEEBGnK8ZPtFVgNvwjGQXRxj
+	lUct2KYHZCT/+eBBDUSNGUS62hH1bRd+UANZdTLXvZTz6vCCioQRbtTZ9Jge7tZ7fGRpzJX57bt
+	Q/OOV4vzBmbKRgFVXZGZ0mhbMJtAqVZlvSODm0lRyRuvRQ7P/FCW9ZP++p+qP9Nz6UtQAFPVLXT
+	s3OrOcMxIlru0edKnBGmvTomPUEgzLLMBDbJe3iwzp9IcfG26RLG8UVv/SOYN1U0cq/OHQn65Lr
+	pdm3CLEPwdhI/gcMRTsjwKWLbkTmZYM4OO4t+M9ENR61Lv/68wQlpmAMvySBnp1SdC22XS2gNoa
+	uxep47Rw9ncwqRsWIHO+h5m3OkZ3b3eAr9bAGIN82HaNs3z+6Hw+g+RKkgahxmhjjsjRnnLWjGA
+	TUlvnXxkWX95zk2tNqM3sUXqA1rzpb39tm/Vf82FTbfjkqSBHAtjkZFWYdpkU51YYFl3EZJ8+LT
+	ypIg+bbUj+ALfkeJ/LFwcIuavRFk/RwP1rnkb4=
+X-Received: by 2002:a17:903:19cf:b0:2d9:484:861d with SMTP id d9443c01a7336-2df609ad034mr4138015ad.10.1790064479957;
+        Tue, 22 Sep 2026 01:07:59 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a1e:2e81:7320:c92a:4bc0:f68c:8fc1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0581f0sm5584365ad.74.2026.09.22.01.07.56
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 01:07:59 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: Simon Horman <horms@kernel.org>
+Cc: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: [PATCH v2] nfc: nci: ignore unexpected CORE_RESET_NTF and CORE_RESET_RSP
+Date: Tue, 22 Sep 2026 16:07:50 +0800
+Message-ID: <20260922080750.35929-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260921125805.224979-1-horms@kernel.org>
+References: <20260921125805.224979-1-horms@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,45 +84,184 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-On ARM, ENTRY is .align 0 and nothing else aligns the table.
-It is layout-dependent and left to chance that unrelated code
-(e.g. CONFIG_TRACE_IRQFLAGS fast path in entry-common.S) can shift
-the table on or off a word boundary since Thumb-2 has 2-byte instructions.
-The syscall dispatch loads the handler with
+Commit bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+added handling of CORE_RESET_NTF in nci_core_reset_ntf_packet(). When
+received, it updates ndev->nci_ver, ndev->manufact_id, and
+ndev->manufact_specific_info, and calls nci_req_complete(ndev,
+NCI_STATUS_OK) to finish the pending reset request.
 
-        ldr pc, [tbl, scno, lsl #2]
+However, unlike other notification handlers in ntf.c (which validate
+ndev->state before completing requests), nci_core_reset_ntf_packet()
+does not check whether a core reset request is actually pending.
+If an unsolicited or delayed CORE_RESET_NTF arrives (e.g. after a reset
+command times out or from a misbehaving NFCC), it unconditionally:
+1. Completes whatever request is currently in-flight (such as CORE_INIT,
+   RF_DISCOVER, or CONN_CREATE) with NCI_STATUS_OK, leading to kernel
+   state desynchronization.
+2. Overwrites ndev->nci_ver and manufacturer info. Because
+   ndev->nci_ver is used as a selector for subsequent packet formats
+   and parsers (e.g., in nci_open_device() and nci_core_init_rsp_packet()),
+   unexpectedly modifying it can cause protocol format confusion.
 
-which requires the table base to be word-aligned. Observed on our
-platform, the first syscall loads pc from an unaligned address
-and takes a fatal alignment exception:
+A similar issue exists in nci_core_reset_rsp_packet(): an unexpected or
+delayed response packet can prematurely complete an unrelated in-flight
+request.
 
-        Alignment trap: not handling instruction f858f02a at [<c0100208>]
-        Unhandled fault: alignment exception (0x001) at 0xc01002ba
-        Internal error: : 1 [#1] PREEMPT SMP THUMB2
+Fix this by ensuring CORE_RESET_NTF and CORE_RESET_RSP are only processed
+by the core layer when a reset command is actively awaiting them:
+- Set NCI_RESET_PENDING in nci_reset_req() when sending CORE_RESET_CMD.
+- In nci_core_reset_rsp_packet(), ignore the response if NCI_RESET_PENDING
+  is not set. If set, clear the flag and complete the request on failure
+  or for NCI 1.x (checking skb->len >= sizeof(*rsp)).
+- In __nci_request(), ensure NCI_RESET_PENDING is cleared upon request
+  completion, cancellation, or timeout.
+- In nci_core_reset_ntf_packet(), skip power-on notifications (trigger
+  0x01, identical in NCI 1.0 and 2.0), then check and clear
+  NCI_RESET_PENDING before updating device fields and completing the
+  request. The CORE_RESET_CMD trigger value is revision-dependent
+  (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both are accepted and gated
+  on NCI_RESET_PENDING alone. If unexpected, log a warning and return
+  0 so driver-specific handlers (such as fdp firmware patch handling)
+  still receive the notification.
 
-Align the table in syscall_table_start so it is always word-aligned
-regardless of THUMB2 layout.
-
-Signed-off-by: Yenchia Chen <yenchia.chen@mediatek.com>
-Signed-off-by: Huang-Sen Lin <eddy.lin@mediatek.com>
+Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
 ---
- arch/arm/kernel/entry-common.S | 1 +
- 1 file changed, 1 insertion(+)
+v2:
+ - Do not abort the notification pipeline on unexpected CORE_RESET_NTF (return 0
+   instead of -EINVAL), preserving driver-level hooks (e.g. fdp firmware
+   patching) per Simon Horman.
+ - Skip power-on notifications (trigger 0x01, identical in NCI 1.0 and 2.0)
+   while gating both NCI 1.0 (0x00) and NCI 2.0 (0x02) command-triggered resets
+   on NCI_RESET_PENDING alone.
+ - Check NCI_RESET_PENDING in nci_core_reset_rsp_packet() to avoid completing
+   unrelated requests on unexpected responses.
+ - Explicitly check skb->len >= sizeof(*rsp) in nci_core_reset_rsp_packet()
+   for NCI 1.x handling.
 
-diff --git a/arch/arm/kernel/entry-common.S b/arch/arm/kernel/entry-common.S
-index 88336a1292bb..831a40461cdf 100644
---- a/arch/arm/kernel/entry-common.S
-+++ b/arch/arm/kernel/entry-common.S
-@@ -321,6 +321,7 @@ __sys_trace_return:
- 	.macro	syscall_table_start, sym
- 	.equ	__sys_nr, 0
- 	.type	\sym, #object
-+	.align	2
- ENTRY(\sym)
- 	.endm
+ include/net/nfc/nci.h      |  5 +++++
+ include/net/nfc/nci_core.h |  1 +
+ net/nfc/nci/core.c         |  3 +++
+ net/nfc/nci/ntf.c          | 17 ++++++++++++++++-
+ net/nfc/nci/rsp.c          | 24 ++++++++++++++++++------
+ 5 files changed, 43 insertions(+), 7 deletions(-)
+
+diff --git a/include/net/nfc/nci.h b/include/net/nfc/nci.h
+index 09efcaed7c3f..2ac45adba088 100644
+--- a/include/net/nfc/nci.h
++++ b/include/net/nfc/nci.h
+@@ -140,6 +140,11 @@
+ #define NCI_RESET_TYPE_KEEP_CONFIG				0x00
+ #define NCI_RESET_TYPE_RESET_CONFIG				0x01
  
++/* NCI Reset Triggers */
++#define NCI_RESET_TRIGGER_ERROR					0x00
++#define NCI_RESET_TRIGGER_POWER_ON				0x01
++#define NCI_RESET_TRIGGER_RESET_CMD				0x02
++
+ /* NCI Static RF connection ID */
+ #define NCI_STATIC_RF_CONN_ID					0x00
+ 
+diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
+index 664d5058e66e..504ea91ddf27 100644
+--- a/include/net/nfc/nci_core.h
++++ b/include/net/nfc/nci_core.h
+@@ -31,6 +31,7 @@ enum nci_flag {
+ 	NCI_DATA_EXCHANGE,
+ 	NCI_DATA_EXCHANGE_TO,
+ 	NCI_UNREG,
++	NCI_RESET_PENDING,
+ };
+ 
+ /* NCI device states */
+diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
+index 5f46c4b5720f..5a90591cd9af 100644
+--- a/net/nfc/nci/core.c
++++ b/net/nfc/nci/core.c
+@@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
+ 	}
+ 
+ 	ndev->req_status = ndev->req_result = 0;
++	clear_bit(NCI_RESET_PENDING, &ndev->flags);
+ 
+ 	return rc;
+ }
+@@ -163,6 +164,8 @@ static void nci_reset_req(struct nci_dev *ndev, const void *opt)
+ {
+ 	struct nci_core_reset_cmd cmd;
+ 
++	set_bit(NCI_RESET_PENDING, &ndev->flags);
++
+ 	cmd.reset_type = NCI_RESET_TYPE_RESET_CONFIG;
+ 	nci_send_cmd(ndev, NCI_OP_CORE_RESET_CMD, 1, &cmd);
+ }
+diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+index f5c9a8ab7ec1..57f99bf46a22 100644
+--- a/net/nfc/nci/ntf.c
++++ b/net/nfc/nci/ntf.c
+@@ -36,7 +36,22 @@ static int nci_core_reset_ntf_packet(struct nci_dev *ndev,
+ 	if (skb->len < sizeof(struct nci_core_reset_ntf))
+ 		return -EINVAL;
+ 
+-	ntf = (struct nci_core_reset_ntf *)skb->data;
++	ntf = (const struct nci_core_reset_ntf *)skb->data;
++
++	/*
++	 * A power-on notification must not update core protocol state nor
++	 * complete a pending request.  The CORE_RESET_CMD trigger value is
++	 * revision-dependent (0x00 in NCI 1.0, 0x02 in NCI 2.0), so both
++	 * are let through to the reset-pending gate below instead.
++	 * Return 0 so driver-specific notification hooks can still run.
++	 */
++	if (ntf->reset_trigger == NCI_RESET_TRIGGER_POWER_ON)
++		return 0;
++
++	if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags)) {
++		pr_warn_ratelimited("unexpected CORE_RESET_NTF\n");
++		return 0;
++	}
+ 
+ 	ndev->nci_ver = ntf->nci_ver;
+ 	pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+index b0ab4f5acbce..3a2491497e4b 100644
+--- a/net/nfc/nci/rsp.c
++++ b/net/nfc/nci/rsp.c
+@@ -32,14 +32,26 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
+ 
+ 	pr_debug("status 0x%x\n", rsp->status);
+ 
++	/*
++	 * If no reset request is pending, ignore unexpected responses to avoid
++	 * prematurely completing an unrelated request.
++	 */
++	if (!test_bit(NCI_RESET_PENDING, &ndev->flags))
++		return;
++
++	if (rsp->status != NCI_STATUS_OK) {
++		clear_bit(NCI_RESET_PENDING, &ndev->flags);
++		nci_req_complete(ndev, rsp->status);
++		return;
++	}
++
+ 	/* Handle NCI 1.x ver */
+-	if (skb->len != 1) {
+-		if (rsp->status == NCI_STATUS_OK) {
+-			ndev->nci_ver = rsp->nci_ver;
+-			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+-				 rsp->nci_ver, rsp->config_status);
+-		}
++	if (skb->len >= sizeof(*rsp)) {
++		ndev->nci_ver = rsp->nci_ver;
++		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
++			 rsp->nci_ver, rsp->config_status);
+ 
++		clear_bit(NCI_RESET_PENDING, &ndev->flags);
+ 		nci_req_complete(ndev, rsp->status);
+ 	}
+ }
 -- 
-2.45.2
+2.53.0
 
