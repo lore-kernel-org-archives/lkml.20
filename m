@@ -1,111 +1,124 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20D054CF54
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1C747CC80
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790111726; cv=none; b=PXbjjCI6odxIAT5q8wBDXQugkmv/Pk/1tgYCJR/UeqzwgydQO0OdB0nwoYjg0g/Sg9UVmJSp0wDZEh2TDrjJ4okSqXrR6s4IWCzvQuaIAoFUkceDKiQdO6A27X7+s4HHF6DxBrrcoD/ErXyvU9TecFacIIUv3b6yb2X2lt6yRGo=
+	t=1790111779; cv=none; b=RS/xwODwQtQtMxgJTmxkDmxOvf+w5cTv1vzd7WYOMj0jLsbC5xCNW81TnfOWZq8GjD8/JaE22ZDQqkAYUe1Lo/ysbeXOrB13ALIC6zu0CQ0QMXwtbL9yQD0ICEYwI+JMcZqwWpkwCVvXnUkzw7B5XzaRFNMRAIaucj+iJs/SriI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790111726; c=relaxed/simple;
-	bh=FawpcmzmmxnlHtD+GQiWKEP83HvtT9DOy1bIw2fjfys=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=H5xh0/T9FkgiGEdr0pyohEBXjawUOXPGtrIqbV/vkgwzwrPT9taoit/L/yzjqXVeWCZ2WVcpdzVJKRuSFU9g7PH2JnG1v+rnuzgjHAp9Lt+JTKcvWDwkQRDfMUnfkcQz9HOd9jphctwdfWggeC85xouKnYqU3BLYV2dnoe8un0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YMGTiOjc; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790111779; c=relaxed/simple;
+	bh=TLJk0N+b1Cxg9zC7rPm5TxKSYvZpe4azzB5UFBUX11k=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Myp6s/dKtI7KgvUs+rwnoMH2sSfveEKM19TuI2/CFzIlFN2dUrRdBLgpL9ulqQp14D4quK/15SeDsAYZlv/K6TYU54YD1C7F4s+KLpe2YKU8rZm+7nWNoq0Pn1+/VlwStM2FFdGI/8eQuhkgHwHhonkew+jhrX/gHqYp5ZARdJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sadrul.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h03wOeaf; arc=none smtp.client-ip=209.85.160.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sadrul.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YMGTiOjc"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so270435f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:15:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h03wOeaf"
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-532e0dd7d9bso7038401cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:16:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790111700; x=1790716500; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=flTePN2NkB0ZSxOdRerLk62XoVAGJA6/fEuIjEkWcNw=;
-        b=YMGTiOjcct/we335Q+eOhlsVlmPv828ezilxLXox4g2vVGhwZed1qMJaSTIgyPmWRm
-         Hnru/qhYl7xxirDkVmRBCS9COy8r4nZVe0/QyvQ8oq/Tba4slwHUEqFmqgozKLZzsmdG
-         DuZLXem5cglEzU6bhB9eu2UN6UBMb/nizdateQVDV/Z4uk/r4R9FIFYQ4qSXpdP8CZHQ
-         l09RhrSDAH/eluzqve+Zh40HBAFOVif0crvOWA0a0tEg5ofiTbtzo4P0wUUtlxPUvJKf
-         gZLr2CaPs+HjGO5pwoyNXZQK7IvRWUGKZF2nsk+1IUsP1b6a4o/9NfT5JnzGa+Mkv1Kg
-         +yPA==
+        d=google.com; s=20251104; t=1790111773; x=1790716573; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e9G06dGCMcRjyhNtUUD0HRcun57ApXXJRKub9jsBEOs=;
+        b=h03wOeafhlrn+rdlqhYDDFCQG97h5EZjHUWKD/com00ZE1I3NtkabmD6menGoI5gT7
+         XkCN3xNhbTKfdN7LwgmQI3fxFSBzkPfxbW3NTMQbEgF62kN++CwWuQYO0CXd9ZV48yhs
+         pardCnrYAu1s2lQfvSP0GmCwRtWfteowu+BF1y1FnJYcuJpzKPBc8OxImXDRhnyDV0yK
+         dW/piiDDM8i8tR2NgVYnhcu0CSnpIX7tYQntfuzY9KirZ/i8XrRK+gNTf6WLPBtF/Z98
+         RHl7SNiFmzJwofrc8bNYrueKPOaxi8ATVRwTdiP66esdMWiBDxXZzITDZkXQX72Ux6TV
+         7uXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790111700; x=1790716500;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=flTePN2NkB0ZSxOdRerLk62XoVAGJA6/fEuIjEkWcNw=;
-        b=pRIdfPuwEav7vBEJrNFv+qXa25TdLR7olvYoL3w578/+Hlw4tJdgvKEhotQzS/8wbQ
-         V+ehSsxK6Wz74niUkoex1nrjNn4RhHIPkhTjP3ljrYD0RQux3LSWDdyIwtTLcKtsjBOf
-         qMxKada1k0JZWhkiRSGUGoZkFbbWGssh+ONKkMV+YrDXgirpVrr3XdhjZ6E5hyOnrXT8
-         M5KkfDvAqxJ/8yVtWuvYqCjAtcGmn+D5VE03ZPKaw/L+EfAYtW+wfmJo4JJFlu51pH51
-         gQMyeminri+iBFYtEEM5ytjSNnfER5g4CC0rJ0L6uFfnQqnKMeTWbQ2TJ54M0Cu3I0T3
-         9sLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFWeDY5D7ISgC9+7X2PO2vF/ZYhMRGe6SL8/r/l3IulNZRlTMdKldsdfnRnIc7v3Gf1rQBbslsSa8co2Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++moZ2xW7LAThA/cQkSkwXiyIZXF8XLhXetDdSzNrdaLjBkSLyHh
-	WXmrsrEvfNcMZJJUz1S8GCsu+Jy9VxSWJYLIxI9YM4XGNybSBecpYkKV
-X-Gm-Gg: AYBFou16rsN4GWAWneNUE+U+sgKcpYKn0WLqOexmjbyv8CWAA6EzZWqJ3bbxBwi+Eb3
-	NC0rJB5nCQ4w2pP93dAOa26h7tzpglDE+GyR+VH2wYCaStQ/hdu22CHi+TC70D4T5X/+c3IGD3m
-	cq/fik376XsUpmzCj2Zl6tWAt749xNJH5r9gDNzzrlVRKoG5ZPO1KYqfYjB0vbmtz628R4xCKP+
-	LoVdmQBO8V1yYuR4faPE26ZsRsCx8N4txmOwlgnhU/O9HR2QvEwL8U40nJ2Xv1BPVZZYbi2fvwU
-	rRvz2at1w8XuS7rQansPjM2K21kcqw+6coMDMHu6Spau9aFJpbySTY2R7OKzc7fQ8dkJxxiO7cM
-	mvEhH457UEb7RGQl9Ou9NCD8Lqxdo9OzptHJKyWRa0YsuBbrcD2AY/4WG3XqLimhs4gn3ImNArC
-	621JoJR4LWSTMtagnL/HHLiAHQyuYgnwkr2OStAGoLw++OBnbu/zDs+RolZtmFR9ArPI3csWTOE
-	aWtSXAKKyWAT7N7fEKQ8bDgb+2CYQ==
-X-Received: by 2002:a5d:5846:0:b0:485:af9d:cd1f with SMTP id ffacd0b85a97d-488670b509fmr990235f8f.51.1790111699834;
-        Tue, 22 Sep 2026 14:14:59 -0700 (PDT)
-Received: from christian-ThinkPad-T470.. ([2a03:4460:170d:5700:7168:5af1:a975:cf85])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682673bdsm1221672f8f.2.2026.09.22.14.14.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 14:14:59 -0700 (PDT)
-From: Christian Melendez <chrismelnu@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Melendez <chrismelnu@gmail.com>
-Subject: [PATCH 2/2] MAINTAINERS: add missing entry for b53.rst
-Date: Tue, 22 Sep 2026 23:14:39 +0200
-Message-Id: <20260922211439.369917-2-chrismelnu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260922211439.369917-1-chrismelnu@gmail.com>
-References: <CAOiHx==_ixY-VNWX=XxqCFoJvE-80i+r2y6SNnxwQe9uZQJL6w@mail.gmail.com>
- <20260922211439.369917-1-chrismelnu@gmail.com>
+        d=1e100.net; s=20260707; t=1790111773; x=1790716573;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e9G06dGCMcRjyhNtUUD0HRcun57ApXXJRKub9jsBEOs=;
+        b=1h3Qafr5uYy7kn65NYx5i7KfuMGa7FrtjHidCboLjoMBqS7v8hLcO1CGiTuOAhkgKo
+         DQX5b8nV/gDnQ+efeyCFxNojyGHWThVzx8WrwwScY54vAGOP227pdw8Jz9I1HadS6OIw
+         2rU1t2FGNV2Mfg2YGiwKRiOZj5M2DFEgyJDhIxfNn3Ed36Ud6cUjqE4hyMgJ5GnrJcbs
+         HbyZz4HMW8Fmpa6/DomcHTqK9sHjGZ2+rS4C8HZB4/EOv+hct55p494Wrb0QBzxq+3z6
+         wu8WjjNtM2hh5aJqT09jd4Q8H1bp3JLHVb89ts/aB2qSsArc6fC2L0Bli0ruSj4vqhNK
+         cKhQ==
+X-Gm-Message-State: AFuF++nGOFG3FdNQEJClgRDeNduArGWkQSzP3ZkQRFjwE6lL3Jy6FgZW
+	jOrtKAA/1JbYnd/TfbEBL1+8d97OgumwbBjJuu6cRSH0NcRr+bJ6drSrfFjdY7cj8L1YRKwnor0
+	g40DITgQ+uT0+HJF1KE9jGzuQEGWx1mtMWFQzpZI8j0k5Xmr2o9urYtP9idJxu7Prq8XgsBZUBa
+	FNZD+EiQKhgJqWoU72G0/h8hCQt7/182id39aeDARHSQS9
+X-Received: from qtbk6-n2.prod.google.com ([2002:a05:622b:46:20b0:532:c925:c324])
+ (user=sadrul job=prod-delivery.src-stubby-dispatcher) by 2002:ac8:5a05:0:b0:530:e429:ea81
+ with SMTP id d75a77b69052e-532eac768c4mr13514581cf.11.1790111772911; Tue, 22
+ Sep 2026 14:16:12 -0700 (PDT)
+Date: Tue, 22 Sep 2026 21:15:59 +0000
+In-Reply-To: <20260922211559.3633398-1-sadrul@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260922211559.3633398-1-sadrul@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260922211559.3633398-2-sadrul@google.com>
+Subject: [PATCH 2/2] fs/select: mark select and poll tasks TASK_FREEZABLE
+From: Sadrul Chowdhury <sadrul@google.com>
+To: linux-kernel@vger.kernel.org, 
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org, Pavel Machek <pavel@kernel.org>, 
+	linux-pm@vger.kernel.org, John Stultz <jstultz@google.com>, 
+	Sadrul Chowdhury <sadrul@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Documentation/networking/dsa/b53.rst is not covered by the BROADCOM
-B53/SF2 ETHERNET SWITCH DRIVER entry.
+Similar to epoll_wait(), threads sleeping in do_select() and do_poll()
+sleep in TASK_INTERRUPTIBLE via poll_schedule_timeout(). During system
+suspend and resume, these threads are woken up by the freezer solely to
+transition to TASK_FROZEN, and woken again upon thaw only to re-evaluate
+file descriptors with no pending activity and sleep again.
 
-Signed-off-by: Christian Melendez <chrismelnu@gmail.com>
+A previous attempt to make select() and poll() freezable in commit
+9745cdb36da8 ("select: use freezable blocking call") was reverted in
+commit 59612d187912 ("Revert "select: use freezable blocking call"")
+alongside the epoll revert due to issues caused by the legacy freezer
+architecture.
+
+Following the freezer overhaul in commit f5d39b020809 ("freezer,sched:
+Rewrite core freezer logic"), tasks in TASK_FREEZABLE are safely frozen
+in-place into TASK_FROZEN without running userspace code or experiencing
+premature wakeups before resume completes.
+
+Pass TASK_FREEZABLE to poll_schedule_timeout() in do_select() and
+do_poll() (TASK_INTERRUPTIBLE | TASK_FREEZABLE) so that polling threads
+remain asleep undisturbed across suspend/resume cycles.
+
+Signed-off-by: Sadrul Chowdhury <sadrul@google.com>
 ---
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+ fs/select.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..a1bf40c70a5f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5143,6 +5143,7 @@ L:	netdev@vger.kernel.org
- L:	openwrt-devel@lists.openwrt.org (subscribers-only)
- S:	Supported
- F:	Documentation/devicetree/bindings/net/dsa/brcm,b53.yaml
-+F:	Documentation/networking/dsa/b53.rst
- F:	drivers/net/dsa/b53/*
- F:	drivers/net/dsa/bcm_sf2*
- F:	include/linux/dsa/brcm.h
+diff --git a/fs/select.c b/fs/select.c
+index 8943f20e8300..5cbbe86135bc 100644
+--- a/fs/select.c
++++ b/fs/select.c
+@@ -601,7 +601,7 @@ static noinline_for_stack int do_select(int n, fd_set_bits *fds, struct timespec
+ 			to = &expire;
+ 		}
+ 
+-		if (!poll_schedule_timeout(&table, TASK_INTERRUPTIBLE,
++		if (!poll_schedule_timeout(&table, TASK_INTERRUPTIBLE | TASK_FREEZABLE,
+ 					   to, slack))
+ 			timed_out = 1;
+ 	}
+@@ -961,7 +961,7 @@ static int do_poll(struct poll_list *list, struct poll_wqueues *wait,
+ 			to = &expire;
+ 		}
+ 
+-		if (!poll_schedule_timeout(wait, TASK_INTERRUPTIBLE, to, slack))
++		if (!poll_schedule_timeout(wait, TASK_INTERRUPTIBLE | TASK_FREEZABLE, to, slack))
+ 			timed_out = 1;
+ 	}
+ 	return count;
 -- 
-2.34.1
+2.55.0.1082.g2b9226bbc0-goog
 
