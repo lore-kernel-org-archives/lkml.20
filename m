@@ -1,86 +1,99 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4924C4A093B;
-	Tue, 22 Sep 2026 05:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3D738BF97;
+	Tue, 22 Sep 2026 05:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056672; cv=none; b=EpF4MCrewfVGFzxeHgPOkDVCN3WEGUFBS9c3scj6YIEAfn7iJXmOBXShaaki+XYkmcz3fTUVMXyGKijuoOfsVPxbtzcfTvT+6L9sWUcbPVWRo9AdqtjbdRbMA0bxtRACxZIW5u/bjfP3QH96ooonT5wlmDpZZIroAiti03sVsCI=
+	t=1790056720; cv=none; b=kskzJxP/h3BIUyzGY3yZ3Mmq+ODh+NGCon5dVd/rhDzzSDlGtvHPlRnt4SvMiraJyAQJC+qSi9Z+1jcQ3jrXRpo9feUWCugdEF48b5o9u9iclI4mf9ARyz/McV264nLR9JoJxkSrC2QmXRzY7JYwEl0SIz7edi9lomiXAt3ULBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056672; c=relaxed/simple;
-	bh=Lx7ODxm37rTQP6e6pRONwZx+3BrhqmMP7+xQR/x900U=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=XKJ2tlyymMvWP/f4NaKQQtJC+SiNGdEUI4llX+VEdUZNTprzCgNe00WL+XN3+o1EsYND9CY6d7L0S/KvDmFsd1Oo5xOoIfA5Jv7mV/ylHnHPx19wYUg8D8yEBbyMg9y5jY32AT210YOmLYSMIDEpsY1JzBohgQY4hZM3S6meKnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mZEtXmHM; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790056720; c=relaxed/simple;
+	bh=MiTuCTeGQ65acj8DTKH5Sh3JcSl8FWqU0wkYXsy7OO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eML+WkEPLAIPaSD/cyFZROoNN/0jY2J9CDl1Ac/qSREWGpPMj/Qki+nufQVGOKxqKAA/86gasi3Pv7KbIqrMYJxhG04Mz0lI9L7jLZkPDGpwuqrbx/YeXzq5Zql1FED49fQMHHUKl3fbd10JgBwKajuGJHp5RM60ak0x0FP1klU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShZNu/nC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mZEtXmHM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=Lx7ODxm37rTQP6e6pRONwZx+3BrhqmMP7+xQR/x900U=; b=m
-	ZEtXmHMirNDAojJZQc/Per7T10eKAICONBT9qhD+6OBNt1K0sBH4sCqhb81uSOGY
-	mSTpLEJvjOdkNRtXmtp1ADfHH0eHsXs6xO8r/5MLaDlOXuJ3+pmPqXjxD7RiHpC8
-	9p0FeFOMiyDkMAaJ7e/M1W9mogL2pU/YebncUtI9Uc=
-Date: Tue, 22 Sep 2026 13:57:43 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: viro@zeniv.linux.org.uk
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] bfs: WARNING in mark_buffer_dirty when extending a file
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2SAvyeuU4t5SadZekdmEsTju82UcS4ufQl245Xc9AFnzDx1CUeUEVoNEnL3u+GDDKJiQeYbxJT7up3XLtG7FRdt4+C15oz9+dRUVPVlg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShZNu/nC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E85D1F000FF;
+	Tue, 22 Sep 2026 05:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790056718;
+	bh=ThtsqR5Wl7QxxCKokbSVj/6isgE9KJQAZrTvGvTnCjA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ShZNu/nCoM9nE2bePF8ETpeKqLEOYSjbX5HcPFir1HgJe+CTqcFYCCijCZX1pdqIf
+	 ZTXKxQ5PLfuLaX1yPDaNtKHGGEtuQ7nzfL/h20baRp69Gzyp4AsTlhiLm+oWE1N6WY
+	 BQCWqkOGY9oRAhQ0rtE6IsWnHNoun4eKbixPrftWpFZW4rHNXJjZyCve6r706EePoC
+	 4B7i9pixgtuZA8dBZd416L+o9WN6at1mCjJP4kMHJyLn2r1VR3+qYQUtBddqWjGmM+
+	 n83SKl7RYeZho1oK0IIAFlzJLY7B+ewQN0OvYXiIDHGP9D3JYjgBILDGzQHPt+xZKa
+	 hzCdtg71aG+aQ==
+Date: Tue, 22 Sep 2026 08:58:32 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: akpm@linux-foundation.org, peterx@redhat.com, surenb@google.com,
+	aarcange@redhat.com, david@kernel.org, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, mhocko@suse.com,
+	shuah@kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+Message-ID: <arIZCIiecnNWPtx3@kernel.org>
+References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <6ac9099a.4ac0.1a0c7b10a6b.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:iygvCgAXv3TXGLJqFEVMAA--.39826W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+ReCNGqyGNf5TgAA34
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGFuIGlzc3VlIHRyaWdnZXJlZCBieSBhIHN5emthbGxlciBy
-ZXByb2R1Y2VyIG9uIExpbnV4CjcuMy4wLXJjMi4gVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3
-aXRoIEhFQUQgY29tbWl0CmRmMjkwODA5MGNkYTM2OGIwMWZmNDM3MDlmNTE4OTAwNzZjNTYxNTcu
-CgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgY3JhZnRlZCBiZnMgaW1hZ2UgYW5kIHRoZW4gbWFr
-ZXMgdGhlIGtlcm5lbCB3cml0ZQppbnRvIGEgZmlsZSBvbiB0aGF0IGZpbGVzeXN0ZW0uIFRoZSB3
-cml0ZXIgaXMgbm90IGEgdXNlcnNwYWNlIHdyaXRlOiB0aGUKY2FsbCBwYXRoIHNob3dzIF9fa2Vy
-bmVsX3dyaXRlKCkgcmVhY2hlZCBmcm9tIF9fZHVtcF9lbWl0KCkvd3JpdGVub3RlKCksCmkuZS4g
-dGhlIEVMRiBjb3JlLWR1bXAgbm90ZSB3cml0ZXIsIHNvIGEgcHJvY2VzcyBkdW1waW5nIGNvcmUg
-b250byB0aGUKY3JhZnRlZCBmaWxlc3lzdGVtIGlzIHdoYXQgcmVhY2hlcyBiZnNfZ2V0X2Jsb2Nr
-KCkuCgoKRXh0ZW5kaW5nIHRoZSBmaWxlIG1ha2VzIGJmc19nZXRfYmxvY2soKSBkZWNpZGUgdGhh
-dCB0aGUgd2hvbGUgZmlsZSBoYXMgdG8KYmUgbW92ZWQgdG8gdGhlIG5leHQgZnJlZSBibG9jay4g
-VGhlIGJ1ZmZlciBoZWFkIGl0IGVuZHMgdXAgd2l0aCB3YXMgbmV2ZXIKcmVhZCBmcm9tIGRpc2ss
-IHNvIGl0IGlzIG5vdCB1cHRvZGF0ZSwgYW5kIG1hcmtfYnVmZmVyX2RpcnR5KCkgcmVwb3J0cyB0
-aGF0CnRocm91Z2ggV0FSTl9PTl9PTkNFKCFidWZmZXJfdXB0b2RhdGUoYmgpKSBhdCBmcy9idWZm
-ZXIuYzo5OTEuIFRoZSBjYWxsIHBhdGgKaXMgYmZzX2dldF9ibG9jaygpIC0+IF9fYmxvY2tfd3Jp
-dGVfYmVnaW5faW50KCkgLT4gYmxvY2tfd3JpdGVfYmVnaW4oKSAtPgpiZnNfd3JpdGVfYmVnaW4o
-KSAtPiBnZW5lcmljX3BlcmZvcm1fd3JpdGUoKS4KCgpUaGlzIGxvb2tzIGxpa2UgdGhlIGJsb2Nr
-LW1vdmUgcGF0aCBpbiBiZnNfZ2V0X2Jsb2NrKCkgY29tcHV0aW5nIGEgcGh5c2ljYWwKYmxvY2sg
-d2hvc2UgYnVmZmVyIGlzIG5vdCBiYWNrZWQgYnkgYW55dGhpbmcgcmVhZCBmcm9tIHRoZSBkZXZp
-Y2UsIGFuZCB0aGVuCm1hcmtpbmcgaXQgZGlydHkgYW55d2F5LiBUaGUgc2FtZSBjYWxsIHBhdGgg
-d2FzIHJlcG9ydGVkIGVhcmxpZXIgYWdhaW5zdApsaW51eC02LjEsIHdoZXJlIHRoZSBzYW1lIGZ1
-bmN0aW9uIGZhaWxlZCB3aXRoIGEgbnVsbC1wb2ludGVyIGRlcmVmZXJlbmNlCmluc2lkZSBiZnNf
-bW92ZV9ibG9ja3MoKSBhdCBmcy9iZnMvZmlsZS5jOjEyNTsgdGhlIGNhbGxlciBwYXRoIHRoZXJl
-IHdhcwppZGVudGljYWwsIHNvIHRoZSB1bmRlcmx5aW5nIGNvbXB1dGF0aW9uIGFwcGVhcnMgdW5j
-aGFuZ2VkIGV2ZW4gdGhvdWdoIHRoZQpvYnNlcnZhYmxlIHN5bXB0b20gbm93IGlzIHRoZSB1cHRv
-ZGF0ZSBhc3NlcnRpb24gcmF0aGVyIHRoYW4gYSBmYXVsdC4gSSBoYXZlCm5vdCB0cmFjZWQgd2hp
-Y2ggdmFsdWUgaW4gdGhlIG1vdmUgcGF0aCBpcyB3cm9uZy4KCgpUaGlzIGZhaWx1cmUgd2FzIHJl
-cG9ydGVkIGVhcmxpZXIgYWdhaW5zdCB0aGUgbGludXgtNi4xIGxvbmd0ZXJtIHNlcmllcyBhdApo
-dHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9M2I3YmZhNDgwZTU5YWY5NGY4
-OTYsIGFuZCB0aGUKcmVwcm9kdWNlciBiZWxvdyBpcyB0aGUgb25lIGZyb20gdGhhdCByZXBvcnQu
-IEl0IHN0aWxsIHJlcHJvZHVjZXMgb24gdGhlCnRlc3RlZCBtYWlubGluZSBrZXJuZWwuCgoKUmVw
-cm9kdWNlcjoKCgpzeXogcmVwcm9kdWNlcjrCoMKgaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L0tj
-cDAycWRxCmNvbnNvbGUgb3V0cHV0OsKgwqBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvRzcxN1BH
-TloKa2VybmVsIGNvbmZpZzogaHR0cHM6Ly9zeXprYWxsZXIuYXBwc3BvdC5jb20vdGV4dD90YWc9
-S2VybmVsQ29uZmlnJng9NGE3ODI1MTgzMjVjYjA4MgoKCktlcm5lbDoKCgpIRUFEIGNvbW1pdDog
-ZGYyOTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1NwpnaXQgdHJlZTogbWFpbmxp
-bmUKa2VybmVsIHZlcnNpb246IDcuMy4wLXJjMgp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMiAoYW5ub3Rh
-dGVkIHRhZyBvYmplY3QgNWUwMzZjZTEyZGU5MWM2ZmQ2NzRkYWQzM2IxNjljNjE1MGJlMmE3YSkK
-CgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0
-IHJlZ2FyZHMsCkNoYW5namlhbiBMaXXCoA==
+Hi,
+
+On Sat, Sep 19, 2026 at 09:46:28AM +0900, Donggeun Yoo wrote:
+> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+> destination unchanged, so a uffd bit set on the source lands in a
+> destination VMA that was never registered for write protection, and
+> nothing clears it afterwards.  Patch 1 clears the bit unless the
+> destination is RWP-registered, which is what the present-page and
+> zeropage move paths already do.  Patch 2 adds the test that catches it.
+
+This and changelogs read like an LLM generated text.
+Please add attribution as per
+
+https://docs.kernel.org/process/coding-assistants.html#attribution 
+
+> x86_64 defconfig plus USERFAULTFD, TRANSPARENT_HUGEPAGE, GUP_TEST and a
+> swap device, under QEMU, base 17e7b8eacf4c:
+> 
+>   uffd-unit-tests                    before   after
+>   move-swap-wp on anon               not ok   ok
+>   the other 114 unit tests           ok       ok
+>   uffd-wp-mremap, 38 tests           ok       ok
+> 
+>   pagemap bit 57 at the destination  before   after
+>   swapped page, dst not armed        set      clear
+>   swapped page, dst WP-armed         set      clear
+>   swapped page, dst RWP-armed        set      set
+>   resident page, dst WP-armed        clear    clear
+> 
+>   MADV_COLLAPSE over 2 MB at dst     EINVAL   0
+> 
+> Donggeun Yoo (2):
+>   userfaultfd: clear the inherited uffd bit in move_swap_pte()
+>   selftests/mm: add a test for UFFDIO_MOVE of a write-protected swap
+>     entry
+> 
+>  mm/userfaultfd.c                             |  2 +
+>  tools/testing/selftests/mm/uffd-unit-tests.c | 61 ++++++++++++++++++++
+>  2 files changed, 63 insertions(+)
+> 
+> 
+> base-commit: 17e7b8eacf4cac800a4fc89a28729df72a2dabda
+> -- 
+> 2.53.0
+> 
+
+-- 
+Sincerely yours,
+Mike.
