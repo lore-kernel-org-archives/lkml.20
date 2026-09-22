@@ -1,150 +1,92 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5857A560ADE
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:07:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096863; cv=pass; b=WhlZbjJ1gtkRnFs6JnavOO/pSjXnRqdPZ9ZJDrsFhuV5szJj4uj3s6os4dPtRr9ys8I061wYnr/X43zMd2/NeaNZml+5WnwLYpYI3egzzkUkv9XeOBI2LfHPVAHg13G+R/9ekyWEtmJ5I2fLnNQDARgd9xdiVUXtbbejDo6GYwQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096863; c=relaxed/simple;
-	bh=Ih6OaGZNiKLaqDnDwaBrgZoP/cAqBuRknw4NXDxmGvw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q2PM/R1sxmiBzYgoa7k6Y3ZPTO/lT5pAcOM6/7qlRSj9q+RDpoilvGunUiWFSHbCvV/i9R7g7r0wtFgMgsNXdP2rBs0JAGXS7w/iFqVGSvqZNxoSCgkAnusi+cvpJ6rJ18qFFuhIvh3cgyXTTmBvzOjzAXNeM84KXJiW753/whw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMEyq3SY; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2544F569F2F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790096875; cv=none; b=rFB5QiGlq862Vm6Xp67tMvwb+z7+z+NlG34JBUKfKG+cET4v6tyy2vVmj51zLiEO3/RmrJN+5//JncU65ORKE0N5I+YrDb53hwfmEuRcb0e/Cnv6gmpixtGGN1VFL4503ubqOfKFuI1iZTRx2JrpKb/dqWNEMsAaVdsnMKcb+X0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790096875; c=relaxed/simple;
+	bh=/x8p3xF5ileb+D00UF4eBYRkSBEOrUPpsYMUbqmm4x4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YkqDNhAdYUzU6LZaoRlYgy7+vp0j88qOS7t3I6HnAFJv5jbe4NrmQcaF8MKVx5mKhJb89XruEWh9eFaS+ftUT7KVbFQ/5gSfs3EjljPAniz39yWpw6uYEMqFQKiW1R8ibNDa/Lp6/H7jFC59yMjFZXGScKPehHd+N1VJvyDVQpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a7binD37; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMEyq3SY"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso113128f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790096860; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LWpJqIw6+27nwIntn9XGKt3YzsyBvqcj1sZ3ZH/fJn9/3HSQBM5lAwetWEVfmhDLDM
-         sjmtvaBO97HzfZQa1U2A2G/35MkCEWw/TeRAAs0pbdPEYpOIzN96iQkpT9k8EoH8WZQk
-         v6DvEoE3ShW4YspJ0zxIULJgcxtS+y0CZHG4iO2LcwdRJiE7KzXN/YiY5DK/fDiWWEDV
-         lIDn8Pf4qhz9r9jnkse0FQL/h59y92OHMPSO6YKJDyuk5jP5oV3jJ7ggi1WdCb5UdzmX
-         bpjtCNDHf8xPEOAYYOUqlL10uBgJF3Idw64FJTXM45acZXU0SutgBGiE7tPkgxTM1bV/
-         JZSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=abxLJH98wWB+F9upQRI+y1MVEfERsTBkUgSjrnH6AQ4=;
-        fh=fcOnHAsiJ4NvfZLuGa57XszLOJUoSWJuvbFsAV1j7qc=;
-        b=Zana9zlv4mJ3JRE8Amoq+f6OLhUgvcVOpen1tpQElGJiRsetOkvdDRQ78HQ4GYDtyH
-         zgkeWGzGT3hcAh09XsxNUmMkF/MTJGBlatr2neZ2GzF+GClsSULTwpMLg0qBT9+YBe5B
-         nex8MG7IZE9uiyCUekeuDCvzhvVbJvHaSRx/+ncS6i1sdYoMDzyfHdW5QbdaKUMX83nx
-         AwXUwGWW7ETrMACMyInOJRvs5OJr5U/KEDbBtLH1dm4CGU7buH/qkzEwJcbxD1pQ+gYr
-         8Lnh8Nj+TRATE9gTQ6IdhlOMOWk+oKIC2kLhECBFEzInc2cLjDQbxWv+b6U80sxjvRaX
-         AweQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a7binD37"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f0b25dso532255ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790096860; x=1790701660; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=abxLJH98wWB+F9upQRI+y1MVEfERsTBkUgSjrnH6AQ4=;
-        b=SMEyq3SYCxslonAjZZd9nKsSfq9U00qwiLtYIrEk2+VSfjFAz0u6q8l7Fx2/Eap4PC
-         J2bms7Dsx9HlFOxReHsiBxc7KcOeXhRQHkRVLI6uRui01tiqFJJ8BH4oop/j8WS/TYvc
-         STQxKcmHTYOnNrvrXXLMBqwkxSaWsJR7lSyZvs6gHRnf+DiiT2k1pRs5E8C8AHmALI86
-         MyK1dqSyAlWya9+e0k4/E3pxSHAoDUP3axrMyoN8ndEW9cM5ZsA8VZoqu4sQwhZXmvVw
-         EZ7SOsOG/FCpTWQQlpeYfCnQyIwQADldb9j1U6DLotPVFfdx7i1/3cezFgOHY42I3LMZ
-         vJ/g==
+        d=gmail.com; s=20251104; t=1790096873; x=1790701673; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0L+7e+cU3VWegVLLOjh3YpblpIX75X+DIyXyAmlh6g8=;
+        b=a7binD376UIRTFXh3GjTf0NWpm/o3hLASw5o7kGQFuq9LVlRFukCiYd3OU72lkRSVE
+         /nXCD0IW3gQYxhoGa9e1hMj/C+lork985sSZic4NWTHmeVo1syUPT9B5HGNUqnuKG1yj
+         2zuyzy+NdTqt1p4AHuIKhbbSjBTQ9I1vOOTFULhukZ2PMbUPUX8kiLZ/UlLOp/RiYd59
+         V+R4qUbmUqB3zqp34qQV8BOwvZr7qI9VTR0UOtancKMr4EYIZbps+XWzbn9KTGk3T+8o
+         h4AafsHdnaO4woVAM96fnkOnrRgJGjDXm6IHMV6bWmpAuF65LuiMChhA9fu4ELau5V7+
+         hStg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790096860; x=1790701660;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790096873; x=1790701673;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=abxLJH98wWB+F9upQRI+y1MVEfERsTBkUgSjrnH6AQ4=;
-        b=VSn9jZ6eAzJgZsl2VyEQzi7Ol3SmdHYnZZM7shkNQT0Xqq5Sd875ZmeS1DlNS3ToX/
-         9D+MyceJ+t3LuZXlCT8MRTOvIm63GTuNaJdE25Sc98lxCjdZl5nJljNWsofH+Bz4VHKx
-         Yd8h4e2rnfMbCcabva7pZhcHMODk+tG1C/7ge15z6B80mVFMqnM97vUMOPs1fvXa1e4S
-         V5VPyJCHhvXDiTbTXC7ggXLLfoUMmRLgWIrUH6c2TtCb24cQ5+AliIm0rTorP5GmnUoq
-         CiQvjBNBDFAK6T7PwXi6+PqNFiFkE5zxKErnIzFTuIs1mD7Jvi4kuVkk2+bBhnjk9bZc
-         sRRw==
-X-Forwarded-Encrypted: i=1; AKwUvByY2ERN5ANVArXUQLzfQV3SdbG50WjVnrppMhARFvsyWelus4C73k3UZMnIlO3DFM4eR9ErGpcY4KZTpHk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3c0bLjMFyWPbF8L5f7oO8pKx/XZdzvAnBO3P6np73Ampmlwwt
-	Yl/GSFfwwAwpbQbB99/ByoYkIHYCm/ok8Vf7fllnRpXIT1uYRPU9AoYsCm688NqEsFlr1X/c3Fs
-	rIcKIfmAIfCj/JvXLo0tYcw67B8DDkJs=
-X-Gm-Gg: AYBFou2vYcmTnkfEvFQH+mIyfBRE/ZJOI8tzMkjvDEfV7PUXiCY8SKb33oFcYUYm8Vr
-	lWxr58E9E3kpvXUl/BwYj2DTec3sc5R+QILTQDTa9pcFdicOWtufKp5SxosjZsU9ZhF0IGZ/vI4
-	U4PpfWTX2KzQESHNxABlUm1T8hMpMnf5Bb1ryLY9blic2gtzV2psHVk/Y8La1yGlnqAQQ1TOf2e
-	wmOiZoVtvqBBhxpyn+GPzdk+E+23X89cGgnbJS1+2tQ2kINoMCTXlvW/nHVEVtEYTAD0MNYfOJX
-	TUR0dOnriz0f4jLwVsUNwQeVdA5pKgai1PJKXeD3k19CWTojy75Lj3fyh0Jc7TBPpAelaVsABPR
-	j2pjlyusM1MI=
-X-Received: by 2002:a05:6000:4303:b0:487:452:dbd3 with SMTP id
- ffacd0b85a97d-48867095690mr343670f8f.47.1790096860382; Tue, 22 Sep 2026
- 10:07:40 -0700 (PDT)
+        bh=0L+7e+cU3VWegVLLOjh3YpblpIX75X+DIyXyAmlh6g8=;
+        b=U0POWKOI34SiarjyXgS704F9En6DyydhsNOE9U5sOrKLkoJDrxua+oj/zzyPa7R4o4
+         C+uBQCOxTZltSR/NA+WFhhenlFn4GPfaEZ42cm7CZzu11iRmeLKlUOaZvF/c+I1coqEj
+         gDF/J1TxZ3ALpHP1T/O4GhmG3uNV0PjKxtqD021JA4WNScEnwG79FSRfKCqVZh/HtaiY
+         QarjnvmdbJFMNOhOcomoBib+LGml2Gd2iFkRlK8efQQ4T+Uo8Y53NXTsl4Ph4IxdufSH
+         ZrfZty693kU4TN3XjM7ClbVKsejaVwpXDI8ftFdSM102+i/XBp7OuhX4aNNEOhGYnK1L
+         VC/w==
+X-Forwarded-Encrypted: i=1; AKwUvByqpnYGhwtxxAZnIk3Bqz3w8g1ZfRsKPrGgcdiBziQSeFwGdi83+bPEvD01IcJe8VATQdkjSg55Y3zMPAM=@vger.kernel.org
+X-Gm-Message-State: AFuF++ly3INDVi2gJh2IulOnip5dEbCuCVub50kIQpq7GUB1BtZ803bL
+	oQqpLx5URJWx9JnT0y4+oQILUQZghyZpvksaobiKF7fXTiBW+/WXp8Jd
+X-Gm-Gg: AYBFou0UUQaH0R4PFFaYRw0sYfo7G6GSESRAoEKj/Mb5fTZiTHXKPc8+6SOum9BzyPV
+	xmwJUbFNr5DYkNrZ31AyLWhBuC6ct+1dO6eNLkeYarztCoyUkkUZ+8wMdob5UDqqA+UUT2rQdbA
+	U+I0eTa2ZJfgx0MqGe7s9bJXXHa6dQgLYme9SevevQusrs/jrsDrPZAXCX7uTRo1+L+wfmwgm4y
+	WTwYkzCEAnZ2fdmy8K+WqKEyu02Jq9UWvHtpeo35Bm7BiW0grIjuCndNVlwhl+UdeRnefQBjTNa
+	jwXDM6PGmVietWiUG2ZXjYZXUu1umgW6o85OIq6QqNdWIGzTPBdJUfoJCexoyUqJHjvmd/7i6ph
+	CQgk5E0eeompL33Pkn6vwwpfPbfgKXZyNJlgltxxmZBKw7dgFrl1kFscAKzZb1tr7QItVe9G56C
+	gSORtUxYQDQv8lQqp4sPpZOWSo6CdCdfD2cPl3vjwHMfxMZSbMCwwy3SS9p/cuUrwK3TwaGf+Vg
+	ztF+jzjlz5A
+X-Received: by 2002:a17:902:f693:b0:2dd:b20b:76c8 with SMTP id d9443c01a7336-2df69d3aae3mr371675ad.16.1790096873290;
+        Tue, 22 Sep 2026 10:07:53 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d057f55sm13556195ad.73.2026.09.22.10.07.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 10:07:52 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 22 Sep 2026 10:07:51 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tomasz Bojanowski <tomasz@bojanowski.me>
+Cc: linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (nct6683) Add MSI B850M to list of tested boards
+Message-ID: <fdea3ade-8cc0-42d9-9daf-b50d578a7be0@roeck-us.net>
+References: <20260921211304.74729-1-tomasz@bojanowski.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722163536.773166-1-alex@ghiti.fr> <20260722165907.784020-1-alex@ghiti.fr>
-In-Reply-To: <20260722165907.784020-1-alex@ghiti.fr>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 22 Sep 2026 10:07:28 -0700
-X-Gm-Features: AclHuK_e4jnjL37WW70pjKEDayayY4BwnWgy3gypratcWUMOYC5nt2OmVrBvIcA
-Message-ID: <CAKEwX=NJH2nM=vMPk_=ugJ26uNjH4AMdHXeaasuPrbSEGxpJOQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] mm: swap: overlap synchronous readahead
- decompression with disk I/O
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, yosry@kernel.org, 
-	chengming.zhou@linux.dev, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, kasong@tencent.com, ryncsn@gmail.com, chrisl@kernel.org, 
-	baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921211304.74729-1-tomasz@bojanowski.me>
 
-On Wed, Jul 22, 2026 at 9:59=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> wro=
-te:
->
-> Swap readahead reads the whole window sequentially: the device I/Os are
-> accumulated along the way while the synchronous, zswap-resident entries
-> are decompressed inline. The I/O is only triggered afterwards, at
-> blk_finish_plug(), so the synchronous zswap decompression is pure added
-> latency in front of the read the fault is about to wait on.
->
-> Trigger the I/O before decompressing the synchronous entries: split the
-> window walk into two passes. Pass 1 issues the async device reads and
-> defers the synchronous neighbours; pass 2 reads the deferred entries
-> while pass 1's I/O is in flight, overlapping the CPU work with the disk
-> reads instead of serialising it in front of them.
->
-> swap_cluster_readahead() walks a contiguous offset range, which is cheap.
-> swap_vma_readahead() instead walks the page tables so we cache the
-> entries we encounter in the first pass to reuse directly in the second
-> pass.
+On Mon, Sep 21, 2026 at 11:13:04PM +0200, Tomasz Bojanowski wrote:
+> Tested on MSI MAG B850M MORTAR WIFI with NCT6687D EC firmware version
+> 0.0 build 03/10/25. The driver loads without force=1 and reports
+> voltages, fan speeds and temperatures.
+> 
+> Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
 
-Hmmm does not seem like you're taking advantage of the device-level
-contiguity of swap_cluster_readahead() either way? You're calling
-swap_entry_synchronous() (i.e zswap_is_present(entry, 1)) one entry
-(i.e one tree walk) at a time.
+Applied.
 
-If you're not taking advantage of contiguity, just share the logic haha.
-
->
-> Results [vm-scalability mixed zswap+disk swap-in, 256M zswap cap (~73%
-> disk), Sapphire Rapids, zswap=3Dzstd, shrinker off, n=3D3]:
-
-Hmm how do you have disk swapin with shrinker off?
-
->
->   metric                  mm-new    +patch    delta
->   swap-in tput (KB/s)    119247    131261    +10.1%
->   swap-in wall (s)          106       100     -5.7%
->   swap readahead (pages)   1.56M      1.55M    ~same
->   zswap-in (MB)            1895       1872     ~same
->   disk swap-in (MB)        5207       5190     ~same
->   major faults            260148     260212    ~same
-
-Obviously this would help zswap, but what if the backend is disk swap,
-and all of this is just pure overhead? How would the numbers look?
-
->
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr
+Thanks,
+Guenter
