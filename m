@@ -1,103 +1,93 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C42522681;
-	Tue, 22 Sep 2026 08:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67B9522687;
+	Tue, 22 Sep 2026 08:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066462; cv=none; b=sRZcypxs78vsjm8+ejJXvI1Uem2WyVmSceOwFXF6w/IrYej7TccZfNAPSgoBxa0+xRRXuvBLXldM4Elf1PTWzVt4HO5bI8dvm9Ej1giBR4h2AgrVtj2Mwx2Oy4MejSvajLNtvv06/vd5yGWycdyT8cyk+ekUm9jB4h7qOcLqF64=
+	t=1790066463; cv=none; b=A5E3juJGl1dT+INZwfxHwtFZzBYEdVhidZb1WLlY9EtjzVRRYHF+Nj6dxWR9zdqSW4k2N2HQ0c/junUMoQLhopdoZHbXtTybA243t99MzzJqlavSC9MXr1unzbwAgb6QEWOnVN9xkUxJ6lgRkswAxImzabVpqMY3VmYeB7GAvVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066462; c=relaxed/simple;
-	bh=T9HOtjRJUmiDe8Uzr5QX9e9Hghb4WaebMQY2bFxRzBE=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=fdCokAshaJwqqihkeo2A2njXjkzL3oVPcktP+enx/2vj/hGtRMAngdsD2Unj2fhj9haP5hgkTFG5InHiIZ1nBy/oT2z/K/JX/Ti2QIYS9tc2aiTO54fVauyid7BOp6jjBpds9hPbjBwnQqgIYHr/1XzsqE+Ba5NNU08+a2fQJCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=swDuYubt; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790066463; c=relaxed/simple;
+	bh=z1K4vY1QuWzZJyOJ7DWfzNrA4ziIZ1nRaT+3zOrVj0U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oSwoyKcT3zhrg2S2vihtjoe3MEt+lULHLIRS9SNpQJVWxYsI7dp6P/eUbavZItG037GCQzVeYUzl3LG9Jo459dE2knDv1DaQcu8dqIgMFNApnDooYJq8uh7bn9hVICBqkHJOAbrMVEzr/HNBJWYOud+iTma9mZCUjfvTdJuLXMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AbeHJGRq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="swDuYubt"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EC0C3A3808;
-	Tue, 22 Sep 2026 10:40:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790066458; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=pSFVOWKbeq37+jQRA4HEWxMWIrgEMkAuHMygiM20254=;
-	b=swDuYubteAcQLktFrRlAFohbuNyxHyKBLJZW0HrpwiUeDAIP+jTu5uHlWNYzbQNMKnLtfW
-	yOz3NvYdc6fvzVXhGhCXjcFp4ybifZjgWER2zZ66rOPHxRHHu6NA9Hw+iT39LjoeomN26Z
-	zvUgPsQ7dkphb4te9oqEZEd//OYYVwNk1g0MT1rj75CdJFVuX12jkI6ILuTn6XI2iCv6XS
-	oEaMRoAq+rQEjpDl9iLy7VXzVyexzz26XHv/LO2ZwBkbq1Bi04nTsPPxZ+7tJnVNKjwJyf
-	r26lCXW3tnwDmSOK7axUPEx7zHfIrOvvT7bxWqEpQqtsg1NOcBJ94V2wsoV3aw==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AbeHJGRq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A971F00898;
+	Tue, 22 Sep 2026 08:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790066461;
+	bh=YmqkH21AkFgkZkA4fPQz1x4A/HlSQ3R2zm2NsV5Vr9w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AbeHJGRqxirXP3mNUHqTZOB+ioIcdOTlu1FPqInqKIpw6SaFdWOf7JkbjKZwp1Hc/
+	 1En3t71xcogwA8eQmgKnoQ+HxtTGwb/pZyFuvwXSJuOItr8NAcHL5GByG5cz1O5+5r
+	 GBW/F+sasI+n1xppxx+gvKLM1WhN613vm+jaACiU=
+Date: Tue, 22 Sep 2026 10:37:14 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>, stable@vger.kernel.org,
+	Benoit Sevens <bsevens@google.com>,
+	Filipe =?iso-8859-1?Q?La=EDns?= <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [STABLE v6.18-v6.6][PATCH] HID: logitech-hidpp: fix race
+ condition when accessing stale stack pointer
+Message-ID: <2026092205-threefold-hypnotize-f780@gregkh>
+References: <20260401144811.1242722-1-bsevens@google.com>
+ <81n26386-p78s-5rqq-5s7o-p8s01sr95q74@xreary.bet>
+ <20260922075400.GA2268440@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 10:40:57 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 09/12] net: systemport: Fix inverted error messages in
- bcm_sysport_stop()
-In-Reply-To: <20260921231305.394773-10-florian.fainelli@broadcom.com>
-References: <20260921231305.394773-1-florian.fainelli@broadcom.com>
- <20260921231305.394773-10-florian.fainelli@broadcom.com>
-Message-ID: <919b2a5abb813a7976a84c3001b6e724@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922075400.GA2268440@google.com>
 
-On 22.9.2026 01:13, Florian Fainelli wrote:
-> In bcm_sysport_stop(), the error messages printed when 
-> tdma_enable_set()
-> and rdma_enable_set() time out were inverted: the failure of
-> tdma_enable_set() logged 'timeout disabling RDMA' and the failure of
-> rdma_enable_set() logged 'timeout disabling TDMA'.
+On Tue, Sep 22, 2026 at 08:54:00AM +0100, Lee Jones wrote:
+> Dear Stable,
 > 
-> Swap the error messages so they correctly describe the failing engine.
+> On Thu, 09 Apr 2026, Jiri Kosina wrote:
 > 
-> Fixes: 80105befdb4b ("net: systemport: add Broadcom SYSTEMPORT Ethernet 
-> MAC driver")
-> Assisted-by: LLM
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> ---
->  drivers/net/ethernet/broadcom/bcmsysport.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> > On Wed, 1 Apr 2026, Benoit Sevens wrote:
+> > 
+> > > From: Beno=C3=AEt Sevens <bsevens@google.com>
+> > > 
+> > > The driver uses hidpp->send_receive_buf to point to a stack-allocated
+> > > buffer in the synchronous command path (__do_hidpp_send_message_sync).
+> > > However, this pointer is not cleared when the function returns.
+> > > 
+> > > If an event is processed (e.g. by a different thread) while the
+> > > send_mutex is held by a new command, but before that command has
+> > > updated send_receive_buf, the handler (hidpp_raw_hidpp_event) will
+> > > observe that the mutex is locked and dereference the stale pointer.
+> > > 
+> > > This results in an out-of-bounds access on a different thread's kernel
+> > > stack (or a NULL pointer dereference on the very first command).
+> > > 
+> > > Fix this by:
+> > > 1. Clearing hidpp->send_receive_buf to NULL before releasing the mutex
+> > >    in the synchronous command path.
+> > > 2. Moving the assignment of the local 'question' and 'answer' pointers
+> > >    inside the mutex_is_locked() block in the handler, and adding
+> > >    a NULL check before dereferencing.
+> > 
+> > Now applied.
+> > 
+> > Benjamin had some ideas on further cleanup (allocating with __free__ 
+> > instead of using stack pointer), but that'd be a little bigger cleanup, so 
+> > let's keep that separate.
 > 
-> diff --git a/drivers/net/ethernet/broadcom/bcmsysport.c 
-> b/drivers/net/ethernet/broadcom/bcmsysport.c
-> index 130545cce045..384423b312ca 100644
-> --- a/drivers/net/ethernet/broadcom/bcmsysport.c
-> +++ b/drivers/net/ethernet/broadcom/bcmsysport.c
-> @@ -2089,7 +2089,7 @@ static int bcm_sysport_stop(struct net_device 
-> *dev)
+> Please could we have this commit backported through to linux-6.6.y.
 > 
->  	ret = tdma_enable_set(priv, 0);
->  	if (ret) {
-> -		netdev_err(dev, "timeout disabling RDMA\n");
-> +		netdev_err(dev, "timeout disabling TDMA\n");
->  		return ret;
->  	}
+> e2aaf2d3ad92 ("HID: logitech-hidpp: fix race condition when accessing stale stack pointer")
 > 
-> @@ -2098,7 +2098,7 @@ static int bcm_sysport_stop(struct net_device 
-> *dev)
-> 
->  	ret = rdma_enable_set(priv, 0);
->  	if (ret) {
-> -		netdev_err(dev, "timeout disabling TDMA\n");
-> +		netdev_err(dev, "timeout disabling RDMA\n");
->  		return ret;
->  	}
+> I will follow-up with a backported version for the older releases.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Now queued up, thanks.
 
-Thanks,
-Nicolai
+greg k-h
