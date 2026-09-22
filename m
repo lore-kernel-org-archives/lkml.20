@@ -1,88 +1,53 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59D4528447
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4E649E5DC
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067609; cv=none; b=TisYAKnkKaz3DSMdLCkjlyGN4AoDja37biCc32KTQOVj0vKqA3YtYbwMtZeAVhMA4E5/BtKYt6Y8hKw7g1iV1L3tmapzMXMllNXDaqxp9f3e76A8weV77sQNacvwtfpBJ1hEtYNd66bwnXwKhhyiVHCSnzvt2Sa7DtjLtHPXvA4=
+	t=1790067676; cv=none; b=Ib3iYn4XdW1e51oZmP0IGdjvwbxlnqelzdBFgqmr+Hhue1NL43BCRppL/I2z83ib1t147ckvXZfARvm2V8gbhkUkicf1mUgBNaTtHOthyVt1yAar8XhHUGLV25et+tRF4E1a3t/R7/ninJoDoUJlQOLk6yLsGVQCyxh2uocu62k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067609; c=relaxed/simple;
-	bh=QIEBB/wfztDgzWk63lQW6yvGaw7XUzaROm6NjmVGvck=;
+	s=arc-20240116; t=1790067676; c=relaxed/simple;
+	bh=YxoQ3302VVK6RBd7JOLcd/pvBsu15GFY+3Lyjs0wQTQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hJM/AiPsxMvo4Z7lQEuTyydRrUW5BapxBYwpgXRFAQu/SDFlgw9cMG1pAw2Yg57rinKNrOryLVL/sEdDu9Oz0mzzzucOuHP+RTniEoNbYHTDmETboLbB4vUVQhnU+7YYZHlT9DlV7R8DW8RytrQG9t76k7MSUEnQFDso2MuvxPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gLCVwPGg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HwpQrOLQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gLCVwPGg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HwpQrOLQ"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M8dDHu3703871
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:00:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7saBiG+R2RfzBaOZ+EzP2YY71J2u+Wed2D/wQsOOERw=; b=gLCVwPGg4oCZG9pr
-	kQHI6Gr8ZzY3EjYC73Vd5rmvDNExGwpyityN4BV/lg1cs10Z0lQegbtxcCtpDTFb
-	vx2//wGtHhwJa8F2JrFUgz+LzJjsNe4JsMdDSMhfTeAupE+2oGbJn5zP8vRzF5hD
-	PbZj03RsLdOcVJOaB3PpLe2BM8Hk2uttMYsIOxANYqgDTgS3i/rZNyAmuE+k3Hy9
-	I+Ta/M1ILMyCBzReO3uExK/myrPvlEgfljgeQEPUD9qzIqC1s1a3i5iX0lWDkOV3
-	Uz09WYjmMjRXWHOYR/44gVJnYe1jj96u/5Cfj04X7O0wXtJda4GsoqmN8o0vSQBs
-	8clo1Q==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gupbqg2qa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:00:05 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc435388657so5708061a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:00:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790067605; x=1790672405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7saBiG+R2RfzBaOZ+EzP2YY71J2u+Wed2D/wQsOOERw=;
-        b=HwpQrOLQ5r/hhPByiq8CeW9vyyss/ogPzLmpvOwtgcz0jhDMseJDU+tOx4J48bQN/r
-         i4XGMmzfG4/8sf2uvnpPXj8NrCjemTiDl1H/EbrWKZ31+GVGzi7iwX2y/o5Zibow7Fr3
-         11QTKCeTXMvuk10njpIFci9osXUhxIqCRy3RRgh1SjOMV4C4Z08I66zDecWAmKCgmLcX
-         SjWENpanD4N1uqFcVA283glq/u0+zkxzsUYCmBTgaxFQEcTN3664nxaxhub10IJ9PNPm
-         fcB71tNSkx1tDAzNtHPCMNOpXZLa6Jo90+4k0lPzP3LjgvFckY/LOpLL3z1v8gCkcnWo
-         el0w==
+	 In-Reply-To:Content-Type; b=HT2ILjBd7w7t40QUXh5XB2N3DQbqS5UDLdquxigaA6/jfzzxb3MVKPx6jU5Q0NNtK8Ci2GdBrMmQY7CssddGEEzdNE8TWSx7nHZ875k0fFiBxk9zYKCqDJNBAIbefr16VMvPcyKAfiHnvGiOHuFqNfqvTuppKUTWgv1F324KH/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-49b963f51f6so15492685e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:01:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790067605; x=1790672405;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20260707; t=1790067673; x=1790672473;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7saBiG+R2RfzBaOZ+EzP2YY71J2u+Wed2D/wQsOOERw=;
-        b=ujHhSUv97qChKDyzxDW5R/Ona2JkoLGmxmigGXIJgnfQTZA5FzkRqo8ntaiKimTgjM
-         BZOywDM36sIQQfap4GdWRttsNFdJa3n9QtBIGu4KHEmHOHOF3Zlkbe/GXeDNNrDyWuD9
-         mqm2RxlEgt//Xx3S8QgvMGrsHZogy/7CQbO9CVhrZKBML8YjOnCZ9xz2uJyy8XGheGTp
-         KoW6LzdSrm9rYZgyXqnaQgbsd0hFlhyUvLcc99lSp2lKCwIpbj16ORo6PVUbxxRCuwTD
-         lp9EK81/yq1dc0FLZF7yvJPeOI8bMLGQ+Y41YMzFsspSK4JjffZj88JFSL7R5GGH7JGR
-         H1uw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbmc0TSgyFV3mFb8kfo38XF5d/hSs+uPuX4UnWB8UVEpH2/aRN8g4RXVBLASjiSMRMeLJGBrUq/rTDe/A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkETBJ5z2WsqfPcrciMN6AohvkxOgrWYNAYj7b/uJciPxl+1DI
-	kR4rQXWTnuqitK5snFTgaI/pyIBcDEOzxzFdGLY7Xe0JmAAAfIchxyRwOSy2qCToLh5NEZO5AJo
-	iQUE7W8/8+GVh6fM/rnwzA7Fvh1QR3flfV424RBp++3io9CdNmpkkMndKZRia4z6e5Cc=
-X-Gm-Gg: AYBFou3WXCeUGXWlXSI/qVIxq/Y5Q6A0uJGLrKdikjqjRNGGwXucgpxf/OPRA3NZjqV
-	5au8gwlrbtqFpFGlpdpgdK/MeOMeWSQrk16vKYUG2Nx/tYD+0kcBdwvztC4xEDuMnGGrUxMGXRW
-	uNaFrhGu7k/hrSMY9J9AMg4JEd9QS4OGizj/HJGv532DawVQ4PZ6f9BjMFQgzaP27oq0gtQ1dNR
-	zqOF++Xh8sRcWQQyxiAM2MCaU0Txh866ZhbJFAXJa6BzkwaTlXfD0rJLKvy4EY57FlOiyp4MI7X
-	KqG5Y+cW4bUNOLnMkSdKUt8ba5vUviMnOSHsVkURN4fAxstWarNdn54bk6g1DXIkW3POj1JqxCe
-	7NAi2aWXScO4+Tosy2E4ZWPbiPtCpCnNKpp6ElR8rAu/ATga9iD0Sd4G/po4JFTFRDn7Yp084u6
-	So9r96Vro5WNsjqIOTsA==
-X-Received: by 2002:a05:6a20:6f01:b0:3dd:85a9:55a4 with SMTP id adf61e73a8af0-3ddec6b43f8mr643539637.29.1790067604615;
-        Tue, 22 Sep 2026 02:00:04 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6f01:b0:3dd:85a9:55a4 with SMTP id adf61e73a8af0-3ddec6b43f8mr643506637.29.1790067604109;
-        Tue, 22 Sep 2026 02:00:04 -0700 (PDT)
-Received: from [10.79.116.160] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f2a40e8csm3909915c88.12.2026.09.22.01.59.59
+        bh=lecd9aSSVKlAMcWInmOgPiHqYN3Sf+43fP8VaSX/kNU=;
+        b=R3+pulsTuZNYIEzAbTgqxsRhZ3Xh1afen4jE+EeuPtDifQrNHkfh9Yc/nIlZhKbWhM
+         8YjLoKn/FsKAphzOXZlebB2OuPdYoetOzkbfRcJ+lKyBWUAQKAIKEe0lxTfjPizZoXnJ
+         o94xhrZo41znyHtD0/WYsfWhgLdVPrl8UruWVBfEVr6KUwAEaOdkGcMiwmSeBxBqbf74
+         9BvlGBshVoaDNnKo46s5m2eaNCAAbv8nk/MUyaRC936oaWGbgvsWOY3bWN4Va4wjC8AS
+         zxLCHpIR5DOefzJTBCpeqXCgJ8QWPfYbQHjIWZZJE/sylLY8QmI2f8TA7qcvualeN0sD
+         mVEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwgWvA2L1OKxOMpVguWRpOWMzA+CcVlSX1qDjY+NUZGoLXV4H6H3pOqUHybNhA941w0cUSg3epnGTDNZSg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/y5wxRHzYKcpFe9Aw6wsbRy2Y9M6b++QxelQqRspszxqBD2PH
+	tJZ6+aexKVHi2A77i/OAeayYMhGEV7NN8qYlYjvV5Q+2ocR7657SeF5l
+X-Gm-Gg: AYBFou1dcwWaG/qPORC4jRiOUPDOGlJRpI0IN0QBq69PMVL6v4hQeauP4ze3d89xrFJ
+	3BeBIXr1akKxyABa58dcy3NSxtQ27kAaoUV/tjTJcp2JfXkCHOvpHKdS5/iwOoJoWq5+cmug27R
+	+CL1HfOQC0hkMk3asSOSntgvbqdTgeu0zTEFmN0wyTmSmxMx8rYfMgkZVO3YR6TfZMd7/hIDLKy
+	0nDKSKnRPxrGN/51U5avYssid1w5mptdRgEBVdMSKKHtgzQAbdBlOuWhVKLlCfY5IbdGmAg/zOV
+	4mpR2/BzVhxTBLDVMj9OAbatQVg/vYaoZdSOwkYbYQ4TB5x0X7YP2O/FEIOyEMDKpkm/oXHg3PH
+	QbT1LiXIZkTiTY5W++5I17DrMgIf13n95fPFCtLOLSGedxnOEHv3r4ki/THain1OpMw+MwoVT0G
+	ZSdXiTkVpiLRbOEwDV1Ijt4gKLIxFrTZPhMd9bsI7SWaubGKXRG8Mzgvtr/TeCnCkGeiv3cad+1
+	w4emT7dKBDil/DV6ttA50FOCeXaCkNNUvXxhNIPVMA9OfI=
+X-Received: by 2002:a05:6000:491e:b0:487:11e1:cab2 with SMTP id ffacd0b85a97d-4871e36fa85mr19168813f8f.49.1790067672483;
+        Tue, 22 Sep 2026 02:01:12 -0700 (PDT)
+Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488627744f5sm3701294f8f.7.2026.09.22.02.01.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 02:00:03 -0700 (PDT)
-Message-ID: <5b28876d-749b-42e7-bd1f-1380613d4060@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 14:29:57 +0530
+        Tue, 22 Sep 2026 02:01:12 -0700 (PDT)
+Message-ID: <dca799b4-23f5-4b6f-be73-bad5a3d88007@ovn.org>
+Date: Tue, 22 Sep 2026 11:01:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,117 +55,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg
- values for cdsp
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Mahima Bhattaram <mbhattar@qti.qualcomm.com>
-References: <20260922-glymur-dtfix-v1-1-159da6b0eed9@oss.qualcomm.com>
+Subject: Re: [PATCH v6 3/4] net: dropreason: use new __print_sym() in tracing
+To: Johannes Berg <johannes@sipsolutions.net>,
+ Ilya Maximets <i.maximets@ovn.org>, Matthieu Baerts <matttbe@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ dev@openvswitch.org, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Adrian Moreno <amorenoz@redhat.com>, Antoine Tenart <atenart@kernel.org>
+References: <20260921101538.97286-6-johannes@sipsolutions.net>
+ <20260921101538.97286-9-johannes@sipsolutions.net>
+ <98b93c98-21ae-4248-a60a-9625a20508ad@kernel.org>
+ <7f557f5a-b21e-45cc-9d3a-cd4f8b5f799b@ovn.org>
+ <99e5f7c0d7debc8a59bac96e93f09600bf488ca8.camel@sipsolutions.net>
+ <4a0240a7b9ff87302620a95c73f4f265cd428618.camel@sipsolutions.net>
 Content-Language: en-US
-From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-In-Reply-To: <20260922-glymur-dtfix-v1-1-159da6b0eed9@oss.qualcomm.com>
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <4a0240a7b9ff87302620a95c73f4f265cd428618.camel@sipsolutions.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDEyOSBTYWx0ZWRfX8TT60tahhpsG
- qufFH0hpNaTxL3dt+hR/whzJ8Ppte9voXKn4AxODwnijI+bKAH4oNVvXokKdY88EvGRkXU3DFsO
- HCmBSaWgwV06+6c7C+pb+wNJ4XfKneDrTSFsJO/0AoPMejveRigd5Q4/4+ckqmCY9Tn8uXxq04J
- zluFzKsVB2C16+7tggjM8BcQSCuQr/FVtbLF5OZF+puFtzFvCJ8UYSpHf+ZI7tD/eNqzHdvNMHB
- caM/eXSqLsKL0FDSPqpTMc2h5lP675tKuSrIu/4fTm5jNBe5KNjNsmGoAhRubiis/xzUkfUOfuF
- nKTYnJnUonBrd7619WI8Udz5MEQOS+yiOr2mNPI3cRjL74nkIYLyz2I8FvFbX3eKgoKjxAOA22h
- NaXDsmWmzshuTAFn0NDCEbnozlvLDKCzI+7orvJfLnxZYUf9fnC3VfF+NRWNAPhE6SCWBaJLkcF
- /TZSdD+RExdDwJQ4/HA==
-X-Authority-Analysis: v=2.4 cv=FdaiV5+6 c=1 sm=1 tr=0 ts=6ab24395 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=apzgA-_30mgdO9RPUzcA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: DjANmCJ3VFx0NtTHwM4POOCRFbKre3QH
-X-Proofpoint-GUID: DjANmCJ3VFx0NtTHwM4POOCRFbKre3QH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDEyOSBTYWx0ZWRfX7OGhrCtn1LrQ
- i8vXBo86sJ7NQQeh46urlXWGSEU4O3MTxq7yHBc08gtQL3j90enHErfRNsFKWKZyM5N+1SkvxDT
- Jzk+YP8eplCmNvO+0CVeY9Rj0xR4tTs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- malwarescore=0 spamscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220129
 
-On 9/22/2026 12:10 PM, Ekansh Gupta wrote:
-> The reg value of a compute-cb node must match the SID (the lower
-> nibble of its IOMMU stream ID) it is associated with. In the cdsp
-> fastrpc node, compute-cb@10, compute-cb@11 and compute-cb@12 were
-> mistakenly given reg values of 10, 11 and 12 instead of 12, 13 and
-> 14, which don't match their SIDs and leads to SMMU translation errors.
-> Fix the reg values, and rename the nodes accordingly.
+On 9/22/26 1:20 AM, Johannes Berg wrote:
+> On Tue, 2026-09-22 at 00:36 +0200, Johannes Berg wrote:
+>>
+>> Indeed. Something like this (untested right now, didn't manage to spin
+>> up a test yet):
+>>
+>> diff --git a/tools/testing/selftests/net/openvswitch/openvswitch.sh b/tools/testing/selftests/net/openvswitch/openvswitch.sh
+>> index a31f7fb6882d..9b8edfcd2d1a 100755
+>> --- a/tools/testing/selftests/net/openvswitch/openvswitch.sh
+>> +++ b/tools/testing/selftests/net/openvswitch/openvswitch.sh
+>> @@ -234,7 +234,7 @@ ovs_drop_reason_count()
+>>  	local reason=$1
+>>  
+>>  	local perf_output=`perf script -i ${ovs_dir}/perf.data -F trace:event,trace`
+>> -	local pattern="skb:kfree_skb:.*reason: $reason"
+>> +	local pattern="skb:kfree_skb:.*reason: $reason$"
+>>  
+>>  	return `echo "$perf_output" | grep "$pattern" | wc -l`
+>>  }
+>> @@ -790,15 +790,6 @@ test_psample() {
+>>  # - drop packets and verify the right drop reason is reported
+>>  test_drop_reason() {
+>>  	which perf >/dev/null 2>&1 || return $ksft_skip
+>> -	which pahole >/dev/null 2>&1 || return $ksft_skip
+>> -
+>> -	ovs_drop_subsys=$(pahole -C skb_drop_reason_subsys |
+>> -			      awk '/OPENVSWITCH/ { print $3; }' |
+>> -			      tr -d ,)
+>> -	if [ -z "$ovs_drop_subsys" ]; then
+>> -		info "failed to get OVS drop subsys ID"
+>> -		return $ksft_skip
+>> -	fi
+>>  
+>>  	sbx_add "test_drop_reason" || return $?
+>>  
+>> @@ -842,7 +833,7 @@ test_drop_reason() {
+>>  		"in_port(2),eth(),eth_type(0x0800),ipv4(src=172.31.110.20,proto=1),icmp()" 'drop'
+>>  
+>>  	ovs_drop_record_and_run "test_drop_reason" ip netns exec client ping -c 2 172.31.110.20
+>> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0001 # OVS_DROP_FLOW_ACTION
+>> +	ovs_drop_reason_count OVS_DROP_LAST_ACTION
+>>  	if [[ "$?" -ne "2" ]]; then
+>>  		info "Did not detect expected drops: $?"
+>>  		return 1
+>> @@ -859,7 +850,7 @@ test_drop_reason() {
+>>  
+>>  	ovs_drop_record_and_run \
+>>              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.110.20 6000
+>> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0004 # OVS_DROP_EXPLICIT_ACTION_ERROR
+>> +	ovs_drop_reason_count OVS_DROP_EXPLICIT_WITH_ERROR
+>>  	if [[ "$?" -ne "1" ]]; then
+>>  		info "Did not detect expected explicit error drops: $?"
+>>  		return 1
+>> @@ -867,7 +858,7 @@ test_drop_reason() {
+>>  
+>>  	ovs_drop_record_and_run \
+>>              "test_drop_reason" ip netns exec client nc -i 1 -zuv 172.31.110.20 7000
+>> -	ovs_drop_reason_count 0x${ovs_drop_subsys}0003 # OVS_DROP_EXPLICIT_ACTION
+>> +	ovs_drop_reason_count OVS_DROP_EXPLICIT
+>>  	if [[ "$?" -ne "1" ]]; then
+>>  		info "Did not detect expected explicit drops: $?"
+>>  		return 1
+>>
 > 
-> Fixes: cd1d174c75f7 ("arm64: dts: qcom: glymur: Add ADSP and CDSP for Glymur SoC")
-> Co-developed-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
-> Signed-off-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index de7c395d9c35..51fea666efac 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -8471,9 +8471,9 @@ compute-cb@8 {
->  
->  					/* note: compute-cb@9 is secure */
->  
-> -					compute-cb@10 {
-> +					compute-cb@12 {
->  						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <10>;
-> +						reg = <12>;
->  
->  						iommus = <&apps_smmu 0x240c 0x440>,
->  							 <&apps_smmu 0x196c 0x0>,
-> @@ -8481,9 +8481,9 @@ compute-cb@10 {
->  						dma-coherent;
->  					};
->  
-> -					compute-cb@11 {
-> +					compute-cb@13 {
->  						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <11>;
-> +						reg = <13>;
->  
->  						iommus = <&apps_smmu 0x240d 0x440>,
->  							 <&apps_smmu 0x196d 0x0>,
-> @@ -8491,9 +8491,9 @@ compute-cb@11 {
->  						dma-coherent;
->  					};
->  
-> -					compute-cb@12 {
-> +					compute-cb@14 {
->  						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <12>;
-> +						reg = <14>;
->  
->  						iommus = <&apps_smmu 0x240e 0x440>,
->  							 <&apps_smmu 0x196e 0x0>,
-> 
-> ---
-> base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
-> change-id: 20260922-glymur-dtfix-6314526b4b02
-> 
-> Best regards,
+> No longer untested, that works.
 
-Reviewed-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Looks nicer than parsing obscure numbers indeed!
 
+Matthieu mentioned we'll need CONFIG_TRACEPOINTS in the selftest config
+shard: tools/testing/selftests/net/openvswitch/config
+
+Is that a new dependency or was it always there we just missed adding it
+to the config before?  (it's included in the common net config, so that
+is probably the reason why CI doesn't fail)
+
+Best regards, Ilya Maximets.
