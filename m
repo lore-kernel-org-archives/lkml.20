@@ -1,192 +1,160 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012039.outbound.protection.outlook.com [52.101.126.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-150.mta1.migadu.com [95.215.58.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036153BBFD6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790047001; cv=fail; b=jMYfZvgOf2uA1MRQSFdNfReyWbt9QbwIroXZZTwPwoY7TZAVulb0rtNRLG+4a0pBC+PDKxdLPOwFa3Z9yfJVnnCIsNi5MTOBjbHifZ4ExjaUBcirDFF2tFv/18FW1MJdaxMSnXXlXxT8L4WkuTAUaJ0Lq6NTIUjrKZNRIleu5So=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790047001; c=relaxed/simple;
-	bh=BfuIj5EltW2JIX7ZPFCjwPndbltNtZgoMi/lVH1p7jc=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=PSVlGSi/xeEHA5O/SVleGgikA/7h0+wSvLKTQwmsxSpTiZitutwKX4zTb3i+0cm5efVJ5oqNjcWTj6+rfdkUxga91CjrmkaPfYpr5qzwsAC+zDH5hcF2vpidFliHPkdGnr1HPfmq1gzBE185Ejwto9dfbzoEShzoD2xs/UDolZg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=cXTjmkJk; arc=fail smtp.client-ip=52.101.126.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52716383333
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.150
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790047074; cv=none; b=pfi+OaaAvB6mS15uFmSP3L14Xy1gGSKKQR04Fw8hVrexjSmGVULH486uUnAw388ZpLGaa9OGp+aTgHL5N72nPhf8EGW3MudyfXqcL/IIMraq+GAfe1BQ/SiH8SnUpeTg0pxZjTwONCzti4JkvN9j+ppDUI5sI/hfZUIduWqDh48=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790047074; c=relaxed/simple;
+	bh=n5rx4IX4GsBUDhc4Iyun+qiv1PJKF2Xxv28G7taH6Vk=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=GFPYJUhdSFTYDnT7eSfYOtDBgT+2CVoFcBib9dtc6ONcVV6V2rz6ka3Xbqg/L0iDGyKteZ9KMyi4OFSWnD9gCvtj0v4luAIrjpFWSIKOkcOwVu63BwWW3ZyAJhvlQJ/Ig9yzvJj5UJnhT1t6ojI25XBeKsf8+TqhzCWUWQOkeMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OXZdkHQ5; arc=none smtp.client-ip=95.215.58.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="cXTjmkJk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lVImYO+GBdX5e5H9cur7JszjUHaFXaSWtrwpUGnZiQW0Nr20+0KZeY0B+SvxIezdiF6OCghaY9hD9j5617VY1V0hLOCrhNTGUnLFSFmHNbSokHfB6e4WhYPl0cHJaKlavcSs60zBB5ZwUMEaZOS+/xG6wiGAGYp+Qe2nT5lYrYOkl0C6YxObexzY+G9ORjvay72GJTf1wulNcpemMM7xPO6/4FU2ETKycAeRjwyMd3KIkfWPmwTheAXKaTXpY8/HJA1QzyWwiEUGATwpj3oZIrjvq2KCsBzBwNUu+z+naE7Rl0/ntQrj5REqDpE/dmlYa18ZDFenDgIlyHkR8arfsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=njHuQPuXl1BrKVgAxg1XtuDpP0oCePwjw3cXkyLhqBc=;
- b=swQ7x/VbxSkLGUa/42SR2hjZkJnQ1/KZRfmKV77+2FsEOjNBLgu8u9Ab03jcTaiT2rqOofE016+Pmp6+TgfzFj5yAdHRiHSLrz/hr/Y09eiErtkfbkDWshHV3lPKAd0OsUrJ+jD+KD5OtUSds3mE9CGSJXfKlDikQqYjegyfrLBcXcExAkCgoOau1E1TagLsWjlex+ny48nJgBGR7/oI5W5hd/NX9oX5JwVYI4OwJd3pR8hyaE6qCqpudafoqumVQwIoCHXhn5KWSteDDz7Ta3qjQ5QId+AV/n3Cy23Xleq2oznM8F1X5/fuEV2K/fuewg5ulHeSfZV1rvDLHnnjhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=njHuQPuXl1BrKVgAxg1XtuDpP0oCePwjw3cXkyLhqBc=;
- b=cXTjmkJkoxtxZG2tV1yKLRv6S2TSD5mAe7xGTZALmY/lBRUvUt1mY7UhWHD3aKj3vjNwpewT3+T/HkWkGK9Bvn18cCiVY93ZLsYSx/Uj1PqYEm6P0V2H6IqXGVjVujW8XRVPKx7jsLCMy1RO1Q4IlsWSQTep3Tax/2Pf0HPE5QYsQZRUlk0JfWPDTa16oAYR4BFhggztQIHeRWHtQ1MYOgNJiwSJlbkjphRUlOGAyT2zvr3etbuZPHGZmYqYeY/0isBwLWFV9GFgJe7L/XK4x06l4velbNbwlTTM5VvcJ3GUDirkUJVGTRp4b/li9Qfl1KpBDv/3gFHQHcGuaK+J+A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from PUZPR06MB4742.apcprd06.prod.outlook.com (2603:1096:301:b5::13)
- by TYZPR06MB6894.apcprd06.prod.outlook.com (2603:1096:405:20::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 03:16:29 +0000
-Received: from PUZPR06MB4742.apcprd06.prod.outlook.com
- ([fe80::206c:c661:9838:5571]) by PUZPR06MB4742.apcprd06.prod.outlook.com
- ([fe80::206c:c661:9838:5571%3]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 03:16:29 +0000
-From: Fuyu Zhao <zhaofuyu@vivo.com>
-To: tj@kernel.org,
-	void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com
-Cc: sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuyu Zhao <zhaofuyu@vivo.com>
-Subject: [PATCH] tools/sched_ext: Add SCX_OPS_OPEN_OPTS for schedulers using open opts
-Date: Tue, 22 Sep 2026 11:16:18 +0800
-Message-Id: <20260922031618.2858-1-zhaofuyu@vivo.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0009.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::18) To PUZPR06MB4742.apcprd06.prod.outlook.com
- (2603:1096:301:b5::13)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OXZdkHQ5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n5rx4IX4GsBUDhc4Iyun+qiv1PJKF2Xxv28G7taH6Vk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790047070; v=1; x=1790651870;
+ b=OXZdkHQ5qaXAc8/OoEikBWoNlnVFMkAHE8uQc0aWfSKRzsW5dR7OSoOIsyTDF1S9ghN2J3W4
+ wOpnAEU2hdKDZCN6XJvy26vEwrP0suDl0ycExkXUeqAMApj3rHmAyPSBiS0wVvMPv/EjqjRIuII
+ hUQVD8AR5oxKbvTfTiuVTL/w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 007cbe3f9b98d031;
+	Tue, 22 Sep 2026 03:17:50 +0000
+X-Mizu-Trace-ID: 007cbe3f9b98d031
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PUZPR06MB4742:EE_|TYZPR06MB6894:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63990225-d3b1-46eb-32bb-08df1857e49a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|1800799024|23010399003|366016|38350700014|6133799003|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	QIX0GgzbiYYTXSEh1HlSdahVV5QC6/BFmc4Td697aD+DwNrA5VDyieoZCzHuFxC+oZ4orX1jxH5joevrSfA4vK5+PmUi71Gjmq0DCt1SJh8UOxUWsjPVIEUa703SlLjRBWrFrkM6eDAVcPeMIKGjZiJ4SfPsfB9jxvID5Xc9Lht2oD2JigoCDewqmQntWwPpHgS7IRiaCgZR5/0/rHONumMBjAazxOxmrhE6Yp/aVMSqu4npSWK824Hv9vVmRhkwF5aO2d3p7SZnDGCAG37+5IZgAViOdaJ7CduUz5msbamYktfhqogA/SivqY2WrfMqcukZhdjal2E9UOXYS0XsMmrHk/GsZXfgjZofkt78DiOp5zcrwvF4TNkqYr4qzsVWhV9tJyemauu6ozwM0tewBUDyUGEeztBpZhEWrXYTArUavZuCCSx5+oxCqxyl72BnbI9q53sPqYCWaH4yHqMvMr+kLXtiDz6sz2VPQxd2C+yg3MQXb9WFifJlO/MWkzcRAa8tpLOsnnsik5wKrKLFNUT7jhHJzVJj/3bcpncf3w7CNUpak+b2pg2l18TNbSZCk1gZG6iMh971lS/R1DmQvpUwM5e+1QJR4OsMHuXZEhgF43RGWjnUneHun9h/ATW/xIln/Ae3OYOnr0JduSdLMAb+p8tufTeKHKgswk576GAZvdLNjeRHhv1mSidY7ROrlval7zsX+8H3ced0VWK81A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR06MB4742.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(23010399003)(366016)(38350700014)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7RUTluvJ65OCXvor4Km/DBaxG/dvTbvUAcGs6hnJ+chOtik6bwVy+I7GMjuU?=
- =?us-ascii?Q?neS5GZJuZcilm0lELF+eONAaXnRCX8V8eMnXHV3Ri7F2GTLPeeQ8czpLBBDP?=
- =?us-ascii?Q?R/pHgtsLhSL+wpiQljd9goXi3oVj3My4O6Vfeqw0YA+q28jN+hsyDu9sIIGR?=
- =?us-ascii?Q?aqn7+0jPwRhGKdAZlGk3p+AQ1QUoBwUAE6litpEvUn9zPV+qCWSjvZVt7uJI?=
- =?us-ascii?Q?v3ObSRpx3pOjkVWPdWcY1ih0h8j0MOg1XSEg9aii6pWIS2RuIUu2ie47b9J6?=
- =?us-ascii?Q?d79deG0+m1UxNA20AwdOmFRmcJfJ79O1K7CVQcxoLzMMXQHdrGewaP/RA/38?=
- =?us-ascii?Q?JnXjvFxPt64mlaQmcdCwfeXxz7eL2uIwe7/LE8FYcRhD7yhwJzfcxhikJjlS?=
- =?us-ascii?Q?Qx0jqrSWYqEuUF14uXdH0Tu/oYdAnrZjYm3TfYgm5txSMqvhLH8COt67K7on?=
- =?us-ascii?Q?j80tca517d/pPLgMvv6bhMOm+e5b3PuNQkm/V6QxNlb7wcFdqvfkYY69TSzI?=
- =?us-ascii?Q?07/kuZzxAtDApU0OZxilybvQVhWVCX+MjaniQufI3S/HRA+CEv8312AMhFEu?=
- =?us-ascii?Q?VnOoPsiTpt1vURCfod809NIjje/qK0bVApIeQXcOgufIT5/dzYQ4D45ENO2P?=
- =?us-ascii?Q?Ms02E4Lyyg4Ggy30EOPOZFnLrs0hHxiRtBWOt6mvoE2hC2S8cL4DALiZ09Nm?=
- =?us-ascii?Q?+W5I5i7LHy39fWKILuMxuxdwetZ1GdKJN6Bz5qAcuv/pWOQboLYMuBCNb4Rd?=
- =?us-ascii?Q?cHLTOXbLCkMtDPm2I3OkjUXNpSJDyFn7ZUF1B/5j7N55i055zK/kr6J1Q0eq?=
- =?us-ascii?Q?lGgj/8b96AawL7C591Dz3dNA1YTSDiSgYW7lyj3MBGiI1S1kyrrAojzvco3H?=
- =?us-ascii?Q?fikRXfjj9XRF5DxQJK8I606Lm3Tq6qEcRZp5+AqLJqyTHzKyCtlRebjT6JJS?=
- =?us-ascii?Q?NJj9fPhzOzLfeShITonFM0tB2r4tcKQjvkPsQc1Ia/jq8dF6S5JlqkG/MCmr?=
- =?us-ascii?Q?rOnKYTa+YNb0SLlAfzP8NG7e49iWuPRtExb3gGg9JDejiYN9OVqucjms93Qb?=
- =?us-ascii?Q?jC2L5Uu1KmtIk2TfHX/3wb37/RYT8ww1Ews+ZdGmjqgj9Mq3qUWUFutR9NMV?=
- =?us-ascii?Q?3uqBRkN9apSVPoA6YtaTx+SmbmwCMhgTSGUgkGvPziPiC/FT/9lMjGi1B5jQ?=
- =?us-ascii?Q?MBjHExMGqq618xjQ43czDpUE21HHlRc4J+/WopbpvNWLdxd00Ngbwmrd2aLb?=
- =?us-ascii?Q?753oBAEKIrFBlxcWG7cNO+rZCsee6W+GKMNecSTS9M4kcIySZmhMCvs5GRcV?=
- =?us-ascii?Q?KdyvS+YfvEsGaUSMqGn/ypzWiPFzBQcvEY6/w8CZj/xgiXQYsVY/Hd778wdM?=
- =?us-ascii?Q?qt+YUaY0v9jIMX5V95i404zQdAvEkQiVKfemZiFOTpATdTkMjrXTmwgr5yvf?=
- =?us-ascii?Q?bOVdeuN0PegCKFF1aY+FFrQC0zQglouB8+ddqjmEnbGGr1QB4qG18LmZGveW?=
- =?us-ascii?Q?cW7N8aHg6vssKJBgv+mfja1uU7tUO98WlDoefnl8syStFwj2pnnqd1Rj1IcN?=
- =?us-ascii?Q?uXgJDa+sG1df7qp6X025Do+A9WhH9sx94glZPxfuwu2mYptV0DxxTZWngfvH?=
- =?us-ascii?Q?OpXwodrrQgo2rq0kmZJK0MHS5v00CUCTD5JF1EWtxoI/5gKHNJDc+92DGt+N?=
- =?us-ascii?Q?PU7OngGf+13XnnuXemX/hByyjVRnMQ/xAXmiwBcc0D1hMzNagDhRiWZwmaSS?=
- =?us-ascii?Q?jo6ZN1wW9Q=3D=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63990225-d3b1-46eb-32bb-08df1857e49a
-X-MS-Exchange-CrossTenant-AuthSource: PUZPR06MB4742.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 03:16:29.2309
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 917XiHwRd+2ttkgS66Eb3zLX4uuUEbXTyd9v3nX0fACJRdYU2LCrnAPdJFASlOLH9D4J0yFvwGZ2C+yL4mmBxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6894
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH 3/4] mm: add shared read-only vmemmap support for FS-DAX
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <arEsjy0QwLekLVbf@localhost.localdomain>
+Date: Tue, 22 Sep 2026 11:17:27 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dan Williams <djbw@kernel.org>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ nvdimm@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org,
+ linux-cxl@vger.kernel.org,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Ira Weiny <iweiny@kernel.org>,
+ Jan Kara <jack@suse.cz>,
+ Matthew Wilcox <willy@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Michal Hocko <mhocko@suse.com>,
+ Qi Zheng <qi.zheng@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <B7DD4587-81DD-4B82-934B-67B80A3A2D92@linux.dev>
+References: <20260903122128.12264-1-songmuchun@bytedance.com>
+ <20260903122128.12264-4-songmuchun@bytedance.com>
+ <arEsjy0QwLekLVbf@localhost.localdomain>
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-Add SCX_OPS_OPEN_OPTS() to allow sched_ext schedulers to pass
-bpf_object_open_opts when opening BPF skeletons.
 
-Using the *_open_opts() interface generated by bpftool directly would
-bypass the compatibility checks performed by SCX_OPS_OPEN(). Use
-SCX_OPS_OPEN_OPTS() instead to pass open opts while retaining the
-existing compatibility handling.
 
-Signed-off-by: Fuyu Zhao <zhaofuyu@vivo.com>
----
- tools/sched_ext/include/scx/compat.h | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+> On Sep 21, 2026, at 21:09, Oscar Salvador (SUSE) =
+<osalvador@kernel.org> wrote:
+>=20
+> On Thu, Sep 03, 2026 at 08:21:26PM +0800, Muchun Song wrote:
+>> FS-DAX registers persistent-memory ranges as ZONE_DEVICE memory, and =
+the
+>> kernel normally allocates and initializes vmemmap storage for every
+>> advertised PFN up front. Sparse pmem images and workloads that only =
+use the
+>> DAX direct-access path may never need writable per-PFN state for most =
+of
+>> that range, but still pay the memory and initialization cost.
+>>=20
+>> Add an opt-in dev_pagemap mode that populates FS-DAX vmemmap PTEs =
+from a
+>> shared read-only metadata page. The shared page is initialized with =
+the
+>> common ZONE_DEVICE and dev_pagemap state, so every PFN still has a =
+valid
+>> struct page representation while private metadata allocation is =
+deferred.
+>>=20
+>> This relies on sizeof(struct page) being a power of two, so each =
+vmemmap
+>> page contains a naturally aligned and repeatable set of struct page =
+slots.
+>> It also requires architecture support for runtime vmemmap remapping,
+>> because shared mappings must be replaced with private writable pages =
+before
+>> a PFN can enter userspace mappings.
+>>=20
+>> The initial implementation is deliberately limited to a single
+>> memory-block-aligned range. That is not a fundamental requirement, =
+but keeps
+>> the registration and teardown paths simple; support for multiple =
+ranges or
+>> less strict alignment can be added later.
+>>=20
+>> Provide vmemmap_materialize_page() to replace shared mappings in the
+>> requested metadata range with private writable copies. A later patch =
+will
+>> call it from the FS-DAX fault path.
+>>=20
+>> No caller enables the mode yet.
+> ... =20
+>> +static int pgmap_vmemmap_shared_page_alloc(struct dev_pagemap =
+*pgmap, int nid)
+>> +{
+>> + 	const struct range *range =3D &pgmap->range;
+>> +
+>> + 	if (!is_power_of_2(sizeof(struct page)) ||
+>> + 	    !IS_ENABLED(CONFIG_ARCH_SUPPORTS_VMEMMAP_REMAP) ||
+>> + 	    !(pgmap->flags & PGMAP_VMEMMAP_OPTIMIZATION))
+>> + 		return 0;
+>> +
+>> + 	if (pgmap->nr_range !=3D 1 ||
+>> + 	    !IS_ALIGNED(range->start | range_len(range), =
+MIN_MEMORY_BLOCK_SIZE))
+>> + 		return 0;
+>> +
+>> + 	pgmap->vmemmap_shared_page =3D alloc_pages_node(nid, GFP_KERNEL, =
+0);
+>> +
+>> + 	return pgmap->vmemmap_shared_page ? 0 : -ENOMEM;
+>=20
+> I yet have to look into this with more detail, but this caught my eye.
+> Should not this be a best-efford mode optimization? So, if we were
+> unable to allocate the page, could not we treat this as a normal =
+"cannot
+> be optimized, follow by-default procedure" ?
+>=20
+>=20
 
-diff --git a/tools/sched_ext/include/scx/compat.h b/tools/sched_ext/include/scx/compat.h
-index d2e4384df..f8c9bf657 100644
---- a/tools/sched_ext/include/scx/compat.h
-+++ b/tools/sched_ext/include/scx/compat.h
-@@ -177,23 +177,25 @@ static inline long scx_hotplug_seq(void)
-  * - v7.1:  ops.sub_attach(), ops.sub_detach(), ops.sub_cgroup_id
-  * - v7.3:  ops.rescue_bandwidth_ppt, ops.rescue_quantum_us
-  */
--#define __SCX_OPS_OPEN(__ops_name, __scx_name, __ops_struct) ({			\
-+#define __SCX_OPS_OPEN_SKEL(__ops_name, __scx_name, __ops_struct,		\
-+			    __open_expr) ({					\
- 	struct __scx_name *__oskel;						\
- 										\
- 	SCX_BUG_ON(!__COMPAT_struct_has_field(__ops_struct, "dump"),		\
- 		   __ops_struct ".dump() missing, kernel too old?");		\
- 										\
--	__oskel = __scx_name##__open();						\
-+	__oskel = (__open_expr);						\
- 	SCX_BUG_ON(!__oskel, "Could not open " #__scx_name);			\
- 	__oskel->struct_ops.__ops_name->hotplug_seq = scx_hotplug_seq();	\
- 	SCX_ENUM_INIT(__oskel);							\
- 	__oskel;								\
- })
- 
--#define SCX_OPS_OPEN(__ops_name, __scx_name) ({					\
-+#define __SCX_OPS_OPEN(__ops_name, __scx_name, __open_expr) ({			\
- 	struct __scx_name *__skel;						\
- 										\
--	__skel = __SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops");	\
-+	__skel = __SCX_OPS_OPEN_SKEL(__ops_name, __scx_name,			\
-+				     "sched_ext_ops", __open_expr);		\
- 	if (__skel->struct_ops.__ops_name->cgroup_set_bandwidth &&		\
- 	    !__COMPAT_struct_has_field("sched_ext_ops", "cgroup_set_bandwidth")) { \
- 		fprintf(stderr, "WARNING: kernel doesn't support ops.cgroup_set_bandwidth()\n"); \
-@@ -232,12 +234,20 @@ static inline long scx_hotplug_seq(void)
- 	__skel; 								\
- })
- 
-+#define SCX_OPS_OPEN(__ops_name, __scx_name)					\
-+	__SCX_OPS_OPEN(__ops_name, __scx_name, __scx_name##__open())
-+
-+#define SCX_OPS_OPEN_OPTS(__ops_name, __scx_name, __opts)			\
-+	__SCX_OPS_OPEN(__ops_name, __scx_name,					\
-+		       __scx_name##__open_opts(__opts))
-+
- /*
-  * Open a cid-form (struct sched_ext_ops_cid) skeleton. The cid form postdates
-  * every op the load-time fix-ups above handle, so none of them apply.
-  */
- #define SCX_OPS_CID_OPEN(__ops_name, __scx_name)				\
--	__SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops_cid")
-+	__SCX_OPS_OPEN_SKEL(__ops_name, __scx_name,				\
-+			    "sched_ext_ops_cid", __scx_name##__open())
- 
- /*
-  * Associate non-struct_ops BPF programs with the scheduler's struct_ops map so
--- 
-2.34.1
+My thinking is that if we fail to allocate memory here, the subsequent
+vmemmap allocation will need way more memory than just this one page.
+So it's very likely to fail anyway.
+
+Thanks,
+Muchun
+
+>=20
+> --=20
+> Oscar Salvador
+> SUSE Labs
+
 
