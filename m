@@ -1,91 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7A52D12F3;
-	Tue, 22 Sep 2026 12:51:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C072E8DEC;
+	Tue, 22 Sep 2026 12:52:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081517; cv=none; b=f32s30sEpFV8Nie10zksypwv+AM/uR2c8Sw9n/Zbe6pnVpsVZH8R8f2RTcLOIhJdgy7fSP8bfMgIWHZZN1h4bchU8PsMQDq+ylQZcSTi4tF1MfpyzP53Y/46azcFJ+PwAZkz7JyCVfcNzc58nEYLRDqaxeEglhAkx4Z2fqgD5W4=
+	t=1790081538; cv=none; b=g328Iw13v5aLX9z/Wr2c2cdSZsW2i7XosqPpNf9/d0MaTt0mEjwOnEglqFtbuVKERKEmx0Q+CAYI/0kiJY1c2Ijh3XftYaRPFfeZ4wKFn41vCQazmYIWtqb5zln0tXzvG1Q6tjOATrBL77ooTGdMtbbXf5hTTl9N9t5U1Kgt0N8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081517; c=relaxed/simple;
-	bh=xFpxlzu1SH7kFoX4Fmr5tfR2CvWslninUOlAtwBKpFU=;
+	s=arc-20240116; t=1790081538; c=relaxed/simple;
+	bh=dKFwer8asIo2ww6qdmBz5IYEoRE1svuaIGly3239UFc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U2Gc0WAot6dIkeyCb/Y8MwwJgd7XZZlQDUnkZlRWv26VYfs386fe7zi08gM4sElzbgFGfNQq+rFk0OSE4b1iIZQ+2ysZBDgjd33fp4y9YHifR4PPdkWxxPinoUMQcr9JWJBEKvb5YsOu7uqXVj1MNIDyQiGKjxkFXJhwc35XSzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvegNx+y; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QQsujB7Kr6ooA0U7/EL6pMgNvWZE5KPZIh9TZ5r5SUOnyuI9uqOF3PkCud+qTstDcLTRiJ2RQymPU6MlK7QiBtZ3NoRFIumCVOGZRYaur6vL28LdQB/RHMojtqvAQTUrFf3094fiWUo1uirdD7vwMLpje7Zvi+vIqaBVsnoXWnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ScPnuTaA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvegNx+y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D2E1F000FF;
-	Tue, 22 Sep 2026 12:51:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ScPnuTaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7401F000FF;
+	Tue, 22 Sep 2026 12:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081515;
-	bh=fiMlgP1e00pJ9OYBpmJDP/4QtkAS97V78LW/zmFPMUg=;
+	s=k20260515; t=1790081536;
+	bh=zwXB7IJjlaB8/LFgWGY2W9SyVRX56trli9CAewYqEk0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gvegNx+yhAzmeRvs+R3bUP32kC367DnxpOccZ0a9Ui3XILxfJ8BjbLuBhgPrxJkU6
-	 nDfRDCYpBz6W92/Aoli556lGZYo6nAq4s+bEMdcY5u+to/vG9Y2zOI6D0o208it25x
-	 aLC3kD0RlDS7zRJp4MzrZxnYzY7nVpOsaB7MW5z8ATZu6VeU1M7WIW9GIWEtdaNVB3
-	 /q0sbGVkUFS8koHsZjdGqnkVqb4JAtSOS7UzP1UmgWAoMVJqCc5DrU8qo/rChVeLQr
-	 a71nIpbBrkB+YbdEZnAIsirzeMhKmRAQRmOPAXIaJ802lbEFtjaSIgYZzfeaipeLQ9
-	 LyFMi/XCihlyQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 877FC1AC56BF; Tue, 22 Sep 2026 13:51:51 +0100 (BST)
-Date: Tue, 22 Sep 2026 14:51:51 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: rt5663: Cancel jack detect work on unbind
-Message-ID: <arJ551jJ9cXjAua8@sirena.co.uk>
-References: <20260922015327.637137-1-mhun512@gmail.com>
+	b=ScPnuTaAx+eHTBSVHGS81l0qJF871mpilRUw6iIOhoIedfp2tpP2WU8Dh5G37I61R
+	 XAz51OaoK7pxeDsk48QlwqEDREYfvLbwKcyFXf4YyE9n1tNZNiNyTq29RD+skOcX5y
+	 GHmYmvcfgUPm9Dp2mwY4PUGp+inda2N5/bJoBgZ2fKH7CoF+Kh46/NFwQCGYNkz1kv
+	 9zRitwCSfYrfMsfvybQRxZOYESPsv3ev+RfpqEutx8cppFTaMFohlNIiuBsERqKJ8o
+	 Ui/vSKE1Ia74snqxS7sBefQi9n+pE89jtO4VfAo86yH0XD6Ehb2Qpx239KVoVNcSQ3
+	 mgN3kKjvYDm3g==
+Date: Tue, 22 Sep 2026 13:52:07 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	Sean Christopherson <seanjc@google.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>
+Subject: Re: [PATCH v2 00/13] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
+Message-ID: <arJ1BDEzY5CANjjB@gremlin>
+References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
+ <yq5abj9p38vq.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PUUJfxvHa6/CLNO6"
-Content-Disposition: inline
-In-Reply-To: <20260922015327.637137-1-mhun512@gmail.com>
-X-Cookie: Too clever is dumb.
-
-
---PUUJfxvHa6/CLNO6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <yq5abj9p38vq.fsf@kernel.org>
 
-On Mon, Sep 21, 2026 at 09:53:27PM -0400, Myeonghun Pak wrote:
-> ASoC: rt5663: Cancel jack detect work on unbind
+On Tue, Sep 22, 2026 at 03:28:33PM +0530, Aneesh Kumar K.V wrote:
+> > This is because pKVM instantiates vCPUs upon run,
+> >
+>
+> Can pKVM instantiate the hyp vCPU during pre-faulting ?
 
-This is an extra copy.
+It would be an unusual and unexpected thing to do - suddenly a pre-fault
+operation is initialising a vCPU explicitly for pKVM.
 
->=20
-> jack_detect_work and jd_unplug_work live in struct rt5663_priv, which
-> devres frees after rt5663_i2c_remove() returns.  The IRQ queues the
-> first work, a button press queues the second, and jd_unplug_work
-> rearms itself while the jack stays inserted.  Both callbacks load
-> rt5663->component before checking it, and nothing clears that pointer.
-> rt5663_suspend() cancels the works; unbind does not.
+A caller is not going to reasonably expect this and might treat a failure to
+pre-alloc as fine to carry on whereas in fact it was a failure to initailised a
+pKVM vCPU.
 
-The same is true for the probe error handling, if we fail component
-registration the same situation can happen.
+It'd also require significant changes to how pKVM is set up, right now it's
+hardcoded to be done unconditionally at run via kvm_arch_vcpu_run_pid_change()
+-> pkvm_create_hyp_vcpu(), so all that would have to change and be checked and
+tested and... that'd be really out of scope I think :)
 
---PUUJfxvHa6/CLNO6
-Content-Type: application/pgp-signature; name="signature.asc"
+And pre-faulting really makes most sense BEFORE you run a VM. It doesn't make so
+much sense mid-run.
 
------BEGIN PGP SIGNATURE-----
+But more fundamentally, the stage 2 page tables, as I understand it, are owned
+by pKVM and so aren't really available to be pre-faulted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqyeeMACgkQJNaLcl1U
-h9Dwgwf/VLJ6cIAOqVazl1MbSP9/a7PBF7lNHSPlmhMWbvpE6H1r45MExf3+QHUY
-b2q38OILreuxCStw8dDQOAgLklqQz2aamyfI0spcuY/13nzztJzI4ufBJCyqGShd
-SE6JC8z8emA1Ie/w64EtYuqLt8gAQvmwsjSSjBOs5IUCAz2/4KTzFCWbIV8GoucE
-26nFwPNL3VChcnItHsiT4Qt7JgeLOuFngiK+fACeqsmjEZh4zuWMIW6BKzolSwYg
-45Vn1Yib6lFJsp8nljixGCV8lUy/EGj6ILopA2KT7/jFQ/STzXL3GWUB+KV7mqlR
-WpvI3mPupg9OCesR0ff9gN3cE9YwHg==
-=nKgT
------END PGP SIGNATURE-----
+Maybe unprotected-under-pKVM VMs but then it's questionable as to how useful
+that would be given that it would be confusing to users vs. how it works for
+other VMs.
 
---PUUJfxvHa6/CLNO6--
+So in general, no I don't think it's a good idea.
+
+And even if we wanted to pursue some version of this, it's _definitely_ out
+of scope for the initial pre-faulting bring-up series.
+
+>
+>
+> > but pre-faulting is  typically performed before a vCPU is run.  It would be confusing and
+> > inconsistent to error out on non-running vCPUs but to pre-fault running
+> > ones.
+>
+>
+> I use KVM pre-faulting when transitioning pages from shared to private
+
+You mean you'd prefer to use? Or you are using it on another arch?
+
+> with CoCo guest. This ensures that a trusted device can DMA to private
+> memory before the guest accesses it.
+
+Hm what do you mean by private memory?
+
+I see:
+
+#ifndef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
+static inline bool kvm_arch_has_private_mem(struct kvm *kvm)
+{
+	return false;
+}
+#endif
+
+And only x86 selects KVM_GENERIC_MEMORY_ATTRIBUTES?
+
+Do you mean something else?
+
+Or are you saying we should match x86? I don't think we have the same
+semantics as them, I don't think there's an equivalent for us, and of
+course no private memory in the sense of the predicate above.
+
+In any case I think anything wanting to add additional functionality to
+pre-faulting would have to be a follow-up anyway.
+
+>
+> -aneesh
+
+--
+Cheers, Lorenzo
