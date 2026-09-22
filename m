@@ -1,109 +1,107 @@
-Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC6348166B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A4D4399F2;
+	Tue, 22 Sep 2026 21:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790111343; cv=none; b=qSklht0HPQ2GRoUTLxvDBhLdpw1qCp9jDepIRpSpOsjHltZHeBdLxADCkh41wzxNztUsTyxgy8MjJLuHMdlXCddp70duObKARY+nKvdFCxCTZ90bypK5dyDobpxuhwqzGnwGhksZACjIhewysfWiWBD3uGa8uMEPcK0SPIyuY8c=
+	t=1790111407; cv=none; b=fjqtmsPI3EJf1xp0gooB2IzwgTQ+ah6Z9FZv6hfXS1N/BZZWNHBPaNoxc6NI3zGeKJCWuzm74Je2VpbLltUH8OUG+Tv1QfP2xcxdxnRGURr2T6nTicgLcvQcUveDyiuOCZATtVXBQvHJaE89YezAFnOGNOBIEu7VYslYDEx5Qh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790111343; c=relaxed/simple;
-	bh=mwU7r2R0iXancqDMVbrNZC/D/wd+eK8OiPSqY0f/ZZ8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QFa6u19O6fkqm5qSZ+5KxVTJJouU4CCJMN5XbqJhwDZ+Oxo240YhhGFOu11pSkRxUSiLWip7XWC+PQ4ZW0L2w2LhkFjz6XC6V/j1MM/7ueBcDHa6H+E6eq3tpx4bbYRoYdQ+wrqhhZ963ANyLQoC7lQaPb3YhBkjxvRezCsN8k0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gML+ek9Q; arc=none smtp.client-ip=91.218.175.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790111407; c=relaxed/simple;
+	bh=5NNMt3/DILXM0pS+sZEqPErVAEkz8VaV2WS/9ygGJk8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=M2ZQimH3abeyotdxb80tR9hKQaYn98sT2438TdluTo/DSgz36gfFRwsKx7YrW4F9AJHP+DNckD0gRuirhtM6Dmtvi25f/6gnJkiArR7OrqGMpvDKg31IyZFulzZtHusVLCv4BOVAzsgVR2fhqyeu+GAQB+uRX/5rd7iFSWhu/hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=SOcHJH9O; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gML+ek9Q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mwU7r2R0iXancqDMVbrNZC/D/wd+eK8OiPSqY0f/ZZ8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790111324; v=1; x=1790716124;
- b=gML+ek9QH1tqN4jTqppHLRjEkMzm03TC1HkkMBAsxCo+A7RjPSBeBGVvg8AgZeUeNOsA/PH0
- 5Z7HAXIOt6/CyMGpXRjl1Rq5rTj1Eoju3BPfjYQKelT8oCTPggHkjEMEDSXdkixGQhSscNOuh65
- UW0ZdEy/YPhfB+H25oPPQrXc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a0710456afc2675d;
-	Tue, 22 Sep 2026 21:08:44 +0000
-X-Mizu-Trace-ID: a0710456afc2675d
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH] PCI: iproc: Use __free(device_node) in iproc_pcie_msi_enable()
-Date: Tue, 22 Sep 2026 22:08:39 +0100
-Message-Id: <20260922210839.3765444-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="SOcHJH9O"
+Message-ID: <3d76ccdcb6b9cf73d0ea494b55ddaed775d9d4a5.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1790111396;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5NNMt3/DILXM0pS+sZEqPErVAEkz8VaV2WS/9ygGJk8=;
+	b=SOcHJH9O9mHaAMrdg8i5/XoQitw6yHJiptjP1THfXbfXG82Hk0dxoLyxBJLeuAiMrqtICb
+	fnGusUyUWgmR/18dcaW/3/ACIavfiH2g1x1SoRKBpvxg8V3Ibl0jgkVr2/iShjBXhfL0l9
+	JW4ESvq5Y4vbxXB3NW89w38PbJQwZGY=
+Subject: Re: [RFC PATCH v2 3/3] perf tools: Support sparc user register
+ samples and dwarf unwinding
+From: Stian Halseth <stian@itx.no>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Andreas Larsson <andreas@gaisler.com>, "David S. Miller"
+ <davem@davemloft.net>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung
+ Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>,  Jiri Olsa
+ <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Magnus
+ Lindholm <linmag7@gmail.com>, linux-perf-users@vger.kernel.org,
+ sparclinux@vger.kernel.org,  linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 22 Sep 2026 23:09:54 +0200
+In-Reply-To: <CAP-5=fWNhJGHnRoz7FrwZO2mOZa4NCi5C3ZsFGrirAE0prj69w@mail.gmail.com>
+References: <20260922201507.1719668-1-stian@itx.no>
+	 <20260922201507.1719668-4-stian@itx.no>
+	 <CAP-5=fWNhJGHnRoz7FrwZO2mOZa4NCi5C3ZsFGrirAE0prj69w@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-atYsV/48A5yRhAuCPJUd"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Declare msi_node with __free(device_node) and drop the out_put_node
-label and its goto: the scoped cleanup puts the MSI controller node on
-every return, as the label did.
 
-No functional change intended.
+--=-atYsV/48A5yRhAuCPJUd
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Link: https://lore.kernel.org/linux-pci/61488ddc-b346-4ba3-b32a-e972a3bd75a4@mailbox.org/
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- drivers/pci/controller/pcie-iproc.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+Hi Ian,
 
-diff --git a/drivers/pci/controller/pcie-iproc.c b/drivers/pci/controller/pcie-iproc.c
-index afb3aa38ac6bb..b4f4e6e1d4b41 100644
---- a/drivers/pci/controller/pcie-iproc.c
-+++ b/drivers/pci/controller/pcie-iproc.c
-@@ -1338,7 +1338,7 @@ static int iproc_pcie_msi_steer(struct iproc_pcie *pcie,
- 
- static int iproc_pcie_msi_enable(struct iproc_pcie *pcie)
- {
--	struct device_node *msi_node = NULL;
-+	struct device_node *msi_node __free(device_node) = NULL;
- 	int ret;
- 
- 	/*
-@@ -1357,18 +1357,14 @@ static int iproc_pcie_msi_enable(struct iproc_pcie *pcie)
- 	if (pcie->need_msi_steer) {
- 		ret = iproc_pcie_msi_steer(pcie, msi_node);
- 		if (ret)
--			goto out_put_node;
-+			return ret;
- 	}
- 
- 	/*
- 	 * If another MSI controller is being used, the call below should fail
- 	 * but that is okay
- 	 */
--	ret = iproc_msi_init(pcie, msi_node);
--
--out_put_node:
--	of_node_put(msi_node);
--	return ret;
-+	return iproc_msi_init(pcie, msi_node);
- }
- 
- static void iproc_pcie_msi_disable(struct iproc_pcie *pcie)
+On Tue, 2026-09-22 at 13:31 -0700, Ian Rogers wrote:
+> > @@ -295,6 +330,8 @@ static bool
+> > libdw_set_initial_registers(Dwfl_Thread *thread, void *arg)
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 max_dwarf_reg =3D dwarf_reg;
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 }
+> > =A0=A0=A0=A0=A0=A0=A0 }
+> > +=A0=A0=A0=A0=A0=A0 if (is_sparc && max_dwarf_reg < 31)
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 max_dwarf_reg =3D 31;
+>=20
+> Thanks! I think these are great patches! At this point in the code
+> are
+> you setting max_dwarf_reg so that there's space for the window
+> registers? I think adding a comment here for clarity would be
+> worthwhile as it matches up with libdw_set_sparc_window_registers.
+>=20
+I'm glad to hear that!
 
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
--- 
-2.39.5
+Yes. On sparc the sampled registers map only to DWARF 0-15, so without
+this the array would be too short for the %l/%i values that
+libdw_set_sparc_window_registers() writes to 16-31. I'll add a comment
+there in the next version.
 
+Thanks for the review!
+
+--=20
+Best regards
+Stian Halseth
+
+
+--=-atYsV/48A5yRhAuCPJUd
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCarLuogAKCRDoeAEuJe36
+Vs7jAP9t5oDz0cPy1zmNX45JqqO+EQY6e0qKIov1G/ibW8fYMgEAiJD4wKnHkulx
+z2/i1CXfhY+YL1KedAgm4M1a953Uuw4=
+=20nH
+-----END PGP SIGNATURE-----
+
+--=-atYsV/48A5yRhAuCPJUd--
