@@ -1,228 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082612741B6;
-	Tue, 22 Sep 2026 05:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDA13B2D39
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056138; cv=none; b=ORDl37YQIL9ZHpHLSSmpCmBVu6dH0Qohn7zjIl7wFnPRKJiNLsd2LJpKVvGJKdAMhCLdX8pBccmaZHhPA9IhW3orFeRKRVDIag4xZr3l03t50SfwU6z9bUAl4zxVrbeuhaRO17JBydzCmXRMR2ymW8SA5YcHIlOYg0uxRPqN3JE=
+	t=1790056139; cv=none; b=Uc9wkE8lL/fVcSkNNMV55tX62TvMtv/xdOHATJUw+c+pXxGZuFCA9MBVnqB3P/0FktdccMmLsYsCJHkfvT9m5A+By13O0Oiw/oFLABcMXnhAMXAkw3Jc6GMcML86pFrCLemYtRe8TWKkQCSKCHBjmscCkLsMJoBVpSBrrk51FSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056138; c=relaxed/simple;
-	bh=b01VZ0Vp1qb9nnDhMRxEwmUFW07QDuf2xELoVdmBcvQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZK6eCCAl44Uv7KBiysD3Ec66OzS2ZtBzE4YKknnPjc5l1kE6Kpyvf3bHhw1bhXnjk0iBnohfWk5k1OqDh/2gvHQSenEQwnvZcTEjkbCp2IGcDho7xASTdN4seWf88EMYFUndC8XBEs4yavDvMybIzxRCO70CQDVnswUe5NCWKrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMT39g4d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790056139; c=relaxed/simple;
+	bh=GnebkRYN2Yq3glKz9FYmVBvCKtzjN4BYOu13gMAeubI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HFBCsGKeMRZpY55Wd6hLDDYXRHaqkb+FbW07Fl+heGpxNwYpgbU0Ed7PAipbV14PtlB0iwucYDLYZW3rLaC0lG/U9TNFpIuZNnk8eTCxXab+gz4N6Qr/9anyquiZkb5uzuPxjOCoOx7HK0uibi2zqOzQ7GIqWwJfLHqCkcFWlZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WnP6EGQ2; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMT39g4d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B001F000FF;
-	Tue, 22 Sep 2026 05:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790056136;
-	bh=2G+vPWS/Dr/CNZlR2fFsrRypqIqJxGQg7XWIt7mou2Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fMT39g4dGkgLRv9p0Y35txIv0Wti/Vaxch6Z/3i4OKxCrxKQsSuYJp+I3JIvFEYEF
-	 R92ku/MYFSbEuhPH4ZNLb5v3F67XW29bIygzwKeI8+oyDcsVzRG6QF9mix9FCpcRC7
-	 JzjKowsdPfbIsosVqQI9B5uk+dnIeXn5AAXk3HgpIV0Dtqi10PAUX+KppSDxdkATLg
-	 s8Ac7sZCgjdbxJbFeaNH5wGxYLRngWLyRGkBIMqEkcgZhqu9MHgC+PPDdSWkJZ0jJz
-	 aFwXe194OExRGUFIgFgSFy01dXfObppJEpGc0NVDG+zOCXC/xAIzIQf9ZT4omt3X3a
-	 pSJeyG3JmUjxw==
-Subject: Re: [PATCH net v2 2/2] af_unix: skip consumed OOB skb and pull
- consumed bytes in unix_stream_read_skb()
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: kuniyu@google.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, willemb@google.com,
- mhal@rbox.co, jakub@cloudflare.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 22 Sep 2026 05:48:55 +0000
-Message-ID: <179005613539.2160803.10700195733714069280@kernel.org>
-In-Reply-To: <20260921054823.1822122-2-benquike@gmail.com>
-References: <20260921054823.1822122-2-benquike@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WnP6EGQ2"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1a94so2603940a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:48:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790056137; x=1790660937; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3yMlMFl92yRdWmVLrvdNriN9ZvlaK00DMIcQJuB/tCU=;
+        b=WnP6EGQ2NIwrVZCC6nIVuP8tAxmopRWIdbfGWtL9dBuUQL5vanNhZvdWroRNliUqwO
+         r3WGXY3p87BlUKqOKQCSHz/YgG+/ytdjies9gy5LDcxACxDMvbMJEOQWJaT57Ko25M5Y
+         GgZ40KJZA7A248lUuJTknnM1OXhORoTLzy7wib3hbXNPjzJ/OXp+259f4U6rOoPM9QzS
+         jLx21sASuoZIlCr8Hc8PZZv5Hd9bm5CSNdbbs0b2cQzA2GN/a9po7p+8Xf07MlI6sN3N
+         f4nXySKnjCQaE2zqFMx1K07Rg4MxbSpblh0NVijcu/JXuLoX7ij9uCDhJnOjEwiB6wqq
+         pptw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790056137; x=1790660937;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3yMlMFl92yRdWmVLrvdNriN9ZvlaK00DMIcQJuB/tCU=;
+        b=wQNTWXSyUHWbqlwm+DINWCKoe+OaqtdkDMKycLMyBtficmmn5ayQ+exqucPgvoTwQk
+         hsElvX2vQKBrXeald/0I4JCffZk7boCnCxaVnotmVKivASOSGNivthf7us5NP12NWg4/
+         KaRZT6QC2ByP74fbkotLoTlMNp66wt/P0ct9XgkT/YvfFNDEiju6qy5NlgCYNbR47yQo
+         qTkvjzGHeA3Ee3Fz1XEoid3rD8jWAQz7fX168dED4lA6vcoO2GhOu3iYtX+Riih/fsOc
+         bxmcs68DahDCS2xKPtetYOlTqQCOvxv38oJW4KvrYT90Ws5yzgc1bSfYxjBSAzFXx1mA
+         37RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPvhvGMvmxZa4OadAIGnKAkKYmzOIDUdR621k+d00Ciu+iWRS3Dw7zOY/iTFNCPQlIbKLCxKI016VDM5Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCGG9CqUUwwgmRjbkQP89CkMTc9F6D62KNMI1SrtKxGuI91FNK
+	+SuuTEEVwH0/TuS/h+n3GTuTrjUxZ3Qotn8B4aCI3ShBULVBU7FMpRXo
+X-Gm-Gg: AYBFou3N6pKLslA/5a/uL7oZah4NyYBldLxe7KT0k44rEwxsJPl7t5CpdFVtMvpOL73
+	6VE4OMfGXLL+pug493hocjZ/ayFTVPhJMk61l5616HWADmy+iSEl7Fib34bTzqtbpybT0tt186j
+	xGtQt2CQslte27VKqj8U0ivXv9CatNlJhV8NrG8QOgQ/hMA8nFvNOZJ0hTGHgT4yyp5O9DWCpDV
+	fz7EtCy2/8ISrQF0TbyG0odAr/qyBMRsYxvsxpZlLFfqormhriqxaYfE+1vjv/9lYgdoPiH4CtA
+	XXC/+OGSacS84wj2KR7cPKSX6yFCvJ6xbz8fe/S557a2jliQkhq+yRkHcGp6vDzst67qKHkoyJ3
+	rpfOPf4YisPAPGPTUA5onW2VR0xok7wC/yPeV0pQwtzfI+SNu/p2zVTQBSr54O9ZmE4l+Lkm/CH
+	bwJIW+nGzXxyc+eQEd6DE9JGTjJORSyysuovFtbm6/ymCGCfCQH5WrtDIhKkvmC3K01SDFZpsw5
+	YF9FRlshCjpL6VPWzvN3KyVz33ZhgXvY4QrnIrAPcmkck8gZW1vdS8eEW9dBqiryKSF3oQKyeYv
+	wySZtRy0AwfN2W1m6ATWAjxiarUYYtuW6Uzg9B004rWAkY1DYWVxh66LW8RgJWjZvlwREUmIjA=
+	=
+X-Received: by 2002:a17:90b:1fc3:b0:39e:6a81:5a96 with SMTP id 98e67ed59e1d1-3a073295901mr55758a91.42.1790056136975;
+        Mon, 21 Sep 2026 22:48:56 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06e5a5eb4sm1372783a91.14.2026.09.21.22.48.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 22:48:56 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Yichong Chen <chenyichong@uniontech.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] isofs: advance to the next block when a record ends at the block end
+Date: Tue, 22 Sep 2026 13:48:53 +0800
+Message-ID: <20260922054853.469681-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Since commit b2eb2e288604 ("isofs: Drop support of directory entries
+straddling blocks") some ISO 9660 images list incomplete directories:
+find returns fewer entries than before, and some of the names readdir
+does return cannot be looked up.  The log fills with
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+  iso9660: Corrupted directory entry in block 0 of inode 55232
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+and on some images the walk reads a byte past the end of a buffer:
 
-- [High] net/unix/af_unix.c, unix_stream_read_skb(): the newly added pull
-  block frees the whole SKB and returns -ENOMEM when pskb_pull(skb,…
+  BUG: KASAN: use-after-free in isofs_readdir+0x93b/0xc40
 
-Pre-existing issues:
-- [Medium] Unbalanced u->scm_stat.nr_fds accounting on AF_UNIX skb drop
-  paths.
+Affected are images with a directory record ending exactly at the end of
+a logical block, which ECMA-119 allows and current tools produce.  On
+the Debian 13.7.0 amd64 DVD-1, which has three, find returns 9163
+entries instead of 9461:
 
---
+  https://cdimage.debian.org/debian-cd/13.7.0/amd64/iso-dvd/debian-13.7.0-amd64-DVD-1.iso
 
-af_unix: skip consumed OOB skb and pull consumed bytes in unix_stream_read_skb()
+The KASAN report is from a shareware CD with one in its root directory:
 
-This changes unix_stream_read_skb() to drop zero-length skbs left behind
-after an OOB byte was consumed, and to pull UNIXCB(skb).consumed bytes off
-a partially consumed skb before handing it to recv_actor().  Without this,
-sockmap readers re-deliver bytes that a previous recv() already consumed.
+  https://archive.org/download/simtel-1-0295/SIMTEL1_0295.ISO
 
-> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-> index 0903bd587696..a1c06b9995c7 100644
-> --- a/net/unix/af_unix.c
-> +++ b/net/unix/af_unix.c
-> @@ -2885,6 +2885,7 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
->  		return err;
->  
->  	mutex_lock(&u->iolock);
-> +again:
->  	spin_lock(&queue->lock);
->  
->  	skb = __skb_dequeue(queue);
-> @@ -2894,6 +2895,13 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
->  		return -EAGAIN;
->  	}
->  
-> +	if (!unix_skb_len(skb)) {
-> +		spin_unlock(&queue->lock);
-> +		unix_orphan_scm(sk, skb);
-> +		consume_skb(skb);
-> +		goto again;
-> +	}
-> +
+A local one, which lists 46 of its 65 files:
 
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the new block here uses the
-correct pairing (unix_orphan_scm() before consume_skb()) while several
-neighbouring free paths for the same class of skb do not, so it highlights
-an existing imbalance in u->scm_stat.nr_fds.
+  mkdir tree
+  for i in $(seq -f '%04g' 1 65); do echo hi > tree/FILE$i.TXT; done
+  xorrisofs -iso-level 1 -o boundary.iso tree/
 
-scm_stat_del(), reached only from unix_orphan_scm(), is the only place that
-does the matching decrement:
+genisoimage pads the tail of a block instead of filling it exactly, so
+its images have no such records.
 
-net/unix/af_unix.c:scm_stat_del() {
-	...
-	if (unlikely(fp && fp->count)) {
-		atomic_sub(fp->count, &u->scm_stat.nr_fds);
-		unix_del_edges(fp);
-	}
-	...
-}
+That commit removed the reassembly of records crossing a block boundary.
+Its condition was "offset >= bufsize", so it also handled a record
+ending exactly at the end (offset == bufsize): drop the buffer,
+increment the block, reset the offset.  Nothing does that now, so
+do_isofs_readdir() and isofs_find_entry() read the next record's length
+byte from bh->b_data + bufsize, one past the buffer.  Depending on that
+byte the walk either treats the rest of the block as padding and skips
+the next block of entries, or fails the record as corrupt and stops.
 
-unix_destruct_scm() -> unix_detach_fds() -> unix_destroy_fpl() releases the
-files and the GC edges but never touches nr_fds.
+Straddling records stay rejected: isofs_dir_record_valid() fails them
+because their length exceeds the remaining space, which is what that
+commit relied on.  One ending exactly at the end fits in its block and
+is accepted, so it is the advance, not the reassembly, that has to come
+back.
 
-The OOB drop branch a few lines below in this same function frees a skb that
-may still carry UNIXCB(skb).fp without going through unix_orphan_scm():
+Do it at the top of the loop: do_isofs_readdir() reaches the next
+iteration from the multi-extent branch, "." and "..", the
+hidden/associated skip (showassoc is off by default, so no mount option
+is needed) and the fall-through, and all of them need covering.  The
+record was validated to end within the block, so offset never exceeds
+bufsize.
 
-	if (skb == u->oob_skb) {
-		WRITE_ONCE(u->oob_skb, NULL);
-		spin_unlock(&queue->lock);
-		mutex_unlock(&u->iolock);
+Fixes: b2eb2e288604 ("isofs: Drop support of directory entries straddling blocks")
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+Not tagged for stable: b2eb2e288604 is in 7.3-rc1..rc3 and has not
+appeared in a released kernel.
 
-		kfree_skb_reason(skb, SKB_DROP_REASON_UNIX_SKIP_OOB);
-		return -EAGAIN;
-	}
+Validated under qemu with KASAN and UBSAN against the images above,
+using a kernel built from the commit before b2eb2e288604 as the
+reference for correct behaviour.
 
-manage_oob() does the same with a bare consume_skb(read_skb) /
-kfree_skb_reason(unread_skb), and unix_stream_recv_urg() frees a zero-length
-predecessor with consume_skb(read_skb).
+do_isofs_readdir(), isofs_find_entry() and isofs_read_level3_size() all
+open-code this same block-end transition.  Happy to follow up with a
+helper that shares it, kept out of here to keep the regression fix
+minimal.
 
-unix_stream_recv_urg() is also what creates the zero-length-with-fds state:
-it copies the OOB byte and bumps UNIXCB(oob_skb).consumed without detaching
-fds, so the leftover skb can still hold SCM_RIGHTS charged earlier by
-scm_stat_add() in queue_oob().
+ fs/isofs/dir.c   | 12 ++++++++++++
+ fs/isofs/namei.c | 12 ++++++++++++
+ 2 files changed, 24 insertions(+)
 
-Should those paths also call unix_orphan_scm() so the nr_fds charge reported
-as scm_fds: in /proc/<pid>/fdinfo does not stay permanently inflated?
-
->  	WRITE_ONCE(u->inq_len, u->inq_len - unix_skb_len(skb));
->  
->  #if IS_ENABLED(CONFIG_AF_UNIX_OOB)
-> @@ -2913,6 +2921,14 @@ static int unix_stream_read_skb(struct sock *sk, skb_read_actor_t recv_actor)
->  
->  	mutex_unlock(&u->iolock);
->  
-> +	if (UNIXCB(skb).consumed) {
-> +		if (!pskb_pull(skb, UNIXCB(skb).consumed)) {
-> +			kfree_skb(skb);
-> +			return -ENOMEM;
-> +		}
-> +		UNIXCB(skb).consumed = 0;
-> +	}
-> +
-
-[Severity: High]
-Can this kfree_skb() discard unread stream bytes?
-
-At this point in unix_stream_read_skb() the skb has already been unlinked by
-__skb_dequeue(), and u->inq_len has already been reduced:
-
-	WRITE_ONCE(u->inq_len, u->inq_len - unix_skb_len(skb));
-
-so once the skb is freed the remaining unix_skb_len(skb) bytes are neither
-recoverable nor still accounted for in the queue length.
-
-The commit message describes pskb_pull() as the way to "safely handle both
-linear and non-linear paged skbs", but it can still fail.  For a pull past
-the linear head it goes pskb_pull() -> pskb_may_pull() ->
-__pskb_pull_tail() -> pskb_expand_head():
-
-net/core/skbuff.c:__pskb_pull_tail() {
-	...
-	if (eat > 0 || skb_cloned(skb)) {
-		if (pskb_expand_head(skb, 0, eat > 0 ? eat + 128 : 0,
-				     GFP_ATOMIC))
-			return NULL;
-	}
-	...
-}
-
-unix_stream_sendmsg() produces exactly the skbs that reach that branch:
-
-net/unix/af_unix.c:unix_stream_sendmsg() {
-	...
-		data_len = max_t(int, 0, size - SKB_MAX_HEAD(0));
-		data_len = min_t(size_t, size, PAGE_ALIGN(data_len));
-		skb = sock_alloc_send_pskb(sk, size - data_len, data_len, ...);
-	...
-}
-
-MSG_SPLICE_PAGES skbs have skb_headlen() == 0 entirely, so any partial
-recv() leaves UNIXCB(skb).consumed beyond the linear head and forces the
-fallible path with a GFP_ATOMIC expansion of up to the full frag size.
-
-The return value also does not appear to reach anyone who can retry:
-
-net/core/skmsg.c:sk_psock_verdict_data_ready() {
-	...
-	copied = ops->read_skb(sk, sk_psock_verdict_recv);
-	if (copied >= 0) {
-		...
-		sk_psock_data_ready(sk, psock);
-	}
-	...
-}
-
-The -ENOMEM is swallowed, sk_psock_data_ready() is skipped for data still
-queued behind the dropped skb, and the sockmap consumer sees a hole in an
-ordered byte stream with no error reported to userspace.
-
-Would it be better to restore the state on failure, for example
-__skb_queue_head() plus adding unix_skb_len(skb) back to u->inq_len, and let
-the caller come back later, instead of freeing the skb?
-
->  	return recv_actor(sk, skb);
->  }
->
-
+diff --git a/fs/isofs/dir.c b/fs/isofs/dir.c
+index c7ca7603e97a..00a609c901dd 100644
+--- a/fs/isofs/dir.c
++++ b/fs/isofs/dir.c
+@@ -104,6 +104,18 @@ static int do_isofs_readdir(struct inode *inode, struct file *file,
+ 	while (ctx->pos < inode->i_size) {
+ 		int de_len;
+ 
++		/*
++		 * The previous record was validated to end within its
++		 * block; if it ended exactly at the end, the next record
++		 * starts at the beginning of the next block.
++		 */
++		if (offset == bufsize) {
++			brelse(bh);
++			bh = NULL;
++			block++;
++			offset = 0;
++		}
++
+ 		if (!bh) {
+ 			bh = isofs_bread(inode, block);
+ 			if (!bh)
+diff --git a/fs/isofs/namei.c b/fs/isofs/namei.c
+index 010682f5901a..5f5ed36d12e3 100644
+--- a/fs/isofs/namei.c
++++ b/fs/isofs/namei.c
+@@ -68,6 +68,18 @@ isofs_find_entry(struct inode *dir, struct dentry *dentry,
+ 		int de_len, match, i, dlen;
+ 		char *dpnt;
+ 
++		/*
++		 * The previous record was validated to end within its
++		 * block; if it ended exactly at the end, the next record
++		 * starts at the beginning of the next block.
++		 */
++		if (offset == bufsize) {
++			brelse(bh);
++			bh = NULL;
++			block++;
++			offset = 0;
++		}
++
+ 		if (!bh) {
+ 			bh = isofs_bread(dir, block);
+ 			if (!bh)
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921054823.1822122-1-benquike%40gmail.com
+2.55.0
+
