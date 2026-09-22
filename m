@@ -1,399 +1,213 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011037.outbound.protection.outlook.com [40.93.194.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30534A2A4D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106365; cv=none; b=JIcSCZACZvIyhxl3Y0b2j3mNsC96HaRrLubRBeMW57583uvQHGhsP2H/AoauYMD/cMK7dSvPv5vyM5VFw1clgPgOrAHaAiSu7DDVtb17Djk/ZBVXxpbDT/AvmoNVsodZTwZno+Yvr+8KAUGnWaHvWfknypjJq+R7ebFO6ruvBjk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106365; c=relaxed/simple;
-	bh=8MoaxatY2izDoNAYUPA3y7R0UpDFQ0rXZF4ec6yabMM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=pZNEOtOjNtRzPIOJORAFlPV9GnYZveU2ybb0qKRNx1WOb/xKtz9O9ZLmpNoN5Wj800uTwOuaj7fjP4QZsQnEOcoC4vG15+JOU1vyqs3svkd0wL9zfwm27uoikBAWBNl1AaKTGZTGgAFAetrDPWPKKr3olwKiO+vqujtcj2tas50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ty7KKIUU; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10F137DEBF
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:46:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790106366; cv=fail; b=ahK/YmLR5SARmGOMuYAh5dgff9tBD7qBK81lOWRccWxjmCYhyy6+6CBs7f54t5qglD2eSxn/6oWD4XOkmDX7vq3u/SCHwXQmVe4Qmn/mS9wKw5Odaq7y9hxptudcABuPssHHKuwFsd472Cv+7yUNHyVYdcQeotmstp1uHs3u4eI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790106366; c=relaxed/simple;
+	bh=k5g4KjR3emFkXhDumChQDVGmNvYemgDx+8yWGzdM5LM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uKRUKnSvQLKXe+xTm4INl9APTn3Oj5PAqube+c88AU3WpKiLmR/EFYwN0pjJ4SC7vCqZAmqPfDGj6JEPNw1Y6gob1PuyeoS35G+lI2jlPmQLTrp9M63LKUekXpmFnXF9RNLmXp0obreQ/N9QZvn/eeMxbaEj4QremXmAxQbhwnI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lh9EhdV7; arc=fail smtp.client-ip=40.93.194.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ty7KKIUU"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4922b7c31so230728a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:45:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790106353; x=1790711153; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tz/q0nSTLJ4QRO3t2821L4KQPs7Ia7F9nioYJaCojlQ=;
-        b=ty7KKIUUBsIG7gQP2wBYce8qEzE6r3Yt5nLvdn3shhm3+4U3/VJIARTV70i5513tv5
-         Jvv3fOrykovpfVPl1SkXVo0jRDeoWa/zNoTwN2D+O8Qzn6Xvp1H2OxZcGbB0mb7Ou7eH
-         Gmn3oFo7LwIOm6dKA5wLxR7bKnTeOqOhKUaVQrLK5KzTJyKDCUAzQddsERGULmJoBKeI
-         I1ecHz7o5IHRVMdaUCidBf+bgrij3IKBB39ku8/Vk5th5mJ1qaBeO54xgBOlAmvvFmwV
-         ODp26ElXO200WWwvmUJBLrCi5ke+j2llrKL0NlFpVDIBuaX0/aBwZmvJ8HHx7x8Uf/s0
-         Dofg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790106353; x=1790711153;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Tz/q0nSTLJ4QRO3t2821L4KQPs7Ia7F9nioYJaCojlQ=;
-        b=HhHXS8OKB00AqO51S4lf5d3R4Mk4Kz4hom6mDnbOWmA54AsFwir/6mE5hYOUbdYHli
-         k34YmE8MH9zruHt8dKgcMRghiQlNmr6DVYaFLDL19t2WwMzwUElTpFL4aHaOG6/tmn4w
-         XOCRNiHUN8A7fLXc3pWoZpEhIRKGsJlSkEzYPf9Km9y16vFSOyZQyWVKF+0Azi9Rwm+X
-         G7JV5dZSJkdNJSZMF32UKAAiX3NNjzI42TYuhEKrh5ZBZwvWgsDeDda7zdQql54QYCud
-         8BrIeQ20gSBApsOVcp57e8ErIMfzyCfeUDky04dbkziWtxa0TdSEPouM5+GE02l7ukO7
-         8xDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxroeWaT85Yfec8JYdNziY/crIUZ025qNaZ/YM73UyArlqS2bQwsOMO5bnyKZBMxvWucY6kF1QhV2tWv8o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mu7Jjx69xTBaPIP1P9nIrYFJpS69euWGQ0aDvU6nzj4FHtX24G
-	HSxYegVwWNwM6x33rnVQ2b5hSgsXFk/MVI7Sxu3cMPjNIIJBc3bKuv+lXfxTw7exxiIs6bKZOOo
-	QXfLxmeTfPUIbzw==
-X-Received: from pgbco10.prod.google.com ([2002:a05:6a02:34a:b0:cc1:bcd4:fc4d])
- (user=joshwash job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:b98:b0:3dd:85a8:cad6 with SMTP id adf61e73a8af0-3ddf82c4947mr500247637.45.1790106352893;
- Tue, 22 Sep 2026 12:45:52 -0700 (PDT)
-Date: Tue, 22 Sep 2026 12:45:32 -0700
-In-Reply-To: <20260922194533.631387-1-joshwash@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lh9EhdV7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M+NH/5AhJx1D7+c3hhyf7RSfZSWQXKZiIC+LwGNdmmIb1nqaghZR2XKO67aX2te3YOhDv5ac4i5RWxXslk3qFONZ2ZbGjguuG3Y6vPKkMusnOaE7SjJnR+bAszQiSSXZY9E8w9AM2M4UAYAMtau/+KIyTu9aqlQgQzkRrWq/lrm2c1ZdXg5p3Xd2OzzUWa5JCv+6PJz08zPFzR209dfoyIPF6NwX3tFRdm+SDEic/iA+0+auDd7QBz8zWCI0MDzy8+ZE/huJuEhiFkCcuc5Pt6zDbZzvn9ls/Is75cJEvBxy/Lk8vFS6xmTjKqinMkkabBwZoienDfpQq+IZsNpXwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N6Sz1mrodB67BCGD8KuRgQFFSPrn1VtLf2P4l/t3W7g=;
+ b=gJmEvp3MvOFjikj/Mg60sMtokJVcfUJow4oxxYkCQEXMMtwCGA5XZ1TltnHKmmPqh59DThZ8I5Yh7xLItBHt+T/YH0v+OXWLTfDvAR3aNe3mvT3V2zsJqn7xG5YYOhA4PoyVuCCm/3Po+66JKNLq8csL5YnA6t7ZGr542TOC0hRouFLMdCjlQqWuDT1/MKKEIaaRkKHOSyEZlbngoQcRBn6L0LUrIu11dhwKMKxEffJz8sCW0W9ozZVK1/yRQZVSGnP7on7YgfT6gmUIyGPL8UaCgax9CjUdItdFoRxTgBshuMAGPRYPVyxr3iD6jm4v1enehjzQLI06sV7lF9n1rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N6Sz1mrodB67BCGD8KuRgQFFSPrn1VtLf2P4l/t3W7g=;
+ b=lh9EhdV7vKal0a6Gv/sOc5bHnArsRkvX0obpNanBP8kb6xyyY4+bbhPI9oSgT8+ipCuD2vdLb7v2QLThK6RgoDND+sAUKkuTbtu1R/8q3DXk75CbRYU0PTljkG1erTZJvJkLPQUzxsu4LKGMm6A2Gr7L+HvhaE3X1KIJAeX7VRIApxkH7C6YK0/HN779+xAamTRHRxPQGquBpOK3Q89e6xZMhRDlcb/cXlKMJZf7WrEw9NKqJjVkgLEZMD6Sm4PCYwoXw7FMVnmtjgaTro+Qzf/hmlh5Tjc8oIH+scgCe/hPuPB8WZ0mJx3xuoDCnGdiPOrIJJqxfSeJwi7Kc4Y6bg==
+Received: from MW4PR03CA0032.namprd03.prod.outlook.com (2603:10b6:303:8e::7)
+ by CH1PPF6B6BCC42C.namprd12.prod.outlook.com (2603:10b6:61f:fc00::612) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 19:45:53 +0000
+Received: from CO1PEPF00012E5F.namprd05.prod.outlook.com
+ (2603:10b6:303:8e:cafe::aa) by MW4PR03CA0032.outlook.office365.com
+ (2603:10b6:303:8e::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Tue,
+ 22 Sep 2026 19:45:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CO1PEPF00012E5F.mail.protection.outlook.com (10.167.249.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 19:45:52 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
+ 2026 12:45:24 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
+ 2026 12:45:23 -0700
+Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 22 Sep 2026 12:45:22 -0700
+Date: Tue, 22 Sep 2026 12:45:20 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
+	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
+	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>,
+	<sebastianene@google.com>, <keirf@google.com>, Jason Gunthorpe
+	<jgg@nvidia.com>
+Subject: Re: [PATCH v8 04/25] iommu/arm-smmu-v3: Move IDR parsing to common
+ functions
+Message-ID: <arLa0E3xq5dGuPpd@nvidia.com>
+References: <20260922131259.2975334-1-smostafa@google.com>
+ <20260922131259.2975334-5-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922194533.631387-1-joshwash@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260922194533.631387-9-joshwash@google.com>
-Subject: [PATCH net v2 8/9] gve: ensure XDP mem model is registered when
- disabling XSK pools
-From: Joshua Washington <joshwash@google.com>
-To: netdev@vger.kernel.org
-Cc: Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Jordan Rhee <jordanrhee@google.com>, 
-	Willem de Bruijn <willemb@google.com>, Tim Hostetler <thostet@google.com>, Ankit Garg <nktgrg@google.com>, 
-	Eddie Phillips <eddiephillips@google.com>, Praveen Kaligineedi <pkaligineedi@google.com>, 
-	Jeroen de Borst <jeroendb@google.com>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260922131259.2975334-5-smostafa@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E5F:EE_|CH1PPF6B6BCC42C:EE_
+X-MS-Office365-Filtering-Correlation-Id: 603dba0e-2a2e-49d8-1e87-08df18e21c7e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|36860700016|82310400026|23010399003|6133799003|3023799007|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	bry51cB9yaK4mFupMYcvnCIRtKOxafbsVlytUvHI0VNTqjM0aUh621EQqL+4oUXgqWWBO8W4LDzg7Fc5RaoVmTzoPbGgdz9gQj2dQfUAZgSBEtSBWGnyaFEWO2nv3rMYkIJXQjhS2iQO3PLVpny1HZMonW+wP+I0WtUv2i6D8bNRQWsxewwQUWloHNWHAfAeyPAYoR+8ebtlozrak/DPtyHYreWAsB1/dsamCu0CUH4/DYMgl0MzwhwHRdLht1XtkTwccPUGEAE/QCDGbbe1+yABLFFLmsQAJNHxD8tFhKBM87CVQ38xHOrL9kOy6QhIvEkP1IbSquM25BgJNfQcxh+xmu9XWlTClDXfenK4n18zbthSXg4m9Gu6m71XDFUT/mpyeHiO7e/nwe002vUP8eJ1Mnh0ViEH0gSX4793cuQLZeUj6rUspbtkIGAb8YVw2C8heqXCVFgJBxsupxvuDL/DwREciCALBeNjAGASzMKPvA7ZkEUJ71lJQji6hdloQlevhT1/8ffmtsdT0CcFJmP2f2c9AAwIAuhkUK53u5inq5m2glrE3g7Hxx2nfFDipAwPYyHrkBDTZWtBORrNcYBFFq/ZHLXsMYJ2oBBhnHWCT00ABUGSR9+OybUugGGqqgse1TJayBHrUlNpzl0naMjnrRA1IGcv2aNu0gfBe07XBNqkuVmHm3jXuLSx5bB8JGLyVQVWctljG9ezHLzVgw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(36860700016)(82310400026)(23010399003)(6133799003)(3023799007)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	UgaSzjYVTYsa8G19ddVHwvFWzKm87VCJiWZizfOUXxstnyoMwvvcU9PFLFU86Hs3WRz813Y2avHti4K5Dv7WnNvH59NizUYe1f4yoXnl3mH7hQDHY/5uatF4jqIbbRo6gWPX/xn1qRy1BFSzmHHOYorXua1mVgJssAbpbRZ6EaeVzlTNxdsfTcbzZMdMcqmc8Rv/BlFpkAoJMbJGzJO7+pHJ+1g0umq5BVtzip6yOSgcxTa9FbuvEb4WT6k3VSSps9yBE/F7xp3b1YP8tHLN7VQ3XGTU8oIKgBQ4qqfR5JFBJ9NexAu1jcd4W9v/Dkjn+T+abwiwsATtvrFdMli2Egbl4W7bQwlbjmxsL8aqwrWInYPnlftILCJ0TTRzwl00pJ4W1UmEbbB/J9xFKkBUKHWKGDg0jD9VkuXhhglATg01vp7mCKrX02nvJkr6+EX4
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 19:45:52.8128
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 603dba0e-2a2e-49d8-1e87-08df18e21c7e
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E5F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF6B6BCC42C
 
-When disabling XSK pools, QPL and RDA modes have different behaviors,
-but they are both incorrect in that the function returns just after
-unregistering the memory model.
+On Tue, Sep 22, 2026 at 01:12:37PM +0000, Mostafa Saleh wrote:
+> Move parsing of IDRs to functions so that it can be re-used
+> from the hypervisor.
+> 
+> As the new functions operate on structs from both the hypervisor
+> and the kernel which would be different, we rely on the compilation
+> unit to having ARM_SMMU_OBJ point to the correct struct; some
 
-RDA mode performs an internally consistent re-configuration of rings,
-making the extra logic, including the XSK pool unregistration,
-unnecessary. However, it is possible for the reconfiguration to fail due
-to memory allocation. Instead of freeing and re-allocating ring memory,
-stop the rings and reinitialize the ring state. That way, failure to
-stop the rings would result in a safer device reset, making it safe to
-unregister the pool regardless of the error condition when stopping
-queues. This change involves a bit of refactoring in the TX
-initialization path, introducing new methods to reset ring state when
-stopping the rings.
+s/to having/to have
 
-QPL mode, which does not need to reconfigure rings due to not posting
-XSK umem to the hardware ring, simply misses registering the RXQ XDP
-info with the MEM_TYPE_PAGE_SHARED memory model.
+> best-effort static asserts were added .
 
-Make a best-effort attempt to register memory model in both cases.
-Because memory model registration can fail and xp_release_deferred
-cannot, the XSK pool must be unregistered and DMA-unmapped regardless of
-whether memory model registration succeeds. In both cases, there should
-be a guarantee against the device DMA'ing into freed memory, however.
+s/added \./added\.
 
-Fixes: 077f7153fd25 ("gve: merge xdp and xsk registration")
-Cc: stable@vger.kernel.org
-Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Signed-off-by: Joshua Washington <joshwash@google.com>
----
-v2:
-- Newly introduced
----
- drivers/net/ethernet/google/gve/gve_main.c   |  77 +++++++++-----
- drivers/net/ethernet/google/gve/gve_tx_dqo.c | 101 ++++++++++++++-----
- 2 files changed, 126 insertions(+), 52 deletions(-)
+> +#ifndef __ARM_SMMU_V3_COMMON_LIB_H
+> +#define __ARM_SMMU_V3_COMMON_LIB_H
+> +
+> +#include <linux/build_bug.h>
+> +#include <linux/compiler_types.h>
+> +#include <linux/kernel.h>
+> +
+> +/*
+> + * The IDR probe functions are used by the kernel and the
+> + * hypervisor drivers where ARM_SMMU_OBJ might be defined
+> + * differently.
+> + * Ensure fields used by them are defined and has the correct
+> + * types.
 
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index f2bd4011de23..787d311ff99b 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -1715,15 +1715,56 @@ static int gve_xsk_pool_enable(struct net_device *dev,
- 	return err;
- }
- 
-+static int gve_unreg_xsk_pool_live(struct gve_priv *priv,
-+				   struct net_device *dev, u16 qid)
-+{
-+	struct gve_rx_ring *rx;
-+	int err;
-+
-+	rx = &priv->rx[qid];
-+	gve_disable_xsk_napis(priv, qid);
-+
-+	gve_unreg_xsk_pool(priv, qid);
-+	if (gve_is_qpl(priv))
-+		err = xdp_rxq_info_reg_mem_model(&rx->xdp_rxq,
-+						 MEM_TYPE_PAGE_SHARED,
-+						 NULL);
-+	else
-+		err = xdp_rxq_info_reg_mem_model(&rx->xdp_rxq,
-+						 MEM_TYPE_PAGE_POOL,
-+						 rx->dqo.page_pool);
-+	if (err)
-+		netdev_warn(dev,
-+			    "Failed to register memory model after unregistering XSK pool");
-+
-+	smp_mb(); /* Make sure it is visible to the workers on datapath */
-+
-+	gve_enable_xsk_napis(priv, qid);
-+
-+	return err;
-+}
-+
-+static int gve_restart_rings(struct gve_priv *priv)
-+{
-+	struct gve_tx_alloc_rings_cfg tx_alloc_cfg = {0};
-+	struct gve_rx_alloc_rings_cfg rx_alloc_cfg = {0};
-+	int err;
-+
-+	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
-+	err = gve_queues_stop(priv);
-+	if (err)
-+		return err;
-+
-+	err = gve_queues_start(priv, &tx_alloc_cfg, &rx_alloc_cfg);
-+	return err;
-+}
-+
- static int gve_xsk_pool_disable(struct net_device *dev,
- 				u16 qid)
- {
- 	struct gve_priv *priv = netdev_priv(dev);
--	struct napi_struct *napi_rx;
--	struct napi_struct *napi_tx;
- 	struct xsk_buff_pool *pool;
- 	int err = 0;
--	int tx_qid;
- 
- 	if (qid >= priv->rx_cfg.num_queues) {
- 		err = -EINVAL;
-@@ -1735,31 +1776,11 @@ static int gve_xsk_pool_disable(struct net_device *dev,
- 	if (!netif_running(dev) || !priv->tx_cfg.num_xdp_queues)
- 		goto unmap_and_return;
- 
--	/* Stop and start RDA queues to repost buffers. */
--	if (!gve_is_qpl(priv) && priv->xdp_prog) {
--		err = gve_configure_rings_xdp(priv, priv->rx_cfg.num_queues);
--		if (err)
--			return err;
--	}
--
--	napi_rx = &priv->ntfy_blocks[priv->rx[qid].ntfy_id].napi;
--	napi_disable_locked(napi_rx); /* make sure current rx poll is done */
--
--	tx_qid = gve_xdp_tx_queue_id(priv, qid);
--	napi_tx = &priv->ntfy_blocks[priv->tx[tx_qid].ntfy_id].napi;
--	napi_disable_locked(napi_tx); /* make sure current tx poll is done */
--
--	gve_unreg_xsk_pool(priv, qid);
--	smp_mb(); /* Make sure it is visible to the workers on datapath */
--
--	napi_enable_locked(napi_rx);
--	napi_enable_locked(napi_tx);
--	if (gve_is_gqi(priv)) {
--		if (gve_rx_work_pending(&priv->rx[qid]))
--			napi_schedule(napi_rx);
--
--		if (gve_tx_clean_pending(priv, &priv->tx[tx_qid]))
--			napi_schedule(napi_tx);
-+	if (gve_is_qpl(priv)) {
-+		err = gve_unreg_xsk_pool_live(priv, dev, qid);
-+	} else {
-+		/* Stop and start RDA queues to repost buffers. */
-+		err = gve_restart_rings(priv);
- 	}
- 
- unmap_and_return:
-diff --git a/drivers/net/ethernet/google/gve/gve_tx_dqo.c b/drivers/net/ethernet/google/gve/gve_tx_dqo.c
-index 80ab0a449ff5..78f946ae7264 100644
---- a/drivers/net/ethernet/google/gve/gve_tx_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_tx_dqo.c
-@@ -208,6 +208,78 @@ static void gve_tx_clean_pending_packets(struct gve_tx_ring *tx)
- 	}
- }
- 
-+static void gve_tx_init_ring_state_dqo(struct gve_tx_ring *tx)
-+{
-+	int i;
-+
-+	atomic_set_release(&tx->dqo_compl.hw_tx_head, 0);
-+
-+	/* Set up linked list of pending packets */
-+	for (i = 0; i < tx->dqo.num_pending_packets - 1; i++)
-+		tx->dqo.pending_packets[i].next = i + 1;
-+
-+	tx->dqo.pending_packets[tx->dqo.num_pending_packets - 1].next = -1;
-+	atomic_set_release(&tx->dqo_compl.free_pending_packets, -1);
-+
-+	tx->dqo_compl.miss_completions.head = -1;
-+	tx->dqo_compl.miss_completions.tail = -1;
-+	tx->dqo_compl.timed_out_completions.head = -1;
-+	tx->dqo_compl.timed_out_completions.tail = -1;
-+
-+	/* Generate free TX buf list */
-+	if (tx->dqo.tx_qpl_buf_next) {
-+		for (i = 0; i < tx->dqo.num_tx_qpl_bufs - 1; i++)
-+			tx->dqo.tx_qpl_buf_next[i] = i + 1;
-+		tx->dqo.tx_qpl_buf_next[tx->dqo.num_tx_qpl_bufs - 1] = -1;
-+
-+		atomic_set_release(&tx->dqo_compl.free_tx_qpl_buf_head, -1);
-+		atomic_set_release(&tx->dqo_compl.free_tx_qpl_buf_cnt, 0);
-+	}
-+}
-+
-+static void gve_tx_reset_ring_dqo(struct gve_tx_ring *tx)
-+{
-+	size_t size;
-+
-+	/* Reset dqo_tx fields. */
-+	tx->dqo_tx.head = 0;
-+	tx->dqo_tx.tail = 0;
-+	tx->dqo_tx.last_re_idx = 0;
-+	tx->dqo_tx.posted_packet_desc_cnt = 0;
-+	tx->dqo_tx.completed_packet_desc_cnt = 0;
-+	tx->dqo_tx.free_pending_packets = 0;
-+
-+	/* Reset dqo_compl fields. */
-+	tx->dqo_compl.head = 0;
-+	tx->dqo_compl.cur_gen_bit = 0;
-+	tx->dqo_compl.xsk_reorder_queue_head = 0;
-+	tx->dqo_compl.xsk_reorder_queue_tail = 0;
-+
-+	if (tx->dqo.xsk_reorder_queue) {
-+		size = (tx->dqo.complq_mask + 1) *
-+			sizeof(*tx->dqo.xsk_reorder_queue);
-+		memset(tx->dqo.xsk_reorder_queue, 0, size);
-+		atomic_set(&tx->dqo_tx.xsk_reorder_queue_tail, 0);
-+	}
-+
-+	size = sizeof(tx->dqo.tx_ring[0]) * (tx->mask + 1);
-+	memset(tx->dqo.tx_ring, 0, size);
-+
-+	size = sizeof(tx->dqo.compl_ring[0]) * (tx->dqo.complq_mask + 1);
-+	memset(tx->dqo.compl_ring, 0, size);
-+
-+	memset(tx->q_resources, 0, sizeof(*tx->q_resources));
-+
-+	if (tx->dqo.tx_qpl_buf_next) {
-+		tx->dqo_tx.free_tx_qpl_buf_head = 0;
-+		size = sizeof(tx->dqo.tx_qpl_buf_next[0]) *
-+			tx->dqo.num_tx_qpl_bufs;
-+		memset(tx->dqo.tx_qpl_buf_next, 0, size);
-+	}
-+
-+	gve_tx_init_ring_state_dqo(tx);
-+}
-+
- void gve_tx_stop_ring_dqo(struct gve_priv *priv, int idx)
- {
- 	int ntfy_idx = gve_tx_idx_to_ntfy(priv, idx);
-@@ -222,6 +294,7 @@ void gve_tx_stop_ring_dqo(struct gve_priv *priv, int idx)
- 		netdev_tx_reset_queue(tx->netdev_txq);
- 	gve_tx_clean_pending_packets(tx);
- 	gve_tx_remove_from_block(priv, idx);
-+	gve_tx_reset_ring_dqo(tx);
- }
- 
- static void gve_tx_free_ring_dqo(struct gve_priv *priv, struct gve_tx_ring *tx,
-@@ -270,11 +343,10 @@ static void gve_tx_free_ring_dqo(struct gve_priv *priv, struct gve_tx_ring *tx,
- 	netif_dbg(priv, drv, priv->dev, "freed tx queue %d\n", idx);
- }
- 
--static int gve_tx_qpl_buf_init(struct gve_tx_ring *tx)
-+static int gve_tx_qpl_buf_list_alloc(struct gve_tx_ring *tx)
- {
- 	int num_tx_qpl_bufs = GVE_TX_BUFS_PER_PAGE_DQO *
- 		tx->dqo.qpl->num_entries;
--	int i;
- 
- 	tx->dqo.tx_qpl_buf_next = kvzalloc_objs(tx->dqo.tx_qpl_buf_next[0],
- 						num_tx_qpl_bufs);
-@@ -282,13 +354,6 @@ static int gve_tx_qpl_buf_init(struct gve_tx_ring *tx)
- 		return -ENOMEM;
- 
- 	tx->dqo.num_tx_qpl_bufs = num_tx_qpl_bufs;
--
--	/* Generate free TX buf list */
--	for (i = 0; i < num_tx_qpl_bufs - 1; i++)
--		tx->dqo.tx_qpl_buf_next[i] = i + 1;
--	tx->dqo.tx_qpl_buf_next[num_tx_qpl_bufs - 1] = -1;
--
--	atomic_set_release(&tx->dqo_compl.free_tx_qpl_buf_head, -1);
- 	return 0;
- }
- 
-@@ -304,6 +369,7 @@ void gve_tx_start_ring_dqo(struct gve_priv *priv, int idx)
- 	gve_add_napi(priv, ntfy_idx, gve_napi_poll_dqo);
- }
- 
-+
- static int gve_tx_alloc_ring_dqo(struct gve_priv *priv,
- 				 struct gve_tx_alloc_rings_cfg *cfg,
- 				 struct gve_tx_ring *tx,
-@@ -313,13 +379,11 @@ static int gve_tx_alloc_ring_dqo(struct gve_priv *priv,
- 	int num_pending_packets;
- 	size_t bytes;
- 	u32 qpl_id;
--	int i;
- 
- 	memset(tx, 0, sizeof(*tx));
- 	tx->q_num = idx;
- 	tx->dev = hdev;
- 	spin_lock_init(&tx->dqo_tx.xdp_lock);
--	atomic_set_release(&tx->dqo_compl.hw_tx_head, 0);
- 
- 	/* Queue sizes must be a power of 2 */
- 	tx->mask = cfg->ring_size - 1;
-@@ -350,13 +414,6 @@ static int gve_tx_alloc_ring_dqo(struct gve_priv *priv,
- 	if (!tx->dqo.pending_packets)
- 		goto err;
- 
--	/* Set up linked list of pending packets */
--	for (i = 0; i < tx->dqo.num_pending_packets - 1; i++)
--		tx->dqo.pending_packets[i].next = i + 1;
--
--	tx->dqo.pending_packets[tx->dqo.num_pending_packets - 1].next = -1;
--	atomic_set_release(&tx->dqo_compl.free_pending_packets, -1);
--
- 	/* Only alloc xsk pool for XDP queues */
- 	if (idx >= cfg->qcfg->num_queues && cfg->num_xdp_rings) {
- 		tx->dqo.xsk_reorder_queue =
-@@ -367,11 +424,6 @@ static int gve_tx_alloc_ring_dqo(struct gve_priv *priv,
- 			goto err;
- 	}
- 
--	tx->dqo_compl.miss_completions.head = -1;
--	tx->dqo_compl.miss_completions.tail = -1;
--	tx->dqo_compl.timed_out_completions.head = -1;
--	tx->dqo_compl.timed_out_completions.tail = -1;
--
- 	bytes = sizeof(tx->dqo.tx_ring[0]) * (tx->mask + 1);
- 	tx->dqo.tx_ring = dma_alloc_coherent(hdev, bytes, &tx->bus, GFP_KERNEL);
- 	if (!tx->dqo.tx_ring)
-@@ -397,10 +449,11 @@ static int gve_tx_alloc_ring_dqo(struct gve_priv *priv,
- 		if (!tx->dqo.qpl)
- 			goto err;
- 
--		if (gve_tx_qpl_buf_init(tx))
-+		if (gve_tx_qpl_buf_list_alloc(tx))
- 			goto err;
- 	}
- 
-+	gve_tx_init_ring_state_dqo(tx);
- 	return 0;
- 
- err:
--- 
-2.55.0.1082.g2b9226bbc0-goog
+s/has/have
 
+We have 80 cols per line to write comments :)
+
+> + */
+> +#ifndef __KVM_NVHE_HYPERVISOR__
+> +typedef struct arm_smmu_device ARM_SMMU_OBJ;
+> +#endif
+
+It's probably safer to include arm-smmu-v3.h so everything would
+be self-defined.
+
+Also, Jason's suggestion in v7 was hyp_arm_smmu_v3_device, which
+looks nicer than ARM_SMMU_OBJ...
+
+> +static_assert(__same_type(typeof_member(ARM_SMMU_OBJ, features), u32));
+> +static_assert(__same_type(typeof_member(ARM_SMMU_OBJ, options), u32));
+> +static_assert(__same_type(typeof_member(ARM_SMMU_OBJ, oas), unsigned long));
+> +static_assert(__same_type(typeof_member(ARM_SMMU_OBJ, pgsize_bitmap), unsigned long));
+> +static_assert(__same_type(typeof_member(ARM_SMMU_OBJ, base), void __iomem *));
+> +
+> +void arm_smmu_device_iidr_probe(ARM_SMMU_OBJ *smmu);
+> +u32 arm_smmu_idr0_probe(ARM_SMMU_OBJ *smmu);
+> +void arm_smmu_idr3_probe(ARM_SMMU_OBJ *smmu);
+> +u32 arm_smmu_idr5_probe(ARM_SMMU_OBJ *smmu);
+
+Can we use "arm_smmu_device_xyz_probe" matching with the existing
+arm_smmu_device_iidr_probe?
+
+> +	if (coherent && !disable_msipolling &&
+> +	    smmu->features & ARM_SMMU_FEAT_MSI)
+> +		smmu->options |= ARM_SMMU_OPT_MSIPOLL;
+
+Will pKVM ever use MSIPOLL?
+
+> +	if (smmu->features & ARM_SMMU_FEAT_HYP &&
+> +	    cpus_have_cap(ARM64_HAS_VIRT_HOST_EXTN))
+> +		smmu->features |= ARM_SMMU_FEAT_E2H;
+
+Why is ARM64_HAS_VIRT_HOST_EXTN left behind?
+
+> -	if (!(reg & (IDR0_S1P | IDR0_S2P))) {
+> +	if (!(smmu->features & (ARM_SMMU_FEAT_TRANS_S1 | ARM_SMMU_FEAT_TRANS_S2))) {
+>  		dev_err(smmu->dev, "no translation support!\n");
+>  		return -ENXIO;
+
+This change seems unnecessary. The code above and below this line
+still uses "reg" returned by idr0_probe(). So, the original code
+should have read well:
+
+        if (!!(reg & IDR0_COHACC) != coherent)
+                dev_warn(smmu->dev, "IDR0.COHACC overridden by FW configuration (%s)\n",
+                         str_true_false(coherent));
+
+	if (!(reg & (IDR0_S1P | IDR0_S2P))) {
+                dev_err(smmu->dev, "no translation support!\n");
+                return -ENXIO;
+        }
+
+        /* We only support the AArch64 table format at present */
+        if (!(FIELD_GET(IDR0_TTF, reg) & IDR0_TTF_AARCH64)) {
+                dev_err(smmu->dev, "AArch64 table format not supported!\n");
+                return -ENXIO;
+        }
+
+Nicolin
