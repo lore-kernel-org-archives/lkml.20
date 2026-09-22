@@ -1,182 +1,109 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619EF4756B5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5963D545DBA;
+	Tue, 22 Sep 2026 13:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790084898; cv=none; b=eM1Hn/AMlzKSjexO8UabRkFSS8TD5NAS32OpmmH5kuQ1+7FhIeNfu0t8cOusP2pS4/vZkdH7ptiyV0nk47ZXUx/RBgdIui9mKTB40viwUaM6qeLdM0dKprHAtYPb5RhwJwDPrmLAENfvCBpP8Q3zPonrX/PpW1lGY9ZvvenxI6Q=
+	t=1790084898; cv=none; b=sPmBtmC4NTRV7YKLSGBULpxoHdEK4fUXOcUt5Mxbo5JVk3YM8ddpDtyHE0B0il+UjwqpmZ4ceo8NHG6bwhJkzRULiWvTLeH5BZfsFu5mZ9Ss9r6GKhdDsfnXwSG7FUYsMscpcTUI6feUJ1yNfI6rfl9NMgO3L8v5WpM5d3TGFDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790084898; c=relaxed/simple;
-	bh=w10RBxsUGtOFHpPwTlagk7zihbsxVZOw5yPuLYb1AY8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FSHoXX3lquuhT/GTx8jJ0k+UAKSplcephEIjH1fXmcJE8qYjrKtSA5CRC9zMkHGHWNEDaSlzva/oQftU6g6pMKHMAvNwuOM8ifvMh6tjtYyNrfxM+R8TZ04VLOUqtsXzh0J67ym8DTCtPW+YfJDxNPb11GF0ez3y4WtPkRVo/CQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iqMOITd1; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	bh=sln9QaHN0j38T9nKtJEjIkkDn4LcuHaOjXrF1SMDBW8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cn7kMzXE/oymad6g6Nx9pHcdA+chZSC1EG7ZB14E0QBBrvzAPBT+D8MFNdSqoCa40j1UzjWurZ3bctPrlrQnGZfSaJd2RM9Orzprj/YjJWYXgGbgUWhnQ4CNCR/AgAWsfH5KCCvBQKo/Ua7YmggC2pyLJHzyQOu3CdoY7dUGDJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWW91E4E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iqMOITd1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790084895;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6IrbNKYXaxBgTnuatiYDHte9IqTtxWZJRiUhRvSTwak=;
-	b=iqMOITd13xmvy/DSRXNUxqAiQOVd+tftAh5Y3r7hWqjrmQpW3jDjj/9oG0EJkRbLbCbZoZ
-	C9gW3Mo1g61XVInuxlKF0vj8MHAcnvlvCtnEaOUdqpn7W4D5x3MI5bF6QqSZd7NaWuXd1c
-	opiQpHnwdcnk7dMMmdnKXFOyt1AuV8w=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-299--PafZw6uO163-ZRW7g_LJA-1; Tue,
- 22 Sep 2026 09:48:11 -0400
-X-MC-Unique: -PafZw6uO163-ZRW7g_LJA-1
-X-Mimecast-MFC-AGG-ID: -PafZw6uO163-ZRW7g_LJA_1790084888
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6E1E8183090D;
-	Tue, 22 Sep 2026 13:48:06 +0000 (UTC)
-Received: from bfoster (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6486930001B9;
-	Tue, 22 Sep 2026 13:48:00 +0000 (UTC)
-Date: Tue, 22 Sep 2026 09:47:58 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, hughd@google.com,
-	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
-	ziy@nvidia.com, joannelkoong@gmail.com, djwong@kernel.org,
-	yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
-	chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
-	yukuai@fnnas.com
-Subject: Re: [PATCH v4 0/4] mm/truncate: fix data loss when truncating
- straddling large folios
-Message-ID: <arKHDqdDkQajvAk6@bfoster>
-References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWW91E4E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8FD91F000FF;
+	Tue, 22 Sep 2026 13:48:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790084896;
+	bh=RFTuYLOuOyVsABVUJJ5x2mR/8ZR2hHPzrj6E7shmwnI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FWW91E4EmZphdA2+dzTfxDu6/PsTni8YPsvXAhSoINtN7BryQw6hQhl4a+8fn30ej
+	 fbc22tujTbldMsw+B82TPKt+ge/NgMwKvd4qmjkEnFkxhYqfHj1t/B8xN/nqU/vO9t
+	 7QWJDEbqNnj8oRkqxMfuiDO4CPUETR5uPeOn6DfBZBkUjR5OavJGeEljGWeu3ZZrv3
+	 9pK8QG7S8BWAahbMGtua4jzQ8vUVUFeKZLNKTVvx82bTr7SncB26ClnekxQtjkn8jp
+	 Onu9YGLlO0mIfLhZP6x4IwPy97d4rNEID/aIHhrtttpxvzUZvcjNpzFRVCXNNnUVcc
+	 oTS4kNWznKP5Q==
+Message-ID: <7a6fab99-618c-4180-b8b3-2d1371c90483@kernel.org>
+Date: Tue, 22 Sep 2026 15:48:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 05/25] include: trace: Add Telemetry trace events
+To: Cristian Marussi <cristian.marussi@arm.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+ f.fainelli@gmail.com, vincent.guittot@linaro.org, etienne.carriere@st.com,
+ peng.fan@oss.nxp.com, michal.simek@amd.com, d-gole@ti.com, jic23@kernel.org,
+ elif.topuz@arm.com, lukasz.luba@arm.com, philip.radford@arm.com,
+ souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
+ puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
+References: <20260920091928.2014972-1-cristian.marussi@arm.com>
+ <20260920091928.2014972-6-cristian.marussi@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260920091928.2014972-6-cristian.marussi@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 07:06:59PM +0800, Zhang Yi wrote:
-> From: Zhang Yi <yi.zhang@huawei.com>
-> 
-> Hello,
-> 
-> This is the fourth version fixing data loss when truncating straddling
-> large folios caught on the upcomming ext4 + iomap buffered I/O
-> conversion.
-> 
-> When truncate_inode_pages_range() punches a hole or truncates a file,
-> truncate_inode_partial_folio() splits a large folio so that the caller
-> can drop the in-range sub-folios while keeping the out-of-range tail
-> intact.  This series fixes three distinct problems in that path that
-> can each lose the valid out-of-range tail of a straddling folio, plus a
-> follow-up that clarifies the return value semantics.
-> 
-> Patch 01 aligns the truncation boundaries inwards to the mapping minimum
-> folio order in truncate_inode_pages_range().  With a non-zero min_order,
-> folio_split() stops at min_order instead of order 0, so a boundary
-> computed at page granularity can land inside a min-order-aligned
-> sub-folio and the truncate loop drops that whole chunk, valid tail
-> included, causing data loss.
-> 
-> Patch 02 looks the end-edge straddler up by its page index through
-> __filemap_get_folio() in truncate_inode_partial_folio().  After the
-> first split the straddler is unlocked and only transiently ref'd in the
-> page cache, so the page pointer derived from the original folio can be
-> freed and reallocated as a different folio in the same mapping, and the
-> mapping check cannot catch it, which may cause incorrect splitting and
-> potential data loss.
-> 
-> Patch 03 reworks the contract between truncate_inode_partial_folio() and
-> its callers.  If the second split of the straddler fails, the function
-> reported success unconditionally, and the leftover incorrect end
-> position could cause the truncate loop to drop that valid tail.  After
-> rework, it tells the caller the exact page range safe to discard via new
-> pstart/pend out-parameters, so the truncate loop never touches a
-> straddling folio that still holds valid out-of-range data.
-> 
-> Patch 04 clarifies the return value semantics to "at least one split
-> succeeded", which is all the shmem caller needs to decide whether to
-> reset its scan loop.
-> 
-> 
-> The second patch fixes a pre-existing race issue that is reachable
-> today, so it is Cc'd to stable.  Patches 01 and 03 require a dirty large
-> folio that carries no filesystem private data, so they are not reachable
-> on current filesystems.  They were found while developing the upcoming
-> ext4 iomap buffered I/O path[1].
-> 
-> Thanks,
-> Yi.
-> 
+On 9/20/26 11:19, Cristian Marussi wrote:
+> Add custom traces to report Telemetry failed accesses and to report when DE
 
-Hi Yi,
+You write here "failed accesses", but the tracepoint below is called
+"scmi_tlm_access". Is it supposed to be used for any accesses?
 
-Modulo Jan's comment on patch 4, this series looks good to me. FWIW:
+-- 
+Cheers,
 
-Reviewed-by: Brian Foster <bfoster@redhat.com>
-
-Brian
-
-> [1] https://lore.kernel.org/linux-fsdevel/a638a8fb-c184-4069-ae33-379ec12cd514@huaweicloud.com/
-> 
-> 
-> v3->v4:
->  - Move the patch that fixes data loss when min_order is non-zero to the
->    first patch position, aligning start and end in
->    truncate_inode_pages_range(). (Zi Yan)
->  - Add patch 2, fixing the invalid folio2 issue under concurrency when
->    truncate_inode_partial_folio() splits at the end position. Use
->    __filemap_get_folio() to obtain a reliable folio2. (Jan Kara)
-> 
-> v2->v3:
->  - Rework the folio2 validity check logic to fix the invalid
->    folio->index issue. (sashiko)
->  - Clarify the pstart and pend setting logic and the corresponding
->    comments to make it more readable. (Brian, Joanne)
->  - Split the patch into 3 small patches. (Zi Yan)
-> 
-> v1->v2:
->  - Export pstart as a new parameter so that the generic and shmem
->    truncate paths don't need to recompute the start value from the
->    return value. (Brian)
->  - When min_order is non-zero, align [pstart, pend] to the inner
->    boundaries of the folio to ensure they do not point into the middle
->    of a large folio, which could otherwise cause valid data within the
->    folio to be incorrectly cleared. (Joanne)
-> 
-> v3: https://lore.kernel.org/linux-mm/20260916092450.654408-1-yi.zhang@huaweicloud.com/
-> v2: https://lore.kernel.org/linux-mm/20260909062339.473816-1-yi.zhang@huaweicloud.com/
-> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
-> 
-> 
-> Zhang Yi (4):
->   mm/truncate: align truncation boundaries to mapping minimum folio
->     order
->   mm/truncate: look up the end-edge straddler by index
->   mm/truncate: fix data loss when splitting straddling large folios
->     fails
->   mm/truncate: clarify return value of truncate_inode_partial_folio()
-> 
->  mm/internal.h |   4 +-
->  mm/shmem.c    |  13 ++---
->  mm/truncate.c | 128 +++++++++++++++++++++++++++++++++-----------------
->  3 files changed, 91 insertions(+), 54 deletions(-)
-> 
-> --
-> 2.54.0
-> 
-
+David
