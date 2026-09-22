@@ -1,240 +1,144 @@
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A32123BCED
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:13:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1152E223328
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790036017; cv=none; b=XvAuCBejqksFIE4zMeHZwbOzJhWnyGLOhF4dw0B4PUR0plL8EpuSMuwciYe+asAQNXGro73PPaPvjg8rJbuOrq0L8g7+lrcqeexXhLA+wzl8rFOX0nScEA1/Bn4S81F2yiRhDQ/2Oi4t/CBp3bWwnlmd/bfmyoBeI58H7cdlixE=
+	t=1790036017; cv=none; b=kI+FtvhzjJVXEiTxrtorRU2Eu1jYSC1TNtdObKU0SaoVSjp5g5M52YqoBv05gJNQrOVNJExcNDVesEqs/ekwEWxnlh95+nZ0k5R3b6fWYkKFNhaRc4mCZyS78ByvsaeWbXcpQBL4EYoLVJ7mNY1O02YjL5xFBlkpKYOeZ6nwjrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790036017; c=relaxed/simple;
-	bh=qwJY7dBParvjkZusqMip3ebuiHmALk4T8TF/IJwr5yw=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=uoe5qvuzFgJOarAULMvl3P87fvqwofAbVmGoEGkXjLstOW90meLSGQYWTOj8Og8lGtlsmR0OkSArhajVujT7EwLHvfg4uqQWKEozSDAfcD1rxXC6g+87/ctuvPkQVry3SHZRrRFE89/qg/q9zK1rCxAqiNSXwPHIDMg6EMOfPBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-4840f0c24bbso1634908fac.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:13:34 -0700 (PDT)
+	bh=+OgMs5FTH885W5hqbW9mZemd9t74Q3YKNRON5By5iS4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=LLGUFuctmFIitsNYtd1d5mu/7xEtRSHxiZ5zvJUBvb03uswXfST74uebpDdFavkQrmLDvlVjQ+G5d/WgPeXe6rKKBB/9SnAo9AFuvpDoxOxUzgRQnzEgnP4mf7nD+dCfbFQ8WfMrtzr0S7Gntcn+jZBg91geHR0avMzGxJKu0bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Zv+xpZf7; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Zv+xpZf7"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d94f086fedso51645525ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:13:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790036015; x=1790640815; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TG/mu75XYT0SNXMXtTJlKEYyCMKeyuwB8Y7qCUcxVbg=;
+        b=Zv+xpZf7m3MRy4BDsAoYkTpzhbF0wI6WMAdlcignQ0rAQ4pEmhV26c5Q35nZjRi+vV
+         AfxxbgmB1VOmvbOW6BcR7n/jkHC2H3aW6gtnuK3j0E+NFcEaK/kgVPgOjEzp5sCPCOWr
+         41cnHNbo/a9ESEG1UTwocPPaw1hwNHN2G6j+X7HVBWZZpn15UkwAoxHbE+3sLqrbqGC0
+         S6vgVQbyn3rTyeCfcCaIMjB8FdMf/buJwxc+KApjPS9sjCp34GxUyR5a5mIrDIr1/lWt
+         mekaHRIYifi6pDUnXsGvkxN71PlqmY2alZZvA2827/uP04HneuI1SFtCtSYawft2skab
+         pY3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790036014; x=1790640814;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XxuT5WAYU+O61SPlOaWDQ1DeR9X0yve3nEnJiyruIb4=;
-        b=lQBhSP9wmXrXCga965CZnjG8zB33ycfWcttzwbOdpbWt1A5UXhBvnc36056/rW7hnI
-         nx8KLy2dQ7RvvzFZxZQH5Kfwi2Y4Adlyf6eWgoXknhNMcD+lpNvOH6BdYMMz0tWLpQ3S
-         M5zvJkhU6OH1XxDY4F+cKDa4r2Osups8hMvClqQcZnJGUH52gWN/ck86xqjchpAAJDXs
-         z2hQQNFIPxoV8XzeKPCrUSCvxz35ZT60Jz7fXLaJDC+Gn6DbJ+5WUGAvg/RoVIUoCLiX
-         CZylIbQkd+ufJTIUzAGeqJZ8Y4pWPtN3F6wEanOtVwnxZ+T3FIuNII7+NoFa4AILrNDC
-         CRrw==
-X-Forwarded-Encrypted: i=1; AKwUvBwOOn3uq9QwZY8I6MTzlk51GSfVYKUULmQ7ok8OTkAm5vlJBpkQ+iE6U0+6GktHWcGLiNAke1BX3wvj59o=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3hCBgXQD5TctqYpbcRJTrX9AFSvy9p7CJizh3fv/kUqD1eL5K
-	Eg3oBlQPo4KI6HvVoJ8DuyBXgPNzeikRKDIXy0JVt5fDrfZ2iUoy9Og8suzSc0JSXznWGelRMb5
-	R9ROXdZjFV4GTurFyrIld+tSWcPZ1v1YaIBSymVv1hu5JmPeOQVvVJOfKzRw=
+        d=1e100.net; s=20260707; t=1790036015; x=1790640815;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TG/mu75XYT0SNXMXtTJlKEYyCMKeyuwB8Y7qCUcxVbg=;
+        b=vBfAHE2MoweMAlPC1BtCVSW/T6rU+X2LbBU6OXmGsUubeYF8Xlj+9AibTtfYAjakdH
+         brC4zKmjzSzb8GF83qq8stT+xFi4AI95rgwOLCkfoYkOc73u558PgsDI1edr8Kbh2OMW
+         9AynHLzmhzwVQY9ovshK/50SJtbDB/OHQmCsEfD3K9Zrtl+V5FWS0wyXfleNHO9e2S2P
+         0OVuptxYeYUmtkcYq29lRn3zScIw+36FKKyoCu3vl06eJ5O8ikr/nN0LJ+qRHr4JgOWn
+         FPiFdLcg+61Cs/fDjhrv8EGh2OE/pmRqjhb17ci4AI0skn8uSas9+bP0b9rS86Ts7piR
+         w5MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy52hV6bXhmO3GPVNWqBARyzLNEDVhG2Tu6LGTbtKkMxt0SRDErl+8PtAhBdOc+OqprBr3ZqRK4O1muTEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwwVj77is+pD9Wtxvq62uY/xgw93/mTLxdzd0l3LrS121omQid
+	CeX3KhX3r2545G6NiY/ptPDNQHRFTNf6zgpnlmkWYb4kbXUfq8aVhgbR/jsq2WyJSp6RpYU04E4
+	rvuD21A==
+X-Received: from plem11.prod.google.com ([2002:a17:902:e40b:b0:2dc:fcb9:e5f1])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e742:b0:2df:5ab2:ea13
+ with SMTP id d9443c01a7336-2df5ab2f6dbmr10657245ad.10.1790036015093; Mon, 21
+ Sep 2026 17:13:35 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Mon, 21 Sep 2026 17:13:27 -0700
+In-Reply-To: <20260922001332.1121266-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f02a:b0:6cd:3fcc:96cc with SMTP id
- 006d021491bc7-6cd3fdbddcamr9119251eaf.74.1790036013992; Mon, 21 Sep 2026
- 17:13:33 -0700 (PDT)
-Date: Mon, 21 Sep 2026 17:13:33 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab1c82d.514bccd6.255447.0018.GAE@google.com>
-Subject: [syzbot] [xfs?] KASAN: slab-use-after-free Write in xlog_cil_push_work
-From: syzbot <syzbot+c32ff62cf4913d345d0c@syzkaller.appspotmail.com>
-To: cem@kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Mime-Version: 1.0
+References: <20260922001332.1121266-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260922001332.1121266-2-seanjc@google.com>
+Subject: [PATCH v5 1/6] KVM: guest_memfd: Gracefully handle xarray errors when
+ binding a memslot
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Ackerley Tng <ackerleytng@google.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+If inserting a memslot into a guest_memfd's bindings xarray fails,
+propagate the error back to the caller, i.e. fail memslot creation as well.
+Signalling success and continuing on with memslot creation results in
+use-after-free, as the guest_memfd instance will remain reachable via the
+memslot after the file is freed (kvm_gmem_release() won't nullify the file
+pointer due to lack of a valid binding).
 
-syzbot found the following issue on:
+Opportunistically WARN and reject binding if KVM_MEMSLOT_GMEM_ONLY is
+already set, partly to guard against goofs elsewhere, but mostly so that
+KVM doesn't need to worry about clobbering flags when unwinding on failure.
 
-HEAD commit:    238650ef6c7c Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17857925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=c32ff62cf4913d345d0c
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Regarding the unwind, the slot must be fully prepared before inserting it
+into the bindings, at which point the slot becomes reachable.  I.e. waiting
+to update the slot in order to avoid the ugly unwind isn't an option.  And
+as part of the unwind, explicitly nullify the relevant bindings, as xarray
+can store a subset of entries when populating a range.
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/41924f079a65/disk-238650ef.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/09d46c75ec43/vmlinux-238650ef.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/061e8caeb39c/bzImage-238650ef.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c32ff62cf4913d345d0c@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_splice include/linux/list.h:580 [inline]
-BUG: KASAN: slab-use-after-free in list_splice_init include/linux/list.h:619 [inline]
-BUG: KASAN: slab-use-after-free in xlog_cil_push_pcp_aggregate fs/xfs/xfs_log_cil.c:137 [inline]
-BUG: KASAN: slab-use-after-free in xlog_cil_push_work+0x9b6/0x2a90 fs/xfs/xfs_log_cil.c:1417
-Write of size 8 at addr ffff8880261d5d88 by task kworker/u8:9/1441
-
-CPU: 0 UID: 0 PID: 1441 Comm: kworker/u8:9 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: xfs-cil/loop3 xlog_cil_push_work
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- __list_splice include/linux/list.h:580 [inline]
- list_splice_init include/linux/list.h:619 [inline]
- xlog_cil_push_pcp_aggregate fs/xfs/xfs_log_cil.c:137 [inline]
- xlog_cil_push_work+0x9b6/0x2a90 fs/xfs/xfs_log_cil.c:1417
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 5944:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x360/0x690 mm/slub.c:5010
- xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
- _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
- __xfs_trans_getsb+0x65/0x4a0 fs/xfs/xfs_trans_buf.c:191
- xfs_log_sb+0x43/0x200 fs/xfs/libxfs/xfs_sb.c:1327
- xfs_sync_sb_buf+0xc2/0x290 fs/xfs/libxfs/xfs_sb.c:1479
- xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
- xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 5944:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kmem_cache_free+0x187/0x6d0 mm/slub.c:6635
- xfs_buf_ioend+0x235/0x790 fs/xfs/xfs_buf.c:1167
- xfs_buf_iowait+0x133/0x420 fs/xfs/xfs_buf.c:1336
- xfs_bwrite+0x5f/0xe0 fs/xfs/xfs_buf.c:1239
- xfs_sync_sb_buf+0x172/0x290 fs/xfs/libxfs/xfs_sb.c:1489
- xfs_ioc_setlabel+0x1d7/0x340 fs/xfs/xfs_ioctl.c:1081
- xfs_file_ioctl+0x901/0x1590 fs/xfs/xfs_ioctl.c:1238
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xff/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff8880261d5d20
- which belongs to the cache xfs_buf_item of size 272
-The buggy address is located 104 bytes inside of
- freed 272-byte region [ffff8880261d5d20, ffff8880261d5e30)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x261d5
-flags: 0x80000000000000(node=0|zone=1)
-page_type: f5(slab)
-raw: 0080000000000000 ffff88814043fdc0 dead000000000122 0000000000000000
-raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5795, tgid 5794 (syz.3.4), ts 106215173769
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d8/0x350 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x45d/0x690 mm/slub.c:5010
- xfs_buf_item_init+0x6a/0x6e0 fs/xfs/xfs_buf_item.c:872
- _xfs_trans_bjoin+0x46/0x110 fs/xfs/xfs_trans_buf.c:75
- xfs_trans_read_buf_map+0x2ee/0x820 fs/xfs/xfs_trans_buf.c:294
- xfs_trans_read_buf fs/xfs/xfs_trans.h:212 [inline]
- xfs_read_icluster+0x218/0x3e0 fs/xfs/libxfs/xfs_inode_buf.c:139
- xfs_iget_cache_miss fs/xfs/xfs_icache.c:663 [inline]
- xfs_iget+0xc34/0x2f00 fs/xfs/xfs_icache.c:804
- xfs_trans_metafile_iget+0x77/0x330 fs/xfs/xfs_icache.c:853
- xfs_rtginode_load+0x3a3/0x920 fs/xfs/libxfs/xfs_rtgroup.c:469
- xfs_rtmount_rtg fs/xfs/xfs_rtalloc.c:1684 [inline]
- xfs_rtmount_inodes+0x14f/0x7a0 fs/xfs/xfs_rtalloc.c:1721
- xfs_mountfs+0x1254/0x2380 fs/xfs/xfs_mount.c:1095
-page last free pid 5581 tgid 5581 ts 106036434714 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xf8e/0x1070 mm/page_alloc.c:2962
- __slab_free+0x250/0x2a0 mm/slub.c:5823
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_node_track_caller_noprof+0x505/0x7b0 mm/slub.c:5545
- memdup_user+0x2b/0xd0 mm/util.c:221
- strndup_user+0x68/0xd0 mm/util.c:280
- copy_mount_string fs/namespace.c:4076 [inline]
- __do_sys_mount fs/namespace.c:4387 [inline]
- __se_sys_mount+0xdf/0x420 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff8880261d5c80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff8880261d5d00: fc fc fc fc fa fb fb fb fb fb fb fb fb fb fb fb
->ffff8880261d5d80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                      ^
- ffff8880261d5e00: fb fb fb fb fb fb fc fc fc fc fc fc fc fc 00 00
- ffff8880261d5e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-==================================================================
-
-
+Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
+Cc: stable@vger.kernel.org
+Reported-by: Stefan Teodorescu <fane@google.com>
+Reported-by: Dennis Tighe <dtighe@google.com>
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260823135031.4F6DC1F000E9%40smtp.kernel.org
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ virt/kvm/guest_memfd.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 63943aa253d4..c094611f7c7a 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -654,6 +654,9 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+ 
++	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
++		return -EINVAL;
++
+ 	file = fget(fd);
+ 	if (!file)
+ 		return -EBADF;
+@@ -692,7 +695,13 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 
+-	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
++	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
++	if (r) {
++		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
++		slot->gmem.file = NULL;
++		slot->gmem.pgoff = 0;
++		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
++	}
+ 	filemap_invalidate_unlock(inode->i_mapping);
+ 
+ 	/*
+@@ -700,7 +709,6 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	 * not the other way 'round.  Active bindings are invalidated if the
+ 	 * file is closed before memslots are destroyed.
+ 	 */
+-	r = 0;
+ err:
+ 	fput(file);
+ 	return r;
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
