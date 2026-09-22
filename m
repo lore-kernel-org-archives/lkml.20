@@ -1,94 +1,111 @@
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CA53C2B9B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFC2478859;
+	Tue, 22 Sep 2026 09:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070178; cv=none; b=A1OvCQu8WUK1PgkH7Rtbinh5wOnBYkeTJiuZKeb1tJ4PIfGduBXgWkSyUPU2CND2LPyApJPg5ZoRH6CT3XEPA2eY9F0SK2in/YjduOQsdFv69H/3af/O835GSAz3eq7giA9lfchVi96+aYPVAN9aeSezJx3RO8k613PPgyIe7Ag=
+	t=1790070185; cv=none; b=rcIFIljZaW+UcI/MTHRxSaxqhtWdrAqIHugFedLj90bM3NZPxQdRzxgC5zSH1EzpxbfUuYNO0aVhl61nrgJsn7R/eHuIBEpYF9fWMP0Ruq2ry8Ua07jgGUa51IJJWwKLZLuWEUYxmRE+U5B9ANmAU06X/GhEvHlWsEth9jvv2z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070178; c=relaxed/simple;
-	bh=AaASihTEQYwCAyh5a2S+J5KYvZ9GGtdH7JfCAqe9w90=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qj+kreR4xJD6WevqDAXpbp63qIlY4la0mY0Y+awJ5QmXwGY8GTqvm/asRqzCtWAGb8PTUaflz6k8XLuhoJzl29VHqHzdxSPgVtgSwLoJAZCdOa5yJExb2pTX6lNkvRfQWkx6X3a38JozgzrHfU7fMJ/U3m6w6re17YnjrkBavhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Rb7rtLYm; arc=none smtp.client-ip=115.124.30.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790070185; c=relaxed/simple;
+	bh=+ZdcKu3/+uyhfFbgt58db6XcHXJpIEbKDkl9pefBftg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qHp28LhJxcDhTAYSFjaml7cYNl6olW54Suyp6RGw/+key10/M00sLrjvXbXccne7PDzbb0YkzmTGsHVnA5MCsRzgTV/p4EcL/I1ufXqSMYWnokxsCPQtZ3+0Amp5D0ZTf7MoBZ/NfIRuhUfJf626xJS0jWhcO4qaRCqDfRjao0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEDT5Pjb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Rb7rtLYm"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790070173; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=uLneeA5paIA9x2260zcT17b84b4Z2tmYBGdNdrue6J8=;
-	b=Rb7rtLYm0dINrUbWwbofZQ8sKoZ8jYbX8h6UByG0T3Q197keTz/G0UergD6bd1cLg6iWwm8rH2PUpZ8LAzV1MBt9xrPtUUmgXjz1ntQihdcUIjSpFYXjJEWtkOKXZHOKfk8dwGd5+Wn06xxUppkg+ud8fBFukF7BCFmysfw1ndU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R351e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XBTMJTP_1790070172;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XBTMJTP_1790070172 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 17:42:52 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ocfs2: restore -ERANGE check in ocfs2_xattr_tree_list_index_block()
-Date: Tue, 22 Sep 2026 17:42:52 +0800
-Message-Id: <20260922094252.971631-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEDT5Pjb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9988D1F00893;
+	Tue, 22 Sep 2026 09:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790070184;
+	bh=V+eCBMsdRHZZ8+99AV4x2YGu7/eXm49oGH7gIIrlNWI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HEDT5PjbUbEQaAwBztSRssxASmJHaBqVwPwKnbEQzsJZHM+j+y5CasBQn12wmlSJn
+	 CuHqNQhabvHNIE5dxrC6QQ3nX2kIuww0JvVP2OXFnTkjcYV2qnP/mRlpxd612CoRVl
+	 MH+PLj+Bg+NihW+ZUZmiXEO9xnC/xz51ZS0tCCAxu/FIyVQJvDIn94lfBrZZ9/h3d4
+	 LPbb4NTCgzcZzrmK3Y0xPjiBDCuUMpAv7GbvkYoaxBVrDHqpolf8pst6EaxjvSDPB6
+	 m7OzrlzeotaCljEpaYVl448V2ES93RVHyOaaA5G/RAHfF1BBOI+NYgUORG28y/Ik/h
+	 13rAqbmckKezQ==
+Date: Tue, 22 Sep 2026 12:42:55 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>, linux-arch@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v2] docs/mm: describe set_memory() and set_direct_map()
+ APIs
+Message-ID: <arJNn2QD_pY6e14R@kernel.org>
+References: <20260919-set-memory-docs-v2-1-a2a4b3657690@kernel.org>
+ <433d32a4-f59a-4d6c-915d-2c1b4c22b840@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <433d32a4-f59a-4d6c-915d-2c1b4c22b840@arm.com>
 
-ocfs2_xattr_list_entry() returns -ERANGE when the buffer handed in by
-the caller is too small to hold the whole xattr name list.  That is the
-normal listxattr(2) protocol, userspace simply retries with a larger
-buffer, so it is not an ocfs2 error and must not be logged as one.
+On Mon, Sep 21, 2026 at 03:03:32PM +0200, Kevin Brodsky wrote:
+> On 19/09/2026 12:43, Mike Rapoport (Microsoft) wrote:
+> > [...]
+> >
+> > +Modifying the kernel page tables
+> > +================================
+> > +
+> > +Except for the vmalloc area, the kernel page tables are mostly static. Still,
+> > +there are cases when the permissions of existing kernel mappings have to be
+> > +updated, for instance when a module is loaded and its text becomes read-only
+> > +and executable, or when a page is temporarily removed from the direct map to
+> > +reduce its exposure.
+> > +
+> > +There are two families of functions for this, both declared in
+> > +`include/linux/set_memory.h`:
+> > +
+> > +* `set_memory_*()` change permissions of an arbitrary kernel mapping. They
+> > +  take a kernel virtual address and the number of pages.
+> > +
+> > +* `set_direct_map_*()` change permissions of the direct mapping of the page
+> > +  frame represented by a `struct page`. They take a `struct page` pointer and
+> 
+> The new phrasing is a mouthful but at least should be accurate :) It
+> should probably say "range of page frames" or something like that though.
 
-Commit a46fa684fcb700 ("ocfs2: Don't printk the error when listing too
-many xattrs.") already knew this and silenced two sites, quoting
+It gets even more mouthful, but you are right, "range" should be there.
 
-  (27738,0):ocfs2_iterate_xattr_buckets:3158 ERROR: status = -34
-  (27738,0):ocfs2_xattr_tree_list_index_block:3264 ERROR: status = -34
+Andrew, can you please fold this in:
 
-The refactoring in commit 47bca4950bc40f ("ocfs2: Abstract ocfs2 xattr
-tree extend rec iteration process.") then rewrote
-ocfs2_xattr_tree_list_index_block() around the new
-ocfs2_iterate_xattr_index_block() helper and dropped that guard, so the
-second message has been emitted ever since:
-
-  ocfs2_xattr_tree_list_index_block:4513 ERROR: status = -34
-
-The exemption in ocfs2_iterate_xattr_buckets() survived because that
-function was left alone, and the new helper does check for -ERANGE
-itself, which is why only the outermost caller still logs it.
-
-Restore the missing check.  Only the log line changes: -ERANGE is still
-returned to the VFS untouched, so listxattr(2) behaves exactly as
-before.
-
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/xattr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 25fb23cc00d2..590b8b63d684 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -4521,7 +4521,8 @@ static int ocfs2_xattr_tree_list_index_block(struct inode *inode,
- 	ret = ocfs2_iterate_xattr_index_block(inode, blk_bh,
- 					      ocfs2_list_xattr_tree_rec, &xl);
- 	if (ret) {
--		mlog_errno(ret);
-+		if (ret != -ERANGE)
-+			mlog_errno(ret);
- 		goto out;
- 	}
+diff --git a/Documentation/mm/kernel-page-tables.rst b/Documentation/mm/kernel-page-tables.rst
+index b3148df07fc8b..c16de34b4f79d 100644
+--- a/Documentation/mm/kernel-page-tables.rst
++++ b/Documentation/mm/kernel-page-tables.rst
+@@ -103,9 +103,9 @@ There are two families of functions for this, both declared in
+ * `set_memory_*()` change permissions of an arbitrary kernel mapping. They
+   take a kernel virtual address and the number of pages.
  
--- 
-2.39.3
+-* `set_direct_map_*()` change permissions of the direct mapping of the page
+-  frame represented by a `struct page`. They take a `struct page` pointer and
+-  the number of pages.
++* `set_direct_map_*()` change permissions of the direct mapping for the range
++  of page frames starting at the page represented by a `struct page`. They take
++  a `struct page` pointer and the number of pages.
+ 
+ Architectures that implement `set_memory()` select `CONFIG_ARCH_HAS_SET_MEMORY`
+ 
+> Looks good otherwise!
+> 
+> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+> 
 
+-- 
+Sincerely yours,
+Mike.
