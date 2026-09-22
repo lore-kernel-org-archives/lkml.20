@@ -1,132 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B886F5187E1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD933905EC;
+	Tue, 22 Sep 2026 13:27:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083661; cv=none; b=E1p+FthwRO5sw9/pbiVRxAVS0LqJlWeJCoa3L36LrWTs6oRCpgk+qJcKGuIA2AhwqMD6iYaP2cE6JPBiBCpkKWznCNxunUbs6c4F9E8ACNe6RH+/RG361eCbF9cZ6St2lHYUgeMY8bwhOHQhIC2/BV2LQh6XLpZ2j0UWCmg00+U=
+	t=1790083677; cv=none; b=LU/YGXSx2NmvvmKKKhxxR5fmVa2DsEkjN4QH1m8Ij2oOEXjlB2FSPN/ZORcHF3BS4nFP+/LE7tMdQ2Cx+9mko8LMfwjyCD1fcFI26uAiQe6PkSyInpnfsRtIyLEzMfZt+2HUDihXQlSatCT7MyQhd/8BkF3+eblQyc4TdWSfbfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083661; c=relaxed/simple;
-	bh=SW3lscw7FZTt++SdKIYmyi6xhzruZ2CTAVhjOyh5558=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MhBq3Uz5XclbnAMjSb8usN5PP/+WFg0REnNzDc9lmro6kB+BXAQdOHx3+I0DcQ+WG1ABFhG1Rxde1N3bU0zq/AqbJCMzsq6+2dlLY76iCs3Fpn4ni5nG0eEWvo/WJNVqIPFvo7TsQz//xarpZnqa61to/i/vV45mx9bps1Lv9w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ScK32LSy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790083677; c=relaxed/simple;
+	bh=W+zZyY+/XSoXA6X2r9Zl04xwFs+BQBcAmbZKJRydPD8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UfKYHFPyH/sKmnGN2zWLiYhysVXxqR5Br2+xZO+R5cRJ+9eXFsYOmIWgMlbKu2bQRDMX+IpIuOWLw9ysCFDAkysTDNCYkC5vlbmDi28YgtUVy8vfLRkxakL4OmqmvlD+KqKpOktn3VVLyqKD//IDi4ED8v2//ENJ3JeCpXhLnZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwhENWJk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ScK32LSy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15EB1F000FF;
-	Tue, 22 Sep 2026 13:27:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwhENWJk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560641F000FF;
+	Tue, 22 Sep 2026 13:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790083659;
-	bh=hOgpW4IgnM+iWttR9xGzJPKFkLCxSHMpX5I4y07+yQM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ScK32LSyDrY7d5+C8okcVeEUzggCwaZYw48LGkNFs79g2d6FsaGQjUnycanFRtVn/
-	 hVgC5C16xSQSsH2ZWl7i3uAL/tMCQoA+/QwbuNe64iWM6kBd3o1Eb3mmpc7HjHD8Yx
-	 kFY95VDNDpXS71ZTlFVcgX8Nqc/33yM7UhzutJO2t1MBcf/W7Rjhot17y1bDFDaJ3U
-	 ljz6jq4Tl7ABUOVZvYSOLHqjIbCdkQ6img71hVkM5E+Bx1hisyF41hkCYvstoSB3tP
-	 bGoAXpXw1TTnkBf9sdeMUMjmG8UJIdgk4LYOkKO09YGtGblsPQySTBTwIpEtSDfjqk
-	 5B4IZ4Ors4mVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] kho: fix global scratch size calculation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sourabh Jain" <sourabhjain@linux.ibm.com>
-Cc: "Pasha Tatashin" <pasha.tatashin@soleen.com>, linux-mm@kvack.org, "Mike
- Rapoport" <rppt@kernel.org>, kexec@lists.infradead.org, =?utf-8?b?Uml0?=
- =?utf-8?b?ZXNoIEhhcmphbmkgKElCTSk=?= <ritesh.list@gmail.com>, "George Guo" <guodongtai@kylinos.cn>, "Pratyush
- Yadav" <pratyush@kernel.org>, linux-kernel@vger.kernel.org, "Andrew Morton" <akpm@linux-foundation.org>, "Alexander
- Graf" <graf@amazon.com>
-In-Reply-To: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
-References: <20260922131217.698809-1-sourabhjain@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 13:27:38 +0000
-Message-Id: <20260922132738.B15EB1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790083676;
+	bh=ApsZVBFkcyb1C7G7ucDacbOxA5hWzpJXw9SDkNt3hYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FwhENWJkUL+Ph/E/ZL08lyizsjNyTtU6O+wgwczrNQQDJdxOGDr8Xkh7SjPAAT7pT
+	 lnVQgC0Cf7WE3w8On+hyQLcfF2SrM437/whHiUMkQ3DZtWaY8x2ToWjM1eUJQ5ZQZY
+	 qMGenCbLjWe/h8ax5QShb0raOqc+uLsvhMjUCplAmP2hyChI4W5FuhbPGSJc7+Myu0
+	 FkP91zRSSM5mBvItuthSEdtgzWn/vG+JCEVXQ+/kjKJpIEO9ntAyiqHGASa28we9o1
+	 GyOqxEu+9kDUVOGhOnH/9/vyu3oPSD1+i/12DF7cfNd1/hg/r2bHQ5lDI1tq4P9xOh
+	 4HzsuT7Wof19g==
+Date: Tue, 22 Sep 2026 15:27:45 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
+	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
+	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/4] wifi: ath11k: Connect to the QMI server belonging
+ to the device owned by this driver
+Message-ID: <irhurowbxxpxrg7j3f4onxboxoxzj5jszyuq5ex5osedmx5k4u@r4d365t6kpze>
+References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
+ <20260921-qrtr-multi-ep-v2-3-27dd80d841a0@oss.qualcomm.com>
+ <3f31a185-b7ba-4ae4-a3c3-874bac0d66b3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3f31a185-b7ba-4ae4-a3c3-874bac0d66b3@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] kho: lowmem scratch exhaustion due to missing node-specific lowmem=
- reservations
---
+On Tue, Sep 22, 2026 at 04:32:07PM +0530, Vasanthakumar Thiagarajan wrote:
+> 
+> 
+> On 9/21/2026 4:53 PM, Manivannan Sadhasivam via B4 Relay wrote:
+> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > 
+> > When two identical ath11k PCIe devices are connected to the same host, both
+> > advertise the WLFW service with the same service and instance id. The QMI
+> > lookup reports both servers to each device, so a device may connect to the
+> > firmware running on the other device.
+> > 
+> > But now, QRTR provides each MHI endpoint a unique node id which is
+> > different from the node id announced by the device. So use the same id to
+> > pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
+> > the node id derived from the MHI controller index and zero for transports
+> > that do not assign one. In the new_server callback, skip any service whose
+> > node id does not match. A node id of zero disables the check, so transports
+> > that do not assign one keep their current behavior.
+> > 
+> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> > ---
+> >   drivers/net/wireless/ath/ath11k/hif.h |  9 +++++++++
+> >   drivers/net/wireless/ath/ath11k/pci.c |  9 +++++++++
+> >   drivers/net/wireless/ath/ath11k/qmi.c | 10 ++++++++++
+> >   3 files changed, 28 insertions(+)
+> > 
+> > diff --git a/drivers/net/wireless/ath/ath11k/hif.h b/drivers/net/wireless/ath/ath11k/hif.h
+> > index 017fed1b4bd1..0da9025c7ed8 100644
+> > --- a/drivers/net/wireless/ath/ath11k/hif.h
+> > +++ b/drivers/net/wireless/ath/ath11k/hif.h
+> > @@ -32,6 +32,7 @@ struct ath11k_hif_ops {
+> >   	void (*ce_irq_disable)(struct ath11k_base *ab);
+> >   	void (*get_ce_msi_idx)(struct ath11k_base *ab, u32 ce_id, u32 *msi_idx);
+> >   	void (*coredump_download)(struct ath11k_base *ab);
+> > +	int (*get_qrtr_node_id)(struct ath11k_base *ab);
+> >   };
+> >   static inline void ath11k_hif_ce_irq_enable(struct ath11k_base *ab)
+> > @@ -159,4 +160,12 @@ static inline void ath11k_hif_coredump_download(struct ath11k_base *ab)
+> >   		ab->hif.ops->coredump_download(ab);
+> >   }
+> > +static inline int ath11k_hif_get_qrtr_node_id(struct ath11k_base *ab)
+> > +{
+> > +	if (!ab->hif.ops->get_qrtr_node_id)
+> > +		return 0;
+> > +
+> > +	return ab->hif.ops->get_qrtr_node_id(ab);
+> > +}
+> > +
+> >   #endif /* _HIF_H_ */
+> > diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
+> > index a163168f3617..4d327b5cc98a 100644
+> > --- a/drivers/net/wireless/ath/ath11k/pci.c
+> > +++ b/drivers/net/wireless/ath/ath11k/pci.c
+> > @@ -10,6 +10,7 @@
+> >   #include <linux/of.h>
+> >   #include <linux/time.h>
+> >   #include <linux/vmalloc.h>
+> > +#include <net/qrtr.h>
+> >   #include "pci.h"
+> >   #include "core.h"
+> > @@ -900,6 +901,13 @@ static int ath11k_pci_start(struct ath11k_base *ab)
+> >   	return 0;
+> >   }
+> > +static int ath11k_pci_get_qrtr_node_id(struct ath11k_base *ab)
+> > +{
+> > +	struct ath11k_pci *ab_pci = ath11k_pci_priv(ab);
+> > +
+> > +	return qrtr_host_node_id(ab_pci->mhi_ctrl->index);
+> 
+> nit: since qrtr_host_node_id() returns node_id in unsigned int,
+> may be maintain that in the return type of the callers as well.
+> Mostly harmless as it is unlikely that node_id is allocated with
+> an extremely high id. Either way is fine with me. Same applicable
+> for ath12k patch as well.
+> 
 
-commit 45b67db1813edaa6fb1bdfe7033f0598a814cd63
-Author: Sourabh Jain <sourabhjain@linux.ibm.com>
+Thanks for spotting it. For the sake of correctness, it makes sense to use same
+type everywhere. I'll fix it in next version.
 
-kho: fix global scratch size calculation
+- Mani
 
-This commit updates the scratch size calculations to correctly distinguish
-between memory reserved for a specific NUMA node and memory reserved with
-NUMA_NO_NODE. It introduces memblock_reserved_size_nid() to calculate
-reserved memory based on reservation type and NUMA node, fixing an issue
-where per-node reservations were incorrectly included in the global scratch
-allocation.
-
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec=
-_handover.c
-> index 7c4d86daf86d5..dc809e1e768c0 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-[ ... ]
-> @@ -787,17 +787,17 @@ static void __init scratch_size_update(void)
->  	if (scratch_scale) {
->  		phys_addr_t size;
-> =20
-> -		size =3D memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
-> -						   NUMA_NO_NODE);
-> -		size -=3D memblock_reserved_hugetlb_size(ARCH_LOW_ADDRESS_LIMIT,
-> -						       NUMA_NO_NODE);
-> +		size =3D memblock_reserved_size_nid(ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_NO=
-DE,
-> +						  MEMBLOCK_RSRV_KERN);
-
-[Severity: High]
-Does checking NUMA_NO_NODE here exclude node-specific lowmem reservations
-(like node-bound DMA pools) from the lowmem scratch size calculation?
-
-If the successor kernel requires lowmem for these node-specific reservations
-during early boot, could shrinking the global lowmem scratch memory lead to
-memblock allocation failures and a panic?
-
-> +		size -=3D memblock_reserved_size_nid(ARCH_LOW_ADDRESS_LIMIT, NUMA_NO_N=
-ODE,
-> +						   MEMBLOCK_RSRV_HUGETLB);
->  		size =3D size * scratch_scale / 100;
->  		scratch_size_lowmem =3D size;
-[ ... ]
-> @@ -815,11 +815,11 @@ static phys_addr_t __init scratch_size_node(int nid)
->  	phys_addr_t size;
-> =20
->  	if (scratch_scale) {
-> -		size =3D memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
-> -						   nid);
-> +		size =3D memblock_reserved_size_nid(MEMBLOCK_ALLOC_ANYWHERE, nid,
-> +						  MEMBLOCK_RSRV_KERN);
-
-[Severity: High]
-Are the node-specific lowmem reservations that were excluded from
-scratch_size_lowmem now being counted here instead? Since this counts
-with MEMBLOCK_ALLOC_ANYWHERE, will these reservations potentially be satisf=
-ied
-using scratch memory in highmem?
-
-If the successor kernel restricts its memblock allocations to
-MEMBLOCK_KHO_SCRATCH regions, won't it be unable to recreate its
-node-specific lowmem reservations if the per-node scratch memory was placed
-in highmem?
-
->  		/* Do not count HugeTLB pages. */
-> -		size -=3D memblock_reserved_hugetlb_size(MEMBLOCK_ALLOC_ANYWHERE,
-> -						       nid);
-> +		size -=3D memblock_reserved_size_nid(MEMBLOCK_ALLOC_ANYWHERE, nid,
-> +						   MEMBLOCK_RSRV_HUGETLB);
->  		size =3D size * scratch_scale / 100;
->  	} else {
->  		size =3D scratch_size_pernode;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922131217.6988=
-09-1-sourabhjain@linux.ibm.com?part=3D1
+-- 
+மணிவண்ணன் சதாசிவம்
