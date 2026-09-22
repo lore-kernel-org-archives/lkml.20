@@ -1,209 +1,127 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868523E8C78
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:13:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064813; cv=pass; b=ps5xJx4IEz94tLyF/aF/itPuPcsQcLCNYEo5gq8AwVrxEP1HG89uWiDJ0QbT17w1+RLEqpuwrA9YUUVgVE5gwBv+FhkGrRjXiCDaZ+nxGf/u2UjvMq4laxtb4hTYyugGy59Kegu4yk4DbgbxswpGCHZEp0P1JT4wvYao5ckmmxI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064813; c=relaxed/simple;
-	bh=z4yJ4d/PQ9eEbkDFB5YDhTveMk44MET3fVjIGIItEhY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CdG6UtsbtUBgGTEjfKe6/UqsDb3Qb8u4xJIzXRLlLjUkUYNsG1v9M097cvP63rx68/yp4NwtevAY1KC/saf3qb2LS47GwN7OpVmQArKodX3CSnqlCFEx/6bgq4d2AM6FL8zLQjpBOs89Ff2GEFPAavgxqAnHJQnt3WApCrv/5So=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CumDQ3+V; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C01E3E51FF;
+	Tue, 22 Sep 2026 08:13:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790064839; cv=none; b=TYDgE9g0zdH4kFFGwRrKoFw9mqhobDfcItAiVMX5yIo8REMj2XlaHJMPzwToeR5qlu1T5hIa3Ln9nE7GTcoJsCOwzjGDmys94YyoOzF11u0aFdqBPJ5igVLDmLDxbaw+xB4jv6JTII18VWrYqr0AMx0TnHOvs+c0oiD7Y4Mb0WU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790064839; c=relaxed/simple;
+	bh=4gXkdQy4Bdd93dMK4RXw8t3xfqUapZRTBFou4X2qdkw=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=MmDtX11ErrU0Enj2uq0tzP8rUvkPHKxxgXlPus1TJT6MBsL9uguZBfSeIfO8UYWHwB9csviB3eo0hjNTso6FKWPPPFxwBDFN/X4NWm/Xx6j4Y8fdz3J6Og94LvV+nBAr9xdfZr02HBfExjFERxssajckYo/HcatuFltmnZThbMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HY2KOg4e; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OAEe5Mfu; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CumDQ3+V"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aae314aso2974611d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:13:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790064810; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CHNs2aVbdi5eyqZbfw05d9DIuULPFFevrXvLS/Tcu6msDoQWGrDbfPo0hjUlSkoBEl
-         E8FipOkyVtuX5iUjOZM02Rk9w8KgnvLpgkwZpBvuSSF6vA5JYbUwb/bxgcnloLc6xLyN
-         V27IXVbdv6Mfal9GPgI8Cauwips9OLoydPc2pQPfTg/0ACBjPfIVWf4TJJN78J5bESNS
-         K0Ai0u3IVGwfLfukgr3KlXlaWcV0EE3zrHIBUM1bPjq5c0nEFc1Z5b3UQHSKb6Kf7Ry4
-         4kM2xunCW4LAiILH85mc2Zp8DAI0yFoiNDPm2D7qXoST+Hhdh+njvSFZockTCySc8oN0
-         Os5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vi+eaHvPeGF3Sdq7zvAZY/QjCGqMSzvenzOG4HC773o=;
-        fh=K4kuyohBnxzL93ZpMaEPIK3yuxvQ6kQS8vhgcRkimAc=;
-        b=jS0LUXiGjGvyUcPAYjuViH1uifoDtMaRZypggCEBesmoBAF2YunC9zDNP/MpUv9CTG
-         eWqBzU87DCNcOQmGgusyoVWg9jP8h9TJur5la03gY28gPRPaMpYMyLwp+wHZrFMACOmo
-         o+wmABc62p3GBNtwSWQSGGYBdJBbF123p2CCZA2CWCcX5joY+izmbFCiYirAO8W6sTPV
-         h2WzlpeVQYeigoxGTXaKvG16HTdy2W03lQFHqKfqmxSzyTgp08Uy8xEZyZtJkn3Szgz0
-         212ZJq2tOyZD/iPkO9keW9GRdXMqjhyP7L7XXsiNBgena5vtXqdqNzZ8kGGhbFnPz2s6
-         li1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790064810; x=1790669610; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vi+eaHvPeGF3Sdq7zvAZY/QjCGqMSzvenzOG4HC773o=;
-        b=CumDQ3+VaWCfRAs+HRcvq/AzKHnhOr/Rj0MD+YQk4F3cQ2sJB06TZPqyScRcjdLmr9
-         JVzPilfNhHcGu6dZNJkcW6VNxmV+O7fzVaYssQJX9X0BTtmzbJD5aZiS7/wbGMJ83D+L
-         6rtop9AoOuw8RoLC+pDt0JQFtekfmuRGrEMO6u1WFDm7Tdt2AJ0m3nfKsD1m9izTA1eB
-         lfRlB0wWGy0J0f5bzLREieD7wOVb1ceQy6ckjeUAez0B1Nbf2gfbGbPeE9NK0FpGbIpo
-         kmKMAR4EERHXZchyCoNI6DbWYm2QijgPOVF6H4bEIjibkOF8gUd4js+7LWTPko3UIQJe
-         02Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790064810; x=1790669610;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vi+eaHvPeGF3Sdq7zvAZY/QjCGqMSzvenzOG4HC773o=;
-        b=ovrOO0Qpzn65Uo45Hyo7s0vTFq4kpmlBTBIniTKhc826+Gb58VrM7brIOwJl8SKYrp
-         lIUD/WkcBpCrfS4BdxZKgwEzUdL1HaxIKeENnPxgvzMZvWAMbq9q3tUp/7cWUdb9yCNs
-         QeMybJ5N2MnrjXqGL3sy/i0f+ZICAXEyNZhiwzSutDHcdahbKpMG01SaeyrRErw4ynTj
-         pJ4cGz62zwVKefTc3frD2SAIUACGWNiZoE0gP45U0nvFmw4m4feX7uMDi6v3DSIosukp
-         0zZsP7uI40KGPv2tH9cc4owPEtwST8eBqt5CUZCT/vjQzkAIXVL/J8J8oboXVbHzzpUO
-         FM4g==
-X-Forwarded-Encrypted: i=1; AKwUvBxL0DQswrEVW4Ss1qxBH+ib8eiZZlbggd6Flv28clsbZUtz+mhw6WMxQw0uuC2XC8LITUs1axxjMlMgfQs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPQFl+Hx9zwDGKd5rCOILA8ILz/Cpd9VOnQX0tuhNajd79jIZ3
-	ldkMcXX2spNVKEb8Kcjn1WJt8CGZ+YwvVCgxbscoNjrIet/EbUn3Lo7k5fjblQm1RgZHCpZYqNm
-	ObmlWo0KMMvmi7u1X3XLLKgRL2EgBa+Y=
-X-Gm-Gg: AYBFou2LOLKNHjdj49xqB4zJkIDEgCQZjjjLyPn5A9Bn3boVWiKqeK3s8yO/WsuaA6x
-	JAVEZMPp/M62Mvb7drrgBoxeQsIWy8YV6RsUMFKhvByfvYC8O+y+OGjo55NC6yc0R25uYpIKEqC
-	wG33wFmhamV6PKQhmyOeFHhezG11v4R7rqz17aQbqDLA6kcIICVnuVcmCviU20azBAsfZD2d/+J
-	abAHtlfqNU8HRy1/VNvTUGsOCuQ48ZhbeYStybGHgGJ9YwyFOxyI0y3jYc3b1A+k7LcOutDzR5A
-	wYV5j4auxsw3gTOCE9VjDt8/3D3Q8vT8G20ycLWHspsj35nU1mvp5h4f7g==
-X-Received: by 2002:a05:690e:80d:10b0:671:1a13:99fa with SMTP id
- 956f58d0204a3-6717fcde0a7mr2703957d50.27.1790064810342; Tue, 22 Sep 2026
- 01:13:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HY2KOg4e";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OAEe5Mfu"
+Date: Tue, 22 Sep 2026 08:13:53 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790064835;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7TMV1mieJG8KlNC/La7EAi767k2pjX0W55cws55W0Ic=;
+	b=HY2KOg4ezjMKVsThjAeFxk710499lJrcE42WZw/Gsx4i1j5SXEFPbPo5J6cXYQq8g9BjIP
+	edK4D4SYb9MjP2NGImKMvZWYWG5yO5MBqMn3ixbud87rewvi+qJmBYrjmv6OLw1en2coLK
+	kZ9nMBMg7It1GH37ZUEUsC4nFlIU1gVNsuGZmvyXU2KTAh/B9jRikqFg+PgysAeWlvzZJj
+	ze8zN2qX2f1t+oOJ9Wsr8JS0hdMfYYG7m71DMaO85CAI5sKrTAQYtnSaB0YUCpmL9UbPO0
+	UwSpQbFE9cbIKNH2JzXWGkFe1/WXpeMMcBiimIJxfj21AikRHDRvQcPruE0UMw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790064835;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7TMV1mieJG8KlNC/La7EAi767k2pjX0W55cws55W0Ic=;
+	b=OAEe5Mfu4Ypat3yYbV3QHqqd3UhEQulND1rcP8EAHQVcbl70Kf6le+DMbgImsJllyZm4NS
+	3nCUlIR7sDYdF9Dw==
+From: "tip-bot2 for Thomas Huth" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/core] sched/headers: Replace __ASSEMBLY__ with
+ __ASSEMBLER__ in the <uapi/linux/sched.h> header
+Cc: Thomas Huth <thuth@redhat.com>, Ingo Molnar <mingo@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260922064641.61120-1-thuth@redhat.com>
+References: <20260922064641.61120-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921075312.120983-1-lgs201920130244@gmail.com> <cdb67eed-9e75-4310-ae4f-21ca67f20bd2@web.de>
-In-Reply-To: <cdb67eed-9e75-4310-ae4f-21ca67f20bd2@web.de>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 16:13:17 +0800
-X-Gm-Features: AcwNN1WgyEuKR8AButHilBQBtiaREfERPd_f4BSEyPirEeQ1c0aH3J078-wD1lE
-Message-ID: <CANUHTR9+rLuPrd1aifKws++POOKSm+2jxBaJaC1iF5z5x0e13Q@mail.gmail.com>
-Subject: Re: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
- registration failure
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: platform-driver-x86@vger.kernel.org, 
-	Bao Cheng Su <baocheng.su@siemens.com>, 
-	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>, Hans de Goede <hansg@kernel.org>, 
-	Henning Schild <henning.schild@siemens.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Tobias Schaffner <tobias.schaffner@siemens.com>, stable@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <179006483307.2819794.1535470533909108609.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Markus,
+The following commit has been merged into the sched/core branch of tip:
 
-Thanks for the suggestion.
+Commit-ID:     a9b3c7570564de40acb0998ab85c89d546b2122f
+Gitweb:        https://git.kernel.org/tip/a9b3c7570564de40acb0998ab85c89d546b=
+2122f
+Author:        Thomas Huth <thuth@redhat.com>
+AuthorDate:    Tue, 22 Sep 2026 08:46:41 +02:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Tue, 22 Sep 2026 10:08:38 +02:00
 
-On Mon, 21 Sept 2026 at 18:10, Markus Elfring <Markus.Elfring@web.de> wrote=
-:
->
-> =E2=80=A6
-> > +++ b/drivers/platform/x86/siemens/simatic-ipc.c
-> =E2=80=A6
-> > @@ -118,8 +119,11 @@ static int register_platform_devices(u32 station_i=
-d)
-> >                       platform_device_register_data(NULL, pdevname,
-> >                               PLATFORM_DEVID_NONE, &platform_data,
-> >                               sizeof(struct simatic_ipc_platform));
-> > -             if (IS_ERR(ipc_batt_platform_device))
-> > -                     return PTR_ERR(ipc_batt_platform_device);
-> > +             if (IS_ERR(ipc_batt_platform_device)) {
-> > +                     ret =3D PTR_ERR(ipc_batt_platform_device);
-> > +                     ipc_batt_platform_device =3D NULL;
-> > +                     goto err_unregister;
-> > +             }
-> =E2=80=A6
->
-> How do you think about to avoid duplicate checks and variable resets
-> in such a function implementation?
->
-> Regards,
-> Markus
+sched/headers: Replace __ASSEMBLY__ with __ASSEMBLER__ in the <uapi/linux/sch=
+ed.h> header
 
-Would it make sense to share the cleanup path and rely on
-platform_device_unregister() handling NULL/ERR_PTR, like this?
+While the GCC and Clang compilers already define __ASSEMBLER__ auto-
+matically when compiling assembly code, __ASSEMBLY__ is a macro that
+only gets defined by the Makefiles in the kernel. This can be very
+confusing when switching between userspace and kernelspace coding, or
+when dealing with uapi headers that rather should use __ASSEMBLER__
+instead. Let's standardize now on the __ASSEMBLER__ macro to avoid
+this confusion.
 
-+static void unregister_platform_devices(void)
-+{
-+        platform_device_unregister(ipc_wdt_platform_device);
-+        platform_device_unregister(ipc_led_platform_device);
-+        platform_device_unregister(ipc_batt_platform_device);
-+}
-+
- static int register_platform_devices(u32 station_id)
- {
-        u8 ledmode =3D SIMATIC_IPC_DEVICE_NONE;
-        u8 wdtmode =3D SIMATIC_IPC_DEVICE_NONE;
-        u8 battmode =3D SIMATIC_IPC_DEVICE_NONE;
-        char *pdevname;
-+       int ret;
-        int i;
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Link: https://patch.msgid.link/20260922064641.61120-1-thuth@redhat.com
+---
+ include/uapi/linux/sched.h                         | 2 +-
+ tools/perf/trace/beauty/include/uapi/linux/sched.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-        ...
-
--       if (IS_ERR(ipc_batt_platform_device))
--               return PTR_ERR(ipc_batt_platform_device);
-+       if (IS_ERR(ipc_batt_platform_device)) {
-+               ret =3D PTR_ERR(ipc_batt_platform_device);
-+               goto err_unregister;
-+       }
-
-        ...
-
--       if (IS_ERR(ipc_led_platform_device))
--               return PTR_ERR(ipc_led_platform_device);
-+       if (IS_ERR(ipc_led_platform_device)) {
-+               ret =3D PTR_ERR(ipc_led_platform_device);
-+               goto err_unregister;
-+       }
-
-        ...
-
--       if (IS_ERR(ipc_wdt_platform_device))
--               return PTR_ERR(ipc_wdt_platform_device);
-+       if (IS_ERR(ipc_wdt_platform_device)) {
-+               ret =3D PTR_ERR(ipc_wdt_platform_device);
-+               goto err_unregister;
-+       }
-
-        ...
-
-        return 0;
-+
-+err_unregister:
-+       unregister_platform_devices();
-+       return ret;
- }
-
- ...
-
- static void __exit simatic_ipc_exit_module(void)
- {
--       platform_device_unregister(ipc_led_platform_device);
--       ipc_led_platform_device =3D NULL;
--
--       platform_device_unregister(ipc_wdt_platform_device);
--       ipc_wdt_platform_device =3D NULL;
--       platform_device_unregister(ipc_batt_platform_device);
--       ipc_batt_platform_device =3D NULL;
-+       unregister_platform_devices();
- }
-
-Would this be closer to what you had in mind?
-
-If so, I'll follow Krzysztof's suggestion and organize the related
-patches into a proper patch series before sending v2.
-
-Thanks,
-Guangshuo
+diff --git a/include/uapi/linux/sched.h b/include/uapi/linux/sched.h
+index 33a4624..19ffeba 100644
+--- a/include/uapi/linux/sched.h
++++ b/include/uapi/linux/sched.h
+@@ -53,7 +53,7 @@
+  */
+ #define UNSHARE_EMPTY_MNTNS 0x00100000 /* Unshare an empty mount namespace. =
+*/
+=20
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ /**
+  * struct clone_args - arguments for the clone3 syscall
+  * @flags:        Flags for the new process as listed above.
+diff --git a/tools/perf/trace/beauty/include/uapi/linux/sched.h b/tools/perf/=
+trace/beauty/include/uapi/linux/sched.h
+index 33a4624..19ffeba 100644
+--- a/tools/perf/trace/beauty/include/uapi/linux/sched.h
++++ b/tools/perf/trace/beauty/include/uapi/linux/sched.h
+@@ -53,7 +53,7 @@
+  */
+ #define UNSHARE_EMPTY_MNTNS 0x00100000 /* Unshare an empty mount namespace. =
+*/
+=20
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ /**
+  * struct clone_args - arguments for the clone3 syscall
+  * @flags:        Flags for the new process as listed above.
