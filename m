@@ -1,130 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3324251AFEC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 025C0247280;
+	Tue, 22 Sep 2026 10:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073473; cv=none; b=gCjenu8rUOVbzLuUX7krVL+zzdBiH3oFZyzbiyjqUELF1e9yDHz/G4OlX8q2tRPep3Ml62gCw+MJy92OpSwLo7Ir/nxzkveFGN+KMR6sXsEzUeHqEB13fTQGWjmqeSizQFC5DwH84EemEijOENTD5KMiiTVaoDW7XNX+NepBj9c=
+	t=1790073525; cv=none; b=HJySZBruh6WVWRrXWcLV5UKO1V8qgAPici5m+Lmhadq+giuXassGxTppaEyXmR3gx+r4ttyEk3K1+N4X2MfpS/8nKeijAe+Bi1lEhzHlktTyJzj7ubgWJtewPjFGmTHWWU5fUPCpkIB/Ue9iKZMTnzxocO28idudqEGZeD6O+8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073473; c=relaxed/simple;
-	bh=8JSFfIOR2fYyMqbn60xzTN3TiCBndTmuqv+8JkopuP0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pku1+PyjcZ9J0tPu8dnzkk6RAmqATXr8YDucllE/7vqlH8BxTFSv7/hy3O+F4cocAfUdJltS8PHwDa5dawtHOb0+bJL9pIlfr7hqGr7rwU7A3qI/NixUXfRmSl0EMj5VD6PI/3zc9pZgYoj0J9PU7KfNOecM34n0Ymo3pVNiEvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYfSKpdK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790073525; c=relaxed/simple;
+	bh=0EIXjeyAI4S9Q4d29IPfXdLZ0TzlUX09hLhqO14gjnM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QyF3sXlAUwGTTDXhKv10Oc01l443CS5kmX8OgFY+bDg1l7cml47BCHJUZSRmwHzGGa/NMP2BFQk3fA6uPeG2OKTAXat56UaZKjqR06Kx05wP3K1OfXyrceLXCXOLqo+n05nFilDQB/gdu4ILMGxZinmbxScMkL6OLB4BclLuT3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vIZAJbEW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYfSKpdK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6551F008A5
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:37:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790073471;
-	bh=8JSFfIOR2fYyMqbn60xzTN3TiCBndTmuqv+8JkopuP0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dYfSKpdKcScI4OnACyb+qIUkbtczzFWpPHkNZqKNm4t+0mL49+SiUaYeDab4lgZI8
-	 Sf31i/J4uK2FjCxjTmfpFRjUuc6OHnhi9+R804I9R+2TpJF5nCcS6siALwf/Ef81/b
-	 uePkKyMhbajpqj7euOZBpdi0LMBS2vMsbm977Z2gfAOaabzBgglDbFgjlsX/EODJqm
-	 1RHmEnk1rEx05F03qcjf28TwGrGTViBBnqaXFmUw3LlWbBPT0jJuIOhkkvGE7Ya6ym
-	 vXIb2MT3VVg1v2VPq6pyd/EGeYGRzSxIOj78emajQXL0fcLtuqVXIRb/RXj+cB9eAQ
-	 bfYcpcpsOfBfg==
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93be29bb454so454575385a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:37:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw9Of9ofCDfetFvhqqalo29wNZLQKtq6kbOJp2LpiSegpCeLTrVLKUbyDvmJchXnfl14puf5uYWoNMvHIM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m90XYVDUurVPSqctzr+mR0+t/rfp82T2SRTrJxoZ7UD0WwizO7
-	a0for/9iC4ahp+RtZYsAWGJ3yOJYEBKZ7P7g4vu7pi8rFxPxoDgaQLG5acrWGWBcgiLEy88VDiY
-	Lizi9SAWsuyAsX2WMy6+B5h7OQ5P9zqI=
-X-Received: by 2002:a05:620a:2556:b0:93b:d7a0:d9ee with SMTP id
- af79cd13be357-93c19a9683emr286636685a.72.1790073471173; Tue, 22 Sep 2026
- 03:37:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vIZAJbEW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14ACD1576;
+	Tue, 22 Sep 2026 03:38:38 -0700 (PDT)
+Received: from login2.euhpc2.arm.com (login2.euhpc2.arm.com [10.58.100.22])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3ABA73F632;
+	Tue, 22 Sep 2026 03:38:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790073521; bh=0EIXjeyAI4S9Q4d29IPfXdLZ0TzlUX09hLhqO14gjnM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=vIZAJbEWTlXPu/VZ4y7Cm3s/P8h40IGvctRJFvrzCHJ5H+8HiL2pAfQt88fs1Solb
+	 aUxNZE4rOt04rTDkEvhb2lyVfRs71xEZ3VtVdQlZGvJN/mMMyvAA86bEcXA47TNypW
+	 Gm9aNnZh0od7w05bLPzZMzlzG8GTKGWc4tZ1Ctjs=
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+To: linux-usb@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	chunfeng.yun@mediatek.com,
+	gregkh@linuxfoundation.org,
+	rostedt@goodmis.org,
+	paulmck@kernel.org,
+	mark.rutland@arm.com,
+	Vladimir Murzin <vladimir.murzin@arm.com>
+Subject: [PATCH] usb: mtu3: Fix double dereference in TP_printk
+Date: Tue, 22 Sep 2026 11:37:56 +0100
+Message-Id: <20260922103756.104846-1-vladimir.murzin@arm.com>
+X-Mailer: git-send-email 2.24.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921152449.629486-1-alex@ghiti.fr> <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
- <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com> <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org>
-In-Reply-To: <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 22 Sep 2026 18:37:38 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
-X-Gm-Features: AcwNN1UWmFBBjyVOBpgbroObIEOZiFHFaTZdwoniNhkfZtgQcsm0FIKNvDnSJaM
-Message-ID: <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
-Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback completion
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, willy@infradead.org, 
-	jack@suse.cz, liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, chrisl@kernel.org, kasong@tencent.com, 
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
-	youngjun.park@lge.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org, 
-	chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu, 
-	hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 6:20=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 9/21/26 23:56, Barry Song wrote:
-> > On Mon, Sep 21, 2026 at 11:37=E2=80=AFPM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> >>
-> >> On 9/21/26 17:24, Alexandre Ghiti wrote:
-> >>> On an asynchronous swap device MADV_PAGEOUT only marks the folio
-> >>> PG_reclaim and rotates it to the tail of the inactive list once its
-> >>> writeback completes, so the memory is not actually freed until a late=
-r
-> >>> reclaim scan removes the by then clean swap cache folio.
-> >> But we have the same behavior when just reclaiming memory ordinarily? =
-It's added
-> >> to the swapcache and only the next scan actually frees up the memory.
-> >>
-> >> Wouldn't we memory we reclaim ... just gone, like in the sync case?
-> >
-> > For synchronous I/O, such as zswap and zram, the memory is released
-> > immediately after sync I/O is done.
-> >
-> > For asynchronous I/O, such as NVMe, the swapcache is currently
-> > expected to be rotated back to the tail of the LRU and wait for
-> > another scan. Alexandre once mentioned that when he tried handling
-> > async I/O the same way as sync I/O=E2=80=94releasing the memory once th=
-e I/O
-> > completed=E2=80=94he saw some regression. So, delaying the release unti=
-l a
-> > later scan may allow swapcache hits before the folios are eventually
-> > reclaimed.
->
-> "may", do we have any evidence that this actually is relevant in practice=
-?
->
-> We asked to reclaim memory. We wrote the memory out to disk. We unmapped =
-it from
-> the page tables. We made the workload the could, access the page immediat=
-ely
-> again suffer already.
->
-> We should just evict them as soon as possible to free up memory.
+Paul reported kernel splat:
 
-I suggested this to Alexandre, and he found that it could regress some
-workloads [1]. That is why Alexandre is only making the folios
-immediately reclaimable for `MADV_PAGEOUT`.
+[    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+[    0.000000] ------------[ cut here ]------------
+[    0.000000] Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+[    0.000000] WARNING: kernel/trace/trace_events.c:420 at test_double_dereference+0x144/0x14c, CPU#0: swapper/0/0
+[    0.000000] Modules linked in:
+[    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1 #15247 PREEMPT
+[    0.000000] Hardware name: linux,dummy-virt (DT)
+[    0.000000] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    0.000000] pc : test_double_dereference+0x144/0x14c
+[    0.000000] lr : test_double_dereference+0x144/0x14c
+[    0.000000] sp : ffffc80aa7633bf0
+[    0.000000] x29: ffffc80aa7633bf0 x28: ffffc80aa7c0f047 x27: 000508b58019388f
+[    0.000000] x26: 0000000000000003 x25: 0000000000000007 x24: ffffc80aa5fceff8
+[    0.000000] x23: ffffc80aa7c0f05a x22: ffffc80aa64edfe8 x21: ffffc80aa7c0fce8
+[    0.000000] x20: ffffc80aa7c0f047 x19: 0000000000000013 x18: 0000000000000001
+[    0.000000] x17: 6572656420656c62 x16: 756f642073616820 x15: 746c61685f746573
+[    0.000000] x14: 0000000000000000 x13: ffff000139d90000 x12: 0000000000000045
+[    0.000000] x11: 00000000000000cf x10: ffff00013f546428 x9 : ffff000139d90000
+[    0.000000] x8 : 3fffffffffffc000 x7 : 0000000000000001 x6 : 0000000000000001
+[    0.000000] x5 : ffff00013f4e6440 x4 : 0000000000000000 x3 : 0000000000000000
+[    0.000000] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffc80aa764a700
+[    0.000000] Call trace:
+[    0.000000]  test_double_dereference+0x144/0x14c (P)
+[    0.000000]  trace_event_raw_init+0x37c/0x5d8
+[    0.000000]  event_init+0x34/0xc0
+[    0.000000]  trace_event_init+0xec/0x588
+[    0.000000]  trace_init+0x24/0x6e0
+[    0.000000]  start_kernel+0x4a0/0x8ec
+[    0.000000]  __primary_switched+0x88/0x90
+[    0.000000] irq event stamp: 0
+[    0.000000] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+[    0.000000] hardirqs last disabled at (0): [<0000000000000000>] 0x0
+[    0.000000] softirqs last  enabled at (0): [<0000000000000000>] 0x0
+[    0.000000] softirqs last disabled at (0): [<0000000000000000>] 0x0
+[    0.000000] ---[ end trace 0000000000000000 ]---
+[    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_disable has double dereference in TP_printk: &REC->gpd_ring->dma
+[    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_enable has double dereference in TP_printk: &REC->gpd_ring->dma
 
-See Alexandre's description:
+Which also observed by Mark and myself.
 
-"Future work
------------
-Barry suggested extending this to MADV_PAGEOUT and general reclaim. I
-prototyped dropbehind for all reclaimed swap folios and it regressed
-sysbench OLTP throughput by ~15% on NVMe swap: dropping the swap cache
-immediately turns cheap in-cache refaults into disk reads and collapses
-swap readahead clustering. Neither blk-wbt, mq-deadline nor a PG_workingset
-gate recovered it. MADV_PAGEOUT alone may still be worth it, since there
-userspace has explicitly declared the range cold, but I have not measured
-that case in isolation yet."
+The splat it result of new check introduced by b5cc230af5e5 ("tracing:
+Warn when an event dereferences a pointer in TP_printk()") which
+correctly catches issue with %pad dereferencing the address saved in
+the ring buffer. TP_fast_assign() logic gets executed when the
+tracepoint is triggered, however the TP_printk() is executed when the
+user reads the trace buffer which could be seconds, minutes, hours,
+days, even months later and nothing guarantee that __entry->gpd_ring
+pointer will still be pointing to what it was when it was recorded.
 
-[1] https://lore.kernel.org/linux-mm/20260921151306.625134-1-alex@ghiti.fr/
+Fix the issue by capturing immediate value of gpd_ring.dma when trace
+point is triggered.
 
-Best Regards
-Barry
+Reported-by: Paul E. McKenney <paulmck@kernel.org>
+Tested-by: Mark Rutland <mark.rutland@arm.com>
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+---
+ drivers/usb/mtu3/mtu3_trace.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+index 89870175d635..9aaa167d69c1 100644
+--- a/drivers/usb/mtu3/mtu3_trace.h
++++ b/drivers/usb/mtu3/mtu3_trace.h
+@@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+ 		__field(unsigned int, flags)
+ 		__field(unsigned int, direction)
+ 		__field(struct mtu3_gpd_ring *, gpd_ring)
++		__field(dma_addr_t, gpd_ring_dma)
+ 	),
+ 	TP_fast_assign(
+ 		__assign_str(name);
+@@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+ 		__entry->flags = mep->flags;
+ 		__entry->direction = mep->is_in;
+ 		__entry->gpd_ring = &mep->gpd_ring;
++		__entry->gpd_ring_dma = mep->gpd_ring.dma
+ 	),
+ 	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+ 		__get_str(name), usb_ep_type_string(__entry->type),
+ 		__entry->maxp, __entry->slot,
+ 		__entry->mult, __entry->maxburst,
+-		__entry->gpd_ring, &__entry->gpd_ring->dma,
++		__entry->gpd_ring, &__entry->gpd_ring_dma,
+ 		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+ 		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
+ 		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
+-- 
+2.34.1
+
