@@ -1,69 +1,85 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C403BF69A;
-	Tue, 22 Sep 2026 08:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016B15172C2;
+	Tue, 22 Sep 2026 08:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066995; cv=none; b=Rjd2Aou9CXrx7FIMtALg81Op+Q1zoXIeu7ZkezUpUhAk+PeZnaCEyEdNzSLzo1WXolbGOeRBuWwStNCnUEh9+LGM39nBSyz756hs/hLfd1LeSa+XQZWvRk+76qEcWjjTeke610hjjQQuvpMX49DuDMUUjdEAAzGkHr2AtwxmlDI=
+	t=1790067013; cv=none; b=aLYb2E6p8WBWya9L/vDxXa6hNrQJcwyuLDouGjk0XQaA2IZKKrYF1asxbo6Z3M+0FffERMkDEM9A1rMm4RFCh0e/rm7R4D1RBUcP3LpBsH9zLuC/9J6oJlSA1BRwh2r90HXX7PRlt4rYzwo2YGwl/RrpVHjVljyi3IqSWC5L9Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066995; c=relaxed/simple;
-	bh=U8fDp+h/ENm5bFZyQFTlNQ1KY4CZ0VdVFYofRSDngZ0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ylz9H5pq5elrT+4mUXWHKpCml4p37wJPl1PRPtUvgG3WV01rQp7LfJfiCw8rQpGdNYAeAVxmVoILt3zyvQu3WQ2UpHoXQ/gDdWaAYQQ4j/byPWaSndALP9jtLh5bpPU59+ats8LQX5n3FEj7+PoOVdX0m2oM2IfwwzF5vfwUYic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=HsNLlo32; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1790067013; c=relaxed/simple;
+	bh=ClbodkHrwN27abqBJADRyxKz+m8P1yTU7Ivb/J+3jW0=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=E3B+2eTEUFlBn1EKSAM3VRrb7vH+PjjQDnydkaTvls3NLjsPRodXrtkBcszZ6F4wFO89ulBplv/2zq2AaOKsjF6zaCEofSSWAcTtGE0f6fsvOt0x8CXoWwT2Sv/eFWUgTNRrssF4N4r9gGcWxzi7I6oRPx+c1tz75g5M7h+L2oE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=AR6rMfnA; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="HsNLlo32"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=L4IUwwEhUcHmLxbAU4I9rSSDxUDhG9xZoLHVOLBQjzk=;
-	t=1790066993; x=1791276593; b=HsNLlo32cOq3s4V2gnKhjLgD0DKP2fiS4gndwLGQbUPLmGZ
-	l/aqoe9pyIwzfUkQVYIA5kgdQKSqiBx/DnORqJ96LOOO4BILhE/95mUKrNE3rzzepS4ecAcF1IDQD
-	k9o1OBrpEpx1iU2BfzxmJ89EDLIjFL6ciufDbIn2ha4ywSp81uSZr+s/fbuJhWhuj/Sodf634xRZi
-	069+uBugcogG0rnryKsZCw0G+kanEEu6AUnV4+2eWxgi6rLexxniJUTWArM3+1el9gofVe9BMlf7n
-	GP2DdYmGkUlA8jDpjkLhtdt6J7hB7oldc/Tgf40EKiadSWHN+cBHYbPGFa9yuYLw==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x8wCC-00000006mYU-1Ss4;
-	Tue, 22 Sep 2026 10:49:48 +0200
-Message-ID: <1ba070b7bceb6cf1b912569fa802992ee15876b4.camel@sipsolutions.net>
-Subject: Re: Missing signoff in the wireless tree
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Wireless <linux-wireless@vger.kernel.org>, linux-kernel@vger.kernel.org,
- 	linux-next@vger.kernel.org
-Cc: Miriam Rachel Korenblit <miriam.rachel.korenblit@intel.com>
-Date: Tue, 22 Sep 2026 10:49:47 +0200
-In-Reply-To: <arI_TQnqQNOkjorm@sirena.co.uk>
-References: <arI_TQnqQNOkjorm@sirena.co.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="AR6rMfnA"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 49259A48A8;
+	Tue, 22 Sep 2026 10:50:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790067009; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=AsQHul3JGvX/Sfy5DReNtDp11C6brH4rBkG6S7rC1qQ=;
+	b=AR6rMfnAwioPtU1PCKJAGZQAmIau6i0Fc8YbcN8xcCSDWjx+rYjQkCEtJ1AAkbvC8No4/O
+	T3PsMlrTJmjidb+B9nfYdUp8L+HHRu6Zr6KqqrDdiqHEhVerwf7lAlnTW7kESbqHh0qs2v
+	uvS0kWmPYUXz8oiUy/TKLRVZ0uO+lVQ6JS5eVANuLpJNPiXrt/x2UwhqiMlfPLzGB0eM8g
+	Z9bKRauolg63keaouR1zE+FcwZ/fwFO4ZAYJNVNm8S3uAVjas7QamacnItQ3rtk6a5l+ni
+	OdelKJgOUuBRsuPLVjD53M2ZQDa83B/u1NWX5zTD9UeeE22smVwLtNfwxqeJeg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Date: Tue, 22 Sep 2026 10:50:08 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
+ internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
+ <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 04/12] net: systemport: Fix missing phy-handle parsing
+ for non-fixed PHYs
+In-Reply-To: <20260921231305.394773-5-florian.fainelli@broadcom.com>
+References: <20260921231305.394773-1-florian.fainelli@broadcom.com>
+ <20260921231305.394773-5-florian.fainelli@broadcom.com>
+Message-ID: <b7f98fc21fb2187f431703519b5f1446@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 2026-09-22 at 10:41 +0200, Mark Brown wrote:
-> Commits
->=20
->   81550f0ead8c2 ("wifi: cfg80211: preserve hidden-group beacon IE ownersh=
-ip")
->   d6846d11123d1 ("wifi: mac80211: keep fallback association elements aliv=
-e")
->   81cbf8f3a3d68 ("wifi: mac80211: shut down RX BA session timer on teardo=
-wn")
->=20
-> are missing a Signed-off-by from their committers
+Hi Florian
 
-Oops, added - which means a rebase. Judging from your other mail, only
-iwlwifi was affected.
+On 22.9.2026 01:12, Florian Fainelli wrote:
+> In bcm_sysport_probe(), priv->phy_dn is only initialized if the device
+> tree node has a fixed-link configuration (of_phy_is_fixed_link). When
+> connecting to a discrete MDIO-attached PHY referenced via 'phy-handle',
+> priv->phy_dn remains NULL. This causes of_phy_connect() during
+> bcm_sysport_open() to fail with -ENODEV since of_phy_find_device(NULL)
+> returns NULL.
+> 
+> Fix this by parsing 'phy-handle' via of_parse_phandle() and falling 
+> back
+> to of_phy_is_fixed_link(). Ensure proper of_node_get() and 
+> of_node_put()
+> refcounting lifecycle on both error unwinding and module remove paths.
+> 
+> Fixes: 186534a3f832 ("net: systemport: use the new fixed PHY helpers")
+> Assisted-by: LLM
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
 
-johannes
+> [...]
+
+Not sure this qualifies as a fix, the driver never parsed phy-handle. 
+Maybe net-next material?
+
+Regards
+Nicolai
