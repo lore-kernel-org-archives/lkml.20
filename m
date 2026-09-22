@@ -1,170 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013060.outbound.protection.outlook.com [40.93.196.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD82552938
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083979; cv=none; b=Twvwr8xhpoRtnuO8lsghENHI0OadVA2r2s7dP4J9JmyV+jPfBWg2SZLB4lIQqWbu8zyq/ao3o1kwfB5yPsYqCDtqLW4G/d9qEGgBycHYq5q1HIG/x3wAZFvZYGkkAXyoRI7VMwdKcXPfph3AgxOodFkWCDmraC6aCFNELtUgYO8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083979; c=relaxed/simple;
-	bh=XBoYOklnPu88vK9RRRj6IwCCmmnuin6PxsANDQvC58Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qe8AhYsEfU+kBQuPsh4dDTiGFQFXXOxXHm4O9wf5z+JssK7TkpN0jdpkfR7usH3Y/8qIjnasW0Uyiypv7X/3YNTiMZGn1k0efUyFkxgoxS/nvKbiUl0Ux0ZqhC0coFzrGl4+dg1nvsZub0ym0weZynbxRee8+4s0Ri6bLUkfcNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIySCgan; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9210E47C0EE;
+	Tue, 22 Sep 2026 13:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790083980; cv=fail; b=A8T/wT3z+xEDNXzzLKaJdNQPJF07MKBotG2o3uivC0fYlTZ9in05a55yvT6fmRTuwHXTqZKnuzezcRRjTDYkIH3SB5eEfzFT+KJ7ptUnK3N99quVMlh1X+pqS9VlTYETktkQjKhLEs8icT9Mnmbb8jlVjJj1g2ih72oTLAXUpeA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790083980; c=relaxed/simple;
+	bh=4RDfvenx1DgRBn9S+3i5jsZuvM15Y1kxtNxmaalO5GU=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=a4PpSE0xFYmJ1NbX57LcXBYKmlE4rE3xU3JrXjoq8VMzQFdIEa6PazJRqsrCnwon5ktEtieF2Eoh6kckAV8dcoA0sF1j6SE5yvvnQ0SX2o24ye78BHeezfZu4uFAg96/nDS6vW4Smgivdu0K65lLQfLbaoYMDcwmjtXu8SngGMM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=dNLTgiNA; arc=fail smtp.client-ip=40.93.196.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIySCgan"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69571F0089C
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:32:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790083977;
-	bh=dkPNz2P0GmPt8JTDqC/+9M8S8tUg25zEaPhZ23h9wAU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kIySCganHfrL8Ma4xTfrOF82/qptn10xWsuBIt6ZZhJb8xJ3/VkzIJCiOzHo55yoc
-	 fWP9psMeOmpm8P7P9u3JViO5LKizOrhQ3IeZl0Djf0s8l70QqjGgluyaYei/nLZkWz
-	 m0zznH5vyqC23KeXnvXevVILFJ2uP+w4TDqPDIf/rlMyZ4y1+6+ngNOznRYK1p2/rM
-	 Ke951l2Fu2bBLIRSVDA/V2AVP1AZN0AvjUTA9Gk0M/9+z53Y+bRPhNilUYlaj2R0Xj
-	 kFscESc4vV4d2weiL2EjYupqM/Usz+BdhEQ1+LfHaLHBnn1TLv7WfrzRcVntzEKs02
-	 bRPJTCoTDU+WA==
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-67109935888so4102524d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:32:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzoSiYYp3ouAbx1tRQn+U0sdFNK8H2zUkLCiRH1ZOlOPEryPNI1U5NZAlARMpZNI660zAQb0SJMr8IS1HU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPsWrpW67K8q4YtbgvpnFET8uqb/4/8qypIj9uRkp51ntTuEy1
-	2fDU4yYnnCNYlkNvJi2Df53MIO8jPMKOSfcEwhKCQXnzBJe3dIfNybzycDyhRZuSxcQ5Zx9BM0K
-	ASZsQssUi8+IObNepxxFxOiybtgZqMx0xcaLhE8UMqQ==
-X-Received: by 2002:a05:690e:1286:b0:672:9d86:1f74 with SMTP id
- 956f58d0204a3-6729d862a68mr4177975d50.86.1790083977249; Tue, 22 Sep 2026
- 06:32:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="dNLTgiNA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q4r9tSz/g7skvOXtyC4N+1W42qmDZYTGp617Q0lqy4EK9PJORFhPUjED1MRmItE+DTd5dzY05gKTY1EeOrKwzLx6jxL6sVLpjpzxEXfZ5PuIE7D0wdaa2Jj20e5FwtPGm2hrsxEVoPlBAZrf2mi0L+vdNt3KFhSGjn9Hfso8L8fJMF8isxrhqfTm0KC/uBVOPHwWNidNymNcjwFWdj5fmfjx4pgWNtDOnNk4zAchNxNQKyJaw9B85P5m+HtPBOlMXBVml/ea2v73jPrYXzzmQ9LrxyrxYRl+Ilg8vr6gmkeKaPslRG2ceAeoi6xcCYZodVUuUV03TAU/OBRp92U03A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4RDfvenx1DgRBn9S+3i5jsZuvM15Y1kxtNxmaalO5GU=;
+ b=IQY9fwZk3q4MazWh/5KRqXn2wpz67yh1ex8wvMIjDajldedUTwzDciw5hj/WJQ95as6qxhZNbfydX6D/m2BoM2TQegXMUDgU/MlKCWvQtd2CFca89SkaG30IosJpl8yQnfueNCCXyZI7t2vNdRSRG7eXEZ7OC/K3gy1dhxi6vBsN3+LKiodR2WpBvZKRLxbw3pruYmtuzcPHlj9F8cPPG7AsX99l4k+IEG4GvozpfbFQEb2C1IfqvQIa2dv99tOgl22ljqEV8H8ciiiq0iylB/l6GHuYsgw6fLAT0BBe8xY9sHGa8XTxBWPwMhBHPSN8cPNcFdcBHaaBpqVQTPQXhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4RDfvenx1DgRBn9S+3i5jsZuvM15Y1kxtNxmaalO5GU=;
+ b=dNLTgiNAroa3wKnflBuHo9OdAkT63TrRaEOFuXGVxJEhNLIXO8I2i66pB1I9kyPI5QDIqBEL9U+rT+fdQ5uWquoGvLb7j6sAfMdV2gxgQMagCkZ+rvyURvBp43alVwZNbc1aHm9mfb3KuOKdP/+SwB3nectREUjp2jBqZOeflqAn+TbSOSnXiQc95vPzIf82Kq0dmPKj3CJKuK1ocSy6RSHn20MxXSuXOTAyAlyIgy9T/dcRDjjtjOXiPEztc7194xyk0CW1uvZTPZpAt6tbA8g/ibK/6+qTj2iwx3A9YfZnj/akzA85TZCf2W1NOkHH/nM9GAGZ1FA0KOh2c95Y5A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by BL1PR12MB5732.namprd12.prod.outlook.com (2603:10b6:208:387::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Tue, 22 Sep
+ 2026 13:32:54 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
+ 13:32:52 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 22 Sep 2026 22:32:49 +0900
+Message-Id: <DLLVT33ESJA5.1XE4J08AEZNMX@nvidia.com>
+Cc: "Kohei Ito" <koheiito.dev@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-gpio@vger.kernel.org>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Subject: Re: [PATCH 3/3] sample: rust: Add GPIO consumer sample driver
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Bartosz Golaszewski" <brgl@kernel.org>
+References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
+ <20260906-add-rust-gpio-consumer-v1-3-24d192f93760@gmail.com>
+ <CAMRc=Meei7Z1f1n0M_Hy1LdxG=NVhkFeEiT3=p5QVpw6BTv3EA@mail.gmail.com>
+ <6aa662d7.0ca013b1.1575e3.0a60@mx.google.com>
+ <DLENO35F39LL.2YNA66D9FCXYH@nvidia.com>
+ <CAMRc=McV2YKgbmnknLZTSGoSa_9eCHDiOLzuPPyPHHnj=vRuvw@mail.gmail.com>
+ <6ab12d24.a3d4836d.3b68e.d0f8@mx.google.com>
+ <CAMRc=MfZckBMT-4PEDxr-PjRbUPO4FY3OZw8ks3w+uoEyixbAQ@mail.gmail.com>
+In-Reply-To: <CAMRc=MfZckBMT-4PEDxr-PjRbUPO4FY3OZw8ks3w+uoEyixbAQ@mail.gmail.com>
+X-ClientProxiedBy: TYCP286CA0360.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:7c::6) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
- <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
- <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
- <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com> <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
-In-Reply-To: <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 03:32:44 -1000
-X-Gmail-Original-Message-ID: <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
-X-Gm-Features: AcwNN1WGUeHiJik3SyidgEFV10ZwS6Bq5wQ8ITt0Pl7xiFx154xhR_QV0CV8YP0
-Message-ID: <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|BL1PR12MB5732:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28d7eb61-17ff-4200-8d27-08df18ae00b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|10070799003|366016|56012099006|6133799003|10067099003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	44O05s5nQpOfjaBrwaSwfNrcfdvWWmrdMkpmqhssc3LDaXEqX/xWJPpxkjJfc465LTy7u9zfUJBXrSkvlU5chuNu52ldH8hqDuCiB1+nQRhMjGNNdwlwz338xM2jbXJkNf0LgGjBTUXuYca2qkjhJnfNiiPuiOlOmV3NS8XY76b97+eK5h7yU2C8mPL2b509Tt6wFcVt1Jyclvh1rUpEJ7W9si3rxhxSqQIEdZENcNRiGo9w14WLijMIgLUB0xQejHq7fr1znQ5AUi+vBqR6sl23yluN3/owWX0pYJjkDbNANe9HSfKXotYFWDfytnwnWz7i4YDFXIJIYsnP8sFakJ+r+WxbhsY7zLAxZMIIHUHOp7+rfSnEyHMGxbGw9jEzOYO/uKzC17we/P5eNDGTuUzBvyi4jFOtDFb5X52vx5ohtscamK0BlI00Z9zG01AmX8RR1b77GBHiWNt+n3ALVH+4YnwwLbewhukt/MzCvoI1qc9+yoyNn6lBLY3TcF97/hUAJsLTOS9eAWwDqAwT2bJ7QljMFCamwKCuT69dBqkex84S7DFowZRGmTMcvRK4X1o+3xP6vcDxRTGHn+quAyAKH5Af+puwiMA9tGyUbCvfmcDYdklJQVawc5c4rywGcJtlEChZ7md3L3FnKise+gpf7ZtyPnUh734EX6D2foU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(10070799003)(366016)(56012099006)(6133799003)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MW9NWVJ2b3gvalJVdGFrZkRzMUdncENXcUViRVU0SElaaEJWRWlEY3YvTG5T?=
+ =?utf-8?B?Qlg1YkdGVllRa3UweE1iUUdpbFVUODVTSzV0N1M5SW02bHZpeW53bUordGtw?=
+ =?utf-8?B?MWMxMUJRZHAweGRTQnMrMTZ3OE9tVUNkZGJ2S2ZVN3RlRzQyNGhPaXZRdFY4?=
+ =?utf-8?B?S21LY0dDaUNiRGJDbnVwUWpXWDhudHBFRU9SNS9XeTlqakNOOUlENlovL1Jx?=
+ =?utf-8?B?OGd1YVdiTE1HVHpjaFRzY0FTWEw1TGdDOXJMa3NiL050V0RaSzFkVzVoNTRx?=
+ =?utf-8?B?Yk9VdTgxUXNNeWZBeDd3TkZ4b054RG9PNEJOMzlrcUxUczI5RjF0RTVDa0o3?=
+ =?utf-8?B?YmxveGRjUnIrWFNPTWQ1WEZXRGdDSEhRTThSQ2k3RHBOeVZsOE1STm5GWGJN?=
+ =?utf-8?B?dlVBK2FERXQvV01hSGR3NnkyT0hTa0tJcHpuQ2Vmd0JpT3NJbE05WmY0OGhh?=
+ =?utf-8?B?Z2E5c3R2ZXIwR0NJZVNweVBYcjhWMzRJZjlsZ01mNlFTTUF0b0cvZEhlTFdX?=
+ =?utf-8?B?REF6by9zUE5oWlVJbXA1cTFzaEF0dzJZcE14WW5LZjAvYUsyQkFQS2tMS0wv?=
+ =?utf-8?B?QXdzSXB6ZDRWWStzL2xvdyt1ZXJrRU1kRGlHYTMyM29NcHNqRVlrRkhEQXlK?=
+ =?utf-8?B?VDVKeEpZOURBdkpQV2tDMU15OU5Yb3dqNkNIMTZSTnZ2VXBwV0Rwc0t2SjQr?=
+ =?utf-8?B?QlhtZWU2UE5aa3JBQUtVQkFZajlpL2JkUFNaVFJTU2hET0piU3g3VnhBaVk5?=
+ =?utf-8?B?K2sxTjZ3TGlnU2RWY1ZYOTd2aWJObTJiR1lhZGxaYWVPcVVKQWJRT3MzMWtP?=
+ =?utf-8?B?VUZHVmFsL0ZSdk45SUhiV1BTV0Y4VjV3bzF5MkE4UTIxaFlWSTlpSTJ6UU5E?=
+ =?utf-8?B?am5rRnRGMjBqeEtWYTM2TkVaV1ZvUmZVcm5YcjlTMVgyaUorMDhEOXlFY3d2?=
+ =?utf-8?B?dU9SZkFnWEFPYXhueTY0ZE95N2R1dG9FQlpHNmdIQklaREZmYUVnZEVlS3dJ?=
+ =?utf-8?B?SE5ZWTUxRWg2R1kwZHlBRVVMTTIxZ1BEN0pzYXl5OHlONFdIU1YrbnZjME5J?=
+ =?utf-8?B?T2lCNlp1RUU4SFYwWVVyeDdWKzJIanRrWUJ6aTJWdi9zTU5xOUJWN0wyME9o?=
+ =?utf-8?B?b1FlWG9OZDZncElicHoxY3pvVUVmRkVFMTJ4c0RRQkk2L0FhTm1VTGkyUC9X?=
+ =?utf-8?B?VlVvVzBtRmRhQkpGNHRGMHRSTythM1lXelluYkdlY2U5NVowczZBbElmZzN1?=
+ =?utf-8?B?N2lYNWIzd1IvcWNScWNvc2JCeTdCanMzZnhWZ1RBVjE1UEt3V0NSNVMxdGp2?=
+ =?utf-8?B?YzdoMlNEd2tJTGozVUVjTWt4YlFnVFMxaWhrd0VzU2d6SGs1VmI0Rks2d29w?=
+ =?utf-8?B?RWRRQ2xwcVR1Y3JOVW43VUNheVpHZ1FVa1FPT1B5N3pqU3c1QzNhTjIva1ZR?=
+ =?utf-8?B?S0Jqa2EzM1hDYlR4QldaUTBmd2IwR2JNWHlaZ1o0RDBZVEQ5WDlrVDk1MkZ6?=
+ =?utf-8?B?SlRlZUJWN3I1QVBFQ3FLMncyZkhWMnBMdVJtMEwzZHNPdmVtdXFZck1uRGtq?=
+ =?utf-8?B?MUFHd0Q5V2VzL0ZDNStVQ25Ha3U5WmJ4aW1jQVNpMi90SUFpSjZQdFpyS3Nw?=
+ =?utf-8?B?aFJoSU93a1haUTdmT21hSTl2L2lyUzM3dldOQjkreGR2UHVURTk4ZVFJRVhQ?=
+ =?utf-8?B?aVVFSFZuTnFYUEpNQ1NzejJjNlNhdDd1SWNtWU5MeTB6NnhaL1dLYWV2NUtC?=
+ =?utf-8?B?Q1NDajdDM25XaU5tU0VPeTZZUW5FUHFvMVByY3hzN2g0SHEyRmgyUXhOWjcz?=
+ =?utf-8?B?YmRnOGtPcWh5RUhjaG5ON1g4WDJXOWFKZEtEZVQ1ZVNmQ2xoSHNQbDIwekIw?=
+ =?utf-8?B?OFEyNzZTM3FoQXE2NFN0R2VleFlCZjhEZ0JwV2FTTXp6cVdWRFNDbEoyL2V6?=
+ =?utf-8?B?QlIzT21ycUhwRHlieE9DOFR2K0Nmb2FJUjg3dzNqdGNRUTJNK0Y0dTVDbjVW?=
+ =?utf-8?B?YWVrVlA5K1JLTElydnBmampFWE1QL1o1bklXT283a1pRQTBhMGF4cWJ5TWp4?=
+ =?utf-8?B?bGhaN2FCT0N5aGM2RXZrNllFc1VTZW9BZUd1Z05ZY2Jhc3hDS1VMZ1ZPNncv?=
+ =?utf-8?B?aWZ3dzBMV3pDaHhQVTBwb1JNMWkxVTRUeENUUjF6YjZ2OVJEODFUVFZRVlZx?=
+ =?utf-8?B?N0ZVUkQvb3JHajFOMWVEdjArdExxbjc3RW44SHVncW9mczJVZm1lMFlCL2Jq?=
+ =?utf-8?B?Tkl3b2JEOEVYYThRVzFBV1FzSFFpQWx3Q1l5TDFJaWI0UkZxOW4zYmhFTG5u?=
+ =?utf-8?B?M1F0NkhoaTVINmVqZnZPWEIrUDRGZU4vWXUzUWZtcW9JZE9uaTFjTnpoU3lQ?=
+ =?utf-8?Q?VUWAJuAZ2nGhGW2glTWXkPZDn9mDvmy5x1S4aCW1Pb0OY?=
+X-MS-Exchange-AntiSpam-MessageData-1: mGYsmYQH8q7uUg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28d7eb61-17ff-4200-8d27-08df18ae00b0
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 13:32:52.6597
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N5lqyN2ElJdqyvVJg0K86zgIf2h3/bMG6I91PKYp/Tz7lfm0BnRSohVDgiCfwW0IK1gPkbpJ/wsGa+T87cxTqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5732
 
-On Mon, Sep 21, 2026 at 8:53=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
-te:
+On Mon Sep 21, 2026 at 11:38 PM JST, Bartosz Golaszewski wrote:
+> On Mon, 21 Sep 2026 15:12:01 +0200, Kohei Ito <koheiito.dev@gmail.com> sa=
+id:
+>> Hi Bartosz, Alexandre,
+>>
+>> Thanks both for the feedback.
+>>
+>> On Mon, Sep 14, 2026 at 04:36:48AM -0400, Bartosz Golaszewski wrote:
+>>> On Mon, 14 Sep 2026 03:41:29 +0200, Alexandre Courbot
+>>> <acourbot@nvidia.com> said:
+>>> > On Sun Sep 13, 2026 at 5:46 PM JST, Kohei Ito wrote:
+>>> >> Hi, Bartosz,
+>>> >>
+>>> >> On Thu, Sep 10, 2026 at 12:37:17AM -0700, Bartosz Golaszewski wrote:
+>>> >>> On Sun, 6 Sep 2026 10:45:51 +0200, Kohei Ito <koheiito.dev@gmail.co=
+m> said:
+>>> >>> > Add a sample driver to demonstrate the use of the Rust GPIO APIs.
+>>> >>> >
+>>> >>> > Signed-off-by: Kohei Ito <koheiito.dev@gmail.com>
+>>> >>> > ---
+>>> >>>
+>>> >>> I don't like samples as they rarely get built or tested. We seem to=
+ already
+>>> >>> have kunit support for rust, wouldn't it make more sense to impleme=
+nt a kunit
+>>> >>> module for rust GPIO abstractions? If we don't have provider abstra=
+ctions, you
+>>> >>> should be able to reuse gpio-sim as the GPIO controller for testing=
+ just by
+>>> >>> instantiating simulated GPIO devices.
+>>> >>
+>>> >> Thank you for your suggestion.
+>>> >>
+>>> >> I assume the kunit module you have in mind would be implemented like
+>>> >> `gpiolib-kunit.c`. Based on your comment, I agree that a kunit-based
+>>> >> approach is more appropriate than a sample driver.
+>>> >>
+>>> >> However, as far as I know, we don't yet have Rust abstractions for
+>>> >> platform_device registration and software_node, which are required t=
+o
+>>> >> implement a kunit-based module for testing GPIO consumer APIs. Given=
+ the
+>>> >> current state of Rust for Linux, I think creating a sample driver is=
+ a
+>>> >> more practical approach for now. I would like to consider migrating =
+to a
+>>> >> kunit-based module as future work.
+>>> >
+>>> > The problem is that this sample driver never probes, so in effect it =
+is
+>>> > only ever compile-tested. Without support for the provider API, you n=
+eed
+>>> > to include a small C fixture providing a GPIO chip for it to be actua=
+lly
+>>> > runtime-tested.
+>>> >
+>>> > Doing the same using KUnit would involve building the `gpio_chip` usi=
+ng a
+>>> > bunch of unsafe statements working with the C bindings (which would t=
+hen
+>>> > in turn require `gpio/driver.h` to be added), so I guess we'll want t=
+o
+>>> > wait until we have a proper Rust provider API to go that direction.
+>>> >
+>>>
+>>> No, I was thinking about the gpio-sim module which is implemented as a =
+platform
+>>> driver which you can describe with a software node and then register to=
+ create
+>>> a simulated GPIO provider against which the consumer APIs in rust could=
+ be
+>>> tested.
+>>>
+>>> To that end, we'd need to just register a platform device from rust and=
+ AFAICT,
+>>> there are already APIs for that, except for the software nodes.
+>>>
+>>> Bart
+>>
+>> I looked into this further, but couldn't find any Rust abstraction for
+>> registering a new `platform_device` (no file contains a platform device
+>> registration function such as `platform_device_register()`,
+>> `platform_device_register_*()`, or `platform_device_alloc()`/
+>> `platform_device_add()`). So, we can't write a fully Rust kunit module
+>> for the GPIO consumer API, at least for v7.3-rc3.
+>>
 >
-> On Mon, 2026-09-21 at 08:10 -1000, Chris Li wrote:
-> > On Mon, Sep 21, 2026 at 6:40=E2=80=AFAM Rik van Riel <riel@surriel.com>
-> > wrote:
-> > >
-> > > On Mon, 2026-09-21 at 06:31 -1000, Chris Li wrote:
-> > > >
-> > > > Give me some real-world examples of people hitting this kind of
-> > > > limit.
-> > > > e.g. MAX(%)  > 100% and still have a usesable system. I suspect
-> > > > that
-> > > > with 100% zswap usage, the system becomes unusable. Please show
-> > > > me a
-> > > > real world case that proves me wrong.
-> > > >
-> > >
-> > > Here's my desktop system right now. The amount
-> > > of Zswapped is more than twice AnonPages, and
-> > > the system stays perfectly usable.
-> > >
-> > > $ grep -E '(Anon|Zswap|GPU|Swap)' /proc/meminfo
-> > > SwapCached:       252340 kB
-> > > SwapTotal:      41523604 kB
-> > > SwapFree:        9802088 kB
-> > > Zswap:           8812236 kB
-> > > Zswapped:       24927876 kB
-> > > AnonPages:      11615760 kB
-> > > AnonHugePages:   1402880 kB
-> > > GPUActive:      13112428 kB
-> > > GPUReclaim:        95980 kB
-> > >
-> > > This is also an example where I cannot really
-> > > predict how much zswap space I need, because
-> > > that depends on what AI model is loaded,
-> > > which drives the GPUActive number, as well
-> > > as the number of browser tabs.
-> > >
-> > > The system is perfectly responsive.
-> >
-> > Great, that is getting somewhere. We are talking about actual usage.
-> > I
-> > really appreciate that.
-> >
-> > May I ask what the total amount of memory (RAM) in your system is?
-> >
-> > I am not asking zswap compare to ANA memory. I want to get the % of
-> > the total RAM.
-> > I assume your desktop has more than 8G of RAM, right?
+> Right, I must have misremembered this.
 >
-> Right now it has 64GB of memory.
-
-That is exactly my point. You are running 1/8 =3D 12.5% system ram.
-
-> However, if I were running with 48GB, I would
-> need MORE zswap space, while if I were running
-> with 96GB, I would need less zswap space.
-
-My claim is that, if you run 64GB zswap out, with 64GB RAM, your
-application will have >=3D50% swap out. It is unusable. The swapped-out
-application will likely slow to snail or crash way before that.
-
+>> The best approach I think is a combination of a Rust consumer driver and
+>> a C kunit module dedicated to testing the consumer driver. This is
+>> almost the same as `drivers/gpio/gpiolib-kunit.c`, except that instead
+>> of directly exercising the GPIO consumer APIs, the module I'm suggesting
+>> exercises them indirectly, through the Rust consumer driver.
+>>
 >
-> How can people be expected to figure out how
-> much zswap space their system will need,
+> Can't you just call a C function registering the platform device from uns=
+afe
+> rust?
 
-My point is that, I haven't seen a case where the application is still
-usable with a reasonable SLO when 100% of RAM is zswapped out. The
-example you just provided also correlates with my observation. In a
-real workload, nobody in their right mind would want to zswap 100% of
-RAM out and expect a reasonable SLO. You are running at 12%.
+You should be able to. It's a but laborious, but better than not having
+tests at all, and acceptable as a temporary solution IMHO.
 
-> when the amount needed to fit a workload
-> does not have a positive correlation with
-> the amount of system memory?
+Of course an even better solution would be to provide a safe abstraction
+for registering platform devices. :) I don't know exactly how much work
+that would be, but there is already a `platform` module, so supposedly
+we wouldn't be starting from absolute scratch.
 
-It absolutely has a positive correlation with % of the system memory
-based on my experience. The % of memory swap out has a very positive
-correlation with the thrashing on the application. You have not shown
-any data point for a system with 100% RAM swap out. I am not aware of
-anybody using 100% zswap out. So please educate me with the real data
-points. I am curious how the system and application behave at that
-point. I have done many swap stress tests in the past while develping
-the swap stack. At 100% you will run into all kinds of OOM thrashing
-issues.
-
-Chris
