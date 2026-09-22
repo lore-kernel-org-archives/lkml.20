@@ -1,130 +1,141 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC7137C906;
-	Tue, 22 Sep 2026 13:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494BF39FCB4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085515; cv=none; b=WugkN1NuqU3sD3fGlKsVHUtw0eANkMjaxTfbXv2Z/dVOI1VTTsSfs2WyG0qZlAlHMkLmzlAA1T+77l4vT8VBoaGIcNF7FIy6ktGCWg27F1+guQerHDsoNi2fdNx967UWcp7WD0FELEfU413rlJlF8guDXTepdI4/i+R8xiGsn3M=
+	t=1790085621; cv=none; b=FEBgAUPKkqsWyB01oAeCXvYE83O+Q2HoH55LSyQ+jHjtU7xpEEKiZUenG3PrW/naMCabDrEBzmXOt6ADX7Bg5vgvGesKWfknvy8J+b1xjg1PZbl4EE6fW8+6Bg4XxTd2g7iBK8uVO+I25Ape5+hfu+pZZLELEyNll11zmf/aOAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085515; c=relaxed/simple;
-	bh=dYPuXswUPoCHeb16iro5nEvSHWPpNx69QQr+Bwtpe70=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MrGlPNdsKZg9Ju9i04fYNA5azi2w2+yGYbl/UWcyh6HQLG8MhxtpsHQtnsjGkGY81+IHFy9kQ3Sixm2HiwX9IjyH/+gYGE1Grkr367lXq/KmhBFM8zOIbD1N/y2alH1An2s0EMA9nU6ta1EmE36wtnVngcFung8d+ZD+Llqgs9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=d+zUK7GU; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790085621; c=relaxed/simple;
+	bh=Ysf9kNQ+33PxVdJ0LMg2niyZFgqOnLKjhyylnUl8qTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aEcBbr9tH6Pr1sSBSRVqi8x2yOhSoc+p6XxZWI1OhvAsf3Quayz1O5F0sJZNSAKFvC+zE2gX0BpAeDDJmZvJJ6CkO3075zgEWqwUjTHgn/aNzlXYc4tSokU+uqcfjPgZ0Wm9wyzN0hu6l/wxjDQTsUe6PfFNgRuhSaTxja98PNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=cj7O5gEk; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="d+zUK7GU"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBZTt92630850;
-	Tue, 22 Sep 2026 13:58:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=vEw8/ye5iA30RNTx4BThB2maglvtHOcIdYMN02uxb
-	Lw=; b=d+zUK7GUP62EFyyytXTKomJQzVym7W1lmvspCLbLFWDWTMLn+CgwZZf85
-	K7IYlj6m0UYW1/3vn++R5tmmxe4eGfIXYtunHQW17eGT8ESMdRqPaxUEMrf7DJf+
-	rf22hrLsDIFzTjfzxQaSNKQruyey7Cw8p1LqjnlPpjPU6VlYThAQDycjLxY2RoG0
-	tew7O4WB3QaDP0u6mWnBjci6qONTAorCANgg7idg50Nr6eVQYM+vc3VraAn/SvsS
-	O2jTznu1iudAFwagzjg5aZAupICoFa68mxaoRnrV9BtLlug1Qu+8X2UCVuTCpGhr
-	8BhdqabMVSI8SR76Lqk6MnD2yvSUw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1p39n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 13:58:16 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBWURo1521388;
-	Tue, 22 Sep 2026 13:58:15 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gu5bkcmfd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 13:58:15 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MDwDLP50594266
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 22 Sep 2026 13:58:13 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 622F620043;
-	Tue, 22 Sep 2026 13:58:13 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B2E0120040;
-	Tue, 22 Sep 2026 13:58:10 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.20.139])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 22 Sep 2026 13:58:10 +0000 (GMT)
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: linux-ext4@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
-        linux-kernel@vger.kernel.org, Baokun Li <libaokun@linux.alibaba.com>,
-        Jan Kara <jack@suse.cz>, Ye Bin <yebin10@huawei.com>,
-        kernel test robot <lkp@intel.com>
-Subject: [PATCH] ext4: Fix sparse warning in extents kunit test when EXT4_KUNIT_TESTS=m
-Date: Tue, 22 Sep 2026 19:28:08 +0530
-Message-ID: <20260922135808.3371159-1-ojaswin@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="cj7O5gEk"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cc46c7so398957685a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:00:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790085618; x=1790690418; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yVPAItgeW/MMs80EWUUxpddBeukv+Oab4KQ44WwQXwc=;
+        b=cj7O5gEkRJ4IMPNvVXC4spsO4XZqIreKj/4TIEka7a2Tg2X69W3ijpeXyd1yJJfa6Y
+         /EDSrpGD54UCGGnzQtNRkoGJADXwaJ9xhx0B9hkHKLwf91mL4RrjJQuvAnCr6GWQrgZy
+         jRj2Rc+yKC+DSwBJAdjR0lGH3+22cHex3hSjhFeje8vbtTp7nQyLYGVbqJ6TcMP1KDW5
+         LFSZS4sarD0yf6habVL5nm1pizHGRPz/i+fFLJT2HyKvhX6OP64PVbmjaZ4oCE8KPFwc
+         gv8uzwp2v9IamQ0RQQNSkAsvc20TKsvLH4zskQXRm6ZWKb/wx3PxhWLp6AUDYu7llg62
+         +MlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790085618; x=1790690418;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yVPAItgeW/MMs80EWUUxpddBeukv+Oab4KQ44WwQXwc=;
+        b=iMC2wtigOQvBlazSXIdIfrSqutNkPQzbkRc9gaYdtctP8QuXbto4GXzqAOFOiO0jtC
+         E73+p1xYzHjFtLWIKikk3c4we8fTti5R7tHTWE/AQgA9RFLdajFPEMwhbX1L8v6ac1wR
+         nBiL+Q19DkNELzeh/ErTtKj01wyckUVKyJhIbc4Up7s8X3RCjxVEZPOSW8LK82nf0vRZ
+         2cOFnDm4hWSPoWs+XDQQ51oxPZnJOlGjSl423HyQ9hDGbXRx4EjmmuZh9nCMeq3jYPBt
+         JFXLJrqeuokCGXh/XXzXXk94l549XlM+Fqvw5Od6Kk9EAWEe4+Ty/Bo8FHTMbz4nTfHB
+         yGYw==
+X-Forwarded-Encrypted: i=1; AKwUvBzgcJrswxsNzo+gVQ0haBH3qB1Iu1U3+/UiG3dZjrQiK83w6iR67zh2umNFc7iHrmL1JYDvd/R21GiOWgk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGxAfBu6auolN3RLyVgfxIxgfn37JLibRRyX6Bzt7utmbfw5S4
+	NF4gSp01gDyVk2QuQa8iOLtWWJVfcFYDhUlL9+brrRaPW1lxIQMH2bhiwCe3YlFn2cA=
+X-Gm-Gg: AYBFou1VWxllOUElZKQwafS8SaUpL35pJg7IbOS+ap8f8r0SwsP1NeUYK4xvD6JpDQ+
+	8gX6KWR+YeEbd2d/t9BBvgFwGDNIgQNXJmE5LgVmStI2P+M6iSxByF0duZAGOO4MfA1k/mnNDzH
+	2LXZwk6grp8XaItXnaKpd2witXyXa92E90Pk1SgOLEkH8YTIeNAd27nPIIdrnx+4gy/C4aRmNx3
+	0xEQRh8OBHndqRZlf6lht1OKiqWWjB0nA6fIXItnn7kF5MX7ehHlwzqT7AY782Xq5HJ0x1IxXI8
+	eUZYJRqh5UNmsWZOi33mIMDdmfEPLaYJBDknLPqkeCAKvp/fTsnJXvPuaVrm1yEpR87wB+YBIq2
+	G6rApBlv77527ANgVxQBUj9TKVrY82WNd2e45QBYwYZxovoCwG1fglgUKjuxVwmTgxJMLj7m+tX
+	l9BNkFvmlqeJbI5qkv5DpMunjistxVuJpOMCvIU6QotKlMpJLLCYCU16m+l4d4ngshTjEZ
+X-Received: by 2002:a05:620a:298a:b0:93b:d7a0:d9f0 with SMTP id af79cd13be357-93c19a9ab32mr348786585a.74.1790085617903;
+        Tue, 22 Sep 2026 07:00:17 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d23e22esm152156485a.40.2026.09.22.07.00.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 07:00:17 -0700 (PDT)
+Date: Tue, 22 Sep 2026 10:00:16 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>,
+	Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org,
+	abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
+	brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
+	dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
+	hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
+	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
+	willy@infradead.org, ziy@nvidia.com
+Subject: Re: [PATCH 2/2] mm: page_alloc: remove ALLOC_NON_BLOCK from
+ ALLOC_RESERVES
+Message-ID: <arKJ8BXOXknpmiu4@cmpxchg.org>
+References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
+ <20260910114602.926944-1-dipiets@amazon.it>
+ <aqQlUr-1h07G8JWM@cmpxchg.org>
+ <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
+ <aqq8pWI0u1IZNWHT@cmpxchg.org>
+ <9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org>
+ <arFBJdYaRx_iJNDA@cmpxchg.org>
+ <arFBr22V60BMmVpl@cmpxchg.org>
+ <72674485-6ec2-4cb4-a854-b937333cbf97@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: jtEuMfVAzTgpIWRIIEH89mKIpJAIzv33
-X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab28978 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8
- a=2-yMNFukYtM-EpJdTCAA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE5NyBTYWx0ZWRfXwi+dWQ7c5/77
- pSdj/1V+uLK63ExcnVrBADJmOfr7df7kni+3sXG1TT+aejndke1ZEpvBwvznTNoIsB9NL6vJzzL
- LckPECowYQq36C6IQ1gW+HL8dwix2wM=
-X-Proofpoint-GUID: TnrtW-1NG46oV5SwgOb9lFIOPJJ3Ik3X
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE5NyBTYWx0ZWRfXzcby/HPPPAMD
- UtgoOY94o43CpqrTkyGC36Y4e2FZ35BHlqQ2LUNxDyJPhYhNPEZeAgVKGxNoTHziDVfLrMEZk2P
- WAgEabLFsV52HA5mkCEsak+vE94jZkiuP4i98Rg2GXCCAQiwW4IshD91H8cJ5JqFbvcqzIsIn/a
- wtlXMvwAoXkDZ+wEBVb8D+xy+tW9d1aaYiJwrpeDoh5sPr8hxoC8rYsE4RxncJrMysxIuQlKlW9
- 2DmTCvKwOm1C8XeaVirollMM/9UxpBAG+9Af2uAhQkSqccdUAsrQp0MdsvmuhA67k05N3cSpp1c
- 0KFeQfnIWJ+zSmmraSuOR7m0mylX6u+ZSSSWgE4aenUP9JNevl0fIR9BBSvTq3RJ/EsEVfewIEd
- tOf0RNf8Fo91hMjSOOYHM3FR+6B0O73pJJVXcpYBav5vC45JwybOJ37ZIzXzS4vmizV18yF9CZH
- BwOO4p3lIXQEvkby/3A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1011 spamscore=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220197
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <72674485-6ec2-4cb4-a854-b937333cbf97@kernel.org>
 
-When kunit tests are compiled as modules, the extents kunit test emits
-a sparse warning:
+On Tue, Sep 22, 2026 at 02:06:34PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 9/21/26 4:39 PM, Johannes Weiner wrote:
+> > 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
+> > non-blocking allocations accesses reserves") stopped handing out
+> > reserve access for ALLOC_NON_BLOCK on its own: the extra 25% below the
+> > min watermark is now only granted on top of ALLOC_MIN_RESERVE. But the
+> > flag was left in ALLOC_RESERVES, which produces something odd:
+> > 
+> > With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
+> > subtract the free highatomic pages for them. So in the slowpath, they
+> > get to consume regular blocks below the min watermark by the number of
+> > free highatomic pages. The highatomic reserve is capped at 1% of the
+> > zone, which on any decently sized machine is a multiple of the min
+> > watermark: GFP_NOWAIT can drain regular memory to zero.
+> > 
+> > The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
+> > allocations under memory pressure. On a 32G box with an anonymous
+> > working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
+> > burst drove regular free memory in the 28G Normal zone (min=60M) to
+> > 28M, 0.8M and 0.6M in three runs. Swapout failed to allocate its swap
+> > table, reclaim scanned 13M pages to reclaim 200k, page faults stalled
+> > for tens to hundreds of milliseconds. The machine survives it, but not
+> > by design: direct reclaimers eventually fail and start unreserving
+> > highatomic blocks, until the allocation succeeds or the reserve is
+> > gone and the OOM killer runs. That reserve exists for high-order
+> > atomic allocations; here it is destroyed to bail out a GFP_NOWAIT
+> > consumer that was never entitled to the memory.
+> 
+> This suggests to me that a LLM review of 1/2 spotted this issue and also
+> (or you) constructed a test doing the GFP_NOWAIT bursts to confirm the
+> impact, but it has not been observed in production? But if it was, can
+> we make it clear?
 
->> fs/ext4/extents-test.c:59:3: sparse: sparse: symbol 'k_ctx' was not
-   declared. Should it be static?
+Yes, and yes. The test is manufactured, I just pushed it to stick to a
+realistic sequence of events. But it wasn't observed in the wild.
 
-Fix this by declaring it as static.
+> The change itself is fine and we don't need ALLOC_NON_BLOCK in
+> ALLOC_RESERVES. But I wonder if we should also make the
+> __zone_watermark_unusable_free() check more precise, by using
+> may_access_highatomic_reserves() there instead of ALLOC_RESERVES?
+> Which would mean that the function should however also evaluate
+> ALLOC_HIGHATOMIC, and restrict the other checks to order=0, to be usable
+> from both callers.
 
-Fixes: cb1e0c1d1fad ("ext4: kunit tests for extent splitting and conversion")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609221900.Pgwrcp41-lkp@intel.com/
----
- fs/ext4/extents-test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/ext4/extents-test.c b/fs/ext4/extents-test.c
-index bd7795a82607..9669b2197fca 100644
---- a/fs/ext4/extents-test.c
-+++ b/fs/ext4/extents-test.c
-@@ -48,7 +48,7 @@
- #define EXT_DATA_LBLK 10
- #define EXT_DATA_LEN 3
- 
--struct kunit_ctx {
-+static struct kunit_ctx {
- 	/*
- 	 * Ext4 inode which has only 1 unwrit extent
- 	 */
--- 
-2.55.0
-
+I responded to this in 1/2 because it had more context.
