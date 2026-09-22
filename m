@@ -1,186 +1,185 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D7B4E01E4;
-	Tue, 22 Sep 2026 10:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C057F4E0B87;
+	Tue, 22 Sep 2026 10:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073056; cv=none; b=lFUC1jtGv9pS2CzKuhwamBZdSdnSxlylXz17zxVGzSxit+av0Ba52B5Ygz5dDkYy8VJTihZvCch+chzhTwKpDsCWRNot1ehQse8DBYxNLMFtHV95Ls1zeYBxJdWjhiWTVN2su7YhSUwi7eo//y+IBduIGna5OGWue470hztGMdY=
+	t=1790073069; cv=none; b=iiMzf5irYDIrQKlcKFdDfCjaNiCiYgIR93dAurC8d2ci/5RCJEjMbH71c7Oh3HS9SMesfSCXlqOJn2Hwd/DEPzYJSxSiekj9CgdlLs6Wax2xpFVZpi4s9fEsdG3gFLuG4TKBpTmNSKCE35DQL0/VK+WzqDaNpIMudex84rNbSK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073056; c=relaxed/simple;
-	bh=rVx1Ga7x8BB7Zg2M0CRdnA2F5rr3KdLyeWxelvYMHFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IRAoKkVzf2KrlhQJTd7IsNXZOX3Y7/uoyZC9+H8nuAKa3kjgUtmBHwcjFvoo0u4pATvqgCGejHHxxGS69YXyc74QdpYw/z0yWUaH7kkePkajyLmd33F2NT9LBUshOvaJaQE+lUMDnzlBjwD51iGp41PjDRbH0LS5Em6KHbxxcHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hGyJckl7; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790073069; c=relaxed/simple;
+	bh=kijmClNdlWt7n5dplRoy4Xhn6MW1m2jwYvJI33YOmwk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C0onyC/rglzAWpnxvSOwwZ0sZe6f3dFlvE01OLbo2AnLYlqqXqV6SnCVj6E0sEjMSaVhVhiXykVl3UrMDJ/hqq9ZpG6M3TapnxRxgFqt64LTl2ASbXLumAInCurs6/eOax0o0zE8ovjdFIq7+o5V5niQ6yjQ73IjlciNDg+/EPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=ZwhKUbVw; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hGyJckl7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790073055; x=1821609055;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rVx1Ga7x8BB7Zg2M0CRdnA2F5rr3KdLyeWxelvYMHFw=;
-  b=hGyJckl7aR5SfL1JGMOxLqVVa/bZ0uWBGxzp76MYQjv0xaAczdyTSwnf
-   o4PaBWUf8tet30Wcxn0pGHclh14TS7bhCX/nM1+KjqOD3ZEPv6rHztGEZ
-   rR64HCVQZ3h3IUPcSStjtIwVKsP7zr4VwZc929QN1yYGRUR/JvQhPON3Y
-   +YXT0XFtYl4LwSRyHTfEpZOIPfkBfgzhZN04TeeScSMh8G9Malh6AMmoS
-   YoBNn7Nxy+joQaglRABjlu99AVG2CobDSnKEPRZxnZxp/NjdoVDgPkd6d
-   fLPmBP8pfdHVFHtvckcxZs03TM5Qc/AgMwJDWwQhy0RGGEiNUn2Q4qEV+
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="ZwhKUbVw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790073066; x=1821609066;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=q1MwI5UxY9USzV2qnLkzAMkePAIfgay/bcyAOT7OyhU=;
+  b=ZwhKUbVw4DIKgEYMIsZ8Vw4sPcaeHrvhxg+o9fad7+41AlscDhThCNyw
+   7D8L7UVnuqNMHgUNw7P7BcgvHuElceUNZ882dRGjBXxf9qRAPsZQIMlkq
+   LszqXx2LKDydsMvab3wpyzrrP0dAvWSBS9YTZPZxGAY7dsRSDQ+O3A5eg
+   /QUK8QjZ3GB9g3DPjbZ4F8YCUJ1iSWEM20ykMBt5H/eyc2shadEAYsUy7
+   1zuSShvU/wumtvYBeFrTjJF59vepBWWWPco2pqmItjsg+GWuLcfc1jbY+
+   fnMTtfVvYknm2jj4b1ylEhK5epuB8pUZwLsSteccodPRVOQpmUWdQKi+/
    A==;
-X-CSE-ConnectionGUID: 7aRFEUObRoiYSLNCHl5Y6A==
-X-CSE-MsgGUID: v+4Tl/rwQ+evX+AWrUQrZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1164185"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1164185"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 03:30:53 -0700
-X-CSE-ConnectionGUID: Kz5491BaRBSQ0kKLpKPzIg==
-X-CSE-MsgGUID: bONz6f9cQtSVZtD98Mi9kQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="4062790"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa012.fm.intel.com with ESMTP; 22 Sep 2026 03:30:50 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 1ACFC99; Tue, 22 Sep 2026 12:30:45 +0200 (CEST)
-Date: Tue, 22 Sep 2026 12:30:45 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, brgl@kernel.org,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH v8 3/5] drm/xe/i2c: use
- device_create_managed_software_node()
-Message-ID: <arJY1TMBIZCy8E7n@black.igk.intel.com>
-References: <20260716-swnode-remove-on-dev-unreg-v8-0-5c2b8cc38c28@oss.qualcomm.com>
- <20260716-swnode-remove-on-dev-unreg-v8-3-5c2b8cc38c28@oss.qualcomm.com>
+X-CSE-ConnectionGUID: JPXZ7l52Rn+J9Z9gCosa0Q==
+X-CSE-MsgGUID: OPWx/mp5RP2RPnpFcT/oTg==
+X-IronPort-AV: E=Sophos;i="6.27,116,1787011200"; 
+   d="scan'208";a="29366157"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 10:31:00 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:31675]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.1.232:2525] with esmtp (Farcaster)
+ id 7d136ed5-aa00-4fe0-b2c6-5634d5be14e4; Tue, 22 Sep 2026 10:31:00 +0000 (UTC)
+X-Farcaster-Flow-ID: 7d136ed5-aa00-4fe0-b2c6-5634d5be14e4
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Tue, 22 Sep 2026 10:30:59 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Tue, 22 Sep 2026
+ 10:30:57 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v5 0/4] pps-gpio: restore pin mux on unbind and shutdown
+Date: Tue, 22 Sep 2026 10:30:47 +0000
+Message-ID: <20260922103051.5257-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260919171157.5502-1-farbere@amazon.com>
+References: <20260919171157.5502-1-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716-swnode-remove-on-dev-unreg-v8-3-5c2b8cc38c28@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D036UWB002.ant.amazon.com (10.13.139.139) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Thu, Jul 16, 2026 at 02:31:38PM +0200, Bartosz Golaszewski wrote:
-> This driver intentionally uses the fine-grained approach to creating
-> platform devices. It assigns a software node as the primary firmware
-> node of the device it creates. Ahead of improving the reference counting
-> of platform device software nodes, switch to using
-> device_create_managed_software_node(). This way, we create a dynamic
-> software node whose life-time is tied to the device to which it's
-> assigned.
-> 
-> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Some boards route the PPS input GPIO through a pin controller and mux the
+pins to a different function when the pps-gpio driver is not active.
 
-What happened to this one? I can see the commit 0f485f88656a
-("drm/xe/i2c: use device_create_managed_software_node()"), but not the
-code change?
+The driver core already selects the "default" pinctrl state before probe,
+so the pins can be muxed for GPIO/PPS use while the driver is bound without
+any driver change. Nothing, however, hands the pins back when the driver
+is unbound or the system is shut down (for example before kexec), leaving
+them stuck in the GPIO mux for the next kernel.
 
-There is no revert and there are no other commits touching this part
-of the driver, so it's as if the patch was never actually applied?
+This series lets pps-gpio select an optional "inactive" pinctrl state in
+remove() and shutdown(), so a board can describe the alternate mux there
+and have it restored. The state is looked up and selected by the driver
+itself (devm_pinctrl_get() + pinctrl_lookup_state() + pinctrl_select_
+state()), so its meaning is unambiguous and it does not depend on
+CONFIG_PM. It is a no-op for boards that do not describe an "inactive"
+state.
 
-Thanks,
+Patch 1 is a small preparatory fix to propagate the gpiod_to_irq() and
+request_threaded_irq() error codes (rather than a hardcoded -EINVAL) on
+the probe error paths that patch 4 then converts to gotos. Patch 2 is a
+small preparatory fix restoring the echo-GPIO guard in remove() that a
+later cleanup dropped, since patch 4 mirrors remove()'s teardown in the
+new shutdown() and would otherwise carry the same latent issue. Patch 3
+documents the optional "default"/"inactive" pinctrl-names in the binding;
+patch 4 implements the driver side.
 
-> ---
->  drivers/gpu/drm/xe/xe_i2c.c | 22 ++++++++--------------
->  drivers/gpu/drm/xe/xe_i2c.h |  1 -
->  2 files changed, 8 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> index 3d80eafb9a1318996d10db11e14af4cfde07ba55..af6e973e5e68125a9c006bb646447ca6e377a6e6 100644
-> --- a/drivers/gpu/drm/xe/xe_i2c.c
-> +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> @@ -93,13 +93,8 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  {
->  	struct pci_dev *pci = to_pci_dev(i2c->drm_dev);
->  	struct platform_device *pdev;
-> -	struct fwnode_handle *fwnode;
->  	int ret;
->  
-> -	fwnode = fwnode_create_software_node(xe_i2c_adapter_properties, NULL);
-> -	if (IS_ERR(fwnode))
-> -		return PTR_ERR(fwnode);
-> -
->  	/*
->  	 * Not using platform_device_register_full() here because we don't have
->  	 * a handle to the platform_device before it returns. xe_i2c_notifier()
-> @@ -107,10 +102,14 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  	 * platform_device_register_full() is done.
->  	 */
->  	pdev = platform_device_alloc(adapter_name, pci_dev_id(pci));
-> -	if (!pdev) {
-> -		ret = -ENOMEM;
-> -		goto err_fwnode_remove;
-> -	}
-> +	if (!pdev)
-> +		return -ENOMEM;
-> +
-> +	ret = device_create_managed_software_node(&pdev->dev,
-> +						  xe_i2c_adapter_properties,
-> +						  NULL);
-> +	if (ret)
-> +		goto err_pdev_put;
->  
->  	if (i2c->adapter_irq) {
->  		struct resource res;
-> @@ -123,8 +122,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  	}
->  
->  	pdev->dev.parent = i2c->drm_dev;
-> -	platform_device_set_fwnode(pdev, fwnode);
-> -	i2c->adapter_node = fwnode;
->  	i2c->pdev = pdev;
->  
->  	ret = platform_device_add(pdev);
-> @@ -135,8 +132,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  
->  err_pdev_put:
->  	platform_device_put(pdev);
-> -err_fwnode_remove:
-> -	fwnode_remove_software_node(fwnode);
->  
->  	return ret;
->  }
-> @@ -144,7 +139,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  static void xe_i2c_unregister_adapter(struct xe_i2c *i2c)
->  {
->  	platform_device_unregister(i2c->pdev);
-> -	fwnode_remove_software_node(i2c->adapter_node);
->  }
->  
->  /**
-> diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-> index 425d8160835f4648891ff75f2a9c06284241710e..b28229f056c5a664e1d41dc0cc1978782fe1c2f1 100644
-> --- a/drivers/gpu/drm/xe/xe_i2c.h
-> +++ b/drivers/gpu/drm/xe/xe_i2c.h
-> @@ -30,7 +30,6 @@ struct xe_i2c_endpoint {
->  };
->  
->  struct xe_i2c {
-> -	struct fwnode_handle *adapter_node;
->  	struct platform_device *pdev;
->  	struct i2c_adapter *adapter;
->  	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
-> 
-> -- 
-> 2.47.3
+Tested on an Amazon AL11 K2V6 JRD10 board: binding/unbinding each pps-gpio
+device toggles the corresponding pin-mux register between the GPIO
+function and the alternate ec_ptp_trigger_in function as expected, and
+re-binding restores the GPIO function via the core-applied "default"
+state. Reading the mux register with the device left unbound confirms the
+"inactive" mux persists. Also tested with a pps-gpio node that describes
+no pinctrl at all, where probe, remove and shutdown behave as before.
 
+For the probe-failure path (see below), a forced-defer test confirmed that
+a probe failing after pps_gpio_get_pins() releases the pins to "inactive",
+the core re-applies "default" before the next attempt, and the mux settles
+back at "default" once probe finally succeeds, with no spurious PPS event
+or warning across the cycles.
+
+Changes in v5:
+- Patch 1: use dev_err_probe() on both error paths instead of a bare
+  dev_err() + return, so the propagated -EPROBE_DEFER is logged at debug
+  level rather than spamming the console and the code is emitted
+  symbolically. Drop Bartosz's Reviewed-by as the patch changed
+  materially (Rodolfo Giometti)
+- New patch 2: restore the data->echo_pin guard around the echo-timer
+  teardown in remove(), dropped by commit fde046a8c490. timer_delete_sync()
+  on a never-initialised timer trips debug_assert_init() under
+  CONFIG_DEBUG_OBJECTS_TIMERS. Split out so patch 4's new shutdown() does
+  not reintroduce it (Rodolfo Giometti)
+- Patch 4: resolve the v4 probe-failure open question by taking option "A
+  + keep the NULL guard": look the pinctrl states up first in probe(),
+  before pps_gpio_setup(), and route the setup() failure through
+  err_release_pins too, so every path the driver can act on restores
+  "inactive". Guard the echo-timer teardown in the new shutdown() with
+  data->echo_pin, matching remove() (Rodolfo Giometti)
+
+Changes in v4:
+- Patch 1: add Fixes: 161520451dfa and Bartosz Golaszewski's Reviewed-by.
+  The hardcoded -EINVAL predates 4461d65176b4, so the tag points at the
+  original driver rather than the descriptor conversion
+- Patch (binding): rework per Rob Herring - drop the prose, use an ordered
+  "items" list ("default" then "inactive") with minItems: 1, fixing the
+  "['default', 'inactive'] is too long" dt_binding_check error
+
+Changes in v3 (addressing Sashiko's and Rodolfo Giometti's review):
+- New preparatory patch to propagate the gpiod_to_irq() and
+  request_threaded_irq() error codes instead of overwriting them with
+  -EINVAL
+- Do not constrain pinctrl-names to a fixed ["default", "inactive"] tuple
+- Treat -ENODEV from devm_pinctrl_get() as "no pinctrl described" rather
+  than a probe failure; keep propagating everything else incl.
+  -EPROBE_DEFER
+- Restore the "inactive" mux on probe failure via a new err_release_pins
+  label
+- Warn if applying the "inactive" state fails rather than ignoring the
+  pinctrl_select_state() return
+
+Changes in v2 (all addressing Rodolfo Giometti's review):
+- Rename the released state from "idle" to "inactive" ("idle" is the
+  runtime-PM state in pinctrl-state.h)
+- Look the state up in the driver instead of pinctrl_pm_select_idle_state(),
+  removing the CONFIG_PM dependency
+- Fix shutdown(): tear down (free_irq/timer) before the mux change,
+  matching remove()
+- Require a "default" state whenever "inactive" is present and reject the
+  mismatch
+
+Link: https://lore.kernel.org/all/20260916134744.46354-1-farbere@amazon.com/ [v1]
+Link: https://lore.kernel.org/all/20260916182641.9768-1-farbere@amazon.com/ [v2]
+Link: https://lore.kernel.org/all/20260917075611.47881-1-farbere@amazon.com/ [v3]
+Link: https://lore.kernel.org/all/20260919171157.5502-1-farbere@amazon.com/ [v4]
+
+Eliav Farber (4):
+  pps: clients: gpio: propagate probe error codes
+  pps: clients: gpio: only tear down the echo timer when it exists
+  dt-bindings: pps: pps-gpio: document optional pinctrl states
+  pps: clients: gpio: release pins to an inactive state on remove and
+    shutdown
+
+ .../devicetree/bindings/pps/pps-gpio.yaml     |  14 +-
+ drivers/pps/clients/pps-gpio.c                | 123 ++++++++++++++++--
+ 2 files changed, 127 insertions(+), 10 deletions(-)
+
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
 -- 
-heikki
+2.47.3
+
