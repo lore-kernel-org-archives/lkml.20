@@ -1,102 +1,114 @@
-Received: from mta0.migadu.com (out-11.mta0.migadu.com [91.218.175.11])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7605427FBF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:11:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45ED054EEC4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790111545; cv=none; b=PuQfTLjpvhgmEiVc3EohuktR9X/DisXRPCz0H/KXW9xL9pxECBVTcD8h3QSMTcAwfHic1s/OzUn051A0sOtpzCYetAnh6eBE0tvPh9krwb5M0R/pYdN+zzDGsbQr1PgbkLTF+6z8wAMYZV05okCw3/oMo4eT4XJqUksDG2DyjXc=
+	t=1790111552; cv=none; b=OSyRiz+rK0UgSmgGTBLYWujPxDls8qfs8cQsCACZ2+8dA0ZGMF5rWb2U2ws+S5aZoV3BAQ6ODKOFwDBjz8FfASUmGbf433ZoG6fm9HlRuQobmJpP1AtveTJkLOO1mTKKQWLcgKPy7950dhM6Hwl7EO4DEkwJyGcXyI6TMKBPLE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790111545; c=relaxed/simple;
-	bh=h6gV+3keWNApMlq6c6RQ82PoZscfFWn/9tcB/SrgqS4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pRDxbSwtBCRhUwMBSre8t/eJqjvXP/q+Fu2PGRzpDXyPICYQWlt+V4xFnVyqs+5HRw1++MdMVR8UpFCFmDpQZfwSsSnqXJSWtlWSgF+UnCLfF6R/qJryUv63UubgeylkhEMWrdjedoJ1x3Dr+ERn9j5H53Erf7DCZBDq4Eumnd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=akYu1IxU; arc=none smtp.client-ip=91.218.175.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790111552; c=relaxed/simple;
+	bh=2+E9WLAhddquoAhrHExJTH/ipVluXO40UC60vRyiwHg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sd5LNOzOfWPE5tsXpGFMmFAdU40HGPR0XjYLpyFGA48qKvPRWVEoOl7dQThSrG07LWNqi40sc6hOqGLnehH5pxtfcbxhPJzfiFu3TJjnxaZ0rF+kT1yjJR9rOQPEgMInZRGe+COZzocCz370dWqu/pPaT2E652zomYVGV+WkIAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e+ObHwaF; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="akYu1IxU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=h6gV+3keWNApMlq6c6RQ82PoZscfFWn/9tcB/SrgqS4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790111513; v=1; x=1790716313;
- b=akYu1IxUoTWmNvyigEWbbDTrwdYHyMcqhvR0kV8B+jWFumbIY4j3gAqphsHvl5AMuzW5yQ5h
- lGV+r8NzIMiU5X70sqKUXJHi21e0bv4E9Z/GQZYMEOwQ22p33TRhOrXXDOa8f/+pUKdxUZf22J5
- 3CXZZgiENQeEUp3fmIkY6/Pk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0f14c2603a252d10;
-	Tue, 22 Sep 2026 21:11:53 +0000
-X-Mizu-Trace-ID: 0f14c2603a252d10
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b778bdb5b8so873e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:11:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzA2tOyKIeH7WEP8LH2ygjejKk0d92y7tGPtPA9yyCBcIkgdKDCQnWgStDN+HyyBZbjLX/sXJsMvZida+M=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncQ9HXv5bg45HBSRW45TEl7XNLQpd43e1YGbL6OQw8Yb4x67qT
-	Q+L0LBh+pAoXstLasPvBHeb6Izof5p5PZwbW2+9w5c3mCII16xvBt3iI8JCluWuw0iJxqFRRPKH
-	AF6VHI9vr2CnW6qnCMerHDCnxm/E44m1KM4EnQzlf
-X-Received: by 2002:a05:6512:234c:b0:5b8:c871:4754 with SMTP id
- 2adb3069b0e04-5b8d87f8ce6mr53229e87.2.1790111508201; Tue, 22 Sep 2026
- 14:11:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e+ObHwaF"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9106feddbdfso2666376d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:12:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790111534; x=1790716334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NCOJ4IYbfFaRdEJKYXl8sjbEptgWjDvoJQmY8J0q84k=;
+        b=e+ObHwaF5irV8lCqiCCfQD+0jvXngq0cWnSJ7DRgHKo8UjBNIm6eXvW2tPIXT6xwtM
+         ZbRx/c3Z382fZ37xfKtJCdtx4RP/x5qWVB6SzitNr2swgL1QnILKeKZrR1D6OqQM/JY/
+         nSul8fAW2D91nnhcX08DeltgmFw0jh7yboE5LUcAU0rTC/WHH7QCnjZ0Phc+IvO78tDa
+         5LxIc8KqPP3gCxmQCBAgtrmbIGixMyyP34jSlwKClHElfzMJVYQhpOOW0vipZM3MuDk4
+         cg1hDTsH7gYlLYOk5DE2UEJRV37eh2BLnJkoX4nR1jBVB1LLMguUn4EeCQ6MdVTCCzUv
+         gVdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790111534; x=1790716334;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NCOJ4IYbfFaRdEJKYXl8sjbEptgWjDvoJQmY8J0q84k=;
+        b=s1epD9GaNpylY7uJEIaAXu9SQfufi2NJ5nqttJa5924lT2Sc4A2xIih0x1M0c6XFrN
+         YP3DJRKvvyh7zckensxuXgOlz/UkDRmScY+CLpCEzG3mxAqkjuX+qqHAf371r57/bA/T
+         dydN2RnQYueLWxgHo1Jz6u7fLqYoLd0RQ7hn7rSSlzih37omr/U6tCO3Qd2dvpflf3hR
+         pY0AR/k7Qz1idg8hCuG3OyzNOx0zyBSJ7WgQotbdP0u2H8S3y4ROCdeLFTXrDHfkDDYj
+         KBJWhSM1Uia2pO6DzctypWlAvgse4x0f8OSrL2lW6teKM14R9YcldiGqeZPK8D/Nbgin
+         9Ehw==
+X-Forwarded-Encrypted: i=1; AKwUvByUBt0ooEQkJxYsaLx0w31wHsjQKd904Zs91bzQEFRyTrPnCW6BFq0JB60tMZ15cXAV5S6nSAM0Tv2isA4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYp7XSyVPTF64x8GUubcFsnjQqvGTdHgAFNaZ1wpEJMHFmup3g
+	BngoZqJHHhXsWU84HQBfVMZxob7GTHna2fdjJBXBqYpMI+o9wJ7SFVbu
+X-Gm-Gg: AYBFou3xoJC56zt4s8J5QQ9En8kQyaTQW0D3x/HCFo3F9hZMsW/Sqv8hyMLJjSVYM42
+	yaPqF+VCkFRXJgmy2gARRi+YcLvbEh2IXBMUEKbk+wH0xFOplGF7A9RNsaiSmUWDSPtY+WDRXaY
+	cXrxwcNrPv+A7vVYvadg2FgCfaVajE6p1gdKRQixaw/A+QKuzYSqNxtCtrrJzz2B4WLjbLOd39A
+	+I16SjKkT1NvoYXewzCqbR5JDRjvZPKzRlxZLB4EE80GZh0wXYRPC+Ch9mnzqmpaCZQRiz0e2Ed
+	9qcCCcXPNW3psITEIqRK75kAQzB+qXV/mR34zU0NJXnW9jYqk1dG3SvGHne/WggYg6cze07tfY2
+	Yep5i7oGiy5HMkySTe3WGyhCTGRA1YObRuz+eC9A2FDP9AmE0GGCWtPWawK2D3WedmHm8j0zurJ
+	U0HlIbGC92f5IWiDZ+wELcFLmLZgN6gyZhBAotJ5MkpIIoVThZYINRMOFTjU2oRChFDep2Zj5BN
+	ca+Okpz4nE4GI+3DhGgMw==
+X-Received: by 2002:a05:6214:4a88:b0:912:533a:4a43 with SMTP id 6a1803df08f44-9140c3f990dmr12597706d6.32.1790111533845;
+        Tue, 22 Sep 2026 14:12:13 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9140c4640c9sm6319316d6.40.2026.09.22.14.12.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 14:12:13 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] virtio_blk: Reset device on probe error paths after DRIVER_OK
+Date: Tue, 22 Sep 2026 17:11:41 -0400
+Message-ID: <20260922211207.523999-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918091052.2825315-1-fuad.tabba@linux.dev>
- <95685b0e-21dd-4446-8fef-c5664cea4057@mailbox.org> <20260922063830.472642-1-fuad.tabba@linux.dev>
- <61488ddc-b346-4ba3-b32a-e972a3bd75a4@mailbox.org>
-In-Reply-To: <61488ddc-b346-4ba3-b32a-e972a3bd75a4@mailbox.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 22 Sep 2026 22:11:12 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTySaPWEDxY1QCjeAigetT1yzsspdY+v7srEzkS=kQdegg@mail.gmail.com>
-X-Gm-Features: AcwNN1X2giFzDcFTBdxOtsqsnFJaBT3pUFrmornAsIBh_cAT0iiBtOfA2kEGgxk
-Message-ID: <CA+EHjTySaPWEDxY1QCjeAigetT1yzsspdY+v7srEzkS=kQdegg@mail.gmail.com>
-Subject: Re: [PATCH] PCI: rcar-gen4: Fix device_node leak in rcar_gen4_pcie_host_msi_addr()
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Marek,
+virtblk_probe() marks the device ready before revalidating zones and
+adding the disk, and either of those can fail.  The out_cleanup_disk path
+they take goes on to delete the virtqueues, but nothing tells the device
+to stop first, so it is still live when the rings are freed.
 
-On Tue, 22 Sept 2026 at 19:07, Marek Vasut <marek.vasut@mailbox.org> wrote:
-[...]
-> Oh, this is very nice, TIL, thank you.
->
-> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Tested-by: Marek Vasut <marek.vasut+renesas@mailbox.org> # Retronix
-> R-Car V4H Sparrow Hawk
+Reset the device at out_cleanup_disk, which is only reachable after
+virtio_device_ready().  virtblk_remove() and virtblk_freeze_priv() both
+reset before deleting the virtqueues for the same reason.
 
-Thanks.
+Fixes: dbb301f91fc8 ("virtio_blk: add error handling support for add_disk()")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+ drivers/block/virtio_blk.c | 1 +
+ 1 file changed, 1 insertion(+)
 
->
-> >> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> >
-> > [...]
-> >
-> >> "
-> >>
-> >> Also, I think drivers/pci/controller/pcie-iproc.c
-> >> iproc_pcie_msi_enable() needs similar fix ?
-> >
-> > I don't think so: iproc_pcie_msi_enable() already puts the node at out_put_node, on the steer failure and the success paths alike.
->
-> Could you maybe send similar simplification patch ?
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 32bf3ba07a9dc..ed97dafebe164 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -1547,6 +1547,7 @@ static int virtblk_probe(struct virtio_device *vdev)
+ 	return 0;
+ 
+ out_cleanup_disk:
++	virtio_reset_device(vdev);
+ 	put_disk(vblk->disk);
+ out_free_tags:
+ 	blk_mq_free_tag_set(&vblk->tag_set);
+-- 
+2.43.0
 
-Sure: https://lore.kernel.org/all/20260922210839.3765444-1-fuad.tabba@linux.dev/
-
-Cheers,
-/fuad
-
->
-> Thank you !
->
-> --
-> Best regards,
-> Marek Vasut
