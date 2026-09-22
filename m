@@ -1,76 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F12522F0C;
-	Tue, 22 Sep 2026 09:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD8E4D2ED0
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067789; cv=none; b=WQAv7Xb//iLQM8xFiM5P1vd5ANFQMevUxFBzwrqnr4OhX/D08130Pb2tj1k4BrkMdw8vI//tUhRyB++sa301Y1CR/+EnDqIo5pblveeT8QL59giA1H4utvkq2gYx5yhBa0nIvqwjQskjMJjccpKPKuYehYTsZDBYGq7SvGWF798=
+	t=1790067796; cv=none; b=KldHajs8/3uKoVSbQR5W2oJfmgce0Hai4syRmHhGxMHjd8XxXKMgHGa56fV9I7cAvzSTNa54cj2JaUyOsy2LPAJmGZrNY33FcE2pRSU3niJvjhfyxaxNHdzRSC7I+EgPyD6/rkhEHCi9HViiCojONS0KdY+6Mx4QKL7DGFYkzdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067789; c=relaxed/simple;
-	bh=pHgvoHnJIwe3nC5S4OY8z28uWVR9gAOlu7YWol56jKc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RftEVpUc62UdVL8z5DscQYtPMxlRwu2CgPBYIPxAct5aNFDkuJBhTH0WMbl+KNt64p/cDb/QtvB4kYfRD90Q/dx425woPlU29LMWlnlV5oBXH9mXhWmEjiL62F1fY3Clm0RmSkHJSjNQeAQDxw+WDeJulBbjqKqJROSpXeLhXpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+JOE4ry; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790067796; c=relaxed/simple;
+	bh=3T+/5+/qt9/zQc/iBOuhbw3f+5o3VdTK6NF4SEakQPA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WuSX7SLfVbE/ECAmEss0Lrw5NBg37LW75O/nVg9HnTFCsHrvFmapZUXvDRUf6c5he/v445LqrhGBQ9VB0rkZYHcUSTvt99tsF7+ygtDABNleY3CI50AJtztEIQQEuEWGZ1X1UtaOMo12JJEvHIJKGsnSF1TuPUFqt6YIIFdC6No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kcVYwDEl; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+JOE4ry"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542831F000FF;
-	Tue, 22 Sep 2026 09:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790067788;
-	bh=pHgvoHnJIwe3nC5S4OY8z28uWVR9gAOlu7YWol56jKc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l+JOE4ryLKIP3w9q5Wm7pSG1JLgmDJMTih9bWxagWnLP0XhQLvugLdVxdO/i7BZ1b
-	 uvX39GjRiLtbNCtIwl6kbzM07pHvNRM7sLWrfKdwu5cRDBDhhUW14JQEPxQgJCJcpo
-	 zteqI1bXRF1+ErMo/W206HGKtuTl5xYGFoYzr8R+VyzOeETVbKARobUvCKiqV/1H5G
-	 ZG2bS7BFom8VmX+m2cO+RlPZM8u/HRlPHtdDSKYxDCuUCo7GUN/ZasJtPMbhOvS5BW
-	 mJMwC/BAeODqKEf4NJtp6Oe/JkjP/uh/PV3O0rpjhB5shaJzPxmBPBVxFXQ+Q6GbJt
-	 r1KqQABQ7lA/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/9] crash_core: serialize crash header preparation
- against hotplug
-Reply-To: sashiko-reviews@lists.linux.dev
-To: m.szyprowski@samsung.com, "Wandun Chen" <chenwandun1@gmail.com>, baoquan.he@linux.dev, robh@kernel.org, rppt@kernel.org
-Cc: devicetree@vger.kernel.org, ruirui.yang@linux.dev, linux-arm-kernel@lists.infradead.org, alex@ghiti.fr, pjw@kernel.org, tglx@kernel.org, aou@eecs.berkeley.edu, bp@alien8.de, hpa@zytor.com, akpm@linux-foundation.org, mingo@redhat.com, linux-kernel@vger.kernel.org, dave.hansen@linux.intel.com, saravanak@kernel.org, x86@kernel.org, will@kernel.org, kexec@lists.infradead.org, linux-riscv@lists.infradead.org, linux-mm@kvack.org, chenhuacai@kernel.org, iommu@lists.linux.dev, mark.rutland@arm.com, loongarch@lists.linux.dev, robin.murphy@arm.com, kernel@xen0n.name, pratyush@kernel.org, catalin.marinas@arm.com, palmer@dabbelt.com, conor+dt@kernel.org, pasha.tatashin@soleen.com
-In-Reply-To: <20260922084256.1515554-4-chenwandun1@gmail.com>
-References: <20260922084256.1515554-1-chenwandun1@gmail.com>
- <20260922084256.1515554-4-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 09:03:05 +0000
-Message-Id: <20260922090306.542831F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kcVYwDEl"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so32849505e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:03:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790067793; x=1790672593; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tXgGr2qFh/euRpkCia3YpYMa0+avEGxCjpNyfGxf7Ek=;
+        b=kcVYwDElJJO0Bo4n0d8AYkFG33WJshJCLsbDGXkLKxMQhuBNiSG51dXQ7ZND3m6V42
+         qQFhYG4CEfG7rkPsBUWynJc4jeS82xjWywOyjwpYwGoNCUudbluxf7DDPB7wdjjOjFUX
+         FqHelefKELTePbP0z/hyJpYo701LO71NmEDxdjb2Pt3q7oMd1FGkDad9fVfL32HFlPCJ
+         Y02YsPvg68CLxaFYMHT/8ZiP/mOJFvKhCkwr+B7j90ILpRmQUugG3ewo18sCzobxJlXC
+         4Am8OC6JGfrQdJh8EnRBHatHAhUEAqE/de8NwdZM/TvvKgsZOc6BGe4BmC4R1mLQi/x3
+         u4yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790067793; x=1790672593;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tXgGr2qFh/euRpkCia3YpYMa0+avEGxCjpNyfGxf7Ek=;
+        b=KMhxX7dsTU7PBOpl4SmXqDeL4FwJXOC1K6htpM0kAlEY6bsaaS2IF1A1ZA3Sp2ENhW
+         5RJIzmGBxK+74epePDdxOh2ShHKM60nZgJ/O8oIZGUYlwJJdX4DioLOQoCYESx6B/0jM
+         DfMMt5xaY/RkOgF24PEwlwcKKO5eikGt+0GQm7tdRbSk0Ay7VrbGLhHAVit7trdWjkhf
+         mo2TsjIZLvTYTK1DmwBf6zOe0xxm/J7kH1rCdNP/B3ANm1BOpCDFIbgG/DlentVTeRxL
+         7JgSNgnBMxwj1OgAnZyozeZhaglSeOsSaXA6dtj7q80dcW1qCseEELYQsOLKw69V3tlN
+         twRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwpMGEhm8XCP+HEYmmA41ULEiAPzF7TTtp+MGjBbsXL9xLo9L1XQ0UfSoPbDSkBIWfclafD+N+jxmi27OU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFbztDbQ6vpbBtIApRrtP9xMlJixFVlq5TiItYjxtje8e+ye8v
+	/dfvG6VD7KjshKDS44phgMzJE07VbZUeI97W4XZrUmUGtB4wwDn+WbLq
+X-Gm-Gg: AYBFou1s3jS/TuzC5zZsDDSXe++TEQDSsE9QEX8/zQvKQp2Je3DPCnF8pTijYW6NPOF
+	BHD4huMlFmL6f+dJMXlp9obP26sg3Ag5RcGbLANkOWXzKunciph+NLTk7qDuMwjW9+ADSYL9VTe
+	nTxjxVCUgNu9rQn9hQ6L8BDpX0M59uDvMW4VnZXe0jaUXXmW70QkUXyMYky5gbyoWU5Xazsr2HJ
+	NeFnJ7zbDelyXK7EpIDzL9CC6TVzfFLgZbtGGeGtU/EHNUiLS5mPo/lumtetxob6UhewZa9p+F7
+	PU4Oq/TQtb9ld0LRdjq9ofnciHOXwTekb2izPNbih64hSy8iMsN4eamkjO4BnZ1yyGXoWBze1wT
+	QE77XtwBBaN38cRswKj/pes/mNT2rNnSMtyjWXEv7mDP5fIvDAT5oaarwrdyA6z5IxI18drsgsU
+	Ih9pYYud+MJfsPLJq9VwUE5r7MMQbLWnZbg9bkhJd7ITHiYI7sELLGxMQezKwtPbMNWYKWYWstt
+	3JLGaf1thKwUJU37Rf0/VVjOQu/IHrZfO16OHoXkE036rhYaYCpet36FF/VzXLEVhby6RQ9yOSd
+	up6i
+X-Received: by 2002:a05:600c:1385:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49fc5673264mr182704015e9.6.1790067793380;
+        Tue, 22 Sep 2026 02:03:13 -0700 (PDT)
+Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdace7941sm42684265e9.2.2026.09.22.02.03.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:03:12 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:03:09 +0200
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Brian Foster <bfoster@redhat.com>,
+	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
+	Daniel Gomez <da.gomez@samsung.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] iomap: don't resubmit an ioend after
+ ->writeback_submit() failed
+Message-ID: <arJETViXYZbX8ckp@andreayoga.localdomain>
+References: <20260921083133.2960-1-parri.andrea@gmail.com>
+ <20260921083133.2960-2-parri.andrea@gmail.com>
+ <arITIy2upsoN-DlW@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arITIy2upsoN-DlW@infradead.org>
 
-> From: Wandun Chen <chenwandun@lixiang.com>
->=20
-> crash_prepare_headers() counts memory ranges before populating the
-> allocated crash_mem array. The weak implementation used by ARM64,
-> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
-> two-pass operation over system RAM resources. Concurrent memory hotplug
-> can change range source between the two walks and make the populate
-> pass overflow cmem->ranges.
->=20
-> Take device_hotplug_lock when preparing crash headers during
-> kexec_file_load(). The x86 memory hotplug path already takes
-> device_hotplug_lock, so call __crash_prepare_headers() directly
-> to avoid recursive locking.
->=20
-> Sashiko reported this issue in [1].
->=20
-> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
-> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
-> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
-> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system =
-call")
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Do you have a reproducer for this using some kind of error injection?
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Yes.  xfs_reflink_convert_cow() is the only in-tree way
+xfs_writeback_submit() can fail, so I added a boot param that forces
+it to return -EIO, reflinked a file, dirtied several widely
+separated CoW regions so writeback has to submit more than one
+ioend, and let background writeback run under the fault injector.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922084256.1515=
-554-1-chenwandun1@gmail.com?part=3D3
+On the unfixed kernel this reliably hits "list_add double add" in
+__list_add_valid_or_report(), from the stale ioend's second
+bio_endio() landing in xfs_end_bio() and relinking it into
+ip->i_ioend_list. With the fix applied, writeback just fails cleanly
+and there's no corruption.  Happy to describe the harness in more
+detail if useful, it's throwaway boot-param/script scaffolding, not
+something I'd want to send as-is.
 
+
+> Overly long line here.
+
+Fixed, will rewrap that comment for v2.
+
+Thanks!
+  Andrea
