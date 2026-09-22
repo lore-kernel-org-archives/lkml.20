@@ -1,181 +1,130 @@
-Received: from mta1.migadu.com (out-225.mta1.migadu.com [95.215.58.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852CB361960
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A801920A5C4;
+	Tue, 22 Sep 2026 01:06:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790039065; cv=none; b=cGmWLwUvoYeoZTRAz6JqxWVLO5Yk8AGWVpvXPzBGpgw9l36bIAlGlNoDp1xKK2D2O49LQ4x2//Kjf/q6J8DrByxh41CfUvLI+Z8jlJ10wr3yNcXo/agTjkFSOs3z1H/JkyzGgkJ04Q1YvFaRUmSP6o6OhaSqJbOaKRdFl1bUkjM=
+	t=1790039167; cv=none; b=n1CTpjJinoO4txUtSGMAFoYEbhiqwX8OysXlAcTWzLEO5DcZ4p5TXuUM9+KJSSdfJmRTOqUGdtOJqVsiXqgNdcs+xIG8aPd05daZJyvcj+XviCUtyuciRK1SXQ4uma7Qm92nmYEKVjnYGJBMuj9Kc1+Sy8eBhSUpV3+LpFrM+mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790039065; c=relaxed/simple;
-	bh=Vw7xOFj7NDfG3x/79uhiyl8/V5mf++Vc9MTJPJzRdcI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D/gc36a/Q3XmSqSSvnk0arm7EvYc4iGyoNmNtZvxv9YrE2/FRyLqKSgFNIXxkzjaBIn7i/YlwohNZmU/9j7lPPDq317Ge15luFsfAfcGlxOm6E1MH5SAy71OSOHBFGtnUtFLJ5mjDlXVNEEFd0qmhkxM35b3pAHFOxjzmCY6qkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nnIKsi0K; arc=none smtp.client-ip=95.215.58.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790039167; c=relaxed/simple;
+	bh=RMXWkvGdIEwp93GUgfpDYE+468V2qJEtbkHzxJhbMfA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jbWY/PQuLLzUFoEtvphGHGpYJymigwYi8+SHar1+UpU/9BAHonPhCpv7QA5fIFcAbaQeK0pQ6EddIBzmyev/M9dsquUemAS5kOqwvt7eh2KgGDZHr93YSuPT23Xjc1WjWIjM1ZdBSB3XyCOx+gizdlW3relFxUTwFiTBVZOH0nU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u27RI+j0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nnIKsi0K"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Vw7xOFj7NDfG3x/79uhiyl8/V5mf++Vc9MTJPJzRdcI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790039061; v=1; x=1790643861;
- b=nnIKsi0KRGUx/kluNqMGRa4xKPlxP8nsEY7UdjALJJOObHAtl0CKafzsmOk+31wv876QLWkb
- HmJC+S0pUwUtC9qsl4LMvwws7txSwdQPsn8zq2A+Eid3puUQg7IdAXuLfQUk2Of3SvZ51dE0Ss9
- EcOKJeFjpiExbMLIhHHKDHfY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id fe3c14a229ddcf9d;
-	Tue, 22 Sep 2026 01:04:21 +0000
-X-Mizu-Trace-ID: fe3c14a229ddcf9d
-X-Migadu-Flow: FLOW_OUT
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Amery Hung <ameryhung@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Nicholas Carlini <npc@anthropic.com>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH bpf-next v1 6/6] selftests/bpf: Cover callback-frame map key lifetime
-Date: Mon, 21 Sep 2026 18:03:33 -0700
-Message-ID: <20260922010333.1226537-7-ihor.solodrai@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922010333.1226537-1-ihor.solodrai@linux.dev>
-References: <20260922010333.1226537-1-ihor.solodrai@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u27RI+j0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3B8F5C2BCB3;
+	Tue, 22 Sep 2026 01:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790039167;
+	bh=RMXWkvGdIEwp93GUgfpDYE+468V2qJEtbkHzxJhbMfA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=u27RI+j0+sQpKuom39ZUFfm6cYgn/zgdy7Lxg86JoirbYq7FxRc/orxBNakjwOoVd
+	 PZxaK2cnQMKx5zMgLrlbOkdvzRZJuB8H8dM7Xxb8GRpW2OUPaB24WHaWcpnsd9Q4Gx
+	 /TIIChmQ2U12VsOdyK9NQ2bdsaW088aV6fV5SrZUaKbex8ecCVlXNPJPZ/5TDxrdvR
+	 5wHGjkTzC1ant5AZqDMnhkDPhahH6FhAwI4O0s8O+aGFAcg6BaDm3h8V/lXt/sZNjv
+	 8D8hN888PkfwsNN3PqdNByHxnoC9kkwPT3246xaXklqGIsI7mG2PCV3teCeHgVNuHt
+	 uAGen75vSuS8g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02135C982ED;
+	Tue, 22 Sep 2026 01:06:07 +0000 (UTC)
+From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
+Date: Mon, 21 Sep 2026 21:06:04 -0400
+Subject: [PATCH] firmware: arm_scpi: publish scpi_ops with release
+ semantics
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-mb-arm-scpi-v1-1-6aabb6533a40@vt.edu>
+X-B4-Tracking: v=1; b=H4sIAHvUsWoC/yXMwQrCMBAE0F8pe3YlSaMSf0U8JHG1KzSWXS1C6
+ b+b1OMbZmYBJWFSOHcLCM2s/CoVdtdBHmJ5EPKtGpxxRxOcxTFhlBE1T4zBeOvtoTc+OKiLSej
+ O3+3tcv1bP+lJ+d0uWiNFJUwSSx5atHE+7XuU7GFdf6Msln+PAAAA
+X-Change-ID: 20260921-mb-arm-scpi-904141530492
+To: Sudeep Holla <sudeep.holla@kernel.org>, 
+ Cristian Marussi <cristian.marussi@arm.com>
+Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Jaidev Shastri <jaidevshastri@vt.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790039166; l=2387;
+ i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
+ bh=3KVpiTKpwcDUtFqj7qJGHnJiAK8nWMpTrAP15XXF8ko=;
+ b=WDhOMCdo75FVRq3OYDKThPlrywAC6GR+ayE7wD4HqoJ06+9vz7zpkYbw6VB2BhdxF2Tbikr/B
+ HQy2rcdcIPLB+92GFXNt8sIo8leFABkoCWpnS2dc91YZKTY7YNn9raE
+X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
+ pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
+X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
+ auth_id=1044
+X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
+Reply-To: jaidevshastri@vt.edu
 
-Parking the key in callback_ctx and dereferencing it after the iteration
-is rejected for array and percpu-array maps, whose key lives in
-bpf_for_each_array_elem()'s frame.
+From: Jaidev Shastri <jaidevshastri@vt.edu>
 
-Two cases must keep verifying, and are the reason the declaration is not
-in the shared map_set_for_each_callback_args(): the same shape over a
-hash map, whose key points into the element, and parking the element
-value, which lives until map teardown.
+scpi_probe() stores scpi_info early because scpi_init_versions() sends
+messages through it, and sets scpi_drvinfo->scpi_ops as its last step.
+get_scpi_ops() returns scpi_info->scpi_ops, so the ops pointer is the
+gate that scpi-cpufreq, scpi_pm_domain, clk-scpi and scpi-hwmon test
+before they use the driver.
 
-Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+Both accesses to scpi_ops are plain, and a consumer that passes the gate
+reads scpi_info->channels, ->commands, ->num_chans and
+->protocol_version through a fresh load of scpi_info rather than through
+the ops pointer. The version fields are written by scpi_init_versions()
+after scpi_info was published, so a consumer on another CPU can see a
+non-NULL scpi_ops together with stale versions.
+
+Publish scpi_ops with smp_store_release() and read it with
+smp_load_acquire() in get_scpi_ops().
+
+Found with MBCheck, a static herd7-based memory consistency checker.
+
+Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
 ---
- .../bpf/progs/verifier_iterating_callbacks.c  | 91 +++++++++++++++++++
- 1 file changed, 91 insertions(+)
+ drivers/firmware/arm_scpi.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c b/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c
-index 1fbcc5228306..2e0c56888953 100644
---- a/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_iterating_callbacks.c
-@@ -9,6 +9,20 @@ struct {
- 	__type(value, __u64);
- } map SEC(".maps");
+diff --git a/drivers/firmware/arm_scpi.c b/drivers/firmware/arm_scpi.c
+index 68a730d22..eaf8134d7 100644
+--- a/drivers/firmware/arm_scpi.c
++++ b/drivers/firmware/arm_scpi.c
+@@ -809,7 +809,10 @@ static struct scpi_ops scpi_ops = {
  
-+struct {
-+	__uint(type, BPF_MAP_TYPE_PERCPU_ARRAY);
-+	__uint(max_entries, 8);
-+	__type(key, __u32);
-+	__type(value, __u64);
-+} percpu_map SEC(".maps");
+ struct scpi_ops *get_scpi_ops(void)
+ {
+-	return scpi_info ? scpi_info->scpi_ops : NULL;
++	struct scpi_drvinfo *info = READ_ONCE(scpi_info);
 +
-+struct {
-+	__uint(type, BPF_MAP_TYPE_HASH);
-+	__uint(max_entries, 8);
-+	__type(key, __u32);
-+	__type(value, __u64);
-+} hash_map SEC(".maps");
-+
- struct {
- 	__uint(type, BPF_MAP_TYPE_USER_RINGBUF);
- 	__uint(max_entries, 8);
-@@ -800,4 +814,81 @@ __naked void check_add_const_regsafe_off(void)
- 	: __clobber_common);
++	/* Pairs with the smp_store_release() of scpi_ops in scpi_probe(). */
++	return info ? smp_load_acquire(&info->scpi_ops) : NULL;
  }
+ EXPORT_SYMBOL_GPL(get_scpi_ops);
  
-+struct key_ctx {
-+	__u32 *key;
-+};
-+
-+static long park_key_cb(struct bpf_map *map, __u32 *key, __u64 *value,
-+			void *context)
-+{
-+	struct key_ctx *c = context;
-+
-+	c->key = key;
-+	return 0;
-+}
-+
-+/* bpf_for_each_array_elem() passes a key from its own stack frame. */
-+SEC("?raw_tp")
-+__failure __msg("invalid mem access 'scalar'")
-+int array_park_map_key(void *ctx)
-+{
-+	struct key_ctx c = {};
-+
-+	bpf_for_each_map_elem(&map, park_key_cb, &c, 0);
-+	if (c.key)
-+		return *c.key;
-+	return 0;
-+}
-+
-+SEC("?raw_tp")
-+__failure __msg("invalid mem access 'scalar'")
-+int percpu_array_park_map_key(void *ctx)
-+{
-+	struct key_ctx c = {};
-+
-+	bpf_for_each_map_elem(&percpu_map, park_key_cb, &c, 0);
-+	if (c.key)
-+		return *c.key;
-+	return 0;
-+}
-+
-+/* A hash key points into the element, which outlives the callback. */
-+SEC("?raw_tp")
-+__success
-+int hash_park_map_key(void *ctx)
-+{
-+	struct key_ctx c = {};
-+
-+	bpf_for_each_map_elem(&hash_map, park_key_cb, &c, 0);
-+	if (c.key)
-+		return *c.key;
-+	return 0;
-+}
-+
-+struct value_ctx {
-+	__u64 *value;
-+};
-+
-+static long park_value_cb(struct bpf_map *map, __u32 *key, __u64 *value,
-+			  void *context)
-+{
-+	struct value_ctx *c = context;
-+
-+	c->value = value;
-+	return 0;
-+}
-+
-+/* Only the key is frame-scoped; the element lives until map teardown. */
-+SEC("?raw_tp")
-+__success
-+int array_park_map_value(void *ctx)
-+{
-+	struct value_ctx c = {};
-+
-+	bpf_for_each_map_elem(&map, park_value_cb, &c, 0);
-+	if (c.value)
-+		return *c.value;
-+	return 0;
-+}
-+
- char _license[] SEC("license") = "GPL";
--- 
-2.55.0
+@@ -1029,7 +1032,13 @@ static int scpi_probe(struct platform_device *pdev)
+ 			 FIELD_GET(FW_REV_PATCH_MASK,
+ 				   scpi_drvinfo->firmware_version));
+ 
+-	scpi_drvinfo->scpi_ops = &scpi_ops;
++	/*
++	 * scpi_info is already visible (scpi_init_versions() needs it), so the
++	 * scpi_ops field is what get_scpi_ops() callers gate on. Publish it
++	 * with release semantics so that a consumer that sees the ops also
++	 * sees the channels, the command table and the version fields.
++	 */
++	smp_store_release(&scpi_drvinfo->scpi_ops, &scpi_ops);
+ 
+ 	ret = devm_of_platform_populate(dev);
+ 	if (ret)
+
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260921-mb-arm-scpi-904141530492
+
+Best regards,
+--  
+Jaidev Shastri <jaidevshastri@vt.edu>
+
 
