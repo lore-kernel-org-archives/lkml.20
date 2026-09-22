@@ -1,355 +1,176 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386BE4DA9DA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EEB42E433
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068685; cv=none; b=W9RVud882xYA+i7QIEVvNMqeIW3r8Jm5lWIAZuxbvml5fmcuuidNdbkZihSpbhOxcuYE9Z0rSYvSuD12sMxQYlVsBvYCBi/f+tV2ybXk/xIGV4gOaG85R2G2asaCuyYdDtgA1fEmzoQkOMPnJC431lodjIB3/86kawOvj8UAQpU=
+	t=1790068721; cv=none; b=MckCmTEZTdIq3dIiyInUA1sQQcaJ5LuZKxl7J+WK+VVFx7c+ONQKaVGL2nlXxorzPNijoLTqHcmCX6X0N85CJhKHyfKb5yRb5tMLquQwS7uaCw4bNC8/X75eGkgiZ0mLz0cLFAAeUtbRbStOhvzS78mAZ5xFzxVl8eumLy2etqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068685; c=relaxed/simple;
-	bh=7J43zfow/KDIJpufRkxn+gN+vTtRzrdWuJEUqmGlG5M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kQ6NKjLAhjxxltP2jqggsHO2ceB6SxH6o0cWTE/qqLqKGqfmsKug+zara+n+dqMXFGfr5H5ZHLWJU9oNr2dQ0B82C5Vsyo0ZHizO56/hGfuHqqzFfrjtOpwdJmlxw9FVOV3Rpa2pttpRoZzZm78ml4g2+PKsO5sEh0BZnP0PTvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=EumMMTG4; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790068721; c=relaxed/simple;
+	bh=mcUzmsbUZQq4E2knB8VSH8G45CFD6tZ2tH8mnwbjETQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BXRQEnKnneuUpP3j0TyjqpqdRL+vZyTt03nwtF55Ma5dEcxKzIiDnSAkAf1dte2hSBeiYN2IXSXUFcxHFQKVCUsjw7ufnH4WR0GAtXBL0XyY/BTP7rscbPN2o6VmOu0K5qjtRbcutwSR6VVQvVDv/GllEG4T1KASlsWHY/ZWl3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O19lbRdH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PDcljAxb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EumMMTG4"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hpvdf2jJ6zKnRc;
-	Tue, 22 Sep 2026 11:17:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790068678;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=mYumJOloRRfmNBmVMGei7wJJnsfP989aOMbaRRvFUAg=;
-	b=EumMMTG4eBrq3E7XnEsQ9rC1RLjbDlPPchXPvamaeWyKHZtE/cm2vRhFhsoRUw9/m7hD3O
-	Kn6z2MxP9UhjxMEjavlvCV5Du4qw0jm/67Me7eAQJDlXEblpwBUK7xWuBmacc5KOvLQUA5
-	SPb6mJgx+XTEhgtZv//Qn0MkaBiov5RcvO1k9zRmYk/FSUbCkv9JeqUguwUMAWXG6DFxLf
-	TgdI2c+7HrmCtfr2uYfZFuh2AvZUJjV6yysWB6hqf7aptOInQJ8AJ6yyehJlHA7u/AGnzp
-	FcHP5rTaimBmVWgJCT6J5uM2jILekyexQZ9wo3oO6hK0AvyKZmuy2LRTeDUUGg==
-From: Alexander Warth <alexander.warth@mailbox.org>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	John Stultz <jstultz@google.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/tsc: Require a deviating refined calibration to be reproduced
-Date: Tue, 22 Sep 2026 11:17:40 +0200
-Message-ID: <20260922091740.344611-1-alexander.warth@mailbox.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O19lbRdH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PDcljAxb"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M9CaUe1842269
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:18:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=XKotZtMS7ewKcsV6iJ09kjS/
+	F3R0guDpSO4Eq1SOvq4=; b=O19lbRdH/itxZvGtSA8IL73kRkl2nvs+YbsiRnuy
+	EGRjefwsJ2ML/300gL+cpQxQX3O1bNw+7gho1CvCGEbu5L/z/vjeVEGGMiPY5Xts
+	EeVw9CyPcDkUUIFNNYd0smVh0kO0kCVT2rVYQZRKkmJdfBpFBBGUBHcEe5C2/D9i
+	qJqE57fr6MsBrDYsjZVnkLgMMN4JCW9rRREuvl4Elf2pM2AAiEPbj93zapYYpXpq
+	dvYNMZbxa4MUtZ+3HPNlFJdygIn3oz6vn5aEHywqk8xK0qwPlACv720ZzSBODi40
+	fyRPhYC4afTzukbvXhoViXgPpWVGqCCaQAlM0cpo37oaHQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guj1116s0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:18:38 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso740482a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:18:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790068718; x=1790673518; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XKotZtMS7ewKcsV6iJ09kjS/F3R0guDpSO4Eq1SOvq4=;
+        b=PDcljAxbsD05EF76VTutfKYl3LdREPRgPg6xk30ZriOm8KDz3PmsFC3jARzt3WjfNk
+         ucoEVVCgUMm3bGLC2cfCMV3BaXbLnaNV4+Kc8JdwL28xZeOI1qR2P4aBrY6Y2k1oqABs
+         MrXgKsVjcuP5aikXhsnNN1tA/WoJMP+mG8sBTk5kkz2DkhWE6+TK9N0aI4GJTucPqlvJ
+         PoDHDe29ggohgBExuoe0Ta7/MREHWS4DUwqNV7NP37fU8jP1MQHRBpTV90a6tYx4WLlS
+         SxSJJ7bMLoEQftfgNxNg+gLZMlbWOEjZdn7cRcy7pLs8Akheg8YYA1JUj860nZUEBHsV
+         oOJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790068718; x=1790673518;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XKotZtMS7ewKcsV6iJ09kjS/F3R0guDpSO4Eq1SOvq4=;
+        b=hXdth3SXdViLnPJdfqvgPsNmGa6u+KoJxrZKeUp+79Z4bgrYtBRGgR9K728KLI8Kmx
+         k7w3DiUrQgH3QY5WmErDTmalmAtR7BineTfs30Yy5/99CKLzwIlunAKxxCA0nNlhcNL2
+         l/4LItYB3PhUZJVwuA9pRY4bg72/v0DxknouD26fFuakNtEDYTrIENrzDCGVPciM4YBI
+         yh1hpFb6/2SixA5AXz66/qCy29rQx62zMxswiBsvSV6cPfsl3U3M1TpCF6n/UTGpvGFL
+         Lm0X9y7KkAFt/Cev6wLaVuaJzhwzr10fasT3p8YWSVnsYGpYaLCQF078RyJj7YPFhooe
+         /eIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwM9zIqQ2DCFc2MVpCm3pUJirZzU0psqFZlhYcMcDIzYWzvY6pORGB8EhAPREzplVjFO4JPNkXQeUVLNhI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNJIj3HSMk5Msb0hzaDsmVoN1m9Wkqu69KLe5iHKDu/ZzcCU5h
+	HrHksVS1GXeLCubKPsQo2snLRBP8qcnepavGDltCaqWAjT9Gi4WOgzj5+IZlDgkpXL4onhW0PS+
+	GQ/Ilc/fSTPdSY4jnGcskHVJwA3V0eoXNoxRr+8r8rsI0Opc5FT8Oqg2L+iZv2lR9R4w=
+X-Gm-Gg: AYBFou03fGiBV3fm0uIesylEVys/4hufjeXafZ5tUkmIG9YEtCmE8DPiChuGJQIqB3c
+	hkujIQECW8t8LCbA8rU98SzQPcqk8IcYV8mbJYX2nfzr+YR0risT0Nb9z5P74kosNbpKexNA3LC
+	b8yIXiHMA5oNNyTD7d6xpkxsBZn/muAkXovvevyx/igzSlE5NCPZaBbuekhXEf91FDaOYCvXs9k
+	FYdjZUU07+7c1Jl7+IN6buuaB6BS3IbyYiJU2O4HXHfnbDchWJWM87l5DUMNy5PPMWiIfdPRH7x
+	zhztr/8Gq2yMwEkjO/ckAD/8+eqfa3giXvrb6VROtoJWCi/zOcoKw5WHw+sabGdt5AwfzKXkO+g
+	ffK7RgAhQa8yYGkjVh2nI1SEzWvVmgonDYjhQJ41RAPm3puE=
+X-Received: by 2002:a17:90b:554b:b0:3a0:5c17:642d with SMTP id 98e67ed59e1d1-3a07326e7acmr483719a91.52.1790068718211;
+        Tue, 22 Sep 2026 02:18:38 -0700 (PDT)
+X-Received: by 2002:a17:90b:554b:b0:3a0:5c17:642d with SMTP id 98e67ed59e1d1-3a07326e7acmr483681a91.52.1790068717620;
+        Tue, 22 Sep 2026 02:18:37 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e610e786dsm4762429eec.1.2026.09.22.02.18.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 02:18:37 -0700 (PDT)
+Date: Tue, 22 Sep 2026 02:18:35 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>, shengchao.guo@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/6] Add PCIe support for Qualcomm Nord platform
+Message-ID: <arJH64UqwPYfg5c+@hu-qianyu-lv.qualcomm.com>
+References: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
+ <arDPABIQl9wKYVKa@hu-qianyu-lv.qualcomm.com>
+ <dfad8320-5a92-4398-83bd-3e796faa24a1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 309f04ad06017c1ae4a
-X-MBO-RS-META: neiw9k5wyd3knd5bm8aezurwtp7my49s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dfad8320-5a92-4398-83bd-3e796faa24a1@oss.qualcomm.com>
+X-Proofpoint-GUID: WD-9rbXjQ8-1ETbBNdghYUpIvR5AD0NC
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfXzo2zxQ+cis/q
+ SKogJI2E/W238Ycn0VJA+n7cX7JqsfSE3PYKpT4yXdgI0nYN78t2GKXzy9/57tcq+td0N2ifh/i
+ iDPKgyqZ7/8ykURsYNZatQwlFLyv/ZA=
+X-Proofpoint-ORIG-GUID: WD-9rbXjQ8-1ETbBNdghYUpIvR5AD0NC
+X-Authority-Analysis: v=2.4 cv=atQnmiZV c=1 sm=1 tr=0 ts=6ab247ee cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=LSDu2nEps--MNvHFjqkA:9 a=CjuIK1q_8ugA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfX6wcPcUFbJDRI
+ oDQHl9JYXeCDNe0G3jh7AcP0crqmm7PAClybv8Wu8lZml0MOpFWDEjAliRqIDlMoaiunW4Co9+u
+ y7kV4h3G+R/eE5UjvJSK/DQLjHjUmw7KAfiIVZxQ2OfYIcWv+etTiZlygJwtChZlmxiH5Xr6O6M
+ 92/rYCL2PmnW45x5oCbCL7tgk070W8M69c3s1lLgyrw2r6UElc5KHkHwxiQakK6vFRv5C8+Pd/q
+ WHl59tAejXtCE99zxIuAWjNNfD5qxp6fsSh0RPDKRE43a6BGVHhFvb/TtChPZzqqSQck77yQSaj
+ i81HckOAiw3aHenmGLAKe9KLuYyorEjdJRYVuv3IsyoR9TcQ2igpOPK/xyMvtKm0UziybhP96It
+ Pzp59itflHREquVLISGfZLwMxjhKgPdNtQzREF/MS6F+8mmNyKwczgUYhgiQqyU1FrI57QlYYxX
+ LQlFJwMCXqSi4LOgzzw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220133
 
-tsc_refine_calibration_work() measures the TSC against HPET or the ACPI PM
-timer over one second and installs the result when it is within 1% of the
-early calibration. One sample is final. The comment above the function
-acknowledges that the window can be disturbed, but the 1% comparison is
-the only defense.
+On Mon, Sep 21, 2026 at 09:37:10AM +0200, Konrad Dybcio wrote:
+> On 9/21/26 8:30 AM, Qiang Yu wrote:
+> > On Mon, Sep 21, 2026 at 11:07:08AM +0530, Krishna Chaitanya Chundru wrote:
+> >> This series adds PCIe support for the Qualcomm Nord (SA8797P) platform.
+> >>
+> >> Nord has a single Gen5-capable QMP PCIe PHY block split into four
+> >> independently-clocked and independently-resettable ports (A/B/C/D).
+> >> Firmware selects the active lane topology at boot via a TCSR
+> >> configuration register, and the same PHY block can appear as a single
+> >> x16 port, x8+x8, x8+x4+x4, or x8+x4+x2+x2 depending on that mode. This
+> >> is similar in spirit to the Glymur multi-PHY support already posted,
+> >> except Nord's PHY registers are programmed by Linux rather than by
+> >> firmware, so this series adds the PLL, TXRXZ, PCS and PCS-lane init
+> >> tables along with the power-up/power-down/soft-reset sequencing needed
+> >> to bring each port up.
+> >>
+> >> The series also documents and wires up the qcom,nord-pcie compatible
+> >> (reusing the existing SA8775P PCIe controller binding), and adds a
+> >> CORE_CLK_CGC_DIS/AUX_PWR_DET workaround required to avoid a timing
+> >> convergence issue in the PCIe power domain.
+> >>
+> >> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> > 
+> > Tested on Glymur CRD and Glymur QCB, devices can be enumerated.
+> 
+> A test of "this didn't break my completely different board" is
+> welcome, but looks a little confusing without you saying that
+> was the intent specifically - unless maybe it wasn't?
+>
 
-That stopped being sufficient when the clocksource watchdog started to
-enforce skew limits of a few hundred ppm. The refined value is installed
-along with CLOCK_SOURCE_CALIBRATED, and the watchdog holds two calibrated
-clocksources to SHIFT_500PPM. A refined value which is off by more than
-~500ppm, but by less than 1%, is accepted and gets the TSC marked
-unstable in the next watchdog period. The early calibration which it
-replaced was usable: quick_pit_calibrate() only succeeds when its error
-is below 2^-11.
+Yes, I only confirmed that there is no regression on Glymur.
 
-tsc_read_refs() does not catch this. It bounds the latency of each
-reference readout, but not what happens between the two readouts which
-delimit the window.
-
-The single sample within 1% has been accepted since 08ec0c58fb8a ("x86:
-Improve TSC calibration using a delayed workqueue"). At that time the
-watchdog tolerated 62.5ms per 0.5s interval, i.e. 12.5%, so such a
-sample was merely inaccurate and was kept. 2e27e793e280 ("clocksource:
-Reduce clocksource-skew threshold") brought the tolerance for a pair of
-fine-grained clocksources down to a few hundred ppm, and 763aacf86f1b
-("clocksource: Rewrite watchdog code completely") made the calibrated
-case explicit with SHIFT_500PPM.
-
-This is reproducible on an AMD Ryzen 3 PRO 2200GE (Raven Ridge, ASUS
-PRIME A320M-K, BIOS 6254). Raw values of two consecutive refinement
-windows of the same boot:
-
-  ref=HPET ref_delta=15135866 tsc_cycles=3385560864 -> 3202.662 MHz
-  ref=HPET ref_delta=14659748 tsc_cycles=3276343968 -> 3200.006 MHz
-
-Measured against NTP over several days the TSC runs at 3199.995 MHz. In
-the first window TSC and HPET disagree by 881us, in the second one by a
-few microseconds. Across boots that disagreement is 881..888us and does
-not scale with the window length: 833ppm in a 1.057s window, 853ppm in a
-1.041s window, 838ppm in a 1.054s window, and 1757ppm in a 0.503s
-watchdog interval. A nearly constant accumulated error over windows of
-different length is inconsistent with a frequency error and indicates a
-one-off step of ~885us. A sampler which compares TSC and HPET every 20ms
-shows a single 883us window and nothing in the following 15 seconds.
-
-The step is in the TSC. A debug kernel which timestamps TSC, HPET and the
-ACPI PM timer on every falling UIP edge of the RTC, which has an
-oscillator of its own, reports for the second containing the event and
-the one after it:
-
-  rtc: second 1 tsc=1000864480ns hpet=999992377ns pm=999992177ns
-  rtc: second 2 tsc= 999986137ns hpet=999993843ns pm=999994133ns
-
-HPET and the ACPI PM timer advance by 999.992ms against the RTC in the
-affected second, the same as in the other 39 seconds of the run, while
-the TSC advances by 1000.864ms. The reference counters keep running and
-the TSC jumps forward once. RTC, HPET and PMTMR all sit in the FCH, but
-only the RTC is driven by a separate crystal.
-
-The jump requires both a warm reset and the first entry into ACPI C2. It
-is present in 9 of 9 warm reboots which are allowed to reach deep idle,
-absent in 2 of 2 warm reboots with one CPU kept busy or with
-processor.max_cstate=1, and absent in 2 of 2 boots from power off, S5 and
-G3, with the same kernel and command line minutes apart. It coincides
-with the first time all CPUs are idle. That points at the TSC restore on
-the first C6 exit, i.e. at firmware. With hpet=disable the ACPI PM timer
-produces the same result.
-
-So the TSC on this machine takes a single ~880us step early in boot and
-then runs at 0.1ppm for days. The change below does not make that TSC
-trustworthy and does not try to. It prevents one disturbed measurement
-from becoming a permanent frequency error. Where the step lands decides
-what happens today: in a refinement window it corrupts tsc_khz for the
-rest of the boot, in a watchdog interval it marks the TSC unstable. Only
-the former is addressed here.
-
-As a result every warm reboot of this machine ends up with HPET as
-clocksource, which makes clock_gettime() take 1878ns instead of 23ns.
-
-Keep the 1% sanity limit as is. Within that limit accept a refined
-sample only when it matches a previous measurement within 2^-11:
-
-  - A sample which matches the early calibration confirms it and is
-    installed right away. When the first refined sample agrees with the
-    early calibration, no additional delay is introduced and the
-    installed value is the same as before.
-
-  - A sample which does not match is recorded and the measurement is
-    repeated. A later sample is installed when it matches either the
-    early calibration or any recorded sample. If two refined samples
-    match each other, then the early calibration is the value which is
-    discarded, i.e. the early calibration is not treated as
-    authoritative.
-
-  - After three samples without a match keep the early calibration and
-    do not set CLOCK_SOURCE_CALIBRATED. That is what already happens
-    when the 1% check fails. Three samples because that is the minimum
-    which still converges when both the early calibration and one
-    refined sample are off.
-
-In the worst case this delays the registration of the final TSC
-clocksource by two seconds. clocksource_tsc_early stays in use
-meanwhile.
-
-On the affected machine the first sample after a warm reboot is
-discarded and the second one is installed. The TSC stays the
-clocksource.
-
-Assisted-by: Claude:claude-fable-5-1 sparse
-Signed-off-by: Alexander Warth <alexander.warth@mailbox.org>
----
-Notes for reviewers, below the --- as this is a single patch.
-
-Tested
- - v7.2.6 + this patch on the affected machine, two warm reboots: the
-   first refinement sample is discarded, the second is installed,
-   clocksource stays "tsc".
- - Mainline v7.3-rc3 + this patch + "make x86_debug.config", one warm
-   reboot on the same machine. That kernel boots more slowly, the
-   refinement window closed before the first common idle, and the ~880us
-   step landed in a watchdog interval instead:
-     clocksource: Marking clocksource tsc unstable due to frequency skew
-     Watchdog hpet interval: 503192165ns
-     Clocksource tsc interval: 504072662ns
-   This patch does not help in that case, by construction. If you test it
-   on a slow or instrumented kernel you may well still see an unstable
-   TSC on such hardware.
- - No new diagnostics in: x86_64 defconfig W=1, defconfig +
-   x86_debug.config W=1, allmodconfig W=1, i386 defconfig W=1, i386
-   without HPET_TIMER W=1, clang 18 W=1, sparse C=2. (x86_64 without
-   HPET_TIMER does not exist, CONFIG_HPET_TIMER is def_bool y there.)
- - The state machine was additionally exercised in a userspace copy over
-   ten cases, including the 2^-11 boundary and A-B-A sequences.
- - checkpatch.pl --strict is clean.
-
-Not tested
- - One machine, one model, one BIOS revision. I have no second affected
-   system.
- - The give-up path after three non-matching samples was only exercised
-   in the userspace copy, never on hardware.
- - No testing in virtual machines.
-
-Open questions
- 1. Three samples means up to two extra seconds before clocksource_tsc is
-    registered on an affected machine, and no change at all on a machine
-    whose first sample matches the early calibration. Is that trade
-    acceptable, or should the retry be bounded differently?
- 2. The give-up path deliberately leaves CLOCK_SOURCE_CALIBRATED unset,
-    as the existing 1% path does, so the watchdog falls back to
-    SHIFT_4000PPM. Setting it would be stricter on machines like mine,
-    but it would change behaviour for every machine whose refinement is
-    rejected, including those with no usable reference timer at all, and
-    I have no data for those.
- 3. pr_info() on the give-up path: keep, downgrade to pr_debug(), or drop?
-
-Deliberately not addressed
- - The watchdog side. An earlier draft made the watchdog require a
-   frequency skew to be confirmed by a second interval. The RTC
-   measurement above rules that out: the watchdog is right when it sees
-   this step, so forgiving the first interval would hide a real defect.
-   Dropped.
- - Two refinement windows which are disturbed by the same amount would
-   agree with each other and be installed. On the affected machine the
-   step happens once per boot, so this was not observed; in general it
-   is no worse than accepting a single sample, as the code does today.
- - The root cause, which is firmware and not the kernel: the TSC is
-   apparently not restored correctly on the first C6 exit after a warm
-   reset. BIOS 6254 (01/2026) is the latest for this board. A vendor bug
-   report is the actual fix. This patch is about not letting a single
-   unconfirmed measurement become permanent, which is a generic problem.
- - If the conclusion is that hardware which steps its TSC like this
-   should simply lose the TSC clocksource, then say so and I will drop
-   this. I would argue the other way: a one-off 0.9ms phase step during
-   boot, followed by 0.1ppm over days, is not worth trading a 23ns
-   clock_gettime() for a 1878ns one for the whole uptime, and it is
-   currently a matter of timing whether a given boot survives it at all.
-
-Tool transparency (Documentation/process/generated-content.rst)
- - The symptom was found by hand on my own machine: the TSC clocksource
-   was lost on every warm reboot. The analysis, the instrumentation
-   patches quoted above, this patch and this changelog were produced in a
-   long interactive session with the AI assistant named in the
-   Assisted-by tag - many prompts over several days, not a single
-   generated diff. I supplied the symptoms, logs and measurements, asked
-   for hypotheses and counter-arguments, and had the debug patches
-   written whose output is quoted above. sparse and checkpatch.pl were
-   run on the result.
- - I have read every line, built it, booted it, and I am answering review
-   as its author.
-
- arch/x86/kernel/tsc.c | 60 +++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 58 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index 723347e2c..b5b803950 100644
---- a/arch/x86/kernel/tsc.c
-+++ b/arch/x86/kernel/tsc.c
-@@ -341,6 +341,17 @@ __setup("tsc=", tsc_setup);
- #define MAX_RETRIES		5
- #define TSC_DEFAULT_THRESHOLD	0x20000
- 
-+/*
-+ * Two frequency measurements are considered to describe the same clock
-+ * when they agree within 2^-11 (~500ppm). That is the error bound of
-+ * quick_pit_calibrate() and the skew which the clocksource watchdog
-+ * tolerates between two CLOCK_SOURCE_CALIBRATED clocksources.
-+ */
-+#define TSC_FREQ_MATCH_SHIFT	11
-+
-+/* Maximum number of refined calibration samples */
-+#define TSC_REFINE_MAX_SAMPLES	3
-+
- /*
-  * Read TSC and the reference counters. Take care of any disturbances
-  */
-@@ -1279,6 +1290,13 @@ int unsynchronized_tsc(void)
- 	return 0;
- }
- 
-+static bool tsc_freq_matches(unsigned long a, unsigned long b)
-+{
-+	unsigned long hi = max(a, b), lo = min(a, b);
-+
-+	return hi - lo <= (hi >> TSC_FREQ_MATCH_SHIFT);
-+}
-+
- static void tsc_refine_calibration_work(struct work_struct *work);
- static DECLARE_DELAYED_WORK(tsc_irqwork, tsc_refine_calibration_work);
- /**
-@@ -1292,15 +1310,19 @@ static DECLARE_DELAYED_WORK(tsc_irqwork, tsc_refine_calibration_work);
-  *
-  * If there are any calibration anomalies (too many SMIs, etc),
-  * or the refined calibration is off by 1% of the fast early
-- * calibration, we throw out the new calibration and use the
-- * early calibration.
-+ * calibration, or it deviates from the early calibration and
-+ * cannot be reproduced, we throw out the new calibration and use
-+ * the early calibration.
-  */
- static void tsc_refine_calibration_work(struct work_struct *work)
- {
-+	static unsigned long seen[TSC_REFINE_MAX_SAMPLES];
- 	static u64 tsc_start = ULLONG_MAX, ref_start;
-+	static unsigned int nr_seen;
- 	static int hpet;
- 	u64 tsc_stop, ref_stop, delta;
- 	unsigned long freq;
-+	unsigned int i;
- 	int cpu;
- 
- 	/* Don't bother refining TSC on unstable systems */
-@@ -1364,6 +1386,40 @@ static void tsc_refine_calibration_work(struct work_struct *work)
- 	if (abs(tsc_khz - freq) > tsc_khz/100)
- 		goto out;
- 
-+	/*
-+	 * tsc_read_refs() bounds the latency of the individual readouts, but
-+	 * not what happens between them. If either counter is disturbed in the
-+	 * middle of the window, e.g. the TSC steps forward once, then all
-+	 * readouts are valid and the result is nevertheless off by hundreds of
-+	 * ppm.
-+	 *
-+	 * The refined value is installed along with CLOCK_SOURCE_CALIBRATED,
-+	 * which makes the clocksource watchdog apply its 500ppm limit. A
-+	 * disturbed sample beyond that limit gets the TSC marked unstable in
-+	 * the next watchdog period, which is worse than not refining at all.
-+	 *
-+	 * Therefore accept a sample only when it matches a previous
-+	 * measurement, which is either the early calibration or an earlier
-+	 * sample of the refinement. If no two measurements match, keep the
-+	 * early calibration and leave the clocksource uncalibrated.
-+	 */
-+	if (!nr_seen)
-+		seen[nr_seen++] = tsc_khz;
-+
-+	for (i = 0; i < nr_seen; i++) {
-+		if (tsc_freq_matches(seen[i], freq))
-+			break;
-+	}
-+
-+	if (i == nr_seen) {
-+		if (nr_seen == ARRAY_SIZE(seen)) {
-+			pr_info("Refined TSC calibration not reproducible, using early calibration\n");
-+			goto out;
-+		}
-+		seen[nr_seen++] = freq;
-+		goto restart;
-+	}
-+
- 	tsc_khz = freq;
- 	pr_info("Refined TSC clocksource calibration: %lu.%03lu MHz\n",
- 		(unsigned long)tsc_khz / 1000,
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
--- 
-2.47.3
-
+- Qiang Yu
