@@ -1,200 +1,171 @@
-Received: from mail-wr2-f7.google.com (mail-wr2-f7.google.com [74.125.225.71])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF44559CA0
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371EF3A7582
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090973; cv=none; b=OpS1OlLAgjHxtqAOj2VdpkZ646rEYMQtHxU1Q4/8EUL3qfDZPZM60muO4q2b/TH507AWR50uhYXbyg5JiNiP284vFnLzKsY4HlO/n9rmjDt2ALUxIJtvztkfT1yEZfUaZLLMrljM+XhO5lpWqnjKbPFmj+gKZTFrde3xJnGRPhY=
+	t=1790090992; cv=none; b=ZhA4WTHO2Eeo8zWoEOk+7Vbpc+ngjGd7zYiK1RFB0md5jG4pE8/d4YV3z6SBd7cb4ff4WM2QOTSXx0zJYq/u40cdOIuHBwQrcgOCdzKuoRGsGQvtihZARwBfjP9GnVxCBTWVN2fRjQPfZcx+21Ym/IcXX0DkC5CEP5g9rEvHvSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090973; c=relaxed/simple;
-	bh=WGdxf4JWgsj7qXEES4uwLAJCsB8IbrSJIDy8qKtOpcM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rbGDw3PY2jagVhwvP0kHtjX5i/Yqky+tg6G/PezI9OVki6gvwHuNP9HSnSJ6M81FFXCQpQ89iuB0qCXH9A9BHVgHpoNVhCCPQ++pnsj/YIjZkA8pzTImfSCtmBYYRIAmfFsnvHMRu7uTNIIzmNqWCVX9p+bSyDg/Y1CRZtIt4m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr2-f7.google.com with SMTP id ffacd0b85a97d-487166a578eso8621f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:29:31 -0700 (PDT)
+	s=arc-20240116; t=1790090992; c=relaxed/simple;
+	bh=CUW/t2DMGC6KDSVpvSRK/dfZFN7R1fhGqhxAik9+46o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nqwSt11myRIehAMFpGJtF+OdEkDfemJCAYA6gOkrTPoeEfR/3CVSlf5hucchTm+a8Dbcj42WdToDeVia1NFDF0IPEsOZF+Fsl7eZBy5ADXEuoyyNEsvqNk3ZIwvi8Hyc2E1LXdjKmGSRRIJS958HZMt6w2ZSM9xSX5ul0Daon5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WImjeYPV; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WImjeYPV"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so18587405e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:29:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790090988; x=1790695788; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1DGnyimutypPX7y/xqfpAs9eZjemWTA2RU3uj5JDyxc=;
+        b=WImjeYPVaA+9aNuCCHjHV8h2elkCDlK2xo3xHhNpzebtPy1Oxjf+41Uy9uLZ6J5kZ/
+         Kk1PDvRecpUs8GZPX80GhAYRmPfMruDjZ6TynRd9omfKEJrU98Qi/wRgQgr3gYh8M9ck
+         WGQRLTkPLyv88pTLVLuGEKtujWM6xhF1UJc3OVaWb4d5eBqGygvcXG9W1JURMPeVxQ9N
+         y4srb+3fPcegkRhLII2RMnCCWVJDPBE1cOhndtfIwLq7hkwSnxqr/1jBax18gUApZlCs
+         KYDVRqtQc48wnTVlzDZ5EFzomZ6cyD9kvTfpxOviqzfnOR0BPoCCriMuEqk5k7/pnz62
+         2Bsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790090970; x=1790695770;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QFN5eT2UnxXyQbw0Bbtp+XvC5zxP4g1xuK4mAIg36L4=;
-        b=fyA1i2rF38f1tmk/cTOvp9B6ZNr4THcHVscnkxNv1qzcLvwNH+reiN79Sy3VhRg41k
-         RNwCI3rOTmTug0BCP0sDp7MA/DAaZWGNG6+VIO0Cwj+lEiNlSnt6USJzTFnzt9GHUE/4
-         Mqx75we2vyrjEo5tZLSRmlqqziGLRq32lmAAy6F8n3GHFKRAVRbJzlWe6QC+z7KcnueB
-         V3w4tNklcxfLpp7dqVAzea7hux18ExWeRb74dWQFACxd4MVDeruHySrnD4vbHC8aJ/zZ
-         ksH7HiDqPAdLP0JxHzGwftFLpL8EWnuCQoAnTb01gxt/+EUUXfHXHoWSswKb5GJ9aV/6
-         Flvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYst85YuwMzK2V2YmVfrakZhm+FO6ETQ9FX2tvn2D/GlNqQo/SZsbpkp6QjbzYUp/oLFrghyMZLdZ2tWY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbpWwz78aaucb6UqvZ6Ka3eOFql8YYbfxbrK9aASKdYtHNl7Me
-	joFCYEvuuRP+FQULsR518f7bTV115qwff12Mmj5helXNBVmK8FClpjY9
-X-Gm-Gg: AYBFou3YhdVQ37+sz6EUuvo+VG04v2wfll0je+dFBZp9foHOicYVDar+3i7agIaNBbE
-	hDvoN0Bx13R5GjM9fJ7gksBi6qen1FJziWKC0MCCTn3soFvqZP2HACu0kkfytE/ADjxkp6C6QhQ
-	5vWMkJmBEpvO6fpa3IvJShO4srgvfgrqBhAvQMMhs2+biNdlPwgnNqX5loWCQHBHDU3CNRnyfTJ
-	2MwIILZ2fKb4eQvIriUwfUXbNnP13jTUQqBe53f4JlcHGJwJzCM3v3jzakJNKLbRexRI4mKAsQh
-	22v2JkQ79i92bXrAcSi94NgjeM+O0wNCoNE2tzhikZ4tZcGU9Vdw6Y4eEb6eD+4bSI0DPFQ1E/u
-	M04AgEGpsP2R/LT6VW0r5ZPKK2iKVopwdK7KD9Z310e7NSRyfCBBmOSJA4K852uATgJTnO/JXE+
-	rfuIeDXJIaexGe+f6bOoKiR/fZgyZRytWyRx8yDwMCsAM25iO9xh09H4OEe5uCUAmymWW+Vn1sO
-	KXIl0PY/TC94PZ6ZjDdhjMqyGx0TA+GQRUUNZE8xkVvSJU=
-X-Received: by 2002:a05:600c:8b10:b0:49d:2936:8ad1 with SMTP id 5b1f17b1804b1-49fd8853834mr49427975e9.1.1790090969679;
-        Tue, 22 Sep 2026 08:29:29 -0700 (PDT)
-Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fda8f04f7sm96753605e9.0.2026.09.22.08.29.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 08:29:29 -0700 (PDT)
-Message-ID: <e3e001ae-cf08-408a-9059-4255de915110@ovn.org>
-Date: Tue, 22 Sep 2026 17:29:27 +0200
+        d=1e100.net; s=20260707; t=1790090988; x=1790695788;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1DGnyimutypPX7y/xqfpAs9eZjemWTA2RU3uj5JDyxc=;
+        b=HgsBdGp/g7ICxPyTUu9ZEVO5DUw9jh8H+WE1t3GSplmRJ797bxg+U/cE8L+6uJQGrW
+         fA/ZtYDgiRJg9i8RUyzRduQZWugI9BC5w4TLwWezy/34jmo4a+6flT+ft3Jt5u4XWOFR
+         6ppAA9ssLF9w92dFUzXHNae8a3CnRz1V1Vy2Z3gznIRadXzzoWgGi5fGzlPDf0kD//rN
+         f23poJwNoFOWwqKy4m034PNzdfQn6eTsGdjWgM+pP7gnxhP+CGNgstDmz61CHKsx4em8
+         ZcgqUXQ+IyQZLDKhkOaXEy8Eu/Bl0J6mv2NH+6FNMYGYpP+ruTrKsfkBHpDWXE0OzoPp
+         m/0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz2Hq884WrXnYR0vMVrdl1Hrgot3srXp8cEiVJ1Ksfqob3AkNLRMhIjyl/uzo9Q2Bw7RY8zJVnurX6VNq8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9141jBq9nWK9VcDOwSd5+weBcWAff61j7ciGVknl1wxwqTHri
+	NOm1neW4HMvU5spWLXnUoRwSCOjPs1NwoIjWByQ2LYkRoNNdnEPsBfZF4sUbPrFBaaYgT0Kyk2g
+	9h5KvdPw=
+X-Gm-Gg: AYBFou3NytZ/fDV1sxeQ4g89QZtvnJwHMbTU88EoQ3jVM0+dh+VPVQuCSqjJlvn+Uqz
+	8TkQFg2Kf1yQkED82mUjj7GDDSEcnhFVACXNQQLY/4z32350Y6h/GpcGxfJJzrNsRaCdPkruPr+
+	mut1RhaYUPwOwS6jmBni981nkZC2OTzm3xKsD0hVMUbhY5WWjisbgws9sOhM4L1AXEy+RykRiKf
+	cKtthR5R1GA6A1zeuQh+T+edtAiRaTsA7ERuWQMfipeVb6LVYIPnfU8TuHkJ+dC2dxDd+oJa12s
+	MiF+XuBuVcKcX27Hs9MxspeLwnzMKSM6nZ/1V2K55sTAWCiSj0//BBa4l+/B0xBitCv1Xf/Iwtz
+	UwXwqS5QimvxGyEu6oc+b+FuGIkOVQILcN4HayKGFpchYzFUmwqVtwe3FKjrMSR/iRdsnbnTtm4
+	sf3wBjnP8qOq2uJtyi8fpDvh8CSk0HR+WfPNcdHPQWnxDI4rMvY03LRVWbC0sbOgVJ9qgVPtSmR
+	kt01u5AvYA=
+X-Received: by 2002:a05:600c:34c6:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fd88607e7mr56471145e9.5.1790090988292;
+        Tue, 22 Sep 2026 08:29:48 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde064b0asm1128295e9.3.2026.09.22.08.29.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:29:47 -0700 (PDT)
+Date: Tue, 22 Sep 2026 17:29:45 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: akpm@linux-foundation.org, peterz@infradead.org, rostedt@goodmis.org,
+	senozhatsky@chromium.org, neelx@suse.com, sean@ashe.io,
+	rishil1999@outlook.com, linux-kernel@vger.kernel.org,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	john.ogness@linutronix.de
+Subject: Re: [RFC PATCH] panic, printk, sys_info: Introduce
+ crash_kexec_in_memory_sys_info
+Message-ID: <arKe6WiDWKpv-_S3@pathway.suse.cz>
+References: <20260916201546.661384-1-atomlin@atomlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/6] net: openvswitch: conntrack: remove 'add_helper'
- dead code
-To: netdev-bot+sashiko@kernel.org, i.maximets@ovn.org
-Cc: netdev@vger.kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, aconole@redhat.com,
- echaudro@redhat.com, jhs@mojatatu.com, jiri@resnulli.us,
- lucien.xin@gmail.com, marcelo.leitner@gmail.com,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- linux-kernel@vger.kernel.org, dev@openvswitch.org, stable@vger.kernel.org
-References: <20260921145655.3167436-3-i.maximets@ovn.org>
- <179008911774.2160803.5007856848467620850@kernel.org>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <179008911774.2160803.5007856848467620850@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916201546.661384-1-atomlin@atomlin.com>
 
-On 9/22/26 4:58 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] Concern: after this patch the comment above the helper call reads
->   '- nf_conntrack_in() was executed above ("!cached"), or - When…
-> 
-> --
-> 
-> net: openvswitch: conntrack: remove 'add_helper' dead code
-> 
-> This drops the add_helper variable in __ovs_ct_lookup(), since it is only
-> ever set for unconfirmed connections while it is only read on the
-> confirmed branch of the helper-call condition.  The helper-call condition
-> is simplified to nf_ct_is_confirmed(ct) ? !cached : info->commit.
-> 
->> diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
->> index a733029c28dd0..c20f096eef40e 100644
->> --- a/net/openvswitch/conntrack.c
->> +++ b/net/openvswitch/conntrack.c
-> 
-> [ ... ]
-> 
->> @@ -821,13 +818,10 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
->>  		}
->>  
->>  		/* Call the helper only if:
->> -		 * - nf_conntrack_in() was executed above ("!cached") or a
->> -		 *   helper was just attached ("add_helper") for a confirmed
->> -		 *   connection, or
->> +		 * - nf_conntrack_in() was executed above ("!cached"), or
->>  		 * - When committing an unconfirmed connection.
->>  		 */
->> -		if ((nf_ct_is_confirmed(ct) ? !cached || add_helper :
->> -					      info->commit)) {
->> +		if ((nf_ct_is_confirmed(ct) ? !cached : info->commit)) {
-> 
-> [Severity: Low]
-> This isn't a bug, but does the reworded comment still match the condition?
-> 
-> The first bullet now reads as an unqualified statement:
-> 
-> 	/* Call the helper only if:
-> 	 * - nf_conntrack_in() was executed above ("!cached"), or
-> 	 * - When committing an unconfirmed connection.
-> 	 */
-> 
-> while the code only honours "!cached" on the confirmed side of the
-> ternary:
-> 
-> 	if ((nf_ct_is_confirmed(ct) ? !cached : info->commit)) {
-> 
-> For a non-committing ct() action on a new packet in __ovs_ct_lookup(),
-> cached is false, the entry returned by nf_ct_get() is not yet confirmed
-> and info->commit is 0, so nf_ct_helper() is not called even though the
-> first bullet says it should be.
-> 
-> Worth noting that the following patch in the series, "net: openvswitch:
-> conntrack: fix helper UAF due to extensions realloc", rewrites both the
-> comment and the condition to:
-> 
-> 	/* Call the helper only if nf_conntrack_in() was executed
-> 	 * above ("!cached").
-> 	 *
-> 	 * For unconfirmed connections it will be called later during
-> 	 * commit as we need to have all the other extensions allocated
-> 	 * before the call.
-> 	 */
-> 	if (nf_ct_is_confirmed(ct) && !cached) {
-> 
-> so the mismatch only exists in this intermediate commit.  Could the
-> deferral note be pulled into this patch to keep each commit
-> self-consistent, given this one is tagged for stable?
-Comments do not need to spell out verbatim what the code is doing,
-it is pointless for the most part.  The current comment, IMO, is
-conveying the intention clear enough.  It is also re-written in the
-very next patch.
+Adding Guilherme and John into Cc.
 
-Best regards, Ilya Maximets.
+On Wed 2026-09-16 16:15:46, Aaron Tomlin wrote:
+> When investigating kernel panics, capturing post-mortem diagnostic
+> telemetry (e.g. memory zone metrics, lock states, active timers, and
+> blocked tasks) is vital for root-cause analysis.
+>
+> While crash_kexec_post_notifiers allows executing panic notifiers and
+> sys_info() before jumping to the kdump kernel, it is frequently avoided
+> in production environments due to the risk of watchdog timeouts induced
+> by synchronous hardware console emission.
+
+There seems to be various motivations to set/clear
+crash_kexec_post_notifiers.
+
+Guilherme wanted to add some filtering because some notifiers
+were failing, see
+see https://lore.kernel.org/all/20220108153451.195121-1-gpiccoli@igalia.com/
+
+I believe that they are called after kdump by default because
+the information provided by them is included in the dump.
+This idea is supported by the commit f06e5153f4ae2e2f3
+("kernel/panic.c: add "crash_kexec_post_notifiers" option
+for kdump after panic_notifers").
+
+On the other hand, crash_kexec_post_notifiers is explicitely when
+the kernel is running on some hypervisors because the hypervisors
+need to get notified about the panic() before crash dump.
+
+All I want to say is that the situation around
+crash_kexec_post_notifiers is much more complicated. And I hear
+about the watchdog timeouts in this context for the first time.
+
+> To resolve this dilemma, introduce the crash_kexec_in_memory_sys_info
+> boot parameter. When enabled, it captures diagnostic telemetry directly
+> into the printk ring buffer entirely in RAM before jumping to
+> __crash_kexec(), completing in milliseconds rather than tens of seconds.
+> 
+> To make this safe, fast, and reliable without risking buffer overflow:
+>     1.  Scoped console flush suppression
+> 
+>         Provide printk_suppress_console_flush(bool) to clear the console
+>         flush mask in printk_get_console_flush_type(). Messages written
+>         via vprintk_store() remain in the printk ring buffer in memory
+>         and avoid synchronous hardware console emission and waking
+>         kthreads.
+
+This might help when the claim about watchdog reports is true.
+I am not sure about it. Anyway, there are other ways how to
+prevent watchdogs stepping in (touching them, disabling them, ...)
+
+The console output is important when the crashdump fails.
+
+>      2. Scoped ring buffer tail freezing
+> 
+>         Introduce printk_freeze_tail(bool) in printk_ringbuffer. When
+>         active, desc_push_tail() and data_push_tail() refuse to advance
+>         the tail. If diagnostic logging exhausts available ring buffer
+>         headroom, new records are safely dropped, guaranteeing that the
+>         initial panic Oops, faulting registers, and primary stack trace
+>         are never overwritten.
+
+This is another questionable feature. The ring buffer would need to be
+super big to hold all messages since the boot. IMHO, servers are
+normally running hundreds of days and the log buffer gets rotated,
+like the user space logs, ...
+
+
+>     3.  Execution sequence reordering
+> 
+>         Reorder __sys_info() so compact, high-signal subsystems (e.g.
+>         memory) are collected first, leaving high-volume dumps (all CPU
+>         backtraces, full task lists, and ftrace) for last.
+
+This might make sense. I am just afraid that it might be a personal
+opinion and we might end up with an endless shuffling here.
+
+My opinion:
+
+IMHO, it does not make much sense to dump sys_info() before kdump
+and block consoles. The information is lost when kdump fails.
+The information can be extracted from the crashdump when
+kdump succeeds.
+
+Best Regards,
+Petr
