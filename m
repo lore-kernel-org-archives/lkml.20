@@ -1,148 +1,126 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7CF3B3C11
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2355D519DEB
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790120512; cv=none; b=VOjA04eoIrfuMEcv/Mf2VWc/avKZpaT2QG+z3lf65hVLno2WTIA5Rt8uuLYc6kuIyoFpJKtamn4g26s3CSqedVdNTro4nbPjyfnJb9J/uK2IoMJwVFBnzVU/eBwCGdlH8cC8ph5bX6TFFucRFLxRbFYf8bE49nPJTPbzyWAZj+8=
+	t=1790120562; cv=none; b=UAuRNmg8R4+9LpX8HuRuPKrBZJras0FTR+sUOemQwKd2FKMTWxUpSGu0R7mwZtqFVWWyiX5hn4dlFf/Mz3EftaLBYJTuYUevhFAEAFPjIiplxhN8Gb8AvIuWAbVjBGGfWx26FziN8Q/RNvIdrIw9vT0o809wZxKd9wg8xfSGkZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790120512; c=relaxed/simple;
-	bh=UBbJe1oEZMVEBnwz0Jkyz9CJtRLjI0G4uhKnk+yV9DA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pwqd1A5MhwoZmxPjkjoisBb1831mmc9WoEF/Tv46j11evEapMFZy+6rtbJWQ17L2Li+qakHdUySDpWUcFnCQ8QSliqgprctzOxjB7cJj+HaZ7NFJuMg5Z1o8uw2qFthfnMobkrZ3SXCRoNCf8u1OtrY7vlZwLlCXpT09Es2xLE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GjI7uDXy; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790120562; c=relaxed/simple;
+	bh=Tm5Q1x/A1C9qLPGuuJEixa/lYRMV/+fSTph2SixjdSY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KGjmhZaas8/XY4rshwpdjH4CL1nB39oBuYpSwq6XBp3gYiYq3qjzQBCaIsLksnqiS83qpYS3DsfVf80R0XEN0xVZKnjssL6+ehcZq4No83zFMk1K/NHIQ/g2FClrgjz2xnVc1sincEEFAFlZQsX+ZZnsQ8o2rjBIHAxJoz20yBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nUJazm6F; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GjI7uDXy"
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-786c3d55c99so138754137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:41:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nUJazm6F"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so44549666b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:42:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790120505; x=1790725305; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rSatJQry0kvCfjOyHMI34oJzA2rpZ7XOemBqHWKUcnc=;
-        b=GjI7uDXyoOHrwuQhXG+Xc12baPazdBd7TF3uX4qdYhBIjgwFBLXfZvgUwudp9H6rWu
-         vp0jw7ZhkPBtKVfymFAYrzIMq6f9Ac75EVLrgREJz33DBSU/0xy6lgE+hy6/9afuIvkQ
-         lQvJoMFFTRGvxg7aVuSojw8LKZNul/tMafdLbR6CSse7gJ9S/1lVs1bn8EE8rncJPtio
-         XWOJGev/dthIXIiPluygTkFnarqvkIyUUAiUw3KVPB/g0TGL6b8JqaEtJ0QZwzQfCGY2
-         YvuElWlJjXdXH945JizpsrIsYBv8Qcvtt2nbFHwbSId85Mh0d86PWUdsTe54dDHohVn1
-         zyCw==
+        d=chromium.org; s=google; t=1790120554; x=1790725354; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6QEQxoavMoQIndMMFiVqJDQ1ivheIExybb74B+VtDiU=;
+        b=nUJazm6F17ssn9doIlAiR6ItVQHdioeVXvDt1azF2ucNq/m7i4Xpt0enBIQOoxpeSi
+         q+VP5d5VavHoiL3PIVWLE6URltbvi6HjQdvR+Yv8zNKhj1PvcxKUKRYjiNigYbggQDv8
+         6pGvhgwKJUA0S98hEo7RoqB8N+TeN/z63a6Nk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790120505; x=1790725305;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rSatJQry0kvCfjOyHMI34oJzA2rpZ7XOemBqHWKUcnc=;
-        b=rq1YD1YeVAHE75xGr8YA8Y6d1dkUs2mC0xIspm2mTxrlDMZuX7GnegWWAtudOPG1Il
-         +DiZzzMoE8y40bWQsgqi64pC5jR+HQGmvgUZPdQIP5EzkHvMtQzCNLu7ZiYx+m8/ybnS
-         dKFQYUd8fv/M5m9SGJ4l3JEh5MnVMUQDw2ZIvvQ7hJFdk40T+qAds8T1U8oPDTbI2mi1
-         KSH3DWyNfy+ud4M34m11Ic70F+h0lORFBH+sgdSgOlJMpmZHbCJlnb7Xqi3UEJqyXJb/
-         aT5/tCNThqLGmnVa9qaW+VcFHMKIm2dnVW8NsXzvHdEl4/RRPpp8PzYQ7qHAXoHG7fgO
-         k7zA==
-X-Forwarded-Encrypted: i=1; AKwUvBw4RGhjEqUwP0Zx9UMk7zdOu1epYs7y8i6qUiCU8JvuXtDVxI4STyalzZ6DJPBtUpN8bflU/6n/HPDhQ4g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKDpC4vGTN0ENDuYTmDCco4MjTlvae4DmiKhOrhs7xE0tUL1XU
-	vH15HiJEQs44WSn+q7RhVYJddGhpb9yJeGoiwZPfmg0yLWcmZyPSlXKYwBc9ocQxWjc=
-X-Gm-Gg: AYBFou1MUZLYzWMMvS4eR5GgX2viYyuicZ92ymwTa/Uqp9zNBvAyE/r2odZZxlog/uU
-	+HCk88JkI72zy4eC50rxUdGa52cuVduB3Ul4nW46sdbuVmEbnfcjix0S45AU5LgNwvbqLGXCHoR
-	dYfgT3hN49Nj11k3DokfrguevU1AYdxHmUMue+XLVvrI+yHJ5/7ikaMagYlsce53N422xllqLWZ
-	on9OHN5eBp20mr7PJ04/8otbcTzCGdUkTGI5baUqgaZ4T7483N2QpEd4xr56uBhmvOW7wgpo0kV
-	+WCTR0/zo1dGijmlfuBvsoPjJB1I0+RDQlxSYpvpAr4qxtUgoL+Y52qaHhPr4O4My1IFoFwIYe2
-	95ezeu5OTYFBvZA3u+SRWMSSYgP+PW/laoZNqJipiK/wLOGrdd/pHqD39WFxd31YPTTtboR8utj
-	+jZgq6sPMhKoPyKtxNJRxAeVFt1pgKbHwhtsG2qNkp4PZUac9o2drUctN2ogKSHyeYU9yDr6+0M
-	aQKOlozRfemyM5CPMktyzQfcrNncaa2mv9OMN8D59Sk2aGew2Bqh0FnyA==
-X-Received: by 2002:a05:6102:4414:b0:7a1:f2b4:dae0 with SMTP id ada2fe7eead31-7ac0d12c7b6mr1298181137.13.1790120505470;
-        Tue, 22 Sep 2026 16:41:45 -0700 (PDT)
-Received: from bazzite ([138.122.221.5])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5c6d7b2sm1842902137.8.2026.09.22.16.41.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 16:41:45 -0700 (PDT)
-From: Davy Felipe <davyfelipe34@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Davy Felipe <davyfelipe34@gmail.com>
-Subject: [PATCH v2] hfs: handle extent B-tree write errors
-Date: Tue, 22 Sep 2026 20:40:39 -0300
-Message-ID: <20260922234039.1307375-1-davyfelipe34@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920160213.285316-1-davyfelipe34@gmail.com>
-References: <20260920160213.285316-1-davyfelipe34@gmail.com>
+        d=1e100.net; s=20260707; t=1790120554; x=1790725354;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6QEQxoavMoQIndMMFiVqJDQ1ivheIExybb74B+VtDiU=;
+        b=qE5jN8wo5M2gqHEaiOWY/rqwpg99/FXdj4beHSlXr8VtNVxEofR2S8jagh+Y3GpBY5
+         WFVPV8+XmRDinRL0PWyLELDbJ/6iEWdUu0XMG87faf44+eGiMzYt84bwX6A8Oe1kTXGp
+         P3l7m/AeodQTypSdQeXpn09rzaWWrFgyeN++hNzHUiZ+whLal4PbWRPt9JtcnDkhJ8lN
+         TnwgSR8siyvNO4I1MQDPfuR0NSDMxkTNIE9V/Ep6mJb882+wulXeuwu/y0gxeEO1Xetn
+         0QFXMwAm9Phs3SqawUchmRXJ7kiXDhCTEy/SdycTwIhwLU0VUhwttRPGzRKy3CEU2+8z
+         bgEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzp6cXuLmNIvVnXKrnCBzBoAqSX7huv1ose+Dl79gDRp6/D/BYvBKKgBq/pnHlYH7hZURqUyr6gzKXOBIk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldvRa8Ib+krCCYQLVLkeXSz+TCMyY0ItmvyjlF3ISVcDh9T8Uv
+	G9VDUO8ivmSC1zLqW8iUTYGrdNEY1v5/7z3clgobr8tJCBug/RRgbf+rKOze3ckB5BrBa6Dt+D+
+	JbAlR1A==
+X-Gm-Gg: AYBFou3II1VMFoRFnCtge+L9FsK/z3SBlnY5Q879brXiXM633AVVAjltXNVxIJGc0Tn
+	3FTqzcGurHKj/kfzfQ0NrvJtagPXvHppynZwtFmcJG5doRRRJTFyPhkFLnbAn7ioIy3q8K16KUY
+	FWgUDyMP3ZL56ATJM3vJZGM4d6uV0HcOaSQliGj1J+WTFvIGmSpfjXmIL2+FYCFfplW8nZ1lHxw
+	qNap0wA1NE7yHki7Zrn0xaGQhY0QVRjH1ICqIWmmJRpYiDpF3WU8JiuRkL+8nL/9C8s0MXtwhPf
+	ATO81m2VDV8DhLTrzBmvIW9A2SCy39/RpeT0afyU9ZJKNX2yNciqc46RcMQqMCG3/nTQLVFIWTc
+	HsJTeDcOchNyDoXwcDHY1xyXub1JdhGFNTbtgvfn2k6DXYZmagpNG7CPLear9kDnJyuftJfWxa9
+	GL1IaWOfIT/vTW1lbh2u1mXbH+p0/nde0+L0HhgkWw3HNsO4eMp3QIOQItkdv0/0DBTgPAIE147
+	UxR3hyDQVtcfy+WmBN86CNuvJLspzLXeSN46U4=
+X-Received: by 2002:a17:907:9409:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c2aae19b8c9mr52807966b.21.1790120554125;
+        Tue, 22 Sep 2026 16:42:34 -0700 (PDT)
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com. [74.125.225.76])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e7bcsm474857a12.10.2026.09.22.16.42.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 16:42:32 -0700 (PDT)
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so359844f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 16:42:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwmOk/ZJTIrlQBgjDPxXzwFXQZwXnT3nKftKQL98m7Gyl9uxtlYaIYe2BShvYeWAqJKwwkjwe8RGbj6vys=@vger.kernel.org
+X-Received: by 2002:a5d:6f06:0:b0:487:ff2:12f4 with SMTP id
+ ffacd0b85a97d-48867095bc9mr1161089f8f.40.1790120551055; Tue, 22 Sep 2026
+ 16:42:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260922154907.90535-1-fangxy@xiaopeng.com>
+In-Reply-To: <20260922154907.90535-1-fangxy@xiaopeng.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 22 Sep 2026 16:42:19 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UDqPUAWw+h-t4Jkno0Sy0_2T8xfXZgfjsVMM1fTG3JkA@mail.gmail.com>
+X-Gm-Features: AclHuK-NWZIE87V6rWLLln_WhNGGFfao7sLjyvoRWdgPG1M9Jc2x8BXnX1LZRPc
+Message-ID: <CAD=FV=UDqPUAWw+h-t4Jkno0Sy0_2T8xfXZgfjsVMM1fTG3JkA@mail.gmail.com>
+Subject: Re: [PATCH v2] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: jason.wessel@windriver.com, danielt@kernel.org, 
+	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-__hfs_ext_write_extent() does not report all failures while updating
-the extents B-tree.
+Hi,
 
-When inserting a new extent record, the return value of
-hfs_brec_insert() is ignored and HFS_FLG_EXT_DIRTY and HFS_FLG_EXT_NEW
-are cleared even if the insertion fails.
+On Tue, Sep 22, 2026 at 8:49=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
+rote:
+>
+> write_mem_msg() passes the length claimed by an 'M' or 'X' packet directl=
+y
+> to kgdb_hex2mem() or kgdb_ebin2mem(). A malformed packet can claim more
+> data than was actually received, causing the decoders to read past
+> remcom_in_buffer.
+>
+> Record the received payload length in get_packet() and use it to bound
+> the decoders. 'M' carries two hex characters per byte, while 'X' carries
+> one byte per output byte except that a 0x7d escape consumes an additional
+> input byte. Pass the packet end to kgdb_ebin2mem() so both reads are
+> checked against the received data.
+>
+> Keep zero-length 'X' packets valid, as GDB uses them to probe binary
+> download support.
 
-When updating an existing extent record, hfs_bnode_write() returns
-void, so its caller cannot detect a rejected write. Validate the extent
-record size and node range before calling hfs_bnode_write().
+My analysis shows that the above isn't true and that zero-length 'X'
+packets are no longer valid with your patch. I haven't tested this
+myself, though. Yell if I got it wrong.
 
-Propagate errors returned by hfs_brec_insert() and return -EIO for an
-invalid existing extent record. Only clear the extent dirty flags after
-a successful operation.
 
-Fault injection confirmed both failure paths. Insertion errors are
-propagated to the caller, and invalid existing-record writes are
-rejected before hfs_bnode_write() without clearing the dirty state.
+> @@ -43,6 +43,8 @@
+>  /* Our I/O buffers. */
+>  static char                    remcom_in_buffer[BUFMAX];
+>  static char                    remcom_out_buffer[BUFMAX];
+> +/* Payload bytes get_packet() stored in remcom_in_buffer, excluding the =
+NUL. */
+> +static int                     remcom_in_len;
 
-Signed-off-by: Davy Felipe <davyfelipe34@gmail.com>
+I don't love making this a global. Can we just pass it down? ...and
+maybe for functions where you pass the length you also pass
+"remcom_in_buffer" as a parameter and stop accessing the global?
 
-Changes in v2:
-- Validate the existing extent record size and node range before
-  calling hfs_bnode_write(), following review feedback.
-- Return -EIO without clearing HFS_FLG_EXT_DIRTY when validation
-  fails.
-- Fault-injection tested the existing-record failure path. Before the
-  change, hfs_bnode_write() rejected an invalid offset internally but
-  __hfs_ext_write_extent() continued and cleared the dirty flag. With
-  v2, the invalid write is rejected before hfs_bnode_write().
-
----
- fs/hfs/extent.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-index f066a99a863b..13426503fbb3 100644
---- a/fs/hfs/extent.c
-+++ b/fs/hfs/extent.c
-@@ -121,12 +121,21 @@ static int __hfs_ext_write_extent(struct inode *inode, struct hfs_find_data *fd)
- 		res = hfs_bmap_reserve(fd->tree, fd->tree->depth + 1);
- 		if (res)
- 			return res;
--		hfs_brec_insert(fd, HFS_I(inode)->cached_extents, sizeof(hfs_extent_rec));
-+		res = hfs_brec_insert(fd, HFS_I(inode)->cached_extents,
-+				      sizeof(hfs_extent_rec));
-+		if (res)
-+			return res;
- 		HFS_I(inode)->flags &= ~(HFS_FLG_EXT_DIRTY|HFS_FLG_EXT_NEW);
- 	} else {
- 		if (res)
- 			return res;
--		hfs_bnode_write(fd->bnode, HFS_I(inode)->cached_extents, fd->entryoffset, fd->entrylength);
-+		if (fd->entrylength != sizeof(hfs_extent_rec) ||
-+		    fd->entryoffset < 0 ||
-+		    (u64)fd->entryoffset + fd->entrylength >
-+			    fd->tree->node_size)
-+			return -EIO;
-+		hfs_bnode_write(fd->bnode, HFS_I(inode)->cached_extents,
-+				fd->entryoffset, fd->entrylength);
- 		HFS_I(inode)->flags &= ~HFS_FLG_EXT_DIRTY;
- 	}
- 	return 0;
--- 
-2.55.0
-
+-Doug
