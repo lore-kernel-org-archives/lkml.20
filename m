@@ -1,33 +1,33 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73C7453F6AA;
-	Tue, 22 Sep 2026 15:15:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C27D05581F7;
+	Tue, 22 Sep 2026 15:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090103; cv=none; b=TGA2GdrO9ZFYYaXcNCSEba8BIsZZKFqvhQOqEs963qVvKXsipWAM3wpD36BJiLRT0SY5wyG/nF34X+EM++gNKs0YkrCPSC6tdzbX8fRU0iSItwKDbmexAqNPisdCFPpb6biC6qmpl3Gv/WYVfskqUDxQDf4C5rtZw/Qf6AL1mbM=
+	t=1790090262; cv=none; b=T0O25ZtgIYWEeunEchxFNdc84BqdTFZ/dumgsUQMrvgphl07a1aKLc8YjOFsTR4N9DiNQUIpPTyXfSdE/aZUJaXA9Ntp17UYcszbN8Yv0/Jk0ZOXZwtlRUvi0Xv1RQ/TtmS/1hjssIv9i25qolJupFXlSeTfmhajzNGnYeoVlRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090103; c=relaxed/simple;
-	bh=qfLhNMxLDQamnRL3jBZjojzJCuPyPkvcYSCFDpX/jF8=;
+	s=arc-20240116; t=1790090262; c=relaxed/simple;
+	bh=WJQlexOEFB2+rLfSFe39873Vz8dqsCQdE/Ket6GyZWs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jR6Ya8PEBJ/tT18Kl1HUs9MzB8p7tL6TL7ZulJuT9LmgTSHpRDxN7KQYQxhZvddFddfE3eIhE8rtLJaSo5bNXozvC6gvW/a5afBWQihCAOfry2SDmgGcpqphL1VTEk5ws8Lz30mWl9wsG9dBjTzEFuiitS5cdZOVQdS3LXl74xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=id03qeF4; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:Content-Type; b=f8udFSj5E2qoZnNTwzdRi399XWi0SZeGFkmt6py+urAVnjcJpJU58aBh5WgVrXMi/aKHwqgkznxw1RE8lvpErwcXr3q9t+UY9OjdUBpzdW9eesDLZSclNs1RI4v3JF5vHIPenPNZRr/HmaVfz1yrLDxoM1e9SfoeFx90TuNqeZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rbbtwE1o; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="id03qeF4"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rbbtwE1o"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D06C41576;
-	Tue, 22 Sep 2026 08:14:55 -0700 (PDT)
-Received: from [10.57.9.253] (unknown [10.57.9.253])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 778833F86F;
-	Tue, 22 Sep 2026 08:14:56 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAA3E1576;
+	Tue, 22 Sep 2026 08:17:35 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A3B5E3F86F;
+	Tue, 22 Sep 2026 08:17:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790090099; bh=qfLhNMxLDQamnRL3jBZjojzJCuPyPkvcYSCFDpX/jF8=;
+	t=1790090259; bh=WJQlexOEFB2+rLfSFe39873Vz8dqsCQdE/Ket6GyZWs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=id03qeF4VWrD2FyYassCVvtscxdW55gRzwGJdpvJgtyiQ3TdEIEUt2WyO0ePxhU9Y
-	 a0+jXmaJ6rch0a6KggX/v5JwO/mQ+8LlpGzR+8c3+f5YGW2Ev3f+HJI9gRU3IdaDPz
-	 2wjKveDSTNbtxF9X/+0KOXnvUQJF2YXWpFvlcBww=
-Message-ID: <359c7adb-e18e-423d-a5a1-6031eb17e421@arm.com>
-Date: Tue, 22 Sep 2026 16:14:54 +0100
+	b=rbbtwE1ovFBalioA6W+2gPtB+Lf+eeY2UhEbfO4cyQAl6aEdNz/ibBXCm8yq2qud/
+	 4Louz5/9Gmmuqn+m4/QJHqLBdKAqr3l3GaqDV/UlaAGU2bLOrCwwsvMCkOhwAMZ9FL
+	 QonY6Pasx3dWe8xeQ5MvLOTFa1SK5C7RpOGceWT4=
+Message-ID: <7d0fa712-bbc4-441c-90c2-38e9faeee228@arm.com>
+Date: Tue, 22 Sep 2026 16:17:37 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,137 +35,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Subject: Re: [PATCH] ACPI: Provide !ACPI stub for acpi_device_uid()
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: lenb@kernel.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <513319f19ed6b0b6d4c76dc517074531966b98f5.1789745223.git.robin.murphy@arm.com>
+ <CAJZ5v0j72dht4wiVcoFmk2Rt1pvPL7Yrr_29jihzfKAb3Pu24g@mail.gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
 Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
- <aqvCwM_73qMpqzvV@arm.com> <749ab0c9-810d-4989-8fa5-1706124f05bc@arm.com>
- <arKVcjCOJf8p9rWL@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <arKVcjCOJf8p9rWL@arm.com>
+In-Reply-To: <CAJZ5v0j72dht4wiVcoFmk2Rt1pvPL7Yrr_29jihzfKAb3Pu24g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/09/2026 15:49, Catalin Marinas wrote:
-> On Tue, Sep 22, 2026 at 02:21:13PM +0100, Suzuki K Poulose wrote:
->> I had another look and we could handle this via kvm_fault_is_gmem_abort()
->> see in arch/arm64/kvm/mmu.c:
+On 22/09/2026 12:40 pm, Rafael J. Wysocki (Intel) wrote:
+> On Fri, Sep 18, 2026 at 5:27 PM Robin Murphy <robin.murphy@arm.com> wrote:
 >>
+>> While the likes of acpi_dev_uid_to_integer() and acpi_dev_uid_match()
+>> already have stubs for !ACPI, the basic acpi_device_uid() getter does
+>> not. As with acpi_device_hid(), add one for the convenience of portable
+>> drivers who just want the string itself - in fact they are so much alike
+>> that we can simply alias the exact same stub definition.
 >>
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 87e49251e0447..af5a4bf961aae 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -1731,6 +1731,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc
->> *s2fd)
->>          gfn_t gfn;
->>          int ret;
+>> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+>> ---
+>>   include/acpi/acpi_bus.h | 1 +
+>>   1 file changed, 1 insertion(+)
 >>
->> +       if (!kvm_slot_has_gmem(s2fd->memslot))
->> +               return -EINVAL;
-> 
-> I wonder whether we should add a KVM_BUG_ON() here. With the rest of the
-> changes, we should never get in this situation. Well, to be revisited
-> for private devices.
-
-Sure, I could add that
-
-> 
-> Also maybe move it to the caller, kvm_vm_mem_abort(), and not change
-> kvm_fault_is_gmem_abort(). Something like:
-> 
-> 	if (private_ipa_fault(kvm, s2fd->fault_ipa) &&
-> 	    KVM_BUG_ON(!kvm_slot_has_gmem(s2fd->memslot), kvm))
-> 		return -EIO;
-> 
-> To me it makes more sense for gmem_abort() to be called only *if* it's a
-> gmem slot. So any inconsistency, avoiding user_mem_abort() for private
-> memory, should be done in the caller. I assume the caller will also have
-> to route the private device path as well rather than rely on
-> gmem_abort().
-
-Agree.
-
-> 
->> +
->>          if (!perm_fault) {
->>                  memcache = get_mmu_memcache(vcpu);
->>                  ret = topup_mmu_memcache(vcpu, memcache);
->> @@ -2277,10 +2280,12 @@ static bool private_ipa_fault(struct kvm *kvm,
->> phys_addr_t fault_ipa);
->>   static bool kvm_fault_is_gmem_abort(struct kvm *kvm,
->>                                      const struct kvm_s2_fault_desc *s2fd)
+>> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+>> index 1a45e0d521d8..ed309ea4785d 100644
+>> --- a/include/acpi/acpi_bus.h
+>> +++ b/include/acpi/acpi_bus.h
+>> @@ -963,6 +963,7 @@ static inline const char *acpi_device_hid(struct acpi_device *device)
 >>   {
->> -       if (!kvm_slot_has_gmem(s2fd->memslot))
->> -               return false;
->>          if (kvm_memslot_is_gmem_only(s2fd->memslot))
->>                  return true;
->> +       /*
->> +        * For Realms, all private faults must be backed by GMEM.
->> +        * TODO: Handle Trusted device private memory mappings.
->> +        */
->>          if (private_ipa_fault(kvm, s2fd->fault_ipa))
->>                  return true;
->>          return false;
->>
->>
->> Also, I have the following hunk for preventing memslot modifications.
->> I will add this to v20 integration branch, which is almost ready ;-)
->>
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 582b48e34486b..87e49251e0447 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -2783,6 +2783,18 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
->>          }
+>>          return "";
 >>   }
+>> +#define acpi_device_uid acpi_device_hid
 >>
->> +static bool kvm_prevents_memslot_change(struct kvm *kvm, enum kvm_mr_change change)
->> +{
->> +       /* Cannot modify memslots once a pVM has run or Realm created */
->> +       if (change != KVM_MR_DELETE && change != KVM_MR_MOVE)
->> +               return false;
->> +
->> +       if ((kvm_vm_is_protected_pkvm(kvm) && pkvm_hyp_vm_is_created(kvm)) ||
->> +            kvm_realm_is_created(kvm))
->> +               return true;
->> +       return false;
->> +}
->> +
->>   int kvm_arch_prepare_memory_region(struct kvm *kvm,
->>                                     const struct kvm_memory_slot *old,
->>                                     struct kvm_memory_slot *new,
->> @@ -2791,12 +2803,9 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
->>          hva_t hva, reg_end;
->>          int ret = 0;
->>
->> -       if (kvm_vm_is_protected_pkvm(kvm)) {
->> -               /* Cannot modify memslots once a pVM has run. */
->> -               if (pkvm_hyp_vm_is_created(kvm) &&
->> -                   (change == KVM_MR_DELETE || change == KVM_MR_MOVE)) {
->> +       if (kvm_vm_is_protected(kvm)) {
->> +               if (kvm_prevents_memslot_change(kvm, change))
->>                          return -EPERM;
->> -               }
->>
->>                  if (new &&
->>                      new->flags & (KVM_MEM_LOG_DIRTY_PAGES | KVM_MEM_READONLY)) {
+>>   static inline bool
+>>   acpi_get_physical_device_location(acpi_handle handle, struct acpi_pld_info **pld)
+>> --
 > 
-> I think this should work.
-
-Cheers
-Suzuki
-
+> Sashiko has reservations that look valid:
 > 
-> Thanks.
-> 
+> https://sashiko.dev/#/patchset/513319f19ed6b0b6d4c76dc517074531966b98f5.1789745223.git.robin.murphy%40arm.com
 
+Oops, indeed apparently I missed that acpi_device_pnp::unique_id isn't 
+actually const - it probably should be IMO, but that would be a whole 
+other patch.
+
+FWIW I can't see that the return value itself actually matters here 
+since !ACPI code couldn't have a valid acpi_device to legitimately call 
+this with at runtime. In fact even for compile-testing, references 
+should usually be under a condition like has_acpi_companion() which 
+would lead to them getting DCE's under !ACPI without needing the stub - 
+this was really just for completeness to shut up annoying Sashiko noise 
+on that point.
+
+Thanks,
+Robin.
