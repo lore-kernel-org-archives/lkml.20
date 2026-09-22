@@ -1,167 +1,145 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010056.outbound.protection.outlook.com [52.101.46.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-70.mta1.migadu.com [95.215.58.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF03388E69
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:34:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790044499; cv=fail; b=MDtJ8Z6FgIn7Ayn9V4iG0YYOiOdnIcdsFVOXCM2uRvGyGFr4ykmmFxMI9KOCU/6KyMpu8LBrkyf3tofUkrKKUbRtnvc0lu17u517cMokgvAoDbFLsYgy9SvnXMYmNFPewhThj3BsnwQFwTdnjliB5pdr6cEzBHFRAQfn9+AI5jc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790044499; c=relaxed/simple;
-	bh=rjauAyundCD6RIPGaAe57rL11ymdlnn40+sJmHc2eN0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eiCoiAAx+ea/L8sALe8iCCC3/unB4MQ0YeH1hxU4a5w/lC1HKA+L985m9SUOgyJ9kA7sTAq5EpsHTwhWZQqwKvR2NcUXXduazfmtOJDNOVEwJQ532YP+WuoMCmhd6iIy4kCd02uPl3sJiOgDW5GNM8CvuZ/aqAun5VMVH2iJoY0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sevSikWv; arc=fail smtp.client-ip=52.101.46.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9DB39E19C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790044503; cv=none; b=EmSCXmPE9Ni1XHdCbHEuP1Jt1pHnoGLQeMB/4jhmsWiBX9qxN5iIYL7YiTP60k+oe/U1lehDug/mBgeRGwVveVGrej5plcDd9Nq+eAxyhF28EoJFO1mcW1inbvq7fLQPKLgpFvllHTwHXfGE86a8N0IXJRgkgQPnVpXyXHydDOU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790044503; c=relaxed/simple;
+	bh=whZxFE06ngNi6m7iZYGv3lT4S6CYGGhwLE/SdTxm/LU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NvitVngsGQTVPfAVQoM7rWe9NuTBOUMfRMEOZUfYDWLby871rAtPlkqLa0inuD1SQp8N2D7BGVJGWpjfx8uZTh6G6fmHhbcIL7ObOiF0a7suG4UV7oVBcP6yOBFwA7L2dGTcnwyv/Myaz31+bcXgnSSwTmEw3UH9NAulmk3q4KA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZR6V2xjL; arc=none smtp.client-ip=95.215.58.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sevSikWv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hWDPZYqeUuTeqOmCZViJb9aZzhusHzfdCo1FIZSfDgLaedkINCPlCigTxNOekMgoW0RdGuLPP2gdYL6fkLbtd2a5EEg2qw5PKTIgQjGbCvwWC+rzMIbAk+DJnnquuKZ9qwv8spWUU+VI60QAbOpxk+pWXgvsdafIypgO74W8jbw/A1i9FgRAvL0c8PjuhpINpfFeSuuRQOdskO6arRYkhXFumiapVeP4XSZUxNeUbPfQfWN4bR0l8k8NKIdu5Hq2G5tWQCxtED/yKcsVvLn5eAb2tsHJQL/u4FhmfWZcY5Ayo+KFe+CaX0Ehh9os/2AP2K/zfXzCGoC8egwIJ8FVeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1KJUuAJIlTlTVnaE2vxkdlKubHpP+DnWynTfu3/HqKU=;
- b=eWajD2qlSCIHcM3oYwsCNfg50FEOUCNz37nekhOfjc9Ltu8k79GM6QYuxq2ea8L3ttALqQJVOgJW3PO7PXpRiqgmsQu6QdC7GgLaKM+je8hFKeWNBpw1gPJgmV88f5Ep4jfkotGO50NZIs0zQT5ElKFWCTXEKbM2/n8xXjZAhgcWVu/iMiNan0iUtj1sipZOKkmrS8r9PDjahrbygIq/9reajFkFdJkwYKeK3qIR5U3XRTowwgp7ziKwyWlufGGutrtc+Eqxb+Jco87FJFpyh5lcokzdTLl2FbSY29OxlWh/TUtpOIgojmJGLj1lU2ov7O0plZCVJumGbzGzQi3Pkw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1KJUuAJIlTlTVnaE2vxkdlKubHpP+DnWynTfu3/HqKU=;
- b=sevSikWvuRGm4WAGWK5e2usRqtdW6uL2w2lLtfQ2R1fPnl/YGJJ3wrL6iVv2QXPpQXMmaDSt0iAXO3jwa6FQRRFxLMg0FHwmXBMqIhkY7s8cJrZVt2Y+rxpDJnP2NgZi3dA3GgI2jG4Shg7I7HstVBAafA5lfQS1W1RPWBpdk+FDwaCDS/PZl/Bwl2ipcTQxAjTXE8VOeQm1p71Hfu6QR7pUMI6ntRSUSUKYHjXF1Jhtqj7fUBIktFzp6Xm/x5MGfeEHJ2tpRcULd/XYGLrFzt9y/MCMmSAZvNfpw6kx6NBlELAuvXwe0MZwnyh+SUtQ953h1qrYWh0ttKlUpiHcdg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- IA0PR12MB7750.namprd12.prod.outlook.com (2603:10b6:208:431::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 02:34:54 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 02:34:54 +0000
-Message-ID: <66c47864-5786-4751-9507-356ddc699e70@nvidia.com>
-Date: Mon, 21 Sep 2026 19:34:51 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 23/33] gpu: nova-core: add LIBOS3 log buffers and state
- monitor buffer
-To: Timur Tabi <ttabi@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- "dakr@kernel.org" <dakr@kernel.org>
-Cc: "lossin@kernel.org" <lossin@kernel.org>,
- "a.hindborg@kernel.org" <a.hindborg@kernel.org>,
- "boqun.feng@gmail.com" <boqun.feng@gmail.com>, Zhi Wang <zhiw@nvidia.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "tmgross@umich.edu"
- <tmgross@umich.edu>, "alex.gaynor@gmail.com" <alex.gaynor@gmail.com>,
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ojeda@kernel.org" <ojeda@kernel.org>,
- "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "aliceryhl@google.com" <aliceryhl@google.com>,
- "bhelgaas@google.com" <bhelgaas@google.com>,
- "gary@garyguo.net" <gary@garyguo.net>, Alistair Popple <apopple@nvidia.com>
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-24-jhubbard@nvidia.com>
- <f8b2871a93e71d4ab56f5d7ba6a23600c044b025.camel@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <f8b2871a93e71d4ab56f5d7ba6a23600c044b025.camel@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH7PR17CA0060.namprd17.prod.outlook.com
- (2603:10b6:510:325::24) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZR6V2xjL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=whZxFE06ngNi6m7iZYGv3lT4S6CYGGhwLE/SdTxm/LU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790044498; v=1; x=1790649298;
+ b=ZR6V2xjLePExbG3feuqR8sCqRepq2VRl8vgEN9NogtbpC8rgxupWgt3kt3YtKV7J6TgD5NHd
+ jSDLO8C5uat0Ebl1gsv+IhWENaVS0hSAIGH33V85Tb5I+0+FeTQb/AFIhAFuxkQs2OKWeSsO7+H
+ 4IJ5D5J1HuMTD3/qm5ktqurw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d068ef4ae6c970bb;
+	Tue, 22 Sep 2026 02:34:58 +0000
+X-Mizu-Trace-ID: d068ef4ae6c970bb
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Cc: netfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hao Ge <hao.ge@linux.dev>,
+	Erhard Furtner <erhard_f@mailbox.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] netfs: Fix missing alloc tagging of direct mempool allocations
+Date: Tue, 22 Sep 2026 10:35:41 +0800
+Message-Id: <20260922023541.51532-1-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB7750:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f7d402b-e98e-424e-08c9-08df185215c3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	qMFTq64lqBN//MWVBLYChb7l0VPdigQCsajQ+qWFZozkQKnNni1xWo9ZZ0E0ALvJnPa71uqTAGnlXhGQx9QHBGnZizoAw0TzbJ5eqQ1sOYoTTzPzmUY/cdvg74MSUA3AJwS5Hx63zt1iIskRM4pFQOLNcDe6ZcnRJvDZpYPtxBpTMTgeEefI9wnNXcGfMZ9EMjaMQNyikmQdSunIYsXMQHf3UFz/hsH25W80/MN2LeRhWPHQ/YdwUXcE3rwhN4sEdXINx30GWtnk4e5Oj0cZthmaP1gKaSrcB/EgDhKTT6xodlN1S2F0H2oL3ivwzN4LMUFUGx2cyNG+JfR12stGZ7Bg4TNy1WJSbcPdXBtfrHD45TGwG2LNvlXffPDfCDDoGFaQ92kgeQjISqqz/JwendF9JQHCBgrpYNInbKEGWZH1FcgUkPoqd1YXuy2pSEuieZGpeXoUJ/HCdfR/jeZPr/BfoWPjvlpaQ2CRv/oiCwgDV0kWPMAP2NBpBt+C45krf2OqiTkvj7NbjJhaCPKc9XSmlvPb6/qmMPXPde+HjUkoHmwP/jsldfHbBwybEMxY4SrRGsu9EPuBoTQhaTJEUMIH/DzZzwFevwvW4YHJlpB6Hofrmr96QFIOhNNGNXpTCHayCjf5BNdyUvcXnVt0nxXywuZCBdz3sQOCGMFsljg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U2ZMU2hXMmtQbGtxRTFBc05ETlorV3JMSVFmai8xMVpsZUJ0Q1dxNnU2QlA5?=
- =?utf-8?B?VFVucnkwaVpkckt1eFBSMVV6YWYrQnZhWEQ0alFmcmhoeXlMZWlHcE54OHQ2?=
- =?utf-8?B?UmdBTFRsbjE0aDY5N3ZFeXl3c2lHTklYQmovRnJLVzBaeXVtT1dCeWNmd2Vv?=
- =?utf-8?B?ejRrSmpGeFllbDlTZ3NiZUJXQkZjWlVsVGZBUGsxTTZqUklyVC8rdWFSa1dP?=
- =?utf-8?B?WHVXRklYM1N1SDV4TGVjbUQ4Z3FNODZkdUZ6RFRuTWljOTZQZFlJWU9hbmV2?=
- =?utf-8?B?MndtcHlGOHdSWjlHYzc5OGFPVEZhRVdwbXhSRHFPaVRyRUJrZzVvdUlRTFJ3?=
- =?utf-8?B?d0dWVEpobUtGbnhiWjBRQWhSMEcvcnBtcWVCYmlSMEEvUU9OcndnNCtXQkZY?=
- =?utf-8?B?QStycEZiUVBQSUpUS3hwT2tUbnoxUVp5aTZreVQ4Mmt0dzdFTWFpbUo0enNL?=
- =?utf-8?B?U3VkenRlUy9pSHMvL0FvSjVEZ1ErU3NtZGhoMUpXSDRxQ1VHaFhwNSt6RWQ0?=
- =?utf-8?B?eUd1TDZpeTY0RmN4NWQyd0oxNCt6WEdlYlR2clcvQWpsN1ZpMkVEaG1STTFt?=
- =?utf-8?B?Mm1KT1BPUXdxbnZDNGk2aHJGaC9hVzVlMXYrRi9pdFV2QXlYMU9mN2lQcm1x?=
- =?utf-8?B?bXhvcUxqd0JvYkltNnloTHQ0V080Y0E0bm5hY1dsV29HYzBLMFh1SFFRQWwv?=
- =?utf-8?B?ZEdZbzUwL2dSdXJ6ZkE0cTZFWEpWOG9yUGR6WFMxajNHQ3VqYkVjMW5xN09L?=
- =?utf-8?B?Ukx4MXcyeXc1QmNSZ0hFc1VOYlJlT2hQTUdPUmk2bXcvR05aNEJSR2NualhP?=
- =?utf-8?B?aHY5U2dCanAwOElFS3JWNmxRbFRlWWtsN1BaQmd1YWU3VEpjQ2lZZWZlcS9t?=
- =?utf-8?B?NHZ2MjdUMktvNXcrY2dNQmVnZy9UQlFYR1pYcFplQ05zUmk4YXFJdjYrTVp2?=
- =?utf-8?B?LzVNNitGb2JwdEI4eVcvNVZXVzlxZzZpZ1JsNHBUSlFPOFV2TEM3c3ArYllt?=
- =?utf-8?B?N0hSVGZwRElQNXBNTXBOMGYwZ0RqMFlmcStOR0pLWlV0RjBsOGdDbHAwMktl?=
- =?utf-8?B?UE4rNEYrdWlqUkpvV2dNRE5xTlhoclRVQjlSS3phSXZHTHA5OVozTC9rd0I2?=
- =?utf-8?B?aFBxcEdLWklQUm4yclE2aU12NDVVZmtOYUc4U3NEajVNaVZ4TlpkOXZYTERO?=
- =?utf-8?B?TkRrVDRCL2h3N0EvT251bzJubkpiaHA3S1pRU2ExQzZRbzZnTXdxN1h0bk5z?=
- =?utf-8?B?VFg1aUJBbTFmWm9pQmlFeXBqSkhZa21RZU1rSU5kVUtCa0NmNSs2SXVvZTVs?=
- =?utf-8?B?RWphTWI0TFY4V2dpeEVNUEw3ek90dDRYeHZabWUzcnNUaCtmOTlRcEo2VnlG?=
- =?utf-8?B?WDRUMlF2QU0rMGNVd21Ec05DbFcvM1kxWkxoejJGK0duTmlDNmdDTmtBU3Jv?=
- =?utf-8?B?czMrWjIvaStaZWdmSVVRekNzSWV1T0ttb3JZbmw1RW1Dd0k4RTEyRUx2U2VR?=
- =?utf-8?B?QkRQTjVvUGIrTzZxK2lvc1p3QjhwaVo4NHJHbGJxTDlpaWZuVGo3Q2tGUnpq?=
- =?utf-8?B?bUFZZ2duSWNjNXRoWGp1K1ZPcnh1WEZrWk1TZmJva291eUFtZzlUZWROVGcz?=
- =?utf-8?B?VjRhZFZsdi9aVXlncnk0UFRoaGdDRE1KdDBQb0dQMkJBS1BXdXFMZnVsVXFF?=
- =?utf-8?B?YWIvYzBhT3I1cmhmZEdvRjNmbjU5TmNpMnRaNFlxc3RGcHpQKzZxeFV5c1JI?=
- =?utf-8?B?REJYOGtDSGMrYXo1TFNHOWxtMFNtNjdrSEVZTFIwVnQ1RUovYTVMODR0M2U5?=
- =?utf-8?B?cGxnekl1aHVQaFpPYWZNai81R1FoQ2NEWWdERXZvNHFBRHlKc3o1UkpqRE0r?=
- =?utf-8?B?SmVXbloyQUowTytxN3ZQbDB5REZOK20rclRvcStEa2xTb3pQQVM2RFR5clJS?=
- =?utf-8?B?emoyYkZHSzlLRWpkaUNrRW9JSWFoazI3Y2ViRkNrbWpESkY5aTlFeHJsaFBt?=
- =?utf-8?B?bzl3ZkhqL3JJN3hNSlQvS2svKzY4c3BXdS82TGxRNktVditaZmpud2RNT0p2?=
- =?utf-8?B?UHFrUzljZGtPSWZxN3UyOHdzUU9NV3YvMTZTRDVCbm5hcGNmOEN6VHpXVmdF?=
- =?utf-8?B?VUJvNXFMYkxWbDNobG5oUGVjMHk1SHdiN0RTZGxUSmJPT3pFTHJHM2JKYSsw?=
- =?utf-8?B?dEZUaytVWUpiWWlqWWJkTXVETndzMDJwdzdFNmx6OHJsQjdaYXlSc0xUVDQ0?=
- =?utf-8?B?T0VTbE93VVJydnhKZXUyNDl4ZjJ3QmZUcmZqcEJFdFUrYVQ1dWJlQm02NHp4?=
- =?utf-8?B?OEJLbEVpTWluYnZOQTJiK29DT09OQ2lsUXpsNXhBeHVpOFNIMTgyZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f7d402b-e98e-424e-08c9-08df185215c3
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:34:54.3466
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q9Q6MpIXiUPz8ltA+IQ5nuWxIdpHIGXwIba/fMsH8qOzfd+exIuYwyOOhgBmuAnClnUvxrGy41kyZoBCK7iYjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7750
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 3:34 PM, Timur Tabi wrote:
-> On Thu, 2026-09-17 at 18:07 -0700, John Hubbard wrote:
->> GSP-RM runs on LIBOS, and each LIBOS task logs into a buffer that the
->> driver provides and names in the init argument array. The r000 firmware
->> runs LIBOS3,
-> 
-> Even on Turing?  I thought Turing/GA100 still use LIBOS2, which is why there are two GSP-RM
-> firmware binaries.
+Commit 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by
+adding a mempool") added a mempool for the folio_queues and made the
+request, subrequest and folio_queue allocations distinguish between
+writeback and everything else.  Writeback is part of memory reclaim
+and must not fail due to ENOMEM, so it allocates under GFP_NOFS
+through mempool_alloc(), which may dip into the pool's reserve and,
+if that runs empty, wait for elements to be returned.  The
+GFP_KERNEL paths, which can return -ENOMEM to their callers, invoke
+the pool's ->alloc() callback directly instead.
 
-Oh yes, that's correct, Turing and GA100 run LIBOS2. 
+The direct call, however, skips the alloc_hooks() wrapper that the
+mempool_alloc() macro provides.  The pool callbacks, mempool_alloc_slab()
+and mempool_kmalloc(), call kmem_cache_alloc_noprof() and kmalloc_noprof()
+and rely on current->alloc_tag having been set by the caller.  With
+CONFIG_MEM_ALLOC_PROFILING_DEBUG=y this leads to
 
-v4 corrects the commit message and the doc comment on the log buffers:
-the r000 firmware runs LIBOS3 on GA102 and later, and LIBOS2 on Turing
-and GA100, and LIBOS2 maps only the init and RM log buffers and skips
-the names that it does not have.
+    current->alloc_tag not set
+    WARNING: ./include/linux/alloc_tag.h:161 at __alloc_tagging_slab_alloc_hook
+    alloc_tag was not set
+    WARNING: ./include/linux/alloc_tag.h:166 at __alloc_tagging_slab_free_hook
 
+at allocation and free time respectively, as reported when reading
+files on a CIFS mount.  The allocations are also missing from
+/proc/allocinfo.
 
+Wrap the direct ->alloc() invocations in alloc_hooks() with the new
+netfs_mempool_alloc_noreserve() helper.  The GFP_KERNEL paths keep their
+failable allocation semantics, they just get tagged now.
 
-thanks,
+Fixes: 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by adding a mempool")
+Reported-by: Erhard Furtner <erhard_f@mailbox.org>
+Closes: https://lore.kernel.org/all/0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org/
+Tested-by: Erhard Furtner <erhard_f@mailbox.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ fs/netfs/internal.h       | 3 +++
+ fs/netfs/objects.c        | 4 ++--
+ fs/netfs/rolling_buffer.c | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
+index c79c8e69d60c..08ba7f0ebff0 100644
+--- a/fs/netfs/internal.h
++++ b/fs/netfs/internal.h
+@@ -45,6 +45,9 @@ extern mempool_t netfs_request_pool;
+ extern mempool_t netfs_subrequest_pool;
+ extern mempool_t netfs_folioq_pool;
+ 
++#define netfs_mempool_alloc_noreserve(_pool, _gfp)				\
++	alloc_hooks((_pool)->alloc(_gfp, (_pool)->pool_data))
++
+ #ifdef CONFIG_PROC_FS
+ static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq)
+ {
+diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
+index 7f6a3e912602..0b509c93d4af 100644
+--- a/fs/netfs/objects.c
++++ b/fs/netfs/objects.c
+@@ -34,7 +34,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
+ 
+ 		rreq = mempool_alloc(mempool, gfp);
+ 	} else {
+-		rreq = mempool->alloc(gfp, mempool->pool_data);
++		rreq = netfs_mempool_alloc_noreserve(mempool, gfp);
+ 		if (!rreq)
+ 			return ERR_PTR(-ENOMEM);
+ 	}
+@@ -214,7 +214,7 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
+ 	struct kmem_cache *cache = mempool->pool_data;
+ 
+ 	if (rreq->gfp == GFP_KERNEL)
+-		subreq = mempool->alloc(rreq->gfp, mempool->pool_data);
++		subreq = netfs_mempool_alloc_noreserve(mempool, rreq->gfp);
+ 	else
+ 		subreq = mempool_alloc(mempool, rreq->gfp);
+ 	if (!subreq)
+diff --git a/fs/netfs/rolling_buffer.c b/fs/netfs/rolling_buffer.c
+index 424e77a9a109..54867ceaa205 100644
+--- a/fs/netfs/rolling_buffer.c
++++ b/fs/netfs/rolling_buffer.c
+@@ -29,7 +29,7 @@ struct folio_queue *netfs_folioq_alloc(unsigned int rreq_id, gfp_t gfp,
+ 	struct folio_queue *fq;
+ 
+ 	if (gfp == GFP_KERNEL)
+-		fq = netfs_folioq_pool.alloc(gfp, netfs_folioq_pool.pool_data);
++		fq = netfs_mempool_alloc_noreserve(&netfs_folioq_pool, gfp);
+ 	else
+ 		fq = mempool_alloc(&netfs_folioq_pool, gfp);
+ 	if (fq) {
 -- 
-John Hubbard
+2.25.1
 
