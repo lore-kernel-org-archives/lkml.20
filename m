@@ -1,140 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CB84DDB5C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127104EF15F;
 	Tue, 22 Sep 2026 09:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071126; cv=none; b=nrg+8YkUiH+6P358TT/VAUwfuR1AKQ7YNep0wgJtdjIS52fCOIvfgXP9EbpxBSsmrv35WKQ7wksxcL4Z1+WcK3/lpY88Km/ZjloKJxq+HzdOv9bc8KM0senB3KdjquLVlx3w5ABnCKxuZYi8MIIwbnvfcSac1fnsECiTsvuZKvE=
+	t=1790071127; cv=none; b=RuK8fE2/AXIZaqrFpWIiXB+L1HAVRsjXJPxl71kMpVFfilqSxPCvisQHwinBNhk5vagsmH1ebBqO3AFq7kx3UhbuTXTLrnukDf6n4mNky/3tcinBfb8/PQCTl4hh7gs2UBOYTPnJV5a5NjHHNjy2klUXgI6eslYg0aP2PYEoWa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071126; c=relaxed/simple;
-	bh=/yyqamP5t8CQh57P/WH0zqIm4kpKRzSqI3+ThY1dMCI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=cG52VW+FdICj14HP1TT9Y7KVt+3wYmSeYvkyVwetnHnLKVysbY9hjOVOCcjWAPMyMDxBDn87iBabybRF/qvUIDa+huL/FnQvdurytc5iR+DlIMIIGAdjUvl0h+OTGJb7GhXQVmEUOBJrFvpdJaV4g+w2wrxqepqAAbKepfWqDT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Spa809y2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790071127; c=relaxed/simple;
+	bh=RwCFSgGwANKGfvDoF5VZzkTz9TJE6jsyfOd5Cbm/aqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WS6wJcKvhGnhSHq8JXTVsAU/n6D6BIJDEC3AtbedYfuZ3e+xIbdcy74u4tGDfJTl57kD7NIMeoaRAnWB4Bm5d+dUhLX6IuVTqXGj4GpSaTX9dkKILiYRBDxARDlh6q2Uarn9tsdLATPxOiXPcLt31NiA0Uuef8NdSWxDHa9sDTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=K8+fofch; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Y0r44oIp; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wfyLr/Mm; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=E+BXUt+D; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Spa809y2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE5E1F000FF;
-	Tue, 22 Sep 2026 09:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790071125;
-	bh=aai3CsCP6YioLAW5MeiIsLHvBjwFsN0GGOUwY/D/HGM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Spa809y277oKylDB4yqxACYtY+WeTrUwHt95v/68/LegW4tQecygUu1j87R9Cp5vx
-	 mmGPccHLIYeSB+rtabZjd7q9edEql93lGusIRdTX2FSQOUQpO7erZVHvOR9I7/33La
-	 hU1Y43i2Uh1Wj+cx3uOewQON5YGra7d4Ry/2qs0PVyfTdOZ07r4yJ8v+q7W22u6KSX
-	 DFUt4UP9kqqwkwK7poqxU8RNZ/K8hMGBUaAlc4m5GuMgs+lNi5qpQLCP4P0eiShGzi
-	 7sQ6eI5blbL8+fxQMySE4QGl1LZvQHcn736Li52Y7CHADFGihTgBimcgnIH1iQaQF2
-	 8/lAiCW2cP1AQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Jack Thomson <jackabt@amazon.com>,
-	Jack Thomson <jackabt.amazon@gmail.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	Leo Soares Passos <Leo.Bras@arm.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH v2 00/13] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
-In-Reply-To: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
-References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
-Date: Tue, 22 Sep 2026 15:28:33 +0530
-Message-ID: <yq5abj9p38vq.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="K8+fofch";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Y0r44oIp";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wfyLr/Mm";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="E+BXUt+D"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CA9B6219DF;
+	Tue, 22 Sep 2026 09:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790071119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=K8+fofchFWOwYOyx3KzDPQyIGOilZq0/PYZy3IZ9fvpbZO8Zj8iPBCv0dcLp83HG71O22e
+	u+bOSYXynzFbquKGLjrC1A2zRPKOg/34zzH14RR++kGTWi9a2vtMJfUvKuRYCxMkbTllF4
+	vsKgZxhZWkcPS6H9ZqrcpDjHSXxYJ70=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790071119;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=Y0r44oIpALfJ3Ep7Dz2t1mxdkwT4kOgUluMgJzY+qII5PjcblOVx3A6TZpRc3ifrGtMlN/
+	t2fP0FDi8/pNSUDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="wfyLr/Mm";
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=E+BXUt+D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790071115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=wfyLr/MmYA1O18+FzeiMqsWb2OSwEVAUSESatbDaRWn3B/lxdVjsvcWzPAmOWWXCi2bwj8
+	esIP9p3xCKJld/Kb5FFoOaIhG3D0+PgoPPfjknu8I/IR5xlyiNSUmg+UqPfrC96AMn9c2h
+	q4T6a4z8Ng6MImZQSd1TBP/KP5jHNrk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790071115;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dyXC0qvUVpIhSk2IhvGo0kA+uk0SK/Z5hz/KOeDBmU4=;
+	b=E+BXUt+DrdqHUFIaRLqtXHI+knoiaEqEhy19xRFrG3mPyK1UWUqmP5/agsK56M6a8FanrT
+	7g8gUJDLoxm03ICA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C402139EE;
+	Tue, 22 Sep 2026 09:58:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ONGaH0tRsmrpBwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 22 Sep 2026 09:58:35 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 14746A13D4; Tue, 22 Sep 2026 11:58:35 +0200 (CEST)
+Date: Tue, 22 Sep 2026 11:58:35 +0200
+From: Jan Kara <jack@suse.cz>
+To: Palla Raghunath <raghunathpalla.0209@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
+	Brigham Campbell <me@brighamcampbell.com>, linux-kernel-mentees@lists.linux.dev, 
+	syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com, stable@vger.kernel.org, 
+	=?utf-8?B?7J207IOB7Zi4?= <kudo3228@gmail.com>, Mateusz Guzik <mjguzik@gmail.com>, Jan Kara <jack@suse.cz>, 
+	Deepanshu Kartikey <kartikey406@gmail.com>, David Howells <dhowells@redhat.com>
+Subject: Re: [PATCH RESEND] romfs: reject directory entry chains that do not
+ move forward
+Message-ID: <34t4huzelgho3zelar7vp332rwerth7nso6e76jrfced4chtrt@7q2cjbeymwov>
+References: <20260918164645.9230-1-raghunathpalla.0209@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918164645.9230-1-raghunathpalla.0209@gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: CA9B6219DF
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[e8ebfecec06a009dd2d3];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,brighamcampbell.com,lists.linux.dev,syzkaller.appspotmail.com,gmail.com,suse.cz,redhat.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,appspotmail.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,syzkaller.appspot.com:url]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> writes:
+Adding Dave Howells since he put himself into the headers of this
+filesystem :)
 
-> This series implements the KVM stage 2 page table pre-faulting feature for
-> arm64.
->
+On Fri 18-09-26 17:46:41, Palla Raghunath wrote:
+> romfs_lookup() and romfs_readdir() walk a directory's entry chain by
+> following ri.next, and stop only once the offset is zero or past the end
+> of the image. Nothing stops an entry from pointing at itself, so on a
+> crafted image a lookup of a name that is not present spins forever.
+> 
+> That loop has no cond_resched() and no signal check, so the task cannot
+> be killed, and it spins with i_rwsem held and the dentry left in the
+> in-lookup state. A second lookup of the same name then waits forever in
+> d_alloc_parallel(), and it is that waiter the hung task watchdog
+> reports, which makes this look like a dcache problem:
+> 
+>   INFO: task syz-executor239:5636 blocked for more than 143 seconds.
+>    d_alloc_parallel+0xd13/0x16c0 fs/dcache.c:2839
+>    __lookup_slow+0x82/0x2f0 fs/namei.c:1904
+> 
+> Require the chain to move forward and return -EIO if it does not. File
+> headers are laid out in increasing order and both loops already treat
+> the chain as a bounded forward-only walk, so this only enforces what
+> they assume. In romfs_readdir() a cycle never advances ctx->pos and has
+> getdents() repeat entries forever, so check there too.
+> 
+> The hard link chain bounded by commit d30b5a954e0a ("romfs: detect hard
+> link cycles") is a separate one. Sangho Lee posted a fix for this chain
+> in July 2026 that validates it at inode instantiation; it has had no
+> replies.
+> 
+> Reported-by: syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=e8ebfecec06a009dd2d3
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
 
-> == Foundations ==
->
-> The series begins by establishing the required foundations:
->
-> 1. Update kvm_s2_fault_desc to store the exception syndrome register (ESR)
->    value independently, and update all code paths to use this value
->    exclusively.
->
-> This is required to generate a synthetic fault for pre-faulting without
-> inadvertently obtaining an incorrect ESR from elsewhere.
->
-> 2. Update kvm_s2_fault_desc to store the kvm_s2_mmu independently, and
->    update all code paths to use this value exclusively.
->
-> This is similarly required to generate a synthetic fault against the
-> canonical stage-2 MMU. It would make no sense for pre-faulting to modify
-> nested shadow page tables, so the code must not obtain an incorrect MMU
-> from elsewhere.
->
-> 3. Update the abort paths that consume kvm_s2_fault_desc to also return a
->    kvm_s2_fault_result.
->
-> Pre-faulting needs to know the granule size handled by the fault, so the
-> abort paths must return that information.
->
-> 4. Pass walk flags to kvm_pgtable_get_leaf() to allow page-table walks
->    under the MMU read lock.
->
-> This is Jack's patch verbatim. It allows KVM_PGTABLE_WALK_SHARED to be used
-> when walking page tables under the MMU read lock.
->
-> The API permits pre-faulting to run in parallel, and the read lock prevents
-> the page tables from being torn down during the walk.
->
-> == Implementation ==
->
-> Pre-faulting is implemented in kvm_arch_vcpu_pre_fault_memory(), which
-> pre-faults the stage-2 page tables for a specific GPA (the guest IPA on
-> arm64).
->
-> kvm_vcpu_pre_fault_memory() calls this function for each GPA in the range
-> requested by userspace through the KVM_PRE_FAULT_MEMORY ioctl.
->
-> The implementation is straightforward: walk the stage-2 page tables for
-> the GPA and, if it is unmapped, populate the mapping by handling a
-> synthetic page fault.
+I doubt these bugs have any practical relevance so I wouldn't CC stable.
+But I guess that's for Christian.
 
- [ ... 47 lines skipped ... ] 
+> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 
->
-> pKVM is not supported regardless of whether the VM is protected or
-> not.
->
-> This is because pKVM instantiates vCPUs upon run,
->
+The patch looks good, I'm just not sure we are guaranteed ROMFS directories
+are indeed following monotonically increasing disk offset (although that's
+the most logical thing to do) - added Dave to CC for that. Otherwise feel
+free to add:
 
-Can pKVM instantiate the hyp vCPU during pre-faulting ?
+Reviewed-by: Jan Kara <jack@suse.cz>
 
+								Honza
 
-> but pre-faulting is  typically performed before a vCPU is run.  It would be confusing and
-> inconsistent to error out on non-running vCPUs but to pre-fault running
-> ones.
-
-
-I use KVM pre-faulting when transitioning pages from shared to private
-with CoCo guest. This ensures that a trusted device can DMA to private
-memory before the guest accesses it.
-
--aneesh
+> ---
+>  fs/romfs/super.c | 26 +++++++++++++++++++++-----
+>  1 file changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/romfs/super.c b/fs/romfs/super.c
+> index 7f783d6173e8..846b57f265ef 100644
+> --- a/fs/romfs/super.c
+> +++ b/fs/romfs/super.c
+> @@ -143,7 +143,7 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+>  {
+>  	struct inode *i = file_inode(file);
+>  	struct romfs_inode ri;
+> -	unsigned long offset, maxoff;
+> +	unsigned long offset, maxoff, next;
+>  	int j, ino, nextfh;
+>  	char fsname[ROMFS_MAXFN];	/* XXX dynamic? */
+>  	int ret;
+> @@ -191,7 +191,16 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+>  			    romfs_dtype_table[nextfh & ROMFH_TYPE]))
+>  			goto out;
+>  
+> -		offset = nextfh & ROMFH_MASK;
+> +		/* likewise, a chain that does not move forward would have
+> +		 * getdents() repeat entries forever
+> +		 */
+> +		next = nextfh & ROMFH_MASK;
+> +		if (next && next <= offset) {
+> +			offset = maxoff;
+> +			ctx->pos = offset;
+> +			goto out;
+> +		}
+> +		offset = next;
+>  	}
+>  out:
+>  	return 0;
+> @@ -203,7 +212,7 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+>  static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+>  				   unsigned int flags)
+>  {
+> -	unsigned long offset, maxoff;
+> +	unsigned long offset, maxoff, next;
+>  	struct inode *inode = NULL;
+>  	struct romfs_inode ri;
+>  	const char *name;		/* got from dentry */
+> @@ -245,8 +254,15 @@ static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+>  			break;
+>  		}
+>  
+> -		/* next entry */
+> -		offset = be32_to_cpu(ri.next) & ROMFH_MASK;
+> +		/* next entry; the chain must move forward, or a corrupt image
+> +		 * will keep us here forever
+> +		 */
+> +		next = be32_to_cpu(ri.next) & ROMFH_MASK;
+> +		if (next && next <= offset) {
+> +			ret = -EIO;
+> +			goto error;
+> +		}
+> +		offset = next;
+>  	}
+>  
+>  	return d_splice_alias(inode, dentry);
+> -- 
+> 2.34.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
