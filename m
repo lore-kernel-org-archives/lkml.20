@@ -1,129 +1,179 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7CC38DC69
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911A1389E05
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088341; cv=none; b=plmrkoQnvCsCdiN7XIfC4vAX7PHzagYUD3y4sBMKA2V/UfoNx93zAKEwCBzXPv5dOjj0w5MHMghhA5N6HE9HFJyLelXocQSzYD4SnzDEpc451b5zmpSCa1FWo198nODOE0mnGPYL8xiSDT1kxu2GOZGdUj+njgDSc9JnXRlaO1Y=
+	t=1790088367; cv=none; b=W/oGPNXschzMzSQD/darU/jBdySQX2qLuWiSRhCrL+t2eovuF0JGlV0Bpwl9Iu2rpf7dTld8oAuJHBRaI/zkkP/IdPwlA2uL8D6mN1hgVXfpSFksG43qwZizz2vBMYS700aR1jseWJu4Ux/Bl8Nur1PAFu8Faalt+HqLZYlatRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088341; c=relaxed/simple;
-	bh=6+7YwPssrYwwbcVyy1E2zRmvrRlDS05FVVsJW9+Xl58=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SbmOEqMs4zBH3n6KTQW2SOl8zlEJWEJ7Q25iRC5/l3gliOjGTrwyJkXVbtDhJuvF9fawa5y9jXg/mGIxDbww9IaeCwjwZ+SN65DeZMUizgWXEmcXlBwpV9wPGyPEivFgFNK5g5ytjGyqcftsXP0vypYl4OR6hqs/K1aeqqM/vzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=CguFkjds; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1790088367; c=relaxed/simple;
+	bh=sh3uq6sgk6/ZoS8DXe4ERKaHebHWX1+iyN3R//kXYG4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SzXWOKH5riSBmW3v4f0XI6MCLyJ+RnYTmsfV5EJP0HNCFTwge3J3Kw42LFmWau22wXZL1G2pd3sLi0CQpF+TyCcpyEyaS49KyZv2zGjFgw3kk90QG7/VwrnGcIxmIHsoTTIbTTPqswmyrirMCx9WsSi7Ab4X2H0IZ9pXU9KCYUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4cgEaXF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="CguFkjds"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=6+7Y
-	wPssrYwwbcVyy1E2zRmvrRlDS05FVVsJW9+Xl58=; b=CguFkjdsvQ8uo+wX/xEJ
-	3RiokJSXD94GoXAfVLjWKz+1uejkAw7kl4/1xIpbNhEz9+k8g68TzFsoi6LLucFN
-	Ndwn5b23x97IbqfUJS6Ka3H72pLXZn/70hR4VEbM5/VqqBrypDjeacVP/f3C862U
-	QWEM/koX8XX8b5wCCJBbcEyGr3j/76Lp52BWBC+xXj/jZb18FDWsHby8SdFNA5AJ
-	KriCM4PWx7LxDc/OHgfaqQik8Web9Ux9ddtyjZ5Nital6JoZS/EUVbsnJuy5pRGN
-	wavCkHNDjeGpkkALeScB5I6OHW7dAuPRkvR3oBxySwAhM494mYq744+2PmKIpyE+
-	hw==
-Received: (qmail 286476 invoked from network); 22 Sep 2026 16:45:25 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 22 Sep 2026 16:45:25 +0200
-X-UD-Smtp-Session: l3s3148p1@0aq/ahNckKNQT+F6
-Date: Tue, 22 Sep 2026 16:45:25 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rudolf Marek <r.marek@assembler.cz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Chris Snook <chris.snook@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Duncan Sands <duncan.sands@free.fr>,
-	Chas Williams <3chas3@gmail.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>, linux-watchdog@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
-	linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org, linux-rtc@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] watchdog: Replace __MODULE_STRING() with
- __stringify()
-Message-ID: <arKUgQKr99Ox6ZIW@shikoro>
-References: <20260922-module-string-v1-0-c18766690185@suse.com>
- <20260922-module-string-v1-1-c18766690185@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4cgEaXF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F87F1F000FF;
+	Tue, 22 Sep 2026 14:45:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790088366;
+	bh=s/VLxv9NKbJXTt3b3nNSK4io2b3mM5NUoxiDUVgGmts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R4cgEaXFbD6AS4kaCKua7Vb3e7Vza69BPqCaKFneNWSJQ+ddLeyxTDXFiVRcb4t6Z
+	 CN6YHPE6pQ6CRwNgjNVz02pOs4ie6lCoOSfSTFnCPfOGDjtMZS0I5TdmFw1MfBYoVU
+	 T+tYkWMTQsWIbQyxL5qMsti+vHneTm2Ym1e0aTgNENwoMXBLWkVjqoSIjJcubodobW
+	 PEPxANCUHf+m7MPFg6/8jLVqz/JMeR3FWoQDNOxwm1Pm8k1Fd0BNTEcmpx41+ZvO9W
+	 DUhHRMShYQKEeA5BQSiPEDB90RPaiRRqGKtweokjXF7L1a0vyvpQ9NM99FMlupChK/
+	 pGheBDxLJbFTg==
+Message-ID: <64b10ef4-428c-47dc-a97c-59ba178a9044@kernel.org>
+Date: Tue, 22 Sep 2026 16:45:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sgLEH0/VtwN7fsyT"
-Content-Disposition: inline
-In-Reply-To: <20260922-module-string-v1-1-c18766690185@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 02/29] arm64: mm: add PMD swap-exclusive helpers
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-3-usama.arif@linux.dev>
+ <35e42ccc-df8f-4703-b10d-f7c96b263e98@kernel.org>
+ <93e71e27-86d7-4853-bbd2-756ac137a925@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <93e71e27-86d7-4853-bbd2-756ac137a925@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---sgLEH0/VtwN7fsyT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/22/26 14:34, Usama Arif wrote:
+> 
+> 
+> On 18/09/2026 22:11, David Hildenbrand (Arm) wrote:
+>> On 9/14/26 14:27, Usama Arif wrote:
+>>> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+>>> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+>>> not just in a swap PTE.
+>>>
+>>> arm64 encodes a swap PMD exactly like a swap PTE, so the new helpers wrap
+>>> the PTE ones and reuse PTE_SWP_EXCLUSIVE.
+>>>
+>>> Cc: Catalin Marinas <catalin.marinas@arm.com>
+>>> Cc: Will Deacon <will@kernel.org>
+>>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>>> ---
+>>>  arch/arm64/include/asm/pgtable.h | 6 ++++++
+>>>  1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+>>> index e89ec5f4787b4..d3f53a601aed3 100644
+>>> --- a/arch/arm64/include/asm/pgtable.h
+>>> +++ b/arch/arm64/include/asm/pgtable.h
+>>> @@ -599,6 +599,12 @@ static inline int pmd_protnone(pmd_t pmd)
+>>>  #define pmd_swp_clear_uffd(pmd) \
+>>>  				pte_pmd(pte_swp_clear_uffd(pmd_pte(pmd)))
+>>>  #endif /* CONFIG_HAVE_ARCH_USERFAULTFD_WP */
+>>> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+>>> +#define pmd_swp_exclusive(pmd)	pte_swp_exclusive(pmd_pte(pmd))
+>>> +#define pmd_swp_mkexclusive(pmd)	pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)))
+>>> +#define pmd_swp_clear_exclusive(pmd) \
+>>> +				pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)))
+>>> +#endif
+>>
+>> Why do we #ifdef that here, but not the uffd-wp swp PMD helper?
+>>
+> 
+> uffd-wp is gated on CONFIG_HAVE_ARCH_USERFAULTFD_WP.
+> 
+> If I removed the CONFIG_ARCH_HAS_PMD_SOFTLEAVES guards above, when THP=n, arm64
+> will use the generic macro which is wrong.
+> 
+> I tried building uffd-wp swp with just ARCH_HAS_PMD_SOFTLEAVES guard and I got
+> the build error 
+> 
+>   mm/page_table_check.c:232:20: error: implicit declaration of
+>   function 'pmd_swp_uffd'
+> 
+> we will probably need a separate patch like:
+> 
+>   #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+>   static inline bool pmd_softleaf_uffd(pmd_t pmd)
+>   {
+>           return pmd_swp_uffd(pmd);
+>   }
+>   #else
+>   static inline bool pmd_softleaf_uffd(pmd_t pmd)
+>   {
+>           return false;
+>   }
+>   #endif
+> 
+> 
+> to avoid the above build error.
 
-On Tue, Sep 22, 2026 at 03:32:21PM +0200, Petr Pavlu wrote:
-> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
-> MODULE_PARM support for older modules" [1] in 2002-12. That change also
-> moved it to the graveyard section at the end of linux/module.h
->=20
-> Replace the remaining uses of __MODULE_STRING() with __stringify() in
-> preparation for its removal.
->=20
-> Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
-> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+Just to explain where I am coming from: for all these patches I took a look how
+the other pmd_swp_* functions where handled (and separated from the pte_swp_*
+variants). Nothing earth shattering, was mostly looking for keeping things
+consistent within these architecture codes.
 
-I didn't look at all but at some of the drivers (Renesas ones, da905x,
-STMP and a few others). Those looked good. I guess you generated the
-changeset anyhow:
+-- 
+Cheers,
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-
-
---sgLEH0/VtwN7fsyT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqylIEACgkQFA3kzBSg
-KbZBaw/9FrBesyOyyDUrnxlHP0bOF3BmqDAG1eHCb7OuWj1Wcqrh68l72s5PrP8Y
-omafJO2i4E1dAJdffYG+gz4rfeaT4Kj9TJCODqKn6pB7cEFOj0Gk9Tlc1Pd3sNpo
-3nNxwod06QpdI/1RpmBPR76rj+a0vaK8WM1j1zoARksJT0LK8Jrfm5d73Hoisng7
-2iNk+ZkddaYmPSqgADJxlB+j3VUcWAIp4t/Q4F0c6+xJgA++OzbgOAvDLpXzi4Ae
-zVzinZ552qM8vWVqf9RHbEz05NCRqlYewqsc6ZzFWcLHOcC9cE9nbgwH6qtd5qWU
-LWqNdIl0WXDwSXi79NzvtqsAIXCMN814bx497Fbz4Xe4Sa3KBDkfUPv/JmmRtxcZ
-BQxDPqXjxauBMrmarjBbr2fJy+6JRoJ44Fb3n3USWvZufXWhUbagITi8bfkE+ikP
-6YriAOJVgsI9IQnTTUN5szRzPcFEHTM9N5qptkcwjCyWa3Z61/a2gmppmR4wwQ1l
-Be/BD93oE4Y+DkKI3w3dWjyamEWcx+Hq9JYIMlemrXpGx5f2OZCIJNHFwvdyS02h
-k8AE3H4VIwo7A/6UYTImr/JQAtwuUTyzcK54vyXsGAPSc1FhvXr+8zgbaR06nqgD
-EfSNpsEVCbms7JBhxZphEoSYGUtYUwHE6x/Vd63n78pA5DJoRQ0=
-=++bp
------END PGP SIGNATURE-----
-
---sgLEH0/VtwN7fsyT--
+David
