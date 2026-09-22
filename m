@@ -1,126 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A26043DEC3;
-	Tue, 22 Sep 2026 13:30:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E6C39FCBF;
+	Tue, 22 Sep 2026 13:32:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083859; cv=none; b=uLRFnNbLLewwTlIwFcduOJpt5Omgc1XmfuvOBmMU5fou9zHYebdhJAGKzfXoo77W0Ld4CYmOB089jf5eubp9TOTxBDpa3totCnD2LxcPjwdae1+RCCGOEtI5fh0aMj/mOiX297xVPmNL/RJueSWK4EcJlXcJNprgIziKazMGZI8=
+	t=1790083952; cv=none; b=VY/I9on28uJr8f2DzuELUKv7nUolz+t1X36LbbKY1wYEN9zoundHKXUMlJmKpv6fRe2P5ptgBtbA3vAwfd192QnSd9YuLpjM4jLQzHh8rkKUNytB0x9bUjiiZ9xSRbHCRTd9EY9ZOD1HJkpdfV/kkWmHsnJc+1/wy8zhJ5GsYVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083859; c=relaxed/simple;
-	bh=pWk+vCHIJnjvD6e1PGCGftZo7Nq+trD74kNQogbeQyI=;
+	s=arc-20240116; t=1790083952; c=relaxed/simple;
+	bh=LYo9expeQU1cCwYwOhTDwbg03nk/lQdkP6k+S5qLDAg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IKvl96a172g+5vpW7SxDtbUzao08QbHn/6SYF4Oyd+FLSy3se2ZVNxYsG6kA279U+SEz088R8UBNY9CWUyIGPRCyLWsSzC5iAUfwMOC8f7wxy5UZMAKWKmlyN0gXhu5jT5HXpXzTXnETFP01bAo88G/v4RNpLh+l7RWN86ptvqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WsFWXUnP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RCtp5rrd/Pl8DOycBzkfhJfZu3pDolkov/Z5a6FzjNBDVGqT6hIWuZAY3IJ1N1HOHY8A160J+/w269BrlMnakcN+DNy1vezqIKj+Fvs1WKhxH7IiA6DM6arrOe89AtEPygAzuhVWzCl0Vg5SwtbAObvED9ZjPxJBeLWHGIAfrMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+hVf59p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WsFWXUnP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88BF61F000FF;
-	Tue, 22 Sep 2026 13:30:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+hVf59p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7051F000FF;
+	Tue, 22 Sep 2026 13:32:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790083857;
-	bh=eZbT6bofTdrcKmONlOQZmDhDpogwkRooaTcmH+dj7Ik=;
+	s=k20260515; t=1790083951;
+	bh=P8U0LLjZbP/ePMrZWC1I+4FguivqM7VnbYyMmDfijc8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WsFWXUnP8NJVnX0eK28aiT7KS95kdrLG0pScdcm5eDf+dFcDv4a1g8FAVTo5Wm5Eq
-	 GEwbruXLERl1GXQQcnd2h4mpiYdxVI6/a/JbLc7htw7f53T9A85W2+3XYlm/Co090L
-	 glSGKATH79oJe1Fw69eI+zPzntl9rpUaCEfRLMHbCdERSkSiXbi2uXpJW7yg/J7o0H
-	 Lv68lAtn/8dCIDvbRKMAgdaKO7IeF0HRZH670xonOyBPVynsbW3Ek3E7vCWHh/ZLC5
-	 0bRxs/2CfZ1UTKv+MrnbfOSlFVSi4T3jsqZh8WM8ucork6iOamSVE8Wb5jrZIivjbe
-	 q65xIIOZaiqUQ==
-Date: Tue, 22 Sep 2026 15:30:48 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-Cc: "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
-	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
-	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
-	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Subject: Re: [PATCH v2 4/4] wifi: ath12k: Connect to the QMI server belonging
- to the device owned by this driver
-Message-ID: <g63vg7ho5al6f2hfxbgssrisnjl5ui6isxlrv3265ocatvdmay@anmhz3vcxcbo>
-References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
- <20260921-qrtr-multi-ep-v2-4-27dd80d841a0@oss.qualcomm.com>
- <e7e8a499-9e89-4efa-a99f-18ce7dc37ab5@app.fastmail.com>
+	b=W+hVf59p3DbX3eT/fHbsgXUkOVlKotpbEIQ31NTnRI+eLAx32MIL6CELAEIQsIerW
+	 RabJ/p++KAAjRUssGmtUPpSvUNaIEeZoj3LpZJV8lwataAlv1JUds9DQsne1vf/bR7
+	 YfOQ/VvXDjwmyPFFSuBO4l3EVraMFCCMMjdd4YOH4DDCN1nZD6aK100cZzCTzZO9TV
+	 7MuOoUjQYUyj+oTpusc2zxMjKrPD9Una4IjDZb+56yC2SJewp5nwn48/61/fKOPLNK
+	 0ylkrib0mGnZNR9BJm0A2qNJFyp6hj5WJfn7ZoonTom9SCISVtJPD9+BHirD3eqfa6
+	 X8bvTmb4/CXXg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id CE3861AC56C0; Tue, 22 Sep 2026 14:32:27 +0100 (BST)
+Date: Tue, 22 Sep 2026 15:32:27 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Maciej Strozek <mstrozek@opensource.cirrus.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH v4 1/8] ASoC: SDCA: allow building without ACPI
+Message-ID: <arKDa69Aggoo32CE@sirena.co.uk>
+References: <20260918131914.681588-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260918131914.681588-2-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="V0vWP9UJNZF+i9I8"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e7e8a499-9e89-4efa-a99f-18ce7dc37ab5@app.fastmail.com>
+In-Reply-To: <20260918131914.681588-2-srinivas.kandagatla@oss.qualcomm.com>
+X-Cookie: Too clever is dumb.
 
-On Tue, Sep 22, 2026 at 02:43:05PM +0300, Juha-Matti Tilli wrote:
-> On Mon, Sep 21, 2026, at 14:23, Manivannan Sadhasivam via B4 Relay wrote:
-> > From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> > 
-> > When two identical ath12k PCIe devices are connected to the same host, both
-> > advertise the WLFW service with the same service and instance id. The QMI
-> > lookup reports both servers to each device, so a device may connect to the
-> > firmware running on the other device.
-> > 
-> > But now, QRTR provides each MHI endpoint a unique node id which is
-> > different from the node id announced by the device. So use the same id to
-> > pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
-> > the node id derived from the MHI controller index and zero for transports
-> > that do not assign one. In the new_server callback, skip any service whose
-> > node id does not match. A node id of zero disables the check, so transports
-> > that do not assign one keep their current behavior.
-> 
-> Tested-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-> Tested-on: 2x WCN7850 hw2.0 WLAN.IOE_HMT.1.1-00018-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1
-> Tested-on: 1x WCN6855 ath11k + 1x WCN7850 ath12k
-> 
-> I'm having some issues with regdb on ath12k cards so I had to test using
-> the low-frequency 2.4GHz channels. I tried updating linux-firmware to
-> 20260810 to match my 6.12.110+multi-QRTR kernel, didn't help. The error
-> is:
-> 
-> ath12k_pci 0001:01:00.0: No reg rules available
-> ath12k_pci 0001:01:00.0: failed to extract regulatory info from received event
-> ------------[ cut here ]------------
-> WARNING: CPU: 0 PID: 12 at /drivers/net/wireless/ath/ath12k/wmi.c:5841 ath12k_reg_chan_list_event+0x171/0x1e0 [ath12k]
-> Modules linked in: xt_gmmark(O) xt_bemark(O) w24e2identificator(O) qrtr_mhi ath12k mhi qmi_helpers mac80211 libarc4 cfg80211
-> CPU: 0 UID: 0 PID: 12 Comm: kworker/u8:0 Tainted: G           O       6.12.110-yocto-standard-gec77603762c7 #1
-> Tainted: [O]=OOT_MODULE
-> Hardware name: Freescale LS1021A
-> Workqueue: ath12k_qmi_driver_event ath12k_qmi_driver_event_work [ath12k]
-> Call trace: 
->  unwind_backtrace from show_stack+0xb/0xc
->  show_stack from dump_stack_lvl+0x35/0x40
->  dump_stack_lvl from __warn+0xaf/0xb0
->  __warn from warn_slowpath_fmt+0xe5/0xe8
->  warn_slowpath_fmt from ath12k_reg_chan_list_event+0x171/0x1e0 [ath12k]
->  ath12k_reg_chan_list_event [ath12k] from ath12k_wmi_op_rx+0x219/0xc08 [ath12k]
->  ath12k_wmi_op_rx [ath12k] from ath12k_htc_rx_completion_handler+0x215/0x2d4 [ath12k]
->  ath12k_htc_rx_completion_handler [ath12k] from ath12k_ce_recv_process_cb+0x149/0x198 [ath12k]
->  ath12k_ce_recv_process_cb [ath12k] from ath12k_pci_ce_tasklet+0x13/0x28 [ath12k]
->  ath12k_pci_ce_tasklet [ath12k] from tasklet_action_common+0x87/0xa8
->  tasklet_action_common from handle_softirqs+0xbf/0x1b4
->  handle_softirqs from irq_exit+0x55/0x78
->  irq_exit from call_with_stack+0xd/0x10
-> ---[ end trace 0000000000000000 ]---
-> 
-> This error happens with 2x ath12k and 1x ath12k 1x ath11k too.
-> 
-> But, the dual ath12k setup works, and the errors are entirely different
-> than what QRTR node id clash does.
-> 
-> So, I believe the patch works.
-> 
 
-Thanks a lot for testing. I asked our WLAN team member to test this series on
-multi-ath12k setup and found one issue with QRTR_TYPE_RESUME_TX. After fixing
-it, multi-ath12k setup works fine.
+--V0vWP9UJNZF+i9I8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I'll submit v3 with that fix. Please give it a shot on this setup, one final
-time :) Appreciate your help here.
+On Fri, Sep 18, 2026 at 02:19:06PM +0100, Srinivas Kandagatla wrote:
+> The SDCA class driver is useful on non-ACPI platforms where the
+> topology is supplied statically via sdca_class_hw_ops.get_function_data.
 
-- Mani
+>  config SND_SOC_SDCA
+>  	tristate "SDCA core support"
+> -	depends on ACPI
+>  	select AUXILIARY_BUS
+>  	help
+>  	  This option enables support for the MIPI SoundWire Device
+> -	  Class for Audio (SDCA).
+> +	  Class for Audio (SDCA).  The ACPI/DisCo topology parser is
+> +	  only built when CONFIG_ACPI is enabled; on non-ACPI platforms
+> +	  (e.g. ARM/DT) codec drivers supply the SDCA function data
+> +	  via sdca_class_hw_ops.populate_function.
 
--- 
-மணிவண்ணன் சதாசிவம்
+  $ git grep sdca_class_hw_ops
+  $
+
+--V0vWP9UJNZF+i9I8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqyg2oACgkQJNaLcl1U
+h9Bn/wf+OmRIs8u+VImvndxMDXckfSRECvmzvcGfxvXZ0gANIESYzRGy/mreuWYJ
+YpsQi5RX8nhaIH2KgUfUMInfAceUHPf0L4uf9HNrqWJNbwEjzJR4hEKYEvBI1Wpt
+dYuzGEfmCentFIlNEHuYtSLn5TrRtFayhk+dVh0b2pIw1SHcpoFNZYXT2l9a9I9X
+5k9MZDkM+MdHwHxmuvxrmRlIqgKABPBv618RoSXWPBUjtj4fvXAnJwBvvMmupb80
+Z90JXqwq7yL/JlQ6MsxvIIVRrKCgKZEaJf9iZ8wEhPkHN7ow5HpvjPUUWminfMIB
+jrZVM9ZVZU0EtnIKaE1SmrRg/XFA0A==
+=uwPS
+-----END PGP SIGNATURE-----
+
+--V0vWP9UJNZF+i9I8--
