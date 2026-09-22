@@ -1,89 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-6.mta1.migadu.com [95.215.58.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF733EC69F;
-	Tue, 22 Sep 2026 17:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A069C56E05E
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096668; cv=none; b=AgAzELGkU0rXMy+qCx4xnc4OfFE19V6aNn7zzfAaEPUFZyqPJaGHKbxYnJFJtTZVauhrAdAfQVIXcln8pILrq/qo/Uy4udRiJVAKgtVIGF9a+TGM6uNtt2ubXhBqDw5ulNj+U3lSpbCnUsQCb5MJ8o4vVzS8nLT/G3HPP2ZIdbU=
+	t=1790096707; cv=none; b=M/kwsZRwJTU+GN77rg4y+HgTYaAHD3RRbRcM0wMEamf06RidIc31IYOGwuh38s7xF5QTrLsn0pKSaM1krHUfYC9810axgTUfzEw2NGC45pu46JsEnCQcJUph/mcroC9vYsGaGvjTaaFbuvLuEhf3/uP69yhgRNr+r01t1UMQ5UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096668; c=relaxed/simple;
-	bh=ryw1ckC0LyGtXZnUSGqqdSw6vPzJYJA+e+eu0aiWzDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hkq7Vh3U/QfPKTY7K++ZuuWtzt/Fxlo9hvvaXds2OFIaysNUX8kUzmabKljt1HR7rjyXzHypviD1SZJwPPq1JAJCLePLJCKenBvQnGvnzkxuQi9KFTsejGyLWxKf1KiqtdLpyDFjr1JXmS+9rMTHBlfCm7KBOAy8+jWN4Qw7GTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LK58FBno; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790096707; c=relaxed/simple;
+	bh=Y0RaZjhg7p918DG4B83V3Lyvof2PLvieks4Sm8hX9pg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=eG9QvWCbN9wdnOXznrSjCenltrNFIFyt+RljA965NFGNGKokaUuYGjwnT6RsCrc8fIqQ6b9SyeyioyXSHsr5aIU1mPLI16Gc6Yt5muKxhohVFdgWtj8QJbm/PUzHQ0tCO4VUhrgCxtCxrMwiysPqMQIZW0zaUlib3yj8rdYA8V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h93VQnMq; arc=none smtp.client-ip=95.215.58.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LK58FBno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81CFC1F000FF;
-	Tue, 22 Sep 2026 17:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790096666;
-	bh=ryw1ckC0LyGtXZnUSGqqdSw6vPzJYJA+e+eu0aiWzDk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LK58FBnokT4BZd7z9MJoSe+sT22fZ4uH11pNVyD5Mnf8sptKicd3R4Zy+yyywjppT
-	 J90leobk6npQIuX5A0tV/IzBrkt4ZNNTa243Me6IPtmqpiqe6ofOajL93TiDPqXRX0
-	 2OnMiHswX+S0rOndPrdHpznYnCEDLgnxjfZSFEBlEXgEMM1dUVsFti5Xm0slJ2lrgd
-	 HxAdDBlD5XtmyX2jQ5+ln5rKRBYM28oPRj6AViczIoSJd9L9szwCYaGRYxxWhP8+De
-	 I63x0txaW69cubtyDEF1Hd9JBWsiGVKOjk/J8WgRotBkoq/Xv/hjdFDWO5/y0wMGkD
-	 LE6F0fBW7CD3g==
-Date: Tue, 22 Sep 2026 18:04:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	Frank.Li@kernel.org, robin.murphy@arm.com,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 3/5] dt-bindings: dma: Add CIX Sky1 DMA-350 integration
-Message-ID: <20260922-perky-absently-2590fe901176@spud>
-References: <aqE42NzerAiD2U1E@squawk>
- <20260920051501.3620794-1-Jelly.Jia@cixtech.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h93VQnMq"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Y0RaZjhg7p918DG4B83V3Lyvof2PLvieks4Sm8hX9pg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790096702; v=1; x=1790701502;
+ b=h93VQnMqqSdogkSW7EqkkRsk3uxkx23YeJc4jSptg6s4nRqntm4xlaVXqJku/323A0EPtUli
+ KU+E8yF8Bk7FwTSyY95nNyxN5E8dlonOSajlUtPOfm/4rG7N5uI5GM8V5pw2jBnikpaudh6Tmgj
+ 4mNaAU2pu1VxrMCDCeIhDv0I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 405ad137f488e4a9;
+	Tue, 22 Sep 2026 17:05:01 +0000
+X-Mizu-Trace-ID: 405ad137f488e4a9
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Yuchao Zhang <ndaugoing@gmail.com>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	James Morse <james.morse@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v3 0/1] KVM: arm64: vgic: Drop last_lr_irq and serialize overflow EOI replay
+Date: Tue, 22 Sep 2026 18:05:00 +0100
+Message-Id: <20260922170500.3210708-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <87bj9r4h9z.wl-maz@kernel.org>
+References: <20260918040214.85580-1-ndaugoing@gmail.com> <20260920014911.58616-1-ndaugoing@gmail.com> <87bj9r4h9z.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5dgaYu8dXVKiJatw"
-Content-Disposition: inline
-In-Reply-To: <20260920051501.3620794-1-Jelly.Jia@cixtech.com>
+Content-Transfer-Encoding: 8bit
 
---5dgaYu8dXVKiJatw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Marc,
 
-On Sun, Sep 20, 2026 at 01:15:01PM +0800, Jelly Jia wrote:
-> Hi Conor,
->=20
-> Thanks, understood: with the SoC-specific compatible scoping the
-> integration code, other platforms are unaffected either way.
->=20
-> For v2 my preference is to keep the wrapper, since it leaves the
-> generic arm-dma350 driver and its binding untouched. Does that work
-> for you, or would you rather see the dma-350 node itself carry a
-> device-specific compatible, with the clocks, resets and
-> memory-region described on it? I'd also like Robin's take on the
-> arm-dma350 side before restructuring that far.
+On Mon, 21 Sep 2026 00:47:20 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> I only boot tested a small nested guest (L1 + L2) with lockdep on my
+> laptop, and nothing caught fire. Please give it a go.
 
-The latter, since that's what we do for almost every other device under
-the sun. Robin's take would probably be worth hearing, but you removed
-all the context while replying which makes that more difficult...
+FWIW, looks good to me. Tested on QEMU (VHE and nVHE hosts, KASAN and
+lockdep on) and on an M4 (pKVM nVHE host on Apple's nested virt): the
+pKVM guest boots are fine and Yuchao's selftest passes, though the
+selftest passes on plain rc3 as well, so it doesn't exercise the fix
+yet. I'll reply on the selftest thread with why.
 
->=20
-> Best regards,
-> Jelly
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
 
---5dgaYu8dXVKiJatw
-Content-Type: application/pgp-signature; name=signature.asc
+Cheers,
+/fuad
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarK1FgAKCRB4tDGHoIJi
-0lGvAP4lmnDtOzTWLgbDhWbJVyNZ2BlGz/EtLftum4ZCqwvKLgEAgauaEkmh9CkC
-pA8yWGCGYUl0y/3PxtT6G5PsRZq1Agw=
-=X7Es
------END PGP SIGNATURE-----
-
---5dgaYu8dXVKiJatw--
