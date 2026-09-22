@@ -1,156 +1,119 @@
-Received: from adishatz.org (ns314768.ip-37-187-26.eu [37.187.26.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f32.google.com (mail-dl2-f32.google.com [74.125.229.160])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D026E4A49B3;
-	Tue, 22 Sep 2026 19:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.26.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C334A207A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106487; cv=none; b=YrbVZpaK/nL8g/0qN7HVxeRIjsv9jPKcpnnWxPrxAfJ7tNhparreoBnlmphsIthTzpWoZKkNrlzGzl/gzAhlgswtcOB1UNLpdJw0eMiBQ2LxBOwZqOXoBwNZ7Z3bzwBr+6EBrUGyE6Z5In6bfbH2+/hQxZTG+DFzeSIBP7JuC2U=
+	t=1790106524; cv=none; b=UOo6gSNQiK+sdoFoTLDBFux17avj5+XUVepkQOHhOlzJuKol3u6IiIfKusdwzVCyxIYuSaHPBVBwaotC2DfKbaoRzE1cCJyXZIr/z8p1SLXM+NZ+yKVTBu827PEVBIM6DMS3BD3pUnQMqxWDjGWMk844rJGwmqKI2uJyCJHoOq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106487; c=relaxed/simple;
-	bh=2GUkSs5ZTpTYdJEpouNGeYCwn+yt9cJWKo+yGU386i0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tX6nEa4rRpd3AhHIeUp5+4HJLyt5mphsNl6Zurb5GxTWuC47yLY8g45eZSC7z53q8KnRan3IR/vr4hhugN4MgIEdAYueNcZKGbdgy9LzgxIoNVf77r26ILYJGXYAwCw8OxRv+m8xo8xXHp6LSNn+rfCuOZ9KkOC3tk6AL+Rr0wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=adishatz.org; spf=pass smtp.mailfrom=adishatz.org; dkim=pass (2048-bit key) header.d=adishatz.org header.i=@adishatz.org header.b=iFncfHsn; arc=none smtp.client-ip=37.187.26.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=adishatz.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=adishatz.org
+	s=arc-20240116; t=1790106524; c=relaxed/simple;
+	bh=jNQfUoCT0rQsQDqvqd6O5D53mFke1F/vMOIqT2BbWDA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZBXVtC2EKwavivoqIsfD0obrh/V8/2GXHOMnhriP/lY3hJwA1OMpTqSI6nHeY3C5n5xdbEV0lrcRcn3OKZgEsRc+FPR4AaBZ7G+vKSLqgXnjdaYbayLSeTze99FMu2qZIL3kOm0eFyZauKN3V07r+2oFfu3iRhhjgi2BCW/v/98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=gU8c5Hm7; arc=none smtp.client-ip=74.125.229.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=adishatz.org header.i=@adishatz.org header.b="iFncfHsn"
-Received: from [192.168.1.197] (88-165-227-194.subs.proxad.net [88.165.227.194])
-	by adishatz.org (Postfix) with ESMTPSA id B6BB14C022F;
-	Tue, 22 Sep 2026 21:39:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adishatz.org;
-	s=mail; t=1790105977;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=LGPIgJER122xCLLQSaDkRENXxVHfnMixSv9onUzEXmk=;
-	b=iFncfHsnOQE6Nzy9cVrk0NEcaV0RfZdx35/lAGdRHWhUX1k5LgDCvHSf/ksD1e1RqlSWp9
-	2jsHHbrhnDAXvUJJdrwcBHb9m+G+RnzfXP3/B74a99CKLZkUR0XKjYlOy+06uhwlla6+/5
-	ttLCTLb0bTbtGqMs8edIHc+mlPXQX3lggly3ltHe0wkG4EBPm/YPD87LnICqYCMRFtyen0
-	N+zcUFyglZ0IO0s2joDyIrXbJ9OYgqknvZZoT2mwBDE/yxiqYTjQgosmgSXni7ngpiznYg
-	MFa6MJQqIRhIeGOCmGO3kL9F6JuDo7ya6GCyJOkaweaL1b5NPMNob2dW2WPycg==
-Authentication-Results: ORIGINATING;
-	auth=pass smtp.auth=cedric.bellegarde smtp.mailfrom=cedric.bellegarde@adishatz.org
-From: =?utf-8?q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>
-Date: Tue, 22 Sep 2026 21:39:12 +0200
-Subject: [PATCH] media: v4l2-async: link ancillary device runtime PM to the
- sensor's
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="gU8c5Hm7"
+Received: by mail-dl2-f32.google.com with SMTP id a92af1059eb24-1437b77c274so114730c88.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:48:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790106522; x=1790711322; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iWpsGs8VSxj7CDadxY03DnkBRPzm3FWyOuoPzRkUTdI=;
+        b=gU8c5Hm70qVVuw24l07nxO3NySfo7ayObbRajNacpN4vIqkrQyUEiBW72XVJaNrHYV
+         vQXwGb42GnE2asbbwBf6YD8PB4l1z8WN3+fjt2mL5vIZVBJo0ZHghTh5ckAMM1MHfA3W
+         HzzBl5BnlfDPKT1K5YUFXdofQtCUkDDOuKuYqs8V9XOZ8Ep4E+w+3Zq3v1E1h8h0hlil
+         ojGePFK4+P46QfDRBYKs4+ufujkWeaoyf7mUCMplo5u69GWI9ddv+5Bn100Eu9b0PC5c
+         m09kNZlohBxIbiIFAS0hFP1Q4sZxGSR29WxLh4v13ATFxKw1NbXcRwzP81SLLCIOGdLx
+         F0yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790106522; x=1790711322;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iWpsGs8VSxj7CDadxY03DnkBRPzm3FWyOuoPzRkUTdI=;
+        b=L4o5tIbg6eRA/N5zdsD0XfsvX82Ez3iFDvuWlcAPRcC4ZY36Rc2XiNhHE6PqvlpbEE
+         5HoajBzL4JD2RnibI/bEf3UXmxcMy3kCXHa3BSn+j3+bM+8ld/4vbj6QblEiyACieD1s
+         sf3POroChUBxNVuNoERp/bO7FaAl69AHo3RZP3GX1U1dVjyOoqmcvTQpUN2wXLrd+awd
+         cNPHIqIiDt8Et07gNWDWnxQ6EW7mc8zS+r2enlVOWnOfJWMM8nA6AsmI4r9wczT+NQVn
+         eExbGJHySMe4bpE03X3v1CkVNGLQ2Kbyjt3dxBZxTyOEdBICYnCWYALt/oLSfCjEdGlp
+         3XzA==
+X-Forwarded-Encrypted: i=1; AKwUvBzsPcQP+UfI0FtVf4r1nYV4JOQUILBWNEFlN8yaav2GMNj9niXTnD+Jz8WHdHE1Syvu9lkCRluA1U86Gd4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nP9pQG+h91l9RBJIwj2PKQkAvcH5VaFklDuNxKa2oua07gx+Rt
+	9hGIWDgUjxhufY6z1GMxEsY7v4DFPYr8JP6fVkarTOkSncfcSszJSNn+1tz5GXPmIt4=
+X-Gm-Gg: AYBFou2YhCjX/PV/I5lszs7LKyryiX3h6/dU5aB1Y/uXFUqJ3iIOXMidoWxW5mybnLd
+	z6nO82blfzZy0kBzUTPkv3O7l35ihrqomTnSNURfemtQQZfWX5CcB8fHN6gDB39wTgw7SfqtyqI
+	Xj3otrLtZaq2zRs8lFR4NZ+cNxmq5c0umyYEziuglIvQLG42gmTGphS8X8mlPdnJW9UyuSBYiP9
+	jkJDUzWgU3QaYAIwIhS/KEZxNwRLcXFU+r/eDAWZQf4RDc0LXMHwy2Qd8Vt2fMrd8gqrSyVfVXO
+	bw6lLil+bX8UXeVaHnF3m1tzH79f7H10OqDFLgMvMMZj+vBWHWTEEf6yt5VqmT/Yihq2vb290wf
+	nDB5LqiUCfagjkcs+Ur4mdhfn160w+vxSSussld8iOI6XXw+PFHLjS6axexLGFQ4pPekJy7AolN
+	CGI6QD1ky4mNMxz4qp+QN5lEr551xPtIkYkjtsvJBxz2X2jufNV4yOfNZKshtB3yLz9BeP/HFE8
+	mLfZc3DWEhWorMV0wnvKt9TXvSrfG/rqXaj6+3b8wx/CiN8uAJlvYuAMGNp8XD9YaY3HEs=
+X-Received: by 2002:a05:7023:a5b:20b0:143:2973:3cfe with SMTP id a92af1059eb24-144f91cb630mr410014c88.31.1790106522287;
+        Tue, 22 Sep 2026 12:48:42 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:c016:77a6:d382:7611])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm708550c88.13.2026.09.22.12.48.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 12:48:41 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-bluetooth@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Pauli Virtanen <pav@iki.fi>
+Subject: [PATCH 6.1.y 0/2] Bluetooth: backport CVE-2023-53762 to 6.1.y
+Date: Tue, 22 Sep 2026 15:48:32 -0400
+Message-ID: <20260922194838.26223-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260922-sensors_pm-v1-1-05adf2098b5e@adishatz.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0ND3eLUvOL8ouL4glxdcwvz1MRkA8PEREMLJaCGgqLUtMwKsGHRsbW
- 1ANsznoJcAAAA
-X-Change-ID: 20260911-sensors_pm-787eac01aa18
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, kieran.bingham@ideasonboard.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, 
- =?utf-8?q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790105969; l=3415;
- i=cedric.bellegarde@adishatz.org; s=20260922; h=from:subject:message-id;
- bh=2GUkSs5ZTpTYdJEpouNGeYCwn+yt9cJWKo+yGU386i0=;
- b=WCy/B5n3sfbfaG/fqSdZ9GTd0X+RU7kwc006pEqyONRU6BA3RIoWIDSV3Z1GXNUADxRXilAXD
- qtS0CFI1ebnAODHAbNxapam03am7W1ElfQhdJdtgkR3NQ20fGLO5cpj
-X-Developer-Key: i=cedric.bellegarde@adishatz.org; a=ed25519;
- pk=CV2g510IJ+UwW/Jd9MIio7NF2st3gLrxcN5YzVnMuMA=
 
-When a sensor's fwnode references an ancillary lens or flash device
-(e.g. via the "lens-focus" or "flash-leds" properties),
-v4l2_async_create_ancillary_links() already creates a media controller
-link between the two entities, but their runtime PM states remain
-independent.
+Hi Greg, Sasha, and Bluetooth maintainers,
 
-This is a problem for devices such as VCM lens actuators, which are
-typically spring-loaded: holding a position away from the spring's
-rest point requires continuous power, and the position is not retained
-once power is cut. If such an actuator is allowed to runtime-suspend
-independently of the sensor, the lens can drift back to its rest
-position during an otherwise active capture session.
+I am backporting CVEss still missing from 6.1.y.
+This pair handles CVE-2023-53762 in disconnect-all cleanup. The
+second patch is the immediate upstream liveness follow-up to the UAF fix,
+so I kept the two together.
 
-Add V4L2_SUBDEV_FL_PM_LINK to allow an ancillary subdevice to request
-that its runtime PM state be linked to the associated sensor.
+Both changes are already inherited by v6.6 and every later mainline
+release.
 
-Signed-off-by: Cédric Bellegarde <cedric.bellegarde@adishatz.org>
----
-Link runtime PM of ancillary devices such as lens actuators to their associated sensor,
-while allowing actuators to autosuspend when idle.
+Could you please queue the pair for 6.1.y?
 
-Example usage:
-https://gitlab.com/gnumdk/linux/-/commit/82b2d71415a1d95b2170e19ce025afc8bbdcf145
----
- drivers/media/v4l2-core/v4l2-async.c | 18 ++++++++++++++----
- include/media/v4l2-subdev.h          |  7 +++++++
- 2 files changed, 21 insertions(+), 4 deletions(-)
+Thanks,
+Artem Dinaburg
 
-diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
-index 460bf3dbbb88..22df627153b8 100644
---- a/drivers/media/v4l2-core/v4l2-async.c
-+++ b/drivers/media/v4l2-core/v4l2-async.c
-@@ -318,6 +318,7 @@ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
- {
- #if IS_ENABLED(CONFIG_MEDIA_CONTROLLER)
- 	struct media_link *link;
-+	struct device_link *devlink;
- 
- 	if (sd->entity.function != MEDIA_ENT_F_LENS &&
- 	    sd->entity.function != MEDIA_ENT_F_FLASH)
-@@ -331,11 +332,20 @@ static int v4l2_async_create_ancillary_links(struct v4l2_async_notifier *n,
- 	}
- 
- 	link = media_create_ancillary_link(&n->sd->entity, &sd->entity);
--
--	return IS_ERR(link) ? PTR_ERR(link) : 0;
--#else
--	return 0;
-+	if (IS_ERR(link))
-+		return PTR_ERR(link);
-+
-+	if (sd->flags & V4L2_SUBDEV_FL_PM_LINK) {
-+		devlink = device_link_add(n->sd->dev, sd->dev,
-+					  DL_FLAG_PM_RUNTIME |
-+					  DL_FLAG_AUTOREMOVE_CONSUMER);
-+		if (!devlink)
-+			dev_warn(notifier_dev(n),
-+				 "failed to link power management of %s to %s\n",
-+				 dev_name(sd->dev), dev_name(n->sd->dev));
-+	}
- #endif
-+	return 0;
- }
- 
- static int v4l2_async_match_notify(struct v4l2_async_notifier *notifier,
-diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index d256b7ec8f84..9f64b10afd10 100644
---- a/include/media/v4l2-subdev.h
-+++ b/include/media/v4l2-subdev.h
-@@ -972,6 +972,13 @@ struct v4l2_subdev_internal_ops {
-  * - Multiple streams per pad are supported
-  */
- #define V4L2_SUBDEV_FL_STREAMS			(1U << 4)
-+/*
-+ * Set this flag to keep the subdevice active while its associated sensor is active.
-+ *
-+ * This is intended for ancillary devices, such as lens actuators, whose
-+ * hardware state or physical position cannot be retained while powered off.
-+ */
-+#define V4L2_SUBDEV_FL_PM_LINK          (1U << 5)
- 
- struct regulator_bulk_data;
- 
+AI assistance: An LLM helped find the missing CVE fix, adapt
+it, and prepare the draft; I reviewed the code and build output.
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260911-sensors_pm-787eac01aa18
+Luiz Augusto von Dentz (1):
+  Bluetooth: hci_sync: Fix UAF in hci_disconnect_all_sync
 
-Best regards,
+Pauli Virtanen (1):
+  Bluetooth: hci_sync: always check if connection is alive before
+    deleting
+
+ net/bluetooth/hci_sync.c | 58 +++++++++++++++++++++++++---------------
+ 1 file changed, 37 insertions(+), 21 deletions(-)
+
 -- 
-Cédric Bellegarde <cedric.bellegarde@adishatz.org>
+2.39.5
 
