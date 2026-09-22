@@ -1,137 +1,140 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370844D2EE0;
-	Tue, 22 Sep 2026 09:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CB84DDB5C;
+	Tue, 22 Sep 2026 09:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071125; cv=none; b=XlA5os/ZCHXMF6/8NMGt3I4LFCu6zAz1i3P1fr8wy3XlsgwjS6vhS0oJUA51TE9T4/1k2VdjipWLMt3CBlYjJADUUfsbBTqYhF5mtq/LXvY65MEiOTMHG7OhcB3DazEeNcz2bOzfPXspynglV3P40luWgZMDI72krE8NLkDnktI=
+	t=1790071126; cv=none; b=nrg+8YkUiH+6P358TT/VAUwfuR1AKQ7YNep0wgJtdjIS52fCOIvfgXP9EbpxBSsmrv35WKQ7wksxcL4Z1+WcK3/lpY88Km/ZjloKJxq+HzdOv9bc8KM0senB3KdjquLVlx3w5ABnCKxuZYi8MIIwbnvfcSac1fnsECiTsvuZKvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071125; c=relaxed/simple;
-	bh=HK+yU08m52K64K0cBVvpLuj+tM/+NPiar/AAhtTvtv0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PdGN4yM9kQScQhi4HhGl2EE3v5DFOg87AXQ8JHZPY7PsJxFy6cwxe8NS/NrcllDXlP+XWbUK/+dK5qB7GAkPqPbKuK8b+LrvnbAc0+3q1IQlJdf6L01ysW4t5aEQ0MQz2mJ6o7z1iwegCkFOTSvGq1FZFbGN2YlB5Ol/H8XT33w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LiZEolQL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YTCIb160; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Dse2xfk9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5ej2gdRk; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790071126; c=relaxed/simple;
+	bh=/yyqamP5t8CQh57P/WH0zqIm4kpKRzSqI3+ThY1dMCI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=cG52VW+FdICj14HP1TT9Y7KVt+3wYmSeYvkyVwetnHnLKVysbY9hjOVOCcjWAPMyMDxBDn87iBabybRF/qvUIDa+huL/FnQvdurytc5iR+DlIMIIGAdjUvl0h+OTGJb7GhXQVmEUOBJrFvpdJaV4g+w2wrxqepqAAbKepfWqDT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Spa809y2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LiZEolQL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YTCIb160";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Dse2xfk9";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5ej2gdRk"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E23F41F8B9;
-	Tue, 22 Sep 2026 09:58:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790071118; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4URFwrM0sI0j5Ml44Xiz56jlMa8XLSjTXuYmxFnBgOw=;
-	b=LiZEolQLtrOcnCpKNhtTGFVrWufQc0pBzKwAnq8xgsyHtt7FOTAXPaGMzM2B/JNZSCQTkP
-	5qfTeqjvY5gtkYNBndsHUXbuVY2JO236TnFlQWs55eJ8IEw1eYvcqTq1xjKJBCZ4UX+YTA
-	sJuczxH3Rovjnb6cpJGa0ZwWvfJOJxU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790071118;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4URFwrM0sI0j5Ml44Xiz56jlMa8XLSjTXuYmxFnBgOw=;
-	b=YTCIb160AgoMyuaZDpwuiYTv1e3GB6uMNI3lb6iPSY56aTD87HB360Q467sPor9jhfSTSP
-	XAq/xJqeWkRW0WAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790071113; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4URFwrM0sI0j5Ml44Xiz56jlMa8XLSjTXuYmxFnBgOw=;
-	b=Dse2xfk9rYhsNzWipCoS1JcIReryX19OOYSEO/y6U6h2/Th6M27X1kd3BZhUtd0bGx7baP
-	UP9EmCy/KL78BGJ5wf2ePGumoYg4w5Paa0AiWxasn1OWy8L39PUyEjwIptrg2VB5Vlwdh/
-	xL4WP2Fe5+ktc2rbQdg+CmKsKBELHGo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790071113;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4URFwrM0sI0j5Ml44Xiz56jlMa8XLSjTXuYmxFnBgOw=;
-	b=5ej2gdRkyDcZftLUT6SaJNLl6a+lu/u772HFMDHv4wdhUy35JgSfKA/2YzV4rMORb7JPRE
-	NuaXw1RHmy24dMCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0640E136D9;
-	Tue, 22 Sep 2026 09:58:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id knt0I0dRsmrVBwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Tue, 22 Sep 2026 09:58:31 +0000
-Date: Tue, 22 Sep 2026 10:58:25 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Kees Cook <kees@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	Kuniyuki Iwashima <kuniyu@google.com>, linux-hardening@vger.kernel.org, 
-	Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jason Xing <kerneljasonxing@gmail.com>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, Willem de Bruijn <willemb@google.com>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 1/7] mm/slab: Mark the kmem_buckets_create() context
- as a Context: section
-Message-ID: <arJRHFs-r8hkTLhx@pedro-suse.tail5790ac.ts.net>
-References: <20260921075811.too.775-kees@kernel.org>
- <20260921075820.1718334-1-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Spa809y2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE5E1F000FF;
+	Tue, 22 Sep 2026 09:58:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790071125;
+	bh=aai3CsCP6YioLAW5MeiIsLHvBjwFsN0GGOUwY/D/HGM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Spa809y277oKylDB4yqxACYtY+WeTrUwHt95v/68/LegW4tQecygUu1j87R9Cp5vx
+	 mmGPccHLIYeSB+rtabZjd7q9edEql93lGusIRdTX2FSQOUQpO7erZVHvOR9I7/33La
+	 hU1Y43i2Uh1Wj+cx3uOewQON5YGra7d4Ry/2qs0PVyfTdOZ07r4yJ8v+q7W22u6KSX
+	 DFUt4UP9kqqwkwK7poqxU8RNZ/K8hMGBUaAlc4m5GuMgs+lNi5qpQLCP4P0eiShGzi
+	 7sQ6eI5blbL8+fxQMySE4QGl1LZvQHcn736Li52Y7CHADFGihTgBimcgnIH1iQaQF2
+	 8/lAiCW2cP1AQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Jack Thomson <jackabt@amazon.com>,
+	Jack Thomson <jackabt.amazon@gmail.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Leo Soares Passos <Leo.Bras@arm.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v2 00/13] KVM: arm64: Add KVM_PRE_FAULT_MEMORY support
+In-Reply-To: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
+References: <20260914-kvm-arm-prefault-v2-0-26fb47f74b73@kernel.org>
+Date: Tue, 22 Sep 2026 15:28:33 +0530
+Message-ID: <yq5abj9p38vq.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921075820.1718334-1-kees@kernel.org>
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FREEMAIL_CC(0.00)[kernel.org,linux-foundation.org,linux.dev,gentwo.org,google.com,kvack.org,vger.kernel.org,davemloft.net,redhat.com,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,pedro-suse.tail5790ac.ts.net:mid]
-X-Spam-Flag: NO
+Content-Type: text/plain
 
-On Mon, Sep 21, 2026 at 12:58:12AM -0700, Kees Cook wrote:
-> kmem_buckets_create() had the same sentence about calling context as
-> kmem_cache_create(), but lacked the "Context:" prefix, so kernel-doc
-> rendered in the body instead of as a "context" section.
-> 
-> Give it the missing prefix. Additionally fix the "a interrupt" typo
-> __kmem_cache_create_args() had.
-> 
-> Fixes: b32801d1255be ("mm/slab: Introduce kmem_buckets_create() and family")
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> writes:
 
-Acked-by: Pedro Falcato <pfalcato@suse.de> 
+> This series implements the KVM stage 2 page table pre-faulting feature for
+> arm64.
+>
 
--- 
-Pedro
+> == Foundations ==
+>
+> The series begins by establishing the required foundations:
+>
+> 1. Update kvm_s2_fault_desc to store the exception syndrome register (ESR)
+>    value independently, and update all code paths to use this value
+>    exclusively.
+>
+> This is required to generate a synthetic fault for pre-faulting without
+> inadvertently obtaining an incorrect ESR from elsewhere.
+>
+> 2. Update kvm_s2_fault_desc to store the kvm_s2_mmu independently, and
+>    update all code paths to use this value exclusively.
+>
+> This is similarly required to generate a synthetic fault against the
+> canonical stage-2 MMU. It would make no sense for pre-faulting to modify
+> nested shadow page tables, so the code must not obtain an incorrect MMU
+> from elsewhere.
+>
+> 3. Update the abort paths that consume kvm_s2_fault_desc to also return a
+>    kvm_s2_fault_result.
+>
+> Pre-faulting needs to know the granule size handled by the fault, so the
+> abort paths must return that information.
+>
+> 4. Pass walk flags to kvm_pgtable_get_leaf() to allow page-table walks
+>    under the MMU read lock.
+>
+> This is Jack's patch verbatim. It allows KVM_PGTABLE_WALK_SHARED to be used
+> when walking page tables under the MMU read lock.
+>
+> The API permits pre-faulting to run in parallel, and the read lock prevents
+> the page tables from being torn down during the walk.
+>
+> == Implementation ==
+>
+> Pre-faulting is implemented in kvm_arch_vcpu_pre_fault_memory(), which
+> pre-faults the stage-2 page tables for a specific GPA (the guest IPA on
+> arm64).
+>
+> kvm_vcpu_pre_fault_memory() calls this function for each GPA in the range
+> requested by userspace through the KVM_PRE_FAULT_MEMORY ioctl.
+>
+> The implementation is straightforward: walk the stage-2 page tables for
+> the GPA and, if it is unmapped, populate the mapping by handling a
+> synthetic page fault.
+
+ [ ... 47 lines skipped ... ] 
+
+>
+> pKVM is not supported regardless of whether the VM is protected or
+> not.
+>
+> This is because pKVM instantiates vCPUs upon run,
+>
+
+Can pKVM instantiate the hyp vCPU during pre-faulting ?
+
+
+> but pre-faulting is  typically performed before a vCPU is run.  It would be confusing and
+> inconsistent to error out on non-running vCPUs but to pre-fault running
+> ones.
+
+
+I use KVM pre-faulting when transitioning pages from shared to private
+with CoCo guest. This ensures that a trusted device can DMA to private
+memory before the guest accesses it.
+
+-aneesh
