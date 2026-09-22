@@ -1,133 +1,185 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99ACC53979A;
-	Tue, 22 Sep 2026 11:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7310445628F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075430; cv=none; b=EdRLO95ByIVP1vrrKfGU0UaKoDoZtnuHvmuYY3KUgwM8yVG428CXYjkg6M3xd7PGZeTG8zPdaweQyENDVdFUp3frrb3+y3w1btoTCTOwMJhQ7NgXvClXj1okJP3yb5i07wX1zo7V0uDwl8tzgbeeN1y0nMPNfqDIyW4C3h4E3dg=
+	t=1790075447; cv=none; b=uANwUMZYqfg4Xeo0J3pZpZFDDNLzmfKJR1yOkAz2nh7fvxpRbQe63VgUtzJta7bIGkBJRNcZkw9+yeKRD5AS7/mBgYx/JJWYFa28sawaktNlaOIfEQ2RkazxEaHckOOdsXeE7cTfjaGozWzdKzIvUustbDcUE8Ig06D0agxStIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075430; c=relaxed/simple;
-	bh=tKwy/w1wSHCkUKhG/vyDpp6TFzg99sN7f7TUb2pKqxg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Nk0gyYcVkpywe8OQui1yBbHjuMTxVrsMtAXxB7YIUfOef1nbE4nckUwmXr9SRS0SsPzOR8JokYvkbYQYqcLngr8f0OMorosMTg9R7Tg48iuRI5j188OYU3b/3QwZIMS3yN0P4gLBmxJ7Ua9jM5rINXpm8ZhPH03qpcCHrYBd6r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=qEVEyL2d; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1790075447; c=relaxed/simple;
+	bh=MkrfUt1epWhNjWVGPMcKDFbIjfl6pN/EZeBjPwxWSkY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bZA7ObL5iO1ogsnZP/fgOfm1mIiSMBk/ktcN4/uccIOqR4XwH3Ij24sBKXBj4P6aBcT2JJAEEGuT1uveScrz7UG1JShbQhp0mekcKqx6wOyyK5Az4h870z8D6G6HSK6atCz39bWrVZlO2Z7Y84uOGXO0YiPg1LfEnz8GgdRIWmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nxv9WifW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="qEVEyL2d"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MAYibd2384549;
-	Tue, 22 Sep 2026 07:10:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
-	content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=/NHHPJrBD3Sn/i5twpdWO2+G06n
-	bedjKsQ4hvZly5TQ=; b=qEVEyL2d87OTcbYqyQThnexvzl8tS6ttRwL5tHB6wLR
-	K6dxRVWB/XupicJo4kldW7ivaDgYSyck8yRtgguMEF9yi3eiZBN/0UELE+C/JQQe
-	9o/51Mn0BEvtVOe+gFJYzImfPgPfQdI4xADcmM+ShFnF3UQhcQHTLJ4saw1Hc0FC
-	r3NbVRowAxzSKFaucjhcthmR04WVGCXm0/Dbl3+VmzXOepLFV6LZAJlDTuUc4/J+
-	SgTxQz37Y2EMePiyhhlBPRQyQ3evvzADywrRuwWkFSfgptsPywWhsDtWyvEVpBBx
-	F6lmKq9aNsRpPYz+wEH0BFbhGkxEUlhZyCjOtR88TJg==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gsm83ed2y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 07:10:14 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 68MBADqT059668
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 22 Sep 2026 07:10:13 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 22 Sep 2026 07:10:13 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 22 Sep 2026 07:10:12 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 22 Sep 2026 07:10:12 -0400
-Received: from HYB-b1tGeUj4GP1.ad.analog.com (HYB-b1tGeUj4GP1.ad.analog.com [10.48.65.202])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68MBA27H022762;
-	Tue, 22 Sep 2026 07:10:05 -0400
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Antoniu Miclaus <antoniu.miclaus@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>, <linux@analog.com>,
-        <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] iio: adc: ad4080: enable address ascension for chip identification
-Date: Tue, 22 Sep 2026 14:09:58 +0300
-Message-ID: <20260922110958.1329-1-antoniu.miclaus@analog.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nxv9WifW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD581F00903
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:10:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790075446;
+	bh=FWjWwozCfG09p014wbFDCqQeW+3NpBoNoOf7ed+0xEM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nxv9WifWNl1QjTfdD70/Qyvxl3pei3lReTemQfJFQwo3IntYJfMGYz6n1SFfPoxNj
+	 ECMmqEEo9Ie0iUHpFauYlI+F82XBi/pS1R3xt5xtjNrbgs1rsvSKoUFHGn9AqMgIZm
+	 Na0U8g4KsAZfC5KrSeeRwLiqXR9L/BKCvE7PL7b04Ct8AqcW+V5azK5cWdmVppUmR9
+	 Q4/zAJgBrQdXrscR5D6bZKMvxkEuZqFGSJqQ/RqbWfovxyF5bMONRm6/1vC+tS3DAt
+	 Lp+mIdUzcmfvjjkay5wTk/0lHU272o3J2cGcIpRgzvk+FqKpAR9JZfphllLKPMNqhO
+	 l9eKsKSxSJ+tw==
+Received: by mail-qk2-f27.google.com with SMTP id af79cd13be357-939ca12ab70so470206085a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 04:10:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByl5Kw/DH+Am2v+a57E0dEAUt03u5humMLCe6iR6UTHzA3AtSEBGycsiTjgDKy1INuqZ8PjlxUky0mvS6I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvFjolHLU2Kqcs9+jyfv256tSPp3w1cmvvaS3yCZ3o3gf837C/
+	tdXFgb+7w7k82Bh0dWEop3s/IgcQE3bAn4gkyrlrOGCU4Dn5hS1wkJ3musOm2fKqTIdA08ALwEj
+	ltXhK8W4vymJr/Dog9vzIwnKCduI9nh4=
+X-Received: by 2002:a05:620a:6cc9:b0:939:6de8:43dc with SMTP id
+ af79cd13be357-93c15e78cefmr509373185a.48.1790075445161; Tue, 22 Sep 2026
+ 04:10:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE2MSBTYWx0ZWRfX2JXj49gsb0ah
- B6OQyNmDyibuYm0DoALcG9FoMkQj17rEwc8F5c6wLT1ziIEz/6+lcgA5JtfHAQL5iZTAykz9BCe
- Xba3skPyomfyPk1qXugWQIV+pxoFEKXuVyxN+SbPXL76ZCVxMOrY
-X-Proofpoint-GUID: SwSnn60E0kIhKKulhTH6-hEan7u6ervy
-X-Authority-Analysis: v=2.4 cv=e66T2qp/ c=1 sm=1 tr=0 ts=6ab26216 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=QwXq9NN0wpR9igFFdQoA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE2MSBTYWx0ZWRfX4Cg0V+4AtrqB
- Cshf9Z2+Ns7CYuJImKjcfnUHyF5qpiEdfL/vxoAuItZ7cTWhz8exSq7SvIUc9upfMxkhQR6tsty
- Q/sxmK5og0ZbsqKu4dZqsIsX3F9dqnhfrAubNxKONzyu8DLAnXU738j/MkygR4QeI8PAX8s5+D8
- S+G+j9RHpNxL4CI+IkO0O4okJt5+A5oelsgKtih0AGXs8qvSIheItODufU/Zxq+5/OXb+9mEl3Q
- pwr73YJJNC538DF8zHx7mQM0APxhbkET4hmiCAALnWHrbc+EX5ZtbiQj5nBQ+1IPUf9pxqa9/lr
- 32BhZQNULBUIqKSJ4b+Bfbi1bS54Vemzy4wnyRMvAfZj1b/xWTM9m/h4pigqiGE0W9nWKOJxX+b
- wjRNNwxdWOk79SHYKdWH2aAcs+Xj44C50mevEDHJeP9e2CitUZwiJBoJNZ3p6AOgXUWl8lY+Kal
- crBuGV6QFAOBGOO0BpQ==
-X-Proofpoint-ORIG-GUID: SwSnn60E0kIhKKulhTH6-hEan7u6ervy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0
- adultscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609220161
+References: <20260921152449.629486-1-alex@ghiti.fr> <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
+ <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
+ <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org> <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
+ <arJcPIaqJOzLpkel@gremlin>
+In-Reply-To: <arJcPIaqJOzLpkel@gremlin>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 22 Sep 2026 19:10:34 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zLY6eZWUufuVqLgEVf93G1JoKtk9ObftkoTwbAimG8Yw@mail.gmail.com>
+X-Gm-Features: AcwNN1WGDooBKfoE6NAcLPXoe3osiB8r5tT_HlJWIcwGy2CzV98OLFsDfzwfKSw
+Message-ID: <CAGsJ_4zLY6eZWUufuVqLgEVf93G1JoKtk9ObftkoTwbAimG8Yw@mail.gmail.com>
+Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback completion
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org, 
+	willy@infradead.org, jack@suse.cz, liam@infradead.org, vbabka@kernel.org, 
+	jannh@google.com, chrisl@kernel.org, kasong@tencent.com, 
+	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
+	youngjun.park@lge.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
+	hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org, 
+	chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu, 
+	hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The two byte bulk read at AD4080_REG_PRODUCT_ID_L expects PRODUCT_ID_L
-followed by PRODUCT_ID_H. After a software reset the AD408x defaults to
-descending address mode, so the second byte comes from CHIP_TYPE (0x03)
-instead. CHIP_TYPE reads 0x07 on all AD408x parts, so an AD4080 reports
-0x0750 rather than 0x0050 and every part logs "Unrecognized CHIP_ID".
+On Tue, Sep 22, 2026 at 6:47=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> On Tue, Sep 22, 2026 at 06:37:38PM +0800, Barry Song wrote:
+> > On Tue, Sep 22, 2026 at 6:20=E2=80=AFPM David Hildenbrand (Arm)
+> > <david@kernel.org> wrote:
+> > >
+> > > On 9/21/26 23:56, Barry Song wrote:
+> > > > On Mon, Sep 21, 2026 at 11:37=E2=80=AFPM David Hildenbrand (Arm)
+> > > > <david@kernel.org> wrote:
+> > > >>
+> > > >> On 9/21/26 17:24, Alexandre Ghiti wrote:
+> > > >>> On an asynchronous swap device MADV_PAGEOUT only marks the folio
+> > > >>> PG_reclaim and rotates it to the tail of the inactive list once i=
+ts
+> > > >>> writeback completes, so the memory is not actually freed until a =
+later
+> > > >>> reclaim scan removes the by then clean swap cache folio.
+> > > >> But we have the same behavior when just reclaiming memory ordinari=
+ly? It's added
+> > > >> to the swapcache and only the next scan actually frees up the memo=
+ry.
+> > > >>
+> > > >> Wouldn't we memory we reclaim ... just gone, like in the sync case=
+?
+> > > >
+> > > > For synchronous I/O, such as zswap and zram, the memory is released
+> > > > immediately after sync I/O is done.
+> > > >
+> > > > For asynchronous I/O, such as NVMe, the swapcache is currently
+> > > > expected to be rotated back to the tail of the LRU and wait for
+> > > > another scan. Alexandre once mentioned that when he tried handling
+> > > > async I/O the same way as sync I/O=E2=80=94releasing the memory onc=
+e the I/O
+> > > > completed=E2=80=94he saw some regression. So, delaying the release =
+until a
+> > > > later scan may allow swapcache hits before the folios are eventuall=
+y
+> > > > reclaimed.
+> > >
+> > > "may", do we have any evidence that this actually is relevant in prac=
+tice?
+> > >
+> > > We asked to reclaim memory. We wrote the memory out to disk. We unmap=
+ped it from
+> > > the page tables. We made the workload the could, access the page imme=
+diately
+> > > again suffer already.
+> > >
+> > > We should just evict them as soon as possible to free up memory.
+> >
+> > I suggested this to Alexandre, and he found that it could regress some
+> > workloads [1]. That is why Alexandre is only making the folios
+> > immediately reclaimable for `MADV_PAGEOUT`.
+> >
+> > See Alexandre's description:
+> >
+> > "Future work
+> > -----------
+> > Barry suggested extending this to MADV_PAGEOUT and general reclaim. I
+> > prototyped dropbehind for all reclaimed swap folios and it regressed
+> > sysbench OLTP throughput by ~15% on NVMe swap: dropping the swap cache
+> > immediately turns cheap in-cache refaults into disk reads and collapses
+> > swap readahead clustering. Neither blk-wbt, mq-deadline nor a PG_workin=
+gset
+> > gate recovered it. MADV_PAGEOUT alone may still be worth it, since ther=
+e
+> > userspace has explicitly declared the range cold, but I have not measur=
+ed
+> > that case in isolation yet."
+> >
+> > [1] https://lore.kernel.org/linux-mm/20260921151306.625134-1-alex@ghiti=
+.fr/
+> >
+> > Best Regards
+> > Barry
+>
+> This patch as-is is just way way way WAY too complicated and fragile IMO.
+>
+> Whatever cases you have found, they need to be fixed somewhere
+> fundamental. All of this feels like a hack.
+>
+> If you're having to write a comment like:
+>
+> /*
+>  * If X is Y, but not if B, and if Z is J but not if the moon's bright at
+>  * night, then maybe we will foo the bar, but only if the baz is blarghed=
+,
+>  * ...
+>  */
+>
+> That usually means you're doing something horribly wrong.
+>
+> And this patch has multiple comments like that.
 
-Set ADDR_ASC along with SDO_ENABLE before the read. This is the only
-multi byte transfer in the driver, so no other access is affected.
+I'm not quite sure if you've read the context carefully :-) or why
+you're angry with me.
 
-Fixes: b66cddc8be72 ("iio: adc: ad4080: fix chip identification")
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
----
- drivers/iio/adc/ad4080.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I did suggest that we should reclaim memory immediately after
+writeback completes, both for general memory reclaim and for
+`MADV_PAGEOUT`, while Alexandre was working on zswap dropbehind.
 
-diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
-index 4843ecdd91a8..4ed82aa42400 100644
---- a/drivers/iio/adc/ad4080.c
-+++ b/drivers/iio/adc/ad4080.c
-@@ -710,7 +710,8 @@ static int ad4080_setup_channel(struct ad4080_state *st, unsigned int ch)
- 		return ret;
- 
- 	ret = regmap_write(st->regmap[ch], AD4080_REG_INTERFACE_CONFIG_A,
--			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE);
-+			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE |
-+			   AD4080_INTERFACE_CONFIG_A_ADDR_ASC);
- 	if (ret)
- 		return ret;
- 
+Alexandre then found that this might not be a good idea for generic
+reclaim, but thought it might still be worth trying for `MADV_PAGEOUT`.
+That's why this patch came about.
 
-base-commit: dceba8e581e3e8f475da0efbd7a73f3d9524ddd2
--- 
-2.43.0
+The discussion between David and me is whether we should do this for
+`MADV_PAGEOUT` only, or also apply the same approach to generic
+reclaim. So far, we haven't even gotten into the code details.
 
+And this is also the first day I've seen the code. I agree that I can
+work with Alexandre to improve the code through review, but please
+keep in mind that this is literally my first day looking at it,
+my respected Lorenzo. :-)
+
+Best Regards
+Barry
