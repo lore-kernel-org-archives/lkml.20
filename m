@@ -1,153 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8966A559CA3;
-	Tue, 22 Sep 2026 15:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225EF559C9B;
+	Tue, 22 Sep 2026 15:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090735; cv=none; b=cp/VBRhhnGtbhz8QejlAuPBW0nL4gIIKiQbrvnFQXG/uFf0xxZztFoVpZ7NY1zQSIzY1saB0MSnOW9uxA4VC6IPCfvZEPQq2iMIRWjtVlxWUx36pr3d7+H/O7Z35CfQi0/bOeD97YaP+mNW9KO9itJLBOB5zvdDXa4T8P0e5n7w=
+	t=1790090766; cv=none; b=Zr33OHDJnEwT0LFoJMYVWMtDCUJfGY3mdG6UDloaAuYJ7XKhV3W34c9odhJDeYE1D26JBvGCo3f4VSwnpVJVI5vc+6BU9K8w0zK1GuCia7nSrjFTfzlNE7caqZxcU2kmCILpqp8UeBdiVhHVzADTK0qqmjDUs4Fo5OZdtnm2gsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090735; c=relaxed/simple;
-	bh=eXwvSrn947RaZhU1ef5JaSq5I291UhojbgSspUVbEX8=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=RE2zDUwAmCfPqlaOQA//VJTZDuV5xU7VOQIGDVL5mh7WqtWEUiJINDi60LTufdAZzCAjp/2uP7iduaMzclxOA4UJcLly+wB3Z3WHLPgujssDdLTyzq3XSycGFfAfF5Q66NQJzu9Jqu4whqzRHQxUWEWFLA7rVSIP5kfhGiOpQJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CuTpb89x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790090766; c=relaxed/simple;
+	bh=nZRYBjAupT4rZYAF+DUiNaAjwcaOXugwNkN5EhHLglQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ERXinLHivHHgXtJsPuD4IfpV8hynDPF/GfcezaQZSFaFfTtEwJVghCqFe5YXmQkPI4c6fsWuJ+0wKzEaPdEHSVs6AyPBXFvFqZYtus3CGFOiqVLdt0xDIgKFU1bcOtVbkOOEN8s7+ZiFB5X39yzKPVkRrpurZjz71o8Ka/UIKcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=d2WXEQdm; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CuTpb89x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7651F000FF;
-	Tue, 22 Sep 2026 15:25:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790090734;
-	bh=KSJ683uGfNg+FWeVxe5zMe2yBPzCa7cxhBOyuob1v0w=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=CuTpb89xP6BBMtYj1FHbTy/UkyOKn5q9To79fhDa1qWRwejmqgja3K0IAyELiaHiD
-	 2FOH17gGvmhc6RbIK4AflZo/c8tTSTcMlMMdJBi//vMQFZz6F8yBAn2vldvzMPm6vC
-	 De5pe1rEyQq73d+pdmmqVog8XvlafhPM+JNRw/JR8ifa9OvLbY5BSfLeB+29DLxQgJ
-	 qteHrNQI46fpiF94VWEB7gl+nUznF4rKHlQBwjrX6K+L/INzVRjWnxvK6jXGnsfUIR
-	 c49GsVY4EeRSRflBdSxajHB2r9HVR8rsDZGfcgWAv5hvgOHfEAehSpseB8EuRHfayb
-	 VSDXtACawOQPA==
-Message-ID: <09d2bb84-7077-4471-ab24-eaea2cb7a2ab@kernel.org>
-Date: Tue, 22 Sep 2026 17:25:31 +0200
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="d2WXEQdm"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id E852F22B2D;
+	Tue, 22 Sep 2026 17:25:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790090759;
+	bh=4O1RmEPY9SejqZ5YjxYRppZci7yF3d7r+9+JhGwoYKI=; h=From:To:Subject;
+	b=d2WXEQdmC6JvBmrJC8mErz4ZsJ1FNL75OVK7bE52X+ztW58DG0uqAq218lCk/gsDV
+	 DP9tEJONo02PJyonJhNlnz11wD4t5LWHsewtqMqvmYsmg75Sywex14c64gOrWbtFUz
+	 D1/jAtDy3AMI/DAZlv9Pi+RYsxJvowvs4rs03C6nQef4ZCT08l8tt3E3txtmJ3HiFG
+	 BGpJOU4OPeTiuthwOX7cMn/BCPjTW9Bz9t+9KI+/pYMJRQQLWuMOIGz1ljRcgrXRE/
+	 5r9RkrTPIO+gsHZ/lg+PW+z+HCEA31VS5eE55g5L5ogqBhUhJYOxeBkdDFMEAUYD2k
+	 vP0BwvyLF7NTA==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] arm64: dts: ti: k3-am62-verdin-[ivy|zinnia]: fix main_gpio0/main_gpio1 line names size
+Date: Tue, 22 Sep 2026 17:25:47 +0200
+Message-ID: <20260922152551.270845-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2] media: cobalt: bound the dv timings to the descriptor
- buffers
-To: Guo Zihao <guozh23@xiaopeng.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Liu Chao <liuc63@xiaopeng.com>
-References: <20260920015924.750499-1-guozh23@xiaopeng.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260920015924.750499-1-guozh23@xiaopeng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20/09/2026 03:59, Guo Zihao wrote:
-> The DMA descriptor buffers are sized from the maximum frame the driver
-> supports:
-> 
->         const size_t max_pages_per_line =
->                 (COBALT_MAX_WIDTH * COBALT_MAX_BPP) / PAGE_SIZE + 2;
->         const size_t bytes =
->                 COBALT_MAX_HEIGHT * max_pages_per_line * 0x20;
-> 
-> With COBALT_MAX_WIDTH 1920, COBALT_MAX_HEIGHT 1200 and COBALT_MAX_BPP 3
-> that is 115200 bytes, or 3600 descriptors of 0x20 bytes each.
-> 
-> cobalt_s_dv_timings() however records whatever the subdevice accepts
-> without checking it against those maxima:
-> 
->         err = v4l2_subdev_call(s->sd, pad, s_dv_timings, 0, timings);
->         if (!err) {
->                 s->timings = *timings;
->                 s->width = timings->bt.width;
->                 s->height = timings->bt.height;
->                 s->stride = timings->bt.width * s->bpp;
->         }
-> 
-> descriptor_list_create() in cobalt-omnitek.c then walks the whole frame
-> and writes one descriptor per scatterlist segment, with no upper bound of
-> its own. An HDMI source at 4096x2160 with bpp 3 gives stride 12288 and
-> size 26542080, which needs far more than the 3600 descriptors the buffer
-> holds, so d[] walks off the end of the coherent allocation.
-> 
-> cobalt_try_fmt_vid_cap() and cobalt_try_fmt_vid_out() already cap width
-> and height at 1920x1080, and this patch adds the same bound for the
-> timings path plus a stride limit on the pixelformat path.
-> 
-> No Fixes tag. The descriptor sizing and s_dv_timings() both come from the
-> initial driver, 85756a069c55 ("[media] cobalt: add new driver").
-> 
-> Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Rejected-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+zinnia and ivy redefines gpio-line-names for main_gpio0/main_gpio1, sized
+87/88 entries instead of the SoC's actual 92/52 ti,ngpio. Resize both
+arrays to match, keeping every existing label at its original index.
 
-The dv timings are checked in the subdevices code, so there is no
-need to add the check here.
+missed from previous https://lore.kernel.org/all/20260914190943.50843-1-francesco@dolcini.it/
 
-And bytesperline can definitely be larger than the width of the captured
-video: in that case it will be composed into the larger buffer.
+Francesco Dolcini (2):
+  arm64: dts: ti: k3-am62-verdin-ivy: fix main_gpio0/main_gpio1 line
+    names size
+  arm64: dts: ti: k3-am62-verdin-zinnia: fix main_gpio0/main_gpio1 line
+    names size
 
-Regards,
+ .../arm64/boot/dts/ti/k3-am62-verdin-ivy.dtsi | 41 +++----------------
+ .../boot/dts/ti/k3-am62-verdin-zinnia.dtsi    | 41 +++----------------
+ 2 files changed, 10 insertions(+), 72 deletions(-)
 
-	Hans
-
-> ---
-> v2: declare the local struct cobalt pointer in cobalt_s_dv_timings().
->     The cobalt_info() macro expands to v4l2_info(&cobalt->v4l2_dev, ...),
->     so the function needs a variable of that name, which the previous
->     version was missing. Found by the kernel test robot.
-> 
->  drivers/media/pci/cobalt/cobalt-v4l2.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/drivers/media/pci/cobalt/cobalt-v4l2.c b/drivers/media/pci/cobalt/cobalt-v4l2.c
-> index 51fd9576c..8ffee8ed6 100644
-> --- a/drivers/media/pci/cobalt/cobalt-v4l2.c
-> +++ b/drivers/media/pci/cobalt/cobalt-v4l2.c
-> @@ -617,6 +617,7 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
->  				    struct v4l2_dv_timings *timings)
->  {
->  	struct cobalt_stream *s = video_drvdata(file);
-> +	struct cobalt *cobalt = s->cobalt;
->  	int err;
->  
->  	if (s->input == 1) {
-> @@ -630,6 +631,13 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
->  	if (vb2_is_busy(&s->q))
->  		return -EBUSY;
->  
-> +	if (timings->bt.width > COBALT_MAX_WIDTH ||
-> +	    timings->bt.height > COBALT_MAX_HEIGHT) {
-> +		cobalt_info("timings %ux%u out of range\n",
-> +			    timings->bt.width, timings->bt.height);
-> +		return -EINVAL;
-> +	}
-> +
->  	err = v4l2_subdev_call(s->sd,
->  			pad, s_dv_timings, 0, timings);
->  	if (!err) {
-> @@ -781,6 +789,14 @@ static int cobalt_try_fmt_vid_cap(struct file *file, void *priv,
->  		break;
->  	}
->  
-> +	/*
-> +	 * The DMA descriptor buffers are sized for at most
-> +	 * COBALT_MAX_WIDTH x COBALT_MAX_HEIGHT, so limit the line stride
-> +	 * accordingly.
-> +	 */
-> +	if (pix->bytesperline > COBALT_MAX_WIDTH * COBALT_MAX_BPP)
-> +		pix->bytesperline = COBALT_MAX_WIDTH * COBALT_MAX_BPP;
-> +
->  	pix->sizeimage = pix->bytesperline * pix->height;
->  	pix->field = V4L2_FIELD_NONE;
->  
+-- 
+2.47.3
 
