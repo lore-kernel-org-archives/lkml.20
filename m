@@ -1,139 +1,183 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DD945D19E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:51:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B43471269
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099471; cv=none; b=HPWO3ayXox3hcFltp8m1aXF6kbgbGALHIOxZH5GT3pDoYox753AXngqhN9NELVnIWcL63bpseRCQsTa5I2y1dw9I7IQ27rFvRTd/8AMF/qeTucTFNnYbjKly8PLve0xT822AubOZVEXCS8/e9Smke5XHY/+nA8qpLeR8S7GGE+4=
+	t=1790099508; cv=none; b=IyndMw9GcVuE9UPtpLKiSzGmNP5U3tb1dWwm7HFMgVfPRzLmRZWh/YQ+sOFiYfC950pfvzV2jIyKmauWl7f2iE2CAPWRCFplZx3jw72on+lj0sM2Y94Ksm4DOhcwtLS6VjfsdMbo2s1+uexZSBVShV5me4SWtPu+5BuRyAjBako=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099471; c=relaxed/simple;
-	bh=LfwBREZFm/uvbnLQDpjPD52GUyaT48FmQc+LONqtZ1A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=A6A1/A8lqOcFhqzRtZJPlp5qt2V8ZzYNroquRRHNhb67oN/9Q6iBFN+lHB7cJweXZ+HYVnFBeXcFqQwfy0UT7lTgyTKhowPU/mzeF1g+hQ8B/2yfHVJ3ZXo7i8lBUroePjBlu6O51p1c7ftIKbrV9TtsP21VbalIsuxPE5tRUXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kJqToyBB; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790099508; c=relaxed/simple;
+	bh=FQ9DS5iesg+Q/BcYhBZQGjCZ4nBfFql6vYXIjbJBC2A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rMvdtLa/3Q/i53PCgV8YabKDLd8hkRbj37UY92hGz+hBV7M3Fsqsn0uHDo5ZlALr8Yw/ZzPq5FUkdm4769aLAwfmawQKXujFfo13sspZ2dpPLmEkfy6Ee8TbNgwvCECLhu9oJ3JONU6EetGRfNqoEz8uZ59Z3++Hnc1dQOoXHLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1dTFYi8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kJqToyBB"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so512165e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:51:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790099468; x=1790704268; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wMdh+dikN9LkfGwgot3m+LYXaGNeI/YyYQXw0DCrPPU=;
-        b=kJqToyBB3opLFFDa6sqrDtsojWG65QN5Mh82Oa3tVDnprugAl4b2gHHZ0lEdAbW88Q
-         ouNxmFVG8JDIewih5GEVxZ0VQXzKDRUbnzO2UUHB2dRo5IPBiPRtiCTSZi+8/xY4qjCK
-         1OoPGwO3R+jEiNDcfz7RbjVBCaj2AfDDSLmDqUBzQda/IV6ADV/Ig0TMNMocutzX6elB
-         TeVweVP+kGHUlnN9orG1AyMEzDlWir1nE/F1brnHaAPp1n7VBUVv9jkJ5m9HWJL9U8uA
-         lBo3LRbbuxeM7ZE442eU2+qrUcI1fT4E0cxl1cfKPHsy+pVZirZl4JkwyfamX3tWGp2n
-         Q6Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790099468; x=1790704268;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wMdh+dikN9LkfGwgot3m+LYXaGNeI/YyYQXw0DCrPPU=;
-        b=caQfMHu384FF/RJBIBzaHHRwWC1TAW2KBWAm4uqVGH+kizk+ZNmIBvRra0VRRP4bTw
-         ltvwVeC3rxG2+sI4rPQTIOIz8qdBcZ3irZqxxh3z2b+t1/kBQTYZQmuvHC3N4tMy0tW0
-         AgkcIeueBoqohS26fjCQYOQhX37Z5XMePYR9aDkrcJswXjf1Hjs6UnbjglooJuOWvz8k
-         qoucvG+AtNz+TVi3wNLlO+zCvolXcx1SHqq+WfOmJpOwQq3V2d/XOr+JzZsmkXlW6jus
-         jP10mmWTmH+2jOvyv61vCk2oMmBTlKxKcEDc6ZC9beUAQq4Ip88ftWIiEVpgzkXwwTn0
-         lT0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByagCmYip34tSdbnNjQpQoEGZNQo+mHAm6xaSB4bTlWAioeCBUJuMdkxz/ph2PCyO0pW+V7oHwT1mgfJN0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhVHf7ohTf+qUYqzXa+4ojU8J6XeUp2GSQn+Pl81ZwP+lkPQ0o
-	11oB7KR8H6aPcpZRIAGv8q/0Wp8yFppkWbSN5pHQogagKRpMr87mdNi3cQc9xw==
-X-Gm-Gg: AYBFou0zyZ/kUIRnkgAdzCvbpdt/EbyG6W33LZkEM5ydKCUDUdi7lLf6Hrf8j6EsIxj
-	TzV9ywc1bkIwm1NFl1P4loLUjbv8Pe5oFdbVzaIUxmK9rur0x0I9GeRn0ZOe9leFseENvBlHalZ
-	IxTtT8kWrAM7QPElq6gvYreFtKWWG4ix9AxDJcMN5HuKBk8GHbP1oPj50lS0OZePWcdDDGxy/n2
-	L8nAGiihwoU5E9JXJfNpgdY6UuDyLuvzJxH3rQSf+zfVIyzzwW2JIZijGaCumaG8U3moU7NDZw5
-	3RVc6BW2V5McyoD3n/wY+xnX4sVx8pu/8dd3n6Bos6vDyF3aorBIF/kBuCIpqfM2Ojxnqv0eVQd
-	KhtNrw+x1PMdyUFN7Rt7ypNZ63HNGoDItbOS77SuBu9Y2R0t28YZ5FSYIn4SNhuk9DuG32VCNj0
-	HVYsQo4RjlbskMe7+BXr1G/G809rRmoekU/zAt1LVqPZtX2uKbhHgtjkbUAhqF3L5j/oSAKk0ZB
-	+ZrefCG8efFsUd/brP091MIuVs=
-X-Received: by 2002:a05:600c:154b:b0:49c:fa21:1c89 with SMTP id 5b1f17b1804b1-49fc5748e61mr223990845e9.30.1790099467530;
-        Tue, 22 Sep 2026 10:51:07 -0700 (PDT)
-Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fde1e975asm7349825e9.14.2026.09.22.10.51.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 10:51:07 -0700 (PDT)
-From: Gabor Juhos <j4g8y7@gmail.com>
-Date: Tue, 22 Sep 2026 19:50:57 +0200
-Subject: [PATCH] spi: spi-qpic-snand: fix read location register usage in
- qcom_spi_config_cw_read()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1dTFYi8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB1A1F000FF
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:51:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790099506;
+	bh=pyNJDOLEfgLP4wzZmF4hygcfkmD+D8SQrjWiUmYWiXI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=m1dTFYi8306rphNBhQgtH7JSdZaFeRVBiTg2J+A3h0FH/nKdVf8CTBichndVip62n
+	 d7oF7hAXE80x4yhaR6Wvk6PmoeGTy81m/oAOxNAj3QD/p1uaQp+KLahhfk2p3SNQrA
+	 yxm6HoCN4GeM2RBp9kqdI2ZXePIcok4mSR++ZkzODCOTkQ8F2UjxsmCIcXgkymcnP9
+	 REmMaZ8Pld74jQ4X/7/ueTYlYPsj/DbjVyb7eN8rKVI1AAvvX/H3aYKOBXTshZL+hX
+	 QyiscZmO7KaQ5Q6edFsBSl85EEL3qhG1gWiwHPl/edJy7+MIKbt0Ri+GCeKgTY5eIE
+	 exGLRE+cmuODQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c9954ccbso37238e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:51:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxWSaeKX1ggjzy/R29YP7oIe60xCRCVi/e6kABj/9GP4CKfepv955FhMS3FEnhlGirwOLl1LubwaHX840Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++leoQxxlvoRIEFsgtR2NFpPsz/jgr+XI6y4PNV9bM6+shBrJGXd
+	9aXzNTeM5HISwEYxoXIx0udLl9b6vNuYdQYld3js1EHJQZIYbJHTSAfQt19rgWPV6Y+8w61AoCQ
+	yhO9BkUsanYYHJa/VqVfVb2c+iu48gYI=
+X-Received: by 2002:a05:6512:1552:20b0:5b8:c147:f370 with SMTP id
+ 2adb3069b0e04-5b8d89c69abmr4823e87.52.1790099504207; Tue, 22 Sep 2026
+ 10:51:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-qpic-snand-fix-cw_read-readloc-v1-1-67f6819fb3d7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NUQrDIBAFryL73QVdJNRcpZQiukkXgkkV2oLk7
- tnk58HAMK9D4yrcYDQdKn+lyVoU3M1AescyM0pWBrI02ECEn00SthJLxkn+mH6vyjHjOcua0Hs
- fnL2rmgk0slVW7Tp4PPf9ANcQsfxwAAAA
-X-Change-ID: 20260922-qpic-snand-fix-cw_read-readloc-4449108092d2
-To: Mark Brown <broonie@kernel.org>, 
- Md Sadre Alam <md.alam@oss.qualcomm.com>, 
- Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Gabor Juhos <j4g8y7@gmail.com>
-X-Mailer: b4 0.14.3
+References: <20260921-mb-pm-main-v1-0-1d4cbd9d2b2c@vt.edu> <20260921-mb-pm-main-v1-1-1d4cbd9d2b2c@vt.edu>
+In-Reply-To: <20260921-mb-pm-main-v1-1-1d4cbd9d2b2c@vt.edu>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 22 Sep 2026 19:50:11 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jw=xzCw5Z_uDDKjAR_4BTPrEM51AXZQWGnbqSfB6wBYg@mail.gmail.com>
+X-Gm-Features: AcwNN1W_WS704PDKarrDmCWjByh9KWW-Gc20nNiTf3MCqf6ACST5po8eafukvBM
+Message-ID: <CAJZ5v0jw=xzCw5Z_uDDKjAR_4BTPrEM51AXZQWGnbqSfB6wBYg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] PM: sleep: publish pm_transition with release semantics
+To: jaidevshastri@vt.edu
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, linux-pm@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-While configuring a codeword read, the com_spi_config_cw_read()
-function unconditionally schedules writing of the regular read
-location registers. However these registers should be written
-only if the actual codeword is not the last one.
+On Tue, Sep 22, 2026 at 3:24=E2=80=AFAM Jaidev Shastri via B4 Relay
+<devnull+jaidevshastri.vt.edu@kernel.org> wrote:
+>
+> From: Jaidev Shastri <jaidevshastri@vt.edu>
+>
+> Each dpm_*() phase function stores the current transition to
+> pm_transition with a plain store before it schedules the asynchronous
+> device callbacks. dev_pm_skip_resume() and pm_hibernate_is_recovering()
+> read pm_transition.event from those callbacks, on other CPUs, with plain
+> loads.
 
-Change the function to schedule writing of the registers corresponding
-to the acual codeword only.
+So how *exactly* is the race possible?
 
-While at it, also drop the single-use 'reg' and 'num_cw' local variables
-and use the respective values directly in order to make the code easier
-to understand.
-
-Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Interface")
-Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
----
- drivers/spi/spi-qpic-snand.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
-index 05efe6313b7f..ce03599f90df 100644
---- a/drivers/spi/spi-qpic-snand.c
-+++ b/drivers/spi/spi-qpic-snand.c
-@@ -503,15 +503,14 @@ static void qcom_spi_set_read_loc(struct qcom_nand_controller *snandc, int cw, i
- static void
- qcom_spi_config_cw_read(struct qcom_nand_controller *snandc, bool use_ecc, int cw)
- {
--	__le32 *reg = &snandc->regs->read_location0;
--	int num_cw = snandc->qspi->num_cw;
--
--	qcom_write_reg_dma(snandc, reg, NAND_READ_LOCATION_0, 4, NAND_BAM_NEXT_SGL);
--	if (cw == (num_cw - 1)) {
--		reg = &snandc->regs->read_location_last0;
--		qcom_write_reg_dma(snandc, reg, NAND_READ_LOCATION_LAST_CW_0, 4,
-+	if (cw == (snandc->qspi->num_cw - 1))
-+		qcom_write_reg_dma(snandc, &snandc->regs->read_location_last0,
-+				   NAND_READ_LOCATION_LAST_CW_0, 4,
-+				   NAND_BAM_NEXT_SGL);
-+	else
-+		qcom_write_reg_dma(snandc, &snandc->regs->read_location0,
-+				   NAND_READ_LOCATION_0, 4,
- 				   NAND_BAM_NEXT_SGL);
--	}
- 
- 	qcom_write_reg_dma(snandc, &snandc->regs->cmd, NAND_FLASH_CMD, 1, NAND_BAM_NEXT_SGL);
- 	qcom_write_reg_dma(snandc, &snandc->regs->exec, NAND_EXEC_CMD, 1, NAND_BAM_NEXT_SGL);
-
----
-base-commit: 3d743adf090cd4c9a2120c1e02b0482e88aa0d2d
-change-id: 20260922-qpic-snand-fix-cw_read-readloc-4449108092d2
-
-Best regards,
--- 
-Gabor Juhos <j4g8y7@gmail.com>
-
+> Store the event with smp_store_release() and read it with
+> smp_load_acquire().
+>
+> Found with MBCheck, a static herd7-based memory consistency checker.
+>
+> Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
+> ---
+>  drivers/base/power/main.c | 28 +++++++++++++++++++---------
+>  1 file changed, 19 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
+> index e130da428..bf4b4fd1b 100644
+> --- a/drivers/base/power/main.c
+> +++ b/drivers/base/power/main.c
+> @@ -78,7 +78,8 @@ static int async_error;
+>   */
+>  bool pm_hibernate_is_recovering(void)
+>  {
+> -       return pm_transition.event =3D=3D PM_EVENT_RECOVER;
+> +       /* Pairs with the smp_store_release() in the dpm_*() phase functi=
+ons. */
+> +       return smp_load_acquire(&pm_transition.event) =3D=3D PM_EVENT_REC=
+OVER;
+>  }
+>  EXPORT_SYMBOL_GPL(pm_hibernate_is_recovering);
+>
+> @@ -682,10 +683,13 @@ static void dpm_watchdog_clear(struct dpm_watchdog =
+*wd)
+>   */
+>  bool dev_pm_skip_resume(struct device *dev)
+>  {
+> -       if (pm_transition.event =3D=3D PM_EVENT_RESTORE)
+> +       /* Pairs with the smp_store_release() in the dpm_*() phase functi=
+ons. */
+> +       int event =3D smp_load_acquire(&pm_transition.event);
+> +
+> +       if (event =3D=3D PM_EVENT_RESTORE)
+>                 return false;
+>
+> -       if (pm_transition.event =3D=3D PM_EVENT_THAW)
+> +       if (event =3D=3D PM_EVENT_THAW)
+>                 return dev_pm_skip_suspend(dev);
+>
+>         return !dev->power.must_resume;
+> @@ -902,7 +906,8 @@ static void dpm_noirq_resume_devices(pm_message_t sta=
+te)
+>         trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, true);
+>
+>         async_error =3D 0;
+> -       pm_transition =3D state;
+> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
+> +       smp_store_release(&pm_transition.event, state.event);
+>
+>         mutex_lock(&dpm_list_mtx);
+>
+> @@ -1052,7 +1057,8 @@ void dpm_resume_early(pm_message_t state)
+>         trace_suspend_resume(TPS("dpm_resume_early"), state.event, true);
+>
+>         async_error =3D 0;
+> -       pm_transition =3D state;
+> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
+> +       smp_store_release(&pm_transition.event, state.event);
+>
+>         mutex_lock(&dpm_list_mtx);
+>
+> @@ -1230,7 +1236,8 @@ void dpm_resume(pm_message_t state)
+>
+>         trace_suspend_resume(TPS("dpm_resume"), state.event, true);
+>
+> -       pm_transition =3D state;
+> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
+> +       smp_store_release(&pm_transition.event, state.event);
+>         async_error =3D 0;
+>
+>         mutex_lock(&dpm_list_mtx);
+> @@ -1595,7 +1602,8 @@ static int dpm_noirq_suspend_devices(pm_message_t s=
+tate)
+>
+>         trace_suspend_resume(TPS("dpm_suspend_noirq"), state.event, true)=
+;
+>
+> -       pm_transition =3D state;
+> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
+> +       smp_store_release(&pm_transition.event, state.event);
+>         async_error =3D 0;
+>
+>         mutex_lock(&dpm_list_mtx);
+> @@ -1798,7 +1806,8 @@ int dpm_suspend_late(pm_message_t state)
+>
+>         trace_suspend_resume(TPS("dpm_suspend_late"), state.event, true);
+>
+> -       pm_transition =3D state;
+> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
+> +       smp_store_release(&pm_transition.event, state.event);
+>         async_error =3D 0;
+>
+>         wake_up_all_idle_cpus();
+> @@ -2091,7 +2100,8 @@ int dpm_suspend(pm_message_t state)
+>         devfreq_suspend();
+>         cpufreq_suspend();
+>
+> -       pm_transition =3D state;
+> +       /* Pairs with the smp_load_acquire() in dev_pm_skip_resume(). */
+> +       smp_store_release(&pm_transition.event, state.event);
+>         async_error =3D 0;
+>
+>         mutex_lock(&dpm_list_mtx);
+>
+> --
+> 2.43.0
+>
+>
