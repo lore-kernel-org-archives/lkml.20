@@ -1,318 +1,155 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 548CC3D6CCA;
-	Tue, 22 Sep 2026 08:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150B53A5E98
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064734; cv=none; b=YF394gJ092VAqZdd/pNQ5BL6R54E7J7J6wvOgyfcp4M1nGhqTrXQ0KMEet6alu7fAdTaHGiyBeDzMszfgL+2lN2z+pDSwjI25NqNzoZpdNuLyIDdFdzd5r34oawBfM/KaRXhaaarjGtKg50dkmnNXd6xNsXTTe+GiU6hnQLMLWk=
+	t=1790064756; cv=none; b=Gn7kDS/vhcY1JlaGCXttgSC/Pi4RkMlRReODW7r1QlFR1LazIoqZzlDMwEafg3gbR4RFdXcDmZxoHgNnnDNYpNMqgB5/2i3OWS0YT2RHWYTujB/wI6wyGcMAJdyou+HmviZRJgCuddJ1VfnZsbiTcrmEpII8FBYO6V3Wi4zJlf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064734; c=relaxed/simple;
-	bh=3uY1ZzQFjuNnByobm1ruIq7eFhX6iux2RNyqlgkn5iI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tGqsXyAE1IVk9EnO0CGOajzKeOfF/dUCaSBW7KW9B4E/x3YDMDSFbkiknIq2vHoYAiIxbE5oHY5FB2s7dAWkLTjfxX1XnOceTpzyMm6nFTBP48gKp53VZB5B81uSMJE1mVVv8qi7uRFM73Id+/THoaawrNFcAgs/1sXBTgHUFBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wD3SGREOLJqY5MtAQ--.1323S3;
-	Tue, 22 Sep 2026 16:11:49 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgAnl8xDOLJqObySBA--.33459S2;
-	Tue, 22 Sep 2026 16:11:48 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: rafael@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] PM: EM: Fix use-after-free of perf domain in netlink doit handlers
-Date: Tue, 22 Sep 2026 08:10:52 +0000
-Message-Id: <20260922081052.321581-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790064756; c=relaxed/simple;
+	bh=FzwzCp2B3CQrL8UWS3VMy1GU1joePEyGfnMV0kBpM7A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fF2fxwcIJQRi1+D8NbOV+E3eJJOzDLuOTP8PA2lMnBFG6DwDwjyEQ8z0xV5VsqXTtLR1yKW3up7hOdOFW99CJwfyMM8GCYA0CIJVjTRb3L7vFvIJssYAsIMHkvFPmQVM89ZNg3LA8nO5rYO7Dr3Dkm4LqKqMSivsxJbUOiRdc2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AOsZ5kLn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bvJKamrH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AOsZ5kLn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bvJKamrH"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M6r2U92579100
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:12:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=czex32aQLz7Wor3ZwCAP8jwK
+	GlUOBphDFuP6jLqE8W0=; b=AOsZ5kLnNaEZC6jEnx5gtyQv8DV0FjojSlMnM/Qw
+	M3NFGOApHMPDWFq/DqkvSgDF7amG+8R9DwLCQ2f4nNIXDUFqq6dxXIdKViN4XidJ
+	dAhF36NcPaqZWaNziG5WsVqkfIuT2tFSTCI5OENkHW3HYuw5Ck8aOpGT3u9pREnl
+	yONur2P7z8NxIAEqKiZbDzw7/eRzXLrUBsrloN0OQBWG2IlrhfKyLP+ucb20FE6k
+	+i36puQkjTSFJm+a+c98k7R4Gu9R/dUDaT3AojxuqhfHTOq0Vq5WRApFP42clcJZ
+	wRCR+JUcpYa4maq1gYyHE70LjCbJaUUN5FZroW3S4dJ0ug==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gub32acbn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:12:33 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39aee9b4cf2so6883633a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:12:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790064753; x=1790669553; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=czex32aQLz7Wor3ZwCAP8jwKGlUOBphDFuP6jLqE8W0=;
+        b=bvJKamrHyqSONGVkFNdsgvbZGH9LlRb9qjNTpE361+mBvzAwT9u1PCbslPQwAsbAE5
+         gvF5kuBg3mHxyeHcfcKZERNyylW2HOYtriittnZSPvqcXc94CHHClBfKLE4xTKPizRPD
+         IMTJU9bCst6hDJac5i9hac/gpdpm+/GElD5lvqguUrcE8YG8jULHLlgzrNosMm/mR0VL
+         TbQ+uul+AL6EqKSRNNqbRn5/WJvgOMLTwYVxrSAEnt2fm7TvfxyYeMeAhsQElVCQRLM0
+         95kW7BvXwT4MNi1aJnbf19JQXhuUXSaYzVWajIdOGw8umhW/f20Dz5HiAjfBkNCy/LZ2
+         vmOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790064753; x=1790669553;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=czex32aQLz7Wor3ZwCAP8jwKGlUOBphDFuP6jLqE8W0=;
+        b=CZNAKFA9jgeCvWAf+azsDUdz8gN+39OC3Dy/+ShF+tT8bjyVzBujM07AB8qP83/X4G
+         zTE6re1YxgDvSgW5yijk2zwgrBpTcxiN7WLbf2gKvOgj43KQyl1tiKJq+jGiIxO/RZeL
+         asdCQKnX83xMKioRKOhjVcRaUY0gZxX66Bwf1Qcu5nNXC+yQ/dtVEhJWIohp1a1tJoYT
+         LugBbjnOW9FEtDzino2BTMLz/WP25CMMi3UHpePcXxBMyEMXqdhN1ahUrOlz64rYgl9y
+         sp7d0HzeS9dGW7697oshSULNC1iZhJRmvzbBNTVMbyFCCyInLpA1hqIbFgB2GhdnRm+J
+         7oTg==
+X-Forwarded-Encrypted: i=1; AKwUvBxlLLFrpbkSISDgSHqkNPeFTddveIOi2mPGm0zztdjwYxJLGJ30Dvn67nY+t98RsTwVd3oogra4YCHIp1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++l116VePBNbEBlCtLYWECzwM6WmeZPvlERM+NQe6fdsTgsL/LgN
+	UH+roShb7mdx5qBFlrGp3QqVYSMSiNSHnYH+oTOqXZ25UR94Moa944LlUr7PYKpD8mwVdOkglYK
+	cAzykndxLZJy1ugc2ZQhvFgErHO849XAD/B1OY7OEOKvDPpIJ52HSBDnEcPmYlWwm/tE=
+X-Gm-Gg: AYBFou2YKb6kScJeENRIOPGEA0tqm/3UHj2bDADnn59XXahmhdBdWknREcWAEhNCv84
+	fQFoL/99P8d/YKcn7TTo+Mu1QlIDYFSjacReBmbsA7Gs0cUmJALzsiA5c4L7mH/455ETDi1GfgZ
+	bnapl6KD6kQjjQvu5H8BXbDM9b0+cd4UUcigOes62AwMRmY4XBCBN3EsdjlzBFopHhM4xce7ctr
+	IBTRDWgHzk6wqVg7WpvBvGVVgOzZGqGrHPIWxRDY5XG9GFLg9eaGWF/upmCGc/zNouREZZxlv3b
+	XP8MG4eZOwQMdqbz68l1ILAIUZ56cnLTu7yvuvzgNybGa/Y2Ror6ktyz7NjdUeRXpGu4/wpEGgh
+	3CNXUCKL7ofqZpY2bq6bNY9wEAaR3h7A4t+lsQ1pOsA==
+X-Received: by 2002:a17:90b:574e:b0:39e:1fb6:9659 with SMTP id 98e67ed59e1d1-3a073116705mr395971a91.22.1790064752870;
+        Tue, 22 Sep 2026 01:12:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:574e:b0:39e:1fb6:9659 with SMTP id 98e67ed59e1d1-3a073116705mr395943a91.22.1790064752305;
+        Tue, 22 Sep 2026 01:12:32 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f2a44cc8sm3084889c88.13.2026.09.22.01.12.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 01:12:31 -0700 (PDT)
+Date: Tue, 22 Sep 2026 16:12:24 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 5/6] phy: qcom: qmp-pcie: Refactor common multiphy
+ handling
+Message-ID: <arI4aLn4GSnVQXO3@QCOM-aGQu4IUr3Y>
+References: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
+ <20260921-nord-v4-5-ed05c6e09240@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgAnl8xDOLJqObySBA--.33459S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?xWOwzwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2uaDNMb7vQ75MmoQ9iB71T+wILGpmjwP10e21M2U3fDg67
-	kMmEGEwP0XnGFdBH/aLN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW3Xw1xZr4DAw47KF43Kw4UAwc_yoW3XF47pa
-	y5Cr9rXr40qrWjv3WIkF18uFyayryrXr42v3y3Kws3Ar1qqrZ8ua1YgF4j9FyYyryxWF1a
-	yrsFqFW3Cw17KacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
-	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-nord-v4-5-ed05c6e09240@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=B8ssQ+tM c=1 sm=1 tr=0 ts=6ab23871 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=Y4sVft1UDeOkrP7wHAgA:9 a=CjuIK1q_8ugA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: OKJZRg1UfgRZ9kw16WLRgpKMXbuwKUjH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDExNiBTYWx0ZWRfX4P/2nCJER/Ch
+ NG5d4Iyvrihzk2VUFXaCRB4XZW3f5C+VtJFjbom5rYrP5uSEW/4J3fpUM/m1v92z2WGusfop6q+
+ H6cMDMyMUnAi32cQUvGt8CSvXuKsmOD4QGonwR1yUd0BOsuAUq5+8IV1de7HR5bbQZmvIVKaUDm
+ YxG6GcgEwXYDLyllKzgdacbJDndV7ajvSmH0PTddwaSgvFSEu8pfiT1dwcUxIDWgkIeIBubslMQ
+ 4h+TuopTAjny4RZFfVUaN2/sIAh7o1dHlGoXdgULa7Vg9qF/9et69UyRFssiXbRN+MTWoJ4p50x
+ eOkrzheV6F+ZjwaytHdTQnfISXvUMH0+eKKFyRsLkZKDAiE1tEQTieVe91RwWNUOZ6AZdAfWgay
+ YxTtNr41m/zGBxbHJDiejIu3DI9SMvaIqdUy8xjhqZGfwPTnb5xcyHlLI5rb4qukCJkuDtPq1kJ
+ U/fz5SLQ0TWFaDsS4xA==
+X-Proofpoint-GUID: OKJZRg1UfgRZ9kw16WLRgpKMXbuwKUjH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDExNiBTYWx0ZWRfX1UoIQO2a2bdI
+ Ps1keT4Hm7pKQkSDs9IEdYns4Txua6tSLv78FhCk3QJ/rS6RIiRnu+aMQv505S7Fjm6pK6ipyU5
+ 7X5yvMbqQgQcF956e0uUDPjx2XycmTk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 spamscore=0 phishscore=0 impostorscore=0
+ priorityscore=1501 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609220116
 
-The doit handlers dropped em_pd_list_mutex before dereferencing the
-perf domain, so a concurrent device unregister could free it while the
-reply was being built.
+On Mon, Sep 21, 2026 at 11:07:13AM +0530, Krishna Chaitanya Chundru wrote:
+> Reuse the existing port resource arrays for Glymur register regions,
+> power domains, and NOCSR resets instead of maintaining duplicate
+> Glymur-specific lists.
+> 
+> Attach each PHY instance's power domains to the device created for that
+> PHY. This ensures that the associated GDSCs are managed with the
+> lifetime of the individual PHY device rather than the parent multiphy
+> platform device.
+> 
+> Validate the clock-output-names property before using its count for
+> allocation, and use a generic module description.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-Encode the reply from em_perf_domain_for_id() callbacks, which run
-under the mutex, and allocate the skb outside of it, like the dumpit
-path already does.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 380ff27af25e ("PM: EM: Add dump to get-perf-domains in the EM YNL spec")
-Fixes: f2d2946eaa5c ("PM: EM: Implement em_nl_get_pd_table_doit()")
-Cc: stable@vger.kernel.org
-Cc: Lukasz Luba <lukasz.luba@arm.com>
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- kernel/power/em_netlink.c   | 122 +++++++++++++++++++++++-------------
- kernel/power/em_netlink.h   |   8 ++-
- kernel/power/energy_model.c |   8 ++-
- 3 files changed, 87 insertions(+), 51 deletions(-)
-
-diff --git a/kernel/power/em_netlink.c b/kernel/power/em_netlink.c
-index 4d4fd29bd2be..1f68d456a713 100644
---- a/kernel/power/em_netlink.c
-+++ b/kernel/power/em_netlink.c
-@@ -95,41 +95,62 @@ static int __em_nl_get_pd_for_dump(struct em_perf_domain *pd, void *data)
- 	return ret;
- }
- 
-+struct em_nl_doit_ctx {
-+	struct genl_info *info;
-+	int cmd;
-+	struct sk_buff *msg;
-+};
-+
-+static int __em_nl_get_pd_doit_fill(struct em_perf_domain *pd, void *data)
-+{
-+	struct em_nl_doit_ctx *ctx = data;
-+	void *hdr;
-+
-+	hdr = genlmsg_put_reply(ctx->msg, ctx->info, &dev_energymodel_nl_family, 0,
-+				ctx->cmd);
-+	if (!hdr)
-+		return -EMSGSIZE;
-+
-+	if (__em_nl_get_pd(pd, ctx->msg)) {
-+		genlmsg_cancel(ctx->msg, hdr);
-+		return -EMSGSIZE;
-+	}
-+
-+	genlmsg_end(ctx->msg, hdr);
-+	return 0;
-+}
-+
- int dev_energymodel_nl_get_perf_domains_doit(struct sk_buff *skb,
--					      struct genl_info *info)
-+					     struct genl_info *info)
- {
--	int id, ret = -EMSGSIZE, msg_sz = 0;
--	int cmd = info->genlhdr->cmd;
--	struct em_perf_domain *pd;
-+	struct em_nl_doit_ctx ctx = {
-+		.info = info,
-+		.cmd = info->genlhdr->cmd,
-+	};
- 	struct sk_buff *msg;
--	void *hdr;
-+	int id, ret, msg_sz = 0;
- 
- 	if (!info->attrs[DEV_ENERGYMODEL_A_PERF_DOMAIN_PERF_DOMAIN_ID])
- 		return -EINVAL;
- 
- 	id = nla_get_u32(info->attrs[DEV_ENERGYMODEL_A_PERF_DOMAIN_PERF_DOMAIN_ID]);
--	pd = em_perf_domain_get_by_id(id);
--	if (!pd)
--		return -EINVAL;
- 
--	__em_nl_get_pd_size(pd, &msg_sz);
-+	/* Encode under em_pd_list_mutex, like the dumpit path. */
-+	ret = em_perf_domain_for_id(id, __em_nl_get_pd_size, &msg_sz);
-+	if (ret)
-+		return ret;
-+
- 	msg = genlmsg_new(msg_sz, GFP_KERNEL);
- 	if (!msg)
- 		return -ENOMEM;
- 
--	hdr = genlmsg_put_reply(msg, info, &dev_energymodel_nl_family, 0, cmd);
--	if (!hdr)
--		goto out_free_msg;
--
--	ret = __em_nl_get_pd(pd, msg);
-+	ctx.msg = msg;
-+	ret = em_perf_domain_for_id(id, __em_nl_get_pd_doit_fill, &ctx);
- 	if (ret)
--		goto out_cancel_msg;
--	genlmsg_end(msg, hdr);
-+		goto out_free_msg;
- 
- 	return genlmsg_reply(msg, info);
- 
--out_cancel_msg:
--	genlmsg_cancel(msg, hdr);
- out_free_msg:
- 	nlmsg_free(msg);
- 	return ret;
-@@ -148,19 +169,6 @@ int dev_energymodel_nl_get_perf_domains_dumpit(struct sk_buff *skb,
- 	return for_each_em_perf_domain(__em_nl_get_pd_for_dump, &ctx);
- }
- 
--static struct em_perf_domain *__em_nl_get_pd_table_id(struct nlattr **attrs)
--{
--	struct em_perf_domain *pd;
--	int id;
--
--	if (!attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_DOMAIN_ID])
--		return NULL;
--
--	id = nla_get_u32(attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_DOMAIN_ID]);
--	pd = em_perf_domain_get_by_id(id);
--	return pd;
--}
--
- static int __em_nl_get_pd_table_size(const struct em_perf_domain *pd)
- {
- 	int id_sz, ps_sz;
-@@ -245,34 +253,58 @@ int __em_nl_get_pd_table(struct sk_buff *msg, const struct em_perf_domain *pd)
- 	return -EMSGSIZE;
- }
- 
-+static int __em_nl_get_pd_table_size_cb(struct em_perf_domain *pd, void *data)
-+{
-+	*(int *)data = __em_nl_get_pd_table_size(pd);
-+	return 0;
-+}
-+
-+static int __em_nl_get_pd_table_doit_fill(struct em_perf_domain *pd,
-+					  void *data)
-+{
-+	struct em_nl_doit_ctx *ctx = data;
-+	void *hdr;
-+
-+	hdr = genlmsg_put_reply(ctx->msg, ctx->info, &dev_energymodel_nl_family, 0,
-+				ctx->cmd);
-+	if (!hdr)
-+		return -EMSGSIZE;
-+
-+	if (__em_nl_get_pd_table(ctx->msg, pd))
-+		return -EMSGSIZE;
-+
-+	genlmsg_end(ctx->msg, hdr);
-+	return 0;
-+}
-+
- int dev_energymodel_nl_get_perf_table_doit(struct sk_buff *skb,
--					    struct genl_info *info)
-+					   struct genl_info *info)
- {
--	int cmd = info->genlhdr->cmd;
--	int msg_sz, ret = -EMSGSIZE;
--	struct em_perf_domain *pd;
-+	struct em_nl_doit_ctx ctx = {
-+		.info = info,
-+		.cmd = info->genlhdr->cmd,
-+	};
- 	struct sk_buff *msg;
--	void *hdr;
-+	int id, ret, msg_sz;
- 
--	pd = __em_nl_get_pd_table_id(info->attrs);
--	if (!pd)
-+	if (!info->attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_DOMAIN_ID])
- 		return -EINVAL;
- 
--	msg_sz = __em_nl_get_pd_table_size(pd);
-+	id = nla_get_u32(info->attrs[DEV_ENERGYMODEL_A_PERF_TABLE_PERF_DOMAIN_ID]);
-+
-+	ret = em_perf_domain_for_id(id, __em_nl_get_pd_table_size_cb, &msg_sz);
-+	if (ret)
-+		return ret;
- 
- 	msg = genlmsg_new(msg_sz, GFP_KERNEL);
- 	if (!msg)
- 		return -ENOMEM;
- 
--	hdr = genlmsg_put_reply(msg, info, &dev_energymodel_nl_family, 0, cmd);
--	if (!hdr)
--		goto out_free_msg;
--
--	ret = __em_nl_get_pd_table(msg, pd);
-+	ctx.msg = msg;
-+	ret = em_perf_domain_for_id(id, __em_nl_get_pd_table_doit_fill, &ctx);
- 	if (ret)
- 		goto out_free_msg;
- 
--	genlmsg_end(msg, hdr);
- 	return genlmsg_reply(msg, info);
- 
- out_free_msg:
-diff --git a/kernel/power/em_netlink.h b/kernel/power/em_netlink.h
-index 583d7f1c3939..bc98a3c278b9 100644
---- a/kernel/power/em_netlink.h
-+++ b/kernel/power/em_netlink.h
-@@ -12,7 +12,8 @@
- #if defined(CONFIG_ENERGY_MODEL) && defined(CONFIG_NET)
- int for_each_em_perf_domain(int (*cb)(struct em_perf_domain*, void *),
- 			    void *data);
--struct em_perf_domain *em_perf_domain_get_by_id(int id);
-+int em_perf_domain_for_id(int id, int (*cb)(struct em_perf_domain *, void *),
-+			  void *data);
- void em_notify_pd_created(const struct em_perf_domain *pd);
- void em_notify_pd_deleted(const struct em_perf_domain *pd);
- void em_notify_pd_updated(const struct em_perf_domain *pd);
-@@ -24,9 +25,10 @@ int for_each_em_perf_domain(int (*cb)(struct em_perf_domain*, void *),
- 	return -EINVAL;
- }
- static inline
--struct em_perf_domain *em_perf_domain_get_by_id(int id)
-+int em_perf_domain_for_id(int id, int (*cb)(struct em_perf_domain *, void *),
-+			  void *data)
- {
--	return NULL;
-+	return -EINVAL;
- }
- 
- static inline void em_notify_pd_created(const struct em_perf_domain *pd) {}
-diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
-index e610cf8e9a06..a76089e2ce8c 100644
---- a/kernel/power/energy_model.c
-+++ b/kernel/power/energy_model.c
-@@ -1031,7 +1031,9 @@ int for_each_em_perf_domain(int (*cb)(struct em_perf_domain*, void *),
- 	return 0;
- }
- 
--struct em_perf_domain *em_perf_domain_get_by_id(int id)
-+/* Run @cb on the matching domain with em_pd_list_mutex held. */
-+int em_perf_domain_for_id(int id, int (*cb)(struct em_perf_domain *, void *),
-+			  void *data)
- {
- 	struct em_perf_domain *pd;
- 
-@@ -1040,9 +1042,9 @@ struct em_perf_domain *em_perf_domain_get_by_id(int id)
- 
- 	list_for_each_entry(pd, &em_pd_list, node) {
- 		if (pd->id == id)
--			return pd;
-+			return cb(pd, data);
- 	}
- 
--	return NULL;
-+	return -EINVAL;
- }
- #endif
-
+Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
