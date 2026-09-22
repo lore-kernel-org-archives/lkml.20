@@ -1,295 +1,235 @@
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A8B52D2D6;
-	Tue, 22 Sep 2026 09:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C598524B1C;
+	Tue, 22 Sep 2026 09:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068499; cv=none; b=DeANVsjoLYVnLyrrYwYM+TT6NhXJ9Ao/6uBhI2l86xF7xJjEwn9OINDo4fxwOlfRraSePAOlooA6Xs775S+uyYAwJT99z3bHR+TjHVw1UmeMPbPre+xI1YjpP4lvAOWiRn7dpXEWkzY+K0W0aG0Pwvki9CcPpybzKxNDEMbCO/8=
+	t=1790068506; cv=none; b=pNtaIBcqBPAJKSHsBpFh8mGshCBqLOTB3K02LKmYV6h3mXepKj2xUR94XLQNvgcfOoQu+E7RLlEuKCY6FET7OFcBQoKwObdKEr7pIZhsgXmfu/5M3lFcMMOzA0Fe16OAXSC0yXWwlpLF9/8UMsHf5oEWisbTGRDmb4GM0Limaps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068499; c=relaxed/simple;
-	bh=eEC+vMrtdNvqtTE2iVXtcrgWXjMqf0Mo+dgesmgS96o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z+g+eQyDPuC/fkOG65P1Y0Qv3End7vDhFUBKtHB4rmxxlNGwv0HMZPEek7kr6BMP3xUeY34FpBT7XB3ZL8yHo134UWIgW4cYgqQ9law5hoUSbJiD1g3hF0R1+sMRBf4WiJUDyjQRxPoBiefbelo6sz/T6XOiGn9H2X2MX/GuLXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=r18MYRiH; arc=none smtp.client-ip=49.212.243.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
+	s=arc-20240116; t=1790068506; c=relaxed/simple;
+	bh=ab8nojDd73ZNjmJo1aiLMxxM7qmfGdiSHYSuowmH5E4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=jmbP0wLQeVyh4x+wKl1O9IBgRKwsupykex3+ZbDwni/MCxlof+buZ97Z9pB2ugd1gNh/E4sfEpZISt//mWhxrMW8MznkAM8agPAeIIqJiOs6zq0nKKQ3+cyBq4sNMAT2Hg5vAd91LkT/VDQWZa6LYwOlvN6NYQSb/US9yNh/icw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3RVMBcu; arc=none smtp.client-ip=192.198.163.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="r18MYRiH"
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
-	(authenticated bits=0)
-	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68M9DR7H021356
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Tue, 22 Sep 2026 18:13:27 +0900 (JST)
-	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=qWdukw8Lwo5D178NeO++XInMp2aCtmIcsueteb32N9I=;
-        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250326; t=1790068407; v=1;
-        b=r18MYRiHmKiGcRo1ZPIgYuDx5mT4Drk6ugS5wVEuTfrZQkbGInaUGH+XIPh/w69U
-         EaZH2vvrBWmoDHnWpbISp25FtvQA2v0gjQ5yon66dc1n3QEib6WWio7l4+4L7FEv
-         DXKAd/bZ53zq5YqBBzHqZPhMypM/YuZpMZLe69B9n87ojxufmhNquUSW+GtAzRUz
-         DVeO5038q+phoXydYDcRNPXK/KEmg7rhveGLZ0Xx6uV7GcRz/ZsMTG11Vibs+A9D
-         L/owohAYoUw2rEZrcuw9ml3lcEy++eoq9besVkLLO/rmSspTSt1Kt7GqlRbzLvo+
-         C/E2ZOEmuixnNMsre8OiWw==
-Message-ID: <b9c1b996-2c01-4889-8f93-154ceb58c529@rsg.ci.i.u-tokyo.ac.jp>
-Date: Tue, 22 Sep 2026 18:13:26 +0900
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3RVMBcu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790068504; x=1821604504;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=ab8nojDd73ZNjmJo1aiLMxxM7qmfGdiSHYSuowmH5E4=;
+  b=n3RVMBcuhNnmlSKpe5G9vknDjX5QVWROpwDcNWXj0Y8uSt4ZYsHf04JT
+   7YqCOmpeDueWv/LbmUPVTVoZM2qSEIPSLLABvSOPp711sMJ/JeE0QW53x
+   LaPapvT8fYyYJjMvP5RCIzRiDBfTcE8pb//RWxWBu3SvhQ2xSEZa6gXob
+   t+ju85v8QQF3kkgy17s0AEb7KRhDHAyPhbqFmZzSuvaFTlS0dV/rhysvG
+   +3pR+vP+Fl6hahg6CkomwKSoyrrYKLR2Gt3+vrxiAZfmIzf4+Qec1XgiJ
+   rovFviSQGAvGhlCe7dWxtOAL/QsV6cwMRex6xk69B8RcXFTU8U+9F8Mvg
+   A==;
+X-CSE-ConnectionGUID: jrjajtdXQr6SI6nSMr/CMA==
+X-CSE-MsgGUID: gwpK4bJYTtGgpKTbTDaeFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1155600"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="1155600"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 02:15:03 -0700
+X-CSE-ConnectionGUID: 92HoGGBQRbWJZJ8hBVsOwQ==
+X-CSE-MsgGUID: UkAs628ASamF7FqlFRDwiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="273218286"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 02:15:01 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 22 Sep 2026 12:14:58 +0300 (EEST)
+To: Armin Wolf <W_Armin@gmx.de>
+cc: Denis Benato <denis.benato@linux.dev>, LKML <linux-kernel@vger.kernel.org>, 
+    platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+    Liang Haowen <nbg2974@gmail.com>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>
+Subject: Re: Placement of ASUS Aura and platform/x86 ASUS files relocation
+In-Reply-To: <8e8168cd-4f6b-41e0-81c5-5d7b07b1df13@gmx.de>
+Message-ID: <7b4c6859-aed8-6117-5d80-1ad1f1470260@linux.intel.com>
+References: <0ca263c3-7885-4a5c-bfe5-0e8e4d189666@linux.dev> <e0882d84-f5ea-44a8-881f-4095129e4d2d@gmx.de> <c26da468-9a5a-46c1-8dbd-1784b69b3c73@linux.dev> <8e8168cd-4f6b-41e0-81c5-5d7b07b1df13@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 20/21] KVM: arm64: PMU: Introduce FIXED_COUNTERS_ONLY
-To: Oliver Upton <oupton@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu
- <yuzenghui@huawei.com>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
-        Yury Norov <yury.norov@gmail.com>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>,
-        Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Shannon Zhao <shannon.zhao@linaro.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kselftest@vger.kernel.org
-References: <20260920-hybrid-v11-0-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
- <20260920-hybrid-v11-20-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
- <arIqMO-f8X0gCzjA@kernel.org>
-Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <arIqMO-f8X0gCzjA@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323328-1444408434-1790068498=:1233"
 
-On 2026/09/22 16:11, Oliver Upton wrote:
-> On Sun, Sep 20, 2026 at 08:16:01PM +0900, Akihiko Odaki wrote:
->> Introduce the KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY attribute to
->> create a "fixed-counters-only" PMU.
->>
->> Much like KVM_ARM_VCPU_PMU_V3_IRQ and other read-write attributes, this
->> attribute provides a getter that facilitates kernel and userspace
->> debugging/testing.
->>
->> Allow strict PMUv3 vCPUs to initialize the PMU after selecting
->> fixed-counters-only mode, without selecting a VM-wide hardware PMU.
->>
->> Assisted-by: Codex:gpt-5.6-sol
->> Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
->> ---
->>   Documentation/virt/kvm/api.rst          |  8 +++++--
->>   Documentation/virt/kvm/devices/vcpu.rst | 42 ++++++++++++++++++++++++++-------
->>   arch/arm64/include/uapi/asm/kvm.h       |  1 +
->>   arch/arm64/kvm/pmu-emul.c               | 34 ++++++++++++++++++++++----
->>   tools/arch/arm64/include/uapi/asm/kvm.h |  1 +
->>   5 files changed, 71 insertions(+), 15 deletions(-)
->>
->> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
->> index 1a90598901c5..a6aef405ef87 100644
->> --- a/Documentation/virt/kvm/api.rst
->> +++ b/Documentation/virt/kvm/api.rst
->> @@ -3531,9 +3531,13 @@ Possible features:
->>   
->>   	    * Userspace must explicitly select a PMU implementation before
->>   	      initializing the PMU or configuring a PMU event filter
->> +	      (KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY also satisfies the
->> +	      initialization requirement; event filtering remains unavailable
->> +	      in that mode)
->>   
->> -	    * If the PMU implements FEAT_PMUv3p4, PMMIR_EL1.SLOTS provides the
->> -	      hardware value of the underlying implementation
->> +	    * If a hardware PMU is selected and implements FEAT_PMUv3p4,
->> +	      PMMIR_EL1.SLOTS provides its hardware value. In fixed-counters-only
->> +	      mode, PMMIR_EL1 reads as zero
->>   
->>   	    * Writes to PMCR_EL0.N via KVM_SET_ONE_REG are ignored
->>   
->> diff --git a/Documentation/virt/kvm/devices/vcpu.rst b/Documentation/virt/kvm/devices/vcpu.rst
->> index a3f20a4ee4b1..41f6d708ff43 100644
->> --- a/Documentation/virt/kvm/devices/vcpu.rst
->> +++ b/Documentation/virt/kvm/devices/vcpu.rst
->> @@ -53,9 +53,9 @@ Returns:
->>   	 =======  ======================================================
->>   	 -EEXIST  Interrupt number already used
->>   	 -ENODEV  PMUv3 not supported or GIC not initialized
->> -	 -ENXIO   PMUv3 not supported, missing VCPU feature, missing
->> -                  hardware PMU, or interrupt number not set (non-GICv5
->> -                  guests, only)
->> +	 -ENXIO   PMUv3 not supported, missing VCPU feature,
->> +		  neither hardware PMU nor FIXED_COUNTERS_ONLY selected,
->> +		  or interrupt number not set (non-GICv5 guests only)
->>   	 -EBUSY   PMUv3 already initialized
->>   	 =======  ======================================================
->>   
->> @@ -64,7 +64,8 @@ virtual GIC implementation, this must be done after initializing the in-kernel
->>   irqchip.
->>   
->>   When the KVM_ARM_VCPU_PMU_V3_STRICT vCPU feature is enabled this must be done
->> -after selecting a hardware PMU.
->> +after selecting a hardware PMU or enabling
->> +KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY.
->>   
->>   1.3 ATTRIBUTE: KVM_ARM_VCPU_PMU_V3_FILTER
->>   -----------------------------------------
->> @@ -78,7 +79,8 @@ after selecting a hardware PMU.
->>   	 -ENODEV  PMUv3 not supported or GIC not initialized
->>   	 -ENXIO   PMUv3 not properly configured or in-kernel irqchip not
->>   	 	  configured as required prior to calling this attribute
->> -	 -EBUSY   PMUv3 already initialized or a VCPU has already run
->> +	 -EBUSY   PMUv3 already initialized, a VCPU has already run or
->> +		  FIXED_COUNTERS_ONLY has already been set
->>   	 -EINVAL  Invalid filter range
->>   	 =======  ======================================================
->>   
->> @@ -123,14 +125,14 @@ after selecting a hardware PMU.
->>   
->>   :Returns:
->>   
->> -	 =======  ====================================================
->> +	 =======  ===========================================================
->>   	 -EBUSY   PMUv3 already initialized, a VCPU has already run or
->> -                  an event filter has already been set
->> +                  an event filter or FIXED_COUNTERS_ONLY has already been set
->>   	 -EFAULT  Error accessing the PMU identifier
->>   	 -ENXIO   PMU not found
->>   	 -ENODEV  PMUv3 not supported or GIC not initialized
->>   	 -ENOMEM  Could not allocate memory
->> -	 =======  ====================================================
->> +	 =======  ===========================================================
->>   
->>   Request that the VCPU uses the specified hardware PMU when creating guest events
->>   for the purpose of PMU emulation. The PMU identifier can be read from the "type"
->> @@ -172,6 +174,30 @@ explicitly selected, or the number of counters is out of range for the
->>   selected PMU. Selecting a new PMU cancels the effect of setting this
->>   attribute.
->>   
->> +1.6 ATTRIBUTE: KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY
->> +------------------------------------------------------
->> +
->> +:Parameters: no additional parameter in kvm_device_attr.addr
->> +
->> +:Returns:
->> +
->> +	 =======  ==================================================
->> +	 -EBUSY   PMUv3 already initialized, a VCPU has already run,
->> +		  an event filter has already been set or
->> +		  a hardware PMU has already been specified
->> +	 -ENXIO   Attempted to get before setting
->> +	 -ENODEV  Attempted to set while PMUv3 not supported
->> +	 =======  ==================================================
->> +
->> +If set, KVM emulates PMUv3 without programmable event counters.
->> +
->> +With KVM_ARM_VCPU_PMU_V3_STRICT, enabling this attribute satisfies the
->> +PMU selection requirement for KVM_ARM_VCPU_PMU_V3_INIT.
->> +
->> +When this attribute is enabled, the vCPU can run on any physical CPU
->> +that has a PMU, regardless of the underlying implementation. This
->> +attribute is VM-scoped.
->> +
->>   2. GROUP: KVM_ARM_VCPU_TIMER_CTRL
->>   =================================
->>   
->> diff --git a/arch/arm64/include/uapi/asm/kvm.h b/arch/arm64/include/uapi/asm/kvm.h
->> index 65ee09bd1463..7a6a0af14f5a 100644
->> --- a/arch/arm64/include/uapi/asm/kvm.h
->> +++ b/arch/arm64/include/uapi/asm/kvm.h
->> @@ -453,6 +453,7 @@ struct kvm_vgic_v5_ist {
->>   #define   KVM_ARM_VCPU_PMU_V3_FILTER		2
->>   #define   KVM_ARM_VCPU_PMU_V3_SET_PMU		3
->>   #define   KVM_ARM_VCPU_PMU_V3_SET_NR_COUNTERS	4
->> +#define   KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY	5
->>   #define KVM_ARM_VCPU_TIMER_CTRL		1
->>   #define   KVM_ARM_VCPU_TIMER_IRQ_VTIMER		0
->>   #define   KVM_ARM_VCPU_TIMER_IRQ_PTIMER		1
->> diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
->> index 9c1e2f3e41db..ebb648eabdc6 100644
->> --- a/arch/arm64/kvm/pmu-emul.c
->> +++ b/arch/arm64/kvm/pmu-emul.c
->> @@ -1017,8 +1017,8 @@ int kvm_arm_pmu_v3_enable(struct kvm_vcpu *vcpu)
->>   
->>   static int kvm_arm_pmu_v3_init(struct kvm_vcpu *vcpu)
->>   {
->> -	/* Only possible when using KVM_ARM_VCPU_PMU_V3_STRICT */
->> -	if (!vcpu->kvm->arch.arm_pmu)
->> +	/* Strict PMUv3 requires a hardware PMU or fixed-counters-only mode. */
->> +	if (!vcpu->kvm->arch.arm_pmu && !kvm_pmu_fixed_counters_only(vcpu->kvm))
->>   		return -ENXIO;
->>   
->>   	if (irqchip_in_kernel(vcpu->kvm)) {
->> @@ -1153,8 +1153,8 @@ int kvm_arm_set_default_pmu(struct kvm *kvm)
->>   	 * affines the VMM to a particular cluster of cores.
->>   	 *
->>   	 * In any case, userspace should just do the sane thing and use the UAPI
->> -	 * to select a PMU type directly. But, be wary of the baggage being
->> -	 * carried here.
->> +	 * to select a PMU type directly, or request fixed-counters-only
->> +	 * emulation. But, be wary of the baggage being carried here.
->>   	 */
->>   	struct arm_pmu *arm_pmu = kvm_pmu_probe_armpmu(raw_smp_processor_id());
->>   
->> @@ -1179,11 +1179,13 @@ static int kvm_arm_pmu_v3_set_pmu(struct kvm_vcpu *vcpu, int pmu_id)
->>   		arm_pmu = entry->arm_pmu;
->>   		if (arm_pmu->pmu.type == pmu_id) {
->>   			if (kvm_vm_has_ran_once(kvm) ||
->> +			    kvm_pmu_fixed_counters_only(kvm) ||
->>   			    (kvm->arch.pmu_filter && kvm->arch.arm_pmu != arm_pmu)) {
->>   				ret = -EBUSY;
->>   				break;
->>   			}
->>   
->> +			set_bit(KVM_ARCH_FLAG_PMU_V3_EXPLICIT, &kvm->arch.flags);
->>   			kvm_arm_set_pmu(kvm, arm_pmu);
->>   			cpumask_copy(kvm->arch.supported_cpus, &arm_pmu->supported_cpus);
->>   
->> @@ -1205,6 +1207,22 @@ static int kvm_arm_pmu_v3_set_pmu(struct kvm_vcpu *vcpu, int pmu_id)
->>   	return ret;
->>   }
->>   
->> +static int kvm_arm_pmu_v3_set_pmu_fixed_counters_only(struct kvm_vcpu *vcpu)
->> +{
->> +	struct kvm *kvm = vcpu->kvm;
->> +
->> +	lockdep_assert_held(&kvm->arch.config_lock);
->> +
->> +	if (kvm_vm_has_ran_once(kvm) || kvm->arch.pmu_filter ||
->> +	    test_bit(KVM_ARCH_FLAG_PMU_V3_EXPLICIT, &kvm->arch.flags))
->> +		return -EBUSY;
->> +
->> +	set_bit(KVM_ARCH_FLAG_PMU_V3_FIXED_COUNTERS_ONLY, &kvm->arch.flags);
->> +	kvm->arch.nr_pmu_counters = 0;
->> +
->> +	return 0;
->> +}
->> +
-> 
-> I'd rather that FIXED_COUNTERS_ONLY depend on the KVM_ARM_VCPU_PMU_V3_STRICT
-> feature flag. The expectation of that flag is that userspace specifies a
-> backing PMU implementation; your FIXED_COUNTERS_ONLY could just be seen
-> as one such PMU implementation.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Hi Oliver,
+--8323328-1444408434-1790068498=:1233
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Agreed. That will make the kernel code simpler by removing the need to 
-track explicit hardware PMU selection separately with 
-KVM_ARCH_FLAG_PMU_V3_EXPLICIT, since STRICT does not select a default 
-PMU. Hopefully, it will also make maintaining the code a bit easier by 
-reducing possible configuration combinations and encourage userspace to 
-use STRICT.
+Hi all,
 
-I'll make this change for v2.
+It seems this thread has went under the radar for me so thanks for the=20
+pointer in the other thread (this was within the large pile of yet to be=20
+processed email from the Summer time, I likely won't have time for them=20
+until the next merge window, if ever...). I'm sorry about that.
 
-Regards,
-Akihiko Odaki
+On Wed, 26 Aug 2026, Armin Wolf wrote:
+> Am 05.08.26 um 14:20 schrieb Denis Benato:
+> > On 8/4/26 20:22, Armin Wolf wrote:
+> > > Am 04.08.26 um 19:46 schrieb Denis Benato:
+> > >=20
+> > > > Hi all,
+> > > >=20
+> > > > I write this mail to ask a few questions related to the various ASU=
+S
+> > > > devices in the kernel both present and futures and how to organize =
+that
+> > > > work.
+> > > >=20
+> > > > To understand this mail one needs to know that AURA is the name of =
+the
+> > > > lighting ASUS gave to its
+> > > > products: each device is divided in one or more zones and each zone
+> > > > supports setting an effect like
+> > > > static (1 color), strobe (2 colors and speed), rainbow (0 colors), =
+rain
+> > > > (0 colors and speed), laser (1 color and direction) and these, to b=
+e
+> > > > represented in such a way features are not being lost requires a ne=
+d
+> > > > interface
+> > > > that Derek said he wanted to develop as many other hardware would
+> > > > benefit from it: I will therefore need
+> > > > to specialize it for ASUS things: where is it better to put any .c/=
+=2Eh
+> > > > file related to this interface? Is platform-x86 OK?
+> > > >=20
+> > > > The Aura interface has components (all or only certain aspects) wor=
+king
+> > > > via: scsi, (hid) usb + i2c and wmi.
+> > > >=20
+> > > > 1. Liang Haowen has an ASUS nvme enclosure that supports the AURA
+> > > > protocol as scsi commands:
+> > > > we want those to be in the kernel, but we don't know where to put t=
+he
+> > > > aura userspace interface (see above).
+> > > Hi,
+> > >=20
+> > > it depends on the userspace interface. If you use the LED sysfs API (=
+with
+> > > some extensions for the effects), then i suggest
+> > > that you place the driver in drivers/leds, because the NVME enclosure=
+ is
+> > > not a platform device.
+> > >=20
+> > Yeah we will have to bind the LED interface once to the nvme enclosure,=
+ up
+> > to 8 different interface to the keyboard (one per zone so we can set th=
+e
+> > physical keyboard in rain and the rear logo in static for example)
+> > and also TUFs manage power states via asus-wmi so one interface spawned=
+ by
+> > i2c will need to be bound
+> > to asus-wmi too.
+> >=20
+> > The userspace interface will need to be used by different drivers, in
+> > different instances and even more than
+> > one driver on the same instance.
+> > > I assume you refer to the ROG Arion? If the SCSI commands are used to
+> > > issue i2c/smbus requests, then you should also
+> > > place the i2c controller driver under /drivers/i2c/busses.
+> > >=20
+> > It is indeed a ROG Arion.
+> > > > 2. ASUS has product called "RTX Spark" coming that are arm and will
+> > > > support acpi: I have no idea if the asus-wmi
+> > > > interface would be reused, but if they decide to do so (and the ker=
+nel
+> > > > can be made to boot lol) would platform/x86 still be the best place=
+ for
+> > > > ASUS drivers?
+> > > In such a case, moving the affected drivers to drivers/platform/asus/
+> > > would be a good idea. There is currently a patch series pending
+> > > for enabling ACPI-WMI on arm, so _theoretically_ the asus-wmi driver
+> > > should work.
+> > >=20
+> > Splendid news!
+> > > > 3. During the upstreaming of asus-armoury Hans de Goede asked if it=
+'s
+> > > > preferred to have an asus directory containing asus drivers, but th=
+e
+> > > > discussion died there. Now that I see there is a patchest that will=
+ also
+> > > > move asus files
+> > > > would it be a good time to spawn this discussion?
+> > > IMHO having a separate asus directory for all asus-related platform
+> > > drivers would indeed be very nice. You could reuse the
+> > > drivers/platform/asus directory
+> > > for that, and leave the older asus-related drivers inside
+> > > drivers/platform/x86 for the time being.
+> > >=20
+> > > Alternatively, you could move all the affected drivers to
+> > > drivers/platform/x86/asus, and after that move this directory to
+> > > drivers/platform.
+> > >=20
+> > This looks cleaner to me if ASUS will produce ARM products that actuall=
+y use
+> > that interface,
+> > but will wait to hear what others think.
+
+Given the information in the recent thread, this is indeed going to happen=
+=20
+in the near future. Hans' suggestion was to put generic (x86 + arm) WMI=20
+drivers under drivers/platform/wmi/ (or drivers/platform/wmi/asus/, I=20
+suppose).
+
+I'm not strictly against drivers/platform/asus/ either, if you prefer that=
+=20
+and expect it to have something that would not fall well under=20
+drivers/platform/wmi/.
+
+Anything under drivers/platform/x86/ would not work well for non-x86=20
+drivers because of Kconfig menu structuring.
+
+Same goes for drivers/platform/wmi/asus/ for non-wmi drivers, Kconfig=20
+menu structuring would not work for non-WMI drivers placed under there.
+
+So it largely boils down to having a Kconfig structure that makes sense=20
+(no non-X drivers under drivers/platform/X/).
+
+In any case, if it comes having to move it again, moving entire directory=
+=20
+is relatively easy so this placement is not a life and dead decision (I=20
+can probably handle the transition with some sed tricks on the patches=20
+if there's parallel development).
+
+> > If I do that will platform/x86 still be the correct place to send patch=
+es? I
+> > don't want to "move" the driver away from platform/x86 mailing list jus=
+t
+> > because the directory changed.
+>=20
+> Sorry for the delay.
+>=20
+> AFAIK as long as the driver is still heavily connected to the x86 platfor=
+m,
+> you can continue to use this mailing list.
+> That is what i am doing with the core ACPI-WMI driver.
+
+platform-drivers-x86 has x86 in it's name but in practice the platform=20
+drivers scope has expanded. Changing the ML name is rather expensive=20
+operation so we stick with the old name even if it now carries this
+baggage. So any platform drivers stuff can be discussed on this list=20
+regardless where they're under drivers/platform/ and MAINTAINERS entries=20
+made to point to platform-drivers-x86 ML=C2=A0as is e.g. with Arm64 platfor=
+m=20
+drivers already (chrome/, mips/, and raspberrypi/ have own MLs but others=
+=20
+do use platform-drivers-x86 list).
+
+--=20
+ i.
+
+--8323328-1444408434-1790068498=:1233--
