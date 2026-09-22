@@ -1,216 +1,94 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EC748EC78
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CA53C2B9B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070171; cv=none; b=TRDFJUUFkrC75E7c6BqYkvHSGbbjElNl1lmh6Ec7WAukWgXfcs9N00dFZlRZCMUd6pX//UG8xLG7WtObbSRywhm0ed0cfUj60NctpGFAyuvwLEFa+j2yjoSCjWIlTeMX1NL4wFOSFGKDuyMgsydjiudmAUI1GPOmSDEYip19MXg=
+	t=1790070178; cv=none; b=A1OvCQu8WUK1PgkH7Rtbinh5wOnBYkeTJiuZKeb1tJ4PIfGduBXgWkSyUPU2CND2LPyApJPg5ZoRH6CT3XEPA2eY9F0SK2in/YjduOQsdFv69H/3af/O835GSAz3eq7giA9lfchVi96+aYPVAN9aeSezJx3RO8k613PPgyIe7Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070171; c=relaxed/simple;
-	bh=a39y1L00I8aIeYf55Sn7jyd8GYre/QU0QKN9hRvsKzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oqfb9i23sXf2cubB1fmFp3VHnNkUcl2na/0hYC0F6QSbMSYHHSYR0l1o3iWzYEiZELIIDgJ05BPj794ktQTe4ozoB0PxAkNaSi5S/Xm0laHs0h3O8Fns6n1xpon6TngVHlaqz/a8lghdYPgTPNGZLCLAuZ5CAEObSj0hA1bzd8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pMPY2MF+; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790070178; c=relaxed/simple;
+	bh=AaASihTEQYwCAyh5a2S+J5KYvZ9GGtdH7JfCAqe9w90=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qj+kreR4xJD6WevqDAXpbp63qIlY4la0mY0Y+awJ5QmXwGY8GTqvm/asRqzCtWAGb8PTUaflz6k8XLuhoJzl29VHqHzdxSPgVtgSwLoJAZCdOa5yJExb2pTX6lNkvRfQWkx6X3a38JozgzrHfU7fMJ/U3m6w6re17YnjrkBavhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Rb7rtLYm; arc=none smtp.client-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pMPY2MF+"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so3080747f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:42:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790070167; x=1790674967; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=63jLM3p/yGHFLc3CNq4tuxz/dfqASMTYz4nLQopy+Yo=;
-        b=pMPY2MF+oQWYDlqrQd3zbhZgL2p/SNbHMrEaNK2vxofJQIopgmpPeeiVbk6HZ9FV16
-         Qi+A/Tb7lwDCVUXvXOYjVBQnP0bMXBh4zct6tb3W9pBN1tcTV/KMi/Ai5Fsdbz/3xERT
-         CKJUkO473VpEz3ynpWZW/LigXxa1RoVnrA4O6juB4asliJK/ZN809Ci0KKVAHJkoqcll
-         fAG+qRFhCFGz6pg9E2Zjt5PZwRgVCInzVeEuXf/fuwMpTA1No90pgqNxPb2OMW7RipET
-         0zSNGCIu2R6KxJuQrGNw6fw6rAM8P4Mluy/K9ccI5dzLrZpM7XmDeICFU673F3gTpS+6
-         LF3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790070167; x=1790674967;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=63jLM3p/yGHFLc3CNq4tuxz/dfqASMTYz4nLQopy+Yo=;
-        b=Rz2jQvk30bnOgzySpYe2O6Zuiq9x7AuppO6V7u5lMUBXL+0Q6Q1BReJNdc8HyyLJ+y
-         /4x02M6/kN+hDrwqPAA+2ykgl4aY9XTNWq5ktmJdPDOxRNy4vWaj2jnSZgGESKi4yW8G
-         7uwImlTee9ZgQojldGzZS5FzOSuIUlk//WovSYU1sM6tJhnkx63lVr9iBBun8KyvJLrR
-         nY8o3Y+hvx0CuOdugnREULkVdu2hqAd7T90+z297ECtzEILXtgPKWtrMF4SxRjNWmkey
-         cjflF4TxATUc3q3w2btw7xb5XU9ypPu2XT7HkDCY0JM5gSMt9NMMvWQjtluCSwekBhPv
-         5h5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzXgjoGgPx+ES1Mwf1XS2cOKvqcwOG4XIHaa942i0LENXCte0nAe6e1BPfnXNF0IK4CG1cu1JQ8fW1m3TM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqV+V9XJ33F5UzYToNA83lv6kbQ6DnFUpmIwqqTeQq6jq8vMcN
-	zu+0WvmI47+98y1IHshNbUNFAmRm0WwKlnx8iWCaA5UZeDBH/DcVf+A+G5wtcVa3GT8zIA+pCtY
-	kWG0ohg==
-X-Gm-Gg: AYBFou0Kpf2U9NzrI2/TTIw7zASdSetaTXeX8w8GsNriJoRHFBaxgFUxnjp+6mc4TDD
-	nr9FwIqPveIb9e3Z128AU+l6tj6OswO1nhoURGihD2O+o5JBiLv9jDIjFCya0L3w1rJODaEodyV
-	dFazWDasrzluNM+lE0Nd+QwqWNXB2FzCl4lI0YoTZPg1rubFRnT8eUznM1u0L2ILGYVOL3ec2aY
-	9OA5LeFEJtXQ0iiWrq3xFMyXbT+g9tOcez3Nrn6C70aBJSC/ZjQSnHB2FH6DtOj3yphQDIzQPaI
-	JL6R1KIMgky8dMkc9AKaWKkS4MWbGC/tGuEwAvO7DET68MCQNIWa1kzUl/a5y4PySHJNwYbQfQ8
-	DAlS//bD8S9lFcsj+w4JJK19hrTldnMJXvkq8vRE2L+bIQEH6V+aKiOy3GWT1oxdmfNfWdz+fZA
-	FnPwwyl7qh4HcLCT64E77b0ehz+iH2h/uKn6eUO+J7CrRFxDMRmooHt/PYMLJnuj86GESVV9c6Z
-	9EKeFcIHnYlQzWRCIrN/FxI4GKyuMGve3XJ75p8alyY
-X-Received: by 2002:a05:6000:4809:b0:487:360:58d8 with SMTP id ffacd0b85a97d-4871e36fcf0mr19672027f8f.46.1790070167049;
-        Tue, 22 Sep 2026 02:42:47 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862795215sm3484729f8f.37.2026.09.22.02.42.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:42:46 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:42:43 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Xiang Gao <gxxa03070307@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, gao xu <gaoxu2@honor.com>,
-	yinchuang1@xiaomi.com, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiang Gao <gaoxiang17@xiaomi.com>
-Subject: Re: [PATCH v4 2/2] tracing: add per-CPU memory usage statistics in
- tracefs
-Message-ID: <arJNk5-i9LPI24Q4@google.com>
-References: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
- <20260921113047.1152602-1-gaoxiang17@xiaomi.com>
- <20260921113047.1152602-3-gaoxiang17@xiaomi.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Rb7rtLYm"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790070173; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=uLneeA5paIA9x2260zcT17b84b4Z2tmYBGdNdrue6J8=;
+	b=Rb7rtLYm0dINrUbWwbofZQ8sKoZ8jYbX8h6UByG0T3Q197keTz/G0UergD6bd1cLg6iWwm8rH2PUpZ8LAzV1MBt9xrPtUUmgXjz1ntQihdcUIjSpFYXjJEWtkOKXZHOKfk8dwGd5+Wn06xxUppkg+ud8fBFukF7BCFmysfw1ndU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R351e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XBTMJTP_1790070172;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XBTMJTP_1790070172 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Sep 2026 17:42:52 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ocfs2: restore -ERANGE check in ocfs2_xattr_tree_list_index_block()
+Date: Tue, 22 Sep 2026 17:42:52 +0800
+Message-Id: <20260922094252.971631-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921113047.1152602-3-gaoxiang17@xiaomi.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 07:30:46PM +0800, Xiang Gao wrote:
-> Provide a per-CPU view of the tracing ring-buffer memory usage under
-> trace_stats/per_cpu/cpuN/memory_usage_kb, using the same format as the
-> aggregate file. Each file reports only the buffers belonging to that CPU
-> across the global trace array and all tracing instances.
-> 
-> Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
-> ---
->  Documentation/trace/ftrace.rst |  3 ++
->  kernel/trace/trace.c           | 67 +++++++++++++++++++++++++++++++++-
->  2 files changed, 69 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-> index 99ddfe26b7cd..e53cdd8d6702 100644
-> --- a/Documentation/trace/ftrace.rst
-> +++ b/Documentation/trace/ftrace.rst
-> @@ -230,6 +230,9 @@ of ftrace. Here is a list of some of the key files:
->  	    buffers: ...
->  	    snapshot_buffers: ...
->  
-> +	The same file is provided under trace_stats/per_cpu/cpuN/, reporting
-> +	only the buffers belonging to that CPU.
-> +
->    buffer_subbuf_size_kb:
+ocfs2_xattr_list_entry() returns -ERANGE when the buffer handed in by
+the caller is too small to hold the whole xattr name list.  That is the
+normal listxattr(2) protocol, userspace simply retries with a larger
+buffer, so it is not an ocfs2 error and must not be logged as one.
 
-Could you split the documentation part into a different commit?
+Commit a46fa684fcb700 ("ocfs2: Don't printk the error when listing too
+many xattrs.") already knew this and silenced two sites, quoting
 
->  
->  	This sets or displays the sub buffer size. The ring buffer is broken up
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index d4a913ff8a69..4010f28f3ebf 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -5844,6 +5844,52 @@ static const struct file_operations trace_mem_fops = {
->  	.release	= single_release,
->  };
->  
-> +static struct trace_mem_stats trace_buffers_memory_cpu(int cpu)
-> +{
-> +	struct trace_mem_stats stats = {};
-> +	struct trace_array *tr;
-> +
-> +	guard(mutex)(&trace_types_lock);
-> +
-> +	list_for_each_entry(tr, &ftrace_trace_arrays, list)
-> +		trace_array_buffer_memory(tr, cpu, &stats.buffers,
-> +					  &stats.snapshot);
-> +
-> +	/* Account for the bootstrapping temp_buffer as well. */
-> +	if (temp_buffer)
-> +		stats.buffers += ring_buffer_memory_size(temp_buffer, cpu);
-> +
-> +	return stats;
-> +}
-> +
-> +static int trace_mem_per_cpu_show(struct seq_file *m, void *v)
-> +{
-> +	struct trace_mem_stats stats = trace_buffers_memory_cpu((long)m->private);
-> +
-> +	seq_printf(m, "buffers: %lu\n", stats.buffers >> 10);
-> +	seq_printf(m, "snapshot_buffers: %lu\n", stats.snapshot >> 10);
-> +
-> +	return 0;
-> +}
-> +
-> +static int trace_mem_per_cpu_open(struct inode *inode, struct file *file)
-> +{
-> +	int ret;
-> +
-> +	ret = tracing_check_open_get_tr(NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return single_open(file, trace_mem_per_cpu_show, inode->i_private);
-> +}
-> +
-> +static const struct file_operations trace_mem_per_cpu_fops = {
-> +	.open		= trace_mem_per_cpu_open,
-> +	.read		= seq_read,
-> +	.llseek		= seq_lseek,
-> +	.release	= single_release,
-> +};
-> +
->  #define LAST_BOOT_HEADER ((void *)1)
->  
->  static void *l_next(struct seq_file *m, void *v, loff_t *pos)
-> @@ -9360,7 +9406,9 @@ static struct notifier_block trace_module_nb = {
->  
->  static __init void init_trace_stats_tracefs(void)
->  {
-> -	struct dentry *stats_dir;
-> +	struct dentry *stats_dir, *per_cpu_dir, *cpu_dir;
-> +	char cpu_dir_name[30];
-> +	int cpu;
->  
->  	/*
->  	 * tracer_alloc_buffers() frees tracing_buffer_mask and temp_buffer
-> @@ -9376,6 +9424,23 @@ static __init void init_trace_stats_tracefs(void)
->  
->  	trace_create_file("memory_usage_kb", TRACE_MODE_READ, stats_dir,
->  			  NULL, &trace_mem_fops);
-> +
-> +	per_cpu_dir = tracefs_create_dir("per_cpu", stats_dir);
-> +	if (!per_cpu_dir)
-> +		return;
-> +
-> +	for_each_tracing_cpu(cpu) {
-> +		snprintf(cpu_dir_name, 30, "cpu%d", cpu);
-> +		cpu_dir = tracefs_create_dir(cpu_dir_name, per_cpu_dir);
-> +		if (!cpu_dir) {
-> +			pr_warn("Could not create tracefs '%s' entry\n",
-> +				cpu_dir_name);
-> +			continue;
-> +		}
-> +
-> +		trace_create_file("memory_usage_kb", TRACE_MODE_READ, cpu_dir,
-> +				  (void *)(long)cpu, &trace_mem_per_cpu_fops);
-> +	}
->  }
->  
->  static __init void tracer_init_tracefs_work_func(struct work_struct *work)
-> -- 
-> 2.34.1
-> 
+  (27738,0):ocfs2_iterate_xattr_buckets:3158 ERROR: status = -34
+  (27738,0):ocfs2_xattr_tree_list_index_block:3264 ERROR: status = -34
 
+The refactoring in commit 47bca4950bc40f ("ocfs2: Abstract ocfs2 xattr
+tree extend rec iteration process.") then rewrote
+ocfs2_xattr_tree_list_index_block() around the new
+ocfs2_iterate_xattr_index_block() helper and dropped that guard, so the
+second message has been emitted ever since:
+
+  ocfs2_xattr_tree_list_index_block:4513 ERROR: status = -34
+
+The exemption in ocfs2_iterate_xattr_buckets() survived because that
+function was left alone, and the new helper does check for -ERANGE
+itself, which is why only the outermost caller still logs it.
+
+Restore the missing check.  Only the log line changes: -ERANGE is still
+returned to the VFS untouched, so listxattr(2) behaves exactly as
+before.
+
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/ocfs2/xattr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 25fb23cc00d2..590b8b63d684 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -4521,7 +4521,8 @@ static int ocfs2_xattr_tree_list_index_block(struct inode *inode,
+ 	ret = ocfs2_iterate_xattr_index_block(inode, blk_bh,
+ 					      ocfs2_list_xattr_tree_rec, &xl);
+ 	if (ret) {
+-		mlog_errno(ret);
++		if (ret != -ERANGE)
++			mlog_errno(ret);
+ 		goto out;
+ 	}
+ 
 -- 
-Vincent
+2.39.3
+
