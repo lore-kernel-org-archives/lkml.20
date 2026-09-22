@@ -1,314 +1,189 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011058.outbound.protection.outlook.com [52.101.65.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E1F43DEBE;
-	Tue, 22 Sep 2026 20:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790110011; cv=none; b=TBLk2f7z1WIyhU0F3kRMuYsJMH9NN6pvhK5kWSI8IGC3vrBBIn7SIM0Rj/5kT2s5c+Ub5jwQiBSSoc1qNQ5cY7LKl/zy+fb4ODp0YDKK0Pbqbpur0KhzalOf0ypfZsrpp3o3kZYuxI4hfzGAzbAIrkdZjV93IyQzTa/cWSQOpfE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790110011; c=relaxed/simple;
-	bh=fSYa+RpUf2GGSl8OiGXUoe2S7aJpYLYG8unv99LDUcI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAA447F3D2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.58
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790110017; cv=fail; b=NwLJaxkIfHuqc2Lbr41uYSuL0zWbUheLTTATYRdVa2GaAWMg7UhzVS4xqosMBTR8bSjt4Q/MKRc4IUPRX7JuogPEi8vI1HBv9Rpn8VNCPiycMXY3GsfgvwFwMIDoXxkWvwVRGj9srRPa5pDM/9hShsQnAk6GH50wkErCiULRrTE=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790110017; c=relaxed/simple;
+	bh=zdKgylD3hohqPAofxBHiAAFrBpP+c0RIdBK4hy96Tp0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nFjcxb9kYjBC88K9eGTvwU24PcSOXkDRp+gk/P0JcNPUdopsY6WNeV+11WhdZ6ihEGcLkM0PdOyVpkrSO5RycS9gbzTuXM4N6ZtJ81/+4EeMccxqisUlOz+QqxpdAvJLnCyUuzVWZsL4k/pPwv7DcCbLMy73OVYGs1ApdKOZl9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=anJsggPw; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:MIME-Version; b=Z1eaA4tc5YT5Lcb2mANOuLqjXSoMHjlHDoMNtgBdnEkl8faPa0uH8Vvg7rLMdo7xOeHZSDaGnTud3A6VXVVwGQLopBfnXksJhzQxf3SXqGPBP5YvqVSoYQIufBAVUqytRFA1Fa/yKf8yESqkSh4TvPa0jZt06PSuPM/b5/TWoPE=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=I+q+R8Lo; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=I+q+R8Lo; arc=fail smtp.client-ip=52.101.65.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="anJsggPw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790109995; x=1821645995;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fSYa+RpUf2GGSl8OiGXUoe2S7aJpYLYG8unv99LDUcI=;
-  b=anJsggPw2vfKCUqy2Oxg2cG3HAUQJGvahVJwYJ3qUULgQYNe4JyakDss
-   IxvxYBQA7qyMMj58IQgd5E8UdukJHIOPEOx5c3NG1arJJHkrx9PbXOAhF
-   7lg1BMsF4Dvt8vunLsXE7bO4wjx5KU0xGxttN/jxZp+yMUBeejp+mH0oq
-   /B6SGyX71xSbR7FSwrCJK4KZha917RhN4FIwvX2k87ELqB7LbQ8p67q2v
-   MObJQVDZhHIjsqzw8eBTcLWDTIzq0MUTWJGK4qnhIX5VAQ7I/u/42xIHp
-   HgBdgSdgl2PTVMj5NqwqeBC6IUdcAOHokSrPocD6y/xlt3N/FbCq173Au
-   A==;
-X-CSE-ConnectionGUID: 06VsCb4FQOaznGCuOht/wg==
-X-CSE-MsgGUID: wyP1+TIJR56CCzjqChgZ7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90621951"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="90621951"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:45:52 -0700
-X-CSE-ConnectionGUID: hJL84l3OScuCFiKQ/HI7yw==
-X-CSE-MsgGUID: N6nbWw8/RziCJZ3IljsrzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="272493148"
-Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:45:51 -0700
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="I+q+R8Lo";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="I+q+R8Lo"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=SZ363JuRrlzdL19/08l/6fHtJpCHsoXE2eOJ9bgOmJXZwvFrLfhKbMuUoLQfpIee5AREJ0XP2CZDZASgZ+Ge4/3TTCUWAVQjHJVmIV3JUBxI5D2ezzSyVWULQyTd8JhCUHSQHO+lSJvq8U6OAVTvHvdIwYLOOZRLE339jQ1TjwPUyd7RNgAFK2TjclY6/Kt8zrdAQxSKVhfFCtD9RptQBEfas65BAi4Si0emRUS0/LCuGXSFCJDA4C+FFk/QjuFvRZH5s8AEblCdsmfw/5IoJyYuab+SGKW4j55eBR+gO1z8+gN+/Mj4MzPxqgy6Uc829xoSOFgmCefdB5451dUdPg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ftwjEK/bo3+C39+dI5Iw22BAIBI7ChOepG6xYbDEm68=;
+ b=gHfAXC3cOb2YrBAnUiTk3VFO33/Qr1HeEeqzSwi3sOsCEC0YaIFts8+8uMhkzrQHPGBxfzeqe70sdkPKfg4A45bAHNFNsATuEOJwHOC9t+h5epjklc/k6mfU9ZwCBjrhBp1/+6eqkjARsg2a3zwOZ3MhpBMITPbRCt0ogh863zDxWosotgOSIKc4j7vxaEqZfObMVa/28EaDfmY1DOnXDWjaCwL2EDe0+9pn62JYuy0kpzPyUHRJbzQt+FsBWVvCCOsrzLflk1wwjYimpmCmvv85QvgvIOsJHWb4gHIdCIEPA/o4c3UEewttVSx0JeAZYZXjmsVfV/JJUQxfthMfgg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ftwjEK/bo3+C39+dI5Iw22BAIBI7ChOepG6xYbDEm68=;
+ b=I+q+R8Lo55UT3chDdK2Tnc+g8NOdfyMccUlAKl3q02cVRxFKoD7JplyuGRJKzjfgzcOC8HhdHsvKZnYwhhGOqoUTlR8eIxA/g2B83vF1/x0UtiI2AQH9rF5HzT3BgG+LrNpxkVSTWqccnTGxS32OVNM0pUv3/nj0NY7Qh99YQCE=
+Received: from GV3PEPF0001DDA3.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:401::6ca) by PA4PR08MB5983.eurprd08.prod.outlook.com
+ (2603:10a6:102:e7::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 20:46:34 +0000
+Received: from WA1PEPF000099CF.eurprd04.prod.outlook.com (2603:10a6:1d8::167)
+ by GV3PEPF0001DDA3.outlook.office365.com (2603:10a6:158:401::6ca) with
+ Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.21.406.11 via Frontend Transport; Tue, 22 Sep 2026 20:46:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ WA1PEPF000099CF.mail.protection.outlook.com (10.167.242.23) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Tue, 22 Sep 2026 20:46:33 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z8fpHlFRjgjYrY3P5L+bmrIv0zQbNyqQtfMSLO6+UheS/qft0lOfGYbqTCF1TrRRoQUjjmzig+jepMyHS+G2ba1uEIVW11XlF8X3ILv8WYOxxGagU/kTLI2duW1MrLEgWzuIvccj+uvkvxQCgE19A1Ek0PGpiKYlDr0x+ZB+oBgZ5sk8zv9hNQimZnmC65k4GK595o6PzAwuv9sV4qFxpCvxGw4VxtM83vHdvjqv+/nX/LuNqviGL6GZdw+KhGR/zAE4rsBInnfvoPvv6jgmMigBUw8PIJ77kXCBBp6YszB5rRD/PfN4aU6SRWE0efccRCP55xGYpny/1ikD7zg/Wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ftwjEK/bo3+C39+dI5Iw22BAIBI7ChOepG6xYbDEm68=;
+ b=qWbxNFk3BXN9jIe84YPaC2QL2oWEaag5WaN9WCjKcHMR+5PjNMvGO1PMQSMh15IdPVIj9eEfv5f8HR0/T56O9ARt3JzT4REwRGhZ7mR2ojNzoIR85IBj0hGPm9VGmIXlxs7CmunFn3Jm1rh0XOQyJBDhXhLg1p7F1LW7ClDZZez99bpNcANyZZrRehnQK5Ez3RQq8y816n/WDlVuCWvnqMKb9vDpoUVicG/kYvMhUJnpmdV7QLs8h2kDOOvsvKkx6JiVxcYyuCRl/pGLVaR5uUoG9pzqWFga8qPyY4iu4ehAU01ibOLt/W2IlzA5J87Ok8ZzuTmxs/TyT0lczRnRTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ftwjEK/bo3+C39+dI5Iw22BAIBI7ChOepG6xYbDEm68=;
+ b=I+q+R8Lo55UT3chDdK2Tnc+g8NOdfyMccUlAKl3q02cVRxFKoD7JplyuGRJKzjfgzcOC8HhdHsvKZnYwhhGOqoUTlR8eIxA/g2B83vF1/x0UtiI2AQH9rF5HzT3BgG+LrNpxkVSTWqccnTGxS32OVNM0pUv3/nj0NY7Qh99YQCE=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
+ (2603:10a6:800:257::18) by DBBPR08MB10796.eurprd08.prod.outlook.com
+ (2603:10a6:10:530::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 20:46:01 +0000
+Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
+ ([fe80::27c:ea0c:e75a:d41d]) by VI0PR08MB11200.eurprd08.prod.outlook.com
+ ([fe80::27c:ea0c:e75a:d41d%3]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
+ 20:46:01 +0000
+From: Karunika Choo <karunika.choo@arm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: nd@arm.com,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
 	linux-kernel@vger.kernel.org,
-	rafael@kernel.org,
-	lukas@wunner.de,
-	terry.bowman@amd.com,
-	kanie@linux.alibaba.com,
-	olof@lixom.net,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Subject: [PATCH v14 3/4] PCI/ACPI: Centralize pcie_ports_native checking
-Date: Tue, 22 Sep 2026 13:45:47 -0700
-Message-ID: <20260922204548.3884906-4-sathyanarayanan.kuppuswamy@linux.intel.com>
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v1 01/27] drm/panthor: Ignore -EOPNOTSUPP for shader-present nvmem lookup
+Date: Tue, 22 Sep 2026 21:44:55 +0100
+Message-ID: <20260922204535.2850094-2-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922204548.3884906-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-References: <20260922204548.3884906-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+In-Reply-To: <20260922204535.2850094-1-karunika.choo@arm.com>
+References: <20260922204535.2850094-1-karunika.choo@arm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PA7P264CA0201.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:36d::18) To VI0PR08MB11200.eurprd08.prod.outlook.com
+ (2603:10a6:800:257::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic:
+	VI0PR08MB11200:EE_|DBBPR08MB10796:EE_|WA1PEPF000099CF:EE_|PA4PR08MB5983:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c089014-a216-4143-488c-08df18ea9697
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ FzmemGj10povINCyyu/sInusoJuNfIbfX8mjnwu/RpEIapfJyDcRX8irvEcWmt3CbCJO218QNQYzkTdgI74/ZYT4fpw0z4keoeGj2z3Mmpvm8qHlSJHRdFHeTjiEktwOPnmiVD3pkl13tahnlvKmlFg8iOiCLf/Tw2RZnFfs6LBUGFuaES3DyZIzbPAoqP5IdbcQh2zPRYNx7iZVGqkr/o/toxvdDDkofOtF1waotW4QbY3zSGbJgxkx6MIzxKJMJcjEn74h+HrDYYeESMjo69Pd01ep8mRmrtWJT0T+yaZWe/l84HOsMCAJ65cmGBq1PFdDZV/fI7Ln83pSYAyzK6Ef778J99k/OIhibc+DWpd4wUd5LGgIK5rVRmM8PAdtkaX4QG+yP5kvYKk7l6WDPmvuHbsMzOyom7Zxm7JdjTRVYFO+hrYuWd0/XdBRHjdaa/azmp3QULVjNSdDPmL1AAgvorktMpWxsS6edH55+KvY8rf5bViA0wEdE1KHCefFzijVKifGHrdaX6WVQG8SSzaoNvdpVoloJgSPypttFWJsDXb/PdQNjsqZMIDxnw3fXYl8u2OVFWLFVy2aKPKx/4/+hoZwxi2LmswnbNl4s1Bw4IhxrIf7N5mfO8UpF2qDBI02USwGSn3bnJIsnW6giEGk6BtIeEKgtQMFOLyOOpA=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR08MB11200.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ dwiaeYufSp9Nq7qNoY1yOSbUxAihK2x58ZdqvdArclOy5MshMSfOBKyAcAjXUYn0TOA4YQGGwtpwiwRYcWnitSQp03iuCjmBAalR1jZPOzVNMql4WzE/fboLEKTRK7UoKlyy3kp+oqGfRB6953X0tEkMCnQbgLnaouEnzgPa58ezPaHJlH6ktldhLwP3LD5GEuChGxFfKsAhjY8WYKxcGO7vP7AKUzm06xKam92i0GfowBf1OUhf++lnOvLIN2e4fiwdG9B16QpmQ/73h1srPkNyR+sUI9i/1HZBDZ0HIdBVc3pRYULl1cORqd7jmVZg7XPlSI803WznHiPBN8a45Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB10796
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ WA1PEPF000099CF.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	2144ce4f-b7f2-418a-5a2b-08df18ea8308
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700016|35042699022|14060799003|82310400026|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	NOnr0p26S5UOSl8uhvtE71/Z4U/Ym+1XgffPtFzeij4xUT9X/Z28NOC9flyBbNKRAXsl+WsaGgG1eHqMd5XClSOdNJ/wGwoHp1ebztOe8hCl0l1044jolCmCXmJ5NVogv3F/lP/tawVXsVqOkhzTKq71bK9gPjl106N3Ybl32kaSqFL0VMaCVOgP1ycapLRr8l2KLy7Y6ojVeZIHGckUoHtgrffYOQM39UrrA9y1c23A5K+rS+IieZ1JOnj7DuxvWNwsXgpv6OCvCsrTv+v0U4H+ovp3DBojOTJOrM0KZ32PIPMrTlCA2O08jWGiynjbgRWb7vVWQ+pEGOfWZJL8jb97Mr2KGfcf9dCDFgRJnImaBIgbd9QWoHC65IzHJw8av35HZU6cyTnJ0qa1OTSVfuYLN9VYsajucexRdLkt1DtI+QIoaF0lh0Cq9NX2yM82H/CeWtCUHxhXSPulF7UP1gqGBvY0ugc/23ErvT3R4FZ5QOhjXLuACFW+lOuhZloIgsSm8lJ2Yt/tzJp7s0DeV8U9x7AexmEijLiOL7TNQOHvOpM2/n9S0WrDxRmQ8A6jmZwVO6nwiVQhCgdB9aKTkuxLrjVvUZJx2VfvtFvPfofgLI781DXhbY8SC1Auq+T1Gg7ZkOTW8z3hvzcjMn4wlqYYjzeyJPEBcputlDr00QnLC1GdLdItlfl6B1+EdMPYOa/kKyWd4Rs/iO6bIH98JA==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(35042699022)(14060799003)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0913UxGSlP8YqsUb3A1IKCwYRWz/Z41XhgUPBGMs8cWJWxeVN/Wpx35p/TTPEC8/WCSEg5YM8MzAQtfPS4EUG1dc3uZ4WEG6abz7CXUBxFWaKiru4tadHbV4SOgvuymxESq0LvJDuhHwcYS5lU4Ip/nfaFWTBt2jdTv9VzuYuM2+26KuDANdjo7WYMJbNmYnrLUFu9imxrgiRvcq7yy1UrSCNF6pCd8CAEsKL9Z40s/Fod1JPC51TVYQUGEkU70xhVm2Ry4tnNW0lf6xqRA6ZfB0K/GFBA5i380Un17W0SurnOX1Iovlq5HSHDaOPNgTkX8Hio4PUyNiUkIndilaFwPu8BWMOqWeHWTF/yaLMlsgn3OqIdqLmll/8w6VB6F/u9wD+Frjfq6AHYS3EPEyv/rdeSGZsKe2NU+8xerZHIyGC/Ucaw53ZzD8ZWLYRrYo
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 20:46:33.6024
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c089014-a216-4143-488c-08df18ea9697
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	WA1PEPF000099CF.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB5983
 
-If the user booted with "pcie_ports=native", we take control of the PCIe
-port services unconditionally, regardless of what _OSC says.
+When CONFIG_NVMEM is disabled, reading the optional "shader-present"
+nvmem cell can return -EOPNOTSUPP.
 
-Centralize the testing of pcie_ports_native in acpi_pci_root_create(),
-where we interpret the _OSC results, so other places only have to check
-host_bridge->native_X and we don't have to sprinkle tests of
-pcie_ports_native everywhere.
+Treat this the same as the cell being absent so panthor can continue
+probing on platforms that do not provide shader-present fuses through
+nvmem.
 
-Rather than overriding the host_bridge->native_X flags after the fact,
-fold "pcie_ports=native" into the _OSC control mask we evaluate, i.e.,
-proceed as though the platform had granted control of the port services.
-That way there is a single mechanism deciding each native_X flag, and we
-can report exactly which features we are overriding _OSC for instead of
-just noting that we are overriding something:
-
-  acpi PNP0A08:00: _OSC: OS forcing control ("pcie_ports=native") of [PCIeHotplug PME AER DPC]
-
-Forcing host_bridge->native_aer also restores DPC service binding under
-"pcie_ports=native", which regressed in commit 97ca178c899d ("PCI/DPC:
-Allow DPC on all Downstream Ports when OS controls AER").  That commit
-replaced the AER service test in get_port_device_capability() with
-host->native_aer, so DPC stayed off when host_bridge->native_aer was not
-set.
-
-This also extends "pcie_ports=native" to host_bridge->native_dpc, which
-had no pcie_ports_native fallback before.  That effect is narrow.
-native_dpc is only consumed by pci_dpc_recovered(), where with
-CONFIG_PCIE_EDR=n it previously gave up immediately and now lets pciehp
-wait for DPC recovery before treating a Link Down as a hotplug event.
-
-host_bridge->native_ltr is deliberately not forced.  "pcie_ports="
-controls PCIe port services and LTR is not one.  There is no
-PCIE_PORT_SERVICE_LTR, and native_ltr is only used by
-pci_configure_ltr() to enable ASPM L1.2, so forcing it would be an ASPM
-policy decision users did not ask for.
-
-SHPC hotplug is left alone for a simpler reason: SHPC is a conventional
-PCI feature rather than a PCIe one, so "pcie_ports=" has no bearing on
-it.
-
-Fixes: 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
-Closes: https://lore.kernel.org/linux-pci/20260901064554.2178688-1-kanie@linux.alibaba.com/
-[bhelgaas: commit log, rework OSC_PCIE_PORT_SERVICE_CONTROLS, logging]
-Link: https://lore.kernel.org/r/bc87c9e675118960949043a832bed86bc22becbd.1603766889.git.sathyanarayanan.kuppuswamy@linux.intel.com
-Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org> # ACPI core
+Fixes: c40b50c3cfbe ("drm/panthor: Implement reading shader_present from nvmem")
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 ---
-Changes since v13
+v1:
+- Picked up R-bs from Boris and Steve
+- Added Fixes tag
 
- * Added the Fixes: tag for 97ca178c899d. (Guixin Liu)
- * Reworded the commit log (Sashiko AI review).
- * No code change. Picked up Rafael's Acked-by.
+ drivers/gpu/drm/panthor/panthor_hw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v13 posting
-https://lore.kernel.org/r/20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com
-
- drivers/acpi/pci_root.c           | 36 +++++++++++++++++++++++++++++++
- drivers/pci/hotplug/pciehp_core.c |  2 +-
- drivers/pci/pci-acpi.c            |  3 ---
- drivers/pci/pcie/aer.c            |  6 +++---
- drivers/pci/pcie/aer_cxl_rch.c    |  2 +-
- drivers/pci/pcie/err.c            |  2 +-
- drivers/pci/pcie/portdrv.c        |  6 +++---
- 7 files changed, 45 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/acpi/pci_root.c b/drivers/acpi/pci_root.c
-index 756dc2f055f5..2494811dd69b 100644
---- a/drivers/acpi/pci_root.c
-+++ b/drivers/acpi/pci_root.c
-@@ -999,6 +999,19 @@ static void acpi_pci_root_release_info(struct pci_host_bridge *bridge)
- 			flag = 0;		\
- 	} while (0)
- 
-+#define FLAG(x)		((x) ? '+' : '-')
-+
-+/*
-+ * _OSC control bits for the features implemented by the PCIe port driver,
-+ * i.e., the ones "pcie_ports=native" applies to.  LTR and SHPC hotplug are
-+ * negotiated via _OSC as well, but they are not portdrv services, so
-+ * "pcie_ports=" has no bearing on them.
-+ */
-+#define OSC_PCIE_PORT_SERVICE_CONTROLS	(OSC_PCI_EXPRESS_NATIVE_HP_CONTROL | \
-+					 OSC_PCI_EXPRESS_PME_CONTROL | \
-+					 OSC_PCI_EXPRESS_AER_CONTROL | \
-+					 OSC_PCI_EXPRESS_DPC_CONTROL)
-+
- struct pci_bus *acpi_pci_root_create(struct acpi_pci_root *root,
- 				     struct acpi_pci_root_ops *ops,
- 				     struct acpi_pci_root_info *info,
-@@ -1039,6 +1052,21 @@ struct pci_bus *acpi_pci_root_create(struct acpi_pci_root *root,
- 	ctrl = root->osc_control_set;
- 	ext_ctrl = root->osc_ext_control_set;
- 
-+	/*
-+	 * If the user specified "pcie_ports=native", use the PCIe port
-+	 * services regardless of what _OSC says, i.e., proceed as though the
-+	 * platform had granted us control of them.  This may conflict with
-+	 * firmware that expects to own those features.
-+	 */
-+	if (pcie_ports_native) {
-+		u32 override = OSC_PCIE_PORT_SERVICE_CONTROLS & ~ctrl;
-+
-+		if (override)
-+			decode_osc_control(root, "OS forcing control (\"pcie_ports=native\") of",
-+					   override);
-+		ctrl |= override;
-+	}
-+
- 	OSC_OWNER(ctrl, OSC_PCI_EXPRESS_NATIVE_HP_CONTROL,
- 		  host_bridge->native_pcie_hotplug);
- 	OSC_OWNER(ctrl, OSC_PCI_SHPC_NATIVE_HP_CONTROL,
-@@ -1051,6 +1079,14 @@ struct pci_bus *acpi_pci_root_create(struct acpi_pci_root *root,
- 	OSC_OWNER(ext_ctrl, OSC_CXL_ERROR_REPORTING_CONTROL,
- 		  host_bridge->native_cxl_error);
- 
-+	dev_info(&root->device->dev, "OS native features: SHPCHotplug%c PCIeHotplug%c PME%c AER%c DPC%c LTR%c\n",
-+		 FLAG(host_bridge->native_shpc_hotplug),
-+		 FLAG(host_bridge->native_pcie_hotplug),
-+		 FLAG(host_bridge->native_pme),
-+		 FLAG(host_bridge->native_aer),
-+		 FLAG(host_bridge->native_dpc),
-+		 FLAG(host_bridge->native_ltr));
-+
- 	acpi_dev_power_up_children_with_adr(device);
- 
- 	pci_scan_child_bus(bus);
-diff --git a/drivers/pci/hotplug/pciehp_core.c b/drivers/pci/hotplug/pciehp_core.c
-index 2cafd3b26f34..b42829cf1377 100644
---- a/drivers/pci/hotplug/pciehp_core.c
-+++ b/drivers/pci/hotplug/pciehp_core.c
-@@ -258,7 +258,7 @@ static bool pme_is_native(struct pcie_device *dev)
- 	const struct pci_host_bridge *host;
- 
- 	host = pci_find_host_bridge(dev->port->bus);
--	return pcie_ports_native || host->native_pme;
-+	return host->native_pme;
- }
- 
- static void pciehp_disable_interrupt(struct pcie_device *dev)
-diff --git a/drivers/pci/pci-acpi.c b/drivers/pci/pci-acpi.c
-index 42d545edd7fa..1150f2fbabf4 100644
---- a/drivers/pci/pci-acpi.c
-+++ b/drivers/pci/pci-acpi.c
-@@ -812,9 +812,6 @@ bool pciehp_is_native(struct pci_dev *bridge)
- 	if (!IS_ENABLED(CONFIG_HOTPLUG_PCI_PCIE))
- 		return false;
- 
--	if (pcie_ports_native)
--		return true;
--
- 	host = pci_find_host_bridge(bridge->bus);
- 	return host->native_pcie_hotplug;
- }
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index d8dcd238fda1..e84dd686582a 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -260,7 +260,7 @@ int pcie_aer_is_native(struct pci_dev *dev)
- 	if (!dev->aer_cap)
+diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+index 7e315708ca7ca..4c96573b649a1 100644
+--- a/drivers/gpu/drm/panthor/panthor_hw.c
++++ b/drivers/gpu/drm/panthor/panthor_hw.c
+@@ -182,7 +182,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
+ 					      &contents);
+ 	if (!ret)
+ 		ptdev->gpu_info.shader_present = contents;
+-	else if (ret == -ENOENT)
++	else if (ret == -ENOENT || ret == -EOPNOTSUPP)
  		return 0;
- 
--	return pcie_ports_native || host->native_aer;
-+	return host->native_aer;
- }
- EXPORT_SYMBOL_NS_GPL(pcie_aer_is_native, "CXL");
- 
-@@ -1847,7 +1847,7 @@ static pci_ers_result_t aer_root_reset(struct pci_dev *dev)
- 	 */
- 	aer = root ? root->aer_cap : 0;
- 
--	if ((host->native_aer || pcie_ports_native) && aer)
-+	if (host->native_aer && aer)
- 		aer_disable_irq(root);
- 
- 	if (type == PCI_EXP_TYPE_RC_EC || type == PCI_EXP_TYPE_RC_END) {
-@@ -1862,7 +1862,7 @@ static pci_ers_result_t aer_root_reset(struct pci_dev *dev)
- 			pci_is_root_bus(dev->bus) ? "Root" : "Downstream", rc);
- 	}
- 
--	if ((host->native_aer || pcie_ports_native) && aer) {
-+	if (host->native_aer && aer) {
- 		/* Clear Root Error Status */
- 		pci_read_config_dword(root, aer + PCI_ERR_ROOT_STATUS, &reg32);
- 		pci_write_config_dword(root, aer + PCI_ERR_ROOT_STATUS, reg32);
-diff --git a/drivers/pci/pcie/aer_cxl_rch.c b/drivers/pci/pcie/aer_cxl_rch.c
-index e471eefec9c4..b480dad8bbf4 100644
---- a/drivers/pci/pcie/aer_cxl_rch.c
-+++ b/drivers/pci/pcie/aer_cxl_rch.c
-@@ -31,7 +31,7 @@ static bool cxl_error_is_native(struct pci_dev *dev)
- {
- 	struct pci_host_bridge *host = pci_find_host_bridge(dev->bus);
- 
--	return (pcie_ports_native || host->native_aer);
-+	return host->native_aer;
- }
- 
- static int cxl_rch_handle_error_iter(struct pci_dev *dev, void *data)
-diff --git a/drivers/pci/pcie/err.c b/drivers/pci/pcie/err.c
-index d77403d8855b..1a7fc71c79d8 100644
---- a/drivers/pci/pcie/err.c
-+++ b/drivers/pci/pcie/err.c
-@@ -273,7 +273,7 @@ pci_ers_result_t pcie_do_recovery(struct pci_dev *dev,
- 	 * it is responsible for clearing this status.  In that case, the
- 	 * signaling device may not even be visible to the OS.
- 	 */
--	if (host->native_aer || pcie_ports_native) {
-+	if (host->native_aer) {
- 		pcie_clear_device_status(dev);
- 		pci_aer_clear_nonfatal_status(dev);
- 	}
-diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-index a9cbfc1d2bc7..32fc623dd410 100644
---- a/drivers/pci/pcie/portdrv.c
-+++ b/drivers/pci/pcie/portdrv.c
-@@ -223,7 +223,7 @@ static int get_port_device_capability(struct pci_dev *dev)
- 	if (dev->is_pciehp &&
- 	    (pci_pcie_type(dev) == PCI_EXP_TYPE_ROOT_PORT ||
- 	     pci_pcie_type(dev) == PCI_EXP_TYPE_DOWNSTREAM) &&
--	    (pcie_ports_native || host->native_pcie_hotplug)) {
-+	    host->native_pcie_hotplug) {
- 		services |= PCIE_PORT_SERVICE_HP;
- 
- 		/*
-@@ -240,14 +240,14 @@ static int get_port_device_capability(struct pci_dev *dev)
- 	if ((pci_pcie_type(dev) == PCI_EXP_TYPE_ROOT_PORT ||
-              pci_pcie_type(dev) == PCI_EXP_TYPE_RC_EC) &&
- 	    dev->aer_cap && pci_aer_available() &&
--	    (pcie_ports_native || host->native_aer))
-+	    host->native_aer)
- 		services |= PCIE_PORT_SERVICE_AER;
- #endif
- 
- 	/* Root Ports and Root Complex Event Collectors may generate PMEs */
- 	if ((pci_pcie_type(dev) == PCI_EXP_TYPE_ROOT_PORT ||
- 	     pci_pcie_type(dev) == PCI_EXP_TYPE_RC_EC) &&
--	    (pcie_ports_native || host->native_pme)) {
-+	    host->native_pme) {
- 		services |= PCIE_PORT_SERVICE_PME;
- 
- 		/*
--- 
+ 	else
+ 		return dev_err_probe(ptdev->base.dev, ret,
+--
 2.43.0
 
