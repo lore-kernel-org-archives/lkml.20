@@ -1,73 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DBD29DB8F;
-	Tue, 22 Sep 2026 07:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23CC4D2ECF
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060987; cv=none; b=NibewHyTT7Iy5VduSEkhVFn9AXPIZSzSKwwwrEUcRU/SY538LMRyRjYCXUJhf/k0D4JGgw1xRq3RKlWHosYbuZEdVC512hR9axsoch1342wimIVXO4p1awmOnQqTsztI6yRNfWsmNxzFdcFzAmLcMJ99MTEg6GBon5DxieSivDU=
+	t=1790060997; cv=none; b=JrYE/YTLyn6M+huIOuS5Ut8zvdJdFA8Ogw0/ga1e35TXnOeE155TeGFlhlHX1xZlbJD/1K4ozbK4aqBItd/5IYHA0PU48JbDgjyH5JJlXkaWWjGBSwXTkwwC6oBx26EDeTUeMLuER76+ZvxBQgjlEjfq0G+/OuvVDxPMIWPdcvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060987; c=relaxed/simple;
-	bh=rcFewv9OxapmeYE4E1fxP6conHMDHSDBlxWDqmo7ljw=;
-	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=ubNwOsYXSOgPTad98ObpOlMd5v8qzBuK4PlM5IHsHsRZYwHutoBk58qq7EE4LsplEVXl8x/Oth8irpnnCpGabIGV++Aj8q+sQnn5lPk3gyd4Uue/mideaDVT5PnIimLPRFLwFkLc5AAzyh5lT+aurBQViifBQ+6tgLorharRLAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBphDY33; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790060997; c=relaxed/simple;
+	bh=l4ETgjoi9sLVdEUOvHOO9DwcohkqbndYpHAAUEXbE6k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RuepVeuseRBpp9Ny2YzZl6rftyHOHGj3zrL8ryTIFCYR3C8werk4PADgwiScdLmvQ4SoZsVnzsXElqqU8QoZbcVBOOS4W1kAzbqOWyQXjvrpkkcStdpZDySrfJ3rcdzo0jYqQLQATnWVjyxOZ31f3aL3gWW3rEs5H3mRoYCAMws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=FB5q73m4; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBphDY33"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD0F1F000FF;
-	Tue, 22 Sep 2026 07:09:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790060986;
-	bh=y2GGkrgzKCsgm0mwf6UdJFHfN95qxznzs56jCuPDyFw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc;
-	b=EBphDY338h1X323tWP1cLxM2et1PqxVvsgo6xqwgld5xaEIPOb+VThqfivND4ugAT
-	 8i6MaPiC07iPrjefCXEdKl0AybWYuoyRyjo4gOJ6Ip2+PniX1YOnyoIb9Ui40sgIvO
-	 2miUtk0lbPFbAEeSjAVn5gF9ZqO/wG7WIzN1OcArF8pmYZHYtmGx8sY/nl8C4t0zK6
-	 IKyPWGKm8AweRYEalzbwsykmKumd0k/sig1a0ztd8xsONgsEDzhEHC1POHcL/D5NUV
-	 jIjcDd5U2fDg5m6oIegk+jwz9qXgrC6MQVqqzWRNt6CLaFj/YUNCbNGiKBamFyBO4P
-	 58PtuvgAvPi2Q==
-Message-ID: <ea873a72b009d3fc34feab6bd3cfaf01@kernel.org>
-Date: Tue, 22 Sep 2026 07:09:42 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 13/19] drm/bridge: fsl-ldb: don't create a
- panel_bridge
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-13-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-13-83afb4f1a707@bootlin.com>
-Cc: asahi@lists.linux.dev, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org, "Albert
- Esteve" <aesteve@redhat.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Anusha
- Srivatsa" <asrivats@redhat.com>, "David Airlie" <airlied@gmail.com>, "Dmitry
- Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Fabio Estevam" <festevam@gmail.com>, "Frank
- Li" <Frank.Li@nxp.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Inki
- Dae" <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang" <jesszhan0024@gmail.com>, "Jonas
- Karlman" <jonas@kwiboo.se>, "Jonathan Corbet" <corbet@lwn.net>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Linus
- Walleij" <linusw@kernel.org>, "Lucas Stach" <l.stach@pengutronix.de>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maxime
- Ripard" <mripard@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Paul
- Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Randy Dunlap" <rdunlap@infradead.org>, "Robert
- Foss" <rfoss@kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Sean
- Paul" <sean@poorly.run>, "Shuah Khan" <skhan@linuxfoundation.org>, "Simona
- Vetter" <simona@ffwll.ch>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="FB5q73m4"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790060992; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Oo8Dq0mN2ZDYBVRnEYfmR+J/FTRcTErPirL0m9RByFs=;
+	b=FB5q73m45h9jMtb+8GYSGSTE/vO9DD4LM/XyfFax/WyuCcND0L0OYi6ZYK4iSkd2jiK/CgPML/ZnLaGYuoUUvFHPoaF2xPZhj4C8vBjElJA7FUQwOzqwoFO0N4TLke7ybMmzKwrvtvXwKxWL4iIhnGdxBS3woVhriCAGWqlRoqU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=kanie@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XBT-CI9_1790060989;
+Received: from 30.178.81.152(mailfrom:kanie@linux.alibaba.com fp:SMTPD_---0XBT-CI9_1790060989 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Sep 2026 15:09:51 +0800
+Message-ID: <d4a0360a-fae1-484d-81ca-c926e4450265@linux.alibaba.com>
+Date: Tue, 22 Sep 2026 15:09:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 23/24] iommu/amd: Assign per-vIOMMU translate device ID
+To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
+ Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
+ wvw@google.com, wnliu@google.com, dantuluris@google.com,
+ chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
+ joao.m.martins@oracle.com, guanghuifeng@linux.alibaba.com
+References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
+ <20260914184750.222939-24-suravee.suthikulpanit@amd.com>
+From: Guixin Liu <kanie@linux.alibaba.com>
+In-Reply-To: <20260914184750.222939-24-suravee.suthikulpanit@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 16 Sep 2026 15:45:37 +0200, Luca Ceresoli wrote:
-> Now a panel_bridge is automatically created for every drm_panel and the
-> panel-bridge API is just a deprecated wrapper to access it.
-> 
-> Update and simplify the code by just getting a reference to the
-> already-existing bridge using of_drm_find_and_get_bridge().
-> 
-> [ ... ]
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Thanks!
-Maxime
+在 2026/9/15 02:47, Suravee Suthikulpanit 写道:
+> Allocate one translate-device-id per IOMMUFD vIOMMU instance from the
+> per-segment pool on init.  Reset MMIO first, then program translation
+> DTE and VFctrl TransDevID under trans_devid_lock so PCI-probe relocate
+> cannot interleave.  Clear both on init error and destroy, and drop the
+> id before amd_viommu_uninit_one().
+>
+> Initialize pdom_list before set_translate_dte() so list_empty() is
+> valid. Drop the late list_add; set_translate_dte() already publishes
+> the vIOMMU on viommu_list under pdom->lock. list_del_init() on init
+> error if that add ran.
+>
+> Free the synthetic translate-device-id DTE object on init error and
+> destroy; it is not stored in the per-segment xarray.
+>
+> Add per-vIOMMU trans_devid_lock to serialize DTE and VFctrl TransDevID
+> updates on init and teardown.  VFctrl TransDevID is not written from
+> amd_viommu_uninit_one().
+>
+> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> ---
+>  drivers/iommu/amd/amd_iommu_types.h | 10 +++++
+>  drivers/iommu/amd/iommufd.c         | 66 +++++++++++++++++++++++++----
+>  2 files changed, 67 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+> index 5f84f25e3f37..c748bab27509 100644
+> --- a/drivers/iommu/amd/amd_iommu_types.h
+> +++ b/drivers/iommu/amd/amd_iommu_types.h
+> @@ -556,6 +556,16 @@ struct amd_iommu_viommu {
+>  	/* Synthetic DTE; not stored in pci_seg->dev_data_xa */
+>  	struct iommu_dev_data *trans_dev_data;
+>  
+> +	/*
+> +	 * Serializes this vIOMMU's translation DTE and VFctrl TransDevID
+> +	 * updates on init and teardown. VFctrl TransDevID is not written
+> +	 * from amd_viommu_uninit_one().
+> +	 *
+> +	 * Nested lock order: trans_devid_lock, then
+> +	 * pci_seg->trans_devid_mutex.
+> +	 */
+> +	struct mutex trans_devid_lock;
+> +
+>  	/*
+>  	 * Serializes VFCTRL Guest DID map CONTROL0/CONTROL1 doorbells
+>  	 * (DevID and DomID table updates) for this gid. Those registers
+> diff --git a/drivers/iommu/amd/iommufd.c b/drivers/iommu/amd/iommufd.c
+> index 5760b183ce62..1c29d846beed 100644
+> --- a/drivers/iommu/amd/iommufd.c
+> +++ b/drivers/iommu/amd/iommufd.c
+> @@ -53,6 +53,9 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
+>  	int ret;
+>  	unsigned long flags;
+>  	phys_addr_t page_base;
+> +	bool trans_devid_allocated = false;
+> +	bool trans_dte_set = false;
+> +	bool uninit_on_err = false;
+>  	struct iommu_viommu_amd data = {};
+>  	struct protection_domain *pdom = to_pdomain(parent);
+>  	struct amd_iommu_viommu *aviommu = container_of(viommu, struct amd_iommu_viommu, core);
+> @@ -70,7 +73,9 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
+>  	if (ret)
+>  		return ret;
+>  
+> +	mutex_init(&aviommu->trans_devid_lock);
+>  	mutex_init(&aviommu->vfctrl_lock);
+> +	INIT_LIST_HEAD(&aviommu->pdom_list);
+>  	xa_init_flags(&aviommu->gdomid_array, XA_FLAGS_ALLOC1);
+>  	aviommu->parent = pdom;
+>  
+> @@ -93,31 +98,63 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
+>  
+>  	data.out_vfmmio_mmap_offset = aviommu->vfmmio_mmap_offset;
+>  
+> -	/* Reset vIOMMU MMIOs to initialize the vIOMMU */
+> +	/* Reset vIOMMU MMIOs before the trans_devid is visible in the pool. */
+>  	ret = amd_iommu_reset_vmmio(iommu, aviommu->gid);
+>  	if (ret)
+> -		goto err_init;
+> +		goto err_trans_devid;
+> +
+> +	mutex_lock(&aviommu->trans_devid_lock);
+> +	ret = amd_iommu_trans_devid_alloc(iommu->pci_seg, aviommu);
+> +	if (ret < 0) {
+> +		mutex_unlock(&aviommu->trans_devid_lock);
+> +		goto err_trans_devid;
+> +	}
+> +	trans_devid_allocated = true;
+> +	aviommu->trans_devid = ret;
+> +
+> +	ret = amd_iommu_set_translate_dte(viommu);
+> +	if (ret)
+> +		goto err_init_unlock;
+> +	trans_dte_set = true;
+> +	amd_iommu_update_vfctrl_mmio_translate_devid(iommu, aviommu->gid,
+> +						     aviommu->trans_devid);
+> +	mutex_unlock(&aviommu->trans_devid_lock);
+>  
+>  	ret = amd_viommu_init_one(iommu, aviommu);
+>  	if (ret)
+>  		goto err_init;
+> +	uninit_on_err = true;
+>  
+>  	ret = iommu_copy_struct_to_user(user_data, &data,
+>  					IOMMU_VIOMMU_TYPE_AMD,
+>  					out_vfmmio_mmap_offset);
+>  	if (ret)
+> -		goto err_init_one;
+> +		goto err_init;
+>  
+>  	viommu->ops = &amd_viommu_ops;
+>  
+> -	spin_lock_irqsave(&pdom->lock, flags);
+> -	list_add(&aviommu->pdom_list, &pdom->viommu_list);
+> -	spin_unlock_irqrestore(&pdom->lock, flags);
+> -
+>  	return 0;
+> -err_init_one:
+> -	amd_viommu_uninit_one(iommu, aviommu);
+>  err_init:
+> +	mutex_lock(&aviommu->trans_devid_lock);
+> +err_init_unlock:
+> +	if (trans_dte_set) {
+> +		spin_lock_irqsave(&pdom->lock, flags);
+> +		if (!list_empty(&aviommu->pdom_list))
+> +			list_del_init(&aviommu->pdom_list);
+> +		spin_unlock_irqrestore(&pdom->lock, flags);
+> +		amd_iommu_update_vfctrl_mmio_translate_devid(iommu, aviommu->gid, 0);
+> +		amd_iommu_clear_translate_dte(iommu, aviommu->trans_dev_data,
+> +					      aviommu->trans_devid);
+> +		amd_iommu_free_dev_data(iommu, aviommu->trans_dev_data);
+> +		aviommu->trans_dev_data = NULL;
+> +	}
+> +	if (trans_devid_allocated)
+> +		amd_iommu_trans_devid_free(iommu->pci_seg, aviommu->trans_devid,
+> +					   aviommu);
+> +	mutex_unlock(&aviommu->trans_devid_lock);
+> +	if (uninit_on_err)
+> +		amd_viommu_uninit_one(iommu, aviommu);
+> +err_trans_devid:
+>  	iommufd_viommu_destroy_mmap(&aviommu->core, aviommu->vfmmio_mmap_offset);
+>  err_mmap:
+>  	amd_iommu_gid_free(iommu, aviommu->gid);
+> @@ -140,6 +177,17 @@ static void amd_iommufd_viommu_destroy(struct iommufd_viommu *viommu)
+>  	spin_unlock_irqrestore(&pdom->lock, flags);
+>  	xa_destroy(&aviommu->gdomid_array);
+>  	iommufd_viommu_destroy_mmap(&aviommu->core, aviommu->vfmmio_mmap_offset);
+> +
+> +	mutex_lock(&aviommu->trans_devid_lock);
+> +	amd_iommu_update_vfctrl_mmio_translate_devid(iommu, aviommu->gid, 0);
+> +	amd_iommu_clear_translate_dte(iommu, aviommu->trans_dev_data,
+> +				      aviommu->trans_devid);
+> +	amd_iommu_free_dev_data(iommu, aviommu->trans_dev_data);
+> +	aviommu->trans_dev_data = NULL;
+> +	amd_iommu_trans_devid_free(iommu->pci_seg, aviommu->trans_devid,
+> +				   aviommu);
+> +	mutex_unlock(&aviommu->trans_devid_lock);
+> +
+>  	amd_viommu_uninit_one(iommu, aviommu);
+>  	amd_iommu_gid_free(iommu, aviommu->gid);
+>  	mutex_destroy(&aviommu->vfctrl_lock);
+Should destroy trans_devid_lock too.
+
+Best Regards,
+Guixin Liu
+
