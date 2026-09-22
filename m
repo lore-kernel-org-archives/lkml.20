@@ -1,128 +1,158 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 943A43F3263;
-	Tue, 22 Sep 2026 17:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CAA58542809;
+	Tue, 22 Sep 2026 17:32:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098340; cv=none; b=jlMpfxnMLXg/30tp1qOEyO+YgJa0/4U+WYxulu6CS6aqDbZVvWtltluAaJ0tv+XijJuPQEfRrbCbUOPa1rBQ9ziXlmcRz2R8KUV3aUaVINrP5EuA9bvL0Jj8eRGnMX8GuY2vMWNoQcTnLhdpWAwejI/MaIozb/ZgQYhDmKtlW8Y=
+	t=1790098375; cv=none; b=pccKmagdozX2KLmB7/fpYhWqZ6OIcAgf8uD1PyYsUUOpYAKWqSgzyyIoRF5Y03JCCKQ6XoGef0UrYhbWRfR0bjzY560iXqS4xeUXDv8dTXWMqfp7vnI5RguTv2rVZFpn+dx87En1W2bfIpRlLdTwUWv1X2PnsebTpBciDbHv/as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098340; c=relaxed/simple;
-	bh=i8rmnA+nlrHeWzx7kNMPhnc4iJcDtyjqy8ekHSFBfJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qvr8i/tAf+YoHxuVXr+wdhN+aEXUmQE82L1Oe41Pown1oeIj4z1B9P3sH205AhUou70eCcmRObSfHkaaLConuQW2S8ocHsMTaTsmROd7gvbsqro9qN8ey0TXlHIE0nJMjmdaMyTWp5JaO2XDTox8PWF4zLudIlBVwB5mBpHYBK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hM/SET1P; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1790098375; c=relaxed/simple;
+	bh=+Su2l1Ft0WBIXjZQ/cFjqH8CISUnq3bv3Vk6lON45EY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=elHNiVOKzmzDQrep3yVP2k8cVwDNFxdJDE4ALJ1kFDIBkyTPnMWzg5a/kfj/mJKtPlnSg/pHBu9SGoWtH5x1g7JxbPnfIqxpvsDIsRrE7oGBUuYLXQceS0FRk3pwx1TF5nokjCL8qmnkiJ4WPQsnS0dST73Luwdjk6VuT4yiON4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CLvRHaG0; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hM/SET1P"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CLvRHaG0"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F2AA11576;
-	Tue, 22 Sep 2026 10:32:09 -0700 (PDT)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2098E3F86C;
-	Tue, 22 Sep 2026 10:32:08 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 882C71576;
+	Tue, 22 Sep 2026 10:32:46 -0700 (PDT)
+Received: from [127.0.1.1] (e142334-100.cambridge.arm.com [10.2.198.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C8B23F86C;
+	Tue, 22 Sep 2026 10:32:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790098333; bh=i8rmnA+nlrHeWzx7kNMPhnc4iJcDtyjqy8ekHSFBfJY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hM/SET1P+KLwfCcF/EmK7kBGpnTtJ6hib/jI+FsscMVotyP6SnC2oSDprj3ksYReb
-	 wWYK8dWDStfaOmXBNeCfNteQ1qqOXodtyrT6riUez3skCE13fAFlmdYDlib7zf8Bq4
-	 PBWsxMfEsVHadBHn2P0w6yO1bCNyHnz6bpbKWWfo=
-Date: Tue, 22 Sep 2026 18:32:00 +0100
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, jic23@kernel.org, elif.topuz@arm.com,
-	lukasz.luba@arm.com, philip.radford@arm.com,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v12 01/25] firmware: arm_scmi: Add new SCMIv4.0 error
- codes definitions
-Message-ID: <arK7kLlrg491EsMf@pluto>
-References: <20260920091928.2014972-1-cristian.marussi@arm.com>
- <20260920091928.2014972-2-cristian.marussi@arm.com>
- <88138b8e-42cf-405f-a5ee-519271dbd4f4@kernel.org>
+	t=1790098370; bh=+Su2l1Ft0WBIXjZQ/cFjqH8CISUnq3bv3Vk6lON45EY=;
+	h=From:Subject:Date:To:Cc:From;
+	b=CLvRHaG0VyM0revKNsxvp8O1elOZLQpJ6DZ/UqshepIIeiFSTz9Cvbo1Bi1RsOx1U
+	 8EaiMzAhvfYdAUN/o0PB9bBvwOXciKqWtNyWKjdw8/ifa495+DcTdpxoDTKvE9pwHx
+	 DnO9RWv/nE2LTlquxhGKLaA4/gNOjwqqlKJzSX7Q=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Subject: [PATCH v2 0/6] arm64: distinguish HW PTE pointers from SW PTE
+ value pointers
+Date: Tue, 22 Sep 2026 18:31:55 +0100
+Message-Id: <20260922-pte0_arm-v2-0-a3f1ddff0a8a@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <88138b8e-42cf-405f-a5ee-519271dbd4f4@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIy7smoC/0WP0W7DIAxFfyXieUwGFgx92n9M1QSOWXlI00IWb
+ ary76N02t58Lesc35uoXDJXcRhuovCWa17OLeinQdApnD9Y5qlloUFb8ErJy8rwHsosk4o4JSS
+ IoxLt/FI45a+Oejs+cuHrZyOuj6WYudbQiU3QeVp3ntyMBDlahOgoehj9azM80zLfwTFUlm2e8
+ 3oYOEwIQAERyGllMSSjrdaUXLSOfHJIhpDE/YVTrutSvnu5TfUffnu8/PfYVHPHOJporWHj7Z/
+ 7uO/7D/xl6R8hAQAA
+X-Change-ID: 20260911-pte0_arm-f1b7df7c0b51
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+X-Mailer: b4 0.16.0
 
-On Tue, Sep 22, 2026 at 02:20:20PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/20/26 11:19, Cristian Marussi wrote:
-> > SCMIv4.0 introduces a couple of new possible protocol error codes: add
-> > the needed definitions and mappings to Linux error values.
+Hi,
 
-Hi David,
+The generic series introduces hw_pte_t for HW PTEs, while SW PTE values
+use pte_t. This series enables the distinct type on arm64 so the
+compiler can distinguish HW PTE pointers (hw_pte_t *) from SW PTE value
+pointers (pte_t *).
 
-thanks for having a look...
+The conversion updates HW PTE pointers and accessors, including atomic
+updates, fixmap, and early page-table construction, before selecting
+ARCH_HAS_HW_PTE_T. Higher-level entry types remain out of scope, and
+shared helpers retain explicit casts.
 
-> > 
-> > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-> > ---
-> > v4 --> v5
-> >  - map SCMI_ERR_IN_USE to EBUSY as natural
-> > ---
-> >  drivers/firmware/arm_scmi/common.h | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/drivers/firmware/arm_scmi/common.h b/drivers/firmware/arm_scmi/common.h
-> > index fe8c22cfb9f7..6f89ba96493d 100644
-> > --- a/drivers/firmware/arm_scmi/common.h
-> > +++ b/drivers/firmware/arm_scmi/common.h
-> > @@ -48,6 +48,8 @@ enum scmi_error_codes {
-> >  	SCMI_ERR_GENERIC = -8,	/* Generic Error */
-> >  	SCMI_ERR_HARDWARE = -9,	/* Hardware Error */
-> >  	SCMI_ERR_PROTOCOL = -10,/* Protocol Error */
-> > +	SCMI_ERR_IN_USE = -11,  /* In Use Error */
-> > +	SCMI_ERR_PARTIAL = -12, /* Partial Error */
-> >  };
-> >  
-> >  static const int scmi_linux_errmap[] = {
-> > @@ -63,6 +65,8 @@ static const int scmi_linux_errmap[] = {
-> >  	-EIO,			/* SCMI_ERR_GENERIC */
-> >  	-EREMOTEIO,		/* SCMI_ERR_HARDWARE */
-> >  	-EPROTO,		/* SCMI_ERR_PROTOCOL */
-> > +	-EBUSY,			/* SCMI_ERR_IN_USE */
-> > +	-EINVAL,		/* SCMI_ERR_PARTIAL */
-> >  };
-> >  
-> >  static inline int scmi_to_linux_errno(int errno)
-> 
-> So far we had unique mappings. Now EBUSY and EINVAL could be due to two SCMI_ERR
-> each.
-> 
-> I assume in the later usage there is no need to distinguish them for now? Might
-> be worth stating that in the patch description.
+The linked generic series is a prerequisite. Its cover contains the
+Coccinelle script used for most pointer conversions; the remaining sites
+were converted by hand.
 
-Mmmm....indeed this was added to the spec last minute and while
-ERR_IN_USE (probably) does NOT necessarily need special treatment (so it
-can share -EBUSY), PARTIAL_ERROR must definitely be handled specially ...
+Testing:
+Testing was performed with and without the series on both x86_64 and
+arm64. KUnit and the MM kselftests produced matching before-and-after
+results problems or regressions. Fastpath performance testing was also
+completed on arm64. No regression was found.
 
-Good catch...
+Link: https://lore.kernel.org/all/20260922-pte0-v3-0-5670b8cb9059@arm.com  
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+---
+Changes in v2:
+- Move hw_pte_val() to the generic series and drop an unrelated comment
+  change from the atomic-access patch.
+- Use raw PTE values instead of generic HW/SW conversion helpers.
+- Drop a comment and add testing resutls in the cover letter
+- Add Reviewed-by tags.
+- Link to v1: https://patch.msgid.link/20260914-pte0_arm-v1-0-bb53b663e396@arm.com
 
-I am indeed already handling properly the side-effects of PARTIAL-ERROR
-but I will have to properly handle the status code itself in READING_COMPLETE
-and in the NOTIFICATION....as a consequence it needs to be distinguishable...
+To: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+To: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+To: Andrey Ryabinin <ryabinin.a.a@gmail.com>
+To: Alexander Potapenko <glider@google.com>
+To: Andrey Konovalov <andreyknvl@gmail.com>
+To: Dmitry Vyukov <dvyukov@google.com>
+To: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: usama.anjum@arm.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-efi@vger.kernel.org
+Cc: kasan-dev@googlegroups.com
 
-Problem is...there are NOT so many not-already-used error-codes that could
-signify such an ambiguos error condition, by the spec:
+---
+Muhammad Usama Anjum (6):
+      arm64: use hw_pte_t for HW PTE pointers
+      arm64: use hw_pte_val for HW PTE atomics
+      arm64: use hw_pte_val for HW PTE loads and stores
+      arm64: use hw_pte_t for fixmap HW PTEs
+      arm64: use HW PTE accessors in early map_range()
+      arm64: enable a distinct type for HW PTEs
 
-"The platform returns PARTIAL_ERROR to indicate that some of the telemetry
-data could not be collected."
+ arch/arm64/Kconfig                |   1 +
+ arch/arm64/include/asm/hugetlb.h  |  19 ++++----
+ arch/arm64/include/asm/pgalloc.h  |   2 +-
+ arch/arm64/include/asm/pgtable.h  | 157 ++++++++++++++++++++++++++++++++++------------------------------
+ arch/arm64/include/asm/vmalloc.h  |   2 +-
+ arch/arm64/kernel/efi.c           |   3 +-
+ arch/arm64/kernel/pi/map_kernel.c |   4 +-
+ arch/arm64/kernel/pi/map_range.c  |  20 +++++----
+ arch/arm64/kernel/pi/pi.h         |   3 +-
+ arch/arm64/mm/contpte.c           |  49 ++++++++++----------
+ arch/arm64/mm/fault.c             |   7 +--
+ arch/arm64/mm/fixmap.c            |   8 ++--
+ arch/arm64/mm/hugetlbpage.c       |  48 ++++++++++----------
+ arch/arm64/mm/kasan_init.c        |   4 +-
+ arch/arm64/mm/mmu.c               |  46 +++++++++++--------
+ arch/arm64/mm/pageattr.c          |   4 +-
+ arch/arm64/mm/trans_pgd.c         |   4 +-
+ 17 files changed, 207 insertions(+), 174 deletions(-)
+---
+base-commit: ead700ca770c82167af32622cf8b68c9f87c3c7c
+change-id: 20260911-pte0_arm-f1b7df7c0b51
+prerequisite-message-id: 20260922-pte0-v3-0-5670b8cb9059@arm.com
+prerequisite-patch-id: 0114fcc6ab0dbb739b5bb6fc0fe6b1c8f1fa37a1
+prerequisite-patch-id: 09fcf65970074620dd3a9cce6850b901beb01db8
+prerequisite-patch-id: 9b2fdab97c99effabb85526fa7f141c933b3aa23
+prerequisite-patch-id: 1aa309a26d98a1e93a54742705a03567ee93be71
+prerequisite-patch-id: ebe32f52c95ad0542982f0b37798d209595e25e1
+prerequisite-patch-id: 22950028c3d2060de8acd3fe4a73d755b18215e3
+prerequisite-patch-id: a60d249f52d092524176851b2570d7245bb24434
+prerequisite-patch-id: 81ebd1378e25d40a1771b53973abcc4defa87535
+prerequisite-patch-id: d982f2b00c5eddb2459f69008a73e4f4ae4d8299
 
-I will use -EBADMSG (but any other advice is welcome) and fix its usage where
-needed for DRESP and NOTIF in v13.
-
-Thanks,
-Cristian
+Best regards,
+--  
+Usama
 
