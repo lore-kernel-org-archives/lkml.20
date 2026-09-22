@@ -1,115 +1,106 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1CD3749E3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA1247C11F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:38:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790084322; cv=none; b=KKqb2l9RRKBfb2ZXQ5+aaeCedLws9NZZhHPAw2NP7QeKTo7R/ywqUffzJGdurE5Wc6DXFqzMhkkgqgXNnVYQErSVZMzKmPQ5FCoMZba/RaGPY0EtMyEG3xGWdfapF68wadhEiO7mibV3jo1f2R4gaM46QQDkECh63cQts8PfpE8=
+	t=1790084332; cv=none; b=VlnYLOCcXczB51meNODRsj1Popv9s6R3A9GNiAxjrURBNfd0a6J8Y3NtiB21cB6JBWrNz+NF6nmw9dUBNh0gus42h8CxAy29uYgeVU9XsZImXzuBJYo4QeCGjCmh6oXRu3UoXmmxTSBLyT0EuRerrR/7KWOMUNViofhACpS0+JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790084322; c=relaxed/simple;
-	bh=cZ22TuatyCtfFZGohTDkIEXa/tYAXeFUvYaAypCKE+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GiE7VkxD7e50YFmcGNHIDoUZek0vmdHrsbqVUo2QETlZXCuYNp2eEOw/2DoirIRPb/vwxMypbpo32SDAeaBQweSdbQZwVLRZia/P1qs7n/nf2IESZLJjebDTZnxHCYj79VFf6rXFrQZ0adOHqaAa84um817FL0S+CGylDlNRxYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=p6unyari; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790084332; c=relaxed/simple;
+	bh=/a/f7Jh/MiC/swvVwqUhEXfqYE86b5oqe+3Ff4G++VE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fUm7vb5bs03esqjubr2xW5v7cpss4OlVKt/6QDO+13idrxdjTdIzQgRd11gi4twfNX4uqONuWDDEM70UnPExZXAT7xiATusKiDJfM2UwqIAPQb5HIqaacwTY0tMXiLyVnkQjf7lWqy5AYvkOEC4Wi71dTktSdHnZEHAvv8foOk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWQLLdIt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="p6unyari"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=85+n5/rqOHCTfdnujxnx79wfxqBnCEiKC6qiTP8BuHo=; b=p6unyarirV3vf8F1ELIso9FVk7
-	HJ5Gneb6QxKTBDXS6Wv+w03XDOX0N+ljaHWfO742FXmx8TweibtjkmS8t4mD997dcAO52eWzSDfOf
-	IiXw3ex4f4aTh4yYIs4sjrv1uHDB0pLAoelU+6YG5CHQBu7655LJn++j7WjpsGDIQw/fMswxvycOZ
-	0vWWC9JiCazIghIldiR2OeTuLYGuvmD2I/tvhi+tML0+O/8bzHkwduoJHj7+jt61USzgoH0sQdOld
-	kaUa8z4OzCQpAUpRroGfH1QbgXbYJ8bsIoJv6Q5ya31mX2/GHS0LVgUS3M4gH4Qe2bXqf5Z5mPdYT
-	rL1wgeVw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x90hf-00000008u2A-3p1H;
-	Tue, 22 Sep 2026 13:38:36 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7238C300708; Tue, 22 Sep 2026 15:38:35 +0200 (CEST)
-Date: Tue, 22 Sep 2026 15:38:35 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH RESEND] perf/core: Fix a refcount leak in
- attach_perf_ctx_data()
-Message-ID: <20260922133835.GZ4121339@noisy.programming.kicks-ass.net>
-References: <20260920231639.11910-1-namhyung@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWQLLdIt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18751F008A2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:38:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790084330;
+	bh=/a/f7Jh/MiC/swvVwqUhEXfqYE86b5oqe+3Ff4G++VE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EWQLLdIt72+QOHOXsnuB2tStxjo6ENcIsrgF7Hn/vOuxCaedy759wNDOnmG+zzbwc
+	 DCypklk7dNsoK+jlxKz68EubvFKiWg0ALSw1GhYtoYIi9jceldFpFO17PWf/uoYY6s
+	 W08xh28FHCQTzyU2ijivNh5793AtFmnvUg7NNIDoocjkOXczziV1qBqKcq8DzXZadS
+	 KPrp0UeXYt1zr18SwDntd6eQCWTAlxYKNvmDBd6JuxAIBs13K2Heezik8KvhtTaWGT
+	 s+5As4BG/HYFbdMJcZ1/VWQMVEmnAcUDjLOKG9yubjs4LU7cFIinojBMzU73nVYwXx
+	 D+k7cALHhgN4g==
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8d881so4311981d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:38:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy6HrBSZwKUT6hqzOALzQTzK8bged7e9wthkj5w9w+qzdREE+jNa8czG6ZOvoA1veZWoMKuXmovAHwe1Ko=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3yCCnmWzCYe0XeFgc0kIRp4t1LNyoqTOZu/JhIIWoxBs4mRkK
+	LbPmQ276aau+zj+lXKmJddDCnx9vXb7yvCZfVrlpsenNtkjz7Dgw1jTgkiv+msGq2yFU8O/WNIN
+	dsWtK8D/cfcSEZc3Cuz52BWyCG5ewQKlpbOKEFFv2MQ==
+X-Received: by 2002:a05:690e:a4e:b0:66e:542c:cb48 with SMTP id
+ 956f58d0204a3-6717fd907d8mr5090744d50.48.1790084330182; Tue, 22 Sep 2026
+ 06:38:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920231639.11910-1-namhyung@kernel.org>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+In-Reply-To: <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Tue, 22 Sep 2026 03:38:38 -1000
+X-Gmail-Original-Message-ID: <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WgbakYkTh0yR3GKDNbi3ffYcCIIuJkVAws7zFs7ymxySYDN4SZgg1CLuk
+Message-ID: <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 20, 2026 at 04:16:39PM -0700, Namhyung Kim wrote:
-> The attach_perf_ctx_data() can race on global and !global cases.  The
-> global case is protected by global_ctx_data_rwsem and shares a single
-> reference count using perf_ctx_data.global field.
-> 
-> But when it races with !global case, it may miss to set the global field
-> and result in a reference count leak.
-> 
->  CPU1                              CPU2
->  ----------------------------------------------------------------
->  attach_task_ctx_data(global=1)    attach_task_ctx_data(global=0)
->    cd1 = alloc_perf_ctx_data()       cd2 = alloc_perf_ctx_data()
->                                        try_cmpxchg() // ok
->                                        // task->perf_ctx_data = cd2
-> 
->      try_cmpxchg()            // fail; old = cd2; global = 0
->      refcount_inc_not_zero()  // cd2->refcount++;
->      free_perf_ctx_data()     // cd1
+On Mon, Sep 21, 2026 at 8:56=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
+:
+>
+> On Fri, Sep 18, 2026 at 11:50=E2=80=AFPM Chris Li <chrisl@kernel.org> wro=
+te:
+> > No that time slot is too late for Asia developers. I don't think we
+> > should use that time slot for swap alignment.
+> >
+> > We should find a time slot more friendly to Asia.
+>
+> Any time slot would have that kind of problem. We're spread out across
+> the globe.
+>
+> Let's just use a standardized time slot we have for MM alignment sessions=
+.
 
-Urgh, took a good while to remember how all that worked. Also, I think
-it might have been clearer written like so:
+There are more swap maintainers in Asia than in the US + Europe, at
+least based on the maintainer file. Please be more inclusive. If the
+alignment is done without key stakeholders, it miss the point.
 
-  CPU1					CPU2
+Sigh, we can't even align on a time slot.
 
-  attach_task_ctx_data(.global=1)	attach_task_ctx_data(.global=0)
-    cd1 = alloc_perf_ctx_data();	  cd2 = alloc_perf_ctx_data();
-    					  //	{ .global = 0, .refcount = 1 };
+In that case, let's keep discussing on the mailing list. At least it
+is accessible to every one.
 
-    					  try_cmpxchg(); // success, 
-					  // task->perf_ctx_data = cd2
-    try_cmpxhg(); // fail; old = cd2
-    refcount_inc_not_zero(&old->refcount); // success
-      // old.refcount = 2
-    free_perf_ctx_data(cd1);
-
-> Then later detach_global_ctx_data() will see the data but it's not
-> marked as global, so it won't call detach_task_ctx_data().
-> 
-> Fixes: 506e64e710ff ("perf: attach/detach PMU specific data")
-> Assisted-by: Sashiko.dev:Gemini-3.1-pro
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> ---
->  kernel/events/core.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index db7b76d6b68aa55d..e180134bad5e0ae3 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -5454,6 +5454,8 @@ attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
->  		}
->  
->  		if (refcount_inc_not_zero(&old->refcount)) {
-> +			if (global)
-> +				old->global = true;
->  			free_perf_ctx_data(cd); /* unused */
->  			return 0;
->  		}
-
-
+Chris
