@@ -1,182 +1,142 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55DD4E36F4;
-	Tue, 22 Sep 2026 06:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058876; cv=pass; b=FqeOp/3CU06um1zWBqMQrV2b0OB5sxYfp1xajZukGyybjZ0wG4hYKH04HcaGQb0aqqSpCFwwrCohCzv9fA7j8YNaB3H3/gSF7hbXr+NRQ4BJH58j66bahjg11Cl/K88PUBnPCq21+qAoUYw5sXlQ2BwYGdr5/4kGK06GFOt/x2I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058876; c=relaxed/simple;
-	bh=KRF7mzrEcefx2cCAz6FPvzYQT9GQwppHdJJE1JW4tjU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l+EjWJD+vwVZSzh6Ysyip2D/bA6UyMBt5K3U8AbEsSAHxnLl7obar1USXQ4jT7VGYNrqdHe0yav2vUaX5nqEpDcAK7ZI6XM9KoaVoNZqpbXUVkx8IimWkZ0IRk0iVBXfz7AIqmz6MoZhR2FWUYcUhc7hY8jEHUxDywLPhVcI93A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=vPU8MDUB; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=HEhwwlRP; arc=pass smtp.client-ip=185.56.87.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8398E3F9F44
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790058937; cv=none; b=fBFikLud+2Sxl6/lHLj4qfNEA/6FzvHPzvdngmGS/EWDKYnMWKEbarEDZjFr7W49ALch9TQEVzi4vRI2T2xPbuuHfptQO/PYkdRPhRSHYTmC54b+85r2ynniRWJUuABLTQX3y6YkQHotGvoo1fGD57YcYa50Y8vXHDaxUG4LAfQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790058937; c=relaxed/simple;
+	bh=Vu+R/47nvA6CsyN0t24dTNOwXGk/oELWg6WxHC1bXbQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uxglRYRBF0LebwGQqwGCeTe1g4mr+fZQ22XVSI+rWVxpdQC2xwxNf01sthg9PhuuHqJ+ZudBm08xlPrIFFerGmvdv+OQtD7OqOJvOphvhjMPfBleWA6qy2Mr9EYA9PByACfsPTFXJQO/yLBpxUgMff4rMG0O7S+tBclSXIqG7Ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVPLMb4u; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="vPU8MDUB";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="HEhwwlRP"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; s=arckey; t=1790058871;
-	 b=BgYM5920MwiASFhoKctAJ82AKlI5BQUgNeQm6JlW0/xA8HEy2L+A4D7fgp8fsQ6mfFy1cfWbfI
-	  mtr0N1Kw1coR4rpFc0GrwfFGEOp732ORXd8fo2ZETL931DHfpGMNp7wH+/e3UP5dZRN5gNYNfS
-	  fLKTziKy1fJHPEMOcr5P7O1vX3fayF4xuOc+5qy9gIh7onqSEhcSf4BPJpYy+KYUeN2FdDyclV
-	  OoEi1R8F5KNbIE/iuuujDkwLDjdR2C4vKGq+2wYUyF7NyDf9D2zDR6c+BKPCCOG9gn9UXzV3JL
-	  InwpjhPEQsFYGwxDUftLwoSXHT6M+yWvG74KOzbUhl6f+w==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; s=arckey; t=1790058871;
-	bh=KRF7mzrEcefx2cCAz6FPvzYQT9GQwppHdJJE1JW4tjU=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=w0FfTrHSpIxO4iJMqmwsxrdkTB0JODiws8FJGl+DkWFpCD2Y+9M6ml2OV9rp0UXflVHqIb+eVm
-	  +m9gCV03Gk1w01icl1DOyAQ0rBUqHQO5TIfVNvdsriTyIqpAadwjViX/0HlGdbLpzru1APxVDm
-	  rKBOqrsgrOLN91i518u79FC+jAe4orMxCDIrC/PLE1h5xHO/Xe+sQblBcxOr4eIurjhTu8o9Gg
-	  ztZ3WdWejtB4Y3UynL1D3kv82TPotfVNAM5+QDKLUt31CbDFKaiB3zxOWyq322MG8NKrkwvSvs
-	  2F/AdtU47UatI544B74X3VfEx/es3nPFM55saqiG8Zr5/A==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=1N06q9Iqt+n0HPR6BLN3adBn216qx/G71jg+AxnkRRA=; b=vPU8MDUBx7fzW2eFTUUB3YKZN/
-	VZy/m6DUxS9zTYh5KjkQkCuBjMeIqMGn/6kFjS0YBfRlTv5IgVjcUlmbAVVHoaW/DZr4WrUsKy166
-	q1giDDHAwONjiBN75/88z60UKM8TcdKnYhNLb6f+aTC6xQ0EIQp0w4ZRJg8yi1fOcs6E=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x8u4K-0000000H88V-3orG;
-	Tue, 22 Sep 2026 06:34:13 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=1N06q9Iqt+n0HPR6BLN3adBn216qx/G71jg+AxnkRRA=; b=HEhwwlRP3qLm1x3BiOx6/yErcr
-	96L28DUv90dLTh0ICYZlv0l89z1LKoBL2EJReSJMV5nKubxJKxfixgaZ7M87PYUyWr0yZowCyQJpI
-	IW7lUfbEyr5lOpT1TxOKPf4g6mfNdBq1FffppbX4hO7MlJiY+VMQr+iNf6j8+PILWI0Y=;
-Received: from [79.43.46.244] (port=60174 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x8u37-00000000JK3-0fLD;
-	Tue, 22 Sep 2026 06:32:17 +0000
-Date: Tue, 22 Sep 2026 08:32:15 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 05/12] remoteproc: always report VIRTIO_F_VERSION_1
- feature
-Message-ID: <arIgI4E5rGXq9H0P@bywater>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-5-dac8c5eb4aa9@valla.it>
- <arFRqopkkJf7Nlq4@p14s>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVPLMb4u"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so25490525e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:35:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790058930; x=1790663730; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sKab2b7lNX+8P0jbeNZOEIpA84gtvKGXxFn+uJOJkUg=;
+        b=BVPLMb4ujhxO1Wcj3jVFcOgHrsyMCSPRKR8XXr+7CpJ3CnZSritiDShWuBD8VUYSWW
+         3vk9XFdC4gBLjN+MewcW/K/Dt/0xsaZQexVZfcEK1f+OqhWmzted8Xv30ucWHPXs+JrY
+         CGNE1+CP3VDj3eEPP9CZGxrCov7LcdvcfupjkFYo80DGMk04hHcHPqX74i7IcfOabIxq
+         TJiBvybnKhPSDw2taf0sHRfPDNerrRI/091eSpT76KIbYcTPrX9e0O2QG4jX/xHJI6gi
+         aVjJ4BvlTifQuG9ouq1ACLVlMQeNfNYBFPdcnNeK1UNMxMDvPa2HE40FaRoeYkpfi7H2
+         y3TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790058930; x=1790663730;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sKab2b7lNX+8P0jbeNZOEIpA84gtvKGXxFn+uJOJkUg=;
+        b=WrwrABRqQM8wO/9Au8mhCc3h79/AWWnHx4PWWPUsWrGv6zrQ36VvGoReI+LD7jZekm
+         ObZ/6KhYfMazrxSw8DIIWSDFWn9awoptBHzcE772FzFv0isRRjD8mWdkxCu9Ev1B6Cbd
+         JQ/jc/3c33lo3cEqOIN7JkBsNMt+VZDKJg6X6uF2aLjOVLeeIlJAXOAc2jJPs0h62BaL
+         ExbGrIOf8v+kUt6vwHro5jFT+ClKwAjkM0IxcFOvPQhULtgqg8yf1+5j2KRjpJo6GjVb
+         0q/iZJUbM9EVUMORO227DEZDcwPc2g4qD2Oyo2PNa915W1uo4yni7cAlCICPOwZxG+F9
+         OHCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzjYnAQ1vrW0U5pdzicoBSsqxmS2bzGsOFrvv2/AMojUj5qofw+vAxopv5SlzJul8nFt7IqfInfeASiO3w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQKlTin69CJudPOphHhIuby12RqQe6LgmSdM9/Qlg4t7ee/ggr
+	gEC4ARzDgWZUgNBsABmH5mqFGs+j5Iynfyaj5FDLdzqKXy46UWSLGPhK
+X-Gm-Gg: AYBFou1o2TfjGv1DTEmsnu5GRo/tJ6eIvHvUuW1GQIGyPEEmNdFSo/S+6xtjox91wT9
+	rWAjX/WsCAhhcV+hl/KwGHW2XYE61TWmCFuaCAX7nLrRtoq1rDi11L2HokJDMvUc8FNlmUMR05S
+	/Uf8hQkaF6q3DPZ/RfmJXAsO+BvX5YeHeA4XuKT/oTJtiGBVvIIiS3X5ujg3ZDJa40/Zboh2g2P
+	RV3Z0TYVMrQd4G0574f0bY+VJV1+HgCTqBGIXinsYiMboCDS6RXysOp17Ih3fq/jcnTqagOw6gg
+	V/5B7v0H++gTHwKVFCJc0dKQ5Pk5fdMA8bBgWICytsHDOIJ0K3B8nNpUrK7JUBD71LLBUEirTOZ
+	3O0Y0ZRXwaeS20xNOKAWZl4FVQo2YI6DLZoifA1q8GUYvwxEM8x8UCUoFwZokYYlOeMuBuOM7gc
+	Guxch0WM9SX1Ni7i0V12AR3zzf0TTSanNv3o9G8fO9Nyf8U/CE7r7hit/dKZMuOVynv+ZCFpRuX
+	4Aa44xvi7yTm7hQ4lV7lEYebkR+YcsHe1oow6w=
+X-Received: by 2002:a05:600c:3ba4:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49fc57414c4mr230924765e9.27.1790058929804;
+        Mon, 21 Sep 2026 23:35:29 -0700 (PDT)
+Received: from TMOROL-MAD.sanjose.local ([192.67.141.100])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad3669fsm28551575e9.8.2026.09.21.23.35.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 23:35:29 -0700 (PDT)
+From: Tomas Moro <tmorolias@gmail.com>
+To: calliarifelipe@gmail.com
+Cc: bod@kernel.org,
+	hansg@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	Mars-Wave <tmorolias@gmail.com>
+Subject: Re: [PATCH 3/3] media: ov02c10: Accept a 26 MHz external clock
+Date: Tue, 22 Sep 2026 08:35:07 +0200
+Message-ID: <20260922063507.690-1-tmorolias@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <20260905030732.39196-3-calliarifelipe@gmail.com>
+References: <20260905030732.39196-3-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arFRqopkkJf7Nlq4@p14s>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: d8abcddb785af1366c7da5f93be72fcf
-X-AntiAbuse: ID - d8abcddb785af1366c7da5f93be72fcf
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1x8u4K-0000000H88V-3orG-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 09:47:54AM -0600, Mathieu Poirier wrote:
-> On Wed, Sep 16, 2026 at 11:10:50PM +0200, Francesco Valla wrote:
-> > There is currently no way to report the VIRTIO_F_VERSION_1 using the
-> > resource table alone, as the per-vdev feature array is limited to 32
-> > bits.
-> > 
-> > Considering that the VirtIO 1.0 specification is now ~10 years old,
-> > always report the VIRTIO_F_VERSION_1 feature, as some drivers depend on
-> > it.
-> > 
-> > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > ---
-> >  drivers/remoteproc/remoteproc_virtio.c | 10 ++++++----
-> >  1 file changed, 6 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> > index 74e0da970f1d..cfd66d9d1c9e 100644
-> > --- a/drivers/remoteproc/remoteproc_virtio.c
-> > +++ b/drivers/remoteproc/remoteproc_virtio.c
-> > @@ -249,7 +249,7 @@ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
-> >  
-> >  	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-> >  
-> > -	return rsc->dfeatures;
-> > +	return rsc->dfeatures | (1ULL << VIRTIO_F_VERSION_1);
-> 
-> I understand this.
-> 
-> >  }
-> >  
-> >  static void rproc_transport_features(struct virtio_device *vdev)
-> > @@ -275,14 +275,16 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
-> >  	/* Give virtio_rproc a chance to accept features. */
-> >  	rproc_transport_features(vdev);
-> >  
-> > -	/* Make sure we don't have any features > 32 bits! */
-> > -	BUG_ON((u32)vdev->features != vdev->features);
-> > +	/* Make sure we don't have any features > 32 bits except VIRTIO_F_VERSION_1 */
-> > +	if (WARN_ON_ONCE((u32)vdev->features !=
-> > +			 (vdev->features & ~(1ULL << VIRTIO_F_VERSION_1))))
-> > +		return -1;
-> 
-> And this.
-> 
-> >  
-> >  	/*
-> >  	 * Remember the finalized features of our vdev, and provide it
-> >  	 * to the remote processor once it is powered on.
-> >  	 */
-> > -	rsc->gfeatures = vdev->features;
-> > +	rsc->gfeatures = vdev->features & ~(1ULL << VIRTIO_F_VERSION_1);
-> >  
-> 
-> But I'm having trouble with this one.  
-> 
-> First bit 32 of vdev->features gets cleared and then bit 0 to 31 are assigned to
-> rsc->gfeatures.  Why bother with clearing bit 32?
->
+Hi Felipe,
 
-Bits > 31 gets silently dropped because rsc->gfeatures is a u32; this
-was inserted to explicitly drop the flag that has been inserted before
-and avoid the "silently". It has no real funtional impact and can be
-safely dropped.
+First of all, thank you for the good work on this. 
+I tested this series (v1, all three patches) on a Samsung Galaxy Book3
+Pro, whose board feeds the sensor 26 MHz. Without the series the sensor
+does not probe:
 
-> >  	return 0;
-> >  }
-> > 
-> > -- 
-> > 2.55.0
-> > 
+  ov02c10 i2c-OVTI02C1:00: error -EINVAL: external clock 26000000 is not supported
+  ov02c10 i2c-OVTI02C1:00: probe with driver ov02c10 failed with error -22
+
+Hardware
+  DMI: SAMSUNG ELECTRONICS CO., LTD. / 960XFG / NP960XFG-KC2IT
+  BIOS P07RGU.330.240529.ZQ, i7-1360P, IPU6 [8086:a75d]
+  sensor ACPI HID OVTI02C1, clock 26 MHz (clk_summary)
+
+Software
+  7.2.6 (linux-cachyos, clang + ThinLTO). ov02c10.c there is identical
+  to v7.2.6 stable, the three patches applied. Only ov02c10
+  was rebuilt (out of tree). In-tree intel_ipu6 + intel_ipu6_isys.
+  libcamera 0.7.2, simple pipeline, GPU soft ISP.
+
+Results
+  probe            OK
+  controls         link_frequency 541666667, pixel_rate 216666666,
+                   2 lanes; get_selection bounds 1928x1092,
+                   crop 1920x1080
+  streaming        1920x1092 at 40.70 fps, steady, no drops over
+                   several 400-frame runs. That is ~35 % above 30 fps,
+                   which matches the link frequency. Raw SGRBG10 1928x1092 capture works too.
+  stream start     one "csi2-0 error: Frame sync error" every time
+  first buffer     the first dequeued buffer is always empty
+  orientation      image is rotated 180 degrees. This model is not in
+                   the ipu-bridge upside-down DMI list; strings above.
+  s2idle           7 cycles (rtcwake -m freeze), idle and right after
+                   streaming: all resumed, sensor still bound, capture
+                   works.
+  s2idle while     refused by isys, not a hang becuse the running stream is
+  streaming        wedged afterwards, a new open works:
+
+  intel_ipu6_isys.isys intel_ipu6.isys.40: PM: dpm_run_callback(): isys_suspend [intel_ipu6_isys] returns -16
+  intel_ipu6_isys.isys intel_ipu6.isys.40: PM: failed to suspend: error -16
+  PM: Some devices failed to suspend, or early wake event detected
+  PM: suspend exit
+  intel_ipu6_isys.isys intel_ipu6.isys.40: stream stop time out
+  intel_ipu6_isys.isys intel_ipu6.isys.40: stream close time out
+
+Same tests with out-of-tree intel-ipu6-psys loaded and bound
+(intel/ipu6-drivers 71bddb5, built unmodified against this kernel):
+identical results, 4 more s2idle cycles all resumed. The s2idle hang from
+intel/ipu6-drivers#381 does not reproduce here on 7.2.6.
+
+Footnote, unrelated to this series: I saw one hard lockup (no trace) on
+the first stream after rmmod of intel-ipu6-psys. I think that taking it out 
+might have given me a corrupt state, had to reboot. 
+
+Happy to test v2.
+
+Tested-by: Mars-Wave <tmorolias@gmail.com> # Samsung Galaxy Book3 Pro NP960XFG (github.com/MarsWave)
