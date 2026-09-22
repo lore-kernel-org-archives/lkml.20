@@ -1,43 +1,36 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD8E54146E;
-	Tue, 22 Sep 2026 12:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081481; cv=pass; b=bQrP4olxBr/RPIxlMdIM5+vOAqzRH2cPE0Re7VSuvMtOTo9Wa/ityDEWRQo6HgiqnMERMNrhFmjkQDZ7SjeQrnjiFqdyyDVAcb65nM2DYjBbn+78ew6qxyMQcVwv3Q20RbTNLXcBeFFTy2wasy4qZMmUWF+LxtrBf6vQrZGfQcI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081481; c=relaxed/simple;
-	bh=CTwaTAUyeqGLemO19yZ/xNgJYa61MdlyRw20ocJaVA4=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9BE5476C9
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790081485; cv=none; b=lxTyzXuOhpO2Ghg/K2Cu6yISYS3uCh0Eaiyf4cotT1Uf9QEeeP4aWYGG1jpuXnlwmj/jE3ZBsRUSyohkBr7LLYardPKlr6UvqZWQRI+KIsEjgt1ny8GCKne2jGEjeOlb/S8929Q689asS5TJtEZgASpoEC3s0WRlyEQfeiIlHLI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790081485; c=relaxed/simple;
+	bh=Rd7i7Ne1v4a3mXkwREpKYjo7sQ/rKatj8SZMtz3c+SY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WPjAcNVBzCRY+nfG/Ckv7x0/yS8EzPJ1kxvVhq8+zp+PtIbjOUkw6CHyJnh/lqhM4Iy8JrIb0PN8hM8IsNRFd6RI0cWaIPykIfwZEkQDRTeuEsk8iodcb2X8oHCLfm+KUGCdaQfdYrZqjg0j3aZMAAbKGWnsaXoJTz7Ujn06N1g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=IvzuFxMQ; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=KplK68TPP/nEYq+U+6BuoDT16boMrwe09ablr4BVuHvhRN2ICgCBrPehSF6wf/y0fQbe0BZ/y6kxpbiCNlcFMiOgOvIjA90gSOp5He1qXPyE4HVNf8AOIMzMsudJOTthidmrg5GVZWSEkmQwpX2iSJkQHtTEt1crs8psCfdgcuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XwVWEBeR; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="IvzuFxMQ"
-ARC-Seal: i=1; a=rsa-sha256; t=1790081455; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=nk34UYnYNbiNUe7h4i5/S6EGbJ8f5dJeQru1ULf9s3oEB1nyzAig2rUIrBbdHeVErR2YOSiVc4ugtIUE2OyC4zGi68C5DLyPZ2K4k7jT8Y+b+MgKEhdB96r/sU074Z4OjbDJOFADq+4Wn7bMTrtb8bI7IRHingVk+xX0HNlXU94=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790081455; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=729x9mq+5Jmo3wfVIGA83MaaAz3TTKhCqc6Bkj++2Fk=; 
-	b=XAQ1pvFubGt2sgI5ya59IIelRMYO+WsLVxcorNPHUUVSzGIJJydavCrPc24CtPdZOsjTC07M9bnO+OOmkeKCvJ+ikq1JsvreKKbtCfwGZv0d0xX3MuoY8a4yYR54PM2tWHq8SukH9dzjpVjNTw+uh8JeL9I4EpGk7PetB+qZ3t4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790081455;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=729x9mq+5Jmo3wfVIGA83MaaAz3TTKhCqc6Bkj++2Fk=;
-	b=IvzuFxMQ4zWGthmrST+dpQ2ol/CsautIjd/zPCFIqX7KxbNpVqYrQUUKrC9hg7Ff
-	vpH9t/XNPGT86OwWGFqPCE3sYGj0+HiDpR+v6jyULbzQfWNBdSNRx+9lquBMlwknh0g
-	/Jb20nBBVoLTee2bQJpTk7dTFpXQTpaJhbiYt8zw=
-Received: by smtp.zohomail.com with SMTPS id 1790081453988752.6700177035126;
-	Tue, 22 Sep 2026 05:50:53 -0700 (PDT)
-Message-ID: <0c358f7e-61b5-46ea-aad8-6671e3924dda@collabora.com>
-Date: Tue, 22 Sep 2026 15:50:49 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XwVWEBeR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Rd7i7Ne1v4a3mXkwREpKYjo7sQ/rKatj8SZMtz3c+SY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790081480; v=1; x=1790686280;
+ b=XwVWEBeRgAo1mNXe9AB/nvgTjlsiCgJUJZTEEiGwaWJcJ0+MojZMluaabEsTd93z5I0HN9xH
+ d+jtgbZjWb4PCb/SN/4OSPSKoa0NXCF6bH+7K5CxbyqQY/D/vFX8E+Hrn7vLHIZb3dVgIBFD2XF
+ dH7NKlSV9rg6ERmRUXoGAeqA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e2bd109f32689452;
+	Tue, 22 Sep 2026 12:51:19 +0000
+X-Mizu-Trace-ID: e2bd109f32689452
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <78f80b94-e0d4-47d0-8b1c-3fd5d850a875@linux.dev>
+Date: Tue, 22 Sep 2026 13:51:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,185 +38,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] media: synopsys: hdmirx: fetch colordepth before
- calculating pixelclock
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Shreeya Patel <shreeya.patel@collabora.com>,
- Hans Verkuil <hverkuil@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>
-Cc: linux-media@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, Lucas Sinn <lucas.sinn@wolfvision.net>,
- stable@vger.kernel.org
-References: <20260921-hdmirx-fixes-v1-0-495be0beaf93@pengutronix.de>
- <20260921-hdmirx-fixes-v1-1-495be0beaf93@pengutronix.de>
+Subject: Re: [RESEND v7 06/29] s390: mm: add PMD swap-exclusive helpers
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-7-usama.arif@linux.dev>
+ <92d0078e-afdc-422a-b624-0a3ca9aa307c@kernel.org>
 Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260921-hdmirx-fixes-v1-1-495be0beaf93@pengutronix.de>
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <92d0078e-afdc-422a-b624-0a3ca9aa307c@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 9/21/26 10:15, Sascha Hauer wrote:
-> From: Lucas Sinn <lucas.sinn@wolfvision.net>
+
+
+On 18/09/2026 22:41, David Hildenbrand (Arm) wrote:
+> On 9/14/26 14:27, Usama Arif wrote:
+>> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+>> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+>> not just in a swap PTE.
+>>
+>> s390 is the one architecture where a swap PMD is not a swap PTE in
+>> disguise: it is an RSTE with its own layout, converted to a fake PTE swap
+>> entry for the common code. Give it its own exclusive bit rather than
+>> borrowing the PTE-format macro. The two happen to have the same value, but
+>> that is a coincidence. Bit 52 was documented as unused; document what it
+>> is now.
+>>
+>> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+>> Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+>> Cc: Heiko Carstens <hca@linux.ibm.com>
+>> Cc: Vasily Gorbik <gor@linux.ibm.com>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>>  arch/s390/include/asm/pgtable.h | 28 ++++++++++++++++++++++++++--
+>>  1 file changed, 26 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
+>> index 2d5c2ab06de98..0790a0884cfab 100644
+>> --- a/arch/s390/include/asm/pgtable.h
+>> +++ b/arch/s390/include/asm/pgtable.h
+>> @@ -333,6 +333,7 @@ void setup_protection_map(void);
+>>  /* Common bits in region and segment table entries, for swap entries */
+>>  #define _RST_ENTRY_COMM		0x0010	/* Common-Region/Segment, marks swap entry */
+>>  #define _RST_ENTRY_INVALID	0x0020	/* invalid region/segment table entry */
+>> +#define _RST_ENTRY_SWP_EXCLUSIVE 0x0800	/* SW exclusive swap bit, see mk_swap_rste() */
+>>  
+>>  #define _CRST_ENTRIES	2048	/* number of region/segment table entries */
+>>  #define _PAGE_ENTRIES	256	/* number of page table entries	*/
+>> @@ -859,6 +860,28 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>>  	return clear_pte_bit(pte, __pgprot(_PAGE_SWP_EXCLUSIVE));
+>>  }
+>>  
+>> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+>> +/*
+>> + * A PMD swap entry is an RSTE, not a PTE, so it needs its own exclusive bit
+>> + * rather than the PTE-format _PAGE_SWP_EXCLUSIVE.  The two happen to have the
+>> + * same value; see the RSTE swap layout above mk_swap_rste().
+>> + */
 > 
-> hdmirx_get_detected_timings() divides the TMDS clock by
-> hdmirx_dev->color_depth, but nothing on its own path ever sets it. The
-> only producer is hdmirx_get_colordepth(), reached solely from
-> hdmirx_format_change() at the tail of hdmirx_wait_signal_lock().
+> I'm not sure the documentation here is warranted. It's all documented above
+> above __SWP_OFFSET_MASK_RSTE, no? I'd just extend the documentation there and
+> keep it away from these helpers that just use the bit.
 > 
-> VIDIOC_QUERY_DV_TIMINGS does not come through there. It only refuses to
-> proceed while signal_not_lock() is true, and that reads the lock state
-> straight out of the hardware, so it can already be false while the work
-> ending in hdmirx_format_change() has yet to run. Query the timings in
-> that window, on the first lock after a boot, and color_depth is still
-> zero from devm_kzalloc().
+> The fact that they use the same bit doesn't really matter.
+
+Ack, dropped for next revision.
+
 > 
-> The division does not fault. do_div() is plain C on 64 bit and arm64
-> compiles it to udiv, which returns zero for a zero divisor. What comes
-> out is a pixelclock of zero, and a stitched output frame.
+>> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+>> +{
+>> +	return set_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
+>> +}
+>> +
+>> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+>> +{
+>> +	return pmd_val(pmd) & _RST_ENTRY_SWP_EXCLUSIVE;
+>> +}
+>> +
+>> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+>> +{
+>> +	return clear_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
+>> +}
+>> +#endif
 > 
-> Read the colordepth where it is used instead.
-> 
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Lucas Sinn <lucas.sinn@wolfvision.net>
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> Fixes: 7b59b132ad43 ("media: platform: synopsys: Add support for HDMI input driver")
-> Cc: stable@vger.kernel.org
-> ---
->  .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 71 +++++++++++-----------
->  1 file changed, 36 insertions(+), 35 deletions(-)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index 25f8ca0d6d946..24ec6138a1fb6 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -156,7 +156,6 @@ struct snps_hdmirx_dev {
->  	int num_clks;
->  	u32 edid_blocks_written;
->  	u32 cur_fmt_fourcc;
-> -	u32 color_depth;
->  	spinlock_t rst_lock; /* to lock register access */
->  	u8 edid[EDID_NUM_BLOCKS_MAX * EDID_BLOCK_SIZE];
->  };
-> @@ -380,6 +379,38 @@ static void hdmirx_toggle_polarity(struct snps_hdmirx_dev *hdmirx_dev)
->  			   VPROC_HSYNC_POL_OVR_EN, 0);
->  }
->  
-> +static u32 hdmirx_get_colordepth(struct snps_hdmirx_dev *hdmirx_dev)
-> +{
-> +	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
-> +	u32 val, color_depth_reg, color_depth;
-> +
-> +	val = hdmirx_readl(hdmirx_dev, DMA_STATUS11);
-> +	color_depth_reg = (val & HDMIRX_COLOR_DEPTH_MASK) >> 3;
-> +
-> +	switch (color_depth_reg) {
-> +	case 0x4:
-> +		color_depth = 24;
-> +		break;
-> +	case 0x5:
-> +		color_depth = 30;
-> +		break;
-> +	case 0x6:
-> +		color_depth = 36;
-> +		break;
-> +	case 0x7:
-> +		color_depth = 48;
-> +		break;
-> +	default:
-> +		color_depth = 24;
-> +		break;
-> +	}
-> +
-> +	v4l2_dbg(1, debug, v4l2_dev, "%s: color_depth: %d, reg_val:%d\n",
-> +		 __func__, color_depth, color_depth_reg);
-> +
-> +	return color_depth;
-> +}
-> +
->  /*
->   * When querying DV timings during preview, if the DMA's timing is stable,
->   * we retrieve the timings directly from the DMA. However, if the current
-> @@ -393,7 +424,7 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
->  	struct v4l2_bt_timings *bt = &timings->bt;
->  	u32 val, tmdsqpclk_freq, pix_clk;
->  	unsigned int num_retries = 0;
-> -	u32 field_type, deframer_st;
-> +	u32 field_type, deframer_st, color_depth;
->  	u64 tmp_data, tmds_clk;
->  	bool is_dvi_mode;
->  	int ret;
-> @@ -414,10 +445,11 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
->  	deframer_st = hdmirx_readl(hdmirx_dev, DEFRAMER_STATUS);
->  	is_dvi_mode = !(deframer_st & OPMODE_STS_MASK);
->  
-> +	color_depth = hdmirx_get_colordepth(hdmirx_dev);
->  	tmdsqpclk_freq = hdmirx_readl(hdmirx_dev, CMU_TMDSQPCLK_FREQ);
->  	tmds_clk = tmdsqpclk_freq * 4 * 1000;
->  	tmp_data = tmds_clk * 24;
-> -	do_div(tmp_data, hdmirx_dev->color_depth);
-> +	do_div(tmp_data, color_depth);
->  	pix_clk = tmp_data;
->  	bt->pixelclock = pix_clk;
->  
-> @@ -429,7 +461,7 @@ static int hdmirx_get_detected_timings(struct snps_hdmirx_dev *hdmirx_dev,
->  	v4l2_dbg(2, debug, v4l2_dev, "tmds_clk:%llu, pix_clk:%d\n", tmds_clk, pix_clk);
->  	v4l2_dbg(1, debug, v4l2_dev, "interlace:%d, fmt:%d, color:%d, mode:%s\n",
->  		 bt->interlaced, hdmirx_dev->pix_fmt,
-> -		 hdmirx_dev->color_depth,
-> +		 color_depth,
->  		 is_dvi_mode ? "dvi" : "hdmi");
->  	v4l2_dbg(2, debug, v4l2_dev, "deframer_st:%#x\n", deframer_st);
->  
-> @@ -988,36 +1020,6 @@ static void hdmirx_controller_init(struct snps_hdmirx_dev *hdmirx_dev)
->  			   VS_REMAPFILTER_EN_QST | VS_FILTER_ORDER_QST(0x3));
->  }
->  
-> -static void hdmirx_get_colordepth(struct snps_hdmirx_dev *hdmirx_dev)
-> -{
-> -	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
-> -	u32 val, color_depth_reg;
-> -
-> -	val = hdmirx_readl(hdmirx_dev, DMA_STATUS11);
-> -	color_depth_reg = (val & HDMIRX_COLOR_DEPTH_MASK) >> 3;
-> -
-> -	switch (color_depth_reg) {
-> -	case 0x4:
-> -		hdmirx_dev->color_depth = 24;
-> -		break;
-> -	case 0x5:
-> -		hdmirx_dev->color_depth = 30;
-> -		break;
-> -	case 0x6:
-> -		hdmirx_dev->color_depth = 36;
-> -		break;
-> -	case 0x7:
-> -		hdmirx_dev->color_depth = 48;
-> -		break;
-> -	default:
-> -		hdmirx_dev->color_depth = 24;
-> -		break;
-> -	}
-> -
-> -	v4l2_dbg(1, debug, v4l2_dev, "%s: color_depth: %d, reg_val:%d\n",
-> -		 __func__, hdmirx_dev->color_depth, color_depth_reg);
-> -}
-> -
->  static void hdmirx_get_pix_fmt(struct snps_hdmirx_dev *hdmirx_dev)
->  {
->  	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
-> @@ -1128,7 +1130,6 @@ static void hdmirx_format_change(struct snps_hdmirx_dev *hdmirx_dev)
->  	};
->  
->  	hdmirx_get_pix_fmt(hdmirx_dev);
-> -	hdmirx_get_colordepth(hdmirx_dev);
->  	hdmirx_get_avi_infoframe(hdmirx_dev);
->  
->  	v4l2_dbg(1, debug, v4l2_dev, "%s: queue res_chg_event\n", __func__);
+> I guess we could move it above the pmd_swp_soft_dirty() stuff in the same
+> CONFIG_ARCH_HAS_PMD_SOFTLEAVES block.
 > 
 
-Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Done for the next revision.
+>> +
+>>  static inline int pte_soft_dirty(pte_t pte)
+>>  {
+>>  	return pte_val(pte) & _PAGE_SOFT_DIRTY;
+>> @@ -1900,15 +1923,16 @@ static inline swp_entry_t __swp_entry(unsigned long type, unsigned long offset)
+>>   * Bits 59 and 63 are used to indicate the swap entry. Bit 58 marks the rste
+>>   * as invalid.
+>>   * A swap entry is indicated by bit pattern (rste & 0x011) == 0x010
+>> - * |			  offset			|Xtype |11TT|S0|
+>> + * |			  offset			|Etype |11TT|S0|
+>>   * |0000000000111111111122222222223333333333444444444455|555555|5566|66|
+>>   * |0123456789012345678901234567890123456789012345678901|234567|8901|23|
+>>   *
+>>   * Bits 0-51 store the offset.
+>> + * Bit 52 (E) is used to remember PG_anon_exclusive
+>> + * (_RST_ENTRY_SWP_EXCLUSIVE), mirroring bit 52 of a swap pte.
+>>   * Bits 53-57 store the type.
+>>   * Bit 62 (S) is used for softdirty tracking.
+>>   * Bits 60-61 (TT) indicate the table type: 0x01 for REGION3 and 0x00 for SEGMENT.
+>> - * Bit 52 (X) is unused.
+>>   */
+>>  
+>>  #define __SWP_OFFSET_MASK_RSTE	((1UL << 52) - 1)
+> 
+> IIRC, __pmd_to_swp_entry() and __swp_entry_to_pmd() will lose the flag, which is
+> the right thing to do.
+> 
+> So conceptually LGTM.
+> 
 
--- 
-Best regards,
-Dmitry
+Thanks for all the reviews!
