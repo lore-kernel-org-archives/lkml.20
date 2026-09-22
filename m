@@ -1,134 +1,171 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3189548564
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:08:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33801E51E0;
+	Tue, 22 Sep 2026 14:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790086126; cv=none; b=YT4ph27pKuhvl8ZAQ9J3tvifcGsV4fbqwMxsUAVtwbxIoKmM+Fcqxamg/pa0+R/ANoTPDhzDM9IQdh5B+t8aTJC9+Udph2rYYTYqzIHRwfJLEbe3Z2C/dw4w1dyTbziOL2dxsPHoBzbVzIvNaRMrzyzsfTaQxLQK5BiIDhfgY64=
+	t=1790086170; cv=none; b=F1mKXfYik5czBeft5Xh/f4bQBPe1EnDi8LZYdyLjEdnq852Mqy4H3mAfv5eXZvgWLcQSz+rPzTBh2TpjDTxUtkEWoLdUBuYzAJyWsM6xYiAhc50Hj/wKELuHKgLmbcJ8BOr+mV2BTDDD1Jk4dPZw74Ag10YidASh8iZouMnM8U8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790086126; c=relaxed/simple;
-	bh=1kds8tC4BTayXiREnILf9Hh8KNywd1iA9cUHZ/a9U2c=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=NEC4uvHsMZorZMOfYwaIETZ17bpbVLAGcCMC3qhpGboMeDoP9WrA7CZL3yzzZDclVjb8uGS5ROuiQVvuEHzvwQ6ftz8bwGx6a5BYPq3Qug0spTRA9y5yu/kEUG7xUOLwndXefeG6t1uxJNzbDLumHunjQkvmb6W3tgN8RO2GwaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so716755b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:08:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790086124; x=1790690924;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FPxij3GIKryjcXEbmMsQS/qbe8XwIFxlkyNJU0nRpOY=;
-        b=f4Fr3yzyicF6qwYempWoqtV4LU+Qx5eaJoTfbG/5Yn6nEoqqjsdU4FpKBPzwO8Hdg3
-         iebgm4I1cN9Bklb1XAW/A+JZc0qQt26wQQWvEj7yCE2bZRfBG/12rGlYRG3CGnXnlrS+
-         nJ7BJ+z0Y/Pk5KX0ua+QokFg4zfvyj5wpnR9glx52sXpcWBs4vLXFhhKBaoet4/4p8z8
-         ITFAO13/dX5Vfq4bADpKkTtxc2+Vkob3wikKUwpY+z9+IxJZftCGWAUPW9ffgH6oqpQn
-         IBid4qJ7e4nijXta4w3A7GnTzzQ6KgJfsyXGtjHltKR11ogbfaW717AWdqtAEuPbY++E
-         ii+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwZphwqXfnh+Rm6AejLJ+egjo9ALk55fyxzMpbdfX6zPv+7LqlwX5db90QUfzWnMLyyinG82jk4ISqdll8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU4aPWnJ51Io4FwzuJfG8EOoQUkqooaR55Z4G1l4OP3GA4RpIX
-	4YU46nYxhFcKHUtxKUuu/n0E1GjTEhuTID+236vFKQ93f6o4HZl3muQ/I5j+5n/cD3RC0ElI4rV
-	VhBt9S3x4SjOzfDQGsFIaI55q+9DvepVrMzLsQe/sNZqYnkBHfnkBJOfnxvo=
+	s=arc-20240116; t=1790086170; c=relaxed/simple;
+	bh=5eUWwYmyoYKd8yyHHOjwiHKH6MfndOASxVI4Yvk4aGw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qjXRE+aanWCuaxCkhxFAZKbzdIaSLExBfii5fhx8ay7Agfbg1RIHjcIsRevudHoZSgZoajPGDgtJ/a+aNsBuS78m5CftowfLO/R0sdSybzIl5fb2cm1Wk1oaU9vAtsaau4G1mzBiX8Qnl6sP70oxRW1KvR2J2Mw6RdufioGBkgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iIP2jaeb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iIP2jaeb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D75B1F000FF;
+	Tue, 22 Sep 2026 14:09:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790086168;
+	bh=D6Aavxp3VhJXWJ3oPsCmDA1giEaBo0wNTN0QHHkvpZA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iIP2jaebLtctuzSGbrZY0QfqI9chrrXPXz3jFj5CwKIMmBFUnN8SEm+i+1/moEraU
+	 sH8paMLNbdoCaCfmuSIGin8lywL6pEBdLlc+REioPrGgw1HKriAGIutx7Jko5Z286s
+	 thBUGglIHN/JC+Z73IFSBSdj5LiqTV05ZrYIi25I+GsWhdrOqnq7jvyAWOuuYyJPux
+	 OYQXzvBXh2H/GTh9yWZrEI4iV1RE9xdfLfiRNud9pJNjo0T35MmbIOqfShv9RIXKgz
+	 dzZhJkUIRJVqWrD36Uo4KJcLIF0p49iScqBTPPaQhNiR1RP0bZOVrhqFIflhR/GR6i
+	 whHXp1KEtRKGQ==
+Date: Tue, 22 Sep 2026 16:09:25 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
+	Richard Weinberger <richard@nod.at>
+Subject: Re: [PATCH 1/2] driver: core: Allow drivers to opt out of
+ driver_override
+Message-ID: <arKLt__frMjzSA4t@orome>
+References: <20260922-driver-override-opt-out-v1-0-58c35ded3b83@nvidia.com>
+ <20260922-driver-override-opt-out-v1-1-58c35ded3b83@nvidia.com>
+ <2026092227-marbling-untying-c1df@gregkh>
+ <arJ6s51FV4T9IK5w@monoceros>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:178e:b0:6b7:46e9:96ff with SMTP id
- 006d021491bc7-6ca9c84d60dmr11904743eaf.47.1790086123743; Tue, 22 Sep 2026
- 07:08:43 -0700 (PDT)
-Date: Tue, 22 Sep 2026 07:08:43 -0700
-In-Reply-To: <6a8cdbd6.dbb3a75c.7844.0013.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab28beb.a6af0033.177e91.0020.GAE@google.com>
-Subject: Re: [syzbot] [mm?] WARNING in setup_conf
-From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, apopple@nvidia.com, byungchul@sk.com, 
-	david@kernel.org, gourry@gourry.net, joshua.hahnjy@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, matthew.brost@intel.com, rakie.kim@sk.com, 
-	song@kernel.org, syzkaller-bugs@googlegroups.com, xiao@kernel.org, 
-	ying.huang@linux.alibaba.com, yukuai@fygo.io, ziy@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
-
-syzbot has found a reproducer for the following issue on:
-
-HEAD commit:    f0100363d8c3 Merge tag 'xfs-fixes-7.3-rc5' of gitolite.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17971805580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
-dashboard link: https://syzkaller.appspot.com/bug?extid=75f49ec552cc74d9d69b
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17b20c5e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10720c5e580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-f0100363.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/18fb2734cddb/vmlinux-f0100363.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5737b586e7bc/bzImage-f0100363.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
-
-md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
-syz.0.17 uses obsolete (PF_INET,SOCK_PACKET)
-------------[ cut here ]------------
-1
-WARNING: mm/page_alloc.c:5340 at alloc_order_allowed mm/page_alloc.c:5340 [inline], CPU#0: syz.0.17/5462
-WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof+0x425/0x5a0 mm/page_alloc.c:5397, CPU#0: syz.0.17/5462
-Modules linked in:
-CPU: 0 UID: 0 PID: 5462 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:alloc_order_allowed mm/page_alloc.c:5340 [inline]
-RIP: 0010:__alloc_frozen_pages_noprof+0x425/0x5a0 mm/page_alloc.c:5397
-Code: 90 e9 76 fe ff ff 41 81 e6 3f ff ff ff 44 89 f1 41 83 e6 f7 a9 00 00 00 10 44 0f 44 f1 e9 45 fd ff ff c6 05 2c 98 38 0e 01 90 <0f> 0b 90 e9 8b fe ff ff 48 8d 3d ac 09 54 0e 67 48 0f b9 3a e9 68
-RSP: 0018:ffffc90003b87520 EFLAGS: 00010246
-RAX: ffffc90003b87500 RBX: 1ffff92000770ea8 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 000000000000000e RDI: ffffc90003b87588
-RBP: ffffc90003b87618 R08: ffffc90003b87587 R09: 0000000000000000
-R10: ffffc90003b87560 R11: fffff52000770eb1 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000040dc0 R15: 0000000000000000
-FS:  00005555836a7500(0000) GS:ffff88808c2c0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f4a2c07ae9c CR3: 000000003bff7000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- alloc_pages_mpol+0x21e/0x390 mm/mempolicy.c:2486
- ___kmalloc_large_node+0x4f/0x120 mm/slub.c:5353
- __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5385
- __do_kmalloc_node mm/slub.c:5402 [inline]
- __kmalloc_noprof+0x3fb/0x720 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- setup_conf+0x28b/0xd30 drivers/md/raid10.c:3855
- raid10_run+0x1d2/0x16c0 drivers/md/raid10.c:3955
- md_run+0xc3d/0x1cd0 drivers/md/md.c:6779
- do_md_run+0x35/0x720 drivers/md/md.c:6880
- md_ioctl+0x1e2b/0x2610 drivers/md/md.c:8515
- blkdev_ioctl+0x5e3/0x740 block/ioctl.c:798
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7efcb939e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffd8c37e488 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007efcb9625fa0 RCX: 00007efcb939e159
-RDX: 0000000000000000 RSI: 00000000400c0930 RDI: 0000000000000004
-RBP: 00007efcb943506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007efcb9625fac R14: 00007efcb9625fa0 R15: 00007efcb9625fa0
- </TASK>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kwbsr3rt6ars6dkv"
+Content-Disposition: inline
+In-Reply-To: <arJ6s51FV4T9IK5w@monoceros>
 
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+--kwbsr3rt6ars6dkv
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/2] driver: core: Allow drivers to opt out of
+ driver_override
+MIME-Version: 1.0
+
+On Tue, Sep 22, 2026 at 03:17:26PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> Hello Greg,
+>=20
+> On Tue, Sep 22, 2026 at 02:13:58PM +0200, Greg Kroah-Hartman wrote:
+> > On Tue, Sep 22, 2026 at 01:38:28PM +0200, Thierry Reding wrote:
+> > > From: Thierry Reding <treding@nvidia.com>
+> > >=20
+> > > Some drivers rely on device data obtained through device ID matching =
+and
+> > > will not work otherwise. Some such drivers don't check for the validi=
+ty
+> > > of the device data because it is never NULL when the device is matched
+> > > against the device ID table.
+> > >=20
+> > > However, Uwe recently pointed out that drivers always need to check t=
+his
+> > > device data because any device can be forced to bind against a driver=
+ if
+> > > their driver_override sysfs attribute is set and the driver rebound. =
+Any
+> > > such device will now not have device data from a device ID match table
+> > > and may crash.
+> > >=20
+> > > Add a flag that allows drivers to opt out of the override mechanism w=
+hen
+> > > it doesn't make sense. This allows us to deal with these situations in
+> > > the core rather than sprinkle checks throughout all of these drivers =
+to
+> > > check for validity of the device data.
+> > >=20
+> > > Cc: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
+> > > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > > ---
+> > >  include/linux/device.h        | 12 +++++++++---
+> > >  include/linux/device/driver.h | 12 ++++++++++++
+> > >  2 files changed, 21 insertions(+), 3 deletions(-)
+> > >=20
+> > > diff --git a/include/linux/device.h b/include/linux/device.h
+> > > index 90cdd77458bb..45c23cc5efa8 100644
+> > > --- a/include/linux/device.h
+> > > +++ b/include/linux/device.h
+> > > @@ -899,14 +899,20 @@ static inline bool device_has_driver_override(s=
+truct device *dev)
+> > >   *
+> > >   * Returns > 0 if a driver override is set and matches the given dri=
+ver, 0 if a
+> > >   * driver override is set but does not match, or < 0 if a driver ove=
+rride is not
+> > > - * set at all.
+> > > + * set at all or the driver opts out of the override mechanism.
+> >=20
+> > What's wrong with just not allowing bind/unbind at all?  Why would you
+> > want that, but NOT the driver_override file?
+>=20
+> bind/unbind and driver_override are two very different operations. The
+> first is something that should generally work and I consider it a safe
+> operation. The practical use includes reloading drivers that hang and
+> also switching operational devices on a devboard that cannot be used at
+> the same time due to pinctrl conflicts or different clk needs.
+>=20
+> driver_override is a foot gun that allows to bind unsuspecting drivers
+> on foreign devices and thus make e.g. of_device_get_match_data() return
+> NULL for a driver that assumes that cannot happen because all
+> of_device_id entries have a non-NULL .driver_data yielding null pointer
+> exceptions.
+>=20
+> See also the feedback you got on
+> https://lore.kernel.org/all/20260914-bind_taint-v4-0-eadf8a090903@linuxfo=
+undation.org/
+> where (apart from me) Danilo Krummrich argued that unbind/bind should be
+> considered safe compared to driver_override and also our conversation in
+> #kernelnewbies where Richard Weinberger concurred to that.
+>=20
+> Having said that I think there is only a handful of drivers that are
+> actually supposed to work when used in a driver override (vfio stuff,
+> spidev and i2c-dev come to mind), so I'd prefer that drivers opt-in
+> instead of opt-out. Otherwise we yet another flag that drivers should
+> set in general but don't because driver authors are not aware[1]. The
+> few drivers that rely on driver overriding should be identified quickly,
+> and if we miss one that doesn't result in a way to make the kernel oops.
+
+We could easily invert the logic in this patch to make this opt-in, but
+it might be difficult to know exactly which ones want to opt-in, given
+it's been enabled by default for a really long time.
+
+Thierry
+
+--kwbsr3rt6ars6dkv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqyjBUACgkQ3SOs138+
+s6FB0w//YYnwrP3Ylhg3ZzfG+Tds7tZLFcuHw1pBiUwC/YxW5Q3fl7JDC3t2SL/3
+ogmRufIr6xCsCX1DtB17OjdEo1gGTToxG6eFNKV6DsUvRpyW+nF+r0S+RW+Zz1BC
++uq+s6cSV1rujTJlevs4rBHDnau1YUc6I651fTS6X3xvZBoXSslUqxePtmU8n0aC
+JhiXR856APtcRyFOs7OX3MEHJB+SpUosWU8qrC05Rpx5piHEcbj+yfo8RypfV2PH
+nDcHQRANYSnLQmjYtTB0cmrPC8HT9UQVo5ALJI1WCuX1i8MzKiCRnMvIeTigIBO5
+Dq3rhf/Yg3wejrxtPpcDFDFcgQu5dLnBEi3eTAfEFQa3rk8xvg1Qq6rsMLkk7Af4
+mjV7NDbUW6P56nUSfsb0n9RvbocBb57b5gdo3+Qr4J3VkJYcWQAvf/G9IW05rPfY
+fjmo+Wnns8IDVz9xVdtBF1Oc0MQLlkM+plzSIcE5a/C9T30iLZtx0MAHTPsMi36T
+BpB2226AJYXXWtJY5FfzrIP97iUn67QPcSZQqEJedPUtq2aG5Xh/1IbkfMXyMNFo
+yXae75FKPsBMsvm/3uk9uYq9WiblC7Gy+15sNTRyI0z/TDsOeiIzuWLApB+fvoFU
+3CLOuTay5DYZ1Z/n8UEuniB99361gX/HCv0+y7R4P83SIVBvF+o=
+=ohp9
+-----END PGP SIGNATURE-----
+
+--kwbsr3rt6ars6dkv--
