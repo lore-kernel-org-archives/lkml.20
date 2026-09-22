@@ -1,380 +1,310 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B994A688B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106925; cv=pass; b=HE2vAF37dBiWv8RhvPrUNCTZO6niqsel3cCRZhqKZedHAQAtVqoAIRuYSzVZPaBCZM0PXzDQFoDxNAr9NwrMQWbwrkONFGOpE++HRkcVltrXnrN3eUEHGVfp8EwCsgkfeH6Df9kdoRleC3yH/3qNqXxGfVtZxR6eW+TLnjNWVLQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106925; c=relaxed/simple;
-	bh=zB6lNLmcf4TXFD1nthxq4b0MqaJa5h13GLTe9DTQAQ4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QS6/kyYgCLMEcyTOFDklSdWpq4DbbwHcqmNTxIwKFkkzSQNwA107rXwgR6qA2cOfUIxPJYNYEmSUONjmIoUMgpVqbCBVZRJ9lYklYV/WfPy7F5i8onChi2x+xA4tOeVVvIJ1Po6xlUW0PzZAyRrzolR+CiN9cOo9ut6qgJlXgh0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=DOTN+VRj; arc=pass smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C67649E5C3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790106947; cv=none; b=nQJ9g3E1cpDaWXQQ0056X38pA39SqdDhY4exLWIUDrjhtjPkeSx9Ian746t52UVyOiMAyaOB1Dw9D4h240iyL2KMCkEpLwRjuIA8NxGh062EL3oQ7Xn0Fya9D1QUR0mTiyiuPF2VBXLufH2fHD/nBugjk5TCw0nvoshIizBjILU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790106947; c=relaxed/simple;
+	bh=IQCPqAcKfTSMbnbhBNrVI2Xy4poxRTksS098B2Eb/DA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tp+1CvY4Qu8/4TINEyHNqQOvYfcC9PLDF+97Z7wZzthhdh8RaXITV+oJpq0o9yVECxgDToJvtFfOqm6WRSqflTVdPO5coFMtvFU/G+/hJnrnNoIg67HUWTvBsSXMgycM6sDuHMuwVR82QU42kR1I2on6p846kxOCZ5/m/VVLOk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=e5edXr/8; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="DOTN+VRj"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb767cc71so2426771cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:55:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790106921; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lr82tI+ZvFYFX5R0qdGOGQVlfwJ3DQk2AevVwIjj1SWuyjl/LA9Jn6HexJNM/IwAg8
-         zJoLyV8fAdJTTWwRTUFIh+2677H2kItkdbGVaHZl4XOHpOrfTOY3p2LwKCR28P5COzQ7
-         DWMOA/de+NRKa2DSUmB0Of9OWJqhxmGW6auz/5qSuUq2SsVGVmMKDPQUbSO0wNtvRFS8
-         8fefkMTm9PankM0pCN5j/JZWQ36dM4rcA2vOiN7hxmHj9ojw1mWllVO00/LXO/hmOD+b
-         PWlTfXdzOxgF0eBgteie3k5/ta3Na85ytqnMI3NxzygFBfjJScbAKvGrdIrBTcfp3KOu
-         /E6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3MJR+9B05XkGSZVsnTWPOt9y1Fup8Pf5AVkP65nsWhM=;
-        fh=pmAaWylISy51LhoF7LSH2ik3sm/F5+/0mz2Q2x6/ZRs=;
-        b=DY0Hymtk/2NhBCZ7IjyzQdWhwLdulmauz/YvWxgPPD5POebld4vMLMG7y/gO9q7pos
-         45Av8HdLmiQoE0BZ9Ko/Jif2WzkIgXlH0CCuZyq0+Ti67q/wLB0cbmVm8rNy92QI5hcQ
-         CcNC+GBb9E4MSLcvDUNGZEkZFdpNNjR5HkT90qkbY2H54yw1crGjefHrPjg7gfS9FJvL
-         mq+QTcWGtY/5v5nfczJM1Ql3EPWpOvmzJRJPCAuyQFsSUYsgrcLAgt9QAHRl3HiN2h4x
-         da4U0xzZ8TAwkcVOU15sSIlDSdgzYE8mLo8J8deK+2DKMrmaLGOCEIgo05BeCWmhDIqr
-         OeCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="e5edXr/8"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33bf5a1c4d9so182672eec.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:55:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1790106921; x=1790711721; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3MJR+9B05XkGSZVsnTWPOt9y1Fup8Pf5AVkP65nsWhM=;
-        b=DOTN+VRji/NeX2O6qxY5aUmVm2REIX2+7TwCG7f3HLcx9/T1vcQztYsFwCZ1eRaSR1
-         l/I+zrDv2lRm2ZbZ1w2VlfQ1oyzaCRavvfw0tRXlK+GYH9AnzJakrZILzPYB33QuN8sb
-         12+eJ0J1FiTDclThEOf5Gi8FQCOWhiN2OzxL3Zn8AIcKNH5nSBy6Ey40nonD0J2hnCnF
-         +awYYnS6S5MRli7XpqnNhIX+vkgQBQYKifR2qZHLEjaTUtgNFSOEnBBXyLeXJQhSU0JT
-         WRQTyGHo/RVtTuIQ792bQcuTn879MaFJSdLgVKxAmd/x3zMKkm5QuXNc6NGwLWo1Jmj/
-         MY6w==
+        d=trailofbits.com; s=google; t=1790106944; x=1790711744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IQ9k2LdyZWOUW3xTJYRrKh41LbCR8tTkAlidpFMhPxM=;
+        b=e5edXr/8g8bsauAvJp+ATgEwJt/10Of850dEU/nvIEjD/gRCt/QPyHB5kuWGZScQZp
+         p7lN8k9Gsf9ZM4N0PX7TatChfYCnjIpqhQcmffRgXHDKbAyp11CLwLwsUCI/1K5CAeAB
+         jvf6yAVd3T/ZfvvsxWcXztH1zfffZlUiYPJG2Ukt9ssEvSLyxBuZ5KkkQsuez23gOVlO
+         MiZNu80UyVTZB6ZjjsEskq9tpvCUmTHg3H74qrLlAf6IONdV0DvqSxKosSH/KFaGRvkk
+         7jDCS8qUc4gk9Q5ljgG00Q6bBASNtzv9ScC+gIoZlJjhvrtAzxaXxZgfXAYAyhE4tP0D
+         XO+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790106921; x=1790711721;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3MJR+9B05XkGSZVsnTWPOt9y1Fup8Pf5AVkP65nsWhM=;
-        b=B507ivWR0CUBXI6DWeFDftoRak1grnmQOvyJpuvRMWOg685cooC6xxYhJRt0UigqY6
-         mH5QhQ28SyPbTS3c9nc/SQaOxoZW1plChhwugA2VEkxhpZBpJsILIudOgW+98JOol9B6
-         oUHuBaZ+1nxQB7/h4HQRCHDL1WAMTFYV+vEyt6x5Y6FgS+AU2LlyBnKbVPsPnWxI9vJM
-         gJLOpOcJA8mTVp8COPoohpy1zuL3DtrPGiDMiLRKqa9zZffeF4TME6238n68aHIAZidF
-         wL7Y36Jb1VX4OE0gWqqvNUlUGCm41wl2qRuFj87MZTztm6hIM4sNYbCGsQkUhhYxQxG/
-         atnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCbyFf8fKPUIa5Nn6sAsYy77VestcStfZWymhIhCfvMRMnXDeHtftwPKLarZOiUTAR215uFvWWeuWD+A8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktLMpTwor77FprH2HchedsIlxWlKudfsRWFIEUKKiSujAFp3+E
-	bNYudZjL0kNt6jTUNgI48q5TXetbaSDQ4bu/nIXQe5/zNpjpLfg/WuIxtg3nEAEnDDIfwYuTHa1
-	5LOD7Bn5B6noFUaU+X37EEzlJHvr6K4IlwTbCEuOEvA==
-X-Gm-Gg: AYBFou1RLEYeGVJngBbcrKWnjzRTgxuJ3b7pqsadHBrQR/q8crQeh5GfmRyHindKmmT
-	OWIcuVTEUzIecccMCjNtnJNZYQZyq0dLvwdmzORUW36JdWE94zaV92HZAqxGxYYTUcKl/KTU6hN
-	BxBfqo9nSWA++dSL3Grl3xhFi+cos70FsJ6dsNl2ci58XkI/mTbEfzzzMA5/6PpoYiY8i8bpKxZ
-	+YvUyWJKypI2zNT0RoNRQUiOusMcwZvF1qcne/8bBtcVT14R5NUlOU+hArZDTZfPbF1uOGE2Bvu
-	MDBop6ZR1ejr0rMKvCf07KCRymroCQBcTgWY9V0hQfZTpQM8YCTUY7IV
-X-Received: by 2002:a05:622a:4807:b0:532:d0ab:f3cb with SMTP id
- d75a77b69052e-532eadbd4b5mr10656351cf.59.1790106921022; Tue, 22 Sep 2026
- 12:55:21 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790106944; x=1790711744;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IQ9k2LdyZWOUW3xTJYRrKh41LbCR8tTkAlidpFMhPxM=;
+        b=f0TcSHcH0FnZ8YPPIVa8whyXwyJVunQmbcyihxMhuY2A5z3YqR/RL1iorsWBraYaeB
+         t/bhC4xnOIOBSnAKuQ8HnAA5GPb0ruxUqoq0jHNAJyH8o1LNqxmbRdgX0gJqiNWXeO3H
+         29z1toJnr4vqT90Rrq3Wek3+PMP++bGXwHzgkKjbaXwlt7ZCOI2cq8C7OWTTJBXbZ2v8
+         fgHy0Of8yfuQ7Yed3xyzERhnvunhHgZRs+jpaiFjTM9sXRYzmZuL8g5/hyEfsSA0i0kB
+         ilh59rWCmpzhI6+n5Lbs5W5Gu7p5Rqnpa9vDOKzKpCcwa3OEhsBIB3woAEtfnvM6TVVL
+         EjvA==
+X-Forwarded-Encrypted: i=1; AKwUvBy75go7240yWwx0hBVfyeIf8u521pL/bJujG/KFSAfN6Ta+mP6eDxmnec3oD8rT1nxqjWYXzFfMOufw8tA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM7ud/kri7MIx+ZaLPkfhMewcxtlprXEycIJfO0GS0Ft6Tp05W
+	Ys/Isl/VYPPToNMs7yd9hdQFMjmSEtngHtdFdhzT/Wqi1ZqaAcBHBYFAEzOwyTnuqvU=
+X-Gm-Gg: AYBFou1oH0n+Z4sKtEmSPxrIgdin0M8g6Pg+xIqGp2rSYfJa1M4kK9Q4MPG87N1QIdH
+	BnO5DTxbfDUJLI7Vrr0HwVCqV8yxaaTlgTobUCNNkzosUZ9cvGltOaeBXciD0z1ccafJABeXkz1
+	8hqKAjxZCr7+1gzH/UTht+qMk7NNcVkJq8xVbs1muHjEwexULyNpyTOhuKBro87fN6OP9PKBtih
+	C5J+5aZDCHNqsznOAki02NyjAGuZWHHL9OJG6U8lCkTmiEqtdFzpe2evs2hgTBCPejXtG34P26S
+	g6x/uMNHwJaYEEWBLjLRmnybohxXOWJSwPyPv02miuZmMP1chZEMey1IDbsiQZ9W71MoYU6jQV+
+	N0CwJPTWP1wvGRe8bRh3/s+Ek62q9GNZ9LItr5AO8klz0ucea6d+KeitdP+KKgW3FEQzn8eMwzP
+	FGKbine4nziJZ9Xy2NbFjIIrAETq2/VAeGXpX80TpLxRh5tmXqFTtVIZkcjhnkbdluzK3b599n1
+	5h8NPf8T09m9DikCBYBLy3BealJmyn+L4ijOFEFenPpRKvM/vV1wiQF5QuooRMUJ6K/Ty5Liazt
+	aKxH2Q==
+X-Received: by 2002:a05:7022:fa9:b0:143:2719:a501 with SMTP id a92af1059eb24-144f9173969mr664924c88.40.1790106943509;
+        Tue, 22 Sep 2026 12:55:43 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:c016:77a6:d382:7611])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f949e51asm578264c88.1.2026.09.22.12.55.42
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 12:55:43 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yhs@fb.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	KP Singh <kpsingh@kernel.org>,
+	Stanislav Fomichev <sdf@google.com>,
+	Hao Luo <haoluo@google.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Martin KaFai Lau <martin.lau@kernel.org>
+Subject: [PATCH 6.1.y] bpf: bpf_sk_storage: Fix invalid wait context lockdep report
+Date: Tue, 22 Sep 2026 15:55:38 -0400
+Message-ID: <20260922195539.26679-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910202812.1642832-1-sgogte@purestorage.com>
- <20260910202812.1642832-4-sgogte@purestorage.com> <bec91f99-4498-4be9-bf96-f3021c79f3f1@grimberg.me>
-In-Reply-To: <bec91f99-4498-4be9-bf96-f3021c79f3f1@grimberg.me>
-From: "Surabhi Gogte (she/her)" <sgogte@purestorage.com>
-Date: Tue, 22 Sep 2026 12:54:45 -0700
-X-Gm-Features: AcwNN1Uz64RWiq9roHL-G4V9fQSjEC7rP5r0n-KWaGYq3XCS5Khgm1bpMuH2QRo
-Message-ID: <CAMof9cWqVs89MVr0D8nsNBwvuQU25itf3SqCn=OZrrZKY_MkMA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] nvme-tcp: parallelize I/O queue allocation and startup
-To: Sagi Grimberg <sagi@grimberg.me>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
-	Solganik Alexander <sashas@lightbitslabs.com>, Roy Shterman <roys@lightbitslabs.com>, 
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	mkhalfella@purestorage.com, randyj@purestorage.com, adailey@purestorage.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 2:27=E2=80=AFPM Sagi Grimberg <sagi@grimberg.me> wr=
-ote:
->
->
->
-> On 10/09/2026 23:28, Surabhi Gogte wrote:
-> > Similar to commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue
-> > allocation and startup"), refactor nvme tcp I/O queue setup to use asyn=
-c
-> > API, combining allocation and startup into a single parallel operation
-> > per queue. This reduces connection and reconnection setup time when
-> > there are delays in establishing connections, which is especially
-> > important for high-core-count hosts.
-> >
-> > Key changes:
-> > - Use async API to facilitate parallel calls for io queue setup.
-> > - Add nvme_tcp_queue_setup_ctx for propagating errors from async
-> >    workers.
-> > - Remove nvme_tcp_start_io_queues() and __nvme_tcp_alloc_io_queues();
-> >    their logic is folded into nvme_tcp_setup_io_queues() and
-> >    nvme_tcp_configure_io_queues().
-> > - Allocate the io tag set before the queues so that the queue range is
-> >    known, and only set up the reconnect grow case if the queue count
-> >    actually increased.
-> > - Serialize the cpu scan and claim in nvme_tcp_set_queue_io_cpu() with =
-a
-> >    spinlock, as concurrent callers would otherwise select the same cpu.
-> >    The per-cpu counters no longer need to be atomics.
-> >
-> > Testing on a 64-core host with 64 IO-queues shows nvme-tcp connection
-> > time reduced from 61ms to 11ms.
-> >
-> > Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
-> > ---
-> >   drivers/nvme/host/tcp.c | 124 +++++++++++++++++++++++++--------------=
+From: Martin KaFai Lau <martin.lau@kernel.org>
+
+[ Upstream commit a96a44aba556c42b432929d37d60158aca21ad4c ]
+
+'./test_progs -t test_local_storage' reported a splat:
+
+[   27.137569] =============================
+[   27.138122] [ BUG: Invalid wait context ]
+[   27.138650] 6.5.0-03980-gd11ae1b16b0a #247 Tainted: G           O
+[   27.139542] -----------------------------
+[   27.140106] test_progs/1729 is trying to lock:
+[   27.140713] ffff8883ef047b88 (stock_lock){-.-.}-{3:3}, at: local_lock_acquire+0x9/0x130
+[   27.141834] other info that might help us debug this:
+[   27.142437] context-{5:5}
+[   27.142856] 2 locks held by test_progs/1729:
+[   27.143352]  #0: ffffffff84bcd9c0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire+0x4/0x40
+[   27.144492]  #1: ffff888107deb2c0 (&storage->lock){..-.}-{2:2}, at: bpf_local_storage_update+0x39e/0x8e0
+[   27.145855] stack backtrace:
+[   27.146274] CPU: 0 PID: 1729 Comm: test_progs Tainted: G           O       6.5.0-03980-gd11ae1b16b0a #247
+[   27.147550] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.14.0-0-g155821a1990b-prebuilt.qemu.org 04/01/2014
+[   27.149127] Call Trace:
+[   27.149490]  <TASK>
+[   27.149867]  dump_stack_lvl+0x130/0x1d0
+[   27.152609]  dump_stack+0x14/0x20
+[   27.153131]  __lock_acquire+0x1657/0x2220
+[   27.153677]  lock_acquire+0x1b8/0x510
+[   27.157908]  local_lock_acquire+0x29/0x130
+[   27.159048]  obj_cgroup_charge+0xf4/0x3c0
+[   27.160794]  slab_pre_alloc_hook+0x28e/0x2b0
+[   27.161931]  __kmem_cache_alloc_node+0x51/0x210
+[   27.163557]  __kmalloc+0xaa/0x210
+[   27.164593]  bpf_map_kzalloc+0xbc/0x170
+[   27.165147]  bpf_selem_alloc+0x130/0x510
+[   27.166295]  bpf_local_storage_update+0x5aa/0x8e0
+[   27.167042]  bpf_fd_sk_storage_update_elem+0xdb/0x1a0
+[   27.169199]  bpf_map_update_value+0x415/0x4f0
+[   27.169871]  map_update_elem+0x413/0x550
+[   27.170330]  __sys_bpf+0x5e9/0x640
+[   27.174065]  __x64_sys_bpf+0x80/0x90
+[   27.174568]  do_syscall_64+0x48/0xa0
+[   27.175201]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+[   27.175932] RIP: 0033:0x7effb40e41ad
+[   27.176357] Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d8
+[   27.179028] RSP: 002b:00007ffe64c21fc8 EFLAGS: 00000202 ORIG_RAX: 0000000000000141
+[   27.180088] RAX: ffffffffffffffda RBX: 00007ffe64c22768 RCX: 00007effb40e41ad
+[   27.181082] RDX: 0000000000000020 RSI: 00007ffe64c22008 RDI: 0000000000000002
+[   27.182030] RBP: 00007ffe64c21ff0 R08: 0000000000000000 R09: 00007ffe64c22788
+[   27.183038] R10: 0000000000000064 R11: 0000000000000202 R12: 0000000000000000
+[   27.184006] R13: 00007ffe64c22788 R14: 00007effb42a1000 R15: 0000000000000000
+[   27.184958]  </TASK>
+
+It complains about acquiring a local_lock while holding a raw_spin_lock.
+It means it should not allocate memory while holding a raw_spin_lock
+since it is not safe for RT.
+
+raw_spin_lock is needed because bpf_local_storage supports tracing
+context. In particular for task local storage, it is easy to
+get a "current" task PTR_TO_BTF_ID in tracing bpf prog.
+However, task (and cgroup) local storage has already been moved to
+bpf mem allocator which can be used after raw_spin_lock.
+
+The splat is for the sk storage. For sk (and inode) storage,
+it has not been moved to bpf mem allocator. Using raw_spin_lock or not,
+kzalloc(GFP_ATOMIC) could theoretically be unsafe in tracing context.
+However, the local storage helper requires a verifier accepted
+sk pointer (PTR_TO_BTF_ID), it is hypothetical if that (mean running
+a bpf prog in a kzalloc unsafe context and also able to hold a verifier
+accepted sk pointer) could happen.
+
+This patch avoids kzalloc after raw_spin_lock to silent the splat.
+There is an existing kzalloc before the raw_spin_lock. At that point,
+a kzalloc is very likely required because a lookup has just been done
+before. Thus, this patch always does the kzalloc before acquiring
+the raw_spin_lock and remove the later kzalloc usage after the
+raw_spin_lock. After this change, it will have a charge and then
+uncharge during the syscall bpf_map_update_elem() code path.
+This patch opts for simplicity and not continue the old
+optimization to save one charge and uncharge.
+
+This issue is dated back to the very first commit of bpf_sk_storage
+which had been refactored multiple times to create task, inode, and
+cgroup storage. This patch uses a Fixes tag with a more recent
+commit that should be easier to do backport.
+
+Fixes: b00fa38a9c1c ("bpf: Enable non-atomic allocations in local storage")
+Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Link: https://lore.kernel.org/bpf/20230901231129.578493-2-martin.lau@linux.dev
+
+[ Backport to 6.1.y: retain the pre-reuse_now unlink/free API while
+  moving the charged element allocation outside local_storage->lock. ]
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and BPF maintainers,
+
+I am continuing backporting CVE fixes still missing from 6.1.y.
+This fix is inherited by v6.6 and every later mainline release, but 6.1.y
+still has the affected code. The target-specific adjustment is described
+in the bracketed note above.
+
+Could you please queue it for 6.1.y?
+
+Thanks,
+Artem Dinaburg
+
+CVE: CVE-2023-53857
+
+Build: This patch was included in an x86_64 allmodconfig and
+CONFIG_WERROR=y build.
+It produced vmlinux and modules with no new warnings or errors.
+
+AI assistance: An LLM helped find, adapt, and validate this
+backport; I reviewed the patch and test output.
+
+ kernel/bpf/bpf_local_storage.c | 47 ++++++++++------------------------
+ 1 file changed, 14 insertions(+), 33 deletions(-)
+
+diff --git a/kernel/bpf/bpf_local_storage.c b/kernel/bpf/bpf_local_storage.c
+index 51a9f024c18298..23cbd7b1b810d7 100644
+--- a/kernel/bpf/bpf_local_storage.c
++++ b/kernel/bpf/bpf_local_storage.c
+@@ -373,7 +373,7 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
+ 			 void *value, u64 map_flags, gfp_t gfp_flags)
+ {
+ 	struct bpf_local_storage_data *old_sdata = NULL;
+-	struct bpf_local_storage_elem *selem = NULL;
++	struct bpf_local_storage_elem *alloc_selem, *selem = NULL;
+ 	struct bpf_local_storage *local_storage;
+ 	unsigned long flags;
+ 	int err;
+@@ -427,11 +427,12 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
+ 		}
+ 	}
+ 
+-	if (gfp_flags == GFP_KERNEL) {
+-		selem = bpf_selem_alloc(smap, owner, value, true, gfp_flags);
+-		if (!selem)
+-			return ERR_PTR(-ENOMEM);
+-	}
++	/* A lookup has just been done before and concluded a new selem is
++	 * needed. The chance of an unnecessary alloc is unlikely.
++	 */
++	alloc_selem = selem = bpf_selem_alloc(smap, owner, value, true, gfp_flags);
++	if (!alloc_selem)
++		return ERR_PTR(-ENOMEM);
+ 
+ 	raw_spin_lock_irqsave(&local_storage->lock, flags);
+ 
+@@ -443,13 +444,13 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
+ 		 * simple.
+ 		 */
+ 		err = -EAGAIN;
+-		goto unlock_err;
++		goto unlock;
+ 	}
+ 
+ 	old_sdata = bpf_local_storage_lookup(local_storage, smap, false);
+ 	err = check_flags(old_sdata, map_flags);
+ 	if (err)
+-		goto unlock_err;
++		goto unlock;
+ 
+ 	if (old_sdata && (map_flags & BPF_F_LOCK)) {
+ 		copy_map_value_locked(&smap->map, old_sdata->data, value,
+@@ -458,23 +459,7 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
+ 		goto unlock;
+ 	}
+ 
+-	if (gfp_flags != GFP_KERNEL) {
+-		/* local_storage->lock is held.  Hence, we are sure
+-		 * we can unlink and uncharge the old_sdata successfully
+-		 * later.  Hence, instead of charging the new selem now
+-		 * and then uncharge the old selem later (which may cause
+-		 * a potential but unnecessary charge failure),  avoid taking
+-		 * a charge at all here (the "!old_sdata" check) and the
+-		 * old_sdata will not be uncharged later during
+-		 * bpf_selem_unlink_storage_nolock().
+-		 */
+-		selem = bpf_selem_alloc(smap, owner, value, !old_sdata, gfp_flags);
+-		if (!selem) {
+-			err = -ENOMEM;
+-			goto unlock_err;
+-		}
+-	}
 -
-> >   1 file changed, 79 insertions(+), 45 deletions(-)
-> >
-> > diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-> > index fe0e581608b4..0fc244e676f9 100644
-> > --- a/drivers/nvme/host/tcp.c
-> > +++ b/drivers/nvme/host/tcp.c
-> > @@ -7,6 +7,7 @@
-> >   #include <linux/module.h>
-> >   #include <linux/init.h>
-> >   #include <linux/slab.h>
-> > +#include <linux/async.h>
-> >   #include <linux/err.h>
-> >   #include <linux/crc32.h>
-> >   #include <linux/nvme-tcp.h>
-> > @@ -54,7 +55,8 @@ MODULE_PARM_DESC(tls_handshake_timeout,
-> >                "nvme TLS handshake timeout in seconds (default 10)");
-> >   #endif
-> >
-> > -static atomic_t nvme_tcp_cpu_queues[NR_CPUS];
-> > +static int nvme_tcp_cpu_queues[NR_CPUS];
-> > +static DEFINE_SPINLOCK(nvme_tcp_cpu_queues_lock);
-> >
-> >   enum nvme_tcp_send_state {
-> >       NVME_TCP_SEND_CMD_PDU =3D 0,
-> > @@ -154,6 +156,12 @@ struct nvme_tcp_queue {
-> >   static DEFINE_MUTEX(nvme_tcp_ctrl_mutex);
-> >   static LIST_HEAD_GUARDED(nvme_tcp_ctrl_list, nvme_tcp_ctrl_mutex);
-> >
-> > +struct nvme_tcp_queue_setup_ctx {
-> > +     struct nvme_ctrl        *ctrl;
-> > +     int                     qid;
-> > +     int                     *err;
-> > +};
-> > +
-> >   struct nvme_tcp_ctrl {
-> >       /* read only in the hot path */
-> >       struct nvme_tcp_queue   *queues;
-> > @@ -1719,9 +1727,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvm=
-e_tcp_queue *queue)
-> >               goto out;
-> >
-> >       /* Search for the least used cpu from the mq_map */
-> > +     spin_lock(&nvme_tcp_cpu_queues_lock);
-> >       io_cpu =3D WORK_CPU_UNBOUND;
-> >       for_each_online_cpu(cpu) {
-> > -             int num_queues =3D atomic_read(&nvme_tcp_cpu_queues[cpu])=
-;
-> > +             int num_queues =3D nvme_tcp_cpu_queues[cpu];
-> >
-> >               if (mq_map[cpu] !=3D qid)
-> >                       continue;
-> > @@ -1732,9 +1741,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvm=
-e_tcp_queue *queue)
-> >       }
-> >       if (io_cpu !=3D WORK_CPU_UNBOUND) {
-> >               queue->io_cpu =3D io_cpu;
-> > -             atomic_inc(&nvme_tcp_cpu_queues[io_cpu]);
-> > +             nvme_tcp_cpu_queues[io_cpu]++;
-> >               set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
-> >       }
-> > +     spin_unlock(&nvme_tcp_cpu_queues_lock);
-> >   out:
-> >       dev_dbg(ctrl->ctrl.device, "queue %d: using cpu %d\n",
-> >               qid, queue->io_cpu);
-> > @@ -2011,8 +2021,11 @@ static void nvme_tcp_stop_queue_nowait(struct nv=
-me_ctrl *nctrl, int qid)
-> >       if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
-> >               return;
-> >
-> > -     if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-> > -             atomic_dec(&nvme_tcp_cpu_queues[queue->io_cpu]);
-> > +     if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags)) {
-> > +             spin_lock(&nvme_tcp_cpu_queues_lock);
-> > +             nvme_tcp_cpu_queues[queue->io_cpu]--;
-> > +             spin_unlock(&nvme_tcp_cpu_queues_lock);
-> > +     }
-> >
-> >       mutex_lock(&queue->queue_lock);
-> >       if (test_and_clear_bit(NVME_TCP_Q_LIVE, &queue->flags))
-> > @@ -2119,25 +2132,6 @@ static void nvme_tcp_stop_io_queues(struct nvme_=
-ctrl *ctrl)
-> >               nvme_tcp_wait_queue(ctrl, i);
-> >   }
-> >
-> > -static int nvme_tcp_start_io_queues(struct nvme_ctrl *ctrl,
-> > -                                 int first, int last)
-> > -{
-> > -     int i, ret;
-> > -
-> > -     for (i =3D first; i < last; i++) {
-> > -             ret =3D nvme_tcp_start_queue(ctrl, i);
-> > -             if (ret)
-> > -                     goto out_stop_queues;
-> > -     }
-> > -
-> > -     return 0;
-> > -
-> > -out_stop_queues:
-> > -     for (i--; i >=3D first; i--)
-> > -             nvme_tcp_stop_queue(ctrl, i);
-> > -     return ret;
-> > -}
-> > -
-> >   static int nvme_tcp_alloc_admin_queue(struct nvme_ctrl *ctrl)
-> >   {
-> >       int ret;
-> > @@ -2198,22 +2192,64 @@ static int nvme_tcp_tls_check_psk(struct nvme_c=
-trl *ctrl)
-> >       return 0;
-> >   }
-> >
-> > -static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
-> > +static void nvme_tcp_setup_queue_async(void *data, async_cookie_t cook=
-ie)
-> >   {
-> > -     int i, ret;
-> > +     struct nvme_tcp_queue_setup_ctx *ctx =3D data;
-> > +     struct nvme_ctrl *ctrl =3D ctx->ctrl;
-> > +     int ret;
-> >
-> > -     for (i =3D 1; i < ctrl->queue_count; i++) {
-> > -             ret =3D nvme_tcp_alloc_queue(ctrl, i,
-> > -                             ctrl->tls_pskid);
-> > -             if (ret)
-> > -                     goto out_free_queues;
-> > +     ret =3D nvme_tcp_alloc_queue(ctrl, ctx->qid, ctrl->tls_pskid);
-> > +     if (ret)
-> > +             goto out_err;
-> > +
-> > +     ret =3D nvme_tcp_start_queue(ctrl, ctx->qid);
-> > +     if (ret)
-> > +             goto out_err;
-> > +
-> > +     return;
-> > +
-> > +out_err:
-> > +     WRITE_ONCE(*ctx->err, ret);
-> > +}
-> > +
-> > +static int nvme_tcp_setup_io_queues(struct nvme_ctrl *ctrl, unsigned i=
-nt first,
-> > +             unsigned int last)
-> > +{
-> > +     ASYNC_DOMAIN_EXCLUSIVE(queue_domain);
-> > +     struct nvme_tcp_queue_setup_ctx *ctxs;
-> > +     int nr_queues =3D last - first;
-> > +     int err =3D 0, i, ret;
-> > +
-> > +     ctxs =3D kmalloc_objs(*ctxs, nr_queues);
-> > +     if (!ctxs)
-> > +             return -ENOMEM;
-> > +
-> > +     for (i =3D 0; i < nr_queues; i++) {
-> > +             ctxs[i].ctrl =3D ctrl;
-> > +             ctxs[i].qid =3D first + i;
-> > +             ctxs[i].err =3D &err;
-> > +             async_schedule_domain(nvme_tcp_setup_queue_async, &ctxs[i=
-],
-> > +                             &queue_domain);
-> >       }
-> >
-> > +     async_synchronize_full_domain(&queue_domain);
-> > +     kfree(ctxs);
-> > +
-> > +     ret =3D READ_ONCE(err);
-> > +     if (ret)
-> > +             goto out_free_queues;
-> > +
-> >       return 0;
-> >
-> >   out_free_queues:
-> > -     for (i--; i >=3D 1; i--)
-> > -             nvme_tcp_free_queue(ctrl, i);
-> > +     for (i =3D first; i < last; i++) {
-> > +             struct nvme_tcp_queue *queue =3D &to_tcp_ctrl(ctrl)->queu=
-es[i];
-> > +
-> > +             if (test_bit(NVME_TCP_Q_LIVE, &queue->flags))
-> > +                     nvme_tcp_stop_queue(ctrl, i);
-> > +             if (test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
-> > +                     nvme_tcp_free_queue(ctrl, i);
-> > +     }
-> >
-> >       return ret;
-> >   }
-> > @@ -2255,10 +2291,6 @@ static int nvme_tcp_configure_io_queues(struct n=
-vme_ctrl *ctrl, bool new)
-> >       if (ret)
-> >               return ret;
-> >
-> > -     ret =3D __nvme_tcp_alloc_io_queues(ctrl);
-> > -     if (ret)
-> > -             return ret;
-> > -
-> >       if (new) {
-> >               ret =3D nvme_alloc_io_tag_set(ctrl, &to_tcp_ctrl(ctrl)->t=
-ag_set,
-> >                               &nvme_tcp_mq_ops,
-> > @@ -2269,12 +2301,12 @@ static int nvme_tcp_configure_io_queues(struct =
-nvme_ctrl *ctrl, bool new)
-> >       }
-> >
-> >       /*
-> > -      * Only start IO queues for which we have allocated the tagset
-> > +      * Only setup IO queues for which we have allocated the tagset
-> >        * and limited it to the available queues. On reconnects, the
-> >        * queue number might have changed.
-> >        */
-> >       nr_queues =3D min(ctrl->tagset->nr_hw_queues + 1, ctrl->queue_cou=
-nt);
-> > -     ret =3D nvme_tcp_start_io_queues(ctrl, 1, nr_queues);
-> > +     ret =3D nvme_tcp_setup_io_queues(ctrl, 1, nr_queues);
-> >       if (ret)
-> >               goto out_cleanup_connect_q;
-> >
-> > @@ -2298,12 +2330,14 @@ static int nvme_tcp_configure_io_queues(struct =
-nvme_ctrl *ctrl, bool new)
-> >
-> >       /*
-> >        * If the number of queues has increased (reconnect case)
-> > -      * start all new queues now.
-> > +      * setup all new queues now.
-> >        */
-> > -     ret =3D nvme_tcp_start_io_queues(ctrl, nr_queues,
-> > -                                    ctrl->tagset->nr_hw_queues + 1);
-> > -     if (ret)
-> > -             goto out_wait_freeze_timed_out;
-> > +     if (ctrl->tagset->nr_hw_queues + 1 > nr_queues) {
-> > +             ret =3D nvme_tcp_setup_io_queues(ctrl, nr_queues,
-> > +                             ctrl->tagset->nr_hw_queues + 1);
-> > +             if (ret)
-> > +                     goto out_wait_freeze_timed_out;
-> > +     }
->
-> This if condition can probably move into nvme_tcp_setup_io_queues() and
-> exit early if both are the same. Other than that, patch looks solid. Can
-> you please also run blktests to see that nothing broke. There may be
-> some tests that have subtle race conditions. rdma and tcp btw.
++	alloc_selem = NULL;
+ 	/* First, link the new selem to the map */
+ 	bpf_selem_link_map(smap, selem);
+ 
+@@ -485,20 +470,16 @@ bpf_local_storage_update(void *owner, struct bpf_local_storage_map *smap,
+ 	if (old_sdata) {
+ 		bpf_selem_unlink_map(SELEM(old_sdata));
+ 		bpf_selem_unlink_storage_nolock(local_storage, SELEM(old_sdata),
+-						false, true);
++						true, true);
+ 	}
+ 
+ unlock:
+ 	raw_spin_unlock_irqrestore(&local_storage->lock, flags);
+-	return SDATA(selem);
+-
+-unlock_err:
+-	raw_spin_unlock_irqrestore(&local_storage->lock, flags);
+-	if (selem) {
++	if (alloc_selem) {
+ 		mem_uncharge(smap, owner, smap->elem_size);
+-		kfree(selem);
++		kfree(alloc_selem);
+ 	}
+-	return ERR_PTR(err);
++	return err ? ERR_PTR(err) : SDATA(selem);
+ }
+ 
+ static u16 bpf_local_storage_cache_idx_get(struct bpf_local_storage_cache *cache)
+-- 
+2.39.5
 
-Thanks. Sending a v4 version with this change. Also, I ran blktests
-for tcp and rdma. The blktests nvme/062 "Create TLS-encrypted
-connections" and nvme/063 "Create authenticated TCP connections with
-secure concatenation" related to tls need ktls-utils-1.4.0 (c63c04b)
-(tlshd) linked against gnutls 3.8.5. rdma also passed fine.
