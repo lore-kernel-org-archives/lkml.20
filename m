@@ -1,79 +1,51 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDD441D62E
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2741F41A563
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065562; cv=none; b=jvSuAqEHebYmYDoF3sBwr1z2NBsc4gAJdbbsSXtk8QgWrcIDi/+7t5YiiGFwhgoxOA3g4tbDwJ5vGTxRS8ni0T9vJNPyJKNBgwAST7nPCPQeKefb7t83PrMjgTm/sm3bmqah5Viay53rqZAvReqjCqWDxL9tCdyLDG+McXG+j00=
+	t=1790065563; cv=none; b=NUDDE7Auqbpf9rM+3wPCY1rUFgwoZ4amItZgs9UPM3yZvM7gBZoSkmSnzlZLD+ZQDl03NNiTKENzTy6vnGDms2JexQgV4ZALTDn7cP9wzKHUO0hY5g1p91cmEGzE3bBCjizH9kNIvyl/e6BV0Ez4ZJ4Y5XezUdbAb0UHxQzzmzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065562; c=relaxed/simple;
-	bh=dBBpa7Ydst38i8cZsMQVxzXK9rqMNseU8twqVhQtE78=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XLrssaPIDqMHt0xGwcN5m3S3JYar5V+Q1Ymo0KbrBpVaMn+XM0hESrtLXp7CAZjbJ0cv0oEJSYeVgMtTVMPpo8ZngJyEXO2nZPCdvTpEb7JqXaWwROlRKZg23VoP0/oqNliLIs2IXJiy46tVieUoCpLOTj2T+bkVydlzcl8yVUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=EHyNhINq; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790065563; c=relaxed/simple;
+	bh=PrLP3tuQCMJ/kT4PIk9b1njiI+XHANuzdvVsdZOBlPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vCPuqGKEXBGbTB3jgTjc+hfr15Sf7kMy4CtWhTaJc1LR4zU4fM5q4h8GnPCUY4sHlVBSBNxskvFOyNTj5D4JuFmpegjowta5r6ma2plKpaDTQzpd7DSC8VH45BUodRNsYBo35JWIeUqECKNVjOywvdyA7TGeaMkA+sqiQMgvqL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=bkeIIKTQ; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="EHyNhINq"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334ddcso31954605ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:25:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1790065558; x=1790670358; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Id4aiEwWk24mT8CByvlZpwQS9RXne8NT6QXvKFa3y1M=;
-        b=EHyNhINq+oMknrG/8IGrEy2BE5yyRk8MEMJKq7Jbnnt/Sz0/usHcGFLqXJ4X8+kQS7
-         UHZ8rN8b+/Qv4tJGJAbDRTXU+TcvuFLd5vBBWT3ZQhLu5VlDFyiCVDwLUEjLhfKu0HYt
-         qSZWTDDmfKD85R0WFIEohMZKKnX9slN7Ii3rYNEWkVvpJAeIuI3KXXDhojiUZOgyzM1y
-         mZDyyVet2TkAY4X3csjUQQtk5geFpHZpuGoQT7GwunKmS2L7BQu/BoYwjWPujhB+iyjh
-         N524K2N4wC2wE8Xc8Mdn5NlvxK4sLgYlKFTx9rdvJrYBElfskWNQ5WX8iJC2iJbI9++k
-         0vWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790065558; x=1790670358;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Id4aiEwWk24mT8CByvlZpwQS9RXne8NT6QXvKFa3y1M=;
-        b=a/P7onoCoO9Q7KXu/AB3nhix+vX3JM19jTEo9LhCz94lzRDGprk1Z1PUlS4hlFelAZ
-         vplNzvTQUPmpObAAr8+wZo5o6DXoKLeIcYMxvED9uSPdcRjRyfWNWLNjzZ/5gouRzdCx
-         S9Ux4TlprEldd0ESF7j+YMnYCrpToqH/KpZBZQEFQ1LpUxpSu2/RcuM3HNh1jVXUT5IC
-         AL9bFGCDOELiciFrhwhH3E1vwkQ47qwyiXkdV2G9hOtaKXS1R0XboCVVl0rhWPms9N3u
-         EYHjzQA0SCytMjm5JQEz95d2usdc0ozUxfVRllS1w+QukAfM1wEFvmJZ5Ox6LkzYRf84
-         YqgA==
-X-Forwarded-Encrypted: i=1; AKwUvByCEG+2LywsajJA+S+hl1DM7vewi4bJs5PRNGq/tlKGLziSyCLAP94wuGKVhV6/MilxAl3wj+zPzCRFC/w=@vger.kernel.org
-X-Gm-Message-State: AFuF++la8RGng2oB/sAxsBWkqpp9B8nh1W5oMJimsMnVnwqL1vwPO33r
-	tpX49cORXsvN6fsd0CSuqEiI4bPJwsv6OfNrLLecKXi4B44bd8QAc6ORGSYpJwQSfeqTScJfBYx
-	PTzx2CVs=
-X-Gm-Gg: AYBFou1pNKJ7ePSGnEluQms7rNjkSghnSLlRyGLab2Y/0/cvyVuqUV/D8GoPhYIfPCf
-	fUxSmQIzvliayQkBrjXhw9Axg+4YfJqV3KzBpMkDUClonpyyRYc7ghXlZP+5ENCrggYpzSEuK9B
-	cyG1rphNjxh2Ku+J7bBlgD9+HJfG4j2Z0F3GDh5r8qQO0VtVHq9b2uWw0ea3KtAc+A8gH2J5WiG
-	iWc1POesxqQ/ZQFdCEaACCbp/RxDwXigV0NcJzUKtGfI9VkZy0Apk0CK7RTayvM/n8CNHRwvp64
-	bMoJt1SdU3FWhbxgFTmVGE+32LZGGgyg+lmPXNr+rnCmSewNT3wfhS7+KJ3JzVZ0RrrFt24HznH
-	toYXjecJsxBLcP7q5S/G/gmfWdxYNe2RNijTPFkiXWTFl5IfyJYCS6IKXkwZCKnzFFsRnUQKUKw
-	NUDEBcLR3QqniPL5UXUD8WNVqaGoooSxFw9znxVNu3Izd0bsmUKtufIQnyRu3f00jBSGzRIa/YT
-	NWz2xUHJDhYkzY+P6AJ
-X-Received: by 2002:a17:90b:1e53:b0:39e:2c5c:a69a with SMTP id 98e67ed59e1d1-3a07309eb75mr436231a91.5.1790065558109;
-        Tue, 22 Sep 2026 01:25:58 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07385e516sm223056a91.0.2026.09.22.01.25.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:25:57 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	nvdimm@lists.linux.dev,
-	linux-cxl@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="bkeIIKTQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=WF
+	GPfj5F6LU6aPgGdfYzMcrrNlDa1VfYz2Wv44E936I=; b=bkeIIKTQMzRQC7Qi9z
+	wBhJUN1kpBpC9wcdGVIYkH/8g0SMfs99vE8i3k2hxruqzu2gsmGl2kMhSgcp9sUp
+	rMmC9KF1NIe6iRkQa0R67kUBNfzfMlrxrj+Mtj9qlvKqpEovf8jZC4tlE7Xijrk4
+	793vGRi6llslLr/4lCYRCxnZ4=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDnf19EO7JqGPEWAw--.36542S2;
+	Tue, 22 Sep 2026 16:24:37 +0800 (CST)
+From: albin_yang@163.com
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	chen.yu@linux.dev,
+	kayracizmeci@gmail.com,
+	mintaohuang@tencent.com,
 	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>,
-	muchun.song@linux.dev
-Subject: [PATCH v2 0/2] dax: Fix Device DAX range allocation validation
-Date: Tue, 22 Sep 2026 16:25:49 +0800
-Message-ID: <20260922082551.874901-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
+	albin_yang@163.com,
+	albinwyang@tencent.com,
+	Chen Yu <yu.c.chen@intel.com>
+Subject: [PATCH v3] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
+Date: Tue, 22 Sep 2026 16:24:32 +0800
+Message-ID: <20260922082432.2987855-1-albin_yang@163.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,53 +53,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDnf19EO7JqGPEWAw--.36542S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWkZF1DtrW5GF4xXFy8AFb_yoW5ZF4Up3
+	ykWw1UAa18Kr1rGr1qvr4UWry3uwsrG3y3tFnFy34rKrW5KF1Yvw12va13XrsYyrWvyFW3
+	ZF1jgwsIya1qyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEv388UUUUU=
+X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbCzgUnyWqyO0UzwgAA3y
 
-While working on the HugeTLB Vmemmap Optimization (HVO) generalization,
-Sashiko reported that memmap_init_zone_device() could be asked to
-initialize struct pages with a large-page order for a physical range
-that was not naturally aligned to that order.
+From: Wei Yang <albinwyang@tencent.com>
 
-Following the Device DAX call path confirmed that the condition was
-reachable. Device DAX range validation checks the range size, but not
-its start address. An unaligned range can therefore reach
-memmap_init_zone_device() after the device binds, and a subsequent write
-to a userspace mapping may trigger a kernel panic. With the help of an
-LLM, I was able to reproduce the failure.
+With DELAY_DEQUEUE, a blocked task stays on the runqueue with
+se.sched_delayed set and its sched_info.last_queued is cleared, so the sleep
+is not counted into run_delay.
 
-The automatic resize path has a related problem. It can split an aligned
-size request across arbitrary free gaps, consume an unaligned fragment,
-and leave the resize partially applied when a later allocation fails.
+When such a delayed (sleeping) task is migrated across CPUs via the plain
+migration paths (move_queued_task / move_queued_task_locked, the latter used
+by __migrate_swap_task), activate_task(dst, 0) calls enqueue_task() without
+ENQUEUE_RESTORE, re-arming last_queued to the migration timestamp while the
+task is still sleeping. The later real wakeup (ENQUEUE_DELAYED) tries to
+re-arm last_queued at wakeup time but is suppressed because last_queued is
+already non-zero, so sched_info_arrive() folds the whole sleep duration
+between migration and wakeup into run_delay.
 
-This series first fixes the mapping sysfs attribute to propagate
-validation failures. It then validates both the start and size of every
-Device DAX range and makes automatic resize account only for usable
-aligned space.
+Load balance is affected too: the sched_delayed check in can_migrate_task()
+bails out only when env->migration_type != migrate_load, so it does not
+block migration when the type is migrate_load - which active load balance
+always uses (its lb_env leaves migration_type at 0 == migrate_load), and
+which regular load balance can also use via calculate_imbalance(). Either
+way the re-attach goes through attach_task() -> activate_task(rq, p,
+ENQUEUE_NOCLOCK), without ENQUEUE_RESTORE.
 
-The changes were tested by booting the kernel in a VM with a fragmented
-dynamic DAX region. Misaligned mappings were rejected with -EINVAL,
-aligned allocation and multi-range mmap read/write succeeded, and an
-allocation exceeding the usable aligned space returned -ENOSPC without
-leaving a partial allocation.
+Fix by not re-arming last_queued for a sched_delayed task in
+sched_info_enqueue(). The wakeup path clears sched_delayed before reaching
+sched_info_enqueue(), so it still re-arms at the real wakeup time. Plain
+runnable tasks are unaffected.
 
-v2:
-- Return explicit errors before Device DAX range allocation
-  (suggested by Dave Jiang)
-- Move the mapping error reporting fix before the range alignment
-  validation fix for independent backports (suggested by Dave Jiang)
-- Keep the alloc_is_aligned() name to avoid unrelated helper renaming
-  (suggested by Dave Jiang)
+Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
+Reported-by: MingTao Huang <mintaohuang@tencent.com>
+Signed-off-by: Wei Yang <albinwyang@tencent.com>
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+---
 
-v1: https://lore.kernel.org/all/20260915095621.3744167-1-songmuchun@bytedance.com/
+Changes in v3:
+- Collect Reviewed-by from Kayra Cizmeci and K Prateek Nayak.
+- Collect Tested-by from K Prateek Nayak.
 
-Muchun Song (2):
-  dax/bus: fix mapping attribute error reporting
-  dax/bus: fix Device DAX range alignment validation
+Changes in v2:
+- Correct the load-balance description: sched_delayed tasks are not excluded
+  from active load balancing. can_migrate_task()'s sched_delayed check only
+  bails out when env->migration_type != migrate_load, so active load balance
+  (which always uses migrate_load) still migrates them.
+- Collect Reviewed-by from Chen Yu.
 
- drivers/dax/bus.c | 142 +++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 110 insertions(+), 32 deletions(-)
+v2: https://lore.kernel.org/all/20260920043116.1298017-1-albin_yang@163.com/
+v1: https://lore.kernel.org/all/20260909133345.1572954-1-albin_yang@163.com/
 
+ kernel/sched/stats.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-base-commit: 93f51579e7df248780214094418f205253383cc5
+diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
+index ebe0a7765f98..dc626f99ffd9 100644
+--- a/kernel/sched/stats.h
++++ b/kernel/sched/stats.h
+@@ -290,7 +290,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
+  */
+ static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
+ {
+-	if (!t->sched_info.last_queued)
++	if (!t->sched_info.last_queued && !t->se.sched_delayed)
+ 		t->sched_info.last_queued = rq_clock(rq);
+ }
+ 
 -- 
-2.54.0
+2.43.7
 
