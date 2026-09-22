@@ -1,53 +1,59 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C622F432306;
-	Tue, 22 Sep 2026 05:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E247486B8F;
+	Tue, 22 Sep 2026 05:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055264; cv=none; b=sUJObvXkG+QtTNr667nCWuUr50WU3eqRJmIqRo4cdV2+rtSMjl3/mlKskfoyDjnID3La2S+fW8aOBUrJbWP0JSgy/IrLgINJgfHC1ELhyaxfj6ksliG+opDy33sdayJm8uLgbummYhWZociOVypmXt7gOVhb6Q2dypZ+9acPVuA=
+	t=1790055276; cv=none; b=Z8KHu/oC/8BZ2pGpLRjhZwkKii1jnVwO2aKdUqbw2xgUk72M3qw4mepP2bGZBzS15jmMIuOzcpO0bQJDY9JsFqzGT5B/8WF6ipTK7Iwvd3FbsH1qj1LFpTsMKvlpiZT95mUocr/R4s18LH7Gz1R4Ew3/fyJ62FD+9oowajP9FE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055264; c=relaxed/simple;
-	bh=Q0XhJdpgm33Gw4prQpgCoBBkbAdwC6AIX/OqmkLThA0=;
+	s=arc-20240116; t=1790055276; c=relaxed/simple;
+	bh=G5QWb085++C1NES4QHKSOkentZJJe/esSp7hNvxDtcA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WAwn1njEBo1uypDJEQFTS5DBbHgSeuVNdEMeXM27fSe0MtMe8MZM5nMCM+qnlqiFpoa10d5bcIPaw/K/dZb3CdGdrw4xrpL1wy8ptl3aWDA5qYPwtpVQNDxgr2t4JqMCx86CfGHmLmkGTHY5L1WI2h+4+dRcvNgFRjiKg3TlY3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=25SQCC/Y; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=oqw2RQr0OS2r/BySN6hA0X50vNZUaAm2huYq1Ky03N2ApBNp22GeIXV5rFa0Rwm9MF36KgEqScUqtIznGlaaoJM6yVklwcwCXbSOc4jA+P5pskm3WbOr9r1Gy7sgQFnw2N+Qzjsgv7C9ToRCfQ0LOBfFt9Wi/QP380VqJj5ah4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1ozlkmqE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="25SQCC/Y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Aa88rA2eZs0mP8Zfad7TGSmmevr029N5R2DM/dywu/E=; b=25SQCC/YPcjBv/JNUlV2GOnRsp
-	JOOreYhEjecIoU1qFVp4gP1RkRPaSO0Y1Qqp/cMGh7zhSMJdcTrjHo4WNEdoBw3uol6OJpx+y8ox9
-	TrOAEwXtLskUzxQh2fxfObP7CMogyGGbFhnkPmYsQ3giOXz68sqgNvPSQdnIMuS45lCsSR+bIHRNU
-	5oF73xr5WnGo4ywLGYxo2xtRZNo7PHvhNzVPjcmutn2jBpUftmdftoTOZ9trRE91WCU8cRZBh+1/V
-	jhCavt57URweGzEvFaADCxGIHOKq/4mmJFLFfFf1HqU+LXvKRgylM7GKm4aWNKKDNZi8hKJyYZ+pl
-	XLkxoadw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x8t93-00000004Fmb-0922;
-	Tue, 22 Sep 2026 05:34:21 +0000
-Date: Mon, 21 Sep 2026 22:34:21 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Brian Foster <bfoster@redhat.com>,
-	Damien Le Moal <dlemoal@kernel.org>, Hannes Reinecke <hare@suse.de>,
-	Daniel Gomez <da.gomez@samsung.com>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] iomap: don't resubmit an ioend after
- ->writeback_submit() failed
-Message-ID: <arITXTsUhrA0N-qr@infradead.org>
-References: <20260921083133.2960-1-parri.andrea@gmail.com>
- <20260921083133.2960-2-parri.andrea@gmail.com>
- <20260921222953.GM6283@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1ozlkmqE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 866421F0089E;
+	Tue, 22 Sep 2026 05:34:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790055275;
+	bh=yDg9zB+OcRSPGsH8sMFONNQJDzYQOBah6woULOymdfU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=1ozlkmqEZ5UoZqoZaKYxSNT7yfe/ybD/o1TG/HZHaD2MqlI6cQxlhIk0ozMIlLsBS
+	 r8a8UP3pGxNFCAbY5cLCgQhr3gLBo0nEqZ2qbvlVePPFSXOn+OWDG3rFI8BLx76OTv
+	 sB54JkYQk6I4b1ssxsK3Sc/J+VrgRTNfRIVT/oig=
+Date: Tue, 22 Sep 2026 07:34:31 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Minas Harutyunyan <hminas@synopsys.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Damon Ding <damon.ding@rock-chips.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Heiko Stuebner <heiko@sntech.de>, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [RFC PATCH 4/5] usb: dwc3: core: Adapt the return value changed
+ for disabled blob
+Message-ID: <2026092202-armband-avatar-0dd7@gregkh>
+References: <20260922024724.191412-1-inochiama@gmail.com>
+ <20260922024724.191412-5-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,15 +62,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921222953.GM6283@frogsfrogsfrogs>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20260922024724.191412-5-inochiama@gmail.com>
 
-On Mon, Sep 21, 2026 at 03:29:53PM -0700, Darrick J. Wong wrote:
-> > +				 */
-> > +				wpc->wb_ctx = NULL;
-> 
-> Do you need to do the same thing for the ->writeback_submit call in
-> iomap_writepages?
+On Tue, Sep 22, 2026 at 10:47:19AM +0800, Inochi Amaoto wrote:
+> Check EOPNOTSUPP for disabled helper function as the change in phy core.
 
-No, after that the wpc is not reused.
+That says what, but not why.  And what "as the change" specifically?  Be
+verbose please.
 
+thanks,
+
+greg k-h
