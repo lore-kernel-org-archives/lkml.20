@@ -1,213 +1,91 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C82F5437CC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7A52D12F3;
+	Tue, 22 Sep 2026 12:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081510; cv=none; b=JzvaH/BltBwfrh6qd4SY5KKQURE+M1AifJje0x+jboTFXgCs6ggKkoMYxMlCSpdhtmfilBQOLaPOvvhnZv4PUBHpUrBshK67zWiBAnVnx3Vi9D3KxKtxbVZxhN6wyJnh1YDwH1DSZ2IuZUrbUGrGF8IWbHtHsiMzxsr4IhhDvkk=
+	t=1790081517; cv=none; b=f32s30sEpFV8Nie10zksypwv+AM/uR2c8Sw9n/Zbe6pnVpsVZH8R8f2RTcLOIhJdgy7fSP8bfMgIWHZZN1h4bchU8PsMQDq+ylQZcSTi4tF1MfpyzP53Y/46azcFJ+PwAZkz7JyCVfcNzc58nEYLRDqaxeEglhAkx4Z2fqgD5W4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081510; c=relaxed/simple;
-	bh=OXzfeDmD951o3euygjRBAF9wXGmT9BdYgGl/v+Cm9r0=;
+	s=arc-20240116; t=1790081517; c=relaxed/simple;
+	bh=xFpxlzu1SH7kFoX4Fmr5tfR2CvWslninUOlAtwBKpFU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EMw0dUrCAnGR2WfEwXeLdw6Ltm+CL2UxRPNAacsdMBkNts5SzFgJp0+gX60PFzfLeia8tzkJYn76iY4+b60sIkfS6Yf79PfmuVAwmmBq38OiUxCd0SwHfI+KyqAQDFxfsUUMbmImejCGg3Y/pFOwV8+x2HuH/8wj+jYW7VAQcRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g9RIVInQ; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=U2Gc0WAot6dIkeyCb/Y8MwwJgd7XZZlQDUnkZlRWv26VYfs386fe7zi08gM4sElzbgFGfNQq+rFk0OSE4b1iIZQ+2ysZBDgjd33fp4y9YHifR4PPdkWxxPinoUMQcr9JWJBEKvb5YsOu7uqXVj1MNIDyQiGKjxkFXJhwc35XSzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvegNx+y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9RIVInQ"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a605c198fdso6009755a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:51:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790081506; x=1790686306; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G0pT1Bz/Ukk2yKj9z6fcgefhEfOADcNNQjef2vknbn4=;
-        b=g9RIVInQdKaSdYWatGpXagCypwmcCzhBgFGKFtf762MF/3ZlsAjt9BfnvnPqi59kXM
-         Kd50sPec7U0J3dHaMPnkUa1Tle3dHmGG/xXDCHQJ9NidFY1pQpxpnP2l2RZtWq+wUJSA
-         NNFhZ+l6JXMXraxZZXSCHcOP8qbj3D62X2y3KoqOoBw96sX8zkYlhP3cussrfGSUGsQj
-         mZA0gRnTJ7KLLgcfhL/r2uKG72U9SRJTFgQr7yPIYoib9SRyh9navUWGguetckKZU+Sr
-         baR257uIfabsuKCLjezL/3kUFI6WnPNor+fZBs7KYeiiKrT6tSs/uLRaBPUZx3Owx7gj
-         OYOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790081506; x=1790686306;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=G0pT1Bz/Ukk2yKj9z6fcgefhEfOADcNNQjef2vknbn4=;
-        b=bh1kuZae1sdkWYUzOZQ7S/Kr6e3yzNFQlOS/P5dbj2tdHLngvXUSjWliFMFL33a2+d
-         zHRtJSeQiV8/900h5d/RB/CYIUxVAAp5Ds1NS46imVXVjiehMSDaSJVuDy2G0HJPybEc
-         JntPokaP3TS4qY0OjtyVXaGMqNh99E3WJPncESDKlTt40wQxcmFtBPow6TmL8cR3ms8R
-         HtucrCtm2UoUA/o6GWpzu7HZdhWjpj+QMbU6zfjnkVHRRewAzzPEtsp+DCSnS2IZ14Cz
-         E5s4W5a6UhYwgtoYEvDuy2/Pvs+IgcXH9eOgLWs/d/aZxoQ3/zktg7igP0RH8Avwrcyj
-         3AUg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/ytHTSleUkDfXOVV2be/uX9BPG8lyQimXEcaRLK6NvsERJ/Xt3G1ffrxUIwLILk2whZuU64Y5TGz2fGU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4RPBCdAF50Tgy/Zc35pCiVqD0Ox6K2nNgAz88tFiCzYvS3YNq
-	TSd4D82nM57X1FXf/4BVbM4rTEUEePsZpvq4ty/+jx5mlxYR3Cxm7EW5
-X-Gm-Gg: AYBFou0mB3kX6fPKzVEVWXhuLN1ywYFBH5hCVrMwIxl4uPEW5QE/O9bCgj6vNd+2Hmm
-	FzCc8LrXqqLDYe0jBIa3hwAZpeXSNhlKCitxJAATAkWQhhAxe49XUDmQl3vj1MeAdzgEXn54qwD
-	5Qi9zFQBn0wwgk0Rj39sDNIXH1vnu9KgxGlGQTisL6Cyu2n1wfleYlff6em/TN8Ym7TXnVdMHj3
-	i7lgZW0FglDLivH0wsC7Mu86VjdVncxBasuFuRhkFczVBQtWlw+zZ2wXDPZ0vqT09gw5zZPgeuc
-	kURjb8X2bJLNxl/HhGI9A/T6m7F8k41+vDZZn4AbHfp/gA1eNV3fGG3C8H7F2VE/Gat1jxo5rJG
-	H/cm0y9CUhv64fTMPhJtnWmj6j7WXeh8OgStFUwhsuV6dmA8DIc0VLVCM7hGf+hUUtC47LM7M8Y
-	xlgRZTpBR0lzQ4O036KW4404jZ+iRbZfMcqBwdsYxAHg5kk4OZ2X6H+y71i3jl2DXUQZmB
-X-Received: by 2002:a05:6402:1d4f:b0:6aa:9823:218a with SMTP id 4fb4d7f45d1cf-6aa982324cfmr3582241a12.31.1790081506095;
-        Tue, 22 Sep 2026 05:51:46 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa4537b5dsm1073668a12.30.2026.09.22.05.51.45
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 22 Sep 2026 05:51:45 -0700 (PDT)
-Date: Tue, 22 Sep 2026 12:51:45 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
-To: Yuan Liu <yuan1.liu@intel.com>
-Cc: David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org,
-	Nanhai Zou <nanhai.zou@intel.com>,
-	Chen Zhang <zhangchen.kidd@jd.com>,
-	Jason Zeng <jason.zeng@intel.com>, Chen Yu <yu.c.chen@intel.com>,
-	Pan Deng <pan.deng@intel.com>, Tianyou Li <tianyou.li@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 2/2] mm/memory_hotplug: optimize zone contiguous
- check when changing pfn range
-Message-ID: <20260922125145.3fygpy7gxoztsa3n@master>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
-References: <20260920084946.3266279-1-yuan1.liu@intel.com>
- <20260920084946.3266279-3-yuan1.liu@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvegNx+y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D2E1F000FF;
+	Tue, 22 Sep 2026 12:51:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790081515;
+	bh=fiMlgP1e00pJ9OYBpmJDP/4QtkAS97V78LW/zmFPMUg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gvegNx+yhAzmeRvs+R3bUP32kC367DnxpOccZ0a9Ui3XILxfJ8BjbLuBhgPrxJkU6
+	 nDfRDCYpBz6W92/Aoli556lGZYo6nAq4s+bEMdcY5u+to/vG9Y2zOI6D0o208it25x
+	 aLC3kD0RlDS7zRJp4MzrZxnYzY7nVpOsaB7MW5z8ATZu6VeU1M7WIW9GIWEtdaNVB3
+	 /q0sbGVkUFS8koHsZjdGqnkVqb4JAtSOS7UzP1UmgWAoMVJqCc5DrU8qo/rChVeLQr
+	 a71nIpbBrkB+YbdEZnAIsirzeMhKmRAQRmOPAXIaJ802lbEFtjaSIgYZzfeaipeLQ9
+	 LyFMi/XCihlyQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 877FC1AC56BF; Tue, 22 Sep 2026 13:51:51 +0100 (BST)
+Date: Tue, 22 Sep 2026 14:51:51 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ASoC: rt5663: Cancel jack detect work on unbind
+Message-ID: <arJ551jJ9cXjAua8@sirena.co.uk>
+References: <20260922015327.637137-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PUUJfxvHa6/CLNO6"
+Content-Disposition: inline
+In-Reply-To: <20260922015327.637137-1-mhun512@gmail.com>
+X-Cookie: Too clever is dumb.
+
+
+--PUUJfxvHa6/CLNO6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260920084946.3266279-3-yuan1.liu@intel.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 20, 2026 at 04:49:46AM -0400, Yuan Liu wrote:
->When move_pfn_range_to_zone() or remove_pfn_range_from_zone() updates a
->zone, set_zone_contiguous() rescans the entire zone pageblock-by-pageblock
->to rebuild zone->contiguous. For large zones this is a significant cost
->during memory hotplug and hot-unplug.
->
->Add a new zone member, pages_with_online_memmap, that tracks the
->number of pages within the zone span that have an online memory map,
->including present pages and memory holes whose memory map has been
->initialized and for which pfn_to_online_page() succeeds.
->
->For early boot memory, pages_with_online_memmap is calculated in
->memmap_init_zone_range(). PFNs initialized by memmap_init_range() are
->included in pages_with_online_memmap, and hole PFNs for which
->pfn_to_online_page() succeeds are also counted in
->init_unavailable_range(). For hotplugged memory,
->pages_with_online_memmap is updated through adjust_present_page_count(),
->which is called during memory online and offline operations. When
->spanned_pages == pages_with_online_memmap, every PFN in the zone span
->has a valid memmap entry, so pfn_to_page() can be called for any PFN
->within the zone span without an additional pfn_valid() check.
->
->Note: this counter may temporarily undercount when pages with an
->online memory map exist outside the current zone span. Such pages
->are only created during boot, when initializing the memory map of
->pages that do not fall into any zone span. The undercount itself
->can only happen after boot, during memory hotplug, when growing
->the zone to cover such pages and later shrinking it back, which
->may result in a "too small" value. This is safe: it merely
->prevents detecting a contiguous zone.
->
->Here is an example (page numbers are just for illustration purposes):
->  after boot:
->      [  zone span  ]
->      [   zone pages   ]
->      spanned=10, initialized=15, online=10
->      online == spanned  ->  contiguous
->
->  growing after hotplug (hotplug 5):
->      [  zone span                          ]
->      [   zone pages   ]   [   zone pages   ]
->      spanned=30, initialized=20, online=15
->      online != spanned  ->  not contiguous
->
->  shrinking after hotunplug (hotunplug 5 again):
->      [  zone span     ]
->      [   zone pages   ]
->      spanned=15, initialized=15, online=10
->      online != spanned  ->  not contiguous although contiguous
->
->The contiguity check using pages_with_online_memmap is stricter than
->the old pageblock-by-pageblock scan. The old set_zone_contiguous()
->iterated at pageblock granularity via pageblock_pfn_to_page(), so a
->zone could be marked contiguous even if a subsection-sized hole
->existed within a pageblock. The new check requires
->spanned_pages == pages_with_online_memmap, meaning every PFN in the
->zone span must satisfy pfn_to_online_page().
->
->The following test cases of memory hotplug for a VM [1], tested in the
->environment [2], show that this optimization can significantly reduce the
->memory hotplug time [3].
->
->+----------------+------+---------------+--------------+----------------+
->|                | Size | Time (before) | Time (after) | Time Reduction |
->|                +------+---------------+--------------+----------------+
->| Plug Memory    | 256G |      10s      |      3s      |       70%      |
->|                +------+---------------+--------------+----------------+
->|                | 512G |      36s      |      7s      |       81%      |
->+----------------+------+---------------+--------------+----------------+
->
->+----------------+------+---------------+--------------+----------------+
->|                | Size | Time (before) | Time (after) | Time Reduction |
->|                +------+---------------+--------------+----------------+
->| Unplug Memory  | 256G |      11s      |      4s      |       64%      |
->|                +------+---------------+--------------+----------------+
->|                | 512G |      36s      |      9s      |       75%      |
->+----------------+------+---------------+--------------+----------------+
->
->[1] Qemu commands to hotplug 256G/512G memory for a VM:
->    object_add memory-backend-ram,id=hotmem0,size=256G/512G,share=on
->    device_add virtio-mem-pci,id=vmem1,memdev=hotmem0,bus=port1
->    qom-set vmem1 requested-size 256G/512G (Plug Memory)
->    qom-set vmem1 requested-size 0G (Unplug Memory)
->
->[2] Hardware     : Intel Icelake server
->    Guest Kernel : v7.3-rc3
->    Qemu         : v9.0.0
->
->    Launch VM    :
->    qemu-system-x86_64 -accel kvm -cpu host \
->    -drive file=./Centos10_cloud.qcow2,format=qcow2,if=virtio \
->    -drive file=./seed.img,format=raw,if=virtio \
->    -smp 3,cores=3,threads=1,sockets=1,maxcpus=3 \
->    -m 2G,slots=10,maxmem=2052472M \
->    -device pcie-root-port,id=port1,bus=pcie.0,slot=1,multifunction=on \
->    -device pcie-root-port,id=port2,bus=pcie.0,slot=2 \
->    -nographic -machine q35 \
->    -nic user,hostfwd=tcp::3000-:22
->
->    Guest kernel auto-onlines newly added memory blocks:
->    echo online > /sys/devices/system/memory/auto_online_blocks
->
->[3] The time from typing the QEMU commands in [1] to when the output of
->    'grep MemTotal /proc/meminfo' on Guest reflects that all hotplugged
->    memory is recognized.
->
->Reported-by: Nanhai Zou <nanhai.zou@intel.com>
->Reported-by: Chen Zhang <zhangchen.kidd@jd.com>
->Tested-by: Yuan Liu <yuan1.liu@intel.com>
->Reviewed-by: Jason Zeng <jason.zeng@intel.com>
->Reviewed-by: Chen Yu <yu.c.chen@intel.com>
->Reviewed-by: Pan Deng <pan.deng@intel.com>
->Co-developed-by: Tianyou Li <tianyou.li@intel.com>
->Signed-off-by: Tianyou Li <tianyou.li@intel.com>
->Signed-off-by: Yuan Liu <yuan1.liu@intel.com>
->Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+On Mon, Sep 21, 2026 at 09:53:27PM -0400, Myeonghun Pak wrote:
+> ASoC: rt5663: Cancel jack detect work on unbind
 
-LGTM, thanks for the effort.
+This is an extra copy.
 
-Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
+>=20
+> jack_detect_work and jd_unplug_work live in struct rt5663_priv, which
+> devres frees after rt5663_i2c_remove() returns.  The IRQ queues the
+> first work, a button press queues the second, and jd_unplug_work
+> rearms itself while the jack stays inserted.  Both callbacks load
+> rt5663->component before checking it, and nothing clears that pointer.
+> rt5663_suspend() cancels the works; unbind does not.
 
--- 
-Wei Yang
-Help you, Help me
+The same is true for the probe error handling, if we fail component
+registration the same situation can happen.
+
+--PUUJfxvHa6/CLNO6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqyeeMACgkQJNaLcl1U
+h9Dwgwf/VLJ6cIAOqVazl1MbSP9/a7PBF7lNHSPlmhMWbvpE6H1r45MExf3+QHUY
+b2q38OILreuxCStw8dDQOAgLklqQz2aamyfI0spcuY/13nzztJzI4ufBJCyqGShd
+SE6JC8z8emA1Ie/w64EtYuqLt8gAQvmwsjSSjBOs5IUCAz2/4KTzFCWbIV8GoucE
+26nFwPNL3VChcnItHsiT4Qt7JgeLOuFngiK+fACeqsmjEZh4zuWMIW6BKzolSwYg
+45Vn1Yib6lFJsp8nljixGCV8lUy/EGj6ILopA2KT7/jFQ/STzXL3GWUB+KV7mqlR
+WpvI3mPupg9OCesR0ff9gN3cE9YwHg==
+=nKgT
+-----END PGP SIGNATURE-----
+
+--PUUJfxvHa6/CLNO6--
