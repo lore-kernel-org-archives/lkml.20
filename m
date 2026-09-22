@@ -1,145 +1,164 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6094541E70;
-	Tue, 22 Sep 2026 22:05:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A23411A0A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790114759; cv=none; b=BkHukWw+1U03uGR7WQAWAy5FC9y4C54yireOhDGfR4/dmb4RQv9+iqCGgpSQFuvs3GpJI3o5oZuqP7gXfyzCzWKZowmFSxi5LqLE3aiixqy+4lvVVPnqcXPzyiQfMv8T8mwCsx/KLAW+BLxZMJ/1xOmfbqNK/kc6zQoKkzyJ5Rg=
+	t=1790114838; cv=none; b=F8U525N0BVRmyn5c9mH1ashHiGKB6F7zCRmZsxBTYNW9GcLD/2AphwgURQj2FYvAQnkOxSAbZ2qZB5z6k/nIZrYRlZSDusY8R+vds/+1x3OBB1GVy5n1pb/mxYgECHhYQISVYgNWRdtoOgUpejnt3E4ytRWfV/beyoY+SnTbIvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790114759; c=relaxed/simple;
-	bh=RApttsCvYha03Lnki3mshCe/2wDbnmPkj501A898CtY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dWaU68J6pc5dsPQYkbx2X235irpAKHiJbxmaevDSjP0GIGP4UwnGQzPpyYpmFoh2Fy3Vw0rvXmE5az9/tWEMRih09QHARhEoaRWb7Z57EOkJ87eoqRlH+rk1c938ftUr6Faf4iVaoV9tyn1VL1pkohHI8mRNOiDcqNCvj1XipMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HgT3p/Q5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=/jO71TvP; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=quCjMDIb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9pk6tom4; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790114838; c=relaxed/simple;
+	bh=LvmLeQO2knT8uKaZkzMEOVAd85d4akQf14yLtxZoT+s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Fakcl8L/m1ww0NsVbAJ065H29CuMO9bWcRhTuzmLrxfVphqsFeZGdkIIvxlMLifnAi/sClCfnxmwJq1sDV/GgJ/kcKuI9MTuIaggMWx3gT2ZGyB6v4kpaFasrAYdAfElEkj0CysWMAcoSFpmKaPx2/34c9hHPmrDr76wzWu8QKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=Tx8MA2gi; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HgT3p/Q5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/jO71TvP";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="quCjMDIb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9pk6tom4"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C68C21DB8;
-	Tue, 22 Sep 2026 22:05:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790114742; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/idt+sdxH5E3LRbrlK4aNJgvUW7z3jw27sNns8vVE/U=;
-	b=HgT3p/Q5sqm61XXBpEUIgzzB7Ls/zQyb5MZzk24R0tXGY7WjBkvGSq75TjW6sUUDkNDcdK
-	PaUN25psfhIuXOh36xvLrn6z3i8vdBUGQUCATIlQUpbyK+8LpvWsvI2ew8CGYOAqKFQ3AS
-	n1eIzUhY7LKB/sX7GfExaqpz5NzSPow=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790114742;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/idt+sdxH5E3LRbrlK4aNJgvUW7z3jw27sNns8vVE/U=;
-	b=/jO71TvPWzmtdAT/UkMKZV0GrG3c9HZgCHe/zEOPcNgUIe8bT1NV0hfCB4YaCtG3HCbYHy
-	pN3xLd8QC0ga0MCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790114738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/idt+sdxH5E3LRbrlK4aNJgvUW7z3jw27sNns8vVE/U=;
-	b=quCjMDIbpkNxr60txU8UnKbZsy/fG9P2YANt1iziCXL5FS5k6o4Cc/MabAfPuIjGNUego8
-	b0HDvxEBONkrkpotZ8iq+usyuoohMW6dYo6+vh5bQq1OyHWaCU5b3wzjoudTJdx/0qSjkt
-	0gd6XMMhXysYwn2qMsbAIJOlSKQ+q/8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790114738;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/idt+sdxH5E3LRbrlK4aNJgvUW7z3jw27sNns8vVE/U=;
-	b=9pk6tom4Muc/Koaljtd1EOywH7TPs3I1JanAL5Z6PVIuSV3CwdiVj/v6Y7BiYRtZ3l6AH2
-	iGd2dLUEKE6Y97CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8F256132D3;
-	Tue, 22 Sep 2026 22:05:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9zMiDrH7smp9HQAAD6G6ig
-	(envelope-from <krisman@suse.de>); Tue, 22 Sep 2026 22:05:37 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- tglx@kernel.org, mingo@redhat.com, peterz@infradead.org
-Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for
- blocking inline issue
-In-Reply-To: <54310fb2-d4b0-4b97-bc07-68e27e462b29@kernel.dk>
-Organization: SUSE
-References: <20260911154148.644489-1-axboe@kernel.dk>
- <87tsnv1ynh.fsf@mailhost.krisman.be>
- <54310fb2-d4b0-4b97-bc07-68e27e462b29@kernel.dk>
-Date: Tue, 22 Sep 2026 18:05:35 -0400
-Message-ID: <871pal0wnk.fsf@mailhost.krisman.be>
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="Tx8MA2gi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1790114226;
+	bh=LvmLeQO2knT8uKaZkzMEOVAd85d4akQf14yLtxZoT+s=;
+	h=From:Date:Subject:To:Cc:From;
+	b=Tx8MA2giklnEuGt22s2hDTllJMWwHQEc/+l6xL0sESFpBj4fmazMGCB/TRLraVn8N
+	 /LpA26JRyrSwUhiSPJa3Wz8Z1x2UQ+aH1MH5x4UCE83xbNzRXZevAU0gXUgECv4/rG
+	 YWg0FDWlFEOkfePnrHISo/kqLVX/CrxvyDPYwP6Q=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 32F3F401A2;
+	Tue, 22 Sep 2026 14:57:06 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Tue, 22 Sep 2026 14:57:05 -0700
+Subject: [PATCH v3] sched: Clarify WF_SYNC wakeup semantics
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	HAS_ORG_HEADER(0.00)[];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_DN_SOME(0.00)[]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-sched-wf-sync-doc-v3-1-23ebe9e27bef@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIALD5smoC/23NQQ6DIBCF4asY1qUBiiJd9R5NFxVmlA00YLDGe
+ PeiSdM0cfm/ZL5ZSILoIJFrtZAI2SUXfInLqSJmePoeqLOliWCiYa2QNJkBLJ2QptkbaoOhoEU
+ nEXSrUJFy94qA7r2b90fpwaUxxHl/kfm2frX6QMucMoqt1mA7KRHrWw9+nMI5xJ5sXBY/QnN1R
+ IhCNJYjZ8qwWjd/xLquH4iLx2b2AAAA
+X-Change-ID: 20260824-sched-wf-sync-doc-e92b4fe987f7
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Christopher Lameter <clameter@amperecomputing.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790114226; l=4296;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=LvmLeQO2knT8uKaZkzMEOVAd85d4akQf14yLtxZoT+s=;
+ b=tZdyF1hJLRrdXO7z5ldOBIdp0TXirW2WHvm+5HCQJ0oCCMLqeR9nS/ec1XKQ6EezTTfgZdpwt
+ fkUr5SYQUhcDkYL+OdJCIylKHNjaOVKfJG14ugP8oC+ou97xgOdFfzr
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-Jens Axboe <axboe@kernel.dk> writes:
+The synchronous waitqueue wakeup comments currently state that a
+synchronous wakee will not be migrated to another CPU. This is not
+guaranteed by the scheduler wakeup path.
 
-> On 9/11/26 11:33 AM, Gabriel Krisman Bertazi wrote:
->> It has the downside of still requiring fixes to every path and we need
->> to handle every new case that comes by, but it is much cleaner than
->> plumbing a nonblock flag several layers down the stack across each
->> subsystem or having subsystem-specific details in io_uring, which is
->> what we have today.  On the upper side, it is much less complex than
->> your approach. It also allow us to just back off during memory
->> allocations that would block, solving the memory allocations anywhere in
->> the submission path, not only inside ->issue(), which we discussed
->> recently on discord.
->
-> I think you'll find it'll be a lot MORE complicated than my approach!
-> Backing out error handling is going to be impossible in some cases,
-> think file systems for example. How would those cases be handled?
+WF_SYNC is an advisory hint that the caller expects the waker to
+schedule away soon. Scheduler classes may use it for placement or
+preemption, but callers must not rely on it to prevent migration,
+preserve CPU locality, or make the wakee run next.
 
-I understand there are many cases where it would be impossible, most, if
-not all of them, involving FS.  But I naively imagine we could back-off
-those early, before we get to the critical session, without even trying
-the nonblock approach, similar to what we do now, and punt to the io-wq,
-which is not going away anyway.  What I'd like to solve is drop the
-logic of other parts of the kernel that we need to keep in the io_uring
-layer, such as which network protocols will block and which won't.
+Keep this contract next to the flag definition, remove the stale
+waitqueue wording, and make the locked helper refer to the unlocked
+variant.
 
-It is a hard sell, yes. And it does gives off vibes of re-editing the
-PF_MEMALLOC_NORECLAIM controversy. Long term, though, it would be much
-better for the kernel that can reliably handle failure and back-off than
-keep going, including for predictable performance.
+---
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+Changes in v3:
+  - Drop the standalone documentation in favor of a concise comment next
+    to WF_SYNC.
+  - Consolidate the series into one patch and remove the stale waitqueue
+    wording.
 
+Link to v2: https://lore.kernel.org/r/20260917-sched-wf-sync-doc-v2-0-6d1f107c0596@gentwo.org
+---
+ kernel/sched/sched.h |  9 +++++++--
+ kernel/sched/wait.c  | 22 +++++-----------------
+ 2 files changed, 12 insertions(+), 19 deletions(-)
+
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index e656c7059bf864d1ed91d4ec3d4624850aded7e0..fe366e9f248996a293e5bb6b76c8f01485a9ea6b 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2527,8 +2527,13 @@ static inline int task_on_rq_migrating(struct task_struct *p)
+ #define WF_EXEC			0x02 /* Wakeup after exec; maps to SD_BALANCE_EXEC */
+ #define WF_FORK			0x04 /* Wakeup after fork; maps to SD_BALANCE_FORK */
+ #define WF_TTWU			0x08 /* Wakeup;            maps to SD_BALANCE_WAKE */
+-
+-#define WF_SYNC			0x10 /* Waker goes to sleep after wakeup */
++/*
++ * Hint that the caller expects the waker to sleep soon.
++ * Scheduler classes may use it for placement or preemption.
++ * Callers must not rely on it to prevent migration,
++ * preserve CPU locality or make the wakee run next.
++ */
++#define WF_SYNC			0x10
+ #define WF_MIGRATED		0x20 /* Internal use, task got migrated */
+ #define WF_CURRENT_CPU		0x40 /* Prefer to move the wakee to the current CPU. */
+ #define WF_RQ_SELECTED		0x80 /* ->select_task_rq() was called */
+diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
+index d033f600f48c6fc3a0a088ea5d9f6ed95ec4c86e..477e4bf9c01e19a520b626c09a8b95c065616fe1 100644
+--- a/kernel/sched/wait.c
++++ b/kernel/sched/wait.c
+@@ -174,15 +174,11 @@ EXPORT_SYMBOL_GPL(__wake_up_locked_key);
+  * @mode: which threads
+  * @key: opaque value to be passed to wakeup targets
+  *
+- * The sync wakeup differs that the waker knows that it will schedule
+- * away soon, so while the target thread will be woken up, it will not
+- * be migrated to another CPU - ie. the two threads are 'synchronized'
+- * with each other. This can prevent needless bouncing between CPUs.
++ * Passes WF_SYNC to waitqueue wake functions. The default wake function
++ * forwards it to the scheduler; see WF_SYNC for the hint's semantics.
+  *
+- * On UP it can prevent extra preemption.
+- *
+- * If this function wakes up a task, it executes a full memory barrier before
+- * accessing the task state.
++ * If this function wakes up a task, it executes a full memory barrier
++ * before accessing the task state.
+  */
+ void __wake_up_sync_key(struct wait_queue_head *wq_head, unsigned int mode,
+ 			void *key)
+@@ -200,15 +196,7 @@ EXPORT_SYMBOL_GPL(__wake_up_sync_key);
+  * @mode: which threads
+  * @key: opaque value to be passed to wakeup targets
+  *
+- * The sync wakeup differs in that the waker knows that it will schedule
+- * away soon, so while the target thread will be woken up, it will not
+- * be migrated to another CPU - ie. the two threads are 'synchronized'
+- * with each other. This can prevent needless bouncing between CPUs.
+- *
+- * On UP it can prevent extra preemption.
+- *
+- * If this function wakes up a task, it executes a full memory barrier before
+- * accessing the task state.
++ * Same as __wake_up_sync_key(), but called with @wq_head->lock held.
+  */
+ void __wake_up_locked_sync_key(struct wait_queue_head *wq_head,
+ 			       unsigned int mode, void *key)
+
+---
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+change-id: 20260824-sched-wf-sync-doc-e92b4fe987f7
+
+Best regards,
 -- 
-Gabriel Krisman Bertazi
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
