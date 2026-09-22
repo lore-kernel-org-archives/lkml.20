@@ -1,125 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E575648A8C6;
-	Tue, 22 Sep 2026 18:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE21848E0DD
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101498; cv=none; b=YM341vPoGieAPK50cNAfOzPkzN4hxuZSde1qKXCXBkxVacJ9P93NAtp644cArMZyibOjT5fsfQI7BKagmv54O2Cn9ID/YSMqJrD6cp1J2e/pwa+NVoCS7SL5WzE7yp3G7dLUZkgV48uEv4WNzzG8ZRrCzYgn9p21vMgjvGPg1UM=
+	t=1790101621; cv=none; b=TCOljn6gTBFL8r30npRAvutUaPIr0v9QEDrJvMePfpobUW/qiH5HB4ZmREP8OeJkyW5cp8dzhZzOnOeYCnWdG1TSV1a1ugyZilqip9KwgTH+S0csh9h9Yaq6R7tx5Fvako5+Az7WLyLaUtZPo1+yTr6dGZs7lFAnghnIJ+GO0mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101498; c=relaxed/simple;
-	bh=M1QdGC9/7SmAKgdk0qnUo0g2gyETB9vgWmQbQiI9nBs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XwD8NSOna/jQHButT5rEFV/68X+0dbKtGS6g4C9ZjfyfHYYNSdzJ4S3TsWYlQ57TS7zEarB/jTCvX2VUQuqIuWx7Y2TuydnIxMbp4HWZiCLM/CViP6p8ILdomfkaSSOVP+zNd6RiBxx28RwBViMKxJDaVARmCiz3YV0GCq/lbtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X4f+O9cI; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790101621; c=relaxed/simple;
+	bh=byoBrJIoQXZTuPf9GsZIBDK4FdjAZpb1BrnfoGWJZRY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HphLxi+eBzvJU4tiWyKf0jxCVOfa0ef75fYf3GY1kismgxHUVHW+UYgbvafWxIEErzI6JZHsmRme32h2qLcr1gF26jRWJcmb+jRKrB3Qoh0khERN7LO2zdgDo8cqLSZxzRGNFT/unoI/hJzudEnNgIt56s3t+Ec1c1yuULcGb4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jco0PSf8; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X4f+O9cI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790101496; x=1821637496;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=M1QdGC9/7SmAKgdk0qnUo0g2gyETB9vgWmQbQiI9nBs=;
-  b=X4f+O9cIg3rt7VKaWkJ4yIbAvaibx9kn7O0vcYNSnv530CDlYTQ4ubHP
-   j/RToX7AGu82kZwkgLYWSOGD1y//WsR0uq4N45En4JBpkqlV6DIkC2a/o
-   Bxr6xjwDtPETgMuSGS7fqzheymXEA9QzVDEQ3dzTr7oFOFLdGi9XDfko3
-   Ft7TIrnbvNvm5sMCb84O6ebq9uPcZOGZUHy3c/4She7I0CIZcjBed6/5X
-   YZOvsWnHMPxzQOBv0X8POR8JfGc6wpUJDwcVgDgwhbAexDkTSrKE5A2g4
-   S9ikKH1U1Y/ebOmo/F8DQ5udXTIozOILYtuxH1JBL8aOlR1utcpcFq30d
-   g==;
-X-CSE-ConnectionGUID: Z3WtXK26SUS6G7AYFS1fJw==
-X-CSE-MsgGUID: qHRmcjtmQ5WztP3hollgMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90603567"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="90603567"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 11:24:55 -0700
-X-CSE-ConnectionGUID: QonAaH4PR/2EdM8fSde0GQ==
-X-CSE-MsgGUID: T1UC0Ph9RLySShBkyqBvBQ==
-X-ExtLoop1: 1
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.110.31]) ([10.125.110.31])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 11:24:55 -0700
-Message-ID: <ba472411-aebc-43f7-b0f4-0003b71905c7@intel.com>
-Date: Tue, 22 Sep 2026 11:24:55 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jco0PSf8"
+Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50d1b048eso193841a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:26:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790101619; x=1790706419; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/wiz0Foooqtebc+pPDKHlqOysQ9uT0UIO/Y22KOvVgU=;
+        b=jco0PSf8w0T9+Vsw0MpOkLkAfBoaD9oLM9PIPqsTe5WzA7HIEJxFZ+b1igCmSM0rFb
+         gJuc/vzETTYVyr6d02oeypgWxsMs789j6ZwrQdGPVik21eW+ATndNowtZ2IHuAfc2JNV
+         xOc3/Za3s/53oq33d/GRCRDPvXK9LkPWQ7jtleiEuZcu7bizqFllebm/XvqNTAnvNpqO
+         SB+J63XhCCx+ihcDwkkd9rai7d1TRGuvxPXHHZ/MGaiOb2LpAVTnz5D4NGtobvECCWdd
+         b+/8RYBqS37xKlfIQF9PvmcgKIujbKPIhC2PLzGz9xOvTC9/vDJSB9DY7dGH9JMkyt1e
+         GwGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790101619; x=1790706419;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/wiz0Foooqtebc+pPDKHlqOysQ9uT0UIO/Y22KOvVgU=;
+        b=EZZM1XVz0LbF50jH9Qukq/GiQA3c5OCCmwPLIPlHAOK/SixXNddP31ot2vvhS77Apd
+         JKermw/d9YJ6g5sGkY5nnjmEHqEMQrxGwFmnYIkcHF2giR9XMgALKmOLzlPuVbKkGhFE
+         FvxLXKd+tQs4H61FJ86hnwTHyi6vOjMOFIPxDGoKCn/4xgZb8YVB0+JjfkksNBWpRJ8A
+         phti/dkSNe7U7jG+58FLxiY+CSCf4dNL3ZHXY2cGrO1oN6LUvWhp2MepfbcQMnd25AtW
+         e+QWxkZceXghr6OBuILOu2q6kPuPivhW+6ipqGD+Z+6tVs9vfTSBHdS71eHMDTJHHN9+
+         GEgg==
+X-Forwarded-Encrypted: i=1; AKwUvByCRu/ubh/GvYo9WoNYfTEJFJD5rK7/jJkyZGAHc74hoCBESSveGh7qyCBhFixRvOSDlvKaVXE9aBzz5is=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAS/JLH4L1cos1WRPQ0n2szguSwKxdoqVmrpEgpgLxQaCnUbqv
+	w7MLv6AllaI8OcfW57nssi9KJ7QBvEg6m/g9sDeCzM9Whhj3HZgQPejN
+X-Gm-Gg: AYBFou0wAc9msNOmX2AQncpZHmbSjaMZHIy1aGh6hJCbB03F0sLcJsHo7xK8+YEZW2x
+	uRp5BVSkQXum3yF7KAVjQ1cApSJd6tXdSyRTnyLc1XuPSuMmPdpNQj/054EWJvemgaIfmQf3C5O
+	EAfbpXMePLAnhFiEYlO6IOTQHioKP8Oz6oYl5agIURBfDuornYm22g/fqMn/N8JOr92WZsKURtc
+	vKvAC8q2vaHA+hd+EcB1YeaeAoxNJ5eHwkNHs/LkZ4YOh1XJXixd67wLyo0dSaweAASN7DZXTag
+	JUtObqj5jN2YxJwGs2NerLRPdWwggJ1HRcHNJ7v1rJWb2L6BTiziqdKIOw6V2bWZn5/HfuJrzT+
+	4uFnsuxGVxBPsUdHtmqgfjUScrKiwtYsqcN/dZoEi/Xe7tnWzW0QdHkLq/RRsKxBQPV4w6lj/uY
+	RMw7I0CKnZVr+z8YlqlvccjGHc1U+kDV+zGPOrYYOtmprXz2KJOIbt+4yquik9kii1jI9vjmbbN
+	KWZvz6HOTyxL3muBP46Ms9k/4ZTYIhX1X9tuJTa7AhbSqd5AquxlRr/6rGW9cyJScW+Bm18cV3t
+	0bYJH5CwyEZ9z14gAjR5wIyH14IAtdVoavKXBsAbNZ/phMRsJcr3hGzTLPSlK8Ll3WuT/ZJ0Lg=
+	=
+X-Received: by 2002:a17:90b:6cb:b0:37f:c22a:c188 with SMTP id 98e67ed59e1d1-3a07e4a0c36mr280315a91.4.1790101619120;
+        Tue, 22 Sep 2026 11:26:59 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07f820fd0sm24499a91.2.2026.09.22.11.26.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 11:26:58 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matthias Goergens <matthias.goergens@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ata: libata-scsi: bound the ATA passthru sense descriptor writes
+Date: Wed, 23 Sep 2026 02:26:55 +0800
+Message-ID: <20260922182655.2423663-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/early_printk: Add earlyprintk=tdx to drive the
- UART with TDVMCALLs
-To: "Verma, Vishal L" <vishal.l.verma@intel.com>,
- "rdunlap@infradead.org" <rdunlap@infradead.org>,
- "corbet@lwn.net" <corbet@lwn.net>, "x86@kernel.org" <x86@kernel.org>,
- "kas@kernel.org" <kas@kernel.org>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260921-b4-tdx_earlyprintk_tdcalls-v2-0-ad1fde3f25fd@intel.com>
- <20260921-b4-tdx_earlyprintk_tdcalls-v2-2-ad1fde3f25fd@intel.com>
- <12013d91-b945-40b9-a6e0-a025460eab72@intel.com>
- <58df7c2c57f2e00b0322216ec56196781023ce62.camel@intel.com>
- <94ea99fc4ba332a07530ced72284c2193aaedecd.camel@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <94ea99fc4ba332a07530ced72284c2193aaedecd.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/22/26 11:18, Verma, Vishal L wrote:
-> As a thought exercise, I changed this to just use ttyS0 which is the
-> defined default, and that changes the setup hunks to look like below
-> (not thoroughly tested or anything yet). Would you prefer this instead?
+When an ATA PASS-THROUGH command to an ATAPI device fails, the sense
+buffer holds the device's REQUEST SENSE reply, and
+ata_scsi_set_passthru_sense_fields() trusts its additional length
+byte, sb[7], when adding the ATA Status Return descriptor.  A faulty
+or malicious device can use that to make the kernel read and write
+past the 96-byte buffer in three ways:
 
-That looks fine to me.
+- scsi_sense_desc_find() is passed sb[7] + 8 as the buffer length, so
+  its clamp against sb[7] does nothing and the walk runs off the end.
+- A type-9 descriptor found near the end is filled in unchecked.
+- A new descriptor at sb[8 + len] needs len + 22 bytes, not len + 14,
+  so len 75..82 writes up to 8 bytes past the end.
+
+Reproduced with KASAN under qemu, with the emulated ATAPI REQUEST SENSE
+reply patched:
+
+  BUG: KASAN: slab-out-of-bounds in scsi_sense_desc_find+0x1a5/0x210
+  BUG: KASAN: slab-out-of-bounds in ata_scsi_qc_complete+0x1a15/0x1a50
+
+Both are gone with this patch, and a valid descriptor is still filled
+in.
+
+Fixes: 97981926224a ("ata: libata-scsi: Do not overwrite valid sense data when CK_COND=1")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+ drivers/ata/libata-scsi.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index 7e22bbc38238..40e56ff52f09 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -261,12 +261,18 @@ static void ata_scsi_set_passthru_sense_fields(struct ata_queued_cmd *qc)
+ 
+ 		/* descriptor format */
+ 		len = sb[7];
+-		desc = (char *)scsi_sense_desc_find(sb, len + 8, 9);
++		desc = (char *)scsi_sense_desc_find(sb, SCSI_SENSE_BUFFERSIZE, 9);
+ 		if (!desc) {
+-			if (SCSI_SENSE_BUFFERSIZE < len + 14)
++			/*
++			 * The descriptor is written at sb[8 + len] and is 14
++			 * bytes long, so it needs len + 22 bytes of buffer.
++			 */
++			if (len + 22 > SCSI_SENSE_BUFFERSIZE)
+ 				return;
+ 			sb[7] = len + 14;
+ 			desc = sb + 8 + len;
++		} else if (desc + 14 > sb + SCSI_SENSE_BUFFERSIZE) {
++			return;
+ 		}
+ 		desc[0] = 9;
+ 		desc[1] = 12;
+
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+-- 
+2.55.0
+
