@@ -1,209 +1,280 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012050.outbound.protection.outlook.com [52.101.48.50])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E0B381E98
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:05:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790042717; cv=fail; b=TAp0c3WVckgZbgjQ1P+fKV5sr/jEPNHvhpLiz0f5HCnbG6jm7R/mEY3YDu9xOs8BYIjt/qsdDYCQEP6biOcri6Pz/0JA88vzbJ3hiST/FqO1+DnR1sfWcx755urihlKyCtswKhcrG28fQHfzmWxj4JkUBtEi2DFzXOvisCDozJQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790042717; c=relaxed/simple;
-	bh=kek0g9hr6jIK/qRm45CJYL+HVoTWtwBkiWhuYLi2jDo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aji6qevw2ra4YtQE2aDGGBMSJB328xYWqGpB8UzDnKVy1PTYPRQVTyp2dCTURYJHX9q11ciHUrBYisFW+aPuT4Rb0AyaW3/4grH9YswREB3qdVvPm+EnK2XDzepCKNpSS+lLfjRwCtRiLgP1AELlA2sG92eXS49uSOzKyOyk+wQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=M9VQ893Z; arc=fail smtp.client-ip=52.101.48.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1740C20459A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790042784; cv=none; b=IpliVkAI5jy8MHPKd0989CT6y5F7IoMKZ7if3+de3gSL1aOEU47CcBIN19qBGaVKoalhJrOS2B60Kesu66x+7HMzkQE9H6divmB9DAEam2zdmgHM2hy0n/kmYTYCl/1zmUjrAOU6OBI2R1jlJ9mqhXZnXgq/QF00tcAbz2pBc7g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790042784; c=relaxed/simple;
+	bh=9fpFhgwL3WUgIFn2zNBYCGulft4dWnP8bOvmZYj5Szk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uA3bSrOlpceGAiaZ+HbPluUTwINmDN6ZW/HjgeSXXJemdrwuFvQX5fxPHDQGyMFe3JH+QzQKc4LUQPfCpKZ8ECRwtO6re7yb/3eX4Dby0M2SK2L/9dsElmCVd2A/7w7TpP8C8YpKkc3OH6U0hKTjvY46l6uXEK7P5xDSVe5wAAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LN98Ar1m; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="M9VQ893Z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sbQZRYzfFcNiZOldpqPFH4IJlg/LbWX8lYMnhKZh8SnMsbzTRejkNvquE7BqbrF3zHu1YQdir9bRVqw5o88Ss8MUui+N4WzItY05+JkZCmRxIW4lGzxskSp8vcAdybPaRbfvi2yWCLGY1MhDdurvydaq4RV/UkbbmDYX55AI0AZNn48LPVnvXjlMA1Dna2rZ7lM7Dn60ErqjNYOo1NRsZr9TStT2MnSf3Mq7NFRrdrGx7JVLHckFlbuMypEShvzW05BT00eVzD6U301x1lIjE0wOHJZxPiht7LNcXMPdCmqCINjMW8Su53//XmZOTmfVQYQhHlqCjwvR9uvdkqfR1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sf/nI3ItqwE6hn6O5LNsg+8G6J3sIe2bL0knXpsf/as=;
- b=V7N59RWa6RUSmgGNCIkxPhic/dN4KC7ldjB83XV7PV9BZ8zY3pAHtuRggi45APRJOuQ7cnsstQsAurR0xzmAah/RZ8N9uDtCzJRsxvqLBOy5r2uKNRnuTEPYFDZLdz7ti4N944oLl2DWrezjnAEJ11JDe1+cMLtreffxmjHfB4jVpkKBY1r3tsc6FowvhnP/3OeIXO5XzY1Oc5i+KKZvM3zRWKEQJav8gLUug1ccssngsKcTIFIORO4vuYqDLnYpBYi5XQzV2RATZm/eaUqEmzYqoZbMg+cvf+Q2D3DHcj2KcGAdK7Oe5LhDhzpebBYwac3wXkdVf7L6ZCNSNuiNag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sf/nI3ItqwE6hn6O5LNsg+8G6J3sIe2bL0knXpsf/as=;
- b=M9VQ893Z5Xmhj6sW9NwRmKZ0USI4Kzxel4Dmv/xTpLSBe/ZsK3XtB+4/SMYPTpGTYv2gugCHUJt5ojDELqfPDk1qK22sgL6LwOh1DgIVulT1lqXwEIVihSKtiJZJPDc4wMSA4kClkzs/HGJzrP2vyK37gc2dp0qK0JVUGe547Ae2AsUv41y4CvWbKV09unvp+JLzTtUrCYkaMbn59hc+nWNcREpxqL9jir08tUR96Y4X/XPhArZdi2jJzYCX+XqqUewtJbO5F8FBEzP3h8bcyzKbMuc+Py4eMsbm2S2v4vwvJT1r1/SSK1C6BC56dOjBogaLfMgnPOSFpPhl0STrfw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- PH8PR12MB7424.namprd12.prod.outlook.com (2603:10b6:510:228::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 02:05:08 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 02:05:08 +0000
-Message-ID: <6cf683ee-d7ba-4f8d-90e8-e85d4f195d55@nvidia.com>
-Date: Mon, 21 Sep 2026 19:05:06 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/33] gpu: nova-core: add the r000 load-and-execute
- bootloader handler
-To: Timur Tabi <ttabi@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- "dakr@kernel.org" <dakr@kernel.org>
-Cc: "lossin@kernel.org" <lossin@kernel.org>,
- "a.hindborg@kernel.org" <a.hindborg@kernel.org>,
- "boqun.feng@gmail.com" <boqun.feng@gmail.com>, Zhi Wang <zhiw@nvidia.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "tmgross@umich.edu"
- <tmgross@umich.edu>, "alex.gaynor@gmail.com" <alex.gaynor@gmail.com>,
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ojeda@kernel.org" <ojeda@kernel.org>,
- "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "aliceryhl@google.com" <aliceryhl@google.com>,
- "bhelgaas@google.com" <bhelgaas@google.com>,
- "gary@garyguo.net" <gary@garyguo.net>, Alistair Popple <apopple@nvidia.com>
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-18-jhubbard@nvidia.com>
- <6086c0a0e05afdcf1d81dc822e4ad0de54e75c70.camel@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <6086c0a0e05afdcf1d81dc822e4ad0de54e75c70.camel@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR05CA0117.namprd05.prod.outlook.com
- (2603:10b6:a03:334::32) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LN98Ar1m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790042780;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IZuDGqAfKWPU0et9rTdG+QCDRw+fAuzKjDCCj1PDWnM=;
+	b=LN98Ar1mge7h9GxLbx/YwXn2I+Wy3AGHyeN1RzOzyQ/8F6fCW//vbu49MJNXimN7jLcEOI
+	BLR0bbXPEHDPEci3mQ569yI29z7oddASTLuiTlQl0EK2t2I5HNMuZxwtih5YPKS6b6vPic
+	FFLj2k6giaAV+cmAATrRx5YQ6TLYXXE=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-328-Qc0WvMcyP4KNn1-Ai7GZiA-1; Mon, 21 Sep 2026 22:06:18 -0400
+X-MC-Unique: Qc0WvMcyP4KNn1-Ai7GZiA-1
+X-Mimecast-MFC-AGG-ID: Qc0WvMcyP4KNn1-Ai7GZiA_1790042778
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91213a1aa68so58012686d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:06:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790042778; x=1790647578;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IZuDGqAfKWPU0et9rTdG+QCDRw+fAuzKjDCCj1PDWnM=;
+        b=uo7f7rBNNtFYUjRounE7C/lVLImDblfUpFbxckCM98o5K8fhE/x+8u+eGhZo9D7SIl
+         DmpdJIy4WA3jObp1yQ1gamNQMXG6knhKg+bZt+XpPrAZghg0e/a9m2flTDp7GalxLYA9
+         ROy/PRKw/o/9MmShTWTNz+uD14KlkrCc/G3/Yhu+sFE0pRwTN9SKMlTvHQvjPxX1xJEO
+         nwb1+4wIRUrFEiR54NWE6kdZcLq3cexejpkadZ+0zrAcOLsCOVQNzpQVh1fYLZCysZ7B
+         m+wDAfJ1iMT4szMkxzgx04sipE4WvlCGjPCnKxCZYbDfPRkD9/TcGREtsMP11kdrAP5g
+         nljQ==
+X-Gm-Message-State: AFuF++nwkP4+PafTbnxKNqhblzOB3s8VtQhlFgC4xavJVZU3kN+Vtq5e
+	uP/WvPSXjoK2bVKtOlR5E1WmPKyLRkOMTarpQRztf6AiN5QoGFtQKxdztI00TlLodJc1vARugmT
+	HxPJ0P1neIQ3LQWU4JAB4WLfsbNmeaM7UQTrrZWoDH1IadoOsL+ar1zwoZ+1rFd6p0qFnMkhN7J
+	T9aU8=
+X-Gm-Gg: AYBFou3D2fwsaGRjfNh7ddWqeF2i22L8xBbuhwwjpisnCz9uFrddf7/+XTwpsapYo1r
+	e51iLYsQxbQit8LBRpGhC1JpFTF+N7J56z5l6PdpdVYgzUPhaYN3WizpfNATlNeo9HfYIeDRdA9
+	zd2jPKR2ZoL2SvCe0ht6V39vVjFoqEn7ey7nPn+9NMS3EzCRco8/P21bxsNcEVPTeAM8oHm3VwP
+	Glo/xuZUQyXndBE3PjR3bhjyWPy31u/ZHnFo7KbQdxHXYj5/827WO47TkOQdr0SYQflepV3hytM
+	MVLvhBDUFyM7ySTcgGLUPXFXAoaSdoWx2EmkDp8uQVBTHxy4w/9nGRLdpJPD+WRyn3epRT8I21j
+	yXqE=
+X-Received: by 2002:a05:622a:1aaa:b0:532:9adc:639f with SMTP id d75a77b69052e-532d8e70943mr34418181cf.67.1790042777973;
+        Mon, 21 Sep 2026 19:06:17 -0700 (PDT)
+X-Received: by 2002:a05:622a:1aaa:b0:532:9adc:639f with SMTP id d75a77b69052e-532d8e70943mr34417901cf.67.1790042777511;
+        Mon, 21 Sep 2026 19:06:17 -0700 (PDT)
+Received: from [192.168.2.110] ([142.172.30.162])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e188cef8sm1366671cf.8.2026.09.21.19.06.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 19:06:17 -0700 (PDT)
+Message-ID: <3772f64c-de5f-40b3-914d-48f5e0b0a72a@redhat.com>
+Date: Mon, 21 Sep 2026 22:06:15 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH8PR12MB7424:EE_
-X-MS-Office365-Filtering-Correlation-Id: 798aea57-af82-4b28-45a2-08df184ded4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|366016|376014|23010399003|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	+dgMCpuUc1l7rIDVc0/oy25xNw+xmZdZrOi5GQv/5hW+R/Lava/gVBoz2R76F8mVlspTYACXY0EM6VN+3CPLDiJXQWwWBE8Bu77WT0o6QPfLjq5CaV35WYpZxOv2I3R5U4fTR29nmU9c+kAo1CBpJLpeaZB5yWizG4rmCqx+8AbpDFBBIKHEusLSwUuDyC6+TtNtGicFs0HZq6AyD3VI0DqFum6equkSQQpnV/AjhrQ30aYOsZ9QHN8kWzJetuCvQdlV8XatYnf4a4ooutvN97a8hHfJS6q+F4E+m/6iXL+N1Q3/k6dcQflDZZF7vuBgiSak+D3+LDQgFWfpdgno9AXf2MdQVwQ09pETccHTa+4LA2CBmDGCYzsozMNs8zgNks5/0fGx4RIDtfaFLSGLUfpueUIIJoFVYDEUTJu+2AL+L7qfsENpCi/helwgO3k4r6ReFNq2LNJEIHZLUGLVubBOOEP9gxyuitcOuV0u3rVE4ghEiDFnLbvXPqLJILgbDmghii0TgdFkSBXBPkJKlIWZlxQQzMT+mp9M9ltqckMoJh7ewDa3VEh5l5DFPpLb1vzir8iNlv7sGgZ1px6gK8lvC1D9Z2MkIeISBmsuwZj+m/YnxGp7IfNZrdZ7vxWZUmWMm6S2hLNHeic7N0mtAL2NdEMhx498KdItZwj2E1M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXYrTUlGL3hweVZqWnZlY3YxOHlLSWVYdEhZZkQwU1pHZ3pVL01kTElrVEhN?=
- =?utf-8?B?ZUdPZDd5RnlBWWpTSVR0WEFUYThsdlpIalRnaU5vam40b0IxT1J2RGtVUmZY?=
- =?utf-8?B?VHYxZ1JVMlFqL1d3aTBjdHdhNTA2K24zbVltenh0cnFtbmNhZFVYOEhELzhk?=
- =?utf-8?B?K2dsYUFpWU5MQmVpY0dFb3hSWFdNaGE4RkVwSUxZaTZiYWF6dnJmdFcxaHdl?=
- =?utf-8?B?VGZKdzJJRTlNNFNwSjVpZ2pZSXVoOE5OQmQxaGJ1RjNKY1ZQQytCTnB6SGwx?=
- =?utf-8?B?Nk9PMGtyNm9TengxRUFpY1dXaEVGNXdqK0tIeTd0WDF6ejdwZUVhclFDeGFT?=
- =?utf-8?B?emYyM3F2QjRmRlRraXo0dW5lQXdUR0xkU1RYbGJZUXNXZjQvTS9udWRTWU5O?=
- =?utf-8?B?THdmY2ZFSUg2UUtnWGdrNEdXNkVRVjZvc2tPbU9FL3dmZGVyeTFpbEplM2Vv?=
- =?utf-8?B?SkNHTjBGTjFxUHJUZVNpM3V6bHY5bDNTMndUREJQajQ1Vm5HQUF1NFFTT3pl?=
- =?utf-8?B?em84c2REWS9ZejVBNE1TNTVWdkx6eitSL1RYamZ5RUZDWDd6bzlMU1BGaGI5?=
- =?utf-8?B?aTdmUzh1S0xkMmpPRWtkRXQ2dStndWlydGlsOHowU215aVhLQW0wZE9TZW5D?=
- =?utf-8?B?cCtrZyt6cjV0R1NncFNJVFRqZkR4eGVZMXp5cjR1MDYwa2thZ3pFajljcHF1?=
- =?utf-8?B?czdqZUdJSTBqbEdDU3FLaDJvblhhcng1dWxuVHZSQXkrNGxiMlk4QldHZkVp?=
- =?utf-8?B?d2xuQXlDcjc4RmxJckdPNTllcXB4QUVHL1Zhamg3dmZhL3VGNEIwMk5DOFpu?=
- =?utf-8?B?OExNd00rSHI4c1l1NVBLUGt5cklhd2hUdkxWblp5cnlPeGFteHdSaGxsUFZp?=
- =?utf-8?B?Y0dUc0EyUzNMZGF2MDZJZTIzMlRlSFVKZCs2QW1QMjZBVnIzSVZaUnVOemtJ?=
- =?utf-8?B?SjZJSFo5RHd0ZGlIRXZvbjczZW5xM1BiWWVFaDZuM3FMREhoNTNDQW0zTnFO?=
- =?utf-8?B?YU83aE90ZkpiMEVPV3hjSmM0cXh3L2xIY05DRzE0QytpV1dzZDJOVEtMK1ZI?=
- =?utf-8?B?OWpzd0ZSZXlQK3JXZVphVFlMMFhiYy9pT0RoRTNZUm5CWWhhazU4Z0dGVU43?=
- =?utf-8?B?VHM1bjBzRTdOQ2JpTnZRNWJndGZpN1NGNSsvUHNuTjZqaWc0dVdGeWhiaUFK?=
- =?utf-8?B?Zk0wWVhlanRSN2RyZ0hXemNpbk8xY2gwOFpXOStvakxaQWN2OXZyVVgybVpp?=
- =?utf-8?B?Tld5UHl6c05jeW9lMWYxYmZYL1RORGFLY2hWN0ZaaWgvWHJTUXRBS0VpSy9B?=
- =?utf-8?B?d2RCdFBTWkVXS1k5OEJSdDN5Yk5mbFM2MXFJRXMyY3lwV04vVW5sb1VXUnlE?=
- =?utf-8?B?R2x5QloyZjVwNkdEU0o1NVBpSjYrQVJGME04UmtmbVZXdFMrb3RUUnB1SFhV?=
- =?utf-8?B?WFlMUVBDKzFTRnJzNGVka1BLTW41d1c3a0xQNVRJZEtuRG0wVDVha2p4Nm5O?=
- =?utf-8?B?aHV0WVNxTHVkM2c0ZjczMStTRHRQSU82NHFYcTRHd080MjA1b0twazNWMG40?=
- =?utf-8?B?TWR2MzhaUU9LKzByZS9ZZURQUUF1QVovM0wxZFNKWXUwREtNOExoK21PUCtp?=
- =?utf-8?B?WDBWRjRQT01ZYysvUTd4MFlKSmh2TEcwcCtqZW5FSUt6UDZmenFHQW9Pa05W?=
- =?utf-8?B?RlUra1Y2S04zVU9iOFNXR1o3TVlPL2dEM1lPUTZLT3pyYkZUU1BPSjFKN29C?=
- =?utf-8?B?NTBhVldCVWQ3MDdkUFpPeEVoOERCdnJwbkRVUVJoUUNaazZXOWE5SmhnN1dV?=
- =?utf-8?B?K0l4OWRiYzNYZlJ6ckg4cnVWNzVRVTNMNnJqTEIzaC9VVzJEU3VyMTE4ekcr?=
- =?utf-8?B?WjNjdmNzckNhNURHcURHQ1Q1Q20wVWtKRWVQZGt1dExnVWdCVjg1SzB2VHpD?=
- =?utf-8?B?OXQ0aVpHSjVnTDhNTlFCUDRsbytieTFKelpob3RpWStURzVySzlNbWNpMS9p?=
- =?utf-8?B?c1RNLzhSaDZ1S01oRUlJTisrYjgzUU9sd0JBRldsMk5Ic0I0dUVON044U0tL?=
- =?utf-8?B?dDF6aEFPWjNwZTRZQVJ5aEZhTUFHaGlxSEUyQ0pSLy9TUXErYmd2NTRNaXFt?=
- =?utf-8?B?SDcxSE9zYkNXSzFrS1YwdGlTdUdNWmcxNlZmMzhKeTRZeEhtR3VwWlgwM0Zi?=
- =?utf-8?B?bHlWcHVrOXkwRkhFRElad2NDbVpWZDZQcEh6RWRkS1R4a0RoeitFK3BvSWVa?=
- =?utf-8?B?QjVxMm0xUCtCQjNUYUQzdEN0WG9GbFZxL1ZvNnhvMDNFcFlsbVFEeE1aZEtR?=
- =?utf-8?B?ZkhrV2puUGdrUHprcjZJeHhEQjEyeVBseXhmbHE5dkVnSGdsTzVjZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 798aea57-af82-4b28-45a2-08df184ded4d
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:05:08.4665
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tNc6IsFhsv55aXNlT6WxuvC2sI7HBN5y73dPB8lOGs+Zr2o7ZVqTDI0nBGp4fch7/BTWfoJW2U7xnWW0JkMHwQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7424
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 14/14] mm: thp: always enable mTHP support
+To: Usama Arif <usama.arif@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, david@kernel.org,
+ baolin.wang@linux.alibaba.com, ziy@nvidia.com, lance.yang@linux.dev,
+ corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com
+References: <20260921102913.2970139-1-usama.arif@linux.dev>
+Content-Language: en-US
+From: Luiz Capitulino <luizcap@redhat.com>
+In-Reply-To: <20260921102913.2970139-1-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 9/17/26 8:32 PM, Timur Tabi wrote:
-> On Thu, 2026-09-17 at 18:07 -0700, John Hubbard wrote:
->> @@ -133,6 +141,75 @@ fn core_resume(&self) -> Result {
->>          Ok(())
->>      }
->>  
->> +    /// Runs the generic bootloader on the GSP falcon, as a
->> `GMCAPI_CMD_EXEC_GENERIC_BOOTLOADER`
->> +    /// event requests, and then restarts GSP-RM.
->> +    ///
->> +    /// The descriptor that the event carries names the image that the bootloader loads.
->> +    ///
->> +    /// # Errors
->> +    ///
->> +    /// - `EINVAL` if this chipset boots without the generic bootloader, if the payload is
->> shorter
->> +    ///   than the parameter block, if the descriptor is not the size that this driver
->> defines for
->> +    ///   it, or if the event names a context DMA slot or an aperture that does not exist.
->> +    /// - `ETIMEDOUT` if the RISC-V core does not suspend within two seconds, or the GSP
->> falcon does
->> +    ///   not halt within two seconds of starting the image.
->> +    ///
->> +    /// Errors from [`Self::core_resume`] are propagated as-is.
->> +    #[expect(dead_code)]
->> +    fn handle_load_exec_bootloader(&self, payload_0: &[u8], payload_1: &[u8]) -> Result {
->> +        let Self {
->> +            gsp_falcon, dev, ..
->> +        } = *self;
+
+
+On 9/21/26 6:29 AM, Usama Arif wrote:
+> On Thu, 17 Sep 2026 21:45:35 -0400 Luiz Capitulino <luizcap@redhat.com> wrote:
 > 
-> Why do you create local variables of two member of LoadExecContext?  By doing this:
+>> If PMD-sized pages are not supported on an architecture (ie. the
+>> arch implements arch_has_pmd_leaves() and it returns false) then the
+>> current code disables all THP, including mTHP.
+>>
+>> This commit fixes this by allowing mTHP to be always enabled for all
+>> archs. When PMD-sized pages are not supported, its sysfs entry won't be
+>> created and their mapping will be disallowed at page-fault time.
+>>
+>> Similarly, this commit implements the following changes for shmem in
+>> shmem_allowable_huge_orders():
+>>
+>>   - Drop the pgtable_has_pmd_leaves() check so that mTHP sizes are
+>>     considered
+>>   - Filter out PMD and PUD orders from allowable orders when
+>>     PMD-sized pages are not supported by the CPU
+>>
+>> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+>> ---
+>>   mm/huge_memory.c | 25 ++++++++++++++++++++-----
+>>   mm/shmem.c       | 14 +++++++++-----
+>>   2 files changed, 29 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index a06025b87e7c..a2d6de3ea988 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -189,6 +189,15 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>>   	else
+>>   		supported_orders = THP_ORDERS_ALL_FILE_DEFAULT;
+>>   
+>> +	if (!pgtable_has_pmd_leaves()) {
+>> +		/*
+>> +		 * If the CPU does not support PMD leaves, assume for
+>> +		 * now that it does not support PUD leaves and disable
+>> +		 * both folio orders.
+>> +		 */
+>> +		supported_orders &= ~(BIT(PMD_ORDER) | BIT(PUD_ORDER));
+>> +	}
+>> +
+>>   	orders &= supported_orders;
+>>   	if (!orders)
+>>   		return 0;
+>> @@ -196,7 +205,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>>   	if (!vma->vm_mm)		/* vdso */
+>>   		return 0;
+>>   
+>> -	if (!pgtable_has_pmd_leaves() || vma_thp_disabled(vma, vm_flags, forced_collapse))
+>> +	if (vma_thp_disabled(vma, vm_flags, forced_collapse))
+>>   		return 0;
+>>   
+>>   	/* khugepaged doesn't collapse DAX vma, but page fault is fine. */
+>> @@ -979,7 +988,7 @@ static int __init hugepage_init_sysfs(struct kobject **hugepage_kobj)
+>>   	 * disable all other sizes. powerpc's PMD_ORDER isn't a compile-time
+>>   	 * constant so we have to do this here.
+>>   	 */
+>> -	if (!anon_orders_configured)
+>> +	if (!anon_orders_configured && pgtable_has_pmd_leaves())
+>>   		huge_anon_orders_inherit = BIT(PMD_ORDER);
+>>   
+>>   	*hugepage_kobj = kobject_create_and_add("transparent_hugepage", mm_kobj);
+>> @@ -1001,6 +1010,15 @@ static int __init hugepage_init_sysfs(struct kobject **hugepage_kobj)
+>>   	}
+>>   
+>>   	orders = THP_ORDERS_ALL_ANON | THP_ORDERS_ALL_FILE_DEFAULT;
+>> +	if (!pgtable_has_pmd_leaves()) {
+>> +		/*
+>> +		 * If the CPU does not support PMD leaves, assume for
+>> +		 * now that it does not support PUD leaves and disable
+>> +		 * both folio orders.
+>> +		 */
+>> +		orders &= ~(BIT(PMD_ORDER) | BIT(PUD_ORDER));
+>> +	}
+>> +
+>>   	order = highest_order(orders);
+>>   	while (orders) {
+>>   		thpsize = thpsize_create(order, *hugepage_kobj);
+>> @@ -1091,9 +1109,6 @@ static int __init hugepage_init(void)
+>>   	int err;
+>>   	struct kobject *hugepage_kobj;
+>>   
+>> -	if (!pgtable_has_pmd_leaves())
+>> -		return -EINVAL;
+>> -
 > 
->         let Self {
->             gsp_falcon, dev, ..
->         } = *self;
+> Removing this guard lets start_stop_khugepaged() run on a system
+> without PMD leaves. All mTHP orders default to never, but the global always
+> or madvise flag still makes hugepage_enabled() return true.
 > 
-> you force every member of LoadExecContext to implement Copy, even the ones you are not copying
-> here.
+> That starts an idle khugepaged thread and can unnecessarily raise
+> min_free_kbytes. Could hugepage_enabled() instead test whether
+> an enabled order remains after masking PMD_ORDER when
+> pgtable_has_pmd_leaves() is false?
+
+You're right about the issue. Before this series, checking the global
+configuration was sufficient to determine if THP was "enabled" as PMD
+leaves would always be available (otherwise THP would be shut down).
+With this series, we also need to check pgtable_has_pmd_leaves().
+
+I prefer the simple fix below over masking orders in hugepage_enabled():
+it's simple and adds the check only in the call site that requires it.
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index a3a9e4d93b46..175252a1d729 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -453,7 +453,7 @@ static bool hugepage_enabled(void)
+  	 * Shmem pmd-sized hugepages are also determined by its pmd-size control,
+  	 * except when the global shmem_huge is set to SHMEM_HUGE_DENY.
+  	 */
+-	if (hugepage_global_enabled())
++	if (hugepage_global_enabled() && pgtable_has_pmd_leaves())
+  		return true;
+  	if (anon_hpage_enabled())
+  		return true;
+
 > 
-
-Oh, that's not true! The ".." skips the other items, so there is no such
-copying going on. Only the two named items are copied.
-
-However, this is also just a little too unusual (Nova doesn't do this
-little trick anywhere else), so I'm taking your advice and just Not
-Doing It anymore, good call. :)
-
-
->> +        if params.dmem_desc_size != BootloaderDmemDescV2::SIZE {
->> +            dev_err!(
->> +                dev,
->> +                "Load-exec descriptor is {} bytes, expected {}\n",
->> +                params.dmem_desc_size,
->> +                BootloaderDmemDescV2::SIZE
->> +            );
+>>   	/*
+>>   	 * hugepages can't be allocated by the buddy allocator
+>>   	 */
+>> diff --git a/mm/shmem.c b/mm/shmem.c
+>> index bc2de3a7c1ea..8c0f7e3efeeb 100644
+>> --- a/mm/shmem.c
+>> +++ b/mm/shmem.c
+>> @@ -2046,11 +2046,14 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
+>>   	unsigned long mask = READ_ONCE(huge_shmem_orders_always);
+>>   	unsigned long within_size_orders = READ_ONCE(huge_shmem_orders_within_size);
+>>   	vm_flags_t vm_flags = vma ? vma->vm_flags : 0;
+>> -	unsigned int global_orders;
+>> +	unsigned int global_orders, disabled_orders = 0;
+>>   
+>> -	if (!pgtable_has_pmd_leaves() || (vma && vma_thp_disabled(vma, vm_flags, shmem_huge_force)))
+>> +	if (vma && vma_thp_disabled(vma, vm_flags, shmem_huge_force))
+>>   		return 0;
+>>   
+>> +	if (!pgtable_has_pmd_leaves())
+>> +		disabled_orders = BIT(PMD_ORDER);
+>> +
+>>   	global_orders = shmem_huge_global_enabled(inode, index, write_end,
+>>   						  shmem_huge_force, vma, vm_flags);
+>>   	/*
+>> @@ -2058,7 +2061,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
+>>   	 * sysfs configs.
+>>   	 */
+>>   	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
+>> -		return global_orders;
+>> +		return global_orders & ~disabled_orders;
+>>   
+>>   	/*
+>>   	 * Following the 'deny' semantics of the top level, force the huge
+>> @@ -2072,7 +2075,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
+>>   	 * means non-PMD sized THP can not override 'huge' mount option now.
+>>   	 */
+>>   	if (shmem_huge == SHMEM_HUGE_FORCE)
+>> -		return READ_ONCE(huge_shmem_orders_inherit);
+>> +		return READ_ONCE(huge_shmem_orders_inherit) & ~disabled_orders;
+>>   
+>>   	/* Allow mTHP that will be fully within i_size. */
+>>   	mask |= shmem_get_orders_within_size(inode, within_size_orders, index, 0);
+>> @@ -2083,6 +2086,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
+>>   	if (global_orders > 0)
+>>   		mask |= READ_ONCE(huge_shmem_orders_inherit);
+>>   
+>> +	mask &= ~disabled_orders;
+>>   	return THP_ORDERS_ALL_FILE_DEFAULT & mask;
+>>   }
+>>   
+>> @@ -5630,7 +5634,7 @@ void __init shmem_init(void)
+>>   	 * Default to setting PMD-sized THP to inherit the global setting and
+>>   	 * disable all other multi-size THPs.
+>>   	 */
+>> -	if (!shmem_orders_configured)
+>> +	if (!shmem_orders_configured && pgtable_has_pmd_leaves())
+>>   		huge_shmem_orders_inherit = BIT(HPAGE_PMD_ORDER);
+>>   #endif
+>>   	return;
+>> -- 
+>> 2.55.0
+>>
+>>
 > 
-> So here, why not just do self.dev?
-
-Yes, I'll go back to doing that.
-
-thanks,
--- 
-John Hubbard
 
