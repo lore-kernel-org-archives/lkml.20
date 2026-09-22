@@ -1,93 +1,92 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D914F85AA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCC051CF56
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790112923; cv=pass; b=dy85AOZhJ0Pk4PjHcuqjA7DEaDntccwURrpu1QLLA+0HeoxEKlNaKrYXWubZHS6nSBUvLoiOfbxqGZJf6UvxVM7XFSfJsvMvOxQ32/JUl6MCs1CudyecP/7cD6dmrsXr4tp3mB/EuoJ3477lzyUQ0Tc65dJOYxxmtH5tlWHX+ng=
+	t=1790112971; cv=pass; b=WgvcPGEghwSQRgPbXeXxBMvizwFBccWz76cP5kkVyWoNDLBwiEjPOnbXgS4s1gpUOAYcdUTwXoe8cokX7J6jOPuy/Nc3xZE15dVZgvteQo0kbiU2bSU43Nz1l4Ey0eCWsEeos4y1PFLoKILesFAwuJKWCaZv9qpXd0Bh66giioY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790112923; c=relaxed/simple;
-	bh=AykXPbaf6N7N+kbqj1LXLFNG32gUtN0fYqtfCBH03N4=;
+	s=arc-20240116; t=1790112971; c=relaxed/simple;
+	bh=EvbVhKnw8RPUu8cuHWn+MNXVd2g9HdJedBQyZE6JTgA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aI79nzsBdBtrL2cfhwT0NOKd7gDF3lk5RKv7gKs9MeN8gkSPBbtLDT2dmGkPMNiLQM2XIOOFFG34RCrgVT7vVLBnidZVxFBuIQln+EbDQUdzeEdzsE680FQFTcQ6cyYiPMA0AN4EnyN16xrijrHjvjCYi9eA27M7ZFWcrAXaKVQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=MeTrHKAQ; arc=pass smtp.client-ip=74.125.228.12
+	 To:Cc:Content-Type; b=mMFwejrspnKWTJxI20PJa+Ygc3cUSrh/NtY03g28bzIkvCfBHxF/XdlVoKdz8l2S72M2XdtP95ExAeAn0O1xbkHP7ySNfZWApv7BHxWyPZ4IyM52HYUuGYe7nQU/AkZmjpD5Wzzu6kSSdYqqUwQO2ek3ZDbQ3T2JpY29vAGqeXY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=ebwMKZtX; arc=pass smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="MeTrHKAQ"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469f20513so256251b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:35:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790112908; cv=none;
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="ebwMKZtX"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469a34907so319430b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:35:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790112945; cv=none;
         d=google.com; s=arc-20260327;
-        b=KLPO4kIaMV/4ZN3n8BMW5Dnxn4FyMoQulORbJyz6fEyr9HR5uTdpxlbu9zkFPT3QZq
-         Iu+IApOTpyXtJdndEUiEPvrhuzHZ0wsHrdSS0DSfHyNc3LCrsblliFtkfMohPf/ZPmP6
-         Yz6eYHj5J501MdXMGWCuW01tfQWVsQUB/EnIHS7MdrisAJgAlPtwt/yIsAedDEm2nNBI
-         IlymJpHV1og9sQhuL570w+0ZWUHjjcou/yIdC81VO4TP/EdBbqMgNKJZdz1kx8dsQ64A
-         1B7L2BYhe9ZKJezFsqgMRiMQ/V+T/rUnOwFzvYOz860xDX2Kj8w943q9Oi1xTrtwXz86
-         804w==
+        b=GuM0aQIbov/0IES1WjYX7Kv4lcmBOadkDhcC1bN2gHFO9Ohg5Yop1coFEjwNhgptvR
+         l4qJuq+aZ+o165Bl6g7Ns0u3qe14hSck7thmxjLYeeVkjQkdzeAouSB7d6okZVenDwQO
+         MkYQzX7/SRtbEhE8dt1t7n4M/a+HwNpgLjC930aYwQ7skf7K5krL8w2tw5tby3K4acCY
+         NGOaaNYLhqXaTfQUSnuf7wgerxKvt7KbOAXmKO9Y2TJuUSkmkCJU0RZ9J+dp2UOo200v
+         zx/wUv2Igk1LEX2Bxt6rx8++v6/Ky5cJBq/i9Sz++UtL7vBbjoXr8SWXuriw4QJljMn5
+         pAbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=zc5vA0MxmvP8ptI7+odGF5wXc/aF6DGcCEAEVujLQo4=;
-        fh=lOylSonXVIM9+8TOXuxw1Hl1r4GBWWlrT+VH7hBDNRo=;
-        b=apI3OgV4c1mDcOguka5mIaLwfdamEF67jNPUFjIFg8MxhXHCwgYMDjZfSuQy1YO5h0
-         52NesjPi96AIyV/jALG9clRSWo3fTiKqWEgWUqL/rN7xljQlBliOZzjYe24a/EGHSWLa
-         b5qD/Vqoy7A4+/obi2ZEkTEkzImMycyIAjelfOJSADtHXYrRxZKyT4BtRKlbF4i6ycTa
-         8RT25iGeYni6evuyYFv1s1ZHhqDWqN75Iky2uOczV/0YPzFN3VRbW4MT7YYQdlg4uZSg
-         Ex8IAjDxwi7YtiDBSebMd1Wk/MT8X1O2MZn8E0s9vaGPWXD8zAWd+lUFCzm7wgQ2jMRv
-         u1Jg==;
+        bh=kdPzg2Ix4c1W2P1TMypn/Rnc27FR3sHCxu3cYUG6UQg=;
+        fh=dcYLqah55M7xjflZJKmpQmnPVrSNP1ZIia6vPBJriSQ=;
+        b=CWOVPqK4mMIYM69bWG5h40aUWD2N2CnOrPpuxfmsdbvaHad1Xn5LfaMlu17gX6eBD5
+         0qZiWiOFpClibqp2g7eaj9o//UvQT1RPptcac93glt8NnpsR/PVy9qrbbdcoHZlVrcix
+         A6efSXc/YoH8mHINM9JYlC6smCTJ8DCmCzybVCb3MeTyFa43/+fENILlnkMdRFe1f+EO
+         BFkxf/m7Bl5Hs8zn02BFl1SXg325MJXf4SEq/WBebP690mhYCVciu+nrOTer3QNQvxsJ
+         8+NgvrkMf1FG5s0Dru8cRMfwnRlCLmkxeeEmTDZ2J/x4vPTrMrGpG64rrXv1P1SCACyR
+         6yNQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790112908; x=1790717708; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1790112945; x=1790717745; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=zc5vA0MxmvP8ptI7+odGF5wXc/aF6DGcCEAEVujLQo4=;
-        b=MeTrHKAQI6NMQjfsR2pp9/+sl71hZZepCzf+EMXyN0UPkfbmSYsQwKw8OoSJU0BTeV
-         3f6EjJow7F+x32a3jchFJTis+cUOWzSBqVcpQX63WHyDYv0L2mszLYLjl0lL1kjhCP//
-         J58/xCUSPFx0JybkBQyuz+6pGEau2IfykapMI=
+        bh=kdPzg2Ix4c1W2P1TMypn/Rnc27FR3sHCxu3cYUG6UQg=;
+        b=ebwMKZtXQoXr3R9QTAZaITAjdkRxXnvNB4hA0ksEIQWNDChemNo1KmbtHdlTL7uvjg
+         rnVEKZIeoG95s+Xj0juBpBCTFT0OKt+3XJClWr/pWt5ksopTlbsg1tlf1eLE2UG71bI2
+         BbUHovLiCWjiy9ExQWHHWuC6qWeLGMUcvWzRM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790112908; x=1790717708;
+        d=1e100.net; s=20260707; t=1790112945; x=1790717745;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zc5vA0MxmvP8ptI7+odGF5wXc/aF6DGcCEAEVujLQo4=;
-        b=sq+MtzgqZhgWGxFtinHniYocLdi1UugSxHUtxBG6mZ5rB/mL1Z+L56jAMciqwpBNER
-         DB0qWeJ8u7SoUkIwDN1YjW5qtsEm5owiFrTG8ZTbJJP8F5q7McjQ/0bThCWd0oTxYC5X
-         tF0etSVP3qgundFIpZnSvYvqsCKqROVaDUlF4I9r4+fBYt+uPo8J8ReBY7lIcqprks5z
-         pKFsN/vyvtYoQBSlR118IcB2nRHNvs2Y+BAxWHGVq+/T6AzdS/xxp5XX2eoMCzAlfj1Z
-         sDeDxw6VvgausKgSuTg3FAOGbjhPvis5uZ0IOrb3FzvRJdMouXRUVB/r6+4PUepaRbS+
-         6JCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy8WPS0WvWobzttajZzSqpgARvFArcqJFBHSJBlnCLuZoFKIwVlCXskhNj+cbCS2OW7Dqwfkh2HS61sNZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX6XRe+NFYHQOMvVcasvGhS/N7DOT00ZGPVuYHoYE5EtVYbLGO
-	TDLBXSo8r6pfhnhplgyAxLLTlI/1nkjAbDe8GdOKmxb7pJVfL9unI4eq92Y+kEvx9hEOYCDIto2
-	U6dfrxVWmV/bQQjES0xvvs0WikrFRONNn67PqYVZR
-X-Gm-Gg: AYBFou0ojPBG64qpbYeUH7GRcBjB3veYM2fT/5o5Aqdr9DNpMT9Y1mEaVQLOgXSTLW8
-	0PjfMUmla3YQ4OGFhfTEVLOAWKMPGNlVXKluNqCGL0+g3EW88qcpraj9KTPQ3NNitCDjwdaO/QC
-	nAalIbmV68sw5IVwUGtG0ZyBad2v15pU6GC4U6FeylmldohMndfOvbSO/L48lIMSLmLyl08VZ7H
-	lkvrf57QcjXPi9ksGpZRavVWr5eRiTpe7ttgvD5DjQFcTr4QXWrkX1k8lMwfE95TOZrsynnsuX3
-	0pCeuhKBRN4hMyvHj8Z0KBEmx0gw48p80wwu622dpu3rfuaZj8fVOEzSSs6RQWZudw6K4ZUkGtm
-	1n8XCqQkFu4zsFxvb8kGa+WMNoTHNlGhJokypjlpDT//y
-X-Received: by 2002:a05:6a00:2345:b0:848:30c3:45dd with SMTP id
- d2e1a72fcca58-87d1a7ab57amr763293b3a.11.1790112907764; Tue, 22 Sep 2026
- 14:35:07 -0700 (PDT)
+        bh=kdPzg2Ix4c1W2P1TMypn/Rnc27FR3sHCxu3cYUG6UQg=;
+        b=HpfC2QBLdmwbKyBa182Syv9NXXDvp5kTB+rE6cRI1OSKHgRm96nNTU2hxLORLlE4Sh
+         t5sWeVHcIitmq2SANBlM/fyOGxfI2IH9dEkLftuAvOxMzkhyXpEf3v2hDl2ln0HM+Qcy
+         C8h3iX1DMGLZeXO4r5iP0tbUgVQhDQ1NweNufuu+iRIFT2mUQ4PFqszf/JQoJBKZaGFP
+         UBWcYnXZfR5C4s9MX47RuMmMbSAInUplM2+ulzwwh+fFGli464gNAcv5yImuyVza70Zf
+         dS/V1fDJqOyhDqBHAGnBYzWgPnT5bqzf2pLeu/DZte1tsA51T+aXSE/HGu4FAkq9FSZq
+         Kvgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwkku0KjlFPUdA736Wrg1IFTjohzGGHTZKii3ULwiZxEwAh8vAVU5qOag/XT3x9HUn5Nt78V1s25TLLmv0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lg3X91PXVWKcsgYBS3C22GcH091OBUWuHR5soL7PYeWmHMn7By
+	I6jCVr72+xsZcO4TVeY5PgzJExHIjvXXKJ8n6O6E/p5IdaS0yGXdlOkCHoyeu4yWpYSVJwv/9iG
+	TD7wdPuGGOV6Y0OHj4gLi6sk4AXX4v3n0pKP+0YUH
+X-Gm-Gg: AYBFou0fIowwXavKPpV4THfY3+AhwK6Ielvkpw3GdaeQVkcZFoOjR20aZcfev0C4f1D
+	WdF/B1GJO3w3X64jGkLe0zuim3ebdOKmWRKHnAM0pPJPApKIckeTlhxcJAgpDi2lCt5oPcgJKfP
+	rnKUCfainBchVYDyJVXSBC9mGNkBDTgivIZE2U8mQ5/3cmuQmhL4bEnNgC0McZN/+9r3eZt9h4r
+	29VClIp0YFKaBGOznZ9rALB5tC2Hk6CXkvTzDOGsbWEFtcLcplaNU2lFTj3J3uMZCjgYR/WtP6K
+	bjRJJOvcZvmQQ+XSpszI0Dv7N/2dQvrnajkuowIFQ7wKa/dUK/bgJrp3954fWVwdF4T6ivwvH0B
+	ucmbkbJOU8JMqgOvWbWbibDWz48lLZdIrTuW/3rHLBSw7
+X-Received: by 2002:a05:6a00:44c5:b0:874:708d:b62b with SMTP id
+ d2e1a72fcca58-87d1b8a15admr654286b3a.32.1790112945505; Tue, 22 Sep 2026
+ 14:35:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921145655.3167436-1-i.maximets@ovn.org> <20260921145655.3167436-5-i.maximets@ovn.org>
-In-Reply-To: <20260921145655.3167436-5-i.maximets@ovn.org>
+References: <20260921145655.3167436-1-i.maximets@ovn.org> <20260921145655.3167436-6-i.maximets@ovn.org>
+In-Reply-To: <20260921145655.3167436-6-i.maximets@ovn.org>
 From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 22 Sep 2026 17:34:56 -0400
-X-Gm-Features: AcwNN1WrLC44FI1bW09mtnu1BxHzgYsw3RKPzqP-LVQgllRxZFMO1YG1oq2WJAM
-Message-ID: <CAM0EoMmKkJ-8snBUMdHqPza3j22zo3bxiL7F79nc8rYhUXE4kA@mail.gmail.com>
-Subject: Re: [PATCH net 4/6] net/sched: act_ct: avoid modifying shared
- unconfirmed ct entry
+Date: Tue, 22 Sep 2026 17:35:32 -0400
+X-Gm-Features: AcwNN1WPL-vgVShl6hqSyik6C8tmu3eMWMaigjhCeY6OG6KGXvvi-22yq5biirU
+Message-ID: <CAM0EoMk96wo2-kupgidntihfxij_zffq2v=ddH-mGUNUH0q7Wg@mail.gmail.com>
+Subject: Re: [PATCH net 5/6] net/sched: act_ct: remove 'add_helper' dead code
 To: Ilya Maximets <i.maximets@ovn.org>
 Cc: netdev@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
 	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>, 
@@ -96,117 +95,62 @@ Cc: netdev@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>,
 	Eelco Chaudron <echaudro@redhat.com>, Jiri Pirko <jiri@resnulli.us>, Xin Long <lucien.xin@gmail.com>, 
 	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, netfilter-devel@vger.kernel.org, 
 	coreteam@netfilter.org, linux-kernel@vger.kernel.org, dev@openvswitch.org, 
-	stable@vger.kernel.org, Axel Mierczuk <axel.mierczuk@1password.com>
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Mon, Sep 21, 2026 at 10:57=E2=80=AFAM Ilya Maximets <i.maximets@ovn.org>=
  wrote:
 >
-> In a case where skb with an unconfirmed ct entry gets cloned, we may
-> end up processing both again but with different sets of extensions.
->
-> The series of events:
->
->  1. The first clone wants to commit and runs the helpers wiring up
->     the extension pointer into the expectation list.
->  2. Then it looses the confirmation keeping the entry unconfirmed.
->  3. Second clone now wants to commit labels or run NAT and adds the
->     new extension for that breaking the pointer in the expectation
->     list causing UAF on the destruction path later.
->
-> While this is possible to trigger, there should be no practical
-> network pipeline where we need to process both clones without
-> modifications in the same zone.  So, let's just reset the entry in
-> case for some reason we got an skb with a shared one.  This doesn't
-> affect any known use cases, but avoids any potential problems with
-> sharing and modification of the unconfirmed ct entry.
->
-> Unlike openvswitch module, act_ct allows for NAT without commit.
-> Changing that would be a uAPI break.  So, act_ct needs to reset on NAT
-> regardless of the commit flag to avoid reallocation of the extension
-> space.  This, however, doesn't really change the picture for sensible
-> networking cases as there should be no need to run the same packet
-> twice (before and after the clone) through conntrack without packet
-> header or zone changes and without commit.
->
-> The fixes tag points to the introduction of helpers, since that's the
-> main UAF trigger for the sharing.
+> This variable can only become 'true' when the connection is not
+> confirmed, but it is only checked when it is confirmed.  So, it can be
+> treated as being always false and just removed.
 >
 > Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
 > Cc: stable@vger.kernel.org
-> Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
 > Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 
 Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
 cheers,
 jamal
-
 > ---
->  net/sched/act_ct.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
+>  net/sched/act_ct.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 >
 > diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-> index 55f3521edb4c9..e72143d36b119 100644
+> index e72143d36b119..f62051ec9d57d 100644
 > --- a/net/sched/act_ct.c
 > +++ b/net/sched/act_ct.c
-> @@ -979,11 +979,11 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *sk=
-b, const struct tc_action *a,
->                                  struct tcf_result *res)
->  {
->         struct net *net =3D dev_net(skb->dev);
-> +       bool cached, commit, clear, nat;
->         enum ip_conntrack_info ctinfo;
->         struct tcf_ct *c =3D to_ct(a);
->         struct nf_conn *tmpl =3D NULL;
+> @@ -986,7 +986,6 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb,=
+ const struct tc_action *a,
 >         struct nf_hook_state state;
-> -       bool cached, commit, clear;
 >         int nh_ofs, err, retval;
 >         struct tcf_ct_params *p;
->         bool add_helper =3D false;
-> @@ -998,6 +998,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb,=
- const struct tc_action *a,
->         retval =3D p->action;
->         commit =3D p->ct_action & TCA_CT_ACT_COMMIT;
->         clear =3D p->ct_action & TCA_CT_ACT_CLEAR;
-> +       nat =3D p->ct_action & TCA_CT_ACT_NAT;
->         tmpl =3D p->tmpl;
->
->         tcf_lastuse_update(&c->tcf_tm);
-> @@ -1046,6 +1047,19 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *s=
-kb, const struct tc_action *a,
->          * different zone.
->          */
->         cached =3D tcf_ct_skb_nfct_cached(net, skb, p);
-> +
-> +       /* If the ct entry is not confirmed and shared with some other sk=
-b,
-> +        * e.g., a cloned one, we can't just modify it with a commit or n=
-at
-> +        * as we must not modify the extension set.  Reset.
-> +        */
-> +       if (cached && (commit || nat)) {
-> +               ct =3D nf_ct_get(skb, &ctinfo);
-> +               if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
-> +                       nf_reset_ct(skb);
-> +                       cached =3D false;
-> +               }
-> +       }
-> +
->         if (!cached) {
->                 if (tcf_ct_flow_table_lookup(p, skb, family)) {
->                         skip_add =3D true;
-> @@ -1083,7 +1097,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *sk=
-b, const struct tc_action *a,
+> -       bool add_helper =3D false;
+>         bool skb_is_ours =3D false;
+>         bool skip_add =3D false;
+>         bool defrag =3D false;
+> @@ -1096,14 +1095,14 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *=
+skb, const struct tc_action *a,
+>                 err =3D __nf_ct_try_assign_helper(ct, p->tmpl, GFP_ATOMIC=
+);
 >                 if (err)
 >                         goto drop;
->                 add_helper =3D true;
-> -               if (p->ct_action & TCA_CT_ACT_NAT && !nfct_seqadj(ct)) {
-> +               if (nat && !nfct_seqadj(ct)) {
+> -               add_helper =3D true;
+> +
+>                 if (nat && !nfct_seqadj(ct)) {
 >                         if (!nfct_seqadj_ext_add(ct))
 >                                 goto drop;
 >                 }
+>         }
+>
+> -       if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helpe=
+r) : commit) {
+> +       if (nf_ct_is_confirmed(ct) ? (!cached && !skip_add) : commit) {
+>                 err =3D nf_ct_helper(skb, ct, ctinfo, family);
+>                 if (err !=3D NF_ACCEPT)
+>                         goto nf_error;
 > --
 > 2.55.0
 >
