@@ -1,186 +1,135 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012068.outbound.protection.outlook.com [40.107.200.68])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729A4442FAA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790082593; cv=fail; b=qm/W/nsCcqsCjJ0AzF2lc8BxYfxDkOY+t6lYh8GTwM184qoHltAbGIbPmoCmIfL1bdX3kGLlgjTNCqCg1QuNQv8484Oqy82weRVS5hQezwhL80AfbJODJ2PnAqwLVrUAI2W2MGSbgJu2cub1W6XhuU500zpPCK0X8yZ2zxvyQ04=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790082593; c=relaxed/simple;
-	bh=gP/5W6vrB5ViL4pnPeeoBLim13hELk6nskuDj20IGiY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=uyYXg0evyNqRXRWM/0wVPGrSYB/TcKk3QluXH5MMolk2YGALGA0WwtCfQQc4MR822tyjLkZbeAMqtOGAHbKlM73+bBM3dCJ5pT/sbbhcKO99gWKBhhXebBxBQylSn0OR4+ZB66wEN1XnrnV243K347N8MumIviAswGdsNquXP2M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ftABsYxv; arc=fail smtp.client-ip=40.107.200.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E313BF67A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790082630; cv=none; b=LtWn2wNGPtH4SnSDIyyQkQKV9l4uqS/V9cElxW+2Wd6kBLXYMVD6XO7jVNm6NQINDMDhofD54jNVNBYs9J6emJV19ml6N/szeGbTAFUuHNK6v5KJscnOXehfKshL+0H8YAb3FBb1MkyfcbeBUbgPmcVETRiYvAIh+q25Md2toZA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790082630; c=relaxed/simple;
+	bh=xGc34cYFgl9gRuxC2uMg/rn1/epk4i2vSKizLYO+Dtg=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=Z8fKbjmmwW0wCHKeZm9236mZtQ8Fx+oZYCdRvdFEayc1nRilFGnaRwIsSMduYaiEqHxBys18iTtmCAHHc8FGauirsX9u7gIXBWJFcZ0xTZJz14B23mq7nLg+qiFBXaiWkrrfmYRh0pDsAq2wSxkhvrOPNCIlpDOFIqCQpQELyoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8vWtRUL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ftABsYxv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WJNoXkCKQI9a4Tr2PGEtNn6RCzBrfbheWwANtDyK1Y68xk5YI0GE2hCki9ACx6G+Es5u4SogJPHrRf5X7XTcAgRWD6f9cp4O36IxYRw0zSrbkgdrXPK5l2S8mGw6QMYYRue8BuuzjC04ted/77I9LMgpCulaUdKOVZ0i1bfXD46gz2OQH2pCjCxeiPhLrRcMKQYzbR/eJL6Zgi0XH2rrc6Vj7fR+OeqgLpFEyZYegDgSKwuloWpqSzUe+I2n+bQAFMH3rg2whDpyJPtaHbkKCJhps66dRZ0f0r0A+4mD+5vHOv/nbJwnQyV7RnffBhgO/vNh5tAvJLhSlkergpS+Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zAnGOrS52m/LU/376yFDz1hAabCnPk8ZGeiuJNGE47w=;
- b=aA8HaeXW9kRtDmgggCnnk7h6F79B49jL8zp3kbq1/cIjVYwC0iblumQm4bm55D5rzU3kT5vgqEsP39W1+gxxwqu96AtAeqtg1sEZgsD3EuZ27nC1fOdwoNFELAgjY17dim0hUHjL40a20GZow85cecx0uDYXHpr5QiUqmdXJLO7mKJs4m3RqFtFabtA8UAwT/V61rHaEX+gXI5XhNNnxA1u2RgH9Eehch0l3BcFgyzHQYgLEhJzlcB0x8/2Iv9x20kZ/08Mk57FBDXJceWxYbPl0lBW2Y3OitZSTp7fhNcAJorq1+ZTSXR+g//T63ZuA391lJKS2H+aNA+Ce4vzpnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zAnGOrS52m/LU/376yFDz1hAabCnPk8ZGeiuJNGE47w=;
- b=ftABsYxvX5GrhBGElQRVbe7/s3GH2iJ7CamYFIury3vRtxrY06Iv2KzQy5tiRWVlq7gzP+/PsjXmXuyFRPxAIDM2FiSYxZgMc6s25svuE5WO03sVFlss3/zPLl0ByQCJqQePBuaNx30xgQ6xq8YPsyE93QlqrrKkNl1WPuSJcrM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
- by SN7PR12MB6839.namprd12.prod.outlook.com (2603:10b6:806:265::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 13:09:45 +0000
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0451.012; Tue, 22 Sep 2026
- 13:09:45 +0000
-Message-ID: <80892761-25d2-4535-8722-430b402c00cc@amd.com>
-Date: Tue, 22 Sep 2026 08:09:43 -0500
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v12 12/25] arm,x86,fs/resctrl: Allocate maximum needed
- rmid_ptrs[]
-To: Reinette Chatre <reinette.chatre@intel.com>,
- Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>,
- Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
- Peter Newman <peternewman@google.com>, James Morse <james.morse@arm.com>,
- Drew Fustini <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>,
- Chen Yu <yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>,
- x86@kernel.org
-Cc: Christoph Hellwig <hch@infradead.org>, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev
-References: <20260916231320.14502-1-tony.luck@intel.com>
- <20260916231320.14502-13-tony.luck@intel.com>
- <87ec019b-762b-4ef3-b2bb-6322efb6a7de@amd.com>
- <d5f9dfff-abe9-4622-a0fd-09a2bb6b389d@intel.com>
-Content-Language: en-US
-From: Babu Moger <babu.moger@amd.com>
-In-Reply-To: <d5f9dfff-abe9-4622-a0fd-09a2bb6b389d@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH5PR03CA0009.namprd03.prod.outlook.com
- (2603:10b6:610:1f1::22) To BL1PR12MB5320.namprd12.prod.outlook.com
- (2603:10b6:208:314::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8vWtRUL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4FA91F000FF;
+	Tue, 22 Sep 2026 13:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790082629;
+	bh=B2Vaf3G4Jok7VPkAXcd4FFg4UAebg/qxdoTcZSkkoh4=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=e8vWtRULzBO1yoXStZEYYHOjHRW4kFZf+lhOMGT0/ibtLG25A1M0hsQFvF2FFodfA
+	 2fl2UBGp5ukz63MiD6pVako2fCRtpHnelJX9naWtqkqeyo3QiiqBru1oOWReHgWUKv
+	 rlHgZfnre+vEreg2Rz3GmmgE1UrGR0E/E2+A801Kh9oyr7xlNNZ3TpTm4HA9J2KOgv
+	 i/LVYmAmYEEvKYgjf5P0ziy7g48pdtBMYEhizu+EjyXTMmRvfra/Zo16KZvadJtEEj
+	 OhTMOzpzs6aqw5UH32FRDdQycbWpkrj2amVpLgrSgVGqBysV6WrtKJlLdZUlgefsWP
+	 cAYLlWDcbfDPg==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 17FB5F40066;
+	Tue, 22 Sep 2026 09:10:28 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 22 Sep 2026 09:10:28 -0400
+X-ME-Sender: <xms:RH6yauRrdXx7q6flTQj32MnXiaeyiRLt05HudjL4sjNK76sX5uGGIA>
+    <xme:RH6yaumbrIYD6sgw9--3AGJnJjtyc9iRUb82chwLaCLDgRBT-MUlIlyx2Z2cQj7cW
+    Bc6k1qIzzm9XJPgxKIuyOG5-VMyP4JsvNe5TQ4T08IjVs-UsF9czUrW>
+X-ME-Proxy-Cause: dmFkZTFyiJaG6SoLVKZ8p2R8v3wal9uiFWfR69j7sUoehaJbFxTTMsPQoqdrMWsTZJZ68Y
+    6VHQgiOvEzXqy2EypyHjHQgrg2+0cwHY9G5EhwACfy/0K3rmdchYT6+NbZZDS1fsF+dkG3
+    EWmj+etjMmJTPNEWkpO5he4cBU0Lh9HnjfvxLzymVi+OFxgxjF313LWneFBQK8qDvTZfkQ
+    ip7fb4dJ5RUQCWpd0smd8d3xOc9EytnYdpyeTO7dhebjl9QwKIcQ26GNZNiRHe92s18zxr
+    ud3qWxYIt3+RjJ/NAHnBdAVeewvgcxyW53d3xXmnbs03MotClWhcrNaxsrLgkBODWN3gEs
+    HWpoecM4rLrrzRtSgJOsDPTnoqxMs/tWqWGSfUGfyveYSR1IjI0k4bkFpgGx/vOtALhv8I
+    O7e70wkAi5FGEFEJgCDbJmZBcAEheK+oyzn5ONnqSQORHV4m3X8ayZBegv7iwA18JshVRL
+    eqXtGKrcC/o4HEGxWjKJmWod+1RePvs5drQEmcOtRzYvlB6OoJP0VlcihRWlkmhvoH7X9t
+    7HpYP/sLWEIZjcTQaA8wmJh0280iS3v2bOabb4jSPB+1hWqYao5tlxtXGFDAdMPCZpt49c
+    cpeYdDglDW+go+z1b+pqx4T+HzhsEm/V9dl7OfDzkzLHdIYOiNR3KMH0PixA
+X-ME-Proxy: <xmx:RH6yapcJMOJ-IejYu949sONhEGqvN41xTNr_OLVmnOn39tPmYJsFEg>
+    <xmx:RH6yagIZQkQwEtPM3aaJCbY2tmYaVqHTh9xjoqGFWGdw40GlsoJn8Q>
+    <xmx:RH6yauG5rZIy4LqvtC_Akki4ERh2PgyBhum8LBlJloVerufUXQI_bA>
+    <xmx:RH6yajCM1fldHz1CHbTbgYCzRDl_2LLxi7mk4LUi6X0i1bnfOvPc8A>
+    <xmx:RH6yah8r42D4vo4NPzuHk_OFoj1lZCzIHnFuw1OSwKWRn9wc93Rys8o5>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id E9BE7780075; Tue, 22 Sep 2026 09:10:27 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|SN7PR12MB6839:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a15f6af-c651-416f-74c4-08df18aac59c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|23010399003|376014|366016|10067099003|11063799006|4143699003|56012099006|3023799007|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	fICzg1QbMOVXG/aPPCjR8DyUeM+aEAlj6TyNRvKoIvquRi4ld98U6vRuF4mSDtmUOXUZ+vo/Jg0Ib1yFDQVJsbyRfq3vJo6p8zhayLYzc5LCtqz4dsq07m3kR8S/qqPe+4HihVLBp9JuX2lYCeTar94+BqGk1Z5B+wtsqimZmFTxDJmqmKsn1XPZwVgFuYp2xxJ0GXS5OiahGLZLC7VuWowMVoqgj5er1jWex9dXC9UCYu2AHHHLN8qEZioeJhzvfELoTaxYltkBbSeNhdDM1PoCRh2jua0N54ahjlN86RUX6gNulVfy7Jmjl2XEG8u2Jo+DrWXrJYWHiacuwD44+ZbgbK3IxIuU2Erqil1DB5qflMSBePTr80EWA5Rit3ZEow37vot9Ih0P8hENueTlBx8RUxPUW/RZeZnmtdCe5/ruRF/lozqNJ5uetImU3TUTkNF+tEqn+VVbtA8FN44nIJeVx04g+dC/TYeOTqciOTuWqSKSpcQAMec/IfXMI6MUVqPw2XEyBjBIXUhMVs+gfVB0YP7EAVcsY8/iiBV4T5D+Gr9Q5aqHdzNdxS8kRK1vRPhbIiVetGE6uRdokNeQQAig1CIkWUEQrSzzP8XIJI3v7kR3hK+jaOmI6H0P+8r4dgzQE07cQCxcgYPM6Jtvbmqi1HPO0rjBPgqHftfWQT66pWwqamBXAxofxP/qlSeOCf9cPad+18YJFUsXmrCfzA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(23010399003)(376014)(366016)(10067099003)(11063799006)(4143699003)(56012099006)(3023799007)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bjdlRnhRdzNyOEoxZmgyYkRZcVU1c1ZiaFVSK1hkbytKYzRqOG5NT2NSMXpz?=
- =?utf-8?B?RHBVeW1SS1pucFBhQTNjbzFUbnhLdk9SVEFXN3pmaTR0Mml3Ry93TVBhVFhN?=
- =?utf-8?B?YVh2SUxwWG9IeEpubkNVZmFxalhiUGdCUE5RV2ZCaXB0emU4bWlzaE8yRGVq?=
- =?utf-8?B?TnpOMFViditkaE50RlBTa05ZZC9sTnh2OGlBSFlGQ0JhQWZVZ2ZpdjVBeFhJ?=
- =?utf-8?B?YndpNDJuWUdkKzQzYWRQaER1dzBuazRTN0c5b1lQMTduaXFlWm4wTW1sY0Nk?=
- =?utf-8?B?cHVQQUlxa0VyRmU2Z3l3M3BKRlJqVUV3bjF2RnZjaEd3MU1qYStMV0t0SEJw?=
- =?utf-8?B?cHdqeHYzemVnTGlLUmlGeVkvWjNCbm40YThUKzd6Q2pTVlJOOWRUOHpqdnBu?=
- =?utf-8?B?VCtGQjdvM2lDMTVpU2JEamgyU0lteEhLNytTV1d4dDZraDI2emFUWUhKVmxM?=
- =?utf-8?B?eXh3UXdpYndER3Jkdml1eWZJOGh0RStZa3F6Q3Q5RVpQaWRzdVdMMDlpeUZi?=
- =?utf-8?B?ZWh5M0tmSzFPRHFzNlM1dzg3NVBSU09SdDc5aFdydDhLU2RjWnRTVVd2cG1I?=
- =?utf-8?B?UGJzMVFKSmZCT244RUlPQzJ5SkpsaCtEejFkVDhLeDMxc0tpbzdZRmthcVUx?=
- =?utf-8?B?RzR0UTkrcmxUNU94TXhQSU0rb2xLem1UUHhzZjJpd3I2QmdrVW5GWnlrVTBz?=
- =?utf-8?B?T05BUGZHMmM4d0Q4azJlRkdDanBJZ2tGQStUU1hhQWlkUnNjSHdBTlBUNEFy?=
- =?utf-8?B?YmJJTEowSlA2U21hallwcys3UldOcSsyYjE4aHdzZjMxMWVPYmhOZGp1Zkw4?=
- =?utf-8?B?L2RWZVF2alNUVWZSNHJndEpabFZXSEV5ditVbnIyRWpJWE5HTm9WSjJuT29Z?=
- =?utf-8?B?S2N0cVUySGRGa2tFSSs3RldPamlJd0JkM2MwbGtKU0NTRmh3bmMvZWljNlRm?=
- =?utf-8?B?WTl2SDFJRVF1aEFmanZKQWVPMjc4WUpWSW9GRlRjajM5TDB6Zit3a3BYajZn?=
- =?utf-8?B?VXJlY0FKL0FKdkIwSUZCMnd4QjlacXk1Ums4Zm95NFhTbWZzQldDS05TVTda?=
- =?utf-8?B?d3JrRndDeG9BSGE1aFkraVFaMlY3V0lwMVhiYmU2dVdWbHA1czhvNGhnMm51?=
- =?utf-8?B?d0hqbXdyeFdqU2pWYWxFMCtIc1cxS0IzcWZIdUUxaEFPeGYwMy9IWGljRUt1?=
- =?utf-8?B?cnJMTlRGSEo3RGNDUm5oelJ4engyQ29BRzlSUWhUMFVFTHliOVZXY1RqQkY3?=
- =?utf-8?B?Nk4yNUVLVllodVFYd2xGNkdkdDN6NFNyeWNXUzZOYzBqdHk0bjUzNUZQeHJ4?=
- =?utf-8?B?WjdTYU5WbXdMRkJPaUpLd091RWpNd3JQWC9TbTZDRVBSQTJaZmwxblk5eHdr?=
- =?utf-8?B?NDdFbDFDby9pSFRyWXI2MnZzTkk1cFh2Um5DUE5mekNVT01sZVhua09iRmpM?=
- =?utf-8?B?RWRtZW5vYjRyYnJMc3dZaER6RC9tYk94bEpLejhHTlh4VHhqZU9FQlp1UHZM?=
- =?utf-8?B?dUNJL1d5T01rV0pLZm1HL2dtd09TSWNwb0FIdnVaWDJxazdMLzBaT05hSXc4?=
- =?utf-8?B?amZMZ1hNVjREbFJwSUlwcnBEai9YZm1rNVR6NFFkR3R0bENKdjQvKzdsUENG?=
- =?utf-8?B?aUYxc0l3YkF6dE12U1k5dS9NZkl0anlFMmVBWjRuVEVCaWZzQUhnRCtreEN1?=
- =?utf-8?B?VXFLajUwVHZnRmhxTUpxVlBsbjc5V3BDMzBsR1dNWDNuOW9DZzVzYnFmMi9K?=
- =?utf-8?B?OFl6Wit0SzFRMUtkTStOQ2grbDMyMTUrZ25Ic25YeEdWeDJvL3J2U1g0NUdC?=
- =?utf-8?B?Wmg2RGJ6dnp1eU5BOUtqYkw1ME1QRGlNdUJ1czhhcC80VkxUY0VTcUsveUJK?=
- =?utf-8?B?VWU1cTlDejRRMDJYT3ZsSFdET2I4QUh3MWZ1K0dWUTkwbHFWaHBDcTR4UklH?=
- =?utf-8?B?MUZkSGFHa05nQThVMmltMzArZFRSb3Z1ZFZLdldKc21tSXJPc0owUzRuT3lQ?=
- =?utf-8?B?UXJvUzIrN2daQmNlUTZkVzN4dE9OUlhZRjUyZi91Y2VaTERVUTExTnlwYnY0?=
- =?utf-8?B?Y1I0RlBRSjNqYTR0ZGFxNENma3ppZUg4K0I5cTJKRWE3MlprUVYzWnNZUDFK?=
- =?utf-8?B?RmpQRTFQNkNoNzJpM3ZzTld3dmV2YkQzVTNxcWhiVURTZUttRllVUTFIcUN3?=
- =?utf-8?B?Mmg2Y0w1ZVlNRmcrR0MxOVBuWGJiamJnSmQ4cUNVaEtqM09ZdWIvVldIaG5p?=
- =?utf-8?B?T2paYjlXU3FteWNRRXVOM3g3bStWc0tHOGQxaHl4VXgycGgweVh2LzdIZnZN?=
- =?utf-8?Q?us6qWRX7pBaX+DeqV7?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a15f6af-c651-416f-74c4-08df18aac59c
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 13:09:45.0826
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W+oiQwAuq8uBq3XmhmO14DTOrF3g6TnNhMje2ZQcTtwNH4omCCVG7DX7JSflBSAj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6839
+X-ThreadId: Axnhf21sy6mB
+Date: Tue, 22 Sep 2026 09:09:57 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Mark Brown" <broonie@kernel.org>, "Chuck Lever" <chuck.lever@oracle.com>
+Cc: "Anna Schumaker" <anna.schumaker@hammerspace.com>,
+ "Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>,
+ "Linux Next" <linux-next@vger.kernel.org>
+Message-Id: <c2820c5b-94c4-4b30-a6e1-cc7e49210d0d@app.fastmail.com>
+In-Reply-To: <arI_XvccOKuOsjzo@sirena.co.uk>
+References: <arI_XvccOKuOsjzo@sirena.co.uk>
+Subject: Re: linux-next: manual merge of the nfsd tree with the nfs-anna tree
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Reinette,
 
-On 9/21/26 19:30, Reinette Chatre wrote:
-> Hi Babu,
-> 
-> Thank you for taking a look.
-> 
-> On 9/21/26 10:45 AM, Babu Moger wrote:
->> On 9/16/26 18:13, Tony Luck wrote:
-> 
-> ...
-> 
->>> @@ -45,6 +45,9 @@ static DEFINE_MUTEX(domain_list_lock);
->>>     */
->>>    DEFINE_PER_CPU(struct resctrl_pqr_state, pqr_state);
->>>    +/* Number of RMIDS values that can be written to IA32_PQR_ASSOC.RMID */
->>> +static u32 pqr_assoc_num_rmid;
->>> +
->>>    static void mba_wrmsr_intel(struct msr_param *m);
->>>    static void cat_wrmsr(struct msr_param *m);
->>>    static void mba_wrmsr_amd(struct msr_param *m);
->>> @@ -124,6 +127,28 @@ u32 resctrl_arch_system_num_rmid_idx(void)
->>>        return num_rmids == U32_MAX ? 0 : num_rmids;
->>>    }
->>>    +/**
->>> + * resctrl_arch_system_max_rmid_idx - Largest possible number of RMIDs
->>> + *
->>> + * Return: Maximum possible number of RMIDs used for boot time allocations.
->>> + */
->>> +u32 resctrl_arch_system_max_rmid_idx(void)
->>> +{
->>> +    struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
->>> +    u32 num_rmid = pqr_assoc_num_rmid;
->>
->> Why not  use "cpuid_ebx(0xf) + 1" instead of global variable?
->>
-> Tony did so in v11 but I proposed it to be changed [1]. This series adds
-> multiple consumers of this value so it seems more efficient to enumerate
-> it once and re-use that value when needed. Locating this one-time enumeration
-> with all the other monitoring information enumerated from hardware in
-> get_rdt_mon_resources() also has the benefit of keeping all monitoring data
-> enumeration together.
 
-Ok. Sounds good to me.
+On Tue, Sep 22, 2026, at 4:42 AM, Mark Brown wrote:
+> Hi all,
+>
+> Today's linux-next merge of the nfsd tree got a conflict in:
+>
+>   net/sunrpc/svcsock.c
+>
+> between commits:
+>
+>   2ecf0d2af5da8 ("SUNRPC: resume receiving after a TLS control record")
+>   1a485d8e93a92 ("SUNRPC: treat every TLS error alert as fatal")
+>   d3b4fb1d30749 ("SUNRPC: reject a TLS alert record that is not two 
+> octets")
+>   f547743e6b51f ("SUNRPC: do not credit control-record octets to the 
+> RPC stream")
+>
+> from the nfs-anna tree and commits:
+>
+>   a76d52a01792f ("SUNRPC: Do not credit control-record octets to the 
+> RPC stream")
+>   e263b5d674fcf ("SUNRPC: Reject a TLS alert record that is not two 
+> octets")
+>   ebcbe4a9a7779 ("SUNRPC: Treat every TLS error alert as fatal")
+>   8f765d820c590 ("SUNRPC: Resume receiving after a TLS control record")
+>   7f757c41a8beb ("SUNRPC: Reject a socket that already has an svc_sock 
+> attached")
+>   35ab7140c7bfa ("SUNRPC: Separate the TLS control-record receive from 
+> its policy")
+>   9a4ef884d00cd ("SUNRPC: Close the transport on an unhandled TLS 
+> record type")
+>   eaef7075c6a48 ("SUNRPC: Flush a received record's pages once it is 
+> complete")
+>   1517c61f247f3 ("SUNRPC: Receive RPC records with ->read_sock")
+>   23bec0f9631c2 ("SUNRPC: Bypass sock_recvmsg() for the TLS 
+> control-record receive")
+>   0fce57f554fa6 ("SUNRPC: Skip xpt_reserved accounting for non-UDP 
+> transports")
+>
+> from the nfsd tree.  This looks like different versions of patches being
+> applied with extra stuff then stacked on top.  I've taken the nfsd
+> version but it's possible that's gone wrong, I'm not *super* confident
+> in this.  It feels like there's a coordination issue here.
 
-Thanks
-Babu
+I didn't realize Anna had picked up the TLS-related work. To resolve
+these conflicts:
+
+- I can drop the xprtsock.c three (91bdf2ae4a27, 6b91817001fb,
+  21bcc6ccc6cd) from nfsd-next
+
+- I need to keep the svcsock.c four, as there is follow-on work in
+  the NFSD queue that depends on those
+
+Anna, can you drop f547743e6b51, d3b4fb1d3074, 1a485d8e93a9,
+2ecf0d2af5da from nfs-anna?
+
+
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
