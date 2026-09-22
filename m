@@ -1,160 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3724E54857B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:07:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3189548564
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790086035; cv=none; b=DZFLBCB0nppHDmxkolDNqCukz/yNy/yzbPnZcyq98p3sN+hoCiPD3Nniqh1WdZTtHnk98fxHlxvy8mYI3OGN4LQhiPXdn3n9BrdSGignUZf0JRzafnWYpuaBblj8QMkEHhBxLL73nM+WZfP8mtkhs7fY9CbYHtXwsiBU8Ymf6hs=
+	t=1790086126; cv=none; b=YT4ph27pKuhvl8ZAQ9J3tvifcGsV4fbqwMxsUAVtwbxIoKmM+Fcqxamg/pa0+R/ANoTPDhzDM9IQdh5B+t8aTJC9+Udph2rYYTYqzIHRwfJLEbe3Z2C/dw4w1dyTbziOL2dxsPHoBzbVzIvNaRMrzyzsfTaQxLQK5BiIDhfgY64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790086035; c=relaxed/simple;
-	bh=4Uas26dGhU/iXyr6v6wOQY88unFWnTVcU29K2xYHVc0=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n5uO9qyd2F9twtc7C7KR1zrFIlG9uMHTROuiPO9uqR9O12sTh3GIOBmutVd8LQjN706KDBs5YlIIID3hXVo1x3PmCXjWrU54vzz1mUsAgiKBPtTP/Sgq5ARCCRjyBMOd27hiQmvnbdiT2RvJCWb+X4adLG7Vu1pGr3vi7VyfHY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxP/vKDS; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxP/vKDS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AED41F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:07:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790086033;
-	bh=kUHXPatxl6UDjnbGBaoNIDKARQ2zRd+ziWNoZ41+0RM=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=lxP/vKDSiXT2QGOjMIwkk3x+yEAYCg2kJyuUM6sWk61hBHI9ZWFXn5G0ON/R2yVT+
-	 zwONGAOeAX3B9UVA+3REtPbCJk5Cji0J7nkUkiVMR+dn2FJYQeE5Z4o6D84gtjpApt
-	 0diQvRJaXTedqcS6LHpxvIn6TTeUaEDLIouEH5yDggoLepDNpU6vVIfJldSz5GUJWF
-	 2YjVFU5CmczjIuIfGBYRmQ7Q8lhEjd016Ly8lUq310AKO3n9Z3lqNqwehCuaelMF15
-	 oXcewccnVgfCntfsVJzTBQrEWqHq7JiPBCK2Ds1AGkOaVGHH9QTKH/C6CJq/r8K3lm
-	 mrEwwIyjTUNhA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so3721608e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:07:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzL60EYA2OnsKK/GqoWSZroyCIWmGvi3gAuwBtqi4nAbUoKc6yv819hkZOzRsfUHtna5NL0GvaXgdmGQno=@vger.kernel.org
-X-Gm-Message-State: AFuF++loxNN/VypPT36sLIMe2E25S6PkB4nPEsqfdnDMM7CLTCrH/aSl
-	ILTjI7jN5Qe1nMwQE1Gh4zZ4mPzY6ouK4xzHbYB5m5NC8LYRud2Ok+gQvwJ0peG17ZnkdJJIZP6
-	tiiIDKQBRSxdRg9xhYhvvaKHyqaAEhNgoLj3SlZ1kEQ==
-X-Received: by 2002:a05:6512:3c89:b0:5b8:bc5e:b584 with SMTP id
- 2adb3069b0e04-5b8c195dba5mr4212786e87.60.1790086032032; Tue, 22 Sep 2026
- 07:07:12 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 07:07:10 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 07:07:10 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <arJY1TMBIZCy8E7n@black.igk.intel.com>
+	s=arc-20240116; t=1790086126; c=relaxed/simple;
+	bh=1kds8tC4BTayXiREnILf9Hh8KNywd1iA9cUHZ/a9U2c=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=NEC4uvHsMZorZMOfYwaIETZ17bpbVLAGcCMC3qhpGboMeDoP9WrA7CZL3yzzZDclVjb8uGS5ROuiQVvuEHzvwQ6ftz8bwGx6a5BYPq3Qug0spTRA9y5yu/kEUG7xUOLwndXefeG6t1uxJNzbDLumHunjQkvmb6W3tgN8RO2GwaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so716755b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:08:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790086124; x=1790690924;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FPxij3GIKryjcXEbmMsQS/qbe8XwIFxlkyNJU0nRpOY=;
+        b=f4Fr3yzyicF6qwYempWoqtV4LU+Qx5eaJoTfbG/5Yn6nEoqqjsdU4FpKBPzwO8Hdg3
+         iebgm4I1cN9Bklb1XAW/A+JZc0qQt26wQQWvEj7yCE2bZRfBG/12rGlYRG3CGnXnlrS+
+         nJ7BJ+z0Y/Pk5KX0ua+QokFg4zfvyj5wpnR9glx52sXpcWBs4vLXFhhKBaoet4/4p8z8
+         ITFAO13/dX5Vfq4bADpKkTtxc2+Vkob3wikKUwpY+z9+IxJZftCGWAUPW9ffgH6oqpQn
+         IBid4qJ7e4nijXta4w3A7GnTzzQ6KgJfsyXGtjHltKR11ogbfaW717AWdqtAEuPbY++E
+         ii+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwZphwqXfnh+Rm6AejLJ+egjo9ALk55fyxzMpbdfX6zPv+7LqlwX5db90QUfzWnMLyyinG82jk4ISqdll8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nU4aPWnJ51Io4FwzuJfG8EOoQUkqooaR55Z4G1l4OP3GA4RpIX
+	4YU46nYxhFcKHUtxKUuu/n0E1GjTEhuTID+236vFKQ93f6o4HZl3muQ/I5j+5n/cD3RC0ElI4rV
+	VhBt9S3x4SjOzfDQGsFIaI55q+9DvepVrMzLsQe/sNZqYnkBHfnkBJOfnxvo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716-swnode-remove-on-dev-unreg-v8-0-5c2b8cc38c28@oss.qualcomm.com>
- <20260716-swnode-remove-on-dev-unreg-v8-3-5c2b8cc38c28@oss.qualcomm.com> <arJY1TMBIZCy8E7n@black.igk.intel.com>
-Date: Tue, 22 Sep 2026 07:07:10 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfKw=r_Rq5jLqRQ9PsfiWoQ9y9EJFkpdWraLsPoK3m52w@mail.gmail.com>
-X-Gm-Features: AcwNN1UEx80-dq3niB3Ch-hprwiz9M1bLoeYBSF0qAEN-wKYR-Jy-u3bvPVw6Es
-Message-ID: <CAMRc=MfKw=r_Rq5jLqRQ9PsfiWoQ9y9EJFkpdWraLsPoK3m52w@mail.gmail.com>
-Subject: Re: [PATCH v8 3/5] drm/xe/i2c: use device_create_managed_software_node()
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, brgl@kernel.org, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	driver-core@lists.linux.dev, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Received: by 2002:a05:6820:178e:b0:6b7:46e9:96ff with SMTP id
+ 006d021491bc7-6ca9c84d60dmr11904743eaf.47.1790086123743; Tue, 22 Sep 2026
+ 07:08:43 -0700 (PDT)
+Date: Tue, 22 Sep 2026 07:08:43 -0700
+In-Reply-To: <6a8cdbd6.dbb3a75c.7844.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab28beb.a6af0033.177e91.0020.GAE@google.com>
+Subject: Re: [syzbot] [mm?] WARNING in setup_conf
+From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, apopple@nvidia.com, byungchul@sk.com, 
+	david@kernel.org, gourry@gourry.net, joshua.hahnjy@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, matthew.brost@intel.com, rakie.kim@sk.com, 
+	song@kernel.org, syzkaller-bugs@googlegroups.com, xiao@kernel.org, 
+	ying.huang@linux.alibaba.com, yukuai@fygo.io, ziy@nvidia.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 22 Sep 2026 12:30:45 +0200, Heikki Krogerus
-<heikki.krogerus@linux.intel.com> said:
-> On Thu, Jul 16, 2026 at 02:31:38PM +0200, Bartosz Golaszewski wrote:
->> This driver intentionally uses the fine-grained approach to creating
->> platform devices. It assigns a software node as the primary firmware
->> node of the device it creates. Ahead of improving the reference counting
->> of platform device software nodes, switch to using
->> device_create_managed_software_node(). This way, we create a dynamic
->> software node whose life-time is tied to the device to which it's
->> assigned.
->>
->> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com=
->
->
-> What happened to this one? I can see the commit 0f485f88656a
-> ("drm/xe/i2c: use device_create_managed_software_node()"), but not the
-> code change?
->
-> There is no revert and there are no other commits touching this part
-> of the driver, so it's as if the patch was never actually applied?
->
+syzbot has found a reproducer for the following issue on:
 
-I had no idea what happened here so I had the robot look into it and it cam=
-e
-back with this:
+HEAD commit:    f0100363d8c3 Merge tag 'xfs-fixes-7.3-rc5' of gitolite.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17971805580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
+dashboard link: https://syzkaller.appspot.com/bug?extid=75f49ec552cc74d9d69b
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17b20c5e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10720c5e580000
 
---
-Your commit 0f485f88656a ("drm/xe/i2c: use
-device_create_managed_software_node()") landed upstream on 2026-07-16, but =
-it
-went in through the driver-core tree (it's signed off by Danilo Krummrich,
-a driver-core maintainer), not through drm-xe. It reached mainline via the
-"Merge tag 'driver-core-7.3-rc1'" pull, and was present in v7.3-rc1.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-f0100363.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/18fb2734cddb/vmlinux-f0100363.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/5737b586e7bc/bzImage-f0100363.xz
 
-Meanwhile, Intel's drm-xe-next tree had last synced with mainline back on
-2026-08-06 (merge-base ec3e9419371d, before your commit existed). Off that
-stale base, Heikki Krogerus landed a large I2C IRQ-handling rewrite on
-2026-08-11 (a55b76b8bc2c "Fix the interrupt handling", 76cc14e2faed "Keep
-the i2c controller always enabled") that touched
-xe_i2c_register_adapter()/xe_i2c_unregister_adapter() =E2=80=94 the same fu=
-nction
-your patch changed =E2=80=94 but built on the pre-conversion
-fwnode_create_software_node() code, since drm-xe-next didn't have your comm=
-it
-yet.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
 
-The regression happened here:
+md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
+syz.0.17 uses obsolete (PF_INET,SOCK_PACKET)
+------------[ cut here ]------------
+1
+WARNING: mm/page_alloc.c:5340 at alloc_order_allowed mm/page_alloc.c:5340 [inline], CPU#0: syz.0.17/5462
+WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof+0x425/0x5a0 mm/page_alloc.c:5397, CPU#0: syz.0.17/5462
+Modules linked in:
+CPU: 0 UID: 0 PID: 5462 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:alloc_order_allowed mm/page_alloc.c:5340 [inline]
+RIP: 0010:__alloc_frozen_pages_noprof+0x425/0x5a0 mm/page_alloc.c:5397
+Code: 90 e9 76 fe ff ff 41 81 e6 3f ff ff ff 44 89 f1 41 83 e6 f7 a9 00 00 00 10 44 0f 44 f1 e9 45 fd ff ff c6 05 2c 98 38 0e 01 90 <0f> 0b 90 e9 8b fe ff ff 48 8d 3d ac 09 54 0e 67 48 0f b9 3a e9 68
+RSP: 0018:ffffc90003b87520 EFLAGS: 00010246
+RAX: ffffc90003b87500 RBX: 1ffff92000770ea8 RCX: 0000000000000000
+RDX: 0000000000000000 RSI: 000000000000000e RDI: ffffc90003b87588
+RBP: ffffc90003b87618 R08: ffffc90003b87587 R09: 0000000000000000
+R10: ffffc90003b87560 R11: fffff52000770eb1 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000040dc0 R15: 0000000000000000
+FS:  00005555836a7500(0000) GS:ffff88808c2c0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f4a2c07ae9c CR3: 000000003bff7000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ alloc_pages_mpol+0x21e/0x390 mm/mempolicy.c:2486
+ ___kmalloc_large_node+0x4f/0x120 mm/slub.c:5353
+ __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5385
+ __do_kmalloc_node mm/slub.c:5402 [inline]
+ __kmalloc_noprof+0x3fb/0x720 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ setup_conf+0x28b/0xd30 drivers/md/raid10.c:3855
+ raid10_run+0x1d2/0x16c0 drivers/md/raid10.c:3955
+ md_run+0xc3d/0x1cd0 drivers/md/md.c:6779
+ do_md_run+0x35/0x720 drivers/md/md.c:6880
+ md_ioctl+0x1e2b/0x2610 drivers/md/md.c:8515
+ blkdev_ioctl+0x5e3/0x740 block/ioctl.c:798
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7efcb939e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd8c37e488 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007efcb9625fa0 RCX: 00007efcb939e159
+RDX: 0000000000000000 RSI: 00000000400c0930 RDI: 0000000000000004
+RBP: 00007efcb943506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007efcb9625fac R14: 00007efcb9625fa0 R15: 00007efcb9625fa0
+ </TASK>
 
-cc467969646b =E2=80=94 "Merge drm/drm-next into drm-xe-next" by Matthew Bro=
-st
-(Intel), 2026-08-31, merging:
-- parent 1: drm-xe-next's tip (Heikki's rewrite, on the old fwnode code)
-- parent 2: v7.3-rc1 (mainline, with your new
-  device_create_managed_software_node() code)
 
-I diffed the merge result against both parents directly: for the
-xe_i2c_register_adapter/unregister_adapter hunk, the merge commit is
-byte-for-byte identical to parent 1 =E2=80=94 it silently dropped your API-=
-migration
-change and kept the old fwnode code (plus Heikki's IRQ rework on top of it)=
-.
-No Conflicts: trailer is in the merge message, so this wasn't a manual
-conflict resolution that anyone flagged =E2=80=94 either it merged cleanly =
-in a way
-that just discarded your side, or it was resolved without git noting it in
-the message.
-
-That merge (drm-xe-next-2026-08-31-1) then flowed drm-xe-next =E2=86=92 drm=
--next
-=E2=86=92 mainline, and it's still that way in current mainline (verified: =
-HEAD,
-v7.3-rc4-based, still has the old code =E2=80=94 confirmed via git blame).
-
-Bottom line: your change wasn't reverted on purpose =E2=80=94 it was silent=
-ly clobbered
-by a stale-base merge conflict resolution when drm-xe-next resynced with
-mainline on 2026-08-31, because drm-xe-next hadn't picked up your
-driver-core-authored commit before building new code on top of the same
-function. This is a real upstream bug worth flagging (to Matthew Brost
-/ Heikki Krogerus / Danilo Krummrich): the driver-core migration for xe_i2c=
-.c
-needs to be reapplied on current mainline.
---
-
-I think we need to reapply this patch.
-
-Bart
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
