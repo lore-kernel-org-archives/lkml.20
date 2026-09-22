@@ -1,72 +1,48 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEC64DA9B8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914714DA9B8
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071353; cv=none; b=eiKVpC2QgUKf/pXDPMO+b+/tM9UJ3LAb4UptT01c9oXf/lWvYzyOIPo2hG+vzMQ51DnaFJahENn6fxoi74w61Tu2wfGY6CqK7XOrlyFoUBIxHP3mOkmEiVoi0pAo5tPk2PTyDSQjOyVQMJk2DBCWUhFZgK0FkiOvLZAqtPUHaWs=
+	t=1790071363; cv=none; b=srBi47gQ8R4zXy/bNmZyyxWYoszZ/C0Ct50TswpM2lKipqRI1UueyngfT2+GYsV1DnbFwXAWH+uPFYiR04ogr2bYgi3KgnURLaG0B5UB60B+cqwYhmRS7gMXR3lUD0CRqVQDw5lzHVM+nJG3TgQqHisturTLmEVWgmZbv98VWG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071353; c=relaxed/simple;
-	bh=Bea8wIAQm1SYAKyW65bI5chdCfHl9tUBCZIlF4kOWPY=;
+	s=arc-20240116; t=1790071363; c=relaxed/simple;
+	bh=WWM2EFbzIc5ww9VfdftvDBxSKW+iXLMKoaXkmXKLpDY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JRofIidE2KpSBX353dQOrcVidOQKR4JMWOzMDY1qthxFJqpAaC7TLSFrewrRlFdQh5rQjDsNEFiVV2+PaZEmb66pqonlF0VHfYJFrClY0e1FZfytX53lE0B5dUCjyl9PDpnDEHROgUmnAfFsNyH6osYOwPN//tXFYZXr12fBCxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WSqhZwNy; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=idohDsZMpsMpKTZAhPZfZ5cPqhRlxjP5sfCrkdq1kSLThWlyQdxCeDNe0x5cZ8JwSyxzZuTBdDWfNFxzUxr8QVlEhFRWQDKyENOvw0MVC0hQrqYHIRL4NSRyCFhl20p9nbB8Fva+PS4bV0gIrF2hZAczG7bEAdon8lQssyDaqC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=h9C0Vxas; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WSqhZwNy"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so21861725e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:02:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790071350; x=1790676150; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hq7WxrljjFtOruf6YuhnLlODqXetqWkez1dUK9LeLVQ=;
-        b=WSqhZwNyyxsrewRJfbz4hj34PmsLJcMue74m+fZOqiA7d1OpFrsqSxkdeBaJkjelrK
-         iUla2FLeJtBEauos+/ce1hU3GCBRtihaQOcnhJ9cGwx/0B9mkScDczM6wonBk2WMKNWg
-         sMprCUgn+yqs70UtfJPsSbiuz/K6emh7SpKDWz3MQk8oE55gqoxAOHgwBfGRhJzZs9Q2
-         KN+dhGEyZWuwM/Yjx1DQ0CgXIjXbFM/UECLI1QVkntPKU6hrZrIMSh9zmqcWc108acUM
-         tXASdLmfRTRSKqMgOCLBcIdiMvre2pGQtg2Fwy6MLiEENcpU8VCE0J26YlSA2GFqLz64
-         f4YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790071350; x=1790676150;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hq7WxrljjFtOruf6YuhnLlODqXetqWkez1dUK9LeLVQ=;
-        b=EL9+lBlIa1YXTmvh6lFnE9Cbcph0BMjozCbNnwnPvZhh1XiWCZqfc3tl4i3dJ//3iM
-         PWIi7T2uK4SOUOlxaCEuilxwyfj/r6NDOng2JluOlk5Vl2RJ78GuHCgbW56fqB0Jrqt+
-         WwyG7JHucziUlxrNCZhuPtjO6i78omokf9cJKT8m7BvSbniLb25zQ8nIVlqIDUCObK/i
-         8w3EReoSWv8AXMo7ODJshAB3bikrh8hjMLSD7EEnY8tGhLpTJYaPlhzHgO8nGoLkK+As
-         vdd6kcBVOKMGMrnf+aoLYUlC4dUaSauQR5XOtuaYfAraHIeJyz5w7cTpUSAN6ECA7zpx
-         kDbw==
-X-Gm-Message-State: AFuF++krJtXrSopPqVrhfeBxYHcKLeT0Zdqigaq26ln7vBnAVkEndFXu
-	TxmxFsCo/O+SeNj94jxGwoVRYDMU/BYW/43yWqhw/qwwZ9Chy1v7g37kZdYNDSoc+28=
-X-Gm-Gg: AYBFou0gqbp0USe8DY5MH6SjTF9H0uYKypLMj8HLkrztCqKHycIgvsud7f1L3ilfqeT
-	9tk3FVswiIqSDMvLbQkghVBLxhPbnyggNA1hkqis8TWVmfputZgWsA7CeDqowBdaDz8P/8428Zz
-	+B39gB6ddkECbt6M0F6GzRlL3Npr9GN1vcn8kmgPaMb3xp06p5+pecornms7/Jobag1q4bRMF9A
-	C9JjfncoZ7siijeihdYtMKQsLBdo7ff2kCyBUqgqCBxJyBl6TbvxVkdDYlcetLkdb3dFZGrq7MR
-	c6C2X9XHaLfGTLXjGz1Ptn5Ysw9ykJcNZlda11ei6aZnB5oNkcabNLcOC19HgOQUDAyWLoPpwum
-	crErbboOWkeV035nu9MJYUT8QtB0O5boknvkKOli7EGWbZk9MzG+XJi1GtDwAOQWnfSFjOsqSHV
-	KSVsBdvFEx+xnbHv5GS+A0qlxJtz89/5daBlbSBly3kC5TREpPOa1Gdgv80CyuOcZxkA5ASocT
-X-Received: by 2002:a05:600c:4e8f:b0:49d:1916:59c7 with SMTP id 5b1f17b1804b1-49fc5687e05mr193988335e9.7.1790071350103;
-        Tue, 22 Sep 2026 03:02:30 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaa28fc8sm30620885e9.0.2026.09.22.03.02.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 03:02:29 -0700 (PDT)
-Date: Tue, 22 Sep 2026 12:02:27 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH v2] printk: Use two irq_works instead per-CPU
-Message-ID: <arJSM8NaTAK_sN7Q@pathway.suse.cz>
-References: <20260914143412.1sMcp89V@linutronix.de>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="h9C0Vxas"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=1Le5V/iln+hZT8HI4QA6CNSCWrPk/YNdj3lk/dCc+/g=; b=h9C0VxasqbeZIyE13xaQsBFnY5
+	Du4paS8YlzFxOo0zp17Vl7qfLPH/q/60UxWs/IY1pAxNzYD7cx/eHhDVomkQnKOYQ5c0D8j/E5tZ4
+	aKYK/wbSKex/XzY2S1Aj0nULLTxvLPgd7vpTS0Z4uj2zbV8vOEHE8sJRywJYjBZlw0uwRXtaUGRz8
+	/CAAS3qfUnBFN7F58o2C9Pb0+IrbtZVS6Rg1oEeOTkHaj9g/kxjmRmjKx5e2ejiN+e24PC1w5gNES
+	0H2b5b1V15xYVVH7l4J3BDT+P4XzMS+ckRYemFcxSnIzukiu3GfaWbKdonDloKXBRUoqJBMzuiLSP
+	8N+HcfNQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x8xKc-0000000DPeM-1ccu;
+	Tue, 22 Sep 2026 10:02:34 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 9C892300708; Tue, 22 Sep 2026 12:02:33 +0200 (CEST)
+Date: Tue, 22 Sep 2026 12:02:33 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, qyousef@layalina.io
+Subject: Re: [PATCH 4/8] sched/eevdf: Decay positive lag of sleeping entities
+Message-ID: <20260922100233.GP776954@noisy.programming.kicks-ass.net>
+References: <20260921152238.3804392-1-vincent.guittot@linaro.org>
+ <20260921152238.3804392-5-vincent.guittot@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,53 +51,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914143412.1sMcp89V@linutronix.de>
+In-Reply-To: <20260921152238.3804392-5-vincent.guittot@linaro.org>
 
-On Mon 2026-09-14 16:34:12, Sebastian Andrzej Siewior wrote:
-> In commit b845b517b5e37 ("printk: robustify printk") initially got its
-> delayed wake up which is today implemented via the irq_work. Back then
-> it was a variable which was assigned to 1 if a pending wake up was
-> waiting. This variable was checked on each timer tick. Therefore it
-> makes sense to assign a per-CPU variable with this task to avoid cache
-> line bouncing when each CPU reads the variable on each timer tick
-> simultaneously.
+On Mon, Sep 21, 2026 at 05:22:34PM +0200, Vincent Guittot wrote:
+> Similarly to delayed dequeue that enables an entity to decay its negative
+> lag while sleeping, a task should not keep a positive lag forever.
 > 
-> Today we have a irq_work which is enqueued onto a list and handled if it
-> has work items assigned. This list is already per-CPU.
+> The sleep duration and the weight of the entity is used to decay the
+> positive lag at wakeup.
 > 
-> We could replace the per-CPU irq_work and the per-CPU printk_pending with
-> two irq_work structs: One for PRINTK_PENDING_WAKEUP and the other for
-> PRINTK_PENDING_OUTPUT.
-> While unrolling the conditions in __wake_up_klogd() it becomes obvious
-> that PRINTK_PENDING_WAKEUP is always passed as an argument but never
-> checked. The return value wq_has_sleeper() of does not really matter
-> it's sole purpose is to enforce the needed memory barrier.
+> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+> ---
+>  kernel/sched/fair.c | 33 +++++++++++++++++++++++++++++++--
+>  1 file changed, 31 insertions(+), 2 deletions(-)
 > 
-> Redo the irq_work by:
-> - Use one irq_work (pending_wakeup_work) for klogd wakes. Schedule it
->   only if there is a sleeper waiting.
-> - Use one irq_work (&pending_output_work) for output printing. Schedule
->   it only if PRINTK_PENDING_OUTPUT passed.
-> - Drop unused PRINTK_PENDING_WAKEUP.
-> - Remove the preempt_disable() section. Its purpose was to ensure that
->   printk_pending and wake_up_klogd_work is accessed from the same CPU.
-> 
-> Worst case is defer_console_output() where two irq_work are scheduled but
-> those get processed one after the other during the HZ tick so it
-> shouldn't get worse.
-> 
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index e6eb9a4c03be..4230954d10d0 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -896,6 +896,32 @@ bool update_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se)
+>  	return avruntime - vlag != se->vruntime;
+>  }
+>  
+> +static __always_inline
+> +void decay_entity_lag(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+> +{
+> +	s64 vlag = se->vlag;
+> +	s64 delta_exec;
+> +
+> +	WARN_ON_ONCE(se->on_rq);
+> +
+> +	/* Negative lag implies delayed dequeue */
+> +	if (vlag <= 0)
+> +		return;
+> +
+> +	if (flags & ENQUEUE_MIGRATED)
+> +		return;
 
-I like this a lot. I always thought that using per-CPU variable was an
-overkill. I had the clean up of this code on my TODO list for a
-long time but I never came to it.
+Is not this a rather prevalent case?
 
-It looks good to me.
+> +
+> +	/* Compute the sleep time */
+> +	delta_exec = rq_clock_task(rq_of(cfs_rq)) - se->exec_start;
+> +	if (unlikely(delta_exec <= 0))
+> +		return;
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
+Urgh, are we going to try and bring back all that sleep time stuff
+again? ;-)
 
-Best Regards,
-Petr
+> +
+> +	vlag -= calc_delta_fair(delta_exec, se);
 
-PS: I am going to wait few more days and give others chance to look at
-    it. I will commit it next week if nobody complains.
+Should this not be 'W+w' at the very least?, ideally it would be the
+complete sum of all decaying weight rather than just 'w', but that might
+be a tad tricky. 
+
+> +
+> +	/* vlag can't become negative while sleeping */
+> +	se->vlag = max(0, vlag);
+> +}
+
+Anyway, the basic observation is that were this thing runnable, it would
+have only a w/W share of runtime, not a w/w share.
+
+Using the full fraction of sleep time like this will make the decay too
+fast.
+
+And dealing with that MIGRATED case is somewhat important; in which case
+I suppose we can try and approximate by doing something like '(W1+W2)/2
++ w'.
+
+
