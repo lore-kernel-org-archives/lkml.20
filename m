@@ -1,253 +1,141 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-201.mta1.migadu.com [95.215.58.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6510D33689D;
-	Tue, 22 Sep 2026 00:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C5830D3E5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:43:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790037738; cv=none; b=UI8i+iM3xQzHbX0SvQidvVlwwQ1lOutyls7zz8Dps+QcJ7Xs11FGM+ptP2A3uiCogXLrNzcy27/ljOvC1LZQ/eVlT/qzeqDLxhXP/oUjKzwJRRUuWh4/urwgGe8sZqAcZi2jl20wIXvQARIeqmc5BAOvyQ7UPlWB3MPvYgDeKTk=
+	t=1790037829; cv=none; b=hdCyhND91gK2uHEqgk28KQQJJT/OykyR21TBLR0gBMjGqIGPAJeXgHtGydamv17Fv8wtjHNg39b8p7yubBY9OmVu2M/cSbvDR2hIkqCAW8bO6vrjvh9gUP1rkXQN0PZxEqTufheTlQRlzBOdRDdoZ7ppqtI7d6leopozD/ADIHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790037738; c=relaxed/simple;
-	bh=fYgBs0hMO8Rv03e//NL7rKu6soFHZ+KMCw99x+DsGYg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BRtQg5BBINFfde18+E/li4uZyQmXOtp6qkELNh7YetuiMH85yWfucV3YvYYt9Or+TXv7CNouTSz0aGSLrmUH967cIuROn3aYx4ddGYKwM5h3bjr0XDRSbFrtiI19fe8efIp5DNgWX2beqJl26qOgz8JWhYzEFbvPCi0gBMd9jhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VmDQkl3N; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790037829; c=relaxed/simple;
+	bh=QsLbACK42qC4IHST6bqM4DHpYPHMgoDT89jU78WvzJ0=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=jJ2RuvNmf14kP6Pc+snF7HrdE+duaKL/cNaf2G8CogulesYbICt4dlhwYhUGTXfbRI7pGrdcLd82p6B7aRJ//lbMDS8gF8N56uHzifysN2ZYXz/Dc56B/17V6Zu1C8KMt8T3POpLm7kNNTcts9KgXcPDGA3hzW+BjGeYsA/Zc1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nT+nJMjb; arc=none smtp.client-ip=95.215.58.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VmDQkl3N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5D
-	raQSoeUDlTV5a9KL9CmbEiqVAM6BOedYwwQhvAmxM=; b=VmDQkl3N+Vu/RkC02m
-	dazH0kx3nQ8GBd+Og+xrIrvb173kjy9dVOivqJvq+Uqe3F456yUY8izSAU4RBxCi
-	yai6P0iztJoVKk9PzLnFs8F+RmybDbmiNoEe9Vo7you+j66rYNjOg0r7SNbPy9rC
-	VtSOfziWh/iYZGm/H4alcRYCM=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgBHFxjTzrFqmpJpAg--.56442S2;
-	Tue, 22 Sep 2026 08:41:56 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: ukleinek@kernel.org
-Cc: linux-pwm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	hppiscas@163.com
-Subject: [PATCH v2] pwm: fsl-ftm: keep clock ownership balanced after resume failure
-Date: Tue, 22 Sep 2026 08:41:54 +0800
-Message-ID: <20260922004154.2899-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nT+nJMjb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QsLbACK42qC4IHST6bqM4DHpYPHMgoDT89jU78WvzJ0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790037825; v=1; x=1790642625;
+ b=nT+nJMjbNWg0tssJ1cScJz7QJDTBsIgy7YgopA+XFCEZMh0xCmIlWWKduj4DQFiSaljEj5T/
+ 6yjFEa3HHx1GK6fJo/93abYoxKJ0YpW2RDi0pIb3nlu5g0Yz6gnQ3Apmhg1uP6NH71qSSTbKkjJ
+ 3Wl/IRZ8lRyoJ4a5W9NdhL/I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9fc6d37b03a19712;
+	Tue, 22 Sep 2026 00:43:45 +0000
+X-Mizu-Trace-ID: 9fc6d37b03a19712
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgBHFxjTzrFqmpJpAg--.56442S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw1xXFyDZF18uw1Uuw47twb_yoWxXFyxpF
-	WfKr4Fv3ykXrW0gwn3tr4kAr1rtr4xtay5Ca95K3y0kwnIyr4Ig3WrCF9YvFsYyrn7AF1x
-	AFs8tFyDGF1UCF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRMa0dUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7RXvuGqxztWBIgAA3M
+Date: Tue, 22 Sep 2026 00:43:41 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <c419df59280e52baa5e25f665eff599592f3cdff@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v3 6/6] MAINTAINERS: add entry for the RTL8723B rtw88
+ driver
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Jeff Johnson"
+ <jeff.johnson@oss.qualcomm.com>, "Johannes Berg"
+ <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael 
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ luka.gejak@linux.dev
+In-Reply-To: <fe3c6884a96b476799f415a06314f1ba@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-7-luka.gejak@linux.dev>
+ <45eb7d5908f8fff9a18cba603fd3a4abfe8695f9.camel@sipsolutions.net>
+ <31285267ebc43aab631a4199059a247a8d937814@linux.dev>
+ <c208152fc5cb45e19ae7d4660394dbf2bc5e0271.camel@sipsolutions.net>
+ <bcd5a280-8184-4457-ae52-47a9e0fe763c@oss.qualcomm.com>
+ <ffe834a8a469d5febb7e73de371d662f9a0d115f@linux.dev>
+ <fe3c6884a96b476799f415a06314f1ba@realtek.com>
 
-fsl_pwm_resume() ignores clock-enable and regcache_sync() errors. It can
-therefore leave requested channels with only some of their clocks enabled
-and continue as though register restoration succeeded.
+September 22, 2026 at 03:28, "Ping-Ke Shih" <pkshih@realtek.com> wrote:
 
-Check each acquisition and unwind only the references acquired by this
-resume attempt. Keep the register cache offline and dirty on replay
-failure. Retain a suspended state until all clocks and registers have
-been restored so a later suspend or free cannot release them twice.
 
-Keep a bitmap of the enabled channels whose functional clocks were
-released at suspend. pwm_put() does not necessarily disable the PWM or
-clear its cached enabled state. If a channel is freed after a failed
-resume, the retry must still restore those functional clocks, while
-restoring the interface-clock references only for requested channels.
-Otherwise a subsequent request can inherit an enabled state without the
-clock references expected by apply().
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> September 22, 2026 at 1:35 AM, "Jeff Johnson" <jeff.johnson@oss.qua=
+lcomm.com> wrote:
+> >=20=20
+>=20>=20=20
+>=20>=20
+>=20>  On 9/21/2026 11:14 AM, Johannes Berg wrote:
+> >=20
+>=20>  >
+> >  > On Mon, 2026-09-21 at 16:49 +0000, Luka Gejak wrote:
+> >  >
+> >  > >
+> >  > > It is supposed to work in the same way it works for other driver
+> >  > > maintainers. I would review patches and provide my acked by or
+> >  > > reviewed by them and Ping-Ke would apply them to his rtw-next br=
+anch.
+> >  > >
+> >  >
+> >  > I don't think we have a lot of folks below the driver maintainers =
+who s
+> >  > end me pull requests (except Toke maybe?) - but as long as I don't=
+ need
+> >  > to deal with it I'm happy, you can figure it out between yourselve=
+s :)
+> >  >
+> >  For ath.git there are sub-maintainers for ath5k (Multiple), ath9k (T=
+oke),
+> >  carl9170 (Christian), and wcn36xx (Loic).
+> >=20
+>=20>  Toke has a linux-wireless patchwork account so the ath9k patches a=
+re initially
+> >  assigned to him in patchwork, and he Acks on the list and assigns th=
+e
+> >  patchwork records to me when he approves patches.
+> >=20
+>=20>  For the others the maintainers just Ack on the list, and I take th=
+em from there.
+> >=20
+>=20>  So the question is do how do you want to handle this in patchwork?
+> >=20
+>=20>  /jeff
+> >=20
+>=20>=20=20
+>=20>  What do you think makes more sense here: patchwork delegate
+> >  access like Toke has for ath9k, or on list ack based? I'd lean
+> >  towards delegate access if it's not a big ask on your end, but
+> >  happy to go with whatever works best operationally for you.
+> >=20
+>=20I'm happy that people join rtw88 reviewers.=20
+>=20
+> Personally I prefer people give Reviewed-by tag to the patches, and
+> I can myself take the patches by patchwork state and send pull-request
+> to Johannes.=20
+>=20
+> With additional flows of patchwork and pull-request, it looks much
+> hard to maintain, since I don't think there will be a lot of patches of
+> drivers/net/wireless/realtek/rtw88/rtw8723b*.{c,h}
+>=20
+>=20By the way, if you are interested in rtw88, maybe add a "R:"
+> entry to be a reviewer of rtw88?
+>=20
+>=20Ping-Ke
+>
 
-Reject requests and enabled applies while suspended. A disabled apply
-can still mask its cached output and cancel the corresponding functional
-clock restoration. This keeps that disable distinct from simply freeing
-an enabled PWM.
+Hi Ping-Ke,
 
-The issue was found by our static-analysis tool.
+I agree that approach is simpler and I am perfectly fine with
+it, if it works better for you. And about being rtw88 reviewer: I
+would happily take that role, so I will send a separate patch
+outside this series.
 
-Fixes: 97d0b42e39a7 ("pwm: ftm: Add Power Management support for FTM PWM")
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
-Changes since v1:
-- separate successful register replay from error handling
-- keep the trailers together without an intervening blank line
-- retain suspended ownership across a failed resume and the next cleanup
-- restore functional clocks even if an enabled channel was freed after
-  the failure; a disable, unlike free, cancels that restoration
-
-Previous version:
-https://lore.kernel.org/all/20260828092014.9211-1-pengpeng@iscas.ac.cn/
-
- drivers/pwm/pwm-fsl-ftm.c | 85 +++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 75 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/pwm/pwm-fsl-ftm.c b/drivers/pwm/pwm-fsl-ftm.c
-index 35406b2e1925..21ac97e3ed7a 100644
---- a/drivers/pwm/pwm-fsl-ftm.c
-+++ b/drivers/pwm/pwm-fsl-ftm.c
-@@ -51,6 +51,10 @@ struct fsl_pwm_chip {
- 	struct clk *clk[FSL_PWM_CLK_MAX];
- 
- 	const struct fsl_ftm_soc *soc;
-+	/* Functional clock references to restore, even if a channel is freed. */
-+	unsigned long suspended_enabled;
-+	/* Requested/enabled PWM state no longer implies owned clock references. */
-+	bool suspended;
- };
- 
- static inline struct fsl_pwm_chip *to_fsl_chip(struct pwm_chip *chip)
-@@ -89,6 +93,9 @@ static int fsl_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
- 	int ret;
- 	struct fsl_pwm_chip *fpc = to_fsl_chip(chip);
- 
-+	if (fpc->suspended)
-+		return -EIO;
-+
- 	ret = clk_prepare_enable(fpc->ipg_clk);
- 	if (!ret && fpc->soc->has_enable_bits)
- 		regmap_set_bits(fpc->regmap, FTM_SC, BIT(pwm->hwpwm + 16));
-@@ -103,7 +110,8 @@ static void fsl_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
- 	if (fpc->soc->has_enable_bits)
- 		regmap_clear_bits(fpc->regmap, FTM_SC, BIT(pwm->hwpwm + 16));
- 
--	clk_disable_unprepare(fpc->ipg_clk);
-+	if (!fpc->suspended)
-+		clk_disable_unprepare(fpc->ipg_clk);
- }
- 
- static unsigned int fsl_pwm_ticks_to_ns(struct fsl_pwm_chip *fpc,
-@@ -301,6 +309,17 @@ static int fsl_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
- 	struct pwm_state *oldstate = &pwm->state;
- 	int ret;
- 
-+	if (fpc->suspended) {
-+		if (newstate->enabled)
-+			return -EIO;
-+
-+		ret = regmap_set_bits(fpc->regmap, FTM_OUTMASK,
-+				      BIT(pwm->hwpwm));
-+		if (!ret)
-+			fpc->suspended_enabled &= ~BIT(pwm->hwpwm);
-+		return ret;
-+	}
-+
- 	/*
- 	 * oldstate to newstate : action
- 	 *
-@@ -476,9 +495,13 @@ static int fsl_pwm_suspend(struct device *dev)
- 	struct fsl_pwm_chip *fpc = to_fsl_chip(chip);
- 	int i;
- 
-+	if (fpc->suspended)
-+		return 0;
-+
- 	regcache_cache_only(fpc->regmap, true);
- 	regcache_mark_dirty(fpc->regmap);
- 
-+	fpc->suspended_enabled = 0;
- 	for (i = 0; i < chip->npwm; i++) {
- 		struct pwm_device *pwm = &chip->pwms[i];
- 
-@@ -490,10 +513,13 @@ static int fsl_pwm_suspend(struct device *dev)
- 		if (!pwm_is_enabled(pwm))
- 			continue;
- 
-+		fpc->suspended_enabled |= BIT(i);
- 		clk_disable_unprepare(fpc->clk[FSL_PWM_CLK_CNTEN]);
- 		clk_disable_unprepare(fpc->clk[fpc->period.clk_select]);
- 	}
- 
-+	fpc->suspended = true;
-+
- 	return 0;
- }
- 
-@@ -501,28 +527,67 @@ static int fsl_pwm_resume(struct device *dev)
- {
- 	struct pwm_chip *chip = dev_get_drvdata(dev);
- 	struct fsl_pwm_chip *fpc = to_fsl_chip(chip);
--	int i;
-+	int i, ret;
-+
-+	if (!fpc->suspended)
-+		return 0;
- 
- 	for (i = 0; i < chip->npwm; i++) {
- 		struct pwm_device *pwm = &chip->pwms[i];
-+		bool requested = test_bit(PWMF_REQUESTED, &pwm->flags);
- 
--		if (!test_bit(PWMF_REQUESTED, &pwm->flags))
--			continue;
--
--		clk_prepare_enable(fpc->ipg_clk);
-+		if (requested) {
-+			ret = clk_prepare_enable(fpc->ipg_clk);
-+			if (ret)
-+				goto unwind;
-+		}
- 
--		if (!pwm_is_enabled(pwm))
-+		if (!(fpc->suspended_enabled & BIT(i)))
- 			continue;
- 
--		clk_prepare_enable(fpc->clk[fpc->period.clk_select]);
--		clk_prepare_enable(fpc->clk[FSL_PWM_CLK_CNTEN]);
-+		ret = clk_prepare_enable(fpc->clk[fpc->period.clk_select]);
-+		if (ret) {
-+			if (requested)
-+				clk_disable_unprepare(fpc->ipg_clk);
-+			goto unwind;
-+		}
-+
-+		ret = clk_prepare_enable(fpc->clk[FSL_PWM_CLK_CNTEN]);
-+		if (ret) {
-+			clk_disable_unprepare(fpc->clk[fpc->period.clk_select]);
-+			if (requested)
-+				clk_disable_unprepare(fpc->ipg_clk);
-+			goto unwind;
-+		}
- 	}
- 
- 	/* restore all registers from cache */
- 	regcache_cache_only(fpc->regmap, false);
--	regcache_sync(fpc->regmap);
-+	ret = regcache_sync(fpc->regmap);
-+	if (ret) {
-+		regcache_cache_only(fpc->regmap, true);
-+		regcache_mark_dirty(fpc->regmap);
-+		goto unwind;
-+	}
-+
-+	fpc->suspended = false;
-+	fpc->suspended_enabled = 0;
- 
- 	return 0;
-+
-+unwind:
-+	while (i--) {
-+		struct pwm_device *pwm = &chip->pwms[i];
-+
-+		if (fpc->suspended_enabled & BIT(i)) {
-+			clk_disable_unprepare(fpc->clk[FSL_PWM_CLK_CNTEN]);
-+			clk_disable_unprepare(fpc->clk[fpc->period.clk_select]);
-+		}
-+		if (test_bit(PWMF_REQUESTED, &pwm->flags))
-+			clk_disable_unprepare(fpc->ipg_clk);
-+	}
-+
-+	return ret;
- }
- #endif
- 
-
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
--- 
-2.50.1 (Apple Git-155)
-
+Best regards,
+Luka Gejak
