@@ -1,181 +1,216 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013064.outbound.protection.outlook.com [40.107.201.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A89C39A4CF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E643B3BF3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045449; cv=pass; b=ZrZ4PvWP8x+Lcjvm3SzZdNkShMxo0TlelnXRMO436Urk8Af4cyEKwJN5htL2JhUoRAEImZ8OkTMRa20NvBh+xblRrHZsFdGSmzlxanDROyx+Yg6tP2xLq+Nntd0g6iRFTCEUcqRV3z1gKZUSBRas/L9hDas5WEmbrPWSPXLjHhA=
+	t=1790045454; cv=fail; b=QrF2LZOsCuRgPEWCxAqeMBGV/ePPgE6807n/d1VEadJK4xe2fQvKxsvAZmLJqxYi9bUDYylZHizXc5WWBTxBs5cRBXdQLRhNMBCIJekEx1W/BX3o2G82wz7308uNPC929rwcCcfA4OlGmQKSgA7r3YlAPYnq1x6vBxp6k7xFzsM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045449; c=relaxed/simple;
-	bh=9seE7DdQbFb9HiabltP2bn/Px47uFUhhhOnC7opdhaE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J3xKoqhp7tT+UywV8aCvOYom1qhtNGgHZtFoIM1uVauPATjzrUdUpY5iEAIGiDKSx0LR5xpf0Tb/XWa0c+xCGE2W8YmoxUOcFhYIlZe8DAT4lOxGK7S7z1P9Q2G46652AZQx871C2HcmU15u7RHADwdpm/SrV0lCzHKllCG8T1c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hQwaIh6g; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790045454; c=relaxed/simple;
+	bh=RPbgtKudz4ITZK6rWqsCubsYVyRIYZKgso6i09EgObE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=bn5QqF6wHSFsVbLIzGxMVYl3MeMDqrTTAb7VlWCZSs1xahhSXRF6vTO+ksdOYbTQm6HFYvlp3nuSs04D01v3XxhQKX8DBZEZOrh6Jzf+2bUa1ZWuvbGAgqs2CUsNxfEugkkm93/eZXfq9QdNZziCOXJ5L8eaM7keqA4jLMkUGKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hIsl92tf; arc=fail smtp.client-ip=40.107.201.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hQwaIh6g"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aae3147so2644295d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:50:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790045447; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D9w5KDlrMqkQpTuCgLEIE8xvVIKCaTxw1a3ZiDSVyUWJFH8+YA8SGq2sifUAOMuugZ
-         3TuZ60V+3VvbI4xFlY0RuauA7/v44uhwAaEP1bjyQrs/C9WOtsxbntSNQ7ekz14IjlBF
-         YYp4N+fO26M0cYu0VTjmx5X59gP5DVq8i+sObTNwiqanBncMO2+Xhz1F8/N9oQ51R6i4
-         lXNsOr5Z2gtgkD9QBYR6Wn2zo4aWNYLQcwr6PcPRlGB64NXz4bq7l5Tu/PmToxsppoWA
-         Lg226YIUdUHxi5M/Zc08w8ev0Nn1Z1x8cPTz+nGWoW/dvqm1Z/mvZeXjqfovNNnVADZz
-         KFYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PuG/mOTULDlFBdQPJWs+1DVH0LGf45HnPczNNq/pztc=;
-        fh=5eQhorH8Nz8sZfWKsbOKulb9n+li3ZIisS2IPOREJw8=;
-        b=o5VEOyBm5EbGywWS3td6R2l/vW+uPyg575YXYT7LdPR8MqZ6vHmaP/cJc6tDKCpDGe
-         VoosciJQIuRY2j8PMXC9+wGWBZMgZVlzariaRY//OlwK+cKgnQ6ReJ3wP+AoVXpYs8/k
-         6CPT56HFFFooNhvK+aKGNy78eeisit3DkUBkXnbxP5T3Oj3gQXNTW8F10QXH0wMVMH5N
-         JL4eb3+kK5lI/HW0gqRez6lZjwvu1PcbBoe8ibniMTVeCl9751tjAT+9QAVUaL1bGqz5
-         Y4MW/wg8Br6S/JYHZEEslISc95JFBlhjbP9YgSGHSFwFqRkgwMLmRQU2TCuf8YT8AD1I
-         HDCA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790045447; x=1790650247; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PuG/mOTULDlFBdQPJWs+1DVH0LGf45HnPczNNq/pztc=;
-        b=hQwaIh6gJZv0U3Pc0WcTl3biDBwWXnovJwhS420V1vgGJRxdzkeZ1EuDk04OQkh3O3
-         EW55N0B9NP5fiB2rZ37fQoRGRKVPE5ppPLIVgwy38P5VKM9c9X51S5SmvfFq1ep7HZic
-         B/3BIWVepPEhGsEvOUWuyW/C5Cp79VW8kuVuAu0b/KfixQgr8fiIxB6/wzEA9TYZMYP5
-         J/jZiChLpM26ek5Fv3CsH4E7ZYUSbH1v2pEu69nKhSSpu9+B3BDDLt9qm8Z2IwkAsmY8
-         rHIs0f471PPnmPxwwaUhNJdsZkZU9ZAMpXIS/sXmn/cBndjlcEEec1NigufxTDyIJPWe
-         CwSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790045447; x=1790650247;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PuG/mOTULDlFBdQPJWs+1DVH0LGf45HnPczNNq/pztc=;
-        b=I9c/Hu2xBkKzc6pkJxNnbD7MOQUPhJUVd2yrdPaCsl4wH9FcnLui3G6olzUL7+BP1P
-         Sf2sJVK5jzVJNXw7Kqk2/3vlH4/2NTqXzBPLFiylnCC4R/jFmbi8/6SPh9ay+gaYKoES
-         fMm+OFXnUVYaeQKbp0QTbcohfdGoTVPdLysyI4isjcgUmCrl1HrwKJ8AFMqf1OQ/8NIN
-         1FxFSKsIUfSdmkjfYEBum/VVJf0dBHoWc+thKsh4BMHhnDMPqq9nN5ru6b4QN/r4G0O/
-         FxwPH1g98uCsa/J3tGH6kjX0O6JrgzQefAyOcQzgXjOwyb5Ye2EhF8Su7LMfuMLfI/2d
-         tCLA==
-X-Forwarded-Encrypted: i=1; AKwUvBz+PqxABeTsmksKmW73omj0Y7YXlGeK/GrG9mb5owP4Pvxf7fOB4Cz+Qnc8BjHjg+iJWcCGW+MM6PrzNkg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUsw/i4mE46W8gnuZrh6hbfxbk+HGdpZ7sTBuZ5X/KGITXnrY5
-	Ax8ugxqQkM8f4SNkbkClwz4+zbIaXxC7ORG0vvxCLuuGo62Oo5qnbbdhEMR7PPtAkstNYnaR/WN
-	zdIoMWJI1h+sBj7Sze304yThbCEtrKMA=
-X-Gm-Gg: AYBFou2JuoKDLmV1cF84y0vIuYDY8V3pm8iRz9T3n8gVJQzCWxzlMQaHbPt+Doa3b/3
-	YX2lnYnY/vsMlSnXhT1OkjjIwVUqucnw+wL52IDqlH/YZ4ESfhQ95GXCaM/NSuYMxzKLxt6oKGC
-	t8FLvovtTOBHxgBVWocKNeLSeQ4eyjbXi12AGSjDbLB4YS/jnUnIt5A6K91kUEa6ZjoT+W+GDvz
-	tGBssaNYQOvRCQu4oN100lvgHZtr2VqzAfB3QtE5UsVKeIToITl81rLG6maQfSCrJeqr6inmMTv
-	MInpMHT0gcoE5ofHPPzAHBadubz50iQLBGJ+tp3w4xGhbH5qcan+eKrv4g==
-X-Received: by 2002:a05:690e:4385:b0:671:c5e:6d5 with SMTP id
- 956f58d0204a3-6717fcb6779mr2611942d50.4.1790045447318; Mon, 21 Sep 2026
- 19:50:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hIsl92tf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B8mWaKTfGUCIg3OL2O5LUeuxUjHi3G+T5B+dsvuApuWth+7gRGOmFmB3GWrSwMIV6W6qV9eJcLLZ5lq/xcUt3VcCOK9RGiyL3+1Vdsp9VH9ixMutGXvXDsOdv+Vnsk2JOCa4t1+R3fXqLer45bM3LT7YuiJXDEhDVNknVZFp2gD4fiH/z3uYzCl9a9o/4PA/M79ytur6lzk6XnMntmeIhJERKWd+61lQhgu+JBU5OIvWRCtcY2gTBKuWIJlllMa1azSsC6qSoY7DAcTTlnY28Tobr1c+ihaH7JbzNiH1aG7iIZu0pPY1GiKym4hj9As8SwsgTBnPMih6QdzsVEG2eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4UWdwnvkAP/Abq18loqgIG7BKfPnh4nJiMzZKP/1LNk=;
+ b=GkUSITU21pMmgUXRuov5ucUAlYCYw7AGWTbcV5pp0yy+iPBNhmdbJWXP8j/TwwkH8jN2HPj2zas4dLMER2cGiLOGJLt6+dHgDp0qWykHvEKj7/v/mkKLrJlPAp7+nKEoTuj4k7rm5lrMgKbv1TUNYhRTwgE/9SJj9gFC934wuM104sX7BMBZ42TE54+bs+gyQacaL9PiS94NCyGkbs+EZFUGBPkSOv7nSMDbg/FKKuITC24ApatDAyDHiU5P63BnP+E4DEe/Cd64SOMQrkr98OiNDnPGoy+VOx/6zJ7RBI9clnZQXbN9Ib5qHe4yEaN//uZjrYdWVYN28joZa+pl1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4UWdwnvkAP/Abq18loqgIG7BKfPnh4nJiMzZKP/1LNk=;
+ b=hIsl92tf3O2B1bW4b2E0CUb8FVOnlJ23PnNVtj4CYykvB19/QzDKwpmCSNSQ8teTpBhOYfyj1thh8+8+idA04gq3xibE5Z8SYGT7IX41zYiiWlUi7xSRTE6YrfQMtJgoPWLSQKbmB8p24BYmAYkHRzLIDTv3GVIHkPf0d0kjkrOSs708tutzkzp2GcuTO8zkbJbNTVb/A2tkw/8tW5e7NFemq355FJBLCeQQ/HPFtBPB1YdeWGE6zUg8g+AN5Lz0H5VqQ7MHRoPbF+eQ6eWeTE1fKaUKeD8hHqnshjfRdbKoQE198M4yMSsUwb0M9Wt2e4iUCpKk/7RipUBN+9Atuw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ DM4PR12MB9071.namprd12.prod.outlook.com (2603:10b6:8:bd::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.13; Tue, 22 Sep 2026 02:50:42 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 02:50:42 +0000
+Message-ID: <8e026a4d-6e8b-4412-9621-4f4e0c441521@nvidia.com>
+Date: Mon, 21 Sep 2026 19:50:40 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/33] gpu: nova-core: gsp: add GMC dispatch on receive
+To: Timur Tabi <ttabi@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ "dakr@kernel.org" <dakr@kernel.org>
+Cc: "lossin@kernel.org" <lossin@kernel.org>,
+ "a.hindborg@kernel.org" <a.hindborg@kernel.org>,
+ "boqun.feng@gmail.com" <boqun.feng@gmail.com>, Zhi Wang <zhiw@nvidia.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "tmgross@umich.edu"
+ <tmgross@umich.edu>, "alex.gaynor@gmail.com" <alex.gaynor@gmail.com>,
+ "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "ojeda@kernel.org" <ojeda@kernel.org>,
+ "bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, "airlied@gmail.com"
+ <airlied@gmail.com>, "aliceryhl@google.com" <aliceryhl@google.com>,
+ "bhelgaas@google.com" <bhelgaas@google.com>,
+ "gary@garyguo.net" <gary@garyguo.net>, Alistair Popple <apopple@nvidia.com>
+References: <20260918010719.1176945-1-jhubbard@nvidia.com>
+ <20260918010719.1176945-13-jhubbard@nvidia.com>
+ <83e33dab67a0f571c269262ef052e68eab9dadf9.camel@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <83e33dab67a0f571c269262ef052e68eab9dadf9.camel@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH5P220CA0013.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::10) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918181326.3633765-1-lgs201920130244@gmail.com> <arFJiC1JGB0KpoLn@quoll>
-In-Reply-To: <arFJiC1JGB0KpoLn@quoll>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 10:50:33 +0800
-X-Gm-Features: AcwNN1W51HQHgqXq96H1vY74mor976BD85GOPWHnSJHN_BwJ54ajJuhACadQQO0
-Message-ID: <CANUHTR9JgmyoCp3hcTbBn-NnUzjKFW_LaRHcrsY9qZbGvxAcNg@mail.gmail.com>
-Subject: Re: [PATCH] scsi: efct: clear MWI on remove
-To: krzk@kernel.org
-Cc: target-devel@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	Ram Vegesna <ram.vegesna@broadcom.com>, Kees Cook <kees@kernel.org>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Daniel Wagner <dwagner@suse.de>, 
-	James Smart <jsmart2021@gmail.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Thomas Gleixner <tglx@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Hannes Reinecke <hare@suse.de>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DM4PR12MB9071:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab0ec6cd-87ef-4d3b-0b11-08df18544b05
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|4143699003|56012099006|11063799006|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	4nYW2RhHvEMieR/JkULwjPLWW19p/fLQnOIaoOD4lMPQ5EkW03GD8FMeZulN8+JMM99sI/1OtOTuD9jW6MLaQRYpETjo77v6U03g2hfweqC+mLcimytaGMkEKArkyryijSDeg7RSlDwY4mDs/I8fUehohiRrJ6Yq7HsIzs3dVb973Cm/0LIEVr80N5MfY+l/phMyvuASjxHPOsSJDnkexl0eHlxYCfRyzgeE5J0jfz4E5RMd8bkouvRlIVk4WSQMJqd4/B7J+//AAm9Z4uhRy+S/eKjQUau+Pyfavq+NpuavR+Hq499g5uBVT/2ucaRbl/2DykNdPDmXGdJ38otlQwFD6Lm08GtwNGv8mtIYo8T+m+gR/anm4PHxnGc/RE999SvP3TwyPoNWmdHMTumKTkFVdxAeiuRwqqyYubAVKr9eXJTL2Zv7gUYHbsnkkEeM4wuAgtq+as6BBQ25kB1aQ8IeJQHBteDUHbYrnnT82N3P8ABiEqsOCcsf43eJE1FdH+QLHRX5ErD+YTvmKLghlln2chnLXuaVsfv4PxCl9UflHYRFJFAYCV3XnpF//VRawHqydmSf+ixMfgZdcq/89pWWtgARBBkBWONDQEsnhntnONiPRdzoYLsYVtVVsV/3QPdCzxyxC/mtNmNjqQO02sjPeE68MjzqKlPqBuOQJzc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y29rNkZqYmlKZ2cyOUVwK0JlTWhGdW9oWVRTYVBpdjE2YjVjTzNTOXEzOUFZ?=
+ =?utf-8?B?NnlQWHhtMlR3S2tWRU9PbmdLYlRUQmVmNGozT2lJRXVJZ28ydThoOUkwUWdF?=
+ =?utf-8?B?d0tweTYybFUxSGpMTDVwbDVEM1BheGFXYWs5OCtZQkE3NjM1dmVYcTByM2NP?=
+ =?utf-8?B?T2xkNnlWQndlVkVaNnN0ODd2cUhJeTU2Y1V6YXlPNWpINWwraWV3MnlEanlz?=
+ =?utf-8?B?UU1KUDVFVjVGa3RlMjRUTjF2a2lzZllrTHNQK29FUVByZGFlbmJyMldabTJr?=
+ =?utf-8?B?N2tsR0RXSDFlRUZHNTdIYi91ZVhTc1QyWkVVZVZwRlQxT1p1QUhWbXIwbkE2?=
+ =?utf-8?B?Mk9FVXF3Mm5sdnY2YmJ0WGNyOEI2dlh0bGlLL0M0bUg3bWtXbThXaU10ak5B?=
+ =?utf-8?B?S1J0YXl2OUZpYnM3a2c0YmZMK2puYUJQNWswUHZ3U0lvbVRlKzVma1Bodlc4?=
+ =?utf-8?B?SGRGd1pqcVVMVHRjTVZzbXhJdUVvaFFDei8zL3BHckFxekVqZVkxWmhQV2p2?=
+ =?utf-8?B?cEVOVGhlSE1WT1lsS1pYTjZGeTBKeUo4c2ErTnVQM255QTZVSlA5UkgwaTNh?=
+ =?utf-8?B?OVFZY2RpeHAzdVVMelBTN0FEWFdZMm92K1RwSTJ2QzFLQzhKeHlOb2JxeC9K?=
+ =?utf-8?B?QlpPSFJsMzVsLzEzSWxldWVEa2V1Unp1eE0xYjBNckdLNlBhL09OT0FmZitu?=
+ =?utf-8?B?VTE1Y2gyZ3BLSXJQZEdudDc5MlpFWEdzY3V1ZmxKZW1mUTRxVkJaeTFEMHZI?=
+ =?utf-8?B?VWdBaC9hRFFXdzZtV1BxNGo2TlNycEpiMmt3bVU2Q2p3YUFrRkx3Um1oeEZH?=
+ =?utf-8?B?RUhVbjFVQzQyZ3lob1BxNnFYdjdTOEFMQWN6clVlMzMzYm0rcThSV2J2amxs?=
+ =?utf-8?B?YUg2ckNPaXpxRE95V3NtbC8rMlI4REFOaXFGS1N4MWhISHNuRGR0STI1YWxl?=
+ =?utf-8?B?TFd5QXJhUlE4MmkrVndjNTBkMCtjOHFZRHZ4c0dIMWE3cEkwM0ZQZmpnUGxi?=
+ =?utf-8?B?TXJ0WmZLTnQxWERmZWJLZldSUjhONXNEMUtZZWZBZnRUN1lkbE5sQVhuQU96?=
+ =?utf-8?B?cmpOSGUyUGJQQmVqYkxwb3VITlNrUURrM2ZTZ05YNTd4ZXhXUGpyNTZKTnBE?=
+ =?utf-8?B?N1Z1NVQ1NVVRRVdvSXlNb0RRNEhsWDhmTFh3VkhNQ2UySEs0SFBlVFp1Z0ZB?=
+ =?utf-8?B?Nm5JOXpvMk9tcGh4UE9GTXdVTld2MXIvcjltNWlxNm1NT3g4aisyT0VDb3JW?=
+ =?utf-8?B?aHlWZVVCeWt5WWE3Wm9Ra3hzK0VYQkdxa2NBV2k4cjFxSXp5N2U0bTA3NVBY?=
+ =?utf-8?B?Ly9NVjY4bDh5NG1CaUtqaVhIOVUrNGdjSG5IelR4WUQ5aUJPcHJ1Z3pYRGpw?=
+ =?utf-8?B?MjNndDJESUFNejA4YVNmUVM0Z1BjRjZDMFMyam9BQ1A4SHFOV0w0UHAyckNv?=
+ =?utf-8?B?RWExRC9wblhjSk5JMUV3WXd2UVBWL0NqdFZwUmF6VU4ySzBEQnErM0tTQlpt?=
+ =?utf-8?B?MkVWTGVhN2VsN1h6TmNYM1FFNm9Ba3B0L1FrNkNhd2ZtaUlDL2pHZWk0QXg0?=
+ =?utf-8?B?R0hjTDlma2hFejVON0x6WEpZS0ZGREs5RlJEUi9qTkJBbjRKYmxiMnI3UkFu?=
+ =?utf-8?B?LzVCOHdwK0M1bjBNT3J6eCsvSzRwVDYyZkFCLzdtNXplRmNnbUNTWGFMYStO?=
+ =?utf-8?B?MEl0NnFuYkdnZzBCdUdqOFVkRzlwa3VCOTVDY0xENzduL0x0MExjWXE0bzhK?=
+ =?utf-8?B?eG5aeFd3VTJORExCZ0RXL3ZVYTFIUUFkNkFPUDVWSkM0NDFBVW5zTGgrWVVa?=
+ =?utf-8?B?V3hkMnNsNkxwNytZZWZQcmE3K1BHNHFpSC9Pem5KWDNmRTh0T1NYbkxHNDFJ?=
+ =?utf-8?B?L0hpamx4MXpRZnlmRTRWMEYyL0lXSUNzTVdjdms3U01BUUEzcTkvNGI5UnF5?=
+ =?utf-8?B?SWczdFEwWHRPS3N2ZUMwYVZmbXlKQjE2cEtvN2tCem9ZaGM5WCtvcDN0NlhB?=
+ =?utf-8?B?cXRNSFZSdlNsRVJ1RjNHZFFialc0bzU1RWQ5c2Jmd2plOGdTYWdTQlBSc012?=
+ =?utf-8?B?aTNBRExoNTQvVjQ3cDVlUStIb2FpRk1zYTB1Qno1TWhFN3JKUUkweUJUVXZO?=
+ =?utf-8?B?YVBnWEpOQVlJdVcxSjVoL0plWjAxcmhVZ1hzd0FsLzdYMFZKbkkyT2dJWW14?=
+ =?utf-8?B?d2hDMDVFZHdyUEd6ZWExaHRZUFBFeFltSWxub1RtSDBtNkxSdDF0dVNoVSsw?=
+ =?utf-8?B?MDl1MmUvRTNHVVdFUVpOVGdOcld4MVdoc1l0cFpkSThNMFFteEJFYTBienRS?=
+ =?utf-8?B?REtzaXM4ZkltbEQ1TXEzakk2ZjZNRTdobG1CalQvK1BNVHBLRndYUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab0ec6cd-87ef-4d3b-0b11-08df18544b05
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:50:42.6484
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: p0CBnV90mMh8VxBGlK9leOJASR9Jbr89xOJRgf2rtnZOT1nnkCQUSx4F86QaYSSc7xCTSELGU/IMx0L4yF1LgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9071
 
-Hi Krzysztof,
+On 9/18/26 3:01 PM, Timur Tabi wrote:
+> On Thu, 2026-09-17 at 18:06 -0700, John Hubbard wrote:
+>>
+>>      /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are
+>> logged and
+>>      /// consumed.
+>>      ///
+>> @@ -1097,9 +1110,9 @@ fn payload_slices<'a>(
+>>      /// # Errors
+>>      ///
+>>      /// - `ETIMEDOUT` if no element arrives within `timeout`.
+>> -    /// - `EIO` if the queue is already poisoned, or if the framing is invalid, which poisons
+>> it
+>> -    ///   (see [`Self::poisoned`]).
+>> -    #[expect(dead_code)]
+>> +    /// - `EIO` if the queue is already poisoned, or if the framing is invalid, or if the GMC
+>> API
+>> +    ///   header and the queue element header declare different payload sizes. Each of these
+>> +    ///   poisons the queue (see [`Self::poisoned`]).
+> 
+> What does it mean for the size to be "declared"?
 
-Thank you for your feedback.
+Yuk! I have written it with better words, in v4, thanks.
 
-On Mon, 21 Sept 2026 at 23:13, <krzk@kernel.org> wrote:
->
->
-> On Sat, 19 Sep 2026 02:13:26 +0800, Guangshuo Li wrote:
-> > efct_pci_probe() enables PCI Memory-Write-Invalidate with pci_set_mwi().
-> > The probe failure path clears this state with pci_clear_mwi(), but the
-> > normal remove path does not perform the corresponding cleanup.
-> >
-> > pci_disable_device() only disables PCI bus mastering and does not clear
-> > the PCI_COMMAND_INVALIDATE bit. As a result, the MWI configuration can
-> > remain enabled after the driver is removed.
-> >
-> > Call pci_clear_mwi() in efct_pci_remove(), matching the probe error
-> > path.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: 4df84e8466242 ("scsi: elx: efct: Driver initialization routines")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/scsi/elx/efct/efct_driver.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
->
->
-> You sent multiple independent patches, to multiple independent
-> subsystems. The amount of these patches clearly suggest this was
-> AI generated and most likely not tested.
->
-> More importantly, you sent all this work without properly organizing
-> relevant patches into patchsets. This makes reviewing difficult
-> and might cause multiple reviewers to address the same issue.
-> Replying to the entire set is impossible and requires handling each
-> patch independently, instead of applying or discarding the set.
-> Maintainers also won't see the bigger picture of your work. Quite
-> worrying.
->
-> This is on the verge of hostile patch: bomb us with so many
-> contributions, we won't be able to handle them in efficient manner,
-> like responding ONCE to ask you to slow down.  Considering all this
-> is untested and LLM generated, I have even more doubts whether this
-> should be considered for review.
->
-> Please read kernel documentation BEFORE posting more work. It will
-> explain you how to identify subsystems, how to organize your work per
-> subsystem, how to document usage of LLM and how what you should not
-> do if this was posted in a good faith.
->
-> Best regards,
-> Krzysztof
->
->
->
+> 
+>>      fn wait_for_element(&self, timeout: Delta) -> Result<QueueElement<'_>> {
+>>          if self.poisoned.get() {
+>>              return Err(EIO);
+>> @@ -1146,8 +1159,89 @@ fn wait_for_element(&self, timeout: Delta) -> Result<QueueElement<'_>>
+>> {
+>>              )));
+>>          };
+>>  
+>> +        // GSP-RM writes both sizes from the same payload, so a difference means that one of
+>> the
+>> +        // two headers is corrupt, and the driver cannot know which.
+>> +        if payload_length != num::u32_as_usize(header.gmc.size) {
+>> +            return Err(self.poison(fmt!(
+>> +                "GMC seq# {}: GMC API header declares {} payload bytes, element header {}",
+>> +                header.gmc.sequence,
+>> +                header.gmc.size,
+>> +                payload_length
+>> +            )));
+> 
+> This message doesn't clearly specify what the error is.  How about something like:
+> 
+> "GMC API header declares payload size of {} bytes, but should be {}"
 
-I would like to clarify that these patches were manually reviewed and
-audited by us; they were not simply generated and submitted by an LLM.
-However, I understand why the recent submission pattern may have given
-that impression. We sent too many patches in a short period of time,
-and we also failed to respond to some discussions in a timely manner,
-which made the situation look worse.
+hmmm..."should be {}" assumes that the queue element header holds the right
+value, but the driver cannot know which of the two headers is corrupt.
 
-Many of the recent patches, especially the v2 revisions, are
-corrections and improvements based on previous review feedback rather
-than completely new untested changes. That said, we recognize that the
-way we submitted them increased the burden on maintainers and
-reviewers.
+How about this:
 
-We apologize for the pressure this caused to the community. We will be
-more careful about organizing patches by subsystem, preparing proper
-patchsets, and following the kernel contribution guidelines before
-sending future work.
+        return Err(self.poison(fmt!(
+            "GMC element seq# {} has payload size {} in its GMC API header but {} in \
+                its queue element header",
+            header.gmc.sequence,
+            header.gmc.size,
+            payload_length
+        )));
 
-Thank you again for pointing this out.
+It names the element, states the fault as one sentence, and puts each number
+next to the header that it came from. 
 
-Best regards,
-Guangshuo
+Sample output: 
+
+  GSP receive: queue poisoned: GMC element seq# 7 has payload size 96 in its GMC API header but 80 in its queue element header
+
+
+thanks,
+-- 
+John Hubbard
+
