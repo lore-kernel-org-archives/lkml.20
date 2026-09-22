@@ -1,140 +1,173 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA7F1A6838
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101834; cv=pass; b=HlYyF/kPWiVDqjmi/qPDBejTMfntA6Qa6dt2vCU4RCGksDpGk7WnNYE/ZEyQp3GQluhVFoZpKv7W5/cF8vRl7LDIwNOvOZ2I9V0cr5jZfuS+TEXt0yl4mZL2DzQLKwDo6lLtAokdnWWek2Xr8r4k3NdfgSK62uPPNXU2pv0lW2Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101834; c=relaxed/simple;
-	bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ny2w7TKU7fE7RBPZLb08gR9m6D64ga3+mXll9hM+Oil0MswQkfVph6lg4s/T68lq8FodH6B5ypXDieTm+Mscjqu+8YnLJtJ21dv6/60KdF4CC/K1NJlq24S//LOh5NsIPceRcg83N4Cvw3dI0r4ALcURem7+Eu2wi3iFm/LcLws=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l7Y0Qsbg; arc=pass smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10041A6838
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:30:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790101859; cv=none; b=mr1gIEe3rha+DYK6sYDfkHolaFYCv20DfXzu0eM3eNh2v94cHwy54uJYLoeaoXtDWi4z5Ot/IANacu3xtZBlJwiSPvWbotqrMBQHHDjaJvc6yOk0wsf9SGYXYST9YtCwdGP8Vl/9GRrl7xgeJ3+kpTMFAmf+7MDHNnu40RrIArg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790101859; c=relaxed/simple;
+	bh=PHfFJviK67s3fwxzoxwRNrhYzjS9ehevjuhZx6QPkZo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G23pEFtVBexBenQofAiG5GNKy0rt1gjo5Od9yPujdYniixzW5TgK+9EhDIcEws6MedUr6/BTr2btCJA/jyufh5UZ/dsk2sAY5z2ML+HC0eLlySDSOyQd7ID1vsX58HBUqykQIH470ZK8CyWYrSC7jVCTIIYAYpKX4oY0flWDSgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YE6zRr2H; arc=none smtp.client-ip=74.125.231.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l7Y0Qsbg"
-Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a368895so131596b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:30:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790101832; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s++18Jr0t4PdDOWv4TtSw7rhS+3uMoauo2FYuQ0o/hAUGNORItn4lwfC3YbOx4vowb
-         KO6nnVqS9vuzwuudihX8Pt7WZAujkBWm1BkxgvSpPlrhLhF1/PsEIY+xlHf0T3gTm3IO
-         Qlm9vhuSW6Zptl4y636V7qYXP21Je0hKAaYJVZ2lwqYgvxjBGpnlg1BYL5mBgKowJpee
-         UBjuX+P4X+/5L9t0QD2mAy9Vc2ACfjclga3+2O3/gdCx7xYhirfCqkNV3KxGoLFJS8Ku
-         U5L637nD4f1LbWR2gqituR5Ta5QLm+T3RXLcxJkjkH176egPv6bJNptXyGzOuRjLgk2d
-         5K5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
-        fh=kV1MBl3HK0VTu3WDWIiAKHUSAavPZEsP84ButRfx2iM=;
-        b=Yu9JKPRbQfqQTvo2AWNvmGvvZ7WgplkdHxy10UhrKJadHsVgvQBxnTVc46bJvUxdYi
-         rKVdP2C4A+VT1XXQ8rohU1Den8YFmQiq79wzKybrEiKK/wVyX3JIy5zzO2yA/JCJb76F
-         8mhxAiXPEAjjsORF9WJjn4thFH1iFOBGCceFGbRAnWtAQ3vwHiwTM02JlMLupt+9wNr1
-         WVPeTFshwl4lXpFiGgCaDN2a2qu9HxejAtrhjTbu/6SgvQC+DgntsyWCK3LzXudVv2Cf
-         GMXa06ggHWoSfzZxuammlHZ3ZDq+Jp1YxoYkfhaEP+hR4k+8e1D6/s16ozLxldeD7+Pu
-         GKBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YE6zRr2H"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c6d6660191so145556b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:30:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790101832; x=1790706632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
-        b=l7Y0QsbgxSeX7YI6DdTjrF7Aev0Ksef8ZwY7Fk8NlV/FSRo0NwRxp23nQgMb4hK3Uo
-         jfotH+1SG2sZ7D3wgzjgc7LzsXUa8YPojVdU4AvSkYmugHSKtiuO9J8F/UmkCzPkxk5J
-         qAFrTyN3+AjbroiQSKgCC71lkrk7L/iIoQ671k8UIxLFBZVgiBhi8iSBRImAXI97XuzK
-         FlWiy1xkzoHGC43+ARG2B98dJb8jNrSPefW7R1mAdj1ej5TUz2pfeK4BSUfxMO2gqJL4
-         lkiYlkLUS/3niQMv2RMd1KkyhvYJfOCOQwkAzDYfZnrVp0Hg8jc9z/LHorUSNPAvIQv3
-         RArQ==
+        d=gmail.com; s=20251104; t=1790101857; x=1790706657; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pMy9Rk3KbQyrH+qkFBTnaqCBL7b3XGUmEw1jNxFww0s=;
+        b=YE6zRr2HvQozlw1s6CrYp+JbJPBNy+hKQs2+mOwvu2IzYEYPtnZ0vLte1jZPeva+e9
+         W0FsC9PVflted1z12EE5Y7paEwr6T/Mwmc/5fRje3jj9t3ZACGSA3v/1ygInOhuiqLd+
+         X4ypGqJ4HohwM5gwakIi61h8SWoUoeTm5M393H2O5SS3rjcJlZgmbkTAx1j34jxZn0SS
+         yJh0xEK7uqs5N6YkdexySEj7XlT9uISsk8YbPcnx5p51Zn8KdBHAZ27dTtM8tUq3hwcF
+         MlGqswZPCfM/BocIgfpWrqrLYR0VasJfVqXoHLh3+YGWTYbaN50pG4eXzEZabnb2/Tct
+         nw/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790101832; x=1790706632;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kblI8jvzuw+DdDqY67GusYDiVjYY1AFEjqn2PvfijFA=;
-        b=Lejr7SMf5tEzTPIhwFBIP0R+IcPehg3w2e5b7TAv89ntptFGUEO1eMWuiRvWLS9vLE
-         CMMGRtlyUkIglb/yPNuX95MuiR6gDtxHJCvIQ5joCxHhu85obyfSsB9pFyO1xZSgnEYg
-         u+j4SIs4GN7xcrbcM4TjNuBxhVFMHa0WuMgKKngLIIKPKyqLJenvDWW/SjMuM9MGLkAn
-         ZxwsveyM86O20oFW2c7AFokeOtKRNjIJb9OeAemenoJrKI7xQywjlwcLRD+Yrw1iGVxj
-         ZIwcod3pGd93RmhZ1mfYfJOYI9xAv9kmSe2Y+X2eQPEkFg75OtxTrGVis9SAn+hvezDU
-         XnaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzfGpCM6lEZtWXXvDtCGXEakWyi3uCzSKcwiaJ9XabVyvIYheR16idNxlEPmI8dWMSwbj1stUAajVqw/is=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxq0IS+S8UWIhKMZkpmQ82VaFG42RAxYqnay5Y0dBRRuGavd5n
-	0gyB6JXOXEYWCUYIAadDsSSXUyTyUW5Ec6uOrDveZRUo46lEXtCTQn/9LVtQK0gpU96djw7lx9j
-	+FEH374eiaeAEvgTZ6WNXQ/inosCTg9k=
-X-Gm-Gg: AYBFou2780nhckfQyS2yuLzhHBCnrU2//qfstVSqoBRQ8OsNb/XWeOD+3GfdbuRhmpD
-	MSrcTKvDZ5QN5BbDrgz/8JFOfN80ut5oCCRcLCU5Z/IlXZ9/LyMO3wvErahKxlg/T11DFUhGqmm
-	e6lX2yg9FGkSlUZOQgWpc1lNcj2YdGtcpDzCSbChNcIw1OK9Mq79EGpD/tjewt4pSXJImiMn/3T
-	/XDqcFVBYOVrvGBriVC0OK0+2wjzvwyXTdbqVgMTXrl/zLC+xxKU/ekQmbiC8rQBbTPe1EUA/6P
-	pm9cnvLR6WBriRKupoUJe7rhs58Dm0u6yfbnye5zsmbFoq0lP8G3joVDQJy+gT4t2izmHZjgWnZ
-	7Ju0eGdTwfeGc9Ls7iFzEHqI5
-X-Received: by 2002:a05:6808:1247:b0:486:8a11:6e8b with SMTP id
- 5614622812f47-4d5b7508c71mr243620b6e.2.1790101831981; Tue, 22 Sep 2026
- 11:30:31 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790101857; x=1790706657;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pMy9Rk3KbQyrH+qkFBTnaqCBL7b3XGUmEw1jNxFww0s=;
+        b=aGHYx2tBl+omoKSvimBm8xUiqJHslnPmnGG+y9R/t4j9w7JkQ/9vSCfxerhsvfWunh
+         ILxE4ZVa8Nuq/r6JwiN405nH5ZIu6z7yL9yx1KH2508woY5+RZnwWT+VLLBF4ppuZQC0
+         xj03iqeGRv6AwuzMiOKFSUfT71E5R/gVLa4y4v8DUCZfQw6SOyrm1fldOJhDxFse0QiO
+         HYkoPOR4jnMxhkO8G/eVa42kLROOc8qaMpt7ot9pVABBNgajUqC1znFvCuIBo8HBgQEs
+         8noENpzFyJadeeOV2ezz9ls0u9ingV5h9oAo87nGn2VqYTSqyfTKS1L0QwzZYkfRXXuD
+         vN2w==
+X-Forwarded-Encrypted: i=1; AKwUvBxj2pt3nXkOaDlsVhdsb2Jfc6mI3ZpnETQ/m4YzS8al1Tt/bX7ailsyo01yJwsDyW7A1G/6s3hZMNIRXOM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGrpf3DprN12VdPNTinppYPDsUNMDh+9ChxbOpz74cco/9mOHu
+	LiALLdBn3m0RVMSlkN7MzTRa3qIk5V7FCCW3oFKvjb15lXP+zrzlYF5FTDlkb7fk
+X-Gm-Gg: AYBFou1RCbrD5X+mneMUtCsFXNkw72hM1z2f6QjpJ0m++Hl1z2JyFfByJ9ARgw8DoF+
+	yB8k38KsfOCVm14SnuoFRE4ODKMcGle2tEBkChykvvAN4kVLZBpcpfDe7YDj9/gMWg58CoIzZAr
+	EDrwB8eX5g/vaZABEh2oSeXonv2iKKYMqkdv8ob3uyHF3sWceETUCs0QkOrS2xnNKqx7k4jPJPi
+	1PnDSFJlGRod8Yg6SNGL5uieJVGlNzYkfzfRqvQnBqr6Xlpvzl3u8qqNsOM0LDU1Eh1j5AtfX1h
+	O5VdsKgtdn42Pwk/N8PJDG0IBHHw5Y+s7SPgzbKECr2koePG6XFsLlipd4W/KM4GwnoTp2AgPdb
+	KTbVO83sfeHomvgptMVON+87SX4jeAN+TZ8qufFOEtp6cFyWj8MHzz9SVMgG8LVKerxHcMEIqRm
+	VNM4cNoWb2wc4kuJo89DBX91Q4gBry65eBq1dh+DXJCcjDlqbkl3bAG62OzH6XPaQsGfwVlwFdI
+	QPMej1UrKcmxo23NtNKkExuwdK/xdhCFNef9JpM
+X-Received: by 2002:a05:6808:f0a:b0:4b5:5bfb:f25e with SMTP id 5614622812f47-4d5b8de193fmr289621b6e.21.1790101856638;
+        Tue, 22 Sep 2026 11:30:56 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d5c3d75355sm120805b6e.3.2026.09.22.11.30.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 11:30:55 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>
+Subject: [PATCH] ARM: mm: use kmap_local_page() in copypage-v6
+Date: Tue, 22 Sep 2026 13:30:54 -0500
+Message-ID: <20260922183054.254875-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920200154.1194983-1-georgeandrout13@gmail.com> <DLKFTVSN56P2.2NHCFW6NIUOAH@garyguo.net>
-In-Reply-To: <DLKFTVSN56P2.2NHCFW6NIUOAH@garyguo.net>
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Date: Tue, 22 Sep 2026 14:30:21 -0400
-X-Gm-Features: AcwNN1WCk-bP1a41pSc70f2QVB_IR4W1RwREP0VVcFOJquCvEG0378Po8h1cQFo
-Message-ID: <CAESH5oeuKoDyr6ZcGR3Fa+_nPn+ceg9PbqBXoXjRsstaSKtJtw@mail.gmail.com>
-Subject: Re: [PATCH] rust: file: handle fd table teardown in file descriptor APIs
-To: Gary Guo <gary@garyguo.net>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 4:48=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
-> I think we want to add `unlikely()` on them (which is being added by
-> https://lore.kernel.org/rust-for-linux/20260406095820.465994-2-ojeda@kern=
-el.org/).
+kmap_atomic() is deprecated in favour of kmap_local_page(), as described
+in Documentation/mm/highmem.rst.
 
-I checked current `linux-next` and `rust-next`, but this does not seem to
-have landed yet. Should I leave these as regular checks for now and add a
-`TODO:` to use `unlikely()` once it is available?
+ARMv6 and ARMv7 CPUs whose data cache does not alias use
+v6_copy_user_highpage_nonaliasing() and
+v6_clear_user_highpage_nonaliasing() as copy_user_highpage() and
+clear_user_highpage(), to copy a page on a copy-on-write fault and to
+zero new anonymous pages. Both map the pages, call copy_page() or
+clear_page() and unmap them again, just like the generic copy_highpage()
+and clear_highpage(), which use kmap_local_page() since commit
+d2c20e51e396 ("mm/highmem: remove deprecated kmap_atomic").
 
-> I wonder if we should upgrade this to `WARN_ONCE`. As code being executed=
- when
-> exiting are cleanup code, for this code path to be hit, it would mean tha=
-t some
-> code is installing FD descriptor while being dropped -- which is likely a=
- bug.
->
-> Putting a "BTW, some Rust code is installing a FD when process is exiting=
-" in
-> dmesg is not going to be useful to understand what's going on. We'd want =
-a full
-> backtrace.
+Neither function needs preemption or page faults disabled: they only
+access the kernel mappings of the pages, and do no cache maintenance.
+kmap_atomic() is __kmap_local_page_prot() with page faults and
+preemption (migration on PREEMPT_RT) disabled around it, so the mappings
+are made and removed as before, and a highmem page is still mapped with
+migration disabled.
 
-`WARN_ONCE` does not seem to be available on the Rust side yet either.
-`warn_on!()` is available on the current base and would give us the
-backtrace. Would you prefer using that here for now?
+Convert both functions to kmap_local_page() and kunmap_local(). Apart
+from dropping the deprecated calls, this lets a preemptible kernel
+preempt the copy or clear of a page, as it can in the generic helpers.
+The aliasing variants use their own fixed mappings and are unchanged.
 
-> I think we can remove this warning. Skipping put_unused_fd isn't actually
-> leaking anything as the files_struct is cleaned up.
+Assisted-by: LLM sparse
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+---
 
-Agreed. I'll treat dropping the reservation after fd table teardown as
-normal cleanup, skip `put_unused_fd()`, and document that this can happen.
+Notes:
+    Tested on QEMU virt (cortex-a15, 2 CPUs, 2 GB, of which 1.25 GB is
+    HighMem) with multi_v7_defconfig, which has HIGHMEM=y, plus PREEMPT,
+    DEBUG_PREEMPT, PROVE_LOCKING, DEBUG_ATOMIC_SLEEP and DEBUG_HIGHMEM, on
+    v7.3-rc4 with and without this patch. A test init checked every word of
+    every page after:
+    - copy-on-write of 8192 anonymous pages after fork(), written by the
+      child and then by the parent, and first writes to 2048 pages of a
+      MAP_PRIVATE file mapping (copy_user_highpage());
+    - write faults, and read-then-write faults, on 16384 new anonymous
+      pages each, right after 16384 pages were filled with a pattern and
+      freed; 89-98% of the new pages reused one of those frames
+      (clear_user_highpage()).
+    pagemap showed all the source pages, copies and new pages in HighMem,
+    and kprobes counted at least one call per page into each function.
+    Both kernels passed with no splats. With CPU-bound tasks on both CPUs,
+    a stack-trace histogram on preempt_schedule_irq() counted no
+    preemptions inside copy_page() or inside memset() under
+    v6_clear_user_highpage_nonaliasing() without the patch, and 9-54 and
+    40-95 with it (two runs). A control that flips a byte of each test page
+    in both functions made all five checks fail.
+    
+    Also built with W=1 for imx_v6_v7_defconfig, which builds the aliasing
+    variants too.
+    
+    The ARMv4/v5 copypage-*.c files also use kmap_atomic(). I've left them
+    alone: they do cache maintenance on VIVT caches while the pages are
+    mapped, and QEMU doesn't model caches, so I can't test them.
 
-Best,
-George
+ arch/arm/mm/copypage-v6.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm/mm/copypage-v6.c b/arch/arm/mm/copypage-v6.c
+index 0710dba5c0bf..81d8471dbf00 100644
+--- a/arch/arm/mm/copypage-v6.c
++++ b/arch/arm/mm/copypage-v6.c
+@@ -32,11 +32,11 @@ static void v6_copy_user_highpage_nonaliasing(struct page *to,
+ {
+ 	void *kto, *kfrom;
+ 
+-	kfrom = kmap_atomic(from);
+-	kto = kmap_atomic(to);
++	kfrom = kmap_local_page(from);
++	kto = kmap_local_page(to);
+ 	copy_page(kto, kfrom);
+-	kunmap_atomic(kto);
+-	kunmap_atomic(kfrom);
++	kunmap_local(kto);
++	kunmap_local(kfrom);
+ }
+ 
+ /*
+@@ -45,9 +45,9 @@ static void v6_copy_user_highpage_nonaliasing(struct page *to,
+  */
+ static void v6_clear_user_highpage_nonaliasing(struct page *page, unsigned long vaddr)
+ {
+-	void *kaddr = kmap_atomic(page);
++	void *kaddr = kmap_local_page(page);
+ 	clear_page(kaddr);
+-	kunmap_atomic(kaddr);
++	kunmap_local(kaddr);
+ }
+ 
+ /*
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.55.0
+
