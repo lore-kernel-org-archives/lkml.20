@@ -1,336 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B42C4AA00D;
-	Tue, 22 Sep 2026 19:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333AA479882
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107060; cv=none; b=SHk9KLWj5koePz1HMZiyVQNNpo4HMOUJQcUOeewNqZJ0plmK9nWNu+4bfvRyzbN4d/qIgpBsw6oVwRWo60YkLcX3oM2NZOxEiLFh6Llf8VFLu8W0dgVwd4/WZk2Kd8qWQzv7L3qH6pHYxQHHNz68xMt9A5yiB4xm3yoXmb0xV7Q=
+	t=1790107130; cv=none; b=eVfwzewikY99EaGmOb9RNoST+uvLkGYaiw5dNZnUiT7Wo+2Hx0aAb31rldM8nhi0hAb5ALQ4qqrWBIBP8IzYe9T2SSjGULqp5fXA0eyMvwC8qfZt3cx1XyzPO4rlG0GwTUOW+Cs6UzgH4EU4Aisj/Ir6l2dt8lHFG0bxzjuEYJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107060; c=relaxed/simple;
-	bh=ZZ3/lvXFNs1lg2dDopy2fkY4jeWNeezpAZTvbUBNIwE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OIToBQI5H6PUWLqmaRkpyc8V1Y56NcAIdEw4Jpdw9yessbW2d+igO24IIQW1cq2PkqJYTpz4Be/6pbVjWENTUJPnJiOFspK5VyuLFhHwHYoSUHjwG5yZ6nD2oaQP9VyQMROFKQf4Jo9EtpEML02wxyLf6NsP0AO5iG1yahUkpos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5p5eaOE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790107130; c=relaxed/simple;
+	bh=WKOh/3rPUbo6AQsl6PxuNwCtS+HOGnoHYPfAzkfTmTU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rELYLGoc1ww5qIMtr7nN+Ru0XGutHmYTGjEb+nJ7jzKa8DBY4jmeV0CehATQip/LKZqgQFIW8GiX1ygVZ8UuUCw1t7hbN0QUA9LWPn1llxcb6Sg9cENbsK0QMbatc1I1307Inpj3oszyPbeg8TfZs0fNLHjOyXHvyU0gtx8YsJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=OPDp8dZC; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5p5eaOE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8FC81F000FF;
-	Tue, 22 Sep 2026 19:57:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790107057;
-	bh=LWf2P5Ys75rAjXmSpn/rwIwvU1jkRlLw5TSKsGJpoII=;
-	h=From:To:Cc:Subject:Date;
-	b=i5p5eaOEomxZ5KRbEZIx4y6EMe4Ky0fZ1ze7lLcIncPOv+AjkI9a6pPfrbzo+Gv7P
-	 pCHoatm/4wvaJSqLP4iqnnz2af6VOrxTyrf+pJ88C0vF3/XTwFGpCMrUVywKVGJQgH
-	 K61uLSN6nBP/mY97/cENdKrzU2KZc3/hP+A10q8J16kth7bGHgZD8kHhjdiAWrnGcO
-	 OCR65VAfLSITl3ffbY3k70vAFW23QqjYOHMVJCTURhYy9Yrkm+wGl43uZ1n6wvf4UH
-	 mVKtaCKZrpGgKgMi4HOttUeL4gJdKoIC/Q/I30ACWKutDKXw2MdNDMMfmTdV2hRo+x
-	 Y6jsi5cuGGD2Q==
-From: Kees Cook <kees@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: Kees Cook <kees@kernel.org>,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	oleg@redhat.com,
-	luto@amacapital.net,
-	wad@chromium.org,
-	peterz@infradead.org,
-	ada.coupriediaz@arm.com,
-	linusw@kernel.org,
-	yeoreum.yun@arm.com,
-	kevin.brodsky@arm.com,
-	anshuman.khandual@arm.com,
-	james.morse@arm.com,
-	thuth@redhat.com,
-	vladimir.murzin@arm.com,
-	tglx@kernel.org,
-	broonie@kernel.org,
-	liqiang01@kylinos.cn,
-	ryan.roberts@arm.com,
-	pengcan@kylinos.cn,
-	kmehltretter@gmail.com,
-	linux-arm-kernel@lists.infradead.org,
-	Shuah Khan <shuah@kernel.org>,
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="OPDp8dZC"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144e32aaa1cso130178c88.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:58:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790107121; x=1790711921; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BjX+mNuhQOmLJprMYKkZ8OPoLSpzkGrxDeWbqW/+m4I=;
+        b=OPDp8dZC9ud72KyV3bUT7MLbrU2d8SjsIphqH7MnBzipGVTwlWGpBzHB4iwE6YHaXX
+         na41k5QWFYXEGdHew5dek377TzotMn/0Haf7X7ztn+sTsZwfEXM87hao2bwQzhkJy1eH
+         XcfglYVNz/jHmPO4rIrM7o5/nmsIhmqQvbqetHlxRfdLR3Jxg5/+xNuy8F0H+z9X9TJl
+         3hDWS9zsCwfUz3bo9TSfsE6NsyxXKjGv7z7AtTwDwPq/NO4B1QAVjOOx8WfExJAvzeAf
+         3W4+90DTKoI2fR/oZg5rPo0OWBX1jANqf6gOKTUQRalfjzJs6mNURZjaW+VcgfN1TKc7
+         LTng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790107121; x=1790711921;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BjX+mNuhQOmLJprMYKkZ8OPoLSpzkGrxDeWbqW/+m4I=;
+        b=uaUfrk7FBCV5BdlffzJFRpN5W6q65vDbbToXaEnOVxM7kHKz9JMq/MWm6+QKa2tMLq
+         YAKf330nhrdFK8uJrDZ+yCskD7+4/b63g/gV8VJzsPN+oGOPzKCIMed3E2oEvmy5KMih
+         3J0RNtpBSMhrGvnBnMvKdlwbQ00+EyQRt3yibHQbh7dz0luVuTuL0vypnOXbaxGMVH5s
+         rvCXREqWQZV0xEkN2n3Wo/EiSq4IwDbxq8YqfDNDxEwFwZ2z5P7YiX18zCEEk4O7D7fC
+         8rwvKgiT1HeG7/aeLrywDLQV/1vjSJL8s6vgH/rJnZ6mJEzT+1yaK41KQqv8Y3n4jIi+
+         nDXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzx0HnuXZPoUhtSRpgJ8ycaCHYsMUkUf9AoirTWK5om8oRcgnXf8dU7ojtUUPM0yTeW6rQ82oH/+XYrt3k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPTzkb/Lcw0sOlNbU1+T/YqbkjCtBnRWyikg8Ga/lpCZ93uRCo
+	R5tDIHpEEVGZL/rfsBZ1L7E7OdtxvHXuSoHHmUe3pcUU9VFsLO801TXtu6Cbt2reT7c=
+X-Gm-Gg: AYBFou0GHo3iSFrY0F79DV6D0AThfS0kQ9SGU14uDvU7ezPNhtm7x4r8S6r7mr+QMzn
+	kBJ6Gs8w99Hu36+75B/QZ0OlRZQ6nb3/haZkyRYeNCNRVd3cU3pp3DZzDMSYy7wOmoe+9tO7ArK
+	dmBM9o2HxiNerOVxfXDlPLdtzUV61FPlGneDa75/wSdHghn+LbpSZ5PozK3iYgPL4L37v6BAgQL
+	YlKz51r2M+91ZSt4M5jEOqf8STP16kqirROwdunJ+m7empWK/oqGww8+Wr83FDu6slRXsGOiye6
+	bX4a/8GHkDRHKOFtgOxiv4xQXNNRwA+zKnwL/jJuAGhxHZ48a4+DJwjMRNTl247TlGysTIwoFiS
+	kNhALxHIzcqAO6mkuA3ZK3ocmxoSiMDNK983dFzY/5JcmmPZCgJTdIRIdIC/518hYL1faGntHHJ
+	gu8v8+Dz+i7kxuDnaYME44x0UhQMypJAHdouJYy6phoLvTvDqty2V5LwKuz8fJGXFIpccOTt0oO
+	E05twbH7kdW5Lo9IxMhGSXvZhl17zZW3H5Ka3JQBeBQwjsQZ/bh8DrRZahGUGAFNnvJxMY=
+X-Received: by 2002:a05:701b:4591:20b0:144:fa79:174 with SMTP id a92af1059eb24-144fa79031emr52410c88.44.1790107120989;
+        Tue, 22 Sep 2026 12:58:40 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:c016:77a6:d382:7611])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e975223fcsm459820eec.31.2026.09.22.12.58.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 12:58:40 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Chris Mason <clm@fb.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	David Sterba <dsterba@suse.com>,
+	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH] selftests/ptrace: Add PTRACE_SYSEMU_SINGLESTEP syscall-exit-stop test
-Date: Tue, 22 Sep 2026 12:57:20 -0700
-Message-Id: <20260922195719.i.211-kees@kernel.org>
-X-Mailer: git-send-email 2.34.1
+	Christoph Hellwig <hch@lst.de>
+Subject: [PATCH 6.1.y] btrfs: don't check PageError in __extent_writepage
+Date: Tue, 22 Sep 2026 15:58:35 -0400
+Message-ID: <20260922195836.27193-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9515; i=kees@kernel.org; h=from:subject:message-id; bh=ZZ3/lvXFNs1lg2dDopy2fkY4jeWNeezpAZTvbUBNIwE=; b=owGbwMvMwCVmps19z/KJym7G02pJDFmb7s5/uSQyNuOKZH7YrKpLahc4+i/U7Gp6ZZVWWSfkO 1nKf8nKjlIWBjEuBlkxRZYgO/c4F4+37eHucxVh5rAygQxh4OIUgImsv8jwz/wex/rrvV3/y88v bpPa4RNwm4P/iwKv1dU9LGsnB66U3Mrwv8JceMUxw8M7PvokFvoreFfZf9dt8ZJPWyvA5yXON8+ XBQA=
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
-ptrace(2) states that no syscall-exit-stop occurs when a tracee is
-continued with PTRACE_SYSEMU or PTRACE_SYSEMU_SINGLESTEP. arm64 gated
-its syscall-exit report on
+From: Christoph Hellwig <hch@lst.de>
 
-	flags & (_TIF_SYSCALL_TRACE | _TIF_SINGLESTEP)
+[ Upstream commit 3e92499e3b004baffb479d61e191b41b604ece9a ]
 
-and ptrace_resume() clears SYSCALL_TRACE for both SYSEMU requests while
-PTRACE_SYSEMU_SINGLESTEP additionally sets TIF_SINGLESTEP, so the
-single-step bit alone produced a stop that must not exist. Nothing in
-tools/testing/selftests covered this.
+__extent_writepage currenly sets PageError whenever any error happens,
+and the also checks for PageError to decide if to call error handling.
+This leads to very unclear responsibility for cleaning up on errors.
+In the VM and generic writeback helpers the basic idea is that once
+I/O is fired off all error handling responsibility is delegated to the
+end I/O handler.  But if that end I/O handler sets the PageError bit,
+and the submitter checks it, the bit could in some cases leak into the
+submission context for fast enough I/O.
 
-Detecting the extra stop is less direct than it looks. The report is
-emitted with step=1, so ptrace_report_syscall_exit() dispatches to
-user_single_step_report() rather than ptrace_report_syscall(), and it
-arrives as a plain SIGTRAP indistinguishable by signal from the
-legitimate single-step trap: neither PTRACE_O_TRACESYSGOOD nor
-PTRACE_GET_SYSCALL_INFO separates the two. What does separate them is
-the PC. The redundant report fires before the tracee has moved past the
-syscall instruction, so it lands on the PC of the syscall-entry stop:
+Fix this by simply not checking PageError and just using the local
+ret variable to check for submission errors.  This also fundamentally
+solves the long problem documented in a comment in __extent_writepage
+by never leaking the error bit into the submission context.
 
-	[0] sig=133 SYSCALL-STOP  pc=0x41ec28
-	[1] sig=5   trap          pc=0x41ec28   <-- must not exist
-	[2] sig=5   trap          pc=0x41ec2c
+Reviewed-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 
-A fixed kernel reports pc=0x41ec2c already at stop [1]. The test
-therefore asserts that the first stop after the syscall-entry stop is at
-a different PC, which tests the consequence rather than the mechanism
-and does not depend on how many pseudo-step traps follow.
-
-PTRACE_SYSEMU is used to reach the syscall-entry stop, as single-
-stepping there costs one stop per instruction and takes roughly 200000
-stops. Architectures without a PC accessor here, or without SYSEMU
-support, skip rather than fail.
-
-Build tested ARCH=arm64 with GCC aarch64-linux-gnu 16.1.0, ARCH=arm
-with GCC arm-linux-gnueabihf 16.1.0, and ARCH=x86_64 with GCC 16.2.0.
-
-Tests passing on ARCH=arm64 under qemu-system-aarch64, and the same
-test fails as expected on v7.3-rc2 without the fix[1]:
-
-	# entry stop pc=0x41ec28, next stop sig=5 pc=0x41ec28
-	# Expected next_pc (4320296) != entry_pc (4320296)
-	not ok 1 sysemu.no_syscall_exit_stop
-
-An AArch32 build of the same test on an arm64 kernel reproduces the
-failure identically, covering the is_compat_task() path. It also passes
-on x86_64, which already uses generic entry, so the test does not report
-a false positive against a correct implementation.
-
-Link: https://lore.kernel.org/all/20260922035510.1090299-2-ruanjinjie@huawei.com/ [1]
+[ Backport to 6.1.y: apply the PageError-to-ret change in this tree's
+  pre-btrfs_bio_ctrl __extent_writepage(). ]
 Assisted-by: LLM
-Signed-off-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
- tools/testing/selftests/ptrace/Makefile       |   3 +-
- .../selftests/ptrace/sysemu_singlestep.c      | 176 ++++++++++++++++++
- tools/testing/selftests/ptrace/.gitignore     |   1 +
- 3 files changed, 179 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/ptrace/sysemu_singlestep.c
+Hi Greg, Sasha, and Btrfs maintainers,
 
-diff --git a/tools/testing/selftests/ptrace/Makefile b/tools/testing/selftests/ptrace/Makefile
-index c5e0b76ba6ac..5284d79e9b71 100644
---- a/tools/testing/selftests/ptrace/Makefile
-+++ b/tools/testing/selftests/ptrace/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- CFLAGS += -std=c99 -pthread -Wall $(KHDR_INCLUDES)
- 
--TEST_GEN_PROGS := get_syscall_info set_syscall_info peeksiginfo vmaccess get_set_sud
-+TEST_GEN_PROGS := get_syscall_info set_syscall_info peeksiginfo vmaccess get_set_sud \
-+		  sysemu_singlestep
- 
- include ../lib.mk
-diff --git a/tools/testing/selftests/ptrace/sysemu_singlestep.c b/tools/testing/selftests/ptrace/sysemu_singlestep.c
-new file mode 100644
-index 000000000000..f9b16445b3d5
---- /dev/null
-+++ b/tools/testing/selftests/ptrace/sysemu_singlestep.c
-@@ -0,0 +1,176 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Check that PTRACE_SYSEMU_SINGLESTEP does not report a syscall-exit-stop.
-+ *
-+ * ptrace(2), "Syscall-stops":
-+ *
-+ *	If the tracee is continued using any other method (including
-+ *	PTRACE_SYSEMU), no syscall-exit-stop occurs. Note that all mentions of
-+ *	PTRACE_SYSEMU apply equally to PTRACE_SYSEMU_SINGLESTEP.
-+ *
-+ * PTRACE_SYSEMU_SINGLESTEP sets SYSCALL_EMU and enables single-stepping, and
-+ * ptrace_resume() clears SYSCALL_TRACE for it. An architecture that gates its
-+ * syscall-exit report on "single-stepping is enabled" rather than on "the
-+ * tracer asked for syscall stops" reports an extra stop here.
-+ *
-+ * Detecting that extra stop takes some care. The report is emitted with
-+ * step=1, and ptrace_report_syscall_exit() then calls
-+ * user_single_step_report() rather than ptrace_report_syscall(), so it arrives
-+ * as a plain SIGTRAP: PTRACE_O_TRACESYSGOOD and PTRACE_GET_SYSCALL_INFO cannot
-+ * tell it from the legitimate single-step trap. What distinguishes it is the
-+ * PC, which has not yet moved past the syscall instruction. So this asserts
-+ * that the first stop after the syscall-entry stop is at a different PC.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sys/ptrace.h>
-+#include <sys/uio.h>
-+#include <sys/wait.h>
-+#include <sys/syscall.h>
-+#include <linux/elf.h>
-+#include <linux/ptrace.h>
-+#include "../kselftest_harness.h"
-+
-+/*
-+ * Not every libc declares these, even where the kernel implements them (an
-+ * AArch32 tracer on an arm64 kernel, for instance). The values are ABI.
-+ */
-+#ifndef PTRACE_SYSEMU
-+#define PTRACE_SYSEMU			31
-+#endif
-+#ifndef PTRACE_SYSEMU_SINGLESTEP
-+#define PTRACE_SYSEMU_SINGLESTEP	32
-+#endif
-+
-+/*
-+ * Reading the PC portably would need one regset layout per architecture. Cover
-+ * the ones that implement PTRACE_SYSEMU_SINGLESTEP and can be checked here;
-+ * elsewhere the test skips rather than failing the build or the run.
-+ */
-+#if defined(__aarch64__)
-+#include <asm/ptrace.h>
-+static int tracee_pc(pid_t pid, unsigned long long *pc)
-+{
-+	struct user_pt_regs regs;
-+	struct iovec iov = { &regs, sizeof(regs) };
-+
-+	if (ptrace(PTRACE_GETREGSET, pid, (void *)NT_PRSTATUS, &iov))
-+		return -1;
-+	*pc = regs.pc;
-+	return 0;
-+}
-+#elif defined(__arm__)
-+static int tracee_pc(pid_t pid, unsigned long long *pc)
-+{
-+	unsigned long uregs[18];	/* struct user_regs; uregs[15] is PC */
-+	struct iovec iov = { uregs, sizeof(uregs) };
-+
-+	if (ptrace(PTRACE_GETREGSET, pid, (void *)NT_PRSTATUS, &iov))
-+		return -1;
-+	*pc = uregs[15];
-+	return 0;
-+}
-+#elif defined(__x86_64__) || defined(__i386__)
-+#include <sys/user.h>
-+static int tracee_pc(pid_t pid, unsigned long long *pc)
-+{
-+	struct user_regs_struct regs;
-+	struct iovec iov = { &regs, sizeof(regs) };
-+
-+	if (ptrace(PTRACE_GETREGSET, pid, (void *)NT_PRSTATUS, &iov))
-+		return -1;
-+#if defined(__x86_64__)
-+	*pc = regs.rip;
-+#else
-+	*pc = regs.eip;
-+#endif
-+	return 0;
-+}
-+#else
-+static int tracee_pc(pid_t pid, unsigned long long *pc)
-+{
-+	return -1;
-+}
-+#define NO_PC_ACCESSOR	1
-+#endif
-+
-+FIXTURE(sysemu)
-+{
-+	pid_t tracee;
-+};
-+
-+FIXTURE_SETUP(sysemu)
-+{
-+	self->tracee = -1;
-+}
-+
-+FIXTURE_TEARDOWN(sysemu)
-+{
-+	/* Reap the tracee however the test ended, including on assert. */
-+	if (self->tracee > 0) {
-+		kill(self->tracee, SIGKILL);
-+		waitpid(self->tracee, NULL, 0);
-+	}
-+}
-+
-+TEST_F(sysemu, no_syscall_exit_stop)
-+{
-+	unsigned long long entry_pc = 0, next_pc = 0;
-+	int status;
-+
-+#ifdef NO_PC_ACCESSOR
-+	SKIP(return, "no PC accessor for this architecture");
-+#endif
-+
-+	self->tracee = fork();
-+	ASSERT_GE(self->tracee, 0);
-+	if (self->tracee == 0) {
-+		if (ptrace(PTRACE_TRACEME, 0, 0, 0))
-+			_exit(1);
-+		raise(SIGSTOP);
-+		/* A raw syscall: a libc wrapper may not issue one. */
-+		syscall(__NR_getpid);
-+		_exit(0);
-+	}
-+
-+	ASSERT_EQ(waitpid(self->tracee, &status, 0), self->tracee);
-+	ASSERT_TRUE(WIFSTOPPED(status));
-+	ASSERT_EQ(ptrace(PTRACE_SETOPTIONS, self->tracee, 0,
-+			 (void *)PTRACE_O_TRACESYSGOOD), 0);
-+
-+	/*
-+	 * PTRACE_SYSEMU reaches the syscall-entry stop in one resume. Getting
-+	 * there by single-stepping would cost one stop per instruction.
-+	 */
-+	if (ptrace(PTRACE_SYSEMU, self->tracee, 0, 0)) {
-+		if (errno == EIO || errno == EINVAL)
-+			SKIP(return, "PTRACE_SYSEMU not supported");
-+		ASSERT_EQ(errno, 0) TH_LOG("PTRACE_SYSEMU: %m");
-+	}
-+	ASSERT_EQ(waitpid(self->tracee, &status, 0), self->tracee);
-+	ASSERT_TRUE(WIFSTOPPED(status));
-+	ASSERT_TRUE(WSTOPSIG(status) & 0x80)
-+		TH_LOG("expected a syscall-entry stop, got signal %d",
-+		       WSTOPSIG(status));
-+	ASSERT_EQ(tracee_pc(self->tracee, &entry_pc), 0);
-+
-+	/* The resume under test. */
-+	if (ptrace(PTRACE_SYSEMU_SINGLESTEP, self->tracee, 0, 0)) {
-+		if (errno == EIO || errno == EINVAL)
-+			SKIP(return, "PTRACE_SYSEMU_SINGLESTEP not supported");
-+		ASSERT_EQ(errno, 0) TH_LOG("PTRACE_SYSEMU_SINGLESTEP: %m");
-+	}
-+	ASSERT_EQ(waitpid(self->tracee, &status, 0), self->tracee);
-+	ASSERT_TRUE(WIFSTOPPED(status));
-+	ASSERT_EQ(tracee_pc(self->tracee, &next_pc), 0);
-+
-+	TH_LOG("entry stop pc=%#llx, next stop sig=%d pc=%#llx",
-+	       entry_pc, WSTOPSIG(status), next_pc);
-+
-+	EXPECT_NE(next_pc, entry_pc)
-+		TH_LOG("redundant syscall-exit-stop reported at the syscall PC");
-+}
-+
-+TEST_HARNESS_MAIN
-diff --git a/tools/testing/selftests/ptrace/.gitignore b/tools/testing/selftests/ptrace/.gitignore
-index f6be8efd57ea..792c81f804c0 100644
---- a/tools/testing/selftests/ptrace/.gitignore
-+++ b/tools/testing/selftests/ptrace/.gitignore
-@@ -4,3 +4,4 @@ get_set_sud
- peeksiginfo
- vmaccess
- set_syscall_info
-+sysemu_singlestep
+I am continuing with CVE backports still missing from 6.1.y.
+This fix is inherited by v6.6 and every later mainline release, but 6.1.y
+still has the affected code. The target-specific adjustment is described
+in the bracketed note above.
+
+Could you please queue it for 6.1.y?
+
+Thanks,
+Artem Dinaburg
+
+CVE: CVE-2023-53429
+
+Build: This patch was included in an x86_64 allmodconfig and
+CONFIG_WERROR=y build.
+It produced vmlinux and modules with no new warnings or errors.
+
+AI assistance: An LLM helped find, adapt, and validate this
+backport; I reviewed the patch and test output.
+
+ fs/btrfs/extent_io.c | 33 +--------------------------------
+ 1 file changed, 1 insertion(+), 32 deletions(-)
+
+diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
+index 28dbac0bfab2f9..aeea8930b973fd 100644
+--- a/fs/btrfs/extent_io.c
++++ b/fs/btrfs/extent_io.c
+@@ -2299,38 +2299,7 @@ static int __extent_writepage(struct page *page, struct writeback_control *wbc,
+ 		set_page_writeback(page);
+ 		end_page_writeback(page);
+ 	}
+-	/*
+-	 * Here we used to have a check for PageError() and then set @ret and
+-	 * call end_extent_writepage().
+-	 *
+-	 * But in fact setting @ret here will cause different error paths
+-	 * between subpage and regular sectorsize.
+-	 *
+-	 * For regular page size, we never submit current page, but only add
+-	 * current page to current bio.
+-	 * The bio submission can only happen in next page.
+-	 * Thus if we hit the PageError() branch, @ret is already set to
+-	 * non-zero value and will not get updated for regular sectorsize.
+-	 *
+-	 * But for subpage case, it's possible we submit part of current page,
+-	 * thus can get PageError() set by submitted bio of the same page,
+-	 * while our @ret is still 0.
+-	 *
+-	 * So here we unify the behavior and don't set @ret.
+-	 * Error can still be properly passed to higher layer as page will
+-	 * be set error, here we just don't handle the IO failure.
+-	 *
+-	 * NOTE: This is just a hotfix for subpage.
+-	 * The root fix will be properly ending ordered extent when we hit
+-	 * an error during writeback.
+-	 *
+-	 * But that needs a bigger refactoring, as we not only need to grab the
+-	 * submitted OE, but also need to know exactly at which bytenr we hit
+-	 * the error.
+-	 * Currently the full page based __extent_writepage_io() is not
+-	 * capable of that.
+-	 */
+-	if (PageError(page))
++	if (ret)
+ 		end_extent_writepage(page, ret, page_start, page_end);
+ 	if (epd->extent_locked) {
+ 		/*
 -- 
-2.34.1
+2.39.5
 
