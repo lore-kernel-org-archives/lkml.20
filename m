@@ -1,211 +1,227 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A27329E79
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092363CAA3F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062783; cv=none; b=nWxEEMAHvcwUoJtAJfNT8vLn+vjw7Z62c1W/ylE70KNNd21QL9YuSM1eloNQKrbJjMqMzaZJxmwi9stBccoDfKB/mv8Pg/1TXoQBJhXRZgiIhSSyctNbQUO8qP+yKNCo75pK/IHsrdzSX5IwMUJbhhCyaclhwbJgqs3O0HhCjoA=
+	t=1790062871; cv=none; b=Wr9xTDgQAQPMm2ZfCUh4NgmaiaK8Rx1bbFF6chT2k7fSaBaM31B8bOaMsCsINywGK6u+ZRlOi/TxrXW9Z7DShpi+/WyQRcXldIb7Daomuc6F9L5dYtCDx0DUB16/Bol+jW7FwwewNXUrkQkb4Ieto2V7sVuXn6R1l29IZsfiZ+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062783; c=relaxed/simple;
-	bh=dl5o9oQr5B5N85FSOPgTlq/lZbjtY8w27lkb6yxJJ5w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GF4fGTg5a3btpRUNl7vMJ4IUJqYX27aW+vkHf03Ppa/JW0RBKhHoN//aNspaIKxTZ2Yhk3/C46t9cpavE9Mm9duvnwOIRpfZRNT08EUWUIIMJbBgnHG9xfwKrKEEidwdsenL8x6XrHda1EA990Ms7ynRlrV+HE54zO97/7/2Xks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=e0a31WZd; arc=none smtp.client-ip=74.125.225.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="e0a31WZd"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-482f6351831so1961328f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:39:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790062778; x=1790667578; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hNYq47O4Ws8Dm5U8XTWW+CRMw749gUzSYK16o/QDHGk=;
-        b=e0a31WZd69ueQjCRoISLmYfW0qAzgLBxbsKO7nFXewdsId4E7vjjGgSHEaeuEMesFu
-         bYh+7r4w4vWkxEjfxGfTqndN67GC7CtwuSHywFbCeBdK9CrWCgOYvyHEjOwA8s+6IImn
-         A0t3m8h4FNW+45vIj8AxN/quzQ3FrJ/qM3TPMP0eZxMKlUwx+qwk6TALq/pUG5aP7iu+
-         8KSc1EEGNdOdSvmvt3zZK+/TEJ0sTzkls3YbtpaBvhgkzIY76WEqaCRbRtZ2nc1CJp3u
-         u7TaalK/tovOtq1fE7YiRU+BdXQQVbpkNV+BGFA9kNGmmPcsaEvu55Q8eKSOT1NjdyNa
-         3A1g==
+	s=arc-20240116; t=1790062871; c=relaxed/simple;
+	bh=XrPvrrHNaH3h6usxw4SO6pwHyk8MJ9Pg2h4F9/FUClY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=SuKkVLAnyF24MnL7GeV1QdOdrC/U+nWVpW1yNEnoAqG6WjD8JnTbbAUOhROsWiuzlhfToqrzWd4qUHJuiBXJSKZ3uDCkHmvxLh51jx6LKcdWcmX9pWcKpv8vclEjX1UwO6oPKuOYht7gxfpuolrew/1sQhNT5Qhk8o+3kksbbig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b0e7370be1so922595eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:41:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790062778; x=1790667578;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hNYq47O4Ws8Dm5U8XTWW+CRMw749gUzSYK16o/QDHGk=;
-        b=rQUl2DBzrrlf7h1FQiAdyNDTIGyci1JKEa2K7Ii9gYLAof2ArVBVXEbXycEfn3QIDz
-         7/pPzLDMOKcBF2VchIc3w63xbks++59YboNFvBAbDEXkkoAAeXVEd0dIWU+Tu7cYHm+5
-         RdSAAUU9nm/BljqDQbkhPKFi8WPNx+awvd0heSsrmFnAan0ic3TcT6ZvDZJjob5twAKh
-         VyM5T7CW40ViPKNpkwRpqjuiwrFx4XzZyU1rAVYKlqzOOv4w94Wd08XUePJQ1HmKdMJ3
-         RNMEjgrTpbmsSk6dtjHyp+8EifLmuCNWJbwBbU2+SkoL+Otbpo9voLCFrDvB8rECC+sC
-         QaGw==
-X-Forwarded-Encrypted: i=1; AKwUvByHjVsjHhfGThcetIF2tU1imJN7tzmdsoYS+xbPETBtE2Y2b9tB6GrVMLuNM+h1pMDOtclEMj8JhH0QSNA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kH8M0NoT26igRsfogDTxM2/OxzMqQz/6CtS8DsBhaCFTOoYNNt
-	QV+Hs4V1ankPWKn5KkBaED5gVHrXjmY/m0k7OoqXeKVtISU0IrGqL49IoFC7UZyPPjs=
-X-Gm-Gg: AYBFou33dqt9oWRqzGVfrGRO5wE8f22SdQgFCJYahayNoPqItSZOcD56iH2wm/jtAm+
-	Nc5l5gMmA6IIwUlTxfQUvrrw2Ss7Qa6vc0/iBkelXl/N4OiwYygXRvb0JxOqFiH7y6yHdvV+HQq
-	+XtueC+ouevut9ROKXp5d7JjykYmFf1E7Xslwf/aDVlTaUula8skjwWrXIqoUg+O67qoPgRVSS5
-	0bKP1ll+Tqrk+ozIFPFnTzRvnC6SzrowHSXRGmSbMVTQKWC159j9T2gs8JBLdadGhgbQOfSB9Fz
-	jc9vIi7deRkNAfjl1zzfmsJuljSm+WNtzGVUQih5UnjbC4nY0YewgT+Eof4ptyHFD8iwwEr2NDi
-	szcpubvKtX7UdF5apI73r03pBBWuun3zGaWOlKXBFxe2sK7Qf9/fGnk95T6V9kET9gIPovp1TFx
-	M1ktjsImlT//k1afFGNyHH8bEuup/Mk5JTwbDJmvpO1/2jygKgYmXqsl71/B76a8/1GlB+FWdqt
-	9XKp0Zqz+CUL1kEg54i6xvimJKoUzbrKku246q++ZAqasaKiU+UK3uH+4aXMQ==
-X-Received: by 2002:a05:6000:3111:b0:487:8ef:2fcf with SMTP id ffacd0b85a97d-4871e26b86fmr18280691f8f.38.1790062777241;
-        Tue, 22 Sep 2026 00:39:37 -0700 (PDT)
-Received: from localhost (p200300f65f19a9041d0e57515b2ea4c8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:1d0e:5751:5b2e:a4c8])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48862788f61sm2993133f8f.26.2026.09.22.00.39.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 00:39:36 -0700 (PDT)
-Date: Tue, 22 Sep 2026 09:39:35 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh <nogikh@google.com>, 
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
-	Johan Hovold <johan@kernel.org>, Richard Weinberger <richard@nod.at>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <arIvG0nx4LXG9nlW@monoceros>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
- <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+        d=1e100.net; s=20260707; t=1790062869; x=1790667669;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2PPXGuUK7BCbuHnmTDRYrOzvGigpnWWgKcYQ6j2BYsA=;
+        b=zGPOzx5zGoOzwjinL3N7/lkos5iD18KNoWLoj58vo9HWHUcPG2rp7vd8BzVajZLEdN
+         bytrTaMDoVYwOKzqVLII6vVmsghkc5vtbulAtO/hZNlahNwoD533sYhp++v53Uf57X0/
+         yrRjsynA1IAKvu596kDc6OqEeOpP9n4r8eAe3M/zgy9wbp5tMGFFD6MUu2aZ54P8RFYW
+         1mzfDATIE3mfS8xzHn/EjpxdxG1K8HjYvWumKbVq3s0T318SUb9hkLazcAoGgOr24WfD
+         evxRrlKmam1y7Mj5eta6TOGI1fSiVGo4ZNtKRCr3TFcShDCODVV/5TRVq546hGefX9iP
+         1ijg==
+X-Gm-Message-State: AFuF++l+LY23eafzes1UheUT0UgcUxoWCq9V6BKKDm9z+MmZLbDUnhhx
+	qOF1qMbqgymTeLlFq3gpjl3ap5lMQxvoaeLZH5bCLUvif2L7aUkrbWtV9hz5PrIQsvGy3x8NYhI
+	2ix29TuDSTciPUv1tIC9cr0i/WupQYHWAxdvqZ0A/EOxZhc3+EIcI2HO9pI0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ikoios7rdkqzgpee"
-Content-Disposition: inline
-In-Reply-To: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+X-Received: by 2002:a05:6820:220d:b0:6b1:7e2b:dc01 with SMTP id
+ 006d021491bc7-6d1586690ccmr1683959eaf.11.1790062868884; Tue, 22 Sep 2026
+ 00:41:08 -0700 (PDT)
+Date: Tue, 22 Sep 2026 00:41:08 -0700
+In-Reply-To: <677f567c.050a0220.25a300.01ad.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab23114.514bccd6.255447.001b.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [nilfs?] INFO: task hung in find_inode (2)
+From: syzbot <syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
---ikoios7rdkqzgpee
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-MIME-Version: 1.0
+***
 
-On Fri, Sep 18, 2026 at 06:39:02PM +0200, Danilo Krummrich wrote:
-> On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
-> > The ability to add and remove devices from a driver through the sysfs
-> > "bind" and "unbind" files was created all those decades ago as a way
-> > that kernel developers can iterate faster, and provide a debugging way
-> > for users to attempt to add a new device to a driver without having to
-> > rebuild their kernel.
-> >
-> > This api over the years has been abused and recently come under a major
-> > fuzzing "attack" through tools like syzbot which decided that it would
-> > attempt to just randomly bind any driver to any type of device, causing
-> > loads of unneeded errors and pointless kernel patches to be generated by
-> > unsuspecting new developers.
-> >
-> > Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
-> > will be set on the driver if the bind/unbind sysfs files are ever
-> > written to.  This lets kernel developers "know" that a user is
-> > attempting to do something that is not normal, and as such, if the
-> > kernel breaks they get to keep the shiny pieces laying around on the
-> > floor.
-> >
-> > The flag is 'Y' which was unused, and can remembered as the user is
-> > "yeeting" the device being operated on here (thrown with force without
-> > regard for the thing being thrown).
-> >
-> > Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
-> > as many times crashes/oops/warnings/failures happen within the callback,
-> > and the taint flag needs to be there to show what was being attempted.
-> > If it were to be set after the callback happens, the oops report would
-> > not properly reflect what foolishness was being attempted.
-> >
-> > Fuzzing tools like syzbot, that doesn't have hand-crafted rules to keep
-> > the tool from hitting bind/unbind, should be run with panic_on_taint
-> > enabled so that they fall over and don't continue on, thinking that they
-> > actually found a real issue.
-> >
-> > Userspace operations that rely on the bind/unbind files
->=20
-> I agree that this should be avoided.
->=20
-> But I also think the biggest offender really is driver_override. Specific=
-ally,
-> on a hot-pluggable bus a driver must be complient with the device driver
-> lifecycle rules and hence shouldn't break on bind/unbind. I think it woul=
-d be
-> nice to not taint the kernel for such busses, and only taint on driver_ov=
-erride,
-> as I think we'd still want the bug reports for such cases.
->=20
-> But I think this is fine to leave for a follow-up.
+Subject: Re: [syzbot] [nilfs?] INFO: task hung in find_inode (2)
+Author: konishi.ryusuke@gmail.com
 
-I fully agree. I'm fine and support tainting on driver_override, but
-bind/unbind are used occasionally in my bubble and I consider drivers
-not handling that properly buggy.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 89a312991dc6
 
-So please let's do
+Avoid a three-way deadlock involving find_inode(),
+nilfs_evict_inode(), and the log writer by checking the inode bitmap
+during normal inode loading.
 
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index c51ad96d4de4..ce8fb14ea19a 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -242,7 +242,6 @@ static ssize_t unbind_store(struct device_driver *drv, =
-const char *buf,
-=20
- 	dev =3D bus_find_device_by_name(bus, NULL, buf);
- 	if (dev && dev->driver =3D=3D drv) {
--		add_taint_module(drv->owner, TAINT_FORCED_BIND, LOCKDEP_STILL_OK);
- 		device_driver_detach(dev);
- 		err =3D count;
- 	}
-@@ -266,7 +265,6 @@ static ssize_t bind_store(struct device_driver *drv, co=
-nst char *buf,
-=20
- 	dev =3D bus_find_device_by_name(bus, NULL, buf);
- 	if (dev && driver_match_device(drv, dev)) {
--		add_taint_module(drv->owner, TAINT_FORCED_BIND, LOCKDEP_STILL_OK);
- 		err =3D device_driver_attach(drv, dev);
- 		if (!err) {
- 			/* success */
-@@ -513,6 +511,7 @@ static ssize_t driver_override_store(struct device *dev,
+diff --git a/fs/nilfs2/alloc.c b/fs/nilfs2/alloc.c
+index 7b1cd2baefcf..32f54382f95d 100644
+--- a/fs/nilfs2/alloc.c
++++ b/fs/nilfs2/alloc.c
+@@ -404,6 +404,13 @@ static size_t nilfs_palloc_bitmap_offset(const struct buffer_head *bh)
+ 	return offset_in_folio(bh->b_folio, bh->b_data);
+ }
+ 
++static size_t nilfs_palloc_entry_offset_in_block(
++	const struct inode *inode, unsigned long entry_index_in_group)
++{
++	return (entry_index_in_group % NILFS_MDT(inode)->mi_entries_per_block)
++		* NILFS_MDT(inode)->mi_entry_size;
++}
++
+ /**
+  * nilfs_palloc_entry_offset - calculate the byte offset of an entry in the
+  *                             folio containing it
+@@ -416,14 +423,61 @@ static size_t nilfs_palloc_bitmap_offset(const struct buffer_head *bh)
+ size_t nilfs_palloc_entry_offset(const struct inode *inode, __u64 nr,
+ 				 const struct buffer_head *bh)
  {
- 	int ret;
-=20
-+	add_taint_module(drv->owner, TAINT_FORCED_BIND, LOCKDEP_STILL_OK);
- 	ret =3D __device_set_driver_override(dev, buf, count);
- 	if (ret)
- 		return ret;
+-	unsigned long entry_index_in_group, entry_index_in_block;
++	unsigned long entry_index_in_group;
+ 
+ 	nilfs_palloc_group(inode, nr, &entry_index_in_group);
+-	entry_index_in_block = entry_index_in_group %
+-		NILFS_MDT(inode)->mi_entries_per_block;
+ 
+ 	return offset_in_folio(bh->b_folio, bh->b_data) +
+-		entry_index_in_block * NILFS_MDT(inode)->mi_entry_size;
++		nilfs_palloc_entry_offset_in_block(inode, entry_index_in_group);
++}
++
++/**
++ * nilfs_palloc_kmap_entry - map the page containing the entry and calculate
++ *                           the entry's memory address on it
++ * @inode:        inode of metadata file using this allocator
++ * @nr:           serial number of the entry (e.g. inode number)
++ * @entry_bh:     buffer head of the entry block
++ * @bitmap_check: whether to perform bitmap testing
++ *
++ * Return: Pointer to the mapped entry on success, or an ERR_PTR() encoded
++ * error code on failure.  Specifically, returns %-ENOENT if @bitmap_check
++ * is true and the bitmap block managing the entry does not exist, or if the
++ * corresponding bit for the entry is not set in the bitmap.  Note that this
++ * function never fails when @bitmap_check is false.
++ */
++void *nilfs_palloc_kmap_entry(struct inode *inode, __u64 nr,
++			const struct buffer_head *entry_bh, bool bitmap_check)
++{
++	unsigned long group, entry_index_in_group;
++	size_t entry_offset;
++
++	group = nilfs_palloc_group(inode, nr, &entry_index_in_group);
++	if (bitmap_check) {
++		struct buffer_head *bitmap_bh;
++		unsigned char *bitmap;
++		size_t bitmap_offset;
++		int ret;
++
++		ret = nilfs_palloc_get_bitmap_block(inode, group, 0,
++						&bitmap_bh);
++		if (unlikely(ret))
++			return ERR_PTR(ret);
++
++		bitmap_offset = nilfs_palloc_bitmap_offset(bitmap_bh);
++		bitmap = kmap_local_folio(bitmap_bh->b_folio, bitmap_offset);
++		if (!test_bit_le(entry_index_in_group, bitmap))
++			ret = -ENOENT;
++		kunmap_local(bitmap);
++		brelse(bitmap_bh);
++
++		if (ret)
++			return ERR_PTR(ret);
++	}
++
++	entry_offset = offset_in_folio(entry_bh->b_folio, entry_bh->b_data) +
++		nilfs_palloc_entry_offset_in_block(inode, entry_index_in_group);
++
++	return kmap_local_folio(entry_bh->b_folio, entry_offset);
+ }
+ 
+ /**
+diff --git a/fs/nilfs2/alloc.h b/fs/nilfs2/alloc.h
+index 046d876ea3e0..2c184d0ff097 100644
+--- a/fs/nilfs2/alloc.h
++++ b/fs/nilfs2/alloc.h
+@@ -35,6 +35,8 @@ int nilfs_palloc_get_entry_block(struct inode *, __u64, int,
+ 				 struct buffer_head **);
+ size_t nilfs_palloc_entry_offset(const struct inode *inode, __u64 nr,
+ 				 const struct buffer_head *bh);
++void *nilfs_palloc_kmap_entry(struct inode *inode, __u64 nr,
++			const struct buffer_head *entry_bh, bool bitmap_check);
+ 
+ int nilfs_palloc_count_max_entries(struct inode *, u64, u64 *);
+ 
+diff --git a/fs/nilfs2/ifile.h b/fs/nilfs2/ifile.h
+index d38a46f5ae41..bc47bb139e1c 100644
+--- a/fs/nilfs2/ifile.h
++++ b/fs/nilfs2/ifile.h
+@@ -19,11 +19,10 @@
+ 
+ 
+ static inline struct nilfs_inode *
+-nilfs_ifile_map_inode(struct inode *ifile, u64 ino, struct buffer_head *ibh)
++nilfs_ifile_map_inode(struct inode *ifile, u64 ino,
++		const struct buffer_head *ibh, bool bitmap_check)
+ {
+-	size_t __offset_in_folio = nilfs_palloc_entry_offset(ifile, ino, ibh);
+-
+-	return kmap_local_folio(ibh->b_folio, __offset_in_folio);
++	return nilfs_palloc_kmap_entry(ifile, ino, ibh, bitmap_check);
+ }
+ 
+ static inline void nilfs_ifile_unmap_inode(struct nilfs_inode *raw_inode)
+diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+index 34e6096069ad..09de917b4b82 100644
+--- a/fs/nilfs2/inode.c
++++ b/fs/nilfs2/inode.c
+@@ -455,7 +455,14 @@ static int __nilfs_read_inode(struct super_block *sb,
+ 	if (unlikely(err))
+ 		goto bad_inode;
+ 
+-	raw_inode = nilfs_ifile_map_inode(root->ifile, ino, bh);
++	raw_inode = nilfs_ifile_map_inode(root->ifile, ino, bh, true);
++	if (IS_ERR(raw_inode)) {
++		err = PTR_ERR(raw_inode);
++		if (err == -ENOENT)
++			err = -ESTALE;
++		brelse(bh);
++		goto bad_inode;
++	}
+ 
+ 	err = nilfs_read_inode_common(inode, raw_inode);
+ 	if (err)
+@@ -743,7 +750,7 @@ void nilfs_update_inode(struct inode *inode, struct buffer_head *ibh, int flags)
+ 	struct inode *ifile = ii->i_root->ifile;
+ 	struct nilfs_inode *raw_inode;
+ 
+-	raw_inode = nilfs_ifile_map_inode(ifile, ino, ibh);
++	raw_inode = nilfs_ifile_map_inode(ifile, ino, ibh, false);
+ 
+ 	if (test_and_clear_bit(NILFS_I_NEW, &ii->i_state))
+ 		memset(raw_inode, 0, NILFS_MDT(ifile)->mi_entry_size);
+diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
+index 829573cb6131..23b24373befc 100644
+--- a/fs/nilfs2/segment.c
++++ b/fs/nilfs2/segment.c
+@@ -895,7 +895,7 @@ static void nilfs_fill_in_file_bmap(struct inode *ifile,
+ 		ibh = ii->i_bh;
+ 		BUG_ON(!ibh);
+ 		raw_inode = nilfs_ifile_map_inode(ifile, ii->vfs_inode.i_ino,
+-						  ibh);
++						  ibh, false);
+ 		nilfs_bmap_write(ii->i_bmap, raw_inode);
+ 		nilfs_ifile_unmap_inode(raw_inode);
+ 	}
+-- 
+2.53.0
 
-(plus the needed documentation adaptions and maybe a rename
-s/TAINT_FORCED_BIND/TAINT_DRIVER_OVERRIDE/).
-
-Best regards
-Uwe
-
---ikoios7rdkqzgpee
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqyMLQACgkQj4D7WH0S
-/k5o6wf/QvL9FWWzFHpKfbzsuAgBOWn5AxVXK3QYhCnvpoqfBJNUrHxYRK4N19fK
-lu4zMQZiIF3pIma55K4HT/BspgIU2PEntjwd3qv5PXAJVEIC4zi94t6jtsjwzfyh
-ICPjAIOv/7a9Hs+DxIFIYAynmaljcmJ9KJQFX+THv55SkTbrvlMBJy5hf8TaH/He
-ZKqYDooGLkS4SnRCuALcqrfQ1nFewrCtmGAPrycGrRrmozUmhsbkWpKdPig0wtfg
-y0qv6g2TrwzvGsclwxgMYqEmLjdVs4GRzN5dnqIdnaTXlk1WtEtJlx4wZ6Ff53dV
-aolAtJZL8PkYcEJ0fpeNtFJvZzxMbg==
-=j+xR
------END PGP SIGNATURE-----
-
---ikoios7rdkqzgpee--
