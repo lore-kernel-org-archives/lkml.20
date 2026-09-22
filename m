@@ -1,146 +1,134 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89219560ADD;
-	Tue, 22 Sep 2026 17:36:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EBD49363D;
+	Tue, 22 Sep 2026 17:36:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098581; cv=none; b=vF+s6t8Nyx6W3r+XN79fEBZI4wWFis1vwe2/WD0JH+dZ0JFpjtCSqj0vYcqZ0aNIzm/q+U7EU+gU4Crgk1+mc+9ymu9n06uQtmCDxpkzHZD7vj7prft02BBk8tUdxZTn2/KxyLo/67wBS07kbyNZfynPLSOMy2rS5e+QaeUN12o=
+	t=1790098581; cv=none; b=Mf3sLXIBusJUlWb2BezsmVWaoMhApFD+33c1kafFlwEuG3eyIKiqrt88FVNNcJzGJ/8EMa+Q1wzNQzuw5f9p/emvYUilUPLYQsLNkqb39QhRyufMIhVo+ffaMdTrK8kfgqnwLhH0phXaOrSZ5q7mf2OH0jJTW2wXY6gSZ37CSGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790098581; c=relaxed/simple;
-	bh=NIprbG5WL6OpMAMxOPQrRQbIc6U5xN2vwQ5+5CySqcU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NHYqkaabqCSEi/Ph6dgLORZnUWvWusg7vIdVE6hlCzXkOD6h5OJeeDHKJsUS7JjPozE2gn3HS4mWIsp2Jd8MMBF9xeGZjyn7+qh1lc/sb4Wz5jVe+Jp6Hj9ebkyAbrn2b42rsBYmUxcTx3Buq3I5BiKiUMClhsFd6ZGPPNIpJ6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=A5/0/GOU; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=NTp5knoE; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	bh=prctDNlE5adZ9L/DjMylwleky2/BsMcTpLemAxyD18Y=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=kSBd9uQUTN/LWNCjNUQDFD48kOcOsiSNGODBgOiuCTnzD8wn9T+/iqJCfHmsqxCm2rCHDETvFWslFmFkd2LrSR8YfGRflIuJKYIV5SdmvTQVrCa49SFw4aUeAluAf6hph52xjQepXV3vWz6+iXaYFmQUugwMUxHMioXpp1y41dI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=Tk3Ry4un; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mbVAmMys; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="A5/0/GOU";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="NTp5knoE"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1790098435; bh=wl+BtXFs/QJChJ/sOKgC86/
-	HKj3R5tfPpUhFH8oo0uc=; b=A5/0/GOUc+WvYs825/8ouOL1uBIBkqo06ZEzHpL/pV7+uEtN+b
-	Q06RZe/uHEgOY77Uzlh5dL9QmnGwW+2nv5v1qBCVhyXNv4T8Uqdv2Yfcc8ENtyEoImQM/c7WOV8
-	YCs2e5QkHGlXhMJ+H5KckshFL2DoJqgx/era/7X5JIkCE0YBZeMvl+Q038j/sHyXO00VCzyFPGm
-	kc2VoX6bR2Tw+Kt1LeLRBtpqbrdpVvVDQOuAsb8j2YgHfW4NrjXkxLnF+rgsXf3dHDeuCOwIYmb
-	gNlbihmQLhGtzbM0wf1poT0eIdtdfFePxhoQW+obXpIAfDOsR7EGFDT9B2A5+J/SlVg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1790098435; bh=wl+BtXFs/QJChJ/sOKgC86/
-	HKj3R5tfPpUhFH8oo0uc=; b=NTp5knoEnFR7JN5OFPhBFH1QY9WSnU+vHpvP8lpWk2ed+OsGcb
-	0/J3nRC2j+Rb5PnC8PsP8xBvuryNvrIOpqBQ==;
-From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-snps-arc@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>
-Subject: [PATCH 4/5] csky: Emulate two-byte cmpxchg
-Date: Tue, 22 Sep 2026 17:33:53 +0000
-Message-ID: <20260922173354.14404-5-brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260922173354.14404-1-brads@mainlining.org>
-References: <20260922173354.14404-1-brads@mainlining.org>
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="Tk3Ry4un";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mbVAmMys"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 8FE947A006B;
+	Tue, 22 Sep 2026 13:36:19 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Tue, 22 Sep 2026 13:36:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1790098579;
+	 x=1790184979; bh=wavFuDeuFdsEiTZxKJ4EgtzANxA9BvdiVVy33hl1kyg=; b=
+	Tk3Ry4unKyNIkTlq5Ae04i3GnPcEUA3rCmHyRFk0uQ6S4k36CGhYm1fP++nuRvss
+	PqMxgKFLKdNy47L6rppYPQDEcnYSUnw4xqwOa9d/zD1oeinQ+cYja/5oQpu6kuNZ
+	i1PqWov3qjAbjeMKVCQql1Eq6q6C/9LOnYIXM+mcfSxQsYfRGxk1oHrnS6kj4fr3
+	Hsg67VuJ4DLCQSlOvHpvqPqfRiDEQoHt/ZtU7fvN7/3yVbFNQn8pZah+BqPQrRyX
+	4bL/LTkJbh5lntVCNYZhSs/vQjjuETXK3rZpz3sZyn25Fc4DsGPwUhqbIIljBFKD
+	A4eYSbi8JygTZ802JJUkgw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790098579; x=
+	1790184979; bh=wavFuDeuFdsEiTZxKJ4EgtzANxA9BvdiVVy33hl1kyg=; b=m
+	bVAmMysac3tkTw1TAGhM1UWwgTcHb65Dug+wT7fYEHXJv3n+mIjx1OANh4J6JxLM
+	b9QRBxyXYEmdTTDXmXGETSC/QCzGpRJWXpMM/MD7QZIM/fpHI2NvCbxOLEJm2F6C
+	LW/u+t5ixdpSyNjxCz3hmRNtV9Q21doGKsmWJqMcmYU+RRell6zeStf9M2vid0yW
+	0olBn5bV8UQjWailX2gbbdVVRHnoS01K+I59cf1Z1aeAGIFl9HW04CWA9wfIqcJe
+	5pDafPNKVAxxPlmx98G9zhFo73yJJn9I/W0XGpa8l4BSqIhsQ9e9ixIWVhmF36c3
+	nnvvKm8A5qF7+VqPBwPnQ==
+X-ME-Sender: <xms:k7yyavKRKMicXpLObpRA2vBQiA3yX_8OLmmaFVcHrmW36kSo0zxCxg>
+    <xme:k7yyat9jDO-Ry-SFUjG3PV38LKtE_hPYpS7PLs8bUavcrmOPN6ub6KHU2vHBYIqoY
+    hfboibbMsbtanOcy009PYB0s3Ibf1BVjoRZTUVdPbxJbj6cfjFtOP1n>
+X-ME-Proxy-Cause: dmFkZTFtA1kQSVSq2mwSLVMa1zHnKYK/vuqt+w7fW/EoN1X+AYhpAf7aTwssQJW8vYY8Xq
+    WNiJkZzaRDaC34QqQgsjF7gj71VX9D/gpvbJHkHuEep3LJ+Yn3hEJJs2ITMJbA4HWDF0zB
+    CDa3qgrmiThMvppEYbLm2dpm6PkruroWEqmKYEmurpWYKi6wD47GQhvUcvt9xtgN2yWQH5
+    lZXYIfmPbafcK6Mr/Ww+135pk0WXmYAcZiPGB5U0tf/9qnYxAsrxquJgqEoyqRpXIm/g+S
+    +s1aUJAz1WgzNk7T3OVhBJn5xeJoUUMm+kuyiSGu5kvmya4t3expGHwWu3QhwQmaTxQhln
+    8gPf/IIQ1bLhpBwYP7wunblj3zCuKK9g3x8P6ThyuupdPIySOm0s4SQq4+9zYByjaW+680
+    WCwPquU6I11YSkn8IuzhCg0S82FpXm/U42Kjw7rE5te6PHvvQJHImDxMV7D3DiprEDfY2p
+    u7AqqC5SJux8JRroEo+lb26vY+EvtzkesVLAmq5hJwHwtayWJBaW7cVFHv1ET9UAIojTlR
+    1vGGQcYNmizN/Wg4WNX9nZT8dywfNrlJI0Q1uIrt/Dn0FqKDYvTM2vPd/I+eBZNj5Iuaxd
+    Maf9iq2xnJv14h3NDqsy7/VE8FtCXkF7yHWp/VEgbJovLqYSxsN7q/BXaVhQ
+X-ME-Proxy: <xmx:k7yyattw72I0Vw-RpQDi0CzgT7siioM6oujbIKy2YaUBa3x0NHqN9w>
+    <xmx:k7yyaovTCTJ24Exm1-YqGoANsYcc1fuy_IF4bUSG_NzQFmIGukuAoA>
+    <xmx:k7yyajDQpZsgD41Rb-Jn9VJoIKV0ti9kKyzB14PxpFYmtsif5K8Vvw>
+    <xmx:k7yyaqMylFnYJ-He7s7jTcBhXg6Gykd9d_N6ZomFVUQsGsaqVZEgnw>
+    <xmx:k7yyavwJKruSjnQTtlrYWUCEw0cBM9hcT96aEKXiTnjOUTdEoLt19Dmt>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 4FF9B2C00067; Tue, 22 Sep 2026 13:36:19 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AmQBxS_KcYz3
+Date: Tue, 22 Sep 2026 13:35:59 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Thorsten Blum" <blum@kernel.org>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: 
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <b699ec3f-9708-48fa-a7cf-2f6e0d08be61@app.fastmail.com>
+In-Reply-To: <20260920103035.281573-2-blum@kernel.org>
+References: <20260920103035.281573-2-blum@kernel.org>
+Subject: Re: [PATCH] platform/x86: think-lmi: Use snprintf() in new_password_store()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-C-SKY has no two-byte atomic compare and swap, so the __cmpxchg()
-macros let case 2 fall through to BUILD_BUG() via default. Route case
-2 through the new cmpxchg_emu_u16(), which takes the old and new
-values as unsigned long, so the (uintptr_t) casts on __old and __new
-are no longer needed and the case 2 call passes them straight. The
-old and new values are declared as unsigned long through
-(unsigned long)(0 ? *(ptr) : (old)), the idiom David Laight
-suggested, which type checks the arguments against the pointee, so
-cmpxchg(&p, 4, 5) no longer compiles silently.
+On Sun, Sep 20, 2026, at 6:30 AM, Thorsten Blum wrote:
+> While the current code works correctly, replace unbounded sprintf()
+> calls with the safer snprintf() in new_password_store() to follow secure
+> coding best practices.
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/platform/x86/lenovo/think-lmi.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/platform/x86/lenovo/think-lmi.c 
+> b/drivers/platform/x86/lenovo/think-lmi.c
+> index a0e3fa766e37..3ddc1f5cec19 100644
+> --- a/drivers/platform/x86/lenovo/think-lmi.c
+> +++ b/drivers/platform/x86/lenovo/think-lmi.c
+> @@ -487,16 +487,16 @@ static ssize_t new_password_store(struct kobject 
+> *kobj,
+>  		/* Special handling required for HDD and NVMe passwords */
+>  		if (setting == tlmi_priv.pwd_hdd) {
+>  			if (setting->level == TLMI_LEVEL_USER)
+> -				sprintf(pwd_type, "uhdp%d", setting->index);
+> +				snprintf(pwd_type, sizeof(pwd_type), "uhdp%d", setting->index);
+>  			else
+> -				sprintf(pwd_type, "mhdp%d", setting->index);
+> +				snprintf(pwd_type, sizeof(pwd_type), "mhdp%d", setting->index);
+>  		} else if (setting == tlmi_priv.pwd_nvme) {
+>  			if (setting->level == TLMI_LEVEL_USER)
+> -				sprintf(pwd_type, "udrp%d", setting->index);
+> +				snprintf(pwd_type, sizeof(pwd_type), "udrp%d", setting->index);
+>  			else
+> -				sprintf(pwd_type, "adrp%d", setting->index);
+> +				snprintf(pwd_type, sizeof(pwd_type), "adrp%d", setting->index);
+>  		} else {
+> -			sprintf(pwd_type, "%s", setting->pwd_type);
+> +			snprintf(pwd_type, sizeof(pwd_type), "%s", setting->pwd_type);
+>  		}
+> 
+>  		ret = tlmi_opcode_setting("WmiOpcodePasswordType", pwd_type);
 
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
----
- arch/csky/include/asm/cmpxchg.h | 33 +++++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 12 deletions(-)
-
-diff --git a/arch/csky/include/asm/cmpxchg.h b/arch/csky/include/asm/cmpxchg.h
-index db6dda47184e..29dc56e4b7f1 100644
---- a/arch/csky/include/asm/cmpxchg.h
-+++ b/arch/csky/include/asm/cmpxchg.h
-@@ -57,13 +57,16 @@
- #define __cmpxchg_relaxed(ptr, old, new, size)			\
- ({								\
- 	__typeof__(ptr) __ptr = (ptr);				\
--	__typeof__(new) __new = (new);				\
--	__typeof__(new) __tmp;					\
--	__typeof__(old) __old = (old);				\
-+	unsigned long __old = (unsigned long)(0 ? *(ptr) : (old));	\
-+	unsigned long __new = (unsigned long)(0 ? *(ptr) : (new));	\
-+	unsigned long __tmp;					\
- 	__typeof__(*(ptr)) __ret;				\
- 	switch (size) {						\
- 	case 1:							\
--		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, __old, __new); \
-+		break;						\
-+	case 2:							\
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, __old, __new); \
- 		break;						\
- 	case 4:							\
- 		asm volatile (					\
-@@ -90,13 +93,16 @@
- #define __cmpxchg_acquire(ptr, old, new, size)			\
- ({								\
- 	__typeof__(ptr) __ptr = (ptr);				\
--	__typeof__(new) __new = (new);				\
--	__typeof__(new) __tmp;					\
--	__typeof__(old) __old = (old);				\
-+	unsigned long __old = (unsigned long)(0 ? *(ptr) : (old));	\
-+	unsigned long __new = (unsigned long)(0 ? *(ptr) : (new));	\
-+	unsigned long __tmp;					\
- 	__typeof__(*(ptr)) __ret;				\
- 	switch (size) {						\
- 	case 1:							\
--		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, __old, __new); \
-+		break;						\
-+	case 2:							\
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, __old, __new); \
- 		break;						\
- 	case 4:							\
- 		asm volatile (					\
-@@ -124,13 +130,16 @@
- #define __cmpxchg(ptr, old, new, size)				\
- ({								\
- 	__typeof__(ptr) __ptr = (ptr);				\
--	__typeof__(new) __new = (new);				\
--	__typeof__(new) __tmp;					\
--	__typeof__(old) __old = (old);				\
-+	unsigned long __old = (unsigned long)(0 ? *(ptr) : (old));	\
-+	unsigned long __new = (unsigned long)(0 ? *(ptr) : (new));	\
-+	unsigned long __tmp;					\
- 	__typeof__(*(ptr)) __ret;				\
- 	switch (size) {						\
- 	case 1:							\
--		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, __old, __new); \
-+		break;						\
-+	case 2:							\
-+		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, __old, __new); \
- 		break;						\
- 	case 4:							\
- 		asm volatile (					\
--- 
-2.47.3
-
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Mark
