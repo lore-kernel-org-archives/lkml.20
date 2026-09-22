@@ -1,141 +1,169 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ED449E5C3
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F774A263A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790104601; cv=none; b=nhD99wKjSWxAes0T0QUlFpiUpvMPvz+n4EHf/5ielg+ZZVOROJJC0v3NEu0zMLMfBdsR6Khe6c98IvgBrNoPDZuZpdKTgEvVoNKElIQg+Jm9vFNfJFXnnVUU9qd2KRdeAyHP8lubWCoP/I7j707PoyTjYQLrCCLrBNZcHybAr/U=
+	t=1790104605; cv=none; b=UY1Mktq93KL1GFmiYK0wgtPUZYWWD4yf9qpJWtBq1sIGLcu87/khLXFEO9quA4QT5px8d/6CBXIjZ8GjprGdxBuQ90Uyj0mF1RYhzErPIFMUySlRggKTLB9N1Y6m4QyxupVxIEPrgliBZGFWcQ+QVNLsoYUV4jCKLc+ngSvAMRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790104601; c=relaxed/simple;
-	bh=b+Ywp/ZpyrIEnfefheNfEPIdjdCipyAZgtHf9lV3LmY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=edrbZAUi9Ub8zXIK9HECLwq/QnFVwQ179nU3Gcjol/X8y8Y5bZArMSBCfuLVNBbwNbAFAMWw2cUQtqmaW8Rpxyg3aH1ITE/+O79RlZm6e9Yu0B8PSSF1o6jeCEDkJlqShgeAdcIvzTYFSe36bQD+tLw/rywzLE4MwIt9v4YXGLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 006d021491bc7-6aaf6076546so82338eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:16:39 -0700 (PDT)
+	s=arc-20240116; t=1790104605; c=relaxed/simple;
+	bh=J/1lIjFGeiNqfLjljJDLTbZDhxthd7iJm+KP8BBIn10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=uYfD++s+HqZjXYXv3bWFqEhY1CUjN3TQl8Ab6Xe3+Mlu+sqk+51ucTV8Qw3ld7tsJ18vM9XqrOuZXhJV4GwTIJoiTvN/cVf8SnYtcNxpjySmTrpeJ/LygUwEPQunhxxYL4G2pInD46H1dzsdMN20YXSENINAXYfst9FYX8rF7uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G1ADCi8k; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W+D/fczp; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G1ADCi8k";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W+D/fczp"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MJCtCN1166677
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:16:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1CLHSThQF4YpDbixBpn7NIlnhlNb47B/KiU7CmG8zbk=; b=G1ADCi8kpSlVZNY/
+	wy4USVl13QGfszXumugmn4e6Gr7BjqN8TZmtIYSK8IE7EuVVBV9A0Yv3rc40jtYS
+	26xcDOhoXXf6ygzoy6/iNma0NlKVst7wSvXHgAjP/RLh4l7EZLKscHh6/o8pQrYU
+	bUlYXtiH7C3H4nZGe6kJZ3WNtTyvi4Kwd7sz7MD2cD/ej8nBjr8cbPOqbZa5EBTo
+	Haz7C3JHMUQkhkIiUBaYxHEueu3J8m4Mftqm0fHUek26gNBjkL2y6jhz7KTBQMlV
+	wdX7bvcJthgfO9pXlh1/wJzdDR/OQ87+gLpEqZdOMtD7p/J60DFWIwVudAGFhr18
+	RkwEbQ==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guymw00j9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:16:42 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14373747468so195371c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:16:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790104602; x=1790709402; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1CLHSThQF4YpDbixBpn7NIlnhlNb47B/KiU7CmG8zbk=;
+        b=W+D/fczpWgLG5ZyoS0+C2wQjM19KbDmTB8Y8MCGURKXjsoASRmqI79DDqpZcJi8pVR
+         77x6/vOt5/46G402u23QlhZ4p68qabD4SikUcdISVuNrSjvd4jXFZzx3QClmg7yRGzj4
+         eUxwEBBDOJuO2yvWU6ArbINaCJpG7ffnjr/KIYAYnYsrWFeo/xTa/ZE/AuATN/DKu2hr
+         r9rFDxEGXtyt2voq/gWmDF99mB10E3F8aVn6vGQyvayRv5Lmu0Ft5rUkg12AMSNdOvuO
+         /tIJIXESAj8Rh0w2/hJ/Z4wp/WeSwMeb+vlykgk8fw26eIbQt3AiBWnEwXT2iWeojuo4
+         mC8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790104599; x=1790709399;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/gMM6g+OJzqMhgZJMjF9K5DY01VFcArJtblxa3kjwiQ=;
-        b=UbMHlXheF2y5dGUF5rYGBUCzc4jMtI3pLmk74ceEX83FNLqSpd+j8/HECS2TuYk1S2
-         9sEXxvb6h8gWeggL7x87GR8sYfal+vvBXhm4uBYnohuGJQD9CW3zEsMuUX/+z/5tWqTc
-         kct/SMNH2BfXtQrCMf0Tw8I2nGbPnrzG3duo+e0rCCH3rsyhpEXXiHMp4I/YqtjcQTX6
-         BfBkuB8jF6lObwZq1HZ9pNP/tDbb8u2Ci/4ut0Zbb7PO66SlvTiaquEIv/TovxCbfh9C
-         lKnNnbiteDxHj2bdS001Q3hRMdk416Dc+4Zewng6v/lrqmbptR0GSM/TiJFlyXXMeH7k
-         o30Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwNwAU6r3Cwj+zUpiBelAKMByb9iJ98xgC0HPSVqEflOBNOMPs2r1ja2CpxChphQReaN2Knd4G8uzczALE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSRXYQ9vZFi3Hiua+ttypKBlTqjHKe5dMqQVrQhL3TjWCtb192
-	2WDFl0Nnk3Cu3RDUN01lr6GTvgfo+xXxuj2V4GeN268lQtYWKhowxKQjO9JGhi+c8n1Iike5qjd
-	diqgcfBhjf3AzRuJRyg2BaHjxOad9kQ6muHRmI4SNqvvQSF6O42vZ/0sASdk=
+        d=1e100.net; s=20260707; t=1790104602; x=1790709402;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1CLHSThQF4YpDbixBpn7NIlnhlNb47B/KiU7CmG8zbk=;
+        b=sUNZgggmYpTzT+vBzFSfU4YMeRlWRIHQssIneMPr1YCWJbCAgifEIqQruyHDovLoHJ
+         axSDIt7sUUjD6OZAyPRUSjjxXPcrNzkjr4MmldevAH6jUmP+3ggDfQTSW690KG8X1xaE
+         qJTV24wb507Ss/P21mEOsQXciOgBuYDvLr6PAGsdFhx2R/hAcpTV9YAKNF4nUkCN5bcj
+         ZpxLZagw7XjMAZjYxvjtDj1wB637xTOtxPqD8FpqUtZztXNnWgmrs6rdFv+8YnHbRVyo
+         h7k9/5kR3hZklzymJBIArHcwG5P3J0HfDB3rcU40yfHo8KWIfSgM/B0VntdVWtjqjRTa
+         lAMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPwty10nmHIYA8PTLLOA298vVA50E9+RCXeATWsIL6Epqkv9FKOqtN0eH0uprtFYkZ3MLU0CVzNR1EqrM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k69/z6YX1Xa2KIkeRoJMznstpRuyaaqlLbABBPBokvgbnfDXzt
+	scCBakUcuJj76E7Dhh4VZyvD88KlCkySfJPA2lkOKtGSYFHY75xBIX1/4fNkpVNfMGCRIAY0z5v
+	3v8WSee1PCsDXlaNr9UQ3YT6eNN/p88KZNqWH9BwRu2kPoqw7VDmL6Z9tmtQhflf9Hpk=
+X-Gm-Gg: AYBFou0FOfhegiZWRC5uZVsrpBydjDAruiREv3ng/lVv/jGiD4RlKEhkrWLkD2t0g/U
+	/zastOIltY01eXbnT4GjL/kETrneEtGz3pLpHB4MdJLykZ8wxgmI/q1/+QbSLaaARUyVXZoY5/s
+	eG03tAC57KkpLrMV3RfH9X9NGr214gsjfenQN/2rP/SyfON4w893UXJYBvZmu6i6yyNR8U/0yXf
+	IS35E21iNjlh4Do/+UL3BUntIgSsXo3PUrJXlguRfgR2FtP/UrfZtst99lC4/nuMwXe6XBM/VHF
+	Z2lRhCL7TkETtfE/05M0AmaXmZnyKS8gtB9cx+E+GXy4rpcEb+ziGSX8i/puNpeK0xoERdEQLqE
+	S6F1TpqiEd9C5UQcRdLniu0kH36ClYY6F6w==
+X-Received: by 2002:a05:701b:428c:20b0:141:5281:8a41 with SMTP id a92af1059eb24-144f91377b3mr374906c88.9.1790104601564;
+        Tue, 22 Sep 2026 12:16:41 -0700 (PDT)
+X-Received: by 2002:a05:701b:428c:20b0:141:5281:8a41 with SMTP id a92af1059eb24-144f91377b3mr374847c88.9.1790104600692;
+        Tue, 22 Sep 2026 12:16:40 -0700 (PDT)
+Received: from [192.168.0.172] ([183.83.143.245])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm521798c88.13.2026.09.22.12.16.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 12:16:40 -0700 (PDT)
+Message-ID: <318f7e47-8a23-4253-860c-0e9874864a13@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 00:46:28 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2d0b:b0:6c2:4f65:3e87 with SMTP id
- 006d021491bc7-6d2d043c4a7mr301765eaf.34.1790104598940; Tue, 22 Sep 2026
- 12:16:38 -0700 (PDT)
-Date: Tue, 22 Sep 2026 12:16:38 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab2d416.45639fcc.16cae0.0000.GAE@google.com>
-Subject: [syzbot] [ext4?] WARNING in ext4_write_inode (4)
-From: syzbot <syzbot+77d4c409352d8b3a015e@syzkaller.appspotmail.com>
-To: adilger.kernel@dilger.ca, jack@suse.cz, libaokun@linux.alibaba.com, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ojaswin@linux.ibm.com, ritesh.list@gmail.com, syzkaller-bugs@googlegroups.com, 
-	tytso@mit.edu, yi.zhang@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    5dd1818b15d9 Merge tag 'for-next-keys-v7.3-rc4' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=150017f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c3bddd52b22c2498
-dashboard link: https://syzkaller.appspot.com/bug?extid=77d4c409352d8b3a015e
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-5dd1818b.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/fa126b13cb66/vmlinux-5dd1818b.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e10c187acaf6/bzImage-5dd1818b.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+77d4c409352d8b3a015e@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-current->flags & PF_MEMALLOC
-WARNING: fs/ext4/inode.c:5879 at ext4_write_inode+0x2af/0x350 fs/ext4/inode.c:5879, CPU#0: kswapd0/77
-Modules linked in:
-CPU: 0 UID: 0 PID: 77 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:ext4_write_inode+0x2af/0x350 fs/ext4/inode.c:5879
-Code: 83 c4 18 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 e3 9d 34 ff e8 fe 78 9f fe bd fb ff ff ff eb d9 e8 d2 9d 34 ff 90 <0f> 0b 90 eb ce e8 c7 9d 34 ff bd fb ff ff ff eb c2 e8 bb 9d 34 ff
-RSP: 0018:ffffc90000af6ef0 EFLAGS: 00010293
-RAX: ffffffff829345be RBX: dffffc0000000000 RCX: ffff88801d340000
-RDX: 0000000000000000 RSI: 0000000000000800 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffff907a667f R09: 1ffffffff20f4ccf
-R10: dffffc0000000000 R11: ffffffff82934310 R12: ffff88801d34002c
-R13: ffff8880520aaf90 R14: 0000000000000800 R15: ffff88801d340000
-FS:  0000000000000000(0000) GS:ffff88808c2c3000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fa506dff000 CR3: 000000000eb48000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- write_inode fs/fs-writeback.c:1608 [inline]
- __writeback_single_inode+0x69d/0x1220 fs/fs-writeback.c:1851
- writeback_single_inode+0x544/0xf70 fs/fs-writeback.c:1926
- write_inode_now+0x1c2/0x290 fs/fs-writeback.c:3080
- iput_final fs/inode.c:2005 [inline]
- iput+0x98b/0xf00 fs/inode.c:2064
- dentry_kill+0x1b9/0x880 fs/dcache.c:826
- shrink_kill fs/dcache.c:1275 [inline]
- shrink_dentry_list+0x209/0x310 fs/dcache.c:1292
- prune_dcache_sb+0x119/0x180 fs/dcache.c:1374
- super_cache_scan+0x35f/0x4a0 fs/super.c:225
- do_shrink_slab+0x6d0/0x10e0 mm/shrinker.c:445
- shrink_slab_memcg mm/shrinker.c:562 [inline]
- shrink_slab+0x838/0x1220 mm/shrinker.c:640
- shrink_one+0x2a2/0x730 mm/vmscan.c:5119
- shrink_many mm/vmscan.c:5180 [inline]
- lru_gen_shrink_node mm/vmscan.c:5258 [inline]
- shrink_node+0x35d0/0x3e30 mm/vmscan.c:6247
- kswapd_shrink_node mm/vmscan.c:7101 [inline]
- balance_pgdat mm/vmscan.c:7279 [inline]
- kswapd+0x185e/0x32c0 mm/vmscan.c:7555
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: dt-bindings: Correct white-space style
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Keke Li <keke.li@amlogic.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Zhi Mao <zhi.mao@mediatek.com>,
+        Tiffany Lin <tiffany.lin@mediatek.com>,
+        Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+        Yunfei Dong <yunfei.dong@mediatek.com>, Bin Liu <bin.liu@mediatek.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Xia Jiang <xia.jiang@mediatek.com>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-rpi-kernel@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+References: <20260801195528.235230-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260801195528.235230-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI4MSBTYWx0ZWRfXw/FJpf0Rj1S+
+ NSJu/FRZoNoOoUe9NnIqaPc5p1DP7BQHEin7hSCHaw4K4QbnZAby0iOqcgPpGByCTYQ4rmO5nOX
+ 0OGPEVP2vPGjfgGvVRTKhAQR8hW+rX9qvV8INYWFXduheYGNK19XTVVArzoTLkFxcYBiQgh72Rl
+ AXxLv0EpIuqeHiMiZyXsq+wNz6+1R2zRW9nPwOSEcJpauPLUrelev44UwPTYo7kjO9y7855lVM3
+ di3/vzL0SIHM4KnarmuztclKZjC0FCRQfcSZv4bfUFRrcqL/jjdNp9ih8xx0TueCFffVEsCqK/s
+ Na6XKrsHVrAsaSFBRsvDDltDmpAn5j18symBy79WiHGr+HWkmxyYAVFYYyAHse7GoSBwaqQBYmH
+ BgrOH41L5lYp4rmnuKHAql/C5MewxVhRZLg/MbZWA+iMAlr4KI8eW8+59OvbMwje/PwJl+TYG4c
+ jmjpknP+tbY2CKgDLPg==
+X-Authority-Analysis: v=2.4 cv=feI4WEQF c=1 sm=1 tr=0 ts=6ab2d41a cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=d+GKXRUq2vCLDWIvqUj1TA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=WJcS3fml3CefRcin8NsA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-GUID: WQWPOfxNBbfh7c7QmA1tQRfXNoVeeMBA
+X-Proofpoint-ORIG-GUID: WQWPOfxNBbfh7c7QmA1tQRfXNoVeeMBA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI4MSBTYWx0ZWRfX+rSuadG56pKS
+ 5ECtwOLx0juSt3/dvFYrNj31e5eQB73wfyMvnDKUSu7EIMSomM/vF1srlTcfIIHXwB1T7t0hE3S
+ 1+Q3k/zAibTz3qNDQnikaz4CV11lcBo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220281
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+On 8/2/2026 1:25 AM, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues, like double space after '=' or before
+> bracket '{' characters, which will be flagged by dt-check-style.  No
+> functional changes.
+> 
+> Signed-off-by: Krzysztof Kozlowski<krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>   .../bindings/media/amlogic,c3-mipi-csi2.yaml  |  4 +-
+>   .../bindings/media/i2c/galaxycore,gc05a2.yaml |  2 +-
+>   .../media/mediatek,vcodec-encoder.yaml        |  2 +-
+>   .../bindings/media/mediatek-jpeg-decoder.yaml |  4 +-
+>   .../bindings/media/mediatek-jpeg-encoder.yaml |  2 +-
+>   .../bindings/media/qcom,msm8996-venus.yaml    | 40 +++++++++----------
+>   .../bindings/media/raspberrypi,pispbe.yaml    |  2 +-
+>   7 files changed, 28 insertions(+), 28 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
