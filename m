@@ -1,121 +1,107 @@
-Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f26.google.com (mail-pz2-f26.google.com [74.125.228.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D313051615B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.217.29.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB274FC344
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071533; cv=none; b=tbqUGrs+vBU1TnR5pBuq+umpTmZHNqgDeQAM1gHjtzfSOnvXfC0Lr5Ko88EkuWzM+xwfbK/AmudVCmP6s+OsiuNwdZrx+n5ldi/Esxs9eEQBDtWN+y9xA1mpk8YzmxHf+Jt44BIO0tnQTYrjuRVeID42/pc/GQelqNBBFL26FAw=
+	t=1790071535; cv=none; b=UGqAEhdycRNYBd9UDRckplrfRjrl9AXxLiT2quf9ck0APEwXXV6zeaNVryExFQiy+DIjh9JmXlEYDDmz3V7524i7uIWXXYlpzwQGqm+MCHW7CAbXKo6t0YIT03c5f7Bo7LRTGE0WT+u+ZsRy7t06IX7TOTmxCVonQ4Px69cELGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071533; c=relaxed/simple;
-	bh=V20wVzEQwN71sYRuTHfqaDprdg00H+nIj9Y+ZGlHEZU=;
+	s=arc-20240116; t=1790071535; c=relaxed/simple;
+	bh=fqHvaVMw98RqNbbk6DFpzLeB0+5LZLOfSl8VXANUVxo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oMZAjKlfmVyEhRrp/8KkQxdZry2CtPyiGLdCA483YVL1Y7rmX41rV/PixMrvhK6LMgh0XhsnHm0VYZ9wAYIc+HWHOZvtxmtRVkPUubiIN44FJGF3qyLSybPPyncKAIeCy+zvUw5/7De8OdNH+FhnHUnj3ijid0E/UdzBmjry9aA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=S9XQXPST reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtsistemi.it
+	 MIME-Version; b=EXfdD8qwPJdIuKnBXuQdhqlL1mBuoATZr6xa5MeJSAf3wBWOpvt6BsplgOJbdxfke010B0wTYixEePOGGFEdTVfP8J7MKGgt08JsCV3y70J8Bfzp8Xr8jrmx7Qqbb/+lClq1QJaLuV8+igfSLcg215LSMj3kH8bdnMOopDyWOB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pROgmE7C; arc=none smtp.client-ip=74.125.228.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="S9XQXPST"
-X-Envelope-From: <info@mtsistemi.it>
-Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hpwhJ0WRvzGnts;
-	Tue, 22 Sep 2026 12:05:20 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 953FE17C481;
-	Tue, 22 Sep 2026 12:03:41 +0200 (CEST)
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
- with ESMTP id sVDnlDGrZ312; Tue, 22 Sep 2026 12:03:41 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 2470817ABF9;
-	Tue, 22 Sep 2026 12:03:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it 2470817ABF9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
-	s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1790071421;
-	bh=GW102B8J1MDkdEZb8g+qKIYoQMeYi07Tw2Skekcai7Q=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=S9XQXPSTqVx4v7zyIXMpZdEsSVx5V5eWh6IERO4lvHyvSqq6YPRkOx0vphUU5uplY
-	 qmLn3kF7KHx1sjBvzAHvZLpKU9VglCewTbPYXIaqHiAFShtWgcckszBUSFDjwFMQF6
-	 V2GY3r2FWLFqML9ZVYj4bPHgrt7iytD7RprNJi0TEqB5PeZ5B6f6eXXn78Mz5Vy1lQ
-	 lNlOUgnaSCYYL3S2ymt/8F5MigzIYc8LzrgYZgPSS78IO1qHD1ZBVJ3pPiUgYHxIcF
-	 TUTDCD1nY9Sekph5EeUkjVw20Oc5zYHeOj5azeQja45s5/db1hXI2CEcF2pOXCNSD8
-	 GDwfKF2lMqDoA==
-X-Virus-Scanned: amavis at ngmx.easytechitalia.it
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
- with ESMTP id 3lAbIUpZKdrB; Tue, 22 Sep 2026 12:03:41 +0200 (CEST)
-Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it [93.38.124.109])
-	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id BD39C17DC3B;
-	Tue, 22 Sep 2026 12:03:40 +0200 (CEST)
-From: Mattia Tadini <info@mtsistemi.it>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] crypto: ccp - two PSP init fixes, and the AMD BC-250
-Date: Tue, 22 Sep 2026 12:05:17 +0200
-Message-ID: <179007151736.36856.17325391038801459309@mtsistemi.it>
-In-Reply-To: <10469a97-1e55-438b-a9cc-7a7cf650c104@amd.com>
-References: <178984289056.12336.17662860552012704364@mtsistemi.it>
- <10469a97-1e55-438b-a9cc-7a7cf650c104@amd.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pROgmE7C"
+Received: by mail-pz2-f26.google.com with SMTP id 41be03b00d2f7-cc1e1b51234so290185a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:05:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790071533; x=1790676333; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/sUZ12V39o1oXjQLxG+gWXie4gDzpNz/INejxmAwsYE=;
+        b=pROgmE7C84v6WnqMFXeqP5Qd1NPAIqaHS/cTeVsDP3UZLyrhfROl2YFfcP2yjw7CWl
+         UFe62j5+AVBkf+f+Z7xTSu1JWCKPc/ads5lpxNlXhyj1JLLYp0GaXhf4LC6T06JNe3wp
+         F2t8UXw7CqwzzPvCij2v+8OiJlCuMUj9t0cTvFDoUMo/gi2DDIwbfOpl031aeICWE9zs
+         m/h6yX1e8sWAXD2mlmSy4N91IULF+KRdRJWwdr576n6hur+NE2dPHy4t+eaG22FMl3U1
+         XY7aVqD2wJsJ1euBHdaagj44ooCyLGN9X2kvCBiux/uHWP4RRkaWJqS7+z1Dxb3nQjOq
+         CdDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790071533; x=1790676333;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/sUZ12V39o1oXjQLxG+gWXie4gDzpNz/INejxmAwsYE=;
+        b=zCfblojYF3SqF1h/oJj7k5cSplHgFM/8ln7BawLMRlveETvXjMzltIspEhNzMaxAXp
+         GrcDxQ3SnA9VpxXOI15TV4XEbPLIQU0qDqn21RijuVm+tR2CKCZtNHb+Os7XUMsfyryk
+         I2pG97PfOflvLKU2oSNA+6dekZbEhstQyzXqLKwU+qfv8NvQVlOu9jTzMxK9UeBP4ZkG
+         uiPh5tmvXBdViQ8wx8YsL5lGB93UQHPZWlYbHbwUrhqKGwhY7QW+yoq7JwgIdaOaWhmq
+         tu3N5gzjrO6Aa8ac5y+MHZkl8TDcM2+9ZU7LSMj7DDaa0I+PzG5tJkTgrpdi1XkKtqDj
+         s/Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKkymrGOuJjSLUyyY1Babq/OM59ZauA/hopd3RJdMTFxY3DJjuNl1/aXiWbnoHxc9cjT15gz4lOCi6cCs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqA0vu9FI3oMGdbcKQPiHUrBDiVfLC71i0TERw4nXnM7UcnSmd
+	AOjEuhVzDxGkbZku1DzQlt3uYjiW+fxaEvsJo2n3acIw3vyMoMje12RoJU4KOg==
+X-Gm-Gg: AYBFou0bC47GsdcFiRYxzk0m9gELm9Mr5eugCtnoSgrkmYgB28OE7rF8wtbVaR5h2Cm
+	mz5aJD7laxB2CUkVo/iwZry/qejhpAOClk6uUnpNf1Ve+vNjKLr8BZqbKQ3tN/hx5yNEA1zpd1s
+	p9y8eG+BbePTsVaS6p4e0LrFAMScsSfPeD7yxktPACCWp9Vcx1o0C5MhJHysEWB8qD3Ll8i/YW9
+	+5uBFIGgMnUAdYlX8Gw3ahtdbF1fj16Psz9cf0vETZsPzhfbMEtDecXJ43yllSMurayaF0vnr0j
+	OI5harrenU7toCOORX54Snj8h5XUjDLpdV8bYCAzbJAcs7KXKLY6Ux8Pv5FDxhAe+ixpgKLu430
+	r+QyzBvu0nhi6MZIB+bK9SfXm7bWotQ3CdlSTljH5IQGq71VFsYn0ir7TGacMWA5mkzjpd/BGmy
+	jg/5r0Dd7aEa3cuvfkvUcm8JpCmn8WaDq37jnhseBbW+7Y7d2tMs6x5/eDknRbNj6jUv1xeeh+H
+	FqQJ5p5+TaGiWkMx2NVB+Xu
+X-Received: by 2002:a17:90b:4fce:b0:39e:55ce:af15 with SMTP id 98e67ed59e1d1-3a0733177b8mr1056748a91.5.1790071533212;
+        Tue, 22 Sep 2026 03:05:33 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a067021ca6sm3984718a91.2.2026.09.22.03.05.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 03:05:32 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] firmware: qcom: scm: Allow QSEECOM on Acer Swift SFA14-11
+Date: Tue, 22 Sep 2026 18:04:37 +0800
+Message-ID: <20260922100501.8888-4-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260922100501.8888-1-liujianfeng1994@gmail.com>
+References: <20260922100501.8888-1-liujianfeng1994@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more information
-X-Easytech-Libra-ESVA-ID: 4hpwhJ0WRvzGnts
-X-Easytech-Libra-ESVA: No virus found
-X-Easytech-Libra-ESVA-From: info@mtsistemi.it
-X-Easytech-Libra-ESVA-Watermark: 1790676321.31182@yAltYgDXNtICWVI3c/Wa5w
+Content-Transfer-Encoding: 8bit
 
-On 9/21/26 10:10, Mario Limonciello wrote:
-> Sorry; but what's the point of adding support?  You can't access the
-> crypto engine, it doesn't run SEV or TEE, it doesn't support DBC, it
-> doesn't report HSTI.
+The Hamoa-based Acer Swift SFA14-11 provides the same UEFI variable
+access through uefisecapp as other Hamoa devices, add it to the
+allowlist.
 
-Thanks for looking at it. One correction first, and the mistake is
-mine: the cover letter is wrong about HSTI. The security reporting bit
-is clear, but psp_populate_hsti() then asks through the platform access
-mailbox, and on this board PSP_CMD_HSTI_QUERY does answer. With the
-series applied on 7.2.6:
+Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+---
 
-  fused_part=3D1               debug_lock_on=3D1
-  boot_integrity=3D0           tsme_status=3D0
-  anti_rollback_status=3D0     rom_armor_enforced=3D0
-  rpmc_production_enabled=3D0  rpmc_spirom_available=3D0
-  hsp_tpm_available=3D0
+ drivers/firmware/qcom/qcom_scm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> It seems that the capability register isn't even populated on this
-> system.
+diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+index df20773dd7541..e83814fa7766e 100644
+--- a/drivers/firmware/qcom/qcom_scm.c
++++ b/drivers/firmware/qcom/qcom_scm.c
+@@ -2215,6 +2215,7 @@ EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_send);
+  + any potential issues with this, only allow validated machines for now.
+  */
+ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
++	{ .compatible = "acer,sfa14-11" },
+ 	{ .compatible = "asus,vivobook-s15" },
+ 	{ .compatible = "asus,vivobook-s15-x1p4" },
+ 	{ .compatible = "asus,zenbook-a14-ux3407na" },
+-- 
+2.47.3
 
-It reads 0x00000002, the TEE bit and nothing else. That lone bit, with
-no TEE behind it, is what patches 1 and 2 are about.
-
-> To me it appears the patch series is a lot of "fixes" to let you
-> read.... the bootloader version.  Am I missing something else?
-
-Only the above. Once the device is bound, userspace gets the bootloader
-version (fwupd picks it up as "Secure Processor", bootloader
-00.1c.01.02) and the HSTI attributes. Nothing more: no crypto engine,
-no SEV, no TEE, and the firmware rejects the DBC command.
-
-If that is not enough to carry an ID, I understand, and patch 3 can go.
-Patches 1 and 2 then have no reason to go in either: with the current
-table I don't know of a shipped part that sets the TEE bit on a pspv1
-or pspv2 function, so they would only guard against a device that is
-not there.
-
-So: would you take the series with the HSTI data as the justification
-for patch 3 (I would send a v2 with a corrected cover letter), or
-should I drop it?
-
-Thanks,
-Mattia
