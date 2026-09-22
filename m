@@ -1,123 +1,184 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942815226A2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063901; cv=none; b=BzwwPDjtS3zW7efL3AyJL3kXjBmAGlLsrgYYFuXSj5hc57V6gSfGFyZrTpk98YVVu2CupGZowL+FupRU3rdSsDkzwD0tr8CVJe9I4cYXz/EgF2bgLv9iKIMf53NZD0faGCgo79eNaQtF84+XWRrev26CUttqFJ0NW/8wvRPHqUw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063901; c=relaxed/simple;
-	bh=st5zqvh5AAGmU926OyFQ7dzQZEV3MT6aFNUPe3AIhJA=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=TpyQ5wDyTYfoEKFQAUsoKH4vlpt0pvh6T6sVdyjbBtKrUd7/EDeGUZ07/F8XkZ9dNQO3CuaQrLXw6RQA8Ei6P97rJ78nmTQiA7LFGSJo5FOkX4uUj4RJbMfM27aZmB8dpKGWv1eZgitcCWvBXQLHbBAZcSLZaMHn+FkOa/AowRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kY2ZryBw; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFD8522682
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.167
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790063998; cv=pass; b=C3r7DF+BCAQZNDq5MjBw5ujfNPcynVB+J0ROYf9EwPUaXlkYq56qFsqK1uBaLIxL8HAD4TjPdVCZw9XWmm0hoGM/mY2xX0MLIu6JvyFLFyfQQlzICmRrcjQ1PERP6fxukFqUyYqUaVrLCuGst2alzCKHfFUUanlXuFQh8ZyXrgU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790063998; c=relaxed/simple;
+	bh=LV/LVjKM3hxN9GZjkxURfw1FVzLRvHD743trx/7Cv6I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D2L5aXyZRh6eLntoZo8WXx+d+UbCrPhUO2N2UAqOrjvOIi2SHCYzc+0uD16wrMopGK/fguusL977RHyFZ4tlwHGA8kNrkePQuXdNq7TNVOlG5CEl3wGC6d4/uFanML31bRZLUhKEDX4ge4IkP29VhhGPrFktuzpbKxiicHGvcUI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SZkY8H6j; arc=pass smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kY2ZryBw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790063894; x=1821599894;
-  h=date:from:to:cc:subject:message-id;
-  bh=st5zqvh5AAGmU926OyFQ7dzQZEV3MT6aFNUPe3AIhJA=;
-  b=kY2ZryBweVodGrq698Fiq6w7nh6fU/A8wm3xlHQH5YJ97wHnWNNaOJHi
-   HFIHiYkvWEqy2Do3NKDcgjjZiD2PevoXARalDdvLXnz2Q1THc1cqTLafq
-   9Y8DpyECoedXD/QXAnGeebtQUhjYKVj/J4ZU4CA2TeGRVqeQ3EKleTiAf
-   oQ/Id17sxleIW2atnU3floe/N/177IVlg9V0Dvz1fndvgOR7U7SyTuBan
-   QU9esCxmtkCE3Csq9qOG9laBZY2UtRsGUgc1dmc7faQ88CX1ZMPSOI5Yv
-   ZTvWT19i239QRPnmr/EhxxlEruUUfA/cu5PJrSKLItby+2YPtay+J4A2r
-   w==;
-X-CSE-ConnectionGUID: hn/AZrqXS2eJVSzIA6+7EA==
-X-CSE-MsgGUID: OteuU0MiSq2ASKK3rl7cJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="1151234"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1151234"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 00:58:09 -0700
-X-CSE-ConnectionGUID: I5JJwG+0SyKoJ3iUHV8qIg==
-X-CSE-MsgGUID: AnC3xvpIQeuhegzMjW/i0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="281092126"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 22 Sep 2026 00:58:07 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x8vO8-00000000FAC-3ZlA;
-	Tue, 22 Sep 2026 07:58:04 +0000
-Date: Tue, 22 Sep 2026 15:57:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Heiko Stuebner <heiko@sntech.de>
-Subject: drivers/gpu/drm/rockchip/cdn-dp-core.c:321:25: sparse:
- sparse: cast to restricted __le32
-Message-ID: <202609221523.NSIdRvjX-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SZkY8H6j"
+Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-66f7a9afe43so3168366d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:59:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790063987; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RtkWtC9zJrkhT504HSE1MpPUdAHZ2NY9hvlgwkPvVvdV2aJKIHj4SHH99B7QBqMIYE
+         M68g+Y/z0tluZJdErzf0rzCi/ihUAbJBnr+vrkusytOj7veZhrnOAoxEWKD/PQLKkJbQ
+         NqW6WfdvzKryEp0glwCxAYj/zfNjHTMzG337O6efNG85akq/VNpKc2afZ72+Sk+qlTzG
+         DnBs4oRiu71eVqVRUN072y9h5AJ2Voy1XnfMdelO80wSZWzyfDtTrlO6n6JwZz3DGUvi
+         dGDV7Yz+KZRi0PrRxkwURT7CblWS9s3mgQffbh8+fkif3lbOpd2Gu+9XEcRWbyuU5MUl
+         ZmCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
+        fh=daxjj6P/LqJnDnwJA10WDYBoISxXOx2/nG9gqL3gCiI=;
+        b=UAOHtLLclc5xk7t8aBDXCqSlAClcGaN4noKne3C1zhaM0yzmSEkpN5xDDR8a+/yWqP
+         w8weySZUxJ3NbbMQ5qdxy0g9NtZUC2HjwpcbMbDjqqe1t/c5Oy4LvPQ18lBV66NEB0N+
+         5hDc1ZX4VK5zsIf4g4VKuMHWYg3a7Vcx//hBBHy9xg+hpUSjkoaly/QvA98LDKY778Se
+         m4mv0OyIim1C/8STAFMTk42RANNFBXWBhvjY+NFRJlJrDDfLJnuWcnKgTo5WZm1jP9Ce
+         fx1n0dxigaWxkdC4//OmM94DIJYlT2M84ShbXMPjS6Q5RDhVZyA1nDF/2nvKz1Dt4L38
+         R3BQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790063987; x=1790668787; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
+        b=SZkY8H6jCSOKxUld1lPUqCarseFPTbpgFZFptxqmOhXs4o+ZGI27H01tFdDrPYNCnn
+         6j8WrNge4AFgRFH+TdEz4ms1+d+x/OHrXTjGPtQSDVT24CwGkjqBaTJEgfR090QWtjkJ
+         CFc618ixfQ/nqOU/5tcXncV3lZqe2e7qgVAceYybwGj7kkrJzR54F+mQyUTcdDUIxlUx
+         Dg73EUcmssPrraZm/MXWqmvxnGKuXNMKmOFH55fuciNuIpwc1ftd/gldPokebCViJjBZ
+         zYzam0eiXw8sIa1mQ4jKEJnLJafKd4vUiy6xd/D+0grobkMbTo/ycsGzeIS2vJzluAMf
+         pX4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790063987; x=1790668787;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dP1zCMCErPeK9F1TnlfMVGvOu9U8paGR+gGJEZKdb/E=;
+        b=cMe5Z8lP8SQfet+TQoAi+rZv6PMByycZmuwNUL71CstIvCwwMQ4txl+QbnxbXs4xDO
+         na4j/pTO1m59ysEE9TGFpW3sItyMb7FiPkol/ekqq4tAm9j9Z5AO8dIpWgXh2YDuqpuB
+         tNZWLxMX9lxP4ks5CYD6NOkBPq318NaFIfW83fik3losN5rr0/v0wrfC4g4VUYY05VB/
+         K9iFWEQ9CQEXt5rH8Od7KBZy2S7SLExH71hDnQxDuD2oNFX7Obcljl1HPioQ+myHZaji
+         IPE5Idw6K3IEgHSJSXWx7E66vqulbbGVWGdV2pW7j/nOBgFdlsPPOhsG0q62OG+znkR2
+         We9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw7JaDiWLXQOIBGE541qR+WfG2nY282UCkHK0muJGPNy2MdfmHdJR592Bu+MZK6QWRnMe99lL8FD6OVoIA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1/l6WoJagI0ZiiCw9OqxAth+35NWH2Zz6xsxDtZJDiO0zBOUi
+	tRkZ03QNACEy/e8vTvrhdipdYWjTY3+HxdSB+goy8ljpzd7Iq8Weq0j6BuhlvUn6xpQ7VVyjUCV
+	AMo7pBT0fV/jVrDW6wS7RnPL6vF3h0nU=
+X-Gm-Gg: AYBFou2hYsRq4eqmoOfvNo+/vP8YxLMT6RcMkhKULQNfIy3rLmJ3sGC31ZCZiUrDHV/
+	xbQxpwRPX/f+dRwStsLUcr5zq2gHBSh3HgRsSIT7KefSDVaiWMZKnjEteT3MrNVeBtOevKcUHf2
+	+5wemJqbd7qy/M3Ze6QKjryPhoYiV46j46yzicI9EO70d8vIujoNbPbZWEP4y/2j5StdQYWAX+j
+	Ie4Mg7v+2HcD0T049AJNXOh5BPaC1NNtuXxWOJadbE9yP0vl3TE55fd0sqbdadUlPPb5DcuOZk0
+	PsdSglxng4h1aj5WaG4qeSav7ubGFe/+Jm03EGLwAXZ01NfgoTSG2/pcmQ==
+X-Received: by 2002:a05:690e:4105:b0:66f:c2c7:3a4f with SMTP id
+ 956f58d0204a3-6717fca0d13mr4306035d50.19.1790063987418; Tue, 22 Sep 2026
+ 00:59:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260921104058.353748-1-lgs201920130244@gmail.com> <20260921110512.GS106095@black.igk.intel.com>
+In-Reply-To: <20260921110512.GS106095@black.igk.intel.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 15:59:32 +0800
+X-Gm-Features: AcwNN1XxyQQU5x2vBD_1jw2pjdvTRbzVQZFCGqidJ6ftnuC_3eRhT9BLr4HUSn0
+Message-ID: <CANUHTR9gA-mKn8Y496Pty4_Fhu3BSSyhXWrmiod1WvuVdQjkag@mail.gmail.com>
+Subject: Re: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
-commit: 0244539f9a4f3b564604dfe4d639f61cecec381a drm/rockchip: Drop ROCKCHIP_IOMMU depend for DRM_ROCKCHIP
-date:   9 months ago
-config: powerpc64-randconfig-r1308-20260922 (https://download.01.org/0day-ci/archive/20260922/202609221523.NSIdRvjX-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 10.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609221523.NSIdRvjX-lkp@intel.com/reproduce)
+Hi Mika,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 0244539f9a4f ("drm/rockchip: Drop ROCKCHIP_IOMMU depend for DRM_ROCKCHIP")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609221523.NSIdRvjX-lkp@intel.com/
+Thanks for the suggestion.
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/rockchip/cdn-dp-core.c:321:25: sparse: sparse: cast to restricted __le32
+On Mon, 21 Sept 2026 at 19:05, Mika Westerberg
+<mika.westerberg@linux.intel.com> wrote:
+>
+> Hi,
+>
+> On Mon, Sep 21, 2026 at 06:40:58PM +0800, Guangshuo Li wrote:
+> > intel_lpss_probe() may register an iDMA MFD child before registering
+> > the main controller cell. If the iDMA child is registered successfully
+> > but the subsequent mfd_add_devices() call for the main cell fails, the
+> > probe error path returns without removing the already registered iDMA
+> > device.
+> >
+> > Since the normal remove callback is not called after a failed probe,
+> > the iDMA platform device remains registered and is never released.
+> >
+> > Call mfd_remove_devices() on the probe error path to remove any MFD
+> > children that were successfully registered before the main cell
+> > registration failed.
+>
+> I think this could use devm_mfd_add_devices() instead.
+>
+> > The issue was identified by a static analysis tool I developed and
+> > confirmed by manual review.
+> >
+> > Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/mfd/intel-lpss.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+> > index 63d6694f7145..657b1e3fb896 100644
+> > --- a/drivers/mfd/intel-lpss.c
+> > +++ b/drivers/mfd/intel-lpss.c
+> > @@ -455,6 +455,7 @@ int intel_lpss_probe(struct device *dev,
+> >       return 0;
+> >
+> >  err_remove_ltr:
+> > +     mfd_remove_devices(dev);
+> >       intel_lpss_debugfs_remove(lpss);
+> >       intel_lpss_ltr_hide(lpss);
+> >       intel_lpss_unregister_clock(lpss);
+> > --
+> > 2.43.0
 
-vim +321 drivers/gpu/drm/rockchip/cdn-dp-core.c
+Do you mean converting both MFD registrations to devm_mfd_add_devices()
+and dropping the explicit mfd_remove_devices() from the remove path, like
+this?
 
-1a0f7ed3abe29c Chris Zhong 2017-02-05  312  
-1a0f7ed3abe29c Chris Zhong 2017-02-05  313  static int cdn_dp_firmware_init(struct cdn_dp_device *dp)
-1a0f7ed3abe29c Chris Zhong 2017-02-05  314  {
-1a0f7ed3abe29c Chris Zhong 2017-02-05  315  	int ret;
-1a0f7ed3abe29c Chris Zhong 2017-02-05  316  	const u32 *iram_data, *dram_data;
-1a0f7ed3abe29c Chris Zhong 2017-02-05  317  	const struct firmware *fw = dp->fw;
-1a0f7ed3abe29c Chris Zhong 2017-02-05  318  	const struct cdn_firmware_header *hdr;
-1a0f7ed3abe29c Chris Zhong 2017-02-05  319  
-1a0f7ed3abe29c Chris Zhong 2017-02-05  320  	hdr = (struct cdn_firmware_header *)fw->data;
-1a0f7ed3abe29c Chris Zhong 2017-02-05 @321  	if (fw->size != le32_to_cpu(hdr->size_bytes)) {
-1a0f7ed3abe29c Chris Zhong 2017-02-05  322  		DRM_DEV_ERROR(dp->dev, "firmware is invalid\n");
-1a0f7ed3abe29c Chris Zhong 2017-02-05  323  		return -EINVAL;
-1a0f7ed3abe29c Chris Zhong 2017-02-05  324  	}
-1a0f7ed3abe29c Chris Zhong 2017-02-05  325  
-1a0f7ed3abe29c Chris Zhong 2017-02-05  326  	iram_data = (const u32 *)(fw->data + hdr->header_size);
-1a0f7ed3abe29c Chris Zhong 2017-02-05  327  	dram_data = (const u32 *)(fw->data + hdr->header_size + hdr->iram_size);
-1a0f7ed3abe29c Chris Zhong 2017-02-05  328  
-1a0f7ed3abe29c Chris Zhong 2017-02-05  329  	ret = cdn_dp_load_firmware(dp, iram_data, hdr->iram_size,
-1a0f7ed3abe29c Chris Zhong 2017-02-05  330  				   dram_data, hdr->dram_size);
-1a0f7ed3abe29c Chris Zhong 2017-02-05  331  	if (ret)
-1a0f7ed3abe29c Chris Zhong 2017-02-05  332  		return ret;
-1a0f7ed3abe29c Chris Zhong 2017-02-05  333  
-1a0f7ed3abe29c Chris Zhong 2017-02-05  334  	ret = cdn_dp_set_firmware_active(dp, true);
-1a0f7ed3abe29c Chris Zhong 2017-02-05  335  	if (ret) {
-1a0f7ed3abe29c Chris Zhong 2017-02-05  336  		DRM_DEV_ERROR(dp->dev, "active ucpu failed: %d\n", ret);
-1a0f7ed3abe29c Chris Zhong 2017-02-05  337  		return ret;
-1a0f7ed3abe29c Chris Zhong 2017-02-05  338  	}
-1a0f7ed3abe29c Chris Zhong 2017-02-05  339  
-1a0f7ed3abe29c Chris Zhong 2017-02-05  340  	return cdn_dp_event_config(dp);
-1a0f7ed3abe29c Chris Zhong 2017-02-05  341  }
-1a0f7ed3abe29c Chris Zhong 2017-02-05  342  
+        if (intel_lpss_has_idma(lpss)) {
+-               ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
+-                                     1, info->mem, info->irq, NULL);
++               ret = devm_mfd_add_devices(dev, lpss->devid,
++                                          &intel_lpss_idma64_cell, 1,
++                                          info->mem, info->irq, NULL);
+                if (ret)
+                        dev_warn(dev, "Failed to add %s, fallback to PIO\n",
+                                 LPSS_IDMA64_DRIVER_NAME);
+        }
 
-:::::: The code at line 321 was first introduced by commit
-:::::: 1a0f7ed3abe29cff8e652c69a8ad89aec2c40f00 drm/rockchip: cdn-dp: add cdn DP support for rk3399
+-       ret = mfd_add_devices(dev, lpss->devid, lpss->cell,
+-                             1, info->mem, info->irq, NULL);
++       ret = devm_mfd_add_devices(dev, lpss->devid, lpss->cell,
++                                  1, info->mem, info->irq, NULL);
+        if (ret)
+                goto err_remove_ltr;
 
-:::::: TO: Chris Zhong <zyw@rock-chips.com>
-:::::: CC: Mark Yao <mark.yao@rock-chips.com>
+...
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+ void intel_lpss_remove(struct device *dev)
+ {
+        struct intel_lpss *lpss = dev_get_drvdata(dev);
+
+-       mfd_remove_devices(dev);
+        intel_lpss_debugfs_remove(lpss);
+        intel_lpss_ltr_hide(lpss);
+        intel_lpss_unregister_clock(lpss);
+        ida_free(&intel_lpss_devid_ida, lpss->devid);
+ }
+
+Would this be the preferred change?
+
+Thanks,
+Guangshuo
