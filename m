@@ -1,112 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569DF370ACD
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA10279DCC;
+	Tue, 22 Sep 2026 01:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790040225; cv=none; b=u3x76mxpQ3xpZOtBCrTmS1Hzi/uVQnuA7odo7eUt+udfd6mOOvp/zBMADcyFnJyhSsYHAttdDlz/oHdzG68AR0S/5j/K57XzljcBd+0TqNnPlygQNr+0mhW7eGtII+g7UqSq/tlQzb5Wr/6l12xg3svnbEEryxsuxvxUYWS0Dxo=
+	t=1790040231; cv=none; b=qAAFqHIXAauEC3AXQTx0n2cO6XvVSmJB04uDcJBxgom4fE+QN1NtRkkHbaLi+mbZcYDEc4wC8q89V7gjoMTGLGCDmFUiwU3XWowXIZgFZml6f3e2zUSJFtglvezqwRgXtba82WMhRyDKezHWTnhlmp5sIamHcCZQqove37w5DAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790040225; c=relaxed/simple;
-	bh=efuoZ/gqjzwcOGQEiMVLV55OBVVEW05zAmsZ0cXjX2A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oBvoQPM3c3Yyxy9yGHeUDOtEVzLTexcQ2kYLzKhlFwCtyQqLyAp/fMQg8GBbblB9YYjxhJP0bhfZMd8geiZJa+bnlNrVUiA4ce2uOTCnKwMBX4ASWuLTARpjXN5kIPpF3jbQSkY6GMBVVhCUNtmbIjo54R2540coBYiv0Btnaxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3X+d6nY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790040231; c=relaxed/simple;
+	bh=A1fjSibPhH96nCA08fsJ/7+P64t97lktpS4Xfl4ILvY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JuCSnLghVB7W3Rqh+8LiEd0si6tzJdgIDTyPGkeePVySXzX7QXkAJU5Vdx3HxH/YTf68VYBzT7qkxGJp306O0+tBlftPJ9llujiMTIL69XSPQkDmECNfn+Tch2AN9E4et4j9pa6brzCBWD+baKFm6UfHOOTJJLW3k1QB5+thg/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmpAokHS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3X+d6nY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EB737C2BCF6;
-	Tue, 22 Sep 2026 01:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790040225;
-	bh=efuoZ/gqjzwcOGQEiMVLV55OBVVEW05zAmsZ0cXjX2A=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=c3X+d6nYN7O/lMTljrIcgY7g9NETXmC2UxdOTj7G8iJzam4b0ZjE4j7dBhC2BGkSU
-	 Fdr3nGiWD1nvN5KtPw5BqBWuf6ZQro66uGXTQyE5QOn5SxcwGSJms9sn78PDkX/h4n
-	 6YctAadvj6osWfIhsOUKxYaymhP2l36Rnu1drZzVreXuKeyj3ek95xn+Ep7/kBM+Mn
-	 dP5I/+ChL+aAwAzeFzgccqe6OkTG9GSC+LHPq3K3a/1UacuevHC4TS4fMDyZQ4K2SW
-	 HZmkv95Y9IJ+vtz8jnklPOPMlH3l3Fw6rmU61KiAJxivzdvv6F8l7NWgwDoRKvhM32
-	 B825OgHRmtXPA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D748EC982FB;
-	Tue, 22 Sep 2026 01:23:44 +0000 (UTC)
-From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 21:23:43 -0400
-Subject: [PATCH] timekeeping: publish suspend_timing_needed with release
- semantics
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmpAokHS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4793A1F000FF;
+	Tue, 22 Sep 2026 01:23:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790040229;
+	bh=A1fjSibPhH96nCA08fsJ/7+P64t97lktpS4Xfl4ILvY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OmpAokHSzjoJu8vc+77CsYLHwa5qvvRxB+jUvxcUhMIQjzWigA57Lir2o3shb1Q2i
+	 H/QJQrv4/RH9ybEbxnQPb/H/z7O24u6sO/OxZ72e8T7FnQm5D5ckfk3SOvniQ//FTr
+	 aHC33Wm/xGUsbXip1sWYaEcDY8lYOQswoit+0sfK6BHGyZfSc9k9wpzePSDp1vcw7U
+	 O+aCTRYxBdFuyI85bvNqCaS6wMKfMg4Sx4tPbzPbyIhCyZ8tmpDOABTSo/AQQ0fWrl
+	 VW4/7Hi6fI4Gg7WWaQ/w8IqnKH+VS9X6JAbwQeQn8SQ1+FY3jTlFHzGHT4vaDbk4LH
+	 OqItjXI1SnndA==
+Date: Mon, 21 Sep 2026 18:23:48 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrew+netdev@lunn.ch, arkadiusz.kubalewski@intel.com,
+ davem@davemloft.net, edumazet@google.com, jiri@resnulli.us,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, vadim.fedorenko@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] ptp: ocp: Fix dpll device reference leak in
+ ptp_ocp_probe()
+Message-ID: <20260921182348.3b7b60e3@kernel.org>
+In-Reply-To: <20260917142337.2156652-1-vulab@iscas.ac.cn>
+References: <20260917142337.2156652-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-timekeeping-v1-1-282f1f4121ed@vt.edu>
-X-B4-Tracking: v=1; b=H4sIAJ7YsWoC/yXMzQ6CMBAE4Fche3ZNW//QVzEe2jrAaiikRWJCe
- HdbPH6TmVkoIQoS3aqFImZJMoQMvavIdza0YHlmk1HmrK5Gc+94kh5vYJTQsnV1g5OptYKnPBo
- jGvluh/fH3+njXvBTeSkNZxPYRRt8V6KN82V/4OiPtK4/eyVLVJIAAAA=
-X-Change-ID: 20260921-mb-timekeeping-ab8fe52810ec
-To: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Jaidev Shastri <jaidevshastri@vt.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790040224; l=1568;
- i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=cFvsdCri+WSttL45t1gLuvPcu/++U/qXQAilyA7gKyA=;
- b=XsfM9ZYumY0npb7drz9mhmdcbVQsWkgjIVxLDsQgPI6ECxkHMcIuF7OPgNWn8CvdOC7Iet4E7
- eKkWzMB1GQVCmuioJ9SQfOt/hqqSQMYRUzAM5PuyPGMc0nDTKRh6YSj
-X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
- pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
-X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
- auth_id=1044
-X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
-Reply-To: jaidevshastri@vt.edu
 
-From: Jaidev Shastri <jaidevshastri@vt.edu>
+On Thu, 17 Sep 2026 14:23:37 +0000 Wentao Liang wrote:
+> ptp_ocp_probe() takes a reference on the dpll device with
+> dpll_device_get(), but jumps to the out label without dropping it when
+> dpll_device_register() fails, so the reference leaks. Put it before
+> returning.
 
-timekeeping_suspend() sets suspend_timing_needed with a plain store
-after it has read the persistent clock. timekeeping_rtc_skipresume()
-reads it with a plain load on behalf of the RTC class during resume.
-
-Set it with smp_store_release() and read it with smp_load_acquire().
-
-Found with MBCheck, a static herd7-based memory consistency checker.
-
-Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
----
- kernel/time/timekeeping.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-index ea2e6e55f..2b15268c3 100644
---- a/kernel/time/timekeeping.c
-+++ b/kernel/time/timekeeping.c
-@@ -2141,7 +2141,8 @@ static void __timekeeping_inject_sleeptime(struct timekeeper *tk,
-  */
- bool timekeeping_rtc_skipresume(void)
- {
--	return !suspend_timing_needed;
-+	/* Pairs with the smp_store_release() in timekeeping_suspend(). */
-+	return !smp_load_acquire(&suspend_timing_needed);
- }
- 
- /*
-@@ -2272,7 +2273,8 @@ int timekeeping_suspend(void)
- 	if (timekeeping_suspend_time.tv_sec || timekeeping_suspend_time.tv_nsec)
- 		persistent_clock_exists = true;
- 
--	suspend_timing_needed = true;
-+	/* Pairs with the smp_load_acquire() in timekeeping_rtc_skipresume(). */
-+	smp_store_release(&suspend_timing_needed, true);
- 
- 	raw_spin_lock_irqsave(&tk_core.lock, flags);
- 	timekeeping_forward_now(tks);
-
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-mb-timekeeping-ab8fe52810ec
-
-Best regards,
---  
-Jaidev Shastri <jaidevshastri@vt.edu>
-
-
+AFAIR Sagi already fixes this in net-next
