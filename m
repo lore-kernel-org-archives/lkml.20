@@ -1,83 +1,83 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC1D48A8D9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:34:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D8048E0E3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:34:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055289; cv=none; b=U2h18I3F1jGBlHHoBCAzNf3R6axxhxXHlT5+G8uItZbFEfETJK1+FYcq5FkTHqajSrd9qdu3fCsH8cPsmMSPHaOL7nZFYuhNGYSvYjQ/xUfwjclyyGJSKxP6oXsu4+6y1WCgWLLbmX3VZfMFiSe96wAM3FQyeuFD8Sor8TRwCLM=
+	t=1790055292; cv=none; b=P1siPvI498nNdDUIhNrNJqm+1pfFq9eathm/Cs78rjPgmKu3ERuH5+TphSR1058ub+M6rhZiJuwj7dVIpRQmbXmNDhdngkZyLS5vWhS25lEE9hOsukk2qXft7VUKW53y05tDzxm0k/I8xOZ9Zy2/ZoBdSZrxux4ndMSz/mC+Qgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055289; c=relaxed/simple;
-	bh=xGg8IJyyA8p0Uz2J69fZOcNcHmNV7VrbGKBqc0XBB8c=;
+	s=arc-20240116; t=1790055292; c=relaxed/simple;
+	bh=Vw8DEcu9a1Jd1CJ9KWanGL9Yzn9S0TsNI8wC/ggW76Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LZ3HFCkqKixhr/uPhyKDOCfRPAiC8gawkDLFniMCKuoCla+NQ7a1CFSB2GBBtZ2kJocxANOrpnGfAseS+mal+GYXA58Ru8ksLjJd40gynddeVeBwUOOOXBl8YFEcV875bvM0mBXYFes5dfnbICit93w2YS/tXYdCPFGNkJZxAHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AqOLuhL6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oUGJLp5j; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=BoD/WwQONVQTaYBWhptQKYwvw25/VWzSFCVxcUcwCf759nBoIEIL5wrYYl0BiqoGoxkxpqvwTFCZBmx2Ip677Pxs8Gt2F32oQuBHYKyPwt2y9lyUW/okns+kxYIC5xXE5SaK8FSoHzZZGosEkzli4GUlTJt/TrBLToKq9n0tFsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=buc4URW/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WyPoC1UZ; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AqOLuhL6";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oUGJLp5j"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="buc4URW/";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WyPoC1UZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790055286;
+	s=mimecast20190719; t=1790055289;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RZqncuA8V9KN45lL/iPHOVqmTI1CzmtLR7XQjhWRrog=;
-	b=AqOLuhL6ICB7NAHKvpndRYIH00FR9Tm2ndaUlHHpC6eftbteHGuYQFPNaTiEolX/XEnimW
-	kCQnjtfAyV+yOF1cS81b6jGMoL3E59jITAoHPNp7dabHosjnuJrdgSxehJHx97PzNoagJv
-	Az1cZTkzN+ahS7/Soj8FhIP0Sd6zJxs=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=XHN2LiOQU7r0d0fe1KkDFs3khSrbeSD24b1q7hC8HmQ=;
+	b=buc4URW/cSs9Mjmv1WYP1x9blxpske7TcKhzUHcoq5D64DH37EzGePjmXaJ73cNOwLvRnN
+	xnCAOIKhMe7glelyxQxff8H4OXM12qSBuQX+WgL+k6TuRAqIf1YlhxHZQDJKFDDarrrpQt
+	yW4WFTZVOgEJlI0ViGip0kv/BS4AnFY=
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-678-pspDJMPmNcCEFNBlmoxgcg-1; Tue, 22 Sep 2026 01:34:45 -0400
-X-MC-Unique: pspDJMPmNcCEFNBlmoxgcg-1
-X-Mimecast-MFC-AGG-ID: pspDJMPmNcCEFNBlmoxgcg_1790055284
-Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5b4b020612aso3337416e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:34:44 -0700 (PDT)
+ us-mta-18-0P50kFA2MKiKebBGKT1prw-1; Tue, 22 Sep 2026 01:34:47 -0400
+X-MC-Unique: 0P50kFA2MKiKebBGKT1prw-1
+X-Mimecast-MFC-AGG-ID: 0P50kFA2MKiKebBGKT1prw_1790055286
+Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-3a58d16b9abso17422701fa.3
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:34:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790055283; x=1790660083; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790055286; x=1790660086; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RZqncuA8V9KN45lL/iPHOVqmTI1CzmtLR7XQjhWRrog=;
-        b=oUGJLp5jpIJ8I7kjDTv7DXWvEvFcVDnkArrrM2OZjdzXcsrtcc/CtoDm2jo9wUca66
-         mqCkphVYQCUIGDMXf6FnK6mtjGPJaqCsklnRTxP9UHtCwpYy8GsW4yXwb5udSUTGFK2s
-         WX6VsfPCAGu0VvhtBs1DKBebc5yS8dXhyUWXLofRvb1CAObPI6n9YvXpSYYwVHOuPAzh
-         TetJevxbMi//7+N3p4rXtHrXfuwMQDNTqAZ8Xz6DSOGTB3bQ8z0HQXvH45r5q8I+XCgn
-         DVluYxkq42h5aIoHyQfCeGRx8MVd9yNTpR+AJ9wRY2wsCeh+FUzF8npCCpK4rbZ0/8sr
-         Vg9w==
+        bh=XHN2LiOQU7r0d0fe1KkDFs3khSrbeSD24b1q7hC8HmQ=;
+        b=WyPoC1UZ1H9kFJtsbz8ZyODvxujjaQ7mROUKAkqHsXhLTo+inzDeIq8kK8fqIP8hO1
+         LBkK1tbinq8utm4I+b7QgrEA11UFjxDSyBx13diE2AbCZBgUPzEbuFfOf4vB9Sh4gPat
+         67ekAZCVgjYcd33LzFK5S4nyruz6H2aEpEg8RvH69IGnqHE33x1UHkbeF/q1Zjct8A1N
+         bOyZEp6WW/RFxvyXhCYjdH1hZOqVIUq10jGIUKsl+9pl5yP+Ey0Uyp1SGlMeeH7E+umh
+         Tf4ZoFU6JpZ2N4gHC6Yw0FE0o5KbBsoN88Jf5xgslyL5DkjdhAXvKJvF507djS81gy9o
+         eI5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790055283; x=1790660083;
+        d=1e100.net; s=20260707; t=1790055286; x=1790660086;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RZqncuA8V9KN45lL/iPHOVqmTI1CzmtLR7XQjhWRrog=;
-        b=grSuJR/i6DWH9r/LI/JpcSNsEBC/w9DxrQ4/x6FFRBM4/I9PCd/Zwvza0GpU95UEYU
-         HoinpDmKfFtKYSNZCREbyZwc6d+Z3HcLgw6BdvujQjOTEMu4bLCCETrCpV8gU4mFyfN1
-         s1+q4XvPLp4DQ/IUpfato6jpxCGEWbiUOIRFiR4s8zYaYmTTp9PFaqUxi6RaPAjJ4jXG
-         eihU/9hyRSlG692rzTaAeJ2kLtW6BeBF8PoUaM1LUEmx9+EN/XfY73AupSU6qIHfv4Cy
-         BzTyceg64Acy8XBKUY3sJlq+Ahjdv062DRoaH5VATg+4dlgySds506z0gXAP9cn7Afmr
-         BjIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznncCxakY12eNbu8dMqzx8dDgPtTgvAMNsoS7ycZ3+PHtydOEpYupn1xvU9sh4dKCY+SKvivG4NWmUFGM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxI1Nxot1NkNFKerJ28XoLbdXiKk1MQGqxvetxJ4gcPdLG3Frs
-	d0mPH5dZJORGu4pg2FsurPpbxw0axWN5vBxRLVaGCXH4OgtosiysP5Gm93Zj36RqjoQrpLQBeOA
-	NH+GuFlRPETmwl2odaFLezE6N+ypjz4V90fcOMXOjUZ1vQP2l7yTxaKTJNHw2xlWx
-X-Gm-Gg: AYBFou2bd0NBLNT0A2kA+OCfek/AdkVPo6zYaL1TnRkBGthUwJHq5csOSCgAdpwX2AM
-	TtWqtowQjwQ++0Lbme7C+3gVgH6nsik9sqQpxGOLrF9aml7HULvvwjcHaO8sCcYGvSm/uEzqx64
-	EgX6VNYTYCw38gh1V5q+Zr2BQeuViN6Stjp40I6mySvnZNsXaVOU1LqFmCd3sB498xbEA21E0+W
-	5p6YK7xYPBlfiKJCBXcV/8B8txGCGTAVOah3Ms7hwlDkudhojsodiqBOftKKY40yqjmD0wEkSyM
-	PDglYjAANkA0XCKgV8YjEutt21capkf+HGBF8nUdt3+8m96L1Goe8QxEebINam+BzDMjCWhuhSP
-	b4VxL7JUpVo/JzhF31KJ0
-X-Received: by 2002:a05:6512:3402:b0:5b8:b3e0:74af with SMTP id 2adb3069b0e04-5b8c195ea85mr3626235e87.59.1790055283561;
-        Mon, 21 Sep 2026 22:34:43 -0700 (PDT)
-X-Received: by 2002:a05:6512:3402:b0:5b8:b3e0:74af with SMTP id 2adb3069b0e04-5b8c195ea85mr3626231e87.59.1790055283051;
-        Mon, 21 Sep 2026 22:34:43 -0700 (PDT)
+        bh=XHN2LiOQU7r0d0fe1KkDFs3khSrbeSD24b1q7hC8HmQ=;
+        b=14XjWN0Xj9XP8QJTg5HxK1AzU4EKvDanaVZYqdfhKjZalzBJH6fK5D5hM7p9+NROvP
+         x6o5jgZGCs0GcYIFNBieGEJ+2CTn8VOrn+1YqvZ8rbn09ZPHfDUJHknWSCr6CqVvQO73
+         7LR5ovy1GGvDZVx/Mgom2Sg23NoPVqmyyW5FfhIOu27o2CP5pSr0Rtc/LUkRzkb7ab45
+         YhDP0IgDBwhYmuXwT7d8FjiCQ95rnoQZRR8l8A0nwtol1EzE4eaNwwgMEONPhktk0KqE
+         FCAP/L70QG3Exjg+pf0c8reFijzfrPrAMGAFTMhsPDhsVjnblI0rTWMrrl7Dr/zYOyt8
+         jeNg==
+X-Forwarded-Encrypted: i=1; AKwUvByblrmEbh+MoAvSuVJqc4wRLWQW9wWJmOYRin6S6+PWu26Vd6mTetBbvDnXfSH5gknwjWAK0MaKzyfgQtA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0TXrfMZxCZKD9oFkrqimcXHU1/VxlOh9ttDg9WMPr2tBDLJbS
+	YxwRrJP9gHc1K+LoeIfSN3SybYtsr7rPeI4u1FEebCq5mXZimndolRE0YZXMrOqho0kxa1R+hE+
+	g84EdXnVzNd0OkzliZXQFwQFsSqH8Rrklvm8HZu/4em1uWUa+pH/jhnzpMnzLgLlB
+X-Gm-Gg: AYBFou2XoeYtmR2AocCh+eiRMYM2f/w66E1yBRV+svLWeOfmNROo4S0MmVoIe18JGTY
+	OdDArnw5/o7n1ihpVrss50yM7RKS2O19luTFR8+vXNec4M7mE55CI538N20RfXs1bmMQwGjC+CZ
+	SxXq2uUKRILAwadTjBIYu3Rd2Wgz37ZcMZu7G8Mzv2iMwTkXcYIOAG1a/kGVQU0PGvcZoY5De3b
+	cLBfr+Vd6nF2dBwWM0twsqod3RZIln/SqTY7uRpKFuCoNMZY6fJZo5sLj61Z/UfgtbSWQUJHvK1
+	RT9CjF9hqzB3JY6kCBVwREbLsF2GAVrwjYzeCIS0o+SIahpHgtqvm8da6thHxcKUHXp6FymcfqV
+	wGy7qa7Gk5S/qSSoRTxki
+X-Received: by 2002:a05:6512:3ca7:b0:5b4:fdbe:ab4e with SMTP id 2adb3069b0e04-5b8c184e399mr3985139e87.25.1790055285988;
+        Mon, 21 Sep 2026 22:34:45 -0700 (PDT)
+X-Received: by 2002:a05:6512:3ca7:b0:5b4:fdbe:ab4e with SMTP id 2adb3069b0e04-5b8c184e399mr3985136e87.25.1790055285556;
+        Mon, 21 Sep 2026 22:34:45 -0700 (PDT)
 Received: from fedora (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46e0966sm191742e87.55.2026.09.21.22.34.42
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46e0966sm191742e87.55.2026.09.21.22.34.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 22:34:42 -0700 (PDT)
+        Mon, 21 Sep 2026 22:34:44 -0700 (PDT)
 From: mpenttil@redhat.com
 To: linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org,
@@ -98,9 +98,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	Mike Rapoport <rppt@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Michal Hocko <mhocko@suse.com>
-Subject: [PATCH v14 01/12] mm/Kconfig: changes for migrate on fault for device pages
-Date: Tue, 22 Sep 2026 08:34:10 +0300
-Message-ID: <20260922053421.4092027-2-mpenttil@redhat.com>
+Subject: [PATCH v14 02/12] mm: add helper to convert HMM pfn to migrate pfn
+Date: Tue, 22 Sep 2026 08:34:11 +0300
+Message-ID: <20260922053421.4092027-3-mpenttil@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922053421.4092027-1-mpenttil@redhat.com>
 References: <20260922053421.4092027-1-mpenttil@redhat.com>
@@ -115,36 +115,183 @@ Content-Transfer-Encoding: 8bit
 
 From: Mika Penttilä <mpenttil@redhat.com>
 
-HMM depends on MMU notifiers. With the unified HMM/migrate_device
-page table walk migrate_device needs HMM enabled.
-Enable them explicitly to avoid breaking random configs.
+The unified HMM/migrate_device pagewalk does the "collecting"
+on the HMM side, so we need a helper to transfer pfns to the
+migrate_vma world.
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Leon Romanovsky <leonro@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Suggested-by: Alistair Popple <apopple@nvidia.com>
 Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ include/linux/hmm.h     | 29 +++++++++++++++++-----
+ include/linux/migrate.h |  3 ++-
+ mm/migrate_device.c     | 55 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 80 insertions(+), 7 deletions(-)
 
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 604c58199acb..b7a485beb9a7 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -687,6 +687,7 @@ config MIGRATION
+diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+index 6f04e3932f5b..4f56f3419cb4 100644
+--- a/include/linux/hmm.h
++++ b/include/linux/hmm.h
+@@ -13,6 +13,8 @@
  
- config DEVICE_MIGRATION
- 	def_bool MIGRATION && ZONE_DEVICE
-+	select HMM_MIRROR
+ struct mmu_interval_notifier;
  
- config ARCH_ENABLE_HUGEPAGE_MIGRATION
- 	bool
++struct migrate_vma;
++
+ /*
+  * On output:
+  * 0             - The page is faultable and a future call with 
+@@ -27,13 +29,22 @@ struct mmu_interval_notifier;
+  * HMM_PFN_P2PDMA_BUS - Bus mapped P2P transfer
+  * HMM_PFN_DMA_MAPPED - Flag preserved on input-to-output transformation
+  *                      to mark that page is already DMA mapped
++ * HMM_PFN_MIGRATE    - The entry is to be migrated. Note, HMM_PFN_MIGRATE
++ *                      alone without HMM_PFN_VALID denotes the
++ *                      empty page.
++ *                      This flag optionally together with HMM_PFN_COMPOUND
++ *                      are indicators for migrate_hmm_range_setup() to
++ *                      setup the migrate pfns.
++ * HMM_PFN_COMPOUND   - The entry represents a > 0 order page
+  *
+  * On input:
+- * 0                 - Return the current state of the page, do not fault it.
+- * HMM_PFN_REQ_FAULT - The output must have HMM_PFN_VALID or hmm_range_fault()
+- *                     will fail
+- * HMM_PFN_REQ_WRITE - The output must have HMM_PFN_WRITE or hmm_range_fault()
+- *                     will fail. Must be combined with HMM_PFN_REQ_FAULT.
++ * 0                   - Return the current state of the page, do not fault it.
++ * HMM_PFN_REQ_FAULT   - The output must have HMM_PFN_VALID or hmm_range_fault()
++ *                       will fail
++ * HMM_PFN_REQ_WRITE   - The output must have HMM_PFN_WRITE or hmm_range_fault()
++ *                       will fail. Must be combined with HMM_PFN_REQ_FAULT.
++ * HMM_PFN_REQ_MIGRATE - For default_flags only, request to migrate the range,
++ *                       according to hmm_range.migrate.flags
+  */
+ enum hmm_pfn_flags {
+ 	/* Output fields and flags */
+@@ -48,11 +59,15 @@ enum hmm_pfn_flags {
+ 	HMM_PFN_P2PDMA     = 1UL << (BITS_PER_LONG - 5),
+ 	HMM_PFN_P2PDMA_BUS = 1UL << (BITS_PER_LONG - 6),
+ 
+-	HMM_PFN_ORDER_SHIFT = (BITS_PER_LONG - 11),
++	/* Migrate request */
++	HMM_PFN_MIGRATE    = 1UL << (BITS_PER_LONG - 7),
++	HMM_PFN_COMPOUND   = 1UL << (BITS_PER_LONG - 8),
++	HMM_PFN_ORDER_SHIFT = (BITS_PER_LONG - 13),
+ 
+ 	/* Input flags */
+ 	HMM_PFN_REQ_FAULT = HMM_PFN_VALID,
+ 	HMM_PFN_REQ_WRITE = HMM_PFN_WRITE,
++	HMM_PFN_REQ_MIGRATE = HMM_PFN_MIGRATE,
+ 
+ 	HMM_PFN_FLAGS = ~((1UL << HMM_PFN_ORDER_SHIFT) - 1),
+ };
+@@ -107,6 +122,7 @@ static inline unsigned int hmm_pfn_to_map_order(unsigned long hmm_pfn)
+  * @default_flags: default flags for the range (write, read, ... see hmm doc)
+  * @pfn_flags_mask: allows to mask pfn flags so that only default_flags matter
+  * @dev_private_owner: owner of device private pages
++ * @migrate: structure for migrating a range of a VMA
+  */
+ struct hmm_range {
+ 	struct mmu_interval_notifier *notifier;
+@@ -117,6 +133,7 @@ struct hmm_range {
+ 	unsigned long		default_flags;
+ 	unsigned long		pfn_flags_mask;
+ 	void			*dev_private_owner;
++	struct migrate_vma      *migrate;
+ };
+ 
+ /*
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 78424b3824c2..280ec9a866c7 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -3,6 +3,7 @@
+ #define _LINUX_MIGRATE_H
+ 
+ #include <linux/mm.h>
++#include <linux/hmm.h>
+ #include <linux/mempolicy.h>
+ #include <linux/migrate_mode.h>
+ #include <linux/hugetlb.h>
+@@ -202,7 +203,7 @@ void migrate_device_pages(unsigned long *src_pfns, unsigned long *dst_pfns,
+ 			unsigned long npages);
+ void migrate_device_finalize(unsigned long *src_pfns,
+ 			unsigned long *dst_pfns, unsigned long npages);
+-
++void migrate_hmm_range_setup(struct hmm_range *range);
+ #endif /* CONFIG_MIGRATION */
+ 
+ #endif /* _LINUX_MIGRATE_H */
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 009bfa8b212d..43e571e82cca 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -1528,3 +1528,58 @@ int migrate_device_coherent_folio(struct folio *folio)
+ 		return 0;
+ 	return -EBUSY;
+ }
++
++/**
++ * migrate_hmm_range_setup() - prepare to migrate a range of memory
++ * @range: contains pointer to struct migrate_vma to be set up.
++ *
++ * When collecting has been done with hmm_range_fault(), this
++ * should be called next, and completes range->migrate by
++ * populating migrate->src[] and migrate->dst[]
++ * using range->hmm_pfns[].
++ * Also, migrate->cpages and migrate->npages get initialized.
++ * After migrate_hmm_range_setup(), range->migrate is good
++ * for the rest of the migrate_vma_* flow.
++ */
++void migrate_hmm_range_setup(struct hmm_range *range)
++{
++	struct migrate_vma *migrate = range->migrate;
++
++	if (!migrate)
++		return;
++
++	migrate->npages = (migrate->end - migrate->start) >> PAGE_SHIFT;
++	migrate->cpages = 0;
++
++	for (unsigned long i = 0; i < migrate->npages; i++) {
++		unsigned long pfn = range->hmm_pfns[i];
++
++		/*
++		 * We are only interested in entries to be
++		 * migrated.
++		 */
++		if (!(pfn & HMM_PFN_MIGRATE)) {
++			migrate->src[i] = 0;
++			migrate->dst[i] = 0;
++			continue;
++		}
++
++		migrate->cpages++;
++
++		/* HMM_PFN_MIGRATE without HMM_PFN_VALID denotes the special zero page */
++		if (pfn & HMM_PFN_VALID)
++			migrate->src[i] = migrate_pfn(page_to_pfn(hmm_pfn_to_page(pfn)));
++		else
++			migrate->src[i] = 0;
++
++		migrate->src[i] |= MIGRATE_PFN_MIGRATE;
++		migrate->src[i] |= (pfn & HMM_PFN_WRITE) ? MIGRATE_PFN_WRITE : 0;
++		migrate->src[i] |= (pfn & HMM_PFN_COMPOUND) ? MIGRATE_PFN_COMPOUND : 0;
++		migrate->dst[i] = 0;
++	}
++
++	if (migrate->cpages)
++		migrate_vma_unmap(migrate);
++
++}
++EXPORT_SYMBOL(migrate_hmm_range_setup);
 -- 
 2.55.0
 
