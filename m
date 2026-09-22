@@ -1,256 +1,185 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D87A52F289
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:55:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6963B51C042
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067317; cv=none; b=O1zP7cu070q6+0tlxfbCFTfi5YEJTW6UGvO45j3gwMJ167UucfDCeISOwtv9SYR8/ux5hbC8rF8wX6Qf44uYVoEWeZtw0CystBGlfRiXqpkSibnenxbnWmpwhhd+k38jIRSbPg73+sqwvbAd8DOk3vGDojQ22+hi21Cf9WdxfVY=
+	t=1790067335; cv=none; b=QKhCOaD3MEp5IictT49VnyQL2KiaW3U42d6KB5B/GxwqAMH7pDfKYUyVKzLDXWlD2uLW67jSEBLAO5OFuEsIZuHKTTZ749m9R3hEJyQycej7OW+8xBOU0AP8bPPhXNTURC3U0MBx8W1cC6pZ52jcTlF5+ZbHsT0uoU+Kleyhhvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067317; c=relaxed/simple;
-	bh=/R7/zPpAu251V6P/E/Xj+nW9E/NOV7769IvAMnd4OJA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WTLmufZwqMu4BzfDAskUod/klGvODlPyevvIOGdIol9gllEQ+y7WkXEjKU1BPL1WvPE1zKfKdcZzoAr8l/An09nc5fC0jF5+80ePH3SrhOuJ7h6cmwCw2JpTet134MDOwv+AOPO/L6XV8+uLhyJYtIym4Oouo3+hxjg2MBpmEIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PA/EidzB; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790067335; c=relaxed/simple;
+	bh=RVa+QN9BbYwwQIvQ58JLG7DM/SEnz2K6A3lncWeiB2g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TIJGGJy5lrGR8Bz6RcTPb02chuWNspMJqgd2ZFfHhZKEj0zGAcm1CYdUqS/pQ+PHGk7LXrhW2vhXdZcT2ddNQ6nnyeCl+8VxxFyHYRWEsT4IR31ChCGrasWrerNpy+Sg+P479sYftBJf0L6g6skqCJanOwuysLPFaSHq8Y4z1I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dFe0/2/C; arc=none smtp.client-ip=95.215.58.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PA/EidzB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790067315; x=1821603315;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=/R7/zPpAu251V6P/E/Xj+nW9E/NOV7769IvAMnd4OJA=;
-  b=PA/EidzBK8/Uv6M4BTXF1dyIfLzFQg2cp5uOaspHhlB7F3C9gQDSixcN
-   64IxTNVuzRgTXKm9G2DXnp8Yn3sMfc4grjTvqoF+vSL32I0SGsIOrlMCq
-   198thnjMdFcaGgaAU9KEM2lbw5MPqIBPWLU3UwdARMfozOcAHkTTQHntf
-   5T6h9qJIH70j9gW7OMWhIrQM/gdkejQByrdAJVcEX9zwdzmgOy8jwS7U7
-   IiGTUh3sA527E7xSfT3DI3cXPuMWDGkxbCqkXdQoAhvViF7AbCsLLGQpS
-   5nhPsq/+I58FZxR/WwTq4ugGSxJHzwab6vONCUZnvVTvqMOhjVPbKvxk5
-   w==;
-X-CSE-ConnectionGUID: m4j48gzISZqQSDex5dWwZQ==
-X-CSE-MsgGUID: /K65xGlSQEWkasRTNDqVEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="89785759"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="89785759"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:55:12 -0700
-X-CSE-ConnectionGUID: lkLVqdwoRN2PE2VUDbdFPw==
-X-CSE-MsgGUID: bmsVI9FnTiiuUXt6Hwc2ug==
-X-ExtLoop1: 1
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.71])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 01:55:07 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: vishnu.saini@oss.qualcomm.com, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss
- <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>,
- Ravi Agola <raviagol@qti.qualcomm.com>, Vishnu Saini
- <vishnu.saini@oss.qualcomm.com>
-Subject: Re: [PATCH v4] drm/bridge: lt9611uxc: support displays with up to 4
- EDID blocks
-In-Reply-To: <20260922-lt9611usc_edid34_misc_next-v4-1-47d5315821fe@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260922-lt9611usc_edid34_misc_next-v4-1-47d5315821fe@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 11:55:01 +0300
-Message-ID: <96be97088cc0d436414f0f9552fa7442312ac719@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dFe0/2/C"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RVa+QN9BbYwwQIvQ58JLG7DM/SEnz2K6A3lncWeiB2g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790067331; v=1; x=1790672131;
+ b=dFe0/2/CFH0yXlkfaeh/FVz3DRc6CN9Dq/+VE+isNzW/EeJH53C2jrCqc7kVtgt4qLxCOOeT
+ oXuITShSM23JcsxKTWDHL4425F3USCJ221ykV2AOBkQi1Lupiq0Miqb96UY66LSG6d35j+DbgWt
+ J3jNasQMEde8s9fAO7RktNFw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 96a8b57497de07d5;
+	Tue, 22 Sep 2026 08:55:14 +0000
+X-Mizu-Trace-ID: 96a8b57497de07d5
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Date: Tue, 22 Sep 2026 16:54:46 +0800
+Subject: [PATCH net-next 4/5] selftest: seg6: add explicit cleanup for SRv6
+ End PSP test
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-srv6_flavors_endx-v1-4-4d01c05c47b7@kylinos.cn>
+References: <20260922-srv6_flavors_endx-v1-0-4d01c05c47b7@kylinos.cn>
+In-Reply-To: <20260922-srv6_flavors_endx-v1-0-4d01c05c47b7@kylinos.cn>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-On Tue, 22 Sep 2026, vishnu.saini@oss.qualcomm.com wrote:
-> From: Ravi Agola <raviagol@qti.qualcomm.com>
->
-> The LT9611UXC bridge can fetch only 2 EDID blocks at a time, which
-> previously limited EDID reading to 2 blocks and prevented support
-> for displays exposing more than 2 EDID blocks.
->
-> Add driver support to fetch up to 4 EDID blocks by re-triggering
-> EDID access after the first 2 blocks are read. For block 0 and 2,
-> set the EDID ready flag in 0xb028 so the bridge can expose the
-> corresponding EDID blocks, then retry the read until the expected
-> EDID is fetched.
->
-> Reset the edid_read flag on HPD disconnect so that the next
-> connect event triggers a fresh EDID fetch.
->
-> Increase EDID wait time from 500ms to 1000ms, On Qualcomm rb3gen2
-> platform sometimes edid read interrupt is coming 600-650 ms after
-> HPD interrupt resulting in edid read failure.
->
-> Signed-off-by: Ravi Agola <raviagol@qti.qualcomm.com>
-> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> ---
-> Changes in v4:
-> - Rebased onto latest drm-misc-next.
-> - No functional changes; replied inline to the two Sashiko-bot
->   review comments on v3
-> - Link to v3: https://lore.kernel.org/r/20260722-lt9611usc_edid34_misc_next-v3-1-7ec2bba6ff8e@oss.qualcomm.com
->
-> Changes in v3:
-> - moved edid_read state change inside mutex lock     [sashiko-bot]
-> - returned -ETIMEOUT when retry_cnt is exhausted without a match.    [Sashiko-bot]
-> - Increased edid wait timeout from 500ms to 1000ms as edid interrupt is sometimes taking around 650ms time
-> - Link to v2: https://lore.kernel.org/r/20260624-lt9611usc_edid34_misc_next-v2-1-24ce3f5770b8@oss.qualcomm.com
->
-> Changes in v2:
-> - Removed memcpy and doing edid fetch everytime. Required an update in firmware as well for edid block0 reset.
-> - Verified patch with existing firmware V5.0.21, patch is not causing any regression if V5.0.21 firmware is used.
-> - Firmware V5.0.22 is required with this patch to support edid fetch on more than 2 edid block monitors.
-> - Link to v1: https://lore.kernel.org/r/20260517-lt9611usc_edid34_misc_next-v1-1-5e2fd8c6399b@oss.qualcomm.com
-> ---
->  drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 80 +++++++++++++++++++++++++-----
->  1 file changed, 68 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> index b3bb7f2cebb3..a74077a65f62 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> @@ -28,7 +28,7 @@
->  #include <drm/display/drm_hdmi_audio_helper.h>
->  
->  #define EDID_BLOCK_SIZE	128
-> -#define EDID_NUM_BLOCKS	2
-> +#define EDID_NUM_BLOCKS	4
->  
->  #define FW_FILE "lt9611uxc_fw.bin"
->  
-> @@ -167,6 +167,8 @@ static void lt9611uxc_hpd_work(struct work_struct *work)
->  
->  	mutex_lock(&lt9611uxc->ocm_lock);
->  	connected = lt9611uxc->hdmi_connected;
-> +	if (!connected)
-> +		lt9611uxc->edid_read = false;
->  	mutex_unlock(&lt9611uxc->ocm_lock);
->  
->  	drm_bridge_hpd_notify(&lt9611uxc->bridge,
-> @@ -380,13 +382,39 @@ lt9611uxc_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connect
->  static int lt9611uxc_wait_for_edid(struct lt9611uxc *lt9611uxc)
->  {
->  	return wait_event_interruptible_timeout(lt9611uxc->wq, lt9611uxc->edid_read,
-> -			msecs_to_jiffies(500));
-> +			msecs_to_jiffies(1000));
-> +}
-> +
-> +static int lt9611uxc_read_edid_block(struct lt9611uxc *lt9611uxc, unsigned int block,
-> +				     u8 *buf,  size_t len)
-> +{
-> +	int ret;
-> +
-> +	lt9611uxc_lock(lt9611uxc);
-> +
-> +	regmap_write(lt9611uxc->regmap, 0xb00a, (block % 2) * EDID_BLOCK_SIZE);
-> +
-> +	ret = regmap_noinc_read(lt9611uxc->regmap, 0xb0b0, buf, len);
-> +	if (ret) {
-> +		dev_err(lt9611uxc->dev, "edid block %d read failed: %d\n", block, ret);
-> +		lt9611uxc_unlock(lt9611uxc);
-> +		return -EINVAL;
-> +	}
-> +	lt9611uxc_unlock(lt9611uxc);
-> +
-> +	return ret;
->  }
->  
->  static int lt9611uxc_get_edid_block(void *data, u8 *buf, unsigned int block, size_t len)
->  {
->  	struct lt9611uxc *lt9611uxc = data;
-> -	int ret;
-> +	int ret = 0;
-> +	int retry_cnt = 10;
-> +	unsigned int edid_ready_flag = 0;
-> +	bool header_matched;
-> +	bool edid_valid = false;
-> +	const u8 edid_header[8] = { 0x00, 0xFF, 0xFF, 0xFF,
-> +				    0xFF, 0xFF, 0xFF, 0x00 };
->  
->  	if (len > EDID_BLOCK_SIZE)
->  		return -EINVAL;
-> @@ -394,20 +422,48 @@ static int lt9611uxc_get_edid_block(void *data, u8 *buf, unsigned int block, siz
->  	if (block >= EDID_NUM_BLOCKS)
->  		return -EINVAL;
->  
-> -	lt9611uxc_lock(lt9611uxc);
-> +	if (block == 0 || block == 2) {
->  
-> -	regmap_write(lt9611uxc->regmap, 0xb00b, 0x10);
-> +		lt9611uxc_lock(lt9611uxc);
->  
-> -	regmap_write(lt9611uxc->regmap, 0xb00a, block * EDID_BLOCK_SIZE);
-> +		edid_ready_flag = (block == 0) ? BIT(0) : BIT(1);
->  
-> -	ret = regmap_noinc_read(lt9611uxc->regmap, 0xb0b0, buf, len);
-> -	if (ret)
-> -		dev_err(lt9611uxc->dev, "edid read failed: %d\n", ret);
-> +		/*
-> +		 * Set the EDID ready flag so that lt9611uxc can fetch correct EDID block
-> +		 */
-> +		regmap_write(lt9611uxc->regmap, 0xb028, edid_ready_flag);
->  
-> -	lt9611uxc_unlock(lt9611uxc);
-> +		lt9611uxc_unlock(lt9611uxc);
->  
-> -	return 0;
-> -};
-> +		do {
-> +			msleep(100);
-> +			ret = lt9611uxc_read_edid_block(lt9611uxc, block, buf, len);
-> +			if (ret)
-> +				break;
-> +			/*
-> +			 * Compare first 8 bytes of EDID header for block 0 and block 2
-> +			 * to confirm EDID read successfully
-> +			 */
-> +			header_matched = (memcmp(edid_header, buf, 8) == 0);
-> +			edid_valid = (block == 0 && header_matched) ||
-> +				     (block == 2 && !header_matched);
-> +			if (edid_valid)
-> +				break;
-> +
-> +		} while (retry_cnt-- > 0);
+From: Hangbin Liu <liuhangbin@kylinos.cn>
 
-What's the purpose of the above dance? Why do you have to try ten times,
-and what's with the header matching? None of this is explained in the
-commit message.
+The PSP test installs policy and route state, but relies on global
+cleanup to tear it down. That can leave flavor-specific state around
+when later tests are added to the same script.
 
-BR,
-Jani.
+Add cleanup_end_flv_psp() and run it at the end of
+host_srv6_end_flv_psp_tests().
 
+The host proxies are needed by all PSP testing. So move it to common
+setup() and no need to delete.
 
-> +
-> +		if (!ret && !edid_valid)
-> +			ret = -ETIMEDOUT;
-> +	} else {
-> +		ret = lt9611uxc_read_edid_block(lt9611uxc, block, buf, len);
-> +
-> +		lt9611uxc_lock(lt9611uxc);
-> +		regmap_write(lt9611uxc->regmap, 0xb028, 0x00);
-> +		lt9611uxc_unlock(lt9611uxc);
-> +	}
-> +
-> +	return ret;
-> +}
->  
->  static const struct drm_edid *lt9611uxc_bridge_edid_read(struct drm_bridge *bridge,
->  							 struct drm_connector *connector)
->
-> ---
-> base-commit: 8ef59ee794076e2b58cff357b12de2ba5d441271
-> change-id: 20260517-lt9611usc_edid34_misc_next-b02592de0b25
->
-> Best regards,
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+ .../testing/selftests/net/srv6_end_flavors_test.sh | 70 ++++++++++++++++++++--
+ 1 file changed, 66 insertions(+), 4 deletions(-)
+
+diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+index 56a1c5f865a7..52731983b4cc 100755
+--- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
++++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+@@ -564,10 +564,6 @@ __setup_rt_policy()
+ 		add "${IPv6_HS_NETWORK}::${dst}" \
+ 		encap seg6 mode inline segs "${policy}" \
+ 		dev "${DUMMY_DEVNAME}"
+-
+-	ip -netns "${in_nsname}" -6 neigh \
+-		add proxy "${IPv6_HS_NETWORK}::${dst}" \
+-		dev "${RT2HS_DEVNAME}"
+ }
+ 
+ # see __setup_rt_policy
+@@ -576,6 +572,56 @@ setup_rt_policy_ipv6()
+ 	__setup_rt_policy "$1" "$2" "$3"
+ }
+ 
++cleanup_rt_policy_ipv6()
++{
++	local dst="$1"
++	local encap_rt="$2"
++	local policy_rts="$3"
++	local in_nsname
++	local rt_nsname
++	local function
++	local fullsid
++	local op_type
++	local node
++	local n
++
++	in_nsname="$(get_rtname "${encap_rt}")"
++
++	for n in ${policy_rts}; do
++		node="$(__get_srv6_rtcfg_id "${n}")"
++		op_type="$(__get_srv6_rtcfg_op "${n}")"
++		rt_nsname="$(get_rtname "${node}")"
++
++		case "${op_type}" in
++		"noflv")
++			function="${END_FUNC}"
++			;;
++
++		"psp")
++			function="${END_PSP_FUNC}"
++			;;
++
++		*)
++			break
++			;;
++		esac
++
++		fullsid="${LOCATOR_SERVICE}:${node}::${function}"
++
++		# Remove SRv6 Endpoint behavior for the selected router
++		if ip -netns "${rt_nsname}" -6 route get "${fullsid}" &>/dev/null; then
++			ip -netns "${rt_nsname}" -6 route \
++				del "${fullsid}" \
++				table "${LOCALSID_TABLE_ID}" \
++				dev "${DUMMY_DEVNAME}"
++		fi
++	done
++
++	# Remove SRv6 policy for incoming traffic sent by connected hosts
++	ip -netns "${in_nsname}" -6 route \
++		del "${IPv6_HS_NETWORK}::${dst}" dev "${DUMMY_DEVNAME}"
++}
++
+ setup_hs()
+ {
+ 	local hs="$1"
+@@ -645,6 +691,14 @@ setup()
+ 	setup_rt_local_sids 3 "1 2 4"
+ 	setup_rt_local_sids 4 "1 2 3"
+ 
++	# setup proxy on route entries for hosts
++	ip -netns "$(get_rtname 1)" -6 neigh add \
++		proxy "${IPv6_HS_NETWORK}::2" \
++		dev "${RT2HS_DEVNAME}"
++	ip -netns "$(get_rtname 2)" -6 neigh add \
++		proxy "${IPv6_HS_NETWORK}::1" \
++		dev "${RT2HS_DEVNAME}"
++
+ 	# testing environment was set up successfully
+ 	SETUP_ERR=0
+ }
+@@ -669,6 +723,12 @@ setup_end_flv_psp()
+ 	setup_rt_policy_ipv6 1 2 "1:psp"
+ }
+ 
++cleanup_end_flv_psp()
++{
++	cleanup_rt_policy_ipv6 2 1 "3:noflv 4:psp 2:psp"
++	cleanup_rt_policy_ipv6 1 2 "1:psp"
++}
++
+ check_rt_connectivity()
+ {
+ 	local rtsrc="$1"
+@@ -771,6 +831,8 @@ host_srv6_end_flv_psp_tests()
+ 
+ 	check_and_log_hs_connectivity 1 2
+ 	check_and_log_hs_connectivity 2 1
++
++	cleanup_end_flv_psp
+ }
+ 
+ test_iproute2_supp_or_ksft_skip()
 
 -- 
-Jani Nikula, Intel
+2.55.0
+
