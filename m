@@ -1,67 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B176D4F7CC2;
-	Tue, 22 Sep 2026 11:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C47539762;
+	Tue, 22 Sep 2026 11:01:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074862; cv=none; b=mxZFvYphiP3bZLVKJS2aENXHQFfxOA06JY+xcGNms7WEhmoifJgW6kJSxLR2WbO4P7CRe795MaLx/uFVf7MQnM+Tpc3wdUg50CWHTDHBj8jTdnaOULv46cBk6bV8SJtrVYT64tQjU7thXmJH1kfyKF45W0kUwBP2MnpRTjUI3jI=
+	t=1790074877; cv=none; b=WvKgp/eit0bDi06IiylmwKNH+jrwZj02BlAcbM5Zbk+/LfSqWn/mcvmuLtC11P3HZdH2D7nLz7AJFzuHJeIma6zbaLa6xeoBuCH5A/eAX4cBrnOLX0rjsR1/wPThqAUohMz6Kg43tSc8LUUJIcb0Fz/KxMnvSKfbOVetFDNwdGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074862; c=relaxed/simple;
-	bh=wjNU9I/Az/NKGeCqubCpD0V5tWNSRzrAf9QGIhV+xMc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=VMjJZLECrBV9ZflBTlYtAZNYn1t0uOGy4FKcDNdrIv9A8EHe26FJw+rlPD5TO45/WHA4EoOPPyErX4L99Wc0vEJV3KHSjLnN623I/6s5DUqKioq6qEcEcdz0tKx8KJgH/xJSoDffZPf+DmrGjzLOW4k1J3fRAeIA4stqi98GIcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AT25D4Wz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790074877; c=relaxed/simple;
+	bh=WIFqIyjzWt+/9sQwK068IvZyxXOO2WqnStzPOAksiio=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=moFHmMx5qqnZB26PN3tBf42zyMCvnn7t1/j28fOMFXCEJ+lxxs2ZdBJF6gE6J/lbV1FqpfPRMc9XWAQaKAsnyq1j7v8WNiwh7sZOUqgNKMrtY01I/sE6dX5Xxqye9zcuTB4eH0tmCypHn9iBGiXdR4AaBVasFR5HdsRq/8EGRpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=au3gdWzb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AT25D4Wz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F861F000FF;
-	Tue, 22 Sep 2026 11:00:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="au3gdWzb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39F771F000FF;
+	Tue, 22 Sep 2026 11:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074861;
-	bh=+16wq41KVxbnmCP3te3elTSkwT3Xi9ULqmUVUXOWlwY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=AT25D4WzZ8uKpspTEZSOQv3KY4W6TQbnILr3SK+doVf/7MCYd070Uq+ZHUWhs9dbi
-	 P6TaR+GCFAoDmOyFkvo8g3ROn0zjYpDDi+oCxwwbuFjwr3ruXz04Xf9+dbHt7DlKSN
-	 yHxxikgcUnGJTK4dRULpTU3RZ2xEI5AmMSH3IfgofFGtq0uLBqYTSW36qy3R1ITJ9/
-	 3zlByPvXWDP4yTeoxgWcC/DEqEmzoRuJgSsL1JLTKla6fzM6JKdyFA2QKvW71DQhXr
-	 u4qLuwF1LT2c5PooVy66NYcakOGJ31wsex6x5pgGEPkoXmnAJlpWrVJ38wP256c8p5
-	 efM0zMWE9gWvA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org, pavel@kernel.org, Myeonghun Pak <mhun512@gmail.com>
-Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <20260910194525.99654-1-mhun512@gmail.com>
-References: <20260910194525.99654-1-mhun512@gmail.com>
-Subject: Re: (subset) [PATCH] leds: ktd2692: Pass context to regulator
- cleanup
-Message-Id: <179007485955.3295011.7984610080294031068.b4-ty@b4>
-Date: Tue, 22 Sep 2026 12:00:59 +0100
+	s=k20260515; t=1790074876;
+	bh=Y1vdsGOY/KDvyzcJWbwWtxtfK60TGHQsGcIdVzaWuz4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=au3gdWzbGbTFqrEnZJR+b/2Tlg2WMPlv3PsxS+oPZN/5GhLsAbD1m1Sxb4nq5W9AM
+	 zGe6/az5pmJZQoCiYmU22mUrdPDYUfxTyCA062u5imaevgjMgj0ieyXHMh7nZPhfUI
+	 b66Vp3L2qt+Bs0Tvw1NA5jY8DnLjsGorJXcxGaqjUWvu/pVBw/hWPI3OEMFwvXRKB3
+	 B+p/9RE5oomLxr9y6EGk/YuoN42fRvWsPvtJUz2z6O5jvfYM2skc8oU1+aSCobP8Hs
+	 l0i8o/T3CWrAWzOwoQ1UFQSmx5/fQbrTC2dcMmFz+I2FqF81taNFfYYV3yTckO5zdx
+	 sI6Bt9TZ7GhjQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9390738119DF;
+	Tue, 22 Sep 2026 11:00:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Subject: Re: [PATCH net-next v4 0/3] net: dsa: realtek: EEE support for
+ RTL8365MB-VC
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179007480745.3557644.10659834331217655473.git-patchwork-notify@kernel.org>
+Date: Tue, 22 Sep 2026 11:00:07 +0000
+References: <20260918091722.3270534-1-o.rempel@pengutronix.de>
+In-Reply-To: <20260918091722.3270534-1-o.rempel@pengutronix.de>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: linusw@kernel.org, luizluca@gmail.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ kernel@pengutronix.de, linux-kernel@vger.kernel.org, a.fatoum@pengutronix.de,
+ alvin.sipraga@analog.com, netdev@vger.kernel.org
 
-On Thu, 10 Sep 2026 15:45:25 -0400, Myeonghun Pak wrote:
-> regulator_disable_action() retrieves the driver context from device
-> driver data.  However, ktd2692_parse_dt() registers the action before
-> ktd2692_probe() stores the context with platform_set_drvdata().
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Fri, 18 Sep 2026 11:17:19 +0200 you wrote:
+> On these switches EEE is enabled by default, but so far it is neither
+> visible nor controllable from user space. This series wires EEE up to
+> phylib/phylink on the RTL8365MB-VC integrated-PHY ports so it can be
+> observed and controlled per port via ethtool
 > 
-> If devm_add_action_or_reset() cannot allocate the action, it invokes the
-> callback immediately.  A later probe failure also invokes it during
-> managed-resource unwinding.  Both paths dereference a NULL context.
+> Oleksij Rempel (3):
+>   net: phy: realtek: use C45 for RTL8365MB-VC internal PHY MMD access
+>   net: dsa: realtek: rtl8365mb: extract PHY OCP address halves with
+>     FIELD_GET
+>   net: dsa: realtek: rtl8365mb: add EEE support
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [net-next,v4,1/3] net: phy: realtek: use C45 for RTL8365MB-VC internal PHY MMD access
+    https://git.kernel.org/netdev/net-next/c/4ef25721f7c8
+  - [net-next,v4,2/3] net: dsa: realtek: rtl8365mb: extract PHY OCP address halves with FIELD_GET
+    https://git.kernel.org/netdev/net-next/c/e9ba480ec820
+  - [net-next,v4,3/3] net: dsa: realtek: rtl8365mb: add EEE support
+    https://git.kernel.org/netdev/net-next/c/61c59309b6f8
 
-[1/1] leds: ktd2692: Pass context to regulator cleanup
-      commit: c73e9f04445f361d5f19ca2edfde742ce18348ef
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
---
-Lee Jones [李琼斯]
 
