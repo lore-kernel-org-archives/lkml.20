@@ -1,72 +1,77 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BCC53D9F6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775DC563FAA
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092529; cv=none; b=X6GNkkMY7tw36t1tvrlyRE6iDl6xNbVElgjTqPbFdk5KuggHeHInPhucSAJJ6v5nV70XJLM4o5OwgoKpJCblXDro64XGw5WiGAYpu12c9scQV2YbmmixyI5bls/v6129fZDJlKUOWQe2MUiHKGuJm+dBT7qjGxr8OQ2v12YIa+4=
+	t=1790092533; cv=none; b=ur+F70i0V2MLpMPTjmqfF6OLac5/hxit1AP02jnCrKRSrL0D6/ch4CO6u/XxuV87IuhIPM2tcMdvjf1lLWER8BygpfmZ9NrS4vX7hlc5Y4Ee9pzI3Rv2EEGperjyGCLrSwrdIpNHb7X8Vx5WMU02cOFmlLIvH6m4id43daTfXh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092529; c=relaxed/simple;
-	bh=7msfHNMkfpLZ1KHMsjSAvVGA9heuhV84fUsTNvFtIlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cZp+Lg0QIfMqTq82I1Uwf89+ENZZUONTfPVsCLVYiM0CeVyEo91IU2G7XScDOsbILEGDVS0BAR5cAXHZ0tXnQK7X42KYnYBiZFM1XavrdzmpJZeykmqLhQeqyZ0CsFmUqGRyCUWwcffG1+P/kev8JUTle4h5yuHHgKJcrZAkWFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NVWUsKOn; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790092533; c=relaxed/simple;
+	bh=LbyRcjRHQw/+xkQGHr8tsvAw+bO9ob1kpAT7jwfl9bI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Sg4gWKXDANovGl3kuNYGm1npVeGLnDrltol9byLXs4sLK6kO9rzfoHi+EbRrEcDqcFgAKVHQ31im4OjSLcucG9WjMWUUJmIeZTU2MWtEuurX5XfFmZ9TNFs7TBBpOpLcf5LLOMhqCARcOeMdulRJZ+ccX28HRv4RuOsPkM4nmcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UvMiZVH5; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NVWUsKOn"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so61591a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:55:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UvMiZVH5"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so61647a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:55:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790092528; x=1790697328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wRArySa0Teo0omwOHf0fDNN56RT6AwwYq14UA/kvV5k=;
-        b=NVWUsKOnvz4lNQN1z14H4dCF4UdpN47ygDjrHGzORKbmLRI/6G8bGNLzUycglP6O/0
-         tjUdsLkoV4VqiMUztZArQqsN730TWz8JzAzYF1nS5DgtjXKBbQHlvb06zI3Qclb5ytsk
-         QrYNx0ExqPQcvlGyy4gpGmheLEIED8i7NM0GLxlPbopWZh9uSrmZHcOWfUrBQ9hEFPMA
-         0BPME56FaJWRYeNnBLeTh3wkONEdGuVxXJoyslZgBNBB+ENFckJ+95TCD+dx1JsvdXJo
-         LpjWa7NpXy2PxYExl1/KNfriVkJVIxMXgpiMw4D9PIgm3U99yZwmO2ee73YxLeDvSHLv
-         nMlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092528; x=1790697328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790092532; x=1790697332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wRArySa0Teo0omwOHf0fDNN56RT6AwwYq14UA/kvV5k=;
-        b=aD9Iuff0GqNn2/zXG8lk1lBsUhdI04N5gO+P/q1kfiun+C0mOBhHOfRT7Pvg858AUm
-         VTGCR88xGq+O3QxdOiymREgsag94tuvOApcTeMERzGW93MpIawidESD+IskBXtUupNBz
-         9ClDBerDjnbLAce9jIOokoHMAig4FdsyRmEw9i7d+7NgKdxec6GRTBtN/G5O2g0EeTUz
-         M/0jHIzfjh08fqRCC4A1E+9I8uwsUzFu9Ww8bkb3yaolrVekJcjvbw45dKyAQRm+11vV
-         XcwU61v63+0qI/DJmihfKkYaoKLTNU1ZZ23ww2VwofoV/Y3Edgv+7WkyYP66soAKy0Kb
-         8xNg==
-X-Forwarded-Encrypted: i=1; AKwUvBzor4OWZfZRS5MHEwhMeCxzFpPK3mWabq5kqWeGEpezwbj1RayZaP70pQOs6Op/4hFI18v0Y66cX03Ukg0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFhkHM/jHXT/PbfEqNTtGwgpiADCEoa5AaOKJ96JgpNKp8IOQJ
-	ppOQF/caP7COszwu6PA4fFVd8dqghDEz+NE7PB6G37TQMIe+2SAKhO/y
-X-Gm-Gg: AYBFou2eLaKHzufXiXy4VEsP+suwUS11fVHu619UIo4Ks7cN9xhO0gkdSWU7GgrFb+g
-	wiw4RV7Y9vH7gdIW0I/l9xfHfSHvbGf5nPzBIqOqbX9B62dLwpcr1VMoU1dQLG5XqJZ2PU7YPDf
-	mlWdOcc7FopMVmghf1jesaQ+arrXxreFufTqbFamFHH3hs/8Rv9ImSSAADnwP7Urm3URLYm6ofC
-	WOFJn8TYE/mZuEEs4AOvivLnMR4V2SQIN38NU4z5AxZPLDeVh8Ye7SUkiePAS3ME7O3Hn9O/VqW
-	lFso6F5upD/c/rrT2SBIVYVVV5r6FxP928itwolIoqkav6L30E8E7VMUegXpWmo5yTMgJwJWLBS
-	Y4/gACFbD4bAH/pFc+mKJJacd8GtGf29OljrlEsAb1+w2pHpgVcTUQB+M7FpBkz45Ya4qKRGvJ6
-	Cka7ETFZTsL/2kYXPqf+XKBqA7JqWCFVpzlXFTLANKLz0xVFZ+hxJVJFJfdvxB9VDdbt9dIG9wv
-	iWY2TNnUicfDcEPLa3v4hU4JF5PDo2JcZ+U/qbLTcMMPvnH7kx+wyDgxYmQFImmYjV7cpNrnq6r
-	Dn+589zkqUrnY86dEpcqqEEumJZ99gmN6xOuOWL8QK522HZyFUzjEn2rNELUtas=
-X-Received: by 2002:a17:90b:2588:b0:39e:6c69:f474 with SMTP id 98e67ed59e1d1-3a0732431f3mr2031848a91.51.1790092527799;
-        Tue, 22 Sep 2026 08:55:27 -0700 (PDT)
+        bh=vpJfO8QkHNHZKvD9yNEk2TGRf9tD9f/5UmHSoPqjBK4=;
+        b=UvMiZVH5QgqoM0tGZGzK18VNddaap+02F4EcFWY49Bp2JARAgauWxeYbkM6xlhC6yb
+         HkGG60obDttqseFY2CUBA7UD86qVlXqE8LxxBY87AlI48+55aYbjkqsh0maURgA4VLRm
+         HtBVufx6tWFQod6Fe9XamLy9awE+qRbj8cDYt1Zy7c60OWCRQrTpJocMqVB7JaKQPfZl
+         Fhy+HtBJ2h2ljYWcgEAd9dTNEC1fqHQKc7GZ8iHIRiSwOJn/StVg5oDNVxes9j/aAt34
+         TNF3bRIreOiMLkJMohqeGm1wlPqzK6ZuoaoSzCp1cxiP6qxlFWI5L/upLpxm33PopHt3
+         BhyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790092532; x=1790697332;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vpJfO8QkHNHZKvD9yNEk2TGRf9tD9f/5UmHSoPqjBK4=;
+        b=DqGGeIiR2ikCQB/u/nqUWk7LYd/7C83gaFJz16k6kWGnMe6XFpHQVnpdtzTbdpN4Nm
+         72w26abjdI0pn6qVLplxh1/JWsm3tufTVs5sCrtbiQYhjUEoIXvlsQZq59NCMX9FwFoJ
+         vBncoO664T1Zc0nsfUTYw9OkQs5rcHYJP2DC3yCAVvtVerxAREiS2Xq7N8qDEB0kX45n
+         00IE39J8kFbcYhCyrZy4TGOdNoeKlC5wFKLXw62IarAKkp3TWYG5FKlA468YMRADP6fy
+         TuuaM66pTsZmPl/2IOtuh1Gxcuv+kWHzXUFg6RgpfOX/7NrgLWWMRj+YyfKZIOpUuc9Y
+         oRjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxE0hjwI3DdRrOr0TkwArvasiWusTreCJHa8l1DKoWKd2/kPtUDxr0D7KkL/ClmY9XnKovmRq8wtSCW0Ww=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUTN78dsgPtcUdkbeKKvP8iTn4iyyt0RDxOQi6POT7Hif7fPE7
+	cxLDNYOkLOoxrL5UxrctOoZS03hOaeadFKtyccgyUOXyNeM3qEJ42c2SnQoyZ84j
+X-Gm-Gg: AYBFou3KNl6FyVDhBxctbaU7dahWGz7Fr1R3WeJiURgKvlJstdYMxq9pVQWabGJDN1O
+	Reh8PfRoAoApFkKzXzs/Phy/uJU81nUcZZ8m8dp/2Ltvcu6nv1u2I+B8dm+c2VtZcrzc+IKC5w3
+	BfK6jDLDcs/vKYp8+nQQeiz7OV564xNonPZHHRC+0RhOVrBASjxwrEvQZYlBzbZ2KSloyEabX8m
+	C41W/Ml/cbNnB/UVm4UeM0Lo8BaSDmEgVxxPQK/MPJMDrNJsJVMYe1LE9XlM5LtsM56anzgar6k
+	6An+a5YjCUrQSAWo9ZceDEyjTT3jUfxOTTDEiRymGQbCXnY2SaQBnGVQaoG83JTVhcbUDrgj3l7
+	JRAyTa1Y/8M39AInIwczB+4ji6a5VXVK4mVoQvcUoh+s5Hi1LdWHm9dHK27ixEzqucC81PPuN0I
+	dhP6zUhYxOZIlX/bdmXpVdLjYGnUC+vEF39mvlevd1PT3mR2QgNpCsYFmykGT5490tUfbEiX1/q
+	EDdtyzFXaXneoKs209O/zjKtnxht1c+Cvl/kuYgltZJTFhchoQ4KXL6dhSDjRZue923mIRZBrf9
+	D4LMwnlkc9PmPSS7ckzOuJuUxlY6/g1uDc+F9Bo96+OyCYjImofQNp+TbJCG8j2vFWLwmXQH6w=
+	=
+X-Received: by 2002:a17:90b:558d:b0:39d:8794:5564 with SMTP id 98e67ed59e1d1-3a07309f90dmr1897591a91.12.1790092531487;
+        Tue, 22 Sep 2026 08:55:31 -0700 (PDT)
 Received: from spider.bream-herring.ts.net ([103.252.203.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbc5451sm83910a91.7.2026.09.22.08.55.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbc5451sm83910a91.7.2026.09.22.08.55.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:55:27 -0700 (PDT)
+        Tue, 22 Sep 2026 08:55:31 -0700 (PDT)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Jan Kara <jack@suse.cz>
 Cc: Christian Brauner <brauner@kernel.org>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] isofs: tie the name conversion buffer to its bound
-Date: Tue, 22 Sep 2026 23:55:22 +0800
-Message-ID: <20260922155524.1993425-1-matthias.goergens@gmail.com>
+Subject: [PATCH 2/2] isofs: bound the Joliet iocharset conversion by the output buffer
+Date: Tue, 22 Sep 2026 23:55:24 +0800
+Message-ID: <20260922155524.1993425-3-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922155524.1993425-1-matthias.goergens@gmail.com>
+References: <20260922155524.1993425-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,28 +80,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two cleanups around the scratch buffer isofs_readdir() and
-isofs_lookup() hand to the name converters.  No functional change; the
-first patch's assertions hold on the current code.
+uni16_to_x8() has no output-size parameter.  It passes
+NLS_MAX_CHARSET_SIZE to uni2char() on every iteration, which bounds what
+that one character may write but says nothing about how much of the
+buffer is left, and then writes a terminator wherever it stopped.
 
-Found while looking at something else: get_joliet_filename() has been
-passing PAGE_SIZE as its output bound since b2eb2e288604 shrank the
-buffer to 1024, which is safe only because de->name_len is a single
-byte.  That seemed worth writing down in a form the compiler checks.
+Nothing bounds the total.  It fits today only because the caller's input
+is bounded: de->name_len is a single byte, so at most 255 >> 1 units,
+each expanding to at most NLS_MAX_CHARSET_SIZE bytes.  The previous
+patch asserts that relationship at build time, but the conversion itself
+should not depend on it.
 
-Matthias Goergens (2):
-  isofs: size the name conversion buffer from a named constant
-  isofs: bound the Joliet iocharset conversion by the output buffer
+Pass the buffer size in and hand uni2char() the space that actually
+remains, stopping on -ENAMETOOLONG, as fs/hfsplus/unicode.c does.
 
- fs/isofs/dir.c    |  9 ++++++++-
- fs/isofs/isofs.h  |  9 +++++++++
- fs/isofs/joliet.c | 25 ++++++++++++++++++++-----
- fs/isofs/namei.c  |  2 +-
- fs/isofs/rock.c   |  3 +++
- 5 files changed, 41 insertions(+), 7 deletions(-)
+The result is unchanged for every name a valid image can carry; only a
+caller that passed a smaller buffer would now truncate rather than
+overrun.  Listings of plain, Rock Ridge, Joliet, Rock-Ridge-plus-Joliet
+and zisofs images are unchanged.
 
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+ fs/isofs/joliet.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+diff --git a/fs/isofs/joliet.c b/fs/isofs/joliet.c
+index b1f4a105ee87..0832f40a9a2b 100644
+--- a/fs/isofs/joliet.c
++++ b/fs/isofs/joliet.c
+@@ -15,19 +15,26 @@
+  * Convert Unicode 16 to UTF-8 or ASCII.
+  */
+ static int
+-uni16_to_x8(unsigned char *ascii, __be16 *uni, int len, struct nls_table *nls)
++uni16_to_x8(unsigned char *ascii, __be16 *uni, int len, struct nls_table *nls,
++	    int outsize)
+ {
+ 	__be16 *ip, ch;
+-	unsigned char *op;
++	unsigned char *op, *end;
+ 
+ 	ip = uni;
+ 	op = ascii;
++	end = ascii + outsize - 1;	/* leave room for the terminator */
+ 
+ 	while ((ch = get_unaligned(ip)) && len) {
+ 		int llen;
+-		llen = nls->uni2char(be16_to_cpu(ch), op, NLS_MAX_CHARSET_SIZE);
++
++		if (op >= end)
++			break;
++		llen = nls->uni2char(be16_to_cpu(ch), op, end - op);
+ 		if (llen > 0)
+ 			op += llen;
++		else if (llen == -ENAMETOOLONG)
++			break;
+ 		else
+ 			*op++ = '?';
+ 		ip++;
+@@ -59,7 +66,8 @@ get_joliet_filename(struct iso_directory_record * de, unsigned char *outname, st
+ 				outname, ISOFS_NAME_BUF_SIZE);
+ 	} else {
+ 		len = uni16_to_x8(outname, (__be16 *) de->name,
+-				de->name_len[0] >> 1, nls);
++				de->name_len[0] >> 1, nls,
++				ISOFS_NAME_BUF_SIZE);
+ 	}
+ 	if ((len > 2) && (outname[len-2] == ';') && (outname[len-1] == '1'))
+ 		len -= 2;
 -- 
 2.55.0
 
