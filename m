@@ -1,79 +1,45 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8398E3F9F44
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C0E49E12B;
+	Tue, 22 Sep 2026 06:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058937; cv=none; b=fBFikLud+2Sxl6/lHLj4qfNEA/6FzvHPzvdngmGS/EWDKYnMWKEbarEDZjFr7W49ALch9TQEVzi4vRI2T2xPbuuHfptQO/PYkdRPhRSHYTmC54b+85r2ynniRWJUuABLTQX3y6YkQHotGvoo1fGD57YcYa50Y8vXHDaxUG4LAfQ=
+	t=1790058973; cv=none; b=KUeuhojw5hYSeuV2vGE1ruojhxQJlqif0IP4wJ/jsHt4U5E2m5TZ4HP0XtSCjwritHUZzgTKToHhIpGcmCF3sJMLSsg6UDQzzmFhx1Q/kUE59DZTWlnpyMPlX62qX/wC9KolFPtC2KkEMaw9RGkA1FwLn3QJM41rTVJIuDPi7NY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058937; c=relaxed/simple;
-	bh=Vu+R/47nvA6CsyN0t24dTNOwXGk/oELWg6WxHC1bXbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uxglRYRBF0LebwGQqwGCeTe1g4mr+fZQ22XVSI+rWVxpdQC2xwxNf01sthg9PhuuHqJ+ZudBm08xlPrIFFerGmvdv+OQtD7OqOJvOphvhjMPfBleWA6qy2Mr9EYA9PByACfsPTFXJQO/yLBpxUgMff4rMG0O7S+tBclSXIqG7Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVPLMb4u; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790058973; c=relaxed/simple;
+	bh=iR9NPgXSDZd5QPF+uuDT7rL9X8deut3pPHKRe4uA7yA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fzow1atGFlPhm+veJkkaYC8ieRp2EueAB5EAmKGjyNyV5wiLqBMp/c6XCAMbo0PFUEbbRLHMPbUUhU2rSTsr/duANrJ/w4QISXAL0dDL7iTkWiNBroOEtyGT0bBH9QxGl9c1XorwNnO3C2ccH+a+Y/Wv1APa1oaUHFNgmJO2jNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=sRfuknOM; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVPLMb4u"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so25490525e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:35:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790058930; x=1790663730; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sKab2b7lNX+8P0jbeNZOEIpA84gtvKGXxFn+uJOJkUg=;
-        b=BVPLMb4ujhxO1Wcj3jVFcOgHrsyMCSPRKR8XXr+7CpJ3CnZSritiDShWuBD8VUYSWW
-         3vk9XFdC4gBLjN+MewcW/K/Dt/0xsaZQexVZfcEK1f+OqhWmzted8Xv30ucWHPXs+JrY
-         CGNE1+CP3VDj3eEPP9CZGxrCov7LcdvcfupjkFYo80DGMk04hHcHPqX74i7IcfOabIxq
-         TJiBvybnKhPSDw2taf0sHRfPDNerrRI/091eSpT76KIbYcTPrX9e0O2QG4jX/xHJI6gi
-         aVjJ4BvlTifQuG9ouq1ACLVlMQeNfNYBFPdcnNeK1UNMxMDvPa2HE40FaRoeYkpfi7H2
-         y3TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790058930; x=1790663730;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sKab2b7lNX+8P0jbeNZOEIpA84gtvKGXxFn+uJOJkUg=;
-        b=WrwrABRqQM8wO/9Au8mhCc3h79/AWWnHx4PWWPUsWrGv6zrQ36VvGoReI+LD7jZekm
-         ObZ/6KhYfMazrxSw8DIIWSDFWn9awoptBHzcE772FzFv0isRRjD8mWdkxCu9Ev1B6Cbd
-         JQ/jc/3c33lo3cEqOIN7JkBsNMt+VZDKJg6X6uF2aLjOVLeeIlJAXOAc2jJPs0h62BaL
-         ExbGrIOf8v+kUt6vwHro5jFT+ClKwAjkM0IxcFOvPQhULtgqg8yf1+5j2KRjpJo6GjVb
-         0q/iZJUbM9EVUMORO227DEZDcwPc2g4qD2Oyo2PNa915W1uo4yni7cAlCICPOwZxG+F9
-         OHCA==
-X-Forwarded-Encrypted: i=1; AKwUvBzjYnAQ1vrW0U5pdzicoBSsqxmS2bzGsOFrvv2/AMojUj5qofw+vAxopv5SlzJul8nFt7IqfInfeASiO3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQKlTin69CJudPOphHhIuby12RqQe6LgmSdM9/Qlg4t7ee/ggr
-	gEC4ARzDgWZUgNBsABmH5mqFGs+j5Iynfyaj5FDLdzqKXy46UWSLGPhK
-X-Gm-Gg: AYBFou1o2TfjGv1DTEmsnu5GRo/tJ6eIvHvUuW1GQIGyPEEmNdFSo/S+6xtjox91wT9
-	rWAjX/WsCAhhcV+hl/KwGHW2XYE61TWmCFuaCAX7nLrRtoq1rDi11L2HokJDMvUc8FNlmUMR05S
-	/Uf8hQkaF6q3DPZ/RfmJXAsO+BvX5YeHeA4XuKT/oTJtiGBVvIIiS3X5ujg3ZDJa40/Zboh2g2P
-	RV3Z0TYVMrQd4G0574f0bY+VJV1+HgCTqBGIXinsYiMboCDS6RXysOp17Ih3fq/jcnTqagOw6gg
-	V/5B7v0H++gTHwKVFCJc0dKQ5Pk5fdMA8bBgWICytsHDOIJ0K3B8nNpUrK7JUBD71LLBUEirTOZ
-	3O0Y0ZRXwaeS20xNOKAWZl4FVQo2YI6DLZoifA1q8GUYvwxEM8x8UCUoFwZokYYlOeMuBuOM7gc
-	Guxch0WM9SX1Ni7i0V12AR3zzf0TTSanNv3o9G8fO9Nyf8U/CE7r7hit/dKZMuOVynv+ZCFpRuX
-	4Aa44xvi7yTm7hQ4lV7lEYebkR+YcsHe1oow6w=
-X-Received: by 2002:a05:600c:3ba4:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49fc57414c4mr230924765e9.27.1790058929804;
-        Mon, 21 Sep 2026 23:35:29 -0700 (PDT)
-Received: from TMOROL-MAD.sanjose.local ([192.67.141.100])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad3669fsm28551575e9.8.2026.09.21.23.35.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 23:35:29 -0700 (PDT)
-From: Tomas Moro <tmorolias@gmail.com>
-To: calliarifelipe@gmail.com
-Cc: bod@kernel.org,
-	hansg@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	Mars-Wave <tmorolias@gmail.com>
-Subject: Re: [PATCH 3/3] media: ov02c10: Accept a 26 MHz external clock
-Date: Tue, 22 Sep 2026 08:35:07 +0200
-Message-ID: <20260922063507.690-1-tmorolias@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <20260905030732.39196-3-calliarifelipe@gmail.com>
-References: <20260905030732.39196-3-calliarifelipe@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="sRfuknOM"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=CK8rwYE/UoiCCedhMd3jL53gz3jFn7BzhilCnhiV9nA=;
+	b=sRfuknOMpc0XfiKouhRtae3r2a7vizgEC0PGHWISxNsNVwOD1H9kHPUCDwyHWcE1GFZgka/xC
+	UoZkT3yuvbcUWXm2DYxr5n28p9O9Q75Eg8jtcrDtFYjMsv+oxr2mS2VyXb398SaiKBBSepU9U53
+	lvUOzhICv/sa23Dj8L/5tyo=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hpqnB0l7Bz1T4gd;
+	Tue, 22 Sep 2026 14:24:14 +0800 (CST)
+Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
+	by mail.maildlp.com (Postfix) with ESMTPS id EF81F40561;
+	Tue, 22 Sep 2026 14:36:03 +0800 (CST)
+Received: from localhost.localdomain (10.50.85.180) by
+ dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 22 Sep 2026 14:36:03 +0800
+From: Yao Kai <yaokai34@huawei.com>
+To: <asml.silence@gmail.com>, <axboe@kernel.dk>
+CC: <io-uring@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<liuyongqiang13@huawei.com>
+Subject: [PATCH] io_uring: initialize task context before running the BPF loop
+Date: Tue, 22 Sep 2026 14:54:43 +0800
+Message-ID: <20260922065443.359417-1-yaokai34@huawei.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,62 +47,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ dggpemr500006.china.huawei.com (7.185.36.185)
 
-Hi Felipe,
+Submitting SQEs through an io_uring BPF loop can trigger a NULL pointer
+dereference in io_submit_sqes(), as shown by the following arm64 report:
 
-First of all, thank you for the good work on this. 
-I tested this series (v1, all three patches) on a Samsung Galaxy Book3
-Pro, whose board feeds the sensor 26 MHz. Without the series the sensor
-does not probe:
+  [ 2049.380301] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  [ 2049.388788] pc : io_submit_sqes+0x48/0x6c4
+  [ 2049.389153] lr : bpf_io_uring_submit_sqes+0x10/0x1c
+  [ 2049.396310] Call trace:
+  [ 2049.396531]  io_submit_sqes+0x48/0x6c4 (P)
+  [ 2049.396893]  bpf_io_uring_submit_sqes+0x10/0x1c
+  [ 2049.397293]  bpf_prog_1a2a95cb199202b5+0x3c/0x68
+  [ 2049.397699]  bpf__io_uring_bpf_ops_loop_step+0x5c/0x94
+  [ 2049.398149]  io_run_loop+0x70/0x2e4
+  [ 2049.398461]  __arm64_sys_io_uring_enter+0xf0/0x710
+  [ 2049.398882]  invoke_syscall+0x54/0x10c
+  [ 2049.399414]  el0_svc_common.constprop.0+0x40/0xe0
+  [ 2049.399829]  do_el0_svc+0x1c/0x28
+  [ 2049.400125]  el0_svc+0x38/0x1d0
+  [ 2049.400409]  el0t_64_sync_handler+0xa0/0xe4
+  [ 2049.400779]  el0t_64_sync+0x198/0x19c
 
-  ov02c10 i2c-OVTI02C1:00: error -EINVAL: external clock 26000000 is not supported
-  ov02c10 i2c-OVTI02C1:00: probe with driver ov02c10 failed with error -22
+io_uring_enter() dispatches to io_run_loop() before reaching the normal
+submission path's io_uring_add_tctx_node() call. The loop only checks
+whether the caller is allowed to run task work; it does not initialize
+current->io_uring or associate the task with the ring. A BPF call to
+bpf_io_uring_submit_sqes() then reaches io_get_task_refs(), which assumes
+that current->io_uring is valid.
 
-Hardware
-  DMI: SAMSUNG ELECTRONICS CO., LTD. / 960XFG / NP960XFG-KC2IT
-  BIOS P07RGU.330.240529.ZQ, i7-1360P, IPU6 [8086:a75d]
-  sensor ACPI HID OVTI02C1, clock 26 MHz (clk_summary)
+A ring created with IORING_SETUP_R_DISABLED, IORING_SETUP_SINGLE_ISSUER
+and IORING_SETUP_DEFER_TASKRUN can be enabled by a different task that
+has never used io_uring. Enabling the ring makes that task the submitter
+without allocating its io_uring task context. Its first BPF-driven
+submission of a pending SQE can therefore cause a kernel Oops.
 
-Software
-  7.2.6 (linux-cachyos, clang + ThinLTO). ov02c10.c there is identical
-  to v7.2.6 stable, the three patches applied. Only ov02c10
-  was rebuilt (out of tree). In-tree intel_ipu6 + intel_ipu6_isys.
-  libcamera 0.7.2, simple pipeline, GPU soft ISP.
+Call io_uring_add_tctx_node() in io_run_loop() before invoking the loop
+and propagate any initialization error. Do this before acquiring
+uring_lock, since task context setup may acquire the same mutex. This
+also establishes the task-to-ring association used for cancellation.
 
-Results
-  probe            OK
-  controls         link_frequency 541666667, pixel_rate 216666666,
-                   2 lanes; get_selection bounds 1928x1092,
-                   crop 1920x1080
-  streaming        1920x1092 at 40.70 fps, steady, no drops over
-                   several 400-frame runs. That is ~35 % above 30 fps,
-                   which matches the link frequency. Raw SGRBG10 1928x1092 capture works too.
-  stream start     one "csi2-0 error: Frame sync error" every time
-  first buffer     the first dequeued buffer is always empty
-  orientation      image is rotated 180 degrees. This model is not in
-                   the ipu-bridge upside-down DMI list; strings above.
-  s2idle           7 cycles (rtcwake -m freeze), idle and right after
-                   streaming: all resumed, sensor still bound, capture
-                   works.
-  s2idle while     refused by isys, not a hang becuse the running stream is
-  streaming        wedged afterwards, a new open works:
+Fixes: 033af2b3eb19 ("io_uring: introduce callback driven main loop")
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
+---
+ io_uring/loop.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-  intel_ipu6_isys.isys intel_ipu6.isys.40: PM: dpm_run_callback(): isys_suspend [intel_ipu6_isys] returns -16
-  intel_ipu6_isys.isys intel_ipu6.isys.40: PM: failed to suspend: error -16
-  PM: Some devices failed to suspend, or early wake event detected
-  PM: suspend exit
-  intel_ipu6_isys.isys intel_ipu6.isys.40: stream stop time out
-  intel_ipu6_isys.isys intel_ipu6.isys.40: stream close time out
+diff --git a/io_uring/loop.c b/io_uring/loop.c
+index bbbb6ef14e6a..c923cae6dfc7 100644
+--- a/io_uring/loop.c
++++ b/io_uring/loop.c
+@@ -2,6 +2,7 @@
+ #include "io_uring.h"
+ #include "wait.h"
+ #include "loop.h"
++#include "tctx.h"
+ 
+ static inline int io_loop_nr_cqes(const struct io_ring_ctx *ctx,
+ 				  const struct iou_loop_params *lp)
+@@ -84,6 +85,10 @@ int io_run_loop(struct io_ring_ctx *ctx)
+ 	if (!io_allowed_run_tw(ctx))
+ 		return -EEXIST;
+ 
++	ret = io_uring_add_tctx_node(ctx);
++	if (unlikely(ret))
++		return ret;
++
+ 	mutex_lock(&ctx->uring_lock);
+ 	ret = __io_run_loop(ctx);
+ 	mutex_unlock(&ctx->uring_lock);
+-- 
+2.54.0
 
-Same tests with out-of-tree intel-ipu6-psys loaded and bound
-(intel/ipu6-drivers 71bddb5, built unmodified against this kernel):
-identical results, 4 more s2idle cycles all resumed. The s2idle hang from
-intel/ipu6-drivers#381 does not reproduce here on 7.2.6.
-
-Footnote, unrelated to this series: I saw one hard lockup (no trace) on
-the first stream after rmmod of intel-ipu6-psys. I think that taking it out 
-might have given me a corrupt state, had to reboot. 
-
-Happy to test v2.
-
-Tested-by: Mars-Wave <tmorolias@gmail.com> # Samsung Galaxy Book3 Pro NP960XFG (github.com/MarsWave)
