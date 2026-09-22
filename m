@@ -1,137 +1,92 @@
-Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com [115.124.28.146])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1810452269C;
-	Tue, 22 Sep 2026 07:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA9039F188;
+	Tue, 22 Sep 2026 07:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063624; cv=none; b=Zpe1KJapVdEfx+g9/NWsaSorMOQ1uSkAgGP52F3hRSp/goxCBtoZNA+SjtM3hELGGgY+MnCXFA+EkiEu0twgQSnaPEy9Yqt6alW5x3Ym5X9fF7FaEiOM0AKy4XTsLqmtM2kkr6U7pL8NA47GUSEqMNDUjvmk54pFRK55N+/EtM0=
+	t=1790063656; cv=none; b=hPe0XptgM/+PA1ld4utRlfl/AnYxZYlgE5UDD2a0LlkbHkYaR3w1VLgUFHFN9BIqlPiQxtUe9bj2tbFza3pBaQNcIT8gHFIX4ue94ZmKN/rmJMIz4+83qxTkpTzK+2umAp/2QcGneTOFurhz1mgjDRSlMR1Kmf7WWFkZz3988fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063624; c=relaxed/simple;
-	bh=VJfONPyJLCMboeZt4PJmF/h50dvHL17V2WftUiegjWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OZasPKJ90Gy4+4RXQbT+V8K48x6Br6cScOWBLKzz5nicdn+PQOL/A3DPzsi7oDcOLuM98w/490EpweiUFavuqpyihF4Z94eT1iOCPEcse0WM6OPIhLhi3n7G2gcYykj3Fi3O6FemQo4X5NqsbnZa8nSFGRseE7tuOAbhnwhFI8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=t1Kjz6OK; arc=none smtp.client-ip=115.124.28.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1790063656; c=relaxed/simple;
+	bh=KoI4mNGuiofuUwVL60X69VSUVc8IOT6JSlFKwqLihUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=efi2x4toZs4WgvBrEQCllr8TVdJU7GvCmfaZtQ6B3YEguQ5c9GvuChKlF+fVANPZRTgyvAJe8HW2htpuKNPr3WOibqN0x1mtbI3Il5w7VAq7h0eCPvtDrLgqXEXms56nL9cAzPmDvUo+d00PuDrtslI0+8+ccLcIGOtafLGK+HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E9BNng5S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="t1Kjz6OK"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790063609; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=z5z03EzSX15psHI2GHVzpt1XVqFSy8lZqCkoVrhWfho=;
-	b=t1Kjz6OK7FTFhy32wNsj5AaDllB/ik9Uq1NO4pIuJeireWJvF0XRzfWCAx1CmKg/el+XIyyvFJGrrO9Ja8S6AjH17h6BkYhmWSNDyG6xWMew4LHZ4NGitLPnKEjPi8ryUKG37MEMlhezjVYPgNQbe8dW7S5e25h/z340qN71sG4=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436569|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.154597-0.286864-0.558539;FP=13689446538022569150|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jJiRhfx_1790063608;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jJiRhfx_1790063608 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 15:53:28 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Andy Walls <awalls@md.metrocast.net>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH v2] media: cx18: clamp bytesused in the single buffer MDL path
-Date: Tue, 22 Sep 2026 15:53:27 +0800
-Message-ID: <20260922075327.1325788-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E9BNng5S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3371F000FF;
+	Tue, 22 Sep 2026 07:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790063644;
+	bh=TgeKIblBe1/xue7/qgjT+0OwbKuQ61ADgY1/uG2WxQs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E9BNng5SOdG3QtfLBVMfwAhd6vZRaeuy/NtiYcnDS2aeIxtLBHFX5f63dlGNlZ/ak
+	 2Qa6GexUuAveE70dANZINtMcuYh63lGnpYhTI/GPXV+r64J24Ej2oDXlJLnUvOO3Bh
+	 C1eOO1mzwNxPTacVvQGE0+BfRqmz9Wig2OJR4qLGdW2rcWbMNQMWpfx1TXVLI4oSZc
+	 3h/YznfnIWSUtP52RFQfg5X+UDorROWzAjs2P8aw9AX/ff1x7Dc2VX/2jxm8kuknFW
+	 rtkbafqw53HwwzARrULrRFJX73HGFyn++O4vC5daugLZn21PtE2WoArpQI1Uzxe7lh
+	 vkynowTjDGSlQ==
+Date: Tue, 22 Sep 2026 08:54:00 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>, stable@vger.kernel.org
+Cc: Benoit Sevens <bsevens@google.com>,
+	Filipe =?iso-8859-1?Q?La=EDns?= <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [STABLE v6.18-v6.6][PATCH] HID: logitech-hidpp: fix race condition
+ when accessing stale stack pointer
+Message-ID: <20260922075400.GA2268440@google.com>
+References: <20260401144811.1242722-1-bsevens@google.com>
+ <81n26386-p78s-5rqq-5s7o-p8s01sr95q74@xreary.bet>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <81n26386-p78s-5rqq-5s7o-p8s01sr95q74@xreary.bet>
 
-cx18_mdl_update_bufs_for_cpu() copies mdl->bytesused straight into the
-buffer when the MDL holds a single buffer:
+Dear Stable,
 
-        if (list_is_singular(&mdl->buf_list)) {
-                buf = list_first_entry(&mdl->buf_list, struct cx18_buffer,
-                                       list);
-                buf->bytesused = mdl->bytesused;
+On Thu, 09 Apr 2026, Jiri Kosina wrote:
 
-The value originates from the firmware. cx18_queue_get_mdl() receives it
-as its bytesused argument and stores it in ret->bytesused; the mailbox
-handler calls it as cx18_queue_get_mdl(s, id, mdl_ack->data_used), so
-data_used from the firmware ACK is what ends up in the buffer. Firmware
-that reports more than the buffer holds leaves bytesused above
-s->buf_size, and two paths then use it as a bound over a buffer of that
-size.
+> On Wed, 1 Apr 2026, Benoit Sevens wrote:
+> 
+> > From: Beno=C3=AEt Sevens <bsevens@google.com>
+> > 
+> > The driver uses hidpp->send_receive_buf to point to a stack-allocated
+> > buffer in the synchronous command path (__do_hidpp_send_message_sync).
+> > However, this pointer is not cleared when the function returns.
+> > 
+> > If an event is processed (e.g. by a different thread) while the
+> > send_mutex is held by a new command, but before that command has
+> > updated send_receive_buf, the handler (hidpp_raw_hidpp_event) will
+> > observe that the mutex is locked and dereference the stale pointer.
+> > 
+> > This results in an out-of-bounds access on a different thread's kernel
+> > stack (or a NULL pointer dereference on the very first command).
+> > 
+> > Fix this by:
+> > 1. Clearing hidpp->send_receive_buf to NULL before releasing the mutex
+> >    in the synchronous command path.
+> > 2. Moving the assignment of the local 'question' and 'answer' pointers
+> >    inside the mutex_is_locked() block in the handler, and adding
+> >    a NULL check before dereferencing.
+> 
+> Now applied.
+> 
+> Benjamin had some ideas on further cleanup (allocating with __free__ 
+> instead of using stack pointer), but that'd be a little bigger cleanup, so 
+> let's keep that separate.
 
-cx18_buf_swap() walks the buffer in 32 bit words up to bytesused and
-byteswaps them in place:
+Please could we have this commit backported through to linux-6.6.y.
 
-        for (i = 0; i < buf->bytesused; i += 4)
-                swab32s((u32 *)(buf->buf + i));
+e2aaf2d3ad92 ("HID: logitech-hidpp: fix race condition when accessing stale stack pointer")
 
-That writes past the end of buf->buf. The call comes from
-cx18_mdl_swap() for MPG streams when CX18_F_M_NEED_SWAP is set, which
-cx18_queue_get_mdl() does for every type except TS.
+I will follow-up with a backported version for the older releases.
 
-cx18_copy_buf_to_user() computes the remaining length the same way:
-
-        size_t len = buf->bytesused - buf->readpos;
-
-and copies it to userspace. Here len is capped at the count the reader
-asked for, so the read is bounded by the read() size, but it still
-starts from a bytesused that reaches past the buffer.
-
-The multi buffer path already guards this: _cx18_mdl_update_bufs_for_cpu()
-clamps each buffer to s->buf_size before assigning. Apply the same clamp
-in the single buffer case.
-
-The single buffer path is the common one here, not a corner case:
-cx18_stream_init() sets bufs_per_mdl to 1, so list_is_singular() is
-normally true.
-
-No Fixes tag. Both paths were introduced together with the driver
-(1c1e45d17b66, "V4L/DVB (7786): cx18: new driver for the Conexant
-CX23418 MPEG"), and the clamp in the multi buffer path was added later,
-leaving this one behind.
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Assisted-by: LLM
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
-v2: add the CX18 maintainer to the recipients, and describe the two
-    places that use bytesused as a bound rather than only the read path.
-
-    The previous version described the copy to userspace and called the
-    result an out of bounds read. cx18_buf_swap() uses the same value as
-    a loop bound and writes in place, so the description now covers that
-    path as well, and notes that the copy to userspace is capped by the
-    read size whereas the byteswap loop is not.
-
-    Add the Assisted-by tag.
-
-The firmware reports the length in the ACK. A device that reports a
-data_used larger than the buffer it filled leaves bytesused above
-s->buf_size, and the single buffer path is the one that does not bound
-it. The clamp here is the same one the multi buffer path applies.
-
-cx18_buf_swap() itself is left as it is: the bound it needs is the buffer
-size, which the clamp now keeps bytesused below.
----
- drivers/media/pci/cx18/cx18-queue.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/pci/cx18/cx18-queue.c b/drivers/media/pci/cx18/cx18-queue.c
-index 04d6828f0..a973367d4 100644
---- a/drivers/media/pci/cx18/cx18-queue.c
-+++ b/drivers/media/pci/cx18/cx18-queue.c
-@@ -114,7 +114,10 @@ static inline void cx18_mdl_update_bufs_for_cpu(struct cx18_stream *s,
- 	if (list_is_singular(&mdl->buf_list)) {
- 		buf = list_first_entry(&mdl->buf_list, struct cx18_buffer,
- 				       list);
--		buf->bytesused = mdl->bytesused;
-+		if (mdl->bytesused > s->buf_size)
-+			buf->bytesused = s->buf_size;
-+		else
-+			buf->bytesused = mdl->bytesused;
- 		buf->readpos = 0;
- 		cx18_buf_sync_for_cpu(s, buf);
- 	} else {
 -- 
-2.50.1
-
+Lee Jones
