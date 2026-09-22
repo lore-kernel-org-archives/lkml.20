@@ -1,202 +1,132 @@
-Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com [74.125.229.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273D34AB1DE
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F574AC176;
+	Tue, 22 Sep 2026 20:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107304; cv=none; b=aSP9yLmR7vqfPfTyKF95gYpNgGQC7RvfczBxfgHd/aRpWZkBqa7UTL4PkT3vNufoMxXIRRCWiYBQp6luIyVZg79ZFkodMp1k49NjToEKWgDl2ZMGkLbbb7mNEqL6iZ0vRo1RmAR6hBjcLAM+U9vYB+5jGc8wBd4OdT37XL7yJp8=
+	t=1790107364; cv=none; b=tlWQ0FUb7WaFzaPE4YmhDgyIN52U6t/Dswerr4V5zde4HAlCM+t3OMRNridapQTRQkwsRMXgxblirB8gNvcOzKH2hfvGZBl+l6ybB4YrF083gH0FHDuNhDMsH6xAX5DGLLVZ9r8/6kxe1q1tuO0fjVPJoovQQX5chRBQbnw0Sl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107304; c=relaxed/simple;
-	bh=vk8LmAxyJ00+4IDE6RcqAurCzZl3P6rOxNHz4USYmeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u3nTh8iii7bkOyIbzUROLLRidimjB7MZ9azJjGDxBXEgy3FFwPmTbiGvSiO3XUp9k0A/NrAfAZ2pWqd3j8LDYKoADoR7rjcQ7kHbFCp6YOEoT7wh0XALZ4WaTF8a+wHMMeweCsl5UMaNmuHBwqxMpf5xbE5ieomUl32AgoMaUE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=SE8754cT; arc=none smtp.client-ip=74.125.229.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1790107364; c=relaxed/simple;
+	bh=kZzIuUZdeJtjUZxs3xOer06DEMom4RwITwG3trbOWvM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=L8ST9QDr5HI6VXebWUYUGaZ0CJ2vmO8r9uPwbK7w/iIMXpqo1HZY5Qe8SgUeuI4bW5qAh8s4T/ombM2h5prt+mvgXncX9lv1q4Tv0NbR6ecFM7iT4tmCC2b9USs8H612C+iv4FO4VYOs3Ebe+MoxD+j+oBgiXoTEwKGpDH4MJmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=O0enwL+c; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="SE8754cT"
-Received: by mail-dl2-f36.google.com with SMTP id a92af1059eb24-14373bcc010so269184c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:01:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790107291; x=1790712091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7z70TQXn4poqOPaKrCAHTGIhbFu9qXKNqmozdXBkBPA=;
-        b=SE8754cTS7jnjdvBdzNZ0gSsNw44ZQlh+cBp2dYK9hbXW/fafKPxkugRD7iVJv896G
-         +UZtR+CgBLvdOG530+G+uIna3Yl5E2O8dPeDxK2RIpmioZyzszdUPG10Skbgh1wGPORD
-         z9Gk1HZkJ6cNXruQfK/JAPtUSpK6QjHw6ldqk1qonCPemMGjz/Xt6A2uNMTr5g1u/8zz
-         sEpwj1DeqkCAZ1alVBl9l+VGUAxriJi4agpQGJN22TslGl11+O6Cs7QYzf8HEQSzMpFH
-         jyAqWpJ419DSgMt8rkOuDFtezAKJ6rioaMxbu/cnNNI/ocCszB9xaxVQ20GyeDDt+0FT
-         Cs2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790107291; x=1790712091;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7z70TQXn4poqOPaKrCAHTGIhbFu9qXKNqmozdXBkBPA=;
-        b=UEJQufBRFpLCf35fpKzQTpHAcHqcEUoVB1KErn2HM64COg9AxSFuQUj9Hlzi35crm1
-         1X4A5PHycQF9RzE35W+iSWBXTMr+YF61oDD8TmUepXeT9AEpaiBxxjpYNQBjMnoxM2v7
-         QYfIsHH/FIAK4dfWdIjiiMxhUCGpBGJgAQy9SUQF0sM2KoylM6UCldm1OEMrbSUcZaj/
-         GG2eX7FsjxUlSPFCm2r1M6fXq4nxaE5SCj/PSZqwJT5iFDOz+8xgOrDKGAv5m0MxmTUn
-         IU0tM2ASfrJZRX0xOq6vcQeggrkunAMV6tn+PrAV0MA2Qpa/ZnQ20U7Vx7sSLhW9SsFQ
-         OTnw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7byoF+jr/3MoFB1+EcsOo9dkbTOX1Gzl9HDZwTr+Xx0Rr7xOEDq2jDr6JY/T18g9wdUzwK/qRQYdo27s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQZutxOozUX+gqV71zDMcDvF/t5QVakIbCcNSVCs8AXahhYWC4
-	JwBLqzmY0/DZN4M5uAhKZMqTfQlISTFyFrZfOdbhDA0jINo2sXH0yABSH6pdjH/6MzQ=
-X-Gm-Gg: AYBFou3WDXsSDUtxt1CsVreUuGtd57tShL7JHLLUa8UJa3RfPLDibxAe9rM0pPkD4ix
-	I7DdkyNkfu4FkmuW+leK2yJXVkMtvgbbwqLz2kvEuMEzLB2rZs+eDoBYDoEhGEd5l/XoXdeHoTT
-	7rsZBZUK+DvqlOMDtkUhSIBIqV+p1QflbcRKXqVjNsevSe3ygXEuMoXxsf10muEgAEmaetLoQqh
-	SRVKn/5iwYUUAnuIvYazTNh3H0a33MvZd4fSIU0jNiVeG+t6rSW7+LO2ftL9gMYooOK1X3wHrKT
-	3e/XScDl7VkYdqKraMGpJSmYpfN++lVWwwRlnWp4re1dWEsL78uZyH/MNmsVd09IiL1uKnZ5Njb
-	QcCqEm17lbMhVnb1317ERMxrSOLUvtibldY0MnkmwNyz2BpbbpnxEReu7U5sPPx+haHNyXzSwzG
-	vl3qQxXgK/HhSfYnMYh1WO9hmy7GafDhEr+2rzvQ/Oh+MM2QzxXOcq4fC/EUAB2nlteE3kuj1h8
-	AAp/JVwW35K/SM8GGRhQlZzJaRuUpMP23kHCp3R0Hq0ySio1Gpv571ink/CseMqT/wzDlk=
-X-Received: by 2002:a05:701b:4247:20b0:143:297c:82e1 with SMTP id a92af1059eb24-144f931bbf3mr446013c88.33.1790107291150;
-        Tue, 22 Sep 2026 13:01:31 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:c016:77a6:d382:7611])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f982089fsm602138c88.5.2026.09.22.13.01.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 13:01:30 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Rob Clark <robdclark@gmail.com>,
-	Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Sean Paul <sean@poorly.run>,
-	David Airlie <airlied@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	Kuogee Hsieh <quic_khsieh@quicinc.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Bjorn Andersson <quic_bjorande@quicinc.com>
-Subject: [PATCH 6.1.y] drm/msm/dp: Drop aux devices together with DP controller
-Date: Tue, 22 Sep 2026 16:01:26 -0400
-Message-ID: <20260922200127.27433-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="O0enwL+c"
+Message-ID: <a0bee581f87dba8e40ea0055ef8c6a5cfed72ec5.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1790107347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kZzIuUZdeJtjUZxs3xOer06DEMom4RwITwG3trbOWvM=;
+	b=O0enwL+c0Vv/+BdkiN0wZ4PjNopcuZb142YrD1j+YDvic7cn+iGmeALgGInw+8GntH8Vz4
+	ntSBA11l0KIGldaIGabCSdJjoiCsJH7vbnn1Gt3HG0aESkedPsQLX+DjQnne/bzTl/tZLe
+	sm2M6022473gsE8sQFZZwaJDZ2X1KQs=
+Subject: Re: [RFC PATCH 0/2] perf: user stack dump on sparc64 needs an arch
+ hook
+From: Stian Halseth <stian@itx.no>
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Andreas Larsson <andreas@gaisler.com>, "David S. Miller"
+ <davem@davemloft.net>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung
+ Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>,  Jiri Olsa
+ <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
+ <adrian.hunter@intel.com>,  James Clark <james.clark@linaro.org>,
+ linux-perf-users@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Date: Tue, 22 Sep 2026 22:02:26 +0200
+In-Reply-To: <CA+=Fv5RnsBXnxb2JHfZ2kXkYB7fz3KLS3+oHtx==z9W93WRANA@mail.gmail.com>
+References: <20260922135653.1622301-1-stian@itx.no>
+	 <CA+=Fv5RnsBXnxb2JHfZ2kXkYB7fz3KLS3+oHtx==z9W93WRANA@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-ce6TdhinF5bXGGN2lfMu"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
 
-[ Upstream commit a7bfb2ad2184a1fba78be35209b6019aa8cc8d4d ]
+--=-ce6TdhinF5bXGGN2lfMu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Using devres to depopulate the aux bus made sure that upon a probe
-deferral the EDP panel device would be destroyed and recreated upon next
-attempt.
+Hi Magnus, thanks for the testing and feedback.
 
-But the struct device which the devres is tied to is the DPUs
-(drm_dev->dev), which may be happen after the DP controller is torn
-down.
+Almost done with a v2.
 
-Indications of this can be seen in the commonly seen EDID-hexdump full
-of zeros in the log, or the occasional/rare KASAN fault where the
-panel's attempt to read the EDID information causes a use after free on
-DP resources.
+It has some minor changes based on the AI bot feedback, and my comments
+to you below.
 
-It's tempting to move the devres to the DP controller's struct device,
-but the resources used by the device(s) on the aux bus are explicitly
-torn down in the error path. The KASAN-reported use-after-free also
-remains, as the DP aux "module" explicitly frees its devres-allocated
-memory in this code path.
 
-As such, explicitly depopulate the aux bus in the error path, and in the
-component unbind path, to avoid these issues.
+On Tue, 2026-09-22 at 19:04 +0200, Magnus Lindholm wrote:
+>=20
+> Very nice series, thanks for working on this!
+>=20
+> I built and booted the series on a sparc64 box and haven't
+> noticed any regressions so far.
+>=20
+> I also smoke-tested the new interfaces from 64-bit userspace with a
+> small standalone C program using perf_event_open() and software
+> cpu-clock events. The register-only, stack-only, and combined
+> register/stack tests all passed. The test does not use tools/perf or
+> request PERF_SAMPLE_CALLCHAIN. I haven't tested end-to-end DWARF
+> unwinding yet.
+>=20
+> I see that you plan to post the userspace changes once the hook is
+> settled. Could you include the tools/perf support in the next
+> revision,
+> or post it as a follow-up or linked companion series? Having that
+> available, along with a link to the matching elfutils changes, would
+> make testing easier and let us exercise the intended DWARF unwinding
+> use case directly.
+Yes, I originally planned to post tools/perf after I got some feedback
+on the first patches.=C2=A0Especially since it touches some generic code
+that I'm not too familiar with, and I half expect that I have to
+rewrite some of it based on maintainer feedback :-)
 
-Fixes: 2b57f726611e ("drm/msm/dp: fix aux-bus EP lifetime")
-Signed-off-by: Bjorn Andersson <quic_bjorande@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Patchwork: https://patchwork.freedesktop.org/patch/542163/
-Link: https://lore.kernel.org/r/20230612220106.1884039-1-quic_bjorande@quicinc.com
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+But since its "just" a RFC patch at this point, I guess I can post the
+full series to allow end-to-end testing.=C2=A0
 
-[ Backport to 6.1.y: the source change is unchanged; refresh context
-  around the older DP bridge layout. ]
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and MSM DRM maintainers,
+I have mainly focused on the first patches, and the rest was done a bit
+faster as a means to validate the "core" changes. It works (TM). I'm
+looking through it now, but I probably make a second thorough review of
+the entire final series, once the I know what changes I need to make.
 
-I am continuing backporting CVEs still missing from 6.1.y.
-This fix is inherited by v6.6 and every later mainline release, but 6.1.y
-still has the affected code. The target-specific adjustment is described
-in the bracketed note above.
+I will publish and link to the elfutils changes as well.
+>=20
+> Also, could you update the sparc entries from TODO to ok in:
+>=20
+> =C2=A0 Documentation/features/perf/perf-regs/arch-support.txt
+> =C2=A0 Documentation/features/perf/perf-stackdump/arch-support.txt
+>=20
+> Those updates would fit naturally in patch 2 alongside the
+> HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP selections.
+Yes, agree.
 
-Could you please queue it for 6.1.y?
 
-Thanks,
-Artem Dinaburg
 
-CVE: CVE-2023-53851
+--=20
+Best regards
+Stian Halseth
+=E2=80=8B
 
-Build: This patch was included in an x86_64 allmodconfig and
-CONFIG_WERROR=y build.
-It produced vmlinux and modules with no new warnings or errors.
+--=-ce6TdhinF5bXGGN2lfMu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-AI assistance: An LLM helped find, adapt, and validate this
-backport; I reviewed the patch and test output.
+-----BEGIN PGP SIGNATURE-----
 
- drivers/gpu/drm/msm/dp/dp_display.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCarLe0gAKCRDoeAEuJe36
+VrF2AP9wAbZZ670xm9KEuNDWUdcFAEZen5+BsV7bqBE6LmuepAD/djcN0afRxg98
+8YMFwB67dCMOAsM9yvxZCdUyP207Qwc=
+=pRuN
+-----END PGP SIGNATURE-----
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 5beb727f8437f9..ddd0279bc8963a 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -322,6 +322,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
- 
- 	kthread_stop(dp->ev_tsk);
- 
-+	of_dp_aux_depopulate_bus(dp->aux);
-+
- 	dp_power_client_deinit(dp->power);
- 	dp_unregister_audio_driver(dev, dp->audio);
- 	dp_aux_unregister(dp->aux);
-@@ -1535,11 +1537,6 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
- 	}
- }
- 
--static void of_dp_aux_depopulate_bus_void(void *data)
--{
--	of_dp_aux_depopulate_bus(data);
--}
--
- static int dp_display_get_next_bridge(struct msm_dp *dp)
- {
- 	int rc;
-@@ -1568,12 +1565,6 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- 		of_node_put(aux_bus);
- 		if (rc)
- 			goto error;
--
--		rc = devm_add_action_or_reset(dp->drm_dev->dev,
--						of_dp_aux_depopulate_bus_void,
--						dp_priv->aux);
--		if (rc)
--			goto error;
- 	} else if (dp->is_edp) {
- 		DRM_ERROR("eDP aux_bus not found\n");
- 		return -ENODEV;
-@@ -1597,6 +1588,7 @@ static int dp_display_get_next_bridge(struct msm_dp *dp)
- 
- error:
- 	if (dp->is_edp) {
-+		of_dp_aux_depopulate_bus(dp_priv->aux);
- 		disable_irq(dp_priv->irq);
- 		dp_display_host_phy_exit(dp_priv);
- 		dp_display_host_deinit(dp_priv);
--- 
-2.39.5
-
+--=-ce6TdhinF5bXGGN2lfMu--
