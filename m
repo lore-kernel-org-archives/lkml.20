@@ -1,142 +1,154 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F25D276050
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3C4276050;
+	Tue, 22 Sep 2026 05:05:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790053382; cv=none; b=oxMGTyHapoUDrQD5SMzfIxFVjRvfUnBD5889FNAw8FhO5d0ZzI3SFnHUt84If22LDknv5P8xyDuOAjTGcpvKGZpbGA+zCTzwAbTlj3U7FAm97BbSTUu4AJuNG1RKNci+L1s/hZURVPEsUAIc2Te/udAJxar5+WN2Mb7PDF8SO+Y=
+	t=1790053552; cv=none; b=s2cn4sydN52WNn0ZYbidmT/fPNnHbs+WrQdBFSI/RfuKG8vU83jffghemiyexXc9aG5mYFRHl/H+U+CThBVHTRGpXnm2TTcdW7wuCJgYnAVPkG+c8TKuF+QKhlxIHPahWlzA29H2DeCf0cv0eCK0z1k+7dIydfk4yl6V+3lQ/aA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790053382; c=relaxed/simple;
-	bh=lYFM2icJd9dTPDzF6woXYA1zRrS4VpaQ8uxQMpGJe7g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lzRGMF3GlHWvXpuHSXfWEvELuv1en8WSupdk/u9hINikGzfLbIVl+JG1U14gmgKLXAly9b7iby7PGSMRNzu7rbbyj40s4Wirpux8uRHU9RJtFMMj8YyFFZMffiYVtPcrHYHLfBh9s0c18uAADiU/FuSsMhwwk/yBUU8A4JudhHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mIJi/p5l; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790053552; c=relaxed/simple;
+	bh=SSugme39AaT4a7tjags5rgJx2pgXI2oH0edPTiycef4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fi99Ax4Chnc2AAZ/Eur5oWtkrHqWMuYSiqyu0+OXuBxW0MLle8eXZHqUOjpJC9smILMJxqIdTRKik9lYAW+CAWr7mB8dV/9K5GBx7YX8L9QSpCD/2tbY3PYff7PetRMLvw9aFrLU3X++1NLUuvs12dQQoEUnAU0Ymfl3ffgswh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxzkTsg6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mIJi/p5l"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-939109f067fso480908285a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790053378; x=1790658178; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2Ara9sJRSL0sr/3H6tA1EEPm7uyc4h6klL0iWIcKZUA=;
-        b=mIJi/p5l9/1m4K6tUJpfb+IrGVP4mX+OMFLejJ9+ER7FnS3cf3oqF6Pe2/5WE1pcpy
-         sCG8OnKQVbRffQ+TcgqZ1zx8haYCDQ2mgtQo5zvf6lxCu2SeGaBIdY+NRUuBPu8uqaDB
-         2+ykFB6ZNsCoCCFCQ5ZJv6sitPhuE1oHO8KHy8zcEJ3Uv1geIMZ8bzjnQ9313mwekc/j
-         vxnXZfdNFtD1GZHmWFVC/l+GcfYlBcEdb665ezVOj5pPfMYdFw6tu1HU/EAaxDGWAZyU
-         xIOz9m/k7YD/lX+5uYm6P+bwgU1Poj9Hjfv0/fGmyo2p0SNmCm5mc0xdcc2U2Ef6ZLiZ
-         q61Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790053378; x=1790658178;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2Ara9sJRSL0sr/3H6tA1EEPm7uyc4h6klL0iWIcKZUA=;
-        b=yMzMfWquQ+fXtZVrFA38XnZSs2tO4LhVYGTr9fT/aqIR8BC9XN8jfiYJZF5RBdDMPT
-         rTK2cboikgdtPE4IiQCwLgEXeSbjoe6m4FRg0jrhRWhop0WxCGZJxBrnPtyZRd5qI2pM
-         PFYmo7rEdThz6LGKoSQ886FFQ6TJCA9nXoQLI004fCInaZsbnWF7M0XpAeeq7zxJzTPU
-         wgBWNFnumbeSe2++BthipN3pAouM43itJp45cLyC1sV0XC6oCf4BSMXA1bSmZ5eW9+/e
-         MjMfl4oyR45KPdFNSQvmXi8NKeI7djhUy2VdSR5AYZIxnISLeyAtdrrNLG4PY/JMZ1gY
-         jIlA==
-X-Forwarded-Encrypted: i=1; AKwUvBxz4N9mlW8Uif3Q04nRyaoOFNRbWot1WPB5h0BpM3MO24mJl9gMt1UdctA6DzZWT7TYDmFzBro3gNsMd9E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA4gA9bd/kgEIEabTaj+kKAxFRCzaB99kCAvK4B4imTgXhFer1
-	/93nCDxiF9mOHf6c/VHJttFoiQdGbk31goZJeOsZpnkHZoKzmFmDkSoy
-X-Gm-Gg: AYBFou079zaojqAEKCZMRVgqKp4qhH8dol1Vw4ggzCCnn3ffsVDjIQYwvuuprh1PFrd
-	KuBOXfbRkXKHtDBjC4064e9Z1HPB/b1qH0JClqtU0qRoaHFNvGEdrbwiCPtRvH/KWq3zk7+SJk9
-	2I4hXxAZAk3pctj/ngoVetfVDXfun/04F6ABtH8J3oHONGoqP74U/edoCPyVaoYcsRWrTCErqdu
-	FQUU83oach/XP8wGE304z9N6B4go6nN1dBKKfjBLeIpllJcF0lj1WhC2NWUgnFHJUFEjncBVpb2
-	CgrRrL3aIW1ujpFItwD19CTA86YZWjoDfi3iarl5qGp7RKOuss6ehMnPb0q7k3a1qQBkMDVEn/b
-	cs+BM9ynINM1Bef7w6WZeIYupgqVxYk+MyhvGFT6RSSonjmr0k5IHe1A7mHtJP19AOyF5DH0mTZ
-	O2Jk9THtdt1NbwdHNHcKRa4HbDlkutx31ILzGSYd2GH/2Mm8Y9+M12jC86wdsW1ReRlNC3gehkI
-	abH1oTIEqC+fHGnDHtLeg==
-X-Received: by 2002:a05:620a:6006:b0:93b:d79f:d955 with SMTP id af79cd13be357-93c15f2e6e5mr372386185a.74.1790053378323;
-        Mon, 21 Sep 2026 22:02:58 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d18948esm48202285a.23.2026.09.21.22.02.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 22:02:58 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: "Chen, Jian Jun" <jian.jun.chen@intel.com>,
-	Vincent Whitchurch <vincent.whitchurch@axis.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	linux-i2c@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v1] Revert "i2c: virtio: Avoid hang by using interruptible completion wait"
-Date: Tue, 22 Sep 2026 01:02:51 -0400
-Message-ID: <20260922050251.403857-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxzkTsg6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF2E81F000FF;
+	Tue, 22 Sep 2026 05:05:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790053550;
+	bh=GJG6I5Clw5SCk/1VpkRKC4P7mxnCryzaJv4G7QIe0/Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cxzkTsg6YpwwvdbpuJvSO/ID7WPyYAPxPa9VxLV/seFyHqIQcuYktPfzIZWv3Pn/r
+	 90tVtBDRiq3GJGXjb1/hB65AgHECqvX1kq0ukuddED6Rx+plCtncZ0sz7uLqvrPlXx
+	 vyOjEGpXaKqPZ61meUlQ5uUydsTCKMA6Ltzr0rpDamWSsy14HARnnb1cwOQ/0QMQnL
+	 zOky9+H9ruIRu0xY9YD5vkCA02BYOW63W/3qwbb02+mypTtgNB4nYjsSgKR1TPwTr1
+	 Q3TVsEt28jmOfWRA5KdOa5qh3p25iXvRWMyYc5ZQiuHb5Zy0+gyQJW0FofpPoraiCa
+	 +vdBYJSdico/w==
+Subject:
+ Re: [PATCH net v2 1/3] net: stmmac: propagate platform mac_finish errors
+From: netdev-bot+sashiko@kernel.org
+To: tom.karpiniec@outlook.com
+Cc: netdev@vger.kernel.org, mohd.anwar@oss.qualcomm.com,
+ maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, linux@armlinux.org.uk, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ yong.liang.choong@linux.intel.com, brgl@kernel.org, coiaprant@gmail.com,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 22 Sep 2026 05:05:49 +0000
+Message-ID: <179005354933.2160803.8939564905853996739@kernel.org>
+In-Reply-To: =?utf-8?q?=3CSJ2PR11MB8401FFBBECB8FBBA9C002134E4872=40SJ2PR11MB?=
+ =?utf-8?q?8401=2Enamprd11=2Eprod=2Eoutlook=2Ecom=3E?=
+References: =?utf-8?q?=3CSJ2PR11MB8401FFBBECB8FBBA9C002134E4872=40SJ2PR11MB8?=
+ =?utf-8?q?401=2Enamprd11=2Eprod=2Eoutlook=2Ecom=3E?=
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This reverts commit a663b3c47ab10f66130818cf94eb59c971541c3f.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-When a transfer is interrupted by a signal, virtio_i2c_complete_reqs()
-stops waiting for the remaining requests and virtio_i2c_xfer() frees the
-reqs array while the virtqueue descriptors are still in flight on the
-device.  The backend can then write into freed memory, and
-virtio_i2c_msg_done() calls complete() on already-freed requests.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-Commit 84e1d0bf1d71 ("i2c: virtio: disable timeout handling") removed the
-exact same failure mode caused by timeouts, concluding there was no simple
-fix because the buffers must be held until the device returns them.  A hang
-due to an unresponsive backend is preferable to guest memory corruption.
-Restore the unconditional wait until request lifetime can be decoupled
-safely.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: a663b3c47ab1 ("i2c: virtio: Avoid hang by using interruptible completion wait")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-A proper interruptible wait requires refcounting requests and bounce
-buffering to hold memory until the backend returns descriptors (similar
-to virtio_rtc/virtio_pmem). Since that is a larger rework unsuitable for
-stable, revert to uninterruptible wait first.
+- [High] Incomplete fix: the bug class the commit message claims to close
+  ('Phylink then treats the interface as successfully configured and can…
+- [Low] Continuation-line misalignment introduced by the patch in
+  stmmac_mac_finish(): after adding 'return ', the open parenthesis of…
 
- drivers/i2c/busses/i2c-virtio.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+--
 
-diff --git a/drivers/i2c/busses/i2c-virtio.c b/drivers/i2c/busses/i2c-virtio.c
-index 5da6fef92bec3..581e55b5c65ba 100644
---- a/drivers/i2c/busses/i2c-virtio.c
-+++ b/drivers/i2c/busses/i2c-virtio.c
-@@ -116,16 +116,15 @@ static int virtio_i2c_complete_reqs(struct virtqueue *vq,
- 	for (i = 0; i < num; i++) {
- 		struct virtio_i2c_req *req = &reqs[i];
- 
--		if (!failed) {
--			if (wait_for_completion_interruptible(&req->completion))
--				failed = true;
--			else if (req->in_hdr.status != VIRTIO_I2C_MSG_OK)
--				failed = true;
--			else
--				j++;
--		}
-+		wait_for_completion(&req->completion);
-+
-+		if (!failed && req->in_hdr.status != VIRTIO_I2C_MSG_OK)
-+			failed = true;
- 
- 		i2c_put_dma_safe_msg_buf(reqs[i].buf, &msgs[i], !failed);
-+
-+		if (!failed)
-+			j++;
- 	}
- 
- 	return j;
+net: stmmac: propagate platform mac_finish errors
 
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+stmmac_mac_finish() previously dropped the return value of the platform
+mac_finish callback and always told phylink the configuration succeeded.
+The patch returns the callback result instead, keeping the zero return for
+the case where no platform callback is installed.
+
+No Link: tags present in the commit header.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 1fb5f804ea23..1350e92943ac 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1048,8 +1048,8 @@ static int stmmac_mac_finish(struct phylink_config *config, unsigned int mode,
+>  	struct stmmac_priv *priv = netdev_priv(ndev);
+>  
+>  	if (priv->plat->mac_finish)
+> -		priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode,
+> -				       interface);
+> +		return priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode,
+> +					     interface);
+
+[Severity: High]
+The commit message says that without this change "Phylink then treats the
+interface as successfully configured and can report carrier even though the
+SerDes is not ready".  Does that failure mode still remain reachable on the
+Intel mGbE ports after this patch?
+
+intel_mac_finish() in dwmac-intel.c is the other in-tree mac_finish
+implementer (installed by ehl_sgmii_data(), ehl_pse0_sgmii1g_data(),
+ehl_pse1_sgmii1g_data() and adln_sgmii_phy0_data()), and it ends with:
+
+drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:intel_mac_finish() {
+	...
+	priv->plat->phy_interface = interface;
+
+	intel_serdes_powerdown(ndev, intel_priv);
+	intel_serdes_powerup(ndev, intel_priv);
+
+	return ret;
+}
+
+ret here is the value from intel_set_reg_access(), normally zero, so the
+return value of intel_serdes_powerup() is dropped.  That function has three
+timeout exits fed by serdes_status_poll():
+
+	data = serdes_status_poll(priv, serdes_phy_addr,
+				  SERDES_GSR0,
+				  SERDES_PLL_CLK,
+				  SERDES_PLL_CLK);
+
+	if (data) {
+		dev_err(priv->device, "Serdes PLL clk request timeout\n");
+		return data;
+	}
+
+with the other two covering the lane reset reflection and the
+SERDES_PWR_ST_P0 transition.  serdes_status_poll() returns -ETIMEDOUT after
+10 retries.
+
+Since intel_serdes_powerdown() has already dropped the lane to P3, a timeout
+in intel_serdes_powerup() leaves the lane out of P0 or held in reset, yet
+intel_mac_finish() returns 0.  phylink_major_config() only records a failure
+for err < 0, so phylink still sees success and can raise carrier.
+
+Would it make sense to add a companion change so that intel_mac_finish()
+returns the intel_serdes_powerup() result, so that the propagation added
+here has an effect on this platform too?
+
+[Severity: Low]
+This isn't a bug, but the continuation line no longer lines up with the open
+parenthesis after "return " was inserted: the argument list now starts one
+column further right, so "interface);" needs one more space to satisfy
+checkpatch.pl --strict ("CHECK: Alignment should match open parenthesis").
+
+>  
+>  	return 0;
+>  }
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/SJ2PR11MB8401F5C3A075DE2A0013E063E4872%40SJ2PR11MB8401.namprd11.prod.outlook.com
