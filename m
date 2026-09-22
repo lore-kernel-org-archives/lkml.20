@@ -1,185 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B47545D96;
-	Tue, 22 Sep 2026 12:46:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51F243785C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:46:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081207; cv=none; b=FXidIhvpFiDKV8AmLDQ7eauxMVHNyOdbdtSbecfEzl5H3U8i6MsW7bY5yYrGTFraE/89P0hxiOnaRN16kUy/hC7i2slmrEV86deyjYNhE+w4sttdEJojtR0yVJerSWYG86oTS6pTcXxzkPXllhrZ8zLEwfhNNubP5rtqhz3oijg=
+	t=1790081221; cv=none; b=NsBbNFNMwNghPXwFYE9Wu32g+Rk1I4I7VVeJ8kx2poqLtOD2yoeLESEikJNvFFUYHftp61bNq24R/iJ415/eD3sWUFgcpRfsvhQigJ2t66xgoo/zGorMZprd9EOiFsM8/+kASoilBVsaA0qmrcbe1isRig6mPfiVKWrKk50JU88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081207; c=relaxed/simple;
-	bh=oekyyXLIJMPA27K+I2NeBppt63N2bzDmCIIrdQPSMLw=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=Ahv6KfrrsEYGHkPlLnhEXBaHL3WZHM2sQvTcIt2TesnVFMY+eH1Y7Qg087BGTpJXm9nrU0BGbNCQL/TrT2Cprm95aTV9/lNpQk2mZoH4HLTeHrJpRyh4IiPkBV7WpgtoBP+6h0U0TosVAJXMXzo9Kgt/MVcMygpBE27ZFGWwn8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAGhWhlW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790081221; c=relaxed/simple;
+	bh=WQP5jeECsdfJbYN7aiwO89HXzHsfXrvg2kRoyi0//rI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qlseQtIaIRoD+iFueb87vwRpDWkJzVwpOFX45+eyjl1l7KOvbkfp7Hviq5cUgFg3UJ3iav3gpZdQ2txqlFGQLrooq9eGHmp0qx0j9TU5cZcS7f1Fr67BH1hM3pR9s5DqiBTfchEDtJNqZ6iMeNVxDyHCH2GAMI8jIEUPug4RZp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1eg+t/j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAGhWhlW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2250B1F00893;
-	Tue, 22 Sep 2026 12:46:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1eg+t/j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427A51F00893;
+	Tue, 22 Sep 2026 12:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081205;
-	bh=YQI4S6xOFj9aXi6AUyR67yVVE0SDqC7IC5Hc1LzBfws=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=nAGhWhlWj6Yfak/TednGBs8oSvV7A0dVDkm8cozkzoi2aymCMHDflhz+T9KNMw+vx
-	 YXbbtRX7X2QiwqrBdPqYRsgFUvTod+V7lR5rOvSluJVozEuKkH1C28Q9W4Vk4j2v7I
-	 xFpjASvky2G924z2LOKqpZAXUMROS10jVe2U7/Uqv/i3PBAZgxfmsXGHxVWZd7Sc2d
-	 PnN9yamXm//J0ZnzTpxypPO8aBH09dWaxjWOFp9EMj7xNE1orQnmxclKO2S0XK8aW9
-	 U4lpK+W/wPS/OCnUHFnR3QXXeiVKpJ+DpMxRHk+mdRuSoLFK+yRe3ejpHKXYhAfd5r
-	 l02lNajC0SMIA==
-Date: Tue, 22 Sep 2026 07:46:44 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790081219;
+	bh=Kx1cDLNT/v31qKJcafvn3WkzdrqDUmMJSTVkfFeWiQ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h1eg+t/jUhQbuzHrElz3Hf5taYbBwYU0NBlcmQx4+KVtL24Vm0a4MfbxrbPT7+XZu
+	 NUzXJB4MtOPLFb0knT7Bkdynn7oV43dCho4gZ9oD7E23+Xf2Owzykm8ZNAO0sGLnnO
+	 7FTqSY3HwIBougjUPxzSyzBBIyNjCi1RBcUgzY7XFQU/tkhgM/XoG/sim8vvfAn+++
+	 beJtOJj2/ZtvFEVokoQ+cIIPOPIaSQ/dEXfJTrHK+5mmtRhdMb3NTf9jiVrHE/J+HH
+	 W76w5Z5owffNApwmpqj/LiwAW/WR30WAic8mUFYf/rMlbOAzYKzu9ocPIcrWi+aSzs
+	 y1fyDqDdi/QHQ==
+Date: Tue, 22 Sep 2026 13:46:57 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Hao Li <hao.li@linux.dev>
+Cc: vbabka@kernel.org, akpm@linux-foundation.org, cl@gentwo.org, 
+	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mm/slub: refill prefilled sheaves from the barn
+Message-ID: <arJwnw_kxbj2RFUe@thinkstation>
+References: <20260921094521.141665-1-hao.li@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>, 
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-In-Reply-To: <20260922102258.138753-3-quchaosheng000406@163.com>
-References: <20260922102258.138753-1-quchaosheng000406@163.com>
- <20260922102258.138753-3-quchaosheng000406@163.com>
-Message-Id: <179008111842.3145564.13410709686921168865.robh@kernel.org>
-Subject: Re: [PATCH v8 2/3] dt-bindings: net: can: holt,hi311x: Convert to
- DT schema
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921094521.141665-1-hao.li@linux.dev>
 
-
-On Tue, 22 Sep 2026 18:22:57 +0800, Quchaosheng wrote:
-> Convert the Holt HI-311X binding from free-form text to DT schema.
+On Mon, Sep 21, 2026 at 05:41:13PM +0800, Hao Li wrote:
+> Currently, when the prefill API refills a non-full sheaf, it takes the
+> objects from partial slabs and never from the full sheaves in the barn,
+> so once the barn's full list becomes saturated, it stays saturated.
 > 
-> Reference can-controller.yaml and spi/spi-peripheral-props.yaml. The
-> HI-3110 sits on an SPI bus, so its node carries the standard SPI
-> properties, spi-max-frequency among them. With unevaluatedProperties:
-> false and no reference to spi-peripheral-props.yaml, dtbs_check rejects
-> those properties:
+> For objects freed via kfree_rcu(), every RCU sheaf then has to be
+> flushed to slabs because the barn's full list has no room.
 > 
->   can@1 (holt,hi3110): Unevaluated properties are not allowed
->     ('spi-max-frequency' was unexpected)
+> To fix this, let the sheaf refill from the barn first, and introduce a
+> partial sheaf in the barn, which holds the leftover objects [1].
 > 
-> Keep the properties and the example as the original text describes them,
-> including clocks as a required property.
+> Only the prefill path needs the partial sheaf. The generic allocation
+> path (__pcs_replace_empty_main()) exchanges an empty sheaf for a full
+> one from the barn, so nothing is left over. The prefill path refills a
+> sheaf that is not necessarily empty, so taking objects from the barn
+> usually leaves leftovers, and the partial sheaf is where they are
+> kept. refill_sheaf() only takes objects from partial slabs and never
+> involves the partial sheaf.
 > 
-> Assisted-by: LLM
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260922084542.104788-1-quchaosheng000406@163.com?part=2
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> The sheaf is refilled by copying objects from the partial sheaf, and
+> then from a full sheaf taken from the barn if it is still not full. A
+> sheaf that objects were copied from stays in the barn as the partial
+> sheaf if it still holds objects, or goes on the empty list if it is
+> empty. The sheaf being refilled is never replaced.
+> 
+> The gain comes from two sides: every full sheaf taken out makes room on
+> the barn's full list for a future RCU sheaf, and refilling from the
+> barn is cheaper than refilling from partial slabs under list_lock.
+> 
+> Note that putting the sheaf with the leftover objects on the full list
+> instead would not work: it would occupy room on the full list, so the
+> list would stay saturated and rcu_free_sheaf() would still keep
+> flushing.
+> 
+> An earlier version of this patch swapped sheaves instead, to minimize
+> the memcpy overhead. As Harry Yoo pointed out [2], replacing the
+> caller's sheaf loses cache affinity, filling it directly is more
+> straightforward, and testing showed no measurable difference between
+> the two approaches, so the approach he suggested is used.
+> 
+> Tested with will-it-scale mmap1 (192 processes, one-minute runs) on the
+> maple_node cache.
+> 
+> throughput: 27778727 -> 34500556 (+24.2%)
+> 
+> metric                       baseline           patched        change
+> =====================================================================
+> alloc_fastpath                 54,124            56,696        +4.75%
+> alloc_slab                  7,100,651           159,739       -97.75%
+> barn_get                          849       194,460,392    +22904539.81%
+> barn_get_fail                       2               217    +10750.00%
+> barn_put                          851       182,306,701    +21422544.07%
+> barn_put_fail             260,400,484       145,522,675       -44.12%
+> cmpxchg_double_fail         1,029,204           334,228       -67.53%
+> free_add_partial          326,694,687       181,935,790       -44.31%
+> free_fastpath                  13,297            15,611       +17.40%
+> free_rcu_sheaf          8,332,839,104    10,490,535,227       +25.89%
+> free_remove_partial         7,099,788           158,297       -97.77%
+> free_slab                   7,099,788           158,297       -97.77%
+> free_slowpath              10,969,156           782,851       -92.86%
+> objects                        15,295            14,849        -2.92%
+> objects_partial                15,295            14,849        -2.92%
+> partial                         1,604             2,336       +45.64%
+> sheaf_alloc               137,757,895       141,208,076        +2.50%
+> sheaf_flush             8,332,823,922     4,656,725,764       -44.12%
+> sheaf_free                137,757,883       141,208,072        +2.50%
+> sheaf_prefill_fast      3,337,502,163     4,196,506,116       +25.74%
+> sheaf_prefill_slow                685               400       -41.61%
+> sheaf_refill            8,343,794,364     4,657,509,724       -44.18%
+> sheaf_return_fast       3,337,502,411     4,196,506,382       +25.74%
+> sheaf_return_slow                 437               134       -69.34%
+> slabs                           1,604             2,336       +45.64%
+> total_objects                 102,656           149,504       +45.64%
+> 
+> Here is what the important metric changes mean.
+> 
+> barn_get and barn_put: refills now take full sheaves out of the barn,
+> and RCU sheaves are put into the barn again. Before, the barn's full
+> list was saturated once and hardly ever consumed.
+> 
+> barn_put_fail: more than half of the RCU sheaves are now put into the
+> barn instead of being flushed. The rest are still flushed because they
+> arrive while the barn's full list is at its limit.
+> 
+> sheaf_refill and free_add_partial: fewer objects are taken from partial
+> slabs to refill sheaves, and fewer slabs are added to the partial list,
+> by the same percentage.
+> 
+> alloc_slab and free_slab: the partial list is almost never empty when a
+> refill looks at it, so slabs are almost never allocated and freed again
+> only to serve refills.
+> 
+> After the test, the maple_node cache holds 1604 slabs without the patch
+> and 2336 with it. After a manual shrink
+> (echo 1 > /sys/kernel/slab/maple_node/shrink), it holds 485 without
+> the patch and 563 with it. So most of the extra slabs are held only by
+> objects sitting in sheaves and are returned by a shrink, and what
+> remains is a small difference, because objects handed out from the barn
+> come from many more slabs than a refill from partial slabs would use.
+> 
+> Link: https://lore.kernel.org/linux-mm/aqPlMzUIw-4g2iOX@fedora/ [1]
+> Link: https://lore.kernel.org/linux-mm/aq0ylDidEHa2kg4X@thinkstation/ [2]
+> Signed-off-by: Hao Li <hao.li@linux.dev>
 > ---
-> 
-> v8:
->  - Put back the $ref to spi/spi-peripheral-props.yaml. v7 dropped it as
->    redundant, but the HI-3110 is an SPI peripheral and its node carries
->    spi-max-frequency. With unevaluatedProperties: false and no reference,
->    dt_binding_check reports:
-> 
->      can@1 (holt,hi3110): Unevaluated properties are not allowed
->        ('spi-max-frequency' was unexpected)
-> 
->    A node carrying spi-max-frequency fails without the reference and passes
->    with it, so the reference is required. Reported by sashiko.
-> 
->    The schema is identical to the v6 that Rob reviewed, so his Reviewed-by
->    is kept.
->  .../bindings/net/can/holt,hi311x.yaml         | 67 +++++++++++++++++++
->  .../bindings/net/can/holt_hi311x.txt          | 23 -------
->  2 files changed, 67 insertions(+), 23 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
->  delete mode 100644 Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-> 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/memory-controllers/nvidia,tegra210-emc.example.dtb: emc-table@83400000 (nvidia,tegra210-emc-table): {'compatible': ['nvidia,tegra210-emc-table'], 'reg': [[2202009600, 65536]], 'phandle': 2, '$nodename': ['emc-table@83400000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/nvidia,tegra210-emc-table.yaml
-Documentation/devicetree/bindings/soc/fsl/fsl,qman-fqd.example.dtb: qman-fqd (fsl,qman-fqd): {'compatible': ['fsl,qman-fqd'], 'size': 4194304, 'alignment': 4194304, 'no-map': True, '$nodename': ['qman-fqd']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['size']}
-	from schema $id: http://devicetree.org/schemas/soc/fsl/fsl,qman-fqd.yaml
-Documentation/devicetree/bindings/soc/fsl/fsl,qman-fqd.example.dtb: qman-fqd (fsl,qman-fqd): Unevaluated properties are not allowed ('alignment', 'no-map', 'size' were unexpected)
-	from schema $id: http://devicetree.org/schemas/soc/fsl/fsl,qman-fqd.yaml
-Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.example.dtb: dsp-memory@98000000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[2550136832, 8388608]], 'reusable': True, 'phandle': 1, '$nodename': ['dsp-memory@98000000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.example.dtb: dsp-memory@98000000 (shared-dma-pool): Unevaluated properties are not allowed ('reg', 'reusable' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.example.dtb: ipu-memory@95800000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[0, 2508193792, 0, 58720256]], 'reusable': True, 'phandle': 2, '$nodename': ['ipu-memory@95800000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.example.dtb: ipu-memory@95800000 (shared-dma-pool): Unevaluated properties are not allowed ('reg', 'reusable' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.example.dtb: dsp1-memory@99000000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[0, 2566914048, 0, 67108864]], 'reusable': True, 'phandle': 3, '$nodename': ['dsp1-memory@99000000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,omap-remoteproc.example.dtb: dsp1-memory@99000000 (shared-dma-pool): Unevaluated properties are not allowed ('reg', 'reusable' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,k3-m4f-rproc.example.dtb: m4f-dma-memory@9cb00000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[0, 2628780032, 0, 1048576]], 'no-map': True, 'phandle': 2, '$nodename': ['m4f-dma-memory@9cb00000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,k3-m4f-rproc.example.dtb: m4f-dma-memory@9cb00000 (shared-dma-pool): Unevaluated properties are not allowed ('no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,k3-m4f-rproc.example.dtb: m4f-memory@9cc00000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[0, 2629828608, 0, 14680064]], 'no-map': True, 'phandle': 3, '$nodename': ['m4f-memory@9cc00000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/remoteproc/ti,k3-m4f-rproc.example.dtb: m4f-memory@9cc00000 (shared-dma-pool): Unevaluated properties are not allowed ('no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/dsp/fsl,dsp.example.dtb: vdev0buffer@94300000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[2486173696, 1048576]], 'no-map': True, 'phandle': 2, '$nodename': ['vdev0buffer@94300000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/dsp/fsl,dsp.example.dtb: vdev0buffer@94300000 (shared-dma-pool): Unevaluated properties are not allowed ('no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/sound/google,cros-ec-codec.example.dtb: reserved-mem@52800000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[1384120320, 1048576]], 'no-map': True, 'phandle': 2, '$nodename': ['reserved-mem@52800000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/sound/google,cros-ec-codec.example.dtb: reserved-mem@52800000 (shared-dma-pool): Unevaluated properties are not allowed ('no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/reserved-memory/nvidia,tegra264-bpmp-shmem.example.dtb: shmem@f1be0000 (nvidia,tegra264-bpmp-shmem): {'compatible': ['nvidia,tegra264-bpmp-shmem'], 'reg': [[0, 4055760896, 0, 8192]], 'no-map': True, '$nodename': ['shmem@f1be0000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/nvidia,tegra264-bpmp-shmem.yaml
-Documentation/devicetree/bindings/reserved-memory/nvidia,tegra264-bpmp-shmem.example.dtb: shmem@f1be0000 (nvidia,tegra264-bpmp-shmem): Unevaluated properties are not allowed ('no-map' was unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/nvidia,tegra264-bpmp-shmem.yaml
-Documentation/devicetree/bindings/reserved-memory/phram.example.dtb: flash@12340000 (phram): {'compatible': ['phram'], 'label': ['rootfs'], 'reg': [[305397760, 8388608]], '$nodename': ['flash@12340000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/phram.yaml
-Documentation/devicetree/bindings/reserved-memory/ramoops.example.dtb: ramoops@bfdf0000 (ramoops): {'compatible': ['ramoops'], 'reg': [[3219062784, 65536]], 'console-size': 32768, 'record-size': 1024, 'ecc-size': 16, '$nodename': ['ramoops@bfdf0000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/ramoops.yaml
-Documentation/devicetree/bindings/reserved-memory/qcom,cmd-db.example.dtb: reserved-memory@85fe0000 (qcom,cmd-db): {'reg': [[2248015872, 131072]], 'compatible': ['qcom,cmd-db'], 'no-map': True, '$nodename': ['reserved-memory@85fe0000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/qcom,cmd-db.yaml
-Documentation/devicetree/bindings/reserved-memory/qcom,cmd-db.example.dtb: reserved-memory@85fe0000 (qcom,cmd-db): Unevaluated properties are not allowed ('no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/qcom,cmd-db.yaml
-Documentation/devicetree/bindings/reserved-memory/intel,wakeup-mailbox.example.dtb: wakeup-mailbox@ffff0000 (intel,wakeup-mailbox): {'compatible': ['intel,wakeup-mailbox'], 'reg': [[0, 4294901760, 4096]], '$nodename': ['wakeup-mailbox@ffff0000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/intel,wakeup-mailbox.yaml
-Documentation/devicetree/bindings/reserved-memory/intel,wakeup-mailbox.example.dtb: wakeup-mailbox@ffff0000 (intel,wakeup-mailbox): Unevaluated properties are not allowed ('reg' was unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/intel,wakeup-mailbox.yaml
-Documentation/devicetree/bindings/reserved-memory/google,open-dice.example.dtb: dice@12340000 (google,open-dice): {'compatible': ['google,open-dice'], 'reg': [[0, 305397760, 8192]], 'no-map': True, '$nodename': ['dice@12340000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/google,open-dice.yaml
-Documentation/devicetree/bindings/reserved-memory/google,open-dice.example.dtb: dice@12340000 (google,open-dice): Unevaluated properties are not allowed ('no-map' was unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/google,open-dice.yaml
-Documentation/devicetree/bindings/reserved-memory/qcom,rmtfs-mem.example.dtb: rmtfs@86700000 (qcom,rmtfs-mem): {'compatible': ['qcom,rmtfs-mem'], 'reg': [[2255486976, 917504]], 'no-map': True, 'qcom,client-id': 1, '$nodename': ['rmtfs@86700000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/qcom,rmtfs-mem.yaml
-Documentation/devicetree/bindings/reserved-memory/qcom,rmtfs-mem.example.dtb: rmtfs@86700000 (qcom,rmtfs-mem): Unevaluated properties are not allowed ('no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/qcom,rmtfs-mem.yaml
-Documentation/devicetree/bindings/display/msm/gpu.example.dtb: gpu@8f200000 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[0, 2427453440, 0, 10485760]], 'no-map': True, 'phandle': 5, '$nodename': ['gpu@8f200000']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/display/msm/gpu.example.dtb: gpu@8f200000 (shared-dma-pool): Unevaluated properties are not allowed ('no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.example.dtb: display0: fsl,pcr: b'\xf0\xc8\x80\x80' is not of type 'object', 'integer', 'array', 'boolean', 'null'
-	from schema $id: http://devicetree.org/schemas/dt-core.yaml
-Documentation/devicetree/bindings/firmware/intel,stratix10-svc.example.dtb: svcbuffer@0 (shared-dma-pool): {'compatible': ['shared-dma-pool'], 'reg': [[0, 0, 0, 16777216]], 'alignment': 4096, 'no-map': True, 'phandle': 1, '$nodename': ['svcbuffer@0']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['reg']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-Documentation/devicetree/bindings/firmware/intel,stratix10-svc.example.dtb: svcbuffer@0 (shared-dma-pool): Unevaluated properties are not allowed ('alignment', 'no-map', 'reg' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260922102258.138753-3-quchaosheng000406@163.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+Cheers,
+Harry / Hyeonggon
