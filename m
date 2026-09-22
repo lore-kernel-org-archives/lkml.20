@@ -1,204 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D312E7F39
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790038032; cv=none; b=WZ5LDjIjNav/C4c9VrzcZvZg4J4ZBh3G3SvUbNYKU+447Rbhb0VUzkLevWhUoyNcVH1ileoAfr5Tqajo89Spzg/gx7RamftlOrH7n4ZJSlAeaoYjcVoDM80OvVckb1gCoPDp7m1maDZuKOVKfNT2Z7t+b4BqKEmeLbPHTK+VYyk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790038032; c=relaxed/simple;
-	bh=452/KNCUURSgjMedDMBpiqj9H72IvWfvsOiu7TvyjnY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ao4VspWS/7u8f9glqCGi8vu/C5hw6yI9aLBsUnwLT4I0G85IvFFQ9GRrheW4bgemVz+BRgb/D2KBG2ttfWxbVlP5k5IEKFLqW2mDer1wxUJSD5NdlsQODWb1E1BU5Bx47f7OBmz7bY5K89Inp+iNk1SDtvG32xoBbAFHiThZdCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rJGUe2gz; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473A12E7378
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790038104; cv=pass; b=UQU5RptOh3cbr8/Kd4fVf/2K6XzP15D/2PWK/hNurPjkgon+uhNFHsW7KlNgRwOy9aaBT5G5FTUdb3rp0tStj6EZdXpsVfAEvH7OxWogGt/jVmY7WPbSxe2SpqwQD7Eg7RWzyX10/2PYu+wsL1OCibhesWB5OXOWGy2XFkBuKSc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790038104; c=relaxed/simple;
+	bh=BnrzXWHtRfdiJ3pqOPR5yk4FSFhY+j/DDmjhbz0Pj3k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PVh2swPHp6dWX3Rs6kjtSSyyXzoFlPRTe+1lWz9TSctX9vlFYXDHimcYzYuUPAl8oHUHWU5UPPsC3aGO6ZzX72obBVI/cHEDjEEZ4g4ZIPUBUee/tO6WSOYcHie3Q94nlOxIFZL2mxeEM7ztLK8KXRCkF/6/eM1BPq5tKHQUzVg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=J8ZSWqDN; arc=pass smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rJGUe2gz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 41B0EC2BCB3;
-	Tue, 22 Sep 2026 00:47:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790038032;
-	bh=452/KNCUURSgjMedDMBpiqj9H72IvWfvsOiu7TvyjnY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=rJGUe2gzfh04UChRK8sSTFRVort4kkCClHWcm5MbcYSXebjK4Ce7sWw1h0pid4x7X
-	 XhhvaKkhDY3Z7ZfIxcPD1gImPlN5QKwLeGAAW36/VFLuK1rqfrim+R9KNDGHC61/9f
-	 iR4E0OuV6xgrCz1PJQRyGuuYLXAKOETFQK78OIQYx5MROuUz7YdThDoka+8sAVCpdC
-	 9V6z7WROyc+ZVAKUFqDWeM7pT97NVU6QwnguycIYVp8BHFJ5Xu5pAxlKq+dk5Nhuwx
-	 okwBIAKDob3GfaNaCGEH+oZS41n1kyaRZrxeAkuG9Zb3wm1SP5vO+5OhOHEh774uwr
-	 e1M6LIuLvSJ6A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12895C982ED;
-	Tue, 22 Sep 2026 00:47:12 +0000 (UTC)
-From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
-Date: Mon, 21 Sep 2026 20:47:08 -0400
-Subject: [PATCH] soc: fsl: qbman: order the probed flags with
- release/acquire
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="J8ZSWqDN"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb766bfd3so27483211cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 17:48:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790038102; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p2xpAjsLTB33EOUIFnwf+3YMsifxBieFGfI7m9BCUm61FBAHcURYFa4lmVh7qFS3sq
+         aDPOvvU1xcl7cD8/wKvJkDUTZTn00kwO9bygxCc0gDbcXYIV+AGrEhbP1uBovVsq3L1m
+         cORjuU3qePfuR20WcojQ1evHgvoIRCRDvFPTOnnFnVZSxaeept00DPVdXJhUS0MqWDYO
+         N2xLTCKnweWPZW0StdrgNhBBX4SPGMDdORTXt5EAYmVuf1+LhUjRP722NJGJioRuyy+D
+         cXMir8tgQUFE55gIPf5anu0RoQfNrakjmMzIeNV05JoelgIIM0z0TIDnfnBBB14Slz2u
+         Untg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3LK+ozKSylFUUvnjcXsMMo9dDb+3ZVbSVsFuxLr9rAA=;
+        fh=7HWQxRQMxVvYP40SMPRZAbuwn0NgKGBv7+J3YPl2Ghg=;
+        b=AmZa2PxcPHSbsDG7lIvqxAzUicCMwD84YIxEantzgBR9Z52WXd/6FsDJ8XL7AjS7zN
+         pB7zIs3QVqD3As4TU6vviVDA2DLSHYlkZ0EvuJH70+FPV5zyAeJSMotPX6V6DpNJCSKy
+         8NOexy7N93lRjU+QJZVlwU/BloaPoyMCt7IATdcNjgj/oJB8fHnMm4vJs5vA+toCfAi3
+         X1xLYiSBnmxBsBfdS99APcpMSc0Ie4bQSYQyAbzR8mx/vc8jV8J1KXMg7juBpQV7TJ6M
+         zD3zhmbQ6YY/8xYmFQe0gbQKrk6VaIyIwxRj2SwDIqF/aBMcZbqfmNHPuFtl/mLDvIdU
+         EQhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790038102; x=1790642902; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3LK+ozKSylFUUvnjcXsMMo9dDb+3ZVbSVsFuxLr9rAA=;
+        b=J8ZSWqDNsFwhCuzOtu3NhHQ36LmhGohqELCoJJe7RvR/BuzAmgGAXX9RYZnMZsWO8e
+         H9lU1aJKE2W7c68WPoMjZq3msxqZoMxdZwvE/xsv6BBRj5pteb6D8Fmf3WWI295pQ7cb
+         EA9VBQAnBcqCBjXnHDz1Mt+4e2MW//jkHRhxsdyV5o++ADfDzmq+V28mNv3lQfQjQ/t/
+         zdqU/oGB3RT9oz/JXCkLJoTChZKzqlI27qRlrauomWhkurzIwEVO/jJ05bRN7eCBZcBg
+         mvCJMcj/3jF1orwmRABQDiytjxiD7iL+DmLz38gn9VWgpyOxL7msw9e4MBUpJmj76K51
+         6IIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790038102; x=1790642902;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3LK+ozKSylFUUvnjcXsMMo9dDb+3ZVbSVsFuxLr9rAA=;
+        b=RppKQWyHasvnz35C5aEoNxJsph/oAZrrZlq7y5eqVPKBKQThtMKNV0uaTe88JpyXgE
+         EzAkNGUd0DKqmgXIVYRxKziclE3diWVxeERxKdtoXv3V4qN29mGbituBcMlwig7JBBPl
+         wterCnyXmOiNRcihisqe76Z3tXQQBHvghX6VrHBV+w6jVLsA4LwybMwuliPCDtK/KIAl
+         QWAWumJVw0rJ6/qsrvi6d848ZoT4vcYTWfBExa1MrBm/bVDOXGWmsw3fcDAN2Y1k0bdT
+         Ct1Onjw0j53wSXvZMasr4enOHcnmduJzf/BVkwKXPCyfsCj8VRclDsIlDSWxBz3FwzgG
+         DycA==
+X-Forwarded-Encrypted: i=1; AKwUvBxl2WAXUPNSFtTrDhOdSbZ4Lu9gOIfhKI+5WztZul1tnWTrNTuwiNcEVCSSngOYwH5v+Lr5J9++LoCCioI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEiR530HRhfnskitAva/YR/y75cLxgnwuXtyXc0VVBcwq/59sr
+	XBLQbmUnuwYA5r6B3XI0Dg/4ML/OECkJL+zpJLKnRSf+zNnqrgc6yj/q8d3E+Jch4PYtjm4DgAA
+	3YEF/Oo+S9379fCmi8nZjB46qz7dSa8lJCeo8RvUt
+X-Gm-Gg: AYBFou0nOQ6l23Ga7kFQiq5YEVXkFDoFDPFPYMKY2eBIbTG+3QuhMHifUz8RfSOFzZx
+	/sbqVHXGaN6AALLEHeWRwFa/psM//giwVYkFWuK8Id1AQhUg+hmoZsIgY2uCaMA4xO6DBIPJvay
+	yvDdMzFG4+ZVj1WmSTzBFcHKJehBc9kVsyEOfRhAjqBvW9TZzLptvowMR8GbGfg4XTqg2Guyt4o
+	JFmXaLCtbk8gjL6GVdYSFgQMoxnNATL8F3TK+HFLgfaaGrGPIK/jVbsHyk3+kmqzskjAkc20WXO
+	n5h0eefnPoZmS7w9oKI5G4U75uBA6Ths/S2deV7elEX6Uvfp9thehGpC8yPxJSWVKXrQEXAA1pU
+	lOMekBvbwZPiQoOR1BZki1qLmyTcSHGd6FwEJFsO1BltsILl27lCsJUuZ/EoTH/ij9DufC+LArw
+	5CVksv
+X-Received: by 2002:ac8:5cc7:0:b0:530:e8e6:bb67 with SMTP id
+ d75a77b69052e-532d8e6e2acmr32479001cf.59.1790038101714; Mon, 21 Sep 2026
+ 17:48:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-mb-qbman-v1-1-35f3321aa330@vt.edu>
-X-B4-Tracking: v=1; b=H4sIAAvQsWoC/yXMQQ7CMAwEwK9UPmOUhlAKX0Ec4uBQIzWAAxVS1
- b+TlOOsdneGzCqc4dTMoDxJlkcqaDcNhMGnG6Nci8Ea25mjbXEkfNHoE/Yu7juOJvYuQKk/laN
- 816vz5e/8oTuHd93XBvnMSOpTGGq0cjpsd6jBwbL8APRh8cuMAAAA
-X-Change-ID: 20260921-mb-qbman-84f56ef0f84c
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Jaidev Shastri <jaidevshastri@vt.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790038031; l=5060;
- i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
- bh=fT0InRMlMFbZ9CKVfdOgEtwLmnpvFnvqHzVcYJmm3RA=;
- b=dfSMjLLaNzAGsFr3S0RP9Qjbm7gVRjFVsP27ngUULTv6uXzFilh88P58W/+zlBX4bIuxmW63r
- m/PPbt94y/+BJ1+VKHc5/9AurqvVnFu/NlOkiHhF/JBjoaZ+uOYOS8F
-X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
- pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
-X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
- auth_id=1044
-X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
-Reply-To: jaidevshastri@vt.edu
+References: <CGME20260916050144epcas5p3f7d6a44556baabd24027af8f4bce7893@epcas5p3.samsung.com>
+ <20260916050255.1379192-1-irlanki.s@samsung.com> <20260921152604.2df7daaf@kernel.org>
+In-Reply-To: <20260921152604.2df7daaf@kernel.org>
+From: Eric Dumazet <edumazet@google.com>
+Date: Tue, 22 Sep 2026 02:48:10 +0200
+X-Gm-Features: AcwNN1UYkBPuOvUGMNKq9NIUmTu6yNeNhs9fCtxsErhjcC2hyfYApg2nj1gadtI
+Message-ID: <CANn89iJgAXaoepX1uvUbYhnutjvOPknPFheThf-gRWV-PbZZxw@mail.gmail.com>
+Subject: Re: [PATCH net-next v4] tcp: add TCP_ECN and TCP_ECN_OPTION socket options
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Irlanki Sandeep <irlanki.s@samsung.com>, ncardwell@google.com, netdev@vger.kernel.org, 
+	bpf@vger.kernel.org, davem@davemloft.net, pabeni@redhat.com, ast@kernel.org, 
+	daniel@iogearbox.net, andrii@kernel.org, corbet@lwn.net, 
+	linux-kernel@vger.kernel.org, lorenzo@google.com, maze@google.com, 
+	sporeba@google.com, motomuman@google.com, srihari.k@samsung.com, 
+	g.pokhra@samsung.com, r.kumawat@samsung.com, raj.kumars@samsung.com, 
+	ts413.lee@samsung.com, ramyashree.s@samsung.com, daeil2.hwang@samsung.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jaidev Shastri <jaidevshastri@vt.edu>
+On Tue, Sep 22, 2026 at 12:26=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> w=
+rote:
+>
+> On Wed, 16 Sep 2026 10:32:55 +0530 Irlanki Sandeep wrote:
+> > Currently, ECN and Accurate ECN (AccECN) configurations in the Linux
+> > kernel are controlled globally via the net.ipv4.tcp_ecn and
+> > net.ipv4.tcp_ecn_option sysctl variables. This global approach lacks th=
+e
+> > granularity required for modern multi-application runtimes.
+> >
+> > In diverse network environments (such as mobile operating systems like
+> > Android), different applications route their traffic over distinct
+> > physical and virtual interfaces (cellular, Wi-Fi, VPNs, etc.). In the
+> > wild, certain legacy network paths or misconfigured middleboxes (such a=
+s
+> > routers, DPIs, or firewalls) are known to blackhole packets with ECN
+> > negotiation flags in the SYN, or silently drop packets containing AccEC=
+N
+> > option headers during active sessions.
+>
+> My gut reaction is that we shouldn't be adding a setsockopt here.
+> This is a routing property, really, IIUC you're adding the setsockopt
+> because you want to use BPF, in which case isn't it better to add
+> a kfunc for this? Why go thru all the sockopt plumbing?
+>
+> TCP maintainers, WDYT?
 
-dpaa_eth, caam and the portal drivers poll qman_is_probed(),
-bman_is_probed(), qman_portals_probed() and bman_portals_probed() before
-they touch the state the probe functions set up: qman_ip_rev, the CCSR
-and portal register maps, the FQD and PFDR bases, affine_portals and the
-pool allocators.
+Speaking for myself, I also cannot see why we need to support so much
+flexibility.
 
-Each flag is set with a plain store at the end of its probe function and
-read with a plain load in the exported accessor. The stores that build
-the state are not ordered before the store to the flag, and the
-consumer's load of the flag is not ordered before its loads of the
-state. A consumer probing on another CPU can see the flag set and then
-read state that is still stale or zeroed, and program the hardware with
-it.
+BTW:
 
-Set the flags with smp_store_release() and read them with
-smp_load_acquire(). The error paths storing -1 keep their plain stores:
-a consumer that sees -1 fails its own probe without touching the state.
+I have on my plate a complete walk through of recent fields additions
+in tcp_sock,
+mostly from the AccECN support.
 
-Found with MBCheck, a static herd7-based memory consistency checker.
-
-Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
----
- drivers/soc/fsl/qbman/bman_ccsr.c   |  6 ++++--
- drivers/soc/fsl/qbman/bman_portal.c |  6 ++++--
- drivers/soc/fsl/qbman/qman_ccsr.c   | 11 +++++++++--
- drivers/soc/fsl/qbman/qman_portal.c |  6 ++++--
- 4 files changed, 21 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/soc/fsl/qbman/bman_ccsr.c b/drivers/soc/fsl/qbman/bman_ccsr.c
-index b0f26f6f7..c5be35aba 100644
---- a/drivers/soc/fsl/qbman/bman_ccsr.c
-+++ b/drivers/soc/fsl/qbman/bman_ccsr.c
-@@ -180,7 +180,8 @@ static irqreturn_t bman_isr(int irq, void *ptr)
- 
- int bman_is_probed(void)
- {
--	return __bman_probed;
-+	/* Pairs with smp_store_release() in fsl_bman_probe(). */
-+	return smp_load_acquire(&__bman_probed);
- }
- EXPORT_SYMBOL_GPL(bman_is_probed);
- 
-@@ -279,7 +280,8 @@ static int fsl_bman_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	__bman_probed = 1;
-+	/* Order bm_ccsr_start, bman_ip_rev and the pool allocator before the flag. */
-+	smp_store_release(&__bman_probed, 1);
- 
- 	return 0;
- };
-diff --git a/drivers/soc/fsl/qbman/bman_portal.c b/drivers/soc/fsl/qbman/bman_portal.c
-index 4d7b9caee..056fe3fbb 100644
---- a/drivers/soc/fsl/qbman/bman_portal.c
-+++ b/drivers/soc/fsl/qbman/bman_portal.c
-@@ -90,7 +90,8 @@ static int bman_online_cpu(unsigned int cpu)
- 
- int bman_portals_probed(void)
- {
--	return __bman_portals_probed;
-+	/* Pairs with smp_store_release() in bman_portal_probe(). */
-+	return smp_load_acquire(&__bman_portals_probed);
- }
- EXPORT_SYMBOL_GPL(bman_portals_probed);
- 
-@@ -157,7 +158,8 @@ static int bman_portal_probe(struct platform_device *pdev)
- 	spin_lock(&bman_lock);
- 	cpu = cpumask_first_zero(&portal_cpus);
- 	if (cpu >= nr_cpu_ids) {
--		__bman_portals_probed = 1;
-+		/* All CPU-bound portals are initialised and in affine_bportals. */
-+		smp_store_release(&__bman_portals_probed, 1);
- 		/* unassigned portal, skip init */
- 		spin_unlock(&bman_lock);
- 		goto check_cleanup;
-diff --git a/drivers/soc/fsl/qbman/qman_ccsr.c b/drivers/soc/fsl/qbman/qman_ccsr.c
-index aa5348f49..b46cfb964 100644
---- a/drivers/soc/fsl/qbman/qman_ccsr.c
-+++ b/drivers/soc/fsl/qbman/qman_ccsr.c
-@@ -711,7 +711,8 @@ static int qman_resource_init(struct device *dev)
- 
- int qman_is_probed(void)
- {
--	return __qman_probed;
-+	/* Pairs with smp_store_release() in fsl_qman_probe(). */
-+	return smp_load_acquire(&__qman_probed);
- }
- EXPORT_SYMBOL_GPL(qman_is_probed);
- 
-@@ -864,7 +865,13 @@ static int fsl_qman_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	__qman_probed = 1;
-+	/*
-+	 * Publish the flag only after every store made above (qman_ip_rev,
-+	 * qm_ccsr_start, the FQD/PFDR bases, the work queue) is visible to
-+	 * the consumers that poll qman_is_probed() and then call into
-+	 * qman_set_sdest(), qman_liodn_fixup(), qman_alloc_*().
-+	 */
-+	smp_store_release(&__qman_probed, 1);
- 
- 	return 0;
- }
-diff --git a/drivers/soc/fsl/qbman/qman_portal.c b/drivers/soc/fsl/qbman/qman_portal.c
-index 456ef5d5c..181c0f373 100644
---- a/drivers/soc/fsl/qbman/qman_portal.c
-+++ b/drivers/soc/fsl/qbman/qman_portal.c
-@@ -175,7 +175,8 @@ static int qman_online_cpu(unsigned int cpu)
- 
- int qman_portals_probed(void)
- {
--	return __qman_portals_probed;
-+	/* Pairs with smp_store_release() in qman_portal_probe(). */
-+	return smp_load_acquire(&__qman_portals_probed);
- }
- EXPORT_SYMBOL_GPL(qman_portals_probed);
- 
-@@ -251,7 +252,8 @@ static int qman_portal_probe(struct platform_device *pdev)
- 	spin_lock(&qman_lock);
- 	cpu = cpumask_first_zero(&portal_cpus);
- 	if (cpu >= nr_cpu_ids) {
--		__qman_portals_probed = 1;
-+		/* All CPU-bound portals are initialised and in affine_portals. */
-+		smp_store_release(&__qman_portals_probed, 1);
- 		/* unassigned portal, skip init */
- 		spin_unlock(&qman_lock);
- 		goto check_cleanup;
-
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-mb-qbman-84f56ef0f84c
-
-Best regards,
---  
-Jaidev Shastri <jaidevshastri@vt.edu>
-
-
+ecn_mode and ecn_options have nothing to do in tcp_sock_write_tx group
+in any case.
+This patch  would hurt performance.
