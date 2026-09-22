@@ -1,100 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F96479873;
-	Tue, 22 Sep 2026 11:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A3B53B34F;
+	Tue, 22 Sep 2026 11:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077972; cv=none; b=Fm3czwL2Az9li/rRieDCuSR7CU40dnAA4MZVbHxRB0ekEAONDubkij3/D/ah2fD2hYaj/TBYmLAmrr3slwHziSDeoVZgCP2W90RCk11hJY91BYOio4o0JV4WRIjAfEeTVPpkSbIkrtGNQ74iK+eNPmuJykgpwjdQ3gRSUAypaOE=
+	t=1790078009; cv=none; b=XbkkzOOGz9rDTkkv2tDFypzFzUHl6XDeb7H/N2dbrq36ET6TXX1r1YhCc9cLj95d4TEenFTPJrvwGnrDlyq7dhXCM4m6qYdkNENmlDxUI+3jbNm8Rv0uBXI8jTEQeyNoOSVJ6HnTRx+pRZ2Qp4xWI23CRb95IQ4kvIl8U9B7MJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077972; c=relaxed/simple;
-	bh=ITl+A7JNqZMLvnrrGDwMZ/D4b9HeuqMCXw/w8ZB9mmM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WbUU5XCmpIQC4K1p/gpYJMsoe3XGCHOB4NzsiCcQMZhczKUpygCPviBzyoe4Mki5Da4S0P5RghAJk4rOxJRq5M+gwoPbtppCafQP4zJN8ymi88pJ6yzG7pUzXwMjvNSV+DzLBW0ZUb8UF1J0JDdJ2Era/XgVx6qKNwK4Lyalyk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HY5ld3qY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790078009; c=relaxed/simple;
+	bh=cI/yf+/aqxNz3rlHprxiG0BzxCoJgOUsadd+/LIAw5E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FhA6fgd2lPu0wCgtxBW2DcKbUdoBQ71mXJ4TTWmfayROGyqo0v2BRp/kEiPcK7B5kolJwRXn/d/u8bzee/FAyioz16qX6LSmrZFkESVsI+XFASSzfAszwz6KD12yaMeRWbZrRWH/lVHqUXgNNRoBA/nJEWbyxw1CQF+vgZy9EQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=YbXSFs53; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HY5ld3qY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE0E1F00899;
-	Tue, 22 Sep 2026 11:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790077970;
-	bh=FyG4SaTJjRm1vWtLZjh7+Uoyc+0fCOtZ94HDYATcA1Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HY5ld3qY+AFaZntw9W7jL9IulMrRT+EHC0706/1iQYw2hgBdp6Gu0koETl9EGGl8O
-	 2qifQbo8NQgXd4oXO5U3gFNoNbMN17gAF0IO7i4MU8tuAuYQ7Ading9rt11bQkC6Z+
-	 +Cn1TPZZpmE7xk3ujyvNWNEVgnKXe9/H8TicjMDD26gloUM2NQojLBIJchB8ZTulkt
-	 lxV7JW/n+4gMhroRxFq78d4bBERVqufMBRGsQ3yjJmI2uTuwP58hkpOgd6N4gCkC+c
-	 CoO0j0z05OlKiuUkIvBTlGsrH7e1rd9tgyksnOLCbFjOcqKaorK2HiCNg9Suj/4Zgd
-	 4kW6ppeskt0Jw==
-Message-ID: <c4a6d3db-8b57-400d-a377-a7acbf45d3ba@kernel.org>
-Date: Tue, 22 Sep 2026 13:52:41 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="YbXSFs53"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=ypCY+k+45VQubu41f8meQZDon9VQmNyZQfmomwPKcZE=; b=YbXSFs53MUnonh+H5jXY6eAn38
+	tyFalBC6amIBqk4bICJdLtP2Q5T/Pq+qhLrmcHN7RPmGl+HcjuTrSTHIYlNn3Dtxy1aQJgN/1T5bD
+	843QX/7srAzURcKl+DgiRpBS/0MLW03Qxm97ojTk4oGcZ2/W9XUhVvEtv8d+sqjlcaDQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8z3o-006ZmQ-LO; Tue, 22 Sep 2026 13:53:20 +0200
+Date: Tue, 22 Sep 2026 13:53:20 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 5/8] net: dsa: motorcomm: Introduce
+ yt921x_speed
+Message-ID: <beac6481-df90-4faf-bdc2-8c3ea09b0480@lunn.ch>
+References: <20260917185010.3189199-1-mmyangfl@gmail.com>
+ <20260917185010.3189199-6-mmyangfl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking requests
- reserve access
-To: Johannes Weiner <hannes@cmpxchg.org>, Matthew Wilcox <willy@infradead.org>
-Cc: Matt Fleming <matt@readmodwrite.com>,
- Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org,
- abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
- brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
- dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
- hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-xfs@vger.kernel.org,
- mhocko@suse.com, ritesh.list@gmail.com, rvvandan@amazon.com,
- stable@vger.kernel.org, surenb@google.com, ziy@nvidia.com
-References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
- <20260910114602.926944-1-dipiets@amazon.it> <aqQlUr-1h07G8JWM@cmpxchg.org>
- <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
- <aqq8pWI0u1IZNWHT@cmpxchg.org>
- <9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org>
- <arFBJdYaRx_iJNDA@cmpxchg.org> <arFBWvzXPYrKuIYi@cmpxchg.org>
- <arFFKGrpPwtTkoCi@casper.infradead.org> <arFUPOi6gadAvD3E@cmpxchg.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-In-Reply-To: <arFUPOi6gadAvD3E@cmpxchg.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917185010.3189199-6-mmyangfl@gmail.com>
 
+> +	if (ps == YT921X_SPEED_NUM)
+>  		return -EINVAL;
+> -	}
 
+> +enum yt921x_speed {
+> +	YT921X_SPEED_10,
+> +	YT921X_SPEED_100,
+> +	YT921X_SPEED_1000,
+> +	YT921X_SPEED_10000,
+> +	YT921X_SPEED_2500,
+> +	YT921X_SPEED_NUM
+> +};
 
-On 9/21/26 5:58 PM, Johannes Weiner wrote:
-> On Mon, Sep 21, 2026 at 03:54:32PM +0100, Matthew Wilcox wrote:
->> On Mon, Sep 21, 2026 at 10:38:18AM -0400, Johannes Weiner wrote:
->>> +++ b/mm/page_alloc.c
->>> @@ -3246,7 +3246,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
->>>  			 * reserves as failing now is worse than failing a
->>>  			 * high-order atomic allocation in the future.
->>>  			 */
->>> -			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
->>> +			if (!page &&
->>> +			    ((alloc_flags & ALLOC_OOM) ||
->>> +			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
->>>  				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
->>
->> Would this be slightly neater?
->>
->> static inline bool may_access_reserves(unsigned int alloc_flags)
->> {
->> 	if (alloc_flags & ALLOC_OOM)
->> 		return true;
->> 	if (alloc_flags & (ALLOC_NON_BLOCK | ALLOC_MIN_RESERVE)) ==
->> 	    (ALLOC_NON_BLOCK | ALLOC_MIN_RESERVE)
->> 		return true;
->> 	return false;
->> }
+A nitpick, but i think YT921X_SPEED_NUM could be better named, like
+YT921X_SPEED_INVALID.
 
-I think it should be named e.g. may_access_highatomic_reserves() as
-may_access_reserves() is rather generic and would seem to imply an
-ALLOC_RESERVES match (see 2/2).
-
-> 
-> I tend to be hesitant with single-use abstractions, but no objection
-> if people think this is better.
-
-True but single-use ALLOC_MASK_ATOMIC is also not that great, and the
-usage makes the code hard to decipher. And see my reply to 2/2.
+	Andrew
