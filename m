@@ -1,121 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D002C383993;
-	Tue, 22 Sep 2026 04:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EEB37646C;
+	Tue, 22 Sep 2026 04:19:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790050590; cv=none; b=oVOaPGMM1Pk/LZqstaHu/ijCMu+HP3F7mLEgmp3Y/NTFrol05sOIAQG95OvIes1VOzsUPiSmQt+zphnerpjEqjt5gyLfIhbEqW1m1OLrRD1gXvHvA6b5wchDuI6POo9O9PfbdP99W8Zh0Wxjd+PB+ldMaKw6Yqv9fLazwLvNW44=
+	t=1790050757; cv=none; b=EoIbVvaW7fTrFAMktdwhYZ5RY3Esmf4QzPMPZWGcHlKXavV1gMoum3oRoafY54gBKj+r1ZsNDCU5/0GOcItZ58ZQuqiRCNZHRKdw0t3Z7NUT6hTCkmKY9Ui3NoKjp9e+Jzxl9SciznIz38O5L4/kMHpRqp7RbPlEa7QcOcpo8pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790050590; c=relaxed/simple;
-	bh=sYKvSvuhWweJzHqCA2hqtqha4VqzIFKBfyTY+5/UtU0=;
+	s=arc-20240116; t=1790050757; c=relaxed/simple;
+	bh=RSkNLe7Sg4XW5hNedsHvH2OlF9gD0i811YKpi50IXHE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ixfBj8NUk64o5plDgioaNiImlcaS4mOWjfTlPS6JJsOUjRUqGgj9ijLJn37MsGVzaUyLBd5DpmtD3Wez6PyDlJYkM4AQ8e1e7eCotGw6OLejLf9x7cBt7ZMu7p0oMpHJcux293N4MEWWRCj0VgJJ0hEMSQrZjbo+cnANsjlB70k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqZfjAj6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=p6kLYP5dDiCsRDRfUZ9oxBCAP1MeMDNYW7mgZuJtzugLC6l2rNyfuxxEyPi8koWdLujXqZ4BdxDf2rFd1x42SY7umwG/6cKVdxgICsULAnmJILgTzPZ7T6KTzY7GO2ssIHHXQT9hLUYSwOsi67CHrYperVpnZ9OJ3h4HzrC7Sb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmENK7hI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqZfjAj6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0471F000FF;
-	Tue, 22 Sep 2026 04:16:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmENK7hI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E0E1F000FF;
+	Tue, 22 Sep 2026 04:19:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790050588;
-	bh=RqPZN4CQe2FjLfMYs6z6JAlBF3IuRy4nyatTd0khWuY=;
+	s=k20260515; t=1790050755;
+	bh=k3B9ThvTz5RGopdNhG1qzUIIExt5TxIgr3PrinYt/7I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AqZfjAj6n1aloLbaYNuH+qUMs6HuFlg2zq2c+COl1oIlvOOdFsofup6L1BojfFZG3
-	 eDf7jHjlOH4Vpf2PN4SueTF6bRdX1PD25MO5skdlnCWPyYnJJkZFE07FeKAYfin4yJ
-	 XzX5wMlTb2osMmCCLoZ6ixDabNJUq3SxyurfbFxoAcFWYJ2rvzsRps+mZm0tXVsHuh
-	 m/3jF8AySYckadqyTY5pfx3pTvieXguUIgtsdWE94PET+HS5kbX0l9OdqusVapFV5D
-	 u9oYzOmdi1z1acm15i6PEzdijE4SUwB/uf9cGzUAETBXJKg2qWIJrY6YfUav3ZqCJ0
-	 o/KHFOjZijkkw==
-Date: Mon, 21 Sep 2026 21:16:21 -0700
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 15/20] objtool: cache relocations, do less work,
- eliminate relocation hash
-Message-ID: <arG07kfxJCmnVPY4@jpoimboe>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-15-9ecf4163ff36@kernel.org>
+	b=hmENK7hIfI4nkqA98Oh/niUu0cIYksY6wSgej1XD5+GYL6UXYorVaivtQlNyJiSpX
+	 nivALJV8ZrE7rhhAByx7cYv653GwJshpUX47k6uUQFnx5+BhDo2hnkqJvqBaKu8Kcw
+	 5kMLFDuvGBAw1GqmMdPK2hMzY6yraEn+9mzKbOYvqVjynlIICrYbanO4a00LJ1hKGf
+	 gt8roYO5nUtNDUk5yGSvSZ1FAZ0JvgPEoiMFQBfEzxCb3Y4jtyqy5ZbqMnBE30e7v+
+	 Vt6XOWIKes5R7kUjN3pLm25oTTAPCGJ+vkJy+7XIE9X0KXiGe2DEjJC1NPnNwKtQDv
+	 uQYg1gExUb+SA==
+Date: Tue, 22 Sep 2026 06:19:08 +0200
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Ira Weiny <iweiny@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+	linux-mm@kvack.org, nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH 2/2] nvdimm/pmem: Remove test_and_clear_pmem_poison()
+Message-ID: <arIBvO3cFQ53ivG3@localhost.localdomain>
+References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
+ <20260903053535.17611-3-kaitao.cheng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917-build-speedup-v3-15-9ecf4163ff36@kernel.org>
+In-Reply-To: <20260903053535.17611-3-kaitao.cheng@linux.dev>
 
-On Thu, Sep 17, 2026 at 05:06:25PM +0100, Lorenzo Stoakes (ARM) wrote:
-> This relies upon the entries within a section being sorted, which is the
-> case for all sections supplied to objtool by the link step during the
-> kernel build.
+On Thu, Sep 03, 2026 at 01:35:35PM +0800, Kaitao Cheng wrote:
+> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+> 
+> TestClearPageHWPoison() is now defined regardless of whether
+> CONFIG_MEMORY_FAILURE is enabled, returning false when memory failure
+> handling is unavailable.
+> 
+> The test_and_clear_pmem_poison() wrapper duplicates this configuration
+> handling and has no other pmem-specific behavior.
+> 
+> Call TestClearPageHWPoison() directly and remove the redundant wrapper.
+> This also removes the need to include page-flags.h from pmem.h.
+> 
+> No functional change is intended.
+> 
+> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-This is wrong (or at least actively misleading).  Objtool doesn't *only*
-run on linked objects.  In some configs it runs on individual .o files.
-And GCC doesn't sort relocs:
+Nice cleanup, but as David noted, please squash patch#1 into this one.
 
-  Relocation section '.rela.text' at offset 0xc0d0 contains 724 entries:
-      Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
-      ...
-  0000000000005c50  0000009000000004 R_X86_64_PLT32         0000000000000000 _raw_spin_lock - 4
-  0000000000005c65  0000009100000004 R_X86_64_PLT32         0000000000000000 _raw_spin_unlock - 4
-  0000000000005c6d  0000019f00000004 R_X86_64_PLT32         0000000000000000 put_files_struct - 4
-  000000000000004d  0000008f00000004 R_X86_64_PLT32         0000000000000000 __x86_return_thunk - 4
-  0000000000000075  0000008f00000004 R_X86_64_PLT32         0000000000000000 __x86_return_thunk - 4
-  00000000000000cd  0000008f00000004 R_X86_64_PLT32         0000000000000000 __x86_return_thunk - 4
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 
-(JMP target relocations are emitted in a second pass, for whatever
-reason)
-
-So the hash may actually be needed as a fallback after all.  Or some
-other scheme.
-
-Either way it's overkill to have more than a single fallback.  No second
-fallback for "just in case".  Attempting to search an unhashed section
-(DWARF) can just be a fatal error instead of the "just in case"
-WARN+linear fallback thing.
-
-> @@ -1168,19 +1286,26 @@ static int read_relocs(struct elf *elf)
->  				return -1;
->  			}
->  
-> -			elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
->  			set_sym_next_reloc(reloc, sym->relocs);
->  			sym->relocs = reloc;
->  
->  			nr_reloc++;
->  		}
->  		max_reloc = max(max_reloc, nr_reloc);
-> +
-> +		/* DWARF relocs are never looked up, so are not worth indexing. */
-> +		if (is_dwarf_section(rsec->base))
-> +			continue;
-
-This DWARF reloc skipping is a standalone improvement, can you split
-this out to another patch?
+ 
 
 -- 
-Josh
+Oscar Salvador
+SUSE Labs
