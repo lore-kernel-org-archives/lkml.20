@@ -1,229 +1,161 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF9555C1DF;
-	Tue, 22 Sep 2026 15:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C95655C32D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091451; cv=none; b=IEEEYHRA2YREoex159nw9uJ0hLZdYR161zwJS/H5qFHsN5UwGMR9I0Ms9+0GqwQ9IwVLLpfcUBOSZGMuGn/by9131WtNofxn2YuvMoQkn6sJyDNm4mqwULWwB0M6vB/b8DySIvInrrv1SQVttJKEhsVNFvmf9j5biS0/zzxX4b0=
+	t=1790091462; cv=none; b=sfovwUv/YO6wwja+JJSDQ9e9zO2mJaP3lOgUw8Wus2c+k5f3nGFvRadN0nkUwOgElzMtUqqa1IEX0V+FmR5cwLnjgDVuL5iseRbj3M3hsOdSK/BwHsTK1DEwAlMKMpFH7+qJS+dfmi0jD+zMHQpoGCWp/vnTjJXpWgKsGm721Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091451; c=relaxed/simple;
-	bh=q2QfQvAOLHd4afuvZld9/jIQw9gIeKdin67gd2Ex0hI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nXBeSaKUdCHVeYSvDvskJWp8/KvucZoyzOhdVdQal6ToXicodLhLTQA/f2wGyyTlTfp3y88QoVOeDiYM0fDvu/pQarzUJjHkyctXh2gsVaCutMiEmn6FW39vTUPsdnCHRjTQivfgz4EuDBccOd8yn8GnQ0YxdCryKhgbfGTrecY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DAknCw/h; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790091462; c=relaxed/simple;
+	bh=9j8uXUnA6bXnx9uTLBHlFkCr+HVGmoerQr5AJpiH/L0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JA/34uBvEFLkSqWpB25O++dsXH+xIYvuOnRViSe/tzppHPjqd51TDLub5AqaQodI/7uPtLoDsxuSjz/n9uId81tbEipVbx6NLDXiUUwmLVr6H88yWb1y61GyYdCTlaGEehtaOtMmuQL6hYhN1l68LhW70NSYNtgvw5HYkhsGl2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lkqbFoJl; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DAknCw/h"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MF5XaE780343;
-	Tue, 22 Sep 2026 15:37:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=OCm3ro
-	EYozAezczHpGeNcF1S13oV+Cjc2G+ycS75wa0=; b=DAknCw/hkTC1hU+92fcGXw
-	rwTUBReFDau7yKjA0nWC5XJG/j7BvDMRTisEXwe41Un7amgEbHlM+TpFoAcs04aR
-	V9H4jDiariu/ZiFmxfyAZTpekYWRABmVF+pTbvmj7pRF7Wh3aJsc29lq7SU4+wmu
-	UorDc07jtkULoo44XtYqoKxSnFtlDsIO4z5c93v/P4BWL4Jykel2U1C9quRZbCY/
-	VrG42NVF+z4HB4k64STxIkLnvBE4R7iKDhwZm1hqjws4hPUxhqp1oxBUoYU/z3B3
-	nSiq4YfVqU2Gx8lOB4jn0Bi2LE/s4W4NpKNxhRWge+1mrDv9SaylAgC4tNWn09tQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdv6bdw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 15:37:19 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68MElasH2965400;
-	Tue, 22 Sep 2026 15:37:19 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt5qjtdm8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 15:37:18 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68MFbFJU50594152
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 22 Sep 2026 15:37:15 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E662820043;
-	Tue, 22 Sep 2026 15:37:14 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 88B2420040;
-	Tue, 22 Sep 2026 15:37:14 +0000 (GMT)
-Received: from [9.111.22.84] (unknown [9.111.22.84])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 22 Sep 2026 15:37:14 +0000 (GMT)
-Message-ID: <dc01ef2f-3ed9-4b25-ae5f-1bd317df27cb@linux.ibm.com>
-Date: Tue, 22 Sep 2026 17:37:14 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lkqbFoJl"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9b2f1dso17009fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:37:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790091459; x=1790696259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OuS5hhU7FDu24KRBC5uojc0lwdkfcW0XUMfKz4eA9iA=;
+        b=lkqbFoJlzNednpOMFIRJ0HAv/3ZRwJBOoi0Yn1nAJxt/4uLUIgw9JnTMlTCxHb2HdC
+         vZ3KLcD4Iu3biiQJppVLtnZQjnBtGi9jWy0L/6QHDcgNl8OXvXQ1inTWaYmdu4G61WMB
+         W36Gvfiuyq4/W+bNKVsOP+wkMWdQs9oGtDBmzIRDb+BCntMOoaduHwNvA144gBtnm8UH
+         yZN7PGCmB7Vza/mRg4Xo1h/WLLHi6Z4qj+FHaSOODu7Nur5xt8mwYvMOnmhVrq0vSbXp
+         2tmVRJGSk3Z46tIsrOqkuGm7OZBGbCUAvuKRzf+HxxtZGst+xuoKYavQ4HFE+LdRqWHo
+         ZG9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790091459; x=1790696259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OuS5hhU7FDu24KRBC5uojc0lwdkfcW0XUMfKz4eA9iA=;
+        b=hgnQe6xfl7jP2SbELK6tD/6ApI1OEMWg8rDcsFutD+i/aBDBXcn7hLALekiiFsz8fA
+         0EqofO48DEkQZtpAqoHM9fHUsY9kZcLcseAcu1T6vmlv9IJUML0uGG+Y0XLdIqopNJCG
+         z9sJKOLoB/KnuTNrs150sNUhjpfARZeJ5XiEc8kR4Apt7Z1Q+QTAVbpkhQpv4k4rhSz9
+         6LZskRzGb6V/9OVT8Zh3iV1zU1EpnRc6yqScSwlVatR3Dd2JXbzOcob0azRpXcBkO0Ur
+         mrPmiW9kcgR+2PV6R+FwAHT0G+r+o5F/XWdi1UremG45gnffxqL49lE2uHB4N915M8Is
+         V0oA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLhqRX66udTMnuYFgdRYhbMPiRYl92afwi4Y00BM8yC8WyesS/EKEr5rHpbSKFvNXU4lypxxHLKtpYYwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++moUmHaiFuchSTDXcQndRiqTE1crbKcwKUNNT10VvVXGg9HI+xy
+	VOEG3017+Fa39RpqzI2h2IabdQ3fxfke12XDVYuV6F007g6JKfewDuDM
+X-Gm-Gg: AYBFou3A8csbYsby/Amm095Yn0i9sIGisgN7ZD28MHVlJpdzvveOon6F09uadlowQL5
+	O3ul00LFyXj8l5PQIEMtDoqV4azgBozuJq6hDJOt+ocS9hghfOpOb5yMnygr+PES87SS8w/bNh9
+	n92tJPd88qKBjIBVq+Z/KNEnsSaB1BMk99r6+u+uRwaF0r767A927v8xEDYx6W+hcmYmnL1QgpD
+	G809xu0NMlWBJm9cCY576nlg9prPlnpZ8Lig/kIK+mQlCMXZ7p+OL2r2nxl4xTjY/YRrCU1vU/X
+	eEnJuGfs1jtOIjgEcsyWShzc/ftevmzm3R81g45iY6fG76JzjtrDmt5qPV3pR7LmyVSWUuUj+r4
+	x76EYHQ84jOeC7MXDzhCYpGUC0TwMHkDQkCHK4MjX+tysk+OMOHwMAftITiv5dEVDPzCXBWnXZ1
+	50llkwklcOagFCLrutEGwRVUvhCR7DVJk98Wt5MXSHqsYkjKGk3R4TXLR27UGHmEqi6ILJWR44e
+	VbhbN4ljEnUEkh8ysLfbOskluUoXTE7j/DQ38tI
+X-Received: by 2002:a05:6870:a24b:b0:470:e96b:43e6 with SMTP id 586e51a60fabf-48fe435c714mr1114720fac.18.1790091459206;
+        Tue, 22 Sep 2026 08:37:39 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-48fbedb167bsm1318833fac.5.2026.09.22.08.37.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:37:38 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>
+Subject: [PATCH] sparc64: mm: use kmap_local_page() in copy_{user_,}highpage()
+Date: Tue, 22 Sep 2026 10:37:36 -0500
+Message-ID: <20260922153736.74167-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/11] s390: More this_cpu_*() changes
-To: Heiko Carstens <hca@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Juergen Christ <jchrist@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-References: <20260921155806.2447506-1-hca@linux.ibm.com>
-Content-Language: en-US
-From: Mete Durlu <meted@linux.ibm.com>
-In-Reply-To: <20260921155806.2447506-1-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 6S3gsGywxpjOubl5YlqYT1VEntfNj09c
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIyNyBTYWx0ZWRfX9wYK9s2Ubhyo
- Wi+5Re6iB+Xgxy7uuOqUc7fzz+dnG0w4TdQ4OavOAAOREcg255d5+yfvwE62B8imaGH4OLinVgu
- 3IIJn1zFlQuhVabHjMLmFQIdjuu470M=
-X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab2a0af cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=7CQSdrXTAAAA:8 a=s7ObvvvYnUrjyN0Krc8A:9 a=QEXdDO2ut3YA:10
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: 6S3gsGywxpjOubl5YlqYT1VEntfNj09c
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIyNyBTYWx0ZWRfX6E80gNfZXN2h
- lgugKO6eKafQFl21wj4jdB241EcsI+xdIGUHb3hhyCOG9zrDim7dVQEPXGSlSO0kRRCoOY1mcrx
- 0zybM9cMF/0MnaCSp0QWGAbyiNlJOYBvMfUukNxKUOwhlITGgEODayYgWLKfLmwXvD1HRNVTFdm
- UPpoRTRsrIGEz1UvBKRkM3F5mHA+Ha1pK8vxCNW7YuwjtfCbLRcmm1Ac1rkfcuZ8Wb5JYu4omgu
- 5PsM9d2H8Ucuu70Cp6m6ICeNuAWNIEjdQZZbnQ4f7fuxva7jRY5yKR/QHRgUwW9aPmUnRHAM+Ox
- g9DavEg/DHiHyajz9WFH1KT7kobaNb56pLJp+g+FIeXYsrINJ3npiX487LinmussskzkO1CxgfC
- B6f7/YpkB/4lGN/3BsU0qmSrVip74ZUdjiWxynxaCD4gC2jJMJs2Xh2IxO/vhKL9N9MK7YmwRID
- HA+p/bHRJr0hYYgn8UA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1011
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609220227
+Content-Transfer-Encoding: 8bit
 
-On 21/09/2026 17:57, Heiko Carstens wrote:
-[..snip..]
-> v1:
-> Most of this is only about cleaning up the percpu code after preemptible
-> this_cpu_*() operations have been implemented. The first ten patches are
-> all more or less trivial cleanup patches trying to make the code shorter
-> and more readable.
-> 
-> The only non-trivial patch is the last one, which converts s390's
-> this_cpu_*() operations to use a similar scheme like Mark Rutland
-> provided it for arm64 [1]. This allows to simplify the irq entry and exit
-> path, however at the cost of slightly worse code for this_cpu_*()
-> operations.
-> 
-> The simplified irq entry and exit code seems to be worth it. Usable
-> performance numbers are not available yet, however I don't expect big
-> difference to before.
-> 
-> [1] https://lore.kernel.org/all/20260904161758.376504-1-mark.rutland@arm.com/
-> 
-> Thanks,
-> Heiko
-> 
-> Heiko Carstens (11):
->    s390/percpu: Fix comment typo
->    s390/percpu: Add sanity check to GEN_MVIY macro
->    s390/lowcore: Remove _AC() from LOWCORE_ALT_ADDRESS
->    s390/percpu: Let MVIY_PERCPU() calculate alternative displacement
->    s390/percpu/lowcore: Add and use LC_PERCPU lowcore offset defines
->    s390/percpu: Rename inline assembly symbolic names
->    s390/percpu: Use __PCPU_BEGIN() and __PCPU_END() for inline assemblies
->    s390/percpu: Use percpu code section for this_cpu_cmpxchg128()
->    s390/percpu: Use percpu code section for this_cpu_xchg()
->    s390/percpu: Use percpu code section for this_cpu_cmpxchg()
->    s390/percpu: Rework to simplify percpu_entry() and percpu_exit()
-> 
->   arch/s390/include/asm/entry-percpu.h |  71 ++----
->   arch/s390/include/asm/lowcore.h      |   5 +-
->   arch/s390/include/asm/percpu.h       | 354 +++++++++++++++++----------
->   arch/s390/kernel/irq.c               |  10 +-
->   arch/s390/kernel/nmi.c               |   4 +-
->   arch/s390/kernel/traps.c             |   4 +-
->   6 files changed, 248 insertions(+), 200 deletions(-)
-> 
+kmap_atomic() is deprecated in favour of kmap_local_page(), as described
+in Documentation/mm/highmem.rst.
 
-Hi all,
+sparc64 has its own copy_user_highpage() and copy_highpage(), so that it
+can copy ADI tags along with the data. Apart from that they are copies
+of the generic helpers in <linux/highmem.h>, which were converted to
+kmap_local_page() in commit d2c20e51e396 ("mm/highmem: remove deprecated
+kmap_atomic").
 
-I did some benchmarking for this patch series.
+sparc64 has no HIGHMEM, so both mappings are just page_address(), and
+all that kmap_atomic() adds is disabling preemption and page faults
+around the copy. Neither is needed. copy_page() is memcpy(). On sun4u,
+copy_user_page() disables preemption itself while it uses its temporary
+TLB mappings, as clear_user_page() does, and the generic
+clear_user_highpage() has called sparc64's clear_user_page() under
+kmap_local_page() since that same commit. On sun4v, copy_user_page() is
+patched to routines that copy through the linear mapping. No user
+memory is touched, and the ADI tags are copied after the unmap, by
+physical address.
 
-Used a shared LPAR with 24 CPUs (12 cores w SMT2).
+Convert both functions to kmap_local_page() and kunmap_local(), like
+the generic helpers.
 
-Base commit: f0100363d8c3 ("Merge tag 'xfs-fixes-7.3-rc5' of
-gitolite.kernel.org:/pub/scm/fs/xfs/xfs-linux")
+Assisted-by: LLM sparse
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+---
 
-Some of the benchmark runs show +-5% standard deviation which can
-be attributed to s390 being a virtualized system. Each run has been
-repeated five times to circumvent the effects of standard deviation.
-(In the odd case where baseline has -5% and patched run has +5%
-deviation, the comparison can show ~+10% improvements which is highly
-misleading).
+Notes:
+    Tested under QEMU (sun4u) with CONFIG_PREEMPT, CONFIG_DEBUG_PREEMPT,
+    lockdep and CONFIG_DEBUG_ATOMIC_SLEEP. copy_user_highpage() through COW
+    after fork() (with both the child and the parent writing), the first
+    write to a MAP_PRIVATE file mapping and COW of a hugetlb page: 3332
+    copies. copy_highpage() through page migration by
+    /proc/sys/vm/compact_memory, set up so that the test pages were among
+    the ~37500 pages migrated. Every word of every copied test page was
+    checked, and kprobes counted the calls. No warnings. With a CPU-bound
+    task competing, the patched kernel was preempted inside the memcpy() of
+    a migration, which could not happen before. sun4v is not tested, as
+    QEMU cannot boot Linux there.
 
-Overall, the benchmarks do not show any real difference between baseline
-and patched kernels;
+ arch/sparc/mm/init_64.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-1-) Hackbench
-========================================================================
-Repeated hackbench runs with different group and fd count combinations;
-[1, 2, 4, 8]
+diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
+index 103db4683b16..5af327e5aa64 100644
+--- a/arch/sparc/mm/init_64.c
++++ b/arch/sparc/mm/init_64.c
+@@ -3072,11 +3072,11 @@ void copy_user_highpage(struct page *to, struct page *from,
+ {
+ 	char *vfrom, *vto;
+ 
+-	vfrom = kmap_atomic(from);
+-	vto = kmap_atomic(to);
++	vfrom = kmap_local_page(from);
++	vto = kmap_local_page(to);
+ 	copy_user_page(vto, vfrom, vaddr, to);
+-	kunmap_atomic(vto);
+-	kunmap_atomic(vfrom);
++	kunmap_local(vto);
++	kunmap_local(vfrom);
+ 
+ 	/* If this page has ADI enabled, copy over any ADI tags
+ 	 * as well
+@@ -3106,11 +3106,11 @@ void copy_highpage(struct page *to, struct page *from)
+ {
+ 	char *vfrom, *vto;
+ 
+-	vfrom = kmap_atomic(from);
+-	vto = kmap_atomic(to);
++	vfrom = kmap_local_page(from);
++	vto = kmap_local_page(to);
+ 	copy_page(vto, vfrom);
+-	kunmap_atomic(vto);
+-	kunmap_atomic(vfrom);
++	kunmap_local(vto);
++	kunmap_local(vfrom);
+ 
+ 	/* If this platform is ADI enabled, copy any ADI tags
+ 	 * as well
 
-$ hackbench -T -p -l $loops -g $g -f $f
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.55.0
 
-no real difference.
-
-2-) Stress-ng
-========================================================================
-Repeated stress-ng runs with range of stressors: [6, $(nproc)]
-
-# 3d matrix operations
-$ stress-ng --matrix-3d $cpu --matrix-3d-method mult --timeout 10
-
-# repeated mmap() and munmap() operations and also writing to the
-# allocated memory.
-$ stress-ng --vm $cpu --vm-bytes 128M --timeout 10
-
-# starts workers that each fork off 32 child processes. Each child
-# tries to allocate some memory. Child processes use madvise and memset
-# to produce VM activity.
-$ stress-ng --mmapfork $cpu --mmapfork-bytes 128M --timeout 10
-
-no real difference.
-
-3-) Openblas Benchmark
-========================================================================
-Repeated matrix operations with different size of 3d matrices.
-
-$ make -j$(nproc) \
-         USE_OPENMP=1 \
-         NUM_THREADS=$(nproc)\
-         NOFORTRAN=1 > /dev/null 2>&1
-
-$ make -C benchmark sgemm.goto \
-         USE_OPENMP=1 \
-         NUM_THREADS=$(nproc) \
-         NOFORTRAN=1 > /dev/null 2>&1
-
-$ OPENBLAS_LOOPS=50 sgemm.goto
-
-no real difference between runs.
-
-4-) Compiling kernel
-========================================================================
-Linux kernel compilation
-
-$ make clean
-$ make mrproper
-$ make defconfig
-$ time make -j$(nproc)
-
-no real difference between runs.
