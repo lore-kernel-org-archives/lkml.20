@@ -1,293 +1,164 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF9B39E176
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790049585; cv=none; b=UrR94t7gqoqZFG9H79L+VRSEG+mOphc+QHkqmLNBPcGVD+2s+nO57PsspAiyF+rrS2J/7CUCA8fdUlslLZfKIuhLN1ZR3gKtFq/JKR2qc9lnYHGOH5dP8ZDo2/PIbnktBuLdWeVlsAry/I1JyzP2re7WFCQOLDzPa236VRQbkyg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790049585; c=relaxed/simple;
-	bh=fs9BRfKmiz/PyKIurs8g3vcO8wdLXzJJUSrw4BeuuS0=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GbaHEiYtBgA+qryM3V3uiGeWBmUA4jr+YLeBatWk66ujopTvvdAaQVHQi3jvlCj74Xb6wER7qoBJU7XC/TP5zNULkhX0W4faY/F4ptr1QH3Vw6Xi9ma8EyxivzbPaQF986or51it0QhvJK14N0GJQGwZ0zSMvL0NWp0BgpbYw+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DDc/ieWQ; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F385A3E3C4F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790049587; cv=pass; b=SuwQftMxdu8ht9Ny0kxH4Tqm4wx75tB/gNZN62ltPDFb9Hue5tE8mD6CSE7dUOsbFoxZg4wu/KbcuOlO8LTSLb25bNMdP26BK9aFsTU2H1sNiOcAUVWlCRqlNldfBVJfU70wBdE9iT8JC/Xca4Tjkx/HKrsfSLTYn7y/UGSUxpE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790049587; c=relaxed/simple;
+	bh=kuDUMkXv3afPL+EnBob0k3BsBJPNiUTO2RsSrSswm60=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uFCLb7KSH2vf38ra3Z/vOnCdkuozoXXnYr4f0FHwW9hZqCe6/6mY4V/10AGevmIwc9eMgZf9Ak089V82LRovHaAx+DqUAeQNJzBLplaU70GLdE1QJYpfKkY4GyzUDsth6FEkg9P8QqDNnlg8Vg3Pl6zF+qg12va2vVe7GWUx7KE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eXawhaXk; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DDc/ieWQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:From:To:
-	Content-Type; bh=/abNEaTU8UnmTUqiIkX9MYVhg0s2UGieH1rZ9EcWZrE=;
-	b=DDc/ieWQwPxLVWTOICtipOHBovsRq0+wb+ZAZmlh2ZluB/OWLNcx0J24baXcy9
-	z5dDnnKmVjcfXj6XPvQnVvKFEanquFnjxVgJ8TDK2tt8SY+OocPBOPvRoMUdFp0I
-	cH7k9z9uZe12+Fj4elohbI0KJHJ1umJw9p+ICxsya8ISU=
-Received: from [IPV6:2409:8900:1ee3:222c:420f:a5a2:eb51:8645] (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgBnT8p9_LFqrEKxAg--.19696S2;
-	Tue, 22 Sep 2026 11:56:47 +0800 (CST)
-Message-ID: <d56a1b4b-8080-449b-a324-eb10cc45a130@163.com>
-Date: Tue, 22 Sep 2026 11:56:45 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eXawhaXk"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-530e8c6fb80so91771cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:59:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790049585; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HER+fkc3CJ0fSk799qSAPpoIxXN/Rdb7aNlPjg/c3DwWl1E0ivDrGqkLvOt2/ZEGZC
+         ZRCh7oOL62/rBGVf/kWHLwQ/lq3ltM7Nkr19tn5bOPlShkQT5AFkzT+XRuMfon6UZKuZ
+         JatbejaumJi7YRy/C7yyycvuDcCvZTo2QxeZD0K/ZRRceRadxIm7IBfGYUZ5fFQ/JFsL
+         ublYtuaZ5CE57xgZDsu2yYw2OJUWAR//BR7DQ4TW1vIRO1PaqLniYkNKYCoR1yjZtqJC
+         tvBxiwQd/YBVk40StdjV6gymtICYYp22EQm9aFpAtRnyjXTN3RkuWhRUc8j2ytvTD+1l
+         9Hrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kuDUMkXv3afPL+EnBob0k3BsBJPNiUTO2RsSrSswm60=;
+        fh=rqY5pzXTVe58AgA4x8DBbAEkga8YXj6gs6u74UfPgao=;
+        b=IG2SaIuISzK2KW88Zws/wnCVoYoqGW9yVZyeoLIBBc0WZoeJEUq1U2cboaOUfdSd+a
+         KJNKcgn8JFDVOHu5ixy2cy5DnnPts1dXtvTQUx9NmyQm/SkBLZh5IScLztyol8p4Ot11
+         RYa4/O/49Z2fSQBzKuxpSpQbsMWFwPlrGCeyJGLdEiYGOfievRkojNXpxw042hm5TWfg
+         90PqnRSscnpLN6ldb74663+tD3w0GGZN/322bpMXDRwT3yp7CYrw08m+AngPDn+awtWw
+         SL+hNwsGVQ4KC7s676IUEA3hLDEZHWQpA0YtmjlZSxW+b6OUBWDrLLUM6WSeQZKM68fF
+         W32A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790049585; x=1790654385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kuDUMkXv3afPL+EnBob0k3BsBJPNiUTO2RsSrSswm60=;
+        b=eXawhaXk94aSjo+ppLPm32o8evkbAmy13dVMyBOjTVK9AsgAgjaflgwUCgXDRYsPXH
+         dUMashcU+nj/z3qHaEGcwYJVpOnEPcGRT4rQwsoKAQkJCbWjYqqiQcZVS8uIQa2b8aJk
+         MFsnzlJ8/u/cKjDZOKJ+29P+IOBrHCqeR+U4TqaW9LeE3k3kGbyenYgt1AGbBGu26co9
+         ORNG0Duq8LY45IJtvSuhxmSK968MKNAA/cm2pqR0KA9ZS+YFqxHk14gLa0yBwJOelSUq
+         9nUk8Ze+JOvJz+NraEvklRSyZ4awNDE0hNCFJ7Dzp1BES9TsvzL56rg2tgWk/3XE4B4N
+         Fy9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790049585; x=1790654385;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kuDUMkXv3afPL+EnBob0k3BsBJPNiUTO2RsSrSswm60=;
+        b=HKTAAauNBvsDhtoHWzKcl8wesafSYu/UR4HNNcXC8GzY9wfoGD1IsVZMtZvrAVF9x8
+         ZctsB1T36iccY6ndcL/PrVcSx7ym41rsGB+ji2V4V9+TxEVEMMWo/WhiAVjog2xYtZtH
+         NjXcmJdSrWS2HuSo9MFzy0HzWbUuFWK+rc6FLsA0XDgn1hiDE8/bbzAKn3Q5keQnl124
+         /9qMEjwzG3XPqfLlRexYvsD4bKto7iwwWB5+WjDalqqf6FRUTkUke3GY9QIJpidu42w0
+         Q3xY7k9HzOvJ0S1IMQ68vQqivsoNK8XChuFiXjwDbZK/gGC8skt/a5jdofi6Bwi91rhi
+         PeXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxBvwkj8Exc/vp9gRvGv9YBZB3GlLE8MNdQ1QHgayMWBWDNy4Dqa1xqcWSLLayDCECGcTH3ycBBKPddh0s=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/bW0ZFIa9l1WvslLcI8q/fOPy+01eWhms9B8trt3Lzqqt5JSs
+	6aBMe7HM+SNme2DEdPDNn5exsHPbZVzm33v7b+N4RcXOhay1K4KGPpJaJgSRtIXAHKtGPshWS3i
+	YzJRh2McMJtwc+8vCSmtXczzUhpDGU/9ieKl5rIzT
+X-Gm-Gg: AYBFou3d0u6eO+skW+D/d8MEeXRwjWlXKLizNEHIvZR0c7rS2t0ZHIa17Jk8XRvZ72I
+	LNn6jwhGekF7rNNJcerNK9QiDnrAAfmun+z+5lKM9ATw2+kMSbJ7GaKxrXRTDo6ZIXCuoKdO4dq
+	zazJHgI+7Z2eNfCnI8407saoNNmlKy3ohhbLBdf/FzKEU+uC9Tc8fElmeq3wKEyrneP3LFme9Zj
+	LBgRqsX+x1qic6jhdVajcy8IJkQi0XKjVjNqJ2BJp3gmdKYc2keyoe6Yo56Ld6Bznjeeg+hOsMP
+	nCFnZXmi8qjCVdsX2cJvIvB/Pmy/dNGK0gdiBay+BzeS5xCQs96ogWX5FxduqYjI1V4eoeyLpud
+	Ths9KdzDgND5KVXnWFhkOM78MfZUke+A3wH8x5kw=
+X-Received: by 2002:a05:622a:418a:b0:532:a17b:9581 with SMTP id
+ d75a77b69052e-532ddceafadmr7173951cf.3.1790049584159; Mon, 21 Sep 2026
+ 20:59:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/10] ntfs: validate EA chains and link
- zero-terminated tails
-From: liubaolin <liubaolin12138@163.com>
-To: linkinjeon@kernel.org, hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260921102318.2104180-1-liubaolin12138@163.com>
-Content-Language: en-US
-In-Reply-To: <20260921102318.2104180-1-liubaolin12138@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgBnT8p9_LFqrEKxAg--.19696S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Wr4kAry5Xr4xuw15JFWfAFb_yoWxKw13pF
-	Z0y3s8JrWfJrnrWrn2ka1DXayrCw4xWryUK34xKw10krn0qr1qqas0kFyfuayFy3s7ur1F
-	gFZ8tFs5uF1UAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwh9lMGqx-H9plwAA3u
+References: <20260918040919.3402577-1-tweek@google.com> <CAEf4BzaeKXEC-gBbxo36wdAGwwZxqkL6pV=oo0dke4S2BmuRmg@mail.gmail.com>
+In-Reply-To: <CAEf4BzaeKXEC-gBbxo36wdAGwwZxqkL6pV=oo0dke4S2BmuRmg@mail.gmail.com>
+From: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>
+Date: Tue, 22 Sep 2026 13:59:26 +1000
+X-Gm-Features: AcwNN1VCSRgYVTkcKQ-igQWPuOPvyTYm8XckPrpz2jX0eeLC27k52LUPgeuDr5M
+Message-ID: <CA+zpnLdaqv77PT=azFEzHvnwLzxYLXMkpRy0CcsKKKMgJjxayQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v3 1/3] bpftool: Skip non-autoload programs when
+ generating light skeletons
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>, 
+	KP Singh <kpsingh@kernel.org>, Leon Hwang <leon.hwang@linux.dev>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Namjae,
-   Hyunchul has suggested avoiding the $LX prefix because it may 
-conflict with the WSL namespace. I agree with this concern and have 
-proposed using $LINUXFLAGS instead.
+On Tue, Sep 22, 2026 at 7:30=E2=80=AFAM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
+>
+> On Thu, Sep 17, 2026 at 9:09=E2=80=AFPM Thi=C3=A9baud Weksteen <tweek@goo=
+gle.com> wrote:
+> >
+> > When generating a light skeleton (bpftool gen skeleton -L),
+> > bpf_object__load() skips loading programs marked as non-autoload (e.g.
+> > SEC("?...")), so the generated loader program only records and populate=
+s
+> > file descriptors for autoloaded programs.
+> >
+> > Previously, bpftool emitted struct bpf_prog_desc fields, link fields,
+> > and attach/detach/destroy functions for all programs in the BPF object,
+> > causing the loader program to store subsequent program FDs into
+> > incorrect skeleton struct fields when non-autoload programs were
+> > present.
+> >
+> > Furthermore, bpf_object__load() can update a program's autoload status
+> > during preparation (e.g. for struct_ops programs when resolving kernel
+> > BTF members or adjusting autoload based on map autocreate settings).
+> > Move bpf_object__gen_loader() and bpf_object__load() out of gen_trace()
+> > into do_skeleton() before counting programs and emitting struct fields =
+so
+> > that struct field declarations and attach/detach/destroy functions all
+> > observe the final post-load autoload state.
+> >
+> > Skip programs with !bpf_program__autoload(prog) when counting programs
+> > and generating progs/links struct fields as well as attach, detach, and
+> > destroy functions for light skeletons.
+>
+> This seems like error prone behavior to me. Wouldn't it be better to
+> hard fail if the BPF object has non-autoloaded BPF programs instead,
+> as clearly it's not meant to be used with a light skeleton that
+> doesn't support such programs? So why not emit a meaningful error and
+> exit?
 
-   Because this name change affects the complete series, I plan to 
-update the code and documentation, rerun the relevant tests, and resend 
-the full series as v4.
+Thanks for the feedback. This was my first approach [1]. I think it
+also makes sense. I can send an updated version that addresses
+Quentin's feedback ("goto out") if that is the overall preference.
 
-   Please ignore the standalone v3 revision of patch 2 for now. I will 
-supersede it with the v4 series after the new EA name is confirmed.
+[1] https://lore.kernel.org/bpf/20260904031912.2133476-2-tweek@google.com/
 
-Thanks,
-Baolin.
+>
+> Or I don't know, let's teach light skeleton how to support
+> non-loadable programs maybe, not sure what that would take, but worth
+> considering to bridge the gap?
 
+This is technically possible, but I'm not sure this is what we want:
+it could be implemented by adding a field to struct bpf_prog_desc and
+change the behaviour of the loader depending on that field. The issue
+is that, for signed light skeleton, we probably want to ignore this
+field (for the same reason we are already ignoring initial_value; to
+keep the attested blob authoritative). In that case, we end up
+silently skipping any non-autoloaded program within a signed light
+skeleton. I prefer the hard fail option discussed above, or silently
+skipping for all kinds of light skeletons (this patch).
 
-在 2026/9/21 18:23, Baolin Liu 写道:
-> From: Baolin Liu <liubaolin@kylinos.cn>
-> 
-> A zero next-entry offset terminates an EA list. Appending an entry
-> without linking the old tail makes the new entry unreachable. Invalid
-> entries are also treated as missing names, allowing setters to proceed
-> on corrupt metadata.
-> 
-> Validate the entire chain before modifying it and connect a zero tail
-> to the append position. Check name terminators and retain the full tail
-> span when removing an entry. Return EUCLEAN for malformed EA structures
-> and inconsistent information lengths, preserving that error through the
-> get, set and list paths. Keep ENOENT for a missing name and translate it to
-> ENODATA only at the xattr read boundary. Preserve lower-level read errors.
-> 
-> Reuse the same full-chain validation in ntfs_listxattr(), including
-> size-only queries, before copying names. Reject malformed lists with
-> EUCLEAN instead of returning an empty or partial list.
-> 
-> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
-> ---
-> Changes since v2:
-> - Reuse full-chain validation in ntfs_listxattr(), including size-only
->    queries, and return EUCLEAN for malformed EA structures.
-> - Remove the duplicate listxattr structure checks; preserve lower-level
->    read errors.
-> 
-> This replaces [PATCH v2 02/10]. Original v2 patches 3-10 apply cleanly
-> on top without modification.
-> 
-> Validation:
-> - QEMU listxattr tests covered normal and zero-terminated lists, empty
->    lists, size-only queries, short buffers, malformed offsets, missing
->    name terminators, oversized values and truncated entry headers.
->    Verified EUCLEAN after successful file open, including tiny buffers.
-> - Checked an oversized query length at the patch-2 stage, and ordinary
->    file/xattr writes plus unmount/remount.
-> 
->   fs/ntfs/ea.c | 81 +++++++++++++++++++++++++++++++---------------------
->   1 file changed, 48 insertions(+), 33 deletions(-)
-> 
-> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-> index bb97df3045a0..2ee700f8227e 100644
-> --- a/fs/ntfs/ea.c
-> +++ b/fs/ntfs/ea.c
-> @@ -53,10 +53,13 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
->   	loff_t offset, p_ea_size;
->   	unsigned int next;
->   
-> +	if (!ea_buf_size)
-> +		return -ENOENT;
-> +
->   	offset = 0;
->   	do {
->   		if (ea_buf_size - offset < sizeof(struct ea_attr))
-> -			break;
-> +			return -EUCLEAN;
->   
->   		p_ea = (const struct ea_attr *)&ea_buf[offset];
->   		next = le32_to_cpu(p_ea->next_entry_offset);
-> @@ -64,31 +67,31 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
->   
->   		if (p_ea_size < sizeof(struct ea_attr) ||
->   		    offset + p_ea_size > ea_buf_size)
-> -			break;
-> +			return -EUCLEAN;
->   
->   		if ((s64)p_ea->ea_name_length + 1 >
->   		    p_ea_size - offsetof(struct ea_attr, ea_name))
-> -			break;
-> +			return -EUCLEAN;
->   
->   		actual_size = ALIGN(struct_size(p_ea, ea_name, 1 + p_ea->ea_name_length +
->   					le16_to_cpu(p_ea->ea_value_length)), 4);
-> -		if (actual_size > p_ea_size)
-> -			break;
-> +		if (actual_size > p_ea_size ||
-> +		    p_ea->ea_name[p_ea->ea_name_length])
-> +			return -EUCLEAN;
->   
-> -		if (p_ea->ea_name_length == name_len &&
-> +		if (name && p_ea->ea_name_length == name_len &&
->   		    !memcmp(p_ea->ea_name, name, name_len)) {
->   			*ea_offset = offset;
-> -			*ea_size = next ? next : actual_size;
-> +			*ea_size = p_ea_size;
->   
->   			if (ea_buf_size < *ea_offset + *ea_size)
-> -				goto out;
-> +				return -EUCLEAN;
->   
->   			return 0;
->   		}
->   		offset += next;
->   	} while (next > 0 && offset < ea_buf_size);
->   
-> -out:
->   	return -ENOENT;
->   }
->   
-> @@ -126,7 +129,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
->   		return PTR_ERR(p_ea_info);
->   	if (ea_info_size != sizeof(struct ea_information)) {
->   		kvfree(p_ea_info);
-> -		return -EIO;
-> +		return -EUCLEAN;
->   	}
->   
->   	ea_info_qlen = le32_to_cpu(p_ea_info->ea_query_length);
-> @@ -137,7 +140,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
->   		return PTR_ERR(ea_buf);
->   
->   	if (ea_info_qlen > all_ea_size) {
-> -		err = -EIO;
-> +		err = -EUCLEAN;
->   		goto free_ea_buf;
->   	}
->   
-> @@ -162,7 +165,8 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
->   		return ea_value_len;
->   	}
->   
-> -	err = -ENODATA;
-> +	if (err == -ENOENT)
-> +		err = -ENODATA;
->   free_ea_buf:
->   	kvfree(ea_buf);
->   	return err;
-> @@ -216,7 +220,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
->   			goto out;
->   		}
->   		if (ea_info_size != sizeof(struct ea_information)) {
-> -			err = -EIO;
-> +			err = -EUCLEAN;
->   			goto out;
->   		}
->   
-> @@ -255,12 +259,29 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
->   	}
->   
->   	if (ea_info_qsize > all_ea_size) {
-> -		err = -EIO;
-> +		err = -EUCLEAN;
-> +		goto out;
-> +	}
-> +
-> +	/* Validate the whole chain before modifying it, including its tail. */
-> +	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &ea_off,
-> +			     &ea_size);
-> +	if (err != -ENOENT)
->   		goto out;
-> +	/* A zero tail offset must be linked before appending another EA. */
-> +	for (ea_off = 0; ea_off < ea_info_qsize; ea_off += ea_size) {
-> +		p_ea = (struct ea_attr *)(ea_buf + ea_off);
-> +		ea_size = le32_to_cpu(p_ea->next_entry_offset);
-> +		if (!ea_size) {
-> +			ea_size = ea_info_qsize - ea_off;
-> +			p_ea->next_entry_offset = cpu_to_le32(ea_size);
-> +		}
->   	}
->   
->   	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, name, name_len, &ea_off,
->   			&ea_size);
-> +	if (err && err != -ENOENT)
-> +		goto out;
->   	if (ea_info_qsize && !err) {
->   		if (flags & XATTR_CREATE) {
->   			err = -EEXIST;
-> @@ -537,7 +558,7 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
->   		goto out;
->   	}
->   	if (ea_info_size != sizeof(struct ea_information)) {
-> -		err = -EIO;
-> +		err = -EUCLEAN;
->   		goto out;
->   	}
->   
-> @@ -550,32 +571,26 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
->   		goto out;
->   	}
->   
-> -	if (ea_info_qsize > ea_buf_size || ea_info_qsize == 0)
-> +	if (ea_info_qsize > ea_buf_size) {
-> +		err = -EUCLEAN;
-> +		goto out;
-> +	}
-> +
-> +	/* Validate the entire chain, including size-only queries. */
-> +	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &offset,
-> +			     &ea_size);
-> +	if (err != -ENOENT)
-> +		goto out;
-> +	err = 0;
-> +	if (!ea_info_qsize)
->   		goto out;
->   
->   	offset = 0;
->   	do {
-> -		if (ea_info_qsize - offset < sizeof(struct ea_attr)) {
-> -			err = -EIO;
-> -			goto out;
-> -		}
-> -
->   		p_ea = (const struct ea_attr *)&ea_buf[offset];
->   		next = le32_to_cpu(p_ea->next_entry_offset);
->   		ea_size = next ? next : (ea_info_qsize - offset);
->   
-> -		if (ea_size < sizeof(struct ea_attr) ||
-> -		    offset + ea_size > ea_info_qsize) {
-> -			err = -EIO;
-> -			goto out;
-> -		}
-> -
-> -		if ((int)p_ea->ea_name_length + 1 >
-> -			ea_size - offsetof(struct ea_attr, ea_name)) {
-> -			err = -EIO;
-> -			goto out;
-> -		}
-> -
->   		if (buffer) {
->   			if (ret + p_ea->ea_name_length + 1 > size) {
->   				err = -ERANGE;
-
+Thanks
