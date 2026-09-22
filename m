@@ -1,204 +1,203 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BF4549389
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED69431B10B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085380; cv=none; b=pfD8vPjZnVnyL9e3pux90xpkSxcrVRGoyOtMcf26Yr3/3Gvq0N5OvFgRwhKKwmeebotgEr8wBNTWbl7t1/o4SaE1KzUFx0m3MetNUQwdQn5jaNXdWyYh9M/EO3DdGiPrqlnHdl82jYyG/c1DKWa+MuHHTeD1W8pH561FRUhBwSM=
+	t=1790085397; cv=none; b=cZh+ASAj6eig0HQGto01NFwu7Bp31i7OYdIRkDYNaUBITiuM0rQLOnauBlsdfaVbS5Cvka/04BjC2IDac8yMyLT7NDQ3MqUItdj9gAI6MUxsOwv3BZOyDOyig1oHfCzQuj3hS0RZ2C+Xr/F8IUuFsAhxnxFHc/Nmtg0zbAgh+mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085380; c=relaxed/simple;
-	bh=qtDivFE1nRVXw+3uzHe9eEkXALgMbbD+fmnKuWndtLM=;
+	s=arc-20240116; t=1790085397; c=relaxed/simple;
+	bh=xpzff7gTANmin7ayImKqNSwtv/jMmdVMSrHmqXKpE6g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sox8jaTAsShij2+Z2A4h6ShX/SCBAHeRKZ6EJ8w5S3qp6VUugOUpwQBtWF2tUzKuwbT2KslMDW7vrYOlLe3TYXibvhOC2dgD4rk5wY8U9/Oewthf85DpyyHAvh6rRJTnRW+c5CsXt/vtleptNdsNdlFq9Gyja/wPwlMwtdh6CN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=WujKLC1p; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=kp8HhV9+6gbyCkHqeR6XCMC4V5nE0GqAA52EUXhd5Rp9BOnYELtSZk7FTkfdksidcpOx5PJyIj/5+WQLfWBkKTQxuzesbz5eZuiAh6ioIKcZrW+TpZVo6sCCR1psnVHGHiAdkNVdM8Wn725rSk1fhELvneUwuhz6U5zSdvQxxsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P7vSUrwo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=pesz3oLA; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="WujKLC1p"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-90e9ad1a373so6261036d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:56:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P7vSUrwo";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="pesz3oLA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790085394;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CSAJceS2lTxo7RYYkwSiAWcerJGzn5wbrFBMDwrG220=;
+	b=P7vSUrwo4CXnq27JHh8T8DHgqpeAEMW9gsUJ55nGRjINrMKTuyrqenbbqZbgFVJm7Ny4jr
+	OezWmUxIqKTTw787/z2kEWkWO7dcGHD/HOfjicx2QVza8MM/iIFy/7SOYVFepeoD6rdD9D
+	B7ohlkf17xKW2Fvp19uUpLHzGSLOUVA=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-398-c12IEFIzNNmT2-9druNN-Q-1; Tue, 22 Sep 2026 09:56:29 -0400
+X-MC-Unique: c12IEFIzNNmT2-9druNN-Q-1
+X-Mimecast-MFC-AGG-ID: c12IEFIzNNmT2-9druNN-Q_1790085388
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49ccfbe060aso31561055e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:56:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790085376; x=1790690176; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790085388; x=1790690188; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hGu1NCAbAsmG5udT7RRBzA29qW1Tatxi7P64YgMVTYo=;
-        b=WujKLC1pLyMIV7C1PC6+pxhnVRNf6NhqS9lptVEWycA+sHsFcxBLI6rKYNrly90pUc
-         eHKMglOylGOpMfQLV52xt81UZJLoN+8WqyENe/SqFgAjcMN05B/0VKIQeHKvrexixmhL
-         /v/KiGiL5Ew4YebxmXAGPKmKYavtlx93y4mnrx+DCGOcDcML9NdUuHDfXhD8b+gFcU+Z
-         C4Jni3U4IkuahUyPXO6h2BU+/E+3NUgt/yD0b9YlRCzbAElY+u2ztZGa2kLZFXudZ/QX
-         7j/dQhKaY4r0xf6hJtwXTpuds1cneMbkswH9+AxszBFr+4QfLncJlHw9mWF4tQUglOnl
-         AS/g==
+        bh=CSAJceS2lTxo7RYYkwSiAWcerJGzn5wbrFBMDwrG220=;
+        b=pesz3oLA7oNsGimyIwn6ibbE477R4MFL0Ikop4LsCzdWs3+IaWKZYbhLl8atuJ4AT3
+         JSmrKOorR2wJa5par0Xwb6s4nwZxPodWNh8BtUFDeDGEdEdpZz3kSK/DhM0lIOO9Vce+
+         O8VeDwCQUMZTx3GNTvTeO1IFengKpfVuEAxYh5Dy25Eu0a1sh+//Sd238R48Vchs5orX
+         ZCHQIcV94Mzts17BNy845bnMKLCYrEy307t5BXODaJjG8/hNkyEFWteSgx+lzEDCh5Qf
+         iPCUU0yGXbzEOCOTcbQJzU62JU31NpwnpdTjuQC+j6iDYMDb+VO25FQz/pSOzIZGO+/+
+         JA+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790085376; x=1790690176;
+        d=1e100.net; s=20260707; t=1790085388; x=1790690188;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hGu1NCAbAsmG5udT7RRBzA29qW1Tatxi7P64YgMVTYo=;
-        b=yfuLDFChurGlPkRkN3CjjgkyBOyLPUJmaH/ucgK2KVlmN15/9dU3N/teYyJ1Aa4uHY
-         su5z01xVuyLPL63B+1wlVOk3UpNUO+ubfJqiJ2n7WIjLP9MP0mdQQhuITVp+3tK0Bfcy
-         i4+sCjP8fu8OeVR8jLxYXaRZPMHxP31nwp+qNLV0daqY+WwxWHkHTroOL8OLJqE0Mdy7
-         vJjFhYdWeJYx5ewtCZ664en3aYw2DTXY6AlKl/iT9B11KHAXW55LN960GY9vgyJo8ijY
-         TinaklpRwH9I0Qg1EYyYRTVb3F1wqjN4kPn+WDClubYJtbd+OAInUum4TPR8Xv/xBI41
-         A8tA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Z+J5b5bpFXcXtlDy0KBoKUu8rG6VZSRqiSNdP+ZF4vHMONBf8g50NV8XpsqgYygXpeFSxDDx+6YbJtY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSaPMdccndmH846oZnReKlH9ttGm+Obd9qU9/uqjAwlu2RoFSE
-	KBaPfPQ+Y2MDBYr7TzH5AHdx4FBlziPB5zu8/M/I6RbMtVX0NnWgdTKLyZTQZFgKRYI=
-X-Gm-Gg: AYBFou1XGNUAkrzSsqG+ohucieYLXPljhMkB9nUikASq/OHXkgItXzx2yHt6Cv2YTVp
-	7epZSOF4aYIxhY22NdD+rgKVq5Tj4DrBry3pr/8FzB6DinNAelanJJs38q0HxRR9CEuY3KJhnih
-	ltMbWo8227eZuWpyFe4ZM763DfFEHFiCP4l6EmJbrOsDuqHGAAFywCUY7++d/q69EKe7V0/5IJ7
-	Bdk2WXXVib8lrQZPzs2Vah3nCGBaCYDHAK6LWOeUC6CBmlmShAB99e2FMqdMvrSkX1bxOgbljV4
-	Q4+8wSlKa3Ii7WTbpQ69M5ByICNFv1/704a/AjS7ZUXRc6WLeofAXV3erZbtAMpso1GgUEZlsj2
-	yESSrvezsyy++DGRvm5SJdWTItu91NQrtFjk5Z6DqB6QECd9zLZK244ib4gtuVADOro5+JusUVH
-	lJGrHRcNQKwixmpcpfFwZ3KLsCg7OytzvgKer6OzhmTstbOfrFys0XJro3YqwbLOZjCbsr
-X-Received: by 2002:a05:620a:444a:b0:939:c7dc:8712 with SMTP id af79cd13be357-93c17e489a1mr426789785a.15.1790085376405;
-        Tue, 22 Sep 2026 06:56:16 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c1d17afcfsm151272285a.20.2026.09.22.06.56.15
+        bh=CSAJceS2lTxo7RYYkwSiAWcerJGzn5wbrFBMDwrG220=;
+        b=tbrvUCqzpSW0HrwS5DMAtmCrrGZsKaKfEulxxP1+Xl6GBB8Nl9cdc/D2hA2E7BGd1/
+         QrjSRVlkr1s3oU7SYr19Yu/kfcn2x6vmYjqRmJcJYEGBpqUhto8HdaDFi4aPk7xbIwYE
+         nKAhj8f/yeR48RwDH3Lyy1VB5Y9yLEVe3mcrQRTnfMzpihyIIXtcZkXXgePflkIgW9ki
+         qPcEZC03zBaz0wMkQh0essUJ3yjU1nh6ffXenFuTstAjYl4te/HjPnwNjV15Sc6EHAAX
+         PsecywEMz0k10JKDZqVQg71lWO3e5uKMLVr/aa3JkgqZaTjj9E06NiUyJnuFEhLP0WDK
+         DkAg==
+X-Forwarded-Encrypted: i=1; AKwUvBwW5tyB9384K2haDebe20ZrANqeFTYrcbt9KH8MjIWf6sRrbpsCV1k8TWw8ctNSy6PPHpdx3kMFE2milhw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5ky+ShQtyEzhPZ8vI1P0wq7wEO/WVp+8UAoTkCzIjus8PUwiH
+	x9BGpQVCUZkB2eeWpKy6GZAcBYm++CWiRbRnQdpgb21vuPK8LXGUxJmVTEJHCwv4tX0UyGkwkk6
+	x4aeIijX9Xh5T/nT83K31+tA0NyU/9jpGwzMCYF4P/4hTzGy0KpKER1LGo43yj1OtUQ==
+X-Gm-Gg: AYBFou3vHpRnhVgZBB2RF09BUyQkjgO1+Okjh9NaF+sbTPBEt4yYewWIduj2WJ+8Vf0
+	D9pou4te3cmGHFsDjU3lyu+HRIbou4tEuyBCkBRVTf3fFB3vCkc3XE7HA51938qXzlotM0F3Zz4
+	gbD1niKAcTIBQre7o1wwroEjcgKuK96YzMF+8uW1su7RcnX3055DPGVyxPTFq1G0Iku4xCECsE2
+	blpPXj9u32YsOIwYtWMScj+OMCyGXk+O9VfahZcEW3joTgYYxg3lqXRxPIH94z48sTxt0QfhEMS
+	ExL7D/0swUR0t5QpdVOdS1bpWjPRu1jupUWJuw5o15S/52/+nGIYXk26Ws4WmBwIeUqidOdDmbF
+	zZPZEahz3YeM5lXxy2zmBzTwjXRm50jArJcxmVHs9hVLTr0VlUJ8=
+X-Received: by 2002:a05:600c:6298:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49fc5687adamr193025345e9.1.1790085388313;
+        Tue, 22 Sep 2026 06:56:28 -0700 (PDT)
+X-Received: by 2002:a05:600c:6298:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49fc5687adamr193024815e9.1.1790085387814;
+        Tue, 22 Sep 2026 06:56:27 -0700 (PDT)
+Received: from sgarzare-redhat (host-82-53-134-131.retail.telecomitalia.it. [82.53.134.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdace7941sm63084875e9.2.2026.09.22.06.56.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 06:56:15 -0700 (PDT)
-Date: Tue, 22 Sep 2026 09:56:12 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org,
-	abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
-	brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
-	dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
-	hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	ziy@nvidia.com
-Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking
- requests reserve access
-Message-ID: <arKI_AwXQxicc_iH@cmpxchg.org>
-References: <20260910114602.926944-1-dipiets@amazon.it>
- <aqQlUr-1h07G8JWM@cmpxchg.org>
- <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
- <aqq8pWI0u1IZNWHT@cmpxchg.org>
- <9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org>
- <arFBJdYaRx_iJNDA@cmpxchg.org>
- <arFBWvzXPYrKuIYi@cmpxchg.org>
- <arFFKGrpPwtTkoCi@casper.infradead.org>
- <arFUPOi6gadAvD3E@cmpxchg.org>
- <c4a6d3db-8b57-400d-a377-a7acbf45d3ba@kernel.org>
+        Tue, 22 Sep 2026 06:56:27 -0700 (PDT)
+Date: Tue, 22 Sep 2026 15:56:19 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] vsock: report pending receive data to
+ io_uring
+Message-ID: <arKF7P9gqq7ehX-k@sgarzare-redhat>
+References: <20260920194710.1114748-1-devnexen@gmail.com>
+ <20260920194710.1114748-2-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <c4a6d3db-8b57-400d-a377-a7acbf45d3ba@kernel.org>
+In-Reply-To: <20260920194710.1114748-2-devnexen@gmail.com>
 
-On Tue, Sep 22, 2026 at 01:52:41PM +0200, Vlastimil Babka (SUSE) wrote:
-> 
-> 
-> On 9/21/26 5:58 PM, Johannes Weiner wrote:
-> > On Mon, Sep 21, 2026 at 03:54:32PM +0100, Matthew Wilcox wrote:
-> >> On Mon, Sep 21, 2026 at 10:38:18AM -0400, Johannes Weiner wrote:
-> >>> +++ b/mm/page_alloc.c
-> >>> @@ -3246,7 +3246,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
-> >>>  			 * reserves as failing now is worse than failing a
-> >>>  			 * high-order atomic allocation in the future.
-> >>>  			 */
-> >>> -			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
-> >>> +			if (!page &&
-> >>> +			    ((alloc_flags & ALLOC_OOM) ||
-> >>> +			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
-> >>>  				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
-> >>
-> >> Would this be slightly neater?
-> >>
-> >> static inline bool may_access_reserves(unsigned int alloc_flags)
-> >> {
-> >> 	if (alloc_flags & ALLOC_OOM)
-> >> 		return true;
-> >> 	if (alloc_flags & (ALLOC_NON_BLOCK | ALLOC_MIN_RESERVE)) ==
-> >> 	    (ALLOC_NON_BLOCK | ALLOC_MIN_RESERVE)
-> >> 		return true;
-> >> 	return false;
-> >> }
-> 
-> I think it should be named e.g. may_access_highatomic_reserves() as
-> may_access_reserves() is rather generic and would seem to imply an
-> ALLOC_RESERVES match (see 2/2).
+On Sun, Sep 20, 2026 at 08:47:09PM +0100, David Carlier wrote:
+>AF_VSOCK stream receives never fill msghdr.msg_inq, so io_uring cannot set
+>IORING_CQE_F_SOCK_NONEMPTY and retries a multishot receive even after the
+>queue has been drained.
+>
+>Fill the hint at the common receive exit using the transport callback that
+>SIOCINQ already uses, and report 1 once the connection is finished so the
+>caller performs the receive which observes EOF, as TCP does after a FIN.
+>
+>A vsock loopback ping-pong with io_uring multishot receive drops entries
+>into __vsock_connectible_recvmsg from 1.97 to 1.00 per delivered message,
+>and receiver CPU time by about 3% (25 runs of 50000 messages, p=0.006).
+>
+>Signed-off-by: David Carlier <devnexen@gmail.com>
+>---
+> net/vmw_vsock/af_vsock.c | 39 +++++++++++++++++++++++++++++++++++++++
+> 1 file changed, 39 insertions(+)
+>
+>diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+>index f840498b58af..63309708c916 100644
+>--- a/net/vmw_vsock/af_vsock.c
+>+++ b/net/vmw_vsock/af_vsock.c
+>@@ -2543,6 +2543,38 @@ static int __vsock_seqpacket_recvmsg(struct sock *sk, struct msghdr *msg,
+> 	return err;
+> }
+>
+>+/* Bytes a following receive can consume, 1 if it would only see EOF, or a
+>+ * negative value to leave the caller's hint alone.
+>+ *
+>+ * Called under the socket lock after a nonnegative stream receive, so a NULL
+>+ * transport implies SOCK_DONE.
+>+ */
+>+static int vsock_inq_hint(struct sock *sk)
 
-Note that it doesn't actually check ALLOC_HIGHATOMIC itself. It's just
-the hail-mary AFTER trying the primary migratetype. So the name still
-doesn't look right, and rmqueue_buddy() reads kind of awkardly:
+can we add "stream" in the name so it's clear that is stream only?
 
-if (alloc_flags & ALLOC_HIGHATOMIC)
-	page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
-if (!page) {
-	page = __rmqueue(..., migratetype, ...);
+(e.g. vsock_stream_inq_hint)
 
-	/* Allow OOM and order-0 atomic */
-	if (!page && may_access_highatomic_reserve())
-		page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
-}
+>+{
+>+	struct vsock_sock *vsk = vsock_sk(sk);
+>+	s64 data;
+>+
+>+	if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
+>+	    (sock_flag(sk, SOCK_DONE) && sk->sk_state != TCP_ESTABLISHED))
+>+		return 1;
+>+
+>+	if (!vsk->transport)
+>+		return 1;
 
-It would have to be may_access_highatomic_reserve_as_last_resort() or
-something?
+Can we squash this in the previous block?
 
-Hm, this is a mess. Looking closer, I think there is more breakage,
-name aside.
+>+
+>+	data = vsock_stream_has_data(vsk);
+>+	if (data < 0)
+>+		return -1;
+>+	if (data > 0)
+>+		return (int)min_t(s64, data, INT_MAX);
 
-You suggest in 2/2 to use the same helper in unusable_free. But I
-think that's broken. My 2/2 does not look like the full fix either:
+nit: IMO we can remove the int cast.
 
-The fundamental problem is including the highatomics reserves in the
-watermark check for any allocations that first prefer a different
-migratetype - "regular memory". Any time we do this, we allow those
-allocations to draw down regular memory to 0 based on the presence of
-the highatomic reserves. And when reclaim, swap etc. come along there
-is nothing left for them. ALLOC_NO_WATERMARKS e.g. permits ignoring
-the wmarks but doesn't grant access to highatomic *freelists*.
+>+
+>+	/* Empty but finished: keep the caller reading so it sees EOF. */
+>+	if (sock_flag(sk, SOCK_DONE) ||
+>+	    (READ_ONCE(vsk->peer_shutdown) & SEND_SHUTDOWN))
+>+		return 1;
+>+
+>+	return 0;
+>+}
+>+
+> int
+> __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+> 			    int flags)
+>@@ -2606,6 +2638,13 @@ __vsock_connectible_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+> 		err = __vsock_seqpacket_recvmsg(sk, msg, len, flags);
+>
+> out:
+>+	if (msg->msg_get_inq && err >= 0 && sk->sk_type == SOCK_STREAM) {
 
-So I think there are two choices:
+Why only STREAM?
+A comment here and in the commit would be nice.
 
-(1) Let *everything* with some sort of reserve access fall back to
-highatomic, or
 
-(2) Only allow ALLOC_HIGHATOMIC to include highatomic reserves in
-their watermarks check. With limited opportunistic fallback to the
-highatomics *freelists*, like the order-0 atomics above.
 
-My intuition is that (1) might weaken the highatomic reserves to the
-point of uselessness, and we should probably go with (2):
+>+		int inq = vsock_inq_hint(sk);
+>+
+>+		if (inq >= 0)
 
-watermarks:
-if (alloc_flags & ALLOC_HIGHATOMIC)
-	unusable_free += zone->nr_free_highatomic
+Why assigning only >= 0 values?
 
-freelists:
-if (alloc_flags & ALLOC_HIGHATOMIC)
-	page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
-if (!page) {
-	page = __rmqueue(..., migratetype, ...);
-	/* Opportunistic fallback for order-0 atomics */
-	if (!page && opportunistic_highatomic_fallback())
-		page = __rmqueue_smallest(..., MIGRATE_HIGHATOMIC);
-}
+Thanks,
+Stefano
 
-> > I tend to be hesitant with single-use abstractions, but no objection
-> > if people think this is better.
-> 
-> True but single-use ALLOC_MASK_ATOMIC is also not that great, and the
-> usage makes the code hard to decipher. And see my reply to 2/2.
 
-There is one small upside, which is that it pairs with the
-ALLOC_HIGHATOMIC check that precedes it. The comment says "order-0
-atomics" get a hail mary, but there is no order check. That order-0
-comes out of the sequence of events here: we first check highatomic,
-which is order > 0 && atomic. If that, and the native type, fail, we
-do the hail mary for atomic, which must be by definition order-0.
+>+			msg->msg_inq = inq;
+>+	}
+>+
+> 	release_sock(sk);
+> 	return err;
+> }
+>-- 
+>2.55.0
+>
 
-If you abstract that privilege into a generic "can access highatomic
-reserves" without an order check, it tempts refactors that cause bugs
-like the above.
