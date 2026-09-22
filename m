@@ -1,162 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D793F2566F7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F272D7DF1
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091982; cv=none; b=BiXyNI5gEnhIa8MZtsg4OmfNhZcH2JE9Hej3cNOH+b4T5ThdcLU1BvIPNDoxkEe+Uu0lA9fpT4K45rjHLLNEEEl6ajfm+B9BGtcqor0mjXI63PrzgOWWDgdhYBQF9DUFXXZzfbCbdvlrRvTL+K1XR5lj76rDaFUewJxsx02n2zw=
+	t=1790091987; cv=none; b=muYWYBQVupVH9kP//E/2covQBX4TdH8iPiLkT/dmBSa3InPS3Ux/bn43FvXIBu3BNohIwnLO8HuqAIuxAbL9ZAh/axFsi37Cics8djil+OarshI0+bOCbUxtPG1kK7AePy1GGYNKuuVFt+CBsPx4TnzHBs8IGTNcoeWeITb0PSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091982; c=relaxed/simple;
-	bh=SeflP6g7z/vtCJOJe8rk4i+2DceeIgkJY8hpEBaZtUM=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=bV10h4CXWFk0ZR2PacdA1BTXPzFWrLxzaekzuUxIabud3dihQam5iVyFWyjARo6MmAgWEkauyk2Rwx/0QPpdm1zzcRz8dT5Ex2tWHPgm1kgIKf28A43sPykjuWoK3QBshVP0liWYdMZCwRn17Vv9mD8R8SGYzHeaFmVlVwM2uXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iIR2Ocfa; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790091987; c=relaxed/simple;
+	bh=e/G+x8EZ1Ezei3fqyde5MtjxhZdcvZ09vtY+lp4RtkI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tyooOyiMBE3zjJ5UJdS2rnZOPchE8+zKNWhaQd8oLIZA8H7XbBQB5hEr0R5WaJAQkqlDXmiXHOZQ4aDHUEOohaFH9bSqpsn3E/F4M7qAz3sbay5vSWXdp4N7RluGizkegI01MYSKXsmRlR8hSRZf/JmwJlSVPv8J0ubjL9GZGwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=fWnluPAV; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iIR2Ocfa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790091977; x=1821627977;
-  h=date:from:to:cc:subject:message-id;
-  bh=SeflP6g7z/vtCJOJe8rk4i+2DceeIgkJY8hpEBaZtUM=;
-  b=iIR2OcfaQpZbv1DNGr4E6N1UDRnqP195xInwz4wNBEuVrHCgeNUHcnqQ
-   LwI8pI8WvRGogoxRefMxU6mXOcP/ElxDw+TnmJeP3dmzUS/SQqbejbnYD
-   fyNf6xzo5yZbrdW2nAQEEGXAsyEUNF2zBC5CcRMigmKyINsup6YdO7Zov
-   QECeO9YGcfF+YDOF/8z9r5rVavjJeb/hr3dXLvBNGC3RCh49B98+foHO0
-   KZzXM9b/K6VwN4dBoci+wJasqS/ws+zHbQ7khOG5QkfsL0cTUOxQ7Yqyt
-   E+Iq6XKGR1cyaXvCGI8ukUKdOYF8JnScgrm3BrTKEoC4srEw+KamGOCXg
-   A==;
-X-CSE-ConnectionGUID: XmB38N9jSSGYUKobAgEHzA==
-X-CSE-MsgGUID: f7jMSxkCR4eMjcFNiYXkNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1208552"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="1208552"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 08:46:13 -0700
-X-CSE-ConnectionGUID: jf3KktMBTPa2CgJQKxCkQw==
-X-CSE-MsgGUID: vhiK2a4pRT+yVsfu8aWpdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="277950569"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 08:46:11 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x92h7-00000000Ff2-0m3e;
-	Tue, 22 Sep 2026 15:46:09 +0000
-Date: Tue, 22 Sep 2026 23:45:45 +0800
-From: kernel test robot <lkp@intel.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: net/netfilter/nf_conntrack_proto.c:181:35: sparse: sparse:
- incorrect type in assignment (different modifiers)
-Message-ID: <202609222347.fomKeXBU-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="fWnluPAV"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43f9b119so1264547b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:46:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790091976; x=1790696776; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=e/G+x8EZ1Ezei3fqyde5MtjxhZdcvZ09vtY+lp4RtkI=;
+        b=fWnluPAV150JDAVRdWHGHXPZ1kEXrvrfEzQCYSe/UVNmni4cl19yNf0gZzLHTuvL08
+         kBGRA2tsCSTxLE4f1fKgNK60wt9PW0yQ23OrSq40J86+UuGF03/1fCx2fKRNamCRgOXn
+         XYlcaEEgKcDhCGJG+2hLB76ygbK1YXh+3oSYwoPEExEzMl9lk0JwxPWgNTKqYkb9UuIS
+         Y/p6UuxeMWd4JOo8GoRz6VYTjFxQ+pJHRQaqfQJLP3RU0cCh4cC7/GhgLAc2ZzniT/Vr
+         +lZxIbfgW7vrWab5DlmCwdobDU5fAR1DddDKUNJecRM4zGkRMMqON7Wt9v2TDqiFcLNW
+         aB2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790091976; x=1790696776;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e/G+x8EZ1Ezei3fqyde5MtjxhZdcvZ09vtY+lp4RtkI=;
+        b=1V+z3zVYSJv7370Mv1a/peZ527TylvHAdc+I3B01zvF7uD31qD7L51Bwsw9GIMNNgL
+         4PZabslTTUQTmZhmooI/KDely6GlFSplrOcV/R36/x4kEfY41Ix49rpwkIB6nx902wSj
+         lJgCVPQ7vcTb/MFHlTSKwFDkvaIu8l/WlUrA3jV+DwJ7f9kU/NRckraPC8RvEZYln1W4
+         0Fbm4Gv27OE/CgsY2SO5YUqn6Jn41sDaXb19pPp28+3LsMnk8CuFxDIdzzdUV/zq5BA7
+         ZePFDfLNHPHTYz0Fi2fFSg0BCSIukzxrEyPAfJyxz3Qm6ZxqWK4oyg4B1cGQTrQ7nFNx
+         QZXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHTCAbCNZgzQnGQLTYl44fErPwZX30QeQrPIEkCGHUy+CxJXhq2Q0y6wXB1RgWBqdhP4mViv1Gmn97/pg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnQMGY5ljgKRKYaQOsdY4l6lvqPmIfzQtqRgvELneRz5fapCFc
+	Ud7fOKxwfD94FrVTlgDmG4LPBH9EVFxiBVQg7fj09WrJa7Iarf04YiJkLZoKbsEUxWY=
+X-Gm-Gg: AYBFou0t4AKeklWbcBDrapi4z5D2BDfIQr8eUl4f4wTo+x1BDYV3DBPiY8Dsv9QFLLf
+	04il82M0/BHKhWspezCM+SgAr7PVoewzsy/H2jGOVvvWuj0K+KXh4EPa8+zSEjFUWgiNBmLUjH5
+	tU35b0aJsRXjVWS/AZeGBZulgut9iOkzUfg2CowvvKm0HBRoziCoAcYe357rrTej3UwYU/C7wBX
+	j0dkcr6Wr0MNs/EK+p5twKIzPf8MlC/3OKyovJiQFnmnNxFP5r6vNPpvUFBkxJXyyfzBSoI3YQH
+	rIYlCjujme11Y+9haw4x90IKX77CMSewRvLEVmwyxGELT6CQ/SzaWvkOScYgmBKeMRpE7Z9lWBp
+	B0hI946qIiBJGMv4e0QEi2aPxMzE2lsCb5MdxV4YQY0oYU4oO05m1JCZGoLCRW9hNsWHv93ii6Z
+	g0UyWpQZ9Mk4FoP6n2nWyswgtzx3dzGmqP7wesxxqxAvRtvmHsF2PTLQQj7uCvihSVHHY/
+X-Received: by 2002:a05:690c:4990:b0:871:cdc:eaa5 with SMTP id 00721157ae682-8973041de06mr56957107b3.1.1790091975385;
+        Tue, 22 Sep 2026 08:46:15 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e693f69bsm8080941cf.2.2026.09.22.08.46.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:46:14 -0700 (PDT)
+Date: Tue, 22 Sep 2026 11:46:13 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Chris Li <chrisl@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arKixeYuuUKye7bL@cmpxchg.org>
+References: <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora>
+ <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <arKRdaNEaKvFOtMg@linux.dev>
+ <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
+ <arKZpJDpsavixjPx@cmpxchg.org>
+ <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
-commit: ac46f3f35b6e68fb062ae7cf780d516c0cf4c00a netfilter: nf_conntrack_helper: add refcounting from datapath
-date:   4 months ago
-config: um-randconfig-r1307-20260922 (https://download.01.org/0day-ci/archive/20260922/202609222347.fomKeXBU-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260922/202609222347.fomKeXBU-lkp@intel.com/reproduce)
+On Tue, Sep 22, 2026 at 05:30:44AM -1000, Chris Li wrote:
+> In Chinese we have this saying: don't apply things to others that you
+> wouldn't want applied to yourself. Do you want to participate in a
+> technical meeting at 1 AM?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: ac46f3f35b6e ("netfilter: nf_conntrack_helper: add refcounting from datapath")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609222347.fomKeXBU-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> net/netfilter/nf_conntrack_proto.c:181:35: sparse: sparse: incorrect type in assignment (different modifiers) @@     expected int ( *helper_cb )( ... ) @@     got int ( [noderef] * )( ... ) @@
-   net/netfilter/nf_conntrack_proto.c:181:35: sparse:     expected int ( *helper_cb )( ... )
-   net/netfilter/nf_conntrack_proto.c:181:35: sparse:     got int ( [noderef] * )( ... )
-
-vim +181 net/netfilter/nf_conntrack_proto.c
-
-   127	
-   128	unsigned int nf_confirm(void *priv,
-   129				struct sk_buff *skb,
-   130				const struct nf_hook_state *state)
-   131	{
-   132		int (*helper_cb)(struct sk_buff *skb, unsigned int protoff,
-   133				 struct nf_conn *ct,
-   134				 enum ip_conntrack_info conntrackinfo);
-   135		const struct nf_conn_help *help;
-   136		enum ip_conntrack_info ctinfo;
-   137		unsigned int protoff;
-   138		struct nf_conn *ct;
-   139		bool seqadj_needed;
-   140		__be16 frag_off;
-   141		int start;
-   142		u8 pnum;
-   143	
-   144		ct = nf_ct_get(skb, &ctinfo);
-   145		if (!ct || in_vrf_postrouting(state))
-   146			return NF_ACCEPT;
-   147	
-   148		help = nfct_help(ct);
-   149	
-   150		seqadj_needed = test_bit(IPS_SEQ_ADJUST_BIT, &ct->status) && !nf_is_loopback_packet(skb);
-   151		if (!help && !seqadj_needed)
-   152			return nf_conntrack_confirm(skb);
-   153	
-   154		/* helper->help() do not expect ICMP packets */
-   155		if (ctinfo == IP_CT_RELATED_REPLY)
-   156			return nf_conntrack_confirm(skb);
-   157	
-   158		switch (nf_ct_l3num(ct)) {
-   159		case NFPROTO_IPV4:
-   160			protoff = skb_network_offset(skb) + ip_hdrlen(skb);
-   161			break;
-   162		case NFPROTO_IPV6:
-   163			pnum = ipv6_hdr(skb)->nexthdr;
-   164			start = ipv6_skip_exthdr(skb, sizeof(struct ipv6hdr), &pnum, &frag_off);
-   165			if (start < 0 || (frag_off & htons(~0x7)) != 0)
-   166				return nf_conntrack_confirm(skb);
-   167	
-   168			protoff = start;
-   169			break;
-   170		default:
-   171			return nf_conntrack_confirm(skb);
-   172		}
-   173	
-   174		if (help) {
-   175			const struct nf_conntrack_helper *helper;
-   176			int ret;
-   177	
-   178			/* rcu_read_lock()ed by nf_hook */
-   179			helper = rcu_dereference(help->helper);
-   180			if (helper) {
- > 181				helper_cb = rcu_dereference(helper->help);
-   182				if (helper_cb) {
-   183					ret = helper_cb(skb, protoff,
-   184							ct, ctinfo);
-   185					if (ret != NF_ACCEPT)
-   186						return ret;
-   187				}
-   188			}
-   189		}
-   190	
-   191		if (seqadj_needed &&
-   192		    !nf_ct_seq_adjust(skb, ct, ctinfo, protoff)) {
-   193			NF_CT_STAT_INC_ATOMIC(nf_ct_net(ct), drop);
-   194			return NF_DROP;
-   195		}
-   196	
-   197		/* We've seen it coming out the other side: confirm it */
-   198		return nf_conntrack_confirm(skb);
-   199	}
-   200	EXPORT_SYMBOL_GPL(nf_confirm);
-   201	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+The only thing I would like less is having somebody else make that
+decision for me.
