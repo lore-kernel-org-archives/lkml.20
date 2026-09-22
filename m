@@ -1,95 +1,155 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0901279329;
-	Tue, 22 Sep 2026 03:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B44639E19C
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 03:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790046377; cv=none; b=WPYw7Hipft9PnCgYMAVcH6EYMGNgGhYyMjtLSZgyp/CvZ/5wpkgoG640fpttK1dqBJGw6j/EQgtSPxvy3TWVV3AV1CEbE4I6KXiul/kIEgcWNXAyCX/9mmvLk1cRPdWfc7/bS7XA+oky2WNDrse8Ur6fM79cA/yr4R+0o3AhO6k=
+	t=1790046467; cv=none; b=lC1fMMaNQeuz6glRLGKe5HGDFqjxQGO+Bx0UgA9/C2zAKF1CT25H5rAwclraUCeoZL8Lo/pySEnFO3vaEz3HMAojGOhJtBX+FmtfybaaB5L65PAYKexEqXGraRlwGIJn5TM2PDfYLyviRQHCFgtS357/c4Z2Rbb+G1r2IWSDYk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790046377; c=relaxed/simple;
-	bh=t9h8ZVkyMnzfe78FDh6yAY9agt1lEEmfFjtXgEfbJMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oirx2gFSumlD4ONsPrRcYiSGwFJnyX6gfNvi3exl8e+sSxKydMK/VsUoKS3UjEVncf2AL5274aaCOihQR9iiX4lF2PdklIsmTVk3olGne9HKPpL36m1xVrCziHs3U/jIGKl4u2NxomJIU7JZYi9MiPQgZK7OdhG7tOg69k7ljFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=kuELMu5S; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790046467; c=relaxed/simple;
+	bh=fo2uXbV/YsdosodD5hKrFlrHpx5nxnjuDY7NSFj2QqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PnbeMRjUUcEAFJXWNZh8j2/HbQgIfoQSl9bOAuSvYokeLy8Db26742yD/JX1dNvBJBvIlxnug0tvygtwNCrtrrALjqPpShkTAWLXK6D4XNh0OR6O26owomspwKrSwQtst6hKbU4KZzkfHvK3MmdeLj1+wPU1K288949UBHFtor8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PHmNrNMW; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="kuELMu5S"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7C1FD40E015D;
-	Tue, 22 Sep 2026 03:06:12 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id QU5ejKskzQrx; Tue, 22 Sep 2026 03:06:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790046362; bh=kH1JZ27xJw/Zb8sSjLOGFLtkumZbC4RSOO28oxUsB3Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kuELMu5SA05bU1VTv3AkSiButq37SAbQyyhm9Loy+I0LUkOAKJRtJzwFTfRHmxibb
-	 u7zQYD8ppy8R9my0SxaWJ63+OisFW0dww/JHpOqc4yxMx2vu/IIyYAbUL6nvyhWzcX
-	 ccv21IchubY0J7LEOhm0bL+LRZLdInyHfc1+bum+Tz8lKQHL6MvcpKqs/atC0JlWaf
-	 wUeaVwzzhon2gNlExGlCMJh4OY97HmGT6elu3ob6MarcIkscAgqUrqN4vP+jG3scEb
-	 SkAOlS8zHIlWvkB1iwxuGFToQgBIXWjca6SysOUOZUJ6A9poBm/Tx2nwPekC2Ckj8c
-	 AY5o3P4iGD/YgoXqfjsj80RQRD9NVwB2QfodpiT8zezgxLtIKsdtsYXRa/qQ13a+87
-	 oCvQascsPgkbSpsUTssKUV3g2e7fhn5QFxv6HEmUObd73LlOcQ1rJVP7mAMqaRPXGK
-	 vtVD5LfJB3NiYbbQb5x6WSnCpiWWRZ44AFFNTt9cpPRGF147Dyfvk0mPPBVp3r2XRS
-	 KEGETn9F7MecGh2vd/tBeGMUcuBGzJBFlUBBDSJA9t/+81xs/BrSWP0Kmqm2v4vs85
-	 xJ0MyLXh3HWR4iON3zkwOO8cUEVmeD68xvquDXx2DfOPHhZO/7lKIk3+b0xx0M0rCK
-	 W2I43ef0VQW4hGAwg3RyHXYs=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 031A440E00E8;
-	Tue, 22 Sep 2026 03:05:51 +0000 (UTC)
-Date: Mon, 21 Sep 2026 20:05:48 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Perry Yuan <perry.yuan@amd.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PHmNrNMW"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so3040700b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 20:07:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790046466; x=1790651266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jpPaqYZF1lhNpWa3wlSSx8EKhADVJbrI8ZsmdqJYbwo=;
+        b=PHmNrNMWR2zssSnG+hcfoMdFNxXn5TPNKqQBSpM8Tqldrds/rD4WaHJMWcXyQzHvGh
+         hVepk3sPokVykr+g/L/hTBGpmhc/uBYm599WGTpGe9jXwr3DUv5Cb0xB/StKbzJ4a4c7
+         oZu8ZMz1CSGr/rnFjV7eQ2lOc4vmqMhQ8Jq5P1ZZx+0vjDhJrLrDy4wqTnbIoGK2NBT2
+         +PblTrZUZM4SZDVHgNu5YKZy+bnaUipVyAeRIivQVuEpabGHWHVJK4bziGWLMl76NG5C
+         AXPvGVrIdAhmGrb68J0YZn/mk/vbJ7aug/+IiXYeq6uMAfNcJblgHuUynSRr4kTXS3OZ
+         xAtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790046466; x=1790651266;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jpPaqYZF1lhNpWa3wlSSx8EKhADVJbrI8ZsmdqJYbwo=;
+        b=y9hSemei1lFkNnEb+DYflBtZeRE06iApAf13Vxcluj/tPrCEfnGaLkExl+hELdzx4l
+         ZfKehCtodK+AL96dCbyCGFOkLt8Vd3Uu5PWCvROt++ZlNTADBSCiQWz7IN9+2ei0liNN
+         /ud+/tpFHCXasQ6GS9BIIxp19r7GD3TWsfW+/HL98LUZX863ZNlZ3eS6aHm118diXzLz
+         sICZHtdlkDIOyTNyYOvd1WAMBHz+l66/2kX/zJ7qfdMEU7thdHqnRv5Y56+tlXZ15l2J
+         61aRvacKjw2v3vF7tLXaxjC0b0DC80ljasnJSRh/h8avHCs03GS20lBOmtAImSpGZKq9
+         UX9A==
+X-Forwarded-Encrypted: i=1; AKwUvByErQjH0WSJosFpiaq8LzKG4uW4t8HOICXrsFvuLbBKUR3NMqfdvYBb055g4ORizosN+OZ1ZxrKqbQcESY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2p4qPZFnoT6EdkpIk2o/FtktPN+IhBFF6NTC+TcxshzY61f+J
+	m+vItc2SgM/jH46jrUPBROqQEIsgtaoSrI60Y/scH+mK0N7nbeFenTY=
+X-Gm-Gg: AYBFou39HOMhylN3bFqO6CETdp6OysLUtWJ5YmHsPJnP/Bv4eL3MIyD83akjx+1lXYq
+	cF9zgwwv3ZyZtvpShQCMRgOqMYjof56V8CU+7QSOoTfp9rem4kPzjw6+WzVw8L6PrHeWQY933iM
+	3d33kM+cHqR69Cwdb0mULAvEYwvgTCVaOT+JT9e4FmeahIm6Mo00EGU0P1Apj6wy3A2GpvZspI1
+	ubfiPetEwZLVBS9SciIENbVRXnthEDavdhRBnauFrcAfJ/wxtcHhFV02hoFidryjhYnq9Xh8beQ
+	NTx7Q5Y/ae6r6f8g7EN8U8m+I5oR3yBRIE6e9+BdQfJsUP93PapGI8mHX76l6z6MG0ufX84bC80
+	Jg7wl5jdxZDYcPc4QQmjRhpO5Z717MI2WGDvkdToSrKEEYhREurYY+a30CHg+UaWwDGBDdzJVqd
+	IFS5XqYkQger8keRmUirK4cGVGWIhwAUUFukbrWluHV3l+TJFxAc0ueHpUmgt0AE5I3NCIh68Q1
+	S8x+iCd4t5y5bxKu6rRAqr1O4I=
+X-Received: by 2002:a05:6a00:130d:b0:878:3538:8f7f with SMTP id d2e1a72fcca58-87c02558923mr842779b3a.45.1790046465483;
+        Mon, 21 Sep 2026 20:07:45 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c32fa8924sm127912b3a.45.2026.09.21.20.07.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 20:07:45 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	longman@redhat.com,
+	tj@kernel.org,
 	linux-kernel@vger.kernel.org,
-	"Gautham R. Shenoy" <gautham.shenoy@amd.com>,
-	platform-driver-x86@vger.kernel.org,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	stable@vger.kernel.org,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init
- failure
-Message-ID: <20260922030548.GDarHwjL6ocubz8Lzp@fat_crate.local>
-References: <20260921082609.244774-1-lgs201920130244@gmail.com>
- <arFKFmkpldopUIMI@quoll>
- <89bd2593-e0ef-4b9b-8c9b-833aff327a3e@kernel.org>
- <CANUHTR91qqHtCbaFHSqcMa8eZuD7EnTqyFSfDMwX=LsiMiHoEA@mail.gmail.com>
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH] sched: Restore the normalize_rt_tasks() cpuset_mutex exemption
+Date: Tue, 22 Sep 2026 12:07:38 +0900
+Message-ID: <20260922030738.1613919-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CANUHTR91qqHtCbaFHSqcMa8eZuD7EnTqyFSfDMwX=LsiMiHoEA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 10:11:36AM +0800, Guangshuo Li wrote:
-> We apologize for the pressure this caused to the community. We will be
-> more careful about organizing patches by subsystem, preparing proper
-> patchsets, and following the kernel contribution guidelines before
-> sending future work.
+sysrq-n runs normalize_rt_tasks(), which walks the task list under
+read_lock(&tasklist_lock) and hands every user RT or deadline task to
+__sched_setscheduler() with pi == false.  __sched_setscheduler() takes
+cpuset_mutex whenever the old or the new policy is deadline, and
+cpuset_lock() is a plain mutex_lock(), so a single SCHED_DEADLINE user
+task makes the sysrq handler sleep in atomic context:
 
-If you're wondering how to really help the community, try to review and test
-some patches you see on the ML. Whatever you choose - there's no shortage of
-patches. You can even let your AI run on them and see what it catches.
+  sysrq: Nice All RT Tasks
+  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1, name: init
+  preempt_count: 1, expected: 0
+  RCU nest depth: 1, expected: 0
+  locks held by init/1: 3, last CPU#1:
+   #0: ffff9fa2c34e1470 (sb_writers#3){.+.+}-{0:0}, at: ksys_write+0x74/0xf0
+   #1: ffffffffb8f66540 (rcu_read_lock){....}-{1:3}, at: __handle_sysrq+0x3a/0x110
+   #2: ffffffffb8e060d8 (tasklist_lock){.+.+}-{3:3}, at: normalize_rt_tasks+0x34/0x150
+  Call Trace:
+   __might_resched.cold+0xe3/0xf5
+   __mutex_lock+0x8a/0x11c0
+   __sched_setscheduler+0x35f/0x9c0
+   normalize_rt_tasks+0xe6/0x150
+   __handle_sysrq.cold+0x9b/0xde
+   write_sysrq_trigger+0x65/0x90
 
-This would be a lot more helpful than only dumping patches on people and
-waiting for review.
+Test pi along with the policy. The only pi == false caller is
+normalize_rt_tasks(), where the lock is given up since the sysrq
+emergency already voids deadline guarantees.
 
-Thx.
+Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: stable@vger.kernel.org
+---
+Reproduced under qemu-system-x86_64, -smp 2, on tip/sched/core
+e81ee0630837 with x86_64_defconfig plus x86_debug.config less
+GCOV_KERNEL, plus CPUSETS, MAGIC_SYSRQ, DEBUG_ATOMIC_SLEEP,
+DEBUG_MUTEXES and PROVE_RAW_LOCK_NESTING.
 
+  deadline tasks      base                      patched
+  0, one RT task      no splat, RT normalized   same
+  1 blocked           splat, normalized         no splat, normalized
+  2 blocked, one RT   splat, sysrq-n hangs      no splat, all normalized
+  1 blocked, x3       splat                     no splat
+  1 spinning          splat, normalized         no splat, normalized
+  2 spinning, one RT  splat, sysrq-n hangs      no splat, all normalized
+
+ kernel/sched/syscalls.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index b215b0ead9a60..1d931ecfaad88 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -553,10 +553,10 @@ int __sched_setscheduler(struct task_struct *p,
+ 	}
+ 
+ 	/*
+-	 * SCHED_DEADLINE bandwidth accounting relies on stable cpusets
+-	 * information.
++	 * SCHED_DEADLINE needs stable cpusets.  However, the pi == false
++	 * caller normalize_rt_tasks() must skip the lock to avoid sleeping.
+ 	 */
+-	if (dl_policy(policy) || dl_policy(p->policy)) {
++	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
+ 		cpuset_locked = true;
+ 		cpuset_lock();
+ 	}
 -- 
-Regards/Gruss,
-    Boris.
+2.53.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
