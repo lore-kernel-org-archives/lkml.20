@@ -1,169 +1,175 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010032.outbound.protection.outlook.com [52.101.193.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A297381AF1;
-	Tue, 22 Sep 2026 02:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790043844; cv=fail; b=FZL9b4gT7Hcn9OU/jZyNAzuJMzb1wihGw95wclJcbxs2oR5u5XLl20ZCPAOdZ2RDjTwH2yavBf2eTRH81RzApAMVY/0T49fgRA74t7iLFKrMNWOOIzGj4lflgtk+/DnJzdEwjZtuu5D+EP738U8zE3HanjSC4vKg5jegthzLesA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790043844; c=relaxed/simple;
-	bh=0po82FTA1ZJGiuyZvbv147QUgA7yT8VR4yhkygGbXJk=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cqyFa54al3JvF1TXIt+yY8mEtkA3+ABUa3Fo52JxDWCP2BZ3weJI0TYp06AA0tpuHp4n+9LAUMOa+2njppBbu1iWbAPNsSOFutvYbZIzoiBWVHBwLrrbt7c4aPjCGPDjGcbG3Po+5O65HbqWyrdv3HWkH98UfsFzR3d0+HcSwgY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=g0dn+OHn; arc=fail smtp.client-ip=52.101.193.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811203876B3
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.60
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790043860; cv=none; b=Rwafl7lzDEbGxybwMOVtPDzR0Zen1xrx2ZicyLEFCZcAaSXMkAG8GGz1Vj0ha0UZ23KJaFgxrF0FwZLdjzZfzmuqV4ikq+BytHk9oI34IBAGsS27cJQPrtUbTP0ld+wcBf8JWxHm2M1bhUjGbgFaxxm5i9Dwb4oz3FVxHwUUdsc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790043860; c=relaxed/simple;
+	bh=WajXHx4nyP1bqLJhU0xpOreDBI721whriRTqIiiZAvk=;
+	h=Message-Id:Mime-Version:References:From:To:Cc:Content-Type:Date:
+	 In-Reply-To:Subject; b=YXSyyFndRUF9h6miqZItm15RGOryIl87RaT9oklYSGizLELkdKEZB9TjciMwLuK4c6TAbu4HMtMCsgo+24izBtlPBTXTlCP+VRjzCzZwaIUTlEO+ZYUMjVGtiUqnEQNnb92rF78LWFwHmVfCJ+EoTS9i4fH7s45Pdp8AkhRy06c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=TQoaIvAF; arc=none smtp.client-ip=209.127.231.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="g0dn+OHn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xPVJmnEVsS/Gapz/4aSPnyy9JHFinolYfkfm01CFtujmt7ZdBvOt16uM+WB5+ojQNAS9PRQkj3fu2TlV+tcDgM4x6dzLsOhe1MbHnddCZ3AU6hQkKYBSFnJoYJ78tEFUnHKgY6J6Uimm2ZyJnyuJeUN9yWkJ+BXewYXif2MeqiSvRtWOtNWujSTyDA4Z8/wYZKX80D5Ug4kM1TmkFjqlYMclDmSDTk3R78NaQtIIepPUcMp20iOMSQh5ttiDle0zcoRFUDcdRuMMqHTbqbyIs1dxrTz440TdnFRPtDvJ62tP1ZYYEjwpZC0VYSRAv5G9lxiDLjUnOmQBAMfexoMqxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yb/NaOOhmS2DqoD8Bfse5Ce0q75qXgj8JZDxWElsP+4=;
- b=rwdHm1FQN1peE1VY/7GMvWOBV2sew8X8//BHBQKHEHteu9fDuPA1ECFU509KK1vClj7ihBwaaIvDsV6EQ6UDCujf/DRLfwALjwPCjVeams6ZxG4+IR8K8PKJksF2mrRMl/leGdWDjAhdQaoC++uEUES9qrjFPdvfCS5fSRnaCJKLuTcDWOBNnl/hePdAu//+Hrx2t16b/3uxTv5wCtkkgD1I5C7TJmxZOFNjU3x2/Nn/8Gz0bWynwChNwTS2T3mRBSJON6CzZ7zxFrfqbM44iJiKHdAo298MV4x9Bt6YdUm22ptUksJ5EDTraF4kM2+xAhfWJCoZAUsCYtTSy2GO9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yb/NaOOhmS2DqoD8Bfse5Ce0q75qXgj8JZDxWElsP+4=;
- b=g0dn+OHn34ifaEdIt2jiRTRRwhm9aYq11AnoGvCzfQxs0NbYzQq3HUi932OnqzFxEORajNUS8HC+56Zxpbu6YE0Ymqu5bSIMDAwWwRWylbLcKnAOr/SSAzXdyoMQC06vS8zYop/qCvq2E2umGoQ652RmV41POiXI1Jg7T+BraUo=
-Received: from BL1PR13CA0334.namprd13.prod.outlook.com (2603:10b6:208:2c6::9)
- by SJ2PR12MB8848.namprd12.prod.outlook.com (2603:10b6:a03:537::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 02:23:57 +0000
-Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
- (2603:10b6:208:2c6:cafe::7b) by BL1PR13CA0334.outlook.office365.com
- (2603:10b6:208:2c6::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Tue, 22
- Sep 2026 02:23:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.0 via Frontend Transport; Tue, 22 Sep 2026 02:23:57 +0000
-Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 21 Sep 2026 21:23:56 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Prateek Nayak <KPrateek.Nayak@amd.com>
-CC: Perry Yuan <perry.yuan@amd.com>, "open list:X86 ARCHITECTURE (32-BIT AND
- 64-BIT)" <linux-kernel@vger.kernel.org>, "open list:CPU FREQUENCY SCALING
- FRAMEWORK" <linux-pm@vger.kernel.org>, Mario Limonciello
-	<mario.limonciello@amd.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] cpufreq/amd-pstate: Fix TOCTOU when changing driver mode via sysfs
-Date: Mon, 21 Sep 2026 21:23:47 -0500
-Message-ID: <20260922022347.1270746-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="TQoaIvAF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1790043846;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=fw4jhSRMooq9m2/iqxv1olhkpehxFm8SKQQqYOoWwu8=;
+ b=TQoaIvAF2FOKcyYJYvn/xfGAt6sK0s1MZzEuociSCXVLxhB4jcjV6ET/uzDGig6BNI5J8f
+ JvUyIx9nKNJKoks2WmyOgitFFntKchm7I/d7SqdT1uL2Uqw0Bknmy1wUhPoag5pzy+Dggb
+ prq+V4qlhvHISNqE22fVliKcH+axJ7Lj9/3QhCaZfNGb99UDsI+4GgvWUukssmUT7/30b4
+ Oa+5lDwTm8fogDATTtSjYxaI6Kf353jtVrYW5yDLh4NLYPXy60j/W/scYVCZ9XxL50sKa4
+ 67Nuy6GvpYoyd50+0GkB7KOonw0CsZGFq0yN83jDwEULnPTKPumUkhGiJMyQJQ==
+Message-Id: <43d139ac-7d54-41b2-9e4c-8fba8e6ac5ee@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|SJ2PR12MB8848:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35969579-e9d7-40c9-e6ad-08df18508e20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|13003099007|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	1oEyMa/LCKFEt6zX7gWzSWxdXC5Han4S4RcCdMwMQ5tcj07ZIoPcBBPQETa1Ec8Bv4GCxuy7Z/xGoLUFgJurPIScNB5NvKlORsV9ofCShe6xJtVtkD81uEV38UpsQ+nZgK5kv60/0itXueudYnZ5G8GMdyQzIXLnooyLap63LXDyYF3Ufm2uuMf5lOmBRELgkgVsmJMclwCN8WlO5/O0NKIyhGHhtneys6MaPR6Nrxki+GNWTLqif4lC8vZFtAMbOtgS3iSaybWDUDKQwaELDhBKuaU5cME+Ve3/boP/HradAzHe1MsxfzgDjlAxAxyXXahaSSC15rpFqdqPPzSB+D6lz+wFn+ujIImuHX5vrEiA5E2NIEQ7X91WxcP4sHOPcOP5llgI7BtuipTjIdvF9q2NFOKryHjFkZkDiAB+27G4ss6I8+evqY5s5Oo4Uu2BciV7+RHSVqeh5vkNxBf6ZKhf8TGozuq1+qOzcUddHdo7bLpsiMeuUAhucLQsMcqDhgU/preotkhSuWFZN05nPuj83KbSclhUDuU9XKkJvPQeSPE9/H+EZ0ON2of4maUhW7Fris558hGsviuNcAMHznnFbEi8ACEDa5TY8fSjh6EpzzppTeW5ckWJK6k68YSZrxwWFpMaEXV7RPl/79ddnQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Wwx8rFqv9Jd07FZOfKv8KcXxncxe9RMfi4Ek9isPPgXgoiIysLIoEHr84jiM51N6B2f0HQvqZ9cDtQIBp004JJn4bQieZUKy1TpXa/8k00vvt1NTzfiBr3hb9UPnMoqfNI2Ru41gto3+2BrS6PZAldNacnv/GyHfT3GXWqpPz8BKreBTZPvAWJ6bi+MzTqSvdD1/I8trBD0dTom9TlOgHtu7MItoiehyfXRpYk33kSFwlnRuuLsxytjOowmiAOoWFi4pIyk2/Gtv9Nfm0qGhTLxbtraLBTN/yf+jjFsb1QErs/hIX8Nsw9lVYFu7b4cqDb2UP+95yTE0zLbU3qZthQFnA057ru6tC9l1BTzM1hPBgQr7aI8qx1KI6rg1LCcUWC1FkUnuvWjmpani4hpHlhHm01rzgd5Lg4v4pdWvFbMY3sd2IRekfwJi3/yDe5QT
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 02:23:57.0446
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35969579-e9d7-40c9-e6ad-08df18508e20
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B06C.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8848
+Mime-Version: 1.0
+References: <20260919091118.3272955-1-benquike@gmail.com> <20260919112522.3872315-1-benquike@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26ab1e6c6+52133c+vger.kernel.org+yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+To: "Hui Peng" <benquike@gmail.com>, <song@kernel.org>, 
+	<magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Original-From: yu kuai <yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Reply-To: yukuai@fygo.io
+Date: Tue, 22 Sep 2026 10:24:02 +0800
+In-Reply-To: <20260919112522.3872315-1-benquike@gmail.com>
+Received: from [192.168.1.104] ([39.182.0.164]) by smtp.larksuite.com with ESMTPS; Tue, 22 Sep 2026 02:24:05 +0000
+Subject: Re: [PATCH v2] md: reject raid_disks >= MD_SB_DISKS in md_set_array_info()
 
-amd_pstate_update_status() evaluates mode_state_machine[cppc_state]
-[mode_idx] before taking amd_pstate_driver_lock, and then re-evaluates it
-again once the lock is held.  cppc_state is global and only stable under
-the lock, so concurrent sysfs writes race:
+Hi=EF=BC=8C
 
-  CPU 0                               CPU 1
-  -----                               -----
-  // cppc_state == A, mode == B
-  if (mode_state_machine[A][B])       // sees non-NULL
-                                      if (mode_state_machine[A][B])
-                                        guard(&amd_pstate_driver_lock);
-                                        mode_state_machine[A][B](B);
-                                          cppc_state = B;
-    guard(&amd_pstate_driver_lock);
-    // cppc_state is now B
-    mode_state_machine[B][B](B);      // NULL -> NULL deref
+=E5=9C=A8 2026/9/19 19:25, Hui Peng =E5=86=99=E9=81=93:
+> md_set_array_info() copies info->raid_disks straight into
+> mddev->raid_disks without any upper bound, while also setting
+> mddev->max_disks to MD_SB_DISKS for persistent arrays. The resulting
+> mddev is internally inconsistent: raid_disks can be far larger than the
+> number of devices a v0.90 superblock is able to describe.
+>
+> super_90_sync() lays the device table out inside the single page that
+> holds the v0.90 superblock and picks slot numbers starting at
+> mddev->raid_disks:
+>
+> 	next_spare =3D mddev->raid_disks;
+> 	...
+> 	desc_nr =3D next_spare++;
+> 	rdev2->desc_nr =3D desc_nr;
+> 	d =3D &sb->disks[rdev2->desc_nr];
+>
+> sb->disks[] only has MD_SB_DISKS (27) entries, so an
+> ioctl(SET_ARRAY_INFO) with raid_disks =3D 1000 followed by any operation
+> that writes the superblock walks tens of kilobytes past the end of the
+> superblock page:
+>
+>   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>   BUG: KASAN: use-after-free in super_90_sync+0x1c5e/0x20c0
+>   Write of size 4 at addr 0xffff888009623c00 by task init/1
+>
+>   CPU: 1 UID: 0 PID: 1 Comm: init Tainted: G      D W    7.3.0-rc3-g5dd18=
+18b15d9 #3 PREEMPT(lazy)
+>   Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x4d/0x70
+>    print_report+0x153/0x4c6
+>    kasan_report+0xda/0x110
+>    super_90_sync+0x1c5e/0x20c0
+>    md_update_sb+0x850/0x1e90
+>    new_level_store+0x11a/0x190
+>    md_attr_store+0x12f/0x270
+>    kernfs_fop_write_iter+0x323/0x4e0
+>    vfs_write+0x54f/0xde0
+>    ksys_write+0xfd/0x200
+>    do_syscall_64+0xda/0x4b0
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>    </TASK>
+>   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> Reject the request before mddev is modified. Non-persistent arrays do
+> not write a v0.90 superblock, so the MD_SB_DISKS limit is only applied
+> when info->not_persistent is clear.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> v2: Add a Fixes: tag. v1 said the check predated the history I had; I
+> now have the full tree, and it really does go back to the initial git
+> import - set_array_info() in v2.6.12-rc2 already did
+>
+> 	mddev->raid_disks    =3D info->raid_disks;
+> 	mddev->max_disks     =3D MD_SB_DISKS;
+>
+> with no bound, and super_90_sync() already seeded next_spare from
+> mddev->raid_disks and stored into sb->disks[rdev2->desc_nr]. So
+> 1da177e4c3f4 ("Linux-2.6.12-rc2") it is. The later commits that blame
+> points at are not introducers: 7e0adbfc20c5 ("md: factor out
+> md_set_array_info") only renames set_array_info(), and 86e6ffdd243a
+> ("md: extend md sysfs support to component devices") only restructured
+> how desc_nr is chosen.
+>
+> The reason the MD_SB_DISKS limit is gated on !info->not_persistent is
+> 1b3bae49fba5 ("md: don't impose the MD_SB_DISKS limit on arrays without
+> metadata"), which moved max_disks =3D MD_SB_DISKS inside
+> if (mddev->persistent). Arrays without metadata never write a v0.90
+> superblock, so the limit must not apply to them.
+>
+> Reproduced on Linux 7.3.0-rc3 (5dd1818b15d9) with KASAN under QEMU:
+> create an md array over a loop device, issue
+> ioctl(fd, SET_ARRAY_INFO) with raid_disks =3D 1000, then write to
+> /sys/block/md0/md/new_level to force md_update_sb(). With this patch the
+> ioctl fails with -EINVAL and no splat is produced.
+>
+> Note that raid_disks_store() has a related but weaker check: it bounds n
+> against mddev->max_disks, which is still 0 before any superblock has
+> been loaded. I have deliberately not touched it here, since an
+> unconditional MD_SB_DISKS limit there would break v1.x arrays with more
+> than MD_SB_DISKS members. It may deserve a separate fix - input from
+> the maintainers would be welcome.
 
-The re-read under the lock can resolve to a self-transition (NULL
-pointer, immediate NULL deref) or to an unexpected transition that
-redundantly runs amd_pstate_driver_cleanup(), double-freeing
-current_pstate_driver->attr.
+v1.x array do not have this problem, and it's not acceptable to limit v1.x
+array with MD_SB_DISKS. How about following solution:
 
-Take the lock first, then read cppc_state and resolve the transition
-function exactly once into a local before calling it, so the check and
-the call observe the same state.
+If metadata is set as 0.9 before raid_disk_store, you can check max_disks i=
+n
+raid_disk_store; If metadata is not set yet, check later when metadata is s=
+elected.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-f86ff3a6-55df-4eef-8e4d-62ac270dba25
-Fixes: 6f0b13f16f7a ("cpufreq/amd-pstate: Overhaul locking")
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/cpufreq/amd-pstate.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+>
+>   drivers/md/md.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+>
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -7926,6 +7926,10 @@ int md_set_array_info(struct mddev *mdde
+>   		mddev->ctime         =3D ktime_get_real_seconds();
+>   		return 0;
+>   	}
+> +	if (info->raid_disks <=3D 0 ||
+> +	    (!info->not_persistent && info->raid_disks >=3D MD_SB_DISKS))
+> +		return -EINVAL;
+> +
+>   	mddev->major_version =3D MD_MAJOR_VERSION;
+>   	mddev->minor_version =3D MD_MINOR_VERSION;
+>   	mddev->patch_version =3D MD_PATCHLEVEL_VERSION;
 
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 7a2174b5911e4..698b889a08d07 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1901,6 +1901,7 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_get_status);
- 
- int amd_pstate_update_status(const char *buf, size_t size)
- {
-+	cppc_mode_transition_fn fn;
- 	int mode_idx;
- 
- 	if (size > strlen("passive") || size < strlen("active"))
-@@ -1910,10 +1911,12 @@ int amd_pstate_update_status(const char *buf, size_t size)
- 	if (mode_idx < 0)
- 		return mode_idx;
- 
--	if (mode_state_machine[cppc_state][mode_idx]) {
--		guard(mutex)(&amd_pstate_driver_lock);
--		return mode_state_machine[cppc_state][mode_idx](mode_idx);
--	}
-+	guard(mutex)(&amd_pstate_driver_lock);
-+
-+	/* Resolve the transition under the lock; cppc_state is only stable while held. */
-+	fn = mode_state_machine[cppc_state][mode_idx];
-+	if (fn)
-+		return fn(mode_idx);
- 
- 	return 0;
- }
--- 
-2.55.0
-
+--=20
+Thanks,
+Kuai
