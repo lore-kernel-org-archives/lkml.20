@@ -1,100 +1,102 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA5B4825DC;
-	Tue, 22 Sep 2026 08:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E714E1C6A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066196; cv=none; b=oP/8laET/rQ8kgsGilbXSNNgZaOD1V+BZTU9MoKiTCr95MALx2OiYoIb7BCE4XYuO+F0HTxYqan8/WsWqgCgtdV+XyenFrvNcKWOcRugqUF6D7boBTQlSuQx45xCcPTa3ilo0Qaxjz71X5yiGcpMAcXkTDBHeRmjcX9G/MUL7qo=
+	t=1790066237; cv=none; b=ikdnAvA9RfQ20/ZoYLiUnZocE0zaP5InzY+j/3+pVKUVE0RtlKM+RtNHnTG3q43p6fOX4J8o1aJmmeWq8jyJLBMq8MNZnnG0WXSOq/Q5pW/0h6QrI9/Y1U0r8Qvx68Erjv0TITPyJAC2Jnsoft+gjtb8MEKE9f/T5LLu5a2Z/Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066196; c=relaxed/simple;
-	bh=OdXW4d0OBvTdeAS4NS/4eGfV1LapWifczJxRiY77+Eg=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=c5KCPb6aEbar1v6w5P+Jr150/uuoS58GNA2IF+8MHz0H/eIHxCrenCGXqVHHCmDXOTtC7z1jsLEtnuVTG4g+dI76y4jgYGvGkWq2nYUEZWAb24JgW5PlbCaSEzqQcZDWdPqAamY9MXV01gKKdtQVVD33u+mbQx2Sji4GGWO9qPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=lFiKivtV; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790066237; c=relaxed/simple;
+	bh=GALzv8l8n/aVQfNBGJe15SMcuiPArEJnaF6GRgvKe30=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=p9NK0wiTvr3L0kLkhYjiw7UqyshX5KFLhOVwIjiDBpNU90u8nouEbZtKf5f1uTBeSuqQcWaEDAIhq+Uev0JpZ4xLqbswDivmBLGyj11dEzPYiEf65qd13JX4SqU5iyI/N6DR6YuCsEd12c8PX0R/RUg0ZhYmxKOEDQg3Q126sX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cro20hvR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="lFiKivtV"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B9EAAA4A2E;
-	Tue, 22 Sep 2026 10:36:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790066190; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=xwykvJFdBTPMGF/t3FfOtbQ2mRuqK4UzmM43MIqyX8U=;
-	b=lFiKivtVx55l08uMNmCoztgvC74kn4lnHbQf/y7l3v0b1G67mtlMuwwZ1RjuIeF2hJD8Rg
-	h4sJ+rUzkhUGMreSmWTThqwy4iwXvirW6DX3LtqI/ebjZQA3MLsZ0bQe0xcRcr39PMtHkm
-	q1rYx/c55Ru9KJUW+EFhfFlH4zPNrL/aa6QdF6H6H3a19C9Gqs6hvb4wHNUWA5U6palBzc
-	UcGlW7zA1s4xazIk4Bk8D1SbcmhtAcyPQxmVuayN21OqXozwHgdlFe7//wSPIyewWCk0oI
-	dx/x5IO9ZmkAfzlhHxbyq5QU5LzNUkF0JSJhIQT05BDcBpnG39x55K1TlN5BhQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cro20hvR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D208AC2BCB8;
+	Tue, 22 Sep 2026 08:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790066236;
+	bh=GALzv8l8n/aVQfNBGJe15SMcuiPArEJnaF6GRgvKe30=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cro20hvR5uvGG5j9k566Lw+TJpgtbNm6MYDMdAXz+MwAy8Yw4CVfVX+M5SrYeMHaL
+	 vk++U9D3RWThS6axCI9vn1pB8AKC4Q5FrswPjzBiVkLaeVeMt8uJiNKtwGAs1Cxepi
+	 5yHowzWX+CXUY5Fg1zoocyfkrSABEIc9plIGejMzZ7xFSDP16dnhuHLIcku7jtZec3
+	 7Q3cYXVMHGYBb035p8imevPQN1+FBveZpYW8bw97k/vmvSuW5+sRsXWLK7mxu6fxbi
+	 G5CgR/e50G+8hGS8HMww6N1oVWr/w3Jlvh7q1XF+wfUnj0za+5GYeuNeBKGrxwkqfQ
+	 kAB9YMlE+fxwA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B08D4C982FF;
+	Tue, 22 Sep 2026 08:37:16 +0000 (UTC)
+From: Chen Linxuan via B4 Relay <devnull+me.black-desk.cn@kernel.org>
+Date: Tue, 22 Sep 2026 16:37:10 +0800
+Subject: [PATCH] mailmap: add entry for Chen Linxuan
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 10:36:28 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 01/12] net: systemport: Fix buffer overflow in
- bcm_sysport_get_stats()
-In-Reply-To: <20260921231305.394773-2-florian.fainelli@broadcom.com>
-References: <20260921231305.394773-1-florian.fainelli@broadcom.com>
- <20260921231305.394773-2-florian.fainelli@broadcom.com>
-Message-ID: <d03b360c6fba3c8f67a9233e46d25cc9@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20260922-update-mailmap-v1-1-7247626a14c7@black-desk.cn>
+X-B4-Tracking: v=1; b=H4sIADU+smoC/yXMQQ7CIBBA0as0s5YEh8aoVzEuBpjqGEECrTEh3
+ L3ULt/i/wqFs3CB61Ah81eKfGLH8TCAe1J8sBLfDajxpC+IakmeZlaB5B0oKYN6NNafzUQMPUq
+ ZJ/n9h7f77rLYF7t5u0BrK89Sp2JyAAAA
+X-Change-ID: 20260922-update-mailmap-32043bd83fae
+To: linux-kernel@vger.kernel.org
+Cc: Chen Linxuan <me@black-desk.cn>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=912; i=me@black-desk.cn;
+ s=20260831; h=from:subject:message-id;
+ bh=iftiRyPZlxwFYFM3Ehh7elqQAiovq5fz7GTzLwH/4qA=;
+ b=owEBbQKS/ZANAwAKAXYe5hQ5ma6LAcsmYgBqsj459HBqDgd/qFdkcHsdKpoHWIJ1XFYfD66vI
+ YtA4b7j8UuJAjMEAAEKAB0WIQTO1VElAk6xdvy0ZVp2HuYUOZmuiwUCarI+OQAKCRB2HuYUOZmu
+ i1bAEAD3W6e+BCEoGOMGH1U8639uOTyfrRcum9+Eo8/NUr+MIamuJjdC7WokbGdAp6s3aboGzbD
+ vawomEzCkcFNujmqxvmb04qiHxg+BxgIf20MH9jzkWKFm+cPx+c/GTT0uXEAL7qyR7p+aC8G/yp
+ qWC4sfW9cN4gmqyyi80lHYxMK7Ty4jzpuqpHkTR/ATzNiXSV0oJ0N1FQDlEH7mNFStttit2hz0q
+ EeIA2g5KN8nf5EgTNMi0cx0E2SxemmLWDd7xxTtYACqubqcIJUH51qVX9it17I9Yxl8GnDEdZD3
+ TGUF3rFTQ6izwJ+Yz7LuiweQQyvJAoDNooUJh1RLge/RU7WwenzMsHl1yN95EAcwKUAymCy9nQ3
+ Y9X/w7dW9D2Me8wTtDR5GMa9ROSNTQdssJnNUD8PR+yHvqtJ2BAbBdfCEHX11KOvy9oztBo21YJ
+ 0W04MTzqActFybPC1/jJMIxKGgZ0PNx+xfX8blJUbGR76Y32kLKy8jWXz3D28KNktsiWOtn7HwP
+ pdNb446zNU6J5lX8luGd9t/mSSMmejmmEQ2u3gcyHwcukC3zJQTQ0NcUwleo6/KjuueVfnjDecj
+ og09M/zNWlUjoedfvUC2BM+U+2F9X3UMkrP9BWrHvpqSMyElhHfnJEZxieSwYrQLf3d6wXpQZL9
+ GI60YkYffLFuGKQ==
+X-Developer-Key: i=me@black-desk.cn; a=openpgp;
+ fpr=D818ACDD385CAE92D4BAC01A6269794D24791D21
+X-Endpoint-Received: by B4 Relay for me@black-desk.cn/20260831 with
+ auth_id=991
+X-Original-From: Chen Linxuan <me@black-desk.cn>
+Reply-To: me@black-desk.cn
 
-On 22.9.2026 01:12, Florian Fainelli wrote:
-> When running on SYSTEMPORT Lite, certain statistics are unsupported and
-> skipped during bcm_sysport_get_stats(). The variable 'j' tracks the
-> compacted index into the destination data buffer, whereas 'i' iterates
-> over all elements in bcm_sysport_gstrings_stats.
-> 
-> Because the buffer allocated by ethtool is sized only according to
-> bcm_sysport_get_sset_count(), storing values at data[i] instead of
-> data[j] writes past the allocated array bounds, leading to memory
-> corruption.
-> 
-> Fix this by writing to data[j] instead of data[i].
-> 
-> Fixes: 10377ba7673d ("net: systemport: Support 64bit statistics")
-> Assisted-by: LLM
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> ---
->  drivers/net/ethernet/broadcom/bcmsysport.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/broadcom/bcmsysport.c 
-> b/drivers/net/ethernet/broadcom/bcmsysport.c
-> index 4d06c6ba6641..db627cd15fb7 100644
-> --- a/drivers/net/ethernet/broadcom/bcmsysport.c
-> +++ b/drivers/net/ethernet/broadcom/bcmsysport.c
-> @@ -482,10 +482,10 @@ static void bcm_sysport_get_stats(struct 
-> net_device *dev,
->  		    s->type == BCM_SYSPORT_STAT_NETDEV64) {
->  			do {
->  				start = u64_stats_fetch_begin(syncp);
-> -				data[i] = *(u64 *)p;
-> +				data[j] = *(u64 *)p;
->  			} while (u64_stats_fetch_retry(syncp, start));
->  		} else
-> -			data[i] = *(u32 *)p;
-> +			data[j] = *(u32 *)p;
->  		j++;
->  	}
+From: Chen Linxuan <me@black-desk.cn>
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+I can not access to my old email account any more.
 
-Thanks,
-Nicolai
+Signed-off-by: Chen Linxuan <me@black-desk.cn>
+---
+ .mailmap | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/.mailmap b/.mailmap
+index 1f5540bc33f1..9beb83453167 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -195,6 +195,7 @@ Changbin Du <changbin.du@intel.com> <changbin.du@gmail.com>
+ Chao Yu <chao@kernel.org> <chao2.yu@samsung.com>
+ Chao Yu <chao@kernel.org> <yuchao0@huawei.com>
+ Charlie Jenkins <thecharlesjenkins@gmail.com> <charlie@rivosinc.com>
++Chen Linxuan <me@black-desk.cn> <chenlinxuan@chinaunicom.cn>
+ Chen-Yu Tsai <wens@kernel.org> <wens@csie.org>
+ Chester Lin <chester62515@gmail.com> <clin@suse.com>
+ Chris Chiu <chris.chiu@canonical.com> <chiu@endlessm.com>
+
+---
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+change-id: 20260922-update-mailmap-32043bd83fae
+
+Best regards,
+--  
+Chen Linxuan <me@black-desk.cn>
+
+
