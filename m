@@ -1,128 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEBF2EC081;
-	Tue, 22 Sep 2026 06:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7324F3FB7E5
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:57:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060107; cv=none; b=pB+FQYvEijyJq04kS2dENg53k1DuO2UuuDS1w55t5/SssyMRjHJZ7PUDc34CSCe+/qH/IRlyuuiPMchZ1nUzammghO1Zkq4vRDdnOCHuh26N1zvRWYb/jmDpKaxTVnhBUcwKLvEwAxdNdrEDaEUgWIcwvgvRwAvkUo02GuNPois=
+	t=1790060228; cv=none; b=l43NGNYyukgTLhALzubSKxIp3thEUmxXPjCFAYk3TMgF3Qa5qGgpxT1kEiHcA+JU4xD83csPvz/Y4hTdPyzIpv/tcVxZwfU7wXWB41O3k9WjK6H+5YikpEsQcYwAGpOTwexk4tgPfoxpbrgAnccObqQCp/Ulh8Zu+Lsv4ELK4rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060107; c=relaxed/simple;
-	bh=UD/Wey0mlBHk4woxCvw/WFilxzvjerSV6mWFxQdTJFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ea+4ZNv0lrcdUrE4hF8cIXpA+Y7cxEmVPk3465i/YSlDjjrLSFIiVd/QyA2WH8CyPlYCGZ8gdKEtBIo8z/e+HL4Rhqe4ioko1+bp9/F7y/hEbAAnnP8rcQcUcWQrjGVFABrG5j60IN2RP7UmeCE/8whoGBR9EtytwlISF3cO7Ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+XhOINw; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+XhOINw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D001F000FF;
-	Tue, 22 Sep 2026 06:55:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790060100;
-	bh=wLtGitIi2OiQg65dHRRJxop72DcmDI+o2e1E/zKQ5w4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y+XhOINwZrcWlKpSEiXQdt3+zD3L2auPC/GvaE9XFlhSeO55CilXFon618dPN5Bdv
-	 uxufpsWcq93lGy2ApXIVLgqzT4PjyICZ1lbQpGF0GOaBTqi6nWl6MQ3RkEIcLDiE2U
-	 1ckswNCmhQBlLRHZCgtcbzXOGstotD8lln9xpOUS9r9QXeAGj/Cm0nBiV9oCKAxQFl
-	 eQYTiy4mTW3KSjJdc6ebQ7N+m3pkfwVFX4ENoNkHpVEfIwmu2f0wj+6X8n/yRhXl4c
-	 TPqME9qdENyh0vk1zkBEOzJMe9tLlQXGXnxJ2lbdnHBmDNjtmshkXm0g8gZfz0evXa
-	 ErmpPYPKqeVTQ==
-Date: Mon, 21 Sep 2026 23:54:59 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shannon Zhao <shannon.zhao@linaro.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v11 09/21] KVM: arm64: PMU: Recreate events after
- MDCR_EL2 changes
-Message-ID: <arImQ6SG7s1k9uJk@kernel.org>
-References: <20260920-hybrid-v11-0-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
- <20260920-hybrid-v11-9-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
+	s=arc-20240116; t=1790060228; c=relaxed/simple;
+	bh=+IoaEDXnfPSUrh2gxBIEr1kH9Oyr6hWNf51/Xd+wFWs=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=BHo1hT/2FB5ebU6Xn17j4VyyAMw/1vIn2jAwLkT46gG+46+x+Tft5q9sxLd63StceJU2On1Qg4PR28RzVst3siaae9LngBdf34F8B+8TBsO1c7kQ8L2ZIGEoNuexmL/VXjF8vLkxyDMWFj57Z7yqVea2r0Rsc1m0v4oQtPkTkTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-805da97443aso5628925a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:57:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790060222; x=1790665022;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bLYPkbKmrWc2RdkLV1ci/YjwOlLfoUFhydxEr/gxdG8=;
+        b=ZAR+DJF1OsfrkdZqamfCf0ag9mYXNZ2XTUdSdOT6MIHyzBZxlSC+QvkaYB2/O9Qxut
+         Q/YO6UCGPoi0UXmbtOGtji3xjoq96jlUuPJYhcqCoqkXIMeenEHYDB5fC72JtZ8S9mBL
+         RlZgc7JWYuftMU+x/7CFaBkPNGf/m4cXCHXh25c8gSvauORlKSeDVqx27Bb1Gxzo7FW2
+         vvfJB3tcCpe0JieLXm/bn2eige9WZALxXqexKFmzNGwPOIFUgGMajxJLJ+DqijuRahOW
+         JTjOzcUJc1VbGI1hzTbIzT2j2iDS2zHM6p6nauE0FW19HVEaabOF97A66PJ05k+LlLaX
+         mmAg==
+X-Forwarded-Encrypted: i=1; AKwUvBxfOGDus7uo4BsMV1jS1i2ag2RSlFpFRe5j6oEiN/2AU77j9p/ofTX9vN1iKGRtrnLgN8vRD4ynw1qoRic=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2tAVoc2a68risx+L98BcCzB1Cgm6Z1FxR3DLUpHkEqby0fVDS
+	TkvY+1yxZvEFXjnAPFXWUWMD+txcV8xeocn4lHHZ4uW6SBrRroI0EH38bjqND2s3BA0RIxeYBp4
+	2Qg2zgO6Gcwn3x89MkL0xLMonfNJ9cygzM21UX6UMvF+I5IPMwx+Av0r8Z3Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920-hybrid-v11-9-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
+X-Received: by 2002:a05:6820:4df8:b0:6a0:f44b:1265 with SMTP id
+ 006d021491bc7-6d18d613260mr1310565eaf.4.1790060221852; Mon, 21 Sep 2026
+ 23:57:01 -0700 (PDT)
+Date: Mon, 21 Sep 2026 23:57:01 -0700
+In-Reply-To: <b91ecde2db1cf37b070e3a7ef960d43bedce8873.1790058978.git.xiaopei01@kylinos.cn>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab226bd.3179f8cd.1e36b2.0027.GAE@google.com>
+Subject: Re: [syzbot] [comedi?] UBSAN: shift-out-of-bounds in dt2811_attach
+From: syzbot <syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com>
+To: abbotti@mev.co.uk, hsweeten@visionengravers.com, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiaopei01@kylinos.cn
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 20, 2026 at 08:15:50PM +0900, Akihiko Odaki wrote:
-> +void kvm_pmu_apply_mdcr(struct kvm_vcpu *vcpu, u64 old, u64 val)
-> +{
-> +	u64 changed = old ^ val;
-> +
-> +	/*
-> +	 * HPMN determines which counters HPMD and HLP apply to. Changes to
-> +	 * these fields require new perf event filters and sample periods.
-> +	 */
-> +	if (changed & (MDCR_EL2_HPMN | MDCR_EL2_HPMD | MDCR_EL2_HLP))
-> +		kvm_pmu_request_recreate(vcpu);
-> +	else if (changed & MDCR_EL2_HPME)
-> +		kvm_make_request(KVM_REQ_RELOAD_PMU, vcpu);
-> +}
-> +
+Hello,
 
-Urgh... I'm not a fan of this. Can you just modify kvm_vcpu_reload_pmu()
-to discard all backing perf events and recompute them only for enabled
-PMCs? We set KVM_REQ_RELOAD_PMU pretty rarely.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
->  	__vcpu_rmw_sys_reg(vcpu, PMOVSSET_EL0, &=, mask);
->  	__vcpu_rmw_sys_reg(vcpu, PMINTENSET_EL1, &=, mask);
-> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-> index 75624725adf1..7dd2cafce247 100644
-> --- a/arch/arm64/kvm/sys_regs.c
-> +++ b/arch/arm64/kvm/sys_regs.c
-> @@ -3114,17 +3114,22 @@ static bool access_mdcr(struct kvm_vcpu *vcpu,
->  	}
->  
->  	__vcpu_assign_sys_reg(vcpu, MDCR_EL2, val);
-> -
-> -	/*
-> -	 * Request a reload of the PMU to enable/disable the counters
-> -	 * affected by HPME.
-> -	 */
-> -	if ((old ^ val) & MDCR_EL2_HPME)
-> -		kvm_make_request(KVM_REQ_RELOAD_PMU, vcpu);
-> +	kvm_pmu_apply_mdcr(vcpu, old, val);
->  
->  	return true;
->  }
+Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
+Tested-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
 
-> +static int set_mdcr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *rd,
-> +		    u64 val)
-> +{
-> +	u64 old = __vcpu_sys_reg(vcpu, MDCR_EL2);
-> +
-> +	__vcpu_assign_sys_reg(vcpu, MDCR_EL2, val);
-> +	kvm_pmu_apply_mdcr(vcpu, old, val);
-> +
-> +	return 0;
-> +}
-> +
+Tested on:
 
-Just keep the old ^ new test inline for access_mdcr() and set the
-request unconditionally from set_mdcr(). In the usual case
-KVM_REQ_RELOAD_PMU is already set on a vCPU that userspace is restoring.
+commit:         f0100363 Merge tag 'xfs-fixes-7.3-rc5' of gitolite.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13e6f45e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=a4cedab706d0a8a3f988
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=16dfea71580000
 
-Thanks,
-Oliver
+Note: testing is done by a robot and is best-effort only.
