@@ -1,160 +1,87 @@
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CA53FD12A;
-	Tue, 22 Sep 2026 18:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3D049B466;
+	Tue, 22 Sep 2026 18:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790103142; cv=none; b=VctaNi8MbQdhA940NxffoCFahv74TyGk4Je+py9IU0Drdla4PgJBu9pScicYqwv+5ZSI0E1+3AsOGR6umvd/+ONms9ubFmy6fHhzQMkD5Sp3X5zSTrCk4z8OQ5nddeBO6a1vF9N+e/bpPdlwZV8P3DAyay4tdE1wP7GNM57820o=
+	t=1790103174; cv=none; b=elWriGXDrwgjvitXuL+lVIT76jWKnfVFwSzNLDG+yXXr7Ua+W/LJWZ3NXf7nGFz0MqjTSG/gpjERlXroENw0v8oUVvyjeYBVr2fmIypa9IRl4n4UIJHGbqVd/wg3hFK8ok/8pDTajr81Vs2hJRHcuCchFXr/IvJBxjW25/Ww8Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790103142; c=relaxed/simple;
-	bh=xnQm2+amSAgvO5Z12c1qHMNDypd/FiR9OLaZ1vS3toE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=csftB676xsapuN6xDL3NZzrnf2VjybdxOkUa9WhyEtvt41jK5IzuLI4zrchdYd8YzAumPc5kPAQDzw2LEGlPjidU6ZNKHK6oSt2ZkcACWmKsSOygnu0whziYdelptObb91IGvX/ot0mfZPcxBHprnx6vFJXTSxL82APMYLj3eSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=mOiF3kCa; arc=none smtp.client-ip=62.72.0.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	s=arc-20240116; t=1790103174; c=relaxed/simple;
+	bh=SKnjfd3Up2eiyVkP6CZIh4TLyINFI0j3BoHkSww6FSQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LvbwKsWEsh5UALQC/OvljyQG4y/WhS5WOcSbrpuktxmhgu7J2tuCn8LnC2+zWaOhnOXMN6BRnx5j7BJXdu076j7C/NzFdlnzJzu96HmOVzYYp3YZK4dVaOO92yhEnBWsxe4feutC1Ugh3oyeqTi+QeM3VkrlDdfzjHkz1aPU60s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMiZHKSa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="mOiF3kCa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1790102663;
-	bh=xnQm2+amSAgvO5Z12c1qHMNDypd/FiR9OLaZ1vS3toE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mOiF3kCavHoT3Xn3skIsIgy023iX8+tl6kOtQDymPMNuEbdp4x8WKfSPjPdHLrhPe
-	 PM8Drx46eI+tS+W9AdIhxBha9Ikjaec9OcvkxmQstlOvlgqpgwTUSEAdXLPvxLPkvw
-	 S8WtV6DB/8M0WmmqFN57J0oHNCWQP8yC9lEmnyWA=
-Received: by gentwo.org (Postfix, from userid 1007)
-	id 63244402BC; Tue, 22 Sep 2026 11:44:23 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTP id 60662401A2;
-	Tue, 22 Sep 2026 11:44:23 -0700 (PDT)
-Date: Tue, 22 Sep 2026 11:44:23 -0700 (PDT)
-From: Shubhang <sh@gentwo.org>
-To: Peter Zijlstra <peterz@infradead.org>
-cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-    Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-    Juri Lelli <juri.lelli@redhat.com>, 
-    Vincent Guittot <vincent.guittot@linaro.org>, 
-    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
-    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
-    K Prateek Nayak <kprateek.nayak@amd.com>, 
-    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
-    Shrikanth Hegde <sshegde@linux.ibm.com>, 
-    Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
-    Christopher Lameter <clameter@amperecomputing.com>, 
-    linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 2/2] sched/wait: Clarify WF_SYNC wakeup
- semantics
-In-Reply-To: <20260918113735.GN776954@noisy.programming.kicks-ass.net>
-Message-ID: <e1028918-6421-235e-8407-7fa51adc2f14@gentwo.org>
-References: <20260917-sched-wf-sync-doc-v2-0-6d1f107c0596@gentwo.org> <20260917-sched-wf-sync-doc-v2-2-6d1f107c0596@gentwo.org> <20260918113735.GN776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMiZHKSa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B081F000FF;
+	Tue, 22 Sep 2026 18:52:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790103168;
+	bh=MXpVSnMgs3Z7izHUy03zYCf6znjQJnlKV3nqic4hNd8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hMiZHKSa7U2bacA1JtdlXZZKizxqaV55VvMSi9xha2q/7AZ+JiVih9cjUTQUctOl7
+	 QAlEn6eljWYbWC+Fz4EXb9rmE5ojWeeBrSGbHLk4fDkR9lbzMqbH23B6hBcShNnyYz
+	 /8clYd3RYb46IaI1HeC0/uWpcX3FhktX1Q9z22DTqUH9UV8WpXXcYdYiCrCNdx/BXh
+	 xr1U9hzn+VpFq508+U8fd8gbqrNJdSOefDdl4iRccuM7WLEMiYhu5gnzPvZ2NzB31/
+	 MiK9ENsSDmNW3uPiDtkVtsuHJpVogFYliYjrZk9qmhMIvjeFpebZmmpVkUYrfOEQ8l
+	 lwtZHgf2NRE8A==
+Date: Tue, 22 Sep 2026 19:52:39 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
+Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
+Message-ID: <arLNQJ2ZbcZ6xivb@gremlin>
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+ <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org>
+ <arKxjsxuO1F5ExrY@kernel.org>
+ <arK5n9HrbZMCOHOt@google.com>
+ <arK5ynpRi7VbY7Ek@gremlin>
+ <arK8seJVT9wYgVCP@google.com>
+ <arK8-Hec3-5o4jYs@gremlin>
+ <arLLnYvkXSFr6f6u@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2106592082-1790102663=:1976520"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arLLnYvkXSFr6f6u@google.com>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-2106592082-1790102663=:1976520
-Content-Type: text/plain; charset=ISO-8859-7; format=flowed
-Content-Transfer-Encoding: 8BIT
-
-Hi Peter,
-
-Thanks for the review and suggestions.
-
-The intent was only to preserve the small but important contract that
-callers must not treat WF_SYNC as a no-migration or run-next guarantee.
-As Shrikanth noted, that ambiguity has already led to confusing uses 
-and proposals.
-
-I agree that standalone documentation is overkill here. I¢ll instead 
-keep the contract as a concise comment next to WF_SYNC, remove the stale
-waitqueue wording, and de-duplicate the locked-helper comment in a 
-single patch.
-
-Thanks,
-Shubhang Kaushik
-
-On Fri, 18 Sep 2026, Peter Zijlstra wrote:
-
-> On Thu, Sep 17, 2026 at 01:43:25PM -0700, Shubhang Kaushik (Ampere) wrote:
->> The synchronous waitqueue wakeup comments state that the wakee will not
->> be migrated to another CPU. This is not guaranteed by the current
->> scheduler wakeup path.
->>
->> The synchronous helpers pass WF_SYNC to waitqueue wake functions. The
->> default wake function forwards it to the scheduler, where fair-class
->> tasks can use it as a wakeup-placement and preemption hint.
->>
->> Correct the API comments to describe this behavior and remove the
->> incorrect no-migration guarantee.
->>
->> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
->> ---
->>  kernel/sched/wait.c | 30 ++++++++++++++++--------------
->>  1 file changed, 16 insertions(+), 14 deletions(-)
->>
->> diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
->> index d033f600f48c6fc3a0a088ea5d9f6ed95ec4c86e..ac1d260a6a37fc35b934079706819b79e20df4ba 100644
->> --- a/kernel/sched/wait.c
->> +++ b/kernel/sched/wait.c
->> @@ -174,15 +174,16 @@ EXPORT_SYMBOL_GPL(__wake_up_locked_key);
->>   * @mode: which threads
->>   * @key: opaque value to be passed to wakeup targets
->>   *
->> - * The sync wakeup differs that the waker knows that it will schedule
->> - * away soon, so while the target thread will be woken up, it will not
->> - * be migrated to another CPU - ie. the two threads are 'synchronized'
->> - * with each other. This can prevent needless bouncing between CPUs.
->> + * The caller expects the waker to schedule away soon. This helper passes
->> + * WF_SYNC to waitqueue wake functions. The default wake function forwards
->> + * it to the scheduler.
->>   *
->> - * On UP it can prevent extra preemption.
->> + * For fair-class tasks, WF_SYNC is a wakeup-placement and preemption
->> + * hint. It does not guarantee that the wakee will run on the waker CPU
->> + * or avoid migration. On UP, this may avoid an unnecessary preemption.
->>   *
->> - * If this function wakes up a task, it executes a full memory barrier before
->> - * accessing the task state.
->> + * If this function wakes up a task, it executes a full memory barrier
->> + * before accessing the task state.
->>   */
->>  void __wake_up_sync_key(struct wait_queue_head *wq_head, unsigned int mode,
->>  			void *key)
->> @@ -200,15 +201,16 @@ EXPORT_SYMBOL_GPL(__wake_up_sync_key);
->>   * @mode: which threads
->>   * @key: opaque value to be passed to wakeup targets
->>   *
->> - * The sync wakeup differs in that the waker knows that it will schedule
->> - * away soon, so while the target thread will be woken up, it will not
->> - * be migrated to another CPU - ie. the two threads are 'synchronized'
->> - * with each other. This can prevent needless bouncing between CPUs.
->> + * The caller expects the waker to schedule away soon. This helper passes
->> + * WF_SYNC to waitqueue wake functions. The default wake function forwards
->> + * it to the scheduler
->>   *
->> - * On UP it can prevent extra preemption.
->> + * For fair-class tasks, WF_SYNC is a wakeup-placement and preemption
->> + * hint. It does not guarantee that the wakee will run on the waker CPU
->> + * or avoid migration. On UP, this may avoid an unnecessary preemption.
->>   *
->> - * If this function wakes up a task, it executes a full memory barrier before
->> - * accessing the task state.
->> + * If this function wakes up a task, it executes a full memory barrier
->> + * before accessing the task state.
->>   */
->>  void __wake_up_locked_sync_key(struct wait_queue_head *wq_head,
->>  			       unsigned int mode, void *key)
+On Tue, Sep 22, 2026 at 11:40:29AM -0700, Sean Christopherson wrote:
+> > > But look at it from an x86 perspective.  Pretty much everyone will look at this
+> > > and expect:
+> > >
+> > >   bool kvm_arch_vcpu_allow_pre_fault_memory(struct kvm_vcpu *vcpu)
+> > >   {
+> > > 	return vcpu->kvm->arch.pre_fault_allowed;
+> > >   }
+> >
+> > I'm not sure I really get your point here at all? :)
+> >
+> > Why would it matter what people who are too lazy to go check the implementation
+> > assume about an arch hook?
 >
-> Does it make sense to have one of those function refer to the other and
-> de-duplicate all that? Also, how relevant is the UP comment? I don't
-> think anybody much still cares about UP.
->
---8323329-2106592082-1790102663=:1976520--
+> Because I don't hate the people that contribute to KVM, and want to make it as
+> easy as possible for them to not make mistakes?
+
+Haha well I think I misunderstood you here, I see the point that you might
+assume some state like this rather than an explicit conditional, and the inline
+comment suggested by Oliver makes things a bit clearer.
+
+--
+Cheers, Lorenzo
