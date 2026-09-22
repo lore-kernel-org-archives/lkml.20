@@ -1,87 +1,53 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438D9560AC7
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F5B3769FD
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092311; cv=none; b=FBCMhXb4JPq8FEsfZjS0LJmmgZxWvBfgl/vcQl4ZnEs+FxmO75fwaRYYTKlIfVd9QmoRyAhzX7HKoGG6YvkqMDV0ZyeU3Kxfwo8QsImBCxJVmtWCy0OXTb4PvVdLeMdG7NCI/c0F0vW8UrpWdj8qYJeYnWAqn/dEn/HCF91xiug=
+	t=1790092337; cv=none; b=GocorH305BpOkrN5+Wd/i3pgPinO05MhzQFCa+Yca/04DEOMARtgqtTrZ3lfx9MYC10QV6KoEIgMaSfuOgF25LqjwOn31+2lsXQJ3kbKoDurFNDi9J2+/TQVOBBbBOYiXBmZnrWX8Y9s2d0lsQvkn2SIslqIWARwNEq/q+zqFRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092311; c=relaxed/simple;
-	bh=h1Jirh2njNXWwpEhevaaC+b4awoAc2Rjo8bbL4rz7r0=;
+	s=arc-20240116; t=1790092337; c=relaxed/simple;
+	bh=t2BkDoPXJqVAxcWBUrhg4hh5+X8J1TmxXzpE9rjW0Tg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JzjL3VeyjZGfBD3PJvNsMsADSyFA5sYSsAJL0gISILBaWuG7bdJGeNqDUe9Htm7nKHvyi7gvCFpOd8qRgeiAzEXFbdIvo79DqM8DIMNBfIc1szODAjeBKwgqogf6w3sbW5EowcnYwmdObuWopxF95kyiiloqnLjBmZYIq6Dhls8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T7JebKBj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VgE+xdf9; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T7JebKBj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VgE+xdf9"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MEjotn3952905
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:51:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZIlFbcfWSSBPJOpXWFjbHK10Sw2EK6VtX9GqIx0bZ50=; b=T7JebKBjMDSTjcvT
-	jvvm6qlOAFp3Opw7JH9XLLvMpxwQ5Jx8SIE6WCmEtK8wAZHPVPkKurHVgh/qpV2o
-	af1yerBOqUz8i3e4pe+Ia4j6jFrQX91Kds7/kehSZJVYzUc3KJgQoWA4BJqL8DDU
-	z/NSwxieaNJhA9DuHu12joKB/Abvrn9nXKbJz2jnstzcVS1uO+Pq8nJbKDDId+Vt
-	2YdLVB93mNnV+gMqTyH0I3xV7VwXGVrJ1jvEzXeu2bgkYHzCycNoSkXBnKy/rUVp
-	ht6KQCMYQTaBvyEiZ3nLCL3GzwTDag/ZwEzA/0sOWBjZn25Z5QqN1v4zd7nnZSyE
-	tXaQOg==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gufsqbd36-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:51:48 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9106a836457so56946d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:51:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790092307; x=1790697107; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZIlFbcfWSSBPJOpXWFjbHK10Sw2EK6VtX9GqIx0bZ50=;
-        b=VgE+xdf9DIjpZNi8EZhYGbKI/PkBnvZ39yh9RnOxL+zcWVL3N+x4EEUekCfm7oggpe
-         JE1SkLUftYfLDzJXbJFRNv0+fjYjO5sQlD5yNfwCjxKv7d4ytsdwOwtsKgG322VgYECc
-         5Qu5AG3/4vu1Ru+fieoh81eaS428F+dyIit55IcC2fcHqa9owTKsHJbtp3KWcCINQNFx
-         fkEHndar0VGah3FuG7XOXvAyj6NaHBgP61/Glgam1pu6vbErJFigOnTLg2nCoMspzp/V
-         1TsBDkKzp+fgaGLnRwCbn9VO06HNwf1ZHQo9kKU68h7ytbzrEnWU8IgzMGJ5JnmlcH8y
-         Y+8g==
+	 In-Reply-To:Content-Type; b=grI+zMQTwid1d/DfWlyXLjegs7VCZUHRWzsDetqtTxwWXcP/DeKl2ZFEBZxZY9f17UEWnwHGCgJqbFVojz1kd1qM4FFHKhih81A9GoLw5+M/QNB5wWbeChNO+SFCrAZUPYX5kzseDw7dzVNGSgg3kkiQcvhMv1ecUXbakNfY70E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-484349b1961so31546f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:52:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092307; x=1790697107;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20260707; t=1790092333; x=1790697133;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZIlFbcfWSSBPJOpXWFjbHK10Sw2EK6VtX9GqIx0bZ50=;
-        b=lscU7d44liQ9aH0FIdEQkbxU0YAsVtYHY6ZaJ3XmlNew4GIF0+VEz+FugR48adUpNq
-         HlSmTCM8HegBOgk0utoYh8SjxZ3otb6N99W92S9zgl1i8mLNncdDuvcuuBSZGn2eOOAT
-         857yZt9aDlI/ndED76ywQlyXPpzLvYE3dhYa8JVZcoxIZhdY0QIEollbgBm63GKmugwH
-         u7j0vGfwPAnoSyAzNhs+PhA3MSR+INT6QnLaa3YVJtnCeSmaEPPffPB80e4ka2YHZQSX
-         zYP4KCuPoVMU9649qvrDMAqiREd5KdrGyKQxu+FV3d2dz02ICcgsSgWflTn/ylrkbWtV
-         S2fA==
-X-Forwarded-Encrypted: i=1; AKwUvBySdss0T6I77WtwMLr4sSErrIdkwJzqdjyWLgDX6U+EAHE0Z/BP/u39XClxDZQwP2RoeBQHNwhDlwkPjwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbVBA/2jK0JeEjHbWiXenaoQ+FEJWq5nUuWe7d1J3OeViMyI3i
-	3hBOAiM2vK/o85fDdpUghBgTnB8irRuwHyn90cb9KMeN6/UeVoMrK0JiNXXTn6CGj630+ybxsEC
-	eF6qkRBF//eplfDpxCcs0MjHDvrAniJ5wkkxr2QoA2YBdPrO56SC/aF/+34VbCUhuP5Y=
-X-Gm-Gg: AYBFou2BoT9XUJL8cdWQFuyt40L9FSbMMqkPPOlsXUCbiaKY67GEk2OgHZr1uF+8Nnc
-	dWY8me5fCv+37GwXZuFmDc5n4AUEaj81ATnyi9M14QOI035+iC79RHmdCqiwzUwBRdGjaLIkKwV
-	GE11PGmvJMhgRDWxu1CvMiWjv6qaAkQ8uv6IQICS5+z0rceTOTLKM3Fj/50OvlMDDTi2FgwqXpK
-	47hZo6HiZCH6tdbjMECMbD3e2qJldVmgbR/K7eVY3AmBbQSHxVZYugUxqW1CY+Lu2ATQhMZZGUr
-	uZTl1FfszdunB29i11RryVJXmjn/NGilwXppXZmSPsdVa2rjpMOdOoBe5FmR7wySzDoeW2Z3BOl
-	YSLLvsbZAJRxY85GaAa05IA==
-X-Received: by 2002:ad4:5ca8:0:b0:912:127c:d7f6 with SMTP id 6a1803df08f44-913fc9782acmr62342036d6.4.1790092307324;
-        Tue, 22 Sep 2026 08:51:47 -0700 (PDT)
-X-Received: by 2002:ad4:5ca8:0:b0:912:127c:d7f6 with SMTP id 6a1803df08f44-913fc9782acmr62341686d6.4.1790092306971;
-        Tue, 22 Sep 2026 08:51:46 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa440db2fsm1379520a12.3.2026.09.22.08.51.43
+        bh=5i9r/pPIqKuMdr6zdOQlfdPCoyhibMvQVpWDyWeclbw=;
+        b=BvvGDenc3zEu5GtDc7g5T0HIUbI6V7rl8N/0DjyEncjiIY9kHApDICnboTkXYdqdX+
+         eTOGcKJGfSSR53ZEFaLdLT6yBmNecqin3MDsD80Jxyks36rBeyOVDnS8iopLj8NRD5IN
+         tcqbs2KHP4V+XVdpq1TTkcUvzEKU+cANEJtQ5D+NwVOWEbKE0LUr0ximjg/f+ismCtRn
+         ZUUJU1pgVvi35SPmKVLX+b++c6Bl5iYGdt00YL/oKylJLDQuOEf0N7SXSx3CYbyWDgcl
+         7xmteXmHFnjmqNMLJCUWtYrRqjvDQYA0g5YYmwwyHBLAmZnwR20HwuVRiUAsKU6sgWJx
+         fpcw==
+X-Forwarded-Encrypted: i=1; AKwUvByK2FgIObqKYzbYs1J4NqSBxSqcFMmxu7G6iYantztb7sJqKO5xxEvHJVaoukvo1tlW9eSniRb9KiIjBBY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYswDJqZeEyngRPRU52OJmItgDvTNK/cIc++l9Bfn3CZGcafCc
+	pvXXIBeXQNr0ch5OZoLumZvJgYGgCPrZyDlJYr/a41iEp1YBkTCgpQJk
+X-Gm-Gg: AYBFou2LoLYTmbQHQep1Kx6ZNyA90yy4NnG2A9/LpQ2Kn/yYR/1KefwQsroZ9xdNdgB
+	J0+oY1DO0hs1I/RaBXYkTw1GVfCRT0OTXxlVw3BgXIC73cFDOqM+15YnLrPtPe0VwkMcyScrjLM
+	Dw23b5t0ukcnFS7VM5k2bGmXmb6fRTO6CTnSGp4yVtkOjcZnlVIq3jdujhO0LZfQkyQOLCc978K
+	tVZb9Piz76BTWUycJhSNQcmdcioYsbIu4mQFHHaP3UlXL9HPE1vopEMBzIyV0UYy7UlG2nb6k2R
+	5ssoK0z74HPVrn+fTDl4AAi3dVz4tAUiGPrfDmx7noZ7TQoZ7RZnNQiADwYlai+yLU4Kp12PpXN
+	jBLATCS3TSqpv3sokxODlyesp+svEoyrihDimtUdshnqoCNtn9iXZ9rvXCaqa1UVQzuy4+QQvSc
+	c3X3wwQoiRZyaPFIb8yX1diBMt6SU9paYOrEzTQa/OUXX4Fb2eZORekmZ+fuvYGGJ7kPGYYveOR
+	4aJz4PMIItlm0YMYFrOMtNNW3P5Km8shqY8oye7Kx8ehbc=
+X-Received: by 2002:a05:6000:41de:b0:487:a9f:4fa5 with SMTP id ffacd0b85a97d-4886705fc4cmr48898f8f.4.1790092333223;
+        Tue, 22 Sep 2026 08:52:13 -0700 (PDT)
+Received: from [192.168.88.241] (78-80-107-225.customers.tmcz.cz. [78.80.107.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886277e185sm6166579f8f.16.2026.09.22.08.52.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 08:51:45 -0700 (PDT)
-Message-ID: <29671684-020d-42e5-b7e2-f7882fda5ffe@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 17:51:42 +0200
+        Tue, 22 Sep 2026 08:52:12 -0700 (PDT)
+Message-ID: <dbffdb43-4fe8-4072-82ba-fcd19aec8739@ovn.org>
+Date: Tue, 22 Sep 2026 17:52:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,75 +55,244 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/5] arm64: dts: qcom: shikra: Add CCI definitions for
- Shikra
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260917-shikra-camss-review-v8-0-9b9596221cfa@oss.qualcomm.com>
- <20260917-shikra-camss-review-v8-2-9b9596221cfa@oss.qualcomm.com>
+Subject: Re: [PATCH net 4/6] net/sched: act_ct: avoid modifying shared
+ unconfirmed ct entry
+To: netdev-bot+sashiko@kernel.org, i.maximets@ovn.org
+Cc: netdev@vger.kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, aconole@redhat.com,
+ echaudro@redhat.com, jhs@mojatatu.com, jiri@resnulli.us,
+ lucien.xin@gmail.com, marcelo.leitner@gmail.com,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-kernel@vger.kernel.org, dev@openvswitch.org, stable@vger.kernel.org
+References: <20260921145655.3167436-5-i.maximets@ovn.org>
+ <179008912095.2160803.9187949237353089190@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260917-shikra-camss-review-v8-2-9b9596221cfa@oss.qualcomm.com>
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <179008912095.2160803.9187949237353089190@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: _O2MnK__8KPun3asOAyIA_1BIox9GrFF
-X-Proofpoint-GUID: _O2MnK__8KPun3asOAyIA_1BIox9GrFF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIzMSBTYWx0ZWRfX04TZG7+VSRaA
- gXMS4mRSoc1eWvzjOqWVpqFFLQxX+Zdefj9oixvIgnEwHzDCY9NeDx5Tg3OcaG59pkkUpZYcT0d
- v6390PtvnkmbUcvzMPGjCkoSL8V4GqE=
-X-Authority-Analysis: v=2.4 cv=NKBAaE6g c=1 sm=1 tr=0 ts=6ab2a414 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=kTwRDD6jQfcqJCPQX_EA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIzMSBTYWx0ZWRfX+KoTx/P1JMk/
- xSGpvyKUuX3MOaKo/yauIx7KP1hBXw9TDn+cR8DQF2Y2y2AW1cBwq/T61k4iuuSeb5dOhrLP4YI
- P5yuMwg3mvwDXtfPZshlCJQ0PE6t06cpNjaTaNRxoNYv4rU04zFcXLPP678QLrHckVfQUjm87mY
- hmN3MysNfmsOHdnszP8RZW57KAEgwz6cljqpFemqbcE0+OKfIfAEN9yIFsOC0aGfKUF1dwzqsuS
- Sgnj5PO0tw6FMhrD4hYTVt777YK5EJppwgk65OIvmj5pwXHwfqCHwzPHbQR5RftEDsrK3vd4NqR
- vt+IkLQ40TDM14+GafGSPQO/mtlPMOHo/KUwg8A5D+lI8IQqLK0KRm2UTVdzxdopMCxec1qcTF/
- LqTvIX4dmCZ0bqYkWtA+lREDRIoar7NHrgQqxI078WKzeJBmYVgUNVMRv4FSDAn0BOEF5Z0FKgm
- dbFx1SeMOVJKTZF0ReQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0
- clxscore=1015 phishscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220231
+Content-Transfer-Encoding: 8bit
 
-On 9/17/26 1:41 PM, Nihal Kumar Gupta wrote:
-> Qualcomm Shikra SoC has one Camera Control Interface (CCI)
-> containing two I2C hosts.
+On 9/22/26 4:58 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 > 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
+> Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] tcf_ct_act() now discards an unconfirmed conntrack entry
+>   purely because its refcount is >1, without checking whether the…
+> 
+> Pre-existing issues:
+> - [Medium] At this commit, tcf_ct_act() still calls nf_ct_helper()
+>   (net/sched/act_ct.c:1106) before the commit block that grows the…
+> 
+> --
+> 
+> net/sched: act_ct: avoid modifying shared unconfirmed ct entry
+> 
+> tcf_ct_act() now resets the skb conntrack association when the cached entry
+> is unconfirmed and its refcount shows it is shared with another skb, so that
+> a commit or nat pass cannot grow the extension area of an entry another
+> clone still points into.  The nat flag is also hoisted into a local
+> variable.
+> 
+>> diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
+>> index 55f3521edb4c9..e72143d36b119 100644
+>> --- a/net/sched/act_ct.c
+>> +++ b/net/sched/act_ct.c
+> 
+> [ ... ]
+> 
+>> @@ -998,6 +998,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+>>  	retval = p->action;
+>>  	commit = p->ct_action & TCA_CT_ACT_COMMIT;
+>>  	clear = p->ct_action & TCA_CT_ACT_CLEAR;
+>> +	nat = p->ct_action & TCA_CT_ACT_NAT;
+>>  	tmpl = p->tmpl;
+>>  
+>>  	tcf_lastuse_update(&c->tcf_tm);
+>> @@ -1046,6 +1047,19 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+>>  	 * different zone.
+>>  	 */
+>>  	cached = tcf_ct_skb_nfct_cached(net, skb, p);
+>> +
+>> +	/* If the ct entry is not confirmed and shared with some other skb,
+>> +	 * e.g., a cloned one, we can't just modify it with a commit or nat
+>> +	 * as we must not modify the extension set.  Reset.
+>> +	 */
+>> +	if (cached && (commit || nat)) {
+>> +		ct = nf_ct_get(skb, &ctinfo);
+>> +		if (ct && !nf_ct_is_confirmed(ct) && nf_ct_shared(ct)) {
+>> +			nf_reset_ct(skb);
+>> +			cached = false;
+>> +		}
+>> +	}
+>> +
+> 
+> [Severity: Medium]
+> Can this drop NAT state that was already applied to the packet?
+> 
+> The condition keys off nf_ct_shared(ct), i.e. refcount > 1, and not off
+> whether the sharing skb will ever be re-processed by conntrack.  act_ct
+> permits nat without commit, and in that case
+> tcf_ct_act_nat()->nf_ct_nat() (net/netfilter/nf_nat_ovs.c) already
+> installs the binding and translates the headers on the unconfirmed entry:
+> 
+> net/netfilter/nf_nat_ovs.c:nf_ct_nat() {
+> 	...
+> 	/* Add NAT extension if not confirmed yet. */
+> 	if (!nf_ct_is_confirmed(ct) && !nf_ct_nat_ext_add(ct))
+> 		return NF_DROP;   /* Can't NAT. */
+> 	...
+> 	err = nf_ct_nat_execute(skb, ct, ctinfo, action, range, maniptype);
+> }
+> 
+> If the skb is then cloned by a path that keeps the nfct reference, and a
+> later filter runs "action ct zone N commit" on the original, the new block
+> sees cached && commit with an unconfirmed, shared entry, calls
+> nf_reset_ct(skb) and sets cached = false.  nf_conntrack_in() then re-tracks
+> the already translated packet, so the entry that gets committed carries the
+> post-NAT tuple as its ORIGINAL tuple and no matching binding, and reply
+> traffic is no longer reverse translated.  Before this change the cached,
+> NAT'ed unconfirmed entry was simply committed.
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+It's true that some information will be lost on reset, but it is expected.
+The described sequence of events should also not happen in a practical
+networking pipeline.  Alternative is to forbid nat without commit, which
+would be a significant uAPI break.
 
-Konrad
+> 
+> One note on the trigger: act_mirred and AF_PACKET taps do not produce this
+> sharing, since both clear the association on the clone:
+> 
+> net/sched/act_mirred.c:tcf_mirred_to_dev() {
+> 	/* All mirred/redirected skbs should clear previous ct info */
+> 	nf_reset_ct(skb_to_send);
+> }
+> 
+> net/packet/af_packet.c:packet_rcv() {
+> 	/* drop conntrack reference */
+> 	nf_reset_ct(skb);
+> }
+> 
+> Bridge flood/multicast delivery does keep it, though -
+> net/bridge/br_forward.c:deliver_clone() calls skb_clone() with no
+> nf_reset_ct(), so __nf_copy() raises ct_general.use on the clone.
+> 
+> Would it be worth mentioning in the changelog that the reset also fires
+> when the second pass does commit?  The changelog currently only argues
+> about the "without commit" case:
+> 
+>     This, however, doesn't really change the picture for sensible
+>     networking cases as there should be no need to run the same packet
+>     twice (before and after the clone) through conntrack without packet
+>     header or zone changes and without commit.
+
+Flood cases will be addressed separately, there is no need to spell out
+every single thing.
+
+> 
+> [Severity: Medium]
+> This is a pre-existing ordering problem and is not introduced by this
+> patch, but it is worth flagging for backports since the new guard does not
+> cover it.
+> 
+> At this commit tcf_ct_act() still runs the helper before the commit block
+> grows the extension area of an unconfirmed entry:
+> 
+> net/sched/act_ct.c:tcf_ct_act() {
+> 	...
+> 	if (nf_ct_is_confirmed(ct) ? ((!cached && !skip_add) || add_helper) : commit) {
+> 		err = nf_ct_helper(skb, ct, ctinfo, family);
+> 		if (err != NF_ACCEPT)
+> 			goto nf_error;
+> 	}
+> 
+> 	if (commit) {
+> 		tcf_ct_act_set_mark(ct, p->mark, p->mark_mask);
+> 		tcf_ct_act_set_labels(ct, p->labels, p->labels_mask);
+> 
+> 		if (!nf_ct_is_confirmed(ct))
+> 			nf_conn_act_ct_ext_add(skb, ct, ctinfo);
+> 	...
+> }
+> 
+> A helper that inserts an expectation links exp->lnode into a list head that
+> lives inside ct->ext:
+> 
+> net/netfilter/nf_conntrack_expect.c:nf_ct_expect_insert() {
+> 	hlist_add_head_rcu(&exp->lnode, &master_help->expectations);
+> }
+> 
+> and the following nf_ct_ext_add(NF_CT_EXT_ACT_CT) relocates that memory:
+> 
+> net/netfilter/nf_conntrack_extend.c:nf_ct_ext_add() {
+> 	new = krealloc(old, alloc, gfp);
+> }
+> 
+> leaving exp->lnode.pprev pointing into the freed block, which is written
+> through when the expectation is unlinked via nf_ct_remove_expectations().
+> 
+> The new reset only fires for cached entries with refcount > 1, so an entry
+> that was just tracked (cached == false), or the replacement entry created
+> after the reset, still follows the helper-then-realloc sequence with a
+> single skb reference.
+> 
+> The later patch in this series ("net/sched: act_ct: fix helper UAF due to
+> extensions realloc") moves nf_ct_helper() after the
+> nf_conn_act_ct_ext_add() block with the comment "This has to be done after
+> all the extensions are already added.", so the ordering is resolved within
+> the series.  Given the stable tag here, should the two patches be marked so
+> that backporters take the reordering change together with this one?
+Preexisting.  Fixed later in the set.
+
+Best regards, Ilya Maximets.
