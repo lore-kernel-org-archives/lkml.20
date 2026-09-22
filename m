@@ -1,219 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8544A5540BF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDFD558215
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090626; cv=none; b=UqFG8abUMg8KwQ1XOv5/I2Xzd2FZWvdSoQv3pxFLh+kmsIdJ9KVq1cBskuptQQcI38PFGhG6/+SHhzgsNmGcMEbiLw/+OcxO9S/QStysWU7ufDdbKHhjYL4iyVq6yMuyJf4LS35LaKFVm6lHBDP/q2Tb5RE2LjVzvMXg1WGlWT8=
+	t=1790090675; cv=none; b=czqrjDHXCG/jidNcyTOMAD3lmMImjAzsIzO5tvoYPLsz8YXVRoxx4Kkwh/W5QSh3ZV59k4j35oVr7mtgzdaHHQ3fmUi6ET02tmZCDq6qq9nyoo2+mThl3WS/25vlTtbmGSUFqNL1jSQh0PT8JNjJt4sxZsRzD0wpNAsibwnrtyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090626; c=relaxed/simple;
-	bh=xoDh0r7//01rAPLh77iu0xIHd3jbw+Zhv4FLE61Vkg4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TGBR7hT3VXrLnZ5MDNscpKBUaHQPqOyFn0Hnvk8TDhkqa6yLXxg15uT8Fr7eBSBzoANlhZjEdQTKVfDfFT72UAx3jXES+9eRUyMmpKSjBTPZm9cFDAacFStZq8kMpjfYPKCU040K7VOlZWZPa8vAwnjztxF6b+kjPZLL/wJGuhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f0KIDibg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790090675; c=relaxed/simple;
+	bh=OyXaGjZqn8qSmBy1AD4h/wsptjeLeNc8R7vTGyPvGpU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=obV3UYwM/In3kEtaChGv0tEvk+09ynhEMrQLnUYsISHlyfjWrD/SL5WHMAkKvgY5JVNfvr6z54XjiDPPAD8M8KOzyYquTXrahYKet3jEpT0YOHK02eyc7yzrfpvbikHELf6FSfP6fmgWMsTv2iiCcFFu7TUHqiVILwSOPU8eK3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z1un93Y+; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f0KIDibg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CF51F008A1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 15:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790090624;
-	bh=HSxYC9PBu6O3qFc8TB9GBt3gfPrtp72o3ge0jqAtRpI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f0KIDibghpuCfT//z5YJBWxvFz2V4tCU0i0WBKMDTdWD3n5JHLjhSrXi7M+Bd6uwu
-	 SBIuxdzV+3PvsWQEaBXEy8KygyslWiTn8kWjWDXqKj+RXo9C2Y1LRLL1Satgc5EbFW
-	 db1vY9ShYPHMRn0Vj93U0YTgPQNAUGft8b+7dIiqSQmuzVu6zN1veFE6dDKOaenJ1A
-	 6EBYqwuvfhDpg9jM/74fZQO3Igiz3EIBGcOksIoBtD0qgD9zlt75DYlQK5XlWhH52q
-	 1+Y4YgLmeDGFvrzmwe9SUnziWvrJnNXc4M7qrT8oqlCbOyG3eTF/R9PeQpQB+R55A0
-	 ymDtoW6bFe+/w==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso3736621d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:23:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBygZxuRbTmoWBeC4US3byBjVQ6PR4BpWbly7of9mnA71Os5VIlshOHwsk9DRvaqWSziMAQ7veos2ak2xdk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nz4b0jWGPOEFev60ku2U3CMVgkjfvaFv0AjTP0N6FD6wz/2pbt
-	wq7VcfW8Q+4emPwUjaocxMgOSvKtOB2pYj4+O8yMygDOCCQ3JI9cTqTjNg5qm19HFarTXlqgUMf
-	baqWC4Gpp/GDHeTbUe1fma0phivMzKnM/OOsXPfG8iA==
-X-Received: by 2002:a05:690e:488d:10b0:671:2bb8:ceb0 with SMTP id
- 956f58d0204a3-672c54637fdmr881282d50.65.1790090623628; Tue, 22 Sep 2026
- 08:23:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z1un93Y+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790090674; x=1821626674;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=OyXaGjZqn8qSmBy1AD4h/wsptjeLeNc8R7vTGyPvGpU=;
+  b=Z1un93Y+tm3ZTvGLqK3ed0Lg6Bn4+1s58dRys1xDf6LOzrEqVAfuYEFs
+   S02bMyke4zfyfGz6U20JMQtnPrrNfI61j0mNSAZwr8vGx1JEv71G6/tzq
+   +/navUgX4fYDxEJxFtcGb5NP9e2UKjbKZHbAM9NO3pqGUcrJdZ+j0hLPP
+   XlqtXsA32qj+9v3OCgPJUre5DRRt6S6NoldDnu9ggFOraqPMSoKRqYLgq
+   oZYHzsP2186ppy9HF4MBZR0yMwzG+b+adIFQEysW2UW/brEiA5y+QeHbb
+   d8pjN7kA0KlhvBlNlfvdH/Gy46Sd1bQ510Kh/oSGFI0v47ssR92tIqX5X
+   w==;
+X-CSE-ConnectionGUID: r9hExIESTTeIIighODVLpA==
+X-CSE-MsgGUID: OoyzM96BQaeqbGX+SafDrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="102056948"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="102056948"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 08:24:33 -0700
+X-CSE-ConnectionGUID: 1WLGIF3dSNqKR0r1GeSRmw==
+X-CSE-MsgGUID: xqZe3QZgSMiLZ14WZOpybQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="299436280"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.110.31]) ([10.125.110.31])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 08:24:32 -0700
+Message-ID: <01a1d68b-a4e2-40e3-b3b8-c1046faa6c77@intel.com>
+Date: Tue, 22 Sep 2026 08:24:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
- <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
- <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
- <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
- <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
- <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com> <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
-In-Reply-To: <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 05:23:31 -1000
-X-Gmail-Original-Message-ID: <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
-X-Gm-Features: AcwNN1UFfFWGyxcUua8pbkXO0R-XB3znLXKYfEROGrlAbT6An5bo9JO7s142iI4
-Message-ID: <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: x86 CPUID mutable return values
+To: ludloff@gmail.com
+Cc: Borislav Petkov <bp@alien8.de>, "Ahmed S. Darwish" <darwi@linutronix.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Sean Christopherson <seanjc@google.com>,
+ David Woodhouse <dwmw2@infradead.org>, Peter Zijlstra
+ <peterz@infradead.org>, Sohil Mehta <sohil.mehta@intel.com>,
+ John Ogness <john.ogness@linutronix.de>, x86@kernel.org,
+ x86-cpuid@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
+References: <CAKSQd8V28WjMcsfh05P5SNfXXvtafBH6fyiyqMzQ9GtU8fQGSA@mail.gmail.com>
+ <f133c35f-b013-4395-ad1f-53765114d4b9@intel.com>
+ <CAKSQd8WqQdNDoEqM+PZNHg-yr_4VJTGYdV=bCbYfRDyR7kUjbg@mail.gmail.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <CAKSQd8WqQdNDoEqM+PZNHg-yr_4VJTGYdV=bCbYfRDyR7kUjbg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 4:59=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
-te:
->
-> On Tue, 2026-09-22 at 03:32 -1000, Chris Li wrote:
-> > On Mon, Sep 21, 2026 at 8:53=E2=80=AFAM Rik van Riel <riel@surriel.com>
-> > wrote:
-> > >
-> > > On Mon, 2026-09-21 at 08:10 -1000, Chris Li wrote:
-> > > > On Mon, Sep 21, 2026 at 6:40=E2=80=AFAM Rik van Riel <riel@surriel.=
-com>
-> > > > wrote:
-> > > > >
-> > > > > On Mon, 2026-09-21 at 06:31 -1000, Chris Li wrote:
-> > > > > >
-> > > > > > Give me some real-world examples of people hitting this kind
-> > > > > > of
-> > > > > > limit.
-> > > > > > e.g. MAX(%)  > 100% and still have a usesable system. I
-> > > > > > suspect
-> > > > > > that
-> > > > > > with 100% zswap usage, the system becomes unusable. Please
-> > > > > > show
-> > > > > > me a
-> > > > > > real world case that proves me wrong.
-> > > > > >
-> > > > >
-> > > > > Here's my desktop system right now. The amount
-> > > > > of Zswapped is more than twice AnonPages, and
-> > > > > the system stays perfectly usable.
-> > > > >
-> > > > > $ grep -E '(Anon|Zswap|GPU|Swap)' /proc/meminfo
-> > > > > SwapCached:       252340 kB
-> > > > > SwapTotal:      41523604 kB
-> > > > > SwapFree:        9802088 kB
-> > > > > Zswap:           8812236 kB
-> > > > > Zswapped:       24927876 kB
-> > > > > AnonPages:      11615760 kB
-> > > > > AnonHugePages:   1402880 kB
-> > > > > GPUActive:      13112428 kB
-> > > > > GPUReclaim:        95980 kB
-> > > > >
-> > > > > This is also an example where I cannot really
-> > > > > predict how much zswap space I need, because
-> > > > > that depends on what AI model is loaded,
-> > > > > which drives the GPUActive number, as well
-> > > > > as the number of browser tabs.
-> > > > >
-> > > > > The system is perfectly responsive.
-> > > >
-> > > > Great, that is getting somewhere. We are talking about actual
-> > > > usage.
-> > > > I
-> > > > really appreciate that.
-> > > >
-> > > > May I ask what the total amount of memory (RAM) in your system
-> > > > is?
-> > > >
-> > > > I am not asking zswap compare to ANA memory. I want to get the %
-> > > > of
-> > > > the total RAM.
-> > > > I assume your desktop has more than 8G of RAM, right?
-> > >
-> > > Right now it has 64GB of memory.
-> >
-> > That is exactly my point. You are running 1/8 =3D 12.5% system ram.
-> >
->
-> > My point is that, I haven't seen a case where the application is
-> > still
-> > usable with a reasonable SLO when 100% of RAM is zswapped out.
->
-> In my numbers above, the applications have 11.6GB
-> AnonPages, and 25GB Zswap.
->
-> That is about 68% of anon memory stored in zswap. Not 8%.
->
-> Out of (anon + zswap), zswap takes up 43%
->
-> Can we at least agree on the observed numbers?
+On 9/22/26 01:43, Christian Ludloff wrote:
+> On Mon, Sep 21, 2026 at 11:32 PM Dave Hansen <dave.hansen@intel.com> wrote:
+>>
+>> On 9/21/26 11:36, Christian Ludloff wrote:
+>>> Q for Intel: is MSR FEATURE_CONFIG 0x13C bit 1 expected
+>>> to affect CPUID 1.ECX.25 and 7.0.ECX.9 and 19.EBX.0/2, or
+>>> just just a subset of them? Also, what about PCLMUL?
+>>
+>> Are you looking to document architecture or implementation here?
+> 
+> Just the reality of mutable CPUID return values.
+> 
+> Because it matters. When trying to cache them.
 
-Yes, I can agree on what you observed. You are using anon + zswap on
-that app alone. That is not what I originally asked.
+Of course.
 
-My original request was for the whole system: what percentage of the
-total system RAM size has been swapped out to zswap.
+I'm all for documenting this stuff. I wish it was more open. But I do
+worry a bit that someone will read that, for example, "KL is immutable".
+$CUSTOMER starts depending on it. Then, $CPU_VENDOR decides that was a
+mistake and fixes it in a future implementation.
 
-Because when you have 100% of zswap out, it will likely trigger
-different kernel code path on allocating memory. You might suffer
-global memory pressure you did not observe in the single app memory
-pressure case.
+> Based on some experiments, I think that VAES
+> does follow AES (i.e. is mutable as well), while
+> KL and PCLMUL do not (i.e. are immutable) –
+> so that's what I am seeking confirmation for.
 
+Are you OK with just checking a recent implementation or do you need a
+wider search of older implementations?
 
-> > >
->
-> > > hen the amount needed to fit a workload
-> > > does not have a positive correlation with
-> > > the amount of system memory?
-> >
-> > It absolutely has a positive correlation with % of the system memory
-> > based on my experience. The % of memory swap out has a very positive
-> > correlation with the thrashing on the application.
->
-> The applications thrash much harder once zswap flows
-> over onto disk! Out of all the swap options available,
-> zswap is the fastest, lowest latency one.
+>> Honestly, FEATURE_CONFIG looks more like something that should have been in the BIOS writers' guide rather than the SDM.
+> 
+> I for one appreciate that the SDM attempts to
+> provide a list of mutable CPUID return values
+> and that it has the FEATURE_CONFIG MSR.
+> 
+> After all... the most recent public Intel BWG is
+> more than 30 years old by now [aka P6 days],
+> and https://en.wikipedia.org/wiki/Appendix_H
+> was a thing that also happened back then.  :)
+> 
+> PS: Should Linux boot check/fix that LOCK?
+I don't really feel a strong need to do it. I honestly don't know why
+the lock bit is even there. I'd randomly _guess_ that Intel's
+implementation was not certified for $THINGS and they got nervous and
+asked to have a chicken bit exposed for it just so it couldn't
+accidentally get used.
 
-I agree zswap is the fastest one, no question about it. In our
-deployment, we have only used zswap for a very long time. Things might
-change now. My observation is that, even with zswap, when 100% of
-system RAM is swapped out, the application suffers greatly. There is a
-reason why we only have 7-10% system RAM swapped out. There were many
-OMG in the past that established this boundary for us. We did not make
-up that number; it came from the real data feedback from the fleet.
+But, for Linux, the kernel doesn't currently munging the disable or lock
+bits. If someone munges it with wrmsr(1), they get to keep the pieces
+just like any old wrmsr(1) user. I'm struggling to think of a scenario
+where being able to twiddle either of the bits could be useful to an
+attacker.
 
-So again I question the real data point for the 100% RAM swap out
-case. Do we even know what the system looks like at that point?
-
->
-> Forcing things out to disk "because too much zswap
-> is slow" could just slow things down further.
-
-I did not think zswap was slow. I assumed the swap was only zswap, and
-that even 100% usage was too much.
-
-> Now, there is probably some upper bound where
-> the zswap pool itself starts to hurt performance
-> because it's crowding the applications out of
-> memory, but that could be quite large.
-
-In my experiment, 100% is already way above that bound, which is why
-I'm curious about your data point. How do you run and test your system
-at 100%? Please correct me if I am wrong, but it looks like you
-haven't.
-
-Chris
+So I'm not sure it's worth prodding, even if we think it's got a funny
+value.
