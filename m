@@ -1,95 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB3D49363D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:36:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E5E54DAE6;
+	Tue, 22 Sep 2026 17:36:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098602; cv=none; b=hnke7DpBFJyGtR1pagEw5w3Rlo9wt82iT/DDKLNG5ChOzBc9SAPgCrWhmEhQ8XZsZedSrc92Vu66HcrwI1rHMn96HuTsR9UwLCAIXIKGTANx78aZwc3GiHEKFSLAYiveBG1kFr2U2OoY9R4UH3zvAW9dx4NCoHlfu+htaGLeAro=
+	t=1790098613; cv=none; b=AafSb6mLh2pJjgmlEiuzpaRylbc4POx6CrJiTQAYaJQ5KzmmL7fAjqKC1uMyF3T35D7YKb1i2m59DQYnQIFkHTARJDjCFRmkiccqMXY5J3NjipKwNradNf/wzhm94z/Ve3gSxbJLm6EJJNX+yksx1l7C5+jlDR7ckNr5KLaZ+us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098602; c=relaxed/simple;
-	bh=/iX1Ql4wg/WfBFscUMWwgxg/C8oEw7LG81FQ7imVB6s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hHtqWHpYk0/K2DSOfVjfrMd7WLZj2OlqPK/yMjsChp4Ke9ZhQJ1rtmU9rlqD+JYK9KWCeVjPjRyC3kwm8Tnwi08q27SLjeNXpKvYib+cuNmwnzaIYGJtbNkDoscWot4gibzPdvnz1q6xlyPuGH++nAfbdCfy5zgjbD65q7kPTI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYdwr1qW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790098613; c=relaxed/simple;
+	bh=qkopl1LmNrmknlznlDOKlSLOSpUFspeZRGI572gCRAs=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=EwgrMA/y/29VL674qM7GiEYoVqr7spwT5krXRPn6pqmy0hJu6zuuBqiTGJnBKFUbHEHP/6+daPemWLAs/iZ5Q0OvdZ4GUHUH+cflGvLAbUGWweVwDsK4XBbX3Oj+2zEIVsuerOKbGq/BUnLhVqe02tKI4LYFc0IZfqRONqAgiYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BmsXgfRs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYdwr1qW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D3C81F00893
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:36:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BmsXgfRs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CAAD1F000FF;
+	Tue, 22 Sep 2026 17:36:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790098600;
-	bh=UH+HPU6Wp2V3+TpJgaxkTLBVBWCLThA+hX9nQYsp+1o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PYdwr1qWnAUFLY460A7dMjMuiYqtug3oH623qeHg90zL3CNcx8UTJrp3HXb+S5q+F
-	 kv9jHlPliAqGPft3Yd9Fqa1MC7FrIy8Pt0BjN3L7bE1IJbD/O8Ky2XFQT1DbuEaYLy
-	 C7bjK1zEQ185cIsz/XO4723YJs3w6vSnpTuE/RsDpOo2A0IynyLs1kFY1BTrcdExwW
-	 qH+LYLVev3H9pAew9A7m8AHhpCB+dMzaX0+Rm8mnkk9ntqnyWaVDKMsfju68GUpVQP
-	 ESvrGPzpgXxgjfi7QcMKHrYcS11S40Sy7VA0+IssFqTvTC4ZJBaoy4WoUbQ25gRO2u
-	 OCuenC925hR3A==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c1b8d7b5so21043e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:36:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByugjNh9duzA+WrS9DaRS9H7J+vH/HEZcNjSTyMYCKTjA3khU+LkxOIRCFGA3TNR22tULNS8PoMuo7WXb8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nc/JxowpqPk7Acc0n0rry7EQHZxlYqqeFwwBBtaj9X+cN7C82H
-	KbLqnP0UbFj7VbL0EbtQgHpNPhTvja5fOjNTq2tzyFOwUQ4k8/pL7GHObDe8bWQiTB6GEV19lJD
-	cBkXrumshvxzogIvnDgEVLSHgsKhd+pI=
-X-Received: by 2002:a05:6512:b22:b0:5b8:99b0:6565 with SMTP id
- 2adb3069b0e04-5b8d895f50fmr3935e87.6.1790098598928; Tue, 22 Sep 2026 10:36:38
- -0700 (PDT)
+	s=k20260515; t=1790098611;
+	bh=g+NnfGAreMlnWdPFKrc3Fs+66ktV/mC5/nzEN/1tuoU=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=BmsXgfRsMx58sdMrXeiCRBz2C54ODC7ufIfzZjnFbCjcnlWi137aPDjvqgKVnYjXd
+	 V3HZo/NCEByKVRA6KOjr3I3LROo5/fbEILVPgvXpkdxIn0DjuG4w0n9yyeAQsMMn0h
+	 9t/UUNhjS0y+BRocbQdIt/ZPW2mBFlS6PM5dlEu2EtywpTJdykq+1t+/2vdveGRjfd
+	 QGA/dX2uZeNbIuSuPsyR4KnVJJd/3eN7yksOkDEhmjElEIg8RDhyxdSAx755jM0HFr
+	 v/SU1xZLeHP4CO40et733N053zC6ram7F5J6M97usGC2WDP2/bGGbDAoYslOkdVlqD
+	 dTeR+N3eKIQXA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93FF73811A57;
+	Tue, 22 Sep 2026 17:35:43 +0000 (UTC)
+Subject: Re: [GIT PULL] remoteproc fixes for v7.3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260922021622.321847-1-andersson@kernel.org>
+References: <20260922021622.321847-1-andersson@kernel.org>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20260922021622.321847-1-andersson@kernel.org>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git tags/rproc-v7.3-fixes
+X-PR-Tracked-Commit-Id: 9db31edf92dde1f3c98008bd5f88e859d14324cc
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 34e34736ea9a685664f57586f6e293aaff308858
+Message-Id: <179009854225.10467.2142500951616451400.pr-tracker-bot@kernel.org>
+Date: Tue, 22 Sep 2026 17:35:42 +0000
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, Mostafa Saleh <smostafa@google.com>, Paul Hollinsky <phollinsky@holtechnik.com>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <8325277ff0484ab869fecf662a7ea356cd00bcde.1790090794.git.robin.murphy@arm.com>
-In-Reply-To: <8325277ff0484ab869fecf662a7ea356cd00bcde.1790090794.git.robin.murphy@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 22 Sep 2026 19:35:06 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0g4k6FhyQMypkRyVJMkSBUsmeuetJuxRA826PcA7Mo5Hg@mail.gmail.com>
-X-Gm-Features: AcwNN1WGPjd9cGyQNCQKyf989BMen53cRmRY9jgkEnugPAg2ejN5LaWKAsDvdYE
-Message-ID: <CAJZ5v0g4k6FhyQMypkRyVJMkSBUsmeuetJuxRA826PcA7Mo5Hg@mail.gmail.com>
-Subject: Re: [PATCH v2] ACPI: Provide !ACPI stub for acpi_device_uid()
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 5:26=E2=80=AFPM Robin Murphy <robin.murphy@arm.com>=
- wrote:
->
-> While the likes of acpi_dev_uid_to_integer() and acpi_dev_uid_match()
-> already have stubs for !ACPI, the basic acpi_device_uid() getter does
-> not. Although calls in portable drivers should already be conditional
-> on a valid acpi_device in a manner which would usually lead to compile-
-> time elimination anyway, add a stub for the sake of completeness.
->
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
->
-> ---
-> v2: Distinct non-const definition to avoid further theoretical issues
-> ---
->  include/acpi/acpi_bus.h | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-> index 1a45e0d521d8..d686d09f1678 100644
-> --- a/include/acpi/acpi_bus.h
-> +++ b/include/acpi/acpi_bus.h
-> @@ -964,6 +964,11 @@ static inline const char *acpi_device_hid(struct acp=
-i_device *device)
->         return "";
->  }
->
-> +static inline char *acpi_device_uid(struct acpi_device *device)
-> +{
-> +       return NULL;
-> +}
-> +
->  static inline bool
->  acpi_get_physical_device_location(acpi_handle handle, struct acpi_pld_in=
-fo **pld)
->  {
-> --
+The pull request you sent on Mon, 21 Sep 2026 21:16:21 -0500:
 
-Applied as 7.4 material, thanks!
+> https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git tags/rproc-v7.3-fixes
+
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/34e34736ea9a685664f57586f6e293aaff308858
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
