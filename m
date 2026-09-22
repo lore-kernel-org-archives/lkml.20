@@ -1,48 +1,46 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7ED4248DC;
-	Tue, 22 Sep 2026 12:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4683538DC69;
+	Tue, 22 Sep 2026 12:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081272; cv=none; b=QHkP+B2WTR9MTL5Y8x3ov9EWggDFJXT0Dd+Am8DG7LGkTicy5D5vCYlYEKprk5n9QUWCm9kltk7YCiK/7N32lEKKQfYhlINnIRw+L6LWQnSjucPzyR8++z8LybYFHlf/RVasXmpgW1L4R+zwc4I6+2SvtO97tKLWoqDHk8/EdyU=
+	t=1790081283; cv=none; b=P1Iqf+7U1Jxbx5MvB8EvEmN81j3jDo6FkAZivnb8CxFtQhwaQCR5Es1OAi7o2qBVuu/tBAqx+sClVYGscPjOXqFDrA4OauKtaPnLecoeeklvhEYPdvCFFFPPbNWG41qFX5MdXr/S5mpaOcTZQ2/iDUV+ybsxT8XRqnAJGEF+n6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081272; c=relaxed/simple;
-	bh=ShLahNgIqlvswiVllfPnfXpX4lQOwJ7lWebTnqr/7MA=;
+	s=arc-20240116; t=1790081283; c=relaxed/simple;
+	bh=w5rTtIc34TBD/Z95LMLCoJEjRn01eaOde1yWbZKNdzo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QFcAlUjHiSXzKhoi1DulwtxVruYQWEDl25J09Kj3wF43/cL+CduV1tkoWdgl7ArkwJT/PPpt3KL+oA27Ver1QNsFZvC5FjkoEUXZ95InflAbbJlhinLeZIbM6IDLy7I8qbxIgHq42G4nKMe6LhT3bdkFt2ZANGWNQYnRirFARaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2JAridb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=k3v7xiHbLklyzgp5U6f7L3dBuLKwxPxIEBPbBLsl3TQjH6mtkVisuI9nT5KkNR9Eicq/rICTeHV2wkqY7QGE97/IH+YreIBseF0wkjtT4VbsjHSlYwWsGAgrFfBQ36vIxdOkdZXzEvx9fljEzc4v1n2HVZVoYYH1Pwt6SlLCY/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MGqvxvkE; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2JAridb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B88B1F00893;
-	Tue, 22 Sep 2026 12:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081270;
-	bh=U9BU4MOHJ5mh/38zwA4tdKQBHdXpHVmQsMlvX6VW6K0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H2JAridbobH9Zc59zKZQkCSiMMAzLFWnvdYiZFtD4puiF2z4+b9/wF1QSC3wc9zjb
-	 vZ6/YRfBbduJdzEHfjy/E5ortl+JFMzafjn9B7hwLVrqDOA1XCO/x5U3ZZHWKb5+8p
-	 toM44psiY5wnbURG47AZaj59za7eABNgiZ38jYsCkazwwvsSEZYUwlfSn6pk+YszPn
-	 CnrSS7qlS4sVc8xa0Igvc7BYcDkqfVQc8tFionmdcKDusW5/c5HYI2i/Nd+O6iXjd3
-	 qrzFna6+it++lrbyJlZc9KwqKbRApdMHE7s4ExiuKOtMPABWElFuLVcNNrQ2fHQ4Ro
-	 xDKRE2e4Tw0Aw==
-Date: Tue, 22 Sep 2026 14:47:40 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Thomas Richter <tmricht@linux.ibm.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 0/9] perf build: Fix builds with clang and BUILD_NONDISTRO
-Message-ID: <arJ47L9UDI6XYpVV@x2>
-References: <20260916061218.3061216-1-irogers@google.com>
- <aqrTdAVfVkzltJct@google.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MGqvxvkE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=+kUOP7ye1D0usoHFJvLHG3xOqZFziwv2m2KGtDa1lPc=; b=MGqvxvkEmdKTlBF848AIK5f+NG
+	yWeOGLaUW4bL20u7Mw1tcq4FKTN3c0XO/CpfrWgeFcZHYHnDvi0D6K6Xrc7nURUBVKdaSrm47yNDB
+	ZYla/EOK2wDY+ePXYUky77mAGJ0WsPcEdCIp206m5KhmqaNj+eZP4yQV+GPKmabwWaGU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8zuY-006aib-7X; Tue, 22 Sep 2026 14:47:50 +0200
+Date: Tue, 22 Sep 2026 14:47:50 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
+	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+Subject: Re: [PATCH net-next v8 2/6] net: dsa: motorcomm: use max_ports in
+ series for port bounds checking
+Message-ID: <e54c308b-3297-4abc-af95-5ef9c925931f@lunn.ch>
+References: <20260917082236.3427168-1-kyle.switch@motor-comm.com>
+ <20260917082236.3427168-3-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,25 +49,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqrTdAVfVkzltJct@google.com>
+In-Reply-To: <20260917082236.3427168-3-kyle.switch@motor-comm.com>
 
-On Wed, Sep 16, 2026 at 10:35:48AM -0700, Namhyung Kim wrote:
-> On Tue, Sep 15, 2026 at 11:12:09PM -0700, Ian Rogers wrote:
-> > Several perf build configurations are broken, and stayed broken because
-> > the build test suite doesn't cover them.
-> > Ian Rogers (9):
-> >   perf libbfd: Fix the clang -Wthread-safety build failure
-> >   perf symbol: Fix the build when demangling with libbfd
-> >   perf libbfd: Include the headers that are used
-> >   perf pmu: Include the headers that are used
-> >   perf build: Only pass clang flags to CXX when CXX is clang
-> >   perf build: Use the given CC rather than clang in clang builds
-> >   perf build: Check the version of the compiler that is used
-> >   perf build: Remove leftovers of removed build options
-> >   perf test: Add build tests for clang and libbfd demangling
- 
-> Acked-by: Namhyung Kim <namhyung@kernel.org>
+> @@ -402,7 +403,8 @@ yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+>  	mbus->read = yt921x_mbus_int_read;
+>  	mbus->write = yt921x_mbus_int_write;
+>  	mbus->parent = dev;
+> -	mbus->phy_mask = (u32)~GENMASK(YT921X_PORT_NUM - 1, 0);
+> +	max_ports = priv->series->max_ports;
+> +	mbus->phy_mask = (u32)~GENMASK(max_ports - 1, 0);
 
-Thanks, applied to perf-tools-next, for v7.4.
+A separate patch, but can this be changed to GENMASK_U32() so the cast
+is not needed? There maybe be other instances in this driver which can
+be changed as well.
 
-- Arnaldo
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
