@@ -1,155 +1,283 @@
-Received: from mail-dl2-f36.google.com (mail-dl2-f36.google.com [74.125.229.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9423A4BD34B
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FA04AB1A3;
+	Tue, 22 Sep 2026 20:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790108464; cv=none; b=c9r86rmfSoQ6FIRm8ksTSooudmSZukwVQ/sX2nijAK1QbH4juWJgEO+x1rEFQcUd+c9mzY+kPAx9gTehpJvlzYMZtkGKdhnRviJ53WhqSWh8b/DhY0dnn1oQgDiLLQtEVLMgzKGIFnLPWISAMOFmAAtZtdUCy5YBb/ePcpHetRU=
+	t=1790108468; cv=none; b=AraIQr++KbDtvhxtFfCGh6f1/h7E3sC3GZyKWSaRr8OqiRK/mzdDpqeCxXktg3a5MB4SaGX3Yju9t4IdgvnrgQ0IOt06TRC6Krn57H4dlvfJGgCfaWumCUFjOGWgpaKIgTRrFdjt5BNL8IgF3xXosSJhgDA9fLqa6yJiav7FCIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790108464; c=relaxed/simple;
-	bh=NfI/Dm5EYDMnMTAl3fxv1BGBbGtmkx+otpGuTeOYlsM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Vk3BHGX6hxH5GoLZOpUwdaYpbKk2wU0HbPsA4PxEocbV3IKaCjvd5PJvBsuUnvKCk5VXc9v32Z+kEfA8E/CrOesGBdrQMjGu0CL/SBlBnwsGFEpun840CpbkICk5rnELCofd2aZEj2B0DUEORWjkhxUEPSGdjzi0dhUwAnb0K8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DutUdb+W; arc=none smtp.client-ip=74.125.229.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790108468; c=relaxed/simple;
+	bh=LfqTiuToe7fF43mv5efr3OznHeOkkyK34UuQKPN6huo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AhzsObTI2h5+Afr4jlzKmSuHo+fe5TUEjp3tcKIc7eZ3VIL+ylZuqLho8v0PtL9h4VCRaRGcnGPYjoaCygNuurWZeIuXvEcjVOf9rtE+WL8pNmJpjyKEVyofBpaMcrG2c5fXY9kOY14MpgkW0ZJLQMrx7LR2xY4e8T7Qw9Oq5bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T4rLk54d; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DutUdb+W"
-Received: by mail-dl2-f36.google.com with SMTP id a92af1059eb24-14373bcc010so289557c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:20:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790108431; x=1790713231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NfI/Dm5EYDMnMTAl3fxv1BGBbGtmkx+otpGuTeOYlsM=;
-        b=DutUdb+W7oH2y12F62WwZ+QfU9FlvnMneV5ybbYTeOtcQRuBTuoK0zjFFRIbH0Exu9
-         Osrt9H7dE0A3nsvWeCtNndXvyy9hNpF25GQ6FkYFqkXijIqGbbeLFsihYTaFiLWMhy7P
-         9gsq7zLcDqfPdH3RJ+pNC1+v0ala/csBN5/beWj2yba2sp9RNiOP66hVxLCt77O4akuy
-         L1ZmB0/BdDtXf+onvJk4UKadegKtANfwWFCAZ1KUWZRBNSu7YS33DsyeX18OjoFXByU8
-         coM9g8xvEp0LVOMthJQK4U65QCaurvEekcPomIes2OWcerYjaAVN2j5A5dptjTWnMeZT
-         68kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790108431; x=1790713231;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NfI/Dm5EYDMnMTAl3fxv1BGBbGtmkx+otpGuTeOYlsM=;
-        b=mNJNYN1p3KD493bYHosCwiwzXa4aICELnC+B0VClzPc4VsVlUylBvSLFs0PLP/C70v
-         b7GmcPe87MOJU8LssHuYbw1CHc62DthwXXCIrPOkfKAZTwPmd5ZSPXsX38T090XXQRVF
-         fkc3AXI8bq7GrKDAEVRl/ga9YxZKIiup8fNWd5D2o0Sl6V+fTfvdFiMeohi1jLsdxV4C
-         vCZLf08V/Ck/eg6TGWDvZmaa+Jiw9RukLXIJ5I2lv8k6An9ZhaCAbsqZeX6w5e2rFtVF
-         9rRwOY1sk8ocAjuOUjjLSdImNV/wN+R08rObY361xh74PFDLwAOLZi6KA1JtCetRVkco
-         Qyqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNRJwzmwpMvM53JF32/6cKiXmMOuMU+1yH8yJ+l8IjgddC572WkpAxUpdfJKPaOBdznNnVfr+RswJtb1Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUy4wYFup9colWcsYUaYlzxB4A9E5H6GH7/LEq2dZ+sJuRWAGI
-	MiCC5dQjZI5B8NCtEldyp+zXsklXgcFrRNF7DgPslqvkITXavoiYYFu/
-X-Gm-Gg: AYBFou05oTFf2+0RCfHQ77yahy2pVmwO8RovQw7VJFDlVaiwYXVIOa2KDH8IE1a+3Uo
-	PteXMyeWxZW5f5KWI1Pxxn8tocYfXkyAb65nL67ePbWG2nXMKnq9ySatIysuz0QOEGTeDGFWVoL
-	ogcqTM3WNX329hQI1Kl5uXsMzyWOqw+oVmxcafrrLz2f1+Nckw58obAFvAa43CWWcTUaSyiNk9A
-	Tr68ZNy7P4Q1o98VdVX4rhFZieX66rzWZE5iQUvqQAJeWS2VM4dZgwJgCWbXnOLcNM4BYnyf3we
-	jESJkrZtJ6wBgQy/bV63F4AZsOn1mJlCqYtj4oE/3H/w3Fqa/Hbb3m43gFKQt0JVj+LYsTdqJfo
-	aTqy7ReHn7r1bKQ8Q+wRUiO29jp7IOVSDXOpM3omCLhsuoD/Zsje8cRMuU0S1rbmK0Hs4PKIH67
-	06UtQXUhQSuiLpD0mO2IGoSUEN29LbXyPQhOJHeKsutb7ppmVI9coSG7+sZZuas5u9Tv85nN+gk
-	edXP+oyo6JpdKYvnlgR1gmBI5AedRrQWCceqFGVmDDN8pOkD7ml4AbfAubxAIBvXyf7oHo1+EOE
-	58UODWXUIP1vk42mW/FQ
-X-Received: by 2002:a05:701b:455a:20b0:141:4951:f150 with SMTP id a92af1059eb24-144f90adb56mr519266c88.18.1790108422631;
-        Tue, 22 Sep 2026 13:20:22 -0700 (PDT)
-Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:f16e:2102:25ad:9cdb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f9820ca5sm716854c88.3.2026.09.22.13.20.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 13:20:22 -0700 (PDT)
-From: "Hemendra M. Naik" <hemendranaik@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	hemendranaik@gmail.com,
-	horms@kernel.org,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	tahiliani@nitk.edu.in,
-	vishy0777@gmail.com
-Subject: Re: [PATCH net-next v6 1/3] net/sched: sch_fq_pie: add per-flow statistics via class ops
-Date: Wed, 23 Sep 2026 01:50:13 +0530
-Message-Id: <20260922202013.25126-1-hemendranaik@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <179002340755.2160803.3742716999091408861@kernel.org>
-References: <179002340755.2160803.3742716999091408861@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T4rLk54d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790108453; x=1821644453;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=LfqTiuToe7fF43mv5efr3OznHeOkkyK34UuQKPN6huo=;
+  b=T4rLk54dJVrvtyRmCNmjd/jX0mlhj+dSHFNcsSyRjOTTztoMjAFi5Qi/
+   NK0MWFQVg+E+cCJY0O41v6MJ4W2AzD9vPxZcKqAAe+BcS0LyqKk7HmFvZ
+   /GP/fotYJUtjyk1CY8PTlgO4Ww9r4LxIYvCbPZ4618oFpR4qxvGwnXegW
+   CyMPHpE6xFhB0c2OpJgyn1Nn107Nc74ileJRuCLKO4YsDMVmzBtsjpx9D
+   nJgCoGKZJH4/S2Ooi900TPoZy59mPYlX0dRda81PovM9rAugfQ9ti8Dxv
+   hPTpvEnUTXGerauvOeNvYrhihNC/4XAISsusJei/e9D/TAAl0Vyzrfu5n
+   w==;
+X-CSE-ConnectionGUID: bYyW6nAeTTWJCh3lBBgvgA==
+X-CSE-MsgGUID: WmB9i6bGQCG0u+EvmhXqwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101340438"
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="101340438"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:20:30 -0700
+X-CSE-ConnectionGUID: VbC8ywc4RiGj0HieDxm3ag==
+X-CSE-MsgGUID: Ev1uNTSKTW2KB+Xdpd4QXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="269799195"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.110.60])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 13:20:30 -0700
+From: Vishal Verma <vishal.l.verma@intel.com>
+Date: Tue, 22 Sep 2026 14:20:07 -0600
+Subject: [PATCH v3 2/2] x86/early_printk: Add earlyprintk=tdx to drive the
+ UART with TDVMCALLs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260922-b4-tdx_earlyprintk_tdcalls-v3-2-6ebaa599df10@intel.com>
+References: <20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com>
+In-Reply-To: <20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com>
+To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+ kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Vishal Verma <vishal.l.verma@intel.com>
+X-Mailer: b4 0.16-dev-62088
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7218;
+ i=vishal.l.verma@intel.com; h=from:subject:message-id;
+ bh=LfqTiuToe7fF43mv5efr3OznHeOkkyK34UuQKPN6huo=;
+ b=owGbwMvMwCXGf25diOft7jLG02pJDFmbHvPsTQyODz5Z/4DfxKDOY6ZK1MuCYPdJBY7/9cMCd
+ E+9ML3WUcrCIMbFICumyPJ3z0fGY3Lb83kCExxh5rAygQxh4OIUgImUaDMyXJKaFpgYtae5allX
+ /Y2bZmunb3p+28LktPpzsUX/O5yE+RgZFvB7vM7WKHq9Sl26uv/yvyksh+8fNWYOO3X8RGuu1po
+ p3AA=
+X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
+ fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
 
-Thank you for the review. Replies are inline below.
+A TDX guest cannot execute port I/O instructions directly, but
+earlyprintk's serial console still issues plain inb()/outb() and lets
+each one fault into the #VE handler to be emulated as a TDVMCALL.
 
-> Is this paragraph describing a change made by this patch? The diff is
-> purely additive and net/sched/sch_fq_pie.c had no delay or avg_dq_rate
-> conversion before it, so the new fq_pie_dump_class_stats() is not
-> replacing any truncating computation.
->
-> The code that actually contains both of the described defects is
-> pie_dump_stats() in net/sched/sch_pie.c, which this patch does not touch
-> and does not mention, and there is no Fixes: tag.
->
-> Could the paragraph either be reworded as a deliberate difference from
-> the pie qdisc, or the series extended to fix pie_dump_stats() as well?
+While that works, it is a roundabout way to get a character out.
+early_serial_putc() polls the LSR, and then writes a byte, but since the
+TDX guest can't directly do port I/O, a #VE exception is raised. The #VE
+handler must call TDG.VP.VEINFO.GET to find out what faulted, and then
+it can issue the TDVMCALL that does the actual work.
 
-As you noted, the diff here is purely additive, so this paragraph isn't
-describing a fix to existing code in this file - there's nothing in this
-patch's history to carry a Fixes: tag for. It's explaining why the new
-code uses div_u64() and a widened u64 intermediate: to avoid a known
-overflow pattern, not to describe a prior bug in this file.
+This makes #VE a functional mechanism for doing I/O, which is not
+desirable, is unnecessarily complicated and fragile, and results in
+twice the number of calls into the TDX module.
 
-The bug you found in pie_dump_stats() is real, but it's independent,
-pre-existing (net/sched/sch_pie.c, ~2014), and unrelated to whether this
-new ABI addition is correct. We'd rather not fold a fix for that into a
-series about adding per-flow statistics - it deserves its own patch,
-separately from this series.
+Instead, add an earlyprintk=tdx option, which can issue the TDVMCALLs
+directly. Add a pair of tdx_serial_in() and tdx_serial_out() accessors
+and set them up in this case.
 
-We can make the paragraph read as a comparison rather than a claim about
-this file - e.g. "which can wrap" instead of "which wrapped" - a
-wording-only change, no scope change.
+Note that the output does not appear any earlier - "earlyprintk=" is an
+early_param(), so the console is still registered from
+parse_early_param(). This only changes how the bytes leave the guest
+once it is up.
 
-> Growing struct tc_fq_pie_xstats from 36 to 64 bytes is visible to
-> userspace in both directions [...] Does the accompanying iproute2
-> change parse defensively, e.g. copying min(RTA_PAYLOAD(xstats),
-> sizeof(st)) bytes into a zeroed local struct rather than bailing out?
-> [...] Could that reasoning be added to the changelog?
->
-> The alternative would be to leave tc_fq_pie_xstats at 36 bytes entirely
-> and emit a separate struct [...] Was that option considered and
-> rejected?
+LLMs were used under supervision to create this patch, to help
+understand the scope and mechanisms, create testing instrumentation
+(throwaway) to count #VEs in the serial vs tdx earlyprintk setups,
+and to drive lab machines to do this testing.
 
-Yes to both. iproute2's fq_pie_print_xstats() already does exactly this:
-it copies into a zeroed local struct and memcpy()s only RTA_PAYLOAD()
-bytes when the reply is short, so a short/zero-filled read still
-resolves to TCA_FQ_PIE_XSTATS_QDISC (0) and prints normally. This
-reasoning is already in the changelog - it's there now, not something
-we're planning to add.
+Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+---
+ Documentation/admin-guide/kernel-parameters.txt |  9 ++++++
+ arch/x86/include/asm/tdx.h                      |  3 ++
+ arch/x86/coco/tdx/tdx.c                         | 39 +++++++++++++++++++++++
+ arch/x86/kernel/early_printk.c                  | 41 +++++++++++++++++++++++++
+ 4 files changed, 92 insertions(+)
 
-We did consider a separate struct and rejected it. fq_codel can put its
-discriminator first only because it was designed in from day one;
-tc_fq_pie_xstats already has nine fixed-offset __u32 counters that
-predate this patch, so a discriminator can only be appended here, not
-prepended, without moving those offsets. A new, separate struct would
-still need its own attribute and its own print callback wired up in tc,
-splitting one qdisc's stats across two code paths for no added
-compatibility benefit. Extending the existing struct was thus better.
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 33cd30996e47..f8dac4a58327 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -1543,6 +1543,7 @@ Kernel parameters
+ 			earlyprintk=serial[,ttySn[,baudrate]]
+ 			earlyprintk=serial[,0x...[,baudrate]]
+ 			earlyprintk=ttySn[,baudrate]
++			earlyprintk=tdx
+ 			earlyprintk=dbgp[debugController#]
+ 			earlyprintk=mmio32,membase[,{nocfg|baudrate}]
+ 			earlyprintk=pciserial[,force],bus:device.function[,{nocfg|baudrate}]
+@@ -1556,6 +1557,14 @@ Kernel parameters
+ 			Use "nocfg" to skip UART configuration, assume
+ 			BIOS/firmware has configured UART correctly.
+ 
++			On x86, "tdx" is a fixed COM1 console, and takes no
++			options. In a TDX guest the port is driven with
++			TDVMCALLs rather than port I/O instructions, avoiding
++			the #VE exception that would otherwise be taken to
++			emulate every access. Outside a TDX guest it falls back
++			to port I/O, behaving like "earlyprintk=serial". If
++			CONFIG_INTEL_TDX_GUEST is not set, it is ignored.
++
+ 			Append ",keep" to not disable it when the real console
+ 			takes over.
+ 
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index 89e97d5761d8..325dd7c5929f 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -83,6 +83,9 @@ int tdx_mcall_extend_rtmr(u8 index, u8 *data);
+ 
+ u64 tdx_hcall_get_quote(u8 *buf, size_t size);
+ 
++u8 tdx_inb(u16 port);
++void tdx_outb(u8 value, u16 port);
++
+ void __init tdx_dump_attributes(u64 td_attr);
+ void __init tdx_dump_td_ctls(u64 td_ctls);
+ 
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index 7d1a93ee2534..d8887a2a524b 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -194,6 +194,45 @@ u64 tdx_hcall_get_quote(u8 *buf, size_t size)
+ }
+ EXPORT_SYMBOL_GPL(tdx_hcall_get_quote);
+ 
++/**
++ * tdx_inb() - Read a byte from an I/O port without a #VE
++ * @port: I/O port to read from
++ *
++ * Ask the VMM to perform the read with TDG.VP.VMCALL<Instruction.IO>, rather
++ * than executing an IN instruction and having the resulting #VE emulate it.
++ *
++ * Return: the byte read, or 0xFF if the hypercall failed.
++ */
++u8 tdx_inb(u16 port)
++{
++	struct tdx_module_args args = {
++		.r10 = TDX_HYPERCALL_STANDARD,
++		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
++		.r12 = 1,
++		.r13 = TDVMCALL_PORT_READ,
++		.r14 = port,
++	};
++
++	if (__tdx_hypercall(&args))
++		return 0xFF;
++
++	return args.r11;
++}
++
++/**
++ * tdx_outb() - Write a byte to an I/O port without a #VE
++ * @value: byte to write
++ * @port: I/O port to write to
++ *
++ * Ask the VMM to perform the write with TDG.VP.VMCALL<Instruction.IO>, rather
++ * than executing an OUT instruction and having the resulting #VE emulate it.
++ */
++void tdx_outb(u8 value, u16 port)
++{
++	_tdx_hypercall(hcall_func(EXIT_REASON_IO_INSTRUCTION), 1,
++		       TDVMCALL_PORT_WRITE, port, value);
++}
++
+ static void __noreturn tdx_panic(const char *msg)
+ {
+ 	struct tdx_module_args args = {
+diff --git a/arch/x86/kernel/early_printk.c b/arch/x86/kernel/early_printk.c
+index cba75306e5b6..194737a3e9a0 100644
+--- a/arch/x86/kernel/early_printk.c
++++ b/arch/x86/kernel/early_printk.c
+@@ -21,6 +21,7 @@
+ #include <linux/usb/xhci-dbgp.h>
+ #include <asm/pci_x86.h>
+ #include <linux/static_call.h>
++#include <asm/tdx.h>
+ 
+ /* Simple VGA output */
+ #define VGABASE		(__ISA_IO_base + 0xb8000)
+@@ -111,6 +112,23 @@ ANNOTATE_NOENDBR_SYM(io_serial_out);
+ DEFINE_STATIC_CALL(serial_in, io_serial_in);
+ DEFINE_STATIC_CALL(serial_out, io_serial_out);
+ 
++#ifdef CONFIG_INTEL_TDX_GUEST
++/*
++ * A TDX guest cannot execute port I/O instructions, so ask the VMM to do it.
++ */
++static __noendbr unsigned int tdx_serial_in(unsigned long addr, int offset)
++{
++	return tdx_inb(addr + offset);
++}
++ANNOTATE_NOENDBR_SYM(tdx_serial_in);
++
++static __noendbr void tdx_serial_out(unsigned long addr, int offset, int value)
++{
++	tdx_outb(value, addr + offset);
++}
++ANNOTATE_NOENDBR_SYM(tdx_serial_out);
++#endif /* CONFIG_INTEL_TDX_GUEST */
++
+ static int early_serial_putc(unsigned char ch)
+ {
+ 	unsigned timeout = 0xffff;
+@@ -196,6 +214,22 @@ static __init void early_serial_init(char *s)
+ 	early_serial_hw_init(divisor);
+ }
+ 
++#ifdef CONFIG_INTEL_TDX_GUEST
++/*
++ * Use early_serial_base (COM1) and same default baud rate as
++ * "earlyprintk=serial"
++ */
++static __init void early_serial_tdx_init(void)
++{
++	if (cpu_feature_enabled(X86_FEATURE_TDX_GUEST)) {
++		static_call_update(serial_in, tdx_serial_in);
++		static_call_update(serial_out, tdx_serial_out);
++	}
++
++	early_serial_hw_init(115200 / DEFAULT_BAUD);
++}
++#endif /* CONFIG_INTEL_TDX_GUEST */
++
+ static __noendbr void mem32_serial_out(unsigned long addr, int offset, int value)
+ {
+ 	u32 __iomem *vaddr = (u32 __iomem *)addr;
+@@ -414,6 +448,13 @@ static int __init setup_early_printk(char *buf)
+ 			early_serial_init(buf + 4);
+ 			early_console_register(&early_serial_console, keep);
+ 		}
++#ifdef CONFIG_INTEL_TDX_GUEST
++		if (!strncmp(buf, "tdx", 3)) {
++			early_serial_tdx_init();
++			early_console_register(&early_serial_console, keep);
++			break;
++		}
++#endif
+ #ifdef CONFIG_PCI
+ 		if (!strncmp(buf, "pciserial", 9)) {
+ 			buf += 9; /* Keep from match the above "pciserial" */
 
-
-
-pw-bot: cr
-
-
-
+-- 
+2.55.0
 
