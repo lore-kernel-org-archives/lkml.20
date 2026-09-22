@@ -1,87 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D463EB0F7;
-	Tue, 22 Sep 2026 06:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2194E1C99
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790059581; cv=none; b=XB003bTdTYuFSXzYb3lk85tdzKGS0EsBLQX72nBB9dbNB0kiw0cY544W2Egfa8lSW76UN1PgskAMUu9PbxnQrB8ikK7YdjAmZeXvaT9Ic0cZoHfSa8LOxdYT8za75crKhFk/TlXEyMFgVAoQL3gnb0NzzjnWeedyOhIHZ8jZu7E=
+	t=1790059620; cv=none; b=pHFVs3dVeAC1DtgVpbWWwUiJFWU8ISTZtVL6HZHr2ko5oFryNJ20Sn0zLWOpo6jjugLhrrF2gAl/RGKNuqu+niSXKavkVmgitvjmOpMNOPQ3a0WQpOT4OjVJ+a8+I7Uq2MrDnLgFhc4eEtS55GlsALLX0kLS0+lH3ix6iiEO8Zw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790059581; c=relaxed/simple;
-	bh=HiLAUlk7tp4IKxyU2eei1MfApC4m812B/TJuAW+00C0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PvDlyZdzEy42aT1XTEqZG0+HEIqLzS0DVnJRTOTu98RQ/5M+fbRF/jy11W1xiSpaf8SFFBwJENAcwpZ6EuASIn//5zElL0zlGK570d3CZONQDLyPq5+9Biry2XG1VuPJaZUJPlC6topiVAObpHtxHdBqk/kImdaX+T7zZWvTmCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsMF0hks; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790059620; c=relaxed/simple;
+	bh=MGFVBQ+TrHTe9DbJ2aRmYU3aQGRxXPtwm3CTto3c1KY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=duZbUKxUFbi1Z8Gj3zu7li+ZaiHoSW8jsnS9XxFcpXXXQPEqbv9Ub3cuRlotH96QsESL06feyk2s/AKanvEuyrgL/6vdEfvzUPy5ErM67Kob2o2FKAvNhjrfjoAn8ImjiUgZEpsmrjrUSVZ+O74/Lk5rxsL2dEavG95vGf9+yjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Povh2Of+; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsMF0hks"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A11E1F000FF;
-	Tue, 22 Sep 2026 06:46:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790059580;
-	bh=JoYNk54DolH7u5h/eDEws4Flazl5+JKTFfpxG7rlqjs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JsMF0hksnW4BoKtkXHEJGVuBXvkcurW19X8cP/po2JYYKHeW8yIhTaDaGfsup1Mps
-	 g6Z3j5kQkRvxoIrRTNc3mLHewRn6j0MQDrAeG3xZHf1FJOgNkDhj3S0wTG6xGU9wQ3
-	 +jLouA0DBOJ8nGu/M3kE8c8TRtm5aQ7HV/SQCZt9CsUup0Ib8I4pwy8DdKq0siiU/E
-	 E8/gCuO71qzUn1mSrKm4fpRlmfYuuGK89SUdLgDlGkvfB15fAGZyhXgw/XAJkePbwa
-	 OcDNQs6PkZLisTUtNF4N7q2AMCvwnaFmy4i+70jJ3YRBf+4Ojh/qkUrfDocX1KGXH3
-	 qq/FIvJY/GadQ==
-Message-ID: <620b8a46421cc1f1f94890dd541ddf54d351c459.camel@kernel.org>
-Subject: Re: [PATCH] net/rds: fix incoming message refcount leak and header
- bounds check in rds_recv.c
-From: Allison Henderson <achender@kernel.org>
-To: Hui Peng <benquike@gmail.com>, davem@davemloft.net, edumazet@google.com,
-  kuba@kernel.org, pabeni@redhat.com, horms@kernel.org
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	rds-devel@oss.oracle.com, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2026 23:46:18 -0700
-In-Reply-To: <20260919223429.3882046-1-benquike@gmail.com>
-References: <20260919223429.3882046-1-benquike@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Povh2Of+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790059617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SQccuqJyhP5fDCQHYD5pQI3YA0ykJFivdKYX/lD7ySw=;
+	b=Povh2Of+/6JZYmtPHm5RAMyJpzVlaiNehs95XUo5omJ9gEuDcJNcBDf7i8b7kJTTqUS2pa
+	rij/dNyGaqhKIY+frKHlc9xme4KZe1m27HIMp6ba5AMhnq5QVzH7pmASMa85+xoepkcXL3
+	uNpZzAMbKD1uzpMThhzaGTEENzmF3uU=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-400-Z4Lm0PUiPIWzKmAWxoTMWA-1; Tue,
+ 22 Sep 2026 02:46:52 -0400
+X-MC-Unique: Z4Lm0PUiPIWzKmAWxoTMWA-1
+X-Mimecast-MFC-AGG-ID: Z4Lm0PUiPIWzKmAWxoTMWA_1790059609
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 42F1D1809C96;
+	Tue, 22 Sep 2026 06:46:49 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5A95D426;
+	Tue, 22 Sep 2026 06:46:42 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH] sched: Replace __ASSEMBLY__ with __ASSEMBLER__ in sched.h header
+Date: Tue, 22 Sep 2026 08:46:41 +0200
+Message-ID: <20260922064641.61120-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Sat, 2026-09-19 at 22:34 +0000, Hui Peng wrote:
-> In net/rds/recv.c, ensure incoming RDS message references (rds_inc_put)
-> and socket receive queue bounds are properly balanced when handling
-> error or truncated incoming frames.
->=20
-Hi Hui
+While the GCC and Clang compilers already define __ASSEMBLER__ auto-
+matically when compiling assembly code, __ASSEMBLY__ is a macro that
+only gets defined by the Makefiles in the kernel. This can be very
+confusing when switching between userspace and kernelspace coding, or
+when dealing with uapi headers that rather should use __ASSEMBLER__
+instead. Let's standardize now on the __ASSEMBLER__ macro to avoid
+this confusion.
 
-Thanks for the patch but this description doesn't seem to quite describe th=
-e code.
-I don't see any new puts, or a leaked reference.  I'm presuming there must =
-have
-been a mistake of sorts?
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ Note: This has been split from an earlier bigger patch of mine into
+       this separate patch to ease reviewing.
+       I also thought I had sent out this earlier already, but I cannot
+       find the patch on lore or any other public inbox anymore, so maybe
+       it got lost along the way. Anyway, sorry if you got this twice!
 
-Allison
+ include/uapi/linux/sched.h                         | 2 +-
+ tools/perf/trace/beauty/include/uapi/linux/sched.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-> Fixes: bdbe6fbc6a2f ("RDS: recv.c")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/net/rds/recv.c b/net/rds/recv.c
-> index 6204e577a90a..0743706af8ca 100644
-> --- a/net/rds/recv.c
-> +++ b/net/rds/recv.c
-> @@ -637,8 +637,10 @@ static int rds_cmsg_recv(struct rds_incoming *inc, s=
-truct msghdr *msg,
->  		for (i =3D 0; i < rs->rs_rx_traces; i++) {
->  			j =3D rs->rs_rx_trace[i];
->  			t.rx_trace_pos[i] =3D j;
-> -			t.rx_trace[i] =3D inc->i_rx_lat_trace[j + 1] -
-> -					  inc->i_rx_lat_trace[j];
-> +			if (inc->i_rx_lat_trace[j + 1] &&
-> +			    inc->i_rx_lat_trace[j])
-> +				t.rx_trace[i] =3D inc->i_rx_lat_trace[j + 1] -
-> +						inc->i_rx_lat_trace[j];
->  		}
-> =20
->  		ret =3D put_cmsg(msg, SOL_RDS, RDS_CMSG_RXPATH_LATENCY,
+diff --git a/include/uapi/linux/sched.h b/include/uapi/linux/sched.h
+index 33a4624285cd4..19ffeba894283 100644
+--- a/include/uapi/linux/sched.h
++++ b/include/uapi/linux/sched.h
+@@ -53,7 +53,7 @@
+  */
+ #define UNSHARE_EMPTY_MNTNS 0x00100000 /* Unshare an empty mount namespace. */
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ /**
+  * struct clone_args - arguments for the clone3 syscall
+  * @flags:        Flags for the new process as listed above.
+diff --git a/tools/perf/trace/beauty/include/uapi/linux/sched.h b/tools/perf/trace/beauty/include/uapi/linux/sched.h
+index 33a4624285cd4..19ffeba894283 100644
+--- a/tools/perf/trace/beauty/include/uapi/linux/sched.h
++++ b/tools/perf/trace/beauty/include/uapi/linux/sched.h
+@@ -53,7 +53,7 @@
+  */
+ #define UNSHARE_EMPTY_MNTNS 0x00100000 /* Unshare an empty mount namespace. */
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ /**
+  * struct clone_args - arguments for the clone3 syscall
+  * @flags:        Flags for the new process as listed above.
+-- 
+2.55.0
 
