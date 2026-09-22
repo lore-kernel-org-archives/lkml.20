@@ -1,181 +1,122 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AE14A68A8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7E24A688B
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790057525; cv=none; b=Un3BTUyRV4QMaoIE1JEJnBfDvAMwUJKzbxtCG17KHx+KQoB/oOnD2YhzOCFUgKx63iw54wyiqWB1Zl6MvlVzCSb7jz5JuCdUE0QlibT+vBJMnnLm6zfTvvecsS3TDfVJmS03DJljS3m+JTyn0RNXSpVJ/Zm461ECryFPGV59JQg=
+	t=1790057599; cv=none; b=FsfTD5eCUlAj/5IcjeulMpgN6WYu/Y6VReaEsAfnCOXdGJM8KDvqgYhIxqwiem8CDZD9muNmplQYSvFaiGXJtXeWtjPS2aZSyz8JcRKnPA4rrTCWwlaehGwT+jijVwSGQk3/aEhZo2DYtvzJ1iTCjOaD66zmEhDU3T0TjYwRyQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790057525; c=relaxed/simple;
-	bh=dTPBRt1/cBuUzzuTU5LVCE6TjlRw01N5hVVOsf87m2w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=Xcf1g6RebiDyHQH4mf1J9bCoqUttJn7iyZuGqmMwYJYTr6zmFY1Zw/Deiv11AbQ7TdwuTkNcgkYMB3QDI4MjIDVrl0enS8eKmAWtctdCew2xltqT6zctYt1Salmyz5s7oTSB70HvaRYCyB/bhA2KcxvdB0AO0dtV6M/waB6anDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=BknPp55r; arc=none smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1790057599; c=relaxed/simple;
+	bh=OmlUKj/ulZo6jjnsRsp3aCysDEXAdhwMqxnmMiR2oGY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P0dxIbRtx4IZN9B9gUg8JEDooNZe+scwItG+dFc7SLTlC4G5rX7F21NUIQsF5OEGd27zN0d1uYN2uSChBVH08QHvEpMPq8lVnZPVLfn6dDrWv7huHMkKTvI+ljBTmqLNIpY+ZfFQA5DxO3mo+4a0ucr51G8AMeIzdu+RMF+EFlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d0Y7/6ll; arc=none smtp.client-ip=95.215.58.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="BknPp55r"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M5QK2m091855;
-	Tue, 22 Sep 2026 07:11:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=8X7CkusW0IfB/2rTSn/EA15
-	auoWZN8aQINjTfeKtdq4=; b=BknPp55rouYhdGiL2w+MeinGwLdVPAnEZhfrNP3
-	4O1CV/3PM7f69OBCgWOAklfx91JS9lI5RSXaSqVlbp8KnxBAt5JqrkWxqEjD7Ksp
-	Y3xP8AxtxFU08vmnxerehiQ+NCXFy81oiiaCgJidH8vpJl3LdovC9XUtNlMypqVp
-	a8DIVfLdu6X5ZQ2szu9f/+uU0H4VL6gMnER732+M5IHftxflnWnl9Z7oS7JWbuZK
-	q+tzg9GS+4woKOFnAnnInH8N9+8yYVC0zm89SBEtkjpff/O1SSBU7S0Q18xscY+x
-	4Aa6JI1goSq/RqCe00676zWTVqXAt9aanvPtYPiykYo4IxQ==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gsgnq249s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 07:11:43 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 22 Sep
- 2026 07:11:41 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 22 Sep 2026 09:11:28 +0300
-Subject: [PATCH v4] drm/imagination: Fix parameter validation in
- pvr_fw_object_destroy()
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d0Y7/6ll"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OmlUKj/ulZo6jjnsRsp3aCysDEXAdhwMqxnmMiR2oGY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790057590; v=1; x=1790662390;
+ b=d0Y7/6llTmF7IRliH1O2KdHfiHLDlPWbdRFmQnca4n4yR5RzHNd9pszM5y4kT7tBOqfi1Q42
+ WnrsgbxCYhJYFa/nbLXsT+A3yswGgEooLSIF5qitA5a+QUIzTZBWRRo+kWKwYq8t0vvUzP5pXBM
+ F2xMPkb35eRPu7ZRcC4Z0jLY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9466fae14cfb5157;
+	Tue, 22 Sep 2026 06:13:10 +0000
+X-Mizu-Trace-ID: 9466fae14cfb5157
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ddb3c0eb-2a95-4af8-a9b9-a0624d38a7bc@linux.dev>
+Date: Mon, 21 Sep 2026 23:13:05 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v1 0/6] bpf: Scope callback arguments to their
+ frame
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Amery Hung <ameryhung@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Nicholas Carlini <npc@anthropic.com>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <20260922010333.1226537-1-ihor.solodrai@linux.dev>
+ <DLLGYV7DI406.JRNDNAZ4S29I@gmail.com>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <DLLGYV7DI406.JRNDNAZ4S29I@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260922-fix-null-pointer-dereference-v4-1-6c7369b83437@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAA8csmoC/43OwQ7CIAwG4FcxnMVAUQRPvofx4FiZNcoMzEVj9
- u7CPKjxoIce/rT5/t5ZwkiY2GpyZxF7StSGHObTCXP7XWiQU50zAwFaGAnc05WHy/HIzy2FDiO
- vMaLPExxycMZKOYfaGsMycc4ruo78ZvvM6VId0HXFLBd7Sl0bb2N/L8vdn1W95JJ7bSvwHu0Cx
- JpOTYdu5toTK109vDQr1A8NsiaV8d5W2hux+NLUmwa/flPlN2HtUius9VJ/aMMwPABfy7TAdwE
- AAA==
-X-Change-ID: 20260812-fix-null-pointer-dereference-2c891142d988
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>, Sashiko <sashiko-bot@kernel.org>,
-        "Alexandru
- Dadu" <alexandru.dadu@imgtec.com>,
-        Donald Robson <donald.robson@imgtec.com>,
-        Sarah Walker <sarah.walker@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790057501; l=2989;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=dTPBRt1/cBuUzzuTU5LVCE6TjlRw01N5hVVOsf87m2w=;
- b=2XlUJ2Vb7JqvHPL9ERsDjyC1akbLDPyDuPFBoecrQeO7csovYOHX392U/acOU0D9kaGt4Z68L
- pjOEWwY+F6UDy2S+YtkuMqdU3zHd6JLLBwQAo9AJgADxtLJI/zYaGxI
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA4NiBTYWx0ZWRfX0QHVrlyohn0/
- X7syzwWn6H8EBarQqwvcISTt6yeo4Un+dhDZ+4Xe3NJWm8sQo7sU8wm50L09uAFjsXpmygVV+fD
- 1HjbgnsIJ5ehDSeQNyZD6PAXQlL6dRLUk7FY4xJhIz/J6ojHZrTu7NlfVMmcAcPsEW1B8vswTE8
- /pDn6mfzL4X4UAJrntYfESntRdEb2YW/Zku4OztEAV4WKNypaTJ0MSqZknZk1kbgSxwKA1RUQID
- t+9KqzP3Vh4xbaozO86RczCNzqxkAkq5/zVBHGWWAHHkV81zi7TMtN9YVxYT0vyo/KbIoWDGo3k
- mkbdOs0xS/sERcGOYDmCsX3h/yH0rgjJfKu2ag48b0OKYkHXfr3/QYBuUrIOnuIseLGsDZhS5hd
- yAALzHDOoeiHW8Y3HFBn0Vn61jLc68qAnD3opsw3X8ZJYakCmN1UHJrBJPll5Z8PJ6E+AJLoX3M
- ThKXfV/TJ0dXw87nm5Q==
-X-Proofpoint-ORIG-GUID: dYukE0-1_-6dzPa21YfW1eDK7TC4NA1B
-X-Authority-Analysis: v=2.4 cv=fYs4WEQF c=1 sm=1 tr=0 ts=6ab21c1f cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8
- a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=craggXHLatwVVKPEDpEA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: dYukE0-1_-6dzPa21YfW1eDK7TC4NA1B
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA4NiBTYWx0ZWRfX6ZRSPOKtllPW
- 0nqOD7BolWSCPfx2jmkVQn7AaiHmD3mfYILjF4CgjYEJ5tUGu31vnGBQpKZSOGzy2P+AVVdKlRS
- nqtgwJsJ/T1or8XiwOmJUjJ2md+pVJI=
 
-Fix parameter validation to avoid possible NULL pointer dereference from
-pvr_fw_object_destroy() when handling allocation failures.
+On 2026-09-21 6:55 p.m., Alexei Starovoitov wrote:
+> On Mon, Sep 21, 2026 at 06:03 PM Ihor Solodrai <ihor.solodrai@linux.dev> wrote:
+> 
+>> Neither has a local fix: both arguments point into a helper's own
+>> frame, with nothing longer-lived to anchor them to.
+> 
+> It's the same problem as a pointer to callee's stack.
+> check_stack_write_fixed_off() deals with it like this:
+>    if (state != cur && reg->type == PTR_TO_STACK) {
+>            verbose(env, "cannot spill pointers to stack into stack frame of the caller\n");
+>            return -EINVAL;
+>    }
+> CONST_PTR_TO_DYNPTR wasn't spillable before 7.3, so nothing depends
+> on parking it in the caller's frame. Reject it there too ?
+> and then no need for REF_TYPE_FRAME complexity?
 
-Sashiko report:
-If pvr_gem_object_create() fails in
-pvr_fw_object_create_and_map_common(), fw_obj->gem is explicitly set to
-NULL before jumping to the error cleanup path.
-The cleanup path then calls pvr_fw_object_destroy().
+If we focus on the nasty bpf_user_ringbuf_drain() bug specifically,
+then yes, check_stack_write_fixed_off() change patches it:
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/dri-devel/20260810132202.3C16D1F000E9@smtp.kernel.org/
-Fixes: cc1aeedb98ad ("drm/imagination: Implement firmware infrastructure and META FW support")
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
-Changes in v4:
-- Move the structs declarations after the early return to fix V3.
-- Added kfree() to the early return path.
-- Link to v3: https://patch.msgid.link/20260922-fix-null-pointer-dereference-v3-1-f099763ed676@imgtec.com
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index d62c0f74cff5..f261423e9282 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -3668,7 +3668,8 @@ static int check_stack_write_fixed_off(struct 
+bpf_verifier_env *env,
+                         verbose(env, "invalid size of register spill\n");
+                         return -EACCES;
+                 }
+-               if (state != cur && reg->type == PTR_TO_STACK) {
++               if (state != cur && (reg->type == PTR_TO_STACK ||
++                                    reg->type == CONST_PTR_TO_DYNPTR)) {
+                         verbose(env, "cannot spill pointers to stack 
+into stack frame of the caller\n");
+                         return -EINVAL;
+                 }
 
-Changes in v3:
-- Skimed the commit message removing redundant information.
-- Refactored the parameter validation to return early.
-- Link to v2: https://patch.msgid.link/20260903-fix-null-pointer-dereference-v2-1-138ff9b6f805@imgtec.com
+However it doesn't cover some of the new test cases:
+   - user_ringbuf_callback_park_data_slice
+   - user_ringbuf_callback_park_kfunc_slice
+   - user_ringbuf_callback_park_clone
+   - user_ringbuf_callback_park_clone_then_slice
 
-Changes in v2:
-- Commit message and cover letter updates.
-- Link to v1: https://patch.msgid.link/20260812-fix-null-pointer-dereference-v1-1-f69b2ffe9520@imgtec.com
+(not counting the diag message diff)
 
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Donald Robson <donald.robson@imgtec.com>
-To: Sarah Walker <sarah.walker@imgtec.com>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/imagination/pvr_fw.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+The original suggestion that came with the bug report was a
+cb_dynptr_id field in bpf_func_state set up in
+set_user_ringbuf_callback_state() and read in prepare_func_exit() to
+release it there.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 850a3ec8e775..39d70f51f126 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -1425,6 +1425,14 @@ pvr_fw_object_create_and_map_offset(struct pvr_device *pvr_dev,
-  */
- void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
- {
-+	if (!fw_obj)
-+		return;
-+
-+	if (!fw_obj->gem) {
-+		kfree(fw_obj);
-+		return;
-+	}
-+
- 	struct pvr_gem_object *pvr_obj = fw_obj->gem;
- 	struct drm_gem_object *gem_obj = gem_from_pvr_gem(pvr_obj);
- 	struct pvr_device *pvr_dev = to_pvr_device(gem_obj->dev);
-@@ -1439,8 +1447,7 @@ void pvr_fw_object_destroy(struct pvr_fw_object *fw_obj)
- 			return;
- 	}
- 
--	if (fw_obj->gem)
--		pvr_gem_object_put(fw_obj->gem);
-+	pvr_gem_object_put(fw_obj->gem);
- 
- 	kfree(fw_obj);
- }
+The cb_dynptr_id seemed way too specific, I didn't like it. So I've
+tried to figure out a feasible generalization of the problem, and came
+to "verifier can't track a lifetime of a ref tied to a frame", and
+then to this series.
 
----
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260812-fix-null-pointer-dereference-2c891142d988
+I think we need to decide whether the REF_TYPE_FRAME is a useful
+mechanism in principle, and whether it's sufficiently generic. It at
+least covers the cases in this series and more.
 
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+For example AI also flagged for me parking the vma argument
+(PTR_TO_BTF_ID) of the bpf_find_vma() callback. It's low severity,
+which is why I excluded that from the series, but "reject a reg type"
+wouldn't work there AFAIU (we would break many legitimate programs).
+
+Opinions?
 
