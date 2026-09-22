@@ -1,62 +1,64 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEF4544D43
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EC7541453
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080644; cv=none; b=FPi5DuuWsKLA2RQLVu4gfE9Kx48HQ1DCmrHX+jHcXtq9I0akhAe5N6Foo//FQL7YwgUHfc1pY03Za225+8gVYADC6zrZVDFJ5mjLtGuzmgvjmki/JqASgiGLXNxoF3n7IcPtTmMdZ8uKabQ9YeXshUr5voAUmk38ECGEeKHIpWc=
+	t=1790080651; cv=none; b=pZa09op8cbEimfhZAba439l1kDsojXvC6Ubp1rw/3vDujEH7lLipRb4w/OXKezjtEsObkCbn0ews4LzR2wFn6CRX+KKm6dFtR4dv4koms5Rb3pRgTFu2W3jtUiHDXl/VECx+DwpgXL00ZU7ZNbNnKagQgOebZAR+slPCXGCx5Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080644; c=relaxed/simple;
-	bh=5NrQ0i9ZNaZcHW2sMy4/POEkSP7UIxG/VSc5oqI9g54=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aVZjeRv37RtHKmLNpReI795N91FeHnFyqf+nqOFRLBhsZ3fj3Mye+IVcy/vzFrfORUYAv+73UAoS9oXbNHEkmC0YE9EYGNKt3/7b3JAzcvY7lrzpmvVHLVxGee5e0T2GevvmVqH9m0F0/kV/Lk4TiU/YAKcvHPaT3QF6h9YNzXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UyZc9rVA; arc=none smtp.client-ip=209.85.215.177
+	s=arc-20240116; t=1790080651; c=relaxed/simple;
+	bh=GNNcznWSFBk9BfsFx6sbFhNnUmqowOVWfdNrSDVGjJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s1mmsksPbd4t06c506Ar3Hzn1Xiaq6gNS2fEXKwrzVkAlIIm7V/8Q0umtzGAmBQ2Dlwh9EeeasdP82FSPdxlwB9nK/CWy0OCCHOLEAcMI+daTrO+IqZ+Aa8g79mFycpDjOXqpJG3UvszeRgGn3/ljWlMPZYREKUJ6DpCbE569TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s9ajlz7D; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UyZc9rVA"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc147d86bebso862458a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:37:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s9ajlz7D"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so3162710a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:37:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790080639; x=1790685439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sSFIDyEBXWq4SCc8zo/QNh6HqGLSDKyG+17t+RiabUE=;
-        b=UyZc9rVAIR1FO4jx4tky8KiEODCyCzpVM5LNa42EL7j0C5BZzIReQkVEZgHLw3MGoW
-         ZRp2MbW5IJgQPCx4ByFLWmS+0jTY7a7hBOoYq6akYT/WSCYjt18XjN2U+6uO5xlQZ0lR
-         mIoVEm4/H6AGEBTVHqZceU0x/+cn9PgAsuXdbAfiIHU9wFN8igaQfeBfwr1flKDIRrya
-         ynxE9916lCHRwlDj2wT7HFz7yZ/ki+roFhnJ2AHyXmFHhooh+BWwKKv9xbCpKat5UkJ5
-         hq/UMFRDAM3ImytmAPVGnxPK+uZB31b7nyvjgJPTZS4cxnhK/Eu2sYmpRS9J9sc4MLoi
-         ZA1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080639; x=1790685439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790080646; x=1790685446; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sSFIDyEBXWq4SCc8zo/QNh6HqGLSDKyG+17t+RiabUE=;
-        b=ROJBXg5392Q/mPuS/s/DOWAfbtGPaCGFCEOJ49xl8z9wMXqv7bm9W+mFQYVtHJHlyc
-         mGUyoOREEcEtqiIU2wyUvA3rucieyrMUH/hi0NP6nBM/N4BPczUBY1nq30cy/1SfSoKi
-         J2Gte2jzqpdWzxMkJYmkXbYQQo2JykdYbheAGXr+ylIGBX5iQcsqXwi1N8fp3hOlmssN
-         TyJNObviSdYnLhjGW4bpEttIc1r2P6rjNmkd4d1nC2gS7IxJ2fwP+Ag8M50JTrV9TIOk
-         qw2q+KcVU0Cnf258847TtHvIpMFGARRbHONVuWUJ8PW3rjpMlL1jActb+u39wO1rOKjr
-         2ZFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwRnCJbZpsLOyiuUPd9WLS+A3gW7o416q156CGw6dz/Z4ldUmDGr0MERobaayJdeftAKAr4N5VsbhUTl/M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLBH3dL4Djzuak02SKv/k3Hjo8rSL6b13fXl7HolW2+At6GAf6
-	40kXOKJGcEMVqZAhI8RtYbKnPfOCWtLq7/+FNbQCLC7S9ynaEjNunEnk
-X-Gm-Gg: AYBFou2rBCHZhNV6SZ+CTK1+5Xkoc4tYkP8zPiJo8NYEsF1oKqtRCJLsqURSJItuX+K
-	LinuO00/1fBNGtbJIEbXc+krU1qCuFah4dMcI5Hgzpkld0FGnAyZOauq5NxvwnYMGwWGBTCrgHv
-	yienbyrhO9/AtuEYMTm3GpzHBsGD6ZkAjeLx2/gm9+/2tRBD9mKZs25X3cnTD80gxs5jnUsjm6C
-	PmE0c29f8gVlKTSEC6JjGo9Lg1YaQqEvV7QKCWQc/8OsAZAEXj970+4BdRO0ges1WBfdrIg2VJL
-	DWKJzG3NHyYkB2X/ULePgw9kL+924tDh/+5l59Lqd4KfJgRKrk25aZRun242syVtnHlrk8sVn3E
-	fpSelcVkDwCGrb1xqi2JJdufrfST9vKJF+wikDQAT/LpVwLx3zp8Wkrk/mCeMTx8bLnnWpohuTV
-	UEOU54K7Iiz86pdjbHQoZW1aKIz/0E7iqQ7xBjEC/qSWXU8nx60+SoUjiHjWd+niO2BIRmTrNyP
-	37mBRxAGooCdOndpupsYPMQwPI=
-X-Received: by 2002:a05:6a21:7e01:b0:3db:280:b0f with SMTP id adf61e73a8af0-3ddec65f674mr701021637.14.1790080639455;
-        Tue, 22 Sep 2026 05:37:19 -0700 (PDT)
+        bh=AOdg97xUtxa8AhSsk3nKT5LmiSCoT1EL2eRC7gkp05s=;
+        b=s9ajlz7DsXauqODVhAgShrkCAxfxA22SAojiHI3g4qJaoFVWlbD66tWqYv2Ws4P2UT
+         3wgBFWckctcn4iCS+QAlT7K8BAeLgaWXVQMTVJnyCQRH5cA/GkP5u5zP+UgFrI6oK4ph
+         buLBP/6mNrXDUHP24p4mfjzUMt+Pi43boGZ2G+gSZNe30iR5iqSstC04cOuRmSFljG9R
+         CK9FAQ5GtWylBdfTpIrq2EV0Ux2vq6s6PDVgW6tCZTFKOWGTURkO5N5hxjCn05Rw8mbX
+         GKDiOFyPoZwHVRGZKIagz+a/5M2MtdWBh7IV9k02z9YPQpanxbKAw5rptjEtuJo9ArKH
+         KRrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790080646; x=1790685446;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AOdg97xUtxa8AhSsk3nKT5LmiSCoT1EL2eRC7gkp05s=;
+        b=lE/PHD6WnpUAPsielwotIBk9LZ2rfcw8ssjxRbvmt/IIUa+o3tDsh5U7WmnpIhLKwj
+         81Zs6MWG3z53UPmH7HdzyER0INC/MCmM/GTlBwj0oCyHpBWjAmAF62LHV/ysmZ13kl52
+         yeNBBnfgzgFr2Ku8LRpn9++cABEr/JIxwJTmbnlvWl4dKz40RrZh31GoNNCTQX5u1rm+
+         lvbZK2nMdG4xY2JuXoVOi0OB8n5OvzJ95RiMyjS25jikfgjHPSe2eRVlkhfaTErtdIOd
+         T2ITfW4jp0IY9RgMc3Z3SPyQwyyQvvUHXyS32zC+FvOcj+Uso+5W9OeNK3Mta2keIL00
+         UlOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzIABozjr93DcpxgsJQj1Y+IZ5OlWGTH4ZMGUnELofVB6DkO5sC2SHrViJGF7qMtYvkXiiCLHUihdYfYT0=@vger.kernel.org
+X-Gm-Message-State: AFuF++koghNeUURSjQL9v60iYb/GbBXyUajHxaJ0LGUhY1C4wLAkmqzm
+	XCDnmVD67BLXK48Kd0YrHKIbicuulFgQnVaByb3IUm8k+4gTuxLLXdQS
+X-Gm-Gg: AYBFou1VeE371vsbcZXwTMy3H2nVZytT3/Irt9VKx/vpOByIMZ9Iys4pxWIpxIMPb6t
+	YN/QzBgPu4mX6HSuJKH4obnk+wf77ilxis8BzBdo2YjKuMuELqJdzJ+hcoMkHKiGlzWVL4mbSzF
+	udHZroMhPFMOxL6dhgW2VAetDJXDqHd2snhyoomBccHYjXD8idx8XovMpbU4iOEr6kLHG30/rKD
+	9TJniB2lqqXl/j9mZj4hRAZZLzlYpvemV0O8DycQK4cWugQsKE6KDX/Jl5RORglY9BCbP4IhlV0
+	WVVRbYo3WmF1EgplenEfvKl685g5FN2WUvIU33391V4ZvuOAhWHb3RLiLMvxaIKpBLMzWDG61FE
+	vHgmjBPJ1TPjiBbeyZfDR8jY9Y2B4q1cErYM3G6W6juNq010utfzYkz+dBw1KaseduZ1FW8k2yy
+	EiJtahZkXZEUNEx+3TEqM+ZTZKAFnnDx3k78ScKBS5tF9ov8RhboetrtWHUoN77r7URMyGtJRA0
+	+DMboitjviJAFiV
+X-Received: by 2002:a17:90b:1fcd:b0:39f:d323:c988 with SMTP id 98e67ed59e1d1-3a073241ff2mr1206949a91.48.1790080645673;
+        Tue, 22 Sep 2026 05:37:25 -0700 (PDT)
 Received: from debian.prasanth ([103.183.205.140])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e612ccd46sm6453922eec.18.2026.09.22.05.37.14
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e612ccd46sm6453922eec.18.2026.09.22.05.37.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 05:37:18 -0700 (PDT)
+        Tue, 22 Sep 2026 05:37:25 -0700 (PDT)
 From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 To: joel@jms.id.au
 Cc: andrew@codeconstruct.com.au,
@@ -71,11 +73,14 @@ Cc: andrew@codeconstruct.com.au,
 	linux-arm-kernel@lists.infradead.org,
 	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v7 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC support
-Date: Tue, 22 Sep 2026 18:04:58 +0530
-Message-ID: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 1/2] dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+Date: Tue, 22 Sep 2026 18:04:59 +0530
+Message-ID: <017f5ab1176b12a9d56cbc060f3ccc1d6ce8332e.1790079398.git.prasanth.padarthi10@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
+References: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,30 +89,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the ASRock Rack B650D4U BMC, based on the ASPEED AST2600 SoC.
+Add the compatible string for the ASRock Rack B650D4U BMC,
+which is an AST2600-based server motherboard.
 
-The series adds the board compatible string and describes the BMC memory, SPI NOR flash layout, UART console, GPIO line names, graphics reserved memory, I2C EEPROM, and MAC0 connected to an RTL8211F Ethernet PHY.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-MAC0 obtains its MAC address from the EEPROM on I2C7 and uses RGMII-ID mode.
-
-Changes in v7:
-
-* Correct the GPIOP bank line names for the reset, power and NMI button/control signals according to the confirmed board mapping.
-* Remove the obsolete GPIOF5 reset-button line name.
-* Leave the binding patch unchanged.
-
-The B650D4U DTB builds successfully using aspeed_g5_defconfig.
-
-Prasanth Kumar Padarthi (2):
-  dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
-  ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-
- .../bindings/arm/aspeed/aspeed.yaml           |   1 +
- arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 135 ++++++++++++++++++
- 3 files changed, 137 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index 9ba195b8f22d..4c9e96801c1a 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -81,6 +81,7 @@ properties:
+               - ampere,mtmitchell-bmc
+               - aspeed,ast2600-evb
+               - aspeed,ast2600-evb-a1
++              - asrock,b650d4u-bmc
+               - asus,ast2600-kommando-ipmi-card
+               - asus,x4tf-bmc
+               - facebook,anacapa-bmc
 -- 
 2.47.3
 
