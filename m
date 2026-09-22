@@ -1,193 +1,173 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32CF3B71CF
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A883403E8;
+	Tue, 22 Sep 2026 02:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790045673; cv=none; b=qHaZWdJv8wOOPjuHksWVCD8H8vbinCYeCzKLorGuVQTlPrl/Xj++4iRg7fRqOxOqYkm2BL7eO32LD/sG2CuAoWf/ZhtmLGANa9y5SC/dDImY36x9TWCcZabinZ+UDEqIaAi6bTKmIcBYO6m7sAqoBQb8B670aniGkpzqZrPlPAo=
+	t=1790045689; cv=none; b=L28B4zvCZJHqtqu9MK6Fys/URhrOji9VGXxCzgqTVJYN5ZsmDAQYhL/P7rd2wQVbBbEuDrK5VSNGO/2IuYSqSvUsVHZmqRPrrd1bmWz+N7/D7Xutv5Ml0M4samaJ/FmlPqZ4lry82c5J69mQB6O4PbS9a+5rsSv6BD6aESGWXMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790045673; c=relaxed/simple;
-	bh=omRobIYeubqYt1ShRwO+xJfwqyahvimqDH0UuCrRjvM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XiUYTo7Y49RFQcmcVt8apLdhy02gZW0hZuYgwetd39BFMRoANR4bfq2rvsLN8br2sIee3v42+6X7uc48ApPT5fM/mAJVlpPOKPgiKctO0/uLc541GPhbh+zHA9RxDRIhQc8IBNHSVdrvc/bH3JUsdGgENzWNLvAJEHa52A0NYbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=M5ppccQw; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=tjZJ8eIk; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1790045689; c=relaxed/simple;
+	bh=2yQ8NZ4heVV0YfOIgkc1jYBNEqaxq6uo4GTxNXlVmKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RhZJhOOqLFhSy7OVaXWLrVV/VnLTCtF5dlvsXLpG6EgA6u/nBnd9dDMobXU+24VaRnT6+2vCTj1Svft9cd6oWpNXS556E9/oLHcXdHrFADupKzSDXEVBYRQaF/BBs18vhNBFPtsJ7PND94fyCPUGJd8Wa2bdkbgK0XfNaXM7mZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WTd+b4JY; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="M5ppccQw";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="tjZJ8eIk"
-Received: from pps.filterd (m0167076.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M2XJS1927644
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:54:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=6i89
-	u0mptbr+Jh3PRt95XNfEgizrGGtLlz3J/in9MkY=; b=M5ppccQwzXRPdg+A6MrJ
-	2W07ZiSmF+OaQvMQb7Ib09TkPNR0F5F2/zctGnpqTZZvonMpJHzsZpk4wCceBiRb
-	DFB4bljXctP6LWA2rCLpYXTY5FiXV9XWDJ412589AHPeiA2xrd3n2V/wuz8/WgKD
-	bknjvCEOwE8ze+x1SMNKl8F8JYY59H+aw1P4vO1HRLLJjipUWtWcNtbsEASv20bv
-	xFmiSccNmmYaiaCXAgiNuUktE9CeVcy6SXQfUfQqq1be9z2JmiFHIAzTzo2IiN7k
-	kQWTopsFiGnI5iFeqBcu4fHiUjwPfXTOH3xHgkq2WfH6xy0dTZJ6fX1izPUjdhQK
-	VA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gu8h5bmm2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:54:16 -0400 (EDT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5329e965ba3so46657321cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 19:54:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1790045656; x=1790650456; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6i89u0mptbr+Jh3PRt95XNfEgizrGGtLlz3J/in9MkY=;
-        b=tjZJ8eIk+rESZb+/Ih2cyfJ/35TOIkbNjJWWOsH0qqvB/QwY3PsEtR4LGtHWzou7cP
-         CuJX2hTslfsoeJEMrlL9qTKZnMg3qaW8/UUFt00ZViZ5zZpZgdFmzortiGPq94rgZHLN
-         i2Gte/X9veOi1no3s6QD97XIb40OkDXKWNL5SFFv3W0y8pQ+iyqXFiAvFHvqVaX7TwXj
-         cyjL4YDAX4zMUNZr6LENYZDAY87Ony2eMK6FTcAXSZWcvrSA/COW2h97dItVEpSd5cRT
-         mvgw3cyLi+myA8FVHsQlM78hi3mu/RQQxDR4yJESfUeHhWmwLF7systyXy+e4s5tZJfI
-         e4Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790045656; x=1790650456;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6i89u0mptbr+Jh3PRt95XNfEgizrGGtLlz3J/in9MkY=;
-        b=LI6D947Ua0A5sbq/ksNfVv7Ia3aDQViXt0EQtm9DgQC/mzkVpTSMA9IRCRDFRU3Ye1
-         FSKlqLrAAfHzX+knRGVvJSJ07lLW4Ls5IQnRH2iCQ5ccLjAsjtDQGRB2krPeN0xtoBlx
-         hHSS4xkUNY5owsYDd1cIPI9U02kUw2CJRXPvfOrqnI6gKRO5JlLG9/Y7kuyoH3LoAW8Q
-         2EUF24Y4B1PkV2EKsmMltk6wvD4yk671E8j3IJIlaisYrDeNUxmnP59cIHPvTr1NPM6S
-         jCuSfOJG0B1pwC++cDfTdycaBoRLC2a1ZVueB8YuV6Enepk1t0DUndV3TLc0TP7IcUWW
-         1coA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqUrAx133Zo6MNLtdeEVcWsYsVbMOZSCAv4qQPlIXBPhvpbc5rVddAiNy4l1D1jsrd6xb/LsF7FBW4Pxg=@vger.kernel.org
-X-Gm-Message-State: AFuF++levmTMvz+Rs/Yg6/yPWSittMfPMB/sIeYdNqCxR0IhBX4cA+KB
-	J5qbSVCYgAiDqY7hOhUecS+wAhgKIexmosvAO/dlMDWHLdY9f8OaQQVjjQth9Kwqvb/qDNgjXbW
-	hVWm6l3LvAiamecK6sNaNh8YFTaTfMT9P5Lumn1i5GF85UCza9g4d3xLt0REvQg==
-X-Gm-Gg: AYBFou1577u4w9gp8MO1LMPpctImsnwkoCf0C3PeiYATvK1cjmPmhHcolIBen/bg2Sp
-	5IQ/P7NhHEAwhwtZ4fBYdV8icnt2qYbTw+Qd4guXzxoufB4AlZutw42S9a2WX8YGeVQBWRTazon
-	4PPk6awXRrZpAOtkURJv35dcLvS71JPBnGnL/IJmkWOztKTDkWMAxfwLzsbRFMAkNx4rJ/r2iMi
-	0aqW5YYGKUl78v6jitIsYu7nqvHIFucfdmdGMJ3nZ738IvJKS9Wwv7nHeCctE2fqVfcMdltJ8X8
-	U3cQXHXF6sBlQAkS1NmeoKoZFdRAyOu0GZNKPRH1/PA/c2Gprgs4DIpXhLc8VK1pqHJCiiWiOMK
-	z/TL4NCd3i6LgZTD27j5MgMlliEiTmSOR0idq82bosEjF
-X-Received: by 2002:a05:622a:c4:b0:530:e1b1:eae7 with SMTP id d75a77b69052e-532d8e42b59mr41695591cf.47.1790045656219;
-        Mon, 21 Sep 2026 19:54:16 -0700 (PDT)
-X-Received: by 2002:a05:622a:c4:b0:530:e1b1:eae7 with SMTP id d75a77b69052e-532d8e42b59mr41695171cf.47.1790045655381;
-        Mon, 21 Sep 2026 19:54:15 -0700 (PDT)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e18fce9fsm2048421cf.15.2026.09.21.19.54.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 19:54:14 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Mon, 21 Sep 2026 22:54:01 -0400
-Subject: [PATCH v4 4/8] block: honor IOCB_NOWAIT in the block device
- buffered read path
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WTd+b4JY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790045673; x=1821581673;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=2yQ8NZ4heVV0YfOIgkc1jYBNEqaxq6uo4GTxNXlVmKA=;
+  b=WTd+b4JY1pGAskpxy+luqY+71CNoXVIjz5Bhwm7p+XCZnVj/crBvRlVW
+   cZbVGVqpYWmBjRlXAukPCdLelTt6821pvG73Sz3jJDyIu9Ib1zAyAImbF
+   2AP4OLq2+mEYxSBCujeUhnKvQdXr93crIvAz/9r9FUMC1OCbjS/BFWXeo
+   6rHtpbeb2+DKJaa15oLQBjkhznswZEfw2DUFYFz/GH/OZBlKHh5PeXXw+
+   qf+hJtdGT/uNMJ1X4NadszODvtLLqUenw6YCs/zuqpHa2W0K5pqPD50Ve
+   NZXWx9JZjNaCcEOWGo6XrU47P6t83JgU4Otmxw1uIkNbjlIm3H38rEUvn
+   A==;
+X-CSE-ConnectionGUID: 7xSYHyeYRnqhIVtEUWtsDQ==
+X-CSE-MsgGUID: CYy89dx5Q+ygNVdu82HGig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="93114171"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="93114171"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 19:54:32 -0700
+X-CSE-ConnectionGUID: pEAIFUxlSaCnFcrEzbAn9Q==
+X-CSE-MsgGUID: 61YjMDMlRcC/quQh++/kNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="280995808"
+Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
+  by fmviesa005.fm.intel.com with ESMTP; 21 Sep 2026 19:54:30 -0700
+From: Even Xu <even.xu@intel.com>
+To: bentiss@kernel.org,
+	jikos@kernel.org
+Cc: srinivas.pandruvada@linux.intel.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Even Xu <even.xu@intel.com>
+Subject: [PATCH 2/2] HID: Intel-thc-hid: Intel-quickspi: Use hid_safe_input_report()
+Date: Tue, 22 Sep 2026 10:54:37 +0800
+Message-ID: <20260922025437.940072-3-even.xu@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260922025437.940072-1-even.xu@intel.com>
+References: <20260922025437.940072-1-even.xu@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-blkdev-fixes-v4-4-e2801f71ede9@columbia.edu>
-References: <20260921-blkdev-fixes-v4-0-e2801f71ede9@columbia.edu>
-In-Reply-To: <20260921-blkdev-fixes-v4-0-e2801f71ede9@columbia.edu>
-To: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
-        Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-        Luis Chamberlain <mcgrof@kernel.org>,
-        Hannes Reinecke <hare@kernel.org>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        John Garry <john.garry@linux.dev>,
-        Christian Brauner <brauner@kernel.org>,
-        "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
-        "Martin K. Petersen" <mkp@kernel.org>
-Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>, Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790045650; l=1869;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=omRobIYeubqYt1ShRwO+xJfwqyahvimqDH0UuCrRjvM=;
- b=qT/lrNi5zaYhd+JzSKZI4UKN2sLJXIRxjskBolny/l4uz282lj4csoNWpPL+3fzZxW5WMp26w
- 3FhmTJTqeDiCYNpmkWWzFqRQWANMWALonEgRf/JAAZKtqJmq1ShLQl5
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-ORIG-GUID: jUPuTfN9DuwUBcP0vpq-4QSWLDzaK_R_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDAzNyBTYWx0ZWRfX4/eSR8oANZMC
- +A/J5LXMjh/qOZOCbX7zpSKp4moVj6s6BXezohnESQyjD+3vI5Sa1Yoo4lvg3pB8aH/509xrc6Q
- emydpA9cCyir6Em8f5BAvbxS2G8cg8jtAdmGPjY+1avvEHu2zRUsiLY1ldYO3oI60t0JiXSdkd8
- BuppO66XpoOoRvRAbZNMBdCTOHg6zasPRRNXhiOayw96D9b8OL25cZT8qPIpw9i3OGRKBVifxjo
- BRU4QALhWgFxwBdQ3pRDdhf9ZWCQQIXxPKmoVno1eWHr3mPMVMOsjlr5Ke4xd88WAj+UuZRq+Lo
- AhZFrCOT32w7STm1CwTrCjOfvcQITiKAC1rTYr1hjp4P4bECPf2i90zXiapSK3knlBz4og7lwMC
- aqlA+GHc9TZl9AamOXFxpiG102qzyxe1kptpcxCrxzs8HHYGscuEsoQemyYsOzc/IlAB+lD5P8e
- wJDhmTyE35AId74bfKQ==
-X-Proofpoint-GUID: jUPuTfN9DuwUBcP0vpq-4QSWLDzaK_R_
-X-Authority-Analysis: v=2.4 cv=DZOCOftW c=1 sm=1 tr=0 ts=6ab1edd8 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=Qm0qsxP7aFY2tkT6R2MF:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=s8mzj7eOnaliLhoSWqYA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDAzNyBTYWx0ZWRfX+0g2QEW/oC6o
- 55qGrRC6L3vSAnJdB8aqfzdkJ3XM5p/F5OMzlJ2Uy0jemfnnNXHDecALszag8hb83WTs0JkIz9o
- GKpjsqF+7XE2SVN3dOTx2+sEGwr7fjdeOhwckfc8qFa3ggIlMgd7
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11912
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=10
- bulkscore=10 priorityscore=1501 impostorscore=10 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220037
+Content-Transfer-Encoding: 8bit
 
-blkdev_read_iter() takes inode_lock_shared() unconditionally around
-filemap_read(). Unlike blkdev_write_iter(), it does not reject
-IOCB_NOWAIT for buffered I/O, so a non-blocking read, or the buffered
-tail of a short IOCB_NOWAIT direct read, blocks behind set_blocksize()
-holding i_rwsem across sync_blockdev().
+Replace the deprecated hid_input_report() with
+hid_safe_input_report(), which takes the allocated size of the input
+report buffer and allows hid-core to validate the reported data length
+against the actual buffer size.
 
-A preadv2(RWF_NOWAIT) issued while another thread changes the block
-size with a dirty page cache blocks for as long as sync_blockdev()
-takes, 4 to 6 seconds on a scsi_debug device with delay=5.
+Track the allocated size of qsdev->input_buf in the new input_len
+field and pass it through quickspi_hid_send_report() to
+hid_safe_input_report() to prevent potential out-of-bounds reads.
 
-Use inode_trylock_shared() for IOCB_NOWAIT and return the bytes the
-direct path already read, or -EAGAIN if none, when the lock is
-contended, preserving NOWAIT semantics.
+Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
 
-Fixes: c0e473a0d226 ("block: fix race between set_blocksize and read paths")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
-Assisted-by: Claude:claude-fable-5
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+Signed-off-by: Even Xu <even.xu@intel.com>
 ---
- block/fops.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c     | 2 ++
+ drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h     | 2 ++
+ drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c     | 6 ++++--
+ drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.h     | 2 +-
+ .../hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c    | 2 +-
+ 5 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/block/fops.c b/block/fops.c
-index a51814821100..a3a709697b40 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -845,7 +845,15 @@ static ssize_t blkdev_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 	 * Take i_rwsem and invalidate_lock to avoid racing with set_blocksize
- 	 * changing i_blkbits/folio order and punching out the pagecache.
- 	 */
--	inode_lock_shared(bd_inode);
-+	if (iocb->ki_flags & IOCB_NOWAIT) {
-+		if (!inode_trylock_shared(bd_inode)) {
-+			if (!ret)
-+				ret = -EAGAIN;
-+			goto reexpand;
-+		}
-+	} else {
-+		inode_lock_shared(bd_inode);
-+	}
- 	ret = filemap_read(iocb, to, ret);
- 	inode_unlock_shared(bd_inode);
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index ad676fde211b..53023e30cf8d 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -557,6 +557,8 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
+ 	if (!qsdev->input_buf)
+ 		return -ENOMEM;
  
-
++	qsdev->input_len = max_input_len;
++
+ 	max_report_len = max(le16_to_cpu(qsdev->dev_desc.max_output_len),
+ 			     le16_to_cpu(qsdev->dev_desc.max_input_len));
+ 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+index dc67a39ad546..fe51ff51d8c0 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+@@ -113,6 +113,7 @@ struct acpi_device;
+  * @low_power_ltr_val: THC low power LTR value
+  * @report_descriptor: store a copy of device report descriptor
+  * @input_buf: store a copy of latest input report data
++ * @input_len: the data size of the input report buffer
+  * @report_buf: store a copy of latest input/output report packet from set/get feature
+  * @report_len: the length of input/output report packet
+  * @reset_ack_wq: workqueue for waiting reset response from device
+@@ -159,6 +160,7 @@ struct quickspi_device {
+ 
+ 	u8 *report_descriptor;
+ 	u8 *input_buf;
++	u32 input_len;
+ 	u8 *report_buf;
+ 	u32 report_buf_size;
+ 	u32 report_len;
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
+index a60a0a7f16aa..ed1c40b8c4fa 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
+@@ -148,16 +148,18 @@ void quickspi_hid_remove(struct quickspi_device *qsdev)
+  *
+  * @qsdev: point to quickspi device
+  * @data: point to input report data buffer
++ * @buf_size: the allocated size of the input report data buffer
+  * @data_len: the length of input report data
+  *
+  * Return: 0 on success, non zero on error.
+  */
+ int quickspi_hid_send_report(struct quickspi_device *qsdev,
+-			     void *data, size_t data_len)
++			     void *data, size_t buf_size, size_t data_len)
+ {
+ 	int ret;
+ 
+-	ret = hid_input_report(qsdev->hid_dev, HID_INPUT_REPORT, data, data_len, 1);
++	ret = hid_safe_input_report(qsdev->hid_dev, HID_INPUT_REPORT, data,
++				    buf_size, data_len, 1);
+ 	if (ret)
+ 		dev_err(qsdev->dev, "Failed to send HID input report, ret = %d.\n", ret);
+ 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.h
+index f640fa876a40..61b7c6be6c51 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.h
+@@ -7,7 +7,7 @@
+ struct quickspi_device;
+ 
+ int quickspi_hid_send_report(struct quickspi_device *qsdev,
+-			     void *data, size_t data_size);
++			     void *data, size_t buf_size, size_t data_size);
+ int quickspi_hid_probe(struct quickspi_device *qsdev);
+ void quickspi_hid_remove(struct quickspi_device *qsdev);
+ 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+index 847c5ec55569..0df33c44fbff 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+@@ -240,7 +240,7 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 		input_len = sizeof(body_hdr->content_id) + input_len;
+ 		input_report = input_body->content - sizeof(body_hdr->content_id);
+ 
+-		ret = quickspi_hid_send_report(qsdev, input_report, input_len);
++		ret = quickspi_hid_send_report(qsdev, input_report, qsdev->input_len, input_len);
+ 		if (ret)
+ 			dev_err_once(qsdev->dev, "Failed to send HID input report: %d\n", ret);
+ 
 -- 
-2.39.5
+2.43.0
 
