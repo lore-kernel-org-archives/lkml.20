@@ -1,102 +1,73 @@
-Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E40545DAA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:43:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3D5472F8A;
+	Tue, 22 Sep 2026 14:43:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088204; cv=none; b=MTM7AxvvJbMwQeze19NKsVHWvWt5FV9We9lRGlbna05k2PHoPaxZiQY5LwNyZicIKKGvD+eIelPKgtDL9EVe1RCHC8ELbNK6Dmp7H/h7xLr3LCaGKMJa+Emif13mXYG8ZgS9GyHZzOUaykRRwkziLa2p0Eh3UWhilDIbG7NWMSc=
+	t=1790088205; cv=none; b=miQMCMQM2T0wGD9vDPMg596+bb/B7LU1rjYTvWOb2pGTpNK/xqbHe/+kOk43CxAj7X9N+59NI+vL5mWPHoIhb5lLIwEhvN1Br/M3OGZ1v97an3eIQDJ5DAqYzIwnmU24D9usLXtprFB90c8EHDZGEWawa/UeuzxEF7uD9r/FzsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088204; c=relaxed/simple;
-	bh=1XVpomz+LNVUGmpQ0CnnMZuywBPQ1iz7wasngwgLM7M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RxPZVbsWaqcaKgxVKQpZxAdXtlfGzia4rJ76yYvx3jXiMekK+lAdd+00bN1cf4aUvbU6qW3JRk8CP/r/ruGu7NeNwH87nENCXossiI9RlRbb1EOVYdLkSfA/D7i5x6mRO8NteoHgOu2UDJfoLycO12Sr3ZuQ2DuyOJU1a/JruBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Jbh2KfAU; arc=none smtp.client-ip=95.215.58.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790088205; c=relaxed/simple;
+	bh=l+lmoKcMvI1rFMxZURnzXZM8gDk5FtLzyBNELfDMcbY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=lYQo6VDlELBmfgyedAfOG0JUd3choyR523/0Rkj+tkraTZZT8sEclmrqLvNLtN7sGKPgJ0pBsDQMEtfRKU2hkv1LM88zzZMJj6OR9ZZ1l0U+HwbYM9/KMo3Y9eRhflWwUEWWewjGRnHluRPUaZBQAz2XhftRJxDF+fOiR+5yd5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBpd3Vyu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Jbh2KfAU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1XVpomz+LNVUGmpQ0CnnMZuywBPQ1iz7wasngwgLM7M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790088199; v=1; x=1790692999;
- b=Jbh2KfAU3CXTaa23kHQngeum45/Mw+8mcTxDluoAlJHP6valLhIKF+dQNdM84rqhSC8wBqsv
- 1W4LL5RYJuJS9bSngMj2LWTzTkM7ZOeVHFhOm9E9QfFNa0RwO6WsXwTphVsjqvrtsFiF31Wcb9k
- fokZ9KTR9UEPuq2LH4xX/MAc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8d71456352f15a08;
-	Tue, 22 Sep 2026 14:43:19 +0000
-X-Mizu-Trace-ID: 8d71456352f15a08
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 22 Sep 2026 07:43:12 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Chris Li <chrisl@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Kairui Song <ryncsn@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
-	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arKRdaNEaKvFOtMg@linux.dev>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
- <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org>
- <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora>
- <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBpd3Vyu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 332861F000FF;
+	Tue, 22 Sep 2026 14:43:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790088203;
+	bh=nDWRatp8yEFjSsKnb+Jbye84/joDadxmyBWTqNTu6Q0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=IBpd3VyudQ0IrWLPdIN6hUULkoYmlkYLYzjcw/RgIcgjBBJEAsqGQ/25fzsmUcbE3
+	 LVRmwKh9U1k62X2n7SyGYYXfmx+KbwIcEgU8FNEdnJ4R39u9dzDpQeVaI78uRbgksQ
+	 yyWeM5UlRZlogmMnW8HDeUftM1cNjh6e/wIEBUoLsrZR3mN4TeihpnSrSglOz2BTwh
+	 EW9obT1T8QpHz72B6H/pplE0ikOx29SQHFNd3LMjntWICq27hi1cz/t+gOQQyChNiP
+	 oMYjVGZGYyCnSIU5YAtX1GyiTDLK/oZEZH/bImecggN4rEcZMKpUAp3rqfpT/uiJFN
+	 dTbhKfmcgEXXA==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: linux-pci@vger.kernel.org, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Jonathan Corbet <corbet@lwn.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Magnus Damm <magnus.damm@gmail.com>, Randy Dunlap <rdunlap@infradead.org>, 
+ Rob Herring <robh@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org
+In-Reply-To: <20260921203716.73663-1-marek.vasut+renesas@mailbox.org>
+References: <20260921203716.73663-1-marek.vasut+renesas@mailbox.org>
+Subject: Re: [PATCH v2] PCI: rcar-gen4: Drop how to obtain platform
+ firmware
+Message-Id: <179008819883.46397.15385681673068316294.b4-ty@b4>
+Date: Tue, 22 Sep 2026 16:43:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+X-Mailer: b4 0.15.2
 
-On Tue, Sep 22, 2026 at 03:38:38AM -1000, Chris Li wrote:
-> On Mon, Sep 21, 2026 at 8:56 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> >
-> > On Fri, Sep 18, 2026 at 11:50 PM Chris Li <chrisl@kernel.org> wrote:
-> > > No that time slot is too late for Asia developers. I don't think we
-> > > should use that time slot for swap alignment.
-> > >
-> > > We should find a time slot more friendly to Asia.
-> >
-> > Any time slot would have that kind of problem. We're spread out across
-> > the globe.
-> >
-> > Let's just use a standardized time slot we have for MM alignment sessions.
-> 
-> There are more swap maintainers in Asia than in the US + Europe, at
-> least based on the maintainer file. Please be more inclusive. If the
-> alignment is done without key stakeholders, it miss the point.
-> 
-> Sigh, we can't even align on a time slot.
-> 
-> In that case, let's keep discussing on the mailing list. At least it
-> is accessible to every one.
 
-People can speak for themselves and suggest other time slots. You do not speak
-for anyone but yourself here. At this point this is derailing the conversation.
+On Mon, 21 Sep 2026 22:36:46 +0200, Marek Vasut wrote:
+> Renesas R-Car V4H (r8a779g0) has PCIe controller, and it requires
+> specific firmware downloading. The firmware is now available via
+> linux-firmware.git repository, drop the documentation about how
+> to obtain the firmware.
+
+Applied, thanks!
+
+[1/1] PCI: rcar-gen4: Drop how to obtain platform firmware
+      commit: 3bc83f7571572034820e04d6ff6b80def85547f7
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
+
