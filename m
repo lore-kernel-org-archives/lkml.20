@@ -1,68 +1,68 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F949331EC2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F32E49E15D
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790056917; cv=none; b=gp+Nv3XRQgbozf3yiSwZBlhxFNYP8ZQXQwGiI07V2K/T8if/LmcToZiXA5IZn9xRiT99va0i01tn21/i46i8Hb750ilgUyKD9iYMM1vcue2Uw3Q2Ql7cDzTRQrTXExLs6IgZYEB8B+OQEOS2yoS9hcBJCB0Ac1TB+e0IHs9uITk=
+	t=1790056955; cv=none; b=FtVrxPJkuDRHFCtHD3Hm7QAu3Z0gFTXUgO+ZbKYYJwHLax/dyPfg87nf9tbsRI50AHbVmJQQBwBAFo7ubQz5PBYbxyh0JBl6IhQm1ToT2wPKgl21RW7WH69RDe/t3x8Of8PiEdGjzD6Uofv9FNrhioOAIEAeWAiSlvdT8j/nsOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790056917; c=relaxed/simple;
-	bh=sDdKrJmvs5QWB2mO+IddhtMXz6qcKGamXBsMMe9RzFc=;
+	s=arc-20240116; t=1790056955; c=relaxed/simple;
+	bh=UTGrp+lZOAxLFmkLKsLGysXMTNUwZ9BjO56kp90DTuQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DQDtawnFDpXpvrdOyP7xj+4ye4e5jPKbkn+dnYH1mATP/PnweLycgg5N2k68gln45BdH7UDbKFAlgz8+9zr1P+z9RmXPzAgfqGyVwpDVh7EKMOzv2x8XfMBmjASKSIUdRsImxDrill8qUiktbjfRjeKL9srgAjNDMCtU9zM3HUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fhJnvQJA; arc=none smtp.client-ip=74.125.227.140
+	 In-Reply-To:Content-Type; b=LVEhknAiBH5VZq0VRnG1EqHWYehziSAKyDZ6JrRF9aOfJikPBxe5krDdRqXznhIO4H5uVr8uot1cxcmrKeIFhH3hydetBejSboljVvAxU656jXOSJzBqXsqqm3QWAmzFY8OKaYzq6HmSNSq4QyhjVRAwJRU0Mqwn31sjKNYc85s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RHJqr6rJ; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fhJnvQJA"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so3628847a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:01:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RHJqr6rJ"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so455559a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 23:02:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790056915; x=1790661715; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790056953; x=1790661753; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=37Eexq0zFYxGYgBaFUWATikMtDj/TkGR7YrZ6T7c8q8=;
-        b=fhJnvQJAHSiVbBZJWpejnHZ15mqHkOwtCOlvpAqWhbklWNe3zVTwiV1Ir7jT0AB7RW
-         eLb3xugrmsvbBlp7DewfrfmWqapmA68wJWuZjez4H1q7jKi42sWZ15aTXLk/WbY0sIQV
-         /dE2fB02jlWZDMZTdBP/XZV7g8ZKNu3GBt9HZu5nUPdhIJJMqiMVf20QhHnXDg3qhYi7
-         M3i5qWS6Q84F1/IrDe+hFmd9/agCA3sax0sCdcxMv5lj4vhjNEBnHb+pJfNqqFy9tF4A
-         eOfmVm6QC7yO82giPpXtomNou0Ueui02s4oiAmrxOW49YFsEhaRjb4/BNmofWIoyZLzR
-         BFDw==
+        bh=uQ3bgQN5Dp8+Qvmy62hDVi5O4cZCEw7wjVOCUUXKBjk=;
+        b=RHJqr6rJLj0ADth1Gzp5fs7TVlYaC7iSRvFWsxRrSNeRF6snO6Up+q95yCrg867gd9
+         tQ4uKmHVb6DER5yYJ5H4pIBlmQ7nN2T2nY+y+1k3rJI7rj1O/LPvgk0Kr3W0gzv31vdD
+         shVbdE/5qVAHh2Fvojwki2cvkqBVWU42VSP0Dh+ESW7hTCdZDGkoJXPrlUnU9VYC7OBx
+         w7XXdC60ihivG1UepRyAtbd9Z7dr0JY4TLT0Ncp7TzXDeeQNCoj4nafLsoYPwoW6Un/l
+         RaJF+obAZuhob7uMBCXhII99hMXCrrh05xN6bEHkwkPOxenCCv3unmuuPkoJ3kfoTbrQ
+         AYsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790056915; x=1790661715;
+        d=1e100.net; s=20260707; t=1790056953; x=1790661753;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=37Eexq0zFYxGYgBaFUWATikMtDj/TkGR7YrZ6T7c8q8=;
-        b=Ucutpw6cx9CJ6+KFWqxEmN9+focZV8pw71UAovLOaDE6KtUURw8nwmdRomxpvZT9Uz
-         Eo9jouI6qfdyYEimKMZyr2Pc9OSxk5PLx8+JEws7xbH7woUtofxjJ9uqlBkxE9WbFeLB
-         P4H4Gv45tpcicr2CCAAXDTwoxmPeKn/nu3szVJQyrLF64mWWE28PYpsViYboyZBCO6jS
-         h5gtH5lcr8jmIZxovfQAjTHYZJ9K36Z/Ep2Q9xBTf2w2uhFvCgxFiiAvM+TWb5q/F9qB
-         b/Qe70B9f+96zw9s4UfesH9P10yGUxB0/QeeUO+LkgIOvLhtfU4ydoAAA90M7vJpYQ4p
-         vMtw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYPY66KN0QpS8qghN0OzD3jU1RDv6d8jbwNE83rD4JgqVbMysQbd5iJPz0nVBW/ODnLSSBxAYkqAjrqlE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHpwJK4tE5Ldlg/7LpTqbKozkD/1iG2+nws6GEno7DN//ij0BQ
-	msldqUaQ0ZG7aZ5J2vxfCu7HcHULBA27A/EO2AvS321EEmQOh/CW7Jv0
-X-Gm-Gg: AYBFou15+F/gfzOX2JhTiNsdDiyS7iP+NtCZEZaJtHV/mcQU7ypVClZBxjwzUZ4F+2H
-	5IG9xChXrE76zOKcmO+p0LUK7YC+mek0TxPS+0f7wPPPE3BHhxQcAS5ESYuOCCJGRrv6029ZGgy
-	+hDNQFI2/MaDavSR9a91YdDOhamAZqaJp61JwK0Bjy2+1V8o4DRgfmNn7U6jsnEeS3fsC2TB9b9
-	dfbtjxcOB+GBH3WCzTDmo2Vrft2IdD1/vHLbr1IjC2T5e1Hp1Lq3gm4oaC9iv5NbO4GUvmDIx6j
-	hw0E31M43MdNsPumKPYo4S0dyNvvwCVywok4p2ofvOZR9oBIFniclB/pjwPcF6GF07gwMLLaGAb
-	63/Cj2spuCCpT0HfR9m/87TnQq9hxUNnu422+FAyBioqH57zzIUje7XfMhokbIFXs9g2FG0vIGR
-	MMIWIvx2XfgLegXwAEtUREFzNZl1cq/HoP1JzlErRYFrDUjEkqDuu0mYXU6JtVQoTYV+2y+tLAt
-	Atk7fwxpjYroi5j5WM=
-X-Received: by 2002:a17:90b:558d:b0:39e:1ec8:ee7b with SMTP id 98e67ed59e1d1-3a07309f897mr123698a91.7.1790056915456;
-        Mon, 21 Sep 2026 23:01:55 -0700 (PDT)
+        bh=uQ3bgQN5Dp8+Qvmy62hDVi5O4cZCEw7wjVOCUUXKBjk=;
+        b=QlL0K5H4mOA3X1gpicd9Qlffot2PITDgp8tjka0n+esxvI+jhJjKGCaru2g2t4Hi4r
+         6c7E5Ln0+6TKS6PmlIUMRU3CiHEsuFe70AQtwMPtGgQZqGWZ5UlJUb1p48s0WNtGhAqp
+         avj+2cmfxqTVBOYLBUsfreJc77CfsX04MioJJrhSyuH5o8dGm4b3y53Vqb49OYhS5NuV
+         jh9EdGLz7vkJMv56tXpZQ8Fw1T7gSGWiVlmB0K2V99XkxIvC1+JVFoWsfTM/sfheA2cC
+         Fy/4RC1XK++BruasZynsCywR+/H7tyLn0tV5hw8eOn+WS2PF7jRwo0Wxihy56nQiJFe0
+         RSAw==
+X-Forwarded-Encrypted: i=1; AKwUvBw7fF+5z9jJc5AADhekWRX31kUBQxSa2CN1o1nJcIrRJ5zuy6nvxLLw+oOr4sQUj1V30Ja5oNosHTzqbL0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdQdlISyOaubXUGHMMCh8Fi3edl0F6tfj7P2p56Q9APRcceACy
+	c3VmqAKiKsM6YyIHReITyviUeTWQrZdZTGo84qYdmK5pnv1eiUrQ94dw
+X-Gm-Gg: AYBFou36pECCcv+Jq9tjakjDHANrtJqB5vVsWf51sBKaKxHhCSa1+EK5XWO64Ps4xE4
+	BBhwjwRTAEuCJAZ4vj3eGkFm2tnsBF4v/cwY4OwI4HayZc8D1QlLDo01ZINrOpjNf/GgJOIxx0V
+	5x1sQshuQxqQkmzPOzomTAkPiMlR6Hlcs7HBC/ZguKMUo/jWvkiBwCQHFfy8gcwy/H8aN3Z836O
+	zVpOp5C3Z1BJck6KPnfsZ+UD72TJ+vPixc4AKZK8bi6j5+1/3T/Esr3geCmeKR1yTkq3n+lC593
+	1zq7xEiqwo2sGBfkQ3azyO0NJdrN8DGJaf40ii+DArabUxrxY3EVpgMR5/74S42e/G0Ng5zZ03e
+	XSyWZY6k0gX5XvJdpe2WA6yeugQ8ye9BqIivebppzQgp3+o+KaQqpdg7bwTmidp9SLHKBG7omg9
+	6sECkHVr2uP4Y3MBqDut1/hkBsIJkLH+qWYYRSe3d7mM/yxz6HtJjpew8QFFAayKt6gLUUdK+lJ
+	+zDAgV7PZ/GZBOn+2E=
+X-Received: by 2002:a17:90b:3fcc:b0:39d:e78d:32d2 with SMTP id 98e67ed59e1d1-3a0730cbed4mr111836a91.13.1790056953102;
+        Mon, 21 Sep 2026 23:02:33 -0700 (PDT)
 Received: from [10.25.133.25] ([165.85.205.162])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e610e8439sm2788903eec.3.2026.09.21.23.01.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e61340e56sm3366245eec.30.2026.09.21.23.02.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 23:01:54 -0700 (PDT)
-Message-ID: <878dc90c-3a4c-45fb-bfbb-2ba802bfc14c@gmail.com>
-Date: Tue, 22 Sep 2026 14:01:46 +0800
+        Mon, 21 Sep 2026 23:02:32 -0700 (PDT)
+Message-ID: <976f828a-bf48-4788-adb1-7204c27dda60@gmail.com>
+Date: Tue, 22 Sep 2026 14:02:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH v5 4/5] ASoC: fsl_asrc: expose individual DAIs per
+Subject: Re: [RESEND PATCH v5 5/5] ASoC: fsl_easrc: expose individual DAIs per
  conversion path
 To: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org,
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
@@ -82,34 +82,35 @@ To: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org,
  perex@perex.cz, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org
 Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
 References: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
- <20260922033428.1690822-5-shengjiu.wang@oss.nxp.com>
+ <20260922033428.1690822-6-shengjiu.wang@oss.nxp.com>
 Content-Language: en-US
 From: Chancel Liu <chancel.liu@gmail.com>
-In-Reply-To: <20260922033428.1690822-5-shengjiu.wang@oss.nxp.com>
+In-Reply-To: <20260922033428.1690822-6-shengjiu.wang@oss.nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/22/2026 11:34 AM, shengjiu.wang@oss.nxp.com wrote:
 > From: Shengjiu Wang <shengjiu.wang@nxp.com>
 > 
-> The i.MX ASRC hardware supports three independent conversion pairs
-> (A, B, C). The driver previously registered a single DAI with generic
+> The i.MX EASRC hardware supports four independent conversion contexts
+> (A, B, C, D). The driver previously registered a single DAI with generic
 > stream names "ASRC-Playback" and "ASRC-Capture", which prevents
 > multiple independent conversion paths from being used simultaneously.
 > 
-> Replace the single fsl_asrc_dai instance with an array of three DAI
-> drivers to allow up to three independent conversion paths to be active
+> Replace the single fsl_easrc_dai instance with an array of four DAI
+> drivers to allow up to four independent conversion paths to be active
 > at the same time:
 > 
->   asrc-0 -- ASRC-Playback / ASRC-Capture (backward compatible)
->   asrc-1 -- ASRC1-Playback / ASRC1-Capture
->   asrc-2 -- ASRC2-Playback / ASRC2-Capture
+>   easrc-0 -- ASRC-Playback / ASRC-Capture (backward compatible)
+>   easrc-1 -- ASRC1-Playback / ASRC1-Capture
+>   easrc-2 -- ASRC2-Playback / ASRC2-Capture
+>   easrc-3 -- ASRC3-Playback / ASRC3-Capture
 > 
-> asrc-0 retains the original generic stream names to preserve backward
+> easrc-0 retains the original generic stream names to preserve backward
 > compatibility with existing machine drivers and board configurations.
 > Each DAI retains the same channel, rate and format capabilities as the
-> original. Update the devm_snd_soc_register_component() call to register
-> all three DAIs.
+> original, including IEC958 subframe support on the capture side. Update
+> the devm_snd_soc_register_component() call to register all four DAIs.
 > 
 > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
