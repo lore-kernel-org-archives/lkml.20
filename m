@@ -1,233 +1,150 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADFD56E071
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096828; cv=none; b=KDU0PehpM/I+SnrPLl669bdVFnODjidxtp0D1kssFng74UOtwjybIe6A+Sxv8J8glyJS8VIBaMarxb/G8qtQPgf7jCKsNoTt2YXyyfbF3p1KO6pfJ8gM4lUbS6WkKx0u1lQI2y2ZRq5yETzOWTKrPlYHjGH4+9QOhXOYfEdrRWs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096828; c=relaxed/simple;
-	bh=THqLxf2Nh8WONvTsUugDhC8C3Fhu1GnsjuOyv2a4vcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hm3JFUjEXkaks064MwXewAzriq3hMM8WLRQ6yCnH2FaHZSADJP5KX8ujIv8h8glnzdYIwlJ6qYT+SrKiBtZHvjZsSi2YTgx8fMyDUKMOqPLCWKSSLn8TEJU86LDjcOYhcRPj3aj3x1oKrBAJAXUY7/PZaj2vyRVvM9ULqd539KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k3cqqhiK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5857A560ADE
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790096863; cv=pass; b=WhlZbjJ1gtkRnFs6JnavOO/pSjXnRqdPZ9ZJDrsFhuV5szJj4uj3s6os4dPtRr9ys8I061wYnr/X43zMd2/NeaNZml+5WnwLYpYI3egzzkUkv9XeOBI2LfHPVAHg13G+R/9ekyWEtmJ5I2fLnNQDARgd9xdiVUXtbbejDo6GYwQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790096863; c=relaxed/simple;
+	bh=Ih6OaGZNiKLaqDnDwaBrgZoP/cAqBuRknw4NXDxmGvw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q2PM/R1sxmiBzYgoa7k6Y3ZPTO/lT5pAcOM6/7qlRSj9q+RDpoilvGunUiWFSHbCvV/i9R7g7r0wtFgMgsNXdP2rBs0JAGXS7w/iFqVGSvqZNxoSCgkAnusi+cvpJ6rJ18qFFuhIvh3cgyXTTmBvzOjzAXNeM84KXJiW753/whw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMEyq3SY; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k3cqqhiK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso62255e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMEyq3SY"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso113128f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:07:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790096860; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LWpJqIw6+27nwIntn9XGKt3YzsyBvqcj1sZ3ZH/fJn9/3HSQBM5lAwetWEVfmhDLDM
+         sjmtvaBO97HzfZQa1U2A2G/35MkCEWw/TeRAAs0pbdPEYpOIzN96iQkpT9k8EoH8WZQk
+         v6DvEoE3ShW4YspJ0zxIULJgcxtS+y0CZHG4iO2LcwdRJiE7KzXN/YiY5DK/fDiWWEDV
+         lIDn8Pf4qhz9r9jnkse0FQL/h59y92OHMPSO6YKJDyuk5jP5oV3jJ7ggi1WdCb5UdzmX
+         bpjtCNDHf8xPEOAYYOUqlL10uBgJF3Idw64FJTXM45acZXU0SutgBGiE7tPkgxTM1bV/
+         JZSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=abxLJH98wWB+F9upQRI+y1MVEfERsTBkUgSjrnH6AQ4=;
+        fh=fcOnHAsiJ4NvfZLuGa57XszLOJUoSWJuvbFsAV1j7qc=;
+        b=Zana9zlv4mJ3JRE8Amoq+f6OLhUgvcVOpen1tpQElGJiRsetOkvdDRQ78HQ4GYDtyH
+         zgkeWGzGT3hcAh09XsxNUmMkF/MTJGBlatr2neZ2GzF+GClsSULTwpMLg0qBT9+YBe5B
+         nex8MG7IZE9uiyCUekeuDCvzhvVbJvHaSRx/+ncS6i1sdYoMDzyfHdW5QbdaKUMX83nx
+         AwXUwGWW7ETrMACMyInOJRvs5OJr5U/KEDbBtLH1dm4CGU7buH/qkzEwJcbxD1pQ+gYr
+         8Lnh8Nj+TRATE9gTQ6IdhlOMOWk+oKIC2kLhECBFEzInc2cLjDQbxWv+b6U80sxjvRaX
+         AweQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790096825; x=1790701625; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790096860; x=1790701660; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8JODXIaSFJC9qN9KmTlMz7Gcx5C6dm9DycX2u8LOJSM=;
-        b=k3cqqhiK7tap7MRXZ4v4RDXWk9sJdPGOS67mRDbC2c8hP1Yf3I15f7B5OcNHG56zNY
-         mPkc56tt1UamPeXosfp3fZrueWG+xAriUb7ELaZNUOUEwjqjN/AH2c+K7iYGoE/DvVrx
-         wGBbjV1OaBnYm9x8kV07flmxPYl22+pTjjX5QMztWb9XEpDBH0Hz4Qx2I+wlgqAZ61Zj
-         5Jtzl78qVJeGZAUeU/Z1ZUmf5Hy2XSg3/kTKSp6+dFdIXYqsoLye6VLWlXTHIajfPBR7
-         RZInBh53oxTotqB1HqvRaf5Y2taGdP/5Ghspfgrny6XRw9+HIxPlJwvgh5Ly/LeU5bR8
-         Ujdw==
+        bh=abxLJH98wWB+F9upQRI+y1MVEfERsTBkUgSjrnH6AQ4=;
+        b=SMEyq3SYCxslonAjZZd9nKsSfq9U00qwiLtYIrEk2+VSfjFAz0u6q8l7Fx2/Eap4PC
+         J2bms7Dsx9HlFOxReHsiBxc7KcOeXhRQHkRVLI6uRui01tiqFJJ8BH4oop/j8WS/TYvc
+         STQxKcmHTYOnNrvrXXLMBqwkxSaWsJR7lSyZvs6gHRnf+DiiT2k1pRs5E8C8AHmALI86
+         MyK1dqSyAlWya9+e0k4/E3pxSHAoDUP3axrMyoN8ndEW9cM5ZsA8VZoqu4sQwhZXmvVw
+         EZ7SOsOG/FCpTWQQlpeYfCnQyIwQADldb9j1U6DLotPVFfdx7i1/3cezFgOHY42I3LMZ
+         vJ/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790096825; x=1790701625;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790096860; x=1790701660;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8JODXIaSFJC9qN9KmTlMz7Gcx5C6dm9DycX2u8LOJSM=;
-        b=jVbxj4SX8FKdXhqSst1QW1GVALC9TJqW+jLIPffzcF5wsAHzClTj4oD8E6yb0skPrH
-         5KhIt+8k6V6fhpkQv3zpvKJAqD3j0DWgLkMqRU1Wdx+vXAAKUD2eDI/jar/sO0n3FFQe
-         X7U2HqOuoTH4UF1c5/qZv9wJGliFPjJNDXOHLymFm1R9VShQGt4btfpu55f25z6Rz4N0
-         6w1/ebmyFtRRIE2aiN0FMfh/iLyt5ckgS7qyDNtorbjxh5ypaSZp9GGFLd6cyByMVf7i
-         tue1rcGBm/6EeQ1x6BRllBdIhVq+aEBjXsO543Ws69nHLLOmXnrjM7FCX+Q3vxAhXUDN
-         tGpg==
-X-Forwarded-Encrypted: i=1; AKwUvBzgHThm0cTNTyp70A/WUEbgcIt9JiBnUyQHETNzwFBYUIKsv4d2ffl+rP4Pv2yWAhDNYWTbMYZi3MXKEl4=@vger.kernel.org
-X-Gm-Message-State: AFuF++koK7zCndZbPIQIL23a7plwTXwz9zxrsCvDkuh1oawIAIgkmLr4
-	6EgNLQE/zKsacZCBOi/8KdRg1GodEp40BukVCFbmETt0ki2Tn7uh4J2Ze+1efjM89A==
-X-Gm-Gg: AYBFou1+FNNF1PMOwQeL2RKbtQUG7ZdqVz9w/X1P04/DmWdl+Hk41g0avHBtt25Oh7z
-	2xb4I/NM61XELXOb2IsCKRaIsdFZSqNa8sWssK4LiBU5kYgui6Bbx4Xn/9f5n21NQ5UQYajRx58
-	1zjQ/CzXezLQtZ4Df3jfBNW96G7dyM3RhctRqSyjNHgHY8Kxzib6+OCGRXejDF10QYqUs7MYfZe
-	kA4En0du/4XvL6MgjIPSu27tBeQVzQDeXi9++jxwnTl11koTM76Aob5zzqrGD01dqHCzGjGFRRK
-	+RHJSXVyIwEew2RVTTW4KTR5wQbVg+W06zTyhQshgGdd/QRxqXHqIWkh82Omq9cJOdrAolXjBuw
-	j8hKqwxWoHgLcvmzZ4Wd0cDocgDbjKG02RpDFCtkuCf5/f8F4q6UQPiEbEud6Poo6ym1ja8A9d5
-	yBVxqqwUaAcdTUBBmiFLPJXeKXrvOapw+aLZvglZtKvLwp9SzuOvjD2F3BK5p6Fql54wsLuBBaY
-	0C4B6W0awvC6UX7H1z7czuF72qAO4m0iK0PjM4K1zg=
-X-Received: by 2002:a05:600c:5487:b0:49f:bd3c:bc1e with SMTP id 5b1f17b1804b1-49fc573a0damr223240355e9.25.1790096824351;
-        Tue, 22 Sep 2026 10:07:04 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1ccb90sm4537125e9.6.2026.09.22.10.07.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 10:07:03 -0700 (PDT)
-Date: Tue, 22 Sep 2026 18:07:00 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
-	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com,
-	tabba@google.com
-Subject: Re: [PATCH v3 10/18] KVM: arm64: Handle PSCI calls for protected VMs
- at EL2
-Message-ID: <arK1tHUEJsCQEKzn@google.com>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
- <20260914113338.159227-11-fuad.tabba@linux.dev>
+        bh=abxLJH98wWB+F9upQRI+y1MVEfERsTBkUgSjrnH6AQ4=;
+        b=VSn9jZ6eAzJgZsl2VyEQzi7Ol3SmdHYnZZM7shkNQT0Xqq5Sd875ZmeS1DlNS3ToX/
+         9D+MyceJ+t3LuZXlCT8MRTOvIm63GTuNaJdE25Sc98lxCjdZl5nJljNWsofH+Bz4VHKx
+         Yd8h4e2rnfMbCcabva7pZhcHMODk+tG1C/7ge15z6B80mVFMqnM97vUMOPs1fvXa1e4S
+         V5VPyJCHhvXDiTbTXC7ggXLLfoUMmRLgWIrUH6c2TtCb24cQ5+AliIm0rTorP5GmnUoq
+         CiQvjBNBDFAK6T7PwXi6+PqNFiFkE5zxKErnIzFTuIs1mD7Jvi4kuVkk2+bBhnjk9bZc
+         sRRw==
+X-Forwarded-Encrypted: i=1; AKwUvByY2ERN5ANVArXUQLzfQV3SdbG50WjVnrppMhARFvsyWelus4C73k3UZMnIlO3DFM4eR9ErGpcY4KZTpHk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3c0bLjMFyWPbF8L5f7oO8pKx/XZdzvAnBO3P6np73Ampmlwwt
+	Yl/GSFfwwAwpbQbB99/ByoYkIHYCm/ok8Vf7fllnRpXIT1uYRPU9AoYsCm688NqEsFlr1X/c3Fs
+	rIcKIfmAIfCj/JvXLo0tYcw67B8DDkJs=
+X-Gm-Gg: AYBFou2vYcmTnkfEvFQH+mIyfBRE/ZJOI8tzMkjvDEfV7PUXiCY8SKb33oFcYUYm8Vr
+	lWxr58E9E3kpvXUl/BwYj2DTec3sc5R+QILTQDTa9pcFdicOWtufKp5SxosjZsU9ZhF0IGZ/vI4
+	U4PpfWTX2KzQESHNxABlUm1T8hMpMnf5Bb1ryLY9blic2gtzV2psHVk/Y8La1yGlnqAQQ1TOf2e
+	wmOiZoVtvqBBhxpyn+GPzdk+E+23X89cGgnbJS1+2tQ2kINoMCTXlvW/nHVEVtEYTAD0MNYfOJX
+	TUR0dOnriz0f4jLwVsUNwQeVdA5pKgai1PJKXeD3k19CWTojy75Lj3fyh0Jc7TBPpAelaVsABPR
+	j2pjlyusM1MI=
+X-Received: by 2002:a05:6000:4303:b0:487:452:dbd3 with SMTP id
+ ffacd0b85a97d-48867095690mr343670f8f.47.1790096860382; Tue, 22 Sep 2026
+ 10:07:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914113338.159227-11-fuad.tabba@linux.dev>
+References: <20260722163536.773166-1-alex@ghiti.fr> <20260722165907.784020-1-alex@ghiti.fr>
+In-Reply-To: <20260722165907.784020-1-alex@ghiti.fr>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 22 Sep 2026 10:07:28 -0700
+X-Gm-Features: AclHuK_e4jnjL37WW70pjKEDayayY4BwnWgy3gypratcWUMOYC5nt2OmVrBvIcA
+Message-ID: <CAKEwX=NJH2nM=vMPk_=ugJ26uNjH4AMdHXeaasuPrbSEGxpJOQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] mm: swap: overlap synchronous readahead
+ decompression with disk I/O
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, yosry@kernel.org, 
+	chengming.zhou@linux.dev, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, kasong@tencent.com, ryncsn@gmail.com, chrisl@kernel.org, 
+	baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 12:33:30PM +0100, Fuad Tabba wrote:
-> EL2 implements PSCI 1.1 for protected VMs: CPU_ON, CPU_OFF,
-> PSCI_VERSION and PSCI_FEATURES are decided at EL2 (CPU_ON and CPU_OFF
-> still exit to the host, which only schedules or parks the target),
-> AFFINITY_INFO, CPU_SUSPEND and the platform power operations are
-> forwarded to the host, and anything else returns NOT_SUPPORTED,
-> including the TRNG calls and the functions above 1.1, SYSTEM_OFF2
-> among them, that the host handled for a protected guest until now.
-> TRNG for protected guests is a follow-up. AFFINITY_INFO stays
-> with the host, which returns OFF only once it has parked the target:
-> the host is what a guest polls to see a CPU_OFF complete before it
-> issues the next CPU_ON, as Linux does on hotplug.
-> 
-> Three consequences follow:
-> 
->   - A protected VM has one primary vCPU, the first whose hyp vCPU is
->     created with mp_state RUNNABLE. A second one, or an mp_state other
->     than RUNNABLE or STOPPED, fails that vCPU's first KVM_RUN with
->     -EINVAL.
-> 
->   - CPU_ON finds its target among the hyp vCPUs, which exist from the
->     target's first KVM_RUN; before that the guest gets
->     INVALID_PARAMETERS.
-> 
->   - A vCPU EL2 holds powered off doesn't run: handle___kvm_vcpu_run()
->     returns ARM_EXCEPTION_IL, reported as KVM_EXIT_FAIL_ENTRY. Its
->     existing bail-outs return the same code instead of an -EINVAL that
->     handle_exit() didn't recognise, for every hyp vCPU.
-> 
-> Non-protected VMs keep power_state ON and accept any mp_state.
-> 
-> Each protected vCPU is OFF, ON_PENDING or ON. CPU_ON moves the target
-> to ON_PENDING, and the target's next run resets it and moves it to ON.
-> The racing transitions are cmpxchg, and the reset state is published
-> with a release/acquire pair, documented at each site. CPU_OFF publishes
-> OFF with a release, so the target's clear of reset_state.reset is
-> ordered before it and a CPU_ON that then wins on OFF republishes after
-> the clear. Rolling a CPU_ON the host failed back to OFF needs the
-> host's return value, which the per-EC marshalling patch delivers along
-> with the rollback. Until then such a target stays ON_PENDING, and the
-> reset has no observable effect: flush_hyp_vcpu() copies the host's
-> context in on every entry until that patch removes the copy, so the
-> target enters on the host's values rather than the ones EL2 reset.
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  14 ++
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c     |  25 ++-
->  arch/arm64/kvm/hyp/nvhe/pkvm.c         | 283 ++++++++++++++++++++++++-
->  3 files changed, 311 insertions(+), 11 deletions(-)
-> 
+On Wed, Jul 22, 2026 at 9:59=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> wro=
+te:
+>
+> Swap readahead reads the whole window sequentially: the device I/Os are
+> accumulated along the way while the synchronous, zswap-resident entries
+> are decompressed inline. The I/O is only triggered afterwards, at
+> blk_finish_plug(), so the synchronous zswap decompression is pure added
+> latency in front of the read the fault is about to wait on.
+>
+> Trigger the I/O before decompressing the synchronous entries: split the
+> window walk into two passes. Pass 1 issues the async device reads and
+> defers the synchronous neighbours; pass 2 reads the deferred entries
+> while pass 1's I/O is in flight, overlapping the CPU work with the disk
+> reads instead of serialising it in front of them.
+>
+> swap_cluster_readahead() walks a contiguous offset range, which is cheap.
+> swap_vma_readahead() instead walks the page tables so we cache the
+> entries we encounter in the first pass to reuse directly in the second
+> pass.
 
-[...]
+Hmmm does not seem like you're taking advantage of the device-level
+contiguity of swap_cluster_readahead() either way? You're calling
+swap_entry_synchronous() (i.e zswap_is_present(entry, 1)) one entry
+(i.e one tree walk) at a time.
 
-> +
-> +/*
-> + * Returns true when handled at EL2, false when the host must wake the target
-> + * vCPU.
-> + */
-> +static bool pvm_psci_vcpu_on(struct pkvm_hyp_vcpu *hyp_vcpu)
-> +{
-> +	struct pkvm_hyp_vm *hyp_vm = pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
-> +	struct vcpu_reset_state *reset_state;
-> +	struct pkvm_hyp_vcpu *target;
-> +	unsigned long cpu_id, ret;
-> +	int power_state;
-> +
-> +	cpu_id = smccc_get_arg1(&hyp_vcpu->vcpu);
-> +	if (!kvm_psci_valid_affinity(&hyp_vcpu->vcpu, cpu_id)) {
-> +		ret = PSCI_RET_INVALID_PARAMS;
-> +		goto error;
-> +	}
-> +
-> +	target = pkvm_mpidr_to_hyp_vcpu(hyp_vm, cpu_id);
-> +	if (!target) {
-> +		ret = PSCI_RET_INVALID_PARAMS;
-> +		goto error;
-> +	}
-> +
-> +	/*
-> +	 * vCPUs race to power on the same target. Relaxed: reset_state
-> +	 * is published by the release on reset_state.reset below.
-> +	 */
-> +	power_state = cmpxchg_relaxed(&target->power_state,
-> +				      PSCI_0_2_AFFINITY_LEVEL_OFF,
-> +				      PSCI_0_2_AFFINITY_LEVEL_ON_PENDING);
-> +	switch (power_state) {
-> +	case PSCI_0_2_AFFINITY_LEVEL_ON_PENDING:
-> +		ret = PSCI_RET_ON_PENDING;
-> +		goto error;
-> +	case PSCI_0_2_AFFINITY_LEVEL_ON:
-> +		ret = PSCI_RET_ALREADY_ON;
-> +		goto error;
-> +	case PSCI_0_2_AFFINITY_LEVEL_OFF:
-> +		break;
-> +	default:
-> +		ret = PSCI_RET_INTERNAL_FAILURE;
-> +		goto error;
-> +	}
-> +
-> +	reset_state = &target->vcpu.arch.reset_state;
-> +	reset_state->pc = smccc_get_arg2(&hyp_vcpu->vcpu);
-> +	reset_state->r0 = smccc_get_arg3(&hyp_vcpu->vcpu);
-> +	reset_state->be = kvm_vcpu_is_be(&hyp_vcpu->vcpu);
-> +	/*
-> +	 * Publish reset_state.{pc, r0, be} to the target vCPU. Pairs with
-> +	 * smp_load_acquire(&reset_state->reset) in pkvm_reset_vcpu().
-> +	 */
-> +	smp_store_release(&reset_state->reset, true);
-> +
-> +	/* The host requests KVM_REQ_VCPU_RESET and wakes the target. */
-> +	return false;
-> +
-> +error:
-> +	smccc_set_retval(&hyp_vcpu->vcpu, ret, 0, 0, 0);
-> +	return true;
-> +}
-> +
-> +/*
-> + * Returns true when handled at EL2, false when the host must stop scheduling
-> + * the vCPU.
-> + */
-> +static bool pvm_psci_vcpu_off(struct pkvm_hyp_vcpu *hyp_vcpu)
-> +{
-> +	/* No other writer runs while this vCPU is ON and executing. */
-> +	WARN_ON(READ_ONCE(hyp_vcpu->power_state) != PSCI_0_2_AFFINITY_LEVEL_ON);
-> +
-> +	/*
-> +	 * Orders pkvm_reset_vcpu()'s clear of reset_state.reset before OFF, so
-> +	 * a CPU_ON that wins on OFF republishes after it. Pairs with the
-> +	 * cmpxchg in pvm_psci_vcpu_on().
-> +	 */
-> +	smp_store_release(&hyp_vcpu->power_state, PSCI_0_2_AFFINITY_LEVEL_OFF);
+If you're not taking advantage of contiguity, just share the logic haha.
 
-Is there an issue either with the comment or with pvm_psci_vcpu_on()? the
-cmpxchg is relaxed. I would have expected cmpxchg_acquire().
+>
+> Results [vm-scalability mixed zswap+disk swap-in, 256M zswap cap (~73%
+> disk), Sapphire Rapids, zswap=3Dzstd, shrinker off, n=3D3]:
 
-> +
-> +	/* Return to the host so that it can finish powering off the vcpu. */
-> +	return false;
-> +}
-> +
+Hmm how do you have disk swapin with shrinker off?
 
-[...]
+>
+>   metric                  mm-new    +patch    delta
+>   swap-in tput (KB/s)    119247    131261    +10.1%
+>   swap-in wall (s)          106       100     -5.7%
+>   swap readahead (pages)   1.56M      1.55M    ~same
+>   zswap-in (MB)            1895       1872     ~same
+>   disk swap-in (MB)        5207       5190     ~same
+>   major faults            260148     260212    ~same
 
--- 
-Vincent
+Obviously this would help zswap, but what if the backend is disk swap,
+and all of this is just pure overhead? How would the numbers look?
+
+>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr
