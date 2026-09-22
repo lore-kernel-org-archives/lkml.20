@@ -1,227 +1,231 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092363CAA3F
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062871; cv=none; b=Wr9xTDgQAQPMm2ZfCUh4NgmaiaK8Rx1bbFF6chT2k7fSaBaM31B8bOaMsCsINywGK6u+ZRlOi/TxrXW9Z7DShpi+/WyQRcXldIb7Daomuc6F9L5dYtCDx0DUB16/Bol+jW7FwwewNXUrkQkb4Ieto2V7sVuXn6R1l29IZsfiZ+4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062871; c=relaxed/simple;
-	bh=XrPvrrHNaH3h6usxw4SO6pwHyk8MJ9Pg2h4F9/FUClY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=SuKkVLAnyF24MnL7GeV1QdOdrC/U+nWVpW1yNEnoAqG6WjD8JnTbbAUOhROsWiuzlhfToqrzWd4qUHJuiBXJSKZ3uDCkHmvxLh51jx6LKcdWcmX9pWcKpv8vclEjX1UwO6oPKuOYht7gxfpuolrew/1sQhNT5Qhk8o+3kksbbig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b0e7370be1so922595eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:41:09 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3E33CAA3F
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790062883; cv=pass; b=DrD+VRDX4468yKYTSc/nDGjUxN20VZk8boRKkeNUgiuKnP8Xt7ubOtb4q/R6jSQsnsVktH+ljLlrfJbiZOFdqN/KVV4IR7D2jx5l93WKHvlpqTruKa1B13NvKF3pGFLer27UOM3fBq+1d0n3ygWjIrTZVWvJ0QXBP9YLHFq+0O8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790062883; c=relaxed/simple;
+	bh=8dO5H5NH2RszZryttcomG76BD17kGA9isNzAWX9CjXg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BhnduBS6zGc8VzQERWNOTADSswoqTmdMgmIrq0Jw3yKjfZcSJuCMzeY625jFGTJDWRmHB6vHWUgb1Xqlmnmzk9IFFJMjiVt6fWCKuzIVF6KloWucbbCS+wMUDpox6Cs4hp7PQNWD9o3Y3WslbtyUzCPCzCj5oaI1c3d43+QV67A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S8hiim9z; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S8hiim9z"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e50968489so3554421d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:41:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790062881; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s++9lYpTzLeV9R6/Xz6oBiu8EoYXjMP6HBDKd/FZG9sln7FO5vuu5YIJlCdqDvH8Dh
+         iRDf9twXaLWXpxWfQVygvyUdHn+bIVfnjfPUAdMbJfakK5r6/cDpBZieqyn7C5PC8C30
+         cw+c3idQjFiAUTPNurJJxUgyLqUp0tZS4rA0qt3poLZYqpddCqnLkhpu/D86NY1vy6S7
+         sLo6AhN2GsD8Xhw0moOaBYrlBFYF3wbwHycaC3jgpV4ONnc4EodWbGkff7FD7oWLvQ5E
+         peoo9a1tff0HGfpEbbtzSCmDV46AMUZpiuuFoJ8SnRfCDbZEHX2WGm5VweozV/ULTW90
+         re/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=io8UjoxhH2lPg3HQUAyI0U/34+pkdRwtw5UyaKVMvYA=;
+        fh=z7Uymw9Wg/TRTg3I904mqH9/Jp//YUETR/JZ+AP64vE=;
+        b=g4cfYfME2txrnRK/HlyMuxJHon1s87koaUFtFLN+6HNpnq+NxEsA/A2pIUnJJxp2GH
+         s0Dl370qg6dOiXDpyu0kQyM12R0N3h2aGc7ppJ1m/XR6D6gXQ0ReP+6OZ5l5E/xFwWoA
+         hDC/TFII6KxES6+wEiDMCNdU/DXGqX1An3uREzguGl/wmcGCz19hFKtUtkzvjQ0i10Le
+         h7pwHBbSZh3Npug7KqnFBM9N1tE2vMbINa7Ohy1vsdJ6fZ0ePwiDjki/RDzfDDVDjvb5
+         aeCo1o1W9UyGlxVmSx9PeUwCWljf68N2ZUyQzB5xhffk4BqTMqpdCjrwkdOfkl1+JOGt
+         XDSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790062881; x=1790667681; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=io8UjoxhH2lPg3HQUAyI0U/34+pkdRwtw5UyaKVMvYA=;
+        b=S8hiim9zmeIQ/4AZ5jWWarKAVusTDFtb+fpzXuvoYezS6czOhrnxhjnB6abMz5TZrA
+         kHa4F+xLAjINy+kW3J9OysC+49rKPyR7ovGXMpQF+61JZjxbDjiODB4O/PcT8HtU+QYM
+         br+pIa/g3lJaNPruAVocrtxr9churnOXKnEAjNSBPPXlK4khPIwV2FkuH8llqZDFQXKJ
+         TmwMR5awpDz5CMYIarx0+ePNvSFpXEbFR4LbbHMHmZyJAAoJtc0v55nyCIoZZQx0qBRE
+         IYqXJr2FHStQQywC3hmA5lKqOXQ13EUTImKzbitTMk4tzrGxESspGViaNHY7vYnxkFjO
+         MW5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790062869; x=1790667669;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2PPXGuUK7BCbuHnmTDRYrOzvGigpnWWgKcYQ6j2BYsA=;
-        b=zGPOzx5zGoOzwjinL3N7/lkos5iD18KNoWLoj58vo9HWHUcPG2rp7vd8BzVajZLEdN
-         bytrTaMDoVYwOKzqVLII6vVmsghkc5vtbulAtO/hZNlahNwoD533sYhp++v53Uf57X0/
-         yrRjsynA1IAKvu596kDc6OqEeOpP9n4r8eAe3M/zgy9wbp5tMGFFD6MUu2aZ54P8RFYW
-         1mzfDATIE3mfS8xzHn/EjpxdxG1K8HjYvWumKbVq3s0T318SUb9hkLazcAoGgOr24WfD
-         evxRrlKmam1y7Mj5eta6TOGI1fSiVGo4ZNtKRCr3TFcShDCODVV/5TRVq546hGefX9iP
-         1ijg==
-X-Gm-Message-State: AFuF++l+LY23eafzes1UheUT0UgcUxoWCq9V6BKKDm9z+MmZLbDUnhhx
-	qOF1qMbqgymTeLlFq3gpjl3ap5lMQxvoaeLZH5bCLUvif2L7aUkrbWtV9hz5PrIQsvGy3x8NYhI
-	2ix29TuDSTciPUv1tIC9cr0i/WupQYHWAxdvqZ0A/EOxZhc3+EIcI2HO9pI0=
+        d=1e100.net; s=20260707; t=1790062881; x=1790667681;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=io8UjoxhH2lPg3HQUAyI0U/34+pkdRwtw5UyaKVMvYA=;
+        b=m4o4LwlKtK27xE5k7URKJ4ux5xiqr+I1yfPTtSvqncUU8GEfuul04jUGGuek2NzIke
+         +XE8SwalXiLntL/Q3sRYFmVZYJUK9PLeWvl34GcT3OHwZzQH+PWNDtJC/8RwytgwswU1
+         286DxL3pWCCW3e1VJ+5zaYd5GgxCBH6mgRrKt/tLghBhGM3P1fhDf5hJ2YjKMO0ZcjBp
+         6MuVeWAHC7Ocpr8fu3xi0W9WiXjyy00J0kaJBuomTl/uNQZUcG3al4IxV15j7Y4X4RzI
+         5+Tt47OLxWQu8ObVH1A4oFxKAVS3MveFVVl+6jwpppUJi4Ew04a/4n/cu7ulEosNrijj
+         5rWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKRlGWm/y++y82Y3lFYJkWC2l4c3DOfpa6TAOl7DRaSZDeZNDuvslEN1xW8zSLXUk3fBryveHhARljOe0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+0om5YFDS3Ymt4nxHveDo96uPN18baJfrA7I0seaB1fwVS7J4
+	aTbH9mRXpsIXyB+cnObWzpCVf4MmgnuwNtkgu+vwwup08DD9Sjt9ANrkiMaCz7qSsnniR0jmGs5
+	DEWVZO1UbFmENo9KDCXABGIXCvn6cSpU=
+X-Gm-Gg: AYBFou215wF2RSmm+YcVvk7vjh5rIhi36OAU37iBAe9XPUOE/mwI1rPIPbBhCdX/S4G
+	kLWPFtFsSMnURcPZOinlRtPqYRUUaLymurSuO3lq6boBfvz6ToP7f7vLBAW5tIaT6Q7zIsnzZg2
+	AgfQXBaEmcEQVhi6FrSAXrXdHJCrs/SLoMmiSWAx+/IRGnKOHnFEAJXe5PULRMm4oGk38VHKSYe
+	B4ainx4ShvdZ4Y+iZI7zPUXvnKLt1MsxLiK6shqDEHIxMVrm3vitEvlbkDuI+KMOv7hnW5Q8gue
+	IYe3LeB9VSPisNsTbbUYPgKcFli/xw8oysDbBIRj61s1qJu8/GCFqCIleQ==
+X-Received: by 2002:a05:690e:1913:b0:66d:2cd9:91d with SMTP id
+ 956f58d0204a3-6717fd6bd3amr4742587d50.50.1790062880773; Tue, 22 Sep 2026
+ 00:41:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:220d:b0:6b1:7e2b:dc01 with SMTP id
- 006d021491bc7-6d1586690ccmr1683959eaf.11.1790062868884; Tue, 22 Sep 2026
- 00:41:08 -0700 (PDT)
-Date: Tue, 22 Sep 2026 00:41:08 -0700
-In-Reply-To: <677f567c.050a0220.25a300.01ad.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab23114.514bccd6.255447.001b.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [nilfs?] INFO: task hung in find_inode (2)
-From: syzbot <syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
+References: <20260918031323.3376849-1-lgs201920130244@gmail.com> <aqzqvfbeh653jUce@ashevche-desk.local>
+In-Reply-To: <aqzqvfbeh653jUce@ashevche-desk.local>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Tue, 22 Sep 2026 15:41:07 +0800
+X-Gm-Features: AcwNN1VuZPbV3cKT7eLyi5Ad-zawrqaD9RbQUP_M-BL5VAYRTq9TxG7WFCvCE54
+Message-ID: <CANUHTR9ipEFUGteK4TTpnpN0yUmxjop1v783aOhyq6AE9cwO0A@mail.gmail.com>
+Subject: Re: [PATCH] pmdomain: imx: gpc: remove all initialized power domains
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Wentao Liang <vulab@iscas.ac.cn>, 
+	Miaoqian Lin <linmq006@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Lucas Stach <l.stach@pengutronix.de>, Dong Aisheng <aisheng.dong@nxp.com>, linux-pm@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+  Hi Andy,
 
-***
+ Thanks for the review.
 
-Subject: Re: [syzbot] [nilfs?] INFO: task hung in find_inode (2)
-Author: konishi.ryusuke@gmail.com
+On Fri, 18 Sept 2026 at 15:39, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Fri, Sep 18, 2026 at 11:13:22AM +0800, Guangshuo Li wrote:
+> > imx_gpc_old_dt_init() initializes all power domains described by
+> > of_id_data->num_domains. Its probe failure path removes all of these
+> > domains, but imx_gpc_remove() only removes the PU and ARM domains.
+> >
+> > On SoCs with more than two domains, such as i.MX6SL and i.MX6SX, the
+> > additional DISPLAY and PCI generic power domains can remain registered
+> > after the GPC driver is removed.
+> >
+> > Remove all initialized power domains in reverse order. Keep releasing
+> > the PU clocks immediately after the PU domain has been successfully
+> > removed.
+> >
+> > This issue was found by manual code inspection.
+>
+> ...
+>
+> >  static void imx_gpc_remove(struct platform_device *pdev)
+> >  {
+> > +     const struct imx_gpc_dt_data *of_id_data =
+> > +             device_get_match_data(&pdev->dev);
+>
+> No...
+>
+> >       struct device_node *pgc_node;
+> > -     int ret;
+> > +     int i, ret;
+>
+> ...and no.
+>
+> The result of the device_get_match_data() better to be checked, in some cases
+> it might lead to NULL dereference.
+>
+> It's better to split semantically different variables, also naming 'i' is not
+> good, num_domains is better. Besides that, why is it signed?
+>
+> ...
+>
+> > +             for (i = of_id_data->num_domains - 1; i >= 0; i--) {
+>
+> What you are doing here can be written in a shorter form
+>
+>                 num_domains = of_id_data->num_domains;
+>                 while (num_domains--) {
+>
+> > +                     ret = pm_genpd_remove(&imx_gpc_domains[i].base);
+> > +                     if (ret) {
+> > +                             dev_err(&pdev->dev,
+> > +                                     "Failed to remove %s power domain (%pe)\n",
+> > +                                     imx_gpc_domains[i].base.name,
+> > +                                     ERR_PTR(ret));
+> > +                             return;
+> > +                     }
+> >
+> > +                     if (i == GPC_PGC_DOMAIN_PU)
+> > +                             imx_pgc_put_clocks(&imx_gpc_domains[i]);
+> >               }
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
+How about this:
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 89a312991dc6
-
-Avoid a three-way deadlock involving find_inode(),
-nilfs_evict_inode(), and the log writer by checking the inode bitmap
-during normal inode loading.
-
-diff --git a/fs/nilfs2/alloc.c b/fs/nilfs2/alloc.c
-index 7b1cd2baefcf..32f54382f95d 100644
---- a/fs/nilfs2/alloc.c
-+++ b/fs/nilfs2/alloc.c
-@@ -404,6 +404,13 @@ static size_t nilfs_palloc_bitmap_offset(const struct buffer_head *bh)
- 	return offset_in_folio(bh->b_folio, bh->b_data);
- }
- 
-+static size_t nilfs_palloc_entry_offset_in_block(
-+	const struct inode *inode, unsigned long entry_index_in_group)
-+{
-+	return (entry_index_in_group % NILFS_MDT(inode)->mi_entries_per_block)
-+		* NILFS_MDT(inode)->mi_entry_size;
-+}
-+
- /**
-  * nilfs_palloc_entry_offset - calculate the byte offset of an entry in the
-  *                             folio containing it
-@@ -416,14 +423,61 @@ static size_t nilfs_palloc_bitmap_offset(const struct buffer_head *bh)
- size_t nilfs_palloc_entry_offset(const struct inode *inode, __u64 nr,
- 				 const struct buffer_head *bh)
+ static void imx_gpc_remove(struct platform_device *pdev)
  {
--	unsigned long entry_index_in_group, entry_index_in_block;
-+	unsigned long entry_index_in_group;
- 
- 	nilfs_palloc_group(inode, nr, &entry_index_in_group);
--	entry_index_in_block = entry_index_in_group %
--		NILFS_MDT(inode)->mi_entries_per_block;
- 
- 	return offset_in_folio(bh->b_folio, bh->b_data) +
--		entry_index_in_block * NILFS_MDT(inode)->mi_entry_size;
-+		nilfs_palloc_entry_offset_in_block(inode, entry_index_in_group);
-+}
-+
-+/**
-+ * nilfs_palloc_kmap_entry - map the page containing the entry and calculate
-+ *                           the entry's memory address on it
-+ * @inode:        inode of metadata file using this allocator
-+ * @nr:           serial number of the entry (e.g. inode number)
-+ * @entry_bh:     buffer head of the entry block
-+ * @bitmap_check: whether to perform bitmap testing
-+ *
-+ * Return: Pointer to the mapped entry on success, or an ERR_PTR() encoded
-+ * error code on failure.  Specifically, returns %-ENOENT if @bitmap_check
-+ * is true and the bitmap block managing the entry does not exist, or if the
-+ * corresponding bit for the entry is not set in the bitmap.  Note that this
-+ * function never fails when @bitmap_check is false.
-+ */
-+void *nilfs_palloc_kmap_entry(struct inode *inode, __u64 nr,
-+			const struct buffer_head *entry_bh, bool bitmap_check)
-+{
-+	unsigned long group, entry_index_in_group;
-+	size_t entry_offset;
-+
-+	group = nilfs_palloc_group(inode, nr, &entry_index_in_group);
-+	if (bitmap_check) {
-+		struct buffer_head *bitmap_bh;
-+		unsigned char *bitmap;
-+		size_t bitmap_offset;
-+		int ret;
-+
-+		ret = nilfs_palloc_get_bitmap_block(inode, group, 0,
-+						&bitmap_bh);
-+		if (unlikely(ret))
-+			return ERR_PTR(ret);
-+
-+		bitmap_offset = nilfs_palloc_bitmap_offset(bitmap_bh);
-+		bitmap = kmap_local_folio(bitmap_bh->b_folio, bitmap_offset);
-+		if (!test_bit_le(entry_index_in_group, bitmap))
-+			ret = -ENOENT;
-+		kunmap_local(bitmap);
-+		brelse(bitmap_bh);
-+
-+		if (ret)
-+			return ERR_PTR(ret);
-+	}
-+
-+	entry_offset = offset_in_folio(entry_bh->b_folio, entry_bh->b_data) +
-+		nilfs_palloc_entry_offset_in_block(inode, entry_index_in_group);
-+
-+	return kmap_local_folio(entry_bh->b_folio, entry_offset);
- }
- 
- /**
-diff --git a/fs/nilfs2/alloc.h b/fs/nilfs2/alloc.h
-index 046d876ea3e0..2c184d0ff097 100644
---- a/fs/nilfs2/alloc.h
-+++ b/fs/nilfs2/alloc.h
-@@ -35,6 +35,8 @@ int nilfs_palloc_get_entry_block(struct inode *, __u64, int,
- 				 struct buffer_head **);
- size_t nilfs_palloc_entry_offset(const struct inode *inode, __u64 nr,
- 				 const struct buffer_head *bh);
-+void *nilfs_palloc_kmap_entry(struct inode *inode, __u64 nr,
-+			const struct buffer_head *entry_bh, bool bitmap_check);
- 
- int nilfs_palloc_count_max_entries(struct inode *, u64, u64 *);
- 
-diff --git a/fs/nilfs2/ifile.h b/fs/nilfs2/ifile.h
-index d38a46f5ae41..bc47bb139e1c 100644
---- a/fs/nilfs2/ifile.h
-+++ b/fs/nilfs2/ifile.h
-@@ -19,11 +19,10 @@
- 
- 
- static inline struct nilfs_inode *
--nilfs_ifile_map_inode(struct inode *ifile, u64 ino, struct buffer_head *ibh)
-+nilfs_ifile_map_inode(struct inode *ifile, u64 ino,
-+		const struct buffer_head *ibh, bool bitmap_check)
- {
--	size_t __offset_in_folio = nilfs_palloc_entry_offset(ifile, ino, ibh);
--
--	return kmap_local_folio(ibh->b_folio, __offset_in_folio);
-+	return nilfs_palloc_kmap_entry(ifile, ino, ibh, bitmap_check);
- }
- 
- static inline void nilfs_ifile_unmap_inode(struct nilfs_inode *raw_inode)
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index 34e6096069ad..09de917b4b82 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -455,7 +455,14 @@ static int __nilfs_read_inode(struct super_block *sb,
- 	if (unlikely(err))
- 		goto bad_inode;
- 
--	raw_inode = nilfs_ifile_map_inode(root->ifile, ino, bh);
-+	raw_inode = nilfs_ifile_map_inode(root->ifile, ino, bh, true);
-+	if (IS_ERR(raw_inode)) {
-+		err = PTR_ERR(raw_inode);
-+		if (err == -ENOENT)
-+			err = -ESTALE;
-+		brelse(bh);
-+		goto bad_inode;
-+	}
- 
- 	err = nilfs_read_inode_common(inode, raw_inode);
- 	if (err)
-@@ -743,7 +750,7 @@ void nilfs_update_inode(struct inode *inode, struct buffer_head *ibh, int flags)
- 	struct inode *ifile = ii->i_root->ifile;
- 	struct nilfs_inode *raw_inode;
- 
--	raw_inode = nilfs_ifile_map_inode(ifile, ino, ibh);
-+	raw_inode = nilfs_ifile_map_inode(ifile, ino, ibh, false);
- 
- 	if (test_and_clear_bit(NILFS_I_NEW, &ii->i_state))
- 		memset(raw_inode, 0, NILFS_MDT(ifile)->mi_entry_size);
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index 829573cb6131..23b24373befc 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -895,7 +895,7 @@ static void nilfs_fill_in_file_bmap(struct inode *ifile,
- 		ibh = ii->i_bh;
- 		BUG_ON(!ibh);
- 		raw_inode = nilfs_ifile_map_inode(ifile, ii->vfs_inode.i_ino,
--						  ibh);
-+						  ibh, false);
- 		nilfs_bmap_write(ii->i_bmap, raw_inode);
- 		nilfs_ifile_unmap_inode(raw_inode);
- 	}
--- 
-2.53.0
++       const struct imx_gpc_dt_data *of_id_data;
+        struct device_node *pgc_node;
+-       int ret;
++       unsigned int num_domains;
++       int ret;
 
+        pgc_node = of_get_child_by_name(pdev->dev.of_node, "pgc");
+
+        ...
+
+        if (!pgc_node) {
+                of_genpd_del_provider(pdev->dev.of_node);
+
+-               ret = pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_PU].base);
+-               if (ret) {
+-                       dev_err(&pdev->dev, "Failed to remove PU power
+domain (%pe)\n",
+-                               ERR_PTR(ret));
+-                       return;
+-               }
+-               imx_pgc_put_clocks(&imx_gpc_domains[GPC_PGC_DOMAIN_PU]);
++               of_id_data = device_get_match_data(&pdev->dev);
++               if (!of_id_data)
++                       return;
+
+-               ret =
+pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_ARM].base);
+-               if (ret) {
+-                       dev_err(&pdev->dev, "Failed to remove ARM
+power domain (%pe)\n",
+-                               ERR_PTR(ret));
+-                       return;
++               num_domains = of_id_data->num_domains;
++               while (num_domains--) {
++                       ret =
+pm_genpd_remove(&imx_gpc_domains[num_domains].base);
++                       if (ret) {
++                               dev_err(&pdev->dev,
++                                       "Failed to remove %s power
+domain (%pe)\n",
++                                       imx_gpc_domains[num_domains].base.name,
++                                       ERR_PTR(ret));
++                               return;
++                       }
++
++                       if (num_domains == GPC_PGC_DOMAIN_PU)
++
+imx_pgc_put_clocks(&imx_gpc_domains[num_domains]);
+                }
+        }
+
+Does this look OK to you? If so, I'll send a v2.
+
+Thanks,
+Guangshuo
