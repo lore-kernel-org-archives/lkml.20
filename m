@@ -1,133 +1,209 @@
-Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010002.outbound.protection.outlook.com [52.101.85.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44274F85AC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061768; cv=none; b=K2ywgE8kCLGIrbn78i4ppm1XfxbLJ0cTy/tV8yyclCu3AWabp3nv/sUT9SA2H9Vlnh4bCOlUIi4SfRjowTsy4Rur27gsY+DF45rtvUXUS9EgcYJU0PYFH6ibXj86a2no6s/9VZoSnycPKFBazA/7W1JU+2fl5I4h90TI3PCeU10=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061768; c=relaxed/simple;
-	bh=40KTFaOhOR4XVyPXvsqIHuRMnZah7jhj6hPfzoMJXEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xf1zpT2wDIImi+98DQC0NvC5CE6JHTDuGuAYCiYMiomFpqMRJFyQ9FGc1jQQBPdBNyRiSC5KSzrqonshJEStyYrVJ+82gUNVmzGC5gmoCeddkI9XYb1ASq3yqKIqtjqZuC7emmJqQkcgcj0a01/f4Oiz3ov0jdB4xPPhs7bDXtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=deOKtKe2; arc=none smtp.client-ip=74.125.227.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F9C517BC4;
+	Tue, 22 Sep 2026 07:22:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790061770; cv=fail; b=XYkvOQfOLrU87fVIQTCVWyK5tLrzKUESD8Pv8kCI89HRTwe7VBcI7D+E6lDX4Es0MjVqevSB1uYYuLJs60BnavLM8NKZBo87p2Cha5RzT6kmO/+yiHXXmPwZ2l83SaO03+Pj+BVhQG4cCWpXrarEx2br8owJ0PGX7VKeb+n9Z3c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790061770; c=relaxed/simple;
+	bh=R/Fyyq7HZR21uvvsc6HIfZ8TFJLr5RZZTpxvEtIcuQ0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=inApqINLe0suRtTqmVEuByQHvGVkjFON8jnuc7mNzipeMuFahC2/KQ750F+mtQN1CqwGDix2atpqKDkp78RnqIHSI+RftXJWJGIcLy2okusLxVvXN/SQWZPEsC/p5k9IrAodGAqX7Rlt+PVt+ubNtVqwljMldSew4WCggXeBlcc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JY7wvdhu; arc=fail smtp.client-ip=52.101.85.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="deOKtKe2"
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so34213385ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 00:22:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790061766; x=1790666566; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YqRdsoSwZuMFprPz4Ho4sF3JUn0Ps5OUJkmXS6wpmHg=;
-        b=deOKtKe2IVbb3OSLqVuOXpITb8Q/YCFXj8+XlsXLIX+oyESUOeOczT/gJ3q85CRIB5
-         ZwLE3rAARMpfCQfKJBMS6nN3r4PDJxjhaz67wtjznXdfmFf6lAlSqd7RXpu9+xjejzGz
-         ZRzhWM76wcNMAQ4fkEOAQCvlLCg6jO6oD83NdgGtBlDCDvjLtNShUFo4gwOg6yEuhviC
-         V0aH0CHVHqLO8y9PLNvbl/DBuINSqN8+dsTEFn7SFkTX+bBmV3rZfPbTnfkuPxN7lpbD
-         fx1bkJpDzwjkv8cnJa5aagZIEFTjBGzzf5HslQ612PemJ1ozEzyaQsHpDVxLINh/sEFi
-         YtLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790061766; x=1790666566;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YqRdsoSwZuMFprPz4Ho4sF3JUn0Ps5OUJkmXS6wpmHg=;
-        b=WWKGma7CHMbPjUFsrHr/46j9yVqcELaMa92c06+vgTH1eQKDTdNWwo0gCAm8+RQ6mP
-         3CJ1FCF85sLhZyizskXytP5ycA1ReNuOsdZfjtJt2876qm0lZ7zm8QEgUuTKmssDSAi3
-         IvZMxKyRof8+mhMkGCGKe4egbCvudVCDGFc/ckXGhOJSWv2kzmtPKGjt8B7+Q5sXt1Bv
-         YguJbeuWjt9ebC/iogFer6pBUndrI7Fqdtp8BmL/ZsLGgxv2IYI5m40K1yzwG6W+/wu9
-         ZgbUf9MYilm6h2ZUOaIAiePl4XT3NZK9jILLJ1QnAfj5VrhDOLNUq17NtcGY7y/xKkDo
-         b73g==
-X-Forwarded-Encrypted: i=1; AKwUvBy9p8elLdIxQM5kqPMo/aqdYAo6u903W8blZ5EJbC3HUnrTxsh23RFhk6BrCdLUx8LAZYqDRgCQcPR/t/k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0dwRnp5urhi3nDi/i7KfGJNiNC3RLZItrwa0gGXPzRJaSQUNb
-	e+WkTYWneGtAhj/t9Dn3qZW9Qw/ihcf9DikFg/IkXa/oc1HuDk0Vb29I
-X-Gm-Gg: AYBFou2ni1dAZsBZqu5qtu/ueYWufh4C9qsFdcTmTKEtnleA3JQWhyUhtcQ5ZIozOdV
-	QzZwz1GwEw/6o0k+ZOWRF6BoWB+n30BOFDtzfNETU2tM0beis0Q6kLShRQvO/Cfu3z/a7ZsqvSK
-	KH48Ua7uSIHkGsMqTvbFyQKrb6QeaqQ7DF8txBMzy5EeghGfkK0LZNt2iQ6J3b0YZRYPMH7BsDL
-	2aHn54EMxtZzpLcqBfs/khDH6UV3Gz74RvF1TkYC1FT1tkUEuhlFKVBib5/oSXk5G7lwsC7X8Ar
-	l5EFOlFdueDHy9DJlCHiMRRf9nKF6KqV6bIIOToA2BVQ8P1X5BW5rptEriLqOjqTw1QP1a/eRbQ
-	XfUg6r4BRV+dlQPiajh4rIYFycxOiu+ugvomyEog9o655ElUFlp+iZCiLXLdGKzde53InrDXUVg
-	yt3nq4/SP/5DAGkQx1t5ksRMkY+/uTq1vVwjQ9VXOUSL9pEWSgLK5GFhTJhI7b/Gvh49BxtfERT
-	JiEt8F8ooTyPeV+b3elICicJgXCkC35cYDBMvPT6WnZtTZsbOEaonP+qqT1QDO3kYE=
-X-Received: by 2002:a17:90b:4c81:b0:39e:6c69:34dd with SMTP id 98e67ed59e1d1-3a07334d199mr238687a91.65.1790061765828;
-        Tue, 22 Sep 2026 00:22:45 -0700 (PDT)
-Received: from localhost.localdomain (5.240.104.34.bc.googleusercontent.com. [34.104.240.5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a06dfd6705sm1851848a91.0.2026.09.22.00.22.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 00:22:45 -0700 (PDT)
-From: Ginger Li <ginger.jzllee@gmail.com>
-To: ldewangan@nvidia.com,
-	jonathanh@nvidia.com,
-	vkoul@kernel.org
-Cc: dmaengine@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dmaengine: tegra186-gpc-dma: Read channel state under the lock
-Date: Tue, 22 Sep 2026 15:22:33 +0800
-Message-ID: <20260922072233.19592-1-ginger.jzllee@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JY7wvdhu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WF4MzpvFUu/uki69upGAAkBe6cTiIW09IHTW7jsCVCrBXC2MIy/LoGPVtx2H+4MmgyHRtxx9wzxDZbwDE9iTcwcdOxGv6nRU5MIXxJfAL3PBd9uQeYj+o+/Ju/xoRmg/VsIz1J4Gnaio1dk7ac7J66FqMVF/NQ/x/mRLQsqGbtZS7eSLdWbpBWFLST79fQf5tl5bjEVjaRehoqLtuTljkHXh4dOknxaTczIIFefCTc/FyftQmEx4zlcnt59dSt4hyai4jnYpo/ebwDQAPji04NWIOAgfe5lbDjDfAGfAi+nkc441Mf9qaDD2X5IFoDjs3ApNpyuPjILmhaegfskf6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tOLMWVmHH8IosztErSAptf6JvK7DG7NMIJcTGGTOsPk=;
+ b=QdNizghMd0wqEfqbbRGXlSZAgb+vY5aL/FHiaRiSR3KbtowblWePSDIpkenJ8DWNvGqsn/qf09IbyfMXffmRvPSvRLtQR4nOK3xjrKOJE6Fl+djj1twyg4qNcW+cpiNRH+SOGQBh+MetDWV3hzjUNR7kj9SvtYAPR00tLwtzFBLjyk0qpaYHlUEZjYWopmaR7dEUmYheh4N+2kzcWPl3Bl+0AnkyLHznWEJi21zTTzHLOqykveU/BiY0ZLa2p4xoLPnyQPlgSaW1FqmEAlGTWCdueXqNVynBLXf5gMWrQrcZEqdJV3+OxwzlUf/S84QAR1g43Lm1Jdstf+4Xyz+Juw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tOLMWVmHH8IosztErSAptf6JvK7DG7NMIJcTGGTOsPk=;
+ b=JY7wvdhug0pOP2fda0jNREXlm62rO32ap7UiG1mES063gRBwg9Ki0ZaSuNOvE121C4HnGsyvsiO8qKX+H0+AtWtRt7EcErDjTUdv+Sug2H+KGoe64SFMvhULg1RCMD6xECgFsxJL34quLHf9fVOnbDAbURlENSfY9nAYflCVEkE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH8PR12MB6987.namprd12.prod.outlook.com (2603:10b6:510:1be::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Tue, 22 Sep
+ 2026 07:22:46 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
+ 07:22:46 +0000
+Message-ID: <5be99821-cf16-46d7-9e4e-9720d0a06321@amd.com>
+Date: Tue, 22 Sep 2026 09:22:38 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf/udmabuf: reinstate a reasonable default size
+ limit
+To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>, kraxel@redhat.com,
+ vivek.kasireddy@intel.com, sumit.semwal@linaro.org
+Cc: robert.mader@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+References: <20260922012341.367268-1-xujiakai24@mails.ucas.ac.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260922012341.367268-1-xujiakai24@mails.ucas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0357.namprd13.prod.outlook.com
+ (2603:10b6:208:2c6::32) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6987:EE_
+X-MS-Office365-Filtering-Correlation-Id: f934e2bf-efdf-44e2-6de7-08df187a4c66
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|6133799003|56012099006|11063799006|22082099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	knG5lJPGPojuDbm/kZ/2eyp+DctLQtDQzBlWYcShZdXRr6An0eRN1y2e+TG3kPmWQrLOaF5SQkolg5YGuduES7bhizHoYVTdlIL8Urs5O4hFVe0r33FVgsNK/zZpN4H8QvU4QxNhjOC7YBXVpkhJjef6yGFyto7iFGhbr0uFoi4d/R6AnXkAk2l7mdWBhj5wiBz3rPLjQ6ctqYsrwtffVfPESZyKHYjDNI8Cy3najxsgfrct6NtAXH+qGUCbaHoMzqGbJQLmTJBR9uk29vY2sHXKtYVCj7lUVkkvwdghuIynFD0OxAkYnUTxSKek+3+gAfoU1OMMAotlqFMSnlnWIbw+m7spjieivoZvezaKpnvSuMRUxW0BoVMHCzJsi0Y1EGm45DlitqCczHrh4abve6AzQpKmS9fSr3gI4IC1kgkxAaKAIfBo6r1RBw+hQzzstaSs1IRrVv3XMYBd4M+9SheHnEqX9kpNfLSAL+P+ygDQI7VSriOncNcCBc9Y6XRTKoolSfyuJDKIZ8bUbCeHjtmwdzp+nRdWAx8VJ7sZNdWarI+nxo+EYeyQ0+5VWeXJNDSATsYMFae5hIQxszs1NuHWXapS8vT+zFF/0sdUTq3aQf9T2z8yvpio/5PBwbnBCSIaO2sDJh0JhQ6rRwb8CxFlY9sgC0jYoNB+UN7rjmY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(6133799003)(56012099006)(11063799006)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d0JjSUVzWW53RGNqblRDYVNOOHpscjZKVnNqU1FMTHlab2RUR0RNUDFvRjE1?=
+ =?utf-8?B?cEQ3K2pVYWNjU2dhdnlxMGdNL0h2eVJaMlhhOXhjcjdPTTZkZUN2V0ZFdWQx?=
+ =?utf-8?B?a1pTeTlTSVoreEFTUm42VTI2L2p4bHpOVVlXOXFWVk5nTkxXVWdJd3VacWtG?=
+ =?utf-8?B?OTQrbGFreFdzcG8vQzdoY2UzK2RMWGVEV3ZqaW9qYTdoa1RFQUUrODFtZWRr?=
+ =?utf-8?B?UFBmRTJBTktrVXp1eVYyaVkwMzZvaE9NQUNGVDgxVU9POUd1VEh2NnZjM3l6?=
+ =?utf-8?B?OTQwU2FrQllVZWpuNzA5QnFWb0xCS0VFY3FidDZ6MG5YWjB3djdqcjNvUjBN?=
+ =?utf-8?B?T2xLazVzcTlMU3JLdmtiMUhRb1FHbTRpZjNaSThaRHhBN1JMRGZyUnVISXJu?=
+ =?utf-8?B?dGtjN1gvRlBNM3NkMWdTTXQvbCtraG1VNXR4WFdNeWZBc3JwSDZSOVZSTkpx?=
+ =?utf-8?B?TTJCSHlrQlRhc2Y4cGhKWVRxMXh1RHBhVGNid0Z2LzJYSjdnb0phK0R0bW1u?=
+ =?utf-8?B?TjJXRVI3WGcxa3ZtLzFhQ3gwT2tpcWxHNG80RVpDYk5BMWRPa2JCcE5DMWVP?=
+ =?utf-8?B?cEJWMXY0Tmg3NW1na3FNS0luK0pNdUR0OXF3UWdHaFEyb1EwUkgwdzAwSnlX?=
+ =?utf-8?B?b053dWNFR3dPeE1sQktZTmp0cWV4NWV2bHUrUitxREZ2ZGJFZWwxWHZIajZj?=
+ =?utf-8?B?bDJ6Uk9MWldmNjE0S240ZkRKSjM2dm9nSGZIVzQ2dkNJbzBGVEFkZGdjUWJa?=
+ =?utf-8?B?UERyNFJIczVBRUYxeTdBTU5pQi82SjFOMzlHOHhKNmxmK1d1ODhoVjdldm1n?=
+ =?utf-8?B?WW9SbmxQWEhnZGpqZlM3QkRHZ1lHWEw0amhpaEpLRDRQaTlKZkdJMkFOenJI?=
+ =?utf-8?B?MTB3dTJiR0RFQTlZZUphSVVRaTRucHR2eG5XZ0dsVkEwSEFiN2J4amV3bW9h?=
+ =?utf-8?B?UHhFb0N5VVJkRkwvUGtCTGN2TDU2ZlhBTy8ycXRxWHR0NThFVEkvdjVtVUsv?=
+ =?utf-8?B?NmdKSzE2RmlSWkppbTdDc0U2UHBmdFRHK01iclZuVXNSNTdEM2VKSGpRV3dU?=
+ =?utf-8?B?WGE4TC94OTQ2Zkp2alhYWHpjamNkeVNIdGorSzZMRHlueUVLMUJyN0xFdlV2?=
+ =?utf-8?B?QVFlSDNHeS9WZFZNMzhPeWJoNHlRZHdwb2FkYjZ1emozMkQ0YXo1c2diYmhn?=
+ =?utf-8?B?dWh3Q3A5NU1Oc09wSUlRdlZENFAvSHY5L2xFWTNiQlE0OEZ0MGhhR1cyaDFI?=
+ =?utf-8?B?dzJoNlk4ZWVBSzBjRlVZWEQrQWNVN0liUmkwQTI1OWNCZW00ZmFaclBYZTEv?=
+ =?utf-8?B?OEg3enhCTVFuZmcwNjJ6TnpOYy9sOUl1eEhyOHM2N094WVpabU9NMndidHlK?=
+ =?utf-8?B?RHMrREpIbHNNdnFkbUkvSnVlNUNrcXZLa3p0ayt3Z1lIQ2NJTUhFcEdWQTRC?=
+ =?utf-8?B?bjBYanYvMFg2Tmk2MXRXcWhBRE1uSmtocThIRHRQOGlROGVZWFM0bnltc2t1?=
+ =?utf-8?B?Y1VEMVhiVTBWSTZoR3pZZHZlcVZjdGFkWUtpeXAxY0N4NXJYTEt1a3NiZ2lX?=
+ =?utf-8?B?TFRDV0s0bThUU2RiRXdrYXVqZFJ1VWpPb2k0TVh2YTB3cG1DR2RMempzdkZI?=
+ =?utf-8?B?azRtNVBGek1sb1pBUHhiQ1JPdnpqaVM3WnRReTJoeUErV20wc3VSeFNHQjRw?=
+ =?utf-8?B?RXlXbU1PcVFZbDhINzRPV0FIRkdMUWFUNkx5RVhBMGJJeWVDaHVobytZT2lZ?=
+ =?utf-8?B?dm51S3lXSk53M2szN1JIcXBiWk9VK1NkSW1Dcm1JamU1MGxYVEFnSE9DZEpu?=
+ =?utf-8?B?ZncxSUU4aXg1TmVyVkFZNXo3R05Pb2VQeWFtMWZRYzZNclhJNVgrL0NKemxl?=
+ =?utf-8?B?dW5pUmMzOGlYRnNyckJhbDk2MnhLV2EybXEyLzNUM1l3VVB6K1RjR0MwcXg3?=
+ =?utf-8?B?cHV6RWRvZDR4UGRaQXRsZDIvd21ZWkIrcy95aG5uTmVaaS8wZiszcjRRdUlE?=
+ =?utf-8?B?djV1c1dtZDNwY3JZOTFvMDBnSytUNUx5dStkWkNpbzlDSCt6RXgxTzFMMGo1?=
+ =?utf-8?B?MGliZnB2L2RPMC83MTBmVERhZGNudkRTQjkzTVRReHJtZUJoRUlWWktpRE9u?=
+ =?utf-8?B?eFdlOWJ2MUVUTkxCbG1XeG4xOVpiQmUyd1FLQXVyQmpHT0NhdTExWWk3eUtX?=
+ =?utf-8?B?bTR2VHcyUUd3V2JySnR6NEdZeExiNWZYakliWHNuTDZoWldzMUZHWlZZYUph?=
+ =?utf-8?B?ZUpJNjRUUkEyTFhuVkpkek1UM0R0eGlINk5JMVgxaVd1S3NnMHE2SWJWaUV5?=
+ =?utf-8?Q?ecQBCYUdnP9gDV+jcH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f934e2bf-efdf-44e2-6de7-08df187a4c66
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 07:22:46.0116
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bBDwDSVg/a+9fibUYPYw7k13ksrmowjA3aifGoeVZcxv157AiVBZxvThawAeVea8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6987
 
-tegra_dma_tx_status() reads tdc->status before taking tdc->vc.lock, and
-tegra_dma_isr() snapshots tdc->dma_desc before taking the same lock.  All
-writers of these fields (tegra_dma_start(), tegra_dma_xfer_complete(),
-tegra_dma_pause(), tegra_dma_resume() and tegra_dma_terminate_all()) update
-them under tdc->vc.lock.
+On 9/22/26 03:23, Jiakai Xu wrote:
+> Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
+> default") raised the default size_limit_mb from 64 to INT_MAX.
+> 
+> With 4 KiB pages on a 64-bit system, creating a buffer larger than
+> about 1 TiB makes the two per-page pointer arrays in init_udmabuf()
+> exceed what kvmalloc() can handle.  __kvmalloc_node_noprof() warns and
+> fails when the requested size exceeds INT_MAX bytes, which is
+> trivially triggerable by unprivileged users through the UDMABUF_CREATE
+> ioctls:
+> 
+>   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
+>   Call Trace:
+>    udmabuf_create
+>    udmabuf_ioctl_create_list
+> 
+> Instead of using a fixed megabyte value, derive the default limit from
+> the kvmalloc() threshold:
+> 
+>   (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT
+> 
+> On a 64-bit system with 4 KiB pages, this evaluates to 1044480 MB
+> (1020 GiB), allowing buffers a little below 1 TiB while keeping the
+> per-page pointer array allocations below INT_MAX bytes.
+> 
+> Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Assisted-by: OpenCode:DeepSeek-V4-Flash
+> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
 
-The unlocked read in tegra_dma_tx_status() can therefore report DMA_PAUSED
-for a transfer that has already completed, and the unlocked read in
-tegra_dma_isr() can pick up a tdc->dma_desc which is being cleared
-concurrently, in which case the handler keeps using a stale descriptor
-pointer.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Read both fields while holding tdc->vc.lock.
+Going to push that to drm-misc-fixes later today.
 
-Fixes: ee17028 ("dmaengine: tegra: Add tegra gpcdma driver")
-Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
----
- drivers/dma/tegra186-gpc-dma.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
---- a/drivers/dma/tegra186-gpc-dma.c
-+++ b/drivers/dma/tegra186-gpc-dma.c
-@@ -606,7 +606,7 @@ static irqreturn_t tegra_dma_isr(int irq, void *dev_id
- static irqreturn_t tegra_dma_isr(int irq, void *dev_id)
- {
- 	struct tegra_dma_channel *tdc = dev_id;
--	struct tegra_dma_desc *dma_desc = tdc->dma_desc;
-+	struct tegra_dma_desc *dma_desc;
- 	struct tegra_dma_sg_req *sg_req;
- 	u32 status;
- 
-@@ -619,6 +619,7 @@ static irqreturn_t tegra_dma_isr(int irq, void *dev_id
- 	}
- 
- 	spin_lock(&tdc->vc.lock);
-+	dma_desc = tdc->dma_desc;
- 	status = tdc_read(tdc, tdc->regs->status);
- 	if (!(status & TEGRA_GPCDMA_STATUS_ISE_EOC))
- 		goto irq_done;
-@@ -786,10 +787,10 @@ static enum dma_status tegra_dma_tx_status(struct dma_
- 	if (ret == DMA_COMPLETE)
- 		return ret;
- 
-+	spin_lock_irqsave(&tdc->vc.lock, flags);
- 	if (tdc->status == DMA_PAUSED)
- 		ret = DMA_PAUSED;
- 
--	spin_lock_irqsave(&tdc->vc.lock, flags);
- 	vd = vchan_find_desc(&tdc->vc, cookie);
- 	if (vd) {
- 		dma_desc = vd_to_tegra_dma_desc(vd);
--- 
-2.43.0
+> ---
+> V2 -> V3:
+> - Replace the fixed 256 MB default with a limit derived from the
+>   kvmalloc() INT_MAX threshold, as suggested by Christian König.  On
+>   64-bit systems with 4 KiB pages, this allows buffers just below
+>   1 TiB.
+> 
+> V1 -> V2:
+> - Instead of adding a pgcnt check in udmabuf_create(), restore a
+>   reasonable default size limit (256 MB), as suggested by Christian
+>   König.
+> - Drop the second Fixes tag; the regression is solely due to
+>   44e9eb5a7621.
+> - Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
+>   not shipped in any released kernel yet.
+> 
+> V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
+> V2: https://lore.kernel.org/all/20260919015731.2077604-1-xujiakai24@mails.ucas.ac.cn/
+> ---
+>  drivers/dma-buf/udmabuf.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index df6dd00462423..7ec269809fb49 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -20,9 +20,10 @@ static int list_limit = 1024;
+>  module_param(list_limit, int, 0644);
+>  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+>  
+> -static int size_limit_mb = INT_MAX;
+> +static int size_limit_mb = (((INT_MAX / sizeof(struct folio *)) - 1) >> 20) << PAGE_SHIFT;
+>  module_param(size_limit_mb, int, 0644);
+> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
+> +MODULE_PARM_DESC(size_limit_mb,
+> +		 "Max size of a dmabuf, in megabytes. Default is derived from the kvmalloc() limit.");
+>  
+>  struct udmabuf {
+>  	pgoff_t pagecount;
 
