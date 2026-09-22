@@ -1,78 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27D1361970;
-	Tue, 22 Sep 2026 01:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49D0374745;
+	Tue, 22 Sep 2026 01:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790040498; cv=none; b=kKeQ4j0W3x/KptVkNytbHqjW0pXP/RNfU++qs8OAws+PlqkKEJdcZvVbdDClTLiCnGS5u923iU/xNsifZmCwGgEvg5h/ShLyhn+8TU+z7PtdtosKlaeuCewxR1XxH9IO3440U6e4FiCdDLiCyjKMocXU48MocWAA2sM4IBpQivM=
+	t=1790040499; cv=none; b=Rdja2h76P4M3wjOflDPgwiPcVjCN2YLmVRPpbWGGr4Q3Heih2xyAtoRnBZHNiflL4VTehnslmmelUPH50ggn1GQT5Tad8Gg6SdqDFzzXyO+3NV8jh2NZUQLyCBm+Vw5ud9Oqb1/8jw1wVn8bCPKayKRmpZqAwhHM7mMWbCrcLGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790040498; c=relaxed/simple;
-	bh=uwmgrDcKfV23mxoA5DcrWhYS/GoE5OhR/BNwa2EDr3I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fuiCXbzVvIT7UIzGA1gZJ/eSPfEmbB4J74hfEDUhSMbRW1el63iS/nhWc3cF8TkXtN9uTOBuCWZ2gMfwWQCJLI6LS0BM8NbFxypHgQdyj8GN1TfJtBVKYaagEgKU3qC+kSfIcebRujQvZEne+VZHLcSfD9TBnny2eeIUTRB+WcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCBECvw9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790040499; c=relaxed/simple;
+	bh=fmZQKb1CLTlUV+ISJn/sBAq7bdq2mDqISoqzcVqgGcs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HHBY14j9VoUwqrIFfKDYFvoAsgcPID0eSqxr4af1+OQahaL1WiBFBWZ/0TxDUVTmtuWtS2SeoL/4lzczSbepCDmY8vcvhd4Hc+J1fU/1/rHmfyBtA3HlFChq80Y+46iOBSLXSIco3qeNJKwJRhylIhUOipiE8d/vs2KmMoNWcYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CZWJHFtA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCBECvw9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCD261F000FF;
-	Tue, 22 Sep 2026 01:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790040496;
-	bh=lL4sJ7kD6YnNvBR4IahyBF4ibceDjqwb/p9P0/HIIBQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JCBECvw9kx5PEho9eZeOwNaBxNviTdoOEnaSdLP5hSHquUJdachseeo//y7FuTXjf
-	 ige7LhJJIX86Zmw2RRfhJYjNeKXFlN34O3Mbu48ydfiPA5UpxGBAyUQrWXnwp6ebMb
-	 oNoeGlGKQWN746/0uRPCUB5rdBx3Ss/iW8sxFI8X/J06tx5wTDWHVGtkTZYaDaZJsQ
-	 EkNleYE0uVMn4HOMlb28FyV+8CZ/sgF8x9sLH8VcHUPDUmb+N6wlDnxiKXMlmpig2g
-	 RJ0Jw9zKP+ZqND/+ujIq7JLueKSguPIAkc+1qJUBhqP9lopqEDnDcSMCBlHh5DBxY9
-	 oE/Mnhy2wq8Fg==
-Date: Tue, 22 Sep 2026 02:28:09 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: <mhonap@nvidia.com>
-Cc: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH v5 01/27] cxl/regs: Split the BAR block request and
- ioremap helpers
-Message-ID: <20260922022809.1ac1766a@jic23-hlaptop>
-In-Reply-To: <20260916183540.3813685-2-mhonap@nvidia.com>
-References: <20260916183540.3813685-1-mhonap@nvidia.com>
-	<20260916183540.3813685-2-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CZWJHFtA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 84A98C2BCF6;
+	Tue, 22 Sep 2026 01:28:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790040499;
+	bh=fmZQKb1CLTlUV+ISJn/sBAq7bdq2mDqISoqzcVqgGcs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=CZWJHFtA9ev5su5mYD3K3f8Jxkq3ppfGQ/48G3cvp1geZ8d/Uje9TS8t1MDYPlC1G
+	 YwBz9BIVHo1aR/vs9Wq5b919Oevs9o+ATsVXHze6d3TOunGrd+crw8BJtxMoYnxx1T
+	 SlZlApcH/xp/Kat87TorWAg0loasek/XZN1DxtQKjJ+/IvI9FkyudFtV0kyxXHmqkb
+	 H/wbmpSXQYEypscud1787jTXRFEcQ8bgXe4U9m8W5N4PIPwDkxPRNlGJ7YXZcnFjsV
+	 G7QdESG31Cde1UWuzA30MFSqwaUMbMCpAnshgVLRWCaMLC56v8jKjLvwl1UOtO0zDR
+	 osY8SRbtTwRPg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B236C98304;
+	Tue, 22 Sep 2026 01:28:19 +0000 (UTC)
+From: Jaidev Shastri via B4 Relay <devnull+jaidevshastri.vt.edu@kernel.org>
+Date: Mon, 21 Sep 2026 21:28:15 -0400
+Subject: [PATCH 2/6] vt: keyboard: publish npadch_value with release
+ semantics
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-mb-keyboard-v1-2-d170228b80c0@vt.edu>
+References: <20260921-mb-keyboard-v1-0-d170228b80c0@vt.edu>
+In-Reply-To: <20260921-mb-keyboard-v1-0-d170228b80c0@vt.edu>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Jaidev Shastri <jaidevshastri@vt.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790040498; l=1592;
+ i=jaidevshastri@vt.edu; s=20260921; h=from:subject:message-id;
+ bh=fmmEErRcPyO4zz0N6xCFkyoCjOBlv003JbWU2K7PoDE=;
+ b=8byxCaFtSMphNyhtVoZMMVV38Hep9HPKKIzRXsDbE0X/YH1E+1pphIikQuhQvcNJ8X9VZ310/
+ pAThflcBo8zBTG2Hk64zw6dFBo3vZP4WY7+LlNVTQ8eAZlA0IfwXr9M
+X-Developer-Key: i=jaidevshastri@vt.edu; a=ed25519;
+ pk=J7+xYJRlTPds+pv5hbqFFRqGCpDeJDzmZT1ggRwj7/0=
+X-Endpoint-Received: by B4 Relay for jaidevshastri@vt.edu/20260921 with
+ auth_id=1044
+X-Original-From: Jaidev Shastri <jaidevshastri@vt.edu>
+Reply-To: jaidevshastri@vt.edu
 
-On Thu, 17 Sep 2026 00:05:14 +0530
-<mhonap@nvidia.com> wrote:
+From: Jaidev Shastri <jaidevshastri@vt.edu>
 
-> From: Manish Honap <mhonap@nvidia.com>
-> 
-> devm_cxl_iomap_block() claims a register block with
-> devm_request_mem_region() and then maps it with devm_ioremap().
-> 
-> A driver that already owns the parent BAR needs to skip the sub-block
-> request while still mapping it, so the request and the map must be
-> callable independently.
-> 
-> Split them into devm_cxl_request_block() and devm_cxl_ioremap_block().
-> devm_cxl_iomap_block() keeps calling both in turn, so there is no
-> functional change.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+k_ascii() accumulates the numeric keypad code in npadch_value after it
+has set npadch_active. k_shift() tests npadch_active and then emits
+npadch_value when the modifier is released.
+
+Store the accumulated value with smp_store_release() and read it with
+smp_load_acquire().
+
+Found with MBCheck, a static herd7-based memory consistency checker.
+
+Signed-off-by: Jaidev Shastri <jaidevshastri@vt.edu>
+---
+ drivers/tty/vt/keyboard.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/tty/vt/keyboard.c b/drivers/tty/vt/keyboard.c
+index 089f3b048..6f3472cd4 100644
+--- a/drivers/tty/vt/keyboard.c
++++ b/drivers/tty/vt/keyboard.c
+@@ -898,10 +898,13 @@ static void k_shift(struct vc_data *vc, unsigned char value, char up_flag)
+ 
+ 	/* kludge */
+ 	if (up_flag && shift_state != old_state && npadch_active) {
++		/* Pairs with the smp_store_release() in k_ascii(). */
++		unsigned int npadch = smp_load_acquire(&npadch_value);
++
+ 		if (kbd->kbdmode == VC_UNICODE)
+-			to_utf8(vc, npadch_value);
++			to_utf8(vc, npadch);
+ 		else
+-			put_queue(vc, npadch_value & 0xff);
++			put_queue(vc, npadch & 0xff);
+ 		npadch_active = false;
+ 	}
+ }
+@@ -939,7 +942,8 @@ static void k_ascii(struct vc_data *vc, unsigned char value, char up_flag)
+ 		npadch_active = true;
+ 	}
+ 
+-	npadch_value = npadch_value * base + value;
++	/* Pairs with the smp_load_acquire() in k_shift(). */
++	smp_store_release(&npadch_value, npadch_value * base + value);
+ }
+ 
+ static void k_lock(struct vc_data *vc, unsigned char value, char up_flag)
+
+-- 
+2.43.0
+
+
