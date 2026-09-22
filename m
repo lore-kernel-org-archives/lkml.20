@@ -1,244 +1,219 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F3E418361
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 08:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D0140B6E0;
+	Tue, 22 Sep 2026 08:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065054; cv=pass; b=EyiH8AID5yIiUOrbBilgdNZ4z8wcO51Iu2R+EeuQkdu8axda9jgSEWWhMHNH634IEpHGsICwG99WwCoe7pIgHHvsf0uX9zc5p3OZr6I5TEKwTO9KrOE3cWYj/VxgVHrqrNPl+HtQ0pVD0/zTKwz3AKSFgbyrvYNJtzs59krSHHA=
+	t=1790065085; cv=fail; b=eLhU+heGPMC6KABVXrIuaegD6pNDDlUsh3il8N6AprFG0+/hBDkqO/Hb6bqkg8L5AVYF7XaNqWBkFX3gKG30IK0NlkZT2gmYYaXmy+BPpF+h6Y0AU/XIf1VIdHgcsvvYzE41bGEDE6F5pbPjtGipldhD9YSeskXz4JO38W2RMdc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065054; c=relaxed/simple;
-	bh=j8oOfovRmLewVX/ZIXchvTplxAiNODpkmMBMcI+S5WQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pXIz/6OpqKXdqKGy3vWLbQroYUL71eiKtV/HP5XuYHkRggN2HUPwcTNgV/EJAQiq/D+oiYlQv6Gp3p1QTAWFbkBk54w99Yj9FYx2ieHz07HS+PE33LsvrwSVzfahFNoDNcSaw1H95m7YElfThh7SgGdPKGrDDy7NDfpneZqoHNs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GlTbhVxO; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790065085; c=relaxed/simple;
+	bh=dqV6he0C6xf6KxnK2YTCsdGb7Q8fs2IQMu5Y9uHyRIc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=XW0MwbEYrMlPj3rV7+IJQwkmLI5yn8Zc+QI6+Zt0uoVshAPHBBCFr9K2hDjtTSv7LwD2Ygtebi+7PAzPE9MhZ72vVDSMaLAvEt9rlBKfjdhZOb4b//8t7h0nE7UZU09SfkItFe4sywGsxvF3TT8vjkS/fnIr5GNOsSK6tq+LUtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=dp7CqHTa; arc=fail smtp.client-ip=52.101.66.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GlTbhVxO"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-67109935888so3795648d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 01:17:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790065051; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zjq41Q5GQMPUd5XzGLDZQQlOv6RDkTW0zykDxtK657qaxCq1Ktpav7nHe9up30aUKL
-         ZjvhHjVkbfV/tOrrtqcd9qZYoaVm0lo/wO2w/257Ujjx+BCPQUuqcdSdlUTvbYkZX/SS
-         AEwSf1U5DWXldY9YbvllFdk+kM4uvoK+2Gu8jqWp9Fuy4EsT4AJYlD8oMn1wOG6ctC9y
-         V9eItl9uR54G5DjCzGZHiyTykT2YLu2MP/FuTbAnh52v8FQDRtAoMpqoc3dNM/+ChBMJ
-         r4dtpmMy9y/nGJWrH7HQu5SBc/LRXmuSgazrL7L5BEB+HO9srCgv7yGOD8uhXbV+T7Lo
-         cChw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=vBfgPYH3xqS4b5IB6dzOxOSHigmrLH/EHKKr5wvFYwc=;
-        fh=2tpEfbB1gGvRc4BAaOhCZ09w8VXG81B5LS8o65/7XNo=;
-        b=VkHT/0OGz2l6esgtZ0plhNXNRoZY+E20Rtad1GOow1ku1x5IrkHS7Uf54XYpQILVkx
-         geHrmDDsMf/1v1xJFgUEwJphh70tN7ceGh2VhwmyU7XPujHcf2a8pNYKBO3+TeCpkZcM
-         1nUGGkyAo/eAbkWopMqM5arIFNfASr5hqTypQSVw7mcXt3qydvWB7wZHE6apAFQX4Smh
-         Nza4mnGsUJSL9ifJvSyAodc5gJTl5PUmFyirZdoVl4qh+/pv5F1HudS26H/7ByR8UVhE
-         kJqPUTM1AoFctXaJdA6ydw+PcHaf4FhGmW1YmO87Spwm71BCtWYOTQCLWktu0uX5u6A5
-         J7Qw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790065051; x=1790669851; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vBfgPYH3xqS4b5IB6dzOxOSHigmrLH/EHKKr5wvFYwc=;
-        b=GlTbhVxO2A6vPW+hwN87bN12BcwLVeelMIFP2m2Xg7uLsR5l+i3M09HKoai/m5vc+y
-         hHkm58Me2TK6RpmpdTc8M5BSIMz1NqkqFaBojHpA0J26sLZsomrQ4Y5bcWTr8nwu28wA
-         QyU2AjKjVgvwqU/Yic5cq/VfEN98FWHZCFyo3JvUxF1fYIIstXHnBEn+WGq4jhW2Lshl
-         tDmA8zGbFQM8RmmduyT75awLNgzIYbKjJGVcHVdz9Ss0Tyjue/smRa0WuoW6HUEVn2CA
-         1BOi1eGGZKpjv+FneCH4r0+d6ec9LF93UwRP600heNMVVmASSs7zOs/dh3Pc1eJZ6DWU
-         o9Jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790065051; x=1790669851;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vBfgPYH3xqS4b5IB6dzOxOSHigmrLH/EHKKr5wvFYwc=;
-        b=xnI3s/UMWyzhwZzH4qo0w8HEwmRhXNaYG/js95MAUwi0Yv3r3G0gIa80JeZ2Lctiuk
-         1kRt2l0CXxLRbXwtbtGg+bCXzCwNm91rNfFTddoyCgZ4sz4oEI3K9y2n7DjR+DQrR1qB
-         nQ7hzd+MUXP8p+KCro+FsP4nWV5B0fhJd8riKObVK+DBxpUgONcvqvfYPcuxq49Los+7
-         fDFRSqDW8PjCWDJusqfztZNpJ6CAcWYzQaNPu100MmzibXhq3vsVI5mfd2gaodUIKf4N
-         9Cd+1+WmsDEDlvBBwRr/8LrC9zEZf6cM21PSXgQSnb9U+HWsgQuqRmbitXtBG+L4jI+x
-         hJ5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzr+O1sTOtVA949Y2DkNazut8fVp2NGLoQkOpb/hho2/Z/nRzravzRTy0+mRjmsEaTgdqiGPt/12jCzaYo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0FOxfnDClBXynZK9w3y71YHibiGAJuzNcri6WaL9q0KiHwEF3
-	+XHPs/eiWjvCqJZnw8tMaWrh9jFFtagaF30qwy3z1PAQ11M4iSMTuPNjy6dOCtrHb+OO5Y53Pxe
-	QbF2L8hfPny7lbziWRZ4TKQQW05aPh8U=
-X-Gm-Gg: AYBFou1cGB6Z3Yu2989YkGeThtj80FEVew7Z+XZI6h2FG5zlgH3gB2lZ/rj/vKS1t3d
-	5UwSs4qJy4I7frvBFt2xOp+G4uVHmabwXI5FFfRvVXAg+9fQql3AN2SVd0p0c2p/PlLiZ1grHrY
-	cmqMiYXX2w/I9qaDYqxwsmuDm9HncyquucCo2bTZjkWMKlEh52phmX+XnKWjI3ZqN9EMh9AnPWh
-	dK98/AOxqFB2jC4meDykYXnl39FYhMQyQVQCALbycNW/B0xgyxi0VRzRDcHQNu6DsdID+OZPAQP
-	3sO/ncR5Sgd+GnUIePjzU45HyfEhGB0PyT8lHabZlLZrE5YbWECsty52uAZAyr3L1wv+K0Alh1W
-	Awfg=
-X-Received: by 2002:a05:690e:1181:b0:671:70d2:527b with SMTP id
- 956f58d0204a3-6717fd6a661mr4552451d50.62.1790065051220; Tue, 22 Sep 2026
- 01:17:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="dp7CqHTa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QLBC44QJdxQVz20kcCw6BD+p1GEy0Vii1hrswgTbXNnc51Qro3ZaAOvcTRAp+lu6gkMUTkVJTIBjsGOVfRXLKas1l3A0R5Xkn4VMTc5uWgkD/vbSUOajcfGCLb0353r4f5ZZPNkOUUafSW5BTorbJMCUXz56TPBmJKvbnO50/dKgtrDwbyvYH7/JR3i20QUCf8WmK23xH+b/vmK4kqUnTiU50peQR9NLVqsAi8GQyyItkZ6TH7TnKd5p01n8uqiN8xeGIxAdbdMIib3ht9c3dFdIZ+K3sshULEz18Kj7TpJ+uJSUEmDFHhBOadrqGDX6GKrFwm1ZmdFYun0kAnu94Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r1cbfJy6XbVCMiT3UsK4qlftt3yKZjUPsA6inLg4g3w=;
+ b=bXvrx8w+4rTixT66T2nVGz/7GneXB+XriMNvL1Sqpfq5vX8DZ53i2FZt79oZPXwHY9B7UlA5Z+IAOd/pxdlqA+hK9MCG/alXf+4iy4MZBmEtgVqnGoAKpRpqdsaGXEUbePHC2CnYYF3TtKem31047G1ufXTx1AYeRnA2lTaVkeGVywuk/yYOUjxtBK5EHiswTUz3s0pGynQpgbP2W9K+VIbtvyLPfplCHKCjvV6XXUbkeU6yqNfRt9ZHN7TB5xS11sTohoVvwXLiUCq3mPLHmBsOXsKk3KH3fHzBcWV1rdlPjHuY9OwVdg03YiqoC/R6qp3hVKLA5U3obKYVGseB1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=xiaopeng.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r1cbfJy6XbVCMiT3UsK4qlftt3yKZjUPsA6inLg4g3w=;
+ b=dp7CqHTa32W5jKatPsMcU4xF/cE4burabvPqkSTfXt3wUtfe5tQZnyUfi9UknbdSElXaM+pBzOwx79N23u025xdl/zb5YtEFRP0IkiIVBR9rZT/SYsx8ecQdxa93fUGJbAf9toMRICNvWuHDm64S005T6VPwcBj4/p/tKjX+S9DqUF8M9BIhHBOaqlcXqe2Bu8AgSx6islJniEgIByBTwWWqY+rApObIn4RRXrkV9erg5C+S7eNEocG6GipMsFvohiCio1OJMEFBc8ILgMivMBco8UMGz4n4SgOnaltnrjnBzc5/9oaXOwcKbTtymI/aL3qgLcACh6si+Qnym3a5Og==
+Received: from ZR2P278CA0071.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:52::17)
+ by DB5PR10MB7821.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:48e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 08:17:58 +0000
+Received: from MI3PEPF0000849B.eurprd03.prod.outlook.com
+ (2603:10a6:910:52:cafe::8b) by ZR2P278CA0071.outlook.office365.com
+ (2603:10a6:910:52::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Tue,
+ 22 Sep 2026 08:17:57 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MI3PEPF0000849B.mail.protection.outlook.com (10.167.240.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 08:17:57 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 22 Sep
+ 2026 10:23:44 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 22 Sep
+ 2026 10:17:55 +0200
+Message-ID: <1d7e0ce1-a539-4366-aa11-141ee16ca2d4@foss.st.com>
+Date: Tue, 22 Sep 2026 10:17:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921073847.63505-1-lgs201920130244@gmail.com> <dd60ce64-4af1-479e-99d3-1787a06da882@intel.com>
-In-Reply-To: <dd60ce64-4af1-479e-99d3-1787a06da882@intel.com>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 16:17:18 +0800
-X-Gm-Features: AcwNN1VVB2-e-7AnvOjQHk0rNG0E7RaHB9itWJcRpS2P7W5iTDsETsT01Vfbeag
-Message-ID: <CANUHTR9F+D1C49MLiiy5z1snyKtbBtdU1cnuhsgr0cysp+yOcQ@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe failure
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: stable@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] media: i2c: vgxy61: reject out of range MIPI CSI-2
+ lane numbers
+To: Guo Zihao <guozh23@xiaopeng.com>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Sylvain Petinot <sylvain.petinot@foss.st.com>
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Liu Chao
+	<liuc63@xiaopeng.com>
+References: <20260922064548.844609-1-guozh23@xiaopeng.com>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20260922064548.844609-1-guozh23@xiaopeng.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF0000849B:EE_|DB5PR10MB7821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b0b33cc-d296-4b19-13a6-08df1882029d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	k1oADeH9Y1vaCQApCCXIqT9/LYRb15kxKbYrkkAWu66leWODDRRFhaJbofXpzO40UXpkaupNGvtTJmnZiJogFzvS6XrnZexNRGwQKARY3eCEi7gjC0u9pRlza//fDeHvL36wR4HGu0VamQwEeC7ODttJCA9Wj3oIgh/k3wZrA4lyuch2JECsuHI1EzXMa4MRMmpyNMFulxL69xVIjzRNWN9A1MivL1JdBswMcBeuNO5MJHfzS840dGtS4DPo1bfqIQGqsp9YTfCw7z2S2b9avzlWr/gdXKK5gImv1Oyl9UALyN+yWtE1AqaxKV7ylJhCigd4LH2nvS6l32fznQeCFF7XsoqicquZKbSmcLURkbnBXKrZ2YiltNVpE9GQ4G2gedCoKx7XmwvmBQQHbfX64p35D3Ifw9TPvxamNTBxpYnPNkfErs8i1EVF8/cO02ifJUI/uQVJFfOx7Rt9atvzJMCtxXLHanNnE56e5EOVgDQ7htWAyfn0r1/6gYFkawSM9AHwxwl0CuCx2VV7hyR9O3562bIJDqAvp6RolXgPL4sTJRGzxs3pzJFyOh6XDZPdIqAVcHQSTQzqOj+kATDiV+2HSDT24c84wDzudVMjatbJWAfKo98zpbljnw7dnfkTXOYMBQzAAvDbXGIXpkdtjlzMHrTcrOdJPoez4akqXZPTPmcR30lB0JiFzRuE2/AQoDBKg82DInHnl8UzLm0mTw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	51N/W7RvpVk6BpIKVLCDSTZtW6Uhp3VliA5tgzk19r9hIVk3q00Pv7NcBKgbqWLGyV5A7rWa/75d5IpK8/DXWdJmvAqFe5cVE5qy0aX9CPvl400Cj6sjfAziohYZBLT362LyK53voyYX6S6WFutsVYq7bBa1kIZb9tieOUCbawUYBTM6eFBJtjqLEd88zvLUsEBY0jlgi3/37YIR2qVhE040gdvCL0OfTYpzCHixjrWVNEXDCEnHQ11RwdsRTMYsge/Renuvdmlb2w8Cp32Xkx0rTAb6xnJLNkupn4oSF88ysvbXi2QptAd9dabgI1/gQ8vXyl5ZiRgTP4UYaiffTZxcx6KsmuFv3K4XlHjp0wvN+PPMowvcfVGmsZMUYuZQqxUATIZXzVUJzXrb0RQrI00+LxEVhuLQdh6wjusn/kcdZFs7z5jDWyKGbJOF1xnK
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 08:17:57.7757
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b0b33cc-d296-4b19-13a6-08df1882029d
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF0000849B.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR10MB7821
 
-Hi Czarek,
+Hi,
 
-Thanks for the review.
+A small nitpick, other than that :
 
-On Mon, 21 Sept 2026 at 17:31, Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
->
-> On 9/21/2026 9:38 AM, Guangshuo Li wrote:
-> > sst_acpi_probe() registers platform devices for the SST platform and
-> > machine drivers using platform_device_register_data(), but does not
-> > unregister them when later probe steps fail.
->
-> s/machine drivers/machine board/
->
-> The above paragraph alone is sufficient, please drop everything else in
-> the commit message.  There is no need to write wall-of-text for a fix
-> addressing a missing error path.  In case this wall was provided by an
-> agent, relevant Assisted-by: tag is needed in the tag area.
->
-> You can keep the very last sentence if you want to.
->
-> > If machine device registration fails, the already registered SST platform
-> > device is left registered. The same leak happens when
-> > sst_platform_get_resources() or sst_context_init() fails after both
-> > platform devices have been successfully registered.
-> >
-> > A registered platform device owns resources allocated by the platform
-> > device core and must be released with platform_device_unregister() so
-> > that the device reference is dropped and platform_device_release() can
-> > free the backing platform_object.
-> >
-> > Unregister the created platform devices on all failure paths to restore
-> > the missing cleanup.
-> >
-> > The issue was identified by a static analysis tool I developed and
-> > confirmed by manual review.
-> >
-> > Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
->
-> For the commit title: please update to:
->         ASoC: Intel: atom: Fix (...)
->
-> Provided both the commit title and message are updated, feel free to add:
-> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
->
-> > ---
-> >  sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
-> >  1 file changed, 10 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
-> > index 73624e1b138a..a1f16083bd3d 100644
-> > --- a/sound/soc/intel/atom/sst/sst_acpi.c
-> > +++ b/sound/soc/intel/atom/sst/sst_acpi.c
-> > @@ -352,7 +352,8 @@ static int sst_acpi_probe(struct platform_device *pdev)
-> >       if (IS_ERR(mdev)) {
-> >               dev_err(dev, "Failed to create machine device: %s\n",
-> >                       mach->drv_name);
-> > -             return PTR_ERR(mdev);
-> > +             ret = PTR_ERR(mdev);
-> > +             goto err_unregister_plat_dev;
-> >       }
-> >
-> >       /* Fill sst platform data */
-> > @@ -361,15 +362,21 @@ static int sst_acpi_probe(struct platform_device *pdev)
-> >
-> >       ret = sst_platform_get_resources(ctx);
-> >       if (ret)
-> > -             return ret;
-> > +             goto err_unregister_mdev;
-> >
-> >       ret = sst_context_init(ctx);
-> >       if (ret < 0)
-> > -             return ret;
-> > +             goto err_unregister_mdev;
-> >
-> >       sst_configure_runtime_pm(ctx);
-> >       platform_set_drvdata(pdev, ctx);
-> >       return ret;
-> > +
-> > +err_unregister_mdev:
-> > +     platform_device_unregister(mdev);
-> > +err_unregister_plat_dev:
-> > +     platform_device_unregister(plat_dev);
-> > +     return ret;
-> >  }
->
-> Looks like sst_acpi_remove() does not unregister the devices either.
-> That could be fixed by enlisting devm_add_action_or_reset() in
-> sst_acpi_probe() without altering sst_acpi_remove() at all.
->
-> Would you mind sending a separate patch updating the function so both
-> the error path and the driver-unload clean up the device objects?
->
->
-> Kind regards,
-> Czarek
+Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 
-I'll update the title to:
+Thank you.
 
-ASoC: Intel: atom: Fix platform device leak on probe failure
+Le 22/09/2026 à 08:45, Guo Zihao a écrit :
+> vgxy61_tx_from_ep() builds the log2phy and phy2log maps straight from the
+> lane numbers in the device tree endpoint, using them as array indices:
+> 
+>         log2phy[0] = ep.bus.mipi_csi2.clock_lane;
+>         phy2log[log2phy[0]] = 0;
+>         for (l = 1; l < l_nb + 1; l++) {
+>                 log2phy[l] = ep.bus.mipi_csi2.data_lanes[l - 1];
+>                 phy2log[log2phy[l]] = l;
+>         }
+> 
+> Both arrays hold VGXY61_NB_POLARITIES (5) entries, and neither lane
+> number is checked against that, so an endpoint with a larger value
+> writes past the end of the arrays on the stack.
+> 
+> The endpoint parsing just above validates the number of lanes, but not
+> the lane numbers themselves: l_nb is checked against 1, 2 and 4, while
+> clock_lane and data_lanes[] are used as-is. A num_data_lanes of 4 with
+> an out of range index in the last entry, for example
+> data-lanes = <1 2 3 99>, passes the count check and then writes
+> phy2log[99]. v4l2_fwnode_endpoint_alloc_parse() does not constrain them
+> either: the only use of clock_lane in v4l2-fwnode.c is a BIT(clock_lane)
+> duplicate check, which does not reject a value that is merely large.
+> 
+> Reject a clock lane or any data lane that is not below
+> VGXY61_NB_POLARITIES, before the maps are built.
+> 
+> No Fixes tag. The arrays and the indexing come from the initial driver
+> import, 153e4ad44d60 ("media: i2c: Add driver for ST VGXY61 camera
+> sensor"), and have not been touched since.
+> 
+> Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+> Assisted-by: LLM
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+> ---
+> v2: add the ST VGXY61 maintainers to the recipients.
+> 
+>     Correct the note about the lane index range and about other drivers.
+>     The indices are unsigned char in struct v4l2_mbus_config_mipi_csi2,
+>     so an endpoint value is truncated to 0-255 rather than passed through
+>     as a u32, and the comparison now points at vd55g1 and vd56g3, which
+>     check clock_lane before building the same kind of map, rather than at
+>     an unrelated change in this file.
+> 
+>     Add the Assisted-by tag.
+> 
+> The lane numbers come from the "clock-lanes" and "data-lanes" properties
+> of the sensor's endpoint node. They are read as u32 by the fwnode helpers
+> and stored in unsigned char fields of struct v4l2_mbus_config_mipi_csi2,
+> so an endpoint value of 99 arrives as 99 and anything from 5 up writes
+> past the five element arrays.
+> 
+> The binding allows data-lanes 1-4 and does not mention clock-lanes, so a
+> correct endpoint does not reach these paths. The checks keep a malformed
+> endpoint from writing past the arrays, in the same place the lane count
+> check already sits.
+> 
+> vd55g1 and vd56g3 build the same kind of map from the same properties and
+> check clock_lane before the map is built; here the log2phy[0] != 0 check
+> runs after the write to phy2log[clock_lane].
+> ---
+>  drivers/media/i2c/vgxy61.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/vgxy61.c b/drivers/media/i2c/vgxy61.c
+> index 3fb2166c8..ed1205cc6 100644
+> --- a/drivers/media/i2c/vgxy61.c
+> +++ b/drivers/media/i2c/vgxy61.c
+> @@ -1457,9 +1457,20 @@ static int vgxy61_tx_from_ep(struct vgxy61_dev *sensor,
+>  	}
+>  
+>  	/* Build log2phy, phy2log and polarities from ep info */
+> +	if (ep.bus.mipi_csi2.clock_lane >= VGXY61_NB_POLARITIES) {
 
-and trim the commit message as suggested, including the
-s/machine drivers/machine board/ change. I'll also add your Reviewed-by.
+It may be a good time to rename VGXY61_NB_POLARITIES to something a bit
+more explicit, like VGXY61_MAX_LANE_ID. Up to you.
 
-For the separate cleanup patch, do you mean something like this?
+> +		dev_err(&client->dev, "invalid clock lane %u\n",
+> +			ep.bus.mipi_csi2.clock_lane);
+> +		goto error_ep;
+> +	}
+>  	log2phy[0] = ep.bus.mipi_csi2.clock_lane;
+>  	phy2log[log2phy[0]] = 0;
+>  	for (l = 1; l < l_nb + 1; l++) {
+> +		if (ep.bus.mipi_csi2.data_lanes[l - 1] >=
+> +		    VGXY61_NB_POLARITIES) {
+> +			dev_err(&client->dev, "invalid data lane %u\n",
+> +				ep.bus.mipi_csi2.data_lanes[l - 1]);
+> +			goto error_ep;
+> +		}
+>  		log2phy[l] = ep.bus.mipi_csi2.data_lanes[l - 1];
+>  		phy2log[log2phy[l]] = l;
+>  	}
 
-+static void sst_unregister_platform_device(void *data)
-+{
-+        platform_device_unregister(data);
-+}
-+
-        plat_dev = platform_device_register_data(...);
-        if (IS_ERR(plat_dev))
-                return PTR_ERR(plat_dev);
-+
-+       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
-+                                      plat_dev);
-+       if (ret)
-+               return ret;
+-- 
+Regards,
+Benjamin
 
-        ...
-
-        mdev = platform_device_register_data(...);
-        if (IS_ERR(mdev))
-                return PTR_ERR(mdev);
-+
-+       ret = devm_add_action_or_reset(dev, sst_unregister_platform_device,
-+                                      mdev);
-+       if (ret)
-+               return ret;
-
-This would let devres clean up both devices on later probe failure and on
-driver unload, so the explicit unregister error paths from the first patch
-would no longer be needed after this patch.
-
-Would this be what you had in mind? If so, I'll follow Krzysztof's
-suggestion, organize the related changes into a proper patch series,
-and send a two-patch v2.
-
-Thanks,
-Guangshuo
