@@ -1,79 +1,137 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mail-m32117.qiye.163.com (mail-m32117.qiye.163.com [220.197.32.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DA442E40F;
-	Tue, 22 Sep 2026 08:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5F63EBF16;
+	Tue, 22 Sep 2026 08:59:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067492; cv=none; b=iJ7TT8CKFg7kxHIbcR9cUVD6BL3WMHJYT3AX1Vc6yZBDcv7vQxTv4GC6eQewVAmxGOpZIwOXeKAAmK3oGI/8C/lft/o3LEQfDJobgok6m9SRAtz4ClQ1m0LvL9usYkFI/FNEkqhyv1jz/5hRgbkpw/A84HJ/7US4s7A2poHur1M=
+	t=1790067571; cv=none; b=n7dqiERqDrRDL3pfn2A3PMmIwyXg5NFQzrfjT2xbtm1kWKkDJhruMl+CJ8RCeX0BaLwV5FtfJ7TFxwOBjjnQqr8lDI1qKe7Q47uYqSsZwXT8h9XhkFDz509yvCje849H4mGOsVr04fLfi5sbXpDxZ36/lfJHV7Ycmj3RoDcm0xQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067492; c=relaxed/simple;
-	bh=HCghI6B5XR5O7Pinh+TlIQ2Bo8pT+2v2fO9A6qRKXcU=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=uUQH8v21IzbPsJDf851TOakLbm8VyehiHzoE+3zj4w+vPlj+DuUt5xPshNUIGSry62r8k4icthK7occqsWlXtR8Q+eHvQ8jfu2cUmaj415z+Uw715EWfOZchYqgTkhvKBuZ11mxBSlfR8ZKyEDhv+L1xakMRjAdQw2G/C7MBzaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=iU3weUmZ; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1790067571; c=relaxed/simple;
+	bh=vcNMnomZWeqP6vjShTxa6GHcvCFFwhc+yvEOTbCv3CU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FymCW7mUewrkV51OGxsTKeWiWtyuaY7RDPkZl6t/tPbAHKPbhq1sY5xHDceUqx6gILWB+7SCTZeBqEi29+PP1AffIUm3XtTmFAfxNW/bgKQRavBZkmNPYxqSGA1tqUoTW95hOpPfuwQ3rkHsUZDrvDQe/fKDpIww1Y8Ern1AN1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=VUMZwH3Z; arc=none smtp.client-ip=220.197.32.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="iU3weUmZ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0B854A48A8;
-	Tue, 22 Sep 2026 10:58:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1790067488; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+j8pTvdfJB9RlncZLBRBInAE9D5Ej55N+i65IplmUPs=;
-	b=iU3weUmZ8SgKXUhqncOgURlItnYMmwT0S9ae1NyOkbByO1qeT4/WRvNRLkoZ336zZerD5l
-	pdpCo6XtffdZ+EA1tvO4X1cO8l9DrzhAb5seoB/AxKfx1txTsB7RxZC8u5aeyFsnDIMG5l
-	BzyKslmU4oCRpwCFUur0w0Xbvk7SjXhTazYT6aAJd63cW2mO61EMR+wxO6klGp/LGDT8Tm
-	WKD22HRzBcM8wVdJG+y1FMo46paRteZ7d81PzIm7nmi7VW+zrU/uHfi8uXQ6vCKkOF21eP
-	qNjcsW7jyp7letAILTIW8LCNZVjx+6OBvdC7SZrK+tFyvNwO8xW/74R+FlIDBA==
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="VUMZwH3Z"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4eb501a7b;
+	Tue, 22 Sep 2026 16:54:04 +0800 (GMT+08:00)
+Message-ID: <5a411d61-18f4-4d12-9acf-78320ab97d6b@rock-chips.com>
+Date: Tue, 22 Sep 2026 16:54:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 22 Sep 2026 10:58:06 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Doug Berger <opendmb@gmail.com>, Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 07/12] net: systemport: Fix potential packet length
- underflow in bcm_sysport_desc_rx()
-In-Reply-To: <20260921231305.394773-8-florian.fainelli@broadcom.com>
-References: <20260921231305.394773-1-florian.fainelli@broadcom.com>
- <20260921231305.394773-8-florian.fainelli@broadcom.com>
-Message-ID: <e82722225b62056031dac3648630c2c1@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 19/19] drm/bridge: analogix_dp: don't create a
+ panel_bridge
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
+ Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>,
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa
+ <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+ <20260916-drm-bridge-every-panel-v3-19-83afb4f1a707@bootlin.com>
+ <975a4d45-9a61-4858-b498-8bc0a1e44746@rock-chips.com>
+ <96882735-091f-49c6-a47b-5da8be711818@rock-chips.com>
+ <DLLOW2ROGP6L.3GTVT76VYPGAU@bootlin.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <DLLOW2ROGP6L.3GTVT76VYPGAU@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c8527e9a03a8kunm0c11385e8262e
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQk8YVh5KTU4fTBpIHUJPSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=VUMZwH3ZKyjnCH60Goi5U3Vl4nFl+MAx1A1qjQ4sQPJsJELH/axOKlZpuWVXdpUvCCP00441WDmikcC3zP82z6IUPyTAT3cyO6aUOORiTTynOxObIcFhdpn7WhshuvAgZWqwqWeg91ArKUw1BugGOb8+J2UJCAexwN2J2SQ4UZo=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=nxecp8OUY0Lx57p1dANxfv0uvDW3w9nGB0PrL1gdmKA=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Florian
+On 9/22/2026 4:07 PM, Luca Ceresoli wrote:
+> Hello Damon,
+> 
+> On Mon Sep 21, 2026 at 8:34 AM CEST, Damon Ding wrote:
+>> On 9/21/2026 11:07 AM, Damon Ding wrote:
+>>> Hi Luca,
+>>>
+>>> On 9/16/2026 9:45 PM, Luca Ceresoli wrote:
+>>>> Now a panel_bridge is automatically created for every drm_panel and the
+>>>> panel-bridge API is just a deprecated wrapper to access it.
+>>>>
+>>>> Update and simplify the code by just getting a reference to the
+>>>> already-existing bridge using of_drm_get_bridge_by_endpoint().
+>>>>
+>>>> As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
+>>>> of putting the bridge reference. This is not easily done in the remove
+>>>> path
+>>>> due to the different probe paths of the user drivers, so add a devm
+>>>> action
+>>>> to ensure the reference is put only when it was taken.
+>>>>
+>>>> Assisted-by: opencode:deepseek-v4-flash-0731
+>>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>>>> ---
+>>>>    drivers/gpu/drm/bridge/analogix/Kconfig            |  1 -
+>>>>    drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 40 ++++++++++++
+>>>> +---------
+>>>>    drivers/gpu/drm/exynos/exynos_dp.c                 | 36 +
+>>>> +-----------------
+>>>>    drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  9 -----
+>>>>    include/drm/bridge/analogix_dp.h                   |  1 -
+>>>>    5 files changed, 25 insertions(+), 62 deletions(-)
+>>>>
+>>
+>> [snip]
+>>
+>>>> @@ -488,14 +487,6 @@ static void rockchip_dp_remove(struct
+>>>> platform_device *pdev)
+>>>>    {
+>>>>        struct rockchip_dp_device *dp = platform_get_drvdata(pdev);
+>>
+>> The above unused &rockchip_dp_device could be also remved.
+> 
+> Ah, indeed!
+> 
+> I guess I can keep your review tags if applying this patch with only this
+> line removed. Correct?
+> 
 
-On 22.9.2026 01:13, Florian Fainelli wrote:
-> In bcm_sysport_desc_rx(), the packet length 'len' extracted from the 
-> RSB
-> is only validated against RX_BUF_LENGTH. If a malformed or corrupted
-> frame is received with 'len' smaller than the prepended Receive Status
-> Block (sizeof(*rsb)) plus 2 padding bytes (and optional FCS), calling
-> skb_pull() will trigger a BUG() in __skb_pull() when pulling beyond
-> skb->len. Furthermore, subtracting (sizeof(*rsb) + 2) from 'len' (u16)
-> will underflow, resulting in corrupted packet stats and potential
-> out-of-bounds operations.
+Yeah, sure!
 
-AFAIU skb_pull() returns NULL for len > skb->len and never reaches
-__skb_pull(), so it doesn't reach BUG()?
+Best regards,
+Damon
 
-I agree on the underflow and the wrong rx_bytes issue though.
-
-> [...]
-
-Thanks
-Nicolai
