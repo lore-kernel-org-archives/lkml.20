@@ -1,257 +1,173 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.6])
+Received: from srv4.3e8.eu (srv4.3e8.eu [193.25.101.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8FC49BD82;
-	Tue, 22 Sep 2026 19:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106295; cv=pass; b=uDBOTVtS2ncTPT/TP88yooEPXrb9EhdCotUKD8mc7zwYNbtEfGlCAlWzb/ri2iMLisbLtXMCqo4BcmfvpNx+pytN93bm1S19EQjCxuKVi5FuoQ388mHTkhAa8nEu+5nnJBtRA1Tui/ekEhoZS/WN7q2JwinH8OoeO14D9S9ehtc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106295; c=relaxed/simple;
-	bh=qOXrENOmvD3c0poDLwp4NolvBmbZT4OR8eyzCGaaZS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J4usfrQl3DDZ/uOu0Z1iB5ENUelNXeDJJ/sM3LpNOcWq60p21Z0PvRZgsHEu1kE2kiC8uL/LjREvLvajy0fna+TkYnZpnan2mko7cYzjYettXxav9jBy/yX/jS3XWyuwrTGQWcFcjZa6IHC22DyiI1O3UqegQ4srgq1qR+NJZHA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=MIfqPCkt; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=rmYcIKe1; arc=pass smtp.client-ip=185.56.87.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4964639E176;
+	Tue, 22 Sep 2026 19:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.25.101.238
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790106309; cv=none; b=MCFQwg6dUfiPFBRXlNu0Z46y4aNChxXu1BHlGpPAIhyoaLbAjWYdGL9/CUpzytncL53V/SNOUcxBP4MMDGvYwu0EE/CCx3VmmyLl+8+5vpHX3KabObVxxogB6T88TrWAcurW+5tblV83m6FrAgEl8jDMZmJmJxSl6lfmRfQnxus=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790106309; c=relaxed/simple;
+	bh=amjUuW11TXlXcQs76chCSTMMtF2XLzVokCf9805Firk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DZOsMW1ET8jmPp4xKPVvpmNAXIy2UPO7uahuniNnuOQmyGel1C1VyKlMQ6kPCT7GsvSl3+2kcQdXOzgMRbztSIjyab/p/pEuBlUSazyY1zangEvtz1i14EQRQLmY+2lX4iozOH6oB/Ghkl/3JhUNwP5nk0xzVBoGwzyiWZpIsXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=3e8.eu; spf=pass smtp.mailfrom=3e8.eu; dkim=pass (2048-bit key) header.d=3e8.eu header.i=@3e8.eu header.b=SIZzvSqN; arc=none smtp.client-ip=193.25.101.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=3e8.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=3e8.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="MIfqPCkt";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="rmYcIKe1"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-9kw8.prod.antispam.mailspamprotection.com; s=arckey; t=1790106293;
-	 b=TL6F+6n1Pc+riQySXgnTPJc4//Bj4fGA4rIY3pjwN1MHS7ZKMKgVhaPYZzr57ro4Maj2bkpbdG
-	  NPHlXcQ4lTh4DRIYsg+Dz+VDLPtYXHgEDHaefDCnyngmjp5a9uRtxruK8zIFJ53E4HLpJbErjm
-	  pljXxeqMudBvXtQVRQJO6rPePPYVVp2KOc7jSnmfiqNDEjAJY8q/Hpt7y3kYkHX0vNV4ltnkbZ
-	  WBz84vZf5jpWdPHSRfnqKNbVtrUEeGyMvg5WNzEABwi5WS40aFG6jOoatOfampDIWkrI9VhP5m
-	  Uwr4/0t44IH3dV1iz06F/9WmUpfKcl6WoTQFufwQY9CBog==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-9kw8.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-9kw8.prod.antispam.mailspamprotection.com; s=arckey; t=1790106293;
-	bh=qOXrENOmvD3c0poDLwp4NolvBmbZT4OR8eyzCGaaZS8=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=PXRHr7lOMAUERXkqKNF7WBQuAJotyNi1pNNiCPBJKTtpIaQGEBjv88dihquuhVLKhRTqWS0koj
-	  kuhy/wBCF9k/+8cxON+EFt/m6fFhZjC8ejAvCEHTWa8YspQ5Y01IY7jjf9FRoAUAs4FIB9rnS+
-	  Ol8NVKo0Cd8zD5SURMuUq93dCwC1AaRT4ohFb1lCHYXB8VacwRceZWv2HYg1s7YMZUIFVm47p0
-	  Fk+c7mw25GgXQ+mYk+dFNMIA9zTcCEs/FliokGbvh7cztLYJJMecodaIKLBSuLxKx2Di4qCHEa
-	  GPZIMtXCNRoPFJl4TqNusx8ZA7SZij26WOSsgiTfjvkutA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=DWQfnp8zbk64+c1EQHIweK4Oi1mCcjaNI5dI4QLRVAk=; b=MIfqPCkt2QmOBgkPsnXVdJwR+h
-	sfggHPRXZseU4Gkz9D9XSaaL2t49ZtomPC94jnelVMisQRJ/jSvWOzGremRLid+CWOLuNBm22wYFc
-	K9n+4z2vfnsoiNJOdINdMlO1nMY7zveTbrxGooAyfouATRqKRw8Yq01hyVoW4HkpwWlY=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-9kw8.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x96Pz-00000002ovM-3LXg;
-	Tue, 22 Sep 2026 19:44:44 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=DWQfnp8zbk64+c1EQHIweK4Oi1mCcjaNI5dI4QLRVAk=; b=rmYcIKe1HfMMhU/P3OTu17bhSw
-	6H/7sXovZu6EbKkWYT2OqOlOXqeJ6cDCDU9fLlM+3swg3mVL34qZF+TDEUKGxBzN44fRk3RuNeJ6K
-	tmRsK8nIrsst1ZCw4FGr3KL7bfA5pSZtGuKcZusIF1+jkEVraGDF1oHKW9WCzXgWaNlg=;
-Received: from [79.43.46.244] (port=60270 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x96Pe-00000000HKX-23nv;
-	Tue, 22 Sep 2026 19:44:22 +0000
-Date: Tue, 22 Sep 2026 21:44:20 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 08/12] dt-bindings: remoteproc: add remoteproc-virtio
-Message-ID: <arLZj2DxBazf3wMd@bywater>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-8-dac8c5eb4aa9@valla.it>
- <arKhbxi3Snbt1_Mn@p14s>
+	dkim=pass (2048-bit key) header.d=3e8.eu header.i=@3e8.eu header.b="SIZzvSqN"
+Received: from [IPV6:2003:ed:4708:38a0:7b81:aa82:3807:35d8] (p200300ed470838a07b81aa82380735d8.dip0.t-ipconnect.de [IPv6:2003:ed:4708:38a0:7b81:aa82:3807:35d8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by srv4.3e8.eu (Postfix) with ESMTPSA id A463D40186;
+	Tue, 22 Sep 2026 21:34:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=3e8.eu; s=mail20211217;
+	t=1790105657;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=BX3tsb1tiibcYdDIrOEQh5SGHk/9ncFiStVH+AnGUsA=;
+	b=SIZzvSqNQK/QHD6CGs3GBjBnhbQmFBIfK3nhOEuYZ4ddKqaKK0J/8/rfVmvLcBmTKt/JX/
+	6VelFgdzZ2u2qkulSq+fc6a3way0tyximYcX9Zyw4kwbJoK7/Grl6fx4YQJTEmdQNN4bm5
+	pBXw6Rww4DPhTE6ymnmfO7cc/yWiQAc+DjOcwRf1fkX9rSBowz2X4eO3jpKgRIZWEBPRo7
+	kXAESt72nFQX4dprgOy6gv7jka6lB7sg2ipWmsNqeZOWoNLa+mWv5zhoBXCRlCk+AGfhoK
+	J9s5dBgRg5EZk7fRdsTJ0P34fYyzqWW73HvzBeXgtUMTBByiYrA2DLCwhoA1EA==
+Message-ID: <64e712bb-4c2a-4738-9f99-7c8496e2d4d9@3e8.eu>
+Date: Tue, 22 Sep 2026 21:34:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arKhbxi3Snbt1_Mn@p14s>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 7442c616497a72c3de4b16ff53609997
-X-AntiAbuse: ID - 7442c616497a72c3de4b16ff53609997
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1x96Pz-00000002ovM-3LXg-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-9kw8.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] net: sfp: add quirk for XikeStor SKT-2.5G-100M
+Content-Language: en-US
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Russell King <linux@armlinux.org.uk>,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260920192632.72729-2-jan@3e8.eu>
+ <b4a42595-295e-456b-82a0-91076f72407d@lunn.ch>
+From: Jan Hoffmann <jan@3e8.eu>
+Autocrypt: addr=jan@3e8.eu; keydata=
+ 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
+ AqNjQxfojjo=
+In-Reply-To: <b4a42595-295e-456b-82a0-91076f72407d@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 09:40:31AM -0600, Mathieu Poirier wrote:
-> On Wed, Sep 16, 2026 at 11:10:53PM +0200, Francesco Valla wrote:
-> > Add a new binding to describe remoteproc-provided virtio devices; while
-> > these are discovered through a resource table parsed by the remoteproc
-> > infrastructure at runtime, their description can be needed to probe
-> > non-discoverable buses (such as I2C) or to link consumers and suppliers.
-> > 
-> > Each vdev is described by a dedicated "group" node, which then includes
-> > a virtio-device node, which binding is already existent and used by
-> > virtio-mmio. Each vdev shall be stattically linked to a "group" node
-> > using its index inside the resource table as the reg property of the
-> > node; this permits to have multiple instances of the same type of
-> > device.
-> > 
-> > The binding is intended to be generic and adopted by any remoteproc
-> > provider.
-> > 
-> > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > ---
-> >  .../bindings/remoteproc/remoteproc-virtio.yaml     | 89 ++++++++++++++++++++++
-> >  1 file changed, 89 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
-> > new file mode 100644
-> > index 000000000000..c4a0d84b1460
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
-> > @@ -0,0 +1,89 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/remoteproc/remoteproc-virtio.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Virtio devices over remoteproc
-> > +
-> > +description: |
-> > +  Virtio devices ("vdevs") can be exposed using the remoteproc infrastructure
-> > +  and its resource table. For some of them, a device tree node might be needed
-> > +  to describe remote undiscoverable hardware and/or connect consumers and
-> > +  providers.
-> > +
-> > +maintainers:
-> > +  - Francesco Valla <francesco@valla.it>
-> > +
-> > +properties:
-> > +  virtio:
-> > +    description: Contains a group of Virtio devices exposed by the remoteproc.
-> > +
-> > +    properties:
-> > +      '#address-cells':
-> > +        const: 1
-> > +
-> > +      '#size-cells':
-> > +        const: 0
-> > +
-> > +    patternProperties:
-> > +      "^vdev@[0-9a-f]+$":
-> > +        type: object
-> > +
-> > +        properties:
-> > +          reg:
-> > +            description: Virtio device index inside the resource table.
-> > +            maxItems: 1
-> > +
-> > +        additionalProperties:
-> > +          type: object
-> > +          $ref: /schemas/virtio/virtio-device.yaml
-> > +          maxItems: 1
-> > +
-> > +        required:
-> > +          - reg
-> > +
-> > +    additionalProperties: false
-> > +
-> > +    required:
-> > +      - '#address-cells'
-> > +      - '#size-cells'
-> > +
-> > +additionalProperties: true
-> > +
-> > +examples:
-> > +  - |
-> > +    remoteproc-cm33 {
-> > +      virtio {
-> > +          #address-cells = <1>;
-> > +          #size-cells = <0>;
-> > +
-> > +          vdev@0 {
-> > +              reg = <0>;
-> > +
+Hi Andrew,
+>> Note: The RTL8221B PHY in this module becomes stuck in a broken state
+>> after attempting to read some registers on MMD 30 while it has already
+>> established a link (this is a general issue with this PHY which happens
+>> when it is configured for rate adaptation mode).
 > 
-> Do we need the 'reg' since we already have vdev@X?  I'll let the DT people
-> provide their input on this.
->
+> This sounds like something which should be fixed in the PHY
+> driver. Can you take a look at that. Is there an errata for it with a
+> suggested workaround?
 
-AFAIK yes, because the rproc_get_vdev_fwnode() helpers search for indexed
-child nodes using the 'reg' property, not the node name. This I believe
-is the preferred way of doing things.
+Unfortunately, the read access which can break the PHY happens already 
+in "get_phy_c45_ids", i.e. before the PHY driver is attached (and this 
+is the only place where such a read access occurs).
 
-> > +              gpio {
-> > +                  compatible = "virtio,device29";
-> > +
-> > +                  gpio-controller;
-> > +                  #gpio-cells = <2>;
-> > +              };
-> > +          };
-> > +
-> > +          vdev@1 {
-> > +              reg = <1>;
-> > +
-> > +              i2c {
-> > +                  compatible = "virtio,device22";
-> > +
-> > +                  #address-cells = <1>;
-> > +                  #size-cells = <0>;
-> > +
-> > +                  eeprom@50 {
-> > +                      compatible = "atmel,24c1025";
-> > +                      reg = <0x50>;
-> > +                  };
+
+I am not sure if there is any errata or official documentation about 
+this issue.
+
+What I do know is based on experimentation with mdio-tools (with some 
+clues from existing driver code):
+
+If bit 0 of register 0x75f3 on MMD 30 is set, reading any register on 
+MMD 30 except for the actual SerDes registers (and also registers 5/6) 
+breaks the PHY. In the broken state, all registers on MMD 30 (as well as 
+registers 5/6 on all other MMDs) only read "0xdead". To make the PHY 
+work again properly, a hardware reset is necessary.
+
+When the PHY is configured to use either 2500Base-X with rate matching 
+or HiSGMII only, it sets this bit as soon as a link is established. The 
+PHY doesn't set this bit when 2500Base-X+SGMII or HiSGMII+SGMII mode is 
+configured (i.e. dynamic switching depending on link speed).
+
+(The driver unsets this bit when configuring the interface mode in 
+"rtl822x_set_serdes_option_mode". Otherwise I probably would have never 
+found the relation of that register to the issue.)
+
+
+Some devices are unaffected by this issue, for example if the bootloader 
+already configures the PHY to use 2500Base-X+SGMII or HiSGMII+SGMII (or 
+at least can be made to do so).
+
+Since the PHY takes about 4 seconds after hardware reset to establish a 
+link, any devices where the kernel can do a reset are also not affected 
+(like this SFP module, as long as the host supports TX_DISABLE).
+
+
+I would really like to have a general fix for cases where neither of 
+these two workarounds happen to already be in place. But I'm not sure 
+how this could be done cleanly, as it requires special handling for 
+these PHYs in the function that reads the PHY ID (or even before that).
+
+Downstream in OpenWrt, I added a patch for "get_phy_c45_ids" to avoid 
+reading MMD 30 from RTL8221B PHYs based on the PHY ID in MMD 1:
+
+https://github.com/openwrt/openwrt/commit/88dcd8c303b688b344c8f22c24df6a49f6b6b707
+
+But hardcoding it like this in the kernel core feels more like a hack 
+than a solution.
+
+One idea I had is if it would be possible to make "get_phy_c45_ids" 
+change its behaviour based on a device tree property or a SFP quirk.
+
+>> Signed-off-by: Jan Hoffmann <jan@3e8.eu>
 > 
-> The previous patch introduced bindings for virtio SPI while the above two are
-> for GPIO and I2c, which is very confusing.  I suggest you pick one and apply
-> everywhere.
->
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> 
+>      Andrew
 
-This is because both GPIO and I2C bindings are already defined - even if
-not used in the devicetree files part of the kernel tree.
-
-Moving forward, I plan to submit at least the spi-virtio bindings as a
-separate patch set, as they can be used independently of this one.
-
-> > +              };
-> > +          };
-> > +      };
-> > +    };
-> > +...
-> > 
-> > -- 
-> > 2.55.0
-> >
-
-Regards,
-Francesco
-
+Thanks,
+Jan
