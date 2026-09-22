@@ -1,185 +1,71 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B5F53C3D9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079008; cv=pass; b=EwJ1yHj0ZEgNG2s9ZQESIMF8HGUb3PL68L83W9AL3aeAqgH8NHD5dXw/YWSwWNPoD1b1ViUKAcJ6M5zcRsz2CTS648ee9rRVjdBTlkZqvA+EZqvQFwnJo+0Vuh6EmSRsRHZP0+VyG+9KXZCDVhkT3pBPC2r1gaOLzZ3mu2rPb0o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079008; c=relaxed/simple;
-	bh=EEicGhaPn1nMCsQoVuKYMwhQ6GyzIikHfbYLcTzbN20=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E00Fp/5CISU+zcV5CE28O5bGYwM3IGJLwkJtFBWqV592hfh8z9S1j6DIqSG+EXJNihJgtbEw45X5bbeZrHepdXZG94Pe212eO54F6vSGJiVKxBhZDqbziPTfH3/vrN+1v5++njYIlQfhlYTpetX6EvlLEElU5iurz5tuvbLGQEs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=dlsCwRIm; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8552753D9C2;
+	Tue, 22 Sep 2026 12:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790079026; cv=none; b=arB6LLFJS0Mxlmw1aLcS4JPsIimdxhYNzs0qBrIDb06i7TWIOAGgWdvHesWJIO2MBHnl9/EqUOCdsovv+Lq38RM3Xbsv1gMKrpbj0LyNiv/9wmoHlk+r3gcJuQ863YwIgF59PZJJGtoHAKhBhWBwiK/XQQ1AXGXI+aWGsspMGVY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790079026; c=relaxed/simple;
+	bh=JE5bF09adXG/nH4SMmtMhbmk5FMf0BrPFB1V0zr9MKg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M1Tm7xAvxXDe1SZsYNYXE2SCeID7BpEeG4wfyUutb47A17eSNBxUXdReBEYzln0TnLaUKkq0Su+TSJ/aOPKfpBReuOsRIMxdXkt9b57+WbqrK1gIMWCx9GTI+0dlgL+RpJNid7URV4Yp/oeCGN4a2inQw88yiF5UUIdp4l+7qJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=lddz+Mz6; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="dlsCwRIm"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b355ffso2435837b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:10:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790079007; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kjzF5XxXOI4Hfe9T+skNrIdpncJa00CLgBlqbwguLYmyr8B9hMxCOqLQUsns67aAM3
-         rlZYCcB2rJeCGFORUWcDQH23cm+uvmzlygUtcnVZ46iOisDp6P8+wAbASpZJpBjukFL9
-         migUDU/Cj4miVpWjbDcrKXIkXxZbgaouz8dfJnOhVfO8/ei/D12/P6UK1+JuzJL1oWfe
-         ToZVgFFkjzh9AwJuKSAYUE0xjzbSxtpAFk1mjkVmSheH92ztjJ7948VQynspqMMjWJju
-         ysvvCmT8CPcCZ/SkL5C8V4G004YD4wtW5YPBCb6h5XJkxM1bEDays0kg/yaBca6Z7SbD
-         2uqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YqZypLrUWsygd/HKyP66Nb8yxEOESbP2MWGoMZWSdRg=;
-        fh=2Jvz183+FuZfGBS5NoV2Tar8FDghSrDKJ8kASNxONCs=;
-        b=M5L9wL5sfoMT7PQ+waJBuztJMS8/s+YTIRTQWd+dVnjGbQLmXH0xtfMZx1ddztO6Pi
-         ljlZ7jhbe0YfF8Uc64QLF1nLpRxCtAQh4b6foUXw+D269mWD+Mq7Wi7awx3v8Fc0r5GA
-         tco4tsbdHjiZTTfR6nSbZ+CebvFJI6bMMFU36asej5KWUB9gn7m0NX2UnI5ojQOBZ020
-         O0yKYx980L0ZyfiZETi4XyLGRbZwFRvp/97sgu87nuFTzHVh0Y652FTcx+XwQEeGJDlB
-         jJmXpbXYIG7pd5wi2e5xaEtpIEnHLaypX+b0YV6H5/RMSyiB42h2x4P0uWrMJyIqe1EC
-         anaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1790079007; x=1790683807; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YqZypLrUWsygd/HKyP66Nb8yxEOESbP2MWGoMZWSdRg=;
-        b=dlsCwRIm4HVRezPlXgMjqL2pwFl3y7jEdYHkWisPlod+xjNJOXLjGgx/ai7bwzBAp0
-         4S/E3YvWDP2zUQqrq3yOsIQeU5RwYHMwL8Q5ZpPNoSntHmAGNX+vcHz1CyJ+iU/4QTY9
-         QP0DIWJ+CFIpazkjDeUCbJdiTNi43nM8h2xxvR12JmftguwKzG4WRc4m4cb4MsmL8X6Z
-         zFSGwDcOeuUNlGfdWN1wCSKmJHk0+tnRnfId7s0EnZCAJHEqu9iflxD/D8k2q/nTe5XA
-         QFUR8YG/YIh4ZVXTP+rjpgLEE8nY6EZGEMOngbUIpk2dU1CB905tM6h1tBS4v54QJ2Dh
-         gIOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790079007; x=1790683807;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YqZypLrUWsygd/HKyP66Nb8yxEOESbP2MWGoMZWSdRg=;
-        b=LjJZmGb/WwSAzOixf90nGF63g2NmUF3ZAW1Muww9kQbkUIQdxWGgumWIUrFjrcnNH6
-         6iZyf3ZJ1wBYHZpgvGHlh2R6Oc/q6eBRhWY0zuKVmvKx/FVvzJ2lEz8Cpai8Pwh9ODBl
-         HIRwgK4Pd7CH0H0wcJX50QNRicJHJg7NvD2OrPKP0uRySBVNKj4wm7oKSUQ4VpXddhHS
-         jNP3rKdpN6huUGfKkn4GzzovwQKIOVDBUejQ7azCaXO7kTEVtEQ3mqUvVKMJGR22Eq10
-         VAG1KwA2iUE971eV39i12Y/Cj4gp11s3FbGdhlNFPPUlcw6yEvKfRCO3Y0DldwQHzbrr
-         JmZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwTvtBswfNbTJUyVZZ06XeVTatpko8n7WQ1mooTedRPyUVzhV3QQYPG1NaGRlgA5LEKbxJzZKQVcBiGFdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mp7kWiQCRLEKcKo7jiAQgkh52PgnNgtQedOzzOC28k5MTxm0rS
-	16Az8lGGjHt0MsW+uzt3uFxxTLeDdY/XwvMs8SLVXrwTcbLaoydR7x+7Mvvs72GRpg6z78Ww75z
-	NhXPE53Lt1cUpjbBLc40JW7n4I/SDM5cLU2bA30+OmA==
-X-Gm-Gg: AYBFou3c2lZEqxc6Z5KtGrUQy8Nq9l4knskYQx0dc+YM5vxiSuqIK1Ika7QH3VOLdLE
-	z4fvFZFSqrQZEU5jIHKAvhM4w2+nSquFh3ihDOMpI1IlUhI+rlSFlGR2MWftLaCeDWVmhMf/sdl
-	qXjMINbWMdWNjWG9vxzFIEaEGfkGoT/6I+XNwEPzvP48yZckHmYY0CFiFJD8pJHJ0/iLemwHAs+
-	NPn7aCvcHoqOh5nZUhdRXb66ElJiBYJCbsY4b/t7gd7JN9udhZxIsVLZ/UIAB9m2BAgFxC4QGQQ
-	v+MnynOlK1dwcjBumQ+JxSrvc9Zj7B7Aarvt54vYSDyhM3HsGEt8uHc9cKJ1FYp752xZsuz9VB7
-	tnvqNNvhsiINgmGKG/6ORpoNc1jPoBvTOo50=
-X-Received: by 2002:a05:6a00:3a25:b0:878:34d7:69a1 with SMTP id
- d2e1a72fcca58-87c8472a93dmr1072253b3a.49.1790079006604; Tue, 22 Sep 2026
- 05:10:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="lddz+Mz6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=F5QcxVqJOnjBbDtIHAhFFpCo7qT9voQ7Pr2bj/R1OJs=; b=lddz+Mz6KDwdP2yoqzae0gEkf2
+	vqvZhsJTD08T/pjBJczBRXEB7KIQkbTEt0xO2KuZpExLh83e2gPMGMwWbUfIGvNNYIOaFANhcd/Gr
+	+2d8XP3uPhIQ6LSlIVB9LCpF8CeiJ70DLPg9C8/Z84vNfMWnQdFYfj+Uorf39eQBR018=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8zKA-006a5m-T6; Tue, 22 Sep 2026 14:10:14 +0200
+Date: Tue, 22 Sep 2026 14:10:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: netdev-bot+sashiko@kernel.org
+Cc: kyle.switch@motor-comm.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	hkallweit1@gmail.com, linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com, jie.han@motor-comm.com
+Subject: Re: [PATCH net-next v20 1/3] dt-bindings: net: Document Motorcomm
+ YT8824 PHY package
+Message-ID: <26e31b64-98bf-45d8-8c9b-b7291a3d783c@lunn.ch>
+References: <20260917131441.3428554-2-kyle.switch@motor-comm.com>
+ <178999667530.2160803.2619551882908404136@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907132617.1198548-1-robert.marko@sartura.hr>
- <20260907132617.1198548-4-robert.marko@sartura.hr> <2d7a6e8b-029a-4b9e-b7d4-8b7e96ea6aa0@intel.com>
-In-Reply-To: <2d7a6e8b-029a-4b9e-b7d4-8b7e96ea6aa0@intel.com>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Tue, 22 Sep 2026 14:09:55 +0200
-X-Gm-Features: AcwNN1WXi_VCQa282Ypqp9POkhX7gCRsmqb0WReRGFy-rkyIzQdlxyeytRee81g
-Message-ID: <CA+HBbNHz4_HTMHPv8wPGq_6UP+S_RbfcToAt6W_GN57aB5hG1A@mail.gmail.com>
-Subject: Re: [PATCH v2 3/6] mmc: sdhci-of-at91: add LAN969x support
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
-	claudiu.beznea@tuxon.dev, aubin.constans@microchip.com, ehristev@kernel.org, 
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	luka.perkov@sartura.hr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178999667530.2160803.2619551882908404136@kernel.org>
 
-On Wed, Sep 9, 2026 at 12:42=E2=80=AFPM Adrian Hunter <adrian.hunter@intel.=
-com> wrote:
->
-> On 07/09/2026 16:25, Robert Marko wrote:
-> > LAN969x uses the same internally generated base clock layout as SAM9X60=
-,
-> > but its SDMMC controller stops responding when runtime PM gates its clo=
-cks.
-> > Software resets then fail to complete and the internal SDHCI clock neve=
-r
-> > stabilises, causing subsequent I/O requests to time out.
->
-> Is this a known issue of the SoC?  Is there perhaps a hardware reset
-> for the controller that would bring it back to life?
+>   MOTORCOMM PHY DRIVER
+>   M:	Frank <Frank.Sae@motor-comm.com>
+>   L:	netdev@vger.kernel.org
+>   S:	Maintained
+>   F:	Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
+>   F:	drivers/net/phy/motorcomm.c
+> 
+> That pattern does not match motorcomm,yt8824.yaml, and no other section
+> matches it either, so get_maintainer.pl will not report the Motorcomm PHY
+> maintainer for future changes to this file.  Widening the existing entry to
+> Documentation/devicetree/bindings/net/motorcomm,yt8*.yaml, or adding a new
+> F: line, would cover it.
 
-Hi Adrian,
-It seems like the controller was reused from SAMA7G5, which shares the
-same behaviour.
-Unfortunately, there is no HW reset for the controller.
+Please do fix this.
 
->
-> Does that mean unbind and rebind of the device from the driver
-> also does not work?
-
-It works as long as we avoid disabling the clocks.
-
-Regards,
-Robert
-
->
-> >
-> > Add LAN969x-specific SoC data using the SAM9X60 clock layout and select=
- the
-> > option to leave its clocks enabled across runtime suspend.
-> >
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> >
-> >  drivers/mmc/host/sdhci-of-at91.c | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
-> > diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-=
-of-at91.c
-> > index b7e2a89da348..e7affca8da25 100644
-> > --- a/drivers/mmc/host/sdhci-of-at91.c
-> > +++ b/drivers/mmc/host/sdhci-of-at91.c
-> > @@ -158,9 +158,17 @@ static const struct sdhci_at91_soc_data soc_data_s=
-am9x60 =3D {
-> >       .divider_for_baseclk =3D 2,
-> >  };
-> >
-> > +static const struct sdhci_at91_soc_data soc_data_lan969x =3D {
-> > +     .pdata =3D &sdhci_sama5d2_pdata,
-> > +     .baseclk_is_generated_internally =3D true,
->
-> Should be a comment here explaining the issue that needs
-> keep_clks_on =3D true
->
-> > +     .keep_clks_on =3D true,
-> > +     .divider_for_baseclk =3D 2,
-> > +};
-> > +
-> >  static const struct of_device_id sdhci_at91_dt_match[] =3D {
-> >       { .compatible =3D "atmel,sama5d2-sdhci", .data =3D &soc_data_sama=
-5d2 },
-> >       { .compatible =3D "microchip,sam9x60-sdhci", .data =3D &soc_data_=
-sam9x60 },
-> > +     { .compatible =3D "microchip,lan9691-sdhci", .data =3D &soc_data_=
-lan969x },
-> >       {}
-> >  };
-> >  MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
->
-
-
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+	Andrew
