@@ -1,82 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64856367F21
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C845505CB
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085704; cv=none; b=VZsaC8O8iNEfWQ9XD2rz5x/a2YbTiTOgRdc0H4ZolLeP6EmQEhv1bjCiOQiHVVsm/ok7Zn5OLlU23e+GRbGCH5rxLsh1ccJpOViq+64QOmWjYnTYhIukog/1n8dpUsPDbGjof5kt1s5sObg9azgceV+6VqtnWfTMwIqpJ36s0Yw=
+	t=1790085705; cv=none; b=MKRiVfF4VzEibBEIA1xSkgQV3liiCupwh2MyD2ynzo970L4aB+Xqtb2ugGi2XtFKMAf6NxXOIYPktCtLehJ5Xh+P9xYSZAEREiFVjAOWEP7nE1M8LbVBXs6LxtgePQUIxCneHRRCObLbUlbFF8YMU5ngP/qsmfQ5skmi7Be5r6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085704; c=relaxed/simple;
-	bh=kQrht+5sI9bASKFlgpONBOF4Z/HtyTurJ4XjvrOEmpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SGGAq3+lv+YoM+ZrKAmQTy1InkkO++SlMVlvmVDxCA61rE4TCpdIvTyr0CPcmYL868JuUMfAgd/wPZwS5OlynLqHZ13CYgHSFOaoqldubm0BBgaAvlsNb5PEaZu3+L+fwLR/chGuvmBNOOW3bsm9yC3AXszVs6uulMXlr/buzro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rs8NKWS1; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790085705; c=relaxed/simple;
+	bh=Z0x5CU2E73GGQT0WGdYVgrKEzFDVlQaVuFg3+JZSUvw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fqG3KgcE0PeXq06G3R02O8ZMDpsKjMqGqGY7BSREkzHpNlrFSPOTLmXJQTSKbbaQbV29Fyjyve+hJXP0h28nw9MgyWx6iXZslKLAvsDwKBVidVvylMVUdNsMerl4z1XxA8btyZojr084tIsqezt0Z06+QEFyvVadiXmHeDbShHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cm3jTXUW; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rs8NKWS1"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 127A91570;
-	Tue, 22 Sep 2026 07:01:38 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 864723F86F;
-	Tue, 22 Sep 2026 07:01:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790085701; bh=kQrht+5sI9bASKFlgpONBOF4Z/HtyTurJ4XjvrOEmpA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rs8NKWS15R7YDJBqLdcql2VJ8gnH2hZtsm3BC9gVnm5NqpVaHL049U42TsDGlCToN
-	 Xk1jKhjiibZToljgHzBtgaw6dhPmL4WtsEyWV4J3xygPezkGvHi7j8sQj6Zp+8uqoX
-	 LMEhl4/fm57xGK74ixP6dYwvETofqqR+oHzt11Tg=
-Date: Tue, 22 Sep 2026 15:01:37 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
-Subject: Re: [PATCH v2 21/21] arm64: Rename 'overflow_stack' and
- OVERFLOW_STACK_SIZE
-Message-ID: <arKKQe9bVo7_HC0d@arm.com>
-References: <20260918161407.2300-1-will@kernel.org>
- <20260918161407.2300-22-will@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cm3jTXUW"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8631d0023daso3150963b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:01:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790085703; x=1790690503; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5oGWhynSEKne6RN1QxHEC9k9P8vjg9REo1kgWqBAqDc=;
+        b=cm3jTXUWDShvamxv6PLkK2K6Q9MB4rEk+cAcGymFs4WwuepqrzAEbb2masvMl121wA
+         W/BnezkUy1olSuw4M+vV01S3/xO/HelaHrcRLHpq6zb3DN+ADEqFqjAPLv38QO5ExjR9
+         oc58I81SoQAcEvorEif0qF+a9cKLFX2j/h/cl//a8iOz1NvcudBwXhiKkb1SXg9aaC9O
+         8gCcro5Ydt9CnNUER5DPsolm3YfLlOWnhGsEQ6DZnOCBmZr9WYgcdb0myalLQdyfHho9
+         4UHunuTCcrLRllkBpn90adOLN5VHVGy2siZGyAo79DRCBvr8+Gv+gH0gCMEhl+aclIdw
+         pqIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790085703; x=1790690503;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5oGWhynSEKne6RN1QxHEC9k9P8vjg9REo1kgWqBAqDc=;
+        b=inPoYB6pwIFLsaYKoj8MkIiKtUwnkUcvk0Pw+2DLxelOeNu/CxTNiFLkSinM3ldeQT
+         b8c3AJCGTQGkefuzG7pSSXLhN/gPsDdXPw1JNQJR1dih6Tz7DrUn7vMazuoxm6tm+wEd
+         kTyRB1xTFHet8g0vL8Yga9CeLzyYRWYS+l7i53HXAw6rlTSW3p2Svkh6s7LU0KUD1Xrb
+         xhbU+mSUytH+ZxVz2bRdfo5jmO/ITZHe+U41IV3xYB9QsiL/DLzr8xHIGzuJgfe/GZLr
+         XlJefwEPc2zPTiYCIHHssQYvagsncEaPk27ZFyQM1gQMHYxmFw82/sNXPz9nm4Mmn+kO
+         1mzw==
+X-Forwarded-Encrypted: i=1; AKwUvBzw7H3DkvlyhLIkAcEss4QKtD2DjMXFOzFwxdGoZqqbdiDfySyJSmFh808H4dG93mMNVf5opkMC5Ytc6g0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n459W388XMnioPZfgDRJGi9qjEHqsBy8qPs8q7kYGb1snyfGFN
+	w7oFlvOuPNy0+Z4mKhX/jTevOTruo+MjAq5AKGgDZsGXFsVLNtXAsGdJ
+X-Gm-Gg: AYBFou1JsdFpdznsITcdoUghgxtBmz1BnK2+3ZzIXmm1hvsLgsgtoY0yMZT5UNc+dzc
+	AxROxa+CIb89YzPkNNb5BP+/gaQtU7Qv3chM2JT3/C+6C1Mrmk0610TvBBG2KR27b40hBP1zxFD
+	fCNJ4LvNMcsnSCR/KNdBw/+Lxbglh98rg9rFAoIgI6hHh7cTcRTEdEjvhIeMaOHjW5bZ0//dIUx
+	ljolMfo6u8bthXe6DmQkiVokYNceJgf4Bx1Dy4V4wlkcWDZktU+0I1ItIwq7p4QUgJ8ZZHTER7L
+	SYZ3AH/EX0JuV5lN5go4hdQ+2R9MzuqKYLw8qHusbiwRVI93tTKbLtBxJ0OxiZpno/Qz/NKYgmE
+	NNbCqBnJbr3ZAnC/lQ3rcHSFrGfCBBUUwkquhTqb4+2GMjnptEjCl3l9MK5KvBLNQpLbDEQJFWf
+	fErNMsa9saPiDnPfDTcZnnsaHnv96m6VzdneaFDGkQKfopae3nu/sc5XS9uwZC8KDTAK7JcmgQH
+	upjfrJNw6kNDE02/ZMOCh3VhZiJSvXi13jBSDvw1oyc0ZczJQ2nSvib76fC4R/3WKePD0KzLQqP
+	Bi7BRANKAT/+sYcWYaZs/QNDHeEbqH5g09EglvQ33SK2K5PTgg+wQZjdd/jWbRelQ/V6nTUTrw=
+	=
+X-Received: by 2002:a05:6a00:1f1a:b0:878:37b2:df98 with SMTP id d2e1a72fcca58-87c8500a986mr1360521b3a.56.1790085702880;
+        Tue, 22 Sep 2026 07:01:42 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87c329c813fsm932803b3a.38.2026.09.22.07.01.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 07:01:42 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Yichong Chen <chenyichong@uniontech.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] isofs: validate directory records in isofs_read_level3_size()
+Date: Tue, 22 Sep 2026 22:01:36 +0800
+Message-ID: <20260922140137.1768064-2-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260922140137.1768064-1-matthias.goergens@gmail.com>
+References: <20260922140137.1768064-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918161407.2300-22-will@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 05:14:05PM +0100, Will Deacon wrote:
-> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-> index 9d734cd09f62..7e9b26cf1bdc 100644
-> --- a/arch/arm64/kernel/entry-common.c
-> +++ b/arch/arm64/kernel/entry-common.c
-> @@ -327,43 +327,43 @@ static void debug_exception_exit(struct pt_regs *regs)
->  }
->  NOKPROBE_SYMBOL(debug_exception_exit);
->  
-> -static void noinstr el1h_64_check_overflow_stack(struct pt_regs *regs)
-> +static void noinstr el1h_64_check_exception_stack(struct pt_regs *regs)
->  {
->  	unsigned long sp = kernel_stack_pointer(regs) - sizeof(*regs);
-> -	unsigned long ovf_stack = (unsigned long)this_cpu_ptr(overflow_stack);
-> +	unsigned long exc_stack = (unsigned long)this_cpu_ptr(kernel_exception_stack);
->  
->  	/*
-> -	 * We're in big trouble if we've overflowed the overflow stack
-> +	 * We're in big trouble if we've overflowed the exception stack
->  	 * so perform a best-effort check before we proceed. If our SP
-> -	 * is outside of the overflow stack for this CPU then presumably
-> +	 * is outside of the exceptoin stack for this CPU then presumably
-			     ^^^^^^^^^
-Nit: "exception"
+isofs_read_level3_size() walks the multi-extent directory records of a
+file and dereferences de->size and de->flags for each one without ever
+checking the record's length byte.  A record with a short length placed
+near the end of a block makes those fixed-field reads run past the
+record, and for a record at the end of the last block of a page, past
+the buffer.
 
+readdir, lookup and the NFS get_parent path have validated every record
+with isofs_dir_record_valid() since commit e2ee4078ec58 ("isofs:
+validate directory records consistently").  Use the same helper here.
+It rejects records shorter than the fixed part, records whose name
+would not fit, and records that would run past the block, so the
+straddling-record copy below can no longer be reached with a bad
+length.
+
+Found by fuzzing fs/isofs in a userspace harness with ASan
+(heap-buffer-overflow reads in isonum_733(de->size)).
+
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+ fs/isofs/inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
+index 337836a0a170..c9bc1f479161 100644
+--- a/fs/isofs/inode.c
++++ b/fs/isofs/inode.c
+@@ -1208,6 +1208,14 @@ static int isofs_read_level3_size(struct inode *inode)
+ 			continue;
+ 		}
+ 
++		if (!isofs_dir_record_valid(de, offset, bufsize)) {
++			printk(KERN_NOTICE "iso9660: Corrupted directory entry in block %lu of inode %llu\n",
++			       block, inode->i_ino);
++			brelse(bh);
++			kfree(tmpde);
++			return -EIO;
++		}
++
+ 		block_saved = block;
+ 		offset_saved = offset;
+ 		offset += de_len;
 -- 
-Catalin
+2.55.0
+
