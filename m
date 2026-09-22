@@ -1,123 +1,165 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAAC4908CA
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790101733; cv=none; b=rZTyD6wiquzKZvbtbese/yBn4wyEYt1egyTL2Wod0ZQ963ozkTqny6Sqx18nAwtswvjpugWMsfjmZv5LJc/q7HhA+v4SsPDG2rl9NNy/TxwfXrHE3Koro7sq5RaZ5GOlxlBRo0gxAJvOSbmJeI50++QK2Hy7loZ83sdlYuWDifo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790101733; c=relaxed/simple;
-	bh=BNdvhp80ZcJoxFgJFaKETqH+ahUzvTlwsgSGbDEPm0U=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=AtIRSbiJV92mf08mr+Hti8aQX06eqQoPxB866RlQMnpqQMX0V20TWqiE4ZK7dSVt2RXmosDZ4V1h60Ab/excjxoFmPh0SHcAU+Wkou4QFsd+DTgTL8Yh/WkimhwkByARctM27tVLQ2nUBr0ttMtqy47uf55Pmchd9fbulQzS9JU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jg4pqnwv; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADEA400E15
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790101739; cv=pass; b=uRhwz262gvar3CoHpe9G+2tOBsSkflTfYFXRpQbsI7LPXVxsAR7qrkV4GpCuy29zz8RjUWnfdOWCh1MnFZ+5sypWdHdsDV5c3C/gPQ65kTJBTx471WEV/WFxKY5ZjnvA0iUdygnbgu/BoZokKT2/JMvwD0rZZb6eyOAFbwKV8TQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790101739; c=relaxed/simple;
+	bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uiVvlHWttLp7prUfXWoMTUdTZ8jFxYxc/9Left9pA7As1aXmjLU/vEwa3HIVhBwSHmbVnG/Q/i1HrhXAj8PoQ0ef2hzbTF3qQA6VFr4mCgK0xhuEUf/5tlRnjcJQqLCbFO0LqhRRXZTznjIKI/wHx9VobZM+8WO8GYVn55GvXaU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JtclKAIW; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jg4pqnwv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790101730; x=1821637730;
-  h=date:from:to:cc:subject:message-id;
-  bh=BNdvhp80ZcJoxFgJFaKETqH+ahUzvTlwsgSGbDEPm0U=;
-  b=Jg4pqnwvt6IXDuqadztZaREPfHUeNkEbMD++ZuIabdMHrfUQ4+Y89MnX
-   kQLwoS78IWpwFoq0EzKIzNJJqbm3CY5TbYZ7OTjUOr/H55LNg6Z56UHgN
-   XkCHUr9yoplxii4MH9PNdPQeqI9u8cepTd/+tbsQjaYSt3PxzxzAxPa28
-   RJovvSpbPMkikxyjzbT8800kqofMp0NupAO77NcFCkEVPEwTmhb0mzaNv
-   p8hNgnuMSA7SQTkwArl4Le+IY5B4ajkjKdv+QuK+gIrhG9uZfgcYeQsq+
-   HMSK/bpwhrlxmKrfOHMPxp2/1Cd71zN968T987WTCuaw1b4OwXXL9eKU7
-   g==;
-X-CSE-ConnectionGUID: uXUc9TPJSYOmVNADvnDWeQ==
-X-CSE-MsgGUID: VmApWJocRC2Akf9CNeYMVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="116260581"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="116260581"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 11:28:48 -0700
-X-CSE-ConnectionGUID: jSs9LCfORmSYjU/oYkXLBQ==
-X-CSE-MsgGUID: abZZTjUBSieadro3f3w8NA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="4535282"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 22 Sep 2026 11:28:47 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x95ES-00000000FsY-1eui;
-	Tue, 22 Sep 2026 18:28:44 +0000
-Date: Wed, 23 Sep 2026 02:28:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Eric Dumazet <edumazet@google.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>
-Subject: include/linux/jiffies.h:470:36: sparse: sparse: cast
- truncates bits from constant value (3fffffffffff85ee becomes ffff85ee)
-Message-ID: <202609230241.mqecl3OP-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JtclKAIW"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb18so113122a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:28:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790101736; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eWKQoJQIMtXJF4Ajc3285s5t5bUeeFoW0Qrr/UffkEVCp20GMrHq22UzmOpKTKdtE5
+         MjlUXlq0GMrSM9yJyyH64Blmba7jK2VUMjbuIvv1jfyXkJV9Sb5dWstu6uBgGYrhqmk+
+         LMxZwAMAFiG9diPIBPHHK5EC/mkVSHaMVrak8E3Ty0R9TNB0Lb2fbPhuf+PseEUWt0I3
+         Dl+aZapTBLJPQJCRUYOlQptcBdc69OIu9ndVD2qtvEGEANCikMSJVSVFa+93fqzIzZiK
+         AZT30Wb3rNVnv33GSMhzS9E5n78hFfihlZi8vHf9J0cvCBppcsRqNgLpyjshfDCMw1/b
+         waow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
+        fh=BOGqNKar8SMIrEkpSqetCH/E5F7WRlIzuvhPhcxOPq8=;
+        b=rP2wRVXKQB39HIfDZhc7OYRmTctpxcoCJ/zr+1HD/4Q+40RiVamh/OmRuHCHH4Dt7S
+         +ju6lGWLB1/IRlKIS8UunZsvd3sroS6bA7bLzyASr/mVLT6FZe8YzOoQe/7RQ3n2q2il
+         octtvIicAokzIaru6p6une5NfrqBKEsxboGVAySPXP8r3TAPjycyXj7Ijy2qcHddVXu6
+         Bk37hdxlwM4yIhIUgNXlEpV+u5rr29Ao8Bp7/RK5vbiF6VjpaAFBbbS65nsokQeER+Zc
+         EJnWBl3QlI3m1Tdksy53OEBNpewO1lqVn5PyEz+f6k+2qAdncL+RjJxaIZ20K9OXS0C1
+         8e9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790101736; x=1790706536; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
+        b=JtclKAIWqxCLtkTkqlwNs4gedoQhB9TYrhPin/VLA7wMWunnFbp0yC7Axwv02HfMiF
+         7hSu92rXqQzCb5osiVtmvo4yHpDA/uKfLA7VcbHjuD0a1Md51KMQgqttDNkVW8q6Hl7K
+         F/iY6NctZ7PhQokGz7YR6TkY/P/BTSqzGm8B7L5iIqt2hJ+1GZ86DH0YE9J/FIVJxlPU
+         0mgsyDr33RiQcIlYd8NZ6yFqfojIMotVeAuiXEUaiySNrE2ZqTYeAkdWuSTHfuMpTXgd
+         MBLAJkSrTnOCHCEOoyAGY7z7+TbQVd8GGtL44SBM69LJGgrKxzmNM99uLoNPfPH9SALk
+         mOgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790101736; x=1790706536;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C8X3rEi3yYXQtA/Wr780nU/kG57I9jcWzCAz3MJajWM=;
+        b=f1mJKaXgNRhZI0LpQuZ0FcP18oi8LjLSJj7lecrlT7i2ABLkS9TInVhXjte88/Y6N+
+         qWj8Oe+ESyKCyOVcRqb+5Odg2C+kLlxvgRqI3nAARiRvr4Wg218RdqE3Pd8aK6Qp0RaW
+         IYDNSC0EZl5BF3yZP9oyfOIrfTycMQMMjT+hTFfGr2U8mn/WWEFxBfCna3Zb54bAG0LJ
+         uItxttqsJkDsfC0GEmO/N4bYHLCKRTMoZkkHrSeroHRhLqrRq2ijKhg/PxkKcRv7LEKj
+         oQATZVqc33lIFHURSDj7YgNKOsFyvE6h9A3Z6X0+ODLG++lj2OMOHFWpJBNNsQW6XC/H
+         xhpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwGJ/H5tCQggiAsT255Idw7yHKI8s6nu+Xxw9kVuz55bv0MbMrVi5Q39sbtxl0qlSTLj/yroUeIleTZmI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0kIjFLZb+I8Uu132o/GkeCxLao1TDFYMV4DZrWx8rMdaqcATv
+	zaW99tgoETSaqclzzqUoXTX8Yla7Ywo/dRnirZMTAxh3AE3VfeGOrmSWPfwByXKpf5xRSx7aJXG
+	LSKOejcBL8hQi9CMj5QrLC0++KyPCdtc=
+X-Gm-Gg: AYBFou1/3NXm8y4f90w8s1Ix6OBni2i6DstnElgGN42ywOnnZytXyhfOPRo4Rtd0f/L
+	Fq8PbFEFX61OohcOm//YSZshQrqLmKxj52RAMOC9PeW8Zfys+aYwehR6ixP9ltTDiLwqSYJUknF
+	B+uMg120tljJmbnetS8jHRtQXYwXXIwfaIsxvK3jipxBrEovVGvG17NLZQ17VK8BncEOtIVTnEN
+	v6HeL7UbNYDO0VHxdgWUQ4V+cLhegga4uUvDmP4fgNXR3FyPeirsoAl11DyyP2ta31rWsaYOKpo
+	qsf8PvrRMmv4r4+D5SnFrCDPyHFQstAduF0w4urMvgCcOPAk5NG+qA4ijxUDiwMPTNWFzGNDNAc
+	1BUF9t4zonUjVlFg3YNBp0g==
+X-Received: by 2002:a05:6402:4518:b0:6aa:12f0:166e with SMTP id
+ 4fb4d7f45d1cf-6aab38a8641mr368480a12.16.1790101735486; Tue, 22 Sep 2026
+ 11:28:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <CAKSQd8V28WjMcsfh05P5SNfXXvtafBH6fyiyqMzQ9GtU8fQGSA@mail.gmail.com>
+ <f133c35f-b013-4395-ad1f-53765114d4b9@intel.com> <CAKSQd8WqQdNDoEqM+PZNHg-yr_4VJTGYdV=bCbYfRDyR7kUjbg@mail.gmail.com>
+ <01a1d68b-a4e2-40e3-b3b8-c1046faa6c77@intel.com>
+In-Reply-To: <01a1d68b-a4e2-40e3-b3b8-c1046faa6c77@intel.com>
+Reply-To: ludloff@gmail.com
+From: Christian Ludloff <ludloff@gmail.com>
+Date: Tue, 22 Sep 2026 20:28:44 +0200
+X-Gm-Features: AcwNN1VsibCEVXUWfVOgXZYccRZ_iWDBoTKrTPQuJ56JBNJx_0IdVjmNLexMxas
+Message-ID: <CAKSQd8X0bWYbG2VcU8T5vdFsXGrTy69f_xqBUs6Ox3oNHPfbrA@mail.gmail.com>
+Subject: Re: x86 CPUID mutable return values
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Borislav Petkov <bp@alien8.de>, "Ahmed S. Darwish" <darwi@linutronix.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Sean Christopherson <seanjc@google.com>, David Woodhouse <dwmw2@infradead.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Sohil Mehta <sohil.mehta@intel.com>, 
+	John Ogness <john.ogness@linutronix.de>, x86@kernel.org, x86-cpuid@lists.linux.dev, 
+	LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fe2ec83746e501645709761605c2464a44fd2929
-commit: b777b5e09eabeefc6ba80f4296366a4742701103 time/jiffies: Inline jiffies_to_msecs() and jiffies_to_usecs()
-date:   7 months ago
-config: alpha-randconfig-r1307-20260922 (https://download.01.org/0day-ci/archive/20260923/202609230241.mqecl3OP-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 14.3.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260923/202609230241.mqecl3OP-lkp@intel.com/reproduce)
+On Tue, Sep 22, 2026 at 5:24=E2=80=AFPM Dave Hansen <dave.hansen@intel.com>=
+ wrote:
+> I'm all for documenting this stuff. I wish it was more open.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: b777b5e09eab ("time/jiffies: Inline jiffies_to_msecs() and jiffies_to_usecs()")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609230241.mqecl3OP-lkp@intel.com/
+Alastair is working on it.
 
-sparse warnings: (new ones prefixed by >>)
-   drivers/i2c/busses/i2c-mlxcpld.c: note: in included file (through include/linux/delay.h):
->> include/linux/jiffies.h:470:36: sparse: sparse: cast truncates bits from constant value (3fffffffffff85ee becomes ffff85ee)
+https://github.com/intel/SDM/issues/16
+
+> But I do worry a bit that someone will read that, for example, "KL is imm=
+utable".
+> $CUSTOMER starts depending on it. Then, $CPU_VENDOR decides that was a
+> mistake and fixes it in a future implementation.
+
+Most of the mutable values tend to remain stable.
+
+HLE and RTM were needlessly complex outliers.
+
+> > Based on some experiments, I think that VAES
+> > does follow AES (i.e. is mutable as well), while
+> > KL and PCLMUL do not (i.e. are immutable) =E2=80=93
+> > so that's what I am seeking confirmation for.
+>
+> Are you OK with just checking a recent implementation or do you need a
+> wider search of older implementations?
+
+TGL would be interesting =E2=80=93 KL did arrive back then.
+
+NVL would be interesting =E2=80=93 for the latest P+E =E2=80=93 but
+we probably have to settle for PTL for now.
+
+> > PS: Should Linux boot check/fix that LOCK?
+>
+> I don't really feel a strong need to do it. I honestly don't know why
+> the lock bit is even there. I'd randomly _guess_ that Intel's
+> implementation was not certified for $THINGS and they got nervous and
+> asked to have a chicken bit exposed for it just so it couldn't
+> accidentally get used.
+
+AES DISABLE+LOCK were originally added due to
+import rules in some countries.
+
+> But, for Linux, the kernel doesn't currently munging the disable or lock
+> bits. If someone munges it with wrmsr(1), they get to keep the pieces
+> just like any old wrmsr(1) user. I'm struggling to think of a scenario
+> where being able to twiddle either of the bits could be useful to an
+> attacker.
+
+If LOCK=3D0 leads to someone setting DISABLE=3D1,
+then things will get slow, or do who knows what in
+software. But then... armed with WRMSR to begin
+with, someone can do a lot more damage anyway.
+
+> So I'm not sure it's worth prodding, even if we think it's got a funny va=
+lue.
+
+Yay. We gave it thought, and got us a record of it.
+
 --
-   drivers/i2c/busses/i2c-nomadik.c: note: in included file (through include/linux/ktime.h, include/linux/timer.h, include/linux/workqueue.h, include/linux/srcu.h, ...):
->> include/linux/jiffies.h:470:36: sparse: sparse: cast truncates bits from constant value (3fffffffffff85ee becomes ffff85ee)
->> include/linux/jiffies.h:470:36: sparse: sparse: cast truncates bits from constant value (3fffffffffff85ee becomes ffff85ee)
---
-   drivers/i2c/busses/i2c-k1.c: note: in included file (through include/linux/ktime.h, include/linux/timer.h, include/linux/workqueue.h, include/linux/srcu.h, ...):
->> include/linux/jiffies.h:470:36: sparse: sparse: cast truncates bits from constant value (3fffffffffff85ee becomes ffff85ee)
---
-   drivers/i2c/busses/i2c-npcm7xx.c:1387:61: sparse: sparse: Using plain integer as NULL pointer
-   drivers/i2c/busses/i2c-npcm7xx.c: note: in included file (through include/linux/ktime.h, include/linux/timer.h, include/linux/workqueue.h, include/linux/srcu.h, ...):
->> include/linux/jiffies.h:470:36: sparse: sparse: cast truncates bits from constant value (3fffffffffff85ee becomes ffff85ee)
---
-   drivers/i2c/busses/i2c-qup.c: note: in included file (through include/linux/ktime.h, include/linux/timer.h, include/linux/uprobes.h, include/linux/mm_types.h, ...):
->> include/linux/jiffies.h:470:36: sparse: sparse: cast truncates bits from constant value (3fffffffffff85ee becomes ffff85ee)
-
-vim +470 include/linux/jiffies.h
-
-   454	
-   455	#if !(USEC_PER_SEC % HZ)
-   456	/**
-   457	 * jiffies_to_usecs - Convert jiffies to microseconds
-   458	 * @j: jiffies value
-   459	 *
-   460	 * Return: microseconds value
-   461	 */
-   462	static inline unsigned int jiffies_to_usecs(const unsigned long j)
-   463	{
-   464		/*
-   465		 * Hz usually doesn't go much further MSEC_PER_SEC.
-   466		 * jiffies_to_usecs() and usecs_to_jiffies() depend on that.
-   467		 */
-   468		BUILD_BUG_ON(HZ > USEC_PER_SEC);
-   469	
- > 470		return (USEC_PER_SEC / HZ) * j;
-   471	}
-   472	#else
-   473	unsigned int jiffies_to_usecs(const unsigned long j);
-   474	#endif
-   475	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+C.
