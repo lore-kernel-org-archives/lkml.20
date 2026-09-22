@@ -1,134 +1,144 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AA446982F;
-	Tue, 22 Sep 2026 17:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F00B30AD05;
+	Tue, 22 Sep 2026 18:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099831; cv=none; b=UNmSTPAm/x9EjnFoNxVQecabKVXV3oTYcZYy4pQeVKp3B2nWr+in49J8db8bALx5VfnP3wTeJfrE5tk1b6xADeXIhchfFIg49idbnJDgHo4JqAy12KAKnOwfhmE0WxTqN3cg/c37fzd9wVF4y2kUlZ/vv1Udz9eog83rF3LP5Xg=
+	t=1790100058; cv=none; b=uKeyG6eWDsjWa/DsRy7ipqns+2GKkN6OI6lKC4Fszp114rlzgvsYKb6Cygw3HMBKWM6hBrCqETSFmSKNl+EsniOJuk4SrNd8t4wY44OTLrpDDo/6FsxvrOQlfC2L7Ky54c5jxN6htOiIgso/0swjPdxpaxNUAZQq/dYE3lTfkyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099831; c=relaxed/simple;
-	bh=Q8au4sTrqz4YIvyNguOhIkoAy69QlyaYpnbwvs4cJl0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LB2VaRsbx/8bZ2oNp1YyFiZtjy6LVGRIUXmajw6d1kdCzeSmWE5n8a97/EbUJj4J4EhHosmPoFyz2VZ/q7z76c/BxSqrVQdjvuK9KJrofZWoqvF3v5WQces440SW4HekpkJHVcqrH4CjHspXrXMcNM20TrmUuSPjfqpStOxjbRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=jHiQvgsv; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790100058; c=relaxed/simple;
+	bh=42DQZLqFp7oYhlX9NkbYXOhDpl+saZG9Tw1DzIKLXJE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ERalV3/Fv0prVJgxDK0YQekEpYfL2/kM9ibandu/b1D6T/plsgucMbkJRrMj1APbvWssAwYu2GU24N3RQZE1ih+9FkKOs6rnCaOf+4s4joX8/l2V6hOOYO2UHrFGrpkBLjHmWJvglsa7ANrLC2C/RS8d79CbdHHSWnT/iHsG/s8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7xwpxnQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="jHiQvgsv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790099830; x=1821635830;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=qN5XnQIzCII0JvDnuh1uh6pvZD1IP2URc4wRLzLGKJM=;
-  b=jHiQvgsv0RB7uk1x0PbZzoLJovD+FH8fpBWUfZ76ulEP/AN9Jg3dxUMO
-   dZWy1H1DJQgigwr7acXfkTFxrMyMibnsYu62dFli1kHsjAtfIGYUeYue2
-   6r5VD6SdE6i2lWDPxpSaPytG4cnf7dOF9spb3xiTIWU0c/PEsTBKguOzc
-   BJ2e9VrGStrXCA6cnMVGIy8fl+g/STflcBeMFmVD7/azqDoBiku/JLane
-   T8Juu7pxvjS+wuAIxcQX7Aod8tRVGvHvVSqAT2KSqL45OjDm8Tkc5Grrw
-   V0pHVV5XYUU1rAagw98YP68WfMbFHuEZ00/GXdilfzjge0w2hhqzCRWHY
-   w==;
-X-CSE-ConnectionGUID: JYPe3dSdRE2Jst86+ehwXA==
-X-CSE-MsgGUID: Ghgc5jPVTNiP74Z4PG1YBg==
-X-IronPort-AV: E=Sophos;i="6.27,116,1787011200"; 
-   d="scan'208";a="29355524"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:57:10 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:27790]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.10:2525] with esmtp (Farcaster)
- id 7f634d42-ea37-4bd3-8072-578b37438cbd; Tue, 22 Sep 2026 17:57:09 +0000 (UTC)
-X-Farcaster-Flow-ID: 7f634d42-ea37-4bd3-8072-578b37438cbd
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 22 Sep 2026 17:57:09 +0000
-Received: from dev-dsk-jamz-1e-e35f4cd9.us-east-1.amazon.com (10.189.35.140)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 22 Sep 2026 17:57:08 +0000
-From: Jimmy Zuber <jamz@amazon.com>
-To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
-CC: NeilBrown <neilb@ownmail.net>, <linux-nfs@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH RESEND] NFS: Fix stale negative cache on failed nfs_mkdir()
-Date: Tue, 22 Sep 2026 17:56:56 +0000
-Message-ID: <20260922175656.2833041-1-jamz@amazon.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7xwpxnQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EDEF1F000FF;
+	Tue, 22 Sep 2026 18:00:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790100056;
+	bh=pgEGK/K6gfGA0zQLl1fXn5s5CcBc4oxK3LTkbFK/s2w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F7xwpxnQ0DriQd4DckjZV7FlJf1jIqnHu9esG8IsRwjtioGhbUHIF6m11kZ/8PkPT
+	 vafSTouaF+AeEJUK5NL598N2O/JHZ2sACEpwfhCldPRz7lQIF+ewWkKZboLMnvhOBm
+	 EJy+3n3faD/FNAhrDQp23SVUWhGYSsnjlhKD1vGF9bDN5EByZkj0SxTcAs8T56WX8f
+	 rdapx7exbSfhPaUPquGUDdSrDKC5Jaz3wo+EfZLQK4FLJB/HPiJKBZVgh+eJcAAPua
+	 N2FMYUn+EhaVCBPbfWZ+o3sV+m2cTG2lNFk68b6rPd+mMYLI8/5NkcIr0a1v8NSIle
+	 Uq7NeYDuaaYEw==
+Date: Tue, 22 Sep 2026 19:00:53 +0100
+From: Conor Dooley <conor@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Hennerich <michael.hennerich@analog.com>,
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: input: Add AD7147 CapTouch schema
+Message-ID: <20260922-obstacle-gamma-4f9be689bc43@spud>
+References: <20260921232731.3134965-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWC004.ant.amazon.com (10.13.139.254) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i1inwZDxY93RpURb"
+Content-Disposition: inline
+In-Reply-To: <20260921232731.3134965-1-robh@kernel.org>
 
-Since commit 8376583b84a1 ("nfs: change mkdir inode_operation to return
-alternate dentry if needed"), nfs_mkdir() no longer drops the dentry on
-RPC failure.  A negative cache value can then result in spurious ENOENT
-results for further operations within that directory, such as open or
-stat.
+--i1inwZDxY93RpURb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-We observed this breaking some applications where an EEXIST on mkdir
-caused the application to assume the directory to exist, only to fail
-operations within that directory due to the retained negative cache
-entry.  The other create paths, nfs_create() and nfs_mknod(), still drop
-the dentry on failure.  This patch restores the previous behavior.
+On Mon, Sep 21, 2026 at 06:27:30PM -0500, Rob Herring (Arm) wrote:
+> Add a schema for the Analog Devices AD7147 CapTouch controller used by
+> the Microsoft Lumia 950 and Lumia 950 XL device trees. Document its I2C
+> address, interrupt, and optional vcc supply.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/input/adi,ad714x.yaml | 48 +++++++++++++++++++
+>  1 file changed, 48 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/input/adi,ad714x.ya=
+ml
+>=20
+> diff --git a/Documentation/devicetree/bindings/input/adi,ad714x.yaml b/Do=
+cumentation/devicetree/bindings/input/adi,ad714x.yaml
+> new file mode 100644
+> index 000000000000..8351c28147ee
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/adi,ad714x.yaml
 
-Fixes: 8376583b84a1 ("nfs: change mkdir inode_operation to return alternate dentry if needed")
-Cc: stable@vger.kernel.org # v6.15+
-Signed-off-by: Jimmy Zuber <jamz@amazon.com>
----
+Does the LLM guidance you provide not include filenames matching
+compatibles?
 
-Resend of:
-https://lore.kernel.org/linux-nfs/20260819015111.2743908-1-jamz@amazon.com/
+> @@ -0,0 +1,48 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/adi,ad714x.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices AD7147 CapTouch Programmable Controller
+> +
+> +maintainers:
+> +  - Michael Hennerich <michael.hennerich@analog.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: adi,ad7147_captouch
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  vcc-supply: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        touch@2c {
+> +            compatible =3D "adi,ad7147_captouch";
+> +            reg =3D <0x2c>;
+> +            interrupt-parent =3D <&tlmm>;
+> +            interrupts =3D <96 IRQ_TYPE_EDGE_FALLING>;
+> +            vcc-supply =3D <&vreg_l18a_2p85>;
+> +        };
+> +    };
+> +
+> +...
+> --=20
+> 2.53.0
+>=20
 
-No change to the patch itself; rebased onto v7.3-rc4 and Cc'ing NeilBrown as
-the author of the Fixes: commit.  nfs_mkdir() in v7.3-rc4 still returns the
-error without unhashing @dentry, and vfs_mkdir()'s error path only calls
-end_creating()/end_dirop(), which unlocks the parent and dputs the dentry, so
-the hashed negative dentry survives in the dcache.
+--i1inwZDxY93RpURb
+Content-Type: application/pgp-signature; name=signature.asc
 
-We reproduced this against a local knfsd export over NFSv4.1.  The export is
-mounted several times with "nosharecache" so that each mount acts as an
-independent client with its own dcache:
+-----BEGIN PGP SIGNATURE-----
 
-  # /etc/exports
-  /srv/nfs 127.0.0.1(rw,sync,no_subtree_check,no_root_squash,fsid=0)
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarLCVQAKCRB4tDGHoIJi
+0hQDAQDbxoy6JAmG3eq1k5g3lO1D1x6SXKX9dy7OTKUs2S1YAgEA7TfKfrKtn6uj
+83/EECUHjCkSeJeVLYWs5aKaDGazTAo=
+=fJxl
+-----END PGP SIGNATURE-----
 
-  for i in $(seq 0 5); do
-      mount -t nfs4 -o vers=4.1,nosharecache,acdirmin=30,acdirmax=60 \
-          127.0.0.1:/ /mnt/nfs$i
-  done
-
-For each of 40 new cache/<id> directories, every mount stats the directory to
-seed a negative entry, then all mounts race to mkdir it.  The winner writes a
-file and renames it, and the losers that got EEXIST then read that file back.
-On a vanilla v6.17 kernel, the 200 loser reads were:
-
-  unpatched:   read OK   0 / ENOENT 200
-  patched:     read OK 200 / ENOENT   0
-
- fs/nfs/dir.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index 49394123b..a26c459ff 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -2490,6 +2490,8 @@ struct dentry *nfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 	trace_nfs_mkdir_enter(dir, dentry);
- 	ret = NFS_PROTO(dir)->mkdir(dir, dentry, &attr);
- 	trace_nfs_mkdir_exit(dir, dentry, PTR_ERR_OR_ZERO(ret));
-+	if (IS_ERR(ret))
-+		d_drop(dentry);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(nfs_mkdir);
-
-base-commit: c4e9f74da4389a6b3e505d329d99232915a6b9cd
--- 
-2.50.1
-
+--i1inwZDxY93RpURb--
