@@ -1,318 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A04D3F1ADE;
-	Tue, 22 Sep 2026 21:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CB314D179F;
+	Tue, 22 Sep 2026 21:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790112589; cv=none; b=V/JC8VPVRYceLkosUEmp4aINvLKUhMCkzqiv+hadMWNHFKpdsN/HkES6zsEdblgKjfJdBEdQUJ5FOKOuyLGH1wv/vjtRkYPWr2r5g2znEG5l3mahlnvt/L5lGlM2xFJA0rnShy740+3VxLDv2YXgjQvrt/WPTijAfbAl2tJ7wdE=
+	t=1790112890; cv=none; b=nMiKj43GVUu7LEiWdkpjQMQyDEHMLXuIqj6ivHx6UZqgLIWniG8kitsZO8T2EVKnbR/e9K3kA2AFqJqcJQuVzfLXAuRqd7ptgSNvaS6XTWT0aJcF3KBhZUAbYAa89pYLfHZZAl8/zYSGqlA1yhtW41FMlsZDM2eQDoValY87YNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790112589; c=relaxed/simple;
-	bh=WRYsuw02M5uiU3Hup8d51SIi6ysZk/AvEI/aXNqoooE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RePbKbjEbBfg6kztM6XzcsfauC0goo4CZ15ApTkfYFOq5WK8TQdQ1gbo9GzktnIrXToyTeCtFZsHUP8pbReGONg/L6/Xbu0m5HY+XrBT230EneK2RnkGik0SN1fsCxitfJk8kJC3f4mUN/brPk/szgegEsFEW5FnWwpTVRbFLDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a36lGqaq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790112890; c=relaxed/simple;
+	bh=TA86Dhwl3xwWit58EYFO0J93fYTbhkglJBEB7v3EiqQ=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=oyiF1PnGNhm8B9Do7A/T6OeCDQ+rAW563146fX1ejDYAQJndd0sNXF9r/s6Azjd6h60A4Z2IPL8c8oYR4rRdznDMmCVCNOQhxIp7v4H8t5N/8Ytyzr4VMRCGG/+0Io6zPxt3ixIf44/KaVzYasDqE47DdQ+TQnGSmXxQe9rKDAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=j/04Sbva; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a36lGqaq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9FA1F000FF;
-	Tue, 22 Sep 2026 21:29:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790112576;
-	bh=yKojB88UjpXGtOazU2N02Nu8K9kCYOGjnI2fYZ70c1A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a36lGqaqd3Pv41FJOCCFv/gToPy7yWy9a+rGuV5XEh9jGn3pAmk2/Re7X/2T14T4c
-	 XYbVENqyEjfdRCukK8xWbbBat5IU7uFJ/+Nd3rre19Rw7eAS6DZQe80te/WAeSLg0X
-	 u8EN1uITsAhOKRIqnkwXqvCJ4SvdqO+9Mn3Z8pKRoAGU58wPdwZxAHezLeRgwFxb4Q
-	 kEQ64ECFV6Nx42t+7+X0T2CFgunw51Mw3iqA3tUTP4LdOsaIKstSo11O1wJAF0VxiD
-	 +XiYHo2oHruR7VfwiglKPyawb4eNm4gSN8ze4laYrOtvZ942sN0JEOKWwivTH/Q6+i
-	 P64Y+LlCZ+s5g==
-Date: Tue, 22 Sep 2026 22:29:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Michal Simek <michal.simek@amd.com>,
-	Shubham Patil <shubhamsanjay.patil@amd.com>,
-	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, git@amd.com
-Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
- capability properties
-Message-ID: <20260922-unadvised-stalling-5cbeff8f982a@spud>
-References: <aqGHlWpQjpHEft3j@SMW015318>
- <aqKWTT47S_zPzvbN@squawk>
- <aqLQaHndX4t1kKLG@SMW015318>
- <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
- <20260922-ethics-flap-9760347e869d@spud>
- <20260922-bullpen-reprise-f62e01922d88@spud>
- <20260922-immersion-salvage-00450539f1ce@spud>
- <arKr-oapsl5qzo_E@SMW015318>
- <20260922-purple-overnight-2cdd2ddd5270@spud>
- <arLKWE1tJrKnzGdp@SMW015318>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="j/04Sbva"
+Received: from [100.64.233.68] (unknown [40.65.108.177])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 4185520B7167;
+	Tue, 22 Sep 2026 14:33:43 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4185520B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790112823;
+	bh=OYG/cwVlhZKOUrCOHuzHTGtkGMOtQhHLsk/UQdXgxhk=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=j/04SbvaPYjq7aLrj7ODl1WX4u10mODTLSyYLGLmYi5VGSZ79wKSgq0CsOOmGITWh
+	 Gu7CgxyMzuW8si0jpFZ5IoLf+O0B4Lfnj1YBpKFhW7bmjJ+rq4W/IppypERFWRumy5
+	 1/VgEW+8pR9GV5YpF5fbbOVp2lTrlT62EGFp1N6c=
+Message-ID: <b0bb54bf-4f62-44f8-a215-b31772bea9a8@linux.microsoft.com>
+Date: Tue, 22 Sep 2026 14:34:30 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LkC3daycRRxByKPg"
-Content-Disposition: inline
-In-Reply-To: <arLKWE1tJrKnzGdp@SMW015318>
+User-Agent: Mozilla Thunderbird
+Cc: easwar.hariharan@linux.microsoft.com, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arch@vger.kernel.org, jgg@nvidia.com, jacob.pan@linux.microsoft.com,
+ kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
+Subject: Re: [PATCH V0 2/3] mshv: Import data structs around device domains
+ from hyperv headers
+To: Mukesh R <mrathor@linux.microsoft.com>
+References: <20260921225028.4007330-1-mrathor@linux.microsoft.com>
+ <20260921225028.4007330-3-mrathor@linux.microsoft.com>
+ <5b292db7-1d55-4aef-9053-be2156c6e886@linux.microsoft.com>
+ <c75bbe43-d6cc-25d2-d45e-6b85bebd6562@linux.microsoft.com>
+From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Content-Language: en-US
+In-Reply-To: <c75bbe43-d6cc-25d2-d45e-6b85bebd6562@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---LkC3daycRRxByKPg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/22/2026 14:10, Mukesh R wrote:
+> On 9/22/26 10:48, Easwar Hariharan wrote:
+>> On 9/21/2026 15:50, Mukesh R wrote:
+>>> Copy/import from Hyper-V public headers, definitions and declarations that
+>>> are related to creating iommu domains in the hypervisor, attaching devices
+>>> to them, doing the reverse, etc.
+>>>
+>>> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+>>> ---
+>>>   include/hyperv/hvgdk_mini.h |  9 ++++
+>>>   include/hyperv/hvhdk_mini.h | 90 +++++++++++++++++++++++++++++++++++++
+>>>   2 files changed, 99 insertions(+)
+>>>
+>>> diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
+>>> index 6a4e8b9d570f..3b74f3c0229d 100644
+>>> --- a/include/hyperv/hvgdk_mini.h
+>>> +++ b/include/hyperv/hvgdk_mini.h
+>>> @@ -326,6 +326,8 @@ union hv_hypervisor_version_info {
+>>>   /* stimer Direct Mode is available */
+>>>   #define HV_STIMER_DIRECT_MODE_AVAILABLE            BIT(19)
+>>>   +#define HV_DEVICE_DOMAIN_AVAILABLE            BIT(24)
+>>> +
+>>
+>> For my understanding, how is ms_hyperv.misc_features.HV_DEVICE_DOMAIN_AVAILABLE = 1
+>> different from HV_IOMMU_CAP_PRESENT = 1 combined with HV_IOMMU_CAP_S2 = 1?
+>> It seems like there is room to combine forces with the guest driver and just go with
+>> the latter.
+> 
+> It's different. we want to make sure the version of the hypervisor
+> supports creating device domains. see: HVCALL_CREATE_DEVICE_DOMAIN
+> 
 
-On Tue, Sep 22, 2026 at 01:35:04PM -0500, Frank Li wrote:
-> On Tue, Sep 22, 2026 at 06:24:52PM +0100, Conor Dooley wrote:
-> > On Tue, Sep 22, 2026 at 11:25:30AM -0500, Frank Li wrote:
-> > > On Tue, Sep 22, 2026 at 10:39:23AM +0100, Conor Dooley wrote:
-> > > > On Tue, Sep 22, 2026 at 10:38:17AM +0100, Conor Dooley wrote:
-> > > > > On Tue, Sep 22, 2026 at 10:33:44AM +0100, Conor Dooley wrote:
-> > > > > > On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrote:
-> > > > > > >
-> > > > > > >
-> > > > > > > On 9/10/26 17:44, Frank Li wrote:
-> > > > > > > > On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley wrot=
-e:
-> > > > > > > > > On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
-> > > > > > > > > > On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley =
-wrote:
-> > > > > > > > > > > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Pat=
-il wrote:
-> > > > > > > > > > > > In-Band Interrupt and Hot-Join are synthesis-time o=
-ptions of the AXI I3C
-> > > > > > > > > > > > IP. Describe them with two boolean properties.
-> > > > > > > > > > > >
-> > > > > > > > > > > > A Hot-Join request is acknowledged by the IBI machi=
-nery, so a hot-join
-> > > > > > > > > > > > capable design is always IBI capable as well. Both =
-events are reported
-> > > > > > > > > > > > through the controller interrupt, which is therefor=
-e required whenever
-> > > > > > > > > > > > the capability is present.
-> > > > > > > > > > > >
-> > > > > > > > > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@a=
-md.com>
-> > > > > > > > > > > > ---
-> > > > > > > > > > > > Changes in V3:
-> > > > > > > > > > > > - Move in-band-interrupt-capable and hot-join-capab=
-le into the common
-> > > > > > > > > > > >    i3c.yaml schema and drop the xlnx, prefix.
-> > > > > > > > > > > > - Keep dependencies in the AMD binding.
-> > > > > > > > > > > > - Update the commit description accordingly.
-> > > > > > > > > > > > - Conor Dooley acked v2 with the xlnx,-prefixed pro=
-perties in the AMD
-> > > > > > > > > > > >    binding [1].
-> > > > > > > > > > > >    That Acked-by is not carried here: the names los=
-t the vendor prefix
-> > > > > > > > > > > >    and the definitions moved to i3c.yaml after Fran=
-k Li's comment.
-> > > > > > > > > > > >    [1]:https://lore.kernel.org/all/20260824-tightwa=
-d-impose-495476599087@spud/
-> > > > > > > > > > >
-> > > > > > > > > > > I disagree with Frank. These properties make sense fo=
-r Xilinx because it
-> > > > > > > > > > > is an FPGA IP and synthesis options impact this. For =
-other devices, this
-> > > > > > > > > > > should be determined from the compatible.
-> > > > > > > > > > > Please revert to how things were done in v2, especial=
-ly as no rationale
-> > > > > > > > > > > was provided for why these should be common.
-> > > > > > > > > >
-> > > > > > > > > > It is common problems, when IP intergrate by SOC, which=
- may defeature some
-> > > > > > > > > > part, It is not appeared now just because IBI and HJ ha=
-ve not enabled
-> > > > > > > > > > widely.
-> > > > > > > > > >
-> > > > > > > > > > IBI and HJ is optional features of I3C. Ideally it shou=
-ld be indicated by
-> > > > > > > > > > some registers. But not all vendor implement provide th=
-is CAP registers.
-> > > > > > > > > >
-> > > > > > > > > > IBI and HJ depend on some slow clocks, which monitor SD=
-A line change.
-> > > > > > > > > > Some instances of IP may not have such slow clocks. Som=
-e IP's IBI and HJ
-> > > > > > > > > > use seperate IRQ line, but these irq line may not conne=
-ct of difference
-> > > > > > > > > > instances.
-> > > > > > > > >
-> > > > > > > > > All of this should be able to be dealt with by appropriat=
-e use of
-> > > > > > > > > specific compatibles.
-> > > > > > > >
-> > > > > > > > I understand compatible can cover most cases. Need variance=
- for property.
-> > > > > > > >
-> > > > > > > > >
-> > > > > > > > > > like previous SPI vendor customized property, we takes =
-efforts to convert
-> > > > > > > > > > to common one and also meet back compatiblity problem a=
-t convert. I don't
-> > > > > > > > > > want to do it again. This kind property is most likely =
-as below.
-> > > > > > > > >
-> > > > > > > > > What SPI controller specific properties are you talking a=
-bout here?
-> > > > > > > > > There are relatively few properties in spi-controller.yam=
-l, and none of
-> > > > > > > > > them deal with these kinds of capabilities.
-> > > > > > > >
-> > > > > > > > num-cs vs fsl,espi-num-chipselects. Total number CS of IP i=
-s fixed, but
-> > > > > > > > some instances have not route all CS to pad.
-> > > > > > > >
-> > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > default: 	decide by comaptible string or hardware cap
-> > > > > > > > > > force-disabled: force disable for some reason, like, mi=
-ss connect irq line
-> > > > > > > > > > or missed some clock, or IP bugs, or board desgin's som=
-e level shift chip
-> > > > > > > > > > broken IBI/HJ timing requirements.
-> > > > > > > > >
-> > > > > > > > > Of these, only the last would be a valid reason for havin=
-g a property
-> > > > > > > > > for it. Missing interrupts, clocks or IP bugs should all =
-be dealt with
-> > > > > > > > > using device specific compatibles.
-> > > > > > > > > If board wiring causes the breakage, the property may be =
-more
-> > > > > > > > > appropriate at the i3c device level rather than the contr=
-oller given
-> > > > > > > > > that wiring to some devices on the bus may not have the p=
-roblems?
-> > > > > > > >
-> > > > > > > > I3C.yaml is for both master controller and devices now. I3C=
- is bus, which
-> > > > > > > > connect many devices, if wiring issue, whole bus can't supp=
-ort IBI. And
-> > > > > > > > if any broken devices happen at address arbitation, whole b=
-us can't support
-> > > > > > > > IBI.
-> > > > > > > >
-> > > > > > > > at beging, I suggest 3 state,
-> > > > > > > >
-> > > > > > > > [default, enable, disable], but now I think IBI_broken, HJ_=
-broken is more
-> > > > > > > > reasonable to disable it, default value should be set by co=
-mpatible
-> > > > > > > > string or DCR of I3C regiser.
-> > > > > > > >
-> > > > > > > > And some I3C device may be failure to work with IBI even DC=
-R of I3C register
-> > > > > > > > show it support IBI.
-> > > > > > > >
-> > > > > > > > I don't want to appear two similar property between vendor =
-and common, like
-> > > > > > > > num-cs vs fsl,espi-num-chipselects.
-> > > > > > > >
-> > > > > > > > such as IBI-broken can be used for controller and devices c=
-ase.
-> > > > > > > >
-> > > > > > > > > That said, I think that problem should be dealt with when=
- it arises,
-> > > > > > > > > rather than starting a trend of adding capabilities prope=
-rties at the
-> > > > > > > > > controller level when I am not convinced that there's goi=
-ng to be other
-> > > > > > > > > users in the same vein.
-> > > > > > > >
-> > > > > >
-> > > > > > > > Understand, I3C is realtive new protocal. 'IBI-broken' is m=
-ore easy
-> > > > > > > > understand,  logically equial to in-band-interrupt-capable.
-> > > > > > > Conor: Any update on this one? I think this thread is stuck a=
-t this stage.
-> > > > > >
-> > > > > > I didn't think there was any need to reply. I took the first se=
-ntence of
-> > > > > > this snippet to be acceptance of what I was saying.
-> > > > > >
-> > > > > > If yous desperately want to have a generic property, the negati=
-ve
-> > > > > > connotation of the "-broken" is probably better in that it'd be=
- more
-> > > > > > likely to make people set stuff by compatible rather than have =
-to use a
-> > > > > > property with that word in it.
-> > > > >
-> > > > > That said, technically this platform could be both
-> > > > > "amd,in-band-interrupt-capable" and "ibi-broken" at the same time=
-, since
-> > > > > one describes the way the IP has been compiled and the other wiri=
-ng. I'm
-> > > > > not entirely sure whether conflating the two is possible? Depends=
- on if
-> > > > > your IP's programming model changes if the option is enabled even=
- if it
-> > > > > cannot be used. Not beyond the realms of possibility.
-> > > > >
-> > > > > Also, ibi-broken doesn't work for your platform, since the default
-> > > > > before this patch is no ibi and requiring a property for no ibi w=
-ould be
-> > > > > an ABI break.
-> > > >
-> > > > The perils of FPGA IP I suppose, and not being quite careful enough=
- to
-> > > > document all of the relevant options from the start. Been guilty of=
- that
-> > > > myself.
-> > > >
-> > >
-> > > Check impliment code
-> > >
-> > > +       /*
-> > > +        * The interrupt only carries IBI events, so it is only descr=
-ibed for
-> > > +        * designs synthesized with that feature.
-> > > +        */
-> > > +       if (master->ibi_capable) {
-> > > +               xi3c_master_init_ibi_ops(master);
-> > > +
-> > > +               master->irq =3D platform_get_irq(pdev, 0);
-> > > +               if (master->irq < 0)
-> > > +                       return master->irq;
-> > > +
-> > > +               ret =3D devm_request_irq(master->dev, master->irq,
-> > > +                                      xi3c_master_irq_handler, IRQF_=
-NO_AUTOEN,
-> > > +                                      dev_name(master->dev), master);
-> > > +               if (ret)
-> > > +                       return dev_err_probe(master->dev, ret,
-> > > +                                            "Failed to request IRQ\n=
-");
-> > > +       }
-> > >
-> > > They can use master->irq is determinate if support IBI.
-> >
-> > That seems viable. Where does that leave them for hot join though?
->=20
-> No reason to keep hj because the difference between HJ and IBI is the
-> address when address arbitration. If hardware support IBI, it should supp=
-ort
-> HJ. HJ just use special address 0x2.
+I guess current hypervisor versions use BIT(24) to identify support for creating device domains, so
+this is mandatory for the root IOMMU driver. Hopefully that gets deprecated and the two
+drivers can use the same GetIommuCapabilities with S2 and S1 capability flags to identify
+what roles are supported in the future.
 
-For this IP, they appear to be controlled by different configuration time
-parameters, so I don't think conflating the two is the right thing to do
-here:
-https://docs.amd.com/r/en-US/pg439-axi-i3c/Configuration-Tab
-Per this doc, and the original commit, hotjoin configuration is not
-permitted when ibi is not supported but can be enabled and disabled
-separately when it is.
+- Easwar (he/him)
 
---LkC3daycRRxByKPg
-Content-Type: application/pgp-signature; name=signature.asc
+>>>   /*
+>>>    * Implementation recommendations. Indicates which behaviors the hypervisor
+>>>    * recommends the OS implement for optimal performance.
+>>> @@ -486,9 +488,15 @@ union hv_vp_assist_msr_contents {     /* HV_REGISTER_VP_ASSIST_PAGE */
+>>>   #define HVCALL_GET_VP_INDEX_FROM_APIC_ID        0x009a
+>>>   #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_SPACE    0x00af
+>>>   #define HVCALL_FLUSH_GUEST_PHYSICAL_ADDRESS_LIST    0x00b0
+>>> +#define HVCALL_CREATE_DEVICE_DOMAIN                     0x00b1
+>>> +#define HVCALL_ATTACH_DEVICE_DOMAIN                     0x00b2
+>>> +#define HVCALL_MAP_DEVICE_GPA_PAGES                     0x00b3
+>>> +#define HVCALL_UNMAP_DEVICE_GPA_PAGES                   0x00b4
+>>>   #define HVCALL_SIGNAL_EVENT_DIRECT            0x00c0
+>>>   #define HVCALL_POST_MESSAGE_DIRECT            0x00c1
+>>>   #define HVCALL_DISPATCH_VP                0x00c2
+>>> +#define HVCALL_DETACH_DEVICE_DOMAIN                     0x00c4
+>>> +#define HVCALL_DELETE_DEVICE_DOMAIN                     0x00c5
+>>>   #define HVCALL_GET_GPA_PAGES_ACCESS_STATES        0x00c9
+>>>   #define HVCALL_ACQUIRE_SPARSE_SPA_PAGE_HOST_ACCESS    0x00d7
+>>>   #define HVCALL_RELEASE_SPARSE_SPA_PAGE_HOST_ACCESS    0x00d8
+>>> @@ -502,6 +510,7 @@ union hv_vp_assist_msr_contents {     /* HV_REGISTER_VP_ASSIST_PAGE */
+>>>   #define HVCALL_MMIO_READ                0x0106
+>>>   #define HVCALL_MMIO_WRITE                0x0107
+>>>   #define HVCALL_DISABLE_HYP_EX                           0x010f
+>>> +#define HVCALL_GET_IOMMU_CAPABILITIES            0x0125
+>>>   #define HVCALL_MAP_STATS_PAGE2                0x0131
+>>>     /* HV_HYPERCALL_INPUT */
+>>> diff --git a/include/hyperv/hvhdk_mini.h b/include/hyperv/hvhdk_mini.h
+>>> index 035ba20870f7..3bb052fd6e06 100644
+>>> --- a/include/hyperv/hvhdk_mini.h
+>>> +++ b/include/hyperv/hvhdk_mini.h
+>>> @@ -548,4 +548,94 @@ union hv_device_id {        /* HV_DEVICE_ID */
+>>>       } acpi;
+>>>   } __packed;
+>>>   +/* 3 domain types: stage 1, stage 2, and SOC */
+>>> +#define HV_DEVICE_DOMAIN_TYPE_S2  0 /* HV_DEVICE_DOMAIN_ID_TYPE_S2 */
+>>> +#define HV_DEVICE_DOMAIN_TYPE_S1  1 /* HV_DEVICE_DOMAIN_ID_TYPE_S1 */
+>>
+>>
+>>> +#define HV_DEVICE_DOMAIN_TYPE_SOC 2 /* HV_DEVICE_DOMAIN_ID_TYPE_SOC */
+>>
+>> I don't think this domain type is used in patch 3, perhaps we bring it in when needed?
+>>
+>>> +
+>>> +/* ID for stage 2 default domain and NULL domain */
+>>
+>> I think this comment would be more useful if it related the MSHV default and NULL domains to
+>> the Linux equivalents of identity and blocking respectively. As it stands, it just repeats the
+>> names of the defines it is a comment for.
+>>
+>>> +#define HV_DEVICE_DOMAIN_ID_S2_DEFAULT 0
+>>> +#define HV_DEVICE_DOMAIN_ID_S2_NULL    0xFFFFFFFFULL
+>>> +
+>>> +union hv_device_domain_id {
+>>> +    u64 as_uint64;
+>>> +    struct {
+>>> +        u32 type : 4;
+>>> +        u32 reserved : 28;
+>>> +        u32 id;
+>>> +    };
+>>> +} __packed;
+>>> +
+>>> +struct hv_input_device_domain { /* HV_INPUT_DEVICE_DOMAIN */
+>>> +    u64 partition_id;
+>>> +    union hv_input_vtl owner_vtl;
+>>> +    u8 padding[7];
+>>> +    union hv_device_domain_id domain_id;
+>>> +} __packed;
+>>> +
+>>> +union hv_create_device_domain_flags {    /* HV_CREATE_DEVICE_DOMAIN_FLAGS */
+>>> +    u32 as_uint32;
+>>> +    struct {
+>>> +        u32 forward_progress_required : 1;
+>>> +        u32 inherit_owning_vtl : 1;
+>>> +        u32 reserved : 30;
+>>> +    } __packed;
+>>> +} __packed;
+>>> +
+>>> +struct hv_input_create_device_domain {    /* HV_INPUT_CREATE_DEVICE_DOMAIN */
+>>> +    struct hv_input_device_domain device_domain;
+>>> +    union hv_create_device_domain_flags create_device_domain_flags;
+>>> +} __packed;
+>>> +
+>>> +struct hv_input_delete_device_domain {    /* HV_INPUT_DELETE_DEVICE_DOMAIN */
+>>> +    struct hv_input_device_domain device_domain;
+>>> +} __packed;
+>>> +
+>>> +struct hv_input_attach_device_domain {    /* HV_INPUT_ATTACH_DEVICE_DOMAIN */
+>>> +    struct hv_input_device_domain device_domain;
+>>> +    union hv_device_id device_id;
+>>> +} __packed;
+>>> +
+>>> +struct hv_input_detach_device_domain {    /* HV_INPUT_DETACH_DEVICE_DOMAIN */
+>>> +    u64 partition_id;
+>>> +    union hv_device_id device_id;
+>>> +} __packed;
+>>> +
+>>> +/* HV_INPUT_GET_IOMMU_CAPABILITIES */
+>>> +struct hv_input_get_iommu_capabilities {
+>>> +    u64 partition_id;
+>>> +    u64 reserved;
+>>> +} __packed;
+>>> +
+>>> +#define HV_IOMMU_CAP_PRESENT    BIT_ULL(0)
+>>> +#define HV_IOMMU_CAP_S2         BIT_ULL(1)
+>>> +#define HV_IOMMU_CAP_S1         BIT_ULL(2)
+>>> +#define HV_IOMMU_CAP_S1_5LVL    BIT_ULL(3)
+>>> +#define HV_IOMMU_CAP_PASID      BIT_ULL(4)
+>>> +#define HV_IOMMU_CAP_ATS        BIT_ULL(5)
+>>> +#define HV_IOMMU_CAP_PRI        BIT_ULL(6)
+>>> +
+>>> +struct hv_output_get_iommu_capabilities { /* HV_OUTPUT_GET_IOMMU_CAPABILITIES */
+>>> +    u32 size;
+>>> +    u16 reserved;
+>>> +    u8  max_iova_width;
+>>> +    u8  max_pasid_width;
+>>> +    u64 iommu_cap;          /* HV_IOMMU_CAP_* above */
+>>> +    u64 pgsize_bitmap;
+>>> +} __packed;
+>>> +
+>>> +struct hv_input_map_device_gpa_pages {    /* HV_INPUT_MAP_DEVICE_GPA_PAGES */
+>>> +    struct hv_input_device_domain device_domain;
+>>> +    union hv_input_vtl target_vtl;
+>>> +    u8 padding[3];
+>>> +    u32 map_flags;
+>>> +    u64 target_device_va_base;
+>>> +    u64 gpa_page_list[];
+>>> +} __packed;
+>>> +
+>>> +struct hv_input_unmap_device_gpa_pages {  /* HV_INPUT_UNMAP_DEVICE_GPA_PAGES */
+>>> +    struct hv_input_device_domain device_domain;
+>>> +    u64 target_device_va_base;
+>>> +} __packed;
+>>> +
+>>>   #endif /* _HV_HVHDK_MINI_H */
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarLzOwAKCRB4tDGHoIJi
-0tlLAP0fpiGDzo/aM4C0+bwrQ47VfXaCXmELfQhUlx6RC3bwgAD/Yb6FqXnTDZ1l
-1Two2fYpvNw8zDGzFTi2XW+6yG8JYgQ=
-=j+JB
------END PGP SIGNATURE-----
-
---LkC3daycRRxByKPg--
