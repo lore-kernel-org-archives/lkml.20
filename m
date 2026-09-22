@@ -1,87 +1,49 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709D239D6C9
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407174432F2
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068509; cv=none; b=oGTHg5HcGQGOuOqXAFUXjj5l9y0cxmOJc1EGIIfBl+B7UY6kKU+EPwWFtsRnli82RaqoJvfvUwVfo222exdLHnTHzy+4AtnaD0ru/VPlEYBtC5VCvxST9LMGZKJHIH3tN8sZ7PpUZT6hYUhGaMJuElnG11RNpgU7D0/VEwVPrH0=
+	t=1790068521; cv=none; b=N48VR5AxfV7mqZclVN5ehU1kpaV6P8r0UQkLVXdLAV3GU/ZDrajX17HYPld7ae1XqvyZcAKEqmph2xky99+75mm70mWdZc4vmhZaGbwLKQwMLepVP+vjZOdxrvhZxpOFeEbrXh2bfshHKy9QpSGBWNQeDXGri/P/GzfETZPrj0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068509; c=relaxed/simple;
-	bh=8aE5deZqZPFwMCXvNfgGk0kvRqPcCOhyMdfVtngPmno=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hvrnvgKqPSjVOYLdDmTEE+IXsIfh7O/+hlbmV4gTqfSIMLYWhqBtpioeMgU1jA2zuiUom2z3DXT1PTvCjFlH27gb4wCqfKaBNKKtX7IqkUo7FQKO06S/N19CRJJHVhw5Ih3eX/QwLFTbWyFPyMvuBsMinG3OWmNVwI7OQb0LYlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jkWEtPfd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KCmaEslT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790068521; c=relaxed/simple;
+	bh=goARlQ5eMbETkLPIVLkckxN2ilona/6uuNsdFwXTvGc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=GO35R1zzf1CoNw6fsuZMn7xKdNe9ZAx+guSBKIk5o5yR+3BJodFHp6PK3ki+KbhDNEQV/bMWUPpLB/l9dHS3MLxWbR8KiW3B9WW6SZpP7W98pxlBgZxxXPLB0FRC8Vw4nzn8XDngH5gaLnuHCF1Yg5ZP+tCRRmPY0wVvh3HWSx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=csUfp+o2; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jkWEtPfd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KCmaEslT"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M7VS4S3186116
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=; b=jkWEtPfd+a9OyVHJ
-	4UDX5+PU5SxeXgJ/2Ny027y/HSSbKye5ovB2dHpO12sr/FT2XekHd0JvrZQ0hDE4
-	68qmRoGYZSOyosM9/C0r1Cp52AQHYI8VR6toLE4i/1Zb2ewTlvg+WVU8ltsyPV1U
-	+C6K7IIYC2o36DFf0vyiyrqUDtM0X+0iZrKKwF2CuSN2JGm40CmZPt8WBBDl03Dv
-	AJOvJADQWwdWMKq2mmaXXw2n7OWTJbU2HZYUslqgjjurXpR1BClHfPZ+H1dhFRXt
-	VaioNrbfrZC1GlEXXLCR+x2g+WGD6qvfcPBFQn2FeGBYA2vS3jI+y49OTRsx/KTa
-	Wfn9eQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gueybhtn4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:06 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9349ba88188so82274085a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 02:15:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790068506; x=1790673306; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=;
-        b=KCmaEslT7XCzW5RsJNbhhZ3gc/QQf1YzqQiJsyJHgYx3AuFuPw+b2IE0j9cbyxQYi4
-         iTrLQnzQaO1URjc5X1JwF/J3lfZ8EjxMoOH0po6ggYIPrfmR4pPRboYd/ZbDAlR3JBt8
-         L3rbXG+6aV7cNAbP4osuHdwhzu3t+AxNA/lXi+gOlHzzXh12twl1KQOF97oyvE0BxEvy
-         FqyG/bF8vw+kRaQ7bBK9S6Zdy6QPaMMLN5kzxSSvFx/xQk3a/bKKEPppSue5JaIfni+a
-         ISrffgSrlQZgjF6NlDhjYmxoNMad/z+P5XZILS4AZafcRCyzqpYs+Lijej+baHttP8Px
-         zJ9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790068506; x=1790673306;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=;
-        b=V4XZD5WJI6Nwc3/U7UEelul0Zi0jVy25VeqJ4kg2fyY84ekIn9jBK6PI0WjlrwqDUD
-         C5dNJJXMY3jFxSgKkMzScvaigcBZW7bm3Yv0gNmZebaTcJMaxRv5K2wOaSCNtx5mCEMf
-         SqzRFBV7qcKyQztodecS0kkcc59wybubGfvntJri5qM77IXaFpLp9kEZjv7CopsjG7oB
-         byU8RyhpvAKzgDME42yb9sh2WOMscP7/wvasGFYphrt1v4IW07VYr4p8T/A0xQKGq8N2
-         kduPN+h5H09yV+/Bnq6vOT0j8dNXQbQLbHVonoyrWY6oQrPJySRbjC4eNQvOYNyPgqbK
-         8rjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwlj4gOmKSYx/qwYNusYBlP3QxibzkdJC9rlqnBi0E2NEBQLc4DsOWB5IoPHYE98aFP5cgOsLj/KJqmSxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcFzFF/9heIAAU+7OEDjK16Nhj5EnLC0HVmZ3TjdKDqyCxgClV
-	J5deQMOzxeKSbaoh89GxGX6FxYg5n2BpkhRqWmZ6AtvQatZemkxRZrsfrzQjwyBopA2UaQRiUEe
-	9CGkVzDSWMdVc0hqY+eoXT8hxZ+KV33C8sRmWFwsljNUaDoIhYl8MaEW8DluBK0fhysU=
-X-Gm-Gg: AYBFou29zg0dz5uJEMKJoynDaRURAm0a78eFP2Yk6Hbc30Edp6IhyTahrREyIOCUymx
-	Y4mLNVNpkG0LDXUu1LVmGox9CDo8w+4umGI15PYa1A/IEBnjHL5y8gryQiMdwwipp68wE5Et2qh
-	fLT8r+gdzGguh/t5Mbsn/gjSWrxrJnsltcNQf7ll/6PjddAGDMHzvaUsDZ3kvm6uw+YVUH+qel2
-	noPgqYFSjVnQmBKxwTUst8ds8QZf2M4RYb4u8mPVm80+lhQL/RsM8Sgl/ZwLpAwkQTd6kXFS3+U
-	eGhR2mRMGACGJKEu1Wi1YvVeut/oqRdSUschCY3rHmxLQhpryV3EXxHIybQ8baxp0ty4l/mBOIU
-	vkMZqpHnudjT0XPMWEV9thg==
-X-Received: by 2002:a05:620a:45a2:b0:939:b8da:1242 with SMTP id af79cd13be357-93c15ba3243mr481848685a.0.1790068505733;
-        Tue, 22 Sep 2026 02:15:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:45a2:b0:939:b8da:1242 with SMTP id af79cd13be357-93c15ba3243mr481845085a.0.1790068505388;
-        Tue, 22 Sep 2026 02:15:05 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5b0c6csm51663066b.31.2026.09.22.02.15.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 02:15:04 -0700 (PDT)
-Message-ID: <eefde985-c807-4905-a33f-616a1898ad72@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 11:15:01 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="csUfp+o2"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260922091509epoutp01774b6556022c8c814cf6f24383c73f39~XmdNBb_3O0094300943epoutp01Z
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:15:09 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260922091509epoutp01774b6556022c8c814cf6f24383c73f39~XmdNBb_3O0094300943epoutp01Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790068509;
+	bh=lyll2nRiRWj4x+RtNyLONb2DLwpJqy3FS2CgeRfDMog=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=csUfp+o2NPKbqxCJwr0k+9CwoagS2MphiS1JYwzxIFQE+Q2prvzBXO5VOPsiw4ZhP
+	 FQUT4x6RuJ7fcxYE0gSPBaJFpyFRkJ5wApt2zXgZr9T6PEF54wHQlD8a0FMrm7Gzrr
+	 fjidK7QtzmCQEdpzcxoMGjEI0KrVTokRPmQq9iR4=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260922091509epcas5p48c68f9d1dd501d96b7562372f62a2373~XmdMoqmwp0552005520epcas5p4e;
+	Tue, 22 Sep 2026 09:15:09 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hpvZN12t8z6B9m6; Tue, 22 Sep
+	2026 09:15:08 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260922091507epcas5p2e87ca2f3934485ce324d4043753fc8fb~XmdLZxSEh1620916209epcas5p2w;
+	Tue, 22 Sep 2026 09:15:07 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260922091507epsmtip2725628ca50575bf4e77273522f5210f0~XmdKxqYMv0033900339epsmtip24;
+	Tue, 22 Sep 2026 09:15:06 +0000 (GMT)
+Message-ID: <1adbc290-0800-433d-a3d9-f7bc60dec465@samsung.com>
+Date: Tue, 22 Sep 2026 14:45:04 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,83 +51,249 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API
- devices
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Felipe Balbi <balbi@ti.com>, Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Oleg Keri <okerixx@gmail.com>
-References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
- <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
+Subject: Re: [PATCH v2 2/3] usb: gadget: composite: Support eUSB2v2 bulk MPS
+ update request
+To: Pawel Laszczak <pawell@cadence.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <LV5PR07MB1135491923A16D92A6ADBDBF3DD832@LV5PR07MB11354.namprd07.prod.outlook.com>
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=bP6Ds/+Z c=1 sm=1 tr=0 ts=6ab2471a cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=KKAkSRfTAAAA:8 a=SmOWCKbkXSXCNfC1NdcA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: Kr0kqA4YSqe2qJexodqDBeCX1UVFnHII
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfX8CnUTUi0a+VD
- ZwcFiz0JJsN4lXfqFVMtL8vz9SqJQm+uer6RZ3Lb01DfhgZvtpEd+dWdp7E/7KF0r4gOg4AZsmT
- U54PiE0YCQUGHVQJplEbpkRwfB3ChdLgsov5cdIEk7WkDy3yaJ7YT9qimLZ0q/UlvTjUGcA8zxT
- KooOMLhL3DT4G8UVjamEW532SGglaMaFOoh5vurLv/CvblwBwp00g6cbH36Cer3BYsZ+P6zZJ3T
- EOUPqsGpZPNEO2dcmhdL99EINJ84f7oEWx1xsUQx5yNhx3o1eWGP0weu/mAdJCtlZZ3tOE55Nr5
- 9al5GYTv34f80v3Wbj7kSJutnhpt9T1+Vgh0z7mGMwe9MmcMyGZ//1j5IfhTbRhmo/5DNZ43iVI
- Ijle6npd1NrYw5PguXsIJPH/xXyBirAtnsqZDi3qmfLq1Np7veG8usYL1E3/BKCUhSpI632h27O
- Tk9mP8CAof1qiSyhUFg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfX/W7Rzssmaafu
- Z8k03q/tkgymgqcEoCfFiz9dYdxTz7Cq6Lm32KaCv1vtxrt5RpxjLnVAqKlYJEJwSvc9iRZLueq
- sTCk13k0N63VIq5H6gfmOUnWa83Ap7s=
-X-Proofpoint-GUID: Kr0kqA4YSqe2qJexodqDBeCX1UVFnHII
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0 bulkscore=0
- suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220133
+X-CMS-MailID: 20260922091507epcas5p2e87ca2f3934485ce324d4043753fc8fb
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260826110559epcas5p27b60424eeb9ddb633a8d26ceffabd291
+References: <20260826-eusb2v2-packet-size-v2-0-950f19f38ef0@cadence.com>
+	<CGME20260826110559epcas5p27b60424eeb9ddb633a8d26ceffabd291@epcas5p2.samsung.com>
+	<20260826-eusb2v2-packet-size-v2-2-950f19f38ef0@cadence.com>
+	<3d5f5887-d708-4e70-a229-62ee34fc8325@samsung.com>
+	<LV5PR07MB1135491923A16D92A6ADBDBF3DD832@LV5PR07MB11354.namprd07.prod.outlook.com>
 
-On 9/18/26 3:56 PM, Bryan O'Donoghue wrote:
-> Add the ability to use a PHY pointer which interacts with the standard PHY
-> API.
-> 
-> In the first instance the code will try to use the new PHY interface. If no
-> PHYs are present in the DT then the legacy method will be attempted.
-> 
-> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
 
-This and the following patch conflict upon applying after:
+On 9/22/2026 1:46 PM, Pawel Laszczak wrote:
+>> On 8/26/2026 4:54 PM, Pawel Laszczak via B4 Relay wrote:
+>>> From: Pawel Laszczak <pawell@cadence.com>
+>>>
+>>> Add support for eUSB2v2 1024-byte Bulk MPS negotiation to the Gadget
+>>> Composite framework.
+>>>
+>>> If 'gadget->is_eusb2v2' is set, force bcdUSB to 0x0230 and bMaxPacketSize0
+>>> to 64 bytes. Handle the USB_DEVICE_BULK_MAX_PACKET_UPDATE feature
+>> request
+>>> by introducing eusb2_update_mps_bulk(), which dynamically updates the
+>>> wMaxPacketSize of all HS Bulk endpoint descriptors to 1024 bytes before
+>>> the device is configured.
+>>>
+>>> Signed-off-by: Pawel Laszczak <pawell@cadence.com>
+>>> ---
+>>> Changes in v2:
+>>> - composite.c: CLEAR_FEATURE(BULK_MAX_PACKET_UPDATE) is not defined in
+>> the
+>>>     eUSB2v2 spec; stall it instead of incorrectly setting 1024-byte mode.
+>>> - restore MPS in __composite_disconnect
+>>> ---
+>>>    drivers/usb/gadget/composite.c | 68
+>> ++++++++++++++++++++++++++++++++++++++----
+>>>    include/linux/usb/gadget.h     |  2 ++
+>>>    2 files changed, 64 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/usb/gadget/composite.c b/drivers/usb/gadget/composite.c
+>>> index dc3664374596..f0246e25f2b5 100644
+>>> --- a/drivers/usb/gadget/composite.c
+>>> +++ b/drivers/usb/gadget/composite.c
+>>> @@ -924,6 +924,48 @@ static void device_qual(struct usb_composite_dev
+>> *cdev)
+>>>    }
+>>>
+>>>    /*-------------------------------------------------------------------------*/
+>>> +static void eusb2_update_ep_mps(struct usb_descriptor_header *header,
+>> __le16 mps)
+>>> +{
+>>> +	struct usb_endpoint_descriptor *epd;
+>>> +
+>>> +	if (header->bDescriptorType != USB_DT_ENDPOINT)
+>>> +		return;
+>>> +
+>>> +	epd = (void *)header;
+>>> +	if (usb_endpoint_xfer_bulk(epd))
+>>> +		epd->wMaxPacketSize = mps;
+>>> +}
+>>> +
+>>> +static int eusb2_update_mps_bulk(struct usb_composite_dev *cdev, bool
+>> set)
+>>> +{
+>>> +	__le16 mps = cpu_to_le16(set ? 1024 : 512);
+>>> +	struct usb_gadget *gadget = cdev->gadget;
+>>> +	struct usb_configuration *config;
+>>> +	struct usb_function *f;
+>>> +
+>>> +	if (!gadget->is_eusb2v2)
+>>> +		return -EINVAL;
+>>> +
+>>> +	if (set && gadget->state >= USB_STATE_CONFIGURED)
+>>> +		return -EINVAL;
+>>> +
+>>> +	list_for_each_entry(config, &cdev->configs, list) {
+>>> +		if (!config->highspeed)
+>>> +			continue;
+>>> +
+>>> +		list_for_each_entry(f, &config->functions, list) {
+>>> +			struct usb_descriptor_header **desc = f-
+>>> hs_descriptors;
+>>> +
+>>> +			if (!desc)
+>>> +				continue;
+>>> +
+>>> +			for (; *desc; desc++)
+>>> +				eusb2_update_ep_mps(*desc, mps);
+>>> +		}
+>>> +	}
+>>> +
+>>> +	return 0;
+>>> +}
+>>>
+>>>    static void reset_config(struct usb_composite_dev *cdev)
+>>>    {
+>>> @@ -971,8 +1013,10 @@ static int set_config(struct usb_composite_dev
+>> *cdev,
+>>>    		if (result < 0)
+>>>    			goto done;
+>>>    	} else { /* Zero configuration value - need to reset the config */
+>>> -		if (cdev->config)
+>>> +		if (cdev->config) {
+>>>    			reset_config(cdev);
+>>> +			eusb2_update_mps_bulk(cdev, false);
+>>> +		}
+>>>    		result = 0;
+>>>    	}
+>>>
+>>> @@ -1807,7 +1851,11 @@ composite_setup(struct usb_gadget *gadget,
+>> const struct usb_ctrlrequest *ctrl)
+>>>    				count_configs(cdev, USB_DT_DEVICE);
+>>>    			cdev->desc.bMaxPacketSize0 =
+>>>    				cdev->gadget->ep0->maxpacket;
+>>> -			if (gadget_is_superspeed(gadget)) {
+>>> +
+>>> +			if (gadget->is_eusb2v2) {
+>>> +				cdev->desc.bcdUSB = cpu_to_le16(0x0230);
+>>> +				cdev->desc.bMaxPacketSize0 = 64;
+>>> +			} else if (gadget_is_superspeed(gadget)) {
+>>>    				if (gadget->speed >= USB_SPEED_SUPER) {
+>>>    					cdev->desc.bcdUSB =
+>> cpu_to_le16(0x0320);
+>>>    					cdev->desc.bMaxPacketSize0 = 9;
+>>> @@ -2005,12 +2053,19 @@ composite_setup(struct usb_gadget *gadget,
+>> const struct usb_ctrlrequest *ctrl)
+>>>    	 */
+>>>    	case USB_REQ_CLEAR_FEATURE:
+>>>    	case USB_REQ_SET_FEATURE:
+>>> -		if (!gadget_is_superspeed(gadget))
+>>> -			goto unknown;
+>>> -		if (ctrl->bRequestType != (USB_DIR_OUT |
+>> USB_RECIP_INTERFACE))
+>>> -			goto unknown;
+>>>    		switch (w_value) {
+>>> +		case USB_DEVICE_BULK_MAX_PACKET_UPDATE:
+>>> +			if (ctrl->bRequestType != (USB_DIR_OUT |
+>> USB_RECIP_DEVICE))
+>>> +				goto unknown;
+>>> +			if (ctrl->bRequest != USB_REQ_SET_FEATURE)
+>>> +				goto unknown;
+>>> +			value = eusb2_update_mps_bulk(cdev, true);
+>> Here both USB_REQ_CLEAR_FEATURE and USB_REQ_SET_FEATURE fall through
+>> to
+>> the same switch, and USB_DEVICE_BULK_MAX_PACKET_UPDATE unconditionally
+>> calls eusb2_update_mps_bulk(cdev, true) regardless of which request type
+>> was received.
+>>
+>> The CLEAR_FEATURE may request should revert the MPS back to the default
+>> by calling eusb2_update_mps_bulk(cdev, false), but instead it performs
+>> the same action as SET_FEATURE.
+>>
+>> Is this required distinguished using ctrl->bRequest to check whether
+>> this is a SET or CLEAR operation?
+> Hi Selva,
+>
+> Thank you for the review.
+>
+> The eUSB2v2 specification does not define CLEAR_FEATURE for the
+> BULK_MAX_PACKET_UPDATE feature selector, so the device is expected to
+> respond with a STALL in that case.
+>
+> The check on line:
+>
+> if (ctrl->bRequest != USB_REQ_SET_FEATURE)
+>          goto unknown;
+>
+> already handles this: when CLEAR_FEATURE falls through to the
+> USB_DEVICE_BULK_MAX_PACKET_UPDATE case, it hits this condition and
+> jumps to 'unknown', which results in a STALL being returned to the
+> host. So eusb2_update_mps_bulk(cdev, true) is never called for
+> CLEAR_FEATURE.
 
-aedd77ea8168 ("media: qcom: camss: use fwnode_graph_for_each_endpoint_scoped() to simplify code")
 
-Konrad
+Hi Pawel,
+
+Thanks for the explanation. Its looks good to me.
+
+It would be nice to have a brief mention of the CLEAR_FEATURE behavior 
+and MPS restoration in the commit message just for future reference, but 
+I'll leave it up to you if you think it's necessary.
+
+Thanks,
+Selva
+>
+> MPS restoration to 512 bytes is handled separately on disconnect and
+> deconfiguration events (__composite_disconnect and set_config).
+>
+> Thanks,
+> Pawel
+>>
+>> Thanks,
+>> Selva
+>>> +			break;
+>>>    		case USB_INTRF_FUNC_SUSPEND:
+>>> +			if (!gadget_is_superspeed(gadget))
+>>> +				goto unknown;
+>>> +			if (ctrl->bRequestType != (USB_DIR_OUT |
+>> USB_RECIP_INTERFACE))
+>>> +				goto unknown;
+>>>    			if (!cdev->config || intf >= MAX_CONFIG_INTERFACES)
+>>>    				break;
+>>>    			f = cdev->config->interface[intf];
+>>> @@ -2293,6 +2348,7 @@ static void __composite_disconnect(struct
+>> usb_gadget *gadget)
+>>>    	 * disconnect callbacks?
+>>>    	 */
+>>>    	spin_lock_irqsave(&cdev->lock, flags);
+>>> +	eusb2_update_mps_bulk(cdev, false);
+>>>    	cdev->suspended = 0;
+>>>    	if (cdev->config)
+>>>    		reset_config(cdev);
+>>> diff --git a/include/linux/usb/gadget.h b/include/linux/usb/gadget.h
+>>> index 8285b19a25e0..3c554fe95f87 100644
+>>> --- a/include/linux/usb/gadget.h
+>>> +++ b/include/linux/usb/gadget.h
+>>> @@ -420,6 +420,7 @@ struct usb_gadget_ops {
+>>>     * @wakeup_armed: True if gadget is armed by the host for remote wakeup.
+>>>     * @irq: the interrupt number for device controller.
+>>>     * @id_number: a unique ID number for ensuring that gadget names are
+>> distinct
+>>> + * @is_eusb2v2: True if controller is Embedded usb2.
+>>>     *
+>>>     * Gadgets have a mostly-portable "gadget driver" implementing device
+>>>     * functions, handling all usb configurations and interfaces.  Gadget
+>>> @@ -483,6 +484,7 @@ struct usb_gadget {
+>>>    	unsigned			lpm_capable:1;
+>>>    	unsigned			wakeup_capable:1;
+>>>    	unsigned			wakeup_armed:1;
+>>> +	unsigned			is_eusb2v2:1;
+>>>    	int				irq;
+>>>    	int				id_number;
+>>>    };
+>>>
