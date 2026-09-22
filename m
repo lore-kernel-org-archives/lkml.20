@@ -1,83 +1,83 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8650E48E0C6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:35:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E46248EBE4
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:35:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790055306; cv=none; b=sPm4y+niODITP2YxGPgExY5LM8GFSm/5UctSeduPeFYt5HDzxi43+W2qCLWBExAy76XAw6D3CeQ7ZcHiHps/eep34QiwJrQOtGeOOtL8lpyRUXWdomrN1DCCgr+a7gE+9o6/PEldb2HBOewLb03oRLK6uWVyYV2FJyNkjNVzeKM=
+	t=1790055309; cv=none; b=FY7vnnnBpUi6vzOXdAcpBnxsLuAQbZlHmVjpbJa31cRvpBTCIfq7lXjcKOwlsRMn+aFQN14A0mryrL49rdwwNiIpsZEmH/J1CAJZatp7GjwV4RXul9Wrri09OsHlRcyStWwT1npqLVG+wSm/m2nTD2u0ssDzp8jSeiaC64igghk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790055306; c=relaxed/simple;
-	bh=0FXsJV1z79oMxRtSOr/aKFhpIItT9GM5SpOVBZoF7BI=;
+	s=arc-20240116; t=1790055309; c=relaxed/simple;
+	bh=gaafXcZcjznd8IeK7dwBsQcyVhCGqTDT+dHWEFWiQ8E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SMwQqnBjUfvXLiz3ruiBZjtuTX4ZTh0tBq3p4iKPo8XWZ0lA/mpXQY7PXG9HnHJ0curLJuzTIT1h7X9GAMEwt3xH4pA3DmjJS/CG3XZ39mp/ryWjKAgFP8IbHBupZuH+cSjxbFxfzvmq5MdTRJEuYelrj6quevXuUzOOEJ8gHis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ccXPWX4u; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HmuPoGEw; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version:Content-Type; b=qeDyWz1HgQ6A0wpU9BvnJcCCe0xon8nKQuPKx0ZpNPRmczei4Jtg9m2lIhhFZ95x9iU8EWoaqAyQtTqVcrrT43+eWBdJkW6FaUSaiW5NIk+2IYcd8FVDd22Iz9XbPFU4Y0GVMCq/v+dPnTdH5rMiHIJjeTyrHIf9yeBjHrrmIgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VQS5CPWR; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UBHec5BK; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ccXPWX4u";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HmuPoGEw"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VQS5CPWR";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UBHec5BK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790055303;
+	s=mimecast20190719; t=1790055306;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4Dwb+61ZiIhZrjnlVPFK1XZrDSM5l5u6qowPzm9WLF0=;
-	b=ccXPWX4uvzF6Wa1aba6tsfuJuT0R0Yz+PeoDGBs9Yd3nMnEJWn5g9gXx8wtoK5pLaMzs8C
-	IgidwsNpXmtHeNSh3iTId1THLd4OxgJyoL6vzyx0wQoQoUhXoZ/4t7Rny4shBfBWgX8U4l
-	4JhrROQypMpzi4FqbG98+fN2Pq422jI=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=j3/indgfaSaWc6lWBv7sZZH36jWcDt4waMnqUjoKZgQ=;
+	b=VQS5CPWRqzGS58O82hPZzXW8492UTAchvT4Ny4pzwxjXnEzTb/XEbe5YjFk4Adl9WSdhP/
+	1cNoyEPGNxHz3Ej8Lar+4Kunw8DFDdnKryzYF5opBAjC5d9baDoxJGRD01Vrg8AkjcDRmb
+	GdkC0qUaBDpLEuzonmayUSm5UXRwtxI=
+Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
+ [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-607-r9iqtV6BNiKqDPnvXmS_EQ-1; Tue, 22 Sep 2026 01:35:02 -0400
-X-MC-Unique: r9iqtV6BNiKqDPnvXmS_EQ-1
-X-Mimecast-MFC-AGG-ID: r9iqtV6BNiKqDPnvXmS_EQ_1790055300
-Received: by mail-lf1-f72.google.com with SMTP id 2adb3069b0e04-5b8c58d7635so1656862e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:35:01 -0700 (PDT)
+ us-mta-693-p8E0DT3WMbixoANhotkCpQ-1; Tue, 22 Sep 2026 01:35:05 -0400
+X-MC-Unique: p8E0DT3WMbixoANhotkCpQ-1
+X-Mimecast-MFC-AGG-ID: p8E0DT3WMbixoANhotkCpQ_1790055304
+Received: by mail-lf1-f70.google.com with SMTP id 2adb3069b0e04-5b4fe10d092so2566868e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 21 Sep 2026 22:35:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790055300; x=1790660100; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790055303; x=1790660103; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4Dwb+61ZiIhZrjnlVPFK1XZrDSM5l5u6qowPzm9WLF0=;
-        b=HmuPoGEwiPGJ2FRmRWT6BPNruvUycnktFWlmHsR0Dg9urdWrZF++hQvYqP02boMIDR
-         O4+3wOTZfs/2V7c/tWede93905W3lE/o3QSQzP95s1Sl85wL+PGi78t4/RtooWHHvGP9
-         YpFsAG8Lt9IfnA4bUT4K9ZuKi/7ISkhuj+L4/Z6bcMgqNfPTeh0S2XI4CbigvNfjemSH
-         BItJnEQe6LVjwabT6Bf75yHo9xMHyADMKWXuaxPxzm4PIGWtjUmKXjIH5/eJdLnLfBbW
-         7kUDS66NvJohbO15z6EQ1PdNobosAZJdAlJ47JXtEQMMviI4bHzxenPRgE7UC0mitIoD
-         ErNQ==
+        bh=j3/indgfaSaWc6lWBv7sZZH36jWcDt4waMnqUjoKZgQ=;
+        b=UBHec5BKzeq9YLQk3Dr1xRZ3X79glHMDRGYQgnso0HMx7LdNTR3a8hKHjCJzxUld8w
+         svVqUH97yF2vURih3f2x78wB372pOFfoG4Pgvfv1HFUw4M6BHGMPwN4lYr+j+AR/VE7h
+         iOiRM0BYq0fG9bXyF+7pgxFkmd/zbO7jTo38dtnzeYEKSyTRqL+u+dFgpatkyt9jcXLY
+         x1eHafRQ+Vsx15ML/HOWwxaoCH5l9ozloStTGddwwHO/wb61pcsEyMZtDwS+z1kaUnp0
+         SKA1yGRMWaIU2m/fw1paz8ynS/VIzMmDHK8conlZJJLXwP/0zV6bQLs7fcNqb08MHoPk
+         jO3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790055300; x=1790660100;
+        d=1e100.net; s=20260707; t=1790055303; x=1790660103;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4Dwb+61ZiIhZrjnlVPFK1XZrDSM5l5u6qowPzm9WLF0=;
-        b=RNnubjS3fwSOPu+ajdYgwz3MLrlvOtvOC0yyuituztXCHvh5fZ2ksRmaMikABmIRxu
-         bXMe5usH6v2ByaaESo2Md2yq89kex+u0he8umNWw39vWjlJJr/P5SoPl43qYlugjDHG9
-         ZYkr2T4UVvNsFPuqKff6C5M6ZgW+rJyfZdW+PVULaqRWoRWnDlxWEx4voQVVr1OdreZl
-         G99/Su9yd+v5Hxk7hxXCm7SbHMyT2UikA142ESZy1ujFtNmVaseRyeV8JlxdB6d++Gjw
-         Qdm2cD3eTS2z/GNpF31bl2CoxC2vjhLmNNM6NiyUbeqpoWMWGpkUDlL/B3INfx50Av0M
-         RkyA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8/+bGGrhflKz1U/7lW5u+B3zMfKPWOuxMansxWyeJXhD4TpHdvOtymE+UIegJ3RaBQ/IUZh15PjnlGQs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFuBQx4VlBcxFMfmxGrX6yzcERzPzGBra9vMgi4hlM3v8e5EsI
-	XDboSFWnSzDGf6huK1q00U9m+dgUPh3OlBmneo0Rvqdi6zdFU7asgXM0gMD1oF8XXID0jbcWscZ
-	CT4dBswHZjVvtry7IUVUSOOEt5tgCffeuXVrUFhCVW27sneB3+I+8hyUEkBn+DaGI
-X-Gm-Gg: AYBFou3yq3LC23AXbxVFiCY9JuIaXbJjd34M3cHNRiQuW1WY6D4hnZDWSAO7TY1+oBL
-	3EbVTlzr4JSI9qJYfzR0MNhb2LwHEOREI2P2zockeDN/2bGwU1O5vIIVvoIorqCBzZHcmBbfuvM
-	PUGF7955Ob4FYqGFO4q3lO3BEx9wa8B2uNEGohtRjDA3XOyt0GlFpLiqS2qQKu3MJOapwIzn/mz
-	ulnqkp27WisGH/GR97Sqqyi6Ynq1ag1PJzA9B7pfq+Ftlwwrae1EoEn7aEjgG/VSSeRpbkJozuh
-	JrCVHB9hzJzwtc9zdkFqZ9Hl2sKl+G7vodjY8/R0LgChzlSQ93H6a5CkC6nZOX3Em/IoBqrLf4w
-	yAm4sGnsV02dsVMuXxlLN
-X-Received: by 2002:a05:6512:3a85:b0:5b6:186e:b79d with SMTP id 2adb3069b0e04-5b8c194df51mr4033236e87.57.1790055300381;
-        Mon, 21 Sep 2026 22:35:00 -0700 (PDT)
-X-Received: by 2002:a05:6512:3a85:b0:5b6:186e:b79d with SMTP id 2adb3069b0e04-5b8c194df51mr4033212e87.57.1790055299969;
-        Mon, 21 Sep 2026 22:34:59 -0700 (PDT)
+        bh=j3/indgfaSaWc6lWBv7sZZH36jWcDt4waMnqUjoKZgQ=;
+        b=bU9YaRchBfko6IZiruUTlewduUtOPHoAbRLqn+RmBN5VEp4VFxSU2Ul9t4bMcAqtYB
+         NU2AN5Zi/BF/Oi4H9qzQtqGdfjcVcU6W3dJNycaIQgd0k74LXbTzIQ7HwsIIvpf1F5jG
+         g0kbWvCaEesgtttS5Jffm/e4ovkQnmkwd8KhFgMMl/MsT+Vt4emqqIJiNyVs63zjww9k
+         KO8/+qg6O8WE+0x+/ygp5om5yLp+vasBUIy7yOIXf4TYug102NTAIEM6UQkOXKNPz/8c
+         Avzi/B+/bPV3Hwjsq2zU82MxdzTFkWUmOjWc6LF2Y7E4CxlLnAwFY3JyudnkB5/sOJn5
+         QXdg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtBA/9drj0BS7e2qwoU85IwNRHVHha7N0Ssjqvvhn+ssB3jwUazzSdKPZH36OLS7haAW0I/rAz71VXJ1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsDcOvk3O5qf8hKTkp8au0GmvhjDQFt7sd0Or0eSwVaQwoXb7S
+	huTvYUmZQGOa6NnSJy0xgYywpmt/BU6u6CcGok9guytNDSRBqxoDfknJIzkSvmHN8B0jb7j+SD2
+	DVeZnXZGnSAnPSM7mEgKjgoa7TzaI3QBBN8ppOkPA2rZZG+vCKYkGsv3BnnDFUney
+X-Gm-Gg: AYBFou0OkOippQWi7CJ7IGHSciPfOzPZPznWBbKGM9wgSB0eHVYUGK4xePsaJkskmUB
+	TClpTUeGBcen4CRsNKckNa7WK6XjYhMZ+YOtO0sq58FjG7ojHLbROmc6GFBPHdlxIYQCAduP70Z
+	Mqr7f1B1lTn8fmO0UkevxJce1KvyU6tzTwZOe2HWkEmMLXfwRn4UuQK7+8tu/BP1MC9hV7H0WTH
+	xhDcjMEikx6lfdQYOOSfO7KDsRTShdWjhRTbVQ3Kk7YidSja+J1nq7T4KbB6RaHK42aoC4FmwYy
+	euLX8a72mVg92Q7y6AhMeKDwItBfMKbss+gYuvuToYpquqbc38NimAG0CkP61MATP2zg3tfke8K
+	PH8B+tTujMelDwanAcIpLoSWFC3aPRVc=
+X-Received: by 2002:a05:6512:110b:b0:5b6:183b:d215 with SMTP id 2adb3069b0e04-5b8c195af81mr3584654e87.60.1790055303484;
+        Mon, 21 Sep 2026 22:35:03 -0700 (PDT)
+X-Received: by 2002:a05:6512:110b:b0:5b6:183b:d215 with SMTP id 2adb3069b0e04-5b8c195af81mr3584632e87.60.1790055303030;
+        Mon, 21 Sep 2026 22:35:03 -0700 (PDT)
 Received: from fedora (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46e0966sm191742e87.55.2026.09.21.22.34.58
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46e0966sm191742e87.55.2026.09.21.22.35.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 22:34:58 -0700 (PDT)
+        Mon, 21 Sep 2026 22:35:01 -0700 (PDT)
 From: mpenttil@redhat.com
 To: linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org,
@@ -98,9 +98,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	Mike Rapoport <rppt@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Michal Hocko <mhocko@suse.com>
-Subject: [PATCH v14 07/12] mm/hmm: migrate collection in HMM pagewalk - pmd level
-Date: Tue, 22 Sep 2026 08:34:16 +0300
-Message-ID: <20260922053421.4092027-8-mpenttil@redhat.com>
+Subject: [PATCH v14 08/12] mm/hmm: add lazy MMU mode support for migration in HMM pagewalk
+Date: Tue, 22 Sep 2026 08:34:17 +0300
+Message-ID: <20260922053421.4092027-9-mpenttil@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260922053421.4092027-1-mpenttil@redhat.com>
 References: <20260922053421.4092027-1-mpenttil@redhat.com>
@@ -115,18 +115,8 @@ Content-Transfer-Encoding: 8bit
 
 From: Mika Penttilä <mpenttil@redhat.com>
 
-Implement the needed hmm_vma_handle_migrate_prepare_pmd() function
-which is mostly carried over from migrate_device.c's
-migrate_vma_collect_huge_pmd() function.
-
-With HMM pagewalk based migration, the idea is that
-hmm_vma_handle_*() are responsible for faulting,
-and the pfn collecting part. hmm_vma_handle_migrate_prepare*()
-do the migration decisions (with HMM_PFN_MIGRATE), possibly split
-folios, and insert migration ptes/pmds.
-
-HMM pagewalk based migration is enabled in later commit, for now
-now hmm_select_migrate() returns 0.
+Add calls to lazy_mmu_mode_enable() and lazy_mmu_mode_disable()
+while doing migration.
 
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Jason Gunthorpe <jgg@nvidia.com>
@@ -138,116 +128,65 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Suggested-by: Alistair Popple <apopple@nvidia.com>
 Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
 ---
- mm/hmm.c | 96 ++++++++++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 94 insertions(+), 2 deletions(-)
+ mm/hmm.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/mm/hmm.c b/mm/hmm.c
-index b3b79d13c797..a1459bd34c04 100644
+index a1459bd34c04..a67a23e54551 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -552,8 +552,100 @@ static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
- 					      unsigned long end,
- 					      unsigned long *hmm_pfn)
- {
--	// TODO: implement migration entry insertion
--	return 0;
-+	struct hmm_vma_walk *hmm_vma_walk = walk->private;
-+	struct hmm_range *range = hmm_vma_walk->range;
-+	struct migrate_vma *migrate = range->migrate;
-+	struct folio *fault_folio = NULL;
-+	enum migrate_vma_info minfo;
-+	struct folio *folio;
-+	unsigned long i;
-+	int r = 0;
-+
-+	// Do we want to migrate at all?
-+	minfo = hmm_select_migrate(range);
-+	if (!minfo)
-+		return r;
-+
-+	WARN_ON_ONCE(!migrate);
-+	HMM_ASSERT_PMD_LOCKED(hmm_vma_walk, true);
-+
-+	fault_folio = migrate->fault_page ?
-+		page_folio(migrate->fault_page) : NULL;
-+
-+	if (pmd_none(*pmdp))
-+		return hmm_pfns_fill(start, end, hmm_vma_walk, 0);
-+
-+	if (!(hmm_pfn[0] & HMM_PFN_VALID))
-+		goto out;
-+
-+	if (pmd_trans_huge(*pmdp)) {
-+		if (!(minfo & MIGRATE_VMA_SELECT_SYSTEM))
-+			goto out;
-+
-+		folio = pmd_folio(*pmdp);
-+		if (is_huge_zero_folio(folio))
-+			return hmm_pfns_fill(start, end, hmm_vma_walk, 0);
-+
-+	} else if (!pmd_present(*pmdp)) {
-+		const softleaf_t entry = softleaf_from_pmd(*pmdp);
-+
-+		if (!softleaf_is_device_private(entry))
-+			goto out;
-+
-+		if (!(minfo & MIGRATE_VMA_SELECT_DEVICE_PRIVATE))
-+			goto out;
-+
-+		folio = softleaf_to_folio(entry);
-+		if (folio->pgmap->owner != migrate->pgmap_owner)
-+			goto out;
-+	} else {
-+		hmm_vma_walk->last = start;
-+		return -EBUSY;
-+	}
-+
-+	folio_get(folio);
-+
-+	if (folio != fault_folio && unlikely(!folio_trylock(folio))) {
-+		folio_put(folio);
-+		hmm_pfns_fill(start, end, hmm_vma_walk, HMM_PFN_ERROR);
-+		return 0;
-+	}
-+
-+	if (thp_migration_supported() &&
-+	    (migrate->flags & MIGRATE_VMA_SELECT_COMPOUND) &&
-+	    (IS_ALIGNED(start, HPAGE_PMD_SIZE) &&
-+	     IS_ALIGNED(end, HPAGE_PMD_SIZE))) {
-+		struct page_vma_mapped_walk pvmw = {
-+			.ptl = hmm_vma_walk->ptl,
-+			.address = start,
-+			.pmd = pmdp,
-+			.vma = walk->vma,
-+		};
-+
-+		hmm_pfn[0] |= HMM_PFN_MIGRATE | HMM_PFN_COMPOUND;
-+
-+		r = set_pmd_migration_entry(&pvmw, folio_page(folio, 0));
-+		if (r) {
-+			hmm_pfn[0] &= ~(HMM_PFN_MIGRATE | HMM_PFN_COMPOUND);
-+			r = -ENOENT;  // fallback
-+			goto unlock_out;
-+		}
-+		for (i = 1, start += PAGE_SIZE; start < end; start += PAGE_SIZE, i++)
-+			hmm_pfn[i] &= HMM_PFN_INOUT_FLAGS;
-+
-+	} else {
-+		r = -ENOENT;  // fallback
-+		goto unlock_out;
-+	}
-+
-+out:
-+	return r;
-+
-+unlock_out:
-+	if (folio != fault_folio)
-+		folio_unlock(folio);
-+	folio_put(folio);
-+	goto out;
- }
+@@ -371,6 +371,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 		/* Report error for everything else */
  
- /*
+ 		if (hmm_vma_walk->ptelocked) {
++			lazy_mmu_mode_disable();
+ 			pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
+ 			hmm_vma_walk->ptelocked = false;
+ 		} else {
+@@ -394,6 +395,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 	    !is_zero_pfn(pte_pfn(pte))) {
+ 		if (hmm_pte_need_fault(hmm_vma_walk, pfn_req_flags, 0)) {
+ 			if (hmm_vma_walk->ptelocked) {
++				lazy_mmu_mode_disable();
+ 				pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
+ 				hmm_vma_walk->ptelocked = false;
+ 			} else {
+@@ -413,6 +415,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 
+ fault:
+ 	if (hmm_vma_walk->ptelocked) {
++		lazy_mmu_mode_disable();
+ 		pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
+ 		hmm_vma_walk->ptelocked = false;
+ 	} else {
+@@ -510,6 +513,7 @@ static int migrate_vma_split_folio(struct folio *folio,
+ 	if (folio != fault_folio)
+ 		folio_get(folio);
+ 
++	lazy_mmu_mode_disable();
+ 	pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
+ 	hmm_vma_walk->ptelocked = false;
+ 
+@@ -1135,8 +1139,10 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 
+ 	if (minfo) {
+ 		ptep = pte_offset_map_lock(mm, pmdp, addr, &hmm_vma_walk->ptl);
+-		if (ptep)
++		if (ptep) {
++			lazy_mmu_mode_enable();
+ 			hmm_vma_walk->ptelocked = true;
++		}
+ 	} else {
+ 		ptep = pte_offset_map(pmdp, addr);
+ 	}
+@@ -1178,6 +1184,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 		flush_tlb_range(walk->vma, start, addr);
+ 
+ 	if (hmm_vma_walk->ptelocked) {
++		lazy_mmu_mode_disable();
+ 		pte_unmap_unlock(ptep - 1, hmm_vma_walk->ptl);
+ 		hmm_vma_walk->ptelocked = false;
+ 	} else {
 -- 
 2.55.0
 
