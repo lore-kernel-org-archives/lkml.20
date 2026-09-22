@@ -1,111 +1,144 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0457F534443;
-	Tue, 22 Sep 2026 23:36:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 883135383DB;
+	Tue, 22 Sep 2026 23:38:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790120174; cv=none; b=KCElX63Mi3GpXyQFfjIrLJ0kNj1GRk8YonHsN6Y4fkCYqq6yYUixJsOMFT3h1fg8rtsL335BUp2edY69UntHoyqkfz2CNYyYeKADMx50sjJzO2pyqmvq3y+ShWVEfdIG/wjwpDLGaNZkwRl48Rw2aI+C+gNvJJeg+zOCiRCXUkw=
+	t=1790120304; cv=none; b=S0LhecXwlyYbESUp11dw/XCkRoWqfjEt+eU+NfHkcFfDiEm5agUy5SrVELMuaSyuzgNcVJGLm8bExn75Rc5X8OvfjN1kn15Oj8h3vr+TEWzXVgNwbs2aKFBXvPqHTFlsNz1AQvuVJlqXzMVOdunC0PJMwTWoF6DAGnNkkDXBFow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790120174; c=relaxed/simple;
-	bh=fQCDqNYMWXfYuaMG7xP0BtWWt8rzyUy+m0rnKhQRRnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NxUzzph0X4L7AZYEjjLjny877lWwHbgN5zOXvYIa5hrs3dABYnPWtQcmodYxrEto1Ra5bxzBQPcVA5LjIoQm46uNAVCYslXCKLLwT5Sbpqxq7Dua2RBhYWxPmtWNg/o/5Saw4s6ru03LC/C63k6mVvs+0h4BqtGfri3hNW/HlIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=eoC5cf0+; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1790120304; c=relaxed/simple;
+	bh=Vp57X95Fk0aMix9oOoIvdNpS8L+cBiuf1SveFkrXClA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DyFs763CpE2rTL4Xr0yCjf/39vnd2F071MIC9Mn3TpQZahzhkoBE4eRVqiONa6OLy5HRk0K2AtKS6nFC7lqDw5ux218wpSNMM6yCHFV6DVC6iBbjr4jMU7paxRL2eckP6cfmjUmihxEjUeY94huQ988ga1bDt3gPI5vMzlxBwPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=halJVZJU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="eoC5cf0+"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 295F782B20;
-	Wed, 23 Sep 2026 01:36:05 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id msRIRTWDIPzA; Wed, 23 Sep 2026 01:36:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1790120164; bh=fQCDqNYMWXfYuaMG7xP0BtWWt8rzyUy+m0rnKhQRRnU=;
-	h=From:To:Cc:Subject:Date;
-	b=eoC5cf0+MRWL8Vzk+YB88wW+omtNzfiE2HgRn/WQAhae4y0VKoBLE00YVvMWTjW4p
-	 +cppfVesuWJsKrHuCx2euX17OiBvjBet9koEFeVeocMU/dK+e6MkJXk69nEntdVBQc
-	 O172ELqpwKB6i6L/3ljfLDH6+/aafs6JNYbygZq6jnnTlaH0ccdwJzzqPxCTCMRIyY
-	 l/JvclfDWA+nBjB1sBxhimypdWElDJ26sUmtsizHR3Y/BNH6Z4zBNl3qSe6sETyVhB
-	 x5eKltZwpJ85VswbNbdmM461qtnHepBlRX5NwEHrwXTmk/Mo+1YXs7AqXoX24D4hIF
-	 xBiTXszy+JFZg==
-From: "R. Larocque" <rlarocque@disroot.org>
-To: linux-input@vger.kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	dave.wang@emc.com.tw,
-	jingle.wu@emc.com.tw,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Rapha=C3=ABl=20Larocque?= <rlarocque@disroot.org>
-Subject: [RFC PATCH V2] Input: elan_i2c_smbus - resend ENABLE_TP on wake from sleep (NOT TESTED, NEEDS TESTER!) (v2: typo fixes)
-Date: Tue, 22 Sep 2026 19:35:47 -0400
-Message-ID: <20260922233549.10431-1-rlarocque@disroot.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="halJVZJU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 528721576;
+	Tue, 22 Sep 2026 16:38:10 -0700 (PDT)
+Received: from [10.57.9.113] (unknown [10.57.9.113])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC8583F86C;
+	Tue, 22 Sep 2026 16:38:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790120293; bh=Vp57X95Fk0aMix9oOoIvdNpS8L+cBiuf1SveFkrXClA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=halJVZJULr7JY7CEvIFT//j2bv2nqQT6X3o1V9LDwSkgL6/JIzlvX9R+gJkvg+2Fb
+	 dI7uC1/f4STe573EZeAFUFyvB+VpSw5BMoraX1wGMoySSm9uzLFO+Pr6CGkr5NFWV1
+	 wubIkq6ypSPFGK9246v1H/JYbtqzRidVcEAwQL3A=
+Message-ID: <f72a26bf-a64f-4053-b7a6-4b33faeb9b58@arm.com>
+Date: Wed, 23 Sep 2026 00:38:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 11/20] KVM: arm64: Mandate VGIC v3 for for VMs running
+ on hyp that don't trust the host
+Content-Language: en-GB
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+ <20260920212845.707-12-suzuki.poulose@arm.com>
+ <20260922154219.00000999@oss.qualcomm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260922154219.00000999@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: "Raphaël Larocque" <rlarocque@disroot.org>
+On 22/09/2026 23:42, Jonathan Cameron wrote:
+> On Sun, 20 Sep 2026 22:28:36 +0100
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> 
+>> pKVM and RMM, both do not trust the host. Add a helper to detect the VMs
+> 
+> Maybe don't mention RMM yet, or make it clear that isn't here in this
+> patch.
 
-elan_smbus_sleep_control() sends ETP_SMBUS_SLEEP_CMD to put the
-controller to sleep, but does nothing on wake, leaving a long-standing
-XXX comment questioning whether ETP_SMBUS_ENABLE_TP should be re-sent.
+Ack.
 
-elan_initialize() already treats sleep_control(client, false) as a
-genuine "wake device up" primitive (see the ASUS special-firmware
-branch and its accompanying dev_err() message), so this makes the
-non-ASUS/default path resend ETP_SMBUS_ENABLE_TP symmetrically with
-elan_smbus_initialize() instead of being a no-op.
+> 
+>> that have "distrusting" hyp. Use this for blocking ioremap of vgic-v2 into
+>> stage2 and prevent creation of VGIC other than v3.
+>>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> 
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Signed-off-by: Raphaël Larocque <rlarocque@disroot.org>
----
-RFC: I don't have the Elan SMBus protocol datasheet and consequently 
-haven't been able to test this on any real hardware where the previous no-op
-path was actually relied upon. Sending this for testing by
-someone with access to affected devices before it is considered for
-merge. A bad SMBus write to a sleeping controller could leave it
-in a weird state on the wrong firmware revision if unlucky.
+Thanks
 
- drivers/input/mouse/elan_i2c_smbus.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/input/mouse/elan_i2c_smbus.c b/drivers/input/mouse/elan_i2c_smbus.c
-index 0287441cda46..95f5951e9549 100644
---- a/drivers/input/mouse/elan_i2c_smbus.c
-+++ b/drivers/input/mouse/elan_i2c_smbus.c
-@@ -93,10 +93,25 @@ static int elan_smbus_set_mode(struct i2c_client *client, u8 mode)
- 
- static int elan_smbus_sleep_control(struct i2c_client *client, bool sleep)
- {
-+	int error;
-+
- 	if (sleep)
- 		return i2c_smbus_write_byte(client, ETP_SMBUS_SLEEP_CMD);
--	else
--		return 0; /* XXX should we send ETP_SMBUS_ENABLE_TP here? */
-+
-+	/*
-+	 * The controller stops touch reporting while asleep; resend
-+	 * ETP_SMBUS_ENABLE_TP on wake, mirroring what is done during
-+	 * elan_smbus_initialize(), so that reporting actually resumes.
-+	 */
-+	error = i2c_smbus_write_byte(client, ETP_SMBUS_ENABLE_TP);
-+	if (error) {
-+		dev_err(&client->dev,
-+			"failed to re-enable touchpad after wake: %d\n",
-+			error);
-+		return error;
-+	}
-+
-+	return 0;
- }
- 
- static int elan_smbus_power_control(struct i2c_client *client, bool enable)
--- 
-2.55.0
+> 
+> Other than minor comments, it feels to me like these first 11
+> patches are good cleanup even without the RMM stuff that follows.
+> Perhaps can get these upstream faster than the rest?
+> 
+> Jonathan
+> 
+>> ---
+>> Changes since v18:
+>>   - Cover pKVM guests for VGIC v3 mandate.
+>>   - Merge the VGIC mandate check in here.
+>> ---
+>>   arch/arm64/include/asm/kvm_host.h | 3 +++
+>>   arch/arm64/kvm/mmu.c              | 2 +-
+>>   arch/arm64/kvm/vgic/vgic-init.c   | 2 ++
+>>   3 files changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+>> index 3211543a85b38..bb156a633ab75 100644
+>> --- a/arch/arm64/include/asm/kvm_host.h
+>> +++ b/arch/arm64/include/asm/kvm_host.h
+>> @@ -328,6 +328,8 @@ enum fgt_group_id {
+>>   enum kvm_arm_vm_flavor {
+>>   	VM_NVHE,
+>>   	VM_VHE,
+>> +	/* VMs running on a hyp that doesn't trust */
+>> +	MARKER(__VM_DISTRUSTING_HYP),
+>>   	VM_PKVM,		/* Normal guests on pKVM */
+>>   	MARKER(__VM_PROTECTED),
+>>   	VM_PROTECTED_PKVM,	/* Protected VM */
+>> @@ -1546,6 +1548,7 @@ struct kvm *kvm_arch_alloc_vm(void);
+>>   #define kvm_vm_is_unprotected_pkvm(kvm)		\
+>>   	(is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PKVM))
+>>   
+>> +#define kvm_vm_hyp_is_distrusting(kvm)	((kvm)->arch.vm_flavor >= __VM_DISTRUSTING_HYP)
+>>   
+>>   int kvm_arm_vcpu_finalize(struct kvm_vcpu *vcpu, int feature);
+>>   bool kvm_arm_vcpu_is_finalized(struct kvm_vcpu *vcpu);
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>> index cf293d09e940a..413c4b114d75d 100644
+>> --- a/arch/arm64/kvm/mmu.c
+>> +++ b/arch/arm64/kvm/mmu.c
+>> @@ -1251,7 +1251,7 @@ int kvm_phys_addr_ioremap(struct kvm *kvm, phys_addr_t guest_ipa,
+>>   				     KVM_PGTABLE_PROT_R |
+>>   				     (writable ? KVM_PGTABLE_PROT_W : 0);
+>>   
+>> -	if (is_protected_kvm_enabled())
+>> +	if (kvm_vm_hyp_is_distrusting(kvm))
+>>   		return -EPERM;
+>>   
+>>   	size += offset_in_page(guest_ipa);
+>> diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
+>> index 4012df6002ea6..874025513afcc 100644
+>> --- a/arch/arm64/kvm/vgic/vgic-init.c
+>> +++ b/arch/arm64/kvm/vgic/vgic-init.c
+>> @@ -84,6 +84,8 @@ int kvm_vgic_create(struct kvm *kvm, u32 type)
+>>   		!kvm_vgic_global_state.can_emulate_gicv2)
+>>   		return -ENODEV;
+>>   
+>> +	if (kvm_vm_hyp_is_distrusting(kvm) && type != KVM_DEV_TYPE_ARM_VGIC_V3)
+>> +		return -ENODEV;
+>>   	/*
+>>   	 * Ensure mutual exclusion with vCPU creation and any vCPU ioctls by:
+>>   	 *
+> 
 
