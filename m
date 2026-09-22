@@ -1,357 +1,257 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012037.outbound.protection.outlook.com [52.101.66.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DF0302767;
-	Tue, 22 Sep 2026 18:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102763; cv=fail; b=lJMtUH5Qu2v6my0tOJRu8WLwI39R7zacofzhO4q3eXNgd0a3wULLconwGuF1e3jSw/Im7bO1FlrBPSxxc6Z1m00UrFDVSo4AU+dCrh1dZqEs5iJbrEpAG8DS+/x0OQLP8pzI5hIy2jfmbV5wYDp+2EICeuA/QpAAG2oZsU5k+xA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102763; c=relaxed/simple;
-	bh=OnPXQPzkz9yINld35cOLUw/QVHLPUlOD1KCz0MX/dCU=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=EYbCJg6fHOPuUpTJ78b5NKE+Y23zGffRv8qwxK0idzEn67GtvQnoHT38fLSGSrgGVqCdfErcpuJvmSRCktwxN8+tw+Orm5czhiVhnVmjF7qNLnrleuAYCYGe70aJo7cyeSYpswtQQpoNwIkdk+qmxThbZviSjArxO0e4YvG6334=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pB+cmDCw; arc=fail smtp.client-ip=52.101.66.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BF43BE627
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790102773; cv=none; b=XJ+wSVwy5GXVuWySc516px13ACZop7u2+v2eFU7teGvkz5e/ZCiuVfzXxJAOLJ1yhm4r/11kt+ECyHziHrHnhOVMT8EsrqBdoXpamonsvqZNDVbRR3VgT8l7XMVn3Tnx0KVysOFd4XjhCOVZCSEDyIrNSbsJ3zwf2IbyfBC8884=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790102773; c=relaxed/simple;
+	bh=oAENUtHNZGzOjoVpDfIN16vMYj0LR5VAUfLomF6ACKo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kmoeKtMMEb7427N/i/2dnSwfvZs2fXhi3y72ihfgPBu+TBv0s6KF9wYStjCg7dL+mYO/gDpwQx2yt1xMYoe8ox4qgk+/OYIv6y+JfqrL6e1Ls2jlIpX8evVEhDmI6W3bMAeFmsvlfctjtbGj+HKr/dCumTMiBNQ3TauKmQCaN1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MdQx9Jmt; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pB+cmDCw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LAPZm/ON5iJCt4HQhJEZtjwP8wtGInp25pjzlBv2Y1wlsGM7zfPuf9Smi/EspIArYa9fFzx53K83kic2uonl3H9JF8vyMMTLpBTNBhSMy7s+9BRK6DMRUVjhYgw0j4POZEJGAP2XawKy9SQaZpaYIAMd5k2yUru9f45Jd0t+gC5bj0HNLVc7IUQ+BgPoO6ZhTT/2gV7ZFZ4Zv0anreSVMZWgx72IDJs3RXTjaL2CquBxuXW2k5WpTClxieMprLcg+WoHuICceYjqpsn3zPomxP3c/KpN9r4riiyH/Evhdr5kFQKixY0jn3ovdd8i71lQcJfaCXrBEnO9FuZLByb3KQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cttidQ8EpQJUnHCRcHDujwyH/mJigb3EwOPhtodni8w=;
- b=CcAMdbiGrMI4jp+DV1vI8Kc74e5p0i7Rtd9LHzO6kXW+psFdYMKBSCHWlKuo5BgBWyLO8jB/dZaFR4SnO4TEX8wZFBfI08O6sbAL3KQVkOVmqAfTs15zyJDPJ+Cb0lF64hqeI+7DuCeqrTy5KziHkdTxNK4syzcL6Z1vCyM+IznA8/YZ2bKRqAS1KXZYMRBzzEYRauW/mYs5WOHZIzImo1oaKIsDZgNIkKjxQmH5HQYmhhOuDeIAMsVqlT56OV0K99zTEf0NeB//Vxn79I5nTo/NQ3xWzT1NixAqItARiwkydb7H3v83XJeyWcjLWxY5ENFiHxKh+G2E1jZIkQvtCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cttidQ8EpQJUnHCRcHDujwyH/mJigb3EwOPhtodni8w=;
- b=pB+cmDCwarb94EPW8dAM4TacSozVxaXNA1TAaOrNt92PhP2ShRbyDiSvqtEeySOw2kLYjCyFEzRd/4twe0Pf/mM8abHaFOK/qzv5xFozFy2pELb6tUUxR+BZkzg4u+lYU1f/St+x2/kmf+qx5rZTeyqU1QMYvchb77MJxT1+xhVGCSzPMFexj47jEwrOOsnJ2T1nYFd7NleXuZONxGhS6ykMqNJMXWvVS9XvUoF8SDu/NiWhCAOUUWQYedWEujmZHmjbqwR21xASKiRYio83S2NGyf80dO0K+/kZuKyUH2InYqNfThJRxc3bHzDzoYCZxV6ZUc46NCHmoHmO3WZX2Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB9757.eurprd04.prod.outlook.com (2603:10a6:150:115::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 18:45:36 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 18:45:35 +0000
-From: Frank.Li@oss.nxp.com
-To: Dan Williams <djbw@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	linux-crypto@vger.kernel.org (open list:CRYPTO API),
-	linux-kernel@vger.kernel.org (open list),
-	dmaengine@vger.kernel.org (open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM),
-	ntb@lists.linux.dev (open list:NTB DRIVER CORE)
-Cc: imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH 1/1] dmaengine: change dmaengine_get_unmap_data() first arg to dma_chan
-Date: Tue, 22 Sep 2026 14:45:16 -0400
-Message-ID: <20260922184527.2414043-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH7PR03CA0023.namprd03.prod.outlook.com
- (2603:10b6:510:339::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MdQx9Jmt"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37dcfe9b2so114300b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 11:46:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790102763; x=1790707563; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gB5tOgoEaFDK8N9Ks2VO0xH4kl9YCg+Zqnb1wxNdK4o=;
+        b=MdQx9Jmt6IN3CMBqSdoSxdlZWxuyZqSbMSC7x33fdBCxb8QzzS++u8jOpr+IV926IS
+         0l3QIAy9JH7HFhRk1Ksz0q4BpLSf1ASL4wwocAhZQx10u83H1Qr4l6waIGTARglyMfHB
+         WZlqmv8XaoPhnuuJ2V2SjXzf2Xqvj+W1u/p23QrlcXCh8Ea83Z7LBNRxgH+9dAUXpCeU
+         RWkoy62Gr6io8Az9Hi9obgeS6T4AJDyzwBCYKWbQ89XKoKeoH69kQC02oMaTm2eXKYJm
+         rwmA4lX9p/ekog/D0SVsbr233GZ6YYKIXxiB2I0zCfufO5+eaxJ3PScjnvSSUd/rXhIM
+         mFZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790102763; x=1790707563;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gB5tOgoEaFDK8N9Ks2VO0xH4kl9YCg+Zqnb1wxNdK4o=;
+        b=RfO5UDzxMCXWKUc/7ddp2wUo3ZE0566By+REVnuNu8ltuJ3o2eENJ95sU1Rkh0qKC7
+         UCyZqb4JWNmCLcM0O/loXs8f8DBhPhwUp+fiX8xUrzBii6+A4MgCQpQeUtEz9hB+gOpC
+         81/tM1S77W4cpdvqzulR2hR/ndqYpfu6hgIU9DO6hsRs0T4YyUMX5fK60fBWr0OYF+wt
+         /42gUu4NAZpB2Pu/A+tkPMWtQV2Jm88IFyIYaRJQaLyCON0S4fbKxZlx3xyIWfavVkbQ
+         qY252SxggLcoFpR8/UYy3uafJhn5JRVls2nAcW28m1ZD5vRsgWezqYsNVgWkxw+vu5BO
+         cxrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzczJzHQXxUNhXsDiAmKEneHI+Dhe9MGydGgPt31I2MbFZAf4d9BI+bLiZFytX4LyCT9FhHg4Ez0SjrsP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++np1mVAJaXtJfMVhIQkirpi4tXCrjm4oIS0vVqL0psmlgYa1uwj
+	v4OgJ1lvwcbaTiUEGnMCB1/z08uuZAAlFQw2cGt6ZmsmgFZrTRbvh1VS
+X-Gm-Gg: AYBFou1YWbAXpJCfeSlT92bTs7pY0h44TMjYEyYn467Q2remPqwTLsVvtNob4DzYBcA
+	S0E5XfI9VOroNHnCZRbsl3MA5cnw5etUB9vcPYBKho4eryMLdnJ37B+hr+n4xFfDL+0rAp6vk01
+	od1cNVIHp4J1KZuBF9DMS60FldPdSCuNT5XNf8QxcKuWBOSCVQZYve0+DJEU4bRLXOG6Jn/JDm1
+	04ip8/20fdvFodJwNhRsJmbC0wmTcJhH8LtO98Yni8S+QOckerSkn4JWR56M78oAgLeT2ZfHB24
+	7b/6LTTbf+jcQR5ztV55YUW+MIUhB2Hoccx9C9pjsgO7C6gg/FMSAlmtgpsrKBfEhcG9h4AnBA3
+	uoGQiCuiBCY5LYJLyB0oNcjggyZ7nvkyJB37NC////wKLVZ2ZNLoe3fuOZpqqN1YGksat7eNCBo
+	tLHbUHPMMM+Gb0clR8jC/U1tThheFesbph610IYj+vO12OMbRCJO2AbzT0sponz4sfbZRYUkNmz
+	fomWZlgFHqW5vs3O03vVJaWiLRynjGB9SwgqeAmEWLjzvcgzPiAia56QqPTA/plGxJ7jZ7olBoy
+	Cw1nCfG8R5/cWfpoLKxPePHjQn9xlA==
+X-Received: by 2002:a05:6808:3503:b0:4cb:f21b:6f88 with SMTP id 5614622812f47-4d5b8abd1e2mr295561b6e.27.1790102763080;
+        Tue, 22 Sep 2026 11:46:03 -0700 (PDT)
+Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+        by smtp.googlemail.com with ESMTPSA id 5614622812f47-4d5c43a24bbsm147545b6e.7.2026.09.22.11.46.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 11:46:02 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v3 0/4] kallsyms: Accelerate symbol name lookups by ~19x
+Date: Tue, 22 Sep 2026 12:45:54 -0600
+Message-Id: <20260922-ksyms-tune-v3-0-681a34ea05d9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB9757:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77117b94-e7ae-47a3-9857-08df18d9b032
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|7416014|23010399003|376014|1800799024|921020|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	cLbMDJ/3vPQFm3ZUqMa6HBVri+tjUx0U0TNmzDxQI+9qxDVZJzwZVDCp+dkfEyBGtCiVuc2pqq3UlwRb4gT7xfNfOwjzvM8jdeaHL4oadxwgVAGiBFqEo9Se/WaMFDV9haPu/r5WtMMLMHsXogV3VlJYi2oGUYQ+iJsAKS/qJiKMV6KSh47yK/dxo55iVEPb34eYeMDQAZKfNkJv44U5SF9mx6WGXf3gn/Dj3xBKGuqdwe4uVQDJOuMM2u6sgz3KLBialvK8GMy0Pl3RZCnMywC4MWc5ZPLjw5A34YDXO2Sr11FzsiFtU3dticAAvPDf7DZ4cltAQ7Ti250gh2b89qQR9z5s7IHCsyO7AyqQ6FX+5B+/7TQVwd9dRIKM1C8X/g/DLzHBFrn4HWoLYygDxLYYFiG3lTyXaulzn6Lcwlqyvn/VY8k4Zca0K5ehtei97qPxscXhSi/OeGo0o7H8relac5r6I6FBf/BSe/rbWNd5dLE9tnL4Hr0/18UMrBLrgUcZW2cZly4AG4VxBz30wZDfsALOlzh86OlenKjSzVyO/mrlOAFmRwMLWN0oIaGFRt5QA2fXOxs52hg+cFpSMGAcaFcjvs/9q28FOiWzo98J5Tb6x8VdZ/vdwd7jv97A/is00IRzj1HlzJgbVy9f3hXJJ0Tdt/bkt7trnd2gpEWlv4a6Ch2yvqwl9sqIHkytCMb7mxNRYOcCEmJJVNbCSA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(23010399003)(376014)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?jfbOvAza74/VrmqhjojVrhd3dMcFjo7qu8IhrfgqUJWJB+8Q8Vm8abhKQ+vZ?=
- =?us-ascii?Q?GQJFrhcJdqpBQcUbhPwQ+vmTzSo6VJzTxWLmtKG/XOve60etpVXXCyYMVj6d?=
- =?us-ascii?Q?WviWT6zICc0TdEbIA44UZFjV7hpEcZLsd9JuUZiBmp/vGouQHpqjy41aPRyh?=
- =?us-ascii?Q?9MBMdYwk4pt8jScB1d69B/FLWF4OYpfrzfzXbEo3u/VdFhQYZ/Ivuvqi4xbd?=
- =?us-ascii?Q?wxUVjBQPPFU5+ebTBfZWiLBvDEVwpjVhBes+oGixmX+enW0I/sRGHZXarhzM?=
- =?us-ascii?Q?UsxZX2BKzLZTW8Od5b+MYOwR9GUqog5sfXoC1qB/Hc+Ns8EZFLcS7ln2CT1q?=
- =?us-ascii?Q?QTXLaNDuYq+SyJKpK5877BnYcO0eWuaX1aehpiz/NkMXiB2+FZwxa2+p5NA0?=
- =?us-ascii?Q?kqKr3Jb3P5GPwAd+RtQR1YnnM6/l4mHikfhcFUV7jHrHaUju7kQD+z5AnnPw?=
- =?us-ascii?Q?v37Kz4tiO93M7e9TNPRTYEzknLJmtHfZrmljlwgcxjT8NMLwdFytlNLYdi9i?=
- =?us-ascii?Q?jGFhs+Q775fS5HwzUx2yi3LUz+9TZ363BG4Z1uXJAW6zypJRcgDW1+5jdTD1?=
- =?us-ascii?Q?ICs1luLYzfa9heD6EFJMz6B4RiDpEWbHxQyga6XWd+oJcyFCF/o8z2UHslhq?=
- =?us-ascii?Q?FcFoc0fheggP27VL6RUldGgnvYUkfnsopGQk6otwRfa7otUQLK4hOie03DZI?=
- =?us-ascii?Q?9hafZ5Tj4/1bmC3t43x4l+0/yKpXnb0APpgDeBrZ4L571Vef99tr5+gzdho2?=
- =?us-ascii?Q?6XhLgQcEw6AJiNXcPuTlCSy/0WPOrt6+mjaZPo5A0XGOCnChHDsSi8WnSnoa?=
- =?us-ascii?Q?XjCJu9AG5P6vOEMibmXb0PdOP3uTAhIub4VrAZgIyXEPASmZ35MKJ2+1JCu/?=
- =?us-ascii?Q?gQu/KYOLTU8HTjBKr2a5A8hQhR/NXfs8V3fCLyUM5q5dB1tCWr4hgW0P6F58?=
- =?us-ascii?Q?moSj5kR457nA+42Z4o9w60hlLokEULsuTzAizJhuVyN8jgeeO4yp3ZwJCdC+?=
- =?us-ascii?Q?Td05eapqMBs+PUC0jZorUwbRaLxnuvl0MkJJqzOjgYXaEksv45GoG2yj8EdY?=
- =?us-ascii?Q?6ImmG58vJ3pzyn8gB9Z53XxR7XKPDvMOSE3CkXL69GyZpiAyj92OmbPgCqJ1?=
- =?us-ascii?Q?fcDzEci1ucE9VPGKs9s5mR9aQRHP/Le2QkmN18d6306+MJp3LoN5lpd/gu2f?=
- =?us-ascii?Q?GYF3KaqCXTv5X3DrlLMZ0/1BFS5ut9IMTqD3IL5pB4sAzuBq622L2+Tu39Pr?=
- =?us-ascii?Q?6c9UjQcoVeb9uXuSKvg1Bp3FKysFJvqk9kM6z7EJ25jMpaYmXwwZD7ThYiyd?=
- =?us-ascii?Q?KSLSmnsKpk1rjNYDeS7H//Z6emwb+sjOy+B8jveS3iCD1qx/sglIH3OTCdci?=
- =?us-ascii?Q?AAPyojcTd8vKA130E6XwF3fjVzOqnmsFuRJO2qehVjI5xomGgUtjVou22El2?=
- =?us-ascii?Q?y816tBo/rKUKMktP2kiM/ImFagV9el8lBsP7desYX3rAn5T9x2ipUdXw+QRE?=
- =?us-ascii?Q?58tBfWYXN/dgzto8b/NZCOng2C3pTX/uGi3XrEZnNdOw63aDcGR4Tv4lkSQ5?=
- =?us-ascii?Q?eqzkUGKw8B7mIAf5q1Lf4Tg1kITq8geQyTaZjHqZnZD7fC3w+gP9GwR1O6wT?=
- =?us-ascii?Q?E+ZlhXUBimxg2XRJFF9mOpZ6qSFBjq9EuCwm1cnxw2QT7hfHjSDa8YkN9FF7?=
- =?us-ascii?Q?F7ZsGOJNXoQArUnvmukOOOwU3Ibx014fMg4Y44krMoTBFJYN7u7iWBpABJ1A?=
- =?us-ascii?Q?1cHeiZiua0oOtA2u8vHDMojxllWSIMcTyQ0D1rNusChDM6d5Ko6O?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77117b94-e7ae-47a3-9857-08df18d9b032
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 18:45:35.5319
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bp2wJLHy3bwZvG/NKDTkmWK5cyxYPz22DwszcE6fhe76QID89A5zKaxsPeA/E53GR1tuyGSvDrVKo+3ZfQQbAsA62BNOz6m24TpGCAYlFftaEl+XR5fbNUmIwCcY/lLG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9757
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23MQQ6CMBCF4auQWVtDpyrgynsYF5N2hIkCpsVGQ
+ ri7hRUmLt9Lvn+CwF44wDmbwHOUIH2XhtllYBvqalbi0gbM8ZRXulKPMLZBDe+OFSPSAV1JRhM
+ k8PJ8l88au97SbiQMvR/XdtTL+zcTtcqVK4+2KhxpMnipW5Ln3vYtLJmIG4r4QzFRMsYwG81ki
+ y2d5/kL3lDdG98AAAA=
+X-Change-ID: 20260919-ksyms-tune-e22a42d8a31a
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
+ David Laight <david.laight.linux@gmail.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790102761; l=8592;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=oAENUtHNZGzOjoVpDfIN16vMYj0LR5VAUfLomF6ACKo=;
+ b=555/26vJQV0yHRiU1ZShyhlhooWSumRIT1vA0/yV9IKqp8/9Z4TH7YvoTNSb82vZ4vVeyZOBN
+ EO6/WVaR3NqCfLNWXCwX6gI7T2AroXUwA9tow/HEVyP+PMZBHW4oIZO
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-From: Frank Li <Frank.Li@nxp.com>
+kallsyms_lookup_names() resolves symbol names to addresses using a
+17-step binary search over kallsyms_names[] (~184k symbols on x86_64).
+At each step of the search, two bottlenecks compound to create
+substantial lookup latency:
 
-Replace the struct device *dev argument with struct dma_chan *chan so
-callers do not need to reach into the dma_device internals to obtain
-the device pointer.  The implementation now derives the device via
-dmaengine_get_dma_device(chan), which correctly handles the per-channel
-IOMMU mapping case.
+0. Redundant string expansion: kallsyms_expand_symbol() decompresses
+   the entire candidate symbol into a 512-byte stack buffer (namebuf)
+   before calling strcmp(), even though ~94% of binary search probes
+   mismatch on the first 1-2 characters (~580 ns per lookup).
 
-Prepare to make dma_device private and make dmaengine API consistent.
+1. Marker scanning: get_symbol_offset() scans sequentially from the
+   nearest 256-symbol marker in kallsyms_names[], decoding an average
+   of ~128 ULEB128 record headers per probe (~2,176 header decodes,
+   consuming ~3,230 ns per lookup).
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Together, these bottlenecks impose a ~3.8 us latency penalty per hit and
+~3.6 us per miss.
+
+This 4-patch series eliminates both overheads in a structured
+progression while keeping the symbol table strictly in sequential
+address order and adding 0 bytes to .rodata:
+
+0. Patch 1 adds lib/test_kallsyms_perf, a microbenchmark module built
+   directly into vmlinux (CONFIG_TEST_KALLSYMS_PERF=bool) to benchmark
+   unindexed vs dynamic indexed name searches, address resolution, and
+   table iteration latency without exporting internal kallsyms iterators
+   to loadable modules.
+
+1. Patch 2 introduces kallsyms_strcmp_symbol() to compare ASCII queries
+   against compressed tokens on the fly, bailing out on the first
+   mismatched character without expanding subsequent tokens.  This drops
+   the 512-byte namebuf buffer from the kernel stack and saves ~530 ns
+   per lookup on unmodified marker infrastructure.
+
+2. Patch 3 introduces a dynamic u32 lookup index bracketed by
+   kallsyms_lookup_batch_start() and kallsyms_lookup_batch_end().
+   It allocates ~736 KiB in transient RAM via kvmalloc_array() only
+   while bulk workloads (BPF attach, module loading) run, resolves
+   each probe in O(1) with 0 hops, and leaves .rodata bloat at exactly
+   0 bytes while retaining kallsyms_markers[] as fallback.  Both
+   test_kallsyms_perf and kallsyms_selftest are updated to benchmark
+   batch resolution side-by-side.
+
+3. Patch 4 inlines and unrolls get_symbol_seq() 24-bit sequence index
+   reconstruction into direct byte shifts, eliminating loop overhead
+   on inner binary search probes.
+
+Live Microbenchmark Progression (via test_kallsyms_perf, 100k iters):
+
+Metric                    Baseline (1)   Token Match (2)   Batch Index (3)   Total Speedup
+------------------------------------------------------------------------------------------
+Name Search Hit           3,811 ns       3,280 ns          246 ns            15.5x
+Name Search Miss          3,625 ns       3,095 ns          196 ns            18.5x
+sprint_symbol               412 ns         412 ns          412 ns            parity
+sprint_symbol_no_offset     300 ns         300 ns          300 ns            parity
+Table Full Walk           13,626 us      13,626 us       13,626 us           parity
+Kernel stack buffer        512 B            0 B             0 B              -512 B
+
+In-Tree Selftest Verification (CONFIG_KALLSYMS_SELFTEST, 184k symbols):
+
+In addition to test_kallsyms_perf, the existing upstream selftest in
+kernel/kallsyms_selftest.c was run across all 183,990 symbols on boot,
+repeating all tests inside an active batch window:
+
+Metric                          Unindexed (markers)    Batch Index (active)   Delta
+-----------------------------------------------------------------------------------
+kallsyms_lookup_name() (avg)    3,926 ns               675 ns                 5.8x faster
+kallsyms_lookup_name() (min)      311 ns               171 ns                 1.8x faster
+on_each_match_symbol()          3,507 ns             1,142 ns                 3.1x faster
+kallsyms_on_each_symbol()       14.7 ms               15.5 ms                 parity
+Basic function validation       PASS                  PASS                    100% correct
+Batch setup (184k entries)       N/A                 1,037 us                 ~1.0 ms
+Batch teardown (sync RCU)        N/A                 3,440 us                 ~3.4 ms
+
+Address-to-name resolution (sprint_symbol) and sequential table walks
+(/proc/kallsyms) remain completely unaffected, maintaining full L1/L2
+hardware prefetching.
+
+Memory footprint: +0 KiB .rodata added to kernel image.  Transient RAM
+is ~736 KiB (184k * 4 bytes) allocated only during active batch
+lookup sessions.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- crypto/async_tx/async_memcpy.c      | 4 ++--
- crypto/async_tx/async_pq.c          | 4 ++--
- crypto/async_tx/async_raid6_recov.c | 4 ++--
- crypto/async_tx/async_xor.c         | 8 ++++----
- drivers/dma/dmaengine.c             | 4 ++--
- drivers/dma/dmatest.c               | 2 +-
- drivers/dma/mv_xor.c                | 4 ++--
- drivers/ntb/ntb_transport.c         | 4 ++--
- drivers/ntb/test/ntb_perf.c         | 2 +-
- include/linux/dmaengine.h           | 4 ++--
- 10 files changed, 20 insertions(+), 20 deletions(-)
+Changes in v3:
+- Reorder series: place on-the-fly token matching (patch 2) ahead of
+  dynamic batch lookup index (patch 3), establishing an active proof of
+  incremental performance deltas across all steps (addresses David
+  Laight review).
+- Add patch 4: inline and unroll get_symbol_seq() 24-bit sequence index
+  reconstruction into direct byte shifts (addresses David Laight
+  review).
+- In patch 1, configure CONFIG_TEST_KALLSYMS_PERF as a built-in test
+  (bool) rather than a module (tristate) and drop kallsyms iterator
+  EXPORT_SYMBOL_GPL exports to avoid exposing internal kernel symbol
+  data (addresses Sashiko AI review).
+- In patch 2, optimize kallsyms_strcmp_symbol() by dropping
+  skipped_first tracking and checking len at the bottom of the token
+  loop (addresses David Laight review).
+- In patch 3, rely on get_symbol_data() helper introduced in patch 2 to
+  preserve bisectability (addresses Sashiko AI review).
+- In patch 3, fix use-after-free race on dyn_kallsyms_offsets: bracket
+  table dereference and array read with rcu_read_lock() and replace
+  rcu_dereference_raw() with rcu_dereference() inside
+  get_symbol_offset() to protect external readers (lookup_symbol_name,
+  kallsyms_lookup_buildid, reset_iter) against concurrent batch
+  teardown (addresses Sashiko AI review).
+- In patch 3, update kallsyms_selftest to add a second lookup pass
+  bracketed by batch start/end to report batch latency in the in-tree
+  selftest.
+- Drop 'default m' from lib/Kconfig.debug.
+- Fix soft lockup risks by adding cond_resched() every 16k iterations in
+  test_kallsyms_perf loops.
+- Replace direct 64-bit integer divisions with div_u64() to fix 32-bit
+  builds.
+- Guard against divide-by-zero when num_iters=0.
+- Replace tcp_v4_rcv with panic in hit_symbols to prevent failures wo
+  CONFIG_INET.
+- Add batch lookup setup/teardown timing and query amortization
+  break-even logging to test_kallsyms_perf.
+- Move David Laight to series-wide Cc on cover letter, dropping trailer
+  from patch 3.
+- Link to v2: https://lore.kernel.org/r/20260922-ksyms-tune-v2-0-a333ee31eac7@gmail.com
 
-diff --git a/crypto/async_tx/async_memcpy.c b/crypto/async_tx/async_memcpy.c
-index 323152c89b3a1..d03e9a9bc1e2d 100644
---- a/crypto/async_tx/async_memcpy.c
-+++ b/crypto/async_tx/async_memcpy.c
-@@ -39,8 +39,8 @@ async_memcpy(struct page *dest, struct page *src, unsigned int dest_offset,
- 	struct dma_async_tx_descriptor *tx = NULL;
- 	struct dmaengine_unmap_data *unmap = NULL;
- 
--	if (device)
--		unmap = dmaengine_get_unmap_data(device->dev, 2, GFP_NOWAIT);
-+	if (chan)
-+		unmap = dmaengine_get_unmap_data(chan, 2, GFP_NOWAIT);
- 
- 	if (unmap && dmaengine_is_copy_aligned(chan, src_offset, dest_offset, len)) {
- 		unsigned long dma_prep_flags = 0;
-diff --git a/crypto/async_tx/async_pq.c b/crypto/async_tx/async_pq.c
-index fcc8d9ebc0fec..6a31271852cd4 100644
---- a/crypto/async_tx/async_pq.c
-+++ b/crypto/async_tx/async_pq.c
-@@ -188,7 +188,7 @@ async_gen_syndrome(struct page **blocks, unsigned int *offsets, int disks,
- 	BUG_ON(disks > MAX_DISKS || !(P(blocks, disks) || Q(blocks, disks)));
- 
- 	if (device)
--		unmap = dmaengine_get_unmap_data(device->dev, disks, GFP_NOWAIT);
-+		unmap = dmaengine_get_unmap_data(chan, disks, GFP_NOWAIT);
- 
- 	/* XORing P/Q is only implemented in software */
- 	if (unmap && !(submit->flags & ASYNC_TX_PQ_XOR_DST) &&
-@@ -310,7 +310,7 @@ async_syndrome_val(struct page **blocks, unsigned int *offsets, int disks,
- 	BUG_ON(disks < 4 || disks > MAX_DISKS);
- 
- 	if (device)
--		unmap = dmaengine_get_unmap_data(device->dev, disks, GFP_NOWAIT);
-+		unmap = dmaengine_get_unmap_data(chan, disks, GFP_NOWAIT);
- 
- 	if (unmap && disks <= dma_maxpq(device, 0) &&
- 	    is_dma_pq_aligned_offs(chan, offsets, disks, len)) {
-diff --git a/crypto/async_tx/async_raid6_recov.c b/crypto/async_tx/async_raid6_recov.c
-index 27909afda694a..5055531145bd2 100644
---- a/crypto/async_tx/async_raid6_recov.c
-+++ b/crypto/async_tx/async_raid6_recov.c
-@@ -29,7 +29,7 @@ async_sum_product(struct page *dest, unsigned int d_off,
- 	u8 *a, *b, *c;
- 
- 	if (dma)
--		unmap = dmaengine_get_unmap_data(dma->dev, 3, GFP_NOWAIT);
-+		unmap = dmaengine_get_unmap_data(chan, 3, GFP_NOWAIT);
- 
- 	if (unmap) {
- 		struct device *dev = dma->dev;
-@@ -97,7 +97,7 @@ async_mult(struct page *dest, unsigned int d_off, struct page *src,
- 	u8 *d, *s;
- 
- 	if (dma)
--		unmap = dmaengine_get_unmap_data(dma->dev, 3, GFP_NOWAIT);
-+		unmap = dmaengine_get_unmap_data(chan, 3, GFP_NOWAIT);
- 
- 	if (unmap) {
- 		dma_addr_t dma_dest[2];
-diff --git a/crypto/async_tx/async_xor.c b/crypto/async_tx/async_xor.c
-index 4ed9d3196fc46..9ed331d9b8e64 100644
---- a/crypto/async_tx/async_xor.c
-+++ b/crypto/async_tx/async_xor.c
-@@ -178,8 +178,8 @@ async_xor_offs(struct page *dest, unsigned int offset,
- 
- 	BUG_ON(src_cnt <= 1);
- 
--	if (device)
--		unmap = dmaengine_get_unmap_data(device->dev, src_cnt+1, GFP_NOWAIT);
-+	if (chan)
-+		unmap = dmaengine_get_unmap_data(chan, src_cnt + 1, GFP_NOWAIT);
- 
- 	if (unmap && dma_xor_aligned_offsets(chan, offset, src_offs,
- 					     src_cnt, len)) {
-@@ -310,8 +310,8 @@ async_xor_val_offs(struct page *dest, unsigned int offset,
- 
- 	BUG_ON(src_cnt <= 1);
- 
--	if (device)
--		unmap = dmaengine_get_unmap_data(device->dev, src_cnt, GFP_NOWAIT);
-+	if (chan)
-+		unmap = dmaengine_get_unmap_data(chan, src_cnt, GFP_NOWAIT);
- 
- 	if (unmap && src_cnt <= device->max_xor &&
- 	    dma_xor_aligned_offsets(chan, offset, src_offs, src_cnt, len)) {
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index cc1c0a7c9f33d..4585ebcd2e8cd 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -1474,7 +1474,7 @@ static int __init dmaengine_init_unmap_pool(void)
- }
- 
- struct dmaengine_unmap_data *
--dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags)
-+dmaengine_get_unmap_data(struct dma_chan *chan, int nr, gfp_t flags)
- {
- 	struct dmaengine_unmap_data *unmap;
- 
-@@ -1484,7 +1484,7 @@ dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags)
- 
- 	memset(unmap, 0, sizeof(*unmap));
- 	kref_init(&unmap->kref);
--	unmap->dev = dev;
-+	unmap->dev = dmaengine_get_dma_device(chan);
- 	unmap->map_cnt = nr;
- 
- 	return unmap;
-diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
-index 2ae3469397f37..043bb065dd68a 100644
---- a/drivers/dma/dmatest.c
-+++ b/drivers/dma/dmatest.c
-@@ -748,7 +748,7 @@ static int dmatest_func(void *data)
- 			filltime = ktime_add(filltime, diff);
- 		}
- 
--		um = dmaengine_get_unmap_data(dma_dev, src->cnt + dst->cnt,
-+		um = dmaengine_get_unmap_data(chan, src->cnt + dst->cnt,
- 					      GFP_KERNEL);
- 		if (!um) {
- 			failed_tests++;
-diff --git a/drivers/dma/mv_xor.c b/drivers/dma/mv_xor.c
-index c4e0dce3ca64e..dec01b6264d7a 100644
---- a/drivers/dma/mv_xor.c
-+++ b/drivers/dma/mv_xor.c
-@@ -794,7 +794,7 @@ static int mv_chan_memcpy_self_test(struct mv_xor_chan *mv_chan)
- 		goto out;
- 	}
- 
--	unmap = dmaengine_get_unmap_data(dma_chan->device->dev, 2, GFP_KERNEL);
-+	unmap = dmaengine_get_unmap_data(dma_chan, 2, GFP_KERNEL);
- 	if (!unmap) {
- 		err = -ENOMEM;
- 		goto free_resources;
-@@ -927,7 +927,7 @@ mv_chan_xor_self_test(struct mv_xor_chan *mv_chan)
- 		goto out;
- 	}
- 
--	unmap = dmaengine_get_unmap_data(dma_chan->device->dev, src_count + 1,
-+	unmap = dmaengine_get_unmap_data(dma_chan, src_count + 1,
- 					 GFP_KERNEL);
- 	if (!unmap) {
- 		err = -ENOMEM;
-diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-index b8f8b333b89eb..e9e1506df71d6 100644
---- a/drivers/ntb/ntb_transport.c
-+++ b/drivers/ntb/ntb_transport.c
-@@ -1532,7 +1532,7 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
- 	if (!dmaengine_is_copy_aligned(chan, pay_off, buff_off, len))
- 		goto err;
- 
--	unmap = dmaengine_get_unmap_data(dma_dev, 2, GFP_NOWAIT);
-+	unmap = dmaengine_get_unmap_data(chan, 2, GFP_NOWAIT);
- 	if (!unmap)
- 		goto err;
- 
-@@ -1871,7 +1871,7 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
- 	if (!dmaengine_is_copy_aligned(chan, buff_off, dest_off, len))
- 		goto err;
- 
--	unmap = dmaengine_get_unmap_data(dma_dev, 1, GFP_NOWAIT);
-+	unmap = dmaengine_get_unmap_data(chan, 1, GFP_NOWAIT);
- 	if (!unmap)
- 		goto err;
- 
-diff --git a/drivers/ntb/test/ntb_perf.c b/drivers/ntb/test/ntb_perf.c
-index 774e643c9f4c6..1cb991e2f0cf7 100644
---- a/drivers/ntb/test/ntb_perf.c
-+++ b/drivers/ntb/test/ntb_perf.c
-@@ -809,7 +809,7 @@ static int perf_copy_chunk(struct perf_thread *pthr,
- 	dst_vaddr = dst;
- 	dst_dma_addr = peer->dma_dst_addr + (dst_vaddr - vbase);
- 
--	unmap = dmaengine_get_unmap_data(dma_dev, 1, GFP_NOWAIT);
-+	unmap = dmaengine_get_unmap_data(pthr->dma_chan, 1, GFP_NOWAIT);
- 	if (!unmap)
- 		return -ENOMEM;
- 
-diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
-index fc661e76de84d..c8ecf80288f13 100644
---- a/include/linux/dmaengine.h
-+++ b/include/linux/dmaengine.h
-@@ -656,7 +656,7 @@ static inline void dma_set_unmap(struct dma_async_tx_descriptor *tx,
- }
- 
- struct dmaengine_unmap_data *
--dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags);
-+dmaengine_get_unmap_data(struct dma_chan *chan, int nr, gfp_t flags);
- void dmaengine_unmap_put(struct dmaengine_unmap_data *unmap);
- #else
- static inline void dma_set_unmap(struct dma_async_tx_descriptor *tx,
-@@ -664,7 +664,7 @@ static inline void dma_set_unmap(struct dma_async_tx_descriptor *tx,
- {
- }
- static inline struct dmaengine_unmap_data *
--dmaengine_get_unmap_data(struct device *dev, int nr, gfp_t flags)
-+dmaengine_get_unmap_data(struct dma_chan *chan, int nr, gfp_t flags)
- {
- 	return NULL;
- }
+Changes in v2:
+- Replaced static build-time 3-byte offset table with a dynamic u32
+  index bracketed by kallsyms_lookup_batch_start() and
+  kallsyms_lookup_batch_end().
+- Dropped .rodata image footprint addition from +573 KiB to 0 KiB,
+  addressing Kees Cook's memory footprint objection.
+- Native u32 loads in transient RAM eliminate 24-bit big-endian shifts
+  and unaligned loads, addressing David Laight's endianness critique.
+- Direct O(1) table indexing provides 0 hops for all symbol lookups
+  without remainder logic or odd/even branching.
+- Restored scripts/kallsyms.c and kernel/kallsyms_internal.h to pristine
+  state, leaving legacy kallsyms_markers[] as safety fallback.
+- Rebased out Lorenzo Stoakes' kbuild series; this series is now
+  completely decoupled and applies cleanly directly onto mainline.
+- Updated test_kallsyms_perf to benchmark unindexed marker scans and
+  dynamic index side by side in a single run.
+- Link to v1: https://lore.kernel.org/r/20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com
+
+---
+Jim Cromie (4):
+      kallsyms: Add test_kallsyms_perf module to benchmark lookup latency
+      kallsyms: Match compressed tokens on the fly during binary search
+      kallsyms: Add dynamic lookup index for batch resolution
+      kallsyms: Unroll 24-bit sequence reconstruction in get_symbol_seq()
+
+ include/linux/kallsyms.h   |  13 +++
+ kernel/kallsyms.c          | 213 ++++++++++++++++++++++++++--------
+ kernel/kallsyms_selftest.c |  16 +++
+ lib/Kconfig.debug          |  10 ++
+ lib/Makefile               |   1 +
+ lib/test_kallsyms_perf.c   | 281 +++++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 488 insertions(+), 46 deletions(-)
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20260919-ksyms-tune-e22a42d8a31a
+
+Best regards,
 -- 
-2.43.0
+Jim Cromie <jim.cromie@gmail.com>
 
