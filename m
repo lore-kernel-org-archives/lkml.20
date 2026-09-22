@@ -1,73 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3D5472F8A;
-	Tue, 22 Sep 2026 14:43:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B34943CE6A;
+	Tue, 22 Sep 2026 14:43:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088205; cv=none; b=miQMCMQM2T0wGD9vDPMg596+bb/B7LU1rjYTvWOb2pGTpNK/xqbHe/+kOk43CxAj7X9N+59NI+vL5mWPHoIhb5lLIwEhvN1Br/M3OGZ1v97an3eIQDJ5DAqYzIwnmU24D9usLXtprFB90c8EHDZGEWawa/UeuzxEF7uD9r/FzsM=
+	t=1790088223; cv=none; b=rNrCar0U7xT+UCt+hbaZHMKTqR+mBX3V2TAWHAUSqg3JCl16gdBIaq+rARkg0EOb6B2Y1B5aDWBO3v8vfXlajv24MPKYNxbDZsYr6Xy/vhYFTfVwQJvBB3Unwiar4a4hqQ1Vl0ZT5X8RZawCBSi37m+5udaXhwFbuOQXOuUhFHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088205; c=relaxed/simple;
-	bh=l+lmoKcMvI1rFMxZURnzXZM8gDk5FtLzyBNELfDMcbY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lYQo6VDlELBmfgyedAfOG0JUd3choyR523/0Rkj+tkraTZZT8sEclmrqLvNLtN7sGKPgJ0pBsDQMEtfRKU2hkv1LM88zzZMJj6OR9ZZ1l0U+HwbYM9/KMo3Y9eRhflWwUEWWewjGRnHluRPUaZBQAz2XhftRJxDF+fOiR+5yd5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBpd3Vyu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790088223; c=relaxed/simple;
+	bh=ZZ5YsoO0wKmG0qkJVNK9P4BfowsWg71DnQ4B4AgeaRk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=AbZgH0mgEYkcpNA9D4sWu6EZD4HdbLFxWWdVbJ3CoHiPd2TJ5WJfqx4yBK3RwEkZ6pyz3sriygwpYW3xspZ6BwKZ+II1kuSGQw3hteepAsJBLvxw+zmIkVMN4sosvWwFvU/2Pgm4IUMOR+3inGykZr197R/vWp47HObKbehtBWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVF02zhP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBpd3Vyu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 332861F000FF;
-	Tue, 22 Sep 2026 14:43:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVF02zhP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12EDE1F000FF;
+	Tue, 22 Sep 2026 14:43:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790088203;
-	bh=nDWRatp8yEFjSsKnb+Jbye84/joDadxmyBWTqNTu6Q0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=IBpd3VyudQ0IrWLPdIN6hUULkoYmlkYLYzjcw/RgIcgjBBJEAsqGQ/25fzsmUcbE3
-	 LVRmwKh9U1k62X2n7SyGYYXfmx+KbwIcEgU8FNEdnJ4R39u9dzDpQeVaI78uRbgksQ
-	 yyWeM5UlRZlogmMnW8HDeUftM1cNjh6e/wIEBUoLsrZR3mN4TeihpnSrSglOz2BTwh
-	 EW9obT1T8QpHz72B6H/pplE0ikOx29SQHFNd3LMjntWICq27hi1cz/t+gOQQyChNiP
-	 oMYjVGZGYyCnSIU5YAtX1GyiTDLK/oZEZH/bImecggN4rEcZMKpUAp3rqfpT/uiJFN
-	 dTbhKfmcgEXXA==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: linux-pci@vger.kernel.org, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Jonathan Corbet <corbet@lwn.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Magnus Damm <magnus.damm@gmail.com>, Randy Dunlap <rdunlap@infradead.org>, 
- Rob Herring <robh@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org
-In-Reply-To: <20260921203716.73663-1-marek.vasut+renesas@mailbox.org>
-References: <20260921203716.73663-1-marek.vasut+renesas@mailbox.org>
-Subject: Re: [PATCH v2] PCI: rcar-gen4: Drop how to obtain platform
- firmware
-Message-Id: <179008819883.46397.15385681673068316294.b4-ty@b4>
-Date: Tue, 22 Sep 2026 16:43:18 +0200
+	s=k20260515; t=1790088222;
+	bh=gHzF75XdTs6MbHKqbGV35txxoFyBMCdBJn6+0UC0TT8=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=lVF02zhPBMqZgnO9M3tcjWZfKX0YV+vZl0ehkRJAfGJMQvEYy9NDis2KBc2Cin3re
+	 Xhs5q0PrbyXf2wTzIzzpreY/kBkVofsRYOqNMkyJ0MAkiFP2SWvTmtm66MCCwIwRQV
+	 h0lkJyYWltSyCTJLmP6I8p+Ez3d08s1qZJPl8XQQ8HL2g7sEeHD5cNo/0agpHWklBK
+	 XC+h6zZtYXdczeTYKkoJ/WFr2EUv9VljYMdLDd1QJdbFk96RzFxcOrZQCCsl3uN+6G
+	 6pNa0dR79BJ/ZkfxAfAqpSkwEGXm7Tvd0cQ52bQpI3k4b2FfcQjsCDspruyPtqRB0/
+	 OpL7ETBexiWuQ==
+Message-ID: <da233f60-1109-487a-8e40-2dc34187bb44@kernel.org>
+Date: Tue, 22 Sep 2026 16:43:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: cx231xx: don't free the media device on err_analog
+To: Farhad Alemi <farhad.alemi@berkeley.edu>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <CA+0ovChNv1=1dfdKxSXnBN0KVC6eO6kZqTFTsozOoJYCvT8T4g@mail.gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <CA+0ovChNv1=1dfdKxSXnBN0KVC6eO6kZqTFTsozOoJYCvT8T4g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11/09/2026 07:48, Farhad Alemi wrote:
+> When cx231xx_register_analog_devices() fails, cx231xx_init_dev() jumps to
+> err_analog and calls cx231xx_unregister_media_device(), which frees
+> dev->media_dev while dev->v4l2_dev.mdev still aliases it. The next line,
+> cx231xx_release_analog_resources(), releases the video device, so
+> v4l2_device_release() takes the freed media device's graph_mutex in
+> media_devnode_remove(). Remove that free from err_analog and leave it to
+> cx231xx_usb_probe(), which frees the media device at err_v4l2, after
+> cx231xx_release_analog_resources() has released the video devices and
+> v4l2_device_unregister() has dropped the subdevs.
+> 
+> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> ---
+> The device was emulated.
+> 
 
-On Mon, 21 Sep 2026 22:36:46 +0200, Marek Vasut wrote:
-> Renesas R-Car V4H (r8a779g0) has PCIe controller, and it requires
-> specific firmware downloading. The firmware is now available via
-> linux-firmware.git repository, drop the documentation about how
-> to obtain the firmware.
+This patch doesn't apply, you're missing a
+---
 
-Applied, thanks!
+line here.
 
-[1/1] PCI: rcar-gen4: Drop how to obtain platform firmware
-      commit: 3bc83f7571572034820e04d6ff6b80def85547f7
+> --- a/drivers/media/usb/cx231xx/cx231xx-cards.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
+> @@ -1505,7 +1505,7 @@ static int cx231xx_init_dev(struct cx231xx *dev,
+> struct usb_device *udev,
 
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
+And this is mangled.
 
+You need to get your mail settings sorted first so it doesn't mess up
+patches.
+
+Regards,
+
+	Hans
+
+> 
+>  	return 0;
+>  err_analog:
+> -	cx231xx_unregister_media_device(dev);
+> +	/* dev->v4l2_dev.mdev aliases media_dev until probe's err_v4l2 frees it. */
+>  	cx231xx_release_analog_resources(dev);
+>  	cx231xx_remove_from_devlist(dev);
+>  err_dev_init:
+> 
 
