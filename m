@@ -1,50 +1,66 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD9A4D2EE0;
-	Tue, 22 Sep 2026 10:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF1E4D2EE0
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071228; cv=none; b=Tnjoksc2pRbdlkNEE4M5BQ5Lz7G2wPiS8gCorq9JqGsh9X3tirzA0YrkHIbsRSG++1chn4SoxqANeSAPyo30gaAoVJtOTb/hs69NwTFc40cFjqTWicXKAcDlPbF+mSA5HVe9e2Gd6w0BVbk8OiraSL2hXvIp8wOVqboL/jIpLLA=
+	t=1790071254; cv=none; b=itLF7/+ZadnOvEpx/xBx1LjXACG4jUtIDX1EXZrb+RhIX94b7K+CSGhqlO6W8A6gAJgn3kawdEC1cMCoJFt7rZGJPssVbsSGN6Z4ZfkVW/aJx9/LKxsphfER+gfoW09oUmtkqngHd4h//EaTalKnTaoBfdZRv378KPWPJAH7kVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071228; c=relaxed/simple;
-	bh=Ycpv2bOivDeW/2Kk61K1JlU9KPo/cytaxYgK6fO3Kuk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R1b+2tzeRhBN6m4418npZgjMTFluH/UTDV/vYX8BA3v1GVNX81h1fUg62hM3sD71/Un/4Ursr5Losl7+5NSOMUoPMrkf2hSnVgrZSDDhQYZfyG+H5z5lVHFGkKqIiQH79IHDOUPgQkfYiOPtYYCpqTOAG59brcAVxowBDCuk5qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 69a0ae86b66c11f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d7e4e3d0-6cb3-4b0c-a9de-08f21298f03b,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:a842b0a05358cccc4fcd3b6ffd05ac44,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 69a0ae86b66c11f19a56ed5b684f684d-20260922
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1983275394; Tue, 22 Sep 2026 18:00:17 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1790071254; c=relaxed/simple;
+	bh=BXkG9wa3D5sTtGD7PJhc8dlrX1mtsDjPfPginM+Ni1U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZCoatthHR4lHMsC7A4XIsChB585SdKVwtpen3yfJ3DeKX2yvjJtulTA7cgsFXZcAuIufGDYl4NinQCW/1rnp8Yi2eG6jTbH55Zm6iiJi9XOqPKsgNzpzhrahDLZqB7GmBrnGO0GdF6uSaXFMCvobP3TEJ09OhRJ/NyEdwxG+vVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EkQMkdi3; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EkQMkdi3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790071253; x=1821607253;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=BXkG9wa3D5sTtGD7PJhc8dlrX1mtsDjPfPginM+Ni1U=;
+  b=EkQMkdi3WE+gy+CY5lWKUqvTSDHbyORfVTfrDox2gedV8mBmblY6XW/r
+   CSkJyhJe1d3N1gqIBIgsu6w/iA3gER2RhqkZKPHzCmBRNcwcu1dtwysdG
+   roJOm9vUqp4/73q5tL3ZX4HUPexz5sn83C2BKCQBak4RZI/hAZpB+RdfN
+   c2HOry9TWgcDttijPqug5NxVFEYdtwkTFzoNoENuwqBSvdCAsFAmf0EY5
+   e42SiKTYNyznS96k+p9jV3sAPTfE/ZVrUnOuBq5Z7nj+lR2xf0rxDSt4P
+   C0yqowOgWdKJSmCbYWSxhk+BGRw4wKlqIACn007AQPZOfqlEaA4N1Qq3n
+   Q==;
+X-CSE-ConnectionGUID: k/Y8+cXMQeGQu9xw1DwYZg==
+X-CSE-MsgGUID: NIMHODLiTI2IR0OAWVhvPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="90775858"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="90775858"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 03:00:52 -0700
+X-CSE-ConnectionGUID: QvALDQVzRY289hKqhv8o+w==
+X-CSE-MsgGUID: 2qEOk8jGS3iQdq93MqjAxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="269592845"
+Received: from gklab-103a-104.igk.intel.com ([10.91.103.104])
+  by fmviesa009.fm.intel.com with ESMTP; 22 Sep 2026 03:00:49 -0700
+From: michal.camacho.romero@linux.intel.com
+To: Ning Sun <ning.sun@intel.com>
+Cc: Baolu Lu <baolu.lu@linux.intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Michal Camacho Romero <michal.camacho.romero@intel.com>,
+	x86@kernel.org,
+	iommu@lists.linux.dev,
+	tboot-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v8] ntfs: mount hibernated volumes read-only regardless of  errors=
-Date: Tue, 22 Sep 2026 18:00:12 +0800
-Message-Id: <20260922100012.2134955-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	Mateusz Mowka <mateusz.mowka@intel.com>,
+	Adam Pawlicki <adamx.pawlicki@intel.com>,
+	Pawel Randzio <pawel.randzio@intel.com>
+Subject: [PATCH v4 1/2] x86/tboot: Add support for parsing DTPR table and disabling TPRs
+Date: Tue, 22 Sep 2026 12:00:48 +0200
+Message-ID: <20260922100048.908468-1-michal.camacho.romero@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917094333.765643-1-michal.camacho.romero@linux.intel.com>
+References: <20260917094333.765643-1-michal.camacho.romero@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,112 +69,464 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hibernation check in load_system_files() only converts the
-superblock to read-only under errors=remount-ro.  With the default
-errors=continue (and with errors=panic), a hibernated volume is
-mounted read-write and the mount-time $LogFile emptying writes to it,
-although a hibernated volume must not be written to at all.
+From: Michal Camacho Romero <michal.camacho.romero@intel.com>
 
-Drop the on_errors term so that a hibernated volume, or a volume whose
-hibernation state cannot be determined, always mounts read-only.
-NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-remounts to read-write, and the $LogFile emptying is skipped by its
-!sb_rdonly() check.
+Add functions to locate and parse the DMA TXT Protection Ranges (DTPR)
+table from the TXT heap's SinitMleData extended data elements (requires
+SINIT MLE version >= 9).
 
-The check itself must not apply the errors= policy either: it runs
-before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
-call ntfs_error() internally on corruption or I/O errors, which under
-errors=panic would panic the machine before the read-only fallback has
-made its decision.  Temporarily substitute errors=remount-ro for
-errors=panic around the check: nested ntfs_error() calls then fall
-back to read-only, and any read-only transition they trigger is
-preserved even when the error is not propagated to the check's return
-value or recorded in NVolErrors().  This is safe during initial mount,
-before the super block is published.
+* tboot_get_dtpr_table() - function walks through the TXT heap to find
+                           the DTPR extended data element
+                           (type HEAP_EXTDATA_TYPE_DTPR) and returns
+                           pointer to the DTPR table.
 
-If the check reports hibernation or fails, set SB_RDONLY and record
-NVolErrors() unconditionally: hibernation safety takes precedence over
-the errors= policy.  A volume with errors recorded during the check or
-earlier in the mount, e.g. when loading the LogFile, also stays
-read-only, matching what ntfs_reconfigure() enforces for remounts.
+* tboot_parse_dtpr_table() - function iterates over TPR instances and
+                             disables each TPR region by setting bit 4
+                             in the TPRn_BASE register via MMIO.
 
-Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-Cc: stable@vger.kernel.org
-Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Using these functions will allow the kernel to deactivate SINIT
+ACM-established TPRs prior to the Linux OS launch.
+
+Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
+Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
+Signed-off-by: Michal Camacho Romero <michal.camacho.romero@intel.com>
 ---
-Change in v8:
- -Resolve merge conflicts.
----
- fs/ntfs/super.c | 36 ++++++++++++++++++++++++++----------
- 1 file changed, 26 insertions(+), 10 deletions(-)
+ arch/x86/kernel/tboot.c | 352 ++++++++++++++++++++++++++++++++++++++--
+ include/linux/tboot.h   |  19 +++
+ 2 files changed, 356 insertions(+), 15 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 82b5bf28b6ab..2a5694a5f098 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -1503,6 +1503,7 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	struct ntfs_attr_search_ctx *ctx;
- 	struct restart_page_header *rp;
- 	int err;
-+	u8 saved_on_errors;
+diff --git a/arch/x86/kernel/tboot.c b/arch/x86/kernel/tboot.c
+index 46b8f1f16676..1cd4a198755c 100644
+--- a/arch/x86/kernel/tboot.c
++++ b/arch/x86/kernel/tboot.c
+@@ -18,6 +18,7 @@
+ #include <linux/mm.h>
+ #include <linux/tboot.h>
+ #include <linux/debugfs.h>
++#include <acpi/actbl1.h>
  
- 	ntfs_debug("Entering.");
- 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-@@ -1677,8 +1678,19 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	 * NVolErrors() without setting the dirty volume flag and mount
- 	 * read-only.  This will prevent read-write remounting and it will also
- 	 * prevent all writes.
-+	 *
-+	 * Nested lookup and inode-loading errors must not panic before the
-+	 * read-only fallback has run.  Temporarily use errors=remount-ro
-+	 * instead of errors=panic, preserving any read-only transition even
-+	 * if an error is not propagated to the check's return value or
-+	 * recorded in NVolErrors().  This is safe during initial mount,
-+	 * before the super block is published.
- 	 */
-+	saved_on_errors = vol->on_errors;
-+	if (saved_on_errors == ON_ERRORS_PANIC)
-+		vol->on_errors = ON_ERRORS_REMOUNT_RO;
- 	err = check_windows_hibernation_status(vol);
-+	vol->on_errors = saved_on_errors;
- 	if (unlikely(err)) {
- 		static const char *es1a = "Failed to determine if Windows is hibernated";
- 		static const char *es1b = "Windows is hibernated";
-@@ -1686,17 +1698,21 @@ static bool load_system_files(struct ntfs_volume *vol)
- 		const char *es1;
+ #include <asm/realmode.h>
+ #include <asm/processor.h>
+@@ -223,6 +224,132 @@ static int tboot_setup_sleep(void)
  
- 		es1 = err < 0 ? es1a : es1b;
--		/* If a read-write mount, convert it to a read-only mount. */
--		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
--			sb->s_flags |= SB_RDONLY;
--			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
--		}
-+		/* Hibernation safety takes precedence over the errors= policy. */
-+		sb->s_flags |= SB_RDONLY;
- 		NVolSetErrors(vol);
--		/*
--		 * Remember it for the lifetime of the mount: see
--		 * ntfs_sync_volume_dirty_state().
--		 */
--		NVolSetHibernated(vol);
-+		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ #endif
+ 
++static bool tboot_check_txt_heap_section_bounds(const u64 heap_end,
++                                                void **heap_base,
++                                                void *heap_section,
++                                                const u64 heap_section_size,
++                                                const char *section_name)
++{
++	if (heap_section_size < 8)
++	{
++		pr_err("%s size is too small\n", section_name);
++		iounmap(*heap_base);
++		*heap_base = NULL;
++		return false;
++	}
 +
-+                /*
-+                 * Remember it for the lifetime of the mount: see
-+                 * ntfs_sync_volume_dirty_state().
-+                 */
-+                NVolSetHibernated(vol);
-+	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
-+		/* Match the read-write remount restriction for recorded errors. */
-+		sb->s_flags |= SB_RDONLY;
-+		ntfs_error(sb,
-+			"Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
- 	}
++	if ((u64)heap_section + heap_section_size > heap_end) {
++		pr_err("%s exceeds heap boundary\n", section_name);
++		iounmap(*heap_base);
++		*heap_base = NULL;
++		return false;
++	}
++
++	return true;
++}
++
++static bool tboot_check_dtpr_size(const struct acpi_table_dtpr *dtpr,
++                                  const u64 dtpr_payload_size)
++{
++	u64 dtpr_offset, dtpr_ref_size;
++	u32 i, ref_tpr_cnt;
++
++	struct acpi_tpr_instance *tpr_inst    = NULL;
++	struct acpi_tpr_aux_sr   *tpr_aux_srl = NULL;
++
++	if (!dtpr)
++		return false;
++
++	if (dtpr_payload_size < sizeof(struct acpi_table_dtpr)) {
++		pr_err("DTPR element payload too small for a DTPR header\n");
++		return false;
++	}
++
++	dtpr_ref_size = dtpr->header.length;
++	dtpr_offset   = 0;
++
++	if (dtpr_ref_size < sizeof(struct acpi_table_dtpr)) {
++		pr_err("DTPR table header exceeds expected size\n");
++		return false;
++	}
++
++	dtpr_offset += sizeof(struct acpi_table_dtpr);
++	tpr_inst = (struct acpi_tpr_instance *)((u8 *)dtpr + dtpr_offset);
++	if (dtpr_offset + sizeof(struct acpi_tpr_instance) > dtpr_ref_size) {
++		pr_err("TPR instance No.0 header exceeds DTPR table size\n");
++		return false;
++	}
++
++	ref_tpr_cnt = tpr_inst->tpr_cnt;
++	if (ref_tpr_cnt < 2) {
++		pr_err("Reference TPR count is less than 2, further DTPR processing "
++		       "interrupted.\n");
++		return false;
++	}
++
++	for (i = 0; i < dtpr->ins_cnt; i++) {
++		/* iterate over each TPR instance */
++		dtpr_offset += sizeof(struct acpi_tpr_instance);
++		if (dtpr_offset > dtpr_ref_size && i != 0) {
++			pr_err("TPR instance No.%d header exceeds DTPR table size\n", i);
++			return false;
++		}
++
++		/* verify TPR count for the given Instance. It should be 2 at least*/
++		if (tpr_inst->tpr_cnt < 2 && i != 0) {
++			pr_err("TPR Instance %d has less than 2 TPRs, further DTPR "
++			       "processing interrupted.\n", i);
++			return false;
++		}
++
++		/* compare TPR count for the given Instance with the expected one */
++		/* each TPR Instance should have the equal number of TPRs */
++		if (tpr_inst->tpr_cnt != ref_tpr_cnt && i != 0) {
++			pr_err("TPR Instance %d has inconsistent TPR count: expected %d,"
++			       " found %d\n", i, ref_tpr_cnt, tpr_inst->tpr_cnt);
++			return false;
++		}
++
++		/* verify TPR array size for this instance */
++		dtpr_offset += tpr_inst->tpr_cnt * sizeof(struct acpi_tpr_array);
++		if (dtpr_offset > dtpr_ref_size) {
++			pr_err("TPR instance No.%d TPR entries exceed DTPR table size\n",
++			       i);
++			return false;
++		}
++
++		/* move to the next TPR instance */
++		tpr_inst = (struct acpi_tpr_instance *)((u8 *)dtpr + dtpr_offset);
++	}
++
++	tpr_aux_srl = (struct acpi_tpr_aux_sr *)((u8 *)dtpr + dtpr_offset);
++	dtpr_offset += sizeof(u32);
++
++	if (dtpr_offset > dtpr_ref_size) {
++		pr_err("TPR SRL count field exceeds DTPR table size\n");
++		return false;
++	}
++
++	dtpr_offset += tpr_aux_srl->srl_cnt *
++	               sizeof(struct acpi_tpr_serialize_request);
++	if (dtpr_offset > dtpr_ref_size) {
++		pr_err("TPR SRL entries exceed DTPR table size\n");
++		return false;
++	}
++
++	if (dtpr_offset < dtpr_ref_size) {
++		pr_err("DTPR table is smaller than expected\n");
++		return false;
++	}
++
++	if (dtpr_offset != dtpr_payload_size) {
++		pr_err("DTPR table size mismatch\n");
++		return false;
++	}
++
++	return true;
++}
++
+ void tboot_shutdown(u32 shutdown_type)
+ {
+ 	void (*shutdown)(void);
+@@ -454,21 +581,23 @@ struct sha1_hash {
+ };
  
- 	/* If (still) a read-write mount, empty the logfile. */
+ struct sinit_mle_data {
+-	u32               version;             /* currently 6 */
+-	struct sha1_hash  bios_acm_id;
+-	u32               edx_senter_flags;
+-	u64               mseg_valid;
+-	struct sha1_hash  sinit_hash;
+-	struct sha1_hash  mle_hash;
+-	struct sha1_hash  stm_hash;
+-	struct sha1_hash  lcp_policy_hash;
+-	u32               lcp_policy_control;
+-	u32               rlp_wakeup_addr;
+-	u32               reserved;
+-	u32               num_mdrs;
+-	u32               mdrs_off;
+-	u32               num_vtd_dmars;
+-	u32               vtd_dmars_off;
++	u32                      version;             /* currently 9 */
++	struct sha1_hash         bios_acm_id;
++	u32                      edx_senter_flags;
++	u64                      mseg_valid;
++	struct sha1_hash         sinit_hash;
++	struct sha1_hash         mle_hash;
++	struct sha1_hash         stm_hash;
++	struct sha1_hash         lcp_policy_hash;
++	u32                      lcp_policy_control;
++	u32                      rlp_wakeup_addr;
++	u32                      reserved;
++	u32                      num_mdrs;
++	u32                      mdrs_off;
++	u32                      num_vtd_dmars;
++	u32                      vtd_dmars_off;
++	u32                      proc_scrtm_status; /* version 8 or later only*/
++	struct heap_ext_data_elt ext_data_elts[];
+ } __packed;
+ 
+ struct acpi_table_header *tboot_get_dmar_table(struct acpi_table_header *dmar_tbl)
+@@ -514,3 +643,196 @@ struct acpi_table_header *tboot_get_dmar_table(struct acpi_table_header *dmar_tb
+ 
+ 	return dmar_tbl;
+ }
++
++struct acpi_table_dtpr *tboot_get_dtpr_table(void **heap_base)
++{
++	void *heap_ptr, *config, *sinit_mle_end;
++	struct sinit_mle_data *sinit_mle;
++	struct heap_ext_data_elt *elt;
++	u64 heap_end, heap_size, sinit_mle_size, heap_section_size;
++
++	if (!heap_base)
++		return NULL;
++
++	if (!tboot_enabled())
++		return NULL;
++	/*
++	 * ACPI tables may not be DMA protected by tboot, so use DMAR copy
++	 * SINIT saved in SinitMleData in TXT heap (which is DMA protected)
++	 */
++
++	/* map config space in order to get heap addr */
++	config = ioremap(TXT_PUB_CONFIG_REGS_BASE, NR_TXT_CONFIG_PAGES *
++			 PAGE_SIZE);
++	if (!config)
++		return NULL;
++
++	/* now map TXT heap */
++	*heap_base = ioremap(*(u64 *)(config + TXTCR_HEAP_BASE),
++			    *(u64 *)(config + TXTCR_HEAP_SIZE));
++	heap_size = *(u64 *)(config + TXTCR_HEAP_SIZE);
++	heap_end = (u64)*heap_base + heap_size;
++	iounmap(config);
++
++	if (!(*heap_base))
++		return NULL;
++
++	/* walk heap to SinitMleData */
++	/* skip BiosData */
++	/* get BiosData section size */
++	heap_section_size = *(u64 *) (*heap_base);
++	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, *heap_base,
++	                                         heap_section_size, "BiosData")) {
++		return NULL;
++	}
++
++	/* skip OsMleData */
++	heap_ptr = *heap_base + heap_section_size;
++	/* get OsMleData section size */
++	heap_section_size = *(u64 *)heap_ptr;
++	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
++	                                         heap_section_size, "OsMleData")) {
++		return NULL;
++	}
++
++	/* skip OsSinitData */
++	heap_ptr += heap_section_size;
++	/* get OsSinitData section size */
++	heap_section_size = *(u64 *)heap_ptr;
++	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
++	                                         heap_section_size, "OsSinitData")) {
++		return NULL;
++	}
++
++	/* jump to the SinitMleData */
++	heap_ptr += heap_section_size;
++	/* now points to SinitMleDataSize; set to SinitMleData */
++	sinit_mle_size = *(u64 *)heap_ptr;
++	if(!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
++	                                        sinit_mle_size, "SinitMleData")) {
++		return NULL;
++	}
++
++	heap_ptr += sizeof(u64);
++	sinit_mle = (struct sinit_mle_data *)heap_ptr;
++	sinit_mle_end = (void *)sinit_mle + sinit_mle_size;
++	if (sizeof(struct sinit_mle_data) > sinit_mle_size) {
++		pr_err("SinitMleData size is smaller than expected.\n");
++		goto err;
++	}
++
++	if (sinit_mle->version < 9) {
++		pr_err("Unsupported SinitMleData version: %u\n", sinit_mle->version);
++		goto err;
++	}
++
++	heap_ptr += sizeof(struct sinit_mle_data);
++	if (heap_ptr > sinit_mle_end) {
++		pr_err("SinitMleData header out of bounds.\n");
++		goto err;
++	}
++
++	elt = sinit_mle->ext_data_elts;
++	do {
++		if ((u8 *)elt + sizeof(*elt) > (u8 *)sinit_mle_end) {
++			pr_err("SinitMleData element header out of bounds.\n");
++			goto err;
++		}
++
++		if (elt->size < sizeof(*elt)) {
++			pr_err("Invalid SinitMleData element size: %u\n", elt->size);
++			goto err;
++		}
++
++		if (elt->type == HEAP_EXTDATA_TYPE_END || elt->type == HEAP_EXTDATA_TYPE_DTPR) {
++			break;
++		}
++
++		elt = (void *)elt + elt->size;
++	} while ((void *)elt <= sinit_mle_end);
++
++	if ((void *)elt >= sinit_mle_end){
++		pr_err("Reached the end of SinitMleData without finding DTPR nor END"
++		       " element.\n");
++		goto err;
++	}
++
++	if (elt->type == HEAP_EXTDATA_TYPE_END) {
++		pr_err("DTPR element not found in SinitMleData\n");
++		iounmap(*heap_base);
++		*heap_base = NULL;
++		return NULL;
++	}
++
++	if ((u8 *)elt + elt->size > (u8 *)sinit_mle_end) {
++		pr_err("DTPR Table exceeds SinitMleData bounds.\n");
++		goto err;
++	}
++
++	if (!tboot_check_dtpr_size((struct acpi_table_dtpr *)elt->data,
++	                           elt->size - sizeof(*elt))) {
++		pr_err("Invalid DTPR Table size.\n");
++		goto err;
++	}
++
++	return (struct acpi_table_dtpr *)elt->data;
++
++err:
++	iounmap(*heap_base);
++	*heap_base = NULL;
++	return NULL;
++}
++
++static bool tboot_tpr_enabled = false;
++void tboot_parse_dtpr_table(struct acpi_table_dtpr *dtpr)
++{
++	struct acpi_tpr_instance *tpr_inst;
++	struct acpi_tpr_array    *tpr_arr;
++	u32 *instance_cnt;
++	u64 *base;
++	u32 i, j;
++	u32 ref_tpr_cnt;
++
++	if (dtpr == NULL)
++		return;
++
++	if (!tboot_enabled())
++		return;
++
++	instance_cnt = (u32*)(&dtpr->ins_cnt);
++	tpr_inst = (struct acpi_tpr_instance *)(instance_cnt + 1);
++	ref_tpr_cnt = tpr_inst->tpr_cnt;
++
++	for (i = 0; i < *instance_cnt; ++i) {
++		for (j = 0; j < tpr_inst->tpr_cnt; ++j) {
++			tpr_arr =  (struct acpi_tpr_array*)((u8*) tpr_inst +
++			            sizeof(struct acpi_tpr_instance) +
++			            j * sizeof(struct acpi_tpr_array));
++
++			base = ioremap(tpr_arr->base, 16);
++			if (!base) {
++				pr_warn("TPR Instance %d, TPR No.%d disabling failure.\n",
++				        i, j);
++				continue;
++			}
++
++			pr_info("TPR instance %d, TPR %d:base %llx limit %llx\n", i, j,
++			        readq(base), readq(base + 1));
++			writeq(readq(base) | BIT(4), base);
++			if (tboot_tpr_enabled == false)
++				tboot_tpr_enabled = true;
++			iounmap(base);
++		}
++
++		tpr_inst = (struct acpi_tpr_instance *)((u8*)tpr_inst +
++		            sizeof(*tpr_inst) + j * sizeof(struct acpi_tpr_array));
++	}
++
++	if (tboot_tpr_enabled)
++		pr_debug("TPR protection detected, PMR will be disabled\n");
++}
++
++bool tboot_is_tpr_enabled(void)
++{
++	return tboot_tpr_enabled;
++}
+diff --git a/include/linux/tboot.h b/include/linux/tboot.h
+index d2279160ef39..aad3e8c70ab3 100644
+--- a/include/linux/tboot.h
++++ b/include/linux/tboot.h
+@@ -24,6 +24,10 @@ enum {
+ #include <linux/acpi.h>
+ /* used to communicate between tboot and the launched kernel */
+ 
++/*TXT Extended Data Element Types*/
++#define HEAP_EXTDATA_TYPE_END   0
++#define HEAP_EXTDATA_TYPE_DTPR 14
++
+ #define TB_KEY_SIZE             64   /* 512 bits */
+ 
+ #define MAX_TB_MAC_REGIONS      32
+@@ -58,6 +62,15 @@ struct tboot_acpi_sleep_info {
+ 	u64 kernel_s3_resume_vector;
+ } __packed;
+ 
++/*
++ * structure for tboot extended data elements
++ */
++struct heap_ext_data_elt {
++	u32 type;
++	u32 size;
++	u8  data[];
++} __packed;
++
+ /*
+  * shared memory page used for communication between tboot and kernel
+  */
+@@ -126,6 +139,9 @@ extern void tboot_probe(void);
+ extern void tboot_shutdown(u32 shutdown_type);
+ extern struct acpi_table_header *tboot_get_dmar_table(
+ 				      struct acpi_table_header *dmar_tbl);
++extern struct acpi_table_dtpr *tboot_get_dtpr_table(void **);
++extern void tboot_parse_dtpr_table(struct acpi_table_dtpr *);
++extern bool tboot_is_tpr_enabled(void);
+ 
+ #else
+ 
+@@ -135,6 +151,9 @@ extern struct acpi_table_header *tboot_get_dmar_table(
+ #define tboot_sleep(sleep_state, pm1a_control, pm1b_control)	\
+ 					do { } while (0)
+ #define tboot_get_dmar_table(dmar_tbl)	(dmar_tbl)
++#define tboot_get_dtpr_table(txt_heap) NULL
++#define tboot_parse_dtpr_table(dtpr) do { } while (0)
++#define tboot_is_tpr_enabled() 0
+ 
+ #endif /* !CONFIG_INTEL_TXT */
+ 
 -- 
-2.25.1
+2.55.0
 
