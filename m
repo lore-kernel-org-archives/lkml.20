@@ -1,128 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444A3284B37;
-	Tue, 22 Sep 2026 13:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C195476F2;
+	Tue, 22 Sep 2026 13:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790082704; cv=none; b=OVO8jTmrKqbl3jmXZDG4RlFHmSadFvyqxI8uuXiT0avshVwwWyLaDk+2T4bDTI/80RDRhutW0bNzUxqxTQTZM2o2zIX41Ta9aXr7sGWgGZnSeGRYqqKQ1YecoETuLfouBEHcMe1WSuCzMI3DsQnFxE4tFQVuZMZPqyJVMAqq8ro=
+	t=1790082720; cv=none; b=nZA6kqkpNN0rJ31bklic0lxpfy4KA4SRZktmV8SAabwHKWCtIDOnJFuKSwsOW6k1kiWbBDg21A65k+lFR9om2fia9fL9QUk4zC/NKmVU5oyisOhEQaWmsA9q5fLOo9pZrzJRGE8/abFDbc9daJGVROwnBZncvVPyODQ8+k/9Dvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790082704; c=relaxed/simple;
-	bh=33PaNkpNF+y6IDTenB5ywEdxcx1urTTt1YCa/jDXvjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZIfeQtKpjIchubTYX5/FEvcmOja8huOd8zsgFlhbWw5SD4fF3tbO44i78wgosup5JddxqbP7h+CZbUofBeiPaIfvsmxbvIhixgZl1oWSNfbiBSQjYCnN/ZEtKxEZX2Tqj53/H59rscj3FU36yi7qN96QNLg7bfNMGkOFbIM3Igo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iChIax6B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790082720; c=relaxed/simple;
+	bh=CdsAG3KSh8PjS/f49i9tcfZ3ioMlrCSV6IqWxIBanMU=;
+	h=Subject:To:References:CC:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=UDjHs/1ClcpySAhjL0ex1y3oZzRR5Rpns9l477Mx/2eTVbvJVYWT/h1k/5+sd5KlOyz1GpOaS27t73BLAxpqD5rX7bjX8pNPpgjSHmtD4VphJqWKbQba9/A+JmXq1nc7Ezhg+kp+zlJGZZ6NouNrTF21+7bB+8GFoTjYGVfc+k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=D0UkJp4u; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iChIax6B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C89EA1F000FF;
-	Tue, 22 Sep 2026 13:11:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790082702;
-	bh=Pspu0np4+Tp4LALlXTnBNqD2HczdvX92B+DMqOpzuL0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iChIax6BJaMqFLD9Mr/zW9vF3tcDK+Hn/dGSlsZedV9ZQBZz5XjnySedfCXY3/4Xk
-	 iYHHnzXLcQuIJIkuTNqx6mG3Aywga8zHwRnhmypowAUFnpPOO7s4LfNWq6eGRyqhp+
-	 onJhaZO0TEfnC3FJklsocv7eAKMDHD0i1hMqHy7sGwLZw/xv5CyiRyBBPpSVqK1sUB
-	 LRXUTsHRprJZ2zDe7BhIeJ8jJ4zQBXVLaTOqk/MJE9w0oQmeXLzKT/0NHHNPpYXqfF
-	 XIPf/yBgs9vtpRjiC9Tcdc1tCfwRQCqTA37U303C07SFQVQ9P2cU1UQgupGZ0eApoJ
-	 jtlFk1A93d5DA==
-Date: Tue, 22 Sep 2026 15:11:30 +0200
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: namhyung@kernel.org, Howard Chu <howardchu95@gmail.com>,
-	adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org
-Subject: Re: [PATCH v4 00/18] perf trace: Fix BPF filtering and make tracing
- tests non-exclusive
-Message-ID: <arJ-gpzqOHk-gF8T@x2>
-References: <20260918140659.2501976-1-irogers@google.com>
- <20260918211932.2966061-1-irogers@google.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="D0UkJp4u"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=lGa9iYltj0lV2iB9NKTKxsT6ZtQ516uua2dW47qpZyA=;
+	b=D0UkJp4uvyQanl8KRZ014S1mQSc7Cry6CpHQOo8InWTpO7D2ZUePtMEgKaIqAontIR4j4fz0v
+	KZq5CxnXWU5Ika02UiT3xALE9A79cGfJ1XsNe6uIPed4e4RPqy2CUjKHTaEURSWLRRg/dDCPL/q
+	G81Sw3GbjkM4/za6d/lc7pA=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hq0Zn58pYz1cyPY;
+	Tue, 22 Sep 2026 21:00:49 +0800 (CST)
+Received: from kwepemf200011.china.huawei.com (unknown [7.202.181.237])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8D1F44048B;
+	Tue, 22 Sep 2026 21:11:51 +0800 (CST)
+Received: from [10.67.120.87] (10.67.120.87) by kwepemf200011.china.huawei.com
+ (7.202.181.237) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 22 Sep
+ 2026 21:11:51 +0800
+Subject: Re: [PATCH 1/2] uacce: add device usage sysfs interface
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20260921075131.1062155-1-qianweili@huawei.com>
+ <20260921075131.1062155-2-qianweili@huawei.com>
+ <2026092125-define-unit-ac52@gregkh>
+ <fd71cb7c-b9da-5cd9-c52e-ee287923073b@huawei.com>
+ <2026092205-wrist-growing-0f04@gregkh>
+ <d171b247-bcd3-bffe-ec74-4ae2df4faef5@huawei.com>
+ <2026092235-unfrosted-concept-4bd9@gregkh>
+CC: <herbert@gondor.apana.org.au>, <wangzhou1@hisilicon.com>,
+	<linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<huangchenghai2@huawei.com>, <liulongfang@huawei.com>
+From: Weili Qian <qianweili@huawei.com>
+Message-ID: <783736cc-c836-c283-8b6a-fa803a12d36d@huawei.com>
+Date: Tue, 22 Sep 2026 21:11:50 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.7.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918211932.2966061-1-irogers@google.com>
+In-Reply-To: <2026092235-unfrosted-concept-4bd9@gregkh>
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemf200011.china.huawei.com (7.202.181.237)
 
-On Fri, Sep 18, 2026 at 02:19:14PM -0700, Ian Rogers wrote:
-> perf trace's BPF augmentation attaches to raw_syscalls:sys_enter and
-> raw_syscalls:sys_exit system wide, and used the program return value to
-> decide whether a syscall was interesting. Returning 0 from a
-> BPF_PROG_TYPE_TRACEPOINT program makes perf_trace_run_bpf_submit() drop
-> the event for every listener on that tracepoint, not just for the perf
-> trace that installed the program. Any concurrent perf trace, perf record
-> or ftrace session watching raw_syscalls therefore lost events, which is
-> one of the reasons so many of the perf trace and perf probe shell tests
-> had to be marked (exclusive) and run on their own.
-> 
-> Patches 1 to 3 are independent fixes to the code the rest of the series
-> goes on to rework or to rely on.
-> 
-> Patches 4 to 10 fix perf trace. They stop the return value being used as
-> a filter and do the filtering in BPF maps instead, fix argument handling
-> for the __data_loc internal tracepoint fields that syscalls:sys_enter_*
-> gained in 6.19, stop the sys_exit program array tail calling a sys_enter
-> augmenter, and replace the userspace PERF_RECORD_FORK/PERF_RECORD_EXIT
-> bookkeeping with BTF-typed raw tracepoint programs on
-> sched_process_{fork,exit,exec}. A task is then registered before its
-> first syscall and evicted in do_exit(), rather than whenever userspace
-> next drains the ring buffer.
-> 
-> Patches 11 to 18 deal with the tests. Several collided with each other
-> through global state rather than through perf trace: fixed probe names,
-> clear_all_probes() disabling every tracepoint on the system, and perf
-> trace's hardcoded "probe:vfs_getname*" wildcard pinning probes belonging
-> to other tests. With those scoped to a pid they can drop (exclusive) and
-> run in parallel again.
-> 
-> Tested on x86_64. The trace and probe tests pass under 'perf test -r3',
-> which runs the repeats concurrently. Every patch builds individually,
-> and the series also builds with BUILD_BPF_SKEL=0.
 
-Lots of changes, from a quick look all look sensible, I'll test it some
-more, as in one case it segfaulted:
 
-root@x2:~# strace -e perf_event_open perf trace -a sleep 1
-<SNIP>
-  262.297 ( 0.002 ms): ptyxis/30654 write(fd: 4<anon_inode:[eventfd]>, buf: \1\0\0\0\0\0\0\0, count: 8)   = 8
-   262.304 ( 0.011 ms): ptyxis/30654 ppoll(ufds: 0x55dfa7a62f10, nfds: 11, tsp: 0x7ffc0701eed0, sigsetsize: 8) = 2
-   262.318 ( 0.002 ms): ptyxis/30654 read(fd: 4<anon_inode:[eventfd]>, buf: 0x7ffc0701ee10, count: 8)      = 8
-   262.324 ( 0.002 ms): ptyxis/30654 write(fd: 4<anon_inode:[eventfd]>, buf: \1\0\0\0\0\0\0\0, count: 8)   = 8
-   262.328 ( 0.002 ms): ptyxis/30654 read(fd: 31</dev/ptmx>, buf: 0x55dfa8a54f19, count: 5751)             = 8
-   262.332 ( 0.002 ms): ptyxis/30654 read(fd: 31</dev/ptmx>, buf: 0x55dfa8a54f20, count: 5744)             = -1 (unknown) (Resource temporarily unavailable)
-LOST 70 events!
---- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0x117f000} ---
-perf: Segmentation fault
-    #0 0x73104f in dump_stack debug.c:366
-    #1 0x7310c5 in sighandler_dump_stack debug.c:378
-    #2 0x7f749ea66fb0 in __restore_rt libc.so.6[19fb0]
-    #3 0x4c0fa0 in syscall_arg__scnprintf_buf builtin-trace.c:1955
-    #4 0x4c2f3d in syscall_arg_fmt__scnprintf_val builtin-trace.c:2632
-    #5 0x4c33ae in syscall__scnprintf_args builtin-trace.c:2722
-    #6 0x4c43d3 in trace__sys_enter builtin-trace.c:3094
-    #7 0x4c7865 in trace__handle_event builtin-trace.c:4013
-    #8 0x4c9ab4 in __trace__deliver_event builtin-trace.c:4962
-    #9 0x4c9c06 in trace__deliver_event builtin-trace.c:4988
-    #10 0x4caed8 in trace__run builtin-trace.c:5397
-    #11 0x4cf530 in cmd_trace builtin-trace.c:6681
-    #12 0x4da43c in run_builtin perf.c:380
-    #13 0x4da68e in handle_internal_command perf.c:430
-    #14 0x4da7ea in run_argv perf.c:477
-    #15 0x4daabe in main perf.c:577
-    #16 0x7f749ea50681 in __libc_start_call_main libc.so.6[3681]
-    #17 0x7f749ea50798 in __libc_start_main@@GLIBC_2.34 libc.so.6[3798]
-    #18 0x409f25 in _start perf[409f25]
---- SIGSEGV {si_signo=SIGSEGV, si_code=SI_TKILL, si_pid=1097958, si_uid=0} ---
-+++ killed by SIGSEGV (core dumped) +++
-Segmentation fault         (core dumped) strace -e perf_event_open perf trace -a sleep 1
-root@x2:~#
+On 2026/9/22 20:13, Greg KH wrote:
+> On Tue, Sep 22, 2026 at 07:57:14PM +0800, Weili Qian wrote:
+>>
+>> On 2026/9/22 17:21, Greg KH wrote:
+>>> On Tue, Sep 22, 2026 at 05:11:55PM +0800, qianweili wrote:
+>>>> On 2026/9/21 16:12, Greg KH wrote:
+>>>>> On Mon, Sep 21, 2026 at 03:51:30PM +0800, Weili Qian wrote:
+>>>>>> Userspace has no way to query the runtime usage of a UACCE
+>>>>>> device; it can only be inferred indirectly from queue state, which is
+>>>>>> neither accurate nor uniform across drivers.
+>>>>>>
+>>>>>> Add a read-only dev_usage sysfs attribute and a get_dev_usage callback
+>>>>>> in struct uacce_ops. A driver implementing the callback writes the
+>>>>>> current usage as a percentage (0-100) string into the caller-provided
+>>>>>> buffer and returns the number of bytes written; dev_usage_show()
+>>>>>> appends the trailing newline. The attribute is hidden via
+>>>>>> uacce_dev_is_visible() when the driver does not provide the callback.
+>>>>>>
+>>>>>> The corresponding ABI entry is added to Documentation/ABI/testing/
+>>>>>> sysfs-driver-uacce.
+>>>>>>
+>>>>>> Signed-off-by: Weili Qian <qianweili@huawei.com>
+>>>>>> ---
+>>>>>>     Documentation/ABI/testing/sysfs-driver-uacce |  9 +++++++++
+>>>>>>     drivers/misc/uacce/uacce.c                   | 19 +++++++++++++++++++
+>>>>>>     include/linux/uacce.h                        |  5 +++++
+>>>>>>     3 files changed, 33 insertions(+)
+>>>>>>
+>>>>>> diff --git a/Documentation/ABI/testing/sysfs-driver-uacce b/Documentation/ABI/testing/sysfs-driver-uacce
+>>>>>> index d3f0b8f3c589..3e4af4c1e5a9 100644
+>>>>>> --- a/Documentation/ABI/testing/sysfs-driver-uacce
+>>>>>> +++ b/Documentation/ABI/testing/sysfs-driver-uacce
+>>>>>> @@ -55,3 +55,12 @@ Date:           Feb 2020
+>>>>>>     KernelVersion:  5.7
+>>>>>>     Contact:        linux-accelerators@lists.ozlabs.org
+>>>>>>     Description:    Size (bytes) of dus region queue file
+>>>>>> +
+>>>>>> +What:           /sys/class/uacce/<dev_name>/dev_usage
+>>>>>> +Date:           Sep 2026
+>>>>>> +KernelVersion:  7.3
+>>>>> That's not going to happen here :(
+>>>> I'll change it to 7.4 in the next version.
+>>>>>> +Contact:        linux-accelerators@lists.ozlabs.org
+>>>>>> +Description:    (R) Current usage of the device, reported as a driver-defined
+>>>>>> +                string of up to PAGE_SIZE - 1 bytes. Usage is expressed as a
+>>>>>> +                percentage (0-100). The attribute is hidden if the driver does
+>>>>>> +                not implement the get_dev_usage callback.
+>>>>>> diff --git a/drivers/misc/uacce/uacce.c b/drivers/misc/uacce/uacce.c
+>>>>>> index 45521d4a56d1..545ba35a590b 100644
+>>>>>> --- a/drivers/misc/uacce/uacce.c
+>>>>>> +++ b/drivers/misc/uacce/uacce.c
+>>>>>> @@ -433,6 +433,20 @@ static ssize_t isolate_strategy_store(struct device *dev, struct device_attribut
+>>>>>>     	return count;
+>>>>>>     }
+>>>>>> +static ssize_t dev_usage_show(struct device *dev, struct device_attribute *attr, char *buf)
+>>>>>> +{
+>>>>>> +	struct uacce_device *uacce = to_uacce_device(dev);
+>>>>>> +	int ret;
+>>>>>> +
+>>>>>> +	ret = uacce->ops->get_dev_usage(uacce, buf, PAGE_SIZE - 1);
+>>>>> Why can't you use sysfs_emit()?  That way you don't have to worry about
+>>>>> PAGE_SIZE, and you don't have to do:
+>>>>>
+>>>>>> +	if (ret < 0)
+>>>>>> +		return ret;
+>>>>>> +
+>>>>>> +	buf[ret++] = '\n';
+>>>>> That type of thing :(
+>>>>>
+>>>>> Also, you got your math wrong above :(
+>>>> sysfs_emit() is useful when the framework side knows the format string
+>>>> upfront.  Here get_dev_usage is a driver callback that dynamically
+>>>> generates content -- the format is not known to the framework, so
+>>>> there is no format string to emit.  Having the callback write into a
+>>>> temporary buffer and then sysfs_emit(buf, "%s", tmp) in the show
+>>>> function would just add an unnecessary copy without gaining the
+>>>> overflow protection that sysfs_emit normally provides.
+>>> Then that is going to be a mess, sysfs files should be in a consistant
+>>> way, don't have random formats for the same filename depending on random
+>>> hardware types.  Use different sysfs files if you want to do that.
+>>>
+>>> And this is just going to be a single value, nothing complex, so why do
+>>> you need a callback for that?
+>> A single device may run multiple independent algorithms in parallel
+>> -- e.g. the HiSilicon ZIP device has separate compression and
+>> decompression engines whose usage rates are independent and cannot
+>> be aggregated into one meaningful number.
+> Then that can not be a sysfs file, as sysfs files are "one value per
+> file".
+>
+>> Following your suggestion of different sysfs files, one approach is
+>> to expose one file per algorithm.  Each file contains a single int
+>> (0-100) formatted with sysfs_emit(), and the callback returns int.
+>> But the number of algorithms is driver-specific (1 to 3 in the
+>> HiSilicon drivers), so the framework would need to create attributes
+>> dynamically at registration time, which adds complexity.
+>>
+>> I'm not sure this is the best approach.  Do you have a better
+>> suggestion for handling this case?
+> I don't know, just don't violate the one-version-per-file rule AND
+> always have the same type of data in the file with the same name (i.e.
+> don't have a file that can contain different types of data.)
+>
+> This propose api seems to violate all of that, so I wouldn't recommend
+> it at all.
+>
+> Why is this info needed in userspace at all?  What is userspace going to
+> do with it?
 
-root@x2:~# uname -a
-Linux x2 7.2.5-200.fc44.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Sep 11 15:11:05 UTC 2026 x86_64 GNU/Linux
-root@x2:~#
+Userspace schedulers use this to decide whether to submit a task to
+the hardware accelerator or fall back to CPU computation.  When a
+process initializes, it reads the device usage and compares it
+against a threshold: if the accelerator is busy, the process uses
+CPU computation for its lifetime; if it's idle, the process
+submits tasks to the accelerator.  This needs a stable,
+programmatically readable interface.
 
-- Arnaldo
+The per-algorithm detail is necessary because a device may have
+independent engines -- e.g. the HiSilicon ZIP device has separate
+compression and decompression engines, and a process doing
+compression should only check the compression usage, not the
+decompression usage.  Aggregating them into one value would cause
+wrong scheduling decisions.
+
+To follow the one-value-per-file rule, I propose exposing one sysfs
+file per algorithm, with the algorithm name in the filename:
+
+     /sys/class/uacce/<dev>/dev_usage_compress
+     /sys/class/uacce/<dev>/dev_usage_decompress
+
+Each file contains a single integer (0-100) formatted with
+sysfs_emit().  The filenames are driver-defined based on the
+algorithms the device supports, but every dev_usage_* file always
+returns the same type -- a single usage percentage.  Userspace
+discovers the available files by listing the device directory.
+
+Is this approach acceptable?
+
+Thanks!
+Weili
+>
+> thanks,
+>
+> greg k-h
+>
+> .
+>
+
