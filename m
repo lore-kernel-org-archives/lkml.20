@@ -1,113 +1,100 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E054413780
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151054; cv=pass; b=bSuGvcwNCTYp/h6P5Ytnsm7Ik9l0r/ihEf/zs2XO1UOTzHu28E81k11xlkUIwEo9mQh0cbhhb9heIBa/DnR/fAykgHrX1bZcHxM+D01qzScpKDQW9upxkYgL9G9hIWxhR+X8uLjpqsFAqBKdxqta00+7DB4u8O27z7H1SfbC2gI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151054; c=relaxed/simple;
-	bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oH3Nvkf6EUcYzhI0Sf/hcXP03mK8AUiVs0jjYqelS71w9bzvUz1HrBrLBIzn9BV/V96K1zBRzqpjJYhSgmg67Q3KU4yd5lRx2K8izDbP8NEHehF8KZJz1e03FkelAE22SRRCfZJUT68J6aMX3z+sbj1qoiRIidbmLSg00BquR7I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wY/o/MUz; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80C345C710
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:10:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790151061; cv=none; b=ON8B/PKam96mIuNnnF3rLb6jDdGeJFA2/PJaFxfawdowKfLpsqGMHIsbbZYsjvbSuPzGQjxMNjv2Owt7mDYRkBCKaljX/jcsknw8F46VTxpmilum7XT3cbln4SLMTifc/UHdaYPE3sLEsuX0iJDn9jYQt4foszKK+Q6ifm2/V/Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790151061; c=relaxed/simple;
+	bh=VCfYyHRzUVPdSNy14QWXl3XOLLrNLd3DKJe/BuOlyhE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ejcnznLMLHTaehgLMZiI7DW/O3uZooaUJ5AY6KgSKSftioNG9eVZYWkkgClV1+TQwAwoFhkPDJegcPjNHRb8BJs6MsD2lxWuDClK/KBeuroSxjT4GbR2kKWYRNP3LzdnnlXYYf+5UDGLgnau//y5FsVlMxPlqQqRiHIiRio/PyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsflTs+K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wY/o/MUz"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so350964f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:10:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790151051; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CFRV7nbb2ri+3lZXXKTp5LFqBaLIwkstqOxJlaxAMOSR4qUmG17LbX66nVdNcAs0oV
-         ZaWmll8D9l032Lt97zDwgI+Jy+Z0+nZKVOgpAsRBqGo/3a+DBzmGynAypV2X1p1TkKh2
-         arZoK1AzDs3F+Dq4rKK+h8aKs0FM5pDqL2hCBuqM06fPJ6pWjjhGcPHX0cOTGE3mlJ+l
-         S43ZkVtQGmR1SORmwxnyl0hskkbb8hbt3FvIkG2MXSkDCIkA8RKlbxHSV8D8V9vMKVck
-         UaVHg7fWpRV0PhpxJzmvcIYahJYD93ugIp9RyJzzQlBUOTtjzh/QD0zK7jtk1ogIpQ4f
-         uyIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
-        fh=8d2mJI/JFxMZGF1sJs/8uOi4Jd9RnOw5lMcOiR5fdYw=;
-        b=PfaCNALfCpGSUljWrZguJ9mudQnbMguJpVO9RlK62PHfxFMSQ+4FEDIaz75KaGeg9Y
-         kC+TYItE0yFuawwOz1/hVmSrKx6jfW3gEQR2oqciqLUaH0yu04nQta8uTZ7MhGT7CJ9F
-         5ZIbEZYlqbfPkmK0bREFlGazfxpIGIDbPL8cfYfz71w6h95mhGCn4ZlCeffe8Igr9fTA
-         z3p9ZYjC1u9xdildhpJYroj/kpcNrbsGQCSW2dNJd/IO6IV9niOZnqAu7dQk+sZE/A+9
-         uG1n8r4uWS/L+Jy0sVPISo3rQbE9rx6uVy/e6SyiKirzC5DHBZWhsVZXyU05BPgB9MMs
-         nMUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790151051; x=1790755851; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
-        b=wY/o/MUzRro1mx8juemsMVZ1BEL6U+icyGCjN7xSMOm54HlxJNGNa+TOAIrk87sCoI
-         ViczLvNuFplCnJ4vDl8S+Xw/MakDAAjiLsJlNB/ds6WVVzovL7YDWZrgqSRamgT0PkuQ
-         f0nVFq4dNaePhkh+bKHrv9QftOEtNdCSHny6BvyAZAF4NC8aQCjdqNM+P6TmU9kJMneI
-         IvzNI7ZJI/JZ99IE6Kj7O81/GL6WDkNoiOJOlzwZ4xx6uyQEkjlc4j31UyJti3fi4DRm
-         rN2j3FbvjXSLABu6hAm5vEnRhOsym89SMTyuX860Jc1Ivn+YSOxfFTttDCOS9bYLCAJb
-         1PjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790151051; x=1790755851;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
-        b=oBwHHnBu33YhTNXWRl184QTNGqVIE5eFg7Uh2ABMshh6BIIH8vbXMXWCK2zFBtQK8b
-         q36pDY8oIIpb4pTmDPs95pMm1PnFy/bR3fff7BaJfVAYxaIPcllnhrTjNu3ldbQXpqYL
-         +rnCNDeZ6ChCZunRNJHh0pku86D1qaMuhJ/sn/6eI2YRHDJCDVUh2WA2EXXPWEiLgiGW
-         lMBxuBYnJszypKRarQJ8MN3TYCGLUu5KSC73Rr84i0xJykm72T6FUSQ3mxMEyH3FecFQ
-         mOhLpHpLky/hcyRjqJfLHmrdz9Su9PLMlS46boAZNpXh0RpL8p/m9AXs2B0FPe7L0+ea
-         TQ9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBymCg+JX2xId9a5tNsY1WaKAjFWFExjWUO6n2VfKCb/l+wkVrQigLCow0OGlLjGWE4J1FK9ELUorYITyzw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN/0zOoM15I022qNSI7SYo67ek8VAXznld/8aanyVsgsTut/xq
-	DyJsJcelXJky8ysoIHhfPo4U6VkuOYeNDFV3Pq0bNeBnfQq0g5P1eaEoMWYjhF42d5l4MbsSPAL
-	SSOmkRq8jhFCtAehvopDWGf/EX6nj7NZUt3opdA6f
-X-Gm-Gg: AYBFou1Df1cfxvZM6h7ulQFRA+4nXqDZZRNTNzUGQN34YMYuL7fKQ29vnzzGajJQLDM
-	MCl36672FpI9h6sgXgdz2NWMV2Fd2HnQ2BzWZw74yCMv62WvLivAFkrB7JLQ+IT1vppEMDcIFLm
-	cdtAjYCn0kf6dVU0eXvRaGzXtPIuEOVJaJiCGgVynSubhk9BRUlK3S91bPHl8KaNZEA8HaiwxsQ
-	FsGYY+Kgnzy7U1ntuoJsBGXph75fsvQLwbMKqSp8MET7H3NgPROVA+PMHFyktQgyHTgS2n/1rRQ
-	PwY3/TvBQRRRy6nbQIQvJdM5805jmftId0Rnox3XmdlyyK7Hwuu/Q3wC0fqcVy/brK3ZOwRUA3l
-	/ZqyhrOEUGxrIkidK0YhFBM8PRIAvM0mftMgzcc/QwQ==
-X-Received: by 2002:a05:6000:26d0:b0:487:360:4fd1 with SMTP id
- ffacd0b85a97d-48867060af3mr3013286f8f.5.1790151050299; Wed, 23 Sep 2026
- 01:10:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsflTs+K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21AF1F00893;
+	Wed, 23 Sep 2026 08:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790151059;
+	bh=UTDO/Z8SrmO27oPWzuICXmvSiHSBtHObITrdKf8sp+o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=HsflTs+KOR+yHylwTNYMh0GxLNYVvAYcGdu3YSMx8luOSSJ4WSiF6t9djXqrgFVmt
+	 ABNdH4YbsVnhR5VXah3FKJ4U2kZkcYb2/uHlUfh3WSe2DcV3fPpKS8xC2aAAhBT010
+	 91/TbAt1xy/uEjVqkK1F0zSwPmyDoubv8p/9u9aM8dz1+I+MD/jw1s1XeQzX2NZmF3
+	 1HTR1xieWIVefXDSBiMwBwYkOqZ96OtpT0+tbB5Di6jIj+MOlb2W9Yg28Bo2nXlHVJ
+	 BAsvMEIeuHH4PsVJUlnzEH50Ir75FTpG5iFU9AAETKGvk+17m7b+sXUdsWk5sX6zyc
+	 duo/ADxwOp/9Q==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+In-Reply-To: <20260909143957.9284-1-jszhang@kernel.org>
+References: <20260909143957.9284-1-jszhang@kernel.org>
+Subject: Re: [PATCH 0/2] regulator: mp886x: fix two issues reported by
+ sashiko
+Message-Id: <179008499844.322763.9887026761908885770.b4-ty@b4>
+Date: Tue, 22 Sep 2026 15:49:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-b4-add-list-for-tyr-v1-1-cd74ff2c1f8a@collabora.com>
-In-Reply-To: <20260910-b4-add-list-for-tyr-v1-1-cd74ff2c1f8a@collabora.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 23 Sep 2026 10:10:38 +0200
-X-Gm-Features: AclHuK83N6NgEdKtHsRmRTgf29F0Bv9EGKeqa04ZEKo4C3bnWfWqYur52dyGeok
-Message-ID: <CAH5fLgjerphsjv75W-dS+GOg+XgX15KchR1oFv3wCS-23MLreg@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: add rust-for-linux list for Tyr
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1537; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=VCfYyHRzUVPdSNy14QWXl3XOLLrNLd3DKJe/BuOlyhE=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqs4mNW1xfJzLeMddsgK1VhXqZYPs+e2pF/lpQh
+ vhZJo1NYyCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarOJjQAKCRAk1otyXVSH
+ 0G8aB/96RhNBJi4tGu7Z2MqCNX95nAfERuiZJQT5xDQjYNfPTNlYmPojRu7AF/2+Qt5XcjzHQWW
+ x5sCbnPxzM9diyyLyIv9dwpwXW+fwdjcSFFdQPy67Y3XgiFg2SxW0wjidoCjLJN4JwEfOlJt+Zl
+ yCa/8nzKAYXVDBVITJf3ATnH966yApXTDSlxpkEWUq5ojFh9AGZr/rfcrDjCDsTCUk52dlsBZ1S
+ +njSfEA2zeHcsk9uD8FJPuUkeL7WHcU33CTOFsn6udZyJ76GH0QWJmsc5C3v12Fue3bUErMnimu
+ GNrv+VqdX2TltSZ5SOLk0pgREd6XtZ9dh2r7aZRHQ33pzRsT
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, Sep 11, 2026 at 1:20=E2=80=AFAM Deborah Brouwer
-<deborah.brouwer@collabora.com> wrote:
->
-> Tyr is a Rust DRM driver and Tyr patches are reviewed on the
-> rust-for-linux mailing list. Add the list to the Tyr MAINTAINERS entry so
-> that scripts/get_maintainer.pl and b4 prep --auto-to-cc include it.
->
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+On Wed, 09 Sep 2026 22:39:55 +0800, Jisheng Zhang wrote:
+> regulator: mp886x: fix two issues reported by sashiko
+> 
+> Fix two issues reported by sashiko.
+> https://sashiko.dev/#/patchset/20260901043123.5401-1-jszhang@kernel.org?part=1
+> 
+> Jisheng Zhang (2):
+>   regulator: mp886x: check get_voltage_sel() return value
+>   regulator: mp886x: fix pontential division by zero
+> 
+> [...]
 
-Merged into drm-rust-next. Thanks!
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+
+Thanks!
+
+[1/2] regulator: mp886x: check get_voltage_sel() return value
+      https://git.kernel.org/broonie/regulator/c/87121c42fadc
+[2/2] regulator: mp886x: fix pontential division by zero
+      https://git.kernel.org/broonie/regulator/c/d16ef5debccc
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
