@@ -1,127 +1,63 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890645616BC
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3304F56B848
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790098612; cv=none; b=ShvjCFIJ1ZADzzYYnBLZgxW75LaFRgSyylfRCl/YNL3g7KlsYKypLeBbl2m1jWGbYmTCx7biZIIXlZMuPynKCb4mFZJu5+aygBaGn/BjZx4rEwukzqiaeSOgs/AF6U3qhARsmSbi7hAg2z0Dl/jEjY4uh0wVAqRVtrD9fvQH65o=
+	t=1790098614; cv=none; b=EZOO+MucD1dH2aO/+50KURSC9h6tNwYF3CaDAX8gHdWL6gJ0zcGdgviVTWqxM86rN1jpz5RYWa/p9311xVtoLTid06psNaJtO/VEk5NPufHdbwjTlxN753zkEqyHAgeWsCRLOsPRcjDpaecRanGZn3M9g341O9hgdywado4zjBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790098612; c=relaxed/simple;
-	bh=pqfxOYdbk3G5uQ189p1pwNugqSafNpPZSMqnl+pMNDk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=DrMCweQi6mxwyz/wsmeYq2FnMMr1DjKe0jHzo7cJ0zt0UZo1Opq7cgfNGysG2u25U+GaW+iY9x+vPxnRj7e73TxB4bbsaZLM5H8R/25BQ1Gab16ShAwpSx6Mj71lgZuGA5wGq6fD1uN8ihdsPv91ZSeb1rZ78K96ncVp2W/K5go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oM1ZLTAy; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790098614; c=relaxed/simple;
+	bh=kCVPb4zwnu13SKmdgm85gSinRRs5VQ0Ti5NlSAG0mvQ=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=frojn19fGweRT7j4BdIqPuBuOAjTuudA4l+SLOEXZ8obXw4RJcXqHi/5ZITd1yUbxvxv6Uw+VsY3LRbnHS1BabcCBpSw43TRrDZh4LyBw7KBTTAwG/IMumUyGoEVlg5x9qgOlf/u4/SW7/covXFhmySwG7gWz1mvGKEsfNgpYvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5RxNhpY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oM1ZLTAy"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dd753a52bbso1372845ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:36:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790098611; x=1790703411; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gMBUcj03qoQAyG1GKCyEGFSnmBsF37yewOw9nu3IXkc=;
-        b=oM1ZLTAyP/iuDIrEN/1s/ssMc/qjOS4GrxyBzqHMVVERK2b3yj7f1Tyqc9F3udzJ/S
-         h7JBV0Z+qXLBd9KMzr0uhXevBPRDNSTDckL9Af+u99518jNLE3RsiuP9HN9twCvckg3y
-         /qlNsySx2Cm64UCewyIdM93WDi3UsNzXw0RHuGdgb+kvdzh0d5AtZq55ohB6Rqix/Bb7
-         qOf1EPwQNagvNnKVog9RgJrnzuyVJJ88V2vRLsznimq70j6+OHs62jP9kyp+bHiQNFJ/
-         PDWwIg3KSqj7aKgpHg2c/DEG9FZnF2wGnq5q5trQjcUc4t8XqEJAtajrmbuGfLkd8cRp
-         I/zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790098611; x=1790703411;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gMBUcj03qoQAyG1GKCyEGFSnmBsF37yewOw9nu3IXkc=;
-        b=cbsHwofLARkqvdb9LJOnLGz2iyKJS+465U64/kTTVN4BT5XeMUgyJYJIPJ6anjPcdR
-         gnEu+cEJ6ObJoXukQx3ELILF8sg0XkqQAVgD55ROzOOusZgZVbXyh05rENJPs37WWNrh
-         0npqWqdddSBJH7WV9uyiLrUxgH3ti7Sfc84STNP7bwapHmsO+XvHkWXrEvyCq0pwxTwi
-         ujIdzEzV9R8dulml+NXhoFGe26mtwV94wyRnPU9LnI7ye0NnGzVDURoicV9WRzELouPe
-         UCM7WF/a8D42Oe3kMu2zZ3FzfwpgBTiEdGPWg1zC87HC4wdE9mv6G4FKbZhfubykuVyv
-         XmcA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8iLjd+VtIRMd/DHQF8Jw3RRSoMkdTU4XxwuzVYuy0MvFBSlf5225k3GuZXtnsMa84v3G35AGWYODhIAc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHngJjMhl2tnbIRKGfhNe2rFqA2cFVWNikTX+wdmk6QyfygZQe
-	SUYnMy3RZ9flYa7gt5BQyhOOxaP1k+8YQalJ/hiw4Y5FV6Xe5g98gI/BoCOB6SnexKYDSHrHbUv
-	Esom6Hw==
-X-Received: from plhz10.prod.google.com ([2002:a17:902:d9ca:b0:2df:4a0d:5ac])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:4b27:b0:2dd:c100:a5d9
- with SMTP id d9443c01a7336-2df69df7453mr924125ad.45.1790098610429; Tue, 22
- Sep 2026 10:36:50 -0700 (PDT)
-Date: Tue, 22 Sep 2026 10:36:49 -0700
-In-Reply-To: <arK5ynpRi7VbY7Ek@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5RxNhpY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B341F0089A;
+	Tue, 22 Sep 2026 17:36:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790098612;
+	bh=8Js6+1qWcVkkG81E6++WQZT9fvaDkCHMJg8WMUzWbt0=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=R5RxNhpYpJnZE+4WGUIf6QXePH41ip32t7CyA39UG3CZ/Xu8miAa9XHNMT3pXS86J
+	 2wh2I2FnNyahRSv79gM0hNAEORALeqmGjFkE+ukMIh6CvenUub7lXJ2/H+JYOnmRm2
+	 1uKomtLK8QYLTH3kOfd/mPX9EjFyNKowAuaQPRAJeEzIMzjOtxtzfx7bA4i8gGz/ej
+	 MnDGmGJjdyisfxdPyGARo3kKLLeRXLy3IokxIjBqZiX7V3AsKgoCxKvQYrNEO64jFK
+	 Ge72zVJuIumXwr0Lcqz7iF8GPuDN9aV7ZbZ7/kGurohwHtOpK9Og23nSxB0yZWOEl0
+	 /3Ci3EUR0ISZw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19BC13811A57;
+	Tue, 22 Sep 2026 17:35:45 +0000 (UTC)
+Subject: Re: [GIT PULL] HID fixes for 7.3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <0s2359n9-n77s-1nr5-4sss-r4900p89o5sn@xreary.bet>
+References: <0s2359n9-n77s-1nr5-4sss-r4900p89o5sn@xreary.bet>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <0s2359n9-n77s-1nr5-4sss-r4900p89o5sn@xreary.bet>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git tags/hid-for-linus-2026092202
+X-PR-Tracked-Commit-Id: b6f69097c8271cca30314fd6e4c802f90737bfcc
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: fe2ec83746e501645709761605c2464a44fd2929
+Message-Id: <179009854377.10467.12195770724757793917.pr-tracker-bot@kernel.org>
+Date: Tue, 22 Sep 2026 17:35:43 +0000
+To: Jiri Kosina <jikos@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Benjamin Tissoires <bentiss@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
- <20260922-kvm-arm-prefault-v3-1-787bd3bc7e3f@kernel.org> <arKxjsxuO1F5ExrY@kernel.org>
- <arK5n9HrbZMCOHOt@google.com> <arK5ynpRi7VbY7Ek@gremlin>
-Message-ID: <arK8seJVT9wYgVCP@google.com>
-Subject: Re: [PATCH v3 01/14] KVM: Allow architectures to disallow pre-fault
-From: Sean Christopherson <seanjc@google.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>
-Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 22, 2026, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Sep 22, 2026 at 10:23:43AM -0700, Sean Christopherson wrote:
-> > Rather than have kvm_arch_vcpu_allow_pre_fault_memory(), what if we add a more
-> > generic kvm_is_vcpu_loadable()?  That way we don't need to worry as much about
-> > the return value, the connection to vcpu_load() is obvious, and we don't need to
-> > add another pre-check if future (or cleaned-up existing?) ioctls want to do
-> > vcpu_load() in common code.
-> 
-> ...this is exactly what I started out with.
-> 
-> But then you are in a pickle, because _really_ you need to do that check in
-> vcpu_load(). Which is a void function. Which is called by every single
-> architecture all over the place.
-> 
-> So you'd have actually no way of signalling the error back.
-> 
-> Of course those places are arch code and you could say 'arches should know
-> better and if they call it it's fine not to call the arch 'can you load'
-> function.
+The pull request you sent on Tue, 22 Sep 2026 13:29:26 +0200 (CEST):
 
-Yes, that's my vote.  It'd be easy enough to clarify that "rule" with a comment
-in linux/kvm_host.h.
+> git://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git tags/hid-for-linus-2026092202
 
-> But you're still stuck with the problem of where exactly you put this check.
-> 
-> So then do you put that check in a wrapper around it?
-> 
-> Instead you can make the predicate 'don't prefault on a not-yet-initialised
-> vCPU' which is pretty sensible I think, have a specific place to put it and
-> all's well with the world.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/fe2ec83746e501645709761605c2464a44fd2929
 
-But look at it from an x86 perspective.  Pretty much everyone will look at this
-and expect:
+Thank you!
 
-  bool kvm_arch_vcpu_allow_pre_fault_memory(struct kvm_vcpu *vcpu)
-  {
-	return vcpu->kvm->arch.pre_fault_allowed;
-  }
-
-> > I'd also be tempted to say it can be a macro, not a __weak function.  E.g.
-> 
-> Yeah it can be many things but why would you want a macro if you could possibly
-> avoid it? :)
-
-Because it allows arch code to dererefence "struct kvm_vcpu" in kvm_host.h,
-i.e. allows "inlining" the check.
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
