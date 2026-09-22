@@ -1,119 +1,109 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08EF37B030;
-	Tue, 22 Sep 2026 02:01:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EF637F75E;
+	Tue, 22 Sep 2026 02:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790042518; cv=none; b=BQbCHjfC1TgW9uys2x6DCNMOmo+6440sclA4hPR1IQ3Hsehyph3Nrhka8JHXW/sjq0doTqjxhsWqs5HWS+AZazARv4sPh6MCtaYOxZ2Hr2H+ECQm0shKqGW9k/lMSfXyNaGOCSkc68pPWor5VL7ckJPxQMu25rBH+QTit+vkFzE=
+	t=1790042560; cv=none; b=sFDZ2aTNc2keSNJv7QwxJix32l7Pos5PdAxmdAcPtQ+IkGp9DB4KW4HXTsXhSfosZWSMp+Rt3Z+LFjMhf28aRAEmkM3+5qM2KroR95IhPXp/o9IgB368ox0p5UThflttT3EcjArN9VGZNqxSzLcQqmDH4KfXbmKFlu64s1rZeok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790042518; c=relaxed/simple;
-	bh=P6dYgJxGG8rVhsXBuE+XyyKHSnnOHUAQMNn7iMezy10=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eWwiSevrCRqW7c/4fuh4V3D1YA2jYbLVbWM37aWgDqAy/xAllCzshgGBOPZxbqK8+wnpIb92YdE9pOSJyJdKqC2LQUBVOKC+DCMBxKNb6MSSYkHecg2EQ8wW6flNug4o/F2evcrsCWfzsy1PTDRSwvoTBKJwA0l3sjdDakb0MNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 911b2e7ab62911f19a56ed5b684f684d-20260922
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:0d9230ce-21c4-4d91-abf0-feadfc1adc08,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:3eed73de39325b084e66fd99e071f5bd,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 911b2e7ab62911f19a56ed5b684f684d-20260922
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1783181564; Tue, 22 Sep 2026 10:01:46 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: linux-bluetooth@vger.kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH] Bluetooth: hci_core: Fix inquiry cache timestamps on 64-bit systems
-Date: Tue, 22 Sep 2026 10:01:41 +0800
-Message-Id: <20260922020141.389269-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790042560; c=relaxed/simple;
+	bh=FkvSa0r2hQpc8Adrt+6G1en3MkyfPXKYa3vL0SOYLO8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hZ8F1n80Fh7J0jENAS56klOC1+Tcde3JCeXfe4rsrg6IYT1Jf/06hpdpKSlJsAPK6pZb6XAOZ+iwxTTwZV1xgo3QFISPyCIsy7ylTHSh3EriMh0sZNcvrJB4q8JPMMJLO9fFkaiNQpD04U7+FzQZ/L0jHuIS43Ac4C7O+rUCbr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HSPvmrn4; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HSPvmrn4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790042559; x=1821578559;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=FkvSa0r2hQpc8Adrt+6G1en3MkyfPXKYa3vL0SOYLO8=;
+  b=HSPvmrn4x0VKbKDBAFm/eUs9nuAgvWLOiBDjutyVVCJeJQfI8554boQu
+   7S8vGU+O0GSt78akkqYfuBELkLSF2VFTD3Fr4cQn0r1TK/akCrk9IxfZc
+   IjcKW6gCIRWmxZ6AkOiBAKK/yQuu+38E6lWjbfyekyfLA5n68TRCrJsg6
+   WTnBxBZZh4LGOSvKFXc6TbcJ2zN5PBDYjDeV0MiV6ol/TQQhD2LTyRDL4
+   pUvxkOtUcDFTyX75DENH19+CurPFYyQ2Tst8P75WdYjwPxZ2LnQwkuLAY
+   VG5l9Uub1YOY6PO8Ktj+F8+9q/c2rc9gUsKvBK0eGJWT3yXK0O8yaFTsW
+   w==;
+X-CSE-ConnectionGUID: aPqkNV39SaWcvA+3//oe6A==
+X-CSE-MsgGUID: nsIP5G66TnyaoA2/1ZTRWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="108105198"
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="108105198"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 19:02:37 -0700
+X-CSE-ConnectionGUID: VvDIpI/0TXqAbWyrKf9vVA==
+X-CSE-MsgGUID: M8z5qtwOSZO+Tk9fw+SyKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,115,1787036400"; 
+   d="scan'208";a="3904516"
+Received: from unknown (HELO [10.238.208.182]) ([10.238.208.182])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 19:02:34 -0700
+Message-ID: <d5a4ba72-3cce-4f16-ad47-f1c82c85d834@intel.com>
+Date: Tue, 22 Sep 2026 10:02:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/9] KVM: TDX: Enable VM-DoS Prevention Features for
+ TDX
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+ nik.borisov@suse.com
+References: <20260819094903.3060020-1-xiaoyao.li@intel.com>
+ <6d9113d7-cfae-480b-908a-5cb52020a6c8@intel.com>
+ <arHDAVhFXeQXXrfI@google.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <arHDAVhFXeQXXrfI@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 64-bit systems, outgoing BR/EDR connections always fall back to page
-scan repetition mode R2 with no clock offset once the system has been
-up for more than five minutes, even when inquiry found the peer only
-seconds earlier. This lengthens paging and can increase the risk of a
-Page Timeout.
+On 9/22/2026 7:51 AM, Sean Christopherson wrote:
+> On Mon, Sep 21, 2026, Xiaoyao Li wrote:
+>> On 8/19/2026 5:48 PM, Xiaoyao Li wrote:
+>>> Hi all,
+>>>
+>>> This is v4 of the series to enable the Notify VM Exit and Bus Lock VM
+>>> exit for TDX, which fixes the KVM CAP issue related with them and allow
+>>> userspace to actually enable the features.
+>>>
+>>> Compared to v3, this v4 adds 5 more patches.  The first 8 patches target
+>>> for stable kernels while only the patch 9 doesn't have to.  Patch 1 is a
+>>> single patch to enable Notify VM exit for TDX.  Except patch 6, patch
+>>> 2-7 are mandatory for enabling Bus Lock VM exit for TDX in patch 8.
+>>>
+>>> Patch 6 itself is a fix for VMX and is OK for cc stable though maybe not
+>>> necessary.  Patch 6 is added to this series since it can help stop Sashiko
+>>> repeating its finding of VMX's pre-existing issue, and it's also necessary
+>>> for patch 9 to consilidate the exit handler for VMX and TDX.
+>>>
+>>> There are other issues of existing code found during previous review, like
+>>> the EPT MISCONFIG handling.  Given they are not mandatory for enabling the
+>>> Notify VM exit and Bus Lock VM exit for TDX, the plan is to address them in
+>>> a follow-up series separately.
+>>>
+>>> Please refer to v1 for a full background.
+>>>
+>>> v3: https://lore.kernel.org/all/20260812080229.2481439-1-xiaoyao.li@intel.com/
+>>> v2: https://lore.kernel.org/all/20260810112200.2326727-1-xiaoyao.li@intel.com/
+>>> v1: https://lore.kernel.org/all/20260805031257.1844914-1-xiaoyao.li@intel.com/
+>>
+>> Hi Sean,
+>>
+>> What's your plan on this series? Can you queue it if it looks good to you? Or
+>> need me to spin a new version to address Binbin and Rick's comments on the
+>> commit message?
+> 
+> Get it applied, with some tweaks.  I.e. no v5 necessary.
 
-The inquiry cache stores jiffies in __u32 timestamps, but its age
-helpers subtract them from unsigned long jiffies. INITIAL_JIFFIES casts
--300 * HZ through unsigned int, so jiffies crosses 2^32 five minutes
-after boot on 64-bit systems. Assigning it to __u32 then drops the upper
-32 bits. In one trace, a 7.6-second-old entry (HZ=1000) was reported as
-2^32 + 7620 ticks old and rejected by hci_acl_create_conn_sync().
-hci_inquiry() is affected by the same truncation when checking the whole
-cache. 32-bit systems are unaffected because unsigned long is 32 bits
-wide there.
-
-Use unsigned long for both timestamps so they have the same width as
-jiffies on 32-bit and 64-bit systems, and update the debugfs format
-specifier accordingly.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
- include/net/bluetooth/hci_core.h | 4 ++--
- net/bluetooth/hci_debugfs.c      | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index b26004a05368..788d6600f500 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -63,7 +63,7 @@ struct inquiry_entry {
- 		NAME_PENDING,
- 		NAME_KNOWN,
- 	} name_state;
--	__u32			timestamp;
-+	unsigned long		timestamp;
- 	struct inquiry_data	data;
- };
- 
-@@ -79,7 +79,7 @@ struct discovery_state {
- 	struct list_head	all;	/* All devices found during inquiry */
- 	struct list_head	unknown;	/* Name state not known */
- 	struct list_head	resolve;	/* Name needs to be resolved */
--	__u32			timestamp;
-+	unsigned long		timestamp;
- 	bdaddr_t		last_adv_addr;
- 	u8			last_adv_addr_type;
- 	s8			last_adv_rssi;
-diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
-index aadffaaff20e..2559fb6324d6 100644
---- a/net/bluetooth/hci_debugfs.c
-+++ b/net/bluetooth/hci_debugfs.c
-@@ -364,7 +364,7 @@ static int inquiry_cache_show(struct seq_file *f, void *p)
- 
- 	list_for_each_entry(e, &cache->all, all) {
- 		struct inquiry_data *data = &e->data;
--		seq_printf(f, "%pMR %d %d %d 0x%.2x%.2x%.2x 0x%.4x %d %d %u\n",
-+		seq_printf(f, "%pMR %d %d %d 0x%.2x%.2x%.2x 0x%.4x %d %d %lu\n",
- 			   &data->bdaddr,
- 			   data->pscan_rep_mode, data->pscan_period_mode,
- 			   data->pscan_mode, data->dev_class[2],
--- 
-2.25.1
-
+Thanks!
