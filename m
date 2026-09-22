@@ -1,168 +1,343 @@
-Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE41C4A092A
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC0F30568B;
+	Tue, 22 Sep 2026 06:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790057957; cv=none; b=RT+6R7o2QnhaZDSgdFD7yRH0wekj4mlY6HciKc2qxuYxUuO7J1Mz8zDSjLTAxPsVMYXgUdRZ9pLGUsN0a5lyi2Br5CjwD/BfAvXyhqm6m4qElociaN5p6vaoaKv0xyh2ghSpq2FlBZgLb+5F73fWI2NRqJUfe1YyhE+nO/mYHYM=
+	t=1790057993; cv=none; b=f6t5v6z1/lafiXrSydfnm0hcyz0EkEcWKz5sMBJHlSjVAuz231SlIm01cwWugs5XSl/csi/QbTyNW2Bk0U9Qk5BULuvD2+F2FRNG+4GWPsffZ7SyBg1PaRcGKAsFwVl4Pvc10DK+x580I+T+Nxg81PpNDScJw8ZL7AJf1N6UwxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790057957; c=relaxed/simple;
-	bh=F1Scp7kU1gs61CCyWXz4iJsW5PoldpSJMclIFQiOv94=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=DK6FhNTvwvTfer9IX7YdA01JWzHs6Skf1IgboM1mlxelqxI8VUKUcsIUxM+D0GxNlKbAS1iwCwULaZ6RihU4RdS5g4ZEJ8Bcvst/SfN+mk8vc9cHOF7Vi8ej8V/iB3m/INuRDMV+zFq7yyYKRpDxD0CAsJ56wauYyuvrg/lEOxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XQ7D5pot; arc=none smtp.client-ip=95.215.58.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790057993; c=relaxed/simple;
+	bh=MjkxYsgZfi1ENMq6oD+JZlpmwvBVoXRm4CNxKkFQCDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TakA03IVfUZWhrmYCK7hM/ywvEr7FKmphz1i23NaQ5y0ipleXpk9XU2Gd2H7XToBVI6DCk206qWSUIKu2xuyPZ9wnvCimOPek8RErxFpcVWH2OSxKyayKNMH453iS+6O4/cPVBoZ0W19rDGenHKGNutKmIG8xki/8VbkvK9TagQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=in8YwjSS; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XQ7D5pot"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=F1Scp7kU1gs61CCyWXz4iJsW5PoldpSJMclIFQiOv94=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790057951; v=1; x=1790662751;
- b=XQ7D5pot2eJ44qMEhkAbPGQoLtpqcygL3deow+x24a2APhcdc5A3KtJGawwYZ7MbhAfQn/fe
- w09n202O93npXBKYlgwwAGTSDCWx8KEXfsfGc7HhIo1Nfo9mUyL+qj2++rtWoD38XMnlW/6IdfL
- G3PrYxu2iKvgigDiyssz3EyY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 20087f601faff867;
-	Tue, 22 Sep 2026 06:19:11 +0000
-X-Mizu-Trace-ID: 20087f601faff867
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="in8YwjSS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ao
+	HMNpZZeCvgyXjU5ouI34mrD2A1Vq2PGowe6O3nbAE=; b=in8YwjSSTL1osBt8bL
+	AzHktdmFPYfr0hGBLD58l3DQVPJm4Okp4+uugvLD6XjwAcI/vHbIjjX91X0TbqQh
+	RiphyzYM72X9sDtjKjRjM+YuUfizjLs2zoRt8nTsMmV3hoVTb1tFmCxQHrHcOBbt
+	HYz7MWCY4k0Y+eTuC0FOjv9RE=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnd1HkHbJqkgs+AA--.25598S2;
+	Tue, 22 Sep 2026 14:19:17 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Lee Jones <lee@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-pwm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	quchaosheng000406@163.com,
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH v2] dt-bindings: mfd: convert lp3943 to DT schema
+Date: Tue, 22 Sep 2026 14:19:07 +0800
+Message-ID: <20260922061907.56372-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260921-for-hugetlb_state-v1-2-8a6eec92661f@kylinos.cn>
-Date: Tue, 22 Sep 2026 14:18:51 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Michal Hocko <mhocko@suse.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Nhat Pham <nphamcs@gmail.com>,
- Chris Down <chris@chrisdown.name>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- cgroups@vger.kernel.org,
- Hongfu Li <lihongfu@kylinos.cn>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B710AD66-B826-4138-B1D4-2DB3E00FDC1D@linux.dev>
-References: <20260921-for-hugetlb_state-v1-0-8a6eec92661f@kylinos.cn>
- <20260921-for-hugetlb_state-v1-2-8a6eec92661f@kylinos.cn>
-To: Hongfu Li <hongfu.li@linux.dev>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnd1HkHbJqkgs+AA--.25598S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKFyxurWxGw48Zw13KFWrAFb_yoWxtry7pa
+	s7C34xtF1IqF13Kw4Iga18ZF13uF1kA3W8KF17tr1jga93G3Zxtr43Kr90v3WfCFWxWay7
+	XF1a9r1rtw4kAw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRDl1gUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wXHPWqyHeULEQAA3m
 
+Convert the LP3943 MFD binding from free-form text to DT schema.
 
+The LP3943 is an I2C LED driver with two sub-devices, lp3943-gpio and
+lp3943-pwm. The GPIO sub-device is covered by trivial-gpio.yaml, so only
+the PWM sub-device gets a schema of its own.
 
-> On Sep 21, 2026, at 17:12, Hongfu Li <hongfu.li@linux.dev> wrote:
->=20
-> From: Hongfu Li <lihongfu@kylinos.cn>
->=20
-> memory.numa_stat exposes per-node hugetlb counters from per-node =
-lruvec
-> stats. These stats are accounted against folio_nid(): incremented on
-> the folio's node when handed to a user, decremented when the folio is
-> returned to the pool.
->=20
-> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
-> to the new folio and drops the memcg data of the old one, so the free
-> of the old folio right after the migration skips the memcg per-node
-> lruvec decrement. The hugetlb count stays attributed to the old node
-> for the rest of the life of the charge, while the target folio gets no
-> increment on the new node; its later free decrements a counter that
-> was never incremented.
->=20
-> Migrate the per-node lruvec accounting alongside migration. Global
-> memcg totals remain balanced because they track resource consumption,
-> not node placement.
->=20
-> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
-> ---
-> mm/memcontrol.c | 31 +++++++++++++++++++++++++++++++
-> 1 file changed, 31 insertions(+)
->=20
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 1460cba53588..9c96ebd5436f 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5598,6 +5598,34 @@ void mem_cgroup_replace_folio(struct folio =
-*old, struct folio *new)
-> rcu_read_unlock();
-> }
->=20
-> +#ifdef CONFIG_HUGETLB_PAGE
-> +static void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
+The PWM schema documents ti,pwm0 and ti,pwm1, which select the output pins
+of the two internal PWM channels and are read by pwm-lp3943.c with
+of_property_read_u32_array().
 
-Actually, we don't need this objcg parameter since we could get it from =
-folio.
-And I'd like to move this function to hugetlb.c.
+Assisted-by: LLM
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
 
-> +     				struct folio *old, struct folio =
-*new)
-> +{
-> + 	long nr_pages =3D folio_nr_pages(old);
-> + 	struct mem_cgroup *memcg;
-> + 	int old_nid =3D folio_nid(old);
-> + 	int new_nid =3D folio_nid(new);
-> +
-> + 	if (old_nid =3D=3D new_nid)
-> + 		return;
-> +
-> + 	rcu_read_lock();
+v2:
+ - Add Assisted-by and the Reviewed-by tag received on v1. No content change.
 
-Please use guard(rcu)() to simplify the code a little.
+ .../devicetree/bindings/mfd/lp3943.txt        | 33 --------
+ .../devicetree/bindings/mfd/ti,lp3943.yaml    | 64 +++++++++++++++
+ .../devicetree/bindings/pwm/pwm-lp3943.txt    | 58 --------------
+ .../devicetree/bindings/pwm/pwm-lp3943.yaml   | 80 +++++++++++++++++++
+ 4 files changed, 144 insertions(+), 91 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/mfd/lp3943.txt
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,lp3943.yaml
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-lp3943.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/pwm-lp3943.yaml
 
-Thanks.
-
-> + 	memcg =3D obj_cgroup_memcg(objcg);
-> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, =
-NODE_DATA(old_nid)),
-> +       		NR_HUGETLB, -nr_pages);
-> + 	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, =
-NODE_DATA(new_nid)),
-> +       		NR_HUGETLB, nr_pages);
-> + 	rcu_read_unlock();
-> +}
-> +#else /* CONFIG_HUGETLB_PAGE */
-> +static inline void move_hugetlb_lruvec_stat(struct obj_cgroup *objcg,
-> +    					struct folio *old,
-> +    					struct folio *new)
-> +{
-> +}
-> +#endif /* CONFIG_HUGETLB_PAGE */
-> +
-> /**
->  * mem_cgroup_migrate - Transfer the memcg data from the old to the =
-new folio.
->  * @old: Currently circulating folio.
-> @@ -5635,6 +5663,9 @@ void mem_cgroup_migrate(struct folio *old, =
-struct folio *new)
->=20
-> 	new_objcg =3D get_migration_objcg(old, new);
->=20
-> + 	if (folio_test_hugetlb(old))
-> + 		move_hugetlb_lruvec_stat(new_objcg, old, new);
-> +
-> /*
-> * @old was charged through a non-root objcg, so its charge is in the
-> * page counters. If the re-derivation walked up to the root objcg -
->=20
-> --=20
-> 2.54.0
->=20
+diff --git a/Documentation/devicetree/bindings/mfd/lp3943.txt b/Documentation/devicetree/bindings/mfd/lp3943.txt
+deleted file mode 100644
+index ca5324ed0df4..000000000000
+--- a/Documentation/devicetree/bindings/mfd/lp3943.txt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-TI/National Semiconductor LP3943 MFD driver
+-
+-Required properties:
+-  - compatible: "ti,lp3943"
+-  - reg: I2C slave address. From 0x60 to 0x67.
+-
+-LP3943 consists of two sub-devices, lp3943-gpio and lp3943-pwm.
+-
+-For the LP3943 GPIO properties please refer to:
+-Documentation/devicetree/bindings/gpio/trivial-gpio.yaml
+-
+-For the LP3943 PWM properties please refer to:
+-Documentation/devicetree/bindings/pwm/pwm-lp3943.txt
+-
+-Example:
+-
+-lp3943@60 {
+-	compatible = "ti,lp3943";
+-	reg = <0x60>;
+-
+-	gpioex: gpio {
+-		compatible = "ti,lp3943-gpio";
+-		gpio-controller;
+-		#gpio-cells = <2>;
+-	};
+-
+-	pwm3943: pwm {
+-		compatible = "ti,lp3943-pwm";
+-		#pwm-cells = <2>;
+-		ti,pwm0 = <8 9 10>;
+-		ti,pwm1 = <15>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/mfd/ti,lp3943.yaml b/Documentation/devicetree/bindings/mfd/ti,lp3943.yaml
+new file mode 100644
+index 000000000000..4bee4f4c3aaf
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/ti,lp3943.yaml
+@@ -0,0 +1,64 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/ti,lp3943.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI/National Semiconductor LP3943 MFD driver
++
++maintainers:
++  - Quchaosheng <quchaosheng000406@163.com>
++
++description:
++  LP3943 is an integrated device capable of driving LEDs. It contains two
++  sub-devices, lp3943-gpio and lp3943-pwm, which are instantiated by the MFD
++  core from the child nodes described below.
++
++properties:
++  compatible:
++    const: ti,lp3943
++
++  reg:
++    maxItems: 1
++    description: I2C slave address, from 0x60 to 0x67
++
++patternProperties:
++  "^gpio":
++    type: object
++    $ref: /schemas/gpio/trivial-gpio.yaml#
++
++  "^pwm":
++    type: object
++    $ref: /schemas/pwm/pwm-lp3943.yaml#
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        lp3943: gpio@60 {
++            compatible = "ti,lp3943";
++            reg = <0x60>;
++
++            gpio {
++                compatible = "ti,lp3943-gpio";
++                gpio-controller;
++                #gpio-cells = <2>;
++            };
++
++            pwm {
++                compatible = "ti,lp3943-pwm";
++                #pwm-cells = <2>;
++                ti,pwm0 = <8 9 10>;
++                ti,pwm1 = <15>;
++            };
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-lp3943.txt b/Documentation/devicetree/bindings/pwm/pwm-lp3943.txt
+deleted file mode 100644
+index f214305a8f5e..000000000000
+--- a/Documentation/devicetree/bindings/pwm/pwm-lp3943.txt
++++ /dev/null
+@@ -1,58 +0,0 @@
+-TI/National Semiconductor LP3943 PWM controller
+-
+-Required properties:
+-  - compatible: "ti,lp3943-pwm"
+-  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a
+-                description of the cells format.
+-                Note that this hardware limits the period length to the
+-                range 6250~1600000.
+-  - ti,pwm0 or ti,pwm1: Output pin number(s) for PWM channel 0 or 1.
+-    0 = output 0
+-    1 = output 1
+-    .
+-    .
+-    15 = output 15
+-
+-Example:
+-PWM 0 is for RGB LED brightness control
+-PWM 1 is for brightness control of LP8557 backlight device
+-
+-&i2c3 {
+-	lp3943@60 {
+-		compatible = "ti,lp3943";
+-		reg = <0x60>;
+-
+-		/*
+-		 * PWM 0 : output 8, 9 and 10
+-		 * PWM 1 : output 15
+-		 */
+-		pwm3943: pwm {
+-			compatible = "ti,lp3943-pwm";
+-			#pwm-cells = <2>;
+-			ti,pwm0 = <8 9 10>;
+-			ti,pwm1 = <15>;
+-		};
+-	};
+-
+-};
+-
+-/* LEDs control with PWM 0 of LP3943 */
+-pwmleds {
+-	compatible = "pwm-leds";
+-	rgb {
+-		label = "indi::rgb";
+-		pwms = <&pwm3943 0 10000>;
+-		max-brightness = <255>;
+-	};
+-};
+-
+-&i2c4 {
+-	/* Backlight control with PWM 1 of LP3943 */
+-	backlight@2c {
+-		compatible = "ti,lp8557";
+-		reg = <0x2c>;
+-
+-		pwms = <&pwm3943 1 10000>;
+-		pwm-names = "lp8557";
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-lp3943.yaml b/Documentation/devicetree/bindings/pwm/pwm-lp3943.yaml
+new file mode 100644
+index 000000000000..8c91db9756a0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/pwm-lp3943.yaml
+@@ -0,0 +1,80 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/pwm-lp3943.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI/National Semiconductor LP3943 PWM controller
++
++maintainers:
++  - Quchaosheng <quchaosheng000406@163.com>
++
++description:
++  LP3943 has two internal PWM channels. Each channel can be routed to one or
++  more of the 16 outputs of the device.
++
++  Note that the hardware limits the period length to the range 6250~1600000.
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    const: ti,lp3943-pwm
++
++  "#pwm-cells":
++    const: 2
++
++  ti,pwm0:
++    description: Output pin number(s) for PWM channel 0.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 16
++    items:
++      minimum: 0
++      maximum: 15
++
++  ti,pwm1:
++    description: Output pin number(s) for PWM channel 1.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 16
++    items:
++      minimum: 0
++      maximum: 15
++
++anyOf:
++  - required:
++      - ti,pwm0
++  - required:
++      - ti,pwm1
++
++required:
++  - compatible
++  - "#pwm-cells"
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        gpio@60 {
++            compatible = "ti,lp3943";
++            reg = <0x60>;
++
++            /*
++             * PWM 0 : output 8, 9 and 10
++             * PWM 1 : output 15
++             */
++            pwm {
++                compatible = "ti,lp3943-pwm";
++                #pwm-cells = <2>;
++                ti,pwm0 = <8 9 10>;
++                ti,pwm1 = <15>;
++            };
++        };
++    };
++...
+-- 
+2.43.0
 
