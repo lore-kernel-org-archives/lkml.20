@@ -1,207 +1,303 @@
-Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011057.outbound.protection.outlook.com [52.101.65.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF5C4C8C49
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 09:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.156.171.147
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790070487; cv=none; b=pi7AzomUFyA/mi+/OJm0NClc4UJ2J3Gh8BWIcHM7rhl8NEuroQKcI+/6gdRYBLaikKSBIHg9MaSnvMoRxFgalhwy9xcW5lxEeSITPtIQygARP2nsrV555FvAl1ResA2TWdXz/tQDIp0orBXSBj8ywPJfaTW31x7NZfKfmz0yGa4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790070487; c=relaxed/simple;
-	bh=cfbJaDAqXz0WpZfSPMzfJh60AKYaO81sYrd7ccCA7/8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fGt0rL0qDvTR8voMcRbX3UX5uulxO43JnORpo3JTqJMC5dx57/9HD7uNznm8wEshVxX/h6Eo8MoyRe74zZQy+N61lw6Ny1b4LuviX3GUj9wiGWmlgJ6JyU+8qYiGS27bOf5s3v6Y07Kp+oW5V7OXILb+Vfq5B7lu/JmTfnam4cQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=l73Hn85x; arc=none smtp.client-ip=178.156.171.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9964CB8C8;
+	Tue, 22 Sep 2026 09:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790070533; cv=fail; b=vGBIO59CPo2EH9bHhBkg8So1F6yKaM4vtP1nteS2F6AySuLYjZU8VfMF0i5wULMQohVdSxLrQowL0JoV724ubZdQhvkz3P8fFexL8HZAYjnOc7mhuiZT2yY4Sp3rbgCqv809uOpbxBX23wDTj8rV6A+KomAm/ArltuG/Hp16OnQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790070533; c=relaxed/simple;
+	bh=DP13UdsQatTDwqK4G6BVRWG5HI99WwD17mH18rC2PLE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Jubok6lbsLokfjrU+vurknchxnvdQy0P3+eZj+r5Ue27LyOtLrWgidz3nEXobBQDBQXOW+ygmoVJGGkyeEZRZaW3cvJtMMOCSYsohhDOagemcQQ06WdGVOa0N6f3k+irTS3+jYUHP1OshX1xcGyHWiZPKBQSF8C+bctg8mSCXuM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iZS060jM; arc=fail smtp.client-ip=52.101.65.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="l73Hn85x"
-Received: from relay13 (localhost [127.0.0.1])
-	by relay13.grserver.gr (Proxmox) with ESMTP id B0A255E4D2
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:47:59 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay13.grserver.gr (Proxmox) with ESMTPS id 289DE5E5D6
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:47:56 +0300 (EEST)
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id E0045202A0D
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:47:54 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790070475;
-	bh=V5kWROyU8WMPqbcO1XzcbkXzwkxqv3KwZW4+FIRHPa4=;
-	h=Received:From:Subject:To;
-	b=l73Hn85xXARjRfsGfkoxPsnuL57si7fORSzU7AIb7Ye3+M3Y8ry1TMwEjKqdUGA9b
-	 RpRc00nLLwzhoKN4b28duei2fiXaG2Z5k5NcCE/sU03w+95+hkX0udw5GGwQq38Isq
-	 cf//2LXuvtTRwfMSE6n2VIddwPPh3uBat8SGIPwcV551u+3sk3J7KCuU7EQ4KePoEC
-	 fUzfigljAJTRHVCs0TvS3dev3/GSC0KSrsCGc9RbBmkzatH2d1FXB0AS7cOcUKVD3E
-	 wuNX5IMhMD1eGsTrQh7tKUGmWyU4r0tkynH77sA5gbHnOHR/qAZ3fjsLmqRxIA2QZC
-	 QyDiaX4BiywJQ==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.227.171) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj2-f43.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pj2-f43.google.com with SMTP id
- d9443c01a7336-2d9004a1ac0so25616455ad.3
-        for <linux-kernel@vger.kernel.org>;
- Tue, 22 Sep 2026 02:47:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBxmpRuIHtKXi9PTXi495W8RSnqxow5UbDTZhzoBgCnb4GpHeoVydmzFqoLKQ8opE7Y4lNDlkQPG+r+YbQ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcgX1Tijwm0HI4DCnx5m3/fYMlufhVK93FBzOJiCC+OCT2jYGv
-	A3RyOMOFBJOIgLHb80qUNRZNBXY4kIhIyXVKIgSpdmnbzkV3CXzQUzU7Is7fvNd8UIKgNlS3I5D
-	iV2E3JsnBCaqKWfXsbE+U5FeL0vfdMC8=
-X-Received: by 2002:a17:902:d4d1:b0:2dd:c168:c4e0 with SMTP id
- d9443c01a7336-2df60880ed5mr7396975ad.0.1790070473205; Tue, 22 Sep 2026
- 02:47:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iZS060jM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xew6tIi/m/DfIjwZM7ab41pTjBok2Jbb7+od1eZeCbWFgP3jdP+N+3kvTNDQB4h7s5KKksjMCzJNUbASKXfjRED7S0QWJ8nLi47JLmSxWoFBTJ17SKn07yP2b+nFY7I+P5ahnSvkToor9CXNLIF0tth17gK9gxLM0XhMWLrfwbWdu6jkPyJCorgmHpnVM2OvET2eB4TetblSmbkbg/36fGwZEi/++wCKzlkCLBA1+UT2myvwNUr+8YQS0mQrwC5iF92L5pM5cM4ArtOMVJau8LJE4sMoBUlwykGFczn/DnyWDyQc/9B6Km9FPkreseZBsSkkXiUCMZjnbdzc8RjY+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K0P4oWAXQMf88uI5Q8WmLMtZZD/4YBrWdfLznYrJigE=;
+ b=grmVmNKkuyMVj9J8eymfAePvkYpT24JOIyIkmxvgu02bvg1UjOYjEa/zyuur2yx3r+O/VLUHcBNSnZkfY7qPXhlH8umMb6VJfv0O35HIecKbyrTsugWc7s6WUjfVlIKtxzygO5zFwLuDckaGpjyJEvOA22u8CiSE7R76P4SLIXO4aIt13/NHUXrJdL+rBmMpYzOaeJpjEp6odiybExwjEQ2E3GiI1p99Dt5weXu7gqwtCZastXM4fYKB0s+nRM0e8IhWf46SCZsKpGO+BlkVcxtVNusZN60alt+6KMfOf++31W11/EUdHoEbdsNfy4HEluCACvLQJXWyQcMsR+yYAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K0P4oWAXQMf88uI5Q8WmLMtZZD/4YBrWdfLznYrJigE=;
+ b=iZS060jMxgqSL9j/5IkocghiC5YOHfnmln6TirNKBtd8U2b9cam2S+dFP3STeNh4qzG2tI8KgYzTdGmYxLlIOnZIVLd9uDiy2b6cT7gQGteZzHa6irlLU4A+ksebIes24htz9ERq8m9xmqE2ocD0zSH9jB0A/U2oN+LKTRcPDZZCmqbGuB1mZ/ay7HABNYBuLIlffeSTb0NZw+qpGPFOIf9lBz6yIG5IvJOWaWK4atosh8OkIBBsXlMWW2bI9v61M12FSJgyNIGmh36GjxG8HZ4+UTvo8RqzSi0+vOyWImd5QzRz+V6NSWVQDy1X7PztmZznwYN7Ad3j4vsFGmST6Q==
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ by DBBPR04MB8028.eurprd04.prod.outlook.com (2603:10a6:10:1e0::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 09:48:46 +0000
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 09:48:46 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>, "Wei Fang
+ (OSS)" <wei.fang@oss.nxp.com>
+CC: Clark Wang <xiaoning.wang@nxp.com>, "andrew@lunn.ch" <andrew@lunn.ch>,
+	"olteanv@gmail.com" <olteanv@gmail.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"horms@kernel.org" <horms@kernel.org>, "richardcochran@gmail.com"
+	<richardcochran@gmail.com>, "linusw@kernel.org" <linusw@kernel.org>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: RE: [PATCH v4 net-next 3/8] ptp: netc: export
+ netc_timer_get_current_time() for cross-driver use
+Thread-Topic: [PATCH v4 net-next 3/8] ptp: netc: export
+ netc_timer_get_current_time() for cross-driver use
+Thread-Index: AQHdRz7S22iPk+jFYkOuk2Znvrfaz7baSXoAgAANDmA=
+Date: Tue, 22 Sep 2026 09:48:46 +0000
+Message-ID:
+ <AS4PR04MB93381E4945132FDFFDD7E4E088832@AS4PR04MB9338.eurprd04.prod.outlook.com>
+References: <20260918072852.501420-4-wei.fang@oss.nxp.com>
+ <179006555469.2160803.8873313402765313889@kernel.org>
+In-Reply-To: <179006555469.2160803.8873313402765313889@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|DBBPR04MB8028:EE_
+x-ms-office365-filtering-correlation-id: 7671edf4-42f0-49a1-03b4-08df188eb262
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|23010399003|366016|6133799003|22082099003|18002099003|38070700021|56012099006|11063799006|5023799004|4143699003|10067099003|3023799007;
+x-microsoft-antispam-message-info:
+ wdpIkaKaVhXuUFiBDNSf4Yn/rNfHMd7B5PKWKSDQl0aQN6ZkyyYsjgc6EmM1km28ewz7+/P+wBXf7BUfe4tovL33ow7l/rWJ21+Bg1zTxZ84Cw4zEkK8ctKahbpr4HqQtsPwznwcGjHhaKHGcsVc7x+eRo0zrgXjHu3i/jE3rHAD2OuiZ24pBnFO62gx4m883Mu9+XTzROemZh6FuJLLswNUZauoY/qj7zvnxYiy2Gg2jA6G7S23upFdQLgsHbZRkbiKovT9ejvgSKNuky3tYF6FlWLWzumEEm7kD2MQtDSbz6qg2VWbUUqFSH1GCdgrRMRStvDh5bH/mSGK7IBTQL3sxJovF+EiRPF4aaV+Q8sFEUUOAML5vRmvl5HPzPY9LR9OAkU5lBczJAaL7lsdBlYy0GXBGKms7xWII77dlbu7JkV/RnQ+JFBsJD3q9DQXiZEqADRdcDf5tTBcKI27X02R+RVXhJ7zeJPd+oCtr94/NCaufCTb6cBUei3FlxdYzviLHErTePj/YONQa2RI7ElTLC1BOMqL79nn0M7/+0+OjtxHfPSmWKDlI0Gceu8s+4TnaIIr4/0BmfenDlvIUUzUiErqcc8kzdJYNDIh4t7ZS8Amc5bWv9xejGqW1ZE0Bgebj8U4Zwp5skqGjOYaY6tFQwunlDjn0xKqcXN+yN3UCRoNXVh6BzNGDsUck6SLQa4Mq8rZhQnM4nniy/xo5sCHRa+x3WreLDHLCMykkYg=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(5023799004)(4143699003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?YU78MGgmR9C0hVZylAO60FyHfYLN8VyO1kf+fQV6SdkXShIA8Oa3OdBGNHai?=
+ =?us-ascii?Q?3Vwq7MgMrS2wuQfPpNI5W9FIXVp095OhO0i3nYzwx4OrxGVr8bovnKk0fFGo?=
+ =?us-ascii?Q?3Rb821BBvuItBeG+lis5F5TWTNFceO6q8zlri4nTXL/UuG534Y5RytJHyaIf?=
+ =?us-ascii?Q?DcIf+FPYeBH9cIRR6ee2Hn/AZ+7o0qOlX12Q+HhMcyzCdimyTh0hhSGdcpev?=
+ =?us-ascii?Q?OFRxs5CisxVdw48Ic+uYqJha94jMcfRCqQrsycc9XxD4XNuFwhwZDNAu8zLw?=
+ =?us-ascii?Q?BOeDYHGj/RpWdOssJkdkHePH1bYim93RLzee18pBxGnauGj2mhbLgxJi/uEl?=
+ =?us-ascii?Q?MAm/4MCqAYMB11cgR90Ha86AAaBSaZR9mPkbPLs/9clQ5TCNIOr98mdf44pf?=
+ =?us-ascii?Q?tfmFqUPlZQBeIGN8ujj+LVORBshdMeOA86P9CcEv73Na2rLpYRDBrS5nKRYh?=
+ =?us-ascii?Q?JJVaBQv9MVNHPWzFMfw5r7iYi3rhuHs3BRtg7JqwxM51+5Cp6r5H2IeQVyp+?=
+ =?us-ascii?Q?mNIoVHaMJvdJI5UecyClvGKMVfu9UWI1j8LivvXy0MQ+BtjuRiI1Ea4sOFGS?=
+ =?us-ascii?Q?MW3gtEQgMMzYwfuKmjth8tTlE17Lc3a3HTmgJRGf2hNoDbJIyjr6px4fCdDC?=
+ =?us-ascii?Q?9n2pBXAFAbjE/HNCEu/oVhn0YypU5sMIqf6AMvD6BS2Jg/QF+r010ybSCzkO?=
+ =?us-ascii?Q?Ib/FtFBz1rwwj2rpJ0gLd8zKfh3NuLodhswyktuT2hONyIorsLqc/HHhsq1V?=
+ =?us-ascii?Q?VXofshDbvV9Yyut2y7oNKWt4Ku9eG1eOkK/dmbRkcFqDEubfuNEcmqLqIyLs?=
+ =?us-ascii?Q?F7RKa8CW9xFz8eaJXRtjDKAv8QHx/3TkD0OGgnUj/Yav5d+frujQ+2BdQ4mK?=
+ =?us-ascii?Q?qlOnLE/t5rS/w7CdI6DyJo0JSsfLDfyn8wR+ytZ7UF6Y/gx2jEMqsgB7hyfC?=
+ =?us-ascii?Q?87/+tnaMxspsNw4zIqxoJUYvdlod1nTEVbHq9U1r986HjH0vzVUSlxMUVbBu?=
+ =?us-ascii?Q?EN6jnrBdD3fIn2HHumPN0B3iVqRQUhXNPJ4o/ttGs9KHv17KRpdbUhfxkEKq?=
+ =?us-ascii?Q?50ZNFZPsXq1ZT0fGvaNepM8fzJ/igW1Rv++zu6GNRrDs9T5f00lWaWyOC2g0?=
+ =?us-ascii?Q?OKbQovqumcHKx3Eu8t3bZNEOMI5rscvOFVJmWkLD6LsAYqBDGNC7UbS2hUk1?=
+ =?us-ascii?Q?VC9FIBcpAzUAYZ6HZrmsLXnMuxhZZKluFeX9wI6y85ZwImwGIiUF4CKnbiVD?=
+ =?us-ascii?Q?rbP6gL6PPWZr9DRuE72xicpaQmG4p+dtJIDt9YIDpCDXVjREcv/7IEUAXjdy?=
+ =?us-ascii?Q?bGfBMLFUGdzcT1u182YsWfU5Gnuply2+Axb+cjThfkFQlW01SFbMZiXNFHg9?=
+ =?us-ascii?Q?JgRJicwXMe1oFM2RP2bKmQ0DwsnUELJhytr7gqWubBFEGBedqEbMVX7z0jNY?=
+ =?us-ascii?Q?qa16AdtGO+KtpjG3L4HTrK3NRTYEwMJThlsYQLdaEqRZF655mddovhDjVrIl?=
+ =?us-ascii?Q?QSNWxewEpTvRRYNPx7KYVaPzV3YcWO3kPXWe9V7vW5rHmBa5wipb2gksdtIC?=
+ =?us-ascii?Q?ATdiFewXz0THmToEsj05PgdN0sEAhTITnxfzkdhbp7Aq5K2pcJwkd3g0a03c?=
+ =?us-ascii?Q?NfmwX/+Dl/BcpvShsjbH+/dju95sSmN96XC7vQgo5sZXE9xUQ38jXqq/RCyH?=
+ =?us-ascii?Q?K0hIG/W6Z+geYZoGqqgfhzO10U/loK/32akUJ9+LLhCUzg2g?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <05f99d32-652f-4107-8e2f-379393f614b8@slotpi16m74>
-In-Reply-To: <05f99d32-652f-4107-8e2f-379393f614b8@slotpi16m74>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Tue, 22 Sep 2026 11:47:41 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwFcBQkdR1SH-11S-pXsWW3GAxZBUbC5WotAOu8uzcDpEg@mail.gmail.com>
-X-Gm-Features: AcwNN1XJ-HDn3RmVtXyvuyKedFAMAYzjGQugTPuqyidvv8yljdU8YUmVKOXpEfQ
-Message-ID: 
- <CAGwozwFcBQkdR1SH-11S-pXsWW3GAxZBUbC5WotAOu8uzcDpEg@mail.gmail.com>
-Subject: Re: [REGRESSION 6.18.48 -> 6.18.49] hid-asus: ROG N-Key keyboard
- dead, also in 6.12.y
-To: Grant King <gking@serow.io>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input <linux-input@vger.kernel.org>,
-	Linux Regressions <regressions@lists.linux.dev>,
- Linux Stable <stable@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jann Horn <jannh@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-PPP-Message-ID: 
- <179007047518.336736.4836882509468581280@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7671edf4-42f0-49a1-03b4-08df188eb262
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 09:48:46.6581
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wpAHmlwYLDeBBkL/DfYIS86blRqjuXNTKYkt6dDpHTbBDIOncM8ERtZcloHjpfGD0BIBnYCbKfVln+LISxVhaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB8028
 
-On Tue, 22 Sept 2026 at 03:34, Grant King <gking@serow.io> wrote:
->
-> Hi,
->
-> Resending as plain text; the first copy went out as HTML and the lists wi=
-ll have dropped it. Apologies to those receiving it twice.
->
-> The built-in keyboard on my ROG Zephyrus G14 (GA403UV) stops working on 6=
-.18.49. 6.18.48 is fine. The N-Key controller enumerates, but hid-asus fail=
-s to initialise it:
->
-> asus 0003:0B05:19B6.0004: using HID for asus::kbd_backlight
-> asus 0003:0B05:19B6.0004: Asus failed to request functions: -75
-> asus 0003:0B05:19B6.0004: Failed to initialize backlight.
-> asus 0003:0B05:19B6.0004: input,hiddev98,hidraw3: USB HID v1.10 Keyboard
->     [ITE Tech. Inc. ITE Device(8910)] on usb-0000:65:00.3-4/input0
->
-> An input node still appears, the keyboard just does nothing. On 6.18.48 t=
-hose two error lines are absent and /sys/class/leds/asus::kbd_backlight sho=
-ws up.
->
-> ASUS ROG Zephyrus G14 GA403UV, BIOS GA403UV.308
-> keyboard 0b05:19b6 (ROG N-Key), usb-0000:65:00.3-4
->
-> The culprit looks like d0754db7883c ("HID: asus: simplify RGB init sequen=
-ce") in 6.18.y, a backport of 56d1b33e644c taken as Stable-dep-of: 02bf61df=
-b44f ("HID: asus: fix missing hid_is_usb() check"). Reading drivers/hid/hid=
--asus.c at each tag, v6.18.48 has the old code and v6.18.49 is the first wi=
-th the merged init path; it is still there at v6.18.52. 6.12 LTS has it too=
-, good at v6.12.107 and first bad at v6.12.108, still there at v6.12.110. 6=
-.6.y never took the refactor and 7.1.y already has the mainline structure, =
-so neither looks affected.
->
-> Before the patch, the N-Key branch ran the init reports and never called =
-asus_kbd_get_functions():
->
-> if (drvdata->quirks & QUIRK_ROG_NKEY_KEYBOARD) {
->         ret =3D asus_kbd_init(hdev, FEATURE_KBD_REPORT_ID);
->         ...
->         ret =3D asus_kbd_init(hdev, FEATURE_KBD_LED_REPORT_ID1);
->         ...
->         ret =3D asus_kbd_init(hdev, FEATURE_KBD_LED_REPORT_ID2);
->
-> After it, get_functions runs for every device and returns early on failur=
-e, so the 0x5d and 0x5e inits never happen when it fails. That is what kill=
-s the keyboard here.
->
-> It fails because of a size mismatch. The controller declares feature repo=
-rt 0x5a as 62 bytes:
->
-> 06 31 ff     Usage Page (Vendor 0xFF31)
-> 09 76        Usage (0x76)
-> a1 01        Collection (Application)
-> 85 5a          Report ID (0x5a)
-> ...
-> 75 08          Report Size (8)
-> 95 3e          Report Count (62)
-> b1 00          Feature
-> c0           End Collection
->
-> and asus_kbd_get_functions() asks for FEATURE_KBD_REPORT_SIZE, which is 1=
-6:
->
-> readbuf =3D kzalloc(FEATURE_KBD_REPORT_SIZE, GFP_KERNEL);
-> ret =3D hid_hw_raw_request(hdev, FEATURE_KBD_REPORT_ID, readbuf,
->                          FEATURE_KBD_REPORT_SIZE, HID_FEATURE_REPORT,
->                          HID_REQ_GET_REPORT);
->
-> The device answers with all 62 bytes into a 16 byte control transfer, so =
-it overflows and hid_hw_raw_request() returns -EOVERFLOW, the -75 above. Th=
-e call cannot succeed on this device, which I assume is why the old code ke=
-pt it out of the N-Key path. That descriptor came from /sys/bus/hid/devices=
-/0003:0B05:19B6.0004/report_descriptor; I can send the whole thing if it is=
- useful.
->
-> The patch says "There should be no functional change with this patch", an=
-d in mainline that holds, because 0919db9f3583 ("HID: asus: always fully in=
-itialize devices") had already moved the init reports into asus_probe() whe=
-re a failed get_functions only warns. 0919db9f3583 is not in 6.18.y or 6.12=
-.y, so there the inits are still behind the call that fails.
->
-> So either revert d0754db7883c in both trees and rework the hid_is_usb() f=
-ix against the old structure, or backport 0919db9f3583 alongside it. The re=
-vert looks like less risk for stable, but that is your call. Separately, as=
-king for a fixed 16 bytes from a report the device declares as 62 seems wro=
-ng in any tree. Sizing the request from the report would make the call work=
- here rather than just avoiding it.
+> > +int netc_timer_get_current_time(struct pci_dev *pdev, u64 *ns)
+> > +{
+> > +	struct netc_timer *priv =3D NULL;
+> > +	struct netc_timer *tmp;
+> > +	unsigned long flags;
+> > +	int err =3D 0;
+> > +
+> > +	/* Serialize against driver unbind, so holding it here ensures that
+> > +	 * priv remains valid for the entire duration of the register read.
+> > +	 */
+> > +	spin_lock_bh(&netc_timer_list_lock);
+>=20
+> [Severity: Medium]
+> Is it necessary to hold the module-global netc_timer_list_lock across the
+> MMIO access, rather than only across the lookup?
+>=20
+> priv->lock is taken from hardirq context with a plain spin_lock() in
+> netc_timer_isr(), and that handler can spin in the register drain loop in
+> netc_timer_handle_etts_event():
+>=20
+> drivers/ptp/ptp_netc.c:netc_timer_handle_etts_event() {
+> 	while (netc_timer_rd(priv, NETC_TMR_STAT) & TMR_STAT_ETS_VLD(index))
+> 		etts =3D netc_timer_rd64(priv, NETC_TMR_ETTS_L(index));
+> }
+>=20
+> So while CPU A sits in netc_timer_get_current_time() waiting on
+> spin_lock_irqsave(&priv->lock) with softirqs disabled and the global list=
+ lock
+> held, CPU B can be inside netc_timer_isr() holding priv->lock for a perio=
+d
+> bounded only by hardware. During that window every other Timer's probe(),
+> remove() and every other time query is serialized behind
+> netc_timer_list_lock. The same applies if the target function is unreacha=
+ble
+> and the non-posted read stalls until the PCIe completion timeout.
+>=20
+> Would an RCU-protected lookup (with the priv free deferred in remove()), =
+or
+> taking a reference on the Timer, give the same lifetime guarantee without
+> holding a global lock across the register access?
+>=20
+> Related to that: the BH-only requirement makes the exported symbol illega=
+l
+> from hardirq or with interrupts disabled, but that constraint appears onl=
+y in
+> the kerneldoc and is not visible at the prototype in
+> include/linux/fsl/netc_global.h, and nothing but an eventual WARN from
+> __local_bh_enable_ip() catches a violation. Is there a reason not to drop=
+ the
+> context restriction by using a lookup scheme that does not disable BH?
+>=20
 
-0919db9f3583 came after. You mean e82ae34af29e910 is missing that
-increases FEATURE_KBD_REPORT_SIZE to 64, correct?
+There is effectively no contention on the global lock. NETC has at most 3 T=
+imer
+instances, and the Switch can only use Timer0. netc_timer_get_current_time(=
+)
+is used solely by the Switch driver - the ENETC driver never calls it. At r=
+untime,
+only the Switch driver ever takes netc_timer_list_lock; the other Timer ins=
+tances
+take it only during their own probe()/remove(). So in practice the lock has=
+ no
+competing runtime users. On top of that, the drain loop in
+netc_timer_handle_etts_event() is bounded - the hardware time-stamp FIFO
+holds at most 16 entries, so the ISR holds priv->lock for at most 16 regist=
+er reads,
+not an unbounded time.
 
-Antheas
+With no real contender for the lock, switching to RCU would only add comple=
+xity
+without a meaningful gain.
 
-> Alpine has what looks like the same bug on a ProArt P16, same error strin=
-g, same controller, bisected there to the same commit:
->
-> https://gitlab.alpinelinux.org/alpine/aports/-/work_items/18451
->
-> That reporter only loses the keyboard before root is mounted, mine is dea=
-d in the running session.
->
-> Caveats. I am on a patched distro kernel (Fedora 44, Bazzite "ogc"), not =
-a vanilla build. The function symbols in its hid-asus.ko match upstream v6.=
-18.44's, so I do not think it patches this file, but I have not proven that=
-. I have not bisected; the first-bad releases above come from reading the t=
-ags. I have not captured evdev output proving no key events get through, an=
-d the 6.12.y entry is from reading source, not from running it. The descrip=
-tor was read on 6.18.44, but it comes from the device so it should not vary=
- by kernel.
->
-> I can reproduce this on demand and have a USB keyboard for recovery, so I=
- am happy to test patches or build a vanilla 6.18.49 if that would help.
->
-> #regzbot introduced: v6.18.48..v6.18.49
->
-> Thanks, Grant
+> > +
+> > +	list_for_each_entry(tmp, &netc_timer_list, node) {
+> > +		if (tmp->pdev =3D=3D pdev) {
+> > +			priv =3D tmp;
+> > +			break;
+> > +		}
+> > +	}
+>=20
+> [Severity: Low]
+> This isn't a bug, but the lookup is a bare pointer comparison on a
+> caller-supplied struct pci_dev *, so its soundness depends on the caller
+> holding a reference on @pdev. The in-tree consumer does hold one
+> (netc_get_ptp_timer() obtains it with pci_get_domain_bus_and_slot() and
+> drops it with pci_dev_put()), so nothing is broken today.
+>=20
+> Could the kerneldoc and the exported prototype state that the caller must
+> hold a reference on @pdev? Without it, a future caller that caches a raw
+> pci_dev pointer has no hint that a freed and recycled pointer could match=
+ a
+> different Timer's entry.
+
+The only caller is the NETC switch driver, I do not think we need to update=
+=20
+the kernel-doc.
+
+>=20
+> > +
+> > +	if (!priv) {
+> > +		err =3D -ENODEV;
+> > +		goto netc_timer_list_unlock;
+> > +	}
+> > +
+> > +	spin_lock_irqsave(&priv->lock, flags);
+> > +	*ns =3D netc_timer_cur_time_read(priv);
+> > +	spin_unlock_irqrestore(&priv->lock, flags);
+>=20
+> [Severity: Medium]
+> Can this return 0 together with a meaningless timestamp when the Timer
+> function is not accessible?
+>=20
+> List membership only proves the pci_dev is bound to this driver: the entr=
+y is
+> added at the end of netc_timer_probe() and removed only in
+> netc_timer_remove(). netc_timer_driver registers no PM callbacks, so syst=
+em
+> suspend takes the PCI core default path and the function is disabled and =
+put
+> into D3 while the list entry stays live, and nothing re-programs
+> TMR_CTRL[TE], CK_SEL, TMR_ADD or TMR_CNT on resume. The driver already
+> documents the constraint in netc_timer_init():
+>=20
+> drivers/ptp/ptp_netc.c:netc_timer_init() {
+> 	/* Software must enable timer first and the clock selected must be
+> 	 * active, otherwise, the registers which are in the timer clock
+> 	 * domain are not accessible.
+> 	 */
+> }
+>=20
+> The same holds for a surprise-removed function or one contained by DPC/AE=
+R,
+> where the read returns all-ones. In those cases the helper still reports
+> success, and the switch side consumes the value verbatim as the one-step =
+Sync
+> originTimestamp in netc_port_onestep_work():
+>=20
+> drivers/net/dsa/netc/netc_ptp.c:netc_port_onestep_work() {
+> 	NETC_SKB_CB(skb)->tstamp =3D tstamp;
+> }
+>=20
+> Would it make sense to gate the read on pdev->current_state =3D=3D PCI_D0=
+ and
+> !pci_channel_offline(pdev), or on TMR_CTRL[TE], and return an error inste=
+ad
+> of a successful-looking value? The missing PM support is not introduced b=
+y
+> this patch, but the new export is what turns an inaccessible-device read =
+into
+> a timestamp handed to another driver.
+>=20
+
+NETC is a Root Complex integrated Endpoint (RCiEP). The Switch, ENETC and
+Timer are all on-chip integrated functions with no external PCIe link and n=
+o
+physical connector. So surprise removal and AER/DPC containment simply
+cannot occur here.
+
+Suspend/resume is not supported anywhere in the NETC subsystem - the Switch=
+,
+ENETC and Timer drivers have no PM callbacks. When PM support is added late=
+r,
+it will guarantee that the Timer suspends after the Switch and resumes befo=
+re it,
+so the Timer is always programmed and accessible whenever the Switch may
+query it.=20
 
