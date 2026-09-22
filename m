@@ -1,229 +1,184 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC164A7C90
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106748; cv=pass; b=n5uG3OeI6Ld3y8XjIK/jV9/Pab+llB6bpbUiZhl69ihzIsUY1T4YNSALn81r35Dqo0lZtaiKREumla2n9QZ8yDjxBLg4YkY9z/RUiFV6KRp65fvNIO5tPi17m0IfX0WdUria0LG5C44Kn2AfqmR0+iWgTdduZYBmVykgrWG/rNA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106748; c=relaxed/simple;
-	bh=/qwwE9Rvz8cayxd847u/AHG6eFdMgXgPKAeSEffzVyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=lUQvDGYIWq9AMfKLAtPZZRl4EXN8Tn1RBmbEmUTa6hY1wbGZyebyaVmhVfKY9bMbig//89Q8zfyjSQsHlg2n2ZNbNq7+78xF5LZwbvjQ12FbxmfGDu9dv9JmG+rvbC3o8HeQ+U7lpRmAETPjUzi139SpoD7pVGgh/B/o5usmmVA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=QSIfXdIF; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B75148A8C6;
+	Tue, 22 Sep 2026 19:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790106819; cv=none; b=cFxDKvtQph7EDkE70hOUJ9Dw/e/5QKW37JdVuhJ8VhQfBEM6O1azSI9vPale3yLSVI8SzYiDt/EEYCGT/fnHVUnV42I/gpbPOrti1enEEiZzE7EYLZdbSQbukgkkmW/zIebW1GkF0Wv3tGIFD0mL+8zfgSFN4P+HBNrqoxMIw64=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790106819; c=relaxed/simple;
+	bh=N93A1hY5B4kTCBmeL9NB6n3aYw9KStilPfloJKM8JVQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dkTUb9rsQDq/yNl9kclPHC1hnJocScNjNJ2zmaQ1UCcnbLInwFvFAgh/24/PDhhSXV7JeBntMTtQmMR3crtV5BdYvlbiGiR417690C9y+91jRgo/O42K3PcKfi9cyxEdFyMLG1bLsvTc7IDRjZwcDh9zjxMk66Tu/P/q84L+WpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBYbsd01; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="QSIfXdIF"
-ARC-Seal: i=1; a=rsa-sha256; t=1790106715; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=KknR8W+WPisg4iSFYWSzOSytQ3wiyWFe8yEgaur9Fo5CbhNEQB4sE9bFBsJEWfLcI1ePuaevcnOOSIEAR7TQFiuems0/GZqFUm2Na4SGUUIMT7eV5xwzK4szvFfNebxLKyRqO/T6OrvM04ZNK11oB21KaZvjjdlr3fBdjowMqWY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790106715; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=0cY8BufZm8x4L8It6tVcAXvdGnTtJlwa84sEBVLMn4Q=; 
-	b=g4mghrLmbrX3O1z6rJpUmxA47S/ztnwEzY2YrPjy3bnfJ7kqTHTVyx2fkzApLf0XyQIAAavqk2VP1aF6HiTVratm5OWTim6Xz8MzJii/Cx6NI5P6pft5Orw2Y6itSLNU9DcY1wDKUk55VYLhqW04GdYElvx/d450Z1OuTJRO8Bs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790106715;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=0cY8BufZm8x4L8It6tVcAXvdGnTtJlwa84sEBVLMn4Q=;
-	b=QSIfXdIFriQ/JI1Wvyc2nZCCRNQrHeB0dQkhhn0OkXHtKJQljM3fxoowj8wY9H40
-	B8osxyFyVLd1pCSBtsrB54l2N9CLEDRn299xzk+eDBudSTRiEPGXtZt7TGvyphghWcA
-	DdTaBhe/VtnzW6QwgIM6T73/tvhgCwhhWhTr2IqI=
-Received: by smtp.zohomail.com with SMTPS id 1790106714187941.2883807507874;
-	Tue, 22 Sep 2026 12:51:54 -0700 (PDT)
-Date: Tue, 22 Sep 2026 20:51:48 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
-	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
-	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 06/16] drm/panfrost: Fix PM refcnt and autosuspend
- issues at device probe/remove
-Message-ID: <arGhZayS8zH4y-61@sobremesa>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBYbsd01"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9561F000FF;
+	Tue, 22 Sep 2026 19:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790106817;
+	bh=XVfBxMLj3abj4k98ZMyPSyR+RpKEbtb4WfF2xUwcPjU=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=QBYbsd015Z6fupQEJcrItq7Vye6ml3SCkduSo0K1OOYznxJyZI3DkqCicd0zIU9JR
+	 saVRRYIXUkHjnGvXrhWqQkzn4wYWEtk1xThrRY+b63pOzmfz9uTQXBrO4A/AhhU4Ww
+	 NjgkqaENVTZQXq1mLftWWbTklc9wKWoMQBa26wR8LK7NuQXOETdJ9Y73g1neQlFqlE
+	 QM1TsiGRQFWv35fZPYdMPAZpNj3WXR9phfTsmh5mus1AZpmtmFPUM9wfMlt45bSbTT
+	 fKsdJG2BlkmhGcK6IpmSELivND2M0H9ocvYVB/AUfl+gM9d6xFEjvvHrAnS3NTUVE8
+	 l+HetS/bbc7xA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 113B8CE0836; Tue, 22 Sep 2026 12:53:37 -0700 (PDT)
+Date: Tue, 22 Sep 2026 12:53:37 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Vineet Gupta <vgupta@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Guo Ren <guoren@kernel.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>, Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+	David Laight <david.laight.linux@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/5] Add two-byte cmpxchg emulation and wire it into
+ the architectures
+Message-ID: <cfc7914d-586e-4858-9a22-05b107fb0dc0@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260922173354.14404-1-brads@mainlining.org>
+ <78f7ab38-46c8-4968-a2ae-4c3c98e32f4d@paulmck-laptop>
+ <7BE5B8EA-FAFB-4CBB-8FF1-ECDEEB1618B0@mainlining.org>
+ <9a7883a3-a1b1-4d37-8234-f4c62b2e6e27@paulmck-laptop>
+ <ddde3609-f068-4f26-92c0-e9244f290eaf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260914112237.70dedb9c@fedora-21.home>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.95.26
+In-Reply-To: <ddde3609-f068-4f26-92c0-e9244f290eaf@kernel.org>
 
-On 14.09.2026 11:22, Boris Brezillon wrote:
-> On Sat, 12 Sep 2026 00:28:07 +0100
-> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> 
-> > During device probe(), failure to do a PM get() will leave the usage_count
-> > set to 0, which is the value assigned at device creation time. That means
-> > when the autosuspend delay expires, runtime suspend callback won't be
-> > invoked, so the device will remain powered on forever.
+On Tue, Sep 22, 2026 at 12:13:42PM -0700, Vineet Gupta wrote:
+> On 9/22/26 11:59, Paul E. McKenney wrote:
+> > On Tue, Sep 22, 2026 at 07:37:54PM +0100, Bradley Morgan wrote:
+> > > On 22 September 2026 19:29:32 BST, "Paul E. McKenney" <paulmck@kernel.org>
+> > > wrote:
+> > > > On Tue, Sep 22, 2026 at 05:33:49PM +0000, Bradley Morgan wrote:
+> > > > > This is v4 of the two byte cmpxchg emulation series, wiring
+> > > > > cmpxchg_emu_u16() into arc, csky, sh and xtensa.
+> > > > > 
+> > > > > v3 had changed cmpxchg_emu_u8()'s success return to (u16)old, which was
+> > > > > a 16-bit mask in the 8-bit function, and a dead one at that, since the
+> > > > > compare guarantees the low 8 bits of old are the byte being returned.
+> > > > > David Laight asked where that cast came from. v4 returns old unmasked,
+> > > > > the exact behaviour the one-byte emulator always had, so nothing that
+> > > > > uses cmpxchg_emu_u8() through the widened prototypes sees a change.
+> > > > > 
+> > > > > David also noted v3 extended the (unsigned long)(0 ? *ptr : (old)) type
+> > > > > check to csky and sh but not arc and xtensa. v4 adds it there too, so a
+> > > > > cmpxchg(&p, 4, 5) fails to compile on every architecture in the series,
+> > > > > verified with each architecture's macro instantiated standalone.
+> > > > > 
+> > > > > While adding the type check to arc, the switch subject turned out to be
+> > > > > sizeof((_p_)), the pointer, not sizeof(*(_p_)), the pointee. On 32-bit
+> > > > > arc the switch was always 4, so the size 1 and size 2 cases were dead
+> > > > > code and every sub-word cmpxchg() went through the 32-bit llock/scond
+> > > > > pair, comparing whole words against sub-word values, so the compare
+> > > > > almost never succeeded. The switch now tests the pointee, and the u8
+> > > > > path it was always meant to dispatch actually runs, so the one-byte
+> > > > > emulation works on arc for the first time since the sizeof bug landed
+> > > > > with the original cmpxchg_emu_u8() wiring.
+> > > > > 
+> > > > > The host test of 972 cases across both halfword offsets against a byte
+> > > > > level reference model still passes, and a 20000 case randomized run
+> > > > > checking the masked compare and return against a hardware cmpxchg r16
+> > > > > model passes with zero mismatches.
+> > > > > 
+> > > > > David pointed out on v1 that a u16 prototype does not compile warning
+> > > > > free when exchanging a pointer type, because the switch statements in
+> > > > > the architecture macros instantiate every size case, so a pointer
+> > > > > cmpxchg() type checks the two byte case, and the (u16) casts there
+> > > > > warn. v4 keeps taking the old and new values as unsigned long and
+> > > > > casting to u16 inside the function, so the call sites need no narrowing
+> > > > > casts and pointer exchanges compile clean. The function still compares
+> > > > > and returns exactly the 16 bits the caller asked for, which matches
+> > > > > hardware cmpxchg r16 behaviour.
+> > > > > 
+> > > > > The ARMv6 wiring stays dropped from v1, per Arnd Bergmann's offer to
+> > > > > take the INTEGRATOR_CM1136JFS cleanup in his platform removal series.
+> > > > I have pulled these in, but only to expose them to things like the kernel
+> > > > test robot.  My guess is that they will go in by some other path.
+> > > > 
+> > > > And to that end:
+> > > > 
+> > > > Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> > > > 
+> > > > But I could of course easily be missing subtle arch-specific bugs.
+> > > There are, according to sashiko, but I can't seem to make that thing happy
+> > > no matter what I do
+> > Hahahahaha!!!
 > > 
-> > On top of that, failure to call PM put() during device unplug means
-> > Panfrost device's PM usage_count increases monotonically for every new
-> > module reload.
-> > 
-> > The outcome of both of the above meant that:
-> > 
-> > - Devfreq OPP transition notifications would be printed all the time,
-> >   even when no jobs are being submitted. This quickly fills the kernel
-> >   ring buffer with junk.
-> > - Because MMU interrupts are only enabled when the device is reset,
-> >   the very first job targeting the tiler heap BO after device probe()
-> >   would always time out, since the driver's PM runtime resume callback
-> >   would not be invoked.
-> > 
-> > To fix the above:
-> > - Manually adjust the PM refcnt at device probe and removal time.
-> > - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
-> > - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
-> > - Move pm_runtime_set_suspended() before panfrost_device_fini() so that
-> >   resource unwinding happens in the opposite order as initialisation.
-> > 
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
-> > Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_drv.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > index 55fc22e8d4d4..a3eff77add55 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > @@ -854,6 +854,7 @@ static int panfrost_probe(struct platform_device *pdev)
-> >  
-> >  	pm_runtime_set_active(pfdev->base.dev);
-> >  	pm_runtime_mark_last_busy(pfdev->base.dev);
-> > +	pm_runtime_get_noresume(pfdev->base.dev);
-> >  	pm_runtime_enable(pfdev->base.dev);
-> >  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> >  	pm_runtime_use_autosuspend(pfdev->base.dev);
-> > @@ -866,13 +867,16 @@ static int panfrost_probe(struct platform_device *pdev)
-> >  	if (err < 0)
-> >  		goto err_out1;
-> >  
-> > +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> >  
-> >  	return 0;
-> >  
-> >  err_out1:
-> > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> >  	pm_runtime_disable(pfdev->base.dev);
-> > -	panfrost_device_fini(pfdev);
-> > +	pm_runtime_put_noidle(pfdev->base.dev);
-> >  	pm_runtime_set_suspended(pfdev->base.dev);
-> > +	panfrost_device_fini(pfdev);
+> > We forgot to CC the architecture maintainers.
 > 
-> Not an issue per-se, because put_noidle() is a NOP, but I think it'd be
-> easier to reason about with this order:
+> No you didn't - they were CC'ed all along.
+> I'll give this is a test run and report back later.
 > 
-> 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->   	pm_runtime_disable(pfdev->base.dev);
-> 	panfrost_device_fini(pfdev);
->   	pm_runtime_set_suspended(pfdev->base.dev);
-> 	pm_runtime_put_noidle(pfdev->base.dev);
+> Both the cover letter and 1/5 explain what is being done and not clearly why
+> ?
+> Is there an existing or proposed user for this API.
+> Otherwise it will just bit-rot. No big deal from arch code pov but just
+> saying...
+
+If I remember correctly, there are workarounds for lack of two-byte
+cmpxchg() in various parts of the kernel, for example, _Q_PENDING_BITS.
+So this might not be without uses for all that long.
+
+							Thanx, Paul
+
+> Thx,
+> -Vineet
 > 
-> This makes it clear that panfrost_device_fini() assumes the device is
-> resumed when it's called and suspended when it returns.
-
-Your suggestion feels more natural, which makes me wonder why I decided to move
-panfrost_device_fini() to the end of the block. 
-
-IIRC we chatted about where to place pm_runtime_put_noidle() and pm_runtime_set_suspended()
-in panfrost_device_init() when one of the subsystem initialisations failed. My intuition
-had been to leave them until the very bottom of it, in imitation of what you hinted here,
-but then it'd go against the notion that winding down must be done in the opposite order
-as initialisation. And so because panfrost_device_init() happens before all the pm_runtime_*
-incantations, I thought panfrost_device_fini() should be placed at the end in the error
-and driver remove paths.
-
-That said, I think a more intuitive init order would be one that imitates what happens in
-Panthor when runtime PM is enabled:
-
-	/* First thing done in pm_runtime_resume_and_get -> pm_runtime_get_active -> __pm_runtime_resume */
-	pm_runtime_get_noresume(pfdev->base.dev);
-	
-	/* Now come subsystem initialisations */
-	panfrost_gpu_init(pfdev);
-	panfrost_mmu_init(pfdev);
-	panfrost_jm_init(pfdev);
-	panfrost_perfcnt_init(pfdev);
-	panfrost_gem_init(pfdev);
-	
-	/* __pm_runtime_resume -> rpm_resume first invokes the resume callback and then
-	 * updates runtime status to RPM_ACTIVE. */
-	pm_runtime_set_active(pfdev->base.dev);
-	
-	pm_runtime_enable(ptdev->base.dev);
-        pm_runtime_mark_last_busy(pfdev->base.dev);
-	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-	pm_runtime_use_autosuspend(pfdev->base.dev);
-
-And then in the error and device remove path would be almost just like you suggest.
-
-        pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-	pm_runtime_disable(pfdev->base.dev);
-	pm_runtime_put_noidle(pfdev->base.dev);
-	panfrost_device_fini(pfdev);
-	pm_runtime_set_suspended(pfdev->base.dev);
-
-The only difference is that pm_runtime_put_noidle() happens before device_fini
-because that's the same order as in __pm_runtime_suspend().
-
-However, that means in the commit where I move all DRM initialisation into
-panfrost_device_init(), in order to keep things consistent, I should move
-pm_runtime_set_suspended() to the very end of the error path.
-
-> >  err_out0:
-> >  	return err;
-> >  }
-> > @@ -884,9 +888,11 @@ static void panfrost_remove(struct platform_device *pdev)
-> >  	drm_dev_unregister(&pfdev->base);
-> >  
-> >  	pm_runtime_get_sync(pfdev->base.dev);
-> > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> > +	pm_runtime_put_noidle(pfdev->base.dev);
-> >  	pm_runtime_disable(pfdev->base.dev);
-> 
-> Let's keep the order consistent with the probe path:
-> 
-> 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> 	pm_runtime_disable(pfdev->base.dev);
-> 	panfrost_device_fini(pfdev);
-> 	pm_runtime_set_suspended(pfdev->base.dev);
-> 	pm_runtime_put_noidle(pfdev->base.dev);
-> 
-> I also think this deserves comments to explain the noresume/noidle
-> dance (device_init/fini take care of clks internally, and when they
-> return the device is resumed/suspended, so all we have to is update the
-> state, and acquire a ref).
-
-I don't mind doing this, but I think the fact we're calling noresume/noidle
-functions already implies device power-up is being handled manually rather
-by having RPM invoke resume and suspend callbacks behind the scenes, so
-we've no choice other than adjusting PM user counter and status ourselves.
-
-> > -	panfrost_device_fini(pfdev);
-> >  	pm_runtime_set_suspended(pfdev->base.dev);
-> > +	panfrost_device_fini(pfdev);
-> >  }
-> >  
-> >  static ssize_t profiling_show(struct device *dev,
 > > 
-
-Adrian Larumbe
+> > For the changes to lib/cmpxchg-emu.c:
+> > 
+> > 	Cc: Andrew Morton <akpm@linux-foundation.org>
+> > 	Cc: Arnd Bergmann <arnd@kernel.org>
+> > 
+> > For ARC:
+> > 
+> > 	Cc: Vineet Gupta <vgupta@kernel.org>
+> > 	linux-snps-arc@lists.infradead.org
+> > 
+> > For sh:
+> > 
+> > 	Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+> > 	Cc: Rich Felker <dalias@libc.org>
+> > 	Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> > 	Cc: <linux-sh@vger.kernel.org>
+> > 
+> > For csky:
+> > 
+> > 	Cc: Guo Ren <guoren@kernel.org>
+> > 	Cc: <linux-csky@vger.kernel.org>
+> > 	Cc: <linux-kernel@vger.kernel.org>
+> > 
+> > For xtensa:
+> > 
+> > 	Cc: Chris Zankel <chris@zankel.net>
+> > 	Cc: Max Filippov <jcmvbkbc@gmail.com>
+> > 
+> > They might be willing to help.  ;-)
+> > 
+> > 							Thanx, Paul
+> > 
+> > > > > Bradley Morgan (5):
+> > > > >    lib: Add two-byte cmpxchg emulation function
+> > > > >    ARC: Emulate two-byte cmpxchg
+> > > > >    sh: Emulate two-byte cmpxchg
+> > > > >    csky: Emulate two-byte cmpxchg
+> > > > >    xtensa: Emulate two-byte cmpxchg
+> > > --- Thanks!
+> > > "I'm not a very positive person" - Linus torvalds
+> 
