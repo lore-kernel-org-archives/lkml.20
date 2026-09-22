@@ -1,53 +1,72 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9A554936E;
-	Tue, 22 Sep 2026 13:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C9654936E
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790085446; cv=none; b=Lp/6IKzzAGEpy8tWYRdwSvcJjn/oVqYsRSy4BFObECwd5skxCfQI/XXD6iCwfBdMT00RAdP3rNJotq/q+WGBDXlwrdoaMRnmavLZdnuWJQ/zo+IyNSK2v1iThJDyBg8tmRcAJQiMN7HeWS4O3wVhKXs0gUiKIt6R1a08JphThCA=
+	t=1790085456; cv=none; b=m568CpfXIHV6LbqRSjhsB/049EkcxMbNSZxPyCU0c4ZH24XraBbwCqQb9EyFUne8x68o9dz/nCtoPXGamFIzTf1Zxz+QsjW1VR1CJ54fu9JeRaQO2/1o6fXzdHb9k//tOeYbuBXR2QeC43ig6yhmSyZnK0+cg/Y3kx5GFSYyyo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790085446; c=relaxed/simple;
-	bh=pN/M8AdJGfApBsIjohsqKZc+u7W0H3nuc7qL18S2QCw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=riPJyKIZ3GYq2iRwYp4x5s88/15ogywCdrtvke2BpEUbgUVGZXDQMhWefljFSvd78F7zJvTu+ioN0hw4UcmKQV7C8IM7t95RJdLyr79V/vxzBYJjVEPlUECxMGxVIBnp2ktRhmYEubwIi2D5V/61wcnZbv82ouAsxWGPYT7HV+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=DE+bxE3Y; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1790085456; c=relaxed/simple;
+	bh=dBd5pQTE0YssP3IPEN+CCM6gF1e6BXlpUjLXZ7Zh5PQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNM8mXYqhrfGF9xZ70s7be5GWDw4SHnWzKfWCEzVwNufFp4Bcs38pgE+8o4atnSsnXatHLi6LCSdqaXc9m86yet2Xpu61pjGvoLgpGqoycIDBrMRkA8gWT0cMg26i6Ar4e268UJlN6XkAHhf1LLuX06XpMtoiEkSHczv6DkkItc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=FSv8QNtb; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="DE+bxE3Y"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1790085436;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4PsXtLsCdtkC02MuBzxmxbitWNwPTeetSeVoh7aihcE=;
-	b=DE+bxE3Y8ObbpBY+xv0grmMMkKqIR6J2HRqDDie1LUj09UydY6Lpy0BbBjLjuxvB4FkzGC
-	PSb7mznBGG+EmmdgetOTpCkXXrt4r6BKp106wl6EGmWF7IRn2O+BPEEKutkilpRJ07pTtD
-	VO9EdZ59gZTo9yT7Kg09cUCzuEYzmlo=
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Andreas Larsson <andreas@gaisler.com>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="FSv8QNtb"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48586861639so435211f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 06:57:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790085452; x=1790690252; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pZZpnp9Ii94lfQediVbtRB1HCrD5s3KchpIbsJ2tbsA=;
+        b=FSv8QNtbyWM9XK2JkkiCUJt2L1laTHAqFaLDUDjL3fdaCCl2qC1bLKtKVAng4PP4HG
+         ttpfP+8Zlg2OnNGIzv0sigCBjWAOQh7GKtczrJxgIrAjicpk3xX1PJjTlCbz3roPxToW
+         mmomdGqkeHXbJq+BD0H2ZF7Au/gQAfXR1nDMeuMfOD877xycSg7rnlXIKLhVeEnqj26V
+         BrXjLcycof64y1HxIGtL9j8HTy7M/pddyr/slET2X9tfNLqRoaxUN02UtImsdrEmEilF
+         IF/mezcIldDHx2C+4OjgVyn7lUU3rP79ViNZ6L/JNR8MSqLSs+4nZSu3uUfsGWZZX4S9
+         Zb6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790085452; x=1790690252;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pZZpnp9Ii94lfQediVbtRB1HCrD5s3KchpIbsJ2tbsA=;
+        b=jPdZOmTPZK192X8phE9PmAY4fDeX3pr0/9OAQu88t5T+hmHirlvJmm4M/tkVqv9CXo
+         mUrYd/w/WIOj8Xu35StumyKHqaLksgCzIGMmziB4Atf7TwRqSkqjFwgk+QghGicDCuxh
+         W+E+ENQfp5WAwWNzWoZGhfM5LR59gq2BwJvuCjLGHW+cHjamSTNIAap/4tte6aRJkdL6
+         A/Sipros9r8Zq1YgdgZckKbxZsmQCA7himkJhdPP7AougHGpRafRi+91VpI0VSPumdQP
+         nnYHGzNUHI5bbyhph73GFUj4xwVNlZOPDjniHFS/6tj7QKT9/nz0YLFXX621fGhaUlQg
+         rzYw==
+X-Forwarded-Encrypted: i=1; AKwUvByUUWqzm16XYDQdLjQAUY4B+JbkC8ZH2BLLHEaGEtiqCB5Vhzm3K+3jBehNtVJI9h3hfOUAnpmgGjVB1pQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+pC2FlrsahmNgoA5qPlxw3UQs9N11f8+4ow13Wr7+JLVONSnr
+	xsXzZqIzDp77EM0TRx3rl8DOXpvtZE5rcuJIgYEyC++HC/MpmYMiqndXm3cgnVKpsT0=
+X-Gm-Gg: AYBFou2wL2HIAYZY7jqXahsvRt7hyvGophU+BiJVarUeLmPkxdos3h7TjzBTYaedNbC
+	TT0+UX/LObbA9DdcD4EykRe6+8UmNOjXKHlMn9gr95dFt/2oR4wiq5FTFUkAQtuXiTo8vl4cAym
+	PtkpD3h0JsUR1FrFVf4OR+relRliehsoDfddIJfZ4+J6W1yRg64WhSH0+XQuSl8sxQgj4UdaQjM
+	Zt1mVzCKyQZhDhz/R2y0o/8U55WPOqqgZ+gjFRgV9xniAT5aR0GpmMex20BgPN5Nvws/8AVX/SM
+	YBceUuYM2EfkWrao5Wsz2OgAwC8Hk6dCLFxR1XVIrKl7Nu4/3ZJ7iG4FP/sQmG296t0i5RIrzpy
+	bu8/JbUfHYqeRdYgxTQZx7Vzhqa6b3F7kOLzD7wS78HUcKsUlaiJB0UCqoYucOlTfDGui9uf0/d
+	fPAVIRGHKc0DD2QsQgi2X6y6aTcalaEDiH97dzyYb82KoUmlBieZuhGe3D6vAiiLjhwwp3zA==
+X-Received: by 2002:a05:6000:4303:b0:487:9bb:a875 with SMTP id ffacd0b85a97d-48860f7eb5bmr4640032f8f.3.1790085452552;
+        Tue, 22 Sep 2026 06:57:32 -0700 (PDT)
+Received: from localhost ([195.94.147.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862774543sm5865322f8f.11.2026.09.22.06.57.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 06:57:32 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
 	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stian Halseth <stian@itx.no>
-Subject: [RFC PATCH 2/2] sparc64: Support PERF_SAMPLE_REGS_USER and PERF_SAMPLE_STACK_USER
-Date: Tue, 22 Sep 2026 15:56:53 +0200
-Message-ID: <20260922135653.1622301-3-stian@itx.no>
-In-Reply-To: <20260922135653.1622301-1-stian@itx.no>
-References: <20260922135653.1622301-1-stian@itx.no>
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Andrea della Porta <andrea.porta@suse.com>
+Subject: [PATCH] arm64: smp: Signal EOI after handling IPI_CPU_STOP*
+Date: Tue, 22 Sep 2026 16:01:09 +0200
+Message-ID: <20260922140109.12780-1-andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,184 +75,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Select HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP and add the
-perf_regs implementation. The exposed registers mirror struct pt_regs:
-%g0-%g7, %o0-%o7 (named from the user's point of view; pt_regs calls
-them UREG_I*), %tstate, PC, NPC and %y. %o6 is reported as held in the
-register, i.e. with the 2047 stack bias for a 64-bit task, the same as
-ptrace and user_stack_pointer(). Values of a 32-bit task are truncated
-to 32 bits as genregs32_get() does, since the hardware does not
-zero-extend them.
+On kdump/kexec, the boot CPU triggers an IPI_CPU_STOP (and subsequently
+an IPI_CPU_STOP_NMI if the first one does not respond) to the secondary
+CPUs, and the IPI handler eventually calls the firmware to shut down
+each CPU. Since the IPI is never acknowledged via EOI, the interrupt
+remains in an active state when the CPU goes idle.
 
-perf_arch_prepare_ustack() flushes the user register windows so the
-sampled window's %l and %i registers are in the dumped stack, where a
-DWARF unwinder needs them: the CFI of a function after `save` defines
-the CFA in terms of %i6.
+In a virtualized environment, if the hypervisor does not reset the
+interrupt state, this causes the crashkernel (with cmdline option
+maxcpus > 1) to be unable to synchronize between the boot CPU and
+secondary CPUs via IPI_CALL_FUNC, leading the kernel to wait indefinitely
+for the CPUs to respond. This has been observed with the Hyper-V
+implementation.
 
-This makes perf record --call-graph dwarf and eu-stackprof usable on
-sparc64.
+Both the Linux kernel and the Hyper-V firmware appear to violate the
+PSCI specification:
 
-Signed-off-by: Stian Halseth <stian@itx.no>
+- The PSCI spec states that the OS kernel must migrate any interrupt away
+from the CPU that is about to be shut down via CPU_OFF, which by extension
+implies that no active interrupts are allowed. The kernel does not
+currently do this in the kdump crash path.
+
+- The PSCI spec also states that the PSCI firmware must reset the CPU
+registers to their default values when turning on a CPU via the CPU_ON
+command.
+
+Fixing this on the kernel side has the advantage of being
+hypervisor-agnostic.
+
+Signal EOI at the end of the crash handler to prevent the subsequent
+crashkernel from hanging.
+
+Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 ---
- arch/sparc/Kconfig                      |  2 +
- arch/sparc/include/asm/perf_event.h     |  3 ++
- arch/sparc/include/uapi/asm/perf_regs.h | 33 +++++++++++++
- arch/sparc/kernel/Makefile              |  2 +-
- arch/sparc/kernel/perf_regs.c           | 65 +++++++++++++++++++++++++
- 5 files changed, 104 insertions(+), 1 deletion(-)
- create mode 100644 arch/sparc/include/uapi/asm/perf_regs.h
- create mode 100644 arch/sparc/kernel/perf_regs.c
+ arch/arm64/kernel/smp.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
-index ab77d3f2536e..9d7f575f359d 100644
---- a/arch/sparc/Kconfig
-+++ b/arch/sparc/Kconfig
-@@ -93,6 +93,8 @@ config SPARC64
- 	select RTC_DRV_SUN4V
- 	select RTC_DRV_STARFIRE
- 	select HAVE_PERF_EVENTS
-+	select HAVE_PERF_REGS
-+	select HAVE_PERF_USER_STACK_DUMP
- 	select PERF_USE_VMALLOC
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
- 	select HAVE_C_RECORDMCOUNT
-diff --git a/arch/sparc/include/asm/perf_event.h b/arch/sparc/include/asm/perf_event.h
-index c2aec0c7f4f5..03f1ab1618b9 100644
---- a/arch/sparc/include/asm/perf_event.h
-+++ b/arch/sparc/include/asm/perf_event.h
-@@ -25,6 +25,9 @@ do {							\
- 	(regs)->u_regs[UREG_I6] = _fp;			\
- 	(regs)->u_regs[UREG_I7] = _i7;			\
- } while (0)
-+
-+void perf_arch_prepare_ustack(void);
-+#define perf_arch_prepare_ustack	perf_arch_prepare_ustack
+diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+index a61dc3016a117..cc7f3261fe537 100644
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -988,6 +988,27 @@ void kgdb_roundup_cpus(void)
+ }
  #endif
  
- #endif
-diff --git a/arch/sparc/include/uapi/asm/perf_regs.h b/arch/sparc/include/uapi/asm/perf_regs.h
-new file mode 100644
-index 000000000000..17f14335d6c0
---- /dev/null
-+++ b/arch/sparc/include/uapi/asm/perf_regs.h
-@@ -0,0 +1,33 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+#ifndef _UAPI_ASM_SPARC_PERF_REGS_H
-+#define _UAPI_ASM_SPARC_PERF_REGS_H
-+
-+/*
-+ * Mirrors struct pt_regs.  O6 is %sp as held in the register, i.e. biased
-+ * by 2047 for a 64-bit task.
-+ */
-+enum perf_event_sparc_regs {
-+	PERF_REG_SPARC_G0,
-+	PERF_REG_SPARC_G1,
-+	PERF_REG_SPARC_G2,
-+	PERF_REG_SPARC_G3,
-+	PERF_REG_SPARC_G4,
-+	PERF_REG_SPARC_G5,
-+	PERF_REG_SPARC_G6,
-+	PERF_REG_SPARC_G7,
-+	PERF_REG_SPARC_O0,
-+	PERF_REG_SPARC_O1,
-+	PERF_REG_SPARC_O2,
-+	PERF_REG_SPARC_O3,
-+	PERF_REG_SPARC_O4,
-+	PERF_REG_SPARC_O5,
-+	PERF_REG_SPARC_O6,
-+	PERF_REG_SPARC_O7,
-+	PERF_REG_SPARC_TSTATE,
-+	PERF_REG_SPARC_PC,
-+	PERF_REG_SPARC_NPC,
-+	PERF_REG_SPARC_Y,
-+	PERF_REG_SPARC_MAX
-+};
-+
-+#endif /* _UAPI_ASM_SPARC_PERF_REGS_H */
-diff --git a/arch/sparc/kernel/Makefile b/arch/sparc/kernel/Makefile
-index 497b5714fa8f..a3dd92247c3b 100644
---- a/arch/sparc/kernel/Makefile
-+++ b/arch/sparc/kernel/Makefile
-@@ -113,7 +113,7 @@ obj-$(CONFIG_AUDIT)     += audit.o
- audit--$(CONFIG_AUDIT)  := compat_audit.o
- obj-$(CONFIG_COMPAT)    += $(audit--y)
- 
--pc--$(CONFIG_PERF_EVENTS) := perf_event.o
-+pc--$(CONFIG_PERF_EVENTS) := perf_event.o perf_regs.o
- obj-$(CONFIG_SPARC64)	+= $(pc--y)
- 
- obj-$(CONFIG_UPROBES)	+= uprobes.o
-diff --git a/arch/sparc/kernel/perf_regs.c b/arch/sparc/kernel/perf_regs.c
-new file mode 100644
-index 000000000000..644a0a11cb90
---- /dev/null
-+++ b/arch/sparc/kernel/perf_regs.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/perf_event.h>
-+#include <linux/perf_regs.h>
-+#include <linux/sched/task_stack.h>
-+#include <asm/cacheflush.h>
-+#include <asm/ptrace.h>
-+
-+u64 perf_reg_value(struct pt_regs *regs, int idx)
++static void ipi_eoi(int ipinr)
 +{
-+	u64 val;
++	unsigned int cpu = smp_processor_id();
++	struct irq_desc *desc;
++	struct irq_chip *chip;
++	struct irq_data *d;
 +
-+	switch (idx) {
-+	case PERF_REG_SPARC_G0 ... PERF_REG_SPARC_O7:
-+		val = regs->u_regs[idx];
-+		break;
-+	case PERF_REG_SPARC_TSTATE:
-+		return regs->tstate;
-+	case PERF_REG_SPARC_PC:
-+		val = regs->tpc;
-+		break;
-+	case PERF_REG_SPARC_NPC:
-+		val = regs->tnpc;
-+		break;
-+	case PERF_REG_SPARC_Y:
-+		return regs->y;
-+	default:
-+		WARN_ON_ONCE(1);
-+		return 0;
++	if (ipinr >= MAX_IPI)
++		return;
++
++	desc = get_ipi_desc(cpu, ipinr);
++
++	if (desc) {
++		chip = irq_desc_get_chip(desc);
++		d = irq_desc_get_irq_data(desc);
++
++		if (chip && chip->irq_eoi)
++			chip->irq_eoi(d);
 +	}
-+
-+	if (test_thread_flag(TIF_32BIT))
-+		val = (u32)val;
-+
-+	return val;
 +}
 +
-+#define REG_RESERVED (~((1ULL << PERF_REG_SPARC_MAX) - 1))
-+
-+int perf_reg_validate(u64 mask)
-+{
-+	if (!mask || mask & REG_RESERVED)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+u64 perf_reg_abi(struct task_struct *task)
-+{
-+	if (test_tsk_thread_flag(task, TIF_32BIT))
-+		return PERF_SAMPLE_REGS_ABI_32;
-+
-+	return PERF_SAMPLE_REGS_ABI_64;
-+}
-+
-+void perf_get_regs_user(struct perf_regs *regs_user,
-+			struct pt_regs *regs)
-+{
-+	regs_user->regs = task_pt_regs(current);
-+	regs_user->abi = perf_reg_abi(current);
-+}
-+
-+void perf_arch_prepare_ustack(void)
-+{
-+	flushw_user();
-+}
+ /*
+  * Main handler for inter-processor interrupts
+  */
+@@ -1009,6 +1030,7 @@ static void do_handle_IPI(int ipinr)
+ 
+ 	case IPI_CPU_STOP:
+ 	case IPI_CPU_STOP_NMI:
++		ipi_eoi(ipinr);
+ 		arm64_nmi_cpu_stop(get_irq_regs(), true);
+ 		break;
+ 
 -- 
-2.55.0
+2.35.3
 
