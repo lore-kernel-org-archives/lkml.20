@@ -1,126 +1,171 @@
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4085A53D0B1;
-	Tue, 22 Sep 2026 15:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 73C7453F6AA;
+	Tue, 22 Sep 2026 15:15:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790090033; cv=none; b=DmVexpCUgTT5pNXQOWL/w4IGMrWlvc6ZqReBhbbOH3g6aAzhVvg+QkElZo3M8tEM/1YXg3ioMg1xqiL9G5P7XxNrnIzlIBTMwIpQIwicz19ExeXRXjIKew0V8srCpc732j1CfEIUAJGbc28WYRVNlnXNgYsnyr09v40C32E0ZvA=
+	t=1790090103; cv=none; b=TGA2GdrO9ZFYYaXcNCSEba8BIsZZKFqvhQOqEs963qVvKXsipWAM3wpD36BJiLRT0SY5wyG/nF34X+EM++gNKs0YkrCPSC6tdzbX8fRU0iSItwKDbmexAqNPisdCFPpb6biC6qmpl3Gv/WYVfskqUDxQDf4C5rtZw/Qf6AL1mbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790090033; c=relaxed/simple;
-	bh=/2xq9DPwE3L16cCd6eTM6rYKcsdwWDIewQrrLjuSvN0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=FU3LYMbzSBFTE9iMS6cOh4Vsz4f35lAQkSUSWiP7LM1DU08WFaxRkMKStqimNkFyXpc+8gGbdXElFu0CzHXRP84HbVcj6pT+XlQsX0yeLZj/5MvcbWhrmLZNLz9CMJ7IIPIghMEfxErix2leGkOzvaP44sHl2j5AqcVbMZKStd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=gnBPh8az; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=rKHuWOaA; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1790090103; c=relaxed/simple;
+	bh=qfLhNMxLDQamnRL3jBZjojzJCuPyPkvcYSCFDpX/jF8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jR6Ya8PEBJ/tT18Kl1HUs9MzB8p7tL6TL7ZulJuT9LmgTSHpRDxN7KQYQxhZvddFddfE3eIhE8rtLJaSo5bNXozvC6gvW/a5afBWQihCAOfry2SDmgGcpqphL1VTEk5ws8Lz30mWl9wsG9dBjTzEFuiitS5cdZOVQdS3LXl74xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=id03qeF4; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="gnBPh8az";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="rKHuWOaA"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68MFDHNt020020;
-	Tue, 22 Sep 2026 17:13:23 +0200
-Received: from lubuntu-18.04 (host-79-20-84-28.retail.telecomitalia.it [79.20.84.28])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 7B2311228F4;
-	Tue, 22 Sep 2026 17:13:13 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1790089993; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qFrsjbh7CASY9oxnwYk+AY/nluAsH8IF18Z0KsHOg/Y=;
-	b=gnBPh8az478OkyzGrNQ/woLFKvhU7iZuz/SOrMc3aFqnpFVOSceFBibUBNfwOsd2b5DXSf
-	Auvyo/RAhkR/oICQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1790089993; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qFrsjbh7CASY9oxnwYk+AY/nluAsH8IF18Z0KsHOg/Y=;
-	b=rKHuWOaAeWB+ONo+aL6gmWOxtvkSkCiYoKOvjxMnZIuioU3zw0Y1+5Xlya5YH145Syn+RI
-	JcCduhM3L2TGSQ9svXuI7uFqmJlAS18O+W52J40HbZ34R6Vgjj5KkdOga71MXXKegP9/sE
-	jdRyvyYrgAQQzLK5R+e4wTU1Y2VI0UmHTkldwvZDe+4EJfxKp6im9uSR8ao9vuFphcr+fi
-	zsuEzZXZB7x+hITqo9Zg+IyIovNSiBnudyDTxUc0y91RJ6lDQnIAvQEKwVMblEPKNSc4Gi
-	de4hEmEN3TCEWnRkSetlh7IYeaqWoc59+TbelKuP8yoZnAqwLYM5j7recN9QMw==
-Date: Tue, 22 Sep 2026 17:13:13 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Justin Iurman
- <justin.iurman@gmail.com>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net v3] net: ipv6: keep room for the mac header in
- dst_dev_overhead()
-Message-Id: <20260922171313.3a094ae86725b0898f92ec11@uniroma2.it>
-In-Reply-To: <20260922-seg6-maclen-headroom-v3-1-7b2f982ef79d@gmail.com>
-References: <20260922-seg6-maclen-headroom-v3-1-7b2f982ef79d@gmail.com>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="id03qeF4"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D06C41576;
+	Tue, 22 Sep 2026 08:14:55 -0700 (PDT)
+Received: from [10.57.9.253] (unknown [10.57.9.253])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 778833F86F;
+	Tue, 22 Sep 2026 08:14:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790090099; bh=qfLhNMxLDQamnRL3jBZjojzJCuPyPkvcYSCFDpX/jF8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=id03qeF4VWrD2FyYassCVvtscxdW55gRzwGJdpvJgtyiQ3TdEIEUt2WyO0ePxhU9Y
+	 a0+jXmaJ6rch0a6KggX/v5JwO/mQ+8LlpGzR+8c3+f5YGW2Ev3f+HJI9gRU3IdaDPz
+	 2wjKveDSTNbtxF9X/+0KOXnvUQJF2YXWpFvlcBww=
+Message-ID: <359c7adb-e18e-423d-a5a1-6031eb17e421@arm.com>
+Date: Tue, 22 Sep 2026 16:14:54 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Content-Language: en-GB
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+ <aqrGPK0lFBFXL2qY@arm.com> <985520fa-99b0-4620-bfee-8e6321b36104@arm.com>
+ <aqvCwM_73qMpqzvV@arm.com> <749ab0c9-810d-4989-8fa5-1706124f05bc@arm.com>
+ <arKVcjCOJf8p9rWL@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <arKVcjCOJf8p9rWL@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
 
-On Tue, 22 Sep 2026 05:49:56 +0900
-Yuya Kusakabe <yuya.kusakabe@gmail.com> wrote:
+On 22/09/2026 15:49, Catalin Marinas wrote:
+> On Tue, Sep 22, 2026 at 02:21:13PM +0100, Suzuki K Poulose wrote:
+>> I had another look and we could handle this via kvm_fault_is_gmem_abort()
+>> see in arch/arm64/kvm/mmu.c:
+>>
+>>
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>> index 87e49251e0447..af5a4bf961aae 100644
+>> --- a/arch/arm64/kvm/mmu.c
+>> +++ b/arch/arm64/kvm/mmu.c
+>> @@ -1731,6 +1731,9 @@ static int gmem_abort(const struct kvm_s2_fault_desc
+>> *s2fd)
+>>          gfn_t gfn;
+>>          int ret;
+>>
+>> +       if (!kvm_slot_has_gmem(s2fd->memslot))
+>> +               return -EINVAL;
+> 
+> I wonder whether we should add a KVM_BUG_ON() here. With the rest of the
+> changes, we should never get in this situation. Well, to be revisited
+> for private devices.
 
-> The seg6, ioam6 and rpl lwtunnels size their skb_cow_head() request as
-> the length they are about to push plus dst_dev_overhead(), then push the
-> new headers and rebuild the mac header below them with
-> skb_mac_header_rebuild().  That rebuild needs skb->mac_len of headroom,
-> but dst_dev_overhead() leaves LL_RESERVED_SPACE() of the egress device,
-> 16 bytes for plain Ethernet.
-> 
-> Where the mac header is longer than that, as it is on ingress through a
-> VLAN device with reorder_hdr off, the rebuild runs out of room:
-> skb_set_mac_header(skb, -skb->mac_len) computes a negative offset,
-> stores it unchecked in the u16 skb->mac_header, and the memmove that
-> follows writes skb->mac_len bytes about 64 KB past skb->head.
-> Forwarding plain ping6 traffic through such a device reproduces it on
-> all five seg6 encapsulation modes and on the rpl and ioam6 inline paths;
-> skb->mac_header comes back as 65534 on a 704-byte head.
-> 
-> Return the larger of the two.  The helper already returns skb->mac_len
-> when it has no dst, so this only makes the other branch agree, and it
-> covers every caller rather than each call site in turn.
-> 
-> Fixes: 40475b63761a ("net: ipv6: seg6_iptunnel: mitigate 2-realloc issue")
-> Fixes: dce525185bc9 ("net: ipv6: ioam6_iptunnel: mitigate 2-realloc issue")
-> Fixes: 985ec6f5e623 ("net: ipv6: rpl_iptunnel: mitigate 2-realloc issue")
-> Suggested-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> Assisted-by: LLM
-> Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-> ---
-> Changes in v3:
-> - Fix dst_dev_overhead() itself rather than each of its callers [Andrea]
-> - Drop Justin's Reviewed-by from v2, which was given for the per-caller
->   version; the patch no longer touches the files he reviewed
-> - Link to v2: https://lore.kernel.org/r/20260918-seg6-maclen-headroom-v2-1-4d370af55b2e@gmail.com
-> 
-> Changes in v2:
-> - Use max_t(unsigned int, ...) rather than max() [Justin]
-> - Make the same change in ioam6_iptunnel and rpl_iptunnel [Justin]
-> - Reproduce and verify the fix on those two as well: unpatched, rpl
->   underflows in 12 of 16 probed configurations and ioam6 in 3 of 13,
->   both reaching about 64 KB past a 320-byte head; patched, neither
->   underflows in 18
-> - Rewrap the requests so they no longer exceed 80 columns
-> - Retitle for net: ipv6, now that the change spans three files
-> - Link to v1: https://lore.kernel.org/r/20260917-seg6-maclen-headroom-v1-1-02ccec50f096@gmail.com
-> ---
->  include/net/dst.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+Sure, I could add that
 
-Thanks for the rework,
-Andrea
+> 
+> Also maybe move it to the caller, kvm_vm_mem_abort(), and not change
+> kvm_fault_is_gmem_abort(). Something like:
+> 
+> 	if (private_ipa_fault(kvm, s2fd->fault_ipa) &&
+> 	    KVM_BUG_ON(!kvm_slot_has_gmem(s2fd->memslot), kvm))
+> 		return -EIO;
+> 
+> To me it makes more sense for gmem_abort() to be called only *if* it's a
+> gmem slot. So any inconsistency, avoiding user_mem_abort() for private
+> memory, should be done in the caller. I assume the caller will also have
+> to route the private device path as well rather than rely on
+> gmem_abort().
 
-Reviewed-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+Agree.
+
+> 
+>> +
+>>          if (!perm_fault) {
+>>                  memcache = get_mmu_memcache(vcpu);
+>>                  ret = topup_mmu_memcache(vcpu, memcache);
+>> @@ -2277,10 +2280,12 @@ static bool private_ipa_fault(struct kvm *kvm,
+>> phys_addr_t fault_ipa);
+>>   static bool kvm_fault_is_gmem_abort(struct kvm *kvm,
+>>                                      const struct kvm_s2_fault_desc *s2fd)
+>>   {
+>> -       if (!kvm_slot_has_gmem(s2fd->memslot))
+>> -               return false;
+>>          if (kvm_memslot_is_gmem_only(s2fd->memslot))
+>>                  return true;
+>> +       /*
+>> +        * For Realms, all private faults must be backed by GMEM.
+>> +        * TODO: Handle Trusted device private memory mappings.
+>> +        */
+>>          if (private_ipa_fault(kvm, s2fd->fault_ipa))
+>>                  return true;
+>>          return false;
+>>
+>>
+>> Also, I have the following hunk for preventing memslot modifications.
+>> I will add this to v20 integration branch, which is almost ready ;-)
+>>
+>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+>> index 582b48e34486b..87e49251e0447 100644
+>> --- a/arch/arm64/kvm/mmu.c
+>> +++ b/arch/arm64/kvm/mmu.c
+>> @@ -2783,6 +2783,18 @@ void kvm_arch_commit_memory_region(struct kvm *kvm,
+>>          }
+>>   }
+>>
+>> +static bool kvm_prevents_memslot_change(struct kvm *kvm, enum kvm_mr_change change)
+>> +{
+>> +       /* Cannot modify memslots once a pVM has run or Realm created */
+>> +       if (change != KVM_MR_DELETE && change != KVM_MR_MOVE)
+>> +               return false;
+>> +
+>> +       if ((kvm_vm_is_protected_pkvm(kvm) && pkvm_hyp_vm_is_created(kvm)) ||
+>> +            kvm_realm_is_created(kvm))
+>> +               return true;
+>> +       return false;
+>> +}
+>> +
+>>   int kvm_arch_prepare_memory_region(struct kvm *kvm,
+>>                                     const struct kvm_memory_slot *old,
+>>                                     struct kvm_memory_slot *new,
+>> @@ -2791,12 +2803,9 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
+>>          hva_t hva, reg_end;
+>>          int ret = 0;
+>>
+>> -       if (kvm_vm_is_protected_pkvm(kvm)) {
+>> -               /* Cannot modify memslots once a pVM has run. */
+>> -               if (pkvm_hyp_vm_is_created(kvm) &&
+>> -                   (change == KVM_MR_DELETE || change == KVM_MR_MOVE)) {
+>> +       if (kvm_vm_is_protected(kvm)) {
+>> +               if (kvm_prevents_memslot_change(kvm, change))
+>>                          return -EPERM;
+>> -               }
+>>
+>>                  if (new &&
+>>                      new->flags & (KVM_MEM_LOG_DIRTY_PAGES | KVM_MEM_READONLY)) {
+> 
+> I think this should work.
+
+Cheers
+Suzuki
+
+> 
+> Thanks.
+> 
+
