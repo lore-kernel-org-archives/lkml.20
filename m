@@ -1,253 +1,387 @@
-Received: from mx07-0057a101.pphosted.com (mx07-0057a101.pphosted.com [205.220.184.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49983E1203;
-	Tue, 22 Sep 2026 12:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.184.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079978; cv=fail; b=GxZwXpv+252QelPMjQWC7/p0ijjeHl4rj6Ld1d6+D8h7aIdXoTjDEMpgOmUQTN1giFkNo1J/zgRv2W7Dt9Y99SNSf4mcKwZJQErwzfQIqMytwIXIWJ4WFYgF/uPaEsqdGIS1vPGpy6UzZdZ51O2F4vN/w42G0WxGnPoLOtpHPPw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079978; c=relaxed/simple;
-	bh=KB0NEjm5hPz/3KMthr9BiL+xetGOmX7HaKZhwUWbXF8=;
-	h=Date:From:To:Cc:Subject:Message-ID:Content-Type:
-	 Content-Disposition:MIME-Version; b=tcT7ax/9j0jEzNOndH8JMKJEPdJ7ShC9dLGsEFbPH07lp1OX91Z030eRShggwqzRj+CWhaztoTk0KqNRQdjNz6PFFowHsH0VRdveTqqZi16SY5n0Z/8kigR3/Dp634SvKiLN3NnvC5k/PEbvAqCZvOfwntkYp38TatRn/eZjwm0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=westermo.com; spf=pass smtp.mailfrom=westermo.com; dkim=pass (2048-bit key) header.d=westermo.com header.i=@westermo.com header.b=u6SIOdW4; dkim=pass (1024-bit key) header.d=beijerelectronicsab.onmicrosoft.com header.i=@beijerelectronicsab.onmicrosoft.com header.b=OBcjT6sk; arc=fail smtp.client-ip=205.220.184.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=westermo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=westermo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854C4542803;
+	Tue, 22 Sep 2026 12:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790079984; cv=none; b=FAuG0wNwH+SAmH5YPngsYTnObSjByiXqs0v2L/thLY3g9qx5BVWnl7AndPN3qWgNO+NHsWG/DAkpLf0zKz2dWw9pFzLAZO9CECavxXH+6MsUMR2aZ4FGwjMxcwxSeaGOcjIkt2nfE7nfBAFN3EvDdm/ocMUfry4jo/p5svU8b40=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790079984; c=relaxed/simple;
+	bh=eoquj5tB5jHFfjoYkxUmwJrFBEszzIV4b41PcGRLMQE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=nN4hJZKH6MjJWlsSXUqDx6Iyn9plC+IoI2Eqf+ezQh4M63+7CDuxrz48NueBVecrSFYE99EebjhVZddyRQmk5e2DR5PHPn3li0jp53ynaC8AqZdSzDnd68yxA2JB8aK9q+JkYLaNhYLhpjRPRLXWhcbiITM6hJqU0xatakCZFYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8tZ81ca; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=westermo.com header.i=@westermo.com header.b="u6SIOdW4";
-	dkim=pass (1024-bit key) header.d=beijerelectronicsab.onmicrosoft.com header.i=@beijerelectronicsab.onmicrosoft.com header.b="OBcjT6sk"
-Received: from pps.filterd (m0214197.ppops.net [127.0.0.1])
-	by mx07-0057a101.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBOA8n2536249;
-	Tue, 22 Sep 2026 14:25:53 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=westermo.com; h=
-	cc:content-type:date:from:message-id:mime-version:subject:to; s=
-	270620241; bh=m6D2BYNvDcE2EIrqeKWs03kYcf1uGCwyKliILMndZPg=; b=u6
-	SIOdW4Ti4YQhAYJwLIiXNygHgRYjK7miEf59ZsU9lsTVA7HOQkbWs14taUAO3IUV
-	2JWkJcxROEN6WasC+ieJLJ7yXyi5LQ37uTmOLf7vwQeSWnKPN5pXgZaSMf5rahse
-	Vg+t3T4w5iNsnazReMW68mHhxkmpo20JlDqSXppcL7LxExFk8m85X2EOcx0LuOxX
-	yrYxXeQT/FBcoxhrjLsJixxx/cuFtiFe6+sSWLgxWPdQw5rczipIe67FNJVycKdD
-	3GYPykisXfbMWHsFKKg0cNHcp5sZqnRmW/2Aah3iu8dwVWAi40azq7LceimxQ7SU
-	+vG3HJbiZmXrMD2+Nt/g==
-Received: from am0pr83cu005.outbound.protection.outlook.com (mail-westeuropeazon11020130.outbound.protection.outlook.com [52.101.69.130])
-	by mx07-0057a101.pphosted.com (PPS) with ESMTPS id 4gurs1r282-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 14:25:53 +0200 (MEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FPvKfOok2DX4N0ujGV+nIH+QJUVUip8YECJQy+bH9WvdNggnvJSdfolATgrYb34TiF9JWv/t614FMY8hK2WMUe8WcAa7ZgbHV8GCSlu0RmetE6geLx+zdIvHC1GJr0YZ2x/9E1zBb3CDLofW65RQjtgCfYZEu2/M983ufQi4g2xPrZd1232Nb2dZdujNVDSzK+pmERs7K5Keg41LtUtfrb8ZIvjRYX9LQc+Wlu+6BQyrEx22muOJs3WwB8GVyylgWAiXRo0YNfIxSp6UiNel2IHNN1OyTR7xQiLfuqIHOH9ccwlHSWrZxTDUGGei3jZ9Zj3jn8WhmmkVktjkvN2oEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m6D2BYNvDcE2EIrqeKWs03kYcf1uGCwyKliILMndZPg=;
- b=Vf+XXKfoLahoWm32aZqaZ3m4BAtMYqRuX9UQ8QsI55UjVAFNj0R/glmf/akF4c2ClcWbuywxfgfqtvL51/htY+98laskVTAnIhYmg4ZMJ95/EDCJ5UyqvNQQPdTtg6gqBEP21yLXqfQPaYMD6txFPAMlzdFeRH9Mg4QQcA9CqzOMevtHGSZ4H1WwuJ88XCLQAUHCsuIP7oThnalPdOhoQSWYxjLdTf7wQLCLgQ2cx3KYbQ/FoXeMAGeSXuAXxYwsJB5D7QtYIyU7ASW71oU4wwr5c6RK3CJqHHCgQjq2g+DETVbbDjl9LaoXjExK5w7F7pQ/vsZf6FCb1lSBx6DfLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=westermo.com; dmarc=pass action=none header.from=westermo.com;
- dkim=pass header.d=westermo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=beijerelectronicsab.onmicrosoft.com;
- s=selector1-beijerelectronicsab-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m6D2BYNvDcE2EIrqeKWs03kYcf1uGCwyKliILMndZPg=;
- b=OBcjT6skIWl415YqSOtjBn4+KekaAEmD2YLHcqJ4y/qPcLi6ptmElT4RXDNJz26sDxtdjRdZAe5IX0FVXEOV9nKS3xUpLE63oSKvLuLQ+73vLVvwsiVcb76TOy2F7Y85zJiJVaR4ZU4MyaTsAm/RzR4Usy6ILSBgXXu4XTcGErU=
-Received: from PA3P192MB2868.EURP192.PROD.OUTLOOK.COM (2603:10a6:102:4d7::12)
- by GV4P192MB3213.EURP192.PROD.OUTLOOK.COM (2603:10a6:150:2b6::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
- 2026 12:25:49 +0000
-Received: from PA3P192MB2868.EURP192.PROD.OUTLOOK.COM
- ([fe80::bd96:8c85:982d:19ce]) by PA3P192MB2868.EURP192.PROD.OUTLOOK.COM
- ([fe80::bd96:8c85:982d:19ce%4]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
- 12:25:49 +0000
-Date: Tue, 22 Sep 2026 14:25:41 +0200
-From: Michael Pfeifroth <micpf@westermo.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Kalle Valo <kvalo@kernel.org>,
-        Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-        ath11k@lists.infradead.org, linux-wireless@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: ath11k: release peer accounting on peer delete timeout
-Message-ID: <arJzxQcf4intXBqS@mpf-ESPRIMO-P9012>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-ClientProxiedBy: BE1P281CA0187.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:8d::6) To PA3P192MB2868.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:102:4d7::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8tZ81ca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2BE1F000FF;
+	Tue, 22 Sep 2026 12:26:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790079982;
+	bh=ae8b3TN83ZmjDyTbv5ji+ujTP5eUZt/KYkx5I5KI/ew=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=I8tZ81caFRQVyU0RmyYnrBGmSPc2buytTskOhAFy/5onDCSXh+lfGso0LrvILhb3M
+	 vN59SxryJfrvqEEpiqSMANlB8LPOFWOc5GJG4WmafQPCvKTV1vvCE2phMbSXQeX0Rt
+	 URuwv9HgKAqQ040rRZ1H42KR9x6TAWTUizuddtg7vPzzqsKlECwNOHMNs3/D+R+j6F
+	 BPUPlR9e7OrrJT5YYt+w7DbuilCm2rM6E1YWUZH+xJS3HLDweWaQVG8O97c5qhhpTf
+	 db16B5IE8Zir96iWRXnDGXqYzrUkmh8rUeLUDk+vM8O2QN7zub9hX36XAJ0QnHUGPU
+	 obVjP5NPqOHzw==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: George Guo <dongtai.guo@linux.dev>
+Cc: rppt@kernel.org,  pasha.tatashin@soleen.com,  pratyush@kernel.org,
+  chenhuacai@kernel.org,  ardb@kernel.org,  shuah@kernel.org,
+  ilias.apalodimas@linaro.org,  akpm@linux-foundation.org,
+  baoquan.he@linux.dev,  ruirui.yang@linux.dev,  guodongtai@kylinos.cn,
+  kernel@xen0n.name,  graf@amazon.com,  liukexin@kylinos.cn,
+  loongarch@lists.linux.dev,  linux-kernel@vger.kernel.org,
+  kexec@lists.infradead.org,  linux-mm@kvack.org,
+  linux-kselftest@vger.kernel.org,  linux-efi@vger.kernel.org
+Subject: Re: [PATCH v5 1/5] efi: add a KHO configuration table channel
+In-Reply-To: <20260904100852.26006-2-dongtai.guo@linux.dev> (George Guo's
+	message of "Fri, 4 Sep 2026 18:08:48 +0800")
+References: <20260904100852.26006-1-dongtai.guo@linux.dev>
+	<20260904100852.26006-2-dongtai.guo@linux.dev>
+Date: Tue, 22 Sep 2026 14:26:17 +0200
+Message-ID: <2vxza4p95v6e.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3P192MB2868:EE_|GV4P192MB3213:EE_
-X-MS-Office365-Filtering-Correlation-Id: c088df32-0403-438f-de5d-08df18a4a29e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|6133799003|18002099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	jnHXy4YSLC6umqk8vQniC6zaBUyIzi3ZDC0r/C7EwF3qFUccmqbExCqsmup6vvJ9djVjHwWCN+3MeNQYv/69bwuXQDRoGZrvv9LKsUR9UPDzjWkr419sJ7TuHpsgysfOWN8TjSPzWDCClXwK6/IziGk8Xj1ReV52VWn7gFokthVV5kLPnqa5aZm4MIsgQ3L0zH7jTXA1NzO2A2fpsxzNREYCS0X6JUmtWMwTTaO//bsWl2OyIyIBF6LMFqqUOcPHo39380+lzkeXC0SoR9lwETVvXywZN4ZeL0H5zcKFjyqqh1YMqOp2fubOrw/He0tcsB4gpXOSq0we8vgbz2Fw7ZpksyI6M4T3LPNnNH54NrIXsvjwzF6EbTu8YBKn/UCrv0um4Lr3EF/gbnKDL7uFgk31XI1TisXhgq71P077GGFvf3fFWGXKP0wBfzb6U1O33uAB+WSN7nOo8lqjeEebDdamwtdTwQZ10N0TXWfxEbwdOsDslq6iY4+RdHCkyf3e2F7/bT/SgkR3UR4iSoYiRrccmuzpldxGH1JvSxxkdGdGV8c+kgw1yyuyW6aDSsxH/6XtVvvHKrHnrhmP8/fnCOELuW/HmBX3koxo2TyUlBo8HtCmuDl8PcEIZ2FsXa9FY6YPtKUur3nTcvb51DqOJkOkYufNni61nWvXjPFN1FM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3P192MB2868.EURP192.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?04hQ4RTrat7i8xBNQ7WuNMpt+4Wozvuk5V7DzvTOcIgOlZsIDbvi3dONl8Is?=
- =?us-ascii?Q?bIQlYO6EyW/rZbgpM7n1f7lu9ITdBcclsrG/I4Y/lKTipRZW7LhIGtegpJa2?=
- =?us-ascii?Q?YTnbM/urYjvwZN+/z3nSxi+vU8QB64Z0Z7Cw0WQKelxE8PpJZxb6pWxQDCjT?=
- =?us-ascii?Q?0bdVsIJ6opCiy4cxpTYpHivpfXZl2o+ZKob3JyjpMnhhVmzut+PWMd5drE+v?=
- =?us-ascii?Q?9imR+cFwz/xVW0YlnkCBti7zDekT6FNKNDiVXerQAZqgt+tXz3SVn09B7+Sc?=
- =?us-ascii?Q?HrP/w+adifJuN6pjv+Ri3DH1kJwOG6FRpNFu++XxCysyE+eLda2fePHXCUhg?=
- =?us-ascii?Q?nGkk9uEbcikad9nWO9ZNbraH81e4sqM39P/CfnCkLiQDqeRwACr1xxrgzSIv?=
- =?us-ascii?Q?5ncNVxHyl3FJSKxrQb88ThDkucktTwXB23dR8d6OgwqjL6X70zlymoQt0dON?=
- =?us-ascii?Q?ALmFDN+J1CXTX8Xx8lfXRUpOn/CuZLbFtO6sdzUHJr2NqfWT35d6bsx3128z?=
- =?us-ascii?Q?PaUOfHXmLJPlUVv51+ga/7DYHmHOfHA1co3YSbmnvu5o7/hO50c7mLzNns2f?=
- =?us-ascii?Q?gXRQ4q+fPWfREQ69qAHEFc2gBaGtxa/oYlrKKaDnav7YeAXXlDoUjKMrDjBk?=
- =?us-ascii?Q?4g7lQ0QPUUdUXbzvo6E8em4S3GOR0dxWX5/Wvup6WyYXemQ1C2VL8BRnMUv1?=
- =?us-ascii?Q?mfdeXMtDIfSRU2Hu/irsLEOgK+oYEWxbTfoK40UP8+6FBYrlEN+S8hv4N+59?=
- =?us-ascii?Q?VeswPJ34ae5lfvCmSRwAy96uE4EKZQ/heYenXX7c1cPJfdozYSpQvfi/oVwl?=
- =?us-ascii?Q?O3k9Pe9aFYIPLVRr4/78+98UrRt51eVkLaspVFMRv09lS+iMX9bCBM34DSTE?=
- =?us-ascii?Q?P5EyEEv9DoMaeQypuoRbNkgq7DE4EVfIDZvQxHiVDDOd+o8dzQmG7tkWCT2o?=
- =?us-ascii?Q?YvfMyVw/CsOurMhrJ+JUs6ZIONR9YnEco5Ku11kG5JyQsdJIilpm3VxzNIIQ?=
- =?us-ascii?Q?5RJ29y8I7YMYLuIBpsh5W4Y3o+rJYTMYUR6LCDwvULxnPbVIEefwXDoFH3tk?=
- =?us-ascii?Q?ocYFEsS24syjUdP+js+VL6/7Kkd/7c6iKVUZ5q2OHPtkC4oI5+qhCTZw3VUe?=
- =?us-ascii?Q?9gZblwrQop89V9dJtwK4l3nearKAKOfNvxokHpjQG0ij3nwV5a9tCnznBpT2?=
- =?us-ascii?Q?pbvMDNTmRMu9VSn1bdvNOiAiPzpcCnLCpKgI2m2XgNxfs4wszbO4xidzR1g5?=
- =?us-ascii?Q?/DxNMaRVNqhSTayAVw47lJJNAyTUu7Nc/8WJLfJsgC0MNSELCf/gCItcL8ak?=
- =?us-ascii?Q?lfrzJzDmq0vqYlqMROpuSJgUW6D0xFYTdyFiT0gviO3dXwhUSRUfx4bHBYWl?=
- =?us-ascii?Q?ehiLwj6lGMHvZtCcTgOnENJ+P7VTzdXlAOc710d1ZP5gz77IEPo16RnM9bsd?=
- =?us-ascii?Q?Ws8IRG4mDKXLmW1w2sE/2CJoi6QEEQDHHahC/CYWwNpKg5YMBob4GF4uXpEi?=
- =?us-ascii?Q?GL+0q8ca1GZaAG7pWHZQcvDzHHjOjgouCCJU/F7rTaVW5c12v66aYVL95Vih?=
- =?us-ascii?Q?tTwlyTn7ciYqDjkFDKIGOMPldbvQdC9gKABjNYu5NbUw/UzSzXxel3X0bYAL?=
- =?us-ascii?Q?okHbXSwsQ/szmdZcR8tTPyY5/ah9Q0NdKz1lxSO22XngmSfVg5eeWUxCuYs8?=
- =?us-ascii?Q?NgmQ64vQGnrWdXLq6/h2q/5WUfulgBM1+RJBVA0ChYFxnH/XG2QSXkWiQS5b?=
- =?us-ascii?Q?X6qlr2G76w=3D=3D?=
-X-Exchange-RoutingPolicyChecked:
-	VbJw0Wlmm6x8Qa2Wj2cU7IQY/AD+aaVgaXAtIsVy2k6nlBSkEZKghNjqT6iXxT5l9pWND/3uAdsMid0lt9PA8Ab5unqCPj/egTeDw77J+PFVGTQ93AO4RZ4XtxYenROWYugZJHKug2nQngnd2Jo9aYyQArsCgSLQUQeSTIwYYgZuENddDoHmdwKKPuq4MKsPpxNN4mcO4V5bl/feu+LSYDeKNXM7vJsLy2Lamrmk8RJ/XId1Eq4Mj8bKAet26tTRye2PLHip8ZLb40Z7aWRzpeBMoerwLALPitJ3Q7h2DpINU+BlBRXZ9I/xPOpZ28sqb+uC4S5kK3/E55EbQu9RHw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	ui98tLAIbfabTo0DRq41SXy6184GQpik/85wPKXZxV/ZkJcVBcnEL6OAeA9J8h1QFnsDmYjaI0CkhHbcXeWmb5LsFiHvmvvhkURnypfOFFIJzlmIJiZGxEFGo9FmNXZCgMsrqTBpci9T5O+TvgqNT3eHl8zaPqDFo3FhEeZcZ75rJgTGROWZELIOpa34bedbQrUNusHE6fcmIGl/nFoXh5WmHXTmGT10FoZxkRPWEs56EcmD9q/VZd2VsQ9ddVog2HZA7reU4E8uu3g1g8VPl9ry4L0d3w2YTrgTFqigvvrOkLcQStMTtZp5iXi3DC3QURe61bjJefqdJ4dX4qyaGfZUuGDufJw+/MLPKlPPZilsW39hmTSkC8H/MzkOAW+1FJLiMjhEmxS116QSwGaNsIL/5KQfnB5rxAuZ6A/WfWQtP7iNCYevQoRSOijB55rTqbVJYDibAMX1jI/Vn0TjtVDRK0234pHf+MhelrZvUnj2slFqbIxNscKqRvBVaFqgLgHlBg6sPYCFC1ysnrhzFGEploY8rAu/L1ziRmGuZ9RO7UGNqwEaKftTahcaBcTwWU+E8OXG7Ul1zATYzRMOk5RRFuNKeUYqafPl5Az+RSzvapdFVPhwrKpJQzwkgsx2
-X-OriginatorOrg: westermo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c088df32-0403-438f-de5d-08df18a4a29e
-X-MS-Exchange-CrossTenant-AuthSource: PA3P192MB2868.EURP192.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 12:25:49.2833
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4b2e9b91-de77-4ca7-8130-c80faee67059
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: edJLqDbNigDwppvG0r8T/toqXcEXOsqUb1l1oHWCDMBAuh2VwhjyUgJRl5KfcAI3p8GUX/Y1//3Js5GS6qpZYg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4P192MB3213
-X-MS-Exchange-CrossPremises-AuthSource: PA3P192MB2868.EURP192.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossPremises-AuthAs: Internal
-X-MS-Exchange-CrossPremises-AuthMechanism: 14
-X-MS-Exchange-CrossPremises-Mapi-Admin-Submission:
-X-MS-Exchange-CrossPremises-MessageSource: StoreDriver
-X-MS-Exchange-CrossPremises-BCC:
-X-MS-Exchange-CrossPremises-OriginalClientIPAddress: 104.151.95.196
-X-MS-Exchange-CrossPremises-TransportTrafficType: Email
-X-MS-Exchange-CrossPremises-Antispam-ScanContext:
-	DIR:Originating;SFV:NSPM;SKIP:0;
-X-MS-Exchange-CrossPremises-SCL: 1
-X-MS-Exchange-CrossPremises-Processed-By-Journaling: Journal Agent
-X-OrganizationHeadersPreserved: GV4P192MB3213.EURP192.PROD.OUTLOOK.COM
-X-Authority-Analysis: v=2.4 cv=XNOl2ghE c=1 sm=1 tr=0 ts=6ab273d1 cx=c_pps
- a=Q+6aeo8k7UnQgFEaqf0cyQ==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=8gLI3H-aZtYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=tr3XZvuDWTETL0Uaxejn:22 a=8ys4xmT3Mru1TjC2zVq1:22
- a=VwQbUJbxAAAA:8 a=N9GNhs4bAAAA:8 a=RYRcPU1aQxtesyULV78A:9 a=CjuIK1q_8ugA:10
- a=PZhj9NlD-CKO8hVp7yCs:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE3OSBTYWx0ZWRfXzDHYAXxxWQ9p
- IDZlT0qpA/QSLr8z5ZlGRdfgjWDjHMFx7qG90TJ3s/wVpuxxjdEfGUCpyn2AuvMuyCTFcnHwB/B
- OvPSQkjibrVwQd1SE1C64dHzbI+VKdc=
-X-Proofpoint-GUID: WdngnqigAOvstPgWc0kfoVjVP1TOdrpq
-X-Proofpoint-ORIG-GUID: WdngnqigAOvstPgWc0kfoVjVP1TOdrpq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE3OSBTYWx0ZWRfXxESYTCwvRA0J
- uAI8i0m/VbS97YAVR6qKVYxWTz/rAwR0a1LHEsPC4yj545dSk1jzXNMVYgEL1n8Us8pKScmYDMc
- gPknViIze0H96LO9qmrkPJAMS4QI2XlihV4ppD8u94IieV/C2XsEhO/97f2zYJk+wJOE/ZRdlUr
- avr1R+Oduz/fzqeapmp9AasUQAehINVD7ve3xtK21YeqvOvoMt0MO0lysxkcv8Vy6GgaqSSDAKQ
- j80D2wFspdKbt4gWgFt7/qNtmfTPTau+G6312nzB+ytoEZHcHBjQIrW1U0OHPsoXKBQTYoCU4+N
- 1jESEiTakPJXZ3/CIWr+t4Jwh5/EpF7F5amQlGpXw/oruCfHPFxcZYTeIV3kMx1htSvwIHOhssr
- pFWilPvHEo3Lbjn5SUryHS7TqvV6LL3gHSlBiVvUpa3D2O6hmtb3nNEXDOZITgramDgCt4DmAYe
- xORWRFEWejEEmqUbTGg==
+Content-Type: text/plain
 
-On some deployments access points intermittently stop accepting new
-station associations after several hours of uptime with frequent
-roaming/reconnects. The kernel logs
+On Fri, Sep 04 2026, George Guo wrote:
 
-  ath11k_pci ....: failed to create peer due to insufficient peer entry resource in firmware
+> From: George Guo <guodongtai@kylinos.cn>
+>
+> Add an architecture-agnostic EFI configuration table channel for kexec
+> handover (KHO): a LINUX_EFI_KEXEC_HANDOVER_GUID table entry pointing at
+> a struct linux_efi_kho_data that carries the KHO state FDT and scratch
+> area addresses from one kernel to the next.
+>
+> This is the channel for architectures that boot through EFI without a
+> device tree (e.g. LoongArch), where the /chosen linux,kho-fdt and
+> linux,kho-scratch properties read by early_init_dt_check_kho() are not
+> available.  Architectures with a boot FDT (arm64, riscv) keep using the
+> FDT path and do not select this.
+>
+> The design mirrors the LINUX_EFI_MEMRESERVE_TABLE_GUID channel:
+>
+>   - The EFI stub allocates and installs the table once at boot
+>     (install_kho_table(), next to install_memreserve_table()), so the
+>     config table entry is inherited across kexec for free.
+>
+>   - The reader is a common_tables[] entry in
+>     efi_config_parse_tables().  It reserves the stub-allocated table
+>     with memblock_reserve(), the same way the memreserve entries are
+>     reserved there, so the table is neither handed out by the buddy
+>     allocator nor placed on by kexec segments.  It then maps the table
+>     and calls kho_populate().  No arch-specific setup.c hook is
+>     needed.
+>
+>   - efi_kho_update() rewrites the table contents in place before a
+>     kexec; the config table array is never rebuilt and st->tables is
+>     never switched, unlike the per-arch approach it replaces.  The
+>     table stays persistently mapped from an early_initcall, the same
+>     way the memreserve root is, so the update also works on the crash
+>     kexec path.
+>
+> Gated behind CONFIG_EFI_KHO, selected by architectures that use this
+> channel.
+>
+> Signed-off-by: George Guo <guodongtai@kylinos.cn>
+> ---
+>  drivers/firmware/efi/Kconfig            | 12 ++++
+>  drivers/firmware/efi/efi.c              | 78 +++++++++++++++++++++++++
+>  drivers/firmware/efi/libstub/efi-stub.c | 25 ++++++++
+>  include/linux/efi.h                     | 36 ++++++++++++
+>  4 files changed, 151 insertions(+)
+>
+> diff --git a/drivers/firmware/efi/Kconfig b/drivers/firmware/efi/Kconfig
+> index 29e0729299f5..d6c1372484b4 100644
+> --- a/drivers/firmware/efi/Kconfig
+> +++ b/drivers/firmware/efi/Kconfig
+> @@ -314,6 +314,18 @@ config EFI_SBAT_FILE
+>  
+>  	  If unsure, leave blank.
+>  
+> +config EFI_KHO
+> +	bool
+> +	depends on EFI_STUB && EFI_GENERIC_STUB && KEXEC_HANDOVER
+> +	help
+> +	  Carry the KHO state (the KHO state FDT and the scratch area) from
+> +	  one kernel to the next across kexec via an EFI configuration table
+> +	  entry under LINUX_EFI_KEXEC_HANDOVER_GUID, for architectures that
+> +	  boot through EFI without a device tree (e.g. LoongArch).
+> +
+> +	  Architectures with a boot FDT (arm64, riscv) use the /chosen FDT
+> +	  path instead and do not select this.
 
-and hostapd reports "Could not add STA to kernel driver". A "wifi
-down/up" (radio restart) on the affected radio restores service.
+I don't like adding a config for this sort of thing. Do we really need
+this? Why not just have the code always compiled and only used by
+loongarch? I don't really see we need a user decision for this sort of
+thing.
 
-Despite the message text, this is not a firmware peer-table exhaustion.
-The message is emitted by the driver-side gate in ath11k_peer_create():
+> +
+>  endmenu
+>  
+>  config UEFI_CPER
+> diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+> index 0327a39d31fa..6380cfab1493 100644
+> --- a/drivers/firmware/efi/efi.c
+> +++ b/drivers/firmware/efi/efi.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/initrd.h>
+>  #include <linux/io.h>
+>  #include <linux/kexec.h>
+> +#include <linux/kexec_handover.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/random.h>
+>  #include <linux/reboot.h>
+> @@ -62,6 +63,9 @@ unsigned long __ro_after_init efi_rng_seed = EFI_INVALID_TABLE_ADDR;
+>  static unsigned long __initdata mem_reserve = EFI_INVALID_TABLE_ADDR;
+>  static unsigned long __initdata rt_prop = EFI_INVALID_TABLE_ADDR;
+>  static unsigned long __initdata initrd = EFI_INVALID_TABLE_ADDR;
+> +#ifdef CONFIG_EFI_KHO
+> +static unsigned long __ro_after_init efi_kho_table_phys = EFI_INVALID_TABLE_ADDR;
+> +#endif
+>  
+>  extern unsigned long primary_display_table;
+>  
+> @@ -629,6 +633,9 @@ static const efi_config_table_type_t common_tables[] __initconst = {
+>  	{EFI_TCG2_FINAL_EVENTS_TABLE_GUID,	&efi.tpm_final_log,	"TPMFinalLog"	},
+>  	{EFI_CC_FINAL_EVENTS_TABLE_GUID,	&efi.tpm_final_log,	"CCFinalLog"	},
+>  	{LINUX_EFI_MEMRESERVE_TABLE_GUID,	&mem_reserve,		"MEMRESERVE"	},
+> +#ifdef CONFIG_EFI_KHO
+> +	{LINUX_EFI_KEXEC_HANDOVER_GUID,		&efi_kho_table_phys,	"KHO"		},
+> +#endif
+>  	{LINUX_EFI_INITRD_MEDIA_GUID,		&initrd,		"INITRD"	},
+>  	{EFI_RT_PROPERTIES_TABLE_GUID,		&rt_prop,		"RTPROP"	},
+>  #ifdef CONFIG_OVMF_DEBUG_LOG
+> @@ -806,6 +813,31 @@ int __init efi_config_parse_tables(const efi_config_table_t *config_tables,
+>  		}
+>  	}
+>  
+> +#ifdef CONFIG_EFI_KHO
+> +	if (efi_kho_table_phys != EFI_INVALID_TABLE_ADDR) {
+> +		struct linux_efi_kho_data *kho;
+> +
+> +		/*
+> +		 * Reserve the stub-allocated table so it is neither handed
+> +		 * out by the buddy allocator nor placed on by kexec
+> +		 * segments, mirroring the memreserve handling above.  This
+> +		 * runs on every boot, so it also protects the table in the
+> +		 * next kernel until it reads it.
+> +		 */
 
-	if (ar->num_peers > (ar->max_num_peers - 1))
+Nit: this comment is too wordy. Can you please make it more concise and
+to the point?
 
-i.e. the driver's own ar->num_peers accounting has leaked and reached
-the ceiling. It is always preceded by a peer-delete that timed out:
+> +		memblock_reserve(efi_kho_table_phys, sizeof(*kho));
+> +
+> +		kho = early_memremap(efi_kho_table_phys, sizeof(*kho));
+> +		if (kho) {
+> +			if (kho->fdt_addr)
 
-  ath11k_pci ....: invalid vdev id in peer delete resp ev 1
-  ath11k_pci ....: Timeout in receiving peer delete response
-  ath11k_pci ....: failed to delete peer vdev_id .. addr .. ret -110
+When can kho->fdt_addr be NULL? Also, perhaps print a warning if
+early_memremap() fails?
 
-On such a timeout __ath11k_peer_delete() returns early without removing
-the local peer object, and ath11k_peer_delete() consequently skips the
-ar->num_peers-- decrement (it only runs on the success path). The normal
-free happens asynchronously in ath11k_peer_unmap_event(), which never
-runs when the delete response is lost or misrouted (e.g. because the
-vdev is already gone by the time the response is processed, hence the
-"invalid vdev id in peer delete resp ev" warning). Each timed-out delete
-therefore leaks one ar->num_peers slot until max_num_peers is reached
-and all further ath11k_peer_create() calls fail.
+> +				kho_populate((phys_addr_t)kho->fdt_addr,
+> +					     kho->fdt_size,
+> +					     (phys_addr_t)kho->scratch_addr,
+> +					     kho->scratch_size);
+> +			early_memunmap(kho, sizeof(*kho));
+> +		}
+> +	}
+> +#endif
+> +
+>  	if (rt_prop != EFI_INVALID_TABLE_ADDR) {
+>  		efi_rt_properties_table_t *tbl;
+>  
+> @@ -1171,6 +1203,52 @@ static int __init efi_memreserve_root_init(void)
+>  }
+>  early_initcall(efi_memreserve_root_init);
+>  
+> +#ifdef CONFIG_EFI_KHO
+> +static struct linux_efi_kho_data *efi_kho_table __ro_after_init;
+> +
+> +static int __init efi_kho_table_init(void)
+> +{
+> +	if (efi_kho_table_phys == EFI_INVALID_TABLE_ADDR)
+> +		return 0;
+> +
+> +	/*
+> +	 * Keep a persistent mapping of the table, the same way
+> +	 * efi_memreserve_root_init() keeps the memreserve root mapped:
+> +	 * efi_kho_update() is also called on the crash kexec path, where
+> +	 * memremap() is no longer an option.
+> +	 */
 
-Free the local peer on the timeout path and return success so that
-ath11k_peer_delete() releases the num_peers slot. The peer has already
-been removed from the rhash earlier in __ath11k_peer_delete(), so only
-the list removal and free remain, mirroring ath11k_peer_unmap_event().
-A late unmap event will then simply fail to find the peer id and log a
-harmless warning instead of touching freed memory.
+No need to mention memreserve. Just explain the reason here. And keep it
+as short and to the point as possible.
 
-The problem was reproduced deterministically with a fault-injection
-patch that forces the peer-delete wait to time out: after max_num_peers
-such deletes the AP permanently rejects new stations, and with this
-change it keeps accepting them.
+> +	efi_kho_table = memremap(efi_kho_table_phys, sizeof(*efi_kho_table),
+> +				 MEMREMAP_WB);
+> +	WARN_ON_ONCE(!efi_kho_table);
+> +
+> +	return 0;
+> +}
+> +early_initcall(efi_kho_table_init);
+> +
+> +/*
+> + * Update the KHO config table in place before a kexec, so the next kernel
+> + * finds the current handover state.  Mirrors efi_mem_reserve_persistent():
+> + * the config table entry was installed once by the EFI stub and is inherited
+> + * across kexec, so only the table contents are rewritten here -- the config
+> + * table array is never rebuilt and st->tables is never switched.
+> + */
 
-Fixes: 690ace20ff79 ("ath11k: peer delete synchronization with firmware")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michael Pfeifroth <micpf@westermo.com>
----
- drivers/net/wireless/ath/ath11k/peer.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+This is unreadable. Please add a human touch to this.
 
-diff --git a/drivers/net/wireless/ath/ath11k/peer.c b/drivers/net/wireless/ath/ath11k/peer.c
-index b30a906..ed2d7d8 100644
---- a/drivers/net/wireless/ath/ath11k/peer.c
-+++ b/drivers/net/wireless/ath/ath11k/peer.c
-@@ -341,8 +341,20 @@ static int __ath11k_peer_delete(struct ath11k *ar, u32 vdev_id, const u8 *addr)
- 	}
- 
- 	ret = ath11k_wait_for_peer_delete_done(ar, vdev_id, addr);
--	if (ret)
--		return ret;
-+	if (ret) {
-+		/* The firmware delete confirmation was lost; free the local
-+		 * peer here (already removed from the rhash above) so that
-+		 * ath11k_peer_delete() releases the ar->num_peers slot instead
-+		 * of leaking it.
-+		 */
-+		spin_lock_bh(&ab->base_lock);
-+		peer = ath11k_peer_find(ab, vdev_id, addr);
-+		if (peer) {
-+			list_del(&peer->list);
-+			kfree(peer);
-+		}
-+		spin_unlock_bh(&ab->base_lock);
-+	}
- 
- 	return 0;
- }
+And once again, the fact that it mirrors efi_mem_reserve_persistent()
+isn't important.
+
+> +int efi_kho_update(phys_addr_t fdt_addr, u64 fdt_size,
+> +		   phys_addr_t scratch_addr, u64 scratch_size)
+> +{
+> +	struct linux_efi_kho_data *kho = efi_kho_table;
+> +
+> +	if (!kho)
+> +		return -ENODEV;
+
+Why ENODEV? Wouldn't ENOENT be a tiny bit better?
+
+> +
+> +	kho->fdt_addr		= fdt_addr;
+> +	kho->fdt_size		= fdt_size;
+> +	kho->scratch_addr	= scratch_addr;
+> +	kho->scratch_size	= scratch_size;
+> +
+> +	return 0;
+> +}
+> +#endif
+> +
+>  #ifdef CONFIG_KEXEC
+>  static int update_efi_random_seed(struct notifier_block *nb,
+>  				  unsigned long code, void *unused)
+> diff --git a/drivers/firmware/efi/libstub/efi-stub.c b/drivers/firmware/efi/libstub/efi-stub.c
+> index 42d6073bcd06..751f46280433 100644
+> --- a/drivers/firmware/efi/libstub/efi-stub.c
+> +++ b/drivers/firmware/efi/libstub/efi-stub.c
+> @@ -100,6 +100,29 @@ static void install_memreserve_table(void)
+>  		efi_err("Failed to install memreserve config table!\n");
+>  }
+>  
+> +static void install_kho_table(void)
+> +{
+> +#ifdef CONFIG_EFI_KHO
+> +	struct linux_efi_kho_data *kho;
+> +	efi_guid_t kho_table_guid = LINUX_EFI_KEXEC_HANDOVER_GUID;
+> +	efi_status_t status;
+> +
+> +	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, sizeof(*kho),
+> +			     (void **)&kho);
+> +	if (status != EFI_SUCCESS) {
+> +		efi_err("Failed to allocate KHO config table!\n");
+> +		return;
+> +	}
+> +
+> +	*kho = (struct linux_efi_kho_data){};
+> +
+> +	status = efi_bs_call(install_configuration_table, &kho_table_guid,
+> +			     kho);
+> +	if (status != EFI_SUCCESS)
+> +		efi_err("Failed to install KHO config table!\n");
+> +#endif
+> +}
+> +
+>  static u32 get_supported_rt_services(void)
+>  {
+>  	const efi_rt_properties_table_t *rt_prop_table;
+> @@ -180,6 +203,8 @@ efi_status_t efi_stub_common(efi_handle_t handle,
+>  
+>  	install_memreserve_table();
+>  
+> +	install_kho_table();
+> +
+>  	status = efi_boot_kernel(handle, image, image_addr, cmdline_ptr);
+>  
+>  	free_primary_display(dpy);
+> diff --git a/include/linux/efi.h b/include/linux/efi.h
+> index aa15ff88539b..564b3cbd5ccb 100644
+> --- a/include/linux/efi.h
+> +++ b/include/linux/efi.h
+> @@ -422,6 +422,7 @@ void efi_native_runtime_setup(void);
+>  #define LINUX_EFI_COCO_SECRET_AREA_GUID		EFI_GUID(0xadf956ad, 0xe98c, 0x484c,  0xae, 0x11, 0xb5, 0x1c, 0x7d, 0x33, 0x64, 0x47)
+>  #define LINUX_EFI_BOOT_MEMMAP_GUID		EFI_GUID(0x800f683f, 0xd08b, 0x423a,  0xa2, 0x93, 0x96, 0x5c, 0x3c, 0x6f, 0xe2, 0xb4)
+>  #define LINUX_EFI_UNACCEPTED_MEM_TABLE_GUID	EFI_GUID(0xd5d1de3c, 0x105c, 0x44f9,  0x9e, 0xa9, 0xbc, 0xef, 0x98, 0x12, 0x00, 0x31)
+> +#define LINUX_EFI_KEXEC_HANDOVER_GUID		EFI_GUID(0xc941b6c7, 0x7b3f, 0x4af6,  0x9e, 0x50, 0xfc, 0xb3, 0xa8, 0x86, 0x8a, 0x17)
+>  
+>  #define RISCV_EFI_BOOT_PROTOCOL_GUID		EFI_GUID(0xccd15fec, 0x6f73, 0x4eec,  0x83, 0x95, 0x3e, 0x69, 0xe4, 0xb9, 0x40, 0xbf)
+>  
+> @@ -1273,6 +1274,41 @@ struct linux_efi_memreserve {
+>  
+>  void __init efi_arch_mem_reserve(phys_addr_t addr, u64 size);
+>  
+> +#ifdef CONFIG_EFI_KHO
+> +/*
+> + * The LINUX_EFI_KEXEC_HANDOVER_GUID config table points to this structure.
+> + * It carries the kexec handover (KHO) state from the current kernel to the
+> + * next one: the addresses of the KHO state FDT and of the scratch area.
+> + *
+> + * This is the handover channel for architectures that boot through EFI
+> + * without a device tree (e.g. LoongArch), where the /chosen linux,kho-fdt
+> + * and linux,kho-scratch properties read by early_init_dt_check_kho() are not
+> + * available.  The EFI stub allocates and installs the table once at boot;
+> + * the current kernel updates its contents before a kexec, and the next
+> + * kernel reads it back and calls kho_populate().
+
+This has too much information. You need to make it more to the point.
+For example, "without a device tree" already implies there is no /chosen
+property in the first place. No need to mention the function either.
+
+The lifetime of the table is certainly useful information but again,
+should be much more clear and to the point.
+
+Also, you should document what each of the members of the struct mean.
+
+> + *
+> + * The layout is an ABI between the two kernels and carries no version
+> + * field: an incompatible change must use a new GUID.  The handover payload
+> + * itself is versioned separately by the compatible string of the KHO state
+> + * FDT, which kho_populate() checks.
+> + */
+> +struct linux_efi_kho_data {
+> +	u64 fdt_addr;
+> +	u64 fdt_size;
+> +	u64 scratch_addr;
+> +	u64 scratch_size;
+
+Note: I recently sent a series that renames scratch to bootmem [0]. It
+looks close to landing. So you likely need to rename this to
+bootmem_{addr,size}.
+
+> +} __packed;
+
+Why __packed?
+
+> +
+> +int efi_kho_update(phys_addr_t fdt_addr, u64 fdt_size,
+> +		   phys_addr_t scratch_addr, u64 scratch_size);
+> +#else
+> +static inline int efi_kho_update(phys_addr_t fdt_addr, u64 fdt_size,
+> +				 phys_addr_t scratch_addr, u64 scratch_size)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> +
+>  /*
+>   * The LINUX_EFI_MOK_VARIABLE_TABLE_GUID config table can be provided
+>   * to the kernel by an EFI boot loader. The table contains a packed
+
 -- 
-2.34.1
-
+Regards,
+Pratyush Yadav
