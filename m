@@ -1,171 +1,120 @@
-Received: from mta1.migadu.com (out-100.mta1.migadu.com [95.215.58.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BD35328D1
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 10:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EC753358B;
+	Tue, 22 Sep 2026 10:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072379; cv=none; b=UzyBQX1CchplSEW2OY+nuq0hqP1eFbxCOwiWdbedUtleAzzxxtkrQThMBTnOG3p5sJq8tm32Fh6NCY93Tch3A7w+RMmeVugF/jRAMNzf4QJF9gnCNkQno/sd5l8Ip7dUYkSMhkrHpASiUgTFki2yDiT2YQB3etc+ryY53M/3GAM=
+	t=1790072384; cv=none; b=ib9Txe8kAFlbiirpNsDT38CTD9oLb9ll5rl4HF1M2ZbOZJh+WPc0DO26gGOV35mQ6OAxLpkavaEgW5XtbdDdj+YRJdDjUEnb/XFxYA6puf9JrWuD0lfx7t3+W3bGjvUHchGVwoffx17YtVEtQR2FNUM24nJR3PsfwRZRp6ut2nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072379; c=relaxed/simple;
-	bh=4ZMgtbSq1fLEo9A153G8EUdhTbvG1BhTa+Q06muy2Bc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kSbxXqv6b59MRyxIp6XFmEn6s1Z5TV0ZFt8ME8mpEL4QmyMO9p6iVI4CdlIbFlma1cwaaaXS1MoZC8Og7BTGWIEFYIj9unPOKnUePK4sImLHcWC1PkAaYpeF8Qw7lPjof0pRCGcE4z0ZMAmBr6mcAl8iO8UX2F2iONBY6hhgCKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wzxTifWS; arc=none smtp.client-ip=95.215.58.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790072384; c=relaxed/simple;
+	bh=NpYj/w7JrVMxb72Egg41zbl3BexlzNDaGODghtpR9r8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H+BgzPHDQ2ESU8JyJjWr4ksgNMbTH3MAdy0aQpFuB8eTUoUJwvVO2r3764tIiUACBPLSzxys+HlQPdiLeMg3jKh6crakF4ZAKoY3+ZgmuYhL1l6HnO0cS9pNZL/9ySyiobajfBgZ7DUMLc7EK+cK7adyZDJUZa4n4/IlStLPRhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSBP02VO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wzxTifWS"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4ZMgtbSq1fLEo9A153G8EUdhTbvG1BhTa+Q06muy2Bc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790072375; v=1; x=1790677175;
- b=wzxTifWSgi+8YpXa30hSTn5d7kCLH/U2UrLUH4LgP7OwhZzYLd2Y4d9s0lNNBpUov0qErY0q
- a3u1qe6Exlib+BMMTQEU7BKcQbcsTbSQiqAxQouuK9kNnUArE3JlfwrEVJLHIM1KfJeLDqQ9ewB
- BtsS6z0Hi1o4L4gmEDaXE4Do=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 228bac855f9d92f3;
-	Tue, 22 Sep 2026 10:19:34 +0000
-X-Mizu-Trace-ID: 228bac855f9d92f3
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v9 2/3] selftests/bpf: Add read_cgroup_file() to cgroup_helpers
-Date: Tue, 22 Sep 2026 18:17:34 +0800
-Message-ID: <20260922101831.192102-3-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922101831.192102-1-jiayuan.chen@linux.dev>
-References: <20260922101831.192102-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSBP02VO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4DA1F000FF;
+	Tue, 22 Sep 2026 10:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790072383;
+	bh=n7LFSDEMCwiBD8uC0TjgGv7LWrQWTiCqCH2xY+/MbLY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kSBP02VOwf91dCgmesuMT0TwaFqaTnnV4CxIqN9JfJyvPzO7KBCAPLNIu4AF63mIS
+	 rZ4nwp/GRZjjzHuiYiogfKeeeAMaLdYVSWa/Hw9YhW5RgOf51bDd/m7G3aljA9Mpvk
+	 otDqtpoEMjlbxucNNxcPXhJuGroxrrhMWUeXnJyKPr6f8MzfNwuMkuq0tbh1GY6ke8
+	 EAhInVkYsSlhJ5JKDNqLfuCU1lPwBDZ/kmQWZrFUI0jE9d0ILYZioURkjdGjBt8BXj
+	 0TkfdEEmoZYJN5AHjES2NM6awLzRPnIvknYKZNtx40khxBwyJWJsHKFG+EwLn1+WG4
+	 gS0y/gBgQugTw==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 155D31980058;
+	Tue, 22 Sep 2026 06:19:40 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 22 Sep 2026 06:19:41 -0400
+X-ME-Sender: <xms:O1ayahRIIIAx4yZPGHMV5uYJsP1mh8Beuf1PVxMgsUCtjqhsSuoAlA>
+    <xme:O1ayajhEGfatURE8uTu56xgaw295aGwAQ6JqKMKQ7K_K8vtzGlJk0HsD2K5WC9Q85
+    H8U-iBBsrU-SIFw1fIxqIeD_g0IH7Y9Ers56PS3LMXh7U1CjhtsVbw>
+X-ME-Received: <xmr:O1ayalh7SzphRsP-NVv_Y0Qh7fBQdQP8y7en2dPRvI2Ln2UwojxdAlG8bc8>
+X-ME-Proxy-Cause: dmFkZTFebrgmgfLsEhx3TIuYynyaetrC8bxDg2N3FUeEkPDsFDpbU8ZDJB/GjgqNZ2H2EV
+    9LthqEPNCRaTAuUnWKvt5Y0OhobYIxx/51Ui7ASNOD5N4uHH35IQ9MRFdYHyJA8+zC9o8v
+    LmGiIDUocZNjkidtFRUqreoW8QFoirsvzf/x53Cwu/xdIAK6BXPHglprpbRqYgGANjDij3
+    CTJ/Ao10w9EbB/cYcJFJqkKbpz8AXsPODKLn6LT3MYIpQkHk9/uFAGq6f2ib5laTlgLPi3
+    ARKx84DRLdH2hzwWYtlGtmADabldbt8ZTElrZC0H2VKPTLw1JckMZ6DG7N+lfxYPHJhCbZ
+    5FouLCaatbs/4WIDyqLmO79XgpMvBfqydUDWGwYTxCGW2DY98/ZRkJFlUjLoCOI3EF5hEg
+    N1/Tl8kd5onOpAtaLcsd/Y1DpnAf1galp6coVqua6GmSQPRAL161BPff/Nh6zT3BOjhUN1
+    +Xo3YrRVZGHuyrNkPl5c13o4cJU6lKIDpNhfM0EL+wQEsVtNbXHuOlOvEdp17cnvTacqNd
+    t0KvvqeqkCb48m+rNePmdsg+tN1ww6FwmA+6gEo0bBTMinAImqrVH8Mu2keWt94a4LKCDU
+    S5s3zlhd3FK8AvQt6OIph8M2zHcxOvlzg+7bL0f6hxpdF97wVWeKy2nfN3DQ
+X-ME-Proxy: <xmx:O1ayarYrLwotjQmtIOPoE-e7Wb5SvjNEz1_1QcGk6USazfxDwererw>
+    <xmx:O1ayauXf2XKXKiaHAoAWjEyonKOKL_ZYrdjmmW20uC8YnHY7nRCg9g>
+    <xmx:O1ayaijJ_qaJJqQm8UA1UT66tSA4Hvov4XUGfxobTpa0ZQZh44M7rA>
+    <xmx:O1ayapmfuznqf1YFJlc820pLoOgosvxk9iZyaDts-42Qjt-wPuYqZA>
+    <xmx:O1ayarzHNQqa-uoEXrH3iAUtQgjfruILZoR-I3msjn5iqUb--niazGUf>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 22 Sep 2026 06:19:39 -0400 (EDT)
+Date: Tue, 22 Sep 2026 11:19:37 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Verma, Vishal L" <vishal.l.verma@intel.com>
+Cc: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, 
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "ak@linux.intel.com" <ak@linux.intel.com>, 
+	"x86@kernel.org" <x86@kernel.org>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
+Subject: Re: [PATCH] x86/tdx: Remove the early #VE handler
+Message-ID: <arJVpaAi9TqEfV7E@thinkstation>
+References: <20260910-b4-tdx_remove_early_ve_handler-v1-1-bf47a4d360c5@intel.com>
+ <b41da075607d1eaa9d96eddbf3acc24502edd604.camel@intel.com>
+ <aqPTIyi--7f2Fzxm@thinkstation>
+ <4238bd74efaeea1a6158b79f9475a5f8d1aa7e0a.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <4238bd74efaeea1a6158b79f9475a5f8d1aa7e0a.camel@intel.com>
 
-cgroup_helpers has write_cgroup_file()/write_cgroup_file_parent() but no
-read counterpart. Add read_cgroup_file() and read_cgroup_file_parent() so
-a forked child can read a cgroup file (e.g. memory.current) from the work
-dir owned by the parent that set the environment up, without hand-building
-the /mnt/... path.
+On Mon, Sep 21, 2026 at 09:20:18PM +0000, Verma, Vishal L wrote:
+> On Fri, 2026-09-11 at 11:37 +0100, Kiryl Shutsemau wrote:
+> > 
+> > Rick, could you actually test it?
+> > 
+> > Are we sure there's no other port I/O in before idt_setup_early_traps()?
+> > 
+> > I don't see anything direct, but exception path is different story.
+> > 
+> > native_machine_emergency_restart() does port I/O for BOOT_KBD which
+> > seems to be reachable and leads to #VE with the patch:
+> > 
+> > machine_emergency_restart()
+> >   __machine_emergency_restart(1)
+> >     machine_ops.emergency_restart()
+> >       native_machine_emergency_restart()
+> >         reboot_type == BOOT_ACPI (default)
+> > 	acpi_reboot()
+> > 	reboot_type = BOOT_KBD
+> >   	  kb_wait()
+> >             inb(0x64) --> #VE
+> > 
+> > Could you check if the patch changes panic() behaviour in the window
+> > before idt_setup_early_traps()?
+> 
+> Hi Kiryl - not sure how I would test this - but looking at it a bit
+> more - 
+> 
+> vpanic() only goes to the machine_emergency_restart() path if
+> CONFIG_PANIC_TIMEOUT is something other than 0. Distros and Kconfig
+> both default it to 0. This could be overridden by panic=N on the
+> command line, but that is parsed after idt_setup_early_traps(), so that
+> would behave normally.
+> 
+> So at least this path should, in practice, never cause a problem.
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- tools/testing/selftests/bpf/cgroup_helpers.c | 67 ++++++++++++++++++++
- tools/testing/selftests/bpf/cgroup_helpers.h |  4 ++
- 2 files changed, 71 insertions(+)
+Could you just check what happens you panic early (like in
+tdx_early_init()) with and without the patch?
 
-diff --git a/tools/testing/selftests/bpf/cgroup_helpers.c b/tools/testing/selftests/bpf/cgroup_helpers.c
-index 45cd0b479fe35..4183ff6150c28 100644
---- a/tools/testing/selftests/bpf/cgroup_helpers.c
-+++ b/tools/testing/selftests/bpf/cgroup_helpers.c
-@@ -188,6 +188,73 @@ int write_cgroup_file_parent(const char *relative_path, const char *file,
- 	return __write_cgroup_file(cgroup_path, file, buf);
- }
- 
-+static int __read_cgroup_file(const char *cgroup_path, const char *file,
-+			      char *buf, size_t len)
-+{
-+	char file_path[PATH_MAX + 1];
-+	ssize_t got;
-+	int fd;
-+
-+	snprintf(file_path, sizeof(file_path), "%s/%s", cgroup_path, file);
-+	fd = open(file_path, O_RDONLY);
-+	if (fd < 0) {
-+		log_err("Opening %s", file_path);
-+		return 1;
-+	}
-+
-+	got = read(fd, buf, len - 1);
-+	if (got < 0) {
-+		log_err("Reading %s", file_path);
-+		close(fd);
-+		return 1;
-+	}
-+	buf[got] = '\0';
-+	close(fd);
-+	return 0;
-+}
-+
-+/**
-+ * read_cgroup_file() - Read from a cgroup file
-+ * @relative_path: The cgroup path, relative to the workdir
-+ * @file: The name of the file in cgroupfs to read from
-+ * @buf: Buffer to read into, NUL-terminated on success
-+ * @len: Size of @buf
-+ *
-+ * Read from a file in the given cgroup's directory.
-+ *
-+ * If successful, 0 is returned.
-+ */
-+int read_cgroup_file(const char *relative_path, const char *file,
-+		     char *buf, size_t len)
-+{
-+	char cgroup_path[PATH_MAX - 24];
-+
-+	format_cgroup_path(cgroup_path, relative_path);
-+	return __read_cgroup_file(cgroup_path, file, buf, len);
-+}
-+
-+/**
-+ * read_cgroup_file_parent() - Read from a cgroup file in the parent process
-+ *                             workdir
-+ * @relative_path: The cgroup path, relative to the parent process workdir
-+ * @file: The name of the file in cgroupfs to read from
-+ * @buf: Buffer to read into, NUL-terminated on success
-+ * @len: Size of @buf
-+ *
-+ * Read from a file in the given cgroup's directory under the parent process
-+ * workdir.
-+ *
-+ * If successful, 0 is returned.
-+ */
-+int read_cgroup_file_parent(const char *relative_path, const char *file,
-+			    char *buf, size_t len)
-+{
-+	char cgroup_path[PATH_MAX - 24];
-+
-+	format_parent_cgroup_path(cgroup_path, relative_path);
-+	return __read_cgroup_file(cgroup_path, file, buf, len);
-+}
-+
- /**
-  * setup_cgroup_environment() - Setup the cgroup environment
-  *
-diff --git a/tools/testing/selftests/bpf/cgroup_helpers.h b/tools/testing/selftests/bpf/cgroup_helpers.h
-index 3857304be8741..d42d2e13044e5 100644
---- a/tools/testing/selftests/bpf/cgroup_helpers.h
-+++ b/tools/testing/selftests/bpf/cgroup_helpers.h
-@@ -15,6 +15,10 @@ int write_cgroup_file(const char *relative_path, const char *file,
- 		      const char *buf);
- int write_cgroup_file_parent(const char *relative_path, const char *file,
- 			     const char *buf);
-+int read_cgroup_file(const char *relative_path, const char *file,
-+		     char *buf, size_t len);
-+int read_cgroup_file_parent(const char *relative_path, const char *file,
-+			    char *buf, size_t len);
- int cgroup_setup_and_join(const char *relative_path);
- int get_root_cgroup(void);
- int create_and_get_cgroup(const char *relative_path);
 -- 
-2.43.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
