@@ -1,85 +1,143 @@
-Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com [115.124.28.149])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97862544D57;
-	Tue, 22 Sep 2026 12:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547B6415F27
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 12:30:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080211; cv=none; b=Jaam7sik+025mVaQ1M2vqxN4bCEf3v2crrV7d16UTwKbOqN4rdIIrRNdUFMT2elSPdTEMd761XikCxcmcTvcbhXGTTHAjQuYmiwfC8StmnNUNafdqiWRONEnSeJfNJ5jRLY1p/UdUagL9shxycGkF7CqJWzzQmN9T4L09GWX/ug=
+	t=1790080243; cv=none; b=IDqL5AnOxe9/vWUA7rjJ9DiZyNWVlnnxnez1b4xZBvB6RP3yvydgDlCtXz2dNAFlxcC5u1m5vWJMbBS61WYrofox7t7/huFbq9KVezUIG6TIhbOEKFTgE65bxP1or3iDBag6MfkPR1eOh6nuYP1hvI1DhlAov4zEN02SqlcXdbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080211; c=relaxed/simple;
-	bh=PrMay2PDMio4LPM/Stxs8Q0612AEyOHv2dZQKcrIV8c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J1jKmtZQjUC0oFyV6+bRpHBlU6FmPcPLTjCEmuZtegLW7FlG4EUJDVaSfh2IqmrYpMqKxVpfxLXo49O+pjgWo1VhBs5RGpj0Slqvs/fbRsH7FJHjAUiWkqDEia16nF9x0j+r5NWr/FuKJ5QlzGqG3te4aux9oVLsb5Xkhyi3EFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Ng9k4T0L; arc=none smtp.client-ip=115.124.28.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1790080243; c=relaxed/simple;
+	bh=jLbFGsCRxKanypzsM4uvEpd5gw2Ul/4sIPR/IipaB6g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R4xeKahuOKafLtaLfKN55YcjvDev1D0AHHC9u1GRm4dzbRZjluOQn0KyYlu9JK/6SyQnbEYd+Q1/k4XNjEwaFIM6xP/uRV/ER5j/LA+j0T6otgDLjZh0Za48tKSJ1eWUENwcn/MT5Dpj/tyJFvtVUiXP6lcOzcagh4nrpb1NFwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NBXGtAlL; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=g87Zz8G/; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Ng9k4T0L"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1790080198; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=wIvs6Bzn9Mhp/rPNaBk6Z8IGAyJ/9Lyz4gAF5i82P1A=;
-	b=Ng9k4T0LT9ePd1kU9A/wM1eZCBQdibgDcXA+rtaVBA1JlIUnkdjWmxd+GtS9qMfgGj8pA611lDcl3ZW3prFeZAwAoXrofNzZpzKiOOXkfdWQnu7YxB/Ff3fMsxqlhjyf11F0huKgsTNetG1lYfNmFVTadbpjA70pULAEPs42ubI=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09716257|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0150629-0.000352776-0.984584;FP=2088973265481694556|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jK24y5D_1790080195;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jK24y5D_1790080195 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 22 Sep 2026 20:29:57 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Cc: Xie Yongji <xieyongji@bytedance.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	stable@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NBXGtAlL";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="g87Zz8G/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790080241;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZHAELRmys5Io7McA1Ge+cOtnPTrW6a/s2gjYUaquQmg=;
+	b=NBXGtAlLB7PaRRF/gIX+Tpu6U3P0foSMOGvn6h59nfv0/ilmRZ1kU7hvKJKGoCt41w1BOm
+	MbYFmiHK+hLqudfPFf1jkGdIXr2B96dEwMuqhc+2UkyeYXWW1sFdHv8CfO1ME4IJVSvO/l
+	FffQlbANiRFzaOIhJQulGwPNY9hD8vc=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-683-a7oUowzQO0CwR0g4gX94JQ-1; Tue, 22 Sep 2026 08:30:40 -0400
+X-MC-Unique: a7oUowzQO0CwR0g4gX94JQ-1
+X-Mimecast-MFC-AGG-ID: a7oUowzQO0CwR0g4gX94JQ_1790080239
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e745d5dabso44052445e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 05:30:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790080239; x=1790685039; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZHAELRmys5Io7McA1Ge+cOtnPTrW6a/s2gjYUaquQmg=;
+        b=g87Zz8G/Y0h5VsQ5ytk3PgNVBJP1jVk0f5Td1jr0AWbbd2pmjypHTkJU/EAt70Haje
+         jJocwFSHtfB8bfpfBDOeGhW35odLykncU3S6CzrQYT7omd3B6cIuNeuVWhss3SEm+bmt
+         94ZceHD3lwAPvklj9y3IFhEEutxcDndF1a/qMeKROrzLUMQxXAm6T5mv/VyRIK+buw3g
+         vMgeIVcq8qRQKfIHBNWcD54rhAfgPlQWCO06KYLYcbqtsbU63Sb5iZtN3Ykuat+szkdb
+         GlKyYEjs/1q2ODyUxpFDDCRDV5WTDX0csLE4ydn/VnXXfR89v9dFPGpWc3sJtc/3WKF+
+         z7Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790080239; x=1790685039;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZHAELRmys5Io7McA1Ge+cOtnPTrW6a/s2gjYUaquQmg=;
+        b=OUlE7hau6Zye6MzA79qOpJkjTE1Hh8rZy1vIXjG7hPe8zT1L79z93erRI606uN8rKj
+         HP+5hxIzVMOaFZzni/dRaDleYdczVEFg7sRtfJ18o9PKpmWTN1YTPsxnnMg0ROjaPN9E
+         /ihpx9uPNbkgUC3yarH+3gx0/uaq1F3of2Y2L5x1XmTneQB2FHl6vdl1NpYULOmYrgoL
+         NiNs2m1s81GdanKZg8dj/vZpH+yeTv4f52yy6VInadqrWUz5ET7FtJdafpp0klOgBTyl
+         TLM32lNvf4RvvW8muhvmjVYNXW6dfFDEsYYe7PEWoOKmpfDaN6JgdsAlw2ddh931QGEz
+         XtAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3DX9E3L8yPGJN8lD/hgXGVTGEFdfrd0WkFkTHpEoNL9tUw8eUQPquWZoLpP5QFJIT17JCS970951AQPc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3loN1PZiHB0gKKpgfB4xoxfEVZaHKOGk1X2bqHdP1RZdn/gSN
+	maOvjuj50PmisuuZTfxGN034sQStBHAx4qUit2Pk5qEpjXN5uKQdNkZBP3Rhks+m+1fo8/vIDmu
+	tnrvnQu23viJ3fbwNrz9NrnzZE+zr8Zkbyqhr3Pc1unZcy87RWjrBuftl+57nny2cnw==
+X-Gm-Gg: AYBFou1xGkITxy9epSrKy0PHhIsOg0dc6yJullL56Pta89TJ+1u4r1D4dpdfkORspdr
+	XZE2j5cAWJh4YzunCbFNpTXEmbe9UAhmt9/LuO9brpS4I66+7S4UF4wQD5Y762o0FKWXnLO4KdH
+	14XJqoKFiERrhTmNF0648TK7OB0ZY58kRjHjVijExlNXFqBKM/XLE2uys86YMyrBrdqYKmekxPq
+	qP7rX1RVVl3AtyzkDQCeigPRWSVxLNLERF6uv7mfSc/iiELanQGOEe698Hc6CCF3KSFs+sZFPhu
+	L6PiMmsQJNc065IPbnROIlvvmShBdPT+H4KnlHPFXNjUJg0IT9NqoNs5yKh0Fev9NBrEIR06dtO
+	UeluNbTWrgCligw==
+X-Received: by 2002:a05:600c:138b:b0:49c:f89b:f82 with SMTP id 5b1f17b1804b1-49fc568f8dcmr179914985e9.12.1790080238636;
+        Tue, 22 Sep 2026 05:30:38 -0700 (PDT)
+X-Received: by 2002:a05:600c:138b:b0:49c:f89b:f82 with SMTP id 5b1f17b1804b1-49fc568f8dcmr179914375e9.12.1790080238205;
+        Tue, 22 Sep 2026 05:30:38 -0700 (PDT)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.14.6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad53b53sm46426695e9.14.2026.09.22.05.30.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:30:36 -0700 (PDT)
+Date: Tue, 22 Sep 2026 14:30:34 +0200
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Hui Su <sh_def@163.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Mikhail Zaslonko <zaslonko@linux.ibm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Luca Abeni <luca.abeni@santannapisa.it>,
+	Daniel Bristot de Oliveira <bristot@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] vringh: fix infinite loop on cyclic top-level indirect descriptor
-Date: Tue, 22 Sep 2026 20:29:53 +0800
-Message-ID: <20260922122955.69433-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+Subject: Re: [PATCH v2 2/2] sched/deadline: Reject debugfs dl_server writes
+ for inactive CPUs
+Message-ID: <arJ06kuNFepnpG2g@jlelli-thinkpadt14gen4.remote.csb>
+References: <20260919153150.2618403-1-sh_def@163.com>
+ <20260919153150.2618403-3-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919153150.2618403-3-sh_def@163.com>
 
-__vringh_iov()'s F_INDIRECT branch does `continue` before the descriptor
-accounting block, so a top-level indirect descriptor is never charged to
-`count`.  When such a descriptor also carries NEXT pointing to itself,
-returning from the indirect table resumes at the same uncharged descriptor;
-`count` stays flat and `indirect_count` is reset to 0 on every return, so
-neither bound in the loop check can ever trip.  A guest can keep the host
-vringh worker spinning inside __vringh_iov(), causing a host DoS.
+Hello,
 
-Patch 1/2 moves the accounting block above the INDIRECT switch so each
-top-level descriptor, including INDIRECT ones, is charged one traversal step
-before the walk descends.  Legitimate chains and indirect descriptors stay
-within vring.num; a cyclic indirect descriptor is now rejected with -ELOOP.
-Patch 1 carries the Fixes tag and is Cc'd to stable.
+On 20/09/26 00:31, Hui Su wrote:
+> Commit 4043f5498416 ("sched/deadline: Reject debugfs dl_server writes
+> for offline CPUs") rejects per-CPU DL server parameter updates once the
+> target CPU is offline.
+> 
+> During CPU hot-unplug, however, the CPU is cleared from cpu_active_mask
+> before it is marked offline. This leaves a window where the CPU is no
+> longer active but cpu_online() still returns true, so
+> sched_server_write_common() continues to accept DL server updates.
+> 
+> There is no meaningful reason to reconfigure a per-CPU DL server once the
+> CPU is being deactivated. Reject the write when the target CPU is inactive
+> rather than only after it becomes offline.
+> 
+> Fixes: d741f297bcea ("sched/fair: Fair server interface")
 
-Patch 2/2 appends a regression test to tools/virtio/vringh_test.c.  It builds
-the offending ring: top-level desc[1].flags = VRING_DESC_F_INDIRECT |
-VRING_DESC_F_NEXT and desc[1].next = 1, with a single-entry indirect table,
-and asserts that vringh_getdesc_user() returns -ELOOP.
+Isn't 4043f5498416 ("sched/deadline: Reject debugfs dl_server writes for
+offline CPUs") more appropriate?
 
-Verified against v7.3-rc3: both patches pass git apply --check.  With the fix,
-vringh_test --indirect observes -ELOOP and exits 0.  With the fix reverted, the
-walk re-enters the same descriptor without making forward progress and never
-returns -ELOOP, so the assertion does not hold and the regression is caught
-either way.
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/r/anw7IML1xzHys6re@jlelli-thinkpadt14gen4.remote.csb
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Su <sh_def@163.com>
+> ---
 
-Fang Xieyan (2):
-  vringh: bound top-level re-entry into indirect tables
-  vringh: add regression test for cyclic indirect descriptor
+Apart from that the fix looks good to me.
 
- drivers/vhost/vringh.c     | 22 ++++++++++----------
- tools/virtio/vringh_test.c | 41 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 52 insertions(+), 11 deletions(-)
+Acked-by: Juri Lelli <juri.lelli@redhat.com>
 
--- 
-2.50.1
+Thanks,
+Juri
 
