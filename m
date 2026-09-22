@@ -1,179 +1,140 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A513254A8
-	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 14:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208C353ECF7;
+	Tue, 22 Sep 2026 14:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790087672; cv=none; b=k4eB1OXFBbMKWn3WoBFhDfAFoC/EgHADO4IUPBhI3nuANgpWfD+6NTJSZxl2yQZh1tClCThBgTdSypbDGsj/cYVeAnOdqHuHyVp8Pr8ZWdT1jRqqDKUxaYZrypqEWrWuiouDkNw2ut4FDDpk/i4xGrjEopgvsofjjnA2T2CB1hY=
+	t=1790087677; cv=none; b=n7yFhrMmvZ9zsclaHMHF47GGjaAU2bElEYFoJTFNlQBJaJLhLfTfPbCkfsFflHUkE/JJSGcRITU46IR7BEl7Ye3E3bHyYCA7xbMK2GTB/9oOxYKXT6xh3LCNkfzXUc6aEnfXdf6L/AwZXXe6zYHQIA0xwUiTh3JXlAiLd+eEeUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790087672; c=relaxed/simple;
-	bh=OSpr8vZBZSILiOyuY44tAAoQRF+Mre7i03lUP3vPqEw=;
+	s=arc-20240116; t=1790087677; c=relaxed/simple;
+	bh=FcO8+gxKY+/nKD+LPd/eZyy4ldOArtG1kzAaFPbXiMM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AxgsC5VxFlKAsdLLakpOHF+KPwyQ1QIE9bXJp9HilAJ8LqPA90WTKtkRjPE2PQZjZh7V/POeZi4Gkj5YcXylt6RaM4VLDqJtlyTQieqai/aq+YQUjryhcZXiOBHLLwreJ7iQ5TN12FVEWeO/jZdqb7D8+JNeTbkSZDKGBrm25QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FlcMQpQ1; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=OMFSs+sSUMg6fLglz71l/dZzQ33NMHEWvyil2+GVuEUr1MeC7kitzQ7ISSiRWUjDiUhlTZph5FNHFMghFilBKxk+aU1ELghYImXTMHcLymJ9o/1lFRCElMLNMyDe0PsSwmOb8gCWm6N3NFa+Mo9pgEl+IYgiGKOPJs1FEiswXSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IVXhlT5w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FlcMQpQ1"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so4803066e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 07:34:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790087668; x=1790692468; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r0HTz7i0csHEzPxGHorQVXPbwITXujz+YYUQK1Bj5/w=;
-        b=FlcMQpQ1Q+gcuJrY6I6E4XZnUUZ0BkJfL1IuZm026I6gEvDtLx43huuCBnyLLFK3Xh
-         7p95odqEQbgG5hw3VXn4kLanjnoMOuiBpO/ev7sAfjAYyeJxFBGLiM2amt6uud76f4va
-         rGcDgNWGeIwIQH9ojUOzPVLPXqOFRa0p7oox7P/jYoc84Y7pj9xYbdIbSV9CBEJbHZOk
-         rzM8uvnImqloWs0PRyqG7e4st3lagcaAAQ0zTICKgW52UKxUQ1CKZwLW3dPjkwWMCBVT
-         2wy+nzbJFcH07rF1Zncl6A9Avo4oUWR47Ni96z6rQ85Ti8HsFhUfl1jkMrx7ow6FuUAI
-         qriw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790087668; x=1790692468;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r0HTz7i0csHEzPxGHorQVXPbwITXujz+YYUQK1Bj5/w=;
-        b=1JzYvBzl/CGvt/KKgN/d29ENtvgi3g8X2rwGSYzTCW3XB3c9984vQZf/FMKK7RB4o7
-         Z4exPcZqqYyTOLLRbKJXavZsGoBMq3tfWFXUFVfxB5AclXJ1Iq7uxBaMqlpXFViXtxi1
-         ME4iN96nFjY1GxiJGLWdiCVKCqRXAjgmsv6GK9YWV8DlhzgnpY7292zFMAqymaK4FMQp
-         VRn1RT0N4iSkOlv0YRFjnfTVVOr70cVe2/uZB1wgLZUodbYN5jIht8llGqERM4DP1Usv
-         +mN6hnBWjNjWoLZwb7YC7/hMbzkuc/VwF7Fpr/CCpBBy2yD/4v/jUfQE3cj5l56TlUOO
-         OOEA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3BACEVNCtxqlAXlcFuyQ5DCsJvokxs1zz3fSsQk4tU+iULxvg+IPFbFezxHIStLLP+kDAq6Vp4yS0/Og=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/ypTcd9i0t7P3uuVmhGPpM3dxSKgkiuEQfMgaI9Wq1CARS15L
-	AOn/Ew1wHmorNib3FjP8Be/nVmQPu+doD3whO6lPuKsgw7k9qBMkEykzqmopu4oVxw==
-X-Gm-Gg: AYBFou220YheKoIIPFh8ZmIhCkqL+nrm+TI4Cvnmo1LLDjmG8EraLJPMrRi8fWBBPhx
-	6yrJYfH1FZcIF3b0jxD/QVzMEUOWk7HvaFNsZQmsNZkwYimnW4VBHv0mRaEPZfUtBKxoBiB8QPm
-	yvoqluysg7vxX20tlapFU6qeGcmTHihHnqCN+EHfN7+ytTucGCE7/ObIPFLJEd0Pbj6PEoOjy1u
-	AJcA0JxnG24MquqaztrT1Y2aGEGCLg7onXiU4nUDyEdtdKrCzD+dwSW5sL3EzxDuVXfAjS2fC7o
-	XcTx7Fd0XcofawYSONrFmh5S/mSvymSrsEdHelF+2IvBtwhk1DBbKFTjEMHlCaFmGfRhC2ytsj4
-	jUXjllJX8SYp+HP1frRforYgybBYvVitgYWJTrxQTqodXMtcqgMOVyhWbDcE8NM2nWfApCxEJqY
-	ryEayIABEWIBKOqf4titKL5/zyk6MGzbey8S60/vDLiGtdf6salCPRYSbc4UcY6kuqD0Xz1aFU2
-	CLTAcWcltLhP4HcPjO8QRs5pt6Qs61bvANTQqI4F9iYtLJ0Lqj3AQ==
-X-Received: by 2002:a05:6512:3e1b:b0:5b6:1a7c:21 with SMTP id 2adb3069b0e04-5b8c184e320mr4889993e87.36.1790087667742;
-        Tue, 22 Sep 2026 07:34:27 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d46e871dsm604660e87.60.2026.09.22.07.34.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 07:34:27 -0700 (PDT)
-Date: Tue, 22 Sep 2026 15:34:22 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
-	mark.rutland@arm.com, steven.price@arm.com, qperret@google.com,
-	tabba@google.com
-Subject: Re: [PATCH v3 04/18] KVM: arm64: Disable steal time for protected VMs
-Message-ID: <arKR7gJaeCpWqA5j@google.com>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
- <20260914113338.159227-5-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IVXhlT5w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F92F1F000FF;
+	Tue, 22 Sep 2026 14:34:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790087675;
+	bh=BYx3UPsVK+IPBRssh3HUX31FUJIXkBIIqhrriLruBy4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IVXhlT5wGgb5gMxwF42e8R2ZWcR1LA9LWOJ9rscpXNJi/RTyrqB/SaXKwTgY+kVYw
+	 I983Mq5N0hNe0sp+WMA8b+OMwVlfi5DiifDQZu5EcNQ2nkvf/yCzgct4LBUzfXM3jM
+	 igMjR9zEJntsJ6QZdvyExImLzrdvt6nrUE8ptPWDUh4rX7dQNUXhhM5X/yVBI4HHHo
+	 K3wHjqLQJpF8pHPCVmD1MJk9+DFWjR2BwP5n5lNLkxvsABUWVwwMCyQDGDNFSWGkcW
+	 Uo4zBio81ZhVeyAQe4Sjhv/whR59s6oCJQ2u032m3h9+NkZpcmT25h5wpUH94SlU05
+	 /MKmVzHmf+6Hg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id AA5011AC56C6; Tue, 22 Sep 2026 15:34:30 +0100 (BST)
+Date: Tue, 22 Sep 2026 16:34:30 +0200
+From: Mark Brown <broonie@kernel.org>
+To: joakim.zhang@cixtech.com
+Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
+	p.zabel@pengutronix.de, cix-kernel-upstream@cixtech.com,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/4] ASoC: cdns: Add Cadence I2S-SC controller driver
+Message-ID: <arKR9oIjbrTM9fTS@sirena.co.uk>
+References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
+ <20260922112134.4167305-3-joakim.zhang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f03ZgCX7Ycsbfz7v"
+Content-Disposition: inline
+In-Reply-To: <20260922112134.4167305-3-joakim.zhang@cixtech.com>
+X-Cookie: Too clever is dumb.
+
+
+--f03ZgCX7Ycsbfz7v
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914113338.159227-5-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 12:33:24PM +0100, Fuad Tabba wrote:
-> pKVM doesn't support steal time for protected guests, and
-> KVM_CAP_STEAL_TIME already reads 0 for them on the VM file descriptor,
-> but kvm_arm_pvtime_supported() doesn't know the VM, so the host still
-> accepts the KVM_ARM_VCPU_PVTIME_CTRL attribute, whose IPA would point
-> kvm_update_stolen_time() at the guest's private memory on every vCPU
-> load. Pass the VM in and return false for a protected one, so the
-> attribute returns -ENXIO as it does where steal time isn't implemented.
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+On Tue, Sep 22, 2026 at 07:21:32PM +0800, joakim.zhang@cixtech.com wrote:
+> From: Joakim Zhang <joakim.zhang@cixtech.com>
+>=20
+> Add support for the Cadence I2S-SC controller found in the CIX SKY1
+> audio subsystem.
 
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+> =20
+>  obj-$(CONFIG_SND_SOC)	+=3D snd-soc-core.o
+> +obj-$(CONFIG_SND_SOC)	+=3D cdns/
+>  obj-$(CONFIG_SND_SOC)	+=3D codecs/
 
-> ---
->  arch/arm64/include/asm/kvm_host.h |  2 +-
->  arch/arm64/kvm/arm.c              |  2 +-
->  arch/arm64/kvm/pvtime.c           | 10 +++++-----
->  3 files changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 27fe0cd5b2d7a..286489a69dff5 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -1346,7 +1346,7 @@ long kvm_hypercall_pv_features(struct kvm_vcpu *vcpu);
->  gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu);
->  void kvm_update_stolen_time(struct kvm_vcpu *vcpu);
->  
-> -bool kvm_arm_pvtime_supported(void);
-> +bool kvm_arm_pvtime_supported(struct kvm *kvm);
->  int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
->  			    struct kvm_device_attr *attr);
->  int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 8b080804bc90b..db36815630790 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -447,7 +447,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
->  		r = system_supports_mte();
->  		break;
->  	case KVM_CAP_STEAL_TIME:
-> -		r = kvm_arm_pvtime_supported();
-> +		r = kvm_arm_pvtime_supported(kvm);
->  		break;
->  	case KVM_CAP_ARM_EL1_32BIT:
->  		r = cpus_have_final_cap(ARM64_HAS_32BIT_EL1);
-> diff --git a/arch/arm64/kvm/pvtime.c b/arch/arm64/kvm/pvtime.c
-> index 4ceabaa4c30bd..053fe831fa541 100644
-> --- a/arch/arm64/kvm/pvtime.c
-> +++ b/arch/arm64/kvm/pvtime.c
-> @@ -67,9 +67,9 @@ gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu)
->  	return base;
->  }
->  
-> -bool kvm_arm_pvtime_supported(void)
-> +bool kvm_arm_pvtime_supported(struct kvm *kvm)
->  {
-> -	return !!sched_info_on();
-> +	return !!sched_info_on() && (!kvm || !kvm_vm_is_protected(kvm));
->  }
->  
->  int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
-> @@ -81,7 +81,7 @@ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
->  	int ret = 0;
->  	int idx;
->  
-> -	if (!kvm_arm_pvtime_supported() ||
-> +	if (!kvm_arm_pvtime_supported(kvm) ||
->  	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
->  		return -ENXIO;
->  
-> @@ -110,7 +110,7 @@ int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
->  	u64 __user *user = (u64 __user *)attr->addr;
->  	u64 ipa;
->  
-> -	if (!kvm_arm_pvtime_supported() ||
-> +	if (!kvm_arm_pvtime_supported(vcpu->kvm) ||
->  	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
->  		return -ENXIO;
->  
-> @@ -126,7 +126,7 @@ int kvm_arm_pvtime_has_attr(struct kvm_vcpu *vcpu,
->  {
->  	switch (attr->attr) {
->  	case KVM_ARM_VCPU_PVTIME_IPA:
-> -		if (kvm_arm_pvtime_supported())
-> +		if (kvm_arm_pvtime_supported(vcpu->kvm))
->  			return 0;
->  	}
->  	return -ENXIO;
-> -- 
-> 2.39.5
-> 
+This should be sorted in with the vendors, after bcm.
 
--- 
-Vincent
+> +++ b/sound/soc/cdns/Makefile
+> @@ -0,0 +1,4 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +obj-$(CONFIG_SND_SOC_CDNS_I2S_SC) +=3D snd-soc-cdns-i2s-sc.o
+> +snd-soc-cdns-i2s-sc-objs :=3D cdns-i2s-sc.o
+
+We've moved to module-y for module objects.
+
+> +static int cdns_i2s_sc_probe(struct platform_device *pdev)
+> +{
+> +	struct cdns_i2s_sc_priv *i2s_sc_priv;
+> +	struct resource *res;
+> +	void __iomem *base;
+> +	int i, irq, ret;
+
+> +	ret =3D devm_request_irq(&pdev->dev, irq, cdns_i2s_sc_isr, 0,
+> +			       dev_name(&pdev->dev), i2s_sc_priv);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Failed to request irq: %d\n", ret);
+> +		return ret;
+> +	}
+
+We request the interrupt before we enable clocks or anything, an
+interrupt could be delivered as soon as we do the request and the
+handler will try to interact with the hardware which I imagine might go
+badly if it's unclocked or in reset (at least for some integrations).
+It's generally easier to make this one of the last thing we do in probe,
+once most things are ready.
+
+> +static void cdns_i2s_sc_remove(struct platform_device *pdev)
+> +{
+> +	if (!pm_runtime_status_suspended(&pdev->dev))
+> +		pm_runtime_force_suspend(&pdev->dev);
+> +	pm_runtime_disable(&pdev->dev);
+> +}
+
+For CONFIG_PM=3Dn forcing suspend won't do what you want, and when it's
+enabled it'll also disable.  devm_pm_runtime_enable() might be easier.
+
+> +static const struct dev_pm_ops cdns_i2s_sc_pm_ops =3D {
+> +	SET_RUNTIME_PM_OPS(cdns_i2s_sc_runtime_suspend,
+> +			   cdns_i2s_sc_runtime_resume, NULL)
+> +	SET_SYSTEM_SLEEP_PM_OPS(cdns_i2s_sc_system_suspend,
+> +				cdns_i2s_sc_system_resume)
+> +};
+
+
+RUNTIME_PM_OPS() and SYSTEM_SLEEP_PM_OPS() are the more modern things,
+and avoid the need for __maybe_unused.
+
+--f03ZgCX7Ycsbfz7v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqykesACgkQJNaLcl1U
+h9DFuwf5AZA0BHA8EDSLr3yT9wJi1GpTmM5ml1rYBCpGZX65b/A94t5G9/rv/JaK
+1U2MY1DOsWahuosjvdisvLkRPpsw7URMRcq/poT0R2uwuun/RE7ZVKl7O6XWTrYn
+B0wseq8VmrmIX1D3dZ/JSix1/tWbwo3LlhldEK3coNqE5FJj0i2uE1eLT73s63Qp
+5rrbx2ttDF3YUn8DPFMNv5vmsUnrwJNpTZGY5wFwJkMUFHtSzi6SEBP9v3jcVeD4
+/YIO5xZzZxYjH9n0MGSQ6jVwpoc5dH7k1CCXNPuHgUJulNIVBWaozuRBEJO5mDQI
+TLa9Ipsb9Y+5ibLODi60BjpXBN90Kg==
+=KQRK
+-----END PGP SIGNATURE-----
+
+--f03ZgCX7Ycsbfz7v--
