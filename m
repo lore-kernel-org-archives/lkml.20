@@ -1,45 +1,36 @@
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3DF5505CB;
-	Tue, 22 Sep 2026 13:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A351B55199A
+	for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 13:18:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083117; cv=none; b=ZoZgpDplzg6vVXD7CW3gW6tS6YeAQFOWq4mLQDc9+Z5r/+6hE9OQoHhumQxGFRfyDgVIMFGt8YtDty3v9qCHjyy83qseC4sQjx4CTyOyCa0TiFYJusaEXTNg12Al3rsi/7Kx4ifdBwZ0FI+DcAC+yruzGt+AWA/LwqahrwyzAaY=
+	t=1790083127; cv=none; b=gnsF9W4Q9wyHlmmSqpzohlR4TkcOYf+4blzXvpB9KSaBx02AlSFElT0t8xs5cTF44Da04nNXdMxiJPRYwsXmxGz0of7ypMVieTqlwWQwmzlLLjILnXmiK31IgRMiLeNFscSSm9ICOxTHEvXvr2Z6sJ+M+E3yawAEfio0eVcMt4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083117; c=relaxed/simple;
-	bh=EyoxSkU/YQvO31zKcI0bNAZCdUkSd/GX8KsrWOX1ftA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XIp+q4chG2f66dJdKFruLxS49CGpQMSweKDkTbSElpC9/hZUWgmggASjMgKuJ5ScqwtqCzdeTm58YIgBocvYX9Gqs2DgLGiokZmOjm9PBtym9Y8qTeG7jGmDVxWkpPVMdx7Pk8VNbi8wX8+B/2anzUaRT8PO+R8ieLQwnnRTmS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=HdK9G6gm; arc=none smtp.client-ip=185.226.149.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	s=arc-20240116; t=1790083127; c=relaxed/simple;
+	bh=KnQFWOHI/uWFbK2yV+XgO5ozKy20KZ6FFsL/eg8FxkY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cjaoGexcyL9oz7VqQ7KR/08lyDJ4UrIp8GWcBBBhsnkkJq26eW5UkmilTZ8OKYJg4UWvS94deXAS2WyqgaxP4kPvBa1ZHIfFlBu9kFhMhR/G4eqvJBP6sJjNQ3L6tWPg99S5QmmTpuTtx8kTc/g6+kQ1yENuAYyZYYxOZI9HnAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=blm2aYEg; arc=none smtp.client-ip=95.215.58.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="HdK9G6gm"
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1x90OD-005SZo-Im; Tue, 22 Sep 2026 15:18:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
-	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
-	bh=12HbY+njqSS4MP2GVtwfHtjvmwges/+vvpXHa7B4KVw=; b=HdK9G6gmBRRwW0yHqE2Hf6amXn
-	pvzQVSWfK52WdMovPLTBe4+pL+tOqVH5afZdzQQgzghBRh+u7I8tA8FK79kAIxXXIOwkQXGh2pR3/
-	UoOOedNbTr3/Yv29dbVtSwr/z7zZT6PmvIb4miHwzuA/8AX9AgpCGi9S4zDFCNsidHy3jPV6wTA1A
-	P/Tmj9Fom5/5nTeU6P0GiUL1O0U/8lTddbiL2OUcQCGbT3Tu9vSZpvj60zWQ9/5whYyajkUJHD2GO
-	pPC5v57tEkUyVKxUCqQXc6pt8+f9xnSiAlXE07l9QLC2rjCzerZWgeOVBxLFvjBCnTQO4QezHNoc/
-	jw/78Pdg==;
-Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1x90O8-000546-AV; Tue, 22 Sep 2026 15:18:24 +0200
-Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1x90Nq-00HI7a-4S;
-	Tue, 22 Sep 2026 15:18:06 +0200
-Message-ID: <036cb16f-c3b6-4e94-9c3d-42e40d160833@rbox.co>
-Date: Tue, 22 Sep 2026 15:18:05 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="blm2aYEg"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KnQFWOHI/uWFbK2yV+XgO5ozKy20KZ6FFsL/eg8FxkY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790083123; v=1; x=1790687923;
+ b=blm2aYEgSSnRIIRmIgSJEqGAZggbaZPSy/vPCO5VeEIyNmgezy68bnnUfYrNHkX7eKAmJofp
+ cLdJPyQ2S56Yc6ryQwqkebxqVem1Z2W6kwQ09UiVjooPS8Zl4AffRlRbBdR7BPTV48UdMjOIJBd
+ 32+4N2fBcrFySyLv4u0QRXBg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 855e594509f545e4;
+	Tue, 22 Sep 2026 13:18:43 +0000
+X-Mizu-Trace-ID: 855e594509f545e4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <17c88cf7-61d0-48f6-bc94-773b3662122c@linux.dev>
+Date: Tue, 22 Sep 2026 14:18:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,114 +38,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Michal Luczaj <mhal@rbox.co>
-Subject: Re: [PATCH net v2 5/5] vsock: Handle sudden TCP_CLOSE during connect
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Asias He <asias@redhat.com>,
- kvm@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260915-vsock-connect-reset-closing-v2-0-a1d9abb472f7@rbox.co>
- <20260915-vsock-connect-reset-closing-v2-5-a1d9abb472f7@rbox.co>
- <aqqIuUadZ_E1skmR@sgarzare-redhat>
-Content-Language: pl-PL, en-GB
-In-Reply-To: <aqqIuUadZ_E1skmR@sgarzare-redhat>
+Subject: Re: [RESEND v7 11/29] mm: split PMD swap entries into PTE swap
+ entries
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org,
+ ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, baohua@kernel.org,
+ dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-12-usama.arif@linux.dev>
+ <aqqwFOoPxqFnxclE@thinkstation>
+ <4101d661-7b16-401c-aaef-b87e81fdaee3@kernel.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <4101d661-7b16-401c-aaef-b87e81fdaee3@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 9/16/26 14:31, Stefano Garzarella wrote:
-> On Tue, Sep 15, 2026 at 03:15:16PM +0200, Michal Luczaj wrote:
->> Virtio/PM events are serviced by virtio_vsock_reset_sock(), which resets
+
+
+On 22/09/2026 12:46, David Hildenbrand (Arm) wrote:
+> On 9/16/26 17:08, Kiryl Shutsemau wrote:
+>> On Mon, Sep 14, 2026 at 05:28:01AM -0700, Usama Arif wrote:
+>>> Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
+>>> or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
+>>> handler - has to be able to split that entry too, or the callers that rely
+>>> on split_huge_pmd() to hand them a PTE table would find the PMD unchanged.
+>>>
+>>> No reference counting is needed: a swap entry pins no folio, and swap_map
+>>> is already one per slot, so the PTEs simply take over what the PMD held.
+>>>
+>>> The migration-only entry point cannot reach the new branch, because
+>>> page_vma_mapped_walk() never hands back a swap PMD for the folio being
+>>> migrated. Warn if that ever changes, and force the regular split anyway,
+>>> since the branch leaves folio and page uninitialised.
+>>>
+>>> Test the pre-split old_pmd rather than re-reading *pmd in the trailing
+>>> folio_remove_rmap_pmd() gate, so every entry-type test in the function
+>>> interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
+>>> leaves the PMD present as far as software is concerned.
+>>>
+>>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>>> ---
+>>>  mm/huge_memory.c | 36 +++++++++++++++++++++++++++++++++++-
+>>>  1 file changed, 35 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>>> index 873887aed0bc2..0e347a545588c 100644
+>>> --- a/mm/huge_memory.c
+>>> +++ b/mm/huge_memory.c
+>>> @@ -3304,6 +3304,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>>>  			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
+>>>  						 vma, haddr, rmap_flags);
+>>>  		}
+>>> +	} else if (pmd_is_swap_entry(*pmd)) {
+>>> +		/*
+>>> +		 * A PMD swap entry has no page, so it cannot be turned into
+>>> +		 * PTE migration entries.  page_vma_mapped_walk() never hands
+>>> +		 * one back for the folio being migrated, so this should not
+>>> +		 * happen; warn, but also force the regular split so that a
+>>> +		 * broken invariant cannot make the code below dereference the
+>>> +		 * uninitialised folio and page.
+>>> +		 */
+>>
+>> The comment can be shorter.
+>>
+>>> +		VM_WARN_ON_ONCE(use_migration_entries);
+>>> +		use_migration_entries = false;
+>>> +		old_pmd = *pmd;
+>>> +		soft_dirty = pmd_swp_soft_dirty(old_pmd);
+>>> +		uffd_wp = pmd_swp_uffd(old_pmd);
+>>> +		anon_exclusive = pmd_swp_exclusive(old_pmd);
+>>
+>> The logic looks right to me, but __split_huge_pmd_locked() is getting
+>> awkward. It is close to 300 lines with two if-else chains that have to
+>> be kept in sync.
+>>
+>> Can we have a preparatory patch that moves the PTE-install loops into
+>> per-type helpers?
+>>
+>> split_pmd_into_migration_ptes(), split_pmd_into_device_private_ptes(),
+>> split_pmd_into_present_ptes().
 > 
-> What "PM" means here?
-
-Power Management, namely virtio_vsock_driver.freeze which is defined under
-CONFIG_PM_SLEEP. I'll generalize this comment, as suggested below.
-
->> each connected socket. The reset is done under vsock_table_lock but without
->> taking lock_sock(), so from the point of view of vsock_connect() -
->> locklessly. The same pattern exists in VMCI's
->> vmci_transport_handle_detach() and vhost's vhost_vsock_reset_orphans().
->>
->> The complexity of connect() comes from the fact that:
->> 1. the virtio transport can be reassigned, so the old transport must be
->>   safely released;
->> 2. a failed connect can be followed by a retry, so the socket must be
->>   reverted to a sensible state.
->> Both cases apply only as long as the socket has not yet established a
->> connection.
->>
->> While connect() waits for TCP_SYN_SENT -> TCP_ESTABLISHED, other
->> transitions can also occur:
->>
->>  TCP_SYN_SENT -> TCP_CLOSE on connection failure, timeout or signal
->>  TCP_SYN_SENT -> TCP_ESTABLISHED -> TCP_CLOSING on VIRTIO_VSOCK_OP_RST
->>  TCP_SYN_SENT -> TCP_ESTABLISHED -> [TCP_CLOSING ->] TCP_CLOSE on event
->>
->> This further complicates connect(). Rather than making every event handler
->> drop the socket from connected_table or adapting connect() to handle more
->> transitions (while missing proper locking), use vsk->peer_shutdown as a
->> poison flag. Whatever state an event leaves the socket in, the flag bricks
->> it and prevents suspicious transport reassignments or TCP_SYN_SENT
->> retransmissions.
->>
->> Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
->> Signed-off-by: Michal Luczaj <mhal@rbox.co>
->> ---
->> net/vmw_vsock/af_vsock.c | 6 ++++++
->> 1 file changed, 6 insertions(+)
->>
->> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
->> index adf3f018347e..972952d04a81 100644
->> --- a/net/vmw_vsock/af_vsock.c
->> +++ b/net/vmw_vsock/af_vsock.c
->> @@ -1743,6 +1743,12 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
->> 			goto out;
->> 		}
->>
->> +		/* Virtio/PM events are serviced locklessly. */
+> There were recently patches about related cleanups:
 > 
-> IMO we should be generic here (i.e. don't mention virtio or mention it 
-> like one of the transport, but IIUC also VMCI does something similar) 
-> and also we should explain better why we are doing this, like you did in 
-> the commit description.
-
-Sure, will do.
-
-> Maybe we should document this behaviour also on top of this file.
-
-OK, do you mind if I do that as a follow up? I worry top of the file needs
-few more updates.
-
->> +		if (READ_ONCE(vsk->peer_shutdown)) {
->> +			err = -ECONNRESET;
+> https://lore.kernel.org/r/cover.1787941780.git.yintirui@gmail.com
 > 
-> Is ECONNRESET a valid connect() error to return?
+> I'm fine with cleaning this up later (I hope we can land this series in 7.4).
 > 
->> +			goto out;
->> +		}
->> +
-> 
->  From LLM reviewing, can you check if it's valid? :
->    - M (net/vmw_vsock/af_vsock.c:1747): VMCI regression.  vmci_transport_handle_detach() sets
->      peer_shutdown = SHUTDOWN_MASK unconditionally and then special-cases TCP_SYN_SENT with the
->      comment "we treat the detach event like a reset" — i.e. a connect() retry is the expected
->      recovery. It is reachable for a non-connected socket via vmci_transport_peer_detach_cb() (which
->      uses trans->sk, not the connected table). Since vsock_assign_transport() only clears
->      peer_shutdown when the transport actually changes (af_vsock.c:671-689), the retry now hits the
->      new check and returns -ECONNRESET forever: the fd is permanently bricked where it previously
->      reconnected.
 
-I'm not sure I follow the logic. SHUTDOWN_MASK gets set no matter what's
-the state at vmci_transport_handle_detach(). That means even if vmci's
-reconnect succeeds, all the recvmsg()/sendmsg() at af_vsock layer would
-fail anyway. Am I missing something?
+Will follow Davids advice and cleanup later if no one has done it.
 
-thanks,
-Michal
+Too much cleanup already :)
 
