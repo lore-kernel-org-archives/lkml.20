@@ -1,257 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD142765E2;
-	Wed, 23 Sep 2026 15:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1A956510E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.147.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177526; cv=none; b=JzAs11aJguqa/bCWQ97vcMRFD6tRwU0dS5YnpBhkDMFLrfGHKmijlOJbwI4DUjMoEpxzDNxSH3U3EuaK9nqP8wyUW5O5BsjHG+GEt6Z7LwdhlOYOC32iGWewuOYFdbsSSeOdOfPzNEE1etf+Jx506H8n8PecAoa/JkSuhIT5lCI=
+	t=1790177526; cv=none; b=cJt/Nwsvd4fl/nXXgg2w+nUt4TlaxRsa2gXoRgFTo3gL1yIpfGiYpKOF5V8mRsluoiTvyzjREckjc9tC+P7WSBC3Wiuc2BO2BeBeIr/p2wZazhnWBM53AMcGhxAwZbR/lK5TH1sHCQYao+9vbHum4mIrdmzsNWQPp/15R00Z/24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790177526; c=relaxed/simple;
-	bh=16GtAyWXg9XHT6NYcnN6c6+63crY4W8msaHGFRCzii4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rXMI82gydl9u2w9wiRvvoa3Od4/YXfGloy6y+3/rkxfYRT+m+3AF8ly4zQ8D8ZBPCHXVMMajvsUg1zGVokTUoiSZXOjQv5rKtgJoKTI5ve/SQxB7npXd6XNz73+pqM3tJ6Uz/N8d3s25X94WbfsZ2oPeEFxXLCboR3KwT7KqXB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQrd7bY3; arc=none smtp.client-ip=100.103.45.18
+	bh=s03aIwng+onu3oDOKgOOuo1eiloxafJcjx/tPyNlwtM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r6w4jy5ACcpcBbMRUsMZH8AcFNpSNPoPHf3+lSLuaze759qDBXv5FTnpmvOAYHBdY6JiLTlnYUM0ZuxfSIOo1iBfLLwCi5pDgw5wMjebrY8F/1CPSTIX3JATRtm+8EjsJCBd+OZgN+9JWvf9CdsBIsPzBMCO+pEMWl2VzOFOIOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com; spf=pass smtp.mailfrom=hpe.com; dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b=FBTlZ0Jn; arc=none smtp.client-ip=148.163.147.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQrd7bY3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AF51F000FF;
-	Wed, 23 Sep 2026 15:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790177517;
-	bh=U1Bvd6/p/gkQXGYEOxDXN7iUZg0k/gL9HPhVzPJ3J5o=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KQrd7bY3+yTVOBqTgyfdP0Yqd7j6FFJkIPqNGFL8t1+/xnf9K+ZSMfc2WXZ0y8mTv
-	 FgeAafl+mjI/N1YuknJtgANlyVLJRFGoa8UpN7Zm4KtimcLy3duVE42sw+zlju0bNa
-	 iTUaODYP82jQKSiNmCRavjXzuwhKpcyNKvtf+7DJb+WLv3wTpY12ONZ5ypOFcOAdxi
-	 +6IU4FO+Tj75bqkK/846/OewWIY+jWGLmA74ic3PURKdzg891A3Bifrqu98B1CN0eG
-	 LE4+immFNaHHVNEaXKknGA7zdqrMx4jc012cQlGpOb91mzAdYhxmKeivn7iCfzpoeG
-	 wjpqWVz7XDl+g==
-Subject: Re: [PATCH] net: qrtr: ns: validate msglen and sq_port in
- qrtr_ns_worker() and ctrl_cmd_bye()
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: mani@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, linux-arm-msm@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 23 Sep 2026 15:31:56 +0000
-Message-ID: <179017751615.2160803.4681331359759254914@kernel.org>
-In-Reply-To: <20260919212850.3240353-1-benquike@gmail.com>
-References: <20260919212850.3240353-1-benquike@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="FBTlZ0Jn"
+Received: from pps.filterd (m0134421.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NEWC3B1026955;
+	Wed, 23 Sep 2026 15:31:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps0720; bh=9DvkkM+rEk/yRIWiW1LKXVYDxU
+	l1gUuqrsbK5lwOeOU=; b=FBTlZ0JnrDwQSZFOFTKxEAPH/X5JIXjO/P2iwnKboc
+	5Zz+ySZ1TGT5jYbEqXxU492hNFawX0hiDcFQjC0WVDP9n/5boiODNUBKsC0Vzbvk
+	yOD7tOvEtq6WbnGj/yxDevrdNSMQVPyg+bIO7YPd7b0nAhQh+i6QVtwFBjBkPPR2
+	sU8nutJG1ti/4LJU91HY1lRRi01ugreCUl4nblUDJrl2+wm+Y0rWvF9e6L3vs6g7
+	zqzBtZ7Y3X2FCqsW5uC0nnl8oeywlFTJrF5J4iI8pePKY+9mC7KIhcyWeWIBSav3
+	EOlrfqp7ApL4RCp7PaG1ZTFWZwyz3bXDs+2Zvind44Mw==
+Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4gvfcvj9bv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 15:31:21 +0000 (GMT)
+Received: from p1lg14886.dc01.its.hpecorp.net (unknown [10.119.18.237])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id BE85E147B8;
+	Wed, 23 Sep 2026 15:31:20 +0000 (UTC)
+Received: from swahl-home.5wahls.com (unknown [16.231.227.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by p1lg14886.dc01.its.hpecorp.net (Postfix) with ESMTPS id 8419D800EFB;
+	Wed, 23 Sep 2026 15:31:18 +0000 (UTC)
+Date: Wed, 23 Sep 2026 10:30:55 -0500
+From: Steve Wahl <steve.wahl@hpe.com>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Steve Wahl <steve.wahl@hpe.com>, Justin Ernst <justin.ernst@hpe.com>,
+        Kyle Meyer <kyle.meyer@hpe.com>,
+        Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+        Russ Anderson <russ.anderson@hpe.com>,
+        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
+Subject: Re: Dead arch/x86 UV code?
+Message-ID: <arPwr2hqcQos-TFY@swahl-home.5wahls.com>
+References: <d49f2e1a-1f19-49e8-a2a0-98b839274b69@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d49f2e1a-1f19-49e8-a2a0-98b839274b69@intel.com>
+X-Authority-Analysis: v=2.4 cv=TfYDJhQh c=1 sm=1 tr=0 ts=6ab3f0c9 cx=c_pps
+ a=UObrlqRbTUrrdMEdGJ+KZA==:117 a=UObrlqRbTUrrdMEdGJ+KZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=gQcMVamqm3wCPoSYhaRC:22 a=ay80y3fxfMS_JZZz1qJy:22 a=QIa9-b6dbVQTm6vAbSQA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2MSBTYWx0ZWRfX0ZO1WjcEUejg
+ 8fpzKeC4m1gsQF87vrL4lKsgLGqWqlxOGqJ4DJ3m6GlTmx5psjlE3PdzAKW1vUqgUyOXU19s+rm
+ j1f2MEZqkaz3wtekQWv/G9yu9EmYqNM=
+X-Proofpoint-ORIG-GUID: GDaUOK2r4SuDOHBXg2fDcEVJBFdojaCR
+X-Proofpoint-GUID: GDaUOK2r4SuDOHBXg2fDcEVJBFdojaCR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2MSBTYWx0ZWRfX032wbHDZfQgJ
+ O1JVmnAEmszlol+0/T8DH6vkuPf6slF3zwiNohyaoTGVw/mRIXHAvQjGA6nNtg16AF/1bst6n3J
+ brcbLC68nAewJef2DFJ8sO6ko25tZ9sEaaoBzFzFJKf8d61y8DZ37S+pMjKN5unmSaEg6EmAvQQ
+ uc5LPVFHF7DuOMmumPAUfM1Ggf/dvuxJVuyDFaDVaJNNq48eHb+5aDI4DIjAW/18B0NRae9nd/u
+ vseRYRtrPnQbVPxKwZhT7tpzwnOxJ50qKxKgdD91ySHcYuOx5oADdxbT/aXVOZNXeerE9DtOPCN
+ Yx7NK6cC/Tw3Gc925cV0YkN74raDanOgMoRboc19edNWukaq7YY+jx+ch9pohpLdaAdwTMuKO2A
+ HiBCjNYed6JNp2g6P8pMTUfIXgZ++un+8GQTBIRUyiBUDz/8n2bMEtUgQ4l6B0QcBXVQNtyXy7E
+ 9+kdzlAvWDw6JHuaI8A==
+X-HPE-SCL: -1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1011 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230061
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Wed, Sep 23, 2026 at 06:29:56AM -0700, Dave Hansen wrote:
+> Hi Folks,
+> 
+> I threw a silly LLM at arch/x86 trying to find unused code. One of the
+> things that stood out was UV:
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 0
+Thanks, Dave, we (HPE folk you listed) will look at these.  It may
+take a few days to get to them, so I wanted to send a short note so
+you'd know you weren't being ignored!
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] Over-broad minimum-length gate in net/qrtr/ns.c:qrtr_ns_worker()
-  (lines 645-646, `if (msglen < sizeof(*pkt)) continue;`) silently…
-- [Medium] The commit message contains two factually incorrect supporting
-  claims.
-- [Medium] The new unconditional `if (from->sq_port != QRTR_PORT_CTRL)
-  return -EINVAL;` in net/qrtr/ns.c:ctrl_cmd_bye() (lines 350-351) also…
-
---
-
-net: qrtr: ns: validate msglen and sq_port in qrtr_ns_worker() and ctrl_cmd_bye()
-
-This adds two checks to the in-kernel QRTR nameservice: a minimum length
-test of sizeof(struct qrtr_ctrl_pkt) on every control datagram received by
-qrtr_ns_worker(), and a requirement that BYE messages arrive with
-from->sq_port == QRTR_PORT_CTRL in ctrl_cmd_bye().
-
-A few questions about the commit message and the two new checks below.
-
-> 1. `qrtr_ns_worker()` receives control packets into a single reused
->    4096-byte `recv_buf` via `kernel_recvmsg()` without checking that
->    `msglen >= sizeof(*pkt)` (20 bytes). If a short packet arrives on
->    `qrtr_ns.sock`, `qrtr_ns_worker()` reads stale bytes from previous
->    control messages (or uninitialized heap memory on the first packet)
->    when parsing `pkt->cmd` and its union fields.
-
-[Severity: Medium]
-Is the "uninitialized heap memory on the first packet" part accurate?
-qrtr_ns_worker() allocates the buffer with kzalloc():
-
-net/qrtr/ns.c:qrtr_ns_worker() {
-	recv_buf = kzalloc(recv_buf_size, GFP_KERNEL);
-	if (!recv_buf)
-		return;
-}
-
-so every byte not written by the first kernel_recvmsg() reads as zero.  The
-remaining exposure looks like stale data from an earlier, longer datagram
-handled in the same worker invocation, since the buffer is reused across
-loop iterations without being re-zeroed.  Could the changelog be narrowed
-to that, so the bug is not triaged as an uninitialized-memory/infoleak
-class issue?
-
-> 2. Unlike `ctrl_cmd_del_client()`, `ctrl_cmd_bye()` does not verify that
->    `from->sq_port == QRTR_PORT_CTRL`, allowing any unprivileged local
->    `AF_QIPCRTR` socket to send a `QRTR_TYPE_BYE` packet and purge all
->    registered services for the local node.
-
-Does ctrl_cmd_del_client() actually contain that check?  The sender
-validation there is:
-
-net/qrtr/ns.c:ctrl_cmd_del_client() {
-	/* Don't accept spoofed messages */
-	if (from->sq_node != node_id)
-		return -EINVAL;
-
-	/* Local DEL_CLIENT messages comes from the port being closed */
-	if (from->sq_node == qrtr_ns.local_node && from->sq_port != port)
-		return -EINVAL;
-}
-
-QRTR_PORT_CTRL does not appear, and the second test deliberately requires
-the client port being closed rather than the control port.  The new BYE
-rule is an unconditional authorization requirement instead of a match to an
-existing sibling check, so could the comparison be reworded?
-
-> diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
-> index bcb090ee79d4..d7e1a37f0717 100644
-> --- a/net/qrtr/ns.c
-> +++ b/net/qrtr/ns.c
-> @@ -347,6 +347,9 @@ static int ctrl_cmd_bye(struct sockaddr_qrtr *from)
->  	iv.iov_base = &pkt;
->  	iv.iov_len = sizeof(pkt);
->  
-> +	if (from->sq_port != QRTR_PORT_CTRL)
-> +		return -EINVAL;
-> +
-
-[Severity: Medium]
-Can this reject BYE messages from remote endpoints that encode their
-control source port as the legacy value?  net/qrtr/af_qrtr.c defines:
-
-#define QRTR_PORT_CTRL_LEGACY 0xffff
-
-and qrtr_endpoint_post() only normalizes the destination:
-
-net/qrtr/af_qrtr.c:qrtr_endpoint_post() {
-	...
-	if (cb->dst_port == QRTR_PORT_CTRL_LEGACY)
-		cb->dst_port = QRTR_PORT_CTRL;
-}
-
-For QRTR_PROTO_VER_1 the source port is taken raw:
-
-	cb->src_port = le32_to_cpu(v1->src_port_id);
-
-and the v2 path only maps (u16)QRTR_PORT_CTRL, i.e. 0xfffe, not 0xffff.
-qrtr_recvmsg() then copies it verbatim:
-
-	addr->sq_port = cb->src_port;
-
-So a BYE arriving with src_port 0xffff would now return -EINVAL before any
-teardown runs.  Since ctrl_cmd_bye() is the only place that does:
-
-net/qrtr/ns.c:ctrl_cmd_bye() {
-	xa_for_each(&node->servers, index, srv)
-		server_del(node, srv->port, true);
-	...
-delete_node:
-	xa_erase(&nodes, from->sq_node);
-	kfree(node);
-	node_count--;
-}
-
-does an early return here leak the struct qrtr_node and all of its struct
-qrtr_server objects, keep one of the QRTR_NS_MAX_NODES slots occupied for
-the module lifetime, and leave the dead node's services advertised, with
-only a rate-limited pr_err as a symptom?
-
-The neighbouring handlers restrict the source port only for local-node
-messages:
-
-net/qrtr/ns.c:ctrl_cmd_del_client() {
-	/* Local DEL_CLIENT messages comes from the port being closed */
-	if (from->sq_node == qrtr_ns.local_node && from->sq_port != port)
-		return -EINVAL;
-}
-
-Would gating the BYE check on from->sq_node == qrtr_ns.local_node, or
-normalizing legacy source ports in qrtr_endpoint_post(), block the local
-abuse described in the changelog while keeping remote node cleanup working?
-
->  	node = node_get(from->sq_node);
->  	if (!node)
->  		return 0;
-
-[ ... ]
-
-> @@ -639,6 +642,9 @@ static void qrtr_ns_worker(struct work_struct *work)
->  			break;
->  		}
->  
-> +		if (msglen < sizeof(*pkt))
-> +			continue;
-> +
-
-[Severity: High]
-Does this blanket 20-byte floor drop control packets that the router itself
-treats as valid?  qrtr_endpoint_post() only requires the full
-struct qrtr_ctrl_pkt for two types:
-
-net/qrtr/af_qrtr.c:qrtr_endpoint_post() {
-	if (!size || size > len || len != ALIGN(size, 4) + hdrlen)
-		goto err;
-
-	if ((cb->type == QRTR_TYPE_NEW_SERVER ||
-	     cb->type == QRTR_TYPE_RESUME_TX) &&
-	    size < sizeof(struct qrtr_ctrl_pkt))
-		goto err;
-
-	if (cb->dst_port != QRTR_PORT_CTRL && cb->type != QRTR_TYPE_DATA &&
-	    cb->type != QRTR_TYPE_RESUME_TX)
-		goto err;
-}
-
-Everything else with a 4-byte payload is accepted and queued to
-QRTR_PORT_CTRL, and qrtr_sendmsg() states the same lower bound for control
-port senders:
-
-net/qrtr/af_qrtr.c:qrtr_sendmsg() {
-	if (ipc->us.sq_port == QRTR_PORT_CTRL) {
-		if (len < 4) {
-			rc = -EINVAL;
-}
-
-The per-command needs in ns.c look like 4 bytes for HELLO and BYE (neither
-handler reads the union), 12 bytes for DEL_CLIENT, NEW_LOOKUP and
-DEL_LOOKUP, and 20 bytes only for NEW_SERVER and DEL_SERVER.
-
-With this check, does a 4-byte HELLO get discarded by the bare continue
-with no diagnostic, so ctrl_cmd_hello() and announce_servers() never run
-and local services are never announced to that node?
-
-And does a 4-byte BYE now skip ctrl_cmd_bye() entirely, leaking the
-struct qrtr_node plus its struct qrtr_server objects and consuming a node
-slot permanently, since that function is the only node teardown path?
-
-Would per-command length checks mirroring af_qrtr.c (4 /
-offsetofend(struct qrtr_ctrl_pkt, client.port) / sizeof(*pkt)), or simply
-memset()ing recv_buf at the top of each loop iteration, remove the stale
-byte read without dropping traffic the router considers legal?
-
->  		pkt = recv_buf;
->  		cmd = le32_to_cpu(pkt->cmd);
->  		if (cmd < ARRAY_SIZE(qrtr_ctrl_pkt_strings) &&
-
+--> Steve
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919212850.3240353-1-benquike%40gmail.com
+Steve Wahl, Hewlett Packard Enterprise
