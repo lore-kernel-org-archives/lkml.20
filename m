@@ -1,165 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FAE5304DF;
-	Wed, 23 Sep 2026 14:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEED330D4C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172093; cv=none; b=JcU5jAlWRH9+zBAM/yxaqsZvIngS2tumpJ9Rr8R9tPPZJLfZ+6OkZnuJdix5BNL6DXN1jw2Cy3c6x+iE4WM7QnwOKuXeiwE5DEzBk5OrHFMB+PeL/5P2uuf9G1s7TEc8Xf9riUWVCiTUsq00WxDx2tRghr4KmHeVi2XAno/ucfc=
+	t=1790172125; cv=none; b=PGrJDuziIwEIhbSSa9yv84eF//qfDHuSgO6DvKfnvCUdGO08lVRupwvvB3S84gp27mkDzmKTEeWKz+3/rnE5aM/zDfxxRKJQFMJEBPhOfzxkz/lU8+7R1tJZiQWwfWn8hATLBQq2ssJ+x5wFkqwNNN69f/5E4dj4t+XVH2DJZpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172093; c=relaxed/simple;
-	bh=uyfYt5iXk6DfLBMCfVu0aK1O4kBgsZ2FRdLslFLg73I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b6ITE49BPZ5Xnfye0IVOR2Dfg+2acoVhiErghOIsPljjxT2sDwVa3LGYxnBBe9KNNLzya2JBbeA2UHGe4kxFqshVyyBfyV1YNhxqdSkCF28geRCER/NfUypMpxcriNiaJz1+btDlU631U6EhC4o4Rsm1XUVFlyb9dIvJ5kdx3mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHlZr6Uu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790172125; c=relaxed/simple;
+	bh=7o0r4xT7dU4ZLo/lsVvqnCyZzuGUywIQIsoKQlG7wFo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XoHVq6BKdKjdEqTH3gcZ6s3EnB93re48qqVWiCm8QKFP/A7pcGI7k3bH/XyjiXre/Xh80k9csPzglHsEo4mZRp5Kfo155kYcYPIGBXQxTpN67WtJziY5ngJTXqfBOJcHAdsYbMfxUVUH53CVo65aUDcgiq/IV8AbSzaCWO6nmNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=GgRGbmDs; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHlZr6Uu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9841F000FF;
-	Wed, 23 Sep 2026 14:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790172092;
-	bh=PC3Za8iCgsJ8W6QmugoGUlZXLsysH1qJQuMBo3/+gew=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hHlZr6UuVw7UelysAGbw5mSYPwWTMdGw37gZc3d2NyH+4d9MxpidkuqVlSaUoqO+U
-	 JYoInOedh76KNB7+IC+SqJJDcHfLIU9bjLiQpBOOrTHI5W6BzVKCPPp3XFfRy/nq8l
-	 1royZje/hxJC7hRPD94k3qbotq8whotW6PjfNj4UDwNIanavDnkzBaSz8JjfP3kUbY
-	 ZIvq61RvSRKfDbBgqXtk/xs/Nzr4xdqutTOna1byzk56OIuLokhgP4HoldZDX+8IF6
-	 MxJmQSe8F/tTVkB/bKqxebaObXz+dgQggNd83Yr7LYJvIpVRTFmjxCJ18ONpeiu7kH
-	 8vyyJOF6yXr5g==
-Message-ID: <a4dcb274-3ea6-4f5c-be57-65b089967ae9@kernel.org>
-Date: Wed, 23 Sep 2026 16:01:24 +0200
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="GgRGbmDs"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b355ffso486191b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:02:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1790172123; x=1790776923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nOvcdYU0dRk1zgquznwCGjvnJFZcKqDjbV30BWWVegg=;
+        b=GgRGbmDsr4NPig8ge4zIZkclt4AIbXOu75bBSKH/+h3SzN1HBq3alFoJMQd57IBfSW
+         /YBmd5WX0RIO4Xw9YN6nvzuiqqXlcq/yqGLppBLTHOWCYmkwGvbfPfgLc3Zan8YO4fHD
+         mn5KV9TvK8xbsslA1G8Y2/Uf/RAjjS8TPfJ2Ye1/dyvcH8Vm/6s/j91CHWeEQ67zeXo8
+         w+OgsC3NPXqXR5G+YC7c8FcR9KZkz4tv9R/1HK0GHz9SUpY2oGfN5wi1i9hFLWOETAnV
+         3C5HAOAq1HdJqh75N6GkFxubwe4wt/2CACRy7DeWVM6F3jltMLJof19LqGUxlTIbGg+R
+         Seuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790172123; x=1790776923;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nOvcdYU0dRk1zgquznwCGjvnJFZcKqDjbV30BWWVegg=;
+        b=cRb2dWovOYOXWG6MOhqO/q5Jx4fF9pRm9EBb6gCJVmNa66sFc7epvPxH+W3rsn9bLq
+         oOYVBPJquvje/FlYV2Dra8vtRn4UxY/PFnIGWlK7l8rK43m7uUk4q9+JCB1BaNWR+OEI
+         ZrIVRen1zqdYjNE+HcWsNr/+ps6/Fz3y8gu4kyeQxJ5k3ZbsuEeUKMfU6bsBPKgvOU1U
+         iycPrFsS1Xc3q2L88HZZuQWStJYPo3eWv9YBzG6PrISeqTgEgZvJRK5a+xMqkZpHaU/z
+         p3yMt6hwecHPzv3fYRdNwg8jgi2Z4S7UrxnqNMo+M7wK70RcCiWcm7N7KzydaL6D20bJ
+         NUJg==
+X-Forwarded-Encrypted: i=1; AKwUvByybLxGl1S275nOhsuqpHunK62PKT3Nd/sQjCshdAHDpNEtd9rBvHr1wPnWEn9kPVxz80Lt3/NbmB7yhAo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHlXfI4SUTFG4lCTTOX7/VEzoMyg9HdxL95zW94RbGNWZ+wRxx
+	B/t8EnIoHcx8rkKTCKgpHNP0tPPQ+Yi5hFmcJG3BaXsVTQHq62UXfbI54DQALwEwBikT
+X-Gm-Gg: AYBFou09GkT7ZQCMfsXC7uxBZglpvXTwZf5V8DCXo2cwxRGfjBkSMjal+kcWCA3OICo
+	1Z5S51hilF8suDd/C4bcOnzI5CO8IMcLT1y2IPVa/IE3my7uPGhO483cKYgVZq5vkJym4q4dd38
+	0OHC+hc/wXUcWbq3uBezv5RlqMToHllkAMOUBGAcjIWwSw3Y+fI+y86XyrKx1oLS5mfFOv27cui
+	yEaISkGNrUP+6iUU6wJd875IUlSBkcGOrzhBwOxfTh/lIdp1L9pGRuQ+uc+32xq3IJc2Zt0AYjb
+	lE5JMxP1TD8CCc/KtFa/6tj3vFWZBVU3a32jSTf+Gvtk/p0HNqR3QOfeEjgsR1us9WyFfA6LOC3
+	cumrth0DvINB1dIHl+265ioWEryVT6LEBCe8c7PWeKFahtcoEyyW/3cfI0pe9buOufU1gd8vWp6
+	FsbyGBYzegu7xnOlg6G4BQtrmyzcjgTvOJVlKsgohfiMHAZy3Cm96GhFl7Rdk+/DJgov0muMVHC
+	cCd/gkyCaOuhVCOxcByq/FdukLJvw==
+X-Received: by 2002:a05:6a00:3316:b0:86e:8deb:fbd4 with SMTP id d2e1a72fcca58-87d1a7af6fdmr2599123b3a.11.1790172123010;
+        Wed, 23 Sep 2026 07:02:03 -0700 (PDT)
+Received: from 954df21a5119.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1dad42fcsm1328940b3a.35.2026.09.23.07.01.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:02:02 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	dsahern@kernel.org,
+	idosch@nvidia.com
+Cc: zihanx@nebusec.ai,
+	horms@kernel.org,
+	kees@kernel.org,
+	willemb@google.com,
+	kuniyu@google.com,
+	richardbgobert@gmail.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v5 1/1] net: gso: limit recursive IP-in-IP segmentation
+Date: Wed, 23 Sep 2026 14:01:46 +0000
+Message-ID: <8b7e7dad82a40e7bdb4721516823c8a7ae6106a0.1790161599.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790157745.git.zihanx@nebusec.ai>
+References: <cover.1790157745.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] selftests/mm: init page sizes early in
- pagemap_ioctl test
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, akpm@linux-foundation.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, shuah@kernel.org, gourry@gourry.net
-References: <20260908134117.84405-1-zenghui.yu@linux.dev>
- <20260908134405.84448-1-zenghui.yu@linux.dev>
- <b1f2a146-1a61-42bd-98c5-fc4380b6ae49@kernel.org>
- <fa0bdb5c-3903-44bf-8d14-91d77e32b201@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <fa0bdb5c-3903-44bf-8d14-91d77e32b201@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 08:59, Zenghui Yu wrote:
-> Hi David,
-> 
-> On 9/16/26 11:30 PM, David Hildenbrand (Arm) wrote:
->> On 9/8/26 15:44, Zenghui Yu wrote:
->>> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
->>>
->>> Initialize page_size and hpage_size before calling init_uffd(),
->>> hugetlb_setup_default(), etc.  That won't fix anything, but it is safer and
->>> saner to get these globals set up before doing other things.
->>>
->>> While at it, drop the page_size parameter of transact_test(), which is
->>> actually unnecessary.
->>>
->>> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
->>> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
->>> ---
->>>  tools/testing/selftests/mm/pagemap_ioctl.c | 10 +++++-----
->>>  1 file changed, 5 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
->>> index 1a87b7483316..d9a4fb782ecf 100644
->>> --- a/tools/testing/selftests/mm/pagemap_ioctl.c
->>> +++ b/tools/testing/selftests/mm/pagemap_ioctl.c
->>> @@ -1489,7 +1489,7 @@ static void *thread_proc(void *mem)
->>>  	return NULL;
->>>  }
->>>  
->>> -static void transact_test(int page_size)
->>> +static void transact_test(void)
->>>  {
->>>  	unsigned int i, count, extra_pages;
->>>  	unsigned int c;
->>> @@ -1653,6 +1653,9 @@ int main(int __attribute__((unused)) argc, char *argv[])
->>>  
->>>  	ksft_print_header();
->>>  
->>> +	page_size = getpagesize();
->>> +	hpage_size = read_pmd_pagesize();
->>> +
->>>  	if (init_uffd())
->>>  		ksft_exit_skip("Failed to initialize userfaultfd\n");
->>>  
->>> @@ -1661,9 +1664,6 @@ int main(int __attribute__((unused)) argc, char *argv[])
->>>  
->>>  	ksft_set_plan(119);
->>>  
->>> -	page_size = getpagesize();
->>> -	hpage_size = read_pmd_pagesize();
->>> -
->> We have some other code rework that part, so I expect some conflicts for whoever
->> goes in first.
->>
->> Why not
->>
->> initialize them right when defining the variables, marking them const?
-> 
-> I'm afraid I don't quite understand your suggestion.  page_size and
-> hpage_size are static global variables which cannot be initialized at their
-> definition.  What am I missing?
+IP-in-IP GSO can re-enter inet_gso_segment() or ipv6_gso_segment()
+for each nested IP header. encap_level tracks header bytes, not callback
+depth, so a deep chain can exhaust the kernel stack. Making
+inet_gso_segment() stackable introduced unbounded IPv4 nesting; IPIP
+GSO/TSO later made the path reachable. The IPv6 stackable path was
+introduced separately and shares the guard; Fixes identifies the IPv4
+root cause.
 
-I was assuming they are variables in the function, please ignore :)
+Count IPv4 and IPv6 GSO handler entries in skb_gso_cb, initialized once
+per top-level GSO operation and preserved across GRE/UDP context changes.
+Set the cap to five, matching IP_TUNNEL_RECURSION_LIMIT. Allow five
+entries and reject the sixth with -EINVAL before it can dispatch another
+GSO callback.
 
+On the patched x86_64 kernel, tracefs observed six
+inet_gso_segment() entries for the 199-header reproducer; the sixth
+returned -EINVAL without a stack-guard fault. This validates the tested
+configuration, not an architecture-independent stack-safety margin.
+
+Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v5:
+  - Replace the header-offset budget with a shared IP GSO handler-entry
+    counter. Entries one through five pass; entry six is rejected.
+  - Initialize the count for each top-level GSO operation and preserve it
+    across IPv4/IPv6 dispatch and GRE/UDP context changes.
+  - Use the existing IP_TUNNEL_RECURSION_LIMIT value of five as a
+    practical bound. Tracefs observed the sixth entry return -EINVAL on
+    the final x86_64 revision; rerun both IPv4 PoCs on that revision.
+  - Avoid rejecting a single-level tunnel based only on header length.
+  - v4 Link: https://lore.kernel.org/all/cover.1790041241.git.zihanx@nebusec.ai/
+ include/net/gso.h      | 9 +++++++++
+ net/core/gso.c         | 1 +
+ net/ipv4/af_inet.c     | 2 ++
+ net/ipv6/ip6_offload.c | 2 ++
+ 4 files changed, 14 insertions(+)
+
+diff --git a/include/net/gso.h b/include/net/gso.h
+index 29975440c..18944ff06 100644
+--- a/include/net/gso.h
++++ b/include/net/gso.h
+@@ -19,10 +19,19 @@ struct skb_gso_cb {
+ 	int	encap_level;
+ 	__wsum	csum;
+ 	__u16	csum_start;
++	/* Number of IPv4/IPv6 GSO handler entries for this packet. */
++	u8	recursion_counter;
+ };
+ #define SKB_GSO_CB_OFFSET	32
+ #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_OFFSET))
+ 
++#define GSO_RECURSION_LIMIT	5
++
++static inline bool gso_recursion_inc_test(struct sk_buff *skb)
++{
++	return ++SKB_GSO_CB(skb)->recursion_counter > GSO_RECURSION_LIMIT;
++}
++
+ static inline int skb_tnl_header_len(const struct sk_buff *inner_skb)
+ {
+ 	return (skb_mac_header(inner_skb) - inner_skb->head) -
+diff --git a/net/core/gso.c b/net/core/gso.c
+index bcd156372..e96ef6350 100644
+--- a/net/core/gso.c
++++ b/net/core/gso.c
+@@ -117,6 +117,7 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
+ 
+ 	SKB_GSO_CB(skb)->mac_offset = skb_headroom(skb);
+ 	SKB_GSO_CB(skb)->encap_level = 0;
++	SKB_GSO_CB(skb)->recursion_counter = 0;
+ 
+ 	skb_reset_mac_header(skb);
+ 	skb_reset_mac_len(skb);
+diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+index 32d006c1a..18037d8d4 100644
+--- a/net/ipv4/af_inet.c
++++ b/net/ipv4/af_inet.c
+@@ -1375,6 +1375,8 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
+ 	int id;
+ 
+ 	skb_reset_network_header(skb);
++	if (unlikely(gso_recursion_inc_test(skb)))
++		goto out;
+ 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
+ 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
+ 		goto out;
+diff --git a/net/ipv6/ip6_offload.c b/net/ipv6/ip6_offload.c
+index 78f50c93c..099f14e09 100644
+--- a/net/ipv6/ip6_offload.c
++++ b/net/ipv6/ip6_offload.c
+@@ -104,6 +104,8 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
+ 	bool gso_partial;
+ 
+ 	skb_reset_network_header(skb);
++	if (unlikely(gso_recursion_inc_test(skb)))
++		goto out;
+ 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
+ 	if (unlikely(!pskb_may_pull(skb, sizeof(*ipv6h))))
+ 		goto out;
 -- 
-Cheers,
+2.55.0.windows.3
 
-David
