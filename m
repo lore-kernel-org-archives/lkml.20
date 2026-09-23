@@ -1,141 +1,149 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012014.outbound.protection.outlook.com [52.101.126.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDAB2DB788
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AE83A7D7A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134529; cv=pass; b=Y0tkuqLI8x4is3RarcwVI0bzUOXNe+gt4GVq3nvV3g8RjQ41OUlYVTkMH+NSewm1nOgyaShbV+DoaN+6sK6N8ItqVSj6YZ/FzgaidpT89619dV1oB+HxbXnUDhB3DDOy6SfKFFtBccdvhazq+SnihFqc2jNsrkYxZq+7fpECC8Q=
+	t=1790134552; cv=fail; b=UdcVXuW+XUllfnEkGbqKQH7QOHiYMly7FgpVuLlgZZFvtntsponwBtSmNsb7VuX2SIMfVunUoEMru5zmeGbaITQps+ouINEbfKeYlcGGMjlvzYzZRAcG5zA40tGe3SiTGUXywty6QBcbtNxf1xtttUpSJTPz2tJctKNGTsKVmCk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134529; c=relaxed/simple;
-	bh=d2Qu26JxNz4DdK7KNZRSYHH9xu3oRYAJPIgmwuU8THo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZszCMx1Ngvc3a7kxwkCzc0O63JLaEJUIki4keES1JwbMaVqubGQSifHvCRelRDQE2JpiaVc6UjKXnfR081rxp3JcB9dPg3IgZU2+lYT7DXCm7N3skPx/E3jzfa911zYhpgelXtXK+kLJ41Q2ZJIbdQeW8TrmfgMy1RY30oitpL0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cCqknjAh; arc=pass smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790134552; c=relaxed/simple;
+	bh=ghAA7P014S6RPvOvDB2jBQsQxznH5Hzxj3BwQN5UPPA=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=JQC3yyQkAiM5CEvArlvMOuCUIpBOnUTH1sa8UIbCPCP6WF0AKFC8xB7uUmPll2mRmoZMNPnQRhHtX5BxuN7MeplAzisWcTlfeixtS6xX4hubuKNjHWJgCKxq8lb8e57o4nWnYBLjIlmGG2rOLgxPLGUMeZ8rzb+aHgkFct6s2DM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=eRyoxTz8; arc=fail smtp.client-ip=52.101.126.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cCqknjAh"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43f9b119so8581107b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:35:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790134526; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZaLIhyxFAZrI/QtQAyefAh8O1OAPK37OlPH+Z+8+t1VaJ12Kw3YhsCEC4UFGoz/v+C
-         BZUTAkzWbzpPiwO/Nje6fatAcQi5obmGKIj5gRg4D1rSdxZDB7OoA21fmR//14dJw5Dy
-         Hw60/vB/z67HJ2lWLyI08T59nfaaO+dV64Zigx2z03DnTyN/ryxQMXct61OnCN9RobqP
-         XXc6G85y/yBQMUyQEfIx55WNxc9M+dH+py6FzXfBJ4xffyPkUcvxibRq4u0V45tcYvqz
-         Rp5pMlIu2UQv/5Z7h/9QZVy+GXumrl95vB/U15Ogs8ndm16MrHGNf0Q8DEvHqzAzVhvf
-         /9aA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XYEEoMGteHxFV1awOkLk45oTIa6yiwyLCwRO6PLmYiQ=;
-        fh=2NP2ftjmrOHFvlLEHo8T9i3hicyD0MFCSoMt9jNQ8Vs=;
-        b=kZG2nujpCz9Lj89jZmBHxF0wZuJlSFkQCB6r2eGHRks8RJuh5JVBiJwizhY+yWEzvX
-         6kScQ12U2PYYOAH+qhf1Om9qkbe/NlMeoxC3WogLbZt+SWpcQiXB5+0uoDqC9Lcg2jhx
-         vkbmkf3PnPP8a52qlg4Y4870ELjVFI9iItZxgdx191KICfWWA38WL4m3D3KSZ8uarFgw
-         BcG4QhiUIHF1ZnaiM57AZ4yiEO5PLPavD94CQOq6/zX5g6QvgHImtRNtwhqdQDLD2pnK
-         a/UmqvACD4YAf34szVNHlymSlwfFcRpHscP2W/7jprBXGaz6tuenveYr8lHioyesYhoI
-         j1Hw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790134526; x=1790739326; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XYEEoMGteHxFV1awOkLk45oTIa6yiwyLCwRO6PLmYiQ=;
-        b=cCqknjAhHY7uGg8YfgJS23lyStKf/VDDOkxl05oAKXwP/iMFEbV/90ajZUPwRgGX1y
-         O2bm2ivicfv7G3YtzOqCODZvopzKNJ5gRUhq++g9Romu7tlZZQI1fVkqyCJnT1coL9qj
-         8EVcVFfDij2BFa0mwSvoi/o3Jihg5fnqQkOXBNGrwmNtj8mFpXEc9yIsSTeojCBS7rC2
-         plDdLuVPA6jHula1CkoU0CsCrKvBJ2bzwfGZ2IgwEdq1KhdHAoE9kb+KJGJQMEwchAZU
-         fq2llQiQ6UZG3XN+P5Ak/sf8IFaq20uNpqUmaKbhqdk7kOlaZvIQdhJ9KQ1uXLZkluke
-         rF+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790134526; x=1790739326;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XYEEoMGteHxFV1awOkLk45oTIa6yiwyLCwRO6PLmYiQ=;
-        b=Qf8Q+s/ydwjAax5PFebPEQDzZwFHx521FSxKpIc0djQz7d/qZqqQc4G56Yjqs0+Drp
-         Lwziisq6eToHefd0TySw1kUVgYz3xmMmDoGQyjP6a86MJQUkvBwHHA1G8yraJiPsnPdS
-         Ij2Y+d54zQ8wjgMVQrtgluewbM659iMys2zRa/iHFPChGyUjAjYuE189KUnycUF4lyVI
-         MrCXSuGIrA6Vuy4iAVaRmRKiiBIVR2QF3NWtWx0oArxEmfstpqXsoXA5AqNsARGlobwS
-         h3272mdWxETnsf2UnrW9vrMAtST5cv3JH8rC2plhcdAdOCBCJKkF9QFnFdtCF8V8fBFs
-         Rt7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzQAdAKHqmqpuwo8OgNxttZgaVFhOwb9DO9EkpklUs8tr4apVjHW7+Jx+yuk4h80xFXYQO8ddkDVPoW3rE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lclj9GecDHtMPcYxxZVi7gbqSZLhV/9hm6lvvK1zLLCsyDAkIO
-	ziitBTzMTlFrqBJpHLUbfb9N0065fupL7QoTQiZp95v8cEPGbrYDydpy+Uh7uBwWQWcxLF92HGj
-	+orRtPJ3al4CtkEm2FsmOojLafolQNP0=
-X-Gm-Gg: AYBFou2r92fzr8lESZI4DV3+qgO9jrTv3J1VfPpwGKtFxgOcdXiQIH2ay388+9n+5ye
-	W+1IE7plz7rfBd1aWbY6SM3eMz5ayAtbaypDWYjo4kEYcPs0oqISkij4A6OtU4nzC7cDZKrZI5S
-	jrhQdpOWxkfChEQr7hAQv6x9e2WSc+n9aLHVk7hNIstvG3x1JD42C9tPVA/j8XFOHb8mlKDsbCh
-	Upl8P7i3lSgNgyKwCc3iZdqXdVPCi/KCDr2mBvzdvK0AIxVp+zpilokD2LX07/0+l108nRmPtSJ
-	4Ybnofup+cONhTR86qycKdbDOkc5Z3441XIw5jae7BQYdHZWfDz1EvskCKlIDdHFoZMVFIMG1b5
-	FgHQ27fuOolj6R//V9ROzHKxxZ3uerM9ND7k9MVMLy3U=
-X-Received: by 2002:a05:690c:a694:b0:89a:63da:fa98 with SMTP id
- 00721157ae682-8a45bd920eemr4667137b3.83.1790134526646; Tue, 22 Sep 2026
- 20:35:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="eRyoxTz8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eDAYqb0SdTZT+y9q26MTERS5pFY0ogA+elU9BtBNSGRnDMjrHAfgEryI+O6WqiVSc/ORvylnd9oHRgWC4RwmumnhWS4tASM0/g4PTcgBrC5cK63dnctcSKE/D1inPyTYObOtIg3xUEo5+iU88VbRVt7bSOwQXbi+iYhH30TsaWVochtZSaQdpnerPpDVSjgCERrfrBj19YwQQvIFzCyxcLFGp7xGSQH6RFsbs3BnbnMGzlsotJeMm4w88jbOl5chQpmGXovOw++a/AgTwPQa+eEtyAH1vEJjlXeIxQQZ2d7fJgh3EK+djgJ0d/eBgZ3cWtqKLXek27ew1C6RjbSITQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8fV92DVEuk1OkqSotXpuwJMwsT1aqSsEybuAqCnQYFw=;
+ b=gAbsHD+Ng+bZxGzjN7aMFxmXYwkIltiIxlA8TgRVrIzlTysfi8y/aU9fjPFV2NVnA05qlby5jJOlnH6SYeuj8pV3OHTZDAEU2Typb7GbSgQBybQ5/GZyXjb/WgkGHBQcdvc5fSsdp4/b5OgCVCeYU9pyyN15TnKgmnTzb0p3PaqPLGKio83SJTy83/IBlcu0hy7pCFgwxJ4hc4dhylbj/0ZUk26cWVhYLDpuTVKM6tD5e+HAP14SKvoQkcvFvCPHSQLmfboP3+mwfRXDyrH6rJPS6LE20d/NLDtlYO95pPFh20LWlZw7wJcaaeU7ov4kC2zDsI/W6VOSgHOQFcL8JQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8fV92DVEuk1OkqSotXpuwJMwsT1aqSsEybuAqCnQYFw=;
+ b=eRyoxTz8cLFJSpmrnFJ1oZ8+h90xr/wWtYfxRkjcWujvhmoptP9yq0MpPwTqsL70bjygBbZ2jiPrvUQiURsKQkwa+WTlMwp1jwkAIdyB/w3jDF99/CG6wR//jXTdIlX3qQbmLnOl1+AWGswQmF16gWQVBBSg7fl8Ow1J64UjMEL81rBUPa23zS6Eqs+X6h68fX9eZyt+/pXWjuL4JVqbPZHyfwUEFJ9X+UHCT1qyVRLzMfPjZwV0Ryj/OheIP32pRkJ2THn8c4nk3ji8hMySjI8cF7ziPjrU3zWcUZPKmX+2pCK5MrDdreiBRvAssd4inZ/k6BKOlDPPIjYLmpozzQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com (2603:1096:301:b5::13)
+ by SEZPR06MB6742.apcprd06.prod.outlook.com (2603:1096:101:183::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 03:35:45 +0000
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571]) by PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 03:35:44 +0000
+Message-ID: <ae983d52-e7f9-49fc-98cf-4b682b6c0503@vivo.com>
+Date: Wed, 23 Sep 2026 11:35:41 +0800
+User-Agent: Mozilla Thunderbird
+From: Fuyu Zhao <zhaofuyu@vivo.com>
+Subject: Re: [PATCH] tools/sched_ext: Add SCX_OPS_OPEN_OPTS for schedulers
+ using open opts
+To: Tejun Heo <tj@kernel.org>
+Cc: void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260922031618.2858-1-zhaofuyu@vivo.com>
+ <arKlQTkhFAOxaPGS@slm.duckdns.org>
+In-Reply-To: <arKlQTkhFAOxaPGS@slm.duckdns.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR02CA0035.apcprd02.prod.outlook.com
+ (2603:1096:4:195::22) To PUZPR06MB4742.apcprd06.prod.outlook.com
+ (2603:1096:301:b5::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260809045946.15638-1-kartikey406@gmail.com>
-In-Reply-To: <20260809045946.15638-1-kartikey406@gmail.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Wed, 23 Sep 2026 09:05:15 +0530
-X-Gm-Features: AcwNN1Vk4FtYBJd1sRBl8b5Y953BCfjbdBpM-mBy7PTV6woNSctxmWWAgsZFKB8
-Message-ID: <CADhLXY7008e4JA35T2wE8TnJnR_r82RCpfSd=aLBmDh5xAQ02A@mail.gmail.com>
-Subject: Re: [PATCH] PCI: sysfs: Reject unaligned resource I/O port accesses
-To: bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR06MB4742:EE_|SEZPR06MB6742:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e5c3c38-81cf-48b6-949b-08df1923bfd3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	8pyTcsZ9kK++vsxB4RIbD/nGiCLKveZrrrAVxQDcD1DiFE3XZIE2RyrHV9R3F6sx93UZgJvuyHOcptHt4dM0eshqQV7XJjOKieuKZ+p/Nv/lxHeQRDDdCQ7XNnzmOmdwm8ujKuZ9MZ6aWbt/NUXQBQ1fbD7BqsBPuxI0I4dQgxduXo7n+VJ0GNZHNSGAJiee2sawOdhedc9Q4Pr5QziS8hwbge6BShWqde9lGAPMHt1aWZKNarWNJElcUaGE68ZsfY48FnC5wBeRmI2DQbyalQLxIY6hs3kHpGM0J+qlIHueTkH2eYvV17nbPViuhtn7HCCW1HA370ZwtF72yDkC+9weCbewNhXHiUTgCEq3yWAhbhKRk2PRPNbsTJiHlUvvYmYUxsXViP3ulrKAEPka4jyLh8o0nV2bABD7s3/ypjeIEsgpzMX5MmibXYbx1T01Jh/xErpJ8lTSVbErWAw8cxjOPrw0ymPQCFxdaHFUw58wb9+jPDYTB0oDTRQlwm0x4dUK9vK8MgqyOFioUOqJtNZ+YW+9wA3pM8J4HfjYpcfOnrEfvntjtsvjgeqJZoJueAb+7aNQ2EJrJAVsWUBvRZdMlXnig1ZbxjGIU4nXIhFloi7E+gJAHc0WXPtLEHWkUosyP+KW7cwkMjtn6JEoSDHWHtjfzRUwArkOG0D8ROQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR06MB4742.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L0JpQVpWTTRyWVlBc0pCQWlFOGdqbHRLeHZCQkZvVmpFaFhBbG9ERWd6c1dj?=
+ =?utf-8?B?WE93UGV6K2lnbEZzMjBmVFBnekY1MDFnckNXWFVrVTlkYllub3ozWGNydzVL?=
+ =?utf-8?B?TkEzejZNOC9PUHh5dU0rTGMrRW5SNFAxSWkwUi9OK1dyQzlQcVFuRSthZmhU?=
+ =?utf-8?B?bzVQTmk3Zzh6N0k1YnBmajUzYVltbGJtbGVIdlFnanN2S2phV1FtN0J0MzJD?=
+ =?utf-8?B?T2syNCtZNnpFUGpoNXh2MnFjR3N0TjdWcHkwb2s5eC9QQ3FxdTNBczJ5VTRw?=
+ =?utf-8?B?UFhaeGVrR3hPT1JIcHhScHFPREYzVUh3SXRCMXBMeko4OUd3ODI0NGFLQjV1?=
+ =?utf-8?B?K1Z3V08vUjVPMktkZlJ4ak5XcVBzNWxKekdnemtoQkZSQUdJeitEdHh3QmRm?=
+ =?utf-8?B?SWprVWptZi8yWFhaMDZORVN4ZHhrV1N0dWpLY1pMWGg4Undmdkd0ajR3bllt?=
+ =?utf-8?B?aXFsV1FFbUZiS0lTdUdKaStaT2VzSENEeUJwdnhoaXZreEpkd1lsMGdKTkxV?=
+ =?utf-8?B?b0ltd1EyemJzb0lKM1FFWjFUU3RxUWdIRk0zOGhiWThUVXBkYk1VQmc1NEJs?=
+ =?utf-8?B?YWRmTzV3RDk4Y3FzVVdFaldtZTVNTW13R01JTFdqL0pPa2xodUJqQjM5TWRo?=
+ =?utf-8?B?Q1U4V2VjSFI4UHB5ZVdKUUhwN0NHdTFYTkx3RGp0SEFuV0tyV1dFU0R4OGov?=
+ =?utf-8?B?TVlCTHlGNzduU0drN2JrVW0xNkpUbkRtTU9kOUVKUlNXeUVsVFh6U05OOGJB?=
+ =?utf-8?B?RVlvUFl0elBPckhnRVdsblZqazhxb28wL2lOSGw0a25MclYyUVJ3TGhiMUNo?=
+ =?utf-8?B?UWVVM1R4NklqeFQ3QWdtK3UrYjVxZDJWU0puNE1oSmlLcSt3OTcwZTRwRDlH?=
+ =?utf-8?B?b2FaVnVyNGRWamtVTTAwWVp5VElQWHE3R0RHK2Q3Wm9NVzdYamI5UmlQYmJ4?=
+ =?utf-8?B?M2xhMjJwcGczam9sd1pEVmhNQlZ3Q0RQSUVtNEJTTTNsRmsxRmN4dFNOTkxH?=
+ =?utf-8?B?SEk3RUhZMUlNUFMya2hIQWh4RW1zZGtrbWlGMVRCYkRpYllwVHltN1p6UWVj?=
+ =?utf-8?B?WHNYeVgzcnphN2RPSkZJcFlNd0pha1F2RjdYWE1hZWdsQnQ4Y1VXWXFzb01L?=
+ =?utf-8?B?UVh2alJYV3MwZUthaEhhVUxiUUFPU0NjaUdRUlF6WHZ2ekIrRzI1OFN4dXY1?=
+ =?utf-8?B?aHZvdUtzd1dSdUVRbWdvZ3dFcEVQUmUzdE5PVE9KbUVaemg3K3Rqa3RlM3l1?=
+ =?utf-8?B?b01vb0JMNzJpWS9UMUdJa0pUVHQyanBFRFp3WWZMS2c5Z2RtcE5ORGhxWTND?=
+ =?utf-8?B?aVdkUTlrd1oxbFFlSzRNaHZGMHRPVDdNcXJONXVuUHhkcSs0c21tMS8wVm1W?=
+ =?utf-8?B?QVpQc01jcGJvVDRuRXorazAxVFZNUUZJalBqUTJOUC9kZDZ4VHcxRmdkVU85?=
+ =?utf-8?B?eUt1alNLeTR3OHRqbmJQcnV1aTJkY0pHbW04RGhkbmtaVk5MaUZmOElCa2JY?=
+ =?utf-8?B?ZVRzUzJkeVY1THpJRmRBMWw5K1VyS2tPUGdKMENDOUl5UytSTFE5SldNaFUv?=
+ =?utf-8?B?b2JsZ25GelZDaEpaelRZajdmVEVyUHEyVDFiYndjaDhSUXVhMHFqMFFHWWV6?=
+ =?utf-8?B?bGxkY3FjdHo2TGlDb1RhSnVZajZxM3ZiY3UwZEJjLzNSZ1ZjUWpVRVNZaGZL?=
+ =?utf-8?B?TEl3NzlSN0V6ZHlXemVTU09tNEFQVEk5T01KbG1wU3hISzZqZnFCY09SdlYr?=
+ =?utf-8?B?R0RPTm51MUtLMGZieEN5M25JQ0VFdFlxSVVob05ENkpsR3pVbElxK3dObXdF?=
+ =?utf-8?B?NWtWcTVkanBUWHFKM05aRTZGZnBHTXdWbEtUaXZ2SUkwVlRIMmJKTVpYZ2dP?=
+ =?utf-8?B?c1Z1L0ZURks1YnZ5Smw1Rmw3MWY2STJMSENXQU53RTFCVHhOYWh4THRQSFU4?=
+ =?utf-8?B?b1hVdFNCYS8rV0NkQTBTeGNwTjBKb2lkSGRtOWtGakptbGE0cHIzZ2dVd0dN?=
+ =?utf-8?B?Ry84cDVaMzNPTlkyOGVYQTArWklXRFVBUk1PT2EwTDlXUndSL051VVEyRjNT?=
+ =?utf-8?B?eUVLUUx4WHJrRGpYNjFrMDJEUHJreWNINkZPVEdyS1pvL3Vvc3BabGd5QjNo?=
+ =?utf-8?B?V3U5T2RJUVh4SHM1Y3JyR05ZNEJid1k2ZWJBaUVTdTExaktTalF6SVllWWNL?=
+ =?utf-8?B?RlJBZDg1c3h2UmNQUzN0Q2JpeEFJTGljQmpieFlHVTMyY0JPdlZzWXd4WEhk?=
+ =?utf-8?B?YTNtWE90V3BzOGxaMXRQN0ViWStKTklEZUNXdHZZQ2Y2dWVWRnVXSndQcFFS?=
+ =?utf-8?B?QVczc3NqZkNVemk1NTdORXNmMWpMZTVYRkhjQWZzTitWNTB1SzhOUT09?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e5c3c38-81cf-48b6-949b-08df1923bfd3
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR06MB4742.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 03:35:44.5412
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2EUwsSzsDXcTP0zsoWpjU7xp9UfU9yR79sFwZGdEp9ZTF9vGPUIHyO8DpCOumvjRoqYttpVUbhq653Di5fndNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6742
 
-On Sun, Aug 9, 2026 at 10:29=E2=80=AFAM Deepanshu Kartikey
-<kartikey406@gmail.com> wrote:
->
-> pci_resource_io() validates that off+count stays within the BAR's
-> range but never checks that the resulting port is aligned to the
-> access size. A pwrite64()/pread64() on a resourceN file with an odd
-> offset and count=3D2 or count=3D4 reaches outw()/outl() with a misaligned
-> address. On arm64 this becomes a store/load to a Device-memory
-> mapping (PCI_IOBASE + port), which architecturally requires natural
-> alignment, causing an alignment fault and kernel oops.
->
-> Reject misaligned accesses before they reach the low-level accessor.
->
-> Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D7134530b25073b4ef373
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
->  drivers/pci/pci-sysfs.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-> index 5ec0b245a69b..72f0404a34e9 100644
-> --- a/drivers/pci/pci-sysfs.c
-> +++ b/drivers/pci/pci-sysfs.c
-> @@ -1175,6 +1175,9 @@ static ssize_t pci_resource_io(struct file *filp, s=
-truct kobject *kobj,
->         if (port + count - 1 > pci_resource_end(pdev, bar))
->                 return -EINVAL;
->
-> +       if (!IS_ALIGNED(port, count))
-> +               return -EINVAL;
-> +
->         switch (count) {
->         case 1:
->                 if (write)
-> --
-> 2.43.0
->
-Please let me know the status of this patch.
 
-Thanks
 
-Deepanshu
+On 9/22/2026 11:56 PM, Tejun Heo wrote:
+> Hello,
+> 
+> On Tue, Sep 22, 2026 at 11:16:18AM +0800, Fuyu Zhao wrote:
+>> +#define SCX_OPS_OPEN_OPTS(__ops_name, __scx_name, __opts)			\
+>> +	__SCX_OPS_OPEN(__ops_name, __scx_name,					\
+>> +		       __scx_name##__open_opts(__opts))
+> 
+> Can SCX_OPS_OPEN() just call SCX_OPS_OPEN_OPTS() with 0 as opts?
+> 
+> Thanks.
+> 
+Yes, that makes sense. I'll update the patch accordingly.
+
+Thanks,
+Fuyu
+
