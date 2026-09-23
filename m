@@ -1,61 +1,166 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F08427FBB;
-	Wed, 23 Sep 2026 21:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FB2427FBB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790199738; cv=none; b=bybFdXyXs+cWODfNdDqlQ8K0EiGadaNl3XHl50zPB65EXgkCzTbdEWOAhTaf6kyH0e2j4KuYIeJ+Y7flqeF+IFxWnGjx86qWwXkpZ35bWOj6t2KIyrgn/MJ8MnbFhbM22zjVCCf7BtkcJXvMv+CJolhcg7SqOYn9pvLHeq1jHHQ=
+	t=1790199770; cv=none; b=eIpO7BUAqDsUdi8/MlXmD14GTAkoarZY10c5wdLv8LOPovYu59t63rItl7y2dcAHOTeZMv+zFSlu4ZrZfiCtnMhydiO4ob/Eh5fZsaLVxe0L6Kukbfanz6Ra6qngMavMHvChq6Ly/6UHONx0HDdoUWCgi/yw3Y6KRLgJHK5FnS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790199738; c=relaxed/simple;
-	bh=u6pK8WWxgAS5aSXBypjoYgNFtTJptEjH9aEN/q6mC+U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tyAH2TuCoeVCX2dcCIoY5Qk3J1JMj4u7v+fvZ79AEDFQivIMlOVEuoVY7Uj9QvPqrgRXBRL9+bC1octl2ZqDbc4m1N8V9q7+Q+jkjlZ9G1S2xoE8rFS/AFQbSXRWFjjKGawnrbo7UAj+m1qKSLD+po9EF2QI451SnUDs1irFYfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=vGkmqUjw; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790199770; c=relaxed/simple;
+	bh=P8UxBoi3c6dfgfFRuUvBQXAQn7T0thA4jbPoLoodgvI=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ifDcJOPxCwvT9AdC+xV32nkFchhuuC0OThINFyJnan7tfMzY0OEWV9yGQxk1PPSwJsjjGi/tQOSJ4WpMn5lvsuK7IP8dFCZZifSx9p1gX9bHPVrs5BvNC71vwNF2Lg4Oz48NAY76NfvaizTiO1KGU/e8QFOB9du6myTkAjs8q/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vtpYaRwK; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="vGkmqUjw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=u6pK8WWxgAS5aSXBypjoYgNFtTJptEjH9aEN/q6mC+U=; b=vGkmqUjwzn1tF6XDIzZN/SCaT6
-	13tYRqeYwss47O2D0jAm9SXWBz0WBlL8Pu4ON8hNHYjXxQulSUsTywTyZ8G+6YD5wzekT3//lV1vy
-	4pK4JkokcvY1F9zNtwYI5xT9cVqJxu+h99NVJG6K5bIkB59kV8/rdEe6fNc9Sk54XWZhr5mCIus/r
-	LH5vjqEcpBfkrZbCRc1U8LhDlBnm7GPIuGt1vGJ1EU6kjkQEFAoefAf5PCfp16OWA9LZxNkDDY83h
-	EpRUBq+/vc2D6KPau2hVWER+dhlrArBbEBCQiLfywuswSfgGMKI+s/5I7E3s1HfjE2BnUCAb4djYc
-	t8bJMk2A==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9UjA-0000000EXiK-0L1C;
-	Wed, 23 Sep 2026 21:42:08 +0000
-Date: Wed, 23 Sep 2026 22:42:07 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, kernel-team@meta.com, jack@suse.cz,
-	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
-	joshua.hahnjy@gmail.com, rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com, vbabka@kernel.org, surenb@google.com,
-	mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org
-Subject: Re: [RFC PATCH 0/6] mm: pass alloc_flags through folio, filemap, and
- bulk allocators
-Message-ID: <arRHr05gy_eu4WVA@casper.infradead.org>
-References: <20260923211041.3127588-1-gourry@gourry.net>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vtpYaRwK"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dd1631d291so11751325ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:42:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790199769; x=1790804569; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZbPFPeyTORjeOg7jOjV9V6Jywp+gStr7Zp4FX6jbmec=;
+        b=vtpYaRwKMnDKkkv+qH9dmDu92b2wMpl1EQHO9V/FsQrDx9+mWE8KgCQ8O/1NxJy9IC
+         W8PG8Zzjjus8DmrEAgn2h+eT0awYFoZNpd3Dqo8s9RVQLr3P4kdBChhn4DmWp5W7/UTm
+         Y4E9MHvAsns9gaUeNV5ybqrPSeiER6xHFhEIaIH9oTOayuMLvmovN5Rke06T3tvsdkkV
+         oj0LWx/hE0eAd2oWyFNgbXKkEexjeyRwgnst7ViL6Dk/0AKYlCuJgUKFdYR2m+pw2tOc
+         Oe+n1C7HuVVBXZ3DeSJFpLDwkFw0uQFhxAvqYKhzdLuBBnBp0yV4e7w9gHUlyuAOygY/
+         qvXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790199769; x=1790804569;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZbPFPeyTORjeOg7jOjV9V6Jywp+gStr7Zp4FX6jbmec=;
+        b=VOKgKwrVY0QMPMwHdfZN4t9yju3bkZYNftv+vNVtCwMbbRaOboM2dCo+w24h+J1VoU
+         mY4OYJAH/zDJH5YfDMfu9Uo5Qbat+bfeyMHpjzfm87+ALku8OvK4Yx4OlJlSenV4wd9N
+         vjrdd0DS6QMgbdM7DrK0jYOCwWDV5ueUJtCvYEU+uqj+qwxqFqObDixajPofC0Yz2TbP
+         W+VBXjfosiFN7tqKQV31UOhZeEkez/7c2cqMErhXRxEM3GrNZS0ys4jN2paK7UcH89Op
+         0xWe9j2XYVDHG0d3YvcDi2YJegWuYO8+RBWIRSOm/ziwrgcjMKQexqql0YmW0HRzbP++
+         2skg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2qGIbN1F9xXHSZ+pFpKbgMbqju/NdAYiA7J4Qcl+Qu+B4OJI0g766+AOc2FckrMU8nCUtumUXRG2VaSw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTwGDv+a3xC8AHY4bATLojHHxKpvTPXUALl54D2Vc74ER1Q/Gc
+	TV6yGnfOqukycQuI3aEbqNsk4wfIAYN11T4HNI6lIyc1SV2Kw0XOjR2ayaso8HLTqlJTIdeW58X
+	M
+X-Received: from plrd9.prod.google.com ([2002:a17:902:aa89:b0:2dd:bf7a:f211])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1b4e:b0:2c8:2808:3ec9
+ with SMTP id d9443c01a7336-2df7e26759fmr3174125ad.12.1790199768442; Wed, 23
+ Sep 2026 14:42:48 -0700 (PDT)
+Date: Wed, 23 Sep 2026 21:42:46 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923211041.3127588-1-gourry@gourry.net>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+Message-ID: <20260923214246.3098156-1-morbo@google.com>
+Subject: [PATCH] HID: bpf: fix lockless race on device_data allocation
+From: Bill Wendling <morbo@google.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>, Puranjay Mohan <puranjay@kernel.org>, 
+	Johan Hovold <johan@kernel.org>, Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Bill Wendling <morbo@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 23, 2026 at 05:10:34PM -0400, Gregory Price wrote:
-> The folio, filemap, and bulk allocation interfaces currently hard-code
-> ALLOC_DEFAULT before reaching the page allocator. Multiple MM series
-> need to select allocator behavior through these paths, so pulling these
-> changes out ahead helps both series avoid conflicts.
+When attaching a hid_device_event BPF program to an already-connected
+HID device, hid_bpf_reg() calls hid_bpf_allocate_event_data() while
+holding only hdev->bpf.prog_list_lock. Concurrently, incoming HID
+reports invoke dispatch_hid_bpf_device_event() while holding only
+hdev->driver_input_lock.
 
-I really think this 'expose ALLOC flags' idea is wrong.
+Previously, __hid_bpf_allocate_data() assigned *data (device_data)
+before *size (allocated_data) without release semantics, and
+dispatch_hid_bpf_device_event() loaded hdev->bpf.allocated_data and
+initialized ctx_kern before checking whether hdev->bpf.device_data was
+non-NULL. A concurrent reader could therefore observe device_data != NULL
+with allocated_data == 0, skipping the memset() clear and dropping the
+report with -EINVAL (or dereferencing NULL if device_data was reloaded
+for the NULL check).
+
+Use WRITE_ONCE() and smp_store_release() in __hid_bpf_allocate_data() so
+allocated_data and the zeroed buffer are visible before device_data becomes
+non-NULL, and pair it with smp_load_acquire() in
+dispatch_hid_bpf_device_event() before reading allocated_data and
+initializing ctx_kern.
+
+Fixes: 658ee5a64fcf ("HID: bpf: allocate data memory for device_event BPF programs")
+Assisted-by: LLM
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+ drivers/hid/bpf/hid_bpf_dispatch.c | 38 +++++++++++++++++++-----------
+ 1 file changed, 24 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/hid/bpf/hid_bpf_dispatch.c b/drivers/hid/bpf/hid_bpf_dispatch.c
+index d46779b63660..1a0c4fa6ed86 100644
+--- a/drivers/hid/bpf/hid_bpf_dispatch.c
++++ b/drivers/hid/bpf/hid_bpf_dispatch.c
+@@ -28,16 +28,10 @@ dispatch_hid_bpf_device_event(struct hid_device *hdev, enum hid_report_type type
+ 			      size_t *buf_size, u32 *size, int interrupt, u64 source,
+ 			      bool from_bpf)
+ {
+-	struct hid_bpf_ctx_kern ctx_kern = {
+-		.ctx = {
+-			.hid = hdev,
+-			.allocated_size = hdev->bpf.allocated_data,
+-			.size = *size,
+-		},
+-		.data = hdev->bpf.device_data,
+-		.from_bpf = from_bpf,
+-	};
++	struct hid_bpf_ctx_kern ctx_kern;
+ 	struct hid_bpf_ops *e;
++	u8 *device_data;
++	u32 allocated_data;
+ 	int ret;
+ 
+ 	if (unlikely(hdev->bpf.destroyed))
+@@ -46,11 +40,26 @@ dispatch_hid_bpf_device_event(struct hid_device *hdev, enum hid_report_type type
+ 	if (type >= HID_REPORT_TYPES)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	/* no program has been attached yet */
+-	if (!hdev->bpf.device_data)
++	/*
++	 * No program has been attached yet. Pairs with smp_store_release()
++	 * in __hid_bpf_allocate_data().
++	 */
++	device_data = smp_load_acquire(&hdev->bpf.device_data);
++	if (!device_data)
+ 		return data;
+ 
+-	memset(ctx_kern.data, 0, hdev->bpf.allocated_data);
++	allocated_data = READ_ONCE(hdev->bpf.allocated_data);
++	ctx_kern = (struct hid_bpf_ctx_kern){
++		.ctx = {
++			.hid = hdev,
++			.allocated_size = allocated_data,
++			.size = *size,
++		},
++		.data = device_data,
++		.from_bpf = from_bpf,
++	};
++
++	memset(ctx_kern.data, 0, allocated_data);
+ 	memcpy(ctx_kern.data, data, *size);
+ 
+ 	rcu_read_lock();
+@@ -255,8 +264,9 @@ static int __hid_bpf_allocate_data(struct hid_device *hdev, u8 **data, u32 *size
+ 	if (!alloc_data)
+ 		return -ENOMEM;
+ 
+-	*data = alloc_data;
+-	*size = alloc_size;
++	WRITE_ONCE(*size, alloc_size);
++	/* Pairs with smp_load_acquire() in dispatch_hid_bpf_device_event() */
++	smp_store_release(data, alloc_data);
+ 
+ 	return 0;
+ }
+-- 
+2.56.0.rc1.310.g51773c2048-goog
+
