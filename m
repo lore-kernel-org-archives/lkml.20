@@ -1,137 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5942223336;
-	Wed, 23 Sep 2026 00:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7138721FF29
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790122475; cv=none; b=HopHda57FDZEWDMxbMh+gV5mpln/PnsKS5GJDL0Yo+XGh7eouGKKEnLjLyDL5+k8zIcRoF23aOkz3HW0WZTHOHXZ1dHiZNVQWXVa7p/fNMzL394Y9eiwn8b8GiOc+IV30sI8JaZNBE6HR9Nno9GguKln4uVLe04Eb6+nO+VSriU=
+	t=1790122476; cv=none; b=DUfBh56iOnsoJOzOw5RmBlPjxoaw3CI/lAABd24vlu43sk40qW20G6LRKt2x3giXCvL+aQ0JD2Lh/fLD/LA11TH85qOlcFpC1P7jlqpJ3vHzL5KEuUJQ9hFfpG4KzhkOVmcgslxlN2pgzfKM0aQM0kkxxelg0/talnSSi2xpcH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790122475; c=relaxed/simple;
-	bh=iJLhGRbBbehh8W9wFnYVnh/lqEFJP7x3mwjmAF01Z3E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dpJQFUqt1KzHxxBaIodpBuz1yKnoubg9W/N7oTYnaZ+7LkQ0FoxM6bW1GLLIq84YoanWLrjv1eg+fkAHZ58Zj5SDLpAzNBcq58mzMC/L5mJdbLkHbTernDMYnziRuNfN+j0A6fY5Jl5wC+GOCXFQEqOCKDFJLhj1uld4mnunvsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KSw6EUrG; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790122476; c=relaxed/simple;
+	bh=V8p7f+anGnSoL+KBB359kqfJ1ldhGnObhu2HYkCbO4o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JZQEEA/BQfRJ578X/GIkqVybfvtJ0FZ8SIc1JfbUOcEfL6cvKMM2Zm2x1nnn3bN6B1X1bP94gud/Rf32KX3aByqAIEMIWM9o36pjA3x1W1w6hoQrRjy+npxdKqZ9SdypK8teQQnX/k1GAlAFY8M2IZ1utNCieoJ8/n75ho0dFX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QNg7j1ua; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KSw6EUrG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790122474; x=1821658474;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=iJLhGRbBbehh8W9wFnYVnh/lqEFJP7x3mwjmAF01Z3E=;
-  b=KSw6EUrGI97MaJiOFREOGLYH0mJTW2v5sURNDybSD4D9bccbmrRQsCwt
-   Zm7ggWydIdOh0vZexDe8ycdxwa92Dn84RFQVd5nrCHwplBJI8KhYvEkht
-   NHCD4NQjW7K4hZ3SnLmDXZDCZM+8GxJjaZPN6276dlasz+ZzVresxrGaa
-   dsq9/Y+bkeikYUEbsbzDoghr8E7eE7h49WLjnytIqNUMWoJPY4Lh4fzar
-   9vyHrA3h1cdHo2ZJF+3yY7PVCfxM+wtfI9VYZoiCzpFJUyGB8iPMoeaFy
-   16szQns7v7Y0HsgFq6n8yDY0uOAh57DK1LPS0kDl7Bpq3wat5VqgX8m+y
-   g==;
-X-CSE-ConnectionGUID: 8TudpsRQThGkvWAYQ9uZmw==
-X-CSE-MsgGUID: yzLdc4/dSYumcXWGpBoM6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90644191"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="90644191"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:14:33 -0700
-X-CSE-ConnectionGUID: E4sZTzCSTTKcM2GkQzWKtQ==
-X-CSE-MsgGUID: C52nxrynSjqJlgw6GSlATg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="4418033"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:14:30 -0700
-Message-ID: <5ff81fc4-d144-4b2b-8375-d2f63e0dd618@linux.intel.com>
-Date: Wed, 23 Sep 2026 08:14:27 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNg7j1ua"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so3503585e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:14:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790122472; x=1790727272; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yr4Xk59A6nBEe9AXu0gZsAXZVCEOldu1UBAKss+kKik=;
+        b=QNg7j1uaGJNTgGrKq3IfIhTNSoWGpTa+9sPXhG8Dj8tVDHDfmxvFlL8cF2TxhJTzS9
+         YzvuOIsPwqkHjeNKsmfSDxOBRtrJm9RGPpFBi9WZ28wHznC4quLOZyerDD8tgsZakUmQ
+         HAhBo1pXSsMxIVZDEUZ63WfEXD9l9DVpTvWeimJJP2zYGAiolmiFGgqQ61J6YmYq8jxh
+         jjRrmcBF/ZtFZnGAJpqWinANuN2mqY5IkslVDOQSh33UaMr9V2aJ89EBuCj2q5TGVMsx
+         C8y0cIW0jh44ppb94B5SszGzltuoswkhUWj4XS7OcFxerbXcOIZQHCYKZZPGMe+/g9Vf
+         ePzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790122472; x=1790727272;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yr4Xk59A6nBEe9AXu0gZsAXZVCEOldu1UBAKss+kKik=;
+        b=L+fLYMpapD+5HKxg+Pmb692nLMY5vnNgK1/7zObR7OvUM3+0FddbUuFpAdOTSFfOah
+         L+qYnW3DU14qMs1hmmiCWD60TRXIy1WgtsDbBR8F6VVVIyO2twP2ElvBDkTHbES6tOc5
+         misT7d23mbeDjXnJtSzzrHA67oOztMOTHvsjrQrZaHYX87dBCVWJan2pq1tqOnkoYboI
+         Q49ShfBatzyVGQzRaBySc4hCmpYDnxtf/HCpauAgV4JpUqV86n3ckqVkSKlws+yenPP2
+         A1KgkntYvWfwMvNmAOhv6jn6V1GMC4UP7K3dj8ZJJ7t00Yn3GsScdJlhA7gFTftEZvQF
+         M9+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwJWunr/swRf4FEVhVyrb+gHP2DiGmp7LvBlyRBy3d3U81b1JUypVoJGICp+soMmm29C2+JMeLea9g+Gh8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaiiMXlkIQyVQaEDtzAdTqYPYCTvn5sLpzI5QIhve7W6cNLWm1
+	KEBl+JcaJQlbjvE+Ly2GlvTmcYZAGcWpNVMDbHWg1zNMcv9lYCjVdwd0
+X-Gm-Gg: AYBFou2vBtVKGpvSU0FyvCh1rbMU0x3D+Q4yBGP3OLmBTnkXYYmhZstKS0Be3/IdKMM
+	3SJYY1L+Qj5Dm0+g33lXgQmlVnIMpuIJb/DSuhnuj2ab2rs1wmO9ifZO3U3zYhgIRQ3ZDala9ZC
+	HqbaBQe4T711zKJdemxMlviOUs0HFM+ocpsMj/mCwchLIe1HzNeAngK2s/92muY4nVq2jhSEkSv
+	eFmjh2mo6m6SviSuLAGq2oE5yvSQSfvcIPKl4DJt5dJAqq6o70hb4QCS3e2KTwScbNClImdYaSs
+	PZtIzDhPY2CrFcxpfx0Mlm2Kw2IbzaLEVesN9xi7Sv24QhwjMtQeP37z0Zqxnh58aFu6a/AVwTe
+	F8xQ0GafRNa7H9hgSUy1f868qD5JduTJ5O7aj9/rFhY1RaP55AGKwMgAxv+rlUIk8BolWpaVI7k
+	InHu067S53LsHKStFHxFPJbDLfrSiftdyuB4EBQfkTQos4TlHKUfovlyAlfmBiDefj50vs5FwI+
+	NIcorgTX+Sot3tN+6WwQPIhpTNB+AVHOJ98aipXV4RYZTFcPiFiAf2cr9vXaB3CE0OMhXxwLeka
+	FluILqBzqix1E7CbIqXOhosjKVKElBDziYqSU6oZBGXOi3lpQTMxWbJgsfoqUOwT2htJ/tU20Zi
+	ipvs11K8apxbP4quzxByOezAkJGWUv6It
+X-Received: by 2002:a05:600c:8b86:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49fdeffe2bemr9153455e9.12.1790122472466;
+        Tue, 22 Sep 2026 17:14:32 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-8c68-4a09-6ad6-6324.ipv6.o2.cz. [2a00:1028:c000:ddf:8c68:4a09:6ad6:6324])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 17:14:31 -0700 (PDT)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunwoo Kim <v4bel@theori.io>,
+	Josef Schlehofer <pepe.schlehofer@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/6] media: az6007: fix CAM status polling after disconnect
+Date: Wed, 23 Sep 2026 02:14:05 +0200
+Message-ID: <20260923001410.30297-2-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
+References: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com" <seanjc@google.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "Maloor, Kishen" <kishen.maloor@intel.com>,
- "dedekind1@gmail.com" <dedekind1@gmail.com>,
- "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>
-References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
- <20260917072548.2314491-2-binbin.wu@linux.intel.com>
- <a8ce5d830a04d99ec47cdc727e1761bd4031d544.camel@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <a8ce5d830a04d99ec47cdc727e1761bd4031d544.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/23/2026 8:01 AM, Edgecombe, Rick P wrote:
-> On Thu, 2026-09-17 at 15:25 +0800, Binbin Wu wrote:
->>
->> Allow MWAIT, XTPR, and HT through TDX_CFG_EXTRA_F(), as these bits are
->> not advertised in kvm_cpu_caps[].  The remaining directly configurable
->> feature bits outside kvm_cpu_caps[] are left out of the allowlist:
->>
->>   - Features forced to zero when #VE is reduced,
->>
-> 
-> Sorry, I'm not following this logic exactly. The guest can control it's own view
-> of CPUID. Why do we need to filter the host setting them via direct
-> configuration, just because the guest can change it's view to exclude them?
+az6007_ci_poll_slot_status() returns -EIO when the status request fails.
+dvb_ca_en50221 treats the return value as a bitmask, so -EIO is
+interpreted as CAM_PRESENT|CAM_CHANGED. The CA state machine then
+handles a CAM change for every failed poll, without sleeping in between.
 
+After an unplug, every poll fails this way and the CA thread can spin
+forever in dvb_ca_en50221_thread_state_machine(), preventing the USB
+disconnect from completing. This happened when unplugging a TechniSat
+CableStar Combo HD CI with a CAM inserted, and rcu_sched reported a
+stall.
 
-These feature neither supported by the TDX module nor supported by the KVM.
-If the guest enabled the #VE reduction, the access to the related MSRs will
-cause #GP. If the guest doesn't enabled the #VE redcution, #VE cannot be
-supported by KVM since the related MSRs are not support by KVM.
+Report no CAM when the status request or buffer allocation fails, and
+only inspect the status byte when the request returned data. A read
+error while a CAM is present is then treated as a removal and the CAM is
+reinitialised after the next successful poll.
 
-So the guest cannot use these features anyway.
-> 
->>  or lacking KVM support
->>     for the associated MSRs: EST, TM2, SDBG, DCA, ACPI, ACC (TM), RDT_A,
->>     RDT_M, TME, PCONFIG, and CORE_CAPABILITIES.  Handle CORE_CAPABILITIES
->>     in a subsequent patch.
->>
->>   - Features tied to IA32_MISC_ENABLE bits that a TD cannot set when
->>     TDCS.TD_CTLS.REDUCE_VE is set: CID and PBE.
->>
->>   - Features that can clobber host state and lack KVM support for TDX:
->>     FRED.
-> 
-> I think we can't say this quite yet. The arch isn't finalized
+Fixes: 962f8f67e486 ("[media] Add CI support to az6007 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+---
+ drivers/media/usb/dvb-usb-v2/az6007.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-Oh, right. I should be more rigorous.
-
-> 
->>
->>   - Unsupported features: PREFETCHWT1 (Xeon Phi only), PSN (absent from
->>     TDX-capable CPUs), AMX-TRANSPOSE (never implemented on an Intel
->>     platform), and RAO_INT (defined only for future processors).
->>
->> Filtering KVM_TDX_CAPABILITIES in a subsequent patch will intentionally
-> 
-> Nit: "patch" -> "change"
-> 
-> This is drilled into my head working on the tip side. I'm not sure if Sean has
-> the same allergy though.
-
-Will update it.
-
-> 
->> stop advertising the excluded bits as configurable, as the corresponding
->> features are unsupported or cannot be properly virtualized.
->>
->> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
-> 
-> Overall it looks very good to me.
+diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
+index 65ef045b74ca..4ce1afe01c3b 100644
+--- a/drivers/media/usb/dvb-usb-v2/az6007.c
++++ b/drivers/media/usb/dvb-usb-v2/az6007.c
+@@ -526,7 +526,7 @@ static int az6007_ci_poll_slot_status(struct dvb_ca_en50221 *ca, int slot, int o
+ 
+ 	b = kmalloc(12, GFP_KERNEL);
+ 	if (!b)
+-		return -ENOMEM;
++		return 0;
+ 	mutex_lock(&state->ca_mutex);
+ 
+ 	req = 0xC5;
+@@ -535,16 +535,18 @@ static int az6007_ci_poll_slot_status(struct dvb_ca_en50221 *ca, int slot, int o
+ 	blen = 1;
+ 
+ 	ret = az6007_read(d, req, value, index, b, blen);
+-	if (ret < 0) {
++	if (ret < 0)
+ 		pr_warn("usb in operation failed. (%d)\n", ret);
+-		ret = -EIO;
+-	} else
+-		ret = 0;
+ 
+-	if (!ret && b[0] == 1) {
++	/*
++	 * The return value is a mask of DVB_CA_EN50221_POLL_* flags, not an
++	 * error code, so report no CAM when the status cannot be read.
++	 */
++	if (ret > 0 && b[0] == 1)
+ 		ret = DVB_CA_EN50221_POLL_CAM_PRESENT |
+ 		      DVB_CA_EN50221_POLL_CAM_READY;
+-	}
++	else
++		ret = 0;
+ 
+ 	mutex_unlock(&state->ca_mutex);
+ 	kfree(b);
+-- 
+2.54.0 (Apple Git-157)
 
