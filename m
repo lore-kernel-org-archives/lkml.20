@@ -1,140 +1,119 @@
-Received: from dilbert.mork.no (dilbert.mork.no [65.108.154.246])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC63E41A4E8;
-	Wed, 23 Sep 2026 06:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.108.154.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2B0418353;
+	Wed, 23 Sep 2026 06:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145241; cv=none; b=UM9TREWD2yraXTgBxHVmZq8tZDC2uBhb+9gVdMdcd3rO0LqqW8rp8PaCk9zLj/bvdgplGW0lxWBUzV0+NrFAWDOiBiRq9HXbefzMFGrwQJ8+zuGdzjJRtdFCgZSoF7UY4kgQT9l1SEQLRGwskPr3leZzDgsLu+pq6ksPWxHlhJU=
+	t=1790145305; cv=none; b=VlAsIecK+V+A7vUBGtrQkSe3cMnJeIuCQc9zMBAumvsaOd6aOg8hHgbdojVIMItq1S5lLoyYM5EoamEs0RKWQcvQIJuBJf3cb1WGn3xdHB0FdIKo+0QaxlySGmtc5HEn1SFzl1FIZ5Eo0Y++A8j8p1fboN7aj1BPGvnzOYte6Do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145241; c=relaxed/simple;
-	bh=iXopXUy4/hhCXw/Ru6dU3UPGJt7FzxpKWFjnAjJnaGM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=FttuMI9l9Bl58j5UHv1L520Lu3b1fgzOC9Ofixync87pxOkWlW2LyT6ZHPW67nr52mXbiYcLBBmdwKESavSoBvktVlsPC6BsTvBdpzHx5q2xzkMvg8ACzPCgR/hI4DASxrklJVJBSLn0QGo5tkjdoTuhiSrutacy9Tq2v8Yg3xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mork.no; spf=pass smtp.mailfrom=miraculix.mork.no; dkim=pass (1024-bit key) header.d=mork.no header.i=@mork.no header.b=UCz9Lrah; arc=none smtp.client-ip=65.108.154.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mork.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miraculix.mork.no
+	s=arc-20240116; t=1790145305; c=relaxed/simple;
+	bh=GWYsgKK1XWP4mP4XbwohBZs+CPoI7Mu3Lzvr7Bc+R8M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=baXzB/yv2XN8O7q0fiBqPU81jZZuEnbsQdbr0/AXTdOr488iOcZc1vSE+79GKGQAGRYqhDPIQC8r6ElfDgbA5uPbPjIpoZA+y9/HVQGFD7holnsIvmgB1WqOk6Zd4QKuXPPvXzeJpG2+vSCGj2WneU7kc34kKYvBF4DCYSTA6zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CBZo47nS; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mork.no header.i=@mork.no header.b="UCz9Lrah"
-Authentication-Results: dilbert.mork.no;
-	dkim=pass (1024-bit key; secure) header.d=mork.no header.i=@mork.no header.a=rsa-sha256 header.s=b header.b=UCz9Lrah;
-	dkim-atps=neutral
-Received: from canardo.dyn.mork.no ([IPv6:2a01:799:10e2:d900:0:0:0:1])
-	(authenticated bits=0)
-	by dilbert.mork.no (8.18.2/8.18.2) with ESMTPSA id 68N6LTiw612847
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 07:21:31 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mork.no; s=b;
-	t=1790144489; bh=h4VypXSX3AHF9Xh3CYHFmLl7jFwM/+C/gBK8qDtIQ0w=;
-	h=From:To:Cc:Subject:References:Date:Message-ID:From;
-	b=UCz9LrahzQYxscbpMO2jz+oXcpTLItuQ2kJphsjLg3P65+Ikx8JRfy36eUq37et5X
-	 V+51+ymj7nH1stvvmcmO1FFV5OIllCaUPQtlyR/T/DZY36KYSlVXWsJFqSQxq9CVt7
-	 R7aoC6FP8j238Hqm0JX8iVXSypmPGkaxprfLH4Gk=
-Received: from miraculix.mork.no ([IPv6:2a01:799:10e2:d90a:6f50:7559:681d:630c])
-	(authenticated bits=0)
-	by canardo.dyn.mork.no (8.18.2/8.18.2) with ESMTPSA id 68N6LTv42135606
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 08:21:29 +0200
-Received: (nullmailer pid 1064332 invoked by uid 1000);
-	Wed, 23 Sep 2026 06:21:29 -0000
-From: =?utf-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>
-To: jackyphuti <jackympoka22@gmail.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Copilot <223556219+Copilot@users.noreply.github.com>
-Subject: Re: [PATCH] net: usb: qmi_wwan: add common Huawei modem IDs
-In-Reply-To: <20260918193645.59374-1-jackympoka22@gmail.com> (jackyphuti's
-	message of "Fri, 18 Sep 2026 21:36:45 +0200")
-Organization: m
-References: <20260918193645.59374-1-jackympoka22@gmail.com>
-Date: Wed, 23 Sep 2026 08:21:29 +0200
-Message-ID: <87h5jgpjx2.fsf@miraculix.mork.no>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CBZo47nS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790145302; x=1821681302;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=GWYsgKK1XWP4mP4XbwohBZs+CPoI7Mu3Lzvr7Bc+R8M=;
+  b=CBZo47nS67maDYbTxqy4dbU2InO8SRerp/y8revrnMfyQ4nh2wO5ZaXw
+   pFCAMBfurXsLKnFAlnH8gOYnDsjihZ2O3P+Sn29hZtlTx/+CBUSvkZab4
+   8Cp1DjCZWt63r81M5U+eBCz2JILSaZkVrVnZdOmWIG/Z5rOG6+2HmuxaX
+   qOqll1FDAhxMC05biXwYtfd3U3AyghXen9i5SIeB9QA7dPKD8Kmkn9svw
+   L1CuYNZDz9mp/ra/10tRUdHEYkMSwNE7ldxxR5XsFnViByFhuh7bi76zs
+   yNEWuQMSmglptc5kIkH8M4thlCB72pNwIpRoKAYC5UhU7OgETz/pCufKW
+   w==;
+X-CSE-ConnectionGUID: A1LpSN3kQNy04vUnA8g6Hg==
+X-CSE-MsgGUID: 2KlHMvENQdeZQ1GYFqHOQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="94629195"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="94629195"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 23:34:56 -0700
+X-CSE-ConnectionGUID: n+bhhXS0RYid28BphX9BBw==
+X-CSE-MsgGUID: 8ORw50uaTlyKY5/lJYxudg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="4758762"
+Received: from carterle-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 23:34:54 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 1C34A120370;
+	Wed, 23 Sep 2026 09:34:54 +0300 (EEST)
+Date: Wed, 23 Sep 2026 09:34:54 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: =?iso-8859-1?Q?C=E9dric?= Bellegarde <cedric.bellegarde@adishatz.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	kieran.bingham@ideasonboard.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [PATCH] media: v4l2-async: link ancillary device runtime PM to
+ the sensor's
+Message-ID: <arNzDkG8JmIWedwF@kekkonen.localdomain>
+References: <20260922-sensors_pm-v1-1-05adf2098b5e@adishatz.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Virus-Scanned: clamav-milter 1.4.3 at canardo.mork.no
-X-Virus-Status: Clean
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260922-sensors_pm-v1-1-05adf2098b5e@adishatz.org>
 
-jackyphuti <jackympoka22@gmail.com> writes:
+Hi Cédric,
 
-> Add common Huawei product IDs to qmi_wwan fixed-interface mappings
-> for broader generic Huawei modem coverage.
+On Tue, Sep 22, 2026 at 09:39:12PM +0200, Cédric Bellegarde wrote:
+> When a sensor's fwnode references an ancillary lens or flash device
+> (e.g. via the "lens-focus" or "flash-leds" properties),
+> v4l2_async_create_ancillary_links() already creates a media controller
+> link between the two entities, but their runtime PM states remain
+> independent.
+> 
+> This is a problem for devices such as VCM lens actuators, which are
+> typically spring-loaded: holding a position away from the spring's
+> rest point requires continuous power, and the position is not retained
+> once power is cut. If such an actuator is allowed to runtime-suspend
+> independently of the sensor, the lens can drift back to its rest
+> position during an otherwise active capture session.
+> 
+> Add V4L2_SUBDEV_FL_PM_LINK to allow an ancillary subdevice to request
+> that its runtime PM state be linked to the associated sensor.
 
-Why?  Does your patch fix something? How does it make the coverage
-"broader"?
+Interesting idea.
 
-The choice of numeric constants instead of made up macro names was quite
-deliberate in this driver. Did you not notice the style in the other
-entries?
+The IPU bridge has created such a device link between the VCM and the
+sensor as on some ACPI systems the VCM is in fact relying on the power
+resources of the sensor. But to do this everywhere?
 
-Most of the numbers, including your examples, have no meaningful
-descriptions. Many of the vendors, and in particular Huawei, have reused
-their device id numbers for a large number of products. No matter which
-arbitrary product name you should choose, it will be confusing and wrong
-for most of the products using that id.
+VCMs traditionally have been powered through opening their sub-device node
+and that hasn't been exactly neat API-wise. It has been practical still,
+AFAIK, as in order to control the VCM, you have to have a sub-device node
+open.
 
-More importantly:  Macros in source code are used to make the code
-easier to read and understand for developers.  My personal experience
-with device id names from other USB drivers, like option.c, was and is
-that the effect is the opposite. I have to go look up a macro placed
-somewhere else to actually understand what device some entry is pointing
-to.
+This change also does mean that if the sensor is powered, even for
+always-on use cases that generally consume very little power, the VCM is
+powered on as well. VCMs still typically consume very little power if the
+current is configured to zero. Maybe this won't be an issue? Backtracking
+from such a change wouldn't be simple, and might not be possible at all.
 
-Most entries have a product name in a comment instead. It's probably not
-clear to anyone, but this was intended as a hint pointing to the source
-of that entry.  In any case - it already gives you everything your macro
-would do without any of the drawbacks.
+There wouldn't be a need for a sub-device flag and this would be done for
+all VCMs based on the ancillary link.
 
-Did AI tell you this?  Why not?  I believe I've explained it before, but
-maybe that was in an AT free dream?
+I wonder what others think.
 
-> --- a/drivers/net/usb/qmi_wwan.c
-> +++ b/drivers/net/usb/qmi_wwan.c
-> @@ -216,10 +216,10 @@ static int qmimux_rx_fixup(struct usbnet *dev, stru=
-ct sk_buff *skb)
->  		if (netif_rx(skbn) !=3D NET_RX_SUCCESS) {
->  			net->stats.rx_errors++;
->  			return 0;
-> -		} else {
-> -			dev_sw_netstats_rx_add(net, pkt_len);
->  		}
->=20=20
-> +		dev_sw_netstats_rx_add(net, pkt_len);
-> +
+Cc Laurent and Hans as well.
 
-This change is unrelated and not described.
+-- 
+Kind regards,
 
-
-
->  /* map QMI/wwan function by a fixed interface number */
->  #define QMI_FIXED_INTF(vend, prod, num) \
-> @@ -1024,23 +1031,23 @@ static const struct usb_device_id products[] =3D {
->  	},
->  	{	/* Novatel USB551L and MC551 */
->  		USB_DEVICE_AND_INTERFACE_INFO(0x1410, 0xb001,
-> -		                              USB_CLASS_COMM,
-> -		                              USB_CDC_SUBCLASS_ETHERNET,
-> -		                              USB_CDC_PROTO_NONE),
-> +					      USB_CLASS_COMM,
-> +					      USB_CDC_SUBCLASS_ETHERNET,
-> +					      USB_CDC_PROTO_NONE),
->  		.driver_info        =3D (unsigned long)&qmi_wwan_info,
->  	},
-
-
-Why did you change this whitespace.
-
-Sorry, but this is the sort of garbage which gives AI a bad name.
-Please do not post any followups.
-
-Thanks
-
-
-Bj=C3=B8rn
+Sakari Ailus
