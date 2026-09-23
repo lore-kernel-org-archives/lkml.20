@@ -1,44 +1,44 @@
-Received: from out-2z4y-a131.jellyfish.systems (out-2z4y-a131.jellyfish.systems [198.54.127.131])
+Received: from out-93wp-a34.jellyfish.systems (out-93wp-a34.jellyfish.systems [104.207.68.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92AB36B054
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8005363083
 	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.207.68.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130728; cv=none; b=UV+vs1QlhW6oP+9z5BEZAPFx4LZt2QIXaoGg7RCtryMGu5T187ewF0RjBj/DNgIn1YSsLVJjNs6NkWr1xi1oV0oO+TLIO3lZtEnbW5y0LrSIhIuKMGMgSMDinNa8dfySxsMv9aRziYLPkw6lf7umintHyFd00b5TirtUhKFaZXs=
+	t=1790130729; cv=none; b=s2t7SOjvd7UcwSVASUZfSK9urviAsi2SBDi5DGFAJqHkG4WlL0tmzi1riRL7mzZWvpqEdDbY1C1v41KyYA7wRVycpSpzBn5zL0mmUSRZu+aEFpZg49P9tzF8WT2UT9yhRpIbBsepe7xKejN8Eu+fKkueS5yR6jCioXXLGE6UZ80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130728; c=relaxed/simple;
-	bh=U62+tggc8nNFxAYbHZrx2WK8iGpKMeEFQdo5LOE9Urs=;
+	s=arc-20240116; t=1790130729; c=relaxed/simple;
+	bh=+zpy3l3uQZbtn3EA5tBa12RRyLBX5X8jEzCv9ArKHCo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d1WhrEjIOTh77ShAklo40vXvMP4gBCGe8g6xjfLZN7zFanNGlJrHplzfk/vmHjq9tkSOzu9mWi1WFkOMSh95gr5QTyj+YrIW+HI45ScVjblduPj0QxM/rOvYww6oiyk5k2ccTSNlpWOzwlW4gANj/0b7jI0MkH66EGziH1550Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=pqPP1eUl; arc=none smtp.client-ip=198.54.127.131
+	 MIME-Version; b=qeEq06+Aa530M85nOb9IZEmxTV5sjhrEBTVfDrtHZ8doY22u+ep0xpN3kkehaXDhNkl3GB6vcuW4wuf+LfCCKASrGni1+OWr+2/MeUxB8HKCtXCcqKiiFi3En4IeurkYV3K0Gv91y3/uvWvc/tM63AKjM2LjiwI8HcLP7Maqbho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=G5wmWHGF; arc=none smtp.client-ip=104.207.68.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="pqPP1eUl"
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="G5wmWHGF"
 Received: from fedora (unknown [120.199.7.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hqLZS3Tcqz8sYF;
-	Wed, 23 Sep 2026 02:31:44 +0000 (UTC)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hqLZP2xcYz8sYH;
+	Wed, 23 Sep 2026 02:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1790130707;
-	bh=eY2FwUhC+QO6BDI+/C9DuRURjCy94COvOGbyA9JIVXI=;
+	s=spacemail; t=1790130703;
+	bh=yOXnInNUODU5Lzwbj44QgpGQDJ5UdG0pb1N+gcZ3ygM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pqPP1eUlaCDTUv5yCrMgjH2Wc/3DT6OkW+73aUgF1rN5slTP+4VSHmpSU3PFtP6Sf
-	 9+2OlvqjVW+bGed9UI7fz9L5qPAvygnMpQQ5bfpVf3ZIsVzSnXY0YMRfSjiuzguuRn
-	 4aTDwgxNHI1FpzJaGcVTyDkuNtWvoUOmyPEgaIuwh7/IFPjYd1eaDEbvw9EvQNNIYv
-	 qHyvBfuoCA5UTn+5tF8yB/W9W93XPPMqw7uu9ijIL3WOllCaQvdH3uKN8L7mtJGrTG
-	 BR9Fv6Vx0S9ky/PKpnL890E8FcFT4nIBpUR+gQCjcYFtme25oYZLLm4KYCxUwdRxWc
-	 hetsWI7wL3cGg==
+	b=G5wmWHGF8x5Fjt8JXLIilAfxBLUl9aQ34u42tdylL7dNFnoM1NAqY0nWyDDx+J9yx
+	 fljLl8gdfcAKGAoO9WyBRPyJoNOCD5+BqPI+iyloAdpemuOe4MzU0THBcoz/JBisi4
+	 TI8CsTXrHcTHpshU1yOCiiPwYTKWdYSbmza6yeOY5oiEZkb+eoiSajTeC2dkPnAVxo
+	 s/k5vnjcacO9S8zSilBs9zOwA7Ar2A+9aRXWn3aagBwiOmWna9bHrvEOEKQUIQ0B3r
+	 RlLNzSWPlBYcUGGMBFkZn6CpRIsCU9qQLPkk5IA8lPgRlj965ZI6YmktGqWBm73Fvs
+	 z89vhmX/xvmuQ==
 From: Tianyi Chen <hi@tychen.cc>
 To: Mike Rapoport <rppt@kernel.org>
 Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/4] tools: use __pa() in virt_to_phys()
-Date: Wed, 23 Sep 2026 11:31:25 +0900
-Message-ID: <20260923023126.1910311-4-hi@tychen.cc>
+Subject: [PATCH v2 2/4] memblock tests: zero-extend simulated memory addresses
+Date: Wed, 23 Sep 2026 11:31:24 +0900
+Message-ID: <20260923023126.1910311-3-hi@tychen.cc>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923023126.1910311-1-hi@tychen.cc>
 References: <20260923023126.1910311-1-hi@tychen.cc>
@@ -51,35 +51,54 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Envelope-From: hi@tychen.cc
 
-With 32-bit pointers and a 64-bit phys_addr_t, GCC warns about the
-pointer-to-integer cast in virt_to_phys(). It can also sign-extend
-pointers whose top bit is set, turning 0x80000000 into 0xffffffff80000000.
+Converting a 32-bit pointer directly to the 64-bit phys_addr_t can
+sign-extend it when BUILD=32 is used. A dummy allocation above 2 GiB
+then gets registered at an address different from its unsigned pointer
+value. The low-address tests compare that value against the registered
+range and fail once the earlier maximum-address free test is fixed.
 
-Use __pa() to convert through unsigned long before widening the result.
-This preserves the unsigned pointer value and matches the other address
-conversion helpers.
+Convert through uintptr_t when registering and reporting dummy memory.
+This preserves the pointer bits and agrees with the simulator __pa()
+conversion and the allocation tests.
 
-Reported-by: Mike Rapoport <rppt@kernel.org>
-Link: https://lore.kernel.org/r/179007180279.508753.4595268983388589280.b4-review@b4
+Fixes: 284d950dd6b0 ("memblock tests: Add simulation of physical memory")
 Assisted-by: LLM
 Signed-off-by: Tianyi Chen <hi@tychen.cc>
 ---
- tools/include/linux/mm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/memblock/tests/common.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/tools/include/linux/mm.h b/tools/include/linux/mm.h
-index 84b5954f66c3..480526de8d65 100644
---- a/tools/include/linux/mm.h
-+++ b/tools/include/linux/mm.h
-@@ -30,7 +30,7 @@ static inline void *phys_to_virt(unsigned long address)
- #define virt_to_phys virt_to_phys
- static inline phys_addr_t virt_to_phys(volatile void *address)
+diff --git a/tools/testing/memblock/tests/common.c b/tools/testing/memblock/tests/common.c
+index ac032610a56e..2a248973eb4c 100644
+--- a/tools/testing/memblock/tests/common.c
++++ b/tools/testing/memblock/tests/common.c
+@@ -67,7 +67,7 @@ static inline void fill_memblock(void)
+ void setup_memblock(void)
  {
--	return (phys_addr_t)address;
-+	return __pa(address);
+ 	reset_memblock_regions();
+-	memblock_add((phys_addr_t)memory_block.base, MEM_SIZE);
++	memblock_add((phys_addr_t)(uintptr_t)memory_block.base, MEM_SIZE);
+ 	fill_memblock();
  }
  
- static inline void totalram_pages_inc(void)
+@@ -88,7 +88,7 @@ void setup_numa_memblock(const unsigned int node_fracs[])
+ 	int flags;
+ 
+ 	reset_memblock_regions();
+-	base = (phys_addr_t)memory_block.base;
++	base = (phys_addr_t)(uintptr_t)memory_block.base;
+ 	flags = (movable_node_is_enabled()) ? MEMBLOCK_NONE : MEMBLOCK_HOTPLUG;
+ 
+ 	for (int i = 0; i < NUMA_NODES; i++) {
+@@ -115,7 +115,7 @@ void dummy_physical_memory_cleanup(void)
+ 
+ phys_addr_t dummy_physical_memory_base(void)
+ {
+-	return (phys_addr_t)memory_block.base;
++	return (phys_addr_t)(uintptr_t)memory_block.base;
+ }
+ 
+ phys_addr_t dummy_physical_memory_low_limit(void)
 -- 
 2.55.0
 
